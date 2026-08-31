@@ -1,117 +1,70 @@
-Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com [209.85.128.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838F23ABD8F;
-	Mon, 31 Aug 2026 05:12:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89D830D41C
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788153154; cv=none; b=JjrIgoROMJtT+oCd4301YM1VQoYpuIum0t4hFlwsDW8hcIbgx7rgxemrfAZDB5YCtzl3qQvJstrDaEkLD49xaLcKArnamYuV38B5DJccvQFJM3bbBmY7/1DvtHuFw5LSjtYQJHxp90WSYwoZbs8e0Ot6EU5fNAqCkvh+06DZimM=
+	t=1788153298; cv=none; b=pJXJzqUVvILbISFAHlnHTCBFwg3LziM2FyuoigmPiPK8b6wNFWOAG3+oG9SBQZieu//Ziq/JztBanwPZO7D/OorWOpYUWZmHTGH5fbyps8048VBQufY6P3pPuCsqDlQhkuMnBYyXTH6OyXFsQ9BLFxIrVoWbhKJUE/sJkcmpfKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788153154; c=relaxed/simple;
-	bh=HjlOtZdFwg9I/oSnYjgnVnvJi1+nRljsLBVZCvAbE8o=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=K/5yAa2KN1ev6iu2RLK/t8FhYJ6cHfnrg6XbK5bNnH++dZ0Z0nl+pShFasYlYpnL8AYGUNYM5hTzsb35+Vi5O0MueOv8UXFgYIb1G52S63yrqxqdSmuWEALkcNXLpeZ0LLZ/E+Gk2RHTI0zU2BbTnXH7Q4nIbPhEViQUCyvLFW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=JjCkre5+; arc=none smtp.client-ip=46.19.12.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
+	s=arc-20240116; t=1788153298; c=relaxed/simple;
+	bh=ruA8iuvJdam2XhfBnkvuly5gyU9q4XheOj+XBbK0NMw=;
+	h=MIME-Version:Message-ID:Date:Subject:From:To:Content-Type; b=bESVFnmDbHwWI2IsPW+69CY2grW0BoNp+XascVdxmbms17tCCZ3xG4lnD+Vm/1MCqmv8If0cl/v0u9QBlrxXyfcQ05IBphJC2avTySHs25yB6CpE/OH1QYRh3frW4bs+Z4ewn5k3D45bzepi5Uc1c8kg4AteNv/21Hy6dpif0m4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vwb+hV/Z; arc=none smtp.client-ip=209.85.128.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="JjCkre5+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
-	s=default; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
-	Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=LNImmFjip9P/lpVaILAS3dMs8hBJA59yRwTTGV2O6BM=; b=JjCkre5+7Ng6EJJDYTNraLsDVS
-	ZWR2oLP146b1aJTftdwZbzJiRzw3NqXVEaHSj5JcK7J9STTpsZCxyLXlGhS6Ute/HkFice9+/g6NG
-	zLmeqkLjqXY1yskw0atRyN+iGDTONfDyeAi1tVXC3wsdJF0AMdI39x1WmWAZGVk3pXY9FRe+yU0kO
-	vwjQYLkdU/JECoX9vqFwbVpThBAd2BKOU3XerpuYAsFv1qZKZafu/79F3sKEz8+u71wgfXqJrezpN
-	Y+aIWfXeflSp2XCxtSzagEhNwo38vE7nF7Fk1Le/P0+Xjh2TaNHZkHnOshOwz/oq4F2q+58SpHTJP
-	jaVSdfmw==;
-Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:37886 helo=localhost.localdomain)
-	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <primoz.fiser@norik.com>)
-	id 1x0uJl-0000000E3Ph-210B;
-	Mon, 31 Aug 2026 07:12:24 +0200
-From: Primoz Fiser <primoz.fiser@norik.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Peng Fan <peng.fan@nxp.com>,
-	Yannic Moog <y.moog@phytec.de>,
-	Shawn Guo <shawnguo@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	upstream@lists.phytec.de
-Subject: [PATCH v2] arm64: dts: imx8mp-phyboard-pollux-peb-av-10: Fix SAI master assignment
-Date: Mon, 31 Aug 2026 07:12:22 +0200
-Message-Id: <20260831051222.3298730-1-primoz.fiser@norik.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vwb+hV/Z"
+Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-836c89e6ab0so48942037b3.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:14:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788153296; x=1788758096; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:to:from:subject:date
+         :message-id:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ruA8iuvJdam2XhfBnkvuly5gyU9q4XheOj+XBbK0NMw=;
+        b=Vwb+hV/Z1CYDWoFKtBj7kq4HpmAxFnE0oMr1BJ786guihu3ufnTxaIhAcLpi68iMeO
+         wmITnlGAu/nPnAAv0EDFKm4dQ1kzo4+Z8cn+TJhXYKNdFdrf8bt3X7g2AssI0qZWio9p
+         u18vJMDuHffEEcXZFsUq0WMDl8vBafxre+hIHMt1PDGGyMLIiY8h+qEV9xo8ZbvUTmk8
+         KJao7Q2ZvTMu7hWuNNDxWPgTBnguuuhqrbMdWdGuQnsqgzqwj4Arn2QyL4q+Ag6YRNfg
+         FgwMgBw+dl1T4F3v0id9uqvJzqk8ejIODDzX96v6Ptk4pVTgKhTm5BBacpU7VO/M94av
+         zAWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788153296; x=1788758096;
+        h=content-transfer-encoding:content-type:to:from:subject:date
+         :message-id:mime-version:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ruA8iuvJdam2XhfBnkvuly5gyU9q4XheOj+XBbK0NMw=;
+        b=iV8pZfhnsZbrbEMPIitwQj9Qm3y3wqZxxaDh27I0ha9IjHQgrrMnr0icFmR8xpPQ0A
+         GRtep77/zzManBZgf6zD15/uApQf4vmrIiDfaY0t06M+Imy3g1Dc9lK3Wf0naC8Fd2Fm
+         oVqXjN6bSZCQAuOvcPc9AjUCqLOlGyj/r1AzJFUHka9ZY9Cs7PHJPZjF91s8h3jjF8UF
+         D07rB9WsAmzgBf5pxh3Hfw9y1JHm7bIoF58UCovlOdOrNdTlhq8M0oteWxKarFd3kmET
+         rq0ZbrALU1J6jeHrUvkYUSi/EL2FT4f+rSBiSqcyWPkVZx/k6ebtu0UFoOaaEr09cFyo
+         rRRA==
+X-Gm-Message-State: AFuF++ks1bVx93H9NKbxNJeFY1LGTgFVXb14FzQlTBzeQSM0/cb4LNhc
+	czyo8bfobiw8pFX9fNtV7ZxWJBE9ckd1CCioF9siT2QqFwBiQZ5kjE0JZiksP/xv4C+exbBnJKp
+	NFvI=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - cp2.siel.si
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - norik.com
-X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
-X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+X-Received: by 2002:a05:690e:418f:b0:66e:56fe:e178 with SMTP id
+ 956f58d0204a3-66e56fee3d7mr4238378d50.17.1788153295857; Sun, 30 Aug 2026
+ 22:14:55 -0700 (PDT)
+Message-ID: <autogen-java-8f67c07a-d11c-4af9-976f-4c02e2a124f0@google.com>
+Date: Mon, 31 Aug 2026 05:14:55 +0000
+Subject: linux-kernel@vger.kernel.org
+From: kanchansinghu74@gmail.com
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+Content-Transfer-Encoding: base64
 
-The dailink_master label was placed on the codec sub-node instead of
-the CPU sub-node, configuring the codec as I2S bitclock/frame master
-with SAI2 as slave. On this board, BCLK and LRCLK are wired the other
-way around: SAI2 must be bus master, with the codec as I2S slave.
-
-Move dailink_master to the CPU sub-node so SAI2 drives BCLK and LRCLK,
-fixing broken audio on the PHYTEC phyBOARD-Pollux-i.MX8MP board with
-PEB-AV-10 Audio/Video expansion board. Also remove the spurious clocks
-property from the codec sub-node, which had no effect in this topology.
-
-Fixes: 7012f551081f ("arm64: dts: imx8mp pollux: add expansion board overlay")
-Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
----
-Changes in v2:
-- reword commit message to avoid topology confusion
-
-Link to v1: https://lore.kernel.org/all/20260827065556.2326079-1-primoz.fiser@norik.com/
-
- .../boot/dts/freescale/imx8mp-phyboard-pollux-peb-av-10.dtsi | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-av-10.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-av-10.dtsi
-index bb740f845855..8957b24a7ad2 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-av-10.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-av-10.dtsi
-@@ -77,13 +77,12 @@ sound {
- 			"MIC3R", "Microphone Jack",
- 			"Microphone Jack", "Mic Bias";
- 
--		simple-audio-card,cpu {
-+		dailink_master: simple-audio-card,cpu {
- 			sound-dai = <&sai2>;
- 		};
- 
--		dailink_master: simple-audio-card,codec {
-+		simple-audio-card,codec {
- 			sound-dai = <&codec>;
--			clocks = <&clk IMX8MP_CLK_SAI2>;
- 		};
- 	};
- };
--- 
-2.34.1
-
+SGVsbG8sDQoNCkkgY2FtZSBhY3Jvc3MgeW91ciBidXNpbmVzcyBvbmxpbmUgYW5kIG5vdGljZWQg
+dGhhdCB5b3VyIHdlYnNpdGUgY291bGQgYmUgIA0KaW1wcm92ZWQgdG8gYXR0cmFjdCBtb3JlIGN1
+c3RvbWVycy4NCg0KSSBoZWxwIGJ1c2luZXNzZXMgYnVpbGQgbW9kZXJuIHdlYnNpdGVzIHRoYXQ6
+DQrigKIgbG9hZCBmYXN0ZXINCuKAoiBsb29rIHByb2Zlc3Npb25hbA0K4oCiIGdlbmVyYXRlIG1v
+cmUgbGVhZHMNCg0KSWYgeW91IHdhbnQsIEkgY2FuIHNoYXJlIGEgZmV3IGltcHJvdmVtZW50IGlk
+ZWFzIGZvciB5b3VyIHdlYnNpdGUuDQoNCkxldCBtZSBrbm93IGlmIHlvdSdyZSBpbnRlcmVzdGVk
+Lg0KDQpCZXN0IHJlZ2FyZHMsDQpLYW5jaGFuIFNpbmdoDQpXZWIgRGV2ZWxvcGVyDQo=
