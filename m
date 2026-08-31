@@ -1,106 +1,148 @@
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049813CB578;
-	Mon, 31 Aug 2026 08:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153683B1ED0
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164157; cv=none; b=KvjODD+7qk7UMkZWzTT8o2MK9/+GrQx+ebTjZfIilVpRTS4Qc7uhh1KKIWntRhb/1NZgcI1844QYT6p1DL0oXNksVFRg41hDu7MpOie0PZ8ifFW2nw9flCV86GSyFHgzcMW82beBSJJHvpzDMOaTaleKr+t3lTa8DeRkG0uG3sU=
+	t=1788164167; cv=none; b=cIlxN+Hbb4edZhckLQykHbQSmmiIzoqyqgM6xiKF8wXcmVMKmOAbfQKwzDF76fjDXT165Y9QSMybHE6w23ByW1WE3VJwUSSi/6nPVtMle8KTq2dD+IEy0xh8arV0XZxw8B8odj9BfnIxJfeqA+TDcgF2j7mNIWkDmxY+N+ad6F8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164157; c=relaxed/simple;
-	bh=dO1PhbbuapCDdecX8FQLDCFikf/EZ4QABFv1142fTGk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uDysd4J/rnwCBb+QUlaycqvwjZGnmh13drX+Wcr6Ufw5IVim4PJqbl+lG8P4pOusBh67qn/1PiQpr1cFdJ4t/1XxR+sLSzK1EVFHJmq7vsKhjy3P5b3MN1GSILO2ZO+jZs54s/nWFgj0bM9qWQa6CiBdSBVT+Zhw8ZA9m/27ZMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=YhcOYYWh; arc=none smtp.client-ip=115.124.30.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788164167; c=relaxed/simple;
+	bh=QBU8DfkTa6n4YbEvZzxLevyquP+Ka5QRnZiV3dhNKJc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oDAzh58IdBFyGaHm3FeveWwZwlWIwiE25Cp4dsQQVcQwl7s84/BVHCVQtJ4KCGZ47hMppTAn0G5n8LXvYQutaPcuVZHfKVRMq7xLsrQEmT8bLi6dGLFruHO9DVO76QN5qCJ/8cmOBVxTslUU9x1TvjJTy1TtQ6wIrw866pEbvMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J1BM63yK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Tm6saH1D; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="YhcOYYWh"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788164151; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=tt0yHsbfJEZ1+ZZbrMLoRaILCdqS9+900vtSCcW9og4=;
-	b=YhcOYYWhhUoS/qMw/h4airDhg5iWAPRj31tZn884Okb/7d9P2ploVnwHmeVK+KCySkQ2wco+ufh3AEkQtFZBeBx3BUtBH/4nd0e7lYRe8JVjpW7A49xTtPlKWfSHGZ50EwFxCHhJ5Cl/nhza5oCcsANCNH09HzIUyJH/QdDixM8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R681e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=18;SR=0;TI=SMTPD_---0X9v1.h._1788164149;
-Received: from 30.74.144.115(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0X9v1.h._1788164149 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 31 Aug 2026 16:15:49 +0800
-Message-ID: <80b86bdb-9ef7-4eb8-95db-695fdae551d6@linux.alibaba.com>
-Date: Mon, 31 Aug 2026 16:15:48 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J1BM63yK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Tm6saH1D"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V7xZkV3427259
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:16:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=3LyTcuGUL0Z/mag6M9SZrK5m
+	2t3i0XS2stCBvD8t0aM=; b=J1BM63yKhY+4AC4sF6IWQ3XqowqXqAO3d8Rto/Cv
+	y2WbTXXMTttJhaC5i7pH+8vYxasqVQAUDB6mQAviLlOc5FqCS3x0r7NjbJgN3+yB
+	cMd4oQQYJR39mGpnf5Z5px/QpVQd2vBkRbYuNtIpbgBELf5VsdW2rwWYWBAPeO9i
+	SiqOgZwpeKJfqvMvJQ+rcbsMnzddZFlSrU7zEzRzEc7dP3ZEnIFAfaf+EltDBEC0
+	QhrvH94GOvLgw+rj7lbXlpfD8RLLGxR0fNqKG8iPVga5W9F+3SnnuMPZqW3nvAIV
+	hID/ztustt8Gdux8ro9dGDmhLsrWcNIPwdd+NlPxdgBWxA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd4pm8bdb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:16:04 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e52306621so415919285a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:16:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788164164; x=1788768964; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3LyTcuGUL0Z/mag6M9SZrK5m2t3i0XS2stCBvD8t0aM=;
+        b=Tm6saH1DtfzQzTgTXCl53TIlFkf6Vh0bDskV+n1Aj++bYlDU9J4ne5LGJyeZtBMoQs
+         LUX8uJ8E40sOmL8pai0jghfq/JtME4AxZidCbtEnahXns2t56MfD52Skv4cQnVpMAu5h
+         QcZyfT9Ff6PgEBmfF03TUtBz16XSH1eP3CFLgTLJaexI9xy5eBQWqOUnKNlM5orvt0f3
+         OrkDn6OvDgUWpbT7gIMWtpX4ekiLthzanrIi0qi+jKVn9lA6Hy/9PF+iByD5ysrHMdeF
+         d8VJgJAjeoH/lfW5kOb7eo0HtRM/kkjp5HNfbmJ9suZdDv4QL01wle/bjh/Y3jOpkjyS
+         RUHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788164164; x=1788768964;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3LyTcuGUL0Z/mag6M9SZrK5m2t3i0XS2stCBvD8t0aM=;
+        b=s+23seKeN/BDuoFEzVhqHd53rkI6oPP2e/FN/7gr6ajtMpXYtHktthQpVtLYbwcye5
+         PVmP8g/sx+BAwe3KWF19TQAJKG4rD6LoISUlP+mzgBmI7zsBJP4TfG2nRUSOrSof1FTi
+         tZmcPKyye/buDkuH9U9pDLlNK/+HeWRP4Ee6fcmzIK0v0RdHEoAYp8yQtpuVZXLjAhRY
+         GYO+gTgyu7o1k36fUEqLLjZoivOohfTX1ZY2nLYs0mm0H/caTFpDLay68IL2CkVzViti
+         q4zVqiyZWNfFQb6qDU6GJOsrhesOVH+KmzH3r7ICBhjrAKNMkPKt6sSVm8mGqJep9TVV
+         LgAw==
+X-Forwarded-Encrypted: i=1; AHgh+RpmJoUZ48G51ri0isCV64pd+xaUxMBcdYh9g5kdogsio3fqww3RXGPWoviwt1bPIzJlBODDFAVdI7NR/50=@vger.kernel.org
+X-Gm-Message-State: AFuF++n26OnNHJQFqIP19FWmmJp6PnS7CR6PY60i/o/kbIL/JbnTKf6v
+	+Rg3bESwWeu/V+WRlMqx58Xyp7pSrmYOOrVgxL172Nockoz+4542143EgAkqQuJM24G63Pvp55H
+	QGAG914J6wFXXZk50xNyB4AO/BwC1hpTJ5bmqlmnpU1zMY8yo9+4NrlAZvhHW2NTQs6A=
+X-Gm-Gg: AR+sD13s1jxFPuRYmNj8ZomsOyBue7hpKPhMzFoGf0bovUvEDm0qpff44vjMFyGq3Rs
+	9gBaZQiSli45eMP4Rt4qW8t40EtwnZS1SKbeFTfeekEuXBHPJaHMC6bGjEY3Sejn0VR5rRVk82V
+	6SYYGm0kplLc9oxiImwMTxQVbY/hRF+WSpryKzWupeYFvn5PhpkvPfSOYv0E4efiQztFto2eW8y
+	vHHo0c44iZ+3+RrZw2w1U/5nEk89MwPwZqvp034KepwnevtA0o7qaynJq/9WtEVBrt0hPUl4Tr1
+	qgAez8ev2zFFu5Lw74WXQNe9e2xmkMb336Djo1VbU8zIDS05qtgRdIOl0NXMrN+r16Z30t4soYG
+	G1YWYioqb7b7RmQ==
+X-Received: by 2002:a05:620a:8811:b0:936:9525:e952 with SMTP id af79cd13be357-9391398ca1bmr2730073885a.41.1788164164201;
+        Mon, 31 Aug 2026 01:16:04 -0700 (PDT)
+X-Received: by 2002:a05:620a:8811:b0:936:9525:e952 with SMTP id af79cd13be357-9391398ca1bmr2730068785a.41.1788164163630;
+        Mon, 31 Aug 2026 01:16:03 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.13])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20713sm20302271f8f.21.2026.08.31.01.16.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 01:16:02 -0700 (PDT)
+Date: Mon, 31 Aug 2026 11:16:00 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
+        Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH 6/6] arm64: dts: qcom: Add initial support for Nord Ride
+ Embedded board
+Message-ID: <o5fxldighgmm6djxauuyzv3p42yj3q74e37msw5ephzlgnql62@ptghyorawgzr>
+References: <20260831032103.341633-1-shengchao.guo@oss.qualcomm.com>
+ <20260831032103.341633-7-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: bypass THP tuneables for huge pfnmap
- mappings
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Cedric Le Goater <clg@redhat.com>, Saravanan D <saravanand@crusoe.ai>,
- stable@vger.kernel.org
-References: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831032103.341633-7-shengchao.guo@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: SPw6gguSYIeAus_nwaGGkEB5egcXHU_m
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA2OSBTYWx0ZWRfXxppeJ11JHDhR
+ 2HCjQsd3ZRE0y0rH6pHE8bhFQn/DJ+xb/zOb2ZCroPakDjhgR5+MmB1vnoUMWrZrDzRI+Cr7BHq
+ fiQg7XQkzjuBoQWsBuAhnf+cMuwV6QSIM9n3tL53Ptdnb5LC0wkpParHBi2vZ77zglJlZleUH/y
+ o+GePRuhy4ZJuof/h2ZAzJpPQRasEmHSZ6R7aPbcn8rnMfBB1Sv5Z0HzALhFkR9eN8Ky3EqNxDH
+ B7L+pOGxUqK4uKLE+x8HQF06FgbY40paLsO4OaNvGtmV85oykrUFa7t6lSquGKHYGnfiAb1ayp9
+ IbhGU6QikAO/DTbO9KGleQij7BJNnmFMCk3v/8mk3APdweFQ165SM7a9wKvWC0+dkCvwkldiwTy
+ Dvz6gmZT8ixExdjnfyw+u1K8fXgMbkdVVowf3WTKiEcI68rQunJEhWMxz/cpDqmIYWgaVNABgGn
+ SBzzUhmfb0eIBCd1alg==
+X-Proofpoint-GUID: SPw6gguSYIeAus_nwaGGkEB5egcXHU_m
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA2OSBTYWx0ZWRfX0hSzFNBG1xTK
+ m8oz0OApiQrDTXjsuDo1MuUCZdxUgFzP4f4AWkNrU9897b5nUQD/ASWgaVnDRGNzddIDLEUlqNI
+ /fYakW/eM8aJNzzz+Zl6+oKUsy3WdkU=
+X-Authority-Analysis: v=2.4 cv=GbQnWwXL c=1 sm=1 tr=0 ts=6a953844 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=clBUptZa5v5FR042Ey+sjA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=GNrPpmwhwOQ7cWpVhzUA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_03,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015
+ bulkscore=0 priorityscore=1501 adultscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310069
 
+On 26-08-31 11:21:03, Shawn Guo wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> 
+> Add the initial device tree for the Nord Ride Embedded board, the
+> non-SCMI variant of the SA8797P automotive Ride board.
+> 
+> Enable the debug UART, UFS storage, the ADSP and CDSP remote processors,
+> and describe the board regulators supplied by the on-board PMICs.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-
-On 8/28/26 3:55 AM, Lorenzo Stoakes (ARM) wrote:
-> The sysfs THP tuneables at /sys/kernel/mm/transparent_huge_pages/ rather
-> confusingly only control the behaviour of THP in some instances.
-> 
-> They are not applicable to MADV_COLLAPSE operations, nor to DAX mappings.
-> 
-> Long-term, THP is predicated upon compaction being able to obtain large
-> folios to populate THP ranges.
-> 
-> However, vm_normal_folio() returns NULL for PFN map mappings, thus their
-> reference count is maintained by the driver, not core mm.
-> 
-> As a consequence, the folios are not subject to reclaim nor compaction, so
-> are not truly part of the THP mechanism at all.
-> 
-> However, since commit 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-> introduced the ability to establish huge PFN maps, they have been subject
-> to THP tuneables.
-> 
-> This is incorrect - if a huge PFN map is available (defined by
-> vma->vm_ops->huge_fault being non-NULL for a VMA_PFNMAP_BIT VMA), then it
-> should be mapped huge upon fault-in.
-> 
-> Correct this by explicitly checking for this while ensuring that smaps
-> continues to accurately report THPeligible statistics.
-> 
-> While here, abstract the entire file-backed THP check in
-> vma_can_map_huge_file(), with sensible separation of logic into helper
-> functions.
-> 
-> Note that drm_gem_shmem_mmap() and panthor_gem_mmap() establish huge PFN
-> maps of shmem folios, however they are marked unevictable in
-> drm_gem_get_pages(), and in any case would fail the reference check in
-> __remove_mapping() even if they weren't.
-> 
-> Failing to map huge PFN maps has resulted in significant real-world
-> performance degradation, see links for details.
-> 
-> Reported-by: Cedric Le Goater <clg@redhat.com>
-> Closes: https://lore.kernel.org/linux-mm/20260805055544.1568534-1-clg@redhat.com/
-> Reported-by: Saravanan D <saravanand@crusoe.ai>
-> Closes: https://lore.kernel.org/linux-mm/20260821070520.25759-1-saravanand@crusoe.ai/
-> Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
-
-LGTM. Logic looks clearer now. Thanks.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
