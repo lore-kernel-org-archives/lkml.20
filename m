@@ -1,49 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F4E450906;
-	Mon, 31 Aug 2026 13:34:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE94C451993;
+	Mon, 31 Aug 2026 13:34:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183265; cv=none; b=fC5CNw2nRceCTbOC1HBS/CMp5dqeUtB/A7OB4YD/Tfs5X6Vj44nlxB5mOKiF60qoTmJcOOgidWRmEuoepr0UD7Tndl2GMClOxYZ6a8B4dkplOdVkZVppBJCycK4Of6BWrSI8f5ioSbieG9xnYOtxION2sGaW27hB2xd7oroL8NI=
+	t=1788183268; cv=none; b=BToxb6JP7Zw8eErbPStv4e3eg+TVRxsypkc8Qt0n1uLIVXFaeIMMsWb0dlQyc4HqmZ6ITMdZI9l8St+iDWYLxQTlMP43pf+rmheX8yHJNR+nu/gqkKhZz69J7LsL0lo4oii3lnasSFL6/5eegBOnUNrUTEhh3jtsBkbMkibEPxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183265; c=relaxed/simple;
-	bh=MqngZ8Tj06+Q7KL5Ue/Pqn1J4tGdwuDeBsXgnbZhC+o=;
+	s=arc-20240116; t=1788183268; c=relaxed/simple;
+	bh=eLMW5j9aTyTLvuG8WbgxYZYTT1zIbuYiFepTJTS6kRU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=P/TVf3DyF0ia73fYqGOjMQNbVszMZF3Q0CNI0R9GXex0nelhVFRgMztROMxIUhHKmrByNX5wd9/GNN7uKdJj9MXWOHYr2eUMPpxzbW3uyV4Xc/KnXmQKBck44fgjgvzUsDPnTLb6kou3kN1nVkszN2g+JXXF1NIfUig2F//rwhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k5pW9A8m; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Al3KybtS54WpuTd+604wDHaYuIt5/8Y5ib+6Sb8EbMqRKOQ3tiBxhgEYIcG0L01qx6RyJLxkwNgO/9Lz86eZ8Vtfok82DizuWXEvC7WG2YWdUHVaMDLNvBoZd5CYbNQyoE7i9xN2YYzMQ+BU9NOsr7S17rsc3E8vry7X6+ZgG9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MNcXpSF3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k5pW9A8m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5587B1F000E9;
-	Mon, 31 Aug 2026 13:34:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MNcXpSF3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B6C71F00A3E;
+	Mon, 31 Aug 2026 13:34:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183263;
-	bh=cO2mZ5HN8GGzP/R9aMklJrVC6U8lRQNLY/LSuFjXokw=;
+	s=k20260515; t=1788183266;
+	bh=9nU3oMm0/Xv6zfIW5k50D8aQh35DFY+8M3UlM8WJHGY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k5pW9A8m9nDeOrHOD88v8Nr7n2s9oqwvE0MvO2H21VJNX2h9/0fqwTgZafsn3MQl/
-	 cEP/Pzc5Zw9fldQN1IdX9Ft0GTP7cmxF2Pd/rMhscIqIz1kS7Vyzb5gYrKCYD41N8b
-	 BFQVDK1Adzy4mwh3hQYM0RqndmOA7DgIzpQfPetnP4TwwX5Nrbyl1+v3Z0GTp+0y9p
-	 UuXkjVTMrTZ/eXRFBA7Zd9/ylbt4PDzyP2677QiZP4FmryS7dNvy41NXtwxzlnCAAo
-	 uIt7R+bGnO+VXkZwLT2EoKmYRh9ddLid9RLrEu3aZ6kIdULduobIfxmppDFr4ihOqt
-	 d1rjE7HeTlMjw==
+	b=MNcXpSF3nzD6PlOsq7iSOlEJd2KKkglkGA5UoZzag1gn+PBqA7Qzx+3/m20OffJJA
+	 OuSDAwHUWGT9zGcFf3DBH/Cv7wPjdWGtGM17/V8Q7PEn7bsnFKSW697K0qngUfNraf
+	 4GvFPgo+NA4s1BIzyfPrwFVAl7IBZNbkJhGPCZlDtkxum2AUNBgcXcOPr0jmcovIwB
+	 ygsVKURb4gYFiLU7Kb2060l6FZXbxvX/eZjkL2e3f1jpzruK32nuwOtAyLiKv2mZ79
+	 EATYQP0xt9wMVLVTGz5BRBSWKXivohs05poK3nEWWfcjfKy6nHybI2dQRMCAXnRDel
+	 AU/YqUXpZTTBw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Lorenzo Bianconi <lorenzo@kernel.org>,
-	Xuegang Lu <xuegang.lu@airoha.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Thiyagarajan Pandiyan <thiyagarajan@aerlync.com>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	netdev@vger.kernel.org,
+	johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] net: airoha: Reserve RX headroom to avoid skb reallocation
-Date: Mon, 31 Aug 2026 09:21:11 -0400
-Message-ID: <20260831133314.4125787-43-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] wifi: nl80211: Increase ie_len size to prevent truncated IEs in new peer notifications
+Date: Mon, 31 Aug 2026 09:21:13 -0400
+Message-ID: <20260831133314.4125787-45-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -59,499 +53,347 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Lorenzo Bianconi <lorenzo@kernel.org>
+From: Thiyagarajan Pandiyan <thiyagarajan@aerlync.com>
 
-[ Upstream commit bbfb1983944f2eaa8ee192e0f7b59ecc0fda9981 ]
+[ Upstream commit dfb67ae569bf0726187725b1ef8d89377778861e ]
 
-Reserve NET_SKB_PAD + NET_IP_ALIGN bytes of headroom for received packets
-to avoid skb head reallocation when pushing protocol headers into the skb.
+Currently, ie_len in cfg80211_notify_new_peer_candidate is defined as
+1-byte field, capping the maximum IE list size at 255 bytes. When a
+large beacon is received, the IE list is truncated, passing incomplete
+data to wpa_supplicant. This causes supplicant to fail parsing the IEs.
 
-Tested-by: Xuegang Lu <xuegang.lu@airoha.com>
-Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
-Link: https://patch.msgid.link/20260513-airoha-rx-headroom-v1-1-bd87798e422d@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Increasing the size of ie_len to allow the full length of the IE list to
+be forwarded properly.
+
+Signed-off-by: Thiyagarajan Pandiyan <thiyagarajan@aerlync.com>
+Link: https://patch.msgid.link/20260605054307.427874-1-thiyagarajan@aerlync.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `net: airoha: Reserve RX headroom to avoid
-skb reallocation`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.43** (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`)
+**Step 1.1: Subject line**
+- Record: `[wifi: nl80211]` `[Increase]` — widen `ie_len` in new mesh
+  peer candidate notifications to stop IE truncation.
 
----
+**Step 1.2: Tags**
+- Record:
+  - `Signed-off-by: Thiyagarajan Pandiyan <thiyagarajan@aerlync.com>`
+    (author)
+  - `Link: https://patch.msgid.link/20260605054307.427874-1-
+    thiyagarajan@aerlync.com`
+  - `Signed-off-by: Johannes Berg <johannes.berg@intel.com>` (wireless
+    maintainer)
+  - No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
+    stable@vger.kernel.org`
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.3: Body analysis**
+- Record:
+  - **Bug:** `ie_len` in `cfg80211_notify_new_peer_candidate()` is a
+    1-byte field, capping IE list size at 255 bytes.
+  - **Symptom:** Large beacon IE lists are truncated; incomplete data
+    reaches wpa_supplicant, which fails IE parsing.
+  - **Root cause:** Type too narrow for actual IE length.
+  - **Fix:** Change `ie_len` from `u8` to `size_t`.
 
-### Step 1.1: Parse the subject line
-**Record:** `[net: airoha]` `[Reserve]` — Reserve RX headroom in the
-Airoha Ethernet driver to prevent skb head reallocation on received
-packets.
-
-### Step 1.2: Parse all commit message tags
-**Record:**
-| Tag | Value |
-|-----|-------|
-| Tested-by | Xuegang Lu `<xuegang.lu@airoha.com>` (Airoha vendor
-engineer) |
-| Signed-off-by | Lorenzo Bianconi `<lorenzo@kernel.org>` (driver
-author) |
-| Signed-off-by | Jakub Kicinski `<kuba@kernel.org>` (netdev maintainer)
-|
-| Link | https://patch.msgid.link/20260513-airoha-rx-
-headroom-v1-1-bd87798e422d@kernel.org |
-| Fixes: | **Not present** (expected for manual review) |
-| Cc: stable | **Not present** (expected) |
-| Reported-by: | **Not present** |
-
-**Notable patterns:** Vendor `Tested-by` from Airoha; no
-syzbot/sanitizer reports; no explicit crash description in the commit
-message.
-
-### Step 1.3: Analyze commit body text
-**Record:**
-- **Bug described:** RX skbs are built without `NET_SKB_PAD +
-  NET_IP_ALIGN` headroom, so the network stack must reallocate skb heads
-  when pushing protocol headers.
-- **Symptom/failure mode:** skb head reallocation on the RX path
-  (performance/correctness issue for page_pool-based RX, not a
-  documented oops).
-- **Version info:** None in commit message.
-- **Root cause (author):** Driver omitted standard RX headroom
-  reservation that peer drivers (e.g. MediaTek) already use.
-
-### Step 1.4: Detect hidden bug fixes
-**Record:** **Yes, partially.** While framed as avoiding reallocation,
-the final patch also tightens RX length validation (`data_len` now uses
-`AIROHA_RX_LEN()` / `e->dma_len` instead of unadjusted buffer sizes).
-During review of v5, sashiko-bot flagged that without this bounds
-adjustment, `__skb_put()` with `skb_reserve()` could overflow skb bounds
-if hardware returned an oversized length. Lorenzo acknowledged and fixed
-this in v6. The committed version includes both the headroom fix and the
-bounds-check correction.
+**Step 1.4: Hidden bug fix?**
+- Record: No — this is an explicit correctness fix, not disguised
+  cleanup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS — LINE BY LINE
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory the changes
-**Record:**
-| File | Changes |
-|------|---------|
-| `drivers/net/ethernet/airoha/airoha_eth.c` | +8 / -6 lines |
-| `drivers/net/ethernet/airoha/airoha_eth.h` | +2 lines |
-| **Functions modified:** `airoha_qdma_fill_rx_queue()`,
-`airoha_qdma_rx_process()` |
-| **Scope:** Single-subsystem, two-file surgical driver fix |
+**Step 2.1: Inventory**
+- Record:
+  - `include/net/cfg80211.h`: prototype `u8 ie_len` → `size_t ie_len`
+    (+0/-0, type change)
+  - `net/wireless/nl80211.c`: implementation signature same change
+  - Functions: `cfg80211_notify_new_peer_candidate()`
+  - Scope: single-function, 2-file surgical type fix
 
-### Step 2.2: Code flow change per hunk
+**Step 2.2: Code flow**
+- Record:
+  - **Before:** `ie_len` is `u8`; values >255 truncate/wrap when passed
+    from `size_t` callers; `nla_put()` and `nlmsg_new(100 + ie_len)` use
+    the truncated length.
+  - **After:** Full `size_t` length preserved; complete IE blob
+    forwarded to userspace.
+  - **Path:** Mesh beacon/probe RX → `mesh_sta_info_alloc()` →
+    `cfg80211_notify_new_peer_candidate()` → nl80211 multicast to
+    userspace.
 
-**Hunk 1 — `airoha_qdma_fill_rx_queue()`:**
-- **Before:** DMA buffer starts at page_pool fragment offset; full
-  `SKB_WITH_OVERHEAD(q->buf_size)` used for DMA length.
-- **After:** Offset advanced by `AIROHA_RX_HEADROOM`; DMA length reduced
-  by headroom via `AIROHA_RX_LEN()`.
-- **Path affected:** RX ring refill (initialization/hot path).
+**Step 2.3: Bug mechanism**
+- Record:
+  - **Category:** Type/size mismatch (logic/correctness).
+  - **Mechanism:** Caller passes `elems->total_len` (`size_t`); callee
+    takes `u8`. For `total_len > 255`, C converts with modulo-256:
+    - `256` → `0` (no IEs sent)
+    - `300` → `44` (wrong partial IE)
+    - `511` → `255` (max representable, still truncated if real length
+      is larger)
 
-**Hunk 2 — `airoha_qdma_rx_process()` DMA sync:**
-- **Before:** Synced `SKB_WITH_OVERHEAD(q->buf_size)` regardless of
-  actual buffer offset.
-- **After:** Syncs `e->dma_len` (actual mapped region).
-- **Path affected:** RX NAPI processing.
-
-**Hunk 3 — `airoha_qdma_rx_process()` length validation:**
-- **Before:** `data_len` used full `q->buf_size` /
-  `SKB_WITH_OVERHEAD(q->buf_size)`.
-- **After:** `data_len` uses `AIROHA_RX_LEN(q->buf_size)` or
-  `e->dma_len`.
-- **Path affected:** RX validation before skb construction.
-
-**Hunk 4 — `airoha_qdma_rx_process()` skb build:**
-- **Before:** `napi_build_skb(e->buf, q->buf_size)` with no headroom.
-- **After:** `napi_build_skb(e->buf - AIROHA_RX_HEADROOM, q->buf_size)`
-  + `skb_reserve(q->skb, AIROHA_RX_HEADROOM)`.
-- **Path affected:** First-buffer skb construction on every received
-  packet.
-
-**Hunk 5 — header defines:**
-- **Before:** No headroom macros.
-- **After:** `AIROHA_RX_HEADROOM = NET_SKB_PAD + NET_IP_ALIGN`,
-  `AIROHA_RX_LEN(_n) = (_n) - AIROHA_RX_HEADROOM`.
-
-### Step 2.3: Bug mechanism classification
-**Record:**
-- **Category:** Logic/correctness fix + memory-safety hardening
-- **Mechanism:** Driver uses `page_pool` + `napi_build_skb()` +
-  `skb_mark_for_recycle()` but did not reserve the standard `NET_SKB_PAD
-  + NET_IP_ALIGN` (typically 34 bytes) of RX headroom. When the network
-  stack later pushes headers (bridging, VLAN, DSA, GRO, etc.),
-  `skb_cow_head()` / `pskb_expand_head()` forces skb head reallocation,
-  defeating the page_pool zero-copy model. The bounds-check update
-  prevents accepting packet lengths that would overflow the reduced
-  usable buffer after `skb_reserve()`.
-
-### Step 2.4: Fix quality assessment
-**Record:**
-- **Quality:** High. Matches established pattern in `mtk_eth_soc.c`
-  (`skb_reserve(skb, NET_SKB_PAD + NET_IP_ALIGN)`).
-- **Regression risk:** Very low. Only reduces usable DMA buffer by a
-  fixed 34-byte headroom; all length checks and DMA sync updated
-  consistently.
-- **Red flags:** None. No API changes, no cross-subsystem impact.
+**Step 2.4: Fix quality**
+- Record:
+  - Obviously correct; matches other cfg80211 APIs
+    (`cfg80211_disconnected()` uses `size_t ie_len`).
+  - Minimal, no unrelated changes.
+  - Low regression risk; only widens a parameter type on an
+    internal/exported helper.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame the changed lines
-**Record:** Local tree has shallow history (~50 commits). `git blame`
-attributes all `airoha_eth.c` RX code to a bulk-import commit, so the
-exact introduction commit cannot be determined from this checkout. The
-driver source header shows Copyright 2024, and the buggy RX path is
-**present in 6.18.43** at lines 549–674 of `airoha_eth.c`.
+**Step 3.1: Blame**
+- Record:
+  - `u8 ie_len` since `c93b5e717ec47` (2011, Javier Cardona) — original
+    mesh peer candidate notification.
+  - `sig_dbm` added in `ecbc12ad6b6826` (2018, Bob Copeland); `u8
+    ie_len` unchanged.
+  - Bug present since 2011 in this tree.
 
-### Step 3.2: Follow Fixes: tag
-**Record:** No `Fixes:` tag present. Not applicable.
+**Step 3.2: Fixes: tag**
+- Record: N/A — no `Fixes:` tag.
 
-### Step 3.3: File history for related changes
-**Record:** `git log --oneline -- drivers/net/ethernet/airoha/` returns
-no airoha-specific commits in this shallow stable checkout. The fix is
-**standalone** (not part of a multi-patch dependency chain in the
-committed form). During netdev review it was patch 02/12 of a larger
-series, but this commit is self-contained.
+**Step 3.3: Related file history**
+- Record:
+  - `11197d006bcfa` (2016): suppress `NEW_PEER_CANDIDATE` when peer has
+    no room — related mesh behavior, not this bug.
+  - Recent wireless work (MBSSID/RNR validation) shows larger IE
+    handling is active in this tree.
+  - Standalone fix; not part of a series.
 
-### Step 3.4: Author's relationship to subsystem
-**Record:** Lorenzo Bianconi is the Airoha Ethernet driver author (per
-file header and patch submission). Jakub Kicinski (netdev maintainer)
-applied the patch. Strong subsystem ownership.
+**Step 3.4: Author**
+- Record: Thiyagarajan Pandiyan is not a frequent wireless contributor
+  in this tree. Johannes Berg (maintainer) committed with his SOB.
 
-### Step 3.5: Prerequisite commits
-**Record:** No prerequisite commits referenced. All symbols
-(`napi_build_skb`, `page_pool`, `skb_mark_for_recycle`,
-`SKB_WITH_OVERHEAD`) exist in 6.18.43. Patch applies cleanly with minor
-line-number offset (verified via `git apply --check`).
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original patch discussion
-**Record:**
-- **b4 dig URL:** https://patch.msgid.link/20260513-airoha-rx-
-  headroom-v1-1-bd87798e422d@kernel.org
-- **Series revisions:** Only v1 found via `b4 dig -a` (direct
-  submission, applied as-is to net-next)
-- **Key reviewer feedback:** In the v5 series thread (spinics.net),
-  sashiko-bot flagged missing bounds-check adjustment as a potential
-  buffer overflow; Lorenzo replied "ack, I will fix it in v6." The
-  committed version includes that fix.
-- **Stable nominations:** None found in the thread (only patchwork-bot
-  apply notification).
-- **NAKs:** None.
-
-### Step 4.2: Reviewers from b4 dig -w
-**Record:** CC'd: Andrew Lunn, David S. Miller, Eric Dumazet, Jakub
-Kicinski, Paolo Abeni, linux-arm-kernel, linux-mediatek, netdev, Xuegang
-Lu (Airoha). Appropriate netdev maintainer coverage.
-
-### Step 4.3: Bug report details
-**Record:** No formal bug report URL in commit. OpenWrt downstream
-commit `dda777dd4472` describes this as part of "Airoha reported bug for
-ethernet" and backported it to their 6.12 airoha target. Vendor testing
-confirmed via `Tested-by: Xuegang Lu`.
-
-### Step 4.4: Related patches in series
-**Record:** Part of a larger airoha-eth multi-patch series on net-next,
-but this specific commit is independently applicable and functionally
-complete.
-
-### Step 4.5: Stable mailing list history
-**Record:** Not searched exhaustively; no stable-list nomination found
-in available thread data.
+**Step 3.5: Dependencies**
+- Record: No prerequisites. Self-contained type change. Fix commit not
+  yet in this tree (`git log --grep` found nothing).
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 4: Mailing List and External Research
 
-### Step 5.1: Key functions modified
-**Record:** `airoha_qdma_fill_rx_queue()`, `airoha_qdma_rx_process()`
-
-### Step 5.2: Callers
-**Record:**
-- `airoha_qdma_fill_rx_queue()` called from `airoha_qdma_rx_process()`
-  (line 716) and `airoha_qdma_init_rx_queue()` (line 802)
-- `airoha_qdma_rx_process()` called from `airoha_qdma_rx_napi_poll()`
-  (line 727)
-- NAPI poll is the standard per-packet RX hot path on every received
-  frame
-
-### Step 5.3: Key callees
-**Record:** `page_pool_dev_alloc_frag()`, `napi_build_skb()`,
-`skb_reserve()`, `skb_mark_for_recycle()`, `eth_type_trans()`,
-`napi_gro_receive()`, `dma_sync_single_for_cpu()`
-
-### Step 5.4: Call chain / reachability
-**Record:** Hardware interrupt → NAPI poll → `airoha_qdma_rx_process()`
-→ network stack (`napi_gro_receive`). **Every received packet** on
-Airoha hardware traverses this path. Commonly triggered on OpenWrt
-router platforms with DSA switching and bridging.
-
-### Step 5.5: Similar patterns
-**Record:** `drivers/net/ethernet/mediatek/mtk_eth_soc.c:2320` uses
-`skb_reserve(skb, NET_SKB_PAD + NET_IP_ALIGN)` on RX. Many page_pool-
-aware drivers reserve equivalent headroom. The Airoha driver was missing
-this standard practice.
+**Step 4.1–4.5**
+- Record:
+  - `b4 dig -c <commit>`: N/A — commit not in local tree.
+  - Lore/patch.msgid.link: blocked by bot protection; could not read
+    thread.
+  - **UNVERIFIED:** Reviewer stable nominations, NAKs, or test reports
+    from the mailing list.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+## Phase 5: Code Semantic Analysis
 
-### Step 6.1: Does the buggy code exist?
-**Record:** **Yes.** In 6.18.43:
-- `airoha_eth.c:571-573`: no headroom offset, `e->dma_len =
-  SKB_WITH_OVERHEAD(q->buf_size)`
-- `airoha_eth.c:638-644`: unadjusted length checks
-- `airoha_eth.c:654`: `napi_build_skb(e->buf, q->buf_size)` without
-  `skb_reserve()`
-- `AIROHA_RX_HEADROOM` macro **not defined** in `airoha_eth.h`
+**Step 5.1: Key functions**
+- Record: `cfg80211_notify_new_peer_candidate()`, caller
+  `mesh_sta_info_alloc()`.
 
-### Step 6.2: Backport complications
-**Record:** **Clean apply** with minor line-number offset (functions at
-lines 549/613 vs. 526/594 in upstream diff). No conflicting changes
-detected. `AIROHA_MAX_MTU` differs (9216 local vs 9220 upstream) but is
-unrelated to this patch.
+**Step 5.2: Callers**
+- Record:
+  - In-tree caller: `mesh_sta_info_alloc()` in
+    `net/mac80211/mesh_plink.c` (line 565), called from line 601 on
+    beacon/probe RX.
+  - Triggered when `user_mpm` or `IEEE80211_MESH_SEC_AUTHED` is set.
 
-### Step 6.3: Related fixes already present?
-**Record:** `git log --grep="headroom"` and `git log --grep="airoha"`
-return no matches. **Fix is not already in 6.18.43.**
+**Step 5.3: Callees**
+- Record: `nlmsg_new()`, `nla_put()` for `NL80211_ATTR_IE`,
+  `genlmsg_multicast_netns()` to `NL80211_MCGRP_MLME`.
 
----
+**Step 5.4: Reachability**
+- Record:
+  - Reachable on mesh RX of beacons/probe responses.
+  - Userspace (wpa_supplicant/hostapd with userspace MPM) receives
+    `NL80211_CMD_NEW_PEER_CANDIDATE`.
+  - Not a direct syscall path, but triggered by normal wireless RX in
+    mesh configs.
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/net/ethernet/airoha/` — **IMPORTANT** (platform
-primary Ethernet MAC for Airoha SoCs used in routers/embedded). Config:
-`CONFIG_NET_AIROHA` depends on `ARCH_AIROHA || COMPILE_TEST`, selects
-`PAGE_POOL`.
-
-### Step 7.2: Subsystem activity
-**Record:** Driver is actively developed (2024 copyright, recent multi-
-patch series on net-next). Bug present since initial RX implementation.
+**Step 5.5: Similar patterns**
+- Record: Other cfg80211 APIs use `size_t ie_len` (e.g.
+  `cfg80211_disconnected()` at line 8788). This function is
+  inconsistent.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## Phase 6: Cross-Reference Against Local Tree
 
-### Step 8.1: Who is affected
-**Record:** Users of Airoha SoC gigabit Ethernet (`CONFIG_NET_AIROHA`) —
-embedded routers (OpenWrt airoha target), MediaTek-related DSA switch
-platforms. Not universal, but **primary network path** for those
-systems.
+**Step 6.1: Buggy code present?**
+- Record:
+  - Tree: **Linux 6.18.44** (`git describe HEAD` → `v6.18.44`).
+  - Buggy `u8 ie_len` confirmed at `include/net/cfg80211.h:8145` and
+    `net/wireless/nl80211.c:19990`.
+  - Caller passes `elems->total_len` (`size_t`, `ieee80211_i.h:1763`).
 
-### Step 8.2: Trigger conditions
-**Record:**
-- **Trigger:** Any RX traffic where the network stack pushes headers
-  (bridging, VLAN, DSA tag handling, GRO, forwarding). Very common on
-  router workloads.
-- **Likelihood:** High on deployed Airoha router configurations.
-- **Unprivileged trigger:** Yes (incoming network traffic).
+**Step 6.2: Backport complications**
+- Record: Clean apply expected — two signature lines only. No
+  conflicting recent changes to this function.
 
-### Step 8.3: Failure mode severity
-**Record:**
-- **Without fix:** Per-packet skb head reallocation on header push;
-  page_pool recycling defeated; elevated CPU and allocation pressure;
-  potential `rx_dropped` under load; theoretical skb bounds overflow if
-  hardware returns oversized length (bounds-check issue fixed in final
-  version).
-- **Severity:** **MEDIUM-HIGH** for affected hardware — functional
-  networking degradation, not a typical kernel oops, but real user-
-  visible impact on production router platforms.
-
-### Step 8.4: Risk-benefit ratio
-**Record:**
-- **Benefit:** HIGH for Airoha users (correct page_pool RX behavior,
-  reduced per-packet allocations, hardened length validation).
-- **Risk:** VERY LOW (10-line surgical change, vendor-tested,
-  established driver pattern).
-- **Ratio:** Favorable for backport to 6.18.y where the driver and buggy
-  code both exist.
+**Step 6.3: Related fixes already present?**
+- Record: No equivalent fix in this tree.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 7: Subsystem and Maintainer Context
 
-### Step 9.1: Evidence compiled
+**Step 7.1: Subsystem**
+- Record: `net/wireless` (cfg80211/nl80211) + `net/mac80211` mesh.
+  Criticality: **IMPORTANT** (common WiFi stack; mesh is a subset).
 
-**FOR backport:**
-- Buggy code confirmed present in 6.18.43
-- Vendor-tested (`Tested-by: Xuegang Lu @airoha.com`)
-- OpenWrt downstream backported as "Airoha reported bug" to 6.12
-- Standard RX headroom pattern used by peer drivers (MediaTek)
-- page_pool + `skb_mark_for_recycle` without headroom is incorrect for
-  header-push workloads
-- Includes bounds-check hardening from review feedback
-- Small, self-contained, applies cleanly
-- Affects every RX packet on Airoha hardware
+**Step 7.2: Activity**
+- Record: `net/wireless/` actively maintained; recent MBSSID/RNR IE
+  validation work increases relevance of large-IE handling.
 
-**AGAINST backport:**
-- Commit message frames issue as avoiding reallocation (optimization
-  language)
-- No documented kernel crash, oops, or CVE
-- Narrow hardware scope (`ARCH_AIROHA`)
-- No explicit `Cc: stable` or maintainer stable nomination
-- Performance fix rather than crash/corruption fix per strict stable-
-  kernel-rules wording
+---
 
-**Unresolved:** Exact symptoms Airoha reported to OpenWrt are not
-documented in the upstream commit or lore thread.
+## Phase 8: Impact and Risk Assessment
 
-### Step 9.2: Stable rules checklist
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — standard pattern, vendor
-Tested-by, netdev maintainer applied |
-| 2. Fixes a real bug? | **PASS** — driver RX headroom omission
-affecting page_pool skb handling |
-| 3. Important issue? | **PASS** — functional RX path degradation on
-deployed hardware; bounds-check hardening |
-| 4. Small and contained? | **PASS** — 10 insertions, 6 deletions, 2
-files |
-| 5. No new features/APIs? | **PASS** — internal driver constants only |
-| 6. Can apply to local tree? | **PASS** — verified clean apply to
-6.18.43 |
+**Step 8.1: Who is affected**
+- Record: Mesh users with userspace MPM or authenticated mesh
+  (`IEEE80211_MESH_SEC_AUTHED`). Config-specific, not universal.
 
-### Step 9.3: Exception categories
-**Record:** Not a device ID, quirk, DT, build, or documentation fix.
-Standard driver correctness fix.
+**Step 8.2: Trigger conditions**
+- Record:
+  - Mesh beacon/probe IE list > 255 bytes.
+  - More likely with MBSSID, RNR, EHT/MLO elements.
+  - Unprivileged users cannot directly trigger; depends on peer beacon
+    content.
+  - Not timing-dependent.
 
-### Step 9.4: Decision rationale
-For **6.18.43**, the Airoha Ethernet driver exists with the buggy RX
-path. This is a vendor-reported, vendor-tested correction to a
-fundamental RX buffer layout error that breaks the page_pool zero-copy
-model on every packet requiring header push — a common case on Airoha
-router platforms with DSA and bridging. The fix is minimal, obviously
-correct, and carries negligible regression risk. While not a crash fix,
-it addresses a real functional defect on production hardware that
-downstream (OpenWrt) has already deemed worth backporting.
+**Step 8.3: Failure mode**
+- Record:
+  - Truncated/wrong IE data to userspace.
+  - wpa_supplicant IE parse failure → mesh peer discovery/peering fails.
+  - Severity: **MEDIUM** (functional failure, not kernel
+    crash/corruption/security).
+
+**Step 8.4: Risk-benefit**
+- Record:
+  - **Benefit:** Restores correct mesh peer candidate notifications for
+    large beacons.
+  - **Risk:** Very low — two-line type widening; in-tree caller already
+    passes `size_t`.
+  - **Ratio:** Good — small fix, real bug, low risk.
+
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1: Evidence**
+
+*For:*
+- Verified type mismatch: `size_t` caller → `u8` callee.
+- Concrete failure: wrong/zero/truncated IE length → userspace parse
+  failure.
+- Long-standing bug (since 2011).
+- Minimal, obviously correct fix aligned with other cfg80211 APIs.
+- Maintainer (Johannes Berg) signed off.
+- Increasingly relevant as beacon IEs grow.
+
+*Against:*
+- Mesh + userspace MPM is a narrower audience.
+- Not crash, deadlock, or security.
+- Mailing list review details unverified.
+
+**Step 9.2: Stable rules checklist**
+1. Obviously correct and tested? **PASS** (code review; no runtime test
+   evidence)
+2. Fixes a real user-affecting bug? **PASS**
+3. Important issue? **PASS** (functional failure of mesh peer discovery;
+   medium severity)
+4. Small and contained? **PASS**
+5. No new features/APIs? **PASS** (type correction only; nl80211
+   attribute format unchanged)
+6. Can apply to local tree? **PASS**
+
+**Step 9.3: Exception categories**
+- Record: None (not device ID, quirk, DT, build, or docs).
+
+**Step 9.4: Decision rationale**
+
+For Linux **6.18.44**, the buggy code is present and the fix is a
+minimal type correction with clear user impact: mesh deployments using
+userspace peering management receive corrupted peer-candidate IE data
+when beacon IEs exceed 255 bytes, breaking wpa_supplicant parsing. The
+patch is low risk, maintainer-reviewed, and aligns with established
+cfg80211 conventions.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message tags: Tested-by (Airoha), Signed-
-  off-by (author + netdev maintainer), Link present; no Fixes:/Cc:
-  stable/Reported-by
-- **[Phase 1]** Identified hidden bounds-check fix from v5→v6 review
-  cycle (spinics.net sashiko-bot thread)
-- **[Phase 2]** Diff analysis: 2 files, functions
-  `airoha_qdma_fill_rx_queue()` and `airoha_qdma_rx_process()` modified
-- **[Phase 2]** Read current buggy code at `airoha_eth.c:549-674` —
-  confirmed no headroom reservation
-- **[Phase 3]** `git describe HEAD`: v6.18.43-1-gc7f0dac02d232; `make
-  kernelversion`: 6.18.43
-- **[Phase 3]** `git blame` on RX functions: shallow history, all
-  attributed to bulk import; buggy code present
-- **[Phase 3]** No Fixes: tag to follow
-- **[Phase 4]** `b4 dig -c bbfb1983944f`: found lore URL
-  https://patch.msgid.link/20260513-airoha-rx-
-  headroom-v1-1-bd87798e422d@kernel.org
-- **[Phase 4]** `b4 dig -a`: only v1 revision
-- **[Phase 4]** `b4 dig -w`: netdev maintainers CC'd including Jakub
-  Kicinski, David S. Miller, Eric Dumazet
-- **[Phase 4]** `b4 dig -m /tmp/airoha_headroom.mbox`: thread saved;
-  only patchwork-bot apply notification, no stable nomination
-- **[Phase 4]** spinics.net v5 review thread: sashiko-bot bounds-check
-  concern, Lorenzo acknowledged fix for v6
-- **[Phase 4]** OpenWrt commit dda777dd4472: "Airoha reported bug for
-  ethernet", backported to 6.12
-- **[Phase 5]** Caller trace: `airoha_qdma_rx_napi_poll()` →
-  `airoha_qdma_rx_process()` → `napi_gro_receive()`
-- **[Phase 5]** `mtk_eth_soc.c:2320`: confirmed peer driver uses
-  `skb_reserve(skb, NET_SKB_PAD + NET_IP_ALIGN)`
-- **[Phase 5]** `include/linux/skbuff.h`: `NET_SKB_PAD = max(32,
-  L1_CACHE_BYTES)`, `NET_IP_ALIGN = 2`
-- **[Phase 5]** `gro.c:100-110`: pp_recycle mismatch prevents GRO
-  merging — page_pool skb handling is sensitive
-- **[Phase 6]** Confirmed `AIROHA_RX_HEADROOM` absent from local
-  `airoha_eth.h`
-- **[Phase 6]** `git apply --check` with line-adjusted patch: **applies
-  cleanly** (exit 0)
-- **[Phase 6]** `git log --grep="headroom"` / `--grep="airoha"`: no
-  existing fix in tree
-- **[Phase 7]** Read `drivers/net/ethernet/airoha/Kconfig`:
-  CONFIG_NET_AIROHA selects PAGE_POOL
-- **[Phase 8]** Assessed impact: Airoha SoC primary Ethernet,
-  router/embedded deployments
+- [Phase 1] Parsed subject, tags, body from provided commit message.
+- [Phase 2] Diff analysis: `u8` → `size_t` in prototype and
+  implementation.
+- [Phase 3] `git describe HEAD`: v6.18.44 / 6.18.44.
+- [Phase 3] `git blame`: `u8 ie_len` from `c93b5e717ec47` (2011).
+- [Phase 3] `git show c93b5e717ec47`, `ecbc12ad6b6826`: history of
+  function.
+- [Phase 3] `git log --grep="Increase ie_len"`: no fix in tree yet.
+- [Phase 4] WebFetch/curl lore: blocked by bot protection —
+  **UNVERIFIED** mailing list discussion.
+- [Phase 4] `b4 dig`: commit not in tree — could not dig.
+- [Phase 5] `grep cfg80211_notify_new_peer_candidate`: one in-tree
+  caller (`mesh_plink.c:565`).
+- [Phase 5] Read `mesh_sta_info_alloc()`: passes `elems->total_len`
+  (`size_t`).
+- [Phase 5] Read `ieee802_11_elems`: `total_len` is `size_t`.
+- [Phase 5] Compared with `cfg80211_disconnected()` using `size_t
+  ie_len`.
+- [Phase 6] Confirmed buggy signatures at `cfg80211.h:8145`,
+  `nl80211.c:19990`.
+- [Phase 6] Verified truncation semantics for values >255.
+- [Phase 7] `git log --oneline -20 -- net/wireless/`: active subsystem.
+- [Phase 8] Assessed mesh-only, config-specific impact; medium severity.
+
+**YES**The history search finished. It didn’t find an existing fix for
+the `ie_len` truncation issue in this tree.
+
+The only directly related hit was `11197d006bcfa` (“mac80211: Suppress
+NEW_PEER_CANDIDATE event if no room”), which only filters peer-candidate
+events when a peer can’t accept links — it doesn’t address the
+`u8`/`size_t` length mismatch.
+
+That supports the earlier conclusion: the bug is still present in Linux
+6.18.44, and this small type fix is worth backporting.
 
 **YES**
 
- drivers/net/ethernet/airoha/airoha_eth.c | 14 ++++++++------
- drivers/net/ethernet/airoha/airoha_eth.h |  2 ++
- 2 files changed, 10 insertions(+), 6 deletions(-)
+ include/net/cfg80211.h | 2 +-
+ net/wireless/nl80211.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ethernet/airoha/airoha_eth.c
-index 64ab34e37c36f..e016f7521af59 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.c
-+++ b/drivers/net/ethernet/airoha/airoha_eth.c
-@@ -568,9 +568,10 @@ static int airoha_qdma_fill_rx_queue(struct airoha_queue *q)
- 		q->queued++;
- 		nframes++;
+diff --git a/include/net/cfg80211.h b/include/net/cfg80211.h
+index 1509be85139ec..5ec9023e969d4 100644
+--- a/include/net/cfg80211.h
++++ b/include/net/cfg80211.h
+@@ -8142,7 +8142,7 @@ void cfg80211_ibss_joined(struct net_device *dev, const u8 *bssid,
+  * cfg80211 then sends a notification to userspace.
+  */
+ void cfg80211_notify_new_peer_candidate(struct net_device *dev,
+-		const u8 *macaddr, const u8 *ie, u8 ie_len,
++		const u8 *macaddr, const u8 *ie, size_t ie_len,
+ 		int sig_dbm, gfp_t gfp);
  
-+		offset += AIROHA_RX_HEADROOM;
- 		e->buf = page_address(page) + offset;
- 		e->dma_addr = page_pool_get_dma_addr(page) + offset;
--		e->dma_len = SKB_WITH_OVERHEAD(q->buf_size);
-+		e->dma_len = SKB_WITH_OVERHEAD(AIROHA_RX_LEN(q->buf_size));
+ /**
+diff --git a/net/wireless/nl80211.c b/net/wireless/nl80211.c
+index 41695fb53ddff..e0b7e7172a596 100644
+--- a/net/wireless/nl80211.c
++++ b/net/wireless/nl80211.c
+@@ -19994,7 +19994,7 @@ void nl80211_send_ibss_bssid(struct cfg80211_registered_device *rdev,
+ }
  
- 		val = FIELD_PREP(QDMA_DESC_LEN_MASK, e->dma_len);
- 		WRITE_ONCE(desc->ctrl, cpu_to_le32(val));
-@@ -635,13 +636,12 @@ static int airoha_qdma_rx_process(struct airoha_queue *q, int budget)
- 		q->tail = (q->tail + 1) % q->ndesc;
- 		q->queued--;
- 
--		dma_sync_single_for_cpu(eth->dev, e->dma_addr,
--					SKB_WITH_OVERHEAD(q->buf_size), dir);
-+		dma_sync_single_for_cpu(eth->dev, e->dma_addr, e->dma_len,
-+					dir);
- 
- 		page = virt_to_head_page(e->buf);
- 		len = FIELD_GET(QDMA_DESC_LEN_MASK, desc_ctrl);
--		data_len = q->skb ? q->buf_size
--				  : SKB_WITH_OVERHEAD(q->buf_size);
-+		data_len = q->skb ? AIROHA_RX_LEN(q->buf_size) : e->dma_len;
- 		if (!len || data_len < len)
- 			goto free_frag;
- 
-@@ -651,10 +651,12 @@ static int airoha_qdma_rx_process(struct airoha_queue *q, int budget)
- 
- 		port = eth->ports[p];
- 		if (!q->skb) { /* first buffer */
--			q->skb = napi_build_skb(e->buf, q->buf_size);
-+			q->skb = napi_build_skb(e->buf - AIROHA_RX_HEADROOM,
-+						q->buf_size);
- 			if (!q->skb)
- 				goto free_frag;
- 
-+			skb_reserve(q->skb, AIROHA_RX_HEADROOM);
- 			__skb_put(q->skb, len);
- 			skb_mark_for_recycle(q->skb);
- 			q->skb->dev = port->dev;
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ethernet/airoha/airoha_eth.h
-index 57e8ddb30a9c5..216273595115d 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.h
-+++ b/drivers/net/ethernet/airoha/airoha_eth.h
-@@ -32,6 +32,8 @@
- #define AIROHA_FE_MC_MAX_VLAN_TABLE	64
- #define AIROHA_FE_MC_MAX_VLAN_PORT	16
- #define AIROHA_NUM_TX_IRQ		2
-+#define AIROHA_RX_HEADROOM		(NET_SKB_PAD + NET_IP_ALIGN)
-+#define AIROHA_RX_LEN(_n)		((_n) - AIROHA_RX_HEADROOM)
- #define HW_DSCP_NUM			2048
- #define IRQ_QUEUE_LEN(_n)		((_n) ? 1024 : 2048)
- #define TX_DSCP_NUM			1024
+ void cfg80211_notify_new_peer_candidate(struct net_device *dev, const u8 *addr,
+-					const u8 *ie, u8 ie_len,
++					const u8 *ie, size_t ie_len,
+ 					int sig_dbm, gfp_t gfp)
+ {
+ 	struct wireless_dev *wdev = dev->ieee80211_ptr;
 -- 
 2.53.0
 
