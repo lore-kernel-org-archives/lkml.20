@@ -1,625 +1,464 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010055.outbound.protection.outlook.com [52.101.85.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0D9521203
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:44:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183849; cv=fail; b=owDzeqHT0JSUMswpJPXlZ7DtAb0PMvmlnfYaJUsRS2dzaOzGqlqgjYwv6whZeO3ORtF8rVCsmLGdSMTOFsTvZvv5zC2709ETomg1709MCLCibVtNvLFIn9iKDwx1DyXuYNfO3gSdaL/2gd9TR6o3dHv4LmBBYcxpPi4npTs3Gts=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183849; c=relaxed/simple;
-	bh=w9OM1i3HyKEANyqBsRuWY56vAEydSQtAUeckbTBE9ZQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=C9k9Otuixn9/VghknwZYWdLSkuNgJuj40cIRqUeC2aXS+XCTSujZ9vEPfEEI+psF3mppgCSlqRD7vH6Epm0hJh9cecJjEZiNLWTwA0sBWKTr6RXWG8JbOq3oJdvy9baZykzdRWaSjpmBBuapWxZElmC2hIAMCLvY+Gr1jYPaRlg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=i2CO9z+c; arc=fail smtp.client-ip=52.101.85.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB683521210;
+	Mon, 31 Aug 2026 13:44:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183855; cv=none; b=BnigulsA3j5w+GoJ0Mjd6wb5EgnLJxrdk3NABh1WOh8n0Bym6vfwG5wIRZsDT6XodTEUCVYNc+4hNe2JeHa5HHYL2P+rXxTHloWo1nDeVDwx64EPBhNf8dVP75xl3UiAcRb9EDPhSBhpVwR2Edghg3okI9gp+WiErIXgvviXJc8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183855; c=relaxed/simple;
+	bh=9UVlpdY2+yBE/50frAkHYJdIgkUz+ShHyHuMH0CWi2c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AwcoBdIlBgs45z4tI6v9isFOcpUEC+x+2UFpvoztvVaWCiOV0gALF/majqvDZOXGhAgnuMxjHT55XJIeJJgnjhm7gUmLstWTa+HdFRwLLoI9bcU2TvgE4Q9RqLO/8Kz57mcptqDueps3YvovpDv4Zf3qPsfZvue3zxOm1GVn5lM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLk/2A6B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="i2CO9z+c"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EbXsv3z6i55XQn+CakSDNx6ua1FEmpS4SUdf13NaqKwnXRRFC8oW2Bgcw4zDd9iQTJFhwIrmWncNIH1/xA97Q5U8eT/5gODkc6nmFzHOnrXMMWTz+mJnTWbEiqhJmelGAPtkmEan7NvBdMcr6ANd4ghREdW5IsxUlhjtcuM+pTUhWGkrXzFv9vi+zgCz6LdHd43MlZv72GTg2V0LzBIonTOqAKp0BhFT4w4dsLO/HAkWXMG4qxKdj/A+VIzhb+yRuPfFuZpkitcPhfcwYXTCUwDSFOgi3xEwvPnvjBOci/wXKBSzxD++TkLGsAHfeFfT2xN8mt6zwXYoaSbecY0veQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e5Ve6lhVp3IxdmwuhgMYsJcM+2FGBSof52LRljTkOAc=;
- b=DWBQLnTt+NwF0ehN48mPhQ3GQ/hkH6uGa6uviSbjIDJRYvavuKHLYgrMEsl92TCImPl9m/WkzuKW+a88oc6E5natWx+hwh5BSbssaZhaQtoxSwSEvMjtGmZdjK7ZYfE0OzhTgO/mjS6aw/H8xMbiiEdyk6D1EV8PqDjnpVJIPy0RgrMJCJJMTkO3txjchUdKVLXZZCRY2YIK/z2ucjNhItbI+4Vma3kBm4L4SICkPGyrrTN7nYLAupIlkqbd0hSf9LMVuwfzj6BtZtWoAO/ulDNBmMsX18l6H5Uip2RyR1gVSiFb4uxLtNIIBaLUvrKqKCCdMJDErwN+ORld52ACAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e5Ve6lhVp3IxdmwuhgMYsJcM+2FGBSof52LRljTkOAc=;
- b=i2CO9z+cr6K8STKynq3U14kXAp/zu7TAPkI4ptSZisKzRx4xlf4ZekTKHrnfUJdwp/OoLqMfe8xmxXUxGgIqll80Q3XHBfspVwG+2Q92n2LiYPXFbA2mFCxDU+vWhWVMxJNWlAG8KQAJYTjBfM/rpw/0KnwXC4DXp6kwuyHZNnM355WqU+7ShkuXQ/237/GcCnFsufp3jngkqyIuosegjxkqnri4Q61H6tGmNGs/AHWDV56tZ8LGBe7eMgeIAyzRuJqvyAv7P57FBUreagDDVdBazwlWZ4nrPNMx9qBmC4m9PbSFPt6OnOQHCv/ElbWIoNswrlvBRqyDCjKMebgArg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 13:43:52 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 13:43:52 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>,
-	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLk/2A6B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 077E01F00A3E;
+	Mon, 31 Aug 2026 13:44:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183851;
+	bh=QXRzar77aJt/WkXV87uNtCkSjKWYNfrHbwi6KZO9GUw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oLk/2A6Bp/XVkKA1mZ5RzaHay0XmceXligCyTi//WFaY5hxDudLnAjanAMKgg7osU
+	 PTSiR80y/52SHOKoBhAAtHGiQ5TPHBsVgd/+Llz8UkdYGo+efIxE2A4WhuKkDGKaO1
+	 K1BhliPYpkFaffXZ3Ohh5Gp3/A4tZ41Xx4rbENXJK5QvX/IAtbXUu9giJtNWUD2NsH
+	 q3LdDyQodkTy9PFmU5zO99wFacjpWSKJ04vAG8FVfMOLGnX5Lpkd9vkXz248Y46Zdf
+	 66nujuGFTyxQcGyLIj/DLY32UbG7l9XpU5Epx811n77OcL7kk9ru3K5NZWEb1/yMQQ
+	 EM6Gw1aIT+pkg==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Jetha Chan <jethachan@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Vijendar.Mukunda@amd.com,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCHSET v13 sched_ext/for-7.4] sched: Make proxy execution compatible with sched_ext
-Date: Mon, 31 Aug 2026 15:42:10 +0200
-Message-ID: <20260831134338.1531664-1-arighi@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR1PEPF000077FE.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:918::452) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+Subject: [PATCH AUTOSEL 6.18-6.1] ASoC: amd: yc: Add Alienware m15 R7 AMD to DMIC quirk table
+Date: Mon, 31 Aug 2026 09:26:10 -0400
+Message-ID: <20260831133314.4125787-342-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|CH2PR12MB4198:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1756325a-ca14-48fd-68f4-08df0765e485
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|6133799003|10067099003|56012099006|18002099003|5023799004|11063799006|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	Dz8mF8v4HRvxn827IZENQUg6PUi94EwZSLoiyVojkrgz6uDbXTiwc1rRGji1PWCCOQu0PUbgS3vUXrKx2pFKtelMzYEwkioamSE7YFnysjv9/YAaCxxROTK/L+h3L0CEmLSKZRDi0rxTTZj6Lj+PG3LkWu5UO2WLcBDgcXEhDdq1velCEuby76caCkMBq59U5qOfn/7Jyz0vWbwTvow7sMHv+krQ34wykEwrdFWCjPkw37PnMua2jgYrljVF8UrDq6dZseO16IfHWEC0R3QmEJAvnJ0a1YAG4LuyMIfqbbiQb17YxdV0aWBhR7hkI6NCcS5dCIdUS38a8ZXLx7ZUpEv+jlVOhOvnFn7mMGC+fUpRG9Z/5uRageUZLUToO3iIJQ06EfJbeX42DAtu60VwbsFl6GaQO/0d7dMfwoFemQ7ho0FW/xedpDm1Y0ND1braEpqKmGUjFSoKy0AJGy7wirp84qMVWSz5DXwbXsZ+ewXGOrIWEWtWVUE1VOGAlHsqMNsYNWOILoSKgjuXiGFiNH2wQKX4mfz3P0gRtl4pEhdBtwX5mAjtepG++s8bhLXP8mt4NDz9EEO2xU8tCPFMWBDT0p4bdfi9RxfHOX49lh7xF0hzgPqchLGahZrJluCXuPacIQPk6Y2i+6pT9wuUWUZ5YIFMCn5xCzGUw9o+b34=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(6133799003)(10067099003)(56012099006)(18002099003)(5023799004)(11063799006)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?X+j/5nwlaDDZSh+iPT8upar0/zXIRybCic2LBDbcHTmMnoQ/+8lniCORh3W9?=
- =?us-ascii?Q?eME4h2j2CZxP3FkRC/43BpQuW4riL/zOrQQ530EOklIUK2XB9StYbocapJKH?=
- =?us-ascii?Q?+ZjfxEcokFqW/gb3dpaq0sMglPtSicd6fUZmM3B/93kKOgncWLcB4/N6lX9u?=
- =?us-ascii?Q?T6pSnNg0Wh9tpruVAC+dQKn1vCU6ckYNyxQpo26YW+WHQR0AfX6jX7hUt5Dd?=
- =?us-ascii?Q?K3dOY0JoWYWfLZtg8UN6SJMJZQZgMNsmJXwGMuRe4hXKvL4bVnYp59YktYqp?=
- =?us-ascii?Q?IW30NUY1lGS8gmFJ8zbfws9iQUWK2w3FSme/PFUWh2YTlvBp/mmcYAPNyhjS?=
- =?us-ascii?Q?iCIf28Ln7ZgjzKfy/Qfe22QtNxyCPhY2tI+IAVrusYKHiVPZHQlthaTicSPi?=
- =?us-ascii?Q?r2rUlW6/Ko6oFJlyPKi9ogiW7wyvCDhZKa8OFxLXYd4qHpt9d4QknuRscHMI?=
- =?us-ascii?Q?v/16KVbkUs0kzyapI+Csj/7ktFbxpCr1irqncyk9nm/MoR/q26GVyNQHeVnz?=
- =?us-ascii?Q?YVeSjVk4BeWyu6ZSIF5qmwx0u8sqN9mfY/Ck7o1LNe4SuLoU3RAD9xtkMZQU?=
- =?us-ascii?Q?r4Q/ba4U6LqV77TFoAMXDTGdql25iiBx4DtQrKwwGx1gc3bq2OacP1ILKNXH?=
- =?us-ascii?Q?gU70/V6uoBtTuXy5W14sTOq0glHg8UV4y9DgSanilSrb68Ys2BiOkcDpWXBP?=
- =?us-ascii?Q?UHXG57YdwDYVfej6akqZjFlL250X1yRmM7vcm7WyAGnL/GjDfHMBMnXabj5l?=
- =?us-ascii?Q?0XJjs91MNbpE4VBnPbZUo7yuJk4l6mV5sXNzUw/03Ca8SLHlv7EXf/97NuGV?=
- =?us-ascii?Q?BD4JO/zJHswLTBZgK/e2nJtW/+Huu4F7u5ZYGasZiNEoit1OdROi8dIf4oYK?=
- =?us-ascii?Q?RYAGpKhVJHQT+SstinKNgrCnrL1ivhTr8DYFzN/iwr9fpMg2TKfqAhf5UKLZ?=
- =?us-ascii?Q?wUUTN6sIn0Pw9bc2/HiVLyimp/KYIUiCWXQAbyJ+xdwq0LoVJn4bXtPdLkVp?=
- =?us-ascii?Q?AkUtfvBamY9gF96cIIJMTLB4WYFw6+BYGY7zm+yFcKpnLo5NRoGlSsjjhNuH?=
- =?us-ascii?Q?Ogk8KW8poCNj5wmClHZm+yPLWLiG/dlRat4bCOzK4HI2LARUT0qUXMo+0b+Z?=
- =?us-ascii?Q?Y2RT2e/ORG1HN6CEFBk3CMTSVZOyni7cz3WLx5Fuc6EF0Zv+dzw9/k9G60gO?=
- =?us-ascii?Q?HrioWDBVVn5Ez+IPKBSYJ1Nt+YyoJUyZuZ+gqT0FVyOAbSIXaCInIJsgj5m5?=
- =?us-ascii?Q?eIpC35xN0FZEYJotINpHNIpNylnvbudld9gwm3HYsBpUk5jUailWhizVr1Kh?=
- =?us-ascii?Q?EiQ+pJe5UE6Vo6i0dywwtoezcaJQuTcL+1OQZ5nBttxTV6lZI+k+B8O+fckA?=
- =?us-ascii?Q?Ntxp4Mu9FGx8UN6iHr02IBnVqRBiq/xD8rrnJc2VwlO23NC7aUE0P3S6cHHx?=
- =?us-ascii?Q?ySyDRlnBNAfMxEKepZd+5jYBarggPbRO2XxXVTMXk8zUiXf0q2A2eybiNNFa?=
- =?us-ascii?Q?xOfazyHG1QaWEMQqRazCAYXdbxq+KcgFuAUrdfQLF8IksxueSNbZTYg4mxq+?=
- =?us-ascii?Q?N1ZhWhzkRPBRB8bcE6yPyDOGqfcd9f4Vr0wh4rNtNXEzKOVEg3Zp7yhrDsgm?=
- =?us-ascii?Q?Txecqn6mOTQw+MC5xSxu0B99tl7oOiy8vsrdJxi/DZZ/+Vor1wN+NbdYwIsn?=
- =?us-ascii?Q?PAq4i0ZFQqGEiKS9zmbAv9tTh/bcbFy9M1dutN8j55hDWGfpzmcAeLfCCEFo?=
- =?us-ascii?Q?MRYpsC7yOQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1756325a-ca14-48fd-68f4-08df0765e485
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:43:52.3412
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4cj3GNUTOVqLRsE9mocB/l1NgWHGrzhxlvM1OGnoZsX8VB3C2zLpPpP7xgXn590ijPFyaNPHBW/6xYlULliuaQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4198
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This series enables proxy execution with sched_ext and is based on early work by
-John Stultz [1].
+From: Jetha Chan <jethachan@gmail.com>
 
-Background
-==========
+[ Upstream commit e782d687d2f5bf8b8113dc48ba22cca4b472c252 ]
 
-Proxy execution (proxy-exec) lets a waiting task ("donor") donate its scheduling
-context to a mutex owner, so the owner can run while the donor stays eligible on
-the runqueue.
+The Alienware m15 R7 AMD exposes an ACP6x DMIC path, but its DMI
+product name is not present in the Yellow Carp ACP quirk table. As a
+result, the ACP machine driver does not enable the DMIC card on this
+system.
 
-Currently, proxy-exec and sched_ext are mutually exclusive at build time: we
-can't enable CONFIG_SCHED_PROXY_EXEC=y and CONFIG_SCHED_CLASS_EXT=y in the same
-kernel.
+Add the DMI product name for this machine. With this quirk applied, the
+kernel reports:
 
-This restriction can be problematic for Linux distributions and for anyone who
-wants to ship one kernel and choose features at runtime.
+  acp_yc_mach acp_yc_mach.0: Enabling ACP DMIC support via DMI
 
-Why are they mutually exclusive?
-================================
+and ALSA exposes the ACP DMIC capture device:
 
-sched_ext schedulers drive dispatch through their own interfaces. A proxy-exec
-handoff can run a task that the BPF scheduler never dispatched through that
-path. sched_ext callbacks then observe a "current" task that does not match what
-the BPF side considers running, so kfuncs and helper state can see an
-inconsistent view of the executing task.
+  card 3: acp6x
+  device 0: DMIC capture dmic-hifi-0
 
-sched_ext also tracks runnable work through Dispatch Queues (DSQs) and BPF
-chosen dispatch rules, while the core scheduler still maintains classic per-CPU
-runqueues and pick paths. A proxy handoff can therefore switch the CPU to a task
-that the BPF scheduler never inserted or ordered through its DSQ interface.
+Tested on an Alienware m15 R7 AMD with product SKU 0B59.
 
-DSQ state, vtime, and "who is running" bookkeeping inside the BPF program can
-then disagree with what the core actually executes, so helpers and kfuncs that
-assume their dispatched task is current may observe stale or inconsistent state.
+Link: https://jethachan.net/dev/2026/03/21/fixing-internal-microphone-alienware-linux.html
+Assisted-by: OpenAI-Codex:gpt-5.5
+Signed-off-by: Jetha Chan <jethachan@gmail.com>
+Link: https://patch.msgid.link/20260630003328.15675-1-jethachan@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
 
-Design: supporting proxy-exec with sched_ext
-============================================
+LLM Generated explanations, may be completely bogus:
 
-Provide proxy-exec in sched_ext as optional per-scheduler capability: a BPF
-scheduler can set the ops flag SCX_OPS_ENQ_BLOCKED to keep mutex-blocked donors
-runnable and receive them through ops.enqueue() with SCX_ENQ_BLOCKED set.
+# Stable Backport Analysis: ASoC: amd: yc: Add Alienware m15 R7 AMD to
+DMIC quirk table
 
-This flag requires an ops.enqueue() callback and gives BPF control over whether,
-where, and in what order to dispatch each donor. The core then walks the
-mutex-owner chain and, when needed, migrates the donor's scheduling context to
-the owner's rq before executing the owner.
+**Local tree:** `v6.18.44-1-g2736c32da98b9` (Makefile: 6.18.44), checked
+out from `stable/linux-6.18.y`.
 
-Without the SCX_OPS_ENQ_BLOCKED flag, mutex waiters block normally and do not
-participate in proxy-exec while owned by that scheduler.
+---
 
-Once BPF dispatches a donor, proxy execution may move its scheduling context to
-the mutex owner's rq. This move is distinct from BPF placement: wake_cpu
-continues to identify the donor's pre-proxy CPU, while task_cpu() identifies the
-proxy CPU. When the donor wakes, the normal wakeup path uses wake_cpu as
-prev_cpu when returning the task to the BPF scheduler, which can then choose its
-next placement normally.
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-The donor-to-owner handoff is modeled like a "function call" from the
-scheduler's perspective. The donor remains the running scheduling entity
-selected by BPF: its scheduling context, runtime and slice are consumed while
-the core temporarily invokes the mutex owner's code to make the critical section
-progress. It is not a scheduler-visible switch to the owner.
+### Step 1.1: Subject line
+**Record:** `[ASoC: amd: yc] [add] Add Alienware m15 R7 AMD to DMIC
+quirk table`
 
-Accordingly, the donor remains the scheduling context presented to sched_ext,
-while the mutex owner is treated solely as the execution context selected
-internally by the core scheduler. Scheduling state is accounted against
-rq->donor where appropriate, while rq->curr identifies the execution context.
-The internal owner substitution does not generate synthetic sched_ext callbacks
-for a task that BPF did not dispatch.
+### Step 1.2: Tags
+**Record:**
+- **Link:** https://jethachan.net/dev/2026/03/21/fixing-internal-
+  microphone-alienware-linux.html (author blog with reproduction
+  details)
+- **Link:**
+  https://patch.msgid.link/20260630003328.15675-1-jethachan@gmail.com
+  (mailing list submission)
+- **Assisted-by:** OpenAI-Codex:gpt-5.5
+- **Signed-off-by:** Jetha Chan \<jethachan@gmail.com\>
+- **Signed-off-by:** Mark Brown \<broonie@kernel.org\> (ASoC maintainer)
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
+  stable tags
+- Notable: maintainer Signed-off-by; hardware-tested per commit body
 
-Scheduler-facing current-task kfuncs follow the same rule:
-scx_bpf_task_running(), scx_bpf_cpu_curr() and scx_bpf_cid_curr() report the
-donor selected by the scheduler rather than the mutex owner whose code happens
-to execute on its behalf.
+### Step 1.3: Body analysis
+**Record:**
+- **Bug:** Alienware m15 R7 AMD has ACP6x DMIC hardware, but DMI product
+  name is missing from `yc_acp_quirk_table`, so the ACP machine driver
+  does not enable DMIC.
+- **Symptom:** `acp_yc_mach.0` stays unbound; no ACP DMIC ALSA capture
+  device; internal microphone unusable.
+- **Root cause:** BIOS does not expose working `AcpDmicConnected` ACPI
+  property (same pattern as m17 R5 AMD quirk from 2022).
+- **Fix approach:** Add DMI vendor/product match entry pointing at
+  `acp6x_card`.
+- **Version info:** Tested on SKU 0B59; author used kernel 6.19.8 on
+  Arch-based distro.
 
-The sched_ext callback bookkeeping is adjusted accordingly. A blocked donor
-enters a tracked ops.running()/ops.stopping() session only after proxy
-resolution succeeds, and ops.stopping() is only called for tasks that entered
-such a session. This state is independent of physical rq->curr execution, which
-may refer to the mutex owner instead of the donor.
+### Step 1.4: Hidden bug fix?
+**Record:** Not disguised — this is an explicit hardware-enablement
+quirk fix. Without the entry, probe returns `-ENODEV` and DMIC never
+registers.
 
-NOHZ CFS bandwidth checks also follow rq->donor rather than rq->curr and use the
-number of queued FAIR tasks when deciding whether the tick can stop. This keeps
-bandwidth enforcement active for a constrained FAIR donor even when its proxy
-owner remains runnable in another scheduling class.
+---
 
-Scheduler ownership changes need special handling because a donor may already be
-blocked when a root scheduler is enabled, when a task moves between root and
-sub-schedulers, or when a class transition moves it into or out of EXT. Start
-every scheduling-class or BPF-scheduler ownership change from clean task state:
-fully deactivate a retained donor before the transition and let the incoming
-scheduler apply its own admission policy the next time the task blocks. This
-conservative rule leaves retaining proxy state across compatible RT/DL PI
-transitions as a future improvement.
+## PHASE 2: DIFF ANALYSIS
 
-Remote DSQ transfers recheck proxy-sensitive state after locking the source
-runqueue. If a transfer races with proxy execution, the task is parked on the
-source runqueue's reject DSQ and returned to its owning BPF scheduler after
-proxy resolution settles. Ordinary migration-disabled tasks still reach the
-normal validation path, where an illegal BPF-directed migration is reported. If
-an affinity migration is pending, the task remains parked until the affinity
-machinery completes the operation. This preserves scheduler placement and
-sub-scheduler capability rules without migrating an active execution context.
+### Step 2.1: Inventory
+**Record:**
+- **Files:** `sound/soc/amd/yc/acp6x-mach.c` (+7 lines, 0 removed)
+- **Functions modified:** none directly; `yc_acp_quirk_table[]` data
+  extended
+- **Scope:** Single-file, surgical DMI table addition
 
-scx_qmap has been modified with a -X option to enable queueing mutex-blocked
-tasks for proxy-exec. Blocked donors receive a fresh slice and are inserted at
-the head of an eligible local DSQ selected from the task's allowed cids and
-qmap's self cids, preferring the current cid. They request immediate preemption,
-and time-shared targets also carry SCX_ENQ_IMMED. This is an intentionally
-aggressive policy for making proxy-exec easy to observe.
+### Step 2.2: Code flow change
+**Record:**
+- **Before:** `dmi_first_match(yc_acp_quirk_table)` on Alienware m15 R7
+  AMD returns NULL → `platform_get_drvdata()` NULL → probe fails with
+  `-ENODEV`.
+- **After:** DMI match succeeds → `platform_set_drvdata(pdev,
+  &acp6x_card)` → DMIC card registers, log shows `"Enabling ACP DMIC
+  support via DMI"`.
+- **Path affected:** Platform driver probe during boot on matching
+  hardware only.
 
-A new kselftest (enq_blocked) is also introduced to validate proxy-exec with
-sched_ext. The test creates a priority inversion with a low-priority owner (nice
-+19), a high-priority donor (nice -20) and one nice 0 contender per available
-CPU. It exercises a same-CPU topology and a cross-CPU topology, where the donor
-and owner run on different CPUs. Each configuration runs with
-SCX_OPS_ENQ_BLOCKED first disabled and then enabled, counts blocked-donor
-enqueues by CPU and reports mutex hold/wait-time deltas. Access to the mutex is
-provided by a loadable kernel module built via TEST_GEN_MODS_DIR, with the test
-responsible for its lifecycle.
+### Step 2.3: Bug mechanism
+**Record:** **[Hardware workaround / DMI quirk]** — Missing DMI override
+for a platform whose ACPI tables omit `AcpDmicConnected`. Same mechanism
+as existing Alienware m17 R5 AMD entry (`d40b6529c6269`).
 
-Example kselftest run:
+### Step 2.4: Fix quality
+**Record:**
+- Obviously correct: identical structure to 70+ existing entries in the
+  same table.
+- Minimal, no logic changes.
+- **Regression risk:** Very low — only matches exact DMI vendor
+  `"Alienware"` + product `"Alienware m15 R7 AMD"`.
+- **Backport note:** Mainline diff context includes MSI Vector/Raider
+  entries not present in 6.18.44; insertion should go immediately before
+  the existing m17 entry at lines 503–509. Trivial adjustment, same
+  7-line hunk content.
 
-===== START =====
-TEST: enq_blocked
-DESCRIPTION: Verify proxy donor admission under CPU-wide contention
-OUTPUT:
+---
 
-[topology=same-cpu SCX_OPS_ENQ_BLOCKED=disabled]
-  proxy_exec=enabled
-  donor_cpu=0
-  owner_cpu=0
-  nr_contenders=16
-  measured_trials=10
-  owner_nice=19
-  donor_nice=-20
-  contender_nice=0
-  mutex_hold_avg_ns=263587544 (263.587 ms, samples=10)
-  mutex_wait_avg_ns=263597934 (263.597 ms, samples=10)
-  nr_blocked_enqueues=0
-  nr_blocked_enqueues_donor_cpu=0
-  nr_blocked_enqueues_owner_cpu=0
-  nr_blocked_enqueues_other_cpu=0
-  nr_blocked_wakeups=0
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-[topology=same-cpu SCX_OPS_ENQ_BLOCKED=enabled]
-  proxy_exec=enabled
-  donor_cpu=0
-  owner_cpu=0
-  nr_contenders=16
-  measured_trials=10
-  owner_nice=19
-  donor_nice=-20
-  contender_nice=0
-  mutex_hold_avg_ns=251789178 (251.789 ms, samples=10)
-  mutex_wait_avg_ns=209808599 (209.808 ms, samples=10)
-  nr_blocked_enqueues=50
-  nr_blocked_enqueues_donor_cpu=50
-  nr_blocked_enqueues_owner_cpu=0
-  nr_blocked_enqueues_other_cpu=0
-  nr_blocked_wakeups=0
+### Step 3.1: Blame
+**Record:**
+- Alienware m17 R5 AMD quirk introduced by `d40b6529c6269` (Brent
+  Mendelsohn, 2022-10-24).
+- YC machine driver introduced by `fa991481b8b22` (2021-10-18).
+- Both are ancestors of HEAD in this tree.
+- **m15 R7 AMD entry:** NOT present (`git log -S "Alienware m15 R7 AMD"
+  -- sound/soc/amd/yc/acp6x-mach.c` returns empty).
 
-[topology=same-cpu delta: enabled - disabled]
-  mutex_hold_delta_ns=-11798366 (-4.48%)
-  mutex_wait_delta_ns=-53789335 (-20.41%)
+### Step 3.2: Fixes: tag
+**Record:** N/A — no Fixes: tag. Bug is omission from quirk table, not a
+regression from a specific commit.
 
-[topology=cross-cpu SCX_OPS_ENQ_BLOCKED=disabled]
-  proxy_exec=enabled
-  donor_cpu=0
-  owner_cpu=1
-  nr_contenders=16
-  measured_trials=10
-  owner_nice=19
-  donor_nice=-20
-  contender_nice=0
-  mutex_hold_avg_ns=246794454 (246.794 ms, samples=10)
-  mutex_wait_avg_ns=247298497 (247.298 ms, samples=10)
-  nr_blocked_enqueues=0
-  nr_blocked_enqueues_donor_cpu=0
-  nr_blocked_enqueues_owner_cpu=0
-  nr_blocked_enqueues_other_cpu=0
-  nr_blocked_wakeups=0
+### Step 3.3: Related file history
+**Record:** 73 quirk-related commits in `sound/soc/amd/yc/`. Recent
+stable examples: HP OMEN (`65aabf8896687`), MSI Bravo 17 D7VF
+(`ba06528ad5a31`), ASUS ExpertBook entries. **20** DMI quirk commits
+already in `stable/linux-6.18.y` for this subsystem. Standalone one-
+patch fix.
 
-[topology=cross-cpu SCX_OPS_ENQ_BLOCKED=enabled]
-  proxy_exec=enabled
-  donor_cpu=0
-  owner_cpu=1
-  nr_contenders=16
-  measured_trials=10
-  owner_nice=19
-  donor_nice=-20
-  contender_nice=0
-  mutex_hold_avg_ns=215486809 (215.486 ms, samples=10)
-  mutex_wait_avg_ns=215498090 (215.498 ms, samples=10)
-  nr_blocked_enqueues=80
-  nr_blocked_enqueues_donor_cpu=20
-  nr_blocked_enqueues_owner_cpu=60
-  nr_blocked_enqueues_other_cpu=0
-  nr_blocked_wakeups=0
+### Step 3.4: Author context
+**Record:** Jetha Chan is not a regular ASoC contributor (only unrelated
+Alienware platform/x86 commit `246f9bb62016c` in tree). Patch merged by
+Mark Brown. Precedent: community hardware reports routinely land as DMI
+quirks in this file.
 
-[topology=cross-cpu delta: enabled - disabled]
-  mutex_hold_delta_ns=-31307645 (-12.69%)
-  mutex_wait_delta_ns=-31800407 (-12.86%)
-ok 1 enq_blocked #
-=====  END  =====
+### Step 3.5: Dependencies
+**Record:** No dependencies. Requires only `SND_SOC_AMD_YC_MACH` driver
+and `yc_acp_quirk_table` — both present since kernel ~5.15+. Applies
+standalone.
 
+---
 
-=============================
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-RESULTS:
+### Step 4.1: Original discussion
+**Record:**
+- `b4 dig` with message-id failed (commit not in local repo; lore
+  blocked by Anubis bot protection).
+- Author blog post fetched successfully — detailed reproduction
+  confirming DMI mismatch and successful module-level test.
 
-PASSED:  1
-SKIPPED: 0
-FAILED:  0
+### Step 4.2: Reviewers
+**Record:** Mark Brown Signed-off-by confirms maintainer acceptance.
+Could not verify CC list via b4 dig -w (tool failure / commit not
+indexed locally).
 
-References
-==========
+### Step 4.3: Bug report
+**Record:** Blog documents: `acp_yc_mach.0` unbound, only HDA cards
+visible, DMI product `"Alienware m15 R7 AMD"` vs table having only m17.
+Severity from user perspective: **complete internal mic failure**. m17
+R5 had bugzilla.kernel.org #216590 for same class of issue.
 
-[1] https://lore.kernel.org/all/20251206001451.1418225-1-jstultz@google.com
+### Step 4.4: Related patches
+**Record:** Standalone. Related sibling: `d40b6529c6269` (m17 R5 AMD,
+same table, same symptom class).
 
-Git tree: git://git.kernel.org/pub/scm/linux/kernel/git/arighi/linux.git scx-proxy-exec
+### Step 4.5: Stable list history
+**Record:** Could not search lore stable archive (bot protection).
+However, 20 prior DMI quirk commits for this exact driver are already in
+`stable/linux-6.18.y`, establishing clear precedent.
 
-Changes in v13:
- - Keep re-enqueue reason lifetime out of the generic DSQ unlink primitive;
-   preserve it through ops.enqueue() and clear it before resolving the new
-   placement (Tejun Heo)
- - Immediately drain proxy-rejected tasks and request a later retry only when
-   the task is still running or donating, using SCX_RQ_PROXY_RETRY to track
-   the pending retry (Tejun Heo)
- - Restructure proxy reject handling, rename the helpers to describe their
-   roles and document why the locked DSQ move deliberately diagnoses ordinary
-   migration-disabled tasks instead of treating them as proxy races (Tejun Heo)
- - Introduce WF_ON_RQ to distinguish already-runnable wakeups from full
-   activations, replacing SCX_TASK_ENQ_WAKEUP tracking, and gate the sched_ext
-   reschedule path on proxy execution (Tejun Heo)
- - Keep the conservative reset across scheduling-class transitions, retaining
-   proxy state across compatible RT/DL PI transitions remains future work
- - Dispatch scx_qmap blocked donors to an eligible self cid, preferring the
-   current cid, carry SCX_ENQ_IMMED for time-shared targets and count reenqueued
-   shared-DSQ dispatches in nr_enq_blocked
- - Link to v12: https://lore.kernel.org/all/20260816173732.17162-1-arighi@nvidia.com/
+---
 
-Changes in v12:
- - Preserve a fresh re-enqueue reason when ops.enqueue() synchronously rejects
-   a task again and clear the consumed reason only after the task leaves the
-   reject DSQ (sashiko)
- - Immediately process tasks rejected after becoming migration-disabled
-   during an rq-lock handoff, leaving only active proxy contexts parked
-   (sashiko)
- - Use the donor scheduling context for protected-slice admission, rescue
-   preemption, slice save/restore and bypass handling, and charge rescue
-   runtime to the rescued task's scheduler (sashiko)
- - Refresh the NOHZ tick dependency after rq->donor changes in __schedule(),
-   preventing a stale constrained FAIR donor from keeping the tick enabled for
-   an incoming RT task (sashiko)
- - Clarify that ops.running()/ops.stopping() track the donor's scheduling
-   context including blocked donors after successful proxy resolution
-   (sashiko)
- - Restore the change that leaves mutex proxy-lock scopes before calling
-   proxy_resched_idle() (required to avoid scheduling-class callbacks under the
-   extra raw spinlocks)
- - Dequeue waking proxy donors before replacing rq->donor references avoiding
-   callbacks under blocked_lock and transient donor re-enqueueing
- - Harden scx_qmap blocked-donor fast paths against missing eligible self cids
- - Move SCX_TASK_ENQ_WAKEUP to bit 16, leaving room for task-state and
-   re-enqueue-reason expansion
- - Link to v11: https://lore.kernel.org/all/20260810151523.86994-1-arighi@nvidia.com/
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-Changes in v11:
- - End retained proxy execution before every scheduling-class or BPF-scheduler
-   ownership change, passing the incoming class to sched_change_begin() and
-   removing the prepare_switch() class callback (Tejun Heo)
- - Document the conservative class-transition rule and leave retaining proxy
-   state across compatible RT/DL PI transitions for future work (Tejun Heo)
- - Split reject-DSQ code movement from its generalization and carry the
-   re-enqueue reason directly in p->scx.flags (Tejun Heo)
- - Use one SCX_TASK_REENQ_PROXY reason for all proxy-raced remote transfers,
-   clarify why proxy migration differs from BPF-directed migration and keep
-   tasks parked while affinity migration is pending (Tejun Heo)
- - Factor local-DSQ diversion cleanup into a shared helper, clear HEAD, IMMED,
-   PREEMPT and carried-slice state for proxy rejection (Tejun Heo)
- - Explain the scx_qmap SCX_OPS_ALWAYS_ENQ_IMMED re-enqueue fallback (Tejun Heo)
- - Rename the blocked-donor command-line option to -X, since -B is now taken for
-   the rescue bandwidth setting
- - Drop the SCHED_FLAG_KEEP_PARAMS preparatory fix (this is addressed separately
-   by https://lore.kernel.org/all/20260730135858.2460751-1-arighi@nvidia.com)
- - Link to v10: https://lore.kernel.org/all/20260728154425.1549660-1-arighi@nvidia.com/
+### Step 5.1: Key functions
+**Record:** `acp6x_probe()` uses `yc_acp_quirk_table[]`; table data
+extended only.
 
-Changes in v10:
- - Check constrained FAIR proxy donors before the RT fast paths in
-   sched_can_stop_tick(), so a throttled RT owner cannot bypass bandwidth
-   enforcement (sashiko)
- - Add a preparatory fix that sets DEQUEUE_CLASS only when
-   SCHED_FLAG_KEEP_PARAMS permits the scheduling class to change, preventing
-   class-transition callbacks from running without an actual transition
-   (sashiko)
- - Update try_to_block_task() comment to describe the sched_ext blocked-donor
-   admission check (sashiko)
- - Link to v9: https://lore.kernel.org/all/20260725160513.57477-1-arighi@nvidia.com/
+### Step 5.2: Callers
+**Record:** `acp6x_probe` registered as `.probe` in `acp6x_mach_driver`,
+invoked via `module_platform_driver()` at boot when
+`CONFIG_SND_SOC_AMD_YC_MACH` is enabled and ACPI platform device exists.
 
-Changes in v9:
- - Add an incoming-class prepare_switch() callback and use it to block retained
-   donors before transitions into sched_ext (Tejun Heo)
- - Generalize the per-rq reject DSQ and use it for proxy-raced remote transfers
-   instead of bouncing tasks to a global DSQ (Tejun Heo)
- - Restrict migration-disabled warning exception to blocked donors whose
-   scheduling context was actually proxy-migrated (sashiko)
- - Keep ops.tick() and other donor accounting inside a tracked
-   ops.running()/ops.stopping() session (sashiko)
- - Prevent BPF-directed migration of an active proxy donor and use the donor as
-   the current scheduling context during restore (sashiko)
- - Update sched_fair_update_stop_tick() to use the number of queued FAIR tasks
-   (sashiko)
- - Fold the temporary local-DSQ donor placement into the final BPF-controlled
-   admission change
- - Link to v8: https://lore.kernel.org/all/20260721063242.552774-1-arighi@nvidia.com/
+### Step 5.3: Callees
+**Record:** `dmi_first_match()`, `platform_set_drvdata()`,
+`devm_snd_soc_register_card()`.
 
-Changes in v8:
- - Rework remote-DSQ migration check so the locked re-check handles only
-   proxy-exec state changes (Tejun Heo)
- - Use the current-donor helper when preventing migration of an active donor
-   (sashiko)
- - Handle blocked-donor reactivation into scx schedulers without
-   SCX_OPS_ENQ_BLOCKED (John Stultz)
- - Document sched_ext callback behavior under proxy execution (sashiko)
- - Avoid redispatching a rejected blocked donor to the same local DSQ in
-   scx_qmap (sashiko)
- - Add a preparatory fix to avoid false migration warnings when proxy-exec moves
-   a migration-disabled donor
- - Skip the enq_blocked kselftest when proxy execution is unavailable
- - Link to v7: https://lore.kernel.org/all/20260716132229.61603-1-arighi@nvidia.com/
+### Step 5.4: Reachability
+**Record:** Triggered on every boot for Alienware m15 R7 AMD with YC ACP
+hardware and module built-in or loaded. Not userspace-triggerable, but
+affects all owners of this laptop model at boot.
 
-Changes in v7:
- - Move the remote CPU check out of the lockless remote-DSQ scan and perform it
-   only after locking the source rq, retain the locked migration recheck
-   immediately before moving the task (sashiko)
- - Complete the scheduler-context conversion from rq->curr to rq->donor for
-   capability revocation and preemption checks, make scx_bpf_task_running(),
-   scx_bpf_cpu_curr() and scx_bpf_cid_curr() expose the donor selected by the
-   scheduler (sashiko)
- - Handle SCX_ENQ_REENQ before scx_qmap's blocked-donor fast path to avoid an
-   infinite reject/re-enqueue loop (sashiko)
- - Add scx_qmap stat for SCX_ENQ_BLOCKED dispatches
- - Link to v6: https://lore.kernel.org/all/20260715205622.276220-1-arighi@nvidia.com/
+### Step 5.5: Similar patterns
+**Record:** Entire `yc_acp_quirk_table[]` is a catalog of identical per-
+laptop DMI overrides for broken/missing ACPI DMIC detection. Alienware
+m17 R5 AMD entry at lines 503–509 is the direct sibling.
 
-Changes in v6:
- - Add a scheduler-core fix to make NOHZ CFS bandwidth checks follow the proxy
-   donor instead of the physical execution context (sashiko)
- - Block retained donors when entering sched_ext through PI de-boosting or
-   global scheduler activation (sashiko)
- - Distinguish ordinary wakeup activations from retained-donor admissions so
-   SCX_ENQ_BLOCKED is not reported for normal wakeups; extend the selftest to
-   detect this regression (sashiko)
- - Validate unexpected-CPU blocked-donor enqueues in both same-CPU and
-   cross-CPU test topologies (sashiko)
- - Link to v5: https://lore.kernel.org/all/20260713162112.26785-1-arighi@nvidia.com/
+---
 
-Changes in v5:
- - Split retained-donor deactivation and sched_ext's default rejection into
-   preparatory patches so the scheduler-core changes can be routed separately
- - Drop the proxy destination query kfuncs and the preparatory mutex lock-scope
-   change (John Stultz)
- - Use p->is_blocked instead of task_is_blocked() to fix a WARN triggered during
-   scx_pair testing (John Stultz)
- - Rename SCX_TASK_IS_RUNNING to SCX_TASK_RUN_TRACKED and document that it
-   tracks an ops.running()/stopping() session rather than physical rq->curr
-   execution
- - Keep a proxy-migrated blocked donor on the owner's rq until wakeup instead of
-   allowing BPF-directed migration to pull it back to wake_cpu and cause
-   repeated donor migration
- - Extend kselftest to cover same-CPU and cross-CPU proxy-exec switches
- - Make scx_qmap insert blocked donors at the head of their current cid's local
-   DSQ and request immediate preemption
- - Link to v4: https://lore.kernel.org/all/20260710083913.30573-1-arighi@nvidia.com/
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-Changes in v4:
- - Harden scx_bpf_task_proxy_cpu() locking and blocked-state validation, return
-   -ENOENT for unrunnable owners and drop unnecessary donor-affinity checks
-   (K Prateek Nayak, sashiko)
- - Reschedule remote CPUs after donor deactivation, handle sched_setscheduler()
-   admission and assert scheduler-change locking (sashiko)
- - Avoid a potential KCSAN data-race report in the lockless blocked-donor
-   migration check by using rcu_access_pointer() for rq->donor (sashiko)
- - Fix tick dependency updates for incoming EXT contexts and keep the tick
-   enabled for blocked donors (sashiko)
- - Dump EXT donors in scx_dump_state() (sashiko)
- - Reordered the preparatory sched_ext changes so real running-state tracking
-   is established before donor-based accounting, and split the proxy
-   destination query kfuncs into a separate patch
- - Add compatibility wrappers for the proxy CPU/cid kfuncs and document their
-   results as scheduling hints
- - Link to v3: https://lore.kernel.org/all/20260706070410.282826-1-arighi@nvidia.com/
+### Step 6.1: Buggy code exists?
+**Record:** **YES.** File `sound/soc/amd/yc/acp6x-mach.c` exists. Quirk
+table and probe logic present. m17 R5 AMD quirk present; **m15 R7 AMD
+missing** — bug is live in 6.18.44.
 
-Changes in v3:
- - Dropped the core restrictions on proxy-migrating migration-disabled and
-   single-CPU donors: proxy execution moves the scheduling context, not the
-   task's execution context. (Peter Zijlstra, K Prateek Nayak)
- - Dropped the sched_ext-specific put_prev_task()/set_next_task() exception and
-   fixed ops.running()/ops.stopping() pairing inside sched_ext instead; track a
-   real running transition even when either callback is absent. (Peter Zijlstra)
- - Dropped the kf_tasks[] nesting and nested ops.runnable() patches from v2;
-   extensive proxy-exec testing did not reproduce task-op re-entry, so retain
-   the existing non-nesting invariant.
- - Replaced scx_bpf_task_is_blocked() with SCX_ENQ_BLOCKED in ops.enqueue()
-   flags, identifying blocked-donor admission directly at enqueue time.
- - Expanded the curr/donor description to cover mixed scheduling classes and
-   fixed local preemption to expire rq->donor's slice. (Aiqun Maria Yu)
- - Allow inactive blocked donors to be placed on a remote local DSQ while
-   preventing normal migration of an active rq donor. (Aiqun Maria Yu)
- - Deactivate retained donors when ownership changes to a root or sub-scheduler
-   without SCX_OPS_ENQ_BLOCKED, and extend the selftest to cover attaching a
-   scheduler after the donor blocks. (K Prateek Nayak)
- - Harden remote DSQ consumption by rejecting active tasks and rechecking
-   migration eligibility after locking the source rq. Fall back to the global
-   DSQ without treating an eligibility change during the lock handoff as a BPF
-   scheduler error.
- - scx_qmap has a command line option (-B) to enable blocked-donor queueing
- - Link to v2: https://lore.kernel.org/all/20260702171909.1994478-1-arighi@nvidia.com/
+### Step 6.2: Backport complications
+**Record:** **Minor context adjustment.** Mainline patch context
+references MSI Vector/Raider entries absent from 6.18.44; insert before
+existing Alienware m17 block. No structural conflicts.
 
-Changes in v2:
- - Rebased onto sched_ext/for-7.3 and adapted the series to the split
-   sched_ext implementation and cid-form scheduler interfaces.
- - Replaced the global sched_proxy_exec_scx boot-time opt-in with the
-   per-scheduler SCX_OPS_ENQ_BLOCKED capability, allowing BPF to control donor
-   admission and ordering through ops.enqueue().
- - Added scx_bpf_task_is_blocked(), scx_bpf_task_proxy_cpu(), and
-   scx_bpf_task_proxy_cid(); enforce CPU/cid API separation for cid-form
-   schedulers.
- - Added proxy exec support to scx_qmap, including optional owner-cid steering,
-   affinity validation, and fallback to the donor's current cid.
- - Added a kselftest with a kernel mutex test and a three-task priority
-   inversion workload, test is executed with blocked task admission disabled and
-   enabled, validates the behavior, and reports hold/wait-time deltas.
- - Link to v1: https://lore.kernel.org/all/20260506174639.535232-1-arighi@nvidia.com/
+### Step 6.3: Related fixes already present?
+**Record:** m17 R5 AMD quirk (`d40b6529c6269`) present. No m15 fix. No
+duplicate.
 
-Andrea Righi (18):
-      sched/core: Drop mutex locks before proxy rescheduling
-      sched/core: Dequeue waking proxy donors before reset
-      sched: Make NOHZ CFS bandwidth checks follow proxy donor
-      sched/core: Avoid false migration warning for proxy donors
-      sched: Pass next class to sched_change_begin()
-      sched: Add helper to block retained proxy donors
-      sched: Add sched_ext hooks for proxy execution
-      sched: Introduce WF_ON_RQ wake flag
-      sched_ext: Block proxy donors across scheduler transitions
-      sched_ext: Fix ops.running/stopping() pairing for proxy-exec donors
-      sched_ext: Move reject DSQ draining into core
-      sched_ext: Generalize the reject DSQ reenqueue path
-      sched_ext: Handle proxy-exec races in remote DSQ transfers
-      sched_ext: Split curr|donor references properly
-      sched_ext: Delegate proxy donor admission to BPF schedulers
-      sched_ext: Add selftest for blocked donor admission
-      sched_ext: scx_qmap: Add proxy execution support
-      sched: Allow enabling proxy exec with sched_ext
+---
 
- Documentation/scheduler/sched-ext.rst              |  13 +
- include/linux/sched/ext.h                          |   3 +
- init/Kconfig                                       |   2 -
- kernel/sched/core.c                                | 147 +++-
- kernel/sched/ext/ext.c                             | 527 +++++++++---
- kernel/sched/ext/ext.h                             |   6 +
- kernel/sched/ext/internal.h                        |  37 +-
- kernel/sched/ext/sub.c                             |  68 +-
- kernel/sched/ext/sub.h                             |  13 +-
- kernel/sched/fair.c                                |  12 +-
- kernel/sched/sched.h                               |  19 +-
- kernel/sched/syscalls.c                            |   4 +-
- tools/sched_ext/include/scx/compat.h               |   1 +
- tools/sched_ext/include/scx/enum_defs.autogen.h    |   3 +
- tools/sched_ext/include/scx/enums.autogen.bpf.h    |   3 +
- tools/sched_ext/include/scx/enums.autogen.h        |   1 +
- tools/sched_ext/scx_qmap.bpf.c                     |  53 +-
- tools/sched_ext/scx_qmap.c                         |  13 +-
- tools/sched_ext/scx_qmap.h                         |   1 +
- tools/testing/selftests/sched_ext/.gitignore       |   4 +
- tools/testing/selftests/sched_ext/Makefile         |   2 +
- tools/testing/selftests/sched_ext/config           |   2 +
- .../testing/selftests/sched_ext/enq_blocked.bpf.c  | 116 +++
- tools/testing/selftests/sched_ext/enq_blocked.c    | 917 +++++++++++++++++++++
- tools/testing/selftests/sched_ext/enq_blocked.h    |  28 +
- .../selftests/sched_ext/test_modules/Makefile      |  13 +
- .../sched_ext/test_modules/scx_enq_blocked_test.c  | 195 +++++
- 27 files changed, 1985 insertions(+), 218 deletions(-)
- create mode 100644 tools/testing/selftests/sched_ext/enq_blocked.bpf.c
- create mode 100644 tools/testing/selftests/sched_ext/enq_blocked.c
- create mode 100644 tools/testing/selftests/sched_ext/enq_blocked.h
- create mode 100644 tools/testing/selftests/sched_ext/test_modules/Makefile
- create mode 100644 tools/testing/selftests/sched_ext/test_modules/scx_enq_blocked_test.c
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** **sound/ASoC AMD YC driver** — IMPORTANT for affected laptop
+users; PERIPHERAL in global kernel terms (config-dependent, specific
+hardware).
+
+### Step 7.2: Subsystem activity
+**Record:** Highly active — continuous DMI quirk additions through
+2025–2026, many backported to 6.18.y stable.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** Owners of Alienware m15 R7 AMD laptops running kernels with
+`SND_SOC_AMD_YC_MACH` enabled (common on AMD Rembrandt/Yellow Carp
+laptops).
+
+### Step 8.2: Trigger conditions
+**Record:** Every boot on matching DMI identity. Deterministic, not a
+race. Unprivileged users cannot trigger the fix path, but all users on
+this hardware are affected by the bug.
+
+### Step 8.3: Failure mode severity
+**Record:** Internal DMIC completely non-functional (driver probe
+fails). **Severity: MEDIUM** — not crash/corruption/security, but core
+laptop functionality broken. Falls under stable **hardware quirk
+exception**.
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH for affected users (working internal microphone).
+- **Risk:** VERY LOW (7-line DMI string, exact hardware match only).
+- **Ratio:** Strongly favorable; matches established stable practice for
+  this file.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence summary
+
+**FOR backport:**
+- Fixes real, reproducible hardware bug (dead internal mic)
+- Hardware quirk / DMI workaround — explicit stable exception category
+- 7-line, single-file, obviously correct
+- Tested on real hardware; ASoC maintainer Signed-off-by
+- Identical pattern to m17 R5 quirk already in tree since 2022
+- 20 similar quirk commits already in 6.18.y stable for this driver
+- Driver and quirk infrastructure fully present in this tree
+- No new APIs, no behavior change for non-matching systems
+
+**AGAINST backport:**
+- Not a crash, security, or data-corruption issue (strict "important
+  issue" reading)
+- Lore review thread not accessible for verification
+- Minor patch context adjustment needed vs mainline
+
+**Unresolved:**
+- Full mailing list review thread (Anubis blocked lore.kernel.org)
+- b4 dig could not resolve commit hash (not in local tree)
+
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — same pattern as dozens of
+   accepted quirks; author tested on hardware
+2. Fixes real bug affecting users? **PASS** — internal microphone
+   completely broken
+3. Important issue? **PASS** (hardware quirk exception) — functional
+   hardware failure on a commercial laptop
+4. Small and contained? **PASS** — 7 lines, 1 file
+5. No new features or APIs? **PASS** — DMI table entry only
+6. Can apply to local tree? **PASS** — trivial insertion before existing
+   Alienware m17 entry
+
+### Step 9.3: Exception category
+**Record:** **Hardware quirk/workaround** — DMI-based enablement for
+laptop with broken ACPI DMIC detection.
+
+### Step 9.4: Problem and decision rationale
+
+This commit solves a concrete hardware support gap: the Alienware m15 R7
+AMD has an ACP6x DMIC path, but without a DMI quirk the `acp_yc_mach`
+platform driver refuses to bind because ACPI does not report
+`AcpDmicConnected`. The result is no internal microphone on Linux — a
+user-visible regression-class hardware issue, not a cosmetic fix.
+
+For the 6.18.y stable tree specifically, all infrastructure exists (YC
+driver since 2021, m17 sibling quirk since 2022, continuous stable
+backport of identical quirk patches). The fix is minimal, maintainer-
+reviewed, and carries negligible regression risk while restoring
+essential laptop functionality for a defined hardware population.
+
+---
+
+## Verification
+
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+- **[Phase 1]** Fetched author blog: confirmed DMI mismatch, unbound
+  `acp_yc_mach`, successful DMIC after quirk
+- **[Phase 2]** Diff: +7 lines to `yc_acp_quirk_table[]` in
+  `acp6x-mach.c`
+- **[Phase 2]** Read `acp6x_probe()` lines 758–816: confirmed DMI match
+  enables `acp6x_card`, no match → `-ENODEV`
+- **[Phase 3]** `git describe HEAD`: v6.18.44-1-g2736c32da98b9
+- **[Phase 3]** `git log -S "Alienware m15 R7 AMD"`: empty — commit not
+  in tree
+- **[Phase 3]** `git blame` lines 503–509: m17 quirk from
+  `d40b6529c6269` (2022-10-24)
+- **[Phase 3]** `git merge-base --is-ancestor d40b6529c6269 HEAD`: m17
+  quirk is ancestor
+- **[Phase 3]** `git merge-base --is-ancestor fa991481b8b22 HEAD`: YC
+  driver is ancestor
+- **[Phase 3]** `git log --oneline -20 --
+  sound/soc/amd/yc/acp6x-mach.c`: many recent quirk commits
+- **[Phase 3]** `git show d40b6529c6269`: m17 quirk, same bug class,
+  bugzilla #216590
+- **[Phase 4]** `b4 dig` for new patch message-id: failed (exit 2)
+- **[Phase 4]** lore.kernel.org fetch: blocked by Anubis bot protection
+- **[Phase 4]** Blog fetch: success — full reproduction details
+- **[Phase 5]** `grep acp6x_probe/dmi_first_match`: probe at line 758,
+  DMI check at 798
+- **[Phase 6]** `grep "Alienware" acp6x-mach.c`: only m17 R5 present,
+  m15 R7 absent
+- **[Phase 6]** Confirmed Vector A16/Raider A18 from mainline diff
+  context not in 6.18.44 tree
+- **[Phase 6]** `git log stable/linux-6.18.y --grep="DMI quirk" --
+  sound/soc/amd/yc/ | wc -l`: 20 quirk commits in stable
+- **[Phase 7]** Read `sound/soc/amd/Kconfig` lines 107–116:
+  `SND_SOC_AMD_YC_MACH` config exists
+- **[Phase 8]** Failure mode verified via probe code: no DMI match →
+  `-ENODEV` → no DMIC card
+
+**YES**The background searches finished and match what the analysis
+already used:
+
+- **Author/subject search:** No ASoC quirk commit for "Alienware m15 R7
+  AMD" in this tree. The only m15 R7 hits are unrelated `platform/x86`
+  Alienware WMI work.
+- **Stable quirk count:** **20** DMI quirk commits for
+  `sound/soc/amd/yc/` are already in `stable/linux-6.18.y`, including
+  the sibling `d40b6529c6269` (Alienware m17 R5 AMD) entry.
+
+That supports the **YES** backport verdict for 6.18.y: same quirk
+pattern, driver and table already present, only the m15 R7 DMI entry is
+missing.The target-commit search finished: **"Alienware m15 R7 AMD" is
+not in `sound/soc/amd/yc/acp6x-mach.c` in this tree.** The only m15 R7
+matches are unrelated `platform/x86` Alienware WMI commits, which
+confirms the ASoC DMIC quirk patch still needs to be backported.
+
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index d9f145b634f35..d657287ccf43e 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -500,6 +500,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "Bravo 17 D7VF"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "Alienware"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "Alienware m15 R7 AMD"),
++		}
++	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
+-- 
+2.53.0
+
