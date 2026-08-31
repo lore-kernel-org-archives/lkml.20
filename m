@@ -1,215 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AEFA48986D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E356E489889
 	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:03:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184991; cv=none; b=MplhD5Msuyet12HDLIwB6NbIlwMzgmTSewIwfS6a9P3MFuxkwt/xOEDwd+xD479S9zPPcUQiZbAEZ0sn8YAztq7IkHGaK1fN/oC1l4S7DHebUaODJZ6MTSLg2JWM8cL/1+HpvkuwS08JIyZyHA2X9NtE0RwQouJiffjZ4EMZpok=
+	t=1788184992; cv=none; b=nAQeDpAN6Vz8wZqhQphGVyxnkq7o+YYtMzU5i+8z3x/YQWXJH8UO44zWhSAjVQ3M1krs0MuIoH1ZhNcIbq/1BdqCi+obQ1fiIkT4//tC2VoEOaQxRysC6jafburIF7ZcE5redr38XQhYpwfNEfnuRHFctGR0N764IpfkAX7mgyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184991; c=relaxed/simple;
-	bh=ET1sM9TeGg/w2GTUGB0gztT4T55XpGaCdywqlv0aSYo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ysh6Jq9JWDsJepSdPL4aICwsy+PQuDq+Vps+DycQTlnLQeID1jyrLVilzoshZEiOnAAf2TQsh7zlobCpUdmTG4hpH/z6abie0ajH9RQcQUMr1wqdpQIW/oXwr1SuYwQGMa1JzA0GFfdFhB19MRQPCNX2d7kwvspv7JXsn60mYuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DzlMAMyT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788184992; c=relaxed/simple;
+	bh=HHRTeQq68YYSROEqNarnY5aOAuhGg9O8lQQqTFTQLLQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ya/AbwMfcGulIwMbuPsRECPoOqZd8c6YRI/oIFXQcgZt+rIiiuBR5tG9zoFsi87fOhgLN9cjJeZ2cRXiNnCI/yxlNHTmNtvMR7E51cH+I7F2Y59+5ISewsA1GP8krddyx3j3wBXQfq3Wq8DmxCh+9yOySTO4JDmxHQU68GalkME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ikx8HMuJ; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DzlMAMyT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDED81F00A3D
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:03:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184989;
-	bh=aNbW8TKN783W/BbmTH8HUadI4hpvfofki8XNkpdLV3M=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DzlMAMyT5BooccEeYfGl0PJEaj7pcKd+C9CdUwGd0c0tCnsxIyS5r1UmoijkXmoGZ
-	 ftj/0wiOlnNkvwnAVHPcQogbK2fGet2zMgKDrpVIXvqfKtb8izHNt+SMHWWaaAh+rZ
-	 6/kovEivlDneY8Xc9vsjCnnLtw1xod2oaNqg7d4T8YtDQt1GgxeThoW7bIqCQjnsqt
-	 kWtUwpe53LDzPhBxHyc3y+jdoUzFJRm/Qy0QoL9y1rlVAR5C8cT/v9KfJCzLZvxZub
-	 CSE8jGiJsxqjJW/kAGImFM51peiRnJmIupd+QUGTuwY9ZXIVJfb37yJO8a34vxH2qt
-	 rSp3eZmDBa7HQ==
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c255c58156bso625947766b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:03:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByjafjKjRoMFyNmILOJ5sxEmH93qjlDq2qa1rDvQV/SVqFgZY0DLDsxp+8aeKcmri8TQ7kqAdTvI5WI1kE=@vger.kernel.org
-X-Gm-Message-State: AFuF++myUeTaxe9K0VgNVNAklWacGfAXjPL/s+oQjqDMmo2fpV/ustMY
-	ynIT57moMLZ/Clxj7m4fwq6aHtsFa/g7fA3XFneu5gMzYCe1czxmwDrB6YCA+LkrC8JYuf7LeYr
-	5osuPmZJ5sL9MmTjwj4Ld1KmRaXF2nmY=
-X-Received: by 2002:a17:907:c01c:b0:c20:af9d:454a with SMTP id
- a640c23a62f3a-c25571deba3mr1723328766b.16.1788184988499; Mon, 31 Aug 2026
- 07:03:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ikx8HMuJ"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so34314585e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:03:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788184989; x=1788789789; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=trjoNClLkDQZEUCU1E1Tse0Xqk7Csi6X5xklKB/lHWw=;
+        b=Ikx8HMuJCCAFCy+J6siybbxNrAz9yWtUtxnwoOmNzAV9HPd08MKoiXQbX1tCsYpEu8
+         vcRvmBit0xF8qywRDR6gN1m7HldJErv1tIvmc5+tX2AGmtBsuyhKUeVG0nSOmFQZ3zIf
+         9nhfgaq7hOUNXDJXXqIEu4mS63j7bFqlU3AwBkF5iZCZ9qgBwQZmfw20KJSzh9dYG14X
+         MDokkFxuiciPQdPp4cNC6d/JKaEIIYIp2PWp96KF06F6LL9NOJZzk/v1ttdd4uPYErMq
+         KlEkxB0s6IyhEEm6WkLk5lp3uL50tDqvomspIKmAGPniPDCDYYR6/c3+SYHO0xK6HjK+
+         05Hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788184989; x=1788789789;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=trjoNClLkDQZEUCU1E1Tse0Xqk7Csi6X5xklKB/lHWw=;
+        b=Vm6dulaMiIYQj2If/6wrWNODa5HKXM0HY6N9K/dGwq0Fl1SjoOOgr8eqojgqMTTw39
+         uPsyz3wvNGjI8ydfKMPLbnlk+KnYE6nKHIX14EU150d5kPjhXaOwvzDL3OWyZG1QX6pR
+         XrrmsB6cvHe7q25NSFtRBbzP0+VvJlCw/BaDwXzaM6t/CndeZaI0nr0HVLpoVgdyfgSU
+         UbpBOxO/XnMCu8DAeeTUJucSuIz8Q2NHut606RKhmb4R0JhVui29BfAR8YV3YvuSI4Km
+         VenhDmcHFkF3i8Cl60gzDXKKqVR/LU25ev0DKm6UM2e8t+pKCSu8KKHsDNIfkYUQf/+O
+         YMkQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqbL9gLrRYiDJeesjF4XxFzqtcSVnezOJkts4WqckuUnR5PJvD1bbDNZXPoXoTf/5yx/nB7ZbrwU+UVLXk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyrEqx00jadSvEIAEqtpndW/mTRa0wX/Yk9fcKZ/4Yh+XmsH4E
+	oEYw1A7rQrOY9nMDm/N6EryPHielnTSh0mV9JIRA0gMUqRsjO3wsM94=
+X-Gm-Gg: AR+sD11GQ8kUAX8rpd/75zWOEccWi0m6BKfNK0fxcpkIfa2oHAgw5osfgcnRK3FwrEm
+	O1ArjWnnyWRiSZyx6w6+4Qu1PjvD9lvtU/XxCGkG7Tuxb3Bl0bjBDj2UQnhykrGDVfq/7pJYXdz
+	u+u6I24s6bqjdgRjMJxKaYi2miuyzrUJYNqvmiEp6zKEeATeSnWXmDVT094ommskBsEblRzCUBs
+	7MQC7JQn1nD1T44PiFI4AQXoORcQ/7ChyDuizpnknFuZSkxQqOB2/0yd6QCjAAFWaSUa5yXBv5E
+	0W/dBPjcEm/owENmMh17h9kQ3s5Lnfk/vnM/OHFERrZOr2q2zy5Mh0eAF/HznL4plJhSIfJSwsX
+	Nx9GHU5Gy9m9X+CeZfV8TPAUGipnIIw0vcVXKZvPiz5nPRJfu8nq8jDvK5WKLQjrOhuCsJm+2RF
+	OPg1OuZjW+FzOrcQUMjS0eYbpGjw+kazAc7JyG8DXCYfdW61HgWbSCsaZmrgaMatvk4IQ1ZdZpt
+	0Hh83+iYV3l6Ypwjd7rIOGdKysMqU0q75tumT17KAJhYvUBP49oYFA=
+X-Received: by 2002:a05:600c:5490:b0:49c:cf18:494e with SMTP id 5b1f17b1804b1-49ccf18498emr250344645e9.12.1788184988616;
+        Mon, 31 Aug 2026 07:03:08 -0700 (PDT)
+Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cca3e642dsm173851415e9.2.2026.08.31.07.03.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 07:03:07 -0700 (PDT)
+From: "D. Manresa" <dmanresa@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"D . Manresa" <dmanresa@gmail.com>
+Subject: [PATCH v2 1/2] media: ipu-bridge: don't reference the module image from software nodes
+Date: Mon, 31 Aug 2026 16:03:02 +0200
+Message-ID: <20260831140304.45940-2-dmanresa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831140304.45940-1-dmanresa@gmail.com>
+References: <20260831094257.29398-1-dmanresa@gmail.com>
+ <20260831140304.45940-1-dmanresa@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826110306.6847-1-yangtiezhu@loongson.cn> <20260826110306.6847-5-yangtiezhu@loongson.cn>
-In-Reply-To: <20260826110306.6847-5-yangtiezhu@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Mon, 31 Aug 2026 22:02:56 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H40Zu0zTLQ7-S0tzqMNJ8KRB4iF+rzzrZG_Nd4ETveDDA@mail.gmail.com>
-X-Gm-Features: AcwNN1X_6WBpHG3gihHTVs_XRqFKefNZvR5N4u9_hVJ9zKsZDotRCmyRhMQQEsU
-Message-ID: <CAAhV-H40Zu0zTLQ7-S0tzqMNJ8KRB4iF+rzzrZG_Nd4ETveDDA@mail.gmail.com>
-Subject: Re: [PATCH v1 4/6] LoongArch: Only send SIGTRAP signal if necessary
- in do_watch()
-To: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi, Tiezhu,
+The software nodes registered by ipu_bridge_init() are deliberately
+never unregistered: sensor drivers and the fwnode graph keep references
+to them, so they are left registered when the ipu-bridge module is
+unloaded and a later rebind is intended to reuse the already registered
+nodes.
 
-On Wed, Aug 26, 2026 at 7:03=E2=80=AFPM Tiezhu Yang <yangtiezhu@loongson.cn=
-> wrote:
->
-> In do_watch(), the kernel unconditionally forces a SIGTRAP signal at the
-> end of the handler via force_sig(SIGTRAP). This is essential for ptrace
-> operations, but it severely disrupts standard perf_event usage.
->
-> Under normal perf usage, it is not necessary to force a SIGTRAP signal
-> on every hit. Forcing it unnecessarily aborts the target process if no
-> user-space signal handler is registered, which violates performance
-> monitoring behaviors and injects context switch overheads.
->
-> However, a conditional check using only 'current->ptrace' would block
-> legitimate user-requested signals when a perf_event is configured with
-> 'attr.sigtrap =3D 1' for asynchronous user-space tracking.
->
-> Fix this by refactoring breakpoint_handler() and watchpoint_handler()
-> to return a boolean status indicating whether any triggered breakpoint
-> explicitly requires a signal notification. Update do_watch() to enforce
-> the SIGTRAP signal only when the process is actively being debugged via
-> ptrace, or when the underlying perf_event infrastructure specifically
-> demands it via 'attr.sigtrap'.
->
-> Fixes: 424421a7f34c ("LoongArch: ptrace: Add hardware single step support=
-")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
-> ---
->  arch/loongarch/include/asm/hw_breakpoint.h |  4 ++--
->  arch/loongarch/kernel/hw_breakpoint.c      | 18 ++++++++++++++++--
->  arch/loongarch/kernel/traps.c              |  8 +++++---
->  3 files changed, 23 insertions(+), 7 deletions(-)
->
-> diff --git a/arch/loongarch/include/asm/hw_breakpoint.h b/arch/loongarch/=
-include/asm/hw_breakpoint.h
-> index 5faa97a87a9e..d202052df8a1 100644
-> --- a/arch/loongarch/include/asm/hw_breakpoint.h
-> +++ b/arch/loongarch/include/asm/hw_breakpoint.h
-> @@ -116,8 +116,8 @@ extern void arch_uninstall_hw_breakpoint(struct perf_=
-event *bp);
->  extern int hw_breakpoint_slots(int type);
->  extern void hw_breakpoint_pmu_read(struct perf_event *bp);
->
-> -void breakpoint_handler(struct pt_regs *regs);
-> -void watchpoint_handler(struct pt_regs *regs);
-> +bool breakpoint_handler(struct pt_regs *regs);
-> +bool watchpoint_handler(struct pt_regs *regs);
->
->  #ifdef CONFIG_HAVE_HW_BREAKPOINT
->  extern void ptrace_hw_copy_thread(struct task_struct *task);
-> diff --git a/arch/loongarch/kernel/hw_breakpoint.c b/arch/loongarch/kerne=
-l/hw_breakpoint.c
-> index 7f69cf361a5e..3683a52b2368 100644
-> --- a/arch/loongarch/kernel/hw_breakpoint.c
-> +++ b/arch/loongarch/kernel/hw_breakpoint.c
-> @@ -482,10 +482,11 @@ NOKPROBE_SYMBOL(update_bp_registers);
->  /*
->   * Debug exception handlers.
->   */
-> -void breakpoint_handler(struct pt_regs *regs)
-> +bool breakpoint_handler(struct pt_regs *regs)
->  {
->         int i;
->         struct perf_event *bp, **slots;
-> +       bool need_sigtrap =3D false;
->
->         slots =3D this_cpu_ptr(bp_on_reg);
->
-> @@ -494,18 +495,25 @@ void breakpoint_handler(struct pt_regs *regs)
->                         bp =3D slots[i];
->                         if (bp =3D=3D NULL)
->                                 continue;
-> +
->                         perf_bp_event(bp, regs);
-> +                       if (bp->attr.sigtrap)
-> +                               need_sigtrap =3D true;
-> +
->                         csr_write32(0x1 << i, LOONGARCH_CSR_FWPS);
->                         update_bp_registers(regs, 0, 0);
->                 }
->         }
-> +
-> +       return need_sigtrap;
->  }
->  NOKPROBE_SYMBOL(breakpoint_handler);
->
-> -void watchpoint_handler(struct pt_regs *regs)
-> +bool watchpoint_handler(struct pt_regs *regs)
->  {
->         int i;
->         struct perf_event *wp, **slots;
-> +       bool need_sigtrap =3D false;
->
->         slots =3D this_cpu_ptr(wp_on_reg);
->
-> @@ -514,11 +522,17 @@ void watchpoint_handler(struct pt_regs *regs)
->                         wp =3D slots[i];
->                         if (wp =3D=3D NULL)
->                                 continue;
-> +
->                         perf_bp_event(wp, regs);
-> +                       if (wp->attr.sigtrap)
-> +                               need_sigtrap =3D true;
-> +
->                         csr_write32(0x1 << i, LOONGARCH_CSR_MWPS);
->                         update_bp_registers(regs, 0, 1);
->                 }
->         }
-> +
-> +       return need_sigtrap;
->  }
->  NOKPROBE_SYMBOL(watchpoint_handler);
->
-> diff --git a/arch/loongarch/kernel/traps.c b/arch/loongarch/kernel/traps.=
-c
-> index c4d7e55fb3ea..de0c9b03d551 100644
-> --- a/arch/loongarch/kernel/traps.c
-> +++ b/arch/loongarch/kernel/traps.c
-> @@ -811,6 +811,7 @@ asmlinkage void noinstr do_bp(struct pt_regs *regs)
->  asmlinkage void noinstr do_watch(struct pt_regs *regs)
->  {
->         irqentry_state_t state =3D irqentry_enter(regs);
-> +       bool perf_sigtrap =3D false;
-This is not for perf only, so need_sigtrap is better.
+For that to work, nothing reachable from the registered nodes may point
+into the ipu-bridge module image. Most of the data already lives in the
+dedicated, never freed, struct ipu_bridge allocation: the property name
+strings in struct ipu_property_names are character arrays copied into
+the per-sensor struct, the node name strings are likewise character
+arrays inside the struct, and the data-lanes array is a struct
+ipu_bridge member precisely so that "it survives if the module is
+unloaded along with the rest of the struct".
 
->
->  #ifndef CONFIG_HAVE_HW_BREAKPOINT
->         pr_warn("Hardware watch point handler not implemented!\n");
-> @@ -851,11 +852,12 @@ asmlinkage void noinstr do_watch(struct pt_regs *re=
-gs)
->                         }
->                 }
->         } else {
-> -               breakpoint_handler(regs);
-> -               watchpoint_handler(regs);
-> +               perf_sigtrap |=3D breakpoint_handler(regs);
-> +               perf_sigtrap |=3D watchpoint_handler(regs);
-Let breakpoint_handler() and watchpoint_handler() return "int", then
-see below...
+Two references into the module image remain, though:
 
->         }
->
-> -       force_sig(SIGTRAP);
-> +       if (current->ptrace || perf_sigtrap)
-Define need_sigtrap as "int" and initialize it as current->ptrace,
-then we can only use "if (need_sigtrap)" here.
+1. The values of the "link-frequencies" endpoint property point at
+   cfg->link_freqs inside the const ipu_supported_sensors[] table in
+   module rodata.
 
-Huacai
+2. The name of the "lens-focus" device property is a string literal in
+   module rodata.
 
-> +               force_sig(SIGTRAP);
->  out:
->  #endif
->         irqentry_exit(regs, state);
-> --
-> 2.42.0
->
+Both dangle as soon as the module is unloaded, while the properties
+that carry them stay registered and readable. In practice, after
+unloading and reloading the IPU modules on a Surface Pro 7+ (IPU6,
+ov8865 + ov5693 + ov7251), re-probing sensor drivers read poisoned
+link-frequencies from the surviving nodes and fail to probe:
+
+  ov8865: failed to find 360000000 clk rate in endpoint link-frequencies
+  ov5693: supported link freq 419200000 not found
+
+where 419200000/360000000 are exactly the values the bridge had
+originally published for those sensors, i.e. the properties no longer
+return their original contents. Depending on what happens to the freed
+module mapping, reading the properties can also fault. Similarly, a VCM
+lookup through the "lens-focus" reference can no longer match (or
+faults) once the property's name pointer is dangling.
+
+Copy the link frequencies and the "lens-focus" property name into
+struct ipu_bridge, next to the data-lanes array kept there for the same
+reason, and make the registered properties point at those copies, so
+the nodes survive module unload intact. These were the only remaining
+references from the registered nodes into the module image (the
+sensor->vcm_type pointer into ipu_vcm_types[] is only dereferenced
+during ipu_bridge_init() itself and is not reachable from the nodes).
+
+Assisted-by: LLM
+
+Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
+Fixes: 68b9bcc8a534 ("media: ipu3-cio2: Add support for instantiating i2c-clients for VCMs")
+Signed-off-by: D. Manresa <dmanresa@gmail.com>
+---
+ drivers/media/pci/intel/ipu-bridge.c | 14 +++++++++++---
+ include/media/ipu-bridge.h           |  9 +++++++++
+ 2 files changed, 20 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 1bb3a3e..4de42ed 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -503,7 +503,8 @@ static void ipu_bridge_create_fwnode_properties(
+ 		sensor->vcm_ref[0] =
+ 			SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
+ 		sensor->dev_properties[3] =
+-			PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
++			PROPERTY_ENTRY_REF_ARRAY(bridge->lens_focus,
++						 sensor->vcm_ref);
+ 	}
+ 
+ 	sensor->ep_properties[0] = PROPERTY_ENTRY_U32(
+@@ -516,11 +517,17 @@ static void ipu_bridge_create_fwnode_properties(
+ 					sensor->prop_names.remote_endpoint,
+ 					sensor->local_ref);
+ 
+-	if (cfg->nr_link_freqs > 0)
++	if (cfg->nr_link_freqs > 0) {
++		u64 *link_freqs = bridge->link_freqs[sensor - bridge->sensors];
++
++		memcpy(link_freqs, cfg->link_freqs,
++		       cfg->nr_link_freqs * sizeof(*link_freqs));
++
+ 		sensor->ep_properties[3] = PROPERTY_ENTRY_U64_ARRAY_LEN(
+ 			sensor->prop_names.link_frequencies,
+-			cfg->link_freqs,
++			link_freqs,
+ 			cfg->nr_link_freqs);
++	}
+ 
+ 	sensor->ipu_properties[0] = PROPERTY_ENTRY_U32_ARRAY_LEN(
+ 					sensor->prop_names.data_lanes,
+@@ -943,6 +950,7 @@ int ipu_bridge_init(struct device *dev,
+ 
+ 	strscpy(bridge->ipu_node_name, IPU_HID,
+ 		sizeof(bridge->ipu_node_name));
++	strscpy(bridge->lens_focus, "lens-focus", sizeof(bridge->lens_focus));
+ 	bridge->ipu_hid_node.name = bridge->ipu_node_name;
+ 	bridge->dev = dev;
+ 	bridge->parse_sensor_fwnode = parse_sensor_fwnode;
+diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
+index 16fac76..4e91ec3 100644
+--- a/include/media/ipu-bridge.h
++++ b/include/media/ipu-bridge.h
+@@ -164,6 +164,15 @@ struct ipu_bridge {
+ 	char ipu_node_name[ACPI_ID_LEN];
+ 	struct software_node ipu_hid_node;
+ 	u32 data_lanes[4];
++	/*
++	 * The software nodes registered by the bridge are deliberately never
++	 * unregistered (see ipu_bridge_init()), so every string and array
++	 * they reference must live in this never freed struct rather than in
++	 * the module image, so that the nodes stay intact if the module is
++	 * unloaded.
++	 */
++	char lens_focus[sizeof("lens-focus")];
++	u64 link_freqs[IPU_MAX_PORTS][MAX_NUM_LINK_FREQS];
+ 	unsigned int n_sensors;
+ 	struct ipu_sensor sensors[IPU_MAX_PORTS];
+ };
+-- 
+2.43.0
+
