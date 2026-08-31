@@ -1,148 +1,183 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153683B1ED0
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3A13CF201
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164167; cv=none; b=cIlxN+Hbb4edZhckLQykHbQSmmiIzoqyqgM6xiKF8wXcmVMKmOAbfQKwzDF76fjDXT165Y9QSMybHE6w23ByW1WE3VJwUSSi/6nPVtMle8KTq2dD+IEy0xh8arV0XZxw8B8odj9BfnIxJfeqA+TDcgF2j7mNIWkDmxY+N+ad6F8=
+	t=1788164194; cv=none; b=pMDVkMftsA8RTUFrqFmBxmIEgdVMTXylswh2gZQbvCW9Mx4LugelkuHep6QW75/LcIKEQqHLSdAw5daacxIWkkLskQZzpkJ//u1RIKAznhUt3gwNY347B+5ibXqs8yJqwaoNRebP7LtY/DcAn6vdJ5w/9Z8y/Cu836xhfXQ8Xrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164167; c=relaxed/simple;
-	bh=QBU8DfkTa6n4YbEvZzxLevyquP+Ka5QRnZiV3dhNKJc=;
+	s=arc-20240116; t=1788164194; c=relaxed/simple;
+	bh=4do77Gw18YKEY3Zt4AjmYvzFk1XnFp9PzWEgF9lVaD8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oDAzh58IdBFyGaHm3FeveWwZwlWIwiE25Cp4dsQQVcQwl7s84/BVHCVQtJ4KCGZ47hMppTAn0G5n8LXvYQutaPcuVZHfKVRMq7xLsrQEmT8bLi6dGLFruHO9DVO76QN5qCJ/8cmOBVxTslUU9x1TvjJTy1TtQ6wIrw866pEbvMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J1BM63yK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Tm6saH1D; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=s9DnhRSH8YDYq4m5T29m1e231OKB3seMRXRKhJ1w5hjqKI5JhVR2efLXq+jLpgTn3VT/aays1ZsAyu+OQ6VigrZcgIDCVBCwEIxuyRMmt6c7BD2nThzOs+VC7OndC7/VEARGlzrwufr4OCa2SDAT64OSElQo6Yw2I1zDlSUQXRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UJhAH6MQ; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J1BM63yK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Tm6saH1D"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V7xZkV3427259
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:16:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=3LyTcuGUL0Z/mag6M9SZrK5m
-	2t3i0XS2stCBvD8t0aM=; b=J1BM63yKhY+4AC4sF6IWQ3XqowqXqAO3d8Rto/Cv
-	y2WbTXXMTttJhaC5i7pH+8vYxasqVQAUDB6mQAviLlOc5FqCS3x0r7NjbJgN3+yB
-	cMd4oQQYJR39mGpnf5Z5px/QpVQd2vBkRbYuNtIpbgBELf5VsdW2rwWYWBAPeO9i
-	SiqOgZwpeKJfqvMvJQ+rcbsMnzddZFlSrU7zEzRzEc7dP3ZEnIFAfaf+EltDBEC0
-	QhrvH94GOvLgw+rj7lbXlpfD8RLLGxR0fNqKG8iPVga5W9F+3SnnuMPZqW3nvAIV
-	hID/ztustt8Gdux8ro9dGDmhLsrWcNIPwdd+NlPxdgBWxA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd4pm8bdb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:16:04 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e52306621so415919285a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:16:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UJhAH6MQ"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4956869750eso20040625e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:16:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788164164; x=1788768964; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1788164190; x=1788768990; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3LyTcuGUL0Z/mag6M9SZrK5m2t3i0XS2stCBvD8t0aM=;
-        b=Tm6saH1DtfzQzTgTXCl53TIlFkf6Vh0bDskV+n1Aj++bYlDU9J4ne5LGJyeZtBMoQs
-         LUX8uJ8E40sOmL8pai0jghfq/JtME4AxZidCbtEnahXns2t56MfD52Skv4cQnVpMAu5h
-         QcZyfT9Ff6PgEBmfF03TUtBz16XSH1eP3CFLgTLJaexI9xy5eBQWqOUnKNlM5orvt0f3
-         OrkDn6OvDgUWpbT7gIMWtpX4ekiLthzanrIi0qi+jKVn9lA6Hy/9PF+iByD5ysrHMdeF
-         d8VJgJAjeoH/lfW5kOb7eo0HtRM/kkjp5HNfbmJ9suZdDv4QL01wle/bjh/Y3jOpkjyS
-         RUHA==
+        bh=Smb1ij3q4+j2lPcpl8bavnYQJRKETN9XFOWwaz+YXv8=;
+        b=UJhAH6MQbE9RcG7WreJ/MrezFzNONU5syvUjUMbUyqo0EjV/mD+XcbG0e62o0F88lf
+         aGYDmgHBqMshu6nLgMQa7/UGmethwl4/WSw0lL+y4MpIhf4adR4y5pZZrcWMMKWX2jJy
+         RTkxGeack1iTjugyGCWZRXNJLoFNO85yso907mxE7WcowR9WuO/AlsfKfYw2kU9Ko78w
+         /otRFwsn76Q6GtFH02jv4zX+05gQi1tGr6eQGy18ZBdMxZuo/+G8vgEOvLxBvSsdDwNw
+         MWoEzLVKTBKVUG+ype6ExurXvH9oP6AXVLfK/gPLX45xSXfYB71ppsJGk415kXuxv2Yv
+         B6mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788164164; x=1788768964;
+        d=1e100.net; s=20251104; t=1788164190; x=1788768990;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3LyTcuGUL0Z/mag6M9SZrK5m2t3i0XS2stCBvD8t0aM=;
-        b=s+23seKeN/BDuoFEzVhqHd53rkI6oPP2e/FN/7gr6ajtMpXYtHktthQpVtLYbwcye5
-         PVmP8g/sx+BAwe3KWF19TQAJKG4rD6LoISUlP+mzgBmI7zsBJP4TfG2nRUSOrSof1FTi
-         tZmcPKyye/buDkuH9U9pDLlNK/+HeWRP4Ee6fcmzIK0v0RdHEoAYp8yQtpuVZXLjAhRY
-         GYO+gTgyu7o1k36fUEqLLjZoivOohfTX1ZY2nLYs0mm0H/caTFpDLay68IL2CkVzViti
-         q4zVqiyZWNfFQb6qDU6GJOsrhesOVH+KmzH3r7ICBhjrAKNMkPKt6sSVm8mGqJep9TVV
-         LgAw==
-X-Forwarded-Encrypted: i=1; AHgh+RpmJoUZ48G51ri0isCV64pd+xaUxMBcdYh9g5kdogsio3fqww3RXGPWoviwt1bPIzJlBODDFAVdI7NR/50=@vger.kernel.org
-X-Gm-Message-State: AFuF++n26OnNHJQFqIP19FWmmJp6PnS7CR6PY60i/o/kbIL/JbnTKf6v
-	+Rg3bESwWeu/V+WRlMqx58Xyp7pSrmYOOrVgxL172Nockoz+4542143EgAkqQuJM24G63Pvp55H
-	QGAG914J6wFXXZk50xNyB4AO/BwC1hpTJ5bmqlmnpU1zMY8yo9+4NrlAZvhHW2NTQs6A=
-X-Gm-Gg: AR+sD13s1jxFPuRYmNj8ZomsOyBue7hpKPhMzFoGf0bovUvEDm0qpff44vjMFyGq3Rs
-	9gBaZQiSli45eMP4Rt4qW8t40EtwnZS1SKbeFTfeekEuXBHPJaHMC6bGjEY3Sejn0VR5rRVk82V
-	6SYYGm0kplLc9oxiImwMTxQVbY/hRF+WSpryKzWupeYFvn5PhpkvPfSOYv0E4efiQztFto2eW8y
-	vHHo0c44iZ+3+RrZw2w1U/5nEk89MwPwZqvp034KepwnevtA0o7qaynJq/9WtEVBrt0hPUl4Tr1
-	qgAez8ev2zFFu5Lw74WXQNe9e2xmkMb336Djo1VbU8zIDS05qtgRdIOl0NXMrN+r16Z30t4soYG
-	G1YWYioqb7b7RmQ==
-X-Received: by 2002:a05:620a:8811:b0:936:9525:e952 with SMTP id af79cd13be357-9391398ca1bmr2730073885a.41.1788164164201;
-        Mon, 31 Aug 2026 01:16:04 -0700 (PDT)
-X-Received: by 2002:a05:620a:8811:b0:936:9525:e952 with SMTP id af79cd13be357-9391398ca1bmr2730068785a.41.1788164163630;
-        Mon, 31 Aug 2026 01:16:03 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.13])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20713sm20302271f8f.21.2026.08.31.01.16.01
+        bh=Smb1ij3q4+j2lPcpl8bavnYQJRKETN9XFOWwaz+YXv8=;
+        b=nRH5r4mQQ2HexDx+KODBRp0GRSpKonLmF/ofr2PjemKoXqd5HG4YhL2p80ognAP8bH
+         ztEJrO8pxlAlTv/fr91DzZRh06y+gKceu1V8BKag2WPPQjexI4A5vV3IBSr5yG5aReiC
+         GrwYn0AvqBBPCJ5X+ZMRuq3MBay43ORlLB6bZ9EJTv/FKDcjY4r3arhUNebBVR9Dphgt
+         hQOgo2nHaFeDmjC3BXyXwdmNV4C3RMf1T31Q6IHiRsDC6p/+Xz4oK2U9raRXSTupfeWC
+         /I++L+eKA4Q/XsepBgJoBlF/TIXUNbOHz4ipkyyQ5ansKHwYTd5NjWIjZY1uy+e8Axpm
+         QFqQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrLcaGLSR+vmT9erdo0Ez3j2lwpeShLJZF15r28yifCe83uAfnUU806pB/ULh6+QU3eGNS4HSrIRXlMMBE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvgZlFY6hSdbdt0e5l6lrRRkpQ7D9nSQpY4hUG4azsZXXZ/fgT
+	5N5fAwyrFG5LnUkbYSOVpdOtZRKTExhFBkuYJjWsxcu7PgZazd7OLiBPMSq8SO3agayasXZjPlx
+	KDlz1Hsc=
+X-Gm-Gg: AR+sD12dH7OGHtQpRA06z/E5NEP5AexV+pukxdvTSL+2K0KBLX33vjttco9MHKUD0WT
+	OTBz1xnDLc75VZ4lKmxoEXLHASPmp6Jx2A45559e8xtroiiMs8B8tnBWVuhv7lWXKcs1Kf5e3fm
+	fmMF6IAtDLpThXyWJI5ZoAdPqEIIQRV8Q+dXMY0zT7iWi80BWUhgboKDrJJzf7ZYqcUYt0yZ6+f
+	uV53KzPQIdYJ4xgV1s722xRLIupAomAyP8Ui60BpL3f6Ysvg8iuxQhHNrqhNTjYo/aKurIRGOsE
+	V4jrBeDD1ozJiSottIk4TNW/t0+vi0S4rsDW4fLvE/pLQhCPOeZ65iN2exoKBh1Kmjh5HjgsyLz
+	9uwqea7vCH4G47OhlDY2mrAhnr79jLUsRdYqUTgahkDp7U/gA1myoU0rulKtuNEJZJgx6+aXxoi
+	sm3xQhRnuZwt5tSEoCIcF/aUZ0E8+14CUZ0AL0BhK/GeLogNGC4+9e8w8Dbl9trP4=
+X-Received: by 2002:a05:600c:4692:b0:49b:d03:8d3a with SMTP id 5b1f17b1804b1-49b91c3e5fdmr343784295e9.11.1788164189622;
+        Mon, 31 Aug 2026 01:16:29 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd775dae8sm101979645e9.9.2026.08.31.01.16.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 01:16:02 -0700 (PDT)
-Date: Mon, 31 Aug 2026 11:16:00 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-        Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH 6/6] arm64: dts: qcom: Add initial support for Nord Ride
- Embedded board
-Message-ID: <o5fxldighgmm6djxauuyzv3p42yj3q74e37msw5ephzlgnql62@ptghyorawgzr>
-References: <20260831032103.341633-1-shengchao.guo@oss.qualcomm.com>
- <20260831032103.341633-7-shengchao.guo@oss.qualcomm.com>
+        Mon, 31 Aug 2026 01:16:29 -0700 (PDT)
+Date: Mon, 31 Aug 2026 10:16:27 +0200
+From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+To: Junnan Zhang <zhangjn_dev@163.com>
+Cc: tj@kernel.org, hannes@cmpxchg.org, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Junnan Zhang <zhangjn11@chinatelecom.cn>, 
+	Shouxin Sun <sunshx@chinatelecom.cn>
+Subject: Re: [PATCH v3] cgroup: avoid flushing global workqueue in
+ cgroup1_pidlist_destroy_all
+Message-ID: <apU1sXYP_QhsQFcB@localhost.localdomain>
+References: <20260814084016.123741-1-zhangjn_dev@163.com>
+ <20260814102052.147408-1-zhangjn_dev@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="thvg4hnokvctgthd"
 Content-Disposition: inline
-In-Reply-To: <20260831032103.341633-7-shengchao.guo@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: SPw6gguSYIeAus_nwaGGkEB5egcXHU_m
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA2OSBTYWx0ZWRfXxppeJ11JHDhR
- 2HCjQsd3ZRE0y0rH6pHE8bhFQn/DJ+xb/zOb2ZCroPakDjhgR5+MmB1vnoUMWrZrDzRI+Cr7BHq
- fiQg7XQkzjuBoQWsBuAhnf+cMuwV6QSIM9n3tL53Ptdnb5LC0wkpParHBi2vZ77zglJlZleUH/y
- o+GePRuhy4ZJuof/h2ZAzJpPQRasEmHSZ6R7aPbcn8rnMfBB1Sv5Z0HzALhFkR9eN8Ky3EqNxDH
- B7L+pOGxUqK4uKLE+x8HQF06FgbY40paLsO4OaNvGtmV85oykrUFa7t6lSquGKHYGnfiAb1ayp9
- IbhGU6QikAO/DTbO9KGleQij7BJNnmFMCk3v/8mk3APdweFQ165SM7a9wKvWC0+dkCvwkldiwTy
- Dvz6gmZT8ixExdjnfyw+u1K8fXgMbkdVVowf3WTKiEcI68rQunJEhWMxz/cpDqmIYWgaVNABgGn
- SBzzUhmfb0eIBCd1alg==
-X-Proofpoint-GUID: SPw6gguSYIeAus_nwaGGkEB5egcXHU_m
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA2OSBTYWx0ZWRfX0hSzFNBG1xTK
- m8oz0OApiQrDTXjsuDo1MuUCZdxUgFzP4f4AWkNrU9897b5nUQD/ASWgaVnDRGNzddIDLEUlqNI
- /fYakW/eM8aJNzzz+Zl6+oKUsy3WdkU=
-X-Authority-Analysis: v=2.4 cv=GbQnWwXL c=1 sm=1 tr=0 ts=6a953844 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=clBUptZa5v5FR042Ey+sjA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=GNrPpmwhwOQ7cWpVhzUA:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_03,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015
- bulkscore=0 priorityscore=1501 adultscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310069
+In-Reply-To: <20260814102052.147408-1-zhangjn_dev@163.com>
 
-On 26-08-31 11:21:03, Shawn Guo wrote:
-> From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> 
-> Add the initial device tree for the Nord Ride Embedded board, the
-> non-SCMI variant of the SA8797P automotive Ride board.
-> 
-> Enable the debug UART, UFS storage, the ADSP and CDSP remote processors,
-> and describe the board regulators supplied by the on-board PMICs.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+--thvg4hnokvctgthd
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3] cgroup: avoid flushing global workqueue in
+ cgroup1_pidlist_destroy_all
+MIME-Version: 1.0
+
+Hi Junnan.
+
+(Sorry for late response, I sketched some notes and then didn't get down
+to sent them. Now they're below.)
+
+On Fri, Aug 14, 2026 at 06:20:52PM +0800, Junnan Zhang <zhangjn_dev@163.com=
+> wrote:
+> From: Junnan Zhang <zhangjn11@chinatelecom.cn>
+>=20
+> cgroup1_pidlist_destroy_all() flushes the global
+> cgroup_pidlist_destroy_wq while destroying a cgroup. Because all cgroup
+> v1 pidlist destruction work items are queued on the same shared workqueue,
+> a single slow or stuck work item (e.g. waiting for pidlist_mutex held by a
+> user-space reader) blocks every concurrent cgroup destruction path.
+>=20
+> This can lead to kworker tasks stuck in flush_workqueue() for over
+> hung_task_timeout seconds, as observed on busy systems running Docker or
+> Kubernetes workloads.
+
+Since the cgroup_pidlist_destroy_wq is already a dedicated workqueue (no
+other conteders), the pursuit of pidlist_mutex holder is a feasible
+theory. However, that would also mean:
+a) a single reader taking more than hung_task_timeout_secs (that'd be
+   a softlockup earlier),
+b) starvation of cgroup1_pidlist_destroy_all() by many (queued)
+   cgroup_pidlist_start() callers which goes against the second-long
+   caching of pidlists,
+c) there is large number of nr_cgroups * nr_pidnses which makes the
+   caching ineffective
+
+>=20
+>   INFO: task kworker/0:1:1438499 blocked for more than 120 seconds.
+>   "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this messag=
+e.
+>   kworker/0:1 D 0 1438499 2 0x80000080
+>   Workqueue: cgroup_destroy css_free_rwork_fn
+>   ? __schedule+0x296/0x900
+>   schedule+0x28/0x80
+>   schedule_timeout+0x1ee/0x3a0
+>   ? kvm_sched_clock_read+0xd/0x20
+>   wait_for_completion+0x12c/0x190
+>   ? wake_up_q+0x70/0x70
+>   flush_workqueue+0x132/0x430
+>   ? cgroup1_pidlist_destroy_all+0x7c/0xa0
+>   cgroup1_pidlist_destroy_all+0x7c/0xa0
+>   css_free_rwork_fn+0xb5/0x390
+>   process_one_work+0x195/0x3e0
+>   worker_thread+0x30/0x390
+>   ? process_one_work+0x3e0/0x3e0
+>   kthread+0x113/0x130
+>   ? kthread_create_worker_on_cpu+0x70/0x70
+>   ret_from_fork+0x1f/0x40
+>=20
+> Fix it by moving the cgroup's pidlists to a local orphan list under
+> pidlist_mutex, clearing their ->owner pointer, and then cancelling each
+> pidlist's delayed work outside the lock. The destroy work function now
+> checks ->owner and skips freeing orphaned pidlists, so
+> cgroup1_pidlist_destroy_all() can free them safely without flushing the
+> whole shared workqueue.
+
+What's the point of the workqueue after this change? (Mainly the
+expiration + having process context for the handler.)
+
+The flushing isn't necessary if there's a way how to ensure pidlists
+head won't be used after cgrp removal, which the fix should achieve.
+
+
+So I'd say, the narrow-focused cancellation may work, no need to wait
+for other cgroups. OTOH, I'm surprised this v1-issue popped up only now
+and whether such a long contention can happen over pidlist_mutex as your
+commit message implies. What nr_cgroups, nr_pidnses could cause this in
+your theory?
+
+Thanks,
+Michal
+
+
+--thvg4hnokvctgthd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCapU4VxsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AhlLAEA/qNyYbrCVp9B9CabysVu
+B8NRO6qES4f5FwPVH7Um04IA+wTl4Fh/STnr4oIuQRBq2TrjwXZeZplRKT47BJZ7
+q10K
+=sP26
+-----END PGP SIGNATURE-----
+
+--thvg4hnokvctgthd--
