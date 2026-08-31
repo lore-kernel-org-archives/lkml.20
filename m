@@ -1,95 +1,77 @@
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366B5442360;
-	Mon, 31 Aug 2026 14:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5814DA543
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:25:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186333; cv=none; b=Nn65YNAi6Onky5tdkOWN+EZleUK2zAqo41wk74+rPge3HqgHML2UegFKL+hoLcdZnW2iowNc1TRw+2EX7ENtOVtVP64zgd20QDl4cIRySrzZN4JDhXMsbhYP2wVFrlig+uJbPIq+IdFQXw6y9McFVqxYlga2WhxBIcjZFAGCBcU=
+	t=1788186343; cv=none; b=Dg5T4H4gPtXV0RCjou+aFulWLW9leLuSyNlUleMvYb9F++7bjUbqVlSHIr4ItQUY5u+F4WKfAR3o1YLRyE31YSzcVo++NU2VaA4W7gUPe7aNWpVgq0BtWPQ5phbD1y3amAYnXNZzDMpORLtnN7rEg3qEJBtDB/BrXSx7+C2P7eg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186333; c=relaxed/simple;
-	bh=FOWmjPwhcPnfsgfybQqGkKOTxzWrKcgQBsXz1d3DW9U=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=cH/7duMqEhogpNRGdN8O92BfSrtuq2n4BXIviDjJMvxDuEb1LlkN7dhoFSfydXfTlhG9hCGBlRkSLIMZCUPWJW0h3f/iRsNwCXSpchy/U5MwouN+RrrbDrqsa14KcWj+sIgGbCX++e9ha02TumTYty8E+zCukLZ5vsN3B22Vj1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=2XNVH0TS; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=yRNdWvHU; arc=none smtp.client-ip=210.171.160.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	s=arc-20240116; t=1788186343; c=relaxed/simple;
+	bh=vZw0hLL4dSeqV3jSVMA6jvCgpb5+g5wnq9JcTayBwm4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HLRdSCjxcRt65dYluP7qD1ZQLBa7BPqXp03TBR6EnsnSt3AEnfTNyFvqMWSAvRlQlKfMHGV97V9fdEEXmAZNjRYLefRr6d5lVu2qQQc6kcdDW4MrV5ArPaPdrTiYcRYH85muBRUBUYKdIrDatYEi9X89iI+JdJDv+U3wYMzwYBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=fpCt/fdg; arc=none smtp.client-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="2XNVH0TS";
-	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="yRNdWvHU"
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id CB9A526F7696;
-	Mon, 31 Aug 2026 23:25:21 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1788186322;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kAoMtYbkNNUiOE+S3UoOomnsFSBHMhruboJztWKQtRk=;
-	b=2XNVH0TSwxbuOqnO7Qc9NgluT0PlhsHRR02nJvBatSWeIhTW10czwY9an1PVCu90WnXyAK
-	Klwv7RWnRJaC9XIC+K53X9+UM2FCWt7Zpji/ULnWaCFacjbl/HswvfeB7ZNmW+Ey2dq2jg
-	yuTtPowRNOYsHDUmFeIAk4jD5X8XkFQZ0BKYhxOOV7NKEfspxbuMADnXNGMZnHOD+6bDpI
-	qoI0Bmz+ZE3QSYR8nsZaS7StDUUnrHLITrYUiemqfGv3XFRhqQ9Gp8prBgRmCQAAF8f8+8
-	Cv0ntJZrQLm+sf99XXSznHAqL5TzrvhadaQYWrCzOo12wiovhfCjRZYk6NfF8w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1788186322;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kAoMtYbkNNUiOE+S3UoOomnsFSBHMhruboJztWKQtRk=;
-	b=yRNdWvHUn8XJbByLZNn6klCcVnWASFsOsxSmkNAb3IizEdGRK34dSCpR4Ci2tpMUKuKQpj
-	B85RtEgYcydBKOAw==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 579B3E00161;
-	Mon, 31 Aug 2026 23:25:21 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id 47DDC2200164; Mon, 31 Aug 2026 23:25:21 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Jan Kara <jack@suse.cz>
-Cc: ZW Tang <tangzw515@gmail.com>,  Amir Goldstein <amir73il@gmail.com>,
-  linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [BUG] fanotify: WARNING in fanotify_handle_event with crafted
- msdos image and long path
-In-Reply-To: <3kzvlb3wpzbg6k6ttzp6rh2cfmz3hmmmlisgxjn5u4xmaaqibm@qkre7flkhejl>
-References: <CAA2SOT5mWrS_KN38TRCu_KfTjpG6fyaytqZbOb25Pb0kfqZ3gQ@mail.gmail.com>
-	<3kzvlb3wpzbg6k6ttzp6rh2cfmz3hmmmlisgxjn5u4xmaaqibm@qkre7flkhejl>
-Date: Mon, 31 Aug 2026 23:25:21 +0900
-Message-ID: <8733vuweni.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="fpCt/fdg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788186333; x=1788445533;
+	bh=Am4U/GdbWSNMOv42LsGji8ij2jzfV8TWsw2TXnhE03I=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=fpCt/fdgDy4/Qye6+As96aJ/KQKYVB5hKdoBlWvpBDgcbiuMU8mgG5UlKlVSTrjIO
+	 XAvfUA2B0sIfgkMQA7hdJpDROCvaheLLycNXMTZ5SlONidGSggHzvpGa0aJB0SalYl
+	 822Zi13vlO7spldtmnd5eQIsw+cHdwxMT8uH9xrdn9vM0pK5vyAWL3d0uskcah0Slb
+	 7yz2MUriPFDbHGxkDgbpGNjBM/VMbw2p8mHrnyP8GF3x8L4WkK2aRaTyyz55OXFgC/
+	 Rr7LrrKyN333FFAfn8gJE/9Ldslu5WJUlM+VP51P/LdmFRJxNU713khO7Nbb+Q6f80
+	 p+TsjwW4As23Q==
+Date: Mon, 31 Aug 2026 14:25:30 +0000
+To: Sasha Levin <sashal@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: stable@vger.kernel.org, Mark Brown <broonie@kernel.org>, patches@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH AUTOSEL 6.18] ASoC: rt1320: run the initialisation preset on the first hardware init
+Message-ID: <20260831142522.85439-1-lsa.uz@pm.me>
+In-Reply-To: <20260831133314.4125787-601-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org> <20260831133314.4125787-601-sashal@kernel.org>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 67733ea88f02bf58460191b0df5284c8101e7578
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Jan Kara <jack@suse.cz> writes:
+Author's ack for the AUTOSEL 6.18 pick of
 
-> On Mon 31-08-26 12:32:57, ZW Tang wrote:
->> I am reporting a warning triggered by a syzkaller reproducer on
->> Linux 7.2.0-rc3. A similar issue appears to have been reported upstream
->> before, but I can still reproduce it on Linux 7.2.0-rc3 with HEAD commit
->> 1137d8b5df06137fb49513cc923b3b24d94cb809.
->> 
->> The reproducer mounts a crafted msdos filesystem image, creates a very
->> long pathname, installs a fanotify mark, and then calls execve() on the
->> long path. During execve(), the file open path triggers fsnotify, which
->> then calls fanotify_handle_event(). While fanotify is constructing the
->> event, it hits a warning in fs/notify/fanotify/fanotify.h.
->> 
->> This looks like a fanotify name-event encoding robustness issue. A crafted
->> filesystem image together with a very long pathname appears to trigger an
->> unexpected name/fid event layout, and fanotify_info_copy_name() reaches a
->> WARN_ON_ONCE() path. The kernel should probably reject or truncate the
->> event cleanly instead of triggering a warning, because panic_on_warn turns
->> this into a kernel panic.
->
-> fanotify complains that the name length is greater than NAME_MAX.  If I can
-> guess, the problem likely is that the msdos filesystem (vfat?) allows a
-> file name that is longer than NAME_MAX. Which would be a bug in the
-> filesystem driver, not a problem in fanotify... Ogawa, care to have a look?
+  ASoC: rt1320: run the initialisation preset on the first hardware init
+  upstream 9b30521074f01aff856f539c1241a48342b69f7c
 
-A patch looks like be applied to v7.3.
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Appropriate for stable, and the reason is narrow enough to state precisely.
+
+Without it the RT1320 on the Microsoft Surface Pro 11 is left unprogrammed =
+on
+every boot: its SDCA function status reads 0x41 (NEWLY_ATTACHED |
+FUNCTION_HAS_BEEN_RESET) and never sets FUNCTION_NEEDS_INITIALIZATION, so
+rt1320_vc_preset() and the MCU patch load are skipped. rt712-sdca and
+rt722-sdca already carry the first_hw_init fallback this adds.
+
+On the risk side, which is what matters for a backport: the added condition=
+ can
+only cause the preset to run where it would otherwise not have run at all. =
+On
+hardware that does set FUNCTION_NEEDS_INITIALIZATION the behaviour is
+unchanged, so a later board revision carrying a different RT1320 -- which B=
+ard
+Liao noted is possible for this SKU -- is not exposed to anything new.
+
+Tested on the affected hardware. With the patch the amplifier reports
+RT1320_KR0_INT_READY=3D0x1f where it previously did not, and audio works.
+
+Sergey Lebedev
+
