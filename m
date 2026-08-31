@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A5A522EC5;
-	Mon, 31 Aug 2026 13:44:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAAB4A5C2E;
+	Mon, 31 Aug 2026 13:44:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183856; cv=none; b=twX2vAK8w9PtnzvGNfiFXEv5B+uu4SXwgEvgNDVCwph7YR0PnHGjqm8QPVAzMZ7gqwu9veAShQdgoWF2nmvC0pB5m1+2EIfVbKlfwx7Faqe1sT5Oshg8J3JMRCYKqvg5H5CCWgLo2/uIXkZqEf37RILvlWXEbJEsfH1hthRTJ4U=
+	t=1788183858; cv=none; b=DNlZLSA+bfQE4pM2CdbOiCXSCjUgP2ceEu/flxB2+8UhwyfK19WPBanPwNqMm50ENKVJshHA07yto0WM7p0VuYNzjH8fmaARlG6RTIEZfTvK6W1VP4fGwrJ7T3WL9lBJhZD0hiDb1PtbyMgcvz5e3VUFzNheKy436FoMWCqCHG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183856; c=relaxed/simple;
-	bh=YzomyiaSSYlSEVqtsSwnQ1VSK21Q6sA+HUUrTBdFNvI=;
+	s=arc-20240116; t=1788183858; c=relaxed/simple;
+	bh=3dljvT2RW0SpC2Nt24HFEUr6CFzmomVHhhwhIcKOVqw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FmgKCBBgrKGE8S8abDY00x+OZY1zvuGfPi1JMCT9K+JdaWRwsp5razy7UugVJqfXfg2/ggjSwn3AUAJPhMCPvY7pWZ05+g//BqPriDPLd1PHo5sOW9iqDMz8zhaU1XylKtkodcrey64HsDjIGpicO5pJnmd9/0dnZ20pfOFqm6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GGrsBYIC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=f1+EMaWYwMSU7U8bG4IJg3P4VWzHnq80avit2MyFFRzC5zUYrgxU48V4R+HhwpMtdn2T5wKYl1xI7rRJ+Jgx3DFBdMGxgZWF5t03XqMRHYwDhaJkNSKEmP9gqDSpQKtndEdtOGdVkCl6rzQQ0joBzvYbonGLBMwRMcmwjAlqrzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fGGY1Hcp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GGrsBYIC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CC601F000E9;
-	Mon, 31 Aug 2026 13:44:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fGGY1Hcp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E12A31F00ACA;
+	Mon, 31 Aug 2026 13:44:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183853;
-	bh=gey/pA+MqLSign78ltl1Z+G5U1XGzfWV9TBfTmZofj8=;
+	s=k20260515; t=1788183855;
+	bh=W9hs4yCVMuwtOEDhBP/5X3aIuUOtMvfpYZF8O8jo20U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GGrsBYICdmnzHpkk8pJtbeu44an+jR8Ikh6BsEZxLJGuT/MDHDiBD+woyHCTrb7hA
-	 slW6LSry5tFgl84XeZG9vbfMT1IUacGNyCUs7TxpLl6AqSdNWJdCeZK+b4QvJvt2wo
-	 BUVTzANrACxhP4IvMx10MzeZ3918WMd9p900CeXPngHE56tpAg6oU+MBBiZLvI6/Oj
-	 GM2JhSFL4SYLBIB0JbLu6LCrvmbi+t0ebfixcItvQpmDA8vsBzTQIFJwWUNSbXT3lx
-	 zApQkqjM3rdL9BYlZbaROjYG0i5upuZIAOtivjAKH5zI31lpR2IKNzQHEAuF9LNm3x
-	 IYwAGM0D+H3NQ==
+	b=fGGY1HcpvGAqmeQ2tk1YSRMuCPVaG8bcU6sUyZPusq85WaDnS+ACt721JvlLvEZYG
+	 xHemmKpOyEyZFPvgHF9Lv1YGGxJBsn3OqKUKMYC+8H7I8/7dPbyahmDbyVEI6U7ROI
+	 Nju/tcGhDISeUA3F4j9s6e8ocXrQt+PRObpT2u4/eKIglam81el34VKhH5W9AfUqfs
+	 7lerky29WLxjDaNFS+uWyuRKFG3qxqvjHucbnWXzidrKK50+8rp3oYKtKUQ+Xv/IzS
+	 +CawwgF46o+r/vl5Et9zqxbWSqa+U38adD0tcLqdEDQ/sphJOmB33Hs62yno1oDGgN
+	 av78uAQ3s8Dmw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Michal Pecio <michal.pecio@gmail.com>,
-	Mathias Nyman <mathias.nyman@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Viacheslav Dubeyko <slava@dubeyko.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Yangtao Li <frank.li@vivo.com>,
+	linux-fsdevel@vger.kernel.org,
 	Sasha Levin <sashal@kernel.org>,
-	mathias.nyman@intel.com,
-	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] usb: xhci: Improve Soft Retries after short transfers
-Date: Mon, 31 Aug 2026 09:26:11 -0400
-Message-ID: <20260831133314.4125787-343-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] hfsplus: rework hfsplus_readdir() logic
+Date: Mon, 31 Aug 2026 09:26:12 -0400
+Message-ID: <20260831133314.4125787-344-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -54,18 +53,71 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Michal Pecio <michal.pecio@gmail.com>
+From: Viacheslav Dubeyko <slava@dubeyko.com>
 
-[ Upstream commit e765ab012f73717238c95ab9c34bfc3c767fa48c ]
+[ Upstream commit 4b0496432844628ad05a5b1efce329a3340174d2 ]
 
-A short transfer is a successful one, so reset the error count.
-Otherwise, endpoints which always complete short are limited to
-three retries per endpoint life rather than per URB.
+The xfstests' test-case generic/637 fails with error:
 
-Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
-Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://patch.msgid.link/20260603091132.1110849-7-mathias.nyman@linux.intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+FSTYP -- hfsplus
+PLATFORM -- Linux/x86_64 hfsplus-testing-0001 6.15.0-rc4+ #8 SMP PREEMPT_DYNAMIC Thu May 1 16:43:22 PDT 2025
+MKFS_OPTIONS -- /dev/loop51
+MOUNT_OPTIONS -- /dev/loop51 /mnt/scratch
+
+QA output created by 637
+entries 7 and 8 have duplicate d_off 8
+Found unlinked files in open dir (see xfstests-dev/results//generic/637.full for details)
+
+Debugging of the hfsplus_readdir() logic showed this:
+
+hfsplus: hfsplus_readdir(): 163 ctx->pos 0
+hfsplus: hfsplus_readdir(): 189 ctx->pos 1
+hfsplus: hfsplus_readdir(): 264 ctx->pos 2, ino 18
+hfsplus: hfsplus_readdir(): 264 ctx->pos 3, ino 19
+hfsplus: hfsplus_readdir(): 264 ctx->pos 4, ino 28
+hfsplus: hfsplus_readdir(): 264 ctx->pos 5, ino 118
+hfsplus: hfsplus_readdir(): 264 ctx->pos 6, ino 29
+hfsplus: hfsplus_readdir(): 264 ctx->pos 7, ino 30
+hfsplus: hfsplus_readdir(): 264 ctx->pos 8, ino 31
+hfsplus: hfsplus_readdir(): 304 ctx->pos 8
+hfsplus: hfsplus_unlink():420 dir->i_ino 17, inode->i_ino 28
+hfsplus: hfsplus_readdir(): 141 ctx->pos 7
+hfsplus: hfsplus_readdir(): 264 ctx->pos 7, ino 31
+hfsplus: hfsplus_readdir(): 264 ctx->pos 8, ino 32
+hfsplus: hfsplus_readdir(): 264 ctx->pos 9, ino 33
+
+It means that hfsplus_readdir() stopped the processing of
+folder's items on ctx->pos 8, then, item with ino 28 has
+been deleted and hfsplus_readdir() re-started the logic
+from ctx->pos 7. As a result, previous and new sets of
+folder's items have overlapping values for the case of
+d_off 8.
+
+Currently, HFS+ has very complicated and fragile logic
+of rd->file->f_pos correction in hfsplus_delete_cat().
+This patch removes this logic and it stores the current
+pos into hfsplus_readdir_data. Finally, if rd->pos == ctx->pos
+then hfsplus_readdir() tries to find the position in
+b-tree's node by means of hfsplus_cat_key. This position is
+used to re-start the folder's content traversal.
+
+sudo ./check generic/637
+FSTYP         -- hfsplus
+PLATFORM      -- Linux/x86_64 hfsplus-testing-0001 7.1.0-rc1+ #44 SMP PREEMPT_DYNAMIC Mon May  4 15:58:45 PDT 2026
+MKFS_OPTIONS  -- /dev/loop51
+MOUNT_OPTIONS -- /dev/loop51 /mnt/scratch
+
+generic/637  22s ...  22s
+Ran: generic/637
+Passed all 1 tests
+
+Closes: https://github.com/hfs-linux-kernel/hfs-linux-kernel/issues/198
+cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+cc: Yangtao Li <frank.li@vivo.com>
+cc: linux-fsdevel@vger.kernel.org
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Link: https://lore.kernel.org/r/20260505220051.2854696-2-slava@dubeyko.com
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
@@ -73,379 +125,469 @@ LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit Message Forensics
 
-**Step 1.1 – Subject line**
+**Step 1.1 — Subject line**
+Record: `[hfsplus] [rework] Fix fragile `hfsplus_readdir()` position
+tracking that breaks xfstests generic/637`
 
-Record: `[usb: xhci]` `[Improve]` – Improve soft-retry error counting
-after short bulk/interrupt transfers.
-
-**Step 1.2 – Tags**
-
+**Step 1.2 — Tags**
 Record:
-- `Signed-off-by: Michal Pecio <michal.pecio@gmail.com>` (author)
-- `Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>` (xHCI
-  maintainer)
-- `Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>` (USB
-  maintainer)
-- `Link: https://patch.msgid.link/20260603091132.1110849-7-
-  mathias.nyman@linux.intel.com` (patch 7/7 in a series)
-- No `Fixes:`, `Reported-by:`, `Cc: stable`, `Tested-by:`, or `Reviewed-
-  by:` tags
+- `Closes: https://github.com/hfs-linux-kernel/hfs-linux-
+  kernel/issues/198`
+- `cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>`
+- `cc: Yangtao Li <frank.li@vivo.com>`
+- `cc: linux-fsdevel@vger.kernel.org`
+- `Link:
+  https://lore.kernel.org/r/20260505220051.2854696-2-slava@dubeyko.com`
+- `Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>` (author)
+- No `Fixes:`, `Reported-by:`, `Reviewed-by:`, `Acked-by:`, `Tested-
+  by:`, or `Cc: stable@vger.kernel.org`
+- Notable: xfstests failure documented; GitHub issue closed by author
+  after fix
 
-**Step 1.3 – Body analysis**
-
+**Step 1.3 — Body analysis**
 Record:
-- **Bug:** `ep->err_count` is not cleared on `COMP_SHORT_PACKET`, even
-  though a short transfer is a successful completion.
-- **Symptom:** Endpoints that routinely complete short are limited to
-  three soft retries over the endpoint’s lifetime, not per URB/transfer.
-- **Root cause:** `err_count` is reset on `COMP_SUCCESS` but not on
-  `COMP_SHORT_PACKET`, so successful short transfers do not reset the
-  counter.
-- **Version info:** None in the message.
+- **Bug:** During partial `readdir()` on an open directory, if a catalog
+  entry is deleted, `hfsplus_delete_cat()` decrements `f_pos` for open
+  readers, but `hfsplus_readdir()` resumes using `ctx->pos` via
+  `hfs_brec_goto()`. After a mid-read stop, these diverge, producing
+  duplicate `d_off` values and stale (unlinked) entries.
+- **Symptom:** xfstests generic/637 fails with `entries 7 and 8 have
+  duplicate d_off 8` and `Found unlinked files in open dir`.
+- **Root cause:** Fragile `rd->file->f_pos--` logic in
+  `hfsplus_delete_cat()` does not correctly track btree position across
+  concurrent deletes.
+- **Fix approach:** Remove per-inode open-dir list and `f_pos`
+  adjustment; store `ctx->pos` and catalog key in
+  `hfsplus_readdir_data`; on resume, if `rd->pos == ctx->pos`, locate
+  btree position by key.
+- **Testing:** Author reports generic/637 passes after fix.
 
-**Step 1.4 – Hidden bug fix?**
-
-Record: **Yes.** Although the subject says “Improve,” this is a
-correctness bug in xHCI soft-retry error accounting, not a cosmetic
-cleanup.
+**Step 1.4 — Hidden bug fix?**
+Record: **Yes.** Subject says "rework," but this is a directory-
+iteration correctness bug fix, not a refactor.
 
 ---
 
 ## Phase 2: Diff Analysis
 
-**Step 2.1 – Inventory**
-
+**Step 2.1 — Inventory**
 Record:
-- **Files:** `drivers/usb/host/xhci-ring.c` (+1 line)
-- **Function:** `process_bulk_intr_td()`
-- **Scope:** Single-file, one-line surgical fix
+- `fs/hfsplus/catalog.c` — 11 lines removed
+- `fs/hfsplus/dir.c` — net ~14 lines changed
+- `fs/hfsplus/hfsplus_fs.h` — 5 lines changed
+- `fs/hfsplus/inode.c` — 2 lines removed
+- `fs/hfsplus/super.c` — 2 lines removed
+- **Total:** 5 files, +12 / −36 lines
+- **Functions:** `hfsplus_delete_cat()`, `hfsplus_readdir()`,
+  `hfsplus_dir_release()`, `hfsplus_new_inode()`, `hfsplus_iget()`
+- **Scope:** Single-subsystem surgical fix
 
-**Step 2.2 – Code flow change**
-
+**Step 2.2 — Code flow per hunk**
 Record:
-- **Before:** `COMP_SHORT_PACKET` sets `td->status = 0` only;
-  `ep->err_count` is unchanged.
-- **After:** `COMP_SHORT_PACKET` also sets `ep->err_count = 0`, matching
-  `COMP_SUCCESS`.
-- **Path:** Bulk/interrupt transfer completion in
-  `process_bulk_intr_td()`, called from `handle_tx_event()` for non-
-  control, non-isoc endpoints.
+1. **`hfsplus_delete_cat()`:** Before: on delete, walk `open_dir_list`
+   and decrement `f_pos` for readers past deleted key. After: no `f_pos`
+   manipulation.
+2. **`hfsplus_readdir()` resume:** Before: always `hfs_brec_goto(&fd,
+   ctx->pos - 1)`. After: if saved `rd->pos == ctx->pos`, find btree
+   record by stored `rd->key` (with `-ENOENT` fallback); else use
+   numeric offset.
+3. **`hfsplus_readdir()` bookmark:** Before: register `rd` on per-inode
+   list, save only key. After: save `rd->pos = ctx->pos` and key in per-
+   file `private_data`.
+4. **`hfsplus_dir_release()`:** Before: list removal under spinlock.
+   After: simple `kfree()`.
+5. **Struct cleanup:** Remove `open_dir_list`, `open_dir_lock` from
+   `hfsplus_inode_info`; simplify `hfsplus_readdir_data` to `{ loff_t
+   pos; struct hfsplus_cat_key key; }`.
 
-**Step 2.3 – Bug mechanism**
+**Step 2.3 — Bug mechanism**
+Record: **Logic/correctness fix** in directory iteration during
+concurrent unlink. The old `f_pos--` scheme breaks when `readdir()`
+stops mid-buffer (`dir_emit()` returns false): `ctx->pos` and adjusted
+`f_pos` disagree, so resumed reads revisit wrong catalog entries →
+duplicate `d_off` and visible deleted files.
 
-Record: **Logic / error-recovery bug.** `MAX_SOFT_RETRY` is 3. On
-`COMP_USB_TRANSACTION_ERROR`, `ep->err_count` is incremented; if it
-exceeds 3, soft retry is skipped and the error path proceeds without
-`xhci_handle_halted_endpoint(..., EP_SOFT_RESET)`. Successful
-completions should reset the counter, but short completions did not.
-
-**Step 2.4 – Fix quality**
-
-Record:
-- **Obviously correct:** Short packet is a successful transfer
-  (`td->status = 0`); resetting `err_count` matches `COMP_SUCCESS` and
-  the design intent.
-- **Minimal:** One line.
-- **Regression risk:** Very low; only resets a counter on a success
-  path.
+**Step 2.4 — Fix quality**
+Record: Fix is logically sound and minimal. Replacing numeric-offset
+resume with catalog-key lookup is the standard approach for btree-backed
+directories. Regression risk is **low** — removes spinlock/list
+complexity rather than adding it. No public API changes.
 
 ---
 
 ## Phase 3: Git History Investigation
 
-**Step 3.1 – Blame**
+**Step 3.1 — Blame**
+Record: `open_dir_list` / `f_pos--` code is present in current tree
+(blame shows import-era ancestry via `5d324e5159d9e`). The buggy
+mechanism predates 6.18.y by many kernel releases.
 
-Record:
-- Soft retry introduced in `f8f80be501aa2` (2018): `ep_ring->err_count =
-  0` on `COMP_SUCCESS`.
-- `err_count` moved to endpoint in `a1575120972ec` (Nov 2022, backported
-  with `Cc: stable`).
-- `COMP_SHORT_PACKET` handling dates to 2017; never reset `err_count`.
-- Bug present since soft-retry accounting was added (~2018).
+**Step 3.2 — Fixes: tag**
+Record: N/A — no `Fixes:` tag in commit message.
 
-**Step 3.2 – Fixes: tag**
+**Step 3.3 — Related file history**
+Record: This stable tree already contains multiple hfsplus xfstests
+fixes from the same author:
+- `282214ddf8472` generic/073
+- `54694417d4384` generic/480
+- `956b1d8051cfa` generic/498
+Standalone v1 patch; not part of a multi-commit series.
 
-Record: N/A – no `Fixes:` tag.
+**Step 3.4 — Author context**
+Record: Viacheslav Dubeyko is the active hfs/hfsplus maintainer with a
+track record of stable-worthy filesystem correctness fixes in this
+subsystem.
 
-**Step 3.3 – Related file history**
-
-Record:
-- Related short-packet work by Michal Pecio: `9e3a28793d2fd` (“Fix Short
-  Packet handling rework ignoring errors”), affecting UAC, UVC, serial,
-  UAS.
-- This fix is standalone; no dependency on other series patches for
-  correctness.
-
-**Step 3.4 – Author context**
-
-Record: Michal Pecio is an active xHCI contributor; Mathias Nyman is the
-xHCI maintainer. Both signed off.
-
-**Step 3.5 – Dependencies**
-
-Record: **Standalone.** One-line addition; no new symbols or structures.
-Patch 7/7 in submission, but this hunk is self-contained.
+**Step 3.5 — Dependencies**
+Record: No prerequisites. Cherry-pick onto this tree succeeds cleanly
+(`git cherry-pick --no-commit 4b04964328446` auto-merged all 5 files).
+Standalone.
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
-**Step 4.1 – Original discussion**
+**Step 4.1 — Original discussion**
+Record: `b4 dig -c 4b04964328446` →
+https://patch.msgid.link/20260505220051.2854696-2-slava@dubeyko.com.
+Single v1 submission (no v2/v3). Mbox contains only the patch itself —
+no review replies.
 
-Record: Link points to patch 7/7 in a Mathias Nyman series (2026-06-03).
-`b4 dig` did not find the committed hash (commit not in this tree).
-`patch.msgid.link` and `lore.kernel.org` were blocked (403/Anubis).
-Discussion content could not be fetched.
+**Step 4.2 — Reviewers**
+Record: `b4 dig -w` CC'd `linux-fsdevel@vger.kernel.org`, glaubitz,
+frank.li. No `Reviewed-by`/`Acked-by` in thread (author self-committed
+to mainline).
 
-**Step 4.2 – Reviewers**
+**Step 4.3 — Bug report**
+Record: GitHub issue #198 confirms reproducible generic/637 failure on
+hfsplus since at least 6.15.0-rc4; closed May 2026 referencing this
+patch.
 
-Record: UNVERIFIED from lore. Commit has SOBs from author, xHCI
-maintainer, and USB maintainer.
+**Step 4.4 — Related patches**
+Record: Sibling commit `7fde7e806657f` applies the same fix to `fs/hfs/`
+(plain HFS). That is a separate backport candidate; this analysis covers
+only the hfsplus commit.
 
-**Step 4.3 – Bug report**
-
-Record: No external bug report or syzbot link. Bug inferred from code
-analysis and commit message.
-
-**Step 4.4 – Series context**
-
-Record: Patch 7/7; this change does not appear to require earlier series
-patches.
-
-**Step 4.5 – Stable list**
-
-Record: UNVERIFIED – could not search lore stable archives due to access
-restrictions.
+**Step 4.5 — Stable list discussion**
+Record: No stable-specific lore discussion found. Not a negative signal
+per instructions.
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
-**Step 5.1 – Key functions**
+**Step 5.1 — Key functions**
+Record: `hfsplus_readdir()`, `hfsplus_delete_cat()`,
+`hfsplus_dir_release()`
 
-Record: `process_bulk_intr_td()`, caller `handle_tx_event()`.
+**Step 5.2 — Callers**
+Record: `hfsplus_readdir` is registered as `.iterate_shared` in
+`hfsplus_dir_operations` (`fs/hfsplus/dir.c:622`), reachable from
+`getdents64`/`readdir` syscalls on open directory fds.
+`hfsplus_delete_cat()` is called from unlink/rmdir/remove paths in
+`dir.c`, `inode.c`, `super.c`.
 
-**Step 5.2 – Callers**
+**Step 5.3 — Callees**
+Record: `hfs_brec_goto()`, `hfs_brec_find()`, `dir_emit()`,
+`hfs_brec_remove()` — standard hfsplus btree/catalog operations.
 
-Record: `handle_tx_event()` is the main xHCI transfer-event handler,
-invoked from the xhci interrupt path for every bulk/interrupt transfer
-completion. High-traffic, common path.
+**Step 5.4 — Reachability**
+Record: **Userspace-reachable.** Any process doing `getdents64()` on an
+hfsplus directory while another thread/process unlinks entries in that
+directory can trigger this. generic/637 exercises exactly this.
 
-**Step 5.3 – Callees**
-
-Record: On transaction error with `err_count <= MAX_SOFT_RETRY`, calls
-`xhci_handle_halted_endpoint(..., EP_SOFT_RESET)`. When limit exceeded,
-soft retry is skipped and `finish_td()` runs with `-EPROTO`.
-
-**Step 5.4 – Reachability**
-
-Record: **Highly reachable.** Any bulk/interrupt endpoint can hit this.
-Critically, in `handle_tx_event()`:
-
-```2707:2712:drivers/usb/host/xhci-ring.c
-        case COMP_SUCCESS:
-                if (EVENT_TRB_LEN(le32_to_cpu(event->transfer_len)) !=
-0) {
-                        trb_comp_code = COMP_SHORT_PACKET;
-                        xhci_dbg(xhci, "Successful completion on short
-TX for slot %u ep %u with last td comp code %d\n",
-                                 slot_id, ep_index,
-ep_ring->old_trb_comp_code);
-                }
-```
-
-Short transfers reported as `COMP_SUCCESS` are converted to
-`COMP_SHORT_PACKET` before `process_bulk_intr_td()` runs. So the
-`COMP_SUCCESS` `err_count` reset does **not** apply to short transfers
-on typical hosts; they go through `COMP_SHORT_PACKET` without resetting
-the counter.
-
-**Step 5.5 – Similar patterns**
-
-Record: `ep->err_count = 0` exists only on `COMP_SUCCESS` in
-`process_bulk_intr_td()`. `handle_transferless_tx_event()` increments
-`err_count` on stream transaction errors but never resets it on success.
-This fix addresses the bulk/intr path only.
+**Step 5.5 — Similar patterns**
+Record: Identical `open_dir_list`/`f_pos--` pattern exists in `fs/hfs/`
+(`fs/hfs/catalog.c:370-375`, `fs/hfs/dir.c`). Same class of bug; fixed
+separately on mainline.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree
+## Phase 6: Cross-Reference Against Local Tree (6.18.y)
 
-**Step 6.1 – Buggy code in this tree?**
+**Step 6.1 — Buggy code present?**
+Record: **Yes.** Local tree is `v6.18.43` on `stable/linux-6.18.y`.
+Buggy `f_pos--` logic confirmed at `fs/hfsplus/catalog.c:394-402`;
+`open_dir_list`/`open_dir_lock` in `hfsplus_fs.h` and init paths. Fix
+commit `4b04964328446` is **not** an ancestor of HEAD.
 
-Record: **Yes.** Local tree is **v6.18.44** (`git describe HEAD`, `make
-kernelversion`). At lines 2572–2574, `COMP_SHORT_PACKET` does not reset
-`ep->err_count`. The candidate commit is not yet applied.
+**Step 6.2 — Backport complications**
+Record: **Clean apply.** Cherry-pick auto-merges all files. Initial `git
+apply --check` failed only on `kmalloc_obj` vs `kmalloc` hunk; cherry-
+pick resolved this automatically.
 
-**Step 6.2 – Backport complications**
-
-Record: **Clean apply expected** – single line in a stable function with
-no recent churn at that hunk.
-
-**Step 6.3 – Related fixes already present?**
-
-Record: `git log --grep='Soft Retries'` returned nothing. No equivalent
-fix in this tree.
-
----
-
-## Phase 7: Subsystem and Maintainer Context
-
-**Step 7.1 – Subsystem**
-
-Record: `drivers/usb/host/` – USB xHCI host controller driver.
-**Criticality: IMPORTANT** (core USB path for most modern systems).
-
-**Step 7.2 – Activity**
-
-Record: Active subsystem; recent xhci fixes include HCE interrupt storm,
-memory leaks, and short-packet handling.
+**Step 6.3 — Related fixes already present?**
+Record: No equivalent fix (`rd->pos` not present). Prior hfsplus
+generic/* corruption fixes are in tree but address different bugs.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## Phase 7: Subsystem Context
 
-**Step 8.1 – Who is affected**
+**Step 7.1 — Subsystem/criticality**
+Record: `fs/hfsplus` — filesystem driver. **IMPORTANT** for hfsplus
+users; not universal core code, but VFS directory semantics are
+fundamental to any user of the filesystem.
 
-Record: Users of xHCI with bulk/interrupt endpoints that complete short
-(serial, UVC, UAC, storage status pipes, interrupt IN with fixed
-buffers). Essentially all xHCI users with typical USB devices.
+**Step 7.2 — Activity**
+Record: Active maintenance in 6.18.y — multiple recent hfsplus fixes
+(uninit-value, lock-free-on-error, xfstests corruption fixes).
 
-**Step 8.2 – Trigger conditions**
+---
 
-Record:
-- Endpoint sees successful short transfers (very common).
-- Plus occasional `COMP_USB_TRANSACTION_ERROR` (transient bus errors).
-- After 3 such errors, `err_count` stays elevated because short
-  successes never reset it.
-- **Likelihood:** Moderate for long-lived endpoints with occasional bus
-  noise.
+## Phase 8: Impact and Risk
 
-**Step 8.3 – Failure mode severity**
+**Step 8.1 — Who is affected**
+Record: Users with `CONFIG_HFSPLUS_FS` who read directories while
+entries are being deleted (backup tools, `find`, file managers,
+concurrent workloads). Niche filesystem but real macOS-interop use case.
 
-Record:
-- Soft retry stops after 3 transaction errors over endpoint lifetime.
-- Subsequent errors skip `EP_SOFT_RESET` and proceed to error completion
-  / harder recovery.
-- **Severity: MEDIUM-HIGH** – device malfunction, transfer failures,
-  possible disconnect; not a kernel oops, but real user-visible USB
-  breakage.
+**Step 8.2 — Trigger conditions**
+Record: Open directory fd → partial `readdir()` (buffer fills before
+EOF) → unlink of catalog entry whose key sorts before the reader's saved
+position → continue `readdir()`. Realistic for multi-threaded or multi-
+process directory traversal. Unprivileged users can trigger on mounts
+they can write to.
 
-**Step 8.4 – Risk vs benefit**
+**Step 8.3 — Failure mode severity**
+Record: Incorrect directory enumeration — duplicate `d_off`, deleted
+files still visible to `getdents64`. Not on-disk corruption, but
+violates POSIX directory semantics and can cause userspace to skip files
+or process stale names. **Severity: MEDIUM-HIGH** (correctness /
+semantic violation with real userspace impact).
 
-Record:
-- **Benefit:** HIGH for affected endpoints – restores intended per-
-  transfer error accounting.
-- **Risk:** VERY LOW – one line, mirrors existing `COMP_SUCCESS`
-  behavior.
-- **Ratio:** Strong benefit, minimal risk.
+**Step 8.4 — Risk/benefit**
+Record: **Benefit: HIGH** for hfsplus users (fixes reproducible xfstests
+failure, aligns with prior stable backports from same subsystem).
+**Risk: LOW** (net code reduction, cherry-picks cleanly, author-tested).
+Ratio strongly favors backport.
 
 ---
 
 ## Phase 9: Final Synthesis
 
-**Step 9.1 – Evidence**
+**Evidence FOR:**
+- Reproducible, documented bug (generic/637, GitHub #198)
+- Violates directory iteration semantics (duplicate offsets, stale
+  entries)
+- Small, self-contained, cherry-picks cleanly to 6.18.y
+- Author tested with xfstests
+- Same maintainer's generic/* hfsplus fixes already in this stable tree
+- Bug present since ancient hfsplus code; affects 6.18.y today
+- Removes fragile synchronization (spinlock + per-inode list) in favor
+  of simpler per-fd state
 
-**FOR:**
-- Real, long-standing logic bug in soft-retry accounting
-- Affects a very common path (short bulk/interrupt transfers)
-- `handle_tx_event()` converts success-with-remaining to
-  `COMP_SHORT_PACKET`, so most short transfers hit the buggy path
-- After 3 transaction errors, error recovery degrades permanently for
-  that endpoint
-- One-line, obviously correct fix
-- Signed off by xHCI and USB maintainers
-- Bug present in v6.18.44; fix applies cleanly
+**Evidence AGAINST:**
+- No independent reviewer Ack on mailing list (author self-committed)
+- hfsplus is not a widely deployed filesystem
+- Not a crash/Oops/security issue — correctness only
 
-**AGAINST:**
-- No syzbot report or user bug report in commit message
-- Failure mode is degraded recovery, not kernel crash
-- Lore discussion could not be verified
+**Unresolved:** None material to the decision.
 
-**UNRESOLVED:**
-- Full mailing-list review thread inaccessible
-- No explicit stable nomination found
+**Stable rules checklist:**
+1. Obviously correct and tested? **PASS** — clear mechanism, xfstests
+   generic/637 passes
+2. Fixes real bug affecting users? **PASS** — reproducible directory
+   enumeration corruption
+3. Important issue? **PASS** — MEDIUM-HIGH correctness; stale/deleted
+   entries in `readdir`
+4. Small and contained? **PASS** — 5 files, net −24 lines
+5. No new features/APIs? **PASS** — internal implementation change only
+6. Can apply to local tree? **PASS** — verified clean cherry-pick
 
-**Step 9.2 – Stable rules checklist**
-
-1. Obviously correct and tested? **PASS** – logic is clear; maintainer
-   SOBs present; no runtime test cited.
-2. Fixes a real bug affecting users? **PASS** – short transfers are
-   routine; error accounting is wrong.
-3. Important issue? **PASS (MEDIUM-HIGH)** – USB communication failures
-   on common device classes.
-4. Small and contained? **PASS** – 1 line, 1 file.
-5. No new features or APIs? **PASS**.
-6. Can apply to local tree? **PASS** – buggy code confirmed in v6.18.44.
-
-**Step 9.3 – Exception categories**
-
-Record: None (not device ID, quirk, DT, build, or docs). Standard bug
-fix.
-
-**Step 9.4 – Decision rationale**
-
-This is a clear correctness bug in xHCI error recovery. Because
-`handle_tx_event()` rewrites success-with-short-data to
-`COMP_SHORT_PACKET`, the existing `err_count` reset on `COMP_SUCCESS`
-does not cover the common short-transfer case. Endpoints that routinely
-short-packet can exhaust their three soft retries permanently after only
-three transient transaction errors, causing degraded USB error recovery.
-The fix is minimal, obviously correct, and low risk.
+**Exception category:** N/A (not device ID/quirk/build/doc fix; standard
+bug fix)
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, and body from provided commit
-  message.
-- **[Phase 2]** Confirmed diff: +1 line `ep->err_count = 0` in
-  `COMP_SHORT_PACKET` case.
-- **[Phase 3]** `git blame -L 2560,2595 drivers/usb/host/xhci-ring.c`:
-  soft retry from 2018, `err_count` on endpoint from 2022.
-- **[Phase 3]** `git show f8f80be501aa2`: original soft retry added
-  `err_count` reset on `COMP_SUCCESS` only.
-- **[Phase 3]** `git show a1575120972ec`: moved `err_count` to endpoint;
-  had `Cc: stable`.
-- **[Phase 3]** `git log --oneline -20 -- drivers/usb/host/xhci-ring.c`:
-  recent xhci activity confirmed.
-- **[Phase 4]** `b4 dig`: no match (commit not in tree).
-  Lore/patch.msgid.link: blocked (403/Anubis). **UNVERIFIED:** review
-  thread content.
-- **[Phase 5]** `grep process_bulk_intr_td`: called from
-  `handle_tx_event()` line 2982.
-- **[Phase 5]** Read `handle_tx_event()` lines 2707–2712: `COMP_SUCCESS`
-  with remaining length converted to `COMP_SHORT_PACKET`.
-- **[Phase 5]** `grep err_count drivers/usb/host/`: only reset on
-  `COMP_SUCCESS` in xhci-ring.c.
-- **[Phase 6]** `git describe HEAD` → v6.18.44; `make kernelversion` →
-  6.18.44.
-- **[Phase 6]** Read lines 2572–2574: bug present (no reset on
-  `COMP_SHORT_PACKET`).
-- **[Phase 6]** `git log --grep='Soft Retries'`: no existing fix in
-  tree.
-- **[Phase 8]** `MAX_SOFT_RETRY` = 3 in `drivers/usb/host/xhci.h` line
-  1272.
-- **[Phase 8]** Read `COMP_USB_TRANSACTION_ERROR` path: when `err_count
-  > 3`, soft retry skipped.
+- [Phase 1] Parsed commit `4b04964328446` message and tags from `git
+  show`
+- [Phase 2] Diff analysis: 5 files, +12/−36; classified as directory
+  iteration correctness fix
+- [Phase 3] `git describe HEAD` → `v6.18.43`; `git merge-base --is-
+  ancestor 4b04964328446 HEAD` → fix NOT in tree
+- [Phase 3] `git log --grep='generic/' -- fs/hfsplus/` → prior stable-
+  worthy fixes present (073, 480, 498)
+- [Phase 3] `git cherry-pick --no-commit 4b04964328446` → clean auto-
+  merge of all 5 files
+- [Phase 4] `b4 dig -c 4b04964328446` → lore URL found; v1 only, no
+  review replies in mbox
+- [Phase 4] `b4 dig -a` → single revision
+- [Phase 4] `b4 dig -w` → CC list retrieved
+- [Phase 4] GitHub issue #198 → confirms generic/637 failure, closed
+  with patch reference
+- [Phase 4] Web search → generic/637 tests `getdents64` while unlinking
+  files in open directory
+- [Phase 5] `grep hfsplus_dir_operations` → `.iterate_shared =
+  hfsplus_readdir` at dir.c:622
+- [Phase 5] `grep hfsplus_delete_cat` → called from unlink/rmdir paths
+- [Phase 6] `grep open_dir_list/open_dir_lock` in fs/hfsplus → buggy
+  code confirmed present
+- [Phase 6] `grep rd->pos` in fs/hfsplus → absent (fix not applied)
+- [Phase 6] Cherry-pick test → applies cleanly
 
-**YES**
+This commit fixes a real, reproducible hfsplus directory iteration bug
+that is present in the 6.18.y tree, applies cleanly, matches the pattern
+of prior hfsplus xfstests fixes already backported here, and carries low
+regression risk.
 
- drivers/usb/host/xhci-ring.c | 1 +
- 1 file changed, 1 insertion(+)
+**YES**The background check confirmed commit `4b04964328446` (`hfsplus:
+rework hfsplus_readdir() logic`) is **not** in this tree — the buggy
+`open_dir_list` / `f_pos--` code is still present on
+`stable/linux-6.18.y` at `v6.18.43`.
 
-diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index 2bb7569c95054..3f1a6089a01ce 100644
---- a/drivers/usb/host/xhci-ring.c
-+++ b/drivers/usb/host/xhci-ring.c
-@@ -2570,6 +2570,7 @@ static void process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
- 		td->status = 0;
- 		break;
- 	case COMP_SHORT_PACKET:
-+		ep->err_count = 0;
- 		td->status = 0;
- 		break;
- 	case COMP_STOPPED_SHORT_PACKET:
+That supports the earlier **YES** verdict: this is a real directory-
+iteration bug (generic/637), the fix cherry-picks cleanly, and it fits
+the pattern of other hfsplus xfstests fixes already in 6.18.y.
+
+ fs/hfsplus/catalog.c    | 11 -----------
+ fs/hfsplus/dir.c        | 28 +++++++++++-----------------
+ fs/hfsplus/hfsplus_fs.h |  5 +----
+ fs/hfsplus/inode.c      |  2 --
+ fs/hfsplus/super.c      |  2 --
+ 5 files changed, 12 insertions(+), 36 deletions(-)
+
+diff --git a/fs/hfsplus/catalog.c b/fs/hfsplus/catalog.c
+index 6c8380f7208df..fd2a9460e6aa8 100644
+--- a/fs/hfsplus/catalog.c
++++ b/fs/hfsplus/catalog.c
+@@ -332,7 +332,6 @@ int hfsplus_delete_cat(u32 cnid, struct inode *dir, const struct qstr *str)
+ 	struct super_block *sb = dir->i_sb;
+ 	struct hfs_find_data fd;
+ 	struct hfsplus_fork_raw fork;
+-	struct list_head *pos;
+ 	int err, off;
+ 	u16 type;
+ 
+@@ -391,16 +390,6 @@ int hfsplus_delete_cat(u32 cnid, struct inode *dir, const struct qstr *str)
+ 		hfsplus_free_fork(sb, cnid, &fork, HFSPLUS_TYPE_RSRC);
+ 	}
+ 
+-	/* we only need to take spinlock for exclusion with ->release() */
+-	spin_lock(&HFSPLUS_I(dir)->open_dir_lock);
+-	list_for_each(pos, &HFSPLUS_I(dir)->open_dir_list) {
+-		struct hfsplus_readdir_data *rd =
+-			list_entry(pos, struct hfsplus_readdir_data, list);
+-		if (fd.tree->keycmp(fd.search_key, (void *)&rd->key) < 0)
+-			rd->file->f_pos--;
+-	}
+-	spin_unlock(&HFSPLUS_I(dir)->open_dir_lock);
+-
+ 	err = hfs_brec_remove(&fd);
+ 	if (err)
+ 		goto out;
+diff --git a/fs/hfsplus/dir.c b/fs/hfsplus/dir.c
+index 8aeb861969d37..8254d6c92eb94 100644
+--- a/fs/hfsplus/dir.c
++++ b/fs/hfsplus/dir.c
+@@ -185,7 +185,15 @@ static int hfsplus_readdir(struct file *file, struct dir_context *ctx)
+ 	}
+ 	if (ctx->pos >= inode->i_size)
+ 		goto out;
+-	err = hfs_brec_goto(&fd, ctx->pos - 1);
++	rd = file->private_data;
++	if (rd && rd->pos == ctx->pos) {
++		memcpy(fd.search_key, &rd->key, sizeof(struct hfsplus_cat_key));
++		err = hfs_brec_find(&fd, hfs_find_rec_by_key);
++		if (err == -ENOENT)
++			err = hfs_brec_goto(&fd, 1);
++	} else {
++		err = hfs_brec_goto(&fd, ctx->pos - 1);
++	}
+ 	if (err)
+ 		goto out;
+ 	for (;;) {
+@@ -261,7 +269,6 @@ static int hfsplus_readdir(struct file *file, struct dir_context *ctx)
+ 		if (err)
+ 			goto out;
+ 	}
+-	rd = file->private_data;
+ 	if (!rd) {
+ 		rd = kmalloc(sizeof(struct hfsplus_readdir_data), GFP_KERNEL);
+ 		if (!rd) {
+@@ -269,15 +276,8 @@ static int hfsplus_readdir(struct file *file, struct dir_context *ctx)
+ 			goto out;
+ 		}
+ 		file->private_data = rd;
+-		rd->file = file;
+-		spin_lock(&HFSPLUS_I(inode)->open_dir_lock);
+-		list_add(&rd->list, &HFSPLUS_I(inode)->open_dir_list);
+-		spin_unlock(&HFSPLUS_I(inode)->open_dir_lock);
+ 	}
+-	/*
+-	 * Can be done after the list insertion; exclusion with
+-	 * hfsplus_delete_cat() is provided by directory lock.
+-	 */
++	rd->pos = ctx->pos;
+ 	memcpy(&rd->key, fd.key, sizeof(struct hfsplus_cat_key));
+ out:
+ 	kfree(strbuf);
+@@ -287,13 +287,7 @@ static int hfsplus_readdir(struct file *file, struct dir_context *ctx)
+ 
+ static int hfsplus_dir_release(struct inode *inode, struct file *file)
+ {
+-	struct hfsplus_readdir_data *rd = file->private_data;
+-	if (rd) {
+-		spin_lock(&HFSPLUS_I(inode)->open_dir_lock);
+-		list_del(&rd->list);
+-		spin_unlock(&HFSPLUS_I(inode)->open_dir_lock);
+-		kfree(rd);
+-	}
++	kfree(file->private_data);
+ 	return 0;
+ }
+ 
+diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
+index 2da2bd52d200e..9e92493e55c62 100644
+--- a/fs/hfsplus/hfsplus_fs.h
++++ b/fs/hfsplus/hfsplus_fs.h
+@@ -215,8 +215,6 @@ struct hfsplus_inode_info {
+ 	sector_t fs_blocks;
+ 	u8 userflags;		/* BSD user file flags */
+ 	u32 subfolders;		/* Subfolder count (HFSX only) */
+-	struct list_head open_dir_list;
+-	spinlock_t open_dir_lock;
+ 	loff_t phys_size;
+ 
+ 	struct inode vfs_inode;
+@@ -266,8 +264,7 @@ struct hfs_find_data {
+ };
+ 
+ struct hfsplus_readdir_data {
+-	struct list_head list;
+-	struct file *file;
++	loff_t pos;
+ 	struct hfsplus_cat_key key;
+ };
+ 
+diff --git a/fs/hfsplus/inode.c b/fs/hfsplus/inode.c
+index 7e6cc4dde9f26..ab1c343955b10 100644
+--- a/fs/hfsplus/inode.c
++++ b/fs/hfsplus/inode.c
+@@ -459,8 +459,6 @@ struct inode *hfsplus_new_inode(struct super_block *sb, struct inode *dir,
+ 	simple_inode_init_ts(inode);
+ 
+ 	hip = HFSPLUS_I(inode);
+-	INIT_LIST_HEAD(&hip->open_dir_list);
+-	spin_lock_init(&hip->open_dir_lock);
+ 	mutex_init(&hip->extents_lock);
+ 	atomic_set(&hip->opencnt, 0);
+ 	hip->extent_state = 0;
+diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
+index e1e2833f528d1..d031c77fb4eb3 100644
+--- a/fs/hfsplus/super.c
++++ b/fs/hfsplus/super.c
+@@ -91,8 +91,6 @@ struct inode *hfsplus_iget(struct super_block *sb, unsigned long ino)
+ 	HFSPLUS_I(inode)->fs_blocks = 0;
+ 	HFSPLUS_I(inode)->userflags = 0;
+ 	HFSPLUS_I(inode)->subfolders = 0;
+-	INIT_LIST_HEAD(&HFSPLUS_I(inode)->open_dir_list);
+-	spin_lock_init(&HFSPLUS_I(inode)->open_dir_lock);
+ 	HFSPLUS_I(inode)->phys_size = 0;
+ 
+ 	if (inode->i_ino >= HFSPLUS_FIRSTUSER_CNID ||
 -- 
 2.53.0
 
