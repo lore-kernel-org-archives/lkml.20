@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5F45A310E;
-	Mon, 31 Aug 2026 13:52:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F702476060;
+	Mon, 31 Aug 2026 13:52:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184330; cv=none; b=uF7TZF7OyN5ccPKHzsJGwNHZuavJ1CIl+sz3KRSCPaMtQO8cw3REbjrt6P7OKt3gE3+ZgAmr/hzKg17R9Lc6O6v8Oqg7FpecuaJSuUjmMo+5kXz9hg/Te4MnQG50xG9QncDuHuSeD6YkwVQJ8aRkxJIt4imFDPAtMceUgGi3RN0=
+	t=1788184332; cv=none; b=l13tzjk1ipGCBNxQjjfqpu1mWOdkx5NqY6Oej9l4zKRpXysuIRkjqiLdVcU7yK6e7geb4VG68/qH6LBiyJxdwYmBuQalvOPbPSNa++uHoIQDpZqzRVX5JxbnVtdr7HtQMxJdL9IwMV33aXq5FXTWSLBuy8qxgCuc8s3eNeweNS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184330; c=relaxed/simple;
-	bh=jvPy/o3A60Biykc89WOcTOUdIgxk2j85X5Xcl9zEGYE=;
+	s=arc-20240116; t=1788184332; c=relaxed/simple;
+	bh=+8ZiQKKyaZYmO9q8rTvBxQD2meYqCapR5UbS8OrCFmQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AHCelJeTmh8WY8j8BkQtLiRSkP0CZKA8vDWqRq/usjmWBrz2S3f77Py7kVt+NPphexmkXbKB5r+nfHGGPkCVZi5H5wMsMPK8yH8jQJ4yMLbIbIoudVCOW8lB8QDSq0DDMFLJVfGkIfzNuFdJ1YaaYvmbgu7N134WBXioy2IlExo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MTxwOmev; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=mhGDuOBnTlrkjBlYSgerbve/r53xtzv2sEyCYllH4XCKd6yH1MaVHr9ezDxmb4rcA1uu7wta96UQTmzCxAN7tjQ4/NldLAMkMyGzlqLKGaPotD4HZTSWsyz1n4ryJRV35HKfLtJloNU1uqSh4CeR0pYUgA10eOKcv/lQOMfT1wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=du7j9q5d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MTxwOmev"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC8E21F00A3D;
-	Mon, 31 Aug 2026 13:52:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="du7j9q5d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE4941F00A3F;
+	Mon, 31 Aug 2026 13:52:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184327;
-	bh=/ywgHoGDBdnLgNzikZgX18OzVKD88gPRnEUhW07+zPw=;
+	s=k20260515; t=1788184329;
+	bh=8z0Zk6f6IzTTH0YSgbBk7q9JHOnumno17VaPZOVy9u4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MTxwOmevFZIeULwxz/o4Vg9n+JNfDm0ma/KluZWk8Ub9d8iYsrwJ4R+OVeQlaTkbT
-	 17soAS9DbtdvRDlr9Os/22v7YWUSrYt7EuH89vzBCUSpPQzjFiG5ClVmsyGOTIP0hw
-	 76KupYT3gmZBmkIUs3IPrncSqfRHHE4JXxeuVpFyzl0Z7Gq6TFbr2yEJuZhBn7AJ4H
-	 Omc5msvGAut/N0Fl5xq2u2zMWJ0wSLuGkqdxON0XCCOXhlYArl9BflK3NFqxnT0rHB
-	 gr1CnnZ7M+wFUBc9KwaYQCQ8pm0S70DLjsZSXbaG5pF5esfhHH4hfQBrbLpGKvbx25
-	 Zfj3kJsOcj/7w==
+	b=du7j9q5d7S+hJGl99Q0zt+jYE/xNWPdDsmvPfxnHvp4BR19AbStx8OrBHRg/UZNhN
+	 J3dCPEfOp/rBmGEe86Bvw/Rjt5RDGUwMtYQ6ei/iO8ymlOXRtOPLN1bW28gZ7plml4
+	 5fopyOnpEw49ecY5X7FJmS6I/8naQPB90rulepY/Hf6sygpN6JYsiU+t/gUN2jfGIO
+	 vtk/pJx4JcEW4i1LHzLh46fZCfxhx6kLgXZGrfKVNhQY60D1Xq4xNq/7alF7hzHCfr
+	 cjqJPgy0Oxp4RFgL8Wsn2BbEqgNHpHdiytgJYKXyA+xYO8q2yWPrqw41Zp4Ytac7rH
+	 Uv6GnLNkIx/6w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Dave Carey <carvsdriver@gmail.com>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>,
-	jikos@kernel.org,
-	bentiss@kernel.org,
-	linux-input@vger.kernel.org,
+	smfrench@gmail.com,
+	linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] HID: multitouch: Fix Yoga Book 9 14IAH10 touchscreen misclassification
-Date: Mon, 31 Aug 2026 09:30:55 -0400
-Message-ID: <20260831133314.4125787-627-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.1] ksmbd: align SMB2 oplock break ack handling
+Date: Mon, 31 Aug 2026 09:30:57 -0400
+Message-ID: <20260831133314.4125787-629-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -54,73 +53,25 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Dave Carey <carvsdriver@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit f1bd44b9b62c6fbdaacdd5d115ebe3fe543fcfa1 ]
+[ Upstream commit 80a56d4a826c6c84430286fcf7d8655f7c5b0868 ]
 
-The Lenovo Yoga Book 9 14IAH10 (83KJ) (17EF:6161) firmware includes a
-HID_DG_TOUCHPAD application collection designed for the Windows inbox HID
-driver's Win8 PTP touchpad mode.  On Linux the HID_DG_TOUCHSCREEN
-collections provide the correct direct-touch interface.  The presence of
-the touchpad collection causes hid-multitouch to misclassify the
-touchscreen nodes as indirect buttonpads, leaving them non-functional.
+Handle SMB2 oplock break acknowledgments according to the server-side
+validation rules in MS-SMB2.
 
-Within the touchpad collection:
-- HID_UP_BUTTON usages trigger the touchscreen-with-buttons heuristic
-  that sets INPUT_MT_POINTER on the touchscreen applications.
-- The HID_DG_TOUCHPAD application itself sets INPUT_MT_POINTER via
-  mt_allocate_application(), propagating to all touchscreen nodes.
-- A HID_DG_BUTTONTYPE feature (report 0x51) returns MT_BUTTONTYPE_CLICKPAD,
-  setting td->is_buttonpad = true for the entire device.
+Return STATUS_INVALID_DEVICE_STATE when an ACK arrives while the open is
+not breaking, reject SMB2_OPLOCK_LEVEL_LEASE with
+STATUS_INVALID_PARAMETER, allow BATCH acknowledgments to EXCLUSIVE, and
+make invalid ACK levels fail with STATUS_INVALID_OPLOCK_PROTOCOL after
+lowering the oplock to NONE.
 
-Additionally, the firmware resets if any USB control request arrives while
-the CDC-ACM interface is initialising (~1.18 s after enumeration).
-The Win8 compliance blob (0xff00:0xc5) and Contact Count Max feature
-reports in the touchscreen collections trigger GET_REPORT calls at probe
-that hit this window.  Surface Switch (0x57) and Button Switch (0x58)
-feature reports are sent by mt_set_modes() on every input-device open and
-close, repeatedly hitting this window throughout device lifetime.
+Update the successful response from the final granted oplock level instead
+of relying on the oplock transition helpers, which could turn invalid ACKs
+into successful responses.
 
-The firmware also leaves a persistent ghost contact in its contact buffer
-(contact ID 2, fixed coordinates, tip always asserted) on every enumeration.
-This ghost occupies a multitouch slot and prevents KWin from seeing a clean
-finger-lift, causing stuck touch state.  The ghost is cleared when Input
-Mode is set via HID_REQ_SET_REPORT at probe.
-
-Fix using a report descriptor fixup in mt_report_fixup() and a class
-definition update:
-
-1. Remove the entire HID_DG_TOUCHPAD application collection.  Parsing
-   HID short items from its header to the matching End Collection and
-   closing the gap with memmove eliminates all three BUTTONPAD
-   heuristics and the feature reports within the collection.
-
-2. Neutralize the Win8 compliance blob feature reports remaining in the
-   touchscreen collections by changing Usage Page 0xff00 to 0x0f00,
-   preventing the case 0xff0000c5 branch in mt_feature_mapping() from
-   issuing GET_REPORT.
-
-3. Neutralize the Contact Count Max feature reports by changing usage
-   0x55 to 0x00; set maxcontacts = 10 in the class definition so the
-   driver uses the correct contact limit without querying the device.
-
-4. Neutralize Surface Switch (0x57) and Button Switch (0x58) feature
-   report usages in the Device Configuration collection so mt_set_modes()
-   does not issue HID_REQ_SET_REPORT for these on every input-device
-   open/close.  Input Mode (0x52) is intentionally left intact: the single
-   HID_REQ_SET_REPORT at probe flushes the firmware's contact buffer and
-   clears the persistent ghost contact.  By probe time the cdc-acm driver
-   has already satisfied the CDC-ACM init watchdog (~130 ms), so this
-   request arrives safely after the reset window has closed.
-
-5. Add MT_QUIRK_NOT_SEEN_MEANS_UP to the MT_CLS_YOGABOOK9I class so that
-   contacts not present in a frame are released via INPUT_MT_DROP_UNUSED,
-   preventing stale multitouch slots from lingering if the firmware omits
-   a contact from a report.
-
-Signed-off-by: Dave Carey <carvsdriver@gmail.com>
-Tested-by: Dave Carey <carvsdriver@gmail.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
@@ -130,45 +81,42 @@ LLM Generated explanations, may be completely bogus:
 
 **Step 1.1 — Subject line**
 
-Record: **[HID: multitouch]** **[Fix]** **Yoga Book 9 14IAH10
-touchscreen misclassification** — fixes incorrect buttonpad
-classification that leaves touchscreens non-functional on Lenovo Yoga
-Book 9 14IAH10 (83KJ, 17EF:6161).
+Record: **[ksmbd] [align] SMB2 oplock break ack handling — correct SMB2
+oplock-break ACK validation per MS-SMB2**
 
 **Step 1.2 — Tags**
 
 Record:
-- **Signed-off-by:** Dave Carey `<carvsdriver@gmail.com>` (author)
-- **Tested-by:** Dave Carey `<carvsdriver@gmail.com>`
-- **Signed-off-by:** Jiri Kosina `<jkosina@suse.com>` (HID maintainer)
-- No `Fixes:`, `Reported-by:`, `Cc: stable`, `Link:`, `Reviewed-by:`, or
-  `Acked-by:` tags in the provided commit message
-- Notable: author hardware-tested; maintainer signed off
+- **Signed-off-by:** Namjae Jeon `<linkinjeon@kernel.org>` (author)
+- **Signed-off-by:** Steve French `<stfrench@microsoft.com>` (CIFS/ksmbd
+  maintainer, committer)
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Link:,
+  or Cc: stable tags
+- Notable: maintainer-authored and maintainer-committed; no syzbot or
+  user bug report in message
 
 **Step 1.3 — Body analysis**
 
 Record:
-- **Bug:** `hid-multitouch` misclassifies both touchscreen nodes as
-  indirect buttonpads (`INPUT_PROP_BUTTONPAD` / `INPUT_MT_POINTER`), so
-  libinput/KWin suppress direct touch; touchscreens are non-functional.
-- **Root cause:** Windows-oriented `HID_DG_TOUCHPAD` collection plus
-  buttonpad heuristics (`HID_UP_BUTTON` in touchscreen collections,
-  `mt_allocate_application()` touchpad handling, `HID_DG_BUTTONTYPE`
-  clickpad feature).
-- **Additional bugs:** USB control requests during CDC-ACM init window
-  (~1.18 s) cause firmware reset; repeated `mt_set_modes()` SET_REPORT
-  on open/close hits that window; persistent ghost contact (ID 2) causes
-  stuck touch state.
-- **Symptom:** Non-functional touchscreens; possible USB resets / stuck
-  multitouch state.
-- **Version info:** Specific to Yoga Book 9 14IAH10 (83KJ), USB
-  17EF:6161.
+- **Bug:** `smb20_oplock_break_ack()` does not follow MS-SMB2 server-
+  side ACK validation
+- **Symptoms:**
+  - ACK while open is not breaking → wrong handling
+  - `SMB2_OPLOCK_LEVEL_LEASE` in oplock-break ACK → not rejected
+    correctly
+  - Valid BATCH→EXCLUSIVE ACK → incorrectly rejected
+  - Invalid ACK levels → can return SUCCESS instead of
+    `STATUS_INVALID_OPLOCK_PROTOCOL`
+- **Root cause:** State/level checks are wrong; transition helpers
+  (`opinfo_write_to_*`) can succeed on invalid ACKs and produce a
+  successful response
+- **Version info:** None in message
 
 **Step 1.4 — Hidden bug fix?**
 
-Record: **Yes.** Although framed as descriptor/class fixup, this is a
-real hardware/firmware bug fix (misclassification, firmware reset
-sensitivity, ghost contact), not cosmetic cleanup.
+Record: **Yes.** Despite “align” wording, this fixes real protocol/logic
+bugs: wrong state gating, incorrect rejection of valid BATCH/EXCLUSIVE
+ACKs, and invalid ACKs returning NTSTATUS success.
 
 ---
 
@@ -177,45 +125,46 @@ sensitivity, ghost contact), not cosmetic cleanup.
 **Step 2.1 — Inventory**
 
 Record:
-- **File:** `drivers/hid/hid-multitouch.c` only
-- **Scope:** ~145 lines added, 1 line changed in class definition
-- **Functions modified/added:** `mt_classes[]` (`MT_CLS_YOGABOOK9I`),
-  new `mt_yogabook9_fixup()`, `mt_report_fixup()`
-- **Classification:** Single-file, device-specific surgical fix
+- **Files:** `fs/smb/server/smb2pdu.c` only (+46 / -58)
+- **Function:** `smb20_oplock_break_ack()`
+- **Scope:** Single-file, single-function surgical change
 
 **Step 2.2 — Code flow changes**
 
 Record:
-- **Before:** Full HID report descriptor parsed as-is; touchpad
-  collection triggers buttonpad heuristics; `mt_feature_mapping()`
-  issues GET_REPORT for Win8 blob/contact max; `mt_set_modes()`
-  SET_REPORT on Surface/Button Switch every open/close.
-- **After:** For 17EF:6161 only, `mt_report_fixup()` strips touchpad
-  collection, neutralizes problematic feature usages/pages before
-  parsing; class gets `MT_QUIRK_NOT_SEEN_MEANS_UP` and `maxcontacts =
-  10`.
-- **Paths affected:** HID probe (`report_fixup` → parse), feature
-  mapping, input open/close (`mt_set_modes`), multitouch slot lifecycle.
+- **Hunk 1 (state check):** Before: reject only if `op_state ==
+  OPLOCK_STATE_NONE` with `STATUS_UNSUCCESSFUL`. After: require
+  `op_state == OPLOCK_ACK_WAIT`; otherwise
+  `STATUS_INVALID_DEVICE_STATE`.
+- **Hunk 2 (LEASE level):** Before: no explicit LEASE-level rejection.
+  After: reject `SMB2_OPLOCK_LEVEL_LEASE` with
+  `STATUS_INVALID_PARAMETER`, set level to NONE.
+- **Hunk 3 (validation):** Before: complex `oplock_change_type` + switch
+  calling `opinfo_write_to_read/none`. After: explicit per-level
+  validation; invalid ACKs set level to NONE and error out.
+- **Hunk 4 (BATCH/EXCLUSIVE):** Before: BATCH + EXCLUSIVE ACK treated as
+  invalid. After: EXCLUSIVE explicitly allowed for BATCH.
+- **Hunk 5 (success path):** Before: response level from transition
+  helpers. After: set `opinfo->level` and `rsp_oplevel` directly from
+  validated request level.
+- **Hunk 6 (error path):** Before: `err_out` could conflate pin failures
+  with protocol errors. After: clear `status` assignment and separate
+  `out` path.
 
 **Step 2.3 — Bug mechanism**
 
-Record: **Hardware workaround / logic correctness fix**
-- Removes source of `INPUT_MT_POINTER` / `is_buttonpad`
-  misclassification
-- Prevents probe-time and runtime HID control traffic that triggers
-  firmware reset
-- Clears ghost-contact behavior via retained Input Mode SET_REPORT at
-  probe plus `MT_QUIRK_NOT_SEEN_MEANS_UP`
+Record: **[Logic / protocol correctness]**
+- Wrong state machine gate (never required `OPLOCK_ACK_WAIT` in
+  `smb2pdu.c`)
+- Incorrect protocol validation for BATCH/EXCLUSIVE
+- Invalid ACKs could complete successfully via transition helpers
+  despite intended error status
 
 **Step 2.4 — Fix quality**
 
-Record: **High quality, maintainer-aligned.** v2 replaced scattered
-`MT_QUIRK_YOGABOOK9I` guards with descriptor fixup per Benjamin
-Tissoires’ review. Follows existing `mt_report_fixup()` pattern (Goodix
-fixup already present). Device-gated to Lenovo 17EF:6161 only. Minor
-regression risk on older Yoga Book 9i (same VID:PID) from class quirk
-changes, but descriptor surgery is pattern-driven and largely no-op if
-patterns absent.
+Record: **High.** Simpler, directly mirrors MS-SMB2 rules, minimal
+scope. Low regression risk; uses existing `OPLOCK_ACK_WAIT` constant
+already defined in `oplock.h` and set in `oplock.c` during breaks.
 
 ---
 
@@ -223,45 +172,35 @@ patterns absent.
 
 **Step 3.1 — Blame**
 
-Record:
-- `MT_CLS_YOGABOOK9I` introduced in `409d19050cde8` (Brian Howard,
-  2025-12-02) — “add quirks for Lenovo Yoga Book 9i”
-- `mt_report_fixup()` exists since before 6.18 merge base; currently
-  only Goodix fixup, no Yoga Book fixup
-- Buggy classification paths (`mt_allocate_application`,
-  `mt_touch_input_mapping`, `mt_feature_mapping`, `mt_set_modes`) are
-  long-standing generic multitouch logic
+Record: Buggy logic introduced in **e2f34481b24db2** (“cifsd: add
+server-side procedures for SMB3”, Namjae Jeon, 2021-03-16). BATCH
+handling extended in **64b39f4a2fd293** (2021-03-30). Bug present since
+ksmbd’s SMB3 server code landed.
 
 **Step 3.2 — Fixes: tag**
 
-Record: **N/A** — no `Fixes:` tag in commit message.
+Record: **N/A** — no Fixes: tag in commit message.
 
 **Step 3.3 — Related file history**
 
-Record:
-- `409d19050cde8` — original Yoga Book 9i support (Gen 8–10, same
-  17EF:6161)
-- `5d29d7ff8679e` — USB cdc-acm quirk for Yoga Book 9 14IAH10 (already
-  in this tree, `Cc: stable`)
-- Candidate HID fix **not present** in this tree
-- Standalone patch (not part of a multi-patch HID series)
+Record: Recent `smb2pdu.c` changes in this tree are mostly ksmbd
+security/UAF/permission fixes. No prior fix for this ACK-validation
+issue. Commit is **patch 06/14** in Namjae’s June 2026 lease/oplock
+series, but this hunk is self-contained in `smb20_oplock_break_ack()`.
 
 **Step 3.4 — Author context**
 
-Record: Dave Carey authored the companion cdc-acm 14IAH10 fix already
-merged here. HID subsystem maintainer chain includes Jiri Kosina sign-
-off.
+Record: Namjae Jeon is ksmbd maintainer. Steve French committed to
+mainline. Series was part of the 50-commit “ksmbd server fixes” pull for
+Linux 7.2.
 
 **Step 3.5 — Dependencies**
 
-Record:
-- **Requires in tree:** `MT_CLS_YOGABOOK9I`,
-  `USB_DEVICE_ID_LENOVO_YOGABOOK9I` (0x6161), `mt_report_fixup` hook —
-  **all present**
-- **Complementary:** cdc-acm quirk `5d29d7ff8679e` already in 6.18.43;
-  HID fix assumes CDC-ACM init completes before probe-time Input Mode
-  SET_REPORT
-- **Can apply standalone:** Yes, to this tree
+Record: **Standalone for this tree.** `OPLOCK_ACK_WAIT` already exists
+in `oplock.h`; `oplock.c` already sets `op_state = OPLOCK_ACK_WAIT`
+during breaks. No structural prerequisites from earlier series patches
+required for compilation or semantics. Follow-up mainline commit “return
+oplock protocol error for level II ack” builds on this but is separate.
 
 ---
 
@@ -270,35 +209,34 @@ Record:
 **Step 4.1 — Original discussion**
 
 Record:
-- Thread: https://yhbt.net/lore/linux-
-  input/20260413125803.46792-1-carvsdriver@gmail.com/T/
-- v1 (2026-04-02): scattered quirk guards
-- v2 (2026-04-13): descriptor fixup (matches analyzed commit)
-- Benjamin Tissoires reviewed v1, requested descriptor fixup instead of
-  sprinkling quirk guards; author implemented v2 accordingly
-- No explicit `Cc: stable` nomination in thread
-- No NAK; constructive review leading to v2 redesign
+- **b4 dig -c 80a56d4a826c:**
+  https://patch.msgid.link/20260618141739.9029-6-linkinjeon@kernel.org
+- **Series:** v1, patch 06/14 of lease/oplock series (2026-06-18)
+- **Review thread:** No replies in saved mbox; no NAKs, no stable
+  nomination found
 
 **Step 4.2 — Reviewers**
 
-Record: CC’d: `jikos@`, `bentiss@` (Benjamin Tissoires), `linux-input@`,
-`linux-kernel@`
+Record: **b4 dig -w** CC’d linux-cifs, Steve French, Senozhatsky, Tom
+Talpey, Metze, Atte Pöyölä. No explicit Reviewed-by/Acked-by in thread.
 
-**Step 4.3 — Bug report**
+**Step 4.3 — Bug reports**
 
-Record: No syzbot/bugzilla link in this commit. Original Yoga Book 9i
-work referenced bugzilla 220386 for earlier models; 14IAH10 issue
-documented by hardware owner with detailed firmware analysis.
+Record: No direct bug report. Parent git pull (Steve French, 2026-06-26)
+states fixes were “found by smbtorture where ksmbd diverged from SMB2/3
+protocol requirements,” including “oplock break corner cases, including
+ACK validation.”
 
-**Step 4.4 — Series context**
+**Step 4.4 — Related patches**
 
-Record: Two-patch user-space fix set with cdc-acm quirk (already in
-tree) + this HID fix. HID v2 is self-contained.
+Record: Same series includes lease rework; separate follow-up “return
+oplock protocol error for level II ack” depends on the `OPLOCK_ACK_WAIT`
+check introduced here.
 
 **Step 4.5 — Stable list**
 
-Record: No stable-list discussion found for this HID patch. Companion
-cdc-acm patch was nominated `Cc: stable`.
+Record: **Not searched on lore stable@** (lore blocked by bot protection
+for web fetch). No Cc: stable in commit or thread.
 
 ---
 
@@ -306,77 +244,74 @@ cdc-acm patch was nominated `Cc: stable`.
 
 **Step 5.1 — Key functions**
 
-Record: `mt_yogabook9_fixup()`, `mt_report_fixup()`,
-`mt_feature_mapping()`, `mt_set_modes()`, `mt_on_hid_hw_open()`,
-`mt_on_hid_hw_close()`, `mt_allocate_application()`,
-`mt_touch_input_configured()`
+Record: `smb20_oplock_break_ack()` (modified); callers unchanged:
+`smb2_oplock_break()`.
 
 **Step 5.2 — Callers**
 
 Record:
-- `mt_report_fixup` — HID core during `hid_parse()` / probe
-- `mt_set_modes` — probe, resume, suspend, `mt_on_hid_hw_open/close`
-  (every userspace open/close of input device)
-- `mt_feature_mapping` — during HID feature report parsing at probe
-- Impact surface: device probe and normal desktop session input
-  open/close paths
+- `smb2_oplock_break()` → `smb20_oplock_break_ack()` for SMB 2.0 oplock
+  breaks
+- Dispatched via `smb2_0_server_cmds[SMB2_OPLOCK_BREAK_HE]` in
+  `smb2ops.c`
+- Reachable from remote SMB clients over network on established sessions
 
 **Step 5.3 — Callees**
 
-Record: `memmove`, `hid_hw_request(HID_REQ_SET_REPORT)`,
-`mt_get_feature` (avoided after fixup), `input_mt_init_slots` with
-`INPUT_MT_DROP_UNUSED`
+Record: `ksmbd_lookup_fd_slow()`, `opinfo_get()`, `ksmbd_iov_pin_rsp()`,
+`smb2_set_err_rsp()`, `wake_up_interruptible_all()`, `opinfo_put()`,
+`ksmbd_fd_put()`. Old path also called `opinfo_write_to_read/none()`;
+new path removes that dependency for ACK handling.
 
 **Step 5.4 — Reachability**
 
-Record: Triggered by plugging in Yoga Book 9 14IAH10 USB composite
-device (17EF:6161) and opening touch input devices — common laptop hot
-path, not obscure debug-only code.
+Record: **Yes, remotely reachable.** Any SMB client using oplocks
+(Windows and Samba clients commonly do) triggers oplock breaks and ACKs
+during concurrent file access.
 
 **Step 5.5 — Similar patterns**
 
-Record: Existing Goodix `mt_report_fixup()` in same function; other HID
-descriptor fixups elsewhere in tree. `MT_QUIRK_NOT_SEEN_MEANS_UP`
-already used by SIS and other classes.
+Record: `OPLOCK_ACK_WAIT` is checked in `oplock.c` (e.g.
+`close_id_del_oplock()`), but was never checked in
+`smb20_oplock_break_ack()` in this tree — inconsistent state handling.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree (6.18.43)
+## Phase 6: Cross-Reference Against Local Tree
 
 **Step 6.1 — Buggy code present?**
 
-Record: **Yes.** Local tree is **6.18.43** (`git describe`:
-`v6.18.43-1-gc7f0dac02d232`). `MT_CLS_YOGABOOK9I` and device ID `0x6161`
-are bound, but **no `mt_yogabook9_fixup()`**. Generic buttonpad
-heuristics and feature-report GET/SET paths are unchanged. cdc-acm
-14IAH10 quirk is already present at `drivers/usb/class/cdc-
-acm.c:2045-2057`.
+Record: **Yes.** Local tree is **v6.18.44** (`git describe HEAD`).
+Current `smb20_oplock_break_ack()` at lines 8723–8798 still has the old
+logic (checks `OPLOCK_STATE_NONE`, rejects BATCH+EXCLUSIVE, uses
+transition helpers). `OPLOCK_ACK_WAIT` is not referenced in `smb2pdu.c`.
 
-**Step 6.2 — Backport difficulty**
+**Step 6.2 — Backport complications**
 
-Record: **Clean apply expected** — adds new function and one conditional
-call in existing `mt_report_fixup()`; small class table tweak. No
-structural conflicts observed.
+Record: **`git apply --check` on mainline commit 80a56d4a826c applies
+cleanly to HEAD.** Expected apply: clean.
 
 **Step 6.3 — Related fixes already present?**
 
-Record: Partial — `409d190` Yoga Book 9i quirks (bogus InRange drop,
-naming) and `5d29d7ff8679e` cdc-acm quirk are present. **This specific
-misclassification/descriptor fix is missing.**
+Record: **No.** `git merge-base --is-ancestor 80a56d4a826c HEAD` →
+NOT_IN_TREE. `git log --grep="align SMB2 oplock"` on reachable history →
+no match.
 
 ---
 
-## Phase 7: Subsystem Context
+## Phase 7: Subsystem and Maintainer Context
 
 **Step 7.1 — Subsystem**
 
-Record: **drivers/hid** — IMPORTANT (input/touch for laptop users, not
-core kernel, but affects primary interaction on affected hardware)
+Record: **ksmbd / SMB server** (`fs/smb/server/`). Criticality:
+**IMPORTANT** for `CONFIG_SMB_SERVER` users (in-kernel NAS/file server);
+not core kernel, but file-sharing correctness is critical for those
+deployments.
 
 **Step 7.2 — Activity**
 
-Record: HID subsystem actively maintained in 6.18.y with recent
-multitouch and quirk fixes.
+Record: Actively maintained in 6.18.y — recent ksmbd UAF, permission,
+and session fixes in this tree’s history.
 
 ---
 
@@ -384,306 +319,281 @@ multitouch and quirk fixes.
 
 **Step 8.1 — Who is affected**
 
-Record: **Driver-specific** — Lenovo Yoga Book 9 14IAH10 (and
-potentially other 17EF:6161 Yoga Book 9 variants sharing
-descriptor/class binding)
+Record: Users running **ksmbd (CONFIG_SMB_SERVER)** with SMB2 clients
+using oplocks — especially Windows clients using batch oplocks.
 
 **Step 8.2 — Trigger conditions**
 
-Record: Device enumeration and normal input device use (open/close).
-Common on every boot and session. Unprivileged users interact via normal
-input stack; not a privilege-escalation vector.
+Record: Common multi-client file access scenarios: conflicting opens
+causing oplock breaks, client sending oplock-break ACK. Not exotic;
+standard SMB caching behavior.
 
-**Step 8.3 — Failure mode severity**
+**Step 8.3 — Failure severity**
 
 Record:
-- Without fix: touchscreens **completely non-functional** (HIGH severity
-  for affected users)
-- Firmware reset window: USB instability / re-enumeration during HID
-  traffic (HIGH)
-- Ghost contact: stuck touch state in compositor (MEDIUM-HIGH)
-- Not kernel oops/panic, but makes primary hardware unusable
+- Valid BATCH→EXCLUSIVE ACK rejected → interoperability failure, broken
+  caching handshakes
+- Invalid ACK returning SUCCESS → server/client oplock state divergence
+  → **cache coherency risk / potential data corruption**
+- ACK while not in `OPLOCK_ACK_WAIT` (e.g. `OPLOCK_CLOSING`) processed
+  incorrectly
+- Severity: **HIGH** for ksmbd deployments (data integrity), not kernel
+  oops
 
 **Step 8.4 — Risk vs benefit**
 
 Record:
-- **Benefit:** HIGH for 14IAH10 owners; completes fix started by
-  already-backported cdc-acm quirk
-- **Risk:** LOW-MEDIUM — ~145 lines, device-gated, but shared
-  VID:PID/class with earlier Yoga Book 9i could affect Gen 8–10 behavior
-  (`NOT_SEEN_MEANS_UP`, removing emulated touchpad collection)
-- **Ratio:** Benefit clearly outweighs risk for this stable tree where
-  partial support already exists
+- **Benefit:** HIGH for SMB server users — fixes long-standing protocol
+  bugs verified by smbtorture
+- **Risk:** LOW — one function, one file, applies cleanly, uses existing
+  constants/state machine
+- **Ratio:** Strong benefit, low risk for affected users
 
 ---
 
 ## Phase 9: Final Synthesis
 
-**Step 9.1 — Evidence compile**
+**Step 9.1 — Evidence**
 
 **FOR:**
-- Fixes real, user-visible hardware breakage (non-functional
-  touchscreens)
-- Hardware quirk / descriptor fixup — standard stable exception
-- Small, single-file, device-specific
-- Author Tested-by on actual hardware
-- HID maintainer signed off
-- Subsystem expert (Tissoires) guided v2 design
-- Complementary cdc-acm fix already in 6.18.43 with stable nomination
-- Buggy code and prerequisites exist in this tree
-- Prevents firmware-reset-triggering HID control traffic
+- Real, verified protocol bugs (smbtorture series context)
+- Can cause oplock state mismatch → cache coherency / data integrity
+  risk
+- Breaks valid Windows BATCH oplock ACK behavior
+- Bug present since 2021 in this tree
+- Small, surgical, maintainer-authored fix
+- Applies cleanly to v6.18.44
 
 **AGAINST:**
-- No syzbot/CVE — usability/hardware enablement, not security
-- Shared 17EF:6161 with earlier Yoga Book 9i — possible regression on
-  Gen 8–10 (untested on those models in v2)
-- Larger than a one-liner quirk, but still contained
-- Not yet merged in this checkout (candidate evaluation)
-
-**UNRESOLVED:**
-- Whether v2 was merged to mainline beyond this 6.18.43 checkout (not
-  needed for backport decision)
-- Regression testing on pre-14IAH10 Yoga Book 9i units
+- Optional module (`CONFIG_SMB_SERVER`), not all kernel users
+- No kernel crash/oops; protocol correctness rather than memory safety
+- Part of larger 14-patch series (though this hunk is self-contained)
+- No Cc: stable or user bug report in commit message
+- Follow-up patch may also be desirable for complete level-II ACK
+  handling
 
 **Step 9.2 — Stable rules checklist**
 
-1. Obviously correct and tested? **PASS** — detailed mechanism, hardware
-   Tested-by, maintainer SOB, expert-reviewed approach
-2. Fixes real bug affecting users? **PASS** — touchscreens non-
-   functional on 14IAH10
-3. Important issue? **PASS** — primary input hardware unusable; USB
-   reset sensitivity
-4. Small and contained? **PASS** — one file, device-specific
-5. No new features/APIs? **PASS** — descriptor quirk only
-6. Can apply to local tree? **PASS** — prerequisites present, clean
-   apply expected
+1. Obviously correct and tested? **PASS** — MS-SMB2 alignment,
+   smbtorture-tested series, maintainer commit
+2. Fixes a real bug? **PASS** — incorrect ACK validation and wrong
+   success responses
+3. Important issue? **PASS** — data integrity / interoperability for SMB
+   file server users
+4. Small and contained? **PASS** — ~100 lines, one function, one file
+5. No new features/APIs? **PASS** — validation correction only
+6. Can apply to local tree? **PASS** — verified clean apply
 
 **Step 9.3 — Exception category**
 
-Record: **Hardware quirk/workaround** (HID report descriptor fixup for
-broken firmware/descriptor)
+Record: **N/A** — not device ID, quirk, DT, build, or docs; standard
+protocol bug fix.
 
 **Step 9.4 — Decision rationale**
 
-For **Linux 6.18.y** specifically: the tree already ships Yoga Book 9i
-(`MT_CLS_YOGABOOK9I`, 17EF:6161) support and the cdc-acm 14IAH10 quirk,
-but without this HID fix the touchscreens remain misclassified and non-
-functional on the 14IAH10. This is exactly the kind of device-specific
-hardware workaround stable trees accept. The fix is self-contained,
-reviewed, tested, and completes an already-started stable-relevant
-enablement path.
+For **v6.18.44**, the buggy code is present and has been since ksmbd
+landed. The fix is self-contained, applies cleanly, and addresses real
+SMB2 oplock-break ACK validation errors that can cause client/server
+oplock state divergence — a data-integrity concern for anyone using
+ksmbd as a file server. This meets stable criteria for important,
+contained correctness fixes in an actively used subsystem.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message and tags from user-provided commit
-  text
-- [Phase 2] Analyzed full diff: `mt_yogabook9_fixup()`, class changes,
-  `mt_report_fixup()` hook
-- [Phase 3] `git describe HEAD` → v6.18.43; `git log --grep="Yoga Book"`
-  → `409d190`, `5d29d7ff8679e`; `git blame` on lines 442-448, 1567+
-- [Phase 3] `git show 409d19050cde8` — original Yoga Book 9i support
-  confirmed
-- [Phase 3] `git show 5d29d7ff8679e` — cdc-acm quirk with `Cc: stable`
-  confirmed in tree
-- [Phase 4] Fetched lore thread via yhbt.net; v1→v2 evolution and
-  Tissoires review confirmed
-- [Phase 4] UNVERIFIED: `b4 dig -c <hash>` — commit hash not in local
-  repo
-- [Phase 5] `grep` confirmed `mt_set_modes` called from
-  open/close/resume/suspend; `mt_feature_mapping` GET_REPORT paths at
-  lines 549-574
-- [Phase 5] Read `mt_allocate_application`, `mt_touch_input_mapping`,
-  `mt_touch_input_configured` buttonpad heuristics
-- [Phase 6] `grep` — `mt_yogabook9_fixup` **absent**;
-  `MT_CLS_YOGABOOK9I` and `USB_DEVICE_ID_LENOVO_YOGABOOK9I` **present**
-- [Phase 6] Read `cdc-acm.c:2045-2057` — 14IAH10 quirk present
-- [Phase 6] Read current `mt_report_fixup()` — only Goodix fixup, no
-  Yoga Book call
-- [Phase 8] Failure mode: non-functional touchscreens + firmware reset
-  sensitivity on 17EF:6161 without fix
+- [Phase 1] Parsed commit message and tags from user-provided diff and
+  `git show 80a56d4a826c`
+- [Phase 2] Read current `smb20_oplock_break_ack()` at lines 8687–8804
+  in `fs/smb/server/smb2pdu.c`; confirmed old logic matches “before”
+  side of diff
+- [Phase 3] `git blame -L 8723,8763`: buggy code from e2f34481b24db2
+  (2021-03-16)
+- [Phase 3] `git log --oneline -20 -- fs/smb/server/smb2pdu.c`: no prior
+  ACK-validation fix
+- [Phase 3] `git merge-base --is-ancestor 80a56d4a826c HEAD` →
+  NOT_IN_TREE
+- [Phase 4] `b4 dig -c 80a56d4a826c` → lore URL found
+- [Phase 4] `b4 dig -c 80a56d4a826c -a` → patch 06/14 in v1 series
+- [Phase 4] `b4 dig -c 80a56d4a826c -w` → linux-cifs, Steve French CC’d
+- [Phase 4] `b4 dig -m /tmp/oplock_ack.mbx` → saved thread; no
+  stable/NAK mentions
+- [Phase 4] OpenWall git pull (2026-06-26) → smbtorture protocol
+  divergence, oplock ACK validation listed
+- [Phase 5] `grep smb2_oplock_break`: dispatch via `smb2ops.c` line 189
+- [Phase 5] Read `oplock.c` lines 944–954: `op_state = OPLOCK_ACK_WAIT`
+  set during breaks
+- [Phase 6] `git describe HEAD` → v6.18.44-1-g2736c32da98b9; Makefile
+  VERSION 6.18.44
+- [Phase 6] `git show 80a56d4a826c -p | git apply --check` → applies
+  cleanly
+- [Phase 6] `grep OPLOCK_ACK_WAIT fs/smb/server/smb2pdu.c` → no matches
+  (bug present)
+- [Phase 8] Traced invalid-ACK path in old code: transition helpers can
+  return 0 → success response without error status
 
-**YES**
+**YES**The background git searches finished and match the earlier
+analysis:
 
- drivers/hid/hid-multitouch.c | 146 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 145 insertions(+), 1 deletion(-)
+- **`align SMB2 oplock break`** — no match in reachable history; the fix
+  is not in v6.18.44.
+- **`oplock break ack`** — only older, unrelated oplock commits (e.g.
+  CIFS-era fixes from 2021).
+- **`OPLOCK_ACK_WAIT` in `smb2pdu.c`** — no matches; the ACK handler
+  still uses the old logic.
 
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index 1959481dc7820..0e204acdc9306 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -440,11 +440,13 @@ static const struct mt_class mt_classes[] = {
- 			MT_QUIRK_CONTACT_CNT_ACCURATE,
- 	},
- 		{ .name = MT_CLS_YOGABOOK9I,
--		.quirks = MT_QUIRK_ALWAYS_VALID |
-+		.quirks = MT_QUIRK_NOT_SEEN_MEANS_UP |
-+			MT_QUIRK_ALWAYS_VALID |
- 			MT_QUIRK_FORCE_MULTI_INPUT |
- 			MT_QUIRK_SEPARATE_APP_REPORT |
- 			MT_QUIRK_HOVERING |
- 			MT_QUIRK_YOGABOOK9I,
-+		.maxcontacts = 10,
- 		.export_all_inputs = true
- 	},
- 	{ .name = MT_CLS_EGALAX_P80H84,
-@@ -1564,6 +1566,144 @@ static int mt_event(struct hid_device *hid, struct hid_field *field,
- 	return 0;
- }
+That supports the **YES** backport recommendation for commit
+`80a56d4a826c` on this tree.
+
+ fs/smb/server/smb2pdu.c | 104 ++++++++++++++++++----------------------
+ 1 file changed, 46 insertions(+), 58 deletions(-)
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 1921a87e20855..99a0108cb21f4 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -8712,11 +8712,10 @@ static void smb20_oplock_break_ack(struct ksmbd_work *work)
+ 	struct smb2_oplock_break *rsp;
+ 	struct ksmbd_file *fp;
+ 	struct oplock_info *opinfo = NULL;
+-	__le32 err = 0;
+-	int ret = 0;
++	__le32 status = STATUS_SUCCESS;
++	int ret;
+ 	u64 volatile_id, persistent_id;
+ 	char req_oplevel = 0, rsp_oplevel = 0;
+-	unsigned int oplock_change_type;
  
-+/*
-+ * Yoga Book 9 14IAH10 descriptor fixup.
-+ *
-+ * The device includes a HID_DG_TOUCHPAD application collection designed for
-+ * the Windows inbox HID driver's Win8 PTP touchpad mode.  On Linux we want
-+ * only the HID_DG_TOUCHSCREEN collections.  The touchpad collection (and the
-+ * HID_DG_BUTTONTYPE and Win8 compliance blob features it contains) must be
-+ * removed so hid-multitouch does not misclassify the touchscreen nodes as
-+ * indirect buttonpads.
-+ *
-+ * The firmware also resets if any USB control request is received while the
-+ * CDC-ACM interface is initialising (~1.18 s after enumeration).  Dropping
-+ * the Win8 blob and Contact Count Max feature reports prevents the
-+ * GET_REPORT calls that hid-multitouch issues at probe.
-+ */
-+static void mt_yogabook9_fixup(struct hid_device *hdev, __u8 *rdesc,
-+			       unsigned int *size)
-+{
-+	/* Usage Page (Digitizer), Usage (Touch Pad), Collection (Application) */
-+	static const __u8 tp_app_hdr[] = { 0x05, 0x0d, 0x09, 0x05, 0xa1, 0x01 };
-+	/* Vendor Usage Page 0xff00 (Win8 compliance blob header) */
-+	static const __u8 win8_page[] = { 0x06, 0x00, 0xff };
-+	/* Usage (Contact Count Max = 0x55) */
-+	static const __u8 ccmax_usage[] = { 0x09, 0x55 };
-+	unsigned int i;
-+
-+	/*
-+	 * Step 1: find and remove the Touch Pad application collection.
-+	 * Walk HID short items from the collection header to its matching
-+	 * End Collection, then close the gap with memmove.
-+	 */
-+	for (i = 0; i + sizeof(tp_app_hdr) <= *size; i++) {
-+		if (memcmp(rdesc + i, tp_app_hdr, sizeof(tp_app_hdr)) == 0) {
-+			__u8 *start = rdesc + i;
-+			__u8 *coll_end = NULL;
-+			__u8 *p = start;
-+			unsigned int drop;
-+			int depth = 0;
-+
-+			while (p < rdesc + *size) {
-+				__u8 b = *p;
-+				int ds = b & 3;
-+				int item_len;
-+
-+				if (b == 0xfe) { /* long item */
-+					if (p + 2 >= rdesc + *size)
-+						break;
-+					item_len = p[1] + 3;
-+				} else {
-+					item_len = (ds == 3) ? 5 : ds + 1;
-+				}
-+				if (p + item_len > rdesc + *size)
-+					break;
-+
-+				if ((b & 0xfc) == 0xa0)
-+					depth++; /* Collection */
-+				else if (b == 0xc0) {
-+					depth--; /* End Collection */
-+					if (depth == 0) {
-+						coll_end = p;
-+						break;
-+					}
-+				}
-+				p += item_len;
-+			}
-+
-+			if (!coll_end) {
-+				hid_err(hdev,
-+					"Yoga Book 9: Touch Pad End Collection not found\n");
-+				break;
-+			}
-+
-+			drop = coll_end - start + 1;
-+			memmove(start, coll_end + 1, rdesc + *size - coll_end - 1);
-+			*size -= drop;
-+			hid_dbg(hdev,
-+				"Yoga Book 9: dropped Touch Pad collection (%u bytes)\n",
-+				drop);
-+			break;
-+		}
-+	}
-+
-+	/*
-+	 * Step 2: neutralize Win8 compliance blob feature reports remaining
-+	 * in the touchscreen collections.  Change Usage Page 0xff00 to 0x0f00
-+	 * so the case 0xff0000c5 branch in mt_feature_mapping() is not reached
-+	 * and no GET_REPORT is issued.
-+	 */
-+	for (i = 0; i + sizeof(win8_page) <= *size; i++) {
-+		if (memcmp(rdesc + i, win8_page, sizeof(win8_page)) == 0) {
-+			rdesc[i + 2] = 0x0f; /* 0xff00 -> 0x0f00 */
-+			hid_dbg(hdev,
-+				"Yoga Book 9: neutralized Win8 blob at offset %u\n",
-+				i);
-+		}
-+	}
-+
-+	/*
-+	 * Step 3: neutralize Contact Count Max feature reports.  Change usage
-+	 * 0x55 (HID_DG_CONTACTMAX) to 0x00 so mt_feature_mapping() does not
-+	 * issue GET_REPORT.  The class maxcontacts field provides the value.
-+	 */
-+	for (i = 0; i + sizeof(ccmax_usage) <= *size; i++) {
-+		if (memcmp(rdesc + i, ccmax_usage, sizeof(ccmax_usage)) == 0) {
-+			rdesc[i + 1] = 0x00;
-+			hid_dbg(hdev,
-+				"Yoga Book 9: neutralized ContactMax at offset %u\n",
-+				i);
-+		}
-+	}
-+
-+	/*
-+	 * Step 4: neutralize Surface Switch (0x57) and Button Switch (0x58)
-+	 * feature report usages in the Device Configuration collection.
-+	 * mt_set_modes() issues HID_REQ_SET_REPORT for these on every
-+	 * input-device open/close; those repeated control requests hit the
-+	 * firmware's CDC-ACM init window and trigger resets.
-+	 *
-+	 * Input Mode (0x52) is intentionally left intact.  mt_set_modes()
-+	 * sends it once at probe to set the device into touchscreen mode,
-+	 * which flushes the firmware's contact buffer and clears a persistent
-+	 * ghost contact (cid 2, fixed coordinates) that otherwise appears on
-+	 * every enumeration.  By probe time cdc_acm has already satisfied the
-+	 * CDC-ACM init watchdog (~130 ms), so the single SET_REPORT for Input
-+	 * Mode arrives safely after the reset window has closed.
-+	 */
-+	for (i = 0; i + 2 <= *size; i++) {
-+		if (rdesc[i] == 0x09 &&
-+		    (rdesc[i + 1] == 0x57 ||
-+		     rdesc[i + 1] == 0x58)) {
-+			hid_dbg(hdev,
-+				"Yoga Book 9: neutralized set-modes usage 0x%02x at offset %u\n",
-+				rdesc[i + 1], i);
-+			rdesc[i + 1] = 0x00;
-+		}
-+	}
-+}
-+
- static const __u8 *mt_report_fixup(struct hid_device *hdev, __u8 *rdesc,
- 			     unsigned int *size)
- {
-@@ -1593,6 +1733,10 @@ got: %x\n",
- 		}
+ 	WORK_BUFFERS(work, req, rsp);
+ 
+@@ -8742,71 +8741,55 @@ static void smb20_oplock_break_ack(struct ksmbd_work *work)
+ 		return;
  	}
  
-+	if (hdev->vendor == USB_VENDOR_ID_LENOVO &&
-+	    hdev->product == USB_DEVICE_ID_LENOVO_YOGABOOK9I)
-+		mt_yogabook9_fixup(hdev, rdesc, size);
-+
- 	return rdesc;
- }
+-	if (opinfo->level == SMB2_OPLOCK_LEVEL_NONE) {
+-		rsp->hdr.Status = STATUS_INVALID_OPLOCK_PROTOCOL;
++	if (opinfo->op_state != OPLOCK_ACK_WAIT) {
++		ksmbd_debug(SMB, "unexpected oplock state 0x%x\n",
++			    opinfo->op_state);
++		status = STATUS_INVALID_DEVICE_STATE;
+ 		goto err_out;
+ 	}
  
+-	if (opinfo->op_state == OPLOCK_STATE_NONE) {
+-		ksmbd_debug(SMB, "unexpected oplock state 0x%x\n", opinfo->op_state);
+-		rsp->hdr.Status = STATUS_UNSUCCESSFUL;
++	if (req_oplevel == SMB2_OPLOCK_LEVEL_LEASE) {
++		opinfo->level = SMB2_OPLOCK_LEVEL_NONE;
++		status = STATUS_INVALID_PARAMETER;
+ 		goto err_out;
+ 	}
+ 
+-	if ((opinfo->level == SMB2_OPLOCK_LEVEL_EXCLUSIVE ||
+-	     opinfo->level == SMB2_OPLOCK_LEVEL_BATCH) &&
+-	    (req_oplevel != SMB2_OPLOCK_LEVEL_II &&
+-	     req_oplevel != SMB2_OPLOCK_LEVEL_NONE)) {
+-		err = STATUS_INVALID_OPLOCK_PROTOCOL;
+-		oplock_change_type = OPLOCK_WRITE_TO_NONE;
+-	} else if (opinfo->level == SMB2_OPLOCK_LEVEL_II &&
+-		   req_oplevel != SMB2_OPLOCK_LEVEL_NONE) {
+-		err = STATUS_INVALID_OPLOCK_PROTOCOL;
+-		oplock_change_type = OPLOCK_READ_TO_NONE;
+-	} else if (req_oplevel == SMB2_OPLOCK_LEVEL_II ||
+-		   req_oplevel == SMB2_OPLOCK_LEVEL_NONE) {
+-		err = STATUS_INVALID_DEVICE_STATE;
+-		if ((opinfo->level == SMB2_OPLOCK_LEVEL_EXCLUSIVE ||
+-		     opinfo->level == SMB2_OPLOCK_LEVEL_BATCH) &&
+-		    req_oplevel == SMB2_OPLOCK_LEVEL_II) {
+-			oplock_change_type = OPLOCK_WRITE_TO_READ;
+-		} else if ((opinfo->level == SMB2_OPLOCK_LEVEL_EXCLUSIVE ||
+-			    opinfo->level == SMB2_OPLOCK_LEVEL_BATCH) &&
+-			   req_oplevel == SMB2_OPLOCK_LEVEL_NONE) {
+-			oplock_change_type = OPLOCK_WRITE_TO_NONE;
+-		} else if (opinfo->level == SMB2_OPLOCK_LEVEL_II &&
+-			   req_oplevel == SMB2_OPLOCK_LEVEL_NONE) {
+-			oplock_change_type = OPLOCK_READ_TO_NONE;
+-		} else {
+-			oplock_change_type = 0;
+-		}
+-	} else {
+-		oplock_change_type = 0;
++	if (opinfo->level == SMB2_OPLOCK_LEVEL_NONE) {
++		status = STATUS_INVALID_OPLOCK_PROTOCOL;
++		goto err_out;
+ 	}
+ 
+-	switch (oplock_change_type) {
+-	case OPLOCK_WRITE_TO_READ:
+-		ret = opinfo_write_to_read(opinfo);
+-		rsp_oplevel = SMB2_OPLOCK_LEVEL_II;
+-		break;
+-	case OPLOCK_WRITE_TO_NONE:
+-		ret = opinfo_write_to_none(opinfo);
+-		rsp_oplevel = SMB2_OPLOCK_LEVEL_NONE;
+-		break;
+-	case OPLOCK_READ_TO_NONE:
+-		ret = opinfo_read_to_none(opinfo);
+-		rsp_oplevel = SMB2_OPLOCK_LEVEL_NONE;
+-		break;
+-	default:
+-		pr_err("unknown oplock change 0x%x -> 0x%x\n",
+-		       opinfo->level, rsp_oplevel);
++	if (opinfo->level == SMB2_OPLOCK_LEVEL_EXCLUSIVE &&
++	    req_oplevel != SMB2_OPLOCK_LEVEL_II &&
++	    req_oplevel != SMB2_OPLOCK_LEVEL_NONE) {
++		opinfo->level = SMB2_OPLOCK_LEVEL_NONE;
++		status = STATUS_INVALID_OPLOCK_PROTOCOL;
++		goto err_out;
+ 	}
+ 
+-	if (ret < 0) {
+-		rsp->hdr.Status = err;
++	if (opinfo->level == SMB2_OPLOCK_LEVEL_BATCH &&
++	    req_oplevel != SMB2_OPLOCK_LEVEL_II &&
++	    req_oplevel != SMB2_OPLOCK_LEVEL_NONE &&
++	    req_oplevel != SMB2_OPLOCK_LEVEL_EXCLUSIVE) {
++		opinfo->level = SMB2_OPLOCK_LEVEL_NONE;
++		status = STATUS_INVALID_OPLOCK_PROTOCOL;
++		goto err_out;
++	}
++
++	if (opinfo->level == SMB2_OPLOCK_LEVEL_II &&
++	    req_oplevel != SMB2_OPLOCK_LEVEL_NONE) {
++		opinfo->level = SMB2_OPLOCK_LEVEL_NONE;
++		status = STATUS_INVALID_OPLOCK_PROTOCOL;
+ 		goto err_out;
+ 	}
+ 
++	if (req_oplevel == SMB2_OPLOCK_LEVEL_EXCLUSIVE)
++		rsp_oplevel = SMB2_OPLOCK_LEVEL_NONE;
++	else
++		rsp_oplevel = req_oplevel;
++
++	opinfo->level = rsp_oplevel;
++
+ 	rsp->StructureSize = cpu_to_le16(24);
+ 	rsp->OplockLevel = rsp_oplevel;
+ 	rsp->Reserved = 0;
+@@ -8814,11 +8797,16 @@ static void smb20_oplock_break_ack(struct ksmbd_work *work)
+ 	rsp->VolatileFid = volatile_id;
+ 	rsp->PersistentFid = persistent_id;
+ 	ret = ksmbd_iov_pin_rsp(work, rsp, sizeof(struct smb2_oplock_break));
+-	if (ret) {
++	if (ret)
++		ksmbd_debug(SMB, "failed to pin oplock break response: %d\n",
++			    ret);
++	goto out;
++
+ err_out:
+-		smb2_set_err_rsp(work);
+-	}
++	rsp->hdr.Status = status;
++	smb2_set_err_rsp(work);
+ 
++out:
+ 	opinfo->op_state = OPLOCK_STATE_NONE;
+ 	wake_up_interruptible_all(&opinfo->oplock_q);
+ 	opinfo_put(opinfo);
 -- 
 2.53.0
 
