@@ -1,92 +1,152 @@
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC13A3FF884
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:30:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF003D6688;
+	Mon, 31 Aug 2026 12:30:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788179416; cv=none; b=fwXj6DKSPjV/NxQQa0ogPBBR52zHLk2nBLMsIlbF2zKITbhEuexj5NhjQd8d1wfEq1f+yco0zZQnrwHYFil9mLTeLPX2DZR9IdwJlL91oaEleelM7isRAOKfQ4jXVhxJC8Xr+SgT+po2UXPXzyXdW8O2QWn3LGKLnLHj9Y+UGjE=
+	t=1788179434; cv=none; b=AiVy/GSegUdss7Q4n2amCCqOTlyxnJkcVnPQLLewO+tCOOg8fQCL+YN7HyKl7s9eB4VVgnQyeW/K1kWpLX8dppXnQSvegAs/upx3fukQp/ZUvuUF0TkVQCwI/bdftq6PJip71NSwFBeNF4xYZXSzqKOqryLf/iJogmZviep6zL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788179416; c=relaxed/simple;
-	bh=+h8gWFCkmjX1wvvaiU1/0ONginGv3uAdCI3Wd1mXI0A=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=l+hPEE+77HmIpzqBh+B5cltyQL5YDeAQ/emYcvxS1ynzCCgaTpbj4LGhYW76ZLQj4iGVTI01w5F3ozhom1+HhKKjHoyX0XW05pG6xioINoWQKrV2OZIs8vSd3hVr67S57tkgK3r2jU+J8qg4rkneEmUTByGzBZwie0T1pxS6qrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=k+bEYLpw; arc=none smtp.client-ip=209.85.218.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1788179434; c=relaxed/simple;
+	bh=P/nUJsislhQJX34fx8Kb2B0lT8SzGNMs1GAHnBSrlJQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=e73aKuKZO+bj99DIXIa10mVuYgQXMfbQ3wFh/tlZ4zFsFHPJSYubkcvMq+af9jTPoYuex0+VW7ForAod76/ZkTXEVXnQyh0X1V7WMp11d8hqyWHvdwhOKsUkSBzpRtg2EHJWerzef8IXTWjJZWZV0BEPIOAvKjTR3wHkiZ8aW3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G+KSjRfR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="k+bEYLpw"
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c2192261d79so342512066b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:30:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788179413; x=1788784213; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WoUOaDHWtX81/DV/3Bz9tJZGph8DpiKqGhnhSMcw4pM=;
-        b=k+bEYLpwOKYZqKdEWCxnPJ40CERjZ0YdOeDT9jnCdWOaqDm/BmPqp0GZlPabSsNxZY
-         LCfv8eePPLW0ykpCddH6tMLAgx5wAz1u1DAlPeOUaVfbuNESw+OPkcOsIXRLmF+tlNp3
-         tqyLiAi2U9n2iNm9PgunJ9YC2YP7fzUpPFUZD7h05FmWGxIyQN08b6dWhjSXOinutkol
-         ewEFP9RbOyMEIpQteU9qpy3b810UfTShH7TURY5KUbhalMI/VawA5ha7eA/DaPXKRTyh
-         FJNSLMJy3b9JhDAx06Sp22nMLS8dalsAZyCGjD7Zbs2MEo3i7cL1C+U5ARptQxgxGyZB
-         zj5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788179413; x=1788784213;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WoUOaDHWtX81/DV/3Bz9tJZGph8DpiKqGhnhSMcw4pM=;
-        b=jSZB5fsgs6fF2KfgKjlFBnVPdlcFQjxOkEIl+Gyc6WUviOXTyfyjQt+xXWuunHlJRM
-         TaQPFOUwjhCouYzIwjihfL7AclvWi3R6yXVtR06a8bF6e3tjOty/CUFJBIbzSqoqMxRk
-         WsQSdmWkJkb/t7VELMlVNR26CBncUbsK6cv+2/bMF9DyqKtUIyXL0fLuAQP+4rl9RTBw
-         toh/9cGoHcXC7jKNWuoBSfud11smihR0gT/JwOVE9nRCUt/9WQinJD0c4ZylqAvNYsQh
-         P8ZCL10q03F1myUYRjNOiTO7bMrX0um0ANfi+9o41ILBLFFdANP5vlSP0G/g5zHcDkkC
-         zW8w==
-X-Forwarded-Encrypted: i=1; AKwUvBzWrpz+Vn8Eyy50mXgPuc6eCf8eMksYyXSP3rzKmDTl2iDreRpwWYlN4lp+FBdOoHF1w8ezrsTHfUaTXRc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbQmC9fs1pLraTR9Mh/BuTtU5UY0qK8Fu/PVuaDPd7Pp0QiXm2
-	SEFhhyfDR8+bZWg143OjbgXtN1k/nf7TyXFtZvH7uOpCHe9A+fiDhxJveWL7tAZo4+ohLN7xkCV
-	FBtqUqkotp7hyAsVHLg==
-X-Received: from edi22-n1.prod.google.com ([2002:a05:6402:3056:10b0:6a6:42ef:3e5f])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:4041:10b0:6a6:432a:e439 with SMTP id 4fb4d7f45d1cf-6a6432ae561mr4418498a12.6.1788179412692;
- Mon, 31 Aug 2026 05:30:12 -0700 (PDT)
-Date: Mon, 31 Aug 2026 12:30:09 +0000
-In-Reply-To: <20260831052635.42417-1-nenkov2004@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G+KSjRfR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70FA81F000E9;
+	Mon, 31 Aug 2026 12:30:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788179432;
+	bh=o0j9vXuew8PzdgEF/ZP3ym0lz6xPW5nlKTzSfWn7rN0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=G+KSjRfRvJBfjsqM2aTWTeCVZQEMsuPITbqdm7+NO/bGl5UDQzJoqteEUbVi70uYH
+	 2xwLIuX9+NUotx2n1s6Rd0MF/hlF4pkUoRdpSv1W5QVZPOGEbkQsxtZH2Ve5uhgN/b
+	 AYmHSQfXDYsy+d9eZskq/ZYtWb86TuT3qFboG71HaO/b3pPhHqaCvH0HDEwqfdAc/K
+	 EzgjSQI6akWXpMqfXGIZOCrox3k//voklpB2cZuaRJxqyQ6uzTaGrDqNa7ecGGLhkO
+	 VtKPezGZ7XqAErXAU7MAnAS1uCkDqspI6aX4cFyZg6txeFJGz6IBaoBM6ko/SaIh9x
+	 k2QdOnINQWScw==
+Message-ID: <d69efb1c-4ab3-4148-8b98-035377852da6@kernel.org>
+Date: Mon, 31 Aug 2026 14:30:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260831052635.42417-1-nenkov2004@gmail.com>
-Message-ID: <apVz0SFGOLbhUc2O@google.com>
-Subject: Re: [PATCH] rust: binder: Use lower bound for node debug lookup
-From: Alice Ryhl <aliceryhl@google.com>
-To: nenkov2004@gmail.com
-Cc: rust-for-linux@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/12] dt-bindings: phy: qcom,ipq5332-uniphy-pcie:
+ Change to PCIe/USB3 combo PHY
+To: George Moussalem <george.moussalem@outlook.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Praveenkumar I <praveenkumar.i@oss.qualcomm.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+ Nitheesh Sekar <quic_nsekar@quicinc.com>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
+ <20260825-ipq5018-usb3-v3-1-39be0955a6aa@outlook.com>
+ <20260828-wisteria-fennec-from-arcadia-a44ebe@quoll>
+ <SN7PR19MB6736B881B203BF5746F0DEE39DAC2@SN7PR19MB6736.namprd19.prod.outlook.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <SN7PR19MB6736B881B203BF5746F0DEE39DAC2@SN7PR19MB6736.namprd19.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 31, 2026 at 07:26:35AM +0200, nenkov2004@gmail.com wrote:
-> From: ChrisX101010 <nenkov2004@gmail.com>
+On 28/08/2026 12:51, George Moussalem wrote:
+> On 8/28/26 14:09, Krzysztof Kozlowski wrote:
+>> On Tue, Aug 25, 2026 at 04:37:18PM +0400, George Moussalem wrote:
+>>> This PHY is a PCIE/USB3 multi-purpose PHY. Initial support was added for
+>>> PCIe only, so rename the binding and add support for USB3 PHY mode.
+>>>
+>>> The PCIe and USB physical pads are muxed and selection is done via a
+>>> control register in TCSR. Add a new property to the binding to enable
+>>> switching the default PCIe mux selection to USB3 mode.
+>>>
+>>> In addition, USB3 mode requires a 5V supply, so add a vdd-supply
+>>> property for it.
+>>>
+>>> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+>>> ---
+>>>  .../bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml | 109 ----------------
+>>>  .../phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml     | 141 +++++++++++++++++++++
+>>>  include/dt-bindings/phy/phy-qcom-qmp.h             |   4 +
+>>>  3 files changed, 145 insertions(+), 109 deletions(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml
+>>> deleted file mode 100644
+>>> index 6e9df81441e9..000000000000
+>>
+>> Please do not rename the binding. Old name was correct. New one is not,
+>> otherwise please point me to the compatible like that.
 > 
-> The Binder node debug lookup currently walks the process node RBTree
-> from the beginning until it finds the first node pointer greater than
-> the requested pointer.
+> I thought we had come to the conclusion it's the same device in the
+> discussion in v2:
+> https://lore.kernel.org/all/gn43qixdtbq5iyfqvzibdtx4lmwpkt2ieahr7oqsxxjfpldb6d@xbxhbdrq4e6b/
 > 
-> Use RBTree::cursor_lower_bound() to start the lookup at the relevant
-> tree position instead. When the lower-bound key is equal to the
-> requested pointer, inspect the next node to preserve the existing
-> strictly-greater-than semantics.
-> 
-> This changes the tree lookup from a linear scan to an O(log n) search
-> without changing the returned node semantics.
-> 
-> Suggested-by: Alice Ryhl <aliceryhl@google.com>
-> Link: https://github.com/Rust-for-Linux/linux/issues/1249
-> Signed-off-by: ChrisX101010 <nenkov2004@gmail.com>
 
-This is a duplicate:
+How is it relevant to renaming of the file?
 
-https://lore.kernel.org/all/20260814215145.2050599-1-rafael@rcpassos.me/
+> I've split up this series into 3 as in the cover letter:
+> 1. Flatten USB Controller Nodes on IPQ SoCs
+>    link:
+> https://lore.kernel.org/r/20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com
+> 2. Enable USB3 for Qualcomm IPQ5018 (this patch series)
+> 3. Enable USB3 for Qualcomm IPQ5332 (to be submitted)
+
+How is this relevant?
+
+Best regards,
+Krzysztof
