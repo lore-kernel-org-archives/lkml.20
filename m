@@ -1,103 +1,188 @@
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D923B42CB
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:28:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786AD361DB1;
+	Mon, 31 Aug 2026 06:29:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788157743; cv=none; b=BZyGAzpAd3PFwS4l0tpxcWWYOWAfK57NNnrpKqVquvOv7eo1TlKRxUiyntONQdB7y1if6GiOtPyWWrnVaVnKYlDFDwjthOgoKmF0CM5pYbD8qCyCTyrS+6TpaH8QjgV7wo0rNtMiizl0qgVS6oH3q0S2SKZWXLLKdWK7DQrR6RU=
+	t=1788157789; cv=none; b=Ao2k/ZUpMlFWMRzFQc4X9W+9dHdDPvvDxWL1s0S+oYV562bD5qabSzoI1f3uW38B6m9jzfQMwxBxbgS2DNocXg2kQ5e3Vmzzl3LxqwVKnCbeBlX0fBB2mfQGxxnD6jUxjQo3d4gvZc2bbMBZNjHqXfqcRvTZvLrQW22c+Gg88jE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788157743; c=relaxed/simple;
-	bh=V7FvtSugKhjNT2ZmWlU7OmLNr1hyuaMhvDtV1+/b48s=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=KBJx4zSaV0Gi3+6Zi787R6PDaD18wySdHFJxAlUSDrckCH5KcdgzTgmpJNc8mJ4yPVWUiI9/5h2yzKJtS8Tv+TNnP+Q6hrWzfZAsbxgTi4Iq2Qt43ylZXvrsq/9HwhlaP+6A8p7TQsmiUeyp8OGlhB3xy8ZXveUHvtyydyXtxeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=rVYnNnuD; arc=none smtp.client-ip=115.124.30.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788157789; c=relaxed/simple;
+	bh=q4tzMqFFrTG68gV9jVQIicTtwLhwgUsDDCkj6wEKsm4=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=bdlW3quSZCwc+BzQ79wWe5qbNBReTXpojQh7tV/xGhM7dcUNtc1TS2Q2uBS3f866u2ymKsJ7dP+oF8Zr6F1xKcC1oNm5jVTyUcgAaMaB0c3AwIXz4RqCJo21SEv6HI6mszzMsI8E7cZMm+6vt152sEMNTCNTmNFzkhi3YnUZdOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=QKWu75+X; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="rVYnNnuD"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788157731; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=Y9iAOgav5Xi3RArqDRUmlMz4FJeOv/RfbeIABxvvgig=;
-	b=rVYnNnuDTEYxEfCuD0EEAfNO0+fTWUPD5AE0hMTT11AwDRE0KAcIPOCiG6gWtPshxlQbXMi9hfsc0k38MzxZT5njh8xj/vMT7ACpi47O6ngNrvNrEuuThOGp6oW5RFwjpz+/BRpOiUupxh+9DLWT2iVPJlRktAXmuQmpZ396stQ=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R271e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0X9tzGou_1788157730;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9tzGou_1788157730 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 31 Aug 2026 14:28:50 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/4] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system inodes
-Date: Mon, 31 Aug 2026 14:28:45 +0800
-Message-Id: <20260831062848.2743436-2-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20260831062848.2743436-1-joseph.qi@linux.alibaba.com>
-References: <20260831062848.2743436-1-joseph.qi@linux.alibaba.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QKWu75+X"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:a9ae:3688:6dfb:71b0])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 37A234BB;
+	Mon, 31 Aug 2026 08:28:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788157695;
+	bh=q4tzMqFFrTG68gV9jVQIicTtwLhwgUsDDCkj6wEKsm4=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=QKWu75+Xf62HRGfExG8awnnFNg+v2LRI3iO22nSRNv+3EtcfOXAixkCX9H2n4cOi0
+	 sRvGWaqWihmX8lBfiCwhDFWNGuYsUQJaNdLnkE/CXYa1OjX+MuQSeFPAwzKs741PvF
+	 BSuPFWpoyuNqWYzEeskMkyptwBR47bTA9wAFuvLo=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260717-b4-vchiq-isp-v3-3-fb8235e15c68@ideasonboard.com>
+References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com> <20260717-b4-vchiq-isp-v3-3-fb8235e15c68@ideasonboard.com>
+Subject: Re: [PATCH v3 3/9] platform/raspberrypi: vchiq-mmal: Support ISP parameters and stats
+From: Paul Elder <paul.elder@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Jai Luthra <jai.luthra@ideasonboard.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>, Jai Luthra <jai.luthra@ideasonboard.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Tomasz Figa <tfiga@chromium.org>
+Date: Mon, 31 Aug 2026 15:29:38 +0900
+Message-ID: <178815777880.1005982.16708040460479696081@neptunite.rasen.tech>
+User-Agent: alot/0.0.0
 
-ocfs2_validate_inode_block() currently permits i_suballoc_slot to be
-OCFS2_INVALID_SLOT for any dinode.  Only system inodes created by
-mkfs.ocfs2 are allocated from the global allocator and thus
-legitimately carry this value; regular inodes are always allocated
-from a per-slot suballocator and hence must have a valid slot.
+Quoting Jai Luthra (2026-07-17 20:04:18)
+> The ISP used on BCM2835 and derivative platforms is behind the VCHIQ
+> bus, where some parameters and statistics are accessed through the MMAL
+> layer.
+>=20
+> So add the relevant structures, macros and enum values.
+>=20
+> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 
-If a corrupted regular inode with OCFS2_INVALID_SLOT is accepted,
-ocfs2_remove_inode() will pass the slot to ocfs2_get_system_file_inode()
-and get_local_system_inode() will hit BUG_ON(slot == OCFS2_INVALID_SLOT)
-when the inode is deleted.  This can be triggered by an unprivileged
-user unlinking such a corrupted file.
+Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
 
-Reject OCFS2_INVALID_SLOT for non-system dinodes during validation,
-while still accepting it for system inodes.
-
-Fixes: fe7a283b3916 ("ocfs2: add suballoc slot check in ocfs2_validate_inode_block()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/ocfs2/inode.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
-
-diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 180107a11046..eda50f13ffb5 100644
---- a/fs/ocfs2/inode.c
-+++ b/fs/ocfs2/inode.c
-@@ -1520,8 +1520,23 @@ int ocfs2_validate_inode_block(struct super_block *sb,
- 		goto bail;
- 	}
- 
--	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
--	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
-+	/*
-+	 * Only system inodes created by mkfs.ocfs2 are allocated from the
-+	 * global allocator and thus legitimately carry OCFS2_INVALID_SLOT.
-+	 * Regular inodes are always allocated from a per-slot suballocator.
-+	 * If a regular inode with OCFS2_INVALID_SLOT was accepted here,
-+	 * deleting it would pass the slot to get_local_system_inode() via
-+	 * ocfs2_remove_inode() and trigger BUG_ON(slot == OCFS2_INVALID_SLOT).
-+	 */
-+	if (le16_to_cpu(di->i_suballoc_slot) == (u16)OCFS2_INVALID_SLOT) {
-+		if (!(le32_to_cpu(di->i_flags) & OCFS2_SYSTEM_FL)) {
-+			rc = ocfs2_error(sb,
-+					 "Invalid dinode %llu: suballoc slot %u for non-system inode\n",
-+					 (unsigned long long)bh->b_blocknr,
-+					 le16_to_cpu(di->i_suballoc_slot));
-+			goto bail;
-+		}
-+	} else if ((u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
- 		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
- 				 (unsigned long long)bh->b_blocknr,
- 				 le16_to_cpu(di->i_suballoc_slot));
--- 
-2.39.3
-
+> ---
+>  include/linux/raspberrypi/mmal-encodings.h  |  4 ++
+>  include/linux/raspberrypi/mmal-parameters.h | 86 +++++++++++++++++++++++=
+++++++
+>  2 files changed, 90 insertions(+)
+>=20
+> diff --git a/include/linux/raspberrypi/mmal-encodings.h b/include/linux/r=
+aspberrypi/mmal-encodings.h
+> index e15ae7b24f73..eadf2e981408 100644
+> --- a/include/linux/raspberrypi/mmal-encodings.h
+> +++ b/include/linux/raspberrypi/mmal-encodings.h
+> @@ -73,6 +73,10 @@
+>   */
+>  #define MMAL_ENCODING_EGL_IMAGE        MMAL_FOURCC('E', 'G', 'L', 'I')
+> =20
+> +/** ISP image statistics format
+> + */
+> +#define MMAL_ENCODING_BRCM_STATS       MMAL_FOURCC('S', 'T', 'A', 'T')
+> +
+>  /* }@ */
+> =20
+>  /** \name Pre-defined audio encodings */
+> diff --git a/include/linux/raspberrypi/mmal-parameters.h b/include/linux/=
+raspberrypi/mmal-parameters.h
+> index a0cdd28101f2..6ae5a7a1932c 100644
+> --- a/include/linux/raspberrypi/mmal-parameters.h
+> +++ b/include/linux/raspberrypi/mmal-parameters.h
+> @@ -223,6 +223,64 @@ enum mmal_parameter_camera_type {
+>         MMAL_PARAMETER_SHUTTER_SPEED,
+>                 /**< Takes a @ref MMAL_PARAMETER_AWB_GAINS_T */
+>         MMAL_PARAMETER_CUSTOM_AWB_GAINS,
+> +               /**< Takes a @ref MMAL_PARAMETER_CAMERA_SETTINGS_T */
+> +       MMAL_PARAMETER_CAMERA_SETTINGS,
+> +               /**< Takes a @ref MMAL_PARAMETER_PRIVACY_INDICATOR_T */
+> +       MMAL_PARAMETER_PRIVACY_INDICATOR,
+> +               /**< Takes a @ref MMAL_PARAMETER_BOOLEAN_T */
+> +       MMAL_PARAMETER_VIDEO_DENOISE,
+> +               /**< Takes a @ref MMAL_PARAMETER_BOOLEAN_T */
+> +       MMAL_PARAMETER_STILLS_DENOISE,
+> +               /**< Takes a @ref MMAL_PARAMETER_CAMERA_ANNOTATE_T */
+> +       MMAL_PARAMETER_ANNOTATE,
+> +               /**< Takes a @ref MMAL_PARAMETER_STEREOSCOPIC_MODE_T */
+> +       MMAL_PARAMETER_STEREOSCOPIC_MODE,
+> +               /**< Takes a @ref MMAL_PARAMETER_CAMERA_INTERFACE_T */
+> +       MMAL_PARAMETER_CAMERA_INTERFACE,
+> +               /**< Takes a @ref MMAL_PARAMETER_CAMERA_CLOCKING_MODE_T */
+> +       MMAL_PARAMETER_CAMERA_CLOCKING_MODE,
+> +               /**< Takes a @ref MMAL_PARAMETER_CAMERA_RX_CONFIG_T */
+> +       MMAL_PARAMETER_CAMERA_RX_CONFIG,
+> +               /**< Takes a @ref MMAL_PARAMETER_CAMERA_RX_TIMING_T */
+> +       MMAL_PARAMETER_CAMERA_RX_TIMING,
+> +               /**< Takes a @ref MMAL_PARAMETER_UINT32_T */
+> +       MMAL_PARAMETER_DPF_CONFIG,
+> +
+> +       /* 0x50 */
+> +               /**< Takes a @ref MMAL_PARAMETER_UINT32_T */
+> +       MMAL_PARAMETER_JPEG_RESTART_INTERVAL,
+> +               /**< Takes a @ref MMAL_PARAMETER_UINT32_T */
+> +       MMAL_PARAMETER_CAMERA_ISP_BLOCK_OVERRIDE,
+> +               /**< Takes a @ref MMAL_PARAMETER_LENS_SHADING_T */
+> +       MMAL_PARAMETER_LENS_SHADING_OVERRIDE,
+> +               /**< Takes a @ref MMAL_PARAMETER_UINT32_T */
+> +       MMAL_PARAMETER_BLACK_LEVEL,
+> +               /**< Takes a @ref MMAL_PARAMETER_RESIZE_T */
+> +       MMAL_PARAMETER_RESIZE_PARAMS,
+> +               /**< Takes a @ref MMAL_PARAMETER_CROP_T */
+> +       MMAL_PARAMETER_CROP,
+> +               /**< Takes a @ref MMAL_PARAMETER_INT32_T */
+> +       MMAL_PARAMETER_OUTPUT_SHIFT,
+> +               /**< Takes a @ref MMAL_PARAMETER_INT32_T */
+> +       MMAL_PARAMETER_CCM_SHIFT,
+> +               /**< Takes a @ref MMAL_PARAMETER_CUSTOM_CCM_T */
+> +       MMAL_PARAMETER_CUSTOM_CCM,
+> +               /**< Takes a @ref MMAL_PARAMETER_RATIONAL_T */
+> +       MMAL_PARAMETER_ANALOG_GAIN,
+> +               /**< Takes a @ref MMAL_PARAMETER_RATIONAL_T */
+> +       MMAL_PARAMETER_DIGITAL_GAIN,
+> +               /**< Takes a @ref MMAL_PARAMETER_DENOISE_T */
+> +       MMAL_PARAMETER_DENOISE,
+> +               /**< Takes a @ref MMAL_PARAMETER_SHARPEN_T */
+> +       MMAL_PARAMETER_SHARPEN,
+> +               /**< Takes a @ref MMAL_PARAMETER_GEQ_T */
+> +       MMAL_PARAMETER_GEQ,
+> +               /**< Tales a @ref MMAP_PARAMETER_DPC_T */
+> +       MMAL_PARAMETER_DPC,
+> +               /**< Tales a @ref MMAP_PARAMETER_GAMMA_T */
+> +       MMAL_PARAMETER_GAMMA,
+> +               /**< Takes a @ref MMAL_PARAMETER_CDN_T */
+> +       MMAL_PARAMETER_CDN,
+>  };
+> =20
+>  enum mmal_parameter_camera_config_timestamp_mode {
+> @@ -749,4 +807,32 @@ struct mmal_parameter_camera_info {
+>                                 flashes[MMAL_PARAMETER_CAMERA_INFO_MAX_FL=
+ASHES];
+>  };
+> =20
+> +enum mmal_parameter_ls_gain_format_type {
+> +       MMAL_PARAMETER_LS_GAIN_FORMAT_TYPE_U0P8_1 =3D 0,
+> +       MMAL_PARAMETER_LS_GAIN_FORMAT_TYPE_U1P7_0 =3D 1,
+> +       MMAL_PARAMETER_LS_GAIN_FORMAT_TYPE_U1P7_1 =3D 2,
+> +       MMAL_PARAMETER_LS_GAIN_FORMAT_TYPE_U2P6_0 =3D 3,
+> +       MMAL_PARAMETER_LS_GAIN_FORMAT_TYPE_U2P6_1 =3D 4,
+> +       MMAL_PARAMETER_LS_GAIN_FORMAT_TYPE_U3P5_0 =3D 5,
+> +       MMAL_PARAMETER_LS_GAIN_FORMAT_TYPE_U3P5_1 =3D 6,
+> +       MMAL_PARAMETER_LS_GAIN_FORMAT_TYPE_U4P10  =3D 7,
+> +       MMAL_PARAMETER_LS_GAIN_FORMAT_TYPE_DUMMY  =3D 0x7FFFFFFF
+> +};
+> +
+> +struct mmal_parameter_lens_shading_v2 {
+> +       u32 enabled;
+> +       u32 grid_cell_size;
+> +       u32 grid_width;
+> +       u32 grid_stride;
+> +       u32 grid_height;
+> +       u32 mem_handle_table;
+> +       u32 ref_transform;
+> +       u32 corner_sampled;
+> +       enum mmal_parameter_ls_gain_format_type gain_format;
+> +};
+> +
+> +struct mmal_parameter_crop {
+> +       struct vchiq_mmal_rect rect;
+> +};
+> +
+>  #endif
+>=20
+> --=20
+> 2.54.0
+>=20
+>
