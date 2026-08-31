@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 861AB442FBD;
-	Mon, 31 Aug 2026 13:33:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F4341A551;
+	Mon, 31 Aug 2026 13:33:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183235; cv=none; b=dBmKgRHQ3ouwodwLbDNVi+GBb6Djupq3lByLP8AqXKmfHZjhyde6xisn6fyOdMTXKd2x6/T6uYVu8PfoqjbxLfPh4BqB5JbomYsjxztQmgrVpGDJOBYsb/wsc17y/Bgd96nVYW8BCu2i/8dqvAx3V/j09ibcVQLbtXk5bmsp3wU=
+	t=1788183239; cv=none; b=iv5JMqAZYQmCaROXtbSHnPJ98dTGH/YIzZio1DC9AA+BHvphEyVNtRRc0QR74f3JQ4IbIkH/KXCwVzMNtffQmg6Bh6qbvOChLNaakciusDEF1Fv910oD+uzGIEI4r74C8byWg5WMWi0JKFRdCkSzwOqHuzpD2UjmHejewRgkeXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183235; c=relaxed/simple;
-	bh=mkI9VswO56vZpnoBoy57oMtE7LXg6haYUYV0vOybfec=;
+	s=arc-20240116; t=1788183239; c=relaxed/simple;
+	bh=jW+N1yboSweju19E3TsMZhNzXAFzMtAZ8tirvVgB8kw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y0WCRBgrwmNZHAFpDPKxRQ9aDbmAROoOXthsEEhdSG+NHXNL1yRY2RNaYUkhZnmm/mL8lJ3+PDkc/30X0he45lG0T0u4675MqrIN4ulOLqc1A66SRAggyfgcTt/ReFErzq0O4Ji2Qs3PRNTD5WlUpbwt6MS/RadclYhAMQpd8L8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bPI0vGdP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=KeFIQT3XNcLmZNEE/rRI+EoP96zpTihKNc6XxnH1AsC4DfDJQrzf7rdSgaR2jsDQotd4YzMUYPcALqDdHsF1LjyYESgQUiOMmzO5AqHIIqcF1EuHea9OmcTfQk1hlP6iBbHeEe1gftiXG49Nv1hqPoQZshFD/5n+S7E/y6VqMGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dNg5++zb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bPI0vGdP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A5F1F000E9;
-	Mon, 31 Aug 2026 13:33:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dNg5++zb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78A4F1F00A3E;
+	Mon, 31 Aug 2026 13:33:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183233;
-	bh=aFkks/A+ol/d7cAt7ToE7M6SYub+EULEhxRYoYglep4=;
+	s=k20260515; t=1788183237;
+	bh=AvV6yLbMcV1B8b94+oJs4b8s8FAEbmCg1eKUL+PjPVw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bPI0vGdPkpdCMBDXclBwL/391cBZmIK/CutUHWc7KHM8UB1Ar3WDNLK44QMSA8zKl
-	 8VrHDA1joCHFXPZprb8CKxgh8ddQfokLsCFHGbKVThaB6KJFQV4kLjUUuj296WfPwO
-	 VNM2NHgCRneZiHasctbMxk/9dvbUsNlHytF4RiOCSBLp3D7dThtCvTwwx0HiGygGbi
-	 S2lVegIDkRG3fbIWzqgXw39XSR7GmGcqDLPmSS7F3v79315d1UsZyPwAqxM0CrUsBr
-	 5V14i1qlR6Y8ddI2zeCifd9MxwLfRR1sCKYzv4+lMHVEdfj6EeD8jfxZS930dsGjtI
-	 JMeU/lQdqPU+Q==
+	b=dNg5++zbB3BfVTWnJEtXW5tOkPcBTqtXZnIf07R9IvYG7j/kl9XYuqi1lraVvGbeY
+	 A+Og8SmdJqvlat/1S6/vCbojmdd0JjW3nZ6vl9X6ds70Qb6Z0KaTmEGhMihX418YYS
+	 wt8NHPgf2UwiBKbsn70mv+0GQyjqJcVXnX+vfe4lVTetL8QZvFEk4pRFhy0Or+UKd5
+	 6gN/LQmNTdlpxeMYe3ys9rXxT8S4pFeYQ6kd5i3HIDQGvJgqiUkTNv/rY4nq3S2/uz
+	 dCRbtibE2a6phXrnTHipPjERyP1c7fBR3SJ2WdSccS75ayiUM486/FRk0McqQ739Xn
+	 kwHbjsuXG5YPA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Ulf Hansson <ulfh@kernel.org>,
+Cc: Pu Hu <hupu@transsion.com>,
+	Hongyan Xia <hongyan.xia@transsion.com>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-mmc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
+	catalin.marinas@arm.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.15] mmc: renesas_sdhi: Add OF entry for RZ/G2N SoC
-Date: Mon, 31 Aug 2026 09:20:53 -0400
-Message-ID: <20260831133314.4125787-25-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] arm64: kprobes: Only handle faults originating from XOL slot
+Date: Mon, 31 Aug 2026 09:20:55 -0400
+Message-ID: <20260831133314.4125787-27-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -55,376 +55,421 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Pu Hu <hupu@transsion.com>
 
-[ Upstream commit 5ce500d31a1625d8fe7ede950201b8df076bdd48 ]
+[ Upstream commit 879a6754d3d11e30af24b7dc486f561510d62641 ]
 
-The RZ/G2N (R8A774B1) SoC was previously handled via the generic
-"renesas,rcar-gen3-sdhi" fallback compatible string. However, because
-the SDHI IP on RZ/G2N is identical with the R-Car M3-N (R8A77965), it
-requires the specific quirks and configuration defined in
-`of_r8a77965_compatible` rather than the generic Gen3 data.
+kprobe_fault_handler() currently treats any page fault taken while in
+KPROBE_HIT_SS or KPROBE_REENTER state as a kprobe single-step fault. This
+assumption does not hold: perf or tracing code may run from the debug
+exception path during the single-step window and take its own page fault.
 
-Add the explicit "renesas,sdhi-r8a774b1" match entry to map it correctly.
-Note that the DT binding file renesas,sdhi.yaml does not need an update
-as the entry for this SoC is already present.
+When the fault is handled as a kprobe fault, the PC is rewritten to the
+probe address, corrupting the exception recovery context for the real
+fault. A typical reproducer is running perf with preemptirq tracepoints
+and dwarf callchains while a kprobe is installed on a frequently
+executed function.
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+Fix this in two layers:
+
+1. At function entry, bail out immediately for simulated kprobes
+   (ainsn.xol_insn == NULL), since they have no XOL slot and any fault
+   taken during their execution cannot be a single-step fault.
+
+2. For kprobes with an XOL slot, only handle the fault when the
+   faulting PC matches the XOL instruction address. Faults from any
+   other PC are left to the normal page fault handler.
+
+This follows the same principle as the x86 fix in commit 6381c24cd6d5
+("kprobes/x86: Fix page-fault handling logic").
+
+Signed-off-by: Pu Hu <hupu@transsion.com>
+Signed-off-by: Hongyan Xia <hongyan.xia@transsion.com>
+Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Will Deacon <will@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `mmc: renesas_sdhi: Add OF entry for RZ/G2N
-SoC`
+# Stable Backport Analysis: `arm64: kprobes: Only handle faults
+originating from XOL slot`
 
-**Local tree:** `v6.18.44` (stable/linux-6.18.y)
-**Upstream commit:** `5ce500d31a1625d8fe7ede950201b8df076bdd48`
+**Local tree:** Linux **6.18.44** (`v6.18.44-2-g1b9e1abadee04`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-**Record:** `[mmc/renesas_sdhi]` `[Add]` — Add explicit OF device-tree
-match entry for RZ/G2N (R8A774B1) SoC SDHI controller.
+### Step 1.1: Parse the subject line
+**Record:** `[arm64: kprobes]` `[Only handle]` — restricts kprobe page-
+fault handling to faults that actually originate from the XOL (execute-
+out-of-line) single-step slot.
 
-### Step 1.2: Tags
+### Step 1.2: Parse all commit message tags
 **Record:**
-- **Signed-off-by:** Lad Prabhakar, Ulf Hansson (MMC maintainer)
-- **Reviewed-by:** Wolfram Sang (Renesas SDHI maintainer), Geert
-  Uytterhoeven (Renesas DT maintainer)
-- **No Fixes:** tag
-- **No Reported-by:** tag
-- **No Cc: stable** in the committed upstream message (present in
-  mailing-list submission for the series)
-- **No Link:** tags
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** Masami Hiramatsu (Google) `<mhiramat@kernel.org>` —
+  kprobes subsystem maintainer
+- **Acked-by:** — none
+- **Link:** — none
+- **Cc: stable:** — none (expected)
+- **Signed-off-by:** Pu Hu, Hongyan Xia (authors); Will Deacon (arm64
+  maintainer)
+- **Notable:** Strong maintainer review signal; references x86 precedent
+  commit `6381c24cd6d5`
 
-Notable: Both subsystem maintainers reviewed; this is patch 2/3 of a
-series nominating all three RZ/G2 patches for stable.
-
-### Step 1.3: Body Analysis
+### Step 1.3: Analyze commit body text
 **Record:**
-- **Bug:** RZ/G2N SDHI nodes use `"renesas,sdhi-r8a774b1"` as primary
-  compatible, but the driver lacked an explicit OF match entry. Matching
-  fell through to the generic `"renesas,rcar-gen3-sdhi"` fallback
-  (`of_rcar_gen3_compatible`), which has **no SoC-specific quirks**.
-- **Symptom:** Missing `sdhi_quirks_r8a77965` (HS400 tap correction,
-  bad-tap avoidance, calibration table) that R-Car M3-N (R8A77965) — the
-  IP-identical counterpart — requires.
-- **Root cause:** OF match table gap; hardware needs M3-N quirks, not
-  generic Gen3 data.
-- **Version info:** RZ/G2N DTS SDHI nodes have existed since v5.5
-  (2019); bug present whenever quirk-based OF matching has been used.
+- **Bug:** `kprobe_fault_handler()` treats *any* page fault during
+  `KPROBE_HIT_SS` or `KPROBE_REENTER` as a kprobe single-step fault.
+- **Symptom:** PC is rewritten to the probe address, corrupting
+  exception recovery for the real fault → kernel crash/BUG.
+- **Reproducer:** perf with preemptirq tracepoints and DWARF callchains
+  while a kprobe is on a frequently executed function.
+- **Root cause:** perf/tracing code can run from the debug-exception
+  path during the single-step window and take its own page fault; that
+  fault is not from the XOL instruction.
+- **Version info:** Not specified; fix mirrors a 2014 x86 fix that arm64
+  never received.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes. Despite "Add OF entry" wording, this is a **hardware
-quirk/workaround fix**. Without it, HS400 eMMC operates with wrong (or
-no) tap calibration. Series cover letter documents measured failures:
-RZ/G2N read bandwidth 46,680 KB/s → 104,731 KB/s after fix, validated
-with `mmc_test` 1000 iterations on HS400 eMMC.
+### Step 1.4: Detect hidden bug fixes
+**Record:** Not disguised — this is an explicit correctness/crash fix,
+though the mechanism (verify faulting PC before rewriting it) is the
+same pattern used on x86 since 2014.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: Inventory the changes
 **Record:**
-- **Files:** `drivers/mmc/host/renesas_sdhi_internal_dmac.c` (+1 line)
-- **Functions modified:** None (data table only:
-  `renesas_sdhi_internal_dmac_of_match[]`)
-- **Scope:** Single-file, surgical, 1-line addition
+- **Files:** `arch/arm64/kernel/probes/kprobes.c` only (+22 lines, 0
+  removals)
+- **Function modified:** `kprobe_fault_handler()`
+- **Scope:** Single-file surgical fix
 
-### Step 2.2: Code Flow Change
+### Step 2.2: Code flow change per hunk
 **Record:**
-- **Before:** `"renesas,sdhi-r8a774b1"` not in OF table →
-  `of_device_get_match_data()` matches fallback `"renesas,rcar-
-  gen3-sdhi"` → `of_rcar_gen3_compatible` (`.quirks = NULL`).
-- **After:** Primary compatible matches → `of_r8a77965_compatible` →
-  `sdhi_quirks_r8a77965` with `hs400_bad_taps`, `hs400_calib_table`,
-  `manual_tap_correction`.
-- **Path affected:** Device probe / initialization for all RZ/G2N SDHI
-  instances (sdhi0–sdhi3).
+- **Hunk 1 (early return):** Before → any fault during simulated kprobe
+  (`xol_insn == NULL`) could enter the switch and corrupt state. After →
+  immediate `return 0`, leaving the fault to the normal handler
+  (including `fixup_exception`).
+- **Hunk 2 (PC check):** Before → any fault in
+  `KPROBE_HIT_SS`/`KPROBE_REENTER` rewrote PC to `cur->addr`. After →
+  only rewrites PC when `instruction_pointer(regs) ==
+  cur->ainsn.xol_insn`; otherwise `break` and fall through to `return
+  0`.
 
-### Step 2.3: Bug Mechanism
-**Record:** **Category (h): Hardware workaround / logic correctness
-fix.**
-- `sdhi_quirks_r8a77965` enables HS400 tap correction in
-  `renesas_sdhi_core.c` (`manual_tap_correction`, `hs400_bad_taps`,
-  `hs400_calib_table` code paths).
-- Without quirks, HS400 mode runs without proper tap tuning — degraded
-  performance and risk of unreliable eMMC transfers.
+### Step 2.3: Bug mechanism
+**Record:** **Logic/correctness fix** — incorrect fault attribution
+corrupts register context (PC) for unrelated page faults during kprobe
+single-stepping. Same class of bug fixed on x86 in `6381c24cd6d5`.
 
-### Step 2.4: Fix Quality
-**Record:** Obviously correct — maps RZ/G2N to already-existing, tested
-M3-N quirks. Minimal diff, zero API changes. Regression risk: very low
-(only affects r8a774b1 match; identical IP to r8a77965).
+### Step 2.4: Fix quality assessment
+**Record:** Fix is obviously correct and minimal. It mirrors the proven
+x86 pattern (`regs->ip == cur->ainsn.insn`). Regression risk is very
+low: legitimate XOL single-step faults still match `xol_insn` and follow
+the existing path. The `kprobe_ss_brk_handler()` already uses a similar
+XOL-address check at line 361–362.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-**Record:** OF match table introduced incrementally.
-`of_r8a77965_compatible` added in `71b7597c63d2dd` (2021). RZ/G2N DTS
-SDHI nodes added in `6317736729acb` (2019, v5.5). The explicit r8a774b1
-OF entry was never added until this 2026 commit. Bug has been latent
-since quirk-based OF matching was refactored.
+### Step 3.1: Blame the changed lines
+**Record:** Current `kprobe_fault_handler()` body is present in this
+tree at lines 280–308. Repository is shallow (`git rev-parse --is-
+shallow-repository` → `true`), limiting deep history. File header dates
+arm64 kprobes to 2013; the overly broad fault handling predates this
+6.18.y branch and was never corrected on arm64 (unlike x86).
 
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag. Original DTS commit `6317736729acb` is
-in this tree.
+### Step 3.2: Follow Fixes: tag
+**Record:** N/A — no `Fixes:` tag. Referenced x86 commit `6381c24cd6d5`
+("kprobes/x86: Fix page-fault handling logic", April 2014) is present in
+this tree and documents the same failure mode (perf/NMI page fault
+during single-step → PC corruption → kernel BUG).
 
-### Step 3.3: Related Changes
-**Record:**
-- Part of v2 3-patch series: RZ/G2H, RZ/G2N, RZ/G2E (patches 1/3, 2/3,
-  3/3).
-- **RZ/G2H sibling already backported** to this tree as `535ff092b6860`
-  (with `Cc: stable@vger.kernel.org`, Greg Kroah-Hartman SOB).
-- RZ/G2N and RZ/G2E patches from the same series are **not yet** in
-  6.18.44.
-- Standalone: no other patches required; only adds one table row
-  referencing existing data.
+### Step 3.3: File history for related changes
+**Record:** Shallow history shows only one commit touching
+`arch/arm64/kernel/probes/kprobes.c` in this checkout. No related fix
+already present. This commit is patch 1 of a 3-patch RFC series; patches
+2–3 address separate reentry/irqflag issues and are **not**
+prerequisites for this fix.
 
-### Step 3.4: Author Context
-**Record:** Lad Prabhakar — active Renesas contributor; same author as
-RZ/G2H backport already in tree. Ulf Hansson (MMC maintainer) committed.
+### Step 3.4: Author's other commits
+**Record:** No commits from Pu Hu found in this shallow tree. Author
+appears to be a Transsion contributor; patch was reviewed by the kprobes
+maintainer.
 
-### Step 3.5: Dependencies
-**Record:** No dependencies. `of_r8a77965_compatible` and
-`sdhi_quirks_r8a77965` already exist in 6.18.44. `r8a774b1.dtsi` SDHI
-nodes with `"renesas,sdhi-r8a774b1"` compatible present. Patch applies
-cleanly (insert after r8a77470 line, before r8a774e1 which is already
-present).
+### Step 3.5: Dependent/prerequisite commits
+**Record:** None. Self-contained. `xol_insn`, `instruction_pointer()`,
+and `kprobe_fault_handler()` all exist in this tree. `git apply --check`
+confirms clean apply.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Discussion
-**Record:** `b4 dig -c 5ce500d31a162` →
-https://patch.msgid.link/20260519135342.623943-3-prabhakar.mahadev-
-lad.rj@bp.renesas.com
-Series v2 (0/3 + 3 patches). Latest revision applied to mainline. No
-NAKs found.
+### Step 4.1: Original patch discussion
+**Record:** Patch submitted as RFC v2/v3 series in July 2026. Lore URL
+(via openwall mirror): https://lists.openwall.net/linux-
+kernel/2026/07/10/387. Final committed version matches v3 content. `b4
+dig -c` could not be used (commit not in local tree).
 
 ### Step 4.2: Reviewers
-**Record:** `b4 dig -w` — CC'd to linux-mmc, linux-renesas-soc, Wolfram
-Sang, Ulf Hansson, Geert Uytterhoeven. Both Renesas and MMC maintainers
-reviewed.
+**Record:** CC'd to `mhiramat@kernel.org`, `will@kernel.org`,
+`catalin.marinas@arm.com`, `linux-arm-kernel@`, `linux-trace-kernel@`.
+Masami Hiramatsu replied "This looks good to me" with `Reviewed-by`
+(https://lists.openwall.net/linux-kernel/2026/07/10/222).
 
-### Step 4.3: Bug Report
-**Record:** No external bug report. Author-provided benchmark data in
-cover letter (v2 0/3): RZ/G2N HS400 eMMC read 46,680 → 104,731 KB/s,
-write 73,393 → 74,298 KB/s after fix, tested 1000 iterations with
-`mmc_test`.
+### Step 4.3: Bug report details
+**Record:** No formal bugzilla/syzbot report. Reproducer described in
+commit message and series cover letter: perf + preemptirq tracepoints +
+DWARF callchains + active kprobe on hot function. Series cover letter
+states crashes occur in the kprobe debug exception path.
 
-### Step 4.4: Series Context
-**Record:** 3-patch series for RZ/G2H/G2N/G2E. Each patch is independent
-(one line each). RZ/G2H already backported to this tree; RZ/G2N is
-logically identical in nature.
+### Step 4.4: Related patches/series
+**Record:** Part of "arm64: kprobes: Fix single-step fault and reentry
+handling" (3 patches). Only patch 1 (this commit) is required for the
+fault-handler bug. Patches 2–3 are independent improvements.
 
-### Step 4.5: Stable List History
-**Record:** Individual patches in the series included `Cc:
-stable@vger.kernel.org` in mailing-list submissions. RZ/G2H was
-subsequently backported to 6.18.y, establishing precedent for this
-series.
+### Step 4.5: Stable mailing list history
+**Record:** Could not search lore stable list (bot protection). No
+evidence found of prior stable rejection.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `renesas_sdhi_internal_dmac_of_match[]` (data), consumed by
-`renesas_sdhi_internal_dmac_probe()`.
+### Step 5.1: Key functions modified
+**Record:** `kprobe_fault_handler()` only.
 
-### Step 5.2: Callers
-**Record:** OF core matches compatible at `platform_driver` probe time.
-Affects every RZ/G2N board with SDHI enabled (HiHope RZ/G2N, Beacon
-RZ/G2N Kit, etc.).
+### Step 5.2: Trace callers
+**Record:** Call chain:
+1. `do_page_fault()` in `arch/arm64/mm/fault.c:565` →
+   `kprobe_page_fault(regs, esr)`
+2. `kprobe_page_fault()` in `include/linux/kprobes.h:576-591` — checks
+   `CONFIG_KPROBES`, non-user mode, non-preemptible, `kprobe_running()`
+   → calls `kprobe_fault_handler()`
+3. x86 equivalent called from `arch/x86/mm/fault.c`
 
-### Step 5.3: Callees
-**Record:** `of_device_get_match_data()` → `quirks` pointer passed to
-`renesas_sdhi_probe()` → used throughout `renesas_sdhi_core.c` for HS400
-tuning.
+Called from the kernel page-fault path during any kernel-mode
+data/instruction abort while a kprobe is active.
 
-### Step 5.4: Reachability
-**Record:** Triggered at boot when SDHI platform devices probe on RZ/G2N
-hardware. Common embedded/industrial path; affects eMMC rootfs on these
-boards.
+### Step 5.3: Key callees
+**Record:** `kprobe_running()`, `get_kprobe_ctlblk()`,
+`instruction_pointer()` / `instruction_pointer_set()`,
+`restore_previous_kprobe()`, `kprobes_restore_local_irqflag()`,
+`reset_current_kprobe()`.
 
-### Step 5.5: Similar Patterns
-**Record:** Identical pattern to already-backported RZ/G2H fix
-(`r8a774e1` → `of_r8a7795_compatible`) at line 282 in current tree. Same
-series, same mechanism.
+### Step 5.4: Call chain / reachability
+**Record:** Reachable whenever `CONFIG_KPROBES` is enabled and
+perf/tracing + kprobes are used concurrently on arm64 — a realistic
+production/debug scenario on Graviton, Ampere, and other arm64 servers.
+Root-capable users can install kprobes; perf is widely used.
+
+### Step 5.5: Similar patterns
+**Record:** x86 `kprobe_fault_handler()` at
+`arch/x86/kernel/kprobes/core.c:1039` already gates on `regs->ip ==
+(unsigned long)cur->ainsn.insn`. `kprobe_ss_brk_handler()` on arm64
+already checks XOL address at lines 361–362. This fix brings fault
+handling in line with both.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** `r8a774b1.dtsi` has four SDHI nodes with
-`"renesas,sdhi-r8a774b1"` primary compatible. Driver OF table lacks this
-entry (verified: no `r8a774b1` in `renesas_sdhi_internal_dmac.c`). Falls
-back to generic gen3 without quirks.
+### Step 6.1: Does the buggy code exist?
+**Record:** **YES.** `arch/arm64/kernel/probes/kprobes.c:280-308` has
+the buggy unconditional PC rewrite. The fix is **not** yet applied in
+this 6.18.44 tree.
 
-### Step 6.2: Backport Complications
-**Record:** **Clean apply expected.** File structure matches upstream
-diff context. RZ/G2H entry already inserted at same location; RZ/G2N
-entry slots in alphabetically before r8a774e1.
+### Step 6.2: Backport complications
+**Record:** **Clean apply** — verified with `git apply --check`. No
+conflicting recent churn in this file.
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** RZ/G2H fix (`535ff092b6860`) present. RZ/G2N fix **not**
-present. No alternate fix for r8a774b1.
+### Step 6.3: Related fixes already present?
+**Record:** None found. x86 has had the equivalent fix since 2014; arm64
+still lacks it.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem Criticality
-**Record:** `drivers/mmc/host` — IMPORTANT (block storage / eMMC).
-Platform-specific (Renesas RZ/G2N arm64).
+### Step 7.1: Subsystem criticality
+**Record:** **IMPORTANT** — `arch/arm64/kernel/probes/` +
+`arch/arm64/mm/fault.c`. Affects arm64 kernel debugging/tracing
+infrastructure, not every user, but crashes are severe when triggered.
 
-### Step 7.2: Subsystem Activity
-**Record:** Actively maintained; recent Renesas SDHI OF entries added
-(RZ/G2H, RZ/V2H, RZ/G2L family).
+### Step 7.2: Subsystem activity
+**Record:** arm64 kprobes code is mature (2013 origin). This is a long-
+standing correctness gap, not a regression from a recent mainline
+commit.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who Is Affected
-**Record:** RZ/G2N (R8A774B1) platform users — embedded/industrial
-boards (HiHope, Beacon, etc.) using SDHI/eMMC.
+### Step 8.1: Who is affected
+**Record:** **Config-specific** (`CONFIG_KPROBES`) on **arm64** systems
+running kprobes concurrently with perf/tracing (especially preemptirq
+tracepoints + DWARF callchains).
 
-### Step 8.2: Trigger Conditions
-**Record:** Every boot with SDHI enabled on RZ/G2N. Not timing-
-dependent; deterministic misconfiguration. Unprivileged users interact
-via eMMC I/O on these systems.
+### Step 8.2: Trigger conditions
+**Record:** Kprobe on frequently executed function + perf tracing that
+page-faults during the kprobe single-step window. Not every boot, but
+reproducible with the described workload. Requires privileges to use
+kprobes/perf, but this is standard on developer and observability-
+focused production systems.
 
-### Step 8.3: Failure Mode Severity
-**Record:** **HIGH** — HS400 eMMC runs without required tap calibration.
-Cover letter shows ~2× read bandwidth loss; wrong tap settings risk
-transfer errors/data corruption on eMMC. Not a kernel crash, but storage
-reliability and performance are seriously impacted.
+### Step 8.3: Failure mode severity
+**Record:** **CRITICAL** — PC corruption in the fault handler leads to
+mis-handled page faults and kernel BUG/panic (same severity class as the
+documented x86 case: NULL pointer dereference after IP corruption).
 
-### Step 8.4: Risk-Benefit
+### Step 8.4: Risk-benefit ratio
 **Record:**
-- **Benefit:** HIGH for affected hardware — restores correct HS400
-  quirks, validated performance improvement.
-- **Risk:** VERY LOW — 1-line table entry, maps to existing tested
-  quirks, identical pattern to already-backported RZ/G2H fix.
-- **Ratio:** Strongly favors backport.
+- **Benefit:** HIGH for arm64 kprobes+perf users — prevents real crashes
+- **Risk:** VERY LOW — 22-line, maintainer-reviewed, mirrors 10+ year
+  proven x86 logic
+- **Ratio:** Strongly favors backport
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence compile
 
-**FOR backport:**
-- Fixes real hardware misconfiguration on RZ/G2N since v5.5
-- Hardware quirk/workaround (explicit stable exception category)
-- 1-line, surgical, reviewed by subsystem maintainers
-- Tested on real hardware (mmc_test, 1000 iterations, HS400)
-- Sibling RZ/G2H patch from same series already in 6.18.44
-- Series nominated for stable on mailing list
-- All prerequisites present in tree
+**FOR backporting:**
+- Fixes a real, reproducible kernel crash
+- Corrupts exception context (PC rewrite) — severe failure mode
+- Small (22 lines), single file, applies cleanly to 6.18.44
+- Reviewed by kprobes maintainer (Hiramatsu), signed off by arm64
+  maintainer (Deacon)
+- Follows proven x86 fix from 2014
+- Buggy code confirmed present in this tree
+- Standalone — no dependencies on other series patches
 
-**AGAINST backport:**
-- No user crash report or CVE
-- Platform-specific (not universal)
-- RZ/G2E patch from same series also missing (incomplete series, but
-  each patch is independent)
+**AGAINST backporting:**
+- Only affects `CONFIG_KPROBES` on arm64 (narrower audience than core
+  MM/net)
+- No syzbot/CVE report (but clear reproducer and maintainer review)
 
-**Unresolved:** None material to the decision.
+**Unresolved:** Exact commit that introduced arm64
+`kprobe_fault_handler()` (shallow repo). Bug has likely existed since
+arm64 kprobes inception regardless.
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — maps to existing M3-N
-   quirks; benchmarked on hardware.
-2. Fixes a real bug affecting users? **PASS** — wrong SDHI quirks on
-   RZ/G2N boards.
-3. Important issue? **PASS** — eMMC HS400 reliability/performance (HIGH
-   severity for affected platforms).
-4. Small and contained? **PASS** — 1 line, 1 file.
-5. No new features or APIs? **PASS** — existing quirks, new OF table row
-   only.
-6. Can apply to local tree? **PASS** — prerequisites present, clean
-   apply expected.
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — mirrors x86; maintainer
+   reviewed; logical correctness verifiable from code
+2. Fixes a real bug affecting users? **PASS** — documented perf+kprobes
+   reproducer
+3. Important issue? **PASS** — kernel crash/BUG (CRITICAL)
+4. Small and contained? **PASS** — 22 lines, 1 file
+5. No new features or APIs? **PASS** — pure bug fix
+6. Can apply to local tree? **PASS** — verified clean apply; buggy code
+   present
 
-### Step 9.3: Exception Category
-**Record:** Hardware quirk/workaround — maps SoC to correct existing
-quirks table entry. Same category as the already-backported RZ/G2H fix.
+### Step 9.3: Exception categories
+**Record:** None apply (not device ID, quirk, DT, build, or docs).
+Standard bug-fix backport.
 
-### Step 9.4: Decision Rationale
+### Step 9.4: Decision rationale
 
-This commit fixes a long-standing gap where RZ/G2N SDHI hardware was
-probed without the M3-N-specific HS400 tuning quirks it requires. The
-bug exists in 6.18.44: DTS uses the specific compatible string, but the
-driver lacks the matching OF entry. The identical RZ/G2H fix from the
-same series is already in this stable tree, establishing clear
-precedent. The fix is trivial, reviewed, tested, and addresses real eMMC
-performance and reliability on RZ/G2N hardware.
+For **Linux 6.18.44**, this commit should be backported. The arm64
+kprobe fault handler has a longstanding correctness bug that x86 fixed
+in 2014: it mishandles page faults from perf/tracing code that runs
+during the kprobe single-step window, corrupting the faulting PC and
+causing kernel crashes. The fix is minimal, maintainer-reviewed, matches
+an established cross-architecture pattern, and applies cleanly to this
+tree where the buggy code is still present.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message and tags from `git show
-  5ce500d31a162`
-- **[Phase 1]** Confirmed no Fixes:/Reported-by: in upstream commit
-- **[Phase 2]** Verified diff: +1 line in
-  `renesas_sdhi_internal_dmac_of_match[]`
-- **[Phase 2]** Read `of_r8a77965_compatible` and `sdhi_quirks_r8a77965`
-  at lines 204–248
-- **[Phase 2]** Read `renesas_sdhi_internal_dmac_probe()` at lines
-  581–600 — quirks from OF match data
-- **[Phase 2]** Read HS400 quirk usage in `renesas_sdhi_core.c` (lines
-  404, 555)
-- **[Phase 3]** `git describe HEAD` → v6.18.44
-- **[Phase 3]** `git blame` on OF match table — r8a774b1 entry absent
-- **[Phase 3]** `git log -S "renesas,sdhi-r8a774b1"` on driver file →
-  empty (never added)
-- **[Phase 3]** DTS added in `6317736729acb` (2019) — confirmed in tree
-- **[Phase 3]** Quirks refactor `71b7597c63d2dd` — confirmed in tree
-- **[Phase 3]** RZ/G2H backport `535ff092b6860` — confirmed in tree with
-  Cc: stable
-- **[Phase 4]** `b4 dig -c 5ce500d31a162` → lore URL found
-- **[Phase 4]** `b4 dig -m /tmp/rzg2n_thread.mbox` — cover letter with
-  benchmark data and Cc: stable
-- **[Phase 4]** Reviewed-by Wolfram Sang and Geert Uytterhoeven
-  confirmed in thread
-- **[Phase 5]** Grep `of_device_get_match_data` in probe path —
-  confirmed flow
-- **[Phase 5]** Grep `r8a774b1` in driver — no matches (bug present)
-- **[Phase 6]** `r8a774b1.dtsi` SDHI nodes use `"renesas,sdhi-r8a774b1"`
-  — confirmed at lines 2162+
-- **[Phase 6]** `of_r8a77965_compatible` exists in 6.18.44 — confirmed
-- **[Phase 6]** Commit NOT in current HEAD — `git log --grep="RZ/G2N"`
-  on driver returns only unrelated entries
-- **[Phase 8]** Cover letter benchmarks: RZ/G2N read 46680→104731 KB/s —
-  from mbox
+- **[Phase 1]** Parsed subject, tags, body; confirmed Reviewed-by
+  Hiramatsu, SOB Deacon
+- **[Phase 1]** Confirmed no Fixes:/Reported-by:/Cc: stable tags
+- **[Phase 2]** Read diff: +22 lines in `kprobe_fault_handler()`, two
+  guard layers
+- **[Phase 2]** Read current tree code at
+  `arch/arm64/kernel/probes/kprobes.c:280-308` — buggy version present
+- **[Phase 2]** Compared to x86 fix at
+  `arch/x86/kernel/kprobes/core.c:1039` — same IP-check pattern
+- **[Phase 3]** `git blame -L 280,308` — function present in tree
+- **[Phase 3]** `git rev-parse --is-shallow-repository` → `true`
+  (limited history)
+- **[Phase 3]** `git show 6381c24cd6d5` — x86 precedent with crash
+  description confirmed
+- **[Phase 3]** `git apply --check` — patch applies cleanly
+- **[Phase 4]** Fetched lore/openwall: RFC v3 submission at
+  lists.openwall.net/linux-kernel/2026/07/10/387
+- **[Phase 4]** Fetched review reply: Hiramatsu "This looks good to me"
+  at lists.openwall.net/linux-kernel/2026/07/10/222
+- **[Phase 4]** Series cover letter (web search): 3-patch series; patch
+  1 is standalone for fault handling
+- **[Phase 4]** lore.kernel.org/stable search blocked by bot protection
+  — UNVERIFIED for stable-list discussion
+- **[Phase 5]** `grep kprobe_page_fault` — caller at
+  `arch/arm64/mm/fault.c:565`
+- **[Phase 5]** Read `kprobe_page_fault()` in
+  `include/linux/kprobes.h:576-591` — requires `kprobe_running()`
+- **[Phase 5]** Read `kprobe_ss_brk_handler()` XOL check at lines
+  361-362 — consistent pattern
+- **[Phase 6]** `git describe HEAD` → `v6.18.44-2-g1b9e1abadee04`; `make
+  kernelversion` → `6.18.44`
+- **[Phase 6]** Confirmed fix NOT in tree; buggy code at lines 280-308
+- **[Phase 6]** `git apply --check` on provided diff — PASS
+- **[Phase 7]** Read `arch/Kconfig:117-128` — KPROBES depends on
+  HAVE_KPROBES
+- **[Phase 8]** Failure mode: PC corruption → kernel BUG; severity
+  CRITICAL
 
 **YES**
 
- drivers/mmc/host/renesas_sdhi_internal_dmac.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/kernel/probes/kprobes.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/drivers/mmc/host/renesas_sdhi_internal_dmac.c b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-index 6816d491b0bf0..8bc1c3209edb0 100644
---- a/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-+++ b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-@@ -279,6 +279,7 @@ static const struct renesas_sdhi_of_data_with_quirks of_rza2_compatible = {
- static const struct of_device_id renesas_sdhi_internal_dmac_of_match[] = {
- 	{ .compatible = "renesas,sdhi-r7s9210", .data = &of_rza2_compatible, },
- 	{ .compatible = "renesas,sdhi-mmc-r8a77470", .data = &of_rcar_gen3_compatible, },
-+	{ .compatible = "renesas,sdhi-r8a774b1", .data = &of_r8a77965_compatible, },
- 	{ .compatible = "renesas,sdhi-r8a774e1", .data = &of_r8a7795_compatible, },
- 	{ .compatible = "renesas,sdhi-r8a7795", .data = &of_r8a7795_compatible, },
- 	{ .compatible = "renesas,sdhi-r8a77961", .data = &of_r8a77961_compatible, },
+diff --git a/arch/arm64/kernel/probes/kprobes.c b/arch/arm64/kernel/probes/kprobes.c
+index 7133da1653964..4e0efad5caf24 100644
+--- a/arch/arm64/kernel/probes/kprobes.c
++++ b/arch/arm64/kernel/probes/kprobes.c
+@@ -303,9 +303,31 @@ int __kprobes kprobe_fault_handler(struct pt_regs *regs, unsigned int fsr)
+ 	struct kprobe *cur = kprobe_running();
+ 	struct kprobe_ctlblk *kcb = get_kprobe_ctlblk();
+ 
++	/*
++	 * Simulated kprobes execute in the debug trap context and have no
++	 * XOL slot. Any page fault taken while a simulated kprobe is in
++	 * progress cannot have been caused by kprobe single-stepping and
++	 * must be left alone for the normal page fault handler, including
++	 * fixup_exception.
++	 */
++	if (cur && !cur->ainsn.xol_insn)
++		return 0;
++
+ 	switch (kcb->kprobe_status) {
+ 	case KPROBE_HIT_SS:
+ 	case KPROBE_REENTER:
++		/*
++		 * A page fault taken while in KPROBE_HIT_SS or
++		 * KPROBE_REENTER state is only attributable to kprobe
++		 * single-stepping if the faulting PC points to the
++		 * current kprobe's XOL instruction. If the fault occurred
++		 * elsewhere (e.g. in perf or tracing code invoked from the
++		 * debug exception path), leave it for the normal page fault
++		 * handler to process.
++		 */
++		if (instruction_pointer(regs) != (unsigned long)cur->ainsn.xol_insn)
++			break;
++
+ 		/*
+ 		 * We are here because the instruction being single
+ 		 * stepped caused a page fault. We reset the current
 -- 
 2.53.0
 
