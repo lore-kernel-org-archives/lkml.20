@@ -1,43 +1,41 @@
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E18B3546D9;
-	Mon, 31 Aug 2026 05:51:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6212E06EF
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:52:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788155464; cv=none; b=MGiDRxsDdj7lstBXdyInS15C5qMgyJhoCs5td0k8LmotS6RcYID05eaVEYK4NgpO6vuzwVPo/jQ6Z4yyeFHZB9/j7hjfesrQ9FtACNQhUX/u92lUJL9GzA9sSrhQzYixB7T6itIC/Ybfmu+anpaOAN5XdvG/cKml7M0nu3jUQIE=
+	t=1788155559; cv=none; b=cuDYGHUmEifFsLI5xAvT5ik1jrVGfUVihTTBbWOSzrnJhq5hV/puq4vN/Y3XQHuYkzD7VPvsxs5Bl0uoIWlI8bFL0T/lmNyyMAVpFFO4p7ES7+3jb2EkvTFtVpCLTOqsqbwaTf89Mla54FQWdIu6CSu8+WB/SentxgFb25G/7jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788155464; c=relaxed/simple;
-	bh=6lw7yIXjEB9XMLRYymToL0vUPMVyoLOpiDilOKGmuC8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U0VXd2qGY7OD5wa8nczE2oijYZvPgZNbFyieZ1swdUwkq+RgQZ0A7bzthImU2dm5oZPvq/9tkuGO0MoQv/i7svRSVDJBYwtTJcmZ8P6BPJyAfS1F9Pw2jqZ/SycZ+N/9bW/VcUz3/wG/wZKob1EbN48rS3NZzkV21YhjXanDd2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=HrMn4tgG; arc=none smtp.client-ip=198.137.202.133
+	s=arc-20240116; t=1788155559; c=relaxed/simple;
+	bh=0CSdVs2rOpUPtxsvgWi/tqxZ6bmT0NQV2Nxrvkdvo4s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AXbpD2PK8P2b50PujJj2NX7ZBscWkjgTotRoKhnWk+jFvkoIcHWwY6oVNxAd+EIBcd9yRuGpGeuTaC8IuTw71DwhRFd+BUgq7ILBhnN+EV0mQC0nTMVE6Zh8ll5cDVgb+5/iXsqUfZiJIcXfoNuTxf8n78HQ7qA1T6BIOQlkjWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=XEFxXNgb; arc=none smtp.client-ip=198.137.202.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="HrMn4tgG"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="XEFxXNgb"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
 	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
 	Content-ID:Content-Description:In-Reply-To:References;
-	bh=+s8UFFEI4k+j2W+RjU9k7t6zkvbjof8FApxrtWjoX68=; b=HrMn4tgGIkmoiWQ+VOkK6RHbzk
-	MDLyXca03FpNMPc5Ee05QluS5J43BfzGBtWGsqrUZcs3/4FjnT0ukI8SNHUAvHK3SHSLsgaG3WZz0
-	y9Q5l7e2s0e/RDfx3tMUX6SeZ6yih/mhaqn7pukPBF3oaozFOYStBwSz0CJFW3UyiAILNlrpRI46q
-	WorghxLxL8kIu0ERsD13ixX4iH/R9D/srhpMnWLmz+dDSYsQzJxg7fHiqy+/pTyW8dY4KFDA9KxF6
-	NF1XFZCepal3GGb78b/uAe1WAbTBAxY8We4I7A1/82+PIGHeM675btYQVf52Tzt78cOKoLDxoMjx7
-	XUbc2jzA==;
+	bh=YolB1joIO/ebiWqo2umkgIcz9Aspns8acyez4gd6RNI=; b=XEFxXNgbd02kYotn8t4e82ITbw
+	5O+ggQIeTX06xE2sYVK1Aurcv68h6Ul3pTMKDo9stMxJdhKcj1b+v5sdege6sENut+0vZX1hFEHb8
+	sgmuhPPIcMbDnfEGCWFmL8rGjNUEAYpz8qgi+v/tgVa60AKZ73HAeJIxUefwSoiDfLIT8lhMT3J/B
+	fiS9P6bdGkoFB4Vu/+6MNxg5xlp6XxKhrAwBDnV+PP6VRebqc6EU2qnbYr+AUR2ztGHoVp3TvLCfh
+	8dcs/W3XHbWBWc4pZlV7yB5sG6y9qBGjtWw1qM3TPrgL4bVb3Dw09Z+DudTzBQqfc0iSwSfdGQ+hC
+	6mRUCr4Q==;
 Received: from [50.53.43.113] (helo=bombadil.infradead.org)
 	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x0uv6-00000008Zdh-1Wom;
-	Mon, 31 Aug 2026 05:51:00 +0000
+	id 1x0uwe-00000008Zn8-3dYU;
+	Mon, 31 Aug 2026 05:52:36 +0000
 From: Randy Dunlap <rdunlap@infradead.org>
 To: linux-kernel@vger.kernel.org
 Cc: Randy Dunlap <rdunlap@infradead.org>,
-	Nishanth Menon <nm@ti.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	linux-pm@vger.kernel.org
-Subject: [PATCH v2] PM: SmartReflex: fix kernel-doc warnings in smartreflex.h
-Date: Sun, 30 Aug 2026 22:50:59 -0700
-Message-ID: <20260831055059.3456532-1-rdunlap@infradead.org>
+	"Jason A. Donenfeld" <Jason@zx2c4.com>
+Subject: [PATCH v2] siphash: clean up kernel-doc comments
+Date: Sun, 30 Aug 2026 22:52:36 -0700
+Message-ID: <20260831055236.3457072-1-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -47,59 +45,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use the correct function name in a kernel-doc comment and
-use the correct kernel-doc format for struct members to avoid
-kernel-doc warnings:
+Use the correct function parameter names and add function return
+value descriptions to avoid kernel-doc warnings:
 
-Warning: include/linux/power/smartreflex.h:187 expecting prototype for
- test_cond_timeout(). Prototype was for sr_test_cond_timeout() instead
-Warning: include/linux/power/smartreflex.h:292 struct member 'err_weight'
- not described in 'omap_sr_data'
-Warning: include/linux/power/smartreflex.h:292 struct member
- 'err_maxlimit' not described in 'omap_sr_data'
-Warning: include/linux/power/smartreflex.h:292 struct member 'accum_data'
- not described in 'omap_sr_data'
-Warning: include/linux/power/smartreflex.h:292 struct member
- 'senn_avgweight' not described in 'omap_sr_data'
-Warning: include/linux/power/smartreflex.h:292 struct member
- 'senp_avgweight' not described in 'omap_sr_data'
+Warning: include/linux/siphash.h:82 function parameter 'len' not described
+ in 'siphash'
+Warning: include/linux/siphash.h:82 No description found for return value
+ of 'siphash'
+Warning: include/linux/siphash.h:132 function parameter 'len' not
+ described in 'hsiphash'
+Warning: include/linux/siphash.h:132 No description found for return value
+ of 'hsiphash'
 
 Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 ---
 v2: rebase & resend
 
-Cc: Nishanth Menon <nm@ti.com>
-Cc: Sebastian Reichel <sre@kernel.org>
-Cc: linux-pm@vger.kernel.org
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
 
- include/linux/power/smartreflex.h |   12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ include/linux/siphash.h |    8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
---- linux-next-20260828.orig/include/linux/power/smartreflex.h
-+++ linux-next-20260828/include/linux/power/smartreflex.h
-@@ -174,7 +174,7 @@ struct omap_sr {
- };
- 
+--- linux-next-20260828.orig/include/linux/siphash.h
++++ linux-next-20260828/include/linux/siphash.h
+@@ -75,8 +75,10 @@ static inline u64 ___siphash_aligned(con
  /**
-- * test_cond_timeout - busy-loop, testing a condition
-+ * sr_test_cond_timeout - busy-loop, testing a condition
-  * @cond: condition to test until it evaluates to true
-  * @timeout: maximum number of microseconds in the timeout
-  * @index: loop index (integer)
-@@ -267,11 +267,11 @@ struct omap_sr_nvalue_table {
-  * @ip_type:		Smartreflex IP type.
-  * @senp_mod:		SENPENABLE value of the sr CONFIG register
-  * @senn_mod:		SENNENABLE value for sr CONFIG register
-- * @err_weight		ERRWEIGHT value of the sr ERRCONFIG register
-- * @err_maxlimit	ERRMAXLIMIT value of the sr ERRCONFIG register
-- * @accum_data		ACCUMDATA value of the sr CONFIG register
-- * @senn_avgweight	SENNAVGWEIGHT value of the sr AVGWEIGHT register
-- * @senp_avgweight	SENPAVGWEIGHT value of the sr AVGWEIGHT register
-+ * @err_weight:		ERRWEIGHT value of the sr ERRCONFIG register
-+ * @err_maxlimit:	ERRMAXLIMIT value of the sr ERRCONFIG register
-+ * @accum_data:		ACCUMDATA value of the sr CONFIG register
-+ * @senn_avgweight:	SENNAVGWEIGHT value of the sr AVGWEIGHT register
-+ * @senp_avgweight:	SENPAVGWEIGHT value of the sr AVGWEIGHT register
-  * @nvalue_count:	Number of distinct nvalues in the nvalue table
-  * @nvalue_table:	table containing the  efuse offsets and nvalues
-  *			corresponding to them.
+  * siphash - compute 64-bit siphash PRF value
+  * @data: buffer to hash
+- * @size: size of @data
++ * @len: size of @data
+  * @key: the siphash key
++ *
++ * Returns: siphash PRF value
+  */
+ static inline u64 siphash(const void *data, size_t len,
+ 			  const siphash_key_t *key)
+@@ -125,8 +127,10 @@ static inline u32 ___hsiphash_aligned(co
+ /**
+  * hsiphash - compute 32-bit hsiphash PRF value
+  * @data: buffer to hash
+- * @size: size of @data
++ * @len: size of @data
+  * @key: the hsiphash key
++ *
++ * Returns: hsiphash PRF value
+  */
+ static inline u32 hsiphash(const void *data, size_t len,
+ 			   const hsiphash_key_t *key)
