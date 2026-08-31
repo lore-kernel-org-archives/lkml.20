@@ -1,179 +1,162 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE69E358373
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:38:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68D02264D9
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:39:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788154740; cv=none; b=WPk/c2Fce3bTqXleS/UsS7wlIn1u7PYFiGFF6T+0zduJ9HZwuD8cy7fOTg88t+tL4sRvDbQodjjMDQXmeCAwIpodYDoQSXQ3DRZuX09wsLhDrLtvPTeuuda0eGKTSchsw7peQRb/jvfWdvTWjgi/5/epHxOze0RQVOVBvPudBTQ=
+	t=1788154794; cv=none; b=ZumgrgBCED/bO6mX3jW0aDLTqV1p0B2e4lyb7m182VRIAS6YDMc+CNblQOQIsvL3i1lPCgMUEICZqCw1oLXHr8hTdRzjQO3/jkarTE2clUGJlGqwTMyeTrSEw91ef60pDdibEciaki2Dd7xnhpxTMo+wIePkd3Da5jYB5BOz+0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788154740; c=relaxed/simple;
-	bh=DCkOm8Lvds3JLOGvpydJVD7KiV55OqLcq/T9TU+S3eU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QVEfFdxPCKWf8oCrch0/ztYtA09C0Do291+mv29m7oYnmiEiOL9dQmpoW37NxsSNbMKe7tpqHEGZH5zeq5VTlxCpvByrqJh5XxAGnuT1lxSLhE2hE9ThASw8RrBhUbcjTFlobUESpzWNDjCMpg69bDUkEU0Ct0MZUi/n4/NwKZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BcQRRy0N; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788154794; c=relaxed/simple;
+	bh=Je2tIn/gnHb5U7sEOil0/WF0V+o+ap03/OTkCDS2aAk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rsyf9sNYrQ6Gh4NKCatKb58oD39D6h3450aIEIPmiOUiSBzLticj30eepQT3BmrTPRUpKb8JjXDddK6TNaM2w7ngFkHXxVVDg133l+UTz3MnIYpgrMHfPZ8Xrbp26y4sRIbIAY0VorjxmBpZOYt+HYZFPXT1hElJLJ4fhwodKV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Kcr34kA0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KQLnLvQV; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BcQRRy0N"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cb5b8572b70so3162716a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:38:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Kcr34kA0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KQLnLvQV"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V53RGr3029041
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:39:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Rlhljhadj0jGXuwOy4Kie3
+	Gfp9d5nbuIesZjcAGyc7k=; b=Kcr34kA0M9auF5GuZAgeuciiDFs8gO+91HLPs5
+	OfQVVfsFgX7qzZ8EDzaO81KwFVVvAKZw68jv/9vdDrXFNGLpwdhoQQoH2iT5DIon
+	XPvbwFBpO4LP1cm0aLcHUMS2XeEvlgDB8tdfuoxDFffdKPOMsxrJ99nTMouiEZLx
+	RGlikfVI59lLcNRJfCgx6mn5/MeaojldsityBP5Wr4mRJZBm5mdTubtU575KFXoU
+	WjpgAT2/nLOcaIqThHvwLQafvFaf371FqFVGYH4/4W5Y8Z6o/mQXgLDnnBLXTceT
+	OhMnboatr7D/+SQ2YB6rMNWNfoT7VEQo30w+HQEl89Q3ohyg==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqdvmqef-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:39:51 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dc0eee75dso1114459a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:39:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788154738; x=1788759538; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DCO9UVAZL7IBEVYT4FWzK81SLKfxURvKrv7BU2smeUE=;
-        b=BcQRRy0NG92ujCcdePgKDB+tbJpQe29y00ehy66vdey8ThQqi3lTrKjxbM8TBriYt6
-         /2ienMbHXfdy4xyKSljV9hajPqLyJ3cHp+Lzecm8Eb0exzh/+o/DUHFcZXe6BQdll8aQ
-         yVLO4axPfclHvNXqA6zi9Eh6+nuaIyT269q6ODEsVPHv/8zpxgUiGOXKlLASg9zguDbm
-         hNAgdtu2uW0NiG7ONN8hI4MbQvo+GLrfu4+UTcWC3HlWMCiixAVVFGdjyUu/Zfa1+Qcw
-         ak/EQM+pe+WoPv7prDLzYiE8HCTu0qJ/LUsjG0cPf8w7OhyRHdLQSOUMTLXKguMD6IzL
-         aJzQ==
+        d=oss.qualcomm.com; s=google; t=1788154791; x=1788759591; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Rlhljhadj0jGXuwOy4Kie3Gfp9d5nbuIesZjcAGyc7k=;
+        b=KQLnLvQV3OXYzck1XZ44X569Y33blau8UOppPC1kjKhXq+8+o7hDO8ugMxMDdBbcp1
+         /rulGBxGx0IvEu6uiilbnspoFiiy9NUlYT5rjVQVFSqdNRyuYbGMzaB98LuppFayiFLi
+         1P3GpTPYXGi2zSVsJupSreyigDUuvsnpdhu1fqOexvRxsebPrd44aj4myV6GebU46I6x
+         uftqhAPbMt2DFQrTD/EMwxjH651t/mjoXPVWy/jeAmCB4S13/iTqyShY/bDKf6uMfVw2
+         LxZe6d24eeUH1K9S3lNnTcuYx9aEeeXtaYvF5mg9Nh2D4tjZoK6mlsft/Kar8U9nfuku
+         uSXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788154738; x=1788759538;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DCO9UVAZL7IBEVYT4FWzK81SLKfxURvKrv7BU2smeUE=;
-        b=gObQNxfzJeL/uzE5o0kapq7PWIuzkxSzleB6siCNvD1xxcFAS2I8VEuwiddTdD2urW
-         5yKPpDq+0eiW1Fw3iG0oMuMeJtC1bF7V0W4d/urWq57IHXBDUS+Ir9WyOOCwb7+FE4x6
-         LOWsNqMmbvepOwyE2xGEXzXnmRvyGPKWOASwQbEEqbycLlGEKWOTE1GZJXPaRqYHW1+g
-         ZByf1dzTA+yFb482oZUyW9LPC3EYj+VzpdTFPDIk3Ke3u6s2f4vtrsqs738iIf7kIdEU
-         g/NMcFDpgvhPT4d3xxmsxKdy9AzPf8dmv3AZlty90P4JrGsKmPr0xDISEQZwHkKVa5vE
-         wWzw==
-X-Forwarded-Encrypted: i=1; AHgh+RoxqtfBxGuuFk4hJ5gxDN09sZszVRgHOMewi+qIbPt1NQxDmiK8ttRxyPltpoE728gGbFFI7AwblBzssEc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxKZj35eYlfK/C1HhCYEEJv4/CaYPadFoQqN+J/ZFM4I3MC0Y2
-	wTG+PDjuhsqWEB3MprkOvOJRcV1gMRcBN4pvXRsuK0qnx+f3tmJ+J3+j
-X-Gm-Gg: AR+sD13IJ651PVoG0OTbyQm0hA0NGtF2EuY3G/DqUzydllpPyUHYQfXWY0t38CIKIPb
-	2RQmU1rArxS8DduNqTEQRw3yDyc1OBFrhY920ZJojNfbsEsTLUTyiki4iaFF/qPZ6yLFeDh+avP
-	AR/6dGd88nJkQmistu5sKom5E57Sg6zalhTnSKKg6PwLGQ3rNpJ+mltdPWq41bJjFKTx0OEdGip
-	XapukjT0pHfAAyvJsL8euvZyNLVa5JFLM0XZRc8nrupp96r5n7+crP+48PEuSWfQ4rMZ+PU7lv1
-	o+kw4gW4bYsmr9Iab1xKy3ui1ijjXBxmUa+21bUypyKuVqXYJGl3TAvj+yIxmZEZENIXxdluVsX
-	HH63sHimgXF+xPenjcR5aawZ6fa8Rpx6ZL1xd0b+8Z2TKyZ+Wdz8SIZ3Zbda9Clztctf6aMMgnx
-	VjkCF2DlslKzDd4n8uJGAWR3ln4vf3poladbMI6H6OCG5bIIf+FYuFSxPpaxHHJhOR6N6kdFdDD
-	/gu+DeIkQ==
-X-Received: by 2002:a05:6a20:9c11:b0:3d0:9164:98a7 with SMTP id adf61e73a8af0-3d2686a9ae9mr37495013637.11.1788154738197;
-        Sun, 30 Aug 2026 22:38:58 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:21dc:72d0:19f0:b2d5:4cfe:4463])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f36dbf62sm3505850a12.25.2026.08.30.22.38.54
+        d=1e100.net; s=20251104; t=1788154791; x=1788759591;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Rlhljhadj0jGXuwOy4Kie3Gfp9d5nbuIesZjcAGyc7k=;
+        b=d9OFZAzMdZw0iznmZtKmaLW+DDSA5/ZW1556N3JTTb8UXjm5xwrmBRmkYYB+935aan
+         cm3AkEzgdmQCJI869lmNimEUUwkWOuRzAqxeAMmh3ArFflwVYvWmE4FzkafCfZHQkDNs
+         BGXrw/y+PFWipgdfyIJ/kSynqKv1A0wSJ4duKAI1IZFtO5/Zng53pbtr1NthvPXc5CB/
+         kFL2UiL98pSCERq6MGpPiCLqT6B+L2YBM1dier1mjV3EDN1oVWG55MX6uQIoAi5TygFA
+         XdzJxbSnL6mD5e/IR5k56XYVExbpPn5iaQaV6Ze64Cx4CZEhvCcp7R2WTFLU+2HZYhhz
+         DwqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwMYOm//CzFjb5a14eYXaJbwR5/KlcogmDD2tjfOKXPRn7Y7JJnHACol2gWG1fEtTaXGQn/3tActoE0csg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mrGu3GfHr5BmQbvoAJqPWYymF7FIyvUZgnLwz5hXkgcgz9ToEF
+	75Hq+09I4fbKK1GpIiMq/b4MqAcqCwSeYMcCHS4WTaOOBONzRqvAJQEuRhKGzh2pHmLNrXqquXu
+	dRyFdmF8+KKmdhI2PJMq2okWTcZ9Mmfwx9V7ALGnMhr4DHcaR1gd3Z8TcztI0VOQtBTU=
+X-Gm-Gg: AYBFou3Lm53WhjYzQpeICbCdFuEF4alKtBFuMgOdMg4CQ/XG/TLM6GuliTSHEmdVJWP
+	xTk+KpWesNccjI4EVArZr2yUpNy+uPg1/p11H8552j+XoPNJ6NIOFYYxwCkaVDV163ogk5VtqwG
+	silhKzwfrlQreGQ116BQfiAd0YoMezQHWlx+mfPYQFc5Z4TWAovkMSv06Te5QvdprVH2ecX43Zs
+	X9RUCdPp+y2PH78QMewmSnci3tSqSBPL/XtqmrrzSGd+O9x9wAeZu/pgdohAQBvkTixBOd/qFvg
+	V3Roen0xkUjQx3CjJllmLCZhjpeVVLUqU7Leu8vKZRZ4bw0/6dzuAK0Tj6JBU8AAnjCUWQALMMD
+	fJt6NLS5bAtZPQNW4T0LjBR4RUclCPqUHLkBcxOCPvwlRO6w=
+X-Received: by 2002:a17:90b:2fcf:b0:395:4df3:8800 with SMTP id 98e67ed59e1d1-398ba71b467mr10285895a91.0.1788154790740;
+        Sun, 30 Aug 2026 22:39:50 -0700 (PDT)
+X-Received: by 2002:a17:90b:2fcf:b0:395:4df3:8800 with SMTP id 98e67ed59e1d1-398ba71b467mr10285866a91.0.1788154790291;
+        Sun, 30 Aug 2026 22:39:50 -0700 (PDT)
+Received: from hu-zijuhu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d3fdf6sm25566085c88.6.2026.08.30.22.39.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 22:38:57 -0700 (PDT)
-From: ThangNN99 <ngocthang2710.1999@gmail.com>
-To: Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>
-Cc: Hao Li <hao.li@linux.dev>,
-	Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	ThangNN99 <ngocthang2710.1999@gmail.com>,
-	syzbot+acf142088e0182172e58@syzkaller.appspotmail.com
-Subject: [PATCH] mm/slab: don't use kfree_rcu sheaves on PREEMPT_RT in kvfree_call_rcu()
-Date: Mon, 31 Aug 2026 12:38:46 +0700
-Message-ID: <20260831053846.107974-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sun, 30 Aug 2026 22:39:49 -0700 (PDT)
+From: Zijun Hu <zijun.hu@oss.qualcomm.com>
+Subject: [PATCH BlueZ v2 0/3] BlueZ: Support vendor HCI packets
+Date: Sun, 30 Aug 2026 22:39:28 -0700
+Message-Id: <20260830-vendor_hci-v2-0-9903760957ab@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJATlWoC/22NQQ6CMBREr0L+2pK2BgFXxGNoiKntR74Bqi00G
+ sLdLbh1M8lMZt7M4NERejgmMzgM5MkO0chdArpVwx0ZmehBcnnguShZwMFYd201MVEUjc72pcl
+ VAXHwdNjQe4Nd4NRNeIb6F/vp9kA9rqC12JIfrftsp0Fs9X/8IBhnppFKZyrjQuSV9T59TarTt
+ u/TKFAvy/IFxFIZ+MQAAAA=
+X-Change-ID: 20260719-vendor_hci-188fc539d7a8
+To: Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Zijun Hu <zijun_hu@icloud.com>, linux-bluetooth@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Proofpoint-GUID: RWNOHFZxRSog5riATPr3qxiKJcItoMO_
+X-Authority-Analysis: v=2.4 cv=P6EKQCAu c=1 sm=1 tr=0 ts=6a9513a7 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=yX20uc9k16gVdxbA_YYA:9
+ a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA0NiBTYWx0ZWRfXyvPFuSCPGZmj
+ 1MefxelWlFM1OaoiaDQFIPcCgTa4a0zJ3474vW0APhhllMNwccTfYKSFR5GHsePkbo9ME0nrmbf
+ 86dMbjz+F8uFQ/iZkPCcAQqqlW5S7uBrYrOsdABIe/QYB3+eQiEWQ2iXH+Ht2y1HZKVIU/FKzKY
+ re3SIFGljuw9heqpKsYerZnAKaQQBv+hVhjH5OA0TbP7izJh6Z/UBHbHL65/kehKxDmZ7NCwNO0
+ Vy7m5rC9qduxXmWA1a4GwmgxO5PlBEPgJ7RR+Tcn5Wl9SM0lZCiRXVgi0NllP19WZrmnEAqfVxF
+ YQshUdGD2+85uaIvj69y+W2xQmH03/+OzU8ZhQJK3GYV1sOXS7H5Sfymy59BR6J42oieQXMH27P
+ ZegAPCey26bAT0Qep4Afg8IbAgry7FF8oNytBo+Geu3ZnwF+9J6ExbYbeAAU6dfzdyjIo8QuVr1
+ N+G8HTmastuLXCQm7DQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA0NiBTYWx0ZWRfX+iTZwoeIt6eU
+ xl3sjjpVa/US9I5k/f9UDWLE23tVx2QyAMJaDAkk+rYKPDnkjmy188sSPkxJtfnobBOBHTMMimy
+ cpVaIYD3Z+aBxAqodCwrCx3rRY6eB/U=
+X-Proofpoint-ORIG-GUID: RWNOHFZxRSog5riATPr3qxiKJcItoMO_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_02,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310046
 
-syzbot reports a possible circular locking dependency between
-&p->pi_lock and the per-CPU kfree_rcu sheaf lock (_T->lock) on
-PREEMPT_RT:
+This series adds userspace support for vendor HCI packets, which use
+0xff as their packet type, complementing the kernel change here:
 
-  __balance_push_cpu_stop()               [holds p->pi_lock, raw]
-    select_fallback_rq()
-      cpuset_cpus_allowed_fallback()
-        set_cpus_allowed_force()
-          kfree_rcu(ac.user_mask)
-            kvfree_call_rcu()
-              kfree_rcu_sheaf()
-                __kfree_rcu_sheaf()
-                  local_trylock(&s->cpu_sheaves->lock)   <- _T->lock
+https://lore.kernel.org/all/20260830-btusb_qcc2072-v2-2-5c0e0c9dd98b@oss.qualcomm.com
 
-set_cpus_allowed_force() uses kfree_rcu() instead of kfree() here
-specifically because it can be called with p->pi_lock (a raw
-spinlock) held, and plain kfree() may sleep under PREEMPT_RT.
+All commits are straightforward.
 
-Commit 2a8bb29ec9b2 ("mm/slab: allow kfree_rcu_sheaf() on
-PREEMPT_RT") made kvfree_call_rcu() try the sheaves fast path on
-PREEMPT_RT too, since __kfree_rcu_sheaf() only trylocks there and
-so cannot itself block. True, but the sheaf/barn locks it trylocks
-are also taken as regular, blocking locks elsewhere, so lockdep
-still records a lock-class ordering cycle against any raw spinlock
-already held by the caller, which is what syzbot caught.
-
-The plain kfree_rcu()/kvfree_rcu() API gives kvfree_call_rcu() no
-way to know the caller is in such a context, so keep it
-conservative on PREEMPT_RT and skip the sheaves layer there,
-falling back to the existing raw_spinlock_t-protected krcp list,
-which is always safe to nest under another raw spinlock. This
-restores the pre-2a8bb29ec9b2 behavior of kvfree_call_rcu().
-
-kfree_call_rcu_nolock(), added later in commit 3bc999d944b3
-("mm/slab: introduce kfree_rcu_nolock()") for unknown/atomic
-contexts, is unaffected: it already falls back to a lock-free
-defer_kfree_rcu() when the sheaves trylock doesn't pan out, so it
-keeps using SLAB_FREE_NOLOCK on PREEMPT_RT. Callers like
-set_cpus_allowed_force() that want the sheaves fast path under a
-raw spinlock should migrate to that API instead.
-
-Reported-by: syzbot+acf142088e0182172e58@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=acf142088e0182172e58
-Fixes: 2a8bb29ec9b2 ("mm/slab: allow kfree_rcu_sheaf() on PREEMPT_RT")
-Signed-off-by: ThangNN99 <ngocthang2710.1999@gmail.com>
 ---
- mm/slab_common.c | 9 ++++++++-
- mm/slub.c        | 7 ++++---
- 2 files changed, 12 insertions(+), 4 deletions(-)
+Changes in v2:
+- Rename BT_RCV_VENDOR_PKT to BT_RECV_VENDOR_PKT
+- Improve the commit title and message 
+- Link to v1: https://patch.msgid.link/20260719-vendor_hci-v1-0-df2ac5a50117@oss.qualcomm.com
 
-diff --git a/mm/slab_common.c b/mm/slab_common.c
-index b19ba1b31484..6d6cd78d00c4 100644
---- a/mm/slab_common.c
-+++ b/mm/slab_common.c
-@@ -2034,7 +2034,14 @@ void kvfree_call_rcu(struct kvfree_rcu_head *head, void *ptr)
- 	if (!head)
- 		might_sleep();
- 
--	if (kfree_rcu_sheaf(ptr))
-+	/*
-+	 * Callers may hold a raw spinlock here on PREEMPT_RT (e.g.
-+	 * set_cpus_allowed_force() with p->pi_lock held), and the sheaf/barn
-+	 * locks are also taken as blocking locks elsewhere, so trying them
-+	 * here creates a lockdep-visible ordering conflict. Skip sheaves on
-+	 * PREEMPT_RT; use kfree_rcu_nolock() instead if this doesn't apply.
-+	 */
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT) && kfree_rcu_sheaf(ptr))
- 		return;
- 
- 	// Queue the object but don't yet schedule the batch.
-diff --git a/mm/slub.c b/mm/slub.c
-index f9b56cb439e7..83bc322557f8 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -6088,10 +6088,11 @@ static void rcu_free_sheaf(struct rcu_head *head)
- /*
-  * kvfree_call_rcu() can be called while holding a raw_spinlock_t. Since
-  * __kfree_rcu_sheaf() may acquire a spinlock_t (sleeping lock on PREEMPT_RT),
-- * this would violate lock nesting rules. Therefore, kvfree_call_rcu() avoids
-- * this problem by passing SLAB_FREE_NOLOCK on PREEMPT_RT.
-+ * this would violate lock nesting rules. kvfree_call_rcu() avoids this by
-+ * bypassing the sheaves layer on PREEMPT_RT; use kfree_call_rcu_nolock()
-+ * instead for atomic/unknown-context callers that need the sheaves path.
-  *
-- * However, lockdep still complains that it is invalid to acquire spinlock_t
-+ * lockdep still complains that it is invalid to acquire spinlock_t
-  * while holding raw_spinlock_t, even on !PREEMPT_RT where spinlock_t is a
-  * spinning lock. Tell lockdep that acquiring spinlock_t is valid here
-  * by temporarily raising the wait-type to LD_WAIT_CONFIG. Skip the lockdep map
--- 
-2.43.0
+---
+Zijun Hu (3):
+      doc/hci-protocol: Fix missing & on mtu argument in BT_RCVMTU example
+      doc/hci-protocol: Add BT_RECV_VENDOR_PKT socket option for HCI_CHANNEL_USER
+      monitor: Support vendor HCI packets
+
+ doc/btsnoop-protocol.rst |  8 ++++++++
+ doc/hci-protocol.rst     | 20 +++++++++++++++++++-
+ monitor/analyze.c        | 23 +++++++++++++++++++++++
+ monitor/packet.c         | 26 ++++++++++++++++++++++++++
+ monitor/packet.h         |  2 ++
+ src/shared/btsnoop.h     |  2 ++
+ 6 files changed, 80 insertions(+), 1 deletion(-)
+---
+base-commit: e8141342284be2a52e16565b96b513ebe1297d84
+change-id: 20260719-vendor_hci-188fc539d7a8
+
+Best regards,
+--  
+Zijun Hu <zijun.hu@oss.qualcomm.com>
 
