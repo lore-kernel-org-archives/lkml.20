@@ -1,224 +1,445 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE402DB789;
-	Mon, 31 Aug 2026 13:33:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183182; cv=fail; b=sAyNfXJT4ajgkg06Q9x6j8JdjcEAkXEmkcQ8t/YSZhlrZ9ovXZNkfBqbMwwFzWyscgIFjlHAEaFcziaszYGAXhUGi/R5dH8u4FSzVNOMJkCD+q62bTFj6RTXn5w5lDSbglbp86NEK1J6/8xXmx56awu/vdyxiKQLlddXEtp6Pt8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183182; c=relaxed/simple;
-	bh=4OD4AHi1/HjSRigXfFxX065LqacC5QC07lC67OsHSM8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=oe0ZSUy32e+t2q0MQHBIPJH3qhNq+1TjrB4GR61n+9k/ZN5kSeO0jmAkNPiNSiMnUtF6Ng8SqRqDOZ7duDz3aAqUIxL4SZngqpzxL+mhYs6v/jYuSCL+aZlWH7CCB6ize+7rJ0BBjqUmSwJ4w2RrqjSKabOSEjcwPvy4EHsy4d8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eo0+lC6k; arc=fail smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27C1415F2E;
+	Mon, 31 Aug 2026 13:33:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183198; cv=none; b=oSSgtp/WPIgZ+754X/r0BlOeLofDQTEP8iUaSlKo80yuTmZ2RakVLF4Ii15hIVIWq9OvA2F+dI5fNjySjrWxnNMSFXvManBFPp2gMBJPC7tG9vCkISKb2/lli2D4p7PSBAPfg2xLEA54Es6GCQvNnFCkvPGD2bqOu4amV51XONI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183198; c=relaxed/simple;
+	bh=yV1RDIhNSNFbcxqQ19tWu+IIBErRIfLgNZa1zvqIgSA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Rwu1dby0nzGwM4lXp2b0Z1H0RDpOSbtG91IV4Xk4mljAjce8WETPe1yRoNpshIwQlkmhfB6fpY794kxXJID29fhHCalZXn0EYfTAOuwmuBVZlyVzCzBlVg4gl22UuXxe1zq+h4gmS8JFLnanlkG2W2Wc9tzU4vVia7+Cb1o7Pgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bS2jq2Hy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eo0+lC6k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788183180; x=1819719180;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=4OD4AHi1/HjSRigXfFxX065LqacC5QC07lC67OsHSM8=;
-  b=eo0+lC6kfQpgZmM3jLKaAnPU6I9MflRHBAsh9g4dwXt+i0r2xMqLhNm8
-   Uf7vBOuEnCYsGpRCDA1hMoDNZRY40OezfeJXQFLisg5e8L6ByEW8NN1xn
-   xmLJFx++ZoTFkBLWCxrCxLUGqc075/5L2RUxHDMQc0D/Nepp4roR3mFDr
-   NHIt6wxvFoqoZtfhqdSMirHNVZ6hOmAuCk7fgrbw/ni+lxHs1y0hCs6AK
-   PA3zqHOiXtUEci0w9gJ9CqP59DPXeMEAmL4PQ0IUYxHieywhYEWs/B2gP
-   EACaiNhkZnZnBXgVWZJ1oPe+qrq7XJOewZP/oMh89JofNe5IlWeDvLJGv
-   g==;
-X-CSE-ConnectionGUID: TK6iwWq9SmKza292VLQIEQ==
-X-CSE-MsgGUID: SqFwu9aBQE+U7nIrs4LINw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="100102990"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="100102990"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:33:00 -0700
-X-CSE-ConnectionGUID: XWg16bUSSiOWpFOXBnjmoA==
-X-CSE-MsgGUID: jZ9bjUjIQBSUTE0mnNWD0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="265082990"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:32:59 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 06:32:59 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 06:32:58 -0700
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.68) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 06:32:58 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FaFADtecWWQS1wqdBegQzsfG1v56u+1zalRbuvnCCsxMLnCWo35Xo6j7NbnC+CdiYYBOdl/RWdswHw9304OEHSd7vcXISlx57RA5urCM8paVsHrqZ3xWW/44aHaOzUdBsPkQSc7e8J2Tsc3SUFJPBjkBgUFsYVajj868gpHKvmSj0veLj3Tp3xo2x6s8+qYuuEHBULQdQYC2K6UtyVpy3lvpZhkvQ0ErVgyJdSmAEuq6vbSodaxMXL9TvbK1GsIlkTLJkJd/6pSG6HIrUoh6sESyiGh3lLDT1mcrNuvPUVRgT64nPC3dx/0iyk780TTQhEwWPAdhUbxDyrV9S2t9OA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4OD4AHi1/HjSRigXfFxX065LqacC5QC07lC67OsHSM8=;
- b=bLb7TfCzeAGFt/5BqkfOl+CbR2rmc7sbrKJMY/xBKwVQ2jm9uBs0EJKoOsvP0n5C2Qtp95jZkDoRAw8fZ8C7Bqrhm8oulDARArMH3UIA4B3x95EbTs4MWB7YjoIN/WcTKdFXT7Hddpw2s8ZId2DpUJWi6O4Yk39CQTW9EMNTYMwrw21jXx2h0jezPjETq0/1AKQwMvTO6pOVxGvJhw//lBtFOnLXn3lEAAaad3j3qmwamU3iwa+8q0AwtIESjXDdyyGmaQ+FvInAx1zfRRFsIERf6FtQig/RwYG0L0S8PwNOh7GNDjE2APYyQFbQOmuPdZrfLvpkVdAdv4iIfSdRWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from SJ2PR11MB8424.namprd11.prod.outlook.com (2603:10b6:a03:53e::10)
- by PH7PR11MB8123.namprd11.prod.outlook.com (2603:10b6:510:236::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 13:32:56 +0000
-Received: from SJ2PR11MB8424.namprd11.prod.outlook.com
- ([fe80::3df:33f9:59a1:da76]) by SJ2PR11MB8424.namprd11.prod.outlook.com
- ([fe80::3df:33f9:59a1:da76%5]) with mapi id 15.21.0360.006; Mon, 31 Aug 2026
- 13:32:56 +0000
-From: "Liao, Bard" <bard.liao@intel.com>
-To: Amaan Lalani <zlzzm2014@outlook.com>, Mark Brown <broonie@kernel.org>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Peter Ujfalusi
-	<peter.ujfalusi@linux.intel.com>, Bard Liao
-	<yung-chuan.liao@linux.intel.com>, Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.dev>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, "sound-open-firmware@alsa-project.org"
-	<sound-open-firmware@alsa-project.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 1/2] ASoC: SOF: Intel: reuse name prefix for duplicate
- SoundWire devices
-Thread-Topic: [PATCH 1/2] ASoC: SOF: Intel: reuse name prefix for duplicate
- SoundWire devices
-Thread-Index: AQHdNyAG62iOkzxB/EyV5CUxy4uGqra4EyqQgAAX2ZA=
-Date: Mon, 31 Aug 2026 13:32:55 +0000
-Message-ID: <SJ2PR11MB84247925F9779CD9B402A898FFA92@SJ2PR11MB8424.namprd11.prod.outlook.com>
-References: <BY5PR02MB63701A05A58EF6B4D6CAAC31A0AC2@BY5PR02MB6370.namprd02.prod.outlook.com>
- <BY5PR02MB6370065815A8A47F536FE4CFA0AC2@BY5PR02MB6370.namprd02.prod.outlook.com>
- <SJ2PR11MB84247CAA0DDE5DEBC95521B5FFA92@SJ2PR11MB8424.namprd11.prod.outlook.com>
-In-Reply-To: <SJ2PR11MB84247CAA0DDE5DEBC95521B5FFA92@SJ2PR11MB8424.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ2PR11MB8424:EE_|PH7PR11MB8123:EE_
-x-ms-office365-filtering-correlation-id: 2565df77-44da-4071-b6cf-08df07645daf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|1800799024|366016|23010399003|376014|18002099003|22082099003|3023799007|11063799006|38070700021|56012099006|10067099003|4143699003;
-x-microsoft-antispam-message-info: fKZaRHlCWT4EhPqGsGzxD4sZr9Ya02LDiOw+7lxnZvudT1f9/xVjnE9pnzxKNYf0gK8p7olRU/2Ybn3nWusWPqCKH2y6r6xv+Xc3EZGAgu6s3XzSSTkTfg0248PodmBd4W/O5lnjXu3om4Z6ebv+v2HqlWMPknwklE53nj8vYqH5IFepnZI/vG1w/YChn7Fi3LQ4oHeovr4JgYphvk34l02MyQJz3efkbtuQMErHU7I+GYmgmxm1m3FxTF4Q9/twivLI3W68Wv7idEX6e/p5RTJvthwkXsnB36ng6p1tGPakVTgVK5NJsjw4LzGwOVvXClx8WtlQjlwryOo/39ivp1tVl84Xby4ljbJhlG/E1vf3d6WIA/1xMg81ueV+zg5boHMKXTEyu+/UcP/foZJt+/ErEOqDlmRZNUoeW3mavUPFG2i974/r8YyNKM1f5hPkK2mW9anx0LInuF2inVY6RJxUdjN3PgDskXdj8AY7AAKeHFflLXwpgZw3DRa9GYKIxhoBOLM30yM9tXKyWIxpMsDNZEmOvWunUr/0+0lmCWztsXd9AZrpqAf67vlYfLBC2/MJzXknjdt3Ct/JVQILj81HYi2S4HNZbOM/yWQoC8Fxt3EVbkUniYIuM/nZYClcU0xBSYtEdWJWB0DnoV38xgtnC+gkJBLo5ZfYSGxJz+8XmuKVbpPVhbAoKwkEh0XFchnqWKbtV4rNhq8hChUHEW6CPG3x/7Cx3jroV8V/LI4=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8424.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(366016)(23010399003)(376014)(18002099003)(22082099003)(3023799007)(11063799006)(38070700021)(56012099006)(10067099003)(4143699003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?VNNjpFGRQhOZd3uE/NJKryduLJRmTq7Ap5wiO4Wui/dEcp/ddwEoX2OB285G?=
- =?us-ascii?Q?vu5eaYPf22XUhvCRExRjGuMwlR8amdoDykdSaxZA4fNE20C+ZammFZJRkxrV?=
- =?us-ascii?Q?LtUC7pIbjuPWE1T+uxjirV/tfXJOqnzp/F97ubBqhVQdFwzW3eGcxxQsC37l?=
- =?us-ascii?Q?3IJAhq4VIxytjvGMm1l1k41UkPDWqkvAAnUFUsJDaqmq7Ioq74gMU/WtTMJF?=
- =?us-ascii?Q?6SOtNMNxmQRRNXn65v0P2Q0Rw8DkUK7QHIDAIG9+9ZLLIkLD6AS6zwQPd3qR?=
- =?us-ascii?Q?05gMDMazglOg/7vBg9PCtoD1UFETtXBrZ/LOsHJE9tqf6m4iQCVLHZ4XqvoH?=
- =?us-ascii?Q?iZ9eKjhldiHlSg5dqWk4VZNb+CzvAw2kUAGWK/fgDFfhwj91nPMV4RG9q4iQ?=
- =?us-ascii?Q?J2OiKMwQwY4O3BwenR0aybr6vP031VK20vLCb/SWFpAGCIUdeFfjNIgfYZ/l?=
- =?us-ascii?Q?MNCUfqyt9U1CzrNF8NwPCyxQvz00Dea7rpYJkyTTX1XxERwvZE2q646dErMr?=
- =?us-ascii?Q?mCZTbZRaegw9jUr+lKOaVARNHgqjFY3vBxSZraLxyM4fWAOYP+Tz54Jn0HqM?=
- =?us-ascii?Q?5GQQSrpYMyXDowYBgHR7EyPfeodu+g1TFsDtoV6Uz9hiXUFtjfJHChKmK9DB?=
- =?us-ascii?Q?zKFNSEeGyyvEwXKu4I+9h5IqQoTmMY9S0Dx7aGX+olCuqo/6NVnxzv8n1hqu?=
- =?us-ascii?Q?SzFoj6ma33n0Ko5uiDvVKpcQ2D1wJUDOT1nDITLpCTIbq/IU76tol7gqn+5t?=
- =?us-ascii?Q?O1mRfEaHf1LpqByRWbAbnn7/jVxEQrpyuWF1Q/vN+yRJeIwC/HvyrfjgNzL+?=
- =?us-ascii?Q?tgsj35jQdn4WOk2iLZJQdOsnlpkx5OmuKTK8Y8hz4+40vDQPQuTOpLyXX+vY?=
- =?us-ascii?Q?NE7ODv3rPjmj2RaO+16pFzBVU9Lf789c9aTbcolh0j5dBXNruHFUzOelO3w6?=
- =?us-ascii?Q?L3OuLnjK4fxuySKb8Z5ejIRLGdA4tbckaQYG6Q2tBdzHytsSRwNu6WNByRKD?=
- =?us-ascii?Q?rjhidG/L8RGfk8UVEG/+kr4ebIVyX7paD832agRQqfex7lK3i+aOEOTtyreI?=
- =?us-ascii?Q?fqdJ90j0dvTzEHu14bUEzDwDgIK5G4bCzOdmp4kxnK5OlwkMv+46EQdneEIp?=
- =?us-ascii?Q?pe44Hsfq4d/s3I0orNnwsifA1ISXAHUWoxJjD0rN5ExF8j1noRLTzmt992yX?=
- =?us-ascii?Q?5b5iqrSp9gTccC4UV939IPxxzwhQoN7ckahXIj5i91xBv81gFX0sd5FUZRB1?=
- =?us-ascii?Q?JUiJVCtjzivTd6EUYUE9GiiuFDdDJgQb0xl3o3HJxWgnh50a6Dnu6UFUvkR2?=
- =?us-ascii?Q?HUDSR7ftSnxHuie8gv0uipWEJe1sJ0IfH9FiWcB7LlWycWBd2Tns4sO/BBBz?=
- =?us-ascii?Q?4PnHbNyfAcY1Mh+O0lT+vsdZFt4IiC6FzJwDYvB0QyisoND2X62P4cufegYY?=
- =?us-ascii?Q?8bJpfJnEOKPnqtGCzVCMsf/4kU/L0LtdmTM3GonnPKar3TktwslKijqiClkQ?=
- =?us-ascii?Q?vA7WIOfN8PGbfMJClqTnhh4xVIFMnn2bJDqPzHyw4t9vgTinc+kebibLKjcG?=
- =?us-ascii?Q?3JVWAklCj3C1BSnYTwFR8kaMXxnY6VIFQzxSDEZ98kjsWjxy1jd1cUDtjyxG?=
- =?us-ascii?Q?+nP02g3qmThkbHRasuE3Py2GBAk5IPFuuWMXt4Jz/IAfEDvujHCf9PoZBt8b?=
- =?us-ascii?Q?VaSznDU5CzcleBdjdJe4xIj5EKk2Q7x+DMASYsrZhpffgJ7g?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bS2jq2Hy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50B061F000E9;
+	Mon, 31 Aug 2026 13:33:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183196;
+	bh=1J77XU+FRYLHnC+JWeMz+Cme7b3XPiYHdf82jWlS5kQ=;
+	h=From:To:Cc:Subject:Date;
+	b=bS2jq2HyaLGzggUI//8K6gY3Uu4GgUijMe4NgKr1RbXFkaS3eW7RCbqAj/haet98O
+	 xoptXExsggFd+S/0am4eYcIfE5pNAG664T1sVuGwFAcn12gIaTEy0+2xbzji3JVvy5
+	 RNtszlZFJxYvWGTtMRrpvXJbNtRPlZFjtJRatL8KdLCR2mW10b8Qqqf3Sb5/bgHcM5
+	 xykF2VUS0q4QFIcepyYE2z75rKCgo+ShIit/ZahKAqaOMe8wAztiZB3m3i0v7wA0IV
+	 eeQRPQUTw7Tu9kRo+s5ZodkRhIgG40kWqZuDFhiQ03FxjIIQKSaoy2QtdgtQq3v2rW
+	 xhYU/gkKE13+w==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Deepanshu Kartikey <kartikey406@gmail.com>,
+	syzbot+cc867e537e4bd36f69bb@syzkaller.appspotmail.com,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>,
+	johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.10] wifi: cfg80211: validate IEs in cfg80211_wext_siwgenie()
+Date: Mon, 31 Aug 2026 09:20:29 -0400
+Message-ID: <20260831133314.4125787-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: dZSXqHFXDyR6+/7MzJyP+S+29ByZyLFzK9A+dbbj0xRsUGs9m1UBwrhxbPhZgc/cMQEh7Qp+7tYWqyA9fTCZXNvKiH9JhxPioTTILiybPnf8k64NQJGXT0v37JYYRLwe3e3hCnqksUlhXMroRIWTGxMd9IgG9Ajg6jNGOtgsnn0o/5y/7o6tDeguOWm/uo36XEBPXSgPji5hlMN8f5F+a6QwsKXxx7tT7HkpdE7L8qHOxywzpt7/RuX9qxYh4IsiZteuQn+mx5l7hiQQANPVppcX9olm3YxpeYwbVm1uzFcSZus0aJbrD2H/wIpD2E4GjAfbPVo7Fb/MCdoqUzGZcw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2565df77-44da-4071-b6cf-08df07645daf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2026 13:32:55.9679
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UqjFEBjRtFRLPZjMQNrETOJFk3/VXUyQhJMrb1Sm3t6sYpyQ/n8mibha4itQqPjzyS7TzwPEqzR0ZySFkN7JyA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB8123
-X-OriginatorOrg: intel.com
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+From: Deepanshu Kartikey <kartikey406@gmail.com>
 
+[ Upstream commit a2f5286ca4f304d3fd469f01b96b518608912a5c ]
 
-> -----Original Message-----
-> From: Liao, Bard
-> Sent: Monday, August 31, 2026 8:30 PM
-> To: Amaan Lalani <zlzzm2014@outlook.com>; Mark Brown
-> <broonie@kernel.org>
-> Cc: Liam Girdwood <lgirdwood@gmail.com>; Jaroslav Kysela
-> <perex@perex.cz>; Takashi Iwai <tiwai@suse.com>; Peter Ujfalusi
-> <peter.ujfalusi@linux.intel.com>; Bard Liao <yung-
-> chuan.liao@linux.intel.com>; Pierre-Louis Bossart <pierre-
-> louis.bossart@linux.dev>; linux-sound@vger.kernel.org; sound-open-
-> firmware@alsa-project.org; linux-kernel@vger.kernel.org
-> Subject: RE: [PATCH 1/2] ASoC: SOF: Intel: reuse name prefix for duplicat=
-e
-> SoundWire devices
->=20
->=20
->=20
-> > -----Original Message-----
-> > From: Amaan Lalani <zlzzm2014@outlook.com>
-> > Sent: Saturday, August 29, 2026 3:04 AM
-> > To: Mark Brown <broonie@kernel.org>
-> > Cc: Liam Girdwood <lgirdwood@gmail.com>; Jaroslav Kysela
-> > <perex@perex.cz>; Takashi Iwai <tiwai@suse.com>; Peter Ujfalusi
-> > <peter.ujfalusi@linux.intel.com>; Bard Liao <yung-
-> > chuan.liao@linux.intel.com>; Pierre-Louis Bossart <pierre-
-> > louis.bossart@linux.dev>; linux-sound@vger.kernel.org; sound-open-
-> > firmware@alsa-project.org; linux-kernel@vger.kernel.org; Amaan Lalani
-> > <zlzzm2014@outlook.com>
-> > Subject: [PATCH 1/2] ASoC: SOF: Intel: reuse name prefix for duplicate
-> > SoundWire devices
-> >
-> > Some firmware describes a single physical SoundWire peripheral with
-> > multiple _ADR entries that differ only in SDCA class ID.
-> >
-> > These entries currently consume separate amplifier indices when the
-> > SoundWire machine description is built. This can cause the peripheral
-> > that actually enumerates to receive a different name prefix from the
-> > one expected by UCM.
-> >
-> > Detect entries which differ only in class ID and reuse the name prefix
-> > assigned to the first entry. Do not increment the amplifier index for
-> > the duplicate entry.
-> >
-> > Fixes: 5226d19d4cae ("ASoC: SOF: Intel: use sof_sdw as default SDW
-> machine
-> > driver")
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Amaan Lalani <zlzzm2014@outlook.com>
-> > ---
->=20
-> It seems be a valid assumption that 2 peripherals with the same vendor
-> and part ID but different class ID will never coexist in the same device.
-> However, the implementation is not correct. We should skip the duplicated
-> peripheral completely not just reuse the name_prefix.
->=20
+The KASAN allocation trace shows that a malformed IE buffer is
+stored via SIOCSIWGENIE (cfg80211_wext_siwgenie()) without any
+validation. The crash trace shows that a subsequent SIOCSIWESSID
+triggers a connection attempt which calls cfg80211_sme_get_conn_ies()
+to process the stored IE buffer, causing:
 
-The problem is that we don't know which one is the real one. And which
-one should be skipped. We may need to enumerate the peripheral before
-selecting the machine driver. I need to think more about it.
+ - An out-of-bounds read in skip_ie() which reads ies[pos+1]
+   (the length byte) past the end of the 1-byte buffer.
+
+ - An integer underflow in the memcpy size argument when offs
+   returned by ieee80211_ie_split() exceeds ies_len, causing
+   unsigned subtraction to wrap to SIZE_MAX and triggering a
+   fortify panic.
+
+Fix this by validating the IE buffer in cfg80211_wext_siwgenie()
+before storing it.
+
+Reported-by: syzbot+cc867e537e4bd36f69bb@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=cc867e537e4bd36f69bb
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+Link: https://patch.msgid.link/20260725142028.32560-1-kartikey406@gmail.com
+[drop unnecessary ie_len check, update commit message]
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+
+LLM Generated explanations, may be completely bogus:
+
+## Phase 1: Commit Message Forensics
+
+### Step 1.1: Subject Line
+**Record:** `[wifi: cfg80211]` `[validate]` — Add IE validation in
+`cfg80211_wext_siwgenie()` before storing user-supplied generic IE data.
+
+### Step 1.2: Tags
+**Record:**
+- **Reported-by:** syzbot+cc867e537e4bd36f69bb@syzkaller.appspotmail.com
+  (fuzzer-found, strong YES signal)
+- **Closes:**
+  https://syzkaller.appspot.com/bug?extid=cc867e537e4bd36f69bb
+- **Link:**
+  https://patch.msgid.link/20260725142028.32560-1-kartikey406@gmail.com
+- **Signed-off-by:** Deepanshu Kartikey, Johannes Berg (cfg80211
+  maintainer committed/applied)
+- No Fixes:, Cc: stable, Reviewed-by, Tested-by, or Acked-by tags
+- Notable: syzbot report with maintainer application
+
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug:** Malformed IE buffer stored via `SIOCSIWGENIE` without
+  validation; later `SIOCSIWESSID` triggers connection and
+  `cfg80211_sme_get_conn_ies()` processes the bad buffer.
+- **Symptoms:** (1) OOB read in `skip_ie()` reading `ies[pos+1]` past a
+  1-byte buffer; (2) integer underflow in `memcpy` size when
+  `ieee80211_ie_split()` returns `offs > ies_len`, wrapping to
+  `SIZE_MAX` and triggering fortify panic.
+- **Root cause:** Wext path lacked the IE validation that nl80211
+  already performs.
+- **Version info:** None in commit message.
+
+### Step 1.4: Hidden Bug Fix?
+**Record:** No — this is an explicit bug fix for KASAN-reported OOB read
+and fortify panic, not disguised cleanup.
+
+---
+
+## Phase 2: Diff Analysis
+
+### Step 2.1: Inventory
+**Record:**
+- **Files:** `net/wireless/wext-sme.c` (+9 lines, 0 removed)
+- **Function:** `cfg80211_wext_siwgenie()`
+- **Scope:** Single-file surgical fix
+
+### Step 2.2: Code Flow Change
+**Record:**
+- **Hunk (before):** If `ie_len > 0`, immediately `kmemdup()` and store
+  buffer.
+- **Hunk (after):** Before `kmemdup()`, walk IEs with
+  `for_each_element()` and reject with `-EINVAL` if
+  `!for_each_element_completed()`.
+- **Path affected:** Error/input-validation path on `SIOCSIWGENIE`
+  ioctl.
+
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** Buffer overflow / out-of-bounds read + integer underflow
+- **Mechanism:** `skip_ie()` assumes well-formed IEs (`u8 len = ies[pos
+  + 1]`). A 1-byte stored buffer causes OOB read. Bad split offset leads
+  to `ies_len - offs` underflow in `cfg80211_sme_get_conn_ies()`:
+
+```529:534:net/wireless/sme.c
+                offs = ieee80211_ie_split(ies, ies_len, before_extcapa,
+                                          ARRAY_SIZE(before_extcapa),
+0);
+                memcpy(buf, ies, offs);
+                /* leave a whole for extended capabilities IE */
+                memcpy(buf + offs +
+rdev->wiphy.extended_capabilities_len + 2,
+                       ies + offs, ies_len - offs);
+```
+
+### Step 2.4: Fix Quality
+**Record:**
+- **Quality:** High — matches existing `validate_ie_attr()` pattern in
+  `nl80211.c`.
+- **Regression risk:** Very low — only rejects malformed input that
+  would crash later; well-formed IEs unchanged.
+- **Note:** Johannes dropped the explicit `ie_len < 2` check from v2;
+  `for_each_element_completed()` correctly rejects 1-byte buffers (loop
+  never runs, completion check fails).
+
+---
+
+## Phase 3: Git History Investigation
+
+### Step 3.1: Blame
+**Record:** Current `cfg80211_wext_siwgenie()` in this tree dates to
+initial import at `5d324e5159d9e` (v6.18 merge base). The unvalidated
+`kmemdup()` path has been present since wext-sme support was added — a
+long-standing gap, not a recent regression.
+
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag.
+
+### Step 3.3: Related Changes
+**Record:** Many related validation fixes in `net/wireless/` (e.g.
+`f8c547e543e12`, `cfbda103aeae6`, `584657c5fc58d`). nl80211 already
+validates IEs via `validate_ie_attr()`; wext path was the missing piece.
+Standalone fix — v3 helper series was explicitly rejected by maintainer.
+
+### Step 3.4: Author Context
+**Record:** Deepanshu Kartikey is a contributor; Johannes Berg (cfg80211
+maintainer) applied the patch with modifications.
+
+### Step 3.5: Dependencies
+**Record:** No prerequisites. Uses `for_each_element` /
+`for_each_element_completed` from `include/linux/ieee80211.h` (included
+via `cfg80211.h`). No dependency on rejected v3
+`cfg80211_validate_ies()` helper.
+
+---
+
+## Phase 4: Mailing List and External Research
+
+### Step 4.1: Original Discussion
+**Record:**
+- **URL:**
+  https://patch.msgid.link/20260725142028.32560-1-kartikey406@gmail.com
+- **Series:** v1 (2026-07-10) → v2 (2026-07-25, committed version)
+- **Maintainer:** Johannes Berg applied modified v2 on 2026-07-28,
+  declined v3 refactor: *"the bigger cleanup isn't great for wireless as
+  a fix right now"*
+- No explicit Cc: stable nomination; no NAKs
+
+### Step 4.2: Reviewers
+**Record:** CC'd: johannes@sipsolutions.net, linux-
+wireless@vger.kernel.org, syzbot. Jeff Johnson replied on thread.
+Maintainer applied directly.
+
+### Step 4.3: Bug Report
+**Record:**
+- **syzkaller:** KASAN slab-out-of-bounds in `skip_ie()` /
+  `ieee80211_ie_split_ric()`
+- **Repro:** C reproducer on 2026/07/09; fix commit `a2f5286ca4f3`
+  identified
+- **Stack trace confirms path:** `cfg80211_wext_siwgenie()` →
+  `cfg80211_mgd_wext_siwessid()` → `cfg80211_sme_get_conn_ies()` → crash
+- **Severity:** Kernel crash (KASAN OOB); syzbot security assessment
+  flags DoS/exploitable
+
+### Step 4.4: Related Patches
+**Record:** v3 series (`cfg80211_validate_ies()` helper) exists but was
+explicitly not taken for this fix cycle.
+
+### Step 4.5: Stable List
+**Record:** lore.kernel.org/stable search blocked (bot protection). No
+stable discussion found.
+
+---
+
+## Phase 5: Code Semantic Analysis
+
+### Step 5.1: Key Functions
+**Record:** `cfg80211_wext_siwgenie()` (modified); downstream:
+`cfg80211_mgd_wext_connect()`, `cfg80211_sme_get_conn_ies()`,
+`skip_ie()`.
+
+### Step 5.2: Callers
+**Record:**
+- `cfg80211_wext_siwgenie()` registered in `wext-compat.c` as
+  `IW_HANDLER(SIOCSIWGENIE, ...)`
+- Stored IEs consumed at connect time via `cfg80211_mgd_wext_connect()`
+  (lines 31–32) → `cfg80211_connect()` → `cfg80211_sme_get_conn_ies()`
+
+### Step 5.3: Callees
+**Record:** `for_each_element()`, `for_each_element_completed()`,
+`kmemdup()`, `kfree()`, `cfg80211_disconnect()`.
+
+### Step 5.4: Reachability
+**Record:**
+- Reachable from userspace via `ioctl(SIOCSIWGENIE)` on wireless
+  netdevice
+- Requires `CAP_NET_ADMIN` (`wext_permission_check()` in `wext-
+  core.c:991-996`)
+- Only when `CONFIG_CFG80211_WEXT` is enabled (common on distros
+  supporting `iwconfig`)
+
+### Step 5.5: Similar Patterns
+**Record:** Identical validation pattern in
+`nl80211.c:validate_ie_attr()` and `scan.c:2749`. Wext path was the
+outlier.
+
+---
+
+## Phase 6: Cross-Reference Against Local Tree
+
+### Step 6.1: Buggy Code Present?
+**Record:** **YES.** Local tree is **v6.18.44** (`git describe HEAD`).
+`cfg80211_wext_siwgenie()` at lines 321–324 does unvalidated
+`kmemdup()`. Fix commit `a2f5286ca4f3` is **NOT** an ancestor of HEAD
+(`git merge-base --is-ancestor` → fix NOT in HEAD).
+
+### Step 6.2: Backport Complications
+**Record:** **Clean apply.** `git apply --check` on the fix diff
+succeeds with no conflicts.
+
+### Step 6.3: Related Fixes Already Present?
+**Record:** No equivalent validation in `cfg80211_wext_siwgenie()`.
+nl80211 IE validation exists separately; does not cover wext path.
+
+---
+
+## Phase 7: Subsystem Context
+
+### Step 7.1: Subsystem
+**Record:** `net/wireless` (cfg80211) — **IMPORTANT** subsystem; affects
+wireless stack users.
+
+### Step 7.2: Activity
+**Record:** Actively maintained; multiple recent IE-validation hardening
+commits in this tree.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+### Step 8.1: Who Is Affected
+**Record:** Users with `CONFIG_CFG80211_WEXT` and wireless interfaces
+using wext ioctls (`iwconfig`, legacy tools). Not universal, but common
+on desktop/server distros.
+
+### Step 8.2: Trigger Conditions
+**Record:**
+- `SIOCSIWGENIE` with malformed IE (e.g. 1-byte buffer) + `SIOCSIWESSID`
+  to trigger connect
+- Requires `CAP_NET_ADMIN` (not unprivileged)
+- syzbot has reproducible C reproducer
+
+### Step 8.3: Failure Mode
+**Record:** KASAN slab-out-of-bounds read → potential kernel oops/panic;
+fortify panic on memcpy underflow. **Severity: HIGH** (kernel crash).
+
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** HIGH — prevents kernel crash from malformed wext IE input
+- **Risk:** VERY LOW — 9-line input validation, established pattern,
+  maintainer-reviewed
+- **Ratio:** Strongly favors backport
+
+---
+
+## Phase 9: Final Synthesis
+
+### Step 9.1: Evidence Summary
+
+**FOR backport:**
+- syzbot-reported, reproducible KASAN OOB read
+- Kernel crash (fortify panic) on realistic ioctl sequence
+- Small, surgical, maintainer-applied fix
+- Matches existing nl80211 validation pattern
+- Applies cleanly to v6.18.44
+- Buggy code confirmed present; fix not yet in tree
+- Part of ongoing cfg80211 IE hardening in stable
+
+**AGAINST backport:**
+- Requires `CAP_NET_ADMIN` (not unprivileged attack)
+- Only affects wext compat path (`CONFIG_CFG80211_WEXT`)
+- No explicit Cc: stable nomination (not a negative per instructions)
+
+**Unresolved:** None material to the decision.
+
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — standard `for_each_element`
+   validation; syzbot repro; maintainer applied
+2. Fixes real bug affecting users? **PASS** — KASAN-confirmed crash path
+3. Important issue? **PASS** — kernel crash (HIGH severity)
+4. Small and contained? **PASS** — 9 lines, 1 file
+5. No new features/APIs? **PASS** — input validation only
+6. Can apply to local tree? **PASS** — verified clean apply
+
+### Step 9.3: Exception Categories
+**Record:** N/A — standard bug fix, not device-ID/quirk/DT/docs
+exception.
+
+### Step 9.4: Decision Rationale
+
+This commit closes a validation gap in the wext compatibility path that
+nl80211 already covers. A `CAP_NET_ADMIN` caller can store a malformed
+1-byte IE via `SIOCSIWGENIE`; a subsequent `SIOCSIWESSID` triggers
+connection processing that reads past the buffer end in `skip_ie()` and
+can panic via fortify-checked `memcpy`. The fix is minimal, follows an
+established in-tree pattern, was applied by the cfg80211 maintainer,
+applies cleanly to this v6.18.44 tree, and the vulnerable code is
+confirmed present without the fix.
+
+---
+
+## Verification
+
+- [Phase 1] Parsed tags: Reported-by syzbot, Closes syzkaller URL,
+  Signed-off-by author + Johannes Berg
+- [Phase 1] Subject: wifi: cfg80211 validate IEs in
+  cfg80211_wext_siwgenie()
+- [Phase 2] Diff: +9 lines in cfg80211_wext_siwgenie(), adds
+  for_each_element validation before kmemdup
+- [Phase 2] Verified skip_ie() OOB: `u8 len = ies[pos + 1]` at
+  util.c:1967 with comment "assume validly formed"
+- [Phase 2] Verified underflow path: cfg80211_sme_get_conn_ies() memcpy
+  at sme.c:534 uses `ies_len - offs`
+- [Phase 3] git blame: vulnerable function present in v6.18.44 tree
+- [Phase 3] git merge-base --is-ancestor a2f5286ca4f3 HEAD → fix NOT in
+  HEAD
+- [Phase 3] git apply --check on fix diff → applies cleanly
+- [Phase 4] b4 dig -c a2f5286ca4f3 →
+  https://patch.msgid.link/20260725142028.32560-1-kartikey406@gmail.com
+- [Phase 4] b4 dig -a → v1 and v2 series; v2 is committed version
+- [Phase 4] b4 dig -w → johannes@sipsolutions.net, linux-wireless CC'd
+- [Phase 4] Mbox: Johannes applied modified v2, declined v3 refactor
+- [Phase 4] syzkaller report fetched: KASAN OOB in skip_ie, C repro, fix
+  commit a2f5286ca4f3
+- [Phase 4] Stack trace confirms siwgenie → siwessid → sme_get_conn_ies
+  → skip_ie path
+- [Phase 5] Call chain: wext-compat.c SIOCSIWGENIE handler → wext-sme.c
+  connect path → sme.c
+- [Phase 5] CAP_NET_ADMIN required: wext-core.c:991-996
+  wext_permission_check()
+- [Phase 5] for_each_element_completed pattern exists in nl80211.c:284
+  and scan.c:2749
+- [Phase 5] Macros available via cfg80211.h → ieee80211.h include chain
+- [Phase 6] git describe HEAD → v6.18.44-2-g1b9e1abadee04 (6.18.y tree)
+- [Phase 6] Makefile VERSION/PATCHLEVEL/SUBLEVEL → 6.18.44
+- [Phase 6] Current wext-sme.c:321-324 lacks validation (buggy code
+  confirmed)
+- [Phase 7] net/wireless recent commits show active IE validation
+  hardening
+- [Phase 8] Failure mode: KASAN OOB + fortify panic, severity HIGH
+- [Phase 8] Trigger requires CAP_NET_ADMIN (syzbot assessment:
+  Unprivileged ❌)
+
+**YES**
+
+ net/wireless/wext-sme.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/net/wireless/wext-sme.c b/net/wireless/wext-sme.c
+index 573b6b15a446e..b5914f3658db4 100644
+--- a/net/wireless/wext-sme.c
++++ b/net/wireless/wext-sme.c
+@@ -319,6 +319,15 @@ int cfg80211_wext_siwgenie(struct net_device *dev,
+ 		return 0;
+ 
+ 	if (ie_len) {
++		const struct element *elem;
++
++		for_each_element(elem, extra, ie_len) {
++			/* nothing */
++		}
++
++		if (!for_each_element_completed(elem, extra, ie_len))
++			return -EINVAL;
++
+ 		ie = kmemdup(extra, ie_len, GFP_KERNEL);
+ 		if (!ie)
+ 			return -ENOMEM;
+-- 
+2.53.0
+
