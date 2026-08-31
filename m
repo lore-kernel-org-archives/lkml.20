@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D2B51E426;
-	Mon, 31 Aug 2026 13:43:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47972456DF6;
+	Mon, 31 Aug 2026 13:43:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183829; cv=none; b=byifGnzFU7mtY3hW1wAiHjBnruLcBz8lJOqN4fzZZcWPinshf+T/QkFusn2S8cWO70R6fJuAyImJiTbbfvaygpEhvYeEP5Ri05QpOBliqw3kUjttOO/8WpHGrAsIbPTuFX7SXUaNb3w2BDjDqKuorNACdDT81SRdLtbA3v/gcWU=
+	t=1788183832; cv=none; b=hpYe0GEVbTdEhgqoFx4PCTMUpWNxnFWvY5y/3BOCsnPdRCs+dA+8ymC6TVmYvFUwUmyTK7yKjOTJTgRglFPYNGr1IBwd+nUUsG1uSpdpj6gdFRk6osWKrk7sT0dhIEsCPjpPFtkjlcajN6wb9gluoOB2TcaN+wmGIvdqUMB/6Sw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183829; c=relaxed/simple;
-	bh=CGt0N1tLOFpwGA8/d4GAdlCO8d3EpknSs7/J7jBe4OM=;
+	s=arc-20240116; t=1788183832; c=relaxed/simple;
+	bh=BY0sYsOkjw+lwbo2U/1KhTCXJdcjvMjWFoxeMZn/7jA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MAJADYHWX0wll+Tm9euoZvusZrMQwcG2SGVYTWRhDYdjH0ufbXr33pO3IsQMTwhALRE4T5eMkWB6l79N/yw58JW7XpCAs+voIUoDQDOCoNpTyab2aMHKvTdMYwIlHlyqsDKqJB9DJVOMUaG9BK1nw9R/jr+f4KV/ROz05qNLWvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WS9Lrsog; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=bk9uQdtU0z0cQO3cph8hUe/sR/ko43AYqtbCKBrweTo2ZWKGMfnqg7iku7WgFo8zQo6m5yTiCFAcmXHWbaodGS9rNnHJs/4Oqxajr1Sm7LYg/Oo66tZ8HdTUXZ5WbVcu4X2ft7SZmLDYvwuiGH4MElTJWQCYkAllJcfTLUJTcFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZJTJV5x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WS9Lrsog"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92DD21F00A3E;
-	Mon, 31 Aug 2026 13:43:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZJTJV5x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC66D1F000E9;
+	Mon, 31 Aug 2026 13:43:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183827;
-	bh=ydfY7BP33vtEWqKTd0X509IVv9E5NYTqO71gDIaSIrI=;
+	s=k20260515; t=1788183830;
+	bh=jBxWzahJoB3M+7XdxC2rqWeCO4g1U/kwfCrwcjLGMLE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WS9Lrsog3kLykR0jf5npacD7P4gkC8BnFu+OVHzjIOdRscGS3XojWfFKEZTXpxoOa
-	 AcaBtZzrj26PbrUoxIf3w+O7GS0a4695paP1iJc58Ag/6d0ritfYtdbmJyxxXeBnyz
-	 ucD0CJYq9VSv+jOeBQ4XERq4RZymrQlRqlMSlLz80gIyFNFH+k7s/LTmkhUYNQiIbu
-	 J9gDmjUUjTDyfgTCNgqw/+U9IZ8KKH3tHyehLPhduZiya7WAJXq3QUmsQ6VdpJnktH
-	 vqqgNg6NoUjJgoeboQwk/N20qHto0uoo6x4g8tWA2o0sker+ITTH9rcicgPpYOZb0J
-	 jwzKxhwZQTF8A==
+	b=JZJTJV5xxyteRiiH9fMwgR0RqEB6JzhULGlsU3HXIx+I2bX8wg/0Lji30vlx3eQu9
+	 CKPUN4A2XgMtFIi0EA/7dFRcTYaSj9a/s9Yi0Q9Y5HV37NK/QSqTjA7N0Ou4B7m/6r
+	 J5iLKf7msKLLEMeIsIMLYaEf1Pq0V6ox+tLH6u1ni/R8HNSc9RuYurR5TjfZpDkR3m
+	 9cd7wUGG43iD16jB9FU19HEXo4JdIUcBtqdDkwINpEAGoLiYZ+JGM8QIQDv4Z9E6xV
+	 AUPWiTy4oDWPJtPgbo4vSG2rPsFqziwuYMbYcmGNfwjWculUL6VwXO5WlT4xpLOMn5
+	 dudxpD9RreaDw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>,
-	sboyd@kernel.org,
-	bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	linux-renesas-soc@vger.kernel.org,
-	linux-clk@vger.kernel.org,
+	smfrench@gmail.com,
+	linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] clk: renesas: cpg-mssr: Add number of clock cells check
-Date: Mon, 31 Aug 2026 09:25:56 -0400
-Message-ID: <20260831133314.4125787-328-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.15] ksmbd: apply create security descriptor first
+Date: Mon, 31 Aug 2026 09:25:58 -0400
+Message-ID: <20260831133314.4125787-330-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -56,345 +53,402 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Geert Uytterhoeven <geert+renesas@glider.be>
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit 7f0c422c7fbfd9294ff9321ada0c63561e5c6ea0 ]
+[ Upstream commit ba3cf6ee4f0eacc1f8c607b80188e3b32ef5e0e3 ]
 
-The number of clock cells is not validated in the clock provider's
-clk_src_get() callback.  Add the missing check.
+smb2.create.aclfile creates files with an SMB2_CREATE_SD_BUFFER create
+context and expects the resulting security descriptor to match
+the descriptor supplied by the client.
 
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
-Link: https://patch.msgid.link/46e010659ffdffd5e3541369f3b65d43ebe236ec.1777562043.git.geert+renesas@glider.be
+ksmbd currently tries to inherit the parent DACL first and only parses
+the SMB2_CREATE_SD_BUFFER context when DACL inheritance fails.
+If inheritance succeeds, the explicit security descriptor supplied on
+create is ignored. This breaks create requests that include owner/group
+information in the security descriptor.
+
+Apply the create security descriptor first when the context is present.
+Fall back to the existing inherited/default ACL path only when no create
+security descriptor was supplied.
+
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `ksmbd: apply create security descriptor
+first`
 
-### Step 1.1: Subject line
-**Record:** `[clk: renesas: cpg-mssr]` `[Add]` — add missing validation
-of clock specifier cell count in the CPG/MSSR clock provider callback.
-
-### Step 1.2: Tags
-**Record:**
-- **Signed-off-by:** Geert Uytterhoeven `<geert+renesas@glider.be>`
-  (author)
-- **Reviewed-by:** Biju Das `<biju.das.jz@bp.renesas.com>` (Renesas
-  maintainer)
-- **Link:** https://patch.msgid.link/46e010659ffdffd5e3541369f3b65d43ebe
-  236ec.1777562043.git.geert+renesas@glider.be
-- No Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org, or
-  syzbot tags
-- Notable: maintainer review present; no external bug report
-
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** `cpg_mssr_clk_src_twocell_get()` uses `clkspec->args[0]` and
-  `clkspec->args[1]` without verifying `clkspec->args_count == 2`
-- **Symptom:** malformed or short clock specifiers can reach the
-  callback; `args[1]` is read unconditionally at function entry
-- **Root cause:** missing input validation in the OF clock provider
-  `clk_src_get` callback
-- No kernel version, stack trace, or reproduction steps in the message
-
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Although the subject says "Add … check", this is a real
-correctness bug: the function dereferences two specifier cells without
-confirming two cells were supplied. Same-file helper
-`cpg_mssr_is_pm_clk()` already enforces `args_count == 2`.
+**Local tree:** `v6.18.44` (linux-6.18.y stable), commit `ba3cf6ee4f0ea`
+is **not** in this tree; buggy code is present.
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 2.1: Inventory
+### Step 1.1: Subject Line
+**Record:** `[ksmbd] [apply] Reorder SMB2 file-create security
+descriptor handling so explicit client-supplied descriptors are applied
+before DACL inheritance fallback.`
+
+### Step 1.2: Commit Message Tags
 **Record:**
-- **File:** `drivers/clk/renesas/renesas-cpg-mssr.c` (+3 / -0)
-- **Function:** `cpg_mssr_clk_src_twocell_get()`
-- **Scope:** single-file, surgical (3 lines)
+- **Fixes:** — none
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** — none
+- **Acked-by:** — none
+- **Link:** — none
+- **Cc: stable@vger.kernel.org:** — none
+- **Signed-off-by:** Namjae Jeon `<linkinjeon@kernel.org>`, Steve French
+  `<stfrench@microsoft.com>` (ignore pipeline-added SOBs)
 
-### Step 2.2: Code flow change
+No syzbot, no user bug reports, no explicit stable nomination in tags.
+
+### Step 1.3: Commit Body Analysis
 **Record:**
-- **Before:** reads `clkspec->args[1]` immediately, then switches on
-  `args[0]`
-- **After:** returns `-EINVAL` if `args_count != 2`, then same logic
-- **Path affected:** every clock lookup through this provider (probe,
-  consumer `clocks` properties, `of_clk_get_from_provider()`)
+- **Bug:** When a client sends `SMB2_CREATE_SD_BUFFER` with an explicit
+  security descriptor (including owner/group), ksmbd applies parent DACL
+  inheritance first and only parses the create context if inheritance
+  fails. If inheritance succeeds, the client-supplied descriptor is
+  silently ignored.
+- **Symptom:** `smb2.create.aclfile` test fails; created files do not
+  match the security descriptor the client supplied.
+- **Root cause:** Wrong ordering — inheritance attempted before explicit
+  create-context SD.
+- **Fix:** Call `smb2_create_sd_buffer()` first; fall back to
+  inherit/default ACL path only when no create SD was supplied
+  (`-ENOENT`).
 
-### Step 2.3: Bug mechanism
-**Record:** **Category:** input validation / logic correctness
-**Mechanism:** with `args_count < 2`, `args[1]` may not have been
-populated by the caller; with `args_count > 2`, extra cells are silently
-ignored. Either can yield wrong clock index/type selection. Not a
-classic buffer overflow (`args[]` is fixed-size), but can return the
-wrong `struct clk *` or pass bad indices into `priv->clks[]` lookup.
-
-### Step 2.4: Fix quality
-**Record:** Obviously correct, minimal, matches existing pattern in the
-same file (`cpg_mssr_is_pm_clk`, line 561) and `ux500_twocell_get()`.
-Regression risk: very low; only rejects previously-accepted invalid
-specifiers.
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Not disguised as cleanup — this is an explicit
+protocol/access-control correctness fix. The wrong ordering causes
+incorrect owner/group/ACL assignment on newly created files.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Change Inventory
+**Record:**
+- **Files:** `fs/smb/server/smb2pdu.c` (+9 / -7, net +2)
+- **Function:** `smb2_open()` — file-create ACL setup block (`if
+  (created)`)
+- **Scope:** Single-file, surgical reorder of existing logic
+
+### Step 2.2: Code Flow Change
+**Record:**
+
+| Hunk | Before | After |
+|------|--------|-------|
+| ACL setup on create | `smb_inherit_dacl()` first (if `ACL_XATTR`
+flag); only on failure call `smb2_create_sd_buffer()` |
+`smb2_create_sd_buffer()` first; on `-ENOENT` (no SD context), fall back
+to `smb_inherit_dacl()` and existing default-ACL path |
+| Error handling | Inherited path errors fell through to SD buffer |
+Real SD-buffer errors (`!= -ENOENT`) go directly to `err_out` |
+
+### Step 2.3: Bug Mechanism
+**Record:** **Category:** Logic / correctness fix (access control).
+**Mechanism:** `smb_inherit_dacl()` returning success (`rc == 0`)
+prevented the `if (rc)` block from ever calling
+`smb2_create_sd_buffer()`, so explicit client security descriptors were
+discarded whenever parent DACL inheritance succeeded.
+
+### Step 2.4: Fix Quality
+**Record:** Fix is minimal and obviously correct — it mirrors SMB2
+protocol intent (explicit create context takes precedence). No new APIs,
+no structural changes. Regression risk is low: when no SD buffer is
+present, `smb2_create_sd_buffer()` returns `-ENOENT` and the original
+inherit/default fallback path runs unchanged. Verified that the inner
+default-ACL block still gates on `KSMBD_SHARE_FLAG_ACL_XATTR`, so
+behavior without that flag and without an explicit SD is unchanged.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** Current function body dates to merge `5d324e5159d9e` in this
-tree's limited history; file copyright shows CPG/MSSR driver present
-since 2015. The missing validation is long-standing, not a recent
-regression.
+**Record:** Buggy ordering introduced in `e2f34481b24db2` ("cifsd: add
+server-side procedures for SMB3", March 2021). Present in this tree at
+lines 3382–3389 of `fs/smb/server/smb2pdu.c`.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag.
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no `Fixes:` tag.
 
-### Step 3.3: Related file history
-**Record:** Recent `renesas-cpg-mssr.c` changes in this tree are reset-
-timing fixes (`f57b5f2ad106a`, `b1c7a8145137c`). No related args_count
-fix already present. Patch is standalone (3/3 in series; patches 1–2 are
-rzg2l refactors).
+### Step 3.3: Related File History
+**Record:** Recent `smb2pdu.c` activity in 6.18.y includes multiple
+ksmbd security/ACL fixes (UAF, permission checks, DACL validation). Fix
+commit `ba3cf6ee4f0ea` is on `master` but not in 6.18.y.
 
-### Step 3.4: Author context
-**Record:** Geert Uytterhoeven is the Renesas clock subsystem
-maintainer. Biju Das reviewed.
+### Step 3.4: Author Context
+**Record:** Namjae Jeon is the ksmbd maintainer. Steve French (co-SOB)
+is the CIFS/ksmbd subsystem maintainer.
 
 ### Step 3.5: Dependencies
-**Record:** None. Applies cleanly (`git apply --check` on upstream
-commit `7f0c422c7fbfd` succeeded). Self-contained.
+**Record:** Patch is **[PATCH 18/29]** in a series, but this hunk is
+**standalone** — only reorders calls to existing functions in
+`smb2_open()`. No prerequisite commits required. `git apply --check`
+passes cleanly on this tree.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
-**Record:**
-- **URL:** https://patch.msgid.link/46e010659ffdffd5e3541369f3b65d43ebe2
-  36ec.1777562043.git.geert+renesas@glider.be
-- **Series:** v1, 3 patches — "clk: renesas: Miscellaneous fixes and
-  cleanups"
-- **Reviewer feedback:** Biju Das: "Thanks for the patch" + `Reviewed-
-  by`
-- **Stable nomination:** none in thread
-- **NAKs/concerns:** none
+### Step 4.1: Original Discussion
+**Record:** `b4 dig -c ba3cf6ee4f0ea` →
+https://patch.msgid.link/20260621124844.6235-18-linkinjeon@kernel.org.
+Part of v1 series "[PATCH 01/29] ksmbd: handle missing create contexts
+for lease opens". Thread saved to mbox; contains patch submission only
+(no review replies in thread).
 
-### Step 4.2: Reviewers (b4 dig -w)
-**Record:** CC'd: Michael Turquette, Stephen Boyd (clk maintainers),
-Biju Das, linux-renesas-soc, linux-clk.
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w` CC'd: `linux-cifs@vger.kernel.org`, Steve
+French, Sergey Senozhatsky, Tom Talpey, Hyunchul Lee. No `Reviewed-
+by`/`Acked-by` in committed version.
 
-### Step 4.3: Bug report
-**Record:** N/A — no external bug report or syzbot link.
+### Step 4.3: Bug Report
+**Record:** Referenced test `smb2.create.aclfile` (Samba/ksmbd test
+suite). No external bugzilla or syzbot report.
 
-### Step 4.4: Related patches
-**Record:** Patches 1–2 are rzg2l refactors/cleanups, not required for
-this fix.
+### Step 4.4: Series Context
+**Record:** 29-patch series; this patch is self-contained and does not
+depend on other series members.
 
-### Step 4.5: Stable list
-**Record:** Not searched separately; no stable discussion found in patch
-thread.
+### Step 4.5: Stable List History
+**Record:** No `stable@vger.kernel.org` nomination found in mbox thread.
+WebFetch of lore blocked by bot protection; analysis based on b4 mbox
+download.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** `cpg_mssr_clk_src_twocell_get()` (modified); context:
-`cpg_mssr_is_pm_clk()`, `cpg_mssr_attach_dev()`,
-`cpg_mssr_common_init()`.
+### Step 5.1: Key Functions
+**Record:** `smb2_open()`, `smb2_create_sd_buffer()`,
+`smb_inherit_dacl()`, `set_info_sec()`
 
 ### Step 5.2: Callers
-**Record:** Registered via `of_clk_add_provider(np,
-cpg_mssr_clk_src_twocell_get, priv)` at line 1192. Invoked indirectly by
-`of_clk_get_hw_from_clkspec()` → `of_clk_get()`, `of_clk_get_by_name()`,
-`of_clk_get_from_provider()` (exported). Reachable during device
-probe/boot on Renesas DT platforms.
+**Record:** `smb2_open` registered as handler for `SMB2_CREATE` in
+`fs/smb/server/smb2ops.c` (`[SMB2_CREATE_HE] = { .proc = smb2_open }`).
+Triggered by remote SMB clients on every file/directory create.
 
 ### Step 5.3: Callees
-**Record:** array indexing into `priv->clks[]`, `dev_err()`,
-`clk_get_rate()`, `IS_ERR()` checks.
+**Record:** `smb2_create_sd_buffer()` → `set_info_sec()` which parses
+the NT security descriptor and applies owner, group, mode, and ACLs via
+VFS (`notify_change`, `set_posix_acl`, xattrs).
 
 ### Step 5.4: Reachability
-**Record:** Yes — common boot/probe path for Renesas R-Car/RZ boards
-using `renesas,cpg-mssr` with `#clock-cells = <2>`. Normal OF parsing
-usually supplies correct `args_count`, but `of_clk_get_from_provider()`
-is exported and the callback has no framework-level cell-count guard.
+**Record:** Fully reachable from network clients via SMB2 CREATE with
+`SMB2_CREATE_SD_BUFFER` create context. Any authenticated SMB client can
+trigger this path when creating files with explicit security
+descriptors.
 
-### Step 5.5: Similar patterns
-**Record:** Same file: `cpg_mssr_is_pm_clk()` checks `args_count != 2`.
-Other Renesas drivers (`rzg2l-cpg.c`, `rzv2h-cpg.c`) check in PM paths
-but not in their `*_twocell_get()` callbacks. `ux500_twocell_get()` does
-check in the provider callback.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree
-
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Tree is **linux-6.18.y** (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`, `make kernelversion` → `6.18.43`).
-`cpg_mssr_clk_src_twocell_get()` at line 341 lacks the `args_count`
-check. Upstream fix commits `7f0c422c7fbfd` / stable `1c79ea845f76d` are
-**not** ancestors of current HEAD.
-
-### Step 6.2: Backport complications
-**Record:** Clean apply verified. Function is non-`static` in current
-tree (was `static` in patch context); hunk still applies.
-
-### Step 6.3: Related fixes already present?
-**Record:** No — `git log --grep="clock cells check"` finds nothing on
-current branch; grep confirms no `args_count` check in
-`cpg_mssr_clk_src_twocell_get()`.
+### Step 5.5: Similar Patterns
+**Record:** No other instances of this ordering bug found in the ksmbd
+tree. Related ACL fixes in stable (e.g., `ksmbd: add a
+WRITE_DAC/WRITE_OWNER check to SMB2 SET_INFO SECURITY`) show ACL
+correctness is actively maintained in 6.18.y.
 
 ---
 
-## Phase 7: Subsystem Context
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.y)
 
-### Step 7.1: Subsystem / criticality
-**Record:** `drivers/clk/renesas/` — **IMPORTANT** (platform clock
-provider for Renesas SoCs; affects boot and all clocked peripherals).
+### Step 6.1: Buggy Code Present?
+**Record:** **Yes.** Current tree at `fs/smb/server/smb2pdu.c:3382-3389`
+still has inherit-first ordering. Bug present since ksmbd was introduced
+(~5.13).
 
-### Step 7.2: Activity
-**Record:** Active in 6.18.y (recent reset-timing fixes in same file).
+### Step 6.2: Backport Complications
+**Record:** **Clean apply.** `git show ba3cf6ee4f0ea | git apply
+--check` succeeds with no conflicts.
+
+### Step 6.3: Related Fixes Already Present?
+**Record:** Fix commit `ba3cf6ee4f0ea` is NOT an ancestor of HEAD. No
+duplicate fix found via `git log --grep`.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 8.1: Who is affected
-**Record:** Users of Renesas CPG/MSSR platforms (R-Car, RZ families)
-with `CONFIG_CLK_RENESAS`. Not universal, but real production embedded
-hardware.
+### Step 7.1: Subsystem Criticality
+**Record:** `fs/smb/server` (ksmbd in-kernel SMB3 server). **IMPORTANT**
+— network file server with access-control semantics; config-gated via
+`CONFIG_SMB_SERVER`.
 
-### Step 8.2: Trigger conditions
-**Record:** Malformed clock specifier (`args_count != 2`) reaching the
-provider callback — e.g. direct `of_clk_get_from_provider()` misuse, or
-non-standard caller paths. Normal DT parsing with `#clock-cells = <2>`
-(binding-mandated) usually provides 2 cells. **Likelihood: low** for
-well-formed DT; **non-zero** for internal/exported API misuse.
+### Step 7.2: Subsystem Activity
+**Record:** Actively maintained in 6.18.y with frequent security and
+ACL-related stable backports.
 
-### Step 8.3: Failure mode severity
-**Record:** Wrong clock returned or invalid index used → peripheral mis-
-clocking, probe failure, or subtle hardware misbehavior. Unlikely kernel
-panic (index range checks exist), but **MEDIUM** severity for embedded
-correctness; not CRITICAL (no demonstrated crash/CVE).
+---
 
-### Step 8.4: Risk-benefit
+## PHASE 8: IMPACT AND RISK
+
+### Step 8.1: Who Is Affected
+**Record:** Users running ksmbd (`CONFIG_SMB_SERVER`) with shares that
+use NT ACLs (`KSMBD_SHARE_FLAG_ACL_XATTR`) and clients that create files
+with explicit security descriptors.
+
+### Step 8.2: Trigger Conditions
+**Record:** SMB2 CREATE with `SMB2_CREATE_SD_BUFFER` create context,
+while parent DACL inheritance succeeds. Common for Windows/Samba clients
+managing file ownership and ACLs. Network-reachable by authenticated
+clients.
+
+### Step 8.3: Failure Mode Severity
+**Record:** Incorrect owner/group/ACL on created files — **access
+control violation**. Not a kernel crash, but wrong permissions on a file
+server can grant unintended access or deny intended access. Severity:
+**HIGH** for security/access-control context; not CRITICAL (no
+crash/corruption).
+
+### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** closes a real validation gap; aligns with same-file and
-  cross-driver practice
-- **Risk:** negligible (3-line guard, returns `-EINVAL`)
-- **Ratio:** favorable, though absolute benefit is modest without a
-  reported failure
+- **Benefit:** HIGH for ksmbd deployments using NT ACLs — restores
+  correct SMB2 protocol behavior
+- **Risk:** VERY LOW — 16-line reorder of existing calls, applies
+  cleanly, no behavior change when no explicit SD is supplied
+- **Ratio:** Strongly favorable
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence summary
+### Step 9.1: Evidence Summary
 
-**FOR:**
-- Real missing validation in a clock provider callback
-- Same file already validates `args_count` in `cpg_mssr_is_pm_clk()`
-- Trivial, maintainer-reviewed, applies cleanly
-- Buggy code confirmed in 6.18.43
-- Wrong clock lookup on SoC platforms is a meaningful failure mode
+**FOR backport:**
+- Real, long-standing protocol bug (since 2021)
+- Access-control correctness on network file server
+- Small, surgical, maintainer-authored fix
+- Applies cleanly to 6.18.y
+- Buggy code confirmed present; fix not yet applied
+- Standalone despite being patch 18/29
 
-**AGAINST:**
-- No user report, crash, or syzbot finding
-- Normal OF/DT paths enforce cell count via `#clock-cells`
-- Borderline on stable "important issue" threshold
-- Part of a "fixes and cleanups" series alongside pure refactors
+**AGAINST backport:**
+- No crash/panic/data corruption
+- No syzbot or user bug reports
+- Only affects `CONFIG_SMB_SERVER` users
+- No explicit stable nomination in mailing list
+- Part of larger series (though self-contained)
 
-**UNRESOLVED:** No proof of real-world trigger on production boards.
+**Unresolved:** No independent test results beyond commit message
+reference to `smb2.create.aclfile`.
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — 3-line guard; reviewed by
-   subsystem maintainer (no runtime test cited)
-2. Fixes a real bug? **PASS** — uses specifier cells without validating
-   count
-3. Important issue? **PASS (borderline)** — correctness/hardware mis-
-   clocking, not demonstrated crash/security
-4. Small and contained? **PASS** — 3 lines, one function
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — verified clean apply
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — logic is clear; maintainer-
+   signed; Samba test referenced
+2. Fixes a real bug affecting users? **PASS** — explicit SD ignored on
+   file create
+3. Important issue? **PASS** — access-control correctness on file server
+   (security-relevant)
+4. Small and contained? **PASS** — 1 file, ~16 lines
+5. No new features or APIs? **PASS** — reorder only
+6. Can apply to local tree? **PASS** — clean apply verified
 
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs fix).
+### Step 9.3: Exception Categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Qualifies
+as a protocol/access-control bug fix.
 
-### Step 9.4: Decision rationale
-For **linux-6.18.y**, the vulnerable code exists, the fix is surgical
-and maintainer-vetted, and it closes an inconsistency that could yield
-incorrect clock resolution on Renesas platforms. While no crash report
-exists and normal DT parsing mitigates exposure, the fix is zero-risk
-defensive correctness in a hardware-critical path — appropriate for
-stable.
+### Step 9.4: Problem Summary for Stable Users
+
+ksmbd deployments using NT ACLs can create files with wrong owner,
+group, or DACL when clients supply an explicit security descriptor via
+`SMB2_CREATE_SD_BUFFER`. The server silently ignores the client's
+descriptor if parent DACL inheritance succeeds. This breaks SMB2
+interoperability (Samba test `smb2.create.aclfile`) and can result in
+incorrect file permissions — a security concern on multi-user file
+servers.
+
+The fix is minimal, self-contained, applies cleanly to 6.18.y, and
+restores correct protocol ordering without changing the no-explicit-SD
+fallback path.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message and tags from user query and `git show
-  7f0c422c7fbfd`
-- [Phase 2] Read current `renesas-cpg-mssr.c` lines 341–393; confirmed
-  unconditional `args[1]` read
-- [Phase 2] Compared with `cpg_mssr_is_pm_clk()` line 561 `args_count`
-  check
-- [Phase 3] `git blame` on function; `git log` on file
-- [Phase 3] `git apply --check` on upstream patch: clean apply
-- [Phase 3] `git merge-base --is-ancestor 7f0c422c7fbfd HEAD` → exit 1
-  (fix not in tree)
-- [Phase 4] `b4 dig -c 1c79ea845f76d`: found lore URL
-- [Phase 4] `b4 dig -a`: v1 series, patch 3/3 standalone
-- [Phase 4] `b4 dig -w`: clk + Renesas maintainers CC'd
-- [Phase 4] Read `/tmp/cpg-mssr-thread.mbox`: Biju Das Reviewed-by, no
-  stable nomination
-- [Phase 5] Traced `of_clk_add_provider` → `of_clk_get_hw_from_clkspec`
-  call chain in `clk.c`
-- [Phase 5] Grep `args_count != 2` across `drivers/clk/`
-- [Phase 6] `git describe HEAD` → v6.18.43; `make kernelversion` →
-  6.18.43
-- [Phase 6] Confirmed missing check in checked-out tree
-- [Phase 6] Read DT binding `renesas,cpg-mssr.yaml`: `#clock-cells`
-  const 2
-- [Phase 8] Read `struct of_phandle_args` in `include/linux/of.h`:
-  `args_count` + `args[MAX_PHANDLE_ARGS]`
+- [Phase 1] `git show ba3cf6ee4f0ea`: parsed subject, body, SOBs; no
+  Fixes/Reported-by/Link tags
+- [Phase 2] `git show ba3cf6ee4f0ea -p`: 1 file, +9/-7, reorder in
+  `smb2_open()` create-ACL block
+- [Phase 2] Read `fs/smb/server/smb2pdu.c:3371-3448`: confirmed current
+  buggy ordering and full fallback path
+- [Phase 2] Read `smb2_create_sd_buffer()` at line 2647: returns
+  `-ENOENT` when no SD context
+- [Phase 2] Read `set_info_sec()` in `smbacl.c:1601`: applies
+  owner/group/mode/ACL from SD
+- [Phase 3] `git blame -L 3380,3395 fs/smb/server/smb2pdu.c`: buggy
+  logic from `e2f34481b24db2` (2021)
+- [Phase 3] `git show e2f34481b24db2 --oneline`: "cifsd: add server-side
+  procedures for SMB3"
+- [Phase 3] `git log --oneline -20 -- fs/smb/server/smb2pdu.c`: recent
+  ksmbd ACL/security activity in tree
+- [Phase 3] `git merge-base --is-ancestor ba3cf6ee4f0ea HEAD`: NOT IN
+  TREE
+- [Phase 3] `git show ba3cf6ee4f0ea | git apply --check`: applies
+  cleanly
+- [Phase 4] `b4 dig -c ba3cf6ee4f0ea`: lore URL found
+- [Phase 4] `b4 dig -c ba3cf6ee4f0ea -a`: v1 series, patch 18/29
+- [Phase 4] `b4 dig -c ba3cf6ee4f0ea -w`: CC list includes Steve French,
+  linux-cifs
+- [Phase 4] `b4 dig -c ba3cf6ee4f0ea -m /tmp/ksmbd-sd-thread.mbox`:
+  thread downloaded; no Reviewed-by/stable@/NAK found
+- [Phase 4] WebFetch lore.kernel.org: blocked (bot protection) — used b4
+  mbox instead
+- [Phase 5] `grep smb2_open fs/smb/server/`: handler for `SMB2_CREATE`
+  in `smb2ops.c`
+- [Phase 6] `git describe HEAD`: v6.18.44-1-g2736c32da98b9
+- [Phase 6] `head Makefile`: VERSION=6, PATCHLEVEL=18, SUBLEVEL=44
+- [Phase 6] Read current `smb2pdu.c:3382-3389`: buggy inherit-first code
+  confirmed present
+- [Phase 6] `git log master --grep="apply create security descriptor
+  first"`: found `ba3cf6ee4f0ea` on master only
 
-**YES****Result:** Backport to **linux-6.18.y** is recommended.
+**YES**The background searches finished and match the earlier analysis:
 
-The missing `args_count != 2` check in `cpg_mssr_clk_src_twocell_get()`
-is a real validation gap (the function reads `args[1]` unconditionally).
-The fix is 3 lines, applies cleanly to 6.18.43, and matches the existing
-check in `cpg_mssr_is_pm_clk()` in the same file. No crash reports, but
-it's low-risk defensive correctness on Renesas CPG/MSSR platforms.
+- **Commit hash:** `ba3cf6ee4f0ea` on `master` — not in the local 6.18.y
+  tree (`v6.18.44`)
+- **Buggy code:** still present in `fs/smb/server/smb2pdu.c` (inherit
+  DACL before explicit create SD)
+- **Patch:** applies cleanly to this tree
 
-**YES****Upstream commit:** `7f0c422c7fbfd` — *clk: renesas: cpg-mssr:
-Add number of clock cells check* (Geert Uytterhoeven, Apr 30 2026).
-There is also a stable-prepared variant at `1c79ea845f76d` referencing
-that upstream SHA.
+**Verdict for 6.18.y: YES** — small access-control fix; when clients
+send `SMB2_CREATE_SD_BUFFER`, ksmbd should apply that descriptor first
+instead of ignoring it after successful DACL inheritance.
 
-In the checked-out **linux-6.18.y** tree (`v6.18.43`), neither commit is
-present yet; the missing validation is still in
-`cpg_mssr_clk_src_twocell_get()`. Backport recommendation remains
-**YES**.
+ fs/smb/server/smb2pdu.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
- drivers/clk/renesas/renesas-cpg-mssr.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/clk/renesas/renesas-cpg-mssr.c b/drivers/clk/renesas/renesas-cpg-mssr.c
-index a0a68ec0490f7..87ede1ee64d7a 100644
---- a/drivers/clk/renesas/renesas-cpg-mssr.c
-+++ b/drivers/clk/renesas/renesas-cpg-mssr.c
-@@ -349,6 +349,9 @@ struct clk *cpg_mssr_clk_src_twocell_get(struct of_phandle_args *clkspec,
- 	struct clk *clk;
- 	int range_check;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 66871fbe53f48..da0e02b760f8e 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3401,14 +3401,16 @@ int smb2_open(struct ksmbd_work *work)
+ 		if (posix_acl_rc)
+ 			ksmbd_debug(SMB, "inherit posix acl failed : %d\n", posix_acl_rc);
  
-+	if (clkspec->args_count != 2)
-+		return ERR_PTR(-EINVAL);
-+
- 	switch (clkspec->args[0]) {
- 	case CPG_CORE:
- 		type = "core";
+-		if (test_share_config_flag(work->tcon->share_conf,
+-					   KSMBD_SHARE_FLAG_ACL_XATTR)) {
+-			rc = smb_inherit_dacl(conn, &path, sess->user->uid,
+-					      sess->user->gid);
+-		}
++		rc = smb2_create_sd_buffer(work, req, &path);
++		if (rc && rc != -ENOENT)
++			goto err_out;
+ 
+-		if (rc) {
+-			rc = smb2_create_sd_buffer(work, req, &path);
++		if (rc == -ENOENT) {
++			if (test_share_config_flag(work->tcon->share_conf,
++						   KSMBD_SHARE_FLAG_ACL_XATTR)) {
++				rc = smb_inherit_dacl(conn, &path, sess->user->uid,
++						      sess->user->gid);
++			}
+ 			if (rc) {
+ 				if (posix_acl_rc)
+ 					ksmbd_vfs_set_init_posix_acl(idmap,
 -- 
 2.53.0
 
