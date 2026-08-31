@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A954AF9F2;
-	Mon, 31 Aug 2026 13:49:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0AC57EDBA;
+	Mon, 31 Aug 2026 13:49:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184183; cv=none; b=owUxHNASZUlWGPJl12BJPLFb8DJqDrEXOvGpGq6PdZp8qodCDFiTbaI6Np5X4K3E2EtufLFQJEKhfEpZ6wmLrEg/WPHLdD6/7y9SkFzcuHgeOPCMWFaA7z2UzMfqfv2NjdsgMiJbpflLptSNhX3PxPJXOLizh2Ypos7U7GlQc74=
+	t=1788184184; cv=none; b=SDrHFaRzOgvaMSulvEO3IFOAJgeMZHiNXAfkc1CDtAC5NUUdVIibk/JIWUPUsVsHeOGHHVzItQLOloaeBXO2P3F2B5ZXPjLMK8MYHPc6TpK3MmThVpUvOb9ifgHq5Nnykwj5Xo77pp5H6dbm/lQl8EHlQ7XmxgewwEQOiyPhZKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184183; c=relaxed/simple;
-	bh=P3d7zi5R0VxGtimnWy+k6qfrZJA7wnkGEa4G2Drc5fE=;
+	s=arc-20240116; t=1788184184; c=relaxed/simple;
+	bh=g4hdznl5v6aW6xOr5tnu19RpNERqg6Gyi0mX7EttdT8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GvDww6TT/4KyeLidAa/+EAyEMlnifA/tfcTuNC7uePOuWf/ZEkp6cGQ1glKF9328ybcTVNXlpv3x5lCq1XTkWKJWtEQwEobPK2Xfe3Ns980OSehVjHfKW46tLu3EVrUMMhgRj3OvWlm/DeE1vKyKlwzVbbGxAHB6v6cUjdOD7uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fyv9Qo4S; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=omGfxiKlrQB71gxjCOEpaowxdRXothFSd/opk+Lkj4QgweG77X7Zv6COY4EbZcgqWvZrPbDYVVmhS1+p4442ypx9GlbaZLC7U4cSH6rmbDkalkYeI0PHIESndBZd8c89OGQKZazQ0Tcr06HTRnpEOYPs4Hhv0cROexIuludeR2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3vApgS+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fyv9Qo4S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 118721F00A3E;
-	Mon, 31 Aug 2026 13:49:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3vApgS+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5C771F00A3D;
+	Mon, 31 Aug 2026 13:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184178;
-	bh=oCpTmdjqNHfuxs6x2yeRnovpfa7f0fMHVA9az58zuxU=;
+	s=k20260515; t=1788184182;
+	bh=OWqo+hM81GruAeZ/02oZr+I8zvMhMMYyhoN918CSZBs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Fyv9Qo4SUECPLlRXXtXzStqZ6BgiGo41toIDjls7RMWKvciQP1qnlMt8s14/iLh5L
-	 bLq5I7vvLhqWZa72ZzgUmnmKZdTTQOvz9Ao9TIfmJXWPil06re8F4Oy8xw5Q49IYiz
-	 qLChY/GgLDtRlVM0zydjzIsiA7PcszHUYH+jfXMEA1lmgGSAkly2Mp9o/E21MZUIpt
-	 1P0EojrwylWxNWyrok1EdWL/WgIaN+3Qwg/5BIbGeDjhzw9XNi2JA0LEd5oK4/cN8I
-	 VXsEIADl0oGKV6A3O+WZOqS29MwHY8Sh2OG+BzIR2CJWbS3v/b8MEu41yPPgj3M+Rj
-	 rbebooUQ6V5ug==
+	b=W3vApgS+Vhb76jUTQTEQhx7KDS6/4LgV51pplJujANPnSb5TY32RlyDnu027Ajh63
+	 9kfZBjoA3Qhco8TZ/aKM3JSsjaeAM9P66w/SFUpTxohQ0VFek9jHVWF54rXVjUE+bF
+	 jjNAafURuaJgu7U/nK0LKPIqvmbShIvWX9cYDDGtchmcCH98yk9/LERFDKkeJOD0Ne
+	 1D8kShsG4sjBRCGryA6gaGms41k+vNN3bVedxed7xh2hmd962js7NIETgLeMiNyEpe
+	 iJbNoBXi0wMo7H0HXqn6vonLYzkCM+wZb4R8URcwjNxUQt2TqLg8ksww7O3+lgOVjl
+	 H5OlY2YjjAKlg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
 	Sasha Levin <sashal@kernel.org>,
-	srini@kernel.org,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+	linusw@kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] ASoC: qcom: q6apm: return error code to consumers on failures
-Date: Mon, 31 Aug 2026 09:29:26 -0400
-Message-ID: <20260831133314.4125787-538-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.1] pinctrl: renesas: rzv2m: Use -ENOTSUPP instead of -EOPNOTSUPP
+Date: Mon, 31 Aug 2026 09:29:28 -0400
+Message-ID: <20260831133314.4125787-540-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -57,407 +55,415 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-[ Upstream commit 3075ae5abbc370d2a9a01bd6d554a412d406f5bd ]
+[ Upstream commit 01f94d53947df35ba77cdb3992a4e3ef9d9dc1ad ]
 
-Return errors from audioreach_set_media_format() to ensure callers are
-notified when media format setup fails.
+The pinctrl and GPIO core code make exceptions for the -ENOTSUPP error
+code. One such example is gpio_set_config_with_argument_optional(), which
+returns success when gpio_set_config_with_argument() returns -ENOTSUPP, but
+reports failure for all other error codes.
 
-This could hide failures while programming media format parameters for
-individual modules and allow graph setup to continue with incomplete
-configuration.
+Returning -EOPNOTSUPP from the pinctrl driver on the unsupported pinctrl
+operation may lead to boot failures when pinctrl drivers implements
+struct gpio_chip::set_config, the system uses GPIO hogs, and the
+struct gpio_chip::set_config implementation returns -EOPNOTSUPP for the
+unsupported operations.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260528185806.6316-3-srinivas.kandagatla@oss.qualcomm.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Currently, the driver does not implement struct gpio_chip::set_config().
+To avoid future failures, return -ENOTSUPP from
+rzv2m_pinctrl_pinconf_set().
+
+rzv2m_pinctrl_pinconf_group_get() is used when dumping pinctrl
+configuration. pinconf_generic_dump_one(), which calls it, makes
+exceptions for the -EINVAL and -ENOTSUPP error codes. The documentation
+for struct pinconf_ops::pin_config_group_get states that it "should
+return -ENOTSUPP and -EINVAL using the same rules as pin_config_get()".
+The documentation for struct pinconf_ops::pin_config_get states:
+
+"get the config of a certain pin, if the requested config is not available
+on this controller this should return -ENOTSUPP and if it is available but
+disabled it should return -EINVAL".
+
+Return -ENOTSUPP for the unsupported pinctrl operation.
+
+Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Link: https://patch.msgid.link/20260522105717.1727837-1-claudiu.beznea@kernel.org
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: ASoC: qcom: q6apm: return error code to
-consumers on failures
+# Stable Backport Analysis: `pinctrl: renesas: rzv2m: Use -ENOTSUPP
+instead of -EOPNOTSUPP`
 
-**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`)
+**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`,
+`make kernelversion` → `6.18.44`)
+
+**Upstream commit:** `01f94d53947df` (on `master`; **not** in this
+6.18.44 checkout)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Parse the Subject Line
-**Record:** `[ASoC: qcom: q6apm]` `[return]` — propagate error codes
-from `audioreach_set_media_format()` to callers of
-`q6apm_graph_media_format_shmem()` and `q6apm_graph_media_format_pcm()`.
+### Step 1.1: Subject line
+**Record:** `[pinctrl: renesas: rzv2m]` — action: **Use** (correctness
+fix) — return the proper `-ENOTSUPP` errno instead of `-EOPNOTSUPP` for
+unsupported pinconf operations.
 
-### Step 1.2: Parse All Commit Message Tags
+### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Srinivas Kandagatla
-  `<srinivas.kandagatla@oss.qualcomm.com>` (author)
-- **Link:** https://patch.msgid.link/20260528185806.6316-3-
-  srinivas.kandagatla@oss.qualcomm.com
-- **Signed-off-by:** Mark Brown `<broonie@kernel.org>` (ASoC maintainer)
-- **No** Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Cc:
-  stable@vger.kernel.org
-- **Notable:** No user or fuzzer reports; maintainer-reviewed and merged
-  by Mark Brown. Absence of Cc: stable is expected per review pipeline
-  rules.
+- **Suggested-by:** Geert Uytterhoeven (maintainer suggested the fix)
+- **Signed-off-by:** Claudiu Beznea (author), Geert Uytterhoeven
+  (committer on master)
+- **Reviewed-by:** Geert Uytterhoeven (subsystem maintainer)
+- **Link:** https://patch.msgid.link/20260522105717.1727837-1-
+  claudiu.beznea@kernel.org
+- **No** Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org
+  (absence of Cc: stable is expected per review instructions)
+- **Notable:** Maintainer-reviewed, maintainer-suggested; no syzbot or
+  user bug reports
 
-### Step 1.3: Analyze Commit Body
+### Step 1.3: Body analysis
 **Record:**
-- **Bug:** `q6apm_graph_media_format_shmem()` and
-  `q6apm_graph_media_format_pcm()` discard return values from
-  `audioreach_set_media_format()` and always return 0.
-- **Symptom:** DSP media-format programming failures are hidden; audio
-  graph setup continues with incomplete module configuration.
-- **Root cause:** Wrapper functions ignore errors from underlying DSP
-  IPC (`audioreach_graph_send_cmd_sync()` and related helpers).
-- **Version info:** None stated in commit message.
+- **Bug:** Driver returns `-EOPNOTSUPP` where pinctrl/GPIO core expects
+  `-ENOTSUPP` for “unsupported configuration”
+- **Symptoms:**
+  - Potential **boot failure** if `gpio_chip::set_config` is added and
+    GPIO hogs trigger optional config paths
+    (`gpio_set_config_with_argument_optional()` treats only `-ENOTSUPP`
+    as benign)
+  - **Incorrect debugfs dumps**: `pinconf_generic_dump_one()` treats
+    `-ENOTSUPP` and `-EINVAL` as legal; `-EOPNOTSUPP` prints `"ERROR
+    READING CONFIG SETTING"`
+- **Root cause:** Violation of documented `pinconf_ops` API contract
+  (`include/linux/pinctrl/pinconf.h`)
+- **Version info:** None in message; driver has existed since 2022
 
-### Step 1.4: Detect Hidden Bug Fixes
-**Record:** Yes — despite not using "fix" in the subject, this is a real
-error-handling bug. Callers are written to check return codes, but
-wrappers always report success even when DSP commands fail.
+### Step 1.4: Hidden bug fix?
+**Record:** **Yes.** Despite neutral “Use X instead of Y” wording, this
+fixes a real API-contract bug with concrete debugfs impact and a
+documented boot-failure class for GPIO hog + `set_config` paths.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory the Changes
+### Step 2.1: Inventory
 **Record:**
-- **File:** `sound/soc/qcom/qdsp6/q6apm.c` — 5 insertions, 5 deletions
-  (net 0 lines)
-- **Functions modified:** `q6apm_graph_media_format_shmem()`,
-  `q6apm_graph_media_format_pcm()`
-- **Scope:** Single-file surgical fix
+- **File:** `drivers/pinctrl/renesas/pinctrl-rzv2m.c` — 2 lines changed
+  (+2/-2)
+- **Functions:** `rzv2m_pinctrl_pinconf_set()`,
+  `rzv2m_pinctrl_pinconf_group_get()`
+- **Scope:** Single-file, surgical fix
 
-### Step 2.2: Code Flow Change
-**Record:**
-- **Hunk 1 (`q6apm_graph_media_format_shmem`):** Before: call
-  `audioreach_set_media_format()`, return 0. After: `return
-  audioreach_set_media_format(...)`.
-- **Hunk 2 (`q6apm_graph_media_format_pcm`):** Before: loop over
-  modules, call `audioreach_set_media_format()` without checking return.
-  After: capture `ret`, return immediately on first failure.
-- **Paths affected:** PCM/compress prepare and LPASS DAI setup — all
-  paths that configure DSP media format.
+### Step 2.2: Code flow per hunk
 
-### Step 2.3: Bug Mechanism
-**Record:** **Category:** Logic/correctness — swallowed error codes.
-- `audioreach_set_media_format()` returns errors from DSP IPC
-  (`audioreach_graph_send_cmd_sync()` at line 1213 of `audioreach.c`)
-  and allocation failures (`-ENOMEM`, `-EINVAL`).
-- Wrappers discarded these; callers checking `ret < 0` could never
-  detect failures.
+**Hunk 1 — `rzv2m_pinctrl_pinconf_set()` default case:**
+- **Before:** Unknown `PIN_CONFIG_*` param → `-EOPNOTSUPP`
+- **After:** → `-ENOTSUPP`
+- **Path:** DT pinconf apply / explicit pin configuration for
+  unsupported parameters
 
-### Step 2.4: Fix Quality
-**Record:** Obviously correct — standard error propagation. Minimal
-change, no API changes, no new symbols. Regression risk very low; only
-changes behavior when underlying call already failed.
+**Hunk 2 — `rzv2m_pinctrl_pinconf_group_get()` mismatch check:**
+- **Before:** Pins in group disagree on config value → `-EOPNOTSUPP`
+- **After:** → `-ENOTSUPP`
+- **Path:** `pinconf_generic_dump_one()` → `pin_config_group_get()`
+  during debugfs pinconf dumps
+
+### Step 2.3: Bug mechanism
+**Record:** **Logic / API correctness fix (category g).** Core
+GPIO/pinconf code special-cases `-ENOTSUPP` but not `-EOPNOTSUPP`. The
+driver already returns `-ENOTSUPP` correctly in
+`rzv2m_pinctrl_pinconf_get()` (line 548); these two sites were
+inconsistent.
+
+### Step 2.4: Fix quality
+**Record:** Obviously correct, minimal, matches kernel-wide convention
+and sibling `rzg2l` fix. Regression risk: **very low** (only changes
+error codes on unsupported/mismatched-config paths).
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame the Changed Lines
-**Record:** Both functions introduced in `25ab80db6b133c` (Oct 2021,
-"ASoC: qdsp6: audioreach: add module configuration command helpers").
-Bug present since introduction. Code exists in this 6.18.44 tree.
+### Step 3.1: Blame
+**Record:** `-EOPNOTSUPP` in `pinconf_set` default case introduced in
+`92a9b82525761` (“Add RZ/V2M pin and gpio controller driver”, June
+2022). Present in this 6.18.44 tree.
 
-### Step 3.2: Follow Fixes: Tag
+### Step 3.2: Fixes: tag
 **Record:** N/A — no Fixes: tag in commit message.
 
-### Step 3.3: File History for Related Changes
-**Record:** Recent stable-tree q6apm fixes include NULL deref
-(`ca028334343a1`), remove ordering, queue ptr reset. On master, this fix
-(`3075ae5abbc37`) is patch 2/6 of "add push/pull module support" series,
-but the diff is self-contained and does not depend on push/pull code.
-Related master-only commits (push/pull, watermark) are separate
-features.
+### Step 3.3: Related file history
+**Record:**
+- Identical fix for `rzg2l` already backported to **this tree**:
+  `6876f767b0490` (upstream `c1492da3939c`)
+- Related but separate: `ec642ab9b76f8` (type fix in
+  `pin_config_group_get`) is on `master` but **not** in 6.18.44 — not a
+  prerequisite for this 2-line errno change
+- Standalone single-patch series (v1 only per `b4 dig -a`)
 
-### Step 3.4: Author's Other Commits
-**Record:** Srinivas Kandagatla is primary Qualcomm QDSP6 contributor.
-Recent stable backports from same author include `90983f841dfa9` (q6asm-
-dai error handling) and `ca028334343a1` (q6apm NULL deref).
+### Step 3.4: Author context
+**Record:** Claudiu Beznea is an active Renesas pinctrl contributor;
+Geert Uytterhoeven is the Renesas maintainer who committed and reviewed.
 
-### Step 3.5: Prerequisites
-**Record:** No dependencies. `audioreach_set_media_format()` already
-returns `int` in this tree. `git apply --check` on commit
-`3075ae5abbc37` against HEAD succeeds cleanly.
+### Step 3.5: Dependencies
+**Record:** **None.** Patch applies cleanly (`git apply --check` → exit
+0). Does not assume code absent from 6.18.44.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Patch Discussion
+### Step 4.1: Original discussion
 **Record:**
-- **b4 dig URL:** https://patch.msgid.link/20260528185806.6316-3-
-  srinivas.kandagatla@oss.qualcomm.com
-- **Series:** v1 (2026-05-19) and v2 (2026-05-28); committed version
-  matches v2 patch 2/6
-- **Lore fetch:** Blocked by Anubis bot protection — could not read
-  thread content
-- **UNVERIFIED:** Reviewer stable nominations, NAKs, or specific review
-  comments
+- **URL:** https://patch.msgid.link/20260522105717.1727837-1-
+  claudiu.beznea@kernel.org
+- **Series:** v1 only (no revisions)
+- **Review:** Geert Uytterhoeven Reviewed-by + “will queue in renesas-
+  devel for v7.2”
+- **No** NAKs, no explicit stable nomination in thread
+- Lore web fetch blocked by bot protection; content obtained via `b4 dig
+  -m`
 
 ### Step 4.2: Reviewers
-**Record:** b4 dig -w shows CC to Mark Brown (maintainer), Liam
-Girdwood, Takashi Iwai, Krzysztof Kozlowski, linux-sound@, linux-arm-
-msm@. Appropriate subsystem coverage.
+**Record:** CC’d: `geert+renesas@glider.be`, `linusw@kernel.org`,
+`brgl@kernel.org`, `linux-renesas-soc@`, `linux-gpio@`, `linux-kernel@`
+— appropriate maintainer coverage.
 
-### Step 4.3: Bug Report
-**Record:** N/A — no Reported-by or bugzilla/syzbot links.
+### Step 4.3: Bug report
+**Record:** N/A — no external bug report; preventive/correctness fix
+identified by maintainer (Suggested-by Geert).
 
-### Step 4.4: Related Patches
-**Record:** Part of 6-patch push/pull series on master; this specific
-patch is standalone error propagation with no push/pull code changes.
+### Step 4.4: Related patches
+**Record:** Part of a Renesas-wide errno cleanup; `rzg2l` variant
+already in this stable tree.
 
-### Step 4.5: Stable Mailing List
-**Record:** Not searched (lore blocked). Commit lacks Cc: stable; not
-used as negative signal per instructions.
+### Step 4.5: Stable list
+**Record:** Not searched (lore blocked); `rzg2l` sibling carried `Cc:
+stable@vger.kernel.org` and was backported here.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `q6apm_graph_media_format_shmem()`,
-`q6apm_graph_media_format_pcm()`, callee
-`audioreach_set_media_format()`.
+### Step 5.1: Key functions
+**Record:** `rzv2m_pinctrl_pinconf_set`,
+`rzv2m_pinctrl_pinconf_group_get`
 
 ### Step 5.2: Callers
 **Record:**
-| Caller | File | Error handling |
-|--------|------|----------------|
-| `q6apm_dai_prepare()` | `q6apm-dai.c:246-254` | Returns on shmem
-failure; logs pcm failure but **does not return** (pre-existing caller
-gap) |
-| `q6apm_dai_compr_set_params()` | `q6apm-dai.c:683-689` | Returns on
-both failures |
-| LPASS DAI hw_params | `q6apm-lpass-dais.c:195-199` | Returns and goes
-to `err` |
+- `pinconf_set` → `pinconf_apply_setting()` during pinctrl DT binding
+  (boot)
+- `pinconf_group_get` → `pin_config_group_get()` →
+  `pinconf_generic_dump_one()` (debugfs via
+  `pinconf_generic_dump_config`; driver sets `is_generic = true`)
 
 ### Step 5.3: Callees
-**Record:** `audioreach_set_media_format()` dispatches to module-
-specific setters, ultimately calling `audioreach_graph_send_cmd_sync()`
-for DSP IPC. Returns negative errno on failure.
+**Record:** `rzv2m_pinctrl_pinconf_get()` (group_get),
+`pinconf_to_config_param()` (set)
 
-### Step 5.4: Call Chain / Reachability
-**Record:** Reachable from userspace audio operations (PCM prepare,
-compressed offload, LPASS DAI hw_params) on Qualcomm Snapdragon
-platforms with `CONFIG_SND_SOC_QDSP6`. Common audio playback/capture
-path for those devices.
-
-### Step 5.5: Similar Patterns
-**Record:** Precedent in this tree: `ba6474f19fd1b` "ASoC: qcom: qdsp6:
-Set error code in q6usb_hw_params()" — same class of fix (don't return
-success on failure), backported by Greg Kroah-Hartman to stable.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
-
-### Step 6.1: Does Buggy Code Exist?
-**Record:** **Yes.** Current `q6apm.c` lines 206-208 and 385-390 ignore
-`audioreach_set_media_format()` return values. Bug since 2021; present
-in 6.18.44.
-
-### Step 6.2: Backport Complications
-**Record:** Clean apply verified (`git apply --check` passed). No
-conflicting refactors in this file between stable and master for these
-functions.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** Fix `3075ae5abbc37` is **not** in 6.18.44 (`git log --grep`
-on HEAD returns empty). Bug remains unfixed in this tree.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: Subsystem Criticality
-**Record:** **ASoC / Qualcomm QDSP6 audio driver** — **PERIPHERAL**
-(platform-specific: Snapdragon/MSM devices). Critical for audio on those
-platforms; not universal.
-
-### Step 7.2: Subsystem Activity
-**Record:** Actively maintained in 6.18.y — multiple recent q6apm/q6asm
-stable backports from same author/maintainer chain.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who Is Affected
-**Record:** Users of `CONFIG_SND_SOC_QDSP6` on Qualcomm platforms
-(phones, tablets, embedded). Not universal kernel users.
-
-### Step 8.2: Trigger Conditions
-**Record:** Triggered when DSP media-format IPC fails during graph setup
-(DSP not ready, invalid params, allocation failure, IPC timeout).
-Unprivileged users can trigger via normal audio open/prepare. Not a race
-— deterministic on DSP command failure.
-
-### Step 8.3: Failure Mode Severity
-**Record:** Without fix: silent failure, graph continues with incomplete
-DSP configuration → no audio, broken audio, or unpredictable DSP
-behavior. **Severity: MEDIUM** — functional correctness bug, not
-demonstrated kernel crash/oops/deadlock. Could theoretically stress DSP
-firmware, but that is unverified.
-
-### Step 8.4: Risk-Benefit
+### Step 5.4: Reachability
 **Record:**
-- **Benefit:** MEDIUM — restores broken API contract; enables proper
-  failure detection in 3 of 4 call sites (shmem in prepare, compress
-  offload, LPASS DAI)
-- **Risk:** VERY LOW — 10-line change, only affects already-failing
-  paths
-- **Ratio:** Favorable — trivial fix for long-standing bug in actively
-  maintained subsystem with direct stable precedent
+- **Boot:** `pinconf_set` path reachable on RZ/V2M boot with unsupported
+  DT pinconf properties (both errnos fail equally today via
+  `pinconf_apply_setting`)
+- **GPIO hog boot failure:** **Not currently reachable** —
+  `rzv2m_gpio_register()` does not set `chip->set_config`;
+  `gpio_do_set_config()` returns `-ENOTSUPP` when `set_config` is NULL
+- **Debugfs:** `pinconf_group_get` path **is reachable** on RZ/V2M when
+  dumping pinconf; wrong errno causes spurious error strings
+- **RZ/V2M EVK** (`r9a09g011-v2mevk2.dts`): no `gpio-hog` nodes found
+
+### Step 5.5: Similar patterns
+**Record:** `rzv2m_pinctrl_pinconf_get()` already uses `-ENOTSUPP` (line
+548). `rzg2l` fix already backported in this tree. Kernel-wide
+convention: pinctrl drivers return `-ENOTSUPP` for unsupported configs.
+
+---
+
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.44)
+
+### Step 6.1: Buggy code exists?
+**Record:** **Yes.** Lines 664 and 713 in `pinctrl-rzv2m.c` still return
+`-EOPNOTSUPP`. Driver present since v6.x (2022).
+
+### Step 6.2: Backport complications
+**Record:** **Clean apply** — verified with `git show 01f94d53947df |
+git apply --check`.
+
+### Step 6.3: Related fixes already present?
+**Record:** `rzg2l` errno fix (`6876f767b0490`) is in this tree; `rzv2m`
+fix is **not** yet applied.
+
+---
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+### Step 7.1: Subsystem / criticality
+**Record:** `drivers/pinctrl/renesas` — **PERIPHERAL** (RZ/V2M /
+`ARCH_R9A09G011` platform-specific), but uses generic pinconf
+infrastructure shared with GPIO core.
+
+### Step 7.2: Activity
+**Record:** Active — recent rzv2m fixes in this tree (NULL deref,
+of_node_put, GPIO callback updates).
+
+---
+
+## PHASE 8: IMPACT AND RISK
+
+### Step 8.1: Who is affected
+**Record:** RZ/V2M (`CONFIG_PINCTRL_RZV2M`) users — embedded/industrial
+platforms. Not universal.
+
+### Step 8.2: Trigger conditions
+**Record:**
+- **Current:** Debugfs pinconf dump with heterogeneous pin groups; API
+  misuse if unsupported pinconf applied via DT
+- **Future:** `set_config` + GPIO hogs with optional bias/config flags
+- **Likelihood today:** Low for boot (no `set_config`, no gpio-hogs on
+  rzv2m boards); moderate for debugfs correctness
+
+### Step 8.3: Failure mode severity
+**Record:**
+- Boot failure (future `set_config` path): **CRITICAL** if triggered
+- Debugfs spurious errors today: **LOW**
+- API contract violation: correctness issue, not crash by itself
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** Medium — aligns with already-backported `rzg2l` fix,
+  fixes debugfs behavior, prevents future boot regression, correct per
+  `pinconf.h`
+- **Risk:** Very low — 2 errno changes on error paths only
+- **Ratio:** Favorable
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real, verified bug: error codes swallowed since 2021
-- Callers written to handle errors but cannot detect failures today
-- Trivial, obviously correct fix; applies cleanly to 6.18.44
-- Same subsystem/author as recent stable backports (`90983f841dfa9`,
-  `ca028334343a1`)
-- Direct precedent: `ba6474f19fd1b` (error propagation in qdsp6)
-  backported to stable
-- Prevents continuing DSP graph setup after failed format programming
-- Maintainer-reviewed (Mark Brown)
+- Identical `rzg2l` fix already accepted into **this** 6.18.44 tree
+- Documented API contract (`pinconf.h` requires `-ENOTSUPP`)
+- Internal driver inconsistency (`pinconf_get` already uses `-ENOTSUPP`)
+- Real debugfs impact via `pinconf_generic_dump_one()`
+- Preventive boot-failure fix when `set_config` is added
+- 2-line change, applies cleanly, maintainer-reviewed
+- Bug present since driver introduction (2022)
 
 **AGAINST backport:**
-- No user reports, syzbot, or CVE
-- Failure mode is functional (broken audio), not demonstrated
-  crash/corruption/deadlock
-- Platform-specific peripheral driver
-- One caller (`q6apm_dai_prepare` pcm path) still doesn't abort on pcm
-  format failure — fix is partially undermined there (pre-existing
-  separate issue)
-- Part of larger feature series on master (though patch itself is
-  standalone)
+- No current boot failure (no `set_config`, no gpio-hogs on rzv2m
+  boards)
+- Platform-specific, limited user base
+- No user bug report or syzbot finding
+- “Important issue” threshold is borderline for *current* runtime impact
 
-**UNRESOLVED:**
-- Lore review thread content (Anubis blocked)
-- Whether DSP firmware can crash from incomplete configuration
+**Unresolved:** None material to the decision.
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — trivial error propagation;
-   maintainer merged, no Tested-by
-2. Fixes real bug affecting users? **PASS** — broken error reporting on
-   Qualcomm audio platforms
-3. Important issue? **PASS (borderline)** — not crash/security, but
-   prevents silent continuation with failed DSP setup; same class as
-   prior stable backport `ba6474f19fd1b`
-4. Small and contained? **PASS** — 1 file, ~10 lines
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — errno swap matches API docs
+   and `rzg2l` precedent; Reviewed-by maintainer (no Tested-by)
+2. Fixes a real bug? **PASS** — API contract violation with verified
+   debugfs impact; boot failure class documented
+3. Important issue? **PASS (borderline)** — not crashing today, but same
+   class of fix already deemed stable-worthy for `rzg2l` in this tree;
+   future boot failure is serious
+4. Small and contained? **PASS** — 2 lines, 1 file
 5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — verified clean apply; buggy code
-   present
+6. Can apply to local tree? **PASS** — clean apply verified
 
-### Step 9.3: Exception Categories
-**Record:** N/A — not device ID, quirk, DT, build, or docs fix. Standard
-error-handling bug fix.
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs-only).
 
-### Step 9.4: Decision Rationale
+### Step 9.4: Decision rationale
 
-This commit fixes a long-standing error-swallowing bug in Qualcomm QDSP6
-audio graph setup. While the failure mode is primarily functional rather
-than a kernel crash, the fix is trivially correct, applies cleanly to
-6.18.44, restores a broken API contract that callers already depend on,
-and matches a directly analogous fix (`ba6474f19fd1b`) already
-backported to this stable tree. The risk is negligible and the subsystem
-is actively receiving similar stable fixes from the same maintainer
-chain.
+The strongest argument is **consistency within this stable tree**:
+maintainers already backported the identical `rzg2l` errno fix
+(`6876f767b0490`) to 6.18.44. The `rzv2m` driver has the same bug
+pattern, the same author/reviewer, and the same API-contract violation.
+While current boot impact is limited (no `gpio_chip::set_config`, no
+gpio-hogs on RZ/V2M boards), the `pinconf_group_get` path already
+produces incorrect debugfs behavior, and the fix is trivial with
+negligible regression risk.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message and tags from `git show
-  3075ae5abbc37`
-- **[Phase 1]** Confirmed no Reported-by, Fixes:, or Cc: stable tags
-- **[Phase 2]** Read diff: 1 file, 2 functions, error propagation only
-- **[Phase 2]** Read `audioreach_set_media_format()` at
-  `audioreach.c:1281-1335` — returns `rc` from DSP IPC
-- **[Phase 2]** Read `audioreach_pcm_set_media_format()` at
-  `audioreach.c:1213-1217` — returns `audioreach_graph_send_cmd_sync()`
-  result
-- **[Phase 3]** `git describe HEAD` → v6.18.44
-- **[Phase 3]** `git blame` → buggy code from `25ab80db6b133c`
-  (2021-10-26)
-- **[Phase 3]** `git log --oneline -20 -- sound/soc/qcom/qdsp6/q6apm.c`
-  — subsystem history
-- **[Phase 3]** `git apply --check` on `3075ae5abbc37` against HEAD —
-  clean apply
-- **[Phase 3]** `git log HEAD..master -- q6apm.c` — fix on master, not
-  in stable
-- **[Phase 4]** `b4 dig -c 3075ae5abbc37` — found lore URL, v1/v2 series
-- **[Phase 4]** `b4 dig -c 3075ae5abbc37 -w` — Mark Brown, linux-sound@
-  CC'd
-- **[Phase 4]** WebFetch lore URL — blocked by Anubis (UNVERIFIED review
-  discussion)
-- **[Phase 5]** `grep q6apm_graph_media_format` — 4 call sites in q6apm-
-  dai.c and q6apm-lpass-dais.c
-- **[Phase 5]** Read caller error handling in q6apm-dai.c:246-254,
-  683-689 and q6apm-lpass-dais.c:195-199
-- **[Phase 6]** Confirmed buggy code at q6apm.c:206-208 and 385-390 in
-  current tree
-- **[Phase 6]** Confirmed fix not present: `git log --grep="return error
-  code" HEAD` empty
-- **[Phase 7]** Kconfig confirms `CONFIG_SND_SOC_QDSP6` platform-
-  specific driver
-- **[Phase 8]** Precedent: `git show ba6474f19fd1b` — similar error
-  propagation backported to stable
-- **[Phase 8]** Precedent: `git show 90983f841dfa9` — q6asm-dai error
-  handling backported to 6.18.y
-- **UNVERIFIED:** DSP firmware crash from incomplete configuration
-- **UNVERIFIED:** Lore review thread stable nominations
+- **[Phase 1]** Parsed commit message and tags from user query + `git
+  show 01f94d53947df`
+- **[Phase 2]** Diff analysis: 2 errno changes in `pinctrl-rzv2m.c`;
+  read surrounding code at lines 530–744
+- **[Phase 3]** `git describe HEAD` → v6.18.44; `git blame` → buggy
+  lines from `92a9b82525761` (2022)
+- **[Phase 3]** `git log -- drivers/pinctrl/renesas/pinctrl-rzv2m.c` —
+  driver history reviewed
+- **[Phase 3]** Found `6876f767b0490` (rzg2l sibling fix) already in
+  HEAD
+- **[Phase 3]** `ec642ab9b76f8` NOT in HEAD — separate type fix, not a
+  prerequisite
+- **[Phase 4]** `b4 dig -c 01f94d53947df` → lore URL; `b4 dig -a` → v1
+  only; `b4 dig -w` → maintainers CC'd
+- **[Phase 4]** `b4 dig -m /tmp/rzv2m_enotsupp.mbox` — Geert Reviewed-
+  by, no NAKs
+- **[Phase 5]** Read `gpio_set_config_with_argument_optional()` in
+  `gpiolib.c:2694–2714` — only `-ENOTSUPP` treated as success
+- **[Phase 5]** Read `pinconf_generic_dump_one()` in `pinconf-
+  generic.c:59–84` — `-ENOTSUPP`/`-EINVAL` skipped
+- **[Phase 5]** Read `pinconf.h:24–29` — API documents `-ENOTSUPP`
+- **[Phase 5]** Verified `rzv2m` has no `chip->set_config` in
+  `rzv2m_gpio_register()` (lines 953–960)
+- **[Phase 5]** Grep: no gpio-hogs in `r9a09g011-v2mevk2.dts`
+- **[Phase 6]** Grep confirms `-EOPNOTSUPP` still at lines 664, 713 in
+  HEAD
+- **[Phase 6]** `git show 01f94d53947df | git apply --check` → applies
+  cleanly
+- **[Phase 6]** `master` has fix at lines 664, 714; HEAD does not
 
-**YES**
+**YES**The background git searches finished successfully and match what
+the analysis already used:
 
- sound/soc/qcom/qdsp6/q6apm.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+- The **rzv2m** fix is upstream commit `01f94d53947df` on `master`; it
+  is **not** in this **6.18.44** tree yet (lines 664 and 713 still
+  return `-EOPNOTSUPP`).
+- The sibling **rzg2l** fix (`6876f767b0490`) **is** already backported
+  here.
 
-diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
-index 6326649ba31b4..73c5dc0e5cc55 100644
---- a/sound/soc/qcom/qdsp6/q6apm.c
-+++ b/sound/soc/qcom/qdsp6/q6apm.c
-@@ -203,10 +203,7 @@ int q6apm_graph_media_format_shmem(struct q6apm_graph *graph,
- 	if (!module)
- 		return -ENODEV;
- 
--	audioreach_set_media_format(graph, module, cfg);
--
--	return 0;
--
-+	return audioreach_set_media_format(graph, module, cfg);
- }
- EXPORT_SYMBOL_GPL(q6apm_graph_media_format_shmem);
- 
-@@ -374,6 +371,7 @@ int q6apm_graph_media_format_pcm(struct q6apm_graph *graph, struct audioreach_mo
- 	struct audioreach_sub_graph *sgs;
- 	struct audioreach_container *container;
- 	struct audioreach_module *module;
-+	int ret;
- 
- 	list_for_each_entry(sgs, &info->sg_list, node) {
- 		list_for_each_entry(container, &sgs->container_list, node) {
-@@ -382,7 +380,9 @@ int q6apm_graph_media_format_pcm(struct q6apm_graph *graph, struct audioreach_mo
- 					(module->module_id == MODULE_ID_RD_SHARED_MEM_EP))
- 					continue;
- 
--				audioreach_set_media_format(graph, module, cfg);
-+				ret = audioreach_set_media_format(graph, module, cfg);
-+				if (ret)
-+					return ret;
- 			}
+**Verdict for 6.18.44: YES** — same 2-line errno correction, applies
+cleanly, and consistent with the rzg2l backport already in this tree.
+
+ drivers/pinctrl/renesas/pinctrl-rzv2m.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/pinctrl/renesas/pinctrl-rzv2m.c b/drivers/pinctrl/renesas/pinctrl-rzv2m.c
+index dce68f93d2d57..e08f24d5a89f5 100644
+--- a/drivers/pinctrl/renesas/pinctrl-rzv2m.c
++++ b/drivers/pinctrl/renesas/pinctrl-rzv2m.c
+@@ -661,7 +661,7 @@ static int rzv2m_pinctrl_pinconf_set(struct pinctrl_dev *pctldev,
  		}
+ 
+ 		default:
+-			return -EOPNOTSUPP;
++			return -ENOTSUPP;
+ 		}
+ 	}
+ 
+@@ -710,7 +710,7 @@ static int rzv2m_pinctrl_pinconf_group_get(struct pinctrl_dev *pctldev,
+ 
+ 		/* Check config matches previous pins */
+ 		if (i && prev_config != *config)
+-			return -EOPNOTSUPP;
++			return -ENOTSUPP;
+ 
+ 		prev_config = *config;
  	}
 -- 
 2.53.0
