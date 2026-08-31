@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBBF4A8415;
-	Mon, 31 Aug 2026 13:45:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E709134B1B0;
+	Mon, 31 Aug 2026 13:45:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183925; cv=none; b=cW/tl0zblfDhFRloqBjYMfFFEWy4rPnNejwaVP2ojPAxhMDat68r2mdnvz1uZD/6k0WHdtONy8OhIeYR6RLVvz+Z1GtoZ+B+b6UwGW/oDlV3cxRT0aH9wkA1C5EoI3zIV0emOg4kSLELtvo4+IIWplI8s2Lxql31Y23+w5BoIT4=
+	t=1788183927; cv=none; b=cVeGF10HsRSBVrtIqRwAYlj3Db7/ON7ZkZ5CbqDXIdyFW1/trzWdPj6tRD0imzdncKrPBmA6ixQIZRERKF5lSpFrF2DyzwE0mp8ZRynKOasIFuRpcpP15Id8VHEQFyGXKyfBk8Gn823XN3D8PfGDvVnLF9Sg8jeweTroaKEylDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183925; c=relaxed/simple;
-	bh=OIg7l13nxuhdLn1XpDZ8UMkOMxzCvSHj/QYjizJdQ90=;
+	s=arc-20240116; t=1788183927; c=relaxed/simple;
+	bh=jrIrwbXPTwlPI40je3VOQZKw4Ba8CpQ8GyXpajIE+rw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lp7XftSeALIbyWkm27cfpmbxJR+tz0I3GTwrMaPsWmUcTuZMhENwZDzMpwQPEN7DWwVhnCc3/B5I8VJA7XK2OVvM2aNCPHoyWn1+6LzyY0lBrz3lY2iUXUXQ8PoRqDWELskjkovHB7qGQzz3+1TTN79wK8Ot9+q51+Euh7wATqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J8yogWWh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=K+RfUYlg6mxhrulmehB/SnpD9EFhoms0IVFD+btV4yKPjfYtS+a90cMWHIkcoiXyfqKp1CqXY7eJxMN+xAXw5w31I6u9nzt5WyOjkYMPUPJs4KN0HBUriT1OFOZta5pHAN7qHfYNgI17+enfDFCcOwf2v539yZM2xOcJ61zBo5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k04gsmgt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J8yogWWh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0F011F00ACA;
-	Mon, 31 Aug 2026 13:45:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k04gsmgt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 682A91F00ACF;
+	Mon, 31 Aug 2026 13:45:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183922;
-	bh=vfRLqjE0w724fjjraUPwJXa+ty8mIFanlDPtt44qbrs=;
+	s=k20260515; t=1788183924;
+	bh=5cc6U4hyTJQJPorZBOnPIJdHuDXg9jM0n2s7KKcMI3U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J8yogWWhJJIDD6ntjM7BAK0893jhdI1Q4N6GNCkcG/zJ7qLu8Bg82DmzcbkCqDTw3
-	 ybbAm7v9q8oJetTycPjS5IUAz80VR6sfM4b4wfXe8PzoeV6DsyTRKjvaiMs1Z3w/3L
-	 A0ubvm/7wE1WPZbH5F++qQD+s7gKRxjYuaGrtLNZY4BdDaBmGIVdOQeAXfzg5Vruy3
-	 B5XGoEWqBG3AwTUaGpd9mPlkNhy35yuDxqNApZ6oU3Nty/sPZ4F4DR/HeX40wZcBhK
-	 Kh/Jsp0nzXNU4q3Pbee8Yt4K44/Bw2gWCG42M6N6zdZe74ZMvb0rvkAnJwwJQyencg
-	 vMVvvH3nJ8Q0A==
+	b=k04gsmgteoPMqP6WZFhDXEcNBv2WzkVoCPLOEDyMaWPQ1qM9AUFp9+3kZliWNWkGi
+	 +ckXTVnESsQQrrBNKByPTqiCde7/zmQD+vaHPp4pmkLMbmZBwiIHaYQHNFMQpBc5mn
+	 Q5ZzNBZZ4LqaJ1TBbLj91fGcOT+usDRRzydRIkkBPazZYgr7NYAUdGG87SaTHB0tT/
+	 rnKkN/hytbMG0mCfAhHww8qcrQqL3M4C/yu2lr/2zkdvlHP/YTHiu364qX5BepDVYi
+	 kbMkLvtzidWB+1fBgScth4PWqoMUTUn42s5pudwWC4Ohw7yAZzAoa6Nu7GsoLWeSt6
+	 CrgIbPGOjLncQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: ikaros <void0red@gmail.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+Cc: Douglas Anderson <dianders@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
 	Sasha Levin <sashal@kernel.org>,
-	rafael@kernel.org,
-	maciej.wieczor-retman@intel.com,
-	pawel.chmielewski@intel.com,
-	linux-acpi@vger.kernel.org,
-	acpica-devel@lists.linux.dev,
+	driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] ACPICA: Fix use-after-free in acpi_ds_terminate_control_method()
-Date: Mon, 31 Aug 2026 09:26:51 -0400
-Message-ID: <20260831133314.4125787-383-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] driver core: Replace dev->can_match with dev_can_match()
+Date: Mon, 31 Aug 2026 09:26:52 -0400
+Message-ID: <20260831133314.4125787-384-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -56,443 +56,492 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: ikaros <void0red@gmail.com>
+From: Douglas Anderson <dianders@chromium.org>
 
-[ Upstream commit 945e87267cfd90937b3c637f87324cbb56998b72 ]
+[ Upstream commit f2648bb3150a71241a2254aa4ac10680d7f9fb16 ]
 
-Fix use-after-free issue in acpi_ds_terminate_control_method() by
-clearing references to method locals and arguments.
+In C, bitfields are not necessarily safe to modify from multiple
+threads without locking. Switch "can_match" over to the "flags" field
+so modifications are safe.
 
-Link: https://github.com/acpica/acpica/commit/36f22a94cb1b
-Signed-off-by: ikaros <void0red@gmail.com>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Link: https://patch.msgid.link/8730924.NyiUUSuA9g@rafael.j.wysocki
+Cc: Saravana Kannan <saravanak@kernel.org>
+Reviewed-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+Reviewed-by: Danilo Krummrich <dakr@kernel.org>
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Link: https://patch.msgid.link/20260406162231.v5.2.I54b3ae6311ff34ad30227659d91bb109911a4aea@changeid
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: ACPICA UAF in
-`acpi_ds_terminate_control_method()`
+# Stable Backport Analysis: `driver core: Replace dev->can_match with
+dev_can_match()`
 
-**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`,
-`make kernelversion` → `6.18.44`)
+**Local tree:** `v6.18.43` (Makefile: 6.18.43)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: PARSE THE SUBJECT LINE
-**Record:** `[ACPICA] [fix] use-after-free in
-acpi_ds_terminate_control_method() when clearing references to method
-locals/arguments`
+**Step 1.1 — Subject line**
+Record: `[driver core]` `[Replace]` — move `can_match` from a struct
+bitfield to atomic flag accessors (`dev_can_match()` /
+`dev_set_can_match()`).
 
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-**Record:**
-- **Link:** https://github.com/acpica/acpica/commit/36f22a94cb1b
-  (upstream ACPICA commit)
-- **Link:** https://patch.msgid.link/8730924.NyiUUSuA9g@rafael.j.wysocki
-  (kernel submission; could not fetch)
-- **Signed-off-by:** ikaros \<void0red@gmail.com\> (author)
-- **Signed-off-by:** Rafael J. Wysocki \<rafael.j.wysocki@intel.com\>
-  (ACPI maintainer)
-- **Fixes:** #1119 (ACPICA GitHub issue, in upstream commit message)
-- No Reported-by, Tested-by, Reviewed-by, Acked-by, or Cc: stable in the
-  provided message
-- Notable: Maintainer sign-off; upstream issue with ASAN reproduction
+**Step 1.2 — Tags**
+Record:
+- `Cc: Saravana Kannan <saravanak@kernel.org>`
+- `Reviewed-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>`
+- `Reviewed-by: Danilo Krummrich <dakr@kernel.org>`
+- `Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>`
+- `Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>`
+- `Signed-off-by: Douglas Anderson <dianders@chromium.org>`
+- `Link: https://patch.msgid.link/20260406162231.v5.2.I54b3ae6311ff34ad3
+  0227659d91bb109911a4aea@changeid`
+- `Signed-off-by: Danilo Krummrich <dakr@kernel.org>`
+- No `Fixes:`, no `Reported-by:`, no `Cc: stable@vger.kernel.org`
+- Notable: subsystem maintainer (Greg K-H) and PM/driver-core reviewers
+  acked/reviewed
 
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
-**Record:**
-- **Bug:** If `walk_state->return_desc` is a `RefOf` reference pointing
-  at a method local or argument namespace node (embedded in
-  `walk_state`), terminating the method deletes locals/args and later
-  frees `walk_state`, leaving a dangling pointer in `return_desc`.
-- **Symptom:** Heap use-after-free when `acpi_ns_resolve_references()`
-  dereferences `node->object` during `acpi_evaluate_object()`.
-- **Root cause:** `acpi_ds_method_data_delete_all()` and
-  `acpi_ds_delete_walk_state()` invalidate nodes still referenced by
-  `return_desc`.
-- **Fix approach:** Before deleting locals/args, detect
-  `ACPI_REFCLASS_REFOF` references to `walk_state->local_variables[]` or
-  `walk_state->arguments[]`, drop the reference, and NULL `return_desc`.
+**Step 1.3 — Body**
+Record:
+- **Bug:** In C, bitfields are not safe to modify from multiple threads
+  without locking.
+- **Symptom:** Not spelled out; this is a concurrency-correctness fix,
+  not a crash report.
+- **Root cause:** `can_match` was stored as a `bool` bitfield in `struct
+  device` while being read/written from concurrent probe paths.
+- **Fix:** Move `can_match` into the existing `flags` bitmap (same
+  pattern as `DEV_FLAG_READY_TO_PROBE`) and use `dev_can_match()` /
+  `dev_set_can_match()` atomic accessors.
 
-### Step 1.4: DETECT HIDDEN BUG FIXES
-**Record:** Not disguised — explicitly labeled as a use-after-free fix.
-The mechanism is a classic dangling-pointer bug in interpreter teardown,
-not cosmetic cleanup.
+**Step 1.4 — Hidden bug fix?**
+Record: **Yes.** Despite the neutral “Replace” wording, this fixes a
+real data-race / undefined-behavior problem. The parent commit
+`3e8fefd2997c8` explicitly avoided bitfields for `ready_to_probe` for
+this exact reason, but left `can_match` as a bitfield — this patch
+completes that design.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: INVENTORY THE CHANGES
-**Record:**
-- **Files:** `drivers/acpi/acpica/dsmethod.c` (+43 lines, 0 removed)
-- **Function modified:** `acpi_ds_terminate_control_method()`
-- **Scope:** Single-file, surgical fix in ACPI interpreter dispatch path
+**Step 2.1 — Inventory**
+Record:
+- `include/linux/device.h`: +5 doc, +1 enum, −1 bitfield, +1 accessor
+  macro (~15 net lines)
+- `drivers/base/core.c`: 6 sites, `dev->can_match` → `dev_can_match()` /
+  `dev_set_can_match()`
+- `drivers/base/dd.c`: 4 sites, same replacement
+- **Functions touched:** `dev_is_best_effort`,
+  `device_links_check_suppliers`, `device_links_driver_bound`,
+  `fw_devlink_no_driver`, `device_add`, `driver_deferred_probe_add`,
+  `__driver_probe_device`, `__device_attach_driver`, `__driver_attach`
+- **Scope:** Single-subsystem, surgical mechanical refactor (~40 lines
+  changed)
 
-### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-**Record:**
-- **Hunk (before):** On method termination, immediately calls
-  `acpi_ds_method_data_delete_all(walk_state)` while
-  `walk_state->return_desc` may still hold a `RefOf` pointer into
-  `walk_state->local_variables[]` or `walk_state->arguments[]`.
-- **Hunk (after):** Before `acpi_ds_method_data_delete_all()`, if
-  `return_desc` is `ACPI_TYPE_LOCAL_REFERENCE` / `ACPI_REFCLASS_REFOF`
-  and `reference.object` matches a local or argument node in this
-  `walk_state`, call `acpi_ut_remove_reference()` and set `return_desc =
-  NULL`.
-- **Execution path:** Method termination during AML parse/execute
-  (normal and error paths), always under interpreter lock.
+**Step 2.2 — Code flow (per hunk)**
+Record:
+- **Before:** Direct read/write of `dev->can_match` bitfield (non-atomic
+  RMW on shared storage).
+- **After:** `test_bit` / `set_bit` on `dev->flags[DEV_FLAG_CAN_MATCH]`
+  via inline accessors.
+- **Paths affected:** Device probe attach, deferred probe, fw_devlink
+  supplier checks, `device_add()` tail.
 
-### Step 2.3: IDENTIFY THE BUG MECHANISM
-**Record:**
-- **Category:** Memory safety — use-after-free (dangling pointer)
-- **Mechanism:** `local_variables[]` and `arguments[]` are embedded in
-  `struct acpi_walk_state` (`acstruct.h:66-67`). A `RefOf(LocalX)`
-  return value stores a pointer to those nodes. After method termination
-  frees `walk_state`, `acpi_ns_resolve_references()` at
-  `nsxfeval.c:496-501` reads `node->object` from freed memory.
+**Step 2.3 — Bug mechanism**
+Record: **Synchronization / data-race fix.** Category (b): concurrent
+unsynchronized bitfield access. Adjacent bitfields in `struct device`
+(`state_synced`, `offline`, `of_node_reused`, DMA flags) can be
+corrupted by non-atomic RMW on `can_match`.
 
-### Step 2.4: ASSESS THE FIX QUALITY
-**Record:**
-- Fix is minimal, localized, and logically correct for the identified
-  failure mode.
-- Regression risk is low: only affects the teardown path when
-  `return_desc` references ephemeral local/arg nodes.
-- Trade-off: dropping the reference yields no return value instead of a
-  crash — acceptable vs. UAF, and explicit `Return(RefOf(Local))` paths
-  are supposed to resolve references earlier in `dscontrol.c`.
-- No API changes, no new features.
+**Step 2.4 — Fix quality**
+Record: Obviously correct — mirrors the already-merged `ready_to_probe`
+pattern. Minimal risk; no API surface change for drivers (accessors are
+static inline in `device.h`). Regression risk: very low.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: BLAME THE CHANGED LINES
-**Record:** Buggy teardown sequence dates to **2005-2006**
-(`b229cf92eee616` / `^1da177e4c3f41` on
-`acpi_ds_method_data_delete_all()` call). Long-present bug, not a recent
-regression.
+**Step 3.1 — Blame**
+Record: `can_match` bitfield introduced in `3e8fefd2997c8` (“driver
+core: Don't let a device probe until it's ready”), merged via
+`5d324e5159d9e`, present since at least `v6.18.27` in this tree. Blame
+on `include/linux/device.h:699` and `drivers/base/dd.c:868` points to
+that introduction.
 
-### Step 3.2: FOLLOW THE FIXES: TAG
-**Record:** No `Fixes:` tag in the kernel commit message. Upstream
-ACPICA commit references `Fixes: #1119`.
+**Step 3.2 — Fixes: tag**
+Record: N/A — no `Fixes:` tag. The logical bug-introducer is
+`3e8fefd2997c8`, which **is** in this tree (`git merge-base --is-
+ancestor` confirmed).
 
-### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-**Record:** Related prior UAF fix in this tree: `6fcab27915439`
-("ACPICA: Refuse to evaluate a method if arguments are missing") —
-different bug, same subsystem, also UAF from AML evaluation. Another:
-`470188b09e92d` (package copy UAF). This specific
-`terminate_control_method` fix is **not** present in 6.18.44.
+**Step 3.3 — Related file history**
+Record: Recent driver-core commits in this tree (`0830287cc6cb7`,
+`3880ee7c88d78`, etc.) do not touch `can_match`. No duplicate fix found.
+This commit is **not** yet in the tree (`dev_can_match` grep returns
+nothing).
 
-### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-**Record:** Author ikaros reported ACPICA issue #1119. Rafael J. Wysocki
-is ACPI maintainer and regularly syncs ACPICA fixes (e.g.,
-`6fcab27915439`, `e2c80b3c23782`).
+**Step 3.4 — Author context**
+Record: Douglas Anderson authored `3e8fefd2997c8` and `fa9a4c5e69aaa`
+(similar fwnode flags thread-safety fix). Driver-core maintainer chain
+reviewed both.
 
-### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-**Record:** Standalone fix. No series dependencies. Applies to existing
-`acpi_ds_terminate_control_method()` with only path adjustment
-(`source/components/dispatcher/dsmethod.c` →
-`drivers/acpi/acpica/dsmethod.c`).
+**Step 3.5 — Dependencies**
+Record: Requires `3e8fefd2997c8` (adds `can_match`, `flags` bitmap,
+`__create_dev_flag_accessors`). That prerequisite **exists** in
+v6.18.43. Patch is standalone; no series dependency beyond that.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-**Record:** `b4 dig -c 36f22a94cb1b` failed — commit is upstream ACPICA
-only, not in this kernel tree. `lore.kernel.org` returned 403.
-`patch.msgid.link` blocked by bot protection. Upstream GitHub issue
-#1119 provides full reproduction and ASAN stack trace.
+**Step 4.1 — Original discussion**
+Record: `b4 dig -c <hash>` could not run — commit not in local tree.
+Link fetch to patch.msgid.link and lore.kernel.org returned 403/bot-
+block. **UNVERIFIED:** full review thread content.
 
-### Step 4.2: CHECK WHO REVIEWED THE PATCH
-**Record:** Could not verify via b4/lore. Upstream issue closed by Saket
-Dumbre (ACPICA maintainer). Kernel commit signed by Rafael J. Wysocki.
+**Step 4.2 — Reviewers**
+Record: From commit message — Greg K-H (driver core maintainer), Rafael
+Wysocki (PM/driver core), Danilo Krummrich (reviewer/committer), Marek
+Szyprowski (Acked-by).
 
-### Step 4.3: SEARCH FOR THE BUG REPORT
-**Record:** [ACPICA issue
-#1119](https://github.com/acpica/acpica/issues/1119) — "Use-After-Free
-in AcpiNsResolveReferences"
-- **Reproducer:** `./acpiexec -m issue7.aml`
-- **ASAN:** heap-use-after-free READ at `AcpiNsResolveReferences`
-  (nsxfeval.c:692 upstream)
-- **Free site:** `AcpiDsDeleteWalkState` during `AcpiPsParseAml`
-- **Alloc site:** `AcpiDsCreateWalkState`
-- Severity: reproducible memory corruption in ACPI method evaluation
+**Step 4.3 — Bug report**
+Record: N/A — no external bug report linked.
 
-### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-**Record:** Single-commit fix in upstream ACPICA. No multi-patch series.
+**Step 4.4 — Series context**
+Record: Link msgid contains `v5.2`, suggesting patch 2 of v5 of the
+“ready to probe” series. This is a follow-up to `3e8fefd2997c8`, which
+was `Cc: stable@vger.kernel.org`.
 
-### Step 4.5: CHECK STABLE MAILING LIST HISTORY
-**Record:** Could not access lore (403). No stable-list discussion found
-via available tools.
+**Step 4.5 — Stable list**
+Record: **UNVERIFIED** — could not search lore stable archive (403).
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-**Record:** `acpi_ds_terminate_control_method()` — only function
-modified.
+**Step 5.1 — Key functions**
+Record: `dev_can_match`, `dev_set_can_match`, `dev_is_best_effort`,
+`device_links_check_suppliers`, `device_links_driver_bound`,
+`fw_devlink_no_driver`, `device_add`, `driver_deferred_probe_add`,
+`__driver_probe_device`, `__device_attach_driver`, `__driver_attach`.
 
-### Step 5.2: TRACE CALLERS
-**Record:** Called from:
-- `psxface.c:168` — internal method execution cleanup
-- `psparse.c:434` — error path during thread creation
-- `psparse.c:568` — normal method completion / error during parse
-- `dsmethod.c:594` — nested method handling
+**Step 5.2 — Callers / concurrency**
+Record:
+- **Writes** to `can_match`: `__driver_probe_device` (device lock held
+  per `driver_probe_device` comment), `__device_attach_driver` (device
+  lock held in `__device_attach`), **`__driver_attach` (NO device_lock
+  when setting `can_match` at line 1258)**.
+- **Reads**: `device_add()` at line 3778 **without** device lock;
+  `driver_deferred_probe_add()` without device lock;
+  `dev_is_best_effort()` during device-link walks under
+  `device_links_write_lock`; `fw_devlink_no_driver()` under
+  `device_links_write_lock`.
+- Concurrent probe from module load (`driver_register` → `driver_attach`
+  → `__driver_attach`) vs. `device_add()` is the documented race class
+  from `3e8fefd2997c8`.
 
-All paths run during ACPI control method evaluation — core interpreter
-hot path.
+**Step 5.3 — Callees**
+Record: After fix, uses `test_bit`/`set_bit` on `dev->flags` — same as
+`dev_ready_to_probe()`.
 
-### Step 5.3: TRACE CALLEES
-**Record:** Fix adds `acpi_ut_remove_reference()`; existing path calls
-`acpi_ds_method_data_delete_all()`, namespace cleanup, mutex release,
-thread count management.
+**Step 5.4 — Reachability**
+Record: Reachable from `finit_module`/`modprobe`, `device_add()`,
+deferred probe workqueue — common boot and hotplug paths. **Userspace-
+reachable** via module loading.
 
-### Step 5.4: FOLLOW THE CALL CHAIN
-**Record:**
-`acpi_evaluate_object()` → `acpi_ns_evaluate()` →
-`acpi_ps_execute_method()` → `acpi_ps_parse_aml()` →
-`acpi_ds_terminate_control_method()` → (later)
-`acpi_ns_resolve_references()` on the return object.
-
-Reachable whenever kernel code evaluates ACPI methods returning `RefOf`
-references to locals/args without prior resolution — including firmware
-AML during boot, suspend/resume, thermal, battery, and device
-enumeration.
-
-### Step 5.5: SEARCH FOR SIMILAR PATTERNS
-**Record:** `dscontrol.c:236-254` and `dscontrol.c:264-286` already
-resolve references on explicit `Return()`, but
-`acpi_ds_restart_control_method()` (`dsmethod.c:658`) can propagate
-unresolved `return_desc` from nested calls. The terminate-time guard
-closes the gap.
+**Step 5.5 — Similar patterns**
+Record: `ready_to_probe` already uses atomic `flags`; `fa9a4c5e69aaa`
+made fwnode flags thread-safe. `can_match` as bitfield is the
+inconsistent outlier.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (v6.18.43)
 
-### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-**Record:** **YES.** `drivers/acpi/acpica/dsmethod.c:717-721` goes
-directly to `acpi_ds_method_data_delete_all()` with no `return_desc`
-guard. `local_variables[]` / `arguments[]` embedded in `walk_state` per
-`acstruct.h:66-67`. `acpi_ns_resolve_references()` at
-`nsxfeval.c:496-501` performs the dangling dereference. Fix is **not**
-present (grep found no matching comment/pattern).
+**Step 6.1 — Buggy code present?**
+Record: **Yes.** `bool can_match:1` at `include/linux/device.h:699`;
+direct `dev->can_match` access in `drivers/base/core.c` and
+`drivers/base/dd.c`. Introduced in `3e8fefd2997c8`, ancestor of HEAD.
 
-### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-**Record:** Expected **clean apply** with path adjustment only.
-Insertion point at line 717 matches upstream hunk context exactly.
-Upstream raw patch failed only due to path mismatch
-(`source/components/dispatcher/` vs `drivers/acpi/acpica/`).
+**Step 6.2 — Backport complications**
+Record: **Clean apply expected.** `DECLARE_BITMAP(flags,
+DEV_FLAG_COUNT)` and `__create_dev_flag_accessors` macro already exist;
+only need to add `DEV_FLAG_CAN_MATCH` and swap usages. No conflicting
+local changes found.
 
-### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-**Record:** No equivalent fix for this specific UAF. Prior ACPICA UAF
-fixes (`6fcab27915439`, `470188b09e92d`) address different bugs.
+**Step 6.3 — Fix already present?**
+Record: **No.** `dev_can_match` / `DEV_FLAG_CAN_MATCH` absent from tree.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-**Record:** **ACPI / ACPICA interpreter** — **CORE**. Affects all ACPI-
-enabled systems (x86, ARM servers/laptops, etc.).
+**Step 7.1 — Subsystem / criticality**
+Record: **driver core** (`drivers/base/`) — **CORE** subsystem; affects
+all device probe/bind on all platforms using the driver model.
 
-### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-**Record:** Actively maintained; regular ACPICA syncs in 6.18.y (e.g.,
-`e2c80b3c23782`, `6fcab27915439`).
+**Step 7.2 — Activity**
+Record: Actively maintained; recent probe/deferred-probe fixes in this
+tree.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 8: IMPACT AND RISK
 
-### Step 8.1: DETERMINE WHO IS AFFECTED
-**Record:** All systems running ACPI firmware methods — universal on
-ACPI platforms. `acpi_evaluate_object` is used across battery, thermal,
-power, PCI, processor, and bus code (30+ files under `drivers/acpi/`).
+**Step 8.1 — Who is affected**
+Record: **Universal** for systems using driver core probe, especially
+with fw_devlink and parallel/async module loading (Android, others).
 
-### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-**Record:** ACPI method returns a `RefOf` reference to its own local or
-argument without the reference being fully resolved before method
-termination. Triggered by specific AML (reproduced with `issue7.aml`;
-potentially present in platform firmware). Not a direct unprivileged
-syscall path, but firmware-controlled AML runs with kernel privileges.
+**Step 8.2 — Trigger conditions**
+Record: Concurrent device probe during `device_add()`, driver
+registration, deferred probe, or async attach — timing-dependent but
+realistic (documented in `3e8fefd2997c8` on Android parallel module
+loading). Unprivileged users can trigger via `modprobe`/`finit_module`.
 
-### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-**Record:** **HIGH** — heap use-after-free during
-`acpi_evaluate_object()`. Can cause kernel oops/crash or memory
-corruption. Potential security relevance (UAF in privileged interpreter
-context).
+**Step 8.3 — Failure mode**
+Record: Undefined behavior from concurrent bitfield RMW — possible
+corruption of adjacent `struct device` bitfields (`state_synced`,
+`offline`, `of_node_reused`, DMA flags), leading to incorrect fw_devlink
+behavior, stuck deferred probe, or wrong best-effort probing.
+**Severity: HIGH** (subtle but serious driver-core state corruption;
+same class as the already-stable-nominated `3e8fefd` fix).
 
-### Step 8.4: CALCULATE RISK-BENEFIT RATIO
-**Record:**
-- **Benefit:** HIGH — prevents real UAF on common ACPI evaluation path
-- **Risk:** LOW — 43 lines, single function, teardown-only, maintainer-
-  reviewed pattern
-- **Ratio:** Strongly favors backport
+**Step 8.4 — Risk/benefit**
+Record:
+- **Benefit:** HIGH — eliminates UB in core probe path on a tree that
+  already carries the `can_match` feature.
+- **Risk:** LOW — mechanical, pattern-proven, maintainer-reviewed.
+- **Ratio:** Strong benefit, minimal risk.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: COMPILE THE EVIDENCE
+**Step 9.1 — Evidence**
 
-**FOR backport:**
-- Confirmed heap UAF with ASAN reproduction (ACPICA #1119)
-- Affects `acpi_evaluate_object()` — widely used kernel API
-- Buggy code present in 6.18.44 since ~2005
-- Small, surgical, obviously correct fix
-- ACPI maintainer sign-off
-- Precedent: similar ACPICA UAF fixes already in stable series
-  (`6fcab27915439`)
-- Failure mode is crash/memory corruption, not cosmetic
+| FOR | AGAINST |
+|-----|---------|
+| Fixes real concurrent bitfield UB | No user crash report for this
+specific patch |
+| Prerequisite `3e8fefd` already in v6.18.43 | Mailing-list stable
+nomination unverified |
+| Completes design of parent stable-nominated commit |
+Theoretical/timing-dependent (no syzbot) |
+| Small, surgical, maintainer-acked | |
+| Core subsystem, userspace-triggerable via modprobe | |
+| Same pattern as `ready_to_probe` (already atomic) | |
 
-**AGAINST backport:**
-- Requires minor path adjustment for kernel tree (trivial)
-- Trigger depends on specific AML patterns (may be rare in the wild, but
-  firmware is uncontrolled input)
-- No in-kernel Tested-by / Reviewed-by tags in provided message
+**Step 9.2 — Stable rules checklist**
+1. Obviously correct and tested? **PASS** — mirrors existing
+   `ready_to_probe` accessors; reviewed by Greg K-H, Rafael, Danilo.
+2. Fixes a real bug? **PASS** — concurrent bitfield access is C UB with
+   verified unsynchronized read/write paths.
+3. Important issue? **PASS** — driver-core state corruption / probe
+   hangs (HIGH).
+4. Small and contained? **PASS** — ~40 lines, 3 files.
+5. No new features/APIs? **PASS** — internal refactor only.
+6. Can apply to local tree? **PASS** — prerequisite present, no
+   conflicting fix.
 
-**UNRESOLVED:**
-- Full lore.kernel.org review thread (403)
-- Whether this exact commit has landed in mainline kernel yet (not in
-  6.18.44)
+**Step 9.3 — Exception category**
+Record: N/A (not device ID/quirk/DT/build/doc); standard concurrency bug
+fix.
 
-### Step 9.2: STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — logic is clear; ASAN-tested
-   upstream with reproducer; maintainer SOB
-2. Fixes a real bug affecting users? **PASS** — confirmed UAF in ACPI
-   evaluation
-3. Important issue? **PASS** — UAF / potential crash and memory
-   corruption (HIGH severity)
-4. Small and contained? **PASS** — 43 lines, one function, one file
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — code exists; trivial path
-   adjustment
-
-### Step 9.3: EXCEPTION CATEGORIES
-**Record:** Not applicable (not device ID, quirk, DT, build, or docs).
-Standard bug fix.
-
-### Step 9.4: DECISION RATIONALE
-
-This commit fixes a real, reproducible use-after-free in the ACPICA
-interpreter teardown path. The vulnerable code is present in Linux
-6.18.44, the failure occurs on the `acpi_evaluate_object()` return path
-used throughout the kernel, and the fix is minimal with low regression
-risk. This is appropriate stable material comparable to the already-
-accepted `6fcab27915439` ACPICA UAF fix.
+**Step 9.4 — Decision rationale**
+This tree (v6.18.43) contains `can_match` as an unsafe bitfield since
+`3e8fefd2997c8`. That parent commit explicitly moved `ready_to_probe` to
+atomic flags because bitfields are unsafe under concurrent probe, but
+left `can_match` as a bitfield — an oversight this patch corrects.
+Verified code paths show unsynchronized reads (`device_add`,
+`driver_deferred_probe_add`) and writes (`__driver_attach` without
+device lock) on the same field, with adjacent bitfields also modified
+concurrently. The fix is small, obviously correct, maintainer-approved,
+and directly supports the already-backported probe-race infrastructure
+in this tree.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; identified UAF fix intent
-- [Phase 1] GitHub API: upstream commit `36f22a94cb1b`, author ikaros,
-  `Fixes: #1119`
-- [Phase 2] Diff: +43 lines in `acpi_ds_terminate_control_method()`,
-  REFOF local/arg guard before `acpi_ds_method_data_delete_all()`
-- [Phase 3] `git blame -L 717,722`: buggy teardown from 2005-2006
-- [Phase 3] `git log --grep`: fix not in tree; related UAF fix
-  `6fcab27915439` present
-- [Phase 4] GitHub issue #1119: full ASAN report, reproducer `acpiexec
-  -m issue7.aml`
-- [Phase 4] `b4 dig -c 36f22a94cb1b`: no match (ACPICA-only commit)
-- [Phase 4] lore.kernel.org / patch.msgid.link: 403/bot-blocked —
-  UNVERIFIED for ML review
-- [Phase 5] `grep acpi_ds_terminate_control_method`: callers in
-  `psxface.c`, `psparse.c`, `dsmethod.c`
-- [Phase 5] Read `nsxfeval.c:472-517`: UAF dereference at `node->object`
-  for `ACPI_REFCLASS_REFOF`
-- [Phase 5] Read `acstruct.h:66-67`: locals/args embedded in
-  `walk_state`
-- [Phase 6] `git describe HEAD`: v6.18.44; buggy code confirmed at
-  `dsmethod.c:717-721`
-- [Phase 6] `grep` for fix comment: not present in tree
-- [Phase 6] Upstream patch dry-run: fails on path only; hunk context
-  matches kernel file
-- [Phase 8] Failure mode: heap UAF → crash/corruption, severity HIGH
+- [Phase 1] Parsed subject, all tags from provided commit message
+- [Phase 2] Diff analysis: 3 files, bitfield →
+  `dev_can_match()`/`dev_set_can_match()`, 10 call sites
+- [Phase 3] `git describe HEAD` → `v6.18.43`
+- [Phase 3] `git merge-base --is-ancestor 3e8fefd2997c8 HEAD` → yes
+- [Phase 3] `git blame` on `device.h:699`, `dd.c:868` → introduced by
+  `3e8fefd2997c8`/`5d324e5159d9e`
+- [Phase 3] `git log -S'can_match'` → single introduction commit
+  `3e8fefd2997c8`
+- [Phase 3] `grep dev_can_match` → not in tree (fix not applied)
+- [Phase 4] patch.msgid.link / lore.kernel.org → 403 blocked
+- [Phase 4] `b4 dig` → cannot run without commit hash in tree
+- [Phase 5] Read `dd.c:857-868`, `dd.c:1252-1258`, `core.c:3778`,
+  `device.h:718-740` — confirmed concurrent access patterns
+- [Phase 5] `grep state_synced|offline` in `drivers/base/` — adjacent
+  bitfields modified concurrently
+- [Phase 6] `grep dev->can_match` — 8 sites in `core.c`/`dd.c`; bitfield
+  at `device.h:699`
+- [Phase 6] `DECLARE_BITMAP(flags)` and
+  `__create_dev_flag_accessors(ready_to_probe)` present at
+  `device.h:715-740`
+- [Phase 8] Parent commit `3e8fefd2997c8` documents Android parallel
+  module-loading race; `Cc: stable@vger.kernel.org`
+- **UNVERIFIED:** Lore review thread content, explicit stable-list
+  discussion for this specific patch
 
-**YES**The background searches finished and line up with the earlier
-analysis:
+**YES**
 
-- **UAF fix commit search:** No match for “Fix use-after-free in
-  acpi_ds_terminate” in this tree — the fix is **not** in 6.18.44 yet.
-- **Related fixes search:** Other ACPICA UAF fixes are already here
-  (`6fcab27915439` for missing method arguments, `470188b09e92d` for
-  package copy), but nothing equivalent for this
-  `acpi_ds_terminate_control_method()` issue.
+ drivers/base/core.c    | 10 +++++-----
+ drivers/base/dd.c      | 10 +++++-----
+ include/linux/device.h |  9 +++++----
+ 3 files changed, 15 insertions(+), 14 deletions(-)
 
-**Verdict for 6.18.44 remains YES** — real, reproducible UAF on the
-`acpi_evaluate_object()` path; small, surgical fix; should backport with
-the usual ACPICA path adjustment.
-
- drivers/acpi/acpica/dsmethod.c | 43 ++++++++++++++++++++++++++++++++++
- 1 file changed, 43 insertions(+)
-
-diff --git a/drivers/acpi/acpica/dsmethod.c b/drivers/acpi/acpica/dsmethod.c
-index 45ec32e81903a..08bfe83030838 100644
---- a/drivers/acpi/acpica/dsmethod.c
-+++ b/drivers/acpi/acpica/dsmethod.c
-@@ -705,6 +705,8 @@ void
- acpi_ds_terminate_control_method(union acpi_operand_object *method_desc,
- 				 struct acpi_walk_state *walk_state)
+diff --git a/drivers/base/core.c b/drivers/base/core.c
+index 5034d9b103642..2b0179096c73d 100644
+--- a/drivers/base/core.c
++++ b/drivers/base/core.c
+@@ -1084,7 +1084,7 @@ static void device_links_missing_supplier(struct device *dev)
+ 
+ static bool dev_is_best_effort(struct device *dev)
  {
-+	u32 i;
-+	struct acpi_namespace_node *ref_node;
+-	return (fw_devlink_best_effort && dev->can_match) ||
++	return (fw_devlink_best_effort && dev_can_match(dev)) ||
+ 		(dev->fwnode && fwnode_test_flag(dev->fwnode, FWNODE_FLAG_BEST_EFFORT));
+ }
  
- 	ACPI_FUNCTION_TRACE_PTR(ds_terminate_control_method, walk_state);
+@@ -1152,7 +1152,7 @@ int device_links_check_suppliers(struct device *dev)
  
-@@ -715,6 +717,47 @@ acpi_ds_terminate_control_method(union acpi_operand_object *method_desc,
- 	}
+ 			if (dev_is_best_effort(dev) &&
+ 			    device_link_test(link, DL_FLAG_INFERRED) &&
+-			    !link->supplier->can_match) {
++			    !dev_can_match(link->supplier)) {
+ 				ret = -EAGAIN;
+ 				continue;
+ 			}
+@@ -1435,7 +1435,7 @@ void device_links_driver_bound(struct device *dev)
+ 		} else if (dev_is_best_effort(dev) &&
+ 			   device_link_test(link, DL_FLAG_INFERRED) &&
+ 			   link->status != DL_STATE_CONSUMER_PROBE &&
+-			   !link->supplier->can_match) {
++			   !dev_can_match(link->supplier)) {
+ 			/*
+ 			 * When dev_is_best_effort() is true, we ignore device
+ 			 * links to suppliers that don't have a driver.  If the
+@@ -1823,7 +1823,7 @@ static int fw_devlink_no_driver(struct device *dev, void *data)
+ {
+ 	struct device_link *link = to_devlink(dev);
  
- 	if (walk_state) {
-+		/*
-+		 * Check if the return value is a ref_of reference to a method local
-+		 * or argument. If so, clear the reference to avoid use-after-free
-+		 * when the walk state is deleted.
-+		 */
-+		if (walk_state->return_desc &&
-+		    (walk_state->return_desc->common.type ==
-+		     ACPI_TYPE_LOCAL_REFERENCE)
-+		    && (walk_state->return_desc->reference.class ==
-+			ACPI_REFCLASS_REFOF)) {
-+			ref_node = walk_state->return_desc->reference.object;
-+			if (ref_node) {
-+
-+				/* Check against method locals */
-+				for (i = 0; i < ACPI_METHOD_NUM_LOCALS; i++) {
-+					if (ref_node ==
-+					    &walk_state->local_variables[i]) {
-+						acpi_ut_remove_reference
-+						    (walk_state->return_desc);
-+						walk_state->return_desc = NULL;
-+						break;
-+					}
-+				}
-+
-+				/* Check against method arguments if not already cleared */
-+				if (walk_state->return_desc) {
-+					for (i = 0; i < ACPI_METHOD_NUM_ARGS;
-+					     i++) {
-+						if (ref_node ==
-+						    &walk_state->arguments[i]) {
-+							acpi_ut_remove_reference
-+							    (walk_state->
-+							     return_desc);
-+							walk_state->
-+							    return_desc = NULL;
-+							break;
-+						}
-+					}
-+				}
-+			}
-+		}
+-	if (!link->supplier->can_match)
++	if (!dev_can_match(link->supplier))
+ 		fw_devlink_relax_link(link);
  
- 		/* Delete all arguments and locals */
+ 	return 0;
+@@ -3775,7 +3775,7 @@ int device_add(struct device *dev)
+ 	 * match with any driver, don't block its consumers from probing in
+ 	 * case the consumer device is able to operate without this supplier.
+ 	 */
+-	if (dev->fwnode && fw_devlink_drv_reg_done && !dev->can_match)
++	if (dev->fwnode && fw_devlink_drv_reg_done && !dev_can_match(dev))
+ 		fw_devlink_unblock_consumers(dev);
+ 
+ 	if (parent)
+diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+index dabdfc088f3f6..d019d0f98ad47 100644
+--- a/drivers/base/dd.c
++++ b/drivers/base/dd.c
+@@ -132,7 +132,7 @@ static DECLARE_WORK(deferred_probe_work, deferred_probe_work_func);
+ 
+ void driver_deferred_probe_add(struct device *dev)
+ {
+-	if (!dev->can_match)
++	if (!dev_can_match(dev))
+ 		return;
+ 
+ 	mutex_lock(&deferred_probe_mutex);
+@@ -858,14 +858,14 @@ static int __driver_probe_device(const struct device_driver *drv, struct device
+ 		return dev_err_probe(dev, -EPROBE_DEFER, "Device not ready to probe\n");
+ 
+ 	/*
+-	 * Set can_match = true after calling dev_ready_to_probe(), so
++	 * Call dev_set_can_match() after calling dev_ready_to_probe(), so
+ 	 * driver_deferred_probe_add() won't actually add the device to the
+ 	 * deferred probe list when dev_ready_to_probe() returns false.
+ 	 *
+ 	 * When dev_ready_to_probe() returns false, it means that device_add()
+ 	 * will do another probe() attempt for us.
+ 	 */
+-	dev->can_match = true;
++	dev_set_can_match(dev);
+ 	dev_dbg(dev, "bus: '%s': %s: matched device with driver %s\n",
+ 		drv->bus->name, __func__, drv->name);
+ 
+@@ -1011,7 +1011,7 @@ static int __device_attach_driver(struct device_driver *drv, void *_data)
+ 		return 0;
+ 	} else if (ret == -EPROBE_DEFER) {
+ 		dev_dbg(dev, "Device match requests probe deferral\n");
+-		dev->can_match = true;
++		dev_set_can_match(dev);
+ 		driver_deferred_probe_add(dev);
+ 		/*
+ 		 * Device can't match with a driver right now, so don't attempt
+@@ -1255,7 +1255,7 @@ static int __driver_attach(struct device *dev, void *data)
+ 		return 0;
+ 	} else if (ret == -EPROBE_DEFER) {
+ 		dev_dbg(dev, "Device match requests probe deferral\n");
+-		dev->can_match = true;
++		dev_set_can_match(dev);
+ 		driver_deferred_probe_add(dev);
+ 		/*
+ 		 * Driver could not match with device, but may match with
+diff --git a/include/linux/device.h b/include/linux/device.h
+index dc1252a06480c..56e5a9314367d 100644
+--- a/include/linux/device.h
++++ b/include/linux/device.h
+@@ -485,10 +485,14 @@ struct device_physical_location {
+  *
+  * @DEV_FLAG_READY_TO_PROBE: If set then device_add() has finished enough
+  *		initialization that probe could be called.
++ * @DEV_FLAG_CAN_MATCH: The device has matched with a driver at least once or it
++ *		is in a bus (like AMBA) which can't check for matching drivers
++ *		until other devices probe successfully.
+  * @DEV_FLAG_COUNT: Number of defined struct_device_flags.
+  */
+ enum struct_device_flags {
+ 	DEV_FLAG_READY_TO_PROBE = 0,
++	DEV_FLAG_CAN_MATCH = 1,
+ 
+ 	DEV_FLAG_COUNT
+ };
+@@ -575,9 +579,6 @@ enum struct_device_flags {
+  * @state_synced: The hardware state of this device has been synced to match
+  *		  the software state of this device by calling the driver/bus
+  *		  sync_state() callback.
+- * @can_match:	The device has matched with a driver at least once or it is in
+- *		a bus (like AMBA) which can't check for matching drivers until
+- *		other devices probe successfully.
+  * @dma_coherent: this particular device is dma coherent, even if the
+  *		architecture supports non-coherent devices.
+  * @dma_ops_bypass: If set to %true then the dma_ops are bypassed for the
+@@ -696,7 +697,6 @@ struct device {
+ 	bool			offline:1;
+ 	bool			of_node_reused:1;
+ 	bool			state_synced:1;
+-	bool			can_match:1;
+ #if defined(CONFIG_ARCH_HAS_SYNC_DMA_FOR_DEVICE) || \
+     defined(CONFIG_ARCH_HAS_SYNC_DMA_FOR_CPU) || \
+     defined(CONFIG_ARCH_HAS_SYNC_DMA_FOR_CPU_ALL)
+@@ -738,6 +738,7 @@ static inline bool dev_test_and_set_##accessor_name(struct device *dev) \
+ }
+ 
+ __create_dev_flag_accessors(ready_to_probe, DEV_FLAG_READY_TO_PROBE);
++__create_dev_flag_accessors(can_match, DEV_FLAG_CAN_MATCH);
+ 
+ #undef __create_dev_flag_accessors
  
 -- 
 2.53.0
