@@ -1,154 +1,157 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DE13AA1A8
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:35:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006293AE706
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:35:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788150910; cv=none; b=qvAvOdPuRdJpDKy/5Ltj89e5QVUcWEcMBX2Z7LXOdcMVkTQLkj0Gm3VvOeUG1YvXbqy0DZpyfI8yWJPoe/yHltt0TCMrDgvZoZ6yQwtBMxvSMLN+4PLyVg7Hl4UYGiI9gzmY7XwQSa/Ai8j8X7Pa+xUzI2t5HslRWQ9FWsYjeds=
+	t=1788150943; cv=none; b=O31TZplyiXCFokdqPcGVkINeBQVnxRnep/7GQNR9N0LrBQSumdRjwyodH45kiwKdFBxbmY6R+wtnjed2cDKGzQtXAdD/rTbqXutZhtg0YuXCz2GJB0dXa1gE7WvD5R37qstCmXjidSMqi5N1uynDXxFVj7O/3nvhQdhOS5zfxMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788150910; c=relaxed/simple;
-	bh=2K4OYdBn6JH6BbUMe3S8iRa7QaUbz2dz7Xs9yiDufBs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KxsGzrFhi8vSt8XrfCNirw/Nj0L69XpEi9QPVwGitspsCmx/jWX2+a5BVYJQO7IbhGyimfKRZW64HTlvJvhrQRd0o1ks97YABgzd0/oBhoAR6dVsldoZfwYa5PgbrhoekyezZTK1F6a1t6wBgAsVvsMwcW9navvtcFeV6hx5zfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kh0wAtYH; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kh0wAtYH"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ce98cb8165so29112995ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:35:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788150908; x=1788755708; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7eDTIpv2tuo9c5hFEI1wY3H5RV5KUp/pbjznvsnrm28=;
-        b=Kh0wAtYHtz+1VclxPNtyByHhq+1aBqYhgxGsMfO66oS6Rzvoqd26W0QQxfzm1ofmok
-         7poqs+RsSWBiCwsY2xCccNgUiMLnaSI+RJZOq1xEObuVRCOBaKDoKapodNBT2Qr6xXnZ
-         h7w2kmHqFM8faU8mSuiq547C8GdceyHhlCBDAZsOiEtJa+mTiYhxTSL96j5NBB3UTrGI
-         5b7iEqNIZhD9KXc6So7s76zY1wbrprN1YaWbG6bQEfvERgT6TW1gn/s+xBxU2qJKGCoZ
-         PaoADmlWUn3+eGwv/yqh+H+xx8fd10Wt4dNJZQ5wYFQW7TRVnISxwdZm6WrGiic1DyUd
-         OXXg==
+	s=arc-20240116; t=1788150943; c=relaxed/simple;
+	bh=mZudXeSm4wixxGmHzIJMNiPoCt3Yf058kY91/Dju/sE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=afdb2ZjFdPzKk3gfjoGQzWaow4FPeuL3GaUcAT8VrvRK8eOYTYWcGmLrVKiamlRGVz4DMp60TWtTZ1OSldPVZ6mRcTDCOMCKr465YHCGOUOgzKmKjMlUp+tvtU60z/OTS1YnBfnW61YGgSBvi2LIWSAh0JCK7pdz12XlYCQiqhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-451e1066971so1231414fac.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 21:35:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788150908; x=1788755708;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7eDTIpv2tuo9c5hFEI1wY3H5RV5KUp/pbjznvsnrm28=;
-        b=ldL/Y0eHvTyqjNRpXku/XGRUQJzWjV9lOv4p70/+vmuE2CUPVCOnNfyrngWPeE3lCS
-         S568Qocz7jtspy29bWE8KkInqHNCe89x4gKB8B7SSphZiAJTAlSRoNRPu7dpbA98PEKb
-         DQgYzonNJIzlubhzEkGV0vfiBE4/12yJNP3DXcT9T8HnAHE2hubo/IPz6Sai/hKH6P+F
-         BvsuGdbaHcAUDvRLojG5uDS7hVZaldPTzMW3dikt6xoZzMZ10zwiNMBJvTKW2MLQ++vy
-         9dYALCKWt5UMEqZS57N5fwWUub/ksui1Foi1nOOCPgioYtBh47QsB2CXFPjrFFlMfhM7
-         1fKg==
-X-Forwarded-Encrypted: i=1; AKwUvBxeP5DSRhCITTV1xwHQ1sRLh4Fi+lWP951+75XL1E5IUGLdq1hJmPBuIgE1xtG5fijMqDvJ48+hHzsPwi0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsGfQbdGZ4Dl25lPWYywQTP2PxOQkHhmNblijtVnacbMntewD+
-	fGJfk/u1pt7fqKDm7hiLv6cK1cBUMGKXzkRYLpmT9B/d6heqc4aPS8Iw
-X-Gm-Gg: AYBFou1aOPKhcuE1h5kPw1binFCzhNMvsj9qMxdmVeIcd8aA0tcISd+muYYezpKfBhQ
-	77Jfj3nEFAyVCmPpThtrurarOPwEPGWwpWbjCpsqgjJoirJO1Fcoq4jTfW2onzb2Uf0vLv9RWNs
-	o3ltn/Ca3b6aNnM6PXuqVPFFsRBAkI5d0nmX4Zo60aDVpD9yfM8QP/3G3QjtMgC/8DCO9UETP4d
-	zET99gbWC0xqg/x8Fd97SKAopKAklBi5OpALiqI4bwqJSAJgG8T9R0ZTuxv5w6z2tZx9ymuFbzX
-	h9Mn/Ce/bejJ7cNLQ+ENaymeiyyrYM3pVUx6mG8mcoeHjWvKD7u//1lL2x74U5STzHFsb5CRhN1
-	Dqs0Q0dC1tzmcWsbfoUmObhflN7Ucx7WvYvCNpCrrN6K0GJFYkI4g1sTmq0uGB3EWb5EAG1bKyC
-	UgdhOqH2PGovdDkzq+BKu1JloetaGG7fnVybyXNA0EWVC39Fpsz0zHpJPV/naaiFzD9VQHQa5wY
-	1t0YstyCvQ=
-X-Received: by 2002:a17:902:e809:b0:2d8:d4d2:d134 with SMTP id d9443c01a7336-2d91b239e87mr37083215ad.16.1788150908168;
-        Sun, 30 Aug 2026 21:35:08 -0700 (PDT)
-Received: from volcano9f8e-host.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328713b944bsm26991328eec.27.2026.08.30.21.35.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 21:35:07 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: djbw@kernel.org,
-	vishal.l.verma@intel.com,
-	dave.jiang@intel.com,
-	alison.schofield@intel.com
-Cc: iweiny@kernel.org,
-	nvdimm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] nvdimm/pmem: Release gendisk on probe failure
-Date: Mon, 31 Aug 2026 10:04:59 +0530
-Message-ID: <20260831043459.1298059-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.43.7
+        d=1e100.net; s=20251104; t=1788150941; x=1788755741;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DEOX5VODYUFxyjaa1tIkIASzzIdKDucmCLNhz41YVH0=;
+        b=fVTZ9bJgM0S0mUjjDwVXlO5ATrQRQf+SyXkWRt4h5ZMFIEr5PjeFamuhYQVoPnWULY
+         1NhWZHOwai2TrwUDfcVowsR5XsvyLQZPsw3bqMMPYZWaNeirCIyjLZfT5rwetGhUYYhc
+         YSzMsAS4h3Oiue3WGeOxev6+NeKx3WGVU1FzPsOTMT7InE1fh0JKMUdSBUIh2n7IbgL/
+         GWCnLSINzO1IZ3OP5CLqDgVJMgdbrbcBB73RMMvqMG3GbihPtkEXen3L0Lx6L27TOH+3
+         8RcYs61/0cHQohn+6hrISgGO9U08yuj4grWz0sguoPkIoqVAI5KSSbemfOR7TmEDRUNB
+         qfSg==
+X-Forwarded-Encrypted: i=1; AHgh+RrRc3sDfhaNCZPtMsIlo6c7YkUfYaLsfj/cN+erN3ba4iLQZq9io2cfl2zpUWFYWui5IMFq/dr94q65Uw4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nufIXIu5XEqGZOQQet9/cjpJpMwmCARkHWJDZo5XeMJwGby7Pg
+	++l5IixpT+Sgytg0zOjenXBnBktVJnF90wQMX1ib8AYd1Q9s57+aGGRKKCL6/MwZgm9BELOaD1j
+	cf6rc+jU0AieKuy9LIo6ru9gNNjBkn9m0CGhaIgGfYnxOhGqj0fhg4aiXMM0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:1c85:b0:6a1:77ce:1b09 with SMTP id
+ 006d021491bc7-6b36cf0ed9bmr360004eaf.6.1788150940829; Sun, 30 Aug 2026
+ 21:35:40 -0700 (PDT)
+Date: Sun, 30 Aug 2026 21:35:40 -0700
+In-Reply-To: <6a802643.9ebadd4d.20b15e.000b.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a95049c.7724083a.12295.0001.GAE@google.com>
+Subject: Re: [syzbot] [input?] [usb?] WARNING: ODEBUG bug in hid_device_remove
+From: syzbot <syzbot+f8fb5598924c7e645553@syzkaller.appspotmail.com>
+To: hdanton@sina.com, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-pmem namespace probe allocates a gendisk early, fills it in, and only hands
-it to devres once device_add_disk() has succeeded.  Until that handover the
-probe itself owns the disk, and the error paths in between release it
-through a common label.
+syzbot has found a reproducer for the following issue on:
 
-Initializing the namespace's badblocks state sits between those two points
-but returns directly on failure, so the gendisk, its queue and its bdev
-inode are left allocated with nothing to free them.  The devres release
-action has not been registered at that point, so unbinding or destroying
-the namespace does not reclaim them either, and they stay allocated for the
-rest of the boot.  Nothing is user visible, as the disk was never added, so
-the only effect is the memory.
+HEAD commit:    a23cbb05744b Merge tag 'timers-urgent-2026-08-30' of git:/..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14b0be25580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+dashboard link: https://syzkaller.appspot.com/bug?extid=f8fb5598924c7e645553
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16538349580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1569ec15580000
 
-devm_init_badblocks() fails only if a one page GFP_KERNEL allocation fails,
-which needs memory exhaustion, so the path is hard to reach in practice.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/3c5de4682137/disk-a23cbb05.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/f36f9cbaac4c/vmlinux-a23cbb05.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/44ee07331725/bzImage-a23cbb05.xz
 
-Release the gendisk through the existing cleanup path on this failure.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+f8fb5598924c7e645553@syzkaller.appspotmail.com
 
-Fixes: 0caeef63e6d2 ("libnvdimm: Add a poison list and export badblocks")
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+corsair 0003:1B1C:1B02.0022: hidraw0: USB HID v0.00 Device [HID 1b1c:1b02] on usb-dummy_hcd.0-1/input0
+corsair 0003:1B1C:1B02.0022: Failed to get K90 initial state (error -71).
+usb 1-1: USB disconnect, device number 35
+------------[ cut here ]------------
+ODEBUG: free active (active state 0) object: ffff8880369b5ab8 object type: work_struct hint: k90_backlight_work+0x0/0x1c0 drivers/hid/hid-corsair.c:-1
+WARNING: lib/debugobjects.c:632 at debug_print_object+0xec/0x230 lib/debugobjects.c:629, CPU#0: kworker/0:3/5621
+Modules linked in:
+CPU: 0 UID: 0 PID: 5621 Comm: kworker/0:3 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Workqueue: usb_hub_wq hub_event
+RIP: 0010:debug_print_object+0x18a/0x230 lib/debugobjects.c:629
+Code: f8 48 c1 e8 03 80 3c 18 00 74 08 4c 89 ff e8 ed ff 59 fd 4d 8b 0f 4c 89 ef 48 8b 74 24 08 48 89 ea 44 89 e1 4d 89 f0 ff 34 24 <67> 48 0f b9 3a 48 83 c4 08 ff 05 c3 ca d9 0a 48 83 c4 10 5b 41 5c
+RSP: 0018:ffffc90005507008 EFLAGS: 00010246
+RAX: 1ffffffff16d7268 RBX: dffffc0000000000 RCX: 0000000000000000
+RDX: ffffffff8bcc2c40 RSI: ffffffff8bcc26c0 RDI: ffffffff8fbc6db0
+RBP: ffffffff8bcc2c40 R08: ffff8880369b5ab8 R09: ffffffff8b6ba560
+R10: dffffc0000000000 R11: ffffffff818f4a70 R12: 0000000000000000
+R13: ffffffff8fbc6db0 R14: ffff8880369b5ab8 R15: ffffffff8b6b9340
+FS:  0000000000000000(0000) GS:ffff888125bd6000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffc6a1eafb8 CR3: 000000003e4e6000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __debug_check_no_obj_freed lib/debugobjects.c:1171 [inline]
+ debug_check_no_obj_freed+0x2e3/0x450 lib/debugobjects.c:1201
+ slab_free_hook mm/slub.c:2679 [inline]
+ slab_free mm/slub.c:6499 [inline]
+ kfree+0x13e/0x6d0 mm/slub.c:6792
+ hid_device_remove+0xc8/0x1d0 drivers/hid/hid-core.c:2897
+ device_remove drivers/base/dd.c:616 [inline]
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x48b/0x880 drivers/base/dd.c:1372
+ bus_remove_device+0x449/0x560 drivers/base/bus.c:664
+ device_del+0x528/0x8f0 drivers/base/core.c:3965
+ hid_remove_device drivers/hid/hid-core.c:3126 [inline]
+ hid_destroy_device+0x6b/0x1b0 drivers/hid/hid-core.c:3148
+ usbhid_disconnect+0x9f/0xc0 drivers/hid/usbhid/hid-core.c:1479
+ usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
+ device_remove drivers/base/dd.c:618 [inline]
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
+ bus_remove_device+0x449/0x560 drivers/base/bus.c:664
+ device_del+0x528/0x8f0 drivers/base/core.c:3965
+ usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1478
+ usb_disconnect+0x32d/0x990 drivers/usb/core/hub.c:2350
+ hub_port_connect drivers/usb/core/hub.c:5420 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
+ port_event drivers/usb/core/hub.c:5884 [inline]
+ hub_event+0x1bb7/0x4cf0 drivers/usb/core/hub.c:5966
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
+ kthread+0x38b/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	f8                   	clc
+   1:	48 c1 e8 03          	shr    $0x3,%rax
+   5:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
+   9:	74 08                	je     0x13
+   b:	4c 89 ff             	mov    %r15,%rdi
+   e:	e8 ed ff 59 fd       	call   0xfd5a0000
+  13:	4d 8b 0f             	mov    (%r15),%r9
+  16:	4c 89 ef             	mov    %r13,%rdi
+  19:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
+  1e:	48 89 ea             	mov    %rbp,%rdx
+  21:	44 89 e1             	mov    %r12d,%ecx
+  24:	4d 89 f0             	mov    %r14,%r8
+  27:	ff 34 24             	push   (%rsp)
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	48 83 c4 08          	add    $0x8,%rsp
+  33:	ff 05 c3 ca d9 0a    	incl   0xad9cac3(%rip)        # 0xad9cafc
+  39:	48 83 c4 10          	add    $0x10,%rsp
+  3d:	5b                   	pop    %rbx
+  3e:	41 5c                	pop    %r12
+
+
 ---
-Changes in v2, all from Alison's review of v1:
- - Retitled, and the changelog rewritten as background, problem, impact and
-   resolution rather than a walk through the error labels.
- - Fixes: re-derived.  b95f5f4391fa only replaced one failing call with
-   another; the early return that leaks the disk was added a week earlier by
-   0caeef63e6d2, when the disk was already allocated by alloc_disk_node()
-   and the only put_disk() was in the detach path.
- - Says what the leak's fate is: the devres release action is registered
-   only after device_add_disk(), so nothing reclaims the disk on unbind.
- - The object counts are gone, see below for why.
-
-How this was found: reviewing pmem's probe error paths with an AI assistant,
-hence the Assisted-by tag.  The finding was then confirmed against the code
-and measured as follows.
-
-How it was tested: this is a unit test of an error path that needs memory
-exhaustion to reach, not a user visible scenario.  The badblocks init in
-pmem_attach_disk() was forced to fail with a throwaway kernel change, a
-namespace was bound 32 times in a guest with memmap=256M!1G, and
-disk_release() calls were counted with ftrace's function profiler:
-
-                          without the patch   with the patch
-  disk_release() calls          0 of 32          32 of 32
-  bdev_cache active         48 -> 72 (+24)     48 -> 48 (+0)
-
-v1 quoted the bdev_cache delta, which is what drew the question about 64
-attempts and 60 objects: slab accounting does not track this one for one,
-as the +24 above shows for 32 probes.  disk_release() does, so that is the
-number reported here and the slab figure is only context.
-
- drivers/nvdimm/pmem.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
-index 30a51c365ce8..648fc7d66063 100644
---- a/drivers/nvdimm/pmem.c
-+++ b/drivers/nvdimm/pmem.c
-@@ -563,8 +563,10 @@ static int pmem_attach_disk(struct device *dev,
- 	nvdimm_namespace_disk_name(ndns, disk->disk_name);
- 	set_capacity(disk, (pmem->size - pmem->pfn_pad - pmem->data_offset)
- 			/ 512);
--	if (devm_init_badblocks(dev, &pmem->bb))
--		return -ENOMEM;
-+	if (devm_init_badblocks(dev, &pmem->bb)) {
-+		rc = -ENOMEM;
-+		goto out;
-+	}
- 	nvdimm_badblocks_populate(nd_region, &pmem->bb, &bb_range);
- 	disk->bb = &pmem->bb;
- 
--- 
-2.43.7
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
