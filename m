@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF5F4EF5D1;
-	Mon, 31 Aug 2026 13:40:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DBA4F052F;
+	Mon, 31 Aug 2026 13:40:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183650; cv=none; b=MIg4OwDyLJUinwnV1tCbynO2S5Tm8KJOiyA/2uulGr6VLz2tPZt97R5ySMj3adbC6pFiRQ5oR4qs2jV8XCTArIDoVagu1LJXeRYx0Eqtj68Rcmhjr6hJ7ySUX07zOrv81m4awwqS2STHe6Tcmpb0cG6S431hMWAuv1Dr+7nzrkg=
+	t=1788183650; cv=none; b=lck6GkooyGtJwJB3Jg7OpQCEbVk70boPaOk4ZTKZBH9BD+EZiz4td6AmAleO2wuaqv9knI61DNczUvdJ1ImE2PFMs3plA+TPFEFZ9cCotUzPM6LUHHplq2Ni2nbUWEsn/Xxazf1YK4mda3cZHYZNbfrABLM/2vqyE2uo1c7C/Z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788183650; c=relaxed/simple;
-	bh=kyEBg55ljYgqrg6tB1hCS/sa3lb/txFuyToVTvxe3sI=;
+	bh=0dIPjFV0mbiqoPj9LlF+ftQlzgiUW1UrLiaZuHD06xw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sgUERqU70pI7WP1PJcs0yYmKnjaq2fKTsjmuHVlK6AMUjVYhKUGYDy7+++jgXpfxxi1Nk7vvF5kZDCv+dlWyGutlw6jp6LnvlIXekt/gcP9Y8u0MEWmva/n/bKZDu82uFvk7svGBhwHbmAt6whH8bHLrRhtD9NKcOwvwDf5dYX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EeWEymUq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=QWPUKEi9k1tMdfTaxQ0He8YxCNUnja4dFJOyHmRwhvIwrQekdUiGLOJ53FoFsqjmMP9Q26umIU70+Xdw9f2lladtLaxkAARwzNUUqG0l6EXFy+EHdvNciKj+AKxgXxoPlJgiIb24n6kTZ9dBoGTUwIGLhRvPLBVcp1a7016l4kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a7eeazSl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EeWEymUq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6C11F000E9;
-	Mon, 31 Aug 2026 13:40:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a7eeazSl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1841F00A3D;
+	Mon, 31 Aug 2026 13:40:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183644;
-	bh=Ozei9IEzoiIN89Yz+QY76kiB07UqZVp/OyaXBkL13Ms=;
+	s=k20260515; t=1788183647;
+	bh=+/y1sOX8N5p80BcczvmryeMXn0Jk9heDEynMivmStSM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EeWEymUqXaD2R3fUAjn3ndgVlAKNg4NZE+QL6KCe07gB0h7uwlkVccij/Ob5OE5yH
-	 7l7rJC1pL7rQ9A4aw3J9sgUEgR87xgeokKpjYIYIxefnS3gRglpcsTH328SC5eoJ2G
-	 kKwqgAsTh/Rs3t+AZwd7L8wyVw2KLXRMqO6KjMSB0RHbq5h5AnKYk6weqPlmsUNT3Q
-	 jWkqaolkpxX+UnHM0IVF2d3aVqxip/P7cI29/vfMMwGV5jlO0jKbIhkMf7IWCSJhzt
-	 Np+myghw+trmJpiRum+M7pwWWFvOAV9RnmWqRgVSByAuM/SSqlvmgJJ+e3BXCwo8JV
-	 2oBgKDTm83ASw==
+	b=a7eeazSlsPSPIigaq1PL8hVd/NlgapzmEwKn0B/wN7sDukIl/Cz3+Dav8QQNKbgNR
+	 9Nyk6kVgr0w+k4x7H8E7C+QikxAZksQN0mr6r9a6MnZavVYEqxr1uHmJdog5L1TeJY
+	 NVGijFzrnrEkf12OmUGnQqyJxdmz+O/SytEtuHeCjxOmFxYmHoR6HSfQYmt7kmlmWA
+	 9ZSYPL7G5I1hcDx+jXzR+E9j/2jxAsRNUZZ7vkM8nqmFgwyj6RjCgnMQox6SsXtKTJ
+	 jkP5Z4TcEf+hntVD80TGxzw3A1Pr+CDMSgBIVAPoay3sWJG6ATCbAtB3lSXNtYvdAr
+	 JARmvENwgMCxg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Pierre Barre <pierre@barre.sh>,
-	Dominique Martinet <asmadeus@codewreck.org>,
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
 	Sasha Levin <sashal@kernel.org>,
-	ericvh@kernel.org,
-	lucho@ionkov.net,
-	v9fs@lists.linux.dev,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] 9p: use kvzalloc for readdir buffer
-Date: Mon, 31 Aug 2026 09:24:05 -0400
-Message-ID: <20260831133314.4125787-217-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] drm/gma500: return errors from Oaktrail HDMI I2C reads
+Date: Mon, 31 Aug 2026 09:24:07 -0400
+Message-ID: <20260831133314.4125787-219-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -54,410 +57,449 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Pierre Barre <pierre@barre.sh>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit b4d71bea144550ff4a0917f8c4b06d4063eb27a6 ]
+[ Upstream commit 9b5ce5c496efd20c1c662cedba88465d39ec1f93 ]
 
-The readdir buffer is sized to msize, so kzalloc() can fail under
-fragmentation with a page allocation failure in v9fs_alloc_rdir_buf()
-/ v9fs_dir_readdir_dotl().
+xfer_read() waits for the HDMI I2C transaction to reach
+I2C_TRANSACTION_DONE, but it ignores both timeout and signal returns from
+wait_for_completion_interruptible_timeout().  If the interrupt never
+advances the transaction state, the loop can wait forever.
 
-The buffer is only a response sink and is never pack_sg_list()'d,
-so kvzalloc() is safe for all transports, unlike the fcall buffers
-fixed in e21d451a82f3 ("9p: Use kvmalloc for message buffers on
-supported transports").
+Return -ETIMEDOUT when the completion wait expires, propagate interrupted
+waits, and make the I2C master_xfer callback return the first transfer
+error instead of reporting a successful message count.
 
-Signed-off-by: Pierre Barre <pierre@barre.sh>
-Message-ID: <20260512132032.369281-1-pierre@barre.sh>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Signed-off-by: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Link: https://patch.msgid.link/20260625003240.6923-1-pengpeng@iscas.ac.cn
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `9p: use kvzalloc for readdir buffer`
+# Stable Backport Analysis: `drm/gma500: return errors from Oaktrail
+HDMI I2C reads`
 
-**Local tree:** `v6.18.44` (Linux 6.18.44)
+**Local tree:** `v6.18.44` (`VERSION = 6`, `PATCHLEVEL = 18`, `SUBLEVEL
+= 44`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[9p]` `[use]` — Switch readdir buffer allocation from
-`kzalloc()` to `kvzalloc()`.
+### Step 1.1: PARSE THE SUBJECT LINE
+**Record:** `[drm/gma500]` `[return]` — propagate errors from Oaktrail
+HDMI I2C read transfers instead of ignoring them.
 
-### Step 1.2: Tags
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 **Record:**
-- `Signed-off-by: Pierre Barre <pierre@barre.sh>` (author)
-- `Message-ID: <20260512132032.369281-1-pierre@barre.sh>`
-- `Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>` (9p
-  maintainer/committer)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
-  stable@vger.kernel.org`, or `Link:` tags
-- References prior commit `e21d451a82f3` ("9p: Use kvmalloc for message
-  buffers on supported transports") for context only
+- **Fixes:** — none
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** — none
+- **Acked-by:** — none
+- **Cc: stable@vger.kernel.org** — none (expected for manual review)
+- **Link:**
+  `https://patch.msgid.link/20260625003240.6923-1-pengpeng@iscas.ac.cn`
+- **Signed-off-by:** Pengpeng Hou `<pengpeng@iscas.ac.cn>`, Patrik
+  Jakobsson `<patrik.r.jakobsson@gmail.com>` (subsystem maintainer)
+- **Notable:** No syzbot/fuzzer report; maintainer sign-off is a
+  positive quality signal.
 
-### Step 1.3: Body analysis
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
 **Record:**
-- **Bug:** `v9fs_alloc_rdir_buf()` allocates `sizeof(struct p9_rdir) +
-  buflen` with `kzalloc()`, where `buflen ≈ msize - header`. With
-  default `msize` of 128 KiB, this is a ~128 KiB physically-contiguous
-  allocation that can fail under fragmentation even when total free
-  memory is ample.
-- **Symptom:** `-ENOMEM` from `v9fs_dir_readdir()` /
-  `v9fs_dir_readdir_dotl()` → directory listing (`ls`, `getdents`) fails
-  on 9p mounts.
-- **Root cause:** `kzalloc()` requires contiguous physical pages; large
-  order allocations fail under fragmentation.
-- **Fix rationale:** `kvzalloc()` can fall back to vmalloc. The rdir
-  buffer is only a CPU-side response sink and is safe for vmalloc on all
-  transports (unlike fcall buffers that may need DMA).
+- **Bug:** `xfer_read()` calls
+  `wait_for_completion_interruptible_timeout()` in a loop but ignores
+  its return value.
+- **Symptom:** On timeout (`ret == 0`) or signal (`ret < 0`), the loop
+  continues while `i2c_dev->status != I2C_TRANSACTION_DONE`, so the
+  thread never exits if the interrupt never advances state.
+- **Failure mode:** Unbounded wait (10-second timeout iterations
+  forever); caller also gets a successful message count instead of an
+  error.
+- **Root cause:** Missing error handling on completion wait;
+  `oaktrail_hdmi_i2c_access()` ignores `xfer_read()` return value.
 
-### Step 1.4: Hidden bug fix?
-**Record:** No — this is an explicit allocation-failure bug fix, not
-disguised cleanup.
+### Step 1.4: DETECT HIDDEN BUG FIXES
+**Record:** Not disguised — this is an explicit hang/error-propagation
+fix. The `master_xfer` callback change (return first error instead of
+message count) is standard I2C error semantics.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: INVENTORY THE CHANGES
 **Record:**
-- `fs/9p/vfs_dir.c`: 1 line changed (`kzalloc` → `kvzalloc`)
-- `net/9p/client.c`: 1 line changed (`kfree` → `kvfree`)
-- **Functions:** `v9fs_alloc_rdir_buf()`, `p9_fid_destroy()`
-- **Scope:** Single-file surgical fix, 2 lines total
+- **File:** `drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c` (+11 net lines,
+  ~20 lines touched)
+- **Functions:** `xfer_read()`, `oaktrail_hdmi_i2c_access()`
+- **Scope:** Single-file surgical fix
 
-### Step 2.2: Code flow per hunk
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
 
-**Hunk 1 — `v9fs_alloc_rdir_buf()` (`fs/9p/vfs_dir.c`):**
-- **Before:** `fid->rdir = kzalloc(sizeof(struct p9_rdir) + buflen,
-  GFP_KERNEL)` — fails if ~128 KiB contiguous pages unavailable.
-- **After:** `kvzalloc(...)` — falls back to vmalloc when kmalloc fails.
-- **Path:** First `readdir`/`readdir_dotl` on a directory fid; error
-  path returns `-ENOMEM` to userspace.
+**Hunk 1 — `xfer_read()` (lines 109–113 today):**
 
-**Hunk 2 — `p9_fid_destroy()` (`net/9p/client.c`):**
-- **Before:** `kfree(fid->rdir)` — incorrect pairing if buffer was
-  vmalloc-backed.
-- **After:** `kvfree(fid->rdir)` — correct free for either kmalloc or
-  vmalloc allocation.
+```109:113:drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c
+        while (i2c_dev->status != I2C_TRANSACTION_DONE)
+wait_for_completion_interruptible_timeout(&i2c_dev->complete,
+                                                                10 *
+HZ);
 
-### Step 2.3: Bug mechanism
-**Record:** **Memory allocation failure / functional correctness**
-- `buflen = fid->clnt->msize - P9_IOHDRSZ` (or `P9_READDIRHDRSZ`) →
-  ~131,072 bytes with default `msize`
-- Total allocation ≈ 131,088 bytes (order-5 contiguous pages)
-- Under fragmentation, `kzalloc()` returns NULL → `-ENOMEM` → userspace
-  directory operations fail
+        return 0;
+```
 
-### Step 2.4: Fix quality
+- **Before:** Loop ignores wait return; always returns 0.
+- **After:** On `ret < 0` propagate signal (`-ERESTARTSYS`); on `ret ==
+  0` return `-ETIMEDOUT`; only return 0 when transaction completes.
+
+**Hunk 2 — `oaktrail_hdmi_i2c_access()` (lines 139–154 today):**
+
+- **Before:** Ignores `xfer_read()`/`xfer_write()` return; always
+  returns `i` (message count).
+- **After:** Captures `ret`, breaks on error, returns error to I2C core;
+  only returns `i` on success.
+
+### Step 2.3: IDENTIFY THE BUG MECHANISM
 **Record:**
-- **Obviously correct:** Standard `kvzalloc`/`kvfree` pairing; both
-  files already include `<linux/slab.h>`
-- **Minimal:** 2 lines, no unrelated changes
-- **Regression risk:** Very low — `kvzalloc` is a drop-in replacement;
-  virtio zerocopy path already handles vmalloc addresses via
-  `vmalloc_to_page()` in `p9_get_mapped_pages()`
-- **No public API changes**
+- **Category:** Logic/correctness — infinite wait loop + incorrect
+  success reporting.
+- **Mechanism:** `wait_for_completion_interruptible_timeout()` returns 0
+  on timeout and negative on signal (documented in
+  `kernel/sched/completion.c` lines 237–238). The old loop treated both
+  as "keep waiting." The `i2c_lock` mutex remains held for the duration,
+  blocking all other transfers on adapter 3.
+
+### Step 2.4: ASSESS THE FIX QUALITY
+**Record:**
+- Fix is minimal and matches standard kernel completion-wait patterns.
+- Correct I2C `master_xfer` semantics (negative errno on failure).
+- **Regression risk:** Very low. Only changes error/timeout paths;
+  success path unchanged.
+- Mutex is still released on error via the existing unlock at the end of
+  `oaktrail_hdmi_i2c_access()`.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-**Record:**
-- `kzalloc` in `v9fs_alloc_rdir_buf()`: introduced in `7ffdea7ea36cd1`
-  (Al Viro, Jan 2013) — flex-array refactor for rdir buffer
-- `kfree(fid->rdir)` in `p9_fid_destroy()`: introduced in
-  `3e2796a90cf349` (Eric Van Hensbergen, Nov 2009)
-- Bug mechanism present since 2013; worsened when default `msize` rose
-  to 128 KiB in `9c4d94dc9a644` (Sep 2021), which **is** in this tree
+### Step 3.1: BLAME THE CHANGED LINES
+**Record:** All changed lines blame to `5d324e5159d9e` (Nov 28, 2025
+merge) in this shallow checkout. File copyright header shows original
+authorship by Li Peng / Intel, 2010 — the buggy wait loop has been
+present since initial implementation. Shallow clone limits deeper
+history verification.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag present.
+### Step 3.2: FOLLOW THE FIXES: TAG
+**Record:** N/A — no `Fixes:` tag in commit message.
 
-### Step 3.3: Related file history
-**Record:**
-- `9c4d94dc9a644` "net/9p: increase default msize to 128k" is an
-  ancestor of HEAD — directly increases readdir buffer size
-- Related commit `e21d451a82f3` ("9p: Use kvmalloc for message buffers")
-  exists in the repo but is **not** an ancestor of HEAD (mainline-only);
-  **not required** for this fix per commit message
-- No "patch X/Y" series indicator; standalone fix
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+**Record:** Recent related stable backports in this tree:
+- `6d835a99474cd` — `drm/gma500/oaktrail_hdmi: fix i2c adapter leak on
+  setup`
+- `ab9256936b58e` — `drm/gma500/oaktrail_lvds: fix hang on init failure`
+- `4e003e2fb6d3f` — `drm/gma500/oaktrail_lvds: fix i2c adapter leaks on
+  init`
 
-### Step 3.4: Author context
-**Record:** Pierre Barre authored the related fcall `kvmalloc` fix
-(`e21d451a82f3`). Dominique Martinet (9p maintainer) committed this
-patch. No other Pierre Barre 9p commits found in this tree's history.
+Same driver, same maintainer (Patrik Jakobsson), same class of I2C/hang
+fixes already accepted into 6.18.y.
 
-### Step 3.5: Dependencies
-**Record:** **No dependencies on commits not in this tree.** The fix
-does not use `supports_vmalloc` transport flags from `e21d451a82f3`.
-`kvzalloc`/`kvfree` are available in 6.18 via `<linux/slab.h>`. Applies
-cleanly.
+### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+**Record:** Pengpeng Hou not found in shallow history for this file.
+Patrik Jakobsson is the gma500 maintainer (signed off on related
+oaktrail stable fixes above).
+
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+**Record:** Standalone fix. No series markers, no structural
+dependencies. Diff matches current file content in this tree.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
-**Record:** `b4 dig -c <commitish>` could not be run — commit hash not
-present in this checkout. Lore.kernel.org fetch blocked (Anubis bot
-protection). **UNVERIFIED:** mailing list review thread and any stable
-nominations.
+### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+**Record:** `b4 dig -c <commit>` not possible — commit not in this tree.
+Lore.kernel.org and patch.msgid.link blocked by Anubis bot protection.
+**UNVERIFIED:** Full review thread content, stable nominations in
+review.
 
-### Step 4.2: Reviewers
-**Record:** **UNVERIFIED** via `b4 dig -w`. Committer is 9p maintainer
-Dominique Martinet.
+### Step 4.2: CHECK WHO REVIEWED THE PATCH
+**Record:** **UNVERIFIED** (lore inaccessible). Patrik Jakobsson
+(maintainer) Signed-off-by in commit message.
 
-### Step 4.3: Bug report
-**Record:** No `Reported-by:` or `Link:` tags. Author describes
-reproduction under high-load 9p server testing (same context as
-`e21d451a82f3`). No syzbot/KASAN report.
+### Step 4.3: SEARCH FOR THE BUG REPORT
+**Record:** No Reported-by, no syzbot link. Proactive code-quality/hang
+fix from author.
 
-### Step 4.4: Series context
-**Record:** Standalone patch, not part of a multi-patch series.
+### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+**Record:** Part of ongoing gma500 oaktrail I2C robustness work (same
+timeframe as Johan Hovold's oaktrail I2C leak/hang fixes). Standalone;
+no multi-patch dependency.
 
-### Step 4.5: Stable list history
-**Record:** **UNVERIFIED** — could not search lore stable archive due to
-bot protection.
+### Step 4.5: CHECK STABLE MAILING LIST HISTORY
+**Record:** **UNVERIFIED** (lore inaccessible). Related oaktrail fixes
+were explicitly `Cc: stable@vger.kernel.org` and landed in this 6.18.y
+tree.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** `v9fs_alloc_rdir_buf()`, `v9fs_dir_readdir()`,
-`v9fs_dir_readdir_dotl()`, `p9_fid_destroy()`, `p9_client_readdir()`,
-`p9_client_read_once()`
+### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+**Record:** `xfer_read()`, `oaktrail_hdmi_i2c_access()`, indirectly
+`oaktrail_hdmi_i2c_handler()` (IRQ completes the wait).
 
-### Step 5.2: Callers
+### Step 5.2: TRACE CALLERS
 **Record:**
-- `v9fs_alloc_rdir_buf()` called from `v9fs_dir_readdir()` and
-  `v9fs_dir_readdir_dotl()` — VFS `iterate_shared`/`readdir` path
-- `p9_fid_destroy()` called from multiple fid teardown paths in
-  `net/9p/client.c`
-- Triggered by userspace directory listing on mounted 9p filesystems
-  (common in QEMU/KVM virtio-9p)
+- `oaktrail_hdmi_i2c_access` is the `master_xfer` callback for I2C
+  adapter `.nr = 3` (`oaktrail_hdmi_i2c_adapter`).
+- Registered in `oaktrail_hdmi_i2c_init()` called from `oaktrail_hdmi.c`
+  during HDMI setup.
+- Kernel caller of adapter 3: only `oaktrail_hdmi_get_modes()` via
+  `i2c_get_adapter(3)`, but **`drm_get_edid()` is commented out** — it
+  uses hardcoded `raw_edid` instead.
+- Userspace can access the registered adapter via i2c-dev
+  (`/dev/i2c-3`).
+- LVDS uses `dev_priv->ops->i2c_bus = 1` (from `oaktrail_device.c`), not
+  adapter 3.
 
-### Step 5.3: Callees
-**Record:** Allocation via `kvzalloc`; free via `kvfree`; buffer used
-via `kvec`/`iov_iter` and `p9_client_read()`/`p9_client_readdir()`
+### Step 5.3: TRACE CALLEES
+**Record:** `wait_for_completion_interruptible_timeout()`,
+`reinit_completion()`, HDMI register MMIO, `mutex_lock/unlock`,
+`hdmi_i2c_irq_enable/disable`.
 
-### Step 5.4: Reachability
-**Record:** **Userspace-reachable** — any `ls`, `find`, or `getdents()`
-on a 9p mount triggers this allocation on first directory read per fid.
+### Step 5.4: FOLLOW THE CALL CHAIN
+**Record:**
+- Init path: `oaktrail_hdmi setup` → `oaktrail_hdmi_i2c_init()` →
+  registers adapter 3 (always on Oaktrail HDMI hardware).
+- Read path: `i2c_transfer()` on adapter 3 →
+  `oaktrail_hdmi_i2c_access()` → `xfer_read()` → wait loop.
+- **Reachability today:** Kernel EDID-over-HDMI-I2C path is disabled
+  (FIXME). Reachable from userspace i2c tools or if `drm_get_edid()` is
+  enabled later.
+- Mutex held during hang blocks all I2C on adapter 3.
 
-### Step 5.5: Similar patterns
-**Record:** Commit message references `e21d451a82f3` for fcall buffers
-(transport-gated `kvmalloc`). For rdir buffer, virtio zerocopy uses
-`p9_get_mapped_pages()` which explicitly handles vmalloc:
-
-```368:373:net/9p/trans_virtio.c
-                for (index = 0; index < nr_pages; index++) {
-                        if (is_vmalloc_addr(p))
-                                (*pages)[index] = vmalloc_to_page(p);
-                        else
-                                (*pages)[index] = kmap_to_page(p);
-```
-
-Non-zerocopy paths copy via `copy_to_iter()`/`memmove()` — also vmalloc-
-safe.
+### Step 5.5: SEARCH FOR SIMILAR PATTERNS
+**Record:** Same driver family recently fixed analogous hang/leak issues
+(`ab9256936b58e` — "deregistration hangs indefinitely"). This patch
+addresses the same class of problem in the HDMI I2C path.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (v6.18.44)
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
-### Step 6.1: Buggy code present?
-**Record:** **YES.** Current tree at `fs/9p/vfs_dir.c:73` uses
-`kzalloc()`; `net/9p/client.c:893` uses `kfree()`. Default `msize` is
-`(128 * 1024) + P9_IOHDRSZ` (`net/9p/client.c:36`).
+### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+**Record:** **YES.** Buggy code confirmed at lines 109–113 and 139–154
+of `drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c`. Fix commit is **not**
+present in this tree.
 
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected** — 2-line change, no structural
-conflicts. Recent churn in `fs/9p/vfs_dir.c` does not touch allocation
-code.
+### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+**Record:** Expected **clean apply** — provided diff matches current
+file content line-for-line. No conflicting recent changes to this file
+in 6.18.y history.
 
-### Step 6.3: Related fixes already present?
-**Record:** `e21d451a82f3` (fcall `kvmalloc`) is **not** in this tree.
-No existing fix for rdir buffer allocation found via `git log --grep`.
+### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+**Record:** Related oaktrail I2C leak/hang fixes are present; this
+specific HDMI I2C error-propagation fix is **not**.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem criticality
-**Record:** **IMPORTANT** — `fs/9p` (9p filesystem) + `net/9p` (9p
-client). Affects users of 9p mounts (virtio-9p in QEMU/KVM, development
-containers, Plan 9 derivatives).
+### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+**Record:** `drivers/gpu/drm/gma500` — DRM driver for Intel
+GMA500/600/3600/3650 (Poulsbo, Moorestown/Oak Trail, Cedar Trail).
+**Criticality: PERIPHERAL** — config-gated (`CONFIG_DRM_GMA500`),
+x86-only, legacy embedded hardware.
 
-### Step 7.2: Activity level
-**Record:** Moderately active — recent fixes for protocol errors, USB
-transport overflow, fid refcounting in this tree.
+### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+**Record:** Active in 6.18.y — multiple oaktrail I2C fixes landed May
+2026. Maintainers are actively hardening this code path.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who is affected
-**Record:** Users with 9p filesystem mounts (`CONFIG_9P_FS`), especially
-virtio-9p in virtualization, under memory fragmentation or high load.
+### Step 8.1: DETERMINE WHO IS AFFECTED
+**Record:** Users with `CONFIG_DRM_GMA500` on Oak Trail / GMA600
+hardware with HDMI I2C controller. Small but real population (legacy
+netbooks/tablets).
 
-### Step 8.2: Trigger conditions
+### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
 **Record:**
-- Directory listing on 9p mount (common operation)
-- `msize` at default 128 KiB or higher (configurable via mount option)
-- Physical memory fragmentation sufficient to fail order-5 `kmalloc`
-  despite available total memory
-- **Not** a security-relevant trigger; unprivileged users can trigger
-  via normal filesystem use
+- **Trigger:** I2C read on adapter 3 when HDMI I2C interrupt never sets
+  `I2C_TRANSACTION_DONE` (hardware fault, missing monitor, IRQ failure).
+- **Likelihood:** Low in default kernel config (EDID read via this
+  adapter disabled), higher if userspace uses i2c-3 or if
+  `drm_get_edid()` is enabled.
+- **Unprivileged trigger:** Userspace i2c access could trigger; not a
+  typical attack surface.
 
-### Step 8.3: Failure mode severity
-**Record:** `-ENOMEM` returned to userspace → directory listing fails
-(`ls: cannot access ...`). **Severity: MEDIUM** — functional failure,
-not kernel crash, corruption, or deadlock.
-
-### Step 8.4: Risk-benefit
+### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
 **Record:**
-- **Benefit:** MEDIUM — restores directory operations under
-  fragmentation; same bug class as documented fcall allocation failures
-- **Risk:** VERY LOW — 2-line change, standard allocator pairing,
-  vmalloc safety verified for virtio zerocopy
-- **Ratio:** Favorable — minimal risk for a real functional fix
+- **Failure mode:** Infinite wait loop (10s timeout iterations) with
+  `i2c_lock` held; thread hang; I2C adapter permanently blocked.
+- **Severity: HIGH** when triggered (system hang for that context), but
+  **LOW probability** in current default code path.
+
+### Step 8.4: CALCULATE RISK-BENEFIT RATIO
+**Record:**
+- **Benefit:** Prevents unbounded hang; correct error propagation to I2C
+  core. Essential if HDMI EDID reading is ever enabled.
+- **Risk:** Very low — ~20 lines, error-path only, no API changes.
+- **Ratio:** Favorable. Same driver already receives similar stable
+  fixes.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence summary
+### Step 9.1: COMPILE THE EVIDENCE
 
 **FOR backport:**
-- Real, reproducible allocation failure causing `-ENOMEM` on directory
-  reads
-- Buggy code present in v6.18.44 since 2013, exacerbated by 128 KiB
-  default `msize` (in tree since 2021)
-- 2-line surgical fix, obviously correct `kvzalloc`/`kvfree` pairing
-- No dependency on commits missing from this tree
-- Maintainer (Martinet) committed the patch
-- `kvzalloc` safe for all transports — verified virtio zerocopy handles
-  vmalloc via `vmalloc_to_page()`
-- Applies cleanly
+- Real bug: infinite wait on I2C timeout/signal, mutex held
+- Small, obviously correct, maintainer-signed
+- Buggy code present in 6.18.44 tree; fix not yet applied
+- Same gma500/oaktrail I2C hang/leak fixes already in this stable tree
+- Registered I2C adapter that can hang on read is a driver correctness
+  issue
+- No new APIs or features
 
 **AGAINST backport:**
-- Failure mode is userspace `-ENOMEM`, not kernel
-  crash/corruption/security
-- Only manifests under memory fragmentation (not every boot)
-- Workaround exists: lower `msize` mount option
-- No syzbot report or explicit stable nomination (UNVERIFIED on lore)
-- Related fcall `kvmalloc` fix (`e21d451a82f3`) also not yet in this
-  tree
+- Very niche hardware (`CONFIG_DRM_GMA500`, legacy Oaktrail)
+- Kernel EDID read via this adapter currently disabled (`drm_get_edid`
+  commented out in `oaktrail_hdmi_get_modes`)
+- No user/fuzzer reports
+- Default boot path may not exercise `xfer_read()` today
 
 **UNRESOLVED:**
-- Mailing list review discussion and any stable nominations (lore
-  blocked, commit not in tree for `b4 dig`)
+- Full lore review thread (bot-blocked)
+- Exact upstream commit hash (not in shallow tree)
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — standard allocator change;
-   maintainer committed; author tested under high load (per message and
-   related `e21d451a82f3` context)
-2. Fixes a real bug affecting users? **PASS** — directory listing fails
-   with `-ENOMEM`
-3. Important issue? **PASS (borderline)** — functional failure on common
-   filesystem operation, not crash/corruption, but affects real 9p users
-   under realistic conditions
-4. Small and contained? **PASS** — 2 lines, 2 files
-5. No new features or APIs? **PASS**
-6. Can apply to local tree? **PASS** — buggy code present, no missing
-   prerequisites
+### Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — standard completion-wait
+   pattern; maintainer SOB; no Tested-by.
+2. Fixes a real bug affecting users? **PASS** — real hang in I2C driver
+   code; limited but real hardware population.
+3. Important issue? **PASS** — hang with mutex held (HIGH severity when
+   triggered).
+4. Small and contained? **PASS** — one file, ~20 lines.
+5. No new features or APIs? **PASS**.
+6. Can apply to local tree? **PASS** — code matches; clean apply
+   expected.
 
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build fix, or docs fix).
+### Step 9.3: EXCEPTION CATEGORIES
+**Record:** N/A — not a device ID, quirk, DT, build, or docs fix.
+Standard driver bug fix.
 
-### Step 9.4: Decision rationale
+### Step 9.4: DECISION RATIONALE
 
-This commit fixes a real allocation failure in the 9p readdir path that
-has been present since the flex-array rdir buffer was introduced in
-2013, and became more likely after the default `msize` was raised to 128
-KiB (present in v6.18.44). Under memory fragmentation, `kzalloc()` for a
-~128 KiB buffer fails despite available memory, causing directory
-operations to return `-ENOMEM` to userspace. The fix is minimal (2
-lines), pairs alloc/free correctly, requires no prerequisite commits,
-and is safe across all 9p transports — including virtio zerocopy, which
-already handles vmalloc addresses. While the failure mode is functional
-rather than a kernel crash, it is a user-visible bug on a commonly-used
-virtualization filesystem path, and the fix carries negligible
-regression risk.
+This is a legitimate hang fix in production driver infrastructure. The
+HDMI I2C adapter is registered on every affected system; even though the
+kernel EDID path is currently stubbed out, the I2C read implementation
+is live code that hangs indefinitely on hardware/IRQ failure. The fix is
+minimal, low-risk, and consistent with other oaktrail I2C fixes already
+backported to this 6.18.y tree. The niche hardware and currently-
+disabled EDID path reduce urgency but do not negate the technical merit.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-- **[Phase 2]** Diff analysis: 2 lines in `v9fs_alloc_rdir_buf()` and
-  `p9_fid_destroy()`
-- **[Phase 3]** `git describe HEAD` → `v6.18.44`
-- **[Phase 3]** `git blame -L 72,74 fs/9p/vfs_dir.c` → `7ffdea7ea36cd1`
-  (2013)
-- **[Phase 3]** `git blame -L 893,893 net/9p/client.c` →
-  `3e2796a90cf349` (2009)
-- **[Phase 3]** `git merge-base --is-ancestor e21d451a82f3 HEAD` → not
-  ancestor (not in tree)
-- **[Phase 3]** `git merge-base --is-ancestor 9c4d94dc9a644 HEAD` →
-  ancestor (128k msize in tree)
-- **[Phase 3]** `git show 9c4d94dc9a644` → default msize raised to 128k
-- **[Phase 4]** `b4 dig -c` → failed (commit not in checkout)
-- **[Phase 4]** WebFetch lore.kernel.org → blocked by Anubis
-- **[Phase 5]** Read `p9_client_readdir()`, `p9_client_read_once()`,
-  `p9_virtio_zc_request()`, `p9_get_mapped_pages()` — confirmed vmalloc
-  handling at `trans_virtio.c:368-373`
-- **[Phase 5]** `grep zc_request net/9p` → only virtio transport has
-  zerocopy
-- **[Phase 6]** `grep kzalloc/kfree` in tree → buggy code at
-  `vfs_dir.c:73`, `client.c:893`
-- **[Phase 6]** `grep DEFAULT_MSIZE` → `(128 * 1024) + P9_IOHDRSZ` at
-  `client.c:36`
-- **[Phase 6]** Calculated allocation size: ~131,088 bytes for default
-  msize
-- **[Phase 6]** `grep kvzalloc/kvfree include/linux/slab.h` → APIs
-  available in tree
-- **[Phase 6]** `git log --grep` for existing rdir kvmalloc fix → none
-  found
-- **UNVERIFIED:** Mailing list review content and stable nominations
-- **UNVERIFIED:** Whether `e21d451a82f3` was or will be backported
-  separately
+- **[Phase 1]** `git describe HEAD` → `v6.18.44-2-g1b9e1abadee04`;
+  Makefile → 6.18.44
+- **[Phase 1]** Parsed commit message tags from user-provided content
+- **[Phase 2]** Read `drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c` —
+  confirmed buggy wait loop at lines 109–113
+- **[Phase 2]** Read `kernel/sched/completion.c` lines 237–238 —
+  confirmed return semantics (0=timeout, <0=signal, >0=completed)
+- **[Phase 3]** `git blame -L 93,155` — buggy code present in current
+  tree
+- **[Phase 3]** `git log --oneline -20 -- drivers/gpu/drm/gma500/` —
+  found related stable backports (`6d835a99474cd`, `ab9256936b58e`,
+  `4e003e2fb6d3f`)
+- **[Phase 3]** `git log --grep="return errors from Oaktrail"` → empty;
+  fix not in tree
+- **[Phase 3]** `git rev-parse --is-shallow-repository` → `true` (limits
+  history depth)
+- **[Phase 4]** `b4 dig` — commit not in tree; cannot run `-c`
+- **[Phase 4]** Lore/patch.msgid.link fetch — blocked by Anubis
+  (**UNVERIFIED** review thread)
+- **[Phase 5]** `grep` oaktrail_hdmi.c — `drm_get_edid()` commented out
+  at line 581; adapter 3 registered at init
+- **[Phase 5]** `grep i2c_bus` in gma500 — LVDS uses bus 1, not 3
+- **[Phase 6]** Confirmed buggy code exists; fix absent
+- **[Phase 6]** Diff matches current file content (manual comparison)
+- **[Phase 7]** Read `drivers/gpu/drm/gma500/Kconfig` —
+  `CONFIG_DRM_GMA500` details
+- **[Phase 8]** Assessed hang severity and niche hardware scope
 
 **YES**
 
- fs/9p/vfs_dir.c | 2 +-
- net/9p/client.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c | 21 ++++++++++++++++-----
+ 1 file changed, 16 insertions(+), 5 deletions(-)
 
-diff --git a/fs/9p/vfs_dir.c b/fs/9p/vfs_dir.c
-index edef553bbd59e..323f85352f6a4 100644
---- a/fs/9p/vfs_dir.c
-+++ b/fs/9p/vfs_dir.c
-@@ -72,7 +72,7 @@ static struct p9_rdir *v9fs_alloc_rdir_buf(struct file *filp, int buflen)
- 	struct p9_fid *fid = filp->private_data;
+diff --git a/drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c b/drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c
+index 6daa6669ed237..4f1d095fc5a81 100644
+--- a/drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c
++++ b/drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c
+@@ -95,6 +95,7 @@ static int xfer_read(struct i2c_adapter *adap, struct i2c_msg *pmsg)
+ 	struct oaktrail_hdmi_dev *hdmi_dev = i2c_get_adapdata(adap);
+ 	struct hdmi_i2c_dev *i2c_dev = hdmi_dev->i2c_dev;
+ 	u32 temp;
++	int ret;
  
- 	if (!fid->rdir)
--		fid->rdir = kzalloc(sizeof(struct p9_rdir) + buflen, GFP_KERNEL);
-+		fid->rdir = kvzalloc(sizeof(struct p9_rdir) + buflen, GFP_KERNEL);
- 	return fid->rdir;
+ 	i2c_dev->status = I2C_STAT_INIT;
+ 	i2c_dev->msg = pmsg;
+@@ -106,9 +107,14 @@ static int xfer_read(struct i2c_adapter *adap, struct i2c_msg *pmsg)
+ 	HDMI_WRITE(HDMI_HI2CHCR, temp);
+ 	HDMI_READ(HDMI_HI2CHCR);
+ 
+-	while (i2c_dev->status != I2C_TRANSACTION_DONE)
+-		wait_for_completion_interruptible_timeout(&i2c_dev->complete,
++	while (i2c_dev->status != I2C_TRANSACTION_DONE) {
++		ret = wait_for_completion_interruptible_timeout(&i2c_dev->complete,
+ 								10 * HZ);
++		if (ret < 0)
++			return ret;
++		if (!ret)
++			return -ETIMEDOUT;
++	}
+ 
+ 	return 0;
  }
+@@ -127,7 +133,7 @@ static int oaktrail_hdmi_i2c_access(struct i2c_adapter *adap,
+ {
+ 	struct oaktrail_hdmi_dev *hdmi_dev = i2c_get_adapdata(adap);
+ 	struct hdmi_i2c_dev *i2c_dev = hdmi_dev->i2c_dev;
+-	int i;
++	int i, ret = 0;
  
-diff --git a/net/9p/client.c b/net/9p/client.c
-index 08ae4c44d7305..75aac636b20e7 100644
---- a/net/9p/client.c
-+++ b/net/9p/client.c
-@@ -890,7 +890,7 @@ static void p9_fid_destroy(struct p9_fid *fid)
- 	spin_lock_irqsave(&clnt->lock, flags);
- 	idr_remove(&clnt->fids, fid->fid);
- 	spin_unlock_irqrestore(&clnt->lock, flags);
--	kfree(fid->rdir);
-+	kvfree(fid->rdir);
- 	kfree(fid);
+ 	mutex_lock(&i2c_dev->i2c_lock);
+ 
+@@ -139,9 +145,11 @@ static int oaktrail_hdmi_i2c_access(struct i2c_adapter *adap,
+ 	for (i = 0; i < num; i++) {
+ 		if (pmsg->len && pmsg->buf) {
+ 			if (pmsg->flags & I2C_M_RD)
+-				xfer_read(adap, pmsg);
++				ret = xfer_read(adap, pmsg);
+ 			else
+-				xfer_write(adap, pmsg);
++				ret = xfer_write(adap, pmsg);
++			if (ret)
++				break;
+ 		}
+ 		pmsg++;         /* next message */
+ 	}
+@@ -151,6 +159,9 @@ static int oaktrail_hdmi_i2c_access(struct i2c_adapter *adap,
+ 
+ 	mutex_unlock(&i2c_dev->i2c_lock);
+ 
++	if (ret)
++		return ret;
++
+ 	return i;
  }
  
 -- 
