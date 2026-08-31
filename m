@@ -1,43 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5816B4A2626;
-	Mon, 31 Aug 2026 13:42:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A43444A3EE;
+	Mon, 31 Aug 2026 13:42:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183732; cv=none; b=NQUoOCZ9ygdzr8oVgDrDY/6vMZwEi2ruk3l3IkKDqmDblrIcOtOBRjzwVoK82jxU/CstvFMhrwn3SLywf3lBYH8ByNIzNs0IEfFC+jk7cASQDlF6p6r4GXA0LXy7jbIWIoqMoGbX2v7e7114xc7wN/Xm/lNZRF2mm9KPsNA6D2Q=
+	t=1788183733; cv=none; b=OZ9+Bw+5eCIgj1MaTkubLcaBVJRm+y+JP1LQWzwatHjZfAcnYpUQk526KMnQ+9+N9IZmhQIGV6uR9Fin395UX0uFD7RUDvKMbMkS6ulso9VplchSwflYC2XsHpU2A3U+W4yW/xWVUTY5jE8fZLeQ1o2PbH21XyzHOIyMTJBGhGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183732; c=relaxed/simple;
-	bh=rChy5yORFZLbGdCKUD+L2vUNSqVemFPiciulI6OKzP8=;
+	s=arc-20240116; t=1788183733; c=relaxed/simple;
+	bh=esiWKftdgtlhrwVwueMMa4hZKzagSmx7NPKwEK/luSA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ugcsWp9SfD4blrvL6kReeMZdsorO/GPh2mBYlsZkQ4ChGkbpVFtwzoxa1YeyrsHwQGH7ybGdsHppobhqf80LxS2lM2K4/h1MpYGni5BY9dTLAwmnXxchtdGnQdNxxrxkfF+VcMOKxjBcvaB3dJfBSA7NH16dmzsa675HI+aEERM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UjC+fQX+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=L+IIwVj67InE8BAyHAGyp18YdEXDcWCsocjI6vhvs2p7Mg/Fm9vryZTOZiX9TEW/bd0u3slY+OPqVd6chRtBDzOFm+HHGtrkuetjuJjVnYGwudrFVWeHO2bcPwkV8qX2R4OkcHr8rVerAQ+14yJ1AJzsSH2nkP0uAU4Gde5tEuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=llwTR3zs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UjC+fQX+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B46891F00ACF;
-	Mon, 31 Aug 2026 13:42:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="llwTR3zs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1AC1F000E9;
+	Mon, 31 Aug 2026 13:42:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183729;
-	bh=0lX08l6+JGXjAp4QhgpbFwoFZyK327OPTv0iRmjeCZM=;
+	s=k20260515; t=1788183731;
+	bh=LU1tCjaazAuuI5hKZKyA4j9n1PnyCCpNtt7AusBd1p4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UjC+fQX+NhzkFwm57UbkqH6qK03/0ca+Mn53lec3haFhAz1fsfhUwP8o/QM/4aiTS
-	 sASbBT7wsyCuhBdsiGwpCFJ+LAMjadnFtPQLDyf8mS/uTSOFsKuz9Jf8YWNJ/yNPA6
-	 72LN9R1UONNhitfHgSKbUvfudRsGqxn2V4kIHAZPDLFFa+EzWf8LebMT07tl1w00WN
-	 XaEC5VVzagOwbrVyNKNrr8CHEQ7SbTN5EhoCSIjfvF28389tqvs67yGv9KaK4KPUDe
-	 stvBwHCU3Cne7/iAaeMDy6qlnvhidfngsSzxw/6up3uXNFNT5K3Ohm9/OZBjDOFtOF
-	 FnOyo5m83MwMA==
+	b=llwTR3zsWyqyYP+9BDu2JsnlDXClT0N1miM0MtgoSkcnoe2sSlje+C5goQM7T2X9d
+	 gPUTXjc4hdXVtXDaWRd/KwmxI8pupZoQdHXQvUsQVbOAcDzidwWVp0emS35a7cAYyl
+	 leHJP/T1gUcMLSGWL5bceuvL9ZbXNluTlBeEO5SapGerwt3xkAdiUdT3jFKkvDGFyf
+	 TcSrs9b+nMnO8t2vlRS4OVmOf/Tr5TH/CcjNNZObMeFuJ5iuvWwa2kTsY46nE1rVHf
+	 wX8iDLvE1VkeCU6dPoaepsg4ZzdYFIaHZPt5mWQ/ktlB7IM1vtlnzLrSHAaiRzKE9N
+	 negC8O9FLWCpw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Jie Wang <jie.wang@intel.com>,
-	syzbot+642d0561f78362d67d3f@syzkaller.appspotmail.com,
-	Andreas Gruenbacher <agruenba@redhat.com>,
+Cc: Ruoyu Wang <ruoyuw560@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>,
-	gfs2@lists.linux.dev,
+	kaloz@openwrt.org,
+	clabbe@baylibre.com,
+	davem@davemloft.net,
+	linux-arm-kernel@lists.infradead.org,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] gfs2: fix quota init duplicate scan
-Date: Mon, 31 Aug 2026 09:24:57 -0400
-Message-ID: <20260831133314.4125787-269-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.15] crypto: ixp4xx - fix buffer chain unwind on allocation failure
+Date: Mon, 31 Aug 2026 09:24:58 -0400
+Message-ID: <20260831133314.4125787-270-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,459 +57,461 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jie Wang <jie.wang@intel.com>
+From: Ruoyu Wang <ruoyuw560@gmail.com>
 
-[ Upstream commit b99a1f0f18ee50445907f55069e88bcfd8947383 ]
+[ Upstream commit 25056329384010a8672552b134f609601dc4f80e ]
 
-gfs2_quota_init() checks for duplicate quota_change IDs while holding
-qd_lock and the quota hash bucket bitlock. That path used
-gfs2_qd_search_bucket(), which takes a lockref reference via
-lockref_get_not_dead().
+chainup_buffers() builds a linked list of buffer descriptors for a
+scatterlist. If dma_pool_alloc() fails while constructing the list, the
+current code sets buf to NULL and later dereferences it unconditionally
+at the end of the function:
 
-On PREEMPT_RT this may sleep, which is not allowed under the bucket
-bitlock, triggering "sleeping function called from invalid context".
+  buf->next = NULL;
+  buf->phys_next = 0;
 
-Use a no-ref bucket lookup in this path, then continue duplicate
-handling without taking a lockref there.
+This can lead to a null-pointer dereference on allocation failure.
 
-Refactor gfs2_qd_search_bucket() to build on top of the no-ref helper
-so lookup traversal stays in one place.
+If the failure happens after part of the descriptor chain has already
+been allocated and DMA-mapped, the partially constructed chain also
+needs to be released.
 
-This patch fixes a bug reported by syzbot.
+Fix this by terminating the partially constructed chain on allocation
+failure and letting the callers unwind it via their existing cleanup
+paths. Also fix ablk_perform() to preserve the hook pointers before
+checking for failure, so partially built chains can be freed correctly.
 
-Reported-by: syzbot+642d0561f78362d67d3f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=642d0561f78362d67d3f
-Tested-by: syzbot+642d0561f78362d67d3f@syzkaller.appspotmail.com
-Signed-off-by: Jie Wang <jie.wang@intel.com>
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+Acked-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `gfs2: fix quota init duplicate scan`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.43** (`git describe HEAD` → `v6.18.43`,
-`make kernelversion` → `6.18.43`)
+**Step 1.1 — Subject line**
 
-**Mainline fix commit:** `b99a1f0f18ee` (not present in this tree; `git
-merge-base --is-ancestor` → exit 1)
+Record: `[crypto: ixp4xx] [fix] fix buffer chain unwind on allocation
+failure in chainup_buffers()/ablk_perform()`
 
----
+**Step 1.2 — Tags**
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+Record:
+- `Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>` — author
+- `Acked-by: Linus Walleij <linusw@kernel.org>` — ARM/platform
+  maintainer ack
+- `Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>` — crypto
+  maintainer merge
+- No `Fixes:` tag (expected for manual review)
+- No `Reported-by:` / `Link:` / `Cc: stable@vger.kernel.org`
+- Notable: maintainer ack from Linus Walleij; Herbert Xu applied v2 per
+  lore
 
-### Step 1.1: PARSE THE SUBJECT LINE
-**Record:** `[gfs2] [fix] quota init duplicate scan` — GFS2 quota
-initialization path; explicit bug fix.
+**Step 1.3 — Body analysis**
 
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-**Record:**
-- **Reported-by:** syzbot+642d0561f78362d67d3f@syzkaller.appspotmail.com
-  (fuzzer-found, high priority)
-- **Closes:**
-  https://syzkaller.appspot.com/bug?extid=642d0561f78362d67d3f
-- **Tested-by:** syzbot+642d0561f78362d67d3f@syzkaller.appspotmail.com
-- **Signed-off-by:** Jie Wang (author), Andreas Gruenbacher (GFS2
-  maintainer)
-- No Fixes: tag (expected for manual review)
-- No Cc: stable tag (expected; not a negative signal)
+Record:
+- **Bug:** `chainup_buffers()` on `dma_pool_alloc()` failure sets `buf =
+  NULL`, breaks, then unconditionally does `buf->next = NULL` → NULL
+  pointer dereference.
+- **Secondary bug:** Partially built descriptor chains are not
+  terminated/freed on failure.
+- **Symptom:** Kernel oops on allocation failure; possible DMA-pool leak
+  if the NULL deref were avoided without proper unwind.
+- **Root cause:** Incorrect error handling in `chainup_buffers()`;
+  `ablk_perform()` checks return value before saving hook pointers, so
+  cleanup cannot free partial chains.
+- **Version info:** None in commit message.
 
-**Notable patterns:** syzbot report + Tested-by syzbot = reproducible,
-syscall-reachable bug.
+**Step 1.4 — Hidden bug fix?**
 
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
-**Record:**
-- **Bug:** `gfs2_quota_init()` calls `gfs2_qd_search_bucket()` while
-  holding `qd_lock` and the quota hash bucket bitlock. That helper calls
-  `lockref_get_not_dead()`, which on PREEMPT_RT can sleep.
-- **Symptom:** `BUG: sleeping function called from invalid context` at
-  `lockref_get_not_dead()` → `rt_spin_lock()`.
-- **Root cause:** Taking a lockref reference (which may acquire
-  `lockref->lock` as a sleeping RT spinlock) under a bit_spinlock
-  context that forbids sleeping.
-- **Fix approach:** Add `gfs2_qd_search_bucket_noref()` for callers
-  already holding locks; use it in the duplicate-scan path; refactor
-  `gfs2_qd_search_bucket()` to call the noref helper first.
-
-### Step 1.4: DETECT HIDDEN BUG FIXES
-**Record:** Not hidden — this is an explicit PREEMPT_RT correctness bug
-fix, not cleanup. The removal of `qd_put(old_qd)` is part of the fix:
-the noref lookup does not take a reference, so the prior `qd_put()` was
-balancing an unnecessary `lockref_get_not_dead()`.
+Record: No — this is an explicit bug fix (NULL deref + resource leak on
+error path), not disguised cleanup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: INVENTORY THE CHANGES
-**Record:**
-- **Files:** `fs/gfs2/quota.c` only (+23 / -10 lines in mainline commit;
-  ~33 lines total with context)
-- **Functions modified:** new `gfs2_qd_search_bucket_noref()`,
-  refactored `gfs2_qd_search_bucket()`, `gfs2_quota_init()`
-- **Scope:** Single-file, surgical fix
+**Step 2.1 — Inventory**
 
-### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-**Record:**
-- **Hunk 1 (`gfs2_qd_search_bucket_noref`):** Before: no separate noref
-  lookup. After: pure hash-bucket traversal returning a match without
-  refcount/LRU manipulation.
-- **Hunk 2 (`gfs2_qd_search_bucket`):** Before: inline traversal +
-  `lockref_get_not_dead()` under caller's lock context. After: delegates
-  traversal to noref helper, then takes lockref only when caller is not
-  already under bitlock (RCU or unlocked paths).
-- **Hunk 3 (`gfs2_quota_init`):** Before: `gfs2_qd_search_bucket()`
-  under `qd_lock` + bucket bitlock → can sleep on RT; then
-  `qd_put(old_qd)`. After: `gfs2_qd_search_bucket_noref()` under locks
-  (no sleep); no `qd_put()` since no ref was taken.
+Record:
+- **File:** `drivers/crypto/intel/ixp4xx/ixp4xx_crypto.c` (+14 / −11,
+  ~25 lines)
+- **Functions:** `chainup_buffers()`, `ablk_perform()`
+- **Scope:** Single-file surgical fix
 
-### Step 2.3: IDENTIFY THE BUG MECHANISM
-**Record:** **Category:** Synchronization / invalid context (PREEMPT_RT
-lock nesting violation). **Mechanism:** `lockref_get_not_dead()` slow
-path does `spin_lock(&lockref->lock)` which becomes a sleeping mutex on
-PREEMPT_RT, called while `preempt_count: 1` and holding `hlist_bl`
-bitlock via `spin_lock_bucket()`.
+**Step 2.2 — Code flow changes**
 
-### Step 2.4: ASSESS THE FIX QUALITY
-**Record:** Fix is obviously correct and minimal. Refactoring
-`gfs2_qd_search_bucket()` to share traversal logic avoids duplication.
-Removing `qd_put(old_qd)` is correct (no ref acquired). Low regression
-risk: only changes the duplicate-detection path under locks; normal
-`qd_get()` paths still use the ref-taking wrapper outside the
-problematic quota-init context. **Regression risk:** LOW.
+Record:
+- **Hunk 1 (`chainup_buffers`):** Before: on alloc failure, `buf = NULL;
+  break;` then fall through to `buf->next = NULL` (crash). After:
+  terminate current `buf` chain (`buf->next = NULL; buf->phys_next = 0`)
+  and `return NULL` immediately.
+- **Hunk 2 (`ablk_perform`):** Before: `if (!chainup_buffers(...)) goto
+  cleanup` before saving `dst_hook`/`src_hook` into `req_ctx` and
+  `crypt`. After: assign return to `buf`, always save hook pointers
+  first, then `if (!buf) goto cleanup` — matching the pattern already
+  used in `aead_perform()`.
 
----
+**Step 2.3 — Bug mechanism**
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+Record:
+- **Category:** NULL pointer dereference + error-path resource leak
+- **Mechanism:** On `dma_pool_alloc()` failure, `buf` becomes NULL but
+  is dereferenced at function end. Even if that were avoided,
+  `ablk_perform()` would jump to cleanup without populating
+  `req_ctx->dst/src` and `crypt->dst_buf/src_buf`, so `free_buf_chain()`
+  would not release partially allocated chains.
 
-### Step 3.1: BLAME THE CHANGED LINES
-**Record:** Buggy `gfs2_qd_search_bucket()` call in `gfs2_quota_init()`
-at line 1461 and the function body at lines 257–275 both blame to
-`5d324e5159d9e` (v6.18-rc8 merge base in this tree). The duplicate-scan
-logic is present throughout the 6.18.y series.
+**Step 2.4 — Fix quality**
 
-### Step 3.2: FOLLOW THE FIXES: TAG
-**Record:** No Fixes: tag present. N/A.
-
-### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-**Record:** Recent `fs/gfs2/quota.c` commits in this tree:
-`1d47922b98046` (slab UAF in qd_put), `32c3960b42124` (wait_event in
-gfs2_quotad). Patch went through v1→v2→v3 on lore; v3 is the committed
-version. v2 was a 2-patch series but v3 is standalone.
-
-### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-**Record:** No prior Jie Wang gfs2 commits visible in this stable tree's
-limited history. Andreas Gruenbacher (maintainer) signed off on mainline
-commit.
-
-### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-**Record:** No dependencies. Standalone fix. `git apply --check` of the
-quota.c portion applies cleanly to 6.18.43.
+Record: Fix is minimal, obviously correct, and aligns `ablk_perform()`
+with the existing correct pattern in `aead_perform()`. Low regression
+risk — only affects failure paths.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 3: Git History Investigation
 
-### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-**Record:** `b4 dig -c b99a1f0f18ee` →
-https://patch.msgid.link/20260423133934.118970-1-jie.wang@intel.com
-(v3). Series: v1 (Apr 20), v2 (Apr 21, 2 patches), v3 (Apr 23,
-standalone). Andreas Gruenbacher reviewed v2 ("looking good except for
-one minor detail") and v3 thread includes his reply. No explicit "Cc:
-stable" found in mbox.
+**Step 3.1 — Blame**
 
-### Step 4.2: CHECK WHO REVIEWED THE PATCH
-**Record:** `b4 dig -w`: CC'd gfs2@lists.linux.dev, linux-rt-
-devel@lists.linux.dev, bigeasy@linutronix.de (RT), rostedt@goodmis.org,
-clrkwllms@kernel.org, syzbot. Appropriate RT and GFS2 maintainers
-involved.
+Record: `git blame` on `chainup_buffers()` lines 872–902 attributes all
+lines to `5d324e5159d9e` (Nov 28, 2025 merge). This checkout’s history
+is shallow around this file; exact introduction commit of the buggy
+pattern could not be determined here. The driver itself dates to 2008
+per file header.
 
-### Step 4.3: SEARCH FOR THE BUG REPORT
-**Record:** Syzkaller bug 642d0561f78362d67d3f — status: fixed. 13
-crashes. Label: prio:high. Stack trace confirms:
-- `gfs2_quota_init` → `gfs2_qd_search_bucket` → `lockref_get_not_dead` →
-  `rt_spin_lock`
-- Triggered during `mount()` of GFS2 on `PREEMPT_RT`
-- Secondary `gfs2_assert_warn` in `gfs2_qd_dispose` after duplicate
-  detection (from improper `qd_put` in broken path)
-- Reproducer: crafted GFS2 image with duplicate quota_change identifiers
+**Step 3.2 — Fixes: tag**
 
-### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-**Record:** v2 had a second patch ("move quota_init qc iterator
-increment") — not needed; v3 is self-contained.
+Record: N/A — no `Fixes:` tag present.
 
-### Step 4.5: CHECK STABLE MAILING LIST HISTORY
-**Record:** lore.kernel.org stable search blocked by bot protection.
-Could not verify stable-list discussion. Not a factor in the decision.
+**Step 3.3 — Related file history**
 
----
+Record: `git log --oneline -20 --
+drivers/crypto/intel/ixp4xx/ixp4xx_crypto.c` shows only the merge commit
+in this tree. Fix commit is **not** present (`git log --grep="buffer
+chain"` returns nothing). Buggy code confirmed at lines 886–900 and
+1028–1040.
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+**Step 3.4 — Author context**
 
-### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-**Record:** `gfs2_qd_search_bucket_noref()` (new),
-`gfs2_qd_search_bucket()` (refactored), `gfs2_quota_init()` (call site
-change).
+Record: No prior Ruoyu Wang commits in this tree’s
+`drivers/crypto/intel/ixp4xx/` history. Patch was reviewed by crypto
+maintainer Herbert Xu (v2 incorporated his feedback).
 
-### Step 5.2: TRACE CALLERS
-**Record:**
-- `gfs2_quota_init()` ← `gfs2_make_fs_rw()` ← `gfs2_fill_super()` ←
-  mount syscall
-- `gfs2_qd_search_bucket()` also called from `qd_get()` (lines 286, 298)
-  — but `qd_get()`'s locked call at line 298 is a separate path; this
-  fix targets only the quota-init duplicate-scan path as reported
+**Step 3.5 — Dependencies**
 
-### Step 5.3: TRACE CALLEES
-**Record:** `gfs2_qd_search_bucket_noref()` → RCU hlist traversal only
-(no locks). `gfs2_qd_search_bucket()` → noref helper +
-`lockref_get_not_dead()` + `list_lru_del_obj()`.
-
-### Step 5.4: FOLLOW THE CALL CHAIN
-**Record:** `mount()` → `gfs2_fill_super()` → `gfs2_make_fs_rw()` →
-`gfs2_quota_init()` — reachable from userspace via mount syscall.
-Requires `CONFIG_GFS2_FS` + `PREEMPT_RT` + duplicate quota_change
-entries (corruption or crafted image).
-
-### Step 5.5: SEARCH FOR SIMILAR PATTERNS
-**Record:** `qd_get()` at line 298 also calls `gfs2_qd_search_bucket()`
-under `spin_lock_bucket()`. Same theoretical RT issue, but not reported
-by syzbot and not addressed by this patch. Out of scope for this
-backport decision.
+Record: Standalone fix; no series dependencies. `aead_perform()` in the
+same file already uses the post-fix calling convention, confirming the
+API contract.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+## Phase 4: Mailing List and External Research
 
-### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-**Record:** **YES.** Current `fs/gfs2/quota.c` at lines 1461 and 257–275
-matches the pre-fix code exactly. Fix commit `b99a1f0f18ee` is **not**
-an ancestor of HEAD.
+**Step 4.1 — Original discussion**
 
-### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-**Record:** **Clean apply expected.** `git apply --check` of the quota.c
-diff from `b99a1f0f18ee` succeeded with no errors on 6.18.43.
+Record: Patch v2 submitted Apr 23, 2026 to linux-crypto. Thread:
+https://lists.openwall.net/linux-kernel/2026/04/23/864. v2 changes per
+Herbert Xu: keep unwind in callers, terminate partial chain, save hook
+pointers in `ablk_perform()`. Herbert Xu replied “Patch applied.
+Thanks.” (May 5, 2026).
 
-### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-**Record:** No prior fix for this syzbot bug found. Related recent fix
-`1d47922b98046` (qd_put UAF) is separate.
+**Step 4.2 — Reviewers**
 
----
+Record: To: Herbert Xu, Corentin Labbe, linux-crypto. Cc: Linus Walleij,
+Imre Kaloz, David S. Miller, linux-arm-kernel, linux-kernel. Appropriate
+maintainers were included.
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+**Step 4.3 — Bug report**
 
-### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-**Record:** **Subsystem:** fs/gfs2 (GFS2 cluster filesystem).
-**Criticality:** IMPORTANT — affects GFS2/PREEMPT_RT users; mount path
-is critical.
+Record: No external bug report or syzbot report. Bug identified by code
+review / author analysis.
 
-### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-**Record:** Active in 6.18.y (recent quota fixes in this tree). GFS2 is
-a production cluster filesystem used in RHEL and similar distributions.
+**Step 4.4 — Series context**
 
----
+Record: v1 used internal `free_buf_chain()` in `chainup_buffers()`; v2
+(committed version) moved unwind to callers per maintainer feedback.
+Committed version is the latest revision.
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+**Step 4.5 — Stable list discussion**
 
-### Step 8.1: DETERMINE WHO IS AFFECTED
-**Record:** Users with `CONFIG_GFS2_FS` + `CONFIG_PREEMPT_RT` mounting
-GFS2 filesystems where `gfs2_quota_init()` encounters duplicate
-quota_change entries. Cluster/enterprise RT deployments are the primary
-real-world audience.
-
-### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-**Record:** GFS2 mount on PREEMPT_RT kernel when quota_change file
-contains duplicate identifiers. Syzbot crafts this condition; real-world
-trigger is quota file corruption during mount/recovery. Unprivileged
-users can trigger via `mount()` if permitted to mount crafted images.
-
-### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-**Record:** `BUG: sleeping function called from invalid context` —
-kernel WARN/BUG on RT. Mount may fail or leave quota subsystem in
-inconsistent state (secondary assertion in `gfs2_qd_dispose`).
-**Severity: HIGH** (invalid context bug, mount failure, potential
-follow-on corruption).
-
-### Step 8.4: CALCULATE RISK-BENEFIT RATIO
-**Record:**
-- **Benefit:** HIGH for GFS2+RT users — prevents mount-time kernel bug
-  on corruption recovery path; syzbot-verified
-- **Risk:** LOW — ~33 lines, single file, applies cleanly, maintainer-
-  reviewed, no API changes
-- **Ratio:** Strong benefit, minimal risk → backport warranted
+Record: No stable-list discussion found. Absence of `Cc: stable` is not
+a negative signal per review guidelines.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 5: Code Semantic Analysis
 
-### Step 9.1: COMPILE THE EVIDENCE
+**Step 5.1 — Key functions**
 
-**FOR backporting:**
-- Syzbot-reported, reproducible, Tested-by syzbot
-- Real PREEMPT_RT invalid-context bug (sleeping under bitlock)
-- Mount-path reachable from userspace
-- Buggy code confirmed present in 6.18.43; fix not yet applied
-- Small, surgical, applies cleanly
-- GFS2 maintainer (Gruenbacher) signed off
-- Fixes kernel BUG/WARN and prevents mount failures on RT
+Record: `chainup_buffers()`, `ablk_perform()`, `free_buf_chain()`
 
-**AGAINST backporting:**
-- Requires PREEMPT_RT + GFS2 (narrower than universal)
-- Duplicate quota entries needed to hit the exact path
-  (corruption/crafted FS)
-- `qd_get()` has a similar pattern not fixed here (pre-existing,
-  separate issue)
+**Step 5.2 — Callers**
 
-**UNRESOLVED:**
-- Exact commit that introduced duplicate-scan logic (shallow stable
-  history)
-- Stable mailing list discussion (lore blocked)
+Record: `chainup_buffers()` called from:
+- `ablk_perform()` (lines 1028, 1038) — **buggy caller pattern**
+- `aead_perform()` (lines 1140, 1160) — **already correct pattern**
 
-Neither unresolved item affects the YES decision.
+`ablk_perform()` called from `ablk_encrypt()`, `ablk_decrypt()`,
+`ablk_rfc3686_crypt()`.
 
-### Step 9.2: STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — syzbot Tested-by; maintainer
-   SOB; clear mechanism
-2. Fixes a real bug affecting users? **PASS** — syzbot, 13 crashes,
-   mount path
-3. Important issue? **PASS** — invalid context BUG on PREEMPT_RT, mount
-   failure (HIGH)
-4. Small and contained? **PASS** — 1 file, ~33 lines
-5. No new features or APIs? **PASS** — internal refactor + call-site fix
-   only
-6. Can apply to local tree? **PASS** — `git apply --check` succeeded
+**Step 5.3 — Callees**
 
-### Step 9.3: EXCEPTION CATEGORIES
-**Record:** None applicable (not device ID, quirk, DT, build, or docs).
-Standard bug fix.
+Record: `dma_pool_alloc()`, `dma_map_single()`, `sg_virt()`,
+`sg_next()`, `free_buf_chain()` (on error paths)
 
-### Step 9.4: DECISION RATIONALE
+**Step 5.4 — Reachability**
 
-For **Linux 6.18.43**, this commit should be backported. The buggy code
-is present, the fix is absent, and the failure is a verified PREEMPT_RT
-invalid-context bug in the GFS2 mount path. The patch is small, self-
-contained, applies cleanly, and meets all stable-kernel criteria.
+Record: Reachable from userspace crypto operations (skcipher
+encrypt/decrypt) on systems with `CONFIG_CRYPTO_DEV_IXP4XX` and IXP4xx
+hardware (`ARCH_IXP4XX`). Trigger requires `dma_pool_alloc()` failure
+(memory pressure or pool exhaustion), most likely under `GFP_ATOMIC`
+when `CRYPTO_TFM_REQ_MAY_SLEEP` is unset.
+
+**Step 5.5 — Similar patterns**
+
+Record: `aead_perform()` already implements the correct post-fix
+pattern, demonstrating this is the intended API usage and
+`ablk_perform()` was simply inconsistent.
+
+---
+
+## Phase 6: Cross-Reference Against Local Tree (6.18.43)
+
+**Step 6.1 — Buggy code present?**
+
+Record: **YES.** Local tree is `6.18.43` (`git describe`:
+`v6.18.43-1-gc7f0dac02d232`). Buggy code at:
+
+```886:901:drivers/crypto/intel/ixp4xx/ixp4xx_crypto.c
+                if (!next_buf) {
+                        buf = NULL;
+                        break;
+                }
+                // ...
+        buf->next = NULL;
+        buf->phys_next = 0;
+        return buf;
+```
+
+and buggy `ablk_perform()` caller pattern at lines 1028–1040. Fix is
+**not** yet applied.
+
+**Step 6.2 — Backport complications**
+
+Record: Expected **clean apply** — current source matches the patch’s
+`index fcc0cf4df..5b90cf0fb` base context exactly.
+
+**Step 6.3 — Related fixes already present?**
+
+Record: No equivalent fix found via `git log --grep`. `aead_perform()`
+already has correct hook-pointer handling but does not fix the
+`chainup_buffers()` NULL deref.
+
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+**Step 7.1 — Subsystem**
+
+Record: `drivers/crypto/intel/ixp4xx/` — crypto hardware driver for
+Intel IXP4xx NPE. **Criticality: PERIPHERAL** (platform-specific
+embedded hardware), but error path is in common crypto request handling.
+
+**Step 7.2 — Activity**
+
+Record: `drivers/crypto/` has active maintenance in this tree (recent
+qat, tegra, cavium fixes). IXP4xx driver file shows limited recent churn
+in this checkout.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+**Step 8.1 — Who is affected**
+
+Record: Systems with `CONFIG_CRYPTO_DEV_IXP4XX` (depends on `ARCH_IXP4XX
+|| COMPILE_TEST`, plus `IXP4XX_QMGR` and `IXP4XX_NPE`). Primarily
+embedded IXP4xx/ARM routers and similar devices using hardware crypto
+acceleration.
+
+**Step 8.2 — Trigger conditions**
+
+Record: Skcipher crypto request through `ablk_perform()` when
+`dma_pool_alloc()` fails mid-chain. Uncommon but realistic under memory
+pressure. Userspace can initiate crypto ops; failure is not theoretical
+once pool is exhausted.
+
+**Step 8.3 — Failure mode severity**
+
+Record:
+- **Primary:** NULL pointer dereference → kernel oops (**CRITICAL** when
+  triggered)
+- **Secondary:** Partial buffer-chain leak on alloc failure without
+  proper hook setup (**HIGH** — DMA pool exhaustion)
+
+**Step 8.4 — Risk vs benefit**
+
+Record:
+- **Benefit:** Prevents kernel crash and fixes error-path resource leak
+  in hardware crypto path
+- **Risk:** Very low — ~25 lines, failure-path only, matches existing
+  `aead_perform()` pattern, maintainer-reviewed
+- **Ratio:** Clear benefit outweighs risk for this tree
+
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1 — Evidence summary**
+
+**FOR backport:**
+- Real, verifiable NULL deref on error path
+- Secondary resource-leak fix in `ablk_perform()`
+- Small, surgical, single-file change
+- Acked by Linus Walleij; applied by crypto maintainer Herbert Xu after
+  review
+- Buggy code confirmed present in local 6.18.43 tree; fix not yet
+  applied
+- Patch should apply cleanly
+- Same-file `aead_perform()` validates the fix approach
+
+**AGAINST backport:**
+- Niche hardware (IXP4xx only) — smaller user base
+- Requires `dma_pool_alloc()` failure — not everyday, but real under
+  pressure
+- No syzbot/user crash report (found via review)
+
+**Unresolved:** Exact commit that introduced the buggy `buf = NULL;
+break` pattern could not be determined from this tree’s shallow file
+history.
+
+**Step 9.2 — Stable rules checklist**
+
+1. Obviously correct and tested? **PASS** — logic is clear; maintainer
+   reviewed and applied v2
+2. Fixes a real bug? **PASS** — NULL deref + leak on alloc failure
+3. Important issue? **PASS** — kernel oops (CRITICAL when triggered);
+   memory leak (HIGH)
+4. Small and contained? **PASS** — 1 file, ~25 lines, failure paths only
+5. No new features/APIs? **PASS** — error-handling fix only
+6. Can apply to local tree? **PASS** — buggy code present; clean apply
+   expected
+
+**Step 9.3 — Exception categories**
+
+Record: None (not device ID, quirk, DT, build, or docs). Standard bug-
+fix backport.
+
+**Step 9.4 — Decision rationale**
+
+For Linux **6.18.43**, this commit fixes a confirmed NULL pointer
+dereference and an associated error-path resource leak in an existing
+driver that is present and buggy in this tree. The fix is small,
+maintainer-reviewed, and follows an established pattern already used in
+the same file. While the hardware is niche, stable trees routinely
+accept driver crash fixes of this nature.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags: syzbot Reported-by, Closes, Tested-by,
-  author + maintainer SOB
-- [Phase 1] Commit body describes PREEMPT_RT sleep-under-bitlock bug in
-  `gfs2_quota_init()`
-- [Phase 2] Diff: 1 file, 3 hunks, new `gfs2_qd_search_bucket_noref()`,
-  refactored search, quota_init call change, removed `qd_put(old_qd)`
-- [Phase 2] Read `lib/lockref.c:143-161`: `lockref_get_not_dead()` uses
-  `spin_lock(&lockref->lock)` on slow path
-- [Phase 3] `git describe HEAD` → v6.18.43; `make kernelversion` →
-  6.18.43
-- [Phase 3] `git blame` lines 1461, 257-275 → present since v6.18-rc8
-  merge in this tree
-- [Phase 3] `git merge-base --is-ancestor b99a1f0f18ee HEAD` → exit 1
-  (fix NOT in tree)
-- [Phase 3] `git apply --check` of fix diff → success (clean apply)
-- [Phase 4] `b4 dig -c b99a1f0f18ee` → v3 lore thread found
-- [Phase 4] `b4 dig -a` → v1/v2/v3 series; v3 is final standalone
-  version
-- [Phase 4] `b4 dig -w` → gfs2, linux-rt-devel, RT maintainers CC'd
-- [Phase 4] `/tmp/gfs2_quota_fix.mbox`: Gruenbacher reviewed v2
-  ("looking good")
-- [Phase 4] Syzkaller bug page: 13 crashes, prio:high, fix commit
-  b99a1f0f18ee, PREEMPT_RT stack trace
-- [Phase 5] `grep gfs2_quota_init`: called from `fs/gfs2/super.c:149`
-  during `gfs2_make_fs_rw()`
-- [Phase 5] `grep gfs2_qd_search_bucket`: 4 call sites; fix changes only
-  quota_init duplicate path
-- [Phase 6] Grep confirmed buggy code at lines 1461, 269-271 in current
-  tree
-- [Phase 6] `git diff HEAD b99a1f0f18ee -- fs/gfs2/quota.c`: only quota-
-  fix portion needed for backport (other mainline diffs are unrelated)
-- [Phase 7] PREEMPT_RT exists in tree (`kernel/Kconfig.preempt:
-  PREEMPT_RT`)
-- [Phase 8] Failure mode: BUG sleeping-in-invalid-context, severity HIGH
-- UNVERIFIED: Exact introduction commit of duplicate-scan logic (shallow
-  history)
-- UNVERIFIED: Stable mailing list discussion (lore blocked by bot
-  protection)
+- [Phase 1] Parsed subject, tags, and body from provided commit message
+  and openwall lore thread
+- [Phase 1] Confirmed Acked-by: Linus Walleij; Herbert Xu merge SOB
+- [Phase 2] Read current `chainup_buffers()` at lines 886–901: confirmed
+  `buf = NULL; break` followed by `buf->next = NULL` (NULL deref)
+- [Phase 2] Read current `ablk_perform()` at lines 1028–1040: confirmed
+  hook pointers saved after failure check
+- [Phase 2] Read `aead_perform()` at lines 1140–1166: confirmed correct
+  post-fix pattern already present
+- [Phase 2] Read `free_buf_chain()` at lines 333–347: confirmed cleanup
+  depends on valid hook pointers
+- [Phase 3] `git describe HEAD` → `v6.18.43-1-gc7f0dac02d232`; `make
+  kernelversion` → `6.18.43`
+- [Phase 3] `git blame -L 872,902` → buggy lines present (attrib.
+  limited by tree history)
+- [Phase 3] `git log --grep="buffer chain"` → no fix commit in tree
+- [Phase 4] Fetched https://lists.openwall.net/linux-
+  kernel/2026/04/23/864 — v2 patch content and maintainer apply
+  confirmed
+- [Phase 4] UNVERIFIED: `b4 dig -c <hash>` — fix commit hash not in
+  local tree
+- [Phase 5] `grep chainup_buffers` — 3 call sites: 2 in `ablk_perform`,
+  2 in `aead_perform`
+- [Phase 6] Confirmed driver exists:
+  `drivers/crypto/intel/ixp4xx/ixp4xx_crypto.c`
+- [Phase 6] Read Kconfig: `CONFIG_CRYPTO_DEV_IXP4XX` depends on
+  `ARCH_IXP4XX || COMPILE_TEST`
+- [Phase 6] Patch base context matches current file (lines 886–889,
+  1028–1040 identical to diff)
+- [Phase 8] Failure mode: NULL deref → kernel oops; partial chain leak
+  without `ablk_perform()` fix
 
-**YES**The background check finished: `git merge-base --is-ancestor
-b99a1f0f18ee HEAD` returned exit code 1, so commit `b99a1f0f18ee`
-("gfs2: fix quota init duplicate scan") is **not** in this 6.18.43 tree.
-The buggy code is still present at `fs/gfs2/quota.c` line 1461.
+**YES**
 
-The backport analysis stands: **YES** — this fix should be backported to
-this tree.
+ drivers/crypto/intel/ixp4xx/ixp4xx_crypto.c | 25 ++++++++++++---------
+ 1 file changed, 14 insertions(+), 11 deletions(-)
 
- fs/gfs2/quota.c | 33 +++++++++++++++++++++++----------
- 1 file changed, 23 insertions(+), 10 deletions(-)
-
-diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
-index 898fc3937b449..7a36a3fe5e6e6 100644
---- a/fs/gfs2/quota.c
-+++ b/fs/gfs2/quota.c
-@@ -254,9 +254,13 @@ static struct gfs2_quota_data *qd_alloc(unsigned hash, struct gfs2_sbd *sdp, str
- 	return NULL;
- }
- 
--static struct gfs2_quota_data *gfs2_qd_search_bucket(unsigned int hash,
--						     const struct gfs2_sbd *sdp,
--						     struct kqid qid)
-+/*
-+ * Lookup variant for callers which already hold qd_lock + bucket lock.
-+ */
-+static struct gfs2_quota_data *
-+gfs2_qd_search_bucket_noref(unsigned int hash,
-+			    const struct gfs2_sbd *sdp,
-+			    struct kqid qid)
- {
- 	struct gfs2_quota_data *qd;
- 	struct hlist_bl_node *h;
-@@ -264,12 +268,22 @@ static struct gfs2_quota_data *gfs2_qd_search_bucket(unsigned int hash,
- 	hlist_bl_for_each_entry_rcu(qd, h, &qd_hash_table[hash], qd_hlist) {
- 		if (!qid_eq(qd->qd_id, qid))
- 			continue;
--		if (qd->qd_sbd != sdp)
--			continue;
--		if (lockref_get_not_dead(&qd->qd_lockref)) {
--			list_lru_del_obj(&gfs2_qd_lru, &qd->qd_lru);
-+		if (qd->qd_sbd == sdp)
- 			return qd;
--		}
-+	}
-+
-+	return NULL;
-+}
-+
-+static struct gfs2_quota_data *
-+gfs2_qd_search_bucket(unsigned int hash, const struct gfs2_sbd *sdp, struct kqid qid)
-+{
-+	struct gfs2_quota_data *qd;
-+
-+	qd = gfs2_qd_search_bucket_noref(hash, sdp, qid);
-+	if (qd && lockref_get_not_dead(&qd->qd_lockref)) {
-+		list_lru_del_obj(&gfs2_qd_lru, &qd->qd_lru);
-+		return qd;
+diff --git a/drivers/crypto/intel/ixp4xx/ixp4xx_crypto.c b/drivers/crypto/intel/ixp4xx/ixp4xx_crypto.c
+index fcc0cf4df637d..5b90cf0fb0e41 100644
+--- a/drivers/crypto/intel/ixp4xx/ixp4xx_crypto.c
++++ b/drivers/crypto/intel/ixp4xx/ixp4xx_crypto.c
+@@ -884,8 +884,9 @@ static struct buffer_desc *chainup_buffers(struct device *dev,
+ 		ptr = sg_virt(sg);
+ 		next_buf = dma_pool_alloc(buffer_pool, flags, &next_buf_phys);
+ 		if (!next_buf) {
+-			buf = NULL;
+-			break;
++			buf->next = NULL;
++			buf->phys_next = 0;
++			return NULL;
+ 		}
+ 		sg_dma_address(sg) = dma_map_single(dev, ptr, len, dir);
+ 		buf->next = next_buf;
+@@ -983,7 +984,7 @@ static int ablk_perform(struct skcipher_request *req, int encrypt)
+ 	unsigned int nbytes = req->cryptlen;
+ 	enum dma_data_direction src_direction = DMA_BIDIRECTIONAL;
+ 	struct ablk_ctx *req_ctx = skcipher_request_ctx(req);
+-	struct buffer_desc src_hook;
++	struct buffer_desc *buf, src_hook;
+ 	struct device *dev = &pdev->dev;
+ 	unsigned int offset;
+ 	gfp_t flags = req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
+@@ -1025,22 +1026,24 @@ static int ablk_perform(struct skcipher_request *req, int encrypt)
+ 		/* This was never tested by Intel
+ 		 * for more than one dst buffer, I think. */
+ 		req_ctx->dst = NULL;
+-		if (!chainup_buffers(dev, req->dst, nbytes, &dst_hook,
+-				     flags, DMA_FROM_DEVICE))
+-			goto free_buf_dest;
+-		src_direction = DMA_TO_DEVICE;
++		buf = chainup_buffers(dev, req->dst, nbytes, &dst_hook,
++				      flags, DMA_FROM_DEVICE);
+ 		req_ctx->dst = dst_hook.next;
+ 		crypt->dst_buf = dst_hook.phys_next;
++		if (!buf)
++			goto free_buf_dest;
++		src_direction = DMA_TO_DEVICE;
+ 	} else {
+ 		req_ctx->dst = NULL;
  	}
- 
- 	return NULL;
-@@ -1458,7 +1472,7 @@ int gfs2_quota_init(struct gfs2_sbd *sdp)
- 
- 			spin_lock(&qd_lock);
- 			spin_lock_bucket(hash);
--			old_qd = gfs2_qd_search_bucket(hash, sdp, qc_id);
-+			old_qd = gfs2_qd_search_bucket_noref(hash, sdp, qc_id);
- 			if (old_qd) {
- 				fs_err(sdp, "Corruption found in quota_change%u"
- 					    "file: duplicate identifier in "
-@@ -1467,7 +1481,6 @@ int gfs2_quota_init(struct gfs2_sbd *sdp)
- 
- 				spin_unlock_bucket(hash);
- 				spin_unlock(&qd_lock);
--				qd_put(old_qd);
- 
- 				gfs2_glock_put(qd->qd_gl);
- 				kmem_cache_free(gfs2_quotad_cachep, qd);
+ 	req_ctx->src = NULL;
+-	if (!chainup_buffers(dev, req->src, nbytes, &src_hook, flags,
+-			     src_direction))
+-		goto free_buf_src;
+-
++	buf = chainup_buffers(dev, req->src, nbytes, &src_hook, flags,
++			      src_direction);
+ 	req_ctx->src = src_hook.next;
+ 	crypt->src_buf = src_hook.phys_next;
++	if (!buf)
++		goto free_buf_src;
++
+ 	crypt->ctl_flags |= CTL_FLAG_PERFORM_ABLK;
+ 	qmgr_put_entry(send_qid, crypt_virt2phys(crypt));
+ 	BUG_ON(qmgr_stat_overflow(send_qid));
 -- 
 2.53.0
 
