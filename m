@@ -1,62 +1,64 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0C5395D98;
-	Mon, 31 Aug 2026 18:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94365352032;
+	Mon, 31 Aug 2026 18:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.59.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200111; cv=none; b=VWSvx8mNQoS2GjYReIWYJaZPW67QFb5VvW1ITP8fcxVNjXzdvOmxz8cBZRgS4PE6QmabPOFBRd3Zu7SiIdtZqf6iWyTyXqHVlI6hPFpfTU2FlaSJaf6fZjbSV5wnNB9inP+mLnHd0LHNjSogxrOx8WC5xwWVJZdXka29zd6ZjbI=
+	t=1788200142; cv=none; b=Ie+p8sbOcYe1jxYjE5D5GV3E6Pep44eajL2p9MgXGX9C7paetC+mGCxsCma5YYoeylBbrYVx8qmwhvBCKb1D5ioaSpOv1YC9vU0T6J+/11bDzCP/7HB9yYDT99K2+JibHYF6aT5OewUYAN/PsA5RxbXsY8YjnHKdnrDvFstrPyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200111; c=relaxed/simple;
-	bh=E1qN9DH8Ee4RdtW5tvDpU6m23+dulZWUA/HYxpmaacY=;
+	s=arc-20240116; t=1788200142; c=relaxed/simple;
+	bh=0UT81JsnIuFGUKH2cxSw+/DMhXh+7KmHeomOzTIaxfg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jza0t8SvUmRSTchs6QvM8FnutfPPAOnhAqh2ZRHiCzMF77PS2H2voUDPDv/0y+5mIk7pTve74iw/VUO+AEugi1i6miW+Dg/9pXChdgHARauji3ZxPR8z/bFnFNR46+Lh1F7Pn5D9CVyqJVyzLM5YtvXZ3ba0nrojrk/TXoW4Huo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=vxj4dT32; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=fWWZodRi+lPzUDuHAJxM9sGDaCoef5LT9HJz6UPMdcKsDc+ej1Q/kdQyr6EB22MEE+EOHyqeAGrs7PFW3JKP4yYJdEAW7sqPQ3GJYxIUKvYIJOfu1FrUAtZK7kl1w4A3hZ+Stt3ySBG+6/rIgzntOYW+THz/iojlr7IRpgkHo4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu; spf=pass smtp.mailfrom=1wt.eu; dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b=fhiJLAsP; arc=none smtp.client-ip=51.159.59.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="vxj4dT32"
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id A505A1F95D;
-	Mon, 31 Aug 2026 20:15:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1788200105;
-	bh=54DWobeU3TiYUqKhR2D+PC/HtPzaoe/TNQkclMgxpHU=; h=From:To:Subject;
-	b=vxj4dT32+J9U9+Dhlu1sQaXOXTshZh6C1uijymEmdTbU0RmnsdvgptMw4IbcHKbX8
-	 NhV0Au1d2P9IXjAt2U71ztX4V6P3q33WKhSrynjSedmNYK3DZPq6ueePx1Be+HHwfz
-	 OG6gMzClo8+4Khn3jNqFnB1GJWQsh4UQ8kOIx9heO/emC000oSYbYW7Dm9/l29sqK7
-	 Xa2qzp0/mo8u8ldYjiVWsLR/VGpr87zsND+vAkr2zphlHlsSmwmoTinqXKMPsfCHz8
-	 1vi+BRL04Z0Ps85J7k0I8G++J7zN8CfPmEnQCIjK7dSeBS7C4xhwPick3dID3a2ob3
-	 Lh5X1mlMtAvXw==
-Date: Mon, 31 Aug 2026 20:15:00 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 00/99] 6.12.108-rc1 review
-Message-ID: <20260831181500.GA124452@francesco-nb>
-References: <20260831133359.740409777@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b="fhiJLAsP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
+	t=1788199756; bh=CenPuybaOHtf9oU4EalY8y+g9S3LEtP7yeAyA5WH+/g=;
+	h=From:Message-ID:From;
+	b=fhiJLAsPUkpb+XKrL72ZXxax9+WWpasCnAwDwqUYlDJtrHRjUCa39oMO0yUOGP3P7
+	 Qmvt4LkdqjyEXOXfvZwLUZZahHSnFh4YDGKpzEXNchWFVPkncLiAoEFS/rxW5o9gI/
+	 6GTtn7Tl/lJAmxMcSMbtszz7Psdb7FoZ56wSak88=
+Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
+	by mta1.formilux.org (Postfix) with ESMTP id 50A0BC06B9;
+	Mon, 31 Aug 2026 20:09:16 +0200 (CEST)
+Date: Mon, 31 Aug 2026 20:09:15 +0200
+From: Willy Tarreau <w@1wt.eu>
+To: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>
+Cc: Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 0/3] tools/nolibc: verify that a directory is opened
+Message-ID: <apXDS0OApeUHy9Wx@1wt.eu>
+References: <20260831-nolibc-fdopendir-enotdir-v1-0-8cf0e79c4e6f@weissschuh.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260831133359.740409777@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831-nolibc-fdopendir-enotdir-v1-0-8cf0e79c4e6f@weissschuh.net>
 
-On Mon, Aug 31, 2026 at 03:33:29PM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.108 release.
-> There are 99 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Hi Thomas,
 
-Tested-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Mon, Aug 31, 2026 at 06:04:58PM +0200, Thomas Weiﬂschuh wrote:
+> If a non-directory is opened, ENODIR should be returned from
+> opendir()/fdopendir() right away and not only during readdir_r().
+> 
+> Validate the type of opened file during open.
 
+Great points, I agree this is much cleaner this way!
+
+> Signed-off-by: Thomas Weiﬂschuh <linux@weissschuh.net>
+
+For the whole series:
+
+Reviewed-by: Willy Tarreau <w@1wt.eu>
+
+Thanks!
+Willy
