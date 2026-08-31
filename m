@@ -1,224 +1,159 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from www74.your-server.de (www74.your-server.de [213.133.104.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948E13C1F57
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:24:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788175447; cv=pass; b=k4xS27DfeplUdqIyCcS3c+dbihD2tfexmSEsYzqAYllmSx3Qpbxk/Y/LU62fWx2Klq6w74FiURNdWlirJqSDrN1H9PIh2ETFVa6XUprIhst0dUxozwAwrBTkCr8TfvfegAZQOBfFltuNjvPVMwDmzi5Sdkx2wEZU2r/725H0KLE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788175447; c=relaxed/simple;
-	bh=C9vgZ5OpqoqCmfcKT8JCoWSmu766g0cDfXH9A/VZNa4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TB9G7HhpPe06YfvsXO7H4kqmOzPhUa31n7fstf8I8G8sqE3ia+k4CUCow/qVwQndXiVdj4MWyO3otBe2H2JP5o8vndpOnk4AWF8JJ4fbeGaqd9UV6wsc0LvxSG8H6wwvbsvRyy8hDWZlZKjtpoVtJcr3QCPPOBb0yMiST2gTiu0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=E93YYZVT; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=eJyhUWgt; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF7332E728;
+	Mon, 31 Aug 2026 11:25:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788175518; cv=none; b=j3/buShZFBkbxYvVfih4TUIaB1PUHpFmG31Vjrk0kOsST9aJAeuqL4P4IUjjWuOpKL/lAJNX/gT9/plpkcsa51u06+wUUKX6K2I8Z/fusOA/A2SJP3LhW4RsX3gwlGyR1b/HauIalQUxPa9iy0XmXm5K5YPeWEjnG8KsS89bwz4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788175518; c=relaxed/simple;
+	bh=p4wQP1qwcJTpToRhDCRppjKYMZ4KaqIZGdm0pfw4U0E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=I7zeZ9cYZvR7RQUsRA6/zoC9qHHyZ6cRlPSpBDyZuOEMCKT9JncpxrucRNQtjkvh2wAxvN5FLDQHnVNhLLnwZojUq7/lyyYUBTUAvxB3SOrhxeZzQqMlsMG9RUd02Jxex66DvASb22GtcK8YXwGGnF5eiCQGIDmpLUObkgKktas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=computerix.info; spf=pass smtp.mailfrom=computerix.info; dkim=pass (2048-bit key) header.d=computerix.info header.i=@computerix.info header.b=c21NwaL2; arc=none smtp.client-ip=213.133.104.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=computerix.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=computerix.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="E93YYZVT";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="eJyhUWgt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788175444;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GynAiyqKaF7zNIjy+JX3ryfv5HnQb4XBD3qIOpzfei0=;
-	b=E93YYZVTZd8tdwkJfh8MLIEY0MqShSQopLUl3dA5cLJTAOZO6dwOz/9OR7EVlnV1r+BWMd
-	4cVPmVQuvRqrdN8/jNIDgE1oaka+oSlSALDzob89rq9WXoiCaX0KgU2Rliye2Sin3Wt2TS
-	twW4hP3LNx3wEN1RogpLrA9jYbQLn1o=
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
- [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-91-J69aqe9YNciptabMSJeDJA-1; Mon, 31 Aug 2026 07:24:03 -0400
-X-MC-Unique: J69aqe9YNciptabMSJeDJA-1
-X-Mimecast-MFC-AGG-ID: J69aqe9YNciptabMSJeDJA_1788175442
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-836cfd56077so49166557b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:24:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788175442; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UMZhlhlhr/VBWb1xRSGYXmEWrkH5SomiIFOlgBllgjNrsxhMhvsRq0xZC+6nNPD4jq
-         0ksfUaEl2l6yRm2NCV5Un1xO0h+6C6jWSeiNCtExZ0qU7mz8U0l2WcrmuBIshnUZ9QOI
-         n5LkmweqSI8s6WnFZ8g4y5G0Is2NvoHhpd8YUaz7dQnzGcgYwgXP2785nDL6qsQvOvju
-         m2r0VsXMC0xEi80tp08YraxY3ND/II+jJYjx/xCiq3fDt8RYk37W5lvZyJ62wuZAICe6
-         44rRpeYgdCxrv27qt5pLD0WLKhbr/NV2xj8BMMQaDvhwWu9b7SGFxxxyd08UaNy/+1Uo
-         oU3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GynAiyqKaF7zNIjy+JX3ryfv5HnQb4XBD3qIOpzfei0=;
-        fh=nybNdj0cLKBcmlezfKuW1oQxbauI7Rtd3xVtYdwCOFM=;
-        b=eWpBvTTKf0pjo3nzI9zH3OWTYOpRbNEZVPl6yVGvuJzqrD+YSGQ2IRB6SkKMxzd4E+
-         g4pnhq+fxuqrb5c4ZdbWFf86qZw0Z1diRYMhskkcul5nwifeS40g+Oquv6BI97vV8CQV
-         YWrrpnglFQH+txdN7uhMJZcqauMKyJJ7+OlBvr2aAgzHnjY0aQhw/T7lxfApU+aBZrzL
-         ftlhxMCLGLTpnWNN33zpCdewAYXB9WgndAQ6b0snO0sE4GTJ46Hksf5p2OBIWl2GDpVp
-         LXIURTcXda97xysrH2PI+Kl89CESpO1KG6rFKW2iUt1J3nV/mqpE404Wyg+PK3Q1khDr
-         9EPg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788175442; x=1788780242; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GynAiyqKaF7zNIjy+JX3ryfv5HnQb4XBD3qIOpzfei0=;
-        b=eJyhUWgtKANGVUW4zMaluleGLmwM3cyd50f70DCIj5dfPFjbYnnuDyoMEhdRVd5XvP
-         EU3k/0lEwdIh40wxAi1MbeNH6LErrWtsxJ0Ee+Yn8cN2pDkzWqcdj7YyOhbJmOCIl/Mj
-         X7pEAR5tuoA1ocxqFUGd8zmw+CO1XcHAVkuLb/1UNimubyyIANP7wBCO0RTq85Nq0KYP
-         aAO1xBSGVLVKz65tYGIP2+PFkM6sxqFgNNjuc7LBDT9IkRIj/SlNlr6oVY/B2rbJ1nDN
-         6bkz4liuOBf546AARaIYMRPlHUSxTQxC0zHpnQmnR94F/WEzOzwSocAflXfvHgETG8Qa
-         KUgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788175442; x=1788780242;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GynAiyqKaF7zNIjy+JX3ryfv5HnQb4XBD3qIOpzfei0=;
-        b=nzm9zv9pUfA0vzvx+d6094mI+bi15qG/zMcueWnKEwfHc2Y7QeWRbW/BLv8q4WmzBT
-         P9kCshHtce4RsWzxFt7SPDWosTMXcu52kTolkRTprztn7kE+eNjDIjQJRbIgf3Nr1Wzr
-         8k+BbnFABEW8mdlDg1YTcLKyWe5Vrs0sQ1dZCtXDQfUnVI4+V4X0EJLsMe18xP0EXwFy
-         CWrOla+MdZvIuK5FEv543gMe+SbfXpJrT9fSqnnlVqx7R/90Rhj4XCVvC6Bc5HMTnQq1
-         gNkn+oBibiun7LMFT4XFVKewiJT3R8o7cxISEOpew5Bl9qvj977GfrGp4kar88JiC4N3
-         OgNg==
-X-Forwarded-Encrypted: i=1; AKwUvBw1k946ICAGVeoqwZXncy3OmO3k/Pb/Ew1CHL5aWx15IaryAM25WNpTaivAX46+nHyoVKt60+4Ag3r98B8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHKxz+Caet5dFp4nSAEyou2sa0e4vbDYJgXRDSg1w3e3dQFSry
-	Qt1riZniYkfVNljQCGkdpvSS7ai9BkZDLgc4xZb/5ZT8FHwCyim96CU4ptHCBxPzAw0rrXIRq+h
-	h2XT8vAgfWVn1OIytxNbKWV745ICZM/IskIVrDWFrulftKnXkwTS8LYbYnXvqsJzlroiOB87yjq
-	DfFpG4Ric8meWC/7lCj+7fkewxKS0GyVhFWHeQrSao
-X-Gm-Gg: AYBFou0HJMoKX0kPVdqC8eMTTMiqGaQtlrAnRfKRq0O8+bce6w3HcSd6pcZif+CCvBm
-	s76B+F84JHPnQWhY+i6/hIX1QR8vFQpSIpmN4uowtwiLXbvDNhxe/xc7wLyP5c11IebR/RHzgR0
-	4Tn4+3q9J1gDtFyiNfXEtv4AL6SbzgUw/jQtQkIX6S1cJoeTOeWDGcFJI=
-X-Received: by 2002:a05:690c:e3e6:b0:81e:6a10:f90f with SMTP id 00721157ae682-85d6a2e13f3mr94107827b3.17.1788175442427;
-        Mon, 31 Aug 2026 04:24:02 -0700 (PDT)
-X-Received: by 2002:a05:690c:e3e6:b0:81e:6a10:f90f with SMTP id
- 00721157ae682-85d6a2e13f3mr94107637b3.17.1788175441869; Mon, 31 Aug 2026
- 04:24:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=computerix.info header.i=@computerix.info header.b="c21NwaL2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=computerix.info; s=default2306; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=QzH8JgGE6MlqJwXxDjVZrKkYeIPDh++//oo58Muo12E=; b=c21NwaL2HzPSX7I7fGkorLMpIu
+	3miZ82r4WyW2DmNh1KB0qC8icfLITxRDJRA8saygoSl/Wz9PyUXQm99dsLZugKovEQn4dGhCstE2i
+	wnUiobBvNtKdCSWbDPDFFOOieUs2cFSlXMezVtaLD2llvweYOPynJ84CziWKAyq0btt4So2sDQkC3
+	pKalAloUGTXtbixpdLi1n9iRaHedSeb6Ip7Uv4eWjB33ipe7Zw99RgzXNaiPbX3j2Lybh4dYv0+90
+	LXUOtcdQqfadZvWFWpwl/UvKj+Ig9zKT3pV7JBvRzIhrYETuJp/IVDanEB/keHOZ4Ye/83IQZ970o
+	nO4vXkxQ==;
+Received: from sslproxy07.your-server.de ([78.47.199.104])
+	by www74.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <klaus.kusche@computerix.info>)
+	id 1x108L-000Kxr-0k;
+	Mon, 31 Aug 2026 13:25:01 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <klaus.kusche@computerix.info>)
+	id 1x108K-000IWV-1d;
+	Mon, 31 Aug 2026 13:25:00 +0200
+Message-ID: <369d0bbb-db7a-4f86-bee2-332d5295c452@computerix.info>
+Date: Mon, 31 Aug 2026 13:24:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260706-kunit_cgroups-v5-0-6c42c8753468@redhat.com>
- <20260706-kunit_cgroups-v5-1-6c42c8753468@redhat.com> <aoyFYWYmocJkTeXk@localhost.localdomain>
-In-Reply-To: <aoyFYWYmocJkTeXk@localhost.localdomain>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Mon, 31 Aug 2026 13:23:50 +0200
-X-Gm-Features: AcwNN1U0KtJvFymBd5EOdAW56G473bYb8daTnzAjeFTLioL1I8ELNQhwXHMDOSE
-Message-ID: <CADSE00+8E_6q1PRhQdnH+HfqCHca5Oy4b4wgM67QPq-X6Z6FwQ@mail.gmail.com>
-Subject: Re: [PATCH v5 1/4] cgroup: Add dmem_selftest module
-To: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, Shuah Khan <shuah@kernel.org>, 
-	linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: Cache-aware scheduling does not work well with amd big/little
+ cores
+Content-Language: en-US
+To: "Chen, Yu C" <yu.c.chen@intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: "Badole, Vishal" <Vishal.Badole@amd.com>, tim.c.chen@linux.intel.com,
+ Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+ "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+ platform-driver-x86@vger.kernel.org, K Prateek Nayak
+ <KPrateek.Nayak@amd.com>, ricardo.neri@intel.com
+References: <2180ea5a-eb28-4152-8d4d-cd00b0c24b2e@computerix.info>
+ <8064e1d8-b51c-48e5-a312-8c31581991f5@amd.com>
+ <b475039b-defe-46e7-ab85-46e3196da667@intel.com>
+From: Klaus Kusche <klaus.kusche@computerix.info>
+In-Reply-To: <b475039b-defe-46e7-ab85-46e3196da667@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28109/Mon Aug 31 08:24:07 2026)
 
-On Mon, Aug 24, 2026 at 8:28=E2=80=AFPM Michal Koutn=C3=BD <mkoutny@suse.co=
-m> wrote:
->
-> On Mon, Jul 06, 2026 at 02:06:40PM +0200, Albert Esteve <aesteve@redhat.c=
-om> wrote:
-> > Currently, dmem charging is driver-driven through direct
-> > calls to dmem_cgroup_try_charge(), so cgroup selftests
-> > do not have a generic way to trigger charge and uncharge
-> > paths from userspace.
-> >
-> > This limits any selftest coverage to configuration/readout
-> > checks unless a specific driver exposing charge hooks is
-> > present in the test environment.
->
-> What about that
-> drivers/gpu/drm/ttm/tests/ttm_resource_test.c
-> ?
 
-But that test does not set up a dmem region (man->cg =3D=3D NULL), so
-ttm_resource_try_charge is a no-op. Even if we add a region there, it
-would not exercise nested dmem.{max,min,low} from userspace as
-intended here. But I can reword the message to avoid sounding like
-there is no in-kernel coverage whatsoever.
+Hello,
 
->
-> >
-> > Add kernel/cgroup/dmem_selftest.c as a helper module
-> > (CONFIG_DMEM_SELFTEST) that registers a synthetic dmem region
-> > (dmem_selftest) and exposes debugfs control files:
-> > /sys/kernel/debug/dmem_selftest/charge
-> > /sys/kernel/debug/dmem_selftest/uncharge
->
-> Nit: I'd think about alloc and free (to denote meaning not how it's
-> implemented).
+both patches in combination seem to have the desired effect.
 
-Works for me. I'll change the naming for the next version.
+But I just look at a bar graph showing the current load
+of each core. 
+The graph suggests that long-running CPU-intensive processes 
+migrate to fast cores when fast cores become available.
+And I have the impression that LTO compilations
+finish significantly faster now.
 
->
-> >
-> > Writing a size to charge triggers dmem_cgroup_try_charge() for
-> > the calling task's cgroup (the module calls kstrtou64()).
-> > Writing to uncharge releases the outstanding charge via
-> > dmem_cgroup_uncharge(). Only a single outstanding charge
-> > is supported.
-> >
-> > This provides a deterministic, driver-independent mechanism
-> > for exercising dmem accounting paths in selftests.
-> >
-> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> > ---
-> >  init/Kconfig                  |  12 +++
-> >  kernel/cgroup/Makefile        |   1 +
-> >  kernel/cgroup/dmem_selftest.c | 198 ++++++++++++++++++++++++++++++++++=
-++++++++
-> >  3 files changed, 211 insertions(+)
-> >
-> > diff --git a/init/Kconfig b/init/Kconfig
-> > index 5230d4879b1c8..6fab65d6b44ea 100644
-> > --- a/init/Kconfig
-> > +++ b/init/Kconfig
-> > @@ -1267,6 +1267,18 @@ config CGROUP_DMEM
-> >         As an example, it allows you to restrict VRAM usage for applica=
-tions
-> >         in the DRM subsystem.
-> >
-> > +config DMEM_SELFTEST
-> > +     tristate "dmem cgroup selftest helper module"
-> > +     depends on CGROUP_DMEM && DEBUG_FS
-> > +     default n
-> > +     help
-> > +       Builds a small loadable module that registers a dmem region nam=
-ed
-> > +       "dmem_selftest" and exposes debugfs files under
-> > +       /sys/kernel/debug/dmem_selftest/ so kselftests can trigger
-> > +       dmem charge/uncharge operations from userspace.
-> > +
-> > +       Say N unless you run dmem selftests or develop the dmem control=
-ler.
->
-> Could this be made w/out introduciton of a new Kconfig option? (E.g.
-> what tools/testing/selftests/livepatch/test_modules/Makefile does)
->
-> (Maybe reword to insmod if you choose building the test module as OOT.)
+I don't have exact numbers or benchmarks.
 
-Ah, nice example. I'll drop the CONFIG_DMEM_SELFTEST and have the
-helper module as OOT.
+P.S.: I'm currently on holiday (for three weeks).
+So my responses will be much slower than usual.
 
->
-> > +static int __init dmem_selftest_register(void)
->
-> Just an idea to reduce the amount debugfs of boilerplage -- the testing
-> args could be handled by module_param_cb().
+Greetings
 
-Ok, I'll switch to module parameters and drop the debugfs boilerplate
-and DEBUG_FS dependency.
+Prof. Dr. Klaus Kusche
+Privat: Söllmnitz 32 d, D-07554 Gera/Söllmnitz
+036695/859909 klaus.kusche@computerix.info https://www.computerix.info
+Dienstlich: DHGE Gera, Weg der Freundschaft 4, D-07546 Gera
+klaus.kusche@dhge.de https://www.dhge.de
 
-BR,
-Albert
-
->
-> > +static int __init dmem_selftest_init(void)
-> ...
-> > +     add_taint(TAINT_TEST, LOCKDEP_STILL_OK);
->
-> Great!
->
+On 31/08/2026 04:08, Chen, Yu C wrote:
+> Hi,
+> 
+> On 8/31/2026 9:53 AM, Mario Limonciello wrote:
+>> Add a few others who have worked on CAS.
+>>
+>> On 8/29/26 10:42, Klaus Kusche wrote:
+>>>
+>>> Hello,
+>>>
+>>> I'm running linux on an AMD Ryzen HX 370.
+>>> I use Gentoo and compile a lot of things (including the kernel)
+>>> with Clang using full LTO, which results in a single LTO process
+>>> running for minutes on an otherwise idle processor.
+>>>
+>>> Before Cache-aware scheduling was introduced,
+>>> AMD's pstate driver informed the scheduler about big and little cores,
+>>> and the scheduler always moved those LTO processes to a big/fast core.
+>>>
+>>> Now, the cache-aware scheduling takes precedence over big/little
+>>> scheduling: All big cores form one L3 cache domain,
+>>> and all little cores form the other L3 cache domain.
+>>>
+>>> When a process is started on a little core (and LTO is in most cases),
+>>> it will no longer be moved to a big core,
+>>> even if it runs for minutes and all big cores are idle.
+>>>
+>>> In case of LTO this hurts twice and badly
+>>> (slows down LTO not just noticeably, but dramatically:
+>>> In total, any compilation with LTO-linking takes much longer
+>>> compared to earlier kernels without cache-aware scheduling):
+>>>
+>>> * The little cores run slower (3.3 GHz instead of 5.1 GHz).
+>>>
+>>> * LTO linking is very cache intensive,
+>>> and the L3 cache of the little cores is only half the size (8 MB)
+>>> of the L3 cache of the big cores (16 MB).
+>>>
+>>>
+>>> So if a big core is idling, and a process on a little core
+>>> is long-running, big/little scheduling should overrule
+>>> cache-aware scheduling and move that process to a big core,
+>>> even if this moves the process to another cache domain.
+>>>
+>>> Greetings
+>>>
+>>
+>> Not so sure if it would help this case but I will note there is a 
+>> debugfs knob you might be able to use called aggr_tolerance (it was 
+>> introduced in c1e7fe5e75ed11fa85368e5a186472afd3858f3a if you want to 
+>> read more about it's background).
+> 
+> Thanks Mario and Kusche for bringing this issue up. Yes, we can tune Cache
+> Aware scheduling via debugfs or even turn it off. The issue in current code
+> is that the cache aware scheduling overwrites the strategy of asymmetric 
+> scheduling,
+> and Ricardo also found this issue previous and there is a patch to address
+> that, by honoring CPU capacity during cache aware scheduling, for the 
+> **misfit**
+> task. It would be helpful to see if this patch makes things better:
+> https://lore.kernel.org/lkml/20260825174112.2580942-1-tim.c.chen@linux.intel.com/
+> 
+> thanks,
+> Chenyu
 
