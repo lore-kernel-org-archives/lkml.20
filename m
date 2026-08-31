@@ -1,115 +1,158 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1EC43A80C
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DED04BAA09;
+	Mon, 31 Aug 2026 14:03:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184994; cv=none; b=cPowEvemcqjSr7/Q349FDybxirWLvRUfZm8y9lfHtb66dO7El1ELL4gnS+QY9yL86F33wPMi+dYqqPdBjA1b7pUN9wBTPdWxYbF1NVTrQ/MdgfQN6BfqBjC+cL292rPZttYENcCmwUqKPLpNwy3iv6LUkF3Zq1+RWtc2pcMh8rc=
+	t=1788185028; cv=none; b=OAS0s8LaPhpM7xolubKo1F+VysBKURwEs3+giSQ403hZwsYfbGhcHk4AhHcl8GG5z4OUa6F2/HzwBFycAoWDz0SnCnpQOZNOLid0gn3X6YDkV5ydukvZg0Wlfyvv30brWlz5AlM+ixcjvLl8o1uo6yK9hirHsSuwgC3ZS0g3ZpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184994; c=relaxed/simple;
-	bh=uBRstAJdzOQ6fCXenmU9zLfDCyFOq7Yo1hdroUnVRwo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DsWuo4jCJyTnFSCHriDoWNPevzuIupMtYpIQXEpxN2OBJ7dz+BSnXhuJlaCc69Ir73vYLgU1L4EpD8H1CDHgikikGNBrz6G0DICVTPYJaSrlGM5UyqqTKY2QMkkxRfP6V93KpiCWqECbHICTlP4xiu6FH9hEXPqOTQMBbzwT3YQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WRk2ddqn; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788185028; c=relaxed/simple;
+	bh=yNTKZ1gEh2b/vXha+oKOsZE/GcNfhLewQ7JdBaCKgjU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MErFZW1tFvS+jRl+CdVgrp6fuSlj9myg91DlyOHUzh/gRDA0eoWH772BbONZXlqQB/rJw5Hu70/JdV+elaRScAIuoCuu7TUry7qU5jjPC+z+5aVjLPDNJsb53V/CK95GCl/T36ZTjquu9TJAYT0Cxn9Gp+RXiyj8F2pX+xhNW9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DC63ksHd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WRk2ddqn"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so41158635e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:03:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788184991; x=1788789791; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rjSPBLWPdLhA0verlG4+qAuqvJiAKOz1NhqEAjoTdrA=;
-        b=WRk2ddqnjdJubnaEL1KMvwrP/DhXX+bnazcYR+udX4YFWOiB6xYd7EoPWweMgKl9oh
-         W0wqXwp+jlv6OGvSQTt0EYHAIris2ENhbFSDk6xlLoYe4t6VsG828dKcoXP2UfS5I/5d
-         ZfDutYuKkcEeayEfHPkE9pvLsX+08CvzojK89Qoi64PHmIkkWSsA6FnUeylL9Nx4fTDq
-         aJ+L+Xn8JmLJ8/d252oA7iJ5otu+chZ3Z+VgkGilb5wBXgNPOCdgTjmwmlUlXN2Pp6YG
-         GAFLtdMb+p8W8Q6L2mR7FwSbKsAWSQMlINR9/auYt8SZj1smfOs+dS9G9kN54iyRslaL
-         cKRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788184991; x=1788789791;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rjSPBLWPdLhA0verlG4+qAuqvJiAKOz1NhqEAjoTdrA=;
-        b=nonLfN3mW9n0i2DDn4iY3gkYotU4Lv88AuNvR1/0AwFJ0B18xNgWiGxYr3TYQ8sFul
-         ZXMKom5hHtxNxYUJv1ABRBF1QJuAxkGZucIybJq6whcKCguT0rL1xPNvvqxMFzhcCl04
-         Qqs3GM27ksnEsqDNPb+WaO+XPWUhAifP5TSSY7yueQIYrsR8c+HYzxWsQ5wjd/GOFtO7
-         8r5rfpEE9D6QP6uVsHyxVW/bf2LEwTzgXI+1RZG7hglZKnpHbvRAwdkY9PeJhnT1KA/o
-         h2JoJY08KIF28SHZ60bbkJ0pQmFPOr2rGDet7XVjTZ8ONNE72oQaM+Pogjad8boZGn5/
-         ZuEA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp06mh4ke/NU4lZXy5/gehKra+URk7muGWqnOeASvnmq7wJZdAYrCopW1znL5ERdG8qNw3noWJSZNeaZvA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzbiXOiJwnjx1kBDxNoQam8AfoB+Yxuvf6cCIQuwMRlUI7ZJWf
-	wZ/bngLbsAGMBM/Hj+fi8l8TfAG8Zap18GSfHiZ7hzJoe4oa9kbRWa8=
-X-Gm-Gg: AR+sD1184Rsx8noISe4DVggy7fNBMtA511pykdiS7rlwQjuxCTnxCiJlzFNEyBs7G4m
-	eKaFMcrMgju+6C1DewznXzBnqqOsl75XMgiEcK/vhwiyT/6PUlKq3wikw6EGB2VUga4kqFANnwc
-	rmdZ0tHs7UsGdfZzdmXv+vabcpudR0LovISikCuZuPoHVVUB3bbsG7KYjYwxyMiNyCqvDtevEJS
-	5hPqPsThOpQ+wU1PuyImj9bhI/kS06ihUIfxhMQrfi0r0z0z8ah14UpmmgNSn4VE7ykTvkPHBsw
-	fbvo/QAjDgbRLl6YcblaMznWW/tg5rnts8bvfD4RDbwXn5KFKGtEvMmnaSY4bCfUTFmeth2QBnY
-	+cZtCRe5Nyc/GoHOAOzgBVye9VHeAsMknh7ZugOr8vDkATfiwgT8QcnxSEgVgQRKJFZdXVcfcRD
-	P7SmIXTeBQ6BiBht7fJFCEvcxc47yDfAvbBFtUrRi9f3xE9KFHHmIHk8nWUWiHcZMtyDupXfyjU
-	9ICLqKR16I7xxRwNx7C13REnz8PR4zAnE6grdpiNPxFZvXV6vz+4UE=
-X-Received: by 2002:a05:600c:4e8d:b0:49c:dada:f581 with SMTP id 5b1f17b1804b1-49cdadaf6c7mr15081095e9.0.1788184987289;
-        Mon, 31 Aug 2026 07:03:07 -0700 (PDT)
-Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cca3e642dsm173851415e9.2.2026.08.31.07.03.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:03:06 -0700 (PDT)
-From: "D. Manresa" <dmanresa@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"D . Manresa" <dmanresa@gmail.com>
-Subject: [PATCH v2 0/2] media: ipu-bridge: survive module unload and reuse the software nodes on rebind
-Date: Mon, 31 Aug 2026 16:03:01 +0200
-Message-ID: <20260831140304.45940-1-dmanresa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831094257.29398-1-dmanresa@gmail.com>
-References: <20260831094257.29398-1-dmanresa@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DC63ksHd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C681F00A3D;
+	Mon, 31 Aug 2026 14:03:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788185027;
+	bh=1HX9TYQjgO/5hXmQFqlxHA27MLAvo/v6Sb6ISr7PR1Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DC63ksHdTNXpk1d7LsdZXGkJ4TqoesWNQd4cA0cdBSN2sTz5oarOWquXAAe7Xne88
+	 x2+W0buRDqFXeuIdOYmT/SKvqfrbNwFHWN7ihOHDbZt+bSCqz67ja1m8+d/tMnrnTj
+	 mIlGeZbmnVY1BH9bhtNYamzgigzi5iLBVI+JBqh4oCQQg783Gs7v5Iw7Ym0936oesb
+	 BoOyDnrhCglt26iK1OImhRBZEsl1owvpJVF67euhl7waxIXyn09LKFp9Uc91hAJVmA
+	 eZaBpydeKgXBFIkT7tX1ms8GB0huF8Q0Crk4ypZoD5NpaNrSRbRfh3C4iKZXcAZD/r
+	 sWBaijMSt89kg==
+Message-ID: <0849e5ca-6dec-4cf9-83ac-89ab08364044@kernel.org>
+Date: Mon, 31 Aug 2026 16:03:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
+Content-Language: en-US
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Matthew Wilcox <willy@infradead.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, David Stevens
+ <stevensd@google.com>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Dave Chinner <david@fromorbit.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, Uladzislau Rezki
+ <urezki@gmail.com>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+ Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-rt-devel@lists.linux.dev
+References: <20260827232948.2520558-1-stevensd@google.com>
+ <20260827232948.2520558-7-stevensd@google.com>
+ <20260828133620._x2XfJR_@linutronix.de>
+ <20260828135947.GU776954@noisy.programming.kicks-ass.net>
+ <CAOiLmNHrbXeTY7zoNodmaZUoMWf+NgvGvZ_LjfWD-1sKAoiLeQ@mail.gmail.com>
+ <20260829084901.GA776954@noisy.programming.kicks-ass.net>
+ <apLxcg3Lgy0-nXA4@casper.infradead.org>
+ <20260831073619.Ssq-wt7s@linutronix.de>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260831073619.Ssq-wt7s@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On 8/31/26 09:36, Sebastian Andrzej Siewior wrote:
+> On 2026-08-29 15:49:22 [+0100], Matthew Wilcox wrote:
+>> On Sat, Aug 29, 2026 at 10:49:01AM +0200, Peter Zijlstra wrote:
+>> > > On PREEMPT_RT, it is necessary to skip the call to
+>> > > alloc_pages_nolock_noprof() from under pi_lock, since with that
+>> > > configuration spin_trylock can end up needing to take pi_lock. But at
+>> > > least on !PREEMPT_RT, there is no risk of deadlock.
+>> > 
+>> > Yeah, which puts the lie to that horrific hack Alexei did. We should
+>> > probably teach lockdep about spin_trylock() not being safe and see the
+>> > house of cards crumble.
 
-v2 of the ipu-bridge rebind series, addressing Sakari's review of v2/2:
+Is it already happening then?
 
-- shortened the 2/2 commit message (dropped the cross-reference to 1/2
-  and the IVSC/VCM elaboration);
-- dev_info() -> dev_dbg() on the reuse path;
-- replaced the free-text AI note with the Assisted-by: tag per
-  Documentation/process/coding-assistants.rst, in both patches.
+https://lore.kernel.org/all/20260831053846.107974-1-ngocthang2710.1999@gmail.com/
 
-No code changes other than the log level. The v1 testing stands: on a
-Surface Pro 7+ (IPU6, OV5693 + OV8865 + OV7251) the PCI remove ->
-module unload -> rescan -> modprobe sequence, fatal today (-EEXIST),
-completes cleanly with the series - twice in a row - with all three
-cameras streaming after each rebind. (The same sequence with all sensor
-sub-device drivers unbound first fails identically without the series,
-as reported in the parent thread.)
+>> Why is spin_trylock() unsafe on PREEMPT_RT?  It's not intuitive since
+>> one can mutex_trylock() in interrupt context or under spinlock.
+> 
+> no, you shouldn't do mutex_trylock() in IRQ. There was something, I
+> don't remember but that is the reason people use semaphores because it
+> is okay to do down_trylock() in IRQ. It might be unlock path. 
 
-Thanks,
-D. Manresa
+Is it what this comment (recently moved to can_spin_trylock()) explains?
 
-D. Manresa (2):
-  media: ipu-bridge: don't reference the module image from software
-    nodes
-  media: ipu-bridge: reuse the software nodes on rebind
+        /*
+         * In PREEMPT_RT spin_trylock() will call raw_spin_lock() which is
+         * unsafe in NMI. If spin_trylock() is called from hard IRQ the current
+         * task may be waiting for one rt_spin_lock, but rt_spin_trylock() will
+         * mark the task as the owner of another rt_spin_lock which will
+         * confuse PI logic, so return immediately if called from hard IRQ or
+         * NMI.
+         *
+         * Note, irqs_disabled() case is ok. spin_trylock() can be called
+         * from raw_spin_lock_irqsave region.
+         */
+        if (IS_ENABLED(CONFIG_PREEMPT_RT) && (in_nmi() || in_hardirq()))           
+                return false;
 
- drivers/media/pci/intel/ipu-bridge.c | 38 ++++++++++++++++++++++++++---
- include/media/ipu-bridge.h           |  9 +++++++++
- 2 files changed, 44 insertions(+), 3 deletions(-)
+Of course checking for being under raw_spinlock_t can't be added like this,
+hm.
 
---
-2.43.0
+> Sebastian
+
