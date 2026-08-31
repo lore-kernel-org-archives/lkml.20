@@ -1,62 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1E938C42F;
-	Mon, 31 Aug 2026 20:21:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC9D39B97E;
+	Mon, 31 Aug 2026 20:21:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788207708; cv=none; b=IO/qFxSFxFqAm/RN6ttWVVbEZ8SN4wYdjuF6f1vFZuLuhopuRepi4dI4SQSUWRi31HgXewR0f1gFWGoMb1YwbsSIFCMlPmvmXEdVxPbSI5nekRAKtjZju/LY0JYyA/8othcAKBEjEBcPTh2Rpf5+c5u8MJITpcoFEkL7PxMXBWs=
+	t=1788207710; cv=none; b=XbT4Uh65rNB6pS9hY/OjRq0yF0vb6ZBXVzC/B51WPUOgI2wM3hhhUQZenIwK2fNDg9BFjaSmmAr9GQz0+CVPjYG5fQKBx6FDrZiX4SyFni1rZ2ECep/XGrmlTP59G/N8pGARHibEkU8FrGKLhBaW8kpyOoPUAi13gjNCqpMSjl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788207708; c=relaxed/simple;
-	bh=baAnBGS6HUzUYibjASouvQ1Ll8c4w8rkmzbZsjAm2YE=;
+	s=arc-20240116; t=1788207710; c=relaxed/simple;
+	bh=rBKN4xNKl5z4v2F5jkPqwi3k9vybSuEaX6jrtvcNaNk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fNhx3zM/UUPoNJ5m58NtKkaS56pqMeve6kkq1X+8fgX4ISGadFeZiO6IRHYMxy+oa6+11mxeRU2kySk8LBZYZc3vfcHoznTlgnhEF8FtMQEAADCVF6Umv0pGlpjakGaUR5IMjSsUd0P3DE8K3mhjyD2fgufLYK36IR+uVDBvdfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DrRF98Jo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Cc6GGbn1XYsBovB4DtUj6OAHYt6rR3i+HJQjOsFYcsSwnesm3Qj9PP8c0JVWW4HJHKXhluFsoyAKxMLnWjQjmN5Gti1CspGbRdjCzaSynI8WLxaO6dWGwlIYNu9FyCy+x2zkVl3K96VZj4X04aHeADvXhHm2j83clSecZU+0+OA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZCbQVlLr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DrRF98Jo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD2A51F00ACA;
-	Mon, 31 Aug 2026 20:21:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZCbQVlLr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 615F71F00ACF;
+	Mon, 31 Aug 2026 20:21:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788207707;
-	bh=i4mXV3EO3vioncRCnbhvBa71PgQUXVNsl5KiuAmXZr4=;
+	s=k20260515; t=1788207708;
+	bh=jTAi/teimPay8QjfRekwuFZzF4R/WNh1bkQ0x6pY5C8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DrRF98Jo3vsRDvXpFD7+P8lC1rFverf+ywAb5KCIa5S3Fd1RU5APK/MKG/PoNT0og
-	 AfsxSB6tphmud9l6t3NQXy6Lx0ymx+Zufw1Rp3Y2XIa+fPrfRbYN7PKrLjay7ChlXX
-	 C7fTl7sBprBAtJa9D7V+ND3ovxeJaihkdiGPy63S3fIs2kLFPbVoxNSyVz/D/+peio
-	 rttll2tvoQq0Vv5Wi0iC9pn8fq6IDfvxH16BTUVhWDrqMook9DOMB2scgf+KRqXt2r
-	 Odtfn53oa1nf7I+boZ52ZJwMBYcOKs2VHQXXmj5RuTe48fSy89K3sncy6RQp42PpCF
-	 GndBKeC5Ij4IQ==
+	b=ZCbQVlLrwY69HQuWKgjzntg9le/m8XY0UfLagDQJfuG27WMnLdDWdNN23blv5hYcq
+	 VGr6SLQzFwBg0mfjAkoHteaT2Cx7nxtBOAX/BUl8VY1b/aCTWV30VuXsYoa9A2kEaB
+	 6e+hGQAjcQqlIDQ/ZyzjNRhgX6LGkp82TBdkUrebGeAj0+AIjdpgMoJ6rwum04+BrV
+	 hGKshIVl0IuqnjK/vrcjFdEs2pv6EHHOZmr+m4liiPUG1PduTkCVeBbzFtL6N7Pp5u
+	 7ftVB/0tgcDTUP3BI9402F1nxCUVfnrIaVgdy34lNOzucWVbRvw/8SounitWv2mKhd
+	 AckF1XboebUxw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: Georgi Djakov <djakov@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Alexander Koskovich <AKoskovich@pm.me>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-	Rocky Liao <quic_rjliao@quicinc.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	Rajendra Nayak <quic_rjendra@quicinc.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v2 0/7] Enable Bluetooth and WiFi on Fairphone (Gen. 6)
-Date: Mon, 31 Aug 2026 15:21:23 -0500
-Message-ID: <178820768635.1699313.4119708799289566517.b4-ty@kernel.org>
+Subject: Re: (subset) [PATCH v2 0/3] Enable QoS configuration on X1E80100
+Date: Mon, 31 Aug 2026 15:21:24 -0500
+Message-ID: <178820768630.1699313.2273741570972288112.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
-References: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
+In-Reply-To: <20260527-x1e80100_qos-v2-0-305c6539e6d2@oss.qualcomm.com>
+References: <20260527-x1e80100_qos-v2-0-305c6539e6d2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,16 +57,25 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 03 Apr 2026 15:52:46 +0200, Luca Weiss wrote:
-> Add the required bits to enable Bluetooth and WiFi on the Milos
-> SoC-based Fairphone (Gen. 6) smartphone.
+On Wed, 27 May 2026 05:37:08 +0000, Raviteja Laggyshetty wrote:
+> This series enables QoS configuration for QNOC type device which
+> can be found on X1E80100 platform. It enables QoS configuration
+> for master ports with predefined priority and urgency forwarding.
+> This helps in prioritizing the traffic originating from different
+> interconnect masters at NOC (Network On Chip).
 > 
+> The system may function normally without this feature. However,
+> enabling QoS helps optimize latency and bandwidth across subsystems
+> like CPU, GPU, and multimedia engines, which becomes important in
+> high-throughput scenarios. This is a feature aimed at performance
+> enhancement to improve system performance under concurrent workloads.
 > 
+> [...]
 
 Applied, thanks!
 
-[3/7] dt-bindings: net: wireless: ath11k: Document WCN6755 WiFi
-      commit: e506d34e57236c41cebacc43e50f35f5b52dc675
+[3/3] arm64: dts: qcom: x1e80100: Add clocks for QoS configuration
+      commit: f49d819c89876f882a9f1b9ac6ae020fd7e92152
 
 Best regards,
 -- 
