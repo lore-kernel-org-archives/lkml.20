@@ -1,37 +1,37 @@
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168B241D4D4;
-	Mon, 31 Aug 2026 13:28:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A9641CB20;
+	Mon, 31 Aug 2026 13:28:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788182893; cv=none; b=D9AS7KkbJd4yOU0QNlhG2orFIdciubqaozNjxdCX0r6gLcqRH2NFCNuB9Z35ljyZ0gTSZDwjeH1HNsGNtzqV18gE3HbfkRPD1UODxHYj8Xd3tyjbOK2RHNQ9wkMFDXK9YOnvjYBJEeDxs3DvJfaSB/Qau1mngI1V39P8fhxhw84=
+	t=1788182889; cv=none; b=M7PSpZfAKGpAZeDUYeaaBr2yBH2n7YVAikJRhYvlt0W1ExtDjL9y4qi1QIF8iuivnJszeXT+eCqToHjedNYFHgK4QvFLDSUFlpEbRHWCu1CyQtsejx44aF1xWVuy+AMUbmsdEpcjsCGopm8aa0yvv/vKHAxNvL69xoA0y8togJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788182893; c=relaxed/simple;
-	bh=XdjEUinjNT2C3KAlMGkOLvsEZ1P9NxDmJt7rE0Z6cwE=;
+	s=arc-20240116; t=1788182889; c=relaxed/simple;
+	bh=Cm0XJSNXpJMzO5ie7uX5yADJaQR/hPQbPioD/AbZ2rs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iwWp2KdOuqCdcDtbeV7hGwbUmuk6hFQNA8U3+8g8QXOYFjCGqM3UpVnBTOoHD6gmqgY6f4ZRH1Z9v/2nGUc2AoXISUEfPBMo8aRD60WizGkehGL8vFt2WYGMS/63XN/haugI2KoVecVEFkahPteSVNtv1mHdMV6+H2SYJrR1DUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=K9Zzub1Z; arc=none smtp.client-ip=109.224.244.106
+	 In-Reply-To:To:Cc; b=nFHJ7wpiP+zbzALT36iHCqYxYoCNtzVbTnvRtuAum1xflm4NTErR4xtg2NFdUp/K0+u/eycnKdntb6o6LqcOmMoMJuTL5aZtdb8P2trp+hy6mZI/H1Z63tCaTeRc4as0zdx+pGSDRD39az697fS+GUQl6kr5a+rmMvXHAX+MH8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=N34wkR1S; arc=none smtp.client-ip=79.135.106.111
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="K9Zzub1Z"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="N34wkR1S"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1788182885; x=1788442085;
-	bh=tHnO0TtSJZT3uwTmNJnMjCsYgQ5eOEaHFXCtJEWympU=;
+	s=protonmail; t=1788182882; x=1788442082;
+	bh=dCIzJ7auFLsAAuxTb9FPaGJ0CJxz0+3pHeAEI1munHQ=;
 	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=K9Zzub1Zv7IOGRfiJhTGBQ17DTzjIBPXUQNAr7NY1lAofHTvNfuq63F+pAm0tGslJ
-	 3zRBAYGioljz+tzjdbRNL3ewWRDZrxNVn+HZ4uY3yRXbvwXHE+uMeQ+DPqpfFeF10e
-	 yzfOyUYT+AixfJzCBn4B4HXhuLPOzrpQJrP8/E+oyntf+UZuCHPPWcfs1rV8j7rSTy
-	 PCiHn7+1hmu0qLBAo6Ozxgrz4BZJRQuXmC65wQ4diPFH9maxaBXXzp3golHOLb/LDm
-	 NhW/vWp0C7ykkcD47e3BByZxRZSn0ObXhG0kkGKw3WPuk7EtlwyWyUqTxXawOG9TqN
-	 FmeoVmNIkTGSA==
-X-Pm-Submission-Id: 4hYVDN0s33z2ScWl
+	b=N34wkR1S6ysVvrC1PZSiYeyCvlzweQUPwhARHLy2fsVDesUPBtr8FJ8qioRL4N6oX
+	 SxtVPQ1F0Hp7qljqtwFQPri5sortF2qsBUrSeGzKYgMaC9ywaWDQJyGkScCe2v8igO
+	 6Kf47xrPQN00OYIMan+ZXjhlnnls+O88hlEwTIXALmwgafx2E0eHq2pDM5aA5s5RYo
+	 8xZj2DNZUCf7S7iG2JGT/E4KzzHbqxL2n32cGdftH+FKY0s1XVFD/qx0di+T5AQtDW
+	 hSlX1NIW0i79mqj0FZnjfpyb9+tPKMndwqfPKGnXd+p+esd0vt80D3dPHIyRBgUjzs
+	 L4Vzc+dxlZfag==
+X-Pm-Submission-Id: 4hYVDH1zmLz2Scht
 From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 31 Aug 2026 15:27:45 +0200
-Subject: [PATCH v4 3/4] drm/bridge: nwl-dsi: Correct auto-insert EOTP
- behavior
+Date: Mon, 31 Aug 2026 15:27:43 +0200
+Subject: [PATCH v4 1/4] drm/bridge: nwl-dsi: Cleanup endpoint mux control
+ selection
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-nwl-dsi-fixes-v4-3-6a2a1cb23910@geanix.com>
+Message-Id: <20260831-nwl-dsi-fixes-v4-1-6a2a1cb23910@geanix.com>
 References: <20260831-nwl-dsi-fixes-v4-0-6a2a1cb23910@geanix.com>
 In-Reply-To: <20260831-nwl-dsi-fixes-v4-0-6a2a1cb23910@geanix.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -55,56 +55,73 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
  Sam Ravnborg <sam@ravnborg.org>
 Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788182874; l=1534;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788182874; l=2014;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=kKsffolI3Qs7QhM0aRcvOCyPsNNcZdkiD1A5b8xHohA=;
- b=J4LsSxC5aITLgDQB/KpUb10mwQ9+TU75DNKgkf9gtJnRagL/g2POMbhlVmoQqvkvItbnynqH2
- i5az424w6E/DhIa1tfFb3tBZQqNqn10NIkJGysG1ivPL90VWoiN3f+5
+ bh=Cm0XJSNXpJMzO5ie7uX5yADJaQR/hPQbPioD/AbZ2rs=;
+ b=RGSYE/R38haixbJ8KT9D+ANay1cfgJXSJswzBtm/VZvOnZfYxvgmID3+XocY7QeO9hF/mUIRq
+ cc+mUBmAsIgBE4eTsS9qpwmKtUQfoXAG1ASaH8TMqQ344Q9nh+PnjNl
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-From: Robert Chiras <robert.chiras@nxp.com>
+Using the endpoint define values makes it more clear that the argument to
+mux_control_try_select() must be valid state integers, and not something
+that looks like a boolean.
 
-In order to respect the DSI protocol, make sure that auto-insert EOTP is
-enabled according to the NO_EOT_PACKET flag instead of the
-CLOCK_NON_CONTINUOUS flag.
+The endpoint value is kept, as it will be used in a following patch that
+changes behavior slightly based on which endpoint is selected.
 
-Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
 Cc: stable@vger.kernel.org
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Esben Haabendal <esben@geanix.com>
-Cc: Robert Chiras <robert.chiras@nxp.com>
-Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 ---
  drivers/gpu/drm/bridge/nwl-dsi.c | 10 ++++++----
  1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index 1aab46e1a168..f3f4334136c0 100644
+index 09992529f3d8..80e26a947ae6 100644
 --- a/drivers/gpu/drm/bridge/nwl-dsi.c
 +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -222,13 +222,15 @@ static int nwl_dsi_config_host(struct nwl_dsi *dsi)
- 	DRM_DEV_DEBUG_DRIVER(dsi->dev, "DSI Lanes %d\n", dsi->lanes);
- 	nwl_dsi_write(dsi, NWL_DSI_CFG_NUM_LANES, dsi->lanes - 1);
+@@ -110,6 +110,8 @@ struct nwl_dsi {
+ 	int error;
  
--	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS) {
-+	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x01);
--		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
--	} else {
-+	else
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x00);
+ 	struct nwl_dsi_transfer *xfer;
 +
-+	if (dsi->dsi_mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x00);
--	}
-+	else
-+		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
++	unsigned int endpoint;
+ };
  
- 	/* values in byte clock cycles */
- 	cycles = ui2bc(cfg->clk_pre);
+ static const struct regmap_config nwl_dsi_regmap_config = {
+@@ -1088,13 +1090,12 @@ static int nwl_dsi_parse_dt(struct nwl_dsi *dsi)
+ static int nwl_dsi_select_input(struct nwl_dsi *dsi)
+ {
+ 	struct device_node *remote;
+-	u32 use_dcss = 1;
+ 	int ret;
+ 
+ 	remote = of_graph_get_remote_node(dsi->dev->of_node, 0,
+ 					  NWL_DSI_ENDPOINT_LCDIF);
+ 	if (remote) {
+-		use_dcss = 0;
++		dsi->endpoint = NWL_DSI_ENDPOINT_LCDIF;
+ 	} else {
+ 		remote = of_graph_get_remote_node(dsi->dev->of_node, 0,
+ 						  NWL_DSI_ENDPOINT_DCSS);
+@@ -1103,11 +1104,12 @@ static int nwl_dsi_select_input(struct nwl_dsi *dsi)
+ 				      "No valid input endpoint found\n");
+ 			return -EINVAL;
+ 		}
++		dsi->endpoint = NWL_DSI_ENDPOINT_DCSS;
+ 	}
+ 
+ 	DRM_DEV_INFO(dsi->dev, "Using %s as input source\n",
+-		     (use_dcss) ? "DCSS" : "LCDIF");
+-	ret = mux_control_try_select(dsi->mux, use_dcss);
++		     (dsi->endpoint == NWL_DSI_ENDPOINT_DCSS) ? "DCSS" : "LCDIF");
++	ret = mux_control_try_select(dsi->mux, dsi->endpoint);
+ 	if (ret < 0)
+ 		DRM_DEV_ERROR(dsi->dev, "Failed to select input: %d\n", ret);
+ 
 
 -- 
 2.55.0
