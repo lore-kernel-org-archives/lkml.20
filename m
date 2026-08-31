@@ -1,49 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A05A4B2048;
-	Mon, 31 Aug 2026 13:51:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFF2594815;
+	Mon, 31 Aug 2026 13:51:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184271; cv=none; b=XqBls/QTiyYxTsRDRJgtA7cOK3cAXVM5l3dLAHsn7OdouV9j/A71/EOnJ5k7Y+3RnrKIHrOUuX5JyXV4g+EgmX+fodrMNMEZxSns90uOIPquxYtBF2BcSMyU/dPy3C6R6qsx1Z6dh6WvvxdAHmznE14D/qqnYNXsW+hvj9MgZ7w=
+	t=1788184276; cv=none; b=o/kJIBf7Q6hcEfG1khd9Ef0Q8z4FOmIRWtFqqInf6t3PkDmxGIb+sOppStTNq4w0UV+hxnZ2IMD5M2aeKNBzlUYIGqgR1+8+vbrnazYKJUARLAPcKQzLox594iYBSAdGpDwggNMbZ/zgl1OSoiBglzL0DdXNa9Re9s+QtF5+ET8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184271; c=relaxed/simple;
-	bh=3HuJbXzlqEDGzPUxPWLOHrmcX6KHIf2LB9bOys2hxZg=;
+	s=arc-20240116; t=1788184276; c=relaxed/simple;
+	bh=w9LjQbiQkf/ncT2iS1CBNHG/KaIN6aSRmIpMNqAKSkM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uKUxKW7BYJIhpfT50TZihm+O5/K5H8P0BH59r8/f5l0MrD+7nkDCNXgZ4a4JxcnH5/7BdJkPV7NJCkDqPnhyQTY/3/PTXfwNPs85YmXHWzokEglqKGTXY5W1uOkBEW0p3cNhNbazvYbO3Z4XS8TNUOEWhFors26x57yNYFUnhh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gqigD6mp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=bS4GUIHP78847iVszNUFkXsdETlNSx9Bj8BlfUaZNzA+C5hK5dPW/Gf1CK4BNo47POG0Ew6YzKd8RaA56lGUN61s9QWIDLUk5MDKMqWcoB/sDCAMR/o31qkFO43avouEiPZ7xrmcihDbhNapbQH2YYCTd7hh7WrXiVYobeTIDQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gCUEQGaP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gqigD6mp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59A051F00A3D;
-	Mon, 31 Aug 2026 13:51:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gCUEQGaP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B1081F000E9;
+	Mon, 31 Aug 2026 13:51:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184268;
-	bh=a7KGhVOScPlEMGSP5V3+3FsIFjW5YlebcbymBRGHCow=;
+	s=k20260515; t=1788184273;
+	bh=pQeFEof46QBMBkVESYK5gF360fC+EaAR/W0HEtI6wnk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gqigD6mpsRv/8bDQCqeRGCcDSn01YgzvYTs8DXcVtbo3ZChfNE8tApgR53PrY2g96
-	 w4SqyX0C/6M640EffJ//zy11guBwUmXrpdA6+uxe9QGk+QK1VPEDygt9/7Pen8UsAM
-	 cDB1/B7Q86sm2y7XpiG3yr3YuXLkv3YsVEAmFQdffbml+Lnyno7y2eo1h1s7hRnoaE
-	 OR/lW8RRH1uivlFsOccYQ3NzgQV/5cO4fwDiP5xxYAizMr3B+2P7G8M7Pvpjw5uYrR
-	 GAv/hAl/8YtGOza6iX8S2gG5yWoajGGRkkz5k/dnTNWG35OGpak8DWygF7K8lM1sJp
-	 iSQ3sUMa/YOmQ==
+	b=gCUEQGaPSoy4c/8IYXo92US6uA53BUs1iZVrpKtizyOdMG1Cq8qqdDXzxt78eiNDl
+	 OggYGODjhVDBcdZvxByyA/d2CcvMH1ExG68jxf7YUA3/i3KCKwjsxSW1HLRAGoay3w
+	 49XeD/rZsmykirLp8BxfFFm7kNKGUhx0G6UrtoAlow/Y2VhjweUmyJkQaS8DNo7/B7
+	 DnmJGx1N2NAC/rUZ7ot4+o5b8J5nuXq1ejbhpfrT2ZzvX6qG5AIys977un5Jl+aZc0
+	 5McKO0eVLgIcI2LAQH8rSmzFnyhEJAefmGCGlzpHqiNCv86WcfMEQYxcUU3semqYWy
+	 gooMtfVUL+zPQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Fernando Fernandez Mancera <fmancera@suse.de>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	fw@strlen.de,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+	stas.yakovlev@gmail.com,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] netfilter: nf_tables: use DEBUG_NET_WARN_ON_ONCE in packet and control paths
-Date: Mon, 31 Aug 2026 09:30:19 -0400
-Message-ID: <20260831133314.4125787-591-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] wifi: libipw: fix key index receive bound checks
+Date: Mon, 31 Aug 2026 09:30:22 -0400
+Message-ID: <20260831133314.4125787-594-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -59,959 +53,363 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Fernando Fernandez Mancera <fmancera@suse.de>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit 42eb1ca711b6f3c0cc09d872ff49fa7aa17a56e1 ]
+[ Upstream commit 74ed3669f26803b1761c1f55403062bea44c3466 ]
 
-Replace raw warning macros with DEBUG_NET_WARN_ON_ONCE across the
-nf_tables API, core engine, and expression evaluations. This prevents
-unnecessary system panics when panic_on_warn=1 is enabled in production
-systems.
+libipw_rx() reads skb->data[hdrlen + 3] to extract the WEP key index in
+both the software-decrypt key selection path and the hardware-decrypted
+IV/ICV strip path. In both places the existing guard only checks
+skb->len >= hdrlen + 3, which proves bytes up to hdrlen + 2 but not the
+byte at hdrlen + 3.
 
-Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Require hdrlen + 4 bytes before reading that item in both paths. This is
+a local source-boundary check only; it does not change the key index
+semantics.
+
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Link: https://patch.msgid.link/20260705083519.23567-1-pengpeng@iscas.ac.cn
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `wifi: libipw: fix key index receive bound
+checks`
 
-**Step 1.1 — Subject line**
-
-Record: `[netfilter: nf_tables]` / `use` / Replace raw `WARN_ON_ONCE`
-with `DEBUG_NET_WARN_ON_ONCE` in nftables packet and control paths to
-avoid panics under `panic_on_warn=1`.
-
-**Step 1.2 — Tags**
-
-Record:
-- **Fixes:** none
-- **Reported-by:** none
-- **Tested-by:** none
-- **Reviewed-by:** none
-- **Acked-by:** none
-- **Link:** none
-- **Cc: stable@vger.kernel.org:** none (expected for manual review)
-- **Signed-off-by:** Fernando Fernandez Mancera `<fmancera@suse.de>`,
-  Pablo Neira Ayuso `<pablo@netfilter.org>` (netfilter maintainer)
-
-Notable: maintainer sign-off; no syzbot/fuzzer tags; patch 2/9 in a
-broader netfilter `DEBUG_NET_WARN_ON_ONCE` series.
-
-**Step 1.3 — Body**
-
-Record:
-- **Bug:** `WARN_ON_ONCE` on nftables packet/control paths can panic the
-  kernel when `panic_on_warn=1`.
-- **Symptom:** Full system panic during nftables processing, even though
-  the code already handles the condition (drop packet, return error,
-  defensive fallback).
-- **Root cause:** `WARN_ON_ONCE` always emits a kernel warning;
-  `panic_on_warn` turns any warning into `panic()`.
-- **Version info:** none in message.
-
-**Step 1.4 — Hidden bug fix?**
-
-Record: **Yes.** Framed as macro replacement, but it fixes a real
-stability bug: handled internal-invariant failures become fatal panics
-on hardened production configs instead of graceful degradation.
+**Local tree:** `v6.18.44` (`6.18.44`, Makefile `VERSION=6 PATCHLEVEL=18
+SUBLEVEL=44`)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 2.1 — Inventory**
+### Step 1.1: PARSE THE SUBJECT LINE
+**Record:** `[wifi: libipw]` `[fix]` — correct off-by-one bounds check
+when reading WEP key index byte from received skb data in `libipw_rx()`.
 
-Record:
-- **22 files**, roughly **+76 / -46** lines.
-- Core files: `nf_tables_api.c`, `nf_tables_core.c`,
-  `nf_tables_offload.c`, `nf_tables_trace.c`, plus ~18 `nft_*.c`
-  expression modules.
-- Functions touched include `nft_do_chain()`, `nft_register_expr()`,
-  `nft_expr_clone()`, `nf_tables_commit_chain_prepare()`,
-  `nft_parse_register_load()`, `nft_data_init()`, and many expression
-  `*_eval()` default branches.
-- **Scope:** Multi-file but mechanical; not a refactor.
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Record:**
+- **Signed-off-by:** Pengpeng Hou `<pengpeng@iscas.ac.cn>` (author)
+- **Link:**
+  https://patch.msgid.link/20260705083519.23567-1-pengpeng@iscas.ac.cn
+- **Signed-off-by:** Johannes Berg `<johannes.berg@intel.com>` (wireless
+  maintainer, committer)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
+  by:`, or `Cc: stable@vger.kernel.org`
+- Notable: no fuzzer or user bug report; maintainer SOB present
 
-**Step 2.2 — Code flow changes**
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Record:**
+- **Bug:** `libipw_rx()` reads `skb->data[hdrlen + 3]` after checking
+  `skb->len >= hdrlen + 3`. That guard only guarantees bytes
+  `0..hdrlen+2`; index `hdrlen+3` needs `skb->len >= hdrlen + 4`.
+- **Symptom:** Out-of-bounds read past skb tail on truncated protected
+  frames.
+- **Affected paths:** (1) software-decrypt key selection, (2) hardware-
+  decrypt IV/ICV strip path.
+- **Root cause:** Classic off-by-one length check (confusing “number of
+  bytes after hdrlen” with “index of last byte needed”).
 
-Record per hunk pattern:
-- **Before:** `if (WARN_ON_ONCE(cond)) return error;` — condition
-  checked, warning emitted on failure, then existing error handling
-  runs.
-- **After:** `if (unlikely(cond)) { DEBUG_NET_WARN_ON_ONCE(1); return
-  error; }` — same runtime handling; warning only when
-  `CONFIG_DEBUG_NET=y`.
-- **`nft_do_chain()` jump overflow:** Before `WARN_ON_ONCE` + `NF_DROP`;
-  after `DEBUG_NET_WARN_ON_ONCE` + `NF_DROP_REASON(..., ELOOP)`
-  (slightly better drop reason).
-- **Default switch branches:** `WARN_ON_ONCE(1)` / `WARN_ON(1)` →
-  `DEBUG_NET_WARN_ON_ONCE(1)` with existing fallthrough/error behavior
-  unchanged.
-
-**Step 2.3 — Bug mechanism**
-
-Record:
-- **Category:** Logic/correctness + production-stability interaction
-  with `panic_on_warn`.
-- **Mechanism:** Defensive invariant checks on hot packet path and
-  netlink control path use `WARN_ON_ONCE`, which calls
-  `check_panic_on_warn("kernel")` when `panic_on_warn=1` (verified in
-  `kernel/panic.c`). The underlying failure is already handled; the WARN
-  makes it fatal.
-
-**Step 2.4 — Fix quality**
-
-Record:
-- **Obviously correct:** Yes; follows `DEBUG_NET_WARN_ON_ONCE` design
-  from `include/net/net_debug.h`.
-- **Minimal:** Yes; mechanical replacements.
-- **Regression risk:** Low. `DEBUG_NET_WARN_ON_ONCE` without
-  `CONFIG_DEBUG_NET` is a no-op via `BUILD_BUG_ON_INVALID`; runtime
-  checks remain via explicit `unlikely()` branches.
-- **Red flags:** 22 files, but no API/struct changes.
+### Step 1.4: DETECT HIDDEN BUG FIXES
+**Record:** Not disguised — explicitly a bounds-check fix. No hidden
+semantics change; when the check fails, `keyidx` stays at its
+initialized value `0`.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 2: DIFF ANALYSIS
 
-**Step 3.1 — Blame**
+### Step 2.1: INVENTORY THE CHANGES
+**Record:**
+- **File:** `drivers/net/wireless/intel/ipw2x00/libipw_rx.c` (+2/−2
+  lines)
+- **Functions:** `libipw_rx()` (two hunks)
+- **Scope:** Single-file, surgical fix
 
-Record:
-- Jump-stack `WARN_ON_ONCE` introduced in `adc972c5b8882` (Jun 2018):
-  replaced `BUG_ON` with `WARN_ON_ONCE` + `NF_DROP` because hard crash
-  was unnecessary.
-- That code is present in this tree at `nf_tables_core.c:317-318`.
-- `DEBUG_NET_WARN_ON_ONCE` macro added in `d268c1f5cfc92` (May 2022).
+### Step 2.2: CODE FLOW CHANGE
+**Record:**
+- **Hunk 1 (~line 417):** Before: read key index if `len >= hdrlen+3`.
+  After: read only if `len >= hdrlen+4`. Affects software-decrypt path
+  when `can_be_decrypted` is true.
+- **Hunk 2 (~line 663):** Same change on hardware-decrypt IV/ICV strip
+  path when `!can_be_decrypted && PROTECTED && host_strip_iv_icv`.
+- **Unchanged behavior:** When the frame is long enough, key index
+  extraction is identical.
 
-**Step 3.2 — Fixes: tag**
+### Step 2.3: BUG MECHANISM
+**Record:** **Category:** Memory safety / out-of-bounds read.
+**Mechanism:** With `skb->len == hdrlen + 3`, `skb->data[hdrlen + 3]`
+reads one byte past allocated skb data — slab OOB read (info leak or
+fault under KASAN).
 
-Record: N/A — no `Fixes:` tag.
-
-**Step 3.3 — Related file history**
-
-Record:
-- `nf_tables_api.c` already has one `DEBUG_NET_WARN_ON_ONCE` use (export
-  path); most nftables code still uses raw `WARN_ON_ONCE` (~77
-  occurrences across nftables files in this tree).
-- Target commit `42eb1ca711b6f` is **not** an ancestor of HEAD; patch
-  applies cleanly (`git apply --check` passed).
-
-**Step 3.4 — Author context**
-
-Record: Fernando Fernandez Mancera (SUSE) submitted patch 2/9 of a
-netfilter-wide series; Pablo Neira Ayuso (maintainer) committed it.
-
-**Step 3.5 — Dependencies**
-
-Record:
-- **Standalone for nftables:** Yes.
-- **Prerequisite:** `CONFIG_DEBUG_NET` / `DEBUG_NET_WARN_ON_ONCE` —
-  present since 2022 in this tree.
-- **Prerequisite:** `NF_DROP_REASON()` — present in
-  `include/linux/netfilter.h`.
-- Part of a 9-patch series, but this hunk does not require the other
-  patches.
+### Step 2.4: FIX QUALITY
+**Record:** Obviously correct; minimal; zero functional change for valid
+frames. **Regression risk:** Very low — only skips the read on frames
+that were already too short to contain the byte.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 4.1 — Original discussion**
+### Step 3.1: BLAME THE CHANGED LINES
+**Record:** Blame points to `5d324e5159d9e` (merge, 2025-11-28). This
+autosel tree has only **1 commit** touching `libipw_rx.c`; the buggy
+`hdrlen + 3` pattern is long-standing legacy code, not a recent
+regression.
 
-Record:
-- `b4 dig -c 42eb1ca711b6f` →
-  https://patch.msgid.link/20260601193049.8131-3-fmancera@suse.de
-- Series cover letter (web search): patch 2/9; motivation is preventing
-  `panic_on_warn=1` panics on already-handled netfilter invariant
-  failures.
-- Lore fetch blocked by bot protection; could not read thread replies
-  directly.
+### Step 3.2: FOLLOW THE FIXES: TAG
+**Record:** N/A — no `Fixes:` tag.
 
-**Step 4.2 — Reviewers**
+### Step 3.3: FILE HISTORY FOR RELATED CHANGES
+**Record:** Recent ipw2x00 activity includes `f442e581a8893` (ipw2100
+memory leak fix). No prior fix for this bounds issue. Standalone one-
+patch submission.
 
-Record: `b4 dig -w` returned only the patch URL; cover letter CC list
-(from openwall mirror) included `edumazet@google.com`, `fw@strlen.de`,
-`kuba@kernel.org`, `pablo@netfilter.org`.
+### Step 3.4: AUTHOR'S OTHER COMMITS
+**Record:** Pengpeng Hou has multiple similar validation/bounds fixes
+(CAN, media, Bluetooth, hwmon). Johannes Berg is the wireless maintainer
+who committed this.
 
-**Step 4.3 — Bug report**
-
-Record: N/A — no external bug report or syzbot link.
-
-**Step 4.4 — Related patches**
-
-Record: 9-patch series across xtables, nf_tables, nfnetlink, conntrack,
-nat, tproxy, bpf, flowtable, conncount. This commit only touches
-nf_tables.
-
-**Step 4.5 — Stable list history**
-
-Record: UNVERIFIED — could not search lore stable archive due to bot
-protection.
+### Step 3.5: DEPENDENT/PREREQUISITE COMMITS
+**Record:** No dependencies. Patch applies cleanly to current
+`libipw_rx.c` (buggy `hdrlen + 3` still present at lines 417 and 663).
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 5.1 — Key functions**
+### Step 4.1: ORIGINAL PATCH DISCUSSION
+**Record:** `b4 am 20260705083519.23567-1-pengpeng@iscas.ac.cn` found
+the thread. Mbox has a single patch message, no replies. No stable
+nomination or NAK in thread. WebFetch of lore URL blocked by bot
+protection; content obtained via b4 mbox.
 
-Record: `nft_do_chain()`, `nft_register_expr()`, `nft_expr_clone()`,
-`nf_tables_commit_chain_prepare()`, `nft_parse_register_load()`,
-`nft_data_init()`, plus expression evaluators in `nft_meta.c`,
-`nft_payload.c`, `nft_socket.c`, etc.
+### Step 4.2: REVIEWERS
+**Record:** `b4 dig -w` did not yield additional recipient detail beyond
+the patch itself. Johannes Berg SOB indicates maintainer acceptance.
 
-**Step 5.2 — Callers**
+### Step 4.3: BUG REPORT
+**Record:** No external bug report, syzbot link, or stack trace.
+Static/code-review discovery.
 
-Record:
-- `nft_do_chain()` — packet hot path via netfilter hooks; every
-  nftables-filtered packet.
-- `nft_register_expr()` / netlink handlers — control plane from
-  `nft`/`iptables-nft` with `CAP_NET_ADMIN`.
-- Expression `*_eval()` — per-rule packet evaluation.
+### Step 4.4: RELATED PATCHES/SERIES
+**Record:** Standalone 1/1 patch, not part of a series.
 
-**Step 5.3 — Callees**
-
-Record: `DEBUG_NET_WARN_ON_ONCE`, `NF_DROP_REASON`, existing nftables
-error returns (`-EINVAL`, `-ENOMEM`, `NFT_BREAK`, etc.).
-
-**Step 5.4 — Reachability**
-
-Record:
-- **Packet path:** Yes — reachable on every packet through nftables
-  rules.
-- **Jump stack overflow:** Reachable with >16 nested `jump` operations
-  (`NFT_JUMP_STACK_SIZE` is 16); requires admin-configured rules, but is
-  a known path since 2018.
-- **Unprivileged trigger:** No direct unprivileged syscall path; netlink
-  config needs privileges. Packet-path panics affect all traffic on the
-  host.
-
-**Step 5.5 — Similar patterns**
-
-Record: Networking already migrated many sites to
-`DEBUG_NET_WARN_ON_ONCE` (e.g. `skb_release_head_state()` in
-`7890e2f09d437`, multiple `skbuff.c` sites). nftables is late to adopt
-the same pattern.
+### Step 4.5: STABLE MAILING LIST HISTORY
+**Record:** Not searched separately; no stable discussion found in the
+patch thread.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 6.1 — Buggy code present?**
+### Step 5.1: KEY FUNCTIONS
+**Record:** `libipw_rx()` — central RX handler for libipw stack.
 
-Record:
-- **Local tree:** `v6.18.44` (`git describe HEAD` →
-  `v6.18.44-1-g2736c32da98b9`).
-- **Buggy `WARN_ON_ONCE` calls present:** Yes (e.g.
-  `nf_tables_core.c:317,329`; many more in `nf_tables_api.c` and
-  `nft_*.c`).
-- **Fix not yet merged:** `42eb1ca711b6f` is **NOT IN TREE**.
+### Step 5.2: CALLERS
+**Record:** Called from:
+- `ipw2200.c`: lines 7674, 7831, 8037, 10332
+- `ipw2100.c`: lines 2479, 2566
 
-**Step 6.2 — Backport complications**
+All are RX paths (tasklet/ISR context) for every received 802.11 frame.
 
-Record: **Clean apply** verified with `git format-patch | git apply
---check`. No rework expected.
+### Step 5.3: CALLEES
+**Record:** Uses `libipw_get_hdrlen()`, decryption helpers, frame drop
+paths. Bug is a direct skb indexed read before further validation.
 
-**Step 6.3 — Related fixes already present?**
+### Step 5.4: CALL CHAIN / REACHABILITY
+**Record:**
+1. Wireless frame received by ipw2100/ipw2200 firmware → skb built with
+   firmware-reported length
+2. `libipw_rx()` validates `skb->len >= 10` and `skb->len >= hdrlen`
+3. A protected frame with `skb->len == hdrlen + 3` passes those checks
+4. OOB read at `skb->data[hdrlen + 3]`
 
-Record: Partial — one `DEBUG_NET_WARN_ON_ONCE` in `nf_tables_api.c`;
-bulk of nftables still uses raw `WARN_ON_ONCE`. This specific fix is not
-present.
+`ipw2200.c` rejects `length < hdrlen` (line 8315) but not `length <
+hdrlen + 4`. `ipw_handle_data_packet()` (line 7663) sets skb length from
+hardware with no extra minimum beyond `libipw_rx()` checks.
 
----
+**Userspace trigger:** Indirect — attacker in radio range can send
+malformed 802.11 frames; no syscall needed.
 
-## Phase 7: Subsystem and Maintainer Context
-
-**Step 7.1 — Subsystem**
-
-Record: **netfilter / nf_tables** — **IMPORTANT** (firewall/NAT for
-servers, routers, containers; packet hot path).
-
-**Step 7.2 — Activity**
-
-Record: Actively maintained; recent commits in `nf_tables_api.c` include
-UAF fixes, set/chain handling changes.
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-**Step 8.1 — Who is affected**
-
-Record: Systems running nftables with `panic_on_warn=1`
-(enterprise/hardened configs; SUSE motivation). Affects all network
-traffic on those hosts when an invariant fires.
-
-**Step 8.2 — Trigger conditions**
-
-Record:
-- `panic_on_warn=1` (sysctl, non-default but used in production).
-- Plus any nftables internal invariant failure (jump depth, malformed
-  internal state, default switch branches).
-- Jump overflow: uncommon but possible with complex admin rules.
-- **Unprivileged direct trigger:** No.
-
-**Step 8.3 — Failure mode severity**
-
-Record: **CRITICAL** — full kernel panic on packet path, despite
-existing graceful drop/error handling.
-
-**Step 8.4 — Risk/benefit**
-
-Record:
-- **Benefit:** High for `panic_on_warn=1` + nftables deployments;
-  prevents total outage when a handled condition occurs.
-- **Risk:** Low — mechanical macro swap, no structural changes, clean
-  apply.
-- **Ratio:** Favorable for stable.
+### Step 5.5: SIMILAR PATTERNS
+**Record:** Line 286 in `libipw_rx_frame_decrypt()` also reads
+`skb->data[hdrlen + 3]` in a debug path after failed decrypt (not fixed
+by this patch). The two fixed sites are the ones described in the commit
+message.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-**Step 9.1 — Evidence**
+### Step 6.1: DOES THE BUGGY CODE EXIST?
+**Record:** **Yes.** `drivers/net/wireless/intel/ipw2x00/libipw_rx.c`
+lines 417 and 663 still use `hdrlen + 3`. Driver and
+`CONFIG_LIBIPW`/`CONFIG_IPW2100`/`CONFIG_IPW2200` exist in 6.18.44. Bug
+predates this stable branch (legacy code).
 
-**FOR:**
-- Prevents kernel panic on handled nftables errors when
-  `panic_on_warn=1`.
-- Packet-path impact (`nft_do_chain`) is severe when triggered.
-- Follows established `DEBUG_NET_WARN_ON_ONCE` networking pattern (Eric
-  Dumazet, 2022).
-- Small per-hunk changes; applies cleanly to v6.18.44.
-- Netfilter maintainer signed off.
-- Restores intent of 2018 change that replaced `BUG_ON` with graceful
-  `NF_DROP` on jump-stack overflow.
+### Step 6.2: BACKPORT COMPLICATIONS
+**Record:** **Clean apply** — two identical `+3` → `+4` substitutions,
+no context conflicts.
 
-**AGAINST:**
-- Only matters when `panic_on_warn=1` (not default).
-- Not a memory-safety bug (UAF/OOB).
-- 22 files (though mechanically simple).
-- Arguably reduces visibility of internal bugs for admins who explicitly
-  chose `panic_on_warn=1`.
-- Part of a larger series (other netfilter subsystems not covered by
-  this commit).
+### Step 6.3: RELATED FIXES ALREADY PRESENT?
+**Record:** **No.** `git log --grep="key index"` and `git log
+--grep="hdrlen + 4"` return nothing for this file.
 
-**Unresolved:** Lore thread replies and explicit stable nominations —
-UNVERIFIED due to fetch blocking.
+---
 
-**Step 9.2 — Stable rules checklist**
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — established macro
-pattern; maintainer SOB; no Tested-by |
-| 2. Fixes real bug affecting users? | **PASS** — panic on handled
-nftables path with `panic_on_warn=1` |
-| 3. Important issue? | **PASS** — kernel panic (CRITICAL) |
-| 4. Small and contained? | **PASS** — mechanical, +76/-46, no refactor
-|
-| 5. No new features/APIs? | **PASS** |
-| 6. Can apply to local tree? | **PASS** — clean apply verified;
-prerequisites present |
+### Step 7.1: SUBSYSTEM CRITICALITY
+**Record:** **Subsystem:** `drivers/net/wireless/intel/ipw2x00` (legacy
+Intel PRO/Wireless 2100/2200). **Criticality:** PERIPHERAL — deprecated
+libipw stack, very old hardware, small active user base.
 
-**Step 9.3 — Exception category**
+### Step 7.2: SUBSYSTEM ACTIVITY
+**Record:** Intel wireless tree is active (many iwlwifi fixes in
+6.18.y). ipw2x00 itself sees occasional maintenance (e.g., memory leak
+fix `f442e581a8893`).
 
-Record: None (not device ID, quirk, DT, build fix, or docs). Standard
-stability bug fix.
+---
 
-**Step 9.4 — Decision rationale**
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-For **this** tree (v6.18.44), the buggy pattern exists, prerequisites
-exist, and the patch applies cleanly. The commit fixes a real
-production-stability issue: nftables already handles these conditions
-gracefully, but `WARN_ON_ONCE` + `panic_on_warn=1` turns them into full
-system crashes on the packet hot path. That matches stable criteria for
-serious crashes with a low-risk, maintainer-reviewed fix.
+### Step 8.1: WHO IS AFFECTED
+**Record:** **Config-specific / driver-specific** — users with `IPW2100`
+or `IPW2200` modules loaded and WEP/WPA decryption paths active.
+
+### Step 8.2: TRIGGER CONDITIONS
+**Record:** Protected frame with `skb->len == hdrlen + 3` (e.g.,
+hdrlen=24, len=27). Requires malformed/truncated over-the-air frame or
+firmware passing a short frame. **Likelihood:** Low in normal operation;
+realistic for malicious RF traffic. **Unprivileged remote trigger:**
+Yes, within wireless range.
+
+### Step 8.3: FAILURE MODE SEVERITY
+**Record:** **Out-of-bounds read** past skb buffer. Without KASAN:
+possible slab info leak; possible fault at page boundary. With KASAN:
+BUG report. **Severity: MEDIUM** (memory safety on network RX; limited
+by obsolete hardware and narrow config).
+
+### Step 8.4: RISK-BENEFIT
+**Record:**
+- **Benefit:** Closes a real OOB read on RX path; defense-in-depth for
+  malformed frames; zero-risk 2-line fix.
+- **Risk:** Negligible — only tightens an existing guard.
+- **Ratio:** Moderate benefit (small user base) vs. very low risk →
+  **favorable for backport**.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: EVIDENCE COMPILED
+
+**FOR backport:**
+- Real, verifiable off-by-one OOB read
+- Trivial, obviously correct 2-line fix
+- RX path reachable from wireless input
+- Applies cleanly to 6.18.44
+- Maintainer (Johannes Berg) committed
+- Matches stable pattern of bounds-check hardening
+
+**AGAINST backport:**
+- Legacy deprecated driver (libipw); hardware from ~2003–2005
+- No user report, syzbot, or CVE
+- Very small installed base today
+- Trigger requires specific truncated protected frame
+
+**Unresolved:** Whether firmware typically filters frames short enough
+to hit this exact length before they reach `libipw_rx()`.
+
+### Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — mathematically correct
+   bounds fix; no Tested-by.
+2. Fixes a real bug? **PASS** — OOB read on `skb->data[hdrlen+3]`.
+3. Important issue? **PASS (MEDIUM)** — memory safety on network RX,
+   remotely triggerable in principle.
+4. Small and contained? **PASS** — 2 lines, 1 file.
+5. No new features or APIs? **PASS**.
+6. Can apply to local tree? **PASS** — buggy code present, clean apply.
+
+### Step 9.3: EXCEPTION CATEGORIES
+**Record:** N/A — standard memory-safety bug fix, not a
+quirk/DT/build/doc exception.
+
+### Step 9.4: DECISION RATIONALE
+
+For **6.18.44**, the buggy code is present and the fix is surgical. Even
+with a small user population, an out-of-bounds read on a wireless RX
+path is appropriate stable material: the patch is obviously correct,
+cannot regress valid frames, and closes a reachable memory-safety hole.
+The lack of syzbot/user reports lowers urgency but does not negate the
+technical merit.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body from provided commit message and
-  `git show 42eb1ca711b6f`
-- [Phase 2] Diff analysis: 22 files, +76/-46; `WARN_ON_ONCE` →
-  `unlikely()` + `DEBUG_NET_WARN_ON_ONCE`
-- [Phase 3] `git describe HEAD` → v6.18.44; `git merge-base --is-
-  ancestor 42eb1ca HEAD` → NOT IN TREE
-- [Phase 3] `git blame nf_tables_core.c:317` → `adc972c5b8882` (2018,
-  BUG_ON→WARN_ON_ONCE+NF_DROP)
-- [Phase 3] `d268c1f5cfc92` added `CONFIG_DEBUG_NET` and
-  `DEBUG_NET_WARN_ON_ONCE`
-- [Phase 3] `git apply --check` on patch → applies cleanly
-- [Phase 4] `b4 dig -c 42eb1ca711b6f` → patch URL found
-- [Phase 4] Web search found series cover letter (9 patches,
-  panic_on_warn motivation)
-- [Phase 4] Lore/patch.msgid.link fetch → blocked; thread content
-  UNVERIFIED
-- [Phase 5] `NFT_JUMP_STACK_SIZE` = 16 in
-  `include/net/netfilter/nf_tables.h`
-- [Phase 5] `check_panic_on_warn()` in `kernel/panic.c:372-377` panics
-  when `panic_on_warn` set
-- [Phase 5] `DEBUG_NET_WARN_ON_ONCE` definition in
-  `include/net/net_debug.h:151-156`
-- [Phase 6] All 22 modified files exist in tree
-- [Phase 6] Current tree: 77 `WARN_ON_ONCE` vs 2
-  `DEBUG_NET_WARN_ON_ONCE` in nftables files
-- [Phase 6] `NF_DROP_REASON` exists in `include/linux/netfilter.h`
-- [Phase 8] `nf_tables_core.c:317-318` still has unfixed `WARN_ON_ONCE`
-  on jump-stack path
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+  and mbox
+- **[Phase 2]** Diff: 2 lines in `libipw_rx.c`, `hdrlen+3` → `hdrlen+4`
+  at lines 417 and 663
+- **[Phase 3]** `git describe HEAD` → `v6.18.44`; `make kernelversion` →
+  `6.18.44`
+- **[Phase 3]** `git blame -L 417,419` and `-L 663,664` → lines from
+  `5d324e5159d9e`
+- **[Phase 3]** `git rev-list --count HEAD -- libipw_rx.c` → 1 (shallow
+  history for this file)
+- **[Phase 3]** No `Fixes:` tag; no prerequisite commits found
+- **[Phase 4]** `b4 am 20260705083519.23567-1-pengpeng@iscas.ac.cn` →
+  single-patch thread
+- **[Phase 4]** Mbox read: no replies, no stable nomination, no NAK
+- **[Phase 4]** WebFetch of lore URL → blocked (bot protection); used b4
+  mbox instead
+- **[Phase 5]** `grep libipw_rx(` → callers in `ipw2200.c` (4) and
+  `ipw2100.c` (2)
+- **[Phase 5]** Read `libipw_rx()` lines 325–366: validates `len >= 10`
+  and `len >= hdrlen` only
+- **[Phase 5]** Read `ipw2200.c` 8315–8324: rejects `length < hdrlen`,
+  not `length < hdrlen+4`
+- **[Phase 5]** Read `ipw_handle_data_packet()` 7659–7674: skb length
+  from firmware, no extra min check
+- **[Phase 6]** Grep confirmed buggy `hdrlen + 3` at lines 417, 663; fix
+  not present
+- **[Phase 6]** Kconfig confirms `IPW2100`, `IPW2200`, `LIBIPW` exist;
+  libipw marked deprecated
+- **[Phase 8]** Failure mode: OOB read, severity MEDIUM
+- **UNVERIFIED:** Exact frequency of firmware delivering frames with
+  `len == hdrlen+3` to `libipw_rx()`
 
 **YES**
 
- net/netfilter/nf_tables_api.c     | 38 +++++++++++++++++++++++--------
- net/netfilter/nf_tables_core.c    |  8 ++++---
- net/netfilter/nf_tables_offload.c |  2 +-
- net/netfilter/nf_tables_trace.c   |  6 +++--
- net/netfilter/nft_ct.c            |  2 +-
- net/netfilter/nft_ct_fast.c       |  2 +-
- net/netfilter/nft_exthdr.c        |  2 +-
- net/netfilter/nft_fib.c           |  2 +-
- net/netfilter/nft_inner.c         |  2 +-
- net/netfilter/nft_lookup.c        |  2 +-
- net/netfilter/nft_masq.c          |  2 +-
- net/netfilter/nft_meta.c          | 10 ++++----
- net/netfilter/nft_payload.c       |  6 ++---
- net/netfilter/nft_redir.c         |  2 +-
- net/netfilter/nft_reject.c        |  8 +++++--
- net/netfilter/nft_rt.c            |  2 +-
- net/netfilter/nft_set_hash.c      |  2 +-
- net/netfilter/nft_set_pipapo.c    |  2 +-
- net/netfilter/nft_set_rbtree.c    |  6 +++--
- net/netfilter/nft_socket.c        |  8 ++++---
- net/netfilter/nft_tunnel.c        |  2 +-
- net/netfilter/nft_xfrm.c          |  6 ++---
- 22 files changed, 76 insertions(+), 46 deletions(-)
+ drivers/net/wireless/intel/ipw2x00/libipw_rx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index ca6d2041eee66..d2f890627d0af 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -3258,8 +3258,10 @@ static int nf_tables_delchain(struct sk_buff *skb, const struct nfnl_info *info,
-  */
- int nft_register_expr(struct nft_expr_type *type)
- {
--	if (WARN_ON_ONCE(type->maxattr > NFT_EXPR_MAXATTR))
-+	if (unlikely(type->maxattr > NFT_EXPR_MAXATTR)) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		return -ENOMEM;
-+	}
+diff --git a/drivers/net/wireless/intel/ipw2x00/libipw_rx.c b/drivers/net/wireless/intel/ipw2x00/libipw_rx.c
+index b7bc94f7abd8a..c8841f9b9ad91 100644
+--- a/drivers/net/wireless/intel/ipw2x00/libipw_rx.c
++++ b/drivers/net/wireless/intel/ipw2x00/libipw_rx.c
+@@ -414,7 +414,7 @@ int libipw_rx(struct libipw_device *ieee, struct sk_buff *skb,
+ 	    ieee->host_mc_decrypt : ieee->host_decrypt;
  
- 	nfnl_lock(NFNL_SUBSYS_NFTABLES);
- 	if (type->family == NFPROTO_UNSPEC)
-@@ -3571,8 +3573,10 @@ int nft_expr_clone(struct nft_expr *dst, struct nft_expr *src, gfp_t gfp)
- {
- 	int err;
- 
--	if (WARN_ON_ONCE(!src->ops->clone))
-+	if (unlikely(!src->ops->clone)) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		return -EINVAL;
-+	}
- 
- 	dst->ops = src->ops;
- 	err = src->ops->clone(dst, src, gfp);
-@@ -8211,8 +8215,10 @@ static int nf_tables_newobj(struct sk_buff *skb, const struct nfnl_info *info,
- 			return 0;
- 
- 		type = nft_obj_type_get(net, objtype, family);
--		if (WARN_ON_ONCE(IS_ERR(type)))
-+		if (IS_ERR(type)) {
-+			DEBUG_NET_WARN_ON_ONCE(1);
- 			return PTR_ERR(type);
-+		}
- 
- 		nft_ctx_init(&ctx, net, skb, info->nlh, family, table, NULL, nla);
- 
-@@ -10161,19 +10167,25 @@ static int nf_tables_commit_chain_prepare(struct net *net, struct nft_chain *cha
- 
- 		prule = (struct nft_rule_dp *)data;
- 		data += offsetof(struct nft_rule_dp, data);
--		if (WARN_ON_ONCE(data > data_boundary))
-+		if (unlikely(data > data_boundary)) {
-+			DEBUG_NET_WARN_ON_ONCE(1);
- 			return -ENOMEM;
-+		}
- 
- 		size = 0;
- 		nft_rule_for_each_expr(expr, last, rule) {
--			if (WARN_ON_ONCE(data + size + expr->ops->size > data_boundary))
-+			if (unlikely(data + size + expr->ops->size > data_boundary)) {
-+				DEBUG_NET_WARN_ON_ONCE(1);
- 				return -ENOMEM;
-+			}
- 
- 			memcpy(data + size, expr, expr->ops->size);
- 			size += expr->ops->size;
+ 	if (can_be_decrypted) {
+-		if (skb->len >= hdrlen + 3) {
++		if (skb->len >= hdrlen + 4) {
+ 			/* Top two-bits of byte 3 are the key index */
+ 			keyidx = skb->data[hdrlen + 3] >> 6;
  		}
--		if (WARN_ON_ONCE(size >= 1 << 12))
-+		if (unlikely(size >= 1 << 12)) {
-+			DEBUG_NET_WARN_ON_ONCE(1);
- 			return -ENOMEM;
-+		}
+@@ -660,7 +660,7 @@ int libipw_rx(struct libipw_device *ieee, struct sk_buff *skb,
+ 		int trimlen = 0;
  
- 		prule->handle = rule->handle;
- 		prule->dlen = size;
-@@ -10184,8 +10196,10 @@ static int nf_tables_commit_chain_prepare(struct net *net, struct nft_chain *cha
- 		chain->blob_next->size += (unsigned long)(data - (void *)prule);
- 	}
+ 		/* Top two-bits of byte 3 are the key index */
+-		if (skb->len >= hdrlen + 3)
++		if (skb->len >= hdrlen + 4)
+ 			keyidx = skb->data[hdrlen + 3] >> 6;
  
--	if (WARN_ON_ONCE(data > data_boundary))
-+	if (unlikely(data > data_boundary)) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		return -ENOMEM;
-+	}
- 
- 	prule = (struct nft_rule_dp *)data;
- 	nft_last_rule(chain, prule);
-@@ -11494,8 +11508,10 @@ int nft_parse_register_load(const struct nft_ctx *ctx,
- 	next_register = DIV_ROUND_UP(len, NFT_REG32_SIZE) + reg;
- 
- 	/* Can't happen: nft_validate_register_load() should have failed */
--	if (WARN_ON_ONCE(next_register > NFT_REG32_NUM))
-+	if (unlikely(next_register > NFT_REG32_NUM)) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		return -EINVAL;
-+	}
- 
- 	/* find first register that did not see an earlier store. */
- 	invalid_reg = find_next_zero_bit(ctx->reg_inited, NFT_REG32_NUM, reg);
-@@ -11742,8 +11758,10 @@ int nft_data_init(const struct nft_ctx *ctx, struct nft_data *data,
- 	struct nlattr *tb[NFTA_DATA_MAX + 1];
- 	int err;
- 
--	if (WARN_ON_ONCE(!desc->size))
-+	if (unlikely(!desc->size)) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		return -EINVAL;
-+	}
- 
- 	err = nla_parse_nested_deprecated(tb, NFTA_DATA_MAX, nla,
- 					  nft_data_policy, NULL);
-@@ -11809,7 +11827,7 @@ int nft_data_dump(struct sk_buff *skb, int attr, const struct nft_data *data,
- 		break;
- 	default:
- 		err = -EINVAL;
--		WARN_ON(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 	}
- 
- 	nla_nest_end(skb, nest);
-diff --git a/net/netfilter/nf_tables_core.c b/net/netfilter/nf_tables_core.c
-index 6557a4018c099..267b8849fef19 100644
---- a/net/netfilter/nf_tables_core.c
-+++ b/net/netfilter/nf_tables_core.c
-@@ -314,8 +314,10 @@ nft_do_chain(struct nft_pktinfo *pkt, void *priv)
- 
- 	switch (regs.verdict.code) {
- 	case NFT_JUMP:
--		if (WARN_ON_ONCE(stackptr >= NFT_JUMP_STACK_SIZE))
--			return NF_DROP;
-+		if (unlikely(stackptr >= NFT_JUMP_STACK_SIZE)) {
-+			DEBUG_NET_WARN_ON_ONCE(1);
-+			return NF_DROP_REASON(pkt->skb, SKB_DROP_REASON_NETFILTER_DROP, ELOOP);
-+		}
- 		jumpstack[stackptr].rule = nft_rule_next(rule);
- 		stackptr++;
- 		fallthrough;
-@@ -326,7 +328,7 @@ nft_do_chain(struct nft_pktinfo *pkt, void *priv)
- 	case NFT_RETURN:
- 		break;
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 	}
- 
- 	if (stackptr > 0) {
-diff --git a/net/netfilter/nf_tables_offload.c b/net/netfilter/nf_tables_offload.c
-index fd30e205de849..e43470d0e3bd2 100644
---- a/net/netfilter/nf_tables_offload.c
-+++ b/net/netfilter/nf_tables_offload.c
-@@ -361,7 +361,7 @@ static int nft_block_setup(struct nft_base_chain *basechain,
- 		err = nft_flow_offload_unbind(bo, basechain);
- 		break;
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		err = -EOPNOTSUPP;
- 	}
- 
-diff --git a/net/netfilter/nf_tables_trace.c b/net/netfilter/nf_tables_trace.c
-index a88abae5a9de2..d85b6a2fb43ca 100644
---- a/net/netfilter/nf_tables_trace.c
-+++ b/net/netfilter/nf_tables_trace.c
-@@ -227,8 +227,10 @@ static const struct nft_chain *nft_trace_get_chain(const struct nft_rule_dp *rul
- 
- 	last = (const struct nft_rule_dp_last *)rule;
- 
--	if (WARN_ON_ONCE(!last->chain))
-+	if (unlikely(!last->chain)) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		return &info->basechain->chain;
-+	}
- 
- 	return last->chain;
- }
-@@ -354,7 +356,7 @@ void nft_trace_notify(const struct nft_pktinfo *pkt,
- 	return;
- 
-  nla_put_failure:
--	WARN_ON_ONCE(1);
-+	DEBUG_NET_WARN_ON_ONCE(1);
- 	kfree_skb(skb);
- }
- 
-diff --git a/net/netfilter/nft_ct.c b/net/netfilter/nft_ct.c
-index b29ff555979b2..c3063d5c70951 100644
---- a/net/netfilter/nft_ct.c
-+++ b/net/netfilter/nft_ct.c
-@@ -1135,7 +1135,7 @@ static void nft_ct_helper_obj_eval(struct nft_object *obj,
- 		to_assign = priv->helper6;
- 		break;
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		return;
- 	}
- 
-diff --git a/net/netfilter/nft_ct_fast.c b/net/netfilter/nft_ct_fast.c
-index ecf7b3a404be2..a44524c4fe630 100644
---- a/net/netfilter/nft_ct_fast.c
-+++ b/net/netfilter/nft_ct_fast.c
-@@ -53,7 +53,7 @@ void nft_ct_get_fast_eval(const struct nft_expr *expr,
- 		return;
- #endif
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		regs->verdict.code = NFT_BREAK;
- 		break;
- 	}
-diff --git a/net/netfilter/nft_exthdr.c b/net/netfilter/nft_exthdr.c
-index cee93149dca7e..da772081f1ed7 100644
---- a/net/netfilter/nft_exthdr.c
-+++ b/net/netfilter/nft_exthdr.c
-@@ -298,7 +298,7 @@ static void nft_exthdr_tcp_set_eval(const struct nft_expr *expr,
- 						 old.v32, new.v32, false);
- 			break;
- 		default:
--			WARN_ON_ONCE(1);
-+			DEBUG_NET_WARN_ON_ONCE(1);
- 			break;
- 		}
- 
-diff --git a/net/netfilter/nft_fib.c b/net/netfilter/nft_fib.c
-index 7b2a0a031c4b4..660ee0115323b 100644
---- a/net/netfilter/nft_fib.c
-+++ b/net/netfilter/nft_fib.c
-@@ -170,7 +170,7 @@ void nft_fib_store_result(void *reg, const struct nft_fib *priv,
- 			strscpy_pad(reg, dev ? dev->name : "", IFNAMSIZ);
- 		break;
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		*dreg = 0;
- 		break;
- 	}
-diff --git a/net/netfilter/nft_inner.c b/net/netfilter/nft_inner.c
-index ad08a43535b55..35cb2feb34fee 100644
---- a/net/netfilter/nft_inner.c
-+++ b/net/netfilter/nft_inner.c
-@@ -308,7 +308,7 @@ static void nft_inner_eval(const struct nft_expr *expr, struct nft_regs *regs,
- 		nft_meta_inner_eval((struct nft_expr *)&priv->expr, regs, pkt, &tun_ctx);
- 		break;
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		goto err;
- 	}
- 	nft_inner_save_tun_ctx(pkt, &tun_ctx);
-diff --git a/net/netfilter/nft_lookup.c b/net/netfilter/nft_lookup.c
-index 699254cb3ecd6..c37c21272cebf 100644
---- a/net/netfilter/nft_lookup.c
-+++ b/net/netfilter/nft_lookup.c
-@@ -50,7 +50,7 @@ __nft_set_do_lookup(const struct net *net, const struct nft_set *set,
- 	if (set->ops == &nft_set_rbtree_type.ops)
- 		return nft_rbtree_lookup(net, set, key);
- 
--	WARN_ON_ONCE(1);
-+	DEBUG_NET_WARN_ON_ONCE(1);
- #endif
- 	return set->ops->lookup(net, set, key);
- }
-diff --git a/net/netfilter/nft_masq.c b/net/netfilter/nft_masq.c
-index 2b01128737a3a..841efd981e200 100644
---- a/net/netfilter/nft_masq.c
-+++ b/net/netfilter/nft_masq.c
-@@ -123,7 +123,7 @@ static void nft_masq_eval(const struct nft_expr *expr,
- 		break;
- #endif
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		break;
- 	}
- }
-diff --git a/net/netfilter/nft_meta.c b/net/netfilter/nft_meta.c
-index 19e6d1c2436af..6d43e20c71de4 100644
---- a/net/netfilter/nft_meta.c
-+++ b/net/netfilter/nft_meta.c
-@@ -114,12 +114,12 @@ nft_meta_get_eval_pkttype_lo(const struct nft_pktinfo *pkt,
- 			nft_reg_store8(dest, PACKET_MULTICAST);
- 			break;
- 		default:
--			WARN_ON_ONCE(1);
-+			DEBUG_NET_WARN_ON_ONCE(1);
- 			return false;
- 		}
- 		break;
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		return false;
- 	}
- 
-@@ -405,7 +405,7 @@ void nft_meta_get_eval(const struct nft_expr *expr,
- 		nft_meta_get_eval_sdifname(dest, pkt);
- 		break;
- 	default:
--		WARN_ON(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		goto err;
- 	}
- 	return;
-@@ -451,7 +451,7 @@ void nft_meta_set_eval(const struct nft_expr *expr,
- 		break;
- #endif
- 	default:
--		WARN_ON(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 	}
- }
- EXPORT_SYMBOL_GPL(nft_meta_set_eval);
-@@ -832,7 +832,7 @@ void nft_meta_inner_eval(const struct nft_expr *expr,
- 		nft_reg_store8(dest, tun_ctx->l4proto);
- 		break;
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		goto err;
- 	}
- 	return;
-diff --git a/net/netfilter/nft_payload.c b/net/netfilter/nft_payload.c
-index e07888aaf1475..8ebd1ef9f935c 100644
---- a/net/netfilter/nft_payload.c
-+++ b/net/netfilter/nft_payload.c
-@@ -196,7 +196,7 @@ void nft_payload_eval(const struct nft_expr *expr,
- 			goto err;
- 		break;
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		goto err;
- 	}
- 	offset += priv->offset;
-@@ -599,7 +599,7 @@ void nft_payload_inner_eval(const struct nft_expr *expr, struct nft_regs *regs,
- 		offset = tun_ctx->inner_thoff;
- 		break;
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		goto err;
- 	}
- 	offset += priv->offset;
-@@ -866,7 +866,7 @@ static void nft_payload_set_eval(const struct nft_expr *expr,
- 			goto err;
- 		break;
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		goto err;
- 	}
- 
-diff --git a/net/netfilter/nft_redir.c b/net/netfilter/nft_redir.c
-index 58ae802db8f52..a98aa28180fbe 100644
---- a/net/netfilter/nft_redir.c
-+++ b/net/netfilter/nft_redir.c
-@@ -126,7 +126,7 @@ static void nft_redir_eval(const struct nft_expr *expr,
- 		break;
- #endif
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		break;
- 	}
- }
-diff --git a/net/netfilter/nft_reject.c b/net/netfilter/nft_reject.c
-index 196a92c7ea09b..e3972e904cf0f 100644
---- a/net/netfilter/nft_reject.c
-+++ b/net/netfilter/nft_reject.c
-@@ -102,8 +102,10 @@ static u8 icmp_code_v4[NFT_REJECT_ICMPX_MAX + 1] = {
- 
- int nft_reject_icmp_code(u8 code)
- {
--	if (WARN_ON_ONCE(code > NFT_REJECT_ICMPX_MAX))
-+	if (unlikely(code > NFT_REJECT_ICMPX_MAX)) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		return ICMP_NET_UNREACH;
-+	}
- 
- 	return icmp_code_v4[code];
- }
-@@ -120,8 +122,10 @@ static u8 icmp_code_v6[NFT_REJECT_ICMPX_MAX + 1] = {
- 
- int nft_reject_icmpv6_code(u8 code)
- {
--	if (WARN_ON_ONCE(code > NFT_REJECT_ICMPX_MAX))
-+	if (unlikely(code > NFT_REJECT_ICMPX_MAX)) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		return ICMPV6_NOROUTE;
-+	}
- 
- 	return icmp_code_v6[code];
- }
-diff --git a/net/netfilter/nft_rt.c b/net/netfilter/nft_rt.c
-index ad527f3596c03..560734d0d7531 100644
---- a/net/netfilter/nft_rt.c
-+++ b/net/netfilter/nft_rt.c
-@@ -93,7 +93,7 @@ void nft_rt_get_eval(const struct nft_expr *expr,
- 		break;
- #endif
- 	default:
--		WARN_ON(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		goto err;
- 	}
- 	return;
-diff --git a/net/netfilter/nft_set_hash.c b/net/netfilter/nft_set_hash.c
-index b0e571c8e3f38..eb4e382119d4f 100644
---- a/net/netfilter/nft_set_hash.c
-+++ b/net/netfilter/nft_set_hash.c
-@@ -385,7 +385,7 @@ static void nft_rhash_walk(const struct nft_ctx *ctx, struct nft_set *set,
- 		break;
- 	default:
- 		iter->err = -EINVAL;
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		break;
- 	}
- }
-diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
-index b377bef60b212..0e4b91c3248b3 100644
---- a/net/netfilter/nft_set_pipapo.c
-+++ b/net/netfilter/nft_set_pipapo.c
-@@ -2226,7 +2226,7 @@ static void nft_pipapo_walk(const struct nft_ctx *ctx, struct nft_set *set,
- 		break;
- 	default:
- 		iter->err = -EINVAL;
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		break;
- 	}
- }
-diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
-index a698420ab2b8c..0264bcb4bdb50 100644
---- a/net/netfilter/nft_set_rbtree.c
-+++ b/net/netfilter/nft_set_rbtree.c
-@@ -661,8 +661,10 @@ static int nft_array_may_resize(const struct nft_set *set, bool flush)
- 	}
- 
- realloc_array:
--	if (WARN_ON_ONCE(nelems > new_max_intervals))
-+	if (unlikely(nelems > new_max_intervals)) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		return -ENOMEM;
-+	}
- 
- 	if (priv->array_next) {
- 		if (max_intervals == new_max_intervals)
-@@ -890,7 +892,7 @@ static void nft_rbtree_walk(const struct nft_ctx *ctx,
- 		break;
- 	default:
- 		iter->err = -EINVAL;
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		break;
- 	}
- }
-diff --git a/net/netfilter/nft_socket.c b/net/netfilter/nft_socket.c
-index c55a1310226a4..8f7ee6313f2b5 100644
---- a/net/netfilter/nft_socket.c
-+++ b/net/netfilter/nft_socket.c
-@@ -71,8 +71,10 @@ static noinline int nft_socket_cgroup_subtree_level(void)
- 	if (level > 255)
- 		return -ERANGE;
- 
--	if (WARN_ON_ONCE(level < 0))
-+	if (unlikely(level < 0)) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		return -EINVAL;
-+	}
- 
- 	return level;
- }
-@@ -97,7 +99,7 @@ static struct sock *nft_socket_do_lookup(const struct nft_pktinfo *pkt)
- 		break;
- #endif
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		break;
- 	}
- 
-@@ -152,7 +154,7 @@ static void nft_socket_eval(const struct nft_expr *expr,
- 		break;
- #endif
- 	default:
--		WARN_ON(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		regs->verdict.code = NFT_BREAK;
- 	}
- 
-diff --git a/net/netfilter/nft_tunnel.c b/net/netfilter/nft_tunnel.c
-index 78d47f5503551..06debdb6f3d85 100644
---- a/net/netfilter/nft_tunnel.c
-+++ b/net/netfilter/nft_tunnel.c
-@@ -60,7 +60,7 @@ static void nft_tunnel_get_eval(const struct nft_expr *expr,
- 			regs->verdict.code = NFT_BREAK;
- 		break;
- 	default:
--		WARN_ON(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		regs->verdict.code = NFT_BREAK;
- 	}
- }
-diff --git a/net/netfilter/nft_xfrm.c b/net/netfilter/nft_xfrm.c
-index 7ffe6a2690d13..311169c7d4d06 100644
---- a/net/netfilter/nft_xfrm.c
-+++ b/net/netfilter/nft_xfrm.c
-@@ -132,7 +132,7 @@ static void nft_xfrm_state_get_key(const struct nft_xfrm *priv,
- 	switch (priv->key) {
- 	case NFT_XFRM_KEY_UNSPEC:
- 	case __NFT_XFRM_KEY_MAX:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		break;
- 	case NFT_XFRM_KEY_DADDR_IP4:
- 		*dest = (__force __u32)state->id.daddr.a4;
-@@ -206,7 +206,7 @@ static void nft_xfrm_get_eval(const struct nft_expr *expr,
- 		nft_xfrm_get_eval_out(priv, regs, pkt);
- 		break;
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		regs->verdict.code = NFT_BREAK;
- 		break;
- 	}
-@@ -252,7 +252,7 @@ static int nft_xfrm_validate(const struct nft_ctx *ctx, const struct nft_expr *e
- 			(1 << NF_INET_POST_ROUTING);
- 		break;
- 	default:
--		WARN_ON_ONCE(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		return -EINVAL;
- 	}
- 
+ 		/* To strip off any security data which appears before the
 -- 
 2.53.0
 
