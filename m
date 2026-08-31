@@ -1,100 +1,84 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C213A39CD18;
-	Mon, 31 Aug 2026 10:44:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA2D3B2FC8
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788173063; cv=none; b=AW+w1U/WfYRkZw08rDPsdY8hPlKvXIRrv68dKLtJz2ow16bMmHziV9EzMcblPYAAHE9gKKEWHvb1VSlWn2yIw25s+rzfCFXp8PApeuvMPZrFFj84KpdoTMlpCvQfaZo7bdspVax3IN3xICaoVvw4wgSjhY1d5Dfg25s9wHXKMHE=
+	t=1788173091; cv=none; b=US5DEMWFgAAhr+jCJsjvCVLE+jKDMRLCApvLW9UKfCSfPd+uxHCPCEtE/BKMX0RgzBNxMnMwgCI0OLQuzyDMxD/C6x4N1kV8fwBS8SOL32iVik9dNXUwpZfp5y4RBdbWn+K1V2w9iujWxgmdFqekgtbxrN7gFujjFC1jk763nlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788173063; c=relaxed/simple;
-	bh=Y1F5dbjdfte0Q9rjiepAAJ9fRyvAt+kZxrnQn9fZtL0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NFw+4UEN/zorexJu4lba67PdvcIhIffZfr2jHarPyi50+InxOc7YOSlvxEWi0vYtpVoCj2vTolBpl8anHN9Bnw0OEuRPXXvGaVaPpRimAllVbdzGIjEoGZ1tFgWnXQ6BsyuNBMzPgQY4JnCWkMBPqVzU9UVhNVUijzV2AZvhJIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nG3GtoQX; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788173091; c=relaxed/simple;
+	bh=hMYwNajdVOToDigGICeyjg9urPgriQOZ1BKYRKnTw3w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZaV6krlhUOMtEJ74iPzhOcIKRDGAVYag62doZUl/a3tW8ksm8EMwnu8gmc1TEcXBwytGPV/vYK9dvXfpGpG03yjiFdbS3QDjon/etpKNi1rNf3v+8z75+X+RV04YZLTvBlTMULOMggdlUYXhisYXqWXn5yM2eEY8ucbTNkPI4eE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LqmvRVqt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nG3GtoQX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788173062; x=1819709062;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=Y1F5dbjdfte0Q9rjiepAAJ9fRyvAt+kZxrnQn9fZtL0=;
-  b=nG3GtoQXKud0VSHBwGTWGGh+e81dzpxNVdr4FS5IS8YhMohjiJ8REoys
-   0Q82PNfu9QAw26LL/evl/skyu6b6F5pgSNpV8MJ0N6gvGMSfXrMKVRKrL
-   JHTLpJ1X2idclsoi7IptqOmDpTf9SYd6A5zv1RJKcb513rWo6Ss2JJvm+
-   MFPtfq6V1bbdM2hcwkdf8c5PpFwcbX50caXsuwX+LTGAs/Nh0fON0Yuio
-   2mrsPe4DQWTG34MeC56TMg+O56qm3XIr2WE7McnG+eJ+xSofxUR4jiGGk
-   Kdf6VPii+kQzwGv+ngfcdWA1ayfngQ8E/Frn8CrCFqhOdTm0Jlmo/oORa
-   w==;
-X-CSE-ConnectionGUID: GCZ+6accR7SV+WHZSLTeDg==
-X-CSE-MsgGUID: EbFbse/tQ/yEtTvC4ckQXw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="87712588"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="87712588"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 03:44:21 -0700
-X-CSE-ConnectionGUID: oCgYAhwUTpSosmKo/3Q6UA==
-X-CSE-MsgGUID: 4K0S2USlTOeDM89t6S2euw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="298679250"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa002.jf.intel.com with ESMTP; 31 Aug 2026 03:44:18 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id F29A699; Mon, 31 Aug 2026 12:44:16 +0200 (CEST)
-Date: Mon, 31 Aug 2026 12:44:16 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: amber.kao@ite.com.tw
-Cc: jeson.yang@ite.com.tw, Yaode.Fang@ite.com.tw,
-	gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Bling.Chiang@ite.com.tw, Eric.Su@ite.com.tw, doreen.lin@ite.com.tw
-Subject: Re: [PATCH v7 2/2] usb: typec: ucsi: Add ITE IT8851/IT8853 Type-C PD
- controller driver
-Message-ID: <apVbAAlKuUBwWd8K@black.igk.intel.com>
-References: <20260807-ucsi-itepd-v7-0-998ac11ed0ef@ite.com.tw>
- <20260807-ucsi-itepd-v7-2-998ac11ed0ef@ite.com.tw>
- <anw73Ps2KgcwP4iZ@black.igk.intel.com>
- <cfa598562b904c0e84f8527e481c5579@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LqmvRVqt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7E5F1F00ADB
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:44:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788173089;
+	bh=hMYwNajdVOToDigGICeyjg9urPgriQOZ1BKYRKnTw3w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=LqmvRVqtlrEuAb7VvZ9LPQ2/lIJqu0AfDHnlTXEmcDOK7ETEp+kGmpU7Zv2n623ZI
+	 JhCHjtp8FY7rU5J3PxoLiYXxB2cOpj9vyaCV0kLtR9DB3Ex3YzpCDoC1uYIyO5dfal
+	 kYXmujpE8HRnUp3LuS3C6Roo/E/Rkr2Pw7vakIEB2IgJWzq9iL/iCCbmdMQ9VO0AKj
+	 gMoviE/hyNCIOeMoVldqdlHqeS724Td0tVhaQJA7la9uA+EeXO6A9lEWJPuKtjEqsN
+	 YG/ECrJrFV7Tq4l7yOyvlv/BcuyVuJL2IPa8pU0fPV5dR+0dyAvJGe0YvA7wYOWpBG
+	 FjnfUfCpoKsJQ==
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c259e5c22ffso127202666b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:44:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqT/ay0cory55bMy/DSI0AAHmaQp02pGi3myJ2eD782t+GPWY+Yi7IJ3vZ9hn5UCrLKoOpXcX9vO5azVAM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIryXogkAFBdsvbtChhPZpMrBsNhvp9qJxpFnaT3ndyG0kys8z
+	3VNb4pjkkJwQgiRr7uvHUEJYl434zUjgAjYprul1PPfGoaFD5eCgLmK3ZkjbwacauPsxqcHr8QE
+	2D6+2VZY/3CYXS68XawSED50piekACeg=
+X-Received: by 2002:a17:906:fe02:b0:c25:833d:383e with SMTP id
+ a640c23a62f3a-c25833d3abdmr811817766b.13.1788173088497; Mon, 31 Aug 2026
+ 03:44:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cfa598562b904c0e84f8527e481c5579@ite.com.tw>
+References: <20260826055953.1372417-1-zenghongling@kylinos.cn>
+In-Reply-To: <20260826055953.1372417-1-zenghongling@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Mon, 31 Aug 2026 19:44:35 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_fCGA+3tYDxHXMDLFKW5WYYyZvyAtbD7XZmK5iLqEK5Q@mail.gmail.com>
+X-Gm-Features: AcwNN1UCKFWgG29NM_PVf8JAPJy5Abepe42LBY0d_st5M3o7vMaJpgCOIwfMLRc
+Message-ID: <CAKYAXd_fCGA+3tYDxHXMDLFKW5WYYyZvyAtbD7XZmK5iLqEK5Q@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: handle signal interruption in fallocate
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	zhongling0719@126.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Amber,
-
-On Thu, Aug 27, 2026 at 08:52:12AM +0000, amber.kao@ite.com.tw wrote:
-> Hi Heikki,
-> 
-> Thank you for the review! Also, noted on your comment regarding the changelog
-> in the cover letter—I will make sure to reply to questions in the original
-> threads for future submissions.
-> 
-> I have a quick question about my next steps. I am planning to add a new
-> feature that builds on top of this current series. Since I really don't want
-> to delay or affect the progress of merging this v7 patch, would you recommend
-> that I wait until this series is fully merged into the tree before submitting
-> the new feature, or is it okay to send it out now as a separate series?
-
-No top-posting on the ml.
-
-It should be okay to make a note about the dependency on previously sent patches
-that the maintainer has not yet picked in the cover-letter.
-
-Thanks,
-
-> Thanks,
-> Amber
-
--- 
-heikki
+On Wed, Aug 26, 2026 at 3:00=E2=80=AFPM Hongling Zeng <zenghongling@kylinos=
+.cn> wrote:
+>
+> The ntfs_attr_fallocate() function checks for pending signals during
+> allocation loops and exits early via 'out' label. However, when a signal
+> interrupts the operation with err =3D=3D 0, the function returns 0 (succe=
+ss)
+> instead of -EINTR.
+>
+> The signal_pending() checks at the allocation loops jump to 'out' without
+> setting err =3D -EINTR, so the function returns success even when interru=
+pted
+> by a signal.
+>
+> Set err =3D -EINTR when jumping to the signal exit path, and only overrid=
+e
+> when no other error is pending. This ensures:
+>
+> - Allocation interrupted by signal returns -EINTR
+> - Allocation that completed successfully before signal arrived returns 0
+> - Other errors are preserved and not overwritten by -EINTR
+>
+> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Applid it to #ntfs-next.
+Thanks!
