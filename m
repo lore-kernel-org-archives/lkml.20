@@ -1,175 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012024.outbound.protection.outlook.com [52.101.43.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017203911CA;
-	Mon, 31 Aug 2026 18:52:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788202377; cv=none; b=NzeVAh1y/Xccc0bsN2xTVKrk8KR2MHacZAmW00kHZBk0b/aaAJXhVR7NoWBopNop+5CVd20wZyEIoD4PoFvg3+GvfLc9naF3n4rFSJbqWpbOITb9KREgFOEHVRdfc3KY8plFIOOd/0UYu6YqvGR5vt5IGTmGQpyIWCyZ7Egmu7E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788202377; c=relaxed/simple;
-	bh=8kE3mn4MJehlGgEx4d09366c1li57ep7/5mbxQUQIaw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lHKSk9FivtcxqEtiVKWYB58z1A/Pz/D0WPo6SB1VqiVrhoEag7VN+XOJqnlN19jVLvsbBvOudv9gjg4we46tusmTskrbOOXeBY80hFTgkNipKatj50aPrc3EzmToMdXqu9NjVSB5uEd0GnzfIcd37Ra9bVk1CH2U2LN5HxEJBeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iQlVMdhq; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF3F39150B;
+	Mon, 31 Aug 2026 18:53:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788202406; cv=fail; b=WBVHEZ/Nas10um/dq/vbOoHfvRAxzPoUW/exqkKMW4diTZivEvhr47GYml9vMJ7fE0ww7Ev4VdRJ4Ioc34nh8u+Gs7bC7XBHTzISX/rbfwFxuwdUAAoq5/qFAE9uvyFT7gLQl1agz/ll9uZIbCDT5XdzxHVKOn7aH5CMcpfgeCU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788202406; c=relaxed/simple;
+	bh=NKgQECA2ax5YXB2qlg2nBVyzz+3USnUu4xt5nduoDtM=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=h96OG9mN13tMHJVOWCyTIGDJGJhRHLBBacIu3mnTW0npbeNuQwYH+W7MlSHES70X6Sf3UxoXmGa8uymdf0okLUQkw+gnTHRtNRLb/uyqR2lE63Pb6sQuMkjwSg7Zqy73VLzGStzZFTYjuI69LHL79cAcCFrlHLQKKVCoM2J1EqI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ql7ikaO/; arc=fail smtp.client-ip=52.101.43.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iQlVMdhq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F6AE1F000E9;
-	Mon, 31 Aug 2026 18:52:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788202375;
-	bh=ZKV9le2OGTOsoM2XZ2llaOQkKHdNM+4MR1RB/yAg/0c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iQlVMdhqghiYQU/bp4RqfBaWoxZCV3hjFuccPtiyG9ICjuQf7we6mlOyZBTNaCDnV
-	 Wzt5Qt3GQty6d1CL6snQgFIN/LW1rXnaL+VdDRUJMAMKNpf324Z7x42uHoKCAWvw1Q
-	 QwqQJVwQDayG2xQbtbfUZ1OtE9u4+RrmS6XWP6x7DyE15litGvOT2zMjklKDzXXCuK
-	 USamVAzGcOvWlZf6dRsRwc4h7uzs/IfZTY5VeMtdrfW084Z1avZskqBRqiJcHjvFNS
-	 mSOodeByzT0YXbjEq8Ar6ijx3SscTQltd10C3PFgDP6XzrpVQSEUrUUt+MHGJ4A19C
-	 OccQwLN7YaNcA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] mm/slab: disallow kfree_rcu_sheaf() on PREEMPT_RT again
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?Vmxhc3RpbWlsIEJhYmthIChTVVNFKQ==?= <vbabka@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-In-Reply-To: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
-References: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 18:52:54 +0000
-Message-Id: <20260831185255.5F6AE1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ql7ikaO/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dsU9YhiUc4mtKQ+rP9ks0gB2ZLP/Xpd/1kydYe7flEYsVxBQfriUaECYaTd9PnD11pDzOIBSnkoDp52y0rIsQEra6xpIIZ6CTWEPsoKezxHbVVEbkoyDDwsPuiZZ6hvJlktSiSXpdDH4QnTpk26JUQyav6UL2tn94F1u7ApwA1Nxee2rEn/WH7edK4lWO1Rszi/1AukCyas1w9Mw9vrFwg5uGqPt9xk5yE2V23PBhehYXGOCaA0CZ9RaVAldr/sUYr8sjp+OswLh6qKDCBBLyyWWSufZp1XaAOLni6scr7bYcqMOivvMY4M/5HHvN28cCB/mJJ8qsCxFiRQ2IoHFUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4sQIHJ5ni9IUOmnqW6kh4vn/slblUcQOEmp3hSMSxpk=;
+ b=qCYL09y5YEpSQVvYxP/MdWvk0iW2RXrJx3Rwwwhgk2/pRzul0wg5JFnk101yASc2lso6wsm53+3LB85VjphXE4DwKi2h8qzmz1I7AWhEK7mvX5VTRjTQu9mXjeuXx/kkYpa4n+8I5Nyz/2Ihv9w8AbRpWqg3PWnk8im5lGpaXnxcmhrwh08sYC4mwppaIGvLxjHjFezSphWzgSiPaofzkh+2xmMplyFeeDWMXJUVhOD7trqe+V26gvnW1FGrKGl7KG1kk7QtUsgPoTnQ6AV6VcIC7vnyeqsuX+NMz7dw3rLvLJVg9y66s/SIGt/1WU8sIngbLkU/7WzTzCMjtZvZLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4sQIHJ5ni9IUOmnqW6kh4vn/slblUcQOEmp3hSMSxpk=;
+ b=ql7ikaO/fX/PNo46Zm5EyoJx+kngIXSqU3I+cyxa6zTcVxIJUoCudZ4fPoLD0NiHub9K/ZgqhvMdOG/9Nfwx7/YbPIX1WwcHQrfEwR1XgPyzGDB9v6+8Bkk3Q5gAmwuhM/LHYVcX+j8jWCpNiDulqtqXRdxtX5rHhJSvh4g0k1A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by CY8PR12MB7121.namprd12.prod.outlook.com (2603:10b6:930:62::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 18:53:20 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 18:53:20 +0000
+Message-ID: <b8510d6e-4303-4698-a056-9f12cb859bc9@amd.com>
+Date: Mon, 31 Aug 2026 13:53:18 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: Cache-aware scheduling does not work well with amd big/little
+ cores
+Content-Language: en-US
+To: Klaus Kusche <klaus.kusche@computerix.info>,
+ Tim Chen <tim.c.chen@linux.intel.com>, "Chen, Yu C" <yu.c.chen@intel.com>
+Cc: "Badole, Vishal" <Vishal.Badole@amd.com>,
+ Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+ "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+ platform-driver-x86@vger.kernel.org, K Prateek Nayak
+ <KPrateek.Nayak@amd.com>, ricardo.neri@intel.com
+References: <2180ea5a-eb28-4152-8d4d-cd00b0c24b2e@computerix.info>
+ <8064e1d8-b51c-48e5-a312-8c31581991f5@amd.com>
+ <b475039b-defe-46e7-ab85-46e3196da667@intel.com>
+ <369d0bbb-db7a-4f86-bee2-332d5295c452@computerix.info>
+ <406a5c407bbe60cafc24f715e089f5552a0791f9.camel@linux.intel.com>
+ <3a8985e1-77b4-4127-af0a-ec1c397eb1ad@computerix.info>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <3a8985e1-77b4-4127-af0a-ec1c397eb1ad@computerix.info>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA9PR13CA0164.namprd13.prod.outlook.com
+ (2603:10b6:806:28::19) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|CY8PR12MB7121:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf24ebd6-80ed-472f-5399-08df07912060
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|10067099003|56012099006|4143699003|18002099003|22082099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	gZMGLGd2waRuCpJbDoEG7Y7K/KhcieElLvFTPy0xlHJlbGA1TWV8bTUgjSXw3R9snggLLJpUQ7hFOu8IAffcBdlutSVj+ExE7kOhsGOQIvBUm/envB7QJOh33UaXcZ3fOzamcjIaj/66qP0DT/IeyqV1AQvNkiZVB4t2sFN6+mye7KalYY584aAo3YIOfCCjzA9Dl317ZzivEgmOeSxoGazRoP/uBMWnwBE75HMi6GkLWafRglIFTMw/yCQ9jZcpK/YdZNAAR8Ft1YtjFsxK3IWb9I5TTEWA4frjJBcw7jK1BT2aduzsowzZDOIzLtjGiIX6SRqHSTrDww6uQQMVtKGhTeOfLrOXB5MMssxGZOdtOZoEV/6HZzoGw0t64E5ByZUmwvezaDqAVKg+JixRyiBYgBdMFYoXk05jYkHnQqckKDqy7WU+ZTbfeoMsYtg6EUQoQ+Sv/6NHfn+5xkZtWUDTXBeoHfynto7VLFb5QDRJoQYcaa5nbRv/0Bj3iLFX23dZLQq+yKvCXnwOdbAH3+8ZV5Wmch9CEkzo5FdRQCcUQSMCsAT6MZ4OhUHW6FqKWl0ojDSaFgPS8IZqaceYKCwy5IoStazxQ2ml9NUjq7axIJRuraMOACXf3REQODatuoPPvwT0dUuLPhDd4e54qVUH2kHJoWgJu21ehHKowKg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RDArUnM4MjBYV1d0MUh5UFZWWFlIaCtMWE5OUWlvQ2dWSnRCNEJUOHd3MmZ1?=
+ =?utf-8?B?dUl4d0RoeW80YldVVkdDS3hMWkxkQ2xXeDJsbDQxdDllODAzTTVzSSsxcG9t?=
+ =?utf-8?B?bDdIU2xYWHFaZWhyWnpxd2hodERjOXNoMUtpdWxDbGI4SEh4RDJ5eTNPOW8r?=
+ =?utf-8?B?Y2NoT2gwSVNpSHJucTl6bkJEci9uZmtFWk11M3ZtTWFGZzkyZEVLRWQ0OGFJ?=
+ =?utf-8?B?cEoxMEEzYlNESlI4dUdJNTMvTE9wWjFweUdPalFKeHBoT09DbmdmQ1Bqd21K?=
+ =?utf-8?B?ejFDQ215UlB0UTdiaUFycTY5cVZwWlh1MHBvSDFSdTFWWndjWVNtMmdlUE5L?=
+ =?utf-8?B?MXlPVlM5MjdNQkYwME41RHorUUx3ZmdFQjk2emFseHVGZVVoMUZkczJHUjZ4?=
+ =?utf-8?B?SlIzM1B4SXpReENFTitaOXJDaStVQzdJNk1uNGJLZkk5bWFrWStrRXRIWVMx?=
+ =?utf-8?B?RXZLQzFTS3Ezb1prSVZGY2J5Y1lpaHB5VnFZQmE4MEdYSmhLOXRhUG9QNjBs?=
+ =?utf-8?B?M0U1WHlBeWZNMnhxQ3VhNHdPK0xpeXUwMmVUd0U2MDNNQjQza0FaMEN5K1F3?=
+ =?utf-8?B?WFZMMWFlMkhaL3NiSENncVV1QkQyTDVDWmd1TktNQ0ppUXVEODI0bEFsMEdv?=
+ =?utf-8?B?WGlwbjFaY0JRbDBYVnhGRVFINTByQ2pxVDNaMG55bXFjcUJUZnBpNTQ4UWgx?=
+ =?utf-8?B?d0xCQzBmcWViS0Qyc1NvMkdsQlB3MUtjRnB0dUlyQjh6UUlIb2xJNW9DbXN3?=
+ =?utf-8?B?VExDZE1zSFdKd3B4SndCb2pMbk9ISlZsWHJneDdjblBQY2xqeXFBK3RGYjNp?=
+ =?utf-8?B?SzVCb1RFdUpmTytXWUlBYkNWNFdqcTNncVorckpkcldpSFhsMk9uVXB2ellM?=
+ =?utf-8?B?U1pjQnZvWUs2ckEzWjEwb2YvcE12N2pFaGVUSXBOaUJrRi9sWXU0dVpJNmlM?=
+ =?utf-8?B?ZnF5SHZsUzJXR1d1RGNMenIzQlZHQnlPY2wxc1hrUDVOc1BKb05RUHFCa2c0?=
+ =?utf-8?B?UnNhUnR0NTJ0Y2dhNzVMWVBneG1kTGNrVlRTWDJjWmg0MzRkaGxUc3Nxd2lJ?=
+ =?utf-8?B?b1I3dEZJUm9YZFVROFZjTDV5T0pJMGNNZUJPNS9OYUZxajEySnduMERwaitY?=
+ =?utf-8?B?bFRVYUZCRmhkOEY5WkJwcHlHdVVaUDVNbVdvdVR2U2Y3VkFRN3VvT2hTdkhF?=
+ =?utf-8?B?ZDlkbXVuM2hRdlU3aG9BVGpEZ3NFSldZbllBL3VKNUVVbXF0NFg5aXdXbVAv?=
+ =?utf-8?B?clpmYjRVczhqRGRoOXBFelBUbHlQQWhjTnpKSmFWcDNyNlNtRHMzeWQ1N3VX?=
+ =?utf-8?B?Q0cyS2V0bXQ1dlVJVlJqNi9tMFRKZStDVlRNa3MwcEtveXdGTUNWWVJQcm1k?=
+ =?utf-8?B?Q1A4RWdBcldkbzFzUnVoNmJxVHZud0QzRDI5WE45M1diN2hRT00vTWdGNzlj?=
+ =?utf-8?B?UnRKd1ZVbWQwRTcwTTIwdG1nRHZPNk41Y21VSDR0VjlVdTl2NDVYZlNQZEhp?=
+ =?utf-8?B?SjUzU3JPRmhSOG5hYmJocTRkUW54RG4xYjFwOXlSZ2Y3MVY5WnRwL0hMaStu?=
+ =?utf-8?B?a3U4T1NuUTdiZ0FVMjVSSytKMjNMSnhvUkZCUGFVYytzSXdZVi9zLytGYzRS?=
+ =?utf-8?B?aXhEV1BFTVZJTURxVDNzMDRUK21XbnFrbEorVFFiVWdwRTNsSlRHRHhtSm5t?=
+ =?utf-8?B?c1NWYVJ3UlE5bytxRW5seGtONUdLMStEQ3Q1eDVwWUdSSUdiL3lTNTBxdW5U?=
+ =?utf-8?B?ZmYzU0NlK1hmSmgxWXorLyt1SmVHWkw5YlZlbTZTWmtzVXBJNVJTNk4zTEgw?=
+ =?utf-8?B?NFQ2Z3YwOTVEYmhmcFlUVHJlTUFzbVJVMHdOYUhXV0k5S0tRWHlPQ1ptaEhF?=
+ =?utf-8?B?UisvQ0YzSTBHQ2JkQmRTRjlZanVqcnNGNDB2SzM0R3oxSU1OWVBEaGM5WmRj?=
+ =?utf-8?B?QkdIbzB4NHBtMjFaQ3ZacUZDMWJuS1dVS0tiakdETVRFWk5lRlZSYkFiNmM5?=
+ =?utf-8?B?WjZ1Yi9zZStyNnJkS1lJUDdQUUZtT0RRVzlIS1c5VXoweEJveEVSUjBSN2NW?=
+ =?utf-8?B?MWx5K2o5aXp3NDdaNXpmZnF3NU1hb2dUYk1XSXVWbG42OEoxdnlqUVNUY1dH?=
+ =?utf-8?B?K1N5UVdSSjIzeHlNQlhscGZRd0FvSW1hSE5Sc212M2tkakZ1bnhLUFNrUlR1?=
+ =?utf-8?B?cElRTmtKSmtFRHNiNDh4Rm1Fam5LWWsySjB4dTFGUUF3bWF3MkpMajhZaU0v?=
+ =?utf-8?B?Z1NkdG9SbHpqQVpTNEplMWMyVzZBdjhNUFRXaDB0djNiNmE3V09YdFpsSU80?=
+ =?utf-8?B?QVNvRUpvQ3lXSXJuTUs2OGU3bmx1aGVQVllXUEFhQVAveGxxeEoyUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf24ebd6-80ed-472f-5399-08df07912060
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:53:20.6007
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5zQbpqgH3mu3H8NB/FCdTjbZtGCBZiXtZKNGZKW7IFJVmDA+iRN6nCoxVWO9rxYYXg5qM2ZKO8NvrxMBKVw0FQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7121
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
 
-New issues:
-- [High] kfree_call_rcu_nolock() is fundamentally broken on PREEMPT_RT when=
- called from raw spinlock contexts, and the newly added comment falsely ass=
-erts that it is safe.
 
-Pre-existing issues:
-- [Critical] Lock recursion deadlock on !PREEMPT_RT due to __GFP_KSWAPD_REC=
-LAIM allocation under scheduler locks in kvfree_call_rcu().
-- [High] Lockdep 'Invalid wait context' warning on !PREEMPT_RT kernels due =
-to acquiring `local_trylock` while holding a `raw_spinlock_t` in `kvfree_ca=
-ll_rcu()`.
---
-
-commit 2bc8f43addec97fafa1e1eee6c2edf8016a0ff92
-Author: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-
-mm/slab: disallow kfree_rcu_sheaf() on PREEMPT_RT again
-
-This partially reverts commit 2a8bb29ec9b2 to skip kfree_rcu_sheaf() on
-PREEMPT_RT from kvfree_call_rcu(). It adds a comment explaining that
-local_trylock() is unsafe on PREEMPT_RT when called under pi_lock.
-
-Link: https://syzkaller.appspot.com/bug?extid=3Dacf142088e0182172e58
-Link: https://lore.kernel.org/all/20260807-kfree_nolock_kmalloc-v1-0-ba993c=
-bf7a60@kernel.org/
-
-> diff --git a/mm/slab_common.c b/mm/slab_common.c
-> index b19ba1b31484c..7223a7596dabb 100644
-> --- a/mm/slab_common.c
-> +++ b/mm/slab_common.c
-[ ... ]
-> @@ -1685,7 +1677,7 @@ static bool kfree_rcu_sheaf(void *obj)
-> =20
->  	s =3D slab->slab_cache;
->  	if (likely(!IS_ENABLED(CONFIG_NUMA) || slab_nid(slab) =3D=3D numa_mem_i=
-d()))
-> -		return __kfree_rcu_sheaf(s, obj, free_flags);
-> +		return __kfree_rcu_sheaf(s, obj, SLAB_FREE_DEFAULT);
-
-[Severity: Critical]
-This is a pre-existing issue, but does passing SLAB_FREE_DEFAULT on
-!PREEMPT_RT risk a lock recursion deadlock during low memory conditions?
-
-When kfree_rcu_sheaf() forwards to __kfree_rcu_sheaf() with SLAB_FREE_DEFAU=
-LT,
-it sets allow_spin to true. If the sheaf is empty, it calls:
-    alloc_empty_sheaf(..., GFP_NOWAIT, ...)
-
-GFP_NOWAIT implicitly includes __GFP_KSWAPD_RECLAIM. During high memory
-pressure, this can trigger wakeup_kswapd(), which enters the scheduler via
-try_to_wake_up() and acquires scheduler locks.
-
-Since kvfree_call_rcu() is already called with task_struct::pi_lock held,
-couldn't this allocation cause a lock recursion deadlock?
-
-[ ... ]
-> @@ -2034,7 +2026,13 @@ void kvfree_call_rcu(struct kvfree_rcu_head *head,=
- void *ptr)
->  	if (!head)
->  		might_sleep();
-> =20
-> -	if (kfree_rcu_sheaf(ptr))
-> +	/*
-> +	 * kvfree_rcu() is called by set_cpus_allowed_force() with
-> +	 * task_struct::pi_lock acquired. On PREEMPT_RT the local_trylock()
-> +	 * usage below will acquire the waitlock which must be avoided.
-> +	 * Therefore avoid it on PREEMPT_RT.
-> +	 */
-> +	if (!IS_ENABLED(CONFIG_PREEMPT_RT) && kfree_rcu_sheaf(ptr))
->  		return;
-> =20
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does executing
-kfree_rcu_sheaf() on !PREEMPT_RT under pi_lock trigger a static wait-type
-violation?
-
-kvfree_rcu() is called while holding task_struct::pi_lock, which establishes
-a RAW (LD_WAIT_SPIN) wait context. On !PREEMPT_RT, this code proceeds to
-call kfree_rcu_sheaf(), which calls local_trylock() inside __kfree_rcu_shea=
-f().
-
-Even though local_lock only disables preemption on non-RT, its lockdep map
-declares an LD_WAIT_CONFIG (spinlock) wait-type. Since
-CONFIG_PROVE_RAW_LOCK_NESTING statically checks declared wait-types rather
-than runtime behavior, won't attempting to acquire an LD_WAIT_CONFIG lock
-while holding an LD_WAIT_SPIN lock trigger an immediate "Invalid wait conte=
-xt"
-warning on !PREEMPT_RT kernels?
-
-> diff --git a/mm/slub.c b/mm/slub.c
-> index f9b56cb439e70..7a7e906a0e44d 100644
-> --- a/mm/slub.c
-> +++ b/mm/slub.c
-> @@ -6088,8 +6088,9 @@ static void rcu_free_sheaf(struct rcu_head *head)
->  /*
->   * kvfree_call_rcu() can be called while holding a raw_spinlock_t. Since
->   * __kfree_rcu_sheaf() may acquire a spinlock_t (sleeping lock on PREEMP=
-T_RT),
-> - * this would violate lock nesting rules. Therefore, kvfree_call_rcu() a=
-voids
-> - * this problem by passing SLAB_FREE_NOLOCK on PREEMPT_RT.
-> + * this would violate lock nesting rules. Therefore, kfree_call_rcu_nolo=
-ck()
-> + * avoids this problem by passing SLAB_FREE_NOLOCK. kvfree_call_rcu() is
-> + * bypassing the sheaves layer completely on PREEMPT_RT.
->   *
-
-[Severity: High]
-Is the assertion in this comment that kfree_call_rcu_nolock() avoids the lo=
-ck
-nesting problem accurate for PREEMPT_RT?
-
-Passing SLAB_FREE_NOLOCK to __kfree_rcu_sheaf() only prevents spinning, but
-it still unconditionally calls local_trylock(&s->cpu_sheaves->lock). On
-PREEMPT_RT, local_trylock() attempts to acquire a sleepable lock (rt_mutex),
-which is an invalid wait context when held from NMI or raw spinlock context=
-s.
-
-Given that kfree_call_rcu_nolock() is actively used and tested in hardirq/N=
-MI
-contexts (e.g., via test_nolock() in lib/tests/slub_kunit.c), won't this
-cause a lockdep splat or kernel panic on PREEMPT_RT?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-b4-kfree_r=
-cu_hotfix-v1-1-4f0fb882638b@kernel.org?part=3D1
+On 8/31/26 13:49, Klaus Kusche wrote:
+> 
+> This would need some more testing efforts,
+> because all my kernels are built without debugfs
+> (using an earlier version of Mario's patch),
+> and without Mario's patch and without debugfs,
+> I don't get any big/little scheduling at all.
+> So I'd need to build and test with debugfs
+> (tomorrow I'm on a mountain tour, perhaps later this week).
+> 
+The debugfs patch doesn't really add anything tangible.  I'd say tests 
+with that and debugfs turned off are just as valid as tests with no 
+patch and debugfs turned on.
