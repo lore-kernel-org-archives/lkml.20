@@ -1,77 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-253.mta1.migadu.com [95.215.58.253])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23CA444AB7E;
-	Mon, 31 Aug 2026 14:39:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0665A4A3851
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.253
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788187178; cv=none; b=F6DMFeAiCDexbnIGg+IrLyg1gx1G2bT2w7YX0hL7JEegp3STF2SLlszlK46gfBpitdiZelJKhBUfoDWoAgtMiNET20CSBRErrzNKuxJUfuGfATVuX/DTWaCFzUyWeGurp168XxjoElwCHzg2ZEEUW54PAqjMTN2XTmhK99LurX4=
+	t=1788187191; cv=none; b=Q2/JGd5dU5q8kaFFf6KoHAuQMi/wfrnxAiDLgCJBWnL3CbTME6yAs/8GzJ0WdE7LkKNUbD5MRvQ24tVqKHCZN3brDY8Bn4s/TtnKTjg7z0+qbW4olFrG10fzT4pYWeBqWixj6DxPfq1wt68RFZR9N/flXZ+3jHciMEtoo1OUXSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788187178; c=relaxed/simple;
-	bh=jXYbbaEzPpVfzH2uC80/Gi9AWZqqg9dJMzMRSHYT7J0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZONyKzrfZz04ahyPlS3oR0itRN7VrTund+RNyP28CuE6BAxlDdE6esRve+hqqTxyHuDJamqVWV2JBqqSsZu/V30kuiV4N8VNCTUGoV34gXXkwMrEuSG+R/v+gJ0kSKT/aJdEhJEmQLunTW7i5omvJsJK5Up3I/iQRgeFPNUdY6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NXIBTTz/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788187191; c=relaxed/simple;
+	bh=RDses7JcBCw+jya5iQzYcg6OrFwbWpbRoBvLO73VAbo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BnB+KP5w1JrUpEVexPtvh4iQtgP+VfXumUS6o9SEf2njzmfuxQ+G55hcP8HFp8OL2E3YC3q0G5y7H+wSixa0dHuvaYxM1E4O2ZxSVmxhTdDOPZ+8D3iXEWzpIKh6E/JmdjhGFlQyIEMXcesFOfreULQyABWfWp5B0dV8BOXsYBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iDFIFF9c; arc=none smtp.client-ip=95.215.58.253
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NXIBTTz/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6082C1F000E9;
-	Mon, 31 Aug 2026 14:39:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788187176;
-	bh=VOZdkojqjI7bPPPACXNLxFq62DGmOK9QW8kCLaGyRfA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NXIBTTz/qrXk74eAMRgTXsxAO5/skQr3coJy+dQLqzNUTCpPDBlbFWgtnRm364dL8
-	 8oKKSCw0/fs8Cvj++EYltGCuXO3/Y24DxlZaarfYZrnCB5HZuMcia5X4cPM98jlwHZ
-	 wniHK07f9qN297+f2BfbE9Oj74XeZwY/yorI/EkMxBfRpNwJgEasa7tS5qHRUm+4Wo
-	 JdOtlfj5M7zQvlEKITEc9s3nGxG6lS61ojobcou7Rk5l8WcY7qStSaUdmFUcEMGscY
-	 HVS4U4RvXhsekHUPJtSeCvg00+9mB7sZCUTWWnzouwEK9sJh/6YPlOIkqtkl3NUIVD
-	 SlBI4ToH/wg5g==
-From: Sven Peter <sven@kernel.org>
-To: Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Sven Peter <sven@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] arm64: dts: apple: Fix cpus node indentation
-Date: Mon, 31 Aug 2026 16:39:22 +0200
-Message-ID: <178818713419.102394.18003296593525183600.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260830-b4-apple-dts-fixes-v1-0-cc20f8445754@kernel.org>
-References: <20260830-b4-apple-dts-fixes-v1-0-cc20f8445754@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iDFIFF9c"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RDses7JcBCw+jya5iQzYcg6OrFwbWpbRoBvLO73VAbo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788187186; v=1; x=1788791986;
+ b=iDFIFF9cv4YEth7lifb0ooBn/W4WAka04oTMFZ7kFt54O4e1tmrrLgeomn9a5nz9xDDvB8su
+ SDEfQcYZozne5poZOjQ0zvUY4hl+7sxq7p8Xa9LCB23417pZenStT/sSoD56fVipJ2MeLQRV3sG
+ Vqw4yuYBUiu7RYuoj07msI7E=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0ec48833378b7742;
+	Mon, 31 Aug 2026 14:39:46 +0000
+X-Mizu-Trace-ID: 0ec48833378b7742
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 31 Aug 2026 22:39:21 +0800
+From: Chen Yu <chen.yu@linux.dev>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Tim Chen <tim.c.chen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Qais Yousef <qyousef@layalina.io>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Madadi Vineeth Reddy <vineethr@linux.ibm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Jianyong Wu <jianyong.wu@outlook.com>,
+	Yangyu Chen <cyy@cyyself.name>,
+	Tingyin Duan <tingyin.duan@gmail.com>,
+	Vern Hao <vernhao@tencent.com>, Vern Hao <haoxing990@gmail.com>,
+	Len Brown <len.brown@intel.com>, Aubrey Li <aubrey.li@intel.com>,
+	Zhao Liu <zhao1.liu@intel.com>, Chen Yu <yu.chen.surf@gmail.com>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Adam Li <adamli@os.amperecomputing.com>,
+	Aaron Lu <ziqianlu@bytedance.com>, Tim Chen <tim.c.chen@intel.com>,
+	Josh Don <joshdon@google.com>, Luo Gengkun <luogengkun2@huawei.com>,
+	Gavin Guo <gavinguo@igalia.com>, Yi Lai <yi1.lai@intel.com>,
+	Ricardo Neri <ricardo.neri@intel.com>, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org
+Subject: Re: [RFC PATCH 0/7] sched/cache: Per-task control of cache aware
+ scheduling via prctl
+Message-ID: <apWSGWzDXikBI7GT@three-body>
+References: <cover.1787955777.git.tim.c.chen@linux.intel.com>
+ <20260829092721.GB776954@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260829092721.GB776954@noisy.programming.kicks-ass.net>
 
-On Sun, 30 Aug 2026 16:22:06 +0200, Sven Peter wrote:
-> Just a small series to drop a spurious space in our dts file. No
-> functional changes.
+Hi Peter,
+
+On Sat, Aug 29, 2026 at 11:27:21AM +0200, Peter Zijlstra wrote:
+> Subject: Re: [RFC PATCH 0/7] sched/cache: Per-task control of cache aware
+>  scheduling via prctl
 > 
-> Best,
+> On Fri, Aug 28, 2026 at 03:29:07PM -0700, Tim Chen wrote:
+>  
+> > Feedbacks very welcome, especially on the interface shape (prctl vs. a QoS
+> > attribute), the kernel-owned-cookie choice, and whether the always/advise/
+> > never policy composition is the right model.
 > 
-> Sven
-> 
-> [...]
+> Who would be using this -- what workload prompted you do do this etc.
+>
 
-Applied to local tree (apple-soc/dt-7.4), thanks!
+One motivation is that some cloud users would like finer-grained control over
+cache‑aware scheduling. Vern Hao from Tencent previously asked about this:
 
-[1/3] arm64: dts: apple: t602x: Fix cpus node indentation
-      https://github.com/AsahiLinux/linux/commit/011d96a065f6
-[2/3] arm64: dts: apple: t6030: Fix cpus node indentation
-      https://github.com/AsahiLinux/linux/commit/1c7e2a0cfc90
-[3/3] arm64: dts: apple: t6032: Fix cpus node indentation
-      https://github.com/AsahiLinux/linux/commit/db6fccb5a422
+https://lore.kernel.org/all/7d5bb7c4-abc5-470e-84fe-72a3b1d3a2f4@gmail.com/
 
-Best regards,
--- 
-Sven Peter <sven@kernel.org>
+and mentioned that, in their production environment, threads within the same
+process do not always share data. On the other hand, it is possible that within
+one process there are two thread groups, A and B. Threads in group A share data
+with each other, while threads in group B do not. Typically, in Vern's environment,
+group A and group B are cgroups. Group A usually runs memory‑intensive workloads, such
+as KV‑cache related ones, and such workloads have intensive data sharing among themselves,
+so they would like to enable cache‑aware scheduling separately. Furthermore, since group A
+is memory‑intensive, the default cache‑aware scheduling threshold might reject aggregation
+because group A's memory footprint is high. As a result, group A has a requirement to turn the
+threshold parameter separately.
 
+thanks,
+Chenyu
