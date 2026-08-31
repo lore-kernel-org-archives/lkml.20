@@ -1,88 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F47351C2A;
-	Mon, 31 Aug 2026 01:15:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8871A9F96
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:15:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788138903; cv=none; b=CUsB0buwwkf5MvISYha2Q9/n0iyv+z7y2CbrBYJYbofvxmmp/1Efm7s8YFShgrWPoyPESD7zQooNYJi7yCcxcG/nSydAgvNfNre5M913y84Wnx2Vlm+I9MPl2Qi5IvQKpPHuLZ2XGkFC3brNBPn+vSb75zj167ZwFfLjQKq9LMQ=
+	t=1788138933; cv=none; b=Rvw40EZLU43eAP+hsmitnWgD1xbeFZ+uLpo/lijgaYLfZ2FKhTkDG9rXhYlPuOsmFwER1u7TCCc7tkabNY0iWyjZNV2DRrJnD/U9zkB9LHPQPWi1YFufAUo8GAh6MbHIP+6EEBJLbLxhK6XwcHpAeuMm+nZ7WE/Lyn68e4Bdh2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788138903; c=relaxed/simple;
-	bh=/spp0J/X/Qn6SNBgMWqR1VpdKMx2QctH7d2bKRvY0xk=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=XG2R2M/8uxMemziA8orTnQ/6wjjAyG80jTGE0qzOI6r0Ivgw5hK+ZJqUymR1qD6eQrBimWNXwdeh1znEQl2S8kThf0ObQ6M3r4vWR+WeUogF1j8DJRZfvxEHe5qpV9RwSnPkZlxQxHi4XoQSncl7CbA5VS5VMH4KVcxMtYgZ++o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NszBREvh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788138933; c=relaxed/simple;
+	bh=ON3K5XgKP7gpRDE7IbiXSTStuvEcMdc7cC0gAPZ0DiY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=emuISd8xi9OqXCwgxpEFnaN23Uzq57ngBzaMzW5Ed591Q78xgL/dHY74pWfJ0ONJHiTyhSs1ARY/rHFuC9osT+ZiP742fN/b3KDbNxd83mMDzoNRdBsLHbhtQGjMmRK2K4nCTviTsMWsN8BtOxI7nwxySN1nOiqirLHksw46+vU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=iOfrV6XZ; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NszBREvh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF0C11F000E9;
-	Mon, 31 Aug 2026 01:14:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788138901;
-	bh=IhrsxaK1SnaziFGJt7Z2KpMwTqpqhw5qMI7DCQ4iWvo=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=NszBREvhZ4k0AnUauxLf4HlAkZ/9kUoLKee0oc4hOUi+lkNSpAiO/6o5+xDGht5S9
-	 pBp474iL6JDIVXGpWpwZVdYPqXIE4YG+s6YAHcQHuiR/XS8Lb+6418gAY3IElfGTOH
-	 +dL6xB8/dcY5DJDQxmyNcB5Zw3RJ1ADAeW06FKGWMPsWLOfpnzGms4BdnWNhWBiohK
-	 G8QntgRjLCyHivNHq7LJVck8yolad/TXYwO3ZfvBcSJiw3wKIDOUnqhkFEQXqxisba
-	 dH04SSMiR8RbO2H7AhbcbPojS8bpS9dlVV5ziSaIF+WhwHFm/n2kJe+LJK2OCL5eR6
-	 ADXlHg3DfPXgw==
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="iOfrV6XZ"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-930c0f9c1b1so197928785a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 18:15:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1788138931; x=1788743731; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=M7y1NLVwXUSf08Tsy0vpaiU5Gq6j9SvxOp7x3iNDJJw=;
+        b=iOfrV6XZLm2+LHelUrpBUwPlEPq4ag2LNyEZpv5qe6oqZqKj6YXE+ibF4XR737tw70
+         se12RMLfxK6vGAFU7WiBXbT9W5Jk9rkQmBJsuI3umMLY9KialMhMvfykFZoSmUqB7qds
+         uGzD4Wr8tTMN7BQ6uxsKogbBjWwM1Cr6XN6k7oW2HNzbtytWShQoD1qje5inzFtA2/7u
+         PYlCRmp7yepP5wdy3U5X3mJPgItyQEhxecZUstQqlcTM+WNw5P5p/bOjzEbzuwj6MhI2
+         SO4bN1AeSK7oe2S99b8xJ9GnIpLC0n87RyD/htzr5XX/qdQqLWmbZSgtaHQ0VXj24YGh
+         YKnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788138931; x=1788743731;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M7y1NLVwXUSf08Tsy0vpaiU5Gq6j9SvxOp7x3iNDJJw=;
+        b=DTnNd01rgoFjTYlnGW+yujAa5KR7lwYBw8cc3bqKBvPGNGJ3Wz3oQ32FfmfMUCfgfM
+         +thMTCABuvh7j1QgmsQ03c2kOh1PyDjM0zPXU1VtPkr5GKd65t8C5pwwaBlLjJwOwPTC
+         vqGB+5F8NRuORPDQHkayJY8wGWi23ghPf//er/R2iUmcBhaier6mRdoIN/TB7l2RfQWc
+         nwEkzZR6e4K3thby6Kc2d4wIQqXg4I/NyWrwKoXNwdv37lf9X0MgxqHCRnPuUOjhoT3w
+         Owkt51asPtM5NfszkITyjU8jc6qnolfUgzuLGFW4dqBwuA3UdbIAWCMdgaWSP21/80Fj
+         0bZg==
+X-Forwarded-Encrypted: i=1; AHgh+RoQAz5UAylEnOSW/Ko3d/KR3LABiECxPZtcl5fVeQaUXdUJvlsHCRw/tfIQ0AW1jaZO9jL7KMgM4kLRu8k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwt1fn94y566ZKa+EIwQI3jatBLJ813lb6O7uFXqhspNDeVzIp
+	CeWpjOp001EaCnFVrFhzZrzxNnrnWQZSX06pN5ca/uwFqccKyCVx0TVDNH/1yZOm8kBywd8LFZe
+	a21+vCg==
+X-Gm-Gg: AR+sD124ZTlwcec1VGR0uqy/jDRkVvB+N/ltn9MQWN1S1Ti9DlkaWkgMb2drWitkszm
+	gh2ptMAQhNakgF6PE9vJ5Ul9M4MHlZ7zdEa4wtQHLlBqVC0uyPz86ynQyMg4wsk7D5vPfJezZgx
+	cYF/W5zEPhLcg3ExQHQJ3ohiCRE+5pcF1sCCg3Ggcr57EX4uvH17s/iUugCY7xHrn9IZZD0qaBC
+	EGZXMlZVogDTk41OT2zkCi8+bAfzoVUDjFLMUY9g1zJo145b5fc/+QJpEUGMK1Uu/thcjRVv9LF
+	k6NP5+TkwAzGz1N073t1Fqaa6umckccvs/4PeG74gFWmvu5Y4sxpcfXY0A05swy9ICJkvCoHNB7
+	aRf+EqlovIaYRtZ4+L1HvqzP6vPKOj4ftqKcRA7cXuYeE7qWpDS4XanI6eCXJj+XAVewaMBqKn7
+	6nBmt2xjnoz2zIjueWaoFxcHJsx9T0CfeMPLtvfpEo8/syzWstQaHx855HkoBcEQ==
+X-Received: by 2002:a05:620a:8392:b0:938:e23a:2ce9 with SMTP id af79cd13be357-9393fcf9d39mr121937385a.16.1788138930985;
+        Sun, 30 Aug 2026 18:15:30 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce451513bsm71976996d6.35.2026.08.30.18.15.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 18:15:30 -0700 (PDT)
+Date: Sun, 30 Aug 2026 21:15:27 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Daniel Palmer <daniel@thingy.jp>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] usb: ehci: support controllers with non-standard
+ registers
+Message-ID: <fef8be63-ab17-475a-a77a-4dc874d1a704@rowland.harvard.edu>
+References: <20260831-gemini-usb-fotg2-v1-0-8a8ee12c4b32@kernel.org>
+ <20260831-gemini-usb-fotg2-v1-1-8a8ee12c4b32@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 6/6] iio: pressure: dps310: check the lock markings
- with context analysis
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Bill Wendling <morbo@google.com>, 
- David Lechner <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>, 
- Joel Stanley <joel@jms.id.au>, Jonathan Cameron <jic23@kernel.org>, 
- Justin Stitt <justinstitt@google.com>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-In-Reply-To: <20260824201203.396651-7-zoone.rupert@gmail.com>
-References: <20260824201203.396651-1-zoone.rupert@gmail.com>
- <20260824201203.396651-7-zoone.rupert@gmail.com>
-Date: Mon, 31 Aug 2026 02:14:41 +0100
-Message-Id: <178813888151.2788519.7490126649907374080.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=622;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=/spp0J/X/Qn6SNBgMWqR1VpdKMx2QctH7d2bKRvY0xk=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqlNWQCDnGKO90eRVG+RXfakIOayDNkm+ukNBsR
- BVYb1xG1K2JAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapTVkBEcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiCLEEACUTq7qlwiABhDG//4+VKtCLJaBqyP33XZAOrOGllQHSQ/
- nmVBCbLcLQ8en2jrMniytFxvLwFh6V2dWVo6ENnxmhtj78i4tEUmoDuT+bEX6EizeqN/x94C4FW
- aT+uIkWW5kbBEDDZSfVm8/h3urGys/C3JeWXFvLq3aWukkjTs6/Zzozj17aj0A+X++OuDo7f6tO
- jygQaYZ/1zXHqUK+g34J6f54YSYe0NycVdIr1RkriqGs7ltdWs7ltUqxCLRVFZ7iIFr4B9ClZAH
- +WDf2Mhk4fc8RwiI+h59Dlw28ghCVpvikWymvtFejLEwTkLzEjkVo4roVcscgkdaLZfQvdyu4cW
- Jxn7MT2ckPsuz9lrB70T7YgetldkKFIIFN8vPFK/whtUjfaEtRo7nFdWL8yJ7U/ExTx5EnvNOMO
- He3dUoqAqFbv3BZsdkG38A1JdWOJ3AQI5KskfHv6KOZSjxWFiNw0xZj6dJYPZ7LK0Ozr+UHxyLn
- I5DlHXORRAitX66S+ao0CGsuI6znziEIWNh1M1bsBR1EJ4gMmXQSOrwDPJhXpFE6LjxEn7LiZ5t
- 1EWvzWAHiPV6VJOR4VnY94iP2SC6+mPmyDYjBLIa2u4IqrjFqtdavVf1QunFf5jmyUBpdVM+55Q
- aQxVmEdFKYkt+vdlmW5JBTAUOfg8GGGwPU7N6oQ==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831-gemini-usb-fotg2-v1-1-8a8ee12c4b32@kernel.org>
 
-> __must_hold() markings added earlier in this series are only
-> documentation unless the file opts in, so switch the analysis on for
-> dps310.o.
+On Mon, Aug 31, 2026 at 12:24:19AM +0200, Linus Walleij wrote:
+> The Faraday FOTG210 EHCI implementation moves PORTSC, omits
+> CONFIGFLAG and USBMODE, and needs controller-specific speed and reset
+> handling. Add
+> per-controller hooks for those variations while preserving the standard
+> register path for existing drivers.
 > 
-> Clean with clang 23.1.0 at W=1. It does run: dropping the lock around
-> dps310_fill_scan() fails the build rather than going quietly.
+> Also allow a controller to reject full/low-speed isochronous transfers
+> when its integrated transaction translator cannot schedule siTDs.
 > 
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+> Assisted-by: LLM
 
-This does make me nervous, but I guess we need to test the water
-at somepoint.  Ideally I'd just flick it on for the whole IIO but
-it is notorious for false positives.
+Which LLM?  Or is that the actual name?
 
--- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+
+This is a pretty unwieldy patch, which makes it a little difficult to
+review.  Can you split it into, say, three parts?  Such as: one for
+the port status register change, one for the port reset and speed change,
+and one for everything else?
+
+Overall it looks okay; it's just hard to check the details.
+
+Alan Stern
