@@ -1,48 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550874C8FFE;
-	Mon, 31 Aug 2026 13:39:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EF64C9564;
+	Mon, 31 Aug 2026 13:39:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183545; cv=none; b=tjagbpSLOHuG4vNX8VS+f2IHa8bf9kCtIaW2srxjGOjP9YtbY/3mEzhbpz4NvZ3CmylHBgw33bxNC40ue7jYHdz4rxapn3x5sTcLlMjaYH57qezQbB41oc5ncolVnJ7cx+4GEv3lluvZ3J8z3kqD39Qau1YMvewW2ydbjV9JCQk=
+	t=1788183550; cv=none; b=BO+W4JQawt+kPmCHhLFdktvjBVVHpoyd3YhzFApmcd6jgwvzlsBSqTSrggXKUvbcb24CSQUZnLXH6zMx9/N6/8FVguxPQUOZP41ipOtRAqLtp/2V/UIX8d1DzoRIOube0t0WmmgLmI5HelNKyXpPSVS0nSqqo7y6KL0ZIprMBIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183545; c=relaxed/simple;
-	bh=hDn+MG3zaJ3Ev1VDEUwORPgunUXPp1iLvQLKPQjrZfA=;
+	s=arc-20240116; t=1788183550; c=relaxed/simple;
+	bh=ie8al/7mINbMk3ZWHeGqtQLkV6Og7J7PQWacQ5mfMPU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ky/wtTdcfS+59C3caDWBCHsusmOsPYH82vKJ/Lsx1auiw0TRhAwdeoYaDHii4wQaHLqKiNbtEtUwZG/oJ/Q4e+7N611hIClISJAgZepW/zkFJB+phtsQlbSfVaw6v2SeQKb4tnwAlEp2oOrXxGICwrHCaVX899EkCBJUYZZ5Q9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hTHIYoo3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=nDtlsvFWxIzgBZdS3d1EgTlHag6Uwn43Mo1GlN3tVBwan7z/FlTjhjEgn6vJYl3Ll4ngfD/5ju6GuZWnyKTUikJ5R09eyH3P5NTyFuEwmWP2GbFr5rjv0zpVMff383WVHEWP622Bwzy9nkaWz9nDv8GTAy+4swOFVLK09eV/1t4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L3actPbe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hTHIYoo3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C196B1F00A3E;
-	Mon, 31 Aug 2026 13:39:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L3actPbe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33C471F00A3E;
+	Mon, 31 Aug 2026 13:39:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183543;
-	bh=laq2hpFbfluEc0ZX6BuNQjKzw/dl/BtfV7yElBYugd0=;
+	s=k20260515; t=1788183547;
+	bh=8+edGIJKj0yaz/K1D2wKNEO+Y4qQ65VpvuBinHaH44U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hTHIYoo3q/iS768Py59zGnDdzD3eyuGPbLIWlNVVfX0lq+Tk92oBUvdx7G47+d5Y3
-	 76YZFoHVlYeDwcoK6CBiSz4QdK8FODQB+GmaKUT12+Dq/nXgwBgSbVUXWFe7pO1/iK
-	 Kf2dtiyrzs4NT1XFiUWNvkdHEAiFotiXKjnWTGe2fqr612b7U9r2WjerhbndwrA0F8
-	 5LVEP37NjTAlwGJVPAQBbtW8G0jJzqYBCppSYIWtm/YhAnow2CIzho2kTc0XujuDY1
-	 CsEdFBazW36JGKwIAS+Abb6lH0JgkVUm5XMGwdiB2goPz1GLLjPG6/RGj1hJxzISsk
-	 7gIxXnKkhSCYA==
+	b=L3actPbe9oQC0Nyii5NbXj8sxTw735P5tHRUE8JG0YyZuKbDk6+l/GZFc794CpoA5
+	 /YRbFfmTYogcayATZYLmzLOnpp1S8E/obZAG3TzwDqu6T8+fB05vTpKBI7s/8+BDMJ
+	 9ljPi80fsRBNmSb7ZSKB1D1p6KUbl3icAKllMRfWaGJDlwwWfZvrmHPCEWZif7iJio
+	 f234lphhBiBR4VQPEKGSbL/U3aWH8w+34wggwBZvmAyycJCeapPle/3+xmTnYtOv22
+	 IE1Sl2dMiuASRhAeyqrStrTb+HqLQkYwRi2lCpiIdxiNbeDEX7B/EHCuZHZbKKIj3R
+	 wm8nrJXVAqvfw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Hannes Reinecke <hare@suse.de>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Ivan Lipski <ivan.lipski@amd.com>,
+	Harry Wentland <harry.wentland@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>,
-	john.fastabend@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
+	sunpeng.li@amd.com,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] tls: Flush backlog before waiting for a new record
-Date: Mon, 31 Aug 2026 09:23:07 -0400
-Message-ID: <20260831133314.4125787-159-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] drm/amd/display: Initialize dsc_caps to 0
+Date: Mon, 31 Aug 2026 09:23:10 -0400
+Message-ID: <20260831133314.4125787-162-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -58,429 +58,53 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+From: Ivan Lipski <ivan.lipski@amd.com>
 
-[ Upstream commit edcf32b8a48f5882b5b7a91b21c89d233d4aecf2 ]
+[ Upstream commit d18ecfee5187e3b2dbff7e67dda8b2f54ff5231c ]
 
-While lock_sock is held, incoming TCP segments land on
-sk->sk_backlog rather than sk->sk_receive_queue.
-tls_rx_rec_wait() inspects only sk_receive_queue, so backlog
-data remains invisible. For non-blocking callers (read_sock,
-and recvmsg or splice_read with MSG_DONTWAIT) this causes a
-spurious -EAGAIN. For blocking callers it forces an
-unnecessary sleep/wakeup cycle.
+[Why&How]
+If we don't do that we make DSC decisions based on random
+inputs, which might result in disallowing DSC when the
+monitor and HW support it.
 
-Flush the backlog inside tls_rx_rec_wait() before checking
-sk_receive_queue so the strparser can parse newly-arrived
-segments immediately. On the next loop iteration
-tls_read_flush_backlog() may redundantly flush, but this
-path is cold and the cost is negligible.
-
-Backlog processing can run tcp_reset(), which calls
-tcp_done_with_error() to set sk->sk_err = ECONNRESET and then
-tcp_done() to set sk->sk_shutdown = SHUTDOWN_MASK. The pre-existing
-top-of-loop sk_err check already ran before the flush, so the
-freshly-set error would be masked by the next-line sk_shutdown test
-returning 0 (EOF). Re-check sk_err immediately before the sk_shutdown
-test so a connection abort surfaces as -ECONNRESET rather than a clean
-EOF.
-
-Commit f508262ae9f2 ("tls: Preserve sk_err across recvmsg() when
-data has been copied") gave the top-of-loop sk_err check a
-has_copied split. The recheck applies the same handling: when the
-caller has already copied bytes, sk_err is reported but preserved
-so the error surfaces on the next call; otherwise sock_error()
-consumes it so the error is reported exactly once.
-
-Suggested-by: Sabrina Dubroca <sd@queasysnail.net>
-Link: https://lore.kernel.org/netdev/ahgHgQ84RCc8uYrG@krikkit/
-Reviewed-by: Hannes Reinecke <hare@suse.de>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Reviewed-by: Sabrina Dubroca <sd@queasysnail.net>
-Link: https://patch.msgid.link/20260604-tls-read-sock-v12-6-b114efa6e3e2@oracle.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `tls: Flush backlog before waiting for a new
-record`
-
-**Local tree:** v6.18.44 (`make kernelversion` → 6.18.44)
-**Commit analyzed:** `edcf32b8a48f5` (on `master`, **not** in this
-checkout)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject Line
-**Record:** `[tls]` `[flush]` — Flush socket backlog inside
-`tls_rx_rec_wait()` before inspecting `sk_receive_queue` and before
-sleeping.
-
-### Step 1.2: Tags
-**Record:**
-| Tag | Value |
-|-----|-------|
-| Suggested-by | Sabrina Dubroca \<sd@queasysnail.net\> |
-| Link | https://lore.kernel.org/netdev/ahgHgQ84RCc8uYrG@krikkit/ |
-| Reviewed-by | Hannes Reinecke \<hare@suse.de\> |
-| Reviewed-by | Sabrina Dubroca \<sd@queasysnail.net\> |
-| Link | https://patch.msgid.link/20260604-tls-read-
-sock-v12-6-b114efa6e3e2@oracle.com |
-| Signed-off-by | Chuck Lever, Jakub Kicinski |
-
-No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, or syzbot
-tags. Two subsystem reviewers reviewed it. No syzbot signal.
-
-### Step 1.3: Body Analysis
-**Record:**
-- **Bug 1:** While `lock_sock` is held, TCP segments land on
-  `sk->sk_backlog`, but `tls_rx_rec_wait()` only checks
-  `sk->sk_receive_queue`. Backlog data is invisible → spurious `-EAGAIN`
-  for non-blocking callers (`read_sock`, `MSG_DONTWAIT` recvmsg/splice);
-  unnecessary sleep/wakeup for blocking callers.
-- **Bug 2:** `sk_flush_backlog()` can invoke `tcp_reset()` → sets
-  `sk_err` then `sk_shutdown`. Top-of-loop `sk_err` check already ran;
-  `sk_shutdown` test returns 0 (EOF) → connection abort surfaces as
-  clean EOF instead of `-ECONNRESET`.
-- **Root cause:** Missing backlog flush before receive-queue inspection;
-  missing post-flush `sk_err` recheck.
-- **Dependency cited:** `f508262ae9f2` / local `81c8a9f75a426`
-  (`has_copied` split for `sk_err` handling).
-
-### Step 1.4: Hidden Bug Fix?
-**Record:** No — explicitly described as a correctness bug (wrong return
-codes, masked connection errors).
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Inventory
-**Record:**
-- **Files:** `net/tls/tls_sw.c` (+12 lines)
-- **Function:** `tls_rx_rec_wait()` only
-- **Scope:** Single-file surgical fix
-
-### Step 2.2: Code Flow Change
-**Record:**
-
-| Hunk | Before | After |
-|------|--------|-------|
-| Backlog flush | Only `tls_read_flush_backlog()` during record
-processing (periodic, ≥128KB) | `sk_flush_backlog(sk)` each wait-loop
-iteration before receive-queue check |
-| Error handling | Single top-of-loop `sk_err` check | Duplicate
-`sk_err` check after backlog flush, same `has_copied` logic as top-of-
-loop |
-
-### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** Logic / correctness (error-path handling + backlog
-  visibility)
-- **Mechanism:** Socket lock held → segments queued on backlog → wait
-  loop sees empty receive queue → premature `-EAGAIN` or sleep. Backlog
-  flush can set `sk_err`+`sk_shutdown` between the two existing checks,
-  masking reset as EOF.
-
-### Step 2.4: Fix Quality
-**Record:** Obviously correct — mirrors existing `sk_err` handling and
-uses established `sk_flush_backlog()` API already used by
-`tls_read_flush_backlog()`. Minimal regression risk; redundant flush on
-next iteration is acknowledged as negligible on a cold path.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame
-**Record:** Wait-loop receive-queue check dates to 2020
-(`20ffc7adf53a5f`). `has_copied`/`sk_err` split added by `81c8a9f75a426`
-(May 2026, **in tree**). Buggy pattern (no backlog flush in wait loop)
-present since `tls_rx_rec_wait()` was written; exacerbated by
-`read_sock` (2023, **in tree**) which always passes `nonblock=true`.
-
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no `Fixes:` tag. Referenced commit `81c8a9f75a426` is
-an ancestor of HEAD.
-
-### Step 3.3: Related File History
-**Record:** Recent TLS fixes in this tree include `81c8a9f75a426` (same
-`sk_err`/EOF class), `e8a4c9fc437b1` (read_sock empty records). v12
-series patches 1–5 (`4da7925c124a3` … `22f8bf8808dc8`) are **not** in
-tree; this is patch 6/6 but is functionally standalone (only touches
-`tls_rx_rec_wait()`).
-
-### Step 3.4: Author Context
-**Record:** Chuck Lever is a primary kTLS maintainer. Multiple TLS
-receive-path fixes in this tree from him (`81c8a9f75a426`,
-`9f557c7eae127`, etc.).
-
-### Step 3.5: Dependencies
-**Record:**
-- `sk_flush_backlog()` — present in `include/net/sock.h` (since 2022,
-  `c46b01839f7aa` era)
-- `has_copied` parameter — present (`81c8a9f75a426`)
-- `tls_read_flush_backlog()` — present (`c46b01839f7aa`)
-- **Standalone:** No dependency on other v12 patches; applies with
-  trivial context adjustment (`tls_strp_check_rcv(&ctx->strp)` vs
-  mainline's two-argument form)
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original Discussion
-**Record:** `b4 dig -c edcf32b8a48f5` →
-https://patch.msgid.link/20260604-tls-read-
-sock-v12-6-b114efa6e3e2@oracle.com. Part of v12 series (v4→v12
-revisions). Sabrina Dubroca reviewed and thanked author. No explicit
-stable nomination found in thread.
-
-### Step 4.2: Reviewers
-**Record:** `b4 dig -w`: CC'd Jakub Kicinski, netdev, kernel-tls-
-handshake, Eric Dumazet, Paolo Abeni, Hannes Reinecke. Reviewed-by from
-Hannes Reinecke and Sabrina Dubroca.
-
-### Step 4.3: Bug Report
-**Record:** `Suggested-by: Sabrina Dubroca`; original thread at lore
-link (fetch blocked by Anubis). No syzbot/bugzilla. Subsystem expert
-identified the issue.
-
-### Step 4.4: Series Context
-**Record:** v12 0/6 "receive-path fixes and clean-ups"; patches 1–5 are
-separate read_sock/decrypt fixes not in this tree. Patch 6/6 is
-independent.
-
-### Step 4.5: Stable List History
-**Record:** No stable-list discussion found in mbox grep.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: Key Functions
-**Record:** `tls_rx_rec_wait()` modified.
-
-### Step 5.2: Callers
-**Record:** Three call sites in `net/tls/tls_sw.c`:
-- `tls_sw_recvmsg()` — line 2124 (`MSG_DONTWAIT` aware)
-- `tls_sw_splice_read()` — line 2311 (`SPLICE_F_NONBLOCK` aware)
-- `tls_sw_read_sock()` — line 2398 (always `nonblock=true`)
-
-All are kTLS software receive paths reachable from userspace or in-
-kernel consumers (sockmap, etc.).
-
-### Step 5.3: Callees
-**Record:** `sk_flush_backlog()` → `__sk_flush_backlog()` →
-`__release_sock()` (moves backlog to receive queue, can run
-`tcp_reset()`). `sock_error()`, `sk_wait_event()`,
-`tls_strp_check_rcv()`.
-
-### Step 5.4: Reachability
-**Record:** Reachable from `recvmsg()`/`splice()`/`read()` on TLS
-sockets and kernel `read_sock` consumers. Unprivileged users with TLS
-sockets can trigger. `CONFIG_TLS` required.
-
-### Step 5.5: Similar Patterns
-**Record:** `tls_read_flush_backlog()` already calls
-`sk_flush_backlog()` during record processing but only after ≥128KB
-(`c46b01839f7aa`). Wait loop had no flush — gap this patch closes.
-`81c8a9f75a426` already fixed analogous `sk_err`/EOF masking for
-periodic flush path.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
-
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** Current `tls_rx_rec_wait()` at lines 1407–1414
-checks `sk_receive_queue` without prior `sk_flush_backlog()`. No post-
-flush `sk_err` recheck. Commit `edcf32b8a48f5` is **not** an ancestor of
-HEAD.
-
-### Step 6.2: Backport Complications
-**Record:** `git apply --check` fails on comment/context around
-`tls_strp_check_rcv(&ctx->strp, false)` vs local
-`tls_strp_check_rcv(&ctx->strp)`. **Minor adjustment needed** —
-functional change is independent of that difference.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** `81c8a9f75a426` (preserve `sk_err` / `has_copied`) is in
-tree but does **not** cover the wait-loop backlog-flush path this commit
-adds. No duplicate fix found.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: Subsystem
-**Record:** `net/tls` — kTLS software receive path. **Criticality:
-IMPORTANT** (production TLS workloads; growing kTLS adoption).
-
-### Step 7.2: Activity
-**Record:** Active — multiple TLS fixes in recent stable history
-(`81c8a9f75a426`, `e8a4c9fc437b1`, UAF/off-by-one fixes).
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who Is Affected
-**Record:** kTLS users (`CONFIG_TLS`): applications using kernel TLS
-recvmsg/splice, and in-kernel `read_sock` consumers. Not universal, but
-significant in data-center/edge deployments.
-
-### Step 8.2: Trigger Conditions
-**Record:** Data arrives on `sk_backlog` while socket lock held during
-`tls_rx_rec_wait()`. Common during active TLS reads. Non-blocking paths
-(`read_sock`, `MSG_DONTWAIT`) hit spurious `-EAGAIN` deterministically
-when backlog has data but receive queue is empty. Connection reset
-during backlog flush triggers EOF masking.
-
-### Step 8.3: Failure Mode Severity
-**Record:**
-- Spurious `-EAGAIN` → **MEDIUM** (functional failure; apps may
-  drop/retry incorrectly; `read_sock` always non-blocking)
-- `ECONNRESET` masked as EOF → **MEDIUM-HIGH** (wrong semantics; same
-  class as `81c8a9f75a426` which was backported)
-- Not crash/UAF/corruption/deadlock
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** MEDIUM-HIGH — fixes real kTLS correctness bugs; completes
-  error-handling started by `81c8a9f75a426`
-- **Risk:** LOW — 12 lines, reviewed, uses existing API, mirrors
-  existing `sk_err` pattern
-- **Ratio:** Favorable
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence Summary
-
-**FOR:**
-- Fixes two real, reproducible correctness bugs in kTLS receive
-- Small (12 lines), surgical, dual-reviewed by subsystem experts
-- Prerequisites (`has_copied`, `sk_flush_backlog`) all in v6.18.44
-- Companion to `81c8a9f75a426` already in this stable tree (same EOF-
-  masking class)
-- Affects production paths: `recvmsg`, `splice_read`, `read_sock`
-- Applies with trivial context adjustment
-
-**AGAINST:**
-- Not crash/security/corruption/deadlock
-- No syzbot or explicit end-user bug report
-- Borderline on stable rule "important issue"
-- Rest of v12 series not in tree (but this patch is standalone)
-
-**UNRESOLVED:** Original Sabrina Dubroca bug-report thread content (lore
-blocked by Anubis).
-
-### Step 9.2: Stable Rules Checklist
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — reviewed by two
-subsystem experts; logic mirrors existing `sk_err` handling |
-| 2. Fixes real bug affecting users? | **PASS** — spurious EAGAIN +
-masked ECONNRESET on kTLS paths |
-| 3. Important issue? | **PASS** — wrong error semantics on active TLS
-connections; same severity class as already-backported `81c8a9f75a426` |
-| 4. Small and contained? | **PASS** — 12 lines, one function |
-| 5. No new features/APIs? | **PASS** — behavior correction only |
-| 6. Can apply to local tree? | **PASS** — minor context tweak for
-`tls_strp_check_rcv` signature |
-
-### Step 9.3: Exception Categories
-**Record:** None (not device ID, quirk, DT, build, or docs).
-
-### Step 9.4: Decision Rationale
-
-This tree already carries `81c8a9f75a426`, which fixes `sk_err` being
-masked as EOF when `tls_read_flush_backlog()` triggers `tcp_reset()`.
-The analyzed commit closes the parallel hole in `tls_rx_rec_wait()` —
-the wait loop never flushed backlog before checking the receive queue,
-and a post-flush `sk_err` recheck was missing. Without it, kTLS non-
-blocking reads (`read_sock`, `MSG_DONTWAIT`) can spuriously return
-`-EAGAIN` despite available data, and connection resets during wait can
-still appear as clean EOF.
-
-The fix is minimal, self-contained, prerequisite-complete in v6.18.44,
-and addresses the same error-reporting correctness class already deemed
-stable-worthy in this tree.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed commit message and tags from `git show
-  edcf32b8a48f5`
-- **[Phase 2]** Diff analysis: +12 lines in `tls_rx_rec_wait()`, two
-  hunks (flush + sk_err recheck)
-- **[Phase 3]** `git describe HEAD` → v6.18.44; `git merge-base --is-
-  ancestor` → `edcf32` NOT in tree; `81c8a9`, `c46b018`, `662fbcec` IN
-  tree
-- **[Phase 3]** `git blame -L 1394,1435 net/tls/tls_sw.c` → receive-
-  queue-only check since 2020; `has_copied` from `81c8a9f75a426`
-- **[Phase 3]** v12 series commits 1–5 all NOT in tree; patch 6/6 is
-  standalone
-- **[Phase 4]** `b4 dig -c edcf32b8a48f5` → lore URL found; `b4 dig -a`
-  → v4–v12 revisions; `b4 dig -w` → maintainers CC'd
-- **[Phase 4]** `b4 dig -m /tmp/tls_flush_thread.mbox` → Reviewed-by
-  Sabrina Dubroca, Hannes Reinecke; no stable nomination
-- **[Phase 4]** WebFetch lore URL → blocked (Anubis); UNVERIFIED
-  original bug-report content
-- **[Phase 5]** `grep tls_rx_rec_wait` → 3 call sites (recvmsg,
-  splice_read, read_sock)
-- **[Phase 5]** `include/net/sock.h:1218` → `sk_flush_backlog()` inline
-  confirmed
-- **[Phase 6]** Read current `tls_rx_rec_wait()` at lines 1379–1441 —
-  missing fix
-- **[Phase 6]** `git apply --check` → fails on `tls_strp_check_rcv`
-  context; functional change still applicable
-- **[Phase 7]** `git log --oneline -20 -- net/tls/` → active subsystem
-  with recent stable fixes
-- **[Phase 8]** `tls_sw_read_sock()` line 2398 always passes
-  `nonblock=true` — verified spurious EAGAIN path
-
-**YES**
-
- net/tls/tls_sw.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
-index f19b504efa5d0..23872d7e32567 100644
---- a/net/tls/tls_sw.c
-+++ b/net/tls/tls_sw.c
-@@ -1404,12 +1404,24 @@ tls_rx_rec_wait(struct sock *sk, struct sk_psock *psock, bool nonblock,
- 		if (ret < 0)
- 			return ret;
- 
-+		if (sk_flush_backlog(sk))
-+			released = true;
- 		if (!skb_queue_empty(&sk->sk_receive_queue)) {
- 			tls_strp_check_rcv(&ctx->strp);
- 			if (tls_strp_msg_ready(ctx))
- 				break;
- 		}
- 
-+		/* sk_flush_backlog() can run tcp_reset(), which sets
-+		 * sk_err and then sk_shutdown via tcp_done(). Recheck
-+		 * sk_err here so a connection abort surfaces as the
-+		 * actual error rather than a clean EOF.
-+		 */
-+		if (sk->sk_err) {
-+			if (has_copied)
-+				return -READ_ONCE(sk->sk_err);
-+			return sock_error(sk);
-+		}
- 		if (sk->sk_shutdown & RCV_SHUTDOWN)
- 			return 0;
- 
+The background searches finished and matched the earlier analysis:
+
+- **Fix not in this tree:** `git log` for `Initialize dsc_caps` /
+  `dsc_caps = {0}` returned nothing — the patch isn’t in v6.18.44 yet,
+  but the bug is still there (`struct dsc_dec_dpcd_caps dsc_caps;` at
+  line 7168).
+- **b4 dig:** No result, since the commit isn’t present locally to look
+  up.
+
+**Verdict stands: YES** for backport to this 6.18.y tree — one-line
+zero-init fix for uninitialized DSC caps used during mode setup on
+AMDGPU.
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 4f53297786623..8445b13549c17 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7165,7 +7165,7 @@ create_stream_for_sink(struct drm_connector *connector,
+ 	int preferred_refresh = 0;
+ 	enum color_transfer_func tf = TRANSFER_FUNC_UNKNOWN;
+ #if defined(CONFIG_DRM_AMD_DC_FP)
+-	struct dsc_dec_dpcd_caps dsc_caps;
++	struct dsc_dec_dpcd_caps dsc_caps = {0};
+ #endif
+ 	struct dc_link *link = NULL;
+ 	struct dc_sink *sink = NULL;
 -- 
 2.53.0
 
