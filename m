@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035E04756DC;
-	Mon, 31 Aug 2026 13:51:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F875A0ABF;
+	Mon, 31 Aug 2026 13:51:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184319; cv=none; b=GlhYZau2ZkpavhWG9kuyjvxrhiicTuNgq/jhEb7hh/jlkQC5huVTpu6YlqvmxF9pmr2K11EWVKLO7CyeLuVPSi8n25vgKH589VqCwm8f9aQTnhesO75LFJR/MeXV28rsvz/29AG02ggZr0Njxik2Pxyq7DTsJzcJloqaJalGk2E=
+	t=1788184320; cv=none; b=BZk6+/1KbCL/Hm4BppryQISHHLpqKK+UDKNRmHCdaI+8LpiAHeMa80rLr7Tz3KrliazWf/vkFrGUF/KgVQieLXMHDVmdD2PhN36YRcGs1cQpY1kbzovnMH/ITCVhGMlxe1jCHvMteXMD0+iYz7Obkby75LW7wCzGg4kYEM9fgqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184319; c=relaxed/simple;
-	bh=pZRzXChp8OOaZEjPdl4pIwtBmsUUAugWNU87jubaTwM=;
+	s=arc-20240116; t=1788184320; c=relaxed/simple;
+	bh=xLf09wVcxA9h6jkZi0DhwH75Z5jb+hNoZ/8z5EFt3YA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=id+bSyLTX2swgmACY2BwQsX9wAp5Y2dYCu2JJtQd7SHrNLr4v8215fNeYBDMTs8ojoF21ify2HVRkct9xnWKiDHALzzclr9XHkwuvWh2zVBRJgga0RmWibZS+I3D7J5nJmP90yzuxrigKqnGYOdEKvyGN7PncwA5oRJFkiBRXRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HcQ6Sc8t; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=oWvfJ5AFoIGTBewKbWcoPFbZ/oreES27BtD7NDATAzbOVr5Kcinsb6nTIPysbUYcySPEGlPthSYzzprEnPt757Vi+ryIo9/tLZcDuzKpO3jYuT+9EcrNuvP6WP65fZ/5eUCgXo8zfR8TDOajkmw6lvEdgMH1/mqdJ8szt0mggww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aRUpYnlF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HcQ6Sc8t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEB311F000E9;
-	Mon, 31 Aug 2026 13:51:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aRUpYnlF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DFB41F00A3D;
+	Mon, 31 Aug 2026 13:51:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184316;
-	bh=tV0zB8yxnLlFcu9A53GyoITbVctrpoYGrqFc6gY/Rko=;
+	s=k20260515; t=1788184318;
+	bh=kdfRuPl0hrKyvihyJ/gG0bBiOeV8URDkBe9P+1/RTYg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HcQ6Sc8tq9SM4lCCs1qYbbGU4rAARBewfacjuJVm6pSLyWRNfyYZOlbf/jSl5hJme
-	 GUuaEs0hYfmlq8o1rhU46uLr0nC2MQYFxoKqXM1O1Q2Yg2aekhEcrl8yfR2mUXSkZb
-	 GBGQhNpNaRkzJX18t7yN9s1XbLzWc7Iblm8LTmU6znq1CPdzSETZgGYBnwLdozEm2+
-	 SCWNrXD723NviwZnTlZLu6f1M2HzEWL7V8rjVKDmA7m9o0IE9fLZiUHdgyukX0Si9K
-	 LbosoKs1R4PKBNWHD+b/rgg+gaFB/6aPDDiKCeYorRSgQGQW4EoEs9SjK4E8froy9Z
-	 GbEyoRqgLGXBA==
+	b=aRUpYnlFayg/LUcKzDr5xZtvPAz06BDRVgGiRc16O/1FCH2WDWc1qcIXJFGhOkGT/
+	 FTC6hyArvBk8NrP1jBLFw/iU/3HTM0iE8hp8ZHh3E/FyB4sBaY87Qk8R4g5/Rr7bYo
+	 wNx81v+j19BR3JxxBqKvBvuhxtHwCzSws8s+eWRMvSKOVnkvg8fSeGEObVF24lWs4+
+	 Q5kbTS75jEqKUxKjNN/3KzKISQ+oFTZ3b6rvH9eIMhcA8iW+0mem6boDEqZVTIBax1
+	 XDuur9TNECs/gy0eA/69FrcDkv1toPlbTV6Xp7dE1Efud+glRBswBmDfKqJOabtJUW
+	 IsftKScf9weDg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Dave Penkler <dpenkler@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Alexej Sidorenko <alexej@sidorenko.cz>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-staging@lists.linux.dev,
+	marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] gpib: Suppress setting END on error from NI_USB dongle
-Date: Mon, 31 Aug 2026 09:30:48 -0400
-Message-ID: <20260831133314.4125787-620-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] Bluetooth: btrtl: fix RTL8761B/BU broken LE extended scan
+Date: Mon, 31 Aug 2026 09:30:49 -0400
+Message-ID: <20260831133314.4125787-621-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,402 +54,421 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Dave Penkler <dpenkler@gmail.com>
+From: Alexej Sidorenko <alexej@sidorenko.cz>
 
-[ Upstream commit 7c19b47f5a1839817e5ddc5ba589224fcfb6255d ]
+[ Upstream commit 5ead2063611ae56809b1b113ac44cef9547c81d7 ]
 
-The NI USB adapter sets the END bit in the status word when an error
-occurs such as a read being interrupted by the setting of ATN. This
-happens for example when a device clear is received from the
-controller in charge during a read.
+RTL8761B and RTL8761BU devices report HCI version 5.1 but do not
+support the LE Extended Scan commands. This causes repeated failures
+with Opcode 0x2042 (LE Set Extended Scan Parameters) returning -EBUSY
+when BlueZ attempts extended scanning while a connection is active.
 
-The common driver changes the error return to 0 whenever the END bit
-is set in order to avoid errors such as timeout or interrupt to be
-reported after the full message has actually been read. The behaviour
-of the NI USB adapter in setting the END bit on errors was causing
-actual errors (-EINTR, -ETIMEDOUT) not to be reported.
+Set HCI_QUIRK_BROKEN_EXT_SCAN for CHIP_ID_8761B to make BlueZ fall
+back to legacy LE scan commands which the firmware supports correctly.
 
-We avoid setting the END bit in the ni_usb_gpib driver when an error
-is reported in error_code of the status from the adaptor.
+Tested with RTL8761BU (USB ID 0bda:a728) where the issue manifested
+as continuous 'Opcode 0x2042 failed: -16' errors in dmesg whenever
+a BLE connection was active.
 
-Signed-off-by: Dave Penkler <dpenkler@gmail.com>
-Link: https://patch.msgid.link/20260422074807.3194-1-dpenkler@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Alexej Sidorenko <alexej@sidorenko.cz>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `gpib: Suppress setting END on error from
-NI_USB dongle`
+# Stable Backport Analysis: Bluetooth: btrtl: fix RTL8761B/BU broken LE
+extended scan
 
-**Local tree:** Linux **6.18.44** (`v6.18.44`, `HEAD` detached at
-`stable/linux-6.18.y`)
+**Local tree:** `v6.18.44-1-g2736c32da98b9` (kernel 6.18.44)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-**Record:** `[gpib] [suppress] [prevent incorrect END flag on NI USB
-adapter errors]`
+### Step 1.1: Subject line
+**Record:** `[Bluetooth: btrtl]` `[fix]` — RTL8761B/BU devices falsely
+advertise LE Extended Scan support; set a quirk so the stack falls back
+to legacy LE scan.
 
-Subsystem: `gpib` (National Instruments USB GPIB driver). Action:
-suppress (prevent) setting the END flag when the adapter reports an
-error.
-
-### Step 1.2: Commit Message Tags
+### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Dave Penkler `<dpenkler@gmail.com>` (author)
-- **Link:**
-  https://patch.msgid.link/20260422074807.3194-1-dpenkler@gmail.com
-- **Signed-off-by:** Greg Kroah-Hartman (maintainer merge)
-- **No** `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
-  by:`, `Cc: stable@vger.kernel.org`
-- Notable: absence of stable tag is expected per review pipeline; not a
-  negative signal.
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none (author says "Tested with RTL8761BU" in body)
+- **Reviewed-by:** — none
+- **Acked-by:** — none
+- **Link:** — none
+- **Cc: stable@vger.kernel.org** — not present (expected)
+- **Signed-off-by:** Alexej Sidorenko (author), Luiz Augusto von Dentz
+  (Bluetooth maintainer)
 
-### Step 1.3: Commit Body Analysis
+Notable: maintainer SOB from Luiz von Dentz is a strong quality signal.
+No syzbot/fuzzer report.
+
+### Step 1.3: Body analysis
 **Record:**
-- **Bug:** NI USB adapter sets the END bit in `status.ibsta` even when
-  `error_code` indicates an error (e.g., read interrupted by ATN during
-  device clear, or timeout).
-- **Symptom:** Real errors (`-EINTR`, `-ETIMEDOUT`) from `ni_usb_read()`
-  are not propagated to userspace.
-- **Root cause:** Common driver (`read_ioctl()` in `gpib_os.c`)
-  intentionally suppresses read errors when `end_flag` is set (to handle
-  race where a transfer completed just before device clear). NI USB
-  incorrectly sets END on error paths, triggering that suppression.
-- **Fix:** Only set `*end = 1` when `(status.ibsta & END) &&
-  (status.error_code == NIUSB_NO_ERROR)`.
+- **Bug:** RTL8761B/BU report HCI 5.1 and claim LE Extended Scan
+  support, but firmware does not implement those commands.
+- **Symptom:** Repeated `Opcode 0x2042 failed: -16` (-EBUSY) in dmesg
+  when BlueZ attempts extended scanning while a BLE connection is
+  active.
+- **Root cause:** Kernel's `use_ext_scan()` sees advertised capability
+  and uses extended scan HCI commands; firmware rejects them.
+- **Fix approach:** Set `HCI_QUIRK_BROKEN_EXT_SCAN` for `CHIP_ID_8761B`
+  so the stack uses legacy LE scan commands.
+- **Version info:** None stated; hardware has been supported since
+  RTL8761B support landed in 2020.
 
-### Step 1.4: Hidden Bug Fix Detection
-**Record:** This is an explicit bug fix, not disguised cleanup. It
-corrects incorrect error propagation to userspace applications using NI
-USB GPIB adapters.
+Note: commit message labels 0x2042 as "LE Set Extended Scan Parameters",
+but in this tree `0x2041` is Parameters and `0x2042` is Enable
+(`include/net/bluetooth/hci.h`). The quirk disables both via
+`use_ext_scan()`, so the fix is still correct.
+
+### Step 1.4: Hidden bug fix?
+**Record:** No — this is an explicit hardware quirk/workaround fix, not
+disguised cleanup.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Change Inventory
+### Step 2.1: Inventory
 **Record:**
-- **Files:** 1 file (`ni_usb_gpib.c`; upstream path `drivers/gpib/`,
-  local path `drivers/staging/gpib/ni_usb/`)
-- **Lines:** ~1 line changed (condition expanded)
-- **Function:** `ni_usb_read()`
-- **Scope:** Single-file, surgical fix
+- **Files:** `drivers/bluetooth/btrtl.c` (+13 lines, 0 removed)
+- **Function:** `btrtl_set_quirks()`
+- **Scope:** Single-file, surgical hardware quirk addition
 
-### Step 2.2: Code Flow Change
+### Step 2.2: Code flow change
 **Record:**
-- **Before:** Any read where hardware sets END in `ibsta` sets `*end =
-  1`, regardless of `error_code`.
-- **After:** END is only propagated to `*end` when `error_code ==
-  NIUSB_NO_ERROR`.
-- **Affected path:** `ni_usb_read()` return path after USB status
-  parsing, before return to `ibrd()` → `read_ioctl()`.
+- **Hunk (before):** After the `ic_info` NULL check, code only handled
+  `RTL_ROM_LMP_8703B` local-ext-features quirk.
+- **Hunk (after):** New `switch (btrtl_dev->project_id)` sets
+  `HCI_QUIRK_BROKEN_EXT_SCAN` for `CHIP_ID_8761B` before the existing
+  `lmp_subver` switch.
+- **Path affected:** Device init — `btrtl_set_quirks()` called from
+  `btrtl_setup_realtek()` during Realtek USB/UART Bluetooth probe.
 
-### Step 2.3: Bug Mechanism
-**Record:** **Logic/correctness bug** interacting with intentional
-common-driver error suppression.
+### Step 2.3: Bug mechanism
+**Record:** **[Hardware workaround / logic correctness]**
+- `use_ext_scan(dev)` is true when controller advertises extended scan
+  support AND quirk is not set.
+- RTL8761B falsely advertises support → kernel sends
+  `HCI_OP_LE_SET_EXT_SCAN_*` commands → firmware returns error (-EBUSY).
+- Quirk forces fallback to legacy `HCI_OP_LE_SET_SCAN_PARAM` /
+  `HCI_OP_LE_SET_SCAN_ENABLE`.
 
-Verified chain in this tree:
-
-```934:941:drivers/staging/gpib/common/gpib_os.c
-        /*
-  - suppress errors (for example due to timeout or interruption by
-    device clear)
-  - if all bytes got sent.  This prevents races that can occur in the
-    various drivers
-  - if a device receives a device clear immediately after a transfer
-    completes and
-  - the driver code wasn't careful enough to handle that case.
-         */
-        if (remain == 0 || end_flag)
-                read_ret = 0;
-```
-
-When NI USB sets END on an error read:
-1. `ni_usb_read()` returns `-EINTR` (device clear, commit
-   `aaf2af1ed147e`) or `-ETIMEDOUT`
-2. `*end = 1` (buggy code at line 723)
-3. `read_ioctl()` converts `read_ret` to `0` because `end_flag` is set
-4. Userspace receives success instead of the real error
-
-### Step 2.4: Fix Quality
-**Record:** Fix is obviously correct and minimal. Only sets END when the
-adapter reports no error. Very low regression risk; aligns NI USB
-behavior with the intent of the common-driver suppression logic.
+### Step 2.4: Fix quality
+**Record:**
+- **Quality:** Obviously correct — identical pattern to BCM4377
+  (`hci_bcm4377.c`) and Actions Semi (`btusb.c`).
+- **Regression risk:** Very low — only affects `CHIP_ID_8761B` devices,
+  and only changes scan command selection to what firmware actually
+  supports.
+- **Red flags:** None.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** Buggy END handling introduced in `4e127de14fa78b` ("staging:
-gpib: Add National Instruments USB GPIB driver", 2024-09-18). Present
-since NI USB driver was added to this tree.
+**Record:**
+- `btrtl_set_quirks()` structure from Max Chou (2023-03-21).
+- `CHIP_ID_8761B` added in `04896832c94aa` ("Bluetooth: btrtl: Add
+  support for RTL8761B", Apr 2020).
+- `HCI_QUIRK_BROKEN_EXT_SCAN` added in `392fca352c7a9` (Nov 2022) for
+  Broadcom 4377.
+- Bug has existed since 8761B support without this quirk — long-standing
+  on common hardware.
 
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no `Fixes:` tag in commit message.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no Fixes: tag present.
 
-### Step 3.3: Related File History
-**Record:** Related commits already in 6.18.44:
-- `aaf2af1ed147e` — "staging: gpib: Return -EINTR on device clear"
-  (**Cc: stable**, already backported here)
-- `cae26eff1b56d` — UAF fix in IO ioctl handlers
-- `fdee9f207a48c` — double decrement fix in command_ioctl
-- `d72ece584c448` — ioctl error code fix
+### Step 3.3: Related file history
+**Record:**
+- Recent `btrtl.c` changes: firmware bounds validation, memory leak fix,
+  quirk bitmap migration — unrelated.
+- No prior fix for 8761B extended scan in this tree.
+- Standalone patch, not part of a series.
 
-This fix completes the device-clear path started by `aaf2af1ed147e`.
-
-### Step 3.4: Author Context
-**Record:** Dave Penkler is the GPIB subsystem author/maintainer of
-these NI USB fixes. Multiple gpib fixes from this author are already in
-6.18.y stable.
+### Step 3.4: Author context
+**Record:** Alexej Sidorenko is not a frequent btrtl contributor in this
+tree. Luiz von Dentz (Bluetooth maintainer) signed off. No related
+commits from this author found in-tree.
 
 ### Step 3.5: Dependencies
-**Record:** Standalone one-line fix. Prerequisite `aaf2af1ed147e`
-(-EINTR on device clear) is already in this tree. No other dependencies.
-Backport needs path adjustment:
-`drivers/staging/gpib/ni_usb/ni_usb_gpib.c` (not `drivers/gpib/` as on
-mainline where gpib left staging).
+**Record:**
+- Requires `HCI_QUIRK_BROKEN_EXT_SCAN` — present (ancestor
+  `392fca352c7a9` confirmed in tree).
+- Requires `CHIP_ID_8761B` — present (ancestor `04896832c94aa` confirmed
+  in tree).
+- Requires `btrtl_set_quirks()` call path — present via
+  `btusb_setup_realtek()` → `btrtl_setup_realtek()`.
+- **Standalone:** Yes, applies without other patches.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Patch Discussion
-**Record:** `b4 am` found thread at
-https://patch.msgid.link/20260422074807.3194-1-dpenkler@gmail.com. Mbox
-contains only the initial patch (1 message); no review replies or stable
-nominations in thread. Related commit `aaf2af1ed147e` was explicitly
-`Cc: stable`.
+### Step 4.1: Original discussion
+**Record:**
+- `b4 shazam "Bluetooth: btrtl: fix RTL8761B/BU broken LE extended
+  scan"` — not found on lore.
+- `b4 shazam "fix RTL8761B"` / `"BROKEN_EXT_SCAN"` — not found.
+- No `.mbx` file for this patch in the workspace.
+- **UNVERIFIED:** Full review thread — patch may be too recent for lore
+  indexing.
 
 ### Step 4.2: Reviewers
-**Record:** `b4 dig -w` not run (commit not in local tree). Patch merged
-by Greg Kroah-Hartman (staging maintainer). No additional reviewers in
-thread.
+**Record:** Could not retrieve via `b4 dig -w` (commit not in local git
+history). Maintainer SOB from Luiz von Dentz confirmed in commit
+message.
 
-### Step 4.3: Bug Report
-**Record:** No external bug report or syzbot link. Bug described by
-author with concrete scenario (device clear during read).
+### Step 4.3: Bug report
+**Record:** No external bug report links. Author tested on RTL8761BU
+(USB ID 0bda:a728). That specific VID/PID is not yet in `btusb.c` device
+table in this tree, but many other 8761B/BU IDs are (0x0bda:0x8771,
+0x2b89:0x8761, etc.) — all use the same `BTUSB_REALTEK` →
+`btrtl_setup_realtek()` path.
 
-### Step 4.4: Related Patches
-**Record:** Direct follow-up to `aaf2af1ed147e` device-clear EINTR work.
-Without this fix, that prior stable backport is effectively nullified
-for NI USB users.
+### Step 4.4: Related patches
+**Record:** No multi-patch series identified. Precedent: `392fca352c7a9`
+(BCM4377), `7c2b2d2d0cb65` (Actions Semi ATS2851) use the same quirk for
+the same class of bug.
 
-### Step 4.5: Stable List History
-**Record:** Not searched separately; related EINTR fix was author-
-nominated for stable.
+### Step 4.5: Stable list history
+**Record:** No stable-list discussion found (lore fetch blocked by bot
+protection for general search).
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `ni_usb_read()` (modified), `read_ioctl()` (affected caller
-path), `ibrd()` (intermediate).
+### Step 5.1: Key functions
+**Record:** `btrtl_set_quirks()` — only function modified.
 
 ### Step 5.2: Callers
-**Record:** `ni_usb_read` registered as `board->interface->read` (line
-2390). Called via `ibrd()` from `read_ioctl()` — userspace ioctl read
-path for GPIB applications.
+**Record:**
+- `btrtl_setup_realtek()` (line 1359) — called from
+  `btusb_setup_realtek()` for all Realtek USB devices.
+- `hci_h5.c` (line 946) — UART Realtek path.
+- Impact: all RTL8761B/BU devices (USB and UART) during probe/setup.
 
 ### Step 5.3: Callees
-**Record:** USB bulk transfer, status parsing,
-`ni_usb_soft_update_status()`. Error classification via
-`status.error_code` switch.
+**Record:** `hci_set_quirks()` — standard HCI quirk registration, no
+side effects beyond flag setting.
 
 ### Step 5.4: Reachability
-**Record:** Reachable from userspace via GPIB read ioctl. Any NI USB
-GPIB user performing reads can hit this on device clear or timeout.
+**Record:**
+- Trigger: any BLE scan attempt while a connection is active on RTL8761B
+  hardware — common BlueZ usage pattern.
+- Reachable from userspace via normal Bluetooth scanning/discovery
+  operations.
+- Not config-gated beyond `CONFIG_BT` + Realtek hardware.
 
-### Step 5.5: Similar Patterns
-**Record:** `ibsta & END` check exists only once in NI USB driver (line
-723). Write path does not set an END flag. No sibling instances need the
-same fix.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
-
-### Step 6.1: Buggy Code Exists?
-**Record:** **YES.** Buggy code at line 723 of
-`drivers/staging/gpib/ni_usb/ni_usb_gpib.c`:
-
-```723:726:drivers/staging/gpib/ni_usb/ni_usb_gpib.c
-        if (status.ibsta & END)
-                *end = 1;
-        else
-                *end = 0;
-```
-
-Fix is **not** yet applied in 6.18.44.
-
-### Step 6.2: Backport Complications
-**Record:** Trivial path adjustment needed (`drivers/staging/gpib/` vs
-upstream `drivers/gpib/`). Code context around the hunk is identical.
-Clean apply expected with path change.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** `aaf2af1ed147e` (EINTR on device clear) is present. This fix
-is not duplicated elsewhere. No conflicting fix found.
+### Step 5.5: Similar patterns
+**Record:** Identical quirk already used in:
+- `drivers/bluetooth/hci_bcm4377.c:2394`
+- `drivers/bluetooth/btusb.c:4297` (Actions Semi)
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
 
-### Step 7.1: Subsystem Criticality
-**Record:** **PERIPHERAL** — staging GPIB driver, specifically
-`CONFIG_GPIB_NI_USB` (National Instruments USB dongles). Not core
-kernel, but actively maintained in stable.
+### Step 6.1: Buggy code present?
+**Record:** **Yes.** `btrtl_set_quirks()` in this tree lacks the
+`CHIP_ID_8761B` / `HCI_QUIRK_BROKEN_EXT_SCAN` case. RTL8761B support and
+extended-scan infrastructure are both present. Bug is live.
 
-### Step 7.2: Subsystem Activity
-**Record:** Active — 10+ gpib fixes already in 6.18.y including UAF,
-memory leaks, ioctl fixes, and the related EINTR fix.
+### Step 6.2: Backport complications
+**Record:** **Clean apply expected.** Insertion point (`if
+(!btrtl_dev->ic_info) return;` followed by new switch, before existing
+`lmp_subver` switch) matches current file at lines 1331–1334 exactly.
+Recent quirk-bitmap migration (`6851a0c228fc0`) already uses
+`hci_set_quirk()` — compatible.
+
+### Step 6.3: Related fixes already present?
+**Record:** No existing fix for 8761B extended scan. Quirk exists for
+other vendors only.
+
+---
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/bluetooth/btrtl.c` — **IMPORTANT** (Bluetooth
+subsystem, Realtek USB dongles widely deployed on
+desktops/laptops/embedded).
+
+### Step 7.2: Activity
+**Record:** Actively maintained — 5 commits to `btrtl.c` in recent
+history (firmware validation, leak fix, quirk migration).
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who Is Affected
-**Record:** Users with `CONFIG_GPIB_NI_USB` enabled using National
-Instruments USB GPIB adapters (GPIB-USB-B, GPIB-USB-HS, GPIB-USB-HS+).
+### Step 8.1: Who is affected
+**Record:** Users of RTL8761B/BU Bluetooth adapters (USB dongles like
+ASUS BT500, TP-Link UB500, Edimax BT-8500, and many 0x0bda:0x8771
+variants). Driver-specific, but hardware is very common.
 
-### Step 8.2: Trigger Conditions
+### Step 8.2: Trigger conditions
 **Record:**
-- Device clear received during an active read (ATN asserted, DCAS set) —
-  moderately common in GPIB bus management
-- Read timeout with END bit set by hardware
-- Unprivileged users can trigger via GPIB ioctl if they have device
-  access
+- BLE connection active + scanning/discovery attempted.
+- Common in desktop/laptop Bluetooth usage with BlueZ.
+- Unprivileged users can trigger via normal Bluetooth operations.
 
-### Step 8.3: Failure Mode Severity
-**Record:** **MEDIUM** — incorrect error reporting (success returned
-instead of `-EINTR`/`-ETIMEDOUT`). No kernel crash, UAF, or data
-corruption, but applications may hang, retry incorrectly, or miss bus
-events. Undermines a prior stable backport.
-
-### Step 8.4: Risk-Benefit
+### Step 8.3: Failure mode severity
 **Record:**
-- **Benefit:** MEDIUM-HIGH for affected NI USB users; restores correct
-  error semantics
-- **Risk:** VERY LOW — one-line, logically obvious change
-- **Ratio:** Favorable for backport
+- **Failure:** Extended scan HCI commands fail with -EBUSY; continuous
+  dmesg errors; BLE scanning broken or degraded while connected.
+- **Severity: MEDIUM** — functional breakage and log spam, not kernel
+  crash/panic/data corruption. Real user impact on common hardware.
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH for affected hardware users — restores working BLE
+  scan while connected.
+- **Risk:** VERY LOW — 13-line quirk for one chip ID, established
+  pattern.
+- **Ratio:** Strongly favorable.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real, verified bug with clear mechanism in code
-- Incorrect userspace error reporting on common GPIB operations
-- Completes prior stable backport (`aaf2af1ed147e` EINTR on device
-  clear)
-- Minimal, obviously correct one-line fix
-- Strong precedent: multiple gpib fixes already in 6.18.y stable
-- Bug present since NI USB driver introduction (2024)
-- Low regression risk
+- Real hardware bug on common Realtek BT chip
+- Hardware quirk/workaround — standard stable exception category
+- Small (13 lines), surgical, obviously correct
+- Uses existing quirk API — no new features
+- Maintainer (Luiz von Dentz) signed off
+- Author tested on real RTL8761BU hardware
+- Bug present since 8761B support (2020); affects this 6.18.44 tree
+- Prerequisites all present; clean apply expected
+- Same fix pattern already accepted for BCM4377 and Actions Semi
 
 **AGAINST backport:**
-- Staging driver (general guideline: usually not stable material)
-- Limited user base (NI USB GPIB hardware only)
-- No crash/corruption/security impact
-- No syzbot or user bug reports
+- Not a crash/security/data-corruption issue (severity MEDIUM, not
+  CRITICAL)
+- No syzbot or multi-user reports
+- Lore discussion not found (may be very recent patch)
 
-**Unresolved:** No review-thread stable nomination for this specific
-patch (thread had no replies).
+**UNRESOLVED:**
+- Full mailing-list review thread not retrieved
+- 0bda:a728 test device ID not yet in btusb table (but fix is chip-ID
+  based, not USB-ID based)
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — logic is self-evident;
-   merged to mainline by maintainer
-2. Fixes a real bug affecting users? **PASS** — wrong error codes to
-   userspace on NI USB
-3. Important issue? **PASS** — functional correctness bug; completes
-   prior stable fix (MEDIUM severity)
-4. Small and contained? **PASS** — 1 line, 1 function
-5. No new features or APIs? **PASS**
-6. Can apply to local tree? **PASS** — with trivial path adjustment
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — established quirk pattern;
+   author tested on RTL8761BU; maintainer SOB.
+2. Fixes a real bug affecting users? **PASS** — broken BLE scanning +
+   dmesg errors on RTL8761B/BU.
+3. Important issue? **PASS (MEDIUM)** — functional breakage on common
+   hardware, not crash/corruption.
+4. Small and contained? **PASS** — 13 lines, one file, one chip ID.
+5. No new features or APIs? **PASS** — uses existing
+   `HCI_QUIRK_BROKEN_EXT_SCAN`.
+6. Can apply to local tree? **PASS** — prerequisites present, insertion
+   point matches.
 
-### Step 9.3: Exception Categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-bug fix.
+### Step 9.3: Exception category
+**Record:** **Hardware quirk/workaround** — controller falsely
+advertises HCI 5.1 extended scan capability; quirk forces fallback to
+supported legacy commands.
 
-### Step 9.4: Decision Rationale
-
-This fix should be backported to **6.18.y**. The buggy code exists, the
-mechanism is verified end-to-end in `ni_usb_read()` → `read_ioctl()`,
-and the fix directly restores error reporting that a prior stable
-backport (`aaf2af1ed147e`) intended to provide. While GPIB remains in
-staging and affects a niche hardware audience, this tree already carries
-numerous gpib stable fixes including security-relevant ones (UAF),
-establishing clear precedent. The change is minimal and low-risk.
+### Step 9.4: Decision rationale
+This is a textbook stable hardware-quirk fix: Realtek RTL8761B/BU
+firmware lies about extended scan support, causing repeated HCI command
+failures during normal BlueZ operation. The fix is minimal, follows an
+established pattern already in this tree for other vendors, touches only
+affected hardware, and restores correct behavior. While not a crash-
+level bug, it causes real functional breakage on widely deployed USB
+Bluetooth dongles — exactly the kind of fix stable trees carry for
+existing drivers.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message and tags from user-provided diff
-  and mbox file
-- **[Phase 2]** Read `ni_usb_read()` at lines 689-728 and `read_ioctl()`
-  at lines 916-941 in `drivers/staging/gpib/`
-- **[Phase 2]** Confirmed error suppression: `if (remain == 0 ||
-  end_flag) read_ret = 0;`
-- **[Phase 3]** `git describe HEAD`: v6.18.44
-- **[Phase 3]** `git blame -L 720,728`: buggy END handling from
-  `4e127de14fa78b` (2024-09-18)
-- **[Phase 3]** `git show aaf2af1ed147e`: EINTR on device clear with Cc:
-  stable, already in tree
-- **[Phase 3]** `git log --oneline -30 -- drivers/staging/gpib/`:
-  multiple gpib stable fixes present
-- **[Phase 4]** `b4 am` on msgid: found patch thread, 1 message, no
-  replies
-- **[Phase 4]** Read mbox: `20260422_dpenkler_gpib_suppress_setting_end_
-  on_error_from_ni_usb_dongle.mbx`
-- **[Phase 5]** `grep ibsta & END`: only occurrence in NI USB driver at
-  line 723
-- **[Phase 5]** Traced call chain: `read_ioctl` → `ibrd` → `ni_usb_read`
-- **[Phase 6]** Confirmed `drivers/staging/gpib/ni_usb/ni_usb_gpib.c`
-  exists; fix not applied
-- **[Phase 6]** `grep "Suppress setting END"`: no match in tree (fix
-  absent)
-- **[Phase 7]** Read `drivers/staging/gpib/Kconfig`: CONFIG_GPIB_NI_USB
-  documents supported hardware
-- **[Phase 8]** Assessed impact on NI USB GPIB users only
+- **[Phase 1]** Parsed commit message: subject, body, SOBs; no
+  Fixes/Reported-by/Link tags
+- **[Phase 1]** Confirmed opcode note: 0x2041=PARAMS, 0x2042=ENABLE in
+  `include/net/bluetooth/hci.h`
+- **[Phase 2]** Diff: +13 lines in `btrtl_set_quirks()`, one file
+- **[Phase 2]** Read `use_ext_scan()` macro at
+  `include/net/bluetooth/hci_core.h:2011-2013`
+- **[Phase 3]** `git describe HEAD`: v6.18.44-1-g2736c32da98b9
+- **[Phase 3]** `git merge-base --is-ancestor 392fca352c7a9 HEAD`: quirk
+  in tree
+- **[Phase 3]** `git merge-base --is-ancestor 04896832c94aa HEAD`: 8761B
+  support in tree
+- **[Phase 3]** `git blame` on lines 1331-1344: structure unchanged, no
+  8761B quirk present
+- **[Phase 3]** `git log --grep="broken LE extended scan"`: no match
+  (commit not yet merged)
+- **[Phase 4]** `b4 shazam`: patch not found on lore
+- **[Phase 4]** WebFetch lore.kernel.org: blocked by bot protection
+- **[Phase 5]** Grep callers: `btrtl_setup_realtek()` at btrtl.c:1359,
+  `btusb_setup_realtek()` at btusb.c:2709
+- **[Phase 5]** Grep `HCI_QUIRK_BROKEN_EXT_SCAN`: hci_bcm4377.c, btusb.c
+  (Actions Semi)
+- **[Phase 6]** Read current `btrtl_set_quirks()`: missing 8761B quirk
+  case (lines 1290-1345)
+- **[Phase 6]** Verified `CHIP_ID_8761B` enum and firmware mapping at
+  btrtl.c:68,658
+- **[Phase 6]** Verified 8761BU IC_INFO entry at btrtl.c:225-231
+- **[Phase 8]** Grep btusb device table: multiple 8761B/BU USB IDs
+  present (0x8771, 0x8761, etc.)
+- **UNVERIFIED:** Full lore review thread and explicit stable nomination
+  from reviewers
 
-**YES****Verdict: YES** — backport to this tree (Linux 6.18.44).
+**YES**The background searches finished and didn’t change the
+conclusion.
 
-The NI USB GPIB driver sets the END flag even when the adapter reports
-an error (`-EINTR` on device clear, `-ETIMEDOUT` on timeout). The common
-`read_ioctl()` path then treats END as “transfer complete” and clears
-the error, so userspace gets success instead of the real error code.
+**Task 1 (commit search / b4 dig):** The commit isn’t in this tree yet.
+`b4 dig` on HEAD pointed at an unrelated patch, and `git log` had no
+match for “broken LE extended scan” or “8761B/BU”.
 
-The buggy code is still present at
-`drivers/staging/gpib/ni_usb/ni_usb_gpib.c:723`; the fix is a one-line
-change and completes the earlier stable backport that added `-EINTR` on
-device clear (`aaf2af1ed147e`). Apply with the staging path
-(`drivers/staging/gpib/...` instead of upstream’s `drivers/gpib/...`).
+**Task 2 (author / lore):** Alexej Sidorenko and Sidorenko don’t show up
+as btrtl contributors here. `b4 dig` failed due to wrong syntax, and `b4
+shazam` later also found no lore thread for this patch — likely too new
+or not indexed yet.
 
- drivers/staging/gpib/ni_usb/ni_usb_gpib.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The stable backport verdict stands: **YES** for 6.18.44 — a small
+hardware quirk fix for RTL8761B/BU that restores working BLE scan while
+connected.
 
-diff --git a/drivers/staging/gpib/ni_usb/ni_usb_gpib.c b/drivers/staging/gpib/ni_usb/ni_usb_gpib.c
-index b6fddb437f552..67cc3398e2831 100644
---- a/drivers/staging/gpib/ni_usb/ni_usb_gpib.c
-+++ b/drivers/staging/gpib/ni_usb/ni_usb_gpib.c
-@@ -720,7 +720,7 @@ static int ni_usb_read(struct gpib_board *board, u8 *buffer, size_t length,
- 		break;
- 	}
- 	ni_usb_soft_update_status(board, status.ibsta, 0);
--	if (status.ibsta & END)
-+	if ((status.ibsta & END) && (status.error_code == NIUSB_NO_ERROR))
- 		*end = 1;
- 	else
- 		*end = 0;
+ drivers/bluetooth/btrtl.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/drivers/bluetooth/btrtl.c b/drivers/bluetooth/btrtl.c
+index a62eae7276d64..cb1c321910e2a 100644
+--- a/drivers/bluetooth/btrtl.c
++++ b/drivers/bluetooth/btrtl.c
+@@ -1331,6 +1331,19 @@ void btrtl_set_quirks(struct hci_dev *hdev, struct btrtl_device_info *btrtl_dev)
+ 	if (!btrtl_dev->ic_info)
+ 		return;
+ 
++	switch (btrtl_dev->project_id) {
++	case CHIP_ID_8761B:
++		/* RTL8761B/BU reports HCI version 5.1 but does not support
++		 * the LE Extended Scan commands (Opcode 0x2042), causing
++		 * repeated -EBUSY failures when BlueZ attempts extended
++		 * scanning while a connection is active.
++		 */
++		hci_set_quirk(hdev, HCI_QUIRK_BROKEN_EXT_SCAN);
++		break;
++	default:
++		break;
++	}
++
+ 	switch (btrtl_dev->ic_info->lmp_subver) {
+ 	case RTL_ROM_LMP_8703B:
+ 		/* 8723CS reports two pages for local ext features,
 -- 
 2.53.0
 
