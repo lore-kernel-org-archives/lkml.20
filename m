@@ -1,104 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B5D49C4BA;
-	Mon, 31 Aug 2026 14:57:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548D54A43ED;
+	Mon, 31 Aug 2026 14:57:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188253; cv=none; b=YVSNkccGBZWMcZQHbTY/1Soq/l5ybZp9drMCglxJJmsq3MNKFVmBk0zjeIHuSu2ooDZwchMep7sO2D7puRjxc6B1f9HdZHor6nO0Xy5OZkE52RTBsTMrZeKkLXXG4uwJWYuQ3GuVCz22ixG2QRGVLkPdpvLEHQcbtKs94L80zpk=
+	t=1788188256; cv=none; b=U0sWnuB8diZ9zK++H0L6qaIzQNh0mhD9vPesZNZmCuaOB0zbWiW3BgdfthTaBmZyLNEjp3wWOxxm89JdhwMYjHkenLkrbJVGyYTP93sOG91nJX4Qdxb0/jS1K5fp9/c7dTzc6kKO4W7/Z5+IUszbSCcYclin23ydbk529vODkmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188253; c=relaxed/simple;
-	bh=UE0RnzVn480eoP0WC9sVQd7CJ7fMw/fMqjNlKhE30co=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jd1SAPPBzTZ20wHv7hbpFo/UKH9qyYtqpOF4zGn1mrfhXf1VMxeNrFJPVcazNY3UXmfXrg5SyGjCfBm5DczBiHcBoJAVTKoxOfB3aNbl65+mbxv5H+FNa/xka4EBqyfnkbRgyo2cVgi1G3MguEGwHy8OLOC6kurkDXVAwDGlNMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N+zCiSEG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788188256; c=relaxed/simple;
+	bh=hx8R/AApQKzG7E/fkYUEPAjK1cuHUksamCW4BIOX3Ec=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Wnt+m2BFUjJZWXPEaJaSRobjUUzapi2eSzCV+jWAYuRMP+z+bymDcObbL5QG+ejPiYI/j03N+2pRwhsNnhxsRdxjkwWC1cHwhnYcy6joNANJXsQDDGjxKj91hBci88MzrwEk34lzRKx/LEVteZaeSKcdirokbPsLu1vSMMB7BXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=CEBXjHXo; arc=none smtp.client-ip=216.40.44.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N+zCiSEG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FEC91F00A3E;
-	Mon, 31 Aug 2026 14:57:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788188252;
-	bh=m77KSml7J9PVuWvfDXU+9FGVhk1wJqugBBvBHQZQDmo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N+zCiSEGrK3Nhq36uxKo0p9P/kcOA4cpEbSw5T1KZg+DAK8nJN/eTFcWbFp0r5vvs
-	 2P/YVxF3C7gxWGtQLNfoDgeZ6uK2Whscwipd1W8j/ie71rBLoY7vpdjl9ANKFYBbPw
-	 oTNNIOkfqYWe1l1auFjEgXoKhNfBWdaoqSQJtVQOJnrvXFTPXw4ZqpPQQ+kLHIFC4d
-	 2R3RBZHF1ZtLQdsiZfibRVSCGTi+WjRfuN+gUOJUx+pcM0yiSxVzuoXvIjva+B0H0o
-	 P7GFCV33v1VXSE9jCh3GmunH/A18fTlnnUIupp2+JUN8SbsWuxLWb7X8TbZo7wiQ5e
-	 gfqrnnq930bpQ==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Cheng-Han Wu <hank20010209@gmail.com>,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v2 2/2] mm/damon/core: remove unused damon_nr_running_ctxs()
-Date: Mon, 31 Aug 2026 07:57:22 -0700
-Message-ID: <20260831145724.82387-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260831145724.82387-1-sj@kernel.org>
-References: <20260831145724.82387-1-sj@kernel.org>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="CEBXjHXo"
+Received: from omf17.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay10.hostedemail.com (Postfix) with ESMTP id 3F804C018C;
+	Mon, 31 Aug 2026 14:57:26 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf17.hostedemail.com (Postfix) with ESMTPA id 14DDF1D;
+	Mon, 31 Aug 2026 14:57:23 +0000 (UTC)
+Date: Mon, 31 Aug 2026 10:58:20 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "Rui Qi" <qirui.001@bytedance.com>
+Cc: <mhiramat@kernel.org>, <mark.rutland@arm.com>, <pjw@kernel.org>,
+ <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+ <linux-kernel@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>
+Subject: Re: [PATCH] riscv: ftrace: reject out-of-range non-direct targets
+Message-ID: <20260831105820.22085739@gandalf.local.home>
+In-Reply-To: <20260901020000.1-qirui.001@bytedance.com>
+References: <20260707121235.759104-1-qirui.001@bytedance.com>
+	<20260901020000.1-qirui.001@bytedance.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: i3pjcmzphm14rwrt1owf6ty49twegz1t
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: 14DDF1D
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1//eGqi8bpd7aR+4JRxanQExgdzhlCWk8w=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=kimCP8YvJCUrptM2WnuQUVqNPk5kAPjReUuPtX6bnJo=; b=CEBXjHXo/VvdsMQTjfUVOvrvdTU2K9wWoKunjm5+neGQf+heP7S4QpWKvNqXJ5DC619z43JnJMeT4+2ZSC4pz2pgo5mdltlbKDtldo4R+juO5Z7HJfcVKmHpffF7T7AyoC/anhPYEbDZTmkBI/6BgNj5im8omFwbblloWVliimg=
+X-HE-Tag: 1788188243-30817
+X-HE-Meta: U2FsdGVkX19lQdUL0R9LZgKiHVJI6aXbwu2zVZ/wFibAXM2rhRi59Dnl1TnGlQ96Wv8srtUKsRWlob/uDFb7hygVDLaWVpyAgWSACryK37fyeTbGFDkskivDNtHwXiWByiLLiIIccRVuUuhFr5F/GWBMgdKYqKsXdEl17M1LAJ4E8qd64ogN0lg2HPP4oFPAJxVpzhIfaLIh9em+EHnxK9T4YFw2vWHXFWoDkbH9W0iF2Qjry0wl5pVjF7/cPFk8sMV/U2eS39zZ9Ryj/eGiJ0YPc7BivS9+FPKfj6YSq4aZ+vvlECRxB29glzPuCM99zhmBPx6gI8GV4Ds3DGEQjqbrxoWY1tkb
 
-From: Cheng-Han Wu <hank20010209@gmail.com>
+On Mon, 31 Aug 2026 11:50:45 +0800
+"Rui Qi" <qirui.001@bytedance.com> wrote:
 
-damon_nr_running_ctxs() has had no in-tree users since commit
-5ec4333b1967 ("mm/damon: remove DAMON debugfs interface") removed
-all of its callers.
+> Hi Steven,
+> 
+> Gentle ping on this patch. It's been over a month since submission
+> and I'd appreciate your review when you have a chance.
+> 
+> The patch fixes ftrace_modify_call() on RISC-V to properly validate
+> old_addr/addr instead of always treating sites as FTRACE_ADDR, and
+> rejects out-of-range non-direct targets that can't be dispatched
+> through the existing ftrace_caller path.
 
-Remove the unused declaration and definition.
+This patch looks very architecture specific. Is there a generic ftrace
+issue you have with this? "out-of-range" issues are specific to an
+architecture (x86 doesn't have this issue).
 
-Signed-off-by: Cheng-Han Wu <hank20010209@gmail.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
----
- include/linux/damon.h |  1 -
- mm/damon/core.c       | 14 --------------
- 2 files changed, 15 deletions(-)
+You need the RISC-V maintainers to review and accept this patch. I don't
+see anything specific to generic ftrace infrastructure here, which is what
+I maintain.
 
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 9835b864a8db9..6842a336291e8 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -1067,7 +1067,6 @@ int damon_set_attrs(struct damon_ctx *ctx, struct damon_attrs *attrs);
- void damon_set_schemes(struct damon_ctx *ctx,
- 			struct damos **schemes, ssize_t nr_schemes);
- int damon_commit_ctx(struct damon_ctx *old_ctx, struct damon_ctx *new_ctx);
--int damon_nr_running_ctxs(void);
- bool damon_is_registered_ops(enum damon_ops_id id);
- int damon_register_ops(struct damon_operations *ops);
- int damon_select_ops(struct damon_ctx *ctx, enum damon_ops_id id);
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 043eb38de5fd3..53c3f97e3f126 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -1866,20 +1866,6 @@ int damon_commit_ctx(struct damon_ctx *dst, struct damon_ctx *src)
- 	return err;
- }
- 
--/**
-- * damon_nr_running_ctxs() - Return number of currently running contexts.
-- */
--int damon_nr_running_ctxs(void)
--{
--	int nr_ctxs;
--
--	mutex_lock(&damon_lock);
--	nr_ctxs = nr_running_ctxs;
--	mutex_unlock(&damon_lock);
--
--	return nr_ctxs;
--}
--
- /* Returns the size upper limit for each monitoring region */
- static unsigned long damon_region_sz_limit(struct damon_ctx *ctx)
- {
--- 
-2.47.3
+-- Steve
+
