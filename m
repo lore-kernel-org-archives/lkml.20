@@ -1,156 +1,144 @@
-Received: from mta0.migadu.com (out-212.mta0.migadu.com [91.218.175.212])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82B7381B10
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.212
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6DC391E52
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788210767; cv=none; b=vAvEZLyQ/G03FRFPKiLr9m7MFP0cBfBvtgira+G0gBzNOmisBrREEmw7/5Dg1CbiyUwf84H8/iHcstPkeasYk8ij2qa0YdzTzqMcbh1ZF/gMME3HQ2Okw02o2zHvfb7lTlNps0g3DIWPai4mnsj0urO/++52bHIJjaXE7GUWM/E=
+	t=1788210823; cv=none; b=jGXYQYjsaeeb41ArXe8ezuxD3jIXJ7mi1ABlUIbvL7at/YVlm/TKnNQ0zeBpezPV740iXlseA5Q1IJjo2AN66hPGNBjLkq8eB6BB2+JsypD9DdwBan7VAuNEkxvCRx2YDvQFg4MzKY3gB55wE390ApnKlKGxxyKGm+BXjitfUWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788210767; c=relaxed/simple;
-	bh=DqVyQybPlXg+s2kQKu0tCcmbPDkd24Q8nMn47uMGMhY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Yt8TwcydgOo69KG9khDkvD2SJ4b1mtcqCrMcC/n02qhqi5cW0RgrrG0sSQ3rrvfEUR1r+B/kIxqJskpKtV21IO1ogkZs8cZYQz+/I3GDu+CCflacoQGvTbCq3JcOxemBNZS9guhUQf0tXZEwquVu3AL0dS23umVYk18Nro9fq/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tjOtsN5o; arc=none smtp.client-ip=91.218.175.212
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788210823; c=relaxed/simple;
+	bh=Z5IJ+lQnSXa1szk5H4U87H6lIowyP1aqRrakzryANK4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Sj5nuEqeQTg7Ob2bkQT13A9HAG2DWMQaV5KpB3YeZnOsGFqGyyRJ9ddg3yxG9EhQj2d5q/D0o19pj131DHHe2jgRp1CohZhKcevbvq6lWvQCx1dR/FeqgsorG2gA1myqeaN3UmzWxZn1nNAIos9S8dC61KDQDYOQ08S94ib8moQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mtz6c/7p; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tjOtsN5o"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DqVyQybPlXg+s2kQKu0tCcmbPDkd24Q8nMn47uMGMhY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788210762; v=1; x=1788815562;
- b=tjOtsN5opXNbYvGXjuL5SGApnHmQDuHxtbOdXCa9t7OjYSQgrHtjW0KjFmRy1bXcOhVWINXA
- hTH0eZSudyuFffmkzHm+FXG5gI1mAXvdkYoZREVtaCb1NSMWT2UZfz+4ozTB8apJ74Btp3Z4r0W
- SdC1MGuKBuOOQRJp3WsMNdvM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id df5b3ac7151158ec;
-	Mon, 31 Aug 2026 21:12:42 +0000
-X-Mizu-Trace-ID: df5b3ac7151158ec
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <ec3306be-29d3-49e6-8653-0579007774db@linux.dev>
-Date: Mon, 31 Aug 2026 14:12:36 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mtz6c/7p"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b8f86c6deso23493155e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:13:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788210820; x=1788815620; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gKvEXBGRiYBVT7Q5MM6yjWoGfKDCD90j6xOw04lbaKQ=;
+        b=Mtz6c/7pwqBZ1hkxAJlHbEzkA+oVZbvgqCXh2UrcUnXk+dX3ZU1AhgxX7cHHk4Xi5w
+         zvwYufZmAI90FyiKzATuPr+7H8Wvk8Mp/2TKEgb0RlJ+NDw7ogf+O9GFV8InCErcHhFi
+         bTMweEHEAqREZdo7CxT8PmMHk8oEulk4lwXxOm6PnAeWFNf0kmk608iUQ0WR/sVaH98b
+         f3CbDdut+k0IfJMPbbg7Oaji8yCakv22JvEffCnVwbD5e96smcQ/Zvtrdc8HLMR4yIu8
+         wgygAoD7bhUsSXq6hVc36tmH09RfPsJHawESGVcngKRn8XxuI8WkhUpa1s1/u+mFfzVY
+         Xo0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788210820; x=1788815620;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gKvEXBGRiYBVT7Q5MM6yjWoGfKDCD90j6xOw04lbaKQ=;
+        b=ZvpwYdRUiOjgCfF4nfKc0VhO4gVHh8evR2i6Q+ADJYKyzJJDpplL+y0+6WmqEYhz2n
+         flqOj8RNMhDsPJ0nAv6iN3u6Jj/XDHJn1z80jw6mycC+JtgdsPxQqV4DWZVdMu3y2TkH
+         CfNqOoN2G7XtTxU9xfLKBJCNw0a0SA+lqvhTwgrTlqbswBuWh6CqZlo/6bYS6Cfaah3C
+         6z2GAdx3faGQipzmQheKObdFNtMtlqCVKL1uA2CdN+GN0E1D7x5PwsFJOBkPujKrEo+/
+         6y2c8gPebwEjrO/Hvuip706umGIaIN+4+hYeKend+d5osiBcLXlDYp5MPivQk6Cxz4A0
+         nNuw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7Faij4BcD0oC+Kp3QO6LcHWbXa02uQs9o2MeFOYBBNQP5xWfZFF1aOexu1yNOmHgmn1bS/YnQjIIi4VM=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9n5BsCWkOkGTE/rtC8YeBDrEZN3TXdo06mCiTYQg+/8kGE7nZ
+	6Tu6sLn4G6HhSYc4gwTecXh1NbtmPDNz99+W9zZrDuNc/uqnMEdCh/E6
+X-Gm-Gg: AR+sD138PWLuGkOafvXIOfUB5YGSvrLcPBNBRXpDkJ3S3qpJC7NbFdh1C6BTUR4Wazx
+	sLEDwp1qozA2qRbkeRIcikZESJHMW674V0E8o0QUh8Zv8dFLV8jWaMpKwD6gJczDzXRtjRusu6K
+	sg3zd6q8Abidjvxw0ffJ4Pp4egs/mNq1KQH3G1XkQtpHzeMIjNlU0r/+Mg1fAiRwqjsW+ilboWw
+	PWsEHMBwSWeUtfQARzOkamIY+UUhMuoTfIDzFX2nMXS6/gh+DZyBrk4B6XLpSJuEwkDj85zRjhw
+	sH19AdpC1vzlRLWg7EDJ8eTS+HVayNsEjpIFSoxG+/TiwPqNbCcl//74JF0/a9d6UgKDMOKb1Ys
+	o8YnYGPxYqvQ+T3iRGCb1X+RuEy02ra2yDnPdNgL5OxjFW29b3kHOCdZpTme7XR8Uj2WQjhVnBs
+	Esh6b6s/KfjF1C2ihuS/EHGr2mVBMOyvGuAPlLwzRBT+tyFFpsjhR7K1qY6b4Iyl7ezQnrFVNnj
+	k+5bGcpQzmDE3bnKptDZJmd4nO+Qze/cTxTJ2SqCAPIDi8MieySAoZmtbFsoG933ZWNBJQG2Itq
+	/srTS+blLlYskMCZ/0NxfQM6fFCzd56/Qww42yrHlv1oVfGthQwJ8oxktNYN1nQ/ZQnjKEF+ko2
+	Rt/pgXLZ8SoIbXuIMagDLztJW
+X-Received: by 2002:a05:600c:1549:b0:49c:d618:e341 with SMTP id 5b1f17b1804b1-49cd618e6d9mr147510355e9.14.1788210819624;
+        Mon, 31 Aug 2026 14:13:39 -0700 (PDT)
+Received: from [192.168.1.187] ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce1754csm17695925e9.10.2026.08.31.14.13.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 14:13:39 -0700 (PDT)
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Subject: [PATCH v2 00/11] iio: temperature: make headers conform to IWYU
+Date: Mon, 31 Aug 2026 23:13:30 +0200
+Message-Id: <20260831-kernel-header-removal-v2-0-b92b580ef5eb@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf v3 4/5] selftests/bpf: Add test for key-less BTF hash
- map
-To: Jiayuan Chen <jiayuan.chen@linux.dev>, bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>,
- Mykyta Yatsenko <yatsenko@meta.com>, Alan Maguire <alan.maguire@oracle.com>,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260831110314.150870-1-jiayuan.chen@linux.dev>
- <20260831110314.150870-5-jiayuan.chen@linux.dev>
-Content-Language: en-US
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-In-Reply-To: <20260831110314.150870-5-jiayuan.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2jFMfQCu/A/DotABJgI1U9NoC
+ P9uJXHp8pzknrtAYBUOcMkWUI4SxM8JzC6DdrBzzyguMZjcnPPSEN5ZZx5xYOtYUXny0Y7oqhN
+ 3jqrCFSWk7UO5k9fWvdWJBwlPr+/tJtLX/ormTzES5sh8oIbMsWGiaz9ZGfetn6Be1/UDlXWqO
+ roAAAA=
+X-Change-ID: 20260821-kernel-header-removal-d95efd197d78
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Crt Mori <cmo@melexis.com>, 
+ Puranjay Mohan <puranjay@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joshua Crofts <joshua.crofts1@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788210818; l=2118;
+ i=joshua.crofts1@gmail.com; s=20260530; h=from:subject:message-id;
+ bh=Z5IJ+lQnSXa1szk5H4U87H6lIowyP1aqRrakzryANK4=;
+ b=TDyZTMysY1NiMwz8tMuUwzMJ5ODMyt3/iG/ZRtl/7LHpGWWbkyEpy2BACjT1YmL0DPBQD+7NE
+ e8zKn7BcUOsBc+tjXPfMlBxfWzyDBzEPnzqM/cqbmLtPrTy7IHzYbak
+X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
+ pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-On 8/31/26 4:01 AM, Jiayuan Chen wrote:
-> Create a hash and an rhash map with btf_key_type_id == 0 and expect
-> bpf_map_create() to fail with -EINVAL; a positive control with a real
-> key type confirms the rejection is about the key-less BTF. On an unfixed
-> kernel the map is created, and the test pins and reads it back to walk
-> the bpffs dump path, which reproduces the btf_type_show() NULL-deref - so
-> running it on an unfixed kernel oopses the reading task (and panics it
-> under panic_on_oops).
-> 
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-> ---
->  .../bpf/prog_tests/btf_map_keyless.c          | 82 +++++++++++++++++++
->  1 file changed, 82 insertions(+)
->  create mode 100644 tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c
-> 
-> diff --git a/tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c b/tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c
-> new file mode 100644
-> index 000000000000..a7d037f57a7e
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c
-> @@ -0,0 +1,82 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +#include <test_progs.h>
-> +#include <bpf/btf.h>
-> +
-> +/*
-> + * A hash map with a key-less BTF (btf_key_type_id == 0) used to NULL-deref in
-> + * btf_type_show() when dumped via bpffs.
-> + * A fixed kernel rejects such a map at creation; on an unfixed kernel the
-> + * pin-and-read below deliberately walks that bpffs dump path, so it doubles
-> + * as a reproducer: it oopses an unfixed kernel (and panics it under
-> + * panic_on_oops).
-> + */
-> +static void check_keyless(int map_type, __u32 map_flags, int btf_fd, int val_id)
-> +{
-> +	LIBBPF_OPTS(bpf_map_create_opts, opts);
-> +	const char *path = "/sys/fs/bpf/keyless_map";
-> +	__u32 key = 1, val = 0x41424344;
-> +	char buf[256];
-> +	int map_fd;
-> +	FILE *f;
-> +
-> +	opts.map_flags = map_flags;
-> +	opts.btf_fd = btf_fd;
-> +	opts.btf_value_type_id = val_id;
-> +
-> +	/*
-> +	 * Positive control: the same map with a real key type must be accepted,
-> +	 * so the -EINVAL below is about the key-less BTF and not some unrelated
-> +	 * rejection (e.g. an unknown map type).
-> +	 */
-> +	opts.btf_key_type_id = val_id;
-> +	map_fd = bpf_map_create(map_type, "keyed_map", 4, 4, 8, &opts);
-> +	if (!ASSERT_GE(map_fd, 0, "keyed create is accepted"))
-> +		return;
-> +	close(map_fd);
-> +
-> +	/* A key-less BTF must be rejected. */
-> +	opts.btf_key_type_id = 0;
-> +	map_fd = bpf_map_create(map_type, "keyless_map", 4, 4, 8, &opts);
-> +
-> +	if (map_fd >= 0) {
-> +		/* Unfixed kernel: reproduce the oops via the bpffs dump path. */
-> +		(void)bpf_map_update_elem(map_fd, &key, &val, 0);
-> +		if (bpf_obj_pin(map_fd, path) == 0) {
-> +			f = fopen(path, "r");
-> +			if (f) {
-> +				while (fgets(buf, sizeof(buf), f))
-> +					;
-> +				fclose(f);
-> +			}
-> +			unlink(path);
-> +		}
-> +		close(map_fd);
-> +	}
+This series removes any instances of kernel.h in the temperature/
+subdirectory and cleans up the headers in order to improve readability
+and enforce IYWU instead of relying on transitive dependencies during
+the build process.
 
-The whole `if (map_fd >= 0) { ... }` block can be dropped.
+I had Gemini generate a summary (a bit more verbose) of changed headers
+under the --- in each IWYU patch to improve the review process.
 
-If the map has been accepted (0 instead of -EINVAL), it already catches the bug.
-It's unnecessary to reproduce the NULL ptr splat.
+This is part of an ongoing effort to remove kernel.h entirely from IIO.
 
-pw-bot: cr
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
+Changes in v2:
+- Add missing headers pointed out by Sashiko.
+- Swap <asm/div64.h> for <linux/math64.h> (Jonathan, Andy).
+- Squash small reordering patches with iwyu changes.
+- Link to v1: https://lore.kernel.org/r/20260822-kernel-header-removal-v1-0-ee31b124be11@gmail.com
 
-Also, I think it would be useful to refactor and extend existing
-selftests that were added for the features (for example an old
-prog_tests/snprintf_btf.c), instead of adding a new test program for
-every regression case. Not a blocker, but an effort in that direction
-would be much appreciated.
+---
+Joshua Crofts (11):
+      iio: temperature: iqs620at-temp: make headers conform to IWYU
+      iio: temperature: ltc2983: reorder headers
+      iio: temperature: ltc2983: make headers conform to IWYU
+      iio: temperature: mlx90632: make headers conform to IWYU
+      iio: temperature: mlx90635: make headers conform to IWYU
+      iio: temperature: tmp117: sort headers alphabetically
+      iio: temperature: tmp117: make headers conform to IWYU
+      iio: temperature: tsys01: reorder headers
+      iio: temperature: tsys01: make headers conform to IWYU
+      iio: temperature: tsys02d: reorder headers
+      iio: temperature: tsys02d: make headers conform to IWYU
 
-Thanks!
+ drivers/iio/temperature/iqs620at-temp.c |  9 +++++++--
+ drivers/iio/temperature/ltc2983.c       | 19 +++++++++++++++----
+ drivers/iio/temperature/mlx90632.c      | 10 +++++++---
+ drivers/iio/temperature/mlx90635.c      | 11 +++++++----
+ drivers/iio/temperature/tmp117.c        |  9 +++++----
+ drivers/iio/temperature/tsys01.c        | 17 +++++++++++------
+ drivers/iio/temperature/tsys02d.c       | 12 +++++++++---
+ 7 files changed, 61 insertions(+), 26 deletions(-)
+---
+base-commit: 350d1fb9204b13c5f95e511e98b8bcb47574d425
+change-id: 20260821-kernel-header-removal-d95efd197d78
 
-> +
-> +	ASSERT_EQ(map_fd, -EINVAL, "key-less create is rejected");
-> +}
-> +
-> [...]
+Best regards,
+-- 
+Kind regards,
+Joshua Crofts
+
