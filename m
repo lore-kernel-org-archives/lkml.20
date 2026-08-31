@@ -1,464 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010055.outbound.protection.outlook.com [52.101.85.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB683521210;
-	Mon, 31 Aug 2026 13:44:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183855; cv=none; b=BnigulsA3j5w+GoJ0Mjd6wb5EgnLJxrdk3NABh1WOh8n0Bym6vfwG5wIRZsDT6XodTEUCVYNc+4hNe2JeHa5HHYL2P+rXxTHloWo1nDeVDwx64EPBhNf8dVP75xl3UiAcRb9EDPhSBhpVwR2Edghg3okI9gp+WiErIXgvviXJc8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75122522ECD
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183855; cv=fail; b=R/2cNH4xHwr44o2lefNtNvFmcEycfmf2Gb+rUzabWcgtTZjbWOCxnC12m+X767iMJgqBLo3sK7QPqXWPAL3Y78lMEOfG7gkSKrdQIrNOoBmas0eWUgrhMD1D0xtHXQdnVw+lguXCUEV/lXlI0woidcaji4Z5KmtkiDNyJ9K99uY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788183855; c=relaxed/simple;
-	bh=9UVlpdY2+yBE/50frAkHYJdIgkUz+ShHyHuMH0CWi2c=;
+	bh=Oq6xmh92QkGHnPwUu8gz/zwNU2NmL5VwxwNjEw5f8uE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AwcoBdIlBgs45z4tI6v9isFOcpUEC+x+2UFpvoztvVaWCiOV0gALF/majqvDZOXGhAgnuMxjHT55XJIeJJgnjhm7gUmLstWTa+HdFRwLLoI9bcU2TvgE4Q9RqLO/8Kz57mcptqDueps3YvovpDv4Zf3qPsfZvue3zxOm1GVn5lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLk/2A6B; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=cOEPbj+1VLJ8pRYx/Nf8+E2CRkYJEE7/DN83AjGuJZoYE3K4hZVwa+C1x7gxshOLLv9lBVQqQD1SZS6ALNSPeH55oc4CpRp9DC8qeOgs4d9B6vUT4E0XfL2WLITYDFLqRDPc0kzKKRB4VJ5o0waOdF8mZUIfzHxRwdNBz6Qiw4c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=TJghdJ2b; arc=fail smtp.client-ip=52.101.85.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLk/2A6B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 077E01F00A3E;
-	Mon, 31 Aug 2026 13:44:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183851;
-	bh=QXRzar77aJt/WkXV87uNtCkSjKWYNfrHbwi6KZO9GUw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oLk/2A6Bp/XVkKA1mZ5RzaHay0XmceXligCyTi//WFaY5hxDudLnAjanAMKgg7osU
-	 PTSiR80y/52SHOKoBhAAtHGiQ5TPHBsVgd/+Llz8UkdYGo+efIxE2A4WhuKkDGKaO1
-	 K1BhliPYpkFaffXZ3Ohh5Gp3/A4tZ41Xx4rbENXJK5QvX/IAtbXUu9giJtNWUD2NsH
-	 q3LdDyQodkTy9PFmU5zO99wFacjpWSKJ04vAG8FVfMOLGnX5Lpkd9vkXz248Y46Zdf
-	 66nujuGFTyxQcGyLIj/DLY32UbG7l9XpU5Epx811n77OcL7kk9ru3K5NZWEb1/yMQQ
-	 EM6Gw1aIT+pkg==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Jetha Chan <jethachan@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Vijendar.Mukunda@amd.com,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="TJghdJ2b"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IIrdUN6iRtDt0ns0SShE+o3RS7kRnFhxbuLEouFJUqpd7Yv9I2rhV+f3wEgW9A9XJ9y/y/dt5dhelsgxUMP432rkp+GcamrK/2R0iecPe54RPG9MQ/qcOVVdEr50JGJAqvS0wxjWu+Xwkznlq+PHt9D1aNGS8kEcpMtF3QdTOHyfrK1SVJT5G9YwjEOi5YdJK0R25Tc9TA4wQO/QHQdSP9vkg4iOOwskwJs8vggibXs6ihP1P2ajSdGwJl760keYgKqPxbbv45YSEcrXcZ/KwDpU7KXO7up44CHA4+VMzUp1e5Cvhd7oyaOL4DyjxobX/ORJIK5PH4gqDcgMx509rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iiZoPV1Nm5qgTSiR8OpUKaRmqyZma22TeG1uvkt9iRo=;
+ b=jQn2VeI0/Oj1NTaUxBp9yAmIOKrlm54eJxASiaInVW1QGARrEaMleqSN3nXA5APt4jDXn3o0KjLbO+brt63pWeUtMgclJxSBeaDxCfwuhe7E+Es4o1bZLqyTHF3NHgmNxZkalZtuhtzb5hRAq8tX5AxCyMkguxOgK5KpBhIYrKKvGjjGovtcbLii6ZT/sEIe7m3IwWaMrgVS0b15mctK7ldE6GJIoI6wQtZzpFkukCHhZ+1xNKE9y46/SQHedQ146Sa+u6NqE0RAzFEZO/HPiaIuJXoWVx9BzpOwlOs/WiItpMJdznPu4ROdMCfdMZ6YIJpGQ2yu5BKrx75Bkb8wSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iiZoPV1Nm5qgTSiR8OpUKaRmqyZma22TeG1uvkt9iRo=;
+ b=TJghdJ2bg96EIEipTg8IkLTXqmbvrg4c5bA9lBGEhDP1Y8SAODQGnpCmnHHKhKtiIoGXmcWDcbsFcJJNwvsr3Peud77kn8KuZURkF6WmtL+XxddseEcpKyFxZRFEYQkTaIT+GxlEUBDyvVzEAnGDaWEGBzwfVvlo2fJeMFoANEl6+iJDTQTuIc7o23rsg4oLJtutG4GnRpEfMahHAPmYnTw0iMpYv4v7rySjcjDoNQfy/UFYnLl+Bo/tx+/6VxrDoSnv+shzGg3NzjAeqUWUBCS6U4oJ9RXLR8BfyqrSV0Pjx/t2DvejsxoyXl+fVdutgCpVX9toHezJiTSaGpjLGw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 13:44:06 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 13:44:06 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>,
+	Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>,
+	Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>,
+	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] ASoC: amd: yc: Add Alienware m15 R7 AMD to DMIC quirk table
-Date: Mon, 31 Aug 2026 09:26:10 -0400
-Message-ID: <20260831133314.4125787-342-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Subject: [PATCH 02/18] sched/core: Dequeue waking proxy donors before reset
+Date: Mon, 31 Aug 2026 15:42:12 +0200
+Message-ID: <20260831134338.1531664-3-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI3PEPF00007548.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::4d4) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|CH2PR12MB4198:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5be621d7-7b46-4b9f-0e54-08df0765ed25
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|6133799003|10067099003|56012099006|18002099003|22082099003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	I2jnrqF84nexyABI3AiTbSxm8dPZ1HxEFdX+1/2+3AE4XO+QF8wGRw0w46x2AkAWluu0rA0CaXEalWzFVdZevbWHyo69QxNHSSnle0+LUiqBEsZfRjLWamAzCZI63/6KM4NAmfjPc/y5H+t9jg6efmJEcR6kQHumltXKQOH4Nk3arS/6zzjUrtYsxYByrJxhDanE6QoxvxVCIv5brwj0P1fymtzMhljyfeB4bAJdKwxc0mPshdlaroRYQqysQNAYE+edjV7lDwCiYzv0Al8dtEJM2S2/1HGxC866FlnbXU5F0tWJEPvqsjQSl1FplS84iB/3zg3EkyAvjHV/ByaP7Q00yfgiflfCPxCCWwZZzEqgqy6KxpatJhh1ls8JrzjjJYdHLysYaZ2EODhMgt30Yhg/Mo14mUDInBtGr7KJ/Go1Z/FLZhbGSePk5FdWmi5STBT0YVXmhdRen0mfcxlEKA2ibSvdlt9XNSKJd2c1/HQg1n2EYCCeGQeMOgYfW/CdzO72F4cae/qe3H7Rwi6If0QD4LnfNbGc+odbBw0p9+gkRcliAvR8eakwGYceiCW01xvEw5q5MawHzZogqqXc1+RozxoF/35nW1uPqzMWWnDN0nRAkHf46aLCs6GYXuZZbkE5NcTtNoYDq8rR52eEc84Gm1Fo0TFXtUKGCu9kq0Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(6133799003)(10067099003)(56012099006)(18002099003)(22082099003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?0tg9ZYhwPvUus7cSmCSAy0REfJlEU46dMc3C6d+WalOtmdifXZYgrAhU7flt?=
+ =?us-ascii?Q?23zu8nm7bI8x1JxV0JyE1wN8aLJ8cSw+uRcvILK2/NI96h3DSMmzuvK7cIBA?=
+ =?us-ascii?Q?IAcnrJOxMFmHQv8k1DV/a/wipsV5nmREaV+xnAW+wPaF8iE2V8XdF+FtLrEc?=
+ =?us-ascii?Q?DSzc4GXdXcdrLmDqpY6yz81kbCbAWq4qC7nmwnOfwuAkfQjDqoTsCzXv4ma/?=
+ =?us-ascii?Q?fdpHwJLOLEA0qOty5mBZfI4zusK0m+4tHwwcGmoOpcudEvCmgHlYGUVTLFzs?=
+ =?us-ascii?Q?3RM6AOycx0SlbOJfDi//LOEKHHF2w8p/8VipkjfV5AqEGk5n6HvuJxv5+cSO?=
+ =?us-ascii?Q?DkixUVofG4L6jLrddtQNSiT8wnfngsBVifCFIICVy6ExEMr3AhKweOi3Oszu?=
+ =?us-ascii?Q?M0HhnvTVqNOU4H2lCeCAb0LJNB9RrR4/HfRKDMJWSsdiY91tBCwoIUOy1cgh?=
+ =?us-ascii?Q?M6tRKdzNC17xM80WxTRKVz+8lnEf4wA7dsjR/chTbzkV2tXjkOGeslUaTtJW?=
+ =?us-ascii?Q?MGvMF5yISLOOzU1MO/p8pBKR6xyJ3SWOKpSSiwAS2cALzx7w+BzL0oe/HHn8?=
+ =?us-ascii?Q?uMLlHA7sQ6jatTGxra4Qr4x+2TSTPJ63UCW8twj1IoQOvqbkynK7fBbxj9GT?=
+ =?us-ascii?Q?GRaqwKnccRTc8RXg2HGmlSXMxO9Ph/HoFWzs9QPDBvY5AsK0gyUAnNE4uwWa?=
+ =?us-ascii?Q?Ovy/XdkC0UGZ17vLz4J33Nwa1yjD2VjLB9TV1XMFbErdmRyfmAWGXfhcPAR4?=
+ =?us-ascii?Q?EF5Fh9BHNMjcQzxuHz3pyRn8auzJfqpiaeJMdb3XQDUfJli3oeS6Yo6rvB4z?=
+ =?us-ascii?Q?XxgUV0VrNVSa4g65Q2rBNruhyaeRYBEiWJph5jLgtMRnyWCvK93f6umiUm+2?=
+ =?us-ascii?Q?GemqMzaEOVQusdHMGMd5uragN3AU06QRZoOqaNLA6a6FA/EJaEkEkqO1lzdI?=
+ =?us-ascii?Q?UONzxomBuGkgs6UgMnMwiONsf0Du/LyexNd3NTA6V2fWBLrmXCNrQorDa+Vc?=
+ =?us-ascii?Q?ykv12j/YKrzmILbjMVqdCHh4kZgqHOabKZ5cx+l6muEtSzPuHrkNB2BZbVIy?=
+ =?us-ascii?Q?l8z3MqnoBDj63HciSwC6Ht11GfkPINb2p1/SxSSDVB6Tp9O48f4kk2melO+v?=
+ =?us-ascii?Q?OIqZyv66PA6Y610AalaxTUz/GlfgMLuAvE1IgLb2J5qukzNfZoOrEY2AeG3q?=
+ =?us-ascii?Q?fUq2O6rHF0PhOgZ8jc6g9qXmVxT0fxGTt/Cx2LCh/b/kmiBgCxDz5GgKuH1o?=
+ =?us-ascii?Q?EXPs+1V1P3CvqAcc1pxVHlqACJ9aduWh+rQM5k/xot8/AxNJjm2AlgYb8oxe?=
+ =?us-ascii?Q?zOFM9xvhFv495BHiHHQKC32wO9SJX+oetboKSDy7hc2noAwkeoeu5LurIhKi?=
+ =?us-ascii?Q?CoWwkvsa6AinFrMQxx9+7JdzAGC07JdQeSnS5RkOhmm0zzPx1rhF1f1PG8or?=
+ =?us-ascii?Q?Qzei/diB3411aPHUTOVLN7bL8hKYLmbI6Iqte2DWVRu0gmr6blr++JqDTVFv?=
+ =?us-ascii?Q?xlAGy5POmad2xd9W5fAzLZlo1q21RI+Ag98IuFZypbOHZEXgcXSuubbficIO?=
+ =?us-ascii?Q?ZxKCmnrHXO427pDcNtEUfC8RXlkqvKet+xA5S1oxLPldd2/HVbiOIBxjQv/G?=
+ =?us-ascii?Q?twII1umxe7Dwr4FGYytv+8fQcLsoeUJfLXNeVa3l3DxOzpQzOIMp58X/BM3C?=
+ =?us-ascii?Q?dxUlre9DOekxTpodmzT/Bd+WhkGxZCPERaOOejvhp0j/2txpXXWDv6w2LMrU?=
+ =?us-ascii?Q?2V84U4Q6bw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5be621d7-7b46-4b9f-0e54-08df0765ed25
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:44:06.3500
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PSZDfAA9iEAAzPe+gWHjqRzsT97R38Y0HvuIRNYVWbQR2v9lq55daLZa8ypQeZ+zas0Qc2VfhKF112e6g9Q/8g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4198
 
-From: Jetha Chan <jethachan@gmail.com>
+proxy_needs_return() resets an active donor while holding blocked_lock.
+proxy_reset_donor() invokes scheduling-class callbacks, adding an
+unnecessary raw-spinlock nesting. It also presents the waking donor to
+put_prev_task() as still runnable immediately before block_task()
+removes it from the runqueue.
 
-[ Upstream commit e782d687d2f5bf8b8113dc48ba22cca4b472c252 ]
+Split block_task() so the waking donor can first be dequeued from its
+scheduling class. Release blocked_lock, dequeue the donor while its
+generic on_rq state still prevents migration, replace all donor
+references, and only then complete the generic runqueue removal. This
+follows the normal sleep ordering and avoids transiently re-enqueuing
+the waking donor.
 
-The Alienware m15 R7 AMD exposes an ACP6x DMIC path, but its DMI
-product name is not present in the Yellow Carp ACP quirk table. As a
-result, the ACP machine driver does not enable the DMIC card on this
-system.
+This is a preparatory change to support proxy execution with sched_ext.
 
-Add the DMI product name for this machine. With this quirk applied, the
-kernel reports:
-
-  acp_yc_mach acp_yc_mach.0: Enabling ACP DMIC support via DMI
-
-and ALSA exposes the ACP DMIC capture device:
-
-  card 3: acp6x
-  device 0: DMIC capture dmic-hifi-0
-
-Tested on an Alienware m15 R7 AMD with product SKU 0B59.
-
-Link: https://jethachan.net/dev/2026/03/21/fixing-internal-microphone-alienware-linux.html
-Assisted-by: OpenAI-Codex:gpt-5.5
-Signed-off-by: Jetha Chan <jethachan@gmail.com>
-Link: https://patch.msgid.link/20260630003328.15675-1-jethachan@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Andrea Righi <arighi@nvidia.com>
 ---
-
-LLM Generated explanations, may be completely bogus:
-
-# Stable Backport Analysis: ASoC: amd: yc: Add Alienware m15 R7 AMD to
-DMIC quirk table
-
-**Local tree:** `v6.18.44-1-g2736c32da98b9` (Makefile: 6.18.44), checked
-out from `stable/linux-6.18.y`.
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject line
-**Record:** `[ASoC: amd: yc] [add] Add Alienware m15 R7 AMD to DMIC
-quirk table`
-
-### Step 1.2: Tags
-**Record:**
-- **Link:** https://jethachan.net/dev/2026/03/21/fixing-internal-
-  microphone-alienware-linux.html (author blog with reproduction
-  details)
-- **Link:**
-  https://patch.msgid.link/20260630003328.15675-1-jethachan@gmail.com
-  (mailing list submission)
-- **Assisted-by:** OpenAI-Codex:gpt-5.5
-- **Signed-off-by:** Jetha Chan \<jethachan@gmail.com\>
-- **Signed-off-by:** Mark Brown \<broonie@kernel.org\> (ASoC maintainer)
-- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
-  stable tags
-- Notable: maintainer Signed-off-by; hardware-tested per commit body
-
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** Alienware m15 R7 AMD has ACP6x DMIC hardware, but DMI product
-  name is missing from `yc_acp_quirk_table`, so the ACP machine driver
-  does not enable DMIC.
-- **Symptom:** `acp_yc_mach.0` stays unbound; no ACP DMIC ALSA capture
-  device; internal microphone unusable.
-- **Root cause:** BIOS does not expose working `AcpDmicConnected` ACPI
-  property (same pattern as m17 R5 AMD quirk from 2022).
-- **Fix approach:** Add DMI vendor/product match entry pointing at
-  `acp6x_card`.
-- **Version info:** Tested on SKU 0B59; author used kernel 6.19.8 on
-  Arch-based distro.
-
-### Step 1.4: Hidden bug fix?
-**Record:** Not disguised — this is an explicit hardware-enablement
-quirk fix. Without the entry, probe returns `-ENODEV` and DMIC never
-registers.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Inventory
-**Record:**
-- **Files:** `sound/soc/amd/yc/acp6x-mach.c` (+7 lines, 0 removed)
-- **Functions modified:** none directly; `yc_acp_quirk_table[]` data
-  extended
-- **Scope:** Single-file, surgical DMI table addition
-
-### Step 2.2: Code flow change
-**Record:**
-- **Before:** `dmi_first_match(yc_acp_quirk_table)` on Alienware m15 R7
-  AMD returns NULL → `platform_get_drvdata()` NULL → probe fails with
-  `-ENODEV`.
-- **After:** DMI match succeeds → `platform_set_drvdata(pdev,
-  &acp6x_card)` → DMIC card registers, log shows `"Enabling ACP DMIC
-  support via DMI"`.
-- **Path affected:** Platform driver probe during boot on matching
-  hardware only.
-
-### Step 2.3: Bug mechanism
-**Record:** **[Hardware workaround / DMI quirk]** — Missing DMI override
-for a platform whose ACPI tables omit `AcpDmicConnected`. Same mechanism
-as existing Alienware m17 R5 AMD entry (`d40b6529c6269`).
-
-### Step 2.4: Fix quality
-**Record:**
-- Obviously correct: identical structure to 70+ existing entries in the
-  same table.
-- Minimal, no logic changes.
-- **Regression risk:** Very low — only matches exact DMI vendor
-  `"Alienware"` + product `"Alienware m15 R7 AMD"`.
-- **Backport note:** Mainline diff context includes MSI Vector/Raider
-  entries not present in 6.18.44; insertion should go immediately before
-  the existing m17 entry at lines 503–509. Trivial adjustment, same
-  7-line hunk content.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame
-**Record:**
-- Alienware m17 R5 AMD quirk introduced by `d40b6529c6269` (Brent
-  Mendelsohn, 2022-10-24).
-- YC machine driver introduced by `fa991481b8b22` (2021-10-18).
-- Both are ancestors of HEAD in this tree.
-- **m15 R7 AMD entry:** NOT present (`git log -S "Alienware m15 R7 AMD"
-  -- sound/soc/amd/yc/acp6x-mach.c` returns empty).
-
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag. Bug is omission from quirk table, not a
-regression from a specific commit.
-
-### Step 3.3: Related file history
-**Record:** 73 quirk-related commits in `sound/soc/amd/yc/`. Recent
-stable examples: HP OMEN (`65aabf8896687`), MSI Bravo 17 D7VF
-(`ba06528ad5a31`), ASUS ExpertBook entries. **20** DMI quirk commits
-already in `stable/linux-6.18.y` for this subsystem. Standalone one-
-patch fix.
-
-### Step 3.4: Author context
-**Record:** Jetha Chan is not a regular ASoC contributor (only unrelated
-Alienware platform/x86 commit `246f9bb62016c` in tree). Patch merged by
-Mark Brown. Precedent: community hardware reports routinely land as DMI
-quirks in this file.
-
-### Step 3.5: Dependencies
-**Record:** No dependencies. Requires only `SND_SOC_AMD_YC_MACH` driver
-and `yc_acp_quirk_table` — both present since kernel ~5.15+. Applies
-standalone.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original discussion
-**Record:**
-- `b4 dig` with message-id failed (commit not in local repo; lore
-  blocked by Anubis bot protection).
-- Author blog post fetched successfully — detailed reproduction
-  confirming DMI mismatch and successful module-level test.
-
-### Step 4.2: Reviewers
-**Record:** Mark Brown Signed-off-by confirms maintainer acceptance.
-Could not verify CC list via b4 dig -w (tool failure / commit not
-indexed locally).
-
-### Step 4.3: Bug report
-**Record:** Blog documents: `acp_yc_mach.0` unbound, only HDA cards
-visible, DMI product `"Alienware m15 R7 AMD"` vs table having only m17.
-Severity from user perspective: **complete internal mic failure**. m17
-R5 had bugzilla.kernel.org #216590 for same class of issue.
-
-### Step 4.4: Related patches
-**Record:** Standalone. Related sibling: `d40b6529c6269` (m17 R5 AMD,
-same table, same symptom class).
-
-### Step 4.5: Stable list history
-**Record:** Could not search lore stable archive (bot protection).
-However, 20 prior DMI quirk commits for this exact driver are already in
-`stable/linux-6.18.y`, establishing clear precedent.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: Key functions
-**Record:** `acp6x_probe()` uses `yc_acp_quirk_table[]`; table data
-extended only.
-
-### Step 5.2: Callers
-**Record:** `acp6x_probe` registered as `.probe` in `acp6x_mach_driver`,
-invoked via `module_platform_driver()` at boot when
-`CONFIG_SND_SOC_AMD_YC_MACH` is enabled and ACPI platform device exists.
-
-### Step 5.3: Callees
-**Record:** `dmi_first_match()`, `platform_set_drvdata()`,
-`devm_snd_soc_register_card()`.
-
-### Step 5.4: Reachability
-**Record:** Triggered on every boot for Alienware m15 R7 AMD with YC ACP
-hardware and module built-in or loaded. Not userspace-triggerable, but
-affects all owners of this laptop model at boot.
-
-### Step 5.5: Similar patterns
-**Record:** Entire `yc_acp_quirk_table[]` is a catalog of identical per-
-laptop DMI overrides for broken/missing ACPI DMIC detection. Alienware
-m17 R5 AMD entry at lines 503–509 is the direct sibling.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
-
-### Step 6.1: Buggy code exists?
-**Record:** **YES.** File `sound/soc/amd/yc/acp6x-mach.c` exists. Quirk
-table and probe logic present. m17 R5 AMD quirk present; **m15 R7 AMD
-missing** — bug is live in 6.18.44.
-
-### Step 6.2: Backport complications
-**Record:** **Minor context adjustment.** Mainline patch context
-references MSI Vector/Raider entries absent from 6.18.44; insert before
-existing Alienware m17 block. No structural conflicts.
-
-### Step 6.3: Related fixes already present?
-**Record:** m17 R5 AMD quirk (`d40b6529c6269`) present. No m15 fix. No
-duplicate.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: Subsystem criticality
-**Record:** **sound/ASoC AMD YC driver** — IMPORTANT for affected laptop
-users; PERIPHERAL in global kernel terms (config-dependent, specific
-hardware).
-
-### Step 7.2: Subsystem activity
-**Record:** Highly active — continuous DMI quirk additions through
-2025–2026, many backported to 6.18.y stable.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who is affected
-**Record:** Owners of Alienware m15 R7 AMD laptops running kernels with
-`SND_SOC_AMD_YC_MACH` enabled (common on AMD Rembrandt/Yellow Carp
-laptops).
-
-### Step 8.2: Trigger conditions
-**Record:** Every boot on matching DMI identity. Deterministic, not a
-race. Unprivileged users cannot trigger the fix path, but all users on
-this hardware are affected by the bug.
-
-### Step 8.3: Failure mode severity
-**Record:** Internal DMIC completely non-functional (driver probe
-fails). **Severity: MEDIUM** — not crash/corruption/security, but core
-laptop functionality broken. Falls under stable **hardware quirk
-exception**.
-
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** HIGH for affected users (working internal microphone).
-- **Risk:** VERY LOW (7-line DMI string, exact hardware match only).
-- **Ratio:** Strongly favorable; matches established stable practice for
-  this file.
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence summary
-
-**FOR backport:**
-- Fixes real, reproducible hardware bug (dead internal mic)
-- Hardware quirk / DMI workaround — explicit stable exception category
-- 7-line, single-file, obviously correct
-- Tested on real hardware; ASoC maintainer Signed-off-by
-- Identical pattern to m17 R5 quirk already in tree since 2022
-- 20 similar quirk commits already in 6.18.y stable for this driver
-- Driver and quirk infrastructure fully present in this tree
-- No new APIs, no behavior change for non-matching systems
-
-**AGAINST backport:**
-- Not a crash, security, or data-corruption issue (strict "important
-  issue" reading)
-- Lore review thread not accessible for verification
-- Minor patch context adjustment needed vs mainline
-
-**Unresolved:**
-- Full mailing list review thread (Anubis blocked lore.kernel.org)
-- b4 dig could not resolve commit hash (not in local tree)
-
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — same pattern as dozens of
-   accepted quirks; author tested on hardware
-2. Fixes real bug affecting users? **PASS** — internal microphone
-   completely broken
-3. Important issue? **PASS** (hardware quirk exception) — functional
-   hardware failure on a commercial laptop
-4. Small and contained? **PASS** — 7 lines, 1 file
-5. No new features or APIs? **PASS** — DMI table entry only
-6. Can apply to local tree? **PASS** — trivial insertion before existing
-   Alienware m17 entry
-
-### Step 9.3: Exception category
-**Record:** **Hardware quirk/workaround** — DMI-based enablement for
-laptop with broken ACPI DMIC detection.
-
-### Step 9.4: Problem and decision rationale
-
-This commit solves a concrete hardware support gap: the Alienware m15 R7
-AMD has an ACP6x DMIC path, but without a DMI quirk the `acp_yc_mach`
-platform driver refuses to bind because ACPI does not report
-`AcpDmicConnected`. The result is no internal microphone on Linux — a
-user-visible regression-class hardware issue, not a cosmetic fix.
-
-For the 6.18.y stable tree specifically, all infrastructure exists (YC
-driver since 2021, m17 sibling quirk since 2022, continuous stable
-backport of identical quirk patches). The fix is minimal, maintainer-
-reviewed, and carries negligible regression risk while restoring
-essential laptop functionality for a defined hardware population.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-- **[Phase 1]** Fetched author blog: confirmed DMI mismatch, unbound
-  `acp_yc_mach`, successful DMIC after quirk
-- **[Phase 2]** Diff: +7 lines to `yc_acp_quirk_table[]` in
-  `acp6x-mach.c`
-- **[Phase 2]** Read `acp6x_probe()` lines 758–816: confirmed DMI match
-  enables `acp6x_card`, no match → `-ENODEV`
-- **[Phase 3]** `git describe HEAD`: v6.18.44-1-g2736c32da98b9
-- **[Phase 3]** `git log -S "Alienware m15 R7 AMD"`: empty — commit not
-  in tree
-- **[Phase 3]** `git blame` lines 503–509: m17 quirk from
-  `d40b6529c6269` (2022-10-24)
-- **[Phase 3]** `git merge-base --is-ancestor d40b6529c6269 HEAD`: m17
-  quirk is ancestor
-- **[Phase 3]** `git merge-base --is-ancestor fa991481b8b22 HEAD`: YC
-  driver is ancestor
-- **[Phase 3]** `git log --oneline -20 --
-  sound/soc/amd/yc/acp6x-mach.c`: many recent quirk commits
-- **[Phase 3]** `git show d40b6529c6269`: m17 quirk, same bug class,
-  bugzilla #216590
-- **[Phase 4]** `b4 dig` for new patch message-id: failed (exit 2)
-- **[Phase 4]** lore.kernel.org fetch: blocked by Anubis bot protection
-- **[Phase 4]** Blog fetch: success — full reproduction details
-- **[Phase 5]** `grep acp6x_probe/dmi_first_match`: probe at line 758,
-  DMI check at 798
-- **[Phase 6]** `grep "Alienware" acp6x-mach.c`: only m17 R5 present,
-  m15 R7 absent
-- **[Phase 6]** Confirmed Vector A16/Raider A18 from mainline diff
-  context not in 6.18.44 tree
-- **[Phase 6]** `git log stable/linux-6.18.y --grep="DMI quirk" --
-  sound/soc/amd/yc/ | wc -l`: 20 quirk commits in stable
-- **[Phase 7]** Read `sound/soc/amd/Kconfig` lines 107–116:
-  `SND_SOC_AMD_YC_MACH` config exists
-- **[Phase 8]** Failure mode verified via probe code: no DMI match →
-  `-ENODEV` → no DMIC card
-
-**YES**The background searches finished and match what the analysis
-already used:
-
-- **Author/subject search:** No ASoC quirk commit for "Alienware m15 R7
-  AMD" in this tree. The only m15 R7 hits are unrelated `platform/x86`
-  Alienware WMI work.
-- **Stable quirk count:** **20** DMI quirk commits for
-  `sound/soc/amd/yc/` are already in `stable/linux-6.18.y`, including
-  the sibling `d40b6529c6269` (Alienware m17 R5 AMD) entry.
-
-That supports the **YES** backport verdict for 6.18.y: same quirk
-pattern, driver and table already present, only the m15 R7 DMI entry is
-missing.The target-commit search finished: **"Alienware m15 R7 AMD" is
-not in `sound/soc/amd/yc/acp6x-mach.c` in this tree.** The only m15 R7
-matches are unrelated `platform/x86` Alienware WMI commits, which
-confirms the ASoC DMIC quirk patch still needs to be backported.
-
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index d9f145b634f35..d657287ccf43e 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -500,6 +500,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "Bravo 17 D7VF"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Alienware"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Alienware m15 R7 AMD"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
+ kernel/sched/core.c | 30 +++++++++++++++++++++++-------
+ 1 file changed, 23 insertions(+), 7 deletions(-)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 5817d1a4cea2c..237d216382f46 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -2252,7 +2252,8 @@ void deactivate_task(struct rq *rq, struct task_struct *p, int flags)
+ 	dequeue_task(rq, p, flags);
+ }
+ 
+-static void block_task(struct rq *rq, struct task_struct *p, unsigned long task_state)
++static bool dequeue_block_task(struct rq *rq, struct task_struct *p,
++			       unsigned long task_state)
+ {
+ 	int flags = DEQUEUE_NOCLOCK;
+ 
+@@ -2273,9 +2274,15 @@ static void block_task(struct rq *rq, struct task_struct *p, unsigned long task_
+ 	 *
+ 	 * Where __schedule() and ttwu() have matching control dependencies.
+ 	 *
+-	 * After this, schedule() must not care about p->state any more.
++	 * Once the caller invokes __block_task(), schedule() must not care about
++	 * p->state any more.
+ 	 */
+-	if (dequeue_task(rq, p, DEQUEUE_SLEEP | flags))
++	return dequeue_task(rq, p, DEQUEUE_SLEEP | flags);
++}
++
++static void block_task(struct rq *rq, struct task_struct *p, unsigned long task_state)
++{
++	if (dequeue_block_task(rq, p, task_state))
+ 		__block_task(rq, p);
+ }
+ 
+@@ -3774,6 +3781,9 @@ static inline void proxy_reset_donor(struct rq *rq)
+  */
+ static inline bool proxy_needs_return(struct rq *rq, struct task_struct *p)
+ {
++	bool reset_donor = false;
++	bool dequeued;
++
+ 	/*
+ 	 * Typically per __set_task_cpu(), task_cpu(p) == p->wake_cpu.
+ 	 *
+@@ -3797,11 +3807,17 @@ static inline bool proxy_needs_return(struct rq *rq, struct task_struct *p)
+ 		if (task_current(rq, p))
+ 			return false;
+ 
+-		/* If we're return migrating the rq->donor, switch it out for idle */
+-		if (task_current_donor(rq, p))
+-			proxy_reset_donor(rq);
++		reset_donor = task_current_donor(rq, p);
+ 	}
+-	block_task(rq, p, TASK_WAKING);
++
++	dequeued = dequeue_block_task(rq, p, TASK_WAKING);
++
++	/* Keep on_rq set until all donor references have been replaced. */
++	if (reset_donor)
++		proxy_reset_donor(rq);
++
++	if (dequeued)
++		__block_task(rq, p);
+ 	return true;
+ }
+ #else /* !CONFIG_SCHED_PROXY_EXEC */
 -- 
-2.53.0
+2.55.0
 
