@@ -1,168 +1,114 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [46.38.247.119])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C733E2AA1
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:37:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611EE3E558A;
+	Mon, 31 Aug 2026 11:37:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.38.247.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788176254; cv=none; b=choNZEzgKAtW4SjJul2Dp8b1Xj8L2hyN2cHxVU0h41An4S2iPHAz/oVWRsqejAiKqMF++qhIZdbkhH0eUgST7Oe3JRFbIqfGWsPz+IYOohmed4JVdViaJWBTYOxuVm1XTdHSSbJUzwui5NFx+oGLSZ34xbDuwgqgy4xWmOffLFQ=
+	t=1788176273; cv=none; b=YnRkOZV5mZDfB5EoPQcaFeeU1UekUYuTGXzmVzSNTpfi16+fsZgY7422tkkUCwlPZiqE6K8mCE/B9eq+gMn4fERoMepgb8PBs8gf0FYKyKDXhhps2g9rwX7lhCVw724ZoMUlPNwa722+v0Uq+Brms1/CZcQ0ZfHXMe4a7UXHaiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788176254; c=relaxed/simple;
-	bh=I7TaQ0V7AXmZ1+0wiHwiAdHeD0et7WeNJ7OkyHsHQOY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z0bGiIS3yLd15JH1NQqmH3Ng5aTr7p21/zYgUlolwodxYmqla4Zrjwh5cJ56phX5xyyDKTabxeflKQvoH6F9X1vTfcFxpFRf26xodyrfieNJvGpBY+FM4i7zWJn3h86gd3xxCZzzXJU8x3AfnFTtg/TcFKpfBxx1kyz+koyQtEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E0+Yz/z/; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788176273; c=relaxed/simple;
+	bh=VD0d3ENv4SdHSRLR5Wrel9flUnCQBQhU5Db+lfkT4fE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g87zW+PsFIoc8OTgLt9O7gqMfJhq9NQ9guNKsmfEMh0FimuFvS1BCs8NYLx6f3rafZToko4xRLmMqzIVp194WhaLOTjwqfB72f1AElwaJaabtx9sNog38xOZo7guo6ua/siI5AoIdLG4IZQ86GmXKn7kyhSsRqlIE+yBNER/lms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=GV0C0x5+; arc=none smtp.client-ip=46.38.247.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E0+Yz/z/"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38e58034d05so2733406a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:37:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788176253; x=1788781053; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FAhbWor4DKGsX3doFWg/6nm52AV3PsoJHNom3kwfce8=;
-        b=E0+Yz/z//MYT8Mx6oiUTTAMTuv3JFAUHoID+/OvdZmZb4UviFv4BDV935cPCtH5kiy
-         6iPqZqj/qUB9nhc0ZL4EHalWLZ6L3uLnM/aaIzwH6lPuObdRKNmbyE0TuHYaEAfTvj1X
-         mnQyN2TgZdjYqwUbRRUE++uZSIG5psoxvY/CXS4+pQvlwLCKk+z14O1ahDc4B4PWO+4X
-         sitU3eVZef3RdDThvfPJio1gfSf3lTx7w02kdystsfSPLfpvSin4KSy4OJh4rLYKd0hG
-         hBZkicIr4gU8eVPliwyavt4fKaJwAO5iUbwHOR0x5XDk0kVnGTDluwlBB6j20cizA2VO
-         gzzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788176253; x=1788781053;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FAhbWor4DKGsX3doFWg/6nm52AV3PsoJHNom3kwfce8=;
-        b=ktMfGvRswGOCotyxXwUBDoTsI9yAGB0AXJrJRbXea6i0ToDVUx9WP5FEoU6UZYkaDH
-         /B1YwMG49QQ82tMn4QsMuSFpvFbCWw4NW35QOwnSmErPII1zTIbd33STLng1zcEK4Mi6
-         1S4bEx+P4ABEaxE/hJ1E6Fj5hkim53Ib93k6fBt4tHdVO4Be4xgPlX1vaFVs9ZgQZ1xr
-         LdgNoD3N7a81x4RZ155SdP3hsUIxwl8IvmWonJw10QP34WmI/t19sGQbOSS7QW0CT5vo
-         UBQ2LR8DhrS1VNTQWrvTy90kueZJxHUjpxrrLBxTknmiqRarMp5NWCaHDSOuDlQzzCPd
-         4/bQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw+MiWBIteH3ZRS8nBoJnfCtBflq00IkZqJqeRbAcFtuleTn6lHlEBouwLMOHnxEzmt+VWSrpP3r9Ois8g=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6oysi6e0tdj8Httfhz4QG9NUpGzJcruP0sAzGYfTJGwbpRpNv
-	vPlJ6HiCbeQ/65AEDXi3KbDYmyAwqaskgSBD2nkXCTEjh6aROujwUkON
-X-Gm-Gg: AYBFou01XOUExzbteyQrK+Y0pTFl864EainyGSjUho+mG/k5MNIeSR++HbJiJn2d0lo
-	gEw68dhM5WsLcsAy5tABXZaXGvzxyyzfd0EHT3ajgAh+zvpAOEObQpk8RTWSTZMvCSTyWVIbpLF
-	+csV25Jnm5280KMR9oDExyXlcwBl2ioLloZIvpFb+wXng35phrhgmBLMmvpeubYsNsaegx9zNBa
-	093RTlAjsTZJO3yFfdZkclXD8daHRdDs1eXcwYYoM7Dz6a6wrnskYeX6WVFfF+sr81m0KCtViCo
-	zrAJIqyiYvBVN8Nk7vxrERCDGlveH2rn2tgVvgykCX9Zw2gYGK/NTrCLbdizjtwGZG9u/FaL9jG
-	EzmE30rRx8aSBMUo0Ie/DyOvoAJa3trpCpfKNWd5p/Stv9K3f/6GWY6BkbETB71cQNHq3TPCdp+
-	/co2d/DTttmLu+m7FMiKOEwTwZQLG4cEXR69sSXN1nkawYLjN4qB0i9WqC4aeFufxNdSQg8dg8q
-	3UrMilBsnL9Cckh
-X-Received: by 2002:a17:90b:1dcb:b0:398:dcf6:d40e with SMTP id 98e67ed59e1d1-39907db4f46mr132089a91.17.1788176252810;
-        Mon, 31 Aug 2026 04:37:32 -0700 (PDT)
-Received: from celestia.taila51cc2.ts.net ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396ddc08266sm17197591a91.11.2026.08.31.04.37.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 04:37:32 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	shu17az@gmail.com,
-	jiayuan.chen@shopee.com,
-	Liew Rui Yan <aethernet65535@gmail.com>
-Subject: [PATCH] mm/damon/tests/core-kunit: add test for unconditionally skipping the last region
-Date: Mon, 31 Aug 2026 19:37:35 +0800
-Message-ID: <20260831113735.3349-1-aethernet65535@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="GV0C0x5+"
+Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4hYRb01TTCz8CD2;
+	Mon, 31 Aug 2026 13:29:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1788175740;
+	bh=VD0d3ENv4SdHSRLR5Wrel9flUnCQBQhU5Db+lfkT4fE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=GV0C0x5+ToaUDUU6ofTDHpYNgOk7OZTFn2K8E3B6+IurwW/FE+0/x/xW2awU0XziL
+	 /enRwBOLDaVcQak8LCOyvddF/3VkFqL7qUB9pPQN9Qi5s5mWMvrv18J9bc0IU3dSzu
+	 JN91hgDQQ8cyCLkexbnt9jygEdz3uO7p9hEMJcjYwss0r4In7IUXtlQkX4frHcVU+m
+	 piVc19RavqUgJ9aVP9nSV1PDov1ewUwvHPcJebdNn793o//hxpVqwbDvc1Rcw1P96r
+	 OCjevWDu04lje4UHBWc/BfyEbsPdPtNGjSgqK15BdsXI3QNwQuEuqyffcthkkrTzHR
+	 Jyy0qPc0jb6BQ==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4hYRb00n8kz4y4x;
+	Mon, 31 Aug 2026 13:29:00 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hYRZy22n8z8svL;
+	Mon, 31 Aug 2026 13:28:58 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 3322B5FAB4;
+	Mon, 31 Aug 2026 13:28:57 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <1c855bb3-2bac-4f25-b97f-3a7436a6291b@leemhuis.info>
+Date: Mon, 31 Aug 2026 13:28:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: xhci: fix maximum event ring segments calculation
+To: Mathias Nyman <mathias.nyman@linux.intel.com>,
+ Pierre-David Belanger <pierredavidbelanger@gmail.com>,
+ Shixiong Ou <oushixiong1025@163.com>
+Cc: Shixiong Ou <oushixiong@kylinos.cn>,
+ Mathias Nyman <mathias.nyman@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Niklas Neronin <niklas.neronin@linux.intel.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, regressions@lists.linux.dev
+References: <20260828105926.930033-1-oushixiong1025@163.com>
+ <20260830031233.1810986-2-pierredavidbelanger@gmail.com>
+ <64a7ce30-b346-4e94-974f-f30893d66829@leemhuis.info>
+ <81ddd491-1ec3-4a0c-90b3-6a286ff1a908@linux.intel.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <81ddd491-1ec3-4a0c-90b3-6a286ff1a908@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <178817573763.3411727.9290102466049313861@mxe9fb.netcup.net>
+X-NC-CID: BacT/202HD0ewFbPir0OZEme2PY2meMvuRND3scEUDBv94a6si0=
 
-Commit 50585192bc2e ("mm/damon/schemes: skip already charged targets and
-regions") introduced a minor issue that causes the last region to be
-skipped before it is processed.
+On 8/31/26 11:21, Mathias Nyman wrote:
+> On 8/31/26 09:55, Thorsten Leemhuis wrote:
+>> On 8/30/26 05:12, Pierre-David Belanger wrote:
+>>> The failure on 08dbfad3f504:
+>>>
+>>>    xhci_hcd 0000:00:04.0: xHCI Host Controller
+>>>    xhci_hcd 0000:00:04.0: new USB bus registered, assigned bus number 1
+>>>    xhci_hcd 0000:00:04.0: Failed to allocate interrupter erst
+>>>    xhci_hcd 0000:00:04.0: can't setup: -12
+>>>    xhci_hcd 0000:00:04.0: USB bus 1 deregistered
+>>>    xhci_hcd 0000:00:04.0: init 0000:00:04.0 fail, -12
+>>>    xhci_hcd 0000:00:04.0: probe with driver xhci_hcd failed with
+>>> error -12
+>> Sadly this missed -rc1, wonder why it wasn't submitted for it to prevent
+>> more people from running into this, but whatever, that's ship has sailed.
+> 
+> Looks like at least QEMU and Mediatek users were hit by this issue.
 
-Example:
+Ahh, good to known. And thx for sending one of the fixes to Greg
+meanwhile (saw that by chance).
+> Note that this is a v7.3-rc1 regression which was found during merge
+> window for v7.3-rc1.
+> v7.3-rc1 came out a few hours ago.
+> I can't resolve it much earlier than this.
+Out of curiosity: why?
 
-    1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
-    2. Quota is configured to process only 100 bytes per window.
-    3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
-       addr}_from is saved at (Target, 100).
-    4. Window 2: The loop reaches R2.  Because R2 is
-       damon_last_region(t), the old code unconditionally returns true,
-       skipping R2 entirely and resetting the charge_{target,addr}_from.
+Just ignore the question if it was something like "real life got in the
+way" or "it fell through the cracks" -- that's how it is sometimes, no
+worries. But in other cases I'd be glad if you could take a few minutes
+if you have them to satisfy my curiosity, as in preparation for a
+maintainer summit proposal I sent[1] I'm just trying to understand
+better why regression fixes sometimes take quite a while from submission
+to landing in mainline
 
-    Result: R2 is permanently skipped even though it has never been
-    processed.
+Ciao, Thorsten
 
-Add a test to prevent this regression in the future.
-
-Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
----
- mm/damon/tests/core-kunit.h | 43 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 43 insertions(+)
-
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 4a536d41cdb2..90b0fda34fba 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -1632,6 +1632,48 @@ static void damon_test_rand(struct kunit *test)
- 	}
- }
- 
-+static void damon_test_last_region_quota_reset(struct kunit *test)
-+{
-+	struct damos s = {0};
-+	struct damon_target *t;
-+	struct damon_region *r1, *r2;
-+	unsigned long min_region_sz = 10;
-+	bool skipped;
-+
-+	t = damon_new_target();
-+	if (!t) {
-+		kunit_skip(test, "target alloc fail");
-+	}
-+
-+	r1 = damon_new_region(0, 100);
-+	if (!r1) {
-+		damon_free_target(t);
-+		kunit_skip(test, "region 1 alloc fail");
-+	}
-+	damon_add_region(r1, t);
-+
-+	r2 = damon_new_region(100, 200);
-+	if (!r2) {
-+		damon_free_target(t);
-+		kunit_skip(test, "region 2 alloc fail");
-+	}
-+	damon_add_region(r2, t);
-+
-+	s.quota.charge_target_from = t;
-+	s.quota.charge_addr_from = r1->ar.end;
-+
-+	skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
-+
-+	/* 'r2' is not processed, it should not skip */
-+	KUNIT_EXPECT_EQ(test, skipped, false);
-+
-+	/* 'r2' is last region, it should reset charge_{target,addr}_from */
-+	KUNIT_EXPECT_PTR_EQ(test, s.quota.charge_target_from, NULL);
-+	KUNIT_EXPECT_EQ(test, s.quota.charge_addr_from, 0);
-+
-+	damon_free_target(t);
-+}
-+
- static struct kunit_case damon_test_cases[] = {
- 	KUNIT_CASE(damon_test_target),
- 	KUNIT_CASE(damon_test_regions),
-@@ -1664,6 +1706,7 @@ static struct kunit_case damon_test_cases[] = {
- 	KUNIT_CASE(damon_test_is_last_region),
- 	KUNIT_CASE(damon_test_walk_control_obsolete),
- 	KUNIT_CASE(damon_test_rand),
-+	KUNIT_CASE(damon_test_last_region_quota_reset),
- 	{},
- };
- 
--- 
-2.55.0
-
+[1]
+https://lore.kernel.org/all/75dc0e2d-2deb-4776-977c-1de7c33465e1@leemhuis.info/
