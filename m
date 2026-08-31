@@ -1,117 +1,154 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3BA3C9EF0
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB1B3C456B
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:38:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788161907; cv=none; b=o358DzjOsFV/MjJjC5bsvu0fFVsqS0kkniZzCv1DTOLUHoq624zfHlezBVkpIkVxQw/dIzWCXGZHp5g+ezPsLhJRx4vTSjxWFFBDpIiPWQG4hByEKYJPkCJjnq6akrLQHDS328KHkt53iOP5pjiy3xrbGzIwEV4uVewgDdz0xR4=
+	t=1788161927; cv=none; b=NVDjyD6W+OAUg2ge6XK/fQRM/7fgo0mYBXC+RrWw/UBrEfiF0DaUwF8LBKo33fTz5mt6kkXLN9pbE67d9OVWT/ke3i8rQsaOTS71gFrP9iKCWnhN7sdGGtkvnu5duiGaCMO5DnkS0nGPiwLB6SMbx5o0BpkyAXvhmFFUa5VhYT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788161907; c=relaxed/simple;
-	bh=5GrRjcaI03gjaXtG0ojiV5JyfTxjAwxYCZIcBdozizs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=osaf1rHzSrpyrAi8ZL9hdxTPOwyfmwEPrRALlhaDsSyvDtLUz9GiStz+hcx3KptQ5iMDmbtzItlZfU0NK6uoyRn6H4RGxaZ/uXZVidux2gLOBObONM97rWXG1qklSU5INpJE8o8L6XQLwQvxFYJHub/X9MtmV2mAGJyh1DlfRsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu; spf=none smtp.mailfrom=monstr.eu; dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b=RgzrKENU; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=monstr.eu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b="RgzrKENU"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c1c26d7e951so547948766b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:38:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=monstr-eu.20251104.gappssmtp.com; s=20251104; t=1788161902; x=1788766702; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YwC1H5E6QITqrCXuXOQp3c3SXNsKMl+a0m0u7ImLlsA=;
-        b=RgzrKENUwvrnjjexpy+WBcsj29+rT7OtZGpgxcj4ZJlPZ9KeXDw6khod1VjOH3lYJH
-         84Iv67PLlQwGrr/Liq5obNplSuoSOG/YxzwgrnpVNHl/dT+jffBNhPZ10djbw/9aAMhF
-         gX74psnY4Q7sT2S3TcGNlJX0srfgCYWojFnzc1Vu7s2k7E5CdO+nZGp+mVx2oiD0Inxb
-         buzAZ2Ag1EjbXAsoYfJhrd9+ttRRTs74+i0+ngIQpU6TbskwW3HcsNJYMi+Oef9IMwK5
-         4OgpxGOAStSZxcVwhf9o0CjftxD64hbuyrL5K7V7N/0O7FUzPum5fyJI2AA6GqZTm9ys
-         SS/w==
+	s=arc-20240116; t=1788161927; c=relaxed/simple;
+	bh=n+bm+oD3kn40fyS7L0liJo1kS7q5/LI+20B3up/88HQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Qg2SFOyLhgS9Q+nH7zL6Rp/GVB43+JVldy/bzOEn6kYQPFbY3e/cKBVMWNx3B0Xrz4QEX1DblJWeWnhX7UPzfLNsmQvP3zq9YpAHwWJ8DKn1IqMnHzmOlGbpREnsCEtntbltIXr0UkjNMKNaWK3qWLQvYD4rRrxuDRsoqXEt6iY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7466771f1caso690870137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:38:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788161902; x=1788766702;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YwC1H5E6QITqrCXuXOQp3c3SXNsKMl+a0m0u7ImLlsA=;
-        b=fTl8msypj/L0hJGtzMr7drUMJVy9LGu8jN1p1dAdLTf1O9LZTR4eZvy/iS9bLGiHwD
-         37Is1Pcav4YsLmIBlkHMnlq0irRJIwDsE3/7bUMnfr2SaKLrJmLqxOblLNOkBiFlQN+P
-         Jay4dyGEjiUKzoZVrH24i9VKMTuCuufrOpEMretv0RNTyZ7piz3H00GBzMyI9SGwTrcT
-         L40z/78mdqt6h/4Dmdw3E0o5U4cIb61Bab/PZnnBfTmHOU9X0tkxJ3NZmeTB0bf1NO0s
-         FyuSCzutxmJNB5JgYm/LsIPUptM5/wITwcpVhY2FytJPRox9kpjWpcndpe9DpBUAuU5M
-         M1Ig==
-X-Forwarded-Encrypted: i=1; AHgh+RpyzkTPRim4Q0CiFMMJrwik2Qo1oNbGiUv4xX8YmbrhmsA0AToEUumlfdfAq6WDu+p9yskze/lQ2HIdois=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1m5rwKJTwzz996GyPFB0m08z4XLaoY/VfrfX/SmlabBXiK6U7
-	JeDPtlvMmysg5OsHaTRLxG8+5QxSsQjtvWODR5F1SG+TW9HW4pb3s0NxXFBvj6mLHBPSVUu4XOp
-	u8i027MBT
-X-Gm-Gg: AR+sD13nPrkRTajup8x81XjN9rpjp/Bk4usyqDKxonx8UOkJut1kFwob8MbkQScts2k
-	QreCBk1Nt8tCU1wvFnx3GvGRi1tK3TbAvDWDev9N1NVzo9WbXy1MCihaQNPwHuZN6MnjLPJ3sIm
-	OOwMsZdIDm9KyaelC9U4CARaxSYI3JPE6QV3xlxxQdepFJNNedwQwhIRYE5QWsVGFgsuADHtqu6
-	8bfdiZw66GFUNenEZy63+SIG+8dXLPOaCsdiYdcfNj3Nmz77lhAFtN1MvpC+r8R5AUu7cKNrG+8
-	Rh0UzjqyWsUuYtggEqomZP8g4Aygn0PX/Uh6h85y56dxgOhb9jh/y8XJihCXTecy0cf388uPMPf
-	R01NOCpc0DS5yIHNE9yyIluiT5/Vhrw6uOpFKUBowjHaTr9hHDTOEbBnByFpkQSnp2eJV7QSVRI
-	o1RnAUmGcr5lZyF93WKqgaupkJObda+p9oYv6Q1MumIV+COJRL927UFTjWtGYDXt7cy7WyRVnFr
-	ngjZK1xzyqfuQcqt9nw5NhT9ETkDiSGNWyaAA==
-X-Received: by 2002:a17:907:1b07:b0:c12:5a0e:3e0 with SMTP id a640c23a62f3a-c25571a8fb4mr1559731766b.19.1788161902399;
-        Mon, 31 Aug 2026 00:38:22 -0700 (PDT)
-Received: from [192.168.0.105] (nat-108f.starnet.cz. [109.164.53.108])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f1b28f6sm368630966b.39.2026.08.31.00.38.21
+        d=1e100.net; s=20251104; t=1788161924; x=1788766724;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1+Wb6c4hy/mllkEGw9UkJDy4J8V6hEIxHDRjaIVv61Q=;
+        b=abr81bYDSELD3F4glx0aze1aGPa6xBG8WoJN93OXUKzqy4+wgdX997eltg8AWWdD4Q
+         v2yJ3O278QZ8PB8tNAViL3YpNTv1YJZJVIOiPUXwV4piO7HDSt8eKVfTD5eTFHi5reZ7
+         ZO7jrizzBpvra/cNhWE8tdhZhDotL0LH+sWoBwMbx4a3KcNFqm+wzXmPZliOr+x60Gwy
+         Qb2YzxWMkDIgtm1uwsbpoq4Wka9ouanE+y+nBKEYdprOND7sXNOv/Nk40S5SJe4tb7VZ
+         rC17FmB3wPPGyhegDWLlmnffer6AIkRYko19xa/dTOhMmWiix5ttStXkQwMJGdQaLaYj
+         JMGA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqp/ZSBvKBzvJ292lOLwAP5kbE7Oe6i0CIHGqcOvjZQ2jUjv8vnsdIbNLGuH2lZ1UD7xu0B7cbzHC/cLNQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n285ahaaaZNJ+Cym0cYMF0+KsIlijK7o0HyyJ16oDxHyCuHl/I
+	TlphXocDAkAD6usObb6u9aot1xhDJ44LwSQtrlMLTqnybPHoVXQc+gmlphR3nv52
+X-Gm-Gg: AR+sD11BTni4lP01O7jp8UWOWN0F5iGEj7aX18WND0JYzXPXXDB2W/0m9KlJwm0tjzG
+	FV7JyJbNoMhBXcceiJ7056O9iKnnQrZwFqXYqrqnhSGrcmyRXwMCMQvHVuvqaI7uLwQVVZH5izt
+	gJQXnxXfY5NHR9uK6ZBjMJX7jwbFFtoUvHklwehB6EnK0UQnO9MT2lJVpjjdAC/EAGEQUT6UWxQ
+	4GsP6/QqNjKReQrbUWsIC50LVRNNzWZ24mcMUzUsnDoHLSI+w4+rBfI17GQY2kF/A+oSlqKKr64
+	7DaeSO6MlddR54CtALiXvwRZpNhvULCaQFpQHy5kc/99MQm9gEIZ0W4/aZG0DQb84JAwf/aiZhJ
+	0kDnP+uPQzHmnO8suv+7T0iRCnC1Nkph8oh9Yd6QDpQSJmVd7+qRgiRpqQ0mfNtc/alUu0pq1EB
+	yHQjIuNaZG8WvoEfCU69j2wkLVQh7KdGVZm5GxTTiREmGTBKvR1//iDRfTCs2DVG3LnV8bkc7GT
+	TA/+Cv/dM7KHWBuOglkP56tTWttJg==
+X-Received: by 2002:a05:6102:508b:b0:787:74cc:2cff with SMTP id ada2fe7eead31-78774cc4a2amr4234887137.3.1788161924204;
+        Mon, 31 Aug 2026 00:38:44 -0700 (PDT)
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com. [209.85.221.174])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-785f532aafcsm6207829137.1.2026.08.31.00.38.43
+        for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 00:38:21 -0700 (PDT)
-Message-ID: <4b70d099-b8f6-4e96-a946-6333b1d64bd4@monstr.eu>
-Date: Mon, 31 Aug 2026 09:38:21 +0200
+        Mon, 31 Aug 2026 00:38:44 -0700 (PDT)
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5c6559620e3so1301261e0c.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:38:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqCgQzqdpYAi8LCZO0ES7Ws8dy2gefF78Tsxh2eOmRFaBxw1CNvkobIUjQHot9uyxHJ32lXV8Utgdtsecw=@vger.kernel.org
+X-Received: by 2002:a05:6102:418b:b0:778:721:53db with SMTP id
+ ada2fe7eead31-7859426191emr7077458137.0.1788161923583; Mon, 31 Aug 2026
+ 00:38:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] microblaze: drop unneeded semicolon
-To: Julia Lawall <Julia.Lawall@inria.fr>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260801191002.1383835-2-Julia.Lawall@inria.fr>
-Content-Language: en-US
-From: Michal Simek <monstr@monstr.eu>
-In-Reply-To: <20260801191002.1383835-2-Julia.Lawall@inria.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <cover.1786929430.git.fthain@linux-m68k.org> <1e349506a7cc6aa574aacbd4c69c240b5a1e3eb8.1786929430.git.fthain@linux-m68k.org>
+In-Reply-To: <1e349506a7cc6aa574aacbd4c69c240b5a1e3eb8.1786929430.git.fthain@linux-m68k.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 31 Aug 2026 09:38:32 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXgtstGtcbRkrtKtQ+d1c=mCe5zgYZCx4dyUQ_YnVhbbw@mail.gmail.com>
+X-Gm-Features: AcwNN1XVC3wu-2rZS0i2vSr8DmQmHBettg6W2uihbfihhqw2AlLs5EB1RzHcC7M
+Message-ID: <CAMuHMdXgtstGtcbRkrtKtQ+d1c=mCe5zgYZCx4dyUQ_YnVhbbw@mail.gmail.com>
+Subject: Re: [PATCH v2 07/32] swim: Enable clock divider only where appropriate
+To: Finn Thain <fthain@linux-m68k.org>
+Cc: Jens Axboe <axboe@kernel.dk>, Laurent Vivier <laurent@vivier.eu>, 
+	Joshua Thompson <funaho@jurai.org>, linux-block@vger.kernel.org, 
+	linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Finn,
 
+Thanks for your patch!
 
-On 8/1/26 21:09, Julia Lawall wrote:
-> When a function-like macro expands to an expression, that expression
-> doesn't need a semicolon after it.  All uses have been verified to
-> have their own semicolons.
-> 
-> This was found using the following Coccinelle semantic patch:
-> 
-> @r@
-> identifier i : script:ocaml() { String.lowercase_ascii i = i };
-> expression e;
-> @@
-> 
-> *#define i(...) e;
-> 
-> Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
-> 
+On Mon, 17 Aug 2026 at 03:55, Finn Thain <fthain@linux-m68k.org> wrote:
+> Some models have a 16 MHz FCLK oscillator and others 32 MHz. Put this
+> information into the swim device platform_data so that the driver can
+> correctly enable the clock divider. When this is enabled incorrectly,
+> nothing can be read and failures from the Error Correction Machine are
+> flagged in the error register.
+>
+> This is chip initialization, so do this in swim_floppy_init() rather
+> than floppy_open(). Drop the udelay() which was apparently copied and
+> pasted from swim3.c, where it relates to interrupts (of which this chip
+> has none).
+
+This move should be a separate patch.
+
+> Cc: Joshua Thompson <funaho@jurai.org>
+> Reviewed-by: Laurent Vivier <laurent@vivier.eu>
+> Fixes: 8852ecd97488 ("m68k: mac - Add SWIM floppy support")
+> Signed-off-by: Finn Thain <fthain@linux-m68k.org>
 > ---
->   arch/microblaze/kernel/cpu/cpuinfo-pvr-full.c |    2 +-
->   arch/microblaze/kernel/cpu/cpuinfo-static.c   |    2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
+>  arch/m68k/mac/config.c | 31 ++++++++++++++++++++++++++++++-
 
-Applied.
-M
+For the m68k part:
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+
+> --- a/arch/m68k/mac/config.c
+> +++ b/arch/m68k/mac/config.c
+> @@ -984,8 +984,37 @@ static int __init mac_platform_init(void)
+>                         .start = swim_base,
+>                         .end   = swim_base + 0x1FFF,
+>                 };
+> +               unsigned int data = 0;
+
+Nit: in the absence of a real platform_data structure, please use a
+more explanatory name.
+
+Perhaps s/data/s_fclk/, and store S_FCLK_DIV2 or zero?
+Or s/data/setup/, and store the full register value?
+
+> --- a/drivers/block/swim.c
+> +++ b/drivers/block/swim.c
+
+> @@ -807,8 +806,10 @@ static void swim_set_parameters(struct swim __iomem *base)
+>                 swim_write(base, parameter, mem[i]);
+>  }
+>
+> -static int swim_floppy_init(struct swim_priv *swd)
+> +static int swim_floppy_init(struct platform_device *pdev)
+>  {
+> +       struct swim_priv *swd = platform_get_drvdata(pdev);
+> +       unsigned int *data = pdev->dev.platform_data;
+
+Likewise.
+
+>         struct queue_limits lim = {
+>                 .features               = BLK_FEAT_ROTATIONAL,
+>         };
+> @@ -816,6 +817,8 @@ static int swim_floppy_init(struct swim_priv *swd)
+>         int drive;
+>         struct swim __iomem *base = swd->base;
+>
+> +       swim_write(base, setup, S_IBM_DRIVE | (*data ? S_FCLK_DIV2 : 0));
+> +
+>         swim_set_parameters(base);
+>
+>         /* scan floppy drives */
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-Michal Simek, Ing. (M.Eng), OpenPGP -> KeyID: FE3D1F91
-w: www.monstr.eu p: +42-0-721842854
-Maintainer of Linux kernel - Xilinx Microblaze
-Maintainer of Linux kernel - Xilinx Zynq ARM and ZynqMP/Versal ARM64 SoCs
-U-Boot custodian - Xilinx Microblaze/Zynq/ZynqMP/Versal/Versal NET SoCs
-TF-A maintainer - Xilinx ZynqMP/Versal/Versal NET SoCs
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
