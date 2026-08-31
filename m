@@ -1,149 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C383C1F5B;
-	Mon, 31 Aug 2026 07:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE6D305664;
+	Mon, 31 Aug 2026 07:03:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788159722; cv=none; b=njRtf7aVbWUUJ+W1uwp2gQAthB5A7XKh+x/F+fzi+qy2ZmwhGEUhThqB+eqFKmPSSpBXqclqYfeH6PCl11lk6KW4UY/1MJ7nPG2x777gycd62qelgER9ptMwIJN1RcKcyuAPjTX5PYUt8ll2+SQvnnoD98ueK/FvF2ih/LD8g80=
+	t=1788159788; cv=none; b=SAUfwqaMIHiYoweaJkIlPVIo8qStg8rIc2DTn2fQZFdPLntbpMGw8RCQHcYPymtvCEwAw9NStaDg7Ni8mCWPoHT1jA1HYW+GAA5eTguqJPmDlbEZNOuYqgBQpIk657Zz7Or+1S8s3QZufdKRYIvX/l2LFa287iWSaFEJx96BSZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788159722; c=relaxed/simple;
-	bh=qe86AbVS5lqIvhup1N8sPwnLE/3ZQY+/oFjXHO4sWvo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rOAhPMDUI4Wjtrt9CPAEjH7xLUM+R/U4KRDgJEPGo7OMlb4tOTMlh5xg+tvXx8zI78vmzDTksO6uK7ZSk62PL+9ueMoxpQPzATwZtdQyuoOIb7dRra4GzEPiwq9Pky5NPj1ObIjc23jRuY7Ts9VAio5D/wFQNn14AKSIW+F9LH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CAKeoSZr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788159788; c=relaxed/simple;
+	bh=tEfPp9moaoAegRWEnHLHmxQWhnps5eCK5n7ek3DwDyA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i26nBvNk94Waw5Jo1QJxgT+73zGkXyNx0ON3Q9wLF1w+GvQsR+e96y9itZqpIDZS958iTcd8DXioLpYTFIPjzsOtprFFQp3XbLs6TkD8ppiN8nQVdSB6jl/AtxHpC1VE/3NiHPXSnsZMa/gRL9cW9wmf7FnXZZqbWRDSREbfblw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hMia7ORf; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CAKeoSZr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046FC1F000E9;
-	Mon, 31 Aug 2026 07:01:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788159711;
-	bh=YmFfC/GD2EW+EPgb3KdMUeXaMGIr8zKUHC9RY3Pgx8A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CAKeoSZrB1VeMXt7vup7Bn/XQqNUTqqqPI2+eXVnMElarSQV8K1ky+S39tDVynfs5
-	 vZ2skMB/Q/tP15MVpdRJ5DAldHYmYgYqMKIP0TS9qeC+HfeLwdaNIlO7UPEObmcIee
-	 spTN5lTDqptft8nJfiMgdm0uSlRwGBEVSydETIYDvHDBVvmPSOCS3AyXlZgZl3vY3I
-	 ddLoATIITxy+zmJGzzaeepah0KVc+n6TwzcTYxbrkyQOxEVVZGwOmTPOKqVF+F5kIq
-	 AZE+10AV/JUoxnjplYZXk2ni5sRyvIXVDFI+yf83p3DrVxfxpMWpGhbAxZn3Le4+w8
-	 bM52iwiniU/xQ==
-Message-ID: <bf36b0b7-d6c3-4731-b00c-c3a4c02ffc76@kernel.org>
-Date: Mon, 31 Aug 2026 09:01:35 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hMia7ORf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788159788; x=1819695788;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tEfPp9moaoAegRWEnHLHmxQWhnps5eCK5n7ek3DwDyA=;
+  b=hMia7ORfr1cWWOotHbqihPX3smP6cI/n4cwCor9iw3m2DKMTGaud94DV
+   fSLjU7RBV+s0tOyjK0qOQCcMtj1GI7P+rZ1jC3vcMWYCUxm/dOjCQfNHt
+   M4EXZjmKSVCP9NBo5lvzXULgUGvka8bnn9crfZZcDJNsXnsT8Bty7/tGx
+   lsXCyCtZdCSEcyRG3bfC50YlExTPUbg3MVuNKRBeWzIKi5gYUjPQXhZG5
+   Z4nvhnKIamI59VxK3hEpj/pbH0my5+Z05R9hqhwOgYN7/vzgn+d2H6DX6
+   DXqpOzq9s2S8UspVWesHQr7IGp5XD6xER81mSoUK5Damr/HJSACBQ06Qu
+   w==;
+X-CSE-ConnectionGUID: tLzU11nERiSUA0zO9+pexg==
+X-CSE-MsgGUID: qluEtF/cQlyxiNR6yeaoLA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88412110"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="88412110"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:03:07 -0700
+X-CSE-ConnectionGUID: pnHNht7mTRGQRpCb233NNQ==
+X-CSE-MsgGUID: ZrwiD6Z/QGqGnMbzweiW2Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="292222694"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:03:03 -0700
+Date: Mon, 31 Aug 2026 10:03:01 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Rupesh Majhi <zoone.rupert@gmail.com>,
+	Andy Shevchenko <andy@kernel.org>, Bill Wendling <morbo@google.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
+	Justin Stitt <justinstitt@google.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH v6 4/6] iio: pressure: dps310: add triggered buffer
+ support
+Message-ID: <apUnJb6jODnbSw42@ashevche-desk.local>
+References: <20260824201203.396651-1-zoone.rupert@gmail.com>
+ <20260824201203.396651-5-zoone.rupert@gmail.com>
+ <ao1bBFkLXIIgNl49@ashevche-desk.local>
+ <178813690647.2788519.5367342639957476343.b4-reply@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 04/11] dt-bindings: soc: qcom: add binding for
- qcom,crypto-virt
-To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>, ebiggers@kernel.org,
- axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
- James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Cc: neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
- mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
- bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
- stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
- xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
-References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
- <20260827160806.1295313-5-linlin.zhang@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260827160806.1295313-5-linlin.zhang@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178813690647.2788519.5367342639957476343.b4-reply@b4>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 27/08/2026 18:07, Linlin Zhang wrote:
-> From: linlzhan <linlin.zhang@oss.qualcomm.com>
+On Mon, Aug 31, 2026 at 01:41:46AM +0100, Jonathan Cameron wrote:
+> On 2026-08-25 12:06:12+03:00, Andy Shevchenko wrote:
+> > On Mon, Aug 24, 2026 at 11:12:01PM +0300, Rupesh Majhi wrote:
+
+...
+
+> > > +struct dps310_scan {
+> > > +	s32 channels[2];
+> > > +	aligned_s64 ts;
+> > > +};
+> > 
+> > Wondering if using macro here would make sense...
 > 
-> Document the device tree binding for the Qualcomm GVM crypto-virt node,
-> which provides the wrapped-key buffer size needed by the QCOM_CRYPTO_VIRT
-> driver to perform hardware-wrapped-key SCM operations backing virtio_blk's
-> inline crypto layer.
+> Do you mean introducing a new one or using the buffer ones?  I'd
+> rather keep explicit structures where possible.  They are much easier
+> to reead as they make the data layout explicit, including the holes
+> (as long as folk remember their c structure alignments!)
+> - no holes here obviously!
 > 
-> The host does not report this size over virtio, so it is supplied via DT
-> through the optional qcom,wrapped-key-size property.
-> 
-> Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
+> We only introduced the IIO_BUFFER macros to cover the cases we
+> can't represent as a structure because the timestamp moves
+> around as the number of channels enabled changes.  Necessary
+> trick to reduce the size of the kfifos.
 
-Your Git does not look like properly configured.
+Yeah, I got it. I need to remember your preference for the future.
 
-> ---
->  .../bindings/soc/qcom/qcom,crypto-virt.yaml   | 39 +++++++++++++++++++
->  1 file changed, 39 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soc/qcom/qcom,crypto-virt.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,crypto-virt.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,crypto-virt.yaml
-> new file mode 100644
-> index 000000000000..5eb204f29762
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,crypto-virt.yaml
-> @@ -0,0 +1,39 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/soc/qcom/qcom,crypto-virt.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: QCOM GVM Crypto Virt driver
-
-We do not take bindings for drivers. Follow standard rules for bindings,
-e.g. read DTS101 slides.
-
-Also:
-drop second/last, redundant "binding for". The "dt-bindings" prefix is
-already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
-Just describe the hardware (not drivers)
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Best regards,
-Krzysztof
