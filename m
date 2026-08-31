@@ -1,148 +1,80 @@
-Received: from mta1.migadu.com (out-162.mta1.migadu.com [95.215.58.162])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FAF3E49D5
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:09:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CDA35201B;
+	Mon, 31 Aug 2026 12:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178165; cv=none; b=Nthnm4YoflmRprzn3Xg6QmpAqf86qYfNzOmyR9LjeUrBNoKFWTPdJi3W2OsfeOteA/VQdNPfyc7vNtw6n3YvXRu2334SmtioGenYieh2aFzdid+SNCN636cWLakP+QycR764Rh3aBR9aeZv2dOAAaNt3YTTHrlAx3sTV5p/vb4A=
+	t=1788178205; cv=none; b=mCIzgmTtTwQca9FLxotMx19MQb7sSDOLmTc+Ty7QSSAFC6OQic0umIpYrJViWVQekuWvWBvrHqWVDZ0OBCHUMKGiH9AZYgsPfy1Y6brZ0rnMA1td1zKtkYSSGwkIbr3QelX5HZfC00xn6vHsPCpyNPxOFkJq4eX+L6SBgAqFKiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788178165; c=relaxed/simple;
-	bh=VY8BIT8QfLkUraG1i9FG2AkXjeQpQZ1ABuZnQEaNl2Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HycqJzT/Md5U0Ux2s7GOJwMiVkPA0vvVhZLlJRjROgH2Lc+sLNpfSwpK5rTPecwp++BDFmFuNU//EFPLjkFkLadifpa19wDf1tP6WaGejYoPtoRt64AZpWV7yiMDc4mA/8IQypgvDmEfu+hHEyq8UzrLJBz8lLYhkTH+LuZOa60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=o9qzV6/t; arc=none smtp.client-ip=95.215.58.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788178205; c=relaxed/simple;
+	bh=eBSNaFSOLCz+04hqpn6qSgW2cL9lUyMhIKis3RfqKiQ=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=T8NQuGd01prJj0B+8Y12SokEzqGzxbQx6cGLKnPbgFBVdO8nEsy68THtvZUfoerIJXM7S+P2IWu/eXPJvYKB2IMa/v+avt3jz0APMhkAhn5vPZ6bNxCZ5jjzVZlq6Q6gOYBYjiGp+cUs372rmRiA5j3PE0yJZ6n/F+jP7ciwT6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=ovpKuail; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=P54Kkp4K; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="o9qzV6/t"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VY8BIT8QfLkUraG1i9FG2AkXjeQpQZ1ABuZnQEaNl2Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788178160; v=1; x=1788782960;
- b=o9qzV6/tIH6KZWL3kHJGaaPbSF0mLI5CZg+mHplYXUQBrtenJebU+rWAcFS9pVzt6wiC+aMz
- u37kvPMClZL8+m+urIbjQbBQF98MlGeVasm7aBPFRJQvdpLdq/6YViHIYNfbcMayq0t46G5HLtp
- tp1ImABeks9qczC4zGUmYQ6U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2c443c59b6b9db85;
-	Mon, 31 Aug 2026 12:09:10 +0000
-X-Mizu-Trace-ID: 2c443c59b6b9db85
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bed66f22-8bf1-4328-a400-d214e15693e2@linux.dev>
-Date: Mon, 31 Aug 2026 13:09:09 +0100
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="ovpKuail";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="P54Kkp4K"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788178167; bh=gOlZhrf6+IhJJICS9Ylfglm
+	3zkons1JuSC186WJA+Ps=; b=ovpKuailNsWC7h7xL8Xb5fSO47x298lVBAU4ytYQsoBqgoJ5A/
+	aDXYcotq1GrjQuC3X4vzVsiIaIKvdLO3GAYhqBoBx3GboHGxfmq7rC5LROB5DY+dqJZzrvFCfUF
+	KZc785uOaWWIrJH0anD7Qo2rzkGiVnjGbWsMfI5AWLBvLeYHimuaSbF+75RzGGW+NfOU+ZJ6s/7
+	zHOviDKZZs7AnOo8qV1lSxuG6XQR+nEBLB71dTvnsJd+Rwg1GXAOImsVfqycSaMCa/xhqxISbno
+	IdWMjrez6RBx0aYUvwQxk2oSuItM3+dckM9PeoJUBbmkNi8KYSZTkEpOxepFEGJT8oQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788178167; bh=gOlZhrf6+IhJJICS9Ylfglm
+	3zkons1JuSC186WJA+Ps=; b=P54Kkp4KZbdV/Eyn5OXoL6B6TULMdcEqu+yx4UEEiXbGntbI3H
+	8o2ZViICGIt+zvkBv2xiXxvmNX5gowTr5yAg==;
+Date: Mon, 31 Aug 2026 13:09:27 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Yuanhe Shu <xiangzao@linux.alibaba.com>
+CC: tglx@kernel.org, mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+ x86@kernel.org, hpa@zytor.com, xin@zytor.com, luto@kernel.org,
+ jpoimboe@kernel.org, peterz@infradead.org, rostedt@goodmis.org,
+ akpm@linux-foundation.org, rdunlap@infradead.org, elver@google.com,
+ andreyknvl@gmail.com, glider@google.com, gor@linux.ibm.com,
+ kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] stacktrace: Provide arch_in_irqentry_text() hook
+In-Reply-To: <20260831120621.2882700-1-xiangzao@linux.alibaba.com>
+References: <20260827150022.1618235-1-xiangzao@linux.alibaba.com> <20260827150022.1618235-2-xiangzao@linux.alibaba.com> <58EF0ADB-E7CC-4A15-B124-B5A870281D55@mainlining.org> <20260831120621.2882700-1-xiangzao@linux.alibaba.com>
+Message-ID: <11763F21-E76F-4AC9-94E7-37CDA0340D37@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] zstd: use cpu_feature_enabled() for in-kernel BMI2
- dispatch
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: dsterba@suse.com, linux-kernel@vger.kernel.org, terrelln@fb.com,
- terrelln@meta.com, linux-crypto@vger.kernel.org, yosry@kernel.org,
- ebiggers@kernel.org, hannes@cmpxchg.org, nphamcs@gmail.com,
- chengming.zhou@linux.dev, shakeel.butt@linux.dev, kernel-team@meta.com
-References: <20260830222100.2706175-1-usama.arif@linux.dev>
- <20260830222100.2706175-3-usama.arif@linux.dev>
- <CAHk-=wg3d5HUkgdWq4Ac74xoUDU_BiHTC_ONacwYFoXnMQZ7Pw@mail.gmail.com>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <CAHk-=wg3d5HUkgdWq4Ac74xoUDU_BiHTC_ONacwYFoXnMQZ7Pw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-
-
-On 31/08/2026 00:06, Linus Torvalds wrote:
-> On Sun, 30 Aug 2026 at 15:21, Usama Arif <usama.arif@linux.dev> wrote:
+On 31 August 2026 13:06:19 BST, Yuanhe Shu <xiangzao@linux.alibaba.com>
+wrote:
+>On Thu, Aug 27, 2026 at 06:04:48PM +0100, Bradley Morgan wrote:
+>> LGTM, thanks
 >>
->> Add ZSTD_USE_BMI2() and use it at every runtime BMI2/default selector.
-> 
-> Thanks, this looks sane to me.
-> 
-> I do still react to a couple of places. Notably, this part (repeated a
-> couple of times):
-> 
->> +#if !defined(ZSTD_USE_KERNEL_CPU_FEATURES)
->>      cctx->bmi2 = ZSTD_cpuSupportsBmi2();
->> +#endif
-> 
-> should probably be an "set state" macro the same way ZSTD_USE_BMI2()
-> is now a "get state" macro.
+>> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>
+>Thanks for reviewing v1.  I dropped the tag in v2 since the patch changed
+>materially: Peter asked for the #ifndef macro override pattern instead of
+>a Kconfig symbol, so the hook and its fallback now sit next to their only
+>user in kernel/stacktrace.c and x86 defines the macro in <asm/sections.h>.
+>The helper and the hook are also renamed to in_event_entry_text() and
+>arch_in_event_entry_text().  Please have another look if you get the
+>chance:
+>
 > 
 
-Ack, have added ZSTD_SET_BMI2():
+Hmmm. Good opinion, it's varied imho. But I'm not conflicted. My tag
+stands.
+ https://lore.kernel.org/r/20260831120221.2874445-1-xiangzao@linux.alibaba.com
+>
+>Thanks,
+>Yuanhe
 
-#if !DYNAMIC_BMI2
-#  define ZSTD_USE_BMI2(bmi2) 0
-#  define ZSTD_SET_BMI2(state, value) do { } while (0)
-#elif defined(ZSTD_USE_KERNEL_CPU_FEATURES)
-#  define ZSTD_USE_BMI2(bmi2) cpu_feature_enabled(X86_FEATURE_BMI2)
-#  define ZSTD_SET_BMI2(state, value) do { } while (0)
-#else
-#  define ZSTD_USE_BMI2(bmi2) (bmi2)
-#  define ZSTD_SET_BMI2(state, value) do { (state) = (value); } while (0)
-#endif
-
-will use above in next revision.
-> And:
-> 
->> +ccflags-$(CONFIG_X86) += -DZSTD_USE_KERNEL_CPU_FEATURES
-> 
-> We don't have anything like this for any other ZSTD defines, so my gut
-> feel is that either this is in the wrong place, and it should be in
-> something like
-> 
->    lib/zstd/common/zstd_deps.h
-> 
-> which already has kernel-specific stuff in it, or it should just use
-> #ifdef __KERNEL__ like we use elsewhere for things that are also used
-> by user space.
-> 
-
-Ack, removed it from the Makefile for next revision.
-
-__KERNEL__ alone was insufficient because it is also defined for the x86
-compressed boot code. That environment defines __DISABLE_EXPORTS and cannot
-use the normal alternatives infrastructure, so it retains zstd’s raw-CPUID
-path.
-
-I have added 
-
-#if defined(__KERNEL__) && defined(CONFIG_X86) && \
-    !defined(__DISABLE_EXPORTS)
-#define ZSTD_USE_KERNEL_CPU_FEATURES
-#endif
-
-in lib/zstd/common/zstd_deps.h for the next revision.
-
-
-> The whole situation with ZSTD configuration is a bit strange. I note
-> that there are things like ZSTD_ARCH_ARM_NEON that the kernel never
-> uses.
-> 
-> Why is "DYNAMIC_BMI2" a settimg but things like that
-> ZSTD_ARCH_X86_SSE2 and ZSTD_ARCH_ARM_NEON are never set? This all
-> looks messy.
-> 
-
-DYNAMIC_BMI2 is defined in lib/zstd/common/portability_macros.h.
-
-ZSTD_ARCH_X86_SSE2 and ZSTD_ARCH_ARM_NEON are upstream zstd configuration
-knobs. The kernel import is generated with ZSTD_NO_INTRINSICS [1], so their
-automatic definitions are disabled even though some guarded references
-remain in the imported source. The kernel cannot use SSE/NEON transparently
-because that requires architecture-specific SIMD/FPU state management, whereas
-BMI2 operates only on general-purpose registers.
-
-[1] https://github.com/facebook/zstd/blob/dev/contrib/linux-kernel/Makefile#L30
-
-> Or is there some hidden config I didn't find?
-> 
-> Strange.
-> 
->              Linus
-
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
