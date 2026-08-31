@@ -1,48 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFF855C304;
-	Mon, 31 Aug 2026 13:47:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8CC55C331;
+	Mon, 31 Aug 2026 13:47:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184029; cv=none; b=WZ0rHRFtmvnLBWjbqqZ2Fh1m4ZWN6yQ2KrYwp88QoCejCUq0Nh4PbrjndLZiMGGDy7lWScZn8d9h87Gkg405aKlr5N5eCaLwAmTYi6tiyCIwHvDO+lF7ukmeQdXX5Zf/vpBwNigv+dZvN8QPDVqchFRILGF6seOOPDXcou7JczE=
+	t=1788184031; cv=none; b=hWAfc58qaItnIHYxR0UKMD91nLM3CGJ3ER5kpNwc7f18CvsdefOmg0iF/EJ+uaPosRCHU3G8gRoD3iGx//s9rOKeUZS9hrRYK3zJppzx5TRaoKP+IJq7EeEcapmAjMGwU4GNkApSNIw4LTkvCD4R9+xr2Xn1qGcq2psyv9a2Ixo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184029; c=relaxed/simple;
-	bh=0SBJj+94/IIrBjTN447h/e88FTDDCZISgzXML3hCR/o=;
+	s=arc-20240116; t=1788184031; c=relaxed/simple;
+	bh=CXf2XXNXyH+N999dw91S990cWsJg0zFZCl5pXNWl4P0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XCU0K9SoQ08o8Shsh6Xqxx6qj0F5wvg6arc5y7eesZ1EHwp25n2Gs8Oel9gI03o8oYx1ZvQkrLae0eVrcfzwu160eJ+Ze8U5wlRguYuvn6IDAoSo0p9Mx4+PRj0sHn1nA8cXeDSRWMdzOdeW/OR0tJgcUpf192c4i92lPL7LiLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LFHRGN7O; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ThBAlAKHdBLC1awExsj/w9nLArDl3sfsUbZc+WvZegM0ICCd6FGGVynUHY6HdJxrMTPxhCEhDC3bxmoRnTiXE80zuBHj+qzbC5zGW+rFI52+jXnna9j2LnQrW5DE3Hb7X7TPRWt4ZZuY+Wcu0cC9JAmeHDLrCcZcjs4CjwDUnz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aCo322JB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LFHRGN7O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58EFE1F00ADB;
-	Mon, 31 Aug 2026 13:47:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aCo322JB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1754E1F000E9;
+	Mon, 31 Aug 2026 13:47:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184026;
-	bh=JC+LdObHYChlN/X+C+HSrZCgmLDlu+X4i/jklFPJIMc=;
+	s=k20260515; t=1788184028;
+	bh=MYn0f3VU4AfkZURexRgzvVmSfbJTJTQAyw1KqLC7Coc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LFHRGN7OoCqW+0gP91emMEFKaBFwWBaZOat67U7Ok7vQaZaoX3H6A3wqJThv87RcT
-	 lOgeC3GFP6EqHE/2sRjYAbBtBjr4+MvVUtR/t/bKYr+ygG9J7Wy1fPbYhqFSpiTfNK
-	 Fn2IjHc/PFEltu+i3dg1qkE74uwZdOkowtbN+tqweGSpQZzuNsHhoWYowdgGbL4kv7
-	 Rj4+kZG1zjDC8Q/zbSeuFpno5TLjlMdK5pvTutEg0qrjmaRiFqokeKr1E/s3DaCTfA
-	 bP7BY7IqnICB7b3Mi9X+H1/Jqxl2kh2YhJUBrBbh2PvYkortbXzwtyVbMfl8m6asFo
-	 79CjRFaG1s9uQ==
+	b=aCo322JBciqsccrsHNRNaEc8LeH6wzrVGqB3ypxd5zE2TYpIDKFneL1LMKScosp26
+	 SZms5b3/z/1LFWqAAp0DQjUlaYM0xdzR0Z4EVpL/FmYz/xmbzRZsyak5WrD6Lr5uV7
+	 omVmGKI3gTBSshX4m9nSNY1KPzsGQ9qR1XGCJLLP7Pg1o9DZwpjND3i2gcStQ3/IfG
+	 /9XO1gcKjOTLI8vnzCKJyIIJdi8Drv+C3+bLgpPFBCACWzDFE5/+YJB8mKhoNXsXPP
+	 aGOOgqizJ0LQZTKsSofGXi2e+dErRMKROE41sgIcuQi7rckrfyytP68d1bodx2yiTY
+	 jrACiHF1FdlEw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Alysa Liu <Alysa.Liu@amd.com>,
-	Amir Shetaia <Amir.Shetaia@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Pagadala Yesu Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	Felix.Kuehling@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdkfd: fix UAF race in destroy_queue_cpsch
-Date: Mon, 31 Aug 2026 09:27:54 -0400
-Message-ID: <20260831133314.4125787-446-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] wifi: mac80211: ibss: wait for in-flight TX on disconnect
+Date: Mon, 31 Aug 2026 09:27:55 -0400
+Message-ID: <20260831133314.4125787-447-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -58,395 +54,406 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Alysa Liu <Alysa.Liu@amd.com>
+From: Pagadala Yesu Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>
 
-[ Upstream commit ac081deaf16a639ea7dff2f285fe421a33c1ade0 ]
+[ Upstream commit d0e69d9afa59b93c30294eba89b1f15f69e91105 ]
 
-wait_on_destroy_queue() drops locks to wait for queue resume, allowing
-a concurrent destroy to free the queue. Use is_being_destroyed flag to
-serialize destruction.
+While leaving an IBSS in ieee80211_ibss_disconnect() mac80211 flushes
+stations, turns the carrier off and immediately tells the driver to
+leave as well. While there may be synchronize_net() in station flush
+and in this code later, packets can still be transmitted due to
+cross-CPU race conditions after carrier off is set.
+Therefore, it's possible for a race to happen where a TX to the
+driver occurs while or after telling it to leave the IBSS. This can
+be confusing to drivers, and in the case of iwlwifi leads to an
+attempt to use invalid queues.
 
-Reviewed-by: Amir Shetaia <Amir.Shetaia@amd.com>
-Signed-off-by: Alysa Liu <Alysa.Liu@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Move netif_carrier_off() to occur before sta_info_flush() during
+IBSS disconnect, and add synchronize_net() if flushing didn't,
+so that the synchronize_net() always happens between turning the
+carrier off and telling the driver, avoiding this race.
+
+Signed-off-by: Pagadala Yesu Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>
+Reviewed-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Link: https://patch.msgid.link/20260706223751.da1ce439cc93.If5cf482f87ab98ce66dd48724e24c81fed236d3f@changeid
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `wifi: mac80211: ibss: wait for in-flight TX
+on disconnect`
 
-### Step 1.1: Subject Line
-**Record:** `[drm/amdkfd]` `[fix]` — UAF race in `destroy_queue_cpsch`
-during concurrent queue destruction.
+**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, HEAD `2736c32da98b9`)
+**Upstream commit:** `d0e69d9afa59` (mainline, Jul 7 2026)
+**Candidate on autosel:** `8763b7cb9523a` — **not yet applied** to this
+checkout
 
-### Step 1.2: Commit Message Tags
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Subject line
+**Record:** `[wifi: mac80211: ibss]` — implicit **fix**
+(wait/synchronize) — ensure in-flight TX completes before telling the
+driver to leave IBSS on disconnect.
+
+### Step 1.2: Tags
 **Record:**
-- **Reviewed-by:** Amir Shetaia \<Amir.Shetaia@amd.com\> (AMD reviewer)
-- **Signed-off-by:** Alysa Liu \<Alysa.Liu@amd.com\> (author)
-- **Signed-off-by:** Alex Deucher \<alexander.deucher@amd.com\> (DRM/AMD
+- **Fixes:** — absent (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** Johannes Berg `<johannes.berg@intel.com>` (mac80211
   maintainer)
-- **Absent (expected):** Fixes:, Reported-by:, Link:, Tested-by:, Cc:
-  stable@vger.kernel.org
+- **Acked-by:** — none
+- **Link:** https://patch.msgid.link/20260706223751.da1ce439cc93.If5cf48
+  2f87ab98ce66dd48724e24c81fed236d3f@changeid
+- **Cc: stable:** — absent (expected)
+- **Signed-off-by:** Pagadala Yesu Anjaneyulu, Miri Korenblit, Johannes
+  Berg (ignore pipeline SOB)
 
-Notable: maintainer sign-off and subsystem reviewer present; no syzbot
-or user bug report.
+Notable: maintainer Reviewed-by; no syzbot/user reports; Intel-internal
+fix.
 
-### Step 1.3: Commit Body Analysis
+### Step 1.3: Body analysis
 **Record:**
-- **Bug:** `wait_on_destroy_queue()` drops `dqm` lock and process mutex
-  while waiting for a suspended queue to resume. A concurrent destroy
-  can complete and free the queue while the first caller still holds a
-  pointer to it.
-- **Symptom:** Use-after-free when the first destroy path resumes after
-  the wait.
-- **Root cause:** No serialization of concurrent destruction;
-  `is_being_destroyed` was set but not checked at entry; not cleared on
-  error paths.
-- **Fix:** Check `is_being_destroyed` and return `-EBUSY` for concurrent
-  destroyers; clear the flag on wait failure and on the debug-queue
-  error path.
+- **Bug:** On IBSS disconnect, mac80211 flushes stations, turns carrier
+  off, then immediately calls `drv_leave_ibss()`. Cross-CPU races allow
+  TX to reach the driver during/after leave.
+- **Symptom:** Driver confusion; iwlwifi attempts to use invalid queues.
+- **Root cause:** `synchronize_net()` may be skipped when
+  `sta_info_flush()` returns 0 (no stations); carrier was turned off too
+  late; no guaranteed net stack drain between carrier-off and
+  `drv_leave_ibss()`.
+- **Version info:** None in message; fix landed in mainline after v6.18.
 
-### Step 1.4: Hidden Bug Fix Detection
-**Record:** Not disguised — explicitly labeled UAF race. The
-`failed_try_destroy_debugged_queue` cleanup also fixes a stuck-flag bug
-(queue permanently marked as being destroyed after `-EBUSY`).
+### Step 1.4: Hidden bug fix?
+**Record:** Yes — despite no "fix" in subject, this is a
+synchronization/race fix disguised as ordering cleanup. Not cosmetic.
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Change Inventory
+### Step 2.1: Inventory
 **Record:**
-- **File:** `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c` (+6
-  lines net)
-- **Functions:** `wait_on_destroy_queue()`, `destroy_queue_cpsch()`
-  error path
-- **Scope:** Single-file, surgical fix (3 small hunks)
+- **File:** `net/mac80211/ibss.c` only (+3 / -6 lines)
+- **Functions:** `ieee80211_ibss_disconnect()`,
+  `ieee80211_csa_connection_drop_work()`, `ieee80211_ibss_leave()`
+- **Scope:** Single-file surgical fix
 
-### Step 2.2: Code Flow Changes
-**Record:**
-- **Hunk 1 (wait_on_destroy_queue entry):** Before → unconditionally set
-  `is_being_destroyed = true`. After → if already set, return `-EBUSY`
-  immediately (serialize concurrent destroys).
-- **Hunk 2 (wait_on_destroy_queue exit):** Before → on
-  `wait_event_interruptible()` failure (signal), flag stayed true
-  forever. After → clear `is_being_destroyed` on non-zero `ret` so
-  destroy can be retried.
-- **Hunk 3 (failed_try_destroy_debugged_queue):** Before → returned
-  `-EBUSY` for debug queues but left `is_being_destroyed = true`. After
-  → clears flag before unlock/return.
+### Step 2.2: Code flow per hunk
 
-### Step 2.3: Bug Mechanism
-**Record:** **Category:** Use-after-free / race condition (reference-
-counting-like serialization via flag).
+**Hunk 1 — `ieee80211_ibss_disconnect()`:**
+- **Before:** `sta_info_flush()` → incomplete-sta cleanup →
+  `netif_carrier_off()` → … → `drv_leave_ibss()`
+- **After:** `netif_carrier_off()` → `sta_info_flush()`; if flush
+  returned 0, `synchronize_net()` → … → `drv_leave_ibss()`
+- **Path:** IBSS disconnect / leave / CSA drop
 
-**Mechanism verified in code:**
-1. `kfd_ioctl_destroy_queue()` holds `p->mutex`.
-2. `destroy_queue_cpsch()` → `dqm_lock()` → `wait_on_destroy_queue()`.
-3. When `debug_trap_enabled && is_suspended`, `wait_on_destroy_queue()`
-   calls `dqm_unlock()`, `mutex_unlock(&q->process->mutex)`, then blocks
-   on `wait_event_interruptible(dqm->destroy_wait,
-   !q->properties.is_suspended)`.
-4. With mutex released, a second thread can enter
-   `kfd_ioctl_destroy_queue()` for the same queue.
-5. Without the fix, the second thread proceeds through destruction;
-   `pqm_destroy_queue()` calls `uninit_queue()` and frees resources.
-6. First thread wakes and continues using freed `struct queue` → UAF.
+**Hunk 2 — `ieee80211_csa_connection_drop_work()`:**
+- **Before:** disconnect → `synchronize_rcu()` → purge skb queue
+- **After:** disconnect → purge skb queue (RCU sync removed; disconnect
+  now guarantees `synchronize_net()`)
 
-The `is_being_destroyed` flag was already used in
-`suspend_single_queue()` (line 1075) to block suspend during destroy,
-but was never checked at the destroy entry point.
+**Hunk 3 — `ieee80211_ibss_leave()`:**
+- **Before:** disconnect → … → `synchronize_rcu()` → purge skb queue
+- **After:** disconnect → purge skb queue
 
-### Step 2.4: Fix Quality
-**Record:** Fix is minimal and obviously correct — standard serialize-
-with-flag pattern. Low regression risk: `-EBUSY` on concurrent destroy
-is consistent with existing error handling in `pqm_destroy_queue()`
-(non-`-ETIME`/non-`-EIO` errors skip freeing). No new APIs or data
-structures.
+### Step 2.3: Bug mechanism
+**Record:** **Race condition / synchronization bug**
+- `sta_info_flush()` only calls `synchronize_net()` when stations are
+  actually flushed (`free_list` non-empty); returns 0 with no sync when
+  empty.
+- Old ordering allowed new TX between flush and carrier-off; even after
+  carrier-off, in-flight TX on other CPUs could reach the driver after
+  `drv_leave_ibss()`.
+- Fix: carrier-off first (blocks new xmit via `!netif_carrier_ok()` in
+  `__dev_direct_xmit()`), then always `synchronize_net()` before
+  `drv_leave_ibss()`.
+
+### Step 2.4: Fix quality
+**Record:** Obviously correct; mirrors the existing IBSS merge path in
+the same file (`netif_carrier_off()` + `synchronize_net()` before
+`drv_leave_ibss()` at lines 244–249). Minimal. Low regression risk —
+adds only ordering + one conditional sync call; maintainer-reviewed.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** `wait_on_destroy_queue()` and `is_being_destroyed` usage
-introduced in commit `a70a93fa568b4` ("drm/amdkfd: add debug suspend and
-resume process queues operation", 2023-06-09, Jonathan Kim). Confirmed
-ancestor of HEAD in this tree. Bug has existed since that commit.
+**Record:** Current disconnect ordering in this tree dates to the v6.18
+import (`5d324e5159d9e`). Deeper per-line history not available in this
+shallow stable checkout; bug appears longstanding in IBSS disconnect
+(merge path already had the correct pattern separately).
 
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag in commit message.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no Fixes: tag.
 
-### Step 3.3: Related File History
-**Record:** Recent `amdkfd` stable-relevant fixes in this tree include
-NULL deref, overflow, list corruption, and UAF fixes — active
-maintenance area. No prior fix for this specific race found (`git log
---grep="destroy_queue_cpsch"` and `--grep="is_being_destroyed"` show
-only the introducing commit).
+### Step 3.3: Related file history
+**Record:** Fix is standalone (v1 only on lore). On `autosel` branch,
+only this commit touches `ibss.c` for this issue. Mainline fix
+`d0e69d9afa59` is **not** in `remotes/stable/linux-6.18.y`.
 
-### Step 3.4: Author Context
-**Record:** Alysa Liu has other security/reliability fixes in
-amdgpu/amdkfd in this tree (e.g., `7885eb335d8f9` VM acquire UAF). Alex
-Deucher is AMDGPU maintainer.
+### Step 3.4: Author context
+**Record:** Pagadala Yesu Anjaneyulu — Intel iwlwifi contributor.
+Johannes Berg (maintainer) reviewed. Miri Korenblit committed upstream.
 
 ### Step 3.5: Dependencies
-**Record:** Standalone — uses existing `is_being_destroyed` field in
-`kfd_priv.h` (line 521), already present since `a70a93fa568b4`. No
-series dependencies.
+**Record:** None. Self-contained; no series prerequisites. Applies
+cleanly to current `ibss.c` in this tree.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Discussion
-**Record:** `b4 dig -c <commit>` could not be run — commit is not in
-this checkout. Lore.kernel.org search blocked (Anubis bot protection).
-**UNVERIFIED:** full mailing list review thread.
+### Step 4.1: Original discussion
+**Record:** `b4 dig -c 8763b7cb9523a` → https://patch.msgid.link/2026070
+6223751.da1ce439cc93.If5cf482f87ab98ce66dd48724e24c81fed236d3f@changeid
+Single-message thread (patch only, no replies). v1 only.
 
 ### Step 4.2: Reviewers
-**Record:** **UNVERIFIED** via b4 dig -w. Commit message shows Reviewed-
-by from AMD and Signed-off-by from maintainer.
+**Record:** `b4 dig -w`: CC'd `johannes@sipsolutions.net`, `linux-
+wireless@vger.kernel.org`, Miri Korenblit, Johannes Berg. Appropriate
+maintainers included.
 
-### Step 4.3: Bug Report
-**Record:** N/A — no Reported-by or Link tags.
+### Step 4.3: Bug report
+**Record:** No external bug report. iwlwifi invalid-queue issue
+described in commit message only (Intel-internal).
 
-### Step 4.4: Related Patches/Series
-**Record:** Appears standalone; not part of a multi-patch series.
+### Step 4.4: Related patches
+**Record:** Standalone; not part of a series.
 
-### Step 4.5: Stable List History
-**Record:** **UNVERIFIED** — could not search lore stable archive.
+### Step 4.5: Stable list
+**Record:** Not searched on lore stable list; no stable nomination found
+in thread (thread has no replies).
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `wait_on_destroy_queue()`, `destroy_queue_cpsch()`, callers
-`pqm_destroy_queue()`, `kfd_ioctl_destroy_queue()`.
+### Step 5.1: Key functions
+**Record:** `ieee80211_ibss_disconnect()`, `sta_info_flush()` /
+`__sta_info_flush()`, `drv_leave_ibss()`, `ieee80211_ibss_leave()`,
+`ieee80211_csa_connection_drop_work()`
 
 ### Step 5.2: Callers
 **Record:**
-- `destroy_queue_cpsch` assigned at line 2953 as
-  `dqm->ops.destroy_queue` (CP scheduling path).
-- Called from `pqm_destroy_queue()` (line 550).
-- `pqm_destroy_queue()` called from `kfd_ioctl_destroy_queue()` (line
-  429) under `p->mutex`.
-- Userspace entry: `KFD_IOC_DESTROY_QUEUE` ioctl on `/dev/kfd`.
+- `ieee80211_ibss_disconnect()` ← `ieee80211_ibss_leave()`,
+  `ieee80211_csa_connection_drop_work()`
+- `ieee80211_ibss_leave()` ← `ieee80211_leave_ibss()` in `cfg.c`
+  (nl80211 `.leave_ibss` op)
+- Userspace triggers via `NL80211_CMD_LEAVE_IBSS` / interface down; CSA
+  radar path triggers disconnect work
 
 ### Step 5.3: Callees
-**Record:** `wait_on_destroy_queue()` calls `dqm_unlock/lock`,
-`mutex_unlock/lock`, `wait_event_interruptible()`. On success path,
-`destroy_queue_cpsch()` calls `mqd_mgr->free_mqd()` after unlock — the
-UAF window is between wait return and completion of destroy.
+**Record:** `netif_carrier_off()`, `sta_info_flush()` (may call
+`synchronize_net()` internally), `synchronize_net()`,
+`drv_leave_ibss()`, `ieee80211_bss_info_change_notify()`
 
 ### Step 5.4: Reachability
-**Record:** **Userspace-reachable** for processes with KFD access.
-Trigger requires:
-- `debug_trap_enabled` on the process (KFD debugger path)
-- Queue `is_suspended`
-- Concurrent destroy while first destroy waits (mutex dropped during
-  wait)
+**Record:** Reachable from userspace via cfg80211/nl80211 when leaving
+ad-hoc/IBSS mode or on CSA-driven disconnect. Not obscure kernel-only
+init path.
 
-Narrower than everyday compute, but real for ROCm debugger / debug-trap
-workloads.
-
-### Step 5.5: Similar Patterns
-**Record:** `suspend_single_queue()` already checks `is_being_destroyed`
-(line 1075) — this fix completes the symmetric protection for the
-destroy side.
+### Step 5.5: Similar patterns
+**Record:** IBSS merge path in same file already uses
+`netif_carrier_off()` + `synchronize_net()` before `drv_leave_ibss()` —
+confirms the disconnect path was missing this established pattern.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree (6.18.44)
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 6.1: Buggy Code Present?
-**Record:** **YES.** Tree is `v6.18.44` (Makefile: 6.18.44). Current
-`wait_on_destroy_queue()` at lines 2480–2506 lacks all three fix hunks.
-`is_being_destroyed` field exists. Introducing commit `a70a93fa568b4` is
-an ancestor of HEAD.
+### Step 6.1: Buggy code present?
+**Record:** **Yes.** Current tree at lines 678–708 of
+`net/mac80211/ibss.c` has `sta_info_flush()` before
+`netif_carrier_off()`, then `drv_leave_ibss()` with no guaranteed
+`synchronize_net()` when flush returns 0.
 
-### Step 6.2: Backport Complications
-**Record:** **Clean apply.** `git apply --check` succeeded for all three
-hunks against current file (minor 1-line offset on first hunk). No
-structural refactoring conflicts.
+### Step 6.2: Backport complications
+**Record:** Clean apply expected — autosel commit `8763b7cb9523a` is a
+trivial 9-line change against identical code in this tree.
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** **NO** — grep and `git log -S "is_being_destroyed"` show no
-subsequent fix for this race in this tree.
-
----
-
-## Phase 7: Subsystem Context
-
-### Step 7.1: Subsystem Criticality
-**Record:** `drivers/gpu/drm/amd/amdkfd/` — **IMPORTANT** (AMD GPU
-compute/KFD/ROCm). Not universal like mm/VFS, but affects all KFD users
-on AMDGPU.
-
-### Step 7.2: Activity Level
-**Record:** Actively maintained — multiple recent amdkfd security and
-stability fixes in 6.18.y (NULL deref, overflow, list corruption, CRIU
-fixes).
+### Step 6.3: Related fixes already present?
+**Record:** **No.** `git log remotes/stable/linux-6.18.y` does not
+contain `d0e69d9afa59` or `8763b7cb9523a`.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 8.1: Who Is Affected
-**Record:** AMD GPU users with `CONFIG_DRM_AMDGPU` + KFD enabled,
-specifically processes using debug-trap with suspended queues.
-Config/driver-specific, not platform-specific.
+### Step 7.1: Subsystem criticality
+**Record:** `net/mac80211` — **IMPORTANT** (wireless stack; affects all
+WiFi users on affected paths; IBSS/adhoc is a niche but real mode).
 
-### Step 8.2: Trigger Conditions
+### Step 7.2: Subsystem activity
+**Record:** Actively maintained; iwlwifi is a widely deployed driver.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** Users leaving IBSS/adhoc mode (or dropped by CSA/radar) with
+drivers that assume no TX after `leave_ibss` — notably **iwlwifi**.
+Config-specific (`NL80211_IFTYPE_ADHOC`), not universal.
+
+### Step 8.2: Trigger conditions
+**Record:** IBSS leave, interface teardown, CSA connection drop.
+Userspace-triggerable via nl80211. Race is timing-dependent but
+realistic on SMP. Unprivileged users can trigger if they control the
+wireless interface.
+
+### Step 8.3: Failure mode severity
+**Record:** Driver TX after IBSS teardown → invalid queue usage in
+iwlwifi (`WARN_ON` paths in `mvm/tx.c`). Severity: **MEDIUM-HIGH** for
+affected users (driver malfunction, possible packet loss/warnings; race
+class can escalate depending on driver). Not a mass crash, but a real
+correctness bug in a common driver.
+
+### Step 8.4: Risk-benefit
 **Record:**
-- Process has `debug_trap_enabled`
-- Target queue is `is_suspended`
-- Two concurrent destroy attempts (or destroy during wait after mutex
-  drop)
-- **Likelihood:** Uncommon but realistic in debugger scenarios (multi-
-  threaded teardown, signal interruption + retry)
-- **Privilege:** Requires access to `/dev/kfd` (not arbitrary
-  unprivileged, but reachable by compute users)
-
-### Step 8.3: Failure Mode Severity
-**Record:** **UAF** on `struct queue` → kernel oops/crash, potential
-memory corruption. **Severity: HIGH** (approaching CRITICAL for
-exploitable UAF, though trigger is somewhat specialized).
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** HIGH — prevents real UAF crash in production KFD debugger
-  paths
-- **Risk:** LOW — 6 lines, uses existing flag, `-EBUSY` is
-  safe/conventional
-- **Ratio:** Strongly favors backport
+- **Benefit:** MEDIUM — fixes real disconnect race for IBSS+iwlwifi;
+  aligns with proven pattern already in same file
+- **Risk:** LOW — 9 lines, maintainer-reviewed, no API changes
+- **Ratio:** Favorable for stable
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Explicit UAF race fix with clear mechanism
-- Bug present since 2023 in code that exists in 6.18.44
-- Small, surgical, applies cleanly
-- Userspace-reachable via KFD ioctl
-- Maintainer + reviewer sign-off
-- Matches pattern of other amdkfd stable fixes (UAF, NULL deref, races)
-- Error-path flag cleanup prevents stuck "being destroyed" state
+- Real cross-CPU race on IBSS disconnect
+- Concrete iwlwifi impact (invalid queues)
+- Small, surgical, maintainer-reviewed fix
+- Matches existing correct IBSS merge pattern in same file
+- Buggy code confirmed in v6.18.44 tree; fix not yet applied
+- Applies cleanly
 
 **AGAINST backport:**
-- Narrow trigger (debug_trap + suspended queue + concurrency)
-- No syzbot/user report in commit message
-- Mailing list discussion unverified
+- IBSS/adhoc is a niche mode
+- No public bug report or syzbot reproducer
+- Failure mode may be WARN-level rather than panic (unverified crash
+  severity)
+- `synchronize_rcu()` removal rationale not discussed on lore (only
+  maintainer review)
 
 **Unresolved:**
-- Full lore review thread (blocked)
-- Whether fix commit hash exists on mainline (not in this tree)
+- Exact kernel version that introduced the buggy disconnect ordering
+  (history too shallow to pinpoint)
+- Whether iwlwifi issue always manifests as WARN vs harder failure
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — logic is clear; AMD reviewer
-   + maintainer SOB; no Tested-by but pattern is standard
-2. Fixes a real bug? **PASS** — verified UAF race in code
-3. Important issue? **PASS** — UAF / crash (HIGH severity)
-4. Small and contained? **PASS** — 6 lines, 1 file, 2 functions
-5. No new features/APIs? **PASS** — uses existing `is_being_destroyed`
-   field
-6. Can apply to local tree? **PASS** — verified with `git apply --check`
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — logic sound; Reviewed-by
+   maintainer; mirrors in-tree pattern
+2. Fixes real bug affecting users? **PASS** — race on IBSS disconnect
+   with iwlwifi impact
+3. Important issue? **PASS** — driver malfunction on disconnect (MEDIUM-
+   HIGH for affected config)
+4. Small and contained? **PASS** — 9 lines, 1 file
+5. No new features/APIs? **PASS** — ordering/sync only
+6. Can apply to local tree? **PASS** — clean apply to current `ibss.c`
 
-### Step 9.3: Exception Categories
-**Record:** N/A — standard bug fix, not a quirk/ID/DT/build/doc
-exception.
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs).
 
-### Step 9.4: Decision Rationale
-This is a textbook stable backport: a real use-after-free in KFD queue
-destruction, introduced years ago, still present in 6.18.44, fixed with
-a minimal flag-based serialization that mirrors existing suspend-side
-logic. The trigger is specialized (debugger + suspended queue) but the
-consequence is a kernel crash. The patch applies cleanly and carries low
-risk.
+### Step 9.4: Decision rationale
+
+For **linux-6.18.y** (this checkout): the buggy disconnect sequencing
+exists, the fix is small and maintainer-approved, and it prevents a
+realistic SMP race where TX reaches iwlwifi after IBSS teardown. The fix
+follows an established pattern already used in the IBSS merge path in
+the same file. Conservative stable criteria are met.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-- **[Phase 1]** Confirmed no Fixes:/Reported-by:/Link: tags
-- **[Phase 2]** Read current `wait_on_destroy_queue()` at lines
-  2480–2506: missing all fix hunks
-- **[Phase 2]** Read `destroy_queue_cpsch()` at lines 2508–2601: missing
-  flag cleanup on error path
-- **[Phase 2]** Read `suspend_single_queue()` line 1075: existing
-  `is_being_destroyed` check confirms flag infrastructure
-- **[Phase 2]** Read `kfd_priv.h` line 521: `is_being_destroyed` field
-  exists
-- **[Phase 3]** `git describe HEAD`: v6.18.44
-- **[Phase 3]** `git blame -L 2480,2506`: `wait_on_destroy_queue` from
-  `a70a93fa568b4` (Jonathan Kim, 2023-06-09)
-- **[Phase 3]** `git show a70a93fa568b4f`: introduced debug
-  suspend/resume and `wait_on_destroy_queue`
-- **[Phase 3]** `git merge-base --is-ancestor a70a93fa568b4f HEAD`:
-  buggy commit is in tree
-- **[Phase 3]** `git log -S "is_being_destroyed"`: only introducing
-  commit, no fix
-- **[Phase 3]** `git log --oneline -20 -- kfd_device_queue_manager.c`:
-  recent amdkfd activity confirmed
-- **[Phase 4]** `b4 dig -c`: N/A — commit not in checkout
-- **[Phase 4]** lore.kernel.org fetch: blocked by Anubis (UNVERIFIED)
-- **[Phase 5]** `grep destroy_queue`: traced call chain ioctl →
-  pqm_destroy_queue → destroy_queue_cpsch
-- **[Phase 5]** Read `pqm_destroy_queue()` lines 505–574: frees queue
-  only after successful destroy
-- **[Phase 5]** Read `kfd_ioctl_destroy_queue()` lines 417–433:
-  holds/releases `p->mutex`
-- **[Phase 6]** Confirmed buggy code at lines 2493, 2495–2503 (drops
-  locks during wait)
-- **[Phase 6]** `git apply --check`: patch applies cleanly to 6.18.44
-- **[Phase 6]** `grep "fix UAF race in destroy_queue_cpsch"`: not in
-  tree (fix not yet applied)
-- **[Phase 8]** Race mechanism verified: mutex dropped at line 2497
-  enables concurrent destroy
+- [Phase 1] Parsed subject, tags, body from provided commit message and
+  `git show 8763b7cb9523a`
+- [Phase 2] Diff analysis: 3 insertions, 6 deletions in `ibss.c`;
+  verified `sta_info_flush()` conditional `synchronize_net()` at
+  `sta_info.c:1684-1687`
+- [Phase 2] Verified `__dev_direct_xmit()` carrier check at
+  `net/core/dev.c:4853-4854`
+- [Phase 3] `git describe HEAD` → v6.18.44; tree is
+  `stable/linux-6.18.y`
+- [Phase 3] `git show remotes/stable/linux-6.18.y:net/mac80211/ibss.c` →
+  buggy ordering confirmed
+- [Phase 3] Fix not in stable: `git log remotes/stable/linux-6.18.y | rg
+  d0e69d9` → empty; merge-base with fix is `Linux 6.18`
+- [Phase 3] `git show d0e69d9afa59` → upstream mainline commit confirmed
+- [Phase 4] `b4 dig -c 8763b7cb9523a` → lore URL found
+- [Phase 4] `b4 dig -a` → v1 only
+- [Phase 4] `b4 dig -w` → Johannes Berg, linux-wireless CC'd
+- [Phase 4] `/tmp/ibss_thread.mbox` → single patch, no replies, no
+  stable nomination
+- [Phase 5] `grep ieee80211_ibss_leave` → called from `cfg.c:3223`
+  (nl80211 leave_ibss)
+- [Phase 5] Verified IBSS merge correct pattern at `ibss.c:244-249`
+- [Phase 5] iwlwifi invalid queue paths at `mvm/tx.c:814`
+  (`WARN_ON(queue == IWL_MVM_INVALID_QUEUE)`)
+- [Phase 6] Read current `ibss.c:653-710` and `1814-1828` — buggy code
+  present, `synchronize_rcu()` still in leave paths
+- [Phase 6] `git show 8763b7cb9523a` on autosel — patch applies to
+  identical code
+- [Phase 8] IBSS reachability via `cfg.c` `.leave_ibss` op confirmed
+- **UNVERIFIED:** Exact introduction commit of buggy disconnect ordering
+  (shallow history)
+- **UNVERIFIED:** Whether iwlwifi issue always causes only WARN vs oops
 
 **YES**
 
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ net/mac80211/ibss.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index d9f09f25911a7..b02fe5d08c79f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -2499,6 +2499,9 @@ static int wait_on_destroy_queue(struct device_queue_manager *dqm,
- 	if (pdd->qpd.is_debug)
- 		return ret;
+diff --git a/net/mac80211/ibss.c b/net/mac80211/ibss.c
+index 6e36b09fe97f8..6ca2ff354e768 100644
+--- a/net/mac80211/ibss.c
++++ b/net/mac80211/ibss.c
+@@ -675,7 +675,9 @@ static void ieee80211_ibss_disconnect(struct ieee80211_sub_if_data *sdata)
  
-+	if (q->properties.is_being_destroyed)
-+		return -EBUSY;
-+
- 	q->properties.is_being_destroyed = true;
+ 	ifibss->state = IEEE80211_IBSS_MLME_SEARCH;
  
- 	if (pdd->process->debug_trap_enabled && q->properties.is_suspended) {
-@@ -2511,6 +2514,9 @@ static int wait_on_destroy_queue(struct device_queue_manager *dqm,
- 		dqm_lock(dqm);
+-	sta_info_flush(sdata, -1);
++	netif_carrier_off(sdata->dev);
++	if (!sta_info_flush(sdata, -1))
++		synchronize_net();
+ 
+ 	spin_lock_bh(&ifibss->incomplete_lock);
+ 	while (!list_empty(&ifibss->incomplete_stations)) {
+@@ -689,8 +691,6 @@ static void ieee80211_ibss_disconnect(struct ieee80211_sub_if_data *sdata)
  	}
+ 	spin_unlock_bh(&ifibss->incomplete_lock);
  
-+	if (ret)
-+		q->properties.is_being_destroyed = false;
-+
- 	return ret;
- }
- 
-@@ -2604,7 +2610,7 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
- 	return retval;
- 
- failed_try_destroy_debugged_queue:
+-	netif_carrier_off(sdata->dev);
 -
-+	q->properties.is_being_destroyed = false;
- 	dqm_unlock(dqm);
- 	return retval;
- }
+ 	sdata->vif.cfg.ibss_joined = false;
+ 	sdata->vif.cfg.ibss_creator = false;
+ 	sdata->vif.bss_conf.enable_beacon = false;
+@@ -717,7 +717,6 @@ static void ieee80211_csa_connection_drop_work(struct wiphy *wiphy,
+ 			     u.ibss.csa_connection_drop_work);
+ 
+ 	ieee80211_ibss_disconnect(sdata);
+-	synchronize_rcu();
+ 	skb_queue_purge(&sdata->skb_queue);
+ 
+ 	/* trigger a scan to find another IBSS network to join */
+@@ -1823,8 +1822,6 @@ int ieee80211_ibss_leave(struct ieee80211_sub_if_data *sdata)
+ 	memset(&ifibss->ht_capa, 0, sizeof(ifibss->ht_capa));
+ 	memset(&ifibss->ht_capa_mask, 0, sizeof(ifibss->ht_capa_mask));
+ 
+-	synchronize_rcu();
+-
+ 	skb_queue_purge(&sdata->skb_queue);
+ 
+ 	timer_delete_sync(&sdata->u.ibss.timer);
 -- 
 2.53.0
 
