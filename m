@@ -1,303 +1,276 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011067.outbound.protection.outlook.com [52.101.65.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3813E00B5
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:19:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164378; cv=none; b=TKGbdjB+mzRohE0NxXmcj9ejzka70h7d8n9+/4Jp9Qk7v7Z/li7VeNI8ZqSaZ9MW5YQ3+evgaKD4+yfbTBA01nm5JYEAWXM4fEQ3KTISmBP4C4QzvbFo9KjMRVxzr3F9/+qlOXbJNGVPb14MS3g+65p3RjBXwoFt/oInQIDeDC8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164378; c=relaxed/simple;
-	bh=xQT+vbjgJJMddsLQ5y+pc+pr1hM+97dd6In2F3g2ICU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rPSfdsjRZhqQrz4vrOVt/RCngmmNrIAKa/MfgURcnCY6+CYriSB+MXQa/oML2DM9vbigYO9Ug/Ou6LqoI/k+s79Ou+mnNcieZ+vwEgjlGPj502EGqdVOwanrtKBq0d6kTrKjT56CHTs9Q13isa1jazdca+yrl4Ty/EBsIu1/QcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VOlq7p6C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NdSw3L20; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F4A3D9529;
+	Mon, 31 Aug 2026 08:19:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788164381; cv=fail; b=XLwke73DOsXwnzpvnxDUD4DV4ZLH2CLgKMavyx2bbchgOi3wu0TSUphePR0uEmflVCDeCab08qi8TRn7kcpfMQO7t2q2e72qPXcXsNq6uLLTiEfQ52hSPzmQOrt0DQiWZrIPuoye6BELFhOAW2p6yuJ2aP+KdEtFILKx9QzQhjY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788164381; c=relaxed/simple;
+	bh=WJbikYz5BKiAv5i1an+eIyhsUY7PJekLe6FhcGNvWnI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QTobKoQr5vspiV9SRmghGC7thlPepG2viqwwYYtw+YHDipwfFYOYaYYcM4LnGmyNCkcVSVTuhNrFERv4bQH8z2M3TcImQBV7DCzygpE7hPZDWlA0mPudD3NPrUe5zy+7b5VdTNn+SDl9fTZscoQS69VndfiR0CWXOE4B5+Sip1o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=MfvQqg6A; arc=fail smtp.client-ip=52.101.65.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VOlq7p6C";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NdSw3L20"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V7xZem2924381
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:19:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rPCeXMnw2NJcXbfvM21WwjBfap9NqrHZ9SMjrJ9a+iY=; b=VOlq7p6CIbnqSIyr
-	nwtmPuvhElLDK8/42k2G4QdvPTT6+8IUjmCU9ADp94Y/dLOI1gwixc7Gkwfj9ymo
-	tcmSgWR/g4CpmTHGRx+RFXxf8geUwxNTGLjq03g+Y0Wz3EpdHpZCG2NHeD8+kxjk
-	TKwfSAF0ETJfhfZ9C3mA892FlR1XDww65pd64dE7Qrq3cCr+tzt5op8lOSKSgQ/w
-	+aezavW78RgM6/BYM6RyAduIAa2/Rhe1urinnrW26ei73jTBKI4q6tmvBSLQoM7F
-	b3786y4DPBEho++SEo9/DeHxB/fXm5taMHQHJchJxQdtKW57DcbAEXAKr0qg5qwr
-	aml55w==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gcv7w9nsn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:19:36 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92ec3146553so772717185a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:19:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788164375; x=1788769175; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rPCeXMnw2NJcXbfvM21WwjBfap9NqrHZ9SMjrJ9a+iY=;
-        b=NdSw3L20LUnepeayysmNz0cvZOnVhh5sTmzsxJyxI5StFhDOmB41sYeZium3kIH/Sw
-         jL/KMeyPuotT3dIER8hf81CIpEteSB4Xs/s6M4eOQBx8Dd134t4KuSMu+3qGM8POXomW
-         G4qOuDmp/OUDwhUSHMjpLOk6ci65y3DMqAhbXQF/qHXJdz4RDcH8SKzds+FPHrDSU9EY
-         GBB6YgZngHKQo+HWC/4SvKkaK7xwqZ8wgmZObbHolmNhXYuz+hlKb4KBCB4dG3iHaRWW
-         yobtfbspgDtvzWmwVvx+4fyNyA3eWLXeFqF2bKEAjYJ7lphZsCm+gBve+Sv6Spauv76F
-         4JTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788164375; x=1788769175;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rPCeXMnw2NJcXbfvM21WwjBfap9NqrHZ9SMjrJ9a+iY=;
-        b=CuJoTs4IjwGrK0KslM4Nc5DqDLu+xaCk9HIeCmV7CaCKtL0+1WS0uMoRjxWHhNdWFE
-         m3R15lzIUy7iLieMu++npuBZfQu0exTpCKVl/Sx1io/7K5CHBlt4eR+TrCQm2B4fWaD+
-         WGg1LDHB1d1jOENVMTN2BXskkaLEldRE49WLeoYfls49WVBpJ2N2cs0YOSbn6QjIzZqg
-         v2TsyD++mI5J3elTRi2h06zj4pjWbN4rdvRmQFsrABbBWksu1EWRoGBZFdu1HeW5Tcin
-         8OGGXf3WQ0RiwKSQwJevbczvEBahWruUCohrEfx7eigW9rL66ioAm4hpJrXvYLYtRupW
-         mlFQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqDS44KQ5BGLMWywmr4wijVsCL3mYCDrKpm6FOgyQyuoe2G8LTemvtbgyEybKj8ZfdMoRXZIopoFsDNqgo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOrzL698MiOR6sAlVGn4mCuu/HFbv8uxVwMkRJqCcZoqJwAfLV
-	OX3dUnfurbWqJYD7F97uspJQmawEvzBwG/3pZz5BWsb7NLPK7TVpvZpw01y21thrmMDQctW8D/f
-	ZYozMIMtOBhb3bjAFDBNLU4kV1C+J0vquDInDGOp7Gm9r0SLXVgq6HY9kt1+YJAdWg0s=
-X-Gm-Gg: AR+sD12g+VVkmZgj+sYxU5d38oyEcsIwfMpq8e1PdjtlNzlJVTa5tZpqlnJXe+5Xs3u
-	wSt7Lkx0Q9Ue8fg2Z7YuhAnzinmKKB1q1mvPM4GnRf41WJeZ1CjA3zUnusTLky9KvFIEep8q9dw
-	ZloFSWoRilxyURhojENn+VIPpgT2/LrcoBWzYIS305NQwXmjBVLrVjMbLUVb4DIVpbfBneKQ9wH
-	bX0EEWVF1AgWJj89RYOXXHNTMhmxWjgJdCJ1iyKnSE63dEjdf+XZ5MkZEG4ZjeLcAvZziiOvEuO
-	eMob0YoZmr8Xc+Jd+nRuT3AbS2NLNDxIzMvBy6aPX4GZD3LAzivtNaOvTJ4VSGNdhxsCAlzpXAT
-	8kE7JwQXSH9lB0mrRBIDQKN+aUWQq0c0jr5RlVQYQbdzOYdrq6rP/LkD6NUClTZM=
-X-Received: by 2002:a05:620a:45a9:b0:938:fca0:cb54 with SMTP id af79cd13be357-93913996c05mr2427173685a.40.1788164375572;
-        Mon, 31 Aug 2026 01:19:35 -0700 (PDT)
-X-Received: by 2002:a05:620a:45a9:b0:938:fca0:cb54 with SMTP id af79cd13be357-93913996c05mr2427170485a.40.1788164375130;
-        Mon, 31 Aug 2026 01:19:35 -0700 (PDT)
-Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93917236b86sm735974285a.13.2026.08.31.01.19.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 01:19:34 -0700 (PDT)
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Mon, 31 Aug 2026 16:17:39 +0800
-Subject: [PATCH v6 22/29] drm/msm/dpu: add per-stream MST encoders
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="MfvQqg6A"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=leX2ppka8IxUYzcA143eqQJTpLkRfq8k1F8olXzfWclC2UDQjIdyQYk/vMnVntfS607hIEuUufJ3ZVZGjDSsVuXWle7hli5qbkRRyelUvK4tR3NmrbMk3czPZwekYEVuvg9fx6GUx9OFMnqSjejkpf+1rPJ4E5kI2nzC5Qr9iNCYSF8lZe2R+9csslQrGMlt1sm4rp68oRczMR1DRdCBnxnoDyLhqRf22eb3QbVHhyy8qRgj9hW2DWz3nsSdPPv4M5slm13sXD+6ipKaRzwi2tV+Xdf9avxQuXC5qkk7zWdg6Hi7o4Av7cbdWRaXsavVJFpAKUWcR+4FDdUCTzrQdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/1F1XUZsEvCOW7bQdCdNh5B86sIPtyCvmSruztoQPL4=;
+ b=ZUlyRKwT7SGTK7oBC25frsXTQA3qYPdkydE73jEHTyTQnrxQwLanVIKdc8SWUTPsvYrAA+g3anJT6avP7I92UGz0HCFGnp6ad5VtsOfQXpa3Ndx1rq4UvxNXXS3v37I8RDX9BWy1hrDudlp7UOT9aeICIoHzpfj5HcEy/rZQ7dG2wmb4lKk6oqD1iMvHqVVvShHjfpNWBdGJs+HouNO1Jv4r7mRFw0uO7p8/ckRYC9GYbi3mz97P+OFH4OppERYdsipzbHPP25JHg7Mc5LRobZ2Wh3Sz+XbHsxF6yeg3ePBgb1PK3ev8lfPbwDKhZkJYrkN+KYEMBuJ9Pe8i1FwMgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/1F1XUZsEvCOW7bQdCdNh5B86sIPtyCvmSruztoQPL4=;
+ b=MfvQqg6AAeb0ZEprIi+tHe/XlMMCM9CkKHhf7DHkRsYiSszv+t5z51M1jWlSIQ75EJeUx+o8lCXZoKXjEAkkWT+h/CuMhein1YK88AOptAJsD5Oqd7jOvY/y03YiGlu+mg1mlaSt8MuIE8tHre+92rKzTqQAAYOTQlgr9vYbV4lTdQpTe2aKPB9zdHSx7zajlFKUlkN6yNDaSL8Cv6PyX5wy+n12PlejgTWT3I8HNaBVoXREFh+TNRo8rqJSVAUNz0f+vdiTTawsBLkiqTbtd9/Fr4VBP3l/lZW268m5buTecD/G5UdAX2pPHeR8mz1u1akhcNedQxL8wNWlJhc8Tw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VE1PR04MB7216.eurprd04.prod.outlook.com (2603:10a6:800:1b0::22)
+ by AM9PR04MB8440.eurprd04.prod.outlook.com (2603:10a6:20b:3df::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 08:19:36 +0000
+Received: from VE1PR04MB7216.eurprd04.prod.outlook.com
+ ([fe80::a9a5:cf83:dbe8:1f74]) by VE1PR04MB7216.eurprd04.prod.outlook.com
+ ([fe80::a9a5:cf83:dbe8:1f74%3]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 08:19:36 +0000
+From: wei.fang@oss.nxp.com
+To: xiaoning.wang@nxp.com,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	richardcochran@gmail.com
+Cc: wei.fang@nxp.com,
+	imx@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v3 net-next 1/8] ptp: netc: use ioread64_lo_hi/iowrite64_lo_hi for 64-bit register access
+Date: Mon, 31 Aug 2026 16:23:28 +0800
+Message-Id: <20260831082335.1184605-2-wei.fang@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260831082335.1184605-1-wei.fang@oss.nxp.com>
+References: <20260831082335.1184605-1-wei.fang@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA5PR01CA0143.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b9::6) To VE1PR04MB7216.eurprd04.prod.outlook.com
+ (2603:10a6:800:1b0::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-msm-dp-mst-v6-22-c91d35d6fb9e@oss.qualcomm.com>
-References: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
-In-Reply-To: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Jessica Zhang <jesszhan0024@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
-        Abhinav Kumar <quic_abhinavk@quicinc.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788164246; l=5897;
- i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=xQT+vbjgJJMddsLQ5y+pc+pr1hM+97dd6In2F3g2ICU=;
- b=n2lt27MLpS+yw6X0SsgY+ko9lqYC5SswbreVbllOdiGTMXoxP8dNxFQN7MCfY+62DBzAmm9hu
- Yiot1iZMhovBw3zhd8vZANTLnu6/Zybbam7CJA/lzmt7t7yfDbCMq82
-X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
- pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Authority-Analysis: v=2.4 cv=E9f9Y6dl c=1 sm=1 tr=0 ts=6a953918 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=aoVTMipVTiCx4Xnk7jUA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA3MCBTYWx0ZWRfX9hrlX76N88iy
- 5s14Cc/QJXOTLO3OsGNy8A8DK9vjvh4DuyaLFVu/d9uPYIZ74s0wJWCGNFhaY2kXu6fB5nUy74k
- hg01DZ4vT5k8Tky3CMqSn+CARSGWOyA=
-X-Proofpoint-ORIG-GUID: UB0zyXcrDTwI-J1vJg2NLYyGWU_p1Lfr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA3MCBTYWx0ZWRfX8b5d0nSU3+Kz
- nvLVcyyhE0AvlCArnMgf84nrhKMXWYvmRXpNmxmRV8IXmYhYQmUMc/+RqSbN4NK9YhV07USDRc4
- iHD/ZsVx6PxmhViihcyLlpz+8tdm9kswctNCVFRYUTPRcTfINVXGetJIcvkX8puqpEPVOgqJtBg
- PtUTpgMFYoSuez5ebyIxnf6vwvO2BSY1qBLGOKAkqlzsUV1NsoF+3+/g0ZdiZDZh9V15PKrDl8j
- a4TcJ9M/Q5uTFaurIZy/7mx0VzFkfT3SvUI0gZFvZGAH3gmp12aMNhB87Mul/O3KbLqjyi6vNqc
- CqgYfp8USCiDKBhkmYQBdC1m4Pr+ai9dVSpkY/OzfjfO5X/AXu+d12ZTSYfB+u8Zj7LRFRqWfY/
- L+qnqKLKRaLXW55RhOiM0iIX7+dnvi4P0fbCx5YUg/Idb7dhP7x6pzpVxlu1JUNEl/h95JXUagu
- jKMZuWF5CtdrFOeFZ7A==
-X-Proofpoint-GUID: UB0zyXcrDTwI-J1vJg2NLYyGWU_p1Lfr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_03,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 bulkscore=0 spamscore=0 phishscore=0
- lowpriorityscore=0 adultscore=0 impostorscore=0 priorityscore=1501
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608310070
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB7216:EE_|AM9PR04MB8440:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3274eba-ea85-4869-b0c3-08df07389815
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|19092799006|366016|23010399003|376014|18002099003|22082099003|11063799006|56012099006|10067099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	s7n9Zp504odZRaO6bWDpnNEMAywXLHYUBdVZXURkQnLvOzArs4/AIHhASZZCKG7fewsbMkkx6GytzgQ09eJRyFOEk7zVCtMIPiUDFzXPl8E5tzOMWWz5ZdwG0WkmfFWCwUwxGI0ye7+wGXICQmRdif7mosrhmBkESY3FOcWShCqKAwhFFr8q8cSbzfDdm0JL0A9N1An1HJILW2RhiH4C9/u/d+xhzbxKx3aKIRWHvPmIyFf2RPBX7O/hNeQ7mULZvqwx6fMaZ/TQnBgGeEGVupbFSWy6FxmWq/zUJzqDvWDk8319rWHQpnGSYGYF6Ye5DDGky+KtvpQzXGh7oPkLdMe/huo6lxNLptWedtHHJqD3rkNx+Vk4xOg5v2gVQHMldVYRhDNxZ4/Alas+J87FGEewOoS9jL7Q8b6PwcCcrNv4lAwJCFS4jFkyv1tSKvKCIBBtdNnySV0azQfk+85T5rttAamaE9LlHaTIv/ThkNV2XVLZP0KrASuvwm3Mt9HM8HZfsLk4Km3EV+kqH3lpnO+N62gUWzTCqggGQNShJ2zG8orVyVe/bEHzhGR3AmzncZTPBESycC1+dYkG4WWpQ7NKuvTp9bn5uE797Nz7UO1FKngyIPpiQLLz5gv0zx+7W3HWBZULZMpzIbwhPXdZatOgSXFTWhG4v5Pl5VNI4+wwvEoY1EaxiF9LSr+agy8bT4PNlnD3QS3Vj6/NCzWeoA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB7216.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(19092799006)(366016)(23010399003)(376014)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?fzG3ti16a6J8KAirxAi6r4zISZkfm0uYZLzz45TB6HA0NY0oAtLSYjg8ooKh?=
+ =?us-ascii?Q?nJmnJ+0JgQN0vx7svw67kPtjpfWl1fNq4LCXKXmgcywubl55hT/4GBrmH+M+?=
+ =?us-ascii?Q?lIeR7VM5PPYbxR2skhDEwiqo4NqejNTgIHa+3ZyBZhgfnePitMRZWkq0sWyx?=
+ =?us-ascii?Q?wwQCLPD514qCL6/79+Fuh+44SUI4cWY00kx9I5SP97YdeJdwJJl4pPzasnf1?=
+ =?us-ascii?Q?zXqLnQaur0Tdf7V2pvb7UCScvTnyg+18nhmxNyiX4W78osU16T/zB4gSKnzq?=
+ =?us-ascii?Q?VtUTF/qpNXhJTD5ZSw2gt6cY8d7FtGWM0/He9JBojlAvO4uYFpPuVIQq9Edc?=
+ =?us-ascii?Q?eL61wwllEZLOzTNC3kXwWT917kGREoV8IuHX/us490uMpNRQEMVAq0letKmQ?=
+ =?us-ascii?Q?Lg7XXLk+TzqJpaGHzUaRNk3NbkQDGMAgsMqRu+WNp577GLRw7mVfUX1cGn/w?=
+ =?us-ascii?Q?9vITTWgn40B685O1VXM0vTHEmakxQNfrEhU/rknIzs6JB7ek6cCfa4y8Q94l?=
+ =?us-ascii?Q?EJHuv2JPO8zwlthBaUPOn5ajaFSxW2YW2IJT8JPOjocOgAo9nQTJwTo29bXD?=
+ =?us-ascii?Q?d5ELpq2kJXi8ko2mTBOcengmhbfkgZNbEmw0lkcKbWWFl/J9U7vYe3ZcaPuV?=
+ =?us-ascii?Q?HzUSfZ9Ia58nzQn8FgYYWKZ40Wg9M8fBqKFCS60YWuOceo2XqEu6mBOiNIeW?=
+ =?us-ascii?Q?4gpRNeuyd4xil6q9LlJm/bMX8mPvmZtPqnAJCdv3rFLUpV4iPR9MeowgRTV9?=
+ =?us-ascii?Q?ub6YWH7XabdGbQwaMkjRFd6XSrD7pEKCQofhf7SuwNfrvNI5qiqrJan1gS4v?=
+ =?us-ascii?Q?A4VTb+8rjAfzKV/om45MJrjcZ+skX0insoqe/zeBA1HCyENr8bnqzA/4gxvT?=
+ =?us-ascii?Q?J5/FT0txjt/KjeSc8xqgy46IquI+GtiDoqUc0N3o6BRdO2MXFmo9GdItb7HQ?=
+ =?us-ascii?Q?1oMVlwxfVwYI91S41yjXMkCFifUVS3Yd4/XLmRFIxeA3/cwi0VaRCdnKTUjB?=
+ =?us-ascii?Q?hQyxx4kLJ4qwg2cbsQkPkaf59MZU+0341bvzOTb3hXJPN8bKiEV8afRIPXjd?=
+ =?us-ascii?Q?W6EL1rKSRrTyvmF9NZElIUdLmPXElErM5YdnysM3pbsUp4C5nEuSzFgGoeG/?=
+ =?us-ascii?Q?fTDUOSVhAFOx3TFi5QHSNKiA1u50a+H1vuHMeygt7E8tC6amJOMx1W4vSzgQ?=
+ =?us-ascii?Q?DlkeeOOO2YibehJSuyE+IzGOR7d2yxzcJS4iF9ex9AT4AYmBzQSQznahJo9a?=
+ =?us-ascii?Q?jZNbCQj3jWHCkaxDr6VH+asfPNJn0FpmQQF06lQOvgOfGgPkLjXvR1ljZmTw?=
+ =?us-ascii?Q?333YE44OKWuoAOjNRGEOIofsknTFkdFWQXyO83sl6fzh9a1Po2MaYey3xjsv?=
+ =?us-ascii?Q?zZyWw1Kujd3v96SWHlt/bB2XZQvmlymfSPfX+vhLL/LqrJQX++nVGPOj4dHg?=
+ =?us-ascii?Q?FWKjMwIa2M28XNBHeVQGt3h3JPT65pnXtJhPCaXp8KUa9BL1qQUrDVuKk9Z5?=
+ =?us-ascii?Q?A6+58cxHMzW0B2Y9hnMJbygPXH24T5hPcjIPh9bAaQtZEyzWrP/9x685jFua?=
+ =?us-ascii?Q?mm2CdBd9Tbg3KWls3/Rh6ABeJwmbX1pRDb59glbzb7gL8I8w7UzpZqcUgJQG?=
+ =?us-ascii?Q?jnfoeRLvPfQGJKPOvDnqFAufM4fO/qWdMh6d6QR1urSTdjoCMUcfUWx4AVyC?=
+ =?us-ascii?Q?NtLC94S96zdYQG8H1KaLzgJTLOgPLLtdOOCJPoH4o2V+6zPFycfyZmRpq7As?=
+ =?us-ascii?Q?eZ1FLeWI4svGcxbLpZcwQYil+6/8XjgJQFxWQ9W2sTw8J2ZfqFiS?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3274eba-ea85-4869-b0c3-08df07389815
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7216.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 08:19:36.3656
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /o/bur6QKQMmKUZBujKvcAarkiVm7Knfh1qnJlyWCxbLSqLd+C9ePhgJ1iJntC8PPxe47NznqaAHbCF8aeoUvkHHUetbeCr+eYkLJJyayIePee0imFb0ZoKp1au1BW9f
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8440
 
-Unlike SST, where a DP controller is represented by a single encoder,
-MST requires an encoder instance for each stream.
+From: Wei Fang <wei.fang@nxp.com>
 
-Create one DRM encoder per MST stream, associate it with a stream ID,
-and initialize it with MST-specific encoder helper callbacks.
+Replace the open-coded 64-bit register read/write sequences with
+ioread64_lo_hi() and iowrite64_lo_hi() helpers. Introduce two new macros
+netc_timer_rd64() and netc_timer_wr64() that wrap these helpers and use
+them throughout the driver. This reduces boilerplate and makes the intent
+of each operation clearer.
 
-This establishes the per-stream encoder infrastructure required for DP
-MST support.
+The high-half register defines (NETC_TMR_*_H) are kept to document the
+register map; they are not used directly since netc_timer_rd/wr64()
+address the 64-bit register pair via the low-half offset, relying on the
+hardware layout where H is always at L + 4.
 
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Signed-off-by: Wei Fang <wei.fang@nxp.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 23 ++++++++++++++++++++++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 15 +++++++++++++++
- drivers/gpu/drm/msm/dp/dp_mst_drm.c         | 20 ++++++++++++++++++++
- drivers/gpu/drm/msm/dp/dp_mst_drm.h         |  2 ++
- drivers/gpu/drm/msm/msm_drv.h               |  9 +++++++++
- 5 files changed, 68 insertions(+), 1 deletion(-)
+ drivers/ptp/ptp_netc.c | 72 ++++++++++++------------------------------
+ 1 file changed, 21 insertions(+), 51 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 004d5fc460a8..533109b4365c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2744,6 +2744,24 @@ static const struct drm_encoder_helper_funcs dpu_encoder_helper_funcs = {
- 	.atomic_enable = dpu_encoder_virt_atomic_enable,
- };
+diff --git a/drivers/ptp/ptp_netc.c b/drivers/ptp/ptp_netc.c
+index 19ca99d80e95..376b3b0d1a38 100644
+--- a/drivers/ptp/ptp_netc.c
++++ b/drivers/ptp/ptp_netc.c
+@@ -127,6 +127,17 @@ struct netc_timer {
  
-+static void dpu_encoder_mst_atomic_enable(struct drm_encoder *enc,
-+				      struct drm_atomic_commit *state)
-+{
-+	dpu_encoder_virt_atomic_enable(enc, state);
-+}
+ #define netc_timer_rd(p, o)		netc_read((p)->base + (o))
+ #define netc_timer_wr(p, o, v)		netc_write((p)->base + (o), v)
 +
-+static void dpu_encoder_mst_atomic_disable(struct drm_encoder *enc,
-+				       struct drm_atomic_commit *state)
-+{
-+	dpu_encoder_virt_atomic_disable(enc, state);
-+}
-+
-+static const struct drm_encoder_helper_funcs dpu_mst_encoder_helper_funcs = {
-+	.atomic_mode_set = dpu_encoder_virt_atomic_mode_set,
-+	.atomic_enable   = dpu_encoder_mst_atomic_enable,
-+	.atomic_disable  = dpu_encoder_mst_atomic_disable,
-+};
-+
- static const struct drm_encoder_funcs dpu_encoder_funcs = {
- 	.debugfs_init = dpu_encoder_debugfs_init,
- };
-@@ -2769,7 +2787,10 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
- 	if (IS_ERR(dpu_enc))
- 		return ERR_CAST(dpu_enc);
++/* The 64-bit timer registers consist of a low (L) and high (H) register pair.
++ * Hardware requires a strict access order: for writes, TMR_xxx_L must be
++ * written first, which latches the value into a shadow register; the write
++ * to TMR_xxx_H then atomically transfers both shadow registers into the live
++ * counter. For reads, TMR_xxx_L must be read first to capture a coherent
++ * snapshot. iowrite64_lo_hi() and ioread64_lo_hi() enforce this L-before-H
++ * ordering.
++ */
++#define netc_timer_rd64(p, o)		ioread64_lo_hi((p)->base + (o))
++#define netc_timer_wr64(p, o, v)	iowrite64_lo_hi(v, (p)->base + (o))
+ #define ptp_to_netc_timer(ptp)		container_of((ptp), struct netc_timer, caps)
  
--	drm_encoder_helper_add(&dpu_enc->base, &dpu_encoder_helper_funcs);
-+	if (drm_enc_mode == DRM_MODE_ENCODER_DPMST)
-+		drm_encoder_helper_add(&dpu_enc->base, &dpu_mst_encoder_helper_funcs);
-+	else
-+		drm_encoder_helper_add(&dpu_enc->base, &dpu_encoder_helper_funcs);
+ static const char *const timer_clk_src[] = {
+@@ -136,66 +147,28 @@ static const char *const timer_clk_src[] = {
  
- 	spin_lock_init(&dpu_enc->enc_spinlock);
- 	dpu_enc->enabled = false;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 66cabac0a726..d6182cec06d5 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -688,6 +688,21 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
- 				return rc;
- 			}
- 		}
-+
-+		for (int stream_id = 0; stream_cnt > 1 && stream_id < stream_cnt; stream_id++) {
-+			info.stream_id = stream_id;
-+			encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_DPMST, &info);
-+			if (IS_ERR(encoder)) {
-+				DPU_ERROR("encoder init failed for dp mst display\n");
-+				return PTR_ERR(encoder);
-+			}
-+
-+			rc = msm_dp_mst_attach_encoder(priv->kms->dp[i], stream_id, encoder);
-+			if (rc) {
-+				DPU_ERROR("dp_mst attach_encoder failed, rc = %d\n", rc);
-+				return rc;
-+			}
-+		}
- 	}
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
-index 94a717ba7c82..93536b6936cb 100644
---- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
-@@ -145,6 +145,26 @@ static int msm_dp_mst_encoder_stream_id(struct msm_dp_mst *mst,
- 	return -1;
- }
- 
-+int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int stream_id,
-+			      struct drm_encoder *encoder)
-+{
-+	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
-+	struct msm_dp_panel *dp_panel;
-+
-+	dp_panel = msm_dp_display_get_panel(dp_display, stream_id);
-+	if (!dp_panel) {
-+		drm_err(dp_display->drm_dev,
-+			"[MST] failed to allocate panel for stream %d\n", stream_id);
-+		return -ENOMEM;
-+	}
-+
-+	mst->mst_encoders[stream_id].enc = encoder;
-+	mst->mst_encoders[stream_id].stream_id = stream_id;
-+	mst->mst_encoders[stream_id].dp_panel = dp_panel;
-+
-+	return 0;
-+}
-+
- static struct drm_encoder *
- msm_dp_mst_atomic_best_encoder(struct drm_connector *connector, struct drm_atomic_commit *state)
+ static void netc_timer_cnt_write(struct netc_timer *priv, u64 ns)
  {
-diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.h b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
-index e54d49cf3499..89f73b1db2e7 100644
---- a/drivers/gpu/drm/msm/dp/dp_mst_drm.h
-+++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
-@@ -8,5 +8,7 @@
- #include "dp_display.h"
- 
- int msm_dp_mst_mgr_init(struct msm_dp *dp_display, u32 max_streams, struct drm_dp_aux *drm_aux);
-+int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int stream_id,
-+			      struct drm_encoder *encoder);
- 
- #endif /* _DP_MST_DRM_H_ */
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 8e98f7eb8724..6c6a1546478d 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -359,6 +359,8 @@ bool msm_dp_needs_periph_flush(const struct msm_dp *dp_display,
- bool msm_dp_wide_bus_available(const struct msm_dp *dp_display);
- int msm_dp_get_mst_max_stream(struct msm_dp *dp_display);
- int msm_dp_mst_register(struct msm_dp *dp_display);
-+int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int stream_id,
-+			      struct drm_encoder *encoder);
- 
- #else
- static inline int __init msm_dp_register(void)
-@@ -401,6 +403,13 @@ static inline int msm_dp_mst_register(struct msm_dp *dp_display)
- 	return -EINVAL;
+-	u32 tmr_cnt_h = upper_32_bits(ns);
+-	u32 tmr_cnt_l = lower_32_bits(ns);
+-
+-	/* Writes to the TMR_CNT_L register copies the written value
+-	 * into the shadow TMR_CNT_L register. Writes to the TMR_CNT_H
+-	 * register copies the values written into the shadow TMR_CNT_H
+-	 * register. Contents of the shadow registers are copied into
+-	 * the TMR_CNT_L and TMR_CNT_H registers following a write into
+-	 * the TMR_CNT_H register. So the user must writes to TMR_CNT_L
+-	 * register first. Other H/L registers should have the same
+-	 * behavior.
+-	 */
+-	netc_timer_wr(priv, NETC_TMR_CNT_L, tmr_cnt_l);
+-	netc_timer_wr(priv, NETC_TMR_CNT_H, tmr_cnt_h);
++	netc_timer_wr64(priv, NETC_TMR_CNT_L, ns);
  }
  
-+static inline int msm_dp_mst_attach_encoder(struct msm_dp *dp_display,
-+					    unsigned int stream_id,
-+					    struct drm_encoder *encoder)
-+{
-+	return -EINVAL;
-+}
-+
- #endif
+ static u64 netc_timer_offset_read(struct netc_timer *priv)
+ {
+-	u32 tmr_off_l, tmr_off_h;
+-	u64 offset;
+-
+-	tmr_off_l = netc_timer_rd(priv, NETC_TMR_OFF_L);
+-	tmr_off_h = netc_timer_rd(priv, NETC_TMR_OFF_H);
+-	offset = (((u64)tmr_off_h) << 32) | tmr_off_l;
+-
+-	return offset;
++	return netc_timer_rd64(priv, NETC_TMR_OFF_L);
+ }
  
- #ifdef CONFIG_DRM_MSM_MDP4
-
+ static void netc_timer_offset_write(struct netc_timer *priv, u64 offset)
+ {
+-	u32 tmr_off_h = upper_32_bits(offset);
+-	u32 tmr_off_l = lower_32_bits(offset);
+-
+-	netc_timer_wr(priv, NETC_TMR_OFF_L, tmr_off_l);
+-	netc_timer_wr(priv, NETC_TMR_OFF_H, tmr_off_h);
++	netc_timer_wr64(priv, NETC_TMR_OFF_L, offset);
+ }
+ 
+ static u64 netc_timer_cur_time_read(struct netc_timer *priv)
+ {
+-	u32 time_h, time_l;
+-	u64 ns;
+-
+-	/* The user should read NETC_TMR_CUR_TIME_L first to
+-	 * get correct current time.
+-	 */
+-	time_l = netc_timer_rd(priv, NETC_TMR_CUR_TIME_L);
+-	time_h = netc_timer_rd(priv, NETC_TMR_CUR_TIME_H);
+-	ns = (u64)time_h << 32 | time_l;
+-
+-	return ns;
++	return netc_timer_rd64(priv, NETC_TMR_CUR_TIME_L);
+ }
+ 
+ static void netc_timer_alarm_write(struct netc_timer *priv,
+ 				   u64 alarm, int index)
+ {
+-	u32 alarm_h = upper_32_bits(alarm);
+-	u32 alarm_l = lower_32_bits(alarm);
+-
+-	netc_timer_wr(priv, NETC_TMR_ALARM_L(index), alarm_l);
+-	netc_timer_wr(priv, NETC_TMR_ALARM_H(index), alarm_h);
++	netc_timer_wr64(priv, NETC_TMR_ALARM_L(index), alarm);
+ }
+ 
+ static u32 netc_timer_get_integral_period(struct netc_timer *priv)
+@@ -500,22 +473,19 @@ static void netc_timer_handle_etts_event(struct netc_timer *priv, int index,
+ 					 bool update_event)
+ {
+ 	struct ptp_clock_event event;
+-	u32 etts_l = 0, etts_h = 0;
++	u64 etts = 0;
+ 
+-	while (netc_timer_rd(priv, NETC_TMR_STAT) & TMR_STAT_ETS_VLD(index)) {
+-		etts_l = netc_timer_rd(priv, NETC_TMR_ETTS_L(index));
+-		etts_h = netc_timer_rd(priv, NETC_TMR_ETTS_H(index));
+-	}
++	while (netc_timer_rd(priv, NETC_TMR_STAT) & TMR_STAT_ETS_VLD(index))
++		etts = netc_timer_rd64(priv, NETC_TMR_ETTS_L(index));
+ 
+ 	/* Invalid time stamp */
+-	if (!etts_l && !etts_h)
++	if (!etts)
+ 		return;
+ 
+ 	if (update_event) {
+ 		event.type = PTP_CLOCK_EXTTS;
+ 		event.index = index;
+-		event.timestamp = (u64)etts_h << 32;
+-		event.timestamp |= etts_l;
++		event.timestamp = etts;
+ 		ptp_clock_event(priv->clock, &event);
+ 	}
+ }
 -- 
-2.43.0
+2.34.1
 
