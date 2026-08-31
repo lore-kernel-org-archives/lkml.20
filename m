@@ -1,52 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6F74AC2D0;
-	Mon, 31 Aug 2026 13:47:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FED0555C0D;
+	Mon, 31 Aug 2026 13:47:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184024; cv=none; b=SG9PAgmRvTAHojUuMejdDXY7R7fT8tWQwBJT65w3Do/eJ896ptxPK+D5uga97CNInZVTzovIWV2g4cy/EYu05JMfz6vzyXS/nr+kM1Z9YF8bGFfXhA8MgPjcvaTqXMCbmZxNgaXCD9y7aw6DUB2eN5UItywAChikU9X77RzQgAM=
+	t=1788184025; cv=none; b=cXj6JAr1xKuNBvQHcaCBxnqr7JRrpK2xTAOSW08RJIBcw19Zqfnz+ht15IDFThQ/0Dur8EA4eKat1vSaZ04yo2ktyv5ZkKbifnXbvrGIRDuw7g/3IM8kCMwUVEM1zZFEAAbLjrpqaSw3k7vu4ywHG0o0Ac/JtFD87FQR95lsS3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184024; c=relaxed/simple;
-	bh=4Ugd7NZthPGB7/aS8BHE5sDi+bHMactzDm59QVZV/M0=;
+	s=arc-20240116; t=1788184025; c=relaxed/simple;
+	bh=f7as2J5ha+rh2KMEDaJOJFTJSZpLbsVAhziGPu44PFs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YmPk+I8tE7uuNcemvQH7Xe95lViRynB+KFTsU/cfJZzvJZwcnIedCLhWpAU/u4wlXuEMSWJ9AuwfgSZ2AY9iyu/8I5DgO4DKjmQ9sQz7gbudJ0mIDNvfJn2UaxC8wQ5YJ/Hbs1GXZ47U/Y5vEkdyrRhkqRj64IxxNApxmLTROVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GEHEExPq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=VE1hPYvWAb9TTiEiRIOyYnmQcIV1FRsOZVEyIO2GWWd4f8/2Fa2bNXI1oc3kwNnKZfrfrkfoVh10Jj/9Fr/mtUGR+tXP5FufGdD6/V9S2gupSH1PYNl/3K2Vjxc8Ov+K7XvZk6m/4B4lJM19R5vSqau5ogxSG0JiQpyziT057L8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iGcJK4sV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GEHEExPq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9AD51F00ADB;
-	Mon, 31 Aug 2026 13:46:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iGcJK4sV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E26831F000E9;
+	Mon, 31 Aug 2026 13:47:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184020;
-	bh=5pyJ96Qnm8dDNN9ZwyaQBPz/6YRx72SlNJlQ0MsCvAk=;
+	s=k20260515; t=1788184022;
+	bh=/T4cX/SYuVx3IVIoOuCrfO08y6KbwPPsNAxZ6k+R63k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GEHEExPq8hXWHWAheueGRRGnMwsvTX1IlvuEuQeuzQnjfEKq/sC6tF/W+C4B6UNPp
-	 tE/T7z/Eo7ATvNkEDB1Jaw70f8v5654hK8qiL/NcyVVfV4IBKigH5eNezPEuKd3Ckr
-	 9NrRIqCuqEkB1WV5L+cKWQAKdC7iMMhPF/MC0DzoKDOuZ9SouYxKCtzUqk3/wfwIkH
-	 /09jnGuLHrVkWwua4GYcUOFn4vKdvstDCaE4GYi+iniVsN20KkkEJOQjcpZvsCTocp
-	 SSywt+YJyOaTym2FkTX+59kdOxBoI/lifpipeYF1R27xZEnCShY8EplcOqQwd4C79k
-	 GFai0ehVLpNHw==
+	b=iGcJK4sVarjLiEe7r8O+FSyYKxKBQGQ+7OiMytmcfpZv4i1g3afADfYHsurUmkF/H
+	 oazUGTwwJgaZOMs4y91BkqX1C5y4zxF7M0fgMnLZo2x8J/ZeKbpadtofcjF4Quo82N
+	 RsaBXJzeruXj6q6OwP2d5r+GNeDmsvJoePgIZXvQXQfMy5FKJg0dvLV+dAG1qWCAuD
+	 IPRDs9MBSAGnMRx6IWxEo1FeJSNVNxjJKVTrRZPwxy1bbAVzZS7ib/bWjhsH1VdQlR
+	 rPzc34mll168Mkd1jVst35wvRmzun8tCsv+cC+PIVKzKmcomB8pkAGtgyFHzCs0UBi
+	 emi+JftM3RKHw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Lin Xianglin <1021538027@qq.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	kys@microsoft.com,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	longli@microsoft.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	linux-hyperv@vger.kernel.org,
-	netdev@vger.kernel.org,
+	Vijendar.Mukunda@amd.com,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] net: mana: hardening: Reject zero max_num_queues from MANA_QUERY_VPORT_CONFIG
-Date: Mon, 31 Aug 2026 09:27:50 -0400
-Message-ID: <20260831133314.4125787-442-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] ASoC: amd: yc: Add DMI quirk for HyperX OMEN Gaming Laptop 16-ap1xxx
+Date: Mon, 31 Aug 2026 09:27:51 -0400
+Message-ID: <20260831133314.4125787-443-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -62,400 +56,393 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+From: Lin Xianglin <1021538027@qq.com>
 
-[ Upstream commit 93ca1575dd1f43e24ad85663305e13114f9acdf1 ]
+[ Upstream commit fe21db8c5e7c2a9815a9be54a1f5d556f905506e ]
 
-As a part of MANA hardening for CVM, validate that max_num_sq and
-max_num_rq returned by MANA_QUERY_VPORT_CONFIG are not zero. These
-values flow into apc->num_queues, which is used as an allocation count
-and loop bound. A zero value would result in zero-size allocations and
-incorrect driver behavior.
+The HyperX OMEN Gaming Laptop 16-ap1xxx (HP board 8F06) has an
+internal digital microphone array attached to the AMD ACP PDM
+controller, but the acp6x machine driver does not register the DMIC
+sound card because this board is missing from the DMI quirk table,
+leaving the internal microphone unusable.
 
-Return -EPROTO if either value is zero.
+Add a DMI quirk entry for the HP board "8F06" so the acp6x DMIC
+capture card gets registered.
 
-Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
-Link: https://patch.msgid.link/20260430085638.1875400-1-ernis@linux.microsoft.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Lin Xianglin <1021538027@qq.com>
+Link: https://patch.msgid.link/tencent_428392223C2AD3BF23E7ABAA7521FE5C0C07@qq.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `net: mana: hardening: Reject zero
-max_num_queues from MANA_QUERY_VPORT_CONFIG`
-
-**Local tree:** Linux **6.18.43** (`v6.18.43-1-gc7f0dac02d232`)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase 1: Commit Message Forensics
 
 ### Step 1.1: Subject Line
-**Record:** `[net: mana]` `[hardening/validate]` — Reject zero
-`max_num_sq` / `max_num_rq` from `MANA_QUERY_VPORT_CONFIG` firmware
-response.
+**Record:** `[ASoC: amd: yc]` `[Add]` — Add DMI quirk for HyperX OMEN
+Gaming Laptop 16-ap1xxx (HP board 8F06) to enable internal DMIC on AMD
+ACP6x.
 
-### Step 1.2: Tags
+### Step 1.2: Commit Message Tags
 **Record:**
-- **Signed-off-by:** Erni Sri Satya Vennela
-  `<ernis@linux.microsoft.com>` (author)
-- **Signed-off-by:** Jakub Kicinski `<kuba@kernel.org>` (committer)
-- **Link:** https://patch.msgid.link/20260430085638.1875400-1-
-  ernis@linux.microsoft.com
-- **No** Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Cc:
+- **Signed-off-by:** Lin Xianglin \<1021538027@qq.com\> (author)
+- **Link:** https://patch.msgid.link/tencent_428392223C2AD3BF23E7ABAA752
+  1FE5C0C07@qq.com
+- **Signed-off-by:** Mark Brown \<broonie@kernel.org\> (subsystem
+  maintainer merge)
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
   stable@vger.kernel.org
-- Notable: Same author (Erni) as the already-backported MANA CVM TOCTOU
-  fix (`09ec063d87c2d`) in this tree.
+- Notable: maintainer Signed-off-by; no syzbot or multi-reporter tags
 
-### Step 1.3: Body Analysis
+### Step 1.3: Commit Body Analysis
 **Record:**
-- **Bug:** Firmware may return `max_num_sq == 0` or `max_num_rq == 0`
-  from `MANA_QUERY_VPORT_CONFIG`.
-- **Symptom:** Values flow into `apc->num_queues` (via
-  `mana_init_port()`), used as allocation count and loop bound → zero-
-  size allocations and incorrect driver behavior.
-- **Fix:** Return `-EPROTO` if either value is zero.
-- **Context:** CVM (Confidential VM) hardening — firmware/hypervisor
-  responses treated as untrusted.
-- **Root cause:** Missing input validation on firmware-reported queue
-  limits.
+- **Bug:** HyperX OMEN Gaming Laptop 16-ap1xxx (HP board `8F06`) has an
+  internal DMIC on AMD ACP PDM, but `acp6x` machine driver does not
+  register the DMIC sound card because the board is missing from
+  `yc_acp_quirk_table`.
+- **Symptom:** Internal microphone unusable (no DMIC capture card
+  registered).
+- **Root cause:** Missing DMI quirk entry; ACPI/`_WOV` path alone does
+  not enable registration on this board.
+- **Fix:** Add `DMI_MATCH(DMI_BOARD_VENDOR, "HP")` +
+  `DMI_MATCH(DMI_BOARD_NAME, "8F06")` with `driver_data = &acp6x_card`.
+- **Version info:** None in message; upstream commit `fe21db8c5e7c`
+  merged to broonie/sound `for-7.2` (Linux 7.2).
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes. Labeled "hardening" but is a real input-validation bug
-fix. Without it, zero queue counts propagate into driver state and cause
-broken device behavior.
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Yes — despite “Add” wording, this is a hardware-enablement
+bug fix. Same pattern as prior HP/Lenovo/ASUS DMI quirk commits in this
+driver (e.g. `65aabf8896687` for OMEN 16-ap0xxx already in this tree).
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory
+### Step 2.1: Change Inventory
 **Record:**
-- **File:** `drivers/net/ethernet/microsoft/mana/mana_en.c` (+6 lines)
-- **Function:** `mana_query_vport_cfg()`
-- **Scope:** Single-file, surgical validation in one function.
+- **Files:** `sound/soc/amd/yc/acp6x-mach.c` only (+7 lines, 0 removed)
+- **Functions modified:** None; only `yc_acp_quirk_table[]` static data
+- **Scope:** Single-file surgical hardware-quirk addition
 
 ### Step 2.2: Code Flow Change
 **Record:**
-- **Hunk (lines ~1263–1268):**
-  - **Before:** Accept any `max_num_sq`/`max_num_rq` from firmware after
-    status check.
-  - **After:** Reject zero values with `netdev_err()` + `-EPROTO`.
-- **Path affected:** Port initialization during `mana_init_port()` →
-  `mana_probe_port()` probe path.
+- **Before:** On HP board `8F06`, `dmi_first_match(yc_acp_quirk_table)`
+  returns NULL at `check_dmi_entry`; if ACPI `AcpDmicConnected`/`_WOV`
+  also fail, `platform_get_drvdata()` is NULL → `acp6x_probe()` returns
+  `-ENODEV` → no DMIC card.
+- **After:** DMI match sets `platform_set_drvdata(pdev, &acp6x_card)` →
+  `devm_snd_soc_register_card()` registers DMIC capture card.
+- **Path affected:** Platform driver probe during boot (`acp6x_probe`).
 
 ### Step 2.3: Bug Mechanism
-**Record:** **Input validation / logic correctness bug.**
-- `mana_init_port()` computes `max_queues = min(max_txq, max_rxq)` and
-  clamps `apc->num_queues` down to that value.
-- With zero firmware values, `apc->num_queues` becomes 0.
-- `kcalloc(0, ...)` returns `ZERO_SIZE_PTR` (non-NULL), passing `!ptr`
-  checks.
-- `netif_set_real_num_tx_queues(ndev, 0)` and
-  `netif_set_real_num_rx_queues(ndev, 0)` both require `txq/rxq >= 1`
-  and return `-EINVAL`.
-- Probe can still register a netdev with carrier on before queue setup
-  fails on attach.
+**Record:**
+- **Category:** Hardware workaround / quirk (missing board ID in DMI
+  table)
+- **Mechanism:** ACPI does not reliably expose DMIC config on this HP
+  board; existing DMI override path in `acp6x_probe()` was never
+  triggered because `8F06` was absent from the table.
 
 ### Step 2.4: Fix Quality
-**Record:** Obviously correct, minimal, mirrors existing `-EPROTO` usage
-for bad firmware status. No API changes. Very low regression risk — only
-rejects values that are fundamentally invalid (a NIC cannot have zero
-TX/RX queues).
+**Record:**
+- Obviously correct: identical to dozens of existing entries in the same
+  table.
+- Minimal: 7 lines, no logic changes.
+- Regression risk: very low — only affects systems matching HP vendor +
+  board name `8F06`.
+- No API, locking, or structural changes.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame
-**Record:** Lines `*max_sq = resp.max_num_sq` / `*max_rq =
-resp.max_num_rq` blame to `19eef1d98eeda` (tree import). MANA driver and
-`mana_query_vport_cfg()` exist in this 6.18.43 tree. Fix not yet
-present.
+### Step 3.1: Blame / Bug Introduction
+**Record:**
+- `yc_acp_quirk_table` and `acp6x_probe()` DMI override path exist since
+  `fa991481b8b22` (Oct 2021, “ASoC: amd: add YC machine driver using
+  dmic”).
+- Neighboring HP board entries: `8BD6` (b3a51137607cee, Mar 2024),
+  `8EE4` (78783e8d588cf), `8E35` (65aabf8896687, backported to this tree
+  May 2026).
+- Bug is not a regression — it is a missing quirk for hardware never
+  previously listed.
 
 ### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag in commit message.
+**Record:** N/A — no Fixes: tag present.
 
 ### Step 3.3: Related File History
-**Record:** Recent MANA fixes in this tree include CVM/security-oriented
-patches:
-- `09ec063d87c2d` — TOCTOU fix in `hw_channel.c` (CVM, same author Erni)
-- `6d13eaa13341a` — RX packet length validation (untrusted NIC data,
-  backported with Cc: stable)
-- `da87896f34e0a` — NULL guards to prevent panic on attach failure
-Standalone fix; no "patch X/Y" series indicator.
+**Record:** This file has extensive recent quirk activity in v6.18.44
+(20+ quirk commits). Direct precedent: `65aabf8896687` — “Add HP OMEN
+Gaming Laptop 16-ap0xxx product line in quirk table” — already
+backported to this tree with `Cc: stable@vger.kernel.org`. Same
+subsystem, same failure mode (internal mic not detected), same fix
+pattern.
 
 ### Step 3.4: Author Context
-**Record:** Erni Sri Satya Vennela is an active MANA contributor with
-multiple probe/teardown/CVM fixes already in this tree.
+**Record:** Lin Xianglin — no prior commits in `sound/soc/amd/yc/` in
+this tree. Mark Brown (maintainer) merged upstream.
 
 ### Step 3.5: Dependencies
-**Record:** None. Uses existing `mana_query_vport_cfg_resp` struct
-(`include/net/mana/mana.h`), `netdev_err()`, and `-EPROTO`. Applies
-standalone.
+**Record:** No dependencies. Standalone table entry. Applies cleanly
+after `8E35` in local tree (`git apply --check` succeeded with 1-line
+offset). Upstream context includes `Victus by HP Laptop 16-e1xxx` after
+`8F06`; that entry is not in v6.18.44, but the `8F06` hunk is
+independent.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Patch Discussion
-**Record:** `b4 dig -c <sha>` not possible (commit not in local tree).
-`b4 dig` with message-id failed (wrong syntax). WebFetch of
-patch.msgid.link blocked by bot protection. **UNVERIFIED:** Full lore
-review thread content.
+### Step 4.1: Original Patch Discussion
+**Record:**
+- **b4 dig -c fe21db8c5e7c:** https://patch.msgid.link/tencent_428392223
+  C2AD3BF23E7ABAA7521FE5C0C07@qq.com
+- **Series revisions:** v1 only (committed version is latest)
+- **Review:** Mark Brown replied “Applied to …/broonie/sound.git
+  for-7.2. Thanks!” — no NAKs
+- **Stable nomination:** None in thread (expected; absence is not
+  negative)
 
 ### Step 4.2: Reviewers
-**Record:** **UNVERIFIED** — could not fetch mailing list thread.
+**Record (b4 dig -w):** CC'd: `linux-sound@vger.kernel.org`, `alsa-
+devel@alsa-project.org`, `Vijendar.Mukunda@amd.com`,
+`venkataprasad.potturu@amd.com`, `broonie@kernel.org`.
 
 ### Step 4.3: Bug Report
-**Record:** No Reported-by or bugzilla/syzbot links. Bug identified
-through CVM hardening code review, not a user crash report.
+**Record:** No external bug report or syzbot link. Hardware-specific
+user-facing issue described in commit message. Phoronix notes the quirk
+enables internal mic on HyperX OMEN 16-ap1xxx for Linux 7.2.
 
-### Step 4.4: Related Series
-**Record:** Part of broader MANA CVM hardening effort (same author as
-TOCTOU fix). No evidence this is one patch of a multi-patch dependency
-chain.
+### Step 4.4: Related Patches
+**Record:** Sister fix `d63c219b7ff3` / stable backport `65aabf8896687`
+for OMEN 16-ap0xxx (same product line, same mic issue). Mainline also
+has `38417f5fc8e3` for Victus 16-e1xxx — not required for this fix.
 
-### Step 4.5: Stable List Discussion
-**Record:** **UNVERIFIED** — could not search lore stable list. No Cc:
-stable in commit message (expected for manual review candidates).
+### Step 4.5: Stable List History
+**Record:** No stable-list discussion found for this specific patch.
+Sister OMEN ap0xxx patch was explicitly nominated `Cc: stable` and
+backported to 6.18.y.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
 ### Step 5.1: Key Functions
-**Record:** `mana_query_vport_cfg()` (modified), callers:
-`mana_init_port()`.
+**Record:** `yc_acp_quirk_table[]` (data), `acp6x_probe()` (consumer at
+line 798).
 
 ### Step 5.2: Callers
-**Record:**
-- `mana_init_port()` → called from `mana_probe_port()` (probe) and
-  `mana_attach()` (attach/resume)
-- Triggered during MANA vPort probe/attach on Azure VMs with
-  CONFIG_MICROSOFT_MANA.
+**Record:** `acp6x_probe` registered as `.probe` in `acp6x_mach_driver`,
+loaded via `module_platform_driver()`. Platform device `acp_yc_mach`
+created from `pci-acp6x.c` during ACP6x PCI probe — runs at boot on AMD
+Yellow Carp laptops with `CONFIG_SND_SOC_AMD_YC_MACH`.
 
 ### Step 5.3: Callees
-**Record:** `mana_send_request()`, `mana_verify_resp_hdr()`,
-`netdev_err()`.
+**Record:** `dmi_first_match()`, `platform_set_drvdata()`,
+`platform_get_drvdata()`, `devm_snd_soc_register_card()`.
 
 ### Step 5.4: Reachability
-**Record:** Reachable during PCI probe / netdev attach of MANA devices.
-Not userspace-triggerable directly, but firmware/hypervisor can return
-bad `MANA_QUERY_VPORT_CONFIG` data (especially relevant in CVM where DMA
-memory is shared/unencrypted per `hw_channel.c` comments).
+**Record:** Triggered automatically at boot on matching HP hardware. Not
+userspace-triggerable, but affects every boot for affected laptop
+owners. Unprivileged users cannot trigger the bug path — they simply
+lack a working internal mic.
 
 ### Step 5.5: Similar Patterns
-**Record:** Driver already validates indirection table size (warn +
-default). `gdma_main.c` clamps `gc->max_num_queues` against firmware
-limits but does not explicitly reject zero at vport level.
-`mana_rss_table_alloc()` already rejects `indir_table_sz == 0`. This
-adds the analogous check for queue counts.
+**Record:** Same file contains 80+ DMI quirk entries for identical DMIC-
+enablement purpose. This tree already backports these routinely.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
 
 ### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** `drivers/net/ethernet/microsoft/mana/mana_en.c`
-lines 1263–1264 assign firmware values without zero check.
-`mana_query_vport_cfg_resp` struct exists in `include/net/mana/mana.h`.
-MANA driver fully present in 6.18.43.
+**Record:** Yes. `sound/soc/amd/yc/acp6x-mach.c` exists;
+`yc_acp_quirk_table` has `8E35` but not `8F06` (confirmed via grep).
+Upstream master has `8F06` at line 738; local tree does not. Bug affects
+owners of this laptop running v6.18.44.
 
 ### Step 6.2: Backport Complications
-**Record:** **Clean apply.** Verified patch context matches local file
-exactly (`python3` context check: `old found: True`). No conflicting
-changes in the hunk area.
+**Record:** Clean apply — `git apply --check` succeeded inserting entry
+after `8E35`. Minor context difference from upstream (no `Victus
+16-e1xxx` entry in this tree) does not block application.
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** Related MANA CVM/security fixes present (TOCTOU, packet
-length validation). This specific zero-queue validation is **not**
-present (`git log --grep="Invalid max queues"` — no match).
+**Record:** `65aabf8896687` (OMEN 16-ap0xxx + board `8E35`) already in
+tree. No fix for `8F06` / 16-ap1xxx present.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## Phase 7: Subsystem Context
 
-### Step 7.1: Subsystem
-**Record:** `drivers/net/ethernet/microsoft/mana/` — network driver
-(Microsoft Azure Network Adapter). **Criticality: IMPORTANT**
-(production Azure VM networking, including CVM deployments).
+### Step 7.1: Subsystem and Criticality
+**Record:** `sound/soc/amd/yc` — ASoC AMD Yellow Carp audio.
+**IMPORTANT** (laptop audio/DMIC), not core kernel, but affects real
+hardware users.
 
-### Step 7.2: Activity
-**Record:** Actively maintained — 10+ MANA commits in recent history of
-`mana_en.c` alone, including multiple stable-worthy bug fixes.
+### Step 7.2: Subsystem Activity
+**Record:** Highly active — 20+ quirk commits in recent history of this
+file in v6.18.44 alone.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## Phase 8: Impact and Risk Assessment
 
 ### Step 8.1: Who Is Affected
-**Record:** Azure VM users with MANA NICs (`CONFIG_MICROSOFT_MANA`).
-Most acute for CVM (SEV-SNP/TDX) where firmware responses are explicitly
-untrusted.
+**Record:** Owners of HyperX OMEN Gaming Laptop 16-ap1xxx (HP board
+`8F06`) with `CONFIG_SND_SOC_AMD_ACP6x` / `CONFIG_SND_SOC_AMD_YC_MACH`
+enabled (typical on AMD laptop kernels).
 
 ### Step 8.2: Trigger Conditions
-**Record:** Firmware/hypervisor returns `max_num_sq == 0` or `max_num_rq
-== 0` in `MANA_QUERY_VPORT_CONFIG`. Not a normal operational case;
-requires buggy or malicious firmware. In CVM, malicious host is in
-threat model.
+**Record:** Every boot on matching hardware where ACPI does not enable
+DMIC. Common/likely for this specific board. Not security-relevant; not
+unprivileged-triggerable.
 
 ### Step 8.3: Failure Mode Severity
-**Record:** Without fix:
-1. `apc->num_queues` set to 0
-2. `kcalloc(0, ...)` returns `ZERO_SIZE_PTR` (passes NULL checks)
-3. `mana_probe_port()` can succeed through `register_netdev()` +
-   `netif_carrier_on()`
-4. Queue allocation fails later with `-EINVAL` from
-   `netif_set_real_num_*_queues()`
-5. Results in broken/unusable netdev rather than clean probe failure
-
-**Severity: MEDIUM-HIGH** — not a demonstrated kernel panic, but real
-incorrect driver state and CVM input-validation gap. Consistent with
-other MANA hardening already accepted into this stable tree.
+**Record:** Internal microphone completely nonfunctional — **MEDIUM**
+severity (functional hardware loss, no crash/corruption/security
+impact).
 
 ### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** Fail fast at config query; prevent broken netdev
-  registration; CVM input validation aligned with existing MANA stable
-  backports.
-- **Risk:** Very low — 6 lines, only rejects impossible values.
-- **Ratio:** Favorable for backport.
+- **Benefit:** Restores internal mic on a real, shipping laptop model;
+  identical to already-accepted stable quirk pattern.
+- **Risk:** Very low — 7-line table entry, board-specific match only.
+- **Ratio:** Strong benefit, negligible risk. Matches established stable
+  practice for this driver.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
 ### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Real validation bug with verified code path in this tree
-- Causes broken driver state (registered netdev with 0 queues)
-- CVM security hardening — same category as TOCTOU fix already in
-  6.18.43
-- Small, surgical, obviously correct
-- Clean apply to local tree
-- Same subsystem already receiving similar stable backports (`6d13eaa`,
-  `09ec063d87c2d`)
+- Fixes real hardware bug (internal mic unusable)
+- Hardware quirk exception category — explicitly stable-worthy
+- Tiny, obviously correct, standalone
+- Applies cleanly to v6.18.44
+- Driver and quirk infrastructure present since 2021
+- Sister OMEN ap0xxx fix already backported to this exact tree
+- Maintainer (Mark Brown) merged upstream
+- No dependencies or prerequisites
 
 **AGAINST backport:**
-- No crash report, syzbot, or CVE cited
-- Requires abnormal firmware response
-- Without fix, failure is degraded functionality rather than kernel oops
-- No explicit Cc: stable or maintainer stable nomination visible
-- Mailing list review unverified
+- Not a crash, security, corruption, or deadlock issue (lower urgency
+  than KASAN fixes)
+- No Tested-by or explicit Cc: stable in submission
+- Laptop may be relatively new, but users on 6.18.y exist
 
-**UNRESOLVED:**
-- Full lore review thread content
-- Whether reviewers explicitly nominated for stable
+**Unresolved:** No Tested-by tag; no explicit stable nomination for this
+specific patch (sister patch had one).
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — logic is trivial; no Tested-
-   by but pattern is standard.
-2. Fixes real bug affecting users? **PASS** — broken netdev state on
-   invalid firmware response.
-3. Important issue? **PASS** — CVM input validation / broken device
-   state (MEDIUM-HIGH; precedented in this tree's MANA backports).
-4. Small and contained? **PASS** — 6 lines, one function.
-5. No new features/APIs? **PASS** — validation only.
-6. Can apply to local tree? **PASS** — context verified, code present.
+1. Obviously correct and tested? **PASS** — pattern proven by many
+   identical quirks; no Tested-by but maintainer merged.
+2. Fixes real bug affecting users? **PASS** — internal mic nonfunctional
+   on specific laptop.
+3. Important issue? **PASS (moderate)** — functional hardware loss;
+   hardware-quirk exception applies strongly.
+4. Small and contained? **PASS** — 7 lines, one file, table entry only.
+5. No new features or APIs? **PASS** — extends existing quirk table
+   only.
+6. Can apply to local tree? **PASS** — verified with `git apply
+   --check`.
 
-### Step 9.3: Exception Categories
-**Record:** None directly (not device ID, DT, build fix, or docs).
-Qualifies as driver hardening/input-validation bug fix.
+### Step 9.3: Exception Category
+**Record:** Hardware quirk/workaround — automatic stable qualification
+per stable-kernel-rules exceptions.
 
 ### Step 9.4: Decision Rationale
-This tree (6.18.43) already carries MANA CVM hardening fixes from the
-same team. The buggy code is present, the patch applies cleanly, and the
-failure mode (zero queues propagating into driver state, potentially
-registering a broken netdev) is a real correctness bug. While not as
-severe as buffer overflow or UAF, it meets stable criteria for this tree
-given established precedent and the CVM threat model where firmware
-responses must not be trusted.
+For **v6.18.44**, this commit should be backported. The ACP6x YC machine
+driver and DMI quirk mechanism are fully present; the only gap is the
+missing `8F06` entry. The fix is identical in nature to `65aabf8896687`,
+which stable maintainers already accepted for the closely related OMEN
+16-ap0xxx. Risk is negligible; benefit is restoring internal microphone
+functionality for affected laptop owners.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message: subject, tags (SOB x2, Link),
-  body text analyzed
+- **[Phase 1]** Parsed commit message tags from user query and upstream
+  `fe21db8c5e7c` via GitHub API
 - **[Phase 1]** Confirmed no Fixes:/Reported-by:/Cc: stable tags
-- **[Phase 2]** Read diff: +6 lines in `mana_query_vport_cfg()`, adds
-  zero-check returning `-EPROTO`
-- **[Phase 2]** Read `mana_init_port()` (lines 3122–3162): `max_queues =
-  min(max_txq, max_rxq)` clamps `apc->num_queues`
-- **[Phase 2]** Read `mana_init_port_context()` (line 1010):
-  `kcalloc(apc->num_queues, ...)`
-- **[Phase 2]** Read `mana_create_txq()` (line 2373):
-  `kcalloc(apc->num_queues, ...)`
-- **[Phase 2]** Read `netif_set_real_num_tx_queues()` (line 3190): `txq
-  < 1` returns `-EINVAL`
-- **[Phase 2]** Read `netif_set_real_num_rx_queues()` (line 3240): `rxq
-  < 1` returns `-EINVAL`
-- **[Phase 2]** Read `mana_probe_port()` (lines 3415–3446): probe can
-  succeed to `register_netdev()` + `netif_carrier_on()` before queue
-  setup
-- **[Phase 3]** `git describe HEAD`: v6.18.43-1-gc7f0dac02d232
-- **[Phase 3]** `git blame -L 1263,1264`: lines exist since tree import
-  `19eef1d98eeda`
-- **[Phase 3]** `git log --grep="Invalid max queues"`: no match — fix
-  not in tree
-- **[Phase 3]** `git show 09ec063d87c2d`: CVM TOCTOU fix from same
-  author, already in tree
-- **[Phase 3]** `git show 6d13eaa13341a`: packet length validation
-  backported with Cc: stable
-- **[Phase 3]** `git log --author="ernis" --
-  drivers/net/ethernet/microsoft/mana/`: multiple MANA fixes
-- **[Phase 4]** `b4 dig` with message-id: failed (syntax/args)
-- **[Phase 4]** WebFetch patch.msgid.link: blocked by bot protection —
-  **UNVERIFIED** lore content
-- **[Phase 5]** Grep callers: `mana_query_vport_cfg` called only from
-  `mana_init_port()`
-- **[Phase 5]** Read `hw_channel.c` line 278: CVM DMA sharing comment
-  confirms threat model
-- **[Phase 5]** Read `include/net/mana/mana.h` lines 704–713:
-  `mana_query_vport_cfg_resp` struct confirmed
-- **[Phase 6]** `git describe HEAD`: 6.18.43 tree confirmed
-- **[Phase 6]** Read current `mana_en.c` lines 1263–1264: buggy code
-  present (no zero check)
-- **[Phase 6]** Python context check: patch hunks match local file (`old
-  found: True`)
-- **[Phase 6]** `git log --oneline -10 --
-  drivers/net/ethernet/microsoft/mana/mana_en.c`: active MANA
-  maintenance
-- **[Phase 8]** Traced failure path: zero queues → broken probe state →
-  `-EINVAL` on queue setup
+- **[Phase 2]** Diff analysis: +7 lines to `yc_acp_quirk_table[]` in
+  `acp6x-mach.c`
+- **[Phase 2]** Read `acp6x_probe()` lines 758–816: confirmed DMI
+  override → card registration flow
+- **[Phase 3]** `git describe HEAD`: v6.18.44; Makefile VERSION=6
+  PATCHLEVEL=18 SUBLEVEL=44
+- **[Phase 3]** `git blame` lines 650–677: neighboring HP quirk entries
+  and dates
+- **[Phase 3]** `git log --oneline -30 --
+  sound/soc/amd/yc/acp6x-mach.c`: extensive quirk history;
+  `65aabf8896687` sister fix present
+- **[Phase 3]** `git show 65aabf8896687`: OMEN ap0xxx fix with Cc:
+  stable, backported to this tree
+- **[Phase 3]** `git log --diff-filter=A`: file added `fa991481b8b22`
+  (2021)
+- **[Phase 3]** `git log -S'8F06'`: no results — commit not yet in tree
+- **[Phase 4]** `b4 dig -c fe21db8c5e7c`: found lore thread
+- **[Phase 4]** `b4 dig -c fe21db8c5e7c -a`: v1 only, no later revisions
+- **[Phase 4]** `b4 dig -c fe21db8c5e7c -w`: maintainers and AMD
+  developers CC'd
+- **[Phase 4]** `b4 dig -c fe21db8c5e7c -m /tmp/ap1xxx.mbox`: Mark Brown
+  “Applied to for-7.2”, no NAKs
+- **[Phase 4]** GitHub API: upstream commit `fe21db8c5e7c` message
+  confirmed
+- **[Phase 4]** Mainline raw file curl: `8F06` present at line 738 in
+  torvalds/linux master
+- **[Phase 5]** `grep acp6x_probe`: probe registered in
+  `acp6x_mach_driver`, platform device from `pci-acp6x.c:238`
+- **[Phase 6]** `grep 8F06` in local tree: not found
+- **[Phase 6]** `grep 8E35` in local tree: present at line 668
+- **[Phase 6]** `git apply --check`: patch applies cleanly after `8E35`
+  (offset 1 line)
+- **[Phase 6]** `grep 'Victus by HP Laptop 16-e1xxx'`: not in local tree
+  (upstream-only context; not a blocker)
+- **[Phase 7]** Kconfig: `CONFIG_SND_SOC_AMD_YC_MACH` depends on
+  `CONFIG_SND_SOC_AMD_ACP6x` — present in tree
+- **[Phase 8]** Failure mode assessed as nonfunctional internal mic
+  (MEDIUM), not crash/security
 
-**YES**The background history search finished successfully: `git log -S`
-found **no commits** in this tree containing `"Invalid max queues from
-vPort config"` or `"max_sq == 0"` in `mana_en.c`, which confirms the
-zero-queue validation fix is **not** already present locally.
+**YES****Verdict: YES** — backport to this tree (v6.18.44).
 
-That matches the earlier analysis — the buggy code is still in the
-6.18.43 tree, the patch applies cleanly, and the backport recommendation
-remains **YES**.
+This is a small hardware quirk fix: add HP board `8F06` to
+`yc_acp_quirk_table` so the internal DMIC works on the HyperX OMEN
+Gaming Laptop 16-ap1xxx. Same pattern as the OMEN 16-ap0xxx quirk
+already in this tree (`65aabf8896687`). The patch applies cleanly (+7
+lines after the `8E35` entry); upstream is `fe21db8c5e7c`, merged by
+Mark Brown.The author/product search finished: **Lin Xianglin** has no
+prior commits under `sound/soc/amd/yc/` in this tree, and **`16-ap1xxx`
+/ `8F06` are not present** locally. That matches the earlier finding —
+the fix is upstream-only (`fe21db8c5e7c`) and still needs backporting to
+v6.18.44.The Victus check confirms **`Victus by HP Laptop 16-e1xxx` is
+not in v6.18.44** — that entry exists only on mainline, after `8F06`. It
+doesn't block the backport: the `8F06` hunk still applies cleanly right
+after the existing `8E35` entry.
 
- drivers/net/ethernet/microsoft/mana/mana_en.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index adf25acb0d46f..b61da240ac1bb 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -1262,6 +1262,12 @@ static int mana_query_vport_cfg(struct mana_port_context *apc, u32 vport_index,
- 
- 	*max_sq = resp.max_num_sq;
- 	*max_rq = resp.max_num_rq;
-+
-+	if (*max_sq == 0 || *max_rq == 0) {
-+		netdev_err(apc->ndev, "Invalid max queues from vPort config\n");
-+		return -EPROTO;
-+	}
-+
- 	if (resp.num_indirection_ent > 0 &&
- 	    resp.num_indirection_ent <= MANA_INDIRECT_TABLE_MAX_SIZE &&
- 	    is_power_of_2(resp.num_indirection_ent)) {
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 636b211856e7d..82a150c51eaca 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -675,6 +675,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_BOARD_NAME, "8E35"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
++			DMI_MATCH(DMI_BOARD_NAME, "8F06"),
++		}
++	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
 -- 
 2.53.0
 
