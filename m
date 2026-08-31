@@ -1,163 +1,165 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012057.outbound.protection.outlook.com [52.101.48.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic310-31.consmr.mail.ne1.yahoo.com (sonic310-31.consmr.mail.ne1.yahoo.com [66.163.186.212])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF1C391517
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:46:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788216418; cv=fail; b=aSoxxe79WDPhAViDzcE+AZSqLRyN7GooH/Ahb+dLjv9H61RFgEPiVd3SFJaLcu0H9wL6ZAVIz76gTX/vnfkS4kPCQm/kX/m6q3PefBT9haJIMVu+FQSHhEI8EUrDe+cs6x8TdyP7/RXYsbRwyn8mGbfk/hUj8/dQ0qYVm/ikbNA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788216418; c=relaxed/simple;
-	bh=micyzv2ZHKU8uVX+zwGR5Fqrs/b60E9s8RpFbNmyqWk=;
-	h=Message-ID:Date:Subject:From:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=AGaJCZ/2ULEb+hJrAZrMF+H9F3YXmUp2JSLd+hEi/VVFsFH3o66WecPuqFoEj3K7Jc7ifA/W3tYuagNL2AnEFhoJvhhFmgbH/dCMUVQzdZX3pBHq0+1l/IOGNP9JYTA5ebMymLA4AUe6DLwTUGoWxRxOGSecUzd6J/qh/kTi+KU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WuKgsbdD; arc=fail smtp.client-ip=52.101.48.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C618B3AB47A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:48:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.186.212
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788216501; cv=none; b=V2qvVZb3+uoM7hnetpVQPVVY4qvuvO9NNUYJVZrjgZzKV4YxRlBIgTDnsYVRRzA9r/WM0k8VaMmn3H1Jx+30fFwWKSnRuhvXfF4U/IEFCwEJOf6B1yGGhP6ONtYJO+J2uNJJHltERQ1Up/BP4B2o3XQj64Sb0c91IUMkCOZEK4A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788216501; c=relaxed/simple;
+	bh=bbNYb3yqFL/S3c/QVE3uKjr1JVkhomg4oJLNAcltsRo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=WwsOq6xNIagC0Amj1ITi09bymJ9kKTlbksVIPeBzU4LhIiyPKa4ztn3SLbgz3Wpy/p0Z/qRwrDcZfw96vbJmrlWxLwiFC346OUe/1W1IyhdmTC1jphuNYHv/3HX42U3CLaQqqJ3oW0GGagB8b63MQTEU2S+3rAjZJZ5MVOtQLB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=schaufler-ca.com; spf=none smtp.mailfrom=schaufler-ca.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=sdm4sz//; arc=none smtp.client-ip=66.163.186.212
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=schaufler-ca.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=schaufler-ca.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WuKgsbdD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M6FNsZTN3/oOhYRwkWQF5/HV6ZKxP7UyKhmRJj+qzwWRS6dvTkBwzYbIVzt8Z/8P669nOYEY91wOMcNFZsa8+km9muqT0Gi2MDneQB2O20KH1Z+wE75BngIQzkmpTAspH///+qtLuVO9PQWbok2xXUCcceE+b/tVppOQzkwa7+ZMb/on8VjUD/RIYYfTYN3/FuvZro/YvX8sXKYeaDfRpgyt8UREUvFrh3RYNVSKfwhlMRVsM53t1z38a2Q7QfF4s7kaQocSUW5TO+f/bzOC4xLLoIXMoKmyrRZnnIX3S43kR1cb47LE3umEewzP9Cazk0qHLGpkn6GN/v/WuNyYFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f6Sm0mIeYucBpGYng/bkPfjzCbFO0k2CwCWXUDAdeqE=;
- b=mFba2J7xyzsu9G8mqE3U98is2IbDJh5/LJtU8+BKGDzEi8IH2kakcQ6b1sweCFgrbQZ9JpiPsFNz/r/7GWq+xLPOrqRxczZw38DMILhCLDsQe4QtrcBgA2hOUJ/i0AYhPGeOJQrLCAs4HomIc2FQoCqMpk9p0b0K88VmRJd6fwVDey4kqotKxsEYGdQqkLQxSKldla+9SZ2yn+ha1QR33DoTmjYhq+pCZ1LFBOg8gGa6Ml9Zfcg96R5f1mWKf4nJuSUyNkdM/W63l1aix31aqiv7SKOwfsXj7HqqOp4F+W7GfPNza3jYzGIl8WIFUanv5TORAYR7Mxy6pXLQY3yuAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f6Sm0mIeYucBpGYng/bkPfjzCbFO0k2CwCWXUDAdeqE=;
- b=WuKgsbdDdpEY3VeeLYM/M3OGTOZjqFcW8ubKmYJlauYenN4ZHBGRcMpqSUrsbLGxZfJpb4jq6oz7RGkDr31z8+YRRD+NKPSx/pCUwFjGx/GRfUxrbM3VxsgkcAezkcLVb0VU58uy5y9nKG+s/nbRyor8QF1/IoVlfjUpgHJHzACDamJNSc9THXC8x28NToAsAeD0IV7TFvaFnI2gSCj1q1wBbDZl5IPSSj1x2/TpEiibk7yr6VmvLOv5Kpj+BQ4gjs36NmEgegReZyBP401UfjMg0UqEmdacBDS9trEP9+eplBrjXSglksTs/UyfoSRbYsTASzgDDcPCNxF5Qv93MA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.13; Mon, 31 Aug 2026 22:46:53 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 22:46:52 +0000
-Message-ID: <2fe22ca0-8324-4217-8669-0adc336d6a04@nvidia.com>
-Date: Mon, 31 Aug 2026 15:46:51 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/15] gpu: nova-core: match GSP RPC replies by
- sequence, not just function
-From: John Hubbard <jhubbard@nvidia.com>
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Bjorn Helgaas <bhelgaas@google.com>,
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- nova-gpu@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>
-References: <20260829012243.496697-1-jhubbard@nvidia.com>
- <20260829013324.499542-14-jhubbard@nvidia.com>
- <DL2Q86NR6TJU.3ULD0NQAQ9HF@nvidia.com>
- <d6d3bcba-56d9-4775-9687-ca8e2a0c80ec@nvidia.com>
- <67b67e00-ca4e-485b-bff0-77b2499898bc@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <67b67e00-ca4e-485b-bff0-77b2499898bc@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR13CA0175.namprd13.prod.outlook.com
- (2603:10b6:a03:2c7::30) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="sdm4sz//"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788216498; bh=l0sO2SYfGRYvlcNWVz8ZWrNgwyr/k0iy0Kc/Ebdd3OM=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=sdm4sz//PSbgIrr74NMjyGNq3WtRa6JUZb0T49yhS40zJaoD2KlYKFMrbKzYehfxnUBGO3r62/E2PZwHxC7EwaysJlBREDE/aw98LZPXY1410+YNYoGynXDCQLWnCHjJebncn1LW2/Eh5BRAaN5cSNRr4g85vGYScNNw/LXGeXFe2yM53xEziNC+9+JpKN1NknRD01AhPo07sQtB1sVvykwUyXSzf9ezEbznSKXmKx+yOJbJw9mcpfZZknSNXhiIeCb4UMlgcYKmGuru0LTpHX4EeCElS6S5Nk+2crGoOogh/oHZ5wyftGxcqPZkxoSeb8kJfbMsVKozw0SWWHkWNA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788216498; bh=go6zK7WzMoTQWnKswQiSE9LoL/zaApuiDpu9dKLWN4X=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=P5EbwxX9etRfKODAK4QnvhhY6hts2hxwMzZkiOuPpyz3Mz+grO8AhQcXluhh6Ta5bHGB29B5KKDVw2J5w9kKNUoP3Pv/45TBqDO5m5i7rKS6lxPTRnZjYlqGVCP6lnJ2JX6BOFbtuuXO7ZBhe7KVLF0nRtiTolmqWxxFHot5Sro8OVJNGaMtlImx1cFmBIlo0StQheEqmVfSX3q+FUoyAJdAh/0jppoHdSL8DTW3zKzc1AjkyM54VkgIpZMsjBvOPJlFKiFzNaMhxIesA4K/qpQl60txjL+jmfRWY4AGDwXnlVJPg/inUskF7w+0ewuvlrrYgeQp/Bb/gsoT+8qnrw==
+X-YMail-OSG: a5IPlA8VM1lyzxhQzoPzriq1enrhpIVww0i6L2OIScgva3sLUdEReMG6j5T8SoT
+ K2p9i0LTJTxyt76C4kFjqXmQPOCjY07CE7cc77arRGuDzg8stSvpdt3fEWiciFRFWhefPeO0YqBt
+ WiGx93FDK8pPpLDEL3CRaMlJvcQBTB8Yt0iHFwRabomXRSXBmY202jvZV2UZYpRlq5Lgxc3VcmNy
+ ZKmBI4h00UdgJ4lCEl9Uz6OezYTxDbXtBbEBD_uyDnTDxvbpYVHRcflNSjQSJZ2kS1Wi3Z5lhQaM
+ 6Q.bfW.FLAxQoCzdlIw4mzC4PkzpfHGHqbdzEV.GNAla4hkKrAoHuY8g6U5lqzfUQ3znnJWkQl1m
+ 3U_Vtz8.Oo5igSUd8LNYQhIDE4UHTFq50pLQUgByzl7lOjTypp2AJXY5dK0p.m8dDIPqSm1Q4LZB
+ cEQ4UphtKv.uKpPjSbvlEkiRPyqr_X6Ch0f2I5bC1GPAopK1NKJOCz2VpSb7J_7Yv2Xh6SCZdu0h
+ bz_RG5dNita6H4h6kbHyFcU4VVLxpZ.JjIJqUnOlzsieqG8F4iQ01EgWyEhNDQAIEyQ06rs7eD4f
+ ovBDfpsKV0CVBt7fT8u3cCYEn_sPDLunOBzA_RDNfLT7Ks7kEZJRoSTcXqOwwSvQZqPxdZ6P.H4T
+ .1ppCBBp5pisteOHUEEOomLp2bpuFRJNBniHNlNjbnZYvorD1cfDplX1JrrR4HSqBs6KWmYMLJZX
+ sNtmC27yfl4T.5AS7N_slk7RWHu7O7DD1iAvO9xWfE6S1.3p6VDHRLjnwcgI4PGLoRhquVjNIHLZ
+ 7B9euTCldBnxKj3SwEt_pGo_DvoKEyxkDVhsIcvkwC5EXa8IEIwU1grb1FmLAsdS2YyvWgBiwQuV
+ l6XWtmclVXAr6ytNsXRJFmYlxJNKSX9mDiRzR3zg0zNdkwJM6MDgH5P4nkNjZKtseR7QGnCfr.RQ
+ p0xhgfjGEkNxUpVeR3zA_sz.xYZEMBmYbmuZlLMZKIs4FT.0aPo_4tNq9suTcdq1DrCktbMbPGw0
+ IWzurW22nFV5xPodT9RSjcHiBaaIF9q.2_UEn5CpKhUtLqxWxxHMRSSHJkUi2wfo.BUZMxKhkrlX
+ hhyvljWXBdR0RN.4aK3BD5nXTThDOELByuSMjs1hoRgRMpG_QLwOVZGKp7n91SECRySgHfQfOYhr
+ zs2G8osj7M82JjDZOdrAxsjGeCrhNUYh9Opt8wHDnGSPvDA7LNnITJ.LwpsqmzRSgRfC01d3UCuw
+ REBDJRvJq4wTC_0RDVezzhhsaCagxG6Zcy8ID36Co0vndksTAZC8nUdeSLqN7CZQUwo8d9d.0oX4
+ nqxrz6wSmf4bLvrT.Ge6eVsno9UsNUll9CvbLEog5BZlfLE_Asuh3kCnN7Sid2akvpQXiIqXeEoU
+ QGdnmIsKSTSiz_FIMZn1y6bD9Skv4Db5LSV_fZz0MXiJPxcOlfe9S3n_hRmiPgrJDeSGm19TTdKw
+ L4zHZ.qiuQTcxsGlOG8lq6K93DvN.PitCJEryYPB2gvlQFAYaa3JBc_coaYv.44iX_6VuJ_MTB_H
+ CfQFWa_hrny.pDSNH8_QTtshMV_aIBGRKZ7OUQnqPV3CI6i9fghixkNKDtWKRVmYD1Ca4IegI7_K
+ TwW8ZyQKvms60WBVk6iBJYKMlQnmw61LjmZzvUbRbfDL.L2MuxNdeYEY7KRK8XHLNySS59ZGRPeh
+ YJwk3KMULavzq5m9l83s_Y8C3KrSx_.vl_KbGO.jTtwyICItdHryGCsi5q_MaKxn_H3dSBSCO_R0
+ _zIkLq_fU4qpvvVrhlx_Wd1fcIqCqgRxDql4684VNltUi9YJNuoiX99KQdYLTgsOc2eZUt4CfgcD
+ szxrUW9.3f5m7qQo0jWW9HGPMQxppyWrhOeWEM8U52R4L.oDW6yj5zuFB7IhUu7smnfVPd35ROrV
+ YFouu2KSbuvjnO6LrAsb41Fi0v34PPYva5wUplgjw8UID5sya8W7o7F0d0PZwjd42hVeB2Kl7J_i
+ p3hYOMUr09C7QtJ_Q544G8Y2ENfXuThZTtzAnpIgtvjcDO.ktRf_fZzwsn.ttQbRxubnTRcui2vZ
+ ZL4ZGKz._yXznCHFMm4CE2KV58jPT5o4hm4GHtm6IkmjVDWLgvsFPZWViy2zWtxfR_XtbdocZ9gx
+ j0uLpB0aX3yqfa..m3jYhC_.L10tqURORGQD9PUQ1AyWVWpluNOivHVIQdZo7yztQtRNaSyk5is8
+ ZA9aQIM5YRqwlvYIApAqcoFegrJ8KmD2W83BRXe0IHIOoEJFLlcyDsZYz95MKWDJmGxuzVgNRMDY
+ GnxRE5Raq9RJeJ.19iTec38xp
+X-Sonic-MF: <casey@schaufler-ca.com>
+X-Sonic-ID: 4c0cc34b-6058-407b-a70d-0b45d43857a9
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic310.consmr.mail.ne1.yahoo.com with HTTP; Mon, 31 Aug 2026 22:48:18 +0000
+Received: by hermes--production-gq1-678d9dd684-vr75x (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 9afda7e456c775b6473ef75f34d3e2be;
+          Mon, 31 Aug 2026 22:38:00 +0000 (UTC)
+From: Casey Schaufler <casey@schaufler-ca.com>
+To: casey@schaufler-ca.com,
+	paul@paul-moore.com,
+	linux-security-module@vger.kernel.org,
+	pablo@netfilter.org,
+	fw@strlen.de,
+	phil@nwl.cc
+Cc: linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	jmorris@namei.org,
+	serge@hallyn.com,
+	keescook@chromium.org,
+	john.johansen@canonical.com,
+	penguin-kernel@i-love.sakura.ne.jp,
+	stephen.smalley.work@gmail.com,
+	selinux@vger.kernel.org
+Subject: [PATCH 0/7] Change skb secmarks to x-array indexes
+Date: Mon, 31 Aug 2026 15:37:41 -0700
+Message-ID: <20260831223748.4304-1-casey@schaufler-ca.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|CH2PR12MB9457:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f8f1166-b9f1-4de9-cf77-08df07b1c04f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|10067099003|4143699003|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Jumt0d4tQXPGw8Vf9a7s91x36BUz8vnB91hcWz2Gnt5/sZ+EyO2fCo/n5OerXcv71z8HXpwCfXRUMG5+AICdmZ8SYiA1aYTrkTQL3Y0wJD0tsQ08YpQkkcbUus70zzdg687kc21Itc4j2yuZ49HE6Exao4cYhhsCi2lHoy//moy2UO7lo81WxLoSwr8cEaFBt8OeySnpn2dYK1sCPc4ugEFILmLfwn92eWoIKslCTF9nGiX3WGBZ94Lr6+zFt75fXgll9h5YuQZIaFq8pBE/sIxsoaet0GGiuQ156ViFxoA6bQlaUMwC8xQr+sKU27aI0IVsr3w+0FZpc8WJsJPnEPGvHgIXV225jeV966Oz+xsiFB/8mUQ/QzA+pkReJ2NL7YbCq2/u1H8xInt8lIp4tzsp4aaMW/5QUrWTgmrvsA7jvt/B5ycx7BhyHGGIaroYXnjMRO8B0Me2dEQOxAMvAFoumMiNEjIx0Xkekaime7BgW3cM79OnHumnTb4pNpLLKD6eSGDlAAbOia4+YqiIxwiOiJvbbNySZv8i2Nj2y2kLSPpcHjQmFm2p5dD1KJgVFJaVM6ZoLeH5pbFc8vTn/qcQtiqGzaWUOrLmB3RSAFsnrXcR5cHSg0IxUaMZTManmh6APSARaE0stKEH8oYuUVrX1jsrfzaOSeOz+c4vLSE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(10067099003)(4143699003)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YSsxRE1JQkhKVmpaaE5GRFpYYmp4VFBhaEdvNlZpbENxSTVVTUQ5cWVwamZw?=
- =?utf-8?B?OXJSQkZNUEFTSDhMeWpCR3RncXBMZ1RtbTVBV0c5MzhnTmhHS2lIbkxqd0RD?=
- =?utf-8?B?UVZiSTlGR3k3b2ZkZVYvWFBORE1jMENTR2ErRjJjR0QraXV4c2dQNWZteExR?=
- =?utf-8?B?RzhFWTdJbFJKZGhQMGN4OUliK016OUZhTHo1Q2RrUEdnbmVXbU81ZFE1akRO?=
- =?utf-8?B?Y0pzTU9sdURnaEFON2pLc2hwbTNuNFY1OWx2a3J4NU1oaVhYL3V4L1dOQnZq?=
- =?utf-8?B?ckFzUEtldlc1cDR3YVNUUWhUK2NEblBIVmY2T2JWaVNVamI3UGZpNTdqZmZp?=
- =?utf-8?B?azVpODRRUHhkeFBJeE1kWnoxRWVkWjRqZGFHYWpCSldEM3h6SDR5Rm1QUDgw?=
- =?utf-8?B?QjF0VGVBSmN6MW1wbHVpSUx0SEdRS2swcTM0YnZzSzV5a3Nsd1VIRUwzbGxk?=
- =?utf-8?B?OU5kTmxjQzNndzZ0ZnRLY0JwWEdONHdhTXhVYnVqS3A1dUd6cktINFhBVHk2?=
- =?utf-8?B?L1g1UXVFeENMcDFOSkt2clJEbmY4T0dUSlMwUys5YUoxTjdaYllXQ0NNZ0tH?=
- =?utf-8?B?MHB5NldyOUZIaUJjS1ZXbEZ5QjlnUGwyYzBWVzRCQUxhY0NyQ1dXVk1LWWs1?=
- =?utf-8?B?TWVYQTh4MEY3RjlwYlZHb0hIb3BMODNtaUdjSFJHSCtjd3dCbUptb3piVnRF?=
- =?utf-8?B?MW1RNFlWUGlla1hsS1EzaG1YRGpGU0lRa3JsTGQ5cGplTytIMXJuZ3JjN1dk?=
- =?utf-8?B?ajBtUjE5cnF1dnFWQVc0S0dkdUFLaWN5Z1YrVm5BNDJNY2UxNHVxcHYrRDB4?=
- =?utf-8?B?TnNOY09jOTNTTW5LajBkZlBDYyswWnd0VkdvMlpVQURjWWE5Q3VRaVZjdGlo?=
- =?utf-8?B?cnZYNlVDazdjVzhDVHhHRDBCRzBYanlSUjkrRGNoUkZwUjJpWWhpSWxuZ0NT?=
- =?utf-8?B?c1FZMnRVQ1U5SythY3I0WE1RdzFUd2xMUFNFNnNublV4UUE2cFo0M3RaYWt3?=
- =?utf-8?B?ZzFzRFRvWitiTU9ORTlQRXZIVmI3eVlhRnBMeWxTSWtPVFF3eHdqVFFKTUx5?=
- =?utf-8?B?TCtFbzUxUWF0dThVWkJ5SnEzUTNmaXNhdnFBOVQ1UFBteDhySVhpRFdQTFFM?=
- =?utf-8?B?L1MyZkFlRHZlRzFIc3hDNGZWMUxXM3V6WUZ1eURnaVFPd1JYTGEyc1VYMVJu?=
- =?utf-8?B?N0ZvalVKZlF6ZHpoUG1BN0FoTUZTY3pVeHJkaEZUc2ptWW9RankxVyt6b0JQ?=
- =?utf-8?B?T21SSGc5R3AvYmZHbklGQ041dG5ZaktQb1BFVDJ6dDNDa1R4alppRm5Tb2o2?=
- =?utf-8?B?c2ZpN2RjNERlSW83RmtTVnIwU2dWdjBuWTNiVlR2RkNpMzJGYVpaWEZxWUxC?=
- =?utf-8?B?bWUrNlpRMXFjZkdPZFJaVUpwUzZvelBpUVhLdTNFL2MwTUYyOVBPekQzVGc5?=
- =?utf-8?B?UUJhaVQwb0p3aUlrV25lN1AwSWwvQlh0TUNjekZsVWZjMFpjYXFCcnIrZWhl?=
- =?utf-8?B?NzdrbUdmcFZ4UGR0cmJ6dGpVaEM4RkJ0a202a3BJZkE5WW9kdHpGVHJtQjJI?=
- =?utf-8?B?dXlDVWZkZ3JzUFk2dnVVenpGNVZEb0YwMnNCQmlOcFlUTmFMekFLNTh2dmNB?=
- =?utf-8?B?UHdKZ1BvbzFTZVJZV0dPVmlIRmsxYjBHa1hDWFh6UlREWWhhdmNFb1EzZzZq?=
- =?utf-8?B?WkgwN2kyU0lmRDgzcjh1L2lqSis0VkN3ZkxKZTVOcUs2U1BrbmJXek1Zd2ZZ?=
- =?utf-8?B?Nk9hTVNyNW1LS1RxczN2T0swSEFVUkEwR2l6TmJ0b0JTL21zdkJBMWF5Qm9Y?=
- =?utf-8?B?SnlWRWFXYlRiYzZ0VDMxeFA0Z1F0c2xlMUhwclNveTdyNndhdm8rMUpFUkhI?=
- =?utf-8?B?QnhpM0d1RDhWQTBLWm4vYjRmSm43SW1Db1RXbXpNUWVQRVdZK2ZRK3dWSDY1?=
- =?utf-8?B?WHg4K1puQ0RtR0dmWjlPN2tOSWJJbHpwRGNPN2ZLTUVvMldsN3VkNnFVL3pS?=
- =?utf-8?B?VDZLbktlRitaeHdLeng2cDlwQ3k0YlJIRTZNa0tJWW53dGxzdzBjTTlxVVRW?=
- =?utf-8?B?VldnL0pJanZ6V1hZeWFOQ2dOVWtTSjhIQmppa3JZdTlsVi9nbGFldmNSMUg1?=
- =?utf-8?B?OHB5Zk5NTmxYNDhSWm5va2QxbEVFVVF3WUlpWTA4Z2RhNUw2ZGRKdURXV29z?=
- =?utf-8?B?MnNweHRhMTRDMlJ4UnlRYlY3U2FRV09QKzY2aUdVTkw5Z3p5RU92Zk8rbnBP?=
- =?utf-8?B?VGQzT1Z4UjVpb3VRRll2Z00xNjd2eExyM1ZqT0luNVl5SXNnVkxuYk1oTnM3?=
- =?utf-8?B?MS9EQVlIKzNiSDJXYW9XMVRuMmhDaU1MY25qL0I5R29sNHFzOXE0QT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f8f1166-b9f1-4de9-cf77-08df07b1c04f
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 22:46:52.8565
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eTKq5+WhIH9P4rxxylv6kKQIbcHtzeF4TVrQbW4+NH2/EcVVZuBp02q20fNnYWYi6Lv3mKGFNGY4y4HD80NZ9A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9457
+Content-Transfer-Encoding: 8bit
+References: <20260831223748.4304-1-casey.ref@schaufler-ca.com>
 
-On 8/31/26 3:18 PM, John Hubbard wrote:
-> On 8/30/26 9:33 PM, John Hubbard wrote:
->> On 8/30/26 6:09 PM, Alexandre Courbot wrote:
->>> On Sat Aug 29, 2026 at 10:33 AM JST, John Hubbard wrote:
->> ...
+When security secmarks were added to the Linux network stack there was
+only one Linux Security Module (LSM), SELinux.  SELinux already used the
+concept of a security ID (secid) as the representation of the security
+information about a system subject (active entity) or object (passive
+entity). Adding a container for a secid, the secmark, to the sk_buff
+structure allowed for efficient transmission of the SELinux secid for
+socket based access controls.
 
-> Actually, my existing tests pass with both r570 and r000, but the real
-> problem was that my test suite did not include unloading nova-core.ko.
-> 
-> With that test added,  I can reproduce your reported failure locally.
-> Debugging it now.
-> 
-OK, yes the seq number matching, which GSP only does on r580+, was
-the problem. All fixed locally, and I've added a test to catch this
-in the future.
+Subsequent LSMs have chosen to represent security information more
+directly. Smack and AppArmor use pointers to structures containing
+relevant information. Alas, these pointers do not fit in the u32 secmark
+on most modern architectures. These LSMs are required to provide a secid
+mapping to use secmarks.
 
+Even with all LSMs that use secmarks having a secid to reference the
+security information the mechanism is imperfect. A system that wants
+to use multiple LSMs that use secmarks is constrained by the size
+of the secmark. There is no rational way to fit multiple secids in a
+secmark. While it would be possible to allow one LSM to use the secmark
+and any others to be told it is unavailable, this has been deemed an
+unacceptable limitation.
 
-thanks,
+There is a lsm_prop structure available that contains security information
+for any LSM that maintains it. The secmark cannot, unfortunately,
+contain one. Instead, an x-array of lsm_prop structures is maintained,
+and the index (secxa) is used in the secmark instead of the single LSM
+restricted secid.
+
+Uses of security_secctx_to_secid() have been changed to
+security_secctx_to_lsmprop() in the netfilter and iptables code.
+The security_secmark_relabel_packet() function has been updated to accept
+an lsm_prop pointer rather than a secid.
+To support multiple LSMs using a secmark it is necessary to re-evaluate
+which lsm_prop structure represents the current security information
+at each step where the secmark can be set. Smack sets the secmark for
+every packet.  Netfilter, used by SELinux, Smack and AppArmor, will set
+the secmark on selected packets at a later time. If Smack and AppArmor
+are active on a system Smack will set the secmark initially, and AppArmor
+may reset it by netfilter rule.
+
+v2: Address issues raised by Sashiko
+ - Configuration option insufficiencies
+ - Locking issues
+
+https://github.com/cschaufler/lsm-stacking#secmark-xa-7.2-rc7-v2
+
+Casey Schaufler (7):
+  net, smack: Create a function to set secmarks
+  LSM: Implement x array functions for secmarks
+  LSM: Two hooks for manipulating struct lsm_prop
+  SELinux: hooks for secctx_to_lsmprop and update_lsmprop
+  Smack: hooks for secctx_to_lsmprop and update_lsmprop
+  Apparmor: hooks for secctx_to_lsmprop and update_lsmprop
+  net, lsm: Change skb secmarks to x-array indexes
+
+ include/linux/lsm_hook_defs.h     |   6 +-
+ include/linux/lsm_secxa.h         |  33 ++++++++
+ include/linux/security.h          |  20 ++++-
+ net/netfilter/nfnetlink_queue.c   |  12 ++-
+ net/netfilter/nft_meta.c          |  20 +++--
+ net/netfilter/xt_CONNSECMARK.c    |   3 +-
+ net/netfilter/xt_SECMARK.c        |  19 +++--
+ security/Makefile                 |   1 +
+ security/apparmor/include/secid.h |   4 +
+ security/apparmor/lsm.c           |   2 +
+ security/apparmor/net.c           |   8 +-
+ security/apparmor/secid.c         |  21 +++++
+ security/lsm_secxa.c              | 128 ++++++++++++++++++++++++++++++
+ security/security.c               |  38 ++++++++-
+ security/selinux/hooks.c          |  87 +++++++++++++++++---
+ security/smack/smack_lsm.c        |  43 +++++++++-
+ security/smack/smack_netfilter.c  |  11 ++-
+ 17 files changed, 418 insertions(+), 38 deletions(-)
+ create mode 100644 include/linux/lsm_secxa.h
+ create mode 100644 security/lsm_secxa.c
+
 -- 
-John Hubbard
+2.54.0
 
