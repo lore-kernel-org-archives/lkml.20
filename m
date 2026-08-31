@@ -1,110 +1,107 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565F82BCF46;
-	Mon, 31 Aug 2026 06:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D53E39D6CA
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788156705; cv=none; b=RlMINvjBTKTiqsVxHeanyWWS9q4YmempRWrMAxNU4FHsmMvOoqYgg6IokEjVhuJb6XN/ax0VzKU+sN3kj+/rgjeSQ0zA8GjWC2VyANTO1Y7+pCdkpJ3hf0XFLObeHfHqDKFnG6bkTs+q5k6BuE0dV9J/pWTEaG8V1hFxRTkQj9Q=
+	t=1788156726; cv=none; b=S1WOaBzrp42Uz1iO5y0tSnTbxs7f5fK4eio/rtCpXIk4g+Xxi0SceOL3QOk2GajKk+AdBc/gW/EKna3LGdClV70WZn7b48F6B2SAY0wimd/m19u5U45Jjk0wCDnH/jwaHqHt5Ck+Ywi0a/yZN0QIcWlxtjRDEq+iagV5L/1QnUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788156705; c=relaxed/simple;
-	bh=9JLdV8usThthL1ek3EnlSHCTlqFK7z3/0yD5ndtx7vk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B/x4naiM4LiY05tBhmrXcNK893auAYg9jZic/hVPkqUJsN3SFDCtdhTmSfoUGReRD6ATrkoAeQXsGKufvRlsJPp/n72oL6vRnF3IEqxbllE2N8NyIbiEAbm8TweZ9XYns8yk4H50AAuqCoXF1Y5M1kWrGoJP+VaPKCAwlzNiiaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eISkPR4G; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788156726; c=relaxed/simple;
+	bh=vclbbxrEXBh2L03+0rbD5hWawomsUAw6S4F76/NZMP4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Jqs8SKwkO4mSyWg1q5Qj1Z0m631kyEGYnMt9VIN9aBPAE2Gh69YAu60fIFhEfcLvpI9U31k6NZgoAzdq43jrowUdqEI4zY1cEHzts3ClrrfopnLnhZsUWasKf7grfcngfpox9VuLlSPkN/UwoZdbH/+z/g/0BLDGv24cpoL/UBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mrEXTzAi; arc=none smtp.client-ip=91.218.175.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eISkPR4G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=ZhR6FuzNVxgcqJYZuskYZO6ImMKIuhG/QhuJiKWuRbw=;
-	b=eISkPR4GJhcFoLmfFc6ka5YKPSd3e2bWm/kqSkpc3w/EiZaFhICiipo/1sefM+
-	dvHgax8soRBhb9K+3PmvbMC/GHLFB8vnHGZ4l+bFpjXxwZ4vLc3fxwJerdc4RkD5
-	IyF5SlbqaZb3A7DujupcAXUYcq+FJ9vVc7DEo52lZdLU4=
-Received: from [10.42.12.49] (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wCnD5IEG5VqG7xtRA--.59020S2;
-	Mon, 31 Aug 2026 14:11:17 +0800 (CST)
-Message-ID: <a4e969d7-4601-407e-a4ee-beb85846d711@163.com>
-Date: Mon, 31 Aug 2026 14:11:16 +0800
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mrEXTzAi"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=vclbbxrEXBh2L03+0rbD5hWawomsUAw6S4F76/NZMP4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788156720; v=1; x=1788761520;
+ b=mrEXTzAihqwHWERl1PfC8HEjkFQjZyWbYgPYWU61uB/YfgFTelgOQ/V4gXkIN3G6l1ZPgzQ1
+ W+hCIzz0UzVvtnIGE6V2JHLgQLsZh6WKSyLUQe8WpfrXMAt3mfdLUeQGOfWpqF2whz/OeE7HXlg
+ XROdE7T6gXfz5Oe1pNH8/9vU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 92e85d5713bf910f;
+	Mon, 31 Aug 2026 06:12:00 +0000
+X-Mizu-Trace-ID: 92e85d5713bf910f
+X-Migadu-Flow: FLOW_OUT
+From: luka.gejak@linux.dev
+To: Ping-Ke Shih <pkshih@realtek.com>,
+	linux-wireless@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Michael Straube <straube.linux@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	Peter Robinson <pbrobinson@gmail.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Luka Gejak <luka.gejak@linux.dev>
+Subject: [PATCH v9 1/6] wifi: rtw88: add the RTL8723B chip type and SDIO helper
+Date: Mon, 31 Aug 2026 06:11:39 +0000
+Message-ID: <20260831061144.18631-2-luka.gejak@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831061144.18631-1-luka.gejak@linux.dev>
+References: <20260831061144.18631-1-luka.gejak@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: host: sl811_cs: fix memory leak on probe failure
-To: Nikolay Kulikov <nikolayof23@gmail.com>
-Cc: gregkh@linuxfoundation.org, kees@kernel.org, david-b@pacbell.net,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Zongmin Zhou <zhouzongmin@kylinos.cn>
-References: <20260827074120.49006-1-min_halo@163.com>
- <apHG0Pq3HagSo5BT@archlinux>
-Content-Language: en-US
-From: Zongmin Zhou <min_halo@163.com>
-In-Reply-To: <apHG0Pq3HagSo5BT@archlinux>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCnD5IEG5VqG7xtRA--.59020S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tF4DZF45uF4rGr45Zw4ruFg_yoW8CFWUpF
-	WkX3s8G34kKw4a93Z7Ar48Wasa9393JFyUJrn29w4Fyw15CFy0vFW2ya1YgFWUCrn5K3WU
-	X395XFW7ZrZ0yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07USkskUUUUU=
-X-CM-SenderInfo: pplqsxxdorqiywtou0bp/xtbC0gXHc2qVGwWMegAA30
 
+From: Luka Gejak <luka.gejak@linux.dev>
 
-在 2026/8/29 01:36, Nikolay Kulikov 写道:
-> On Thu, Aug 27, 2026 at 03:41:20PM +0800, Zongmin Zhou wrote:
->> From: Zongmin Zhou <zhouzongmin@kylinos.cn>
->>
->> sl811_cs_probe() leaks the local_info_t allocated into link->priv when
->> sl811_cs_config() fails: the only kfree() lives in the remove callback
->> sl811_cs_detach(), which the PCMCIA core never calls for a device whose
->> probe failed.
->>
->> Free the private data when sl811_cs_config() fails.
->>
->> Fixes: c6de2b64eb57 ("[PATCH] USB: add sl811_cs support")
-> The code looks good to me, but I have a question regarding the Fixes
-> tag.
->
-> In the commit you cited, a failure triggered a call to
-> sl811_cs_detach(), which freed that memory. However, that behavior was
-> changed in commit
->
-> f8cfa618dccb ("[PATCH] pcmcia: unify attach, EVENT_CARD_INSERTION handlers into one probe callback")
->
-> where the call was removed, leaving the memory unfreed. Shouldn't that
-> be the commit referenced in the Fixes?
-Hi Nikolay,
+The RTL8723B is a 802.11n combo chip whose SDIO variant, RTL8723BS, runs
+a Realtek vendor firmware that differs from the firmware used by the
+other rtw88 8723 family devices. Supporting it needs a number of small
+adjustments spread across the shared core, all of which have to be
+restricted to this one chip and bus combination.
 
-You're right that c6de2b64eb57 did not introduce the leak -- but neither 
-did f8cfa618dccb.
-The leak was introduced by 15b99ac17295 ("[PATCH] pcmcia: add return 
-value to _config() functions")
+Add the chip type and a helper that tests for it, so the changes that
+follow can be gated without repeating the chip and bus comparison.
 
-f8cfa618dccb dropped the detach-on-failure path because registration
-moved into the core, and its probe ended with
-     sl811_cs_config(link);
-     return 0;
-A config failure was never propagated, so probe() always succeeded
-after the allocation and it remained paired with the kfree() in
-remove(). No leak either.
+Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+---
 
-15b99ac17295 made sl811_cs_config() return -ENODEV and the probe return
-that value -- the first time probe could fail after the allocation.
-Since the core never calls ->remove() for a failed probe, link->priv
-leaked from then on.
+Notes:
+    Changes in v9: none.
+    Changes in v8: none.
+    Changes in v7: none.
+    Changes in v6: none.
+    Changes in v5: none.
 
-If you agree, I'll send a v2 with
-     Fixes: 15b99ac17295 ("[PATCH] pcmcia: add return value to _config() 
-functions")
+ drivers/net/wireless/realtek/rtw88/main.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Thanks,
-Zongmin
->
->
-> Thanks,
-> Nikolay
+diff --git a/drivers/net/wireless/realtek/rtw88/main.h b/drivers/net/wireless/realtek/rtw88/main.h
+index c6e981ba7986..8f86f7c12de5 100644
+--- a/drivers/net/wireless/realtek/rtw88/main.h
++++ b/drivers/net/wireless/realtek/rtw88/main.h
+@@ -194,6 +194,7 @@ enum rtw_chip_type {
+ 	RTW_CHIP_TYPE_8723D,
+ 	RTW_CHIP_TYPE_8821C,
+ 	RTW_CHIP_TYPE_8703B,
++	RTW_CHIP_TYPE_8723B,
+ 	RTW_CHIP_TYPE_8821A,
+ 	RTW_CHIP_TYPE_8812A,
+ 	RTW_CHIP_TYPE_8814A,
+@@ -2194,6 +2195,12 @@ static inline bool rtw_chip_has_tx_stbc(struct rtw_dev *rtwdev)
+ 	return rtwdev->chip->tx_stbc;
+ }
+ 
++static inline bool rtw_is_8723bs(struct rtw_dev *rtwdev)
++{
++	return rtwdev->chip->id == RTW_CHIP_TYPE_8723B &&
++	       rtwdev->hci.type == RTW_HCI_TYPE_SDIO;
++}
++
+ static inline u8 rtw_acquire_macid(struct rtw_dev *rtwdev)
+ {
+ 	unsigned long mac_id;
+-- 
+2.53.0
 
