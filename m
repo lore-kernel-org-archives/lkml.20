@@ -1,124 +1,122 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8586D30F533;
-	Mon, 31 Aug 2026 03:18:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3D630F533;
+	Mon, 31 Aug 2026 03:19:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788146339; cv=none; b=rBTvJUM0mwWAHS5uIOCdTGz0sv3ax83u4SV4JNIRV4i7eydn95M4qaE3V/kSPood5mBo/neqbjPlnCC33THFKhwK0/pL6BdpTv45VI8k1bN/5ohPGmTEfCkl9ZwDU9BrT7lzDwqXkXjPlgI9dJjGxRPITmCuylSCmEotWlZSU+k=
+	t=1788146400; cv=none; b=nGIHXwaUuZJorvuaXc6Lp9GcOoz+YE1EkBKIyy9BJBXL8qPdtHeiU+ohwKY2kRQE8fBejB3m50TKjuQqwlttnhjuGERmoYPFYX22CwuCPPkkU/IvEWq/yXpmVIH9HyRnAnlcOebKrvhlAb1uyZx7x6nwoDEkBtxmpeHufZEO68M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788146339; c=relaxed/simple;
-	bh=tBeSh6dtvPTUDBW1/U5Wi1Sjq894lVeNhaga4nqsFnY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=QQmnQ6Peef+NyaEqhYmvFSFITnIuBVFnZBRw6m9Y6EuY/coYJ+CjJSrGn6+Uf0bQEmIyeZuVZxPu+/oKDdQTIlYucRkjW6JK8sKzD3Q3DpDSvh8kz0AbkLxoMOiSr2CajHQA66ShDvDLHIXrmyGkswMsj3pCRMH/xUGsqGz6Ecw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ftuH4LUV; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788146400; c=relaxed/simple;
+	bh=J9QSiAWrikF+oqbzdUA4sGkzdmbWGlaS7NmkoLT5GcE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=txZUzsJKQwBUK6pzG3gTKicaY7b//oxC82EmJrvKcLDL6XaoVcgdnrEB7Us7YfMZ6glttjYsrLQO0lx9xNQ8NjQTByDkpd16QqcLn0/F1ghcVmFNPI75LIKNGfkTn95PpedlEO4IwmabCDYfgY25uzmhTRZXl9BPm8+DgHqTmAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ZGPoTm7v; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ftuH4LUV"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=P6BmoNo0Rm+l7jB3ysJ71dExwkuryFGpv7yramNe9aE=;
-	b=ftuH4LUVwe336rRMXuL6pKgvXG2AMhjdewt2FV+0QUzxt/2uZy9D0W+Fb8ZGUgS9FJ/cARaCB
-	yedCJvaeS3hqAChP06R3i01+swTjmedOowvO4MtMBEt1NodK9HNciBhFUbcvPNY91jllJVXHPtg
-	LFAkyUdCESFklNP/1q0mQgo=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hYDSN6gCFz1T4Fq;
-	Mon, 31 Aug 2026 11:07:32 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4D1B94057F;
-	Mon, 31 Aug 2026 11:18:51 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 31 Aug 2026 11:18:48 +0800
-Message-ID: <110d75e9-1580-42d3-b137-89bdad22b80a@huawei.com>
-Date: Mon, 31 Aug 2026 11:18:47 +0800
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZGPoTm7v"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=KURj71ZYjBbTCMiCfw2Oo07gKLQA9zu3iI3ERtxukf4=; b=ZGPoTm7vZH2PsKgf+bZ2XXvxFW
+	PWhaeL8r1qRisw0FfG091LDSnTdIwurCq/pp3ojWXU+8ZC90r7og1rncBbwp4RSR66BwRVrngsI3K
+	n8I+neOd23H8M9wC87nI3pycUAfr6477nmPiVfDZcEiF7yhhiwEMXlM725NYHmlis7EWGvBrsD/p7
+	igWgQBMNgmHgYejYucXUAWQzRLG437YyZqmAmclhcPfQnTvUufmBDtz9iDJ5aqsgqwGJdneGJ8+Qk
+	sQ1P2OmmWnsKqqlVTWhEowgtnrorNyu/cthM3XRQVOMmWPqzMOxO7b1OB0rMLa6o1JpOPNwHuOQ9p
+	vonzEDSg==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x0sYu-00000008OhA-3pqG;
+	Mon, 31 Aug 2026 03:19:56 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH v2] dma-buf: fix some kernel-doc warnings
+Date: Sun, 30 Aug 2026 20:19:53 -0700
+Message-ID: <20260831031956.3410813-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/12] arm64: Add HOTPLUG_PARALLEL support for
- secondary CPUs
-To: Will Deacon <will@kernel.org>
-CC: <catalin.marinas@arm.com>, <tsbogend@alpha.franken.de>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <peterz@infradead.org>, <kees@kernel.org>,
-	<nathan@kernel.org>, <linusw@kernel.org>, <ojeda@kernel.org>,
-	<david.kaplan@amd.com>, <lukas.bulwahn@redhat.com>, <ryan.roberts@arm.com>,
-	<maz@kernel.org>, <timothy.hayes@arm.com>, <lpieralisi@kernel.org>,
-	<thuth@redhat.com>, <menglong8.dong@gmail.com>, <oupton@kernel.org>,
-	<yeoreum.yun@arm.com>, <miko.lenczewski@arm.com>, <broonie@kernel.org>,
-	<kevin.brodsky@arm.com>, <james.clark@linaro.org>,
-	<yangyicong@hisilicon.com>, <tabba@google.com>, <osandov@fb.com>,
-	<arnd@arndb.de>, <anshuman.khandual@arm.com>, <david@kernel.org>,
-	<akpm@linux-foundation.org>, <ljs@kernel.org>, <dev.jain@arm.com>,
-	<yang@os.amperecomputing.com>, <chaitanyas.prakash@arm.com>,
-	<kprateek.nayak@amd.com>, <chenl311@chinatelecom.cn>,
-	<sshegde@linux.ibm.com>, <thorsten.blum@linux.dev>,
-	<chang.seok.bae@intel.com>, <tim.c.chen@linux.intel.com>, <x86@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mips@vger.kernel.org>
-References: <20260624092537.2916971-1-ruanjinjie@huawei.com>
- <ajvKkLw5bL-FT5JC@willie-the-truck>
- <32d41a67-cf37-4079-8218-bed2b73bbf14@huawei.com>
- <akvoN5vvQaW3MdmI@willie-the-truck>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <akvoN5vvQaW3MdmI@willie-the-truck>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- dggpemf500011.china.huawei.com (7.185.36.131)
 
+- drop Excess description of @lock from kernel-doc
+- add missing function/macro short descriptions
 
+WARNING: include/linux/dma-fence-array.h:47 Excess struct member 'lock' description in 'dma_fence_array'
+WARNING: include/linux/dma-fence-chain.h:48 Excess struct member 'lock' description in 'dma_fence_chain'
+Warning: include/linux/dma-fence-chain.h:82 missing initial short description on line:
+ * dma_fence_chain_alloc
+Warning: include/linux/dma-fence-chain.h:94 missing initial short description on line:
+ * dma_fence_chain_free
 
-在 2026/7/7 1:39, Will Deacon 写道:
-> Hi Jinjie,
-> 
-> On Thu, Jun 25, 2026 at 09:34:36AM +0800, Jinjie Ruan wrote:
->> On 6/24/2026 8:16 PM, Will Deacon wrote:
->>> Please just give me the time I asked for. If you want to help out in the
->>> meantime, there are plenty of patches that need reviewing...
->>
->> It was a mistake on my part, and I sincerely apologize for wasting
->> community review resources and disrupting your schedule.
->>
->> I will absolutely back off now and wait for your official series. Lesson
->> learned. Thanks for your patience and for calling me out on this.
-> 
-> So I've mostly got the old series back on its feet:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/will/linux.git/log/?h=cpu-hotplug
-> 
-> but there are still two issues left to resolve:
-> 
->   1. The printing that can happen before RCU has started. Although I've
->      reduced this somewhat, there are still error paths in e.g.
->      verify_local_cpu_capabilities() that print a message before dying.
-> 
->   2. check_local_cpu_capabilities() can mutate the system capability
->      state via update_cpu_capabilities(), so it's really dodgy running
->      that prior to synchronisation.
+Fixes: 5943243914b9 ("dma-buf: use inline lock for the dma-fence-array")
+Fixes: a408c0ca0c41 ("dma-buf: use inline lock for the dma-fence-chain")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+v2: rebase & resend; add Andrew to Cc: list
 
-Hi Will,
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: linux-media@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: Christian König <christian.koenig@amd.com>
+Cc: stable@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>
 
-Just a gentle ping on this. I replied to the two remaining issues
-earlier — any thoughts on my response? Happy to help test or rebase if
-that helps.
+ include/linux/dma-fence-array.h |    1 -
+ include/linux/dma-fence-chain.h |    9 ++++-----
+ 2 files changed, 4 insertions(+), 6 deletions(-)
 
-Best regards,
-Jinjie
-
-> 
-> Since you've added patches in this series that try to tackle these
-> problems, I'll reply on those two so we can figure out how we would like
-> to proceed.
-> 
-> Cheers,
-> 
-> Will
-
+--- linux-next-20260828.orig/include/linux/dma-fence-array.h
++++ linux-next-20260828/include/linux/dma-fence-array.h
+@@ -28,7 +28,6 @@ struct dma_fence_array_cb {
+ /**
+  * struct dma_fence_array - fence to represent an array of fences
+  * @base: fence base class
+- * @lock: spinlock for fence handling
+  * @num_fences: number of fences in the array
+  * @num_pending: fences in the array still pending
+  * @fences: array of the fences
+--- linux-next-20260828.orig/include/linux/dma-fence-chain.h
++++ linux-next-20260828/include/linux/dma-fence-chain.h
+@@ -20,7 +20,6 @@
+  * @prev: previous fence of the chain
+  * @prev_seqno: original previous seqno before garbage collection
+  * @fence: encapsulated fence
+- * @lock: spinlock for fence handling
+  */
+ struct dma_fence_chain {
+ 	struct dma_fence base;
+@@ -81,9 +80,8 @@ dma_fence_chain_contained(struct dma_fen
+ }
+ 
+ /**
+- * dma_fence_chain_alloc
+- *
+- * Returns a new struct dma_fence_chain object or NULL on failure.
++ * dma_fence_chain_alloc - Returns a new &struct dma_fence_chain object or
++ * %NULL on failure.
+  *
+  * This specialized allocator has to be a macro for its allocations to be
+  * accounted separately (to have a separate alloc_tag). The typecast is
+@@ -93,7 +91,8 @@ dma_fence_chain_contained(struct dma_fen
+ 		kmalloc_obj(struct dma_fence_chain)
+ 
+ /**
+- * dma_fence_chain_free
++ * dma_fence_chain_free - Frees an allocated but not used
++ * &struct dma_fence_chain object.
+  * @chain: chain node to free
+  *
+  * Frees up an allocated but not used struct dma_fence_chain object. This
