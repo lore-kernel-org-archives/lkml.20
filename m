@@ -1,90 +1,126 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-237.mta0.migadu.com [91.218.175.237])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5122342509;
-	Mon, 31 Aug 2026 11:04:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4B4342509
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.237
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788174245; cv=none; b=uX5k/x7nqiDIe8H69DszflUPmGGzfCxvTUMtOGTG+iAJhNFDhHly8avk+y4IL0yQTiU7IK4u5O9Y6j2nEvJaI++/MM3jgyXVX0C999BCIOargboMuyj842TluvGX5doUc2K8sFWEVv/CNI81I+DdbrerUnv3i18SOs75GsAD2B4=
+	t=1788174265; cv=none; b=GY+p1PiHJeaTB08OB1X+t8Lt9U82ec+SDXZwVWHOvjqX/ma8GVk2WMa6WcXEvTvBgOfL1Mnr4LcWqiDRLQuplK8ZKpKexUxxN3DtcmtRTE3w3fge53EWydIKo+WrgP2/wvWNqxcdGWDcLBnkd+NNsqRas91ehVtgyRNlWj1e360=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788174245; c=relaxed/simple;
-	bh=ugs0J+3kgd6CXcA7wEZEMH0dHpk60e5vs/8FIKYT2Pg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b2G4RG5G5pHHjABnlMUNzW4ZKlR567gbcLZH9A1tgNOwincKO0vl2BlfIIV+vbjVEIFpVNecxudYH7BT3lUg5WXT2o1He4zZvqI7asw3buMbjPFK01p8Lm9PvajMNhSbRVXrlfKSyCdB7YYmUh89WUe5c4pyKD1ryeegG2cIQHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=SBqubqr7; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=TFk3Plyj; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788174265; c=relaxed/simple;
+	bh=MZqBEMfNU2/DRjrc3AMVWf0ULkLuJij9FfiG6ryc5V8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WUInMoUw1ulP2y8PQ1QaOr5KZCa94u4f5F7zO0BtY68xBrCvnVQm0azIcOQe1qX5b2eklvNFvjBrZ9L2lDDI1P+15U+ZuT5JeJyuSvpeDnANWDVR30KmHBADv8OphBKFP1HcgeVkgEq7Y6C9r4RacsFz9VxugPzStxMAT198e48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UXfvt/k2; arc=none smtp.client-ip=91.218.175.237
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="SBqubqr7";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="TFk3Plyj"
-Date: Mon, 31 Aug 2026 13:04:01 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788174242;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zKdVojaTob1BL9EVMMF0SMBSkZzkm5jYpkSLRLAc5sg=;
-	b=SBqubqr7y5Uda5jYuOFtiqvmY4a1zo2r6adT1+qoKFwIrVrDCSxkdAOcg8fCZT2mXJk3NF
-	Fp3yc/QfaehpfKk3NdObSdlWHq1RLZ0uiCyySQCilXGSZKxJ2vraOTd1lxEo1J45wv83d5
-	gXdLV7u073se6oEekuP1jOVhBeB2CrPm6L7kMcaXKTAH5Qw5krpLpcSBThAH6w/edSgMZy
-	34tcD9XC3gxXTmjH0yvmTFZKQR34LQh5eh+lOejsKDukRSlRhJZUs0+DRzq0M8OECcgBR3
-	WpP2g4fbSCnH4b11wXcqjNkgwWC1UQGG8O4Tm4AMeSvpyujt247YMGdWu+q3sg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788174242;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zKdVojaTob1BL9EVMMF0SMBSkZzkm5jYpkSLRLAc5sg=;
-	b=TFk3PlyjQIc6v3mzGtbcsooVyNSD+z8zrGdQd7Z9w72xOh39O/H3fVs0YKdTFthj/C/E6i
-	iYw5G55+4QxAMyAQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Baineng Shou <shoubaineng@gmail.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] i2c: designware: add atomic transfer support for
- IRQ-off contexts
-Message-ID: <20260831110401.AafH5Gx-@linutronix.de>
-References: <20260807113333.1635449-1-shoubaineng@gmail.com>
- <aneVvWDgfYr5bEun@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UXfvt/k2"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=MZqBEMfNU2/DRjrc3AMVWf0ULkLuJij9FfiG6ryc5V8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788174261; v=1; x=1788779061;
+ b=UXfvt/k2ZbhuKuP5rfveqerf8sd6weitkYAHzkW/m701o5KKAjmw3MBxcxMe2CtkRdMuDjH5
+ GzZS8CWhJTCrQ8xq4jfOd8kj9/PckC8zxewBtcIHfBNG6Xq0ZlDbLKmXNIIxqqQ3j/BNH31/YcW
+ SPIdyHL/DFA19b7qOyaCMEXo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b7e16e44ec0b80f5;
+	Mon, 31 Aug 2026 11:04:21 +0000
+X-Mizu-Trace-ID: b7e16e44ec0b80f5
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	Mykyta Yatsenko <yatsenko@meta.com>,
+	Alan Maguire <alan.maguire@oracle.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf v3 2/5] bpf: Fix NULL-ptr-deref when showing a void BTF type
+Date: Mon, 31 Aug 2026 19:01:07 +0800
+Message-ID: <20260831110314.150870-3-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831110314.150870-1-jiayuan.chen@linux.dev>
+References: <20260831110314.150870-1-jiayuan.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <aneVvWDgfYr5bEun@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-08 23:46:53 [+0300], Andy Shevchenko wrote:
-> > +	/*
-> > +	 * Fall back to the atomic path when IRQs are disabled, e.g. during
-> > +	 * noirq system resume where an I2C client (GPIO expander, PMIC)
-> > +	 * must be accessed before IRQs are re-enabled.  The i2c core's
-> > +	 * i2c_in_atomic_xfer_mode() gate does not cover resume_noirq
-> > +	 * (system_state is already SYSTEM_RUNNING there), so the driver has
-> > +	 * to route the transfer itself.
-> > +	 */
-> > +	if (IS_ENABLED(CONFIG_PREEMPT_COUNT) ? !preemptible() : irqs_disabled=
-())
->=20
-> I don't like this. Do we have something better for this?
-> Perhaps @bigeasy knows?
+btf_modifier_show() resolves the modifier and then calls
+btf_type_ops(t)->show() unconditionally. For the void type (type_id 0,
+BTF_KIND_UNKN) kind_ops[] has no entry, so ->show is NULL.
 
-This looks hackish indeed. Couldn't this take an argument from the
-caller to learn if it is called from the atomic path or the regular?
-And could this be tested on PREEMPT_RT to figure out if it works as
-intended? I do remember that some driver creates a warning on PREEMPT_RT
-due to its atomic call path which is tested from probe. I don't remember
-anyone tested it on RT other than just shutting down the warning,
-claiming it is okay=E2=80=A6
+The map dump path cannot reach a void type (a map key/value must have a
+size and void has none), but bpf_snprintf_btf() takes a type_id straight
+from the BPF program, and a "const void" (a modifier that resolves to
+void, present in the vmlinux BTF) NULL-derefs there:
 
-> > +		return i2c_dw_xfer_atomic(adap, msgs, num);
->=20
+KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
+RIP: 0010:btf_modifier_show (kernel/bpf/btf.c:2914)
+Call Trace:
+ <TASK>
+ btf_type_show (kernel/bpf/btf.c:8251)
+ btf_type_snprintf_show (kernel/bpf/btf.c:8321)
+ bpf_snprintf_btf (kernel/trace/bpf_trace.c:1047)
+ bpf_prog_test_run_raw_tp (net/bpf/test_run.c:829)
+ __sys_bpf (kernel/bpf/syscall.c:4804)
+ do_syscall_64 (arch/x86/entry/syscall_64.c:94)
+ entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+ </TASK>
 
-Sebastian
+void has no size, so there is nothing to render - not even a byte length
+to fall back to dumping as raw hex. btf_df_show() is already the ->show
+for the other kinds that carry no value to print - FWD, FUNC, FUNC_PROTO,
+FLOAT and DECL_TAG - and emits an "<unsupported kind:N>" placeholder;
+void belongs to the same group and only lacks a show op because it has
+no kind_ops[] entry at all. Fall back to btf_df_show() in
+btf_modifier_show() when the resolved type has no show op, so a void type
+prints that placeholder instead of crashing; bpf_snprintf_btf() then
+returns the length as usual.
+
+Fixes: c4d0bfb45068 ("bpf: Add bpf_snprintf_btf helper")
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ kernel/bpf/btf.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+index 91b8ce77f699..6e267c4c4e1f 100644
+--- a/kernel/bpf/btf.c
++++ b/kernel/bpf/btf.c
+@@ -2911,7 +2911,15 @@ static void btf_modifier_show(const struct btf *btf,
+ 	else
+ 		t = btf_type_skip_modifiers(btf, type_id, NULL);
+ 
+-	btf_type_ops(t)->show(btf, t, type_id, data, bits_offset, show);
++	/*
++	 * A modifier can resolve to the void type (e.g. "const void"), which
++	 * has no show op (kind_ops[BTF_KIND_UNKN] is NULL). Print a placeholder
++	 * instead of dereferencing NULL.
++	 */
++	if (!btf_type_ops(t))
++		btf_df_show(btf, t, type_id, data, bits_offset, show);
++	else
++		btf_type_ops(t)->show(btf, t, type_id, data, bits_offset, show);
+ }
+ 
+ static void btf_var_show(const struct btf *btf, const struct btf_type *t,
+-- 
+2.43.0
+
