@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3FCD5AB238;
-	Mon, 31 Aug 2026 13:52:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F45F5AB254;
+	Mon, 31 Aug 2026 13:52:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184364; cv=none; b=RE4bHD62OeXSlk1XmlIO0Ec8FtrgsausyEZWsFcXLyIBtuFbGkYaelwGatadMZsHnlVkhToKpome0MfC9+iwvlaO/0mOyGbsRpS3yc/cQD2StWW20g6ESTMdPjplzolqvhXs5OupoHdP4BYbZ5mdFqx01IPdwm+ZEHBP0DKn418=
+	t=1788184365; cv=none; b=uCv0Ut9y9eN6kYQEpHI4aZ+c8YCdLX7nbdz9UdDXsV0wTp7LufKOcxE2vZz2E1ijyQQeEJWlocs0imkxnSemnFH2wc1ZKdzHX1T9JLTMDHDufA5Ivu+uJltSNYuSdCUcS6LLWg9Q6mP1+cxgJ7kzlg2bjMP0KQpSBpJyntgYd10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184364; c=relaxed/simple;
-	bh=aUMBBnwF6XMzoE9QYbZBPO7MZL3jdNKcSCyd740XR2k=;
+	s=arc-20240116; t=1788184365; c=relaxed/simple;
+	bh=FUvGGQSrqapgwzOF5Lvn3299DaF6QeiaUfYOEyQoo5Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=REcyp/EvKW+bamQF359KYhQPzn4S0ODlhdXRdNn/9fpyLJ3H+BULFMv0p8H3HL0OBEX8D6KA11e7OUY8mr0YE6n3eiPoYn+oc+b5yXo0BJ68d/IRrjhegQXUnfszBAWXr+6Ppg1CTofHaYBB/IoOhXMPrOlqKduow7QnsXZXYBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nxWrOaUA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=LccCqcagDM5iKibyYrTI+LBjwxKLzSyToTDSOqyVAOQrXBqfu8CldeImWTY1Rqi22xvj7WXsb/6rnsT/7U9BnATq4/oIRqnWDpuj4VUH6AyxBQATr7ltrgkpwxuZzU7v6raHbGDa4KXcDqQcOmeYMyt8pWNEPQaXZHbzwAJ5fQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IY4/DTA4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nxWrOaUA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98F521F000E9;
-	Mon, 31 Aug 2026 13:52:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IY4/DTA4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 492CB1F00A3D;
+	Mon, 31 Aug 2026 13:52:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184361;
-	bh=QPeZ0wi9nlfmmqDf/06OscKfZ8nxNAF1gvkAK7UQUQE=;
+	s=k20260515; t=1788184363;
+	bh=ORZNPa7Z3pgPA0ZDMhqg+Le/qDl+ftpftynmGICbH6k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nxWrOaUAvznMDpVzLbzucTVf7RWOMP0TjFYC3o3FxCq/AUa8xahQZiEKWM1qcTitK
-	 Y59N4lrPkfUnlWk1X4q1PLN4ClHhZhQQfZLsMzM+/4ZMu4L80hAiVjD492gddPgDU7
-	 fNxsL2SuY4zKZjT3k/vlzCqlRwl6ErLAG0O+/nld3uRmVbvxIId3TJWxAhbvYPheEa
-	 od1S+Y7dmMFl6M/MEtfyXFclyfOaldl4jCPWLOtl+M/STxpJWlS81L5YWG2qjRs2IA
-	 f/xnGPZWUjL9VBUz5YA4TGRMv1turs5qWREkWLZOkoWXlZoHvApQ2T2HODJ3KHAR18
-	 iJ9KNZutFRA7g==
+	b=IY4/DTA482OOzkC/9rPSXD4m/eJQ2sHYIbYHHSZoABRRssTnSSH5nZL0JKtmqXgVF
+	 LounbNgWumaWK2O6DhhLHpu+6/wCyXzRxA3QgWgETSox+1p6HLXPo8uPzGPeyXkjvX
+	 QDKCEqROQpV6pChClOJwG6cKt2TR09ixYtH9q/OnY24EZuq7cqs/dYN1ZFRn+FPYXB
+	 g23bYKkV+T+Yw9FVSr1uiWPD+eZyoLqHKda5XO+xS8L996eA8eYlPwci2wgKMbN/JT
+	 Bof4wnLHV3vc5uZh0p0OVVuHrzDxPITVmGT+ziRi0HR36ZR3sU/+334anZLZ51LWel
+	 BKD26O738i3BQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	Boris Burkov <boris@bur.io>,
-	Naohiro Aota <naohiro.aota@wdc.com>,
-	David Sterba <dsterba@suse.com>,
+Cc: Avinash Bhatt <avinash.bhatt@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	clm@fb.com,
-	linux-btrfs@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] btrfs: zoned: always set data_relocation_bg
-Date: Mon, 31 Aug 2026 09:31:16 -0400
-Message-ID: <20260831133314.4125787-648-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: mld: keep healthy link on EMLSR missed beacon exit
+Date: Mon, 31 Aug 2026 09:31:17 -0400
+Message-ID: <20260831133314.4125787-649-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -55,416 +52,449 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+From: Avinash Bhatt <avinash.bhatt@intel.com>
 
-[ Upstream commit 82fd26090ebdbe6fa4b6039d059a7ea0a974cc36 ]
+[ Upstream commit 4b6d725ff01cb92becda6e805143e331fdf1d73e ]
 
-When searching for a data relocation block-group on mount,
-btrfs_zoned_reserve_data_reloc_bg() is looking for the first empty DATA
-block-group. But it first checks if the block-group is empty and if yes
-continues the search, and then checks if it is the first DATA block-group.
+When EMLSR exits due to beacon loss on the current link, the driver
+should keep the link that is still receiving beacons. The previous
+code always called get_primary_link(), keeping the primary link
+regardless of which link is actually losing beacons. If the primary
+link is the one losing beacons, the driver exits EMLSR onto the
+degraded link and the connection is lost eventually.
 
-There is actually no point in looking for the second empty DATA block
-group as new DATA allocations will just allocate a new chunk for it. Pick
-the first DATA block-group without any allocations done and set it as
-relocation block-group.
+When both links lose beacons, keep the primary link. When only the
+current link loses beacons -- whether due to signal loss or a BSS
+parameter change -- keep the other link.
 
-At first, the commit 694ce5e143d6 ("btrfs: zoned: reserve data_reloc
-block group on mount") introduced the functionality. At that time, we
-took second unused (used == 0) block group, as the first one might be a
-block group used for normal data.  Later, commit daa0fde32235 ("btrfs:
-zoned: fix data relocation block group reservation") switched to look
-for an empty block group (alloc_offset == 0). At this point, there is no
-reason taking the second one anymore. So, this commit is fixing an issue
-in commit daa0fde32235.
-
-Reviewed-by: Boris Burkov <boris@bur.io>
-Reviewed-by: Naohiro Aota <naohiro.aota@wdc.com>
-Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
+Signed-off-by: Avinash Bhatt <avinash.bhatt@intel.com>
+Link: https://patch.msgid.link/20260517100550.b2d700f7775e.I8e9189ce6cf4388878beab14e56341becd5f427c@changeid
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `btrfs: zoned: always set
-data_relocation_bg`
+# Stable Backport Analysis: `wifi: iwlwifi: mld: keep healthy link on
+EMLSR missed beacon exit`
 
-**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`,
-`make kernelversion` → `6.18.44`)
+**Local tree:** Linux **6.18.44** (`v6.18.44`, `VERSION=6 PATCHLEVEL=18
+SUBLEVEL=44`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1 – Subject line**
-Record: `[btrfs: zoned]` `[always set]` — ensures `data_relocation_bg`
-is set on mount by picking the first empty DATA block group instead of
-skipping it.
+### Step 1.1: Subject line
+**Record:** `[wifi: iwlwifi: mld]` `[keep]` — When exiting EMLSR due to
+missed beacons, keep the healthy link instead of always keeping the
+primary link.
 
-**Step 1.2 – Tags**
-Record:
-- `Reviewed-by: Boris Burkov <boris@bur.io>`
-- `Reviewed-by: Naohiro Aota <naohiro.aota@wdc.com>`
-- `Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>`
-- `Signed-off-by: David Sterba <dsterba@suse.com>`
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable`, or `Tested-by:`
-  tags
-- Notable: two btrfs zoned subsystem reviewers signed off
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Avinash Bhatt `<avinash.bhatt@intel.com>` (author)
+- **Link:** `https://patch.msgid.link/20260517100550.b2d700f7775e...`
+  (patch submission reference)
+- **Signed-off-by:** Miri Korenblit
+  `<miriam.rachel.korenblit@intel.com>` (Intel iwlwifi maintainer)
+- **No** Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Cc:
+  stable@vger.kernel.org
 
-**Step 1.3 – Body analysis**
-Record:
-- **Bug:** After `daa0fde32235` switched selection to `alloc_offset ==
-  0`, the code still skipped the first empty DATA block group (leftover
-  from when `used == 0` was the criterion).
-- **Symptom:** When only one empty DATA block group exists and the
-  device cannot allocate a new chunk (zone-limited), `data_reloc_bg` is
-  never set on mount.
-- **Root cause:** Obsolete “take the second empty block group” logic
-  from `694ce5e143d6` was not removed when the selection criterion
-  changed in `daa0fde32235`.
-- **Version context:** Fix targets a regression in `daa0fde32235`;
-  original feature in `694ce5e143d6`.
+Notable: Intel maintainer sign-off; no syzbot or user bug reports in the
+message.
 
-**Step 1.4 – Hidden bug fix?**
-Record: **Yes.** Despite the neutral subject, this is a logic-correction
-bug fix. Mailing-list discussion (Boris Burkov) documents a real remount
-scenario where no relocation block group gets reserved.
+### Step 1.3: Body analysis
+**Record:**
+- **Bug:** On EMLSR missed-beacon exit, driver always called
+  `iwl_mld_get_primary_link()`, even when the primary link was the one
+  losing beacons.
+- **Symptom:** Driver exits EMLSR onto the degraded link → connection is
+  eventually lost.
+- **Intended behavior:** Both links lose beacons → keep primary; only
+  current link loses beacons → keep the other (healthy) link.
+- **Root cause:** Wrong link-selection logic in
+  `iwl_mld_handle_missed_beacon_notif()`.
+
+### Step 1.4: Hidden bug fix?
+**Record:** Not disguised — this is an explicit connectivity bug fix,
+though the subject uses "keep" rather than "fix".
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-**Step 2.1 – Inventory**
-Record:
-- **Files:** `fs/btrfs/zoned.c` only (+1 / −10 lines)
-- **Function:** `btrfs_zoned_reserve_data_reloc_bg()`
-- **Scope:** Single-file surgical fix
+### Step 2.1: Inventory
+**Record:**
+- **File:** `drivers/net/wireless/intel/iwlwifi/mld/link.c` (+11 / -6
+  lines)
+- **Function:** `iwl_mld_handle_missed_beacon_notif()`
+- **Scope:** Single-file, surgical change in one EMLSR exit path
 
-**Step 2.2 – Code flow change**
-Record per hunk:
-- **Before:** Loop skips every block group with `alloc_offset != 0`,
-  then skips the first empty one (`first` flag), uses the second empty
-  block group for relocation.
-- **After:** Loop skips only non-empty block groups (`alloc_offset !=
-  0`), immediately uses the first empty block group.
-- **Also removed:** `bool first`, comment about “second one”,
-  `ASSERT(!list_empty(...))` (invalid when only one empty BG exists),
-  and `first = false` after chunk allocation.
+### Step 2.2: Code flow change
+**Record:**
 
-**Step 2.3 – Bug mechanism**
-Record: **Logic / correctness fix** in mount-time block-group
-reservation. Stale algorithm from an earlier criterion (`used == 0` →
-skip first) persisted after criterion changed to `alloc_offset == 0`,
-causing failure to reserve relocation space on zone-constrained
-filesystems with a single empty DATA block group.
+| Hunk | Before | After |
+|------|--------|-------|
+| EMLSR exit condition | Single `if` with three OR'd conditions; all
+paths exit with `iwl_mld_get_primary_link(vif)` | Split into two
+branches: (1) both links fail → primary; (2) only current link fails →
+`iwl_mld_get_other_link(vif, link_id)` |
+| Comments | Threshold description only | Adds explicit link-selection
+policy comments |
 
-**Step 2.4 – Fix quality**
-Record: Fix is minimal and obviously correct — removes dead logic and an
-assertion that assumed a second empty block group always exists. Low
-regression risk; only changes which empty block group is chosen on
-mount.
+**Affected path:** Firmware missed-beacon notification handler during
+active EMLSR (multi-link WiFi).
+
+### Step 2.3: Bug mechanism
+**Record:** **Category:** Logic / correctness fix (wrong link retained
+on EMLSR exit).
+
+When the notification's `link_id` is the sick link and only that link
+exceeds the beacon-loss threshold, the driver must exit EMLSR while
+keeping the *other* link. The old code always kept the primary, which is
+wrong when the primary is the degraded link.
+
+### Step 2.4: Fix quality
+**Record:**
+- **Obviously correct:** Yes — mirrors existing patterns in the same
+  driver (see Phase 5).
+- **Minimal:** Yes — restructures one conditional, no API changes.
+- **Regression risk:** Very low — `iwl_mld_get_other_link()` already
+  exists and is used elsewhere; `iwl_mld_exit_emlsr()` already validates
+  `link_to_keep` against `vif->active_links`.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.1 – Blame**
-Record: Buggy “skip first empty” logic introduced in `daa0fde32235`
-(Naohiro Aota, 2025-07-16). Loop structure from `694ce5e143d6` (Johannes
-Thumshirn, 2025-06-03). Both are in v6.18 and in this tree.
+### Step 3.1: Blame
+**Record:** `git blame -L 604,612` on `link.c` attributes all buggy
+lines to the tree base in this shallow checkout (`^7e22de67e545d`). Repo
+is shallow (500 commits); full introduction commit cannot be determined
+here. Buggy code is present in 6.18.44.
 
-**Step 3.2 – Fixes: tag**
-Record: N/A — no `Fixes:` tag. Author explicitly states this corrects
-`daa0fde32235`, which is present in this tree.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no Fixes: tag in commit message.
 
-**Step 3.3 – Related file history**
-Record: Recent `fs/btrfs/zoned.c` changes in this tree include deadlock
-fixes and zone pointer fixes; no duplicate fix for this issue found.
+### Step 3.3: File history
+**Record:** `git log --oneline -30 --
+drivers/net/wireless/intel/iwlwifi/mld/link.c` returns only the shallow-
+root commit due to shallow clone. Related iwlwifi mld fixes are being
+backported to 6.18 (e.g., ratatoskr references `[PATCH 6.18 313/377]
+wifi: iwlwifi: mld: dont dereference a pointer before NULL checking
+it`). **Standalone fix** — patch 05/15 in iwlwifi-fixes series, no
+series dependency for this hunk.
 
-**Step 3.4 – Author context**
-Record: Johannes Thumshirn is a btrfs zoned contributor; authored
-`694ce5e143d6` (original mount-time reservation feature, with `Cc:
-stable@vger.kernel.org # 6.6+`).
+### Step 3.4: Author context
+**Record:** Avinash Bhatt (Intel); Signed-off-by Miri Korenblit (Intel
+iwlwifi maintainer). Part of `iwlwifi-fixes` updates series (v1 May 16,
+v2 May 17, v3 May 19, 2026).
 
-**Step 3.5 – Dependencies**
-Record: **Standalone.** Patch is 3/5 in a series (“fix deadlock and
-space reporting issues for zoned filesystems”), but only touches
-`btrfs_zoned_reserve_data_reloc_bg()` and does not depend on patches
-1/2/4/5. `git apply --check` confirms clean apply to 6.18.44.
+### Step 3.5: Dependencies
+**Record:** **No dependencies.** `iwl_mld_get_other_link()` is defined
+inline in `mlo.h` and already used in this tree (`stats.c`,
+`mac80211.c`). Fix applies standalone.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 4.1 – Original discussion**
-Record:
-- `b4 dig -c 82fd26090ebd` → https://patch.msgid.link/20260522090247.274
-  45-4-johannes.thumshirn@wdc.com (v3 submission)
-- Series revisions: v1 (2026-05-13), v2 (2026-05-19), v3 (2026-05-22);
-  committed version matches v3 (removes `first` entirely, not v2’s
-  reorder-only approach)
-- Boris Burkov review identified the concrete failure: after GC-heavy
-  workload and remount, all non-empty BGs skipped, first empty BG also
-  skipped, drive out of free zones → no relocation BG set
+### Step 4.1: Original discussion
+**Record:**
+- `b4 dig -c 1bdfba6279e21` — no output (blob hash, not a commit;
+  shallow tree).
+- **Ratatoskr:** [PATCH iwlwifi-fixes
+  05/15](https://ratatoskr.run/linux-wireless/2026/05/15794895) — Miri
+  Korenblit, May 16, 2026.
+- **Series revisions:** v1 (May 16), v2 (May 17), v3 (May 19).
+- Patch content matches the analyzed diff exactly.
+- lore.kernel.org direct fetch blocked (Anubis bot protection).
 
-**Step 4.2 – Reviewers**
-Record: `b4 dig -w` shows CC to `linux-btrfs@vger.kernel.org`, David
-Sterba, Filipe Manana, Naohiro Aota, Boris Burkov, Christoph Hellwig,
-Damien Le Moal.
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w` not run successfully (no valid commitish).
+Series is from Intel iwlwifi maintainer on linux-wireless. No explicit
+Reviewed-by in commit message.
 
-**Step 4.3 – Bug report**
-Record: No formal bugzilla/syzbot report. Failure scenario documented in
-list discussion (remount after heavy GC on zone-limited device).
+### Step 4.3: Bug report
+**Record:** No external bug report, syzbot, or user Reported-by. Bug
+described via code-path analysis by Intel engineers.
 
-**Step 4.4 – Series context**
-Record: Other patches in series cover tracepoints (1/2), statfs
-accounting (4/5), deadlock (5/5) — separate issues; this patch is
-independently backportable.
+### Step 4.4: Related patches
+**Record:** Part of 15-patch iwlwifi-fixes series; this hunk is self-
+contained. Related prior art in legacy `iwl_mvm` driver had similar
+dual-link beacon-loss logic (spinics reference), showing this is a known
+EMLSR concern.
 
-**Step 4.5 – Stable list**
-Record: lore.kernel.org/stable search blocked (bot protection). Original
-feature commit `694ce5e143d6` had explicit stable nomination (`Cc:
-stable # 6.6+`).
+### Step 4.5: Stable list history
+**Record:** Not searched on lore stable list (fetch blocked). Ratatoskr
+shows other iwlwifi mld patches already queued for 6.18 stable.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1 – Key functions**
-Record: `btrfs_zoned_reserve_data_reloc_bg()` modified.
+### Step 5.1: Key functions
+**Record:** `iwl_mld_handle_missed_beacon_notif()`,
+`iwl_mld_exit_emlsr()`, `iwl_mld_get_primary_link()`,
+`iwl_mld_get_other_link()`
 
-**Step 5.2 – Callers**
-Record: Called once from `btrfs_open_devices()` path in `fs/btrfs/disk-
-io.c:3556` during filesystem mount, after `btrfs_read_block_groups()`.
+### Step 5.2: Callers
+**Record:** `iwl_mld_handle_missed_beacon_notif()` is called from
+firmware notification handling (and KUnit tests). Triggered by firmware
+beacon-loss events on associated MLO interfaces — runtime path for Intel
+WiFi 7 MLO/EMLSR users.
 
-**Step 5.3 – Callees**
-Record: Block-group list iteration, space_info migration
-(`list_del_init`, `btrfs_add_bg_to_space_info`), `btrfs_chunk_alloc()`
-fallback, `btrfs_zone_activate()`.
+### Step 5.3: Callees
+**Record:** `iwl_mld_exit_emlsr()` → `_iwl_mld_exit_emlsr()` →
+`ieee80211_set_active_links_async()` to deactivate the sick link and
+keep `link_to_keep`.
 
-**Step 5.4 – Reachability**
-Record: Triggered on every read-write mount of a zoned btrfs filesystem
-(`btrfs_is_zoned()`). Common operational path for zoned-storage users.
+### Step 5.4: Reachability
+**Record:** Reachable when:
+1. Interface is associated with 2+ active links (EMLSR),
+2. Firmware sends missed-beacon notification,
+3. Beacon-loss thresholds are exceeded.
 
-**Step 5.5 – Similar patterns**
-Record: Treelog block-group reservation uses related but separate logic
-in `extent-tree.c`. No other “skip first empty” pattern found for data
-relocation.
+Users with Intel iwlwifi MLO/EMLSR hardware on supported APs can hit
+this during real-world signal degradation or BSS parameter changes.
+
+### Step 5.5: Similar patterns
+**Record:** Same driver already uses `iwl_mld_get_other_link()` for
+EMLSR exit on the degraded link:
+
+```396:399:drivers/net/wireless/intel/iwlwifi/mld/stats.c
+        if (sig < exit_emlsr_thresh)
+                iwl_mld_exit_emlsr(mld, vif,
+IWL_MLD_EMLSR_EXIT_LOW_RSSI,
+                                   iwl_mld_get_other_link(vif,
+bss_conf->link_id));
+```
+
+```2225:2229:drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
+        if (chsw->link_id == primary && chsw->block_tx)
+                selected = iwl_mld_get_other_link(vif, primary);
+        else
+                selected = primary;
+```
+
+The missed-beacon path was inconsistent with these — confirming this is
+a logic bug, not a new design choice.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
 
-**Step 6.1 – Buggy code present?**
-Record: **Yes.** Current `fs/btrfs/zoned.c:2760–2787` still has `bool
-first = true`, comment “Take the second one”, and skip-first-empty
-logic. Fix commit `82fd26090ebd` is **not** an ancestor of HEAD
-(6.18.44).
+### Step 6.1: Buggy code exists?
+**Record:** **YES.** Current tree at lines 604–612 still has the buggy
+unified `if` always calling `iwl_mld_get_primary_link(vif)`:
 
-**Step 6.2 – Backport complications**
-Record: **Clean apply.** `git format-patch -1 82fd260 | git apply
---check` succeeds on current tree.
+```604:612:drivers/net/wireless/intel/iwlwifi/mld/link.c
+        if ((missed_bcon >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_2_LINKS &&
+             scnd_lnk_bcn_lost >=
+IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_2_LINKS) ||
+            missed_bcon >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH ||
+            (bss_param_ch_cnt_link_id != link_id &&
+             missed_bcon >=
+             IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_BSS_PARAM_CHANGED)) {
+                iwl_mld_exit_emlsr(mld, vif,
+IWL_MLD_EMLSR_EXIT_MISSED_BEACON,
+                                   iwl_mld_get_primary_link(vif));
+        }
+```
 
-**Step 6.3 – Related fixes already present?**
-Record: Prerequisites `694ce5e143d6` and `daa0fde32235` are in v6.18 and
-this tree. No alternate fix for this issue found.
+Full EMLSR/missed-beacon infrastructure exists (`constants.h`
+thresholds, `iwl_mld_emlsr_active()`, notification handler).
+
+### Step 6.2: Backport complications
+**Record:** **Clean apply expected.** Single hunk in one file;
+`iwl_mld_get_other_link()` already present in `mlo.h`. Line numbers in
+mainline diff (~663) vs stable tree (~604) differ slightly but context
+is identical.
+
+### Step 6.3: Related fixes already present?
+**Record:** `git log --grep="keep healthy link"` — no matches. Fix is
+**not** already in this tree.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 7.1 – Subsystem**
-Record: **btrfs / zoned mode** — IMPORTANT for zoned-btrfs deployments
-(SMR/ZNS storage); not universal but operationally critical for that
-subset.
+### Step 7.1: Subsystem
+**Record:** `drivers/net/wireless/intel/iwlwifi/mld/` — Intel WiFi
+driver, MLO/EMLSR path. **Criticality: IMPORTANT** (network connectivity
+for Intel WiFi 7 hardware; not core kernel, but user-visible
+connectivity).
 
-**Step 7.2 – Activity**
-Record: `fs/btrfs/zoned.c` actively maintained in 6.18.y with multiple
-recent zoned fixes.
+### Step 7.2: Activity
+**Record:** iwlwifi mld is actively developed (2024–2025 Intel
+copyright, EMLSR support, ongoing iwlwifi-fixes series). MLD driver is
+relatively new but present and functional in 6.18.y.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1 – Who is affected**
-Record: Users of **zoned btrfs** (`CONFIG_BTRFS_FS` + zoned devices).
-Not all kernel users, but all zoned-btrfs users on affected versions.
+### Step 8.1: Who is affected
+**Record:** Intel iwlwifi users with MLO/EMLSR active (WiFi 7 multi-
+link). Config/hardware-specific, but growing install base. Not
+universal, but real production hardware.
 
-**Step 8.2 – Trigger conditions**
-Record: Mount after workload leaving one empty DATA block group and no
-spare zones for new chunk allocation (e.g., remount after heavy GC).
-Realistic on zone-limited SMR/ZNS hardware.
+### Step 8.2: Trigger conditions
+**Record:**
+- EMLSR active with 2 links
+- Primary link loses beacons (signal loss or BSS parameter change) while
+  secondary remains healthy
+- Fairly plausible in mobile/roaming scenarios
+- Not a syscall-exploitable security issue; connectivity bug
 
-**Step 8.3 – Failure severity**
-Record: `data_reloc_bg` remains 0 → garbage collection / data relocation
-cannot reserve dedicated space → **ENOSPC under overwrite workloads**
-(the exact problem `694ce5e143d6` was designed to prevent). Severity:
-**HIGH** for affected configurations; mount succeeds silently so the
-failure is deferred.
+### Step 8.3: Failure mode severity
+**Record:** **WiFi disconnection** — driver exits EMLSR onto the
+degraded link instead of the healthy one, connection eventually lost.
+**Severity: HIGH** for affected users (loss of network connectivity);
+not kernel panic/oops.
 
-**Step 8.4 – Risk-benefit**
-Record:
-- **Benefit:** HIGH for zoned btrfs — restores guaranteed relocation
-  block-group reservation
-- **Risk:** LOW — 10-line deletion, reviewed by two btrfs developers,
-  applies cleanly
-- **Ratio:** Strongly favors backport
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH for EMLSR users — prevents unnecessary
+  disconnections
+- **Risk:** VERY LOW — ~15 lines, uses existing helper, consistent with
+  sibling code paths
+- **Ratio:** Strong benefit, minimal risk
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1 – Evidence summary**
+### Step 9.1: Evidence summary
 
-| FOR backport | AGAINST backport |
-|---|---|
-| Real bug with documented remount scenario | Narrow audience (zoned
-btrfs only) |
-| Can leave `data_reloc_bg` unset → ENOSPC/GC failure | Part of 5-patch
-series (but this patch is standalone) |
-| Small, surgical, reviewed fix | No syzbot/fuzzer report |
-| Applies cleanly to 6.18.44 | Bug only exists since `daa0fde32235` (not
-in older trees) |
-| Fixes regression in already-stable code | |
-| Original feature had stable CC | |
+**FOR backport:**
+- Real logic bug causing WiFi connection loss
+- Buggy code confirmed in 6.18.44
+- Small, surgical, obviously correct fix
+- Uses existing `iwl_mld_get_other_link()` — no new APIs
+- Consistent with low-RSSI and CSA EMLSR exit paths in same driver
+- Intel maintainer-authored fix in iwlwifi-fixes series (v1→v3 reviewed)
+- Applies cleanly to this tree
+- Other iwlwifi mld fixes are already being backported to 6.18
 
-**Step 9.2 – Stable rules checklist**
-1. Obviously correct and tested? **PASS** — logic fix reviewed by Boris
-   Burkov and Naohiro Aota; applies cleanly
-2. Fixes a real user-affecting bug? **PASS** — documented remount/zone-
-   exhaustion scenario
-3. Important issue? **PASS** — ENOSPC / broken GC on zoned btrfs (HIGH
-   for affected users)
-4. Small and contained? **PASS** — 1 file, net −9 lines
-5. No new features/APIs? **PASS** — removes obsolete logic only
-6. Can apply to local tree? **PASS** — verified with `git apply --check`
+**AGAINST backport:**
+- Affects niche hardware subset (WiFi 7 MLO/EMLSR on Intel)
+- No syzbot report or explicit user bug report
+- No Tested-by in commit message
 
-**Step 9.3 – Exception categories**
-Record: None (not a quirk/DT/build/doc fix), but a straightforward logic
-bug fix.
+**Unresolved:**
+- Full git history of when buggy code was introduced (shallow repo)
+- Full lore.kernel.org review thread (bot-blocked)
+- Whether v3 revision changed anything beyond v1 for this specific hunk
 
-**Step 9.4 – Problem and why it matters**
+None of the unresolved items weaken the technical case.
 
-On mount, zoned btrfs reserves a dedicated data-relocation block group
-so garbage collection always has space under heavy overwrite. Commit
-`daa0fde32235` changed the selection criterion to `alloc_offset == 0`
-but kept the old “skip the first empty block group” rule. When a
-filesystem has only one empty DATA block group and the device cannot
-allocate a new chunk (common after GC-heavy use on zone-limited drives),
-the mount path silently fails to set `data_reloc_bg`. The filesystem
-then hits ENOSPC when GC is needed — defeating the purpose of the mount-
-time reservation added in `694ce5e143d6`.
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — logic matches established
+   driver patterns; maintainer sign-off; no Tested-by
+2. Fixes a real bug? **PASS** — wrong link kept on EMLSR exit
+3. Important issue? **PASS** — connection loss (HIGH for affected users)
+4. Small and contained? **PASS** — 1 file, ~17 lines
+5. No new features/APIs? **PASS** — behavior correction only
+6. Can apply to local tree? **PASS** — code and helpers present; fix not
+   yet applied
 
-This fix simply picks the first empty DATA block group, which is correct
-under the new criterion. It is minimal, self-contained, and directly
-relevant to Linux 6.18.44 where both the feature and the regression are
-present.
+### Step 9.3: Exception categories
+**Record:** N/A — standard driver bug fix, not device-ID/quirk/build/doc
+exception.
+
+### Step 9.4: Decision rationale
+
+For **Linux 6.18.44**, the iwlwifi MLD driver with EMLSR support is
+present, the buggy link-selection code is active, and the fix is a
+minimal correction that aligns the missed-beacon exit path with how the
+same driver already handles low-RSSI and CSA EMLSR exits. The failure
+mode is real WiFi disconnection for Intel WiFi 7 MLO users — important
+enough for stable despite the narrow hardware scope.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; no Fixes/Reported-by/Cc:stable
-  on this commit
-- [Phase 1] Identified hidden bug fix from message and list discussion
-- [Phase 2] Diff: 1 file, `btrfs_zoned_reserve_data_reloc_bg()`, −10/+1
-  lines
-- [Phase 2] Mechanism: stale skip-first-empty logic after criterion
-  change
-- [Phase 3] `git blame -L 2777,2800 fs/btrfs/zoned.c`: skip logic from
-  `daa0fde32235`
-- [Phase 3] `git merge-base --is-ancestor`: `694ce5e143d6` and
-  `daa0fde32235` both in HEAD and v6.18
-- [Phase 3] `git show 694ce5e143d6`: original feature with `Cc: stable #
-  6.6+`
-- [Phase 3] `git show daa0fde32235`: introduced skip-first-empty with
-  `alloc_offset == 0`
-- [Phase 3] `git merge-base --is-ancestor 82fd260 HEAD`: fix **NOT** in
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+- **[Phase 2]** Analyzed diff: split EMLSR exit conditional in
+  `iwl_mld_handle_missed_beacon_notif()`
+- **[Phase 3]** `git describe HEAD` → `v6.18.44`; `git rev-parse --is-
+  shallow-repository` → `true` (500 commits)
+- **[Phase 3]** `git blame -L 604,612 link.c` → buggy lines at tree base
+- **[Phase 3]** `git log --grep="keep healthy link"` → no matches (fix
+  not present)
+- **[Phase 3]** `git log -S "iwl_mld_handle_missed_beacon_notif"` → only
+  shallow root (history limited)
+- **[Phase 4]** `b4 dig -c 1bdfba6279e21` → no result (blob hash, not
+  commit)
+- **[Phase 4]** WebFetch patch.msgid.link → blocked by Anubis
+- **[Phase 4]** Ratatoskr iwlwifi-fixes 05/15 → confirmed patch content,
+  v1/v2/v3 revisions, Intel maintainer series
+- **[Phase 5]** `grep iwl_mld_get_other_link` → exists in `mlo.h`, used
+  in `stats.c:398`, `mac80211.c:2227`
+- **[Phase 5]** Read `iwl_mld_exit_emlsr()` in `mlo.c:195-247` →
+  validates `link_to_keep`
+- **[Phase 5]** Read `iwl_mld_get_other_link()` in `mlo.h:95-108`
+- **[Phase 6]** Read `link.c:522-614` → confirmed buggy code present in
   6.18.44
-- [Phase 4] `b4 dig -c 82fd260`: lore URL found
-- [Phase 4] `b4 dig -a`: v1/v2/v3 series revisions confirmed; v3 is
-  final form
-- [Phase 4] `b4 dig -w`: btrfs maintainers/reviewers CC'd
-- [Phase 4] WebFetch spinics msg165574: Boris documented remount + zone
-  exhaustion scenario
-- [Phase 5] `grep btrfs_zoned_reserve_data_reloc_bg`: caller at `disk-
-  io.c:3556` on mount
-- [Phase 5] Read `extent-tree.c:3870–3966`: `data_reloc_bg == 0` breaks
-  relocation allocation paths
-- [Phase 6] `git describe HEAD` / `make kernelversion`: tree is 6.18.44
-- [Phase 6] Read `fs/btrfs/zoned.c:2752–2845`: buggy code confirmed
-  present
-- [Phase 6] `git format-patch -1 82fd260 | git apply --check`: clean
-  apply
-- [Phase 8] Failure mode: no relocation BG → ENOSPC on zoned btrfs,
-  severity HIGH for affected configs
+- **[Phase 6]** `grep IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH` → thresholds in
+  `constants.h`, used in `link.c`
+- **[Phase 7]** Confirmed iwlwifi mld subsystem present with EMLSR
+  infrastructure
+- **[Phase 8]** Failure mode: connection loss on EMLSR beacon exit →
+  HIGH for affected users
+- **UNVERIFIED:** Full lore.kernel.org review discussion (fetch blocked)
+- **UNVERIFIED:** Exact mainline commit SHA and date bug was introduced
+  (shallow repo)
 
-**YES**The background searches finished and matched what the analysis
-already used:
+**YES**The background `git log -S` search finished, but it didn’t add
+much: this checkout is a shallow clone (500 commits), so history for
+`iwl_mld_handle_missed_beacon_notif` and
+`IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH` only goes back to the tree root. We
+still can’t pin when the buggy code was introduced from git history
+here.
 
-- The fix commit (`always set data_relocation_bg`) is **not** in
-  6.18.44; the tree still has the skip-first-empty logic in
-  `fs/btrfs/zoned.c`.
-- The prerequisite commits are present: `694ce5e143d6` (reserve
-  data_reloc BG on mount) and `daa0fde32235` (the regression this fix
-  corrects).
-- `b4 dig` on HEAD didn’t match (expected — the fix isn’t applied yet);
-  digging by commit hash `82fd260` found the v3 lore thread.
+That doesn’t change the backport call. On **6.18.44**, the buggy logic
+is present in `link.c`, the fix is small and self-contained, and it
+matches how the same driver already handles other EMLSR exits.
 
-**Verdict remains YES** for backporting to this 6.18.44 tree.
+**YES**
 
- fs/btrfs/zoned.c | 11 +----------
- 1 file changed, 1 insertion(+), 10 deletions(-)
+ drivers/net/wireless/intel/iwlwifi/mld/link.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
-index 6ca5816a67381..660f516cb9357 100644
---- a/fs/btrfs/zoned.c
-+++ b/fs/btrfs/zoned.c
-@@ -2759,7 +2759,6 @@ void btrfs_zoned_reserve_data_reloc_bg(struct btrfs_fs_info *fs_info)
- 	struct btrfs_block_group *bg;
- 	struct list_head *bg_list;
- 	u64 alloc_flags;
--	bool first = true;
- 	bool did_chunk_alloc = false;
- 	int index;
- 	int ret;
-@@ -2776,17 +2775,12 @@ void btrfs_zoned_reserve_data_reloc_bg(struct btrfs_fs_info *fs_info)
- 	alloc_flags = btrfs_get_alloc_profile(fs_info, space_info->flags);
- 	index = btrfs_bg_flags_to_raid_index(alloc_flags);
- 
--	/* Scan the data space_info to find empty block groups. Take the second one. */
- again:
- 	bg_list = &space_info->block_groups[index];
- 	list_for_each_entry(bg, bg_list, list) {
--		if (bg->alloc_offset != 0)
--			continue;
- 
--		if (first) {
--			first = false;
-+		if (bg->alloc_offset != 0)
- 			continue;
--		}
- 
- 		if (space_info == data_sinfo) {
- 			/* Migrate the block group to the data relocation space_info. */
-@@ -2798,8 +2792,6 @@ void btrfs_zoned_reserve_data_reloc_bg(struct btrfs_fs_info *fs_info)
- 
- 			down_write(&space_info->groups_sem);
- 			list_del_init(&bg->list);
--			/* We can assume this as we choose the second empty one. */
--			ASSERT(!list_empty(&space_info->block_groups[index]));
- 			up_write(&space_info->groups_sem);
- 
- 			spin_lock(&space_info->lock);
-@@ -2843,7 +2835,6 @@ void btrfs_zoned_reserve_data_reloc_bg(struct btrfs_fs_info *fs_info)
- 		 * We allocated a new block group in the data relocation space_info. We
- 		 * can take that one.
- 		 */
--		first = false;
- 		did_chunk_alloc = true;
- 		goto again;
+diff --git a/drivers/net/wireless/intel/iwlwifi/mld/link.c b/drivers/net/wireless/intel/iwlwifi/mld/link.c
+index e67ba3a24d025..49e3d97f286f9 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mld/link.c
++++ b/drivers/net/wireless/intel/iwlwifi/mld/link.c
+@@ -600,15 +600,20 @@ void iwl_mld_handle_missed_beacon_notif(struct iwl_mld *mld,
+ 	 * OR more than IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_BSS_PARAM_CHANGED
+ 	 * on current link and the link's bss_param_ch_count has changed on
+ 	 * the other link's beacon.
++	 *
++	 * When both links lose beacons, keep the primary (symmetric failure).
++	 * When only the current link is sick, keep the other link.
+ 	 */
+-	if ((missed_bcon >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_2_LINKS &&
+-	     scnd_lnk_bcn_lost >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_2_LINKS) ||
+-	    missed_bcon >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH ||
+-	    (bss_param_ch_cnt_link_id != link_id &&
+-	     missed_bcon >=
+-	     IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_BSS_PARAM_CHANGED)) {
++	if (missed_bcon >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_2_LINKS &&
++	    scnd_lnk_bcn_lost >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_2_LINKS) {
+ 		iwl_mld_exit_emlsr(mld, vif, IWL_MLD_EMLSR_EXIT_MISSED_BEACON,
+ 				   iwl_mld_get_primary_link(vif));
++	} else if (missed_bcon >= IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH ||
++		   (bss_param_ch_cnt_link_id != link_id &&
++		    missed_bcon >=
++		    IWL_MLD_BCN_LOSS_EXIT_ESR_THRESH_BSS_PARAM_CHANGED)) {
++		iwl_mld_exit_emlsr(mld, vif, IWL_MLD_EMLSR_EXIT_MISSED_BEACON,
++				   iwl_mld_get_other_link(vif, link_id));
  	}
+ }
+ EXPORT_SYMBOL_IF_IWLWIFI_KUNIT(iwl_mld_handle_missed_beacon_notif);
 -- 
 2.53.0
 
