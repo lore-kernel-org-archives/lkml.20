@@ -1,39 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC8E3E3D98;
-	Mon, 31 Aug 2026 10:06:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D86FA3E3D98;
+	Mon, 31 Aug 2026 10:06:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170773; cv=none; b=Q5+zkn5avZgmjgRAn2C99WDcfo8VnDcgMqkm7zWf+GT01V2b4U/S6iV6+EUPLY9gQeaHGsIdvh7XAscA74fCoeq9wpwRd9oc0z4TOlD9PHmNrrZCEsd46/uqiQvrVmH9ZcuOe5bTx1w0dMONeDYD66zJP8bbRZ2OKgFf/I7t/08=
+	t=1788170792; cv=none; b=teurUiRfxzsMpQQo7EHQJPX6upEZwUNT94d5K5W+mnWVBKrvoOF5cdPSx1Ip+0g5NEPCc+FmMcO6K3MLk0IU+C8aNa6As9hkLDnS7t0Cd/KH5wDtUrm6fyEzXAqZ81LaDTWOSrJHuMgMvShDlcOwbjHtxTzxDdrKHqjO6CjbOTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170773; c=relaxed/simple;
-	bh=yeCRA2/V9LS/s6wg60R85OsMNtm1dn7vIhbMQA3Hb1A=;
+	s=arc-20240116; t=1788170792; c=relaxed/simple;
+	bh=Zd1I1rzGLjNP5UHFN8ObvHcchBTEBO14g7z2JtxlA6U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MwacD+NqNRernpj9EA+E1Uc6mvGt5hBcBMlYctQd+4eeZ+gvHXVeJ2GIEzi9NT6tww1/H8G23fc1sZ76GV/C5tcpJXk695HtuVgeRLfapS/dcX9T84sG2TA3hgvuGYAO7Y0uSakJ3h7+rkAWXdDVUBNa66r25tWA70om1UN1zQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MJsFwI3n; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=WipoBEKfkz/UjLtCRtwj+xtjTcwHdU5e4G5YTxqHjAevR0azLN0+QbepOiE007tNYnwsH1H9KZvyTWeZtcHTWs+EIbrzRV89daNi9Lw4yD8woxrSt9NCRYlswJ5XN9awijx4zIKaJzyQz/g4m/wiOB7gDEnpedFBnbYrKvJXj4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=jKwu2asG; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=yIyma6zn; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=hmYbXGPh; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=NxsPq1pR; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MJsFwI3n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD3491F000E9;
-	Mon, 31 Aug 2026 10:06:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788170772;
-	bh=za4IgtL+rR/4ElpkiV708a34ozd17nbELld5eOh+Xr4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MJsFwI3nKHZiXSDAZ+XOkPj+AtcuTevxCEYZppotC51bD4OeKanJmOLinQl9zUDkh
-	 no9RTz8eoNhLv9Cx3PWZs+ZtOA9O3/kdQ6VzQGmYPxlsJHLUedQ5+7Hxpz3AJwwj0N
-	 2nmjdFLd9szVioxyfDnuEimaUt3o6qUt+q659tkQ=
-Date: Mon, 31 Aug 2026 12:06:08 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Deepanshu Kartikey <kartikey406@gmail.com>
-Cc: valentina.manea.m@gmail.com, shuah@kernel.org, i@zenithal.me,
-	yuyang.du@intel.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+8753715f05759f1a10de@syzkaller.appspotmail.com
-Subject: Re: [PATCH v3] usbip: vhci_hcd: let the driver core manage the sysfs
- attributes
-Message-ID: <2026083154-choice-platform-51c9@gregkh>
-References: <20260816061034.17769-1-kartikey406@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="jKwu2asG";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="yIyma6zn";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="hmYbXGPh";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="NxsPq1pR"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BFE4A22347;
+	Mon, 31 Aug 2026 10:06:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788170785; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SUNwtZYE0BZEojiBC/c0w28QoGhVaGYNfF8bWOZe0J0=;
+	b=jKwu2asGObmXrCsHXGJTde/JBaodQf9kqgWIndpdOxVluroTDfauMTBO87hFsi47W9KcoG
+	jTgX2l/rLJlcsCTFRacAZ2K+zTVb5Ooi78ojcnFceF6jE/F3XQrDGXyyTV6GSINgRdKdUj
+	IGjwvAFewJgqf5MAhcrCXoZPYAYhKWc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788170785;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SUNwtZYE0BZEojiBC/c0w28QoGhVaGYNfF8bWOZe0J0=;
+	b=yIyma6znJVeJA846qMD4dW9M6BkaUTMQadp7YwBU7cxzIj4+DotGWnUz5DXezz9prWZN7K
+	fKkGBq2AfP44yZCA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=hmYbXGPh;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=NxsPq1pR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788170780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SUNwtZYE0BZEojiBC/c0w28QoGhVaGYNfF8bWOZe0J0=;
+	b=hmYbXGPhmUjtMThBiWN66fg3p2akpd1bjj3OoOiVFs9FqqACy6WhIHqVFhAJTkl1C9V1+q
+	4nQmI7fdTVlE1EMLQLRBwvK+u5HOeSd+xpKRCs3tU7rsnpdEWJiPkZ77htZDfLDb0/QQZQ
+	fcH0uzgkh6yNv79d9TeAp2ZjkITPx4Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788170780;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SUNwtZYE0BZEojiBC/c0w28QoGhVaGYNfF8bWOZe0J0=;
+	b=NxsPq1pRW+nFN8R1t1REtUrjBb1pfxdB/lVWZH7awRQ22iz9nXcNbdcQkRu+rVA5x1pYaz
+	Zl45bp/pNmdh+iDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9D1FC13682;
+	Mon, 31 Aug 2026 10:06:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Li5UJhxSlWoodwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 31 Aug 2026 10:06:20 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 2C9C8A13B5; Mon, 31 Aug 2026 12:06:20 +0200 (CEST)
+Date: Mon, 31 Aug 2026 12:06:20 +0200
+From: Jan Kara <jack@suse.cz>
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Cc: Christian Brauner <christian@brauner.io>, Jan Kara <jack@suse.cz>, 
+	Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, Theodore Tso <tytso@mit.edu>, 
+	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+	Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>, 
+	Phillip Lougher <phillip@squashfs.org.uk>, linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org, ntfs@lists.linux.dev, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 8/9] filemap: Remove redundant FGP_NOFS
+Message-ID: <d3w3bedhmbl7d2ssfq2ov43safj7hynj7rpwztdiu22fkasrhm@e4qjbeohazgv>
+References: <20260830041901.2668-1-willy@infradead.org>
+ <20260830041901.2668-9-willy@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,37 +94,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260816061034.17769-1-kartikey406@gmail.com>
+In-Reply-To: <20260830041901.2668-9-willy@infradead.org>
+X-Spam-Score: -2.51
+X-Rspamd-Queue-Id: BFE4A22347
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_CC(0.00)[brauner.io,suse.cz,kernel.org,mit.edu,gmail.com,squashfs.org.uk,lists.ozlabs.org,vger.kernel.org,lists.linux.dev,kvack.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,infradead.org:email]
+X-Spam-Flag: NO
 
-On Sun, Aug 16, 2026 at 11:40:34AM +0530, Deepanshu Kartikey wrote:
-> The vhci attribute group is created in vhci_start() and removed in
-> vhci_stop(), guarded by usb_hcd_is_primary_hcd(). Both run from
-> usb_add_hcd()/usb_remove_hcd(), which are called once per hcd, so the
-> attach attribute is live while only one of the two hcds exists: it is
-> created during the first usb_add_hcd() before vhci_hcd_ss is set, and it
-> survives the first usb_put_hcd() on removal. A concurrent write to attach
-> can therefore reach a NULL or freed vhci_hcd_ss.
+On Sun 30-08-26 05:18:55, Matthew Wilcox (Oracle) wrote:
+> The flags already include FGP_NOWAIT which prohibits all reclaim, not
+> just reclaiming from the filesystem.
 > 
-> Register the group as dev_groups on the platform driver instead, so the
-> driver core creates the files before probe and removes them after remove
-> returns, and drop the sysfs_create_group()/sysfs_remove_group() calls from
-> the driver. The attributes have always been created only on vhci_hcd.0;
-> an is_visible() callback keeps them there.
-> 
-> vhci_init_attr_group() is moved into vhci_hcd_init() ahead of
-> platform_driver_register() so the group is populated before the core
-> reads it. The attribute array is still built at runtime because the
-> number of status attributes comes from CONFIG_USBIP_VHCI_NR_HCS and the
-> preprocessor cannot emit a variable number of __ATTR() declarations.
-> 
-> Fixes: 1c9de5bf4286 ("usbip: vhci-hcd: Add USB3 SuperSpeed support")
-> Reported-by: syzbot+8753715f05759f1a10de@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=8753715f05759f1a10de
-> Tested-by: syzbot+8753715f05759f1a10de@syzkaller.appspotmail.com
-> Link: https://lore.kernel.org/all/20260815143427.19066-1-kartikey406@gmail.com/T/ [v1]
-> Link: https://lore.kernel.org/all/20260816015051.13184-1-kartikey406@gmail.com/T/ [v2]
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+
+Looks good. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
 > ---
-
-Did you forget an Assisted-by: tag?
-
+>  include/linux/pagemap.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+> index 0adfa6605653..3974b063a049 100644
+> --- a/include/linux/pagemap.h
+> +++ b/include/linux/pagemap.h
+> @@ -929,7 +929,7 @@ static inline struct page *grab_cache_page_nowait(struct address_space *mapping,
+>  				pgoff_t index)
+>  {
+>  	return pagecache_get_page(mapping, index,
+> -			FGP_LOCK|FGP_CREAT|FGP_NOFS|FGP_NOWAIT,
+> +			FGP_LOCK | FGP_CREAT | FGP_NOWAIT,
+>  			mapping_gfp_mask(mapping));
+>  }
+>  
+> -- 
+> 2.47.3
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
