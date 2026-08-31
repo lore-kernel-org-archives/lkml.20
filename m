@@ -1,48 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A2556FA5E;
-	Mon, 31 Aug 2026 13:48:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A94546F483;
+	Mon, 31 Aug 2026 13:48:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184119; cv=none; b=CZbDQmZ4uLpaOuF2HuQKTpZYi8JwxDk0Me/e1bwlUh4KcuGxxnP2yCGUacrnSTiO4XjxKb3ZQDMCrVI7UXPDcNR4jEPlBUOrNnBCKh5iXbeZdoVNCP9oPxNNP8OWbaosRW0fJKms6q+mounJ9F8/VuUORVAW3AeWAumH0m2B3EM=
+	t=1788184122; cv=none; b=mh1YD22Y6lb5Fm4W7ST3fGCuXZIYPUd/eFNzQbgqRU7cMDQAxrNdU2lkFeGXxOhJHnnCcO3mLuxnGZv8k8ogVIpfxYEi9EMzuAsX6Blz5fRzs4InRFlnT2DjdeJcyGJzQWE52bG0d9u0OnXh4p8LIQPPgcCOaNLOetwx1Kg69XU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184119; c=relaxed/simple;
-	bh=oDroo2WiPTU90nvz2/0npryiyyfLGXDy2Hy3NzJEsPM=;
+	s=arc-20240116; t=1788184122; c=relaxed/simple;
+	bh=E40eJRUesULlNN79L6psJzUyWkRZFuSRM+KE8fyEmKU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uLGYorS/cqrGUTwbNi4wYCXJGgeYmGEIxa4SZHbqF7IofSAfrroTCkzMJbHijtC4TxDDxWjzP4Ov9+m43PhPVNJXoMmba0ZwNZXRMZ2HxHDalLG2NqSFt1dBiTAGtYt0BIbPTc+rvCKGJGeSgKIf4RJojyLfxruB4QKqiQBEREs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NipMI7oO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=p6QzBm+t5b+UzmWutoOXGeHKC/vUPnvEm3syGHOmTKWdJDRFv6EXhSKXT9YNbprp+oR+tqQkdzJDqK/R0QUhqpEzII9dVqFWHW1zNtKU+vRP8JEEsc9N+h+uyNZ/ErYS1vNoq9eXyhDxbCpN9+3WQX2uLMvMtS0kZ8v8U0aF8qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nabQVVYq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NipMI7oO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E79061F00ACA;
-	Mon, 31 Aug 2026 13:48:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nabQVVYq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC0991F00A3F;
+	Mon, 31 Aug 2026 13:48:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184116;
-	bh=sRR5RzAfZF2ygozG/qavqvPeChy7+XYeXV4CDkN88MM=;
+	s=k20260515; t=1788184117;
+	bh=DdVo6N7K5a2KSV3VcTuiLIDHoWMhDvu1DsKU74vcPz4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NipMI7oOpWJpEntVg0UXpciHQWk1UP2b8FmPcMFTjVVrCLQR+u1a+ylYhmqi7tBhb
-	 AKWlQzqNUuVd+40RZ0B7OHrwZD9nZB3UUrZJL+qsFMOU40KR1+Y/0JaatwTvWQ/QdZ
-	 HR5HGZEh48SeSifIPKxDA8kihDyJpMcuTUgyFij8XZwf9b4Y+oWmk5nr98aTlfaNwL
-	 UEJmY654ud2HkVlU4J2AEYyagDvUFkRmUR5BSDe5lbrFL/KVrnztChBcSQW5F+Tzr8
-	 0136PGo49b8UirOLIn5Qit/Izia1QtgrR8xCRRHOsTCZANjtQjxtQWMYV5g6XvMLod
-	 616c3Bb0WWOdQ==
+	b=nabQVVYq9Ya4iArAgOgLLlADWGNsmLdhkiTaBCFwZfFpOzFKg60KVXGht3jDp3EvL
+	 ejEjSaOkmhlc9nPaxo47phOFm/GMJzckbEq8Ph8biv+0La2/3RWs/Nn3PJVnkj/Z6U
+	 DcId/4j6EKPzadmz1I79xkuAcFgOwWwQJePIOEeaq9La17SSYnrPirXMNbofHfKo98
+	 hPB0zRCR5HeblfXBy53f4JlPsC6EcZytSASzXWngyMt7wKlmJSiLFhDSStBKDst2if
+	 /odXPqTWVOo7cMsQAWLsmrAcluzC4yixdXgFVjR+Jl6OQtPwV5OQ7s5Hhqp8Vs6Eyx
+	 Aueu363LhOhqA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
+Cc: ikaros <void0red@gmail.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
+	rafael@kernel.org,
+	maciej.wieczor-retman@intel.com,
+	pawel.chmielewski@intel.com,
+	linux-acpi@vger.kernel.org,
+	acpica-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] phy: qcom: m31-eusb2: Make USB repeater optional
-Date: Mon, 31 Aug 2026 09:28:49 -0400
-Message-ID: <20260831133314.4125787-501-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] ACPICA: Add validation for node in acpi_ns_build_normalized_path()
+Date: Mon, 31 Aug 2026 09:28:50 -0400
+Message-ID: <20260831133314.4125787-502-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -58,383 +56,359 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
+From: ikaros <void0red@gmail.com>
 
-[ Upstream commit a62bfbcf2db4ae6eb7a544a40b1075a81784ea41 ]
+[ Upstream commit 96b2b616870e46e2bc04efec03879683a0036e66 ]
 
-A repeater is not required for the PHY to function. On systems with
-multiple PHY instances connected to a multi-port controller, some PHYs
-may be unconnected. All PHYs must still probe successfully even without
-attached repeaters, otherwise the controller probe fails.
+Add validation for node in acpi_ns_build_normalized_path()
+to prevent use-after-free vulnerabilities.
 
-So make it optional.
-
-Signed-off-by: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-[abel.vesa@oss.qualcomm.com: commit re-worded to reflect actual reason]
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Bjorn Andersson <andersson@kernel.org>
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260302-phy-qcom-m31-eusb2-make-repeater-optional-v2-1-dbf714c72056@oss.qualcomm.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Link: https://github.com/acpica/acpica/commit/b35adf49e89a
+Signed-off-by: ikaros <void0red@gmail.com>
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Link: https://patch.msgid.link/118666237.nniJfEyVGO@rafael.j.wysocki
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `phy: qcom: m31-eusb2: Make USB repeater
-optional`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.43** (`v6.18.43-1-gc7f0dac02d232`)
-**Commit under review:** `dd085bf278421` (upstream `a62bfbcf2db4`) —
-**not yet in this tree**
+**Step 1.1 — Subject line**
+Record: `[ACPICA] [Add] validation for node in
+acpi_ns_build_normalized_path() to prevent use-after-free`
 
----
+**Step 1.2 — Tags**
+Record:
+- Link: https://github.com/acpica/acpica/commit/b35adf49e89a
+- Link: https://patch.msgid.link/118666237.nniJfEyVGO@rafael.j.wysocki
+- Signed-off-by: ikaros \<void0red@gmail.com\>
+- Signed-off-by: Rafael J. Wysocki \<rafael.j.wysocki@intel.com\>
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, or Cc: stable tags
+- Notable: ACPICA maintainer (Rafael J. Wysocki) signed off; upstream
+  ACPICA commit link present
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.3 — Body analysis**
+Record:
+- Bug: `acpi_ns_build_normalized_path()` can dereference an
+  invalid/freed namespace node pointer
+- Symptom: heap use-after-free when reading `next_node->name`
+- Root cause (from upstream issue #1138): during ACPI AML
+  parsing/cleanup, walk state is freed while a stale `method_node` is
+  still passed into pathname building via `acpi_ex_stop_trace_method()`
+  → `acpi_ns_get_normalized_pathname()` →
+  `acpi_ns_build_normalized_path()`
+- No kernel version range stated in commit message
 
-### Step 1.1: Subject line
-**Record:** `[phy: qcom: m31-eusb2]` `[make]` — Make the USB repeater
-optional in the Qualcomm M31 eUSB2 PHY driver probe path.
-
-### Step 1.2: Tags
-**Record:**
-- **Fixes:** — absent
-- **Reported-by:** — absent
-- **Tested-by:** — absent
-- **Reviewed-by:** Dmitry Baryshkov, Bjorn Andersson, Neil Armstrong,
-  Konrad Dybcio
-- **Acked-by:** — absent
-- **Link:** https://patch.msgid.link/20260302-phy-qcom-m31-eusb2-make-
-  repeater-optional-v2-1-dbf714c72056@oss.qualcomm.com
-- **Cc: stable:** — absent (expected for manual review)
-- **Signed-off-by:** Wesley Cheng, Abel Vesa, Vinod Koul (ignore
-  pipeline SOBs)
-
-Notable: multiple subsystem maintainers reviewed; no syzbot/fuzzer
-report.
-
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** Driver requires an eUSB2 repeater at probe time via
-  `devm_of_phy_get_by_index()`, but repeaters are not always present.
-- **Symptom:** On multi-port controllers with multiple PHY instances,
-  PHYs without attached repeaters fail probe; that can fail the whole
-  USB controller probe.
-- **Root cause:** Repeater treated as mandatory when hardware/DT allows
-  it to be absent.
-- **Version info:** None in message; driver targets
-  `qcom,sm8750-m31-eusb2-phy`.
-
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Despite “make optional” wording, this is a real probe-
-failure bug fix, not a feature. The DT binding already lists `phys` as
-optional (not in `required:`), but the driver enforced it as mandatory.
+**Step 1.4 — Hidden bug fix?**
+Record: No — explicitly described as UAF prevention, not disguised
+cleanup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory
-**Record:**
-- **File:** `drivers/phy/qualcomm/phy-qcom-m31-eusb2.c` (+1 / -1)
-- **Function:** `m31eusb2_phy_probe()`
-- **Scope:** Single-file, single-line surgical change
+**Step 2.1 — Inventory**
+Record:
+- `drivers/acpi/acpica/nsnames.c`: +6 lines, 0 removed
+- Function modified: `acpi_ns_build_normalized_path()`
+- Scope: single-file, surgical fix
 
-### Step 2.2: Code flow change
-**Record:**
-- **Before:** `devm_of_phy_get_by_index(dev, dev->of_node, 0)` returns
-  `-ENODEV` when no `phys` property → probe fails.
-- **After:** `devm_phy_optional_get(dev, NULL)` converts `-ENODEV` to
-  `NULL` → probe succeeds.
-- **Path affected:** Platform device probe during boot/module init.
+**Step 2.2 — Code flow change**
+Record:
+- Before: after NULL check on `node`, function immediately walks
+  `next_node->parent` chain and reads `next_node->name` via
+  `ACPI_MOVE_32_TO_32`
+- After: if `ACPI_GET_DESCRIPTOR_TYPE(node) != ACPI_DESC_TYPE_NAMED`,
+  jump to `build_trailing_null` (return empty path with trailing NUL)
+  instead of dereferencing
+- Affected path: any caller passing a stale/invalid node into
+  `acpi_ns_build_normalized_path()`
 
-### Step 2.3: Bug mechanism
-**Record:** **Logic / correctness fix** — mandatory resource lookup for
-an optional component. Category: driver/DT mismatch causing cascading
-probe failure.
+**Step 2.3 — Bug mechanism**
+Record:
+- Category: **memory safety / use-after-free**
+- Mechanism: freed walk-state memory is still referenced as a namespace
+  node; reading `next_node->name` at the line equivalent to current line
+  232 triggers ASAN heap-use-after-free (confirmed upstream in ACPICA
+  issue #1138)
 
-With repeater present, both APIs resolve index 0 via `_of_phy_get()`
-(verified in `phy_get()` and `devm_of_phy_get_by_index()`).
-
-### Step 2.4: Fix quality
-**Record:**
-- Fix is minimal and matches established pattern in `phy-snps-eusb2.c`
-  (`devm_of_phy_optional_get`).
-- `phy_init()`, `phy_exit()`, and `phy_set_mode_ext()` all accept `NULL`
-  and return 0 (verified in `phy-core.c`).
-- No new deadlock/locking risk.
-- `IS_ERR()` check after optional get remains correct (only real errors
-  propagate).
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame
-**Record:** Repeater lookup introduced in `5d324e5159d9e` (6.18 merge,
-Nov 2025). Buggy line present at `drivers/phy/qualcomm/phy-
-qcom-m31-eusb2.c:288` in this tree.
-
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag.
-
-### Step 3.3: Related file history
-**Record:** Recent history in this tree:
-- `09e1c96594afb` — PLL_EN suspend power fix (backported, `Cc: stable`)
-- `37ef11ab2cf3c` — init sequence update
-- Driver arrived via `5d324e5159d9e` (6.18)
-
-Standalone one-patch fix; not part of a multi-patch dependency series.
-
-### Step 3.4: Author context
-**Record:** Wesley Cheng is the driver author and DT binding maintainer.
-Abel Vesa committed v2. Vinod Koul (PHY maintainer) merged. Multiple
-Qualcomm/ARM maintainers reviewed.
-
-### Step 3.5: Dependencies
-**Record:** No prerequisites. `devm_phy_optional_get()` exists in this
-tree’s `phy-core.c`. Fix applies cleanly to current `68f1ba8fec4ad`
-index state.
+**Step 2.4 — Fix quality**
+Record:
+- Obviously correct: matches existing ACPICA validation pattern used in
+  `acpi_ns_get_pathname_length()` (lines 56–63 of the same file),
+  `acpi_ns_validate_handle()`, and `acpi_ut_get_node_name()`
+- Minimal, no unrelated changes
+- Regression risk: very low — invalid nodes get empty path instead of
+  crash; valid nodes unchanged
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 3: Git History Investigation
 
-### Step 4.1: Original discussion
-**Record:**
-- **b4 dig:** https://patch.msgid.link/20260227-phy-qcom-m31-eusb2-make-
-  repeater-optional-v1-1-07a086bbaba4@oss.qualcomm.com
-- **Revisions:** v1 (2026-02-27), v2 (2026-03-02, committed version)
-- **Feedback:** Reviewed-by from Dmitry Baryshkov and Bjorn Andersson on
-  v1; no NAKs found
-- **Stable nomination in thread:** none found
+**Step 3.1 — Blame**
+Record: vulnerable loop introduced in `d1e7ffe50ba58` (2015, "ACPICA:
+Namespace: Add function to directly return normalized full path"). Bug
+has been present since that function was added.
 
-### Step 4.2: Reviewers
-**Record:** CC’d: `linux-phy@lists.infradead.org`, `linux-arm-
-msm@vger.kernel.org`, Vinod Koul, Bjorn Andersson, Dmitry Baryshkov —
-appropriate maintainer coverage.
+**Step 3.2 — Fixes: tag**
+Record: N/A — no Fixes: tag in commit message.
 
-### Step 4.3: Bug report
-**Record:** No external bug report or syzbot link. Bug described from
-hardware/DT design requirements.
+**Step 3.3 — File history**
+Record: `nsnames.c` is long-stable ACPI code; recent changes are
+formatting/copyright, not structural refactors. Fix is standalone (not
+dependent on other patches in the 27-patch ACPICA series).
 
-### Step 4.4: Related patches
-**Record:** Separate follow-up on master: `361f533a2dce2` (“Fix return
-value of init call”) — fixes unrelated error-path return bug; **not** a
-prerequisite for this change.
+**Step 3.4 — Author**
+Record: ikaros (void0red) reported the UAF to upstream ACPICA; Rafael J.
+Wysocki (ACPI maintainer) committed to Linux.
 
-### Step 4.5: Stable list
-**Record:** No stable-list discussion found for this specific patch.
+**Step 3.5 — Dependencies**
+Record: no prerequisites. Patch 12/27 in the same series fixes a related
+UAF in `acpi_ds_terminate_control_method()`, but this validation patch
+is independent and self-contained. `git apply --check` confirms clean
+apply to this tree.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 4: Mailing List and External Research
 
-### Step 5.1: Key functions
-**Record:** `m31eusb2_phy_probe()` modified; downstream users of
-`phy->repeater`: `m31eusb2_phy_init()`, `m31eusb2_phy_exit()`,
-`m31eusb2_phy_set_mode()`.
+**Step 4.1 — Original discussion**
+Record:
+- b4 dig found: [PATCH v1 19/27] at
+  https://patch.msgid.link/118666237.nniJfEyVGO@rafael.j.wysocki
+- Part of "ACPI: ACPICA 20260408" series (27 patches)
+- v1 only revision found
+- No NAKs or stable nominations found in thread mbox
 
-### Step 5.2: Callers
-**Record:** `m31eusb2_phy_probe` registered as `platform_driver`
-`.probe` → called during device enumeration for
-`qcom,sm8750-m31-eusb2-phy` nodes.
+**Step 4.2 — Reviewers**
+Record: CC'd to Rafael J. Wysocki, linux-acpi, LKML, Saket Dumbre, Pawel
+Chmielewski (Intel ACPICA developers).
 
-### Step 5.3: Callees
-**Record:** `devm_phy_optional_get()` → `devm_phy_get()` →
-`_of_phy_get(dev->of_node, 0)` for DT devices.
+**Step 4.3 — Bug report**
+Record: ACPICA GitHub issue #1138 documents:
+- ASAN heap-use-after-free at `AcpiNsBuildNormalizedPath` reading 4
+  bytes (`next_node->name`)
+- Reproducer: `./generate/unix/bin/acpiexec -m issue33.aml`
+- Call chain: `acpi_ns_build_normalized_path` ←
+  `acpi_ns_get_normalized_pathname` ← `acpi_ex_stop_trace_method` ←
+  `acpi_ds_terminate_control_method` ← AML parse/table load path
+- Severity: confirmed memory safety bug with concrete reproducer
 
-### Step 5.4: Reachability
-**Record:** Triggered at boot on Qualcomm platforms with
-`CONFIG_PHY_QCOM_M31_EUSB=y/m`. Affects kernel init / module probe, not
-a syscall path.
+**Step 4.4 — Related patches**
+Record: patch 12/27 addresses a different UAF root cause in
+`acpi_ds_terminate_control_method()`. Patch 19/27 (this commit) is a
+defensive guard at the common pathname builder. Both are security-
+relevant; this one stands alone.
 
-### Step 5.5: Similar patterns
-**Record:** `drivers/phy/phy-snps-eusb2.c:589` uses
-`devm_of_phy_optional_get()` for the same repeater pattern.
-
----
-
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.43)
-
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Current tree still has:
-```288:291:drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
-        phy->repeater = devm_of_phy_get_by_index(dev, dev->of_node, 0);
-        if (IS_ERR(phy->repeater))
-                return dev_err_probe(dev, PTR_ERR(phy->repeater),
-                                     "failed to get repeater\n");
-```
-Driver and Kconfig (`PHY_QCOM_M31_EUSB`) both exist. `git merge-base
---is-ancestor dd085bf278421 HEAD` → **NOT_IN_TREE**.
-
-### Step 6.2: Backport complications
-**Record:** Clean one-line apply expected. No refactor conflicts in
-probe path.
-
-### Step 6.3: Related fixes already present?
-**Record:** PLL_EN suspend fix (`09e1c96594afb`) already backported —
-shows maintainers are already carrying m31-eusb2 fixes into 6.18.y. Init
-return-value fix (`361f533a2dce2`) is **not** in this tree (separate
-issue).
+**Step 4.5 — Stable list**
+Record: no Cc: stable discussion found in downloaded thread.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## Phase 5: Code Semantic Analysis
 
-### Step 7.1: Subsystem / criticality
-**Record:** `drivers/phy/qualcomm/` — **PERIPHERAL** (platform-specific
-Qualcomm USB PHY driver). Impact is limited to `ARCH_QCOM` +
-`CONFIG_PHY_QCOM_M31_EUSB`.
+**Step 5.1 — Key functions**
+Record: `acpi_ns_build_normalized_path()` (modified); callers include
+`acpi_ns_get_pathname_length()`, `acpi_ns_handle_to_pathname()`,
+`acpi_ns_get_normalized_pathname()`
 
-### Step 7.2: Activity
-**Record:** New driver in 6.18; actively receiving fixes (PLL_EN, init
-sequence, this repeater fix on mainline).
+**Step 5.2 — Callers**
+Record: `acpi_ns_get_normalized_pathname()` is called from many ACPI
+paths including:
+- `acpi_ex_stop_trace_method()` in `extrace.c` (UAF trigger path)
+- `acpi_ns_get_external_pathname()`, `nsparse.c`, `nsinit.c`,
+  `dsmethod.c`, `nseval.c`, `nssearch.c`
+- Debugger-only paths (`db*.c`) — less relevant for production
 
----
+**Step 5.3 — Callees**
+Record: reads node descriptor type, walks parent chain, copies 4-byte
+ACPI names; no allocation in the vulnerable section.
 
-## PHASE 8: IMPACT AND RISK
+**Step 5.4 — Reachability**
+Record:
+- Call chain reaches ACPI table loading and method termination during
+  normal kernel ACPI operation (boot + runtime method execution)
+- Trigger requires crafted/malformed ACPI AML that causes walk-state
+  teardown with stale node reference — demonstrated with `issue33.aml`
+  in acpiexec; same ACPICA code runs in the kernel
 
-### Step 8.1: Who is affected
-**Record:** Users of Qualcomm SM8750 (`qcom,sm8750-m31-eusb2-phy`) with
-multi-PHY USB controllers where some PHY instances lack repeaters.
-Config-specific, platform-specific.
-
-### Step 8.2: Trigger conditions
-**Record:** DT node for M31 eUSB2 PHY without `phys` property (or no
-connected repeater). Common on multi-port designs with unconnected
-ports. Triggered at every boot for affected boards.
-
-### Step 8.3: Failure mode / severity
-**Record:** PHY probe returns `-ENODEV` → USB controller probe may fail
-→ **USB completely non-functional** on affected ports/boards. Not a
-crash/UAF/security issue, but a **HIGH functional impact** for affected
-hardware. Severity: **HIGH** (hardware broken), not CRITICAL (no memory
-corruption/panic).
-
-### Step 8.4: Risk vs benefit
-**Record:**
-- **Benefit:** Enables USB on valid hardware configs; aligns driver with
-  DT binding; prevents cascading probe failure.
-- **Risk:** Very low — one line, reviewed, NULL-safe downstream via phy
-  core.
-- **Ratio:** High benefit for affected users, negligible risk.
+**Step 5.5 — Similar patterns**
+Record: `acpi_ns_get_pathname_length()` already validates descriptor
+type before calling `acpi_ns_build_normalized_path()`, but
+`acpi_ns_get_normalized_pathname()` does not — creating the gap this
+patch closes at the lowest common level.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 6: Cross-Reference Against Local Tree
 
-### Step 9.1: Evidence summary
+**Step 6.1 — Buggy code in tree?**
+Record: **YES**. Local tree is **Linux 6.18.44** (`git describe HEAD` →
+`v6.18.44`). Vulnerable code is present at lines 221–244 of
+`drivers/acpi/acpica/nsnames.c` without the descriptor-type check. Fix
+commit `96b2b616870e4` is **not** an ancestor of HEAD.
 
-**FOR backport:**
-- Real bug: mandatory repeater breaks probe when absent
-- Driver exists in 6.18.43
-- DT binding already marks `phys` optional
-- One-line, reviewed fix
-- Phy core handles NULL repeater safely
-- Prior m31-eusb2 fix already backported to this tree
-- Matches snps-eusb2 established pattern
+**Step 6.2 — Backport complications**
+Record: clean apply confirmed (`git apply --check` → CLEAN APPLY). No
+rework needed.
 
-**AGAINST backport:**
-- Very new, platform-specific driver (SM8750 only)
-- No syzbot/user bug report
-- Not a security/crash/data-corruption issue
-- No in-tree DTS examples yet for this PHY
-- Limited 6.18 stable user base for this hardware
+**Step 6.3 — Related fixes already present?**
+Record: no — `git log -S "Validate the Node to avoid use-after-free"`
+finds nothing in this tree; related patch 12/27
+(`acpi_ds_terminate_control_method` UAF fix) also absent.
 
-**Unresolved:** No production deployment data for SM8750 on 6.18.y
-(unverifiable).
+---
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — reviewed by PHY/ARM
-   maintainers; semantics verified against phy core.
-2. Fixes a real bug? **PASS** — probe failure on valid hardware configs.
-3. Important issue? **PASS** — USB controller/PHY probe failure renders
-   USB non-functional on affected boards.
-4. Small and contained? **PASS** — 1 line, 1 file.
-5. No new features/APIs? **PASS** — corrects driver to match existing
-   optional DT property.
-6. Can apply to local tree? **PASS** — driver and APIs present; clean
-   apply.
+## Phase 7: Subsystem and Maintainer Context
 
-### Step 9.3: Exception category
-**Record:** Hardware workaround / driver-DT mismatch fix (similar to
-quirk category). Not a new device ID, but fixes hardware enablement for
-existing driver.
+**Step 7.1 — Subsystem criticality**
+Record: **ACPI/ACPICA** — IMPORTANT to CORE. ACPI is on every x86/ARM
+server, laptop, and most embedded systems with firmware tables.
 
-### Step 9.4: Decision rationale
+**Step 7.2 — Activity**
+Record: ACPI subsystem actively maintained in this tree (recent NULL-
+deref and execution-abort fixes in `drivers/acpi/acpica/`).
 
-For **this 6.18.43 tree**, the driver is present and the bug is present.
-The fix is trivial, correct, and safe. While the audience is narrow
-(Qualcomm SM8750), the failure mode is complete USB probe failure on
-valid multi-port designs — exactly the kind of contained hardware-
-enablement fix stable trees accept when the driver already ships in that
-series. The DT binding never required `phys`; the driver was wrong from
-introduction.
+---
+
+## Phase 8: Impact and Risk Assessment
+
+**Step 8.1 — Who is affected**
+Record: all systems using in-kernel ACPICA for ACPI table parsing and
+AML method execution.
+
+**Step 8.2 — Trigger conditions**
+Record: malformed/crafted ACPI AML during table load or method
+termination with tracing enabled path; demonstrated with acpiexec +
+crafted AML. Requires specific ACPI content, but ACPI tables are
+firmware-supplied and occasionally attacker-influenced (e.g., custom
+DSDT injection in some environments).
+
+**Step 8.3 — Failure mode severity**
+Record: **heap use-after-free** → kernel oops/panic or potential
+information disclosure/exploitation primitive. Severity: **HIGH**.
+
+**Step 8.4 — Risk-benefit**
+Record:
+- Benefit: **HIGH** — prevents real UAF on ACPI parsing path
+- Risk: **VERY LOW** — 6-line defensive check, established ACPICA
+  pattern
+- Ratio: strongly favors backport
+
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1 — Evidence summary**
+
+FOR backport:
+- Confirmed heap UAF with ASAN report and reproducer (ACPICA #1138)
+- Affects ACPI table/method execution — common kernel path
+- Small, surgical, obviously correct fix
+- Matches existing validation patterns in same subsystem
+- Applies cleanly to Linux 6.18.44
+- Signed off by ACPI maintainer
+- Bug present since 2015 — long exposure window
+
+AGAINST backport:
+- Part of larger ACPICA import series (but this patch is standalone)
+- No explicit stable nomination in mailing list
+- Related root-cause fix exists separately in patch 12/27 (but this
+  defensive fix has independent value)
+
+UNRESOLVED: none material to the decision.
+
+**Step 9.2 — Stable rules checklist**
+1. Obviously correct and tested? **PASS** — ASAN-verified bug, standard
+   ACPICA validation pattern
+2. Fixes a real bug? **PASS** — confirmed heap UAF
+3. Important issue? **PASS** — memory safety during ACPI parsing
+   (crash/security)
+4. Small and contained? **PASS** — 6 lines, one function
+5. No new features/APIs? **PASS** — defensive validation only
+6. Can apply to local tree? **PASS** — clean apply verified
+
+**Step 9.3 — Exception category**
+Record: N/A (security/memory-safety bug fix, not a quirk/ID/DT
+exception).
+
+**Step 9.4 — Decision rationale**
+
+For **Linux 6.18.44**, this commit should be backported. The vulnerable
+`acpi_ns_build_normalized_path()` code exists in this tree, the fix is
+absent, and upstream has demonstrated a reproducible heap use-after-free
+on the ACPI AML parsing/teardown path that the kernel shares. The fix is
+minimal, follows established ACPICA conventions already used in sibling
+functions in the same file, and prevents dereferencing freed namespace
+nodes by validating the descriptor type before walking the parent chain.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit `dd085bf278421` message and all tags via
-  `git show`
-- **[Phase 1]** Confirmed no Reported-by/syzbot/Fixes:/Cc: stable tags
-- **[Phase 2]** Verified diff: 1 line in `m31eusb2_phy_probe()`
-- **[Phase 2]** Verified `phy_init(NULL)`, `phy_exit(NULL)`,
-  `phy_set_mode_ext(NULL)` return 0 in `drivers/phy/phy-
-  core.c:232,272,386`
-- **[Phase 2]** Verified `devm_phy_optional_get()` converts `-ENODEV` to
-  NULL in `phy-core.c:841-848`
-- **[Phase 2]** Verified `phy_get(dev, NULL)` uses index 0 via
-  `_of_phy_get()` in `phy-core.c:767-773`
-- **[Phase 3]** `git blame -L 288,291`: buggy code from `5d324e5159d9e`
-- **[Phase 3]** `git log --oneline -- drivers/phy/qualcomm/phy-
-  qcom-m31-eusb2.c`: driver history in 6.18.y
-- **[Phase 3]** `git merge-base --is-ancestor dd085bf278421 HEAD` →
-  NOT_IN_TREE
-- **[Phase 4]** `b4 dig -c dd085bf278421`: found v1/v2 lore threads
-- **[Phase 4]** `b4 dig -w`: confirmed maintainer CC list
-- **[Phase 4]** `b4 dig -m /tmp/m31-eusb2-repeater.mbox`: no stable
-  nomination, no NAKs
-- **[Phase 5]** Read `m31eusb2_phy_init/exit/set_mode` — all pass
-  `phy->repeater` to NULL-safe phy core APIs
-- **[Phase 5]** Compared with `phy-snps-eusb2.c:589` optional repeater
-  pattern
-- **[Phase 6]** `git describe HEAD` → v6.18.43; `Makefile` → 6.18.43
-- **[Phase 6]** Read current `phy-qcom-m31-eusb2.c` — buggy
-  `devm_of_phy_get_by_index` still present
-- **[Phase 6]** Read
-  `Documentation/devicetree/bindings/phy/qcom,m31-eusb2-phy.yaml` —
-  `phys` not in `required`
-- **[Phase 6]** `grep` for `sm8750-m31-eusb2` in `*.dts*` → no in-tree
-  DTS (driver/bindings only)
-- **[Phase 6]** Confirmed `CONFIG_PHY_QCOM_M31_EUSB` exists in
-  `drivers/phy/qualcomm/Kconfig`
-- **[Phase 6]** Confirmed prior stable backport `09e1c96594afb` (PLL_EN)
-  already in this tree
-- **[Phase 8]** Assessed failure mode as probe failure → USB non-
-  functional (not kernel crash)
+- [Phase 1] Parsed commit message and tags from `git show 96b2b616870e4`
+- [Phase 1] Fetched ACPICA upstream issue #1138 — ASAN UAF confirmed
+  with stack trace and reproducer
+- [Phase 2] Diff analysis: +6 lines adding `ACPI_GET_DESCRIPTOR_TYPE`
+  check before node walk
+- [Phase 2] Read current `nsnames.c` lines 193–270 in tree — vulnerable
+  code confirmed present
+- [Phase 3] `git blame -L 221,245`: buggy loop from `d1e7ffe50ba58`
+  (2015)
+- [Phase 3] `git merge-base --is-ancestor 96b2b616870e4 HEAD` → FIX NOT
+  IN TREE
+- [Phase 3] `git apply --check` on patch → CLEAN APPLY
+- [Phase 4] `b4 dig -c 96b2b616870e4` → lore URL found; patch 19/27 of
+  ACPICA series
+- [Phase 4] `b4 dig -w` → Rafael Wysocki, linux-acpi, LKML CC'd
+- [Phase 4] Downloaded mbox; grep found no Cc: stable; found related
+  patch 12/27
+- [Phase 5] `grep acpi_ns_get_normalized_pathname` — multiple kernel
+  callers including `extrace.c:284`
+- [Phase 5] Read `extrace.c` `acpi_ex_stop_trace_method()` and
+  `dsmethod.c:850` call site
+- [Phase 5] Confirmed `acpi_ns_get_pathname_length()` already validates
+  at line 58; `acpi_ns_get_normalized_pathname()` does not
+- [Phase 6] `git describe HEAD` → v6.18.44
+- [Phase 6] Confirmed validation check absent in current `nsnames.c`
+- [Phase 7] `git log --oneline -20 -- drivers/acpi/acpica/` — active
+  subsystem
+- [Phase 8] UAF severity assessed from ASAN report in issue #1138
 
-**YES**
+**YES**The analysis is complete for **ACPICA: Add validation for node in
+acpi_ns_build_normalized_path()** on **Linux 6.18.44**.
 
- drivers/phy/qualcomm/phy-qcom-m31-eusb2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+**Summary:** This is a small (6-line) fix for a confirmed heap use-
+after-free in ACPI pathname building. The vulnerable code is present in
+this tree; the fix is not. It applies cleanly and follows existing
+ACPICA validation patterns. Upstream demonstrated the bug with ASAN on
+the ACPI AML parse/teardown path (`acpi_ex_stop_trace_method` →
+`acpi_ns_get_normalized_pathname` → `acpi_ns_build_normalized_path`).
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c b/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
-index 9434bd22ef32d..275df38256de3 100644
---- a/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
-+++ b/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
-@@ -285,7 +285,7 @@ static int m31eusb2_phy_probe(struct platform_device *pdev)
+**Verdict for this tree: YES** — worth backporting as a memory-safety
+fix on a common ACPI path.
+
+ drivers/acpi/acpica/nsnames.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/acpi/acpica/nsnames.c b/drivers/acpi/acpica/nsnames.c
+index 22aeeeb56cffd..19802da865c54 100644
+--- a/drivers/acpi/acpica/nsnames.c
++++ b/drivers/acpi/acpica/nsnames.c
+@@ -222,6 +222,12 @@ acpi_ns_build_normalized_path(struct acpi_namespace_node *node,
+ 		goto build_trailing_null;
+ 	}
  
- 	phy_set_drvdata(phy->phy, phy);
- 
--	phy->repeater = devm_of_phy_get_by_index(dev, dev->of_node, 0);
-+	phy->repeater = devm_phy_optional_get(dev, NULL);
- 	if (IS_ERR(phy->repeater))
- 		return dev_err_probe(dev, PTR_ERR(phy->repeater),
- 				     "failed to get repeater\n");
++	/* Validate the Node to avoid use-after-free vulnerabilities */
++
++	if (ACPI_GET_DESCRIPTOR_TYPE(node) != ACPI_DESC_TYPE_NAMED) {
++		goto build_trailing_null;
++	}
++
+ 	next_node = node;
+ 	while (next_node && next_node != acpi_gbl_root_node) {
+ 		if (next_node != node) {
 -- 
 2.53.0
 
