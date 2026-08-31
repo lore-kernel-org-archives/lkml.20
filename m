@@ -1,455 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530F64A99CF;
-	Mon, 31 Aug 2026 13:46:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788BF5476E0
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:46:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183978; cv=none; b=glKpulZLDNSPifUvABDjk9Kmb6AYuDvOrO98BBjkw5YsZ6NBygAQfzQGyWi6JCUWdbrMlUcdk/qYJaxVOA3k0tDVHbZwVOZAsknhkdbbAlofzphvOaPIuzj3qhE3LXRq8VuGBuTmAOC/6Ekqf+Ke1dJeEy2CUprsG+1HcOlhwRk=
+	t=1788183981; cv=none; b=S7OXF+3cioiD7p30bKkVNHgWUnOlQfHfoEVBpUl8MuwUPQggaKZMSFO/0Mp+MM82We1KeGqVTKWqUaeoSPx/XLcfnBFmwagTmbCfiuiVB2zB7fiPeYLq/4JOOcKnmKxrF6pQOFI5Y80uTr5B3k/3MGfDGx+btMaQYC96lW1s52Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183978; c=relaxed/simple;
-	bh=EIxTSjY1a9DpIBHGBQ7WoZ038xzqtVxhhud28bdE+kc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tCNnCqPuuSylaG3ILQibNttVFa7k8J/ERuVDojED2Vf4jCpKtSkvRXFUVvBKk9Xq5jNt8c6LQSnCzdMuBJCd3JG5arSviV5xPo81xT8S8r/bcbPcwNeBKgmZJYFAS+LjlPbnfvdTQNyscrAaRsBX62RjG4CO4g69HUW3WqVTDa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iuQOydXp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788183981; c=relaxed/simple;
+	bh=4sOV2VNRFkq1pHeUz3nNi7RwZiKEAQIRADc2LFEX5Ds=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tbcj38EuoxYxc4gAIrtoPluiIrXsDOLP28th8Ef5ypVxKjFjfoHlB9HTi0/k0+JjGD2Kb25GJXhW5jGLCmvTwY/s9j2NxMOp+sWW42skthqsUtlbNKT+nmNxBKwLRV4shZx6pMmk/jXG7s8t3f92Bo++de/4tWn/kSjWFC2TVC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=EqyclMkN; arc=none smtp.client-ip=91.218.175.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iuQOydXp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CE281F00A3E;
-	Mon, 31 Aug 2026 13:46:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183975;
-	bh=VuuTfQsSlsnIRKrUr/mDOL2bAkwlXnRRMmPO/GFFYPA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iuQOydXpKQt7a1jrYnXvxz7aQoIBCAIFNAv8EO+fBl9su81MHY8w4LofBu/My120O
-	 HfxrnjWbBjI9EIMnOnAbhove+XB7itONKmPObfJ8BBqywYenmcucJkIlYPVTh/0z0A
-	 ps1dPvhLbgt3Owl/Pc24DurbtbBTtexTy9LRjri94Iw+AGgVCCxauPZA0qOLCCTw5p
-	 20KwhhSloo5K6hqhVASUKB35Mb4EJl9l/olv96/HlXBA4Qr8cFmkozXPAezRsJqnw4
-	 w5rg67QthsQRBYGHGuYJL5oF3jZtmzLZPd/iHKocBv6uL5OJjV7cCUos1poqzORyKs
-	 10sUmsRrufMyw==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Yousef Alhouseen <alhouseenyousef@gmail.com>,
-	Juergen Gross <jgross@suse.com>,
-	Sasha Levin <sashal@kernel.org>,
-	sstabellini@kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] xen/gntalloc: validate grant count before allocation
-Date: Mon, 31 Aug 2026 09:27:23 -0400
-Message-ID: <20260831133314.4125787-415-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="EqyclMkN"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4sOV2VNRFkq1pHeUz3nNi7RwZiKEAQIRADc2LFEX5Ds=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788183975; v=1; x=1788788775;
+ b=EqyclMkNvE9Fa7uGT/nt2t5AwVJEHpw8b0z/5USvlcfGljjFtbaUoPxRcXaU0b3Sd9H9s12q
+ lYieZwtGi1/2LVCwFEUIkcTGInIabFd2cvt8x1jWzlDJemuOm8cTFINny4j+hD/iZOXQ/GR/NQ+
+ KrWZ/IBlqruoKY0EhFIvU1V8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 294f638ff147a52c;
+	Mon, 31 Aug 2026 13:46:14 +0000
+X-Mizu-Trace-ID: 294f638ff147a52c
+X-Migadu-Flow: FLOW_OUT
+From: Troy Mitchell <troy.mitchell@linux.dev>
+Subject: [PATCH v4 0/6] hwmon: (lm63) Add Sensylink CTF2301 support
+Date: Mon, 31 Aug 2026 21:45:34 +0800
+Message-Id: <20260831-ctl2301-v4-0-b335d52a0570@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XMTQ6CMBCG4auQrq2ZTgutrryHcUH/pAkBU7DBE
+ O5uITEYXX6Ted6ZDC4GN5BzMZPoUhhC3+UhDgUxTd3dHQ02b4KAJZxYRc3YIgdGQbBKg+QGFZD
+ 8/YjOh2krXW95N2EY+/jawomt1/9Gyhl6kk4aJTwaIS9t6J7T0bpE1kbCj6tAItsdZud86TUXq
+ CTWv47vTkG5O56dt0Ir73WpwX67ZVneqfBtoQ4BAAA=
+X-Change-ID: 20250916-ctl2301-0416b073c280
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ linux-doc@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Jean Delvare <jdelvare@suse.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6578;
+ i=troy.mitchell@linux.dev; h=from:subject:message-id;
+ bh=4sOV2VNRFkq1pHeUz3nNi7RwZiKEAQIRADc2LFEX5Ds=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFlTW2cYFpzX0tfRznow51Twh5mdVrGms5u4l+i9lw5XW
+ 7jJgHt1RykLgxgXg6yYIkv3A55tBT5RtgUChb4wc1iZQIYwcHEKwETi1zD80987WdjR6uSUAs+Q
+ NocN7y42ntDW+Cj9w6ks6+mjM+zmagz/zHcwSU/ydDa1NM+d+72umOP3PcXt62JfVf7uUI/j9n3
+ PBAA=
+X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Sensylink CTF2301 is a system-level thermal management solution chip.
 
-[ Upstream commit 2299822f3f466b5dcad2377bf63986199f881a6b ]
+The CTF2301 is an I2C/SMBus compatible device featuring:
+  - One local temperature sensor with +/-0.5 degree C accuracy and
+    0.0625 degree C resolution.
+  - One remote temperature sensor for external diode-connected
+    transistors, offering +/-1 degree C accuracy and 0.125 degree C
+    resolution (temperature range: -40 degree C to +125 degree C).
+  - An integrated PWM fan controller capable of operating in two modes:
+      1. Direct-DCY: Open-loop direct duty cycle control.
+      2. Auto-Temp: Closed-loop automatic fan speed control based on
+         measured temperature.
+  - A 1-channel fan speed monitor (TACH input) for RPM measurement.
 
-gntalloc_ioctl_alloc() allocates the grant-id array before checking
-whether the requested count fits within the global grant limit. Counts
-above that limit cannot succeed, so reject them before the
-user-controlled allocation reaches kcalloc().
+As Guenter pointed out on v1, the CTF2301 register map is a near match
+for the LM63/LM96163 family (local and remote temperature, tachometer and
+PWM fan control), so this version drops the standalone ctf2301 driver
+and instead adds CTF2301 as a new chip type in the existing lm63 driver.
+This reuses the shared temperature, limit, alarm and PWM handling instead
+of duplicating it.
 
-Use a subtraction-based check while holding gref_mutex so adding the
-requested count cannot wrap. Also cast the count before advancing the
-per-file index so the page-size multiplication is performed in 64-bit
-arithmetic.
+The CTF2301-specific differences are handled on top of lm63: 12-bit local
+temperature input and high-limit values, nine conversion rates, 12
+fan-control lookup table entries, and optional 22.5 kHz high-resolution
+PWM. When no IRQ is described, the shared ALERT/TACH pin is configured as
+a tachometer input. The LM63 family can also register as a thermal cooling
+device when the device tree provides the #cooling-cells property.
 
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20260626223805.43781-3-alhouseenyousef@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Tested on a SpacemiT K3 CoM260 by booting an initramfs and verifying the
+CTF2301 probe. Temperature, tachometer, PWM, and conversion-rate behavior
+were checked against direct I2C register accesses and the datasheet.
+
+Datasheet:
+https://www.sensylink.com/upload/1/net.sensylink.portal/1689557281035.pdf
+
+Register description:
+https://github.com/TroyMitchell911/ctf2301-datasheet
+
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
 ---
+Changes in v4:
+- Rebase onto v7.3-rc1, which includes the SpacemiT I2C timing
+  prerequisite, and remove the obsolete dependency note.
+- Do not add the SENSORS_LM63 THERMAL dependency suggested on v3 because
+  CONFIG_THERMAL is boolean and v7.3-rc1 removes such tautological
+  expressions.
+- Preserve the upstream five-bit PWM frequency multiplier mask in the
+  LM63 initialization error-handling path.
+- Sort the chip type enum and remove redundant CTF2301 8-bit local
+  temperature cache updates.
+- Serialize CTF2301 12-bit local temperature cache reads.
+- Keep PWM configuration caches synchronized after partial I2C write
+  failures.
+- Override the CoM260 I2C6 pin configuration through &i2c6_1_cfg,
+  as suggested by Yixun.
+- Add Krzysztof's Acked-by and Reviewed-by tags.
+- Link to v3: https://patch.msgid.link/20260805-ctl2301-v3-0-fd4b8ffb5b0d@linux.dev
 
-LLM Generated explanations, may be completely bogus:
+Changes in v3:
+- Add the Sensylink website link to the vendor-prefix commit.
+- Preserve the optional interrupt from the trivial-devices binding.
+- Explain in the commit message of patch 3/6 why CTF2301 cannot use
+  national,lm63 as a fallback compatible.
+- Check both bytes of CTF2301 local temperature values before caching them.
+- Use the schema-valid 25 mA drive strength for the K3 I2C6 pins.
+- Link to v2: https://patch.msgid.link/20260721-ctl2301-v2-0-ef5fb342872a@linux.dev
 
-## Phase 1: Commit Message Forensics
+Changes in v2:
+- Replace the standalone CTF2301 driver with a new lm63 chip type, as
+  suggested by Guenter, reusing the existing temperature, limit, alarm,
+  tachometer, PWM, and automatic fan-control paths.
+- Add the temperature thresholds, alarms, and automatic fan-control lookup
+  table support which were missing from the v1 driver.
+- Handle CTF2301-specific 12-bit local temperature values, nine conversion
+  rates, 12 lookup table entries, shared ALERT/TACH pin, and optional
+  22.5 kHz high-resolution PWM.
+- Propagate SMBus failures from lm63 initialization and write paths.
+- Add optional thermal cooling-device support for the LM63 family using
+  the existing manual PWM control path.
+- Move the National LM63-family compatibles from trivial-devices.yaml to a
+  dedicated binding which permits #cooling-cells.
+- Add CTF2301 to the LM63-family binding instead of keeping the standalone
+  schema from v1. Do not declare #cooling-cells on K3 CoM260 yet because
+  the board has no thermal consumer.
+- Fix the binding errors reported by Rob by using a plain compatible string
+  and wrapping the description.
+- Document CTF2301 support in the lm63 hwmon documentation and provide the
+  detailed register description used for review.
+- Add the K3 CoM260 I2C6 pinctrl state and CTF2301 device node for hardware
+  testing.
+- Link to v1: https://lore.kernel.org/r/20250916-ctl2301-v1-0-97e7c84f2c47@linux.dev
 
-**Step 1.1 — Subject line**
-Record: `[xen/gntalloc] [validate] validate grant count before
-allocation` — ioctl input validation and overflow-safety fix in the Xen
-grant allocator.
-
-**Step 1.2 — Tags**
-Record:
-- `Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>` (author)
-- `Reviewed-by: Juergen Gross <jgross@suse.com>` (Xen maintainer —
-  strong quality signal)
-- `Signed-off-by: Juergen Gross <jgross@suse.com>`
-- `Message-ID: <20260626223805.43781-3-alhouseenyousef@gmail.com>`
-  (patch 2/2 of v2 series)
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`, or
-  `Tested-by:` tags
-
-**Step 1.3 — Body analysis**
-Record:
-- **Bug:** `gntalloc_ioctl_alloc()` calls `kcalloc(op.count, ...)`
-  before verifying `op.count` against the global grant limit.
-- **Symptom:** User-controlled counts above the limit still reach kernel
-  allocation; limit enforcement uses addition with mixed signed/unsigned
-  types that can wrap; `priv->index` advance uses 32-bit multiply.
-- **Failure modes:** Unnecessary kernel allocations (memory
-  pressure/DoS), potential limit-check bypass via wrap, corrupted per-
-  file mmap index.
-- **Root cause:** Validation ordering and unsafe arithmetic on user-
-  supplied `op.count` (`__u32`).
-
-**Step 1.4 — Hidden bug fix?**
-Record: **Yes.** Although the subject says "validate," this is a real
-bug fix: premature allocation, integer-overflow-prone limit check, and
-32-bit multiply before 64-bit assignment.
-
----
-
-## Phase 2: Diff Analysis
-
-**Step 2.1 — Inventory**
-Record:
-- 1 file: `drivers/xen/gntalloc.c` (+11 / -2 net)
-- Function modified: `gntalloc_ioctl_alloc()`
-- Scope: single-file, surgical ioctl-path fix
-
-**Step 2.2 — Code flow per hunk**
-
-| Hunk | Before | After |
-|------|--------|-------|
-| Early check | `kcalloc()` immediately after `copy_from_user()` |
-Snapshot `limit` with `READ_ONCE()`, reject `op.count > limit` with
-`-ENOSPC` before any allocation |
-| Locked limit check | `gref_size + op.count > limit` | Subtraction:
-`gref_size > limit_snapshot \|\| op.count > limit_snapshot - gref_size`
-under `gref_mutex` |
-| Index advance | `priv->index += op.count * PAGE_SIZE` (32-bit
-multiply) | `priv->index += (uint64_t)op.count * PAGE_SIZE` |
-
-Record: Normal ioctl path and error paths affected; early rejection
-avoids `kcalloc`/`kfree` on doomed requests.
-
-**Step 2.3 — Bug mechanism**
-Record:
-- **Category:** Input validation + integer overflow / type-safety
-- **Mechanism 1:** User `count` drives `kcalloc()` before limit
-  enforcement → kmem pressure DoS on `/dev/xen/gntalloc`
-- **Mechanism 2:** `gref_size + op.count > limit` mixes `int` counters
-  with `uint32_t` count; addition can wrap, potentially bypassing limit
-  and reaching `add_grefs()`'s `for (i = 0; i < op->count; i++)` loop
-- **Mechanism 3:** `op.count * PAGE_SIZE` computed in 32-bit arithmetic
-  before widening to `uint64_t priv->index`
-
-**Step 2.4 — Fix quality**
-Record: Minimal, obviously correct, no API changes. Early check is
-cheap. Subtraction check is standard overflow-safe idiom.
-`READ_ONCE(limit)` snapshots admin-tunable limit. Regression risk:
-**low** — only tightens validation; legitimate allocations within limit
-unchanged.
-
----
-
-## Phase 3: Git History Investigation
-
-**Step 3.1 — Blame**
-Record: Buggy lines in `gntalloc_ioctl_alloc()` trace to `5d324e5159d9e`
-in this shallow checkout (file unchanged since tree root). The ioctl
-allocation pattern is long-standing driver code, not a recent
-regression.
-
-**Step 3.2 — Fixes: tag**
-Record: Not applicable — no `Fixes:` tag present.
-
-**Step 3.3 — Related file history**
-Record: Shallow tree shows only merge commit touching
-`drivers/xen/gntalloc.c`. IOCTL path with `kcalloc`-before-limit pattern
-is present at HEAD.
-
-**Step 3.4 — Author context**
-Record: Yousef Alhouseen submitted the v2 series. Juergen Gross (active
-Xen maintainer; recent xen commits in tree include `xen/privcmd`
-security fixes) reviewed and signed off.
-
-**Step 3.5 — Dependencies**
-Record: **Series dependency identified.** Cover letter ([openwall v2
-0/2](https://lists.openwall.net/linux-kernel/2026/06/26/2112)) states
-patch 1/2 (`xen/gntalloc: make grant counters unsigned`) is a
-prerequisite for overflow-safe unsigned arithmetic. **This commit (2/2)
-applies cleanly standalone** to the current tree (`git apply --check`
-succeeded). Patch 1/2 is a 3-line companion change (`int` → `unsigned
-int` for `limit`/`gref_size`, `module_param(limit, uint, ...)`). Not a
-hard blocker for backporting this patch, but both should ideally ship
-together for a complete fix.
-
----
-
-## Phase 4: Mailing List and External Research
-
-**Step 4.1 — Original discussion**
-Record: `b4 dig -c <sha>` unavailable (commit not in local tree). Found
-via openwall:
-- Cover: https://lists.openwall.net/linux-kernel/2026/06/26/2112
-- Patch 1/2: https://lists.openwall.net/linux-kernel/2026/06/26/2113
-- Patch 2/2 (this commit): https://lists.openwall.net/linux-
-  kernel/2026/06/26/2114
-- v2 split unsigned-type changes into prerequisite per maintainer
-  feedback
-
-**Step 4.2 — Reviewers**
-Record: To: Juergen Gross, Stefano Stabellini, Oleksandr Tyshchenko; Cc:
-xen-devel, linux-kernel. Juergen Gross reviewed.
-
-**Step 4.3 — Bug report**
-Record: No external bug report or syzbot link. Issue identified by code
-review / proactive hardening.
-
-**Step 4.4 — Series context**
-Record: 2-patch v2 series, same file. Patch 1 prepares unsigned
-counters; patch 2 adds validation. Both are small and complementary.
-
-**Step 4.5 — Stable list**
-Record: No stable-list discussion found. lore.kernel.org returned 403
-(bot protection); openwall used instead.
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+To: Paul Walmsley <pjw@kernel.org>
+To: Palmer Dabbelt <palmer@dabbelt.com>
+To: Albert Ou <aou@eecs.berkeley.edu>
+To: Alexandre Ghiti <alex@ghiti.fr>
+To: Yixun Lan <dlan@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-hwmon@vger.kernel.org
+Cc: linux-riscv@lists.infradead.org
+Cc: spacemit@lists.linux.dev
+Cc: linux-doc@vger.kernel.org
 
 ---
+Troy Mitchell (6):
+      dt-bindings: vendor-prefixes: Add Sensylink
+      dt-bindings: hwmon: Move LM63 family to a dedicated binding
+      dt-bindings: hwmon: Add Sensylink CTF2301
+      hwmon: (lm63) Add Sensylink CTF2301 support
+      riscv: dts: spacemit: Add K3 I2C6 pinctrl state
+      riscv: dts: spacemit: Add CTF2301 on K3 CoM260
 
-## Phase 5: Code Semantic Analysis
-
-**Step 5.1 — Key functions**
-Record: `gntalloc_ioctl_alloc()` (modified); related: `add_grefs()`,
-`do_cleanup()`.
-
-**Step 5.2 — Callers**
-Record: `gntalloc_ioctl()` → `case IOCTL_GNTALLOC_ALLOC_GREF` →
-`gntalloc_ioctl_alloc()`. Reachable from userspace via `ioctl()` on
-`/dev/xen/gntalloc` (`miscdevice`, name `"xen/gntalloc"`).
-
-**Step 5.3 — Callees**
-Record: `copy_from_user`, `kcalloc`, `mutex_lock/unlock`, `do_cleanup`,
-`add_grefs` (allocates pages, grants foreign access in a loop over
-`op->count`), `copy_to_user`, `kfree`.
-
-**Step 5.4 — Reachability**
-Record: Userspace ioctl on Xen systems with
-`CONFIG_XEN_GRANT_DEV_ALLOC`. Kconfig: "Allows userspace processes to
-create pages with access granted to other domains." Impact surface: Xen
-dom0 / Xen PV frontends using grant allocation — not universal, but
-ioctl is explicitly user-facing.
-
-**Step 5.5 — Similar patterns**
-Record: No other instances of this exact bug pattern in `gntalloc.c`.
-The `add_grefs()` loop makes a bypassed limit check especially dangerous
-(unbounded iteration + per-page allocations).
-
+ .../devicetree/bindings/hwmon/national,lm63.yaml   |  55 +++
+ .../devicetree/bindings/trivial-devices.yaml       |   6 -
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ Documentation/hwmon/lm63.rst                       |  22 ++
+ arch/riscv/boot/dts/spacemit/k3-com260.dtsi        |  17 +
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi       |  11 +
+ drivers/hwmon/Kconfig                              |   8 +-
+ drivers/hwmon/lm63.c                               | 426 +++++++++++++++++----
+ 8 files changed, 462 insertions(+), 85 deletions(-)
 ---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20250916-ctl2301-0416b073c280
 
-## Phase 6: Cross-Reference Against Local Tree (6.18.44)
-
-**Step 6.1 — Buggy code present?**
-Record: **Yes.** Local tree is `v6.18.44-1-g2736c32da98b9` / `6.18.44`.
-At HEAD, `gntalloc_ioctl_alloc()` still does `kcalloc()` before limit
-check, uses `gref_size + op.count > limit`, and `priv->index += op.count
-* PAGE_SIZE`. `limit`/`gref_size` are `static int`.
-
-**Step 6.2 — Backport complications**
-Record: **Clean apply** — `git apply --check` on the provided diff
-succeeded with no conflicts.
-
-**Step 6.3 — Related fixes already present?**
-Record: No — `git log --grep="gntalloc"` and `--grep="validate grant
-count"` returned nothing. Fix not yet in this tree.
-
----
-
-## Phase 7: Subsystem and Maintainer Context
-
-**Step 7.1 — Subsystem**
-Record: `drivers/xen/` — Xen grant-table userspace interface.
-Criticality: **IMPORTANT** for Xen deployments (dom0, paravirt
-frontends); **PERIPHERAL** relative to all Linux users.
-
-**Step 7.2 — Activity**
-Record: Xen subsystem actively maintained; recent security fixes in
-related xen drivers (`privcmd`, `sys-hypervisor`) in this tree.
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-**Step 8.1 — Who is affected**
-Record: Xen systems with `CONFIG_XEN_GRANT_DEV_ALLOC` (default `m`),
-users/processes that can open `/dev/xen/gntalloc` and issue
-`IOCTL_GNTALLOC_ALLOC_GREF`.
-
-**Step 8.2 — Trigger conditions**
-Record:
-- **Common:** `op.count > limit` (default 1024) → unnecessary `kcalloc`
-  before `-ENOSPC`; repeatable for memory pressure
-- **Less common:** Large `limit` module parameter + crafted counts →
-  addition wrap bypassing limit → massive `add_grefs()` loop
-- **Less common:** Large `op.count` with raised limit → 32-bit `op.count
-  * PAGE_SIZE` wrap corrupting `priv->index`
-- Unprivileged users need device access; still a valid hardening for any
-  caller with ioctl access
-
-**Step 8.3 — Failure severity**
-Record:
-- Memory pressure / DoS from premature allocations: **MEDIUM-HIGH**
-- Limit bypass → huge grant allocation loop: **CRITICAL** (hang/OOM) if
-  triggerable
-- Index corruption: **HIGH** (broken mmap offsets / grant bookkeeping)
-- Overall: **HIGH** for affected Xen configurations
-
-**Step 8.4 — Risk vs benefit**
-Record:
-- **Benefit:** HIGH for Xen users — closes validation gap on user-facing
-  ioctl
-- **Risk:** LOW — 11 lines, no behavior change for valid requests within
-  limit
-- **Ratio:** Strong benefit, low risk
-
----
-
-## Phase 9: Final Synthesis
-
-**Step 9.1 — Evidence summary**
-
-**FOR backport:**
-- Fixes real bugs (premature user-sized allocation, overflow-prone limit
-  check, 32-bit multiply)
-- Small, surgical, maintainer-reviewed
-- Applies cleanly to 6.18.44
-- Buggy code confirmed present in this tree
-- User-facing ioctl path on Xen systems
-- Companion patch 1/2 is tiny and should accompany for complete
-  unsigned-counter hardening
-
-**AGAINST backport:**
-- Xen-specific; not all stable users run Xen
-- No syzbot/user crash report (proactive fix)
-- Ideally paired with patch 1/2 for full unsigned arithmetic story
-  (minor concern, not a blocker)
-
-**Unresolved:** Whether reviewers explicitly nominated for stable (no
-thread replies fetched beyond cover/patch text).
-
-**Step 9.2 — Stable rules checklist**
-1. Obviously correct and tested? **PASS** — logic is straightforward;
-   reviewed by Juergen Gross; no `Tested-by`
-2. Fixes real bug affecting users? **PASS** — ioctl validation /
-   overflow issues on Xen grant allocator
-3. Important issue? **PASS** — DoS, potential limit bypass, index
-   corruption (HIGH severity on Xen)
-4. Small and contained? **PASS** — 1 file, ~13 lines changed
-5. No new features/APIs? **PASS** — validation only
-6. Can apply to local tree? **PASS** — verified clean apply
-
-**Step 9.3 — Exception category**
-Record: None (standard bug fix, not device ID/quirk/docs/build).
-
-**Step 9.4 — Decision rationale**
-This commit should be backported to the local **6.18.44** stable tree.
-The buggy ioctl ordering and arithmetic are present, the fix is minimal
-and maintainer-reviewed, and the failure modes (kmem pressure, limit
-bypass, index corruption) are meaningful on Xen systems. Backport patch
-1/2 (`make grant counters unsigned`) alongside this commit for the
-complete v2 series.
-
----
-
-## Verification
-
-- [Phase 1] Parsed subject, tags, body from provided commit message
-- [Phase 1] Identified patch as 2/2 via Message-ID `43781-3`
-- [Phase 2] Read current `gntalloc_ioctl_alloc()` at HEAD — confirmed
-  buggy ordering
-- [Phase 2] Verified `limit`/`gref_size` are `static int`, `op.count` is
-  `__u32`, `priv->index` is `uint64_t`
-- [Phase 2] Verified `kcalloc` uses `check_mul_overflow` in
-  `include/linux/slab.h`
-- [Phase 3] `git blame -L 283,302 drivers/xen/gntalloc.c` — lines from
-  `5d324e5159d9e`
-- [Phase 3] `git log --oneline -20 -- drivers/xen/gntalloc.c` — shallow
-  history
-- [Phase 3] `git log --grep` for gntalloc/validate — no existing fix in
-  tree
-- [Phase 4] `b4 dig -c 3218686be45b8` — no result (commit not in tree)
-- [Phase 4] Fetched openwall cover + patches 1/2 and 2/2 — confirmed v2
-  series and prerequisite note
-- [Phase 4] lore.kernel.org — 403 Forbidden (unverified for reviewer
-  stable nominations)
-- [Phase 5] Traced call chain: `gntalloc_ioctl` → `gntalloc_ioctl_alloc`
-- [Phase 5] Confirmed miscdevice `"xen/gntalloc"` registration
-- [Phase 5] Read `add_grefs()` — loops `op->count` times with page alloc
-  + grant setup
-- [Phase 6] `git describe HEAD` → `v6.18.44-1-g2736c32da98b9`; `make
-  kernelversion` → `6.18.44`
-- [Phase 6] `git apply --check` on provided diff — **clean apply**
-- [Phase 6] Confirmed pre-fix code via `git show
-  HEAD:drivers/xen/gntalloc.c`
-- [Phase 7] Read `drivers/xen/Kconfig` `XEN_GRANT_DEV_ALLOC` —
-  userspace-facing, default `m`
-- [Phase 8] Assessed severity from code paths (not from unverified crash
-  reports)
-
-**YES**
-
- drivers/xen/gntalloc.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/xen/gntalloc.c b/drivers/xen/gntalloc.c
-index f93f73ecefeee..462f67dc32751 100644
---- a/drivers/xen/gntalloc.c
-+++ b/drivers/xen/gntalloc.c
-@@ -272,6 +272,7 @@ static long gntalloc_ioctl_alloc(struct gntalloc_file_private_data *priv,
- 	int rc = 0;
- 	struct ioctl_gntalloc_alloc_gref op;
- 	uint32_t *gref_ids;
-+	unsigned int limit_snapshot;
- 
- 	pr_debug("%s: priv %p\n", __func__, priv);
- 
-@@ -280,6 +281,12 @@ static long gntalloc_ioctl_alloc(struct gntalloc_file_private_data *priv,
- 		goto out;
- 	}
- 
-+	limit_snapshot = READ_ONCE(limit);
-+	if (op.count > limit_snapshot) {
-+		rc = -ENOSPC;
-+		goto out;
-+	}
-+
- 	gref_ids = kcalloc(op.count, sizeof(gref_ids[0]), GFP_KERNEL);
- 	if (!gref_ids) {
- 		rc = -ENOMEM;
-@@ -292,14 +299,16 @@ static long gntalloc_ioctl_alloc(struct gntalloc_file_private_data *priv,
- 	 * are about to enforce, removing them here is a good idea.
- 	 */
- 	do_cleanup();
--	if (gref_size + op.count > limit) {
-+	limit_snapshot = READ_ONCE(limit);
-+	if (gref_size > limit_snapshot ||
-+	    op.count > limit_snapshot - gref_size) {
- 		mutex_unlock(&gref_mutex);
- 		rc = -ENOSPC;
- 		goto out_free;
- 	}
- 	gref_size += op.count;
- 	op.index = priv->index;
--	priv->index += op.count * PAGE_SIZE;
-+	priv->index += (uint64_t)op.count * PAGE_SIZE;
- 	mutex_unlock(&gref_mutex);
- 
- 	rc = add_grefs(&op, gref_ids, priv);
--- 
-2.53.0
+Best regards,
+--  
+Troy Mitchell <troy.mitchell@linux.dev>
 
