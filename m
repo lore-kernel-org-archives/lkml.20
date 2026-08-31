@@ -1,94 +1,90 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FF14FDE59
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 180AD4FB9A5
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188418; cv=none; b=V77voDFEubi8G5JVr9jmh7wZxZUFh2n+H4rUcq+hJtTjwnTF8UOIip9iePPF/2zMHHIpRR+QnDgxP/3ZJzeiereAK4zgcnPLk+YAuC8uautE7fdF9i3AzRzNF7KeH4q9kN6qCI/adYZ3LLA6zwX4X8IFPdAmyzVRwpYBBaC59Io=
+	t=1788188419; cv=none; b=Mw808pis7HtjDHQbkwXInmRJX7hJFPUgeUxXYo2fXp5U8k1M2uuQvlg9gNTEP8twtjexcCqyC7QnqesLQlkb58xp83qd8O6dtAsXu6bSsXS0ftp8YbbZ/+9KCE5YUEnRFxALqM6lY6CHpNxOWD4OIGQMOHVzLVgBtQYxFvQTanU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188418; c=relaxed/simple;
-	bh=KiBkyFbM+oUoQC7uZGJjadYNV50bpOhuhbA2S53q2Z0=;
+	s=arc-20240116; t=1788188419; c=relaxed/simple;
+	bh=mBguI3lxWh98IPKMLMiJfZb8ZI8JMn8qUfhfKB7O+cg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eutfIUnMXEI747KoallLuiXhk9oE9RKaOgtSAghdXxHW++jCExIpoNUPvK+RDmQCiOGsF86ElYCDq8E/bIqWEaz1MJCQhLLeh3K1Y1ynkPGa2S60wI8HsuVvGO8dD6YaAilvUDe2Z31UzXxV5eAntd2nIBugYhHVIf9o9Zl4CvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FYpHZc3c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zyw2hKMD; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 MIME-Version; b=CKEP8Ompe3Attsmt27F/EaeZCxn/5L+ATYhUgGgnYxm3suP3Jb0yNZ7IbZSaT4yBUrn8w9uykSY2u0PynQp0D6pcpy2rRp+Tw0odTfHWDpVl90V8rFExkExzmeqgSpU+ZIfuzsrnX/jJgmx5dSbKDk7t1NPBQnQvS2KhmB8APCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=boAMSZEm; arc=none smtp.client-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FYpHZc3c";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zyw2hKMD"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VETbec4049766
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=PUy1Ahq33tP
-	rFwLZFHXp5jDvTROASK+cDxI2gHSvBWE=; b=FYpHZc3cCM72E3+XZmksRbmc9/Y
-	Y/JbWcmIM7mJIbW6570Doq8DLaazi1zvFxgFtg52INa45kGJflDERYZmA/p1MfxP
-	CDpzMDl37f81WkDNjjDwGYeDRAZSkLO4gJdeyX2x2kQoWh0ZzPV+EWYJSxwOSBOC
-	DcQIHq+65cc4FvV7VvcRaEgYh2vup0xTYIb9XyGcaVc2e2VbO0Y5ErqRXfNiSHy0
-	x7rjQpUFSA0RKfl1TTyBQpWHQXUF89blhiVX8xShmGaHW3+Mwh0fX0DnxaJahpYC
-	3FYfOA+Kepzfzdh2Yw5S+2SiRen68mHov2Nar4KK8dquUhqJTlbBt8HMtSQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6jghg0n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:15 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-936e393061dso398189685a.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="boAMSZEm"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8615bb9d857so9482257b3.2
         for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:00:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788188415; x=1788793215; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788188415; x=1788793215; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PUy1Ahq33tPrFwLZFHXp5jDvTROASK+cDxI2gHSvBWE=;
-        b=Zyw2hKMDH0ulqLr2OxpCxZysI4gKMbnxctuqeALzj45Vk2T9CD4znbRyKdCfxGJt4J
-         xA/bz/5M0jhYs9UdCaTr7RRssMRY4wiU0YEPWx28iVMD9K7UTk30DULCICiQkpnarLl2
-         SOhGed5CxlcV0wXtMYw6lxxQHqiEmVf8VfwpjZQqVOE6RZPeNmr8z4rgfLShn59GBKHL
-         ECJ+JbJvZMWKqiSGv/0yfNoBBEmvaeRh67lPi2o2Aiq/vdWpTYc1u4tOeVhRdkaCjYus
-         ziF1YEPq/7hxweoX0O2Sc09eAaW1Btn0Pv1dVPqFQqifl/zyxxeSHh0o8tN4xX+6KOq9
-         7Bpg==
+        bh=JNBFYVAoUCaDrX6UYDOJH0oSYKJlB1jRjXPAi4Ru5wU=;
+        b=boAMSZEmx4LSTuyQmyphqrdYrGkYSrIsuhsKPapEWUX8A1aWzZb6VtRH2JNee6KamT
+         PSBqtY+VDNfHLY8h7vGc9D5Z4HAxsxatcfpo4AsNj50e6YMnQlhsq7bKrADZ6rZU0Rc3
+         Zyei8la9BngfC7/JVNBIX9zTktXanfVGcZZIB3tNZ9cn4/h1/pb1CPPmTo2OOu/wUfVt
+         Fec3+Cca/eFaGV6Y9D4Bo3UEgJGaoQjVwCKywHr80LsNQhzbQ3DxAIS+oQFzGhmsecpZ
+         laDie4g6FXjuw7g19AjZyXfj/kWWdbZdA47JFlENLWq+yBC3EOoDgdrQ0JDN6QBNSt1e
+         qYEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788188415; x=1788793215;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PUy1Ahq33tPrFwLZFHXp5jDvTROASK+cDxI2gHSvBWE=;
-        b=Lt4hYTKHkE9spbjkpHqDCBKycuFbARxTSncMilNy0UjIgDr6jdVgOhpTuj6LGo0tTi
-         vALg6i9VOQDyTj/rayb0pr8asoZ2vtaqrTFD+sdmiCF+zrcgyrAQ07RJGukvhUkrUXrn
-         6RLDJPe3bys213/40HlJ2LRe8pU3qp4N7eaQMR/pGPldUQcDSCzuS23EHLqnMihrzXIv
-         hYs8XrD+a514YUs+EmrE5eKDDQcYP4vWZkylADWib/t9ZXxuDiL5rBaokQEX+Jhb7Qmw
-         G3RoJdPNu3BuRFMov7YOA1sXRAjKSa++iaE+b+oeO+RMEogjE7PZpfA93LEaL44NTH7J
-         COog==
-X-Gm-Message-State: AFuF++lH6K3APwOvIsqPi/bfb98UqA6HQxX4DHfWf0qc8RBbVuJKVa+9
-	CEe6Ciu599Qd9KDvYJABJzx93y8N/07+Rq8odBVYidaLHDk8TkiFLbR8gG7Ez6KTt9f9ojeMt+I
-	KqXaoWHjZvejIumbh38CAF9/Rpjclv8EG/snlyV3Xmo9iezH9KxuU/SLzjDbQl+nswCg=
-X-Gm-Gg: AR+sD11Rh5ZE8e5JiKeY4pPgSd11enPuyFPNyDX0sts7l6O9aVd1emJcFrXasMqgksb
-	sqNMrEc0/X/3UZ/xZhpd73QLRXoUkcYkFllS4BD+fYoy0MjAL6Siqy9MUlct+8wxXWcLIjkXivr
-	DItf/zwTMbdEIbx3hhCne1O8+iS8IB9xAhGH1GCF87QdbijUrxfF1RkicbcQWuPbR9vCjFQFmIW
-	4LTvwTD5ETZDvPQnreLNBxwYJa2GbRYSHxBS4PMOJUUBaxQ11SyEWdF6h4lhrvXa7o8ctmjoHfn
-	ll/WZuE+GjBNJbNqpNEKUV335sTFAhq7p/dzRlLj4MVyEaHrGi0Wee15NsY1BeC+VvGhObx83WQ
-	WLpVJ218S+Nt3nixeUlvS3DUmHlHAgqVI6l0=
-X-Received: by 2002:a05:620a:3188:b0:939:4a44:5f99 with SMTP id af79cd13be357-9394a446245mr25535485a.10.1788188414848;
+        bh=JNBFYVAoUCaDrX6UYDOJH0oSYKJlB1jRjXPAi4Ru5wU=;
+        b=hmrvgCKasQntpPZYGjA9OOXLV2Ams3uwb2i6lAupZh/buNfkJPH4cP3KUmydqZXlps
+         IqE9Eml5bg9TES+A1+3859BfNDQUhYaepZ6RO/zsLgCEMeZNbRUBxrfg7xVwNJAoKcaG
+         CaKhew1tK4UaxNfGyiU1TGYCHnJuhqPVYq5IaPi7ozQoxEgFpo4/EIee7MDoDHYW8DjG
+         K7hQPGIqSiEclJMqZh0MCa+paHRbOKuokIMEqVHNJpFC4Q9Vf6/3U5ZOnVVprgwe9Vqk
+         DXm5KXa6CBWMg8hpjhTUq8fKRz9xayOddtyqJ0BLx3rwwhyDREXE0hwCdQOEDVIZcdz3
+         /cLw==
+X-Forwarded-Encrypted: i=1; AKwUvBydu4WY9r2S9rfbjDoM/6zNfN3bgCQgnZLwCREC6AdVttvivHalWCxPzS4//H1yPP0JwdcNwcQHP2Dv/qI=@vger.kernel.org
+X-Gm-Message-State: AFuF++msw9hWdJcbrcRN9P+3USYolnelgWc5iHRVe82WOAg3g45zkLFy
+	aQWXu4W5W2Z5AZ0HKeRZIAl1j7PsJfpJkUF/ORjyzf9t/fkJoVDc9gyq
+X-Gm-Gg: AYBFou0bV5fwXNzBBZfmbmkO1cOI9e+f2LRhfyta7NEgss/2WOzrjSCacdxHy0K+4ex
+	z+oixaop56Bm1Jo+qA5R7njjNmhbEpv4fyy7zfHdnuqAUnZbDyh7BPbILDyZVrEG2TOsQprxxQG
+	qH6+5/uQebsZESagVPHENxaJiogfRSKx+ILh0b/qVGBX8mF/y9FPvh52ySbsYnaNjnoVrmy0+5x
+	fqkrkRmJpMrqKq1vs2uro+bMfFqxm+PnaE/8OiR5dYarei/AB/OlwUa4abT2x6lGT/8tY4lOse/
+	lON4XUOFNzVISIEReSOFrhEHssBrcoIY5vLX4vp6bJ5BUUIu9DqejUsGEgCObuuS2e7FXwzGGcR
+	iQLa1yEbxUxrjlGGQuCbedTA4YEpVH1+Vv+I8egtWitZX7BVrqFJDwtiJeqLpjcF20dXUGgeOTN
+	xboAEYsFR/O7xY0lLVg48qJ5g+oQWRTt9G/DEElqCz8Xhr3ajyU7PHNM62d0KhIxyR03BbpjHkw
+	HNWOByf9/MMrY4uRmc3x20=
+X-Received: by 2002:a05:690c:102:b0:867:ae30:4ea8 with SMTP id 00721157ae682-867ae307bcamr12393917b3.34.1788188414813;
         Mon, 31 Aug 2026 08:00:14 -0700 (PDT)
-X-Received: by 2002:a05:620a:3188:b0:939:4a44:5f99 with SMTP id af79cd13be357-9394a446245mr25521285a.10.1788188414092;
-        Mon, 31 Aug 2026 08:00:14 -0700 (PDT)
-Received: from localhost (ip-86-49-251-7.bb.vodafone.cz. [86.49.251.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd775dae8sm136267455e9.9.2026.08.31.08.00.13
+Received: from zenbox ([2600:1700:18fb:6011:f6fc:b424:b1bb:6ff0])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e58666e15sm53903827b3.0.2026.08.31.08.00.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 31 Aug 2026 08:00:13 -0700 (PDT)
-From: Andrew Jones <andrew.jones@oss.qualcomm.com>
-To: linux-riscv@lists.infradead.org, iommu@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev,
-        tjeznach@rivosinc.com, jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org,
-        will@kernel.org, robin.murphy@arm.com, pjw@kernel.org,
-        palmer@dabbelt.com, anup@brainfault.org, tglx@kernel.org,
-        kevin.tian@intel.com, fangyu.yu@linux.alibaba.com
-Subject: [PATCH v5 17/17] selftests/vfio: Allow building on RISC-V
-Date: Mon, 31 Aug 2026 16:59:43 +0200
-Message-ID: <20260831145943.313726-18-andrew.jones@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com>
-References: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com>
+From: Justin Suess <utilityemal77@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	kpsingh@kernel.org,
+	paul@paul-moore.com,
+	mic@digikod.net,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	kees@kernel.org
+Cc: gnoack@google.com,
+	jack@suse.cz,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	martin.lau@linux.dev,
+	m@maowtm.org,
+	bpf@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Justin Suess <utilityemal77@gmail.com>
+Subject: [PATCH v2 07/15] lsm: Add the bpf_lsm_policy_apply_bprm kfunc
+Date: Mon, 31 Aug 2026 10:58:49 -0400
+Message-ID: <20260831145858.3869191-8-utilityemal77@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831145858.3869191-1-utilityemal77@gmail.com>
+References: <20260831145858.3869191-1-utilityemal77@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -96,55 +92,169 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: _VNzxVJK0WwYwmSB7zDycCQPuz0sVxWQ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyOSBTYWx0ZWRfX2Fs9+pLhMMC7
- OqdwG6JGTdEUpl1QzneeOHdQC1HwyzzoktvG97CJe00kX8kp5+axbcy5XWmIxHsbfbrG5qLqW5e
- BCxiUTF4gX8j6VuoW5kmdcm4bHeEd44=
-X-Proofpoint-ORIG-GUID: _VNzxVJK0WwYwmSB7zDycCQPuz0sVxWQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyOSBTYWx0ZWRfX/sqYMhUzA5NM
- xeAi9+iDcWu61QeQoTXNBjTItDvlxDqOxVTFRLWP0OcDCqo6sv/ymo4XErjw2tgUSaqfJsHO3oH
- RJ+L7h2PuJvcXWIGugJfE1Vu0Ib9C2waCfNLSOK0RggsnD5hXGDSh/uj3j9GI6fF8Mb49eMIM3P
- 16pmxLDrZo1oo053kFQ3GM0jwZIaXJh7PV2hPVQ4HD9syFowffvr/Kyct/3Al1JAsD4bEzwzN2Z
- sK39wB5xEJqyARp6DgJZwNSh631k024SJSIhG++syzZw9eSKlsEU9xrprLBuONPAp2zRGBCsXob
- cG8pzo2qiHvzrV/n7Dgp+E+olQmBzFMbhNx3UyhcZexpaSbEV+l/Sf8Wy9QYjLp6BHr4MZdq3xG
- w97DvbP12Yg+OAtXjTasdXKaK0YENqzs9kh2nCaaw2Fj2f8wsD93AQbcKOTCzjCamTRTv5VeV3V
- 489Bmak5xR37r0cWK9A==
-X-Authority-Analysis: v=2.4 cv=YsY/gYYX c=1 sm=1 tr=0 ts=6a9596ff cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=on9AXyaqQ0RhfYpiXjjEXA==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=hTGq5wxE4AYYcur-NToA:9 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
- priorityscore=1501 adultscore=0 impostorscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310129
 
-The generic VFIO selftests, including iommufd coverage, require no
-RISC-V-specific source changes. Top-level kselftest builds normalize
-riscv64 to riscv, while direct builds may use riscv64. Include both
-names in the architecture filter.
+Add the kfunc applying a policy object to an execution:
 
-Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+  bpf_lsm_policy_apply_bprm(object, bprm, flags)        KF_SLEEPABLE
+
+It asks the LSM owning @object, through the bprm_apply_policy_object
+hook, to restrict the credentials prepared in @bprm, so that the
+executed task starts confined by the policy.  The meaning of @flags
+and the composition with restrictions the credentials already carry
+are the owning LSM's; an LSM without execution policy support makes
+the call fail with -EOPNOTSUPP.
+
+The kfunc runs the hook in a root memcg charging scope: the policy
+restricts the execution on behalf of the BPF program, not of the
+mediated task, so what the owning LSM allocates to compute it, e.g.
+Landlock's merged domain, is not charged to the task the program
+supervises.
+
+The filter makes the kfunc exclusive to the sleepable LSM programs
+attached to the bprm_creds_for_exec() or bprm_creds_from_file()
+hooks, the only contexts where the bprm's credentials are prepared
+but not yet committed.
+
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: KP Singh <kpsingh@kernel.org>
+Signed-off-by: Justin Suess <utilityemal77@gmail.com>
 ---
- tools/testing/selftests/vfio/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ security/bpf_lsm_kfuncs.c | 72 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 72 insertions(+)
 
-diff --git a/tools/testing/selftests/vfio/Makefile b/tools/testing/selftests/vfio/Makefile
-index 2c32c48db509..2c7d8ea81b61 100644
---- a/tools/testing/selftests/vfio/Makefile
-+++ b/tools/testing/selftests/vfio/Makefile
-@@ -1,6 +1,6 @@
- ARCH ?= $(shell uname -m)
+diff --git a/security/bpf_lsm_kfuncs.c b/security/bpf_lsm_kfuncs.c
+index 43a4bf57fd31..743752b5852e 100644
+--- a/security/bpf_lsm_kfuncs.c
++++ b/security/bpf_lsm_kfuncs.c
+@@ -2,16 +2,25 @@
  
--ifeq (,$(filter $(ARCH),aarch64 arm64 x86 x86_64))
-+ifeq (,$(filter $(ARCH),aarch64 arm64 x86 x86_64 riscv riscv64))
- # Do nothing on unsupported architectures
- include ../lib.mk
- else
+ /* BPF kfuncs exposing LSM policy objects. */
+ 
++#include <linux/binfmts.h>
+ #include <linux/bpf.h>
+ #include <linux/btf.h>
+ #include <linux/btf_ids.h>
+ #include <linux/cfi.h>
+ #include <linux/init.h>
+ #include <linux/lsm_hooks.h>
++#include <linux/memcontrol.h>
++#include <linux/sched/mm.h>
+ #include <linux/security.h>
+ 
+ #include "lsm.h"
+ 
++/* The sleepable LSM hooks bpf_lsm_policy_apply_bprm() may be called from. */
++BTF_SET_START(bpf_lsm_policy_bprm_hooks)
++BTF_ID(func, bpf_lsm_bprm_creds_for_exec)
++BTF_ID(func, bpf_lsm_bprm_creds_from_file)
++BTF_SET_END(bpf_lsm_policy_bprm_hooks)
++
+ __bpf_kfunc_start_defs();
+ 
+ /**
+@@ -44,6 +53,49 @@ bpf_lsm_policy_acquire(struct lsm_policy_object *object)
+ 	return NULL;
+ }
+ 
++/**
++ * bpf_lsm_policy_apply_bprm - Apply a policy object to exec credentials
++ * @object: policy object to apply
++ * @bprm: execution context providing the prepared credentials to
++ *        restrict
++ * @flags: flags defined by the LSM owning @object
++ *
++ * Ask the LSM owning @object to restrict the credentials prepared in
++ * @bprm with it, so that the executed task starts confined by the
++ * policy.  How the policy composes with restrictions the credentials
++ * already carry, and the meaning of @flags, are defined by the owning
++ * LSM.  @object is only borrowed: the caller keeps its reference.
++ * The hook runs in a root memcg charging scope: policy the LSM
++ * computes on behalf of the program is not charged to the mediated
++ * task.
++ *
++ * Return: 0 on success, -EOPNOTSUPP if the LSM owning @object does
++ * not support applying policy to an execution, -EINVAL on unsupported
++ * @flags, other negative values on LSM-specific failures.
++ */
++__bpf_kfunc int bpf_lsm_policy_apply_bprm(struct lsm_policy_object *object,
++					  struct linux_binprm *bprm, u32 flags)
++{
++	struct lsm_static_call *scall;
++	struct mem_cgroup *old_memcg;
++	int err;
++
++	lsm_for_each_hook(scall, bprm_apply_policy_object) {
++		if (scall->hl->lsmid->id != object->lsmid)
++			continue;
++		/*
++		 * The hook runs on behalf of the BPF program, not of the
++		 * mediated task: charge its allocations to the root memcg.
++		 */
++		old_memcg = set_active_memcg(root_mem_cgroup);
++		err = scall->hl->hook.bprm_apply_policy_object(bprm, object,
++							       flags);
++		set_active_memcg(old_memcg);
++		return err;
++	}
++	return -EOPNOTSUPP;
++}
++
+ /**
+  * bpf_lsm_policy_from_fd - Get an LSM policy object from a fd
+  * @fd: file descriptor referring to a policy object, resolved in the
+@@ -115,6 +167,7 @@ __bpf_kfunc_end_defs();
+ 
+ BTF_KFUNCS_START(bpf_lsm_policy_kfunc_ids)
+ BTF_ID_FLAGS(func, bpf_lsm_policy_acquire, KF_ACQUIRE | KF_RCU | KF_RET_NULL)
++BTF_ID_FLAGS(func, bpf_lsm_policy_apply_bprm, KF_SLEEPABLE)
+ BTF_ID_FLAGS(func, bpf_lsm_policy_from_fd,
+ 	     KF_ACQUIRE | KF_RET_NULL | KF_SLEEPABLE)
+ BTF_ID_FLAGS(func, bpf_lsm_policy_release, KF_RELEASE)
+@@ -124,6 +177,8 @@ BTF_ID_LIST(bpf_lsm_policy_dtor_ids)
+ BTF_ID(struct, lsm_policy_object)
+ BTF_ID(func, bpf_lsm_policy_release_dtor)
+ 
++BTF_ID_LIST_SINGLE(bpf_lsm_policy_apply_bprm_ids, func,
++		   bpf_lsm_policy_apply_bprm)
+ BTF_ID_LIST_SINGLE(bpf_lsm_policy_from_fd_ids, func, bpf_lsm_policy_from_fd)
+ 
+ /*
+@@ -132,6 +187,8 @@ BTF_ID_LIST_SINGLE(bpf_lsm_policy_from_fd_ids, func, bpf_lsm_policy_from_fd)
+  * kfuncs requires a filter.  A policy object fd is only meaningful in
+  * the fd table of the task that set the object up: the fd kfunc is
+  * exclusive to syscall programs, which run in that task's context.
++ * Applying policy to an execution is exclusive to the sleepable bprm
++ * LSM hooks the operation is specified for.
+  */
+ static int bpf_lsm_policy_kfunc_filter(const struct bpf_prog *prog,
+ 				       u32 kfunc_id)
+@@ -141,11 +198,26 @@ static int bpf_lsm_policy_kfunc_filter(const struct bpf_prog *prog,
+ 
+ 	switch (prog->type) {
+ 	case BPF_PROG_TYPE_SYSCALL:
++		if (kfunc_id == bpf_lsm_policy_apply_bprm_ids[0])
++			return -EACCES;
+ 		return 0;
+ 	case BPF_PROG_TYPE_LSM:
+ 		if (kfunc_id == bpf_lsm_policy_from_fd_ids[0])
+ 			return -EACCES;
+ 
++		if (kfunc_id == bpf_lsm_policy_apply_bprm_ids[0]) {
++			/*
++			 * BPF_LSM_CGROUP programs run under classic
++			 * RCU and cannot sleep.
++			 */
++			if (prog->expected_attach_type == BPF_LSM_CGROUP)
++				return -EACCES;
++
++			if (!btf_id_set_contains(&bpf_lsm_policy_bprm_hooks,
++						 prog->aux->attach_btf_id))
++				return -EACCES;
++		}
++
+ 		return 0;
+ 	default:
+ 		return -EACCES;
 -- 
-2.43.0
+2.55.0
 
