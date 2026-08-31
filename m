@@ -1,78 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845263DDAED
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:28:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4493438B9;
+	Mon, 31 Aug 2026 11:28:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788175726; cv=none; b=IkeAtZqOEpvFA4xAnQh6cr9BFzTcROkNBertu4VFOibfWQw7Xl+6N1NFUR6iKvbzx/XpGpUjnR9De5I2B8O1YcA8VZ/943TEnezTpRPFkEx5eAuERuWKxOU+iwkkLBYNqrVIfvBM8aZimQJn3HKrEEhHRwy/Yr5EqPtCVuwqdEY=
+	t=1788175733; cv=none; b=biGMdjtR8lu2Gi5hh83pBD7akeWq9MlzwCF3ItUqzWfIlZuFZnM8Zv5oj8N3FL5fUygJoQ6mdwNssTPhqvPQyNVwonBxDdF4mGWGM1794DxG4eJ3JtSkleLhUrig/KDhL9RuvOL1DGRUTnP05kHEHUyZUqB/88694zQ7nft/SgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788175726; c=relaxed/simple;
-	bh=Pj6w8HADzrwFoI05Y+wM7KubVh46ro/Npq6045L8WvE=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=rmnBFOWMFYHT+CUatcLSV/vuYnQUqRCH+0jQNixiijWJZSC1CNwyQNDrNwUBPL82VMZ7Xtf3FzVKPVuRVBtTVxKcL5XG0k5HoQawTYgOs3KfIW55cYqF/3svjcbv3jw2YKzb/iLzJRxoxgs/g+KGW4XXl9TZ2kWO43ahUdzeKkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SB3scY7d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788175733; c=relaxed/simple;
+	bh=sVXRvymv7jtz4D70yUCE9cF/ZUg6aMsBxsO+d4DPjHo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DfCd7zxMoMA7nJu6ScFDjurjjxu35YVrXC28TXtrIL/vYd4uYfLeVxdlDSqF4dvlPfXMbKnYkv9Oz3WQTbJQJf0qp7SC+DuMR097ENVfN7GX26AToFkzFmWsyZTB4WNMcNW/kHTLro18SN60Wg7+xdsSW+XR3mp83F1Abgkl6Xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2DfOj9g8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SB3scY7d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1151F1F000E9;
-	Mon, 31 Aug 2026 11:28:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788175725;
-	bh=Gqj2K9+wp90YvEKZMSvL1LZpZwjNHSzCNuGCNxMefXo=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=SB3scY7d63d/eJqv4Mh0utENg6FNoyxZgIZfYT9wskjSLb93/ewvpTUimcqX/GycD
-	 ea0MQ6BpzM0/16qegjhq+AUZrlZpEHHkiArnotvBjmtwdKodlaMy+08y3hHkQIK6AC
-	 kAbh/Rl8Kbbr3alcBNFvuwg7AztwQLn0+63qIN6qn0nB0HRxIEV6moLayEbXbib4m9
-	 wcds6YEC6MT4RzN0hGJlZgWRNfthKz7niDrcjOISOnnRkNo4A7wP2kMVd8VRT6RJC4
-	 iSDkFFPBdt7alnLg0sK3x/QULuPoYlRtjTIkKJcPOMir+/q1BUfoP+kPGj0atA8DXv
-	 am0ubi84jP7eg==
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2DfOj9g8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 176981F000E9;
+	Mon, 31 Aug 2026 11:28:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788175731;
+	bh=c2w/9FnEOgDiZR3N3B2MQzsBMntz3DEZVqb5OEIGORg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=2DfOj9g81IboVDG/Ot6IwyT7EM6X86zp3vcaUyYuICJVpSZJLyXzETr8F5IEjc2Vb
+	 sRCyKQchNnNPN0YLPUFndlV7dXMao38F+89NBBH7SWOGTXVxA9kBvIPT/4ju6p6Jnl
+	 OpZsoE76z6B3GAucSLexDoOq48EUzSNF/j9dT07s=
+Date: Mon, 31 Aug 2026 13:28:48 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>
+Subject: Re: [PATCH v2 1/2] module: pull out add_taint_module() to be public
+Message-ID: <2026083107-gently-leverage-7f97@gregkh>
+References: <20260831-bind_taint-v2-0-1082d631213b@linuxfoundation.org>
+ <20260831-bind_taint-v2-1-1082d631213b@linuxfoundation.org>
+ <2026083120-matrix-waffle-7ee7@gregkh>
+ <A47FDF4A-DA90-4015-AFDB-61CA611F6311@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH V2] kho: Convert error handling to immediate return
- pattern
-From: Mike Rapoport <rppt@kernel.org>
-To: LongWei27 <longwei27@huawei.com>
-Cc: Alexander Graf <graf@amazon.com>, Mike Rapoport <rppt@kernel.org>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, hewenliang4@huawei.com
-In-Reply-To: <20260824024448.550552-1-longwei27@huawei.com>
-References: <00c96a62-f783-497c-a7ac-1de495e4af06@huawei.com>
- <20260824024448.550552-1-longwei27@huawei.com>
-Date: Mon, 31 Aug 2026 14:28:39 +0300
-Message-Id: <178817571946.3691424.3757525664520719609.b4-review@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <A47FDF4A-DA90-4015-AFDB-61CA611F6311@mainlining.org>
 
-Hi,
-
-
-> Replace the chained error accumulation (err |= func()) with immediate
-> per-step error checking and early return in kho_out_fdt_setup().
+On Mon, Aug 31, 2026 at 12:14:17PM +0100, Bradley Morgan wrote:
+> On 31 August 2026 12:07:50 BST, Greg Kroah-Hartman
+> <gregkh@linuxfoundation.org> wrote:
+> >On Mon, Aug 31, 2026 at 12:51:46PM +0200, Greg Kroah-Hartman wrote:
+> >> Other kernel code might want to call add_taint_module() so pull it out
+> >> and make it global.  If modules are not enabled, this defaults to a call
+> >> to add_taint(), so all is fine.
+> >> 
+> >> Reviewed-by: Johan Hovold <johan@kernel.org>
+> >> Tested-by: Johan Hovold <johan@kernel.org>
+> >> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> >> ---
+> >>  include/linux/module.h | 10 ++++++++++
+> >>  kernel/module/main.c   | 16 +++++++++++++---
+> >>  2 files changed, 23 insertions(+), 3 deletions(-)
+> >> 
+> >> diff --git a/include/linux/module.h b/include/linux/module.h
+> >> index 96cc98568eea..0636e0f2728c 100644
+> >> --- a/include/linux/module.h
+> >> +++ b/include/linux/module.h
+> >> @@ -29,6 +29,7 @@
+> >>  #include <linux/srcu.h>
+> >>  #include <linux/static_call_types.h>
+> >>  #include <linux/dynamic_debug.h>
+> >> +#include <linux/panic.h>
+> >>  
+> >>  #include <linux/percpu.h>
+> >>  #include <asm/module.h>
+> >> @@ -770,6 +771,9 @@ static inline bool is_livepatch_module(struct module
+> >*mod)
+> >>  
+> >>  void module_for_each_mod(int(*func)(struct module *mod, void *data),
+> >void *data);
+> >>  
+> >> +void add_taint_module(struct module *mod, unsigned flag,
+> >> +		      enum lockdep_ok lockdep_ok);
+> >> +
+> >>  #else /* !CONFIG_MODULES... */
+> >>  
+> >>  static inline struct module *__module_address(unsigned long addr)
+> >> @@ -877,6 +881,12 @@ static inline bool module_is_coming(struct module
+> >*mod)
+> >>  static inline void module_for_each_mod(int(*func)(struct module *mod,
+> >void *data), void *data)
+> >>  {
+> >>  }
+> >> +
+> >> +static inline void add_taint_module(struct module *mod, unsigned flag,
+> >> +				    enum lockdep_ok, lockdep_ok)
+> >
+> >And this line is wrong, ugh.  I gotta go get sashiko running locally...
 > 
-> Two problems with the current approach:
-> 1. It continues executing FDT operations even after a failure, which
->    is pointless and potentially unsafe on an invalid FDT context.
+> Cough cough, Claude code speaking 
 
-Did you actually see failures here or was it an LLM suggesting that they
-may happen?
+Nope, no claude running here at all, sorry to burst your bubble.  If I
+had, it would have caught this :)
 
-> 2. Bitwise OR of multiple negative error codes produces a result that
->    may not represent any actual error, making debugging misleading.
-> 
-> Early return fails fast and preserves the original error code for
-> accurate diagnosis.
-
-The caller does not care about the exact error value, so the diagnosis
-statement is moot at best.
-Moreover, libfdt does not return Linux error values.
-
--- 
-Sincerely yours,
-Mike.
-
+greg k-h
