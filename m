@@ -1,137 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA5A63DB64D;
-	Mon, 31 Aug 2026 10:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629DD2C15A5
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788171906; cv=none; b=NMOAbeP0OztqoEwoy9eVaSurq1hfRgCr4uEG5fuqJWhqwOdK7c2mFdl41HfmbP9HYgeAsolpJqq0HtgYbxwCliornGtr9j+yG4zHLMqhpE6QPmGoaAM2BNruWlMRi8JtNy1vf7oQgq4ufzlQagqa4ZdaJYcvfcxFVfU7Yc6CsVw=
+	t=1788171932; cv=none; b=PZYROBi6q2K5l6WsV5DHzB8h5+8XTr01YP4YrCIkTuRanxRvksWtwxeEYqKMWaUTnRGOxl+xCkrLd0oFrLEheKsskzo2xm3efdp5SrrPJydglTa9DEwN+qXCS+Y/vfhxWGMe2f1LKlxIUnbMG6+huop4O90w5QSwx/qQv7Rp7Ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788171906; c=relaxed/simple;
-	bh=+e/t8V5CHYveliNBxUuHao6IVDZv7eObUKDHnlxpyRk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ufgsR5/4g+ks5UWF35KPw1wqj1mKDDrx2/C/7ace/crdqAKqdxRmzfnO6sfLRKZG8sPd/ATFUjMmHWeXoNr5LVyAosZJCWEYwEo5q871/09mFOrVbBvvznbMTdYB17WHOWxizc5C4WhV2+/U10FJuF+UjH/Q3n8BTDjIz1NRAH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JwlEeD1A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788171932; c=relaxed/simple;
+	bh=oDdxchw+HfFAGtOiAlLwJIKnl3Z6Y/3M5kytY39eayg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KGdCZpKAZAE9/l3P5jbqJKIVdvl28BdY0Vl/ASF9fyd4RyN4zFEEY9yYZWnGt+Cy1d5eMMNJUqClW4tvkVUaffnaMtXOySO9JBaUuM3OibMDbmKgsiBtpMcQ0QvDvRjw4Phay8pd+cid/f0iokkxB8YsC8qwcvWR5XB0OVIA+eI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lQmFP7wP; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JwlEeD1A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F52C1F000E9;
-	Mon, 31 Aug 2026 10:24:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788171903;
-	bh=zaseKfBKearPYw7Wuabe86eyjpL9spqzKr085aFFM3M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JwlEeD1AYQjwcUAv68IL1iO2pIcPdLTkGHHVGdpXZpuMdmTjBJhc2u8Z6i04N/LDX
-	 qmDHN67KZvrQqQUz0P1hN3v4pm0coO4+caT2+mPVHnrZWokDN/aLxDlHEKYfyuvhtH
-	 3dWCDefqAMUIGIWySelqyQiMhaTIzzJIhuVcuZJXFsC8cpmQXJjhA4bFf0O5PhJKWF
-	 DILbrSEIX0djfXkoeAUuW/dNd8iiRunMYv08yFvK0Gb5byNnHmwBknZLT9a8W6h62S
-	 QpQ75f/dgPQ6ImlDr7kl6PJB9gFi2m5n5HAgq2qgMwteKBqDZdbmIp+yj8ydPULnNt
-	 6/amISV3gHSCw==
-Date: Mon, 31 Aug 2026 12:24:55 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Rob Herring <robh@kernel.org>, Aksh Garg <a-garg7@ti.com>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>, Jon Mason <jdmason@kudzu.us>,
-	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Manikanta Maddireddy <mmaddireddy@nvidia.com>,
-	Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
-	linux-pci@vger.kernel.org, linux-nvme@lists.infradead.org,
-	ntb@lists.linux.dev, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] PCI: endpoint: Support hardware-owned MSI-X table
- and PBA
-Message-ID: <apVWd1u9JjTKQczu@ryzen>
-References: <20260830151948.3547577-1-den@valinux.co.jp>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lQmFP7wP"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84e0688b7e8so2265174b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:25:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788171931; x=1788776731; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=85h0gP4EJzGrJjTm/s6tdHc7gvUEeMEkIXjoNPcxSzc=;
+        b=lQmFP7wPAnoy0qe3XSbB/eiBM2esLl5N/USsJjhsB1gbnUEPyt7VReggrpXbcUGSgk
+         +mN+Sd9W/FzSyDu25w4DBb8hfKTyotLW8hOeIFxtloSaXyOljqfiiuFyxUzGtRpp8gDZ
+         faML/yQDfY6Cqp0jjl1x92v+F99BqzdJ5CNCr/u4Pe0GjMr3EsVmKLvsOwuG/9UqGgeS
+         MaHjoJKp69sSXClxpYS9EDQECXMD9945GgpYpTAAcFlmTyEXO7zXl82lKY7fbcG3yzCo
+         w3+S0sX4XPwDzEpEHQ+lrlsjZWn0XJVq/qXZZkq7O/tL07XQKsBrjhNWiU+tElG4xlUt
+         3imw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788171931; x=1788776731;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=85h0gP4EJzGrJjTm/s6tdHc7gvUEeMEkIXjoNPcxSzc=;
+        b=Pucsi5oUVsISoyfTGHkaO5EBgP4uLXKw324Nqqrp20Z7crdb7RnbMV6tj5UIVkfWs9
+         +AU5AXDVJZBhy8aG3eQ6lLBiA7sipyvuvJDiwQTZS3L1YUBAHC1GnmloaomarBzz4ZZH
+         xF5WmXckSWf5GQ7Ebb53lgSSe9i9g/TdF9EQNl7afHWqz7HjpT39aKTuwYcZv7aKdL4D
+         ix4iHXxdmGN00QK8A0s3HkDfIBqnC7UgAHWPkYQyw1vwq4KBJ9rcNPnP1q5LuDtuO34x
+         dr2LizhaIYq+bEvlf+NfH8xXv+DCBRGF2ugCjzgG+Q1rpF94UgzCetdHlcl4eLurfeQf
+         cnfw==
+X-Forwarded-Encrypted: i=1; AHgh+RpoCyINn2Hm05FAgUEVvwWyMeY316IjMsNhvq4BCGaR/CFBOMxjnD/lPeKYe4SlaBNWNELj1uEiHQkTldQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfztI444YSebxFRgOG47LPj4tsMm/sXqp4aDADBA4vJ2qjjJ7U
+	GTxOpOhL6/266IzsTRtyy5iLMKQwBHRy2WIFBpnPnPRHrYpTZcUN1WEL
+X-Gm-Gg: AR+sD10XnPytYm1WSMNfdWMHPTKHcxGes8/H1yvA4HucruzzSmJWwI4s19KZxcdPZoV
+	3pNPc+BxJ/cN/nVh7H4sw+K3XLxlbjbfWm5WoJUsnmjClyuKXckvcR/jkk3DkIKbbx9TGQaNkdV
+	b9phmAAdOiyJ+hlxsyo+y6Db9Q1njAazD4TmywqCnXksbw8Z4S8jBkDyAQjccYwZQHqWsDgvG2V
+	0mAdHjFxYuJFEFwxlhBWS42OIFNbtqSsVZ9pcJZKEBwgLxqDecbA/LmVRdkgkl1P9sAecu4l65X
+	2mW2JWqeDznzOHjqJ296SVR0nc1oTFqgP7Rqz5JN0/HktVfIdHi06tmaBKThGha5A+w03ws3VoD
+	c91gQXps8uuvvTxTGVhqKZ9GDRpsrL2McT0msSiJJd2IpqBT53BKQEeO0fVx7EYOUZtf5uv27uy
+	YLpXqpcKAQdl03iMUwXLGfY34JxBUUIfIXKLsmC0rpfA9+5DivIdlv30O89AvSju2zzw==
+X-Received: by 2002:a05:6a21:6e88:b0:3c4:46ca:334b with SMTP id adf61e73a8af0-3d267b60e7emr43957424637.9.1788171930549;
+        Mon, 31 Aug 2026 03:25:30 -0700 (PDT)
+Received: from Default ([2409:40f4:1016:5ca4:c595:44a4:9cb1:2f2f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9595bbsm32800439eec.14.2026.08.31.03.25.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 03:25:29 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: i@zenithal.me,
+	jeffinphilip14@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	shuah@kernel.org,
+	stable@vger.kernel.org,
+	syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com,
+	valentina.manea.m@gmail.com
+Subject: Re: [PATCH v3 1/2] usbip: usbip_host: fix null pointer dereference in rebind_store
+Date: Mon, 31 Aug 2026 15:55:17 +0530
+Message-ID: <20260831102517.109498-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026083141-morbidly-swiftness-9f8f@gregkh>
+References: <2026083141-morbidly-swiftness-9f8f@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830151948.3547577-1-den@valinux.co.jp>
+Content-Transfer-Encoding: 8bit
 
-Hello Koichiro,
+On Mon, 31 Aug 2026 12:04:45 +0200, Greg KH wrote:
+>No one will ever notice this, just remove the sysfs file entirely if
+>you really think it is ok to remove the functionality.  That way
+>userspace will notice and handle it properly (hopefully...)
 
-On Mon, Aug 31, 2026 at 12:19:45AM +0900, Koichiro Den wrote:
-> Hi,
-> 
-> Some DWC endpoint controllers keep the MSI-X Table and PBA at fixed
-> locations in a reserved BAR. On RK3588, the MSI-X doorbell uses this
-> hardware-owned layout, as discussed in e.g. [1].
-> 
-> The reserved-region types for the Table and PBA were added with the
-> Tegra194 description. The MSI-X setup API, however, still takes only the
-> Table BAR and offset and assumes that the PBA immediately follows it in
-> the same BAR.
-> 
-> This series passes the complete layout to pci_epc_set_msix() and adds
-> pci_epc_get_hw_msix_layout() to expose a hardware-owned layout. The core
-> does not select it automatically. The choice stays with the EPF.
-> 
-> A hardware-owned layout is not a direct replacement for every caller.
-> pci-epf-ntb, for example, reads host-programmed Table entries from its
-> own BAR to set up peer outbound mappings.
-> 
-> The series also fixes an interrupt-type mismatch in vNTB. ntb_hw_epf can
-> select MSI-X, while pci-epf-vntb currently configures and raises only
-> MSI. On RK3588, selecting the fixed BAR4 layout also selects the DWC
-> MSI-X doorbell. EPF-owned layouts continue to use the regular path.
-> 
-> In short:
-> 
-> - pci-epf-vntb gains MSI-X support and uses the hardware-owned layout
->   when available.
-> - pci-epf-test, pci-epf-ntb, and the NVMe PCI EPF keep their EPF-owned
->   layouts. This avoids unnecessary changes and reduces regression risk.
->   They can use a hardware-owned layout later if/when needed.
-> 
-> [1] https://lore.kernel.org/r/aY2q80zeRKSRO21H@fedora
+userspace tool atp handles this properly as it unbinds and rebinds sequentially.
+The problem is when any script tries to do this without a particular order in
+sysfs: bind, rebind then unbind causes an invalid opcode and attempting to directly
+rebind immediately after writing to match_busid causes the dereference. I think
+it is best we drop the rebind_store function and use drivers_probe(). We add 
+del_match_busid() alone to rebind_store() to stop tracking.
 
+>But, are you sure it is ok to remove this user/kernel api?  What about
+>workflows that are using it?
 
-Perhaps you could improve the cover letter to more clearly state why you
-are doing this change.
+Any scripts/user that don't use the sysfs properly can keep the broken pieces
+themselves, no? We have the newer drivers_probe() that can perform this
+much more cleaner.
 
-Some guesses:
-- Better performance. We avoid the need to map + unmap the MSI target
-  address using an iATU each time we raise an MSI-X. We also avoid the
-  need to flush posted write before unmap.
-  Is there any performance difference? If so, it would be nice with some
-  numbers.
-- Allows more concurrent I/Os. By not using an iATU when raising an MSI-X,
-  we have one more iATU available, so we can have one more outstanding I/O.
-- Less waste of BAR space. (Since the MSI-X table and PBA already
-  always takes up space in one of the BARs, it is wasteful to have
-  the EPF drive duplicate it in another BAR.)
+Ultimately we can keep the rebind_store() function if you choose. But this is just
+my opinion.
 
-
-
-Personally, I don't see why we should only change pci-epf-vntb to use
-the hardware-owned layout when available. I don't see why we would not
-want to change pci-epf-test, pci-epf-ntb, and nvmet-pci-epf as well.
-(If the EPC defines a HW defined MSI-X table + PBA, why not always
-use that? If there is no HW defined MSI-X table + PBA, let the EPF
-put the MSI-X table in any BAR it likes.)
-
-
-I understand that you introduce dw_pcie_ep_msix_layout_is_hw_owned()
-because you want an EPF driver optionally use the HW defined table.
-But if all EPF drivers always use the HW defined table if available, I think
-you can avoid introducing this helper, and let rockchip_pcie_raise_irq()
-unconditionally call dw_pcie_ep_raise_msix_irq_doorbell() for case PCI_IRQ_MSIX.
-
-See e.g. drivers/pci/controller/dwc/pci-layerscape-ep.c which already calls
-dw_pcie_ep_raise_msix_irq_doorbell() unconditionally for case PCI_IRQ_MSIX.
-
-
-Kind regards,
-Niklas
+Thanks,
+Jeffin.
