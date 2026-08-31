@@ -1,250 +1,499 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207104A840A;
-	Mon, 31 Aug 2026 13:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBBF4A8415;
+	Mon, 31 Aug 2026 13:45:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183926; cv=none; b=HV0pOavV0uB+J4eClCJzMOxXS8M2j9Ej1mk4iv5c00lALxq9F8UGNsjCA2ZonbjijLAxduspHmZioXmJDfw5giXrLgJfK/g9eslWzhANsxnOAp5eQK/dThu8PqyqpusWTJJwO4nniVBERBnnK6eQUik0lxJ6QS+XLD5McwLDDJU=
+	t=1788183925; cv=none; b=cW/tl0zblfDhFRloqBjYMfFFEWy4rPnNejwaVP2ojPAxhMDat68r2mdnvz1uZD/6k0WHdtONy8OhIeYR6RLVvz+Z1GtoZ+B+b6UwGW/oDlV3cxRT0aH9wkA1C5EoI3zIV0emOg4kSLELtvo4+IIWplI8s2Lxql31Y23+w5BoIT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183926; c=relaxed/simple;
-	bh=iJE3knD8GZpNzW3zg5su/vA3JNJNn8xjodGntYeADPc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o4RPiwEcXIMRu/oXbd0JSVKiJlJV3p79GhbOCm6TakhzsYeKeXebyUgY9hlX9be4Tui4z+qbABJW+hazKDpC/5IdiuFshodDU/WMxsvBnhbi2irsbBpSZcXSTa0XZxOc69Zv2IcUIF38tfQPabQyuugrBGa4ficFj4SGd0ZUZ98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b8ob630k; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788183925; c=relaxed/simple;
+	bh=OIg7l13nxuhdLn1XpDZ8UMkOMxzCvSHj/QYjizJdQ90=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lp7XftSeALIbyWkm27cfpmbxJR+tz0I3GTwrMaPsWmUcTuZMhENwZDzMpwQPEN7DWwVhnCc3/B5I8VJA7XK2OVvM2aNCPHoyWn1+6LzyY0lBrz3lY2iUXUXQ8PoRqDWELskjkovHB7qGQzz3+1TTN79wK8Ot9+q51+Euh7wATqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J8yogWWh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b8ob630k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788183923; x=1819719923;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=iJE3knD8GZpNzW3zg5su/vA3JNJNn8xjodGntYeADPc=;
-  b=b8ob630kGceMOIaT1UpM784iJyr/ykIsx5oegjACNgtnjWcker96eYTn
-   uKGX7qjlTLWSdq5Z4M2xuK7DuHDsGPt/2pw9uUlFfrZSaoMjqbejQNnZ7
-   29TKfKg7cGC/PnH81G7MjTQO/4Duyx8i90Z7Lpwq6TysongbqZ9dHNjU1
-   8Y905f2haawe+nJ5cYiMqJcRyVNG9wR34oJeNtf0Nww1VHatCHP+BbeRo
-   QOzd24IIldoqIjptu+i78V7gy/rYJeTuMNgjCi/Pv1euQFCVpiQI2tblk
-   J0I2Zk/l5rUfnZ4DPa0ph+Bm0aqNfMHL+xXNP9iTrDMgSf90eZ68tROR4
-   w==;
-X-CSE-ConnectionGUID: N+fF6TtQTMqXyr09JvcZ3Q==
-X-CSE-MsgGUID: F6jPQ3gyQx2DuajCnMB34A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="114129498"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="114129498"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:45:22 -0700
-X-CSE-ConnectionGUID: 8jytYmUyR0S7PAi1zuNgxw==
-X-CSE-MsgGUID: YDMavWC2Tn2LTkRLkvF7YQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="293632864"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:45:17 -0700
-Date: Mon, 31 Aug 2026 16:45:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
-Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v3 1/9] dmaengine: Support bus widths of 32 bytes and
- above
-Message-ID: <apWFa4BFoAL2AhG3@ashevche-desk.local>
-References: <20260831-dmaengine-support-wider-dma-masks-v3-0-507d97496f2d@analog.com>
- <20260831-dmaengine-support-wider-dma-masks-v3-1-507d97496f2d@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J8yogWWh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0F011F00ACA;
+	Mon, 31 Aug 2026 13:45:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183922;
+	bh=vfRLqjE0w724fjjraUPwJXa+ty8mIFanlDPtt44qbrs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=J8yogWWhJJIDD6ntjM7BAK0893jhdI1Q4N6GNCkcG/zJ7qLu8Bg82DmzcbkCqDTw3
+	 ybbAm7v9q8oJetTycPjS5IUAz80VR6sfM4b4wfXe8PzoeV6DsyTRKjvaiMs1Z3w/3L
+	 A0ubvm/7wE1WPZbH5F++qQD+s7gKRxjYuaGrtLNZY4BdDaBmGIVdOQeAXfzg5Vruy3
+	 B5XGoEWqBG3AwTUaGpd9mPlkNhy35yuDxqNApZ6oU3Nty/sPZ4F4DR/HeX40wZcBhK
+	 Kh/Jsp0nzXNU4q3Pbee8Yt4K44/Bw2gWCG42M6N6zdZe74ZMvb0rvkAnJwwJQyencg
+	 vMVvvH3nJ8Q0A==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: ikaros <void0red@gmail.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Sasha Levin <sashal@kernel.org>,
+	rafael@kernel.org,
+	maciej.wieczor-retman@intel.com,
+	pawel.chmielewski@intel.com,
+	linux-acpi@vger.kernel.org,
+	acpica-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.10] ACPICA: Fix use-after-free in acpi_ds_terminate_control_method()
+Date: Mon, 31 Aug 2026 09:26:51 -0400
+Message-ID: <20260831133314.4125787-383-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260831-dmaengine-support-wider-dma-masks-v3-1-507d97496f2d@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Aug 31, 2026 at 12:46:38PM +0100, Nuno S� wrote:
-> The src_addr_widths and dst_addr_widths capability masks encode each
-> supported width as a bit whose position equals the corresponding
-> enum dma_slave_buswidth value (e.g. DMA_SLAVE_BUSWIDTH_4_BYTES sets bit
-> 4). As these masks are plain u32, widths of 32 bytes and above
-> (DMA_SLAVE_BUSWIDTH_32/64/128_BYTES map to bits 32, 64 and 128) cannot
-> be represented at all.
-> 
-> Introduce bitmap-based bus width capabilities that span the full enum
-> range, through a new dma_buswidth_mask_t type modeled after
-> dma_cap_mask_t. To allow DMA controller drivers to be converted
-> incrementally, the legacy dma_device u32 fields are kept alongside the
-> new masks and the core folds a legacy-only driver's u32 into the mask
-> when the device is registered, so consumers only ever have to look at
-> the mask.
-> 
-> The new interface lives in two new headers under a new
-> include/linux/dma/engine/ directory instead of growing
-> linux/dmaengine.h, which is included nearly everywhere:
-> 
->  - dma/engine/types.h holds enum dma_slave_buswidth and the new
->    dma_buswidth_mask_t type. Like dma_cap_mask_t, the type only needs
->    DECLARE_BITMAP();
-> 
->  - dma/engine/widthmask.h holds the accessors which are based on the new
->    dma_buswidth_mask_t type. This gives us freedom to change the core
->    without affecting consumers as they only see (and should only use) the
->    new type.
-> 
-> Note the fold only has to happen in one direction on the producer side:
-> nothing outside a controller driver reads the legacy dma_device fields,
-> so a converted driver's mask is not mirrored back into them. The legacy
-> dma_slave_caps fields are different, as consumers not converted yet
-> still read them: dma_get_slave_caps() derives them from the mask when a
-> device_caps() callback adjusted it. Both go away with the legacy fields.
+From: ikaros <void0red@gmail.com>
 
-...
+[ Upstream commit 945e87267cfd90937b3c637f87324cbb56998b72 ]
 
->  F:	drivers/dma/
->  F:	include/dt-bindings/dma/
->  F:	include/linux/dma/
-> +F:	include/linux/dma/engine/
->  F:	include/linux/dmaengine.h
->  F:	include/linux/of_dma.h
+Fix use-after-free issue in acpi_ds_terminate_control_method() by
+clearing references to method locals and arguments.
 
-Unneeded, previous entry includes recursively.
+Link: https://github.com/acpica/acpica/commit/36f22a94cb1b
+Signed-off-by: ikaros <void0red@gmail.com>
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Link: https://patch.msgid.link/8730924.NyiUUSuA9g@rafael.j.wysocki
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
 
-...
+LLM Generated explanations, may be completely bogus:
 
-> +/*
-> + * Basic types shared by the DMA engine interfaces.
-> + */
-> +#ifndef LINUX_DMA_ENGINE_TYPES_H
-> +#define LINUX_DMA_ENGINE_TYPES_H
-> +
-> +#include <linux/bitops.h>
+# Stable Backport Analysis: ACPICA UAF in
+`acpi_ds_terminate_control_method()`
 
-Not yet? Perhaps next changes will use it, then they can add it.
+**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`,
+`make kernelversion` → `6.18.44`)
 
-> +#include <linux/types.h>
-> +
-> +/**
-> + * enum dma_slave_buswidth - defines bus width of the DMA slave
-> + * device, source or target buses
+---
 
-I would describe the _UNDEFINED case, it might require some clarification on
-what behaviour is to expect with this one.
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-> + */
+### Step 1.1: PARSE THE SUBJECT LINE
+**Record:** `[ACPICA] [fix] use-after-free in
+acpi_ds_terminate_control_method() when clearing references to method
+locals/arguments`
 
-> +enum dma_slave_buswidth {
-> +	DMA_SLAVE_BUSWIDTH_UNDEFINED = 0,
-> +	DMA_SLAVE_BUSWIDTH_1_BYTE = 1,
-> +	DMA_SLAVE_BUSWIDTH_2_BYTES = 2,
-> +	DMA_SLAVE_BUSWIDTH_3_BYTES = 3,
-> +	DMA_SLAVE_BUSWIDTH_4_BYTES = 4,
-> +	DMA_SLAVE_BUSWIDTH_8_BYTES = 8,
-> +	DMA_SLAVE_BUSWIDTH_16_BYTES = 16,
-> +	DMA_SLAVE_BUSWIDTH_32_BYTES = 32,
-> +	DMA_SLAVE_BUSWIDTH_64_BYTES = 64,
-> +	DMA_SLAVE_BUSWIDTH_128_BYTES = 128,
-> +	DMA_SLAVE_BUSWIDTH_MAX
-> +};
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Record:**
+- **Link:** https://github.com/acpica/acpica/commit/36f22a94cb1b
+  (upstream ACPICA commit)
+- **Link:** https://patch.msgid.link/8730924.NyiUUSuA9g@rafael.j.wysocki
+  (kernel submission; could not fetch)
+- **Signed-off-by:** ikaros \<void0red@gmail.com\> (author)
+- **Signed-off-by:** Rafael J. Wysocki \<rafael.j.wysocki@intel.com\>
+  (ACPI maintainer)
+- **Fixes:** #1119 (ACPICA GitHub issue, in upstream commit message)
+- No Reported-by, Tested-by, Reviewed-by, Acked-by, or Cc: stable in the
+  provided message
+- Notable: Maintainer sign-off; upstream issue with ASAN reproduction
 
-> +/**
-> + * typedef dma_buswidth_mask_t - bus width capabilities bitmap modeled after
-> + * dma_cap_mask_t.
-> + *
-> + * Each supported bus width is represented by the bit whose position equals the
-> + * corresponding enum dma_slave_buswidth value, e.g. a device supporting a bus
-> + * width of 4 bytes has bit 4 set.
-> + */
-> +typedef struct {
-> +	DECLARE_BITMAP(bits, DMA_SLAVE_BUSWIDTH_MAX);
-> +} dma_buswidth_mask_t;
-> +
-> +#endif /* LINUX_DMA_ENGINE_TYPES_H */
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Record:**
+- **Bug:** If `walk_state->return_desc` is a `RefOf` reference pointing
+  at a method local or argument namespace node (embedded in
+  `walk_state`), terminating the method deletes locals/args and later
+  frees `walk_state`, leaving a dangling pointer in `return_desc`.
+- **Symptom:** Heap use-after-free when `acpi_ns_resolve_references()`
+  dereferences `node->object` during `acpi_evaluate_object()`.
+- **Root cause:** `acpi_ds_method_data_delete_all()` and
+  `acpi_ds_delete_walk_state()` invalidate nodes still referenced by
+  `return_desc`.
+- **Fix approach:** Before deleting locals/args, detect
+  `ACPI_REFCLASS_REFOF` references to `walk_state->local_variables[]` or
+  `walk_state->arguments[]`, drop the reference, and NULL `return_desc`.
 
-...
+### Step 1.4: DETECT HIDDEN BUG FIXES
+**Record:** Not disguised — explicitly labeled as a use-after-free fix.
+The mechanism is a classic dangling-pointer bug in interpreter teardown,
+not cosmetic cleanup.
 
-> +/*
-> + * Bus width capabilities of DMA engine devices and channels.
-> + */
-> +#ifndef LINUX_DMA_ENGINE_WIDTHMASK_H
-> +#define LINUX_DMA_ENGINE_WIDTHMASK_H
-> +
-> +#include <linux/bitmap.h>
-> +#include <linux/dma/engine/types.h>
+---
 
-+ errno.h
+## PHASE 2: DIFF ANALYSIS
 
-> +#include <linux/types.h>
+### Step 2.1: INVENTORY THE CHANGES
+**Record:**
+- **Files:** `drivers/acpi/acpica/dsmethod.c` (+43 lines, 0 removed)
+- **Function modified:** `acpi_ds_terminate_control_method()`
+- **Scope:** Single-file, surgical fix in ACPI interpreter dispatch path
 
-I would group subsystem ones.
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Record:**
+- **Hunk (before):** On method termination, immediately calls
+  `acpi_ds_method_data_delete_all(walk_state)` while
+  `walk_state->return_desc` may still hold a `RefOf` pointer into
+  `walk_state->local_variables[]` or `walk_state->arguments[]`.
+- **Hunk (after):** Before `acpi_ds_method_data_delete_all()`, if
+  `return_desc` is `ACPI_TYPE_LOCAL_REFERENCE` / `ACPI_REFCLASS_REFOF`
+  and `reference.object` matches a local or argument node in this
+  `walk_state`, call `acpi_ut_remove_reference()` and set `return_desc =
+  NULL`.
+- **Execution path:** Method termination during AML parse/execute
+  (normal and error paths), always under interpreter lock.
 
-#include <linux/bitmap.h>
-#include <linux/errno.h>
-#include <linux/types.h>
+### Step 2.3: IDENTIFY THE BUG MECHANISM
+**Record:**
+- **Category:** Memory safety — use-after-free (dangling pointer)
+- **Mechanism:** `local_variables[]` and `arguments[]` are embedded in
+  `struct acpi_walk_state` (`acstruct.h:66-67`). A `RefOf(LocalX)`
+  return value stores a pointer to those nodes. After method termination
+  frees `walk_state`, `acpi_ns_resolve_references()` at
+  `nsxfeval.c:496-501` reads `node->object` from freed memory.
 
-#include <linux/dma/engine/types.h>
+### Step 2.4: ASSESS THE FIX QUALITY
+**Record:**
+- Fix is minimal, localized, and logically correct for the identified
+  failure mode.
+- Regression risk is low: only affects the teardown path when
+  `return_desc` references ephemeral local/arg nodes.
+- Trade-off: dropping the reference yields no return value instead of a
+  crash — acceptable vs. UAF, and explicit `Return(RefOf(Local))` paths
+  are supposed to resolve references earlier in `dscontrol.c`.
+- No API changes, no new features.
 
-...
+---
 
-> +static inline enum dma_slave_buswidth
-> +__dma_bus_width_min(const dma_buswidth_mask_t *mask)
-> +{
-> +	enum dma_slave_buswidth width = find_first_bit(mask->bits,
-> +						       DMA_SLAVE_BUSWIDTH_MAX);
-> +
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-For easier maintenance better to split the assignment.
+### Step 3.1: BLAME THE CHANGED LINES
+**Record:** Buggy teardown sequence dates to **2005-2006**
+(`b229cf92eee616` / `^1da177e4c3f41` on
+`acpi_ds_method_data_delete_all()` call). Long-present bug, not a recent
+regression.
 
-	enum dma_slave_buswidth width;
+### Step 3.2: FOLLOW THE FIXES: TAG
+**Record:** No `Fixes:` tag in the kernel commit message. Upstream
+ACPICA commit references `Fixes: #1119`.
 
-	width = find_first_bit(mask->bits, DMA_SLAVE_BUSWIDTH_MAX);
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+**Record:** Related prior UAF fix in this tree: `6fcab27915439`
+("ACPICA: Refuse to evaluate a method if arguments are missing") —
+different bug, same subsystem, also UAF from AML evaluation. Another:
+`470188b09e92d` (package copy UAF). This specific
+`terminate_control_method` fix is **not** present in 6.18.44.
 
-> +	if (width == DMA_SLAVE_BUSWIDTH_MAX)
-> +		return DMA_SLAVE_BUSWIDTH_UNDEFINED;
-> +
-> +	return width;
-> +}
+### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+**Record:** Author ikaros reported ACPICA issue #1119. Rafael J. Wysocki
+is ACPI maintainer and regularly syncs ACPICA fixes (e.g.,
+`6fcab27915439`, `e2c80b3c23782`).
 
-...
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+**Record:** Standalone fix. No series dependencies. Applies to existing
+`acpi_ds_terminate_control_method()` with only path adjustment
+(`source/components/dispatcher/dsmethod.c` →
+`drivers/acpi/acpica/dsmethod.c`).
 
->  #ifndef LINUX_DMAENGINE_H
->  #define LINUX_DMAENGINE_H
->  
-> +#include <linux/bitops.h>
->  #include <linux/device.h>
+---
 
-> +#include <linux/dma/engine/types.h>
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-Same, group them after generic linux/*.h.
+### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+**Record:** `b4 dig -c 36f22a94cb1b` failed — commit is upstream ACPICA
+only, not in this kernel tree. `lore.kernel.org` returned 403.
+`patch.msgid.link` blocked by bot protection. Upstream GitHub issue
+#1119 provides full reproduction and ASAN stack trace.
 
->  #include <linux/err.h>
->  #include <linux/uio.h>
->  #include <linux/bug.h>
+### Step 4.2: CHECK WHO REVIEWED THE PATCH
+**Record:** Could not verify via b4/lore. Upstream issue closed by Saket
+Dumbre (ACPICA maintainer). Kernel commit signed by Rafael J. Wysocki.
 
-...
+### Step 4.3: SEARCH FOR THE BUG REPORT
+**Record:** [ACPICA issue
+#1119](https://github.com/acpica/acpica/issues/1119) — "Use-After-Free
+in AcpiNsResolveReferences"
+- **Reproducer:** `./acpiexec -m issue7.aml`
+- **ASAN:** heap-use-after-free READ at `AcpiNsResolveReferences`
+  (nsxfeval.c:692 upstream)
+- **Free site:** `AcpiDsDeleteWalkState` during `AcpiPsParseAml`
+- **Alloc site:** `AcpiDsCreateWalkState`
+- Severity: reproducible memory corruption in ACPI method evaluation
 
-It's possible to split this patch to two:
-- move the existing type into a new types.h header
-- add support for the new API
+### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+**Record:** Single-commit fix in upstream ACPICA. No multi-patch series.
 
+### Step 4.5: CHECK STABLE MAILING LIST HISTORY
+**Record:** Could not access lore (403). No stable-list discussion found
+via available tools.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+**Record:** `acpi_ds_terminate_control_method()` — only function
+modified.
+
+### Step 5.2: TRACE CALLERS
+**Record:** Called from:
+- `psxface.c:168` — internal method execution cleanup
+- `psparse.c:434` — error path during thread creation
+- `psparse.c:568` — normal method completion / error during parse
+- `dsmethod.c:594` — nested method handling
+
+All paths run during ACPI control method evaluation — core interpreter
+hot path.
+
+### Step 5.3: TRACE CALLEES
+**Record:** Fix adds `acpi_ut_remove_reference()`; existing path calls
+`acpi_ds_method_data_delete_all()`, namespace cleanup, mutex release,
+thread count management.
+
+### Step 5.4: FOLLOW THE CALL CHAIN
+**Record:**
+`acpi_evaluate_object()` → `acpi_ns_evaluate()` →
+`acpi_ps_execute_method()` → `acpi_ps_parse_aml()` →
+`acpi_ds_terminate_control_method()` → (later)
+`acpi_ns_resolve_references()` on the return object.
+
+Reachable whenever kernel code evaluates ACPI methods returning `RefOf`
+references to locals/args without prior resolution — including firmware
+AML during boot, suspend/resume, thermal, battery, and device
+enumeration.
+
+### Step 5.5: SEARCH FOR SIMILAR PATTERNS
+**Record:** `dscontrol.c:236-254` and `dscontrol.c:264-286` already
+resolve references on explicit `Return()`, but
+`acpi_ds_restart_control_method()` (`dsmethod.c:658`) can propagate
+unresolved `return_desc` from nested calls. The terminate-time guard
+closes the gap.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+
+### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+**Record:** **YES.** `drivers/acpi/acpica/dsmethod.c:717-721` goes
+directly to `acpi_ds_method_data_delete_all()` with no `return_desc`
+guard. `local_variables[]` / `arguments[]` embedded in `walk_state` per
+`acstruct.h:66-67`. `acpi_ns_resolve_references()` at
+`nsxfeval.c:496-501` performs the dangling dereference. Fix is **not**
+present (grep found no matching comment/pattern).
+
+### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+**Record:** Expected **clean apply** with path adjustment only.
+Insertion point at line 717 matches upstream hunk context exactly.
+Upstream raw patch failed only due to path mismatch
+(`source/components/dispatcher/` vs `drivers/acpi/acpica/`).
+
+### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+**Record:** No equivalent fix for this specific UAF. Prior ACPICA UAF
+fixes (`6fcab27915439`, `470188b09e92d`) address different bugs.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+**Record:** **ACPI / ACPICA interpreter** — **CORE**. Affects all ACPI-
+enabled systems (x86, ARM servers/laptops, etc.).
+
+### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+**Record:** Actively maintained; regular ACPICA syncs in 6.18.y (e.g.,
+`e2c80b3c23782`, `6fcab27915439`).
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: DETERMINE WHO IS AFFECTED
+**Record:** All systems running ACPI firmware methods — universal on
+ACPI platforms. `acpi_evaluate_object` is used across battery, thermal,
+power, PCI, processor, and bus code (30+ files under `drivers/acpi/`).
+
+### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+**Record:** ACPI method returns a `RefOf` reference to its own local or
+argument without the reference being fully resolved before method
+termination. Triggered by specific AML (reproduced with `issue7.aml`;
+potentially present in platform firmware). Not a direct unprivileged
+syscall path, but firmware-controlled AML runs with kernel privileges.
+
+### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+**Record:** **HIGH** — heap use-after-free during
+`acpi_evaluate_object()`. Can cause kernel oops/crash or memory
+corruption. Potential security relevance (UAF in privileged interpreter
+context).
+
+### Step 8.4: CALCULATE RISK-BENEFIT RATIO
+**Record:**
+- **Benefit:** HIGH — prevents real UAF on common ACPI evaluation path
+- **Risk:** LOW — 43 lines, single function, teardown-only, maintainer-
+  reviewed pattern
+- **Ratio:** Strongly favors backport
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: COMPILE THE EVIDENCE
+
+**FOR backport:**
+- Confirmed heap UAF with ASAN reproduction (ACPICA #1119)
+- Affects `acpi_evaluate_object()` — widely used kernel API
+- Buggy code present in 6.18.44 since ~2005
+- Small, surgical, obviously correct fix
+- ACPI maintainer sign-off
+- Precedent: similar ACPICA UAF fixes already in stable series
+  (`6fcab27915439`)
+- Failure mode is crash/memory corruption, not cosmetic
+
+**AGAINST backport:**
+- Requires minor path adjustment for kernel tree (trivial)
+- Trigger depends on specific AML patterns (may be rare in the wild, but
+  firmware is uncontrolled input)
+- No in-kernel Tested-by / Reviewed-by tags in provided message
+
+**UNRESOLVED:**
+- Full lore.kernel.org review thread (403)
+- Whether this exact commit has landed in mainline kernel yet (not in
+  6.18.44)
+
+### Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — logic is clear; ASAN-tested
+   upstream with reproducer; maintainer SOB
+2. Fixes a real bug affecting users? **PASS** — confirmed UAF in ACPI
+   evaluation
+3. Important issue? **PASS** — UAF / potential crash and memory
+   corruption (HIGH severity)
+4. Small and contained? **PASS** — 43 lines, one function, one file
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — code exists; trivial path
+   adjustment
+
+### Step 9.3: EXCEPTION CATEGORIES
+**Record:** Not applicable (not device ID, quirk, DT, build, or docs).
+Standard bug fix.
+
+### Step 9.4: DECISION RATIONALE
+
+This commit fixes a real, reproducible use-after-free in the ACPICA
+interpreter teardown path. The vulnerable code is present in Linux
+6.18.44, the failure occurs on the `acpi_evaluate_object()` return path
+used throughout the kernel, and the fix is minimal with low regression
+risk. This is appropriate stable material comparable to the already-
+accepted `6fcab27915439` ACPICA UAF fix.
+
+---
+
+## Verification
+
+- [Phase 1] Parsed subject, tags, body; identified UAF fix intent
+- [Phase 1] GitHub API: upstream commit `36f22a94cb1b`, author ikaros,
+  `Fixes: #1119`
+- [Phase 2] Diff: +43 lines in `acpi_ds_terminate_control_method()`,
+  REFOF local/arg guard before `acpi_ds_method_data_delete_all()`
+- [Phase 3] `git blame -L 717,722`: buggy teardown from 2005-2006
+- [Phase 3] `git log --grep`: fix not in tree; related UAF fix
+  `6fcab27915439` present
+- [Phase 4] GitHub issue #1119: full ASAN report, reproducer `acpiexec
+  -m issue7.aml`
+- [Phase 4] `b4 dig -c 36f22a94cb1b`: no match (ACPICA-only commit)
+- [Phase 4] lore.kernel.org / patch.msgid.link: 403/bot-blocked —
+  UNVERIFIED for ML review
+- [Phase 5] `grep acpi_ds_terminate_control_method`: callers in
+  `psxface.c`, `psparse.c`, `dsmethod.c`
+- [Phase 5] Read `nsxfeval.c:472-517`: UAF dereference at `node->object`
+  for `ACPI_REFCLASS_REFOF`
+- [Phase 5] Read `acstruct.h:66-67`: locals/args embedded in
+  `walk_state`
+- [Phase 6] `git describe HEAD`: v6.18.44; buggy code confirmed at
+  `dsmethod.c:717-721`
+- [Phase 6] `grep` for fix comment: not present in tree
+- [Phase 6] Upstream patch dry-run: fails on path only; hunk context
+  matches kernel file
+- [Phase 8] Failure mode: heap UAF → crash/corruption, severity HIGH
+
+**YES**The background searches finished and line up with the earlier
+analysis:
+
+- **UAF fix commit search:** No match for “Fix use-after-free in
+  acpi_ds_terminate” in this tree — the fix is **not** in 6.18.44 yet.
+- **Related fixes search:** Other ACPICA UAF fixes are already here
+  (`6fcab27915439` for missing method arguments, `470188b09e92d` for
+  package copy), but nothing equivalent for this
+  `acpi_ds_terminate_control_method()` issue.
+
+**Verdict for 6.18.44 remains YES** — real, reproducible UAF on the
+`acpi_evaluate_object()` path; small, surgical fix; should backport with
+the usual ACPICA path adjustment.
+
+ drivers/acpi/acpica/dsmethod.c | 43 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
+
+diff --git a/drivers/acpi/acpica/dsmethod.c b/drivers/acpi/acpica/dsmethod.c
+index 45ec32e81903a..08bfe83030838 100644
+--- a/drivers/acpi/acpica/dsmethod.c
++++ b/drivers/acpi/acpica/dsmethod.c
+@@ -705,6 +705,8 @@ void
+ acpi_ds_terminate_control_method(union acpi_operand_object *method_desc,
+ 				 struct acpi_walk_state *walk_state)
+ {
++	u32 i;
++	struct acpi_namespace_node *ref_node;
+ 
+ 	ACPI_FUNCTION_TRACE_PTR(ds_terminate_control_method, walk_state);
+ 
+@@ -715,6 +717,47 @@ acpi_ds_terminate_control_method(union acpi_operand_object *method_desc,
+ 	}
+ 
+ 	if (walk_state) {
++		/*
++		 * Check if the return value is a ref_of reference to a method local
++		 * or argument. If so, clear the reference to avoid use-after-free
++		 * when the walk state is deleted.
++		 */
++		if (walk_state->return_desc &&
++		    (walk_state->return_desc->common.type ==
++		     ACPI_TYPE_LOCAL_REFERENCE)
++		    && (walk_state->return_desc->reference.class ==
++			ACPI_REFCLASS_REFOF)) {
++			ref_node = walk_state->return_desc->reference.object;
++			if (ref_node) {
++
++				/* Check against method locals */
++				for (i = 0; i < ACPI_METHOD_NUM_LOCALS; i++) {
++					if (ref_node ==
++					    &walk_state->local_variables[i]) {
++						acpi_ut_remove_reference
++						    (walk_state->return_desc);
++						walk_state->return_desc = NULL;
++						break;
++					}
++				}
++
++				/* Check against method arguments if not already cleared */
++				if (walk_state->return_desc) {
++					for (i = 0; i < ACPI_METHOD_NUM_ARGS;
++					     i++) {
++						if (ref_node ==
++						    &walk_state->arguments[i]) {
++							acpi_ut_remove_reference
++							    (walk_state->
++							     return_desc);
++							walk_state->
++							    return_desc = NULL;
++							break;
++						}
++					}
++				}
++			}
++		}
+ 
+ 		/* Delete all arguments and locals */
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
