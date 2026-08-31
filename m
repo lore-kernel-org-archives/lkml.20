@@ -1,291 +1,461 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013010.outbound.protection.outlook.com [40.93.196.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6914334B1B0
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:45:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183917; cv=fail; b=eWtH9UCmUloKMcTafGLvjAGFO/O0bXHUX2lnGJn6eYEueG4vXroRCGqtDoULXXHWtPjQeRaJF2Pr4B+iNtuSKQhp/57nYcnflFlpvuAytECAEw2UgwxtmwFflnvXcdB5p23hxtlRFLCRrWjPSxnKDq7sz6GdrhU7rcgpzMGvsnI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183917; c=relaxed/simple;
-	bh=dcCjZMYZhlpTdgnCHP5mPtfMHA9XKo5GTcxJVgaGyFM=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981EA52ED4F;
+	Mon, 31 Aug 2026 13:45:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183919; cv=none; b=C0zYXFqCYcGR0PFawjHHtPMMmePPEUkIfDmsl13Gny+gqNxskpv4aDCVFg29df13iNa8PXQ4YoVFOmUTkYqlt+yJdLfVCPc6OLqTgB0CpmNxhABvterewcuph6bJHxl8q6N3Z9DeKG9/UPQHpLEqdA94wwKbs2ixZcCylb3nSBM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183919; c=relaxed/simple;
+	bh=EBTForxpSjpKe5If+cnqBgoz6rvUa0VIjMqURHsFCl8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BaQfX5ZxCZMK01BSZKE3g8J3Cd3Kpxq3ex2YZ5rmZ+IfywXHqb17hXy9YV18GmFY9vPN2vfjd7tD9+MyXm8YwStl0xzIlGXLLW4SsoHm2i4xOPaI21rPOkylYddQN3J1iOpPj179ezN0m/U0Wv4BXTh44UbUNbVinVjgOsBYGwk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=L4r7k1X+; arc=fail smtp.client-ip=40.93.196.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version:Content-Type; b=gxR9QQcIUYksolvFYgqaPAl8pA1cH0A074hiBIehxlte1pgKd4oZZVzYUjbuYfVfBBVbBGWpLxZMCxtwfdiR2c2RygV7qR7h5CEp04WjPPYtC6BguylaKyqvK3JuILCFMIz3lB2wiyDODYVLTGJyXtcBY9LBO/lDzH1ez1JVm2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBidIe/l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="L4r7k1X+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Pv2e7scxuSrLKAsR04Sckgh4+xSt+QUuVX/n80YTGBsCHSENAWPPSTrjKWJp2GvS2ISPsHIefu6byrSTWy0KCK5bP8pQ+yrheQ1InO/hcn8lgrYvnmAXmXMrVwZAtbqYL9CCLG36mZYCuZYIMz4L5uVvu1AP6ZHlH6AD0oTXjVbwmfaesk0wB3shndZf5XG0qin0K0OSb1jLKWZS/DQ/F9g3ls0aqtmBm22xivDbvUSBK274kCGF2zwAVwI96oXweuSz8HmQWSxpACpj2cByvwJ05N8rNTbgoVFC8wni1xA6MH84b8IUwnODn0ZQ6u5U1TZFVqIUu3pDP4xmz4Fgdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nvcg0G6cJ29ncACWGSdBhMHvRP2GDgeSk11PwQ+RZvk=;
- b=domVJrCF/PbyqcRxUMmnI62ltE02QfK7Q9RiCDJ2lz716xM1vvj5avcQus5XmmLkBy7zuJAGRepoz/Rnv5dMugqPYJdQQLuQFDa4mG/3LjEgpws/BfyPcPhsM+xKaZIErDINcmRZrut3QTEaBRWZ5fXdw4BAUtg5TylQKVZ32f81DpMg8OzO7tUeHfBgJIBbZthOxvnaxgtWRFk4NHUJAAqBHUbBBaMLyXGgV2RDfMwWtzwMI3hV1O/jrpmYkVHwZA69DMVsuXc9sAJbHXCianDJHlq663XUXK27JdN82hFYRTadYGaeI/b604TyAYgXjrBe1oLF9hnrYU3MjDH0rg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nvcg0G6cJ29ncACWGSdBhMHvRP2GDgeSk11PwQ+RZvk=;
- b=L4r7k1X+Ps5ez3pia+gWOuAdbBjdlz1W6ylyptZVa6VVITLbVksJdA16zxpjFA2QGXcbqsnXLdxIq7EMHlV6F34EaohyrbqoTGdmmqsD2RQuyJ/F5WISiP/0/09NqnIBWIQEN1/mb5uu1Et/dpY2NlXejjOJQQ2CF2HZDB94XWPoL1FaluUl79G0GndSIm1kfSM97teum5k9UxFuNllwFtHFqBza++sodwnI+Ans4vRhxS3vQTP0AiLjGsBAYn5yrHsOds+OuS/yo8KrrOqKDWNQ6hZsnEnB+bqzNfklHlKBScF0On+pXLt4JblQRV2U7Dwzt4XZuJBmLPN4LyIuJQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by MW4PR12MB6755.namprd12.prod.outlook.com (2603:10b6:303:1ea::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Mon, 31 Aug
- 2026 13:45:09 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 13:45:09 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>,
-	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBidIe/l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE2D21F00A3E;
+	Mon, 31 Aug 2026 13:45:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183916;
+	bh=oSEW1sZndZdlzCRNRuF4bhV3AHpNUq6XsCYj5F7lCNE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fBidIe/lO91/OMDGKeJKfn1oTx7r2gipnwk3y38S+FI4qeLSgDN6MldN91xZs3c3O
+	 QMrgQ4olid8CggPQjcfpRR1EwBEqZ2deMyd0QfRX6zAB9dnGTjO+frrCvKPIEtLiLw
+	 y7u34qOlgy5rhLlQfUolt9t7EV/RLU6QOM1BvD0bPI411K/3cnv1S2zP3Fg3FSwszZ
+	 aRqc0LMnx+zFSvs4ybJ+cgd5vZHDwX8CSWoShQsy+H1WcVtLVO4DJmiPnxgvV+Casz
+	 nxek9mW2HZV0qY4F1JfthxQ4VMDyKtq8+yZVkYPXInHQVPKBLjJSv4RurMglx/ze6O
+	 5qZsuvghJaDbw==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Shivang Upadhyay <shivangu@linux.ibm.com>,
+	Shirisha G <shirisha@linux.ibm.com>,
+	Sourabh Jain <sourabhjain@linux.ibm.com>,
+	Mahesh Salgaonkar <mahesh@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Sasha Levin <sashal@kernel.org>,
+	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 11/18] sched_ext: Move reject DSQ draining into core
-Date: Mon, 31 Aug 2026 15:42:21 +0200
-Message-ID: <20260831134338.1531664-12-arighi@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BY3PR03CA0006.namprd03.prod.outlook.com
- (2603:10b6:a03:39a::11) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+Subject: [PATCH AUTOSEL 6.18] ppc/fadump: invoke kmsg_dump in fadump panic path
+Date: Mon, 31 Aug 2026 09:26:47 -0400
+Message-ID: <20260831133314.4125787-379-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|MW4PR12MB6755:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85b9daa4-4cba-4c52-e7eb-08df076612b7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	dm+Fyw8X8JOEKeV9C9PKm2R7lhS4FaAtPiiVclOxoc5BzigtwRc9vO87Q7WOgLxC/6G2gOqTcU/CLln7o1Y4EGPZdurv/Lc97smkMgi+LCFDfgP6qlCUTN0BgVxNXUUk251Zu2yE/k+TY+L7UUAzxqx4I9TdzTht/x/5dTSVNUkeF1tbsu9upS+CHUTLEYhL94+HxFSOR6aWw5GNngd4iF2/PV9+6xHfslALZXt4B13CVzPyLR+f7vIauEmH2wkHlSNz/0Cxyt0YD4CziMlKv2wFDLFWg/FSG/Fe2ZvUOVx9qoJ0cVRrRH/Eom0VQUB6J7MXIfOG1gDPU1efFgJ78Z6zdeXEHGYqJxPHOTQ3dtyZeWbWIefi5piyOoVVf1Ojho0y7/AOuxGWC7kktxxqqxNGiRyAk7a2BYwFqdeVf6ichYUloU+iYpQvJKHw17Xi+ogTXlEtNTMYTEb6MjqlyC0dAS3nBzybjAOQ5mlJ5bSMd01uYStaCCLPZ1Drcyd3PPxqP6pBOBm8Hr3JHMlbRdQUE0E6Yt3JffR9OxK5dn6GPzMGI59AeQ6LYgGCsX9FlFzQxKtIoiQwbc/43SyUPRpGE6aR4iydJ4as8+Cmz3OcFhtoSTHAiupJKSIdSlcYJoIl6IAXvvNOMRi0MYC1ZoJJgcMisrW1LS3/e2gMicg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?93nSB9Mf4PnooiL+2PnJn5vFEfT/0Ogb21OEKgopKPqOSUC2TlpbiZcnNPO2?=
- =?us-ascii?Q?u22gzlePtf2+pNAQsquN4NrS9hRJkqByRm6R9lIetT8ls/RqbmenaB6lIFly?=
- =?us-ascii?Q?VohOliDstSfu/ihhJBmSS3qluX9SNN0qHX5JN2v8jc/w0fN1t4rj7fywqdi1?=
- =?us-ascii?Q?6x2TtPThsUzrUKD5aNgTSNKhhA3hqp9ldLSQBFjoc96IDX+Uep8MkpTZll+m?=
- =?us-ascii?Q?TcjarYE9wDrfLK1bEv6+cw0UOHmS4N9deZslam1QpcFqR8ixOLTi4jez1gLk?=
- =?us-ascii?Q?tGgNJc3TK/Km1HMJNTb6hj0B0UvJs5IK4dvzoN83qukFsxMViFxkieFWa4RN?=
- =?us-ascii?Q?E3VVZKuQrnK1DSPZjvCb2+CZ650G7i8sr8naU/ZkxqHVJM7vDbArPB9eQJ6q?=
- =?us-ascii?Q?mb8TMPou8aBNRgX4NZ7XCDpoOdtIZW9FQOhJHfWgt7sCYBV+6L3uOVyzIYu4?=
- =?us-ascii?Q?suSGwmY6/O3ihpIXRchFNmQ3bziMybwiLjMcqap93GFshRIgsHlVNdrVjqhR?=
- =?us-ascii?Q?7gboq/jk/67JswpbR5zjF6AZyQDMk7OG6ejpR1+pHwCq5/3pJ9nUxYkfd/zi?=
- =?us-ascii?Q?iME9bVunmLXKPhxznj2otmjKL7g5aPvYoNfnpKy3aY7zyA6bIaipJeTNCt+M?=
- =?us-ascii?Q?8QvI4lKrx2lPE+v0QFhyHRzqh/0vKrUQh6m3Y2dDbpRwiwz/dqoKS7Q+gi01?=
- =?us-ascii?Q?wdcD3vNvnXZlRA5Z5rP8N3joSOuAsOERdpjqUixhFQLgiIT62sm6+MFdpyyv?=
- =?us-ascii?Q?x2HMAArhQF/i9sThoWJQKke868vcctlyQAxLcDzS49jcUFETKzu7Mc1wSDC1?=
- =?us-ascii?Q?9l6IFuR8ZvFuj1Si49ePqewPXNfYnzZMuA+gr1aomH+BUU+M25f7m6RhVLYl?=
- =?us-ascii?Q?nVkBXZgPwKEYLYTuns8ONGInHr6ADGDes/ZUERJKDS+cEqBjfeYiFN+QR27j?=
- =?us-ascii?Q?bR+3J4T5exMF9nuBmVIUT7L61mV+boRhIBIMVJQkkHrfeJs/rsp9l2i5uMGl?=
- =?us-ascii?Q?thOz3zMqDieQN59Ld3gHHahvfpUf8zDco2pY9EOFzU+lTmtad1fprmyp6t+j?=
- =?us-ascii?Q?UwpjYmn050K5sK4Q/uNw7syhlbjJqflmiHnv25qswM1Ff0Tm7KnP/tXvdm2y?=
- =?us-ascii?Q?b4jhsC6wRJPSNx+LR2umuv+fRQmB0xHo/zX1WRv63AO8yE/DWRIKxbyfjzja?=
- =?us-ascii?Q?a34FOS/3igzcI2wyexuHCEeRzCGMRtEflr6wRxKBKWbtkrnVEQ5411+TioKT?=
- =?us-ascii?Q?6gm0Wili/lxfDaWq9K5/904PKqdq2G1g3cHlkEXrjkN9YCVhYa9qeJTIhMsU?=
- =?us-ascii?Q?j/JcNIML7Sptwb2U55P6nlpGuA+ckJtospXazyuGePhhb35fVRZh56bvsQfw?=
- =?us-ascii?Q?e2h+I30kOs3zbuSSD3+q1l0Uo2G5x+R+OVcXkdyCNj4fz4vDX0V0U1qIkWXM?=
- =?us-ascii?Q?nJoK5f4D0f/HrMfeGvTFTZGKFr1GY9cNcJggqxp1Wpdq0Es4CaN71t/MG2Q2?=
- =?us-ascii?Q?dbdBxDrTrJ41ou4TPrsSUTkpKjq3cvohXC7iblHyApft5IAPqNL+0gvBW3tv?=
- =?us-ascii?Q?ckOwTLPXL9uTfAD4E3vYn+0F+iwOrlPbgATUHYqOuNNV6S9RJNoej13+0ZBg?=
- =?us-ascii?Q?yTObWYZKf9/0y9Q0oU6qh275B6UiR3V/cR/ElOESTBcIuMH707oBjeN3k4+z?=
- =?us-ascii?Q?Q8bKHQYn6tELpn4x3/kQGDU3m3zxob7VA9LJXPNkzxSShemkpX7SDbvfsqKV?=
- =?us-ascii?Q?ucj7H24uXw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85b9daa4-4cba-4c52-e7eb-08df076612b7
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:45:09.3759
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ooTgocRCWAmaz7QdNHFTMGUUkA+LfISBq74Xz7qfwmTQXX7LDVdua+WAnS3fe6QGX4B2cffUdWGwzPZzwrNgtA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6755
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The reject DSQ drain will be generalized for placement failures outside
-sub-scheduler capability rejection. Move the drain into the core
-sched_ext implementation first so the subsequent behavioral changes can
-be reviewed separately. No functional change.
+From: Shivang Upadhyay <shivangu@linux.ibm.com>
 
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
+[ Upstream commit 6ed8332639853b77329594a241eb99fc36d591a2 ]
+
+fadump is registered in panic_notifier_list and gets triggered before
+kmsg_dump_desc() in the panic path. As a result, kmsg_dumpers such as
+pstore are not executed during fadump crashes.
+
+This is problematic because pstore provides a critical fallback mechanism
+for crash analysis. When fadump fails to successfully reboot the system
+or capture a dump, pstore logs may be the only available information from
+the crashed kernel. Without invoking kmsg_dump_desc() in the fadump path,
+we lose this valuable diagnostic data.
+
+Invoke kmsg_dump_desc() from the fadump panic handler, but only when
+fadump is actually registered (checked via should_fadump_crash()). This
+ensures kmsg_dumpers are called without duplicating the call that occurs
+later in panic() when fadump is not active.
+
+The call is placed before crash_fadump() to ensure logs are captured
+before the system attempts to trigger the firmware-assisted dump.
+
+Reported-by: Shirisha G <shirisha@linux.ibm.com>
+Suggested-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+Signed-off-by: Shivang Upadhyay <shivangu@linux.ibm.com>
+Tested-by: Shirisha G <shirisha@linux.ibm.com>
+Reviewed-by: Mahesh Salgaonkar <mahesh@linux.ibm.com>
+Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+Link: https://patch.msgid.link/20260412113057.46090-1-shivangu@linux.ibm.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/ext/ext.c | 49 ++++++++++++++++++++++++++++++++++++++++++
- kernel/sched/ext/sub.c | 45 --------------------------------------
- kernel/sched/ext/sub.h |  2 --
- 3 files changed, 49 insertions(+), 47 deletions(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 307d2080b967a..967bf31a32754 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -4674,6 +4674,55 @@ static void process_deferred_reenq_users(struct rq *rq)
- 	}
- }
+LLM Generated explanations, may be completely bogus:
+
+# Stable Backport Analysis: `ppc/fadump: invoke kmsg_dump in fadump
+panic path`
+
+**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`)
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Subject line
+**Record:** `[ppc/fadump]` `[invoke]` — Ensure `kmsg_dump` (e.g. pstore)
+runs on the fadump panic path before firmware takes over.
+
+### Step 1.2: Tags
+**Record:**
+| Tag | Value |
+|-----|-------|
+| Fixes: | *(none)* |
+| Reported-by: | Shirisha G \<shirisha@linux.ibm.com\> |
+| Suggested-by: | Sourabh Jain \<sourabhjain@linux.ibm.com\> |
+| Tested-by: | Shirisha G \<shirisha@linux.ibm.com\> |
+| Reviewed-by: | Mahesh Salgaonkar, Sourabh Jain (IBM fadump
+maintainers) |
+| Signed-off-by: | Shivang Upadhyay, Madhavan Srinivasan |
+| Link: |
+https://patch.msgid.link/20260412113057.46090-1-shivangu@linux.ibm.com |
+| Cc: stable | *(none — expected for pipeline candidates)* |
+
+**Notable:** IBM fadump subsystem reporters/reviewers; no syzbot; no NAK
+indicators in message.
+
+### Step 1.3: Body analysis
+**Record:**
+- **Bug:** `ppc_panic_fadump_handler` is registered on
+  `panic_notifier_list` with `INT_MAX` priority and runs **before**
+  `panic()` reaches `kmsg_dump_desc()`. When fadump triggers firmware-
+  assisted dump (`rtas_os_term` / OPAL MPIPL reboot), execution
+  typically never returns to `panic()`, so pstore and other kmsg dumpers
+  never run.
+- **Symptom:** On fadump-configured POWER systems, panic logs are not
+  saved to pstore; if fadump also fails, administrators may have **no**
+  kernel log from the crash.
+- **Root cause:** Ordering gap between early fadump panic notifier and
+  later `kmsg_dump_desc()` in `panic()`.
+- **Fix approach:** Call `kmsg_dump_desc(KMSG_DUMP_PANIC, …)` in
+  `ppc_panic_fadump_handler()` when `should_fadump_crash()` is true,
+  **before** `crash_fadump()`.
+
+### Step 1.4: Hidden bug fix?
+**Record:** No — this is an explicit, well-described functional bug fix
+(missing kmsg dump invocation), not disguised cleanup.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory
+**Record:**
+- **Files:** `arch/powerpc/kernel/setup-common.c` (+1 include, +7 lines
+  in handler)
+- **Functions:** `ppc_panic_fadump_handler()`
+- **Scope:** Single-file, surgical (~10 lines)
+
+### Step 2.2: Code flow change
+**Record:**
+
+| Hunk | Before | After |
+|------|--------|-------|
+| Include | No `kmsg_dump.h` | Adds `#include <linux/kmsg_dump.h>` |
+| `ppc_panic_fadump_handler()` | `hard_irq_disable()` → `crash_fadump()`
+| `hard_irq_disable()` → `kmsg_dump_desc()` (if fadump registered) →
+`crash_fadump()` |
+
+**Path affected:** Kernel panic on PowerPC with `CONFIG_FA_DUMP` and
+fadump registered.
+
+### Step 2.3: Bug mechanism
+**Record:**
+- **Category:** Logic / ordering bug on crash path (missing diagnostic
+  dump invocation).
+- **Mechanism:** Verified in `kernel/panic.c` —
+  `atomic_notifier_call_chain(&panic_notifier_list, …)` at line 520 runs
+  **before** `kmsg_dump_desc(KMSG_DUMP_PANIC, buf)` at line 524. Fadump
+  notifier runs first (`INT_MAX` priority in `setup-common.c` line 780).
+  `crash_fadump()` → `fadump_trigger()` calls `rtas_os_term()` (pseries)
+  or `opal_cec_reboot2(OPAL_REBOOT_MPIPL)` (powernv), which
+  terminate/reboot and normally do not return to `panic()`.
+
+### Step 2.4: Fix quality
+**Record:**
+- **Obviously correct:** Yes — mirrors the existing system-reset path in
+  `traps.c:474` (`kmsg_dump()` before `crash_fadump()`).
+- **Minimal:** Yes.
+- **Regression risk:** Very low. `should_fadump_crash()` guard avoids
+  extra dump when fadump is inactive. If `fadump_trigger()` fails and
+  returns (e.g. OPAL `OPAL_UNSUPPORTED`), `panic()` may call
+  `kmsg_dump_desc()` again — redundant but harmless for pstore.
+- **Uses `kmsg_dump_desc` with panic message pointer:** Better than bare
+  `kmsg_dump()` — matches `panic()` behavior.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: Blame
+**Record:**
+- `ppc_panic_fadump_handler` / `crash_fadump()` call: **ab9dbf771ff9b6**
+  (David Gibson, Dec 2017) — fadump panic notifier restored.
+- Handler structure/priority: **e2aa34ce80a26** (Guilherme Piccoli, Apr
+  2022) — split notifiers, fadump runs early with `INT_MAX` priority.
+- Bug present since fadump panic notifier runs before `kmsg_dump_desc()`
+  in `panic()` — long-standing on 6.18.y.
+
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag. Related prior fix: **e7ca44ed3ba77**
+(2019) fixed the **same pstore gap** on the **system reset** path in
+`traps.c`, not the `panic()` notifier path.
+
+### Step 3.3: Related file history
+**Record:**
+- `e7ca44ed3ba77` — "powerpc: dump kernel log before carrying out fadump
+  or kdump" (traps.c system-reset path).
+- `e2aa34ce80a26` — panic notifier refactor (made fadump run earliest).
+- Standalone 1-patch fix; not part of a series.
+
+### Step 3.4: Author context
+**Record:** Shivang Upadhyay / IBM team; reviewed by Mahesh Salgaonkar
+and Sourabh Jain (long-time fadump maintainers). Same subsystem as 2019
+pstore/fadump fix.
+
+### Step 3.5: Dependencies
+**Record:** None. All symbols exist in this tree:
+- `should_fadump_crash()` — `arch/powerpc/kernel/fadump.c:227`
+- `kmsg_dump_desc()` — `kernel/printk/printk.c:4765`
+- `linux/kmsg_dump.h` — present
+- Applies standalone to 6.18.44.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1–4.5
+**Record:**
+- **b4 dig:** Could not run — patch commit not in local tree (`b4 dig
+  -c` requires commitish).
+- **WebFetch lore / patch.msgid.link:** Blocked by Anubis bot protection
+  — could not read thread.
+- **Commit message Link:** Present but content unverified externally.
+- **Stable list search:** Not performed (lore blocked).
+- **Inference from commit message only:** IBM-internal report; tested
+  and reviewed by fadump maintainers. No evidence of NAKs in commit
+  message.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: Key functions
+**Record:** `ppc_panic_fadump_handler()`, `should_fadump_crash()`,
+`crash_fadump()`, `kmsg_dump_desc()`
+
+### Step 5.2: Callers
+**Record:**
+- `ppc_panic_fadump_handler` — registered via `setup_panic()` →
+  `atomic_notifier_chain_register(&panic_notifier_list,
+  &ppc_fadump_block)` (line 795).
+- Invoked from `panic()` → `atomic_notifier_call_chain()`
+  (`kernel/panic.c:520`).
+- **Context:** Panic path only; all CPUs eventually panic.
+
+### Step 5.3: Callees
+**Record:** `hard_irq_disable()`, `should_fadump_crash()`,
+`kmsg_dump_desc()` → iterates registered dumpers (pstore, etc.),
+`crash_fadump()` → `fadump_trigger()` → firmware reboot.
+
+### Step 5.4: Reachability
+**Record:**
+- Triggered on any kernel panic when fadump is registered
+  (`fw_dump.dump_registered` and `fw_dump.fadumphdr_addr` set).
+- Common on IBM POWER LPARs / PowerNV with fadump enabled.
+- Not userspace-triggerable directly, but panics are the exact scenario
+  this code handles.
+
+### Step 5.5: Similar patterns
+**Record:** `arch/powerpc/kernel/traps.c:474` already does
+`kmsg_dump(KMSG_DUMP_OOPS)` before `crash_fadump()` on system-reset dump
+path — this patch closes the analogous gap on the **panic notifier**
+path.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
+
+### Step 6.1: Buggy code exists?
+**Record:** **YES.** Current `setup-common.c:738-751` has no
+`kmsg_dump_desc()` call. Fix is **not** present in v6.18.44.
+
+### Step 6.2: Backport complications
+**Record:** **Clean apply expected** — single hunk, no structural
+conflicts; file unchanged for fadump handler since 2022 refactor.
+
+### Step 6.3: Related fixes already present?
+**Record:** System-reset path fix (e7ca44ed3ba77) is present in
+`traps.c`. Panic-notifier path fix is **missing** — this commit fills
+that gap.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem
+**Record:** `arch/powerpc` / fadump crash dump — **IMPORTANT** for IBM
+POWER enterprise; **PERIPHERAL** globally (architecture- and config-
+specific: `CONFIG_FA_DUMP`).
+
+### Step 7.2: Activity
+**Record:** Fadump actively maintained in 6.18.y (recent commits: param
+area, CMA init, hugetlb interaction, etc.).
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** IBM POWER (pseries/PowerNV) systems with firmware-assisted
+dump enabled and pstore (or other kmsg dumpers) configured.
+
+### Step 8.2: Trigger conditions
+**Record:** Kernel panic while fadump is registered. Common crash
+scenario on servers using fadump. Not unprivileged attack vector; crash-
+path diagnostic issue.
+
+### Step 8.3: Failure mode severity
+**Record:** **MEDIUM-HIGH** for affected users — loss of pstore panic
+logs when fadump takes over or fails; no normal-runtime impact.
+Operationally critical when fadump is the primary dump mechanism and
+fails (exact scenario described in commit and in e7ca44ed3ba77).
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** Restores last-resort crash diagnostics (pstore) on fadump
+  panic path; same rationale as 2019 stable-class fix.
+- **Risk:** Very low — ~10 lines, guarded by `should_fadump_crash()`,
+  tested by IBM.
+- **Ratio:** Strong benefit for POWER/fadump users; negligible risk.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence summary
+
+**FOR backport:**
+- Real, verifiable ordering bug in panic path
+- Buggy code present in 6.18.44; fix not yet applied
+- Small, self-contained, reviewed/tested by fadump maintainers
+- Direct precedent: e7ca44ed3ba77 fixed same pstore gap on system-reset
+  path
+- Important for IBM POWER crash diagnostics when fadump is active
+
+**AGAINST backport:**
+- Platform/config specific (not all stable users)
+- Fixes diagnostic data loss, not runtime crash/corruption/deadlock
+- Mailing list discussion unverified (lore blocked)
+
+**Unresolved:** Full lore thread content; whether reviewers explicitly
+nominated for stable.
+
+### Step 9.2: Stable rules checklist
+
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — clear ordering fix;
+Tested-by + Reviewed-by IBM maintainers |
+| 2. Fixes real bug affecting users? | **PASS** — pstore not invoked on
+fadump panic path |
+| 3. Important issue? | **PASS (borderline)** — crash-path diagnostic
+loss on enterprise POWER; fallback when fadump fails |
+| 4. Small and contained? | **PASS** — ~10 lines, one file |
+| 5. No new features/APIs? | **PASS** — invokes existing kmsg_dump
+infrastructure |
+| 6. Applies to local tree? | **PASS** — all prerequisites present;
+clean apply |
+
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Standard
+bug fix.
+
+### Step 9.4: Decision rationale
+On **6.18.44**, fadump’s early panic notifier prevents `panic()` from
+ever reaching `kmsg_dump_desc()`, leaving pstore empty when firmware
+takes over — precisely when those logs are most needed as a fallback.
+The fix is minimal, matches an established pattern already used on the
+system-reset path, and is low risk. Diagnostic loss on the crash path
+for a supported enterprise platform meets stable backport criteria under
+the “important issue” umbrella, especially given prior acceptance of the
+same class of fix in 2019.
+
+---
+
+## Verification
+
+- **[Phase 1]** Parsed commit message tags and body from user-provided
+  content
+- **[Phase 2]** Read diff; verified `panic()` ordering in
+  `kernel/panic.c:520-524`
+- **[Phase 2]** Read `ppc_panic_fadump_handler` at `setup-
+  common.c:738-780`; confirmed no `kmsg_dump_desc` call
+- **[Phase 2]** Read `crash_fadump()` and `fadump_trigger`
+  implementations (`fadump.c`, `rtas-fadump.c:555-559`, `opal-
+  fadump.c:581-600`)
+- **[Phase 2]** Read `kmsg_dump_desc()` in
+  `kernel/printk/printk.c:4765-4788`
+- **[Phase 3]** `git describe HEAD` → v6.18.44; Makefile VERSION 6.18.44
+- **[Phase 3]** `git blame` on handler lines → ab9dbf771ff9b6 (2017),
+  e2aa34ce80a26 (2022)
+- **[Phase 3]** `git show e2aa34ce80a26` — fadump notifier INT_MAX
+  priority
+- **[Phase 3]** `git show e7ca44ed3ba77` — prior pstore/fadump fix on
+  system-reset path
+- **[Phase 3]** `git log --oneline -20 -- arch/powerpc/kernel/setup-
+  common.c`
+- **[Phase 4]** `b4 dig -c` — failed (no commit in tree)
+- **[Phase 4]** WebFetch lore.kernel.org and patch.msgid.link — blocked
+  (Anubis)
+- **[Phase 5]** Grep callers: `setup_panic()` registers notifier;
+  `panic()` invokes chain
+- **[Phase 5]** Verified `traps.c:474` kmsg_dump before crash_fadump on
+  system-reset path
+- **[Phase 6]** Confirmed buggy code present; fix absent in v6.18.44
+- **[Phase 6]** Verified `should_fadump_crash()`, `kmsg_dump_desc`,
+  `linux/kmsg_dump.h` exist
+- **UNVERIFIED:** Lore thread review comments and explicit stable
+  nominations
+
+**YES**
+
+ arch/powerpc/kernel/setup-common.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/powerpc/kernel/setup-common.c b/arch/powerpc/kernel/setup-common.c
+index 68d47c53876c6..28186f9ec8da0 100644
+--- a/arch/powerpc/kernel/setup-common.c
++++ b/arch/powerpc/kernel/setup-common.c
+@@ -68,6 +68,7 @@
+ #include <asm/kasan.h>
+ #include <asm/mce.h>
+ #include <asm/systemcfg.h>
++#include <linux/kmsg_dump.h>
  
-+#ifdef CONFIG_EXT_SUB_SCHED
-+/*
-+ * Drain @rq->scx.reject_dsq, reenqueueing each task so the BPF re-decides
-+ * from p->scx.reenq_reason_*.
-+ *
-+ * A task can be re-rejected repeatedly. The reenqueue is bounded per task in
-+ * scx_do_enqueue_task(), which ejects the owning sub past SCX_REENQ_MAX_REPEAT.
-+ * Rejection can't happen for root.
-+ */
-+static void scx_reenq_reject(struct rq *rq)
-+{
-+	LIST_HEAD(tasks);
-+	struct task_struct *p, *n;
-+
-+	lockdep_assert_rq_held(rq);
-+
-+	if (!scx_has_subs() || list_empty(&rq->scx.reject_dsq.list))
-+		return;
-+
+ #include "setup.h"
+ 
+@@ -744,6 +745,13 @@ static int ppc_panic_fadump_handler(struct notifier_block *this,
+ 	 */
+ 	hard_irq_disable();
+ 
 +	/*
-+	 * Move to a private list so a task re-rejected by the
-+	 * scx_do_enqueue_task() below isn't revisited this round.
++	 * Invoke kmsg_dump (e.g., pstore) before crash_fadump() as fadump
++	 * runs before panic()'s kmsg_dump_desc() call.
 +	 */
-+	list_for_each_entry_safe(p, n, &rq->scx.reject_dsq.list, scx.dsq_list.node) {
-+		/* migration_pending tasks should have bypassed to local DSQ */
-+		if (WARN_ON_ONCE(p->migration_pending))
-+			continue;
++	if (should_fadump_crash())
++		kmsg_dump_desc(KMSG_DUMP_PANIC, (char *)ptr);
 +
-+		scx_dispatch_dequeue(rq, p);
-+
-+		if (WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK))
-+			p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
-+		p->scx.flags |= SCX_TASK_REENQ_CAP;
-+
-+		list_add_tail(&p->scx.dsq_list.node, &tasks);
-+	}
-+
-+	list_for_each_entry_safe(p, n, &tasks, scx.dsq_list.node) {
-+		list_del_init(&p->scx.dsq_list.node);
-+
-+		scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
-+
-+		p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
-+	}
-+}
-+#else
-+static void scx_reenq_reject(struct rq *rq) {}
-+#endif
-+
- static void run_deferred(struct rq *rq)
- {
- 	process_ddsp_deferred_locals(rq);
-diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index c3955c8163a03..a73593e828267 100644
---- a/kernel/sched/ext/sub.c
-+++ b/kernel/sched/ext/sub.c
-@@ -774,51 +774,6 @@ bool scx_task_reenq_on_cap_revoke(struct rq *rq, struct task_struct *p)
- 	return true;
- }
- 
--/*
-- * Drain @rq->scx.reject_dsq, reenqueueing each task so the BPF re-decides
-- * from p->scx.reenq_reason_*.
-- *
-- * A task can be re-rejected repeatedly. The reenqueue is bounded per task in
-- * scx_do_enqueue_task(), which ejects the owning sub past SCX_REENQ_MAX_REPEAT.
-- * Rejection can't happen for root.
-- */
--void scx_reenq_reject(struct rq *rq)
--{
--	LIST_HEAD(tasks);
--	struct task_struct *p, *n;
--
--	lockdep_assert_rq_held(rq);
--
--	if (!scx_has_subs() || list_empty(&rq->scx.reject_dsq.list))
--		return;
--
--	/*
--	 * Move to a private list so a task re-rejected by the
--	 * scx_do_enqueue_task() below isn't revisited this round.
--	 */
--	list_for_each_entry_safe(p, n, &rq->scx.reject_dsq.list, scx.dsq_list.node) {
--		/* migration_pending tasks should have bypassed to local DSQ */
--		if (WARN_ON_ONCE(p->migration_pending))
--			continue;
--
--		scx_dispatch_dequeue(rq, p);
--
--		if (WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK))
--			p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
--		p->scx.flags |= SCX_TASK_REENQ_CAP;
--
--		list_add_tail(&p->scx.dsq_list.node, &tasks);
--	}
--
--	list_for_each_entry_safe(p, n, &tasks, scx.dsq_list.node) {
--		list_del_init(&p->scx.dsq_list.node);
--
--		scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
--
--		p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
--	}
--}
--
- /* record a caps change, see struct scx_caps_updated */
- static void caps_updated_record(struct scx_pshard *ps, const struct scx_cmask *cids, u64 caps,
- 				struct list_head *to_deliver)
-diff --git a/kernel/sched/ext/sub.h b/kernel/sched/ext/sub.h
-index f7bcdfda8dd85..8f2425bdb9530 100644
---- a/kernel/sched/ext/sub.h
-+++ b/kernel/sched/ext/sub.h
-@@ -37,7 +37,6 @@ void scx_discard_stale_ecaps_syncs(void);
- struct scx_dispatch_q *scx_resolve_local_dsq(struct scx_sched *sch, struct rq *rq,
- 					     struct task_struct *p, u64 *enq_flags);
- bool scx_task_reenq_on_cap_revoke(struct rq *rq, struct task_struct *p);
--void scx_reenq_reject(struct rq *rq);
- void scx_rescue_charge(struct rq *rq, s64 delta_exec);
- void scx_rescue_end(struct rq *rq);
- bool scx_rescue_keep(struct rq *rq, struct task_struct *p);
-@@ -93,7 +92,6 @@ static inline void scx_discard_ecaps_to_sync(s32 cpu, struct scx_sched_pcpu *pcp
- static inline void scx_discard_stale_ecaps_syncs(void) {}
- static inline struct scx_dispatch_q *scx_resolve_local_dsq(struct scx_sched *sch, struct rq *rq, struct task_struct *p, u64 *enq_flags) { return &rq->scx.local_dsq; }
- static inline bool scx_task_reenq_on_cap_revoke(struct rq *rq, struct task_struct *p) { return false; }
--static inline void scx_reenq_reject(struct rq *rq) {}
- static inline void scx_rescue_charge(struct rq *rq, s64 delta_exec) {}
- static inline void scx_rescue_end(struct rq *rq) {}
- static inline bool scx_rescue_keep(struct rq *rq, struct task_struct *p) { return false; }
+ 	/*
+ 	 * If firmware-assisted dump has been registered then trigger
+ 	 * its callback and let the firmware handles everything else.
 -- 
-2.55.0
+2.53.0
 
