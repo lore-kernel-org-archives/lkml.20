@@ -1,212 +1,123 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0583DB620
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF863C13E9
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788169734; cv=none; b=gt/VsY2m7XecmNH2AIgLBz/NnLfe3489gTLaICWk0EDlHQHrlRycqMu0IENnILGSib//1OnKFmFLya1i76UnUilAbj5PchYcA2MtQE0hkRzoimjRpzPOBD7YjGp+Mwk8ekyd9GUVrp42ZSRPssIVcIXqoplyq93R27yLmzPZZfw=
+	t=1788169755; cv=none; b=QYDs5oLasPipxK90TnqyClflUAII/cYsLy4X+G0QHW5kXlz85g7+4O9KgEgR/1tHzNwZKqFuYK1ae0eQHDRO5AGxwBG2xXkGYPRraJIq+A8DLqibK+p2I7KUYxEbIHCgbXT/6h8loGFqmBSoxpRCx5z8wEUuJURAaHXS93qXzcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788169734; c=relaxed/simple;
-	bh=dii1q0DO9S4XCA5tquc5LzLiQnMsV0u1WIBKR9IfcG8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uiR5ctCtX0I+LIud48L6AQoLfotGuH8GyqghwGC8CO/Db75wofvexJ9E3zeoXlKfxIZXJviBSHBqWDDGigrX2ghDokSmwYqqwx/aY4OOQyANMbBDErjscr5Y5trxCNIJgbQgNcq4rvZkiMNXqGBT3+ELvnS+OdC8mFnrIcftXIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CmpVN3Od; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JL0lWii6; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788169755; c=relaxed/simple;
+	bh=kZf0X9HPQj+XYjW69KdZB8/4j89/EUTv9woWOLKu5No=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l7sHcf9DLPhhIfKeQsewclo490lI9eqr/l6YCGzyiVvLC18W8YAMQnwGaZbA+u8G66ABGhyNeS2vsvHlWLl0OJ1fHEVXSfGQBLyObHCItznnsSHSwJSsJolObv2sSBspEeNLJG65Uz1xSruGgyUXCQZS345ex3rHqDYLk2xuxA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DBSxfPQM; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CmpVN3Od";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JL0lWii6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788169731;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Hri4pxqYPzTEc6ZBZYkjRuO0ivhZyic4cgUNvU7rE+A=;
-	b=CmpVN3Od9SEe3pzs2Byvgdgf+mul69SlSP2wpAo7QAGQ85ba0Waai3dtI3IvHAhi5hNrVx
-	PMFq6nGq3XP3/gpZFD/f3b9frJC0e2ENdG+ppZduoRv/Y2ez8Ji86qc9QwmaX5lNAey9In
-	y+bMIJ7pqvQnFqfUjjjUyo0DMfg5pFk=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-672-_iafl8bhOIugeV8JNW4jgg-1; Mon, 31 Aug 2026 05:48:50 -0400
-X-MC-Unique: _iafl8bhOIugeV8JNW4jgg-1
-X-Mimecast-MFC-AGG-ID: _iafl8bhOIugeV8JNW4jgg_1788169729
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c252634bc4dso302715766b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:48:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DBSxfPQM"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so3143951a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:49:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788169729; x=1788774529; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hri4pxqYPzTEc6ZBZYkjRuO0ivhZyic4cgUNvU7rE+A=;
-        b=JL0lWii65rtghXYYOVB9M0bxdSw/QdxuYk5VYVDwYZwBYnColQ5Cz95WJ4i5SXTUNa
-         bnONw8gnrL0AOXlIOq8QjK7evTYyHMSLt9ED0S3/nFCGBeB4uAKbxmAaqXmcpQcA4dPY
-         0vR8C7yHrb0I/gIFHFkwCIpuLgZltKwPTbfvqAA3kzrd7kQ0R70zFPDUEQvz7GrrUmvW
-         DNj9/4UsMtVxCDP+OWBGuc7e0VClqBs6YKIHl6/Bsa7NUP9JlyTGOkJy15UmfCcFljGq
-         jONKAm2AGpsHb/Wdrvk9vNmUIz8VSN+JeHnz8/DCslWtaM6hTYK2yxMR6/jZ4k3kvyvU
-         A5OQ==
+        d=gmail.com; s=20251104; t=1788169754; x=1788774554; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tgHFIRmhsqAJHJCUFWnm6qnOb1lTD89+RXYjFUi9avs=;
+        b=DBSxfPQMNgRNucSgd+8ml93Tj2FYmty2oVwDjhcWxizomdHnVCyzipg0HR1FARUUm7
+         0zy6aINrDSdN4RDCuKCkLCqpZnPFTQsF42AfHoqzHQQvCsUVHa6GSuWzcj6YNDRARfvw
+         XZdqy4iflTyqMD/loZatpqX6pA6mhnsmutFlleQT66akku36UAOEEnIjTce5O5drSHUk
+         wR0AHP6ebsL3UsW06qN6JmSWZfiAj42Vo/rOYLvAfWtbCH0Mea91OrhstJxMN7/bcwss
+         rWmNVjvSolcMPyOnl2UMFtCoTVv2e5KBJDuT1gjFD9tnPN0Cd32RNnsY8I5P5DwQUevG
+         GNbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788169729; x=1788774529;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Hri4pxqYPzTEc6ZBZYkjRuO0ivhZyic4cgUNvU7rE+A=;
-        b=XAEecU5auq194oS0TFoCC5qmiBAZNRo2n1yGrQ+AnlvBmr2FQlknErtF/vj/CuhmhE
-         j/aqqZZ1f66BGV+si70pKh5L9t/cn65qt0yGA9BF1KhK1pCzg88BIXa1HOrCOurmLf7p
-         rH9MZZHyTzuXVEaN4ae9BIulJ4F18UJKzB/Tvnj90goYA7UZuEh+tnF/z3O+k8HkyVe0
-         LhPaNNwgg9m6SfWctK0NvpsdaVCJceBH0OCPGWKUm5P0nSCEdVdANAYTMCdgVTb8aklu
-         YgST0RQFMpJLPQqDhK22nB0bZ39ND3p36ql77Ay6ALlbwAYV6yPyKNWTpgZwmqDIfoW6
-         3duw==
-X-Forwarded-Encrypted: i=1; AHgh+RqJgYrdgjJPgF9g/Mggo4RMs9zHnT8fs6b7a1jiQwL7btJ+PWcpQVseTaDM2oC4+vpfk0gu0J+OkaRnpLQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgoYHvI60yqBPw1neNE3msZOYxPW5ezLWmYzxbaWgXEg7SVi06
-	FPTDbWGCtw0UvJWzIHVod7jLs+WDrd6R0vicWqrbj1kIrfJt5pdkaDeGvyD70/Syj1NbWYYXZBu
-	vbF761dfjumLlhB5DruqZ/1QvfhBn/pUKigxEHfHBKcNJdT9+Hd14vRUlv5JowwGh72M8V1R4bV
-	6c
-X-Gm-Gg: AR+sD121356qHCf3Kb07rXL1XXVIHEjSh0mdvVu0mohXmddi0AITKHwOjtYoVUuQh62
-	/CaWPv1ZNXNiliEoTw1VZ3fa1gQv0765hMEIt/tDVyeqLCPvda4OadxIo1fDHqAw683y+6Qyn9b
-	fSGjVnBaszYCwrd3waej6cqqKQbKoh1eyCycX+8Bfj+fsJ8eV7zWsUiyHU/P0nfrVz0xycC5htu
-	HMFOP1ybsZPENEpNAw7pU6ULghfCqvK4AZrOyH9aGBfu0MvWMJdDlmoaPIOxEjvZ0uZWZPhGj1m
-	CjZzF6ymRFeve+noquU/gCaSgNAGUVykvH5nylkuQo+rMuW4le5jGnabDdPmjtu8vCJoWMX3s73
-	grT3Mnf5TpRsqGvhIISz8x8TllxlCrxpWcYymYpX/s/iYJrPh0bzIMvbHgwd9UUxmHxuvzw==
-X-Received: by 2002:a17:907:72c6:b0:c16:12ff:dc93 with SMTP id a640c23a62f3a-c25ab4b52f2mr133980866b.18.1788169728748;
-        Mon, 31 Aug 2026 02:48:48 -0700 (PDT)
-X-Received: by 2002:a17:907:72c6:b0:c16:12ff:dc93 with SMTP id a640c23a62f3a-c25ab4b52f2mr133978766b.18.1788169728339;
-        Mon, 31 Aug 2026 02:48:48 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb (212-8-243-115.hosted-by-worldstream.net. [212.8.243.115])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25ab254f49sm45172766b.10.2026.08.31.02.48.47
+        d=1e100.net; s=20251104; t=1788169754; x=1788774554;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tgHFIRmhsqAJHJCUFWnm6qnOb1lTD89+RXYjFUi9avs=;
+        b=CvcWWdyDoco/Jgy25Y12ZXzlSgvPADtNcRe3u2sVB6jjcK6ONG4vOBJKLQOHFxkrqF
+         nzA0Ha98IAFSqyUKiiiSxcoDsOwty8usu8aVL3u8I2ustDnBH7mZ39yfcrSHc2JgXeLI
+         7uPjIO5YnAD9c8PVDrd3I4L9nbsTq29z2bQF0S76B+u3/8KbjdLvnU1UYZKKjN60Mc7n
+         CuEdiNShUMaKTmj3Ceukyv2fviSnwcAA2WI1KoWXPoiEHdTSHi/W6LiW9LmfOTBF24M/
+         043c5ngXgjBQhz1cv8nU9la2qZQ3RnyPOH4jext1xBW4zoZmofJ0482TIgFJoHiGi9nz
+         ATCg==
+X-Forwarded-Encrypted: i=1; AKwUvBwJjniskylSUxcKP5Xbi2vmYf0OD9Py21Y9UE3zOvlrRveD08+KuXk5/+LGg1AwOkIiI9UaBuGnxhBP8YE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nnAWZRWbocJ+AHaG/MCmQpGYKwJQOf2898RP1vwkb1ZIy29+os
+	eqzLi/mG+mfdzwIc3+7hdPuzeZ2WPIEXqwfpCKXMhnI2xRijIgxzS1JR
+X-Gm-Gg: AYBFou1YoN4W6yAC1Y5Ov8wEFm7viZdrN+4tqnoqJipU5QAxcUf1+YgdC0im1M3fUNX
+	3N+Dv4L4CT/UdKcwPUzmBk1SN1xQspHoR9FXO6Lt+EJdveG0dG4omlWNza87JneBQCmMd/qRxZP
+	oGO4LZ6Ka5+4W5W/lTi6Pf8LeA6aD+lwtL6hYbNDXbF6uCB0H7lfjY9vAJlZctLfVCVGC4d/pse
+	Ey+j4VxKDHQzEps8gnzi5fvG7J4evP5GpsFUTFYgDI0MmllQDQPx3dvP7wMtgkxgTvhq5Bmlk5c
+	2VbpCEE4i9ropn7RcK+WPLDx7jF1isD4Op7YrSG7w9pqGC6KrSDF40VEEiiZ4yJVTRRojkDsALI
+	HFws6HjJI4bejj0pRPKJJDOKar86XxJzGOglSAwD2Mih47DuXLaOpYeW7BD+vAZ8FgV+6Fyl443
+	9GtP+Jpq8Pk1Sl/7dtocD5kHjqQ2FxbfanbzWvf/MKsyo6h67WOgo1zGHG+q8=
+X-Received: by 2002:a17:90b:1a8a:b0:398:9bd1:3211 with SMTP id 98e67ed59e1d1-3989bd135cbmr22863004a91.18.1788169753993;
+        Mon, 31 Aug 2026 02:49:13 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-398fae7a197sm2074315a91.17.2026.08.31.02.49.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 02:48:47 -0700 (PDT)
-Message-ID: <e8a8de3683db55822595af75df6c56b263047962.camel@redhat.com>
-Subject: Re: [PATCH v4 1/4] rv/reactors: use LD_WAIT_SPIN as the reactor
- lockdep wait type
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: wen.yang@linux.dev
-Cc: Nam Cao <namcao@linutronix.de>, linux-trace-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Thomas =?ISO-8859-1?Q?Wei=DFschuh?=
-	 <thomas.weissschuh@linutronix.de>
-Date: Mon, 31 Aug 2026 11:48:46 +0200
-In-Reply-To: <7bfe97bd497a2641de36b35e17f69e6f3f291c2a.1787854397.git.wen.yang@linux.dev>
-References: <cover.1787854397.git.wen.yang@linux.dev>
-	 <7bfe97bd497a2641de36b35e17f69e6f3f291c2a.1787854397.git.wen.yang@linux.dev>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        Mon, 31 Aug 2026 02:49:13 -0700 (PDT)
+Date: Mon, 31 Aug 2026 17:48:56 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Inochi Amaoto <inochiama@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, Yixun Lan <dlan@gentoo.org>, 
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH 2/3] phy: core: Add common helper for get phy phandle by
+ index
+Message-ID: <apVN6N1wVYDyeW5R@inochi.infowork>
+References: <20260831025319.94886-1-inochiama@gmail.com>
+ <20260831025506.95548-1-inochiama@gmail.com>
+ <20260831025506.95548-2-inochiama@gmail.com>
+ <apVF0kdgA1f_MdgB@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apVF0kdgA1f_MdgB@ashevche-desk.local>
 
-On Fri, 2026-08-28 at 02:22 +0800, wen.yang@linux.dev wrote:
-> From: Wen Yang <wen.yang@linux.dev>
->=20
-> diff --git a/Documentation/trace/rv/monitor_synthesis.rst
-> b/Documentation/trace/rv/monitor_synthesis.rst
-> index 2c1b5a0ae154..aab4b0342d5f 100644
-> --- a/Documentation/trace/rv/monitor_synthesis.rst
-> +++ b/Documentation/trace/rv/monitor_synthesis.rst
-> @@ -365,6 +365,26 @@ but higher overhead. The timer wheel (``HA_TIMER_WHE=
-EL``)
-> is a good alternative
-> =C2=A0for monitors with several instances (e.g. per-task) that achieves l=
-ower
-> =C2=A0overhead with increased latency, yet without compromising precision=
-.
-> =C2=A0
-> +Reactors
-> +--------
-> +
-> +A reactor is a callback triggered by a monitor when a violation is
-> +detected. Reactors are registered via ``/sys/kernel/tracing/rv/reactors/=
-``
-> +and enabled per monitor.
+On Mon, Aug 31, 2026 at 12:13:54PM +0300, Andy Shevchenko wrote:
+> On Mon, Aug 31, 2026 at 10:55:04AM +0800, Inochi Amaoto wrote:
+> > Several phy helper use index to get phy phandle of a device node,
+> > add a common function for the future reuse.
+> 
+> ...
+> 
+> > +/**
+> > + * of_phy_get_by_index() - lookup and obtain a reference to a phy using a
+> > + * device_node by index.
+> > + * @np: device_node for which to get the phy
+> > + * @index: index of the phy from device's point of view
+> 
+> > + * Returns the phy driver, after getting a refcount to it; or
+> > + * -ENODEV if there is no such phy. The caller is responsible for
+> > + * calling of_phy_put() to release that count.
+> 
+> Use proper syntax for Return: section, with the above kernel-doc will warn.
+> 
 
-This is not correct, they stay in
-/sys/kernel/tracing/rv/monitors/MONITOR/reactors and it is already explaine=
-d in
-Documentation/trace/rv/runtime-verification.rst .
+Thanks, I just copy the wrony syntax. I will fix them in all the patches.
 
-You don't need to add any further section here (you're more than welcome to
-update the existing one obviously, but not as part of this patch/series).
+Regards,
+Inochi
 
-monitor_synthesis.rst is not about reactors.
-At the moment we don't really have a good spot under Documentation to descr=
-ibe
-the /implementation/ of reactors.
-
-I'd say for the purpose of this patch, in-code documentation (i.e. a commen=
-t) is
-sufficient, we can revise this later if needed.
-
-> +
-> +Reactor Locking Rules
-> ++++++++++++++++++++++
-> +
-> +A reactor callback may be invoked from various contexts (process,
-> +softirq, hardirq, NMI) depending on the tracepoint to which its
-> +monitor is attached.
-> +
-> +Lockdep uses a fixed wait type: ``LD_WAIT_SPIN``. This allows
-> +``raw_spinlock_t`` but disallows sleepable locks. ``LD_WAIT_FREE`` is
-> +not viable in preemptible contexts because scheduler preemption takes
-> +``rq->__lock`` (``LD_WAIT_SPIN``), which would cause false-positive
-> +warnings.
-> +
-
-The code looks fine but this documentation is missing the point. We don't n=
-eed
-to explain what lockdep does but why we use a specific class and what we
-actually wanted to use. Let's readapt the comment you added in v3
-
-	/*
-	 * Reactors must not explicitly take locks, so they should be
-	 * LD_WAIT_FREE.  However, reactor callbacks can run with preemption
-	 * enabled, meaning the preempting code (e.g. the scheduler taking
-	 * rq->__lock at LD_WAIT_SPIN) may violate that constraint.  Use
-	 * LD_WAIT_SPIN to avoid false-positive lockdep reports.
-         * But you should still NOT be using locks in reactors.
-	 */
-
-> =C2=A0Final remarks
-> =C2=A0-------------
-> =C2=A0
-> diff --git a/kernel/trace/rv/rv_reactors.c b/kernel/trace/rv/rv_reactors.=
-c
-> index 2f5fc8d18dea..afc97d097109 100644
-> --- a/kernel/trace/rv/rv_reactors.c
-> +++ b/kernel/trace/rv/rv_reactors.c
-> @@ -465,7 +465,11 @@ int init_rv_reactors(struct dentry *root_dir)
-> =C2=A0
-> =C2=A0void rv_react(struct rv_monitor *monitor, const char *msg, ...)
-> =C2=A0{
-> -	static DEFINE_WAIT_OVERRIDE_MAP(rv_react_map, LD_WAIT_FREE);
-> +	/*
-> +	 * Use LD_WAIT_SPIN uniformly for deterministic lockdep checking.
-> +	 * See Documentation/trace/rv/runtime-verification.rst.
-> +	 */
-
-See above, I would only add an explicit comment here of /why/ we do LD_WAIT=
-_SPIN
-although we would like LD_WAIT_FREE.
-
-Thanks,
-Gabriele
-
-> +	static DEFINE_WAIT_OVERRIDE_MAP(rv_react_map, LD_WAIT_SPIN);
-> =C2=A0	va_list args;
-> =C2=A0
-> =C2=A0	if (!rv_reacting_on() || !monitor->react)
-
+> > + */
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
+> 
+> -- 
+> linux-phy mailing list
+> linux-phy@lists.infradead.org
+> https://lists.infradead.org/mailman/listinfo/linux-phy
