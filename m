@@ -1,110 +1,141 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F753BA246
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:38:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C61231B101;
+	Mon, 31 Aug 2026 03:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788147525; cv=none; b=Oc2wxrjoMc0dl2RYtyzX0VDhBkj4OeSHIpChbjwbM6xEjmyPeXcpGO6PUz1PBPfc7QByh4Wla80oydJhPAvve7PT3QzhHDsjkW2K8WQjuIbZFquRQBI+3FJspT+IPI/eNk3OoadUFUPHjvNYXzLI3OQE0d5Zagl387y8NzvxgOw=
+	t=1788147714; cv=none; b=bN4wmKxE9+2cDnn5aQqmfiMMEmrhTVT4ISOnco8sxqcjG0BJ74t5YeTq+LQJ8/LYKRMY2aeYuwidv53Pqd1L3rQekI12cSzYMRRUD0+qZz6FM1GbjJDj43GIt/7/WE2KFrHS/X81qXl46oQj4BtmzwYrdJhgc9AbtkA7vTOXExY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788147525; c=relaxed/simple;
-	bh=JfQhqAVrAGb7QD/nEHGgxs1D9L6nrbUSTxK+DVMj8gg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ra/ZYIGkAXzMMy2kzXDALAKsD3o2HLpCB3lD7K7KSqO9EszhIg9DxxwAAp8Xhq63GIwg1X8NMpDqtcFY0xX5w1j6EpQl1Qzf50yv2nFP39JjrLVTaPomRH1ICoIxw96Skicv1qBPm3mWEuYOWJqkg84cYAfSQZ4OmOFIrU7BSiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DhZzGaAX; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788147714; c=relaxed/simple;
+	bh=BQqSfNw7698Sa/HXE9sQWxU1pHqkCDM/++aa3ehKA9Q=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=s8DUJ5FJT9upBzdnde3wTcyhi6VBghhP/uU9rHPf49VHoMJ6bai2wEHf6DTt+hJN1X1xKF4NeiqhNBKcuG/OO3jjCx/l+N+ZzZUYkb37s7Qy/I+RCTl3+/jN6PJrXF1sZ/Z0xS1nh/hKUuveJqIWo3kXwOUDm2Uc8gi24qYdeEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=yGkPIQmE; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DhZzGaAX"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so19747995e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 20:38:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788147511; x=1788752311; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/yh0X2KBuU9yYGZNDeELtkOjFUlaqlWTJeOHvjigybg=;
-        b=DhZzGaAXDCMaoQ1TiL8dyFDkveH/vyGzu8yg54mwUzIV04kyxk/ivU8/8Hx99lSb/C
-         gO+FiTzdi0poO+oqv4hc2qctdhTrN19jp3jGeLFhcFeTuthQvxnbj8dW6LI+Jr/SKRIf
-         sGBCp7qCJxpms+FsflXxMDFgRL/sKkPP+2PgsixHLHxdKrBP64jhD05zmngbnhjJWWDe
-         smhWAvjfwvxC5dvt9akz4gkTtpqXcvohhUr5a6iDMGhuA6pjz73h/DjY2lLlGcotw625
-         PecRy+ryQvydG6LWZ4vRxlpCddMIXhRNH/hdVdUA6zzIojz27YN/VCx5Ep1odh2kHWiB
-         Vv+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788147511; x=1788752311;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/yh0X2KBuU9yYGZNDeELtkOjFUlaqlWTJeOHvjigybg=;
-        b=Qm46KVl2xUQcGLQqHecbmb/4/Yoow6kvPE1yOrTdDJKLr0xghFdoOTY5qkBLopzJRl
-         sAQok2Ii+Kz17Jmbvovo/pD/Aa4vMn+K6Vp/6DfwQXhOnwfurhCxOvWG9VuS1AB+EGc8
-         K7KaYjnnFs8HYX6ZfFKQc5ykASMKur76D9KAVH9MzCUGlFhyifIvpYCvoRL08q1+8WYz
-         g+zvrcmiQbkqbHXcxsL7CEqY/jiOSAz04mTttl9ElWCa1Q7sIzaf69/YZClpJzZngDFB
-         Ueu64DzZtLR2LXP+7dQnH6TJgIBW2kXcs6/EDSzUOQ112Z7m/GRUvKWDJJtBkNi5F4m+
-         +fKA==
-X-Forwarded-Encrypted: i=1; AHgh+RqSLPaw+73yYvo8X5mZPEX1MRQYEQTXWx9B5aERcuHZJLWjfpGftTTRtYOniCFFSAaRqqS3ru4etJFBS2E=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKTuUD8JTPDcGacAUoeI6YHL3cSchtb1c3wa6VctfxM4fkB2LI
-	plgYmZkj+Qvn0ybpm+r9D5NTqOQg0hemydkIKIv+lN0P+hdt10ltrThl
-X-Gm-Gg: AR+sD114a30rDV4f2TskxVCABA76S9BDYI7F1a9JycnBRsVt86fRX2AyEwoaRJwDMxI
-	ekFXBag4tJQie2NsueL2nZ7Dq4tg2EFlqbrqlXzoUitSWwsbohBp5AWiDm/Ghe2WIFM7jZk3PGo
-	PanGR//z0vop/tMnHnU/WgT1dvLO6oPa4nsgKwxkdYSMu/i2tKcOFo71dKYNm6SzyKpRCjrPTpt
-	QOpeT3gsfQdWKCiPBde3pKjZ4qbbe01WvS3rBoDFUey8E/eaZiMqittsRu4/Sw8pJSv+4cw6eIb
-	a8T6ctiCPeL1ZI2aPuAaxxBYa755RpVyNavx/CXAA1RcLDJFIi1RlOhWrzzfDGlDh8Qz1x+SC6w
-	Yd+cIly/VEapWDgftLNL9JaGDRc6EZVt+GlG+cZdW+u02cX7iAgkLIBPk1MBPO4KAOi7wzEOZ9d
-	+iqAgfuKQDsd1HmVnLT2YZEyj1lpLWTLWmnCEte3hK1O+vGoAUOhYVHZptStqOIG7ps9Q=
-X-Received: by 2002:a05:600c:c178:b0:499:872b:abd4 with SMTP id 5b1f17b1804b1-49b91c21b86mr308435895e9.6.1788147511021;
-        Sun, 30 Aug 2026 20:38:31 -0700 (PDT)
-Received: from foxbook (bfk5.neoplus.adsl.tpnet.pl. [83.28.48.5])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab5a2csm17624175f8f.4.2026.08.30.20.38.29
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Sun, 30 Aug 2026 20:38:30 -0700 (PDT)
-Date: Mon, 31 Aug 2026 05:38:25 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Matt Eaton <linux@divinehawk.com>
-Cc: Matt Eaton via B4 Relay <devnull+linux.divinehawk.com@kernel.org>,
- Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] usb: xhci-plat: add xhci-no-soft-retry-quirk
- device property
-Message-ID: <20260831053825.11f1007d.michal.pecio@gmail.com>
-In-Reply-To: <CABUBpLf_mA8GmjAn8+-xgz8H5XOvBCr9DRWU8Eqc9=BW9m00Bg@mail.gmail.com>
-References: <20260829-xhci-no-soft-retry-v2-0-0efe22f1c2f8@divinehawk.com>
-	<20260829-xhci-no-soft-retry-v2-1-0efe22f1c2f8@divinehawk.com>
-	<20260830165934.34e5b82f.michal.pecio@gmail.com>
-	<CABUBpLf_mA8GmjAn8+-xgz8H5XOvBCr9DRWU8Eqc9=BW9m00Bg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="yGkPIQmE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788147653;
+	bh=NnwaB5ujAvJmVoXXw/A5RDLqLJgznXnQE/ZxtU6ybE0=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=yGkPIQmExOaTkwbdhWCa6ATbsYK3mxUNchv46ryjHsKuGIc6m3fx09y3joCLe6l5G
+	 Q8HaT/EDppW4pWio6h4j/5C438HyHiH9VZ4UE8UWoB9vP2KuL1/XXiV6ShUFb6ZWNF
+	 mFKTpkxxwWAny9ggL3WNaAlRedONkFm02vAR5P48=
+X-QQ-mid: esmtpsz16t1788147647t12fcc224
+X-QQ-Originating-IP: r/8jVrT4i8gNmZxm/dFB1QWDjJiD0EoKNYpdcbUmelk=
+Received: from = ( [183.48.245.118])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 31 Aug 2026 11:40:45 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10785841376019705639
+EX-QQ-RecipientCnt: 17
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=76c5c7c6483ed5fd9eb1e185aa1b9ece1314890f287a7c78af87385efe71;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Mon, 31 Aug 2026 11:06:00 +0800
+Message-Id: <DL2SP646WOSO.2762R9GD5RXSI@linux.spacemit.com>
+Cc: "Michael Turquette" <mturquette@baylibre.com>, "Stephen Boyd"
+ <sboyd@kernel.org>, "Brian Masney" <bmasney@redhat.com>, "Yixun Lan"
+ <dlan@kernel.org>, "Inochi Amaoto" <inochiama@outlook.com>, "Alex Elder"
+ <elder@riscstar.com>, "Haylen Chu" <heylenay@4d2.org>,
+ <linux-clk@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Paul Walmsley"
+ <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
+ <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>
+Subject: Re: [PATCH v2] clk: spacemit: k3: add 1.8 GHz PLL5 and PLL8 rates
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Aurelien Jarno" <aurelien@aurel32.net>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260810-k3-pll5-pll8-1800mhz-v2-1-aabff510a797@linux.spacemit.com> <apRncBmtm7w0Emwf@aurel32.net>
+In-Reply-To: <apRncBmtm7w0Emwf@aurel32.net>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NDcdydrNm/XtFmDWDwG77Y3qnBeQf5lPsnF07Lnr7kH6dWJ3t470x8rg
+	oZCmOoa35/xxf5nhi44yg4lsOPXKfHaZZXnU+Fujc32UG/EPR/PAfbv3f0xtYz7825myR+Y
+	gSAmE2ko8K+yf94AflJPOcfioLMbxW3fpMiUsmTddQA14a7tENN0/sac2InpiLuXDeizCUC
+	c+UpYMl6O4a+PIpFMz/weM6jUtiUQhhBLnWUp6LG6/tCGsl6d7yEqeeePcn3Aw1Z7UPsbvL
+	J5SS9Z+cRXrDv1pnULHcHb2l7AOmdiAsofmXZ7eN48gAdHJWsTq+FyaEdPZtwpAbePK4DiW
+	zs9GN5gQRyDsFMJOhtlTULyi6U6BFak6yTh6CQY+9YDPyL9FpttjRWO/D+Zok9jxTvDsp4N
+	CFqfTRUNTN2Z7PVb+rTgiFA7yomxnX89gku0lH2e8OU7fIjmt3aRj0hiMgMuoMl/mR0fnnd
+	eedhP48uQt6pEl+iW+dTRp8DO/0WqjcDLjAXgaQzTW74PtVtCEa2ZcR89WJD8a4FGxV2AVZ
+	/yfvgA/MU6GH/6VtkGFPySVBAc0bPl9iVh4Gzi0vLJ934PfszngAEWFkTTGqJnPC+vFiI9x
+	CA7W8mWT9qWKIDUS5i69Sl6OlKtc/duyEAPg/zFWxTIoCeB9A1yCLmEBhTaP3fpmveEyoTX
+	klygI1Yu/8wzxgbUScIsbOmugieRnkk8ij3LS5PZbWAZ7+h454Mtp+FydCVnMpe9022PMy2
+	WWG6iLePfPaEm0P3M5CFkeP1RpsCnXPaj+R+CYudx9hP3csY4veVQ9NK8NEfPS1w3a/Twtz
+	I4QZGvrF9pyHiAfz1q40TFGp7ydAwWcCCpqt5t3POfmXiR12s1ZPwaA2K6uOW6q67psgxXc
+	ODzegRiqxajATKwc4bIUGXXFb0OdsCFekjK2yZHVe0ykWKl/j8KbzJFLMX4sjVuvnQGvxMF
+	EYshqQDLEDCtvbLkaDTkB8PvEFISjNwNY/7tfbOJ4yldGdtzYswjRZWmvH4srHgcTE2Ni7I
+	mhsvgm6DhrtghH3EKVHluNHSJP1vK0GfK0mUM0xfs2Ow17ilpupYpQdYluT7EC+6UmI2+ky
+	P4+GxWLX0RiYoASVdygvYBs3hQHhMPghP7bURwg00CHZSLYrZK0uKfQOb+c0+kw/vPKHm4Y
+	y+VdV4e5IqKBM3VRJoR5PwkhuRg+PxS9hCxyQRotrx0tn674VnLsNIRawT9mFzkK/LW/
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-On Mon, 31 Aug 2026 02:58:55 +0200, Matt Eaton wrote:
-> I applied these (from 7.3-rc1) to my 6.18 kernel and appears to fix
-> the issue:
-> 
-> commit e3d757dc9257
-> commit 042aad8d0db6
-> commit 7e0ef4332ed9
-> 
-> There does not appear to be a need to apply this patchset now. Thanks!
+--76c5c7c6483ed5fd9eb1e185aa1b9ece1314890f287a7c78af87385efe71
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Great. Did you try disconnecting from external hubs? This code can't
-detect that, but maybe it's not a problem case. It wasn't on Renesas.
+On Mon Aug 31, 2026 at 1:25 AM +08, Aurelien Jarno wrote:
+> Hi Troy,
+>
+> On 2026-08-10 16:46, Troy Mitchell wrote:
+>> K3 boot firmware configures the C2 and C3 CPU clock domains at
+>> 1.8 GHz. PLL5 feeds C2 and PLL8 feeds C3, but their rate tables
+>> currently contain only the 2 GHz overclocking operating point.
+>>=20
+>> Add the nominal 1.8 GHz configuration as the first entry in both
+>> tables. This lets determine_rate() and set_rate() select the firmware
+>> operating point while retaining 2 GHz as a supported overclocking rate.
+>>=20
+>> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+>> ---
+>> The related U-Boot change is available at:
+>> https://github.com/spacemit-com/uboot-2022.10/commit/fb95cf3d848b771c61b=
+5a1b3e5cbbee223faf352
+>> ---
+>> Changes in v2:
+>> - Drop "clk: spacemit: re-enable PLLs after init"; the PLL init issue
+>>   will be handled in a separate series.
+>> - Send the K3 PLL5 and PLL8 1.8 GHz rate-table update as a standalone
+>>   patch.
+>> - Clarify that 1.8 GHz is nominal and 2 GHz is an overclocking rate.
+>> - Link to v1: https://patch.msgid.link/20260804-k3-pll5-pll8-1800mhz-v1-=
+0-a3a75866ce32@linux.spacemit.com
+>
+> This make sense and looks good:
+>
+> Reviewed-by: Aurelien Jarno <aurelien@aurel32.net>
+> Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+>
+> I wonder if it should be backported to stable, as users will deploy=20
+> newer firmware.
+Yes. I'll Cc: stable@vger.kernel.org in the next version.
 
-Out of curiosity, was it limited to USB 3 devices or also USB 1/2?
-Disconnecting one device or a hub with devices behind it?
+Thanks for your tags.
 
-Another interesting thing about Renesas was that the command only got
-stuck when all root hub ports were disconnected, and it would suddenly
-complete if the same or other device was connected back to the same or
-any other port before the 5 second timeout expired. This gave us hope
-that the problem really is limited to disconnections.
+--=20
+Troy Mitchell
 
-Regards,
-Michal
+
+--76c5c7c6483ed5fd9eb1e185aa1b9ece1314890f287a7c78af87385efe71
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCapTvmA0caUB0cm95LXku
+b3JnAAoJEJgJ74D5MzQvQDIA/3RL7VXwzHuHjnzdOwa1VtWuQpzXbNq9GItBdCdH
+0H0gAQDz6KseX2X3tpAb+avR3WoWXHlYlpXdXrZQ7y29Mk+zCg==
+=sgJs
+-----END PGP SIGNATURE-----
+
+--76c5c7c6483ed5fd9eb1e185aa1b9ece1314890f287a7c78af87385efe71--
