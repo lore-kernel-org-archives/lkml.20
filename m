@@ -1,105 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D033F35DA4A
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:33:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2283B635C;
+	Mon, 31 Aug 2026 17:35:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788197639; cv=none; b=MF0cr3OH/6B6LTK/X+ogdKv2m8Lbu65ir0pDGVHT01ZMzxTc9T46CdBJvPL8hkemGrQb7V89R1hsaUMG9klffxrIMsky1xbMBFVfr5COqQvqkZqQetKoTyKtD0XjnhVr8sZIMt9C+gzLBbEwSLwJG7huUDV9Ha8u7lrL6SJsNd4=
+	t=1788197709; cv=none; b=BRwZYCSXYhtugrSH4pcI40NTO+9AgsgKvo0hWd/HRyMoS4jipGkLPkZCRq3FG6c11nHp2qAWLiGsdflqy5pxP+KgZgRUb8bdNtwLXkukkYMhQRjE8pjDsAY4V5pUltszgkv12AHPCJBkrNE39nRTDh2PFzk2B3syiVzS9fFGSqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788197639; c=relaxed/simple;
-	bh=UD1jqPCNVlPaqQdr+07UDOt7P5/aXRrLOz8GqliRqR4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N1LJPOBIaQbdGrsj2kURK8rB77L8p192maBHyZwWr2G3wLGDeazr0kGJYQazq5586je5Y3yn+XoBUSCSpnrFn7cuXisxgVASzjfRaC08W/dQqo9822JWoXmc0oMzIy173pU+rle0gbp2c/J9FNEHZ3cCMxM/D/vbEGurpcR8EbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9V21Wgz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788197709; c=relaxed/simple;
+	bh=ZSfTSV94UG89a5dXkx/V0XuOV6jYQwvx0OpQMYNs58M=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TAlfI+kEayHoGi0zvOuITu8qA8Ci4wK0rsegurFaJsmFKkSMMgRDpNVy+qQ4yWfzZU7aKUBfzzH1fCqIeZbR8Lvu/qxVZbz6x+gC7uNkZHw0gX/zIVZvLrGJWQ7Cl0mip0kdvBLG1BB+scmJqnXx/QY6pYzkrXRTrI0w3Xkmc30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com; spf=pass smtp.mailfrom=fastmail.com; dkim=pass (2048-bit key) header.d=fastmail.com header.i=@fastmail.com header.b=CrSSgXf7; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=FHMhvOs7; arc=none smtp.client-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9V21Wgz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6982A1F000E9;
-	Mon, 31 Aug 2026 17:33:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788197637;
-	bh=3rWoRkOf7zv0PCshbvqGEHS10L1P71BDIMS5e/cVVs8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G9V21WgzmFLNQZSG2z0fQqP6cGbXpFkpjQ33pCHeW0JoUiwQk4jNLw4DG0qFobeJV
-	 SB25y9pHTmIgw6hrHkJqVXLqx4PxokSKd+6FnKExY5fUXUJCY1wbcw6poJIXsHgvU1
-	 f2/ksMYJ/KI6+hnaezkUmQ3m049g58J6402lUYK5HESvPSz0E5cH1q5qAWVGDQnVaK
-	 s/03FuqbRC1Ko5k7gBhGNv+uwjBDZGOCah1wzXzVZwG19OU+55Z/HE/r/iBYILtjMR
-	 Uj0BZGaMWb6APJCKfnn+2rHy2RAEHQBpgbLC6xREt+AZzgGwBvx/LDiM2Blb5FPKiF
-	 nOCRD7bfgP/Ng==
-Date: Mon, 31 Aug 2026 18:33:37 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/vmpressure: remove window size TODO
-Message-ID: <apW6fJZ-i_JdJejI@lucifer>
-References: <20260831-remove-vmpressure-todo-v1-1-498515e59cdf@kernel.org>
- <20260831101636.a714f7171af108d520d4848c@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=fastmail.com header.i=@fastmail.com header.b="CrSSgXf7";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="FHMhvOs7"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.phl.internal (Postfix) with ESMTP id 44889EC01E9;
+	Mon, 31 Aug 2026 13:35:07 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Mon, 31 Aug 2026 13:35:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm3; t=1788197707; x=1788284107; bh=B9
+	MHRYIq+smi9ATTmQdbFCEBlyvFA4jJ0+a1GYuGMGk=; b=CrSSgXf7S2mJtPpGzc
+	FEv16/1l+nkPsUg/rKIJ9oI+mUe+DSY2sByzWACa/VLkEAoZq8NOn94M7/6NIvYo
+	ftA8J+hWvzEItTiIO7Uc9lyjgNY0GZl1AKejJGw4TqNLCiJ7A9J87ADj/LPIP4zP
+	s2nySSFdvBu1lzVnvMUCjj25b++o3KLmV7Pcy41v6cJPyJDeGCByatDUXZax2B6w
+	driciHYrJzzt41lPWhDaBB4Tt2lT6QUHPaqWRfOx6MYKQRUforYzn8FJmQUEBVVa
+	5U62SfPfbrFzMs2y1opbqIjuxLQzoN9L3DssTLEshHwjNxuyLzbrqQfOlOz0w7r9
+	gL8A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1788197707; x=1788284107; bh=B9MHRYIq+smi9ATTmQdbFCEBlyvF
+	A4jJ0+a1GYuGMGk=; b=FHMhvOs7H6zMUpah3TU/oKCU844lurYxjcvrRfImZ33c
+	TyU4Xkfl8hfqci2j8V6D+adwh7xGqd7C6Qo/lSjjnhWjj7FTiKtadNqxd/4ObCor
+	NlB186ZeIfejNHySb/jqCC0U6UlGVt54bCvFTD/tT/ni/2nS4wTyjxD9cH9+sWye
+	8ogGMDnHTB9YLfzMiFjzl0Z76W0MryVnjV+cbvf5aOOFJw1gLB5vd/My+t2OkVMv
+	iTaRlYPPDcXyv0IbArfv3yP9bf3mbqQ2hZnwJpt32a7uuM1lLhiG0KcS51RVv4FY
+	n/XBcp4t4Paz89781lNjGP7NDdQbXy4PuKfc2t4nZA==
+X-ME-Sender: <xms:S7uVagHoZgiM9KjuRFKzX5AgA91KjOhFI4AhU0jYtcaKt3YqBnrXEg>
+    <xme:S7uVahi_n4nCKzLpK2YZk5O_kFscrD4mcKNbsNmNeDPX0QxraML7PMGOx325_mz9s
+    t7nxuXZU2wxIBTGI9GhZL80ZgEBnCXM7NrnGmuxYm9HLAbbeAiuKXI>
+X-ME-Received: <xmr:S7uValuvTqJnYGkDA8L6CfLqgST9mxOKLtRZdGSiL3vgSQmcnQpcUBMOMXLKtM3_LxhBIxSPDb0vy_a--GukoUn7OwBMsw>
+X-ME-Proxy-Cause: dmFkZTGDnSdqODSSefgmklLUvKwBokqckiggxWYF/fE+h9DYDb7IaeyWQqpcIzTJFdy/Kl
+    jfqIaA4SFtngWezaufy+M+2VQay7H2iC3LPAwjZlorh2th3ueLbwmbqo1KA/+AwRGTRIpt
+    y0y3jkljtLIYWR3mwWmz5jXEzB2pz145UeJ64B70MKSipuLfWptetAOa03oyiqT+2CJeEl
+    Ixsh4TcFh7J5ydbZW4iH+ckpC9TS7MBDV/UIurewEEMBK35pdPs6zNzTbkoGYu3dEWgIWH
+    pFo7MTDARcmVrroRgdWM6QeiNApyTNXmYbhbpUxyWV6ndMHjdQqR8Du5gLdVhEP/MA9eKg
+    vAxyq8Khjs0fvlU3HeVk/IE//wjK2DmfgCpbCYGvrXofK0+qQK4awW7MnVIETWLjUqDL4V
+    l4PvFlgkBbyMSSjBzVbraevaRtBZiEqdYztpyAzT9rzj/DxMtnHbsMySnS7CKDWnNTeLIJ
+    1FbNYXLz9wP4x4bLsWYwoA/efZmlF5CtDOdwe17CPmvmmiHUuLDt4abw2vV8suBqX3zWWN
+    lQu4NSddZ785uDD39WJcEWNXegTtrEz2zvx3CQt8gEq0BxW7/Va7ULFaPIrl6NEB+65jDG
+    BAYs1JmliV5WuMR7H3VT75OVwKSd3cdSccd99YFDt/zgRENWb9X+hxMYv7DA
+X-ME-Proxy: <xmx:S7uVasvxaMEA-28Xx6QJu0L9liAhq1ukb_atfrBakqgEYgtYkLMxdA>
+    <xmx:S7uVaiGZXYsIIvOrpzlMDbG1zVgeDP_VTJO-2e44PJHpPAKnmjnuQA>
+    <xmx:S7uVavOrvi25z5X91kBIbrWMDAaclQe7DXZdgdRUn5kXxIC-1lr9PQ>
+    <xmx:S7uVapKjeta5MgFbcpMpTjNw61L4YkaGWT7flgMgvyrUCPDZI1FgfA>
+    <xmx:S7uVavsoesvUSoI6Yl8eBp79z1x-2OhBPYKZnGHhmE1lHFVXYFYfRpQb>
+Feedback-ID: i80b64ba7:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 31 Aug 2026 13:35:06 -0400 (EDT)
+From: Juanlu Herrero <juanlu@fastmail.com>
+Subject: [PATCH net-next v6 0/6] selftests: net: make iou-zcrx tests
+ multithreaded
+Date: Mon, 31 Aug 2026 12:34:36 -0500
+Message-Id: <20260831-iou-zcrx-v6-0-02d1d012f0fd@fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831101636.a714f7171af108d520d4848c@linux-foundation.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBQFr1Le2g9pkRi8irho4lO/i1SStISW3
+ t2oy2GG2ZCZlBnnbkPiolmn2MAeOoTnGB8UvTXGYAZrXH8SnWZZQ6pCx6PtjRuND2j5O/Gu9be
+ 6ILJIZC24/k2e/YuhfE/Y9w/7bxlldgAAAA==
+X-Change-ID: 20260817-iou-zcrx-e8e46108a0bc
+To: dw@davidwei.uk, netdev@vger.kernel.org
+Cc: io-uring@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kuba@kernel.org, asml.silence@gmail.com, 
+ pabeni@redhat.com, shuah@kernel.org, juanlu@fastmail.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1766; i=juanlu@fastmail.com;
+ h=from:subject:message-id; bh=ZSfTSV94UG89a5dXkx/V0XuOV6jYQwvx0OpQMYNs58M=;
+ b=owGbwMvMwCWW/91SPSt7w03G02pJDFlTd3s2cgqd+ZHbWVzffjtlHce3PwdXTV0iK82fvzTrz
+ Jnrp0s/d0xkYRDjYrAUU2TxeCnSojG1ovGuaoQgzBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
+ aKRjoGPMwMUpAFPdIsXIcL9d8TrrMa/WU2GXrmY9dEytqWFRvMoiP9NJSvfl45UCTYwMT21SCk/
+ PmJDWyX/SuSEl9TB/ZkLY1qeLnx1e1nj+z8vvzAA=
+X-Developer-Key: i=juanlu@fastmail.com; a=openpgp;
+ fpr=48E9148428957881DD2558116FF739276A6BB0D9
 
-On Mon, Aug 31, 2026 at 10:16:36AM -0700, Andrew Morton wrote:
-> On Mon, 31 Aug 2026 14:42:11 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
->
-> > There has been a steady stream of patches that have been submitted by
-> > newcomers to core mm 'fixing' this TODO, with all but the original having
-> > very likely been generated by LLMs.
-> >
-> > It appears that TODOs to LLMs are like red rags to a bull.
-> >
-> > In addition, TODOs in code often bitrot and are distracting - those who
-> > understand the code know what could be improved in future.
-> >
-> > Therefore remove the TODO.
-> >
-> > The work required to actually fix this TODO requires somebody who both has
-> > understanding of the code and significant real-world data to back their
-> > changes.
-> >
-> > Such a person doesn't require a TODO prompt to implement this change, so
-> > nothing of value is being lost here.
-> >
-> > ...
-> >
-> > --- a/mm/vmpressure.c
-> > +++ b/mm/vmpressure.c
-> > @@ -30,9 +30,6 @@
-> >   *
-> >   * As the vmscan reclaimer logic works with chunks which are multiple of
-> >   * SWAP_CLUSTER_MAX, it makes sense to use it for the window size as well.
-> > - *
-> > - * TODO: Make the window size depend on machine size, as we do for vmstat
-> > - * thresholds. Currently we set it to 512 pages (2MB for 4KB pages).
-> >   */
-> >  const unsigned long vmpressure_win = SWAP_CLUSTER_MAX * 16;
->
-> otoh, we could enhance the TODO to explain these considerations.  This
-> might result in the LLM warriors submitting more usable work.
->
-> It would be a strange place to socialize these things but as you said,
-> red rags.
+This series extends the iou-zcrx selftests to be multithreaded while
+preserving existing single-threaded tests.
 
-I don't think it'd help anything, I doubt the LLMs are going to read what
-amounts to 'experts only' and sit back, they're not known for their
-humility.
+Patches 1 and 2 are prep fixes/cleanups. Patch 3 refactors the server's
+global state. Patches 4 and 5 add the multithreaded client and server.
+Finally, patch 6 adds the python side multithreaded test case.
 
-I also think, in general, we really should try to avoid adding TODOs - it's
-bitrot bait and if it's important enough to do, that should be abundantly
-clear to smart developers.
+Changes since v5:
+- early return in process_recvzc in the oneshot recvs branch (David)
 
-And if people REALLY want to signal that, put it in the commit msg (and
-yeah that risks LLM incursion too but we do have to stop somewhere :)
+v5: https://lore.kernel.org/all/20260814012348.46958-1-juanlu@fastmail.com/
+v4: https://lore.kernel.org/netdev/20260729221825.42773-1-juanlu@fastmail.com/
+v3: https://lore.kernel.org/netdev/20260722203950.58550-1-juanlu@fastmail.com/
+v2: https://lore.kernel.org/netdev/cover.1776444379.git.juanlu@fastmail.com/
+v1: https://lore.kernel.org/netdev/20260408163816.2760-1-juanlu@fastmail.com/
 
->
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Juanlu Herrero <juanlu@fastmail.com>
+---
+Juanlu Herrero (6):
+      selftests: net: fix get_refill_ring_size() to use its local variable
+      selftests: net: remove unused variable in process_recvzc()
+      selftests: net: refactor server state into struct thread_ctx
+      selftests: net: add multithread client support to iou-zcrx
+      selftests: net: add multithread server support to iou-zcrx
+      selftests: net: add rss_multiqueue test variant to iou-zcrx
 
---
-Cheers, Lorenzo
+ tools/testing/selftests/drivers/net/hw/Makefile    |   7 +-
+ tools/testing/selftests/drivers/net/hw/iou-zcrx.c  | 407 ++++++++++++++-------
+ tools/testing/selftests/drivers/net/hw/iou-zcrx.py |  50 ++-
+ 3 files changed, 333 insertions(+), 131 deletions(-)
+---
+base-commit: 1bb784eb6e38fd73143f021608e4ef3095d0c0d7
+change-id: 20260817-iou-zcrx-e8e46108a0bc
+
+Best regards,
+--  
+Juanlu Herrero <juanlu@fastmail.com>
+
