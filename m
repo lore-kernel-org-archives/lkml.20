@@ -1,236 +1,162 @@
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010020.outbound.protection.outlook.com [52.101.46.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAC523EAB4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:08:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.142
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788138529; cv=none; b=mruBH5P+nQ5TE172WfV+ioYZTRPv+6zqXOzrW55kbjI1TgeOSbo3ypO2sYBspeb5EonOlcdrVu1w8nFN5+qEjmP8/n/0J0aK9k+TDi222eAwXlT/EzKMyog3L5bP6ysuw60/JEUBAp7QcZyKsF1whZAUtpOgJL/us+CaFmX/QcM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788138529; c=relaxed/simple;
-	bh=Oe4S4dZBXDiu5QO05FCf3FatGvkk7jfJITlDwQ8HIlM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A4VfNJx68ULOjwWFOsMJgBahaaKNn7yOjzsPJAKqfhmN7Kz+1HlFuIt2r1igikgrNB8TfhCqYLopTfoBHVSZpGIE/q4TW9fHRpEJx9yW5UUoL5eRKnhFjPFZ4K0vx+rW9OS0pwBedXGwuzuvvMCUHaifXO9iq2I9Xgqi6yDuYu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=QKB9cHnh; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=gkl78bz6; arc=none smtp.client-ip=103.168.172.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BE2344D9B;
+	Mon, 31 Aug 2026 01:08:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788138531; cv=fail; b=Qal9vVJ9jNaejmWnmUqNa/LrN43LmpHT0el9gW6X1P+PSfsVOP2vzTzMsbMjgo8cq7UWFB/rXwUuKVYxWoiet2WPLPRnYWcIUY0tI2/ITY0SOGub7lRZiFun5p7hmIfoGrUOgRNR3or37KBwPrgd9483n9NrZoBABPtcTztJcSI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788138531; c=relaxed/simple;
+	bh=YDq0FHBTgoxbWNc8P4nCsLDyAZ8+BtLUxk37tADqZ1Q=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=EhZrmY0r8zuk1j0jjFJJuTysokY8b/6qGneCIBIOxkvGBxK+5P5lCZuEBPF2+aFzkPTa5Z94tzzMbxdvWDyE4rfCVUvkZE9iVOZn35qZQqpnXM2+ww7UsNlAVSAuW8WFW6KDqxA/lWJuKDviamdF+pCLJq1OFKdITh+0JyQ8epA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Ex2/70zg; arc=fail smtp.client-ip=52.101.46.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="QKB9cHnh";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="gkl78bz6"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailflow.phl.internal (Postfix) with ESMTP id F33E313802BC;
-	Sun, 30 Aug 2026 21:08:45 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Sun, 30 Aug 2026 21:08:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1788138525; x=
-	1788145725; bh=pcYiN9hPzomn6VxGROJwyZUszyLpRHLmB252cOSS7hk=; b=Q
-	KB9cHnhUWgTu9hvARDDLODrYe0li0yA6vbEaTwAwlw3+OP1jjwnRy0SZE/wAAn8a
-	yXKYXoU0ztH80oEYgvBEiYHRMOTXdmxOBEy0fp+xF5CS3nnkkOigKUKb8PBs/nZ5
-	/WkoBmO/6Q+4Yl2YDjUC5RdHxA8/QcifculInqr27ul59CHQal/MSTXs+6KzDiaq
-	9vugpHiP4bgkbQZ8+7tcrStFH01ZxTNij3nmq8iTu3Lx6nIhw46+D3N6gEIjv35K
-	mx6oYEFat3ZxhX/Ua1Myhr9eBASXqRrfbqbFGnk0EgjTmOMJsxEd5ONoHWQCsiG8
-	Kee6cPhlGm5nAVYjo+oOQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1788138525; x=1788145725; bh=pcYiN9hPzomn6VxGROJwyZUszyLpRHLmB25
-	2cOSS7hk=; b=gkl78bz6aDUoVq84Gt7gki848LZXCwqsjV8JXwvCaUTijWqEyMe
-	wlqXi5tn/+d/ughWDHYI8dax5Q/+IkYP9DNLqMrUCP6Q5HRy8SQ3IjjxLjT7RRCI
-	4MRkw543ndM31NPy8pXubF4BDDbyqCIViMRTFYmJXTlQPUKkYOKJ7Ep8otmq46Cd
-	xY6gH5Gj+YbF5b0ykAHXvlfsldZjP6WPCitPLmOfNoR2ihSkrtd95tK1qOZK8Gis
-	K98LZ2tsHtHG9ZqLTcrYz3juvplhS0bKpP++l1b+tP4pFb8biDqaLfrceumuxb3C
-	XM2rMghyfYvwsDF8TJvmLZOPE88vOelnZ8g==
-X-ME-Sender: <xms:HNSUatIeImfMy28s6i4xl9c4joT_JoUitOtg7829AUwPdvA6J2xLqA>
-    <xme:HNSUarJSPBZ5efeNCMakAKPBIE7maM_kFE6hSjOqfuo1JLW-6xeElkP7Y_D-LDNDC
-    P7VHmarDr1ZhVJhTX79Gwr__LafM9CaC4nHESD3FnVVZx5YiIm8G3Q>
-X-ME-Received: <xmr:HNSUaqDWTfRnaD9lKmkzcjpnBH-1IPE6Je3L3NKu6UlhopSP2QOSnuUG4ho>
-X-ME-Proxy-Cause: dmFkZTGGc+Gu02ZdKCpCP7OHlx60+GgUxx9Kp0lhdu4a7JV4r06bP7qbYHA4pM9NdUMpZq
-    e0bRKzG4e5HaXReDIHw2HDX4OdNSWUbvTxTb/gWhDOyFpeTCkwqTH1HsO+ez23ugIz8654
-    0YnkyqemaNLncDt92kb0RKKa8fLdHDJ+oRwKchffgDSYDsWbM0SAbgteyqm62dXMH460ra
-    XCWEVNSishKsYyzMo+6AtFAkkqJje8OxjKjgaCgIFHND4ep/ZrVml49rxw5rKaG+uj9qPu
-    Wu+nwR0G9Bk5flygkGddDdNw/7IHwAntv6m6tWMDoSbQcBp3vHbyLKJH80TdQlWUYByzXU
-    xKmu+1GWZzB1tJZvwYPcDXqVDL1UWzKceOPckXnscB743wDgbgdT+SMqdC+rr6nj66S467
-    wtwfACoL+Uf/Vh+192DoVuhOy+7BWAlQACwg6ZExRzeJBAxhirr3Lk6BCVus1hJPXol5Os
-    D0F3Ex/ISdR2hzNp8o21ibXH1KvMXAGPLDGfw4Rga+IAS8+X5kGK6svZMx1vrMIYF4VOt6
-    Ns75qlfQlwPaIDX6tYSwfNVZj/fO5WufstpP4Rn9pXTsu/ZgvpDIrhp56v3A89W1xjY9JR
-    jtIewJdkCdZ6R4x/Xy8zFP7VJf6xmUVvRrEnumehMNNKsFmizQyUsg60YsOQ
-X-ME-Proxy: <xmx:HNSUamk-XLERBLNYMXAftqvObgfRhzYodPzL1C0TlaxeC3GHG2pULw>
-    <xmx:HNSUauGdxsUe6TB_MYLRVJUBdraSo1uX2Nic9u7bXgIep_Dou0xNig>
-    <xmx:HNSUatgRBMvYz_JDH6dI-IcRghjNgMGjcdT53OUcD5G6-yeChCHk6Q>
-    <xmx:HNSUaueNUQ4ETDyKD4U76Nz1pSpF2UcHT9naC5GaxTYKii2m95Sb3g>
-    <xmx:HdSUauELfQ2DzjV0JYv2felkyOb8QaPQ2S1H6xFn0TbV4I8XmORakdIX>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 30 Aug 2026 21:08:44 -0400 (EDT)
-Date: Mon, 31 Aug 2026 02:08:43 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: kasong@tencent.com
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
-	Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
-Subject: Re: [PATCH v3 07/18] mm/huge_memory: move EOF trimming into the file
- split helper
-Message-ID: <apTTW3q5Gj0razE4@thinkstation>
-References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
- <20260821-swap-thp-cleanup-v3-7-9b43f5163238@tencent.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ex2/70zg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hsywTBmFDczzCgFICSB3cfEymJ7tqVioLjcspu8/vW08lXF+cx6u2riCO4m8AAC5JaLNW3M9DM3/6kytOcevpmWs656rse0D7XZ3LSoE4GQu+n0aTaCD+L0GVrYSGcLGrEeZqD4heIybIL4pEyDpI0/uU42wDRe9SF/9YqXgg/TX2MyhvX8YnoKrs3I5Dev+JUuCEj44g6DVVHv/dEmE2kPHNa1wKs7JuaXYuTEvmTZ4QEmGzXMCYpbd/ApnA6RJkxTY/MJVqJ/JTTWz7Djjn/YxwnGpHzNsykkss94esGL7ZwzDNkvvaIfr7G3nGvXDqjKsySsOIUAz7C+SKp2rVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YDq0FHBTgoxbWNc8P4nCsLDyAZ8+BtLUxk37tADqZ1Q=;
+ b=G2Yv434q/YvEFagWm9pYuemdUxWTeUM7hgY64MvrD7d437YUbWvIPDaRRuV7JTJQLMuiCfRQtsH1q/NHbI8b54/x2sKXXJGP3Y4e3i86Gx5K4g2EBC8H9mGrwicvMQyQXJRSWcalLwptE6AeXZqLIrxjrHpRgyI3HUhHalt+GGdw6+qUkhT+DBV88ROGzChsbxVSs/W3NspJ2oXC/3czpUcXKr0LzW1/puAy0CzZFefDBgSIiCPW+WgZE4SP2wh2NqLNqEJLE/jEo91SzlbzI308v6uMZUE0JpDLgBfND92JtPETtVbho7c+qit9T+KJniGwqZAaE7QC20p3/RYfDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YDq0FHBTgoxbWNc8P4nCsLDyAZ8+BtLUxk37tADqZ1Q=;
+ b=Ex2/70zgexAfOfcBCmxiDnaU09ez+hqVcpHHkyhpjj0LpN4ycL+8K7dsC6o3TbAvMLY1B3d5mdGu4FBMlOhWiOAZYB82CWeZCad6yOc5n73qn+EE896WSeEqtxM2RdL5CT+Mq0jwax5uvXXu38EhnVd6ma/7TGDQkZ9RKZTUh75KStDy2jY8jhM/hMDvKBJuePwrsaX+9iWMXQIUkTNFaEjcxy1i9zQGzD61K8lVQj9WTc5DlgziHlh9/V3u9qlw+9wleVAgRUDooM/XmuQVB1+rT3oN4Q8jyZcuE80vnt48RMdPRofuSt6zEdv9djP9IuAYhLtHvsLH0Xj/v8+FSw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SA1PR12MB8119.namprd12.prod.outlook.com (2603:10b6:806:337::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Mon, 31 Aug
+ 2026 01:08:46 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 01:08:46 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 10:08:43 +0900
+Message-Id: <DL2Q7DG3HIF1.6IU0VQX54L2A@nvidia.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
+ <burak.emir@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Yury Norov"
+ <yury.norov@gmail.com>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] rust: bitmap: document panics in `next_bit` and
+ `next_zero_bit`
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Georgios Androutsopoulos" <georgeandrout13@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260828133543.2259029-1-georgeandrout13@gmail.com>
+In-Reply-To: <20260828133543.2259029-1-georgeandrout13@gmail.com>
+X-ClientProxiedBy: TY4P286CA0031.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:2b2::9) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821-swap-thp-cleanup-v3-7-9b43f5163238@tencent.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SA1PR12MB8119:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28902d78-4bc2-4959-6cbc-08df06fc6872
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|10070799003|23010399003|11063799006|22082099003|18002099003|56012099006|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	MBaqIO++JKfAZKp/g4WZDVNnucEv2A8qInpTuurAL2l32DoSz+SIf2KLx5gxR0oSyScnqDLX36lNRx8jHTzma249nE9yw19Gxhd82XYnrWZlF80yNVQTyl0rUE3/OKwg91QJLv1fRTkLCn+5GRZmA/tGUDpOXngkC6TrL3EKqWJaa6ufx1wGRp+drL394rO6KYQnU+9XGHGERv3EkM75vb1RRgkfai55mJ+Mzb3pLPhrGJB51xOT/ZGHENZSLgWZ78XrLaY0OdOToOaR35+DkNZlKzijhPE900lgUlnCOOu9Jal6yYTwsZL82/Mp19WK8un+/YQsc6PMuSFxqLVr8DGOkgAPvwyrc35KZXynImmT/uNTdsxMkkusNX339fKhCG4h8pZhBcpAa0N9PLcmYZadMSCtOHuBa73kKM7xZx+zUF/53BEfr3BPVtzGyJA7gnKF/0CuEoBiPmLGnqsLUIEIx9eozPmii4qtgjb4/gOpc/t8cUgNVaKdeQTJrdDkyMRXxfbfUyBaA4qee5RpEVw6zsyK+GHnzP7r2bzNWSj8OMmvqJuine+QTR19zNNkGnDsovhqY+z+mDq8ZU5MlWDpKsQUFEMtmkyUEgBMStQdVesYsNLf2hRiYFU7H96Ru3AQXRBkRnTZdOl2lVcJSoktHvonbKR83OvX4aMCbwQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(10070799003)(23010399003)(11063799006)(22082099003)(18002099003)(56012099006)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZkJMOFYyMnF2VjVOaEw0cm9nMlExT3NkVE5UNjRpalN6UUxSbWd5NlhBOG5u?=
+ =?utf-8?B?OEN4QUt4bHRoQzlhMWlPcHpCclAvNGtQN2lDZEpqZ0t5ekJOSlE2T01aVlpZ?=
+ =?utf-8?B?RFRrVUVhWkNqdkZmZFBHL3k2UzBKS0NrL3NVZ1RPUWNkYjY1UjM2UWcvajdB?=
+ =?utf-8?B?U21JK2lURTJzenZrQWRqSDY4aDZzMFdWRFd1YlJxOE9YMUY1bTI1YUtvdVdp?=
+ =?utf-8?B?Uy9Kam1uWm1nQWdFVy9xeG43djdRTFRWYnNkTVNGRzVYUFk2WFN6bEVZM2xT?=
+ =?utf-8?B?ckp0Y21keHBsdlVENlNmUkhlOEN0dmNyNDFYR3FWcnpDZHRNZGxNSXpiUVo4?=
+ =?utf-8?B?a0lMLzBrdUgvK2VJY1NmMmFOaGJ4MmJwRnVkYVlqYjZyaWIvalBBVDRPWSs5?=
+ =?utf-8?B?RnorSVU3dlkwRWZJSjlyWDBnQ1Zrb1VWdkwxcWhKYjBMdkMzZ2lVMkt5SGts?=
+ =?utf-8?B?OE5pMVpZVkNsajBhYlB5d1BxUlhjSW9hNFFES2xJNUJsQWYwMFBVeDJlcDVE?=
+ =?utf-8?B?dDBRYmw2MU00ckFqL3k0bmhsbjBTUmJRbFdrRUE1dU1pbGFrNlRxdzBQdHVs?=
+ =?utf-8?B?Y0l5SXdVZnd6b3dnUHZzUjNpL2NQVDFhanFrY0JhckZBM0hsTzRyYWo2UUQv?=
+ =?utf-8?B?N0EwM3pSZThFVFNMZ0hzT1VHbjZGTloyQkgwejRrQ2F2aGZCUjMvTklXNmxs?=
+ =?utf-8?B?dEE4aVF2eFVkbURvVXEzTEdqaTh5TVA1Q0pCdk9pdkh1MjJvdjlNK0NuSkRs?=
+ =?utf-8?B?aWZOa2lyTG1Ba0JqVk8wMkVrWEJROW5PSUJQUzFOMnVjOE1HQllkV1pNTVRM?=
+ =?utf-8?B?dUloRldEdW9CZDBLZUc5NE5MZWJqRGRMUVU3WUZ5RGNtbmQ2YWE2ZkZhM29N?=
+ =?utf-8?B?eTdYbTViK25NWmN6R0N6Y0NOM3hkODV4cFJPQkZBRzVrWGwwYVo1aWFGZjBo?=
+ =?utf-8?B?NUtTdWxqbDNaR2E4ZmxMVzc5ZDZXc2lmSm9qRjIwNXA0Q0xlcE4xdWlxdzY5?=
+ =?utf-8?B?OGZBS29RWVNEeE14LzBjcld0VVR1RDhMVllKeG5hWjB6ZllMZ3RaSWhSOWFF?=
+ =?utf-8?B?Y3NkaG5Zckt0Zm9uajNVTDZjdFhUUjY4V01yYTRlSlZuZHdxZXIwYytQd3JP?=
+ =?utf-8?B?Y0YycXpwVTBJYUpoZDZpakQ1NUlKVDlXNkNkRTlZbDVwREJRS2VVbXNxYUVQ?=
+ =?utf-8?B?TnJ5RVJPKzlyTjQ2UWV5Tnl6VW9PQkhheUF0TUlLOVYrVmhpTWdMZUlBM3Mr?=
+ =?utf-8?B?U05MNnhqZGRxMVJ1eE5id2UyS0M5VmM0SXJvcGxDRGpmSDZsQXNTL3J4ZVBr?=
+ =?utf-8?B?RDBQd1drWUp6Wkl0Mlg5R2I0VFljNThHU2dMZ21hYXZXTjB0U0tmV1N2Rzg1?=
+ =?utf-8?B?UW51TUNTMlF3YTYxaUpTajZpL1laamtsZnRKdTZaRktmbm51UkpnVXBXZVpL?=
+ =?utf-8?B?L21DQW1yM25vNDZVRWJwY1cvc1BEVTNVeEZvNW90R2RCTTdHR0FkVms0Mlpp?=
+ =?utf-8?B?ZUZ0eEpsQVpIdXFTWU03dnhaWkRjSUlCRi8za2JqdXoyelJqcFJzVkhjQ25h?=
+ =?utf-8?B?RG8rQzJkMjBVK0tuSHpHNFkvU2dmeGxYUjl1Z0NBT0ttd01vdVNOT3hBZHBY?=
+ =?utf-8?B?MUZ5ZFNTWkRYVXllUHI4VTJKMHU1ZjJzRlZxZUxSZ0NmZkxQdkJTOGMyalNV?=
+ =?utf-8?B?YjhRajZlbnhnbzk1NVp1SEhqaEpITEIyamdFRm9wcCs1S1JCTmFsaE82UkNB?=
+ =?utf-8?B?UHplaFA4RU5uaE5jODlqSHRXY1N1Q1FPVmxuaENKeDQxU2FqbWdmK0R3ZEZh?=
+ =?utf-8?B?VWdUZTBoN1Q3MzZHTXY0amh4QTNpZVlaSmxHTXJhUFQ3ejdHaCtUMTJORWpv?=
+ =?utf-8?B?eVBZL3NIQjVkV1NveUo4MkhRc3lYdjFpRlBpc1ZWcFhodEtnVHVHVEczdzdo?=
+ =?utf-8?B?MDZwbktDL3drVDFwdVlSTGhMek8wUFVsUHpnSGs5cCtRdnJqZmFmZUdmVWY3?=
+ =?utf-8?B?WU1ockxBUk1hbEkyVis5QXZFZ2JOdlRBUFc1YlBCbVVLSHlWUTRHUkgxeUlH?=
+ =?utf-8?B?OFo3VUNuZmpjanNPMmdKT285dERPRlBGMzhjVlp4dzIyeUJsVTZGYkF1ekUz?=
+ =?utf-8?B?aEVYRW50eGdQM2s5U3c4TGVTcVZHSUxvS3ZFNVc5WHdOTVFyZEFtTXQ3V0x3?=
+ =?utf-8?B?QXFCV3pCandMQUtBUmFJREpNTURUeFhpdEg1SFBmd0Y3dkR3YjZDU09JNHRD?=
+ =?utf-8?B?QXdsMTg4dkdOQXJ1L3IrbkNFbGVKRFZlRmJmMUxONHhFM3hpWFd4MXNnQmFu?=
+ =?utf-8?B?bFhEZnl3VEZVVlB1cUliRlUybkNZV0U0WHdiWEs0cWhLQStwK1VEYmVodnVu?=
+ =?utf-8?Q?NhOMTgldjEX395CvAzSg2gSkbxAbKgmPOqqX8xND1T083?=
+X-MS-Exchange-AntiSpam-MessageData-1: lkUH3NHXsDL81g==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28902d78-4bc2-4959-6cbc-08df06fc6872
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 01:08:46.5818
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CMEK/DMiKjWTcuwhuDX0lwmxKw27Qd0hfJnbeBkRPFNNCUESaE+lRxTXnFBiAWEvP3WRkjxdx7zVMKrBQO6Kgw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8119
 
-On Fri, Aug 21, 2026 at 02:55:20AM +0800, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
-> 
-> Instead of receiving @end and @nr_shmem_dropped from the caller, the
-> file split helper now computes the EOF boundary and trims pages beyond
-> it itself, as this is only needed for file split.  This drops the
-> redundant parameter passing and sanity check.
-> 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
+On Fri Aug 28, 2026 at 10:35 PM JST, Georgios Androutsopoulos wrote:
+> `next_bit()` and `next_zero_bit()` use `bitmap_assert!()` to check
+> that `start` is less than `self.len()`, which panics when
+> `CONFIG_RUST_BITMAP_HARDENED` is enabled. However, neither function
+> has a `# Panics` section, and both document that `None` is returned
+> for exactly the input that triggers the panic.
+>
+> Update the documentation of `next_bit()` and `next_zero_bit()` to add
+> the missing `# Panics` sections, add the missing blank doc comment line
+> before `Returns` in `next_zero_bit()`, and simplify the wording.
+>
+> Link: https://github.com/Rust-for-Linux/linux/issues/1252
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Should this be `Closes:` instead of `Link:`?
 
-Couple of nits below.
+> Signed-off-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
 
-> ---
->  mm/huge_memory.c | 42 +++++++++++++++++++-----------------------
->  1 file changed, 19 insertions(+), 23 deletions(-)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 69d3a6889f9e..01c8cf428595 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -4029,14 +4029,26 @@ static int __folio_freeze_split_unmapped_anon(struct folio *folio, unsigned int
->  static int __folio_freeze_split_unmapped_file(struct folio *folio, unsigned int new_order,
->  					      struct page *split_at, struct xa_state *xas,
->  					      struct address_space *mapping, bool do_lru,
-> -					      struct list_head *list, enum split_type split_type,
-> -					      pgoff_t end, int *nr_shmem_dropped)
-> +					      struct list_head *list, enum split_type split_type)
->  {
->  	struct folio *end_folio = folio_next(folio);
->  	struct folio *new_folio, *next;
-> +	int nr_shmem_dropped = 0;
->  	struct lruvec *lruvec;
-> +	pgoff_t end = 0;
+As I mentioned earlier I hope we can stop panicking on these [1], but
+meanwhile it's indeed a good idea to have a Panic section.
 
-No need to initialize.
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
 
->  	int ret;
->  
-> +	/*
-> +	 * __split_frozen_folio() may need to trim off pages beyond
-
-Does it require update?
-
-	 * The loop below may need to trim off pages beyond
-
-...
-
-> +	 * EOF: but on 32-bit, i_size_read() takes an irq-unsafe
-> +	 * seqlock, which cannot be nested inside the page tree lock.
-> +	 * So note end now: i_size itself may be changed at any moment,
-> +	 * but folio lock is good enough to serialize the trimming.
-> +	 */
-> +	end = DIV_ROUND_UP(i_size_read(mapping->host), PAGE_SIZE);
-> +	if (shmem_mapping(mapping))
-> +		end = shmem_fallocend(mapping->host, end);
-> +
->  	xas_lock_irq(xas);
->  
->  	/*
-> @@ -4101,10 +4113,9 @@ static int __folio_freeze_split_unmapped_file(struct folio *folio, unsigned int
->  			continue;
->  		}
->  
-> -		VM_WARN_ON_ONCE(!nr_shmem_dropped);
->  		/* Drop folio beyond EOF: ->index >= end */
-> -		if (shmem_mapping(mapping) && nr_shmem_dropped)
-> -			*nr_shmem_dropped += nr_pages;
-> +		if (shmem_mapping(mapping))
-> +			nr_shmem_dropped += nr_pages;
->  		else if (folio_test_clear_dirty(new_folio))
->  			folio_account_cleaned(new_folio,
->  					      inode_to_wb(mapping->host));
-> @@ -4125,6 +4136,8 @@ static int __folio_freeze_split_unmapped_file(struct folio *folio, unsigned int
->  
->  fail:
->  	xas_unlock_irq(xas);
-> +	if (nr_shmem_dropped)
-> +		shmem_uncharge(mapping->host, nr_shmem_dropped);
->  	return ret;
->  }
->  
-> @@ -4161,9 +4174,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
->  	struct anon_vma *anon_vma = NULL;
->  	int old_order = folio_order(folio);
->  	struct folio *new_folio, *next;
-> -	int nr_shmem_dropped = 0;
->  	enum ttu_flags ttu_flags = 0;
-> -	pgoff_t end = 0;
->  	int ret;
->  
->  	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-> @@ -4240,17 +4251,6 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
->  
->  		anon_vma = NULL;
->  		i_mmap_lock_read(mapping);
-> -
-> -		/*
-> -		 * __split_frozen_folio() may need to trim off pages beyond
-> -		 * EOF: but on 32-bit, i_size_read() takes an irq-unsafe
-> -		 * seqlock, which cannot be nested inside the page tree lock.
-> -		 * So note end now: i_size itself may be changed at any moment,
-> -		 * but folio lock is good enough to serialize the trimming.
-> -		 */
-> -		end = DIV_ROUND_UP(i_size_read(mapping->host), PAGE_SIZE);
-> -		if (shmem_mapping(mapping))
-> -			end = shmem_fallocend(mapping->host, end);
->  	}
->  
->  	/*
-> @@ -4266,16 +4266,12 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
->  
->  	if (!is_anon) {
->  		ret = __folio_freeze_split_unmapped_file(folio, new_order, split_at, &xas, mapping,
-> -							 true, list, split_type, end,
-> -							 &nr_shmem_dropped);
-> +							 true, list, split_type);
->  	} else {
->  		ret = __folio_freeze_split_unmapped_anon(folio, new_order, split_at, true,
->  							 list, split_type);
->  	}
->  
-> -	if (nr_shmem_dropped)
-> -		shmem_uncharge(mapping->host, nr_shmem_dropped);
-> -
->  	if (!ret && is_anon && !folio_is_device_private(folio))
->  		ttu_flags = TTU_USE_SHARED_ZEROPAGE;
->  
-> 
-> -- 
-> 2.55.0
-> 
-> 
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+[1] https://lore.kernel.org/DKUKM1RPFDA7.1MBU5EY40OJ4J@nvidia.com
