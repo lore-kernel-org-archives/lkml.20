@@ -1,110 +1,121 @@
-Received: from mta0.migadu.com (out-11.mta0.migadu.com [91.218.175.11])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE073DCD9B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55AF2F532F
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:49:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180554; cv=none; b=fnofDfkmhx/cXVl4tOnbSWoUIhJqj6vsBkAfEJXeT3lO7FEWsMxzo8shNvI7gD1Y0FkbnjxSgKcRNCkO4sHw9noyFqkM5LBBgj26J6fNifyL7gfsHvMn5vwB2EP+iwpUTUhPIj+OaqdoA8uqATpENXjNUGOBK1trgg5rcIaXJ98=
+	t=1788180581; cv=none; b=L7qmJzMDL6qKBWJqqw2miYkszmMFBKt1f3IDlwzx0VHUH7AYNcWo/9IZppkwSevcxQNCttCW5+TslVYYeuY0/LmvgL1PsxK184lCgkJlgAKIgZmjiW1Y0Z4nZdU9Syvt2Otuxn5uEMeKdoArKYlcFLCOt719EAkgWaGCU0XBYBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180554; c=relaxed/simple;
-	bh=dYnj6LiEqUfm1MOQ4NdyBGoVieIcnJ71VeM+0xk1ecI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OpHlD/nsr0ge8k6bCDb0X+xxsGlgcebdmp09PSXdVWPPr+Yu/bexqPPW0Vqy0EIaKFXFAMDV9+RYc3ZYA38BXof6vGyzlNyIEZUUff0SfRQDHl9aWJU90EJOuS3ZL6tJfHKbUekwxjjfNH+G5CCwGfqjN1E+L0KtNGcvWn5EZJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=T435ByJb; arc=none smtp.client-ip=91.218.175.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788180581; c=relaxed/simple;
+	bh=VVIM94Wfr6ZD48vItyeNxjOfk3dCFOFp46+YgqOejOc=;
+	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=PbxlTLFHXSO9R9uDt3fjXSAxwTnctx8Bu3SklfbeSrWtjGM/3haDOEq0Y61dlRvfD+QV0BinWffeS37Dii8pfn93CAtIMwQHsvNpuy5wZr7ZrceUp6EocLqHnOonytyVveXt4ah/wt3cquwPaCaukhXDi8RKtNtJmpscVet2v1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mNhov94+; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="T435ByJb"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dYnj6LiEqUfm1MOQ4NdyBGoVieIcnJ71VeM+0xk1ecI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788180546; v=1; x=1788785346;
- b=T435ByJb3+cNexT8oBb3NFAElsEdAFsQAN71sL1VBmKfgVBxlIsz/ZkCNc+mgE4RdLpk2CE0
- cLUgbywoOvZz6Py9M+/oo40lXOcr1ZsnXt+63wj1WI+G01Ns8rup/al23ptyYRGVnxuW3+18yyJ
- xyH2h7fz/YSvLjtn9C7GbQZk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 164189ca6dab5531;
-	Mon, 31 Aug 2026 12:48:56 +0000
-X-Mizu-Trace-ID: 164189ca6dab5531
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <334976a1-b8f3-416d-b5c6-588c25ab5a03@linux.dev>
-Date: Mon, 31 Aug 2026 20:48:51 +0800
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mNhov94+"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so34527265e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:49:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788180576; x=1788785376; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6Yumoe7FZSNCoT/Inpg12IKhKN/8sBU4yATdWXPVHv8=;
+        b=mNhov94+e6xJRU/2pOpRwGjZNlPgCvWQeEECRryth436MqqMHNVBKjKhW64et8zSRM
+         XJjnzzrB4rS1cYg+AquWFNFoBwnzrznazvdt2QDGCRoRql3TGCDMsADItjShLSlzd/8g
+         VmLfSVIPjHgsV6lKI78e2Gwcv3FkisoJfsSHc1eqF2c3/LvuhMZ2yahUCxHviLygiH9A
+         t6dv7DmVS33F3AHcqcaMcuH6BL8obFSfrcLwT3beuJFLyWaqeyC96DbTHjaUWqM8aG3w
+         i9szZz/MWiLqTffqi5xg5gXFUyjuHadzIwXpzxWBzOXTLPedu0kPni5ySGbYsGPFMyI0
+         Becg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788180576; x=1788785376;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:to:from:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6Yumoe7FZSNCoT/Inpg12IKhKN/8sBU4yATdWXPVHv8=;
+        b=oLQF7fe+5uOpbZ+WYIQSUsqRz7XV1hyq34e5xyjZbYyL+OMStR9PE1vn5wy4VxS8Cf
+         uZ2FBXT2AITx22F4+LSdD687qlGh6umBdmETKfX9nT+TPJJ+ieKVUWMySt8fMv1Anojz
+         6sxISWtuzPccSHf72AMBEx/WZpvH+J4BqHGLVOIUFmhbE76za8oQWL7pUnTNPZTLlv2s
+         yTViVJjxh/00haK2NsQCw4waWDSBKYCtPc2E6wFC9+lMaygiJOD4S2Rz2HZYEpmiH0ke
+         7iGy8RBMS3hMJfa5AsnPp8GIDEms2ypLdad5eHGHs14BPDpxU/tSXfa+z99DI1L7WuK0
+         WM4Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqqnbcRcq44A6ILmqpxG6rH6VPm/BuQnjzDlgZHXMT+q8QJM3d7+x43MsanwM8WNZug4QuQaTgWSOL/9L4=@vger.kernel.org
+X-Gm-Message-State: AFuF++n85DB/06yB/L2/zhDQMA28PnH4Hm/WR+6akXgxAKbbQ9UTareZ
+	Kg7S2rq9LZLbwqVNy+ER+63RbH4uaGpLjoX0N9+YvhoeNoKQC/BPZXL1WTVnL96ZpHw=
+X-Gm-Gg: AR+sD12pLjtXoj4TGoemh0bvVucLb7jDr+WhL/d8Bwz6hbEnG0rr9Z2tBF8YKYB3J/Y
+	S13aDmotGY75Fe2Ly2h8PQfGhH78b21GHpAuo8WKDaTB5AApUEIf1uVUU5SCRTH3L+xCe9iIHsb
+	j1JeYjmWhRvi2mjH45YdjkCMUP86AWvlm2waCq9ruTf7bzqMAOxs4exguIjH5PVnD9g2HIwOOJA
+	3DoMItC3RYir8GByFC3xHteyRb5MBKhQ0qq+K1Sa1QzZRfc+qo3y4NL8l+a7u7sfiyoR38q+fRV
+	9R1Hj1Immi8DoizgmldUfEUQJyskVy9Tk3n810X5FPlSgclZmG7i5HXl4Ookv3DGVdOeWfycAVq
+	f0+mv5NmwkAJWB/tjIqJuCRmIKc65g0pfkoCgyN+6ialikohPpEV0xwUQ0u60vIr1qXOoEyh4Lg
+	n8j4Bk7z8RHuTcQGQ8AzIlgBe2c6EnfwgDZ2XyNV2aAeL8qaqFess8Ih+AnEo23z0E7BA5poOco
+	Xv75xUbHA==
+X-Received: by 2002:a05:600c:19ca:b0:49c:cee0:f383 with SMTP id 5b1f17b1804b1-49ccee0f3cdmr203606555e9.16.1788180576048;
+        Mon, 31 Aug 2026 05:49:36 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0e:1005:fa8b:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd2922ebdsm164736385e9.3.2026.08.31.05.49.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 05:49:34 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260829193939.107564-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260829193939.107564-2-krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: amlogic: Replace spaces indentation with
+ tabs
+Message-Id: <178818057398.2326859.6686364977974372286.b4-ty@b4>
+Date: Mon, 31 Aug 2026 14:49:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf v3 2/5] bpf: Fix NULL-ptr-deref when showing a void
- BTF type
-To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, shuah@kernel.org, yatsenko@meta.com,
- alan.maguire@oracle.com, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, martin.lau@kernel.org, mason@kernel.org
-References: <20260831110314.150870-3-jiayuan.chen@linux.dev>
- <116308d606e3bff21d07c01feb8741702547d1c32b1eafaad6f3628a776828fc@mail.kernel.org>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <116308d606e3bff21d07c01feb8741702547d1c32b1eafaad6f3628a776828fc@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
 
+Hi,
 
-在 8/31/26 7:48 PM, bot+bpf-ci@kernel.org 写道:
->> bpf: Fix NULL-ptr-deref when showing a void BTF type
->>
->> btf_modifier_show() resolves the modifier and then calls
->> btf_type_ops(t)->show() unconditionally. For the void type (type_id 0,
->> BTF_KIND_UNKN) kind_ops[] has no entry, so ->show is NULL.
->>
->> The map dump path cannot reach a void type (a map key/value must have a
->> size and void has none), but bpf_snprintf_btf() takes a type_id straight
->> from the BPF program, and a "const void" (a modifier that resolves to
->> void, present in the vmlinux BTF) NULL-derefs there:
-> Is this statement about the map dump path accurate? Looking at
-> map_check_btf() in kernel/bpf/syscall.c, a map key isn't required to
-> have a size:
->
-> 	/* Some maps allow key to be unspecified. */
-> 	if (btf_key_id) {
-> 		key_type = btf_type_id_size(btf, &btf_key_id, &key_size);
-> 		if (!key_type || key_size != map->key_size)
-> 			return -EINVAL;
-> 	} else {
-> 		key_type = btf_type_by_id(btf, 0);
-> 		if (!map->ops->map_check_btf)
-> 			return -EINVAL;
-> 	}
->
-> When btf_key_id is 0, key_type is set to the void type, and
-> map->btf_key_type_id is stored as 0. array_map_check_btf() even has a
-> dedicated keyless exception ("One exception for keyless BTF:
-> .bss/.data/.rodata/.percpu map").
->
-> The preceding patch in this series, commit 55f5ad8f45a5 ("bpf: Reject
-> key-less BTF for hash maps"), documents a syzbot NULL-ptr-deref where a
-> void key reached the map dump path through htab_map_seq_show_elem() ->
-> btf_type_seq_show_flags() -> btf_type_show() -> kind_ops[BTF_KIND_UNKN]
-> == NULL. That patch closed the path by adding btf_type_is_void(key_type)
-> rejections in htab_map_check_btf() and rhtab_map_check_btf().
->
-> Would it be more accurate to say the map dump path is closed by the
-> preceding patch and by existing btf_key_type_id guards, rather than by
-> a size requirement?
+On Sat, 29 Aug 2026 21:39:40 +0200, Krzysztof Kozlowski wrote:
+> Replace excessive spaces for aligning indentation into tabs.  This will
+> be reported by dt-style-check ("[mixed-indent-chars] too many space
+> characters in indent (more than 7)").
 
+Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.4/arm64-dt)
 
+[1/1] arm64: dts: amlogic: Replace spaces indentation with tabs
+      https://git.kernel.org/amlogic/c/6b59171d0fe541438da68c19541cd2f31c60ac04
 
-I still think I am correct.
+These changes has been applied on the intermediate git tree [1].
 
-A "const void" (a nonzero-id modifier) is rejected as key/value by 
-map_check_btf()'s size check;
-your key-less case is a bare void key (id 0) on a different path, 
-already handled by
-patch 1 — so the size reasoning holds here.
+The v7.4/arm64-dt branch will then be sent via a formal Pull Request to the Linux SoC maintainers
+for inclusion in their intermediate git branches in order to be sent to Linus during
+the next merge window, or sooner if it's a set of fixes.
 
+In the cases of fixes, those will be merged in the current release candidate
+kernel and as soon they appear on the Linux master branch they will be
+backported to the previous Stable and Long-Stable kernels [2].
+
+The intermediate git branches are merged daily in the linux-next tree [3],
+people are encouraged testing these pre-release kernels and report issues on the
+relevant mailing-lists.
+
+If problems are discovered on those changes, please submit a signed-off-by revert
+patch followed by a corrective changeset.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+
+-- 
+Neil
 
