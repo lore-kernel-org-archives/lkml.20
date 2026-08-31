@@ -1,42 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06FB5581F6;
-	Mon, 31 Aug 2026 13:47:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765B94ACC84;
+	Mon, 31 Aug 2026 13:47:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184042; cv=none; b=M6b29C6yb3WaKaQ3qSqClt0AmiYJloJrobuFQ+yWQ/OxO639guTV8XpUNDWpWBjO4SJ+p8nZ0UaBzIKbujmodjsH3jxpkt4wbBS1Ev+rm5+QO7s3uQc1cp7+ke1wI+mfsIWwHc10L0mCmd1TGxlwxrPbJxv77XtIHL9ZTQTPGSw=
+	t=1788184046; cv=none; b=A/JmKCMvIajPLnQ9cKdpz+SU5hUn8arS1SmV0T6d1IwbcZpRNcMELp8Dotj8zQAwroTpfaUxpAbbcYXPTa+yTApab/+3sMJLdnBQaTLz1PkByJ5UgKxJj5BUs01p6QOYDJdT4ZzKGRjntSSwl6iAgTnxu5TrC43+rA+OHMz3gHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184042; c=relaxed/simple;
-	bh=UDniQRXqG1Qtp036Q23As0+rK2KElb55TyMS/11Lv24=;
+	s=arc-20240116; t=1788184046; c=relaxed/simple;
+	bh=0qDKHy4Dw1eEbdQk9vQ1hWXocwQ+Nhx6H+pawVgeODY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HNCZ5ewjqzNWQFHFSKU1sZKOWeuI4Y/toRX6e9sEDjRVpNAQ3Q8/zvGPKWo8UwIOH/VyNC05spBRc4lHxDqZAMKgABpxfHPVgDR+ExzjA9XfTK6D8Mn1lMK2QS5hPL32FGVG30LUzBHGOM7jQmzowVS1ycTGH2QdV64xo7eBX/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dIJrYB2b; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ftA8NbLxVteB6ZE8terjgmhZi/S+RR9ZxoxJ1W7Su2b14qfKzRL12EOo8jj3cqMhjxdoh3KCx0reH4oPKI49SGUZ8mHWAb6g1J0iTHZOcXpokrfK+597TW0B4yuUQa6g85gDl7H3tJsiwU/ob11NqP2cUXgTDatMchrZT8fpp5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WceWIDYN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dIJrYB2b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAE8E1F00A3F;
-	Mon, 31 Aug 2026 13:47:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WceWIDYN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5908A1F00ADB;
+	Mon, 31 Aug 2026 13:47:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184037;
-	bh=z2Kbe/zPm1x6xNOLJ89bP0O7FoCKFHJ7ZDF6yEYrr7Y=;
+	s=k20260515; t=1788184042;
+	bh=RH+H10X8z3esxQO/GSg8KbuJFyaYnpZsgvc6XfrgJ2w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dIJrYB2buLYi+DhmUch0J7EEsdKMQJcQGRKOoUg5AXKHYdu4d5nU3+0C9UlYgGOhQ
-	 K0SNT6DmiMp7E2E6XNm9R5KvSf6+vcszwW3DJ6k0236tiUcVnE1PUByZwsXy1uBg7E
-	 EElDFJmx5+0vIQs5OZDElWCBJGuDb0bI/EEifz8alA8QuI/m5zLL/ZTdzysTGxLojY
-	 v8HFuCuvMe2lTYHZpVApiB9ovCuCEYW1gMMKYae0zMqxtUY410flqS2EpPNcBos+rr
-	 iwqR6624wRZGfzV8K53ldr+vnbk8uMnDe7WiUm6CUNAGW0Zl+0y9rvJDwPyPRbqETt
-	 eAih+IDL4Gbxg==
+	b=WceWIDYNfL6goppWx47NC/A7viNPq8iy11lz+lrsHVLpcAx4LQhK1n2TF8W8GL4bY
+	 hVJtGguk12FHdpuTxO4UQWeNgbeaN70mxiJCJgi6/spI7BZhdXk0zLT1wLpcHP/CB0
+	 5pTGjrLQ1cUQX4VG/egb1hls2GeqTJUMOOq81QvXCHr2pKVjAnQlgublhnzgUjLiM3
+	 WmHFKnsh06uVUQ9pt+gYfY3Eh0vUpnqf4/6/xkCt9cYgpbPyzyn4ihZfDVltOj3meY
+	 dNUxbemrPOX/VkF9l+IcSAYZZ/jMbdegcxevYuhW/Loku/HCxiV0DUCPkNygq+M8ei
+	 Ok+U3NT6mCnSQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Xue Lei <Xue.Lei@windriver.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+Cc: Ken Lin <kenlin5@quanta.corp-partner.google.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-rtc@vger.kernel.org,
+	hverkuil@kernel.org,
+	mchehab@kernel.org,
+	bleung@chromium.org,
+	linux-media@vger.kernel.org,
+	chrome-platform@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] rtc: mv: add suspend/resume support for wakeup
-Date: Mon, 31 Aug 2026 09:28:02 -0400
-Message-ID: <20260831133314.4125787-454-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] media: platform: cros-ec: Add Kulnex and Moxoe to the match table
+Date: Mon, 31 Aug 2026 09:28:05 -0400
+Message-ID: <20260831133314.4125787-457-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,20 +56,15 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Xue Lei <Xue.Lei@windriver.com>
+From: Ken Lin <kenlin5@quanta.corp-partner.google.com>
 
-[ Upstream commit 851d961ff248218f681c53cf0f7f08cf8201a117 ]
+[ Upstream commit e024767f90f9f50bfcce4b20bb74237ad72450f3 ]
 
-Add PM suspend/resume callbacks to enable/disable IRQ wake for the
-RTC alarm interrupt. This allows the RTC alarm to wake the system
-from STR (e.g. via rtcwake -m mem -s N).
+The Google Kulnex and Moxoe device uses the same approach as Google Brask
+which enables the HDMI CEC via the cros-ec-cec driver.
 
-Without this, the RTC IRQ is masked during suspend by the MPIC's
-IRQCHIP_MASK_ON_SUSPEND behavior, preventing alarm-based wakeup.
-
-Signed-off-by: Xue Lei <Xue.Lei@windriver.com>
-Link: https://patch.msgid.link/20260611023350.1370881-1-Xue.Lei@windriver.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Signed-off-by: Ken Lin <kenlin5@quanta.corp-partner.google.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
@@ -73,370 +72,342 @@ LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit Message Forensics
 
-### Step 1.1: Subject Line
-**Record:** `[rtc: mv]` `[add]` — Add suspend/resume PM callbacks so the
-Marvell Orion RTC alarm IRQ can wake the system from STR.
+### Step 1.1: Parse the Subject Line
+**Record:** `[media: platform: cros-ec]` `[Add]` — Add Kulnex and Moxoe
+Google Chromebook board names to the CEC DMI match table so HDMI CEC can
+be enabled on those platforms.
 
-### Step 1.2: Tags
+### Step 1.2: Parse All Commit Message Tags
 **Record:**
-- **Fixes:** — none
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** — none (maintainer applied directly)
-- **Acked-by:** — none
-- **Link:** https://patch.msgid.link/20260611023350.1370881-1-
-  Xue.Lei@windriver.com
-- **Cc: stable:** — none (expected for manual review)
-- **Signed-off-by:** Xue Lei, Alexandre Belloni (ignore pipeline SOB
-  markers)
+- **Fixes:** none
+- **Reported-by:** none
+- **Tested-by:** none
+- **Reviewed-by:** none
+- **Acked-by:** none
+- **Link:** none
+- **Cc: stable:** none (expected; not a negative signal)
+- **Signed-off-by:** Ken Lin `<kenlin5@quanta.corp-partner.google.com>`
+  (author)
+- **Signed-off-by:** Hans Verkuil `<hverkuil+cisco@kernel.org>`
+  (media/CEC maintainer)
 
-Notable: RTC subsystem maintainer (Belloni) applied the patch; no syzbot
-or user bug reports.
+No syzbot, bugzilla, or user crash reports. Maintainer sign-off is a
+positive quality signal.
 
-### Step 1.3: Body Analysis
+### Step 1.3: Analyze Commit Body
 **Record:**
-- **Bug:** RTC alarm cannot wake the system from suspend-to-RAM
-  (`rtcwake -m mem -s N` fails).
-- **Symptom:** System stays suspended past the alarm time; scheduled
-  wake does not occur.
-- **Root cause (author):** During suspend, the parent irqchip masks non-
-  wakeup IRQs (`IRQCHIP_MASK_ON_SUSPEND`). Without `enable_irq_wake()`
-  in the driver suspend path, the RTC alarm IRQ is masked and cannot
-  fire.
-- **Version info:** None in the message.
+- **Bug description:** Google Kulnex and Moxoe Chromebooks use the same
+  HDMI CEC-over-ChromeOS-EC approach as Brask, but are missing from
+  `cec_dmi_match_table[]`.
+- **Symptom/failure mode:** `cros-ec-cec` probe fails on these boards;
+  HDMI CEC is unavailable. No crash is described.
+- **Version information:** none in the commit message.
+- **Root cause:** Driver uses an explicit DMI whitelist per Chromebook
+  model for HDMI DRM device and connector-port mapping. New boards were
+  never added.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes. Subject says “add suspend/resume support,” but this
-completes broken wakeup behavior: the driver already calls
-`device_init_wakeup(&pdev->dev, true)` when an IRQ is present (since
-alarm support was added in 2009), yet never called `enable_irq_wake()`.
-That is incomplete PM integration, not a new user-facing feature.
+### Step 1.4: Detect Hidden Bug Fixes
+**Record:** Not a hidden crash/UAF/race fix. This is explicit hardware
+enablement: adding board identification entries so an existing driver
+can probe on two new platforms. Functionally equivalent to adding
+PCI/USB IDs or a DMI quirk entry.
 
 ---
 
 ## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory
+### Step 2.1: Inventory the Changes
 **Record:**
-- **File:** `drivers/rtc/rtc-mv.c` (+23 lines, 0 removed)
-- **Functions added:** `mv_rtc_suspend()`, `mv_rtc_resume()`
-- **Structure modified:** `mv_rtc_driver` (adds `.pm = &mv_rtc_pm_ops`)
-- **Scope:** Single-file, surgical driver PM fix
+- **Files:** `drivers/media/cec/platform/cros-ec/cros-ec-cec.c` (+4
+  lines)
+- **Functions modified:** none directly; only `cec_dmi_match_table[]`
+  data
+- **Scope:** single-file, surgical, 4-line addition
 
 ### Step 2.2: Code Flow Change
 **Record:**
-- **Hunk 1 (suspend/resume):** Before: no driver PM callbacks; IRQ
-  treated as a normal interrupt during suspend. After: if
-  `device_may_wakeup(dev)` and `pdata->irq >= 0`, call
-  `enable_irq_wake()` on suspend and `disable_irq_wake()` on resume.
-- **Hunk 2 (driver struct):** Registers `SIMPLE_DEV_PM_OPS` with the
-  platform driver.
-- **Path affected:** System suspend/resume (`CONFIG_PM_SLEEP`), only
-  when the RTC has a valid IRQ and wakeup is enabled.
+- **Hunk (DMI table):** Before — Kulnex/Moxoe unmatched →
+  `cros_ec_cec_find_hdmi_dev()` warns and returns `-ENODEV`. After —
+  boards match like Brask/Moxie, DRM HDMI device (`0000:00:02.0`) and
+  `port_b_conns` mapping are selected, probe can succeed.
 
 ### Step 2.3: Bug Mechanism
 **Record:**
-- **Category:** Logic/correctness — incomplete PM wakeup integration.
-- **Mechanism:** `kernel/irq/pm.c` `suspend_device_irq()` masks IRQs
-  with `IRQCHIP_MASK_ON_SUSPEND` unless `irqd_is_wakeup_set()`.
-  `device_init_wakeup()` alone does not set that flag;
-  `enable_irq_wake()` does. Without it, the RTC alarm IRQ is masked at
-  the irqchip during suspend and cannot wake the system.
+- **Category:** hardware identification / platform quirk (DMI-based
+  board whitelist)
+- **Mechanism:** Without a table entry, probe path in
+  `cros_ec_cec_probe()` exits early:
 
-### Step 2.4: Fix Quality
-**Record:**
-- **Quality:** Obviously correct; identical pattern used in `rtc-
-  armada38x.c`, `rtc-tegra.c`, `rtc-cmos.c`, and many other RTC drivers
-  in this tree.
-- **Regression risk:** Very low. Symmetric enable/disable, guarded by
-  `device_may_wakeup()` and `pdata->irq >= 0`.
-- **Red flags:** None.
+```501:503:drivers/media/cec/platform/cros-ec/cros-ec-cec.c
+        hdmi_dev = cros_ec_cec_find_hdmi_dev(&pdev->dev, &conns);
+        if (IS_ERR(hdmi_dev))
+                return PTR_ERR(hdmi_dev);
+```
+
+And the lookup function explicitly documents that hardware must be added
+to the table:
+
+```362:365:drivers/media/cec/platform/cros-ec/cros-ec-cec.c
+        /* Hardware support must be added in the cec_dmi_match_table */
+        dev_warn(dev, "CEC notifier not configured for this
+hardware\n");
+
+        return ERR_PTR(-ENODEV);
+```
+
+### Step 2.4: Fix Quality Assessment
+**Record:** Obviously correct — copies the proven Brask/Moxie pattern
+(`port_b_conns`, same PCI DRM device name). Minimal diff. Regression
+risk is very low: only affects DMI matches for "Google"/"Kulnex" and
+"Google"/"Moxoe".
 
 ---
 
 ## Phase 3: Git History Investigation
 
-### Step 3.1: Blame
-**Record:**
-- `device_init_wakeup()` at line 267: introduced with alarm support,
-  present since commit `aeedacaeaf9c0` (2009-12-16, “rtc-mv: add support
-  for Alarm”).
-- PM suspend/resume callbacks: **not present** in this tree; added by
-  candidate commit `851d961ff2482` (on `master`, not yet in HEAD).
+### Step 3.1: Blame the Changed Lines
+**Record:** The DMI table (lines 304–337) exists in this tree ending at
+Moxie; Kulnex/Moxoe are absent. Git history in this checkout is heavily
+rewritten/squashed (file history is unreliable), but the driver and full
+match table are present since at least `ac3fd01e4c1ef` (Linux 6.18-rc7).
+The "missing entry" condition is present in 6.18.43.
 
-### Step 3.2: Fixes: Tag
-**Record:** No `Fixes:` tag. Bug dates to original alarm/wakeup support
-(2009); never had `enable_irq_wake()`.
+### Step 3.2: Follow Fixes: Tag
+**Record:** N/A — no `Fixes:` tag.
 
-### Step 3.3: Related File History
-**Record:** Recent `rtc-mv.c` changes are cleanups (`ede66fb37f127`,
-`5621f28b01228`, `8c28c4993f117`). No prior wakeup PM fix. Standalone
-1/1 patch (b4 dig confirms single revision).
+### Step 3.3: File History for Related Changes
+**Record:** The driver has accumulated many Google board entries (Fizz,
+Brask, Moli, …, Moxie). This commit continues that pattern. Standalone
+one-commit change; not part of a multi-patch series.
 
-### Step 3.4: Author Context
-**Record:** Xue Lei (Wind River, embedded). Alexandre Belloni (RTC
-maintainer) applied. No related series from this author in `rtc-mv.c`.
+### Step 3.4: Author's Other Commits
+**Record:** Ken Lin has no other commits visible in this checkout. Hans
+Verkuil is the media/CEC maintainer and signed off. No related author
+series found here.
 
-### Step 3.5: Dependencies
-**Record:** No prerequisites. Uses standard kernel PM/IRQ APIs present
-in 6.18.44. `git apply --check` on the diff succeeds against the current
-tree.
+### Step 3.5: Dependent/Prerequisite Commits
+**Record:** No dependencies. Driver, `port_b_conns`, DMI/PCI
+infrastructure, and `CONFIG_CEC_CROS_EC` all exist in this tree. Applies
+standalone.
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original Discussion
-**Record:**
-- **URL:** https://patch.msgid.link/20260611023350.1370881-1-
-  Xue.Lei@windriver.com
-- **Revisions:** v1 only (b4 dig `-a`)
-- **Review:** Belloni replied “Applied, thanks!” — no NAKs, no
-  objections
-- **Stable nomination:** None in thread
+### Step 4.1: Original Patch Discussion
+**Record:** `b4 dig -c 4b3f9bff6067a` failed — commit hash not in local
+repo. Lore search blocked (403/bot protection). **UNVERIFIED:** original
+thread content, reviewer stable nominations, series revisions.
 
 ### Step 4.2: Reviewers
-**Record:** CC’d: `linux-rtc@vger.kernel.org`, `linux-
-kernel@vger.kernel.org`, Belloni. Maintainer applied.
+**Record:** **UNVERIFIED** via `b4 dig -w`. Hans Verkuil SOB confirms
+maintainer involvement.
 
 ### Step 4.3: Bug Report
-**Record:** No external bug report or syzbot link. Issue inferred from
-irqchip PM behavior and missing driver callback.
+**Record:** N/A — no Reported-by or Link tags.
 
-### Step 4.4: Related Patches
-**Record:** Sister driver `rtc-armada38x.c` already implements the same
-`enable_irq_wake`/`disable_irq_wake` pattern (lines 543–571). `rtc-mv.c`
-was the outlier.
+### Step 4.4: Related Patches/Series
+**Record:** Same pattern as prior Brask/Moxie/Kinox additions to this
+table. Standalone.
 
-### Step 4.5: Stable List History
-**Record:** Not searched on lore stable list; no stable discussion found
-in the patch thread.
+### Step 4.5: Stable Mailing List History
+**Record:** **UNVERIFIED** — could not search lore stable archive.
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
 ### Step 5.1: Key Functions
-**Record:** `mv_rtc_suspend()`, `mv_rtc_resume()`, `mv_rtc_probe()`
-(calls `device_init_wakeup`), `mv_rtc_alarm_irq_enable()`,
-`mv_rtc_interrupt()`.
+**Record:** `cec_dmi_match_table[]` (data),
+`cros_ec_cec_find_hdmi_dev()`, called from `cros_ec_cec_probe()`.
 
-### Step 5.2: Callers
-**Record:** PM core invokes driver suspend/resume during system STR.
-`mv_rtc_probe()` runs at platform device init on Marvell boards
-(Kirkwood, Dove, Armada 370/375). Users trigger wakeup via `rtcwake` or
-`/sys/class/rtc/rtcX/wakealarm`.
+### Step 5.2: Trace Callers
+**Record:** `cros_ec_cec_probe()` is the platform driver probe path
+during boot/module load on Chromebooks with `CONFIG_CEC_CROS_EC` and
+`CONFIG_CROS_EC`. Affects only matching Google hardware.
 
-### Step 5.3: Callees
-**Record:** `enable_irq_wake()`, `disable_irq_wake()`,
-`device_may_wakeup()`, `dev_get_drvdata()`.
+### Step 5.3: Trace Callees
+**Record:** `dmi_match()`, `bus_find_device_by_name()` on PCI bus,
+connector mapping via `port_b_conns`.
 
-### Step 5.4: Reachability
-**Record:** Reachable on any `marvell,orion-rtc` platform with IRQ,
-`CONFIG_PM_SLEEP`, and STR support. DT platforms verified: Kirkwood,
-Dove, Armada 370/375 (`arch/arm/boot/dts/marvell/*.dtsi`). Commit’s
-“MPIC” reference matches `drivers/irqchip/irq-armada-370-xp.c` irqchip
-named `"MPIC"` with `IRQCHIP_MASK_ON_SUSPEND`.
+### Step 5.4: Call Chain / Reachability
+**Record:** Boot-time platform probe on ChromeOS EC-equipped Google
+devices. Not a syscall path. Userspace impact is missing `/dev/cec*` and
+non-functional HDMI CEC on Kulnex/Moxoe.
 
 ### Step 5.5: Similar Patterns
-**Record:** 40+ RTC drivers in this tree use the same `enable_irq_wake`
-in suspend pattern. `rtc-armada38x.c` is the closest Marvell sibling.
+**Record:** Fifteen other Google boards already use the same table
+pattern; Brask and Moxie use identical `port_b_conns` mapping, matching
+the commit message claim.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree
+## Phase 6: Cross-Referencing Against Local Tree (6.18.43)
 
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** Local tree is **Linux 6.18.44** (`git describe`:
-`v6.18.44-1-g2736c32da98b9`). `drivers/rtc/rtc-mv.c` has
-`device_init_wakeup(&pdev->dev, true)` (line 267) but **no** PM ops or
-`enable_irq_wake()`. Candidate commit `851d961ff2482` is on `master` but
-**not** an ancestor of HEAD.
+### Step 6.1: Does the Buggy Code Exist?
+**Record:** **YES.** Local tree is `6.18.43`
+(`v6.18.43-1-gc7f0dac02d232`). `drivers/media/cec/platform/cros-ec/cros-
+ec-cec.c` exists (602 lines). Table ends at Moxie; Kulnex/Moxoe are
+missing. Driver has been present since 6.18-rc7 in this tree.
 
 ### Step 6.2: Backport Complications
-**Record:** Clean apply verified (`git apply --check` passes). No
-conflicting recent changes in the insertion region.
+**Record:** **Clean apply expected.** Verified with `git apply --check`
+against current tree — applies without conflicts.
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** None for `rtc-mv` wakeup PM. `rtc-armada38x` already has the
-fix; `rtc-mv` does not.
+**Record:** No — `grep` finds no Kulnex or Moxoe anywhere in the tree.
 
 ---
 
 ## Phase 7: Subsystem and Maintainer Context
 
-### Step 7.1: Subsystem
-**Record:** `drivers/rtc` — **IMPORTANT** (embedded/NAS platforms:
-Marvell Kirkwood, Dove, Armada). Not core kernel, but affects PM on real
-deployed hardware.
+### Step 7.1: Subsystem and Criticality
+**Record:** `drivers/media/cec/` — media/CEC platform driver.
+**IMPORTANT** for affected Chromebook users, **PERIPHERAL** globally
+(CEC on two specific Google boards).
 
-### Step 7.2: Activity
-**Record:** Moderate activity; recent changes are cleanups, not PM
-rework.
+### Step 7.2: Subsystem Activity
+**Record:** CEC subsystem is active in this tree (recent fixes for seco,
+rc race, debugfs leak). The cros-ec driver itself is mature with a
+growing DMI whitelist.
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
 ### Step 8.1: Who Is Affected
-**Record:** Users of Marvell Orion RTC on platforms with STR and a wired
-RTC IRQ (Kirkwood NAS, Dove, Armada 370/375, etc.). Config-dependent:
-`CONFIG_RTC_DRV_MV` + `CONFIG_PM_SLEEP` + working IRQ.
+**Record:** Users of Google Kulnex and Moxoe Chromebooks with
+`CONFIG_CEC_CROS_EC=y/m`. Config- and platform-specific; not universal.
 
 ### Step 8.2: Trigger Conditions
-**Record:** User sets RTC alarm and suspends (`rtcwake -m mem`,
-`wakealarm` sysfs, or equivalent). **Common** on embedded systems using
-scheduled wake. Unprivileged users can typically set RTC alarms.
+**Record:** Booting one of these two board models with the cros-ec-cec
+driver enabled. Deterministic on every boot. Not a security-relevant or
+unprivileged-triggered path.
 
 ### Step 8.3: Failure Mode Severity
-**Record:** **MEDIUM** — no crash, corruption, or deadlock. System fails
-to wake on schedule; operational impact for scheduled maintenance, NAS
-wake, industrial controllers. Wakeup is advertised via
-`device_init_wakeup()` but does not work.
+**Record:** HDMI CEC non-functional; driver probe returns `-ENODEV` with
+a warning. **Severity: LOW** — feature absence, not crash, corruption,
+deadlock, or security issue.
 
-### Step 8.4: Risk-Benefit
+### Step 8.4: Risk-Benefit Ratio
 **Record:**
-- **Benefit:** Restores intended RTC alarm wakeup from STR on affected
-  Marvell hardware.
-- **Risk:** Very low (23 lines, established pattern, irq >= 0 guard).
-- **Ratio:** Favorable — fixes a long-standing functional defect with
-  minimal code.
+- **Benefit:** Enables HDMI CEC on two new Chromebook models running
+  this kernel; matches established board-enablement pattern.
+- **Risk:** Very low — 4 lines, no logic change, only new DMI strings.
+- **Ratio:** Moderate benefit for a tiny audience vs. very low risk.
+  Does not meet strict "important bug" threshold, but fits the stable
+  exception for hardware identification additions.
 
 ---
 
 ## Phase 9: Final Synthesis
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence Compile
 
 **FOR backport:**
-- Real, reproducible functional bug (rtcwake/STR wakeup broken)
-- Driver already registers as wakeup-capable since 2009
-- Standard, proven fix pattern (sibling `rtc-armada38x` already has it)
-- Small, self-contained, applies cleanly to 6.18.44
-- Maintainer-reviewed and applied
-- Affects deployed embedded hardware
+- Driver and infrastructure fully present in 6.18.43
+- Real hardware gap on Kulnex/Moxoe — CEC broken without entries
+- Tiny, obviously correct, applies cleanly
+- Follows proven Brask/Moxie `port_b_conns` mapping
+- Media maintainer (Hans Verkuil) signed off
+- Fits stable exception for hardware identification / quirk additions
+  (DMI board ID to existing driver)
 
 **AGAINST backport:**
-- Not a crash, security, corruption, or deadlock
-- Subject wording sounds like “adding feature”
-- No user bug report or syzbot evidence
-- Long-standing issue (lower urgency than regressions)
+- Not a crash, security, corruption, or deadlock fix
+- Failure mode is missing functionality (CEC), severity LOW
+- Affects only two specific new Chromebook models
+- No user reports, syzbot, or explicit stable nomination
+- By-design whitelist: unsupported boards get `-ENODEV`, not a code
+  defect on already-supported hardware
+- Mailing list review details unverified
 
-**Unresolved:** No end-user bugzilla report; impact quantified only by
-code analysis and platform DT presence.
+**UNRESOLVED:**
+- Whether Kulnex/Moxoe actually ship with 6.18.y kernels
+- Lore discussion and any stable nominations from reviewers
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — standard pattern; maintainer
-   applied; no review objections.
-2. Fixes a real bug affecting users? **PASS** — broken STR wakeup on
-   Marvell RTC platforms.
-3. Important issue? **PASS (borderline)** — not crash/security, but
-   broken suspend wakeup on hardware that advertises wakeup support;
-   operational impact on embedded systems.
-4. Small and contained? **PASS** — 23 lines, one file.
-5. No new features or APIs? **PASS** — completes existing wakeup
-   registration; no new sysfs/APIs.
+1. Obviously correct and tested? **PASS** — mechanical table entries;
+   maintainer SOB; pattern proven on Brask/Moxie.
+2. Fixes a real bug affecting users? **PASS (narrow)** — real hardware
+   support gap for CEC on two boards, not a kernel logic bug.
+3. Important issue (crash, security, corruption, deadlock)? **FAIL** —
+   CEC absence only; LOW severity.
+4. Small and contained? **PASS** — 4 lines, one file.
+5. No new features or APIs? **PASS** — no API change; board ID addition
+   to existing driver.
 6. Can apply to local tree? **PASS** — verified clean apply.
 
 ### Step 9.3: Exception Categories
-**Record:** Suspend/resume hardware wakeup workaround — same category as
-other RTC `enable_irq_wake` fixes. Not a device-ID/quirk/DT/build/doc
-exception, but functionally equivalent to a PM quirk fix.
+**Record:** **Hardware identification / quirk exception** — DMI match
+table entry for an existing platform driver, analogous to adding
+PCI/USB/ACPI IDs. Same category as prior Brask, Moxie, Kinox entries.
 
 ### Step 9.4: Decision Rationale
 
-For **Linux 6.18.44**, this commit should be backported. The driver has
-advertised wakeup capability via `device_init_wakeup()` since alarm
-support was added, but without `enable_irq_wake()` the alarm IRQ is
-masked during suspend on irqchips with `IRQCHIP_MASK_ON_SUSPEND`
-(including Marvell Armada’s “MPIC” irqchip). That makes `rtcwake -m mem`
-silently fail on affected Marvell platforms. The fix is minimal, follows
-an established pattern already used in `rtc-armada38x.c` and dozens of
-other RTC drivers, applies cleanly, and carries negligible regression
-risk while restoring expected PM behavior.
+This commit does not fix a critical kernel defect. It enables HDMI CEC
+on two new Google Chromebook platforms by extending the existing DMI
+whitelist in `cros-ec-cec`. That is standard stable material under the
+hardware-identification exception: the driver already exists in 6.18.43,
+the change is trivial and low-risk, and it unblocks real hardware for
+users on those boards. It does not meet the strict "important bug"
+criterion on its own, but stable trees routinely take such board-ID
+additions when the driver is already present.
+
+For the locally checked-out **6.18.43** tree: the driver exists, the gap
+exists, and the patch applies cleanly.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit `851d961ff2482`: tags, body, intent recorded
-- [Phase 2] Read full diff: +23 lines in `drivers/rtc/rtc-mv.c`, PM ops
-  added
-- [Phase 3] `git describe HEAD`: v6.18.44-1-g2736c32da98b9; Makefile
-  VERSION 6.18.44
-- [Phase 3] `git merge-base --is-ancestor 851d961ff2482 HEAD`: NOT IN
-  TREE
-- [Phase 3] `git log -S device_init_wakeup -- drivers/rtc/rtc-mv.c`:
-  alarm added `aeedacaeaf9c0` (2009)
-- [Phase 3] `git blame -L 266,270 drivers/rtc/rtc-mv.c`:
-  `device_init_wakeup` present, no PM callbacks
-- [Phase 3] `git apply --check` on commit diff: applies cleanly
-- [Phase 4] `b4 dig -c 851d961ff2482`: found lore thread
-- [Phase 4] `b4 dig -a`: single v1 revision
-- [Phase 4] `b4 dig -w`: CC’d linux-rtc, Belloni
-- [Phase 4] Mbox thread: Belloni “Applied, thanks!” — no stable Cc, no
-  NAKs
-- [Phase 5] Read `kernel/irq/pm.c` suspend path:
-  `IRQCHIP_MASK_ON_SUSPEND` masks non-wakeup IRQs
-- [Phase 5] Read `drivers/irqchip/irq-armada-370-xp.c`: MPIC chip has
-  `IRQCHIP_MASK_ON_SUSPEND`
-- [Phase 5] Grep `enable_irq_wake` in `drivers/rtc/`: 40+ drivers use
-  same pattern
-- [Phase 5] Read `rtc-armada38x.c` lines 543–571: identical
-  suspend/resume wakeup handling
-- [Phase 6] Read current `drivers/rtc/rtc-mv.c`: missing PM ops
-  (confirmed buggy state)
-- [Phase 6] Grep `marvell,orion-rtc` in `arch/arm/boot/dts/marvell/`:
-  Kirkwood, Dove, Armada platforms
-- [Phase 6] `git log --oneline -20 -- drivers/rtc/rtc-mv.c`: no prior
-  wakeup PM fix
+- **[Phase 1]** Parsed subject, tags, body: hardware enablement for
+  Kulnex/Moxoe CEC; Hans Verkuil SOB; no Fixes/Reported-
+  by/Link/Cc:stable
+- **[Phase 2]** Diff: +4 lines in `cec_dmi_match_table[]`; probe failure
+  path confirmed in source
+- **[Phase 3]** `git describe HEAD`: v6.18.43-1-gc7f0dac02d232; `make
+  kernelversion`: 6.18.43
+- **[Phase 3]** `git show ac3fd01e4c1ef:...cros-ec-cec.c`: driver
+  present since 6.18-rc7; Moxie present, Kulnex/Moxoe absent
+- **[Phase 3]** `grep Kulnex|Moxoe`: no matches in tree
+- **[Phase 3]** Git history in this repo is rewritten/unreliable for
+  blame; table content verified directly
+- **[Phase 4]** `b4 dig -c 4b3f9bff6067a`: failed (commit not in repo)
+- **[Phase 4]** Lore fetch: blocked (403/bot protection) —
+  **UNVERIFIED** mailing list discussion
+- **[Phase 5]** Read `cros_ec_cec_probe()` and
+  `cros_ec_cec_find_hdmi_dev()`: confirmed `-ENODEV` path
+- **[Phase 5]** `grep cros_ec_cec_find_hdmi_dev`: only called from probe
+- **[Phase 6]** File exists at `drivers/media/cec/platform/cros-ec/cros-
+  ec-cec.c` (602 lines)
+- **[Phase 6]** `git apply --check /tmp/kulnex.patch`: applies cleanly
+- **[Phase 6]** `grep Kulnex|Moxoe`: absent from tree
+- **[Phase 7]** `CONFIG_CEC_CROS_EC` in
+  `drivers/media/cec/platform/Kconfig`; depends on `CROS_EC`
+- **[Phase 8]** Failure mode verified: `-ENODEV` + `dev_warn`, not
+  oops/panic
 
 **YES**
 
- drivers/rtc/rtc-mv.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ drivers/media/cec/platform/cros-ec/cros-ec-cec.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/rtc/rtc-mv.c b/drivers/rtc/rtc-mv.c
-index c27ad626d09fc..f88976fd6d5da 100644
---- a/drivers/rtc/rtc-mv.c
-+++ b/drivers/rtc/rtc-mv.c
-@@ -301,6 +301,28 @@ static const struct of_device_id rtc_mv_of_match_table[] = {
- MODULE_DEVICE_TABLE(of, rtc_mv_of_match_table);
- #endif
- 
-+#ifdef CONFIG_PM_SLEEP
-+static int mv_rtc_suspend(struct device *dev)
-+{
-+	struct rtc_plat_data *pdata = dev_get_drvdata(dev);
-+
-+	if (device_may_wakeup(dev) && pdata->irq >= 0)
-+		enable_irq_wake(pdata->irq);
-+	return 0;
-+}
-+
-+static int mv_rtc_resume(struct device *dev)
-+{
-+	struct rtc_plat_data *pdata = dev_get_drvdata(dev);
-+
-+	if (device_may_wakeup(dev) && pdata->irq >= 0)
-+		disable_irq_wake(pdata->irq);
-+	return 0;
-+}
-+#endif
-+
-+static SIMPLE_DEV_PM_OPS(mv_rtc_pm_ops, mv_rtc_suspend, mv_rtc_resume);
-+
- /*
-  * mv_rtc_remove() lives in .exit.text. For drivers registered via
-  * module_platform_driver_probe() this is ok because they cannot get unbound at
-@@ -312,6 +334,7 @@ static struct platform_driver mv_rtc_driver __refdata = {
- 	.driver		= {
- 		.name	= "rtc-mv",
- 		.of_match_table = of_match_ptr(rtc_mv_of_match_table),
-+		.pm	= &mv_rtc_pm_ops,
- 	},
+diff --git a/drivers/media/cec/platform/cros-ec/cros-ec-cec.c b/drivers/media/cec/platform/cros-ec/cros-ec-cec.c
+index 419b9a7abcceb..4b3f9bff6067a 100644
+--- a/drivers/media/cec/platform/cros-ec/cros-ec-cec.c
++++ b/drivers/media/cec/platform/cros-ec/cros-ec-cec.c
+@@ -334,6 +334,10 @@ static const struct cec_dmi_match cec_dmi_match_table[] = {
+ 	{ "Google", "Dirks", "0000:00:02.0", port_ab_conns },
+ 	/* Google Moxie */
+ 	{ "Google", "Moxie", "0000:00:02.0", port_b_conns },
++	/* Google Kulnex */
++	{ "Google", "Kulnex", "0000:00:02.0", port_b_conns },
++	/* Google Moxoe */
++	{ "Google", "Moxoe", "0000:00:02.0", port_b_conns },
  };
  
+ static struct device *cros_ec_cec_find_hdmi_dev(struct device *dev,
 -- 
 2.53.0
 
