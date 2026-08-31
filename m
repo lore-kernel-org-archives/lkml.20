@@ -1,298 +1,184 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2102.outbound.protection.partner.outlook.cn [139.219.17.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C143E49EA
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:35:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788176147; cv=none; b=STzWUTdC4GcP/lVK15lp7XXbILFopHpFJMxwn3ut6TSYykFF3L75JWfn9qNhndB/+F1T42m/x+ZeFO6mWWu6mbzC/AddfmTccR0+QpJyLwxy0OAwAKj45GrovEOx20W7Vv3/yZbhh/6x77/5Xo/XSMhLzOlpsM3/tgrSGkSl7l4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788176147; c=relaxed/simple;
-	bh=G34vVcBjtNuLm4zHDPCP/nu6CBRB1VjWl+bJfL5dI6M=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iHoAv1DhxIPTifsTH2yAsENS8rv0JQz+JPuE34iOR2qdB1h7mSqFEwJQIGd2Uo9+j4aEUiqhX6ZvmQD3WS0G6UqiZU7SeBerENTWLilLy10wsPWeqUo40sxAeweOwMWLhRUj5Bg9mhN4Gpy97mdtivme/KpEZiHg20+ykIrbu0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U2bnDORB; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U2bnDORB"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-482e2fdf6ebso2818710f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:35:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788176143; x=1788780943; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nZYkEx3Ctxi7NgTIVrUS9p9a6fw6J6p+pzkMHeaVtDE=;
-        b=U2bnDORByAdPy15g+nFZ+ZgWqreRRVGpaEMaw8lWfvTHT3fZD/c+KzVQ4dJYeqCKFf
-         Cbq0HOyt9/yl4X6XAiJ7yzmrjAsqx6Z2D8vuK17mXCRxrpo9cBeteABX4YkebFux3od0
-         Id09y5x1pskqgtxayiiUrU9QMm7TEDRzegaIuYWhTxzUZkogvmh8oiC7QiMIa5AKCSjs
-         o+3XVrSNKQJRcCLp+z/UyNk+AgJ8Dea/7k9xV0mE7sNXOhbYIorjaPGpinWwHpEpuV7q
-         A2wr3qAvIP5frkjGzbWJt0XHzjO40ECbRXPDZQiZvLMTy3DBa1f4ngL3q8JVuqrmpO+6
-         IA6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788176143; x=1788780943;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nZYkEx3Ctxi7NgTIVrUS9p9a6fw6J6p+pzkMHeaVtDE=;
-        b=R2ZIgbDgYSkk4cKGunlRe9CWy5r2gb3JG5n5qiWiRh5K6cZbGZtuG12XdKR5D1MHHC
-         mDbcThI5dvwzegvH0KboTqxSi1LRphYh1JplLy/LkK4/MbAQnMJMVqfKprcS59pj+2Zn
-         Ra+/eshqyQixHEhLjlCoAO7evd0h5l5R3Fdv5miqFHPntjAx2wefxRzTC6BcPBE2Y07b
-         b/lUeZAh8SJl5MnVAU4rOp2Ci0c78hwPFdDKBxOLRGnTlDIMnKVJd7SbM4z2NkHH/AtW
-         mlbrAAADByOGzNWkhkpCq5Cx2NeBfCL7qima4M5T7FRWEXFvsA2PsbxCtmqFYosUuajr
-         Dizg==
-X-Forwarded-Encrypted: i=1; AKwUvBzIBiV9trxwniCMJFQq6KHfo4j1EsrvOtNXCqemJlh8dnlOD+pDWuMk1vA3XPhrxzAP9LWuRpoAVMbjzoU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEz+f1IclpRPoMN/12t3V+7AO73LcmkK7hEh6/OgEKVh/BxR3e
-	kbLGkkbaRsEoxVcBF1P8hlh1cB5Yh1qyOYbzNcgLFa4S1GUX8GU0b7mlSPbjINUG
-X-Gm-Gg: AYBFou19vtQQmjQJr6BULjZYCLnlHPi7Y183rqdeEacRZurNUd/8/aheuPfH0Ixqlnj
-	OKCyLPWGeus75YwxheJGHYEfVvxOGuFqXtUSP8j7rtZlXGM+I0v3+M6Vl6qhYqNFlE2kS/Xw5GW
-	K+AnoZsOgpTlBYULOMtHOj2i9taKVfNTm+gGMcDLnuFeJnGEFuQzME8ux8wxI/svetD7s/BTHcU
-	Kn3+7ci8+OGhPnnc7qrTv1d3WM5i3MHQXO1MKX7jPrSrOCPEpmwYJyhxlJOZLijXInXbctsplQr
-	HIy9Zq0gn0xK7eQ63NWVEx0xImqGr9pMXxOcf+CkRH37VduwOoH0s6+yF5AMQND8Cq65faIqmB/
-	6JR0UG1CpMpzwbDC4D9sRhundEJLjwg4QuWT4Fr+FQMmfFsiFnbj9iaKbVfi5jKL+Do+U3pr74b
-	MuBBv8eZpC2MqWAiC7VkFPFrU2p1mFgouPWaQ3aeUwUk5F9LfqQZKoLHOtv8Px0yP/k2oraRyGT
-	3d7Zs+PUtqVQzbOu8L/F/rs7I66XmFOp96r
-X-Received: by 2002:a05:6000:2284:b0:482:eabd:642c with SMTP id ffacd0b85a97d-48440fcd986mr130563f8f.1.1788176143141;
-        Mon, 31 Aug 2026 04:35:43 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20793sm21651095f8f.17.2026.08.31.04.35.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 04:35:42 -0700 (PDT)
-Date: Mon, 31 Aug 2026 12:35:38 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: "Eric W. Biederman" <ebiederm@xmission.com>, Oleg Nesterov
- <oleg@redhat.com>, Frederic Weisbecker <frederic@kernel.org>, Hyunwoo Kim
- <imv4bel@gmail.com>, brauner@kernel.org, peterz@infradead.org,
- anna-maria@linutronix.de, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] signal: Prevent exec() race
-Message-ID: <20260831123538.45cb6d93@pumpkin>
-In-Reply-To: <87h5kad0mx.ffs@fw13>
-References: <875x10hrkt.ffs@fw13>
-	<8733w3j1i1.ffs@fw13>
-	<aowkvvxg8cPP5V0X@redhat.com>
-	<aoww8qi_ce_8ECA9@redhat.com>
-	<aoxOVAd8ooqHFW12@localhost.localdomain>
-	<87pkz6gms6.ffs@fw13>
-	<ao3kt-eRxw4agOj7@redhat.com>
-	<87fr02gegn.ffs@fw13>
-	<ao6zmDB9EjsqPIVN@redhat.com>
-	<87zey8g05g.ffs@fw13>
-	<ao8_NUo0ACPAA4QB@redhat.com>
-	<87ecfki6l5.fsf@email.froward.int.ebiederm.org>
-	<87se3zgb3m.ffs@fw13>
-	<87mru7h09e.fsf@email.froward.int.ebiederm.org>
-	<87tsofdvf2.ffs@fw13>
-	<871pbfeaiv.ffs@fw13>
-	<87zey3fep2.fsf@email.froward.int.ebiederm.org>
-	<87pkyyd39l.ffs@fw13>
-	<87h5kad0mx.ffs@fw13>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67EAA3E44EB;
+	Mon, 31 Aug 2026 11:35:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.102
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788176149; cv=fail; b=fa2QyR4RBYZpF3J3um10Jz5goehGvE4B7cSV3z2WMxFsUgba7hT6w5Zjra0qrDbbuYD4Al8OCuX7FqgK6F9kHH+havcX57yp6CRotHeASUEQdZf8oBLKfztLYW16PlDQFAujIZYp+TAi5XUAFSy+iryUe5IlP3/3n0zhkf85Pus=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788176149; c=relaxed/simple;
+	bh=DrE5eE+dbobAXP0+q1BbQLbq61sM9oOA8w6L8FF6LcE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=e+DvaFX6PyTGmHSYWTI7lDb15w7gJHGnzgnJLW1DkBIdn12ZRiezsoTgEuA3F3aO+D95jWRlZgDxj2NnH2pHLd1npDUYXmtkPsn+ro6oUJyMKrvXinnw9B5vMayDLD3bmaXClYSfkk5CGcEYbRtISQu2KHbJ2/UwEaYnUpDDj10=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mn1BBeSBQ4WK1GqF0V43dlMueomk1Dyg8wbtLgTXQ8Phc76xseifCRsTdHcpBpGnPPLsWVwN2PhUuIYFvtTU8139C0euA3TiKpFH2HqSRStz9UlS1KSzpWHSkfGyh2mraDPR4w4+BT8SXpr/MGj7QM3172tNePX6OxGho1LOETpX28h7WU01T6yWaySqrnReN/6Mla9gh+WZxBEpG33a62oGazrWocWodDS/3Sv3x5miGaCZu/B6ohexdLS2J9CZ+0VJdEhfvO0tLzqY6Ke3zb3wQiVdjBzReLLow2EadUAr7EGyEJfs2bm0MBxE4C5PxFhktBFLEyz/ydm8w5UP3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Mh6OYA8GxBZMq/6N0w3OLTCjyP1UVt+l7FUZr1HRbSk=;
+ b=excHzHS0ZL3I5/rkUpcahBruxggJRmTW4mJEel7wbsjDyQpVfmnZo7oYTvZICLQsyzdbMgO0GiirNrg/Hh+YMyleZQ1AZ27np9CVUh/prrBX6Alq0T4MjX7H7f8Km8q20Nl9GLdknethRfe5EhUEpQokJ1M7KivcKE4izj00J0OVrGKDz0/WOpEQdioSgVyBX9LWvlnJXT8JWTKl8RxkzKeSfLb5Y0rsOiL+EHx5ayyjRZ0tDZMlgEjKIdTleiJ6h/EUWMaK6ppEHEAkSJDQSpORapGFe3as0a0mTPuC493rIC6ez26wk8Ay0PYSkt2MpJ4dLNqdqXH0iApSRplcHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1252.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:16::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.19; Mon, 31 Aug
+ 2026 11:35:27 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0315.011; Mon, 31 Aug 2026 11:35:27 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v7 02/21] pinctrl: pinconf-generic: Add property 'input-debounce-ns'
+Date: Mon, 31 Aug 2026 04:34:55 -0700
+Message-Id: <20260831113514.66382-3-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260831113514.66382-1-changhuang.liang@starfivetech.com>
+References: <20260831113514.66382-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ZQ0PR01CA0013.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:5::8) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1252:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd89dfbb-60a9-4fb1-ad94-08df0753f421
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|52116014|376014|38350700014|921020|6133799003|10067099003|56012099006|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	XmRC6+A4SrUvGIX/ecJ1gL+r35TG2CxmhcxNHL1uwKRwVQiJ79HrUuLRA45BgPdf8ibErsSxvPJ1iImSx0uNfXsNDGyxz7oB4242o2afqV/G5rMeACFdkVgn0v+sxHw0Zi7blnvIhN+vnE/BXe9ueOZlna3tpsza9bdZLw3/K4Ci877E5znz99uxNK/l8FHGPpV4OPpvhBuyq307ntnzU/q3dpDyGXHLGKsyCdFGkXtR2qJ3LhTxxw1+6smH8Udq31LsbESnLFHvgyuumQ2vmOQFyYGArUiXgEbXlaP25C/jqFvPKheQww/QO+/vPrpCdX+Bd+WkIJiX1eDVd+agn/PpK/BbtRy45uXkR5MxdYykSzJv/kM9wH+cSzlY5pJZ0m6ppO3aJUdwWAU4AcUSo15bkg8Gok0yJgNjxsMFEv42Wp9C0mKDAgLWmKJYZCxhqcmXL6UBxVinbccZW76pPcnx6JzjwBLsziVb8o3XCxeq36gpyxoLvRX8AG3Y0r3X7sMBYmYcfk9xgP4sRHrz0vdAreJE2AteKtTsZexPoC0rJ35udUJWOAWOWj+483Nk4OFbP6suGeYOyk67xLoNIg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(52116014)(376014)(38350700014)(921020)(6133799003)(10067099003)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?w2eCWyIrvt0WD6Umu0s8a/Pqms9zmABmoJLN/VnwGRM6c/zla2Z3BxNjlUOb?=
+ =?us-ascii?Q?5yEz+YnNjjwUpH1texH+5RqJiHJGkfn0VPM/LtkfVj57zB+la8mIA6NHnW8E?=
+ =?us-ascii?Q?Zd6yuwEeWWNs2NNaVUwzY0aq/lEPsXiUpFMONw329vIZa9TaOBL1hEYTFteD?=
+ =?us-ascii?Q?xogzFpO604cZxYLO44lU8LsbXAn1Qu7tYzc8vX8r/dgHCz8H/hqaxX9tda8E?=
+ =?us-ascii?Q?6IaNWTU7C/vOOXgC69KLlicHj/efv4nEKJBolxcDmDbRBLDFWhtW9GTnvPeI?=
+ =?us-ascii?Q?QWtdJZycP+BfgQ0hWOw3chTHVuEyWujtg7ZtPGIiG4Q7Mks8UURXRvSTvvu2?=
+ =?us-ascii?Q?E9gO0crUzwM0BC9dLCsT7jHtVqHPSpI57N592N0GTIwAkY/GWdRjUcJIO0hz?=
+ =?us-ascii?Q?BbovrIY/MZaOvPW91wrnBGFWvuZBo11X8VFFsAp0YXPGqktqgUvmOvLEo5X+?=
+ =?us-ascii?Q?nYQWgAOKx/49Tzaei5rNGHMUc1X3FQbOhjRlXfC9mkKgkTgmQfr22rNr0EPP?=
+ =?us-ascii?Q?mkwK8w/kmwBIOr+RxVLjyfQecjvGTrDUp0eXjvmuJg2EgxhEnENd722VLRgL?=
+ =?us-ascii?Q?kD7BjsSOzJTfXLn7vkmyI2lv2uVPvpju4lWqE+LcSP/NSjw+SnzMuLO9sWDF?=
+ =?us-ascii?Q?kWwY3anLr/lcU4Q/ydbLkMrwB9f83gGKmZIdngueNLlgY7Khjbbczvc4YM5D?=
+ =?us-ascii?Q?0KGBYfgXD2h+W8bQFD2msZdoueG3ahVFLZRDh07ALfW/xIyIYbO4TzecZ/H0?=
+ =?us-ascii?Q?ig55SkPw7ivIurACK294PiB7+53sOyD7uNn8ousgTgNzM+mEGG2WGfqOVTSE?=
+ =?us-ascii?Q?cb3Btxi1MloYWwWUgIshwwbYTSa7Z9sqqIh0N58sQCCTFM+shHOG7NAdeXYc?=
+ =?us-ascii?Q?8+eFyUjDhhMVGBWQ5n3Y7wxCs3mffX93PolrykMtm340XXEXRN9keG5kLdGb?=
+ =?us-ascii?Q?2C+vHBeE3NuXcnSeSWxGZKHD5M72ch994FsqYGpT/eQXCo+xg8S/wdBamXTN?=
+ =?us-ascii?Q?BVzmatdRJizTCNou0ZZbMJ2DGZ56KJ5otwH1h8EwqxemV1RhDFe8uxfZBr4K?=
+ =?us-ascii?Q?wM2P5RbTWUX4YTi9u4bjVneSaX/DPQTTQZFAysxTlEuK5meCwntDj5Yt5lbA?=
+ =?us-ascii?Q?Fxv/9I+SnXwSGLxhj/MSh+JMFLM3UsEsitP9A3mCaUnsVgm57fe/OuTDIJcb?=
+ =?us-ascii?Q?J4ZY29IF2N2xtSqd0PF4in6azg60tJd2vyXJO+Vpf4mX8N/Sc8ET8DldRgEP?=
+ =?us-ascii?Q?Ke19j0M9mnFOb5JZaadaV7Vs2BH44sSZW7Uhdr+aGkeSxo2Uaf54mmx9I7rb?=
+ =?us-ascii?Q?jJHKoqduaz02sMmGRLNO5Lg6OpNUUSKWQC4n15ryptUgoGiMNhRzbn4uVpMi?=
+ =?us-ascii?Q?3+IZSbK2AQbMCKzrSM4mm0Pj5F70AX1BLtjINIE/xZADEmMdOO69eUx9kzh6?=
+ =?us-ascii?Q?/zb4QKBUtHqTebcrR5xQfEWbLKHQCTyQeWAHOrmvQuvUsSbyy5gvwJDZ5XpD?=
+ =?us-ascii?Q?bbyV0EEvnIskHWfGahr7F7ouoXRVdWwi9+Ayj4DVM3WH81o0w3ta2NyN7UK2?=
+ =?us-ascii?Q?+yCfvYwhndGHFTUyRapXQALJtuz17xdxb7yUVXHsmxbtE4UX81u/PMspokmL?=
+ =?us-ascii?Q?JwM6odIwhtlW2PpJjHGfrpukSthBr4vxyMfvasUoR2BUi2E9Wl4JA6tLvCZ4?=
+ =?us-ascii?Q?vrqm4MkqO7rKL3IRlATfwDt5o9U4kBoowJPCRbhLzOoM06wsgFvLk5selvVn?=
+ =?us-ascii?Q?ARHxbUbImqz2unmNmU+3vPHHh19MZmndYz2TTE34dgyGgTYYO/pQ?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd89dfbb-60a9-4fb1-ad94-08df0753f421
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 11:35:27.1137
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uRdW+sGln5YZ2a5/GHQzYHA8Z6maQD25UrlQDQg7JPmV7n9IwsJIJpALhPnfwKzKSA6SrAY7IJgcAbVofu5+WFxO5msIgE0w5uBFdfwGKVJI3DVuEv9EFmY4GoaPqpuw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1252
 
-On Mon, 31 Aug 2026 12:50:46 +0200
-Thomas Gleixner <tglx@kernel.org> wrote:
+Add 'input-debounce-ns' to the generic parameters used for parsing DT
+files, along with the corresponding configuration parameter
+PIN_CONFIG_INPUT_DEBOUNCE_NS. This allows debounce time to be specified
+in nanoseconds as an alternative to the existing 'input-debounce'
+property which uses microseconds
 
-> Hyunwoo debugged the following KASAN UAF splat:
-> 
->   BUG: KASAN: slab-use-after-free in __send_signal_locked+0xb27/0xba0
->   Write of size 8 at addr ffff888007ed80c8 by task poc/79
->   ...
->   Call Trace:
->    __send_signal_locked+0xb27/0xba0
->    do_send_sig_info+0xa7/0x160
->    do_send_specific+0x76/0xa0
->    __x64_sys_tgkill+0x193/0x270
->   ...
->   Allocated by task 80:
->    do_timer_create+0x1a4/0x1030
->    __x64_sys_timer_create+0x145/0x190
->   ...
->   Freed by task 12:
->    kmem_cache_free_bulk+0x1f8/0x4a0
->    kvfree_rcu_bulk+0x14f/0x1c0
->    kfree_rcu_work+0x128/0x1a0
->   ...
->   Last potentially related work creation:
->    kvfree_call_rcu+0x39/0x390
->    __flush_itimer_signals+0x211/0x320
->    flush_itimer_signals+0x47/0x90
->    begin_new_exec+0xa6b/0x28c0
-> 
-> It turned out that this happens with a non-leader exec() as Hyunwoo
-> explained:
-> 
-> de_thread() calls exchange_tids() before release_task(leader), so the
-> struct pid held by a SIGEV_THREAD_ID timer created against the leader's tid
-> now points to the thread which called execve(). pid_task() returns that
-> thread and lock_task_sighand() on it succeeds.
-> 
-> If the timer signal is blocked, its sigqueue stays queued on the leader's
-> task::pending. The next expiry of that timer can then run while
-> release_task() flushes the queue.
-> 
-> posixtimer_send_sigqueue() checks whether the sigqueue is already queued
-> with a plain list_empty(), which only reads list_head::next.
-> list_del_init() is not atomic and INIT_LIST_HEAD() stores list_head::next
-> before list_head::prev, so the check can pass in between. list_add_tail()
-> queues the entry on the task::pending of the live thread, and the
-> list_head::prev store from the flush then overwrites the list_head::prev
-> link that list_add_tail() has just set.
-> 
-> __flush_itimer_signals() does not undo that either. With list_head::prev
-> pointing at the entry itself, its list_del_init() only stores the same
-> values again, so the entry is not removed from the list. It is still there
-> after the last reference is dropped and the timer is freed by RCU, and the
-> list_add_tail() of a later tgkill() follows that list_head::prev into the
-> freed timer.
-> 
-> This problem is due to a recent commit which moved the sigqueue flush
-> out of the sighand lock held region. Before that it was properly
-> serialized.
-> 
-> Hyonwoo proposed to fix this by using list_del_init_careful(), but that
-> just papers over the underlying problem. After some disucssions and
-> various attempts to solve it, Eric pointed out that there is no reason
-> to flush task::pending late in release_task() and it should be done in
-> exit_signals() already.
-> 
-> As nothing can collect and deliver signals which are queued in a dying
-> task's pending queue, there is no reason to delay it further.
-> 
-> But it has to be ensured that no signals can be queued into it after that
-> point. exit_signals() sets PF_EXITING in task::flags, which can be used as
-> an indicator for this.
-> 
-> Cure it by:
-> 
->   - Preventing signal queueing for task private signals (PIDTYPE_PID) when
->     the task has PF_EXITING set in __send_signal_locked() and in
->     posixtimer_send_sigqueue().
-> 
->   - Protecting the unlocked setting of PF_EXITING in exit_signals() for the
->     task group empty and the group exit case with sighand lock
-> 
->   - Flushing task::pending signals right there.
-> 
->     This can be done unlocked because PF_EXITING prevents further signals
->     to be queued and there is no other code which accesses task::pending.
-> 
-> Fixes: fb3bbcfe344e ("exit: change the release_task() paths to call flush_sigqueue() lockless")
-> Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-> Debugged-by: Hyunwoo Kim <imv4bel@gmail.com>
-> Suggested-by: "Eric W. Biederman" <ebiederm@xmission.com>
-> Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-> Cc: stable@vger.kernel.org
-> Closes: https://patch.msgid.link/aok1rdkBgZsynHZB@v4bel
-> ---
->  kernel/exit.c   |   11 ++++++-----
->  kernel/signal.c |   23 ++++++++++++++++++++++-
->  2 files changed, 28 insertions(+), 6 deletions(-)
-> 
-> --- a/kernel/exit.c
-> +++ b/kernel/exit.c
-> @@ -299,12 +299,13 @@ void release_task(struct task_struct *p)
->  	free_pids(post.pids);
->  	release_thread(p);
->  	/*
-> -	 * This task was already removed from the process/thread/pid lists
-> -	 * and lock_task_sighand(p) can't succeed. Nobody else can touch
-> -	 * ->pending or, if group dead, signal->shared_pending. We can call
-> -	 * flush_sigqueue() lockless.
-> +	 * This task was already removed from the process/thread/pid lists and
-> +	 * lock_task_sighand(p) can't succeed. If it's the group leader then
-> +	 * flush tsk->signal->shared_pending. tsk->pending has been flushed
-> +	 * already in exit_signals(). Nothing else can touch
-> +	 * signal->shared_pending anymore, so flush_sigqueue() can be invoked
-> +	 * lockless.
->  	 */
-> -	flush_sigqueue(&p->pending);
->  	if (thread_group_leader(p))
->  		flush_sigqueue(&p->signal->shared_pending);
->  
-> --- a/kernel/signal.c
-> +++ b/kernel/signal.c
-> @@ -1030,6 +1030,10 @@ static int __send_signal_locked(int sig,
->  	lockdep_assert_held(&t->sighand->siglock);
->  
->  	result = TRACE_SIGNAL_IGNORED;
-> +
-> +	if (unlikely(type == PIDTYPE_PID && (t->flags & PF_EXITING)))
-> +		goto ret;
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+---
+ drivers/pinctrl/pinconf-generic.c       | 2 ++
+ include/linux/pinctrl/pinconf-generic.h | 5 +++++
+ 2 files changed, 7 insertions(+)
 
-Is that unlikely() going do the right thing?
-Pretty much the only way to avoid a branch in the 'usual' path is to test
-PF_EXITING first.
-So you could do:
-	if (unlikely(t->flags & PF_EXITING) && type == PIDTYPE_PID)
-		goto ret;
-(assuming t->flags is unlikely to be a cache miss).
-Or, if you can persuade the compiler not to use a branch for the ?:
-	if (unlikely(t->flags & (type == PIDTYPE_PID ? PF_EXITING : 0)))
-		goto ret;
-
-David
-
-> +
->  	if (!prepare_signal(sig, t, force))
->  		goto ret;
->  
-> @@ -1990,6 +1994,9 @@ void posixtimer_send_sigqueue(struct k_i
->  	if (!likely(lock_task_sighand(t, &flags)))
->  		return;
->  
-> +	if (unlikely(tmr->it_pid_type == PIDTYPE_PID && (t->flags & PF_EXITING)))
-> +		return;
-> +
->  	/*
->  	 * Update @tmr::sigqueue_seq for posix timer signals with sighand
->  	 * locked to prevent a race against dequeue_signal().
-> @@ -3118,6 +3125,16 @@ static void retarget_shared_pending(stru
->  	}
->  }
->  
-> +/*
-> + * tsk::flags has PF_EXITING set which prevents signals to be queued on
-> + * tsk::pending. Nothing else can touch tsk::pending anymore so it can be
-> + * flushed lockless.
-> + */
-> +static inline void flush_pending_unlocked(struct task_struct *tsk)
-> +{
-> +	flush_sigqueue(&tsk->pending);
-> +}
-> +
->  void exit_signals(struct task_struct *tsk)
->  {
->  	int group_stop = 0;
-> @@ -3130,8 +3147,10 @@ void exit_signals(struct task_struct *ts
->  	cgroup_threadgroup_change_begin(tsk);
->  
->  	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
-> -		tsk->flags |= PF_EXITING;
-> +		scoped_guard(spinlock_irq, &tsk->sighand->siglock)
-> +			tsk->flags |= PF_EXITING;
->  		cgroup_threadgroup_change_end(tsk);
-> +		flush_pending_unlocked(tsk);
->  		return;
->  	}
->  
-> @@ -3157,6 +3176,8 @@ void exit_signals(struct task_struct *ts
->  out:
->  	spin_unlock_irq(&tsk->sighand->siglock);
->  
-> +	flush_pending_unlocked(tsk);
-> +
->  	/*
->  	 * If group stop has completed, deliver the notification.  This
->  	 * should always go to the real parent of the group leader.
-> 
+diff --git a/drivers/pinctrl/pinconf-generic.c b/drivers/pinctrl/pinconf-generic.c
+index 95c803c40a7d..36845517984e 100644
+--- a/drivers/pinctrl/pinconf-generic.c
++++ b/drivers/pinctrl/pinconf-generic.c
+@@ -43,6 +43,7 @@ static const struct pin_config_item conf_items[] = {
+ 	PCONFDUMP(PIN_CONFIG_DRIVE_STRENGTH, "output drive strength", "mA", true),
+ 	PCONFDUMP(PIN_CONFIG_DRIVE_STRENGTH_UA, "output drive strength", "uA", true),
+ 	PCONFDUMP(PIN_CONFIG_INPUT_DEBOUNCE, "input debounce", "usec", true),
++	PCONFDUMP(PIN_CONFIG_INPUT_DEBOUNCE_NS, "input debounce", "nsec", true),
+ 	PCONFDUMP(PIN_CONFIG_INPUT_ENABLE, "input enabled", NULL, false),
+ 	PCONFDUMP(PIN_CONFIG_INPUT_SCHMITT, "input schmitt trigger", NULL, false),
+ 	PCONFDUMP(PIN_CONFIG_INPUT_SCHMITT_UV, "input schmitt threshold", "uV", true),
+@@ -185,6 +186,7 @@ static const struct pinconf_generic_params dt_params[] = {
+ 	{ "drive-strength", PIN_CONFIG_DRIVE_STRENGTH, 0 },
+ 	{ "drive-strength-microamp", PIN_CONFIG_DRIVE_STRENGTH_UA, 0 },
+ 	{ "input-debounce", PIN_CONFIG_INPUT_DEBOUNCE, 0 },
++	{ "input-debounce-ns", PIN_CONFIG_INPUT_DEBOUNCE_NS, 0 },
+ 	{ "input-disable", PIN_CONFIG_INPUT_ENABLE, 0 },
+ 	{ "input-enable", PIN_CONFIG_INPUT_ENABLE, 1 },
+ 	{ "input-schmitt", PIN_CONFIG_INPUT_SCHMITT, 0 },
+diff --git a/include/linux/pinctrl/pinconf-generic.h b/include/linux/pinctrl/pinconf-generic.h
+index a5d4b2d8633a..1df63c732b99 100644
+--- a/include/linux/pinctrl/pinconf-generic.h
++++ b/include/linux/pinctrl/pinconf-generic.h
+@@ -71,6 +71,10 @@ struct pinctrl_map;
+  *	which means it will wait for signals to settle when reading inputs. The
+  *	argument gives the debounce time in usecs. Setting the
+  *	argument to zero turns debouncing off.
++ * @PIN_CONFIG_INPUT_DEBOUNCE_NS: this will configure the pin to debounce mode,
++ *	which means it will wait for signals to settle when reading inputs. The
++ *	argument gives the debounce time in nsecs. Setting the
++ *	argument to zero turns debouncing off.
+  * @PIN_CONFIG_INPUT_ENABLE: enable the pin's input.  Note that this does not
+  *	affect the pin's ability to drive output.  1 enables input, 0 disables
+  *	input.
+@@ -143,6 +147,7 @@ enum pin_config_param {
+ 	PIN_CONFIG_DRIVE_STRENGTH,
+ 	PIN_CONFIG_DRIVE_STRENGTH_UA,
+ 	PIN_CONFIG_INPUT_DEBOUNCE,
++	PIN_CONFIG_INPUT_DEBOUNCE_NS,
+ 	PIN_CONFIG_INPUT_ENABLE,
+ 	PIN_CONFIG_INPUT_SCHMITT,
+ 	PIN_CONFIG_INPUT_SCHMITT_ENABLE,
+-- 
+2.25.1
 
