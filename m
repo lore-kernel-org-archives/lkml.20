@@ -1,100 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF2A270575;
-	Mon, 31 Aug 2026 00:24:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A2F427A907;
+	Mon, 31 Aug 2026 00:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788135895; cv=none; b=TH/3gF+aS8Sy1/vt4gIeI3Ar3ubgCZOwxuQPqM9nFjXAK4ggKW/JS0Yuiasft6Uz6QLa/7bXaH5D5lcxVcH37YJRSH/+n01bBzHpPQcMQDvz0PESWACNpuiSkNi7zil3e3Ln25Rae97A8EHVksRa9Q43tAE5kXEnzEhFxNNXHs0=
+	t=1788135920; cv=none; b=PCut52w2dw3UiY6xX3jTqwbkmUJ83WkdTmXpK6RRGYrHAkM41hIQWSnbvRJTMERLR2EhdqIEzncBKbD7KLkCKH6W+LJdQTvrV2DNggR+fLdb/0AcW+0jB1KUQdvgFY0rKpL6ADpRBScvQhnafLkpcnjiUDgKnILGN2mbLs8oW0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788135895; c=relaxed/simple;
-	bh=JJ4viR+8sE8j9SeqHJwMeDiDw/qsbiyvuxpgf+tbfPY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pe+/cqURwQT3HTYkSkoqDEVgUb5hyjd0c4xSNuGtYXY54DabDHCtEUlt2Yh3C3NgtSSl3aiSXMAl44wspflzCSpTYnzHPYiUC2MTu17lYysf2FJTLe6v/58bgQ/iIouAbzioKG0j85ii5oPNZQD78kVqLrukPuh55v2fJBNc5Rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oMy1ZZPd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788135920; c=relaxed/simple;
+	bh=yiocxA49550KUCzo+T/5GJg/8zdJWfhnYG1cFdaaNSU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OO8WBvGnhUrx73Jh8bInnr5bimPxzQQpOphOKDAlccrGoEs+aBGf/Y+A89mJUWdvkmo20wmwGECdsfxTCSmlqKEn/8ocNRWGaSnWI/RAs+PcEQCid6UDLodDuqa6DGEh4Kwt7wJX+rGNu/IIBdbjB6JOdM6OEcDOpE+M1gQ4UTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mcwrx3xV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oMy1ZZPd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28D171F000E9;
-	Mon, 31 Aug 2026 00:24:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788135894;
-	bh=vSQursvzetPYZ4NCdCJkz+qxLgUbo3ZJRF9cyMuvvaA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oMy1ZZPdC739C0tEMwcCpOtvMCJdxwvigcvqdgbCTwtjKWTDt8YtKThD25sMH1GDg
-	 YHNrvxXs3TExpe5JqR+et/cNYHJf7pJKXnx5ooCYs/0HyVTh7CJgjNe4i8mnOFNL1U
-	 15Qvs64jnoRBJk/1p4RJ6M6EdHWV5O1+H2OOWY/DTO6O8zDz0zqQfBfQJAHon7qpO9
-	 +Y5bCFenj0dJsPAY+IBPaQVAo63IMEF1dvLVwObE2giAvbMcNW7r8GlA4kevoO/R/c
-	 ShsMTGrjw32bKvGly+6HJJ+40WJ7ARc7ucHHjY3yjlrCbVoxQcOLF04onKmkJIamw0
-	 lx0xgUoNj8BQQ==
-Date: Mon, 31 Aug 2026 01:24:50 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Yash Suthar <yashsuthar983@gmail.com>, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, grondon@gmail.com, linusw@kernel.org,
- hexlabsecurity@proton.me, sakari.ailus@linux.intel.com,
- srinivas.pandruvada@linux.intel.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] iio: accel: bmc150: use DMA-safe buffers for
- regmap bulk reads
-Message-ID: <20260831012450.3382868c@jic23-huawei>
-In-Reply-To: <ao_hr-0BelQWI27t@ashevche-desk.local>
-References: <20260825085156.212042-1-yashsuthar983@gmail.com>
-	<20260825085156.212042-3-yashsuthar983@gmail.com>
-	<ao_hr-0BelQWI27t@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mcwrx3xV"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A6194C4AF17;
+	Mon, 31 Aug 2026 00:25:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788135919;
+	bh=yiocxA49550KUCzo+T/5GJg/8zdJWfhnYG1cFdaaNSU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Mcwrx3xVKrw7T1MSZ2sW1ftA1mFi8bY/BSWRzLgPsqEPrbTFpHguRcFKPiZJdqLh3
+	 +uMrgEzTGPEViQTFLuXMKyEJB9fdZoO5+0xGd9BGKNa4KI1gWRcAv6bFweeCqyFSrS
+	 bSvXhYUPEAWJu51b1eSpkQCMt8i3sgt0d//1XhxYni6GyF9dBWQwumlE2lNbvJVAeo
+	 CVDqOKpdsolJOeE+bunKAJYHgWIkKk9CmbiyQDvSUWYLXMjBfOcFhoAcbZKzmIiw+D
+	 KyzKr4IZ3IG+301E/VYad8pZz+LWpn4IvRJhVnG3/0bVHCvoOQM4mudvUpHPtEBzFb
+	 eATcDh+aftF7w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88F9AC61DF1;
+	Mon, 31 Aug 2026 00:25:19 +0000 (UTC)
+From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
+Date: Sun, 30 Aug 2026 17:25:03 -0700
+Subject: [PATCH v12 02/45] KVM: guest_memfd: Use kvm_mem_is_private() when
+ populating guest_memfd memory
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260830-gmem-inplace-conversion-v12-2-85e5fd25252a@google.com>
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
+In-Reply-To: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
+To: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
+ brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
+ jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
+ oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
+ rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
+ steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
+ yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
+ suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
+ Paolo Bonzini <pbonzini@redhat.com>, 
+ Sean Christopherson <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+ Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Fuad Tabba <fuad.tabba@linux.dev>, 
+ Vlastimil Babka <vbabka@kernel.org>, Baoquan He <baoquan.he@linux.dev>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
+ linux-coco@lists.linux.dev, Ackerley Tng <ackerleytng@google.com>, 
+ Xiaoyao Li <xiaoyao.li@intel.com>, Fuad Tabba <fuad.tabba@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788135915; l=1236;
+ i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
+ bh=J603Sitd2IbIuBFVZAUo4Wjqwpu3VfTvCGGSI7vmMZw=;
+ b=z1YCMYJwV4u7T1sNVHAC3h7gI3Q7k56jpxSLyvJRX3D5GfhJNIFP05gy8Y0FpE9NEMLL/4MSl
+ 1WCUEPt1h8tAH7mYqnxVUByUNSnEvOicaThuXDmg0bin61FAkF+2Srv
+X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
+ pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
+X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
+ auth_id=649
+X-Original-From: Ackerley Tng <ackerleytng@google.com>
+Reply-To: ackerleytng@google.com
 
-On Thu, 27 Aug 2026 10:05:19 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+From: Sean Christopherson <seanjc@google.com>
 
-> On Tue, Aug 25, 2026 at 02:21:55PM +0530, Yash Suthar wrote:
-> > The FIFO and read_raw buffers are passed to regmap bulk/raw reads,
-> > which is not DMA-safe. Moved them into struct bmc150_accel_data
-> > after scan, each buffer are protected by mutex, placing them
-> > after ensure DMA safety.  
-> 
-> ...
-> 
-> >  		j = 0;
-> >  		iio_for_each_active_channel(indio_dev, bit)
-> > -			memcpy(&data->scan.channels[j++], &buffer[i * 3 + bit],
-> > +			memcpy(&data->scan.channels[j++],
-> > +			       &data->fifo_buff[i * 3 + bit],
-> >  			       sizeof(data->scan.channels[0]));  
-> 
-> While this works, I find a bit confusing usage of [j++] and [0] together.
-> 
-> IIUC the below is an equivalent
-> 
-> 		iio_for_each_active_channel(indio_dev, bit) {
-> 			__le16 *val = &data->scan.channels[j++];
-> 
-> 			memcpy(val, &data->fifo_buff[i * 3 + bit], sizeof(val));
-> 		}
+Use kvm_mem_is_private() when populating guest_memfd instead of using an
+open coded equivalent.  In addition to simplifying the populate code *now*,
+this avoids the need to provide a range-based gmem lookup API in the future
+as well.
 
-This bit I fully agree with. Much more readable.
-> 
-> and if go further we may use asm/byteorder.h macros instead of plain memcpy().
-> 
-Here I'm lost.  We are just moving little endian values around.
+No functional change intended.
 
-For that matter if it is a single value, why can't see just assign it?
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Suggested-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+---
+ virt/kvm/guest_memfd.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-		iio_for_each_active_channel(indio_dev, bit)
-			data->scan.channels[j++] = data->fifo_buf[i * 3 + bit];
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 2190e4d6b6bea..69612bf146be1 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -805,9 +805,7 @@ static long __kvm_gmem_populate(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 
+ 	folio_unlock(folio);
+ 
+-	if (!kvm_range_has_memory_attributes(kvm, gfn, gfn + 1,
+-					     KVM_MEMORY_ATTRIBUTE_PRIVATE,
+-					     KVM_MEMORY_ATTRIBUTE_PRIVATE)) {
++	if (!kvm_mem_is_private(kvm, gfn)) {
+ 		ret = -EINVAL;
+ 		goto out_put_folio;
+ 	}
 
+-- 
+2.55.0.897.gb25b4bd76c-goog
 
-
-
-> ...
-> 
-> Maybe this is for a separate change, I dunno. I leave it to others to decide.
-> 
 
