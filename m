@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F18481652;
-	Mon, 31 Aug 2026 13:37:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA3E480DE3;
+	Mon, 31 Aug 2026 13:37:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183476; cv=none; b=FWdgKBfwo5rAyipr5KJpJdcThyNgIpo0NgmwBtHImtatHHUwHn+Zz4Jq6c+SGjO7YBgEPxGW6GKRiNtQOg2uEqz3+DxuC1PACYAatOdxCPyLaQiTJwGkRpuiCwMdwjFKdvDuzk07kn7jqMiclTITgzqh9rkFnrDS6KLV0Nd2cD8=
+	t=1788183475; cv=none; b=oJg4ucossgmTIi3SII9ISsQbQUHbqxa9Uoiahxv+ZzjoKE5bxKunPdT8VP/jD65hM2R136XTP1GvhFb7z641QW92wezQJIpj0gKHt3Q5N9XDk+iPewGseTLB41fxEyjxSb5Azk666+dKk+CCBk1eEt9DVsszenXAxI3uvEAHcW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183476; c=relaxed/simple;
-	bh=PXRh4kIt5FHKAyKEbfsJnv/uPZcSsPdmMdKL2m1m6Y4=;
+	s=arc-20240116; t=1788183475; c=relaxed/simple;
+	bh=pNubw+5+aSVMFY36eW4w0RpJCAeWJ43LLlapPMcsWEI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tkTn49HXp+fP9M/mHDHmYgeDEfqJl9KKxZzoBuWjKOhpuapTO8oE6QC1pt/xWlV7QUYG3tW/clVIZ93nI4LIiRXJ+9PHTPTgaH6KAPCZjg+fp8pxrESaWtrrUn5FjlNGudud37c2L4S85lOwp9IV4XG5NiiTzzBYK0jSD3rwV7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=be7V1EQi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=GcWX8kmIYZlKXSJcux8w9j/MDiFkWS/AAVDFC+m/sUL6uqvMhrv7/fgER9/ikQrM05sUzeYOMv6dmQREXtuT+2vFjPl21zJxm1xnxVf0pXxteixrFcZeIoiYOlpL4gsG0wJobl5kfR9cL9D/tiyb0HR24a2U8pnJJrW5u2jp+KA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ib22Km/U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="be7V1EQi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6642E1F00A3F;
-	Mon, 31 Aug 2026 13:37:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ib22Km/U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED2001F00A3E;
+	Mon, 31 Aug 2026 13:37:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183474;
-	bh=w8AgcJcC28d8usKmvG/1RQt+YxSUGWMZ4Yhm/hTZhb0=;
+	s=k20260515; t=1788183473;
+	bh=Pj2FSw1poSAmPV2lX6oQg5rInI7GCnGYK+m0SbnK8VE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=be7V1EQiwSbslW4mGI2dArZZQcoX1cm+G1eYTs6hOn7KUIuzSwExLOsxvkwxyIDJr
-	 2Hm2xiI+bkLF/PTarCsIyhXFN41bdIN7/LMB8x2oJPXMFspkm9orfKcHW8jlPObdYO
-	 jJfk7h5KOU1gUEn7GaBv+tqgAwfRln3z39HaIiiINGH4ww2mzUucVlZt0vTneX9xdI
-	 8pCI3gfJmNkydJHdBb0GrgiBEWXZ+DX+k4tzNFBLHMPmrxBg3paKz9r09+laWBfaWs
-	 E/43bDQeq9H9Li5dQEzruSRKg5hHMOJBibRkOgMZpIqBlHfoIXr6jzF2u1HhAopAPi
-	 Sr3hpl2FhDBeg==
+	b=ib22Km/UV0YLLgAqWtsKPBt6iMwygk+ZH/9dsdttc64LgOWd8dYEI4A/lVP9ZVvqS
+	 g/55t8Aw9/PuZhVRYwwA1o1r4rh6hrIQqqZkPlhd1hXyfjvdX37KrEq5HgJ+IyEjfW
+	 99Uy0cBTr7lkFdn391ClBIEEWHMgmBRzzhcI114lTZ80hdlvzGahaRjpex1zTxHHWh
+	 1bWr4C9v4lwa6pUuIcV7b9F/NcRRnA0tH1AZhVN8DLX2efgW0XrE4+OV2FMFuIAMNY
+	 SKAee4ua+xHTx2fbd3pVQu4QpTyq62Vd3zqiwJobfXdwQI6+9w6alAuJ50V1LjIItF
+	 0+5CTB2T+8rjA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Teng Liu <27rabbitlt@gmail.com>,
-	Qu Wenruo <wqu@suse.com>,
-	David Sterba <dsterba@suse.com>,
-	syzbot+3e20d8f3d41bac5dc9a2@syzkaller.appspotmail.com,
+Cc: Oliver Ohrt <oliver@theohrts.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>,
-	clm@fb.com,
-	linux-btrfs@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] btrfs: validate data reloc tree file extent item members
-Date: Mon, 31 Aug 2026 09:22:26 -0400
-Message-ID: <20260831133314.4125787-118-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] ALSA: hda/realtek: Fix speakers on Alienware x16 R2
+Date: Mon, 31 Aug 2026 09:22:25 -0400
+Message-ID: <20260831133314.4125787-117-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -55,176 +54,368 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Teng Liu <27rabbitlt@gmail.com>
+From: Oliver Ohrt <oliver@theohrts.com>
 
-[ Upstream commit a6908f88c9da9778957a07ac568aa643124278a8 ]
+[ Upstream commit 914c85fad93cd7daad30e5fb2e5bc7132ea25524 ]
 
-get_new_location() uses BUG_ON() to crash the kernel if the file extent
-item it looks up has any of offset, compression, encryption, or
-other_encoding set non-zero. The data reloc inode is only written by
-relocation's own paths and the four fields are always 0 in what the
-kernel writes:
+The Alienware x16 R2 has two pairs of speakers, but the BIOS
+marks pin 0x17 as unused, so only the pin 0x14 pair plays and
+audio is very quiet/dull.
 
-  - insert_prealloc_file_extent() memsets the stack item to zero and
-    only fills in type, disk_bytenr, disk_num_bytes and num_bytes, so
-    offset/compression/encryption/other_encoding stay 0.
-  - insert_ordered_extent_file_extent() copies oe->compress_type into
-    the file extent's compression field, but the data reloc inode is
-    created with BTRFS_INODE_NOCOMPRESS so compress_type is always 0;
-    encryption and other_encoding are reserved-and-zero in btrfs.
+Apply ALC289_FIXUP_DUAL_SPK like on other Dell machines to set
+up pin 0x17 and route it to DAC1. Tested on my x16 R2 with
+kernel 6.18.38, and now all speakers play at full volume.
 
-A non-zero value here means the leaf decoded from disk does not match
-what the kernel wrote, i.e. on-disk corruption. A malformed image
-reaches this code via balance and panics the kernel.
-
-A previous attempt to enforce all four constraints in tree-checker's
-check_extent_data_item() was merged as commit 7d0ee95979e9 ("btrfs:
-validate data reloc tree file extent item members in tree-checker")
-and then reverted by commit 1c034697fcaa after btrfs/061 produced
-false positives on arm64 with 64K pages. The reason: relocation
-writeback legitimately produces REG file_extent_items with offset != 0
-in the data reloc tree. When an ordered extent covers only the back
-portion of an underlying PREALLOC (num_bytes < ram_bytes on the input
-file_extent), insert_ordered_extent_file_extent() inserts a REG with
-
-  offset    = oe->offset
-  num_bytes = oe->num_bytes
-  ram_bytes preserved from the original PREALLOC,
-
-and this item can reach disk if a transaction commit fires while it
-is present in the leaf.
-
-The four fields belong in different layers:
-
-  - compression, encryption and other_encoding are universal
-    invariants for every item in the data reloc tree, regardless of
-    cluster geometry. Enforce them in tree-checker's
-    check_extent_data_item() so a corrupt leaf is rejected at read
-    time.
-
-  - offset is only an invariant at the cluster-boundary keys that
-    get_new_location() searches (the key is computed as
-    src_disk_bytenr - reloc_block_group_start). Partial-PREALLOC
-    writebacks legitimately place REG items at non-boundary keys with
-    offset != 0; tree-checker cannot reject these. The cluster-
-    boundary item is always written by either
-    insert_prealloc_file_extent() (offset=0 by memset) or by the
-    front portion of a partial writeback (offset=0 by construction),
-    so a non-zero offset there is corruption.
-
-Enforce the universal invariants in check_extent_data_item() with a
-file_extent_err() rejection. Convert the BUG_ON() in
-get_new_location() to a -EUCLEAN return paired with btrfs_print_leaf()
-and btrfs_err() so the offending leaf is logged. The caller in
-replace_file_extents() already handles non-zero returns from
-get_new_location() by breaking out of the loop without aborting the
-transaction.
-
-Suggested-by: Qu Wenruo <wqu@suse.com>
-Suggested-by: David Sterba <dsterba@suse.com>
-Reported-by: syzbot+3e20d8f3d41bac5dc9a2@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3e20d8f3d41bac5dc9a2
-Signed-off-by: Teng Liu <27rabbitlt@gmail.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
+Signed-off-by: Oliver Ohrt <oliver@theohrts.com>
+Link: https://patch.msgid.link/20260715070409.42696-1-oliver@theohrts.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The background git searches finished with no matches — expected, since
-this tree is **v6.18.44** and commit `a6908f88c9da` isn’t on it yet.
-Subject grep and related-commit searches also came up empty, which fits:
-the earlier mainline-only fix/revert pair (`7d0ee95979e9` /
-`1c034697fcaa`) never landed in 6.18.y.
+# Stable Backport Analysis: ALSA: hda/realtek: Fix speakers on Alienware
+x16 R2
 
-That doesn’t change the earlier conclusion: this is a syzbot-reported
-kernel panic fix (`BUG_ON()` → `-EUCLEAN`), it applies cleanly, and it
-should be backported to this tree.
+**Local tree:** `v6.18.44-1-g2736c32da98b9` (kernel 6.18.44)
 
-**YES**
+---
 
- fs/btrfs/relocation.c   | 22 ++++++++++++++++++----
- fs/btrfs/tree-checker.c | 27 +++++++++++++++++++++++++++
- 2 files changed, 45 insertions(+), 4 deletions(-)
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-diff --git a/fs/btrfs/relocation.c b/fs/btrfs/relocation.c
-index 80e5de6736e82..f1104fa6efb3f 100644
---- a/fs/btrfs/relocation.c
-+++ b/fs/btrfs/relocation.c
-@@ -822,6 +822,7 @@ static int get_new_location(struct inode *reloc_inode, u64 *new_bytenr,
- 			    u64 bytenr, u64 num_bytes)
- {
- 	struct btrfs_root *root = BTRFS_I(reloc_inode)->root;
-+	struct btrfs_fs_info *fs_info = root->fs_info;
- 	BTRFS_PATH_AUTO_FREE(path);
- 	struct btrfs_file_extent_item *fi;
- 	struct extent_buffer *leaf;
-@@ -843,10 +844,23 @@ static int get_new_location(struct inode *reloc_inode, u64 *new_bytenr,
- 	fi = btrfs_item_ptr(leaf, path->slots[0],
- 			    struct btrfs_file_extent_item);
- 
--	BUG_ON(btrfs_file_extent_offset(leaf, fi) ||
--	       btrfs_file_extent_compression(leaf, fi) ||
--	       btrfs_file_extent_encryption(leaf, fi) ||
--	       btrfs_file_extent_other_encoding(leaf, fi));
-+	/*
-+	 * The cluster-boundary key searched above is always written by
-+	 * relocation with offset 0: either by insert_prealloc_file_extent()
-+	 * (memsets the stack item to 0) or by the front portion of a partial
-+	 * writeback (offset=0 by construction). A non-zero value here means
-+	 * the on-disk leaf does not match what relocation wrote, i.e.
-+	 * corruption. The other encoding fields are caught earlier by
-+	 * tree-checker's check_extent_data_item().
-+	 */
-+	if (unlikely(btrfs_file_extent_offset(leaf, fi))) {
-+		btrfs_print_leaf(leaf);
-+		btrfs_err(fs_info,
-+"unexpected non-zero offset in file extent item for data reloc inode %llu key offset %llu offset %llu",
-+			  btrfs_ino(BTRFS_I(reloc_inode)), bytenr,
-+			  btrfs_file_extent_offset(leaf, fi));
-+		return -EUCLEAN;
-+	}
- 
- 	if (num_bytes != btrfs_file_extent_disk_num_bytes(leaf, fi))
- 		return -EINVAL;
-diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
-index 97be0c1ed22f7..c7e0e5fb6402d 100644
---- a/fs/btrfs/tree-checker.c
-+++ b/fs/btrfs/tree-checker.c
-@@ -296,6 +296,33 @@ static int check_extent_data_item(struct extent_buffer *leaf,
- 		return 0;
- 	}
- 
-+	/*
-+	 * For the data reloc tree, file extent items are written by
-+	 * relocation's own paths. The data reloc inode is created with
-+	 * BTRFS_INODE_NOCOMPRESS, so insert_ordered_extent_file_extent()
-+	 * always leaves the compression field at 0. Encryption and
-+	 * other_encoding are reserved-and-zero in btrfs. A non-zero value
-+	 * for any of these means the leaf decoded from disk does not match
-+	 * what the kernel wrote, i.e. on-disk corruption.
-+	 *
-+	 * The file_extent_item's offset field is NOT a universal invariant
-+	 * here: partial-PREALLOC writebacks legitimately produce REG items
-+	 * with non-zero offset at non-boundary keys. The offset check is
-+	 * performed at the call site in get_new_location(), which only
-+	 * inspects cluster-boundary keys where offset is always 0.
-+	 */
-+	if (unlikely(btrfs_header_owner(leaf) == BTRFS_DATA_RELOC_TREE_OBJECTID &&
-+		     (btrfs_file_extent_compression(leaf, fi) ||
-+		      btrfs_file_extent_encryption(leaf, fi) ||
-+		      btrfs_file_extent_other_encoding(leaf, fi)))) {
-+		file_extent_err(leaf, slot,
-+"invalid encoding fields for data reloc tree, compression=%u encryption=%u other_encoding=%u",
-+				btrfs_file_extent_compression(leaf, fi),
-+				btrfs_file_extent_encryption(leaf, fi),
-+				btrfs_file_extent_other_encoding(leaf, fi));
-+		return -EUCLEAN;
-+	}
-+
- 	/* Regular or preallocated extent has fixed item size */
- 	if (unlikely(item_size != sizeof(*fi))) {
- 		file_extent_err(leaf, slot,
+### Step 1.1: Parse the subject line
+**Record:** `[ALSA: hda/realtek]` `[Fix]` — Add HDA codec quirk so
+Alienware x16 R2 internal speakers work at full volume.
+
+### Step 1.2: Parse all commit message tags
+**Record:**
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — not present
+- **Tested-by:** — not present (author says "Tested on my x16 R2" in
+  body)
+- **Reviewed-by:** — not present
+- **Acked-by:** — not present
+- **Link:**
+  `https://patch.msgid.link/20260715070409.42696-1-oliver@theohrts.com`
+- **Cc: stable@vger.kernel.org** — not present (not a negative signal)
+- **Signed-off-by:** Oliver Ohrt `<oliver@theohrts.com>` (author)
+- **Signed-off-by:** Takashi Iwai `<tiwai@suse.de>` (ALSA/HDA
+  maintainer)
+- **Notable:** Maintainer sign-off; author hardware testing; no
+  syzbot/sanitizer signals
+
+### Step 1.3: Analyze commit body
+**Record:**
+- **Bug:** Alienware x16 R2 has two speaker pairs; BIOS marks pin 0x17
+  unused, so only pin 0x14 pair is routed. Audio is very quiet/dull.
+- **Symptom:** Half the speakers inactive; poor volume/quality.
+- **Root cause:** Incorrect BIOS pin configuration for second speaker
+  pair (NID 0x17).
+- **Fix approach:** Apply existing `ALC289_FIXUP_DUAL_SPK` (same as
+  other Dell machines) to configure pin 0x17 and route to DAC1.
+- **Testing:** Author tested on x16 R2 with kernel 6.18.38; all speakers
+  play at full volume.
+- **Version info:** Tested on 6.18.38; hardware is recent (Alienware x16
+  R2).
+
+### Step 1.4: Detect hidden bug fixes
+**Record:** Not disguised — explicit hardware/audio functionality fix.
+Classic HDA codec quirk, not cleanup or refactor.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory the changes
+**Record:**
+- **Files:** `sound/hda/codecs/realtek/alc269.c` — 1 line added
+- **Functions modified:** None directly; `alc269_fixup_tbl[]` quirk
+  table only
+- **Scope:** Single-file, one-line surgical quirk addition
+
+### Step 2.2: Code flow change
+**Record:**
+- **Before:** PCI SSID `0x1028:0x0c90` (Alienware x16 R2) has no quirk →
+  default pin config → pin 0x17 unused → only one speaker pair active.
+- **After:** Quirk maps `0x1028:0x0c90` → `ALC289_FIXUP_DUAL_SPK` →
+  during codec probe (`snd_hda_pick_fixup()`), chained fixups run:
+  1. `alc285_fixup_speaker2_to_dac1` — routes NID 0x17 (bass speaker) to
+     DAC1 (0x02)
+  2. `ALC289_FIXUP_DELL_SPK2` — sets pin 0x17 config to `0x90170130`
+- **Path affected:** Codec probe/initialization on matching hardware
+  only.
+
+### Step 2.3: Bug mechanism
+**Record:**
+- **Category:** Hardware quirk / pin-configuration fix
+- **Mechanism:** BIOS marks pin 0x17 unused despite hardware being
+  connected. Existing Dell dual-speaker fixup reconfigures pin 0x17 and
+  routes it to DAC1, enabling the second speaker pair.
+
+### Step 2.4: Fix quality assessment
+**Record:**
+- **Obviously correct:** Yes — reuses `ALC289_FIXUP_DUAL_SPK` already
+  applied to Dell XPS 15 9520, Precision 5570, XPS 15 9510, etc.
+- **Minimal/surgical:** One `SND_PCI_QUIRK()` line
+- **Regression risk:** Very low — only affects `0x1028:0x0c90`; fixup
+  chain is well-tested on similar Dell hardware
+- **Red flags:** None
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: Blame changed lines
+**Record:** Insertion point is in `alc269_fixup_tbl[]` between `0x0c4d`
+and `0x0c94`. Surrounding Dell quirks from merge `5d324e5159d9e`
+(v6.18-rc8 era). No “buggy code” introduced by a prior commit — missing
+quirk for new hardware.
+
+### Step 3.2: Follow Fixes: tag
+**Record:** N/A — no `Fixes:` tag.
+
+### Step 3.3: File history for related changes
+**Record:** Recent similar commits in this tree:
+- `2ec8f95a08fed` — Fix speakers on Lunnen Ground 14 (pin quirk, `Cc:
+  stable`, backported)
+- `6b2c0cd5f9689` — Fix speakers on Legion Pro 7 (codec SSID quirk, `Cc:
+  stable`, backported)
+- Multiple Dell `ALC289_FIXUP_DUAL_SPK` entries at lines 6618–6623
+
+Standalone one-line quirk; no series dependency.
+
+### Step 3.4: Author's other commits
+**Record:** No other commits from Oliver Ohrt in this tree. Takashi Iwai
+is ALSA maintainer.
+
+### Step 3.5: Prerequisites
+**Record:**
+- **Required:** `ALC289_FIXUP_DUAL_SPK`,
+  `alc285_fixup_speaker2_to_dac1`, `ALC289_FIXUP_DELL_SPK2` — all
+  present in 6.18.44
+- **Can apply standalone:** Yes — single quirk line, no dependencies
+- **Commit not yet in tree:** `0x0c90` quirk absent; patch applies
+  cleanly at line 6640
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1: Original patch discussion
+**Record:** `b4 dig -c` not run — commit hash not in local tree. Link
+points to `20260715070409.42696-1-oliver@theohrts.com`. Lore fetch
+blocked by Anubis bot protection. **UNVERIFIED:** full review thread
+content.
+
+### Step 4.2: Reviewers
+**Record:** **UNVERIFIED** via b4 dig -w. Takashi Iwai maintainer sign-
+off confirms acceptance.
+
+### Step 4.3: Bug report
+**Record:** No external bug report; author-reported hardware issue with
+on-device testing.
+
+### Step 4.4: Related patches/series
+**Record:** Standalone patch; pattern matches other Dell dual-speaker
+quirks and recent stable-bound speaker fixes.
+
+### Step 4.5: Stable mailing list history
+**Record:** **UNVERIFIED** — lore blocked. Comparable fixes
+(`2ec8f95a08fed`, `6b2c0cd5f9689`) include `Cc: stable@vger.kernel.org`
+and were backported.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: Key functions
+**Record:** Indirectly affects probe path via `snd_hda_pick_fixup()` →
+matched quirk chain. Direct code touch: `alc269_fixup_tbl[]` only.
+
+### Step 5.2: Callers
+**Record:** `snd_hda_pick_fixup(codec, alc269_fixup_models,
+alc269_fixup_tbl, alc269_fixups)` at line 8471, called from Realtek
+codec init during HDA driver probe (module load / device enumeration).
+
+### Step 5.3: Callees (fixup chain)
+**Record:**
+- `alc285_fixup_speaker2_to_dac1` — `snd_hda_override_conn_list(codec,
+  0x17, ...)` at PRE_PROBE
+- `ALC289_FIXUP_DELL_SPK2` — pin table `{ 0x17, 0x90170130 }`
+
+### Step 5.4: Call chain / reachability
+**Record:** Triggered at boot when HDA codec probes on Alienware x16 R2
+(`0x1028:0x0c90`). Not userspace-triggerable; affects all users of that
+hardware on every boot.
+
+### Step 5.5: Similar patterns
+**Record:** `ALC289_FIXUP_DUAL_SPK` used for at least 6 other Dell PCI
+IDs (0x097d, 0x097e, 0x0a61, 0x0a62, 0x0b19, 0x0b1a). Same pin 0x17 /
+dual-speaker pattern.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+
+### Step 6.1: Does the buggy situation exist?
+**Record:** Yes. `0x0c90` quirk missing in 6.18.44 (`grep` found no
+match). Without it, x16 R2 gets default handling and second speaker pair
+stays disabled. Not a regression from a specific commit — omission for
+new hardware.
+
+### Step 6.2: Backport complications
+**Record:** **Clean apply** — insertion between existing `0x0c4d` and
+`0x0c94` entries matches upstream diff exactly.
+
+### Step 6.3: Related fixes already present?
+**Record:** No existing fix for `0x0c90`. Underlying
+`ALC289_FIXUP_DUAL_SPK` infrastructure is present.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `sound/hda/codecs/realtek` — IMPORTANT (audio driver
+quirks). Affects Alienware x16 R2 owners only.
+
+### Step 7.2: Subsystem activity
+**Record:** Active — frequent quirk additions in 6.18.y (TongFang, HP,
+Lunnen, Legion, ASUS, etc.).
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** Alienware x16 R2 users (Dell/Alienware PCI vendor `0x1028`,
+subsystem `0x0c90`) on kernels without this quirk.
+
+### Step 8.2: Trigger conditions
+**Record:** Every boot with internal speakers on matching hardware.
+Common path for affected users; not timing-dependent.
+
+### Step 8.3: Failure mode severity
+**Record:** Quiet/dull audio with only half the speakers active.
+**Severity: MEDIUM** — functional degradation, not
+crash/corruption/security. Matches stable rules’ “hardware quirk” and
+“real bug that bothers people.”
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** Restores full speaker output on affected laptops; same
+  proven fixup as other Dell models
+- **Risk:** Very low — one quirk entry, hardware-specific SSID match
+- **Ratio:** Strong benefit, minimal risk for affected hardware
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence compile
+
+**FOR backporting:**
+- Fixes real user-visible hardware bug (impaired speaker output)
+- One-line, contained hardware quirk using existing fixup
+- Author tested on target hardware; maintainer (Iwai) signed off
+- `ALC289_FIXUP_DUAL_SPK` and full fixup chain exist in 6.18.44
+- Applies cleanly to this tree
+- Explicit stable-rules exception: hardware quirk
+- Precedent: similar speaker quirk fixes backported with `Cc: stable`
+
+**AGAINST backporting:**
+- Not crash/security/data corruption (lower urgency than KASAN fixes)
+- Affects narrow hardware population
+- No `Cc: stable` tag (not disqualifying)
+- Lore review thread not accessible
+
+**UNRESOLVED:**
+- Full mailing list review discussion
+- Whether reviewers explicitly nominated for stable
+
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — reuses proven Dell fixup;
+   author hardware test; maintainer SOB
+2. Fixes real bug affecting users? **PASS** — half speakers inactive,
+   quiet/dull audio
+3. Important issue? **PASS** — hardware quirk / functional audio bug
+   (stable-rules category)
+4. Small and contained? **PASS** — 1 line
+5. No new features/APIs? **PASS** — quirk table entry only
+6. Can apply to local tree? **PASS** — prerequisites present; clean
+   apply
+
+### Step 9.3: Exception categories
+**Record:** Hardware quirk/workaround for HDA codec pin configuration —
+automatic stable candidate per `stable-kernel-rules.rst` and analysis
+guidelines.
+
+### Step 9.4: Decision rationale
+For **6.18.y**, this is a textbook stable backport: a one-line PCI quirk
+mapping a new Dell/Alienware SSID to an existing, well-tested dual-
+speaker fixup. The infrastructure exists in this tree, the patch applies
+cleanly, and users of Alienware x16 R2 on 6.18.y currently get degraded
+speaker output without it.
+
+---
+
+## Verification
+
+- **[Phase 1]** Parsed subject, tags, body from user-provided commit
+  message
+- **[Phase 2]** Diff: 1 line `SND_PCI_QUIRK(0x1028, 0x0c90, ...)` in
+  `alc269.c`
+- **[Phase 2]** Read `alc285_fixup_speaker2_to_dac1` at lines 2532–2540
+- **[Phase 2]** Read `ALC289_FIXUP_DUAL_SPK` chain at lines 5346–5350,
+  `ALC289_FIXUP_DELL_SPK2` at 5337–5344
+- **[Phase 3]** `git describe HEAD`: v6.18.44
+- **[Phase 3]** `grep 0x0c90`: no matches — quirk absent
+- **[Phase 3]** `git blame` lines 6620–6630: surrounding quirks from
+  5d324e5159d9e
+- **[Phase 3]** `git log -S ALC289_FIXUP_DUAL_SPK`: present since
+  5d324e5159d9e merge
+- **[Phase 3]** `git show 2ec8f95a08fed`, `6b2c0cd5f9689`: comparable
+  stable-bound speaker fixes
+- **[Phase 4]** WebFetch lore URL: blocked (Anubis)
+- **[Phase 4]** `b4 dig -c`: not run — commit not in tree
+- **[Phase 5]** `grep snd_hda_pick_fixup`: line 8471 in codec init
+- **[Phase 5]** `grep ALC289_FIXUP_DUAL_SPK`: 6+ existing Dell entries
+- **[Phase 6]** Read lines 6639–6641: exact insertion point matches
+  patch
+- **[Phase 6]** `grep Alienware x16`: only in `alienware-wmi-wmax.c`,
+  not audio quirk
+- **[Phase 7]** `git log --oneline -20 -- sound/hda/codecs/realtek/`:
+  active quirk development
+- **[Phase 8]** Read `Documentation/process/stable-kernel-rules.rst`:
+  hardware quirks explicitly accepted
+
+**YES**The backport analysis is done for **ALSA: hda/realtek: Fix
+speakers on Alienware x16 R2** on your **6.18.44** tree.
+
+**Verdict: YES** — backport it.
+
+It’s a one-line PCI quirk (`0x1028:0x0c90` → `ALC289_FIXUP_DUAL_SPK`)
+that enables the second speaker pair on Alienware x16 R2. The fixup
+chain already exists in this tree, the patch applies cleanly between the
+`0x0c4d` and `0x0c94` entries, and it matches the usual stable pattern
+for HDA hardware quirks (same approach as other Dell dual-speaker
+fixes).
+
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 7f3e1c47729a1..b7dad90ac9cd4 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -6660,6 +6660,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1028, 0x0c1e, "Dell Precision 3540", ALC236_FIXUP_DELL_DUAL_CODECS),
+ 	SND_PCI_QUIRK(0x1028, 0x0c28, "Dell Inspiron 16 Plus 7630", ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS),
+ 	SND_PCI_QUIRK(0x1028, 0x0c4d, "Dell", ALC287_FIXUP_CS35L41_I2C_4),
++	SND_PCI_QUIRK(0x1028, 0x0c90, "Alienware x16 R2", ALC289_FIXUP_DUAL_SPK),
+ 	SND_PCI_QUIRK(0x1028, 0x0c94, "Dell Polaris 3 metal", ALC295_FIXUP_DELL_TAS2781_I2C),
+ 	SND_PCI_QUIRK(0x1028, 0x0c96, "Dell Polaris 2in1", ALC295_FIXUP_DELL_TAS2781_I2C),
+ 	SND_PCI_QUIRK(0x1028, 0x0cbd, "Dell Oasis 13 CS MTL-U", ALC289_FIXUP_DELL_CS35L41_SPI_2),
 -- 
 2.53.0
 
