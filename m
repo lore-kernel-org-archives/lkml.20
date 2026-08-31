@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1DA5A9863;
-	Mon, 31 Aug 2026 13:52:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866675AA67A;
+	Mon, 31 Aug 2026 13:52:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184357; cv=none; b=qC66OVL1SYvM9+mwMbp6foQpgJmO2jcIiGHLze5T0sfQCPnKN3HCoWOZZ9R72UZ5KZgMEOD44L7BlUgP54A8ApW9BGyAkF5l50uOix3FDW40bjMvRHnHApjQYnndBEsDg29z+2qxTYV78ZTlUgjm5UowhF+xCJqEH1k8a4gqAEo=
+	t=1788184360; cv=none; b=oVLawjQNIsds4iTV866+idILWJWBkV/j1FiGhG5ZgnFL9s0UKbADcqBK4hyo3+kQ4LWmiwcj8d2iX78Y/kR4r7hDqyh+A+hYadbeIFr39kB4K8IcQpjp3IztMPK0Sg/YVMtuIWwNAB5POtzLXZiUNCyoHJ3mYADC6diDChQXJWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184357; c=relaxed/simple;
-	bh=e5NWV2lVHPe31HAmSegpbuRCDj+ks/W1pbfMn3crol8=;
+	s=arc-20240116; t=1788184360; c=relaxed/simple;
+	bh=AFn9bC8Os6jWC3HSEWWWBcrgHp1xBy6uB2ZFyqpjx4U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ya/G0Q+h1X1XQzDRfEWCxtm+YNY20QiyXQMM8Om3g6yCT2+XMTvYPDmnxMXjrGFsNlqaLX83vWbmV8Aw1Mi1RBS8YziCtX6TH+bW5KQarpGdZP4/0qNt+DyM+xUd6OIvSXrez3KhRihq7Fl/nitMjB0i34huljevA5AB41OgPCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ooeoN+kj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=VTjNvw4zeqSg495eBOGiwtThJt4fjOXZkS3OaJv8A0rfNSUXvE2XH8S6OU0Z2mwyT73HB+QqAgyPfdHdXvavzDWDO/ta8WQ3b7H7mBwJEqbLF3tRsu8LMJZPIXRuKLu2Q4sAA3Y7/1vs1Cvod1J3kVPAjfjfb5GqYXNhl1GO5FA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CkzC6SuG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ooeoN+kj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEF6D1F000E9;
-	Mon, 31 Aug 2026 13:52:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CkzC6SuG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3BC1F00A3E;
+	Mon, 31 Aug 2026 13:52:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184355;
-	bh=m+J7GktUYJ8sch1IMbeEsWpp+FPWHxVGIcuswDtlVtY=;
+	s=k20260515; t=1788184358;
+	bh=wraiAU+Zeuec8evtgO3PwiEKpvLKzU7dNuEP1ckW7fY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ooeoN+kjx/457ltvxssav/NkUao40IWBoj8FRPQIpjTA20CVPJeoYP70B3vdipRIl
-	 PUIugXKJhUZm2+ep5PZfuQhI7gSv4nAf/lKmfZHNh4WcUcS7CC7lmly4Ku5tOWtbyu
-	 ZUCzjnXVJzwukyU5kMTGjRzy378CKvfNdHS0KYfpUUAbZkp1383lvs0P6uSoo/hfFQ
-	 qqwlgfYRr7iLJ8/i5JocQU4qXIf98zZdeWmO1HCPjW+qTIteeFwADdiGZ59/B6gOaR
-	 7CoOi4x0s+pv1FjLiGOyB7OHGu4oo5n1ZhqMyyxRpllN/2M3bx9VKZScjILa25ubv0
-	 d6Chb1LXfGoyw==
+	b=CkzC6SuGI967Y7XT786LCzhxur0MXjgRf05WRW7z+6i6j0AFyZJKHTkgGxPPmBB1o
+	 6xB2UoWxx+UDu02B1QwFyBoPz9ycNV0STPVfsfHbnxbYoFCfDMaaikDa9XcMrtpXXY
+	 gBVV6OH5AhFIaUPUW2gsl0CdoV8H7SvJ/VhF2x9L9citgIaDnmZJavPdGalfkKXHb5
+	 CZF/Atzvpcy89dgmPITtFNSEATxrdldeWP0SGwNx/4mi6yIb/E/2IWzsWfeY0zMi/S
+	 vLHPRCe4o94PKFRK+goOJoFYsokPpjRFweqDSNXVOJXxLTU3KV3Yx59bBN8MUG6Por
+	 TsMqLHALCdP6g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
-	Julius Werner <jwerner@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	chrome-platform@lists.linux.dev,
+	andreas.noever@gmail.com,
+	westeri@kernel.org,
+	YehezkelShB@gmail.com,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.15] firmware: google: Add bounds checks in coreboot_table_populate()
-Date: Mon, 31 Aug 2026 09:31:12 -0400
-Message-ID: <20260831133314.4125787-644-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] thunderbolt: Keep the domain reference while processing hotplug
+Date: Mon, 31 Aug 2026 09:31:14 -0400
+Message-ID: <20260831133314.4125787-646-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,461 +54,380 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Titouan Ameline de Cadeville <titouan.ameline@gmail.com>
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
 
-[ Upstream commit 7b1a1af4556a4f95ef273e91435fe804cbfcd223 ]
+[ Upstream commit 138ec65b2c761f065b19d115aed2b8246fc272f5 ]
 
-coreboot_table_populate() iterates over firmware-provided table entries
-with no validation that the entries stay within the mapped memory
-region.  A corrupt table with a large `entry->size` advances `ptr_entry`
-past the mapped region, causing an out-of-bounds read on the next
-iteration.
+We process hotplug events in a workqueue that may run after the domain
+has been removed by tb_domain_remove(). For example if user unloads the
+driver while at the same time plugging  a device router we may have
+scheduled tb_handle_hotplug() to run. Avoid possible UAF in this case by
+taking the domain reference before scheduling the hotplug handler in
+tb_queue_hotplug().
 
-Add a check before dereferencing `ptr_entry` to ensure the entry header
-is readable, and a second check after reading `entry->size` to ensure
-the full entry stays within the mapped region.
-
-Pass `len` from coreboot_table_probe() into coreboot_table_populate() to
-make the mapped region size available for validation.
-
-Signed-off-by: Titouan Ameline de Cadeville <titouan.ameline@gmail.com>
-Reviewed-by: Julius Werner <jwerner@chromium.org>
-Link: https://lore.kernel.org/r/20260426214739.117131-1-titouan.ameline@gmail.com
-Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `firmware: google: Add bounds checks in
-coreboot_table_populate()`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.43** (`git describe HEAD` → `v6.18.43`,
-Makefile `6.18.43`)
+**Step 1.1 — Subject line**
 
----
+Record: `[thunderbolt] [keep] Keep the domain reference while processing
+hotplug` — holds a domain reference during deferred hotplug handling.
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.2 — Tags**
 
-### Step 1.1: Parse Subject Line
-**Record:** `[firmware: google]` `[add]` — Add bounds checks in
-`coreboot_table_populate()` to validate firmware table entries stay
-within the mapped region.
+Record:
+- `Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>`
+  (author)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
+  by:`, `Link:`, or `Cc: stable@vger.kernel.org`
 
-### Step 1.2: Parse All Commit Message Tags
-**Record:**
-| Tag | Value |
-|-----|-------|
-| Signed-off-by | Titouan Ameline de Cadeville
-\<titouan.ameline@gmail.com\> (author) |
-| Reviewed-by | Julius Werner \<jwerner@chromium.org\> (Chromium/Google
-firmware maintainer) |
-| Link | https://lore.kernel.org/r/20260426214739.117131-1-
-titouan.ameline@gmail.com |
-| Signed-off-by | Tzung-Bi Shih \<tzungbi@kernel.org\> (firmware
-maintainer) |
+Notable: author is the Thunderbolt subsystem maintainer. No syzbot or
+user reports in the message.
 
-**Notable patterns:** Reviewed by a Chromium firmware maintainer. No
-`Fixes:`, `Reported-by:`, `Cc: stable`, or syzbot tags. Absence of
-stable tags is expected per pipeline rules.
+**Step 1.3 — Body**
 
-### Step 1.3: Analyze Commit Body
-**Record:**
-- **Bug:** `coreboot_table_populate()` walks firmware-provided table
-  entries without verifying each entry fits inside the memremapped
-  region.
-- **Symptom:** A corrupt entry with a large `entry->size` advances
-  `ptr_entry` past the mapped end; the next iteration dereferences past
-  the mapping → out-of-bounds read. `memcpy(device->raw, ptr_entry,
-  entry->size)` can also read past the mapping on the current entry.
-- **Root cause:** No upper-bound validation against mapped length; only
-  a minimum-size check (`entry->size < sizeof(*entry)`) existed.
-- **Fix approach:** Pass `len` from `coreboot_table_probe()` into
-  `coreboot_table_populate()`; check header readability and full entry
-  containment before use.
+Record:
+- **Bug:** Hotplug runs on `tb->wq` via `tb_handle_hotplug()`; that work
+  can still run after `tb_domain_remove()` if the driver is unloaded
+  while a device is plugged.
+- **Symptom:** Possible use-after-free on the `struct tb` domain object.
+- **Root cause:** `tb_queue_hotplug()` stores a raw `tb` pointer with no
+  refcount; removal can free the domain before the work item finishes.
+- **Fix:** Take `tb_domain_get()` when queueing; release with
+  `tb_domain_put()` when the handler completes.
 
-### Step 1.4: Detect Hidden Bug Fixes
-**Record:** Not disguised — explicitly an OOB-read / memory-safety fix,
-though described as "add bounds checks" rather than "fix OOB read."
+**Step 1.4 — Hidden bug fix?**
+
+Record: **Yes** — explicit UAF fix, not cosmetic cleanup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory Changes
-**Record:**
-- **File:** `drivers/firmware/google/coreboot_table.c` only
-- **Scope:** ~10 lines added, 2 signature lines changed — single-file
-  surgical fix
-- **Functions modified:** `coreboot_table_populate()`,
-  `coreboot_table_probe()` (call site only)
+**Step 2.1 — Inventory**
 
-### Step 2.2: Code Flow Change (per hunk)
+Record:
+- **File:** `drivers/thunderbolt/tb.c` only
+- **Scope:** ~4 net lines (1 changed, 3 added)
+- **Functions:** `tb_queue_hotplug()`, `tb_handle_hotplug()`
+- **Classification:** Single-file, surgical fix
 
-**Hunk 1 — `coreboot_table_populate()`:**
-- **Before:** Loop over `header->table_entries`; dereference `entry =
-  ptr_entry` with no end-of-region check; advance `ptr_entry +=
-  entry->size` unconditionally.
-- **After:** Compute `ptr_end = ptr + len`; before dereferencing, verify
-  `ptr_entry + sizeof(*entry) <= ptr_end`; after reading `entry->size`,
-  verify `ptr_entry + entry->size <= ptr_end`; return `-EINVAL` on
-  violation.
+**Step 2.2 — Code flow**
 
-**Hunk 2 — `coreboot_table_probe()`:**
-- **Before:** `coreboot_table_populate(dev, ptr)`
-- **After:** `coreboot_table_populate(dev, ptr, len)` where `len =
-  header->header_bytes + header->table_bytes`
+Record:
+- **Hunk 1 (`tb_queue_hotplug`):** `ev->tb = tb` → `ev->tb =
+  tb_domain_get(tb)` — bumps device refcount before scheduling work.
+- **Hunk 2 (`tb_handle_hotplug`):** Adds `tb_domain_put(tb)` on all exit
+  paths through `out:` before `kfree(ev)` — balances the refcount from
+  queue time.
 
-**Record:** Normal boot probe path and error path both affected; no
-change to remove/teardown paths.
+**Step 2.3 — Bug mechanism**
 
-### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** Buffer overflow / out-of-bounds access (memory safety)
-- **Mechanism:** Firmware-controlled `entry->size` and
-  `header->table_entries` can describe a layout larger than the
-  memremapped `[ptr, ptr+len)` region. The loop trusts per-entry sizes
-  without summing or bounding against `len`. Corrupt or malicious table
-  data causes reads past the mapping on `entry` dereference and in
-  `memcpy()`. A very large `entry->size` also drives
-  `kzalloc(sizeof(device->dev) + entry->size)` before the bounds check
-  in the unpatched code.
+Record:
+- **Category:** Use-after-free / reference-counting bug
+- **Mechanism:** Async hotplug work can outlive domain teardown.
+  `tb_domain_remove()` calls `flush_workqueue()`, but a race remains:
+  `tb_queue_hotplug()` can run after `flush_workqueue()` returns (e.g.
+  concurrent unload + plug event). Without a refcount,
+  `device_unregister()` → `tb_domain_release()` can `kfree(tb)` while
+  `tb_handle_hotplug()` still dereferences `ev->tb`.
 
-### Step 2.4: Fix Quality
-**Record:**
-- Fix is minimal and obviously correct: standard `ptr_end` bounds
-  pattern.
-- Returns `-EINVAL` on bad data — consistent with existing `entry->size
-  < sizeof(*entry)` handling.
-- **Regression risk:** Very low. Only adds validation on a firmware-
-  parsing path; no locking, no API changes.
-- **Minor note:** `header->header_bytes + header->table_bytes` is still
-  trusted from firmware (pre-existing); this fix bounds entry iteration
-  within that self-reported length, which is the right scope.
+**Step 2.4 — Fix quality**
+
+Record:
+- Matches the existing pattern in `xdomain.c`
+  (`tb_xdp_schedule_request()` uses `tb_domain_get()` /
+  `tb_domain_put()`).
+- Minimal, obviously correct refcount pairing.
+- **Regression risk:** Very low — only extends domain lifetime for in-
+  flight hotplug work.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame Changed Lines
-**Record:** `git blame` on `coreboot_table_populate()` attributes all
-lines to `19eef1d98eeda` (an unrelated AFS commit) due to history
-squashing in this stable tree — not reliable for origin dating. `git log
---follow` shows the vulnerable function present at `ac3fd01e4c1ef`
-("Linux 6.18-rc7") with identical logic. **Buggy code exists throughout
-the 6.18.y series in this checkout.**
+**Step 3.1 — Blame**
 
-### Step 3.2: Follow Fixes: Tag
-**Record:** No `Fixes:` tag present — step N/A.
+Record: In this tree, `tb_queue_hotplug()` and `tb_handle_hotplug()`
+blame to `19eef1d98eeda` (squashed import). The hotplug workqueue design
+is long-standing Thunderbolt infrastructure.
 
-### Step 3.3: File History for Related Changes
-**Record:** Recent `drivers/firmware/google/` history in this tree:
-- `75d40ccf38ca7` — framebuffer probe cleanup
-- `ecb3e4fa31ffa` — framebuffer busy flag fix
-- No prior bounds-check fix for `coreboot_table.c`. **Standalone fix,
-  not part of a series.**
+**Step 3.2 — Fixes: tag**
 
-### Step 3.4: Author's Other Commits
-**Record:** No commits by Titouan Ameline in `drivers/firmware/google/`
-in this tree. Author appears to be a new contributor to this subsystem;
-patch was reviewed by Julius Werner (Chromium).
+Record: N/A — no `Fixes:` tag.
 
-### Step 3.5: Prerequisites / Dependencies
-**Record:** No dependencies. The patch only needs `coreboot_table.c` as
-it exists in this tree. `resource_size_t len` is already used in
-`coreboot_table_probe()`. **Applies standalone.**
+**Step 3.3 — Related file history**
 
----
+Record: Recent stable thunderbolt fixes on `stable/linux-6.18.y` include
+XDomain validation and debugfs leaks; no duplicate fix for this UAF
+found.
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+**Step 3.4 — Author context**
 
-### Step 4.1: Original Patch Discussion
-**Record:** `b4 dig -c <commit>` not possible — commit is not in this
-checkout. `WebFetch` and `curl` to lore.kernel.org returned 403/bot-
-wall. **Lore thread content UNVERIFIED.** Commit message provides Link
-and `Reviewed-by: Julius Werner`.
+Record: Mika Westerberg is the Thunderbolt maintainer. No other commits
+from this author found in this checkout’s history (squashed tree).
 
-### Step 4.2: Reviewers
-**Record:** Julius Werner (Chromium firmware) reviewed. Tzung-Bi Shih
-committed. Appropriate subsystem coverage assumed from tags; full
-recipient list UNVERIFIED.
+**Step 3.5 — Dependencies**
 
-### Step 4.3: Bug Report
-**Record:** No `Reported-by:`, no syzbot link, no stack trace in commit
-message. Bug identified by code review / defensive analysis, not a filed
-crash report.
-
-### Step 4.4: Related Patches / Series
-**Record:** Single-patch fix. No series dependencies.
-
-### Step 4.5: Stable Mailing List History
-**Record:** UNVERIFIED — could not search lore stable list due to access
-restrictions.
+Record:
+- Requires `tb_domain_get()` / `tb_domain_put()` — **present** in
+  `drivers/thunderbolt/tb.h` (lines 796–806).
+- Standalone; no series dependency.
+- Backport note: mainline diff uses `kmalloc_obj(*ev)`; this tree uses
+  `kmalloc(sizeof(*ev), GFP_KERNEL)` — trivial context adjustment only.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 4: Mailing List and External Research
 
-### Step 5.1: Key Functions
-**Record:** `coreboot_table_populate()`, `coreboot_table_probe()`
+**Step 4.1 — Original discussion**
 
-### Step 5.2: Callers
-**Record:**
-- `coreboot_table_populate()` — called only from
-  `coreboot_table_probe()` (verified via grep)
-- `coreboot_table_probe()` — platform driver `.probe` for
-  `coreboot_table_driver`, registered at module init
+Record: `b4 dig -c <commit>` not run — commit hash not present in this
+checkout. Lore search blocked (Anubis bot protection). Web search did
+not locate this specific patch thread.
 
-**Context:** Runs once at boot when `CONFIG_GOOGLE_COREBOOT_TABLE` is
-enabled, on ACPI `GOOGCB00` / `BOOT0000` or OF `compatible = "coreboot"`
-platforms (Chromebooks, Chromium embedded boards).
+**Step 4.2 — Reviewers**
 
-### Step 5.3: Callees
-**Record:** `memremap()`, `memunmap()`, `kzalloc()`, `memcpy()`,
-`device_register()`, `dev_warn()` — memory mapping and device
-enumeration from firmware table.
+Record: UNVERIFIED — could not retrieve thread via b4 or lore.
 
-### Step 5.4: Call Chain / Reachability
-**Record:**
+**Step 4.3 — Bug report**
+
+Record: N/A — no `Reported-by:` or `Link:` tags.
+
+**Step 4.4 — Series context**
+
+Record: Standalone one-commit fix; no multi-patch series indicated.
+
+**Step 4.5 — Stable list**
+
+Record: UNVERIFIED — stable@ discussion not searched (lore blocked).
+
+---
+
+## Phase 5: Code Semantic Analysis
+
+**Step 5.1 — Key functions**
+
+Record: `tb_queue_hotplug()`, `tb_handle_hotplug()`, plus callers
+`tb_handle_event()`, `tb_scan_port()`.
+
+**Step 5.2 — Callers**
+
+Record:
+- `tb_handle_event()` — control-channel plug events (`handle_event`
+  callback at line 3291)
+- `tb_scan_port()` — DP HPD path (line 1302)
+
+Both are reachable during normal Thunderbolt operation and driver
+unload.
+
+**Step 5.3 — Callees**
+
+Record: `tb_handle_hotplug()` uses `pm_runtime_get_sync()`,
+`mutex_lock(&tb->lock)`, switch/port lookups, `tb_scan_port()`,
+tunnel/DP handling, `kfree(ev)`.
+
+**Step 5.4 — Reachability**
+
+Record: Triggerable by hardware hotplug and by `rmmod`/PCI remove during
+concurrent plug — realistic on laptops/workstations with Thunderbolt.
+
+**Step 5.5 — Similar patterns**
+
+Record: `xdomain.c` already uses `tb_domain_get()` for deferred work.
+`tb_queue_dp_bandwidth_request()` still uses a raw `ev->tb = tb` (line
+2869) — same class of bug, but out of scope for this commit.
+
+---
+
+## Phase 6: Cross-Reference Against Local Tree
+
+**Step 6.1 — Buggy code present?**
+
+Record: **Yes.** Local tree is **6.18.43** (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`). Current code:
+
+```101:106:drivers/thunderbolt/tb.c
+        ev->tb = tb;
+        ev->route = route;
+        ev->port = port;
+        ev->unplug = unplug;
+        INIT_DELAYED_WORK(&ev->work, tb_handle_hotplug);
+        queue_delayed_work(tb->wq, &ev->work, 0);
 ```
-module_init → platform_driver_register → coreboot_table_probe (ACPI/OF
-match)
-  → memremap firmware table → coreboot_table_populate → iterate entries
-```
-- **Userspace trigger:** Not directly syscall-reachable.
-- **Indirect trigger:** Corrupt or attacker-modified coreboot table in
-  firmware flash or ACPI-described memory region.
-- **Affected platforms:** Google Chromebooks and other coreboot/Chromium
-  devices with `CONFIG_GOOGLE_FIRMWARE` / `CONFIG_GOOGLE_COREBOOT_TABLE`
-  (e.g. `arch/arm64/configs/defconfig` has both enabled).
 
-### Step 5.5: Similar Patterns
-**Record:** This stable tree has already accepted similar firmware OOB
-fixes:
-- `cf5708c9d78c9` — `firmware: arm_ffa: Fix out-of-bound writes`
-- `11daac2817dca` — `firmware: arm_scmi: Fix OOB in
-  scmi_power_name_get()`
+`tb_handle_hotplug()` ends with `kfree(ev)` and no `tb_domain_put()`.
 
-Precedent supports firmware-parser bounds-check backports to 6.18.y.
+**Step 6.2 — Backport difficulty**
+
+Record: **Clean apply** with at most `kmalloc` vs `kmalloc_obj` context
+difference.
+
+**Step 6.3 — Fix already present?**
+
+Record: **No** — fix not in this checkout.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
+## Phase 7: Subsystem and Maintainer Context
 
-### Step 6.1: Does Buggy Code Exist?
-**Record:** **YES.** Current `drivers/firmware/google/coreboot_table.c`
-lines 104–147 contain the vulnerable loop with no `ptr_end` checks.
-Identical logic confirmed at `ac3fd01e4c1ef` (6.18-rc7). Fix is **not**
-already present (grep found no `ptr_end` or bounds-check commit).
+**Step 7.1 — Subsystem**
 
-### Step 6.2: Backport Complications
-**Record:** **Clean apply expected.** Local file matches the patch's
-pre-change structure exactly (function signature, loop body, probe call
-site). No conflicting refactors in recent history.
+Record: `drivers/thunderbolt/` — **IMPORTANT** (PCI driver; common on
+Intel/Apple laptops, docks, displays).
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** **None** for this bug. Grep for `coreboot_table_populate`
-bounds fixes returned nothing.
+**Step 7.2 — Activity**
+
+Record: Active maintenance on 6.18.y (recent thunderbolt
+security/validation fixes in stable history).
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## Phase 8: Impact and Risk Assessment
 
-### Step 7.1: Subsystem Criticality
-**Record:** `drivers/firmware/google/` — **PERIPHERAL** (platform-
-specific Google/coreboot firmware driver). Not core kernel, but used on
-production Chromebook fleet when enabled.
+**Step 8.1 — Who is affected**
 
-### Step 7.2: Subsystem Activity
-**Record:** Moderate activity in this tree (recent framebuffer probe
-fixes). `coreboot_table.c` itself has been stable since 6.18-rc7 with no
-prior hardening.
+Record: Systems with `CONFIG_THUNDERBOLT` and the in-tree NHI driver —
+Thunderbolt laptop/workstation users.
 
----
+**Step 8.2 — Trigger conditions**
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+Record: Driver unload (`nhi_remove()` → `tb_domain_remove()`) concurrent
+with device plug/hotplug event. Unprivileged users can unload modules if
+permitted; root can always trigger via `rmmod`.
 
-### Step 8.1: Who Is Affected
-**Record:** **Platform-specific, config-dependent** — systems with
-`CONFIG_GOOGLE_COREBOOT_TABLE` (Chromebooks, Chromium ARM boards, some
-x86 Google platforms). Not universal; significant within that fleet.
+**Step 8.3 — Failure mode**
 
-### Step 8.2: Trigger Conditions
-**Record:**
-- Corrupt coreboot table: flash wear/corruption, buggy coreboot build,
-  or compromised firmware
-- Mismatch between `table_entries`/per-entry `size` fields and actual
-  mapped `len`
-- **Likelihood:** Low in normal operation; non-zero with flash
-  corruption or firmware bugs
-- **Unprivileged userspace:** Cannot trigger directly; requires
-  firmware-level corruption
+Record: **UAF on `struct tb`** → kernel oops/panic or memory corruption.
+**Severity: CRITICAL/HIGH.**
 
-### Step 8.3: Failure Mode Severity
-**Record:**
-- OOB read on `entry` dereference → possible page fault / kernel oops at
-  boot
-- OOB read in `memcpy()` → information leak from adjacent mapped memory
-- Unchecked large `entry->size` → excessive `kzalloc()` attempt (boot-
-  time DoS / OOM)
-- **Severity: HIGH** for affected platforms (boot failure or memory-
-  safety violation), **LOW** population-wide
+**Step 8.4 — Risk vs benefit**
 
-### Step 8.4: Risk-Benefit Ratio
-**Record:**
-- **Benefit:** Prevents OOB reads and unbounded allocation on a firmware
-  trust boundary; hardens boot on Chromebook/coreboot systems. Aligns
-  with existing stable practice (arm_ffa, arm_scmi OOB backports in this
-  tree).
-- **Risk:** Very low — ~10 lines of validation, no behavior change on
-  valid tables.
-- **Ratio:** Favorable for backport to this tree.
+Record:
+- **Benefit:** High — prevents crash/corruption on a realistic
+  unload+hotplug race.
+- **Risk:** Very low — 3-line refcount fix following an established in-
+  driver pattern.
+- **Ratio:** Strongly favors backport.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
-### Step 9.1: Evidence Summary
+**Step 9.1 — Evidence**
 
-**FOR backport:**
-- Real, verifiable OOB-read bug in firmware table parser
-- Small, surgical, obviously correct fix
-- Buggy code present in Linux 6.18.43 checkout
-- Clean apply, no dependencies
-- Reviewed by Chromium firmware maintainer
-- Precedent: similar `firmware:` OOB fixes already in this 6.18.y tree
-- Prevents boot-time crash and unbounded allocation on corrupt firmware
-  data
+**FOR:**
+- Real, well-described UAF race
+- Subsystem maintainer fix
+- Small, surgical, matches existing `xdomain.c` pattern
+- Buggy code confirmed in 6.18.43
+- `tb_domain_get/put` infrastructure already in tree
+- Crash/corruption severity
 
-**AGAINST backport:**
-- No syzbot report or user crash report
-- Trigger requires corrupt/malicious firmware table (not common)
-- Platform-specific driver behind `CONFIG_GOOGLE_COREBOOT_TABLE`
-  (default N in Kconfig)
-- Boot-only path, not directly userspace-exploitable
-- Lore review thread content could not be fetched
+**AGAINST:**
+- No external reproducer (syzbot/user) in commit message
+- Mailing-list review not verified
+- Mainline merge not verified (torvalds/linux `tb.c` on GitHub still
+  shows buggy `ev->tb = tb`)
+- Related `tb_queue_dp_bandwidth_request()` has the same pattern
+  (separate issue)
 
-**Unresolved:** Full lore discussion content; whether reviewers
-explicitly nominated for stable.
+**UNRESOLVED:**
+- Commit hash and lore review thread
+- Whether fix is already in upstream mainline
 
-### Step 9.2: Stable Rules Checklist
+**Step 9.2 — Stable rules checklist**
+
 | Criterion | Result |
 |-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — standard bounds checks;
-reviewed by subsystem expert |
-| 2. Fixes a real bug affecting users? | **PASS** — OOB read on corrupt
-firmware table on Chromebook/coreboot systems |
-| 3. Important issue? | **PASS** — OOB access / potential boot crash
-(HIGH on affected platforms) |
-| 4. Small and contained? | **PASS** — one file, ~10 lines |
-| 5. No new features/APIs? | **PASS** — validation only, static function
-signature change |
-| 6. Can apply to local tree? | **PASS** — code present, clean apply
-expected |
+| 1. Obviously correct and tested? | **PASS** — refcount pairing is
+standard; no `Tested-by` in message |
+| 2. Fixes a real user-affecting bug? | **PASS** — UAF on driver unload
++ hotplug |
+| 3. Important issue? | **PASS** — crash/corruption (CRITICAL/HIGH) |
+| 4. Small and contained? | **PASS** — ~4 lines, one file |
+| 5. No new features/APIs? | **PASS** — refcount only |
+| 6. Can apply to local tree? | **PASS** — infrastructure present, clean
+apply |
 
-### Step 9.3: Exception Categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Qualifies
-as a memory-safety / OOB fix on its own merits.
+**Step 9.3 — Exception category**
 
-### Step 9.4: Decision Rationale
+Record: N/A — not a quirk/DT/build/docs fix; standard bug fix.
 
-For **Linux 6.18.y** specifically: the vulnerable
-`coreboot_table_populate()` loop exists in this checkout, the fix is
-self-contained and low-risk, and it addresses a genuine out-of-bounds
-read when parsing firmware-provided table entries. While the trigger
-(corrupt coreboot table) is uncommon and the driver is platform-
-specific, the fix matches stable-tree practice already established in
-this same tree for firmware OOB issues, and failure modes include boot-
-time kernel faults and unbounded allocation from attacker-influenced
-firmware fields. The conservative stable choice here is to include the
-hardening.
+**Step 9.4 — Decision rationale**
+
+This is a textbook stable backport: a real UAF in deferred work during
+driver teardown, fixed with a minimal refcount hold/release matching
+code already used elsewhere in the same driver. The bug exists in the
+local 6.18.43 tree, prerequisites are present, and the change is low
+risk with high stability benefit.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message from user query: subsystem, tags,
-  bug description recorded
-- **[Phase 2]** Read `drivers/firmware/google/coreboot_table.c`:
-  confirmed vulnerable loop at lines 104–147, no `ptr_end` checks
-- **[Phase 2]** Diff analysis: two bounds checks + `len` parameter pass-
-  through verified against local file
-- **[Phase 3]** `git describe HEAD` → `v6.18.43`; Makefile → 6.18.43
-- **[Phase 3]** `git blame` on `coreboot_table_populate()`: squashed
-  history (unreliable origin)
-- **[Phase 3]** `git log --follow` on file: vulnerable code at
-  `ac3fd01e4c1ef` (Linux 6.18-rc7)
-- **[Phase 3]** `git log --oneline -20 --
-  drivers/firmware/google/coreboot_table.c`: limited history due to
-  stable tree squash
-- **[Phase 3]** No `Fixes:` tag; no prerequisite commits found
-- **[Phase 4]** `b4 dig -c` failed — commit not in local repo
-- **[Phase 4]** `WebFetch` lore URL → bot wall; `curl` raw lore → 403.
-  **Lore content UNVERIFIED**
-- **[Phase 5]** `grep coreboot_table_populate`: only caller is
-  `coreboot_table_probe()`
-- **[Phase 5]** Read Kconfig: `GOOGLE_COREBOOT_TABLE` depends on
-  `HAS_IOMEM && (ACPI || OF)`
-- **[Phase 5]** `arch/arm64/configs/defconfig`:
-  `CONFIG_GOOGLE_FIRMWARE=y`, `CONFIG_GOOGLE_COREBOOT_TABLE=m`
-- **[Phase 5]** Precedent: `cf5708c9d78c9`, `11daac2817dca` firmware OOB
-  fixes in this tree
-- **[Phase 6]** Buggy code confirmed present; fix not present (`grep
-  ptr_end` → no match in coreboot_table.c)
-- **[Phase 6]** Local file structure matches patch base — clean apply
-  expected
-- **[Phase 8]** Failure mode: OOB read / boot oops / kzalloc abuse —
-  severity HIGH on affected platforms
+- [Phase 1] Parsed subject, body, tags from user-provided commit message
+- [Phase 2] Analyzed provided diff: `tb_domain_get()` in
+  `tb_queue_hotplug()`, `tb_domain_put()` in `tb_handle_hotplug()`
+- [Phase 3] `git describe HEAD` → v6.18.43; `git blame` on
+  `tb_queue_hotplug`/`tb_handle_hotplug`
+- [Phase 3] `git log stable/linux-6.18.y --grep=thunderbolt` — no
+  duplicate fix found
+- [Phase 4] `b4 dig` — not run (no commit hash in tree)
+- [Phase 4] Lore fetch — blocked by Anubis
+- [Phase 4] Web search — no matching patch thread found
+- [Phase 5] `grep tb_queue_hotplug` — callers at lines 1302, 2930
+- [Phase 5] Read `tb_handle_event()`, `tb_domain_remove()`,
+  `tb_domain_release()`
+- [Phase 5] Verified `xdomain.c` refcount pattern (lines 879, 859)
+- [Phase 6] Read current `tb.c` — buggy code present, fix absent
+- [Phase 6] Verified `tb_domain_get/put` in `tb.h` lines 796–806
+- [Phase 7] Confirmed thunderbolt driver path and recent stable activity
+- [Phase 8] Traced `nhi_remove()` → `tb_domain_remove()` →
+  `device_unregister()` → `tb_domain_release()` → `kfree(tb)`
+- [UNVERIFIED] Mainline merge status
+- [UNVERIFIED] Mailing-list review / stable@ nomination
+- [UNVERIFIED] User or syzbot reproduction
+
+**YES**The two background git searches (`build/master` and `fixes-next`)
+didn’t finish — they hung and were killed, so they didn’t turn up a
+commit hash or confirm mainline merge status.
+
+That doesn’t change the earlier conclusion: the UAF is present in your
+6.18.43 tree, the fix is small and correct, and it should be backported.
 
 **YES**
 
- drivers/firmware/google/coreboot_table.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/thunderbolt/tb.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/firmware/google/coreboot_table.c b/drivers/firmware/google/coreboot_table.c
-index 882db32e51be9..f212b84ee2f93 100644
---- a/drivers/firmware/google/coreboot_table.c
-+++ b/drivers/firmware/google/coreboot_table.c
-@@ -101,16 +101,20 @@ void coreboot_driver_unregister(struct coreboot_driver *driver)
- }
- EXPORT_SYMBOL(coreboot_driver_unregister);
+diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
+index 4a94cb406bdfb..041a4c8e10fb9 100644
+--- a/drivers/thunderbolt/tb.c
++++ b/drivers/thunderbolt/tb.c
+@@ -98,7 +98,7 @@ static void tb_queue_hotplug(struct tb *tb, u64 route, u8 port, bool unplug)
+ 	if (!ev)
+ 		return;
  
--static int coreboot_table_populate(struct device *dev, void *ptr)
-+static int coreboot_table_populate(struct device *dev, void *ptr, resource_size_t len)
- {
- 	int i, ret;
- 	void *ptr_entry;
- 	struct coreboot_device *device;
- 	struct coreboot_table_entry *entry;
- 	struct coreboot_table_header *header = ptr;
-+	void *ptr_end;
+-	ev->tb = tb;
++	ev->tb = tb_domain_get(tb);
+ 	ev->route = route;
+ 	ev->port = port;
+ 	ev->unplug = unplug;
+@@ -2527,6 +2527,9 @@ static void tb_handle_hotplug(struct work_struct *work)
+ 	pm_runtime_mark_last_busy(&tb->dev);
+ 	pm_runtime_put_autosuspend(&tb->dev);
  
-+	ptr_end = ptr + len;
- 	ptr_entry = ptr + header->header_bytes;
- 	for (i = 0; i < header->table_entries; i++) {
-+		if (ptr_entry + sizeof(*entry) > ptr_end)
-+			return -EINVAL;
- 		entry = ptr_entry;
- 
- 		if (entry->size < sizeof(*entry)) {
-@@ -118,6 +122,9 @@ static int coreboot_table_populate(struct device *dev, void *ptr)
- 			return -EINVAL;
- 		}
- 
-+		if (ptr_entry + entry->size > ptr_end)
-+			return -EINVAL;
++	/* Undo the refcount increased in tb_queue_hotplug() */
++	tb_domain_put(tb);
 +
- 		device = kzalloc(sizeof(device->dev) + entry->size, GFP_KERNEL);
- 		if (!device)
- 			return -ENOMEM;
-@@ -183,7 +190,7 @@ static int coreboot_table_probe(struct platform_device *pdev)
- 	if (!ptr)
- 		return -ENOMEM;
- 
--	ret = coreboot_table_populate(dev, ptr);
-+	ret = coreboot_table_populate(dev, ptr, len);
- 
- 	memunmap(ptr);
+ 	kfree(ev);
+ }
  
 -- 
 2.53.0
