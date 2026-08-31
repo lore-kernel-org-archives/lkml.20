@@ -1,164 +1,128 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0ED46A61A
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C6239B970
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:16:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200188; cv=none; b=RR335DvlSlMsi/Hq8nLwQRTRm8Qcp/l+pT5REMv+ERafiOzG0N3H7LGo55H9gNxct2pp6mi6BLYX93bwUP39HrYdXp4KtEsq4D9J9LTlNcUQIihA+v7DouxnejkevVp7RiX7pgeAY1ipsuce4MFBI7Bqa0P3GlJJ4Jq+QLeVKDM=
+	t=1788200216; cv=none; b=Ur27tTHJghnN+LnWcWzPZrIzIRg5FopRtj52EMBwwn8zGUhdqf768vJofQ0Y6TLYoOZJ7ropWDZFfzIGg/F8fXOlfUw80d3gjFE9ovahiPPmMbw546ERQp5vrhDHKGnCO6FFEXG/iuIB5waj4KMpuzaZ5hAkjSBLIQo8zXzT9Kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200188; c=relaxed/simple;
-	bh=qZ4v0kBxfDXm7A8WfOWaQ/C+eH5jnmKKTmhXmNhd0cA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a8vvT09ny4Rb1WulenlrExdZd4oxJKKzVximoSBD6oIzCgrXSsnPBlg78FTGtBKl5TgJj/jXG2rW6MOHd7ZkWPkwbG1LysXNxsiRp5hTcmBjYoLG5QiwlleZUOW1lzN/haTCqNR90NXKCwASPi/ZM9BJCnKQpBRYwQMMna4aX4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tB6nOlDP; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788200216; c=relaxed/simple;
+	bh=xbw4b8lag8MyTeGZcrb5hN4Ez5F8B1eouB6Ym16ffLs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kbIzhlsDyhmSsp1B1zrGPk05H0CTDzhMhurs46rZwpapu9ulyyTjp+ujjjpZR+tgDhrxFXt1Ci5mOpohiqgUwW8Y4RIk3rRqLI2pDvKSHksp8gqq7z9y99HEzEnkRe5jZJgPbqUOnh8mRoslFai2QBjWSpXCpC86szIrk/Omm54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Vcd5GHpL; arc=none smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tB6nOlDP"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-484392e3d33so953889f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:16:26 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Vcd5GHpL"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c197e7e4e94so565849766b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:16:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788200185; x=1788804985; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oLrM5RSXKjrTQOiCSWE6R3cx3gDtx4FYgQOFBGhOjsQ=;
-        b=tB6nOlDPT+TPaPzl6qO0XEcZdIsNXkOTsDoklQTzPokXnrv2QLsXDSu0GVGEIcUhTo
-         7tvYFGps7bW4KrtNXZPdwmbsyfZxpKM2EiNHQpZ/ZyXQFhoKgq5cgLXX4xybgT8IxpJP
-         g9D4WF1yFSElKboOQpGQSX80oK7PDzGtytwpDPacfaS0W84/DuyKMC31XB6BVhqA+c8N
-         p68mLvz+3Y0sFIEZhJTAc/kdWKPXgHZ4yqg+b/WMiWwQnEKXwQ5ajBjOD35QpQWUeyO4
-         xQZXOOP73BDkRyFcaSmtSX0fjKPHvz4PJLr+pc9LBN96UBrAvxNbGmT/75uZlSOCyEJm
-         vZlA==
+        d=chromium.org; s=google; t=1788200212; x=1788805012; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2QU1kfWJYR+xjkRuN6RGZEPHu4Juq/92TUoclvitOE8=;
+        b=Vcd5GHpL+B6lKe/zgKK2BBkQJSvxzlIR/YaUuyROJxHfXS4TavndXRORpaetCAxmmX
+         h2eEUxpKPVQKU9QRnZ418UvLPjaJHs20la9ABiwZs8uFR3aXQVm4V3jt/EkqMt5ej/Ct
+         VivLhcA+gPf6an4dVPrIDCtosEM81nSy2Vljc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788200185; x=1788804985;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oLrM5RSXKjrTQOiCSWE6R3cx3gDtx4FYgQOFBGhOjsQ=;
-        b=ntTgBPRo7bH2hEd7U96ULu0bYwvxRFQLMVz4epQjqt7LWlVPTxCVg+Rzve+fabGA8M
-         1FiAip/IIX8uaYhFuls/t92Ak4k9eZauypmsw2yqGk6b7lOlGtB+pSWMqVhJyFbgGeNA
-         mDNVvFxwcUD70lY0n8duHbf6PUA/1tZwboR4rgnBHIujh1OrbuSgbMnE3hUpVk6ogXWo
-         8LBUrlxy2qQuK0xSBWefXTmjQ55ynenDlSdN5fVr5Q+of/43CDBZCHlCBx6OAF0lAnmQ
-         NGM5R1d622N3FEMAR8HcOI4F3O6iF1O5a5ba7Og/gv5K3uPoZgmqsdWSBGzp+EeeZ0Jm
-         btQQ==
-X-Gm-Message-State: AFuF++lWH+2rDqr9D7dhbhAMcjwnW3SYSqA0E/WfGGjaw+LV8IZZ1GRq
-	fATnkL22H7DWR5HGmAmQzUJ4Z0jb9Gml/JgOLbTpTUwbRzSXzRzP9zTPf53J0w==
-X-Gm-Gg: AYBFou0q0mYS9A20db/n9qUeJCJIdYFWh2pu+xuQPjmGFEnQZBAetVPVEho6rOByQrR
-	oxXKR7qclLA08Lx7eqQKkhKW8b9dLo7URvzMsEQAI3Xox0RqQqCC7y7R4vAAow9DRzHzEWeTYKB
-	5VjAV1MspcJJeBNOPnLhboDAIKiDMJfIuxJDovxrebrG7IYzt+2bpB559N7WCpdDw6g24yeZamp
-	8/kVroYRGDyVAkf4qevzvsmDZ8Kxz2iZuIo1bVRERQNyGdKRvYkAikeTnRTSY96wJmzGyR0FTh5
-	3pXQSJL83DsAr89WRHKIrOf8Q4iAz4O/Gc+Vnx4DhspWFHvX/1hfrPkMGOsvDL9EskCMZH7AACu
-	lUqCDxvOxKVZfZo1O8b4J6YUmrJhGeQhkmoAFSXxXN3wbsftMrXDjVB7F/Cha1Stp20ZW0L7TF4
-	wG4DcjQS9cLDXxy3szUCwXy1/vEUNWD3M+/bedMu385mPOIPjuT0+VbT7xt+nvQctCOS0rm6HBJ
-	TZkREn9+q3r
-X-Received: by 2002:a5d:5d0c:0:b0:482:d94e:f33b with SMTP id ffacd0b85a97d-482f782a855mr45747177f8f.0.1788200184870;
-        Mon, 31 Aug 2026 11:16:24 -0700 (PDT)
-Received: from localhost.localdomain ([2001:b07:5d3a:fe75:a74b:bc2a:bdfb:30ff])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4843310ab29sm16350515f8f.0.2026.08.31.11.16.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 11:16:24 -0700 (PDT)
-From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	linux-media@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/4] media: i2c: ov5693: Gate the MIPI clock lane for non-continuous clock
-Date: Mon, 31 Aug 2026 20:16:10 +0200
-Message-ID: <20260831181610.316648-1-fernandorimoli11@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <amsBU-5t8pmSLXBr@kekkonen.localdomain>
-References: <20260717132021.18034-1-fernandorimoli11@gmail.com> <20260720163819.104130-1-fernandorimoli11@gmail.com> <20260720163819.104130-4-fernandorimoli11@gmail.com> <amsBU-5t8pmSLXBr@kekkonen.localdomain>
+        d=1e100.net; s=20251104; t=1788200212; x=1788805012;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2QU1kfWJYR+xjkRuN6RGZEPHu4Juq/92TUoclvitOE8=;
+        b=FzLaXX7eDHQhdr65SGNp1Z50f5GHHvkhLl7AWzZezzgKLs5A51qAf8iViXR0ZWsl/s
+         T+Zv689oXUucye9I4ui3QCJiE7eBh9MIHlc8PTgezP+TFYeQ4ry/9ma62Cv3x/6F4o6q
+         dnN4Vx2xSbVvTnb5F2qIeSbm0NRqdzxEysRFslhw9ToX20CghPMd54sbdTWOy01h2NpB
+         liaDdOVYQNR7ng4yyRABych7AX4+fPIyx5RvdD3r2PnenVxSwxqglOfoS+NiU/dWkuWK
+         ya/PYmde0AZVfQvAnuVWSr0+nl+RnMtlNGvLDommPFkaZ9d5Sb9nJ9XZFvjkvSNODkRA
+         tgTw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro9DEEFcXNEFoFEFajMQAjm+G8HMhIqe1CVwn/NLsnOYvvRv0tGrdA6bgBfNwJiQ1jL084ix2srwxpxMuE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDSyKHyacqLDDl8IkggPCGtkWTIRXDiS9X/v5BW4J2cXl/I2j1
+	CLchHCSbLLEBAyO1mey7SrET4CBNIzL+eBLMD5f+7/72/tRYE73DBgORYeveu8UHwj/N4ZmD+zV
+	HXYRcFss7
+X-Gm-Gg: AR+sD10rcGu9XM2W+U98zSIUYdC3u65Ic3yRbByYZbBbfFT/Ntrpe1M0TJiQ0nQEqkv
+	4ETvnmb+O1Xlea6Qz2CBrovfXxyMCaB3B/VuitfuF/kEGGlJ8q3ka9vVDRLGtEjEoddCPfk+RPv
+	0bZHCWomTRcKZ6iGq7pZ9HDUCepreEel0Jyhaazv6XRn2iFhbLdT34kJM9smJYAZwJKeP2GQWr/
+	/qKfQzyQsjVcUm2bi3b0KnMbaI0GZWm0tWsbT8gqR7uEkFMVJ0mdezoKIpe4z+IouTTQ5TnHVfh
+	6/17fx0STekewCCjCqvU2iV1Ehpe4oZV3EOXwuPLfZ5qNQ6zfFS7iTqA0xGnN+9zrvKZBoy9ej7
+	b+/oTe+YrosDPomiCM/costVG4H2jYVILpEdiOWqnnYWnxc3oTTSDCv1l460CYwou/cBYpPp7Cg
+	0DHVN0io21QNMnNg8FQYKz1CbEWSSt+fPz/ZnSGcj4aFKZyUlNqZNjI4+unzbVlAmk/kPpY/r2d
+	dt1/LSHxVvlaNQAewZ+mWTZ/2M=
+X-Received: by 2002:a17:907:c01c:b0:c20:af9d:454a with SMTP id a640c23a62f3a-c25571deba3mr1841223966b.16.1788200212219;
+        Mon, 31 Aug 2026 11:16:52 -0700 (PDT)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com. [209.85.128.48])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f1fb965sm493434466b.49.2026.08.31.11.16.51
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 11:16:51 -0700 (PDT)
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49954b88fffso26726565e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:16:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpFTr1wkJwAciQMRku2mtYy4NBnxFY7hC8cj/tZXqjuUVJ/cKpWKlkxQ/YuBQYPwU5p8elBwN9Iu+KRerc=@vger.kernel.org
+X-Received: by 2002:a05:600c:621a:b0:49c:dc12:2ab0 with SMTP id
+ 5b1f17b1804b1-49cdc122ac8mr48333075e9.11.1788200210130; Mon, 31 Aug 2026
+ 11:16:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260828-qcom-wdt-nmi-series-v2-0-363979fe6b6b@google.com> <20260828-qcom-wdt-nmi-series-v2-1-363979fe6b6b@google.com>
+In-Reply-To: <20260828-qcom-wdt-nmi-series-v2-1-363979fe6b6b@google.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 31 Aug 2026 11:16:38 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VaDEWktsK5vNWJY0txA+YJZcjha-VPhmKQX=XS5pF+mg@mail.gmail.com>
+X-Gm-Features: AcwNN1VV28U2KlLG_KwlvZN_vPKUX9__aF5EBSUQ4pSV3pF_j6BfJodMLb9TnQI
+Message-ID: <CAD=FV=VaDEWktsK5vNWJY0txA+YJZcjha-VPhmKQX=XS5pF+mg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/5] genirq: Synchronize in-flight handlers during NMI teardown
+To: Mayank Rungta <mrungta@google.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, linux-watchdog@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	"Kirill A. Shutemov" <kas@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sakari,
+Hi,
 
-Thanks for the review, and sorry for the slow response.
-
-> > Gating the clock lane was determined to be necessary and sufficient by
-> > sweeping the register at runtime on a Surface Pro 9 (IPU6): every value
-[...]
-> This paragraph fits better to the cover page than to a commit message.
-
-Moved to the cover letter in v4, and expanded there since it now also has
-to cover the bit 2 question below.
-
-> How about calling this OV5693_MIPI_CTRL00_LP11?
+On Fri, Aug 28, 2026 at 6:00=E2=80=AFPM Mayank Rungta <mrungta@google.com> =
+wrote:
 >
-> Didn't IPU6 work with this sensor without setting the 2nd bit?
+> When freeing an interrupt requested via request_nmi(), __cleanup_nmi()
+> currently tears down the NMI and frees the irqaction structure without
+> waiting for in-flight instances of the handler on other CPUs to complete,
+> which can lead to use-after-free conditions on module unload.
+>
+> Because NMIs cannot acquire desc->lock or set IRQD_IRQ_INPROGRESS without
+> risking deadlocks, synchronizing in-flight NMIs on other CPUs during
+> teardown (__synchronize_hardirq) relies on querying the hardware
+> controller state via __irq_get_irqchip_state(IRQCHIP_STATE_ACTIVE).
+>
+> Enforce that any interrupt controller claiming NMI support via
+> IRQCHIP_SUPPORTS_NMI must implement ->irq_get_irqchip_state(). In
+> __cleanup_nmi(), shut down the line, call __synchronize_hardirq(desc, tru=
+e)
+> to wait for in-flight handlers, and only then tear down the NMI
+> configuration and deactivate the interrupt domain before freeing the acti=
+on
+> structure.
+>
+> Also add a WARN(in_interrupt()) check in free_nmi() matching __free_irq()
+> to prevent freeing NMIs from atomic contexts since synchronization and
+> resource cleanup can sleep and spin.
+>
+> Assisted-by: Antigravity:gemini
+> Signed-off-by: Mayank Rungta <mrungta@google.com>
+> ---
+>  kernel/irq/manage.c | 25 ++++++++++++++++++++-----
+>  1 file changed, 20 insertions(+), 5 deletions(-)
 
-It did, so I have dropped bit 2 entirely in v4 rather than renaming it.
-The macro is gone and only the clock-lane gate is written. The remaining
-macro keeps the name ov5647 uses for the same bit.
+FWIW, Sashiko's feedback [1] again seems relevant, so probably a v3 is
+worthwhile.
 
-To answer it properly, from the runtime sweep on my Surface Pro 9 (IPU6),
-3 trials of 30 frames plus a 300-frame stability run per value:
-
-  0x20  bit5                    300/300 frames, steady 28.6 fps
-  0x24  bit5+bit2               300/300 frames, steady 28.6 fps
-  0x00  power-on default        0 frames, "stream stop time out"
-  0x04  bit2 alone              0 frames, "stream stop time out"
-
-0x20 and 0x24 are indistinguishable, and bit 2 on its own does nothing
-for the link, so bit 5 is both necessary and sufficient here. I had set
-bit 2 only because it is part of ov5640's canonical value for this
-register, not because anything on IPU6 needed it. That is a bad reason
-to write a bit, so it is gone. v4 writes bit 5 only.
-
-While I was in there, the same sweep also covers why the value differs
-from ov5647's despite the mechanism being copied from it: bit 4 (line
-sync) breaks the link on this receiver rather than being merely
-unnecessary.
-
-  0x10  bit4 alone              0 frames, "stream stop time out"
-  0x30  bit5+bit4               2 frames, stream collapses
-  0x34  bit5+bit4+bit2          2 frames, stream collapses
-
-A bit5-only value recovered to 300/300 later in the same run, after the
-bit 4 failures, so these are genuine value effects and not a link that
-had got itself wedged.
-
-Since v3 a linux-surface user has reproduced the value question
-independently on a Surface Pro 8, a different IPU6 generation (0x9a19,
-Tiger Lake) with the INT33BE HID rather than OVTI5693, reading every
-value back after writing [1]:
-
-  0x2d  vendor value (control)  30 frames, 28.65 fps
-  0x24  bit5+bit2               30 frames, 28.65 fps
-  0x20  bit5                    30 frames, 28.65 fps
-  0x0d  0x2d with bit 5 clear   0 frames
-  0x08  bit3 alone              0 frames
-  0x04  bit2 alone              0 frames
-  0x01  bit0 alone              0 frames
-
-That 0x0d row is the test I had not run: the vendor value with only bit 5
-removed does not stream, so bit 5 is necessary and not just sufficient.
-That set has two limits. The register was written over I2C into a stalled
-capture rather than by running the patch, and the write lands after
-stream on rather than before. So it confirms the value on a second device
-and IPU generation, but says nothing about the plumbing. Both sweeps are
-in the cover letter.
-
-One further change in v4 that you have not seen: the bit is now set with
-cci_update_bits() rather than cci_write(). The ov5693 does not otherwise
-program MIPI_CTRL00, and the driver also serves IPU3/CIO2 and Rockchip,
-so modifying the single bit leaves whatever the platform left in the
-register intact. On the devices in question it reads 0x00 beforehand, so
-the two are equivalent in practice and this is just the smaller claim.
-It was suggested on the linux-surface thread [1] and seemed right.
-
-One consequence: Dan reviewed and Jakob tested v3's 0x24, and since v4
-changes both the value and the form of the write, I dropped both tags
-rather than carry them across a behaviour change. Both are asked in the
-cover letter to re-confirm.
-
-[1] https://github.com/linux-surface/linux-surface/pull/2171#issuecomment-5298352360
-
-Thanks,
-Fernando
+[1] https://lore.kernel.org/all/20260829011449.87AF11F000E9@smtp.kernel.org=
+/
