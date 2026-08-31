@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D524C6F12;
-	Mon, 31 Aug 2026 13:38:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78BC04C77CE;
+	Mon, 31 Aug 2026 13:39:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183542; cv=none; b=D+Q3Hz/msiPGMlSG1DvPrYd2vIFwxP8BAR3xJ9UfBkcXezYZA/Gf+1Ls5YU+a6+Avj/bLvKtLMMbmGCnER7pZCBYzTETQUsR9bhjZIblaGTYkn569bCGYqDlJ8q0fxQr7PI32k5FZPhUDq7/fTP7sjHflwWBmkGUwg9aLOnJW6M=
+	t=1788183544; cv=none; b=NZk7perIPvdWBhsvQnye39iuEhdPsCs9T04nPsGLZ7fgYLtipTnjATs9sugyE5/r7pBkY9PLM/C8ARFdr//mdNJzv/qhCmhZFcKVG6uWtCyzCPKHuN+twFKW3v49GoMZrTagCUiuuRHJT0pn5cCHADMCbgUbyu5SpFF/k8cDFD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183542; c=relaxed/simple;
-	bh=xR89S1Mm+gl9/HBPQ/qei1iWoGU90o0dvqEhyqubgGw=;
+	s=arc-20240116; t=1788183544; c=relaxed/simple;
+	bh=RCWdAs8Xw3ancUHSJnz3jhNBXeSYLLUU4r9NeoQfPxk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kRteTuBv6OM9tucivYguXGIyaHLZ5kMIgzc0/+MTNx5A+2h3Rfy7rqW8Aqv32OUaMc5L+5Bc4rVU+ZW4LldJ5+Q6tY7+X3cAyvcxqtZUN4X58n0bUBaTzVVuzADtfV+Y3/5eS/mUYvC1f6JD2nvrqOXU7WN5xCCn/IKF72v2TQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i0tzdx1P; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=uY5sbxmC46dBCHdOIBvHZM5HKebVB8TFpFQqMbJAdlASB/yhCOL0reNQOnE1RmIJ7qks3MsDEHZVeCHDuCao5r7YDSmCZ13IKwlpOfWvDO5yeSNbooHyxFw2gVpIZo9cNB1m9579ii8MA1cUe3+lyxRtj9S1zDQPa6PrtMA2l8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VrlesS+S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i0tzdx1P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 977171F000E9;
-	Mon, 31 Aug 2026 13:38:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VrlesS+S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D1451F00A3F;
+	Mon, 31 Aug 2026 13:39:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183539;
-	bh=jD+RyzpZVTssGjSqCfPu7u3PzHrNFB2E/eA6V7M3Y0Y=;
+	s=k20260515; t=1788183541;
+	bh=MarN4AraKuRVOJPKbh8zqsJjzOiy10fIeHb6tsohb+k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i0tzdx1PfB8MB5MNHwaeKyQI+Sj50u+dkC6d/1to3oSnlrDQLGwJTpq3Apy3aJ8qf
-	 sh1oxbb/PJp0lycIhgjfFhkrz9jy2kgPkjsTrGgN5F1ut+Owjbff1XRa1nKrfsnTAF
-	 NqtHjV37e0VVzbKBTEJvz/2h0ZqpuOgx2uZCbnup9Xc4L1Lx7+3CJ/4R+Mpz9eYayW
-	 40YjmRhtedvguZoMCPPGl4R93XbgsBMGUrxgJgR/bPMFttWjBRBY8JNg0FE1Z49uwE
-	 Nmtb+zm48JgwG8qsyGpuwvvxVp05BuyygjPtm5eJ0P4J8MJgttnoebvgK4YzF1ECFK
-	 1O2dQ27CS4+Hg==
+	b=VrlesS+SfoS/09Oc/rvl/pOuiaVCDRkAW2iJDbkrcw2qhM73PS9M/XBL/ozY3y2oI
+	 0QnYNIJvHERVXoXMY3IPGMBbIVxCo1vZv4P864hs0cBH1s59hB4rv6sWhTWVbK0iIw
+	 90tTunl3fEDBrzHO/w5sOQUVNZNpII8koUZABtZcytr4BbcdPvDxqQ8CJQvP0LR6Oh
+	 8eJSRlRnVPWQNHtVbFwinQZ7Xve19QwLAcTpyrksmvgcXfbpVUCJ0AShsF+iyDT6DX
+	 ANHa8WSeiiYDC/4UeicMFFZ65uG2nxQdrnie7Kkpq0UXne1JufaiowuK6zluTtnyNb
+	 V04PTRDZDZugQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>,
-	andreas.noever@gmail.com,
-	westeri@kernel.org,
-	YehezkelShB@gmail.com,
-	linux-usb@vger.kernel.org,
+	Felix.Kuehling@amd.com,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] thunderbolt: Keep XDomain reference during the lifetime of a service
-Date: Mon, 31 Aug 2026 09:23:05 -0400
-Message-ID: <20260831133314.4125787-157-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdkfd: Let driver decide buffer size at AMDKFD_IOC_GET_DMABUF_INFO ioctl
+Date: Mon, 31 Aug 2026 09:23:06 -0400
+Message-ID: <20260831133314.4125787-158-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -54,14 +57,27 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
+From: Xiaogang Chen <xiaogang.chen@amd.com>
 
-[ Upstream commit 8b4060998637f06975fceee9b73845d8672d411e ]
+[ Upstream commit 8242a8d9d7194d5ef8a8b38a5621ca0966a3ec15 ]
 
-This is needed because we release the service ID in tb_service_release()
-and the ID array is owned by the parent XDomain.
+amdkfd driver needs allocate buffer to return bo metadata to user space. The
+buffer size is controlled by user currently. It is a potential security issue
+that hostile value (e.g. 2 GiB) lets any render-group user trigger order-MAX
+allocation/OOM in kernel context.
 
-Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+This patch first finds bo metadata size. If the size is smaller than user
+provided value drive can safely allocate buffer in kernel space and copy to
+user space buffer. If not, driver will let user know, not allocate and copy.
+User will redo with new buffer in user space.
+
+This patch lets driver decide buffer allocation size to avoid potential hostile
+size from user space.
+
+Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit f54ce9e8cbd3abe0eda3a285f54dc4f572fe589a)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
@@ -69,421 +85,448 @@ LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit Message Forensics
 
-### Step 1.1: Parse the Subject Line
-**Record:** `[thunderbolt]` `[keep]` — Keep an XDomain reference for the
-full lifetime of a Thunderbolt service device.
+**Step 1.1 — Subject line**
 
-### Step 1.2: Parse All Commit Message Tags
-**Record:**
-- **Fixes:** — absent (expected for manual review)
-- **Reported-by:** — absent
-- **Tested-by:** — absent
-- **Reviewed-by:** — absent
-- **Acked-by:** — absent
-- **Link:** — absent
-- **Cc: stable@vger.kernel.org** — absent (not a negative signal)
-- **Signed-off-by:** Mika Westerberg \<mika.westerberg@linux.intel.com\>
-  (subsystem maintainer)
+Record: `[drm/amdkfd]` `[Let driver decide]` — ioctl security hardening
+for `AMDKFD_IOC_GET_DMABUF_INFO` so the kernel no longer allocates based
+on user-supplied buffer size.
 
-No syzbot, no multi-reporter tags. Author is the Thunderbolt maintainer.
+**Step 1.2 — Tags**
 
-### Step 1.3: Analyze Commit Body
-**Record:**
-- **Bug:** `tb_service_release()` calls `ida_free(&xd->service_ids,
-  ...)`, but `service_ids` is owned by the parent XDomain. The XDomain
-  can be freed before the service’s final `release` callback runs.
-- **Symptom:** Use-after-free when freeing the service ID during service
-  teardown (potential crash / memory corruption).
-- **Version info:** Not stated in the commit message.
-- **Root cause (author):** Missing explicit XDomain reference for the
-  service’s lifetime.
+Record:
+- `Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>` (author)
+- `Reviewed-by: Alex Deucher <alexander.deucher@amd.com>` (AMD DRM
+  maintainer)
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (committer)
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
+  `Tested-by:`, or `Acked-by:`
 
-### Step 1.4: Detect Hidden Bug Fixes
-**Record:** Not disguised — this is an explicit lifetime/reference-
-counting bug fix, not cleanup or optimization.
+Notable: maintainer review only; no fuzzer or user bug report cited.
+
+**Step 1.3 — Body analysis**
+
+Record:
+- **Bug:** `kfd_ioctl_get_dmabuf_info()` allocates a kernel buffer with
+  `kzalloc(args->metadata_size, GFP_KERNEL)` where `metadata_size` is
+  fully user-controlled.
+- **Symptom:** A render-group user can pass a hostile size (e.g. 2 GiB)
+  and force large kernel allocations → OOM / denial of service.
+- **Root cause:** Allocation size is driven by userspace, not by actual
+  BO metadata size.
+- **Fix approach:** Query actual metadata size first via
+  `amdgpu_bo_get_metadata()` with `buffer=NULL`; allocate only
+  `*metadata_size` bytes (bounded by driver data); reject with `-EINVAL`
+  if user buffer is too small.
+- **Version info:** None in message.
+
+**Step 1.4 — Hidden bug fix?**
+
+Record: **Yes.** Although not labeled “fix”, this is a classic user-
+controlled kernel allocation / DoS hardening pattern, same class as
+other KFD ioctl validation fixes already in stable.
 
 ---
 
 ## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory the Changes
-**Record:**
-- **File:** `drivers/thunderbolt/xdomain.c` (+2 lines net)
-- **Functions modified:** `tb_service_release()`, `enumerate_services()`
-- **Scope:** Single-file, surgical fix (2 meaningful lines)
+**Step 2.1 — Inventory**
 
-### Step 2.2: Code Flow Change (per hunk)
+Record:
+- `drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c`: +15 / -3
+- `drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h`: signature change (1
+  line)
+- `drivers/gpu/drm/amd/amdkfd/kfd_chardev.c`: +2 / -8
+- **Functions:** `amdgpu_amdkfd_get_dmabuf_info()`,
+  `kfd_ioctl_get_dmabuf_info()`
+- **Scope:** Single-subsystem, 3-file surgical fix (~22 insertions, ~13
+  deletions)
 
-**Hunk 1 — `tb_service_release()`:**
-- **Before:** Frees service ID from parent XDomain’s IDA, frees service
-  memory; no XDomain refcount drop.
-- **After:** Same, then calls `tb_xdomain_put(xd)` to release the
-  reference taken at enumeration.
-- **Path:** Service device final release callback (after last
-  `put_device()` on the service).
+**Step 2.2 — Code flow per hunk**
 
-**Hunk 2 — `enumerate_services()`:**
-- **Before:** `svc->dev.parent = &xd->dev` (bare pointer, no refcount).
-- **After:** `svc->dev.parent = get_device(&xd->dev)` (holds XDomain
-  alive).
-- **Path:** XDomain service enumeration during property exchange /
-  reconnect.
+Record:
+1. **`kfd_chardev.c`:** Before → `kzalloc(args->metadata_size)` when
+   `metadata_ptr` set. After → no user-size allocation; passes
+   `&metadata_buffer` to helper; copies only if both kernel buffer and
+   `metadata_ptr` are set.
+2. **`amdgpu_amdkfd.c`:** Before → passes user buffer directly to
+   `amdgpu_bo_get_metadata()`. After → queries size with `buffer=NULL`,
+   allocates `kzalloc(*metadata_size)` only when `*metadata_size <=
+   buffer_size`, else `-EINVAL`.
+3. **`amdgpu_amdkfd.h`:** `metadata_buffer` parameter becomes `void **`
+   so callee can allocate and return buffer pointer.
 
-### Step 2.3: Bug Mechanism
-**Record:** **Reference counting / use-after-free fix.**
+**Step 2.3 — Bug mechanism**
 
-Mechanism verified against the driver core:
-1. `enumerate_services()` registers child service devices parented under
-   the XDomain.
-2. `tb_service_release()` accesses `xd->service_ids` via `ida_free()`.
-3. `tb_xdomain_release()` destroys that IDA with
-   `ida_destroy(&xd->service_ids)`.
-4. On `device_unregister(service)`, `device_del()` immediately calls
-   `put_device(parent)` (see `drivers/base/core.c:3983`), dropping the
-   parent reference acquired in `device_add()` — even if the service
-   device struct still exists because something holds an extra
-   reference.
-5. `tb_xdomain_remove()` unregisters all services, then unregisters the
-   XDomain; the XDomain can reach refcount zero and run
-   `tb_xdomain_release()` while a service device is still pending final
-   release.
-6. When `tb_service_release()` finally runs, `xd` and `xd->service_ids`
-   may already be freed → UAF.
+Record: **Memory safety / DoS via user-controlled allocation size.**
+Category: unvalidated userspace size passed to `kzalloc()` in ioctl
+handler. Fix caps kernel allocation to actual BO metadata size (small,
+driver-controlled).
 
-The fix holds an independent XDomain reference from enumeration until
-`tb_service_release()`.
+**Step 2.4 — Fix quality**
 
-### Step 2.4: Fix Quality Assessment
-**Record:**
-- **Quality:** Obviously correct; standard `get_device()` /
-  `put_device()` pairing via `tb_xdomain_put()`.
-- **Scope:** Minimal; no API changes.
-- **Regression risk:** Very low. Refcount is balanced: one
-  `get_device()` at parent assignment, one `tb_xdomain_put()` at service
-  release. `device_add()`/`device_del()` continue to manage their own
-  parent reference separately.
+Record: **Obviously correct** for the stated problem. Minimal, focused
+change. Minor concern: on `kzalloc()` failure the fix returns `-ENOMEM`
+directly without `goto out_put`, leaking a `dma_buf` reference — rare
+path, does not undermine the security fix. No API or UAPI structure
+changes.
 
 ---
 
 ## Phase 3: Git History Investigation
 
-### Step 3.1: Blame the Changed Lines
-**Record:** `git blame` attributes current `tb_service_release()` /
-`enumerate_services()` code to commit `19eef1d98eeda` in this tree
-(stable history is squashed; that commit message is unrelated). The
-service/XDomain code is present and has the buggy pattern. Approximate
-introduction: with the XDomain service enumeration infrastructure
-(present in this 6.18.y tree).
+**Step 3.1 — Blame**
 
-### Step 3.2: Follow the Fixes: Tag
-**Record:** No `Fixes:` tag present — step not applicable.
+Record: Vulnerable `kzalloc(args->metadata_size, ...)` introduced in
+`1dde0ea95b782` (Felix Kuehling, 2018-11-20) — “drm/amdkfd: Add DMABuf
+import functionality”. Bug present since v4.20 era; definitely present
+in this 6.18.44 tree.
 
-### Step 3.3: File History for Related Changes
-**Record:** Recent thunderbolt commits in this tree include XDomain
-security hardening (`b5daa920f44cb`, `46da5c3ea011e`, `fcbd0cdab9283`,
-etc.). This fix is **standalone** (2 lines, no structural
-prerequisites). Related stable series patches (debugfs unregister,
-delayed-work UAF) are separate; this commit does not depend on them.
+**Step 3.2 — Fixes: tag**
 
-### Step 3.4: Author's Other Commits
-**Record:** Mika Westerberg is the Thunderbolt subsystem maintainer. No
-other commits by this author found in this tree’s `drivers/thunderbolt/`
-log (history is compressed).
+Record: N/A — no `Fixes:` tag.
 
-### Step 3.5: Prerequisite Commits
-**Record:** No dependencies. `tb_xdomain_get()`/`tb_xdomain_put()`,
-`tb_service_parent()`, `enumerate_services()`, and
-`ida_alloc`/`ida_free` on `xd->service_ids` all exist in this tree.
-Patch applies to current `xdomain.c` with only the two line changes
-(candidate diff uses `kzalloc_obj`; local tree uses `kzalloc` —
-unrelated context, no conflict).
+**Step 3.3 — Related file history**
+
+Record: Related stable-style KFD ioctl hardening already in this tree:
+- `db9530a9873a7` — “drm/amdkfd: validate SVM ioctl nattr against buffer
+  size” (cherry-picked to stable by Greg K-H)
+- `9e52212aff8ed` — missing authorization check fix
+- `6156c101e5f08` — `memdup_user` replacing `kzalloc` + `copy_from_user`
+
+Standalone fix; not part of a multi-patch series.
+
+**Step 3.4 — Author context**
+
+Record: Xiaogang Chen is an AMD contributor (recent KFD/amdgpu commits).
+Alex Deucher reviewed and committed — strong subsystem credibility.
+
+**Step 3.5 — Dependencies**
+
+Record: **None.** Uses existing `amdgpu_bo_get_metadata()` NULL-buffer
+query path (supported since that function was written). Only caller of
+`amdgpu_amdkfd_get_dmabuf_info()` is `kfd_ioctl_get_dmabuf_info()`. `git
+apply --check` passes cleanly on this tree.
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original Patch Discussion
-**Record:** `b4 dig` could not be run — commit hash is not in this
-checkout. lore.kernel.org returned 403 (bot protection). **Ratatoskr
-stable-queue archives** show this exact patch nominated for multiple
-stable trees:
-- `[PATCH 5.10.y 1/3] thunderbolt: Keep XDomain reference during the
-  lifetime of a service`
-- `[PATCH 5.15.y 3/6] ...`
-- `[PATCH 6.6.y 4/7] ...`
+**Step 4.1 — Original discussion**
 
-Part of a broader Thunderbolt XDomain stability series (`Stable-dep-of:
-2c5d2d3c3f70` on related patches).
+Record: `b4 dig -c f54ce9e8cbd3` — **no match found** on
+lore.kernel.org. Manual lore search blocked (Anubis bot protection).
+Phase partially N/A.
 
-### Step 4.2: Reviewers
-**Record:** UNVERIFIED — could not fetch lore thread or run `b4 dig -w`.
-Author is subsystem maintainer.
+**Step 4.2 — Reviewers from b4 -w**
 
-### Step 4.3: Bug Report
-**Record:** No external bug report referenced. Bug identified by code
-analysis / disconnect teardown path.
+Record: N/A (b4 found nothing).
 
-### Step 4.4: Related Patches / Series
-**Record:** Related stable patches in the same series (debugfs
-unregister, remove without holding `tb->lock`, delayed-work UAF) are
-complementary but **this commit is independently correct and
-applicable**. Greg’s Linux 6.18.44 announcement (2026-08-09 per
-Ratatoskr) suggests the broader series is heading into 6.18.y.
+**Step 4.3 — Bug report**
 
-### Step 4.5: Stable Mailing List History
-**Record:** Stable nominations confirmed via Ratatoskr for 5.10.y,
-5.15.y, 6.6.y at minimum. Direct lore stable-list search UNVERIFIED
-(403).
+Record: N/A — no `Reported-by:` or `Link:` tags.
+
+**Step 4.4 — Related patches**
+
+Record: Same subsystem pattern as `db9530a9873a7` (user-controlled ioctl
+sizing). No series dependency.
+
+**Step 4.5 — Stable list**
+
+Record: Could not search lore stable archive (bot protection). However,
+analogous KFD ioctl validation was already accepted into this 6.18.y
+tree (`db9530a9873a7`).
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
-### Step 5.1: Key Functions
-**Record:** `tb_service_release()`, `enumerate_services()`,
-`tb_xdomain_remove()`, `tb_xdomain_release()`, `tb_service_parent()`.
+**Step 5.1 — Key functions**
 
-### Step 5.2: Trace Callers
-**Record:**
-- `enumerate_services(xd)` — called from XDomain property update path
-  (line 1497).
-- `tb_service_release()` — device core release callback for
-  `tb_service_type`.
-- `tb_xdomain_remove()` — called on XDomain disconnect; unregisters all
-  child services then the XDomain.
+Record: `kfd_ioctl_get_dmabuf_info()`,
+`amdgpu_amdkfd_get_dmabuf_info()`, `amdgpu_bo_get_metadata()`.
 
-Callers of `tb_xdomain_remove()` include ICM and core Thunderbolt
-disconnect paths — common during cable unplug / peer host disconnect.
+**Step 5.2 — Callers**
 
-### Step 5.3: Trace Callees
-**Record:** `ida_free()`, `ida_destroy()`, `get_device()`,
-`tb_xdomain_put()` (wraps `put_device()`), `device_register()`,
-`device_unregister()`.
+Record: `kfd_ioctl_get_dmabuf_info()` registered as
+`AMDKFD_IOC_GET_DMABUF_INFO` ioctl handler (render-node accessible).
+`amdgpu_amdkfd_get_dmabuf_info()` called only from that ioctl path.
 
-### Step 5.4: Call Chain / Reachability
-**Record:**
-```
-Thunderbolt disconnect / XDomain removal
-  → tb_xdomain_remove()
-    → device_for_each_child_reverse(..., unregister_service)
-      → device_unregister(service)  [parent ref dropped in device_del]
-    → device_unregister(xd)
-      → tb_xdomain_release()  [ida_destroy(&xd->service_ids)]
-  → (later) tb_service_release()  [ida_free on possibly freed xd]  ← BUG
-```
-**Userspace-reachable:** Yes — triggered by Thunderbolt hot-unplug /
-peer disconnect while a service device has lingering references (driver
-binding, `get_device()` holders, etc.). Not theoretical.
+**Step 5.3 — Callees**
 
-### Step 5.5: Similar Patterns
-**Record:** XDomain itself correctly uses `get_device(parent)` at
-allocation (`xdomain.c:2016`). Services were the missing symmetric case.
-`tb_service_get()`/`tb_service_put()` exist for service devices but did
-not protect the parent XDomain.
+Record: `dma_buf_get/put`, `amdgpu_bo_get_metadata()`, `kzalloc/kfree`,
+`copy_to_user`, `kfd_devcgroup_check_permission()`.
+
+**Step 5.4 — Reachability**
+
+Record: **Userspace-reachable** via `/dev/kfd` ioctl from processes with
+render-node access (`kfd_devcgroup_check_permission()` checks
+`DEVCG_ACC_READ|WRITE` on DRM render minor). Attacker needs render-group
+membership and a valid amdgpu dmabuf fd — realistic on desktop/container
+ROCm/GPU compute setups.
+
+**Step 5.5 — Similar patterns**
+
+Record: Same anti-pattern fixed elsewhere in KFD (`db9530a9873a7` for
+SVM ioctl). Confirms subsystem maintainers treat user-controlled ioctl
+allocation sizes as security issues.
 
 ---
 
-## Phase 6: Cross-Referencing Against the Local Tree
+## Phase 6: Cross-Reference Against Local Tree
 
-### Step 6.1: Does the Buggy Code Exist?
-**Record:** **YES.** Local tree is **6.18.43** (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`, `make kernelversion` → `6.18.43`).
+**Step 6.1 — Buggy code present?**
 
-Current buggy code verified:
+Record: **Yes.** Local tree is **Linux 6.18.44** (`git describe HEAD` →
+`v6.18.44-1-g2736c32da98b9`). Commit `f54ce9e8cbd3` is **not** an
+ancestor of HEAD. Vulnerable code confirmed at
+`kfd_chardev.c:1527-1530`:
 
-```1006:1015:drivers/thunderbolt/xdomain.c
-static void tb_service_release(struct device *dev)
-{
-        struct tb_service *svc = container_of(dev, struct tb_service,
-dev);
-        struct tb_xdomain *xd = tb_service_parent(svc);
-
-        tb_service_debugfs_remove(svc);
-        ida_free(&xd->service_ids, svc->id);
-        kfree(svc->key);
-        kfree(svc);
-}
+```1527:1531:drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+        if (args->metadata_ptr) {
+                metadata_buffer = kzalloc(args->metadata_size,
+GFP_KERNEL);
+                if (!metadata_buffer)
+                        return -ENOMEM;
+        }
 ```
 
-```1120:1124:drivers/thunderbolt/xdomain.c
-                svc->id = id;
-                svc->dev.bus = &tb_bus_type;
-                svc->dev.type = &tb_service_type;
-                svc->dev.parent = &xd->dev;
-                dev_set_name(&svc->dev, "%s.%d", dev_name(&xd->dev),
-svc->id);
-```
+**Step 6.2 — Backport complications**
 
-No `get_device(&xd->dev)` on parent assignment; no `tb_xdomain_put(xd)`
-in release. Fix is **not** already present (`git log --grep` and `git
-log -S "svc->dev.parent = get_device"` returned nothing).
+Record: **Clean apply** — `git show f54ce9e8cbd3 | git apply --check`
+succeeds with no conflicts.
 
-### Step 6.2: Backport Complications
-**Record:** **Clean apply expected** — 2 lines in one file, matching
-current code structure. No refactor conflicts in the target hunks.
+**Step 6.3 — Related fixes already present?**
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** No — grep and git searches found no prior application of
-this fix or equivalent `tb_xdomain_put` in `tb_service_release`.
+Record: No duplicate fix for this ioctl. Related KFD ioctl validation
+fixes exist (`db9530a9873a7`) but not for `GET_DMABUF_INFO`.
 
 ---
 
 ## Phase 7: Subsystem and Maintainer Context
 
-### Step 7.1: Subsystem and Criticality
-**Record:** `drivers/thunderbolt/` — **IMPORTANT** (Thunderbolt/USB4
-XDomain networking and device interconnection; not core kernel, but
-affects real hardware on laptops/workstations).
+**Step 7.1 — Subsystem criticality**
 
-### Step 7.2: Subsystem Activity
-**Record:** Actively maintained in this tree — multiple recent XDomain
-security/stability fixes (packet validation, bounds checking, property
-parsing).
+Record: `drivers/gpu/drm/amd/amdkfd` — **IMPORTANT** (AMD GPU compute /
+ROCm users; not universal core kernel, but widely deployed on AMD
+systems with `CONFIG_DRM_AMDGPU`).
+
+**Step 7.2 — Activity**
+
+Record: Actively maintained — 20 recent commits on `kfd_chardev.c`
+including multiple security/validation fixes in 2026.
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
-### Step 8.1: Who Is Affected
-**Record:** Users with `CONFIG_THUNDERBOLT` and active XDomain
-connections (Thunderbolt networking, cross-host services). Driver-
-specific but affects a widely deployed laptop/workstation feature.
+**Step 8.1 — Who is affected**
 
-### Step 8.2: Trigger Conditions
-**Record:** XDomain removal/disconnect while a service child device
-still has refcount > 1 after `device_unregister()`. Realistic during
-hot-unplug, peer shutdown, or driver teardown races. Unprivileged users
-can trigger disconnect by unplugging cable.
+Record: Users of AMD KFD/ROCm with amdgpu (`CONFIG_DRM_AMDGPU=y/m`). Any
+process in the GPU render group on multi-user or containerized systems.
 
-### Step 8.3: Failure Mode Severity
-**Record:** **Use-after-free** on `xd->service_ids` during `ida_free()`
-→ kernel oops / memory corruption. **Severity: HIGH to CRITICAL.**
+**Step 8.2 — Trigger conditions**
 
-### Step 8.4: Risk-Benefit Ratio
-**Record:**
-- **Benefit:** HIGH — prevents UAF crash on a real disconnect path.
-- **Risk:** VERY LOW — 2-line refcount fix, maintainer-authored, already
-  queued for multiple stable trees.
-- **Ratio:** Strongly favors backport.
+Record: Call `AMDKFD_IOC_GET_DMABUF_INFO` with `metadata_ptr != 0` and
+large `metadata_size` (e.g. 2 GiB). **Likelihood:** trivial for
+authorized render-group users. **Unprivileged:** requires render-node
+access (not fully unprivileged, but local DoS from less-privileged GPU
+users is a recognized security concern).
+
+**Step 8.3 — Failure mode severity**
+
+Record: **Kernel OOM / memory exhaustion DoS** — **HIGH** severity
+(system-wide impact possible). Not data corruption or privilege
+escalation, but a reproducible resource exhaustion attack from userspace
+ioctl.
+
+**Step 8.4 — Risk vs benefit**
+
+Record:
+- **Benefit:** HIGH — closes long-standing (since 2018) user-controlled
+  kernel allocation hole
+- **Risk:** LOW — ~35-line change, reviewed by maintainer, applies
+  cleanly, no UAPI changes
+- **Ratio:** Strong benefit, low risk
 
 ---
 
 ## Phase 9: Final Synthesis
 
-### Step 9.1: Evidence Compiled
+**Step 9.1 — Evidence summary**
 
 **FOR backport:**
-- Real UAF on XDomain disconnect teardown path (verified via code +
-  driver-core semantics).
-- Buggy code confirmed present in 6.18.43.
-- Minimal, obviously correct fix (2 lines).
-- Thunderbolt maintainer authorship.
-- Already nominated for stable on 5.10.y, 5.15.y, 6.6.y (Ratatoskr).
-- Standalone — no prerequisite commits required.
-- Part of broader XDomain stability effort heading into 6.18.y.
+- Real security issue: user-controlled `kzalloc()` size in ioctl
+- DoS / OOM impact on systems with AMD GPU compute
+- Bug present in this 6.18.44 tree since 2018
+- Small, surgical, maintainer-reviewed fix
+- Applies cleanly
+- Same class of fix already accepted in this tree (`db9530a9873a7`)
+- `amdgpu_bo_get_metadata()` already supports size-only query with
+  `buffer=NULL`
 
 **AGAINST backport:**
-- Config-specific (`CONFIG_THUNDERBOLT`) — affects subset of users, not
-  all kernels.
-- No syzbot/user crash report attached (but mechanism is clear from
-  code).
+- Requires render-group access (not arbitrary unprivileged user) —
+  reduces universality but not severity for multi-tenant GPU systems
+- Minor `dma_buf` leak on `ENOMEM` in the fix itself (rare)
+- No external bug report or syzbot confirmation
 
-**UNRESOLVED:**
-- Full lore review thread (403 blocked).
-- Exact upstream commit SHA (not in this checkout).
+**Unresolved:** Lore discussion and stable-list nomination could not be
+retrieved.
 
-Neither unresolved item weakens the technical case.
+**Step 9.2 — Stable rules checklist**
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — standard refcount pattern;
-   maintainer-authored; stable-queue nominations imply review.
-2. Fixes a real bug affecting users? **PASS** — UAF on Thunderbolt
-   XDomain disconnect.
-3. Important issue? **PASS** — UAF / potential crash (HIGH-CRITICAL).
-4. Small and contained? **PASS** — 2 lines, one file.
-5. No new features or APIs? **PASS** — refcount fix only.
-6. Can apply to local tree? **PASS** — code exists; clean 2-line apply.
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — logic is clear;
+Reviewed-by maintainer; no Tested-by |
+| 2. Fixes real bug affecting users? | **PASS** — user-controlled kernel
+allocation DoS |
+| 3. Important issue? | **PASS** — HIGH (OOM DoS from ioctl) |
+| 4. Small and contained? | **PASS** — 3 files, ~35 lines |
+| 5. No new features/APIs? | **PASS** — same ioctl, hardened allocation
+|
+| 6. Can apply to local tree? | **PASS** — clean `git apply --check` |
 
-### Step 9.3: Exception Categories
-**Record:** Not applicable (not a device ID, quirk, DT, build, or docs
-fix — standard bug fix).
+**Step 9.3 — Exception category**
 
-### Step 9.4: Decision Rationale
+Record: Security hardening of existing ioctl (not device ID, quirk, DT,
+build, or docs exception — standard security bug fix).
 
-This commit fixes a genuine use-after-free: `tb_service_release()`
-accesses the parent XDomain’s `service_ids` IDA after the XDomain may
-already have been destroyed during disconnect teardown, because
-`device_del()` drops the parent reference at unregister time rather than
-at final service release. The fix is minimal, self-contained, and the
-buggy code is present in this 6.18.43 tree. Stable maintainers have
-already nominated it for multiple older stable branches.
+**Step 9.4 — Decision rationale**
+
+This commit fixes a long-standing vulnerability where any render-group
+user can force arbitrarily large kernel allocations via
+`AMDKFD_IOC_GET_DMABUF_INFO`. The buggy code exists in the local 6.18.44
+tree, the fix is small and maintainer-reviewed, it applies cleanly, and
+the same subsystem has already accepted analogous ioctl validation fixes
+for stable. The fix bounds kernel allocation to actual BO metadata size
+(driver-controlled, typically small), eliminating the OOM attack vector.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body; no Fixes/Reported-by/Link
-  tags; author is Mika Westerberg.
-- **[Phase 2]** Read full diff; confirmed 2-line refcount fix in
-  `tb_service_release()` and `enumerate_services()`.
-- **[Phase 3]** `git blame` on xdomain.c service code; `git log -S`
-  searches; no fix already in tree.
-- **[Phase 4]** lore.kernel.org: 403 Forbidden. Ratatoskr: stable
-  nominations found for 5.10.y/5.15.y/6.6.y. `b4 dig`: not run (no
-  commit hash in tree).
-- **[Phase 5]** Traced call chain through `tb_xdomain_remove()` →
-  `device_unregister()` → `tb_xdomain_release()` vs deferred
-  `tb_service_release()`.
-- **[Phase 5]** Verified `device_del()` calls `put_device(parent)` at
-  `drivers/base/core.c:3983`.
-- **[Phase 5]** Verified `tb_xdomain_release()` calls
-  `ida_destroy(&xd->service_ids)` at `xdomain.c:1883`.
-- **[Phase 6]** `git describe HEAD` → v6.18.43; `make kernelversion` →
-  6.18.43.
-- **[Phase 6]** Read current `xdomain.c` — buggy pattern confirmed, fix
-  absent.
-- **[Phase 6]** Verified `tb_xdomain_get`/`tb_xdomain_put` exist in
-  `include/linux/thunderbolt.h:325-336`.
-- **[Phase 7]** Thunderbolt subsystem active with recent XDomain fixes
-  in this tree.
-- **[Phase 8]** Assessed UAF severity as HIGH-CRITICAL on disconnect
-  path.
+- [Phase 1] Parsed commit `f54ce9e8cbd3` message: security issue, user-
+  controlled allocation, Reviewed-by Alex Deucher
+- [Phase 2] Full diff reviewed: 3 files, `kzalloc` moved from user size
+  to `*metadata_size`
+- [Phase 2] Read `amdgpu_bo_get_metadata()`: supports `buffer=NULL` +
+  `metadata_size` out-param (`amdgpu_object.c:1227-1233`)
+- [Phase 3] `git blame` lines 1527-1531 → `1dde0ea95b782` (2018-11-20)
+- [Phase 3] `git log -S kfd_ioctl_get_dmabuf_info` → introduced in
+  `1dde0ea95b782`
+- [Phase 3] `git log --oneline -20 -- kfd_chardev.c` → related stable
+  fix `db9530a9873a7` present
+- [Phase 3] `grep amdgpu_amdkfd_get_dmabuf_info` → single caller in
+  `kfd_chardev.c`
+- [Phase 3] `git apply --check` → patch applies cleanly
+- [Phase 4] `b4 dig -c f54ce9e8cbd3` → no lore match
+- [Phase 4] lore.kernel.org manual fetch → blocked by Anubis (UNVERIFIED
+  for list discussion)
+- [Phase 5] Read `kfd_devcgroup_check_permission()` → render-node cgroup
+  check (`kfd_priv.h:1564-1576`)
+- [Phase 5] Confirmed ioctl registration at `kfd_chardev.c:3232-3233`
+- [Phase 6] `git describe HEAD` → v6.18.44; `make kernelversion` →
+  6.18.44
+- [Phase 6] `git merge-base --is-ancestor f54ce9e8cbd3 HEAD` → commit
+  NOT in tree
+- [Phase 6] Read current `kfd_chardev.c:1527-1530` → vulnerable code
+  present
+- [Phase 8] Assessed failure mode: OOM DoS, HIGH severity for GPU multi-
+  tenant scenarios
 
-**YES**The analysis is done for **6.18.43**.
+**YES**
 
-**Verdict: YES** — backport this commit.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 23 ++++++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   | 10 ++--------
+ 3 files changed, 22 insertions(+), 13 deletions(-)
 
-It fixes a real use-after-free: when an XDomain disconnects,
-`tb_service_release()` can call `ida_free()` on the parent XDomain’s
-`service_ids` after that XDomain has already been torn down. The fix is
-small (two lines: `get_device()` on parent assignment,
-`tb_xdomain_put()` in release), applies cleanly here, and the buggy code
-is present in this tree.
-
- drivers/thunderbolt/xdomain.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/thunderbolt/xdomain.c b/drivers/thunderbolt/xdomain.c
-index 5fbdd412a712f..fed0fae2a6299 100644
---- a/drivers/thunderbolt/xdomain.c
-+++ b/drivers/thunderbolt/xdomain.c
-@@ -1029,6 +1029,7 @@ static void tb_service_release(struct device *dev)
- 	ida_free(&xd->service_ids, svc->id);
- 	kfree(svc->key);
- 	kfree(svc);
-+	tb_xdomain_put(xd);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index 1ec26be82f30e..5e8d0d6b55ab6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -528,7 +528,7 @@ uint32_t amdgpu_amdkfd_get_max_engine_clock_in_mhz(struct amdgpu_device *adev)
  
- const struct device_type tb_service_type = {
-@@ -1137,7 +1138,7 @@ static void enumerate_services(struct tb_xdomain *xd)
- 		svc->id = id;
- 		svc->dev.bus = &tb_bus_type;
- 		svc->dev.type = &tb_service_type;
--		svc->dev.parent = &xd->dev;
-+		svc->dev.parent = get_device(&xd->dev);
- 		dev_set_name(&svc->dev, "%s.%d", dev_name(&xd->dev), svc->id);
+ int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_device *adev, int dma_buf_fd,
+ 				  struct amdgpu_device **dmabuf_adev,
+-				  uint64_t *bo_size, void *metadata_buffer,
++				  uint64_t *bo_size, void **metadata_buffer,
+ 				  size_t buffer_size, uint32_t *metadata_size,
+ 				  uint32_t *flags, int8_t *xcp_id)
+ {
+@@ -563,9 +563,24 @@ int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_device *adev, int dma_buf_fd,
+ 		*dmabuf_adev = adev;
+ 	if (bo_size)
+ 		*bo_size = amdgpu_bo_size(bo);
+-	if (metadata_buffer)
+-		r = amdgpu_bo_get_metadata(bo, metadata_buffer, buffer_size,
+-					   metadata_size, &metadata_flags);
++	if (metadata_buffer) {
++		/* first get metadata_size by buffer = NULL */
++		r = amdgpu_bo_get_metadata(bo, NULL, 0,
++					   metadata_size, NULL);
++
++		/* user buf_size is bigger than bo metadata_size
++		 * allocate a buf at kernel space and copy */
++		if (*metadata_size <= buffer_size) {
++			*metadata_buffer = kzalloc(*metadata_size, GFP_KERNEL);
++
++			if (!*metadata_buffer)
++				return -ENOMEM;
++
++			r = amdgpu_bo_get_metadata(bo, *metadata_buffer, *metadata_size,
++						   NULL, &metadata_flags);
++		} else
++			r = -EINVAL;
++	}
+ 	if (flags) {
+ 		*flags = (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) ?
+ 				KFD_IOC_ALLOC_MEM_FLAGS_VRAM
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 9e120c934cc17..c59b5d9cd36b6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -255,7 +255,7 @@ uint64_t amdgpu_amdkfd_get_gpu_clock_counter(struct amdgpu_device *adev);
+ uint32_t amdgpu_amdkfd_get_max_engine_clock_in_mhz(struct amdgpu_device *adev);
+ int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_device *adev, int dma_buf_fd,
+ 				  struct amdgpu_device **dmabuf_adev,
+-				  uint64_t *bo_size, void *metadata_buffer,
++				  uint64_t *bo_size, void **metadata_buffer,
+ 				  size_t buffer_size, uint32_t *metadata_size,
+ 				  uint32_t *flags, int8_t *xcp_id);
+ int amdgpu_amdkfd_get_pcie_bandwidth_mbytes(struct amdgpu_device *adev, bool is_min);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index d3190c3bb1aee..d220cf60375ba 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1524,16 +1524,10 @@ static int kfd_ioctl_get_dmabuf_info(struct file *filep,
+ 	if (!dev)
+ 		return -EINVAL;
  
- 		tb_service_debugfs_init(svc);
+-	if (args->metadata_ptr) {
+-		metadata_buffer = kzalloc(args->metadata_size, GFP_KERNEL);
+-		if (!metadata_buffer)
+-			return -ENOMEM;
+-	}
+-
+ 	/* Get dmabuf info from KGD */
+ 	r = amdgpu_amdkfd_get_dmabuf_info(dev->adev, args->dmabuf_fd,
+ 					  &dmabuf_adev, &args->size,
+-					  metadata_buffer, args->metadata_size,
++					  &metadata_buffer, args->metadata_size,
+ 					  &args->metadata_size, &flags, &xcp_id);
+ 	if (r)
+ 		goto exit;
+@@ -1545,7 +1539,7 @@ static int kfd_ioctl_get_dmabuf_info(struct file *filep,
+ 	args->flags = flags;
+ 
+ 	/* Copy metadata buffer to user mode */
+-	if (metadata_buffer) {
++	if (metadata_buffer && args->metadata_ptr) {
+ 		r = copy_to_user((void __user *)args->metadata_ptr,
+ 				 metadata_buffer, args->metadata_size);
+ 		if (r != 0)
 -- 
 2.53.0
 
