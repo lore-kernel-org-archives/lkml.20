@@ -1,239 +1,398 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D8645FFBE
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:59:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188367; cv=pass; b=L6d8s54Xg4tj6QwXrASwBSyFQdqSbHNxESPx/1R7j5/FLOQqj4tYnfZ43kZqlOzCAD0+Ul22Up2TcPVHIXs13Z5VnUd8sY9iDf+w5hozdLav5PIqjQgYA3i0ggRBTZl3vCa0xXDNtEQxL+lCuKcJebWDnzG0Lrk9UzkfAPvuLUU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188367; c=relaxed/simple;
-	bh=NDSAUMIrhGwZVBaE+3G01mA3FxHUYStfITzSBv3VyKI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=b6OR6ihSn8eXWTHCjA+0nMKZ4zvtZsQDKU1pYvjtw9MIjaRHnj5Mob6QjZBdyHodNSDj7xXWne7IsWLktHkBnt4A9EJxRIlpoo5TlSrVrBnhVhrh8sASuyUS/qfo07O2gz+wkaQ4ZEE/DjRYCWIXCvOLxGziP0TWyYd/465COWw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=I5tE7+9V; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F4833D512
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:59:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788188381; cv=none; b=A1WdAh7RsqZitxAh9LZXkdNwsu4sakEy7wcFjtDudRrkZtS5y/ogB+JYKl48Gxb5Zu7NFUOuiDHsG3GnCWXqu9c1ZPMf9d2WLZJAgIU0bWlI4JGGjFj6Kkg9ZrKwdAIo6Ybbp25Re2ctiNHXXOKIXyoGt9+HJs7SQCBqp9CnqyQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788188381; c=relaxed/simple;
+	bh=sR+NCrb4jveihqzu/NPXu/su4Ho1Q7I0xS25+c5rX08=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=l38G/IMU8pKAf+7+c9TgzRVgEI62jrp5UoWbQmoMLajKSKwtxaza/wm2kuy0ShGhGYgEx09wdp9I42Y2NtQK61+rEGIEs2n+d5ugw8cLXH1dslYvMFTmmtmb6vysdUjMcnpqTes3ejZ+XWk0sV8UMsOREUtp8YXKEd/mt4qvUEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mFmlf+Y1; arc=none smtp.client-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="I5tE7+9V"
-ARC-Seal: i=1; a=rsa-sha256; t=1788188340; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=LSQzgFS8WNjWIMjuLBuEk2ih1YG5oaoA+HzYfqfKD4APGNWpmguS+IrmJ9m2a+gRLNqees//TlxBQcLbmJhUfMBlEwmASR6A3Dka+fW26hee3+Z/PiZfVpNRON5WzdicZCRA6oNRgyW2jBM9rQ/55dxpM1VH9dagipXyGp9lcLI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788188340; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=V/n0rs421QS75IopvdLae0ZbpJtQFPcqIOlcj/fficI=; 
-	b=YuFxxnmrC5VT59CNX0VglEPb8NUMl3yDRYIAkU8ECbnR7WsXoZC+fXS5MC454lrMwV5ULeLBHqJ6jhfqcyQ70GnyatsvhEOjRKufWTHD3lHAHGHua+yhwRAste4vO5QomF3s3/3jTerwrY/2MNy6ZKQYy9fuLcmXKxSuXodYxes=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
-	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788188340;
-	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
-	bh=V/n0rs421QS75IopvdLae0ZbpJtQFPcqIOlcj/fficI=;
-	b=I5tE7+9VilVLgXVhGQhIZw9SBJJOeNfpri7jImqCUqernc0mGF2Mz5hl+UVlXbXY
-	Wi0FBHO2If0QcxpdjdxJGoan1oZulXZz1RqPAC4qUhi7zbX8dmhMrQzzBl6tX6qHfV0
-	1Bufcg7xkuAVJWRjgkEBwXvAEc6tzKm/CVy++FCk=
-Received: by mx.zohomail.com with SMTPS id 1788188339156677.9545572505285;
-	Mon, 31 Aug 2026 07:58:59 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH] drm/panthor: Display priorities of panthor groups over debugfs
-Date: Mon, 31 Aug 2026 16:16:12 +0200
-Message-ID: <bh_Hv8FlSPWfzvdtnF4oNA@collabora.com>
-In-Reply-To: <20260824101420.36380185@fedora-21.home>
-References:
- <20260818-panthor-sched-group-prio-v1-1-1836857c53e9@collabora.com>
- <20260824101420.36380185@fedora-21.home>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mFmlf+Y1"
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-855c26cf490so24475257b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:59:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788188378; x=1788793178; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EQRvH3cICJjq9Ao/BggTFlq5eCfk3kLbx4u3cmiu6to=;
+        b=mFmlf+Y1SYbeZf9P7P3HeJ1/Jn9n6cVnNTlrFTn8bKGjewmc9WKFSYP10W5eb9WPgE
+         EK/fe+szUn/A9Rm2FLz3dKJEIYSU9QIMLbsC8ZvvFLkEyB1H/BztD0MDNGUizfmBCCe5
+         q3Bb4WdvgFc7aQKGn9P+vwumFvdpBBmfwCbfQg+NJMTt6Nrf2/yAc0CDrSbweN6Lx1AF
+         +XA5SrLKa9DpUo8IY5meqd/xpgUThco8JcZLSXW5N2VNWz168777+RLamzpWrqJvrCgZ
+         d8sP+o1OeFcw8FBT5Hg/KApUb/uq7VHN2nT9xQNn13q4o/3W37y3cRWd2gdCjVi34IFa
+         5lNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788188378; x=1788793178;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EQRvH3cICJjq9Ao/BggTFlq5eCfk3kLbx4u3cmiu6to=;
+        b=EwVusf5/5MMq9pQiKZw1Ol+mDfe/hgo8M0O8hugxbqq4+Hxiq0ZFOY2ho05ohIJVAl
+         SZYFRk69n8tF8EXc+ngpdJ5pUVu0D3K/KGL9SKdJyznr5gFzFWHNW5IRZWCa4EUQTdPM
+         bT2uMyJdK7jkHnLu4UAtjOXid2gxapAYeNEvinuMDWUxVfaw/SsVo/DnW0SRVVEomLMk
+         QFv/Dxo19B3H9f98eAenXIWobdXQrT7QtFk7VfrCZn6584ETbPVtZQ2XF+Vob4dUj+qN
+         g1AK7/RSUW+P7XhdUzTN10VjlRQZFpn+cZ+/j4Widn+HR32uirxozuW+ITL3ej7Dbw0C
+         TeMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxQRX5w3d7Aq0nFIs+4o3cLAGZzvb8VO+KNKtEtmjpFozmW25u28ZR1MU1SsLkK1zpdsT07/Tcl6WoDbjA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDs3Z1fDfjKX6ZoyvDWBWls7eeuCcPP/YTGn8A95FJOYlsYaVG
+	SE2ROP97DF91Kv++undvEH+84ejuVKd2FyfnASZDYxLUeOC4YLQV8FYj
+X-Gm-Gg: AYBFou1HROUa1QiQ6jptg5b702K6X+tjXd9GY6qTVkryBqofSgTl3vobDy8O9UjFJF7
+	RXyWyBv073F/+ssuQYoSyHUZQ6+5+Z5kfgnh+P4lfojBOR/Z/KAVs50LWFxms1hF9u5x2wjOlP+
+	+m3hpxbuE0DGc49WEDhk7RSiIlxp5CaN4Joo0qE0Sdi6KTjfDHy9TCv6a0arVzoLQ42Hi2/FV9a
+	kFc4hVSZz94VEu9Shp/weuzZlQ7sRmRAqoTeMJRZIsKAkJLDhMVY2gGmZEjXo/0O/BxqRlBp3C8
+	qm4+Z1HtaXw7RXkejhLnCm2Xdyxcpv1T7HL5tmalSoA6PNdgw6VSA8/RiGl6VPMyTkqMEcopY1o
+	2n2wEg/egLq1USpNro0E6nMskWDEmNkbaQZ8LoyhTArlgXSAKzadtb2VEi+QPyCqrf1xP23D0RM
+	bnxp/H0SJS1DAFva1F8DZwD07wLTzFPMIJWcxlumFNJClTgxzKiuwMa/HkkHRRhCq+ZLRfCsrK3
+	axSyVBzIF3EWtiPvYP27iHv8a51BI2S3Q==
+X-Received: by 2002:a05:690c:5808:b0:7fd:a7b6:8d87 with SMTP id 00721157ae682-85d6e149eb8mr70738057b3.25.1788188378372;
+        Mon, 31 Aug 2026 07:59:38 -0700 (PDT)
+Received: from zenbox ([2600:1700:18fb:6011:f6fc:b424:b1bb:6ff0])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e58666e15sm53903827b3.0.2026.08.31.07.59.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 07:59:37 -0700 (PDT)
+From: Justin Suess <utilityemal77@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	kpsingh@kernel.org,
+	paul@paul-moore.com,
+	mic@digikod.net,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	kees@kernel.org
+Cc: gnoack@google.com,
+	jack@suse.cz,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	martin.lau@linux.dev,
+	m@maowtm.org,
+	bpf@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Justin Suess <utilityemal77@gmail.com>
+Subject: [PATCH v2 00/15] BPF interface for applying Landlock rulesets
+Date: Mon, 31 Aug 2026 10:58:42 -0400
+Message-ID: <20260831145858.3869191-1-utilityemal77@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Monday, 24 August 2026 10:14:20 Central European Summer Time Boris Brezillon wrote:
-> Hello Nicolas,
-> 
-> On Tue, 18 Aug 2026 21:35:24 +0200
-> Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
-> 
-> > Analogous to what was added in Commit d41c79838c47 ("drm/panfrost:
-> > Display list of device JM contexts over debugfs") for panfrost, add
-> > similar debugfs information for panthor.
-> > 
-> > The group priority does not change over the lifetime of the group, so no
-> > effort to synchronise with the scheduler lock is being made.
-> > 
-> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > ---
-> > Some additional notes: I noticed panthor apparently uses
-> > xa_for_each{_marked} by guarding it with xa_lock/xa_unlock. That appears
-> > to be unnecessary, judging by the documentation of it and that nobody
-> > else does this.
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_drv.c   |  1 +
-> >  drivers/gpu/drm/panthor/panthor_sched.c | 89 +++++++++++++++++++++++++++++++++
-> >  drivers/gpu/drm/panthor/panthor_sched.h |  5 ++
-> >  3 files changed, 95 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> > index 46a3080b0b20..8cdba0c1a14b 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> > @@ -1769,6 +1769,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
-> >  {
-> >  	panthor_mmu_debugfs_init(minor);
-> >  	panthor_gem_debugfs_init(minor);
-> > +	panthor_sched_debugfs_init(minor);
-> >  }
-> >  #endif
-> >  
-> > diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> > index 5832dccfc093..44b61e946e2d 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> > @@ -1,6 +1,7 @@
-> >  // SPDX-License-Identifier: GPL-2.0 or MIT
-> >  /* Copyright 2023 Collabora ltd. */
-> >  
-> > +#include <drm/drm_debugfs.h>
-> >  #include <drm/drm_drv.h>
-> >  #include <drm/drm_exec.h>
-> >  #include <drm/drm_file.h>
-> > @@ -4198,3 +4199,91 @@ int panthor_sched_init(struct panthor_device *ptdev)
-> >  	ptdev->scheduler = sched;
-> >  	return 0;
-> >  }
-> > +
-> > +#ifdef CONFIG_DEBUG_FS
-> > +
-> > +static const char *
-> > +panthor_sched_prio_str(enum panthor_csg_priority prio)
-> > +{
-> > +	switch (prio) {
-> > +	case PANTHOR_CSG_PRIORITY_LOW:
-> > +		return "LOW";
-> > +	case PANTHOR_CSG_PRIORITY_MEDIUM:
-> > +		return "MEDIUM";
-> > +	case PANTHOR_CSG_PRIORITY_HIGH:
-> > +		return "HIGH";
-> > +	case PANTHOR_CSG_PRIORITY_RT:
-> > +		return "REAL-TIME";
-> > +	default:
-> > +		return "UNKNOWN";
-> > +	}
-> > +}
-> > +
-> > +static int show_file_groups(struct panthor_file *pfile, struct seq_file *m)
-> > +{
-> > +	struct panthor_group *group;
-> > +	unsigned long i;
-> > +
-> > +	if (IS_ERR_OR_NULL(pfile->groups))
-> > +		return -ENOENT;
-> > +
-> > +	xa_for_each_marked(&pfile->groups->xa, i, group, GROUP_REGISTERED) {
-> > +		seq_printf(m, " Group %lu: priority %s\n", i,
-> > +			   panthor_sched_prio_str(group->priority));
-> > +	}
-> 
-> Could this race with the GROUP_DESTROY ioctl and open the door for
-> potential UAFs on the group object? Seems
-> panthor_fdinfo_gather_group_samples() has this xa_for_each_marked()
-> inside an xa_lock()-ed section to cover for this.
+Howdy,
 
-Hm, right, I was only considering the case where a group destruction
-would happen when the drm handle is being closed anyway, which is
-mutually excluded with the caller's file lock.
+This series lets BPF programs apply an existing, userspace-created
+Landlock ruleset to a program during exec.  The goal is unchanged
+from the RFC [1] and v1 [2]: BPF does not create, inspect, or mutate
+Landlock policy, it only decides whether a ruleset that was already
+created and validated through Landlock's existing userspace API
+should be applied, based on runtime exec context.  The policy is in
+place before the first instruction of the new program runs, closing
+the race a userspace supervisor cannot.
 
-That being said, I'm not sure I'm in love with locking groups->xa
-as a way to protect against this, but it's more fine-grained than
-taking the scheduler mutex so I guess it's an improvement over that.
+The bottom line change in v2: the kfunc interface is now fully
+LSM-generic.
 
-Looks like xa_for_each_marked only takes the RCU read lock in the
-functions it calls, and I was hoping we could make a panthor-specific
-variant that group_get()s the group before unlocking, but that would
-be a write.
+The bpf_landlock_* kfuncs have been dropped in favor of
+bpf_lsm_policy_* kfuncs that carry no LSM-specific details: no kfunc
+argument names an LSM anywhere in the interface.  This is done
+without turning the kfuncs into an ioctl-like multiplexer; see the
+usage example for the ergonomics.
 
-With the additional locking around the iteration, we can use
-xas_for_each_marked though, but I don't think the rcu overhead for
-the repeated unlocks is a problem.
+This design choice was based on feedback from Paul Moore [3] and
+Mickaël Salaün [4].  There was some discussion of whether LSMs should
+expose LSM-specific interfaces, and concern that a generic interface
+would have poor ergonomics / become an ioctl-like multiplexer.
 
-This is debugfs so I shouldn't even worry.
+While initially I argued against a generic interface, ultimately I
+believe I've found a design that is LSM-generic without the cons /
+poor ergonomics of an ioctl-like interface.
 
-> 
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int show_each_file(struct seq_file *m, void *arg)
-> > +{
-> > +	struct drm_info_node *node = (struct drm_info_node *)m->private;
-> > +	struct drm_device *ddev = node->minor->dev;
-> > +	int (*show)(struct panthor_file *, struct seq_file *) =
-> > +		node->info_ent->data;
-> > +	struct drm_file *file;
-> > +	int ret = 0;
-> > +
-> > +	scoped_cond_guard(mutex_intr, return -EINTR, &ddev->filelist_mutex) {
-> > +		list_for_each_entry(file, &ddev->filelist, lhead) {
-> > +			struct task_struct *task;
-> > +			struct panthor_file *pfile = file->driver_priv;
-> > +			struct pid *pid;
-> > +
-> > +			/*
-> > +			 * Although we have a valid reference on file->pid, that does
-> > +			 * not guarantee that the task_struct who called get_pid() is
-> > +			 * still alive (e.g. get_pid(current) => fork() => exit()).
-> > +			 * Therefore, we need to protect this ->comm access using RCU.
-> > +			 */
-> > +			rcu_read_lock();
-> > +			pid = rcu_dereference(file->pid);
-> > +			task = pid_task(pid, PIDTYPE_TGID);
-> > +			seq_printf(m, "client_id %8llu pid %8d command %s:\n",
-> > +				file->client_id, pid_nr(pid),
-> > +				task ? task->comm : "<unknown>");
-> > +			rcu_read_unlock();
-> 
-> Don't we have this piece of information stored in
-> panthor_group::task_info already? Unless you really want to reflect
-> clients that have no groups, or have groups from a given client clearly
-> outlined in the debugfs output, I'd flatten things out and have these
-> client-related info printed along the group info in show_file_groups()
-> (pass a drm_file instead of a panthor_file, so you can get the
-> client_id from there).
+The key is a new struct lsm_policy_object, internal to the LSM
+framework:
 
-I basically copied this over from panfrost's debugfs output. I do agree
-that doing it in a flat listing without grouping them by file->pid is
-simpler, since it saves us the trouble of the rcu fun here.
+  struct lsm_policy_object {
+          u64 lsmid; /* routes the object to the LSM that owns it */
+          u32 type;  /* LSM-private tag for its own object types */
+  };
 
-> 
-> Regards,
-> 
-> Boris
-> 
-> > +
-> > +			ret = show(pfile, m);
-> > +			if (ret < 0)
-> > +				break;
-> > +
-> > +			seq_puts(m, "\n");
-> > +		}
-> > +	}
-> > +
-> > +	return ret;
-> 
+The owning LSM embeds this struct in its own policy structure (here,
+the Landlock ruleset), and a pointer to it is the BPF-facing kptr.
+
+The kfuncs dispatch an lsm_policy_object pointer to the owning LSM
+based on the lsmid.  The LSM checks the type tag (Landlock has only
+LANDLOCK_POLICY_TYPE_RULESET) and recovers its own object with:
+
+   container_of(object, struct landlock_ruleset, policy_object);
+
+The fd translation is the one call with no object to dispatch on,
+and it needs no LSM_ID_* argument either: a policy object fd refers
+to a file associated with the owning LSM's own userspace interface,
+so the fd is identified by its fops pointer.  The kfunc passes the
+fd to each policy_object_from_fd implementation; an LSM claims its
+own fds and declines anyone else's with -EOPNOTSUPP, so the fd
+reaches exactly the LSM that created it.  A program that expects a
+policy of one specific LSM can still assert its intent by reading
+the lsmid off the returned kptr.
+
+One benefit of this: since all LSMs share the one kptr type, objects
+from multiple LSMs can be stored in the same map, allowing users to
+create LSM-agnostic programs.
+
+The interface
+===
+
+Effectively, the kfuncs are security hooks called by a BPF program.
+
+The kfuncs operate on the generic struct lsm_policy_object (the
+struct any LSM policy object must embed), rather than an
+LSM-specific type:
+
+  bpf_lsm_policy_from_fd(fd, flags)         KF_ACQUIRE | KF_RET_NULL | KF_SLEEPABLE
+  bpf_lsm_policy_acquire(object)            KF_ACQUIRE | KF_RCU | KF_RET_NULL
+  bpf_lsm_policy_release(object)            KF_RELEASE
+  bpf_lsm_policy_apply_bprm(object, bprm, flags)  KF_SLEEPABLE
+
+The interface is owned by the LSM framework in
+security/bpf_lsm_kfuncs.c.  An LSM participates by implementing four
+ordinary hooks:
+
+  policy_object_from_fd(fd, &object)
+  policy_object_get(object)
+  policy_object_put(object)
+  bprm_apply_policy_object(bprm, object, flags)
+
+These hooks are unlike any other in the kernel: they have no
+security_*() wrappers in security.c because they have no in-kernel
+callers.  Their only entry point is BPF, and the BPF entry point is
+the kfunc, so the kfuncs in security/bpf_lsm_kfuncs.c play the role
+the security_*() wrappers play for other hooks, dispatching the
+static call to the LSM matching the object's lsmid.
+
+As they implement LSM-dispatch logic like any other hook, they cannot
+be placed outside security/ without exposing LSM internals in an
+undesirable way.
+
+Usage TL;DR
+===
+
+A syscall program, run in the supervisor's context, translates a
+ruleset fd and parks the reference in a map; a sleepable LSM program
+on bprm_creds_for_exec()/bprm_creds_from_file() applies it:
+
+  /* setup (BPF_PROG_TYPE_SYSCALL, supervisor's task context) */
+  obj = bpf_lsm_policy_from_fd(ruleset_fd, 0);
+  old = bpf_kptr_xchg(&map_val->policy, obj);
+
+  /* enforcement (sleepable BPF_PROG_TYPE_LSM on a bprm hook) */
+  bpf_rcu_read_lock();
+  obj = bpf_lsm_policy_acquire(map_val->policy);
+  bpf_rcu_read_unlock();
+  if (obj) {
+          bpf_lsm_policy_apply_bprm(obj, bprm, 0);
+          bpf_lsm_policy_release(obj);
+  }
+
+Notice that no LSM is named anywhere in this process: the LSM
+information is carried entirely by the fd and the lsm_policy_object.
+The caller need not pass an LSM ID or LSM-specific opcode at all.
+The same program could apply a policy object from LSM A and LSM B
+by simply changing the fd, with zero code changes.
+
+(A caller that needs LSM-specific logic still has the option of
+reading lsm_policy_object->lsmid.)
+
+The acquire kfunc is what lets concurrent executions share the one
+reference stored in the map: each program execution takes a
+reference of its own under an RCU read lock, instead of taking
+exclusive ownership of the stored one with bpf_kptr_xchg() (which
+would prevent concurrent application).  Both the acquire path and
+the hook backing it are new in v2.
+
+The lifetime contract for embedding lsm_policy_object
+===
+
+Collapsing every provider into one BTF type makes the lifetime rules
+part of the interface rather than a per-LSM agreement.  Any
+LSM-specific policy structure embedding lsm_policy_object must
+provide the following semantics:
+
+  - The type field of lsm_policy_object must be nonzero.
+  - The object must be reference counted.
+  - The object must be RCU protected, and freed only after an RCU
+    grace period.
+  - get acquires with inc-not-zero semantics and may fail against a
+    concurrent last put.  Implementing policy_object_get is
+    optional.
+  - put must be callable from contexts that cannot sleep: map
+    teardown drops map-held references through the registered kptr
+    destructor.  Implementing policy_object_put is mandatory, even
+    if policy_object_get is not implemented.
+
+This contract was picked to be implementable by other LSMs in the
+future, and closely mirrors the contract backing the task_struct,
+cgroup, and bpf_crypto_ctx kptrs.
+
+Whether to implement policy_object_get is up to the individual LSM,
+and the choice selects between shared and unique pointers:
+implementing it (as Landlock does here) lets programs acquire
+additional references to the object under RCU, while leaving it out
+yields an object whose pointer cannot be copied after creation, only
+atomically exchanged with bpf_kptr_xchg().  Both models fit the same
+interface.
+
+Landlock specifics
+===
+
+The bprm hook accepts the landlock_restrict_self(2) flags with their
+usual semantics except LANDLOCK_RESTRICT_SELF_TSYNC (rejected: it
+targets the calling threads, not the execution).
+LANDLOCK_RESTRICT_SELF_NO_NEW_PRIVS is honored atomically with the
+restriction: both are staged on the bprm credentials and applied past
+the exec point of no return, so the executed task starts no_new_privs
+if and only if it starts confined, and a failed execution leaves the
+calling task untouched.
+
+Enforcement through BPF is as observable as the syscall: committing
+a staged restriction emits the same landlock_enforce_domain trace
+event, and the create/free domain events stay balanced on every
+path, including executions aborted before the point of no return.
+
+Notably, rulesets are now RCU protected, which is what allows
+enforcement to share the stored kptr instead of xchg-ing it in and
+out of the map.
+
+Changes since v1
+===
+
+- The interface is fully generic: the per-LSM kptr type
+  (struct bpf_landlock_ruleset), the erasure to void *, and the
+  security_kfunc_*() shims dispatching on an explicit LSM_ID_*
+  argument are gone.  struct lsm_policy_object (lsmid + LSM-private
+  type tag) is embedded in the LSM's own object and resolved with
+  container_of(), so no LSM type crosses the LSM boundary in either
+  direction.
+- The per-LSM kfuncs (bpf_landlock_*) are replaced by the four
+  LSM-agnostic bpf_lsm_policy_* kfuncs above; they moved from
+  kernel/bpf/bpf_lsm.c to security/bpf_lsm_kfuncs.c as the LSM
+  framework's own BPF interface.  kernel/bpf explicitly would
+  not make sense here because the kfuncs themselves implement
+  LSM dispatch logic, an LSM-internal functionality.
+- New shared-acquisition model: the policy_object_get hook and the
+  bpf_lsm_policy_acquire() kfunc (KF_RCU, backed by
+  refcount_inc_not_zero()) let concurrent executions share one map
+  slot.  Landlock frees rulesets after an RCU grace period to back
+  it, and struct lsm_policy_object is registered in the verifier's
+  rcu_protected_types.
+- The lifetime rules above are now the documented interface
+  contract, not per-kfunc notes.
+- LANDLOCK_RESTRICT_SELF_NO_NEW_PRIVS, whose series [5] has been
+  picked up by the Landlock tree since v1 was posted, is honored on
+  the exec path with the same atomicity as the syscall.
+- The staged enforcement emits landlock_enforce_domain at the exec
+  point of no return, with a selftest attached to the tracepoint.
+- The selftests are split in two: the properties of the interface
+  itself (the verifier-side filter rules, reference leak rejection,
+  RCU acquisition, and the from_fd error contract) are tested with no
+  LSM dependency alongside the kfuncs, while the end-to-end
+  enforcement tests sit with the Landlock provider.
+- Still no new UAPI: no map type, no new flag, no ABI bump; the type
+  tag and its enum are kernel-internal.
+
+This series is based on the Landlock tree's next branch [6]: it
+depends on the ruleset/domain split, the tracepoint series, and the
+LANDLOCK_RESTRICT_SELF_NO_NEW_PRIVS flag.  The BPF CI bot will
+therefore fail to apply this series onto bpf-next.  To cover CI, the
+full branch has been submitted manually to BPF CI on GitHub
+Actions [7].
+
+The series is structured with LSM framework patches first: patches 1-2
+add the hooks, 3 is trivial macro motion, 4-7 the kfuncs, 8 the interface
+documentation, and 9 its LSM-independent selftests.
+
+The Landlock provider follows: patches 10-13 add it, 14 its selftests,
+and 15 its documentation.
+
+[1] https://lore.kernel.org/linux-security-module/20260407200157.3874806-1-utilityemal77@gmail.com/
+[2] https://lore.kernel.org/bpf/20260731022047.189137-1-utilityemal77@gmail.com/
+[3] https://lore.kernel.org/linux-security-module/CAHC9VhSSzNBCSvy4cQHh6OOM4-EvHF+bmrB9=V1y=Lj53RvxQQ@mail.gmail.com/
+[4] https://lore.kernel.org/linux-security-module/20260702.ierahzaiLub3@digikod.net/
+[5] https://lore.kernel.org/linux-security-module/20260717220320.1030123-1-utilityemal77@gmail.com/
+[6] https://git.kernel.org/pub/scm/linux/kernel/git/mic/linux.git/log/?h=next
+[7] https://github.com/kernel-patches/bpf/pull/13522
+
+Justin Suess (15):
+  lsm: Add the LSM policy object lifetime hooks
+  lsm: Add the bprm_apply_policy_object LSM hook
+  lsm: Move the lsm_for_each_hook() macro to security/lsm.h
+  lsm: Add the bpf_lsm_policy_release kfunc and policy object destructor
+  lsm: Add the bpf_lsm_policy_from_fd kfunc
+  lsm: Add the bpf_lsm_policy_acquire kfunc
+  lsm: Add the bpf_lsm_policy_apply_bprm kfunc
+  lsm: Document the LSM policy object interface
+  selftests/bpf: Add tests for the LSM policy object kfuncs
+  landlock: Expose the ruleset fd lookup to the rest of Landlock
+  landlock: Factor the credential restriction out of
+    landlock_restrict_self()
+  landlock: Free rulesets after an RCU grace period
+  landlock: Implement the LSM policy object hooks
+  selftests/bpf: Test the LSM policy object kfuncs with Landlock
+  landlock: Document the BPF policy interface
+
+ Documentation/security/landlock.rst           |  38 ++
+ Documentation/security/lsm-development.rst    |  49 ++
+ Documentation/trace/events-landlock.rst       |   5 +-
+ MAINTAINERS                                   |   1 +
+ include/linux/lsm_hook_defs.h                 |   6 +
+ include/linux/security.h                      |  11 +
+ include/trace/events/landlock.h               |  15 +-
+ kernel/bpf/bpf_lsm.c                          |   4 +
+ kernel/bpf/verifier.c                         |   3 +
+ security/Makefile                             |   2 +-
+ security/bpf_lsm_kfuncs.c                     | 251 +++++++++
+ security/landlock/Makefile                    |   2 +
+ security/landlock/bpf.c                       | 152 +++++
+ security/landlock/bpf.h                       |  21 +
+ security/landlock/cred.c                      | 148 ++++-
+ security/landlock/cred.h                      |  47 ++
+ security/landlock/limits.h                    |   4 +
+ security/landlock/ruleset.c                   |  30 +-
+ security/landlock/ruleset.h                   |  75 ++-
+ security/landlock/setup.c                     |   2 +
+ security/landlock/syscalls.c                  | 105 +---
+ security/lsm.h                                |   6 +
+ security/security.c                           |   5 -
+ tools/testing/selftests/bpf/config            |   1 +
+ tools/testing/selftests/bpf/config.x86_64     |   2 +-
+ .../bpf/prog_tests/lsm_policy_kfuncs.c        |  54 ++
+ .../bpf/prog_tests/lsm_policy_landlock.c      | 522 ++++++++++++++++++
+ .../selftests/bpf/progs/lsm_policy_kfuncs.c   |  52 ++
+ .../bpf/progs/lsm_policy_kfuncs_failure.c     | 154 ++++++
+ .../selftests/bpf/progs/lsm_policy_landlock.c | 142 +++++
+ 30 files changed, 1786 insertions(+), 123 deletions(-)
+ create mode 100644 security/bpf_lsm_kfuncs.c
+ create mode 100644 security/landlock/bpf.c
+ create mode 100644 security/landlock/bpf.h
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/lsm_policy_kfuncs.c
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/lsm_policy_landlock.c
+ create mode 100644 tools/testing/selftests/bpf/progs/lsm_policy_kfuncs.c
+ create mode 100644 tools/testing/selftests/bpf/progs/lsm_policy_kfuncs_failure.c
+ create mode 100644 tools/testing/selftests/bpf/progs/lsm_policy_landlock.c
 
 
-
+base-commit: 172b6a6d8463562b0cbebfd66f770b078f81966b
+-- 
+2.55.0
 
