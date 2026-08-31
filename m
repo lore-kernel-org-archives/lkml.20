@@ -1,92 +1,172 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D531E3F39C8;
-	Mon, 31 Aug 2026 12:13:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09DAD3E123C
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178394; cv=none; b=YdC9UduUpqcRLf/+qhczS5y2Z077Smp/KGaCrhyKzJbaInefMuMLyhs/ZICswtvhRn228jDB8ZjNHVbo+tYEIJOHaUj5OE4+pm18kCX0NGfZPFeDZQ8PHt72xuiaFQTsFnRtJHHZ10yCQtH8AvKqCS0O2VHfljVUsFvSepdVO7M=
+	t=1788178398; cv=none; b=XQTk9vqOa3Z+OZAbn+YWxEARN7MGe7RZaBIAGZMGQceeME29qQfrJULUEof/c6d4GW1MXJYq0ix6Y0OLPmbNdKJO+p8KzmOs6PeWNma/nqz4H5MqnC/HU6P3ZKU7gH25X5t7VdAKGxqczzNb1XTLYv8PtGFQY4dL5ljMjteVv8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788178394; c=relaxed/simple;
-	bh=vqOjC3fWsVy+2Ro/BMSCffsVqfasg0sxqjTTsjgOm54=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BXNtg9vcJcymivf+8rALqt3L+DLpagQdnBQtQdZnHFWQJOY+rTUWpCUysioS6w/jkqu4t5wMbB7ixrkOkmvxf1/m0WxliXqj0pdkrSl4Uwfl3tGgjIfgxzW+8GuS2W51fI1sUsMxLeLTr5Aab7bfV3rXHmcoPmsc+Zzz3hbYN60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ZRFide8o; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788178398; c=relaxed/simple;
+	bh=PLxxAbrujktGRnRZTWWBERj2ms6HU6jC4w9nfAb5dxM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=a/z9dbYdN+YGaAvY6+Z0/BTYjzs1fXiopUmo4ScOrx0ZkjG+TLRE8VMDd9/lBxh7T2HHDWIcpweIYsoPVc0366BSfZbiETzWbI4DKomXqyKu55y6Mrt8unkUrK28LusyeHmH82N2AnlpBmEs6YhTFTljNmwHUOdv5pz1Ikc5ksc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gGfYbwOf; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ZRFide8o"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=F5FZuqvEUAT2/PGcwzm4Qov9gm3yBMDweP9yb9iR+HU=; b=ZRFide8oJiPpu9hZmbIkYaN0+4
-	4XtdFgm/EkgzNhTbt5eEEiWaD3+OifNF8lBC/8J/GpnGa+xucYWpnCdPUjyXBZdq4NwjIqUWIeNH5
-	GW6b4s7GJcXVohYd4clgmE47LMQPpdA70XUiyjLed1CKfrRDOU5HcaAQHutx8i5wxhng=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x10se-002Acg-Kj; Mon, 31 Aug 2026 14:12:52 +0200
-Date: Mon, 31 Aug 2026 14:12:52 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Prasanth <prasanth.padarthi10@gmail.com>
-Cc: Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Billy Tsai <billy_tsai@aspeedtech.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-Message-ID: <daf98fe8-70f9-410e-8a2a-042a671086c2@lunn.ch>
-References: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
- <d60f234e-1b9e-44cc-9bad-da79e794fe44@lunn.ch>
- <CAMFFDGgTnNouukst3V1rEg0NCNMW-BZ6tM6+fbQc0zeXaOb72w@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gGfYbwOf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:From:Subject:To:
+	Content-Type; bh=5akJYmmRXUk88N0xG/Jq0H/5tMkiTfzIxeZ/sqRKUAk=;
+	b=gGfYbwOfRXEOpViqrUcm+fyEiDjZGznJv71548gpu2IJy9NiAVrJe21nRxsg9Z
+	O6gJTs/izv3YjSmGLkjm3e8lB9TC07rgHLeZMaATrw9+UGyFRXmsgRE2s6db3Jnf
+	lLERX+hY936Yl90WBpE1qrExGtwwNIwlGY2Ov2wN/sTLM=
+Received: from [198.18.0.1] (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wBnbsuZb5VqDhGmSQ--.62460S2;
+	Mon, 31 Aug 2026 20:12:11 +0800 (CST)
+Message-ID: <0f10d088-75c9-4287-bc2e-f2def5a9c7de@163.com>
+Date: Mon, 31 Aug 2026 20:12:09 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMFFDGgTnNouukst3V1rEg0NCNMW-BZ6tM6+fbQc0zeXaOb72w@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+From: Longlong Xia <xialonglong2025@163.com>
+Subject: Re: [PATCH 0/2] mm/hugetlb: fix surplus accounting and availability
+ checks during demotion
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
+ mike.kravetz@oracle.com, yuzhao@google.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Longlong Xia <xialonglong@kylinos.cn>
+References: <20260823034307.1072415-1-xialonglong2025@163.com>
+ <20260828161042.de43f4751296883eeca633a6@linux-foundation.org>
+In-Reply-To: <20260828161042.de43f4751296883eeca633a6@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBnbsuZb5VqDhGmSQ--.62460S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxury7JrWktry7Gr1UAr4Utwb_yoWrJry5pa
+	y5Jw1Ykrs5Ar1jkr4xZ34qkwna9r1fXr45K3ZxJw13t3W3Wr9rKrySy345WFyI9rWfJay0
+	qrWUZw1DZ3W5XF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UO2-5UUUUU=
+X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC2xsC+mqVb5tZ9wAA3d
 
-On Mon, Aug 31, 2026 at 06:43:46AM +0530, Prasanth wrote:
-> Hi Andrew,
-> 
-> I do not currently have the PCB layout or trace-length information, so I cannot
-> prove that the board provides the TX delay externally.
-> 
-> What I have validated on hardware is:
-> 
-> rgmii: fails, with RX CRC errors and no valid RX traffic
-> rgmii-rxid: passes, 5000/5000 packets, 0% loss, no RX CRC errors
-> rgmii-id: also passes with the same traffic test
-> 
-> This shows that the RTL8211F RX internal delay is required, but it does not
-> establish where the TX delay is provided.
-> 
-> Given that I cannot provide PCB-level evidence for the TX delay, would you
-> prefer that I use rgmii-id for the next revision?
 
-There has been a number of threads about the Aspeed SoC. It typically
-has delays enabled in its MAC, by the bootloader. The Linux MAC driver
-does not disable this, nor does it mask the value passed to the
-PHY. So you see many Aspeed .dts files incorrectly using 'rgmii'. Over
-the last couple of years i have been pointing out this problem, but
-nobody has stepped up to fix the issue. Most DT developers just leave
-the Ethernet node out, in order to get something merged.
+在 2026/8/29 7:10, Andrew Morton 写道:
+> On Sun, 23 Aug 2026 11:43:05 +0800 Longlong Xia<xialonglong2025@163.com> wrote:
+>
+>> This series fixes two problems in the hugetlb demote path.
+>>
+>> Patch 1 fixes surplus accounting in the source hstate.
+>> demote_pool_huge_page() removes every source folio as a persistent
+>> folio, but a free folio may instead account for one of the source
+>> hstate's surplus pages (for example after a vmemmap restoration
+>> failure). Removing such a folio without adjusting surplus_huge_pages
+>> makes the persistent count underflow, and later subtracting it from
+>> max_huge_pages can underflow that counter as well.
+>>
+>> Patch 2 fixes an availability overcount in the sysfs demote path. The
+>> sysfs trigger checks whether any page is available but then passes the
+>> entire request to demote_pool_huge_page(), which can remove free huge
+>> pages that back existing reservations. With two free pages and one
+>> reservation, a request for two pages removes both and leaves the
+>> reservation without a backing page.
+> Thanks.  Have you created and tested reproducers for these?  Gemini was
+> trivially able to do this for me.
+>
+> If so, it would be helpful to includes the details in the
+> changelogging.
 
-You case is interesting, because you are not suggesting 'rgmii'. So it
-could be there is more going on.
+Hi Andrew,
 
-If you look in the email archives you should find the information
-about where to configure the delay in the hardware. You might want to
-read it out to understand how the bootloader has configured the
-hardware.
+Yes, I created and tested reproducers for both bugs.
 
-    Andrew
+Patch 1 requires a vmemmap restoration failure, which is difficult to
+trigger deterministically. For that test only, I added a one-shot fault
+injection that makes the first attempt to restore the vmemmap of an
+optimized 1 GiB folio fail with -ENOMEM. The injection does not modify
+the demotion or accounting code, and it is one-shot so that the later
+restore performed during demotion can succeed.
+
+Patch 2 is reproducible entirely from userspace and requires no kernel
+instrumentation.
+
+Patch 1 (surplus accounting):
+
+   1. Hack the kernel to force the first 1G vmemmap restore to fail:
+
+      /* TEST ONLY: fail the first optimized 1G folio restore. */
+      static atomic_t fail_next_1g_restore = ATOMIC_INIT(1);
+
+      ... in __hugetlb_vmemmap_restore_folio():
+      if (huge_page_size(h) == SZ_1G &&
+          atomic_cmpxchg(&fail_next_1g_restore, 1, 0) == 1) {
+              pr_info("TEST ONLY: forcing one 1G vmemmap restore 
+failure\n");
+              return -ENOMEM;
+      }
+
+   2. Boot QEMU with:
+      hugepagesz=1G hugepages=0 hugetlb_cma=1G hugetlb_free_vmemmap=on
+
+   3. Enable overcommit:
+      echo 1 > 
+/sys/kernel/mm/hugepages/hugepages-1048576kB/nr_overcommit_hugepages
+
+   4. Allocate one 1G hugepage:
+      nr=1 surplus=1 free=0 resv=0
+
+   5. Unmap it.  Due to the forced restore failure, the folio is left on
+      the freelist but still accounted as surplus:
+      nr=1 surplus=1 free=1 resv=0
+
+   6. Demote one page:
+      echo 1 > /sys/kernel/mm/hugepages/hugepages-1048576kB/demote
+
+      Before fix:
+        nr=0 surplus=1 free=0 resv=0
+        surplus > nr  (wrong -- surplus not decremented)
+
+      After fix:
+        nr=0 surplus=0 free=0 resv=0
+        accounts consistent
+
+Patch 2 (cap demotion):
+
+   1. Boot QEMU with:
+      hugepagesz=1G hugepages=2
+      nr=2 surplus=0 free=2 resv=0
+
+   2. Reserve one 1G page (mmap hugetlbfs, do not touch):
+      nr=2 surplus=0 free=2 resv=1
+
+   3. Request demotion of 2 pages:
+      echo 2 > /sys/kernel/mm/hugepages/hugepages-1048576kB/demote
+
+      Before fix:
+        nr=0 surplus=0 free=0 resv=1
+        resv > free  (wrong -- reservation has no backing page)
+
+      After fix:
+        nr=1 surplus=0 free=1 resv=1
+        resv == free  (correct -- request capped at available=1)
+
+   4. Touch the reserved page and let the process exit:
+
+      Before fix:
+        Bus error (core dumped)
+      nr=0 surplus=0 free=0 resv=0
+
+
+      After fix:
+        touch: OK (value=0x00)
+        nr=1 surplus=0 free=1 resv=0
+
+I'll include these reproducer details in the changelog of the next
+version.
+
+Thanks,
+Longlong
+
