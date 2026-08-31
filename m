@@ -1,323 +1,137 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD6C2F5498
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:14:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EC23002DD;
+	Mon, 31 Aug 2026 22:15:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788214447; cv=none; b=mJBe4rYD4x96ETttyO5iGqxn2fkHhNW0o3ruBNcVHSIg5xbEXGqfZn5b8vtdhe+truGwpR/c21D3yDy798XpHLWPTTVpWYEEE3dDyjkQt+oSbQiP2kJF02quELKwZ7yqvE+9eoaGRV2j31FumqAznqDS4TV0SN999qgQDWWhp+o=
+	t=1788214536; cv=none; b=C+9Fqf2H925t+JWpoGQeBIOFVgT1urfvQyNfwlaQZlXEUqmhcKlN6DUPJPXUYL6z6o631YAX3F5xC0bseNbTvvTgXL7E3STN/P2rEp2OlkOeKZJNZN16Epjdq2GJ2pFGgkjZDZzOxZ83aJBl1qolP0+2yJXLvx0WMbCRVSiA5qk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788214447; c=relaxed/simple;
-	bh=HHZ8OqfGxJUimeSOkOvYaFhVcE5zxiEPsMMx08L3GR8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=SAyaTSgiq95gtH2/l50BbowcR+3Ca8x/E62TiiaN4MHCIeMoTYk3PaTiK2tQm4exHX4t3aXKwG5FsbtjPmyuiTbXqsn7LQ4TAm1J0X+guFERjt7iW0wOm+dJjl8TQo4PDEaBqp6pGuXIPRcErXQJq9jXYRrApC335E5YubJ9JjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=FYbuFdIo; arc=none smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1788214536; c=relaxed/simple;
+	bh=l4haeV6VhtUB3oibnyraeVizUHKDvnuEXG4rWi6pXek=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=W+FviQapB1rDIG7bMUQEjHZedThsQcLVE6I3DSsDGUdKXvx9ugyxtpqZp2Q/CcBx1P+ATHm7FVOdZBinPGi0lVtROQBxIZkxO99hg6nLa7w9R0+vdjk2HrPcRWaYH9fIIdujlD6tCjHPtTvvam7EpBrbAL4LIENfbw+5YAR9yEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=Q5EF2Yer; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="FYbuFdIo"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7f421638271so521324a34.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:14:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1788214444; x=1788819244; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1wuT3KA8guOepoCsoUIKjVLNC1Aqj3NCJ3PXMyK/yd8=;
-        b=FYbuFdIoYzy4uvWO+yC0mLQO7fsGk+dThZF/vvxNU+qvWYXRMvVidtEhABotDfbteB
-         Yzb7kCflFIqVB0Upm9Mm16G7x2odyJLpCSt356KXkb0QC2Sp74InA+Uni8nclYBZJaZq
-         rswBRhB71mwDFn4jADWJolYSzycHLyNWeyoBZVvZJJ0j9nTx1+gUrbBYJcu8QeMruJ80
-         4zZcMMfVhVW0VDDPuJR2MsT1781fXklN5ZWtnUtjcOQIXofUXSITTO/8F61WfIwEsi6/
-         l4hZQBr93/cEWZ1PXghIOEQIQ+HjGbCKzEUsjZqnuSNTXFHLZG2xwDmmo8piOKgLjVOo
-         5Xug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788214444; x=1788819244;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1wuT3KA8guOepoCsoUIKjVLNC1Aqj3NCJ3PXMyK/yd8=;
-        b=DwQTK/e+pFpfzRn5r+DKitL/RhNtl0mFbHoMIA5G5SuZ8awPYeqZPtOEOst4td5R0v
-         JzoB3/3qp9WiKl03M6eYZAEL/s6Q7IvO2NZrxZJ5GvYV84tHPB+5lgMgqLhG+6gZ2jbx
-         SDTLE+Hp4GP71E9FyWobwJSIsVV5Emnpseu/YLTSq5VVP3h4Q3sA1WpfsGuE2mgPHEdb
-         ycciKTpzdRpe0WvC82QoUGfNnHpPlF8cOmzj8drY8Iqw+PaLj5PrWOnWxRW+yWaCeaTD
-         /H7tdZYU088PPTYLgcSfo9mBnwm3IUIMRbcnFYsLHpiIYACASQmmwdLp93x08bAWr/QJ
-         7Whg==
-X-Forwarded-Encrypted: i=1; AHgh+RrTDdrtjOjtOFdRo6I5jtw3sPhyYF+mvHUOlNlxL02IusVMvTX6UqVJQi266/2sWscBXz3z5jXJgS6JMlQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQUMRiRlolXIKm2EV6hXC01nWzMZnotjqtwS5/nrHcNusBz6/0
-	PY00dT5ujoKcK2oQBHrdl2CWux8LjWpDs3sOrxtKEmW7xfXiN2iWt4uURqOPz0YJQu0=
-X-Gm-Gg: AR+sD11lw+pp1vqcNkE8jzhpCV/wkai9ZbpAkSM4tIGqYU8Ia06bXIIdL3Oy5ur3kfT
-	Ver2pdfeKHqrcO0ULeUw3czbaTpso8sEH8pzqggJv7OJ7cyFgcmNALsWGDjjBEZwR6Nz8n7ePtC
-	Xjk+NJ2IxIAYmGVLrNPHcAaY1jD+F5uO1Sg952JYiggJmHcK086Eprydq+FdXjNhc2/iiG5M223
-	9dG4WNTa7KwRB2QzOvOw64z3ayUn7cc4sbjtveNRTqDBogDG960XMpnZXLF3PojogLwFPzPcCLq
-	/idhH+8WE2GaHaSAHrSJW/fPAg0rd1asN0N6KAg89Ma9wiTSPNfbStEmB/Un6D0xwGyTpEZZy6n
-	RRBnw8tK/SBnPK9VFPUv2WplEEntYzP0nkV+bhLYhs3sk7TPa5hoJVO2uhVkpdkH522CNb+c+2k
-	u/a8Kp21xEO5gz9P5TwPJEui7A6J4aKf4o4CtpHKYSGsfqtzXiiPGw1pU2LqPkwRTgWjuxyhy8N
-	YpTC1PE68Fivn2V
-X-Received: by 2002:a05:6808:2228:b0:4a4:866:c2c0 with SMTP id 5614622812f47-4b57889dd5cmr10099078b6e.4.1788214443969;
-        Mon, 31 Aug 2026 15:14:03 -0700 (PDT)
-Received: from dev-cachen2.dev.purestorage.com ([208.88.159.129])
-        by smtp.googlemail.com with ESMTPSA id 5614622812f47-4b3a16259f5sm8888807b6e.3.2026.08.31.15.14.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 15:14:03 -0700 (PDT)
-From: Casey Chen <cachen@purestorage.com>
-To: linux-nvme@lists.infradead.org
-Cc: leon@kernel.org,
-	sagi@grimberg.me,
-	kbusch@kernel.org,
-	hch@lst.de,
-	axboe@kernel.dk,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] nvme-rdma: fix ib_device removal race that hangs PCI unbind
-Date: Mon, 31 Aug 2026 16:13:55 -0600
-Message-Id: <20260831221355.1715088-1-cachen@purestorage.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260828232436.270184-1-cachen@purestorage.com>
-References: <20260828232436.270184-1-cachen@purestorage.com>
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="Q5EF2Yer"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=7eEXQnZ3TyFS1iy6IZK3Iv7UtyMqIYCMseVZ2nJyG6g=; b=Q5EF2YerUQmijCvcfG7FC5GwE3
+	NNzR5bthohB8gaK1/15JS4VI7qizr14KbmvXe0gR+9/2GekADtxHeFD/tsSbWhUpm+tm1HVY6gpwt
+	DPRm559/bqF3fy9ATPpXEZ2aNMtul15RloQmNJBgEGlj1jx/Ifkju/k6EMCDWnZIeFIGjSJBNBy0/
+	GDduOp4n0/a1mFRsXI0E/jG3YWwxuGnTWLD6nwyodtWV/gXdi/kWZx/fgAu+xSmtovyTbstRq4xvI
+	5zwaXzXvPyYvIcBfeiGf8FtvF4wG7pk8rugYsIFONB0MTGrwvGPdiHuna6aXl6Iy4cxeP5VlbN4QW
+	PcGb74Vg==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x1AHk-00000000NLF-0nUP;
+	Mon, 31 Aug 2026 19:15:24 -0300
+Message-ID: <0abfb2d2f99e54aceac4cea63947b65a@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Diego Oliva <diego@bynar.io>, Namjae Jeon <linkinjeon@kernel.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N
+ <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, Bharath SM
+ <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] smb: client: reject out-of-bounds DataOffset in
+ CIFSSMBRead()
+In-Reply-To: <20260831125045.479576-1-diego@bynar.io>
+References: <20260828150203.1419003-1-diego@bynar.io>
+ <20260831125045.479576-1-diego@bynar.io>
+Date: Mon, 31 Aug 2026 19:15:23 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-nvme_rdma_remove_one() samples nvme_rdma_ctrl_list once, then blocks in
-flush_workqueue(nvme_delete_wq). A connect can publish a controller on
-the same ib_device during that window: nvme_rdma_find_get_device()
-matches on node GUID in nvme_rdma's private device_list and never
-consults ib_core unregistration state. Such a controller is never
-deleted, so its rdma_cm_ids keep a reference on the cma_device.
+Diego Oliva <diego@bynar.io> writes:
 
-ib_clients are removed LIFO, so nvme_rdma_remove_one() runs before
-cma_remove_one(), which then waits for that reference forever. Removing
-the RDMA interface underneath live NVMe-oF connections:
+> The SMB1 synchronous read helper CIFSSMBRead() validates the server's
+> DataLength against CIFSMaxBufSize and the caller's count, but never
+> validates DataOffset. The copy source is formed as
+>
+> 	&pSMBr->hdr.Protocol + le16_to_cpu(pSMBr->DataOffset)
+>
+> and memcpy()'d for DataLength bytes with no check that the
+> [DataOffset, DataOffset + DataLength) range lies within the response
+> actually received from the server.
+>
+> A malicious or compromised SMB1 server can return a short response
+> carrying an in-range DataLength and a large DataOffset, driving the
+> source pointer past the end of the response buffer. The memcpy() then
+> copies adjacent kernel heap into the caller's read buffer (information
+> disclosure), or reads unmapped memory and oopses (denial of service).
+> SMB1 is not negotiated by default; reaching this code requires an
+> explicit vers=1.0 mount.
+>
+> Both DataOffset and the received response length recorded in
+> rsp_iov.iov_len are relative to the start of the SMB header, so reject
+> the response unless DataOffset + DataLength fits within that length,
+> using overflow-safe arithmetic, before forming the source pointer.
+>
+> While here, make data_length unsigned. It holds a length derived from
+> an unsigned on-the-wire field and is only ever compared against
+> unsigned quantities. This is not required by the validation added
+> above, but it matches what the variable represents.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Bynario AI
+> Signed-off-by: Diego Oliva <diego@bynar.io>
+> ---
+> v2:
+>  - make data_length unsigned, as suggested by Namjae Jeon
+>  - rebased on current upstream
+>  - v1: https://lore.kernel.org/linux-cifs/20260828150203.1419003-1-diego@bynar.io/
+>
+> Note for backporting: this uses the smb_EIO2() tracepoint helper added
+> in v6.19 with f80ac7eda1cf5. For older kernels, the call can be
+> replaced with a simple return of -EIO.
+>
+>  fs/smb/client/cifssmb.c | 13 ++++++++++---
+>  fs/smb/client/trace.h   |  1 +
+>  2 files changed, 11 insertions(+), 3 deletions(-)
+>
+> diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+> index f5aad5f61dce..b89d49395362 100644
+> --- a/fs/smb/client/cifssmb.c
+> +++ b/fs/smb/client/cifssmb.c
+> @@ -1720,7 +1720,8 @@ CIFSSMBRead(const unsigned int xid, struct cifs_io_parms *io_parms,
+>  	if (rc) {
+>  		cifs_dbg(VFS, "Send error in read = %d\n", rc);
+>  	} else {
+> -		int data_length = le16_to_cpu(pSMBr->DataLengthHigh);
+> +		unsigned int data_length = le16_to_cpu(pSMBr->DataLengthHigh);
+> +		__u16 data_offset = le16_to_cpu(pSMBr->DataOffset);
 
-  echo 1 | sudo tee /sys/bus/pci/devices/0000:2a:00.1/remove
+Shouldn't you also validate the minimum response size so that you can
+safely dereference the above fields?  E.g.,
 
-wedges the unbind permanently:
+if (rsp_iov.iov_len < tcon->ses->server->read_rsp_size) {
+        rc = smb_EIO(...);
+        *nbytes = 0;
+} else {
+        unsigned int data_length = le16_to_cpu(pSMBr->DataLengthHigh);
+        ...
+}
 
-  INFO: task tee:164872 blocked for more than 200 seconds.
-  task:tee             state:D stack:0     pid:164872 ppid:164870 flags:0x00004002
-  Call Trace:
-   <TASK>
-   __schedule+0x4b4/0xf90
-   schedule+0x5a/0xc0
-   schedule_timeout+0x105/0x110
-   ? cma_process_remove+0x1f9/0x240 [rdma_cm]
-   __wait_for_common+0xc7/0x1f0
-   ? usleep_range_state+0xb0/0xb0
-   cma_remove_one+0x50/0xb0 [rdma_cm]
-   remove_client_context+0x88/0xc0 [ib_core]
-   disable_device+0x8a/0x160 [ib_core]
-   __ib_unregister_device+0x42/0xa0 [ib_core]
-   ib_unregister_device+0x22/0x30 [ib_core]
-   mlx5r_remove+0x39/0x60 [mlx5_ib]
-   auxiliary_bus_remove+0x18/0x30
-   device_release_driver_internal+0x18f/0x1f0
-   bus_remove_device+0xbc/0x120
-   device_del+0x154/0x3d0
-   ? devl_param_driverinit_value_get+0x29/0x90
-   mlx5_rescan_drivers_locked.part.0+0x78/0x1c0 [mlx5_core]
-   mlx5_unregister_device+0x34/0x50 [mlx5_core]
-   mlx5_uninit_one+0x45/0x110 [mlx5_core]
-   remove_one+0x4e/0xc0 [mlx5_core]
-   pci_device_remove+0x39/0xa0
-   device_release_driver_internal+0x18f/0x1f0
-   pci_stop_bus_device+0x68/0x90
-   pci_stop_and_remove_bus_device_locked+0x28/0x40
-   remove_store+0x75/0x90
-   kernfs_fop_write_iter+0x147/0x1d0
-   vfs_write+0x2af/0x410
-   ksys_write+0x5f/0xe0
-   do_syscall_64+0x35/0x80
-   entry_SYSCALL_64_after_hwframe+0x4b/0xb5
-   </TASK>
+>  		data_length = data_length << 16;
+>  		data_length += le16_to_cpu(pSMBr->DataLength);
+>  		*nbytes = data_length;
+> @@ -1733,9 +1734,15 @@ CIFSSMBRead(const unsigned int xid, struct cifs_io_parms *io_parms,
+>  			rc = smb_EIO2(smb_eio_trace_read_overlarge,
+>  				      data_length, count);
+>  			*nbytes = 0;
+> +		} else if ((size_t)data_offset + data_length > rsp_iov.iov_len) {
+> +			/* check that the data lies within the received response */
+> +			cifs_dbg(FYI, "bad data offset %u length %d for read response of %zu\n",
+> +				 data_offset, data_length, rsp_iov.iov_len);
 
-Because the unbind stalls mid-teardown the netdev is never unregistered,
-so userspace keeps reconnecting over the interface and loses the race
-again.
-
-nvme_rdma has no ->add callback, so its client_data is unused. Use it as
-a per-ib_device liveness token: ->add stores the ib_device itself,
-nvme_rdma_remove_one() clears it before doing anything else, and ib_core
-erases it once ->remove has returned. ib_get_client_data() returning
-NULL therefore means "this device is being removed, or already has
-been", which is exactly the span over which nvme_rdma must refuse it.
-The token needs no allocation, so ->add cannot fail and leave a device
-attached with no ->remove to follow.
-
-Two sites test it:
-
- - nvme_rdma_find_get_device() refuses a device that is going away, so a
-   connect starting after removal begins never builds a PD, CQ or QP on
-   it, and no stale nvme_rdma_device is handed out by the node GUID
-   match.
-
- - nvme_rdma_create_ctrl() tests it under nvme_rdma_ctrl_mutex
-   immediately before publishing, which covers a connect that was
-   already in flight. The token is cleared before
-   nvme_rdma_remove_one() acquires that mutex, so the two orderings are
-   exhaustive: a publisher that takes the mutex first is on the list and
-   is deleted by the walk, and one that takes it afterwards observes
-   NULL and deletes its own controller. No controller can be added
-   behind the walk, so a single sweep suffices.
-
-Keying on the ib_device rather than on nvme_rdma_device matters: the
-lookup matches on node GUID while the removal matches on the ib_device
-pointer, so the two are not one to one, and the token also outlives the
-nvme_rdma_device, which is freed as soon as its last queue is torn down.
-
-The controller is fully live at the point the connect is refused, so it
-is torn down with nvme_delete_ctrl_sync(). ->list is still empty there,
-leaving opts to nvmf_create_ctrl(), and nvme_init_ctrl() left two
-references while nvme_delete_ctrl_sync() consumes only the one that
-nvme_uninit_ctrl() drops, so the other is put explicitly.
-
-Reproduced on a 6.6 based kernel by removing and rescanning the mlx5
-interface carrying the NVMe-oF RDMA connections in a loop, with IO
-running and a userspace daemon reconnecting the controllers throughout.
-The hang is racy: most removals complete normally, and only one that
-lands while a connect is in flight leaves the sysfs write stuck in D
-state with the trace above. With this patch the loop ran clean: removals
-complete and the controllers reconnect after the following PCI rescan.
-
-Fixes: e87a911fed07 ("nvme-rdma: use ib_client API to detect device removal")
-Signed-off-by: Casey Chen <cachen@purestorage.com>
----
-
-Changes since v2:
-https://lore.kernel.org/all/20260828232436.270184-1-cachen@purestorage.com/
-
- - Drop ->dying, nvme_rdma_removing_list and struct
-   nvme_rdma_removing_device entirely (Sagi, Leon). The state is now a
-   per-ib_device liveness token in client_data, which nvme_rdma was not
-   using, so there is no new field, list or struct and nothing to reset
-   on re-probe.
- - The test is keyed on the ib_device rather than on nvme_rdma_device.
-   That also fixes something v2 got wrong: the lookup matches on node
-   GUID while the removal matches on the ib_device pointer, so the two
-   are not one to one, and a flag on nvme_rdma_device can be set on an
-   ndev shared with a device that is not being removed.
- - This closes the window v2 documented as knowingly open. Once
-   nvme_rdma_remove_one() returned, v2 had no state left, so a connect
-   arriving before cma_remove_one() unlinks the cma_device could still
-   strand a controller. remove_client_context() erases client_data after
-   ->remove returns, so the token stays NULL and that path is refused.
-
-Why the test cannot move to nvme_rdma_setup_ctrl(), and the alternatives
-to this approach, are discussed in the reply to Sagi on v2:
-https://lore.kernel.org/all/20260831220754.1714514-1-cachen@purestorage.com/
-
-Two side effects of adding ->add, neither of which I think is a problem
-but both worth naming:
-
- - A device with !kverbs_provider never gets ->add
-   (add_client_context() returns early), so nvme_rdma now refuses it in
-   nvme_rdma_find_get_device() rather than failing later at QP creation.
-   nvme_rdma cannot use such a device either way.
-
- - Clients are added FIFO and rdma_cm registers before nvme_rdma, so
-   during ib_register_device() cma_add_one() runs before
-   nvme_rdma_add_one(). A connect resolving in that gap is refused with
-   -ECONNREFUSED until ->add has run. Self correcting on retry, but a
-   real transient at probe time.
-
-Note ib_get_client_data()'s kernel-doc says it "can only be called while
-the client is registered to the device, once the ib_client remove()
-callback returns this cannot be called", and this uses it precisely to
-detect that state. It works, since it is a bare xa_load() and xa_erase()
-runs after ->remove, but it is outside what the API documents. Leon, if
-you would rather ib_core grew something explicit for this, or if you
-prefer the flag based variant, say so and I will respin.
-
-The ->add path is new in this version and has not run on the setup that
-reproduced the hang, so this wants a fresh soak before it is applied.
- drivers/nvme/host/core.c |  1 +
- drivers/nvme/host/rdma.c | 28 ++++++++++++++++++++++++++++
- 2 files changed, 29 insertions(+)
-
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 758245c799a1..bede16fe1ff5 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -282,6 +282,7 @@ void nvme_delete_ctrl_sync(struct nvme_ctrl *ctrl)
- 		nvme_do_delete_ctrl(ctrl);
- 	nvme_put_ctrl(ctrl);
- }
-+EXPORT_SYMBOL_GPL(nvme_delete_ctrl_sync);
- 
- static blk_status_t nvme_error_status(u16 status)
- {
-diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
-index 29ecbe71bb2e..04687fe22804 100644
---- a/drivers/nvme/host/rdma.c
-+++ b/drivers/nvme/host/rdma.c
-@@ -46,6 +46,19 @@ static LIST_HEAD_GUARDED(device_list, device_list_mutex);
- static DEFINE_MUTEX(nvme_rdma_ctrl_mutex);
- static LIST_HEAD_GUARDED(nvme_rdma_ctrl_list, nvme_rdma_ctrl_mutex);
- 
-+static struct ib_client nvme_rdma_ib_client;
-+
-+static int nvme_rdma_add_one(struct ib_device *ib_device)
-+{
-+	ib_set_client_data(ib_device, &nvme_rdma_ib_client, ib_device);
-+	return 0;
-+}
-+
-+static bool nvme_rdma_device_removing(struct ib_device *ib_device)
-+{
-+	return !ib_get_client_data(ib_device, &nvme_rdma_ib_client);
-+}
-+
- struct nvme_rdma_device {
- 	struct ib_device	*dev;
- 	struct ib_pd		*pd;
-@@ -377,6 +390,9 @@ nvme_rdma_find_get_device(struct rdma_cm_id *cm_id)
- 	struct nvme_rdma_device *ndev;
- 
- 	mutex_lock(&device_list_mutex);
-+	if (nvme_rdma_device_removing(cm_id->device))
-+		goto out_err;
-+
- 	list_for_each_entry(ndev, &device_list, entry) {
- 		if (ndev->dev->node_guid == cm_id->device->node_guid &&
- 		    nvme_rdma_dev_get(ndev))
-@@ -2380,6 +2396,15 @@ static struct nvme_ctrl *nvme_rdma_create_ctrl(struct device *dev,
- 		nvmf_ctrl_subsysnqn(&ctrl->ctrl), &ctrl->addr, opts->host->nqn);
- 
- 	mutex_lock(&nvme_rdma_ctrl_mutex);
-+	if (nvme_rdma_device_removing(ctrl->device->dev)) {
-+		mutex_unlock(&nvme_rdma_ctrl_mutex);
-+		dev_info(ctrl->ctrl.device,
-+			 "hca %s is being removed, aborting connect\n",
-+			 dev_name(ctrl->device->dev->dma_device));
-+		nvme_delete_ctrl_sync(&ctrl->ctrl);
-+		nvme_put_ctrl(&ctrl->ctrl);
-+		return ERR_PTR(-ECONNREFUSED);
-+	}
- 	list_add_tail(&ctrl->list, &nvme_rdma_ctrl_list);
- 	mutex_unlock(&nvme_rdma_ctrl_mutex);
- 
-@@ -2411,6 +2436,8 @@ static void nvme_rdma_remove_one(struct ib_device *ib_device, void *client_data)
- 	struct nvme_rdma_device *ndev;
- 	bool found = false;
- 
-+	ib_set_client_data(ib_device, &nvme_rdma_ib_client, NULL);
-+
- 	mutex_lock(&device_list_mutex);
- 	list_for_each_entry(ndev, &device_list, entry) {
- 		if (ndev->dev == ib_device) {
-@@ -2437,6 +2464,7 @@ static void nvme_rdma_remove_one(struct ib_device *ib_device, void *client_data)
- 
- static struct ib_client nvme_rdma_ib_client = {
- 	.name   = "nvme_rdma",
-+	.add    = nvme_rdma_add_one,
- 	.remove = nvme_rdma_remove_one
- };
- 
-
-base-commit: 9eabc91952f9821824ca0288a76b3aba57961c6b
--- 
-2.34.1
-
+@data_length is now unsigned, so use '%u' instead.  Also, print __func__
+in cifs_dbg().
