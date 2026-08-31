@@ -1,288 +1,525 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B854E56EA
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:40:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1566C4E66BC;
+	Mon, 31 Aug 2026 13:40:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183611; cv=none; b=A3DnQ+1KMf7IpeuWB+fU2+yEy6i8tIn9lrCs/YHqi1+U8W6YOd91Bb0A8LD3bNs8mI6RDHVcOrI1WCX4N+0LFnfs9HWP5C7Yx6wKRoCIQ0/CcY4b60ryL18qIilXGJBleZcnveISYQ3CF6hIc4IM10YqKSJDNbdgAQ39VebMFOM=
+	t=1788183609; cv=none; b=hikIlYNQqmQkFjrpZ2quRCNIGSBOHKFdiHpaGHRdBFnFm6zhu6fd3P6qw1iQjzZFMLK1A1nFEIY6rFvShxWVQhAQXVY9G752lAorFQTjvX1yfmolcuBUlcXKRs2oxBq2X7/fwvrasSpRIYlUzv1GTyvwqkecREiINsuRnBrcuA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183611; c=relaxed/simple;
-	bh=mmmPKuSpPwHBNH/xCCEbA7njtcSUDEIDK9G0l7l1u/o=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pCyPgxDEh6SchPkjKkjCL8p4r5hAw44+d5c0/xQfRpF03shzhlyPpI9Ns/397h9nnOw7cTlRRlOlzgKZL7O4BmM3hbFgHsMnMws816TglU+fmOcHD5MwVuujO2hV8ykGKInPCCKHwOhRph/pxx/+ocvwEgWxbGZyjIhqvwXUtpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RKci2xt9; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788183609; c=relaxed/simple;
+	bh=33iZXMr18Rmx2EvbseASldHV6w0ykrsmyfMWzDiOeFc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iaoPW8DXOqet5m9mL6a08iHXDxQK11dWKSz7wpvWMf2rUA0N4/oQn2/RWrpcSaO2sv7GCS/rgxivixZPF7AtFv26Eny91uhnS15Y8+maOpwqFWbxPANSYrSYP7KcrzO/TWGskFyYPYnhhboukz5ibH8hKR6yVjrxsVA8KvELojM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bbVW9ez3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RKci2xt9"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so2918341a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:40:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788183609; x=1788788409; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Yd2Ar3RmTJ9F/ZDeMnk183eBg6DrdUsQr78JTCYkyuQ=;
-        b=RKci2xt9nbFFLNaL5nuzPfD3+Frhy0WysCEZpz0tnGerLL8yrX0HJnLjXNtJW0n2HD
-         l+vTmksAb6VKs7YNZ5qa+2t+tgeF50npS/Abg7zZhLHZjzffnfS2Mk/UDlNDY8hIY6RY
-         OcXDK2AF2duCyIKULbKz2r832hWes88iv6jNjrJj8y1JclORiAMemcPIRUwbYGZYKrt4
-         BRJFzYb8bK11PXSYsRPblGasaGQwRGauvT3Iq93IxuhnT7yyoxzG89PXvVllstvXStZu
-         LdmGWJeDlhINagX049i4rx58SMjzZ84BQnp8nnOnaPYcsXlMTjGtMBc4UPYxxToGTlwK
-         OmqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788183609; x=1788788409;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Yd2Ar3RmTJ9F/ZDeMnk183eBg6DrdUsQr78JTCYkyuQ=;
-        b=F28f3PEqphuLkYIWdXt85/XbbGatq+5zL3nQP+mwtHhmw0A6bG+17N1tkYGfufoU88
-         b/vFJAeqx+iuEbESJ2OfQ3SxLZU3ktf706Oi02MdCDbp506huepJIOvoKjoiqiDOUamr
-         n9VB53q3Jql2EohG1bxFUQd20cKnhM354GLXx3X0MsAzLbuqwkjmk2b5DnXwfKasLyjt
-         0hQ/0feDwUtONuxgnzRXZFHHDhYLvi/U304m00lFFsCTEhYrHykiDvEBF8s3nYoG3tyT
-         GSzeTPwxWMurKJjUghxAguHknHZWMI5tsJLEZgkzva+Jto0Iy07WU7pAO0sCSjtfw08m
-         nbeA==
-X-Forwarded-Encrypted: i=1; AKwUvBwIVoQLSE4DZoUT43swXxm3RQRw+72jajkYq+GJHc3YbTfhYFHa11b/4hM5cMR+NMlwHiOoTmaGTnfFw24=@vger.kernel.org
-X-Gm-Message-State: AFuF++nK7W0NDYki5icg5RKu8U3ydyJOugXS5t4eDzw+7s+1nTDQ5Rmi
-	mVpCIO9zGPia1CYCx62AgPKjhlOsECjmAqvy7E8d4/Y3qxq7hS2o660xM8NMZjSlTJ2G3w==
-X-Gm-Gg: AYBFou1Bun9UIIQTCqMEbXfg0Rqun48UUEy5cFGQxKjPszgL3JUI8W7Ey/t5Y6wLT51
-	iLGT2uOk9NW800xiX5/oFlICw3fjIdA+P32+ib+IOlT++x5ZRJ3eBsrE3xaab/85SaRLJN6Fczp
-	6gIKxdmx09YlCiIT5K29D+D6LaCMgwVUQ7hO2VcgVbwujAo3haiK1qMcvTH/ImsBjAQ2rwRSEwF
-	8wHH+PgbEBiEaBFYQDGfzBoxkti8XlF6rdEVgFiArp8aNS9q+vnEVHI7xr/qh5uOwjeT+4DVaz3
-	U2RUh2mCD8sNCP+ipImqZuC8jDu0uq9lMf6wCi7JlQpThxrnPbVp3+3gJ9uR18tbZP1776uufCg
-	r7prk0q5y87B48O8WcmnGrbBfyJKmQSKTCz4HrZASy0rXicokLMPcMkO7mF7yG/kRYQnOJ4tb6g
-	xEKrTus92c3xaYGE4iokgcmJB+PHXQNdGGSF0zstQAhZQElOrcMlLpDA==
-X-Received: by 2002:a17:90b:164b:b0:38e:6a44:671b with SMTP id 98e67ed59e1d1-396d0c79e8amr39123637a91.0.1788183608423;
-        Mon, 31 Aug 2026 06:40:08 -0700 (PDT)
-Received: from localhost ([45.112.44.97])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f959575sm30280525eec.15.2026.08.31.06.40.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 06:40:07 -0700 (PDT)
-From: Coiby Xu <coiby.xu@gmail.com>
-X-Google-Original-From: Coiby Xu <Coiby.Xu@gmail.com>
-Date: Mon, 31 Aug 2026 21:39:10 +0800
-To: Sourabh Jain <sourabhjain@linux.ibm.com>
-Cc: kexec@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Dave Young <ruirui.yang@linux.dev>, 
-	Pratyush Yadav <pratyush@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, open list <linux-kernel@vger.kernel.org>, 
-	Jinjie Ruan <ruanjinjie@huawei.com>
-Subject: Re: [PATCH v4 1/9] crash_dump: Fix potential double free and UAF of
- keys_header
-Message-ID: <apWDq7EZJhL41hdS@Rk>
-References: <20260828084900.1496839-1-coiby.xu@gmail.com>
- <20260828084900.1496839-2-coiby.xu@gmail.com>
- <f8994152-7f77-4338-a496-aca67f85ca2a@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bbVW9ez3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAAA61F00A3E;
+	Mon, 31 Aug 2026 13:40:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183607;
+	bh=WV+wAURa510r5CuNOKKk6gKEMYbOTRJ3w7E+E6k5jyk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bbVW9ez36ISHqkjHpT0ODl/i80jtoN87bmJ52y0LoouTcrsyHxdS6ZMuGyjO7WHW7
+	 niG2NpKr+JCZGhN+BTZm6re9mj5ZPC3VggbkUodSgTCmd+XlSTlLOGereHI/GHOgEv
+	 XmDkWTNUmYLBjU3bVnOlW/3pGwOyhSVFx/ob6HqhhNB4JwN3CNSyromQc0xjSTg4dO
+	 nH3MAmTyQzPDmIr0dznj1270tMk0rBKfCEwm9rP83H2QJUopmMoRmfDdeJJs5nlJJS
+	 6hIZiegnv7Oli66PaVu+ZXU63J9wIB1aqKmePyhwaVSKbua8Nu7RZ6JYRxtbJzd3NF
+	 kPjPXG39NbSVg==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Peng Fan <peng.fan@nxp.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Sasha Levin <sashal@kernel.org>,
+	Frank.Li@nxp.com,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH AUTOSEL 6.18-6.12] mailbox: imx: Add a channel shutdown field
+Date: Mon, 31 Aug 2026 09:23:43 -0400
+Message-ID: <20260831133314.4125787-195-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <f8994152-7f77-4338-a496-aca67f85ca2a@linux.ibm.com>
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 30, 2026 at 12:00:40PM +0530, Sourabh Jain wrote:
->Hello Coiby,
->
->On 28/08/26 14:18, Coiby Xu wrote:
->>If kexec_add_buffer somehow fails, keys_header will be freed. Depending
->>on /sys/kernel/config/crash_dm_crypt_key/reuse, it will lead to the
->>following two problems if the kexec_file_load syscall is called again,
->>   1. Double free of keys_header if reuse=false
->>   2. UAF of keys_header if reuse=true
->>
->>To address these problems and also make it easier to reason about the
->>code, keep two invariants,
->>   1. keys_header will always be freed at the end of kexec_file_load
->>      syscall except during kdump image unloading for CPU/memory
->>      hot-plugging support
->>   2. There will always be valid keys_header if reuse=true
->>
->>Fixes: 479e58549b0f ("crash_dump: store dm crypt keys in kdump reserved memory")
->>Fixes: 9ebfa8dcaea7 ("crash_dump: reuse saved dm crypt keys for CPU/memory hot-plugging")
->>Reported-by: Sourabh Jain <sourabhjain@linux.ibm.com>
->>Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
->>---
->>  include/linux/kexec.h        |  6 ++++
->>  kernel/crash_dump_dm_crypt.c | 66 ++++++++++++++++++++++++++----------
->>  kernel/kexec_file.c          |  2 ++
->>  3 files changed, 56 insertions(+), 18 deletions(-)
->>
->>diff --git a/include/linux/kexec.h b/include/linux/kexec.h
->>index 0af8ae4fdd08..0fa8bac04576 100644
->>--- a/include/linux/kexec.h
->>+++ b/include/linux/kexec.h
->>@@ -552,6 +552,12 @@ void set_kexec_sig_enforced(void);
->>  static inline void set_kexec_sig_enforced(void) {}
->>  #endif
->>+#ifdef CONFIG_CRASH_DM_CRYPT
->>+void kexec_file_post_load_cleanup_dm_crypt(struct kimage *image);
->>+#else
->>+static inline void kexec_file_post_load_cleanup_dm_crypt(struct kimage *image) {}
->>+#endif
->>+
->>  #endif /* !defined(__ASSEBMLY__) */
->>  #endif /* LINUX_KEXEC_H */
->>diff --git a/kernel/crash_dump_dm_crypt.c b/kernel/crash_dump_dm_crypt.c
->>index c685497cd470..4335b6cb1fc4 100644
->>--- a/kernel/crash_dump_dm_crypt.c
->>+++ b/kernel/crash_dump_dm_crypt.c
->>@@ -84,18 +84,25 @@ static int add_key_to_keyring(struct dm_crypt_key *dm_key,
->>  	return r;
->>  }
->>-static void get_keys_from_kdump_reserved_memory(void)
->>+static int get_keys_from_kdump_reserved_memory(void)
->>  {
->>  	struct keys_header *keys_header_loaded;
->>+	size_t keys_header_size;
->>-	arch_kexec_unprotect_crashkres();
->>+	keys_header_size = get_keys_header_size(key_count);
->>+	keys_header = kzalloc(keys_header_size, GFP_KERNEL);
->>+	if (!keys_header)
->>+		return -ENOMEM;
->>+	arch_kexec_unprotect_crashkres();
->>  	keys_header_loaded = kmap_local_page(pfn_to_page(
->>  		kexec_crash_image->dm_crypt_keys_addr >> PAGE_SHIFT));
->>-	memcpy(keys_header, keys_header_loaded, get_keys_header_size(key_count));
->>+	memcpy(keys_header, keys_header_loaded, keys_header_size);
->>  	kunmap_local(keys_header_loaded);
->>  	arch_kexec_protect_crashkres();
->>+
->>+	return 0;
->>  }
->>  static int restore_dm_crypt_keys_to_thread_keyring(void)
->>@@ -286,17 +293,28 @@ static ssize_t config_keys_reuse_show(struct config_item *item, char *page)
->>  static ssize_t config_keys_reuse_store(struct config_item *item,
->>  					   const char *page, size_t count)
->>  {
->>+	bool val;
->>+	int r;
->>+
->>  	if (!kexec_crash_image || !kexec_crash_image->dm_crypt_keys_addr) {
->>  		kexec_dprintk(
->>  			"dm-crypt keys haven't be saved to crash-reserved memory\n");
->>  		return -EINVAL;
->>  	}
->>-	if (kstrtobool(page, &is_dm_key_reused))
->>+	if (kstrtobool(page, &val) || !val)
->>  		return -EINVAL;
->>-	if (is_dm_key_reused)
->>-		get_keys_from_kdump_reserved_memory();
->>+	if (is_dm_key_reused) {
->>+		pr_info("Already got dm-crypt keys, please continue with kexec_file_load syscall\n");
->>+	} else {
->>+		r = get_keys_from_kdump_reserved_memory();
->>+		if (r) {
->>+			pr_warn("Failed to get dm-crypt keys from reserved memory\n");
->>+			return r;
->>+		}
->>+		is_dm_key_reused = true;
->>+	}
->>  	return count;
->>  }
->>@@ -369,9 +387,6 @@ static int build_keys_header(void)
->>  	struct config_key *key;
->>  	int i, r;
->>-	if (keys_header != NULL)
->>-		kvfree(keys_header);
->>-
->>  	keys_header = kzalloc(get_keys_header_size(key_count), GFP_KERNEL);
->>  	if (!keys_header)
->>  		return -ENOMEM;
->>@@ -415,8 +430,7 @@ int crash_load_dm_crypt_keys(struct kimage *image)
->>  		.top_down = false,
->>  		.random = true,
->>  	};
->>-	int r;
->>-
->>+	int r = 0;
->>  	if (key_count <= 0) {
->>  		kexec_dprintk("No dm-crypt keys\n");
->>@@ -424,14 +438,15 @@ int crash_load_dm_crypt_keys(struct kimage *image)
->>  	}
->>  	if (!is_dm_key_reused) {
->>-		image->dm_crypt_keys_addr = 0;
->>  		r = build_keys_header();
->>-		if (r) {
->>-			pr_err("Failed to build dm-crypt keys header, ret=%d\n", r);
->>-			return r;
->>-		}
->>+		if (r)
->>+			goto out;
->>  	}
->>+	/*
->>+	 * keys_header will be copied to reserver memory later and then be
->>+	 * cleaned up at the end of kexec_file_load syscall
->>+	 */
->>  	kbuf.buffer = keys_header;
->>  	kbuf.bufsz = get_keys_header_size(key_count);
->>@@ -441,18 +456,33 @@ int crash_load_dm_crypt_keys(struct kimage *image)
->>  	r = kexec_add_buffer(&kbuf);
->>  	if (r) {
->>  		pr_err("Failed to call kexec_add_buffer, ret=%d\n", r);
->>-		kvfree((void *)kbuf.buffer);
->>-		return r;
->>+		goto out;
->>  	}
->>+
->>  	image->dm_crypt_keys_addr = kbuf.mem;
->>  	image->dm_crypt_keys_sz = kbuf.bufsz;
->>  	kexec_dprintk(
->>  		"Loaded dm crypt keys to kexec_buffer bufsz=0x%lx memsz=0x%lx\n",
->>  		kbuf.bufsz, kbuf.memsz);
->>+out:
->>+	is_dm_key_reused = false;
->>  	return r;
->>  }
->>+void kexec_file_post_load_cleanup_dm_crypt(struct kimage *image)
->>+{
->>+	/*
->>+	 * For CPU/memory hot-plugging, the kdump image will be reloaded. Prevent
->>+	 * keys_header from being cleaned up during unloading when
->>+	 * is_dm_key_reused=true
->>+	 */
->>+	if (!is_dm_key_reused) {
->>+		kfree_sensitive(keys_header);
->>+		keys_header = NULL;
->
->The below patch from Jinjie has proposed to free and reset the 
->keys_header in
->the below patch:
->
->https://lore.kernel.org/all/20260826092541.3905933-8-ruanjinjie@huawei.com/
->
->I suggest to Jinjie to consider dropping his patch and review this one 
->instead.
->
->I CCed you on the above patch series so feel free share you thoughts.
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-Thanks for pointing me to Jinjie's patch and making the suggestion!
+[ Upstream commit 5ccea7eacb7786c358833634f45700365f6c1d99 ]
 
->
->- Sourabh Jain
->
->>+	}
->>+}
->>+
->>  static int __init configfs_dmcrypt_keys_init(void)
->>  {
->>  	int ret;
->>diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
->>index 59fb9d71e9d8..062f7e79016d 100644
->>--- a/kernel/kexec_file.c
->>+++ b/kernel/kexec_file.c
->>@@ -140,6 +140,8 @@ void kimage_file_post_load_cleanup(struct kimage *image)
->>  	kfree(image->image_loader_data);
->>  	image->image_loader_data = NULL;
->>+	kexec_file_post_load_cleanup_dm_crypt(image);
->>+
->>  	kexec_file_dbg_print = false;
->>  }
->
+sashiko complained about possible teardown problem. The scenario
 
+ CPU 0                              CPU 1
+  imx_mu_isr()                   imx_mu_shutdown()
+                                   imx_mu_xcr_rmw(priv, IMX_MU_RCR, 0, IMX_MU_xCR_RIEn(priv->dcfg->type, cp->idx));
+    imx_mu_specific_rx()
+      imx_mu_xcr_rmw(priv, IMX_MU_RCR, IMX_MU_xCR_RIEn(priv->dcfg->type, 0), 0);
+                                   free_irq()
+
+The RX event remains enabled because in this short window the RX event
+was disabled in ->shutdown() while the interrupt was active and then
+enabled again by the ISR while ->shutdown waited in free_irq().
+
+This race requires timing and if happens can be problematic on shared
+handlers if the "removed" channel triggers an interrupt. In this case
+the irq-core will shutdown the interrupt with the "nobody cared"
+message.
+
+Introduce imx_mu_con_priv::shutdown to signal that the channel is
+shutting down. This flag is set with the lock held (by
+imx_mu_xcr_clr_shut()). The unmask side uses imx_mu_xcr_set_act() which
+only enables the event if the channel has not been shutdown and
+serialises on the same lock.
+
+Reviewed-by: Peng Fan <peng.fan@nxp.com>
+Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+
+LLM Generated explanations, may be completely bogus:
+
+# Stable Backport Analysis: `mailbox: imx: Add a channel shutdown field`
+
+**Local tree:** `v6.18.44` (`linux-6.18.y`, `VERSION=6 PATCHLEVEL=18
+SUBLEVEL=44`)
+**Upstream commit:** `5ccea7eacb778` (not present in this checkout; `git
+apply --check` succeeds)
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Subject line
+**Record:** `[mailbox: imx]` `[Add]` — adds a per-channel `shutdown`
+flag to coordinate teardown vs. ISR interrupt re-enablement.
+
+### Step 1.2: Tags
+**Record:**
+- **Fixes:** — absent (expected for manual review)
+- **Reported-by:** — absent; commit cites sashiko review feedback
+- **Tested-by:** — absent
+- **Reviewed-by:** Peng Fan `<peng.fan@nxp.com>` (NXP imx mailbox
+  maintainer)
+- **Reviewed-by:** Mathieu Poirier `<mathieu.poirier@linaro.org>`
+- **Link:** — absent
+- **Cc: stable:** — absent (expected)
+- **Signed-off-by:** Sebastian Andrzej Siewior, Jassi Brar (ignore
+  pipeline-added SOBs)
+
+Notable: two subsystem reviewers, including the NXP driver maintainer.
+
+### Step 1.3: Body analysis
+**Record:**
+- **Bug:** Race between `imx_mu_isr()` → `imx_mu_specific_rx()` re-
+  enabling RX interrupt enable bits and `imx_mu_shutdown()` disabling
+  them, then blocking in `free_irq()`.
+- **Symptom:** RX interrupt remains enabled after channel teardown; on
+  `IRQF_SHARED` lines, a spurious interrupt from the removed channel can
+  trigger irq-core “nobody cared” handling and disable the shared IRQ.
+- **Root cause:** `imx_mu_shutdown()` clears enable bits, but a
+  concurrent ISR completion re-enables them via `imx_mu_xcr_rmw()`
+  before `free_irq()` completes.
+- **Version info:** None stated; mechanism has existed since the
+  `imx_mu_xcr_rmw()` RX re-enable path was added (2021).
+
+### Step 1.4: Hidden bug fix?
+**Record:** Yes — despite “Add a channel shutdown field”, this is a
+race-condition bug fix disguised as structural addition. The `shutdown`
+bool is purely a synchronization mechanism.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory
+**Record:**
+- **File:** `drivers/mailbox/imx-mailbox.c` (+36 / -4 lines)
+- **Functions modified/added:** `imx_mu_xcr_clr_shut()` (new),
+  `imx_mu_xcr_set_act()` (new), `imx_mu_specific_rx()`,
+  `imx_mu_startup()`, `imx_mu_shutdown()`
+- **Struct:** `imx_mu_con_priv` — adds `bool shutdown`
+- **Scope:** Single-file, surgical fix
+
+### Step 2.2: Code flow per hunk
+**Record:**
+1. **`shutdown` field added** → per-channel teardown state.
+2. **`imx_mu_xcr_clr_shut()`** → atomically sets `cp->shutdown = true`
+   and clears interrupt-enable bits under `xcr_lock`.
+3. **`imx_mu_xcr_set_act()`** → re-enables interrupt bits only if
+   `!cp->shutdown`, under same lock.
+4. **`imx_mu_specific_rx()`** → final RX re-enable changed from
+   unconditional `imx_mu_xcr_rmw()` to guarded `imx_mu_xcr_set_act()`.
+5. **`imx_mu_startup()`** → resets `cp->shutdown = false` after
+   successful `request_irq()`.
+6. **`imx_mu_shutdown()`** → TX/RX/RXDB disable paths use
+   `imx_mu_xcr_clr_shut()` instead of `imx_mu_xcr_rmw()`.
+
+**Before → After:**
+- Shutdown clears enables, ISR can still re-enable → shutdown sets flag
+  + clears enables; ISR re-enable is suppressed once shutdown started.
+
+### Step 2.3: Bug mechanism
+**Record:** **Race condition / synchronization fix.**
+Shutdown and ISR completion both modify the same control-register enable
+bits without coordinating teardown intent. The fix serializes intent via
+`shutdown` flag + existing `xcr_lock`.
+
+### Step 2.4: Fix quality
+**Record:** Obviously correct; minimal; uses existing `xcr_lock`. Low
+regression risk — only suppresses re-enable after shutdown has begun.
+`cp->shutdown = false` on startup ensures clean re-open.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: Blame
+**Record:**
+- `imx_mu_shutdown()` — since 2018 (`2bb7005696e22`)
+- `imx_mu_specific_rx()` RX re-enable at line 382 — since 2021
+  (`4f0b776ef58317`, i.MX8ULP MU support)
+- `xcr_lock` — present since initial imx MU driver (`2bb7005696e22`)
+- Bug present in this tree for years.
+
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag.
+
+### Step 3.3: Related file history
+**Record:**
+- Recent related fix in tree: `b5ef17917f3a7` “mailbox: imx: fix TXDB_V2
+  channel race condition” (2024) — same driver, same class of register
+  RMW races.
+- Commit is patch 02/10 of Siewior’s threaded-handler series on
+  mainline, but **this patch is standalone** — it does not require the
+  threaded-handler commits (verified: applies cleanly to current 6.18.y
+  code; later series commits are separate enhancements).
+
+### Step 3.4: Author context
+**Record:** Sebastian Andrzej Siewior — active kernel contributor;
+recent imx mailbox work on mainline. Jassi Brar is mailbox subsystem
+maintainer (committed the patch).
+
+### Step 3.5: Dependencies
+**Record:** No prerequisites. Self-contained. Does not depend on
+`fbc0f319cee18` (“Use channel index instead of zero”) which is a
+separate follow-up on mainline.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1: Original discussion
+**Record:** `b4 dig -c 5ccea7eacb778` → [PATCH v3 02/10] at https://patc
+h.msgid.link/20260617-imx_mbox_rproc-v3-2-77948112defc@linutronix.de
+Series revisions: v1 (2026-05-29), v2 (2026-06-03), v3 (2026-06-17).
+Committed version matches v3.
+
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w` CC’d: `linux-remoteproc@vger.kernel.org`,
+`imx@lists.linux.dev`, `linux-arm-kernel@lists.infradead.org`, Bjorn
+Andersson, Jassi Brar, Peng Fan, Mathieu Poirier, Pengutronix team.
+
+### Step 4.3: Bug report
+**Record:** Triggered by sashiko automated review during patch series
+development — not a syzbot/user crash report, but a concrete, code-
+reviewed race scenario with a documented failure mode.
+
+### Step 4.4: Series context
+**Record:** Part of 10-patch threaded-handler series, but this commit is
+independently applicable. Other series patches are not required for this
+fix to function.
+
+### Step 4.5: Stable list
+**Record:** Lore fetch blocked by bot protection; no stable-list
+discussion found via `b4 dig`. Absence of explicit stable nomination is
+not a negative signal.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: Key functions
+**Record:** `imx_mu_isr()`, `imx_mu_specific_rx()`, `imx_mu_shutdown()`,
+`imx_mu_startup()`, `mbox_free_channel()` (caller)
+
+### Step 5.2: Callers
+**Record:**
+- `imx_mu_isr` — IRQ handler registered via `request_irq()` in
+  `imx_mu_startup()`
+- `imx_mu_shutdown` — called from `mbox_free_channel()` in
+  `drivers/mailbox/mailbox.c:474-475`
+- `imx_mu_specific_rx` — called from `imx_mu_isr()` for `IMX_MU_TYPE_RX`
+  on SCU/S4 configs (`imx_mu_cfg_imx8_scu`, `imx_mu_cfg_imx8ulp_s4`,
+  `imx_mu_cfg_imx93_s4`)
+
+### Step 5.3: Callees
+**Record:** `imx_mu_xcr_rmw/set_act/clr_shut` use
+`spin_lock_irqsave(&priv->xcr_lock)`; hardware register read/write;
+`free_irq()`; `mbox_chan_received_data()`
+
+### Step 5.4: Reachability
+**Record:**
+```
+mbox_free_channel() → imx_mu_shutdown()     [teardown path]
+IRQ → imx_mu_isr() → imx_mu_specific_rx()   [interrupt path]
+```
+Triggered during channel release (driver unbind, remoteproc shutdown,
+SCMI client teardown). Reachable on normal i.MX embedded operation.
+
+### Step 5.5: Similar patterns
+**Record:** Prior imx mailbox race fix `b5ef17917f3a7` (TXDB_V2) already
+in this tree. Same driver, same register-coordination problem class.
+
+---
+
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
+
+### Step 6.1: Buggy code present?
+**Record:** **Yes.** Current tree at `drivers/mailbox/imx-mailbox.c`:
+- Line 382: unconditional RX re-enable in `imx_mu_specific_rx()`
+- Lines 647-650: shutdown clears RX/RXDB enables via `imx_mu_xcr_rmw()`
+- Line 601-602: `IRQF_SHARED` when `!(priv->dcfg->type & IMX_MU_V2_IRQ)`
+  — applies to imx6sx, imx7ulp, imx8ulp, imx8ulp_s4, imx8_scu,
+  imx8_seco, imx95 variants (not imx93_s4 which has dedicated IRQs)
+
+### Step 6.2: Backport complications
+**Record:** **Clean apply** — `git show 5ccea7eacb778 | git apply
+--check` succeeds with no conflicts.
+
+### Step 6.3: Fix already present?
+**Record:** No — `git merge-base --is-ancestor 5ccea7eacb778 HEAD`
+returns non-zero; grep finds no `imx_mu_xcr_clr_shut` or `shutdown`
+field in `imx_mu_con_priv`.
+
+---
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/mailbox` — **IMPORTANT** for i.MX/ARM embedded
+platforms. imx MU is used for SCMI, SECO, System Manager, and remoteproc
+IPC.
+
+### Step 7.2: Activity
+**Record:** Actively maintained; multiple imx mailbox fixes in 6.18.y
+and mainline since 2024.
+
+---
+
+## PHASE 8: IMPACT AND RISK
+
+### Step 8.1: Who is affected
+**Record:** Users of `CONFIG_IMX_MBOX` on i.MX platforms using
+SCU/S4/specific RX paths with shared IRQs — imx8ulp_s4, imx8_scu,
+imx95-ele/v2x, etc.
+
+### Step 8.2: Trigger conditions
+**Record:** Channel teardown (`mbox_free_channel`) concurrent with in-
+flight RX interrupt processing. Timing-dependent but realistic during
+driver unbind, remoteproc stop, or subsystem restart. Not directly
+userspace-triggerable, but triggered by normal admin/driver lifecycle
+operations.
+
+### Step 8.3: Failure severity
+**Record:** Spurious interrupt on freed channel → irq-core “nobody
+cared” → **shared IRQ disabled** → loss of mailbox/SCMI/remoteproc
+communication. **Severity: HIGH** (can render IPC subsystem non-
+functional; potential system hang depending on dependents).
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH — prevents IRQ disable on shared lines during
+  teardown
+- **Risk:** LOW — 40 lines, single file, uses existing lock, reviewed by
+  maintainers
+- **Ratio:** Strongly favors backport
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence summary
+
+**FOR backport:**
+- Real, verifiable race between ISR and shutdown
+- Concrete failure mode (spurious IRQ → “nobody cared” → IRQ disabled)
+- Affects production i.MX embedded platforms with shared IRQs
+- Small, surgical, reviewed fix
+- Applies cleanly to 6.18.y
+- Bug code present since 2021
+- Prior similar imx mailbox race fix already in stable tree
+
+**AGAINST backport:**
+- Timing-dependent; no user crash report or syzbot report
+- Part of a larger series (but this patch is standalone)
+- Sashiko report is review-tool feedback, not field report
+
+**Unresolved:** Full lore thread content unavailable due to bot
+protection; no explicit stable nomination found.
+
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — clear lock+flag pattern;
+   reviewed by NXP maintainer and Linaro reviewer
+2. Fixes a real bug? **PASS** — verified race in current tree code
+3. Important issue? **PASS** — IRQ disable on shared handler can break
+   critical IPC
+4. Small and contained? **PASS** — 1 file, ~40 lines
+5. No new features/APIs? **PASS** — internal driver flag only
+6. Can apply to local tree? **PASS** — clean apply verified
+
+### Step 9.3: Exception categories
+**Record:** None (not a device ID, quirk, DT, build, or docs fix) —
+qualifies on race-condition bug-fix merits.
+
+### Step 9.4: Decision rationale
+This fix addresses a real teardown race in the imx mailbox driver that
+can leave interrupt enables active after channel shutdown, causing
+spurious interrupts on shared IRQ lines and irq-core disablement. The
+bug exists in v6.18.44, the fix is minimal and self-contained, applies
+cleanly, and has maintainer review. While timing-dependent, the
+consequence (shared IRQ shutdown breaking SCMI/remoteproc IPC) is
+serious enough for stable inclusion, consistent with prior imx mailbox
+race fixes already in this tree.
+
+---
+
+## Verification
+
+- [Phase 1] Parsed commit `5ccea7eacb778`: subject, body, Reviewed-by
+  tags (Peng Fan, Mathieu Poirier); no Fixes/Reported-by/Cc:stable
+- [Phase 2] Diff analysis: +36/-4 in `imx-mailbox.c`; race fix via
+  `shutdown` flag + `xcr_clr_shut`/`xcr_set_act`
+- [Phase 3] `git describe HEAD`: v6.18.44; `git blame`: buggy RX re-
+  enable since 4f0b776ef58317 (2021); shutdown since 2bb7005696e22
+  (2018)
+- [Phase 3] Related commit `b5ef17917f3a7` TXDB_V2 race fix present in
+  tree
+- [Phase 3] `git merge-base --is-ancestor 5ccea7eacb778 HEAD`: NOT in
+  tree (exit 1)
+- [Phase 4] `b4 dig -c 5ccea7eacb778`: found v3 02/10 at
+  patch.msgid.link/20260617-...
+- [Phase 4] `b4 dig -a`: v1/v2/v3 series revisions found
+- [Phase 4] `b4 dig -w`: maintainers and imx lists CC'd
+- [Phase 4] Lore full-thread fetch: blocked by Anubis bot protection
+  (UNVERIFIED for inline reviewer stable comments)
+- [Phase 5] Read `imx_mu_isr`, `imx_mu_specific_rx`, `imx_mu_shutdown`,
+  `mbox_free_channel` call chain
+- [Phase 5] Verified `IRQF_SHARED` at line 601-602 for
+  non-`IMX_MU_V2_IRQ` configs
+- [Phase 5] Verified `imx_mu_specific_rx` used by imx8_scu, imx8ulp_s4,
+  imx93_s4 configs
+- [Phase 6] Confirmed buggy code at lines 382, 647-650 in current tree
+- [Phase 6] `git show 5ccea7eacb778 | git apply --check`: succeeds
+  (clean apply)
+- [Phase 6] Grep: no `imx_mu_xcr_clr_shut` or `shutdown` field in
+  current tree
+- [Phase 7] `CONFIG_IMX_MBOX` in `drivers/mailbox/Kconfig`
+- [Phase 8] Failure mode: spurious IRQ → irq disable on shared line;
+  severity HIGH for IPC subsystems
+
+**YES**
+
+ drivers/mailbox/imx-mailbox.c | 40 +++++++++++++++++++++++++++++++----
+ 1 file changed, 36 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/mailbox/imx-mailbox.c b/drivers/mailbox/imx-mailbox.c
+index a45c3e6d76575..3e52f70434c97 100644
+--- a/drivers/mailbox/imx-mailbox.c
++++ b/drivers/mailbox/imx-mailbox.c
+@@ -82,6 +82,7 @@ struct imx_mu_con_priv {
+ 	enum imx_mu_chan_type	type;
+ 	struct mbox_chan	*chan;
+ 	struct work_struct 	txdb_work;
++	bool			shutdown;
+ };
+ 
+ struct imx_mu_priv {
+@@ -221,6 +222,36 @@ static u32 imx_mu_xcr_rmw(struct imx_mu_priv *priv, enum imx_mu_xcr type, u32 se
+ 	return val;
+ }
+ 
++static void imx_mu_xcr_clr_shut(struct imx_mu_priv *priv, struct imx_mu_con_priv *cp,
++				enum imx_mu_xcr type, u32 clr)
++{
++	unsigned long flags;
++	u32 val;
++
++	spin_lock_irqsave(&priv->xcr_lock, flags);
++	cp->shutdown = true;
++
++	val = imx_mu_read(priv, priv->dcfg->xCR[type]);
++	val &= ~clr;
++	imx_mu_write(priv, val, priv->dcfg->xCR[type]);
++	spin_unlock_irqrestore(&priv->xcr_lock, flags);
++}
++
++static void imx_mu_xcr_set_act(struct imx_mu_priv *priv, struct imx_mu_con_priv *cp,
++			       enum imx_mu_xcr type, u32 set)
++{
++	unsigned long flags;
++	u32 val;
++
++	spin_lock_irqsave(&priv->xcr_lock, flags);
++	if (!cp->shutdown) {
++		val = imx_mu_read(priv, priv->dcfg->xCR[type]);
++		val |= set;
++		imx_mu_write(priv, val, priv->dcfg->xCR[type]);
++	}
++	spin_unlock_irqrestore(&priv->xcr_lock, flags);
++}
++
+ static int imx_mu_generic_tx(struct imx_mu_priv *priv,
+ 			     struct imx_mu_con_priv *cp,
+ 			     void *data)
+@@ -379,7 +410,7 @@ static int imx_mu_specific_rx(struct imx_mu_priv *priv, struct imx_mu_con_priv *
+ 		*data++ = imx_mu_read(priv, priv->dcfg->xRR + (i % num_rr) * 4);
+ 	}
+ 
+-	imx_mu_xcr_rmw(priv, IMX_MU_RCR, IMX_MU_xCR_RIEn(priv->dcfg->type, 0), 0);
++	imx_mu_xcr_set_act(priv, cp, IMX_MU_RCR, IMX_MU_xCR_RIEn(priv->dcfg->type, 0));
+ 	mbox_chan_received_data(cp->chan, (void *)priv->msg);
+ 
+ 	return 0;
+@@ -607,6 +638,7 @@ static int imx_mu_startup(struct mbox_chan *chan)
+ 		return ret;
+ 	}
+ 
++	cp->shutdown = false;
+ 	switch (cp->type) {
+ 	case IMX_MU_TYPE_RX:
+ 		imx_mu_xcr_rmw(priv, IMX_MU_RCR, IMX_MU_xCR_RIEn(priv->dcfg->type, cp->idx), 0);
+@@ -641,13 +673,13 @@ static void imx_mu_shutdown(struct mbox_chan *chan)
+ 
+ 	switch (cp->type) {
+ 	case IMX_MU_TYPE_TX:
+-		imx_mu_xcr_rmw(priv, IMX_MU_TCR, 0, IMX_MU_xCR_TIEn(priv->dcfg->type, cp->idx));
++		imx_mu_xcr_clr_shut(priv, cp, IMX_MU_TCR, IMX_MU_xCR_TIEn(priv->dcfg->type, cp->idx));
+ 		break;
+ 	case IMX_MU_TYPE_RX:
+-		imx_mu_xcr_rmw(priv, IMX_MU_RCR, 0, IMX_MU_xCR_RIEn(priv->dcfg->type, cp->idx));
++		imx_mu_xcr_clr_shut(priv, cp, IMX_MU_RCR, IMX_MU_xCR_RIEn(priv->dcfg->type, cp->idx));
+ 		break;
+ 	case IMX_MU_TYPE_RXDB:
+-		imx_mu_xcr_rmw(priv, IMX_MU_GIER, 0, IMX_MU_xCR_GIEn(priv->dcfg->type, cp->idx));
++		imx_mu_xcr_clr_shut(priv, cp, IMX_MU_GIER, IMX_MU_xCR_GIEn(priv->dcfg->type, cp->idx));
+ 		break;
+ 	case IMX_MU_TYPE_RST:
+ 		imx_mu_xcr_rmw(priv, IMX_MU_CR, IMX_MU_xCR_RST(priv->dcfg->type), 0);
 -- 
-Best regards,
-Coiby
+2.53.0
+
