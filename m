@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C756592214;
-	Mon, 31 Aug 2026 13:51:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF1C592D2A;
+	Mon, 31 Aug 2026 13:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184262; cv=none; b=pms/sfi7O6Ocaab08TGUYqeEyZ+ut0dA0Q76o/ByTlVMt5buPjaZT304hoqEycE9oVE86GBX47UfDpGMETjHd3UMUeUxhnKKYmFJhu+DqB5Q6ONAg5ag+dIC68gMIGIQvx4iJR2vankfryXtN3KJIN5CmKNsgIGXf9W0Ie2IeR0=
+	t=1788184265; cv=none; b=o0Tq3t/l2gT9kv4tRsv9arU7H/5zlr2arL8HOHKQRvN6W80DSDGXMaAAZP4n31RTRtO3vYngXxuTkBJZwxjLSCTeEFJu7XJnkrXFUXkvZJidPnLlYdE0u82BaXRK/AxWErXRKLUNPWQpqvUZH2GkA3h4vExKJgMHWy3Js+e0tlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184262; c=relaxed/simple;
-	bh=oQ711CS7bu5fPtfZe9FQvoMnU2ysPqtcJaYehIlZW18=;
+	s=arc-20240116; t=1788184265; c=relaxed/simple;
+	bh=yxqkIkNzBeXbzEpMTSYg/M2+18HCXWAGMciGKgJmASk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qd6ZxVpLw9y0GbBYJvw8PH2k/BGkJl6x+npTlOe8gJgCySHm0clukxlaplmmA2Tf1AdF5g2MKbWkZiy0wvlJALTogczwxxAWvrI+hHsyjPrbVMBNqaPcf47n+F4lNNp0GIwqbQ6ZMKCAEwcaaNhU5ZBv319MhUF6Cf4SeeyOZGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oeAOi8zI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=a2x7mkPwyXM+ZsUj/3lDRH1QKxZKmwhv9VIxSaRb5hvixpzkg54rk5hzHvj7oAbA2nWqYI47CqDoPDV65MIQokmdehU1Aoszl/CGAgggB1cxYBqnubIUIej2l2Cv4GzkXLKdr/WFipIwGjNCwKOi2YlFt85kGpKmhhLx3JmQU6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJuHqBHC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oeAOi8zI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF1B81F00A3F;
-	Mon, 31 Aug 2026 13:50:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJuHqBHC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D971F00A3E;
+	Mon, 31 Aug 2026 13:51:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184260;
-	bh=Xrd25d3lSl0keEIk+M1xGehTLksJ1UefujdL9tdsESM=;
+	s=k20260515; t=1788184261;
+	bh=61M7A9M45q/4EFC9xsc0Tf/RGm1cpKzoAjzhET2BHsQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oeAOi8zIR8PMmmlM8j5GEsrEtFPSrho/N0VZD0UtBwGSD8OkKojVwJOPlMuU2+78T
-	 Njz9fHwzgFZbywQUtnJD1f7pPqOjWHAgNXDoRPUeZRy19mZZJlY4cX4gIGEMwzQpEM
-	 xDU7F6Ioi3hAu9GX2dJv6WrVNHlRkJnDxQajJ/Zd4FuZ6U3PFZgJEZwDKMEqbgQcd6
-	 HX/CIZswZeid8msqD/SYv60SjOYBZdJCMAjZBzqwyMDFwqjMPoDM9r0oCGOoXYvnHa
-	 3ujyXyXMi/67XH3F1xdAJ8cpCyOH3Enp4AyduBfAlpg0VJ7paPyCvG7LQnkcji0Z7u
-	 +4CGjMlIrMQWg==
+	b=EJuHqBHCYBejhqSe8q8BEzAXg2s1j7Bec5SWD/avF2Zfv9VzTpxy14/HI6MC6/+yA
+	 OQV3KN7zb8eYT1eOAlyUzC4PD/Vn4G86uAcw9xeLAfuPVSwGjE2+uijz4K53e4H4re
+	 IAGrbzgBr2Q8DPnaj1IbkABv7kRYfGPvuU+uM+aYWGPK/2E+F6SQAwd22z2aZUZ5i8
+	 ED799a9frnk/WM0BhXVaBt4Nvvuj4NaHRDlpf4OPuXW7iL8eTt4z3cInELnuSstxOg
+	 /WbMCtYCXvaQA4s57NDHI1FZqMTFRdV4M091SXCByn87BEjkY21fnBNGZ7W50VWeuL
+	 o8k2j64Yzamzw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Ping-Ke Shih <pkshih@realtek.com>,
-	Guillermo Servera Negre <guillem@gservera.com>,
+Cc: Shubham Nayak <shubhamnayak392reborn@gmail.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] wifi: rtw89: 8851bu: add Mercusys MA60XNB (2c4e:0128)
-Date: Mon, 31 Aug 2026 09:30:15 -0400
-Message-ID: <20260831133314.4125787-587-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] ALSA: hda/realtek: Add quirk for HP Victus 16-e0xxx (88EE) to enable mute LED
+Date: Mon, 31 Aug 2026 09:30:16 -0400
+Message-ID: <20260831133314.4125787-588-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,336 +54,375 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ping-Ke Shih <pkshih@realtek.com>
+From: Shubham Nayak <shubhamnayak392reborn@gmail.com>
 
-[ Upstream commit 575e6a72bd68008b6795345113d3e94f3dccbf5d ]
+[ Upstream commit 6c18817c01f6f76d9e2739903abde4d69397f2c6 ]
 
-Add the specific USB device ID which adapter tested fully functional on
-Fedora 44 with kernel 7.0.8-200.fc44.x86_64 and linux-firmware
-20260410-1.fc44.
+The mute LED on the HP Victus 16-e0xxx (board ID 88EE, ALC245 codec)
+does not function by default. Add the ALC245_FIXUP_HP_MUTE_LED_COEFBIT
+quirk to enable it. Tested on my HP Victus 16-e0xxx with kernel 7.1.2.
 
-Reported-by: Guillermo Servera Negre <guillem@gservera.com>
-Tested-by: Guillermo Servera Negre <guillem@gservera.com>
-Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
-Link: https://patch.msgid.link/20260525011728.6836-1-pkshih@realtek.com
+Signed-off-by: Shubham Nayak <shubhamnayak392reborn@gmail.com>
+Link: https://patch.msgid.link/20260629-hp-victus-16-mute-led-v1-1-ab0f4a8a533b@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: ALSA hda/realtek HP Victus 16-e0xxx (88EE)
+mute LED quirk
 
-### Step 1.1: Subject Line
-**Record:** `[wifi: rtw89: 8851bu] [add] Mercusys MA60XNB USB device ID
-(2c4e:0128)`
+**Local tree:** Linux **6.18.44** (`v6.18.44-1-g2736c32da98b9`)
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Subject line
+**Record:** `[ALSA: hda/realtek]` `[Add]` — Add quirk for HP Victus
+16-e0xxx (88EE) to enable mute LED
 
 ### Step 1.2: Tags
 **Record:**
-- **Reported-by:** Guillermo Servera Negre \<guillem@gservera.com\> —
-  user-reported hardware enablement
-- **Tested-by:** Guillermo Servera Negre \<guillem@gservera.com\> —
-  verified on Fedora 44 / kernel 7.0.8
-- **Signed-off-by:** Ping-Ke Shih \<pkshih@realtek.com\> — rtw89
-  maintainer
-- **Link:**
-  https://patch.msgid.link/20260525011728.6836-1-pkshih@realtek.com
-- No Fixes:, Cc: stable, Reviewed-by, or Acked-by tags
-- Notable: real user report + maintainer-authored + tested on target
-  hardware
+- **Signed-off-by:** Shubham Nayak (author), Takashi Iwai (ALSA
+  maintainer)
+- **Link:** https://patch.msgid.link/20260629-hp-victus-16-mute-
+  led-v1-1-ab0f4a8a533b@gmail.com
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Cc:
+  stable@vger.kernel.org
 
-### Step 1.3: Body Analysis
+Notable: Maintainer (Takashi Iwai) Signed-off-by is a strong quality
+signal. Author reports hardware testing on kernel 7.1.2.
+
+### Step 1.3: Body analysis
 **Record:**
-- **Bug:** Mercusys MA60XNB (USB 2c4e:0128) is not bound by
-  `rtw89_8851bu`; WiFi does not work on kernels without this ID.
-- **Symptom:** Adapter not recognized by the rtw89 WiFi driver; no
-  wireless connectivity.
-- **Root cause:** Missing `usb_device_id` table entry; USB core cannot
-  match the device to `rtw89_8851bu`.
-- **Version info:** Tested on Fedora 44 with kernel 7.0.8 and linux-
-  firmware 20260410.
+- **Bug:** Mute LED on HP Victus 16-e0xxx with board ID 88EE and ALC245
+  codec does not function by default.
+- **Symptom:** Keyboard mute LED does not toggle with microphone mute
+  state.
+- **Root cause:** Missing PCI subsystem ID quirk entry; hardware needs
+  `ALC245_FIXUP_HP_MUTE_LED_COEFBIT` to configure coefficient-bit-based
+  mute LED control.
+- **Version info:** Tested on kernel 7.1.2; no crash or corruption
+  described.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** Not a crash/corruption fix. This is explicit **hardware
-enablement** via a new USB ID — a well-established stable exception
-category.
+### Step 1.4: Hidden bug fix?
+**Record:** Not a hidden crash/leak fix. This is an explicit hardware
+quirk addition for a non-functional mute LED — a well-known Realtek HDA
+pattern in this driver.
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 2: DIFF ANALYSIS
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:** `drivers/net/wireless/realtek/rtw89/rtw8851bu.c` (+3 lines)
-- **Function/area:** `rtw_8851bu_id_table[]` USB ID table
-- **Scope:** Single-file, surgical device-ID addition
+- **File:** `sound/hda/codecs/realtek/alc269.c` (+1 line)
+- **Change:** One `SND_PCI_QUIRK` table entry
+- **Scope:** Single-file, surgical hardware quirk addition
 
-### Step 2.2: Code Flow Change
+### Step 2.2: Code flow
 **Record:**
-- **Before:** USB device 2c4e:0128 not in `rtw_8851bu_id_table`;
-  `rtw89_8851bu` does not probe it.
-- **After:** Device matches table entry → `rtw89_usb_probe()` runs →
-  RTL8851BU WiFi comes up.
-- **Path:** USB enumeration / driver binding (normal probe path).
+- **Before:** HP Victus 16-e0xxx with SSID `0x103c:0x88ee` matches no
+  quirk; mute LED coefficients are never configured.
+- **After:** Matching hardware gets `ALC245_FIXUP_HP_MUTE_LED_COEFBIT`,
+  which runs `alc245_fixup_hp_mute_led_coefbit()` at probe time to set
+  coefficient index/mask/on/off values and register the mute LED cdev.
+- **Path:** Codec probe → `snd_hda_pick_fixup()` → quirk table lookup →
+  fixup applied at `HDA_FIXUP_ACT_PRE_PROBE`.
 
-### Step 2.3: Bug Mechanism
-**Record:** **Hardware workarounds / device ID addition.** Same chip
-family and driver as existing entries (D-Link AX9U, TP-Link Archer
-TX10UB Nano, etc.). Without the ID, the existing driver never attaches.
+### Step 2.3: Bug mechanism
+**Record:** **[h] Hardware workaround** — Missing PCI SSID-to-fixup
+mapping for a variant of an already-quirked laptop family. The sibling
+entry `0x88eb` uses `ALC245_FIXUP_HP_MUTE_LED_V2_COEFBIT` (different
+coefficient bits); `0x88ee` needs the older
+`ALC245_FIXUP_HP_MUTE_LED_COEFBIT` variant.
 
-### Step 2.4: Fix Quality
+### Step 2.4: Fix quality
 **Record:**
-- Obviously correct: identical pattern to adjacent entries.
-- Minimal: 3 lines, no logic changes.
-- Regression risk: very low — only affects matching of this specific
-  VID:PID.
-- No API, structure, or behavior changes beyond enabling one device.
+- Obviously correct: one-line quirk using an existing, well-tested fixup
+  already applied to many other HP Victus models in this tree.
+- Minimal scope; no logic changes.
+- Regression risk: negligible — only affects systems with exact PCI SSID
+  `0x103c:0x88ee`. Wrong fixup on wrong hardware would only affect LED
+  behavior, not audio playback.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
 **Record:**
-- `rtw8851bu.c` added in `52cf443237856` (2025-07-04): "wifi: rtw89: Add
-  rtw8851bu.c"
-- D-Link AX9U ID added in `2ffc73cdb8247` (2025-09-02): same RTL8851BU
-  pattern
-- Candidate commit `575e6a72bd680` is **not** in this tree (`git merge-
-  base --is-ancestor` exit 1)
+- Insertion point is between `0x88eb` (added by `9745c2561e55f`, Jan
+  2026) and `0x8902` (present since Realtek driver split
+  `aeeb85f26c3bbe`, Jul 2025).
+- `ALC245_FIXUP_HP_MUTE_LED_COEFBIT` and
+  `alc245_fixup_hp_mute_led_coefbit()` introduced in `aeeb85f26c3bbe`
+  (Jul 2025, driver split from monolithic `patch_realtek.c`).
 
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag.
+### Step 3.2: Fixes: tag
+**Record:** Not applicable — no Fixes: tag present.
 
-### Step 3.3: Related Changes
+### Step 3.3: Related file history
 **Record:**
-- `79f9e221dddec` already in **this** tree: "Bluetooth: btusb: Add USB
-  ID 2c4e:0128 for Mercusys MA60XNB" — describes it as an **RTL8851BU-
-  based Wi-Fi + Bluetooth adapter**
-- `2ffc73cdb8247` in this tree: D-Link AX9U (also RTL8851BU) ID addition
-  — precedent for stable backport of rtw8851bu IDs
-- Standalone single-patch series (v1 only per `b4 dig -a`)
+- `9745c2561e55f` — added `0x88eb` quirk for same laptop model with
+  `ALC245_FIXUP_HP_MUTE_LED_V2_COEFBIT` (already in this tree).
+- Multiple similar mute LED quirk commits in 6.18.y: `89ed38540e6be`,
+  `7556bd5cd8ef3`, `a424946e00f2e`, etc.
+- Standalone one-line patch; no series dependency.
 
-### Step 3.4: Author Context
-**Record:** Ping-Ke Shih is rtw89 maintainer; regular contributor with
-multiple commits in this tree.
+### Step 3.4: Author context
+**Record:** Shubham Nayak is a hardware reporter/contributor. Takashi
+Iwai (ALSA/HDA maintainer) accepted the patch. Pattern consistent with
+community-submitted HP quirk reports.
 
 ### Step 3.5: Dependencies
-**Record:** No prerequisites. Driver, probe path (`rtw89_usb_probe`),
-and chip support (`rtw8851b`) all exist in 6.18.44. Backport is a
-straight table entry; mainline has extra `rtw8851b_usb_info` structure
-not present here, but the ID lines apply independently after the D-Link
-entry.
+**Record:** No dependencies. Requires only
+`ALC245_FIXUP_HP_MUTE_LED_COEFBIT` fixup enum, its fixup function, and
+`alc269_fixup_tbl[]` — all verified present in 6.18.44. Applies
+standalone.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Patch Discussion
-**Record:**
-- `b4 dig -c 575e6a72bd680`:
-  https://patch.msgid.link/20260525011728.6836-1-pkshih@realtec.com
-- Single v1 submission (2026-05-25)
-- WebFetch of lore URL blocked (Anubis bot protection) — could not read
-  thread replies
+### Step 4.1: Original discussion
+**Record:** Lore/patch.msgid.link fetch blocked by Anubis bot
+protection. `b4 dig -c` could not be run (commit hash not in this tree).
+Could not read review thread directly.
 
 ### Step 4.2: Reviewers
-**Record:** `b4 dig -w`: To/Cc — Ping-Ke Shih, linux-
-wireless@vger.kernel.org, guillem@gservera.com
+**Record:** UNVERIFIED via b4 dig -w. Takashi Iwai maintainer SOB
+confirms acceptance.
 
-### Step 4.3: Bug Report
-**Record:** User report via Guillermo Servera Negre; hardware tested
-working with ID present. No syzbot/security report.
+### Step 4.3: Bug report
+**Record:** Author self-reported on own hardware. No syzbot, bugzilla,
+or multi-user reports. Severity: cosmetic/UX (mute LED non-functional).
 
-### Step 4.4: Related Patches
-**Record:** Companion btusb ID `79f9e221dddec` already backported to
-this tree; WiFi side is the missing half for MA60XNB users.
+### Step 4.4: Related patches
+**Record:** Directly related to `9745c2561e55f` (0x88eb, same model,
+different motherboard, different fixup variant). This patch completes
+coverage for another MB variant.
 
-### Step 4.5: Stable List
-**Record:** Not searched separately; btusb half already landed in 6.18.y
-via stable backport.
+### Step 4.5: Stable list
+**Record:** UNVERIFIED — lore.kernel.org inaccessible. However,
+`9745c2561e55f` (related Victus 16-e0xxx quirk) is already in this
+6.18.y tree, establishing precedent.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `rtw_8851bu_id_table[]` (modified); `rtw89_usb_probe` /
-`rtw89_usb_disconnect` (unchanged, referenced by driver struct)
+### Step 5.1: Key functions
+**Record:** `alc269_fixup_tbl[]` (modified),
+`alc245_fixup_hp_mute_led_coefbit()` (existing, invoked via fixup),
+`snd_hda_pick_fixup()` (caller at probe).
 
 ### Step 5.2: Callers
-**Record:** USB core matches `id_table` during enumeration → calls
-`rtw89_usb_probe`. Standard hotplug path for USB WiFi dongles.
+**Record:** `snd_hda_pick_fixup()` called from Realtek codec probe path
+in `alc269.c` (~line 8471) during HDA codec initialization at
+boot/module load. Every Realtek HDA codec goes through this, but the
+quirk only activates on SSID match.
 
 ### Step 5.3: Callees
-**Record:** Probe delegates to existing rtw89 USB infrastructure in
-`usb.c`; no new code paths.
+**Record:** Fixup sets `spec->mute_led_coef` fields and calls
+`snd_hda_gen_add_mute_led_cdev()` to wire LED control to mute state.
 
 ### Step 5.4: Reachability
-**Record:** Triggered when user plugs in Mercusys MA60XNB. Common, user-
-visible path.
+**Record:** Triggered automatically at codec probe on matching HP Victus
+16-e0xxx (MB 88EE) hardware. Not userspace-triggerable beyond owning the
+hardware. Common laptop audio path.
 
-### Step 5.5: Similar Patterns
-**Record:** Same file already has D-Link, TP-Link, Edimax IDs; btusb
-already has 2c4e:0128; rtw88 has other Mercusys 2c4e IDs.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree
-
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** Local tree is **Linux 6.18.44** (`git describe
-HEAD` → v6.18.44). `rtw8851bu.c` exists with 4 device IDs; **2c4e:0128
-is absent**. Driver present since July 2025.
-
-### Step 6.2: Backport Complications
-**Record:** **Clean apply** — insert 3 lines after D-Link block (line
-21), before TP-Link block. Mainline base differs structurally but
-insertion point and syntax match this tree.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** btusb ID for same device **already in tree**
-(`79f9e221dddec`). WiFi ID is **not** present. No duplicate fix.
+### Step 5.5: Similar patterns
+**Record:** At least 12 other HP Victus models in this tree already use
+`ALC245_FIXUP_HP_MUTE_LED_COEFBIT` (e.g., `0x8a25`, `0x8a26`, `0x8c99`,
+`0x8dcd`). Same pattern, different SSID.
 
 ---
 
-## Phase 7: Subsystem Context
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
 
-### Step 7.1: Subsystem
-**Record:** `drivers/net/wireless/realtek/rtw89` — **IMPORTANT** (common
-USB WiFi hardware, user-visible).
+### Step 6.1: Buggy code exists?
+**Record:** **YES.** `0x88eb` quirk exists at line 6809, but `0x88ee` is
+**absent** — confirmed by grep. Users with MB 88EE get no mute LED
+quirk. `ALC245_FIXUP_HP_MUTE_LED_COEFBIT` infrastructure has been
+present since Jul 2025.
 
-### Step 7.2: Activity
-**Record:** Actively maintained; frequent stable backports including
-other USB ID additions (`2ffc73cdb8247`).
+### Step 6.2: Backport complications
+**Record:** **Clean apply expected.** Single-line insertion after
+`0x88eb` entry. No refactoring conflicts in recent `alc269.c` history.
+
+### Step 6.3: Related fixes already present?
+**Record:** `0x88eb` quirk (`9745c2561e55f`) already in tree. No
+duplicate `0x88ee` entry. This is the missing complementary quirk for a
+different motherboard variant.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 8.1: Who Is Affected
-**Record:** Users of Mercusys MA60XNB on 6.18.y without this ID — WiFi
-non-functional despite driver being built.
+### Step 7.1: Subsystem criticality
+**Record:** `sound/hda/realtek` — IMPORTANT (audio driver, affects
+laptop users with this specific HP hardware). Not CORE, but widely
+deployed.
 
-### Step 8.2: Trigger Conditions
-**Record:** Plug in MA60XNB USB adapter. Common, unprivileged user
-action. Certainty: 100% without ID.
+### Step 7.2: Subsystem activity
+**Record:** Actively maintained — frequent HP mute LED quirk additions
+in 6.18.y (10+ in recent history). Standard maintenance pattern for
+Realtek HDA.
 
-### Step 8.3: Failure Mode Severity
-**Record:** WiFi driver never binds — **hardware does not work**
-(functional failure, not kernel crash). Severity for affected users:
-**HIGH** (device unusable for intended purpose). Not a security/crash
-issue.
+---
 
-### Step 8.4: Risk-Benefit
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** HP Victus 16-e0xxx laptops with PCI SSID `0x103c:0x88ee` and
+ALC245 codec. Driver-specific, hardware-specific population.
+
+### Step 8.2: Trigger conditions
+**Record:** Every boot/probe on matching hardware. Automatic, not
+privilege-dependent. Very likely for affected owners (100% on matching
+hardware).
+
+### Step 8.3: Failure mode severity
+**Record:** Mute LED does not reflect microphone mute state. Audio
+itself works; only the LED indicator is broken. **Severity: LOW**
+(cosmetic/UX). No crash, corruption, security, or deadlock.
+
+### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** Enables WiFi on a commercially sold RTL8851BU adapter;
-  completes pairing with already-backported btusb ID.
-- **Risk:** Negligible — 3-line ID table entry, zero logic change.
-- **Ratio:** Strongly favorable.
+- **Benefit:** LOW-MEDIUM — restores expected laptop mute LED behavior
+  for affected HP Victus owners.
+- **Risk:** VERY LOW — one-line SSID-specific quirk using existing
+  fixup; cannot affect other hardware.
+- **Ratio:** Favorable. Matches established stable practice for HP
+  Realtek mute LED quirks.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Standard stable exception: new USB ID on existing driver
-- Real user report + Tested-by on target hardware
-- Maintainer-authored (Ping-Ke Shih)
-- Driver and probe infrastructure exist in 6.18.44
-- btusb ID for same device already in this stable tree — WiFi half is
-  missing
-- Precedent: D-Link AX9U RTL8851BU ID already in stable
-  (`2ffc73cdb8247`)
-- 3 lines, obviously correct
+- Hardware quirk exception category (audio codec quirk for broken LED
+  behavior)
+- One-line, surgical, uses existing fixup — zero new code paths
+- Hardware-tested by reporter; maintainer (Iwai) Signed-off-by
+- All prerequisites present in 6.18.44
+- Direct precedent: related `0x88eb` quirk already in this stable tree
+- Many identical-pattern HP Victus mute LED quirks already in 6.18.y
+- Clean apply expected
 
 **AGAINST backport:**
-- Not a crash/security/data-corruption fix (lower urgency than UAF
-  fixes)
-- Lore thread content unverified (fetch blocked)
+- Not a crash, security, corruption, or deadlock fix
+- Low severity (cosmetic mute LED only)
+- Single reporter, no syzbot/fuzzer signal
+- Mailing list discussion not verified
 
 **UNRESOLVED:**
-- Full mailing-list review thread not readable (Anubis)
+- Full lore review thread inaccessible
+- No explicit stable nomination found in review
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — same pattern as existing
-   entries; Tested-by present
-2. Fixes real bug affecting users? **PASS** — device unusable for WiFi
-   without ID
-3. Important issue? **PASS** — hardware enablement for real users
-   (functional failure)
-4. Small and contained? **PASS** — 3 lines, one file
-5. No new features/APIs? **PASS** — device ID exception only
-6. Can apply to local tree? **PASS** — driver exists; clean insertion
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — one-line quirk, hardware-
+   tested, maintainer-approved
+2. Fixes real bug affecting users? **PASS** — mute LED non-functional on
+   real hardware
+3. Important issue? **PASS (via quirk exception)** — not crash-level,
+   but hardware quirk fixes for broken laptop features are standard
+   stable material in this subsystem
+4. Small and contained? **PASS** — 1 line
+5. No new features/APIs? **PASS** — existing fixup enum/function only
+6. Can apply to local tree? **PASS** — all infrastructure present, clean
+   insertion point verified
 
-### Step 9.3: Exception Category
-**Record:** **NEW DEVICE ID** — textbook stable material.
+### Step 9.3: Exception category
+**Record:** **Hardware quirk / audio codec quirk** — adding PCI SSID
+entry to enable mute LED on specific HP laptop motherboard variant.
 
-### Step 9.4: Decision Rationale
-For Linux **6.18.44**, the `rtw89_8851bu` driver is present but lacks
-the Mercusys MA60XNB ID. The Bluetooth interface of the same adapter is
-already supported via a stable backport (`79f9e221dddec`). Adding the
-WiFi ID is a minimal, tested, maintainer-approved enablement fix with
-negligible regression risk and clear user benefit.
+### Step 9.4: Decision rationale
+
+This commit adds a single `SND_PCI_QUIRK` entry for HP Victus 16-e0xxx
+motherboard 88EE, mapping it to the already-present
+`ALC245_FIXUP_HP_MUTE_LED_COEFBIT` fixup. The sibling variant `0x88eb`
+is already quirked in 6.18.44 with a different fixup (`V2_COEFBIT`),
+confirming this is a multi-motherboard laptop family needing per-SSID
+tuning.
+
+While mute LED failure is low severity (no audio breakage, no crash),
+the Linux stable trees routinely accept these HP Realtek HDA quirk
+additions. The fix is trivial, hardware-specific, uses no new code, and
+carries essentially zero regression risk. It directly benefits 6.18.y
+users with this laptop who currently have a non-functional mute LED.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit `575e6a72bd680`: subject, Reported-by, Tested-
-  by, Link tags
-- [Phase 2] Diff: +3 lines to `rtw_8851bu_id_table[]` in `rtw8851bu.c`
-- [Phase 3] `git describe HEAD`: v6.18.44 / kernel 6.18.44
-- [Phase 3] `git merge-base --is-ancestor 575e6a72bd680 HEAD`: exit 1 —
-  commit not in tree
-- [Phase 3] `git log --oneline --
-  drivers/net/wireless/realtek/rtw89/rtw8851bu.c`: 2 commits (driver add
-  + D-Link ID)
-- [Phase 3] `git blame` lines 16–28: table from `52cf443237856`, D-Link
-  from `2ffc73cdb8247`
-- [Phase 3] `git show 79f9e221dddec`: btusb Mercusys ID already in
-  stable, notes RTL8851BU combo adapter
-- [Phase 4] `b4 dig -c 575e6a72bd680`: lore URL found
-- [Phase 4] `b4 dig -a`: single v1 patch
-- [Phase 4] `b4 dig -w`: linux-wireless CC'd
-- [Phase 4] WebFetch lore URL: **blocked** (Anubis) — thread content
-  unverified
-- [Phase 5] `grep rtw89_usb_probe`: probe in `usb.c`, used by
-  `rtw8851bu.c`
-- [Phase 6] Read `rtw8851bu.c`: no 2c4e:0128 entry; driver fully present
-- [Phase 6] `grep 2c4e.*0128`: present in `btusb.c`, absent from
-  `rtw8851bu.c`
-- [Phase 7] Kconfig/Makefile: `CONFIG_RTW89_8851BU` builds
-  `rtw89_8851bu` module
-- [Phase 8] Failure mode: WiFi non-functional without ID; bt half
-  already works in tree
+- **[Phase 1]** Parsed commit message: subject, SOB tags (Nayak, Iwai),
+  Link tag; no Fixes/Reported-by/Cc:stable
+- **[Phase 2]** Diff analysis: +1 line `SND_PCI_QUIRK(0x103c, 0x88ee,
+  ...)` in `alc269_fixup_tbl[]`
+- **[Phase 2]** Read `alc245_fixup_hp_mute_led_coefbit()` at lines
+  1566–1580: configures coef 0x0b bits for mute LED
+- **[Phase 3]** `git describe HEAD`: v6.18.44-1-g2736c32da98b9; `make
+  kernelversion`: 6.18.44
+- **[Phase 3]** `git blame -L 6807,6812`: 0x88eb from `9745c2561e55f`,
+  surrounding entries from Jul 2025 split
+- **[Phase 3]** `git log -S ALC245_FIXUP_HP_MUTE_LED_COEFBIT`: fixup
+  present since `aeeb85f26c3bbe` (Jul 2025)
+- **[Phase 3]** `git log -S 0x88ee`: no results — entry not yet in tree
+- **[Phase 3]** `git show 9745c2561e55f`: related 0x88eb quirk already
+  in 6.18.y
+- **[Phase 4]** WebFetch lore/patch.msgid.link: BLOCKED (Anubis bot
+  protection)
+- **[Phase 4]** `b4 dig`: could not match commit (not in tree); URL form
+  not accepted
+- **[Phase 5]** `grep alc269_fixup_tbl`: table at line 6510, used at
+  line 8471 via `snd_hda_pick_fixup()`
+- **[Phase 5]** Grep: 12+ existing HP Victus entries using
+  `ALC245_FIXUP_HP_MUTE_LED_COEFBIT`
+- **[Phase 6]** Grep `0x88ee`: not present; `0x88eb` present at line
+  6809
+- **[Phase 6]** Read lines 6807–6812: confirmed insertion point and
+  neighbor quirks
+- **[Phase 6]** Verified `ALC245_FIXUP_HP_MUTE_LED_COEFBIT` enum, fixup
+  struct, and function all exist
+- **[Phase 7]** `git log --oneline -20 --grep="mute LED"`: 10+ similar
+  quirk commits in tree history
+- **[Phase 8]** Failure mode assessed as LOW severity (LED only, no
+  audio impact)
+- **UNVERIFIED:** Full mailing list review thread and any explicit Cc:
+  stable nomination in review
 
-**YES**The background history search finished. It found only the
-Bluetooth half of the Mercusys MA60XNB support already in this tree
-(`79f9e221dddec` in `btusb.c`); the rtw89 WiFi ID commit
-(`575e6a72bd680`) is not present on 6.18.44.
+**YES**The analysis is complete for the HP Victus 16-e0xxx (88EE) mute
+LED quirk on **Linux 6.18.44**.
 
-That matches the earlier analysis: backporting the 3-line WiFi ID
-addition is appropriate for this stable tree.
+**Verdict: YES** — backport to this stable tree.
 
- drivers/net/wireless/realtek/rtw89/rtw8851bu.c | 3 +++
- 1 file changed, 3 insertions(+)
+It’s a one-line hardware quirk that maps PCI SSID `0x103c:0x88ee` to the
+existing `ALC245_FIXUP_HP_MUTE_LED_COEFBIT` fixup. The related `0x88eb`
+variant is already quirked in this tree; this adds the missing
+motherboard variant. Risk is very low, and it matches the usual pattern
+for HP Realtek mute LED fixes in stable.
 
-diff --git a/drivers/net/wireless/realtek/rtw89/rtw8851bu.c b/drivers/net/wireless/realtek/rtw89/rtw8851bu.c
-index 04e1ab13b7535..10fcfade6151e 100644
---- a/drivers/net/wireless/realtek/rtw89/rtw8851bu.c
-+++ b/drivers/net/wireless/realtek/rtw89/rtw8851bu.c
-@@ -19,6 +19,9 @@ static const struct usb_device_id rtw_8851bu_id_table[] = {
- 	/* D-Link AX9U rev. A1 */
- 	{ USB_DEVICE_AND_INTERFACE_INFO(0x2001, 0x332a, 0xff, 0xff, 0xff),
- 	  .driver_info = (kernel_ulong_t)&rtw89_8851bu_info },
-+	/* Mercusys MA60XNB */
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x2C4E, 0x0128, 0xff, 0xff, 0xff),
-+	  .driver_info = (kernel_ulong_t)&rtw89_8851bu_info },
- 	/* TP-Link Archer TX10UB Nano */
- 	{ USB_DEVICE_AND_INTERFACE_INFO(0x3625, 0x010b, 0xff, 0xff, 0xff),
- 	  .driver_info = (kernel_ulong_t)&rtw89_8851bu_info },
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index a06acaf9ba6a0..36d5dfa9e1db8 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -6807,6 +6807,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x88d1, "HP Pavilion 15-eh1xxx (mainboard 88D1)", ALC245_FIXUP_HP_MUTE_LED_V1_COEFBIT),
+ 	SND_PCI_QUIRK(0x103c, 0x88dd, "HP Pavilion 15z-ec200", ALC285_FIXUP_HP_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x88eb, "HP Victus 16-e0xxx", ALC245_FIXUP_HP_MUTE_LED_V2_COEFBIT),
++	SND_PCI_QUIRK(0x103c, 0x88ee, "HP Victus 16-e0xxx (MB 88EE)", ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
+ 	SND_PCI_QUIRK(0x103c, 0x8902, "HP OMEN 16", ALC285_FIXUP_HP_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x890e, "HP 255 G8 Notebook PC", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+ 	SND_PCI_QUIRK(0x103c, 0x8919, "HP Pavilion Aero Laptop 13-be0xxx", ALC287_FIXUP_HP_GPIO_LED),
 -- 
 2.53.0
 
