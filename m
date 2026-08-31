@@ -1,72 +1,78 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012039.outbound.protection.outlook.com [40.107.209.39])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020095.outbound.protection.outlook.com [52.101.84.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841392DF128
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:07:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E11B3C9EE7;
+	Mon, 31 Aug 2026 05:10:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.95
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788152828; cv=fail; b=Tyh/D9+zswhulMSl0HRE1povT9sVkjNGnf0SIYbuV96JIF1DNpkNlbJjdLjFeAQUBGV0qb0I5duCBILJIAAWqHybNDEc5EG1/SlH09v2in5nqfz71otjvQCKUaY3k/EnoBBpSQc/RXL8hFthc8QmtaPfU2xcSztTHKyd9GS1pH8=
+	t=1788153054; cv=fail; b=W61rQ5vErhg4gIQJ98I+K7uibML/0sotpZzizg7zpS0F1cf3QQcNvSEH44baqOYagf8XbHqs96iy/g/7Y4sIge8s6Z8A0fJfMseS/tB43/7B/T3DthaoQiF9u5779eUlExt65ZeGmvEjovcLAxHN4aVwaDlrbTEvF1Tn0VMXcUY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788152828; c=relaxed/simple;
-	bh=gKQ3zH1iuFhMBvrCQhcquvQN4MtDmfRBU3Z8ZIWJops=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
-	 In-Reply-To:MIME-Version; b=hl7fQ7O5AoJBQbsuRBtzo7TmYKstVEPyKSGVFaVfmWEcScr5h3I6jj2s4rWGDJ1AJ2767KQ+vjpUX2r3owjKZVHsStzUJ8w8qdfixfrkU0uhKfnhl1+bWK8UCpKGuSOUE8vh9asOmvBL6JcgNR9+xvf7tNGD1WoR7OCTh48RyZQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=iiBPwmHv; arc=fail smtp.client-ip=40.107.209.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1788153054; c=relaxed/simple;
+	bh=h+KROVydj78W9bg08TRxlG5ItrmHyQO7jvOAv6M/kRI=;
+	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=dD6zNzcEYgnApaqnR8PsQo/TVcLPCD6fuytod4ip/pORoHe+bCfqQKA0V1jdWc8Tham/6kWHfTluLDntfaSyXXYp1ISomfTnxc8q2Cx74+Kp8h/jpKk9t2zFfJVykPeq5vHV7UGvVYU2FpOotg7hUzknfoO+DiXisNyNJnSV7XM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com; spf=pass smtp.mailfrom=vaisala.com; dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b=RJaC+k7D; arc=fail smtp.client-ip=52.101.84.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="iiBPwmHv"
+	dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b="RJaC+k7D"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CRRXIEdGELvmOg2Uvnj2bUoikY1lvw0d74ZpuLrzD0UHa97SFNhyZLhqnYIPgY25KLh+r/iZRHUG8IAO2kkX6a9beYZGNa7Q0tisuzjd2Uqudvlsb1z0Hby0e3ORfvPoWghbJiZ4pD2aguxTyD8eQK3FV/IR25GAaeSM27Jd20MEC99hAgcH3dFs+h5h/CeGyXPdOyFPleynDwGPhie3a1M0or6EyVnlwjitKDw32f50ikkSnL5V9jTQPtdmbV7RkDb+Bn5tJQ4S8Ke3+Pfs7DtatCYkw3IgIoVGojNqPTQm/YPwnTLfLzVww9w4Js6C9CRYT4ZU1KXtPISbrg7C3g==
+ b=iiKgwaDzKsArRjJLeuKlwUgVNY9J1kqFRlgWVEbrlFEvgiD3sbrvrVbLwPpt3cdC7r0oYCGhPyLQ8Jh2q6S6aCRWK8abJXuFtNa/L5q3pNcN092cATte/UtlyRBPOXQtFDi3As8oxoAfyHUdrOh+k/PuaZS/ippMHdNBIBvWrcXggUHQmACjBPDCUOyvRu0cE1/R8WM+anZyL+yjCuFtPReF3Ey/j8GYRpNK5oAk3ITXOXQmjPb79FYhtWg3fOZ+ynpEkSXijzaqJmvzRwTAUnE3iEH5blSp1fXVaAxJbdai3ydFhmxfx3TJJyQZ+2fjXVJGHoPP8/53jr4fHiDmLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4yUmjQyciAWW9k2eQIbawASxpSLzMgW9ie/UTu7ptZE=;
- b=UH0TZdpRdSGA/A+G4IFsGNVFS3BHHoGMkbpweeWES47Uioz5iPlCW3Yx0YQRDsLA+lrYwwztueLhZNTX87VF7BiXl2UufoTyKC1OTLHqq+DhCI9s/+n36w1F/YRUXkhycom+BUo3lc4ueUmO/7Wilz4l8u1mGH5REfCoFaKAPLA3lF6QQlaef4GB6LVt7YN1VyCY/8UdptTjy6PCQ9S4AHmGDDUxiOl9wxKippWr/0otzXJ6l+wO9ThZRW+eOov9cl+SjVZ9xvYQFJ+C5p9fmXlfszGzQTGHIpoft79gFIt7Tl4asY5JsqzPu5Sl488ObWMFq4zxjUWEs/BPChXptQ==
+ bh=Pvsl3s5zfQ9QVYOzurwmlKM32DPxhZSQv9vm2lb+Tcc=;
+ b=xqGnsdcMmM71osYhFuHoVJg8onrUg9lKvFtrNzMggfrKMRz3G5/LwQ+X+yhDQLH0YR6nRcvx3Ks4sdqzLLZQZpzkG4Z/F8WLC5/Lgy8cyEVMrdVAhFfMymaBZBF2rpwGPDyrsaoQjxGey1q7I8WMyVUE4pMbi5CSBCsGbPMTKQx9r76vJAAY3DSQnuPryZrfRV2v59nW6lZldX37d8fzaREAJVEIgpwfTtUHW0g/v1I8tadBAvlQ81XnOKttg0f66DjitOm7oyoGJjCn6WFTLzlAInienKeUoNdjWbzvHHJ0VCRiSlcTKMkXeBSGl6bLGOOQhnHTkXv7XpA+a3kv9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
+ dkim=pass header.d=vaisala.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4yUmjQyciAWW9k2eQIbawASxpSLzMgW9ie/UTu7ptZE=;
- b=iiBPwmHv2U9pzE7Dr0Crzx60IVHD7wsqMdlLAqhQAf7TYGB21+ypD+aaHfk0b9CLFKeG4LmkNSE2Lys+uSKnTu6lw+LRD4K82wCEXtyjyhxj5BmfxRO6C9C2JB0vxkHwQezp2DldBNdqSzCfIT98/dAu4gMJu8R/NEMTqOzV09LhoDbYbLeMhFlH4xDHPbqlTmSUNWBgDrEu7wzsHU4oxeTPV0q2dU4ikrfkAjH3rstlHRqdjT372gqDskrhcxGT8kfu1bJgxR7F8XLyOYsSfzu9JBwha1ggqQJze+A/YGGE7y9cBmZPeB1rPNLC9pBOoOKV91+TQT8hNThpCNRrzA==
+ bh=Pvsl3s5zfQ9QVYOzurwmlKM32DPxhZSQv9vm2lb+Tcc=;
+ b=RJaC+k7D30ZxhF/0ckIfQ8zvzksLQMH7sNEkcM95UcUiSRUCn3GO10VgENwjL8F5j+zFemIw8FFt8HMm1lHNQlbgQ08qYeBd7dCCRAw0LOYve5dR5W4dX4lnqXvw+3Q6zDmA+D4cF2N+MYsf4HvAm8DX991PhWCDrkWAe+Vee3mXUK+1o+rqoSNMNsnb6N78q8N4WDaRM3CQuSLUymBabhq1lV/V2NWht3wU6+mLllD508FZOR68Mr1bf04y7nby5P3ncmGrO9JKQjXzvaYqOt6XsUcDYa+PFFsWouNtkuaaxSDjq6yVkxaxaD5Hz9g9LmvTkIcgsd3qMliDV+9cJw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by PH7PR12MB7235.namprd12.prod.outlook.com (2603:10b6:510:206::14) with
+ header.d=none;dmarc=none action=none header.from=vaisala.com;
+Received: from AM9PR06MB7907.eurprd06.prod.outlook.com (2603:10a6:20b:3a6::23)
+ by AS5PR06MB8701.eurprd06.prod.outlook.com (2603:10a6:20b:673::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 05:07:03 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 05:07:03 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 31 Aug 2026 14:06:59 +0900
-Message-Id: <DL2V9T0YINMS.F1BKR8WX5T8H@nvidia.com>
-Subject: Re: [PATCH v2 08/15] gpu: nova-core: dispatch GSP events instead of
- discarding them
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
- <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-Content-Transfer-Encoding: quoted-printable
-References: <20260829012243.496697-1-jhubbard@nvidia.com>
- <20260829013324.499542-13-jhubbard@nvidia.com>
-In-Reply-To: <20260829013324.499542-13-jhubbard@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0115.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:29c::19) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Mon, 31 Aug
+ 2026 05:10:41 +0000
+Received: from AM9PR06MB7907.eurprd06.prod.outlook.com
+ ([fe80::a597:33a7:d4e2:1b17]) by AM9PR06MB7907.eurprd06.prod.outlook.com
+ ([fe80::a597:33a7:d4e2:1b17%3]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 05:10:41 +0000
+From: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Date: Mon, 31 Aug 2026 05:10:31 +0000
+Subject: [PATCH net-next v3] net: dsa: microchip: enable the SGMII port of
+ the KSZ9897S
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-ksz9897-sgmii-port-v3-1-2376aa4edf11@vaisala.com>
+X-B4-Tracking: v=1; b=H4sIAMcMlWoC/33NQQ6CMBQE0KuQrq35bZEWV97DuCj0Cz8qkLZpU
+ MLdbdgYE+NyMpk3CwvoCQM7FgvzmCjQOOSgdgVrezt0yMnlzCTICjQofguv2tSah+5BxKfRR14
+ a5xoBgCAOLA8nj1eaN/TMBox8wDmyS256CnH0z+0tia3/ByfBBVdGo66UdA6aU7IU7N3u2/Gxg
+ Ul+ECPET0RmBEqL0mgLjdTfyLqubyDDz+UFAQAA
+X-Change-ID: 20260703-ksz9897-sgmii-port-48ddb100e015
+To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Tristram Ha <tristram.ha@microchip.com>, Nicolai Buchwitz <nb@tipi-net.de>, 
+ Jerry Ray <Jerry.Ray@microchip.com>, 
+ Tapio Reijonen <tapio.reijonen@vaisala.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788153040; l=8236;
+ i=tapio.reijonen@vaisala.com; s=20250903; h=from:subject:message-id;
+ bh=h+KROVydj78W9bg08TRxlG5ItrmHyQO7jvOAv6M/kRI=;
+ b=znSi61ILErsJdsI+6ubei4b8lL3KxXXDdPWsePMz4KTf5bo8b3Acf+L4bAVcT35xmAntkyGdP
+ 1K1Xowx/ihYDFIG82xXIomUkY8vOJMZNEcPOUbJnsgEcS97P2mIccVD
+X-Developer-Key: i=tapio.reijonen@vaisala.com; a=ed25519;
+ pk=jWBz3VD84WbWgfEgIqB5iFFiyVIHZr52zVBPOm7qiGo=
+X-ClientProxiedBy: GV3P280CA0070.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:a::25) To AM9PR06MB7907.eurprd06.prod.outlook.com
+ (2603:10a6:20b:3a6::23)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,237 +80,269 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH7PR12MB7235:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb183f1c-3568-4f22-b2a5-08df071db1b4
+X-MS-TrafficTypeDiagnostic: AM9PR06MB7907:EE_|AS5PR06MB8701:EE_
+X-MS-Office365-Filtering-Correlation-Id: 298ac182-974c-423c-81ca-08df071e33d8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|10070799003|366016|1800799024|376014|23010399003|18002099003|22082099003|56012099006|4143699003|11063799006|10067099003;
+	BCL:0;ARA:13230040|376014|52116014|7416014|23010399003|1800799024|366016|38350700014|10067099003|11063799006|5023799004|56012099006|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	5RRkBv+tO5MIrhU1Xt2n84KR3fMsufB5WM5O0+x3Yad5gbQ2+SUyY+XftpSn2MP1H/zqTsA4JOgnk2yPKZT+yuF2NuufnVCyYtlwJTRIPbg7NO+0XujScLaXpmJHj8FSBd7B9mnBebIgbzc1jhF4EZg48M3+2Iyj86oismR3UewwzpQe7ig6epgDJla9dcIRgNzjkdxf4WrCOh7k4yLmWgNQn7tTIpZckeZkQM7rnI2iM+cifg72Ap1YP2PmmTCZjdAAppHCkEPly2E7x1LN98zWBiH6q6muWpz+alXjBNaEOZDzmxrAla8suFC2BgzcyMOq9Ezvl2V2KHzpoevqBXC+R9qtF395Lauo3GCyAwbsmyRY3PXcxkq00jEPOAXvD8x0DVphocBsu/RJCVkkr+HfKXJHzMHK+IunKwQRGqF2UfdIK8sHslSyv9dqZUSJru30Ezi2oPUWw9V2sMfBI0zOvYpk3DvOkqRUIx3gbnwTdBB6sr/ZrPy1e+tWHxqKNetNAXNDHZl4G2ejiKFQIsatu8rEGYdJaIE7QOqFXR07BsZbnMOs6G42Zbl1fTGo4HTXDtsW1xGSWaia5MqVsXHl+1NZnPy298z0yaMZQiqjx6e8RtfXDIjG86OZr/etYs5+mjMyLrO1j3I0OLNMEQVvv7vAYX5fQBMZCeNZ66g=
+	Bg3jfj9gn8effxOyGYP2n5mlAW/YzrCIbxkY4gpWq0RYDu6M6JIE9qeLQU+R9xaU/eBJvUi27P+mkxRiwCRQnM8emkX4npoKMYO4rAMgPpbgiWwqjIdM7fHI4o3/0HuV55Sd4bhiislUiMXQUhuGxWXuDzFTwrqPbJx1qqPyg8xYQIUKXcHgxDDicjTwOOyfOGO/YsG3XBmYb+FRafpcd0BX8tFMZEcekm/n0BWkonWiQHyiKuCM0aIsacZnbowrDPbCJzenBP/OQBZYX+/mwM7CwGn7xS8dt63boG9ZYJxEqt6AVV1Z30JnOAqD8ty3IP0Qnj1SPebG08vfCA3jgMRB/hAW61pZ0LAX7y6+P1pJbEczd5ESgpihPqBOPlxqXgniQdZzOex8f3ybGEOhxHb95JZ87RW/WfUouyNEmDLZVS7FBkg5NHvMCrqLI3QfQpDsRiH9ot9xZ4rjfE93AzIXD7cRcF0Uo7Hg2czAszcduULHhNQehgYn5kVm/AnsNenNJrdhe7XD0ZGxRenqC57JNzM6wR5/rLAnVdWOivG1MFtxr8F+hxm4ZfDRFpziAAGhQaC/h9ZtpZDXl3ky77De/LWS4Nrnn6hB+TzrW/y/0pHDyoQ7K3OtEDRTrSuckMhEy8jAGrhfw+K3aV98BWrXai9B4etWiRxr9KzntbtxwZLraPtMmc1k7li2oiOicJZMRqlV33oxPrdkBgXR9yEKzrIYglCMH/81NGg8pdE=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(10070799003)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR06MB7907.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(7416014)(23010399003)(1800799024)(366016)(38350700014)(10067099003)(11063799006)(5023799004)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VVJMVGtENlV5b2Rtczd2eEJTUktONFlFVTM1T05ia25qNzFncWl1ZE93SEY2?=
- =?utf-8?B?OWtBYWRWenpCSmM2WVFLZndhMXdtcEQvWWJBL0w3K1ZUT1J6ME5RSG9kLzBj?=
- =?utf-8?B?NXVvcThkZHdZbVdaRXlKQ04rYk9hTkY4RHNxOSsyMUczQWtqVGw3N0d5MWl5?=
- =?utf-8?B?L20vWm1Wc3Vqak00WVF3S2FWMUxabGFnZFhoTGVlcDVoVjFXc3VVOVdIME04?=
- =?utf-8?B?djJHVllRaXNIMDhiZDlLRmJNQkFOaXFjbUZITjJtZVhTeGhYeFBKTGZBdzBT?=
- =?utf-8?B?d2NFR05aaUxhaFRkeG9zclBmMEJXTWdJMUJKTHdDVHpxU2N2NVF4bXlTcCtv?=
- =?utf-8?B?MDZVRkJOTkg1YmtMZ3V4amF1am00R2ZWdGp1aFVBQW5mQXA3SUpDbjBSbWMr?=
- =?utf-8?B?VVNvNEtJejRUdVk1eCszN1k5WkpaVEthdy9FMGQ0WC9tQWxUUVNtSXAzdnNU?=
- =?utf-8?B?L1BaTFc2ZjVUZEFHUzRnYzU4OURDK0ZQcjdvVnlJcEdVcGQxdmE5cnI0Nmt4?=
- =?utf-8?B?YVRDR2VqdzF2ZktKa2JqbEVZN00vSThmTFE4VmNVMmhVT1hoWDJUT3FIQzJq?=
- =?utf-8?B?RlNOSVJXV1VtL0s4TEpTanNtNE16SWl4eUpwdURHZVlxTldHL3c5N1EzSHBK?=
- =?utf-8?B?cTJHdnZVSm1JejRJRUtxVGY4ZXYvKytiNXRIR29Jam5VYit3QnpRdGZaVEt0?=
- =?utf-8?B?eHFnbE1RNFpUQm9MSGtxTWZCd3pTWXZURGw0Y2pJdGZlWWtFQ3hqN2w5b3RF?=
- =?utf-8?B?N3p6NEp2RzZTQ0h4Mm5kK0NQMWdHNVFTQUdCRVpweXc5VDZXWFRsb3ErcWdG?=
- =?utf-8?B?cFIxS2lUNnBpbDIvNmViOS9LblM1V2lRNTlmZDVwNjdWMUM2MEtVcURvYVV2?=
- =?utf-8?B?cEJSdnFSanlOWk16RFR2OHFCdEpyVU0wTTk1cnVIOG1hb25nb0lNL1IrRGhi?=
- =?utf-8?B?RnJqYXBhVnFCREs0dzNlMWR4dk1YckxiM1NGaTF0WTk3SERTTUp6NTlGWXpE?=
- =?utf-8?B?Y1ltTm8yWmF4c1RIdUtqb0c5UlVlRldKK200cXJIa0czbXdIaCtNcFdQYkV0?=
- =?utf-8?B?QVBpc0FPK21tdkNpTWhML0NxV21KbmpmTmtOaVdsL2xaTUE4TDNKTXZWV1Vh?=
- =?utf-8?B?RkNlY1ZjSk45eWNxcTVvbitkYnhWcXFrc2t0R2ZMWUZSTkJxN0pETHlFOUd2?=
- =?utf-8?B?T3lySWtPK2dWZHpiL0plOUdoRkJzempVcXlDVjhzVEU0UEx6eGdFYy9Ick1T?=
- =?utf-8?B?ZjNpVjRBOExVb0l1Y203QXBIMXpuYStpZXBrZkdNcjBEVUhEckpLUjNMa25J?=
- =?utf-8?B?dmlRZEdQU3Q4YU95M3R3V1lFZTVrSExoVE5vYVF4VlhiaEFGOXFIdVNEUkpX?=
- =?utf-8?B?ai9MSG0xSHFqVVhzd1NpUXR6RlZVYjZPOVc3T1hkaExhQ29YK3pYNHNwY3dU?=
- =?utf-8?B?V3ljMlBHYkRhWUFMWXdDQXY1RmVJOEduSVhwMnlaUlpnUHJNVk5uM0tFaWNY?=
- =?utf-8?B?Tk9tRzI1bTY3ai9NaHJyUDVSbUlSWmUvU3k2MmI0MTB3Z2tOVkpYcFlJemc5?=
- =?utf-8?B?dXdPUnc1c3ZYRDFjYzVNeDYrT0xzNGdDbFFmMUZtbVI0bTR4NjRlODRYSDM2?=
- =?utf-8?B?S2I1bko4YVMvWldKWkYrUlU5TkttWlJyeHNkRHN5SmRwVThzbnpyWTU5UDlp?=
- =?utf-8?B?Mk1vckVnUFNtSTNLK3daa0wyMFduVE1kbnowU2R6aVdGTHQzVlhXOWt1M3Y2?=
- =?utf-8?B?b2F5dGtoaGZmeDFCNXFKUmNPVTVNT3FvdFhra1ZNUkN2Z3R2c0VpbnJHdTg3?=
- =?utf-8?B?WitkUGkxcFJySE5ONzBYQlN5bE5DMm5PU0UzTjFSK3ZObWg1dVBiUUlaU083?=
- =?utf-8?B?T1Vaa1FyK1JHVi9uVW45N3BaY1FpVmZZd3c3RkVBRnlmaWUvR1FhRDRTNmh0?=
- =?utf-8?B?UHdkalA4cVk2Q1hNRFJlSDJvVFNZMk5WdmRqSC9TM0FXSWM0a3l2TThhK3k1?=
- =?utf-8?B?azRTRG5wOVNnY3lZd2dFeHV5cndXNkJBQU9WNWthUVQ0b1J1MVFtRHJoaVZV?=
- =?utf-8?B?dFlDbHBvcW1odWpJT1ZXNitQNWZkcUIwZzdKc1NNZEs4aFRWMVl5L3JOOHpK?=
- =?utf-8?B?V2hJVmNZVUw1a1E3ZG8rYWl0cFh6b0xSOGJ1cWJMRjhqbzR6dC9YZHAvTERV?=
- =?utf-8?B?Nit5dEJIZUpTTEliRlpmNDQ4L3FhZEFWM1c0SzFGL3diVG9WTVVnWFNSWkdW?=
- =?utf-8?B?eHBGNGFuSElhWjVsaDl5bGFjLzZudTFhMXMvMnNWcTFNOWJ6T0Nya21oNjF6?=
- =?utf-8?B?M3dsL0VQMUZGRTdXZCtWK0NYSmF6MU9qbk1RUmxSbzExN3VHTmFGSE5pWDVo?=
- =?utf-8?Q?Wqnywrne8S7Ik12VGK1EpfhlaczB8DcuZLNBpCMZvZhcw?=
-X-MS-Exchange-AntiSpam-MessageData-1: 3EOLe/XM8u2TRA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb183f1c-3568-4f22-b2a5-08df071db1b4
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+	=?utf-8?B?RXFXY3h0c25nYWE3R1BlU1pQeEUxdWNVOUUycFFnYnIySTcxcHdsR0FMQnE0?=
+ =?utf-8?B?ejZocTRkUWVPM3dUeHJzaVU0ZTBmQVhUeWpiYlA5QlI3aXcrcWNpWTJVaDRT?=
+ =?utf-8?B?UUo1Tmd0ekZQWG40eFRkbmFnV0pkSzFwL2RpVnp4VVdxU3VCWEFSUEpVaTF0?=
+ =?utf-8?B?ZVhkNXZlL2NsV2plZ1ltNG1SeU1FUlhmNnpwQU5aR1RyQXhKQ1BVNUdWTnQr?=
+ =?utf-8?B?RmZmTStjUnJhbnFNeThMUS9HRFZrR0NPM3VCVTB4d2NwYkJBRVNJcWJkaGxx?=
+ =?utf-8?B?MWdyaVBWUnQwcURCSWlxenRKMWQ5cmVIMU9YdW1BVmpXSm5IZ25FVzhhODRu?=
+ =?utf-8?B?RStZc1B6MmVFYXk5c2s5NlVpZTM1c2kwN2ErNGkvNHU3Qlprb2tHK2FoS1ZN?=
+ =?utf-8?B?bFJpL1RRSUp4S3JvRnR3ZUpkWGthc0VQMzQ4ZDA4OUlOQ3FPR1pvalhtTzdU?=
+ =?utf-8?B?S0FSU04zNlFCRGZwdjRla2RhVUxmaldmODkxWitBNVJNYTlMeEp3T21UdUFZ?=
+ =?utf-8?B?a2Qvam1lY204aVhFZUZtMWV0di9ES0FYUjJKOG8zZk9CMCtxeFNPWWNSeUdk?=
+ =?utf-8?B?ckQrUnN5OTNNZDYvNUFXVDB2by9MdEdJSHd1ZzFFTFh6ZW43NGFIQzFGYVBz?=
+ =?utf-8?B?K1V6Zk41Vlc5YTcrcU10b3gxN3l1SU9uZlZ6M0NkcS9EbFNRUm1aM1o2ek1k?=
+ =?utf-8?B?WGZNVWExeHpYRGpzT0lVSXc0L2NRVVZTQ25RMGRYQXdhOCtsMDRxUDlmZXJn?=
+ =?utf-8?B?eTAvMmpNSXc2dFVWYkNha3NhNExuckFqeHJUcnNuTzZCYmdrR04vMTRoRWJR?=
+ =?utf-8?B?OXBlWWg2dmo1aHJMVFZidjlScElBVit4MVErMGo4L1RwUmxJbXdoOHlNQlFE?=
+ =?utf-8?B?ZnY0V0JFdFlsQUJMbE9SSWcySGVNMkFoS3hMTisrcnpFeENaZnBZdTBOajYw?=
+ =?utf-8?B?aXNZTHJjeHFFSFUvTVpZMzlaTnFTZWNqWEFKb2s0ay8xRUJQcExsVklNN012?=
+ =?utf-8?B?WEJjL3NnSGpVSXRaRG9PODU3US9OTGEwVnF5NXE3cEZxRk9qSzBKdytHblhx?=
+ =?utf-8?B?VnkrQUtnR09lWW5vbldMcDZxVW5vT05FMzgxR3FKbVhveWE3c0hhcjlSOVRE?=
+ =?utf-8?B?SGFHM0lvMTNWeVlFSVlxSFAyZFVjNDVOL2dQZ0hXYVgySXhQU25BczRPZ056?=
+ =?utf-8?B?NE5nNzR0WlBMdUtaK0hHMytRRWgxckVVS2FOR2ptazJGT092amVzQk5EVUIr?=
+ =?utf-8?B?Z2xNNUN4M09IbGNLZU9GTWwrN0w4QkY3UHlBeEorVzlBSktETWpZb28rV2VV?=
+ =?utf-8?B?Q0pNQmlmQTVzOTY3NnBOOE1PZElXTU1OM254ZXlMaStEZjgrclIwZGdBMUQx?=
+ =?utf-8?B?NVlRRmEweStwWVJ2M1RONS9PMlJhUHVlclNKZTRBTVNQWXZ4LzFGWCtkUUJO?=
+ =?utf-8?B?ekRXM0tLSUJVeWtQQloxRnhSSFpUemtFQ0I1eU9VZjZtWWlCNklreGxqNHNO?=
+ =?utf-8?B?VXBPdFM0SGY4Sm5QMTl3KzcyQ0d5bGU3bnZoUnJwMzlnSDQzTnd5d1k0ekZV?=
+ =?utf-8?B?TXlpcWtqRXZpNXJjT3J5SXZHOXBXNlZiQUFQYkRIWlJIY0RZd2wwK0l5ZVdH?=
+ =?utf-8?B?Q24xdi9kMmVwVTl1enpYM1I3STI1V1o1Ky9acnIxbTkxdTFhV1pRNGNtb0ht?=
+ =?utf-8?B?bnlwSEhQa3F6YUR1YjJCamsvMTNpTkJRMEtOOTVpMTRkYVEwUklMMk9qQzhY?=
+ =?utf-8?B?Z2ZyRWZNaHZ2L0hpTHQrbENBK1dUbkdqM2hxa0ZmS1ZmV1FrYmdSUFM3dTVI?=
+ =?utf-8?B?a2VHZzc3blNhOEFvRHNscFNjNnJxZXFrVmVZb2J6NDMxVzdyK1hYYmpEdEZO?=
+ =?utf-8?B?Q1U1SzNCTjhnMFdibUZMOGk3VGNEZFlTWGIrRHVzam1sbm1TODlOTmxtWUJ4?=
+ =?utf-8?B?NDNWNGQxa1E1enQzK05wZ1hDZkJ6ZUtKZXRLeHlDckl5Zlk1ejU4NVo1Z0hq?=
+ =?utf-8?B?V25HZWZMMmc5QVo1MGZBZkY3UEZqZ2xuT0kzSVdPeHI5R1NSMXBhT1VmQUJw?=
+ =?utf-8?B?YjdNWU5KbjdnaHNnOUJFY2N6MmVzRG1kbmpXWTZjT1NNSHpwdENISURhcEJC?=
+ =?utf-8?B?MmRXaEFnV2ZNV3JxaWRvRVdIMHVlcTVLZE9WTm1raEpYSUlkc1ZpUFZHNmVk?=
+ =?utf-8?B?Zkx0WmYwaEg0a2Q3dW1zbDM2TjJVclVRUmVMNWsyMzRxTk1kN3hHR0tnRnYx?=
+ =?utf-8?B?aWVnd1RJWnkwM0tuc09WMUZ4MTV2Z2dJbWNPMGovdS9qUGtReXVPQmVGSmtW?=
+ =?utf-8?B?K1pyYitHb21UZmFCZFZnd1N1K21wdEVaaGh0RGdpTlZJV3ZQT2M3aEU1bCt6?=
+ =?utf-8?Q?jBzN9yKcxCis/SmQ=3D?=
+X-OriginatorOrg: vaisala.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 298ac182-974c-423c-81ca-08df071e33d8
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR06MB7907.eurprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 05:07:02.9973
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 05:10:41.0730
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qOM3H0/Ibx/X4fuqcRO6+rmhKRPPiJ5ie1aEHdf+cpsKZF2DKnXxUtvtBHS8MSxTsDTtG5dPW6Y1Eqaz2pHNDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7235
+X-MS-Exchange-CrossTenant-UserPrincipalName: xukBbuNLe8zOYYiMbFuRJSmpGSPURuvaO8sjn76rYtHBS1KhkmpCHHStLe+FlHFDwGf4pUcUsTf2ZXD1PxyPVTmhp7fUBse+hE+zJd8ietY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR06MB8701
 
-On Sat Aug 29, 2026 at 10:33 AM JST, John Hubbard wrote:
-> The GSP posts unsolicited messages onto the same queue that carries
-> command replies: logs, OS error and robust-channel records, and
-> lifecycle notices.
->
-> Anything that was not the reply a caller awaited was discarded, and an
-> unrecognized function code aborted the in-flight command, so the GSP's
-> error reports never reached the log.
->
-> Route every non-reply message to a dispatcher, which logs the error
-> records and leaves the in-flight command waiting for its reply. The
-> dispatch runs on the existing command and wait loops, so events are
-> handled during normal operation before any interrupt exists. Event
-> payloads, such as XID numbers and log contents, are not decoded.
+The KSZ9897 has an SGMII/1000BASE-X capable port 7, but its chip_info
+entry never set .sgmii_port. ksz_has_sgmii_port() is therefore false,
+ksz9477_pcs_create() is never called and ksz9477_phylink_mac_select_pcs()
+returns NULL for port 7, so a phy-mode = "sgmii" or "1000base-x" link on
+that port cannot come up.
 
-The naming looks a bit misleading to me - `dispatch_event` doesn't
-really dispatch anything, it logs or ignores what is passed to it. If we
-plan on implementing a real dispatch mechanism in the future I'm ok with
-keeping the name, but we should document that intent in its doccomment.
+Only the KSZ9897S has that port; the KSZ9897R has a second RGMII port
+instead. Both report chip ID 0x00989700, so the port cannot be enabled
+from the chip ID alone, and enabling it unconditionally breaks the
+KSZ9897R badly: ksz9477_setup() propagates the failure of
+xpcs_create_pcs_mdiodev() on a part without an XPCS, so the switch as a
+whole stops probing.
 
->
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> ---
->  drivers/gpu/nova-core/gsp/cmdq.rs | 64 ++++++++++++++++++++++++-------
->  1 file changed, 51 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
-p/cmdq.rs
-> index f0f28b6ded7a..0df52df1da89 100644
-> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
-> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-> @@ -547,11 +547,11 @@ fn notify_gsp(bar: Bar0<'_>) {
-> =20
->      /// Sends `command` to the GSP and waits for the reply.
->      ///
-> -    /// Messages with non-matching function codes are silently consumed =
-until the expected reply
-> -    /// arrives.
-> +    /// A message read while waiting that is not the reply goes to
-> +    /// [`CmdqInner::dispatch_event`].
+The variants do differ in the read-only bit 7 of the port 7 XMII control
+0 register, which reads one on the KSZ9897S and zero on the KSZ9897R.
+Compare the KSZ9897S data sheet DS00002394C section 5.2.4.1 with the
+KSZ9897R data sheet DS00002330D section 5.2.3.1.
 
-`CmdqInner` is an internal private type and an implementation detail, we
-shouldn't reference it in public documentation. Let's say something like
-"A message read while waiting that is logged if it is an error record,
-and ignored otherwise".
+Read that bit in ksz_switch_detect(), next to the existing KSZ8765 and
+KSZ9563 variant detection, and select a KSZ9897S chip_info entry which
+is the KSZ9897 one plus .sgmii_port = 7. KSZ9897S_CHIP_ID only selects
+that entry and is never read from a device: the low byte holds the
+silicon revision, which detection masks off, so no device can report it.
 
->      ///
-> -    /// The queue is locked for the entire send+receive cycle to ensure =
-that no other command can
-> -    /// be interleaved.
-> +    /// The queue is locked for the entire send+receive cycle, so no oth=
-er command can be
-> +    /// interleaved.
+Device trees describe the KSZ9897 without naming the variant, so accept
+a detected KSZ9897S for a device tree naming the KSZ9897. No binding
+change is needed and existing device trees keep working, whichever
+variant is fitted.
 
-nit: is this hunk necessary?
+Tested on a KSZ9897S with a 1000BASE-LX fibre SFP on port 7: bit 7 of
+the port 7 XMII control 0 register reads one, the switch is identified
+as a KSZ9897S and the PCS is created. The port advertises
+1000baseX/Full, clause 37 in-band autonegotiation completes against the
+link partner, and the link comes up at 1Gbps/full duplex and passes
+traffic.
 
->      ///
->      /// # Errors
->      ///
-> @@ -805,8 +805,10 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<Gsp=
-Message<'_>> {
-> =20
->      /// Receive a message from the GSP.
->      ///
-> -    /// The expected message type is specified using the `M` generic par=
-ameter. If the pending
-> -    /// message has a different function code, `ERANGE` is returned and =
-the message is consumed.
-> +    /// The expected message type is specified using the `M` generic par=
-ameter. A message whose
-> +    /// function code matches is decoded and returned. Any other message=
-, whether its function code
-> +    /// is a different one or is unrecognized, goes to [`Self::dispatch_=
-event`] and `ERANGE` is
-> +    /// returned.
->      ///
->      /// The read pointer is always advanced past the message, regardless=
- of whether it matched.
->      ///
-> @@ -815,8 +817,7 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<GspM=
-essage<'_>> {
->      /// - `ETIMEDOUT` if `timeout` has elapsed before any message become=
-s available.
->      /// - `EIO` if there was some inconsistency (e.g. message shorter th=
-an advertised) on the
->      ///   message queue.
-> -    /// - `EINVAL` if the function code of the message was not recognize=
-d.
-> -    /// - `ERANGE` if the message had a recognized but non-matching func=
-tion code.
-> +    /// - `ERANGE` if the message was not the awaited reply.
->      ///
->      /// Error codes returned by [`MessageFromGsp::read`] are propagated =
-as-is.
->      fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Resu=
-lt<M>
-> @@ -825,11 +826,13 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeou=
-t: Delta) -> Result<M>
->          Error: From<M::InitError>,
->      {
->          let message =3D self.wait_for_msg(timeout)?;
-> -        let function =3D message.header.function().map_err(|_| EINVAL)?;
-> +        let function =3D message.header.function();
-> +        let seq =3D message.header.sequence();
-> +        let matched =3D matches!(function, Ok(f) if f =3D=3D M::FUNCTION=
-);
-> =20
-> -        // Extract the message. Store the result as we want to advance t=
-he read pointer even in
-> -        // case of failure.
-> -        let result =3D if function =3D=3D M::FUNCTION {
-> +        // Bind the result rather than returning early. The read pointer=
- must advance past this
-> +        // message on every path.
+Suggested-by: Nicolai Buchwitz <nb@tipi-net.de>
+Suggested-by: Jerry Ray <Jerry.Ray@microchip.com>
+Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+---
+Changes in v3:
+- Only enable the SGMII port on the KSZ9897S. v2 enabled it for every
+  KSZ9897, which makes a KSZ9897R fail to probe at all, because
+  ksz9477_setup() propagates the xpcs_create_pcs_mdiodev() failure on a
+  part that has no XPCS. Reported by Nicolai Buchwitz.
+- Tell the two variants apart at run time in ksz_switch_detect(), from
+  the read-only bit 7 of the port 7 XMII control 0 register, and select
+  a KSZ9897S chip_info entry, next to the existing KSZ8765 and KSZ9563
+  variant detection. Register suggested by Nicolai Buchwitz and
+  confirmed by Jerry Ray against both data sheets.
+- Accept a detected KSZ9897S for a device tree naming the KSZ9897, so
+  no binding change is needed and existing device trees keep working.
+- Tested on a KSZ9897S with a 1000BASE-LX fibre SFP on port 7.
+- Link to v2: https://lore.kernel.org/r/20260811-ksz9897-sgmii-port-v2-1-04ae287a0b27@vaisala.com
 
-Oooh nice catch, the queue was irreversibly unusable after an unknown
-message is received on the previous code.
+Changes in v2:
+- Resend only, no functional change: v1 was dropped when the netdev
+  patch queue overflowed.
+- Rebased onto current net-next.
+- Link to v1: https://lore.kernel.org/r/20260703-ksz9897-sgmii-port-v1-1-387e7632dd0b@vaisala.com
+---
+ drivers/net/dsa/microchip/ksz_common.c      | 60 ++++++++++++++++++++++++++++-
+ drivers/net/dsa/microchip/ksz_common.h      |  5 +++
+ include/linux/platform_data/microchip-ksz.h |  1 +
+ 3 files changed, 65 insertions(+), 1 deletion(-)
 
-> +        let result =3D if matched {
->              let (cmd, contents_1) =3D M::Message::from_bytes_prefix(mess=
-age.contents.0).ok_or(EIO)?;
->              let mut sbuffer =3D SBufferIter::new_reader([contents_1, mes=
-sage.contents.1]);
-> =20
-> @@ -840,7 +843,7 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeout:=
- Delta) -> Result<M>
->                          dev_warn!(
->                              &self.dev,
->                              "GSP message {:?} has unprocessed data\n",
-> -                            function
-> +                            M::FUNCTION
->                          );
->                      }
->                  })
-> @@ -853,6 +856,41 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeout=
-: Delta) -> Result<M>
->              message.header.length().div_ceil(GSP_PAGE_SIZE),
->          )?);
-> =20
-> +        if !matched {
-> +            self.dispatch_event(function, seq);
-> +        }
+diff --git a/drivers/net/dsa/microchip/ksz_common.c b/drivers/net/dsa/microchip/ksz_common.c
+index 1a9d6f83a0232830ac4996ae5f53b8bde0b3747d..78442cc3764363a97015c71cf22f756b06044160 100644
+--- a/drivers/net/dsa/microchip/ksz_common.c
++++ b/drivers/net/dsa/microchip/ksz_common.c
+@@ -1486,6 +1486,41 @@ const struct ksz_chip_data ksz_switch_chips[] = {
+ 		.gbit_capable	= {true, true, true, true, true, true, true},
+ 	},
+ 
++	[KSZ9897S] = {
++		.chip_id = KSZ9897S_CHIP_ID,
++		.dev_name = "KSZ9897S",
++		.num_vlans = 4096,
++		.num_alus = 4096,
++		.num_statics = 16,
++		.cpu_ports = 0x7F,	/* can be configured as cpu port */
++		.port_cnt = 7,		/* total physical port count */
++		.port_nirqs = 2,
++		.num_tx_queues = 4,
++		.num_ipms = 8,
++		.ops = &ksz9477_dev_ops,
++		.switch_ops = &ksz9477_switch_ops,
++		.phylink_mac_ops = &ksz9477_phylink_mac_ops,
++		.phy_errata_9477 = true,
++		.mib_names = ksz9477_mib_names,
++		.mib_cnt = ARRAY_SIZE(ksz9477_mib_names),
++		.reg_mib_cnt = MIB_COUNTER_NUM,
++		.regs = ksz9477_regs,
++		.masks = ksz9477_masks,
++		.shifts = ksz9477_shifts,
++		.xmii_ctrl0 = ksz9477_xmii_ctrl0,
++		.xmii_ctrl1 = ksz9477_xmii_ctrl1,
++		.supports_mii	= {false, false, false, false,
++				   false, true, true},
++		.supports_rmii	= {false, false, false, false,
++				   false, true, true},
++		.supports_rgmii = {false, false, false, false,
++				   false, true, true},
++		.internal_phy	= {true, true, true, true,
++				   true, false, false},
++		.gbit_capable	= {true, true, true, true, true, true, true},
++		.sgmii_port = 7,
++	},
++
+ 	[KSZ9893] = {
+ 		.chip_id = KSZ9893_CHIP_ID,
+ 		.dev_name = "KSZ9893",
+@@ -1852,6 +1887,13 @@ static int ksz_check_device_id(struct ksz_device *dev)
+ 		expected_chip_id = expected_chip_data->chip_id;
+ 	}
+ 
++	/* The KSZ9897S is only told apart from the KSZ9897R at run time, so a
++	 * device tree naming the KSZ9897 matches it as well.
++	 */
++	if (expected_chip_id == KSZ9897_CHIP_ID &&
++	    dev->chip_id == KSZ9897S_CHIP_ID)
++		return 0;
++
+ 	if (expected_chip_id != dev->chip_id) {
+ 		dev_err(dev->dev,
+ 			"Device tree specifies chip %s but found %s, please fix it!\n",
+@@ -2966,7 +3008,6 @@ static int ksz_switch_detect(struct ksz_device *dev)
+ 		switch (id32) {
+ 		case KSZ9477_CHIP_ID:
+ 		case KSZ9896_CHIP_ID:
+-		case KSZ9897_CHIP_ID:
+ 		case KSZ9567_CHIP_ID:
+ 		case KSZ8567_CHIP_ID:
+ 		case LAN9370_CHIP_ID:
+@@ -2979,6 +3020,23 @@ static int ksz_switch_detect(struct ksz_device *dev)
+ 			if (dev->chip_id != LAN9646_CHIP_ID)
+ 				dev->chip_id = id32;
+ 			break;
++		case KSZ9897_CHIP_ID:
++			/* Only the KSZ9897S has an SGMII port 7; the KSZ9897R
++			 * has a second RGMII port instead. See the KSZ9897S
++			 * data sheet DS00002394C section 5.2.4.1 and the
++			 * KSZ9897R data sheet DS00002330D section 5.2.3.1.
++			 */
++			ret = ksz_read8(dev, KSZ9897_REG_PORT7_XMII_CTRL_0,
++					&id4);
++			if (ret)
++				return ret;
++
++			if (id4 & KSZ9897_PORT7_SGMII_SEL)
++				dev->chip_id = KSZ9897S_CHIP_ID;
++			else
++				dev->chip_id = KSZ9897_CHIP_ID;
++
++			break;
+ 		case KSZ9893_CHIP_ID:
+ 			ret = ksz_read8(dev, REG_CHIP_ID4,
+ 					&id4);
+diff --git a/drivers/net/dsa/microchip/ksz_common.h b/drivers/net/dsa/microchip/ksz_common.h
+index cbe98494578c371ee22b80f9508c3b35b8d6291a..0cff33df06a4b8ca585d94f9fe437ad62bcd82dc 100644
+--- a/drivers/net/dsa/microchip/ksz_common.h
++++ b/drivers/net/dsa/microchip/ksz_common.h
+@@ -284,6 +284,7 @@ enum ksz_model {
+ 	KSZ9477,
+ 	KSZ9896,
+ 	KSZ9897,
++	KSZ9897S,
+ 	KSZ9893,
+ 	KSZ9563,
+ 	KSZ9567,
+@@ -874,6 +875,10 @@ static inline bool ksz_is_sgmii_port(struct ksz_device *dev, int port)
+ #define SKU_ID_KSZ8563			0x3c
+ #define SKU_ID_KSZ9563			0x1c
+ 
++/* KSZ9897 specific register: port 7 XMII control 0 */
++#define KSZ9897_REG_PORT7_XMII_CTRL_0	0x7300
++#define KSZ9897_PORT7_SGMII_SEL		BIT(7)
++
+ /* Driver set switch broadcast storm protection at 10% rate. */
+ #define BROADCAST_STORM_PROT_RATE	10
+ 
+diff --git a/include/linux/platform_data/microchip-ksz.h b/include/linux/platform_data/microchip-ksz.h
+index 028781ad40593248bae1b501e40ce31c5e0c69ca..fe8df1774289c401445ef308c8d3656e1e7c25b6 100644
+--- a/include/linux/platform_data/microchip-ksz.h
++++ b/include/linux/platform_data/microchip-ksz.h
+@@ -34,6 +34,7 @@ enum ksz_chip_id {
+ 	KSZ9477_CHIP_ID = 0x00947700,
+ 	KSZ9896_CHIP_ID = 0x00989600,
+ 	KSZ9897_CHIP_ID = 0x00989700,
++	KSZ9897S_CHIP_ID = 0x00989701,
+ 	KSZ9893_CHIP_ID = 0x00989300,
+ 	KSZ9563_CHIP_ID = 0x00956300,
+ 	KSZ8567_CHIP_ID = 0x00856700,
 
-We already have an `else` branch for the `if matched` statement above,
-you can move this block there and avoid testing again.
+---
+base-commit: 1bb784eb6e38fd73143f021608e4ef3095d0c0d7
+change-id: 20260703-ksz9897-sgmii-port-48ddb100e015
 
-It's also arguably (slightly) better since the message is now logged
-before the fallible `u32::try_from` is called.
+Best regards,
+-- 
+Tapio Reijonen <tapio.reijonen@vaisala.com>
 
-> +
->          result
->      }
-> +
-> +    /// Routes a GSP message that is not the reply a caller is waiting f=
-or.
-> +    ///
-> +    /// GSP-reported errors are logged at error level and unrecognized f=
-unction codes at warning
-> +    /// level. Every other known function code is consumed without a log=
- line, because the RPC
-> +    /// receive trace in [`Self::wait_for_msg`] already records its arri=
-val.
-> +    fn dispatch_event(&self, function: Result<MsgFunction, u32>, seq: u3=
-2) {
-
-That's where we could describe the intent to turn this into an actual
-dispatcher if we plan to do so in the future. Otherwise, something like
-`classify_event` is probably a more fit name.
