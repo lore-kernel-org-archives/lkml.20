@@ -1,89 +1,215 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3CB484255;
-	Mon, 31 Aug 2026 14:03:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AEFA48986D
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:03:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184984; cv=none; b=eEdD9fVGQ7aQhdGR0KXMgIQwfDdP/dD4Y1JtRIdAEVefSzkwjgHjBJAaY776DRB2q67Ran6whC6J/K4T1+wqjNmSjO21eDkO3Wrmp0LUlZF1VW2LfIqV//gypoLbPg2vHhXqu4A7TCIHJ0ruTEKA37MCQ21D1ghlwmz95czzfjM=
+	t=1788184991; cv=none; b=MplhD5Msuyet12HDLIwB6NbIlwMzgmTSewIwfS6a9P3MFuxkwt/xOEDwd+xD479S9zPPcUQiZbAEZ0sn8YAztq7IkHGaK1fN/oC1l4S7DHebUaODJZ6MTSLg2JWM8cL/1+HpvkuwS08JIyZyHA2X9NtE0RwQouJiffjZ4EMZpok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184984; c=relaxed/simple;
-	bh=35/yin/QF8t3Kqfg+UAOrsmVX85pqU2Iyl2wuXO5t+0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MISSo033wv3cvahh5qPg8IT2px8UNwL24DUh67bVoYA25r+aDEsfcP/K+VX3wM9yrwdE8VrsVVNN9r9/pOAgxwjPTmvOl7lTgt5hIYPk1p30FXvPUBbVU9pPSTLQgZHPPFFaACUYnRWEMvfV9Y/SaSCruJOrc3C4NqH8xZvoYHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=irD4Ae4D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788184991; c=relaxed/simple;
+	bh=ET1sM9TeGg/w2GTUGB0gztT4T55XpGaCdywqlv0aSYo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ysh6Jq9JWDsJepSdPL4aICwsy+PQuDq+Vps+DycQTlnLQeID1jyrLVilzoshZEiOnAAf2TQsh7zlobCpUdmTG4hpH/z6abie0ajH9RQcQUMr1wqdpQIW/oXwr1SuYwQGMa1JzA0GFfdFhB19MRQPCNX2d7kwvspv7JXsn60mYuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DzlMAMyT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="irD4Ae4D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CBBF1F000E9;
-	Mon, 31 Aug 2026 14:03:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DzlMAMyT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDED81F00A3D
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:03:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184983;
-	bh=7ZB1yfEGzN5K33ID0e3bcOFkHhvifJ8hhhrNtAvrugg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=irD4Ae4DKcf8PeVHbMIoXVmCG2XKWzQmLktHoyVCc/ltspDG7jkbi1VoTpdxAMGrw
-	 oEb7Xpdf3Fn6kS9cnBqas4zMMgM0LGPOyRcV5i4IQW5WjdW18jH6NGKAR+Gh4Oa4cw
-	 0R1k0ICtEq6r/PKzIwLJQcuIcrV+y5J3NzWZzGl7jDAaaXfWZaWonfmraI2LYdS1wB
-	 rWDVbqw5wgtHIqvUJAci4RFc/frCAhzqnU3V0k2h8ThWh1yTO81ZCBJmI32YtBadrF
-	 eGyQDgWxzJM1pYctbEK+t4pRduc15P5dHwm92jbb/3JMWLkPXWSgHA8cMYlrVjJ4ih
-	 RpmPGuf95qGpA==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Usama Arif <usamaarif642@gmail.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH v1.2 2/8] mm/damon/paddr: respect folio end for DAMOS_STAT
-Date: Mon, 31 Aug 2026 07:02:41 -0700
-Message-ID: <20260831140254.72004-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260831140254.72004-1-sj@kernel.org>
-References: <20260831140254.72004-1-sj@kernel.org>
+	s=k20260515; t=1788184989;
+	bh=aNbW8TKN783W/BbmTH8HUadI4hpvfofki8XNkpdLV3M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=DzlMAMyT5BooccEeYfGl0PJEaj7pcKd+C9CdUwGd0c0tCnsxIyS5r1UmoijkXmoGZ
+	 ftj/0wiOlnNkvwnAVHPcQogbK2fGet2zMgKDrpVIXvqfKtb8izHNt+SMHWWaaAh+rZ
+	 6/kovEivlDneY8Xc9vsjCnnLtw1xod2oaNqg7d4T8YtDQt1GgxeThoW7bIqCQjnsqt
+	 kWtUwpe53LDzPhBxHyc3y+jdoUzFJRm/Qy0QoL9y1rlVAR5C8cT/v9KfJCzLZvxZub
+	 CSE8jGiJsxqjJW/kAGImFM51peiRnJmIupd+QUGTuwY9ZXIVJfb37yJO8a34vxH2qt
+	 rSp3eZmDBa7HQ==
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c255c58156bso625947766b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:03:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByjafjKjRoMFyNmILOJ5sxEmH93qjlDq2qa1rDvQV/SVqFgZY0DLDsxp+8aeKcmri8TQ7kqAdTvI5WI1kE=@vger.kernel.org
+X-Gm-Message-State: AFuF++myUeTaxe9K0VgNVNAklWacGfAXjPL/s+oQjqDMmo2fpV/ustMY
+	ynIT57moMLZ/Clxj7m4fwq6aHtsFa/g7fA3XFneu5gMzYCe1czxmwDrB6YCA+LkrC8JYuf7LeYr
+	5osuPmZJ5sL9MmTjwj4Ld1KmRaXF2nmY=
+X-Received: by 2002:a17:907:c01c:b0:c20:af9d:454a with SMTP id
+ a640c23a62f3a-c25571deba3mr1723328766b.16.1788184988499; Mon, 31 Aug 2026
+ 07:03:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260826110306.6847-1-yangtiezhu@loongson.cn> <20260826110306.6847-5-yangtiezhu@loongson.cn>
+In-Reply-To: <20260826110306.6847-5-yangtiezhu@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Mon, 31 Aug 2026 22:02:56 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H40Zu0zTLQ7-S0tzqMNJ8KRB4iF+rzzrZG_Nd4ETveDDA@mail.gmail.com>
+X-Gm-Features: AcwNN1X_6WBpHG3gihHTVs_XRqFKefNZvR5N4u9_hVJ9zKsZDotRCmyRhMQQEsU
+Message-ID: <CAAhV-H40Zu0zTLQ7-S0tzqMNJ8KRB4iF+rzzrZG_Nd4ETveDDA@mail.gmail.com>
+Subject: Re: [PATCH v1 4/6] LoongArch: Only send SIGTRAP signal if necessary
+ in do_watch()
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The function for applying DAMOS_STAT in DAMON physical address space
-operation set (paddr), namely damon_pa_stat(), applies DAMOS filters to
-folios of the given region.  For that, it gets folios of addresses in
-the region.  It starts from the region start address and advances the
-address by the size of the folio of the address until it goes out of the
-region.  If the start address is in the middle of a large folio, and if
-the next folios are small, some of the next folios could be skipped. Fix
-the issue by advancing the address to exactly the start address of the
-next folio.
+Hi, Tiezhu,
 
-The user impact is that the DAMOS_STAT-based page level monitoring
-results become inaccurate.  Since the page level monitoring is supposed
-to provide relatively high precision, this is definitely a problem.  It
-is arguably not critical since it is only monitoring quality
-degradation.
+On Wed, Aug 26, 2026 at 7:03=E2=80=AFPM Tiezhu Yang <yangtiezhu@loongson.cn=
+> wrote:
+>
+> In do_watch(), the kernel unconditionally forces a SIGTRAP signal at the
+> end of the handler via force_sig(SIGTRAP). This is essential for ptrace
+> operations, but it severely disrupts standard perf_event usage.
+>
+> Under normal perf usage, it is not necessary to force a SIGTRAP signal
+> on every hit. Forcing it unnecessarily aborts the target process if no
+> user-space signal handler is registered, which violates performance
+> monitoring behaviors and injects context switch overheads.
+>
+> However, a conditional check using only 'current->ptrace' would block
+> legitimate user-requested signals when a perf_event is configured with
+> 'attr.sigtrap =3D 1' for asynchronous user-space tracking.
+>
+> Fix this by refactoring breakpoint_handler() and watchpoint_handler()
+> to return a boolean status indicating whether any triggered breakpoint
+> explicitly requires a signal notification. Update do_watch() to enforce
+> the SIGTRAP signal only when the process is actively being debugged via
+> ptrace, or when the underlying perf_event infrastructure specifically
+> demands it via 'attr.sigtrap'.
+>
+> Fixes: 424421a7f34c ("LoongArch: ptrace: Add hardware single step support=
+")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+> ---
+>  arch/loongarch/include/asm/hw_breakpoint.h |  4 ++--
+>  arch/loongarch/kernel/hw_breakpoint.c      | 18 ++++++++++++++++--
+>  arch/loongarch/kernel/traps.c              |  8 +++++---
+>  3 files changed, 23 insertions(+), 7 deletions(-)
+>
+> diff --git a/arch/loongarch/include/asm/hw_breakpoint.h b/arch/loongarch/=
+include/asm/hw_breakpoint.h
+> index 5faa97a87a9e..d202052df8a1 100644
+> --- a/arch/loongarch/include/asm/hw_breakpoint.h
+> +++ b/arch/loongarch/include/asm/hw_breakpoint.h
+> @@ -116,8 +116,8 @@ extern void arch_uninstall_hw_breakpoint(struct perf_=
+event *bp);
+>  extern int hw_breakpoint_slots(int type);
+>  extern void hw_breakpoint_pmu_read(struct perf_event *bp);
+>
+> -void breakpoint_handler(struct pt_regs *regs);
+> -void watchpoint_handler(struct pt_regs *regs);
+> +bool breakpoint_handler(struct pt_regs *regs);
+> +bool watchpoint_handler(struct pt_regs *regs);
+>
+>  #ifdef CONFIG_HAVE_HW_BREAKPOINT
+>  extern void ptrace_hw_copy_thread(struct task_struct *task);
+> diff --git a/arch/loongarch/kernel/hw_breakpoint.c b/arch/loongarch/kerne=
+l/hw_breakpoint.c
+> index 7f69cf361a5e..3683a52b2368 100644
+> --- a/arch/loongarch/kernel/hw_breakpoint.c
+> +++ b/arch/loongarch/kernel/hw_breakpoint.c
+> @@ -482,10 +482,11 @@ NOKPROBE_SYMBOL(update_bp_registers);
+>  /*
+>   * Debug exception handlers.
+>   */
+> -void breakpoint_handler(struct pt_regs *regs)
+> +bool breakpoint_handler(struct pt_regs *regs)
+>  {
+>         int i;
+>         struct perf_event *bp, **slots;
+> +       bool need_sigtrap =3D false;
+>
+>         slots =3D this_cpu_ptr(bp_on_reg);
+>
+> @@ -494,18 +495,25 @@ void breakpoint_handler(struct pt_regs *regs)
+>                         bp =3D slots[i];
+>                         if (bp =3D=3D NULL)
+>                                 continue;
+> +
+>                         perf_bp_event(bp, regs);
+> +                       if (bp->attr.sigtrap)
+> +                               need_sigtrap =3D true;
+> +
+>                         csr_write32(0x1 << i, LOONGARCH_CSR_FWPS);
+>                         update_bp_registers(regs, 0, 0);
+>                 }
+>         }
+> +
+> +       return need_sigtrap;
+>  }
+>  NOKPROBE_SYMBOL(breakpoint_handler);
+>
+> -void watchpoint_handler(struct pt_regs *regs)
+> +bool watchpoint_handler(struct pt_regs *regs)
+>  {
+>         int i;
+>         struct perf_event *wp, **slots;
+> +       bool need_sigtrap =3D false;
+>
+>         slots =3D this_cpu_ptr(wp_on_reg);
+>
+> @@ -514,11 +522,17 @@ void watchpoint_handler(struct pt_regs *regs)
+>                         wp =3D slots[i];
+>                         if (wp =3D=3D NULL)
+>                                 continue;
+> +
+>                         perf_bp_event(wp, regs);
+> +                       if (wp->attr.sigtrap)
+> +                               need_sigtrap =3D true;
+> +
+>                         csr_write32(0x1 << i, LOONGARCH_CSR_MWPS);
+>                         update_bp_registers(regs, 0, 1);
+>                 }
+>         }
+> +
+> +       return need_sigtrap;
+>  }
+>  NOKPROBE_SYMBOL(watchpoint_handler);
+>
+> diff --git a/arch/loongarch/kernel/traps.c b/arch/loongarch/kernel/traps.=
+c
+> index c4d7e55fb3ea..de0c9b03d551 100644
+> --- a/arch/loongarch/kernel/traps.c
+> +++ b/arch/loongarch/kernel/traps.c
+> @@ -811,6 +811,7 @@ asmlinkage void noinstr do_bp(struct pt_regs *regs)
+>  asmlinkage void noinstr do_watch(struct pt_regs *regs)
+>  {
+>         irqentry_state_t state =3D irqentry_enter(regs);
+> +       bool perf_sigtrap =3D false;
+This is not for perf only, so need_sigtrap is better.
 
-Fixes: bdbe1d7bc325 ("mm/damon/paddr: increment pa_stat damon address range by folio size")
-Cc: <stable@vger.kernel.org> # 6.14.x
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/paddr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+>  #ifndef CONFIG_HAVE_HW_BREAKPOINT
+>         pr_warn("Hardware watch point handler not implemented!\n");
+> @@ -851,11 +852,12 @@ asmlinkage void noinstr do_watch(struct pt_regs *re=
+gs)
+>                         }
+>                 }
+>         } else {
+> -               breakpoint_handler(regs);
+> -               watchpoint_handler(regs);
+> +               perf_sigtrap |=3D breakpoint_handler(regs);
+> +               perf_sigtrap |=3D watchpoint_handler(regs);
+Let breakpoint_handler() and watchpoint_handler() return "int", then
+see below...
 
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index 5c6c3a597fd0b..2ab7b3842701e 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -379,7 +379,7 @@ static unsigned long damon_pa_stat(struct damon_region *r,
- 
- 		if (!damos_pa_filter_out(s, folio))
- 			*sz_filter_passed += folio_size(folio) / addr_unit;
--		addr += folio_size(folio);
-+		addr = PFN_PHYS(folio_pfn(folio)) + folio_size(folio);
- 		folio_put(folio);
- 	}
- 	s->last_applied = folio;
--- 
-2.47.3
+>         }
+>
+> -       force_sig(SIGTRAP);
+> +       if (current->ptrace || perf_sigtrap)
+Define need_sigtrap as "int" and initialize it as current->ptrace,
+then we can only use "if (need_sigtrap)" here.
+
+Huacai
+
+> +               force_sig(SIGTRAP);
+>  out:
+>  #endif
+>         irqentry_exit(regs, state);
+> --
+> 2.42.0
+>
