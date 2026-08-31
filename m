@@ -1,80 +1,91 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C3A349CF0;
-	Mon, 31 Aug 2026 05:37:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC462CCC5;
+	Mon, 31 Aug 2026 05:38:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788154648; cv=none; b=SxyXFbCRGlKqCNLWxEKjnjN2INla5Ao/aQ6nx60RRjR8OGjm1a0Wt4Q3yj6KRg7Hl0YWYG1/cJNeugBJBoHRL2p6rNtBVrXFHkj/N+C76Uvg8YTpM5st8SSOZUX/Urz715YOmAg3AsuOhr+Y5/3hbop40n1kSNwgHSBQx+Po6n4=
+	t=1788154698; cv=none; b=dDQ/YQk7d1OxgkCMrRBYUw9jhxtCBoYGFtvbV51TXvzmJPQWjAmtUhwyC09ShfFGXBaEnC5D8MjffCLmhgSOJGgokSi2yPVIAX16hVJOsW+QarlC4wCYl1CHMhnUmKqHvRsx+rOiiAPppmwW1WN5lehzvawjRv8MAGAI40ePF7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788154648; c=relaxed/simple;
-	bh=9bGltRCzgW+BuF/oL+KMF2/hKOoNqHv7GE9mOnSjwNk=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=KL5ofom52+hO+JU2UKSyC++yWvAZubAz4AwBmqcpEJozNHVC8wZLCQnD/AVesAlJHFy8wC4rL7jYUiO8u8FxtRb/WJ8Zvthg/wCPFGK+QzpZBqhIMQgbu8n5DqdAVZTAcRp8mcEXTf6L++3WuBOzALXVgjAaundRVOX8EmDfTRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=VjBqv4+r; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="VjBqv4+r"
-Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:a9ae:3688:6dfb:71b0])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 05C964BB;
-	Mon, 31 Aug 2026 07:35:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788154543;
-	bh=9bGltRCzgW+BuF/oL+KMF2/hKOoNqHv7GE9mOnSjwNk=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=VjBqv4+rEtAPKpnfOBHTnNk5Tji3YinMgKQcfrcjKhFaPXugt2XUl/H5gSNj4yHSk
-	 4zdz/z5RGrk0o9HmVRuJrKGWSU1fWW+CU1ohtQ1fddKFNSeP7tXqqCCt1RnWPyuiZv
-	 QAsqJY8qH4af08mcW2j81RgBja8FbdLfHTE+LtLk=
-Content-Type: text/plain; charset="utf-8"
+	s=arc-20240116; t=1788154698; c=relaxed/simple;
+	bh=Xq7lF0JX5Qs6qWwD/tZfn8icxXTNUlJyBtkmCU3HryQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UQyyhbDsi5aSS9hZmFVL1EUB+1/GpufNO1Ok92kfnjdsMT6J3LpmYP4xobc5v5UICnzkMEzDideE8YD4Zsg5UcQXDx3uBLnnMetttDjdct1yh2a8Ihei/RIwanI/q1+lvmy/SduZ7j8WQ2zXNaOIGiwGh+RKSvbWHqoGz6vzhgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 2467d1b6a4fe11f19a56ed5b684f684d-20260831
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:f0cf5e45-151a-4fb7-b88d-e2e7752e4859,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:81a64449fd5c99891e51fe21e071e77a,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:5,IP:ni
+	l,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES
+	:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 2467d1b6a4fe11f19a56ed5b684f684d-20260831
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1530979641; Mon, 31 Aug 2026 13:38:06 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: clm@fb.com,
+	dsterba@suse.com,
+	naohiro.aota@wdc.com,
+	josef@toxicpanda.com
+Cc: linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND v2] btrfs: fix use-after-free in mark_block_group_to_copy
+Date: Mon, 31 Aug 2026 13:38:01 +0800
+Message-Id: <20260831053801.51572-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260717-b4-vchiq-isp-v3-1-fb8235e15c68@ideasonboard.com>
-References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com> <20260717-b4-vchiq-isp-v3-1-fb8235e15c68@ideasonboard.com>
-Subject: Re: [PATCH v3 1/9] platform/raspberrypi: vchiq-mmal: Include missing headers
-From: Paul Elder <paul.elder@ideasonboard.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Jai Luthra <jai.luthra@ideasonboard.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>, Jai Luthra <jai.luthra@ideasonboard.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Tomasz Figa <tfiga@chromium.org>
-Date: Mon, 31 Aug 2026 14:37:07 +0900
-Message-ID: <178815462733.1005982.18403340332888309359@neptunite.rasen.tech>
-User-Agent: alot/0.0.0
+Content-Transfer-Encoding: 8bit
 
-Quoting Jai Luthra (2026-07-17 20:04:16)
-> The structures defined in mmal-common.h use types related to lists and
-> videobuf2 framework, but are missing the explicit includes for them.
-> Include those.
->=20
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+mark_block_group_to_copy() iterates over the commit root with
+skip_locking=true. A concurrent transaction commit can swap and free
+the commit root during iteration, causing use-after-free when
+accessing extent buffers.
 
-Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
+Fix by using path->need_commit_sem to protect the commit root search.
 
-> ---
->  drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h b/driv=
-ers/platform/raspberrypi/vchiq-mmal/mmal-common.h
-> index 6c5092a68b99..c9976bdd7490 100644
-> --- a/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
-> +++ b/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
-> @@ -16,6 +16,10 @@
->  #ifndef MMAL_COMMON_H
->  #define MMAL_COMMON_H
-> =20
-> +#include <linux/list.h>
-> +#include <linux/types.h>
-> +#include <media/videobuf2-v4l2.h>
-> +
->  #define MMAL_FOURCC(a, b, c, d) ((a) | (b << 8) | (c << 16) | (d << 24))
->  #define MMAL_MAGIC MMAL_FOURCC('m', 'm', 'a', 'l')
-> =20
->=20
-> --=20
-> 2.54.0
->=20
->
+Fixes: 78ce9fc269af ("btrfs: zoned: mark block groups to copy for device-replace")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+  - Use path->need_commit_sem instead of manual commit_root_sem locking
+    suggested by Qu Wenruo.
+  - Remove the unmatched manual up_read().
+  - Add LLM usage disclosure
+---
+ fs/btrfs/dev-replace.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/fs/btrfs/dev-replace.c b/fs/btrfs/dev-replace.c
+index dc0834f920c3..0310aa3add54 100644
+--- a/fs/btrfs/dev-replace.c
++++ b/fs/btrfs/dev-replace.c
+@@ -494,6 +494,7 @@ static int mark_block_group_to_copy(struct btrfs_fs_info *fs_info,
+ 	path->reada = READA_FORWARD;
+ 	path->search_commit_root = true;
+ 	path->skip_locking = true;
++	path->need_commit_sem = true;
+ 
+ 	key.objectid = src_dev->devid;
+ 	key.type = BTRFS_DEV_EXTENT_KEY;
+-- 
+2.25.1
+
