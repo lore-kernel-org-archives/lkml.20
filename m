@@ -1,112 +1,179 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012064.outbound.protection.outlook.com [52.101.43.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6847F352016;
-	Mon, 31 Aug 2026 04:58:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788152285; cv=none; b=QbHOKMY6/Zt19hPZAyq8gy6EeO8tBgYY2YWuZH5Fz3zzE2VAK1GXpDBk3nXC7v2+9ltjv1fmqcYM1r0u2vePgM19uRJHNq9US7TTZTeeKjU70Q084MizyWjW241AzeT051pf7iZt03F6fO6qVdhct4KNE3geUCMT4w47bJ8qjms=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788152285; c=relaxed/simple;
-	bh=96/tAAC68rvcVuNxA2B1XMv7ZheF//EIw8OXspk+nyQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QVjYxvMpl2OswMq7WnmO1ko7EL/8lEoiYnRjVaJEo6VdiUajG/A0i7F+623ZBYuUbZ+8dywkIouVjNRypACFjbvfN2cjjjOLlmQ8UMHZ3ObzNLtNw0FtFjyw4UfIT5D9NwmE1UV9hTW2Jq9yaGpViIA/pOA8QGzvTUZAnIdq+KE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=h9mR8eNa; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E703B9DBF;
+	Mon, 31 Aug 2026 04:58:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788152291; cv=fail; b=kkkxZ4XpcFQBinaox+tbGoa4Cjt6uhFcTLqTwcl5Y5UfJLfmXzZ0rzRkXRFfAqVnba6vC4fdZsjHqb8bi0IYzXxZKd/eFCVKnSTEEe64P3cTfudHhunp/vPE2zPeppqPx+zM29dKcBT1GJ1fdkL3LBveDtWu8k738nlY6Nd5bT8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788152291; c=relaxed/simple;
+	bh=W8sn7AipJ/ILO1jjliK1aCI9T/1N8Dn+zu+NjYg6erg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=HeZxCXOVcM/hCJ/BXDEPQmSs3ZHoTm1DL17hk8P4v0ad1oHeDIaEpGL7F0GFS1QOHyv/ievDamY7CP6TVHergiebwdrzKU5MbNO8ej57C1Muk1Cc0/EvIdjG99sagefIiRDd4jw63rUIhWTcOLMRtE4wk05FaPPkWC1pPlbkrZQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=X7ipUNr+; arc=fail smtp.client-ip=52.101.43.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="h9mR8eNa"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7778B40E01F9;
-	Mon, 31 Aug 2026 04:57:59 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id Zsd5TJJcqUEJ; Mon, 31 Aug 2026 04:57:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788152269; bh=xFrvPnNlLdUQjLHvIvqLAChpxkF69CgdvcJiHEyRuc4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=h9mR8eNafVwanBIlKOe2d7r91HlvjJru91BrwuItHFMaC+ABo94oHJjeD95GPylH9
-	 TY2qD1G3dCcmaaAE9mufphbOhZdzfYve84jHQTBVoxialn+f/DPxxK23MCUgnIv480
-	 E6A6XRg8cKIVoKHipfWA1WNH9Hn6RcIfp817gT0XfPkSSgH4XBlusCFdcF1OUhjop3
-	 pvWD8SjG1gnweKB29A800zyl/YYG83j/kFUgBsllGw617+PVAYMvY+7ZkXgRmEYR8z
-	 kmG+tuLWrDyavxc667zTx52km2+YR7cXX5TPlHzFkGW9iHFlTxC6snTMrFRgtuKx2u
-	 92ik7Jf5i+3TrSDRhnMfQzH9UiRSncEfTWTrWJwXH7muxvtcpuBpf0gvnCioNsTLKO
-	 ZtOp7lbrdw3bt7czomIGadbtgj5dB8jKDHgbndKvYOX74xDF3Cp/LGXjzFIqJdiCfS
-	 eJhzRmINum1bTXbKUsNrQg+rge2ifoJMIHtkLjTzlPAbrB2lFJYNULtcIhT0Sziony
-	 7NvoOHyUc0sx0Dp2OwWXqC/kk0LXTI9bC9niScA1v+0QMw++/FlpkWvuKTUddRNmRr
-	 8qJD1asQfmPMEGAA4W+VD8EMZ8y15khgQGlzZWtINFizWwj82BAKLouFnjbYW//c7b
-	 XUq9Y88Q6YV4j3elgaIwiG5o=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D3F3140E01DD;
-	Mon, 31 Aug 2026 04:57:34 +0000 (UTC)
-Date: Sun, 30 Aug 2026 21:57:31 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: "Luck, Tony" <tony.luck@intel.com>
-Cc: Breno Leitao <leitao@debian.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"x86@kernel.org" <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"kernel-team@meta.com" <kernel-team@meta.com>
-Subject: Re: [PATCH 2/2] x86/mce: Add mce=panic_on_ce_count to panic on a
- corrected error flood
-Message-ID: <20260831045731.GAapUJu0a1EK4i1t5p@fat_crate.local>
-References: <ao2eT0TWS9EaA28N@gmail.com>
- <SJ1PR11MB60837D32B5D89336C87280A3FCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
- <20260825161625.GAao2_2d3U7xQFgHrw@fat_crate.local>
- <SJ1PR11MB60839657B965AC3FDA53C186FCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
- <20260825191555.GCao3p63v3fXzwa7E7@fat_crate.local>
- <SJ1PR11MB608315809B99B7194D167D8EFCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
- <20260825225202.GEao4ckknyv8nRc8Dh@fat_crate.local>
- <ao7nGM9sCQyxJvsD@gmail.com>
- <20260826160934.GBao8PvsM8M-U7XuFR@fat_crate.local>
- <ao8jGwH_mPDpACFd@agluck-desk3>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="X7ipUNr+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tJ3qGoPvN/pCPd49f6de7VfbSHQmoWIxZtWxjf5LcFVR0sa8iHzqt3Nes6gWISFkZ5Ll9uvb2KNc+xKaxUWOhZ7Ls8kcYJyp9t3zHZDc+QGuGICF+BV2fT8LrJPTAxwOTYF8jmRFG9+tCvFk0/ykMNU8XuT5tk9Xv7QAUnbKaW0OBzruUs46kqNNLjhDiUXBPtFN33b7ValtRW1TGqeonpqU0B2B2Uw0heNDRgF0rkeWVm5RJqrk3zXQpNQyF6k4sfl31Xh9o420mKMJ1X/ZSaNP58LXjueL+9oBlmeeNnHt2J25i9kXwrFUwT0NK++LIGBdbJZ1zn36TZ1UmsiJYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LBQSDs2nN1CrMzj3ktfJDrfbWEP4JfgWucqRCl0fZqk=;
+ b=NI7EfvfD8BBD94kHfJHGTdDqYZnT2vJcwPP1EN7Ehzac4BJK7Z9b6ocRBkDPzTEmbavJb87HQpi33u/62PfJaL+N8pb8KCP3KwnzntnGmQAvc/gF5ZhXK+RrcKvSCmGSks/eYS3lQt42EHJM5RMzaZF3/q5BoUxxfNwTk/yddZlXhYNXAe6q04A9RGJ2aAqbYd05M+slsqTipKzl+tZ9OvosMaUsWsUB8i1tapBG1O0J9Wc+GvhbjRZRYVehtCnrnyXYqb5gnZT6P1i83CzUrRxf4GtYY5E/XBf18A1LAikB6nCPKpo+ezVE/cyqMow2p9CjrKD8M1lCTgt38e1e3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LBQSDs2nN1CrMzj3ktfJDrfbWEP4JfgWucqRCl0fZqk=;
+ b=X7ipUNr+rKudgDYvZFnwpqJlW3NYm1SKjFipodQJEe+SbCnUbWu/3FzLD/MW2UzIxxwtbKbiAEcFkfq0qartoTOqJXVDnG5D11WEJ8ENsJqXMxn3HM4F59vdbtyWCSK16WBG0bSPU19uDRzEiCdVX2Gq1zixzfN/3T1x4sS+wd15+t07Y3ME/J6oMC48aVw27mR8YDkfQ4WmFBJq7cb0Ummt0Q/XirMqN3khzLfsmf7wBZnEIxhJUQxhX8S+umtB8pSWk2IdY7JZ+c6A/QdC2XOU2IcAynuSgVwvT4aQP8U509UXxUzBNVnO3jpi4iRRAYnwCO3J12MWR0+dQqHAEg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
+ by CY5PR12MB6599.namprd12.prod.outlook.com (2603:10b6:930:41::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Mon, 31 Aug
+ 2026 04:58:06 +0000
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 04:58:06 +0000
+Date: Mon, 31 Aug 2026 14:58:00 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: nova-gpu <nova-gpu@lists.linux.dev>
+Cc: M Henning <mhenning@darkrefraction.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
+Message-ID: <apUIbKQaXrLwskPP@nvdebian.thelocal>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-6-apopple@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828033531.1117754-6-apopple@nvidia.com>
+X-ClientProxiedBy: SY5P282CA0027.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:202::13) To MN0PR12MB5977.namprd12.prod.outlook.com
+ (2603:10b6:208:37c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ao8jGwH_mPDpACFd@agluck-desk3>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|CY5PR12MB6599:EE_
+X-MS-Office365-Filtering-Correlation-Id: d90e8dee-25c4-4f8e-e503-08df071c71d1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|10067099003|11063799006|4143699003|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	L1mVr7Ig7c7ILp8f8hZFMrMzjpZwRrTbELeuQ7Xz2LpA9ohDB8dX2BPO5jEtyeZxvmzkbe64duYmyUmPsXj8gIhbOToOAc3szuSUuLnOYw3oDzgr1/ov+Tg8yvL54YYjEMZou3Wa5wbddNxvdIJxT4mhNQL1y+7sdNM2MSzzEa5fQElWMTTcvysXnMhm4ShVYn9fJKfAwGFAow89D1D+AJAIRXLfi3NqfZAsnLFDmtCHmQxsV8HMD/l41RCqzX3M+rOtbwvdVc0uQZCcqyp2WGyNElZWyYiRUQrIcnoXLcomiOi6+MN084nagn+w8bopfp2IDK8/1H6H/Jc7sr7MSr5RF5jp0XaFdtu/ETewKYbB+/AaigX5NU9HbmeJifXcL3dzDCvDKbGKM+638M6d+Pzw0+1b12OHJMvHrn/Op41xm4FeT98StBuwK3xGtITXUwPKoUFiPlYbawfKoaQ1Panxguw+m8ltgUEAcPTdJlekH605iMaVYPUL1gQXN6CjborehJkTp5DoPdOIlcEyAn15ogV/u5SyoyzlB/tPIsEInOcXWjU/51IVQ/IV5Fi1B6FlhQ/6AqaXR5JqwVarLTiY9p86hxgX6pWbiJhl5fkm8cne5300gEnHHOY21OD5oJ7OpTmgSUPPKGZp6uMzJIl9p5sfN9/2yQnZCrS+sfM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?xUgiCLCKvuDRMhOyA6WiVUNLMonfFEnT8LOAXEYpX6Xhg5yrU70EkBBQHYLX?=
+ =?us-ascii?Q?wXl3mGgqShvNPjRLwTRmayR3BNn48vP8o2CDJ9IaxjYLlQshvYmkQ72tkZ+x?=
+ =?us-ascii?Q?q+nDV4aJpZ5rodhtyQUBKn0N8mGPkTkMVHTvOc2Wfik5RYcWOd4cuvyIZCib?=
+ =?us-ascii?Q?zlhoXfN+8hiD/SGS/5ar95LknPdVOB4QJTTXC9dZYgoXKWZhTfJocfsZqjke?=
+ =?us-ascii?Q?OXLhwT25Ec0WtX9u3C5AypK59XH2Fj+WgwFwBA+3rQ5S0jhyRKPh+TQaLwny?=
+ =?us-ascii?Q?hEWZOtbDRgbxKN1pAm3HRaZoIwtnEuQFa/Wb3wtVBwjpQ/+KGlSBVloAwgNt?=
+ =?us-ascii?Q?Ncnl91ee++XjjsFlODujlNOJIwPS7I2Y73dnPwEZ7IHhF9lCS41Jp7aMpG+N?=
+ =?us-ascii?Q?tuWcfL9oM6nLLxnQi10KemE7ilnEXEDqkL9vrhE0bxwEvtEWvPgLtKxtHT8y?=
+ =?us-ascii?Q?sljakn3Oy3jppaRC9wTj/FgHa2T3UjY4R2xRxaY0mB0DLlMJai65VUnyGA+L?=
+ =?us-ascii?Q?+X2a7hl6Ln9Jv+bSWMJx6wlcovMX1ENtBSCKG58irQyWBxN+6ySvOQSYsNhj?=
+ =?us-ascii?Q?uln2Cy4B6JtHmHkFdQKg3X/Tp8OfhqrDWuwX+GT5CtAXylD2zGch/tU7mreg?=
+ =?us-ascii?Q?jcWnV87RyE5QDx0NDu2hY702ZaYgbGDC8n0r/RTGqW5DV9C/PR26eudDE0MC?=
+ =?us-ascii?Q?6kkYO/2HsKOtet65jz020vAvhw1xn9x6c7t2YSv/jbYpORwdRv7qf+YxnUUf?=
+ =?us-ascii?Q?QERzyHD0XGSGoW5RSF4/u7ObXUuzsJTAabai16Qd7WvsNIdPcWBSaOgvAatB?=
+ =?us-ascii?Q?2XpUsnkQeJxRZZum6ECVfzpowdXX+a8my/fvGriuE/t3gEQyW2jUXXEjTeoz?=
+ =?us-ascii?Q?fzf4EUz+6XbchEA3jjcl42WTsrRCaQQe/C6PyjbbSWJ3DzH8lyaNBUmCg9ZC?=
+ =?us-ascii?Q?Huv9V+qpywI5KLo2b79ON63gWr1hSWihe36a0DmAYqz0gYY/nJVYcrWogYjm?=
+ =?us-ascii?Q?2LjtbqfVREzNaJpbZdRjRHg/STqhomNIaaQjOTkQBBzLPvI2bh8WRzh3s5L4?=
+ =?us-ascii?Q?/yl05TNupLIqB8uoY6At1h0rZELaQhmKtmcLeb294iAXK8Zb+q5YL2Ikm/cQ?=
+ =?us-ascii?Q?s1LRhRTUM2mp8IXQCBawshKfRIZF+Wrau0pw4YO4CFEMLb1Ctb+jDFRWK7iB?=
+ =?us-ascii?Q?iEwRxM1BFqAYKK5DJ9Hfjve241Rc//+wbVybLZiYsH6RkDoXrqxStmlU3eFK?=
+ =?us-ascii?Q?sAJcSzKbQeadMSjPQ0iWO4UnS9J6m4vBGl7Hh6gKspDOQeU2gnzb/2Zg3Jwj?=
+ =?us-ascii?Q?9E0Ly9LFt4yUOlp3by4HJUztbaiP4K19q2J4bxQZh/MkG7dsqZ0XmhoQIAh6?=
+ =?us-ascii?Q?SPWUNkZn0dGPzqc4jg9yfVBMp8BpEi8RXi1wfbzKFcFZ0ox3sEIsYM6x1dsh?=
+ =?us-ascii?Q?bn1DEELr6xq+kqM2aRAPnSuo3gj4s9nt7EkfcZcA5J3LTV9xSQNQZR4EGAQV?=
+ =?us-ascii?Q?l8/I9N/mFQmKpxsOEXCBc8e4g6EpPawqaRlpqCtaZQt9nnRHr8hfPQ78Rlv4?=
+ =?us-ascii?Q?Yl0KuBc0wPQV2u71X9715kmtuLC/qsi75AnUeh0kbLmJOT1ktPEWZ7oBgFiG?=
+ =?us-ascii?Q?PDn8VeOXE1JyN+s9Z6+0QnetHKKbLZblmlVIvagXxbxI4bBJ5XKY8ZOPhIsq?=
+ =?us-ascii?Q?wmYc8Yk7AxTbjR5YrsDoudKOmGcBNgKKxabCylSt0yeXHiolXDVAuxh3bnt2?=
+ =?us-ascii?Q?uW6WTCN9Xw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d90e8dee-25c4-4f8e-e503-08df071c71d1
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 04:58:06.1834
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Nl1TPmYd/HXei3VRVHF4cMrFc33qlIDSveSZ1mcx0fzLUgsX2/JBzEaOWV6ZE10vn764tS1a/LeTyu8EiU75Cw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6599
 
-On Wed, Aug 26, 2026 at 10:32:11AM -0700, Luck, Tony wrote:
-> The only problem they cause is performance due to the time taken to log them.
+On 2026-08-28 at 13:35 +1000, Alistair Popple <apopple@nvidia.com> wrote...
 
-Yeah, and I think it is noticeable when you're working on a machine which
-generates an excessive CE interrupts or drops into storms.
+[...]
 
-> Absolute numbers are a problem. Maybe you choose 8000 as your threshold.
-> But then some system ticks along happily logging one error per hour with
-> virtually no effect on system performance. Then panics when it has been
-> up for almost a year because it reaches the 8000 threshold.
+> +/**
+> + * DRM_NOVA_INFO_GPU
+
+Now that we have the possiblity for multiple types of info calls I'm going to
+rename this and subsequent similar usage to DRM_NOVA_INFO_GPU. That makes future
+definitions more consistent and keeps them distinct from other UAPI structs, i.e
+DRM_NOVA_INFO_<type>.
+
+ - Alistair
+
+> + *
+> + * Query GPU information. The result is returned in a
+> + * &struct drm_nova_gpu_info.
+> + */
+> +#define DRM_NOVA_INFO_GPU		0x00
+> +
+> +/**
+> + * struct drm_nova_gpu_info - GPU information
+> + */
+> +struct drm_nova_gpu_info {
+> +	/**
+> +	 * @architecture: GPU architecture identifier. See
+> +	 * &enum drm_nova_architecture for currently known architectures.
+> +	 */
+> +	__u32 architecture;
+> +
+> +	/**
+> +	 * @implementation: GPU implementation identifier.
+> +	 */
+> +	__u32 implementation;
+> +};
+> +
+>  #define DRM_NOVA_GETPARAM		0x00
+>  #define DRM_NOVA_GEM_CREATE		0x01
+>  #define DRM_NOVA_GEM_INFO		0x02
+> +#define DRM_NOVA_INFO			0x03
+>  
+>  /* Note: this is an enum so that it can be resolved by Rust bindgen. */
+>  enum {
+> @@ -104,6 +151,8 @@ enum {
+>  						   struct drm_nova_gem_create),
+>  	DRM_IOCTL_NOVA_GEM_INFO		= DRM_IOWR(DRM_COMMAND_BASE + DRM_NOVA_GEM_INFO,
+>  						   struct drm_nova_gem_info),
+> +	DRM_IOCTL_NOVA_INFO		= DRM_IOWR(DRM_COMMAND_BASE + DRM_NOVA_INFO,
+> +						   struct drm_nova_info),
+>  };
+>  
+>  #if defined(__cplusplus)
+> -- 
+> 2.54.0
 > 
-> Perhaps it would be better to adapt the storm code to allow tuning
-> the criteria for a storm and have a mce=panic_on_storm option?
-
-But we already have the CEC. And yes, it is only for memory errors now but we
-can expand it to all error types and we can use the bucket decaying behavior
-paired with the page offlining or even have a per-error-type recovery callback
-there to handle it all without any user interaction, no?
-
-I mean, *if* that is really necessary.
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
