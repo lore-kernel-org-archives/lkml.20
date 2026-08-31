@@ -1,117 +1,101 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9945C3D6CB4;
-	Mon, 31 Aug 2026 09:01:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E883D955C;
+	Mon, 31 Aug 2026 09:01:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788166902; cv=none; b=Zb9s9MUL3TZZ4SNlskIObWg0016lKaZtka7qiY7UvK7gTrqPQFI0RN7cDiQowcUAh5o2qTHoRsSLxHzmmxf2H4M71zzbjCUce6wnqvCGhs8W33m9wAioy8oqFCWgc06oLC7/3ciUVoRR8gnzHdLljYjCH571NlIHqXbjl/pLWvw=
+	t=1788166907; cv=none; b=jpVJ2JdHtVbK4fFtRjejRK6S6p8s/QL+zk5RXw9yjjqQOy4QHRPcdXBQr5+DXGo/mcysIQKKIWqaSENo9lHU98fJ8lxv7t3kzAIsPc6UhQxsHoRA6otWt3anXHcLEhL2GXtrlD0/OYsjtMd28086TlGSlpTDIVQY9EB23KUMasg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788166902; c=relaxed/simple;
-	bh=TadYoMYIPpm68Nqk9NBplSbRQWH2DBA/OYOnZ5p5WZ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QQuT5C+3h7puqVV97TBiwqyKfupNn8wNRuhDfeUrpCee+/IgU3POkdpq3vre/itt6sWxLzIQL+CBbMY8I4Dyd8hbL3MFxdaP/r3roLkh1NqlHcTBAJHI/DvY/IZ9V7de0lnSlcJqH2ibUNow4DGL5gk+RYM4Pa7oaEzkLoxkd/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ct32zF23; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1788166907; c=relaxed/simple;
+	bh=rWW0Sd75RD7JLyjzzxHOtXUROgfiidBsWdfL7FvEpHc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WIqYPseFykdtGrC1Fvr0grJyE0sWjbzgPoRPdLHESjcsOHNssbjvJD/Q5dLmigLK88g02hCeLIHZn8axRvqcQADJcVsY57gPDgvTjsS7YR7pfuZ4aCGi8ge2jVa8sgpAD40X4PGbBwn/55qVfz3llIDO0/YlKWBj5sA7KYFTzJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=d71Y5RCK; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ct32zF23"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V7xFWb2332443;
-	Mon, 31 Aug 2026 09:01:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=92V5VQRLcjeSpIfYeTmMI4JtBMhhlqcYj+x
-	xaRF+C20=; b=Ct32zF23M4QLbJEiqKmBCbehAXVJKcKNB2N7pm4GahERAW+hJc0
-	UBUlmsQSfEY0ZdgOdimGYRKZ3scMOZjNe7uYiU4zDLrXv+L6cYoAEtJbzUcihSqU
-	92B60ug1WQEkhaej61we9HloM1jQ43X+lr5IEUwRV3G+DazpIWehiA5XJBI32aDJ
-	5b3J8eAVdkp075/kU/Z3SImhr1iw8zcCfaq61YzOiMCrEVFdphB5PXv/azKV5ula
-	VpCMKkJiCnGuqqyjJXL0ztWaLN4EEYEiklQsk40sW0GyFmnNaKp0hiSa1hDyEpFV
-	kZ0vccj7khJcc3YdK3MhUB5ZKHDErCzR7bA==
-Received: from aptaippmta02.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbrq85dd6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 09:01:39 +0000 (GMT)
-Received: from pps.filterd (aptaippmta02.qualcomm.com [127.0.0.1])
-	by APTAIPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 67V91b3G2475097;
-	Mon, 31 Aug 2026 09:01:37 GMT
-Received: from ap-kernel-sh03-lnx.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
-	by APTAIPPMTA02.qualcomm.com (PPS) with ESMTPS id 67V91bDR2475087
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 09:01:37 +0000 (GMT)
-Received: by ap-kernel-sh03-lnx.qualcomm.com (Postfix, from userid 4851478)
-	id 9A01E40C63; Mon, 31 Aug 2026 17:01:36 +0800 (CST)
-From: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Georgi Djakov <djakov@kernel.org>,
-        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-        shengchao.guo@oss.qualcomm.com, bartosz.golaszewski@oss.qualcomm.com
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-Subject: [PATCH] dt-bindings: interconnect: qcom-bwmon: add nord cpu-bwmon compatible
-Date: Mon, 31 Aug 2026 17:01:34 +0800
-Message-ID: <20260831090134.585588-1-zhangfei.gao@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="d71Y5RCK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=OYRSOawd6vcTxwuQX4pDZjdCib09XYXK5IrwEcOAgjg=; b=d71Y5RCKgHgDhKWnoRtHnbuxeU
+	Y9MmfELLPxRzGZ0j1u5tiFZg3rdvT7hoRdU9sGf+SXuFz1VrpwYwg1BtjWBCmH7aKGwovdDuGCC8m
+	KxjALCk/4dZemIAEvKx9/l+0fumIVxXX+omCMoZGnvfd+LlsE2SsTkFNEEQfy+9OF+HlNdZOm2uma
+	ukWqjsHXbyE+SqRLk/m5ZHwDlmuYwBsOi0yqdnyKlAuyy8mjdyO/yVJ4/buU6pkaPSvlzEQNCLO6Y
+	Ahgvw0TbPMOBGqybopkkC0VisMk6rbq2cGgIjgOBi5FYF8QWUMmqjbW0em3dKadMqA6TZ85noh6nY
+	yWTtzGbg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x0xtN-00000002x3x-188S;
+	Mon, 31 Aug 2026 09:01:25 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id CE641300E7E; Mon, 31 Aug 2026 11:01:24 +0200 (CEST)
+Date: Mon, 31 Aug 2026 11:01:24 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Yuanhe Shu <xiangzao@linux.alibaba.com>
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	xin@zytor.com, luto@kernel.org, jpoimboe@kernel.org,
+	rostedt@goodmis.org, akpm@linux-foundation.org,
+	rdunlap@infradead.org, elver@google.com, andreyknvl@gmail.com,
+	glider@google.com, gor@linux.ibm.com, kasan-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] x86/fred: Fix stack depot filtering of FRED event
+ stacks
+Message-ID: <20260831090124.GH4120091@noisy.programming.kicks-ass.net>
+References: <20260827150022.1618235-1-xiangzao@linux.alibaba.com>
+ <20260827150022.1618235-3-xiangzao@linux.alibaba.com>
+ <20260829094207.GD776954@noisy.programming.kicks-ass.net>
+ <20260831085912.2485095-1-xiangzao@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: MWbGdliqyAbGgfYWbpdvtye9wIKgbYsD
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA3NyBTYWx0ZWRfXw0lBFkj42crO
- dueD0L+KFRyiGPsrnRPR94esd5sof0bopRRTRuJULLWLwTfhoNx08JDrnCEv1ajoRmrfinSvQ0G
- w7vTuCLtX/V+MtLRJc6W2uk3e1y5tPw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA3NyBTYWx0ZWRfX22yCmAsilHgB
- uaEqfcKSMY7lUO3WUap3f7spNdAd7NXT9lnZBiFJqX4kvJms18p/YN6iw0i22pk/vvddQN2XDNX
- P2vX4WWQRl9XddbB1wwZcCsEcX3mOx02vV1IGEUxsi1y7re56AYZYhQlTDW9Fklb9hMfn43B47k
- FZ/+rX+v6F//eFwGOXvVVDDr3z7MyQBZmsdiR6j3S5fyxARS9U7EIdFyzmgu0chICdRGS2CuJqX
- 7NMSaLpuF/LBDSJtmOn8u2ic860KMXWf1tetd1e/UQl8VOtj2kfTTCZsYuk/tvfohVNWQvMoT58
- x+VhdqNoRGLWhJ3msHC6L8fqXPw/eZpVPSOCUKeCKIc63hyYb9tAzdarVv7rFAOkCHzy82FHMQu
- hQNrMRyVinzVp7D1kg3l4brzTdrDHylKrWcWejuGNQ3x6da+y77etzhxMjE3VYc02zOzKWwM8ZV
- c5Tv9JapByZBfhwFzYA==
-X-Authority-Analysis: v=2.4 cv=ZOPnX37b c=1 sm=1 tr=0 ts=6a9542f3 cx=c_pps
- a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=NpbCX5yJWdky7Lhv6wUA:9
-X-Proofpoint-ORIG-GUID: MWbGdliqyAbGgfYWbpdvtye9wIKgbYsD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_03,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 bulkscore=0 impostorscore=0 phishscore=0
- clxscore=1011 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608310077
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831085912.2485095-1-xiangzao@linux.alibaba.com>
 
-Document the qcom,nord-cpu-bwmon fallback compatible used by the
-CPU bandwidth monitors on Nord.
+On Mon, Aug 31, 2026 at 04:59:11PM +0800, Yuanhe Shu wrote:
+> On Sat, Aug 29, 2026 at 11:42:07AM +0200, Peter Zijlstra wrote:
+> > I'm not sold on this being a CONFIG symbol, we have far too many of
+> > those. [...]
+> 
+> Fair enough - v2 uses your pattern and drops the Kconfig symbol.  The
+> fallback goes next to its only user in kernel/stacktrace.c; putting it in
+> linux/stacktrace.h would make that header pull in asm/sections.h.  x86
+> defines the macro next to the markers it tests in asm/sections.h, which
+> also gets rid of the arch/x86/kernel/stacktrace.c hunk.
+> 
+> > This is all confusing at best. __fred_entry_text covers all entries, it
+> > cannot distinguish between irqentry and syscall. Why is that not a
+> > problem?
+> 
+> It can't.  But the only consumer, filter_irq_stacks(), does not use the
+> range to classify entries - it uses it to find where the event stack
+> began, and cuts there.  For anything entered from ring 3 the entry frame
+> is the outermost frame of the trace: the unwinder follows the pt_regs
+> the entry pushed and stops there because user_mode(regs) is true
+> (unwind_orc.c, "End-of-stack check for user tasks").  So the cut is a
+> no-op: the syscall trace is stored whole, same as under the IDT, where
+> entry_SYSCALL_64 sits outside the range.  An IRQ hitting a task
+> mid-syscall cuts at the inner kernel entrypoint and drops the interrupted
+> syscall frames, which is also what the IDT range does today at the
+> asm_sysvec_* stub.
+> 
+> Only ring-0 events and the IRQ/NMI forwarded through
+> asm_fred_entry_from_kvm() have an unrelated context below the entry
+> frame, and those are the ones filling the depot.
+> 
+> The existing markers are not irq-only either: they wrap the whole
+> asm/idtentry.h expansion, asm_exc_* stubs included, so this range means
+> the same thing they do.  If you would rather it covered only the ring-0
+> entry, moving the start marker to asm_fred_entrypoint_kernel (+256)
+> makes no behavioural difference - I went with the whole block for
+> symmetry with the IDT side, but have no preference either way.
 
-Signed-off-by: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
----
-
-This compatible will be consumed by the Nord bwmon device tree nodes,
-sent separately by Shawn Guo.
-
- .../devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml     | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml b/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
-index 21b4e04727de..8c82103fb86b 100644
---- a/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
-+++ b/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
-@@ -30,6 +30,7 @@ properties:
-               - qcom,hawi-cpu-bwmon
-               - qcom,kaanapali-cpu-bwmon
-               - qcom,maili-cpu-bwmon
-+              - qcom,nord-cpu-bwmon
-               - qcom,qcm2290-cpu-bwmon
-               - qcom,qcs615-cpu-bwmon
-               - qcom,qcs8300-cpu-bwmon
--- 
-2.43.0
-
+I would still argue the function name is incorrect, and the user might
+want a comment explaining this.
