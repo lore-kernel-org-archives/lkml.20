@@ -1,113 +1,101 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA8D3DA7ED
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC653DCDBF;
+	Mon, 31 Aug 2026 09:21:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788168095; cv=none; b=t6dOF5XyQy2kAoMhv38ml+73vx1uyUKl0dYohC4qiMeEc2Dz9hTj04iUOjnzShctqYMWlxiCP9aDErrbL6he67RmxCMGf1jd7hssqvFjGC0GLKA7+mrSBo8/PECzlQEeM4GyvgjIHurGVef4uPXCKtlhvvAA30ayUzHToIW2o3o=
+	t=1788168114; cv=none; b=PIQxm0sV4PAQqUryQ40OlAN+Dc8brI0DHBXW87unC9MbrEt2B6c/JgpC7xF4AVIHPUZozq7x06X4nOoYxJnEQZX78OA24etUihM1RIcaOIKuuZyxEVCllulBMafmPh7kFHNFPzE5zgnbRBBRZ6kirVj0NKeuXPO8/9zPXOjaQW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788168095; c=relaxed/simple;
-	bh=3gArK77n2NjqbVaBq8qIADTWaXLArEqot7z9ZOmx4yk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TXyL2WIcRUQkK18uju/dP3GMpw9DNQ7Q7qbUgXsTvKF0J2Xvj+pWGpCweihmRY6XqKmnN9E/7dLjzgGNncApBX8f7c9x3MEQ+plmWqABDzoFVhHxQSMoMh2t3n1bgD1DemeKtUlwneKsS9ntV0VQt0mDs+YBBCy2cPOaPy71Vdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=BiZca74z; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788168114; c=relaxed/simple;
+	bh=nE5qrzKBb2CTapNtRYiI1LnBzdqfo6itleuF6g6tnNM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=icrvG7phL1sOZdNLF/PryRi0YtHEDzoRxKFFhMhBxFnZh/klUB/s1J0VERL7n6gq2fzJVFBKRbmP92WC5XDroARwCppMN3LXzTYFUF7kF6MqKpVi0Oi3GN9J4E0vwI2ZlpsLbC6/QCgrqcxNU/RfIgqBdEglLHS3z47HBMaPY3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O/WYjdgA; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="BiZca74z"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so24643165e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:21:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788168091; x=1788772891; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CP/iU6/taW8ol4SzNq6xLRFo/dhj0C8jDaKht8KXEfI=;
-        b=BiZca74ztjsVu2cr9YNAjKEC/XBjLvu2hBU2NCmyTIh+rrqCeA1BF/EhbHHjHpadhB
-         tVx+U/pxFdV3RV/1DNvwPrw0p1d8AGev5ilCdw0r1/aVtcgivX1LdEReplRi1LoKmgeb
-         6/rlLEALbVBkcOZyghh7ETwzDH7Iulzk/hmPvCPDa7s84hcOBZt5RJGhxx4JBK3SJFyo
-         qY2JiPsplV5c1m0+YbD3CuEFhPVlD8ypMnNDF3VnijRRyHdbM/lzBX+KV+1F/ZipDkiV
-         io1/zJFxAGWKdIqiBrK7681HXsJuwNvZIzlIOOhnR1xTMblntRz6fxo6nNh8k6mHqd2e
-         g/cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788168091; x=1788772891;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CP/iU6/taW8ol4SzNq6xLRFo/dhj0C8jDaKht8KXEfI=;
-        b=bQJvpInAd9lsp6q58Gu/EKgVElE14wPMPBADsVW6Tp3pFZR4D4d9oE/CYi72/rrpLh
-         LCGLhB8QM1zUtYqvraH68m65zqO0sM6nRrxw4Dzindnws8VhVkZQai+lYw/ollP7nDfm
-         NzMHpIw2gFME8296x8NXESkZs+8V0TiOdV9Hn+2ObgMIbBYKsaadImzi11fQUawejdVm
-         aX/wAx4TlUiGy1bvAV5XyJotF3rloK+gr5BZiSmJj6D8ImFiO5jrk0C8RQFO1bsB6ULB
-         gOcYLuaSJ0kqzdg6CzweQwJJacg8vfGRI30zFplDau1R2ZsJrusZmwyjD+YDLhKDrxsV
-         stmQ==
-X-Gm-Message-State: AFuF++mL2yYg7SX//BD1wWYBieXjwkNLfQfCzVJ7i8uWd2jBWtvGFQWC
-	yKPhEkZqCCdQT8oMms0PGzoDXWNKLFQq2Mj+COGR32mzo6dBGM2xvcllaNidzSR6zagAMAox2lp
-	wRlsiaF0=
-X-Gm-Gg: AR+sD10i8YS0TuWYmgQq/ISjkcGtUkc86zvnXVY2n2sOGVIza3ffEED6kGkt65Zm5wS
-	oE5ppdyzFb6hSjJKGMK/EB2DDzh2v7AeVAns7me33958fEV4L87z1nU58GLfwptljDKluGXx5df
-	JGofvvfM8SeyfT4KwRxy84uJeGSBCSLJFNDRV0DkbMJyTG8INqTMWbQb/22gE0uYYS87pDCwzRu
-	ly/OujtPWEfa06Ob4XHW94uUmQZM0Zw1em70V6kuD3X8RcYKuy7cRB+Gu5RVh8bvr69/P7upe0Q
-	ZHo2cFVBfeGFgQaP320lbsUbjE0iWUph1QOE8hsZn/PaQPcQKHWyMYYQDESsN9IMxGmIV8u+D4T
-	s2mOL4/jTq3ZdZfM4Vhkbbw2nSo9wpNcDDmXBgSzxxRXOkSx/8jDynEurY+5ilpWfxqt1gTDnIg
-	1esxTXaz/Ic2OPBrptEDOu42ZzgyFtYFgYzxj86OiXKU6ReDpncLB3W7c6osEwtpi1fRtjSciLJ
-	df8ZrKRvC/5yHD9TqMrmA==
-X-Received: by 2002:a05:600c:c4ac:b0:499:a5fc:2087 with SMTP id 5b1f17b1804b1-49b91c20e36mr366838225e9.6.1788168091576;
-        Mon, 31 Aug 2026 02:21:31 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd2922ebdsm150432695e9.3.2026.08.31.02.21.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 02:21:31 -0700 (PDT)
-From: Marco Crivellari <marco.crivellari@suse.com>
-To: linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Marco Crivellari <marco.crivellari@suse.com>
-Subject: [PATCH v2 2/2] Documentation/no_hz: Change dynticks-testing repository name
-Date: Mon, 31 Aug 2026 11:21:13 +0200
-Message-ID: <20260831092118.124576-3-marco.crivellari@suse.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831092118.124576-1-marco.crivellari@suse.com>
-References: <20260831092118.124576-1-marco.crivellari@suse.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O/WYjdgA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788168112; x=1819704112;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=nE5qrzKBb2CTapNtRYiI1LnBzdqfo6itleuF6g6tnNM=;
+  b=O/WYjdgAv2wN+p+p0vmZM6bQmyl31M4t6FSGqV+6tUf8RZFXY2f8t1dA
+   XPpI7ZYNkSqQO4Q0Z3piWIDvAnsDePbUp0Ze6UOLkQUqtd9UOlr+O88Qr
+   3Lf0xCPl91vp0jY3Pj9GLHg7fPOyTQmlNoRu1xg0MzDJyIc4ioZOqEv8O
+   ge2EnMBYekUWhM0RLb+qXHEJDvMlq4xGP3rYBNTbaLo7Z9izFGPCXaYG+
+   YHiTxgYHZjqyf/Uct/3DKxGt83L1lLBiLDlq57UfOUwRFe/WcjLgIC9MG
+   1cktDf8deBhPrZ8G0jal5Qg9MYkeyHPYCBegPb0hOdVkQ4ExFO0tkToiB
+   g==;
+X-CSE-ConnectionGUID: d2xi+eVNR5uibnpRipr48w==
+X-CSE-MsgGUID: /9OZruZpQienE6DPmMu4Ww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="76119094"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="76119094"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:21:51 -0700
+X-CSE-ConnectionGUID: KCOVgDKHS0myaom0zw//0A==
+X-CSE-MsgGUID: 6Dw3w3PAR1OHTJdgjqnO/w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="265505862"
+Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.244.13]) ([10.245.244.13])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:21:49 -0700
+Message-ID: <81ddd491-1ec3-4a0c-90b3-6a286ff1a908@linux.intel.com>
+Date: Mon, 31 Aug 2026 12:21:46 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: xhci: fix maximum event ring segments calculation
+To: Thorsten Leemhuis <regressions@leemhuis.info>,
+ Pierre-David Belanger <pierredavidbelanger@gmail.com>,
+ Shixiong Ou <oushixiong1025@163.com>
+Cc: Shixiong Ou <oushixiong@kylinos.cn>,
+ Mathias Nyman <mathias.nyman@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Niklas Neronin <niklas.neronin@linux.intel.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, regressions@lists.linux.dev
+References: <20260828105926.930033-1-oushixiong1025@163.com>
+ <20260830031233.1810986-2-pierredavidbelanger@gmail.com>
+ <64a7ce30-b346-4e94-974f-f30893d66829@leemhuis.info>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+In-Reply-To: <64a7ce30-b346-4e94-974f-f30893d66829@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Currently the documentation still mention dynticks-testing.
+On 8/31/26 09:55, Thorsten Leemhuis wrote:
+> On 8/30/26 05:12, Pierre-David Belanger wrote:
+> 
+>> The failure on 08dbfad3f504:
+>>
+>>    xhci_hcd 0000:00:04.0: xHCI Host Controller
+>>    xhci_hcd 0000:00:04.0: new USB bus registered, assigned bus number 1
+>>    xhci_hcd 0000:00:04.0: Failed to allocate interrupter erst
+>>    xhci_hcd 0000:00:04.0: can't setup: -12
+>>    xhci_hcd 0000:00:04.0: USB bus 1 deregistered
+>>    xhci_hcd 0000:00:04.0: init 0000:00:04.0 fail, -12
+>>    xhci_hcd 0000:00:04.0: probe with driver xhci_hcd failed with error -12
+> FWIW, not my area of expertise, but to me it looks like there were two
+> similar fixes submitted earlier to address this and "usb: xhci: Fix
+> HCS_ERST_MAX conversion" (
+> https://lore.kernel.org/all/20260828105926.930033-1-oushixiong1025@163.com/
+> ) seems to be heading towards mainline already according to Mathias.
+> Sadly this missed -rc1, wonder why it wasn't submitted for it to prevent
+> more people from running into this, but whatever, that's ship has sailed.
 
-Recently the repository name and the tool have been renamed
-to cpunoise (see link tag below), so fix the URL.
+Looks like at least QEMU and Mediatek users were hit by this issue.
 
-Link: https://lore.kernel.org/all/20260815083728.15470-1-marco.crivellari@suse.com/
-Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
----
- Documentation/timers/no_hz.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Note that this is a v7.3-rc1 regression which was found during merge window for v7.3-rc1.
+v7.3-rc1 came out a few hours ago.
+I can't resolve it much earlier than this.
 
-diff --git a/Documentation/timers/no_hz.rst b/Documentation/timers/no_hz.rst
-index 7fe8ef9718d8..dd624b7c3f42 100644
---- a/Documentation/timers/no_hz.rst
-+++ b/Documentation/timers/no_hz.rst
-@@ -206,7 +206,7 @@ something else is in the way?  This section helps answer this question
- by providing a simple OS-jitter test suite, which is available on branch
- master of the following git archive:
- 
--git://git.kernel.org/pub/scm/linux/kernel/git/frederic/dynticks-testing.git
-+git://git.kernel.org/pub/scm/linux/kernel/git/frederic/cpunoise.git
- 
- Clone this archive and follow the instructions in the README file.
- This test procedure will produce a trace that will allow you to evaluate
--- 
-2.55.0
+Thanks
+Mathias
 
