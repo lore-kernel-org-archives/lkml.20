@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9BD48988A;
-	Mon, 31 Aug 2026 17:54:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15AEF48989B;
+	Mon, 31 Aug 2026 17:54:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198850; cv=none; b=dKOkafqIH5K2KyvkrWvbLDvnUM9+oXh0pVujdzPZf5d8eQr4jVSdjAUMi8N4k7ZJ08F3pnado01ROgcqqh0HoutJ2anor948vaZdor5CWdTyjeaCpVUv7KyOunUY8srhBLqmW7DLLgOelxaWNXEZKw0oucWhG0F2NOIfSqdzisI=
+	t=1788198850; cv=none; b=NkRgXt0Fh3at+knMnUlDUdA9YX5Yfor5WKa7i4WCONWB70nw5nfdGYv8LqJg4UP1ErmEEAJsZv+kMChfvhgytvLM3IjXfZNRFzdvMMjB2s4jvNAo3n04E78NwIDcStP5TCdTFPl2ij6UudRogZfYyNPLziRtBxIjFZrHe1qi2G4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788198850; c=relaxed/simple;
-	bh=+Z2EBFoOLO9/dEWJFoUpsVvKO1YWOhk7fYwLwsAeUk4=;
+	bh=jIkYRyPkpRImXCXFcfUFTMScrz0LiaTMNpayT6QxRFQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QEBlCKKP7DwWjLlvoS8tlh0mlcVmA0oS5IZ8EEbw+9JXhUGOuh7wUeHl+tpUuUM1D5dB1m9HFq/HkHfzAjcfCgqGV+kvLIcOhHy63HPHL6LGKBe12tMiie+QqZNBwrMA1kBlVhp/jM93bQpnwvMTXIFhzwKzCczC+2XOKksVA1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hCkJqdMe; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=QxXhwPo8pMeN/4CGyAjf1Q0oLvxGhdLFcCGh8yzlF9uO1/Axno+uYj/+E5RcIGXfb/bR1Q/GFKXihy9TfuXZCqPYCYlX2fOZeUTZ9gPJcwJHQuS7EeD30m21BEO8rjjFpVmrXmgQff5hdtd+WNP4QZsCFUHDj4NkY4Mjzkc4GU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kn3uFruW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hCkJqdMe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923591F000E9;
-	Mon, 31 Aug 2026 17:54:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kn3uFruW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 634EF1F00A3E;
+	Mon, 31 Aug 2026 17:54:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788198848;
-	bh=GxDiutAne7CeSBThzq84GD/SgbxMuOPIz22YXMx+UlA=;
+	s=k20260515; t=1788198849;
+	bh=C0wR2CeHaYepxDy1YJiRtN6s19xvFFxPA27keILXfmQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hCkJqdMe13mobMmOG2Wq9kGisVzcXQTjtExB0PffG+3K8ZmOXYY4kqVIiiQ2l0ZUG
-	 C/9ZAE31q9m+nPUWkhRJcTR44TeAJUVC3hUJsyK1ZlqlK5MfEWexxph6nsOv6+My28
-	 NF6lfQ4CWgVhtHdM5llRJK+Hhuj0RLlCmnhg7pB0kVkQAZmNArWemLVLZOXU3kJ+mi
-	 JI/8yi04yLlQ1fZdIet9ul8yJbWyJYhHd2gSFY4XUXAtcRnAWxC88xn89CchYg7VNF
-	 bh9eh9YgCE4Wk2eyL/c0sHyB5ituSd1Qzb3VJGBucW/WGf2IfkpHvroZJjfJFxyUNl
-	 nt/sQKX06UwTA==
+	b=kn3uFruWK7RL2hbgxaV0+n6/ohSNiSdP4sGT5r/vLRDM1VG5eCq2RhzRWbySHws/b
+	 r5XBcxSKJWf+dzuTdeWcteTDts7/JshVS0tY23wIlCJCEBXzDCAdGtai6fsQT+XJZ9
+	 2saidryraRg5pB4zcMkX4wF94x83eX9N+3zS7Zu4edxPv8LQgNnetnmnuAwSq027ih
+	 EAjBk/8zgCugtHN0j+SN6xz1xis0920iyqxx40d/XSkJi7B/GzwvuJBM++t2vmfI5C
+	 Isg+AQ9Hwhey0d39kYS4xKlZ6o2IgaFAoXFcmlA2b73ZminNGHmmDoE84RfjUlg3yz
+	 ZK6JrrhkguNOg==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Reza Kurniawan <imkyufie@gmail.com>
+	Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/3] arm64: dts: qcom: Refine device support for Xiaomi Redmi 5A
-Date: Mon, 31 Aug 2026 12:53:35 -0500
-Message-ID: <178819882995.1411250.8777262616139079401.b4-ty@kernel.org>
+Subject: Re: [PATCH 0/2] arm64: dts: qcom: sc8280xp-x13s: HBR3 and USB-C DP audio
+Date: Mon, 31 Aug 2026 12:53:36 -0500
+Message-ID: <178819882976.1411250.13651068634513911390.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260820110347.98068-1-imkyufie@gmail.com>
-References: <20260820110347.98068-1-imkyufie@gmail.com>
+In-Reply-To: <20260827-x13s-dpaudio-v1-0-da73414c6ab5@oldschoolsolutions.biz>
+References: <20260827-x13s-dpaudio-v1-0-da73414c6ab5@oldschoolsolutions.biz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,25 +51,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 20 Aug 2026 18:03:44 +0700, Reza Kurniawan wrote:
-> Changes in v4:
-> - Simplify commit title
-> - Add commit description
-> - Drop redundant status propery in LED node
+On Thu, 27 Aug 2026 09:52:47 +0200, Jens Glathe wrote:
+> The X13s already enables both USB-C DisplayPort controllers, but the
+> board DTS never described the link rates or the audio paths.
 > 
-> Changes in v3:
-> - Add vcc-supply for vibrator
+> Patch 1 lists RBR through HBR3 on the DP0/DP1 outbound endpoints.
+> Without link-frequencies the msm/dp driver still defaults to HBR2,
+> which is not enough for some docks and monitors.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/3] arm64: dts: qcom: msm8917-xiaomi-riva: Enable debug UART console
-      commit: 205e698663f5ed1593fea5cef825adca8828b426
-[2/3] arm64: dts: qcom: msm8917-xiaomi-riva: Add GPIO haptic vibrator
-      commit: 067e6289a46ec5dffe824f1f4331deec55f4c356
-[3/3] arm64: dts: qcom: msm8917-xiaomi-riva: Add notification LED support
-      commit: e82b1285a11478ef00827b2249c31c2189fc6b99
+[1/2] arm64: dts: qcom: sc8280xp-x13s: Enable HBR3 on external DPs
+      commit: e187ae3975932d9a9c66762fa3e2664c485331b0
+[2/2] arm64: dts: qcom: sc8280xp-x13s: Add DP0/DP1 audio playback support
+      commit: 8a62b9c730521a48a24b4403e48e5af74e484aca
 
 Best regards,
 -- 
