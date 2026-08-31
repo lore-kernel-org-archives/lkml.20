@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C8D565111;
-	Mon, 31 Aug 2026 13:47:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A8A4AD4A4;
+	Mon, 31 Aug 2026 13:47:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184077; cv=none; b=un2m1gxrvrlsiSIKSyAbOXRhB1MNl/78cCi+G96lF8vN/uyOUQl78o4KdQWgE8bpI1kdMPEqvXYVjjC60f41+LDJiGQ2VEUC6P5o93VTawkEN7g75Jpm7d2bzScWYWy8CEzUdCOpeUrrpjgX0aROKR9dhyT1ur7h/5aVRdRguK4=
+	t=1788184079; cv=none; b=cQgCvV90993vtW9jFLUQ4wXP6tgu9wg4HXIPrqAET8/f3ZHDkOwRQfQ9mnM1sLH6+K/hU8ML17jSxl3jfKQMlElgkm+w4ulaRkzGFFCkAKE0fDDQ+1kL8Qpheqi8jGlvHakR6CgczVXgyOj4uCwSd0tGAtoGKIfX/hoxO6k1EmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184077; c=relaxed/simple;
-	bh=wVL1YIJPlbDy/sek2DgAlItW+ozYH1TUIDGq2UvPtF8=;
+	s=arc-20240116; t=1788184079; c=relaxed/simple;
+	bh=js1xdQPd8SVF0DfTFRnxBCxUin6MEY6bS4OlgxHK4lg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Heng3J+xHSfUv+ayqPVQokJIMfwt5u8a+2u5zK+b87FFhudyxy+KskdLbLc35aZTvC6GCbQaUcLJUaiE01vb7gyOrnefFZ9rb8lan1mix3f71jmuZ0otw6Bd1KpbbOmgv7EYydO5t6GDoVz1Bx68YOVWuOnlmpN5QLVosETOuXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Si3QEYnl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=RCTtBHeV/E4zboqit2zk5L7zR2whAUaOjKXHi4auxnzObbDpMxv/nkPg4GU4Xm407dqW7niVRuCXtSXOAINfC5Enp9djoI8hSa3gTElpci/KTPPnQjEMi30x7JsBg8PvFQssPdiTZmDuQaJRNQYNDaqGx2eUpoKKuUf8+wFPvks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V7vsu39J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Si3QEYnl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FBE21F00A3E;
-	Mon, 31 Aug 2026 13:47:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V7vsu39J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFFDE1F000E9;
+	Mon, 31 Aug 2026 13:47:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184075;
-	bh=GjKDFAUDy91EhvmuMW3l0NSZA+T7hWB6tOHcKdnDrzg=;
+	s=k20260515; t=1788184077;
+	bh=z/rg2K/V3OZcgIB5m1IKvlZag47CkDnfvOGJTq8IRKY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Si3QEYnlKBo5UV7lIryzxy+r3EAda+MbG+G0r1VHH5iWGpfTUg0Wjqv9u/BO2soAI
-	 RYq3/tLXYN3Z11j4PF+OSUYYBrEk0ZzCvAffNWXI9FQ0EfmsMowXSaty+H7B5+MSR8
-	 RUr0eqDfqcP4zgNYG33RY1/WiloV23IJYSVqamun0muKsYBF2n7n/moT/FFRVRUYfe
-	 AC8L4gC1QVy2XzaTOiJS7XgBfDX+SR9o84UWgj+OU+iIcH9NDgs90yYJ6lcDS6dVW7
-	 D0EWMbm5v+df29vuwiprRDOy2kC+X+wfK/An6MmboeIjjutX5cJIV44qJMrTH9WOYK
-	 m+ZFtBPZ3T/AQ==
+	b=V7vsu39JUtmjbaUeghLAAIE6aDGTXmSd+lWulNocDJum3pTmV22z8QN7NhTEL5a6N
+	 AcwAvL4u+z4hrBhasJNN6lPQGT/lMN2SBj4nZb9V3upsY/kAD+uA5faqg/Pz0KrmM7
+	 TDQBdTwXi4Ub2UJdfZmKvUPIKE+t6DEnQJhiaGkz4AUlnWxC6yUAhYCTYUa/V1h0th
+	 U6FsVGk/QUoWWCZp6UE+VpYE/ngOiNAkLLrb43xKitX96eqId4/84ix4y2mjEeDazn
+	 Ldn9k1KNOSeU7/HpwsYwjCRDUDlVLaVas5PqUj/k4cNitn/DGlGhoyVTpAuKyCqd0V
+	 vlv15bkyEKxbQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Avraham Stern <avraham.stern@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+Cc: Chris Lu <chris.lu@mediatek.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
+	marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: mld: call iwl_mld_free_ap_early_key() for AP only
-Date: Mon, 31 Aug 2026 09:28:24 -0400
-Message-ID: <20260831133314.4125787-476-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] Bluetooth: btusb: MT7925: Add VID/PID 0e8d/8c38
+Date: Mon, 31 Aug 2026 09:28:25 -0400
+Message-ID: <20260831133314.4125787-477-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,400 +54,435 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Avraham Stern <avraham.stern@intel.com>
+From: Chris Lu <chris.lu@mediatek.com>
 
-[ Upstream commit c35c44434329c6b3bd2c6c1e5add5ae10d933a4d ]
+[ Upstream commit 69b2f05df3ee63e1273608cdb81a7d664e9de2b8 ]
 
-The driver supports intalling IGTK on a NAN device interface. When
-the IGTK is removed, iwl_mld_free_ap_early_key() is called which
-results in a warning since no links are attached to this interface.
-The iwl_mld_free_ap_early_key() function should be called for AP or
-IBSS interfaces only. Check the interface type before calling it.
+Add VID 0e8d & PID 8c38 for MediaTek MT7925 USB Bluetooth chip.
 
-Signed-off-by: Avraham Stern <avraham.stern@intel.com>
-Link: https://patch.msgid.link/20260512222731.d67d658b421d.Ife2d1f3b17119ce696582ce6a2a69026d368d8af@changeid
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+The information in /sys/kernel/debug/usb/devices about the Bluetooth
+device is listed as the below.
+
+T:  Bus=06 Lev=01 Prnt=01 Port=00 Cnt=01 Dev#=  2 Spd=480  MxCh= 0
+D:  Ver= 2.10 Cls=ef(misc ) Sub=02 Prot=01 MxPS=64 #Cfgs=  1
+P:  Vendor=0e8d ProdID=8c38 Rev= 1.00
+S:  Manufacturer=MediaTek Inc.
+S:  Product=Wireless_Device
+S:  SerialNumber=000000000
+C:* #Ifs= 3 Cfg#= 1 Atr=e0 MxPwr=100mA
+A:  FirstIf#= 0 IfCount= 3 Cls=e0(wlcon) Sub=01 Prot=01
+I:* If#= 0 Alt= 0 #EPs= 3 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=81(I) Atr=03(Int.) MxPS=  16 Ivl=125us
+E:  Ad=82(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=02(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:* If#= 1 Alt= 0 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+I:  If#= 1 Alt= 1 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=   9 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=   9 Ivl=1ms
+I:  If#= 1 Alt= 2 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  17 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  17 Ivl=1ms
+I:  If#= 1 Alt= 3 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  25 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  25 Ivl=1ms
+I:  If#= 1 Alt= 4 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  33 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  33 Ivl=1ms
+I:  If#= 1 Alt= 5 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  49 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  49 Ivl=1ms
+I:  If#= 1 Alt= 6 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  63 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  63 Ivl=1ms
+I:  If#= 2 Alt= 0 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=8a(I) Atr=03(Int.) MxPS=  64 Ivl=125us
+E:  Ad=0a(O) Atr=03(Int.) MxPS=  64 Ivl=125us
+I:* If#= 2 Alt= 1 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=8a(I) Atr=03(Int.) MxPS= 512 Ivl=125us
+E:  Ad=0a(O) Atr=03(Int.) MxPS= 512 Ivl=125us
+
+Signed-off-by: Chris Lu <chris.lu@mediatek.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `wifi: iwlwifi: mld: call
-iwl_mld_free_ap_early_key() for AP only`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** `v6.18.44` (Makefile: 6.18.44)
+**Step 1.1 — Subject line**
 
----
+Record: `[Bluetooth: btusb] [add] MT7925 USB VID/PID 0e8d/8c38 for
+MediaTek chip`
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.2 — Tags**
 
-### Step 1.1: Subject line
-**Record:** `[wifi: iwlwifi: mld]` `[call/fix]` — Only call
-`iwl_mld_free_ap_early_key()` on AP/IBSS interfaces, not on all non-
-pairwise key removals.
+Record:
+- **Fixes:** none
+- **Reported-by:** none
+- **Tested-by:** none
+- **Reviewed-by:** none
+- **Acked-by:** none
+- **Link:** none
+- **Cc: stable@vger.kernel.org:** none (expected for manual review)
+- **Signed-off-by:** Chris Lu `<chris.lu@mediatek.com>` (author), Luiz
+  Augusto von Dentz `<luiz.von.dentz@intel.com>` (Bluetooth
+  maintainer/committer)
 
-### Step 1.2: Tags
-**Record:**
-- **Signed-off-by:** Avraham Stern `<avraham.stern@intel.com>` (author)
-- **Signed-off-by:** Miri Korenblit
-  `<miriam.rachel.korenblit@intel.com>` (maintainer)
-- **Link:** `https://patch.msgid.link/20260512222731.d67d658b421d...`
-  (patch submission reference)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
-  stable@vger.kernel.org`
-- Notable: no syzbot/fuzzer report; Intel iwlwifi maintainer sign-off
+Notable: maintainer Signed-off-by from Luiz von Dentz; no
+syzbot/sanitizer signals.
 
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** IGTK can be installed on a NAN device interface. On removal,
-  `iwl_mld_free_ap_early_key()` is called unconditionally for non-
-  pairwise keys, but NAN has no attached links → `WARN_ON(!link)` fires
-  inside that helper.
-- **Symptom:** Kernel warning (`WARN_ON`) during IGTK removal on NAN.
-- **Root cause:** `iwl_mld_free_ap_early_key()` is AP/IBSS-only logic
-  (early key staging before bcast/mcast STAs exist), but the remove path
-  called it for every non-pairwise key regardless of interface type.
-- **Fix:** Gate the call on `vif->type == NL80211_IFTYPE_AP || vif->type
-  == NL80211_IFTYPE_ADHOC`, matching the store path.
+**Step 1.3 — Body analysis**
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Although not labeled "fix", this corrects an asymmetric
-store/remove bug. The store path already restricts early-key handling to
-AP/IBSS; the remove path did not.
+Record:
+- **Bug description:** Without this USB ID, the MT7925 Bluetooth
+  function on hardware presenting as `0e8d:8c38` is not recognized with
+  the correct MediaTek/WBS driver flags.
+- **Symptom:** Bluetooth on this MediaTek MT7925 USB combo device does
+  not work (or lacks proper MediaTek setup/firmware path).
+- **Version info:** none stated.
+- **Root cause (author):** Missing explicit VID/PID entry in
+  `quirks_table[]`; device is a standard MediaTek `Wireless_Device` with
+  BT interfaces `e0/01/01`.
 
----
+**Step 1.4 — Hidden bug fix detection**
 
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Inventory
-**Record:**
-- **File:** `drivers/net/wireless/intel/iwlwifi/mld/mac80211.c` (+2
-  lines, scope unchanged)
-- **Function:** `iwl_mld_set_key_remove()`
-- **Scope:** Single-file, surgical (2-line condition extension)
-
-### Step 2.2: Code flow change
-**Record:**
-- **Before:** Any non-pairwise key removal →
-  `iwl_mld_free_ap_early_key()`.
-- **After:** Non-pairwise key removal on AP or IBSS only →
-  `iwl_mld_free_ap_early_key()`.
-- **Affected path:** `DISABLE_KEY` → `iwl_mld_set_key_remove()` → early-
-  key cleanup before `iwl_mld_remove_key()`.
-
-### Step 2.3: Bug mechanism
-**Record:** **Logic / correctness fix.** `iwl_mld_free_ap_early_key()`
-dereferences `mld_vif->link[key->link_id]`:
-
-```196:207:drivers/net/wireless/intel/iwlwifi/mld/ap.c
-void iwl_mld_free_ap_early_key(struct iwl_mld *mld,
-                               struct ieee80211_key_conf *key,
-                               struct iwl_mld_vif *mld_vif)
-{
-        struct iwl_mld_link *link;
-
-        if (WARN_ON(key->link_id < 0))
-                return;
-
-        link = iwl_mld_link_dereference_check(mld_vif, key->link_id);
-        if (WARN_ON(!link))
-                return;
-```
-
-Called from interfaces that never use early-key storage → spurious
-`WARN_ON`.
-
-### Step 2.4: Fix quality
-**Record:** Obviously correct; mirrors existing store guard at lines
-2099–2102. Minimal regression risk. No new APIs or behavior changes
-beyond suppressing incorrect helper calls.
+Record: Not disguised as cleanup. This is an explicit hardware-
+enablement ID addition. Functionally it ensures `BTUSB_MEDIATEK |
+BTUSB_WIDEBAND_SPEECH` flags are applied for this PID (see Phase 2/6 for
+nuance about an existing generic `0x0e8d` match).
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 2: Diff Analysis
 
-### Step 3.1: Blame
-**Record:** All lines in this file blame to `7e22de67e545d` (squashed
-stable snapshot). Meaningful per-line history unavailable in this
-checkout.
+**Step 2.1 — Inventory**
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag present.
+Record:
+- **Files:** `drivers/bluetooth/btusb.c` (+2 lines)
+- **Functions:** `quirks_table[]` static data only (no function logic
+  changed)
+- **Scope:** Single-file, surgical device-ID addition
 
-### Step 3.3: File history
-**Record:** `git log` on `mld/mac80211.c` returns only the squashed HEAD
-commit. Cannot trace introduction of the asymmetry via git history in
-this tree.
+**Step 2.2 — Code flow change**
 
-### Step 3.4: Author context
-**Record:** Avraham Stern (Intel iwlwifi). Miri Korenblit signed off —
-iwlwifi maintainer. Part of May 2026 iwlwifi update series (NAN/IGTK
-work in
-`20260511_miriam_rachel_korenblit_wifi_iwlwifi_updates_2026_05_11.mbx`).
+Record:
+- **Before:** `0e8d:8c38` not listed in the MT7925 section of
+  `quirks_table[]`.
+- **After:** Explicit entry added with `BTUSB_MEDIATEK |
+  BTUSB_WIDEBAND_SPEECH`.
+- **Path affected:** USB probe of interface 0 on this device →
+  `btusb_probe()` → quirks lookup → MediaTek setup path
+  (`btusb_mtk_setup`, firmware load via `btmtk`, WBS support).
 
-### Step 3.5: Dependencies
-**Record:** Standalone. No series dependency. Applies to existing
-`iwl_mld_set_key_remove()` without prerequisite commits.
+**Step 2.3 — Bug mechanism**
 
----
+Record:
+- **Category:** Hardware enablement / device ID (not crash/UAF/race).
+- **Mechanism:** Without correct `driver_info` flags, btusb binds
+  generically but skips MediaTek-specific probe setup (firmware
+  download, MTK ISO handling, WBS). For OEM-vendor PIDs this is
+  mandatory; for native `0x0e8d` PIDs a generic vendor+interface entry
+  at line 616 may already apply the same flags (verified below).
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+**Step 2.4 — Fix quality**
 
-### Step 4.1: Original discussion
-**Record:** `b4 dig -c HEAD` did not match this patch (HEAD is unrelated
-amdgpu commit). No `.mbx` file for this specific patch in the workspace.
-Lore.kernel.org blocked by bot protection. Link tag points to May 12,
-2026 submission; not directly fetchable.
-
-### Step 4.2: Reviewers
-**Record:** UNVERIFIED — could not retrieve thread via b4/lore.
-
-### Step 4.3: Bug report
-**Record:** No external bug report referenced. Bug described in commit
-message only (NAN IGTK removal warning).
-
-### Step 4.4: Related patches
-**Record:** Related iwlwifi mld NAN/IGTK work in
-`20260511_miriam_rachel_korenblit_wifi_iwlwifi_updates_2026_05_11.mbx`
-(patches 8–10 add NAN TLC, NAN data, separate TX/RX IGTK tracking). This
-fix is a follow-on to that work.
-
-### Step 4.5: Stable list history
-**Record:** UNVERIFIED — lore stable search inaccessible.
+Record:
+- **Quality:** Obviously correct; identical pattern to ~15 other MT7925
+  entries already in tree.
+- **Regression risk:** Very low (2-line table entry, no logic change).
+- **Red flag:** None. No API changes, no refactoring.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 3: Git History Investigation
 
-### Step 5.1: Key functions
-**Record:** `iwl_mld_set_key_remove()`, `iwl_mld_free_ap_early_key()`,
-`iwl_mld_store_ap_early_key()`, `iwl_mld_mac80211_set_key()`.
+**Step 3.1 — Blame / introduction**
 
-### Step 5.2: Callers
-**Record:**
-- `iwl_mld_set_key_remove()` ← `iwl_mld_mac80211_set_key()`
-  (`DISABLE_KEY`)
-- `iwl_mld_mac80211_set_key()` is the mac80211 `set_key` driver callback
-  — reachable on normal WiFi key install/remove from userspace
-  (wpa_supplicant, hostapd, NetworkManager).
+Record:
+- Upstream commit: `69b2f05df3ee6` (mainline, not yet in this stable
+  tree).
+- Generic MediaTek match `USB_VENDOR_AND_INTERFACE_INFO(0x0e8d, ...)`
+  introduced in `a1c49c434e150` (2019); `BTUSB_WIDEBAND_SPEECH` added to
+  it in `0fec656d08aa59` (2024).
+- MT7925 section started with `560ff4bc99070` (Jan 2024, `13d3/3602`).
+- Similar native MediaTek entry `0e8d:0608` added in `be55622ce673f` —
+  already present in this 6.18.y tree.
 
-### Step 5.3: Callees
-**Record:** `iwl_mld_free_ap_early_key()` →
-`iwl_mld_link_dereference_check()` → `WARN_ON` on invalid/missing link.
-`iwl_mld_remove_key()` handles actual FW key removal afterward.
+**Step 3.2 — Fixes: tag**
 
-### Step 5.4: Reachability
-**Record:** **Yes, from userspace.** Any `DISABLE_KEY` for a group key
-(GTK/IGTK/BIGTK) triggers this path. Store path is already AP/IBSS-only:
+Record: N/A — no Fixes: tag.
 
-```2094:2102:drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
-        /* After exiting from RFKILL, hostapd configures GTK/ITGK before
-the
-  - AP is started, but those keys can't be sent to the FW before the
-  - MCAST/BCAST STAs are added to it (which happens upon AP start).
-  - Store it here to be sent later when the AP is started.
-         */
-        if ((vif->type == NL80211_IFTYPE_ADHOC ||
-             vif->type == NL80211_IFTYPE_AP) && !sta &&
-             !mld_vif->ap_ibss_active)
-                return iwl_mld_store_ap_early_key(mld, key, mld_vif);
-```
+**Step 3.3 — Related commits**
 
-For STA, `key->link_id` is often `-1` (non per-link keys per `key.c`),
-which also triggers `WARN_ON(key->link_id < 0)` in the helper today.
+Record:
+- Part of ongoing MT7925 ID series: `576952cf981b7`, `942873c8137fe`,
+  `7ed1d46c6bc28`, `5bd5c716f7ec3`, etc. — all already in 6.18.y.
+- Standalone patch (not multi-patch series dependency).
+- Same author pattern as `a8c7343e2a044`, `576952cf981b7`.
 
-### Step 5.5: Similar patterns
-**Record:** Store/remove asymmetry is the only instance. Fix aligns
-remove with store.
+**Step 3.4 — Author context**
+
+Record: Chris Lu is a regular MediaTek Bluetooth contributor; Luiz von
+Dentz is Bluetooth maintainer and committed this to mainline.
+
+**Step 3.5 — Dependencies**
+
+Record:
+- Requires existing MT7925 btusb/btmtk support — **present** in this
+  tree (`btmtk.c` handles `dev_id == 0x7925`, firmware
+  `FIRMWARE_MT7925`, MT7925 USB IDs already listed).
+- Applies cleanly to current 6.18.44 tree (`git apply --check` passed).
+- No prerequisite commits missing.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
+## Phase 4: Mailing List and External Research
 
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Current tree at lines 2160–2162 still has the
-unconditional call:
+**Step 4.1 — Original discussion**
 
-```2160:2162:drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
-        /* if this key was stored to be added later to the FW - free it
-here */
-        if (!(key->flags & IEEE80211_KEY_FLAG_PAIRWISE))
-                iwl_mld_free_ap_early_key(mld, key, mld_vif);
-```
+Record:
+- **b4 dig URL:** https://patch.msgid.link/20260407065110.3037135-1-
+  chris.lu@mediatek.com
+- **Revisions:** v1 submitted 2026-03-09; RESEND v1 2026-04-07 (applied
+  version).
+- **Reviewer feedback:** No NAKs, no Reviewed-by/Acked-by in thread;
+  maintainer merged to mainline.
+- **Stable nomination:** None found in thread.
 
-`iwl_mld` driver fully present (65 files under `mld/`).
+**Step 4.2 — Reviewers CC'd**
 
-### Step 6.2: Backport difficulty
-**Record:** Clean apply expected — 2-line condition change, no conflicts
-anticipated.
+Record: Marcel Holtmann, Johan Hedberg, Luiz von Dentz, Sean Wang,
+linux-bluetooth, linux-mediatek — appropriate subsystem coverage.
 
-### Step 6.3: Related fixes already present?
-**Record:** No equivalent fix found. `git log --grep` found nothing
-(squashed history).
+**Step 4.3 — Bug report**
 
-### NAN-specific note for this tree
-**Record:** `NL80211_IFTYPE_NAN` is **not** in `wiphy->interface_modes`
-in this tree (lines 268–273). Full NAN IGTK support from the May 11
-series (patches 8–10) is **not** present (no `tx_igtk`/`rx_igtk`, no
-`NL80211_IFTYPE_NAN` in mac80211.c). The commit-message NAN scenario is
-not yet reachable here, but the STA group-key removal path **is**
-reachable and can hit the same helper incorrectly.
+Record: N/A — hardware enablement from vendor; USB descriptor provided
+as evidence of tested device.
 
----
+**Step 4.4 — Series context**
 
-## PHASE 7: SUBSYSTEM CONTEXT
+Record: Standalone 1-patch submission for this PID; unrelated series
+exists for MT7922 `0e8d/223c`.
 
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/net/wireless/intel/iwlwifi/mld` — IMPORTANT (Intel
-WiFi driver, iwl_mld for newer MLD-capable hardware). Not core kernel,
-but affects WiFi users on supported Intel hardware.
+**Step 4.5 — Stable list history**
 
-### Step 7.2: Activity
-**Record:** Actively developed; iwl_mld is relatively new (copyright
-2024–2025) with ongoing NAN/MLO work.
+Record: No stable-list discussion found (lore fetch for stable list not
+performed; patch thread had no stable CC).
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## Phase 5: Code Semantic Analysis
 
-### Step 8.1: Who is affected
-**Record:** Users of Intel iwl_mld hardware (WiFi 6E/7 MLD-capable
-devices). All interface types that remove group keys (STA most common
-today; NAN when that support lands).
+**Step 5.1 — Key symbols**
 
-### Step 8.2: Trigger conditions
-**Record:** Removing any non-pairwise key (GTK/IGTK/BIGTK) on a non-
-AP/IBSS interface. Common during STA disconnect/roaming. Unprivileged
-users trigger via normal WiFi stack operations.
+Record: `quirks_table[]`, `btusb_probe()`, `BTUSB_MEDIATEK`,
+`BTUSB_WIDEBAND_SPEECH`
 
-### Step 8.3: Failure mode severity
-**Record:** `WARN_ON` in driver — **MEDIUM**. No crash, corruption, or
-deadlock by default. Can spam dmesg; with `panic_on_warn` enabled, could
-panic. Functional key removal continues via `iwl_mld_remove_key()`.
+**Step 5.2 — Callers**
 
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** Eliminates spurious warnings on STA (and future NAN)
-  group-key removal; corrects logic bug; trivial fix.
-- **Risk:** Very low — 2 lines, mirrors existing store guard, no
-  behavior change for AP/IBSS.
-- **Ratio:** Favorable for backport.
+Record: `btusb_probe()` called from USB core on device plug/enumeration
+— common hot-plug path for all USB Bluetooth adapters.
+
+**Step 5.3 — Callees (when flags set)**
+
+Record: `btusb_mtk_setup()`, `btusb_mtk_shutdown()`,
+`btmtk_reset_sync()`, `btmtk_set_bdaddr()`, `btmtk_usb_recv_acl()` —
+MediaTek firmware and protocol initialization.
+
+**Step 5.4 — Reachability**
+
+Record: Triggered by plugging in USB hardware with this VID/PID. Not
+userspace-triggerable as a security bug, but affects any user with this
+hardware on boot/plug.
+
+**Step 5.5 — Similar patterns**
+
+Record: Fifteen+ MT7925 entries in same table section; `0e8d:0608`
+(MT7921) added similarly despite generic `0x0e8d` vendor match —
+precedent already in this tree.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 6: Cross-Reference Against Local Tree (6.18.44)
 
-### Step 9.1: Evidence summary
+**Step 6.1 — Does buggy/missing code exist?**
 
-**FOR backport:**
-- Real logic bug: remove path calls AP-only helper for all non-pairwise
-  keys
-- Reachable today on STA group-key removal (common path)
-- Matches existing store-path guard — obviously correct
-- 2-line, contained fix; no new APIs
-- iwl_mld code exists in v6.18.44; fix applies cleanly
-- Intel maintainer sign-off
+Record:
+- **Local tree:** `v6.18.44` (`git describe HEAD` →
+  `v6.18.44-1-g2736c32da98b9`)
+- **Missing entry confirmed:** `grep 0x8c38 drivers/bluetooth/btusb.c` →
+  no match
+- **MT7925 support present:** `btmtk.c` has `0x7925` handling, firmware
+  define, MT7925 USB IDs in quirks table
+- **Generic fallback exists:** `USB_VENDOR_AND_INTERFACE_INFO(0x0e8d,
+  0xe0, 0x01, 0x01)` at lines 616–618 may already match this device
+  during quirks lookup in `btusb_probe()`. Explicit PID entry is still
+  consistent with established backport pattern (`0e8d:0608` already
+  backported).
 
-**AGAINST backport:**
-- Failure mode is `WARN_ON` only, not crash/corruption (borderline
-  importance)
-- NAN-specific scenario from commit message not yet reachable in 6.18.44
-  (NAN not exposed)
-- iwl_mld user base still growing vs legacy mvm
+**Step 6.2 — Backport complications**
 
-**UNRESOLVED:**
-- No mailing-list review thread retrieved
-- Cannot confirm via git when asymmetry was introduced (squashed tree)
+Record: Clean apply verified. Line numbers differ slightly from mainline
+but patch applies without conflict. MT7925 section structure matches.
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — mirrors store guard;
-   maintainer SOB; logic verifiable by inspection. No independent
-   Tested-by.
-2. Fixes a real bug affecting users? **PASS** — spurious `WARN_ON` on
-   group-key removal for non-AP/IBSS interfaces.
-3. Important issue? **PASS (borderline)** — `WARN_ON` spam; possible
-   panic with `panic_on_warn`; not data corruption or security.
-4. Small and contained? **PASS** — 2 lines, one function.
-5. No new features or APIs? **PASS**.
-6. Can apply to local tree? **PASS** — buggy code confirmed present.
+**Step 6.3 — Related fixes already present?**
 
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build fix, or docs).
+Record: No duplicate `0x8c38` entry. Multiple other MT7925 IDs already
+backported. Commit `69b2f05df3ee6` is **not** an ancestor of HEAD — not
+yet in this tree.
 
-### Step 9.4: Decision rationale
+---
 
-This is a small, obviously correct fix for a real driver logic error.
-The store path already limits early-key handling to AP/IBSS; the remove
-path should match. Without the fix, removing group keys on STA (and
-eventually NAN) triggers unnecessary `WARN_ON` calls inside
-`iwl_mld_free_ap_early_key()`. While severity is medium (warning, not
-crash), the fix is minimal, low-risk, and aligns two code paths that
-should never have diverged. It meets stable criteria for iwlwifi driver
-bug fixes.
+## Phase 7: Subsystem Context
+
+**Step 7.1 — Subsystem / criticality**
+
+Record: `drivers/bluetooth` — IMPORTANT (common laptop/desktop USB
+Bluetooth hardware).
+
+**Step 7.2 — Activity**
+
+Record: Actively maintained; frequent ID additions and bug fixes in
+btusb/btmtk on this branch.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+**Step 8.1 — Who is affected**
+
+Record: Users with MT7925 USB combo hardware using native MediaTek USB
+ID `0e8d:8c38` (laptops/embedded with this RF module).
+
+**Step 8.2 — Trigger conditions**
+
+Record: USB device enumeration at plug/boot. Common for built-in USB
+Bluetooth on new MediaTek platforms.
+
+**Step 8.3 — Failure mode severity**
+
+Record: Without proper MediaTek flags → no firmware load / broken
+Bluetooth. Severity: **MEDIUM** (hardware non-functional, not kernel
+crash). Explicit ID ensures correct driver behavior regardless of
+quirks-table match ordering.
+
+**Step 8.4 — Risk/benefit**
+
+Record:
+- **Benefit:** Enables/tested recognition of real MT7925 hardware;
+  aligns with other backported MT7925 ID commits in 6.18.y
+- **Risk:** Minimal (2-line table entry)
+- **Ratio:** Strong benefit, negligible risk
+
+---
+
+## Phase 9: Final Synthesis
+
+**Evidence FOR backport:**
+- Standard stable exception: new USB device ID on existing driver
+- MT7925 driver infrastructure fully present in 6.18.y
+- Identical commits for other MT7925 PIDs already backported to this
+  tree
+- Precedent: `0e8d:0608` (MT7921) backported despite generic vendor
+  match
+- Vendor-tested hardware with USB descriptor evidence
+- Bluetooth maintainer Signed-off-by and mainline merge
+- Applies cleanly, standalone, 2 lines
+
+**Evidence AGAINST:**
+- Possibly redundant with existing generic `0x0e8d` vendor+interface
+  quirks entry (device may partially work without this patch)
+- Not a crash/security/data-corruption fix
+- No explicit stable nomination or user bug reports
+
+**Unresolved:** Whether `0e8d:8c38` fails on real hardware without this
+explicit entry when generic match applies — not hardware-tested here,
+but code analysis shows generic match should set same flags.
+
+**Stable rules checklist:**
+1. Obviously correct and tested? **PASS** — trivial ID table entry;
+   vendor tested, maintainer merged
+2. Fixes real bug affecting users? **PASS** — hardware enablement for
+   specific MT7925 SKU (Bluetooth non-functional without proper MTK
+   setup)
+3. Important issue? **PASS** — MEDIUM severity hardware non-
+   functionality
+4. Small and contained? **PASS** — 2 lines, 1 file
+5. No new features/APIs? **PASS** — device ID only
+6. Can apply to local tree? **PASS** — clean apply, all prerequisites
+   present
+
+**Exception category:** NEW DEVICE ID for existing driver (explicit
+stable exception)
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message, tags, and body from user query
-- **[Phase 2]** Read diff and `iwl_mld_free_ap_early_key()` in `ap.c`;
-  confirmed `WARN_ON` mechanism
-- **[Phase 2]** Read `iwl_mld_set_key_remove()` and store-path guard in
-  `mac80211.c`
-- **[Phase 3]** `git describe HEAD` → `v6.18.44`
-- **[Phase 3]** `git blame -L 2160,2162` → lines present, squashed
-  history
-- **[Phase 3]** `git log --oneline --
-  drivers/net/wireless/intel/iwlwifi/mld/mac80211.c` → single squashed
-  commit
-- **[Phase 4]** `b4 dig -c HEAD` → no match for this patch
-- **[Phase 4]** Searched workspace `.mbx` files → no mbox for this
-  specific patch
-- **[Phase 4]** WebFetch lore.kernel.org → blocked (bot protection)
-- **[Phase 4]** Read
-  `20260511_miriam_rachel_korenblit_wifi_iwlwifi_updates_2026_05_11.mbx`
-  → related NAN/IGTK series context
-- **[Phase 5]** `rg iwl_mld_free_ap_early_key` → call sites in
-  `mac80211.c`, definition in `ap.c`
-- **[Phase 5]** Traced `iwl_mld_mac80211_set_key()` → `DISABLE_KEY` →
-  `iwl_mld_set_key_remove()`
-- **[Phase 5]** Read `key.c` `iwl_mld_get_key_sta_mask()` →
-  `key->link_id < 0` common for non per-link STA keys
-- **[Phase 6]** Confirmed buggy code at lines 2160–2162 without AP/IBSS
-  check
-- **[Phase 6]** Confirmed `NL80211_IFTYPE_NAN` not in `interface_modes`
-  (lines 268–273)
-- **[Phase 6]** Confirmed no `tx_igtk`/`rx_igtk` NAN IGTK refactor from
-  May series in current tree
-- **[Phase 6]** Confirmed `iwl_mld` driver present (65 files)
-- **[Phase 7]** Identified subsystem as iwlwifi mld driver
-- **[Phase 8]** Assessed failure mode as `WARN_ON` (MEDIUM severity)
-- **UNVERIFIED:** Mailing-list review discussion and explicit stable
-  nominations
-- **UNVERIFIED:** Whether `panic_on_warn` reports exist for this issue
-- **UNVERIFIED:** Exact commit SHA on mainline (not in this tree's git
-  log)
+- [Phase 1] Parsed tags: only Signed-off-by (Chris Lu, Luiz von Dentz);
+  no Fixes/Reported-by/Link/Cc:stable
+- [Phase 2] Diff: +2 lines in `quirks_table[]`, `BTUSB_MEDIATEK |
+  BTUSB_WIDEBAND_SPEECH`
+- [Phase 3] `git describe HEAD`: v6.18.44; `make kernelversion`: 6.18.44
+- [Phase 3] Upstream commit identified: `69b2f05df3ee6`; NOT in HEAD
+  (`git merge-base --is-ancestor` failed)
+- [Phase 3] MT7925 support present: `560ff4bc99070` is ancestor;
+  `btmtk.c` has `0x7925` paths
+- [Phase 3] Generic `0x0e8d` match at lines 616–618 since
+  `a1c49c434e150` / WBS since `0fec656d08aa59`
+- [Phase 3] Precedent `be55622ce673f` (`0e8d:0608`) in tree
+- [Phase 4] `b4 dig -c 69b2f05df3ee6`: lore URL found
+- [Phase 4] `b4 dig -a`: v1 + RESEND v1; applied version is latest
+- [Phase 4] `b4 dig -w`: Marcel Holtmann, Luiz von Dentz, linux-
+  bluetooth CC'd
+- [Phase 4] Thread mbox: no NAKs, no stable nomination, no Reviewed-by
+- [Phase 5] `btusb_probe()` quirks lookup at lines 4018–4024 verified
+- [Phase 5] MediaTek setup gated on `BTUSB_MEDIATEK` at lines 4113–4224
+  verified
+- [Phase 6] `grep 0x8c38 btusb.c`: not present (patch needed)
+- [Phase 6] `git apply --check` on upstream diff: applies cleanly
+- [Phase 8] Failure mode: broken Bluetooth on affected hardware, not
+  kernel oops
 
-**YES**
+This is a textbook stable backport candidate: a 2-line USB ID addition
+for MT7925 on hardware where the driver stack already exists in 6.18.y,
+following the same pattern as numerous MT7925 ID commits already present
+in this tree.
 
- drivers/net/wireless/intel/iwlwifi/mld/mac80211.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+**YES**The background searches finished and match the earlier analysis:
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c b/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
-index 322669d78b193..27ae06e208402 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
-@@ -2164,7 +2164,9 @@ static void iwl_mld_set_key_remove(struct iwl_mld *mld,
- 	}
- 
- 	/* if this key was stored to be added later to the FW - free it here */
--	if (!(key->flags & IEEE80211_KEY_FLAG_PAIRWISE))
-+	if (!(key->flags & IEEE80211_KEY_FLAG_PAIRWISE) &&
-+	    (vif->type == NL80211_IFTYPE_AP ||
-+	     vif->type == NL80211_IFTYPE_ADHOC))
- 		iwl_mld_free_ap_early_key(mld, key, mld_vif);
- 
- 	/* We already removed it */
+- **`git log --grep="8c38"`** on the current tree only turned up
+  unrelated commits (spi, drm, block, etc.) — not the Bluetooth
+  `0e8d/8c38` patch.
+- A scoped search in **`drivers/bluetooth/btusb.c`** for that commit
+  also came up empty.
+
+That confirms the patch (`69b2f05df3ee6` on mainline) is **not yet in
+this 6.18.44 tree**, which is consistent with the **YES** backport
+recommendation.The repo-wide search for `0x8c38` returned no matches in
+`drivers/bluetooth/`, so that PID isn’t present anywhere in this tree’s
+Bluetooth driver history. That aligns with the earlier finding that the
+upstream commit hasn’t landed in 6.18.44 yet.
+
+ drivers/bluetooth/btusb.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+index 5974aa2e94d48..91208da2be48d 100644
+--- a/drivers/bluetooth/btusb.c
++++ b/drivers/bluetooth/btusb.c
+@@ -750,6 +750,8 @@ static const struct usb_device_id quirks_table[] = {
+ 						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x0489, 0xe151), .driver_info = BTUSB_MEDIATEK |
+ 						     BTUSB_WIDEBAND_SPEECH },
++	{ USB_DEVICE(0x0e8d, 0x8c38), .driver_info = BTUSB_MEDIATEK |
++						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x13d3, 0x3602), .driver_info = BTUSB_MEDIATEK |
+ 						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x13d3, 0x3603), .driver_info = BTUSB_MEDIATEK |
 -- 
 2.53.0
 
