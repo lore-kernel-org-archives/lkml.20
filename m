@@ -1,174 +1,240 @@
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A4846EC90;
-	Mon, 31 Aug 2026 17:23:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1558143F4C5;
+	Mon, 31 Aug 2026 17:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788197033; cv=none; b=WdnB/nqcaBX5Ieg7UikqxarUBqYju2gfktXZDDEX5WhgttXOZP17ULinSVgIr8LTb+z8f84S6z0sx+F6dkWJtAmy1toNJPpXt08bzkeRCXNFdpaCX3/0Rq260/tzXVFeFkLaNKsU4O/WOvymStRkm199Fr0H8l+O5WhHc3YnY/w=
+	t=1788197058; cv=none; b=GCmNCaiIxZZUgKpl6t7j7oS5tFC8468o6UUOE/tkdnpFygEaEOBkjzJPTtjYIA+8NfJFf9yMplNsIYF/NnqRGFhCu/ylKE1dSoclVHw70x3ut20lTYIgBy8zOUVzb2q6YCU7ltvItfLxkv7q8OCTDWr/R3ZJI3uJeSRWBgaakvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788197033; c=relaxed/simple;
-	bh=SofsqkZn9Sfflh3ZuGu0KB4bjMJ/qEOKFsuU4lZlqTQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=B7rI5XMV+Lc8jdFuEilvUch2sjjGa6YTtTC62mc5DdT7qESOpOwqhx7Kz5/ECPgIk1A8v2hYHI9tIqXy4KZATy4jFVoVQ5KXma3/fLJdaOLiYRqKvrPiSND/UgimTNAtMCWDSQdHoOi8qI39rVddyAsP1Hjl2l2P263ShATJt40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=ijHpdeEs; arc=none smtp.client-ip=216.40.44.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788197058; c=relaxed/simple;
+	bh=p3yFF3CvKdGJHfB112LrD/LTraGQWLvpvBfCCj6m3RA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TRgYmXDdYn7lSFS4k9bXpJzMXjrgw7yj3/Ftpgo7GcOWK35mbYeJkOj4o1Igvy5e55KjclwpYqaJsdqTBxQZBcWH6eZlA94phdtMoNhCsB82NchAWPtgpaah4h/5ncGeqtkpzoCX84ZNqg8h8FOURgoCIAPTeYih88zQyE20Mr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RHromIHg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="ijHpdeEs"
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay05.hostedemail.com (Postfix) with ESMTP id 3D879401E0;
-	Mon, 31 Aug 2026 17:23:43 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id A8F3B2002B;
-	Mon, 31 Aug 2026 17:23:40 +0000 (UTC)
-Date: Mon, 31 Aug 2026 13:24:37 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Praveen Talari <praveen.talari@oss.qualcomm.com>
-Cc: konrad.dybcio@oss.qualcomm.com, Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Vinod Koul
- <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- chandana.chiluveru@oss.qualcomm.com, mukesh.savaliya@oss.qualcomm.com,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org
-Subject: Re: [PATCH 1/3] dmaengine: qcom: gpi: trace: Add trace events
- header for Qualcomm GPI DMA
-Message-ID: <20260831132437.2477e920@gandalf.local.home>
-In-Reply-To: <20260831-add-trace-support-gpio-v1-1-7b0fd0d0ddb3@oss.qualcomm.com>
-References: <20260831-add-trace-support-gpio-v1-0-7b0fd0d0ddb3@oss.qualcomm.com>
-	<20260831-add-trace-support-gpio-v1-1-7b0fd0d0ddb3@oss.qualcomm.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RHromIHg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F901F000E9;
+	Mon, 31 Aug 2026 17:24:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788197056;
+	bh=pl1qQH1VXtVYZcHunRnuXaVLRJsgg0MsnLhdXKMe8k4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RHromIHg+g7pymhFNuSEBEOD2VNEM/uIqkVlkalgFZTSnTBCghA3cW3rqoK0Lqz6F
+	 xrZjpmZcG/GmtIp9c2Q4tBgW856xmfzOfcwW75+9dvVkkBDEtVEmPQO2THm7/exUDW
+	 6fVJFuJPKTmV5MdHjUlFR6rVBEc1N2YFF62i2c4TbMWYxPMLr8uGJ3yVq66jgqd3bq
+	 7wYfcL99f/EI5gf3DJfYJWeNtzLwrQhKbiruStJC9G+qQ9Bg5UsrtlBjXjqaFRSeuN
+	 q8UZvXw6DLhtgT13t2rSW3sbUYzgGzTNxVKmTq9qaB6wJkwO2HBAVK+IgfJ+L2MY0o
+	 4ye1Hztxv7hwQ==
+Date: Mon, 31 Aug 2026 18:24:12 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	linux-gpio@vger.kernel.org, linusw@kernel.org
+Subject: Re: [PATCH v1 2/2] soc: starfive: Add JHB100 UART Routing driver
+Message-ID: <20260831-dramatic-phrasing-beb1b360cd58@spud>
+References: <20260830065118.51551-1-changhuang.liang@starfivetech.com>
+ <20260830065118.51551-3-changhuang.liang@starfivetech.com>
+ <417251d0-c2cc-4e10-940d-b75ab20acdec@kernel.org>
+ <ZQ4PR01MB12022D97EFD74D5A80DBBE34F2A92@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <5f99fc90-02e0-40ab-8d1f-c2e7bcce7a5e@kernel.org>
+ <ZQ4PR01MB1202FB18CF51DB252C393D0FF2A92@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: A8F3B2002B
-X-Stat-Signature: tcjjuyeg8ochjc1mze7kfhqd6zmzfbc9
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18fF0ui6xjKhLdEp6d+GUR4oNAc3xDXTh0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=TZXXHOZM/aShp3K6xp57FxmGWKsPm0eT9S0BWA7sJhI=; b=ijHpdeEsazzJhDAyk8i45p8+N9FTyKKs636cO2W/ExILrzN84VXHwGK6tA6cQgRHsalQloXkxTPmSx7Xs2WsPVAr5E5KBaa5sC1k1jQeOCkhLd81bsqrZCgPOqSNlggJXhNaPIw+dPvGzmWlUWISrJqPyRX9Wu97EQnDsSkRTP8=
-X-HE-Tag: 1788197020-800869
-X-HE-Meta: U2FsdGVkX19bNpgFulyRSYJnQtOa7YUgjITi2mr8MHUqqxYHbbNtgQJpAQxc5hS4v1JLecQECY2lApvgULoRWOAwG2WyhyElhHy4KfsokhPkiFg3Ch6om8u+ShSegKws22noG5/TxMIeMT/LEb2/05WMFvhzSu0f44Ef3dAp894vniN/MzzduL5fS9f94+JH2MR4ZAL1Jc9SVO9wPlmcFM6/9O3IBW0ruaipPCDzTLInXmYVSnxugsJD4gJwV4yrUBUBVVk1qXiWfZHAV2uauQETB84UzqhWl+My21+0mZgEncEtcvAiNs3h5TpO/5h40iYzRgTo+EIXKkcgEfywc/3efasR0uIf
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="F0hMRWERHp7hSAiK"
+Content-Disposition: inline
+In-Reply-To: <ZQ4PR01MB1202FB18CF51DB252C393D0FF2A92@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
 
-On Mon, 31 Aug 2026 22:06:35 +0530
-Praveen Talari <praveen.talari@oss.qualcomm.com> wrote:
+--F0hMRWERHp7hSAiK
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
++CC Linus, linux-gpio,
+
+On Mon, Aug 31, 2026 at 06:01:43AM +0000, Changhuang Liang wrote:
+> Hi, Krzysztof
+>=20
+> Thanks for the review.
+>=20
+> > On 31/08/2026 03:35, Changhuang Liang wrote:
+> > > Hi, Krzysztof
+> > >
+> > > Thanks for the review.
+> > >
+> > >> On 30/08/2026 08:51, Changhuang Liang wrote:
+> > >>> Add driver support for JHB100 UART Routing control, allowing runtime
+> > >>> configuration of RX muxes between UART controllers and I/O pins.
+> > >>>
+> > >>> A sysfs interface is provided for easy checking and updating of
+> > >>> routing paths.
+> > >>>
+> > >>> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> > >>> ---
+> > >>>  .../sysfs-driver-starfive-jhb100-uart-routing |  45 +++
+> > >>>  MAINTAINERS                                   |   7 +
+> > >>>  drivers/soc/starfive/Kconfig                  |   1 +
+> > >>>  drivers/soc/starfive/Makefile                 |   1 +
+> > >>>  drivers/soc/starfive/uart-routing/Kconfig     |  14 +
+> > >>>  drivers/soc/starfive/uart-routing/Makefile    |   2 +
+> > >>>  .../uart-routing/jhb100-uart-routing.c        | 262
+> > >> ++++++++++++++++++
+> > >>>  7 files changed, 332 insertions(+)
+> > >>>  create mode 100644
+> > >>> Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing
+> > >>>  create mode 100644 drivers/soc/starfive/uart-routing/Kconfig
+> > >>>  create mode 100644 drivers/soc/starfive/uart-routing/Makefile
+> > >>>  create mode 100644
+> > >>> drivers/soc/starfive/uart-routing/jhb100-uart-routing.c
+> > >>>
+> > >>> diff --git
+> > >>> a/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routin
+> > >>> g
+> > >>> b/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routin
+> > >>> g
+> > >>> new file mode 100644
+> > >>> index 000000000000..2844133bea1b
+> > >>> --- /dev/null
+> > >>> +++ b/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-ro
+> > >>> +++ ut
+> > >>> +++ ing
+> > >>> @@ -0,0 +1,45 @@
+> > >>> +What:
+> > >> 	/sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*/uart\*
+> > >>> +Date:		August 2026
+> > >>> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> > >>> +Description:	Selects the RX source of the UARTx device.
+> > >>> +
+> > >>> +		When read, each file shows the list of available options with
+> > >> currently
+> > >>> +		selected option marked by brackets "[]". The list of available
+> > options
+> > >>> +		depends on the selected file.
+> > >>> +
+> > >>> +		e.g.
+> > >>> +		cat
+> > >> /sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*.uart-routin
+> > >> g/uart1
+> > >>> +		io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13
+> > >>> +io14 uart0
+> > >> uart1
+> > >>> +		uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11
+> > >>> +uart12 uart13 uart14
+> > >>> +
+> > >>> +		In this case, UART1 gets its input from IO1 (physical serial port
+> > 1).
+> > >>> +
+> > >>> +		To switch the RX source of UART1 to UART2, write the desired
+> > >> source to the file:
+> > >>> +		echo uart2 >
+> > >>> +/sys/bus/platform/drivers/starfive-jhb100-uart-routing/*.uart-routi
+> > >>> +ng
+> > >>> +/uart1
+> > >>> +
+> > >>> +		This indicates that UART1 now receives its input from UART2.
+> > >>> +
+> > >>> +Users:		OpenBMC.  Proposed changes should be mailed to
+> > >>> +		openbmc@lists.ozlabs.org
+> > >>> +
+> > >>> +What:
+> > 	/sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*/io\*
+> > >>> +Date:		August 2026
+> > >>> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> > >>> +Description:	Selects the RX source of IOx serial port. The current
+> > >> selection
+> > >>> +		will be marked by brackets "[]". The list of available options
+> > >>> +		depends on the selected file.
+> > >>> +
+> > >>> +		e.g.
+> > >>> +		cat
+> > >> /sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*.uart-routin
+> > >> g/io9
+> > >>> +		uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9]
+> > >>> +uart10
+> > >> uart11 uart12
+> > >>> +		uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11
+> > >>> +io12 io13 io14
+> > >>> +
+> > >>> +		In this case, IO9 (physical serial port 9) gets its input from
+> > UART9.
+> > >>> +
+> > >>> +		To switch the RX source of IO9 to UART10, write the desired
+> > >>> +source
+> > >> to the file:
+> > >>> +		echo uart10 >
+> > >>> +/sys/bus/platform/drivers/starfive-jhb100-uart-routing/*.uart-routi
+> > >>> +ng
+> > >>> +/io9
+> > >>> +
+> > >>> +		This indicates that IO9 now receives its input from UART10.
+> > >>> +
+> > >>> +Users:		OpenBMC.  Proposed changes should be mailed to
+> > >>> +		openbmc@lists.ozlabs.org
+> > >>
+> > >> drivers/soc/ should not define user-space interfaces. This is not the
+> > >> place for them. You need to route user-spaces interfaces only through
+> > >> one of other approved subsystems, after their review.
+> > >>
+> > >> This looks like pin multiplexing interface.
+> > >
+> > > I may have misunderstood something=EF=BC=8Cplease correct me if I'm w=
+rong:
+> > >
+> > > I have found two subsystems related to multiplexing so far:
+> > >
+> > > /drivers/pinctrl and /drivers/mux. However, neither of them seems to
+> > > provide a user-space interface for switching multiplexing values.
+> > >
+> > > Do you have any suggestions on this?
+> >=20
+> > pinctrl has some interface, not sure if writable, though. If interface =
+is missing,
+> > it should be added via such subsystem.
+>=20
+> Okay, this needs a bit more time for deeper research.
+>=20
+> >=20
+> > >
+> > > Also, could you confirm whether the implementation in
+> > > drivers/soc/aspeed/aspeed-uart-routing.c
+> > > is there for historical reasons?
+> >=20
+> > I supposed sneaked in without SoC maintainers noticing.
 
 
-> +TRACE_EVENT(gpi_ev_process,
-> +	    TP_PROTO(struct device *dev, u32 chid, u32 ev_type, u8 code,
-> +		     u16 status, u32 length),
-> +	    TP_ARGS(dev, chid, ev_type, code, status, length),
-> +
-> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
-> +			     __field(u32, chid)
-> +			     __field(u32, ev_type)
-> +			     __field(u8, code)
-> +			     __field(u16, status)
-> +			     __field(u32, length)
+My first reaction when this flew by over the weekend was whether it
+should be in the pinctrl subsystem. I know there's no sysfs interface
+there, but I don't even see an explanation for why changing this at
+runtime is a requirement.
 
-I would swap the above a little to have the u8 code at the end to remove
-any holes. It may have a hole at the end of the event, but you don't want
-holes in the middle.
+I'd have thought that each BMC would only have one host, and so since
+you've got like 12 uarts there'd be enough for a permanent routing.
 
-			     __field(u32, chid)
-			     __field(u32, ev_type)
-			     __field(u32, length)
-			     __field(u16, status)
-			     __field(u8, code)
+Even without a permanent routing, the driver consuming the pinctrl should
+be able perform the switching (uart in this case) whenever it was
+needed?
 
+Cheers,
+Conor.
 
+--F0hMRWERHp7hSAiK
+Content-Type: application/pgp-signature; name=signature.asc
 
-> +	    ),
-> +
-> +	    TP_fast_assign(__assign_str(name);
-> +			   __entry->chid = chid;
-> +			   __entry->ev_type = ev_type;
-> +			   __entry->code = code;
-> +			   __entry->status = status;
-> +			   __entry->length = length;
-> +	    ),
-> +
-> +	    TP_printk("%s: chid=%u ev_type=0x%02x code=%u status=%u length=%u",
-> +		      __get_str(name), __entry->chid, __entry->ev_type,
-> +		      __entry->code, __entry->status, __entry->length)
-> +);
-> +
->
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapW4vAAKCRB4tDGHoIJi
+0oC6AQCMQkPFFtK7RsXuZKqVNJmBszwNt9lS0oxvVLhh2WxzQwEA0pnmAv6Fms6L
+G79TIIxjqnmbbmtKlu2wAh4ef2uWgAI=
+=PWN4
+-----END PGP SIGNATURE-----
 
-> +TRACE_EVENT(gpi_alloc_ring,
-> +	    TP_PROTO(struct device *dev, u32 elements, u32 el_size,
-> +		     u32 req_len, u64 len, size_t alloc_size),
-> +	    TP_ARGS(dev, elements, el_size, req_len, len, alloc_size),
-> +
-> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
-> +			     __field(u32, elements)
-> +			     __field(u32, el_size)
-> +			     __field(u32, req_len)
-> +			     __field(u64, len)
-> +			     __field(size_t, alloc_size)
-
-Same here. I would move the 64 and size to the beginning and the other 4
-byte fields to the end:
-
-	    TP_STRUCT__entry(__field(u64, len)
-			     __field(size_t, alloc_size)
-			     __string(name, dev_name(dev))
-			     __field(u32, elements)
-			     __field(u32, el_size)
-			     __field(u32, req_len)
-
-
-And yes, the __string() is a 4 byte meta-data and should be treated as 4
-bytes.
-
-> +	    ),
-> +
-> +	    TP_fast_assign(__assign_str(name);
-> +			   __entry->elements = elements;
-> +			   __entry->el_size = el_size;
-> +			   __entry->req_len = req_len;
-> +			   __entry->len = len;
-> +			   __entry->alloc_size = alloc_size;
-> +	    ),
-> +
-> +	    TP_printk("%s: elements=%u el_size=%u req_len=%u len=%llu alloc_size=%zu",
-> +		      __get_str(name), __entry->elements, __entry->el_size,
-> +		      __entry->req_len, __entry->len, __entry->alloc_size)
-> +);
-> +
-> +TRACE_EVENT(gpi_ring_info,
-> +	    TP_PROTO(struct device *dev, dma_addr_t dma_handle, phys_addr_t phys_addr,
-> +		     u32 len, u32 el_size, u32 elements),
-> +	    TP_ARGS(dev, dma_handle, phys_addr, len, el_size, elements),
-> +
-> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
-
-Move the __string() to after phys_addr.
-
-> +			     __field(u64, dma_handle)
-> +			     __field(u64, phys_addr)
-> +			     __field(u32, len)
-> +			     __field(u32, el_size)
-> +			     __field(u32, elements)
-> +	    ),
-> +
-> +	    TP_fast_assign(__assign_str(name);
-> +			   __entry->dma_handle = dma_handle;
-> +			   __entry->phys_addr = phys_addr;
-> +			   __entry->len = len;
-> +			   __entry->el_size = el_size;
-> +			   __entry->elements = elements;
-> +	    ),
-> +
-> +	    TP_printk("%s: dma_handle=%llx phys_addr=%llx len=%u el_size=%u elements=%u",
-> +		      __get_str(name), __entry->dma_handle, __entry->phys_addr,
-> +		      __entry->len, __entry->el_size, __entry->elements)
-> +);
-> +
-
--- Steve
+--F0hMRWERHp7hSAiK--
