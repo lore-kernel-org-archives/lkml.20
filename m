@@ -1,233 +1,164 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010070.outbound.protection.outlook.com [52.101.85.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F100250AC3C;
-	Mon, 31 Aug 2026 15:01:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188481; cv=none; b=b9kthFUEUFdybjr596V/ITkZLf9KOCQP0M0IXQICg2yO0k0Y+s/nEVO+zSJHLNwaG9tHkKVos6lK5T0hhEvkNcZU+I9Y3zLojMCEnAGyvmoh5lKLMdevXYlhhU0/Uf44ZnJjEAwz6BOTkqrYuU4tQS17EkcQPJsgNoFlvmuw1fA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188481; c=relaxed/simple;
-	bh=t2oiGYvNQ2OtECzDa/blNMCQi4T3GWj2w/gv79lsjUU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD3A50EC19;
+	Mon, 31 Aug 2026 15:01:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.70
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788188484; cv=fail; b=PNGoTbrzuMJv20bEP49kax4rVuly8u0nK34PyawSFN/GNNNEwUx/Tcf2h4YWnQdAABFWzgFmrSvkYedMgnlpLVfOafQKmuUJnok+MooFos+fbLiD1FfxvlKIONw32APwt5buZ7ZDJTwbLFVyn0TluUG6UyYMpcyVNg0VoP3OF0Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788188484; c=relaxed/simple;
+	bh=fmJz2DS50WZF+Gaw7xPLBaxjU0gTaul5tcJLvUGYSEE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CT6yiTTUO0XXT7BwZRfnkln0m5QdEAruBb1IE05P5IRhDf7KDq5cpANr0w29vs9eNOC4PspILNubIzUxDg9oiAaSRxSxDlEimR7o2mzmzKfrB9Mk07n6GUx4mEL3yD4+VL13WsdwaTnb4RpDM2YS2nZUYDC/grPlcPIOnz45beE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=dZDfCyvT; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 Content-Type:MIME-Version; b=FuIw+ycOu7Baq+IfGpMB6T41h0iUsscDBk2xNzY0tYTTW51gjFY3e//xdP5weXVplpOJ/A4IM+1lhi6Ts0f76ZDhVKZfFDkYQ6vELvc8EfQG1PkgUDKaxy5zBsGseV0okEEjRzpkX94eoyZ9tAS+JjT8Mr20+8enL4sI579hXMw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=hx0M07h6; arc=fail smtp.client-ip=52.101.85.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="dZDfCyvT"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VEZAbK652855;
-	Mon, 31 Aug 2026 14:56:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=dqj03JsN3v899/54D
-	h3trYStuun5wJJ47MvvFZy/JSI=; b=dZDfCyvT1RLiZC8yfai/MOv2ZbTxtrgZ1
-	2cxi21O6+jk9xr+Vdf+EYwd/Vibl86QoCFn3gmPqpxX6KtA18DdKRjEoR10IF89L
-	LkrkMc3HgW6kTCzM2wM6rB2ls2haOvLLQO6eq3Gwuv3crhTd16Po6QzWpthsaMb9
-	eHl/f2LhCbUwu+pp0p+LC/4y5ypAc8T/B68nBkCSAluVLBT6a4eMDNZQ9ExEdoxw
-	bATelAbzTqfzbl0Xry/r6UJcnTgkYyfw5O+T+uSec4Xbo227WLYFnklgw3mT1md+
-	TqmIr/ZRZIhbaOnruTCgYlSuhYcZ6QMqqzZg+S55zqthnnxI8W9HQ==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3r20ba-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 14:55:59 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VEfdR9000453;
-	Mon, 31 Aug 2026 14:55:58 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbyg6aay-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 14:55:58 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VEtlBB45416922
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 31 Aug 2026 14:55:47 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1B29A20040;
-	Mon, 31 Aug 2026 14:55:47 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9F8A22004E;
-	Mon, 31 Aug 2026 14:55:46 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 31 Aug 2026 14:55:46 +0000 (GMT)
-From: Steffen Eiden <seiden@linux.ibm.com>
-To: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-Subject: [PATCH v2 19/20] KVM: s390: arm64: Promote PTRAUTH capability
-Date: Mon, 31 Aug 2026 16:55:34 +0200
-Message-ID: <20260831145536.913567-20-seiden@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831145536.913567-1-seiden@linux.ibm.com>
-References: <20260831145536.913567-1-seiden@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="hx0M07h6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Bz7FYEtgN+CdHS1ZjfdBker/StHTbcm/l18z2RZgxeekxqrhzL0rey7ztnJs1GPB18xH+2ESnpfR6+2NsuLJawrUIN8/fYzEMMMGuArUIcEdwcbn09MIkPhpFEFW1NqEt/qWB0KOJjO+JSNC1O6G+oveRGPe5Zjsktvo+CI8iD47Mm3yR2hGnJW8LxhDWTGluTJ+EZyGFVvECIF3LmMxc3ezO03eujPJysG9Y7lTypsP9KftnEaW/q0n65K7/MY9MLKK+EOSy2VeloVicUtxtAUCiCZ3ism8i4R55C5ZSMU3gLxZcCrylz2EM7A1kghRX2j+5ebRSpCAq8KTIOyW7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j0f88eQjYRrTIyDNxYOVNOfrypzuDH9b/DFJgRp+iP8=;
+ b=gW3FmaHjIRJJjtP8MwusJ5chZQ3p15fFnrV2hGrnQDEiyrxf6DNSPk2NWdP/LVqqwNWAOXdGXOZJbQM7ExwEdbNTcnPercSOZ2lWSKEPDZErIXMdQAZehc6eC02UCuVoPwT/nkKNVUpmkQ43PGa0rTPfLTiZS1aLjTQr1baIcDPQGe2lwvSdC0pZFbqtJZzTBr2kMwhQ46oFLlRr8kZ14GR388kTV+5M2PnDkzs2XMcAmjJ2gMgCOBPnc2UlNNXjMrpbtMzmNhpdp/dgLcdtWqzgIIJB4iZWmrlpCkS4yUSqY8fmaej1aiwOCenRSapO11NWbnX4N6eP4mtuOfGKxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j0f88eQjYRrTIyDNxYOVNOfrypzuDH9b/DFJgRp+iP8=;
+ b=hx0M07h6mxytCq0MNZjzsTVrId8yHYzg2oDOr2UlcJ8EBsgqxo/0hGpzg1rNeAqwoeHSuyKRNRuFowqnIyJWaxp/JP/P9oXWM4mVTzqP9ZJzsJCo5q1xNDsppBuPKVsAdp8rHaYyNAx1y4UWvHtNZP4GSfKmkQ5nGcJBSjo8olit4Z0fkepuJKnj4lbdI+aU7gAwKbTbzDo2Fx4K7DpW0Ufo0lZRkvPbUhILMUrzMNp8bdbmcWgiQaoguxjErmRvWfbiFrQwU7CLI3SlM3n0a4PdodYlb1WL3w58a3rN+P9SE4g5uGRNjEVgK/7jElF4hwUKlujGcNwJ0ef1ydInPA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DS8PR12MB333896.namprd12.prod.outlook.com (2603:10b6:8:447::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 15:01:18 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 15:01:18 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: Nimrod Oren <noren@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Vlastimil Babka <vbabka@kernel.org>, David Hildenbrand <david@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Michal Hocko <mhocko@suse.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Nirmoy Das <nirmoyd@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Lorenzo Stoakes <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH v2] mm/khugepaged: cap min_free_kbytes recommendation at 1
+ GiB
+Date: Mon, 31 Aug 2026 11:01:16 -0400
+X-Mailer: MailMate (3.0r7024)
+Message-ID: <28FC994B-F63D-493A-B86E-F87E37B303B1@nvidia.com>
+In-Reply-To: <8411e51c-92fe-41b0-9de0-e9cfc5a50301@linux.dev>
+References: <20260831075635.2244437-1-noren@nvidia.com>
+ <8411e51c-92fe-41b0-9de0-e9cfc5a50301@linux.dev>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BN9PR03CA0254.namprd03.prod.outlook.com
+ (2603:10b6:408:ff::19) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a959600 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=vEByiMwdv1DjAl9ZBwYA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX89mEG6gB4mi1
- 0zFvS+kBp+QYZjqN2NlMoZOV/JwuypnbzG14jquiwXCGtzoRbK/zXrII4DysF2Pd2uTuHhMftal
- Bkclhb/8BdhAfJ7Phk5HscAdyLhokrdoZee8P8JvAUekXvZuxw0LknR1jIWxWvwR+rn31WAl1R0
- +14/zNoUZQ6rRbLa7OAakoV2N6rF65sh/Br6+lwdjIUBXx0f/T3lng8TnX6bA9k8OLrKUMQK0Ko
- gzJRd73yVwyJcTDiPgqoifSrxtr6N8wTSastwfl7GbYWgkukaTcZE/ZDtaM74R45LgjY4gjYTVk
- 3aTueWaV4jFiTyf0KAMLPuJbaxvIwXMF8zGSn7GmR+852+nzWIQ7zuva9ahOeSy/ewP6Y3B4HyG
- T7F5Vky70haW54BVsuAa0ALSAbXfUFK1RcNJfNY4d734l+LLpLxnSw5FQnOk+biKw80sZ5J3+AG
- 3+nULljOfOPs9fQSZsg==
-X-Proofpoint-GUID: GK1FQndob2zSCbl_CpxOFT0-dMCgjCeG
-X-Proofpoint-ORIG-GUID: hkSLRam3Q_eVqdMtZKr1q4fZgnInHJZU
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfXwQMFUiqMRqDF
- QHZpzjQDOIL5QXbxXmIuM7uH/lIPaxDnRbwSmocRRAm3wvnmdB7vl9eRcJlMLogqh6QQKPfSkwp
- cXEY903Wx9kaQmLI6rdzLkJPxgoTgyQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310125
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS8PR12MB333896:EE_
+X-MS-Office365-Filtering-Correlation-Id: 400cbac5-27b5-4248-e42b-08df0770b61e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|4143699003|10067099003|11063799006|56012099006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	WN5iLciBRR05V3A/UbZQ53kOQR/b7j7tWKouUP5M+0D1fFQPCky1yddCGtoxNQxj1+qLXz90XodzDEybM9dOiFrwxlA6GXGEspOuYgjbYJQTsYTSzkumbHenu8y7oUC6EcOdcjV57Ug7+gr+qyqqCF5DjLjsvPE9KQhEuwj3RSueIrneM9CwrptnpI2LYOucnB8k5BONJKgN2/IPLbHw5xn7JqQdxLODdBuexK9d7M4NcvNps0fnebjJuNCWz04tpV4NP01Qb/KpLMJDoy0m1ADqf8qeW+hTqKaC6szp5XfrgGhoGkub/myQzSHqeeZsBjqcZB5A0XSbyn7KK5MQfS8PkKtdKKbwd5VYYEfwB6bvh2mZiHHEy6W3lObX3wQMkxqsecUrgh/Mhs2nCbfkauLC1xXo21UF5asNctIWJXZSSn4u44N5GiJLX20J2E1OBOF8ChlPvUQovhCKI6v1lj/0pSM+NEEkSTAqjhWLWHXUWlzh303AovUCZJj0+eg0PqZSXr8Bk9/sUC/I2z2vST8QiKBwT8jTzjJsFoN7HPjwn1mzRNgyqOwSEL62tlfsAGkjmeRNjdDqYSrp7Mu0TkWGe5tQrCdAqqqibfaI8bc54f1Ig2mKR/Kf999869U9+xbtBCxNt1UxGmHupzGnJ02gQLqytTaNll3JTCHO1vc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(4143699003)(10067099003)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?kXA3+4wByRiGFgm+IE/eRRe5mr14BVlRIIQEP/ASQdb4gHSO+c4u8Maf483b?=
+ =?us-ascii?Q?WTvXYiuSTp3FQ3MIXFQAW0WuhPeDxufqcRam5Edij2XWiShpaHTW3soRP5+m?=
+ =?us-ascii?Q?HcIqNFGd9uc7GbCyPCp9zztflUK+eGu+Cv+r+Yr1NqQvvuBjazijM/zzR0wL?=
+ =?us-ascii?Q?e2BFaNNFqVbkFA+KY0P0vHxjxpwpIW7aSDaM9lkq/Tc3MzZabC72fsfVIMg1?=
+ =?us-ascii?Q?/VqpE9MNOiMucPmUfsSt65m7X82WhppyCUxmzUhA6VYpzEeinuQFdJ5KbpY0?=
+ =?us-ascii?Q?WZw0kXRTcbHFe+scdhQJjaRQfG8kNUOBNw7DhKG7CafnnR9uvHTqDKFVbDOC?=
+ =?us-ascii?Q?s72xPo72R03gZAvSOPfstGBpPyETcm5tb/X/vDbnorSPj8HcndOxQ9Mfn1sX?=
+ =?us-ascii?Q?QTkeXghkMVoLZiV4a2r+YL8E0slYvsWWMD29r57NGLDoXXZdCU9jOveSaVpF?=
+ =?us-ascii?Q?juuKEiDEQSW1vvFv1muA+Lekr3KFUz5wOvyBTJmArM1kNf0bWnX0nJrlhsQU?=
+ =?us-ascii?Q?/nPUUsC7003+/OJ6TUOdY/rXBqyO96ZaDU0fKzPDTV1X2chW6CAQsol4dhY7?=
+ =?us-ascii?Q?RDOMbEEm5Xq/OKfsNxkNiF/5oqVfG17u/myr4RpWTunm0yC+U5Yi+YOB9+8T?=
+ =?us-ascii?Q?mPnkSa80WHv1/3U2DK5KW0RShec2KNHZGbHiyzOnaRP3ckm3QGqcbtLDOlo9?=
+ =?us-ascii?Q?VOog5d4ePiX7SuVlwJ+vqixIk/3oU6pQixEoZdMp1HlD5+PhTk3nQmVk8+o6?=
+ =?us-ascii?Q?DyUt/2XsFudRwjFcTJzn866mim3zbdN1WdtDxEYo4Rpi+bYd+HGoy7B7mpUj?=
+ =?us-ascii?Q?xUYpVriHEWyT1NOVdUMWO762jAw7uKqnSV/sMO6o8G8HJvmce9CMfGOfdrek?=
+ =?us-ascii?Q?t50CQbUx49SM9MYBROunNo0ewHaJJbPFWDeslsSHNe/l8AJ1M5tV+EE4fWXF?=
+ =?us-ascii?Q?nbugbTTw/7CSeWSCUcINJyMlNbNG8MLZOgOOOeYo3vjFMjoFLY8FG4ZXNjGA?=
+ =?us-ascii?Q?0IEGf9YK+mVk8zY9j/bcUUh47kdtz5NoX0Vqc5mlfFE/1K7JA3laNa4NRqTn?=
+ =?us-ascii?Q?QQ0RlteXxpSnPcxcPjLwP7sHaAME8zaPCmMP+m+G9kQIuakW1HC+3EZoWO0Z?=
+ =?us-ascii?Q?6wSPNBvVNN+gtnBzUmg9UJpvoxujmuP0IX/DJGTIQ1TXHuTIF12107W1pPf2?=
+ =?us-ascii?Q?yjomAClB3Gl0BdWoBS+eu9B4fdqDJ5O2QIdSYoM5QYt2C/o+83ImcJwpCjBF?=
+ =?us-ascii?Q?PpUQ9Q973qG4ZFqWkBcslhN2SL/I5YQJvCG3ZqcYW1nZa56iaqwjqP2lltxn?=
+ =?us-ascii?Q?JI+xYKH3CJbP3vyZ+s2ZpSyB2tXuQNcW6j5RRyLQxHfAr7u73EJHYtc03iPV?=
+ =?us-ascii?Q?gRnnB7UtkWeqrVS5RyrieePw5/1i/VO+5LqCaZew5ZeGpFIo1K+8gZgx9YeW?=
+ =?us-ascii?Q?KQf3QNUT3WWwUhQjPC65VonmRz0VkUNUgvfOClM9a6i6KD/pgLdY5s9DAQDn?=
+ =?us-ascii?Q?VkrAEPkx+uAMCi0J1TMHS86/dVdd2kXJ/kCYSeStCf8kJutF7DfdO+zeGVgR?=
+ =?us-ascii?Q?WlyrQpJIr9kHR05kiudG3EWV6CRgWqzm3x9qefdlX44M2EzLhG6UGi/BZb7Z?=
+ =?us-ascii?Q?5Cr0Kyg8QM0zj/v6DOAL1Rig6JZDPznZHLZ9EjVYBHnVpwS0dEfXD8VyrP6R?=
+ =?us-ascii?Q?0esmn8/Plz9MCWsCJzlcX6xnralFWwCIvuRWc+57pD0cw/HZ?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 400cbac5-27b5-4248-e42b-08df0770b61e
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 15:01:18.4948
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Zvz67CQUdLLaCt3fYaSpHspW6AsJxOe3lpTxwJF5875FRBHkNkTs+Ew/CNzfwIcn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS8PR12MB333896
 
-Promote the pointer authentication capability if supported by hardware.
+On 31 Aug 2026, at 5:00, Lance Yang wrote:
 
-Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
----
- arch/s390/include/asm/kvm_host_arm64.h |  8 ++------
- arch/s390/kvm/arm64/arm.c              |  9 +++++++++
- arch/s390/kvm/arm64/feature.c          | 18 ++++++++++++++++++
- arch/s390/kvm/arm64/feature.h          |  5 +++++
- 4 files changed, 34 insertions(+), 6 deletions(-)
+> On 2026/8/31 15:56, Nimrod Oren wrote:
+>> When THP is enabled, set_recommended_min_free_kbytes() may raise
+>> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
+>> With MIGRATE_PCPTYPES equal to 3, the formula accounts for 11
+>> pageblocks for every eligible populated zone before capping the result
+>> at 5% of low memory.
+>>
+>> This is reasonable when a pageblock is 2 MiB, as on common 4 KiB page
+>> configurations, but scales poorly with larger base page sizes. With
+>> the default arm64 pageblock sizes, the contribution per eligible zone
+>> before the 5% cap is:
+>>
+>>    4 KiB pages:   2 MiB pageblock,   22 MiB per zone
+>>   16 KiB pages:  32 MiB pageblock,  352 MiB per zone
+>>   64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
+>>
+>> Consequently, min_free_kbytes can reach excessive and unwanted levels.
+>>
+>> Add an absolute 1 GiB cap to the recommendation, in addition to the
+>> existing percentage cap. This bounds the automatic recommendation to a
+>> sane value on systems with large pageblocks while preserving existing
+>> behavior for typical systems with 2 MiB pageblocks.
+>
+> Sorry, I haven't been following the previous discussion.
+>
+> One nit: why 1 GiB? It feels a bit arbitrary to me ...
 
-diff --git a/arch/s390/include/asm/kvm_host_arm64.h b/arch/s390/include/asm/kvm_host_arm64.h
-index 73eb09e98848..32facf045704 100644
---- a/arch/s390/include/asm/kvm_host_arm64.h
-+++ b/arch/s390/include/asm/kvm_host_arm64.h
-@@ -32,6 +32,8 @@ bool cpus_have_final_cap(unsigned int num);
- #define KVM_HAVE_MMU_RWLOCK
- #define KVM_MAX_VCPUS 1
- #define KVM_S390_ARM64_IMPL_FEATURES (		\
-+	 BIT(KVM_ARM_VCPU_PTRAUTH_ADDRESS) |	\
-+	 BIT(KVM_ARM_VCPU_PTRAUTH_GENERIC) |	\
- 	 BIT(KVM_ARM_VCPU_SVE)			\
- )
- 
-@@ -133,7 +135,6 @@ struct kvm_vcpu_stat {
- };
- 
- #define kvm_has_mte(_kvm) false
--#define vcpu_has_ptrauth(_vcpu) false
- 
- struct kvm_arch_memory_slot {
- };
-@@ -170,11 +171,6 @@ struct kvm_vm_stat {
- 	struct kvm_vm_stat_generic generic;
- };
- 
--static inline bool system_has_full_ptr_auth(void)
--{
--	return true;
--}
--
- #define kvm_vm_is_protected(_kvm) false
- #define vcpu_is_protected(_vcpu) false
- 
-diff --git a/arch/s390/kvm/arm64/arm.c b/arch/s390/kvm/arm64/arm.c
-index a46c9c62a5f9..ebd8045c0900 100644
---- a/arch/s390/kvm/arm64/arm.c
-+++ b/arch/s390/kvm/arm64/arm.c
-@@ -57,6 +57,10 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
- 	case KVM_CAP_ARM_SVE:
- 		ret = system_supports_sve();
- 		break;
-+	case KVM_CAP_ARM_PTRAUTH_ADDRESS:
-+	case KVM_CAP_ARM_PTRAUTH_GENERIC:
-+		ret = kvm_has_full_ptr_auth();
-+		break;
- 	default:
- 		ret = 0;
- 	}
-@@ -265,6 +269,11 @@ static unsigned long system_supported_vcpu_features(void)
- 	if (!system_supports_sve())
- 		clear_bit(KVM_ARM_VCPU_SVE, &features);
- 
-+	if (!kvm_has_full_ptr_auth()) {
-+		clear_bit(KVM_ARM_VCPU_PTRAUTH_ADDRESS, &features);
-+		clear_bit(KVM_ARM_VCPU_PTRAUTH_GENERIC, &features);
-+	}
-+
- 	return features;
- }
- 
-diff --git a/arch/s390/kvm/arm64/feature.c b/arch/s390/kvm/arm64/feature.c
-index 3847cdd2f92b..a2848e4b3e62 100644
---- a/arch/s390/kvm/arm64/feature.c
-+++ b/arch/s390/kvm/arm64/feature.c
-@@ -170,3 +170,21 @@ bool system_supports_sve(void)
- 			     read_sanitised_ftr_reg(SYS_ID_AA64PFR0_EL1)) ==
- 		       ID_AA64PFR0_EL1_SVE_IMP;
- }
-+
-+bool system_has_full_ptr_auth(void)
-+{
-+	u64 isar1 = read_sanitised_ftr_reg(SYS_ID_AA64ISAR1_EL1);
-+	u64 isar2 = read_sanitised_ftr_reg(SYS_ID_AA64ISAR2_EL1);
-+	bool address_auth;
-+	bool generic_auth;
-+
-+	address_auth = SYS_FIELD_GET(ID_AA64ISAR1_EL1, APA, isar1) >= ID_AA64ISAR1_EL1_APA_PAuth ||
-+		       SYS_FIELD_GET(ID_AA64ISAR1_EL1, API, isar1) >= ID_AA64ISAR1_EL1_API_PAuth ||
-+		       SYS_FIELD_GET(ID_AA64ISAR2_EL1, APA3, isar2) >= ID_AA64ISAR2_EL1_APA3_PAuth;
-+
-+	generic_auth = SYS_FIELD_GET(ID_AA64ISAR1_EL1, GPA, isar1) >= ID_AA64ISAR1_EL1_GPA_IMP ||
-+		       SYS_FIELD_GET(ID_AA64ISAR1_EL1, GPI, isar1) >= ID_AA64ISAR1_EL1_GPI_IMP ||
-+		       SYS_FIELD_GET(ID_AA64ISAR2_EL1, GPA3, isar2) >= ID_AA64ISAR2_EL1_GPA3_IMP;
-+
-+	return address_auth && generic_auth;
-+}
-diff --git a/arch/s390/kvm/arm64/feature.h b/arch/s390/kvm/arm64/feature.h
-index 892cf8bcf3a1..c11ac0daa428 100644
---- a/arch/s390/kvm/arm64/feature.h
-+++ b/arch/s390/kvm/arm64/feature.h
-@@ -94,4 +94,9 @@ static inline u64 kvm_sae_irptc(void)
- 
- bool system_supports_sve(void);
- 
-+#define vcpu_has_ptrauth(vcpu)						\
-+	 (vcpu_has_feature(vcpu, KVM_ARM_VCPU_PTRAUTH_ADDRESS) ||       \
-+	  vcpu_has_feature(vcpu, KVM_ARM_VCPU_PTRAUTH_GENERIC))
-+bool system_has_full_ptr_auth(void);
-+
- #endif /* ARCH_S390_KVM_FEATURE_H */
--- 
-2.53.0
+It is. Just better than 5.5GiB in the existing configuration.
 
+Best Regards,
+Yan, Zi
