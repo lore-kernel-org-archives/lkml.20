@@ -1,48 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF75F51355A;
-	Mon, 31 Aug 2026 13:43:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7CC51357A;
+	Mon, 31 Aug 2026 13:43:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183792; cv=none; b=C+42ebYPZWymh/hQ0g020UjYVZeHkBQVwye8Fv1yJv1+A5qEpoLnap3gFVnRThfxh1nsznLe1vZmZsA12U3dg97N0IX955c2O0WJ2uXmIX6IoFcHA0L7SzpCaRRHCIFdlTt+FVh4c4b9R3EOeoKYfm5tZjLZfYrLSBacdKkq8P0=
+	t=1788183794; cv=none; b=grY0iEo/WwXhWJH1LSs7tsNTdEeIFwZTRj1EWsp346M2HaQ/8x2ti8z0nnBnHZfbwiJXoMxqaRPDANMk5qVBOm4TBodzMRCVrifLANl92Q48wOLfPbDRFxuQlK+/oKdusSJg+vww7darPT8xzwptcqE6MjpRy09olcsjQZQL6yM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183792; c=relaxed/simple;
-	bh=oFgL3RP1wxKXiJlASNNSke7KZ6fX5kaK2e6l/jZfKFE=;
+	s=arc-20240116; t=1788183794; c=relaxed/simple;
+	bh=/rIdjbJQJ2GqgvAPCrKrONnisAn2PgNEyGeY7gU/TkM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ihpKQ7tdx87plMbhOTuHkQfgbA8aIJ3epCvjQmtt4r7D91AkHwKdRmPMJK5o2Xy7UczMBl5rp43Ii9gGHndq+0e9/hQ0mGUojUBjAk0MKXaaaaOuswKqd5JejMm526AOgMa48m2qQtGEPYw+h9mhsmdi1G5CDnKLPIDgzvJd8YA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K6jHC2Up; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=PP70XhDKeXELTUcTBedM707aNeytj1sYXH2HIjF0q1vlcnIv7r6N+dvRrSQei4j4ZHTfKLEzeo+z5/pyQti11uU4k4WFrSjsLdLtCWjdGmjXfEy2q+CgmkDJrfcY3ozCWr4NJbQpTKX9cUq1b4Xb9mdQ4mUph2WV2ndohPx29Gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=difC8JgR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K6jHC2Up"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534A91F00A3F;
-	Mon, 31 Aug 2026 13:43:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="difC8JgR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BDD91F00A3E;
+	Mon, 31 Aug 2026 13:43:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183789;
-	bh=uoiUdB65pL39pRygv8E6gcLlcbqoHjqbhN8SRMJbg6U=;
+	s=k20260515; t=1788183791;
+	bh=b8I3FUHEB/WhSDy/hA5h+jKXW4Z/GC1dh52DxZX49jE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K6jHC2UpVC49+xxeTISAjHy+FR8tZjbAGcWTH5JB63d9oTgsnCtzSLypuvQ+QeelH
-	 sQWWX/xQzYg3IkiSIibMHN+csJRPndw6MMtr/aqhbjhuh/SgNulgCNvR48iqxcBZmQ
-	 GDh37qCCtShftGM8BsurKjPX9II3BPQ42q0jWbLt4BCmnUNneT2DnSCD27qFXWqAnJ
-	 EjrAmykexD1GPMWbtdn4U6izeol6QgYzk9UW7APBQIz9qC/dg19yb+7eufB4G3b7hq
-	 kHdJT3u5kRHM9rPnduPGPBG14YYLyS6zZzqFQl70pInpUmqO8nkwpYk0tgHi5wnpza
-	 JrSn1QrEEAhyg==
+	b=difC8JgRZHFFULL2ZuRI8AAjAQL49oyr/5IyO/qcwbMxsjWIbv3pmXS4/wdZbX3wR
+	 TjHK1FL/suQmkWfrZtexSKkAVS1wPEkPThaaV1PBrm4ahIqs4c+x31deZyeHK/p2BB
+	 lqP1RsQV0ffj4qS+PO2vQbv1RCjFrnb2p7G9841fzt9CTn6N3O6w3s2aQcpWl3yXv6
+	 ptIl/DSgX3XGX9rvEIMUzLpf1ny9EztQDfoFuRU1LeJRefM5W+kSAPE7XoFZIkrZ3Y
+	 M0izGDYgX9NNULbGNlKSjn2yneJFEXHzg6Qq85a2XjII2ypPIEs0vLFDLXorLTPK8R
+	 iTVHIwV4OvBKg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Devin Wittmayer <lucid_duck@justthetip.ca>,
-	Felix Fietkau <nbd@nbd.name>,
+Cc: Moritz Baron <moritz.baron@stud.uni-hannover.de>,
+	Felix Aljoscha Schnuell <felix.aljoscha.schnuell@stud.uni-hannover.de>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>,
-	lorenzo@kernel.org,
-	ryder.lee@mediatek.com,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH AUTOSEL 6.18-6.12] wifi: mt76: mt7925: add Netgear A8500 USB device ID
-Date: Mon, 31 Aug 2026 09:25:33 -0400
-Message-ID: <20260831133314.4125787-305-sashal@kernel.org>
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.6] ALSA: hda/realtek: Add quirk for Lenovo Yoga Pro 7 14IRH8
+Date: Mon, 31 Aug 2026 09:25:34 -0400
+Message-ID: <20260831133314.4125787-306-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -58,367 +55,399 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
+From: Moritz Baron <moritz.baron@stud.uni-hannover.de>
 
-[ Upstream commit 291b067a02b9c1fd272057ebf47c365260955fd2 ]
+[ Upstream commit 853e10ec445984e99b3c7f6375f4e185614b842a ]
 
-Add USB device ID for the Netgear A8500 (0846:9050) which uses
-the mt7925 chipset.
+The Lenovo Yoga Pro 7 14IRH8 (ALC287 codec, subsystem ID 0x17aa:0x38b1)
+has bass speakers on pin 0x17 that are not routed through a DAC with
+volume control. This causes the bass speakers to play at full volume
+regardless of the volume slider position.
 
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
-Link: https://patch.msgid.link/20260527144735.10254-1-lucid_duck@justthetip.ca
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Apply ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN which corrects the DAC
+routing for pin 0x17, enabling proper volume control. This is the same
+fix used for other Yoga Pro 7 models with identical audio topology
+(14APH8, 14AHP9, 14ASP10, 14IAH10).
+
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=217949
+
+Co-developed-by: Felix Aljoscha Schnuell <felix.aljoscha.schnuell@stud.uni-hannover.de>
+Signed-off-by: Felix Aljoscha Schnuell <felix.aljoscha.schnuell@stud.uni-hannover.de>
+Signed-off-by: Moritz Baron <moritz.baron@stud.uni-hannover.de>
+Link: https://patch.msgid.link/20260609141648.60608-1-moritz.baron@stud.uni-hannover.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `wifi: mt76: mt7925: add Netgear A8500 USB
-device ID`
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 1)...
+Retry attempt 1...
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 2)...
+Retry attempt 2...
+# Stable Backport Analysis: ALSA: hda/realtek: Add quirk for Lenovo Yoga
+Pro 7 14IRH8
 
-**Local tree:** `v6.18.44` (Linux 6.18.44)
+**Local tree:** Linux 6.18.44 (`v6.18.44`)
+**Commit under review:** `853e10ec44598` (on `master`, not yet in this
+tree)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Parse the subject line
-**Record:** `[wifi: mt76: mt7925]` `[add]` — Add USB device ID for
-Netgear A8500 (0846:9050) to the existing mt7925u driver.
+### Step 1.1: Subject Line
+**Record:** `[ALSA: hda/realtek] [add] quirk for Lenovo Yoga Pro 7
+14IRH8 — maps codec SSID 0x17aa:0x38b1 to existing bass-speaker DAC
+routing fixup`
 
-### Step 1.2: Parse all commit message tags
+### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Devin Wittmayer `<lucid_duck@justthetip.ca>`
-  (author)
-- **Link:** https://patch.msgid.link/20260527144735.10254-1-
-  lucid_duck@justthetip.ca
-- **Signed-off-by:** Felix Fietkau `<nbd@nbd.name>` (mt76 maintainer)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
-  by:`, or `Cc: stable@vger.kernel.org`
-- Notable pattern: maintainer (Felix Fietkau) Signed-off-by is a strong
-  quality signal; absence of `Cc: stable` is expected per review
-  pipeline rules.
+- **Link:** https://bugzilla.kernel.org/show_bug.cgi?id=217949
+- **Link:**
+  https://patch.msgid.link/20260609141648.60608-1-moritz.baron@stud.uni-
+  hannover.de
+- **Co-developed-by:** Felix Aljoscha Schnuell
+- **Signed-off-by:** Felix Aljoscha Schnuell, Moritz Baron, Takashi Iwai
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Cc: stable
+- Notable: Bugzilla link documents a long-standing user report; Takashi
+  Iwai (ALSA maintainer) merged it
 
-### Step 1.3: Analyze commit body
+### Step 1.3: Body Analysis
 **Record:**
-- **Bug description:** Netgear A8500 USB WiFi adapter (VID:PID
-  0846:9050) uses the mt7925 chipset but is not recognized by the kernel
-  because its USB ID is missing from `mt7925u_device_table[]`.
-- **Symptom:** Device enumerates as USB hardware but does not bind to
-  `mt7925u` driver; WiFi is non-functional.
-- **Root cause:** Missing entry in the USB device ID table.
-- **Version info:** None stated in commit message.
+- **Bug:** Lenovo Yoga Pro 7 14IRH8 (ALC287, codec SSID `0x17aa:0x38b1`)
+  routes bass speakers on pin 0x17 through a DAC without volume control
+- **Symptom:** Bass speakers play at full volume regardless of the
+  volume slider
+- **Root cause:** Wrong quirk match — machine shares PCI SSID
+  `0x17aa:0x3852` with Yoga 7 14ITL5 and gets the wrong `SND_PCI_QUIRK`
+  fixup
+- **Fix:** Add `HDA_CODEC_QUIRK` for codec SSID `0x17aa:0x38b1` applying
+  existing `ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN`
+- **Version info:** None explicit; hardware is a 2023-era Lenovo laptop
 
-### Step 1.4: Detect hidden bug fixes
-**Record:** Not a hidden bug fix in the traditional sense (no
-crash/UAF/leak). This is an explicit **hardware enablement** fix — a
-device ID addition that allows an existing, fully functional driver to
-bind to real hardware. Falls under the stable exception category for new
-device IDs.
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Not disguised — this is an explicit hardware quirk fix for
+broken audio volume control, not cleanup or optimization.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory the changes
+### Step 2.1: Inventory
 **Record:**
-- **Files changed:** `drivers/net/wireless/mediatek/mt76/mt7925/usb.c`
-  (+3 lines)
-- **Functions modified:** None functionally; only
-  `mt7925u_device_table[]` static data
-- **Scope:** Single-file, surgical, 3-line addition
+- **Files:** `sound/hda/codecs/realtek/alc269.c` (+4 lines, 0 removed)
+- **Functions modified:** `alc269_fixup_tbl[]` static table only
+- **Scope:** Single-file, surgical quirk-table addition
 
-### Step 2.2: Code flow change
+### Step 2.2: Code Flow Change
 **Record:**
-- **Before:** USB core matches 0846:9050 against
-  `mt7925u_device_table[]` → no match → driver does not probe.
-- **After:** USB core matches 0846:9050 → `mt7925u_probe()` is called
-  with `driver_info = MT7925_FIRMWARE_WM` → normal mt7925u
-  initialization path.
-- **Path affected:** USB device enumeration / driver binding at plug-in
-  time.
+- **Before:** Yoga Pro 7 14IRH8 matches `SND_PCI_QUIRK(0x17aa, 0x3852,
+  "Lenovo Yoga 7 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS)` — wrong
+  fixup for this hardware
+- **After:** `HDA_CODEC_QUIRK(0x17aa, 0x38b1, ...)` is inserted *before*
+  the `0x3852` PCI quirk; codec SSID match takes precedence, applying
+  `ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN`
+- **Path affected:** Codec probe/init during audio driver load (every
+  boot for affected hardware)
 
-### Step 2.3: Bug mechanism
+### Step 2.3: Bug Mechanism
 **Record:**
-- **Category:** Hardware workaround / device ID addition (stable
-  exception)
-- **Mechanism:** Without the VID/PID entry, `usb_driver.id_table`
-  matching fails and the adapter is unusable despite the mt7925 driver
-  being present and functional for other devices.
+- **Category:** Hardware workaround / logic correctness fix
+- **Mechanism:** Incorrect pin-to-DAC routing leaves bass speakers on
+  DAC 0x06/0x08 (no volume control). The existing fixup function
+  `alc287_fixup_yoga9_14iap7_bass_spk_pin()` reroutes pin 0x17 to DAC
+  0x02/0x03 with proper volume control
 
-### Step 2.4: Fix quality assessment
+### Step 2.4: Fix Quality
 **Record:**
-- **Obviously correct:** Yes — identical pattern to the existing A9000
-  entry (0846:9072) already in this tree.
-- **Minimal/surgical:** Yes — 3 lines, no logic changes.
-- **Regression risk:** Very low — only adds a new match entry; does not
-  alter behavior for existing devices.
+- **Quality:** High — reuses a fixup already applied to Yoga Pro 7
+  14APH8, 14AHP9, 14ASP10, 14IAH10, and others in this tree
+- **Pattern:** Identical to `b98ecc1c60ad7` (Yoga Pro 7 14IMH9 / codec
+  SSID `0x38cf` vs shared PCI SSID `0x3847`)
+- **Regression risk:** Very low — only affects machines with codec SSID
+  `0x17aa:0x38b1`; `HDA_CODEC_QUIRK` uses `match_codec_ssid = true`
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame the changed lines
+### Step 3.1: Blame
 **Record:**
-- `mt7925u_device_table[]` introduced in `c948b5da6bbec` (Sep 2023, "add
-  Mediatek Wi-Fi7 driver for mt7925 chips")
-- A9000 entry added in `f6159b2051e15` (Jul 2025, Nick Morrow) — already
-  present in this tree
-- A8500 entry (0846:9050) is **not yet** in this tree
+- Insertion point lines 7435–7438 blame to `b98ecc1c60ad7` (14IMH9
+  HDA_CODEC_QUIRK, 2026-03-31) and `aeeb85f26c3bb` (Realtek driver
+  split, 2025-07-09) for the `0x3852` PCI quirk
+- The mis-match condition (shared PCI SSID) has existed since the
+  Realtek driver split; the 14IRH8-specific codec quirk was never added
+  until `853e10ec44598`
 
-### Step 3.2: Follow Fixes: tag
-**Record:** No `Fixes:` tag present. N/A.
+### Step 3.2: Fixes: Tag
+**Record:** No Fixes: tag present — N/A
 
-### Step 3.3: Related file history
+### Step 3.3: Related File History
 **Record:**
-- Recent commits to `mt7925/usb.c` include functional fixes (crash, NULL
-  deref, deadlock) and the A9000 ID addition `f6159b2051e15`
-- Similar precedent: `fc6627ca8a5f8` added Netgear A7500 (0846:9065) to
-  `mt7921/usb.c` with `Cc: stable@vger.kernel.org`
-- **Standalone:** Yes — single patch, no series dependency
+- `ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN` fixup function present since
+  `aeeb85f26c3bb` (driver split)
+- Related quirk additions already in v6.18.44: `634e5e1e06f5c` (14APH8),
+  `ad22051afdad9` (14AHP9), `8d70503068510` (14ASP10), `0fa5713ac7a19`
+  (14IAH10), `b98ecc1c60ad7` (14IMH9)
+- `HDA_CODEC_QUIRK` macro present since at least `e656ef8698e28` in this
+  file
+- Standalone patch — not part of a series
 
-### Step 3.4: Author's other commits
-**Record:** Devin Wittmayer has no other commits in this tree (author is
-new contributor). Felix Fietkau is the mt76 maintainer who applied the
-patch.
+### Step 3.4: Author Context
+**Record:** Moritz Baron / Felix Schnuell are student contributors;
+patch merged by Takashi Iwai. No prior commits from these authors in
+this tree's realtek path.
 
-### Step 3.5: Prerequisites
+### Step 3.5: Dependencies
 **Record:**
-- Requires `CONFIG_MT7925U` and existing mt7925u driver — both present
-  in v6.18.44
-- Uses `MT7925_FIRMWARE_WM` — already declared via `MODULE_FIRMWARE` in
-  same file
-- **Can apply standalone:** Yes
+- **Dependency:** `ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN` fixup —
+  **present** in v6.18.44
+- **Dependency:** `HDA_CODEC_QUIRK` macro — **present** in
+  `sound/hda/common/hda_local.h`
+- **Dependency:** `alc287_fixup_yoga9_14iap7_bass_spk_pin()` —
+  **present** since driver split
+- Can apply standalone: **yes** (`git apply --check` succeeded on HEAD)
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original patch discussion
-**Record:** `b4 dig -c` could not be run (commit not in local tree). `b4
-dig` with message-id failed (incorrect syntax for message-id lookup).
-WebFetch of patch.msgid.link and lore.kernel.org returned bot-protection
-page. **UNVERIFIED:** Full mailing list review thread not accessible.
+### Step 4.1: Original Discussion
+**Record:**
+- `b4 dig -c 853e10ec44598` →
+  https://patch.msgid.link/20260609141648.60608-1-moritz.baron@stud.uni-
+  hannover.de
+- `b4 dig -a`: single revision found (no v2/v3 series)
+- Lore page blocked by bot protection (Anubis) — could not read thread
+  content
 
-### Step 4.2: Reviewers from b4 dig -w
-**Record:** UNVERIFIED — could not retrieve recipient list.
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w` returned only the patch URL; full recipient list
+not retrieved. Takashi Iwai Signed-off-by confirms maintainer
+acceptance.
 
-### Step 4.3: Bug report search
-**Record:** No `Reported-by:` or bugzilla/syzbot links in commit
-message. Hardware enablement request from contributor.
+### Step 4.3: Bug Report
+**Record:**
+- Bugzilla #217949: "Yoga Pro 7 14IRH8 volume controls broken" — filed
+  2023-09-25, attachment from reporter
+- Severity from reporter perspective: broken volume control on a
+  commercial laptop
+- Long-standing issue (nearly 3 years before fix)
 
-### Step 4.4: Related patches/series
-**Record:** Part of a well-established pattern of Netgear USB ID
-additions to mt76 drivers (mt7921 A7500, mt7925 A9000). Standalone one-
-patch submission.
+### Step 4.4: Related Patches
+**Record:** Same fixup family used across multiple Yoga Pro 7 models;
+14IMH9 (`b98ecc1c60ad7`) uses identical `HDA_CODEC_QUIRK` pattern for
+shared PCI SSID and is already in v6.18.44
 
-### Step 4.5: Stable mailing list history
-**Record:** UNVERIFIED — lore.kernel.org inaccessible. However, the
-nearly identical A9000 commit (`f6159b2051e15`) in this tree included
-`Cc: stable@vger.kernel.org`, establishing subsystem precedent for such
-patches.
+### Step 4.5: Stable List History
+**Record:** Not searched on lore stable list (lore blocked). However,
+the original 14APH8 quirk (`634e5e1e06f5c`) explicitly had `Cc:
+stable@vger.kernel.org`, establishing precedent for this fixup family in
+stable.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** No functions modified. Data table `mt7925u_device_table[]`
-consumed by `module_usb_driver(mt7925u_driver)` via `.id_table`.
+### Step 5.1: Key Functions
+**Record:** `alc269_fixup_tbl[]` (modified);
+`alc287_fixup_yoga9_14iap7_bass_spk_pin()` (existing, invoked via fixup
+chain)
 
-### Step 5.2: Trace callers
-**Record:** USB core calls `usb_match_device()` against
-`mt7925u_device_table[]` during enumeration → on match, calls
-`mt7925u_probe()` (line 132 of `usb.c`). Triggered when user plugs in
-the USB adapter.
+### Step 5.2: Callers
+**Record:** `snd_hda_pick_fixup(codec, alc269_fixup_models,
+alc269_fixup_tbl, alc269_fixups)` at line 8471, called during Realtek
+ALC269 codec probe (`alc269_probe` path). Triggered on every boot when
+HDA codec is enumerated.
 
-### Step 5.3: Trace callees
-**Record:** On successful match, `mt7925u_probe()` initializes the
-mt7925 chipset using existing driver infrastructure and
-`MT7925_FIRMWARE_WM` firmware.
+### Step 5.3: Callees
+**Record:** Selected fixup invokes
+`alc287_fixup_yoga9_14iap7_bass_spk_pin()` which sets pin config for
+0x17 and connects it to DAC 0x02/0x03 (DACs with volume control),
+chained to `ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK`
 
-### Step 5.4: Call chain / reachability
-**Record:** USB hotplug during normal desktop/laptop use. Any user with
-this hardware who plugs in the adapter is affected. No privilege
-required to trigger enumeration.
+### Step 5.4: Reachability
+**Record:** Triggered automatically during kernel audio subsystem init
+on affected hardware — no userspace action required beyond normal boot.
+Every Yoga Pro 7 14IRH8 owner is affected.
 
-### Step 5.5: Similar patterns
-**Record:** Identical pattern in same file for A9000 (0846:9072).
-Similar Netgear IDs in `mt7921/usb.c` (0846:9060, 0846:9065). All use
-same `USB_DEVICE_AND_INTERFACE_INFO` + `MT7925_FIRMWARE_WM` / equivalent
-firmware constant.
+### Step 5.5: Similar Patterns
+**Record:** At least 6 other models in this tree use
+`ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN` with the same bass-speaker
+topology; 14IMH9 uses the same `HDA_CODEC_QUIRK` pattern for PCI SSID
+collision.
 
 ---
 
 ## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 6.1: Does the buggy code exist?
-**Record:** **Yes.** The mt7925u driver and device table exist in
-v6.18.44, but the A8500 entry (0846:9050) is **missing**. Current table
-has only MediaTek reference (0e8d:7925) and Netgear A9000 (0846:9072).
-Driver has been present since `c948b5da6bbec` (confirmed ancestor of
-HEAD).
+### Step 6.1: Buggy Code Exists?
+**Record:** **Yes.** `SND_PCI_QUIRK(0x17aa, 0x3852, ...)` at line 7438
+matches Yoga Pro 7 14IRH8 via shared PCI SSID. Codec SSID `0x38b1` quirk
+is **missing** from v6.18.44.
 
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected.** File exists with identical
-structure. Insertion point is between the MediaTek entry and the A9000
-entry (as shown in the candidate diff). Only minor difference: local
-file uses `ISC` license header vs `BSD-3-Clause-Clear` in candidate diff
-— irrelevant to the 3-line ID addition.
+### Step 6.2: Backport Complications
+**Record:** **Clean apply.** `git format-patch -1 853e10ec44598 --stdout
+| git apply --check` succeeded with exit code 0 on HEAD. Line numbers
+differ (master ~7741 vs stable ~7438) but context matches.
 
-### Step 6.3: Related fixes already present?
-**Record:** A9000 ID (`f6159b2051e15`) is already in this tree. No
-duplicate A8500 entry found. No alternate fix for A8500.
+### Step 6.3: Related Fixes Already Present?
+**Record:** The fixup function and enum exist; sibling model quirks
+exist; only the `0x38b1` table entry is missing. No duplicate fix found.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/net/wireless/mediatek/mt76/` — **IMPORTANT**
-(wireless networking driver). Affects users of specific USB WiFi
-hardware, not universal.
+### Step 7.1: Subsystem Criticality
+**Record:** `sound/hda/codecs/realtek/` — IMPORTANT (affects laptop
+users with this specific hardware, not universal core path)
 
-### Step 7.2: Subsystem activity
-**Record:** mt7925 subsystem is actively maintained in this tree —
-numerous bugfix commits in recent history (NULL deref, deadlock, crash
-fixes), indicating mature driver with ongoing stable fixes.
+### Step 7.2: Subsystem Activity
+**Record:** Actively maintained — multiple realtek quirk commits in
+v6.18.44 history (TongFang, HP, Lenovo, ASUS, Samsung additions in
+recent weeks)
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who is affected
-**Record:** Users of the Netgear A8500 USB WiFi 7 adapter (0846:9050)
-running kernel 6.18.y with `CONFIG_MT7925U` enabled.
+### Step 8.1: Who Is Affected
+**Record:** Lenovo Yoga Pro 7 14IRH8 owners with ALC287 codec
+(CONFIG_SND_HDA_INTEL / SOF audio stack). Driver-specific, single-
+machine SSID.
 
-### Step 8.2: Trigger conditions
-**Record:** Plugging in the Netgear A8500 USB adapter. Common,
-deterministic, no special conditions. Unprivileged user can trigger via
-USB device insertion.
+### Step 8.2: Trigger Conditions
+**Record:** Every boot with default audio driver — automatic codec
+probe. Common/likely for all owners of this model. Not security-
+relevant; not userspace-triggerable beyond normal audio use.
 
-### Step 8.3: Failure mode severity
-**Record:** Without fix: adapter is completely non-functional (no driver
-binding). **Severity: MEDIUM** for affected hardware users (device
-unusable, but not a crash/corruption). With fix: normal WiFi operation.
+### Step 8.3: Failure Mode Severity
+**Record:** Bass speakers at uncontrollable full volume — **MEDIUM**
+functional bug. Not a crash, deadlock, or data corruption, but makes
+volume control effectively broken for bass output. Poor UX and
+potentially harmful at high volume.
 
-### Step 8.4: Risk-benefit ratio
+### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** Enables WiFi on a commercially available Netgear USB
-  adapter for stable kernel users
-- **Risk:** Very low — 3-line ID table entry, zero logic change,
-  identical to already-accepted A9000 entry
-- **Ratio:** Strongly favorable
+- **Benefit:** HIGH for affected users (restores working volume control
+  using proven fixup)
+- **Risk:** VERY LOW (4-line table entry, codec-SSID-specific, pattern
+  validated on 6+ sibling models)
+- **Ratio:** Strongly favors backport
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence compilation
+### Step 9.1: Evidence Summary
 
-**FOR backporting:**
-- Classic device ID addition to existing driver (explicit stable
-  exception)
-- Driver fully exists in v6.18.44 (`CONFIG_MT7925U`, probe/remove,
-  firmware)
-- Identical pattern to A9000 entry already in this tree
-- Subsystem precedent: similar Netgear ID patches nominated for stable
-  (`Cc: stable` on A9000, A7500)
-- Maintained by Felix Fietkau (Signed-off-by)
-- 3 lines, zero regression risk to existing devices
-- Enables real hardware for stable users
+**FOR backport:**
+- Real hardware bug with Bugzilla report since 2023
+- Hardware quirk exception category (explicitly allowed for stable)
+- Tiny, surgical 4-line change
+- Reuses existing, battle-tested fixup already in tree
+- Identical pattern to 14IMH9 quirk already backported to v6.18.44
+- Merged by ALSA maintainer Takashi Iwai
+- Applies cleanly to v6.18.44
+- All prerequisites present in this tree
 
-**AGAINST backporting:**
-- Not a crash/security/corruption fix — hardware enablement only
-- No Tested-by or Reported-by in commit message
-- Mailing list discussion unverified
+**AGAINST backport:**
+- Not a crash/security/corruption issue (severity is functional audio)
+- Lore discussion content unverified (bot protection)
 
-**UNRESOLVED:**
-- Full lore review thread not accessible
-- No explicit Tested-by confirmation
+**Unresolved:**
+- No reviewer thread content (lore blocked)
+- No explicit Tested-by on this specific machine in commit message
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — trivial ID entry,
-   maintainer-applied; Tested-by absent but pattern is standard
-2. Fixes a real bug affecting users? **PASS** — device non-functional
-   without ID
-3. Important issue? **PASS** — hardware enablement for real product
-   (stable exception category)
-4. Small and contained? **PASS** — 3 lines, 1 file
-5. No new features or APIs? **PASS** — device ID only
-6. Can apply to local tree? **PASS** — driver and file present, clean
-   apply expected
+Neither unresolved item affects the technical decision.
 
-### Step 9.3: Exception category
-**Record:** **NEW DEVICE ID** — adding PCI/USB ID to existing driver.
-Explicitly listed as a stable exception. The mt7925u driver exists; only
-the ID is new.
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — reuses fixup proven on
+   identical topology across multiple Yoga Pro 7 models; maintainer
+   merged
+2. Fixes a real bug? **PASS** — Bugzilla #217949, volume control non-
+   functional
+3. Important issue? **PASS** — broken volume control on commercial
+   laptop (MEDIUM severity, real user impact)
+4. Small and contained? **PASS** — 4 lines, 1 file
+5. No new features/APIs? **PASS** — quirk table entry only
+6. Can apply to local tree? **PASS** — clean apply, all dependencies
+   present
 
-### Step 9.4: Decision rationale
+### Step 9.3: Exception Category
+**Record:** Hardware quirk/workaround (audio codec quirk for broken DAC
+routing on specific Lenovo laptop)
 
-This commit adds USB VID/PID `0846:9050` for the Netgear A8500 to the
-existing `mt7925u` driver in the v6.18.44 stable tree. The driver is
-fully present; the A9000 sibling device (0846:9072) is already supported
-in this tree via an identical 3-line patch that was nominated for
-stable. Without this entry, the A8500 adapter cannot bind to any driver
-and is completely unusable. The change is minimal, obviously correct,
-introduces no new APIs, and matches established stable backport practice
-for mt76 Netgear USB adapters.
+### Step 9.4: Decision Rationale
+
+This commit adds a codec-SSID-specific quirk entry so the Lenovo Yoga
+Pro 7 14IRH8 gets the correct bass-speaker DAC routing fixup instead of
+the wrong PCI-SSID-based quirk shared with Yoga 7 14ITL5. The fix is
+minimal, self-contained, uses infrastructure already present in Linux
+6.18.44, follows an established pattern already applied to sibling
+models in this tree, and addresses a documented multi-year user bug. It
+fits squarely within the hardware-quirk exception for stable kernels.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body from user-provided commit message
-- [Phase 1] Confirmed: no Fixes/Reported-by/Tested-by/Cc:stable tags;
-  Felix Fietkau Signed-off-by present
-- [Phase 2] Diff analysis: 3 lines added to `mt7925u_device_table[]` in
-  `usb.c`
-- [Phase 3] `git describe HEAD`: v6.18.44
-- [Phase 3] `git blame` on usb.c lines 12-18: table from c948b5da6bbec
-  (2023), A9000 from f6159b2051e15 (2025)
-- [Phase 3] `git merge-base --is-ancestor c948b5da6bbec HEAD`: mt7925
-  driver is in tree
-- [Phase 3] `git show f6159b2051e15`: A9000 precedent with Cc:
-  stable@vger.kernel.org
-- [Phase 3] `git show fc6627ca8a5f8`: mt7921 A7500 precedent with Cc:
-  stable
-- [Phase 4] WebFetch patch.msgid.link: blocked by bot protection —
+- [Phase 1] Parsed subject, tags, body from commit `853e10ec44598`
+- [Phase 1] Bugzilla #217949 confirmed: "Yoga Pro 7 14IRH8 volume
+  controls broken" (2023-09-25)
+- [Phase 2] Diff: +4 lines in `alc269_fixup_tbl[]`, adds
+  `HDA_CODEC_QUIRK(0x17aa, 0x38b1, ...)`
+- [Phase 2] Read `alc287_fixup_yoga9_14iap7_bass_spk_pin()` at lines
+  3408–3423 — reroutes pin 0x17 to DACs with volume control
+- [Phase 3] `git describe HEAD` → v6.18.44; Makefile VERSION 6.18.44
+- [Phase 3] `git merge-base --is-ancestor 853e10ec44598 HEAD` → exit 1
+  (commit NOT in current tree)
+- [Phase 3] `git blame -L 7435,7440` → 14IMH9 quirk at 7435, 0x3852 PCI
+  quirk since driver split
+- [Phase 3] `ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN` present since
+  `aeeb85f26c3bb`
+- [Phase 3] Related quirk commits in tree: `634e5e1e06f5c`,
+  `b98ecc1c60ad7`, `0fa5713ac7a19`, etc.
+- [Phase 4] `b4 dig -c 853e10ec44598` → patch.msgid.link URL found
+- [Phase 4] `b4 dig -a` → single revision
+- [Phase 4] Lore thread fetch blocked by Anubis bot protection —
   UNVERIFIED
-- [Phase 4] WebFetch lore.kernel.org: blocked — UNVERIFIED
-- [Phase 4] b4 dig: commit not in tree, could not dig by hash —
-  UNVERIFIED
-- [Phase 5] Read `mt7925u_probe()` at line 132: standard USB probe path
-- [Phase 5] `grep 0846` in mt76: A9000 (9072) present, A8500 (9050)
-  absent
-- [Phase 6] Read current `usb.c`: A8500 ID missing, driver fully
-  functional
-- [Phase 6] `Kconfig` confirms `CONFIG_MT7925U` exists
-- [Phase 6] `MODULE_FIRMWARE(MT7925_FIRMWARE_WM)` present in usb.c
-- [Phase 7] `git log --oneline -20 -- mt7925/`: active subsystem with
-  many stable-worthy fixes
-- [Phase 8] Failure mode: no driver binding → device unusable (not
-  crash)
+- [Phase 5] `snd_hda_pick_fixup()` call at line 8471 confirmed
+- [Phase 5] `HDA_CODEC_QUIRK` macro at `hda_local.h:314-320` with
+  `match_codec_ssid = true`
+- [Phase 6] `0x38b1` not present in tree; `0x3852` PCI quirk present at
+  line 7438
+- [Phase 6] `git format-patch ... | git apply --check` → exit 0 (clean
+  apply)
+- [Phase 6] `ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN` fixup struct at
+  lines 6255–6260 confirmed
+- [Phase 8] Failure mode: bass at full volume, severity MEDIUM
 
 **YES**
 
- drivers/net/wireless/mediatek/mt76/mt7925/usb.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/hda/codecs/realtek/alc269.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/usb.c b/drivers/net/wireless/mediatek/mt76/mt7925/usb.c
-index bf040f34e4b9f..995a7fcc419fd 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7925/usb.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7925/usb.c
-@@ -12,6 +12,9 @@
- static const struct usb_device_id mt7925u_device_table[] = {
- 	{ USB_DEVICE_AND_INTERFACE_INFO(0x0e8d, 0x7925, 0xff, 0xff, 0xff),
- 		.driver_info = (kernel_ulong_t)MT7925_FIRMWARE_WM },
-+	/* Netgear, Inc. A8500 */
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x0846, 0x9050, 0xff, 0xff, 0xff),
-+		.driver_info = (kernel_ulong_t)MT7925_FIRMWARE_WM },
- 	/* Netgear, Inc. A9000 */
- 	{ USB_DEVICE_AND_INTERFACE_INFO(0x0846, 0x9072, 0xff, 0xff, 0xff),
- 		.driver_info = (kernel_ulong_t)MT7925_FIRMWARE_WM },
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 0ef5468b0701a..c8714e59d8199 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -7437,6 +7437,10 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	HDA_CODEC_QUIRK(0x17aa, 0x38cf, "Lenovo Yoga Pro 7 14IMH9", ALC287_FIXUP_YOGA9_14IMH9_BASS_SPK_PIN),
+ 	SND_PCI_QUIRK(0x17aa, 0x3847, "Legion 7 16ACHG6", ALC287_FIXUP_LEGION_16ACHG6),
+ 	SND_PCI_QUIRK(0x17aa, 0x384a, "Lenovo Yoga 7 15ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
++	/* Yoga Pro 7 14IRH8 shares PCI SSID 17aa:3852 with Yoga 7 14ITL5;
++	 * use codec SSID to distinguish them
++	 */
++	HDA_CODEC_QUIRK(0x17aa, 0x38b1, "Lenovo Yoga Pro 7 14IRH8", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+ 	SND_PCI_QUIRK(0x17aa, 0x3852, "Lenovo Yoga 7 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+ 	SND_PCI_QUIRK(0x17aa, 0x3853, "Lenovo Yoga 7 15ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+ 	SND_PCI_QUIRK(0x17aa, 0x3855, "Legion 7 16ITHG6", ALC287_FIXUP_LEGION_16ITHG6),
 -- 
 2.53.0
 
