@@ -1,37 +1,37 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE023AAF54;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD8E3AB27B;
 	Mon, 31 Aug 2026 21:37:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788212240; cv=none; b=exVXW4Ys/H5/VutAGjkbRVPpveNmStwFwKKc7U4rcfHWUXTiobslcxDj99Ki0AfoRtrKN0fidGnmO6K6H+UtemPTETznP0UMaTtOBLyuBK2+fCN0JbHgqKTBKG9Bsb+3sxaJ61yFR7PeI4UfynTsRqVYwqFgU6caRIKlPkrvL0U=
+	t=1788212241; cv=none; b=YzShJpEs/88hHGoU4CaFqJ6GM04Wf4wYMGA2Lg2UFYhlrLFbsP5ipCfdfvDKTaP9WR8VbQfr4p1y9Hb9t/8VTseSmY9txyHgyjieBCnp3YXcV5pRfzsMqYIoK9OPAGcY1enA6Xu+/App7fPnNSh3/WX1VR4bIIMU8834WCBbdLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788212240; c=relaxed/simple;
-	bh=l4Vw9V2R06mxcI33cmd7E+2/nIkTuAYeolBEMyEb71A=;
+	s=arc-20240116; t=1788212241; c=relaxed/simple;
+	bh=WkxtsC9mpIM9Votob3SUwu+R0cC7gQxOCDTmSyZxyik=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BeycpA2F2whVvtehKdzoCnNy6RJ9qzRccosmKwCl3u24aKDcgNBvQVCLQ/rq4DjbCgYGYI+aKpAFf7ujTjg7ZBy4idoCUrz7G0a0l7xvXQl6RegyqjEBsQbi41znLeQgJ5PZ0QLThBNoYQOd0oF10bnst31tBUEe2iqxXBuryCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=YKseSYvn; arc=none smtp.client-ip=90.155.50.34
+	 MIME-Version; b=qsAukYNd405RdYN5Cs8iYe+xAtlGEU6Y9rDVnBShUEPJUxSDBqgD4ZOpA8gk6JkHqnPCxZTga+IS7ULnha1Nt0aaXYsQ3DcI/22JHppB8e09HlS80AVExVAxwlmGj0jhD6NqxZ9TTS0ZUBkLKGgNE4JZeqtvb87+pQQnrrzO8x0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ElRYiePg; arc=none smtp.client-ip=90.155.92.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="YKseSYvn"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ElRYiePg"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=OEgd2NwKsxi42P75H3cbNLJJgy0nzXZ44aA+uvUXLJI=; b=YKseSYvn/kQ70PJjIJjLVaGwc9
-	0gq3dpUjQmhDDOENOzrEYQpk2wmYG9oCqtLN1VE2N9iVeXpF2kD+cBoUN35qbvPUHslpBcMkBZgwl
-	p0jEv0BkoKQFP4nG0gMsa2Hh536su2O3wE97aWIkm5ktmIHvEVS/X56tfew0riIeq2RpGcBFJ23QM
-	PYEaCqjdQnB9rOvbGELaCFF9tDWHw9zYp/IB79gfU+5LutQGHqve0xHuC4PlzntNlHhN0QdYYjpEM
-	MEjMlC71xsfcNiCJEZ52bAPsND3bndYPyj9CDiAJoQqKaBSfcyzDvZ6o+2Q9jlZegzkSw/Vi8X+CU
-	ZOqieYlw==;
+	bh=QA41Nq4s6oAvenfvFVuXon+d1FPu3+c/4DUIsHP6hhQ=; b=ElRYiePg+ELZCD1AKNurjFQdDY
+	Iv9vYok9InzCNCfJ0pofjJOWMSn1btlENGOxC4qMrxXF+Z/xTdoQ/tmgyIOcP9VzHBA1EKWglLsjq
+	Cri+nnm3gpGLLQSglFlnz8dm/bYvS/Xmhu5mhSeZYIyHI15qE7zjzUdUry9Yd88pJ4aevWwjP/2A8
+	NsXdOioQafiSllHHljQA4uf/ypCrEgEBoLh4Y8al1UEtyuRzEAzSSfLUJB9JzZaVWktJYsmWsqhNd
+	FTFPfq3JZ3rRTW8dNbwVYPttpWFuEqARBK0p2EC+QoC3N0xe7ofmT+xbU38FNGsH3I8vNXzXeeMVO
+	SqdHXYVQ==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x19gE-00000003sux-20RT;
-	Mon, 31 Aug 2026 21:36:38 +0000
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x19gG-0000000AKc7-31sh;
+	Mon, 31 Aug 2026 21:36:41 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.4 #2 (Red Hat Linux))
-	id 1x19gE-00000000LCy-18vL;
+	id 1x19gD-00000000LCm-49Ca;
 	Mon, 31 Aug 2026 22:36:38 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: seanjc@google.com,
@@ -56,9 +56,9 @@ Cc: dwmw2@infradead.org,
 	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	imv4bel@gmail.com
-Subject: [PATCH v3 06/13] KVM: x86/xen: Enforce 4-byte alignment of vcpu_info registration
-Date: Mon, 31 Aug 2026 22:26:37 +0100
-Message-ID: <20260831213632.81023-7-dwmw2@infradead.org>
+Subject: [PATCH v3 03/13] KVM: x86/xen: Rename max_evtchn_port() to kvm_max_evtchn_port()
+Date: Mon, 31 Aug 2026 22:26:34 +0100
+Message-ID: <20260831213632.81023-4-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831213632.81023-1-dwmw2@infradead.org>
 References: <20260831213632.81023-1-dwmw2@infradead.org>
@@ -70,59 +70,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Xen's map_guest_area() enforces that vcpu_info is aligned to
-sizeof(xen_ulong_t). KVM has no such check, allowing a guest to
-register vcpu_info at an arbitrary byte alignment.
+Rename in preparation for adding a variant that takes a latched bool
+argument for use in paths that need a consistent snapshot of the
+shinfo mode.
 
-Enforce unconditional 4-byte alignment regardless of the current
-shinfo mode. This is sufficient because subsequent commits ensure
-that all locked atomic operations on vcpu_info fields use at most
-32-bit accesses. Return -ENXIO on failure, matching Xen's
-map_guest_area() behaviour for unaligned requests.
+No functional change.
 
-Originally observed in review of an unrelated patch:
-https://lore.kernel.org/all/20260604193554.1BA311F00893@smtp.kernel.org/
-
-Cc: stable@vger.kernel.org
-Fixes: 73e69a86347a ("KVM: x86/xen: register vcpu info")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260604193554.1BA311F00893@smtp.kernel.org
 Assisted-by: Kiro:claude-opus-4.6-1m
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- arch/x86/kvm/xen.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/x86/kvm/xen.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/arch/x86/kvm/xen.c b/arch/x86/kvm/xen.c
-index 5eb23127e74e..941099ed50c9 100644
+index b89c973c2730..be3c4dbee435 100644
 --- a/arch/x86/kvm/xen.c
 +++ b/arch/x86/kvm/xen.c
-@@ -941,6 +941,10 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
- 				break;
- 			}
+@@ -1439,7 +1439,7 @@ static int kvm_xen_hypercall_complete_userspace(struct kvm_vcpu *vcpu)
+ 	return kvm_xen_hypercall_set_result(vcpu, run->xen.u.hcall.result);
+ }
  
-+			r = -ENXIO;
-+			if (!IS_ALIGNED(data->u.gpa, sizeof(u32)))
-+				break;
-+
- 			r = kvm_gpc_activate(&vcpu->arch.xen.vcpu_info_cache,
- 					     data->u.gpa, sizeof(struct vcpu_info));
- 		} else {
-@@ -950,6 +954,10 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
- 				break;
- 			}
+-static inline int max_evtchn_port(struct kvm *kvm)
++static inline int kvm_max_evtchn_port(struct kvm *kvm)
+ {
+ 	if (kvm_xen_has_64bit_shinfo(kvm))
+ 		return EVTCHN_2L_NR_CHANNELS;
+@@ -1546,7 +1546,7 @@ static bool kvm_xen_schedop_poll(struct kvm_vcpu *vcpu, bool is_64bit,
+ 	}
  
-+			r = -ENXIO;
-+			if (!IS_ALIGNED(data->u.hva, sizeof(u32)))
-+				break;
-+
- 			r = kvm_gpc_activate_hva(&vcpu->arch.xen.vcpu_info_cache,
- 						 data->u.hva, sizeof(struct vcpu_info));
+ 	for (i = 0; i < sched_poll.nr_ports; i++) {
+-		if (ports[i] >= max_evtchn_port(vcpu->kvm)) {
++		if (ports[i] >= kvm_max_evtchn_port(vcpu->kvm)) {
+ 			*r = -EINVAL;
+ 			goto out;
  		}
+@@ -1833,7 +1833,7 @@ int kvm_xen_set_evtchn_fast(struct kvm_xen_evtchn *xe, struct kvm *kvm)
+ 		WRITE_ONCE(xe->vcpu_idx, vcpu->vcpu_idx);
+ 	}
+ 
+-	if (xe->port >= max_evtchn_port(kvm))
++	if (xe->port >= kvm_max_evtchn_port(kvm))
+ 		return -EINVAL;
+ 
+ 	rc = -EWOULDBLOCK;
+@@ -1995,7 +1995,7 @@ int kvm_xen_setup_evtchn(struct kvm *kvm,
+ 	struct kvm_vcpu *vcpu;
+ 
+ 	/*
+-	 * Don't check for the port being within range of max_evtchn_port().
++	 * Don't check for the port being within range of kvm_max_evtchn_port().
+ 	 * Userspace can configure what ever targets it likes; events just won't
+ 	 * be delivered if/while the target is invalid, just like userspace can
+ 	 * configure MSIs which target non-existent APICs.
+@@ -2004,8 +2004,8 @@ int kvm_xen_setup_evtchn(struct kvm *kvm,
+ 	 * can be restored *independently* of other things like creating vCPUs,
+ 	 * without imposing an ordering dependency on userspace.  In this
+ 	 * particular case, the problematic ordering would be with setting the
+-	 * Xen 'long mode' flag, which changes max_evtchn_port() to allow 4096
+-	 * instead of 1024 event channels.
++	 * Xen 'long mode' flag, which changes kvm_max_evtchn_port() to allow
++	 * 4096 instead of 1024 event channels.
+ 	 */
+ 
+ 	/* We only support 2 level event channels for now */
+@@ -2042,7 +2042,7 @@ int kvm_xen_hvm_evtchn_send(struct kvm *kvm, struct kvm_irq_routing_xen_evtchn *
+ 	struct kvm_xen_evtchn e;
+ 	int ret;
+ 
+-	if (!uxe->port || uxe->port >= max_evtchn_port(kvm))
++	if (!uxe->port || uxe->port >= kvm_max_evtchn_port(kvm))
+ 		return -EINVAL;
+ 
+ 	/* We only support 2 level event channels for now */
+@@ -2152,7 +2152,7 @@ static int kvm_xen_eventfd_assign(struct kvm *kvm,
+ 
+ 	case EVTCHNSTAT_interdomain:
+ 		if (data->u.evtchn.deliver.port.port) {
+-			if (data->u.evtchn.deliver.port.port >= max_evtchn_port(kvm))
++			if (data->u.evtchn.deliver.port.port >= kvm_max_evtchn_port(kvm))
+ 				goto out_noeventfd; /* -EINVAL */
+ 		} else {
+ 			eventfd = eventfd_ctx_fdget(data->u.evtchn.deliver.eventfd.fd);
+@@ -2270,7 +2270,7 @@ static int kvm_xen_setattr_evtchn(struct kvm *kvm, struct kvm_xen_hvm_attr *data
+ 	if (data->u.evtchn.flags == KVM_XEN_EVTCHN_RESET)
+ 		return kvm_xen_eventfd_reset(kvm);
+ 
+-	if (!port || port >= max_evtchn_port(kvm))
++	if (!port || port >= kvm_max_evtchn_port(kvm))
+ 		return -EINVAL;
+ 
+ 	if (data->u.evtchn.flags == KVM_XEN_EVTCHN_DEASSIGN)
 -- 
 2.55.0
 
