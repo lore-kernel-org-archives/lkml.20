@@ -1,163 +1,78 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE8333E1CE8;
-	Mon, 31 Aug 2026 11:27:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845263DDAED
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:28:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788175669; cv=none; b=UyeU62n8KuSkt3RkYGHxvVy/z66A6fKyZ1LCxM/Bjq27SBf684SDjq3A9PhNSc01R+Wyhbz0dj15cil1q99OTIFtUh6bXcCTyQJmSgh/Z+86TDCPXgXAfSPv25M0SGaFuiWdsU43F/ehhDdtTlmO66svjpci7ND5L5y3sOGMNIc=
+	t=1788175726; cv=none; b=IkeAtZqOEpvFA4xAnQh6cr9BFzTcROkNBertu4VFOibfWQw7Xl+6N1NFUR6iKvbzx/XpGpUjnR9De5I2B8O1YcA8VZ/943TEnezTpRPFkEx5eAuERuWKxOU+iwkkLBYNqrVIfvBM8aZimQJn3HKrEEhHRwy/Yr5EqPtCVuwqdEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788175669; c=relaxed/simple;
-	bh=jSAgtcVmJxc/yhDb3yNpyoleuog2V6zndwyWvt6DqPo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TL72ICEO3892xTLd4ngkTYMatOLZZiLVQ1wnUNaYIoQ7eUA3hwb5C+ZuEq4P1/7OVvLGtqJH5gw1uVq2RWA3qmBcTzfZ0UqaoqsH0RdEj6JygHs8GqAKq6g26BG8OR5KoLxaCoCz2KIBTZlazOZg+MuzMLDwZUU63lEdR+rkftI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=S4A1SjxK; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788175726; c=relaxed/simple;
+	bh=Pj6w8HADzrwFoI05Y+wM7KubVh46ro/Npq6045L8WvE=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=rmnBFOWMFYHT+CUatcLSV/vuYnQUqRCH+0jQNixiijWJZSC1CNwyQNDrNwUBPL82VMZ7Xtf3FzVKPVuRVBtTVxKcL5XG0k5HoQawTYgOs3KfIW55cYqF/3svjcbv3jw2YKzb/iLzJRxoxgs/g+KGW4XXl9TZ2kWO43ahUdzeKkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SB3scY7d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="S4A1SjxK"
-Received: from weh-cvm-dev-vm.y50bckvjo0hefgfnzfztsfttff.phxx.internal.cloudapp.net (unknown [20.169.55.37])
-	by linux.microsoft.com (Postfix) with ESMTPSA id A622A20B7128;
-	Mon, 31 Aug 2026 04:27:11 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A622A20B7128
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788175632;
-	bh=MtV+bkoXaoVF8P8A2hn5t6K1Cz9hKyy8RhQeRZ9NhyY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=S4A1SjxKUVDRfQ3xnZvmkTHogWjMJMcCrBsK2rtUBcCS5BRYFrNskTtQzL9AYWdxv
-	 GD3VidbJl+p5wnb9H7jfl1Oz3+4Z3oOfEL245Xe4iGgAB4MzTjC+cX85Zs1chM7uJh
-	 Fx+YeW6cqz6TtKpyVWcHYL1ioMidgY1iKF5TA5+U=
-From: Wei Hu <weh@linux.microsoft.com>
-To: linux-hyperv@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Wei Hu <weh@microsoft.com>
-Subject: [PATCH v4 9/9] mshv: set up own SynIC registers on a nested root partition
-Date: Mon, 31 Aug 2026 11:26:47 +0000
-Message-ID: <20260831112704.2851147-10-weh@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831112704.2851147-1-weh@linux.microsoft.com>
-References: <20260825040505.826600-1-weh@linux.microsoft.com>
- <20260831112704.2851147-1-weh@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SB3scY7d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1151F1F000E9;
+	Mon, 31 Aug 2026 11:28:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788175725;
+	bh=Gqj2K9+wp90YvEKZMSvL1LZpZwjNHSzCNuGCNxMefXo=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=SB3scY7d63d/eJqv4Mh0utENg6FNoyxZgIZfYT9wskjSLb93/ewvpTUimcqX/GycD
+	 ea0MQ6BpzM0/16qegjhq+AUZrlZpEHHkiArnotvBjmtwdKodlaMy+08y3hHkQIK6AC
+	 kAbh/Rl8Kbbr3alcBNFvuwg7AztwQLn0+63qIN6qn0nB0HRxIEV6moLayEbXbib4m9
+	 wcds6YEC6MT4RzN0hGJlZgWRNfthKz7niDrcjOISOnnRkNo4A7wP2kMVd8VRT6RJC4
+	 iSDkFFPBdt7alnLg0sK3x/QULuPoYlRtjTIkKJcPOMir+/q1BUfoP+kPGj0atA8DXv
+	 am0ubi84jP7eg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH V2] kho: Convert error handling to immediate return
+ pattern
+From: Mike Rapoport <rppt@kernel.org>
+To: LongWei27 <longwei27@huawei.com>
+Cc: Alexander Graf <graf@amazon.com>, Mike Rapoport <rppt@kernel.org>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, hewenliang4@huawei.com
+In-Reply-To: <20260824024448.550552-1-longwei27@huawei.com>
+References: <00c96a62-f783-497c-a7ac-1de495e4af06@huawei.com>
+ <20260824024448.550552-1-longwei27@huawei.com>
+Date: Mon, 31 Aug 2026 14:28:39 +0300
+Message-Id: <178817571946.3691424.3757525664520719609.b4-review@b4>
+X-Mailer: b4 0.17-dev
 
-From: Wei Hu <weh@microsoft.com>
+Hi,
 
-Upstream mshv_synic_cpu_init()/_exit() skip programming the SynIC
-SIMP/SIEFP/SCONTROL registers when VMBus is active (hv_vmbus_exists()),
-assuming VMBus's hv_hyp_synic_enable_regs() already provisioned them.
 
-That assumption is wrong for a nested root partition. There, VMBus
-programs the nested SynIC MSRs (HV_X64_MSR_NESTED_SIMP, ...) through
-hv_set_msr()'s nested remap, while mshv_synic reads and writes the
-non-nested SynIC MSRs. As a result MSHV maps the wrong message page and
-never receives the async hypercall completion, hanging guest creation.
+> Replace the chained error accumulation (err |= func()) with immediate
+> per-step error checking and early return in kho_out_fdt_setup().
+> 
+> Two problems with the current approach:
+> 1. It continues executing FDT operations even after a failure, which
+>    is pointless and potentially unsafe on an invalid FDT context.
 
-Gate the "VMBus owns the SynIC registers" optimization on !hv_nested so
-a nested root partition programs its own non-nested SynIC registers.
-There is no behavior change for a non-nested root.
+Did you actually see failures here or was it an LLM suggesting that they
+may happen?
 
-Map hypervisor-provided SIMP, SIEFP, and root SIRBP pages with the shared
-GPA boundary removed and MEMREMAP_DEC, matching drivers/hv/hv.c for
-confidential hosts. The L1VH SIRBP remains locally allocated.
+> 2. Bitwise OR of multiple negative error codes produces a result that
+>    may not represent any actual error, making debugging misleading.
+> 
+> Early return fails fast and preserves the original error code for
+> accurate diagnosis.
 
-Signed-off-by: Wei Hu <weh@microsoft.com>
----
- drivers/hv/mshv_synic.c | 38 +++++++++++++++++++++++++-------------
- 1 file changed, 25 insertions(+), 13 deletions(-)
+The caller does not care about the exact error value, so the diagnosis
+statement is moot at best.
+Moreover, libfdt does not return Linux error values.
 
-diff --git a/drivers/hv/mshv_synic.c b/drivers/hv/mshv_synic.c
-index 0fdbae1e053c..8470cf958f21 100644
---- a/drivers/hv/mshv_synic.c
-+++ b/drivers/hv/mshv_synic.c
-@@ -458,6 +458,25 @@ void mshv_isr(void)
- 	}
- }
- 
-+static bool mshv_synic_vmbus_owns_registers(void)
-+{
-+	/* Nested VMBus programs nested MSRs, while MSHV uses non-nested MSRs. */
-+	return hv_vmbus_exists() && !hv_nested;
-+}
-+
-+static void *mshv_synic_map_shared_page(u64 pfn)
-+{
-+	u64 base;
-+
-+	if (!pfn)
-+		return NULL;
-+
-+	/* Match Hyper-V's established confidential SynIC mapping convention. */
-+	base = (pfn << HV_HYP_PAGE_SHIFT) &
-+		~ms_hyperv.shared_gpa_boundary;
-+	return memremap(base, HV_HYP_PAGE_SIZE, MEMREMAP_WB | MEMREMAP_DEC);
-+}
-+
- static int mshv_synic_cpu_init(unsigned int cpu)
- {
- 	union hv_synic_simp simp;
-@@ -468,11 +487,7 @@ static int mshv_synic_cpu_init(unsigned int cpu)
- 	struct hv_message_page *msg_page;
- 	struct hv_synic_event_flags_page *event_flags_page;
- 	struct hv_synic_event_ring_page *event_ring_page;
--	/*
--	 * VMBus owns SIMP/SIEFP/SCONTROL when it is active.
--	 * See hv_hyp_synic_enable_regs() for that initialization.
--	 */
--	bool vmbus_active = hv_vmbus_exists();
-+	bool vmbus_active = mshv_synic_vmbus_owns_registers();
- 
- 	/*
- 	 * Map the SYNIC message page. When VMBus is not active the
-@@ -484,8 +499,7 @@ static int mshv_synic_cpu_init(unsigned int cpu)
- 		simp.simp_enabled = true;
- 		hv_set_non_nested_msr(HV_MSR_SIMP, simp.as_uint64);
- 	}
--	msg_page = memremap(simp.base_simp_gpa << HV_HYP_PAGE_SHIFT,
--			    HV_HYP_PAGE_SIZE, MEMREMAP_WB);
-+	msg_page = mshv_synic_map_shared_page(simp.base_simp_gpa);
- 	WRITE_ONCE(spages->hyp_synic_message_page, msg_page);
- 
- 	if (!msg_page)
-@@ -500,8 +514,7 @@ static int mshv_synic_cpu_init(unsigned int cpu)
- 		siefp.siefp_enabled = true;
- 		hv_set_non_nested_msr(HV_MSR_SIEFP, siefp.as_uint64);
- 	}
--	event_flags_page = memremap(siefp.base_siefp_gpa << HV_HYP_PAGE_SHIFT,
--				    HV_HYP_PAGE_SIZE, MEMREMAP_WB);
-+	event_flags_page = mshv_synic_map_shared_page(siefp.base_siefp_gpa);
- 	WRITE_ONCE(spages->synic_event_flags_page, event_flags_page);
- 
- 	if (!event_flags_page)
-@@ -511,8 +524,8 @@ static int mshv_synic_cpu_init(unsigned int cpu)
- 	sirbp.as_uint64 = hv_get_non_nested_msr(HV_MSR_SIRBP);
- 
- 	if (hv_root_partition()) {
--		event_ring_page = memremap(sirbp.base_sirbp_gpa << HV_HYP_PAGE_SHIFT,
--					   HV_HYP_PAGE_SIZE, MEMREMAP_WB);
-+		event_ring_page =
-+			mshv_synic_map_shared_page(sirbp.base_sirbp_gpa);
- 
- 		if (!event_ring_page)
- 			goto cleanup_siefp;
-@@ -595,8 +608,7 @@ static int mshv_synic_cpu_exit(unsigned int cpu)
- 	struct hv_message_page *msg_page;
- 	struct hv_synic_event_flags_page *event_flags_page;
- 	struct hv_synic_event_ring_page *event_ring_page;
--	/* VMBus owns SIMP/SIEFP/SCONTROL when it is active */
--	bool vmbus_active = hv_vmbus_exists();
-+	bool vmbus_active = mshv_synic_vmbus_owns_registers();
- 
- 	msg_page = READ_ONCE(spages->hyp_synic_message_page);
- 	event_flags_page = READ_ONCE(spages->synic_event_flags_page);
 -- 
-2.43.0
+Sincerely yours,
+Mike.
 
