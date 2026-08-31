@@ -1,180 +1,239 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D164A485B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:59:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188350; cv=none; b=eoaupGbI41EeISroznQLQcKOFuefnhCio+k3SOwVBW1HfgVLr7npcQ4o5MBmPTgPpB1luyD9uTQaXzfc9/0S3tD8GPpZcT+AG2I/k72OGE1bOpLRJQgw/wWfOeIbRX0FjSu/EYRVXqvJysZMtkGCXbWzSKE6wv8c7KVGRmow9Z0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188350; c=relaxed/simple;
-	bh=5KhiJbcieDZfeu7OhpVzLzEkFsyZdr9FNUMf/xPQitk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WVKvQPpwF1gZk62CoRf3BJDd5udJeqYwENqF9gvYvYd5Uz1ZXRcrnnsQgE9vur9JwIevfAa3dHXdFOb5Fbb0Qa8oxX3KwrhUqAql5XQf7vM8MD9IQkqcez57VRsUbpRs4GK5rtA47ovxm4TIbOnZDRmh+o8F1QC/HaYqlZu9IU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kba1Um1I; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=6QBCg2q7; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Cp7WNb0k; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=WVbWiOO7; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D8645FFBE
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:59:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788188367; cv=pass; b=L6d8s54Xg4tj6QwXrASwBSyFQdqSbHNxESPx/1R7j5/FLOQqj4tYnfZ43kZqlOzCAD0+Ul22Up2TcPVHIXs13Z5VnUd8sY9iDf+w5hozdLav5PIqjQgYA3i0ggRBTZl3vCa0xXDNtEQxL+lCuKcJebWDnzG0Lrk9UzkfAPvuLUU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788188367; c=relaxed/simple;
+	bh=NDSAUMIrhGwZVBaE+3G01mA3FxHUYStfITzSBv3VyKI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=b6OR6ihSn8eXWTHCjA+0nMKZ4zvtZsQDKU1pYvjtw9MIjaRHnj5Mob6QjZBdyHodNSDj7xXWne7IsWLktHkBnt4A9EJxRIlpoo5TlSrVrBnhVhrh8sASuyUS/qfo07O2gz+wkaQ4ZEE/DjRYCWIXCvOLxGziP0TWyYd/465COWw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=I5tE7+9V; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kba1Um1I";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6QBCg2q7";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Cp7WNb0k";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WVbWiOO7"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C14351FD91;
-	Mon, 31 Aug 2026 14:58:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788188342; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UvT21SLbv8rzIVCfuPJMnTzw0oJMybcWGfiy1xZkB+E=;
-	b=kba1Um1IJqQOmOWWC02FQ7wljvpMVdLO8KeaMH4vf5Cn8EDZP55CGvLwBgMa6St8AbfvWC
-	9W14+XoGWltDkZCveefQqbd8mJ/F6Ob+P7Ddl3COw7ZV6o/7djMKtoRY0D/uO6D32vrkC+
-	E3wIdI0kyo/wLIudqePMc+YeV1U5XWM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788188342;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UvT21SLbv8rzIVCfuPJMnTzw0oJMybcWGfiy1xZkB+E=;
-	b=6QBCg2q7ckf4CU7BXXxPylVr2LQ4f4CB7KMFT9wFe7KDfXmTDVSpRiNb6eCboh21D5QiOP
-	lAycuAu3y+JA48Cg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788188338; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UvT21SLbv8rzIVCfuPJMnTzw0oJMybcWGfiy1xZkB+E=;
-	b=Cp7WNb0kLL3rrGZj09jUIdXtLyNI9QB7TeK3l6lNVpsg6Ufa7iIcFcduq3ccurCZPsgoPa
-	KtbvdebtIOxh5u+ENZoVUyOqDatZFRxakCEr1i/OjGZHz//M/FvarJrRrWM5CLiJH6d7gA
-	/O/ixOt7bWq6fE6mxH4eZrwEmg9Fgz4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788188338;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UvT21SLbv8rzIVCfuPJMnTzw0oJMybcWGfiy1xZkB+E=;
-	b=WVbWiOO7rQEg1ngq9yJq0d1joO+t5F6Hv6hy1OIHxdDlaGLaGJkwHQ3NNtZlRKeaXa47VS
-	qymBittGYZibkHDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 282B813685;
-	Mon, 31 Aug 2026 14:58:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id edFzBrKWlWpdHAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 31 Aug 2026 14:58:58 +0000
-Date: Mon, 31 Aug 2026 15:58:56 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Andi Kleen <ak@kernel.org>
-Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
-	jannh@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] RCU safety for vma maple tree walks
-Message-ID: <apWUsc-a6k1YkuMv@pedro-suse>
-References: <20260831143511.1133029-1-ak@kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="I5tE7+9V"
+ARC-Seal: i=1; a=rsa-sha256; t=1788188340; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=LSQzgFS8WNjWIMjuLBuEk2ih1YG5oaoA+HzYfqfKD4APGNWpmguS+IrmJ9m2a+gRLNqees//TlxBQcLbmJhUfMBlEwmASR6A3Dka+fW26hee3+Z/PiZfVpNRON5WzdicZCRA6oNRgyW2jBM9rQ/55dxpM1VH9dagipXyGp9lcLI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788188340; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=V/n0rs421QS75IopvdLae0ZbpJtQFPcqIOlcj/fficI=; 
+	b=YuFxxnmrC5VT59CNX0VglEPb8NUMl3yDRYIAkU8ECbnR7WsXoZC+fXS5MC454lrMwV5ULeLBHqJ6jhfqcyQ70GnyatsvhEOjRKufWTHD3lHAHGHua+yhwRAste4vO5QomF3s3/3jTerwrY/2MNy6ZKQYy9fuLcmXKxSuXodYxes=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788188340;
+	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+	bh=V/n0rs421QS75IopvdLae0ZbpJtQFPcqIOlcj/fficI=;
+	b=I5tE7+9VilVLgXVhGQhIZw9SBJJOeNfpri7jImqCUqernc0mGF2Mz5hl+UVlXbXY
+	Wi0FBHO2If0QcxpdjdxJGoan1oZulXZz1RqPAC4qUhi7zbX8dmhMrQzzBl6tX6qHfV0
+	1Bufcg7xkuAVJWRjgkEBwXvAEc6tzKm/CVy++FCk=
+Received: by mx.zohomail.com with SMTPS id 1788188339156677.9545572505285;
+	Mon, 31 Aug 2026 07:58:59 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH] drm/panthor: Display priorities of panthor groups over debugfs
+Date: Mon, 31 Aug 2026 16:16:12 +0200
+Message-ID: <bh_Hv8FlSPWfzvdtnF4oNA@collabora.com>
+In-Reply-To: <20260824101420.36380185@fedora-21.home>
+References:
+ <20260818-panthor-sched-group-prio-v1-1-1836857c53e9@collabora.com>
+ <20260824101420.36380185@fedora-21.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831143511.1133029-1-ak@kernel.org>
-X-Spam-Level: 
-X-Spam-Score: -3.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[syzkaller.appspot.com:url,imap1.dmz-prg2.suse.org:helo]
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-On Mon, Aug 31, 2026 at 07:35:11AM -0700, Andi Kleen wrote:
-> I ran into the following scenario in a slightly modified kernel:
+On Monday, 24 August 2026 10:14:20 Central European Summer Time Boris Brezillon wrote:
+> Hello Nicolas,
 > 
->  1. vms_gather_munmap_vmas walks the unmap range and caches a maple node N
->     in the maple iterator.
->  2. It triggers a __split_vma to fix up a range and during that node N
->     is queued for freeing with kfree_rcu
->  3. There is another __split_vma that allocates memory and sleeps due to
->     memory pressure.
->  4. During the sleep the grace period expires and node N gets freed for
->     real.
->  5. The iterator still has node N cached
->  6. When the iteration continues it accesses the freed node and KASAN
->     trips:
+> On Tue, 18 Aug 2026 21:35:24 +0200
+> Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
 > 
-> BUG: KASAN: slab-use-after-free in mas_next_slot+0x1e95/0x2860
-> Read of size 8 at addr ffff8881160bdc00 by task pool-e/5770
-> CPU: 1 UID: 0 PID: 5770 Comm: pool-e Not tainted 7.2.0-rc7-1-debug+ #106
-> Allocated by task 5770:
->   mas_alloc_nodes <- mas_preallocate <- __split_vma <- vms_gather_munmap_vmas
->     <- do_vmi_align_munmap <- do_vmi_munmap <- __vm_munmap <- elf_load
->     <- load_elf_binary <- bprm_execve          (pool-e's exec)
-> Freed by task 25 (ksoftirqd):
->   __rcu_free_sheaf_prepare <- rcu_free_sheaf_nobarn <- rcu_do_batch <- rcu_core
-> The buggy address ... cache maple_node of size 256
-> freed 256-byte region [ffff8881160bdc00, ffff8881160bdd00)
+> > Analogous to what was added in Commit d41c79838c47 ("drm/panfrost:
+> > Display list of device JM contexts over debugfs") for panfrost, add
+> > similar debugfs information for panthor.
+> > 
+> > The group priority does not change over the lifetime of the group, so no
+> > effort to synchronise with the scheduler lock is being made.
+> > 
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> > Some additional notes: I noticed panthor apparently uses
+> > xa_for_each{_marked} by guarding it with xa_lock/xa_unlock. That appears
+> > to be unnecessary, judging by the documentation of it and that nobody
+> > else does this.
+> > ---
+> >  drivers/gpu/drm/panthor/panthor_drv.c   |  1 +
+> >  drivers/gpu/drm/panthor/panthor_sched.c | 89 +++++++++++++++++++++++++++++++++
+> >  drivers/gpu/drm/panthor/panthor_sched.h |  5 ++
+> >  3 files changed, 95 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> > index 46a3080b0b20..8cdba0c1a14b 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> > @@ -1769,6 +1769,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
+> >  {
+> >  	panthor_mmu_debugfs_init(minor);
+> >  	panthor_gem_debugfs_init(minor);
+> > +	panthor_sched_debugfs_init(minor);
+> >  }
+> >  #endif
+> >  
+> > diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> > index 5832dccfc093..44b61e946e2d 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> > @@ -1,6 +1,7 @@
+> >  // SPDX-License-Identifier: GPL-2.0 or MIT
+> >  /* Copyright 2023 Collabora ltd. */
+> >  
+> > +#include <drm/drm_debugfs.h>
+> >  #include <drm/drm_drv.h>
+> >  #include <drm/drm_exec.h>
+> >  #include <drm/drm_file.h>
+> > @@ -4198,3 +4199,91 @@ int panthor_sched_init(struct panthor_device *ptdev)
+> >  	ptdev->scheduler = sched;
+> >  	return 0;
+> >  }
+> > +
+> > +#ifdef CONFIG_DEBUG_FS
+> > +
+> > +static const char *
+> > +panthor_sched_prio_str(enum panthor_csg_priority prio)
+> > +{
+> > +	switch (prio) {
+> > +	case PANTHOR_CSG_PRIORITY_LOW:
+> > +		return "LOW";
+> > +	case PANTHOR_CSG_PRIORITY_MEDIUM:
+> > +		return "MEDIUM";
+> > +	case PANTHOR_CSG_PRIORITY_HIGH:
+> > +		return "HIGH";
+> > +	case PANTHOR_CSG_PRIORITY_RT:
+> > +		return "REAL-TIME";
+> > +	default:
+> > +		return "UNKNOWN";
+> > +	}
+> > +}
+> > +
+> > +static int show_file_groups(struct panthor_file *pfile, struct seq_file *m)
+> > +{
+> > +	struct panthor_group *group;
+> > +	unsigned long i;
+> > +
+> > +	if (IS_ERR_OR_NULL(pfile->groups))
+> > +		return -ENOENT;
+> > +
+> > +	xa_for_each_marked(&pfile->groups->xa, i, group, GROUP_REGISTERED) {
+> > +		seq_printf(m, " Group %lu: priority %s\n", i,
+> > +			   panthor_sched_prio_str(group->priority));
+> > +	}
 > 
-> There was also a more complex scenario when the node was immediately
-> recycled for the next split VMA insert, modified, but the access by
-> the iterator for the previous walk saw corrupted state and triggered
-> KASAN too.
+> Could this race with the GROUP_DESTROY ioctl and open the door for
+> potential UAFs on the group object? Seems
+> panthor_fdinfo_gather_group_samples() has this xa_for_each_marked()
+> inside an xa_lock()-ed section to cover for this.
+
+Hm, right, I was only considering the case where a group destruction
+would happen when the drm handle is being closed anyway, which is
+mutually excluded with the caller's file lock.
+
+That being said, I'm not sure I'm in love with locking groups->xa
+as a way to protect against this, but it's more fine-grained than
+taking the scheduler mutex so I guess it's an improvement over that.
+
+Looks like xa_for_each_marked only takes the RCU read lock in the
+functions it calls, and I was hoping we could make a panthor-specific
+variant that group_get()s the group before unlocking, but that would
+be a write.
+
+With the additional locking around the iteration, we can use
+xas_for_each_marked though, but I don't think the rcu overhead for
+the repeated unlocks is a problem.
+
+This is debugfs so I shouldn't even worry.
+
 > 
-> Basically the problem is that any sleeping during VMA walks breaks the
-> RCU reader guarantees for the RCU Maple tree iterators. But sleeping
-> is unavoidable for various reasons.
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int show_each_file(struct seq_file *m, void *arg)
+> > +{
+> > +	struct drm_info_node *node = (struct drm_info_node *)m->private;
+> > +	struct drm_device *ddev = node->minor->dev;
+> > +	int (*show)(struct panthor_file *, struct seq_file *) =
+> > +		node->info_ent->data;
+> > +	struct drm_file *file;
+> > +	int ret = 0;
+> > +
+> > +	scoped_cond_guard(mutex_intr, return -EINTR, &ddev->filelist_mutex) {
+> > +		list_for_each_entry(file, &ddev->filelist, lhead) {
+> > +			struct task_struct *task;
+> > +			struct panthor_file *pfile = file->driver_priv;
+> > +			struct pid *pid;
+> > +
+> > +			/*
+> > +			 * Although we have a valid reference on file->pid, that does
+> > +			 * not guarantee that the task_struct who called get_pid() is
+> > +			 * still alive (e.g. get_pid(current) => fork() => exit()).
+> > +			 * Therefore, we need to protect this ->comm access using RCU.
+> > +			 */
+> > +			rcu_read_lock();
+> > +			pid = rcu_dereference(file->pid);
+> > +			task = pid_task(pid, PIDTYPE_TGID);
+> > +			seq_printf(m, "client_id %8llu pid %8d command %s:\n",
+> > +				file->client_id, pid_nr(pid),
+> > +				task ? task->comm : "<unknown>");
+> > +			rcu_read_unlock();
 > 
-> I hit it with a kernel modification that makes this more likely
-> (It can do VMA splits on exec mm teardown)
-> and also in a very memory constrained environment (4GB guest running a
-> stress test), but based on code review I believe it's a generic problem that
-> could happen in a unmodified kernel.
+> Don't we have this piece of information stored in
+> panthor_group::task_info already? Unless you really want to reflect
+> clients that have no groups, or have groups from a given client clearly
+> outlined in the debugfs output, I'd flatten things out and have these
+> client-related info printed along the group info in show_file_groups()
+> (pass a drm_file instead of a panthor_file, so you can get the
+> client_id from there).
+
+I basically copied this over from panfrost's debugfs output. I do agree
+that doing it in a flat listing without grouping them by file->pid is
+simpler, since it saves us the trouble of the rcu fun here.
+
 > 
-> That said I wasn't actually able to trigger it in a unmodified kernel
-> so far with stress testing.
+> Regards,
 > 
-> The following old unsolved syzkaller report has a similar signature,
-> so maybe it was already seen:
-> https://syzkaller.appspot.com/bug?id=4c5268fbb1d6d508a4c34dc425e2693d1ff9911a
+> Boris
 > 
-> I guess in many cases where it happens for real you don't notice it
-> if you don't have KASAN active.
-> 
-> The patch fixes up all callers to maintain the RCU reader lock
-> regions correctly during the VMA walk. If they cannot be maintained the
-> iterator is refreshed by a new VMA address lookup in a new region, unless
-> it is proven safe not to.
+> > +
+> > +			ret = show(pfile, m);
+> > +			if (ret < 0)
+> > +				break;
+> > +
+> > +			seq_puts(m, "\n");
+> > +		}
+> > +	}
+> > +
+> > +	return ret;
 > 
 
-But none of this code uses RCU? I'm confused. The maple tree state should not
-be keeping bad state. That is a bug.
 
-All of these functions take the mmap write lock. That should exclude
-against other concurrent changes. Using RCU here makes no logical sense.
 
-Does the kernel say anything interesting when CONFIG_DEBUG_VM_MAPLE_TREE=y?
- 
 
--- 
-Pedro
