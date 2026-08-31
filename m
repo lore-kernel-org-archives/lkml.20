@@ -1,109 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0AC33624C9
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:46:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884173CF69F
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:47:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788166020; cv=none; b=oBi6nBBfmQYC6RHmvDfk+ibR0aTABInicnWfDzgRGS2e22XfYwtXm76eIZLwzP0I9PEZl0bj3sQyUQZPqAXHpPrjggZw8S7KBz/Pryz1mIN31vOKZnvwO2FKbOtzJq2Ka8LG9D8oy8zf99UXOk4dLCWc1/iL82onfGq1OorUGpk=
+	t=1788166037; cv=none; b=A+7AlO7Ozwp5VvMBvdwfZIlMBdlENqL5Uhmh7fjOPVnvv7gE0Iy5In68L+wvlfe/GfMeGjw920qBADHXncG2Y7I82PNXVsVH2OSSTvllK60BHdh4C7UZWCqy91EIhIQ/1/ipd5iC5jIQoWAP1kLyhHZqy1oPYDWVYazz2do8r7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788166020; c=relaxed/simple;
-	bh=OdEwtXoaK0wQpbmQjTEb8ammK3pxk+2Gp209pH8fp0o=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=bL4uWJ+ds1onBYy5qRFcTJ90681lgcaLaLUv+wSyRQdL50T8/nVMT1PcPxPoTeOx46idZluEyxMsB1ug4ehP3e+ACiUmcE4XGa0E/dJ3DPtPAm8vPATVdL5Tm6PCy+F5Xh6d+QtfhhKPVgT/OWejEaBrFgq5GXRp8jbFyX7ksJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VarKxufO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788166037; c=relaxed/simple;
+	bh=6Y8mIgLOX9gNfB/CKfrbSpXaCIhqsITj6hzmi53La3k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kwcVK9WfSAQudPsrf8Da+u0QMk2Npqqdi0ECWi8HovFSVRCuZ9N7lRdOKpONxHrl5mb3o17/mouUolAD0lJRTMTRC3fFzFTo7KMJWdnb46dJcma8oanOURC38kfBPJN+bmgSJZYdNjtUj95adynoiVTTkPjENH4we9Qm93hWVSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n6rModvz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VarKxufO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27E401F000E9;
-	Mon, 31 Aug 2026 08:46:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n6rModvz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9C131F000E9;
+	Mon, 31 Aug 2026 08:47:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788166019;
-	bh=VQnyeozED9KENp5fLCfASXjgZw48Aez7/KG7ZHlPB6o=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=VarKxufOjF6BHqCh8Z40QAsdJqNubO50wawp61Z3JBQ3BhuO/DENJ4jsFiEzOJVvQ
-	 ldLi5gMiXYx0vR7ofVe6PNpVHoSva48bt/tHrRSoOg4ZKaR2mt0tM7eXNg9BCaEaMf
-	 1ySy9kqreXd4mWNkRqe0tHmjqiX+UKEkIJ2lF7BP/vR6DVirLU65l+nqfcR7VAdVYi
-	 VPyjzM0J8x3HPNeZYmOZ+6+y2AYOx3EdvsfTPzDt1N9MBcD5jex5JxNClTyq87VxMo
-	 NusHTTXOYJ8OA84ILSET03FrZ5KILZBBTi2H03GYTrSDvgWIOBxS6gCuw5OeKxJhJc
-	 GT9090PLkflAw==
-Message-ID: <bd032f33-01ec-48e0-a214-cd1e04cb466e@kernel.org>
-Date: Mon, 31 Aug 2026 16:46:55 +0800
+	s=k20260515; t=1788166036;
+	bh=j2Mk0tZDWX6Jqg1UsT9JhoDtteuQwP3WlAW2gIqLEl8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=n6rModvzfMT8KL/sLyWh+3dibwD5hGqkyYm6uTnSlTJAl7ndHpZ5iFN/cT4UNk6sG
+	 wdtyKWTMPdEjCD0GfAoq5YujtJnGBP1I10ojPNRxeYtUDr+rUSs2C0l/MDzt3Nrjek
+	 xfDU+XZtyi7ldcCgIlvxvCmE6JCAwO4j7mU7zcRXCNGcXZ3NrPqTtQNVWgfbzrLy+g
+	 BB9rHt1Tjv/ALrCnQQrr71byw/6m2pvjxj5GGzx9lp6p39NpHWglexa1Tc1j0UxjSr
+	 RS+paGmo4R9TKKVOLsktBEOnphBuqcgwibnoZgH7W/Yxlm7kffQdVEFYshQDwcjkSs
+	 DxQ1DI51igRnQ==
+Date: Mon, 31 Aug 2026 09:47:09 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Dev Jain <dev.jain@arm.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, riel@surriel.com, 
+	liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com, 
+	lance.yang@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/rmap: remove stale hugetlb check in try_to_unmap_one
+Message-ID: <apU_g-m8-IBY9iTm@gremlin>
+References: <20260831082849.3573957-1-dev.jain@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
- Nanzhe Zhao <nzzhao@126.com>, Juan Yescas <jyescas@google.com>,
- Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org,
- David Hildenbrand <David.Hildenbrand@arm.com>,
- Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
- Ryan Roberts <Ryan.Roberts@arm.com>, Pengfei Li <lipengfei28@xiaomi.com>
-Subject: Re: [PATCH 14/14] f2fs: make compressed files compatible with large
- folio
-To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
- linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20260826082641.2007658-1-zhaonanzhe@xiaomi.com>
- <20260826130916.2231342-4-zhaonanzhe@xiaomi.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260826130916.2231342-4-zhaonanzhe@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831082849.3573957-1-dev.jain@arm.com>
 
-On 8/26/26 21:09, Nanzhe Zhao wrote:
-> The compression flag is the hint indicates that the inode can be
-> compressed, when the inode is using large folio, we expected it keeps
-> using the large folio read/write paths and its data stays uncompressed
-> on disk until the inode is evicted and re-read
-> 
-> Let f2fs_write_begin() skip the compression overwrite preparation for
-> such inodes and remove the compressed-file gate in
-> f2fs_read_data_large_folio() so the data is simply read/written as
-> regular blocks.
+On Mon, Aug 31, 2026 at 08:28:47AM +0000, Dev Jain wrote:
+> Post commit d4ec5572825a ("mm/rmap: add try_to_unmap_poisoned_hugetlb_one")
+> try_to_unmap_one() cannot be called with a hugetlb folio. Therefore remove
+> the folio_test_hugetlb() check.
+>
+> Signed-off-by: Dev Jain <dev.jain@arm.com>
 
-Can you please elaborate more about compress policy in doc as well?
+LGTM so:
 
-Otherwise, user may be confuse about compressed inode behavior, e.g.
-for the case we enable compress inode via ioctl, but due to large
-folio flag is set, content of inode will be kept as raw before evict
-and reload.
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Thanks,
-
-> 
-> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 > ---
->   fs/f2fs/data.c | 9 ++-------
->   1 file changed, 2 insertions(+), 7 deletions(-)
-> 
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index 2e20833c6417..befcdc3742f6 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -2955,12 +2955,6 @@ static int f2fs_read_data_large_folio(struct inode *inode,
->   	int ret = 0;
->   	bool folio_in_bio = false;
->   
-> -	if (f2fs_compressed_file(inode)) {
-> -		if (folio)
-> -			folio_unlock(folio);
-> -		return -EOPNOTSUPP;
-> -	}
-> -
->   	map.m_seg_type = NO_CHECK_TYPE;
->   
->   	if (rac)
-> @@ -4935,7 +4929,8 @@ static int f2fs_write_begin(const struct kiocb *iocb,
->   	}
->   
->   #ifdef CONFIG_F2FS_FS_COMPRESSION
-> -	if (f2fs_compressed_file(inode)) {
-> +	if (f2fs_compressed_file(inode) &&
-> +	    !mapping_large_folio_support(inode->i_mapping)) {
->   		int ret;
->   		struct page *page;
->   
+> Rebase soup - my huge_ptep_get() fixes landed after the refactoring.
+>
+> This patch applies on Linux 7.3-rc1.
+>
+>  mm/rmap.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
+>
+> diff --git a/mm/rmap.c b/mm/rmap.c
+> index d1819fd699380..606c8ecf31302 100644
+> --- a/mm/rmap.c
+> +++ b/mm/rmap.c
+> @@ -2299,11 +2299,8 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+>  		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
+>
+>  		address = pvmw.address;
+> -		if (folio_test_hugetlb(folio)) {
+> -			pteval = huge_ptep_get(mm, address, pvmw.pte);
+> -		} else {
+> -			pteval = ptep_get(pvmw.pte);
+> -		}
+> +		pteval = ptep_get(pvmw.pte);
+> +
+>  		if (likely(pte_present(pteval))) {
+>  			pfn = pte_pfn(pteval);
+>  		} else {
+> --
+> 2.43.0
+>
 
+--
+Cheers, Lorenzo
