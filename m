@@ -1,203 +1,213 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF733C1D48
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:54:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2963C9EF6
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:54:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788162889; cv=none; b=AwYKT7Bns54rCjOKCHg0cz5zOh2k00x70okuC+4UH8UD+FNCxPUaAm7Y+V8hyXfCBWqw5NcgTLnG/Vg3fE5EazsX45sRN1UF1Lxpd1wM4WL7l+hZMLUviLfDZPmONzhW3+JpY9evReOxRP0OrUjWp3GzzzjAMOlH+9tMSDNldUY=
+	t=1788162896; cv=none; b=lKFy5lW/R5N48gmXp6V7bCUybVe4NEYBUjNbHs4Ih38IrVq2KAz9BgQfhZuaGcOC2pUPypJNcpgOmzRw/panduycGP3nzL8ELiF4GXf4pWj7N0XNo82i2pY996iO/jRip8B72maklliCVERvnNS0qVgyOfWFW6gTaMDMsq1Tf+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788162889; c=relaxed/simple;
-	bh=ZXNUMeyA9Kooe1teg7duNPKgU8sYXLIOjB2Mmy38Hk0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FaQKluY0JsR2VylPAqwDzu9V2TH9UPBP5U8XZ2Qsd8RMV7wpL3h+KV+Dfyf4v7NwbrMYJ08NcN6rY2hAzpM7k49YR3U3x6qRq/tw1xj6DxijVLxxz3KDQyJdvqokGtouECp6gXA2bRoYPZILCct18UjL0Q+WtVSQR3s/IS73PKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o461NXyC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RHBsH8ex; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788162896; c=relaxed/simple;
+	bh=Yhk2qT4J6yuXuggajr5zs+V+I0LBgnI5qbnHpBCNQE8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JvJ1wdI+c8GMi9MUMs8vdC9zZl8tf89ZdTrWOmiLqamX4zrkDu5kxMQ0FiCH2rpLhzWRIntsNdg3ecGBWNgRJi9fnl0595k5P6I56Htjic6trYt+aDNViJ13wa2JMvl52bFBRtoevjSGZU9WALQZuCijOLTwmvxmaGp08NM3//w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=fcPI9HWq; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o461NXyC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RHBsH8ex"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V7L0nj2374156
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:54:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	SePPvMBxpaGoDJhHrmxh33/I8LF7sPSpOeAAcC2frqc=; b=o461NXyCXoygd1RA
-	VCJENKDrt7zYXZp5QGLvjzWYSuesVy4N47reVzWhT6SWKMAn2G/lft7T4a+c+eJZ
-	ZwZcIP1OtqnuiIlMzpr/eGOpzrZRX57VMXFVxobK86iDkgurQju3wonsKCRXGk1U
-	fQkFaFyDzCQO0hX/3Ro4OTAWS+wu617bwsN1axJ85dQ+Y6id9IGVTmR5X0uxm5Hk
-	9fNC/zo+3wNzW4wPlCL2/rFX+vBydf1MhYIST6m8dS35BdCS/o02Lcuq/L0sXQ/0
-	3BkOEoFmSb43DSujMVatjP3npG5yVcnbV/vkR+c0FLd2+5b/hAi49b0rsMpicPMZ
-	rjLFTA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd556r447-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:54:46 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-53002215979so4319211cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:54:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="fcPI9HWq"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so4488842a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:54:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788162886; x=1788767686; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SePPvMBxpaGoDJhHrmxh33/I8LF7sPSpOeAAcC2frqc=;
-        b=RHBsH8exlms/pMbGlWi7zl+MCQQbK9wpNSV8U3js3jpPvQsF44iDv1smY0nTaPW8MZ
-         uV79sKwXOdprUGTnlDT+pYYR52gDU8snq59CPbSG1hWqUJ/VbWrVN3ZFMXHgjL3kX5Oy
-         QkEDZbIvvY0Es5HAlN1IwgbXdI5JS9unCN8anZUGhOFi+4M6IcFqSuonxCez3MKDtrOM
-         /Lw9YIMZcGJ3NDmP+xKLULLaCY48VICGvI6zza38Q5Qt2NjIQ3wS6Xjezec8pnm5M4Wr
-         qsVJ+TX13T5lFFdtg53OBLIfzFW4BxBmf1Ly0NvNIwUroaaONJXanSpPdbD9Jw7Zm6fW
-         B3Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788162886; x=1788767686;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=bytedance.com; s=google; t=1788162891; x=1788767691; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SePPvMBxpaGoDJhHrmxh33/I8LF7sPSpOeAAcC2frqc=;
-        b=eGiuRiEyQ5ZoVrRVcEX2vV3iZmbUW44VBYlmeEDko3HQDX5KLKqXFcrURM7DvU812L
-         SHsdq4gI7mu7iX1ZdVk39eUEd4Rm/B+g8xClLT/MoCWmPMwG2zU5Z0BnMNyYrlEVeGc1
-         Gu+o8LmW20dPaiZYUxrEXTE9fSAPQEBm6YufOPOHRQL62yGENy7doV8RDedlWhJ+apZm
-         hkZHT8MSxMhEsqXz7AdO7tjFhqeV+uYsobH9rNC60nnds4EVnTboXleSHBYZBqNh3Vlh
-         v+BChXq5kef3JkmD6vCgEmq2MP6SrHOUcwVPa5qEre9BSQX2YMQqWarUFEUeMcOY4vf5
-         Me3w==
-X-Forwarded-Encrypted: i=1; AHgh+RpQPbRt79W5hL1cFUP5o4O7r12vTtf/YuISbyaIwmB4iA7x2g73yjifmhnZrmzyeNW+VyDSSxNvimpuQAo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRnApZe5i4vsEoh/YSOg5W6fVdIvFNq5OyNo/Uec95X+t3TH29
-	o1J1vJs+N6XHptBgYDYFBKlJ5myRO8pciKmafpUstvnxL51wivYrVIBaFA8JYrfJHah529+Y/0X
-	UG8X0HWgwGI18O8zlzFrlgLtQl+RaKJVrwX2GAoIkfl0w2pu90/jh4tNzsRqRmBzqA+0=
-X-Gm-Gg: AR+sD10vgBY9LW6HCTJJqis35RO/IL7T4pa4WXO7KNwDYeV7yzkL17x9ahpm1U6BLzA
-	tIS7++gvhmh+GyXj5J3SPIiOlzasKxK9/jwJDj3a0vh9KO9bO7wVdilMOipjGGImwHO7uwECoiv
-	SK28atx+PI4Kon+dsFoigyPjlNVacNNW8Wf7LNLtbWTnpKDrAyptaIzQzV646TLTILqMPjRA/sC
-	tA8TAx6076eGelfhFGq+Pu2LQDkDdTglVZX8IB+umkUcDv1YKyD1JM050uqli7B8H9Y9+L5hmh6
-	2jovSf35Z6cjB3war8WtakrWCxgxZMpVozTyla76P++pz6J3Q2aOWRJ0YeFspwVet2HRU7Izih4
-	Tww7AOgxwEtS9ZtNUqrU/AQ==
-X-Received: by 2002:ac8:7f4f:0:b0:517:6162:daf5 with SMTP id d75a77b69052e-52fb95f4e1amr193281901cf.3.1788162885895;
-        Mon, 31 Aug 2026 00:54:45 -0700 (PDT)
-X-Received: by 2002:ac8:7f4f:0:b0:517:6162:daf5 with SMTP id d75a77b69052e-52fb95f4e1amr193281791cf.3.1788162885465;
-        Mon, 31 Aug 2026 00:54:45 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a611b5c3f7sm3232618a12.6.2026.08.31.00.54.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 00:54:43 -0700 (PDT)
-Message-ID: <aabdae7c-5294-4789-b123-4fcff8a733e0@oss.qualcomm.com>
-Date: Mon, 31 Aug 2026 09:54:40 +0200
+        bh=d85H49jI1quBgxYs+PQ2R3ebCcg9h4JyI/UtxSGskms=;
+        b=fcPI9HWqYXp4dM9ElRdrypDs3QU5JD2kSaGVRfeb9GLY/5dqGftchpwoQ4wioV0NJK
+         hYeZwUuH77pRyovM0aPVH6+sORs332Ri9L+XNBL4WqqhoQlYXAMnBZGa+5HnBEKNctMM
+         yCvvX2mUbrtKBsKpexI8AlTpP1p6Q2SWtWY/pKbjbzPKAvaspQm+MZjj3qdTpbbDEqVR
+         AogoBSfkHezxxlesfuPp0sm7Bl2s8FViLCtporgIIbK7e6WEkoAZwhJ0F+AIfpEDiyhE
+         kEM3b07/X2HdSfVq05fnWNhQHyOgVpfC2D6RmhKJ7trNWpfIXUGfc66CuWvyNMLR/KmZ
+         jZJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788162891; x=1788767691;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d85H49jI1quBgxYs+PQ2R3ebCcg9h4JyI/UtxSGskms=;
+        b=Npl1jDe4LBNA5ebJuqJxyUSHfmmx3CS+EqjBv12OXnUqcrl7t+tjMVNihVXyvYwGoZ
+         45WvxdWYveD+m3GuWqgS0fBWrYVVsqne/BUxc/1NEtA1kGku5AwtVCImreuTZFKyYEmu
+         AYzm6vBpPzkT3RKvc8pu/jF5NL4DH2NcWzJ/rUhN063eolTiTMO4s1mQvMwN+Dhx9EPk
+         7v+ZB3XmjnIPT+K/AIj9FwVZIE05ihXKaep8DntvYSFSCT84HRMGDT6ddvhFeD3VTysd
+         j3Vk7eTKL+/BdpB/xxOVIvSmZRTLE5spI3LiV+ODMyOT879B1ZS2qG6kW+AtCCgma3EA
+         /UJQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrKfKDyiDgZiL+SiGXE/VaSRAApFeGscuKSEFbadwKf9afoJpRgj4umB1E8nC8VGQVOH8TZAVlJ/sKr/yQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxW/vXts5Yq4NOfdKr1J0S7UGzTU4Zu8eABX8qeBBSV3+8lYpu
+	oBT7sCIcRqF9/NMV2sOdsDh5mWWxeFRhyykJ9joNlQ+Ib+1sn0EKWvyPEKCWgjCkkTw=
+X-Gm-Gg: AR+sD12vV5nvlynwCC3MKvbMb6IMVKqe0qt+SbKlFEjxtZN01GJUsIKDKqQ0NzGhzp8
+	NF6RwX0hA4LTh6flr+z5AGs7WSUmHBiv+lnXXaZvfCrNl4TGulc0BZWPBhM9ZkvqgWo16TkS2n+
+	AE25Rh0i38i9gdcK7rU6Amv2SN4PJBQUst08FWX1E5YQK6jfPzCS/rKpZg/4s56u0gzWFYgbjGi
+	lC9pULXQUvG2nkDc9aKNSYVZzgLXhCqUYUgOLwJsqxDoXm3623EnY0anjEigCx80qzqnoqkkOBX
+	Ek/832HupnKELCW+xyZkdjSjHa6AoGIKGhFH8tjQKEZMM6EIRVEHNZdGB5qm1yd0D1868E07YtC
+	hugtC2yzmbT1UH/x9vNrzsO5GfEnHEQYBPrKuQuI4+ZI57tYCPO7nRFUMfBwZonEWblU0lwywny
+	FcYuwllbtGDDBn4NRAhyHkjE+b9Eiiyd7xVFHde3XKiQTzjJF+NWAO2vqSHEM8xFbHwiYLuyhyR
+	Wx/Pp8wMkyt8F+xFFIP2jY1
+X-Received: by 2002:a05:6300:220d:b0:3cc:faf3:331a with SMTP id adf61e73a8af0-3d2686aa479mr43643171637.10.1788162891372;
+        Mon, 31 Aug 2026 00:54:51 -0700 (PDT)
+Received: from G6L4RL2QG9.bytedance.net ([61.213.176.9])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f330f88csm3590256a12.10.2026.08.31.00.54.46
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 31 Aug 2026 00:54:50 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-doc@vger.kernel.org,
+	Muchun Song <muchun.song@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Muchun Song <songmuchun@bytedance.com>
+Subject: [PATCH 05/11] mm/sparse-vmemmap: set section order for device DAX
+Date: Mon, 31 Aug 2026 15:53:36 +0800
+Message-ID: <20260831075342.57563-6-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260831075342.57563-1-songmuchun@bytedance.com>
+References: <20260831075342.57563-1-songmuchun@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: phy: qcom: add Nord QMP PCIe PHY
- binding
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Lorenzo Pieralisi
- <lpieralisi@kernel.org>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pci@vger.kernel.org
-References: <20260828-nord-v2-0-18bf59d19d6f@oss.qualcomm.com>
- <20260828-nord-v2-1-18bf59d19d6f@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260828-nord-v2-1-18bf59d19d6f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA2NiBTYWx0ZWRfX1qZ3nvPzZQUY
- ILvZJy0MlsRSTILE+WfdGIYLA8YSCNcD7ngWHxLOXogNQkQ8XpXsky0ugY4LCg316Vf/sJOLeD9
- 9ngupcAsK30ljVH265N+bvTj36iNhi0=
-X-Authority-Analysis: v=2.4 cv=O7sJeh9W c=1 sm=1 tr=0 ts=6a953346 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=96DL8lvnHqRkPdvoplQA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-ORIG-GUID: -mt-wskc5MFl6H42l2CapeYUyJYL5m-Z
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA2NiBTYWx0ZWRfX6YwhARWtp3tX
- bm9zv0LmiEa27sJF/UfxafOatz5QnrxKThOKQ/WyugO+0dq8Hb4dRMAgufmnXzOeoUG+w34L2M8
- ufCAdm0XQ4eREskb/+zwrQoVsrVzirmDkgflj3/CkBOIjqyHCdtvCo6dxr/2a0I0OfiP+g6Vvqk
- gKkHWpK/+ieEV+H3xSCS8fQm1xoY5bEiO3KVfSRbOu5bBWwuCWb+rwun46j8jCeT0NwD+5O/aNt
- aNnFJkVnkbnou7Shb8BGRkkd6QgeNfCIb0eEb6nSV1JRB5M0kg2u232aXXs2Pr71isksYkDIHdj
- JehuVl2Qk511MKY3nD+Q5YUJSdTDXUdn8M77r+XIZ3gC3AkPa0y+pPtGsL+RR1aZyAKM1JZ9q2Q
- /f7A0zz/bUFEFz7YoSshX1/NmLREvyBCgbXgV8+v5Yecppva2T1XCyurWA99S+XTGja3zY5oGIk
- 0LFkBIu5ge82SySXvvw==
-X-Proofpoint-GUID: -mt-wskc5MFl6H42l2CapeYUyJYL5m-Z
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_02,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0
- bulkscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310066
+Content-Transfer-Encoding: 8bit
 
-On 8/28/26 10:43 AM, Krishna Chaitanya Chundru wrote:
-> Document the PCIe PHY found on the Qualcomm Nord platform.
-> 
-> Nord has a Gen5-capable QMP PCIe PHY that can operate in multiple
-> lane configurations using four PHY segments (A/B/C/D). The active
-> topology is selected by firmware through a TCSR configuration
-> register and may be configured as x16, x8+x8, x8+x4+x4, or
-> x8+x4+x2+x2.
-> 
-> The binding describes the register regions, clocks, resets, power
-> domains, regulators, PHY provider interface, clock provider interface,
-> and the qcom,link-mode property used by the driver to discover the
-> active lane configuration programmed by firmware.
-> 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> ---
->  .../phy/qcom,nord-qmp-gen5x16-pcie-phy.yaml        | 276 +++++++++++++++++++++
->  1 file changed, 276 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,nord-qmp-gen5x16-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,nord-qmp-gen5x16-pcie-phy.yaml
-> new file mode 100644
-> index 000000000000..37198f82c611
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/qcom,nord-qmp-gen5x16-pcie-phy.yaml
-> @@ -0,0 +1,276 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/phy/qcom,nord-qmp-gen5x16-pcie-phy.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Nord QMP Bifurcated PCIe PHY
+Device DAX can use vmemmap optimization only when a full section is
+populated with a compound-page geometry. Record that geometry in the
+section order before populating the section, so later vmemmap accounting
+and population decisions can use the section state directly.
 
-Quadfurcated, perhaps? Is there a word in the spec that doesn't get too
-detailed about the number of effective slots that the PHY is divided into?
+Clear the section order when the section becomes empty again. Also reject
+partial additions to a section that already has optimized vmemmap mappings,
+because a section cannot safely mix optimized and ordinary vmemmap layouts.
 
-[...]
+Partial additions continue to use ordinary vmemmap population, so they do
+not save vmemmap memory. Such additions are uncommon, and the lost saving
+is negligible.
 
-> +  vdda-phy-a-supply: true
-> +
-> +  vdda-phy-b-supply: true
-> +
-> +  vdda-phy-c-supply: true
-> +
-> +  vdda-phy-d-supply: true
-> +
-> +  vdda-pll-a-supply: true
-> +
-> +  vdda-pll-b-supply: true
-> +
-> +  vdda-pll-c-supply: true
-> +
-> +  vdda-pll-d-supply: true
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+---
+ mm/mm_init.c        | 13 ++++---------
+ mm/sparse-vmemmap.c | 16 ++++++++++++----
+ 2 files changed, 16 insertions(+), 13 deletions(-)
 
-I'm really surprised they aren't all connected to the same pair but oh well
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index 33ff95141adb..c4cd61978ce8 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -1042,16 +1042,11 @@ static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
+  * of an altmap. See vmemmap_populate_compound_pages().
+  */
+ static inline unsigned long compound_nr_pages(unsigned long pfn,
+-					      struct vmem_altmap *altmap,
+ 					      struct dev_pagemap *pgmap)
+ {
+-	/*
+-	 * If DAX memory is hot-plugged into an unoccupied subsection
+-	 * of an early section, the unoptimized boot memmap is reused.
+-	 * See section_activate().
+-	 */
+-	if (early_section(__pfn_to_section(pfn)) ||
+-	    !vmemmap_can_optimize(altmap, pgmap))
++	const struct mem_section *ms = __pfn_to_section(pfn);
++
++	if (!section_vmemmap_optimizable(ms))
+ 		return pgmap_vmemmap_nr(pgmap);
+ 
+ 	return VMEMMAP_RESERVE_NR * (PAGE_SIZE / sizeof(struct page));
+@@ -1121,7 +1116,7 @@ void __ref memmap_init_zone_device(struct zone *zone,
+ 			continue;
+ 
+ 		memmap_init_compound(page, pfn, zone_idx, nid, pgmap,
+-				     compound_nr_pages(pfn, altmap, pgmap));
++				     compound_nr_pages(pfn, pgmap));
+ 	}
+ 
+ 	pageblock_migratetype_init_range(start_pfn, nr_pages, MIGRATE_MOVABLE,
+diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+index 54ae8c284324..aed1e7429daa 100644
+--- a/mm/sparse-vmemmap.c
++++ b/mm/sparse-vmemmap.c
+@@ -135,14 +135,14 @@ int __meminit section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages
+ 		struct vmem_altmap *altmap, struct dev_pagemap *pgmap)
+ {
+ 	const struct mem_section *ms = __pfn_to_section(pfn);
+-	const int order = pgmap ? pgmap->vmemmap_shift : section_order(ms);
++	const int order = section_order(ms);
+ 	const int vmemmap_pages = pgmap ? VMEMMAP_RESERVE_NR : VMEMMAP_OPTIMIZATION_PAGES;
+ 	const unsigned long pages_per_compound = 1UL << order;
+ 
+ 	VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, PAGES_PER_SUBSECTION));
+ 	VM_WARN_ON_ONCE(nr_pages > PAGES_PER_SECTION);
+ 
+-	if (!vmemmap_can_optimize(altmap, pgmap) && !section_vmemmap_optimizable(ms))
++	if (!section_vmemmap_optimizable(ms))
+ 		return DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE);
+ 
+ 	if (order < PFN_SECTION_SHIFT) {
+@@ -573,7 +573,7 @@ struct page * __meminit __populate_section_memmap(unsigned long pfn,
+ 		!IS_ALIGNED(nr_pages, PAGES_PER_SUBSECTION)))
+ 		return NULL;
+ 
+-	if (vmemmap_can_optimize(altmap, pgmap))
++	if (pgmap && section_vmemmap_optimizable(__pfn_to_section(pfn)))
+ 		r = vmemmap_populate_compound_pages(pfn, start, end, nid, pgmap);
+ 	else
+ 		r = vmemmap_populate(start, end, nid, altmap);
+@@ -792,8 +792,10 @@ static void section_deactivate(unsigned long pfn, unsigned long nr_pages,
+ 	else if (memmap)
+ 		free_map_bootmem(memmap);
+ 
+-	if (empty)
++	if (empty) {
+ 		ms->section_mem_map = (unsigned long)NULL;
++		section_set_order(ms, 0);
++	}
+ }
+ 
+ static struct page * __meminit section_activate(int nid, unsigned long pfn,
+@@ -803,8 +805,13 @@ static struct page * __meminit section_activate(int nid, unsigned long pfn,
+ 	struct mem_section *ms = __pfn_to_section(pfn);
+ 	struct mem_section_usage *usage = NULL;
+ 	struct page *memmap;
++	unsigned int order;
+ 	int rc;
+ 
++	order = vmemmap_can_optimize(altmap, pgmap) ? pgmap->vmemmap_shift : 0;
++	if (nr_pages < PAGES_PER_SECTION && section_order(ms))
++		return ERR_PTR(-ENOTSUPP);
++
+ 	if (!ms->usage) {
+ 		usage = kzalloc(mem_section_usage_size(), GFP_KERNEL);
+ 		if (!usage)
+@@ -830,6 +837,7 @@ static struct page * __meminit section_activate(int nid, unsigned long pfn,
+ 	if (nr_pages < PAGES_PER_SECTION && early_section(ms))
+ 		return pfn_to_page(pfn);
+ 
++	section_set_order_range(pfn, nr_pages, order);
+ 	memmap = populate_section_memmap(pfn, nr_pages, nid, altmap, pgmap);
+ 	if (!memmap) {
+ 		section_deactivate(pfn, nr_pages, altmap, pgmap);
+-- 
+2.54.0
 
-Konrad
