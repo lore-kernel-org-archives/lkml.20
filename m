@@ -1,119 +1,115 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3373815DD
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:52:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513CE3AC0D9
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:54:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788155560; cv=none; b=KhZsaEpawXV8zytagHNH8b/E1/hmOOYj/F9M8BoG/OA1u3THhiwJoE9bAIeJlDGtV3s8kA446Ph2vRalib2+pn+d+eS+JwnXI+lzwXLP2DiEECNHEuhy6Aubtkjc3G9XtnFfMpEzkrPxXPd56tucdypA49UhelXEjnoekGXrYZc=
+	t=1788155664; cv=none; b=SXSi+Wdp+jEnFf3e8kkK0m2LJEgyy5fsGXbt6pfKy+nKNX3lBzYN1a6ef9Dw/jvOXkiDsoeCJCK1yrjw6niyRieFN3y6e3Wajk1xPS5nMXnnKmwHT+bVAraP8pmbL+iAgtCtVjh+MJXRYES4EparUK0/cfHfsSIZhBxBkdiebfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788155560; c=relaxed/simple;
-	bh=Gx8dA2g+mBwttry7LSB36CW/iS8nutJKidZ1ioeEuZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r+HhfJRj2Hf75zps5nwsNI/Rx48LlbLZLdAk6wZ8KLIj80tncma6mUlpNCO55zt5rGEjTNrsPJFTLTgpRN9Qd5Onf3mHFMqboBvDzpgi8YAeozS5YS45Sz+mKAHtlbj1+rCPWzz+C9M2zlpFBHShLmD2le5E8hizgRCHJzkgr3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=AVrGWze+; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788155664; c=relaxed/simple;
+	bh=iRiUwRkzGbldLyGZMvKE8rjALb9rdJTacl4wKghteIM=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=sHCP6lyvpOgZhCLP6eYdFLgjeJyVVMfSLu94JJ/w0PNdZN2VZw/WmeGZ/sgmuDoW5e7KB1RFKf5v4KNpZhRiJKin6PQJrlr0Bdxx5/9kIGrbeG3YZD6mckCi7iUGY1Rn6c4MhNQcr3LELSHMmY30QDM+ajAm+/eUsUmN4OlQlTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Kv1FE5/J; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="AVrGWze+"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so29250565e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:52:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788155557; x=1788760357; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XgW48+Yzc91knnksx3tvkw+5MBtgMA/lwUwkXpa2nc4=;
-        b=AVrGWze+YW0FuUxMuY587aPpy3iWGqPV7wnTA9CxG5cHFMK0LpRkp8tTsQBW+ENF/5
-         FAvqlak8CYa+axHsSHeP5yQct+FgWbAAkXP5NvjDxSQMpa82zvQ0yuCGgGDdmBhL6Y2d
-         VZaN+4jSO5xajMrc4bAfG8c3pNI7HhJWTDZGuGVtzlP43q195mu8nd0Ds16mSj5Hv5iJ
-         r2xZYx8hTwQmH8QOJcmTnp8p5btbyLur3PQLMPYjPl6sphIqJs2Uu6/OsMJy678K71lD
-         zQdQXLCde61axBmrw1zE94KNCATmdYkqzZdmCU6BGxoPMBPakRj1mqQHsTM48XNj4D6u
-         M5eQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788155557; x=1788760357;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XgW48+Yzc91knnksx3tvkw+5MBtgMA/lwUwkXpa2nc4=;
-        b=NS2ih7wl2WeGUDxzAIcOxPjJY4tpGs03zokn7loDN3F2i5E29mmBEC9rR5bsNNzpPg
-         VQHf9TQrDbegj8MXiE2H2759K/1pYUQQjI6A0qY3MeHRbROOq1pqUkSfNjrrL6w/F+I/
-         wd/le+FWdLhJJacZaEwwp6DK8+EGFSo5BXWOjQueSioowTXmHvFgPvyBaif+EmnFPu0t
-         6J/EnssM48bkRu+QWKrhmyevWSoXLx30JuDmXAgfoSrkoSW8G3fM65KAnlv5N+W6jy6N
-         hQap7vVhAUZEcbTgMW2SjEg1WVv69XDakMSmWt+pCAMAdlb9J7KJjNeSCTNIN4Se6q/V
-         nOdg==
-X-Forwarded-Encrypted: i=1; AHgh+RrX90In19zns9dWalJL6VdUzPfT73Lqa8nn9jP2rS+bP6+81KTvnwuDR0gwlh3tOIQ8jMsziAgDE7n0VKk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3IjTO+emWSQFhOKVpme6NPlcM0uLtpIvZDlLbZqbm4kCnI50o
-	RgD4JNcQDtdT0xsptXKbRdgVM/JtvxPGSUinaLWZWrVZtmaRxLDRbVxFyhSv8jQk2F5Ob2o7wOE
-	uB02hM4U=
-X-Gm-Gg: AR+sD10VUNvNNw5ZK1lHsQ2w8liqgSbLQMvHl9JI/tCSQB8f/5D3X+9DnhGnkfErxfq
-	e42gC1gQJWXYVtiZNDw/X1ckNtB71vT6/3isbiQB98ZY7LouANfIV+6v+T+AA6hr36GAf0RrBdu
-	w979Tk+W40IHvAlwHCZYkWMRmsZ5A18ZA5Zez2vGgZsTJa/jv7lo8EEp2p2KmJl7z9mokk1Ja40
-	umL43YOQyAHq0hcFg8LDbkkV3THkjWz2RJDN2dEZ+gtmYLCU5nZksv14tt3diuOlGziW/YsW3PT
-	voEQZWC1id0A8D8XJrE6+aJhTjZzjLCkEiwbix1EaRTzNvhZvb3yvl3d62NZGKmYPgiKhv+iUyQ
-	V2KLK7C/Lm4poFzZjuSdc9eBA/pTp61in4ACFKh0nCJd2HhCGTBRZ0BxYGaHY1gZMBQcWxOLVVB
-	3lN7M08jPew6ykxnINfwuOvuuJRDeFbwjkUtJKJU80KIuE8eafCOWxkL1jEkGDJCpxMKH+Nf78R
-	G0jmfeQ7Cg=
-X-Received: by 2002:a05:600c:6096:b0:49c:cfad:90c1 with SMTP id 5b1f17b1804b1-49ccfad9180mr194739605e9.14.1788155556937;
-        Sun, 30 Aug 2026 22:52:36 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff24:7241:7d09:c3ef:cd6:3fed])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9500c80asm302186875e9.9.2026.08.30.22.52.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 22:52:36 -0700 (PDT)
-Date: Mon, 31 Aug 2026 07:52:32 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-	Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] remoteproc: qcom_q6v5: Skip handover callback if
- already issued
-Message-ID: <apUWoCCfgthl40AZ@linaro.org>
-References: <20260828181311.4038346-1-mukesh.ojha@oss.qualcomm.com>
- <20260828181311.4038346-2-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Kv1FE5/J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788155661; x=1819691661;
+  h=date:from:to:cc:subject:message-id;
+  bh=iRiUwRkzGbldLyGZMvKE8rjALb9rdJTacl4wKghteIM=;
+  b=Kv1FE5/JbZ10exHeyWNd2ah8dsHlAOXqkxZGCkNqrJCuXJtr13qM5MDg
+   MmPx23eOrZlHNshQ7on95X1R0E08JJLgJb8d/RAPoDM2Sq917WX+LFzd8
+   sf+mDelGxT2HKRzGTHQHp8Ro7S6/d8EfTD3EFngZb6pqS2BaXFH6KaobD
+   76XwCIsDdAMr51dJkI42DGzPjoqtuXhfcOigf7kn7hnTeEgEdKr03HNSr
+   vTh+9zg4/CvyPBEiU9sbAGUuLIt5iLYsobTPf4ITwLp8uNH2anox4F7Aw
+   JaplwQ4K50yEnVFWTku60rZ9ET98dRk+QxDZ79L4tPSXjXcJxocpmRpn8
+   w==;
+X-CSE-ConnectionGUID: eGnF8Ht6TUqMGE68Z8oxCg==
+X-CSE-MsgGUID: 4ISASJ13RkKSeebB3nEMCQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="91064884"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="91064884"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 22:54:21 -0700
+X-CSE-ConnectionGUID: sxtO8BgBTGqc/J0E/txlTw==
+X-CSE-MsgGUID: jS2QRavMQ8aIKcBtGk4h6w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="292199363"
+Received: from igk-lkp-server01.igk.intel.com (HELO 32268bdb9915) ([10.211.93.152])
+  by fmviesa002.fm.intel.com with ESMTP; 30 Aug 2026 22:54:19 -0700
+Received: from kbuild by 32268bdb9915 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x0uyH-000000000PX-1yhZ;
+	Mon, 31 Aug 2026 05:54:17 +0000
+Date: Mon, 31 Aug 2026 07:53:23 +0200
+From: kernel test robot <lkp@intel.com>
+To: Nikolay Kulikov <nikolayof23@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c:528:30:
+ warning: variable 'phal' set but not used
+Message-ID: <202608310749.mheatdIW-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828181311.4038346-2-mukesh.ojha@oss.qualcomm.com>
 
-On Fri, Aug 28, 2026 at 11:43:10PM +0530, Mukesh Ojha wrote:
-> When qcom_pas_attach() is called (subsystem already running at kernel
-> probe time), it sets handover_issued = true before enabling the handover
-> IRQ. The handover line may be high already (from bootloader boot), causing
-> the IRQ to fire immediately. Since proxy resources were never acquired via
-> qcom_pas_pds_enable() in the attach path, the resulting handover callback
-> calls pm_runtime_put() on proxy power domains with usage count = 0:
-> 
->   genpd genpd:0:d00000.remoteproc: Runtime PM usage count underflow!
->   genpd genpd:1:d00000.remoteproc: Runtime PM usage count underflow!
-> 
-> Also, because the old code left handover_irq_enabled = false after attach
-> (fixed separately), the handover IRQ was never disabled inside the handler,
-> allowing it to fire repeatedly and generating multiple underflows.
-> 
-> Fix by recording whether handover_issued was already set before the IRQ
-> fires and skipping the handover callback in that case. The callback
-> releases proxy resources that are only held when the normal start path
-> ran qcom_pas_pds_enable(); if handover was already marked as issued,
-> those resources were never acquired and must not be released.
-> 
-> Fixes: 16472c99f469 ("remoteproc: qcom: pas: Add late attach support for subsystems")
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   cee9395acd8043be0644b25c34bfa86623f2b935
+commit: e9b50a2821bbfb5395cc2b9f90e2af45a3137f19 staging: rtl8723bs: remove unused spinlock 'SdioTxFIFOFreePageLock'
+date:   5 weeks ago
+config: parisc-allyesconfig (https://download.01.org/0day-ci/archive/20260831/202608310749.mheatdIW-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260831/202608310749.mheatdIW-lkp@intel.com/reproduce)
 
-Shawn sent the same patch already and the same comment applies here:
-https://lore.kernel.org/linux-arm-msm/amxf7MODINj26a4m@linaro.org/
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: e9b50a2821bb ("staging: rtl8723bs: remove unused spinlock 'SdioTxFIFOFreePageLock'")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608310749.mheatdIW-lkp@intel.com/
 
-v2 fixes it properly:
-https://lore.kernel.org/linux-arm-msm/20260801011731.1084591-1-shengchao.guo@oss.qualcomm.com/
+All warnings (new ones prefixed by >>):
 
-Thanks,
-Stephan
+   drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c: In function 'rtl8723bs_init_xmit_priv':
+>> drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c:528:30: warning: variable 'phal' set but not used [-Wunused-but-set-variable=]
+     528 |         struct hal_com_data *phal;
+         |                              ^~~~
+
+
+vim +/phal +528 drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+
+554c0a3abf216c Hans de Goede 2017-03-29  518  
+554c0a3abf216c Hans de Goede 2017-03-29  519  /*
+554c0a3abf216c Hans de Goede 2017-03-29  520   * Return
+554c0a3abf216c Hans de Goede 2017-03-29  521   *_SUCCESS	start thread ok
+554c0a3abf216c Hans de Goede 2017-03-29  522   *_FAIL		start thread fail
+554c0a3abf216c Hans de Goede 2017-03-29  523   *
+554c0a3abf216c Hans de Goede 2017-03-29  524   */
+554c0a3abf216c Hans de Goede 2017-03-29  525  s32 rtl8723bs_init_xmit_priv(struct adapter *padapter)
+554c0a3abf216c Hans de Goede 2017-03-29  526  {
+554c0a3abf216c Hans de Goede 2017-03-29  527  	struct xmit_priv *xmitpriv = &padapter->xmitpriv;
+554c0a3abf216c Hans de Goede 2017-03-29 @528  	struct hal_com_data *phal;
+554c0a3abf216c Hans de Goede 2017-03-29  529  
+554c0a3abf216c Hans de Goede 2017-03-29  530  	phal = GET_HAL_DATA(padapter);
+554c0a3abf216c Hans de Goede 2017-03-29  531  
+09a8ea34cf431b Arnd Bergmann 2018-12-10  532  	init_completion(&xmitpriv->SdioXmitStart);
+09a8ea34cf431b Arnd Bergmann 2018-12-10  533  	init_completion(&xmitpriv->SdioXmitTerminate);
+554c0a3abf216c Hans de Goede 2017-03-29  534  
+554c0a3abf216c Hans de Goede 2017-03-29  535  	return _SUCCESS;
+554c0a3abf216c Hans de Goede 2017-03-29  536  }
+554c0a3abf216c Hans de Goede 2017-03-29  537  
+
+:::::: The code at line 528 was first introduced by commit
+:::::: 554c0a3abf216c991c5ebddcdb2c08689ecd290b staging: Add rtl8723bs sdio wifi driver
+
+:::::: TO: Hans de Goede <hdegoede@redhat.com>
+:::::: CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
