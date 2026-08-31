@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4974AEBC2;
-	Mon, 31 Aug 2026 13:48:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4244AEBDC;
+	Mon, 31 Aug 2026 13:48:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184142; cv=none; b=GrG9MSXWMb6wZOsduF/e1ln0/dcwbpveoV/uM2aAnHUe5V6v89cHxV7ACCE/kAAi860TLv9tsAboLwoTN9nYgaFG75FlWIRD95IB/ZsqZDwW0G1XGPo/NZ//1iHE8++x2lASfauJKDtOauHfx4DSUEmY52Yyhpz1Vej2hf70LSs=
+	t=1788184142; cv=none; b=fgprfSKfe6W8QcBoA3ZlXg74nHWQC3+3iw3foNjalREhUOEZ4kK4vLJK6pajwceCe2QPtiwcxuWO4sD41hU/JWCQ/7L3g6apVgo25H89+U1Pn0PpKRU14ceg6xGLCP2zUvG46bNEzOqfkwejVCNKAgsK2zmvqoD0AHeDh6rvtsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788184142; c=relaxed/simple;
-	bh=7zEFP8ZY1r0gCLEU+l9NnJVIjNcgzLZ61BnKsn/iRQc=;
+	bh=hACUCu8rHKbH2YJmGn5n5tpdPTIx3XnhDWO3ZDG6F/E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Gj59GLW2ZMDP3aTxlVjUL+Q6rmFycLn+K7m5opGoI73DgpnjEA9m2K2mlvBXEiQDRjTocn1+dmOPbT3EZ/ml9Jj8qe+ukRgG+sVq2EgaYGmNFQgqEdeXoop/TGie//m5wKXOYphkRqoJ1sZnp07zS90U5reRoD0+CZqAUtmPBKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VN1j4fm4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Ha6vJQj3MS+i6loCHKvecDe70fCkrYK5TRLjeLScXv/cVFrciVEybHv4E0D42lZcavYcUQFdbXvwZ6Lqpy7PucCgYU0TxzbtpPSB4GkaFTJEJ6yiVezjxmZ8zlDskXnu955H2ZFg0OjGfB5i/fWiA0+rpvpkaMM1GyFrP0ptyF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZP2UfHw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VN1j4fm4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76B781F00A3E;
-	Mon, 31 Aug 2026 13:48:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZP2UfHw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20C061F00A3F;
+	Mon, 31 Aug 2026 13:48:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184137;
-	bh=CBWdldcJE8xPdqsaPFZXxeaY6tXuX3vHWPhS0ty9szg=;
+	s=k20260515; t=1788184139;
+	bh=uLvAJwmkYIsQduJns51m3YLsQQW6b9oPEiffIgbTiQ8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VN1j4fm4/DWVdV0vyIyeTHUL1iiUyLT72F896UCjcoQxlq55FK00YmNvBE1pHH18Z
-	 yPjuu9pDVbAhkcQxi8eMRpq1bLUPhFqcy7yVIzXmPQWuEM7KZBNa8vM7bGWQM9Elc7
-	 P1s0ZtvAQW3dOLoPBxTW6i5Y0hrsvkrWjOTyvSuKfq0oAvLjFWCih+mjPfJPy6SKVz
-	 RkJVcSqlCX2u4BpKwJwby8/JZztWqRani+YNv5ol2K2iFEkLRqAkSt/j6azevSRUAB
-	 JW8UIIhGgzx9G+PG2507qz1FRMCofzCzeLgYj4AQKtr67Cs7uGad0K4n3XSi+VZNXr
-	 hskj+33uQdSfQ==
+	b=PZP2UfHw1dAsXde5DJgM+OFDbgAE1mmrfyy1KPtACliJuSe1rch9YqMPKDpN9MG2A
+	 BzPdqcYyGAnOFvAsPdww07uxFX7cSVSzyN3+S4yUOYTq+Z5XynYAXgk1T3WJUrc3/7
+	 CW7S5w+mVOuQDWYh7ao446WMw8HlJb55mxiLqEJZ9FEtdeirzyRPBJAnbTeJC9vWzT
+	 FJA+kSIg4NcBdm7bvC/dYWVRQiTz8twiX5gmEJafQ78c+vN2Izjd8XQ9sWkKRVzvkl
+	 tYO3sKZz+zWcsuKyZApKGlph4IgfpORezZsHWW5xEUgzIn/qD8B2InXyieR56BAObK
+	 7r800V0cZZn3w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yongqiang Sun <Yongqiang.Sun@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Fredric Cover <fredric.cover.lkernel@gmail.com>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>,
-	Felix.Kuehling@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	pc@manguebit.org,
+	linkinjeon@kernel.org,
+	linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdkfd: fix SMI event cross-process information leak
-Date: Mon, 31 Aug 2026 09:29:02 -0400
-Message-ID: <20260831133314.4125787-514-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] smb: client: fix races in cifsd thread creation
+Date: Mon, 31 Aug 2026 09:29:03 -0400
+Message-ID: <20260831133314.4125787-515-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -57,406 +55,441 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yongqiang Sun <Yongqiang.Sun@amd.com>
+From: Fredric Cover <fredric.cover.lkernel@gmail.com>
 
-[ Upstream commit 92a8dba246d371fe268280e5fd74b0955688e6df ]
+[ Upstream commit e8a5cf2ff5a13fefb228f2069e29dd7d8e37185d ]
 
-kfd_smi_ev_enabled() skips the suser privilege check when pid=0.
-PROCESS_START, PROCESS_END, and VMFAULT events are emitted with
-pid=0 while carrying another process's PID and command name, so any
-/dev/kfd user in the render group can monitor all GPU workloads.
+The cifsd demultiplex thread can run and access tcp_ses before the parent
+thread has finished populating tcp_ses, which the worker thread accesses
+locklessly.
 
-Pass the target process PID into kfd_smi_event_add() for these events
-so the existing per-client filter restricts delivery to the owning
-process or CAP_SYS_ADMIN subscribers.
+Also, the kthread_run macro may start the thread before returning the
+thread pointer. Because the pointer is part of the structure that the
+thread can access, if the kernel is preempted after the thread is spawned,
+but before the thread pointer is populated and the thread attempts to exit,
+it will sleep, waiting for a SIGKILL signal.
 
-Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Fix this by moving creation of the thread to after all of tcp_ses'es
+fields are populated, and spawning the thread last, using a split
+kthread_create/wake_up_process logic.
+
+Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Signed-off-by: Steve French <stfrench@microsoft.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `smb: client: fix races in cifsd thread
+creation`
 
-**Step 1.1 — Subject line**
+**Local tree:** `v6.18.44` (`linux-6.18.y` stable), `HEAD` detached at
+`2736c32da98b9`
+**Upstream fix:** `e8a5cf2ff5a13` (not in this tree; `git merge-base
+--is-ancestor` returned 1)
 
-Record: `[drm/amdkfd] [fix] SMI event cross-process information leak`
+---
 
-**Step 1.2 — Tags**
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-Record:
-- `Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>` (author)
-- `Acked-by: Alex Deucher <alexander.deucher@amd.com>` (AMD DRM
+### Step 1.1: Subject line
+**Record:** `[smb: client]` `[fix]` — fix races in cifsd (demultiplex)
+thread creation during TCP session setup.
+
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Fredric Cover `<fredric.cover.lkernel@gmail.com>`
+  (author)
+- **Signed-off-by:** Steve French `<stfrench@microsoft.com>` (SMB
   maintainer)
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (committer)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc:
-  stable@vger.kernel.org`
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Link:, or Cc:
+  stable tags
+- Notable: maintainer sign-off only; no syzbot or user bug report
 
-Notable: maintainer Acked-by; no syzbot or user bug report tags.
+### Step 1.3: Body analysis
+**Record:**
+- **Bug 1:** `cifs_demultiplex_thread` can run and access `tcp_ses`
+  before the parent finishes populating fields the worker reads without
+  locking.
+- **Bug 2:** `kthread_run()` may wake the thread before the parent
+  stores `tcp_ses->tsk`. If the thread exits while `tsk` is still NULL,
+  exit logic sleeps indefinitely waiting for SIGKILL.
+- **Symptom:** Race during mount/session setup; potential hung `cifsd`
+  kernel thread.
+- **Root cause:** `kthread_run()` creates and immediately wakes the
+  thread mid-initialization; comment claiming “kernel thread not created
+  yet” is incorrect.
+- **Fix:** Populate all `tcp_ses` fields first; use `kthread_create()` +
+  `wake_up_process()` last.
 
-**Step 1.3 — Body analysis**
-
-Record:
-- **Bug:** `kfd_smi_ev_enabled()` does not apply per-client PID
-  filtering when the filter PID argument is `0`. `PROCESS_START`,
-  `PROCESS_END`, and `VMFAULT` events are emitted with filter PID `0`
-  but carry another process's PID and command name in the event payload.
-- **Symptom:** Any `/dev/kfd` user in the render group can monitor all
-  GPU workloads (other processes' PIDs and command names).
-- **Root cause:** `kfd_smi_event_add(0, ...)` bypasses the `if (pid &&
-  ...)` guard in `kfd_smi_ev_enabled()`.
-- **Fix:** Pass `task_info->tgid` into `kfd_smi_event_add()` so the
-  existing filter restricts delivery to the owning process or
-  `CAP_SYS_ADMIN` subscribers (`client->suser`).
-
-**Step 1.4 — Hidden bug fix?**
-
-Record: No — this is an explicit security/privacy bug fix, not disguised
-cleanup.
-
----
-
-## Phase 2: Diff Analysis
-
-**Step 2.1 — Inventory**
-
-Record:
-- **File:** `drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c` (+5 / -3
-  lines)
-- **Functions modified:** `kfd_smi_event_update_vmfault()`,
-  `kfd_smi_event_process()`
-- **Scope:** Single-file surgical fix
-
-**Step 2.2 — Code flow changes**
-
-Record:
-- **Hunk 1 (`kfd_smi_event_update_vmfault`):** Before:
-  `kfd_smi_event_add(0, dev, VMFAULT, ...)` → all subscribed clients
-  receive VM fault events with other processes' PID/comm. After:
-  `kfd_smi_event_add(task_info->tgid, dev, VMFAULT, ...)` → only
-  matching client or admin receives it.
-- **Hunk 2 (`kfd_smi_event_process`):** Before: `kfd_smi_event_add(0,
-  pdd->dev, PROCESS_START/END, ...)` → broadcast. After:
-  `kfd_smi_event_add(task_info->tgid, pdd->dev, ...)` → per-process
-  filtering.
-
-**Step 2.3 — Bug mechanism**
-
-Record: **Information leak / missing access control.** Category (d)
-memory-safety adjacent — logic/correctness in security filtering.
-`pid=0` is intentional for system-wide events (GPU reset, thermal
-throttle); using it for per-process events defeats isolation.
-
-**Step 2.4 — Fix quality**
-
-Record: Obviously correct — uses `task_info->tgid`, which matches
-`client->pid = current->tgid` set in `kfd_smi_event_open()`. Minimal
-change. Low regression risk; system-wide events still use `pid=0`.
+### Step 1.4: Hidden bug fix?
+**Record:** No — explicitly described as a race fix. The `spin_lock`
+removal around `tcpStatus` is a consequence of correct ordering (thread
+not running yet), not cosmetic cleanup.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 2: DIFF ANALYSIS
 
-**Step 3.1 — Blame**
+### Step 2.1: Inventory
+**Record:**
+- **File:** `fs/smb/client/connect.c` (+16 / −11, 27 lines touched)
+- **Function:** `cifs_get_tcp_session()`
+- **Scope:** Single-file, surgical fix
 
-Record:
-- `kfd_smi_ev_enabled()` filter: Philip Yang, 2022-01-13
-  (`163a5a58437062`); superuser logic simplified by Eric Huang,
-  2025-04-14 (`6b9d26089f56f`).
-- VMFAULT with `pid=0`: since at least Shashank Sharma refactor,
-  2024-01-18 (`b8f67b9ddf4f8`); format-only change in 2024-02-16
-  (`663b0f1e141dc`).
-- PROCESS_START/END with `pid=0`: introduced 2025-04-07
-  (`4172b556fd5bd`).
+### Step 2.2: Code flow per hunk
 
-**Step 3.2 — Fixes: tag**
+**Hunk 1 — remove early `kthread_run`:**
+- **Before:** Thread created and woken immediately after
+  `__module_get()`, before `min_offload`, `retrans`, `tcpStatus`,
+  `max_credits`, etc. are set.
+- **After:** No thread yet; parent continues initialization.
 
-Record: Not applicable — no `Fixes:` tag. Buggy PROCESS events
-introduced by `4172b556fd5bd`; VMFAULT leak predates that.
+**Hunk 2 — remove `spin_lock` around `tcpStatus`:**
+- **Before:** Lock taken because thread could already be running
+  (contradicting the comment).
+- **After:** Unlocked write is safe because thread is still stopped.
 
-**Step 3.3 — Related file history**
+**Hunk 3 — `kthread_create` after all fields populated:**
+- **Before:** Thread running during list insertion and echo work setup.
+- **After:** Thread exists but is not scheduled; `tcp_ses->tsk` is
+  assigned before any concurrent access.
 
-Record: Recent related commits in this tree:
-- `6b9d26089f56f` — superuser SMI filter fix (present)
-- `4172b556fd5bd` — process start/end events (present, introduced leak)
-- `9315860d05aa2` — NULL check fix for process SMI event
-- `9fd86747daa6c` — queue restore string fix
-- On master but not in 6.18.44: `92a8dba246d37` / `3b347d011773d` (this
-  fix), `1142738572ef3` (container PID reporting — separate, larger
-  change)
+**Hunk 4 — `wake_up_process()` at end:**
+- **Before:** Thread could run before `tsk` pointer stored in struct.
+- **After:** All fields and `tsk` are valid before thread executes.
 
-**Step 3.4 — Author context**
+### Step 2.3: Bug mechanism
+**Record:**
+- **Category:** Race condition / initialization ordering bug
+- **Mechanism 1:** TOCTOU between `kthread_run()` wake and field
+  initialization — demux thread reads `max_credits`, `tcpStatus`, etc.
+  locklessly while parent still writes them.
+- **Mechanism 2:** `kthread_run` macro (`kthread_create` +
+  `wake_up_process`) returns task pointer to caller *after* thread may
+  already be running. Exit path in `cifs_demultiplex_thread()`:
 
-Record: Yongqiang Sun has at least one other amdkfd fix in history. Alex
-Deucher (maintainer) Acked and committed the fix.
+```1437:1448:fs/smb/client/connect.c
+        task_to_wake = xchg(&server->tsk, NULL);
+        clean_demultiplex_info(server);
 
-**Step 3.5 — Dependencies**
+        /* if server->tsk was NULL then wait for a signal before exiting
+*/
+        if (!task_to_wake) {
+                set_current_state(TASK_INTERRUPTIBLE);
+                while (!signal_pending(current)) {
+                        schedule();
+                        set_current_state(TASK_INTERRUPTIBLE);
+                }
+```
 
-Record: Standalone — uses `task_info->tgid` already present in `struct
-amdgpu_task_info` since 2018 (`2aa37bf58838f`). No series prerequisites.
-`git apply --check` passes cleanly on 6.18.44.
+If `server->tsk` was never set, the thread hangs forever.
 
----
-
-## Phase 4: Mailing List and External Research
-
-**Step 4.1 — Original discussion**
-
-Record: `b4 dig -c 3b347d011773d` found v1 only at
-https://patch.msgid.link/20260527141014.567441-1-Yongqiang.Sun@amd.com.
-Lore fetch blocked by Anubis bot protection; no thread replies
-retrieved.
-
-**Step 4.2 — Reviewers**
-
-Record: `b4 dig -w` — sent to Yongqiang Sun and `amd-
-gfx@lists.freedesktop.org`. Alex Deucher Acked in commit.
-
-**Step 4.3 — Bug report**
-
-Record: Not applicable — no `Reported-by:` or `Link:` tags. Bug
-identified by code review / internal AMD analysis per commit message.
-
-**Step 4.4 — Related patches**
-
-Record: Container PID fix (`1142738572ef3`) is a separate follow-up on
-master; not required for this security fix to function on non-container
-or host-PID setups.
-
-**Step 4.5 — Stable list**
-
-Record: Not searched (lore blocked). No stable nomination found in
-available sources.
+### Step 2.4: Fix quality
+**Record:** Obviously correct — standard kernel pattern
+(`kthread_create` + `wake_up_process`). Minimal, no API changes. Low
+regression risk; removing the unnecessary `srv_lock` around `tcpStatus`
+is correct given new ordering.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 5.1 — Key functions**
+### Step 3.1: Blame
+**Record:**
+- `kthread_run(cifs_demultiplex_thread, ...)` introduced in
+  `7c97c200e2c5a` (2011, Al Viro)
+- `task_to_wake` exit-wait logic from `b1c8d2b421376` (2008, Jeff
+  Layton), re-added in `a5c3e1c725af9` (2014 revert of removal)
+- Buggy pattern present since ~2011; hang path possible since 2008/2014
+  tsk handling
 
-Record: `kfd_smi_ev_enabled()`, `kfd_smi_event_add()`,
-`kfd_smi_event_update_vmfault()`, `kfd_smi_event_process()`,
-`kfd_smi_event_open()`
+### Step 3.2: Fixes: tag
+**Record:** N/A — no Fixes: tag.
 
-**Step 5.2 — Callers**
+### Step 3.3: Related file history
+**Record:** Recent `connect.c` changes in this tree include negotiate
+timeout race fix (`266b5d02e14f3`), channel deadlock fix
+(`711741f94ac3c`), netns leak fix (`59b33fab4ca4d`). No duplicate fix
+for this specific race. Standalone patch.
 
-Record:
-- `kfd_smi_event_update_vmfault()` ← `kfd_int_process_v9.c`,
-  `kfd_int_process_v11.c`, `cik_event_interrupt.c` (GPU fault interrupt
-  paths)
-- `kfd_smi_event_process()` ← `kfd_process.c` (process start at line
-  ~1727, end at ~1059)
-- `kfd_smi_event_open()` ← `kfd_chardev.c` via `kfd_ioctl_smi_events()`
-  (userspace ioctl)
+### Step 3.4: Author context
+**Record:** Fredric Cover has prior SMB client fixes in tree
+(`86f9c23e0814c` OOB read, `6cc1518357369` kvzalloc). Not subsystem
+maintainer; patch signed off by Steve French.
 
-**Step 5.3 — Callees**
-
-Record: `amdgpu_vm_get_task_info_pasid()`,
-`amdgpu_vm_get_task_info_vm()`, `add_event_to_kfifo()` → iterates all
-SMI clients and checks `kfd_smi_ev_enabled()`.
-
-**Step 5.4 — Reachability**
-
-Record: Userspace opens SMI event fd via KFD ioctl (`/dev/kfd`, render
-group). GPU faults and process lifecycle events are triggered by normal
-KFD compute workloads. **Reachable by unprivileged render-group users**
-who can subscribe to SMI events and receive other users' process
-metadata.
-
-**Step 5.5 — Similar patterns**
-
-Record: Other per-process events (`page_fault`, `migration`,
-`queue_eviction`, etc.) already pass non-zero PID and are correctly
-filtered. Only VMFAULT and PROCESS_START/END incorrectly used `pid=0`.
+### Step 3.5: Dependencies
+**Record:** No prerequisites. `kthread_create`/`wake_up_process` exist
+in this tree. Patch applies cleanly (`git apply --check` succeeded).
+Self-contained.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree (6.18.44)
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 6.1 — Buggy code present?**
+### Step 4.1: Original discussion
+**Record:** `b4 dig -c e8a5cf2ff5a13` →
+https://patch.msgid.link/20260602005512.126883-1-FredTheDude@proton.me
+Submitted as `[PATCH RFC]` on 2026-06-01. Lore page blocked by bot
+protection; could not read thread replies.
 
-Record: **Yes.** Local tree is `v6.18.44` on `stable/linux-6.18.y`.
-Verified:
-- Line 257: `kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, ...)`
-- Line 359: `kfd_smi_event_add(0, pdd->dev, PROCESS_START/END, ...)`
-- Filter at lines 168-169 skips all PID checks when `pid==0`
-- Fix commit `3b347d011773d` is **not** an ancestor of HEAD (`merge-
-  base` exit 1)
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w` returned same URL only. CC list from web search:
+`sfrench`, `linux-cifs`, `sprasad@microsoft.com`. Maintainer sign-off
+present.
 
-**Step 6.2 — Backport complications**
+### Step 4.3: Bug reports
+**Record:** No Reported-by or syzbot link. Theoretical/review-found
+race, but mechanism is verifiable in code.
 
-Record: **Clean apply** — `git show 3b347d011773d -p | git apply
---check` succeeded with no conflicts.
+### Step 4.4: Series context
+**Record:** `b4 dig -a` shows single revision. Not part of a multi-patch
+series.
 
-**Step 6.3 — Related fixes already present?**
-
-Record: Superuser filter fix (`6b9d26089f56f`) is present but does not
-address `pid=0` bypass. This specific information-leak fix is absent.
-
----
-
-## Phase 7: Subsystem Context
-
-**Step 7.1 — Subsystem**
-
-Record: `drivers/gpu/drm/amd/amdkfd` — AMD KFD (ROCm/HSA GPU compute).
-Criticality: **IMPORTANT** for AMD GPU compute users; config-dependent
-(`CONFIG_HSA_AMD`).
-
-**Step 7.2 — Activity**
-
-Record: Actively maintained — multiple SMI event commits in 2024-2026 in
-this file.
+### Step 4.5: Stable list
+**Record:** UNVERIFIED — could not search lore stable archive due to
+fetch blocking. No evidence against backport.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 8.1 — Who is affected**
+### Step 5.1: Modified functions
+**Record:** `cifs_get_tcp_session()` (primary), affects startup of
+`cifs_demultiplex_thread()`.
 
-Record: Multi-user systems with AMD GPUs and KFD/ROCm enabled; any user
-in the render group with `/dev/kfd` access.
+### Step 5.2: Callers
+**Record:** `cifs_get_tcp_session()` called from:
+- Mount path (~line 3667 in `connect.c`) — every CIFS/SMB mount
+- `sess.c:561` — multichannel session setup
 
-**Step 8.2 — Trigger conditions**
+Every SMB/CIFS mount triggers this path.
 
-Record: Another user's KFD process starts/ends or triggers a VM fault
-while a malicious/co-resident user has an SMI event fd subscribed.
-Common on shared GPU servers, HPC clusters, and multi-tenant
-workstations.
+### Step 5.3: Callees
+**Record:** `kthread_create`, `wake_up_process`, `list_add`,
+`queue_delayed_work`, field initialization. Demux thread calls
+`cifs_read_from_socket`, `allocate_buffers`, credit handling — all use
+`server` fields set in this function.
 
-**Step 8.3 — Failure mode severity**
+### Step 5.4: Reachability
+**Record:** Reachable from userspace via `mount -t cifs` / SMB mount
+syscalls. Common enterprise and desktop path. Unprivileged users can
+trigger if permitted to mount.
 
-Record: **Cross-process information disclosure** — other processes' PIDs
-and command names exposed. Severity: **HIGH** (security/privacy; not
-crash/corruption, but violates process isolation). Unprivileged render-
-group users can trigger it.
+### Step 5.5: Similar patterns
+**Record:** No other `kthread_run(cifs_demultiplex_thread` instances.
+This is the sole creation site.
 
-**Step 8.4 — Risk vs benefit**
+---
 
-Record:
-- **Benefit:** HIGH — closes a real cross-process monitoring hole on
-  shared GPU systems
-- **Risk:** VERY LOW — 8-line change, uses existing fields and filtering
-  logic, maintainer-acked
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
+
+### Step 6.1: Buggy code present?
+**Record:** **YES.** Current tree at `fs/smb/client/connect.c:1874-1906`
+has identical buggy `kthread_run` ordering. Bug predates 6.18.y branch
+(code from 2008–2011).
+
+### Step 6.2: Backport complications
+**Record:** **Clean apply.** `git show e8a5cf2ff5a13 --
+fs/smb/client/connect.c | git apply --check` succeeded with no
+conflicts.
+
+### Step 6.3: Related fixes already present?
+**Record:** No equivalent fix in this tree. `git merge-base --is-
+ancestor e8a5cf2ff5a13 HEAD` → exit 1 (not merged).
+
+---
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `fs/smb/client` — **IMPORTANT**. CIFS/SMB client used widely
+on servers, desktops, NAS mounts. Not core VFS, but affects any system
+mounting SMB shares.
+
+### Step 7.2: Activity
+**Record:** Actively maintained in 6.18.y (20+ recent commits to
+`connect.c`).
+
+---
+
+## PHASE 8: IMPACT AND RISK
+
+### Step 8.1: Who is affected
+**Record:** All users mounting CIFS/SMB shares (`CONFIG_CIFS`).
+
+### Step 8.2: Trigger conditions
+**Record:**
+- **Init race:** Any mount — timing-dependent, more likely under
+  preemption/scheduling pressure.
+- **Hang:** Failed mount or fast teardown after `kthread_run` but before
+  `tsk` assignment; requires unlucky scheduling.
+- **Unprivileged trigger:** Yes, if user can mount SMB shares.
+
+### Step 8.3: Failure severity
+**Record:**
+- Init race: incorrect credit/state handling, unpredictable behavior,
+  potential protocol errors — **HIGH**
+- Hung `cifsd` thread: stuck kernel thread, module unload failure,
+  resource leak — **CRITICAL**
+- Overall: **HIGH to CRITICAL**
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH — prevents mount-path races and potential hung
+  threads on common filesystem
+- **Risk:** LOW — 27-line ordering fix, well-established pattern,
+  applies cleanly
 - **Ratio:** Strongly favors backport
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1 — Evidence summary**
+### Step 9.1: Evidence summary
 
-**FOR:**
-- Real security/privacy bug (cross-process PID/comm leak)
-- Small, surgical, maintainer-acked fix
-- Applies cleanly to 6.18.44
-- Buggy code confirmed present in this tree
-- Unprivileged users in render group can exploit
-- Aligns with stable policy for security fixes
+**FOR backport:**
+- Fixes real, verifiable race in mount hot path
+- Can cause hung kernel thread (indefinite sleep in exit path)
+- Small, surgical, maintainer-approved
+- Applies cleanly to v6.18.44
+- Buggy code confirmed present in this tree since long before branch
+- No dependencies or new APIs
 
-**AGAINST:**
-- Affects only AMD KFD users (not universal)
-- No external bug report or syzbot confirmation
-- Container PID correctness is a separate follow-up on master (not a
-  reason to reject this fix)
+**AGAINST backport:**
+- No user bug report or syzbot reproduction (theoretical timing race)
+- RFC submission — may have had review comments we could not read
 
 **UNRESOLVED:**
-- Full lore thread discussion (Anubis blocked fetch)
-- No explicit stable-list nomination found
+- Full lore review thread content (bot-blocked)
+- Whether any reviewer explicitly nominated for stable
 
-**Step 9.2 — Stable rules checklist**
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — logic is sound; maintainer
+   SOB; no Tested-by
+2. Fixes real bug affecting users? **PASS** — mount-path race with
+   verifiable hang mechanism
+3. Important issue? **PASS** — hung task / mount failures (**CRITICAL**)
+4. Small and contained? **PASS** — 1 file, 27 lines
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — clean apply verified
 
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — logic clear; Acked-by
-maintainer |
-| 2. Fixes real bug affecting users? | **PASS** — cross-process info
-leak on shared GPUs |
-| 3. Important issue? | **PASS** — security information disclosure
-(HIGH) |
-| 4. Small and contained? | **PASS** — 8 lines, 1 file |
-| 5. No new features/APIs? | **PASS** — corrects existing event delivery
-only |
-| 6. Can apply to this tree? | **PASS** — clean apply verified |
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs fix —
+standard bug fix).
 
-**Step 9.3 — Exception categories**
+### Step 9.4: Decision rationale
 
-Record: None (not a quirk/DT/build/doc fix) — qualifies on security bug-
-fix merits.
-
-**Step 9.4 — Decision rationale**
-
-This commit fixes a genuine cross-process information leak in AMD KFD
-SMI events. The buggy code is present in Linux 6.18.44, the fix is
-minimal and obviously correct, and it restores the intended per-process
-isolation that `kfd_smi_ev_enabled()` was designed to provide. Shared-
-GPU and multi-user ROCm deployments on stable kernels should receive
-this security fix.
+This fix addresses two concrete problems in `cifs_get_tcp_session()`:
+the demux thread running before `tcp_ses` is fully initialized, and the
+`tsk` pointer race that can leave `cifsd` sleeping forever on exit. The
+buggy code is present in v6.18.44, the patch is minimal and applies
+cleanly, and the failure modes (hung thread, mount instability) are
+serious enough for stable. The absence of a public bug report does not
+diminish the technical merit — the race is structurally present in code
+that has been wrong since `kthread_run` was adopted here.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message and tags from user query and `git show
-  3b347d011773d`
-- [Phase 2] Read current `kfd_smi_events.c` lines 163-366; confirmed
-  diff changes only VMFAULT and PROCESS paths
-- [Phase 3] `git blame` on filter and event functions; identified
-  introducing commits `4172b556fd5bd`, `b8f67b9ddf4f8`, `6b9d26089f56f`,
-  `163a5a58437062`
-- [Phase 3] `git merge-base --is-ancestor`: PROCESS events and superuser
-  fix present; info-leak fix absent
-- [Phase 3] `git show 3b347d011773d -p | git apply --check`: clean apply
-- [Phase 4] `b4 dig -c 3b347d011773d`: found lore URL; v1 only
-- [Phase 4] `b4 dig -w`: amd-gfx list CC'd
-- [Phase 4] `b4 dig -a`: single v1 revision
-- [Phase 4] WebFetch lore URL: blocked by Anubis (no thread content)
-- [Phase 5] `grep` callers of `kfd_smi_event_update_vmfault` and
-  `kfd_smi_event_process`
-- [Phase 5] Read `kfd_smi_event_open()`: `client->pid = current->tgid`,
-  `client->suser = capable(CAP_SYS_ADMIN)`
-- [Phase 5] Verified `task_info->tgid` populated in `amdgpu_vm.c:2543`
-- [Phase 6] `git describe HEAD`: v6.18.44
-- [Phase 6] Confirmed buggy `kfd_smi_event_add(0, ...)` at lines 257 and
-  359 in current tree
-- [Phase 6] `git log stable/linux-6.18.y..master -- kfd_smi_events.c`:
-  fix on master, not in stable
-- [Phase 8] Assessed severity as cross-process information disclosure
-  via render-group `/dev/kfd` access
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+  and `git show e8a5cf2ff5a13`
+- **[Phase 2]** Analyzed diff; read `cifs_demultiplex_thread` exit path
+  at lines 1437–1448; read `kthread_run` macro in
+  `include/linux/kthread.h:69–76`
+- **[Phase 3]** `git blame -L 1870,1910 fs/smb/client/connect.c` —
+  kthread_run from 2011
+- **[Phase 3]** `git log -S 'kthread_run(cifs_demultiplex_thread'` —
+  introduced 7c97c200e2c5a
+- **[Phase 3]** `git log -S 'if (!task_to_wake)'` — tsk exit wait from
+  b1c8d2b421376, re-added a5c3e1c725af9
+- **[Phase 3]** `git log --oneline -20 -- fs/smb/client/connect.c` — no
+  duplicate fix
+- **[Phase 3]** `git log --author="Fredric Cover" -- fs/smb/client/` — 2
+  prior fixes
+- **[Phase 4]** `b4 dig -c e8a5cf2ff5a13` → lore URL found; `b4 dig -a`
+  → single revision
+- **[Phase 4]** Lore fetch blocked (bot protection) — review comments
+  UNVERIFIED
+- **[Phase 5]** `grep cifs_get_tcp_session` — callers at connect.c:3667,
+  sess.c:561
+- **[Phase 5]** Read `cifs_demultiplex_thread` startup loop (lines
+  1251–1285)
+- **[Phase 6]** `git describe HEAD` → v6.18.44; buggy code at
+  connect.c:1874–1906 confirmed
+- **[Phase 6]** `git merge-base --is-ancestor e8a5cf2ff5a13 HEAD` → exit
+  1 (fix not in tree)
+- **[Phase 6]** `git show e8a5cf2ff5a13 -- fs/smb/client/connect.c | git
+  apply --check` → clean apply
+- **[Phase 8]** Failure modes: init race (HIGH), hung cifsd thread
+  (CRITICAL)
 
 **YES**
 
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ fs/smb/client/connect.c | 27 ++++++++++++++++-----------
+ 1 file changed, 16 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-index d2bc169e84b0b..fe4b936923854 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-@@ -254,8 +254,10 @@ void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid)
- 	if (task_info) {
- 		/* Report VM faults from user applications, not retry from kernel */
- 		if (task_info->task.pid)
--			kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, KFD_EVENT_FMT_VMFAULT(
--					  task_info->task.pid, task_info->task.comm));
-+			kfd_smi_event_add(task_info->tgid, dev,
-+					  KFD_SMI_EVENT_VMFAULT,
-+					  KFD_EVENT_FMT_VMFAULT(task_info->task.pid,
-+								task_info->task.comm));
- 		amdgpu_vm_put_task_info(task_info);
- 	}
- }
-@@ -356,7 +358,7 @@ void kfd_smi_event_process(struct kfd_process_device *pdd, bool start)
- 	task_info = amdgpu_vm_get_task_info_vm(avm);
+diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
+index 2ee2199d2a6a2..e8bf3e8868d70 100644
+--- a/fs/smb/client/connect.c
++++ b/fs/smb/client/connect.c
+@@ -1871,14 +1871,6 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx,
+ 	 * this will succeed. No need for try_module_get().
+ 	 */
+ 	__module_get(THIS_MODULE);
+-	tcp_ses->tsk = kthread_run(cifs_demultiplex_thread,
+-				  tcp_ses, "cifsd");
+-	if (IS_ERR(tcp_ses->tsk)) {
+-		rc = PTR_ERR(tcp_ses->tsk);
+-		cifs_dbg(VFS, "error %d create cifsd thread\n", rc);
+-		module_put(THIS_MODULE);
+-		goto out_err_crypto_release;
+-	}
+ 	tcp_ses->min_offload = ctx->min_offload;
+ 	tcp_ses->retrans = ctx->retrans;
+ 	/*
+@@ -1886,9 +1878,7 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx,
+ 	 * to the struct since the kernel thread not created yet
+ 	 * no need to spinlock this update of tcpStatus
+ 	 */
+-	spin_lock(&tcp_ses->srv_lock);
+ 	tcp_ses->tcpStatus = CifsNeedNegotiate;
+-	spin_unlock(&tcp_ses->srv_lock);
  
- 	if (task_info) {
--		kfd_smi_event_add(0, pdd->dev,
-+		kfd_smi_event_add(task_info->tgid, pdd->dev,
- 				  start ? KFD_SMI_EVENT_PROCESS_START :
- 				  KFD_SMI_EVENT_PROCESS_END,
- 				  KFD_EVENT_FMT_PROCESS(task_info->task.pid,
+ 	if ((ctx->max_credits < 20) || (ctx->max_credits > 60000))
+ 		tcp_ses->max_credits = SMB2_MAX_CREDITS_AVAILABLE;
+@@ -1897,7 +1887,16 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx,
+ 
+ 	tcp_ses->nr_targets = 1;
+ 	tcp_ses->ignore_signature = ctx->ignore_signature;
+-	/* thread spawned, put it on the list */
++
++	tcp_ses->tsk = kthread_create(cifs_demultiplex_thread,
++				  tcp_ses, "cifsd");
++	if (IS_ERR(tcp_ses->tsk)) {
++		rc = PTR_ERR(tcp_ses->tsk);
++		cifs_dbg(VFS, "error %d create cifsd thread\n", rc);
++		module_put(THIS_MODULE);
++		goto out_err_crypto_release;
++	}
++	/* thread created, put it on the list */
+ 	spin_lock(&cifs_tcp_ses_lock);
+ 	list_add(&tcp_ses->tcp_ses_list, &cifs_tcp_ses_list);
+ 	spin_unlock(&cifs_tcp_ses_lock);
+@@ -1905,6 +1904,12 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx,
+ 	/* queue echo request delayed work */
+ 	queue_delayed_work(cifsiod_wq, &tcp_ses->echo, tcp_ses->echo_interval);
+ 
++	/*
++	 * Use split create/wake logic to ensure that tcp_ses is fully populated
++	 * and tcp_ses->tsk is valid
++	 */
++	wake_up_process(tcp_ses->tsk);
++
+ 	return tcp_ses;
+ 
+ out_err_crypto_release:
 -- 
 2.53.0
 
