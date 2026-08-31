@@ -1,161 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6A74CCDC1;
-	Mon, 31 Aug 2026 20:01:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0BB36F8EE;
+	Mon, 31 Aug 2026 20:03:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788206500; cv=none; b=AgKRL60Y29pXm2xR4RKHZgkmxMHWOMws3ykXGh1oAG54jlRLveu5WPj24SkfaQLDNE9NM5sf0dX78Cv58NiMEW1WSAiGcxa6GqXzg1cbsYX7S93hiXNW9kCraKri7ZIfMs7IKc71XqaElF2AYzclnkzajVS1yzA9RY3SUCmZY1o=
+	t=1788206633; cv=none; b=H68I5baT3aWARBPnLNKeDYNVYi9cOfB0FCHNnPb80EpYNlEyK4lxVM/lt0+L5Y3NX1Ci93Lsp98SU8Ay5HyVS8M1q6Z8LZolabv5AiJTO0++VbyA7M5cM5ibdCPL6ZGpD7/pooiuxzDGJSRPKQ8upTlznKc1duygjQ00WIucqfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788206500; c=relaxed/simple;
-	bh=37ri+mS2J7OBU9BSGk6AePbur0ku4bt1FR/6mIhRK1c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G7EhmzH9myR0DGbxj1MjxrAuM513LGbhmwt53ganesmcoIaCd+w1GxV8njruOCQk4GmAN5LLYc7WyKYi9kaKSbKnyfKluQj1glh6CAYcurBWgyL4cbK+YuOc/WI7/I7uT6LPXInXgaLOSJ/C6FG8AUARCWVLtjmLHzngH1NY648=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YugaleRA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788206633; c=relaxed/simple;
+	bh=1QmfLgl3q+3NOcJO1V637zl4DBne7FcMn/KZI8PCokE=;
+	h=Date:Message-ID:From:To:Cc:Subject; b=XRRA/64z/+jE+LWB7Ln8ZwQR8s3Atv13ik8PD4/nGSvfusNhENUaBBJjRQTayMCZInJ6fPFNuFCor6C/mSsnQQIdEXG0EShItkQCs5Oa6OAMJYfdyw8bxabqpxIuIZFwkxtGDlqDtfrN6wjQBkKN3llNrkxZ7hTVCkXWLWiMsb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ou4kylzs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YugaleRA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 334461F000E9;
-	Mon, 31 Aug 2026 20:01:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ou4kylzs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97D271F000E9;
+	Mon, 31 Aug 2026 20:03:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788206499;
-	bh=HuXKZEy2/gGYSP0cASGT4oXqgM10s/kica6ZcwczuKk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YugaleRAWIZdGULgBKX3mJmnVeLCqhhf4x6+DZ/M5f/lmxmjdcCKsoo24JuxKNJTr
-	 J4hyDstawePgx/NwM0qB0musRRnAHBXtoMc7qcgEJp54ZzuqSIbxsiFiuS9YG/TWJP
-	 tj7oIQZxpoyC5Ndon67lqG0YYlVD45sq/stx06Jm3CfVI87XOasFSyH2gPikoapNo2
-	 swBfl/+AXDCW3ma/hux93iYzwnzQhmGmCM1FthoAn68eRTuwh8b3Q9qJgPhr0j7a/S
-	 zOc6ceHwHlppyKu9jyKm5uSgYaOAjbRrGhJJD2jBqGsvgqF2cL79I7g0fs5uGO7N1t
-	 hUQgM5lc6SCyA==
-Date: Mon, 31 Aug 2026 22:01:31 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Rob Herring <robh@kernel.org>, Aksh Garg <a-garg7@ti.com>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>, Jon Mason <jdmason@kudzu.us>,
-	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Manikanta Maddireddy <mmaddireddy@nvidia.com>,
-	Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
-	linux-pci@vger.kernel.org, linux-nvme@lists.infradead.org,
-	ntb@lists.linux.dev, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] PCI: endpoint: Support hardware-owned MSI-X table
- and PBA
-Message-ID: <apXdm2I33edo8kpZ@ryzen>
-References: <20260830151948.3547577-1-den@valinux.co.jp>
- <apVWd1u9JjTKQczu@ryzen>
- <pj5vpwwd5tr5tuvhdq3bcpefnq27r6ljvwoysguz2o4tglcqx5@l7zmb6wjnhla>
+	s=k20260515; t=1788206631;
+	bh=uwEYev4hbQssCFX3Ajl7LJ+jjqNx2+bASQjQ+C45CfM=;
+	h=Date:From:To:Cc:Subject;
+	b=Ou4kylzsI7OJFum7mQcl2w0DgPcjIclRVHn8lID3VJYx03r/G82YRY2m/oOI4SUSd
+	 7W72Jsvaziw/7Uiyg3IWiQxAiAiRb0TGXpL1hrbwYNPzhxLfG8B4Ppne2tCvfYdDY6
+	 Kr3DnTiQE3bsQ1eZoGdykCXKeGN9nmVHc2TxZAVp6CzSIydxLfIbD6NwUcxEeB9oNq
+	 FSF/7e/OXsA0Ymsy9ws1LkO0+o9x+gZH1HnI08nXLtn7mW1XbBRrD7QSHXiTLEyfRs
+	 cv7oZ4xAlaxpvQ+GSybFn8xDYheZ0UgECCrRGGykI1S6tUBZ6Px9nmmPx09Dz2mdoa
+	 1nuauHRFerz6Q==
+Date: Mon, 31 Aug 2026 10:03:50 -1000
+Message-ID: <0f59915200a4239f27a624250c58dd6c@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	sched-ext@lists.linux.dev,
+	David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>
+Subject: [GIT PULL] sched_ext: Fixes for v7.3-rc1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <pj5vpwwd5tr5tuvhdq3bcpefnq27r6ljvwoysguz2o4tglcqx5@l7zmb6wjnhla>
 
-Hello Koichiro,
+Hello, Linus.
 
-On Tue, Sep 01, 2026 at 01:11:09AM +0900, Koichiro Den wrote:
-> This is not driven by a performance target, so I do not have numbers. The
-> immediate issue is correctness. ntb_hw_epf can select MSI-X, but pci-epf-vntb
-> currently configures and raises MSI. I want that MSI-X path to work on RK3588
-> with the controller doorbell. I will make it clear in the next cover letter
-> that, with this series, a doorbell sent from ntb_tool on the pci-epf-vntb side
-> of RK3588 reaches ntb_tool on the ntb_hw_epf host side when MSI-X is selected.
-> I believe that is the simplest E2E test showing what this series fixes.
+The following changes since commit fab183d632628381b466a41479489541ac0e29a0:
 
-Okay, if the main issue is that pci-epf-vntb does not raise MSI-X, even when
-ntb_hw_epf host side has requested MSI-X, then I think that the first patch
-in the series should fix this, so that the fix can easily be backported.
+  sched_ext: Merge branch 'for-7.3-arena-args' into for-7.3 (2026-08-17 11:20:34 -1000)
 
-(Right now you fix this in patch 3/3, and the fix in patch 3/3 depends on
-both patches 1/3 and 2/3.)
+are available in the Git repository at:
 
-I think that pci-epf-vntb actually respecting the configured IRQ type by the
-host is a separate logical change from adding support for HW defined layout.
+  https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.3-rc1-fixes
 
+for you to fetch changes up to 068e5a0bc57e57d24cbf38def29cc5fb4db9a0df:
 
-> I initially considered making the hardware-owned layout automatic for every EPF.
-> pci-epf-ntb (not vNTB!) is the reason I did not. It currently reads
-> host-programmed MSI-X entries through epf_bar[] backing and uses them to set up
-> peer outbound mappings. A hardware-owned Table has no such backing, and the
-> current EPC API has no generic way to read those entries. I suspect that
-> supporting it there would require a broader design change. Also, I do not have
-> hardware for the pci-epf-ntb bridge configuration.
-> 
-> pci-epf-test and nvmet-pci-epf should be easier to convert. However, converting
-> only those would not remove the per-layout handling while pci-epf-ntb still uses
-> an EPF-owned Table. I would prefer to handle those separately when they can be
-> properly tested. This is what I meant by this part of the cover letter:
-> 
->      [...]
-> 
->      layouts. This avoids unnecessary changes and reduces regression risk.
->      They can use a hardware-owned layout later if/when needed.
+  sched_ext: Fix missing @slice and @vtime descriptions in finish_dispatch() kernel-doc (2026-08-31 07:28:04 -1000)
 
-Okay, if pci-epf-ntb is special, perhaps we should add a comment in
-pci-epf-ntb which explains why it cannot support HW defined layout.
+----------------------------------------------------------------
+sched_ext: Fixes for v7.3-rc1
 
-But for consistency, if we modify pci-epf-vntb, I think it would make sense
-to also modify pci-epf-test and nvmet-pci-epf as well in the same series.
+- The task ownership check in the dispatch queue move operation raced
+  against the task exiting or moving to a different sub-scheduler,
+  spuriously triggering scheduler aborts. Fix by moving the check under
+  the queue lock.
 
-pci-epf-test should be easy to test, just run the pci endpoint selftest.
+- The cgroup bandwidth change callback runs in a sleepable context but
+  sleepable implementations were rejected at load time. Allow them and add
+  a marker so userspace can detect the capability.
 
-nvmet-pci-epf should be quite easy to test too, just run the normal fio based
-testing that we usually run, and unless you see worse performance, I think we
-are good. (If we see worse performance, that could be an indication that one
-of the MSI-X for the different completion queues are not being correctly
-triggered. By default, the host side nvme driver creates one completion queue
-(and one submission queue) per host CPU.
+- Sync tooling headers with the scx repo for accumulated compatibility
+  improvements.
 
+- Example scheduler fixes: ignored timer re-arm failures and vtime credit
+  loss on cgroup migration.
 
-What I suggest that you instead do something like:
-Patch 1/7: pci-epf-vntb: Fix to actually use MSI-X when requested.
-           This probably includes adding the code that is inside the
-	   if (ret == -ENOENT) { }.
-Patch 2/7: PCI: endpoint: Support hardware-owned MSI-X table and PBA
-Patch 3/7: PCI: dw-rockchip: Support fixed MSI-X table and PBA on RK3588
-Patch 4/7: pci-epf-vntb: Add code that calls pci_epc_get_hw_msix_layout()
-           and uses that layout, if the function returned success.
-Patch 5/7: pci-epf-test: Add code that calls pci_epc_get_hw_msix_layout()
-           and uses that layout, if the function returned success.
-Patch 6/7: nvmet-pci-epf: Add code that calls pci_epc_get_hw_msix_layout()
-           and uses that layout, if the function returned success.
-Patch 7/7: pci-epf-ntb: Add comment that explains why it cannot call
-           pci_epc_get_hw_msix_layout() like all other EPF drivers that
-	   support MSI-X.
+- Documentation and comment fixes.
 
+----------------------------------------------------------------
+Changwoo Min (1):
+      sched_ext: Allow ops.cgroup_set_bandwidth() to be sleepable
 
-This way, patch 1/7 can be backported, and will help all users vNTB users,
-even the users that do not use RK3588 as an EPC.
+Liang Luo (3):
+      sched_ext: Fix nonexistent field in sched-ext.rst example
+      Docs/admin-guide/cgroup-v2: document BPF scheduler callbacks for cpu.max and cpu.idle
+      sched_ext: Fix missing @slice and @vtime descriptions in finish_dispatch() kernel-doc
 
+Tao Cui (1):
+      docs/sched_ext: document that cgroup CPU knobs are scheduler-dependent
 
-> > I understand that you introduce dw_pcie_ep_msix_layout_is_hw_owned()
-> > because you want an EPF driver optionally use the HW defined table.
-> > But if all EPF drivers always use the HW defined table if available, I think
-> > you can avoid introducing this helper, and let rockchip_pcie_raise_irq()
-> > unconditionally call dw_pcie_ep_raise_msix_irq_doorbell() for case PCI_IRQ_MSIX.
-> 
-> Yes, under that assumption I agree. With the current mix, however, the Rockchip
-> callback still has to choose the helper according to the selected layout. That
-> is why the DWC code records which layout was selected.
-> 
-> I will update the cover letter to state the motivation and this boundary more
-> directly. Does keeping the layout choice with each EPF for this reason sound
-> reasonable?
+Tejun Heo (3):
+      sched_ext: Sync tools autogen enum headers from the scx repo
+      sched_ext: Sync common and compat headers from the scx repo
+      sched_ext: Fix spurious aborts in scx_bpf_dsq_move() on ownership change races
 
-Yes, since pci-epf-ntb apparently is special, I can see why you need
-both ep_func->msix_hw_owned and dw_pcie_ep_msix_layout_is_hw_owned().
+Wanwu Li (4):
+      sched_ext: Fix timer pinning and return value in scx_central
+      sched_ext: Fix vtime delta loss in scx_flatcg cgroup migration
+      sched_ext: Check bpf_timer_start return values in scx_qmap
+      sched_ext: Fix several comment issues
 
+ Documentation/admin-guide/cgroup-v2.rst         |  16 +-
+ Documentation/scheduler/sched-ext.rst           |  17 +-
+ kernel/sched/ext/ext.c                          |  47 +++--
+ kernel/sched/ext/internal.h                     |  25 ++-
+ tools/sched_ext/include/scx/common.bpf.h        | 140 ++++++++++++---
+ tools/sched_ext/include/scx/compat.bpf.h        |  68 ++++++--
+ tools/sched_ext/include/scx/compat.h            |  97 +++++++++++
+ tools/sched_ext/include/scx/enum_defs.autogen.h |   5 +-
+ tools/sched_ext/include/scx/enums_abi.autogen.h | 223 ++++++++++++++++++++++++
+ tools/sched_ext/scx_central.bpf.c               |   6 +-
+ tools/sched_ext/scx_flatcg.bpf.c                |   2 +-
+ tools/sched_ext/scx_qmap.bpf.c                  |   9 +-
+ 12 files changed, 597 insertions(+), 58 deletions(-)
+ create mode 100644 tools/sched_ext/include/scx/enums_abi.autogen.h
 
-Kind regards,
-Niklas
+Thanks.
+
+-- 
+tejun
