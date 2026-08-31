@@ -1,171 +1,197 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D7953B47C4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F823C1F45;
+	Mon, 31 Aug 2026 07:13:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788160419; cv=none; b=C9D+g6MfnVnouRFUGxFMPmgosu/l9htqjOWsCGsreckj4p+BLAUluRQ9VU4/20Whdvirokwg734cCrC2MppOsfN8rCwNjnH02qkdEL3zPw9jl6O9MGuIh+J8cFWpYXd2gpGHRNR+jAcIZLq1DYapX0VTmiO++RgSVRpOWc0Rh7U=
+	t=1788160421; cv=none; b=IiPz8hxdgStkuJyI30T5W7UqwD3AeZSsWVe4MY04N+3dV70V2EOZQxhzVn9aWAfSxmqaB29JRirz35hG+h241CoruIj3apwk9gk4tKqMrm9rdo4p6H6CghsC1+Ly0W4/XoVHTZQ5BD7CZsPH5neeULIsTk3cuIFIFuiCDkHWQWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788160419; c=relaxed/simple;
-	bh=q6I4wCeLjqNrqvwZRLZGmC63ff7DII28bBJfKKCRnYs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q4Sb9nSLa+ia7HVAe2YnKTBkWvl9qaDuNT9Hu9cz4cg3H9OTvcQ8JI2rghN+K+0l8jZGqEKANGk2CEX2ygIAv/xu5DeMaz5X5LdwzryfzYzejwxcePMRICiNa5ZfsVH7HB72eHiLu+xRUSH3U3O8z7bJQ5UvENKZYE5DZIAnYTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QRW2H7zd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZecpI5B7; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788160421; c=relaxed/simple;
+	bh=81zt51gCWR1tyk2rnkv5sTc2enngcXrsEszby0tfe/c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hMOfhekKbNmv5H7CZBmvuqU+hgzxyVxqw4BOAqZMxlbirphWtDbeZYKT/VCyXzuWJhlzYGlQiY9iumA2vvwVUX8SdzxBe4WvFRG49oANqBBLuRlGyWlADxhCbsVhNU9Z+QK561vUaRIRVjkbsx2mRsr8S/qclxk5qICAqOwob1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=WSV21sN/; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=WSV21sN/; arc=none smtp.client-ip=130.236.254.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QRW2H7zd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZecpI5B7"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V52TCd2679961
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:13:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PocnQeQ6O7VcIvt0+JawoO6B6p/AFAhDCRmYQgt+CKY=; b=QRW2H7zdyW5a40ix
-	znEwMpOjKQtWUuDkBP8YaXRyDcyURS3goBBsiQOk8W9FqV65FQ2xGMRG47rKaF4a
-	HULczAVCtKpsZxQvglMjAU+LoIRN4UWSlnWyGqBofA6ooudcrUXz9SUFCK+jO6M9
-	kivpOQqJyI2QXmxqNNexKzNeLUve6fPoShCEpOqy4uyxabNfFrAY1l523D2Nwx80
-	j7CGmbehc7PQY7kRReRbApZDgwkR8krOlL1DjG9IxhQX1atciIOr0kIarBCzle7U
-	aNpoQeW4wjQKMpk22FlZIoh5ItETNXjEyB65czVk50qxN4nlBw/bDq1sHCxeb9bn
-	YWA7ow==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqhwd59q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:13:37 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52fa40fed05so6304131cf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:13:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788160417; x=1788765217; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PocnQeQ6O7VcIvt0+JawoO6B6p/AFAhDCRmYQgt+CKY=;
-        b=ZecpI5B7gIRCZCaSLwGm6nqYNhuAl6780E+A3xUDwgnwTFvxENMtwWC55pBDZFl8WA
-         s3cmkyNuVdxDR2TgJsL3dMMh9w7pILptzdfPehfdEfATsLI8Zk0qJzdSVr7WFV+dcUBe
-         NHqaO5HRFGpl6cI9rYHjlR3Vnjm7q9PnOYVjxT+7pOKgRvY/T+fI3FVALnV36um6RTJa
-         GbD3nIepRfYI9b9HPf4yvG/eIKOTtFD1e4pP8dYZhLR7oqJN0KWIRLbi7Rrz404F2x+j
-         1HmPKIYrRp4hdsyVaF8+gnTs1rpFnweCZOjm+75qGfkxeo3Qp6eRShTnPRmsWDvxE9Qe
-         LpJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788160417; x=1788765217;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PocnQeQ6O7VcIvt0+JawoO6B6p/AFAhDCRmYQgt+CKY=;
-        b=Q/dYJsaFEek3OOaLZCh5YWJtXn5wE3XH1UPHFc6EX0cyuNBTXzyxZ2pQmqmF1PGn10
-         43grmZ50AI7211rbjUqwXmIXTR6CNpfs8ybhJYTlY1b4reS1o/PM5DXgXYiqA/uTJSWG
-         lkL7ksgBpr1WUB6+UpfBOJuL8EKizn6tZd86+9J1ZPFlz5tn6XfoYJ89egXg9WIlmkdu
-         hC4xMt+qgkHQuf7HWcnAo7aZse3fYRS2T0yVO2r2hg2RcD3YSkWESbjKjwhnUqbPK0eI
-         LRqtx/lO61wLetTI+xr/tGJNhYDNLRD2Zb3L9vEeZH1apY0XYCFcyBTJ5Kt1/l41n0Oi
-         aXhA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr/RTlTZM3crrkTnwMf31NQP0TPYyIosg8fMU5a5H+znIlVfQGa15mloh65/benz2Sm/3a09y2ouIwrCAo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMgupQkYQkxhUErrY3ZbT01aCm93a5iQOEYc0PjCAuMrmLyXAu
-	i4mdFJ87Am4n6+cv/NXhwRJ4ZwuojAH+JWRoSqt2bMonqtMLbdQWa7sXHvneUNLBJB1a/sA073F
-	2S/wceBR9WcZhTe4LEToo3rnoT5qC6gtpExKTRgIZqtvuO3u+Nez3vsiMmONhC5t1VD0=
-X-Gm-Gg: AR+sD11xRio6dLBy40C3RF11SsF/1WzEph1zvSDSEW6GJV2/s1a7A9qbngV/+a0rIjm
-	ZghDaGJETGhK4oYl2jldXqoKEePiAwy1OzUce6COjQphUmRP1LhdPpvedsRQMQRebWT0uIMxtXT
-	eRuP9WsjvmrxkjYFy+Lu7Q0Jsw3I59KseudpuTmp5UPQEUp7MfJQNS7DjNfKj+n6mKW/aDZGZ1l
-	O5sTQnZVZUyoyYFVB38BDV0/FUzTMLX2LmZkeT2BQjUXD9Wkb1vxCmDdA4LluSEsMw7Y3GVzKiY
-	MR7Z0J5m6ihKHsBmNQgqYZkQZrMi4kBhmP8G4fPiaCapJHS2lSbrq1R0gFoEbL59XCn2R/9czjp
-	pPSEcwIpx/hdsojATEDklPQ==
-X-Received: by 2002:ac8:7f15:0:b0:51c:83f1:bcd4 with SMTP id d75a77b69052e-52fb91e676emr189054291cf.0.1788160416689;
-        Mon, 31 Aug 2026 00:13:36 -0700 (PDT)
-X-Received: by 2002:ac8:7f15:0:b0:51c:83f1:bcd4 with SMTP id d75a77b69052e-52fb91e676emr189054021cf.0.1788160416343;
-        Mon, 31 Aug 2026 00:13:36 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a64fba5c16sm607868a12.22.2026.08.31.00.13.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 00:13:35 -0700 (PDT)
-Message-ID: <6f33aa1f-563a-4ad8-8c81-6f64fb64f6be@oss.qualcomm.com>
-Date: Mon, 31 Aug 2026 09:13:33 +0200
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="WSV21sN/";
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="WSV21sN/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1788160415;
+	bh=81zt51gCWR1tyk2rnkv5sTc2enngcXrsEszby0tfe/c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WSV21sN/JivHfsTG2BSAGE1hJnM/xM8FgxUB1xYhKIcItXatsZwGwg3a9oFvdBNgB
+	 Yg16lFrZW1LkC6/bL1DiGgWyHOMR+9+21ATbmudj06sLhUcl2W8YuFeeNl8TM1Fqwm
+	 t6ViST4lHQqAezq8gpXRh9K2mBRbOzwdSsoxQJhifeWtgEVqpam2RSQwoIbK23p9zn
+	 cYx4t0yLYsbyVPmA1Opwc8Cua5CNrD4+aQ/fRHf555QbdkEKpGQ57CW6WGwrugNreo
+	 AnmK8eH9Cnd9/yfdXflScOExixeNPvzvdyl8z82PT4xvsikO/6K1MI6WOqBZr4xxMd
+	 CxvwRDre0Ldzw==
+Received: from mail.lysator.liu.se (localhost [127.0.0.1])
+	by mail.lysator.liu.se (Postfix) with ESMTP id 93285E4DC;
+	Mon, 31 Aug 2026 09:13:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1788160415;
+	bh=81zt51gCWR1tyk2rnkv5sTc2enngcXrsEszby0tfe/c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WSV21sN/JivHfsTG2BSAGE1hJnM/xM8FgxUB1xYhKIcItXatsZwGwg3a9oFvdBNgB
+	 Yg16lFrZW1LkC6/bL1DiGgWyHOMR+9+21ATbmudj06sLhUcl2W8YuFeeNl8TM1Fqwm
+	 t6ViST4lHQqAezq8gpXRh9K2mBRbOzwdSsoxQJhifeWtgEVqpam2RSQwoIbK23p9zn
+	 cYx4t0yLYsbyVPmA1Opwc8Cua5CNrD4+aQ/fRHf555QbdkEKpGQ57CW6WGwrugNreo
+	 AnmK8eH9Cnd9/yfdXflScOExixeNPvzvdyl8z82PT4xvsikO/6K1MI6WOqBZr4xxMd
+	 CxvwRDre0Ldzw==
+Received: from gryt (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by mail.lysator.liu.se (Postfix) with ESMTPSA id 3736AE599;
+	Mon, 31 Aug 2026 09:13:35 +0200 (CEST)
+Date: Mon, 31 Aug 2026 09:13:34 +0200
+From: Peter Rosin <peda@lysator.liu.se>
+To: Ahmad Byagowi <ahmadexp@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 3/3] i2c: mux: Propagate software nodes to channel
+ adapters
+Message-ID: <apUpnqAQQfWaflS8@gryt>
+References: <cover.1787502619.git.ahmadexp@gmail.com>
+ <a4abcd31c3a6758e219f5edcdd4acd307e674f18.1787502619.git.ahmadexp@gmail.com>
+ <ao0tPhBvK1Er_Vs0@gryt>
+ <CAOQiBWNVvHpO7X8yWyZEa3-nV76YJfRbkzo+_4U-upEj4VNfow@mail.gmail.com>
+ <ao_VE0W-FohWqPPt@ashevche-desk.local>
+ <apO31ydKoiqWCEKo@gryt>
+ <CAOQiBWN5DgOcJ9Gg7s2GZmpQguJUh121Jn9yUzxxm=D530c8dA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: x1-denali: Add volume up/down GPIO keys
-To: Dale Whinham <daleyo@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        =?UTF-8?Q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>
-References: <20260829-surface-pro-11-volume-buttons-v1-1-ace589343a68@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260829-surface-pro-11-volume-buttons-v1-1-ace589343a68@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 89NSEYXctweveonmDRKvy29NVSeFe1-u
-X-Proofpoint-ORIG-GUID: 89NSEYXctweveonmDRKvy29NVSeFe1-u
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA2MCBTYWx0ZWRfX5qV9FAfS+WUJ
- QpfdFf3wLNQJlswpLlBQrr8pJNjY0jtj3rB1KEoPq5ISjwQSW3jpdyJpKWsUnhNEGDN4SGtMJnm
- gnEPYRjyDLDGw+FCFNUBXT+Vef+FsnA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA2MCBTYWx0ZWRfX12dy2v+08PGE
- 0TljMHnNw7Sz1mQxLdZFE3ycAfLjK/4ORUiksfoystcyuuDHdwbEmo5RcDNfu75/HD5cbG4d/hz
- ZbTnlAQ0EOu4J/sJZnRXE+38260JYPxDx4Zg/0FAS+qHQ/lUM3LkJUhWU6jIT3xXfFQJAPlNJsT
- qrtvQUlBPbldjZ0lrrqgpCGSQmxfDy3KCFne2izXCGtFylCihLH5zh8jloj+NmPl5q60S0a14Q/
- j1g4JirnBo2CXR+PBp+J9TpHNVvN2akpjabkiD9orXH8Ybee8cTTcYEF7DAWYOQvb0pedf+pips
- E/w2RsyUWGwxOptIJxPr6XdnbSceYRNAKv8SOnU+rPKkmrAIOXrqhYbXqph3iclXzxJGThrclqv
- fXwBi0gZ9BgpqRWkoHg8eMRSOI0TcV1z1ogDaaXHOppYniO32mdGdblu4DBfcLIWNXXnm+2PrCz
- ToeUKQNI5y/Zc0hGZyw==
-X-Authority-Analysis: v=2.4 cv=YKKvDxGx c=1 sm=1 tr=0 ts=6a9529a1 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=JO05NdOSlY_Y-sYczyEA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_02,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310060
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAOQiBWN5DgOcJ9Gg7s2GZmpQguJUh121Jn9yUzxxm=D530c8dA@mail.gmail.com>
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On 8/29/26 8:41 PM, Dale Whinham wrote:
-> Configure gpio6 and gpio8 as volume up and volume down respectively, to
-> enable the volume rocker located at the top of the screen.
+Den Sat, Aug 29, 2026 at 10:10:40PM -0700, skrev Ahmad Byagowi:
+> Peter, thanks for clarifying.
 > 
-> Signed-off-by: Dale Whinham <daleyo@gmail.com>
-> ---
+> The check is intentional. Without it, the generic traversal would also
+> inspect ACPI firmware nodes and could match _DSD child nodes carrying
+> a "reg" property, while the existing ACPI path below uses
+> acpi_preset_companion() to associate the adapter by channel address.
 
-[...]
+Yes, I got that. The question is if the precaution is really needed.
+Are "reg" properties common in ACPI nodes?
 
->  	pmic-glink {
-> @@ -995,6 +1013,22 @@ rtmr0_3p3_reg_en: rtmr0-3p3-reg-en-state {
->  		function = "normal";
->  		power-source = <1>; /* 1.8V */
->  	};
-> +
-> +	vol_down_n: vol-down-n-state {
-> +		bias-pull-up;
-> +		input-enable;
-> +		pins = "gpio8";
-> +		function = "normal";
-> +		power-source = <1>; /* 1.8V */
-> +	};
-> +
-> +	vol_up_n: vol-up-n-state {
-> +		bias-pull-up;
-> +		input-enable;
-> +		pins = "gpio6";
-> +		function = "normal";
-> +		power-source = <1>; /* 1.8V */
-> +	};
+> I have not established that changing the ACPI lookup behavior is safe,
+> and that change is not needed for software-node support. With the
+> check retained, OF and software nodes use the generic lookup, while
+> ACPI continues to use the existing acpi_preset_companion() path
+> exclusively.
 
-Let's order the pin nodes by their gpio number
+Yes, I figured as much, which is why I directed the question at Andy.
 
-otherwise:
+> That said, I will clarify this in the commit message for the next revision.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+I'd rather tweak the check to exclude ACPI (instead of including OF and
+SW) with a code comment about why ACPI is excluded. That is, if it can
+be determined that ACPI actually needs to be excluded. If it is hard to
+get an answer to that question, I'm inclined to just attempt to not
+exclude ACPI, and then be prepared to exclude ACPI in a follow-up if
+there is any fallout.
 
-Konrad
+Cheers,
+Peter
+
+> 
+> Regards,
+> Ahmad
+> 
+> 
+> On Sat, Aug 29, 2026 at 9:55 PM Peter Rosin <peda@lysator.liu.se> wrote:
+> >
+> > Den Thu, Aug 27, 2026 at 09:11:31AM +0300, skrev Andy Shevchenko:
+> > > On Wed, Aug 26, 2026 at 08:29:47AM -0700, Ahmad Byagowi wrote:
+> > > > Hi Peter, Andy,
+> > > >
+> > > > Yes, software-node handling is needed for the ptp_ocp use case.
+> > >
+> > > That driver is a mess. I'm surprised nobody told to the authors of
+> > > the respective changes to look at the auxiliary implementation.
+> > >
+> > > > ptp_ocp is a PCI driver. It creates its board-specific I2C topology at
+> > > > runtime with software nodes: the mux, its channel nodes, sensors, and LED
+> > > > controller. Firmware does not provide ACPI nodes for this topology.
+> > > >
+> > > > The existing acpi_preset_companion() path only associates a mux adapter
+> > > > with an existing ACPI child. It does not associate the adapter with one of
+> > > > these dynamically created software-node channel nodes. Without that
+> > > > association, i2c_get_adapter_by_fwnode() cannot find the channel adapter by
+> > > > the channel software node, so ptp_ocp cannot instantiate the downstream I2C
+> > > > devices on the correct channel.
+> > > >
+> > > > Does this address the concern, or would you prefer a different way to
+> > > > represent this dynamically created topology?
+> > >
+> > > Wouldn't it be possible to use some kind of DT overlay to have that?
+> >
+> > For me, the above is a bit unrelated to this patch series, which is
+> > about converting i2c-mux from of-only properties to device properties.
+> > That seems like a change that stands on its own.
+> >
+> > I probably wasn't clear enough with my original question, but what I
+> > wondered about was what regression risk that conversion might have
+> > for the ACPI case. Specifically, there might be ACPI properties that
+> > match what the code is now looking for. It seems unlikely that such
+> > properties are actually deployed, but I know next to nothing about
+> > ACPI...
+> >
+> > TL;DR
+> >
+> > My original question should have been: Is it safe to simply remove
+> > these lines from the patch:
+> > > +     if (!is_of_node(dev_node) && !is_software_node(dev_node))
+> > > +             return NULL;
+> > and let the code trawl all kinds of device properties?
+> >
+> > Sorry for the confusion...
+> >
+> > Cheers,
+> > Peter
+> >
+> > > > Thanks, Andi, for taking the first patch into i2c/i2c-fixes. I will drop it
+> > > > from the next revision and rebase the remaining two patches once this
+> > > > question is resolved.
+> > >
+> > > > On Mon, Aug 24, 2026 at 10:50 PM Peter Rosin <peda@lysator.liu.se> wrote:
+> > > > > Den Sun, Aug 23, 2026 at 09:34:38AM -0700, skrev Ahmad Byagowi:
+> > > > > > Device Tree channel nodes are associated with the adapters created by
+> > > > > > i2c-mux, but equivalent software-node descriptions are not.
+> > > > > >
+> > > > > > Use generic firmware-node operations for the existing channel lookup and
+> > > > > > accept either an OF node or a software node. Associate the returned node
+> > > > > > with the adapter so child I2C devices can be instantiated from
+> > > > > > software-node properties.
+> > > > > >
+> > > > > > Save the adapter firmware node before adapter deletion and release the
+> > > > > > reference afterwards, following the lifetime pattern in i2c-atr.
+> > >
+> > > --
+> > > With Best Regards,
+> > > Andy Shevchenko
+> > >
+> > >
+> 
+> 
+> 
+> -- 
+> 73
+> With best wishes / Mit herzlichsten Grüßen
+> Ahmad Byagowi, Ph.D., Dr. Techn., P.Eng.
+> Phone: +1 (650) 924 6653
+> 
+>  Please consider the environment before printing this e-mail.
