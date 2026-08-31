@@ -1,191 +1,220 @@
-Received: from mx.bauer-kirch.com (mx.bauer-kirch.com [217.11.56.43])
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021112.outbound.protection.outlook.com [52.101.100.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E926938239E;
-	Mon, 31 Aug 2026 12:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.11.56.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180287; cv=none; b=BLV0/ww9ukaOf4T0u9rk2gac6tpc2L1UBetlr3yZXTxCUZTggaifRcdY/iBvT/QMROc/1hSfg3cZcQd4AHJxQ82tpqNZS7G3tWH8Fv1cS+b1uV3aGjufzCVUdVYJ7+yafOnxVW1zyFk1+bogBWzWoLQxZYjWH8cnNZq7mQrLDYU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180287; c=relaxed/simple;
-	bh=4YMqLEY/02rlxcwK4XS/MbUoJEdwhJKjJRK02XpYQww=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rXOGgwVKhNE2DOSh12IEPJINpCTMP0GxOOZr/DtiHda5czrXSRz+QaIKZMNzu/FbvMdoCS3VMrYGjtG9O96+8l1FUBDN0xeoBvs7xRBHkUaUFUsQt6Y7B25/TOm0EJSp7HNBcN8Jnet5hk6ot/pu8iMKkSqfnHhc7v96zZa82v0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=noerenberg.de; spf=pass smtp.mailfrom=noerenberg.de; dkim=pass (2048-bit key) header.d=noerenberg.de header.i=@noerenberg.de header.b=S5kIyLPx; arc=none smtp.client-ip=217.11.56.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=noerenberg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=noerenberg.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14883DB30F;
+	Mon, 31 Aug 2026 12:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788180346; cv=fail; b=lglB0suu3ZJd6v3u+p6cC3TW4JUsdSMjMIZHuJPs1LPLzAyBe7p+kZ6p3hWyMB81A+ClXvCH8kKbYJWeiDsFg/N/a2i4bcOtpGhqqMOy2BWErBncJ4+QSvioeSdBv7w2+7CLz/XnKKIzH3gZePvAdAAf6XfEge8vU2cfpaROLDs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788180346; c=relaxed/simple;
+	bh=ZjWuL0EX/xxEX1sTa5JKHcK/T8DMbEtIwmW3pU6zKEM=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=l2lk7FwHiGldy+K++bbEFzX18nenNmHW33pPy3svHHUbrgMOL9RPtyaFmRSQyjvl4GWB6tvHXsTAjqjJ+lzI9Q8qVZx1F24e704dZebSVZAeZ82rc6Y2koTdK3S6LN8Gagk4uQRUdWkTf2PPwLP9fzmd8OQFwOX0LYUhXQX8C3Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=sdM9snMX; arc=fail smtp.client-ip=52.101.100.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=noerenberg.de header.i=@noerenberg.de header.b="S5kIyLPx"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=noerenberg.de; s=bauerkirch; h=Content-Transfer-Encoding:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=MJ0i4E3zi2QieHzwj19yLMfwI8aGXPJyv1POOjDril4=; b=S5kIyLPxQv5SAL9cCXfqQGu/m5
-	wprd6IQjnSPgnVVTjxuOZrjtprRz5KwDc04rBBFShLsaG6IOfb2QPSguW10pLKDFA6CV8p1Tg2YIY
-	HXok0st9SEoljX1gSndtUkPS/ntNpr6h+levpV502v61egkarxiTA4NchG2NNI7rpVFkTQpZOhAkk
-	IA15kEMoud7sDlc1tDgrLz57KalYEW1KrSwvGE17VE/iZbMUmL+JFXsfTNp0DaGi8quoJNyF+is16
-	UMvTVZF7aYj1c+jXmrFIC8ktlUbIyLNTt4KCS1C6EcH16Cn5DdAGtfWDjrNfmQjImtfv82yADYnm3
-	Mv3+hntw==;
-Received: from xdsl-89-1-135-213.nc.de ([89.1.135.213] helo=flux.rw17.noerenberg.de)
-	by mail.bauer-kirch.de with ESMTPSA id 1x11NG-000000055Ae-3oxC
-	authenticated id <420001312>
-	(TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256);
-	Mon, 31 Aug 2026 14:44:30 +0200
-From: Hajo Noerenberg <hajo-linux-ide@noerenberg.de>
-To: Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	linux-ide@vger.kernel.org
-Cc: Pali Rohar <pali@kernel.org>,
-	stable@vger.kernel.org,
-	risc4all@yahoo.com,
-	linux-kernel@vger.kernel.org,
-	Hajo Noerenberg <hajo-linux-ide@noerenberg.de>
-Subject: [PATCH v3] ata: ahci: work around lost interrupts on Marvell 88SE61xx
-Date: Mon, 31 Aug 2026 14:43:03 +0200
-Message-Id: <20260831124303.920391-1-hajo-linux-ide@noerenberg.de>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="sdM9snMX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DJMJ6lXnYy/LAWLwY40tNtZA3X0zyQVMxSAyuzG8XoKpYiWcM4oQ03M/vjN8k8tmhT2M/ZW0tnjKv/bpHssMPLep+Qk5phdIia7Wf63zpyYWIL9AkbOVRU9dEb4NsaigRy6dvXEKHj79R4ZW+m6KdVr5lWxKkhxx8NKRsi6Q0gmWK5XDefcwMCITrvw0VxFyrxG3XExZ51bG4bMm08n7YwSR9Py7QBCidc6nKINSRz9Ft8QEYiUgXPBotw5HOHZ+iPikwWm4XXLrmcQ4zagqCgyYPKvZkmz5WwMt7jPdIqCO1HHKnIFW1VPBuI72YK355vc5KNuv1uD+EGY3hluwwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XE3g9/kEQPE0oXCf1nI3RxROndb16eWXKx/QzVjDFNU=;
+ b=J5sTCp0WeWRb+Bl7oLj2pUbl/5OXIP8UBSdTfWV3ziRLNSqOCAlHsx5mlK+pWwSCkWPG4525tSqAqVogNJX2PjtC46SVrGAqaPlUQlfcCcQV6/cY/Sq9HrtTwoDAYy7hcSNl8ZLCbppafyvq0I/Sc6BBC9L3eyFXJLMMclDRnuUopSn9uJsUgeiOlzoyt+ykoRpmOVf9nP6OduKye6vkUgM+ud4Pewd+nJcoLNlRRcJ5zxUeWPKdqM0PzYJNRMOCow37OIYUWNfLNyYEv2dmMdNvR39Xk5rMZDA4m/MKp/LvgkYzLbJh3pqdQpkYGdNz1tKzsoyfOCbYZ0ogdzMphQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XE3g9/kEQPE0oXCf1nI3RxROndb16eWXKx/QzVjDFNU=;
+ b=sdM9snMXzWocsFrU1ssnaeCIcYcgPaHqIXG4tePLFRU1B4nToFijPMOfRjsoq3koCmpjZOcSxKWfEnGEixvNdHFKKNuym9GY5KuzsngLOfHkOY5or9djc+7GnaFgtIADUxXIUNVHXuK+Mri+7aGSMaRJqpJH6GdPtkCGfhvou2o=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO6P265MB6542.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2d2::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 12:45:35 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 12:45:35 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 13:45:34 +0100
+Message-Id: <DL350X20BPP5.2Y218YDKZP8CL@garyguo.net>
+Cc: <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] rust: pci: reject out-of-bounds IRQ vector indices
+From: "Gary Guo" <gary@garyguo.net>
+To: <aiqubits@hotmail.com>, "Danilo Krummrich" <dakr@kernel.org>, "Bjorn
+ Helgaas" <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+X-Mailer: aerc 0.22.0
+References: <20260831-fix-pci-irq-vector-index-truncation-v3-1-a2103084d20e@hotmail.com>
+In-Reply-To: <20260831-fix-pci-irq-vector-index-truncation-v3-1-a2103084d20e@hotmail.com>
+X-ClientProxiedBy: LO4P302CA0019.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c1::11) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO6P265MB6542:EE_
+X-MS-Office365-Filtering-Correlation-Id: c76ceeaf-39b0-4920-d1a9-08df075dc07a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|10070799003|23010399003|366016|376014|18002099003|22082099003|6133799003|10067099003|921020|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	OlHVQi1r1RbRZl+mtXBK62GhOCOTDskcZov78IXxf+h/m6Z9NHn0xY3L05J2Ec8JCen2jxtOKZTm3fK/ZTydAlUXCX+r/+B/xC9hFto8ahLutyVrHvlTb57mjdGrSmEH5tRsDE4Vw/foDeCvOgYYaka994YpkW63fIrjav9DiCWJjh7DikMnzGunnYeF1EKQEIrOZ6CYCLNkBxtBl0ZUwocV3MnIchWgVXbpXwXWr09KBYUOgUDhDk12LMb82hfjnBAzNv6/8/O4dzct6fhcnZWqmeVbS7xCSRzwq4t52ByWtwygSRFPD4JSYc9IQCLeuhaV3/UKUc1DgfXyTok6lWy3AR8nSgaY8vRf6+zibG0Ai5S/M9jztFZE4yyTT1Pn7nSSUvrSKtX8Jit+6R72vvQG/T0K/LTIf3JszSELoclHjkfRNpGMdqh+CfW2AFt7v1UY9fqoz7jGBi8FTyVBH0qw6DYT2MnFbRdprCUkr6+i8gHwRVOOPYv5M6KT9rQOVHvLqU6dX3wq8G8+mPXmJMqKgjffR9X+LXYTzFvSr2QVXbRGbY8ZlHUqTVnejRi5fPNycGgckzLD0FXSZoGWhdv4I92IZvHbqNAjPzxg2IxV2dVEsQH08TxRp1glgSdwguOZ+qn8yUYrLUjmrfAHhyHx1oZkYipjSs/0l1D3658=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(10070799003)(23010399003)(366016)(376014)(18002099003)(22082099003)(6133799003)(10067099003)(921020)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WmNseTF6K3dQWWwyaG00bGtvR1dCWTRPRlk5TTJVRWZZbmcwcmNjMGRseEdx?=
+ =?utf-8?B?c3dDUUVoVERjMlo5NWZHZVBmYVluWUhMaVU0cy81L0pDd3dOTDVOOFNGUkdR?=
+ =?utf-8?B?UmFtUDlWSmUrcVMvZmNNdnE4djZuOVRVaVMxSWZmajRXemttdHNQajlEck9I?=
+ =?utf-8?B?cGJ2V1Y5bEVsUlVZMjhzYkxJbktrb3o2enhZMFptOVNnRDJicjRvQ04vQmhP?=
+ =?utf-8?B?ck0yVzBFK2FCd3l3RkgyQ3k5TmtZME9TaE5FcjBrdVRsSm91dEhjZzZZVjQx?=
+ =?utf-8?B?RXEzK2o4T3F1K0ZpMjJKY1dqVGpCUkw0cnB4Z0NBcnpCNU13eDUvOFJTY1cv?=
+ =?utf-8?B?UGY2Wk5zblVDZXRvbHV2bWpZVEZhay9wdk1vWXZnb3RVRjhhWkhaRDM0clQw?=
+ =?utf-8?B?aUNtUFkxQzRCQ2RieklEV2pHR0ZHeXMxdk1XeTdTSHpSYi9ZM2xUcW5yT0Rs?=
+ =?utf-8?B?ei9OWVg0QjBxK0ZsMjRLbVdVUlRDQ0htK3AwS1kwZ3FVZWJQUGlNemRMU3ZZ?=
+ =?utf-8?B?L2lZVnlGYnM4SmlOdmZCY2VlSk9GVWxwZHF3WlZLanM1NTZWdFhFeTEzVEF5?=
+ =?utf-8?B?N2QrYWlTRFRvejdwRGQ3RyswaDlUTVNET3Q4VDNqUFEwTVdEUVI5dTFIQ25m?=
+ =?utf-8?B?NzAybHN1ZHFmR3FIaDJ1bDBMWGxjRUMwT0NlWVZ5U3lWNHByOWhzMlZGM2J6?=
+ =?utf-8?B?R3J4Nm0yYlFRWXJtbkZMcTBTdk5YQ0dOcXlJM1g5RTZsTTB0ZUFKaUlSK2FJ?=
+ =?utf-8?B?Yk9tSUw5WFpVWjFMUEtGUDBsRFpIY2x2dHZBQ2ZhaWgxUFVWY3ExWXBtRkpF?=
+ =?utf-8?B?Tng4Y3VvOWFwRGloSWFyV3NHd2hWNUtid1JJeU56UVR0d2wrVVE1THVOZmFm?=
+ =?utf-8?B?N0JvSTl0SVNsQWRJa1M1TXkzS1lYbG9WSkpKUi94dWRzaXJtOHNjMFplRjhE?=
+ =?utf-8?B?MFVlcTBVWml2UGlqNERGNjRMekxEbVNSbWZzdndGbVB1Y0lPclBHcUtTQ3Y3?=
+ =?utf-8?B?ZVU2MCt1VjE5bm5KVTVOTE4rMWVJWE9Gb2NaL0owNGR0M0ppYXFQMjJVNGxL?=
+ =?utf-8?B?dTY1V1JhN2IyYWQ3UndweU9hT1RoUldtcWpPdVZuRm0xRW9XKy9SeEJkSThJ?=
+ =?utf-8?B?NDZuc290Z2JtSHA3MTlzQmJsbFZEVUpwRjZ5emxRTmoweEF2bituOExGdEVm?=
+ =?utf-8?B?cGxDQk5UNDBrVHc2aHlaaWhpRHFmb3lnY0hFUVZwRTF0NUtwaFJSaXFlRjZo?=
+ =?utf-8?B?dzExc3JaQ3pjY0pvUG9MdnpRV2JTcFJpcm1NMFBjdXF6bnNUaVI3bFc1QkNv?=
+ =?utf-8?B?QTRNUnZTRzJ6eUwvWXJaYklEd0Z2cFBPNEZSTWJFZFd0WGVHcitjWWlEUGZl?=
+ =?utf-8?B?UVJ0elZteSs1Qnc0UHIvdXk1bmxQcjcydVZtNzM3UHR0V3dmSDNVQmNTeEpQ?=
+ =?utf-8?B?OFR1RE80QThlaDVwc3U3eUFjSnNueFhOSVhNMmk3K09aYlFzcTlpRUJFTUZO?=
+ =?utf-8?B?RFVxTHRSKzZXMnR1T0tuRnlPMjNkTlE3aDE1WXp4Q2RubkxEMy9OSDcrUzRm?=
+ =?utf-8?B?THJER1VWWm1QWUdDSzFVd01tWHVEK1JuK1R4VHlSdU0vM2I1TXdzT3o0N3dR?=
+ =?utf-8?B?eDI0Rm4relgrNy9tQjJMV05jRUtDSkQvdTQyZElmd2IrSXd0cE1tMFBkZFVI?=
+ =?utf-8?B?THNEUzkzaTFNb1IwZThTdEhIRkhrY0ZNTjhEWlJHSmhmWFdaMUx0bFhCZmd0?=
+ =?utf-8?B?WjNpVDFyKytQSDQ0SmlDVlZPajlEWmFUQU0wQTg2dXI0NVl0RE9DNXhWVld1?=
+ =?utf-8?B?bi9EaFJJUXYyTElzWWQwN1JzVWxTS1hwL1hEMVNxaHRUQ21xL2dMa3NiVDlE?=
+ =?utf-8?B?Q1BIcnp6Q0tTeHU5d1VoQjdZSDcwN0Q4b0JzSyttUW5mVXhpQ1JDRm8rSHVq?=
+ =?utf-8?B?RHBRM2NUNWVqbWh3dWdRak0vTHlnLzJZa0R4OExzQ3RpZURpWGhqY0VWOUt3?=
+ =?utf-8?B?TEgremRxNjA3dUxLL3hsVUVLdzJzd2xhbkdPY1lXVnQyMHpyZXNQZk5mdjFr?=
+ =?utf-8?B?WTdLMHZMRS82eUFadXVHVjRobGxpaktZZndwclRXTU5kWkgyNzJ0M3U1OGc2?=
+ =?utf-8?B?Qm0xWFd4ejFBdDJIekNUTEs1QWs1NVRvZFVDMWd0endMUUpLcGttclJCK20z?=
+ =?utf-8?B?SXRZK1dTQWs3b3RuSFAzUEVmcVdjS1RXS21YdmtMVG5vNmRNZGZsMXhCL1NC?=
+ =?utf-8?B?QnZuQVhySmpXdnliTmZQS0NzOTEwakFaWGdxb1lrSmdiSHBjZmJXd0JOdjFm?=
+ =?utf-8?B?b2FPb2xwRVVsd1hSRndwQi8rdnhSRnpMRFRZZGVvNzhPenB3U3Zidz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: c76ceeaf-39b0-4920-d1a9-08df075dc07a
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 12:45:35.3440
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PPqqdmAAzEO/lrcjNYL6OTekyZgRF+jXX3fUpdOFqyVlYRbIAYAufOsyyk5yGFjehPST6UD39DJ/hYIF1/AZ4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB6542
 
-ahci_single_level_irq_intr() services the ports first and clears the
-global HOST_IRQ_STAT afterwards, as recommended by AHCI 1.1 section
-10.6.2.  The Marvell 88SE6111/6121/6145 family stops reporting interrupts
-for a port when HOST_IRQ_STAT is cleared while PxIS still holds bits:
-PxIS keeps its content, HOST_IRQ_STAT reads back as 0, the port is never
-looked at again, and the command in flight only ends in a timeout.
+On Mon Aug 31, 2026 at 8:17 AM BST, Sophon Z via B4 Relay wrote:
+> From: Sophon Z <aiqubits@hotmail.com>
+>
+> IrqVectorRegistration::index() accepts a usize and documents that
+> out-of-bounds indices return EINVAL, while pci_irq_vector() takes an
+> unsigned int.
+>
+> Casting an index larger than u32::MAX wraps it before the PCI core can
+> validate it. In particular, u32::MAX + 1 becomes zero and can resolve to
+> the first allocated vector. Values that fit in u32 but exceed
+> MSI_MAX_INDEX can also reach msi_domain_get_virq() and trigger
+> WARN_ON_ONCE.
+>
+> Check the index against the registration length before entering the C
+> API, and keep the usize-to-u32 conversion checked so the ABI boundary
+> does not rely on an unchecked cast.
+>
+> Fixes: 2fb7755b0a7e ("rust: pci: resolve IRQ in index() and embed IrqRequ=
+est in IrqVector")
+>
+> Signed-off-by: Sophon Z <aiqubits@hotmail.com>
+> ---
+> Changes in v3:
+> - Check the index against the allocated vector count before entering the =
+C API.
+> - Keep the checked usize-to-u32 conversion and document the C-side warnin=
+g.
+> - Link to v2: https://patch.msgid.link/20260831-fix-pci-irq-vector-index-=
+truncation-v2-1-4030ea7746a9@hotmail.com
+>
+> Changes in v2:
+> - No code changes.
+> - Link to v1: https://patch.msgid.link/20260831-fix-pci-irq-vector-index-=
+truncation-v1-1-d63217d99b67@hotmail.com
+> ---
+>  rust/kernel/pci/irq.rs | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/rust/kernel/pci/irq.rs b/rust/kernel/pci/irq.rs
+> index 6741046ec1c0..dfab323f26f7 100644
+> --- a/rust/kernel/pci/irq.rs
+> +++ b/rust/kernel/pci/irq.rs
+> @@ -151,8 +151,14 @@ pub fn irq_type(&self) -> IrqType {
+>      /// [`Self::len()`].
+>      #[inline]
+>      pub fn index(&self, index: usize) -> Result<IrqVector<'_>> {
+> +        if index >=3D self.len.get() {
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let index =3D u32::try_from(index).map_err(|_| EINVAL)?;
 
-Measured on a Seagate Blackarmor NAS440 (Marvell 88F6281 Kirkwood,
-88SE6121 rev B2 behind PCIe) by polling the AHCI registers from userspace
-while an IDENTIFY was outstanding:
+Just having this line should be fine, no need for the length check above.
 
-  t=303.046  irqs 127  PxIS 0x00000000  PxCI 0x00000001
-             IDENTIFY issued
-  t=303.057  irqs 128  PxIS 0x00000020  PxCI 0x00000000
-             CI cleared, DPS set, one interrupt taken
-             ... PxIS stays 0x00000020, HOST_IRQ_STAT stays 0 ...
-  t~308.05   qc timeout after 5000 msecs
+Alternatively, just have the check above, and do the cast, while documentin=
+g
+that `len` fits u32 as invariant (which is always true given the length is
+handed out by PCI core.
 
-The command had completed - PxCI was clear and PxIS had DPS set - so
-ahci_qc_complete() would have completed it.  It never got the chance
-because the handler read HOST_IRQ_STAT as 0 and returned IRQ_NONE.
+Best,
+Gary
 
-Marvell's own driver for these chips clears the two registers in the
-opposite order and says so ("clear global before channel"), and
-ahci_xgene handles its broken edge latch the same way.  Since the
-reordering costs at most one spurious interrupt per valid one on
-conforming controllers, do it in a private interrupt handler selected for
-board_ahci_mv instead of changing libahci for everyone.
+> +
+>          // SAFETY: `self.dev.as_raw()` is a valid pointer to a `struct p=
+ci_dev`.
+> -        let irq =3D unsafe { bindings::pci_irq_vector(self.dev.as_raw(),=
+ index as u32) };
+> +        let irq =3D unsafe { bindings::pci_irq_vector(self.dev.as_raw(),=
+ index) };
+>          if irq < 0 {
+>              return Err(Error::from_errno(irq));
+>          }
+>
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260831-fix-pci-irq-vector-index-truncation-6752f3751a0d
+>
+> Best regards,
+> -- =20
+> Sophon Z <aiqubits@hotmail.com>
 
-With this applied, SATA-2 and SATA-3 disks work at 3.0 Gbps on the
-88SE6121 without the drive-side 1.5 Gbps jumper that was needed before.
-Time from link up to a successful IDENTIFY:
 
-  WDC WD5000AADS-00S9B0  port 0    7 ms  (never identified before)
-  WDC WD3202ABYS-01B7A0  port 1   28 ms
-  WDC WD30EFRX-68EUZN0   port 1  200 ms  (3 TB, HPA detection ok)
-
-Only the 88SE6121 was tested; board_ahci_mv also covers the 88SE6145,
-which Marvell's driver treats identically.
-
-Fixes: cd70c26617f4 ("[libata] AHCI: Add support for Marvell AHCI-like chips (initially 6145)")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/linux-ide/db6b48b7-d69a-564b-24f0-75fbd6a9e543@noerenberg.de/
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=216094
-Signed-off-by: Hajo Noerenberg <hajo-linux-ide@noerenberg.de>
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Acked-by: Pali Rohar <pali@kernel.org>
-
----
-Niklas, sorry for the wasted round trip.  Kernel patches are not my daily
-business and I had not realised how far the tree I was working against had
-drifted - v2 was generated against 6.10-rc6.  Rebased on v7.3-rc1 now, and
-the base commit is recorded at the bottom so this cannot happen unnoticed
-again.  Thank you for taking the time to look at it anyway.
-
-v3:
- - rebase onto v7.3-rc1; v2 did not apply
- - add Fixes: and Cc: stable@vger.kernel.org, as requested
- - collect Reviewed-by from Damien and Acked-by from Pali
- - no code change
-
-v2:
- - retitle "clear HOST_IRQ_STAT before the ports" -> "work around lost
-   interrupts", per review
-
- drivers/ata/ahci.c | 49 +++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 49 insertions(+)
-
-diff --git a/drivers/ata/ahci.c b/drivers/ata/ahci.c
---- a/drivers/ata/ahci.c
-+++ b/drivers/ata/ahci.c
-@@ -2614,6 +2614,51 @@
- }
- #endif
- 
-+/*
-+ * The Marvell 88SE6111/6121/6145 ("Thor") family stops reporting interrupts
-+ * for a port when HOST_IRQ_STAT is cleared while PxIS still holds bits: PxIS
-+ * keeps its content, HOST_IRQ_STAT reads back as 0, the port is never looked
-+ * at again and the command in flight only ends in a timeout.  On a 88SE6121
-+ * this makes every SATA-2 or SATA-3 disk fail to IDENTIFY, while SATA-1 disks
-+ * happen to win the race often enough to work.
-+ *
-+ * Clearing the host status before servicing the ports avoids it.  Marvell's
-+ * own driver for these chips does the same and says so ("clear global before
-+ * channel"), and ahci_xgene handles its broken edge latch the same way.  The
-+ * price is at most one spurious interrupt per valid one, which is why this is
-+ * not the generic behaviour - see AHCI 1.1 section 10.6.2.
-+ *
-+ * Link: https://bugzilla.kernel.org/show_bug.cgi?id=216094
-+ */
-+static irqreturn_t ahci_mv_irq_handler(int irq, void *dev_instance)
-+{
-+	struct ata_host *host = dev_instance;
-+	struct ahci_host_priv *hpriv = host->private_data;
-+	void __iomem *mmio = hpriv->mmio;
-+	unsigned int rc;
-+	u32 irq_stat, irq_masked;
-+
-+	irq_stat = readl(mmio + HOST_IRQ_STAT);
-+	if (!irq_stat)
-+		return IRQ_NONE;
-+
-+	irq_masked = irq_stat & hpriv->port_map;
-+
-+	spin_lock(&host->lock);
-+
-+	/*
-+	 * Use the unmasked value to clear the interrupt, as a spurious pending
-+	 * event on a dummy port might cause a screaming IRQ.
-+	 */
-+	writel(irq_stat, mmio + HOST_IRQ_STAT);
-+
-+	rc = ahci_handle_port_intr(host, irq_masked);
-+
-+	spin_unlock(&host->lock);
-+
-+	return IRQ_RETVAL(rc);
-+}
-+
- static void ahci_remap_check(struct pci_dev *pdev, int bar,
- 		struct ahci_host_priv *hpriv)
- {
-@@ -2917,6 +2962,10 @@
- 		return -ENOMEM;
- 	hpriv->flags |= (unsigned long)pi.private_data;
- 
-+	/* the Marvell "Thor" family needs HOST_IRQ_STAT cleared first */
-+	if (board_id == board_ahci_mv)
-+		hpriv->irq_handler = ahci_mv_irq_handler;
-+
- 	/* MCP65 revision A1 and A2 can't do MSI */
- 	if (board_id == board_ahci_mcp65 &&
- 	    (pdev->revision == 0xa1 || pdev->revision == 0xa2))
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
