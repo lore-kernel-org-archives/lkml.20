@@ -1,166 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE6346EC60;
-	Mon, 31 Aug 2026 15:27:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7464E46E010
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:28:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788190026; cv=none; b=ctuCUiy9EhXPbBOjid48g4YsDChZGvUapQUhlOACP1Z55yWbE6AfV/KKZKi85MxnNfsDIC9xwcjPzKYzVm0X01wEhboVwZ0aDi15qx0Mqz2sz7X09JtWxRpm8w9q6WWkox7qB2PtTy0uwWxPtfO9gj51wr/6w13Z85iyDuzKWcc=
+	t=1788190105; cv=none; b=tL/jNKKODtZLamoWiqYPcSPQbGQSOAkXS6TOeSuP2Pb4RfPC738PKyXbJRcZPwmjSzumL/WhPfMzh9sFLqVjDKtN1NNTjs73Dkb2bLV80+dB3pOxc1y6/7DCdQ5Lt8KufosBOqjE7FtB6opUvjBkxFDgVkFD0d1EDGP+ldsxsOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788190026; c=relaxed/simple;
-	bh=0yLUrBjl+Iob/60mpPR6kEDtqWBSv7Fl622SR8uCUtY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QX3eh+2I6b94tpiOvdNCp1Xd6cKf0vqOIhBnk6GVReqate8Oa+VpfBTU3X6Qgy6hu8+J7FUwoxE3rKvcE/iaNSFxLbfy/a0AJv84V0n/r9+ELYyeq7RKTxii+nE7BUbuJwDxDEzJMPI755wvRAR1bQ94qOcd6AIRIJ0VwQPzcRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QUF8P4gM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788190105; c=relaxed/simple;
+	bh=UVaSnAntsnidTQyQIAWkdDSWDG/mfhc9FkANFMl71lU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Vg4mvpG8nHbFg3ft2knRy5UmPq9012vXKelDNari5u3qbrsbvdyqRZG1KzzDpJLSbNkIsmDSQ3P8eG/9gfTtwwWhg10hvJuJufN4afE4RMphzGuNpA14/uGht7k3HpfBO4MlYr9MXhCla5duU4OVO3ti22u2WZ1WGW8f3rgn4lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dv+VGBAV; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QUF8P4gM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35CE41F000E9;
-	Mon, 31 Aug 2026 15:27:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788190024;
-	bh=gUP5n/WznTmHuMrpnHMPx1TVwBqtMo5tyX2g2aCSv0k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QUF8P4gMGLlHFojUT/Xod7XxAXCoVoONPee4fv1BbuY65cPI3nHoixSzmyJDXOXYP
-	 cxIZaO9/MJyn0wPTye7sTgjrYMNzDFYMzNYX654PnzhKxhiIjevSqQ9vAGaBuxZJw1
-	 neuMfi/4kEfSVoOTx0A7K+pYk7yLVxxut+jjdREF+1r2lAtbFy33CBarPVyUTa5irQ
-	 Pv6xIlF9Ht3WwfStXtvJYqZc8ATQBumuI+QaMhqdLkGKJL4zrHcF8rXRdHtHkeMCOH
-	 gkQcuwTPC4tAgXrMS/rj8eFXTuzUZ1xVFkWtDHzRxfKUJGm/KDySxG3i+gTgjZ7hcP
-	 NRSSR9irC+r8Q==
-Date: Mon, 31 Aug 2026 16:26:58 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, kernel@pengutronix.de,
-	linux-kernel@vger.kernel.org,
-	Ahmad Fatoum <a.fatoum@pengutronix.de>,
-	Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v3 1/3] dt-bindings: net: dsa: realtek: add
- RTL8365MB power supplies
-Message-ID: <20260831-awkward-routine-4198a7d5e7e2@spud>
-References: <20260831123637.666457-1-o.rempel@pengutronix.de>
- <20260831123637.666457-2-o.rempel@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dv+VGBAV"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so2783649a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:28:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788190104; x=1788794904; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LzXEuTigiTiPkrsvsB4lTws1Gv1eiCRXL/HMjZW3pgA=;
+        b=Dv+VGBAV+xNPvTURXvUpAquidUdVTNnjzTCKqfdp3UJJpd65cXNMzBLMld+TUnvsvl
+         3M0/jI5cJ0vlK0OvYcMcdMIhufAk84ePXu3TYpWsJznaP8cEVyf/WClCnPigPZaM5Any
+         0URwA8aZgD0LzdsRTDDZY16Za0XcuJ86s2Pcq6NjV417uBgzHnSy1OuSmZ9qa5uru/xc
+         B/Q+vXyk63e1558Jw8yUDgBGShTXpJKa0bXGhJx1zzL2Thn+AVwkePtfltOxY7D/+/g2
+         6p1j2xjRt/20Be9q2YeElAx8j5H0+HiUJ21ImopC0ZJA5WRP1EIF4cAyxhdL5XmR7JQm
+         yvpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788190104; x=1788794904;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=LzXEuTigiTiPkrsvsB4lTws1Gv1eiCRXL/HMjZW3pgA=;
+        b=RibweQeSXvCCu3cnXzmbWq2mHM8ZT5PaiYLRLMzeV1IlTL3wRVZHrSrMUjxt9do2Um
+         KOczVHDVpYGLK8iPPIw5I7IL5NfL6bcUrvAPvAGd29TzqLjrafcJiE6mX0vPhJfMLRKA
+         U0I7ZHWoH3PPnufPvVupG4FZzOoC97h9oT7hQs2WUCYf97pmBf1lqI8vcTgKhlSk6i3r
+         aVdUgRHori9esPtvYw/r/NlRk4WvTTdMRQNWBuz/U0YIqOHIhEHMcr5kFP9jLaVzG1Yt
+         bKWNzuUwAc+D9Oq7Fu30VJn+pA4sYzC+gNyfbnP4dyY04wHQQhA0IWFIDfwyCAyP7PQM
+         58PQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvl6Z4o0JMSU3VtgPYQM/xcsdjUeebU8NaNKO1XJd6ceXL7urKYtRxcVIL9xzqbD12R++2RZVGuCGhDyg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLPkJTcvSUtlLMtQlumlKb1aNH0rn21nL5LEQO9vcZhCf7KV54
+	eRD+rAbtCKbcCMKseUeZZLXZzNO3NJhCEPF7btnSi+O7yPzj98c4Q1L0
+X-Gm-Gg: AYBFou3QduseWDg+IroH1UoxlO8wlFqK9n1BZ2arnap0AUpz6M7b0YI/kKxeRBOXk7b
+	D/iwgwEn+LxvogdbwXYb8s00fNYJDoKa+cSdu7Ns5H8R9eD0Jb+tvmnBvhh9ZzvDEP9x+E0+8r9
+	s447YELH6QDcNuN4nmEZ8eyVtlUMQC5/X5t/BiBgOLNDrY1QEQtNi/FyD3sTtrPYwjmHUnW6559
+	FQ13HyQgKnWOBJIzC4l+TWvzdX9JGrVkNHYgmzSnqFDXAnAAQer9Qc9tcGnjDT3uvwvcn3U2mcG
+	mwENkKBzVrcNj/Kb8Y3OXwKL6+MaAuUBxNDE+1qblaLUGfBE4NcjXW+6gOEnqEO5cDiaCM3RQgf
+	NlmJgBG4q06op9mH4bdRKbKpSAA8O0QPU7inFNzu3N7Xlx7AopwOSZEi5skFJ8Z66EfTtzPI1cT
+	rJ972khH5eMgPYDRqbcCMpeMc6ygPyAnYfRSrIo1eWaier4qLOFpT/yN2gqK3TQ6J6pakk/jPLc
+	xE3gTHmISLEblJMhJdO4uqsdnnDuA==
+X-Received: by 2002:a17:90b:2551:b0:37d:f983:7b5 with SMTP id 98e67ed59e1d1-396d0fe384cmr47180926a91.9.1788190103615;
+        Mon, 31 Aug 2026 08:28:23 -0700 (PDT)
+Received: from urmom.urmom ([14.170.170.155])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bcf7ca7sm8891a91.4.2026.08.31.08.28.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 08:28:23 -0700 (PDT)
+From: Lucas Sproule <lucas.sproule.42@gmail.com>
+Date: Mon, 31 Aug 2026 22:28:08 +0700
+Subject: [PATCH v2] remoteproc: qcom_wcnss: Fix error check after
+ devm_ioremap_wc() switch
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="07g483MsH5ZneH74"
-Content-Disposition: inline
-In-Reply-To: <20260831123637.666457-2-o.rempel@pengutronix.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-wcnss-is-err-fix-v2-1-5520fd4c6b50@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CQAyE4VchPdMEligur0I8QB21HlbTqpAQ3
+ p0Vj98k8y/kMIVTVyxk+KrrM2WEsiC5D+kG1ks2hSocq1NT8yTJndUZZnzVmdsQJdZAbA9C+fY
+ y5HlP9ue//TM+IO9fh9Z1AzHfXE90AAAA
+X-Change-ID: 20260831-wcnss-is-err-fix-729c91ee975c
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Lucas Sproule <lucas.sproule.42@gmail.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
 
---07g483MsH5ZneH74
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Commit f9b888599418 ("remoteproc: qcom_wcnss: Fix reserved region
+mapping failure") switched back from devm_ioremap_resource_wc() to
+devm_ioremap_wc(), but kept the IS_ERR() check that had been added to
+match the resource variant.
 
-On Mon, Aug 31, 2026 at 02:36:35PM +0200, Oleksij Rempel wrote:
-> Document the RTL8365MB power rails as optional supplies. They are optional
-> because the rails are often always-on; some designs break them out for
-> granular hwmon monitoring and regulator control.
->=20
-> They are scoped to realtek,rtl8365mb: different Realtek switch families u=
-se
-> different power-rail naming schemes, so these rails do not apply to other
-> families such as realtek,rtl8366rb (VDDA/VDD_CORE/VDDIO/...).
->=20
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+devm_ioremap_wc() returns NULL on failure rather than an error pointer,
+so IS_ERR() never fires and wcnss_alloc_memory_region() returns success
+with wcnss->mem_region left NULL.  Probe completes, and every subsequent
+firmware boot then fails with a bare -EINVAL from qcom_mdt_load_no_init(),
+masking the real mapping failure.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Check for NULL instead, and return -ENOMEM to match the other remoteproc
+drivers.
 
-> ---
-> Changes since v2:
-> - Move the *-supply properties to the top level; if:/then: now only forbi=
-ds
->   them on non-rtl8365mb compatibles (Krzysztof Kozlowski).
-> ---
->  .../devicetree/bindings/net/dsa/realtek.yaml  | 33 +++++++++++++++++++
->  1 file changed, 33 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/net/dsa/realtek.yaml b/Doc=
-umentation/devicetree/bindings/net/dsa/realtek.yaml
-> index 473facd87a62..b7bb60af623c 100644
-> --- a/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-> +++ b/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-> @@ -8,6 +8,20 @@ title: Realtek switches for unmanaged switches
-> =20
->  allOf:
->    - $ref: dsa.yaml#/$defs/ethernet-ports
-> +  - if:
-> +      not:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              const: realtek,rtl8365mb
-> +    then:
-> +      properties:
-> +        avddh-supply: false
-> +        avddl-supply: false
-> +        dvddio-supply: false
-> +        dvddio1-supply: false
-> +        dvddl-supply: false
-> +        pllvddl-supply: false
-> =20
->  maintainers:
->    - Linus Walleij <linusw@kernel.org>
-> @@ -62,6 +76,24 @@ properties:
->    resets:
->      maxItems: 1
-> =20
-> +  avddh-supply:
-> +    description: AVDDH high-voltage analog supply.
-> +
-> +  avddl-supply:
-> +    description: AVDDL low-voltage analog supply.
-> +
-> +  dvddio-supply:
-> +    description: DVDDIO digital I/O supply.
-> +
-> +  dvddio1-supply:
-> +    description: DVDDIO_1 secondary digital I/O supply for the RGMII ban=
-k.
-> +
-> +  dvddl-supply:
-> +    description: DVDDL digital core supply.
-> +
-> +  pllvddl-supply:
-> +    description: PLLVDDL PLL analog supply.
-> +
->    realtek,disable-leds:
->      type: boolean
->      description: |
-> @@ -243,6 +275,7 @@ examples:
->      platform {
->              ethernet-switch {
->                      compatible =3D "realtek,rtl8365mb";
-> +                    avddh-supply =3D <&avddh>;
->                      mdc-gpios =3D <&gpio1 16 GPIO_ACTIVE_HIGH>;
->                      mdio-gpios =3D <&gpio1 17 GPIO_ACTIVE_HIGH>;
->                      reset-gpios =3D <&gpio5 0 GPIO_ACTIVE_LOW>;
-> --=20
-> 2.47.3
->=20
+Fixes: f9b888599418 ("remoteproc: qcom_wcnss: Fix reserved region mapping failure")
+Cc: stable@vger.kernel.org # v7.0+
+Signed-off-by: Lucas Sproule <lucas.sproule.42@gmail.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Changes in v2:
+- Collect Konrad's Reviewed-by.
+- Resend using b4; v1 was whitespace-damaged in transit.
+---
+ drivers/remoteproc/qcom_wcnss.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---07g483MsH5ZneH74
-Content-Type: application/pgp-signature; name=signature.asc
+diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wcnss.c
+index c856a92af43c..90747af237f7 100644
+--- a/drivers/remoteproc/qcom_wcnss.c
++++ b/drivers/remoteproc/qcom_wcnss.c
+@@ -542,9 +542,9 @@ static int wcnss_alloc_memory_region(struct qcom_wcnss *wcnss)
+ 	wcnss->mem_phys = wcnss->mem_reloc = res.start;
+ 	wcnss->mem_size = resource_size(&res);
+ 	wcnss->mem_region = devm_ioremap_wc(wcnss->dev, wcnss->mem_phys, wcnss->mem_size);
+-	if (IS_ERR(wcnss->mem_region)) {
++	if (!wcnss->mem_region) {
+ 		dev_err(wcnss->dev, "unable to map memory region: %pR\n", &res);
+-		return PTR_ERR(wcnss->mem_region);
++		return -ENOMEM;
+ 	}
+ 
+ 	return 0;
 
------BEGIN PGP SIGNATURE-----
+---
+base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
+change-id: 20260831-wcnss-is-err-fix-729c91ee975c
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWdQgAKCRB4tDGHoIJi
-0kk/AQD1Ik9lwiWECiSAZss9j3Fl4diaY24XH893jL/RxTvYpAD8DNOhT3dLrj0g
-qzyx6j8ZEosO3b2fYxeOYtYWxlpbrw0=
-=fqMU
------END PGP SIGNATURE-----
+Best regards,
+--  
+Lucas Sproule <lucas.sproule.42@gmail.com>
 
---07g483MsH5ZneH74--
