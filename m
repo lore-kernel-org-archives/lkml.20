@@ -1,30 +1,30 @@
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 29FB7280037;
-	Mon, 31 Aug 2026 11:27:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B9A6E299920;
+	Mon, 31 Aug 2026 11:27:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788175657; cv=none; b=oOgxhWFGNwb9tc1Ny4o85tHW6a8Ca6M77z4lCnQkNAU8V2HrObsMCk0Zh218lYgE4uWie9tYbDfXgv/Ggqusith5w2VKW2bvHcniTE5gdtxpp9/imag3oYH0g6sSC5b8Vr8S75LDy+XBjcUC6C9QHHiMpCUORUop5zNof7LpsxE=
+	t=1788175664; cv=none; b=c48p9thY4K0GRMkVEBT6xlz/r6Z0zNRjZUFCuLAWqLUlQzoRqwxykn8SxRy9PeuT9HxR8JDdSBQrJ/ZpIFBPjaoNbe3qzeaL2Ft5bwu0Lp0hvK8tC9eLj7VVYCJf64DRIIs5AgWRfH1H9m3DnONnfuT0D85N1s2B/lNG8FXkQws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788175657; c=relaxed/simple;
-	bh=wuUyQ79WRSZlqXYuzIUtOu7cifRch3TKdnJMGyATOEg=;
+	s=arc-20240116; t=1788175664; c=relaxed/simple;
+	bh=iFrGn9qp2JSwQ0tU1mPUdQBU2OHR9VxZO5JxBSPx1Ew=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ELP31ni+p/MH72lWznuXOw6BYecpThGroRakRVUTHgXVgd9rY+XHgij/ySGx5eyTrfwnva/5Jz1KE0c/1P1onIXjhEZrUL0oQEdMQzTOG23xYhSvn3jhzr0PjCQZo/LEo5gO+LBCUP4dH/RxMnZkhNY4eU5fAvBwlAuIYsLZc40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=psj2Vl6w; arc=none smtp.client-ip=13.77.154.182
+	 MIME-Version; b=U8sf2jMcO21iDulRC2LOc1whO04NwbLNmFix3QovAMFnySQRVzWYVLPWfqslYzNcCN3u/hFTbJVFVmE/sYlp9M9IrbodKvewYNN/MwrA8szYe0jvtWQByXN/H5Di1NuDqGm0aIrp4XQKUsXcnl/8L+e9dl3yX9+JBQgKWW1in/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=Y0RxPzbF; arc=none smtp.client-ip=13.77.154.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="psj2Vl6w"
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Y0RxPzbF"
 Received: from weh-cvm-dev-vm.y50bckvjo0hefgfnzfztsfttff.phxx.internal.cloudapp.net (unknown [20.169.55.37])
-	by linux.microsoft.com (Postfix) with ESMTPSA id EA07320B710C;
-	Mon, 31 Aug 2026 04:26:59 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com EA07320B710C
+	by linux.microsoft.com (Postfix) with ESMTPSA id A188B20B7129;
+	Mon, 31 Aug 2026 04:27:06 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A188B20B7129
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788175620;
-	bh=k9VSobYNvkdjDDhiAUEsNGFvAwLjD+fVNq1Nvx+Gp7Q=;
+	s=default; t=1788175626;
+	bh=sKnE63kGx4bbejRXBln7bLICJGNj5rLqoFAmFv1ZXR8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=psj2Vl6wvz7alAP0uFRR06Zx8az5gfqZDt6djd9LwXkHNc96aND2CxIE5bIR8is5i
-	 lAAo0EIqt6DINhFLR1DfWM33FIawkAVHItjxQxdVt9pX37LDXK5svIk7NNTYHP4CYn
-	 FLDtFxb/jo2bZdtLibwuO0D1F8ls7OkgZMHn9cUw=
+	b=Y0RxPzbFyqUklfVRGtLe3DYNBEZRl4FLxM0nHiR07/Vw/ruZ0BDpHTJy3guVMw0qW
+	 Za6IABNPoQaRYPLN+q1EH8ZSHYGjblJoe/FQ83fTr7iBI55GNBCaVI3d+YyAabsC+I
+	 G+5Zc2XWec40EGrR3Zyj4bDTVG2qF1pbS1vfMAkY=
 From: Wei Hu <weh@linux.microsoft.com>
 To: linux-hyperv@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -33,9 +33,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Wei Liu <wei.liu@kernel.org>,
 	Dexuan Cui <decui@microsoft.com>,
 	Long Li <longli@microsoft.com>
-Subject: [PATCH v4 5/9] mshv: add SEV-SNP isolated page hypercalls
-Date: Mon, 31 Aug 2026 11:26:43 +0000
-Message-ID: <20260831112704.2851147-6-weh@linux.microsoft.com>
+Subject: [PATCH v4 7/9] mshv: detect and report SEV-SNP support at init
+Date: Mon, 31 Aug 2026 11:26:45 +0000
+Message-ID: <20260831112704.2851147-8-weh@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260831112704.2851147-1-weh@linux.microsoft.com>
 References: <20260825040505.826600-1-weh@linux.microsoft.com>
@@ -50,196 +50,178 @@ Content-Transfer-Encoding: 8bit
 
 From: Wei Liu <wei.liu@kernel.org>
 
-Add wrappers for importing isolated pages, completing the import,
-modifying sparse SPA host access, and setting partition properties.
-Support synchronous and pending completion and batch repetition calls
-within the Hyper-V input page.
+Query MSHV dynamic processor features during parent initialization and
+report SEV-SNP availability and the maximum number of encrypted
+partitions.
 
-Preserve the asynchronous completion result and encode its bounded
-repetition count in the standard hypercall status field. Keep the
-distinct, currently unused substatus out of the result bits. Return exact
-bounded import progress on both success and failure, reject malformed
-completion counts, and rate-limit guest-driven failures.
+L1VH parents reject the SNP property query, so treat query failures as
+"not available" rather than failing MSHV initialization. Copy successful
+results from the shared per-CPU output page before restoring local
+interrupts.
+
+The misc device is registered before parent initialization is complete.
+Reject opens until the partition hash table and interrupt handling are
+ready, and clear readiness before teardown starts.
 
 Signed-off-by: Wei Liu <wei.liu@kernel.org>
 ---
- drivers/hv/mshv_root.h         |  12 ++++
- drivers/hv/mshv_root_hv_call.c | 110 +++++++++++++++++++++++++++++++++
- drivers/hv/mshv_synic.c        |  10 ++-
- 3 files changed, 131 insertions(+), 1 deletion(-)
+ drivers/hv/mshv_root_main.c | 108 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 107 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hv/mshv_root.h b/drivers/hv/mshv_root.h
-index 2150019b588c..a87d9773093c 100644
---- a/drivers/hv/mshv_root.h
-+++ b/drivers/hv/mshv_root.h
-@@ -389,6 +389,18 @@ void mshv_region_movable_fini(struct mshv_mem_region *region);
- bool mshv_region_movable_init(struct mshv_mem_region *region);
+diff --git a/drivers/hv/mshv_root_main.c b/drivers/hv/mshv_root_main.c
+index 424b7da680c1..26e92d7721a7 100644
+--- a/drivers/hv/mshv_root_main.c
++++ b/drivers/hv/mshv_root_main.c
+@@ -100,6 +100,8 @@ static const struct file_operations mshv_dev_fops = {
+ 	.llseek = noop_llseek,
+ };
  
- #ifdef HV_SUPPORTS_SEV_SNP_GUESTS
-+int hv_call_import_isolated_pages(u64 partition_id, u64 *pages,
-+				  u64 num_pages, u64 *completed_pages,
-+				  enum hv_isolated_page_type page_type,
-+				  enum hv_isolated_page_size page_size,
-+				  void (*completion_handler)(void *data,
-+							     u64 *status),
-+				  void *completion_data);
-+int hv_call_complete_isolated_import(u64 partition_id,
-+				     union hv_partition_complete_isolated_import_data *import_data,
-+				     void (*completion_handler)(void *data,
-+								u64 *status),
-+				     void *completion_data);
- int hv_call_issue_psp_guest_request(u64 partition_id, u64 req_pfn,
- 				    u64 rsp_pfn,
- 				    void (*completion_handler)(void *data,
-diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
-index fca2419df397..cb5727529355 100644
---- a/drivers/hv/mshv_root_hv_call.c
-+++ b/drivers/hv/mshv_root_hv_call.c
-@@ -14,6 +14,10 @@
- 
- #include "mshv_root.h"
- 
-+#define HV_ISOLATED_PAGE_BATCH_SIZE					       \
-+	((HV_HYP_PAGE_SIZE - sizeof(struct hv_input_import_isolated_pages)) /  \
-+	 sizeof(u64))
++static bool mshv_ready;
 +
- /* Determined empirically */
- #define HV_INIT_PARTITION_DEPOSIT_PAGES 208
- #define HV_MAP_GPA_DEPOSIT_PAGES	256
-@@ -1041,6 +1045,112 @@ int hv_unmap_stats_page(enum hv_stats_object_type type,
+ static struct miscdevice mshv_dev = {
+ 	.minor = MISC_DYNAMIC_MINOR,
+ 	.name = "mshv",
+@@ -2864,7 +2866,8 @@ static long mshv_dev_ioctl(struct file *filp, unsigned int ioctl,
+ static int
+ mshv_dev_open(struct inode *inode, struct file *filp)
+ {
+-	return 0;
++	/* Pairs with init's release after all device state is ready. */
++	return smp_load_acquire(&mshv_ready) ? 0 : -EAGAIN;
  }
  
- #ifdef HV_SUPPORTS_SEV_SNP_GUESTS
-+
-+int hv_call_import_isolated_pages(u64 partition_id, u64 *pages,
-+				  u64 num_pages, u64 *completed_pages,
-+				  enum hv_isolated_page_type page_type,
-+				  enum hv_isolated_page_size page_size,
-+				  void (*completion_handler)(void *data,
-+							     u64 *status),
-+				  void *completion_data)
+ static int
+@@ -3010,6 +3013,104 @@ static int mshv_root_scheduler_cleanup(unsigned int cpu)
+ }
+ 
+ /* Must be called after retrieving the scheduler type */
++#if defined(__x86_64__)
++static const char *hv_snp_status_to_string(enum hv_snp_status status)
 +{
-+	struct hv_input_import_isolated_pages *input;
-+	u64 remaining = num_pages;
-+	unsigned long flags;
-+	u64 *gpa = pages;
-+	u64 completed;
-+	u64 status;
-+	int rep_count;
-+
-+	if (!num_pages || !completed_pages)
-+		return -EINVAL;
-+	*completed_pages = 0;
-+
-+	if (!completion_handler) {
-+		pr_err("%s: missing completion handler, page_type=%u\n",
-+		       __func__, page_type);
-+		return -EINVAL;
++	switch (status) {
++	case HV_SNP_STATUS_NONE:
++		return "not available";
++	case HV_SNP_STATUS_AVAILABLE:
++		return "available";
++	case HV_SNP_STATUS_INCOMPATIBLE:
++		return "incompatible";
++	case HV_SNP_STATUS_PSP_UNAVAILABLE:
++		return "PSP unavailable";
++	case HV_SNP_STATUS_PSP_INIT_FAILED:
++		return "PSP init failed";
++	case HV_SNP_STATUS_PSP_BAD_FW_VERSION:
++		return "bad PSP firmware version";
++	case HV_SNP_STATUS_BAD_CONFIGURATION:
++		return "bad configuration";
++	case HV_SNP_STATUS_PSP_FW_UPDATE_IN_PROGRESS:
++		return "PSP firmware update in progress";
++	case HV_SNP_STATUS_PSP_RB_INIT_FAILED:
++		return "PSP ring buffer init failed";
++	case HV_SNP_STATUS_PSP_PLATFORM_STATUS_FAILED:
++		return "PSP platform status failed";
++	case HV_SNP_STATUS_PSP_INIT_LATE_FAILED:
++		return "PSP late init failed";
++	default:
++		return "unknown";
 +	}
-+
-+	while (remaining) {
-+		rep_count = min_t(u64, remaining,
-+				  HV_ISOLATED_PAGE_BATCH_SIZE);
-+
-+		local_irq_save(flags);
-+		input = *this_cpu_ptr(hyperv_pcpu_input_arg);
-+		memset(input, 0, sizeof(*input));
-+		input->partition_id = partition_id;
-+		input->page_type = page_type;
-+		input->page_size = page_size;
-+		memcpy(input->page_number, gpa, rep_count * sizeof(*gpa));
-+		status = hv_do_rep_hypercall(HVCALL_IMPORT_ISOLATED_PAGES,
-+					     rep_count, 0, input, NULL);
-+		local_irq_restore(flags);
-+
-+		if (hv_result(status) == HV_STATUS_CALL_PENDING)
-+			completion_handler(completion_data, &status);
-+
-+		completed = hv_repcomp(status);
-+		if (completed > rep_count) {
-+			pr_err_ratelimited("%s: invalid completion count %llu/%d\n",
-+					   __func__, completed, rep_count);
-+			return -EPROTO;
-+		}
-+		*completed_pages += completed;
-+
-+		if (!hv_result_success(status)) {
-+			pr_err_ratelimited("%s: completed %llu of %llu, %s\n",
-+					   __func__, *completed_pages, num_pages,
-+					   hv_result_to_string(status));
-+			return hv_result_to_errno(status);
-+		}
-+		if (!completed)
-+			return -EPROTO;
-+
-+		gpa += completed;
-+		remaining -= completed;
-+		cond_resched();
-+	}
-+
-+	return 0;
 +}
 +
-+int hv_call_complete_isolated_import(u64 partition_id,
-+				     union hv_partition_complete_isolated_import_data *import_data,
-+				     void (*completion_handler)(void *data,
-+								u64 *status),
-+				     void *completion_data)
++static void mshv_print_max_sev_snp_partitions(struct device *dev)
 +{
-+	struct hv_input_complete_isolated_import *input;
++	struct hv_input_get_system_property *input;
++	struct hv_output_get_system_property *output;
 +	unsigned long flags;
++	u64 snp_partition_count = 0;
 +	u64 status;
-+
-+	if (!completion_handler) {
-+		pr_err("%s: missing completion handler\n", __func__);
-+		return -EINVAL;
-+	}
 +
 +	local_irq_save(flags);
 +	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	output = *this_cpu_ptr(hyperv_pcpu_output_arg);
++
 +	memset(input, 0, sizeof(*input));
-+	input->partition_id = partition_id;
-+	input->import_data = *import_data;
-+	status = hv_do_hypercall(HVCALL_COMPLETE_ISOLATED_IMPORT, input, NULL);
++	input->property_id = HV_DYNAMIC_PROCESSOR_FEATURE_PROPERTY;
++	input->hv_processor_feature =
++		HV_X64_DYNAMIC_PROCESSOR_FEATURE_MAX_ENCRYPTED_PARTITIONS;
++
++	status = hv_do_hypercall(HVCALL_GET_SYSTEM_PROPERTY, input, output);
++	if (hv_result_success(status))
++		snp_partition_count = output->hv_processor_feature_value;
 +	local_irq_restore(flags);
-+
-+	if (hv_result(status) == HV_STATUS_CALL_PENDING)
-+		completion_handler(completion_data, &status);
-+
 +	if (!hv_result_success(status)) {
-+		pr_err_ratelimited("%s: status=%s partition_id=%llu\n",
-+				   __func__, hv_result_to_string(status),
-+				   partition_id);
-+		return hv_result_to_errno(status);
++		dev_warn(dev, "Failed to get max SNP partitions: %s\n",
++			 hv_result_to_string(status));
++		return;
 +	}
 +
-+	return 0;
++	dev_info(dev, "Maximum supported SEV-SNP partitions are: %llu\n",
++		 snp_partition_count);
 +}
 +
- int hv_call_issue_psp_guest_request(u64 partition_id, u64 req_pfn,
- 				    u64 rsp_pfn,
- 				    void (*completion_handler)(void *data,
-diff --git a/drivers/hv/mshv_synic.c b/drivers/hv/mshv_synic.c
-index c77688b8d23c..0fdbae1e053c 100644
---- a/drivers/hv/mshv_synic.c
-+++ b/drivers/hv/mshv_synic.c
-@@ -159,7 +159,15 @@ static bool mshv_async_call_completion_isr(struct hv_message *msg)
- 		goto unlock_out;
- 	}
++static void __init mshv_check_sev_snp_support(struct device *dev)
++{
++	struct hv_input_get_system_property *input;
++	struct hv_output_get_system_property *output;
++	unsigned long flags;
++	enum hv_snp_status snp_status = HV_SNP_STATUS_NONE;
++	u64 status;
++
++	local_irq_save(flags);
++	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	output = *this_cpu_ptr(hyperv_pcpu_output_arg);
++
++	memset(input, 0, sizeof(*input));
++	input->property_id = HV_DYNAMIC_PROCESSOR_FEATURE_PROPERTY;
++	input->hv_processor_feature = HV_X64_DYNAMIC_PROCESSOR_FEATURE_SNP_STATUS;
++
++	status = hv_do_hypercall(HVCALL_GET_SYSTEM_PROPERTY, input, output);
++	if (hv_result_success(status))
++		snp_status = output->hv_processor_feature_value;
++	local_irq_restore(flags);
++	if (!hv_result_success(status)) {
++		/* L1VH parents reject this property query. */
++		dev_info(dev, "SEV-SNP support is not available\n");
++		return;
++	}
++
++	dev_info(dev, "SEV-SNP support status: %s (%u)\n",
++		 hv_snp_status_to_string(snp_status), snp_status);
++
++	if (snp_status == HV_SNP_STATUS_AVAILABLE)
++		mshv_print_max_sev_snp_partitions(dev);
++}
++#else
++static void __init mshv_check_sev_snp_support(struct device *dev) {}
++#endif
++
+ static int
+ root_scheduler_init(struct device *dev)
+ {
+@@ -3113,6 +3214,8 @@ static int __init mshv_parent_partition_init(void)
+ 	if (ret)
+ 		goto synic_cleanup;
  
--	partition->async_hypercall_status = async_msg->status;
-+	/* No current completion caller consumes the distinct substatus. */
-+	(void)async_msg->sub_status;
-+	partition->async_hypercall_status =
-+		(u64)async_msg->status & ~HV_HYPERCALL_REP_COMP_MASK;
-+	partition->async_hypercall_status |=
-+		(min_t(u64, async_msg->completion_count,
-+		       HV_HYPERCALL_REP_COMP_MASK >>
-+		       HV_HYPERCALL_REP_COMP_OFFSET) <<
-+		 HV_HYPERCALL_REP_COMP_OFFSET);
- 	complete(&partition->async_hypercall);
++	mshv_check_sev_snp_support(dev);
++
+ 	ret = root_scheduler_init(dev);
+ 	if (ret)
+ 		goto synic_cleanup;
+@@ -3129,6 +3232,8 @@ static int __init mshv_parent_partition_init(void)
+ 	hash_init(mshv_root.pt_htable);
  
- 	handled = true;
+ 	hv_setup_mshv_handler(mshv_isr);
++	/* Publish all initialized state before accepting device opens. */
++	smp_store_release(&mshv_ready, true);
+ 
+ 	return 0;
+ 
+@@ -3145,6 +3250,7 @@ static int __init mshv_parent_partition_init(void)
+ 
+ static void __exit mshv_parent_partition_exit(void)
+ {
++	WRITE_ONCE(mshv_ready, false);
+ 	hv_setup_mshv_handler(NULL);
+ 	mshv_port_table_fini();
+ 	mshv_debugfs_exit();
 -- 
 2.43.0
 
