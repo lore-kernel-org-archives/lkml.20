@@ -1,88 +1,175 @@
-Received: from relay.smtp-ext.broadcom.com (lpdvsmtp11.broadcom.com [192.19.166.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60AE2EF67A;
-	Mon, 31 Aug 2026 18:51:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.166.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D323905E7
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788202305; cv=none; b=goasV1OrvI1WjaKBZJ6RGnHx8IMv43hmUSZdD4uJo2e+3vcdvgPPStjhQntQUcnnQYX1fH0GYYfU+N+rKQF/VR/YpRK+bzVfRi3PRp4F1GpSJyJVkP712ferkH3PiVWgmnDU2BiE/PabRfaCbO3KePBKK1m5YsYDPnndUDeFM/o=
+	t=1788202320; cv=none; b=Xbbh9VvZhi8KXQQrVR2tDfTMZImlr5zRYO1b0R4qzI9s3WH2RDNbw/8l0oWVQyI8MhDqMt6KQ2mhgvyGJDr8ZxSQrITo1XwddVBBkMbInw3V+qPKrOPxjZqeA0yILgMhQFo+Irw9jl2c6pHdEZHOrdW+bi6Ml7qrTGRBfkMbo/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788202305; c=relaxed/simple;
-	bh=bPni7hRX3VfpjtS18Tixz4pbM+1YxfRfagcWhgZ3xXQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RdsEUXVrhep0td0RWy9oJnag+MYoEN5s511lLp/ChjuXj8ptXL4WTU0Edew7FzX+G6t1KHsRYgXgGsGPH9gr4/XOCoIxlxvFdk9sufE3bX7Bi8dxRma/wsYa1NbyF/I4XU+tem27jShltu7pLKyOP6H1I9DNRX1r9Y5jC76oM7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=pQHD2n0j; arc=none smtp.client-ip=192.19.166.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1788202320; c=relaxed/simple;
+	bh=8hjCPq9667fX+V+iDArjQoIU/4NOdMM/TkYRxWB89Ro=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Isc0AScKN8yKzgez3sBrUg2mqFmO4HZztvLfRpeyABwQGPv3IYu0HBbZjKwVOTK6qLPZkAvHrwIOHsA/V/yBxKl0/d8nGDwkdivDhHUfXa8jUuBYLBKc+8mhyU2bUU6mb/lBGQDxE3a5i8kPois1jHllVfixTx/tS2/yEHRwQBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=YZaSTnSS; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="pQHD2n0j"
-Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 3098EC0000CB;
-	Mon, 31 Aug 2026 11:42:39 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 3098EC0000CB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1788201759;
-	bh=bPni7hRX3VfpjtS18Tixz4pbM+1YxfRfagcWhgZ3xXQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=pQHD2n0j9N3S92X7oH9jgZaVZpjAa+U25mP/6W1lKTbXEXNj/r/zNv5v8InACY5kh
-	 4RpHJCMyF/rM4nEvx38SBCxYjm31zUBl6MRPhVn665n/g8/KskGC1Y/Bo1Eolj1MxK
-	 mBuQLT/1f0wC/DQXOGXlx7ZtcIyoaAGsoRt433dA=
-Received: from bse-build-07.ric.broadcom.net (unknown [10.136.28.187])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 96E9EA9A;
-	Mon, 31 Aug 2026 11:42:38 -0700 (PDT)
-From: Danesh Petigara <danesh.petigara@broadcom.com>
-To: justin.chen@broadcom.com,
-	florian.fainelli@broadcom.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	bcm-kernel-feedback-list@broadcom.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danesh Petigara <danesh.petigara@broadcom.com>
-Subject: [PATCH net 0/2] net: bcmasp: fix TX ring accounting bugs
-Date: Mon, 31 Aug 2026 11:42:33 -0700
-Message-ID: <20260831184235.4133351-1-danesh.petigara@broadcom.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="YZaSTnSS"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-855d2bfae95so224561b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:51:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1788202316; x=1788807116; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AthMoz/AgoYLHvPsWwEymdR4bUCvaR6JITk6QxJBrPs=;
+        b=YZaSTnSSqoBAjJAUjm9bA/0KUmr79iQ4LgdtD6rxVJ0R1l2XL30wMC5hyGA/Xy3sIB
+         MCnR/4jzxvN7WMQ0yGMEMfwSeLmV84QppkZaj3xe/k5ioJIflbkKyEBa3rEFNDHMB22M
+         +p3zmABVhJlPwa6DoyWa8i2fvetVltQ9EIYrOUmX/uSh92gznwRI3pK4zlTvhviaxcNv
+         ouLXy62b0Rr4h9KwKl4LSaspFlF4/3vPtrK2lvN2TIXr1qkcuKt/FCusFYtowz2HRU0Y
+         f/iHLCgUc2B7BF2Xd+aD/AQQwItWMCMxt3N60oQtlwVFF2wIxciZvIRC1jpxtDs+RY7K
+         Qe2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788202316; x=1788807116;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=AthMoz/AgoYLHvPsWwEymdR4bUCvaR6JITk6QxJBrPs=;
+        b=Un4uoEOTeenI6JSXfS8SJHejL7phcOIq1vr45mDJJqoGcMpWm4rM0T90sIY6RpsWBt
+         Pj2Spx/z+Jk0Lis4MnJHjWYQ6N/Rprbn5cURhxBEua+q5VuQawRVy6QISXLeE+gDQLO0
+         CYwILoZsmKHQetwMcZupwm/mZ3Lrj3dYe1qpAxbKFdw2jjfxLfdkxaG+nSUQnXJL2WA7
+         pFrqdgF6hP+sPNXFFZK37lgR5tUtisRu8JaeZQqUcTljXmTuNA/fr8eaHk1YKAN53rZ2
+         rslTIb6CpePLfe2yEcbz+SEluyufws7NPjNtubK0hb+hs/9qvbGc6HtUyyOt+0XqIElV
+         5Q0g==
+X-Forwarded-Encrypted: i=1; AHgh+RpGbQgRiSgLBHeIHNTvxNGF28gGdM2H14RQCObhgI+vO47ZHzibOX3jAouSjeH6Qqm/OC8Ygn6lQWZbxJg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4Dbe1AVPVxWcVYhmrIBk0iqQe+OmWHKXas0PltHqd7o/1AvN4
+	TK9rmLDbTZB0Et2Em3HUJti/5Kr+0cepUlKQ1J12brEwjLwIfelHXYhYaJ6fqey5KYc=
+X-Gm-Gg: AR+sD13ijOjQYAQx/hRdFBHDBWpXl6NkUlDT30KBIiF6rtltNFJeRjafUWLWTLYdms1
+	joI2a7G68U+SVuUqiFLlWRSY6jIjG+ixb4rEeGpBlj+u4OwMpE2w3DIQ/uOsiVsGrGnZ6sQ9otO
+	vXRhoO1gcE3CLF02ReVJHg6nLKSbFdwZyDhk318fq0oZcL7KK16hdVpQn65lzup/wS+h48ogRtS
+	0Gd07ab3qE7Gzkke/pPMCY+XiJjYujL1vGDtTcRnjYu0GhLxGK8IkuwgWoHu9r7guZuBsVC8CHH
+	f78cqVo32IRYnuCwbLHcn2NNEs/g4kmtuAWrHXyS0QarGZpmNKWX/QYL3kNnjs1zEx4CRA7BB5/
+	7TqL16y8cXQSWarmNkQd+sGCffA7zZgQXVlyKqNbEWyhzFDD0yWmav6A+oVY+FsAbB++Mzt9FaW
+	/Un9YZh9GTOIIPOfHbO1PcYV7zuOEv75y2V3mHDidCF+T1E0Jv+NgcPTzBvygjkwNiJ8Na
+X-Received: by 2002:a05:6a21:e38a:b0:3bf:9bd9:cf60 with SMTP id adf61e73a8af0-3d816bf48f7mr264453637.6.1788202316392;
+        Mon, 31 Aug 2026 11:51:56 -0700 (PDT)
+Received: from localhost ([71.212.197.238])
+        by smtp.gmail.com with UTF8SMTPSA id 41be03b00d2f7-cc1f3312146sm4820179a12.8.2026.08.31.11.51.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 11:51:55 -0700 (PDT)
+From: "Kevin Hilman (TI)" <khilman@baylibre.com>
+Date: Mon, 31 Aug 2026 11:51:47 -0700
+Subject: [PATCH] cpuidle: psci: Assign domain callbacks to all CPU idle
+ states
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-topic-lpm-psci-domain-callbacks-v1-1-4a47d95c9c79@baylibre.com>
+X-B4-Tracking: v=1; b=H4sIAELNlWoC/y2Nyw6CMBAAf4Xs2TU8ohB+xXAo20VXKS1tISaEf
+ 7eKx0kmMxsE9sIB2mwDz6sEsVOC4pQBPdR0ZxSdGMq8vOZNVWC0TghHZ9AFEtTWKJmQ1Dj2il4
+ BVaOGnHSth+oCqeI8D/L+HW7dwWHpn0zxm/0bnuclreOhQa8CI1ljJLbZWp8r9FRAt+8f/+q1c
+ K8AAAA=
+X-Change-ID: 20260831-topic-lpm-psci-domain-callbacks-a8af0cd7df35
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Sudeep Holla <sudeep.holla@kernel.org>, Ulf Hansson <ulfh@kernel.org>
+Cc: Scaria Kochidanadu <s-kochidanadu@ti.com>, linux-pm@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3203; i=khilman@baylibre.com;
+ h=from:subject:message-id; bh=8hjCPq9667fX+V+iDArjQoIU/4NOdMM/TkYRxWB89Ro=;
+ b=owEBbQKS/ZANAwAIAVk3GJrT+8ZlAcsmYgBqlc1LhSNw7ZHa5daoTtWUSucRYeVlg1NKgX/Lv
+ +fkTVpOXDuJAjMEAAEIAB0WIQR7h0YOFpJ/qfW/8QxZNxia0/vGZQUCapXNSwAKCRBZNxia0/vG
+ ZXHbEACEedr/5CrU2dyNFywhe4xoCG2oZWYaMNNVedr2DV2qBNM/y8IPPDSmDW9eVGPE9Qx+UK9
+ yfiT6WMJiyPXx2YW7Wqz5XT0NaoZ3RxsVMi0+0BVi8lODZpxVU3424FFFsxw/tJ6myEF03kCz1k
+ zBgyc0EYPtIGpTZX7o0bCxmjZ6MHYhiGq7CZhI/TNrbkpHHod0QmGAHjc1cNJEAMS+eZ5VF4emX
+ eape3/S+wLti5Td16kcoUAfkGlCh8YIU0Ju+Bir4tPx/rskaCmfF7zQAnTEsg3DW4B45g03kMaY
+ xyzoyPWOX3FSlPXa5iVRXYla0G2AC+N5mjZjGXA/xcsdHsO4nxNm/MZ9kXrLT/kWuHCpXSO6pQC
+ 2La6HyJ4v+17QgAkkhZ3wFDFxbPk1J41tO9J4dJJclKRxDd7XmNEIUcPoGyvvmd9cb/fY72MKns
+ IWRBRpXW7OXMTbFICTJgM7GYMYQ/Kb9LNQkGR15owJLtvgYsJjgrB0tsNKXDqyOfAZX4YIywqoS
+ /HvYzFELx5HvyWCBzj9w93lqkqLCFV3a4MAgJocVA6h8d8EGIk9YBC6+LNNSV1koxHHh8icFy65
+ Vnmn01ok5luOs7YVOHAr8OXHp0ysDdJU5eCllOwQJ/k5WoZ5TKS7+WBrQXs1G8O3Ftao345mjbe
+ ILgnjOOeaWUwD/Q==
+X-Developer-Key: i=khilman@baylibre.com; a=openpgp;
+ fpr=7B87460E16927FA9F5BFF10C5937189AD3FBC665
 
-Two fixes for TX descriptor ring handling in the bcmasp driver:
+Previously, only the deepest CPU idle state had its enter and
+enter_s2idle callbacks set to the domain-aware implementations. This
+meant that if a QoS latency constraint excluded the deepest state during
+s2idle, find_deepest_state() would find no state with enter_s2idle set
+and skip the domain idle path entirely. Similarly, during normal runtime
+idle, shallower CPU idle states could not trigger cluster-level domain
+idle states.
 
-  - tx_spb_ring_full() re-initialized next_index from
-    intf->tx_spb_index on every loop iteration instead of advancing
-    it, so it only ever checked a single descriptor slot regardless
-    of cnt. This let bcmasp_xmit() proceed even when the ring didn't
-    actually have enough free slots for the SKB's fragments.
+Assign both enter_s2idle and enter (non-PREEMPT_RT) to all non-WFI CPU
+idle states so that the domain-idle-state logic is triggered regardless
+of which CPU idle state is selected. The genpd governor remains
+responsible for honouring domain-level latency constraints independently.
 
-  - bcmasp_xmit() only set txcb->last for the final fragment of an
-    SKB, leaving stale true values in reused descriptor slots from a
-    prior transmission. Combined with the ring-full miscount above,
-    this could cause bcmasp_tx_reclaim() to treat a mid-SKB
-    descriptor as the last one and free the sk_buff while later
-    fragments were still in flight.
+The enter_s2idle path uses dev_pm_genpd_suspend() which is safe on
+PREEMPT_RT. The enter path uses pm_runtime_put_sync_suspend() which may
+sleep and is therefore still excluded on PREEMPT_RT.
 
-Patch 1 clears txcb->last unconditionally before it is set, and
-patch 2 fixes the ring-full slot check to advance through each
-candidate slot.
+Suggested-by: Scaria Kochidanadu <s-kochidanadu@ti.com>
+Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
+---
+ drivers/cpuidle/cpuidle-psci.c | 24 +++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
 
-Justin Chen (2):
-  net: bcmasp: clear txcb->last before writing each descriptor
-  net: bcmasp: fix tx_spb_ring_full() checking same slot cnt times
+diff --git a/drivers/cpuidle/cpuidle-psci.c b/drivers/cpuidle/cpuidle-psci.c
+index dcf20ea5ef5e..db9aa57c51f5 100644
+--- a/drivers/cpuidle/cpuidle-psci.c
++++ b/drivers/cpuidle/cpuidle-psci.c
+@@ -250,6 +250,8 @@ static int psci_dt_cpu_init_topology(struct cpuidle_driver *drv,
+ 				     struct psci_cpuidle_data *data,
+ 				     unsigned int state_count, int cpu)
+ {
++	int i;
++
+ 	/* Currently limit the hierarchical topology to be used in OSI mode. */
+ 	if (!psci_has_osi_support())
+ 		return 0;
+@@ -261,14 +263,22 @@ static int psci_dt_cpu_init_topology(struct cpuidle_driver *drv,
+ 	psci_cpuidle_use_syscore = true;
+ 
+ 	/*
+-	 * Using the deepest state for the CPU to trigger a potential selection
+-	 * of a shared state for the domain, assumes the domain states are all
+-	 * deeper states. On PREEMPT_RT the hierarchical topology is limited to
+-	 * s2ram and s2idle.
++	 * Assign the domain-aware callbacks to all CPU idle states so that the
++	 * domain-idle-state logic is triggered regardless of which CPU idle
++	 * state is selected.
++	 *
++	 * For s2idle, enter_s2idle uses dev_pm_genpd_suspend() which is safe
++	 * on PREEMPT_RT. find_deepest_state() will pick the deepest state
++	 * whose exit latency fits within the active QoS constraint.
++	 *
++	 * For the normal idle path, enter uses pm_runtime_put_sync_suspend()
++	 * which may sleep and is therefore not used on PREEMPT_RT.
+ 	 */
+-	drv->states[state_count - 1].enter_s2idle = psci_enter_s2idle_domain_idle_state;
+-	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
+-		drv->states[state_count - 1].enter = psci_enter_domain_idle_state;
++	for (i = 1; i < state_count; i++) {
++		drv->states[i].enter_s2idle = psci_enter_s2idle_domain_idle_state;
++		if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++			drv->states[i].enter = psci_enter_domain_idle_state;
++	}
+ 
+ 	return 0;
+ }
 
- drivers/net/ethernet/broadcom/asp2/bcmasp_intf.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20260831-topic-lpm-psci-domain-callbacks-a8af0cd7df35
 
--- 
-2.54.0
+Best regards,
+--  
+Kevin Hilman (TI) <khilman@baylibre.com>
 
