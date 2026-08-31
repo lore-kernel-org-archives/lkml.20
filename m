@@ -1,115 +1,103 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C2454483B7
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185908; cv=pass; b=skX/u5khNA6K2kcDhsp8mThydBXsmrsx+S0uUEDdU849UXU42z49LcAary4QJTIGsVy7qfkU3+x9Fouloqw3bw1JhihZy/VUcDfzfq/816RIQ04MtvaQ54C6bpFcrv0ebpwvFWxeapil/oyyWvilR1Tt9uaS9GnDxXVcaxg/HCw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185908; c=relaxed/simple;
-	bh=5ebukEa9X8TLK1zNOHZXcjEycVHzAZwRNrrqasYyvKc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oQ26JhdotxsKHrSLs7GIEz6GqhfvDIOmcIDS5Uy98HEadKw4pf+ghE6V9TydM0w6DdvTx8VEopDwCAxmJof6roN+X+tR/mb8lBLEzzvL/Xnrsk5ZEipWd2nAXo/w8Io6h79gIpOjXpmby6gCvMmJ40KKeCAEttmf+Dz7NxuU0Bc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aLsbyPBN; arc=pass smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4B641B362;
+	Mon, 31 Aug 2026 14:18:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788185928; cv=none; b=A3nSGZw547rNDHcoLSyP71TswgVBkqbKF+GnvlH1lne8QeEmbDC9FVSKqgFE3Vhcz6VcUzJWDuswP0S7qDTDnZ4j+Ph9hZi2y5bsLQbQA4CJNDa6CRn20lTPiHLpNTZZnx5afjysUI86aOjRvJ4yd3coOgAOsRKPbNIAkutrjDE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788185928; c=relaxed/simple;
+	bh=GiQY0/cGhCIhrwjz7J5xvOXUacu6SzKqp5fSychrLdM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Z455O5Zn523HcLGjgv0TzZ/TQ2FqZT082ANlOoYWbBU/NkUgjdIqtJEQ87pjMKOg+wdnUzykxzK54uhBGEq8uplA3PqoY42NJ71Vvt3nE+96sdo+ygZfNZsEiR9smQdtPSDjKvlI1OgztQQqeKipMNaLfBc2kscliAGE3Xk2LSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=es/OHSgr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aLsbyPBN"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso4043004a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:18:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788185907; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W/rTY4w8nx7FOkngd6xQ7GxerP10dIcuipIlUqYnq7R1JWkKxaLvkrGaWb/n+f2sjP
-         7hX0G4aa98CLA7GOVdL91b0rFjC8mJ09vykPr5uDHPPwPZ3dOLGfsFFa8OIEqQkI7fj8
-         BlKL+wtlWT3REdGC4tn4MOQPPxHa7GEsgiFQeBxXaMNyHktF+opdDRoSE+aIz/81zzTB
-         30mD84TZ7ABQf9D+9a4TpotBIyeQ9bdh/0viz/lUy0ywCYdKv9kNFwKGMFLYZFfXeS4c
-         yQTRa8kyT0TvOQ6PUhRGrOK/teW9ggTpDP/J7SG9bCogSG6dC+lvf8C6E0TyLmgwYTC8
-         uSGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=1ZOG88pTRBHH6b+RUYSoXdM5pS/61VuSbKJS1GDc7CU=;
-        fh=yLl0knLDhg1NlkGKOy3opvqyg86DsvBt3Oi64rew0+c=;
-        b=lNm1l1DZAjjk7Rmw3LT+R6kk2viRJmYuq7kwtwnyvTkfyk58YGsKVAVlc6dz7F6lvK
-         vfbroVrl89r+RPLzUT0wYDRPGDInPsvWfyP2RkB9ixdLV9wXkNyLI7XWjiNiaWq4QsFJ
-         eB4EbTpJhv7K/kmew1GunHfYM+X7QKgM6q8rNAFPzuFrmdy6FAExkcu00u5MhFKCbd7S
-         QDGymk3XdoZtWkbMe8iMixbmO/NAI9gYFIu6MwgK/mL6WZ1XtnVUNf6I/l046ohXn2JS
-         DUMVZJwy6B5xmtxlzM+SM/cInOPjky9cwDXrn1JIbdcbq4zgv5wotLVeByLQOfHx5Ojc
-         mXJQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788185907; x=1788790707; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1ZOG88pTRBHH6b+RUYSoXdM5pS/61VuSbKJS1GDc7CU=;
-        b=aLsbyPBNeRqQU+KBefDS/iiNA3A19Xk+Xh8XWWtQvI/pc9k6E1UCvlvtakSXMb6xDu
-         /QemWCiuVO7Ah5lhhz5W1nafLXNxph3PLxyiQ625k8TpZbnhlWmEMMBBOoeNXcWj4HP6
-         /HOp2J60b00LgeB829rcXk0xTB4jnmq9pUPS0o5GqWwGrTyXKWIMw+a9DD0QkJDYZUEW
-         CSQRJNDyx4FlTyCw9fyshHbiwKjDvM3NS+DoyRz1UPV1WISs2HLyAJ2W62KASgBTbvjZ
-         I03aPYozG7IGRoY42zetGY3T7m2zAe1jNfSir6RHj12Jd1O/XE+mjMEQBydrk99ioBLe
-         HMXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788185907; x=1788790707;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1ZOG88pTRBHH6b+RUYSoXdM5pS/61VuSbKJS1GDc7CU=;
-        b=nqqrCkmN84T4b61jJHRqG0l3agv696nuO8pjf6093V/bukTWVpFc0RVTlVxgBE4+LS
-         W5VmYerEPkH3nl2TlbpKWSyr+dIsQ0uCvu+DknT/H8jxf3VCak4cHghwD3baLkqtXeMp
-         mVcKHEjUeELaJwd4Q4FflLLs9BOcId0a23gF69nQLJXgtTjcoXm79e9gsYF8vgQeznbQ
-         /DolMZBXE9IiRy1d2amaVrUWR1sYXaDrpGvb5+xAIOTudqrFuFhrsBGjd0h25mq8L+vA
-         uz8IwLgqO+/mAa6Pnw/AnaUlbXaRZJSl60YOguHjmTbdWnrUre3XYSEHTgqx0HbwjY3E
-         EZzQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrCOI3N4tu4/QNxwEq7k0i3pcOhzjv1gg3ZvVhAWGfSajgjNfNB5PGhZ/+cbdAgN7Md2RCdu1MJI4BjWc0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kv5jrm+VydxwuVlIvK1cgUp/nhV5R75Mh++WNtoCD2uDf/yyGc
-	1QMGtnN97iX7axYGpSb/QlwFmQ+CCb50iZPwZ3zcLITCPSzC26GK0HWqxbXeZpJrWXcv000Jg18
-	pahpMRwG94vQ3VEY1ui42zTa4cJlCKD0=
-X-Gm-Gg: AR+sD13WCruoH2w4oHSK5FBgkwh6yuBruCCGhyU0zYn9EoCC3lrEIi5jdC+P1Wkqcgi
-	s/3b0mxPN5va9fmorhWwdmvGeT+8t2slt/eCoqCIJd7EXIRQN6+d3Z3MXiBPObycSWXmv2UIAEr
-	oB/2pUCZWwZ+JkIEsJz8aJU5UMXCNC3gND8d+4hRrzBoLzRTe12Z9lFfKrv54zJDSdZOU8Wgr21
-	8l3TasbjrCpQBJeNu9HGEM+30EFFDpQs0sxPF+GLhvhn+yJtjyULQapWB/RP8DTndVngpXUpRld
-	11uJ3pwIfCoerQ8XZ3K05NVCEo9D7LtxxUW3F3Wu4eO9ICo0NwL6MVXHozGs/xQkZ2sMoFhKPwc
-	XneL5UmComA==
-X-Received: by 2002:a05:6a21:339c:b0:3c3:64cb:9b99 with SMTP id
- adf61e73a8af0-3d265a3df5amr37173569637.6.1788185906618; Mon, 31 Aug 2026
- 07:18:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="es/OHSgr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AE251F000E9;
+	Mon, 31 Aug 2026 14:18:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788185927;
+	bh=YONLIVVAUFRdHkx2Rc44fd4Rx093REbHbos2HAeeAtU=;
+	h=From:Date:Subject:To:Cc;
+	b=es/OHSgrFhhuoB5mNLeORVCEwgIemnBbctWc1VqXmE/ivZ6SBs+Ja6EwcYS/4910S
+	 alTuWAoZYzsEqFU34j3SWao+xeT68zjaUaaMpYb/Ya6E3RoT2x+McOyVDaLRmMH+Mm
+	 ZS+ZRHI7YjX8cwf4PUMZGzZPWokcS7bFZgoeKVsjo6NZvkrudu7ET0YQ7mg84N886k
+	 JMcai+D1cYkOwowdJGDgB5jn8/fjvroxm6puqYnHDvPhbonfDjLgA3cSJ9+olUH1/Q
+	 Kv2KicCSqVsJCZSYeD8FvQS5vbc/n9aIQuPQLvwBrlNgXExPcbWTUPy8imsUTbK3Cs
+	 ZGuT0pNVoFDag==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Mon, 31 Aug 2026 15:18:23 +0100
+Subject: [PATCH] tools/testing/selftests/mm: add missing .gitignore entries
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830-asus-x670e-a-hwmon-fix-v1-1-cf0a680ccbe2@sne.moe>
-In-Reply-To: <20260830-asus-x670e-a-hwmon-fix-v1-1-cf0a680ccbe2@sne.moe>
-From: Eugene Shalygin <eugene.shalygin@gmail.com>
-Date: Mon, 31 Aug 2026 16:18:14 +0200
-X-Gm-Features: AcwNN1Xm-dHdx5qoEWmx-mK7azvrCKK8tNYI9QQLi_Q61e2CGu-085AeqI9F8U8
-Message-ID: <CAB95QASxkb0sFxBSSY5PA3QJQEs04rBaKke7Oh9fGo1-asyE4A@mail.gmail.com>
-Subject: Re: [PATCH] hwmon: (asus-ec-sensors) add ROG STRIX X670E-A GAMING WIFI
-To: sugar@sne.moe
-Cc: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-fix-mm-selftests-gitignore-v1-1-c984bbd4c5e4@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAC6NlWoC/yXMQQqDMBBG4avIrDsQI6jtVUoXan7jlBpLJkpBv
+ HvTuvzg8XZSRIHSrdgpYhOVJWSUl4KGqQseLC6brLG1aauSR/nwPLPiNSZoUvaSxIclgp2r2qv
+ rGtvUhvLgHZHr//z+OK1r/8SQfkc6ji+cxVydfgAAAA==
+X-Change-ID: 20260831-fix-mm-selftests-gitignore-dd389da72760
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: Pratyush Mallick <pratmal@google.com>, linux-mm@kvack.org, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ ljs@kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1249; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=GiQY0/cGhCIhrwjz7J5xvOXUacu6SzKqp5fSychrLdM=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKm9hpxHJY+fk3bZ5vKhnl/GItVs+fO4w32CZgY4Tjnm
+ /krpjXSHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjIAh2Gf1rTy/fvmXPZ3Pb7
+ 1q5Nv9Q501wtoljnZOrvkNc3k+37ocrwv/SYefGUjgehKjudFCp8GsVey+iUiufaF5xfdJinyrO
+ WGwA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Hi,
+Commit 2bee308f3adb ("selftests/mm: use pattern matching in .gitignore")
+switched to a pattern-matching mechanism to reduce churn in .gitignore.
 
-On Sun, 30 Aug 2026 at 15:03, Asai Neko via B4 Relay
-<devnull+sugar.sne.moe@kernel.org> wrote:
+It however accidentally excluded the page_frag test's-generated module
+intermediate C file with .mod.c extension, and also the local_config.h
+header generated if liburing is available locally.
 
-> +static const struct ec_board_info board_info_strix_x670e_a_gaming_wifi = {
-> +       .sensors = SENSOR_TEMP_CPU | SENSOR_TEMP_CPU_PACKAGE |
-> +               SENSOR_TEMP_MB | SENSOR_TEMP_VRM,
-> +       .mutex_path = ASUS_HW_ACCESS_MUTEX_SB_PCI0_SBRG_SIO1_MUT0,
-> +       .family = family_amd_600_series,
-> +};
+Explicitly fix both the issues, fixing the module-generated C file as a
+general pattern as these are always intermediate files that should be
+ignored.
 
-The board_info_strix_x670e_a_gaming_wifi struct does not seem to
-differ from board_info_strix_x670e_e_gaming_wifi just below. Please
-reference the existing one in the DMI_EXACT_MATCH_ASUS_BOARD_NAME().
+Since this is a trivial .gitignore change it doesn't seem necessary to
+treat it as a hotfix.
 
-Thank you,
-Eugene
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ tools/testing/selftests/mm/.gitignore | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/tools/testing/selftests/mm/.gitignore b/tools/testing/selftests/mm/.gitignore
+index fcd892ed21e3..a306d7754786 100644
+--- a/tools/testing/selftests/mm/.gitignore
++++ b/tools/testing/selftests/mm/.gitignore
+@@ -2,7 +2,9 @@
+ *
+ !/**/
+ !*.c
++*.mod.c
+ !*.h
++local_config.h
+ !*.sh
+ !.gitignore
+ !Makefile
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260831-fix-mm-selftests-gitignore-dd389da72760
+
+Cheers,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
