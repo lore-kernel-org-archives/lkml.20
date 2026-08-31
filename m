@@ -1,60 +1,113 @@
-Received: from sirius.syn-flut.de (sirius.syn-flut.de [94.125.25.230])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-215.mta0.migadu.com [91.218.175.215])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E763403F8
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:02:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.125.25.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3930F33556D
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.215
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788174127; cv=none; b=Hkex+p3SssoTxrJRnLnUfddRmC66w3kIX3YYoTCCdqrzg5efWKAaePcZ45Jti6OFpA4+HpkJnrAT89WP9xCI6cbHKzlX3I4pZ8jx+myXdEPJEUN5oLkoB0fsVuZRE+XkM5MKniraJhSoMMLfriurqMZiXndNrA+k5o9hNr9Q9vU=
+	t=1788174211; cv=none; b=HTzr6LEIVokp8VWOQrUZPkP3E/LHphl6Fjf6mHaIgxn9EdVuh/YwStz/npDnnNkhcFtQAGzXPMBVdoZ9BhktySzV5Ocwc9CMlE9j6S0NFdFKIsCeJlAl3luujhKWRoqLaDmaB5PAvOD4TE4aSPAa3X8pvcd6vuDhaRVqENcY3Ms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788174127; c=relaxed/simple;
-	bh=st0h5eJ2nnQs7ofobVciLWNyA2cU/o3+QS/j1depyO0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fpQr7/ofvCkP/iIII9yH8yloLlvYO86zvIPOzMXdlzNyfKnCsWFO0AXCwepUjPCxykCGkY4oRgwFPPtmLWtml/yYoD/Mjj/9F843avEgW64jqI27/gEU6KIspXB04AVvt+YtesM+ZJwVDwydcclhfHCBugGo9aapDCZEyxLq3G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kait2en.org; spf=pass smtp.mailfrom=kait2en.org; dkim=pass (2048-bit key) header.d=kait2en.org header.i=@kait2en.org header.b=azzukf0M; arc=none smtp.client-ip=94.125.25.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kait2en.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kait2en.org
+	s=arc-20240116; t=1788174211; c=relaxed/simple;
+	bh=/NN2WxM2riQ1V3asB40Qhut8hxnm4DYXi01Ct2unvcc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A5Y3t2nuweAx4RIRKWBHtSl1WFAA9dvanK2AXpuuhSUfdLC8MduRXrPYr2x9saH+B8fuacZGibqoDqHOGVc5B5HR71HR3QKX4qT9nlATGO0P5dExbm7YOP4qVyO+nWzdPC2Fu6MAqh+pWMEBjb/462Xnj4ZElhnfpa2gAoCGnSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZjEI6aWB; arc=none smtp.client-ip=91.218.175.215
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kait2en.org header.i=@kait2en.org header.b="azzukf0M"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 96649140326;
-	Mon, 31 Aug 2026 13:01:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kait2en.org; s=dkim;
-	t=1788174116; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=st0h5eJ2nnQs7ofobVciLWNyA2cU/o3+QS/j1depyO0=;
-	b=azzukf0Mzt6inZfRxBpNN0FTq3w0/225VbLq5BCBpyYW4KMi4j36lHmoS56xs1d3/B0/of
-	hLsUcf9MdJ/4WPnZMI5saMsSQXmjuv8izB7LgiKhofk/wccxDZmt1pWCNUx5HBp3QtFxMy
-	JXEIFSMlNigmUBTGTKXrvuuWSLN77z2Zi1NnreXYELLi0lmwM0dBAPgVWM9YlFKzkyHBuL
-	FRupKazsfAlEOk7YbmhYIIbHElXSh2svSH/v6IIN+c9iMP1MeQjevc5KxPIRJyhM7rsNa9
-	cR/bH5pZcn0aIrmGBm62LTCsXMXNr77JqXQ9pWJZOXcw4q/fUnf0vbx7/Ns9YA==
-Message-ID: <18712116082b2affddf3b509a96e3abf066d00a6.camel@kait2en.org>
-Subject: Re: [PATCH] drm/i915/psr: enable PSR on Apple T2 eDP panels
-From: Alexander Fischer <alexander.fischer@kait2en.org>
-To: Lukas Wunner <lukas@wunner.de>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Jani Nikula	
- <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie	 <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>,  =?ISO-8859-1?Q?Jos=E9?= Roberto de Souza	
- <jose.souza@intel.com>, =?ISO-8859-1?Q?Andr=E9?= Eikmeyer	
- <andre.eikmeyer@kait2en.org>, Yossef Osman <yossef.osman@proton.me>
-Date: Mon, 31 Aug 2026 13:01:53 +0200
-In-Reply-To: <apUq8bYCZ3I9bErN@wunner.de>
-References: <20260829161622.11396-1-alexander.fischer@kait2en.org>
-	 <apUq8bYCZ3I9bErN@wunner.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (by Flathub.org) 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZjEI6aWB"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/NN2WxM2riQ1V3asB40Qhut8hxnm4DYXi01Ct2unvcc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788174205; v=1; x=1788779005;
+ b=ZjEI6aWBUKrH0KqAZV9PYhMxsOMeaHfHNh3KAIoHP/E6DG0YeFunLwXEG8yws1q9m95EGMWp
+ Hnq168PdNFnJ9wm5QrGssnsP7Pu/E/b5YCqQbpi4KxdYEzxudpXOcCYy99gMESy1Y4+fnUwQgg6
+ x2ZKaDntLlEDZxTZwZ2rInkA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 30aa6c88d071e977;
+	Mon, 31 Aug 2026 11:03:25 +0000
+X-Mizu-Trace-ID: 30aa6c88d071e977
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	Mykyta Yatsenko <yatsenko@meta.com>,
+	Alan Maguire <alan.maguire@oracle.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf v3 0/5] bpf: Fix NULL-ptr-derefs when showing a void BTF type
+Date: Mon, 31 Aug 2026 19:01:05 +0800
+Message-ID: <20260831110314.150870-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2026-08-31 at 09:19 +0200, Lukas Wunner wrote:
-> We've got pci_dev_present() for this.
+This series fixes three NULL-ptr-derefs in BTF handling.
 
-Thanks, will use it in v2.
+Patch 1 handles the syzbot report. A key-less BTF (btf_key_type_id == 0) used
+to be rejected for hash maps, until htab and rhtab gained a ->map_check_btf
+(to register a dtor) that does not look at the key, so a key-less hash map is
+now accepted. Dumping it through bpffs feeds the key type_id 0 into
+btf_type_seq_show() and NULL-derefs in btf_type_show(). Reject it again.
+
+Patches 2 and 3 fix two related, pre-existing crashes reachable via
+bpf_snprintf_btf(), which renders a type_id taken straight from the BPF
+program against the vmlinux BTF. A "const void" (a modifier resolving to
+void) NULL-derefs in btf_modifier_show() - void has no ->show op; a
+BTF_KIND_VAR NULL-derefs in btf_var_show() - the vmlinux base BTF has no
+resolved_ids. Patch 2 falls back to btf_df_show(), the "<unsupported kind:N>"
+placeholder already used for FWD/FUNC/FLOAT/DECL_TAG; patch 3 resolves the
+var's type directly, mirroring the existing guard in btf_modifier_show().
+
+Patches 4 and 5 add selftests for the three cases. They are meant to reproduce
+the crashes: each deliberately walks the faulting path, so on an unfixed
+kernel it oopses the task (and panics it under panic_on_oops). That is
+intentional - the tests verify the fix and reproduce the bug - so a static
+review flagging them for crashing an unfixed kernel can be ignored.
+
+v2 -> v3: Fold in a third fix for the same class of bug, btf_var_show(),
+reported while reviewing v2. Address review comments (Fixes attribution,
+verbatim syzbot trace, skip instead of fail).
+
+v1 -> v2: AI reported a pre-exist issue. Let's fold it in this series.
+
+v2: https://lore.kernel.org/bpf/20260830073242.148092-1-jiayuan.chen@linux.dev/
+v1: https://lore.kernel.org/bpf/20260828093142.179856-1-jiayuan.chen@linux.dev/
+
+Jiayuan Chen (5):
+  bpf: Reject key-less BTF for hash maps
+  bpf: Fix NULL-ptr-deref when showing a void BTF type
+  bpf: Fix NULL-ptr-deref in btf_var_show()
+  selftests/bpf: Add test for key-less BTF hash map
+  selftests/bpf: Add test for showing a void BTF type
+
+ kernel/bpf/btf.c                              | 20 ++++-
+ kernel/bpf/hashtab.c                          |  8 ++
+ .../bpf/prog_tests/btf_map_keyless.c          | 82 +++++++++++++++++++
+ .../selftests/bpf/prog_tests/btf_show_void.c  | 81 ++++++++++++++++++
+ .../selftests/bpf/progs/btf_show_void.c       | 24 ++++++
+ 5 files changed, 213 insertions(+), 2 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/btf_show_void.c
+ create mode 100644 tools/testing/selftests/bpf/progs/btf_show_void.c
+
+-- 
+2.43.0
+
