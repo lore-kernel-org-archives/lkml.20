@@ -1,283 +1,142 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252B037AA7A
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:05:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B62D3655DD
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:05:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788206703; cv=none; b=JyEnSV7icGyFfdXWiCAs4Tjj1UcLmb2+bsMkKXoiYdxFbfHk++yIw/2mBWo9dc9Wp08OS6fbrnqmc0NXqbDXAyLyLIliaTQ8p2G9UWdCE5YnIU03ejsCD61zoTwDOqgHg67vs371fgAH23ucaK95YhAZp5odm2Gc1aZXqySj0lE=
+	t=1788206734; cv=none; b=ubf1gmSMhFu0i64usN/sL9FjdVKbM5Snurb7zdZb+6IipE39iiXFWjPDPw3ltGO0FcyeMgZkY4AxCH/0dJKRW9pPp0gksGpoUtaUz0CgyJ6teJUdx4Eb2uZH4pnm1//BJQ9aagogIIVKYJtbHvXeA6djtsOP3jLYG1xvxBmgNBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788206703; c=relaxed/simple;
-	bh=ogaNwEJPj1anxxgzO5JbrX2B9A0WCXUin+5LwdkKgb0=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Ki5rKQPHy8mtzMA5AgiASHl5e7tI44KerXJRg/282H2PRRgxxAAH/hOAbdj1SE/7dv6IF2isOCPCbbKS4u09rWgfPQIIoYUZvE8IPej1Y5WTpcFRilKfkytfrnlMtyckF543TBL386h/HdLNKn5U6uk0WD/rLOQeCzw50MPcfQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=R8kStlbG; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
+	s=arc-20240116; t=1788206734; c=relaxed/simple;
+	bh=TWhgm+PnpeKo87zklKOvqH4t82IAK2P1IEnz+Uem0L0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fePA3oUso2nl8P103T8GvfGBrMZbK3hQl2+cUOc54yx3rj0wDQ6G5mIKcphE4hpRExbPCXggBRHfm83GcHnaxUQgzc4CD0dVfhWT8mjC3ssLRW0jgG/Q/QSctEgZyZt8Edk4NqD2hsz0XNx1E6dFx58pcoCxkJkGAFhh0L5itJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HeHWEom4; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=e1QAdC4E; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="R8kStlbG"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cb6cf425e86so5325545a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:05:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HeHWEom4";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="e1QAdC4E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788206731;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=TWhgm+PnpeKo87zklKOvqH4t82IAK2P1IEnz+Uem0L0=;
+	b=HeHWEom4qJOqel9rrcq9LsZLKwQUaqowQpC1Y85D2hswcNVjLOmIAONCqD9TffsVNEbwZ7
+	p2ol4hE4Mriid1REniIhEUilLMq83K7ItNevmCP0s8W2IyC126dix+qEijqsabk+6Deh4n
+	ZrkaLOKDrCEKpxDXcffkar0a5GFIEEU=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-588-KnNgd_KTO2qk1IEKSz2rYQ-1; Mon, 31 Aug 2026 16:05:30 -0400
+X-MC-Unique: KnNgd_KTO2qk1IEKSz2rYQ-1
+X-Mimecast-MFC-AGG-ID: KnNgd_KTO2qk1IEKSz2rYQ_1788206730
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90ce8ad8002so54824056d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:05:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788206701; x=1788811501; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VQEcr/OvKrgDDu2LGE7v3a5Mgn/4plrpKKfKHe+7A/w=;
-        b=R8kStlbGpjB53aldvz1HubwAU1QUb2UW+31uAWZrRZq+NoVVRpxl522Q5wD9168j5y
-         AD62QrpoICAsvt88/ZjZpTB+cbceeeNOBPlpvV+BX6ZPHVumHCDrOnfavcGjqz7yqfJ9
-         E6Gc0sDhq2pt9Vhw5XvhqgyJvE8CPH4XKku/r9npipCz9QgznhmhvQ9VPvCtPW1aIICp
-         63Bd9buoF3PCvR+XNIfO0ROkSRM6Aqr4rt2HY5jcNFL6pQygKMAAIQY+M0WgGldmNEaJ
-         icTjnx7gUTfw+EMWSUEwEoiHsW5+HnFcpBVmlBLH82COR+XB0gGgcrSH7o+ek25457R6
-         g9cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788206701; x=1788811501;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+        d=redhat.com; s=google; t=1788206730; x=1788811530; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=VQEcr/OvKrgDDu2LGE7v3a5Mgn/4plrpKKfKHe+7A/w=;
-        b=L7Cwg/eQ/NsIvwyIeerZ07ws7d9kxhbIS/7E6zcnozo5tOuPDseRD+Ku5NNKg2KWdD
-         00E1r5eFhJyCJxs+RRILR2hZWbs7n6W7hVxBlnszPODnlxjNCWXnk2RWTccqIJcVFJKh
-         vP8CxyqFgExpRG9PfKFnf1qGzKV+kZTsM1eWv+AZeLJB+hTZWI4as4i6YUSXO7n/5sdj
-         3jMPpz7FHzDG/zPNEB+nFtwNttW9fXOrsC6l3/Ft1OXa95I4yzbIlHbfOA6o28I4vpmX
-         4+uyhJJHvjP9hOW6W3OLK+S3E0x+oiZbMXHlZ3bzfM1splc5UmoYTyoe6XHdFjj2csG6
-         teaQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpBWKHCFTZzJHLpsFgJoevS6v7V15WObGzUlrTdQIg1m8o/LiXZR5WfqAlXVDd7rV4+9r/jl0cKx9MWZRs=@vger.kernel.org
-X-Gm-Message-State: AFuF++menxjB6zAmPIp90zt598YNNrxFjBMBebObpk0tHPQ7+Vmle0Bh
-	OpauIRBbZK+VAirZZP6tUQnhs/+zMFSTgCuwqkioBErbuQYmxPdPQ3qefZ8duBlWxv4PqkhjjWI
-	+TAqRf6ZWHnlwf+JYGpaI7SY4THOL1X7pkw==
-X-Received: from pgbaz9.prod.google.com ([2002:a05:6a02:49:b0:cc1:c899:13e5])
- (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:918f:b0:3d1:e510:905f with SMTP id adf61e73a8af0-3d265e3f7b2mr36171322637.1.1788206701180;
- Mon, 31 Aug 2026 13:05:01 -0700 (PDT)
-Date: Mon, 31 Aug 2026 20:04:44 +0000
+        bh=TWhgm+PnpeKo87zklKOvqH4t82IAK2P1IEnz+Uem0L0=;
+        b=e1QAdC4ERcBRWzGSCvDIhwPiqnWx+cqpE/Lt1EkwRF9l02UUySHAeUlBMtTvG4VRP5
+         y2IH9PdfjeawzPWUYW5xuC9qCYInD9slFJy7zs31oiovGncqN4XPonk8wHmLsWHMH8eP
+         hwoau/cfT8JavPnIBRejdCWbbv4kulVm6qsIcxlnvnVmAHisMo4OSLiMm/oLjjM0YDfn
+         YkazxwEs2kjTTh0JYy7h0VeX2og66/s4IjLqImRZLIaQOmcwvC8a1XiAQz8yzyyTuvEr
+         /YMPrBw+3ecIgmA+5wml7lA1WxzbL7NZmJYkYgyKalm/qRL7GZkLl8LefgeWq6O3fxB7
+         EiZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788206730; x=1788811530;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TWhgm+PnpeKo87zklKOvqH4t82IAK2P1IEnz+Uem0L0=;
+        b=S+KncB0LMUyl9AsmtX3YOmJr6/pxh2FC4uBrAUJRYiR4GwKEQYpCpDcxG5UWQEQfJR
+         CZKhbGaHGO7BAFGsSTs7KRSizJJHOCxnHoqKxpyM3M0Q7xlVdvXvDkARkBp4KeIii9Mp
+         NAT+/VH7JegkcXhKmxRgMv7NdO0+Fym/6ewUxZEMHJDm+Gw7a6f6XgkU0gWzOT+NgriG
+         DxXkuJvU0OSbJGN52S+Ct/bsXkH4ic1kgv08X/GnXLf11VknLOXbGl2olh3b3Vwmypss
+         MhoyWkReW+F3SdLiAYpcQEyVPbXxwArpW8/kC4e9pUf89haArcXnacBxLfQ5ZcQ/JLxW
+         E5rA==
+X-Forwarded-Encrypted: i=1; AHgh+RpfegDLkR1td8dKEWI2KgDdN6h52SVUV1Tw728hNDP4nzHilWSqWu7+jQL5/wmOquJmHVSHmrzQSJ5gYt8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIGvuamMmSY2fUUNNIUgS/LOevTdjr8u4yfFOgk+VV6Yxi6RKO
+	bcZNK2RbFh0L/2sCN2Vhh4cRjuyFLa6Rt2FEjJzA8a1qH0f4375Vvm2PaQdf/8q9pKrjogPJq7j
+	yv3wN6/363PqnxtudmHK3w8RHzQQ+++U5qxkjIH8UfoBnXdnud+ulbVZtsQk25rQoig==
+X-Gm-Gg: AR+sD13IHgKSVvpmWnEqO3kN7Ent8w2ZKjXKVwwVsvvBIB6PUv7J9ez8oSVRHGHCerP
+	cAzquajf5wDLC7HBhatUDPhfmIuSP8AbSfmBKO00WTaa0Atg5G+bjUmIVbLt6ziJijAA5TtsRTg
+	yWt6xlp4EmmJQOJKSU56clVd9XupjJlG4PKUrbFbkgDbLL9F/Z/KaBpLh2u2I7jo2lOmbt9pyDO
+	lX7+jaRFHtRBCRHReb/e87XUSo9MOCEByJtqmcUzXCIL+bjrK3E7Q1702czWghWBYRP1Q1waF3r
+	JCLWkEAj0wO/2wpOx0wkOftV0qwHHWECG9/R+/MMMsIC6YBgylSd3tU/M0A316uNOzPjXOlAUwY
+	SSKzJWq9WDW4DDbObnbStRL/EkA4PCJ9WFvz/h62wOKeDvSYmRo6Ty/+k1a6HLRZYinGCxgR/7U
+	ERr43el1DP9kzLx6TkbbJQ
+X-Received: by 2002:a05:620a:29cd:b0:915:a953:4b9c with SMTP id af79cd13be357-93913749780mr3027247285a.3.1788206724722;
+        Mon, 31 Aug 2026 13:05:24 -0700 (PDT)
+X-Received: by 2002:a05:620a:29cd:b0:915:a953:4b9c with SMTP id af79cd13be357-93913749780mr3027229785a.3.1788206723665;
+        Mon, 31 Aug 2026 13:05:23 -0700 (PDT)
+Received: from chaithco-thinkpadp16vgen1.rmtusco.csb (184-96-189-144.hlrn.qwest.net. [184.96.189.144])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9391703a49asm865069785a.11.2026.08.31.13.05.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 13:05:22 -0700 (PDT)
+Message-ID: <df49394b45f04e0de5ab0300a8d18f5ba6d38b01.camel@redhat.com>
+Subject: Re: [PATCH] Differentiate scenarios when watchdog is closed
+From: "chaithco@redhat.com" <chaithco@redhat.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: wim@linux-watchdog.org, linux-watchdog@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Mon, 31 Aug 2026 14:05:20 -0600
+In-Reply-To: <93d22742-bf3e-4e69-aed5-27137d8f49bf@roeck-us.net>
+References: <20260824205051.4117285-2-chaithco@redhat.com>
+	 <2bd566ca-2696-46d3-aeec-57db66fa1902@roeck-us.net>
+	 <QBUFKT.6XP2A9BR6LRO3@redhat.com>
+	 <93d22742-bf3e-4e69-aed5-27137d8f49bf@roeck-us.net>
+Autocrypt: addr=chaithco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEapCVehYJKwYBBAHaRw8BAQdAORXHCioh8sg4JScf3G8JrmX1nUt+teTWsqlbk67dr
+ va0NkNoYXJsZXMgSGFpdGhjb2NrIChXb3JrIEdQRyBLZXkpIDxjaGFpdGhjb0ByZWRoYXQuY29tPo
+ iTBBMWCgA7FiEEoln/+dhdP2hiiZGQ86/NNaAhFjYFAmqQlXoCGwMFCwkIBwICIgIGFQoJCAsCBBY
+ CAwECHgcCF4AACgkQ86/NNaAhFjbm1gEA9t0Iaxr6IkGONOjD7eB10PjTYyDGVd4QdJYPohP8xRsA
+ /0OETJIGSr5rxRqG23AGUdlnUfzFlgm3QuyfNpGHcv0C
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-0ywmMAk0QA94DymszmK7"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAFvelWoC/x3MSwqAMAwA0atI1gZSxe9VxIXYqEGJpRURine3u
- HyLmQiBvXCAPovg+ZYgpyaYPIN5m3RlFJsMBRU1taVBNwvjIbojq3Wn6BWwa1o2RLayVEMqned Fnv86jO/7AZdCKSdlAAAA
-X-Change-Id: 20260831-pcie-link-endpoints-978e100d5d06
-X-Mailer: b4 0.14.3
-Message-ID: <20260831-pcie-link-endpoints-v1-1-32c2fd893e9e@google.com>
-Subject: [PATCH] PCI: Add pcie_get_link_endpoints() helper
-From: Priyank Rathod <rathodpriyank@google.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: "=?utf-8?q?Ilpo_J=C3=A4rvinen?=" <ilpo.jarvinen@linux.intel.com>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Priyank Rathod <rathodpriyank@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+
+
+--=-0ywmMAk0QA94DymszmK7
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-In PCIe topologies, physical links are point-to-point connections
-between an Upstream Component (Downstream Port, such as a Root Port
-or Switch Downstream Port) and a Downstream Component (Upstream Port,
-such as an Endpoint or Switch Upstream Port), per PCIe Base Specification
-r7.0/r6.0 sec 1.3.1.
+On Thu, 2026-08-27 at 11:10 -0700, Guenter Roeck wrote:
+> Problem is that we don't know if "something bad happened". The same
+> message
+> will be seen if the watchdog daemon was killed or crashed. We can not
+> just
+> assume that closing the watchdog device was intentional.
 
-Currently, various drivers across drivers/pci/ independently infer the
-two ends of a PCIe link using varied ad-hoc methods:
-  - ASPM (drivers/pci/pcie/aspm.c): pcie_aspm_get_link(),
-    alloc_pcie_link_state(), and pci_configure_ltr() resolve parent
-    bridges and subordinate function 0.
-  - Precision Time Measurement (drivers/pci/pcie/ptm.c):
-    pci_upstream_ptm() traverses pci_upstream_bridge() to validate
-    upstream link partner capabilities.
-  - PCIe Link Retrain (drivers/pci/pci.c): pcie_retrain_link() and
-    pcie_update_link_speed() coordinate link retraining from the
-    Downstream Port across the subordinate bus.
-  - AER/DPC Recovery (drivers/pci/pcie/err.c): pcie_do_recovery()
-    identifies the parent bridge via pci_upstream_bridge() to trigger
-    secondary bus reset and broadcast driver recovery callbacks.
-  - Lane Margining at Receiver (LMR): margin_enable_write() requires
-    both link endpoints to establish hierarchical locking and runtime PM
-    pinning.
+That's the same sticking point I've come across. Differentiating
+between positive intentional closure versus malicious or buggy closure
+would somehow need to be communicated to the kernel. It makes more
+sense that users of the watchdog which intend to close the watchdog
+while still running maybe denote such. I opened a PR with systemd at
+https://github.com/systemd/systemd/pull/43552 to see if there was some
+way this could be tackled from that perspective.
 
-Ad-hoc subordinate bus iteration risks races with concurrent device
-removal or hotplug if pci_bus_sem is omitted.
+--=-0ywmMAk0QA94DymszmK7
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-Introduce pcie_get_link_endpoints() and pcie_put_link_endpoints() in the
-PCI core to provide a standardized, symmetric, and race-safe helper:
-  - For Endpoints: resolves the parent Downstream Port via
-    pci_upstream_bridge(pdev).
-  - For Downstream Ports: safely inspects the subordinate bus under
-    down_read(&pci_bus_sem) and acquires a reference via pci_dev_get()
-    on the child device.
+-----BEGIN PGP SIGNATURE-----
 
-Callers release the acquired reference using pcie_put_link_endpoints().
+iHUEABYKAB0WIQSiWf/52F0/aGKJkZDzr801oCEWNgUCapXegAAKCRDzr801oCEW
+NtczAQDuBs40A1K1EQdOhomprxd8gwJPgKlHd6zb+N5UZpMywwEAmTSigALQTDZQ
+Xi/e4vWX8AfozunR2RkF1Sz08H1EYwY=
+=AKZI
+-----END PGP SIGNATURE-----
 
-Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
----
-Hi Bjorn, Ilpo, and PCI maintainers,
-
-During the review of the PCIe Lane Margining at Receiver (LMR) patch series
-(v7: https://lore.kernel.org/linux-pci/20260828-pcie-lmt-v7-1-6012e9e0940a@=
-google.com/),
-Ilpo J=C3=A4rvinen pointed out that feature drivers (such as LMR) resolving=
- link
-partners duplicate link traversal logic that is already present in drivers =
-such
-as ASPM:
-
-  "This feels like duplicating similar functionality with the aspm driver
-   that also wants to infer ends of the link when giving a pci_dev in.
-   The aspm driver currently does that within, but it kind of duplicating
-   pci_bus. It would be nice to avoid the duplication and have something
-   similar for this in PCI core."
-
-In PCIe topologies, physical links are point-to-point interconnects
-between an Upstream Component (Downstream Port, such as a Root Port or Swit=
-ch
-Downstream Port) and a Downstream Component (Upstream Port, such as an Endp=
-oint
-or Switch Upstream Port), per PCIe Base Specification Revision 7.0 / 6.0
-Section 1.3.1.
-
-Several subsystems across drivers/pci/ independently infer and coordinate b=
-oth
-ends of a PCIe link:
-  1. ASPM (drivers/pci/pcie/aspm.c): pcie_aspm_get_link(),
-     alloc_pcie_link_state(), and pci_configure_ltr() resolve parent bridge=
-s
-     and subordinate function 0 to configure ASPMC and L1SS.
-  2. Precision Time Measurement (drivers/pci/pcie/ptm.c): pci_upstream_ptm(=
-)
-     traverses pci_upstream_bridge() to validate upstream link partner
-     capabilities.
-  3. PCIe Link Retrain (drivers/pci/pci.c): pcie_retrain_link() and
-     pcie_update_link_speed() coordinate link retraining from the Downstrea=
-m
-     Port across the subordinate bus.
-  4. AER & DPC Recovery (drivers/pci/pcie/err.c): pcie_do_recovery() identi=
-fies
-     the parent bridge via pci_upstream_bridge() to trigger secondary bus
-     resets and broadcast driver error callbacks.
-  5. Lane Margining at Receiver (LMR): margin_enable_write() requires both
-     link endpoints to establish hierarchical locking (pci_dev_lock) and
-     runtime PM pinning.
-
-Currently, these drivers independently implement ad-hoc traversals via
-pci_upstream_bridge() or subordinate bus device iteration. Ad-hoc subordina=
-te
-bus iteration is error-prone and risks races with concurrent hot-unplug or
-device removal if pci_bus_sem is omitted.
-
-This patch introduces pcie_get_link_endpoints() and pcie_put_link_endpoints=
-()
-in the PCI core (drivers/pci/pci.c and include/linux/pci.h) as a standalone
-helper:
-  - For Endpoints: resolves the parent Downstream Port via
-    pci_upstream_bridge(pdev).
-  - For Downstream Ports: safely inspects the subordinate bus under
-    down_read(&pci_bus_sem) and acquires a reference via pci_dev_get() on t=
-he
-    child device.
-
-Callers release the acquired reference with pcie_put_link_endpoints().
-
-Validation:
-  - Compiled clean on x86_64 defconfig (0 warnings, 0 errors).
-  - Multi-architecture build validated for ARM64 and x86_64 targets.
-  - Passed checkpatch.pl (0 warnings, 0 errors).
-  - Passed Sashiko pre-commit test runner (ID: 46b5f8a3da1ca0056407b3db6c82=
-b001264f86b7).
----
- drivers/pci/pci.c   | 50 +++++++++++++++++++++++++++++++++++++++++++++++++=
-+
- include/linux/pci.h |  6 ++++++
- 2 files changed, 56 insertions(+)
-
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 77b17b13ee61..7bdfe7e5ab3a 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -4618,6 +4618,56 @@ int pcie_retrain_link(struct pci_dev *pdev, bool use=
-_lt)
- 	return rc;
- }
-=20
-+/**
-+ * pcie_get_link_endpoints - Identify Upstream and Downstream ends of a PC=
-Ie link
-+ * @pdev: Any PCIe device on the link (Downstream Port or Endpoint)
-+ * @downstream_port: Output pointer to Downstream Port (Upstream Component=
-)
-+ * @upstream_port: Output pointer to Upstream Port (Downstream Component)
-+ *
-+ * Identifies both ends of a point-to-point PCIe link. Increments referenc=
-e count
-+ * on @upstream_port if dynamically discovered on a downstream port. Calle=
-rs must
-+ * release with pcie_put_link_endpoints().
-+ *
-+ * Return: 0 on success, or -EINVAL if @pdev is NULL or not PCIe.
-+ */
-+int pcie_get_link_endpoints(struct pci_dev *pdev,
-+			    struct pci_dev **downstream_port,
-+			    struct pci_dev **upstream_port)
-+{
-+	if (!pdev || !pci_is_pcie(pdev))
-+		return -EINVAL;
-+
-+	if (pcie_downstream_port(pdev)) {
-+		*downstream_port =3D pdev;
-+		down_read(&pci_bus_sem);
-+		*upstream_port =3D pdev->subordinate ?
-+			pci_dev_get(list_first_entry_or_null(&pdev->subordinate->devices,
-+							     struct pci_dev, bus_list)) : NULL;
-+		up_read(&pci_bus_sem);
-+	} else {
-+		*downstream_port =3D pci_upstream_bridge(pdev);
-+		*upstream_port =3D pdev;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(pcie_get_link_endpoints);
-+
-+/**
-+ * pcie_put_link_endpoints - Release references acquired by pcie_get_link_=
-endpoints
-+ * @pdev: Device passed to pcie_get_link_endpoints()
-+ * @downstream_port: Downstream Port pointer
-+ * @upstream_port: Upstream Port pointer
-+ */
-+void pcie_put_link_endpoints(struct pci_dev *pdev,
-+			     struct pci_dev *downstream_port,
-+			     struct pci_dev *upstream_port)
-+{
-+	if (pdev && pcie_downstream_port(pdev) && upstream_port)
-+		pci_dev_put(upstream_port);
-+}
-+EXPORT_SYMBOL_GPL(pcie_put_link_endpoints);
-+
- /**
-  * pcie_wait_for_link_delay - Wait until link is active or inactive
-  * @pdev: Bridge device
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 64b308b6e61c..d30bf056a7ce 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -1264,6 +1264,12 @@ struct resource *pci_find_parent_resource(const stru=
-ct pci_dev *dev,
- u8 pci_swizzle_interrupt_pin(const struct pci_dev *dev, u8 pin);
- int pci_get_interrupt_pin(struct pci_dev *dev, struct pci_dev **bridge);
- u8 pci_common_swizzle(struct pci_dev *dev, u8 *pinp);
-+int pcie_get_link_endpoints(struct pci_dev *pdev,
-+			    struct pci_dev **downstream_port,
-+			    struct pci_dev **upstream_port);
-+void pcie_put_link_endpoints(struct pci_dev *pdev,
-+			     struct pci_dev *downstream_port,
-+			     struct pci_dev *upstream_port);
- struct pci_dev *pci_dev_get(struct pci_dev *dev);
- void pci_dev_put(struct pci_dev *dev);
- DEFINE_FREE(pci_dev_put, struct pci_dev *, if (_T) pci_dev_put(_T))
-
----
-base-commit: 0f23d56f17fdfc7db69d51f64c8b91bbab947aa9
-change-id: 20260831-pcie-link-endpoints-978e100d5d06
-
-Best regards,
---=20
-Priyank Rathod <rathodpriyank@google.com>
+--=-0ywmMAk0QA94DymszmK7--
 
