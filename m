@@ -1,75 +1,118 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48159446C1B;
-	Mon, 31 Aug 2026 16:25:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8919E448BAC;
+	Mon, 31 Aug 2026 16:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788193516; cv=none; b=gRdjpXd4W4azsUhmYjjM+is8pqrtYkHCl53ZfmN1SRPVmEjwGlucmkd0YnGKiB/DZgb1a3tXEDAL28mjg/KPheQOfDvuz0RvUf3IVEm6Fwmz79gL9dE04dc2JrO8PLmnKhZvn7Hpw0b9EpmxSJjP3TgOnJNKFQQxDiygJK9LQgE=
+	t=1788193518; cv=none; b=FTziatNGp7auL8iRan2UO4KvQJ4syKGZNJiy0izfFpKQMRKN6F5Dib2km/DGp78K58n2Aaqk7AOchGvw37uHkVbx3A2jDf+UayJJSi9Af/VoWbmwHqMOmV+TFnSg53cguxF0wVQtxDRUWjD3wT/jtEFnpVqlZnhaaqEY0UQqNIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788193516; c=relaxed/simple;
-	bh=KL7wyZApefg2gUrFzUIjVaSBIZ9vGIATCPoEDUeFQRU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oov8stUtU0PTyb8lDMZ6HcY7HuKp6llVyRO+xM2zz383ZkfoEBFpH1qYGmhb9c7jlmgeg4mMskz3W2bfcqz86xU3K05N1I85OzmGC+Dv59NQpezH1Uyczs4d7fs8ZajUffyUl0VtbB2yX4SY+W3s2X8BCpg4jk0+NwfAmb4H6tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=FomE3cW3; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1788193518; c=relaxed/simple;
+	bh=Zlp+e3ClCOnPUrhIpq3Ju3yEMhy50FtSjDAl6SWGWRk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Il4Nw05RMyqaQrbZuUlPqxI1vZlkGAJJ1HbWXt45CAPlQvExSy4Votb9ACkGb4id34sgr/aqzWzLBG8legQehhfDVE4CuHv7c14RgUzULv7zuJrqIJabEE9n4bqw9xBRN9S8LIN5YKUmii+/FgZpRQC2NgSdO/PobAEavsKBYBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kytwMMwb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="FomE3cW3"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hYZ8p5Px4zlfvps;
-	Mon, 31 Aug 2026 16:25:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1788193511; x=1790785512; bh=HffM1Q2/SdT9wBbZV7bnbP7h
-	WGk+stTJkeMhWMNSB18=; b=FomE3cW3h6jvfNLNrArFg3I4yeAi7ypzMhpxBUua
-	0+AqcAMrPeh+mR1sZQrQ/+MSE9pym28gYrNVIGRcFQ3kj73cvs81BTP2agj4utrJ
-	c4dAKLttoLA8vquzZDIAX8DK3m2gNY8IUso2nc00uo5w3oWZyBaofteGqhpRJwCw
-	uNj5/EynoFrsV1JS5hOeIFVJX4CFzXGyRp6oyIuU32W+s7nCjeTnIJ7BB5bl6chw
-	SziYWhd8xyayihEqyJfdvKqKvxiteE/qhpWI57fMP0oF0upWZGVHlc+3coHHbwyx
-	2+EXYAgpKyaCx1k3vm+0zqwdDsTHQio0Ig886azft9CfpQ==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id gJXlNlSMmhAY; Mon, 31 Aug 2026 16:25:11 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:a104:ffdc:9983:687c] (unknown [104.135.182.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hYZ8k1cWrzlfvpM;
-	Mon, 31 Aug 2026 16:25:09 +0000 (UTC)
-Message-ID: <b6af880e-66df-484d-b776-8ca72aac3b1a@acm.org>
-Date: Mon, 31 Aug 2026 09:25:09 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kytwMMwb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B471F000E9;
+	Mon, 31 Aug 2026 16:25:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788193517;
+	bh=5nASZx5gj/Vwh4999m+BDCpKJMDooT3AyaSVyMLpEl8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kytwMMwbqGmFvv9yV3Vzwt3Y5dOmUaT2p8f3kMhWsV5iTgewrD+I/TYIZnFsIdYcv
+	 rLTYiJ/Gz59TfkJVBTSCSItGunrWmoMw/YYPkyv7HPWuU+yqWVg+WA/Fy61DmE0THw
+	 Dy6P2QQUqoG5YbFFzK0IsScX4crsi/k7icLfKcRdbcjB2kla8NCU15dpmyM5/nT006
+	 PXPBIX387v4zLeKP3DX84mmFwLC34qJnM3YDDK9cPdgb+9NxZ3DDU2vwFtna1IGTWD
+	 ScQWtpLGT9MYey4pQMRvkFsQyVdc2LGmYP4L5hDjTuQ49BZQUSJrPjCda7/ohqOWUz
+	 cJ/0QDM/sdKUw==
+Date: Mon, 31 Aug 2026 11:25:13 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Iranna Mundaganur <iranna.mundaganur@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sairamreddy Bojja <sairamreddy.bojja@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Fix missing SMMU stream IDs
+ for ADSP
+Message-ID: <apWp5vxhRYozKQ7Q@baldur>
+References: <20260811-adsp-smmu-fix-v1-1-a596d284c455@oss.qualcomm.com>
+ <40c85916-6694-4976-95be-6ce2a2f19732@oss.qualcomm.com>
+ <6ae07fc4-fa79-4c05-9958-67154e850563@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] loop: defer the queue limits clear to a workqueue
-To: Tao Cui <cui.tao@linux.dev>, axboe@kernel.dk, hch@lst.de
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- Tao Cui <cuitao@kylinos.cn>
-References: <20260828072004.273519-1-cui.tao@linux.dev>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20260828072004.273519-1-cui.tao@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6ae07fc4-fa79-4c05-9958-67154e850563@oss.qualcomm.com>
 
-On 8/28/26 12:20 AM, Tao Cui wrote:
-> The code already has an XXX comment saying this should move to a
-> workqueue.  Do that: schedule a work item on the system workqueue,
-> where it is safe to freeze the queue and update the limits using
-> queue_limits_commit_update_frozen().
-The patch description explains why queue freezing is necessary but
-does not add queue freeze and unfreeze calls. Is that perhaps an
-oversight?
+On Fri, Aug 21, 2026 at 12:54:03PM +0530, Iranna Mundaganur wrote:
+> 
+> On 19-08-2026 17:16, Konrad Dybcio wrote:
+> > On 8/11/26 6:44 PM, Iranna Mundaganur wrote:
+> >> From: Sairamreddy Bojja <sairamreddy.bojja@oss.qualcomm.com>
+> >>
+> >> Add the missing SIDs for the LPASS eNPU masters to the ADSP
+> >> iommus list. These masters are exercised during audio record
+> >> use cases where Environmental Acoustic Intelligence (EAI)
+> >> models run on the eNPUs.
+> > Could you share a bit more details on how we can reproduce t his?
+> 
+> This use case is not enabled upstream yet, we validate it downstream with the
+> AudioReach application where EAI models run on eNPU0/eNPU1 and need memory
+> access from those masters.
+> 
 
-Thanks,
+Even more reason to provide a proper commit message, clearly describing
+the actual problem.
 
-Bart.
+https://docs.kernel.org/process/submitting-patches.html#describe-your-changes
+
+Regards,
+Bjorn
+
+> >
+> >> Currently all transactions from these eNPU masters will result
+> >> in global faults; fix them by adding the additional SIDs.
+> >>
+> >> Fixes: cd1d174c75f7 ("arm64: dts: qcom: glymur: Add ADSP and CDSP for Glymur SoC")
+> >> Signed-off-by: Sairamreddy Bojja <sairamreddy.bojja@oss.qualcomm.com>
+> >> Co-developed-by: Iranna Mundaganur <iranna.mundaganur@oss.qualcomm.com>
+> >> Signed-off-by: Iranna Mundaganur <iranna.mundaganur@oss.qualcomm.com>
+> >> ---
+> >>  arch/arm64/boot/dts/qcom/glymur.dtsi | 4 +++-
+> >>  1 file changed, 3 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> >> index f04058d2e089..6b06e0acbcf0 100644
+> >> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+> >> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> >> @@ -4084,7 +4084,9 @@ remoteproc_adsp: remoteproc@6800000 {
+> >>  			compatible = "qcom,glymur-adsp-pas", "qcom,sm8550-adsp-pas";
+> >>  			reg = <0x0 0x06800000 0x0 0x10000>;
+> >>  
+> >> -			iommus = <&apps_smmu 0x1000 0x0>;
+> >> +			iommus = <&apps_smmu 0x1000 0x0>,
+> >> +				 <&apps_smmu 0x1040 0x20>,
+> > The correct SID base is 0x1060 (although the mask makes them equivalent)
+> 
+> Yes, will fix this up in the next re-spin.
+> 
+> >
+> >> +				 <&apps_smmu 0x1080 0x0>;
+> > This will bind the eNPU streams together with the ADSP firmware stream
+> > into a single iommu domain - is that your intent?
+> 
+> Yes, we've been told that these SIDs would need access to all the memory
+> regions ADSP firmware stream is given access to, so we want them grouped
+> into a single domain.
+> 
+> 
+> Thanks,
+> Iranna
+> 
