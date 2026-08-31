@@ -1,104 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58AF63AB286;
-	Mon, 31 Aug 2026 03:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB193AA9F8;
+	Mon, 31 Aug 2026 03:27:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788146733; cv=none; b=l0WwdHyor7vWnRauZEhfsVb6hz1LlBtQBVYBnZPPC1KjPjekFDQLqCe/dnMEbdrs6NAwW0dtVUfq+/6nCOB89orORW/U2SG/qKc7FO+fAwYNr+kcCvo/8VGZin1zEvNyhDv/zFEZkYUCRI4p46a/fbHmBxGAH2PWmlqX3H8j3Vc=
+	t=1788146881; cv=none; b=cHHc3qW6Jh9aFN0awV9kT0eKNzlWXDyBgMo/iJesZjVgHtLi5wGL9ASIma7brPeEXzoX++/d95i9jI9yt0gqrtUiOHnnaU7XNqadtzRClNtWUXZ0Qvr+DAFVhRVENbInU9ynWhw/4+oG5o3q8It9TQlPwYyY2mw1chxNRHakECw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788146733; c=relaxed/simple;
-	bh=iCQdk9RaoT2kCMVj56PSH/WYTAj5LwSA7yUm9XDxF2o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=plG4F56YHz877CjEk9JUhak3pr62O3GqUJG7HKx22uzDBYSWj8hEdDbhgOI46uirwY3s3+Vgs4shYFAcZyBBfwCO5oZGqa/nhl0MDS44WpO0XFkvxicgiXmCoGH6pI4GdNPngvhp6E3zouN8geovbz59CqKH42aElhoR/dAMlmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=lQjT3/OM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788146881; c=relaxed/simple;
+	bh=KNTgq+/0Kuouzn61el1yz5cV3CZE6r84n255mD/gSww=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RhRZjB5yOsEL8MHbK85j7rv7qVMg2GiyF4/xXVECTl9+tDgaR0IVZkI9+6F8qQYtYQ72d//Gw3Ng0vxLxtRHQED85Mg1wqK3RWxId6ntvrbmu0LU9KhjGdgJuLU0lkQX6bl7pzG5xz88W8iT3YzGSy4BhAoHa6bDqVlMzDpOmxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=cvRjX/dL; arc=none smtp.client-ip=54.207.22.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="lQjT3/OM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A92581F000E9;
-	Mon, 31 Aug 2026 03:25:29 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=lQjT3/OM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1788146728;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zKdZAmn445qhRZS0uBj1MCk1GVoADURg/5nlTEd0BLA=;
-	b=lQjT3/OMWfWDv8gCGmA/N+ykEVDspz9O/ynOIboDnKKeyxfvtj+3xMeA9vntKgcdiGqF2Z
-	FFTxC0+aqs/QKcYEyYloI1EcfTsgfpu5RIG2k2tUROfWL68bY/u5VXLQBt9+xIP9vNT0/6
-	uoW+58rDkA+0IngiguWFA3CaOsSrD6A=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 3f46e57b (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Mon, 31 Aug 2026 03:25:27 +0000 (UTC)
-Date: Sun, 30 Aug 2026 21:25:19 -0600
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: ramses@well-founded.dev
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Martin KaFai Lau <kafai@fb.com>, wireguard@lists.zx2c4.com,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] wireguard: queueing: preserve tstamp_type in
- wg_reset_packet()
-Message-ID: <apT0H7qIwFW-JCLn@zx2c4.com>
-References: <20260827-wg-tstamp-v1-1-4acfebb855ef@well-founded.dev>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="cvRjX/dL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788146814;
+	bh=FvM3PUyvegHAq8oz4A0YkG+fZ8ENWHND2m9+xtLaGUA=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=cvRjX/dLXH95CsdVjKYhTGQCgsUrAIIBNxsSmshdVrIlWprIevufCdDMvUuJP7fbO
+	 KvbbgF70giZv9R3eHaCDeNfwpHfC6uok5GuBYJPYpwNwOFgfdjoP9bSQGhlOPS3z5F
+	 0jIptt4LjVR5svLerDEEHbBnDy19qm1KGK6yDXzg=
+X-QQ-mid: esmtpgz14t1788146807t62575c63
+X-QQ-Originating-IP: mdvl2m5PSw8hny9/qhqo0Ig0a0QY6rf0hYVmTKpGJmk=
+Received: from = ( [183.48.245.118])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 31 Aug 2026 11:26:43 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13306223604564133587
+EX-QQ-RecipientCnt: 20
+From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Date: Mon, 31 Aug 2026 11:26:41 +0800
+Subject: [PATCH v3] clk: spacemit: k3: add 1.8 GHz PLL5 and PLL8 rates
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260827-wg-tstamp-v1-1-4acfebb855ef@well-founded.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-k3-pll5-pll8-1800mhz-v3-1-530ed0978615@linux.spacemit.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4V07ZBpeRVX/odxMdQiVV6hQFDCv
+ 0sxJi5wM8lJ7pwzM6s7oy07ejPr9GisaeoVgoPHVEH1TYO5rswEihglCngE0JZl5I4ELhGr4gV
+ KcplEhJSGIVtf207nZtq058uH7ZDdteqdyy0KY/ume27dkbvdNxHuJ0YOCBRQEsk4VjoQp9LUw
+ +TblpSuTO+rpmKuNYofG8c/NgEciLI8jzhSkia7tmVZ3v3dTJohAQAA
+X-Change-ID: 20260802-k3-pll5-pll8-1800mhz-c81875a0a944
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Yixun Lan <dlan@kernel.org>, Inochi Amaoto <inochiama@outlook.com>, 
+ Alex Elder <elder@riscstar.com>, Haylen Chu <heylenay@4d2.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: Aurelien Jarno <aurelien@aurel32.net>, linux-clk@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2740;
+ i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
+ bh=KNTgq+/0Kuouzn61el1yz5cV3CZE6r84n255mD/gSww=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFlTvhQmXYxRXMqwYsvXBYvY3qyKn6B04e7Dj5IBdx71b
+ zBONis82FHKwiDGxSArpsjS/YBnW4FPlG2BQKEvzBxWJpAhDFycAjARHVaGvyJHC26u5poVyfFx
+ wxnHg38Lb9ar7dx+/HPTWvO7UY2ymyYyMkz6NeHtm1aptmh2rQmePIvar5fLLXq2ckU8k/EzNi1
+ /Ry4A
+X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: N+U/QWJ6RP+kQ836Kwwm3AcWBTOGOGO97xDCcr9fzZ9n080CwsqN/XxU
+	h6SMekBpdheDbOXL1G0UE4wD11kKyIDE1dYWTjbbehMLM8i+nw0qh2vGyVUiNJc4Q06POuT
+	ueUykx24wjjVZ1jFwZKdpeQdlXbaO8SHJHn6LhjMES0wFvE6MCIQhcw2x3cLUkR4ipZ0o2w
+	OT+nnaTl2MkhmUVbFLwgVODQXdyPq36T1xEanovRk64fqBKnV2nTUg9xGCQXLXiikEz2ypE
+	DvbdrFKJ0vdIMzIodq+hFoMVB4LYz6EuadmDOqUd0LeF4FBIpSSI+c0o72+lg9iOH9Pr8d+
+	naQ/YFlB/L0YNYpSGrnyppp5jkp+7ilOjicA+NwhCKbrIeRMRrctXn+eQzKFLCxWV3lM0s6
+	nxprzwxDRm7veAYuSwoic6j15WNSMEO/3dLufjHXIcNndSwMmnp7qTSU/O+2Ok1DuNcdDyg
+	XgHIlP676FpYvvOTwPyCnW44KLcMPlr+tSVoazK6XLP/dqBWtXb6O3xuV1uNS7J+gPmddyj
+	dL2Cmen7/EytKqiMeeg2hYgZbkE6N8KxlDEiYEwtkDEEAePi6n2DnA6MwqypywTQ73KShT/
+	rWxB/t2XVqebIGdC55hihYblsQ6+ZFHD0SzZOWfCKIeYhRNfL30n3ZPq4o9PxV8J2MUx4Bw
+	LCVCmQqgTLrwsDgfm0pkXB7bXeyIhws1eQ5+195kvYz002dTvSeTzt9kwVhwG6lMPTmzRqx
+	+oOgYTfXa9wO6FJWdTJqc92HZEDoFS26owdlCf/UQKcm5zT8sWY2NwQgZxg21oYuvQeCRzd
+	NsPmvDwc1RCy9rFUm2A0EGcsWK0B5hnHpuvOVpypPZIDXHSGvmBYZoGkIYzaiJYgtqXvPtA
+	PX4ALQpxLV8Bg/+v+ioOMKWhvAOd2ctgH1ET9AQ23907h7W7ZOYWwvX4oLKFk4iUKeecVtv
+	2SJJLDspXV1xgMAow2sOwKy03U2HFxD+XezDZexnmZAaGKe8PRM+RcZghWbsbyHIoei8s49
+	HBmkw1DEeFw+gVnxYc/kgwaFYcnpLXZo63+tin4ZuT+D4CpXXoRhsEtQQjXA6YMByQTv/py
+	D1ytnYIWSNdKxQM/W5m097LL+aiSyzkLw==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-Hi Ramses,
+K3 boot firmware configures the C2 and C3 CPU clock domains at
+1.8 GHz. PLL5 feeds C2 and PLL8 feeds C3, but their rate tables
+currently contain only the 2 GHz overclocking operating point.
 
-On Thu, Aug 27, 2026 at 01:52:56PM +0200, Ramses de Norre via B4 Relay wrote:
-> From: Ramses de Norre <ramses@well-founded.dev>
-> 
-> Sending traffic through a wireguard tunnel on a host using the fq
-> qdisc fills the log with:
-> 
->   fq: likely mono tstamp with tstamp_type 0
-> 
-> An skb carries a timestamp in skb->tstamp and, separately, a
-> skb->tstamp_type field recording which clock that timestamp came from.
-> The two have to agree.
-> 
-> When wireguard encapsulates a packet it calls wg_reset_packet(), which
-> clears the fields that must not leak from the inner packet into the
-> tunnel packet. It does so in two steps:
-> 
->   skb_scrub_packet(skb, true);
->   memset(&skb->headers, 0, sizeof(skb->headers));
-> 
-> skb_scrub_packet() deliberately keeps skb->tstamp when it holds a
-> monotonic timestamp: that value is the time the packet is scheduled to
-> be sent, and the qdisc still needs it. The memset then zeroes
-> skb->tstamp_type, because that field sits inside the headers group
-> while skb->tstamp does not. The packet therefore leaves wireguard
-> carrying a monotonic timestamp labelled as a realtime one.
-> 
-> Nothing noticed until commit c4f796c4f16b ("net_sched: sch_fq: convert
-> skb->tstamp if not monotonic"): fq used to assume every timestamp was
-> monotonic. It now consults tstamp_type, spots the mismatch, warns, and
-> falls back to treating the value as monotonic. Pacing still ends up
-> correct, so the log spam is the actual problem.
-> 
-> Save tstamp_type before the memset and restore it when encapsulating,
-> next to the hash fields that are already carried over this way. When
-> decapsulating it stays zeroed, which is right: an incoming packet's
-> timestamp is a realtime receive timestamp.
-> 
-> Fixes: de799101519a ("net: Add skb_clear_tstamp() to keep the mono delivery_time")
-> Signed-off-by: Ramses de Norre <ramses@well-founded.dev>
+Add the nominal 1.8 GHz configuration as the first entry in both
+tables. This lets determine_rate() and set_rate() select the firmware
+operating point while retaining 2 GHz as a supported overclocking rate.
+
+Reviewed-by: Aurelien Jarno <aurelien@aurel32.net>
+Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+Cc: stable@vger.kernel.org # 7.0+
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+---
+The related U-Boot change is available at:
+https://github.com/spacemit-com/uboot-2022.10/commit/fb95cf3d848b771c61b5a1b3e5cbbee223faf352
+---
+Changes in v3:
+- Mark the change for stable kernels starting with v7.0.
+- Add Aurelien Jarno's Reviewed-by and Tested-by trailers.
+- Rebase onto v7.3-rc1.
+- Link to v2: https://patch.msgid.link/20260810-k3-pll5-pll8-1800mhz-v2-1-aabff510a797@linux.spacemit.com
+
+Changes in v2:
+- Drop "clk: spacemit: re-enable PLLs after init"; the PLL init issue
+  will be handled in a separate series.
+- Send the K3 PLL5 and PLL8 1.8 GHz rate-table update as a standalone
+  patch.
+- Clarify that 1.8 GHz is nominal and 2 GHz is an overclocking rate.
+- Link to v1: https://patch.msgid.link/20260804-k3-pll5-pll8-1800mhz-v1-0-a3a75866ce32@linux.spacemit.com
+
+To: Stephen Boyd <sboyd@kernel.org>
+To: Brian Masney <bmasney+clk@redhat.com>
+To: Jerome Brunet <jbrunet+clk@baylibre.com>
+To: Yixun Lan <dlan@kernel.org>
+Cc: linux-clk@vger.kernel.org
+Cc: linux-riscv@lists.infradead.org
+Cc: spacemit@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/clk/spacemit/ccu-k3.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-k3.c
+index 92b930d5ff30..1796236d8dc5 100644
+--- a/drivers/clk/spacemit/ccu-k3.c
++++ b/drivers/clk/spacemit/ccu-k3.c
+@@ -38,6 +38,7 @@ static const struct ccu_pll_rate_tbl pll4_rate_tbl[] = {
+ };
  
-Thanks for this. I've queued this up in the wireguard tree.
+ static const struct ccu_pll_rate_tbl pll5_rate_tbl[] = {
++	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
+ 	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
+ };
+ 
+@@ -50,6 +51,7 @@ static const struct ccu_pll_rate_tbl pll7_rate_tbl[] = {
+ };
+ 
+ static const struct ccu_pll_rate_tbl pll8_rate_tbl[] = {
++	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
+ 	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
+ };
+ 
 
-One thing I'm wondering is whether your Fixes: line is correct. Would
-c4f796c4f16b be a better candidate than de799101519a? Or maybe even
-4d25ca2d6801 is best?
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260802-k3-pll5-pll8-1800mhz-c81875a0a944
 
-Jason
+Best regards,
+--  
+Troy Mitchell <troy.mitchell@linux.spacemit.com>
+
