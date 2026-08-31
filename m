@@ -1,70 +1,71 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C3C38E10C
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390B53AA4F6
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:13:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788210833; cv=none; b=MrygdtYvvvuGO6GLXx8FVQMjgvUY6/ID4f3KuPLUcdmItKqdgl5Et1ii9x6rKbEWAkxpPWN1ibr03k+TcOiis467ZOZjDTghTrDdutNTrH2yNX8KSVXXp72o0SWkc8+98jnS7AB4nyv+oB/KeJfRF2SfEJNnMVBIrKOokRPjcmw=
+	t=1788210835; cv=none; b=TUtq3eo9fPZRYTLcdZvqs1sx1Lcwlv2qW4Q/BDt3YxkUg3j/FJkbPbn36YKJYssb7rI2wuLS7UXpcnRY9JP94sZ6WSSyxQb35t1q+t1vY+BeDLGJWWOJWrW5rBi6soLlOaezebIA06Q3gDGP2zUiCrrhc/f0kQT72dhrHaTGpwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788210833; c=relaxed/simple;
-	bh=HXABlvbovapo8X5ULjVoUp05rLGCvcH7Hwv2idfGruc=;
+	s=arc-20240116; t=1788210835; c=relaxed/simple;
+	bh=zlCbSMvrlfeCqiNJjQxZkS1vJbSrxoS9NwpBsjGk91A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Fw3wfnE0ldbW2FwboU+lqwPt5xKv2F20CwpLdYtpdCowr4c62iWdUCPgmor1O5Z5Oh4fgEopybRZdjIjX/JmRiGI8I2Gk3+mm7on8EW4ZsqkFUCP2Z1mcDB+yTZ5npjk8fgAq/LgblSLnXGU6h4ii7d3vI7nWc0Hp+sTpzW09IM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qtxwB1+N; arc=none smtp.client-ip=209.85.128.45
+	 In-Reply-To:To:Cc; b=S7Zh45Fs1LG+O6dp2IFR7Tzy5X4ZwYOYrBYJvmskUW8zdMR08X2hPt4ekc6b08PW0697A3jF2R6EwLcfAsaCnudgqUzAKnIbdm/si0edSIzzxC+16y5azpoWc1pxhMoXL5zgxuKmiePCNBbimaT2ORlgFI+vnYqsBmH46mb7CIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YChxMGwu; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qtxwB1+N"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso19828145e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:13:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YChxMGwu"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4957eefd361so1421875e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:13:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788210830; x=1788815630; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788210831; x=1788815631; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QkSPzkNePAAObmivPyMjVU/afPEpN4pzFimu9a853YI=;
-        b=qtxwB1+NeJBNP5+t9FaPgwDqXH1SvCIYoMXZd1zWRTB9l5FrbZ1Bj2ocoE+I6csavX
-         fd+MmCKGO2q8BLSN1bTsIyealVCBkBRpFx5yaqdN0CShUKziIZR5vKEwbZHSY9ED2Twq
-         P7sm0WUoSb6nJjB3VSP26CfiWOy856rnmV/ujNUxj2UcwXZnoQGMZ+L8DWtYabZpRVSU
-         8RrB68YSLRRsf3eZ4Ymh+h2vbdhrp0+beGcQeaayCQnRXACkfCc71Hw8ctl/LbBklB4c
-         +A8Jb7fXzwgjqmInLxxqo7jlJPjY7XjWvB+KbRLPZSwKztMuNziRBMNUItYOXvR6Bfwz
-         cblA==
+        bh=YZoIiBSeFcsiK0IdQaOjt017+Ix1aMSbciAf6wb0bRI=;
+        b=YChxMGwu1GrTaT4pmemXyK1RMCf5IvJuWbjNmMVjKSVY0hTnto8eHOITfY0A9s+w8l
+         uCSaLW1AeXyOnT+SmQO8IeKQyVBs4trYWJRAXHHY+2Uj6FaJevLoZlEgmNblJpWVH/dJ
+         9XpYBTSVz6jWv2zCOx3wJFLuBmznlmB8ndweiHiePzayv/xRONlZpzyvL+pO0XvCJAIb
+         +0D0rMZsWgfwu79sqvGpVjaB4SbMQo0i13Wswx4OMXvZyhpbHBhiwQfqfw473UudbL66
+         oalg3nLihYIowRVQLgH/P/pUXzVdn+05fIQUV5kS/j7rT1Z8qXyR1W7xHTl7G7uLRdkX
+         /juA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788210830; x=1788815630;
+        d=1e100.net; s=20251104; t=1788210831; x=1788815631;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QkSPzkNePAAObmivPyMjVU/afPEpN4pzFimu9a853YI=;
-        b=YsA1fTAL5D1usNQVO164ffy1s10HINtbQraO0svawTWcUws9XX+zwWGqhVSjc6VvF2
-         RZg+EOB2aC4FmHj4daK0TSMXT/WdqVgHflb0HWTiVVD2zxs3kGP9WT24yNh/uL3A3ulK
-         2s66zTRhpYXaRnAknS427U/bZb7i5dkaNLOa4or4NERP33ytu3nr9HzueXWUInZ5V0mV
-         LOaRhjZxdVjtPJ/8wEhLyXvvrqtMKU4NqVw5+niQl/qqMalWy4HNsVBn3Bwu63YbMFxm
-         8lgbZLh8sUDKi/5IzLZUvkKXElPHHeCYF4/ut63qdFvvFeKepsOLVpnUIWGqJ6b9h6iQ
-         7yEw==
-X-Forwarded-Encrypted: i=1; AHgh+RqooIvKtlYjjVFdSeJSGz2ugLEAtBcBVmdXeLqOQ0c13CzpwTQmsjNMavxE1s3SjF5SItC/gClqoJhyRcY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJA2k3W80NFhytunZ7oPAimcz5eMJMP4Bwk1YC31vJy0KsoKnf
-	g+JMPlsfLGRQZcVnyIwi9SI+CWpnLYkaj3Yt/Y0w1WZS6sIH7z2QKJHk
-X-Gm-Gg: AR+sD10akc20DzFTOwXEgBwK2qmA8AXq20O/q91RUmUUqeru1RSTB080p2OzuJwwbNw
-	O+jmPUuKMsJ7qBnOmjbDxaHOsymzNEoFxaf8eEaOH1gXXLSgy73lUDK8amnSwQiUKuKzeMm2xQl
-	Th4kjg51Lv9gCraHS2kfeZhvbE1qEbBFTPUlLj2rhr15yn1p0kN1k3dRP8SRODADa/o9r3GiaUw
-	SXedpC3ZkoIywxqJJjvxUsAZqKMjwBNL/WrijhG/4L5Us/NrskA3SgtYcI7Fgis+C1k5qcAD05K
-	BmvBQupyte8CQ4hFytzAmwSrOeiCphC5BHbbFmKvkUkoDnR9OzOHxN/GSzShM3ZleuCR95AR5eS
-	3P0E5BV+FEDosnE2i9wvMJrlJPjMb1ciociEI87wLEFxHWqzqRNHUX2btyTkC3CqlKLJliTiP6o
-	iLSwpbpe6OYtSNqbLZp37A+hXECfoo1gsYCD48s7Hiltp+06uWA2druDvIXpdpfbGqCPYSOKin7
-	l4mAK8nLjwrlOsf2ML1nVH53ARq/c+v05uvSRNP19HmuPLA6/9SJox6EALJnk1pi7qnNq82quia
-	stlBLH9LO/RIGsQAOer5FoEsCebET+ug5t+9iU34+e0hfIrJmwxqVBCWJeW1cwV9+59Fg2fgh4h
-	0rDd080RFBA1nPCaIc035bf/p
-X-Received: by 2002:a05:600c:c494:b0:499:8aff:59b6 with SMTP id 5b1f17b1804b1-49b91c486c3mr361162565e9.14.1788210829843;
-        Mon, 31 Aug 2026 14:13:49 -0700 (PDT)
+        bh=YZoIiBSeFcsiK0IdQaOjt017+Ix1aMSbciAf6wb0bRI=;
+        b=mC82YmALWCwKs7wnG1d+Qbee/cTkuKUd2yvDlY9Yz1ViRPiqM2cA9/ka5KQSkHp8cz
+         hWrzGCUqyadQOEUc3f8tvnBe8hvW7UVSVAqBhNP4qh/kR0EcmMJntqu0uRL2OjIIh+ok
+         eUE0AI2dMAs1CPi6l+uaVasuAh8wIBKd0/RoUEyf1CaGAn6QYFC2EOzarAkPSpPphvFZ
+         gwjnKPN4C+it2VI6EyeCBhOzJy6JsBYrI5DdqVmGhlGyLx2uJJe8DCoDCKXaq/GUMRMd
+         Hz0/x6YeCeM0+xwnFfHK97/F/VnIWH8LFkUNBJNR46Bt6Mq93QiVazw35PD/ChxlrkSk
+         8T5w==
+X-Forwarded-Encrypted: i=1; AHgh+Rql6tZcVIsfis4Ne/Othq3qmktAhm8qYpjn2DmkKqQtzN/pYO+By1TSGPQuuUB8QMLf6ZSfhOZYGAvWBzc=@vger.kernel.org
+X-Gm-Message-State: AFuF++k27BdjYJ8CBDx/GxA5NNjPoCbxjyKslzTO0O7ZAa6BkA39qefX
+	/xEpAlBHE1MQa5cPiPBoD/JTdlgNolQRYGEdfJOTg2P07bHzVIGmwXrU
+X-Gm-Gg: AR+sD132KM8vQdo/lyk+fCmzPsPNNW4E3s0ZA0DD0y4dqJ2SrEenb3vH3BBDsP42JGW
+	X/xPNS+viPzE/yb8hPq1w2ld4CMdXy0Om0AXbaAeZSTRWZ+rC/7g0n9ZexmVVr7AELEPhvWz9s/
+	fte9xQklMSo/eeEL43IJ7JwpLwMyk04Eex+wv4732Ykrm91w8Sqz+zy2Qx6vYecW0cT9lskS5pO
+	3rL5pv58ukF5aSG5nIvW6SkMKR5vB4BrEnk0uFBRWdf53KR7lqAE4IJWDapba63EbOoNQ1SCRjk
+	dkXPMuaaSDk8qJVOwP4Z9WSXtm7MZOO+wpM8l2T6lTQHVNv7MdOh2vbIF5J/+iNLsTIZ6YihmIs
+	cIMWar91Hdnh8mqH9IUUNxbZYylMf67Wft8p37uBUbT87na6myulMDU3SJNWAPVPpzHF4kiCk24
+	YfwVlYTySyfS8FMDKi7DeujJ4WwKb5r+Ppnr9rqtVIO/+9SQDR+HxBd01ZCHTWgMz+uG3OmTSyn
+	wiwMMs4/vNjhFyVQ5/z9zHo7Ibp11xiJx3y6OMbKmIV1mLTeZfh/fIHPXVJcsOme9DKSv7Vn8K4
+	mthIHisMCcVMHOXXC+sFLxOuJZY8KhW67BpkQswXfczqpwKHWHaDGSepoR20IKRy0YsY9xpq3+8
+	/c3qe6JvIU0uLUjs30pVtQRE7
+X-Received: by 2002:a05:600c:8b42:b0:496:c93d:e2f with SMTP id 5b1f17b1804b1-49b91c57d64mr469951045e9.15.1788210831303;
+        Mon, 31 Aug 2026 14:13:51 -0700 (PDT)
 Received: from [192.168.1.187] ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce1754csm17695925e9.10.2026.08.31.14.13.48
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce1754csm17695925e9.10.2026.08.31.14.13.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 14:13:49 -0700 (PDT)
+        Mon, 31 Aug 2026 14:13:50 -0700 (PDT)
 From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Mon, 31 Aug 2026 23:13:38 +0200
-Subject: [PATCH v2 08/11] iio: temperature: tsys01: reorder headers
+Date: Mon, 31 Aug 2026 23:13:39 +0200
+Subject: [PATCH v2 09/11] iio: temperature: tsys01: make headers conform to
+ IWYU
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,7 +74,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-kernel-header-removal-v2-8-b92b580ef5eb@gmail.com>
+Message-Id: <20260831-kernel-header-removal-v2-9-b92b580ef5eb@gmail.com>
 References: <20260831-kernel-header-removal-v2-0-b92b580ef5eb@gmail.com>
 In-Reply-To: <20260831-kernel-header-removal-v2-0-b92b580ef5eb@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -84,49 +85,60 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Joshua Crofts <joshua.crofts1@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788210819; l=1038;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788210819; l=1547;
  i=joshua.crofts1@gmail.com; s=20260530; h=from:subject:message-id;
- bh=HXABlvbovapo8X5ULjVoUp05rLGCvcH7Hwv2idfGruc=;
- b=jW+8VHxUen/pme45o0CJauIjkEOZLcZ/pytVtjDREqo30I6sc8zb2/ZuQXdoD2Tak7ru0fGbI
- 402OJX1QKRdAEee4RQGPryGtN3mniUeP2QHNECe7dmr2bHNH4lV3fTb
+ bh=zlCbSMvrlfeCqiNJjQxZkS1vJbSrxoS9NwpBsjGk91A=;
+ b=oTABnNaL1RNH5TgvGZY7KHvLgvYQ0l5Qw182/IOVyeYvlMg1T3sj50D5/+XwHBXL9+op2YLK9
+ 1fqt9Lkj46OB2X25o2HezW37n2wCmgK4Owfz7u2UgpnbC6A7n/SPTKE
 X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
  pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-Sort the headers alphabetically and group the IIO headers and vendor
-specific header separately.
-
-No functional change.
+Remove the catch-all kernel.h header, add missing headers and remove
+unused headers.
 
 Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 ---
- drivers/iio/temperature/tsys01.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Header changes explained:
+Added:
+- <linux/array_size.h>: for ARRAY_SIZE()
+- <linux/bits.h>: for BIT()
+- <linux/device.h>: for struct device
+- <linux/i2c.h>: for i2c_client and i2c_device_id
+- <linux/math64.h>: for div64 functions
+- <linux/sprintf.h>: for sprintf functions
+- <linux/types.h>: for fixed-width integer types (u8, u16, etc.)
+Removed:
+- <linux/init.h>: not directly used in this driver
+- <linux/kernel.h>: catch-all header no longer needed
+- <linux/property.h>: not directly used in this driver
+- <linux/stat.h>: not directly used in this driver
+---
+ drivers/iio/temperature/tsys01.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/iio/temperature/tsys01.c b/drivers/iio/temperature/tsys01.c
-index 28b3ce022ce7..14de67ee8be7 100644
+index 14de67ee8be7..b19b4a3ef038 100644
 --- a/drivers/iio/temperature/tsys01.c
 +++ b/drivers/iio/temperature/tsys01.c
-@@ -8,14 +8,16 @@
+@@ -8,12 +8,15 @@
   *  http://www.meas-spec.com/downloads/TSYS01_Digital_Temperature_Sensor.pdf
   */
  
--#include <linux/iio/iio.h>
--#include <linux/iio/sysfs.h>
++#include <linux/array_size.h>
++#include <linux/bits.h>
  #include <linux/device.h>
--#include <linux/mutex.h>
--#include <linux/module.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/stat.h>
-+
-+#include <linux/iio/iio.h>
-+#include <linux/iio/sysfs.h>
-+
- #include "../common/ms_sensors/ms_sensors_i2c.h"
+-#include <linux/init.h>
+-#include <linux/kernel.h>
++#include <linux/i2c.h>
++#include <linux/math64.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+-#include <linux/stat.h>
++#include <linux/sprintf.h>
++#include <linux/types.h>
  
- /* TSYS01 Commands */
+ #include <linux/iio/iio.h>
+ #include <linux/iio/sysfs.h>
 
 -- 
 2.55.0
