@@ -1,101 +1,117 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386EA370AD4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:33:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811F1370AD4;
+	Mon, 31 Aug 2026 06:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788158034; cv=none; b=ZW+ZSaLj5fWRK2iqPRzBp/EeMf+DWpWhSvJhEeCM6hj//F5yMvZlCjYqLjDKq0SYDTAWs7rXClda9Bs68u4Qa2v02dwS4joszyM3XkPlYEi/d0lboi6Ec4Bte62VWFM5U8s7tGbnMXbCeQBVBPkm4auFpQS/opw9CRL/sh3OYks=
+	t=1788158038; cv=none; b=fQ3iYteHOvxxYzWEusRvRIVq3Zf5qoXMAOjUnkHyLOnyKhTXtfHOEuN7vPjsEbOwXM2t3HoOg1dXr69VCMhXq1cYS3aTvRmsSHZmpZDhZHiy97uXyNAB+WWcWrnobjqyHQu0Sty0oIOmuxwmho5sdLl8KYPkHLhbY+CsNdqJKlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788158034; c=relaxed/simple;
-	bh=4r4B989XhNn5855KWt3NM6Au1pnhG8E2OSje25w3ack=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pmpZvj3wfX+f4lxXQqrrLPnfku5rFw0dxm3Z1ojyTnfHoSDUYkat3ATLQl03yi9oTSXew8jXV8JsdRi6H0NNUUblVkzQdI+UsYWnvG1afT5U7hNZCwydYzPUCHQdnHJ0F+Pf1oPBeMriqVzs34f1281t1XHixHbN/LvG73BWNO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dxjintou; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788158038; c=relaxed/simple;
+	bh=K342pN9R5l9Amf3yIne5jhRsFkAPNtSws5F1C1XTfYM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tRLZo2H4oylf9thYGKqHGeaK26qxp6bkEX5i4c2oU3THSg4Y/hX9kqydYvCCKuBr7jzu9nX87doO+tlFzyehQK44Z4i7npbI4OvuX3PX1QxEf5sDucrCT7jm/3gGRtyvDB98Dn/zEvlscQ0svjSnpshDjzjSE20z9EwdOyXNzrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HXBHbr8Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dxjintou"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d710632717so25227795ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 23:33:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788158032; x=1788762832; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZdYVDo7588sL82RPlR1GkDzeflr+52xwAeMcbvupztY=;
-        b=Dxjintouy+vlBBg9m2UILiw35xJ3JFgjorMdRCnBA0ipez8TI+K00pQ/DBHRYZaxuA
-         HfmZNO8t3d7kuBqe4JckIKDGxxZDJMEjix5nn181TOG6yq+kgjPvSLH3CiTja+Odx9Yl
-         haPhcytrshKJJ/DjinyEbANNsncmD525zxNzdt0JQMlfnp3FfRRbg5C89wp8MXUHdb0V
-         A8P/bgp558Odpqi6pqVRaTvZHjduTzrIN43KPfCy5Kax9V84N8Dfq8lMoiU+9mGrmMut
-         mHTzkw8qdtEnGjYsJQVR1P807NOAkaOfFOP/dpbGEl8z7Z9e3Wp6v7f1rDn+LtiEnqMy
-         t02Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788158032; x=1788762832;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZdYVDo7588sL82RPlR1GkDzeflr+52xwAeMcbvupztY=;
-        b=AjxfLVm5O5c3ugQIvQ37HDSuHShtZjVO4T0PObpY91D998DqovMPOW924YgHZM+qJ3
-         VJFeV3A35vuwu+HwWQTJeuapshl1Tp/+Vc+osBO5/3y21yQIR9YpC2BxNXN80pYKZO1p
-         MMOyHtwl0aMdGfHT/8y+GDTmNDF1zBltUBWkA5yYUB8nbp1ByXQV98n3uG6n+GlCOy4j
-         kVpJFEO6DPlR1SvU+KfuXb+McXyjVgXurfZDXMkpY4ehZGmykzEcD9nm7+fRdko2yhUW
-         n0EeOCpPu87Nv/K/xa5ZZgG+NmkNti0d4Q4Y4Pljy3k+kgpKb859CY9IMMb1Af9UicCX
-         N5Tw==
-X-Gm-Message-State: AFuF++kWGf2Ddo+nNuzd4Uagqiq7Dn2QGqzZjEBxoGwtzd5Bbs3fbcAj
-	SuubYJRT59jt/B1CTSua25FxgNCm5ThGD9Ran7jVgyuR0jFQLFEeQhTD2URCIw==
-X-Gm-Gg: AYBFou35X6/xx3ZnOkqeQ4XMdD2YgnfEdhG4jFBRP0i5+UVg4xCYapMYms605Za1h1R
-	Zi/VxMkGbU6zyQBK+q3lHm9B34/aRajecD4tyHBnutsoZb0rU8YhaajqXB8kS4xKOgG/dp/xVGS
-	oT8H2nOINqUoKZQXdATgJ+kFrDKstxmNg5IliFE8osGRoX4InjwmPtsSK3eNaXwXkrIbrZilHzZ
-	adac4MfwFx9N/QjGKYxL3DnpvuNr38pMrE6tSb5grNRAiqcnpQEJRDH1jy/IfAPTmhCFHKZtpJ/
-	b4RoUZZN+Pfx2FUMDR5GTwv7jNlAzdsSWquBE4jJ8l0qT8aSSRnYbX7WDCzhh+lWOu0NEbnO3bG
-	SeeGWeKRDteV9q8yUEd8RNOy1bYNqo+XEG5AC8sFjrCjeMPZjOC1Z4dnfVwvp3wOSXcww1M9cgs
-	GX04Oi26sQn4vTKzo/W0HwXP8qd3GZXGBzucMbGSgjTQ/NHaAFY+sPFh0nXyHQ0ns3Fd3gldX2y
-	ZW97Uw=
-X-Received: by 2002:a17:903:286:b0:2c8:248a:5dbb with SMTP id d9443c01a7336-2d74dcbe867mr391007535ad.7.1788158030880;
-        Sun, 30 Aug 2026 23:33:50 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:21dc:72d0:e0c:d445:c26f:9091])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75963bc14sm29404725ad.32.2026.08.30.23.33.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 23:33:50 -0700 (PDT)
-From: ThangNN99 <ngocthang2710.1999@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-rt-devel@lists.linux.dev,
-	linux-mm@kvack.org,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>
-Subject: Re: [PATCH v2] mm/slab: don't use kfree_rcu sheaves on PREEMPT_RT in kvfree_call_rcu()
-Date: Mon, 31 Aug 2026 13:33:44 +0700
-Message-ID: <20260831063344.7933-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831062054.319EA1F000E9@smtp.kernel.org>
-References: <20260831062054.319EA1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HXBHbr8Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20F3E1F000E9;
+	Mon, 31 Aug 2026 06:33:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788158037;
+	bh=GP2C2mZreAalLgcgv4kH52hh++chyCXbyU5k8g3nVAw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HXBHbr8QuA/1GL+lcq09OgnCqRhxC7HarHVZt/raxamgMrw2e/zqzfkIlcy3bv+KJ
+	 +Or0czqXZnS5CX2a+GUc4ML5WTnln7D6oxSskL07rpWlvKSUa3b2QEnLSIY692Eiz9
+	 88tPzxGya7NYZsPMYjSH9BH0rsmGEO3HvO+RbLn+lYbRhMmLkhVrFw9ra3u/KX7NHX
+	 WGxSwq9U+JOgXwI6X5NEV9ZTUyuieBsY8O5DAQkoJ8BLYv7yqiL1jmWi00MqBz/P8w
+	 sly7jgqAaZqlTiKeHwrKGk+Fg2Ob8XqO3aQE3B3at+5xDUbKLI8tlVXz6trPZh7KSt
+	 B+9Lg9jsuKpfw==
+Date: Mon, 31 Aug 2026 08:33:52 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Biju <biju.das.au@gmail.com>
+Cc: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, Rob Herring <robh@kernel.org>, linux-pci@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 1/4] dt-bindings: PCI: renesas,r9a08g045s33-pcie:
+ Document RZ/G3L SoC
+Message-ID: <20260831-neon-responsible-ape-e0cd02@quoll>
+References: <20260825095047.9971-1-biju.das.jz@bp.renesas.com>
+ <20260825095047.9971-2-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260825095047.9971-2-biju.das.jz@bp.renesas.com>
 
-Thanks, both flagged items are pre-existing and out of scope for this
-patch:
+On Tue, Aug 25, 2026 at 10:50:40AM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+> 
+> Extend the existing device tree bindings for Renesas RZ/G3S PCIe
+> controller to include support for the RZ/G3L (renesas,r9a08g046-pcie)
+> PCIe controller. The RZ/G3L PCIe controller is similar to RZ/G3S but has
+> some key differences:
+>      - Has 3 clocks compared to 2 on other SoCs.
+>      - Has a different set of reset signals
+> 
+> Add device tree bindings for renesas,r9a08g046-pcie compatible IPs.
+> 
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+>  .../bindings/pci/renesas,r9a08g045-pcie.yaml  | 33 ++++++++++++++++++-
+>  1 file changed, 32 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
+> index 09d78bd1a577..911b1976bf53 100644
+> --- a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
+> @@ -13,7 +13,7 @@ description: |
+>    PCIe host controller found in Renesas RZ/G3S and similar SoCs complies
+>    with PCIe Base Specification 4.0 and supports different link speeds
+>    depending on the SoC variant:
+> -    - Gen2 (5 GT/s): RZ/G3S
+> +    - Gen2 (5 GT/s): RZ/G3{L,S}
+>      - Gen3 (8 GT/s): RZ/G3E, RZ/V2H(P), RZ/V2N
+>  
+>  properties:
+> @@ -21,6 +21,7 @@ properties:
+>      oneOf:
+>        - enum:
+>            - renesas,r9a08g045-pcie # RZ/G3S
+> +          - renesas,r9a08g046-pcie # RZ/G3L
+>            - renesas,r9a09g047-pcie # RZ/G3E
+>            - renesas,r9a09g057-pcie # RZ/V2H(P)
+>        - items:
+> @@ -87,14 +88,18 @@ properties:
+>    interrupt-controller: true
+>  
+>    clocks:
+> +    minItems: 2
+>      items:
+>        - description: System clock
+>        - description: PM control clock or clock for L1 substate handling
+> +      - description: PM control clock or clock for L1 substate handling
 
-- The headless kvfree_rcu(ptr) might_sleep()/synchronize_rcu() path is
-  never reached by the caller this patch fixes: set_cpus_allowed_force()
-  uses the headed two-argument kfree_rcu(ptr, rcu) form specifically to
-  avoid it (see its own comment), so it's unrelated to the sheaf-bypass
-  this patch adds.
+PMU? You list both clocks, but is there any different between them?
 
-- kfree_call_rcu_nolock() still hitting local_trylock(&s->cpu_sheaves->lock)
-  unconditionally is exactly what this patch's commit message already
-  calls out as unsafe under a raw spinlock. This patch intentionally
-  leaves kfree_call_rcu_nolock() untouched; fixing its 'any context'
-  guarantee belongs in a separate patch.
+>  
+>    clock-names:
+> +    minItems: 2
+>      items:
+>        - const: aclk
+>        - enum: [pm, pmu]
+> +      - enum: [pm, pmu]
 
-This patch stays scoped to the specific syzbot-reported splat in
-kvfree_call_rcu(). Happy to look at the two pre-existing issues
-separately if a maintainer wants a follow-up patch for either.
+This should be "const: pmu" in such case.
 
-Thanks,
-ThangNN99
+Best regards,
+Krzysztof
+
