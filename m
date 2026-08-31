@@ -1,177 +1,286 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011011.outbound.protection.outlook.com [40.107.208.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055C425B093;
-	Mon, 31 Aug 2026 02:11:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788142265; cv=none; b=QPdc9w/IOVj8BiDLtdqKxwqcoHgIQ8wOpi400n6mfF2KDMlkMk6Evp3tUoEELLEeG+4FaoJK3ztOWP1w/lL8F5GeSEM7BrCuj7lGZCa8JI8t+JEKuoFDG2UL8de6nyj2JZkUm9Z9EyRHJo1wuGjDBdtMuCcqbSzjVpGL1nD1Qeo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788142265; c=relaxed/simple;
-	bh=YaOoMf94FzD0v7rOS2FNsADL67IVHeiA9cSabYztE8g=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bcsCvDbm/oOIIa/U1FFvF/62x4+E4Kub1726D+ZSGR/erpfXR7aOmyRMQqZlrTnZKonNIV9KzUVnNVaapXOea2uNOdHQ+spRoqHaQvY66eS5XBnoIjiM+BtvaYqTCcS31ysvGsQQqFN3SwTE9Tj7YktywptQr3/YSC6skREZ0U4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h8fYOfok; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844FC25B093;
+	Mon, 31 Aug 2026 02:12:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788142325; cv=fail; b=GHsBMTP2JtJ94RjC9gw/6WdNyaYBQCbSClxvXvYpiDp0xjwW3uK7wVR7FbGA8nMHFtGSwWueNahOUYxsBWOZdKqlKH/2ktzGgD55rEf8ayPYC5pgQNQL6YTH7EH2W9B7iQFL/EWGGQFQ1/3ust5Dhm+1//9+iic67CBYycnsoj4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788142325; c=relaxed/simple;
+	bh=0bzn0PuboPLHB8b6fDo+GlTvq89QFSppJDGB/NXrmD4=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=qN4xOXwFQEQuJAUuoTcyo1anjiq1W3U38O3qHWtoCXF6C5gOecbRjefA1qEBwSyIjT/GqUlkdclmMops/4G5UJXP4fBGvMc1RvJcu9e/ybsZMYRK4cH+ht1wmx3o0ZhrKHYEOpevo+f3DAzCIA7UYRIc61iCX3relg/QDZSeqUA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DLjQqy1c; arc=fail smtp.client-ip=40.107.208.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h8fYOfok"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A7311F000E9;
-	Mon, 31 Aug 2026 02:11:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788142263;
-	bh=vkyZ1f8b6Irt1T+MHj5caDYZ3HGOvaiJXa0mBGRsmjM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=h8fYOfokplJSjYnTXG+ZnJ/P4ulaGGi/qVH8fODr/X/XKwBobAiB6ujQfI70WLQfO
-	 E3VfpAVMmd0ktrx/ktTXj6HeGlO8xwm84/LFkVn3rYmqojwXnh1eUKmnafsOP5DPNz
-	 Q9Lb2LeLBJloxfg69vgbLi+gQIQ1gui1hoOO9DHlGOPl9tedzrgHj/zI+OK8TtKt5h
-	 DFOueOafQ813Yfgr2PVQXkX/D16VSxEERC02/sr3da9AQf78gsZv+4Kq7l0JJqfhtD
-	 9GP7i213DbtXsTYaVutvEfr2sIJh9i+3oFzM4wI+GaEeiHGd0SWUHfk7/kBq7y8Y7+
-	 Xitboc/BbAJKQ==
-Date: Mon, 31 Aug 2026 03:10:57 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Kurt Borja" <kuurtb@gmail.com>
-Cc: "David Lechner" <dlechner@baylibre.com>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
- "Bartosz Golaszewski" <brgl@kernel.org>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>
-Subject: Re: [PATCH v3 7/9] iio: adc: ti-ads1262: support triggered buffer
- sampling
-Message-ID: <20260831031057.0e44cf67@jic23-huawei>
-In-Reply-To: <DKZY65U6LPP1.AIH4CZKUGVWJ@gmail.com>
-References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
-	<20260807-ads126x-v3-7-f89925d72792@gmail.com>
-	<1b6b6981-1a08-42a2-a03a-4366b980da13@baylibre.com>
-	<DKK9S36LB543.2T124NE3TNETN@gmail.com>
-	<f3ea3859-aff1-4c15-9302-095119faec78@baylibre.com>
-	<DKME9LSBXSXA.28PS1V6ZAH79O@gmail.com>
-	<20260816225424.27c9d223@jic23-huawei>
-	<DKZY65U6LPP1.AIH4CZKUGVWJ@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DLjQqy1c"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wln+TsT+Qjx1rnhHTp1NIaCfrF5gsK0sU9bT1qC9f1X+USdHdjQHcs2QORA2RD35SuA/81gHEP7JdHIP1z2gmhkhyMSonEjBXedndetC4UVL0LFfLNLVL2Subc4K/qmgd3RHWfWZvhDRGfPaGe5DDiB/XJbOYN9sFs5gVZXF7Wcn8GWcRZ7fhRTcwv4cgAhG1Nbr8/h6/4nB5s9TE4Dcs/5NzbYRKFt/5YaljGXR+QyrfzMgHHdD/ylNdhrRYpZkgCLOpfnGq8iWsVU7gxE4I9hkC/cMs9+VU8I0lmMsJNWO64Si+K6YpDo95YS0V4F4HuP3ldxo4Wa+462EA1f90g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BUMxgiYKV+tWWC5RC4QUVuhnyLqK4JUAmu1clQFXwDs=;
+ b=SzXE+sjd/waPlhIThbkK0Ais0/uBuW8jHePXf/Miqbl6VssSJ3iwRVip70x+E3TYwtGmDmNkRn2WY/U8x6QsxXlWmj6SMKRJutpnn5tR/ey6fbwnpPflAHYnx87dupTIcHccG5NY3XRMzAJ4E3hKokLusgghyaE8swnanaL6EdYGa4bdwaIXWAnpckuf/IVLnNi65UjE92TKIF6LxdO92hw4fHr+QVvIZBQMg2YP69l74IP7oiLWN1tj2gtf0AlJkX4mj4xGpnpWU1kzffzQqi4Ss//SYZxUSl+kxV5zEUHnK4UXEqMX8xJkgJSwmDkZUqT2DzjmCEAHsuhAfWE6fA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BUMxgiYKV+tWWC5RC4QUVuhnyLqK4JUAmu1clQFXwDs=;
+ b=DLjQqy1cECJk0B3ZtQs/AMuJ/AmaEUou/8bzo105qp8hj4LxkgvxogwMpADgPxojIxt3S04fZBp3z05kDg9kjkkTGQWv7DTugz5BE6ojgyO/3mE0MwQbpuLq7yI8XvmYZ1WFBheyILaKYCecYk7+r1HkjGTVaECR5DQHpBLkSyoPGrXpU5ARQhEY67j3R4wkrHgfx3oSyGMq8nZeoXWEyn67sULa6Hgj1Vk+qhp9sNtXKdpDqgM5+I5Q/iwkhqr4X4Ya5C6SHZBQBut7mbU4CGnRI1eYmgcDn+1Avh8cwny7l7IEGwkGVcJ1HvUXSSbKwq3zk2NOH+/1bc5QBsX7Cw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by PH0PR12MB8100.namprd12.prod.outlook.com (2603:10b6:510:29b::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Mon, 31 Aug
+ 2026 02:11:59 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 02:11:59 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 11:11:55 +0900
+Message-Id: <DL2RJRG4Y0SE.39RJW9A9IS5NV@nvidia.com>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
+ <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v8 11/12] rust: id_pool: do not round capacity up to
+ BitmapVec::MAX_INLINE_LEN
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Yury Norov" <ynorov@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
+ <20260827-chid-v8-11-bc74c77d0214@nvidia.com> <apMY3lO6LlEHP1Zr@yury>
+In-Reply-To: <apMY3lO6LlEHP1Zr@yury>
+X-ClientProxiedBy: OS0PR01CA0020.jpnprd01.prod.outlook.com
+ (2603:1096:604:25::7) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH0PR12MB8100:EE_
+X-MS-Office365-Filtering-Correlation-Id: 09c9998d-b23f-4979-69b6-08df07053ce9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10070799003|22082099003|18002099003|11063799006|56012099006|5023799004|6133799003|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	py2CK9EddKEP2jRSk9XP/BXHOwgboIyMxTsbP/K5GwlZTiK8aTYMa77j3U+8/peaW2PAVfdB/M8qewk1/nK5Yy7E+hm1ldQan3B8r3LiNfhp/OyJZE+zRQHEZdQt3SPL3EDnLi4jrjYwuSdZO/yTCqncsTw3XMaY1VYxYbz9gKl9ztQBaX105UX+3NI3jiQMnxAtpnktgTGEOmIC4xSg6Ieypc8weM6+4WePwkqicxzi5Vv46HofMjA/AJvAz1bioI5VLQ+f30/CnH8GnJJSsawvNFrfEOLyvNUJxJgGKsX+3TldjqLedoKxyhpWPQuUxy0rRSj6aT9N1vAzlZrhCifiku2BcIjLQOn3PIrV5qdpYErKrMlt4A1j0vtuIaKmNhfanfeMyz1NEXT6DMK0ARHmbuCPbTXRat8qk5SOVlnjpS81rAE0kovy6V3PiMvDF7GBzAg1+1KGpEpK4F0P1N9ib/rIEuS9DfBKee04y5P6Kl75h8kDDTSUZxUt2JeGNmDJkvLkIA971s24qdLIiKTBa6yXVMiU/7W3HeLgiZ0VjXvvi7Og398Y+dmOPw8EUOGuZgCKKAsdqc6N6yukkJMY63EFo7hqjNmZ/XOT97XLWjcb4XmkD7LDBmqgk+Ixh0QqmAbWldhqUQ/4qLZYz2ojIS8rPVlZEmTtAkDrqgQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10070799003)(22082099003)(18002099003)(11063799006)(56012099006)(5023799004)(6133799003)(10067099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TnJ5K0FEcFQxNUp2R0R3anVZdTlsNWlaeGxQNzYvTW5sNmZ2WUxKTWNxbGhY?=
+ =?utf-8?B?eWpKR0ZCYVRINHVBa3NDL0JYOHoxQXRsOVRDUE80SGhYZ3Z4YXlyd09YQ29a?=
+ =?utf-8?B?VDUxcFVYOFpkTkp4ZGFIa1czajVUdEo2Y0NlWloydThTZklvbnZENHA4T3BQ?=
+ =?utf-8?B?WnQydFhuUjhzSy9aWktJbUlSckg0djhpRi9kVHcrbXZIM0ZBTWQrYzdyT0lN?=
+ =?utf-8?B?K2JmWi9IaXB6MnUwNkEzamx6WFdmQlFRdGdEZVp4RFRidnlxeEdiM2FWOFhG?=
+ =?utf-8?B?K1hNNGVjOWNxb1J1YW82M09FaEE3bmYxUmtWbTFTS0xPMEROcVI0cEE3Z3ps?=
+ =?utf-8?B?TXFQT25rN3JISkg0WWNJd0lZV2JhZDZaRGhveFM0emdwc3BOU3NpQ0htbUJD?=
+ =?utf-8?B?cU9XeWRqbGFDd2hveVFhNlpGRFBwN3VyYlFqT3MwQWR0NW9IRWVKYTFPeXpS?=
+ =?utf-8?B?WDEzUDhBQzU4WTFFNkU2ZmdGT2RBNm5sK1BlaVpXNEtjeXhxNmsyMDl6YXJK?=
+ =?utf-8?B?ZTFWNUo4bjJUb1FHYlEydklrVHNxblpxM0VwcStwUFBYdkIvOWFXUWpKc0Z2?=
+ =?utf-8?B?YUhhMjNZWEgwcUc5UVRENkpzR1I5eUdRTTJyUmI2UGw3UlJ6aUlpRC9BY250?=
+ =?utf-8?B?ckdKWEExL3pkajVxRzVnN2VId0x5NDQyZGliVVlzUGUwcnpxeHpERzA2T0Zx?=
+ =?utf-8?B?dDFuQjlTc3NpeFpjb1FUVDNPVmlqSUJZNXI0MEFBNWRaMTV0a2hoSGR4WmVI?=
+ =?utf-8?B?aFY2enp3STRHcm8xbENDcW5sL1hwL2lzaFJqaHA4WHY2SURYSWdLSGJRUDVJ?=
+ =?utf-8?B?dmJ2R21aNWxNZXp0RWlYd2RZSVFlbGZCNGpIRXp0cmRGejNYTmV5RVVQV2d3?=
+ =?utf-8?B?dyt1RlVhdFc4S0FqMU1OUll5dmdtRlIvMlV5U3VkNjFyRXptRUVIV0ZjRHJr?=
+ =?utf-8?B?cmlGYWZwRHhoR2p6eW51b2Jxbm55MVJpb2pPTmdQWUYrbVFwTzEyTC9ZVnV6?=
+ =?utf-8?B?RE5oZld1U2dHMThuWXRSUjRrdFhMVFBoSHZsVVFIUXoyd1lWU2pTTWFFUTlw?=
+ =?utf-8?B?MG12UHp0UllNMnJjanZKQ3ovUklRckY0TDQ5S2JwV3RpVGF4NDB6cWhMT2FT?=
+ =?utf-8?B?aWV1UGVYNlh6K3B6L2lkSTZkbGtXZFlWVkNoYTluRkxtd3VwdlcxNGpsUzgv?=
+ =?utf-8?B?RHhUQk1BTU1VWVJHejVlWEUyWXg5ZWd0MitkajRCSEorQVNvSHZvOWhDY09G?=
+ =?utf-8?B?WTV6NXlIaE5iTHJWZzd4dkIxV0NmUnl1ZWNqZThZWmlUQy9lMWllM0MyNUhT?=
+ =?utf-8?B?enkvUTJPTnMxRFlsYXVUSm0wM011UUE1dTlEU0pMcDFTSVljVlRnekEzQ3N3?=
+ =?utf-8?B?cExuemliZzByRVZHYzRwQzgzZ01QcnJiR2c3d0lqcU9mUzNGclpBTi95SCtR?=
+ =?utf-8?B?ZGdCK3drQTlDVFdxYlVYaE5md1RxckZLamdOSk15THlCcWpGUHZ1SE0zZDJU?=
+ =?utf-8?B?S2U5Nm1PdnhURXlEbEdvTlZlUnZub3p1K0xsT2o4Nnd0bUVvQ0EySTVGQ0M1?=
+ =?utf-8?B?dWhwUGd6aG4rNGdhZjBoNFlKWlUvSEVqcVVjM0UzcjE4V0xlb3IrUCtIZjhk?=
+ =?utf-8?B?bHNuWGhtSVM4TnluQWFNMW1qekgwdjY1UisrUXl3RVpNdnJnUGVuMWJwQ0RK?=
+ =?utf-8?B?dTlvc2E5YnVKV0tZVTk4bEpsQ21ycmNPSmNwczY3c2dCbExaald0SUpwdEoy?=
+ =?utf-8?B?WDJiS3VGTUlPdkk4TlhjTE9pUllHZTczQUtGNXRBaStNNlZ0aEFOeEp5WUR5?=
+ =?utf-8?B?WTJROTN2aHQ0ZkJMeGNSZVRqRDE1VHJMSXZPbVgybmlkTGtnZGhFM1dnZElx?=
+ =?utf-8?B?RElOYmF6MWRMVjQyVkNYc1dVR0FHMDNzREhBYW4rSS9VTlhyZ0NtU0UvMzFm?=
+ =?utf-8?B?elhYMlJsWDVBOXUyWGc3QWsvZFNkaXdRYmtKK0FibXltR1pDRzZ5ZENVN3Qw?=
+ =?utf-8?B?VVZQd1FNWHMvcTI0enExUUsxK2FCVnpBaFhYdlVKSkl0WUJGQjl3d3d3RUV5?=
+ =?utf-8?B?dEhIenNUUklwU2dzaGExZWxvdWQxaUdGd1lJbzdzYVVYZUsxV3JkbzFUcnNW?=
+ =?utf-8?B?M0N5bGZYbG5ybFZtTEI1T0lRWU5ib0xqOUlZWVUxdDlab3JTOXUrQWRBYm1o?=
+ =?utf-8?B?SzVzS2xtUG84ZVJ2NTBkdktBUVg0bXBYTkJMY0JhQlVzQXczN0tXRTNWVmVY?=
+ =?utf-8?B?UUFXNklJcy9XdHg2SCtpTVp1czZjMjFWQjM5SEdhcyt3eTVQdE4rTmczRUcx?=
+ =?utf-8?B?Q0w2OEh6MEdDbGRjU0xoNCtDdy82aUVrbU51UWFxUWdNNW93YWszRXZnN0c1?=
+ =?utf-8?Q?VJMUJ1l7gJTzyXpMVoBndlrfZWmF9u1JrUTW8y5wdaAsQ?=
+X-MS-Exchange-AntiSpam-MessageData-1: r93F5F9POTY6iQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09c9998d-b23f-4979-69b6-08df07053ce9
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 02:11:59.0176
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DYB6R9g0wimostAGbXRcN8XS/Ip59+6cD5VQDFT/7iA3kNJTnJm40WfONt5m0dfeoV6fZjNR//xo+GXDs8+MPg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8100
 
-On Thu, 27 Aug 2026 13:45:17 -0500
-"Kurt Borja" <kuurtb@gmail.com> wrote:
+On Sun Aug 30, 2026 at 2:37 AM JST, Yury Norov wrote:
+> On Thu, Aug 27, 2026 at 04:28:39PM +0900, Eliot Courtney wrote:
+>> Current code in IdPool::with_capacity rounds the capacity up to
+>> BitmapVec::MAX_INLINE_LEN, but BitmapVec::new works fine with values
+>> smaller than this and still uses an inline representation. Remove this
+>> behaviour.
+>>=20
+>> This allows specifying a real capacity of 0, which was not previously
+>> possible. This breaks `grow_request` in this case, so change it to grow
+>> to at least `BitmapVec::MAX_INLINE_LEN`, mirroring the capacity floor in
+>> `shrink_request`.
+>
+> It wasn't possible previously for a reason: allocating 0-bit bitmap is
+> something questionable.
 
-> On Sun Aug 16, 2026 at 4:54 PM -05, Jonathan Cameron wrote:
-> > On Tue, 11 Aug 2026 15:24:46 -0500
-> > "Kurt Borja" <kuurtb@gmail.com> wrote:
-> >  
-> >> On Mon Aug 10, 2026 at 11:31 AM -05, David Lechner wrote:  
-> >> > On 8/9/26 3:28 AM, Kurt Borja wrote:    
-> >> >> On Sat Aug 8, 2026 at 1:39 PM -05, David Lechner wrote:    
-> >> >>> On 8/7/26 10:58 PM, Kurt Borja wrote:    
-> >> >>>> Add triggered buffer support and a data-ready (DRDY) hardware trigger.
-> >> >>>>    
-> >> >
-> >> > ...
-> >> >    
-> >> >>>    
-> >> >>>> +	u8 tx[11] __aligned(IIO_DMA_MINALIGN);
-> >> >>>> +	u8 rx[11] __aligned(IIO_DMA_MINALIGN);    
-> >> >>>
-> >> >>> don't need second one to be aligned, they aren't independent.    
-> >> >> 
-> >> >> Ah, I forgot this observation in the last version. These are used in a
-> >> >> full-duplex transfer, wouldn't that require for both to be on its own
-> >> >> cache line? I just started learning about DMA.    
-> >> >
-> >> > No. In this case, it works roughly like this...
-> >> >
-> >> > - We fill the TX buffer before the transfer. (CPU access to memory may
-> >> >   just live in the cache at this point and not actually be sent to RAM)
-> >> > - We request to start the SPI transfer.
-> >> > - The core SPI code flushes (or maybe I should say invalidates) the cache
-> >> >   on the TX buffer. This ensures that what we wrote with the CPU available
-> >> >   to DMA.  
-> >
-> > Extra fun - it has to flush the rx buffer too.  Because...  
-> >> > - The actual SPI transfer happens that uses DMA to access both TX and
-> >> >   RX buffers. (Again, could just live in a cache and not be sent to RAM)
-> >> > - The SPI core code flushes the cache on the RX buffer. This ensures
-> >> >   that when the CPU reads the memory, it will see what the DMA just
-> >> >   wrote.    
-> > If the RX buffer had old dirty lines (could have been used for something
-> > completely different) in it, that is modified data that hadn't
-> > been written back to RAM, then this flush would wipe out the hardwork of
-> > the DMA by writing those CPU cache held rx bytes over the top.  
-> 
-> Makes sense too. In this case, if both buffers share the same cache
-> line, I *guess* that would just be a redundant flush.
+We had this discussion on the previous revision [1] [2] and the
+conclusion was that it should be supported. Let me elaborate a bit on
+why.
 
-In some paths maybe. I'd need to draw it out and it's Sunday evening
-so not today! :)
+We tend to use `NonZero`, `Bounded` and other limiting types in order to
+guarantee that invalid values that would otherwise require runtime error
+checking cannot be expressed. The main benefit being that it removes
+error paths and simplifies the code by removing footguns.
 
-> 
-> >
-> > (Next bit is just to scare anyone who thinks they know how this all works -
-> > completely irrelevant here :)
-> > Don't get me started on architectures that do clean write back (occasionally).
-> > Thankfully I don't believe any of them also have non coherent DMA as to
-> > be able to do that nasty hack you have to know no one can see it.  
-> 
-> With "clean write back" are you referring to a write back without
-> invalidating the line?
+Here disallowing 0-bit bitmaps doesn't give us that benefit, it just
+adds some burden on the user in that they need to build a `NonZero`. But
+a 0-bit bitmap is not intrinsically invalid - it's actually a reasonable
+starting point for a user that eventually wants to grow it dynamically
+now that `grow_request` can support it.
 
-No.  Writing back a line that was known to be be clean - neither CPU
-nor devices ever wrote it.  The problem lies that it could have been
-fetched in by a prefetcher at any random time. Then written back at
-another random time - potentially on top of what ever DMA occurred
-in the meantime.  It's completely broken but only if there is a way
-to see it.  On that platform one was introduced much later than the
-original design on basis everyone pretty much assumes cache coherency
-protocols never do clean write backs.
+That being said, you are correct when you say below that
+CONFIG_RUST_BITMAP_HARDENED will make any query panic, but the problem
+is that the documentation of the panicking methods does not mention that
+behavior (although [3] addresses that). It is also not specific to a
+length of `0`: if the bitmap had a length of, say, `4` and the user
+called `bitmap.next_zero_bit(4)`, then it will panic just the same.
+There is nothing special about a size of `0` in that regard.
 
-Anyhow, tales that should be accompanied by strong spirits.  Not even
-beer is enough for this one (and I was only on the side lines!)
+[1] https://lore.kernel.org/rust-for-linux/DKUHJF1YTTY6.1XXC1L2SYXEMF@nvidi=
+a.com/
+[2] https://lore.kernel.org/rust-for-linux/ao2U1jNaT7waibJW@google.com/
+[3] https://lore.kernel.org/all/20260828133543.2259029-1-georgeandrout13@gm=
+ail.com/
 
-> 
-> > For more fun, one large CPU vendor thought that was the case and there is
-> > a spec out there that has a magic flag to let the OS know it does this
-> > because there are cases where you care.
-> > </rant>
-> >  
-> >> 
-> >> Oh, this makes a lot of sense.
-> >>   
-> >> >
-> >> > Since there isn't a time when CPU and DMA both write to the cache line
-> >> > at the same time before a flush, there is never a time we could have
-> >> > an issue with stale data replacing data that had not been flushed.
-> >> >
-> >> > It does mean that we can't update the tx buffer for the next message
-> >> > until after this message is done, but we have to do that anyway.
-> >> >
-> >> > What does cause problems is if we just had a regular unrelated variable
-> >> > after this in the cache line and the driver updated it during a SPI
-> >> > transfer. If this new value was just living in the CPU cache, then
-> >> > when the RX flush happened, it would write over that new value with
-> >> > stale data from the DMA's version of the cache.    
-> >> 
-> >> Thanks! I'll look deeper into DMA, it's very interesting.
-> >>   
-> > Wolfram Sang did a nice ELCE talk on the more normal flows for this a
-> > few years back when he was working on reducing copies in the i2c subsystem.
-> > https://www.youtube.com/watch?v=JDwaMClvV-s&pp=ygUQd29sZnJhbSBzYW5nIGRtYQ%3D%3D
-> > Is the one I think.  
-> 
-> Very interesting talk, DMA is way messier than I thought. I guess it's
-> the price of supporting so many different architectures.
-> 
-> I recently got my hands on an FPGA board so I'm gonna be playing with
-> it, although it seems DMA is still way out of my reach :p.
-> 
-> ...
-> 
-> Thanks for your review! I already finished v4 and I should be able to
-> submit it tonight.
-> 
+> =20
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> ---
+>>  rust/kernel/id_pool.rs | 38 ++++++++++++++++++++++++++++++++------
+>>  1 file changed, 32 insertions(+), 6 deletions(-)
+>>=20
+>> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
+>> index 06a4c71c4c6c..4f329249df9d 100644
+>> --- a/rust/kernel/id_pool.rs
+>> +++ b/rust/kernel/id_pool.rs
+>> @@ -112,13 +112,8 @@ pub fn new() -> Self {
+>>      }
+>> =20
+>>      /// Constructs a new [`IdPool`] with space for a specific number of=
+ bits.
+>> -    ///
+>> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE=
+_LEN`].
+>> -    ///
+>> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+>>      #[inline]
+>>      pub fn with_capacity(num_ids: usize, flags: Flags) -> Result<Self, =
+AllocError> {
+>> -        let num_ids =3D usize::max(num_ids, BitmapVec::MAX_INLINE_LEN);
+>>          let map =3D BitmapVec::new(num_ids, flags)?;
+>>          Ok(Self { map })
+>>      }
+>> @@ -152,6 +147,13 @@ pub fn capacity(&self) -> usize {
+>>      /// let resizer =3D alloc_request.realloc(GFP_KERNEL)?;
+>>      /// pool.shrink(resizer);
+>>      /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
+>> +    ///
+>> +    /// // A pool at the `MAX_INLINE_LEN` floor cannot shrink further.
+>> +    /// assert!(pool.shrink_request().is_none());
+>> +    ///
+>> +    /// // Neither can a pool with a capacity below `MAX_INLINE_LEN`.
+>> +    /// let small =3D IdPool::with_capacity(8, GFP_KERNEL)?;
+>> +    /// assert!(small.shrink_request().is_none());
+>>      /// # Ok::<(), AllocError>(())
+>>      /// ```
+>>      #[inline]
+>> @@ -198,12 +200,36 @@ pub fn shrink(&mut self, mut resizer: PoolResizer)=
+ {
+>> =20
+>>      /// Returns a [`ReallocRequest`] for growing this [`IdPool`], if po=
+ssible.
+>>      ///
+>> +    /// Grows to at least [`MAX_INLINE_LEN`].
+>>      /// The capacity of an [`IdPool`] cannot be grown above [`MAX_LEN`]=
+.
+>>      ///
+>> +    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+>>      /// [`MAX_LEN`]: BitmapVec::MAX_LEN
+>> +    ///
+>> +    /// # Examples
+>> +    ///
+>> +    /// ```
+>> +    /// use kernel::{
+>> +    ///     alloc::AllocError,
+>> +    ///     bitmap::BitmapVec,
+>> +    ///     id_pool::IdPool, //
+>> +    /// };
+>> +    ///
+>> +    /// // Grow goes to at least BitmapVec::MAX_INLINE_LEN.
+>> +    /// let mut pool =3D IdPool::with_capacity(0, GFP_KERNEL)?;
+>
+> Please don't add explicit examples for creating ID pools with 0
+> capacity. It's a factual error, and should not be explicitly expressed
+> in documentation.
 
+I tend to agree that starting with a small capacity > 0 is probably a
+better illustration of how to use the API.
+
+>
+> Also, it looks like your 0-bit bitmamp would trigger bitmap assertion:
+>
+>  IdPool::find_unused_id(0)
+>    -> Bitmap::next_zero_bit()
+>      -> assert!(start < self.len())
+>        -> assert!(0 < 0)
+>          -> panic if CONFIG_RUST_BITMAP_HARDENED=3Dy
+>
+> I like your version because it allows to create an arbitrary capacity
+> for ID pool, i.e. 4 bits. Right now one can explicitly create ID pool
+> for 4 IDs, and allocate up to MAX_INLINE_LEN from it.
+>
+> But 0-bit ID pools must be prohibited.
+
+I really think [4] we should consider removing
+CONFIG_RUST_BITMAP_HARDENED, make the conditions for panicking clear in
+the methods documentation (set/clear bit do panic, other methods don't),
+and add checked variants to allow users to write more idiomatic code.
+Bitmaps are really just arrays of bits, we should make them work as
+close as possible to regular Rust arrays.
+
+[4] https://lore.kernel.org/rust-for-linux/DKUKM1RPFDA7.1MBU5EY40OJ4J@nvidi=
+a.com/
