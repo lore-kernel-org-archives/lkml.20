@@ -1,86 +1,76 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04A63DE448;
-	Mon, 31 Aug 2026 09:40:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B899026B2CE
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788169224; cv=none; b=bfBfRC1brYtWpWRXBVz5wO5W4dezsj6S/oQWvHGmhH3arSChlQ9XXUCaVPWinVULziFpQeoRrcRADSuIlSm15nqlvQ623MMLYqmPCyTEkm2SnFQieEAo3BCJkB8dT39gnGoFbhVmxSxyYaYwtlLa5ntiYRVW+fz7Bs1ymjXOvAs=
+	t=1788169222; cv=none; b=d2qKFhozQImmmOWyMchv/L2m4ZrgLwZUKN7BzJdj9Gu3nul0m1CRVAVnQEAIWpj5jpk6eedpludgJQSLXRx/CZ5Y6V4YbAv6KLoRyZ5p5cgmggFoqyoytgB9pOg0vn3IZk13bjn1B7lRvfNbplbuT7Cbsd4ywUM55zoWy2509WM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788169224; c=relaxed/simple;
-	bh=VjLEjM6LkwV7lOQjptYA0xDcE7nm3b3xsOKZXYEGpGM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lUBbqW6NtQhD4q+ABgykHhOIMSyyjvJj7MxuV4pKP55RttAnoPrw9R4/nk42+IlYd2YJUhZaX0/9UwDidbO7pWM/uqbmKWR/29KbacdHy+HpnsmpiRf2GOlzNcw3mq3aWyFfc8qaybTHHTlU6PaZk9/OHvdTOwBsiQPpRM7fK4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H5CuliNC; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788169222; c=relaxed/simple;
+	bh=5VmL21RBLlEnHFw7eDV892tZlO9+3z4qE8C9/5OjTTg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=O6L9q3aw3TEcNfhGGA30gp8pUUEnWGtEv8uEGwUwDsiW650OPm1xWKs36IM28ZtkXioMjDDrgBq5B2Pgk2jDjWcyt/4hsSDB+BzaO6rYulgurwFRlUxTrvQYNOLAzDsQTEwoCtX4C21EqcX86Gv7RHV6E/+pzcvdPfKLiVFTrBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm; spf=pass smtp.mailfrom=berg.pm; dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b=hMcCaX1J; arc=none smtp.client-ip=185.70.43.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berg.pm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H5CuliNC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788169223; x=1819705223;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=VjLEjM6LkwV7lOQjptYA0xDcE7nm3b3xsOKZXYEGpGM=;
-  b=H5CuliNCd/TOwijduqvNaJBpAn2bRQ8gVSQ5Mck8cnTkmB9UIWlmHSl2
-   5IyXbuyt1bgpDnSQZOr2BO9jsmSNFLVzVB/qjkYilmHuMSR7TUHt0vLn+
-   /v3dV3A7KPsBW15lFo1XYXf7UUlDiEmmL34cPs0jmDZrb/8tHv1qJ61Np
-   pEvPT2lL28mXxjktxy6anZAeO1s8/1bkoYcqFBGo+1glr5UNBAHXGZtkK
-   neSDpalyqlDvqBBf7/wOozdf92W8AEwwtS3CCFu2udsSHKtNpLLNXjYYi
-   sBp5pi+Q9uVYSxZAsJI/vTTFZ/S36EW0KKPOTfXoS0CNcl+HdfciwVmSC
-   g==;
-X-CSE-ConnectionGUID: tsfuRtJ6R6KirD99NtTgzA==
-X-CSE-MsgGUID: A5SMg0XyQuOYuOPrX56o2Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88777184"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="88777184"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:40:22 -0700
-X-CSE-ConnectionGUID: 4/Uu2UScSFe63kvjtNq1cg==
-X-CSE-MsgGUID: /Jdz5sBLRhGfa4a5K3OO/Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="266947502"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:40:19 -0700
-Date: Mon, 31 Aug 2026 12:40:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	Uwe Kleine-Koenig <ukleinek@kernel.org>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 05/15] media: ov8858: Add INT3477 ACPI ID
-Message-ID: <apVMALyPsJSsB5BR@ashevche-desk.local>
-References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
- <fb26c4cb3dae5d87ee877dd558d6ea5e0b3926fd.1787933456.git.mauriziocasciano7@gmail.com>
+	dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b="hMcCaX1J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berg.pm;
+	s=protonmail; t=1788169212; x=1788428412;
+	bh=p+N3EN9ugcSj4L5L7pgZBZkzLLv55JzmGyJouNn528A=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=hMcCaX1JHNckGyYRZW0yykuyEx4aZL6HWJSLR8sf/LWhGROpAb3+VvtXiVZp28Ycw
+	 17PLYvJ8dbJwqeUOdakynJXrzFbbmRQAMXdZj0+eUQv9O9e+zi4MojBkz9mnfPyYos
+	 /Hijs9f5BfYyy7abYQv1ALFoJG3q6TRPU5/2LfaEpRyfcaPfhPtjuXe+ghvxBUfCOd
+	 sF68k1l9wW+hWWhj9ML+v7b+tHkjMZuC9diwnNXxtmYj0BNQ99pc1xrVy+Sxgr4o9Y
+	 fXWXm3Ixi464F7HlimEQnH9bVd7iUsGh9eXRmLqiJ6CgPl74xov3xRo0RymI1tnvOv
+	 UWgBFmxWi9naA==
+Date: Mon, 31 Aug 2026 09:40:08 +0000
+To: Hans de Goede <hansg@kernel.org>
+From: Jakob Berg Jespersen <dev@berg.pm>
+Cc: Sergey Lebedev <lsa.uz@pm.me>, Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] platform/x86: int3472: support the POWER1 GPIO type
+Message-ID: <2aWW8RcJ0AWBVqtpMnH55sIcaRQXH92Wl0D0PwCESRqd-VCbKzAgoeZL2iRpNOc-RI12oaV4iS4vvKTEKP7DlpiakCasB1VH17BewMCLJSU=@berg.pm>
+In-Reply-To: <df2f3cb1-1bab-432f-a359-59e6bec9580a@kernel.org>
+References: <20260830134126.70277-1-lsa.uz@pm.me> <xwSI6AZy8i6fOp48SxKkCmFiG2NNdkRtidVqaIi0VsczFe_1Kh9UUuamWCuaSrVXpxPO4YdGgNfeWxbpuFns_VUTQfUCEfCTFTD1ARbH9mw=@berg.pm> <df2f3cb1-1bab-432f-a359-59e6bec9580a@kernel.org>
+Feedback-ID: 210104851:user:proton
+X-Pm-Message-ID: a410ea8f16e9482a73e10d121900f3ba56a736fd
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fb26c4cb3dae5d87ee877dd558d6ea5e0b3926fd.1787933456.git.mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 06:14:47PM +0200, Maurizio Casciano wrote:
-> Firmware may use INT3477 as the ACPI hardware ID for an OV8858 image
-> sensor. Add an ACPI match table for that ID.
+Thanks for clarifying Hans,=20
+I will leave v3 as it is.
 
-No tag here from me because I strongly disagree on usage of ACPI_PTR().
-But I'm not a media maintainer :-)
-
--- 
-With Best Regards,
-Andy Shevchenko
+Jakob
 
 
+
+On Monday, August 31st, 2026 at 11:34, Hans de Goede <hansg@kernel.org> wro=
+te:
+
+> Hi,
+>=20
+> On 31-Aug-26 11:21 AM, Jakob Berg Jespersen wrote:
+> > Hi Sergey, thank you for testing it on your SP11
+> >
+> > Does any of the maintainers want me to send out a v4 of this patch wher=
+e I include a commit message with this limitation related to ov13858?
+>=20
+> No there is no need for a v4, the ov13858 problem is not a problem
+> with the INT3472 driver, but rather with the ov13858 driver.
+>=20
+> Regards,
+>=20
+> Hans
+>=20
+>=20
+> 
