@@ -1,128 +1,118 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22CB3DA7ED
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7293D331A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:21:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788168035; cv=none; b=uute21heoIGFdq8uVzHtwXTIzOVQOJUcjFqaSxm7P/304GzGDlWHkOIlCIr8AjCrq2UhnjqdnaoodZyUtWcg3TQEzf/O/H5aRdQvrsZ78UjzbBLUb6jlFGXpPX4s5+OYxtfxhkzWsu9LJPN+THpquqELEWH7t+2RMC0aP3P5/m8=
+	t=1788168093; cv=none; b=uwJTuYV4tJVhTBztbDFdWGd2mr5mPBfDDlCKgjc7BmwoB3y2MckGzOr+WxQppIRd4z8LZHzsYgkKjE5kRYuIXg5lXSyMvslIwLlrTOa+xyJ7PQAEII4eVxQKLaQpW2ten6ZBCkLcBtuWyyxExuASoyQmF+vyVq33NZadmm+eRwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788168035; c=relaxed/simple;
-	bh=1bkcUrvmztbrpSh/SyIQVxj2aJNk+2CuyucdHJWFNec=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dz4XJhWr3bIPoiiN1ZH8fa0HIKZUnCUv8mWZm/mmL2QHa0oB629zK8JY8Ak+JSIqL41BKpY3P4F8XiLnN0XlHM8y4YeU9L7UHQHFE3tJhqs0LNJgM5J+GNFqFEc8oHsaBS3p3h6iRx2yrdhxQlATJJ7TDVr8YAc96zelHPmoByw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=JELnNjHf; arc=none smtp.client-ip=209.85.221.51
+	s=arc-20240116; t=1788168093; c=relaxed/simple;
+	bh=Jii8PdsOIpZIIdRiKAExnqrCkL53cGtk6tdaH+cPNhU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ngMVw1E/OgjGuLs3llnSLUWlg0uFqyfceJZQOcY//EYUvfOPzQJEKRDrkQiwR58oOpDHxI6fOU6CdxVvi6IAdragOc7EMSb/2JiUdbiVMyhc2xT8IVhv8s3c0tiMiCh6xptLjjYdWhLdm9OWNTRWSc91YvLt5AUr7rUdLeQzRh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=csGvuUj9; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="JELnNjHf"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-482e5733a5aso1914039f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:20:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="csGvuUj9"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4956869750eso20468325e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:21:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788168032; x=1788772832; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BmZRJNMYJ5AXrDCDZCrGMnxri4tZm1nVUIzEyZPjscg=;
-        b=JELnNjHfORGcUOERWEbzIL7UvVHPPFEK2LBUqz5WF4wEPwJ0Uo80HlfhUy/TrnEYZE
-         OjO10twPAjvXUbdR9bEUjjkf4qB8n5mVguCViS2PRp8s/nHRR59zCwyrqimPP5YyWRTL
-         QJ9g95iwdsSYm7eibIPmLMjKqQWABLVUeiHN5DqcRrUd/J8t8fp1gtfnWpXHhty3Es2p
-         dV+a8FoV6eoWUa48jpQeQ9fNYNzN6KrjnKf4RRKggcbR+qbKqy88QMSNnvnh1oohMz4C
-         UobFFHAQRfJMNi5UdwywAgEpYOyHdq09sQPzV843VioFlsgKn2Em1OcxdJ7a444UTcc1
-         H9PQ==
+        d=suse.com; s=google; t=1788168090; x=1788772890; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=++AemXZH3wuTYoi6t13CCh4OGNnaD2bSLAST23yN5ks=;
+        b=csGvuUj9pX5NfxO2kC0CsapOlk0qRuQWV5sHU1UBONiU5VkTBsq/r2wQ92/l4XNkhI
+         rOqAJ12sDyNGTunW6hFKSVqGDSc+0LuP3rOm9mOg5lk/YphUEk8jHcW64hDQUeryc70v
+         ZzSh4DgpcMfhN/79pOKXL0ZW2+1ae92fQhGJkm6S2tNkMNzwskDGsUX7ElByC3uleMRX
+         WGYajvCVFXY8CrnI3A6P+5NJ+zy5Bs3OVYwuYYZttfWQg3ugSYdO0aNHhRk3x3ae/Jlm
+         uS5NqfdOweaM7QiOvJ5jaYAlEnvQx2lJK+x18wDOZo4fVu0gQrzja1+n/+39Gjst90YB
+         ROxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788168032; x=1788772832;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BmZRJNMYJ5AXrDCDZCrGMnxri4tZm1nVUIzEyZPjscg=;
-        b=b6WfG9xlFB1SWL5WEsVUSOr45ndSZ6yXej0J3xdOpCU4u/obGWatv2/BPvs1DJhg0A
-         EjC3BfxZISHToWim7qTGhQfBh4d1p5LEpny1J7IdKoys1zviAsDaq13uNCwfpB/AmJWR
-         iJFx09kV7EMB3KlDkQprMXpXJ1yjqwoGnpPpszHrCS2KS/MN5S8+zIwPzWUtdcUY7LiI
-         bGJo33dpCfhwv3T3OdfQQlAcp9mU0ma4G5BwsyFzi3G37m7q2ZNL7NLFpBLUh/WWgweF
-         gLeaQmAmGRxSaxgJ115jzKIGJIVYUdRsnTfce47us20fslOuxa6+C1l32lyhk+texf8p
-         KcVg==
-X-Forwarded-Encrypted: i=1; AKwUvBzFj8yz8W+KDFaNd9QbEOcqAr+qJ2VnBEcKZlPFlhg5wCjv69vpnZgQpA4KI7ntzNyQqlL0kB9Aki/mgbs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mz2RrRC/eRCjYBGcFgJu+Yt3/q6hiQNuT3Fqc9mKF2g7VA3Y5K
-	i/gMo6F4gsdg1si+5xjFuoWFfwLDcP4Mob8MVR9chJYKjKcSl6f9tUm4e/h5rimSlCA=
-X-Gm-Gg: AYBFou0T7lDDY8wpbIxzyjJJr2vSaCVgwZo1x+iJ1nTXzhUkGuZJoPNIxYfOJ43HLlE
-	9o58mP9AWaskiFt0XNyBoyDxxCbt7xRqjJoea13iJHe+YGJ9M2ZlU+diKrAOfPlUg/+wtinTTGT
-	TxwhlWA0IJtc/qj5BgGQOphzYuGblbF+qQyDdp8YSU2+EAVaxbw+WcOFreoyKQCPzd8v5SlN00U
-	W1qylRT3MfX11zNksudaIYFnRUU5u0xeUrFB+nbHL8vj8clKItOCfXjmOfKSNH3aGfTBF/vQLzi
-	LL6JXwhGRD2w1OasD2vPN2/xCFzGthWq2b3huYF4xhEml5vFhqQZr5h3aBbU/8o7QbsEofllXU5
-	0UodisHf4dJhHaFl65FAZPYkqFkYIjPWzRO5gofzYSy3/ROFCsR8ANfkfyGldK50EVf0hrVT3NT
-	vkvkxOT86dAr8N6GszsvPmUcNLQDosjoomIvvuVAaGM7VjT85iLUTU/KiTKgwesnMLp/ODKbjfc
-	A==
-X-Received: by 2002:a05:6000:4012:b0:484:3310:710f with SMTP id ffacd0b85a97d-4843f00bb60mr2562328f8f.27.1788168032065;
-        Mon, 31 Aug 2026 02:20:32 -0700 (PDT)
-Received: from localhost (109-81-17-247.rct.o2.cz. [109.81.17.247])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48436646548sm10478328f8f.37.2026.08.31.02.20.31
+        d=1e100.net; s=20251104; t=1788168090; x=1788772890;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=++AemXZH3wuTYoi6t13CCh4OGNnaD2bSLAST23yN5ks=;
+        b=jcrYQyvOdNAwlQFYPsWDFBNIhljH0fduRq8qlE9IpPjdS0St7tmuK4941VIxQ3EEgF
+         Jmj50OMy4QYIW6NuSczqQJTf56pkaM3QVk6PK1JcHpFbAwbH8b9oXMVtVbKVZ/z+nQIy
+         WXVQwExvUtZsVW7Gn/jSOZfpN1M2CH2ylcx9qC/uUlxH57hTMEtx0+ipNmqfjl5j9ft2
+         ea9M4HRT1Iz6TCR4lGspdqAK34u/3pBpqAn4E/VWq+I8pavMTaGyJ1SyneL9wRhv8TL3
+         Vpx9nVgmhYBh7tXmA5IapkPLeiic6Lcscuqw5Zy6EHdgsCCPaMC8TT2Hzmi2Vah0GvUa
+         W4Ag==
+X-Gm-Message-State: AFuF++mzr3J1sMbms9UG6F4QNURK2p7/vkFuqYSQDvsUQBuLtvRiwQGF
+	Fg89Md9RQqXEKDFpQq47B8U/urK9vKpdNUeuF7MGNHF7Gid4RAVuP7cK14282/Yj0mzA/QGToFT
+	CjCujgN0=
+X-Gm-Gg: AR+sD13yEJrh/vKi3fR4ojrGvP4xkJwcYoHbi0n3Jap+LAJMMsR7bNoXR2GPNGCRVTP
+	b1ZsQt3y+L61l1rmcM6uz2v+qRiFQ27EbAhJNgUgzpN6TtVLwlP57IvnXGG3IlQfURIt3xE1WCR
+	lXjpOuxp/20bgqJKKOq3rgk2qjLdVfEhqc2JR5hqGh75+l9Bozy2WB4KdjmplOEThmU2KXQfraD
+	hTdMILwdEcNLAH8CIIL1zjxysH7zcSUjoxek9iEh32LKNMgJZiEx+dFEnSty9xkoC2bur1IjUlu
+	gUDkmE2rtJb9g2WhreQPzz97LZKIR9NQSN366Wo9yRljLw2FnevdMoA0tus7qMFs3bjtSvd2A0S
+	N/8vCcPgCbtXnY3ycl+YmlrtCkTx7qRtPz+IVpuVoLNT/R/btDoq2OaZCrtc7yHt4b4pm0XgcpH
+	WWIkgeQq0LHpviu9P++puFbOnmIDiYnpq5941c25Ps9JX0laD5oehJM+o/IBd/lxaNqLyCHJ9f1
+	JdOmecfVEJx
+X-Received: by 2002:a05:600c:3e1a:b0:49c:cee2:a508 with SMTP id 5b1f17b1804b1-49ccee2a541mr225610845e9.16.1788168089818;
+        Mon, 31 Aug 2026 02:21:29 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd2922ebdsm150432695e9.3.2026.08.31.02.21.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 02:20:31 -0700 (PDT)
-Date: Mon, 31 Aug 2026 11:20:30 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Nimrod Oren <noren@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
+        Mon, 31 Aug 2026 02:21:29 -0700 (PDT)
+From: Marco Crivellari <marco.crivellari@suse.com>
+To: linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
 	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Nirmoy Das <nirmoyd@nvidia.com>,
-	Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mm/khugepaged: cap min_free_kbytes recommendation at
- 1 GiB
-Message-ID: <apVHXmSljK8HrIuA@tiehlicka>
-References: <20260831075635.2244437-1-noren@nvidia.com>
+	Randy Dunlap <rdunlap@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Waiman Long <longman@redhat.com>
+Subject: [PATCH v2 0/2] doc: Rename dynticks-testing to cpunoise
+Date: Mon, 31 Aug 2026 11:21:11 +0200
+Message-ID: <20260831092118.124576-1-marco.crivellari@suse.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831075635.2244437-1-noren@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon 31-08-26 10:56:35, Nimrod Oren wrote:
-> When THP is enabled, set_recommended_min_free_kbytes() may raise
-> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
-> With MIGRATE_PCPTYPES equal to 3, the formula accounts for 11
-> pageblocks for every eligible populated zone before capping the result
-> at 5% of low memory.
-> 
-> This is reasonable when a pageblock is 2 MiB, as on common 4 KiB page
-> configurations, but scales poorly with larger base page sizes. With
-> the default arm64 pageblock sizes, the contribution per eligible zone
-> before the 5% cap is:
-> 
->   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
->  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
->  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
-> 
-> Consequently, min_free_kbytes can reach excessive and unwanted levels.
-> 
-> Add an absolute 1 GiB cap to the recommendation, in addition to the
-> existing percentage cap. This bounds the automatic recommendation to a
-> sane value on systems with large pageblocks while preserving existing
-> behavior for typical systems with 2 MiB pageblocks.
+Hi,
 
-I would argue that the whole model of increasing min_free_kbytes for THP
-is wrong. This will trigger memory reclaim sooner and make the THP
-availability more likely but this was at times where we didn't have
-pro-active compaction and many changes in the compaction. So is this
-actually needed in general resp. only large pageblocks systems?
+Currently the documentation still mention dynticks-testing.
+
+Recently the repository name and the tool have been renamed to cpunoise,
+both the patches reflect this change.
+
+The tool announcement can be found at:
+
+  https://lore.kernel.org/all/20260815083728.15470-1-marco.crivellari@suse.com/
+
+Thanks,
+
+---
+Changes in v2:
+- Link to the tool Announcement added in both the patches and cover letter
+
+- Corrected another occurrence reported by Sebastian
+
+Link to v1: https://lore.kernel.org/all/20260831081823.67972-1-marco.crivellari@suse.com/
+
+Marco Crivellari (2):
+  doc: Change dynticks-testing repository name
+  Documentation/no_hz: Change dynticks-testing repository name
+
+ Documentation/admin-guide/cpu-isolation.rst | 4 ++--
+ Documentation/timers/no_hz.rst              | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
 -- 
-Michal Hocko
-SUSE Labs
+2.55.0
+
