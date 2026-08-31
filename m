@@ -1,49 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B734BCACA;
-	Mon, 31 Aug 2026 13:38:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C9404C0438;
+	Mon, 31 Aug 2026 13:38:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183539; cv=none; b=QQnDNkRpzDk6PKpFdFgg3npGbxY7QeEe/H3UeNhuLyXQaDNVzyKFs6vaIyBhE1bVm3E5EbetUeiILI66LqCBfrCRFNvtkKfqhA2X7JhzPCr4TCN2ApWAbSIuxbd3k053HGAxJZyGaTmTtEa4StR508H+7VsgIu8GP46PaizF9LQ=
+	t=1788183540; cv=none; b=cUDJJjjzZgy+tNUPMIZKyqD11HPH41tkmSW1ZVmc8sabhHNI1/SzFzM0vpExmFxnLpPBl9xUVjVIJxLBaFJhgpWQk7SzJDnESJUB2p+2kCSpgCs2HTSDGa2EWEdKpLefhgiYpeiL+Xf6q0fX+b0jvVmOac8l7mXhl6Kt6dS9cxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183539; c=relaxed/simple;
-	bh=UE+NdVnIkweEAuxI6ridtErApdFrI8hQmc1IsUupI84=;
+	s=arc-20240116; t=1788183540; c=relaxed/simple;
+	bh=Wsyly7NQ8kAcysOqYRMovGKV400HnOPhO0glfNwWZsk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PUMw3aIJg1HqusevNhB62c5kI6+fuYjlw/nZbbkZ8Q0x9JbGn+zizgCj+Y3I4J+lTfgw6T4UmdC4GyRz2LoDZDS5D4PoGjgcejyRs8AfsZNVNbs22dmJTApihRlD///BPJpoDZFnFSw9Tx8SFtb9myaX4ele4f8ObxWiLJO3Bo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ksd0zHQm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=bnJiFx1KDXmwHiHE9M0yIUqNieqJ2msGpb7Zh8jb/OSaLexYaVJZGiPXgJ2cRV0+PeyhCwZJ9gTxawnUud7kWZ2eS7Pv40EUUxTgSagERQPLnnfnJiDepegiZkFtGQxkAcex/bECw/Nvvk9apqiYgnaF7LZ9npLY6GYPnQjIHAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AKNPFxep; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ksd0zHQm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C151F00ACA;
-	Mon, 31 Aug 2026 13:38:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AKNPFxep"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07A941F00A3D;
+	Mon, 31 Aug 2026 13:38:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183536;
-	bh=i1r2weoEmOco69zx8/TYt1CBtAw9qoWCTQIKGW9E1tg=;
+	s=k20260515; t=1788183538;
+	bh=PDMLqywieCUw6u3aoPM0QywGW7QT6PzT+zU/IWS8v+s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ksd0zHQmV1a57AGWyKORbF8QsNeaSHwD8y//Q5ZmJL1ebJmXBGadMAEFOnElVaRjs
-	 FZXuT1eTDVUwVqmHrU2WuCL/AFbYMHE51dJR/nuFeiwADyW3kMg/rawGvae9c6YH8E
-	 OD6ayS+7UCPPOKLhJkwWIbS3UyhuM4Jo+WhNOeHwCWZQMmMaEgal0w4jmIsV/jDqTK
-	 2i8rtaA2zHHCpV88cTzksGPeZiprVgY74Yl7v48pGLZUYo5JHjm4sfy/qZKKI7LfH4
-	 mj5yvI79JfzO36IAFK5tFONHFa+s75GWOWVDAraR+cFK4WQ1mcdqn5JDEy5rmdnWhC
-	 QJtzfsLSeBkow==
+	b=AKNPFxepKA4kXzzBJN8Q8+9qmkJh4k99rdiT9S0C91O3zmQAPsRzJ1YCkCiRFh+mk
+	 f2wGJzmWTv0KeaspeM6w3//fH24glezllWFddwRLjiZ534VaATqgmNyfHBgyYq6RbH
+	 b4rjU0Ai1sHb2vaTL1gvv5hVystUdvouH5/4jZ7cDGceuSt/niJwOC2i8N8nqRgvt2
+	 7zro+HSKuSo86GNBIZO7XPtqQsknxH2DmAsc2GjqbNP7yjP8eaE6nwJSr+JY9B6nfN
+	 oD2Atj5b8JTXi+tgzmN2Bm00UQ3ZSYCG4jAkkDgqdHThQlF6mZ7u+i3d2hduBBTSOd
+	 wBA2r9dKrRLOw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@intel.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Brandon Brnich <b-brnich@ti.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Jackson Lee <jackson.lee@chipsnmedia.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	cezary.rojewski@intel.com,
-	liam.r.girdwood@linux.intel.com,
-	peter.ujfalusi@linux.intel.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	nas.chung@chipsnmedia.com,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] ASoC: Intel: sof_sdw: append dai type to dai link name unconditionally
-Date: Mon, 31 Aug 2026 09:23:03 -0400
-Message-ID: <20260831133314.4125787-155-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] media: chips-media: wave5: Release m2m_ctx after Instance Removed from List
+Date: Mon, 31 Aug 2026 09:23:04 -0400
+Message-ID: <20260831133314.4125787-156-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -59,399 +56,367 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+From: Brandon Brnich <b-brnich@ti.com>
 
-[ Upstream commit c84179a1d36bebe99d9694502737ae9f3a90d2bc ]
+[ Upstream commit 7cdbd7bb21949a8fda10c7104a2b12ee363cbf5c ]
 
-The dai_type is used to select function topologies. Since the topology
-stream name and DAI link name use partial matching, unconditionally
-appending the dai_type provides necessary selection metadata
-without breaking existing topologies.
+Possible use after free if IRQ thread manages to obtain spinlock between
+m2m_ctx release and wave5_release function removing stream instance from
+list of active instances. The IRQ thread looks for the m2m_ctx which is
+freed so null pointer dereference occurs.
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
-Link: https://patch.msgid.link/20260515083043.1864426-1-yung-chuan.liao@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Brandon Brnich <b-brnich@ti.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Tested-by: Jackson Lee <jackson.lee@chipsnmedia.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 1)...
+Retry attempt 1...
 ## Phase 1: Commit Message Forensics
 
-**Step 1.1 — Subject line**
-Record: `[ASoC: Intel: sof_sdw]` `[append]` — unconditionally append DAI
-type to DAI link names for SoundWire/Intel SOF board driver.
+### Step 1.1: Subject line
+**Record:** `[media: chips-media: wave5]` `[Release]` — reorder
+`m2m_ctx` release so it happens after the instance is removed from the
+active-instances list.
 
-**Step 1.2 — Tags**
-Record:
-- **Signed-off-by:** Bard Liao `<yung-chuan.liao@linux.intel.com>`
-  (author)
-- **Reviewed-by:** Kai Vehmanen `<kai.vehmanen@linux.intel.com>`
-- **Reviewed-by:** Liam Girdwood `<liam.r.girdwood@intel.com>`
-- **Link:** https://patch.msgid.link/20260515083043.1864426-1-yung-
-  chuan.liao@linux.intel.com
-- **Signed-off-by:** Mark Brown `<broonie@kernel.org>` (ASoC maintainer)
-- No Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org, or
-  syzbot tags
-- Notable: reviewed by Intel SOF maintainers; Dell engineer
-  (`Deep.Harsora@Dell.com`) CC’d on submission
+### Step 1.2: Tags
+**Record:**
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** Jackson Lee `<jackson.lee@chipsnmedia.com>`
+- **Reviewed-by:** Nicolas Dufresne `<nicolas.dufresne@collabora.com>`
+- **Signed-off-by:** Brandon Brnich, Nicolas Dufresne, Hans Verkuil
+- **Cc: stable:** — not present (not a negative signal)
+- **Link:** — none
 
-**Step 1.3 — Body analysis**
-Record:
-- **Bug:** `dai_type` metadata is required for function-topology
-  selection, but is only appended when `ctx->append_dai_type` is true.
-- **Symptom:** Function topologies cannot be selected on machines where
-  `append_dai_type` stays false (common single-dailink configs).
-- **Mechanism:** Topology stream names and DAI link names use partial
-  matching; without the type suffix (`SimpleJack`, `SmartAmp`,
-  `SmartMic`), selection fails.
-- **Claim:** Unconditional append is safe because partial matching
-  preserves compatibility with existing topologies.
-- No explicit crash/oops; this is an audio/topology correctness bug.
+Notable: subsystem maintainer review (Dufresne), media maintainer merge
+(Verkuil), hardware-vendor testing (Jackson Lee at Chips&Media).
 
-**Step 1.4 — Hidden bug fix?**
-Record: **Yes.** Although the subject uses “append” rather than “fix”,
-this corrects broken function-topology selection logic, not a cosmetic
-cleanup.
+### Step 1.3: Body analysis
+**Record:**
+- **Bug:** Use-after-free / NULL dereference race during device release.
+- **Symptom:** IRQ thread can still find the instance in
+  `dev->instances` and call `finish_process()`, which dereferences
+  `inst->v4l2_fh.m2m_ctx`, after `v4l2_m2m_ctx_release()` has already
+  `kfree()`'d that object.
+- **Root cause:** `v4l2_m2m_ctx_release()` was called before
+  `list_del_init(&inst->list)`, leaving a window where the instance
+  remains visible to the IRQ thread but its `m2m_ctx` is already freed.
+- **Version info:** none in message.
+
+### Step 1.4: Hidden bug fix?
+**Record:** No — this is an explicit concurrency/lifetime-ordering bug
+fix, not disguised cleanup.
 
 ---
 
 ## Phase 2: Diff Analysis
 
-**Step 2.1 — Inventory**
-Record:
-- **Files:** `sound/soc/intel/boards/sof_sdw.c` only (+12 / -11)
-- **Function modified:** `create_sdw_dailink()`
-- **Scope:** Single-file surgical fix in Intel SOF SoundWire board
-  driver
+### Step 2.1: Inventory
+**Record:**
+- **Files:** `drivers/media/platform/chips-media/wave5/wave5-helper.c`
+  (+3 / −1)
+- **Function:** `wave5_vpu_release_device()`
+- **Scope:** single-file, surgical reorder
 
-**Step 2.2 — Code flow change**
-Record:
-- **Before:** `sdw_stream_name[]` had both plain (`"SDW%d-Playback"`)
-  and typed (`"SDW%d-Playback-%s"`) formats; typed suffix used only when
-  `ctx->append_dai_type` was true.
-- **After:** Always uses typed format; sets `ctx->append_dai_type =
-  true`; removes conditional branch.
-- **Path affected:** DAI link / stream name creation during card probe
-  for all SDW streams.
+### Step 2.2: Code flow change
+**Record:**
+- **Before:** `v4l2_m2m_ctx_release()` → take `irq_lock` →
+  `list_del_init()` → unlock → `close_func()` →
+  `wave5_cleanup_instance()`
+- **After:** take `irq_lock` → `list_del_init()` → unlock →
+  `v4l2_m2m_ctx_release()` → `close_func()` → `wave5_cleanup_instance()`
+- **Path affected:** `release()` on decoder/encoder file descriptors
+  (normal teardown, not init)
 
-**Step 2.3 — Bug mechanism**
-Record:
-- **Category:** Logic / correctness fix for topology selection metadata.
-- **Mechanism:** `ctx->append_dai_type` is set in
-  `asoc_sdw_parse_sdw_endpoints()` only when `num_link_dailinks > 1`.
-  For common single-dailink machines, names become `"SDW0-Playback"`
-  with no type token. `sof_sdw_get_tplg_files()` matches
-  `dai_link->name` via `strstr(...,
-  "SimpleJack"/"SmartAmp"/"SmartMic")`, so selection fails and the
-  callback returns 0.
+### Step 2.3: Bug mechanism
+**Record:** **Category:** race condition / use-after-free (reference-
+counting/lifetime ordering).
 
-**Step 2.4 — Fix quality**
-Record:
-- Fix is minimal and logically consistent with
-  `sof_sdw_get_tplg_files()`.
-- Reviewed by ASoC maintainer and Intel SOF maintainers.
-- Low regression risk: commit explicitly states partial matching keeps
-  existing topologies working; only Intel `sof_sdw.c` is touched (AMD
-  paths unchanged).
+Mechanism verified in code:
+1. `v4l2_m2m_ctx_release()` calls `kfree(m2m_ctx)`
+   (`v4l2-mem2mem.c:1275`) but does not clear `inst->v4l2_fh.m2m_ctx`.
+2. IRQ thread (`wave5-vpu.c:126-136`, `173-183`) holds `dev->irq_lock`,
+   walks `dev->instances`, and calls `inst->ops->finish_process(inst)`.
+3. `wave5_vpu_dec_finish_decode()` / encoder equivalent immediately does
+   `m2m_ctx = inst->v4l2_fh.m2m_ctx` and uses it (`wave5-vpu-
+   dec.c:344`).
+4. With the old order, between `v4l2_m2m_ctx_release()` and
+   `list_del_init()`, the instance is still on the list while `m2m_ctx`
+   is freed → UAF.
+
+### Step 2.4: Fix quality
+**Record:** Obviously correct — IRQ paths only iterate listed instances;
+releasing `m2m_ctx` only after `list_del_init()` under the same
+`irq_lock` closes the race. Minimal change. Low regression risk.
 
 ---
 
 ## Phase 3: Git History Investigation
 
-**Step 3.1 — Blame**
-Record: In this checkout, `git blame` attributes the conditional block
-to the tree root commit (`a112b91dd6349`) because history is flattened.
-The conditional `ctx->append_dai_type` code is present at lines 899–907
-in current `sof_sdw.c`.
+### Step 3.1: Blame
+**Record:** `wave5_vpu_release_device()` originates from
+`19eef1d98eeda`. Locking + early `list_del_init()` added by
+`ea316b784fe6a` (Nov 2025 upstream, Mar 2026 in this tree). Buggy
+`v4l2_m2m_ctx_release()` placement introduced with `ea316b784fe6a`.
 
-**Step 3.2 — Fixes: tag**
-Record: N/A — no Fixes: tag in commit message.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag. Bug introduced as incomplete fix in
+`ea316b784fe6a`, which is present in this tree.
 
-**Step 3.3 — Related file history**
-Record: `git log` on `sof_sdw.c` / `soc_sdw_utils.c` is not useful here
-(single synthetic root commit). Related infrastructure verified present
-in tree:
-- `include/sound/soc_sdw_utils.h`: `append_dai_type` field
-- `sound/soc/sdw_utils/soc_sdw_utils.c`: sets `ctx->append_dai_type |=
-  (num_link_dailinks > 1)`
-- `sound/soc/intel/common/sof-function-topology-lib.c`: function-
-  topology selection via `strstr(dai_link->name, ...)`
-- Many machine entries in MTL/PTL/ARL/LNL ACPI match files use
-  `.get_function_tplg_files = sof_sdw_get_tplg_files`
+### Step 3.3: Related commits
+**Record:**
+- `ea316b784fe6a` — prerequisite IRQ locking refactor (present in tree)
+- `789e6d8e630c4` / upstream `7cdbd7bb2194` — this fix (not in HEAD)
+- Part of a 2-patch series; patch 2/2 is an independent lockdep fix in
+  `wave5-vpu-dec.c`, not required for this reorder to work
 
-**Step 3.4 — Author context**
-Record: Bard Liao is an Intel SOF/ASoC contributor. Patch
-reviewed/applied by Mark Brown (ASoC maintainer).
+### Step 3.4: Author context
+**Record:** Brandon Brnich (TI). Related wave5 work from same ecosystem
+(Jackson Lee, Chips&Media). Hans Verkuil is V4L/media maintainer.
 
-**Step 3.5 — Dependencies**
-Record: Standalone one-patch fix. All required code exists in v6.18.43:
-- `append_dai_type` logic
-- `sof_sdw_get_tplg_files()`
-- `get_function_tplg_files` machine hooks
-- Fix commit `c84179a1d36b` exists in repo but is **not** in current
-  HEAD (`NOT IN HEAD`).
+### Step 3.5: Dependencies
+**Record:** Requires `ea316b784fe6a` infrastructure (`irq_lock`,
+`irq_spinlock`, `list_del_init()` in release path). That commit **is**
+an ancestor of HEAD. Patch applies cleanly (`git apply --check` passed).
+Standalone for its purpose.
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
-**Step 4.1 — Original discussion**
-Record:
-- **URL:** https://lore.kernel.org/all/20260515083043.1864426-1-yung-
-  chuan.liao@linux.intel.com/
-- Thread has 2 messages (patch + Mark Brown “Applied”)
-- No reviewer objections, NAKs, or explicit stable nominations
-- Mark Brown applied to `broonie/sound` for-7.2; noted it may merge
-  sooner if it is a bug fix
+### Step 4.1: Original discussion
+**Record:**
+- **URL:**
+  https://patch.msgid.link/20260402184554.1751445-1-b-brnich@ti.com
+- **Series:** v1 only for patch 1/2
+- **Reviewer feedback:** Nicolas Dufresne `Reviewed-by` on list
+- **Stable nomination:** none found in thread
+- **NAKs:** none found
 
-**Step 4.2 — Reviewers**
-Record: CC’d to `broonie@kernel.org`, `tiwai@suse.de`, `linux-
-sound@vger.kernel.org`, Intel maintainers, and `Deep.Harsora@Dell.com`.
+### Step 4.2: Reviewers
+**Record:** CC'd: `mchehab@kernel.org`,
+`nicolas.dufresne@collabora.com`, `jackson.lee@chipsnmedia.com`, `linux-
+media@vger.kernel.org`
 
-**Step 4.3 — Bug report**
-Record: No external bug report, syzbot link, or stack trace. Impact
-inferred from code path and commit description.
+### Step 4.3: Bug report
+**Record:** No external bug report or syzbot link. Bug class inferred
+from code + prior fluster-test crashes fixed by `ea316b784fe6a`.
 
-**Step 4.4 — Series context**
-Record: Standalone `[PATCH]` (1/1), not part of a multi-patch series.
+### Step 4.4: Related patches
+**Record:** Patch 2/2 fixes lockdep issues in
+`handle_dynamic_resolution_change` / `initialize_sequence` — separate
+concern.
 
-**Step 4.5 — Stable list history**
-Record: Not searched separately; no stable nomination found in the
-thread.
+### Step 4.5: Stable list
+**Record:** Not searched on lore stable (Anubis blocked direct fetch).
+No stable-thread evidence found in mbox.
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
-**Step 5.1 — Key functions**
-Record: `create_sdw_dailink()`, `asoc_sdw_init_dai_link()`,
-`sof_sdw_get_tplg_files()`, `snd_sof_load_topology()`,
-`asoc_sdw_parse_sdw_endpoints()`
+### Step 5.1: Key functions
+**Record:** `wave5_vpu_release_device()`, `wave5_vpu_irq_thread()`,
+`irq_thread()`, `wave5_vpu_dec_finish_decode()`,
+`wave5_vpu_enc_finish_encode()`
 
-**Step 5.2 — Callers**
-Record:
-- `create_sdw_dailink()` ← `create_sdw_dailinks()` ← card setup in
-  `sof_sdw.c` during machine probe
-- `sof_sdw_get_tplg_files()` ← machine `.get_function_tplg_files` hooks
-  on MTL/PTL/ARL/LNL ACPI tables
-- `snd_sof_load_topology()` called during SOF component probe
+### Step 5.2: Callers
+**Record:**
+- `wave5_vpu_release_device()` ← `wave5_vpu_dec_release()` /
+  `wave5_vpu_enc_release()` (V4L2 `release` file ops)
+- IRQ thread ← hardware IRQ or polling thread on `CONFIG_VIDEO_WAVE_VPU`
+  devices
 
-**Step 5.3 — Callees**
-Record: `devm_kasprintf()`, `asoc_sdw_init_dai_link()` (sets
-`dai_links->name` and `dai_links->stream_name`), firmware lookup in
-topology loader.
+### Step 5.3: Callees
+**Record:** `v4l2_m2m_ctx_release()` → `v4l2_m2m_cancel_job()`,
+`vb2_queue_release()`, `kfree(m2m_ctx)`
 
-**Step 5.4 — Reachability**
-Record: Triggered at boot/probe on Intel laptops/desktops using
-`sof_sdw` with SoundWire codecs and function-topology-enabled machine
-tables. Common user-visible path for affected hardware.
+### Step 5.4: Reachability
+**Record:** Userspace opens `/dev/video*`, streams decode/encode, closes
+fd → `release()` path. Concurrent VPU interrupts are normal during
+streaming. **Reachable from userspace** on K3 platforms with wave5
+hardware.
 
-**Step 5.5 — Similar patterns**
-Record: AMD ACP SDW machine drivers (`acp-sdw-sof-mach.c`, `acp-sdw-
-legacy-mach.c`) still use the same conditional `ctx->append_dai_type`
-pattern, but this commit only fixes Intel `sof_sdw.c`.
+### Step 5.5: Similar patterns
+**Record:** `ea316b784fe6a` fixed a related NULL-deref race in the same
+driver by adding IRQ locking; this commit completes that work by fixing
+teardown ordering.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree (v6.18.43)
+## Phase 6: Cross-Reference Against Local Tree
 
-**Step 6.1 — Buggy code present?**
-Record: **Yes.** Current `sof_sdw.c` still has the conditional at lines
-899–907 and plain name formats at lines 870–872. Function-topology
-infrastructure is also present.
+### Step 6.1: Buggy code in tree?
+**Record:** **YES.** Local tree is **Linux 6.18.43** (`git describe`:
+`v6.18.43-1-gc7f0dac02d232`). Current `wave5-helper.c:71` still calls
+`v4l2_m2m_ctx_release()` before `list_del_init()`. Fix commit
+`789e6d8e630c4` is **not** an ancestor of HEAD.
 
-**Step 6.2 — Backport complications**
-Record: **Clean apply expected** — one file, localized hunk. No
-conflicting local changes observed.
+### Step 6.2: Backport complications
+**Record:** **Clean apply** — `git apply --check` on upstream diff
+succeeded with no conflicts.
 
-**Step 6.3 — Related fixes already present?**
-Record: **No.** `git merge-base --is-ancestor c84179a1d36b HEAD` → `NOT
-IN HEAD`.
+### Step 6.3: Related fixes already present?
+**Record:** `ea316b784fe6a` (prerequisite locking) is present. This
+specific reorder is **not** present.
 
 ---
 
 ## Phase 7: Subsystem and Maintainer Context
 
-**Step 7.1 — Subsystem / criticality**
-Record: **sound / ASoC / Intel SOF SoundWire board driver** — IMPORTANT
-for Intel laptop/desktop audio users, not core-kernel-wide.
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/media/platform/chips-media/wave5` — **PERIPHERAL**
+(TI K3 SoC video codec, `CONFIG_VIDEO_WAVE_VPU`, `depends on ARCH_K3 ||
+COMPILE_TEST`).
 
-**Step 7.2 — Activity**
-Record: Intel SOF SoundWire and function-topology support is actively
-developed in this tree (2025 copyright on `sof-function-topology-lib.c`,
-many recent machine entries).
+### Step 7.2: Activity
+**Record:** Active — multiple wave5 fixes in recent history on this
+branch (null-ref fix, panic fixes, spinlock additions).
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
-**Step 8.1 — Who is affected**
-Record: Users of Intel SOF + SoundWire machines with
-`.get_function_tplg_files = sof_sdw_get_tplg_files` (MTL, PTL, ARL, LNL,
-and related platforms), especially single-dailink configurations
-(`link_mask = BIT(0)` etc.).
+### Step 8.1: Who is affected
+**Record:** Users of Chips&Media WAVE5 VPU on TI K3 platforms running
+hardware decode/encode.
 
-**Step 8.2 — Trigger conditions**
-Record:
-- Boot/probe of supported Intel SOF SDW hardware
-- Function topologies enabled (default unless overridden)
-- `num_link_dailinks <= 1` → `append_dai_type` remains false without
-  this fix
-- Common on simple laptop configs (single codec/link)
+### Step 8.2: Trigger conditions
+**Record:** Close V4L2 device while decode/encode interrupts are still
+being serviced — especially multi-instance stress (fluster tests).
+Timing-dependent but realistic during normal streaming teardown.
 
-**Step 8.3 — Failure mode / severity**
-Record:
-- Without fix: `sof_sdw_get_tplg_files()` hits the unsupported-link path
-  and returns 0 when `dai_link->name` lacks
-  `SimpleJack`/`SmartAmp`/`SmartMic`.
-- `snd_sof_load_topology()` then falls back to monolithic topology.
-- **Severity: MEDIUM–HIGH for affected hardware** — function-topology
-  feature is effectively broken for the common single-dailink case;
-  users may get wrong/missing audio functionality depending on whether
-  monolithic fallback is complete for their platform/firmware. Not a
-  kernel crash, but real hardware audio breakage risk.
+### Step 8.3: Failure mode severity
+**Record:** UAF / NULL deref in IRQ thread → kernel oops/panic.
+**Severity: HIGH** (system crash).
 
-**Step 8.4 — Risk vs benefit**
-Record:
-- **Benefit:** HIGH for affected Intel SOF SDW users — restores intended
-  function-topology selection.
-- **Risk:** LOW — ~20 lines, one file, maintainer-reviewed, behavior
-  change aligns with existing partial-matching design.
-- **Ratio:** Favorable for backport.
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH for affected hardware users — prevents crash on
+  device close
+- **Risk:** VERY LOW — 3-line reorder, no API changes
+- **Ratio:** Strongly favors backport
 
 ---
 
 ## Phase 9: Final Synthesis
 
-### Evidence FOR backport
-- Real logic bug: function-topology selection cannot work when DAI names
-  lack type suffix.
-- Affects common Intel laptop/desktop SOF SoundWire configurations.
-- Small, surgical, maintainer-reviewed fix.
-- All prerequisite code exists in v6.18.43; fix not yet present.
-- Hardware-relevant (Dell CC, Intel maintainers reviewed).
+### Step 9.1: Evidence summary
 
-### Evidence AGAINST backport
-- No explicit user bug report, CVE, or crash trace.
-- Monolithic topology fallback may mask issue on some machines.
-- Function topologies are relatively new infrastructure.
+**FOR backport:**
+- Real UAF race with kernel crash consequence
+- Small, obviously correct fix
+- Reviewed by subsystem expert, tested by hardware vendor
+- Prerequisite commit present in 6.18.43
+- Applies cleanly
+- Completes incomplete fix from `ea316b784fe6a`
 
-### Unresolved questions
-- Whether every affected machine fails audibly without the fix, or only
-  when function-only firmware/topologies are required (not directly
-  testable from kernel tree alone).
+**AGAINST backport:**
+- Driver-specific (not universal)
+- No syzbot/user bugzilla report
+- Commit message incorrectly says "spinlock" (IRQ thread uses `mutex`,
+  not spinlock) — cosmetic only
 
-### Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic matches
-   `sof_sdw_get_tplg_files()`; reviewed by subsystem maintainers.
-2. Fixes a real bug affecting users? **PASS** — broken function-topology
-   selection on common configs.
-3. Important issue? **PASS** — hardware audio functionality on widely
-   used Intel platforms (MEDIUM–HIGH).
-4. Small and contained? **PASS** — one file, ~23 lines changed.
-5. No new features/APIs? **PASS** — corrects existing function-topology
-   behavior.
-6. Can apply to local tree? **PASS** — buggy code and dependencies
-   present in v6.18.43.
+**Unresolved:** Whether patch 2/2 (lockdep) should also be backported —
+separate issue, not required for this fix.
 
-### Exception category
-Record: N/A (not device ID/quirk/DT/docs/build fix; this is a driver
-correctness bug fix).
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** (Reviewed-by, Tested-by, code-
+   verified ordering)
+2. Fixes real bug? **PASS**
+3. Important issue? **PASS** (crash/oops on device close)
+4. Small and contained? **PASS** (4 lines, 1 file)
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** (clean apply, prerequisite present)
 
-### Problem summary for stable users
-On v6.18.43, Intel SOF SoundWire machines that rely on function
-topologies often generate DAI link names like `"SDW0-Playback"` without
-the codec-function suffix. `sof_sdw_get_tplg_files()` requires
-substrings such as `"SimpleJack"` in `dai_link->name`, so function-
-topology loading fails for the common single-dailink case. The patch
-unconditionally appends the DAI type, restoring correct topology
-selection without changing unrelated subsystems.
+### Step 9.3: Exception categories
+**Record:** None — standard bug fix.
+
+### Step 9.4: Decision rationale
+
+This tree (6.18.43) contains the IRQ-thread instance-list infrastructure
+from `ea316b784fe6a` but still releases `m2m_ctx` before removing the
+instance from the list. That leaves a verified race window where the IRQ
+thread can call `finish_process()` on a freed `m2m_ctx`. The fix is
+minimal, correct, reviewed, and applies cleanly. It should be backported
+to this stable tree.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, and body from provided commit and
-  fetched lore mbox.
-- [Phase 2] Diff analysis: conditional removed in
-  `create_sdw_dailink()`, `ctx->append_dai_type = true` added.
-- [Phase 3] `git describe HEAD` → `v6.18.43-1-gc7f0dac02d232`; Makefile
-  → 6.18.43.
-- [Phase 3] `git merge-base --is-ancestor c84179a1d36b HEAD` → NOT IN
-  HEAD.
-- [Phase 3] Verified `append_dai_type` set in `soc_sdw_utils.c:1494`.
-- [Phase 3] Read current buggy code in `sof_sdw.c:868-907`.
-- [Phase 4] `b4 mbox 20260515083043.1864426-1-yung-
-  chuan.liao@linux.intel.com` → 2-message thread saved; Mark Brown
-  applied, no objections.
-- [Phase 4] lore web fetch blocked by bot protection; used b4 mbox
-  instead.
-- [Phase 5] Traced `sof_sdw_get_tplg_files()` `strstr()` matching at
-  `sof-function-topology-lib.c:54-81`.
-- [Phase 5] Traced fallback in `topology.c:2512-2534` when callback
-  returns 0.
-- [Phase 5] Confirmed `get_function_tplg_files` hooks in MTL/PTL/ARL/LNL
-  ACPI match files.
-- [Phase 6] Confirmed buggy conditional present in local tree.
-- [Phase 6] Confirmed fix commit exists (`c84179a1d36b`) but is absent
-  from HEAD.
-- [Phase 8] Failure mode inferred from verified code path; exact user-
-  visible severity per machine model UNVERIFIED without
-  hardware/firmware testing.
+- **[Phase 1]** Parsed commit message and tags from user-provided diff
+  and `git show 789e6d8e630c4`
+- **[Phase 2]** Read `wave5-helper.c`, `wave5-vpu.c`, `wave5-vpu-dec.c`,
+  `v4l2-mem2mem.c` — confirmed UAF mechanism
+- **[Phase 3]** `git blame` on `wave5-helper.c:63-110` — buggy order
+  from `ea316b784fe6a`
+- **[Phase 3]** `git merge-base --is-ancestor ea316b784fe6a HEAD` → exit
+  0 (prerequisite present)
+- **[Phase 3]** `git merge-base --is-ancestor 789e6d8e630c4 HEAD` → exit
+  1 (fix NOT in HEAD)
+- **[Phase 3]** `git log -20 -- drivers/media/platform/chips-
+  media/wave5/` — related fix history
+- **[Phase 4]** `b4 dig -c 789e6d8e630c4` →
+  https://patch.msgid.link/20260402184554.1751445-1-b-brnich@ti.com
+- **[Phase 4]** `b4 dig -w` — maintainers CC'd (mchehab, dufresne,
+  jackson.lee)
+- **[Phase 4]** `b4 dig -a` — v1 series; patch 2/2 is separate lockdep
+  fix
+- **[Phase 4]** Read `/tmp/wave5_m2m_thread.mbox` — Dufresne Reviewed-
+  by, no NAKs
+- **[Phase 5]** `grep finish_process` — IRQ thread →
+  `wave5_vpu_dec_finish_decode` uses `m2m_ctx`
+- **[Phase 6]** `git describe HEAD` → v6.18.43; buggy code at
+  `wave5-helper.c:71`
+- **[Phase 6]** `git apply --check` on upstream diff → clean apply
+- **[Phase 7]** Read `wave5/Kconfig` — `ARCH_K3 || COMPILE_TEST`
+- **[Phase 8]** Failure mode: UAF in IRQ thread during release → oops,
+  severity HIGH
 
-**YES**The background check finished: commit `c84179a1d36b` is **not**
-in the current `v6.18.43` tree, so the buggy conditional
-`append_dai_type` logic is still present in `sof_sdw.c`. That supports
-backporting the fix to this stable tree.
+**YES**The background check finished: **`789e6d8e630c4` is not in this
+tree’s HEAD** (`git merge-base --is-ancestor` returned exit 1), so the
+reorder fix is still missing on **6.18.43**.
 
- sound/soc/intel/boards/sof_sdw.c | 23 ++++++++++++-----------
- 1 file changed, 12 insertions(+), 11 deletions(-)
+The prerequisite **`ea316b784fe6a`** (IRQ locking / early
+`list_del_init`) **is** present, and the patch still **applies
+cleanly**.
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 465bf5fafecf7..c9f4fe84c7eed 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -865,10 +865,16 @@ static int create_sdw_dailink(struct snd_soc_card *card,
- 		}
- 	}
+**Verdict for this tree: YES** — backport the commit; it closes a real
+UAF/oops race when closing a wave5 V4L2 instance while the IRQ thread is
+still processing it.
+
+ drivers/media/platform/chips-media/wave5/wave5-helper.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-helper.c b/drivers/media/platform/chips-media/wave5/wave5-helper.c
+index 53a0ac068c2e2..c3d34be833ff0 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-helper.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-helper.c
+@@ -68,7 +68,6 @@ int wave5_vpu_release_device(struct file *filp,
+ 	int ret = 0;
+ 	unsigned long flags;
  
-+	/*
-+	 * The dai_type is used to select function topologies. Since the topology stream name
-+	 * and DAI link name use partial matching, unconditionally appending the dai_type provides
-+	 * necessary selection metadata without breaking existing topologies. Although
-+	 * ctx->append_dai_type is not checked here, we overwrite it to ensure consistency in case
-+	 * it is referenced elsewhere.
-+	 */
-+	ctx->append_dai_type = true;
- 	for_each_pcm_streams(stream) {
- 		static const char * const sdw_stream_name[] = {
--			"SDW%d-Playback",
--			"SDW%d-Capture",
- 			"SDW%d-Playback-%s",
- 			"SDW%d-Capture-%s",
- 		};
-@@ -896,15 +902,10 @@ static int create_sdw_dailink(struct snd_soc_card *card,
- 		}
- 
- 		/* create stream name according to first link id */
--		if (ctx->append_dai_type)
--			name = devm_kasprintf(dev, GFP_KERNEL,
--					      sdw_stream_name[stream + 2],
--					      ffs(sof_end->link_mask) - 1,
--					      type_strings[sof_end->dai_info->dai_type]);
--		else
--			name = devm_kasprintf(dev, GFP_KERNEL,
--					      sdw_stream_name[stream],
--					      ffs(sof_end->link_mask) - 1);
-+		name = devm_kasprintf(dev, GFP_KERNEL,
-+				      sdw_stream_name[stream],
-+				      ffs(sof_end->link_mask) - 1,
-+				      type_strings[sof_end->dai_info->dai_type]);
- 		if (!name)
- 			return -ENOMEM;
+-	v4l2_m2m_ctx_release(inst->v4l2_fh.m2m_ctx);
+ 	/*
+ 	 * To prevent Null reference exception, the existing irq handler were
+ 	 * separated to two modules.
+@@ -89,6 +88,9 @@ int wave5_vpu_release_device(struct file *filp,
+ 	list_del_init(&inst->list);
+ 	spin_unlock_irqrestore(&inst->dev->irq_spinlock, flags);
+ 	mutex_unlock(&inst->dev->irq_lock);
++
++	v4l2_m2m_ctx_release(inst->v4l2_fh.m2m_ctx);
++
+ 	if (inst->state != VPU_INST_STATE_NONE) {
+ 		u32 fail_res;
  
 -- 
 2.53.0
