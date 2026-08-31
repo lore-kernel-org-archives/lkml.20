@@ -1,144 +1,132 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACBB3CCFB0
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF9C3BFAFB
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:44:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788165854; cv=none; b=E66zVUcsZ1q7kIJkAE8QU4r4plI6drNcau0b+MtNCcIshQ0VgrYaEB5/P83j/zttAACCaL4SLZFjZKTHU4PWxZlSArWgEwG6gH5UHgeU3YjpeS1eZj/2y4W0Zlc47n8tzutM4L8ZjI+ueL2hjZHc4hNxyR/cAPgXRDa9o+xmk70=
+	t=1788165859; cv=none; b=X66L8AuVn+vpybqUZljTmH1JdF0OLmliVFC5hSdG7LNzf2o1LBBoqIa6EaHYy4bbJ/j1hHpXA1PuUcKpgNuuYB9+KcVqV8ngliAseGa7yumrTBSUdsG6KWX/69doDDkAYTglRD6ZHzOTH2e7MHiRA7/bVy4zo6D6mrlwmsIHizE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788165854; c=relaxed/simple;
-	bh=EPXi/i8/cLIOytc/4g/nQ5+sJUy3gys8AWpUeJuA7tQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Puomu2QHHd3CPD9ANQe/gV/EmUzsGpT4C1FEFXqAFiJCyaX9SdrjRZrJG39IqHYL4HXwxpi1Le7kvxW49f0Ld+AP0K1quHtcQP7UEwbTPysB6DHeIHQyHs1rkjUQTRDbnU8II+Ho9ItnU0n7onrTwSU112kfXRJxYLx47GW8VO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=FgFH8d5U; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788165859; c=relaxed/simple;
+	bh=EyX8qvocRRT4z+7IIC/7oHq63cyTz6iY0KWcwy2pMe8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oV4/jcwcL1qwhCp0jIdfdPvDPkEdyH/ZOSEzFb7NEkdHJ0EiA1XborsQh/RAXRW+bn809b4DpXQNzZS0mY1IxV+/2MtFApnAwRj62gV8HdBRoHpteqTftW5940Z3ltOJ+D3nouttBS3PRhk7BDsWibyKfXhq5ON181eyEwxWW9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LFffVMkN; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="FgFH8d5U"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48433f36a21so1065107f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:44:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LFffVMkN"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso3720266a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:44:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788165851; x=1788770651; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/IdgWJ9SyaxkF+z2j2vaf53j2K61APsWhXnC/i9sVbU=;
-        b=FgFH8d5UVfQoQeiuITU/VAtc7XVKlGdSbOhxhunVuyw6LlUog9ng7y5gXW+Uyt0SsK
-         u4/cAgIUZ+Rkpolz2kDKzxV5gG8FUgekS2ZU0PJ2HN+9ccX7y/Sy8uqIK5FInfadaqd4
-         RcVuhgZa48uokEtEcJIKyRLjnmMWE3znAI/u7d0bHR3pVAhzpS9l3KJPtZMfZu7EUocl
-         QBuopjEy2zOENnAjkNPZlgj1oib00RQzQMXNWu/ybIn8W/PQT5JnDSUVt+1dYJIJPgGS
-         y6llxvvOI2jgXoL2uKkQQpacnOG/NI+EV3wmt3GuwILKZPkcdyHrqSWk1s0K5Oz93POI
-         wn1w==
+        d=gmail.com; s=20251104; t=1788165857; x=1788770657; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MDVn5ErxJ0Fjvf5gqyhUkfteNgBIOZxlcmjpqwkLy4o=;
+        b=LFffVMkNlwDGM9qUdafm7euTwYuV3Yus3MXloOqMgX3a8ZbMXhgI4Gaoq1F/vub08P
+         XpYUoN/Qy6YIfvgN3lYDdS3okcwOjIYEWfKD0zZ54y7zo2gM9YcpCLe36zetmc+vQceM
+         7QzUEJihMQDscQZxvopPDnzIvWUbSQhB8kphbj6Nl2kgH2jLfuTiKRNa7QeC/81yTGsC
+         O6YqpaxgMMuqSVBfxG1+4Uwpji/Fz4ckkmnXWYPffwhkYcYYJ1RzftWT83Bc7YSOS6rt
+         0GKjp4UHkeW+FFJu/OW93AT3vl5qcJYCKtROHyWNesIANUqYJhFgpgSDUpw1o0nYpDfo
+         jn/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788165851; x=1788770651;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/IdgWJ9SyaxkF+z2j2vaf53j2K61APsWhXnC/i9sVbU=;
-        b=Ssyjpmh1gWbK0vfMnv5lUs/pCrKxDds3PP8ytdY3h43qEqCXOEV1fxLhs/oxMxRi4w
-         VKd1iIDIsm63fDVS/zwOFRoCfeC1rr10+98hu1+ErvtchEbJFwfHC17BfVjLinAzHKtw
-         i6ndVmeETX1NEASwkZ4cfgDhrq1ELPNvHIBi5YE7qfb7G+o4r0+mBxvg01ex6BbmNHNd
-         oK4pNM19JbHmlXB0uBnMt2AKculf7qRhkNL5+eJbNBYDX5KIEYDyY8NM5lVPyv0GrRgR
-         55XDgGcAp4bj/bgr+ln5fETeSApmbj/m4alSrcnPAB9zuVMIuOfA9bT6ubPf2j/3g5qc
-         C8fw==
-X-Forwarded-Encrypted: i=1; AKwUvBxKV5qwjCnx86VvHfo2RRZ5wiavocj897/sh2gT22h1J1d8aWHZFVt8EkgWiybTP9mYUwuNlWuI4adIZLI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6VXY8zqQSjcTktWLFDegwkjORbMPknRWkiWtas+L9RYiXEWM3
-	0ZOTy931x2jp5hhURHmMiP//d9yw2jpaszWWxGfi0tQufGprEFi8BClt4YjG+HfnkPA=
-X-Gm-Gg: AYBFou1og3qWGqLFeOE68CMLUPtcFGmDDVDhGq0Quh/WpSdX77NX5bmEeSjOFkunlKW
-	52vgnqeBLw2isV21l88CLWM4ms5W+lQ3esSNYHw5EfnwWsI4JXZLD9ilYe8gbSysEpI0wE+PtrQ
-	RRgmUd/FJTRLjr9Sr4UzO7FaSlipomi0S8Z2+UFQ5GwRX2GUmiDMfvnIftOk0hJiVO7bhwkl1ho
-	77blAQMEHckmfQ3+50SX3VqssDb933+jSEZwz7m46VpLf9OEIwY2DpxI8Lp/Mg8KloOnOBbbw8z
-	QS+Xuq4q495/r+7U2R+Jk09YR+CWdaBDIvGeav01joTWH/0Fn6t0A5I78Rg97hLmONCkljxGVTV
-	qj9GiGBlC05YAepikaNPF/LixCV9gstU6J9rbQnzt1b+PGpRJGXP/upFXDT1F/AZOctapFYmrfr
-	ix5lL/lhNdQJZzOFTUxM47GBwivZRdjZQLqEcSgUEO8aewVNbKni3gr0gClvDMyw==
-X-Received: by 2002:a05:6000:481b:b0:484:3600:35a9 with SMTP id ffacd0b85a97d-4843978e680mr12471515f8f.3.1788165851386;
-        Mon, 31 Aug 2026 01:44:11 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48435b024fbsm12215795f8f.29.2026.08.31.01.44.10
+        d=1e100.net; s=20251104; t=1788165857; x=1788770657;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MDVn5ErxJ0Fjvf5gqyhUkfteNgBIOZxlcmjpqwkLy4o=;
+        b=jdAf8XEo8it9cHJopm4wHsdwR4kxkIWex9gIzilEURftYM6DfkDX8FLL48diEwMdwK
+         Z/JBnCKbkQJ0uGsSGtL+Pzx6ASwxb2RCsJsfeUBVjtUOi7W8xblx4WceDLnhZE9gl9xc
+         DbVTuWEu32B6jXfBM9o0+Cwy4D6yCnuvw5MLXDpNz7h3sc3Rn75wrvep86aMgz3flVZ6
+         lg9tymWeXdRaXZoPQRqtc65PhxyQ008kV0WNn+T1CQMZ3vWTtTorZYVpiw3JmiHPZQDY
+         /tWGmec83cm/4hpa4rxPkaG2Nah3x8OgGo1HSdPQnXpyIq8Y28DP8ZG22WE63Z7ba7UZ
+         Eg+w==
+X-Forwarded-Encrypted: i=1; AKwUvBxcXAmfN8+POaUWUuP3uzx9I8SbE5ZVlPTSP7NWEYv+RzQC+JORsJPichTY3njLkP/rJ1X8duu59yXTrM4=@vger.kernel.org
+X-Gm-Message-State: AFuF++keVYv6a0GiAHmghjruGHg36VzXFOf0/ELp/I1oEoQzO/9Pcu4u
+	CHF694cPUp6HwwEjZV3+ZdVHvhwm+KV2WxVO/8ljxNLGM97DQfTJwG7jTq1uAprT
+X-Gm-Gg: AYBFou0jipXdsv9hBmgN8x0CPtfW2Ov9jcllz/iB2oksVK5HZYQ63E5Z1zYYaLdwohV
+	GIZB8M1FqmY8wYntJxOIgKJS6nOT6BH9bgue6tREJw3tZN9HAsA8zIxIg2sm6p6/fOWoH8US49R
+	MOCfjJOsVbq1deoQB6UZtSsc7UP4gWsVXtj911Bv7JEdH8bo0eFpxtSVUpSyT0wgtJJqKqOYuRd
+	sPp+1DjETSn94b/l6mO3++QihTgyopS2+XA+NgFh3VLxlqK66OHR/VcLrUJrVLyxMkAi5amqIFt
+	pTREHUVFmQZgnyf+u1Pu/mpBKD7A6b7RX1obW6kCGTk24VRqB3j5nZhhgFYIflbbhXz6RJGdYc1
+	SelshoICo7c5EUdEmG1TPAzIcs9iUa1wpdyM3zwckMDQYEnTqgt+VmhEUvQCwyjGPxiEYbkkC2j
+	pxj/cEeEFexfHZhLs8J4PemVqDMaFSpAhw0FSaddPnz1f0fUvBl9PfdV5sky3B+dc1DHVJAPNCX
+	oGMo4zXZZXEMBGiKALQl93/NDuyC+EwgfI6JpfeaA==
+X-Received: by 2002:a17:90b:3c89:b0:398:a2ed:7b5c with SMTP id 98e67ed59e1d1-398f88f2e0bmr2977653a91.24.1788165857075;
+        Mon, 31 Aug 2026 01:44:17 -0700 (PDT)
+Received: from ian-lin-DREAMBOOK-PRO-14V.. ([2401:e180:8832:3ee7:cbb8:f1fb:c6e2:ba18])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b1ac3cbbsm20142625a91.17.2026.08.31.01.44.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 01:44:10 -0700 (PDT)
-Date: Mon, 31 Aug 2026 10:44:09 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Song Liu <song@kernel.org>
-Cc: Harry Hsu <x90613@gmail.com>, jpoimboe@kernel.org, mbenes@suse.cz,
-	joe.lawrence@redhat.com, jikos@kernel.org,
-	live-patching@vger.kernel.org, linux-kernel@vger.kernel.org,
-	sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] livepatch: Clean up klp_init_object_loaded() when
- fails
-Message-ID: <apU-2f7rffaTUKWC@pathway.suse.cz>
-References: <apBbjoEHJ98DWN_W@pathway.suse.cz>
- <20260828125244.509977-1-pmladek@suse.com>
- <20260828125244.509977-3-pmladek@suse.com>
- <CAPhsuW7Jr16Wyd4oEXKEwJPwX=p7HWLZTA63uNeu=13GYf+=Uw@mail.gmail.com>
+        Mon, 31 Aug 2026 01:44:16 -0700 (PDT)
+From: Ian Lin <jisayme@gmail.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Lin <jisayme@gmail.com>
+Subject: [PATCH v3] USB: serial: option: add Compal EXM-G1x support
+Date: Mon, 31 Aug 2026 16:44:05 +0800
+Message-ID: <20260831084405.65506-1-jisayme@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPhsuW7Jr16Wyd4oEXKEwJPwX=p7HWLZTA63uNeu=13GYf+=Uw@mail.gmail.com>
 
-On Fri 2026-08-28 10:44:38, Song Liu wrote:
-> On Fri, Aug 28, 2026 at 5:53 AM Petr Mladek <pmladek@suse.com> wrote:
-> >
-> > When a module is loaded, klp_module_coming() iterates over patches and
-> > calls klp_init_object_loaded(). If initialization fails, it delegates
-> > cleanup to klp_cleanup_module_patches_limited().
-> >
-> > However, the cleanup loop skips the failing patch. Each function called
-> > in klp_init_object_loaded() is supposed to clean its own changes. This
-> > works except for the changes done by klp_init_object_loaded().
-> >
-> > The current code is a bit messy. The changes done by
-> > klp_init_object_loaded() should get cleared by klp_free_object_loaded().
-> > But this function also clears obj->mod which is set by
-> > klp_module_coming(). And relocations are cleared separately.
-> >
-> > Fix the situations by updating klp_free_object_loaded(). It should
-> > revert all and only changes made by klp_init_object_loaded().
-> > This requires some shuffling:
-> >
-> >  + Clear obj->mod explicitly in klp_cleanup_module_patches_limited()
-> >    and do not rely on klp_free_object_loaded().
-> >
-> >  + Clear relocations in klp_free_object_loaded(). Remove the explicit
-> >    call from klp_cleanup_module_patches_limited(). This requires
-> >    adding the @patch parameter.
-> >
-> > Finally, call klp_free_object_loaded() in the error path in
-> > klp_init_object_loaded().
-> >
-> > Reported-by: sashiko-bot@kernel.org
-> > Closes: https://lore.kernel.org/r/20260823062313.1321B1F000E9@smtp.kernel.org
-> > Signed-off-by: Petr Mladek <pmladek@suse.com>
-> 
-> Acked-by: Song Liu <song@kernel.org>
-> 
-> With one nitpick
+The Compal EXM-G1x is a Qualcomm SDX12-based LTE modem. Add support for
+its vendor-specific serial interfaces with protocols 0x30, 0x40, and
+0x60.
 
-> > --- a/kernel/livepatch/core.c
-> > +++ b/kernel/livepatch/core.c
-> > @@ -725,18 +725,20 @@ static void __klp_free_funcs(struct klp_object *obj, bool nops_only)
-> >  }
-> >
-> >  /* Clean up when a patched object is unloaded */
-> > -static void klp_free_object_loaded(struct klp_object *obj)
-> > +static void klp_free_object_loaded(struct klp_patch *patch, struct klp_object *obj)
-> 
-> nit: Do we still need to fit every line in 80 characters? checkpatch.pl
-> only enforce 100 characters these days.
+Relevant output from usb-devices:
 
-I do not have strong opinion about it. My editor highlights characters
-which are over the 80 lines limit so I automatically fix it. I haven't
-found a courage to change it yet. And my eyes are getting worse over
-the years so I use big fonts. 80 characters per line look good
-on my monitor ;-)
+T:  Bus=04 Lev=01 Prnt=01 Port=00 Cnt=01 Dev#=  4 Spd=5000 MxCh= 0
+D:  Ver= 3.20 Cls=ef(misc ) Sub=02 Prot=01 MxPS= 9 #Cfgs=  1
+P:  Vendor=04b7 ProdID=8217 Rev=05.04
+S:  Manufacturer=COMPAL
+S:  Product=EXM-G1x
+C:  #Ifs= 6 Cfg#= 1 Atr=a0 MxPwr=896mA
+I:  If#= 0 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=ff Prot=30 Driver=option
+I:  If#= 1 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=42 Prot=01 Driver=(none)
+I:  If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=60 Driver=option
+I:  If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
+I:  If#= 4 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=ff Driver=(none)
+I:  If#= 8 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=50 Driver=qmi_wwan
 
-Best Regards,
-Petr
+Tested on a Compal EXM-G1x modem.
+
+Assisted-by: Codex:GPT-5
+Signed-off-by: Ian Lin <jisayme@gmail.com>
+---
+v3:
+  - base on usb-next
+  - add AI assistance attribution
+  - post as a fresh thread
+v2: https://lore.kernel.org/20260828082645.13018-1-jisayme@gmail.com/
+  - split USB serial support into a separate patch
+  - identify the Qualcomm SDX12 chipset and include usb-devices output
+  - keep the device entries sorted and add the product name
+v1: https://lore.kernel.org/20260828075644.6228-1-jisayme@gmail.com/
+
+ drivers/usb/serial/option.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/usb/serial/option.c b/drivers/usb/serial/option.c
+index fd8f96294..8713f8b93 100644
+--- a/drivers/usb/serial/option.c
++++ b/drivers/usb/serial/option.c
+@@ -2541,6 +2541,9 @@ static const struct usb_device_id option_ids[] = {
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(UNISOC_VENDOR_ID, TOZED_PRODUCT_LT70C, 0xff, 0, 0) },
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(UNISOC_VENDOR_ID, UNISOC_PRODUCT_UIS7720, 0xff, 0, 0) },
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(UNISOC_VENDOR_ID, LUAT_PRODUCT_AIR720U, 0xff, 0, 0) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x30) },	/* Compal EXM-G1x */
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x40) },
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x04b7, 0x8217, 0xff, 0xff, 0x60) },
+ 	{ USB_DEVICE_INTERFACE_CLASS(0x1bbb, 0x0530, 0xff),			/* TCL IK512 MBIM */
+ 	  .driver_info = NCTRL(1) },
+ 	{ USB_DEVICE_INTERFACE_CLASS(0x1bbb, 0x0640, 0xff),			/* TCL IK512 ECM */
+
+base-commit: 15734de99517b0c81a1a5a3bccaff4593ef8d953
+-- 
+2.43.0
