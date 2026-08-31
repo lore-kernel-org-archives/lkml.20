@@ -1,142 +1,168 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3636637E5E8
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:42:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788208954; cv=pass; b=ImcZLD/wNtKwtH2qKdhP07w6/AMXVfP3LEAr7RwWT0rfgOj1YLfGBSr8IVgPVVBh/NKPi1Rn4manh0YjxGYRco7mEb4iEhAdp3lMQqgkOUtLIpQHnzDsAC8EYoS3fGllB7r534E4e6TT91BoQ/5RrY/uPn7y5Dn5Mk/wn5OU78s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788208954; c=relaxed/simple;
-	bh=+2DRX6ohVfpMYN+TbDH2bvn8pp0/0YyztZkOYdll8xw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BvsPOSjMywwAqoV8wmYNZI3E4Cg0fkEgByIyreYMs3i/SgopaN+j1JDkTO0uHZYcJ4Jd/qJm8whGv8H0doqJZJ6EEzQa/cog1oHOUWFPMTQOjW/k76D2T6I2XBB+crZHqJTBWReoDLYjYp9kpSliwiPH0bdzbaGB6zyv0ob7JJ0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tt5EA0Fr; arc=pass smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 180F337C923
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:42:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788208976; cv=none; b=UrQlqgfdQUGB97A8LEuT9Me9XxR5pZ49PWZdOjMSLKOL83dFy9C4MEIoPKqLbbYfno2IBPuKTu0cxnr8egOj/duN7nksPwP6Jdsy+xpfZldDPXRECPZN6FfGZyQQ1+ZM/13qMgcJsWvRZtEwC9zcOA722o8U+ZXw2r2nIUmEPtQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788208976; c=relaxed/simple;
+	bh=b1jGFPWDhs4PTVJaFW/RuE9jy/+NPjpL56Z2TdSANSQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dtSjHsjIpoToC89Nx36f9HyO1SrbDU9nIn+hRt15Vq2vQlsMBf281hB0iITSNMMKsiVExnMnTwuPUhLCc308v6EwJ5Ux2ETX1vL8h0F3QoH45MVBeTCTxtNaMmCiX0hjg0LBA/d/1pcqvltL7rNbL+1BKUlbT+jkgwJBjmSFyZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dAAjSV36; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tt5EA0Fr"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-51c01c79467so88811cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:42:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788208951; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Dv+vXWKgLpdsX7YB0stV6FEjFlaSNkGAoN2b5e95dWpgTy17BiKaB8D7a/i9Ylb+3b
-         4SoTEK7kOyx1WhBykSmbs4qZP++Z2VyZOvId3PwB0wTOn7vjTHY3JbS3hJu8o54+z5WM
-         kM5lqO1gYm+4/aGrMjmM8V2Q4DocZx0KEsjwWEkc1wyNkbhE+OPnWS95loUE+niixD2F
-         x89gN/ITY6UwMYfOGmRjbrPS34dUp7ninhxXXMSpFlzQpCEB1dQ6XNoX8hessBtDE7FF
-         CcGrdcxazPVEjTdhXfanLI6gofNHJdL90VpUHnumT8Dismv23lXexIrOHPijzAq8bI6h
-         G81g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3jezNBELpt51SbHBtmRmjdqZRoyOEfGekJU8Ocm74OA=;
-        fh=i+bhWif0XXpcv7wdsPvJuTzIeQIlCZnxmnYvFW/KFxo=;
-        b=Lz93yF98frKrx9iDI+MoeI7x50JIy1Z981FYCE3NM0ZkRQjj9hzBnZ81e6DjpKECig
-         9hLUQwNSwq1/hxjPoa2kFWgf6MRcP5Z4eBNMBdnl078g4iI3YbQMEjUDT5aWVbYl5nDw
-         9pxoi4ozVnLEBWmJwQcfnVDEicReVrurnjFGCtbzzdoM3yrnoqHQY7MbSPvIWdk48Qm6
-         j8uK+314LF7yBP6A8EMnTjrDUyfpyInVX7e+JtrGZs5oMoBsnecL5bIL5gTExpT5Bws0
-         cRn3JdLH7bv/jfmyre4HmG22fWWrCIqjiJdo2bhKiS/IU+KfP+Kyq49bYKGJd56PekV7
-         KAFQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788208951; x=1788813751; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3jezNBELpt51SbHBtmRmjdqZRoyOEfGekJU8Ocm74OA=;
-        b=tt5EA0FrN7ShiKi1GBTTpImsdTxbTcdQpNwBVV46uHIWDXiuTYaSw1bFcN0CNy0/K7
-         c4Ld6uoPLa6pqaSShWXJ3KWwM/2gThMInvDzP0nl0DVCjY7eiAsTw4Nw4FNdCvouAans
-         oEVvBW2ookiW3TxzSKe1+NVCCuzTriaYc1OZA07Zxf078DKwpSnpVi1KPDu8qC1Pu3qE
-         HDHfzY1US4HgTG1GhwWN1Jt2j3GMM5Vk7o1iHLZ3fs7x+vNJWAWQ2bpv4rDeU8fhh7K+
-         8bV9AKvOVR9FswIjaXQsXtTq4jgCuTykUrr3w7Eoo4nCC9g8X8ttbDXKCKA+LXio25fN
-         JEow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788208951; x=1788813751;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3jezNBELpt51SbHBtmRmjdqZRoyOEfGekJU8Ocm74OA=;
-        b=q+sNXheVg22xZgK2txug6nR7Q8zhDoAU7dY9zrIC6xRbF/eiJIAvQKTl8ZcG/vQcND
-         vbiNT/cBOwk/0Jc7i2tUHIoj0Oq0M9TeGJfUcvBjpS3Owc+LmCUC9nKYzfA1zoSz7y7V
-         GMKHIUPm/jn8GLP18eXnejz6ac8s1TcRn8Fty0YXO7jeS4EhQ9e/gy+ZCbeFt45HmPre
-         6C+XqQoXZPevcdpFRYvJgqiVS6qZzdBq+uiIppzjT3Su6cG23OGstIB2eNJSD7pcAWgL
-         w/fOyvy94qCeAQ23JNd37H17QcczdGl4j3dcDgS3yGmfbk4s4OM6Zi5swLkW74pLMbv7
-         Y6xQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro9Sg12mnaY3F8EdxP1V7nk33iAkmAL2+8b7hLk9+IBg2zDjiMb+tlKFIFvazZZQmEKPLs19zCi5wiw0hQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMl5hERYGvw7/uaDiYPWmT2z72HeYYVO4xttCRtLtMPc79NEk0
-	xMxWfm94r9Jx4QSNq6qs4JPYHLzyP3u8esqpq4qcqd6jVLi1+DhnUHlfTBXvuKUdqqoWZ1XJGul
-	PA6OFmKBNhQ8ujXK0MQby46yOVoMXZu5UqUuKSEvo
-X-Gm-Gg: AR+sD13tf3JSB01RTKdlSscpVXo+hISIEXl+x10hqG1fJtKlqe+9G9yXEbfoWRsvwWf
-	h6A0k9TQmkHuTMhJbR4lPsMewq2+qm2ZvzqfDsku+vUfZ6c92qfI56MmLIgFRjWg7bZNiNKqS6/
-	W0UcdfT6MIjvQjxHeaaAgErZBmu05KfsJxV+0xr7cNkRs5AuO0b1XRGKAMk3/S2fbp5sZ4PNviX
-	Av6SCpomT/qWKRnPGH67AiBl+7bvD83WZUtiDnPVIV3dA0UpMWJDgIK5IPqYJmE4p1IQu4Dz3P/
-	MbmkDSM5hFRMmdvS1kp3v1YPqy0i5+kzgmWpy4GAWHk=
-X-Received: by 2002:a05:622a:229c:b0:517:64f6:3365 with SMTP id
- d75a77b69052e-53024d4656cmr4002881cf.4.1788208950057; Mon, 31 Aug 2026
- 13:42:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dAAjSV36"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AD401F000E9;
+	Mon, 31 Aug 2026 20:42:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788208974;
+	bh=EcsqIntohDBj7T07atoCdhzgU+9ZNI8GEG8azdvgvJA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dAAjSV36Im0KXym3fl6aCZsYF7UXjbdF0EVKD7PT4GhNaG6JFsOVEPUNApNhbs66Y
+	 oq/L0aNfPFZfjq52rnznStVLOCk+H4k8CfhCynCp9UuMgWj6erLwF9WcB+2mw27AG/
+	 u4Plxihgr50APIHEpiELpva/MHjbyQuolf36O/mGsL+RzjlSQtU/WEKk/z/D7/Vx7P
+	 vmE3hetnL6KajuIiq+Do9BwWkj6GyrNutROj9BvxMw9JhxakxnJ5S1FMyAdRL+4FNW
+	 WxpVMWiwAXQXy+IFMBZfpWPQuezikM9YmBkqdlis75Hs/nccI21HW9mYQPsMJYyec5
+	 ilvmJVLDInbVw==
+Date: Mon, 31 Aug 2026 20:42:53 +0000
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Kelvin Zhang <zhangxp1998@gmail.com>
+Cc: linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Subject: Re: [f2fs-dev] [PATCH v6 00/11] f2fs: prepare metadata layouts for
+ runtime block sizes
+Message-ID: <apXnTaf1gQOxBmLk@google.com>
+References: <CAH=xXfE6o2sLwcYdoH9cayZpbf389y8PeJ_aDRty61i7q4QKow@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260813193433.3318288-1-surenb@google.com> <20260829185625.f5ee1b2931818843a78af88d@linux-foundation.org>
- <apVhzM2501wSiGGg@google.com>
-In-Reply-To: <apVhzM2501wSiGGg@google.com>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Mon, 31 Aug 2026 13:42:19 -0700
-X-Gm-Features: AcwNN1Va5-U2p_HBt_SoCk7IUhZqXMl0RB6eAwv2hmO5Zse_aoEhwTkiwxqTQpI
-Message-ID: <CAJuCfpFLwkYWAsK8GrHwmHT06egrMmNaKYU+WY=5Qc+HnacWxA@mail.gmail.com>
-Subject: Re: [PATCH v6 0/5] mm: Unconditional per-VMA locks and cleanups
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, dave.hansen@linux.intel.com, 
-	Liam.Howlett@oracle.com, ljs@kernel.org, david@redhat.com, 
-	willy@infradead.org, shakeel.butt@linux.dev, vbabka@kernel.org, 
-	jannh@google.com, arve@android.com, cmllamas@google.com, christian@brauner.io, 
-	tkjos@android.com, dsahern@kernel.org, davem@davemloft.net, 
-	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAH=xXfE6o2sLwcYdoH9cayZpbf389y8PeJ_aDRty61i7q4QKow@mail.gmail.com>
 
-On Mon, Aug 31, 2026 at 4:13=E2=80=AFAM Alice Ryhl <aliceryhl@google.com> w=
-rote:
->
-> On Sat, Aug 29, 2026 at 06:56:25PM -0700, Andrew Morton wrote:
-> > On Thu, 13 Aug 2026 12:34:28 -0700 Suren Baghdasaryan <surenb@google.co=
-m> wrote:
-> >
-> > > v2 version of this patchset [1] was written by Dave Hansen and per hi=
-s
-> > > request, I'm taking over this series.
-> > >
-> > > tl;dr: Make per-VMA locks available in all configs. Simplify some
-> > > of the per-VMA lock users now that they can rely on them being
-> > > always available.
-> >
-> > It's been 2+ weeks so perhaps a refresh-and-remind would be helpful.
-> >
-> > But it applies well enough and is adequately reviewed so I put it in
-> > there for testing, thanks.
-> >
-> > AI review might have found a couple of pre-existing binder bugs:
-> >
-> >       https://sashiko.dev/#/patchset/20260813193433.3318288-1-surenb@go=
-ogle.com
-> >
-> > and a small rusty thing which you might wish to attend to.
->
-> The binder bug is not actually a bug. When using VM_MIXEDMAP and
-> vm_insert_page(), the vma takes a refcount on the page, so there is no
-> use-after-free even if free_page() is invoked without removing it from
-> the vma.
->
-> Adding an INVARIANT: comment to the Rust code SGTM.
+Hi Kelvin,
 
-Posted v7 with these fixups at:
-https://lore.kernel.org/all/20260831203056.838265-1-surenb@google.com/
-Thanks!
->
-> Alice
+I see only the first patch in this series. Am I missing something?
+
+On 08/31, Kelvin Zhang wrote:
+> F2FS currently describes several on-disk metadata layouts and filesystem
+> geometry values with constants derived from PAGE_SIZE or a fixed 4KB block
+> size. This series derives those values from the mounted filesystem's block
+> size instead, as preparation for supporting filesystem blocks smaller than
+> PAGE_SIZE.
+> 
+> The patches initialize sb_info early, describe the SIT, NAT, orphan, dentry,
+> node, and xattr layouts dynamically, parameterize sector/byte/block
+> conversion helpers, and derive node-tree geometry at runtime.
+> 
+> This series does not relax the block-size mount check or enable subpage I/O.
+> It is intended to be a behavior-preserving refactoring for currently
+> supported 4KB-block filesystems.
+> 
+> Changes since v5:
+> - no code changes
+> - send each diff as a base64-encoded text/x-patch attachment because Gmail's
+>   outgoing transport reflowed long lines in inline text/plain bodies
+> - verified that an actual received raw message applies with git am and
+>   produces the expected tree; the list-side copy of patch 01/11 will be
+>   checked before completing the series
+> 
+> v5:
+> https://lore.kernel.org/linux-f2fs-devel/CAH=xXfH7TPGt-zKXvJRNTgGDZKa1Xoq_sF3-WGs5kdsQLuYn4g@mail.gmail.com/
+> 
+> Changes since v4:
+> - no code changes
+> - resend with CRLF-canonicalized RFC822 messages; the delivered inline patch
+>   was still reflowed by Gmail's outgoing transport
+> 
+> v4:
+> https://lore.kernel.org/linux-f2fs-devel/CAH=xXfHWPg6qRwW+N2ziH1cvG3OD3wJc1z_Tm04MtFCpqYmQFg@mail.gmail.com/
+> 
+> Changes since v3:
+> - no code changes
+> - resend with git send-email because the previous mail-sending path produced
+>   hard-wrapped hunk headers in the delivered messages
+> 
+> v3:
+> https://lore.kernel.org/linux-f2fs-devel/CAH=xXfEFL7w7nsU3xjNubKJ1soYMqT-DbJBuyzfEX4Rv3rdFEA@mail.gmail.com/
+> 
+> Changes since v2:
+> - use DECLARE_FLEX_ARRAY() for flexible arrays that are alone in a struct or
+>   used in a union, fixing the reported m68k GCC build failures
+> - use F2FS_BLK_ALIGN() in f2fs_sec_trim_file() to avoid a runtime 64-bit
+>   division and an unresolved __divdi3 reference on 32-bit SH
+> - no other code changes
+> 
+> Changes since v1:
+> - rebase onto f2fs/dev at c966d29e01bb
+> - drop the unrelated free-NID underflow fix from this series
+> - split the preparatory changes into 11 focused patches
+> - initialize sb_info earlier and describe the xattr layout explicitly
+> - separate sector, byte/block, and block-size macro parameterization
+> - update commit messages and address checkpatch warnings
+> 
+> v2:
+> https://lore.kernel.org/linux-f2fs-devel/CAH=xXfHWW_J92z3YgvoLSx8+z6rekq=p2kiP15KE9=2+Ju2RjQ@mail.gmail.com/
+> v1:
+> https://lore.kernel.org/linux-f2fs-devel/CAH=xXfFVAwQ3r_NdUDtmXhtg6Lw8kDWoNTzGL5oy4mwHMsJLJw@mail.gmail.com/
+> 
+> Tested with:
+> - x86_64 W=1 F2FS build at every patch
+> - arm64 16KB-page W=1 F2FS build at the series tip
+> - m68k W=1 F2FS builds with the two reported randconfigs at the affected
+>   patch points
+> - SH W=1 F2FS build with the reported randconfig at the affected patch;
+>   fs/f2fs/file.o has no __divdi3 reference
+> - scripts/checkpatch.pl --strict (no errors or warnings)
+> 
+> Kelvin Zhang (11):
+>   f2fs: initialize sb_info early in f2fs_fill_super
+>   f2fs: describe SIT block layout dynamically
+>   f2fs: describe NAT block layout dynamically
+>   f2fs: describe orphan block layout dynamically
+>   f2fs: describe dentry block layout dynamically
+>   f2fs: describe {i,d,id}node block layout dynamically
+>   f2fs: describe xattr block layout dynamically
+>   f2fs: parameterize sector conversion macros
+>   f2fs: parameterize byte and block conversion macros
+>   f2fs: parameterize block size and mask macros
+>   f2fs: describe node tree geometry dynamically
+> 
+>  fs/f2fs/checkpoint.c    |  75 ++++++++++--------
+>  fs/f2fs/data.c          |  85 +++++++++++---------
+>  fs/f2fs/debug.c         |   4 +-
+>  fs/f2fs/dir.c           |  51 ++++++------
+>  fs/f2fs/extent_cache.c  |   6 +-
+>  fs/f2fs/f2fs.h          | 122 +++++++++++++++++++++-------
+>  fs/f2fs/file.c          |  84 +++++++++++---------
+>  fs/f2fs/gc.c            |  27 ++++---
+>  fs/f2fs/inline.c        |  11 ++-
+>  fs/f2fs/inode.c         |  22 +++---
+>  fs/f2fs/node.c          | 171 +++++++++++++++++++++-------------------
+>  fs/f2fs/node.h          |  89 +++++++++++----------
+>  fs/f2fs/recovery.c      |   4 +-
+>  fs/f2fs/segment.c       |  60 +++++++-------
+>  fs/f2fs/segment.h       |  32 ++++----
+>  fs/f2fs/shrinker.c      |   2 +-
+>  fs/f2fs/super.c         |  83 +++++++++++++------
+>  fs/f2fs/sysfs.c         |  10 +--
+>  fs/f2fs/verity.c        |   6 +-
+>  fs/f2fs/xattr.c         |  10 ++-
+>  fs/f2fs/xattr.h         |  15 ++--
+>  include/linux/f2fs_fs.h | 131 ++++++++++++++++--------------
+>  22 files changed, 636 insertions(+), 464 deletions(-)
+> 
+> 
+> base-commit: c966d29e01bbf829f8bb4a39a49811c56cdb49c3
+> -- 
+> 2.53.0
+> 
+> 
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
