@@ -1,70 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8162E3B0AFA;
-	Mon, 31 Aug 2026 09:26:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3DC3DC4D8
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:26:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788168370; cv=none; b=p1UwhRnDgOqzWVX8na7J61AjxCWJ0TmKZE4h8iATg1/ydRO2sLT0jRYQ+i/ggo7mrKecU8BPU0W3R5NNTYQHUKzOQ+cusoozfIb+Zv5sQ18E2fAr07a5MUMIAeEqil4J2BweAkCzYJp/g8nK8qwVwLYASuJ0H2Dus3fbps7W0Ec=
+	t=1788168373; cv=none; b=Sl57yeGrcGrAbVTFdel9jnoEbfZxdkm876Hb+sMeSJ9OlDeMBhYXM9ym6evuaIKutVDPspKVqiz2IuXePyd0QuqkvzC2FiUEA54hGIy90rvQIAYHwHMCFS7TCeXDdEj4j+PrSmqvsIGWmiCj4t+FlQbURK8kL2mqlMrbzfIJJMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788168370; c=relaxed/simple;
-	bh=COxRg8MJSCpt+HRa9tvVHY6ZuH1rTgpZgewayJ4yyyk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=HuUnfZdbdMAwXK1zYM4+xPzZnCTFelDoKKsjQ6/z/10NeLPNXfZILOegqA5Oh4MlGwnwUpMRP8c74V+gGv//tA886GuqT5GDj06MMTRNdhwl6eOWSp+ZFTGuOCOECo91S8t4QlvYcIz1kND9wTGHuGCL4690pOiF9tD3C2YiG3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Koo3bfON; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788168373; c=relaxed/simple;
+	bh=ttK06hi5jQ+IygEkiO3ryeZPLThCrdKZVEsLhx+wvL8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dU/MD5b0E9lpT4ejBcNY5UeUoOoVIe+lmWbJuMpAS03q3dyV1xGhQNIrsl45vl0YfRq0f6iMNFm4OgDzeGMOS+TeOcKMk3+96A4IYhuexHcg3JrdEdnHC2IPX5WC1zd5Zbb6EejFZYKszrbikvIBCzGfxF8dfldsG2Monj2+xrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VANmq/b5; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Koo3bfON"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51711F000E9;
-	Mon, 31 Aug 2026 09:26:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788168368;
-	bh=IwZZk/XmKoYwDuHRR31RvrwRf+WAJix26dN8cP75c/o=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Koo3bfONeroyGH+2XOubEk18PTLeNrX5Tzg8RDyfvqjKdOvPUQdsiC7uwKEBxBYs6
-	 j4fpwP3B09XbXvmK96HjuxEnit/gcZChK89iBWqMbTtF9qNuBfJ5Nkju9qjLCk6JLz
-	 M7FM71M9l9TYmqPxvLeBE4AjEEA57mni95/Dv+vuY/XzTPkwR/aSPtZdf8TReS+ZPb
-	 GSxLvXnGz2tSypCZLfpZclebhNwyXLm04q6aG5zTdUB5wMucLIOpCPLVLcn8/hLOEF
-	 5ESAGUQd9K07by3BJGf6cVaqx1o61TwW8H4RxPDv/rpxbkD3DKviI6Z+kQ+7Z8zft3
-	 L0TTf9e/9bicw==
-From: Niklas Cassel <cassel@kernel.org>
-To: dlemoal@kernel.org, linux@zary.sk, linux-ide@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Pei Xiao <xiaopei01@kylinos.cn>
-Cc: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-In-Reply-To: <77dad1184ebd0e1e7ea541d4207568f8bc5ec01f.1785381141.git.xiaopei01@kylinos.cn>
-References: <77dad1184ebd0e1e7ea541d4207568f8bc5ec01f.1785381141.git.xiaopei01@kylinos.cn>
-Subject: Re: [PATCH v2] ata: pata_parport: Fix use-after-free in
- new_device_store
-Message-Id: <178816836663.189107.12488362030216541340.b4-ty@kernel.org>
-Date: Mon, 31 Aug 2026 11:26:06 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VANmq/b5"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b0dd3c9a0so23616975e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:26:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788168370; x=1788773170; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ttK06hi5jQ+IygEkiO3ryeZPLThCrdKZVEsLhx+wvL8=;
+        b=VANmq/b5SPFwmhLEUOe5BJMyaWJRU1OJXE1jypWJCJkwYnvewQv79TVHhBqaMnOy6q
+         VqHHyn9qrMVEdQSrnH7ielKq1sXdg8SRdlDN7zxs5hKTc9Ikq8frg53gEKQggkT6oVia
+         mxU0a6IgAjQu0I+sjhvvoUHOOtLPVQfUie9HnBT3r3UmQqe2wHvP7200YhhHMBWI8Ty5
+         e2WmQeSAyHHbunu2GGdTcVbSy4TnOVGRXFr0nCI63CPw13uT2qXTUfcmPdj/iPmZI3PW
+         rX67T1e5+WqQPTxxeh2qG1q3gTaNYXeXTC0y0BGmb+9vwbbr/ziodoFU5LNbKdzI5aa/
+         7FdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788168370; x=1788773170;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ttK06hi5jQ+IygEkiO3ryeZPLThCrdKZVEsLhx+wvL8=;
+        b=Vu+aLp8gZ0r3v7dqWojdHYMO6cpmGs5kIcXUVx9e+DgBgdUl4+ZTM9GwEbNm48R8WZ
+         L/Rdd03LuIONXnXIOykboZgXlyc3ZCaRZqmz3vPt+0iWZV8Y29PbDZ+yi6oPIYdoSofr
+         YvKz5twajEswau2Ulbt96qEloxA0I3u89BUA10QzVPBCWwDOLtcHhe0hUZ4EA5cwt16V
+         0bGfsoFLwgBsfjamNcRU14Dq/94F7v+n7vpHy0P0PWzxCfc4bhbGKq25acDYe54MetfL
+         a/Pbu0s87npw4Qt5DRFhjrjLdBYADt4aPsFaC3MXzXeg0OoZ3CxH/bjcdQXd/WgPiQvA
+         WJ2w==
+X-Forwarded-Encrypted: i=1; AHgh+RpjAHbCdDsto6zbJ7ZZaDWzsJmkK3vIo2D8ikSzEguxFFgWxxmUFZS158/AqpO7FDAZdBE9zPjnNqY3+ik=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMBqJs8JMOypuQBr/wmnx3RTxb5jTG7VZqdtQPmhTHfrVrEuhT
+	OI5CwFj/WxFnrpAcR46YihW6i/bYvtpwrkqqI1nFCrniEp2QZAwkMu7P
+X-Gm-Gg: AR+sD12W4Flx3taRJzZN3pxpdWPk3y+gRefxL2K1QMBAIrDIqG4d5pSFezRsuB53GJH
+	BcS6jS/E1LXX08A0FuH+rINlb9BARKZHkqZne/GeYLKDHn4hwufgYGUlE2t6lZnuHCuWyAMT4hB
+	3uRO4nLo+reI/+SO2o36RmKzcG9G4eWPg2w7fE6syydPUVmJ97IXykFfXL1pSLEXeG+4UtJKmD4
+	rRLySUX/eGXx1xjFt3WsxDz1r5264GT9ju8iGlvS1RtDQM1wv4A88nsYVUdTscgEXoBRDQZuicv
+	u5kmE5meR1Wx2XShxqMTE1FefTJEGgr1FiUkYZmWlTOdMhNj+JNLjoHvk4UNYWbpPoTuUmzLHF3
+	tpbnuzIp3KQf1NyRuzvuz2T0vkvRDgmiABJ7FqsG/3jlnSEK3DEdjSmsf2+W0/ljgxM7P/T+5Ty
+	pDop1fgIKHitSDAftr2IV9qn1gh0qbvYwTPXNcMpiBmddyPlNb4sVwhYoHEKyX8cGwzX0aGs9C+
+	A==
+X-Received: by 2002:a05:600c:8b35:b0:499:cd34:f7c with SMTP id 5b1f17b1804b1-49cd9421bfcmr29162715e9.5.1788168370027;
+        Mon, 31 Aug 2026 02:26:10 -0700 (PDT)
+Received: from dell-desktop ([2a02:587:4b5f:900:ef25:2f4:1792:4e6f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49c5a903eebsm171374105e9.4.2026.08.31.02.26.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 02:26:09 -0700 (PDT)
+From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
+To: andrii.nakryiko@gmail.com
+Cc: akpm@linux-foundation.org,
+	andrii@kernel.org,
+	ast@kernel.org,
+	bpf@vger.kernel.org,
+	brauner@kernel.org,
+	daniel@iogearbox.net,
+	david@kernel.org,
+	eddyz87@gmail.com,
+	kpsingh@kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	matt@bobrowski.net,
+	memxor@gmail.com,
+	song@kernel.org,
+	tasos.papagiannnis@gmail.com,
+	utilityemal77@gmail.com,
+	viro@zeniv.linux.org.uk
+Subject: Re: [PATCH bpf-next 2/3] bpf: Add user memory access kfuncs for linux_binprm
+Date: Mon, 31 Aug 2026 12:25:47 +0300
+Message-ID: <20260831092548.42348-1-tasos.papagiannnis@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CAEf4Bzb9szFTDo5uUxLgUVD3qA1XF-5A7GZGxJjX6d1MYLhbFQ@mail.gmail.com>
+References: <CAEf4Bzb9szFTDo5uUxLgUVD3qA1XF-5A7GZGxJjX6d1MYLhbFQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
-On Thu, 30 Jul 2026 11:16:29 +0800, Pei Xiao wrote:
-> The function new_device_store() calls driver_find() without any
-> protection against concurrent driver unregistration. This can lead
-> to a use-after-free (UAF) when a driver is unloaded (via rmmod)
-> in parallel with a new device addition via sysfs.
-> 
-> The race window exists because driver_find() returns a pointer to
-> the driver's private data, but does not increase its reference
-> count. The caller is responsible for ensuring the driver remains
-> valid, but new_device_store() did not hold any lock or reference
-> during the lookup and subsequent use.
-> 
-> [...]
+> this is probably ok, but also we might want to look into having
+> verifier still allow to dereference trusted ptr-or-null into untrusted
+> ptr_to_btf_id to help with smooth transitions like this.
 
-Applied to libata/linux.git (for-7.4), thanks!
+> Not sure how complicated that would be in the verifier, but that would
+> be a nice backwards compat preserving behavior.
 
-[1/1] ata: pata_parport: Fix use-after-free in new_device_store
-      https://git.kernel.org/libata/linux/c/bd46a0b2
+I have just submitted an updated version of this series that also allows
+to dereference trusted ptr-or-null into untrusted ptr_to_btf_id in
+https://lore.kernel.org/bpf/20260831092305.42062-1-tasos.papagiannnis@gmail.com/T/#t.
 
-Kind regards,
-Niklas
+> But to keep things simple today, I'd just mark that bprm->mm pointer
+> as TRUSTED_OR_NULL.
 
+If you think v3 is too complicated, or that the trusted-or-null
+dereference support should be split into a separate series, please let
+me know. In that case, I will simply mark the bprm->mm pointer as
+TRUSTED_OR_NULL.
+
+Thanks,
+Anastasios
