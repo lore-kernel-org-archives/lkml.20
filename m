@@ -1,128 +1,206 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020D2391E76;
-	Mon, 31 Aug 2026 20:29:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3895389116
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788208168; cv=none; b=sGIAQQTFBhDWwUmGLDh+5y1uE3cyFjiAxEZ36nL4/qQToZQite2gFTQ0o1rxe92FD2BAAqdfBiZ1Fuv2SmZGJ8Wv3PwnsuTg92RvBe7hafvDpEamSWaecN9Mz9YX9gp2bj6tpYUk+JKEHCU3+h2Uo7jKltorTO0m90JO3NQkXyI=
+	t=1788208264; cv=none; b=B8YfOCmOiSK5NiDVgs4/Pc/5mu1wbrE+0FJK5qg5RwiMeITLmfpVnGFtW+CWxC6js+Y7Ua2BVCEz+9+e5E0QaBkjESJal5yJFRxqV8JN5SRYcELsgF7FsOakOeL4vWmDSEUsH2eBJNuXrsc1bnli84zPvotTujl2me7O+ypoMdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788208168; c=relaxed/simple;
-	bh=WFVDwjE9O2uWrPGQOAGacJFSOMNqQC01giKdgn1dtNc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YdVVdCTAoh0uB4ulMgtRTcesHH4VQy34kQsCPq3AS6BpFxKMuEUa/i4bnP3X+5asj7FdSltarovW8Nc38OIn5hdsDhSdYEJ5rfa6pOzRWvEBhwipLC6DV5dR1w7olDjIj2vHLcc0Cdv3S2j9o+GYYQGYMf/tKyhqBO71D/O08mU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=XseQCoZn; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788208264; c=relaxed/simple;
+	bh=erAR2zhPkaRzNaZ5ezE88XC7ZntEvQq048vwqWZwcS4=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=TEFmpuxLpMe245aVNYWhSzQlTL0n1Ux8U3tQfYO0wX3f+Y75uc72P2IMVPtPv1/8CF6NE9hbFXpXtLrba7ucmoVVJRYsvKF9BPrUinhZkdYjZB2hsE36Ugvy3itXQMqn01uMpOBSLeq6MNHYW4BTyJWazQRtXffuiw7sDdxHV8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DSDbAi55; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="XseQCoZn"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VIVsFT3116274;
-	Mon, 31 Aug 2026 20:29:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=DNEUVo
-	nEoLJO8yGoiSjOLIT/OaTS60DPRp33Yoes9HY=; b=XseQCoZnQ97QGRFXAWeo5q
-	yNKX7Ekxo5d0gN0KDWuzucfss8lQaXcJCdm+ruYVU989PMsi69r2KKLoTlk+TnPt
-	/9gdZJGStyL9lqpmXkRj0EFl8e6F5QhwO2r6N6tZ1sPXHA7vSwagk4SxDwSX5s08
-	BPMmzANf9OSnpyiacba4077ZPdfBagsWFuGJeMXGR1+LNK9zCQRbMBdKnS38TsO5
-	G5KVI6feMchXd9SnAzTm/RcB6mu6Kn6FO3mvYLzltIRza0oCfqcxVTPnhCkYzR37
-	f0vYN1M+u/ipXsZN+LvpjJlD5S8UvpCrTLfTTUWOFkU7VH23keXyKWLNwBdewHxg
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5bqd8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 20:29:19 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VKQJmW021841;
-	Mon, 31 Aug 2026 20:29:18 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbyg7s5c-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 20:29:18 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VKTH1f25887460
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 31 Aug 2026 20:29:17 GMT
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1DE5658056;
-	Mon, 31 Aug 2026 20:29:17 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 167DF58052;
-	Mon, 31 Aug 2026 20:29:16 +0000 (GMT)
-Received: from [9.61.36.99] (unknown [9.61.36.99])
-	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 31 Aug 2026 20:29:15 +0000 (GMT)
-Message-ID: <e8f89dd1-9c19-49b2-8e8b-879ddd7ca3cb@linux.ibm.com>
-Date: Mon, 31 Aug 2026 16:29:15 -0400
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DSDbAi55"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-398dc3d8f0aso394098a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:31:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788208261; x=1788813061; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HdPoO1BmhDpKCIht74EVe5TolJMRKRIfbTssD9lBUXc=;
+        b=DSDbAi55kiJR8w+UfRXx4EKk2QEQavGGwVscicj+99pCsoG+A5Km9t6j0eq0C3tXSK
+         FML+pZrWbKnfVNPFjacJYBW0I5ZYQBOxlgb/Vz2uHe4kSrG6E28BxaJwmahfMR2NvskN
+         rQWjfTVwX+Fig1CIla22fpgBh/nZI/CiySmV+ciPEVNlyPwTBZJN2tqnpXMRBLhC/kUd
+         vdCqtfOIpC45DaxzzwVAYlHnE78sjpoeyjXGYFeakICpVqc3NXXjVnJDVK53DG5jvqQI
+         At9trc10yctMwYtrizMXG2CNl1ZVgsTgQw689ufUyyrzloPU3cH8odDTiMTIwMwOZkYP
+         0IUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788208261; x=1788813061;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HdPoO1BmhDpKCIht74EVe5TolJMRKRIfbTssD9lBUXc=;
+        b=mSmq8kkrHV6lzAoHB2yZJ7+5xjaCrndr7aUWDZkN7cdj7I47cIgHsJYR10z+xU1GJp
+         6uEbbV7wemJsIng7iWbB0dD9a1VaeAMJLKisoftkTlEP+ebVYR7xBcZNdOoZFJ7rO0wg
+         iI4yj9xpxbJNsiQVO5EKP3WGFznG/IKCDDC2mrYIbo21GkP2kdkXEUC2uvHc3icbxgpN
+         NkGqNqBlXhtcOmH5ZDwr6E2nYb1k2E/mkO32yPq42OJk2xssu/78nsc7o7EW5kIQF3hF
+         ntU0quWlSeLUcH7zGZyb+d4PsgG1vx0V+BgWQrTxjLQkQS9a7I/Ey1f8bo5reRZkQ2h6
+         YTAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBypnFF6d+BkdPpH1yCXgif/nJ0sofem/6aGjxN6J7R/g4pnfCK01LxigwaP6ab/l0l7FYNBSbCtQYBLgqU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWco9nr2FoSYMeweYQVHhjXxvO4rD6ag5g0dYMoKkA1KwpZ7Hv
+	u8iR9amWDfG4tLdRFUDO2iWZPB59FEbOT6SMw/6M+vr4+YPiefOBH0QZMeSnymT21/MbqGYNFxp
+	b0z7jJA==
+X-Received: from dlbvv7.prod.google.com ([2002:a05:7022:5f07:b0:140:f5a8:30ec])
+ (user=surenb job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:17c6:b0:398:c6e1:dceb
+ with SMTP id 98e67ed59e1d1-3990f757be8mr597806a91.9.1788208260811; Mon, 31
+ Aug 2026 13:31:00 -0700 (PDT)
+Date: Mon, 31 Aug 2026 13:30:51 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/4] s390/vfio-ap: Use AP_DOMAINS for adm_add bitmap
- size in vfio_ap_mdev_cfg_add()
-To: Anthony Krowiak <akrowiak@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
-        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
-        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
-        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com
-References: <20260831171443.222225-1-akrowiak@linux.ibm.com>
- <20260831171443.222225-5-akrowiak@linux.ibm.com>
-From: Matthew Rosato <mjrosato@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <20260831171443.222225-5-akrowiak@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a95e41f cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
- a=wJl0czCw-TtCaqEsIisA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: GBFTDa5OctdBMuTXizaunHjwSYHKgc29
-X-Proofpoint-ORIG-GUID: GBFTDa5OctdBMuTXizaunHjwSYHKgc29
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDE3MyBTYWx0ZWRfX/GU9SkenRKIm
- dLFZRfM7NJ+fcFBfm/BmHgZCaEI/ZDdOcnQJi79rAiM4LK7+5uo0LhucicZ+GBNRrbsrbb/UWxa
- iuW5dzd8dfAsMInTLvDkGkS6iidQS7E=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDE3MyBTYWx0ZWRfX1Of2xjowW/Nr
- kvAMt13/aC/dPDTzfim9jwEdZBGX9W2x9yx9hgx0kfGiNuTcBp4mjbhAjZLGBCqFLdBNtN+fKOD
- /YunHqsn9WXqcKNAcGXMKbFT5Ce2OH3aVbGcwGSN1B9/zuZw4BPydd89d5/m460LVlsBzw7tA5e
- rezem8cHDtfj527WEIsfuJAqp90WBAX6VaLIBhJpzd112utEv/Fh5R+rvTGFAo+OyrdY+uFehw0
- GDHwvtBFerHrpRD12MCmqwFuWwXl9Xwa2M2Yw//bKgqibP7K/tQXmUBjCa0VXWMgkl02WmVv7aL
- NG6l1N0xASiysnuNJ10VQiZJSPM/ADv3eUDxSqJGta8s1/y2eauShDo2k9auJ0pEdqxacwi819W
- 8XWobAlCKBE7pYiZgBGQmY/iXH0/xk6uzMwyzF8BlZFmGlifZILK+wYHLRbhiZ1AxqysiXlMaVN
- g4xRJJ1I87NvV4bO8MA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_06,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608310173
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
+Message-ID: <20260831203056.838265-1-surenb@google.com>
+Subject: [PATCH v7 0/5] mm: Unconditional per-VMA locks and cleanups
+From: Suren Baghdasaryan <surenb@google.com>
+To: akpm@linux-foundation.org
+Cc: dave.hansen@linux.intel.com, Liam.Howlett@oracle.com, ljs@kernel.org, 
+	david@redhat.com, willy@infradead.org, shakeel.butt@linux.dev, 
+	vbabka@kernel.org, jannh@google.com, aliceryhl@google.com, arve@android.com, 
+	cmllamas@google.com, christian@brauner.io, tkjos@android.com, 
+	dsahern@kernel.org, davem@davemloft.net, gregkh@linuxfoundation.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, netdev@vger.kernel.org, 
+	surenb@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/31/26 1:14 PM, Anthony Krowiak wrote:
-> Domain and control domain bitmaps are sized by the AP_DOMAINS constant, not
-> AP_DEVICES. The two constants are both 256 today so there is no functional
-> impact, but using the wrong constant is inconsistent with every operation
-> on aqm/adm bitmaps.
-> 
-> Use AP_DOMAINS to keep the code consistent and correct in case
-> the two constants ever diverge.
-> 
-> Note:
-> This patch was submitted in response to a sashiko review comment pointing
-> out there are other functions besides vfio_ap_mdev_cfg_add(), so there are
-> fixes included here for those also. The subject line was kept the same
-> since this is in v2 of this patch.
-> 
-> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+v2 version of this patchset [1] was written by Dave Hansen and per his
+request, I'm taking over this series.
 
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+tl;dr: Make per-VMA locks available in all configs. Simplify some
+of the per-VMA lock users now that they can rely on them being
+always available.
 
+Binder and networking folks: Your code is the target of the cleanups.
+I'm cc'ing you now on v2 because there's emerging consensus on the mm
+side that the approach here is sane. I'm not quite sure how this pile
+would get merged, but ack/review tags would be appreciated if this
+looks good to you.
+
+Longer version:
+
+When working on some x86 shadow stack code, it was a real pain to
+avoid causing recursive locking problems with mmap_lock. One way
+to avoid those was to avoid mmap_lock and use per-VMA locks instead.
+They are great, but they are not available in all configs which
+makes them unusable in generic code, or if you want to completely
+avoid mmap_lock.
+
+Make per-VMA locks available in all configs. Right now, they are
+only available on select architectures when SMP and MMU are enabled.
+But all of the primitives that per-VMA locks are built on (RCU, maple
+trees, refcounts) work just fine without SMP or MMU.
+
+The only real downside is that making VMAs a wee bit bigger on !MMU
+and !SMP builds.
+
+The upside is much cleaner code, lower complexity and less #ifdeffery.
+
+Clean up a binder VMA locking site now that it can rely on per-VMA
+locks.
+
+Building on top of universally-available per-VMA locks, introduce a
+new helper. Since the new API does not require callers to have a
+fallback to mmap_lock, it's much easier to use. Callers can
+potentially replace this very common kernel idiom:
+
+	mmap_read_lock(mm);
+	vma =3D vma_lookup()
+	// fiddle with vma
+	mmap_read_unlock(mm);
+
+with:
+
+	vma =3D vma_start_read_unlocked(mm, address);
+	// fiddle with vma
+	vma_end_read(vma);
+
+Which avoids mmap_lock entirely in the fast path.
+
+Use that new API for another binder site and one in the TCP code.
+
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: linux-mm@kvack.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Arve Hj=C3=B8nnev=C3=A5g <arve@android.com>
+Cc: Todd Kjos <tkjos@android.com>
+Cc: Christian Brauner <christian@brauner.io>
+Cc: Carlos Llamas <cmllamas@google.com>
+Cc: Alice Ryhl <aliceryhl@google.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: David Ahern <dsahern@kernel.org>
+Cc: netdev@vger.kernel.org
+
+Changes since v6 [2]:
+- Rebased over mm-unstable
+Patch 1:
+- Added Reviewed-by, per Lorenzo Stoakes
+Patch 2:
+- Added Acked-by, per Carlos Llamas
+Patch 4:
+- Added INVARIANT comment, per Sashiko and Alice Ryhl
+
+Applies cleanly over mm-unstable
+
+[1] https://lore.kernel.org/all/20260610230409.A44D29FA@davehans-spike.ostc=
+.intel.com/
+[2] https://lore.kernel.org/all/20260813193433.3318288-1-surenb@google.com/
+
+Dave Hansen (5):
+  mm: Make per-VMA locks available universally
+  binder: Make shrinker rely solely on per-VMA lock
+  mm: Add RCU-based VMA lookup helper that waits for writers
+  binder: Remove mmap_lock fallback
+  tcp: Remove mmap_lock fallback path
+
+ arch/arm/Kconfig                       |  1 -
+ arch/arm64/Kconfig                     |  1 -
+ arch/loongarch/Kconfig                 |  1 -
+ arch/powerpc/platforms/powernv/Kconfig |  1 -
+ arch/powerpc/platforms/pseries/Kconfig |  1 -
+ arch/riscv/Kconfig                     |  1 -
+ arch/s390/Kconfig                      |  1 -
+ arch/x86/Kconfig                       |  2 -
+ drivers/android/binder/page_range.rs   | 19 +-----
+ drivers/android/binder_alloc.c         | 63 +++++++----------
+ fs/proc/internal.h                     |  2 -
+ fs/proc/task_mmu.c                     | 93 -------------------------
+ include/linux/mm.h                     | 12 ----
+ include/linux/mm_types.h               |  8 +--
+ include/linux/mmap_lock.h              | 94 +++++++++++---------------
+ kernel/bpf/stackmap.c                  | 17 ++---
+ kernel/bpf/task_iter.c                 |  2 +-
+ kernel/fork.c                          |  2 -
+ mm/Kconfig                             | 12 ----
+ mm/Kconfig.debug                       |  1 -
+ mm/debug.c                             |  4 --
+ mm/init-mm.c                           |  2 -
+ mm/memory.c                            |  2 -
+ mm/mmap_lock.c                         | 61 ++++++++++-------
+ mm/pagewalk.c                          |  2 -
+ mm/rmap.c                              |  2 -
+ mm/userfaultfd.c                       | 61 ++---------------
+ net/ipv4/tcp.c                         | 31 +++------
+ rust/kernel/mm.rs                      | 58 ++++++++++------
+ tools/testing/vma/include/dup.h        |  5 +-
+ tools/testing/vma/vma_internal.h       |  1 -
+ 31 files changed, 167 insertions(+), 396 deletions(-)
+
+
+base-commit: 42d64d4fef83a241c919c8693fdf0a21b2cb6061
+--=20
+2.55.0.966.g6673acef38-goog
 
