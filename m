@@ -1,39 +1,37 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-167.mta0.migadu.com [91.218.175.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB193AA9F8;
-	Mon, 31 Aug 2026 03:27:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8B63955E7
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788146881; cv=none; b=cHHc3qW6Jh9aFN0awV9kT0eKNzlWXDyBgMo/iJesZjVgHtLi5wGL9ASIma7brPeEXzoX++/d95i9jI9yt0gqrtUiOHnnaU7XNqadtzRClNtWUXZ0Qvr+DAFVhRVENbInU9ynWhw/4+oG5o3q8It9TQlPwYyY2mw1chxNRHakECw=
+	t=1788146913; cv=none; b=XVFopKguu8VSeMf6KaPXF31wkau4lATQZNWX65EYXS7Tg2VInCUbSMLIXZa2Wk/GVXGfEPasuXhwJ7dj3XOEI6NGIfPAIYcIHLN/YEbgvXmNbDBUsM1M3EinnJh2rCIkl5fSS1l4XalngJGL6MaAq+M8wzAxBeZhCWy2wUpG/qA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788146881; c=relaxed/simple;
-	bh=KNTgq+/0Kuouzn61el1yz5cV3CZE6r84n255mD/gSww=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RhRZjB5yOsEL8MHbK85j7rv7qVMg2GiyF4/xXVECTl9+tDgaR0IVZkI9+6F8qQYtYQ72d//Gw3Ng0vxLxtRHQED85Mg1wqK3RWxId6ntvrbmu0LU9KhjGdgJuLU0lkQX6bl7pzG5xz88W8iT3YzGSy4BhAoHa6bDqVlMzDpOmxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=cvRjX/dL; arc=none smtp.client-ip=54.207.22.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788146913; c=relaxed/simple;
+	bh=1gsJOXGf/E6xufKHweGQszf77SbKMiZsrOXoexOCrjg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=kZrG7pZGhSLye4ePeusTECQTxyJRJPUH+faS+N6/agGXB3RF/CrSjFRcidTbyZIx7Li8v4wv6k6pGoqmPKzM+Ly6E84LOBX3Y1TJaQwUCn0oSbg6NIXzVMF5XIQxbtBPb+qBJVx1X6OT+iFXU30VS5VAyozeTpzS9VhlPmLV8iI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KdiIF7Lb; arc=none smtp.client-ip=91.218.175.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="cvRjX/dL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788146814;
-	bh=FvM3PUyvegHAq8oz4A0YkG+fZ8ENWHND2m9+xtLaGUA=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=cvRjX/dLXH95CsdVjKYhTGQCgsUrAIIBNxsSmshdVrIlWprIevufCdDMvUuJP7fbO
-	 KvbbgF70giZv9R3eHaCDeNfwpHfC6uok5GuBYJPYpwNwOFgfdjoP9bSQGhlOPS3z5F
-	 0jIptt4LjVR5svLerDEEHbBnDy19qm1KGK6yDXzg=
-X-QQ-mid: esmtpgz14t1788146807t62575c63
-X-QQ-Originating-IP: mdvl2m5PSw8hny9/qhqo0Ig0a0QY6rf0hYVmTKpGJmk=
-Received: from = ( [183.48.245.118])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 31 Aug 2026 11:26:43 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13306223604564133587
-EX-QQ-RecipientCnt: 20
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Mon, 31 Aug 2026 11:26:41 +0800
-Subject: [PATCH v3] clk: spacemit: k3: add 1.8 GHz PLL5 and PLL8 rates
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KdiIF7Lb"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1gsJOXGf/E6xufKHweGQszf77SbKMiZsrOXoexOCrjg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788146909; v=1; x=1788751709;
+ b=KdiIF7LbLxZbd9HdVC4JgQ+SG9D2wHD3WYWCYxDlVVCSiKSUcVk2IAsKXS4AAw3pjvfI+kwJ
+ wyEyFYPgFdw5gi8Memfmt22CybBdzf8qrol0MVzDgy7D7p3iyn3Fx/u4BSPB1f6PbDB0LNFOwmR
+ 4soGvoeQkO4aqEUrLBKO8Y4A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d582106826e16177;
+	Mon, 31 Aug 2026 03:28:29 +0000
+X-Mizu-Trace-ID: d582106826e16177
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Date: Mon, 31 Aug 2026 11:28:10 +0800
+Subject: [PATCH net-next 1/2] netdevsim: add link speed support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,124 +40,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-k3-pll5-pll8-1800mhz-v3-1-530ed0978615@linux.spacemit.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4V07ZBpeRVX/odxMdQiVV6hQFDCv
- 0sxJi5wM8lJ7pwzM6s7oy07ejPr9GisaeoVgoPHVEH1TYO5rswEihglCngE0JZl5I4ELhGr4gV
- KcplEhJSGIVtf207nZtq058uH7ZDdteqdyy0KY/ume27dkbvdNxHuJ0YOCBRQEsk4VjoQp9LUw
- +TblpSuTO+rpmKuNYofG8c/NgEciLI8jzhSkia7tmVZ3v3dTJohAQAA
-X-Change-ID: 20260802-k3-pll5-pll8-1800mhz-c81875a0a944
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Yixun Lan <dlan@kernel.org>, Inochi Amaoto <inochiama@outlook.com>, 
- Alex Elder <elder@riscstar.com>, Haylen Chu <heylenay@4d2.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: Aurelien Jarno <aurelien@aurel32.net>, linux-clk@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2740;
- i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=KNTgq+/0Kuouzn61el1yz5cV3CZE6r84n255mD/gSww=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlTvhQmXYxRXMqwYsvXBYvY3qyKn6B04e7Dj5IBdx71b
- zBONis82FHKwiDGxSArpsjS/YBnW4FPlG2BQKEvzBxWJpAhDFycAjARHVaGvyJHC26u5poVyfFx
- wxnHg38Lb9ar7dx+/HPTWvO7UY2ymyYyMkz6NeHtm1aptmh2rQmePIvar5fLLXq2ckU8k/EzNi1
- /Ry4A
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: N+U/QWJ6RP+kQ836Kwwm3AcWBTOGOGO97xDCcr9fzZ9n080CwsqN/XxU
-	h6SMekBpdheDbOXL1G0UE4wD11kKyIDE1dYWTjbbehMLM8i+nw0qh2vGyVUiNJc4Q06POuT
-	ueUykx24wjjVZ1jFwZKdpeQdlXbaO8SHJHn6LhjMES0wFvE6MCIQhcw2x3cLUkR4ipZ0o2w
-	OT+nnaTl2MkhmUVbFLwgVODQXdyPq36T1xEanovRk64fqBKnV2nTUg9xGCQXLXiikEz2ypE
-	DvbdrFKJ0vdIMzIodq+hFoMVB4LYz6EuadmDOqUd0LeF4FBIpSSI+c0o72+lg9iOH9Pr8d+
-	naQ/YFlB/L0YNYpSGrnyppp5jkp+7ilOjicA+NwhCKbrIeRMRrctXn+eQzKFLCxWV3lM0s6
-	nxprzwxDRm7veAYuSwoic6j15WNSMEO/3dLufjHXIcNndSwMmnp7qTSU/O+2Ok1DuNcdDyg
-	XgHIlP676FpYvvOTwPyCnW44KLcMPlr+tSVoazK6XLP/dqBWtXb6O3xuV1uNS7J+gPmddyj
-	dL2Cmen7/EytKqiMeeg2hYgZbkE6N8KxlDEiYEwtkDEEAePi6n2DnA6MwqypywTQ73KShT/
-	rWxB/t2XVqebIGdC55hihYblsQ6+ZFHD0SzZOWfCKIeYhRNfL30n3ZPq4o9PxV8J2MUx4Bw
-	LCVCmQqgTLrwsDgfm0pkXB7bXeyIhws1eQ5+195kvYz002dTvSeTzt9kwVhwG6lMPTmzRqx
-	+oOgYTfXa9wO6FJWdTJqc92HZEDoFS26owdlCf/UQKcm5zT8sWY2NwQgZxg21oYuvQeCRzd
-	NsPmvDwc1RCy9rFUm2A0EGcsWK0B5hnHpuvOVpypPZIDXHSGvmBYZoGkIYzaiJYgtqXvPtA
-	PX4ALQpxLV8Bg/+v+ioOMKWhvAOd2ctgH1ET9AQ23907h7W7ZOYWwvX4oLKFk4iUKeecVtv
-	2SJJLDspXV1xgMAow2sOwKy03U2HFxD+XezDZexnmZAaGKe8PRM+RcZghWbsbyHIoei8s49
-	HBmkw1DEeFw+gVnxYc/kgwaFYcnpLXZo63+tin4ZuT+D4CpXXoRhsEtQQjXA6YMByQTv/py
-	D1ytnYIWSNdKxQM/W5m097LL+aiSyzkLw==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+Message-Id: <20260831-nsim_speed-v1-1-7a651ee65738@kylinos.cn>
+References: <20260831-nsim_speed-v1-0-7a651ee65738@kylinos.cn>
+In-Reply-To: <20260831-nsim_speed-v1-0-7a651ee65738@kylinos.cn>
+To: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Paolo Abeni <pabeni@redhat.com>, Shuah Khan <shuah@kernel.org>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Hangbin Liu <liuhangbin@kylinos.cn>
+X-Mailer: b4 0.14.3
 
-K3 boot firmware configures the C2 and C3 CPU clock domains at
-1.8 GHz. PLL5 feeds C2 and PLL8 feeds C3, but their rate tables
-currently contain only the 2 GHz overclocking operating point.
+From: Hangbin Liu <liuhangbin@kylinos.cn>
 
-Add the nominal 1.8 GHz configuration as the first entry in both
-tables. This lets determine_rate() and set_rate() select the firmware
-operating point while retaining 2 GHz as a supported overclocking rate.
+Add ethtool get/set_link_ksettings callbacks to netdevsim so the simulated
+link speed and duplex can be queried and configured from userspace.
 
-Reviewed-by: Aurelien Jarno <aurelien@aurel32.net>
-Tested-by: Aurelien Jarno <aurelien@aurel32.net>
-Cc: stable@vger.kernel.org # 7.0+
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Move NSIM_LINK_SPEED_MAX and NSIM_LINK_SPEED_UNIT from dev.c to netdevsim.h
+so they are available to both the devlink rate path and the new ethtool
+code. The set callback rejects speeds exceeding NSIM_LINK_SPEED_MAX.
+
+The default link speed is set to SPEED_5000 with DUPLEX_FULL, matching the
+existing NSIM_LINK_SPEED_MAX definition.
+
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
 ---
-The related U-Boot change is available at:
-https://github.com/spacemit-com/uboot-2022.10/commit/fb95cf3d848b771c61b5a1b3e5cbbee223faf352
----
-Changes in v3:
-- Mark the change for stable kernels starting with v7.0.
-- Add Aurelien Jarno's Reviewed-by and Tested-by trailers.
-- Rebase onto v7.3-rc1.
-- Link to v2: https://patch.msgid.link/20260810-k3-pll5-pll8-1800mhz-v2-1-aabff510a797@linux.spacemit.com
+ drivers/net/netdevsim/dev.c       |  6 ------
+ drivers/net/netdevsim/ethtool.c   | 30 ++++++++++++++++++++++++++++++
+ drivers/net/netdevsim/netdevsim.h |  8 ++++++++
+ 3 files changed, 38 insertions(+), 6 deletions(-)
 
-Changes in v2:
-- Drop "clk: spacemit: re-enable PLLs after init"; the PLL init issue
-  will be handled in a separate series.
-- Send the K3 PLL5 and PLL8 1.8 GHz rate-table update as a standalone
-  patch.
-- Clarify that 1.8 GHz is nominal and 2 GHz is an overclocking rate.
-- Link to v1: https://patch.msgid.link/20260804-k3-pll5-pll8-1800mhz-v1-0-a3a75866ce32@linux.spacemit.com
-
-To: Stephen Boyd <sboyd@kernel.org>
-To: Brian Masney <bmasney+clk@redhat.com>
-To: Jerome Brunet <jbrunet+clk@baylibre.com>
-To: Yixun Lan <dlan@kernel.org>
-Cc: linux-clk@vger.kernel.org
-Cc: linux-riscv@lists.infradead.org
-Cc: spacemit@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org
----
- drivers/clk/spacemit/ccu-k3.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-k3.c
-index 92b930d5ff30..1796236d8dc5 100644
---- a/drivers/clk/spacemit/ccu-k3.c
-+++ b/drivers/clk/spacemit/ccu-k3.c
-@@ -38,6 +38,7 @@ static const struct ccu_pll_rate_tbl pll4_rate_tbl[] = {
+diff --git a/drivers/net/netdevsim/dev.c b/drivers/net/netdevsim/dev.c
+index feb88ccbbced..729ce80f6c83 100644
+--- a/drivers/net/netdevsim/dev.c
++++ b/drivers/net/netdevsim/dev.c
+@@ -1138,12 +1138,6 @@ nsim_dev_devlink_trap_policer_counter_get(struct devlink *devlink,
+ 	return 0;
+ }
+ 
+-#define NSIM_LINK_SPEED_MAX     5000 /* Mbps */
+-#define NSIM_LINK_SPEED_UNIT    125000 /* 1 Mbps given in bytes/sec to avoid
+-					* u64 overflow during conversion from
+-					* bytes to bits.
+-					*/
+-
+ static int nsim_rate_bytes_to_units(char *name, u64 *rate, struct netlink_ext_ack *extack)
+ {
+ 	u64 val;
+diff --git a/drivers/net/netdevsim/ethtool.c b/drivers/net/netdevsim/ethtool.c
+index 025ea79879f3..59768bd7b620 100644
+--- a/drivers/net/netdevsim/ethtool.c
++++ b/drivers/net/netdevsim/ethtool.c
+@@ -205,6 +205,30 @@ static int nsim_get_ts_info(struct net_device *dev,
+ 	return 0;
+ }
+ 
++static int nsim_get_link_ksettings(struct net_device *dev,
++				   struct ethtool_link_ksettings *cmd)
++{
++	struct netdevsim *ns = netdev_priv(dev);
++
++	cmd->base.speed		= ns->ethtool.speed;
++	cmd->base.duplex	= ns->ethtool.duplex;
++	cmd->base.port		= PORT_OTHER;
++	cmd->base.autoneg	= AUTONEG_DISABLE;
++	return 0;
++}
++
++static int nsim_set_link_ksettings(struct net_device *dev,
++				   const struct ethtool_link_ksettings *cmd)
++{
++	struct netdevsim *ns = netdev_priv(dev);
++
++	if (cmd->base.speed > NSIM_LINK_SPEED_MAX)
++		return -EINVAL;
++
++	return ethtool_virtdev_set_link_ksettings(dev, cmd, &ns->ethtool.speed,
++						  &ns->ethtool.duplex);
++}
++
+ static const struct ethtool_ops nsim_ethtool_ops = {
+ 	.supported_coalesce_params	= ETHTOOL_COALESCE_ALL_PARAMS,
+ 	.supported_ring_params		= ETHTOOL_RING_USE_TCP_DATA_SPLIT |
+@@ -223,6 +247,8 @@ static const struct ethtool_ops nsim_ethtool_ops = {
+ 	.set_fecparam			= nsim_set_fecparam,
+ 	.get_fec_stats			= nsim_get_fec_stats,
+ 	.get_ts_info			= nsim_get_ts_info,
++	.get_link_ksettings		= nsim_get_link_ksettings,
++	.set_link_ksettings		= nsim_set_link_ksettings,
  };
  
- static const struct ccu_pll_rate_tbl pll5_rate_tbl[] = {
-+	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
- 	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
+ static void nsim_ethtool_ring_init(struct netdevsim *ns)
+@@ -250,12 +276,16 @@ void nsim_ethtool_init(struct netdevsim *ns)
+ 	ns->ethtool.fec.active_fec = ETHTOOL_FEC_NONE;
+ 
+ 	ns->ethtool.channels = ns->nsim_bus_dev->num_queues;
++	ns->ethtool.duplex = DUPLEX_FULL;
++	ns->ethtool.speed = SPEED_5000;
+ 
+ 	ethtool = debugfs_create_dir("ethtool", ns->nsim_dev_port->ddir);
+ 	ns->ethtool_ddir = ethtool;
+ 
+ 	debugfs_create_u32("get_err", 0600, ethtool, &ns->ethtool.get_err);
+ 	debugfs_create_u32("set_err", 0600, ethtool, &ns->ethtool.set_err);
++	debugfs_create_u32("speed", 0600, ethtool, &ns->ethtool.speed);
++	debugfs_create_u8("duplex", 0600, ethtool, &ns->ethtool.duplex);
+ 
+ 	dir = debugfs_create_dir("pause", ethtool);
+ 	debugfs_create_bool("report_stats_rx", 0600, dir,
+diff --git a/drivers/net/netdevsim/netdevsim.h b/drivers/net/netdevsim/netdevsim.h
+index 55aec41237b9..ce0d0dea00fb 100644
+--- a/drivers/net/netdevsim/netdevsim.h
++++ b/drivers/net/netdevsim/netdevsim.h
+@@ -39,6 +39,11 @@
+ 
+ #define NSIM_HDS_THRESHOLD_MAX		1024
+ 
++#define NSIM_LINK_SPEED_MAX     5000 /* Mbps */
++#define NSIM_LINK_SPEED_UNIT    125000 /* 1 Mbps given in bytes/sec to avoid
++					* u64 overflow during conversion from
++					* bytes to bits.
++					*/
+ struct nsim_sa {
+ 	struct xfrm_state *xs;
+ 	__be32 ipaddr[4];
+@@ -95,6 +100,9 @@ struct nsim_ethtool {
+ 	struct ethtool_coalesce coalesce;
+ 	struct ethtool_ringparam ring;
+ 	struct ethtool_fecparam fec;
++
++	u32 speed;
++	u8 duplex;
  };
  
-@@ -50,6 +51,7 @@ static const struct ccu_pll_rate_tbl pll7_rate_tbl[] = {
- };
- 
- static const struct ccu_pll_rate_tbl pll8_rate_tbl[] = {
-+	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
- 	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
- };
- 
+ struct nsim_rq {
 
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260802-k3-pll5-pll8-1800mhz-c81875a0a944
-
-Best regards,
---  
-Troy Mitchell <troy.mitchell@linux.spacemit.com>
+-- 
+2.55.0
 
