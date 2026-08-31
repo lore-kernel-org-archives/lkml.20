@@ -1,110 +1,127 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1EF5381B1A
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1413890F0;
+	Mon, 31 Aug 2026 21:05:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788210093; cv=none; b=jxKOKqd1WTDtY3A9WHVNgFKlJZJb0Pn78NBLLiZdYTyRf5JTpjf5S+m/Bmu/fmRYc3IQpf+jQVa7MFEX6W0uMYBWib4rxXH6unENjP7UEF95qfsqiUnoulGbDVytZfNMX1pRpAuWMMl+kEJFLdNfQYOg8BAgy8xCNPSM1BNaPb0=
+	t=1788210338; cv=none; b=SuMPSSWfuSNdg9MR/q5WVXmVbBHqPV1Np1s6EurhWkrqJ/mxiGggcum3WzTERZCmsRx0zBKAZNULXjEQJ2l906kbdPJTjodbAhUPl+VN+JjK69Gl97gVIUWaqLXpS6ZqPWgjX912OS8tX3YItgZ3UppXNmEvZa0DCbhLNhSASUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788210093; c=relaxed/simple;
-	bh=pE+8eFdRKh1hGGyR4Z+bhB2cCRSgLo/w1hS3iEaFlJ4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uvEU6NoFDcrRlaTBJrGLpmJuNc5n1GVSgY//ORixCMxYcAE7eUz9Q1bOQyM7tlRRa6SpyJQbq9L885R3jbN1CTvvEeoe8hxduWW8CNNX531Pk3QL6+kURV8M1YMXoMG9TyJa3mCXEbztvwZU4YMo8hJvluiR8owEEfw36Rdwor8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=FGTdeU20; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1788210338; c=relaxed/simple;
+	bh=mVc1vdZun68WiZU+Wb15+WFO3PRMVzXqhAgtj8o/A2s=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=nGoGLUueGgBRnmJ/TACh0v15V68DgO5EgqZVh3Y2s2gnD9sIP6PU0mLkOjkjZpvj2o69DxrVLBm/if791qjRQsaec0oH+jMtXQ6EWs8lh41P/JUXyy3Bz3aZ29rUnBe/MAZ3+nwSEqU7UW8wX5CiijmPmeJ7vHfGw8I3JBE9p2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=KpCsKEMW; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="FGTdeU20"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47de0093c42so225870f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:01:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1788210090; x=1788814890; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T16UHF6O50SV9JqJ2L46KlCjGiQzlMBW+cyH7AwVLTc=;
-        b=FGTdeU2021I/13KuWB/bs6SBNPDulLPcst9tCt0x4grsho00cAsY6ZZfrVnCuIItPq
-         vM1/n4G2SIeEWJ8zbtd0CIvvDX/6WdSqmKy6/JUJUeXyMxHmlH9EJlBuONJK5QIiimyc
-         YEBOMiZlDGKg8xTzTQIDCFKBmrXn8DTWzHRKRhMdsV7k3WRxNvvHne4+RP5POXD68ztn
-         nLXzMIjl6uig3cPrInzAOWGYy3Ko+6jdk48l8NJoXr00u6apF4Cmklupk96hJknvlJ4Z
-         /xKwnwO3xzvgKunIYD/jknGHXy0Hxz/nIj5VFPbLgc2sZyHz/XSVi1S5jnh+RTDa5ojR
-         z5hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788210090; x=1788814890;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=T16UHF6O50SV9JqJ2L46KlCjGiQzlMBW+cyH7AwVLTc=;
-        b=sOTLjt9fZ1ekdU5HV0HLMNjldK/YC9ezs3uRRg11MPHe5JvH9JHpFnXJ9I/g675gBB
-         0Ikp87jSk5bhxSt16vy1q4YrpuVGHO3UoI2ERY5Enl7XKDKfMG4ZAUHwp3FC8Rg2lmPb
-         YD5xvHJ09dpGl7QGe/ElgW/QryF3B6wHOsjc+Pc9imhdWsXBng37HdQS7jBYVmTLOMOx
-         jrR7UKwAYDA6eFOtSjQYdZhiGO9ipXLzeDiZRwewHxHr3aNeUjbxeiV9gxA1Pxc0YvH4
-         E1xKns6oKcFYFLnHWnHDeBR7vfYa5zmWPV+vpn3afmWSKAFAjfVmCOcoE/RrFRk+yQlN
-         U90Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrxBG1BRc2tQKB1QwWNEqekGpoYxCvuJ6mur1znERVyfDSmQa44vPEHWsb+QfFYT510pTZYgekEzBrXG9I=@vger.kernel.org
-X-Gm-Message-State: AFuF++keZknkjs4k3mbvy2VV9wWEMv8nc5yr0Iepyo12geJ4UFTcVDmI
-	vdAcDHZJXnLl+aFboeWxNNdntqMsqRHc7ZHwilxIg7xTI7797ZPZshI=
-X-Gm-Gg: AR+sD108k2BnLWUKBDWO+lKbx1ss1JfRAmo4VPT00AtJHjEbr7Ge5436VtuOd6EzZEx
-	hdsIF06TYHKrRHmYEeENMgQ5IQAS3AGBoqHjYDFMWM/8s2qUPzdM+SSNL5IoOmP8RO0k4DCpiwf
-	YZqgsAWYMOU4bbr+SPRmnY1AAi9SVd49TktrfeFhn7iqhOjDAfMXouCjaTnBIW8FQ56L35FCrmB
-	hVVy4sAW2jownNWXQ8v8wB5WZgUkNcsCzhKfrLdTrKcKGDQbzFdFAbHW1Roh1wAdD8Z+nbKjaJP
-	U5n3qSngjKS2xI9jEVwgCVB9xekZeDJsW8sxX+ckOqaylBnwlHgvEy2k9JfV58WW5RnT7XiSi4r
-	4IqrzKxzfJkH+sZWFo+Pu+5ZL18w1aHsbljCcxsrO5UmnKfhylS6Z7YYPB1S0tZXP0RnjhD3SPc
-	jFJ08C1+vCvKmGwWerFpeVOnPfLDgw/Nlz/goxNZM8DMh1TFiSWDfdhyWi07DFIsGHK6kMxVrMR
-	W5p2xduXoHxRKrVA6/XsC/Sh2Whs81kS+cVnmI=
-X-Received: by 2002:a05:600c:5490:b0:49c:cf18:494e with SMTP id 5b1f17b1804b1-49ccf18498emr290412295e9.12.1788210089521;
-        Mon, 31 Aug 2026 14:01:29 -0700 (PDT)
-Received: from [192.168.1.3] (p5b057bfe.dip0.t-ipconnect.de. [91.5.123.254])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49c5a903eebsm196381175e9.4.2026.08.31.14.01.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 14:01:29 -0700 (PDT)
-Message-ID: <22743da4-c97a-4e89-a43a-31ef43bd576f@googlemail.com>
-Date: Mon, 31 Aug 2026 23:01:28 +0200
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="KpCsKEMW"
+Message-ID: <18d7ea80efbb5dd3d81acbae926da4e027ebfed9.camel@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1788210333;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bUi1GFbDfxHMrgMJ75S0sKhIIA+8X13umM6ht8uiEAo=;
+	b=KpCsKEMWHQaESCyKo8WeezcHXpxaPCT3jqFBqT+BHCCxUVfkYXALOKo2a+3tpogzzvsKCP
+	W9oUxLXB0C5+pBg87BLMmPTljPYbVYBRYIvjK/Sy3t4hsQdBXR4VrXwW0q9HLW+3YxukIs
+	u5Nl5sbSxXD4oOKQK7ugTOkH5lJOTPY=
+Subject: Re: [PATCH v2] sparc64: increase kernel thread stack size to 32K
+From: Stian Halseth <stian@itx.no>
+To: Tony Rodriguez <unixpro1970@gmail.com>, andreas@gaisler.com, 
+	davem@davemloft.net, sparclinux@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, david.laight.linux@gmail.com, 
+ glaubitz@physik.fu-berlin.de, thuth@redhat.com,
+ regressions@lists.linux.dev,  nroach44@nroach44.id.au
+Date: Mon, 31 Aug 2026 23:05:33 +0200
+In-Reply-To: <b46209d5-e518-4289-9b3a-5854a2512278@gmail.com>
+References: <20260519075809.8993-1-unixpro1970@gmail.com>
+	 <20260831172928.3082853-1-stian@itx.no>
+	 <afaa8ced-0717-4d62-8ea6-4ecdbf489694@gmail.com>
+	 <680606d594645568c21afcc552558882c4f59a96.camel@itx.no>
+	 <b46209d5-e518-4289-9b3a-5854a2512278@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.6 00/91] 6.6.156-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260831133359.468089036@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-Am 31.08.2026 um 15:33 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.6.156 release.
-> There are 91 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Hi Tony,
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
+On Mon, 2026-08-31 at 13:18 -0700, Tony Rodriguez wrote:
+> Hi Stian,
+>=20
+> Just please continue to give me a=20
+> mention in any patches related to this work, since I spent a=20
+> considerable amount of time debugging, researching, and validating
+> the fixes.
+Sure. For now, no real changes have been made to your patches, so as
+far as I'm concerned, this is entirely your work.=C2=A0
+Will try help with the last mile, alongside some other patches I've
+submitted.
+And yes, the debugging, researching and validation is the hard part.=C2=A0
+Writing a fix is often _relatively_ easy, when you have all the facts.
+>=20
+> When I last tested on 7.0 and 7.1, both of my patches worked:
+>=20
+> A)=C2=A0 =C2=A0 sparc64: increase kernel thread stack size to 32K
+>=20
+> B)=C2=A0 =C2=A0 sparc64: Fix comparator problem with timer interrupts
+>=20
+> I was able to debug and validate these issues on S7=E2=80=912 and T7=E2=
+=80=911
+> hardware.=20
+Yes, and that's a very important data point. My analyzis is based on
+the change itself, _and_ your validation/testing.=20
+> I=E2=80=99m not sure if others have reported similar problems on T4 or T5
+> systems.
+Not that I'm aware of, and I haven't seen it on my T4-1.
+>=20
+> If you have a quicker or better methodology for reviewing stack
+> usage=E2=80=94or=20
+> any general suggestions=E2=80=94I=E2=80=99m definitely open to seeing the=
+m, along
+> with=20
+> your config and exact procedure. And if you need help validating
+> against=20
+> S7=E2=80=912 and T7=E2=80=911 hardware, I can try to allocate some time t=
+o assist.
+I think that would be very helpful. Let's try to settle the 32K-vs-64K
+question with more data.=20
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+The kernel has stack measurement built in.
 
+The in-kernel method:
+  CONFIG_STACK_TRACER=3Dy
+  CONFIG_DEBUG_STACK_USAGE=3Dy
+  CONFIG_SCHED_STACK_END_CHECK=3Dy
 
-Beste Grüße,
-Peter Schneider
+Boot with "stacktrace" on the kernel command line (arms the tracer
+before built-in drivers probe). Then:
 
--- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+  cat /sys/kernel/tracing/stack_max_size   # worst case seen, bytes
+  cat /sys/kernel/tracing/stack_trace      # that path, frame by frame
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+Reset with "echo 0 > stack_max_size" before a workload to isolate it.
+
+For the 32K-vs-64K question, the most valuable data you could gather
+is a stack_trace snapshot on the S7-2/T7-1 under your real workload
+with mlx5 active, on a 32K kernel.=C2=A0
+
+On our T4-1 the worst case is 12616 bytes, but doesn't have mlx5.=C2=A0If
+your machines stay well under 32K, we have comfortable margin. But if
+something approaches the limit, the trace will name the exact frames,
+and we can judge whether the right answer is 64K or a targeted fix in
+that driver.
+>=20
+
+Thanks!
+
+--=20
+Best regards
+Stian Halseth
+
