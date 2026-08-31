@@ -1,49 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB1749364E;
-	Mon, 31 Aug 2026 13:38:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E1B490BEE;
+	Mon, 31 Aug 2026 13:38:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183517; cv=none; b=slrazVZ2xcZ+4uzB7f2OcIyV3drxFvvWWshPX8eL7TJ+rKVyBWCNOstmWvLn/p9trTChUASHfNL0NFjb/q1UwdJX54kJJQ7uWh+nV3STW2h3EvrWQCZ9iTnxiadZk6bYWxK84Ha68o3asApvXkQjRNlTaF+iE5ki1/BUVI1iGbs=
+	t=1788183519; cv=none; b=hImEopt8oaFoRzSRe0Cqafszh2P0RiZ1LVsjlx4PfZrqSQCjc1LnqBRWQvlBhc7B8f13YiKY7p61P+wtH5blUEINQN4xjfteb6jlcFnB4VZn3CIO8ScmNsbrNJKBfGiu653ECo/v7wEPQNFRsfIOVZbsNOf1im7gf4sKOYkeKP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183517; c=relaxed/simple;
-	bh=X0S9VJPYgomhuh6NDT9ui5Te4gjngORA+t8bRFTWkhw=;
+	s=arc-20240116; t=1788183519; c=relaxed/simple;
+	bh=PQl+2EVsvgICC18dXT3Bn6fY9nFx9i22nzg72qQDowU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dR3nyLZsAcOt8Zy1FiRHbGnh91a9eJmB+p+cMGa6QtL5NDYcYco8N2BaTpV9uAKZ4iUEyAdbiUl44HPtfNiPeg5nKs8uZsgz4q0oK0gi2OsT6k9Lt6mkPRc1WJMRdCrJ2mUJGBbNBIDdURWZ4U2BjCM8bsPrUtxAcMOYujND2Dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QEUm8Hw2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=VrcUIoh/yetgaelxmFoPBuwdiuyKUNrwvY3BBn91gBmNXnIMbcnepQ0lex4yq8arjE9Tum5vop98rd90eILVEELqn4XSjBIvmQIOv43725uyqiIp4z6ld+Mrj/QUFxWYZg0XRb/OQvOKnnBdWOlt63ybch7Zj/KWkoQgo6YuMd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L6tTd4ry; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QEUm8Hw2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BDA11F00A3E;
-	Mon, 31 Aug 2026 13:38:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L6tTd4ry"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30D731F00A3F;
+	Mon, 31 Aug 2026 13:38:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183514;
-	bh=5W1QbP1606Aoj/2vjYKdbhDUtcNQ3Przr2ELO5Ow46Y=;
+	s=k20260515; t=1788183516;
+	bh=8OCzv8gHHMhGPGUdxg7OrV/lIV9NbIlPcC62zD6xPjI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QEUm8Hw2RgZ0LWOaCB4W2M2oz1pjNOQi+ClBTejq/wu9dNhhEF+pvCs45aApTTGyN
-	 gjSr0Jwh57yZO+WrrHrBQDwMPX3eIdvdpOAlFHcXItKje5URvqW77UQc4+n/nmeNLC
-	 RTM/NwV6+0QjlHHmyPOaY+L4vJuKf/SZy2VnFXNvT2GJXFN3tpGlsPRZeRJXOuBRUt
-	 A5Di5JyVk2RWnH0yMLlC8DaFYvNKy/2XIE7j8XIrgYt1kKHpRjsk4s6+YHY4rGW5d2
-	 lCLCSFyy/7c3PL+gZMdgMk36PwL3LK2M9LhfdknJwHcJz8/MNvT629gep8Bsg6V3bG
-	 uTT6+C/5xII3Q==
+	b=L6tTd4rysqk0kSXJZvp0n/2DyCykRL/Z7s37FZK0Iexa0vHrbtV16+rEPiNZ05I52
+	 ZcAR8C7yTg7ndefI24GQsBWXyxt3pxR7leAD7Sdh/G/AyJIA3GUYYpS987zzXcAQhi
+	 4di6ByZgGeLOT6Dg3iv/PSSKa2cprw6ei9fs8PwneCFZTbjs6VZhcZKq9PQ02w5kW2
+	 iqXYg/XO1d7AK6ze1oE5SvfAEnqyhq2b8u8zXTcSLFZNPWeez1SHmn0odi6SevnUwm
+	 Zg0kh80zZjXZ5zGpHdX1mjIoi2yq9VuFMVWDK7Hqh5UGQHPoWeJs6rUOXyHiX9dSgN
+	 QdHZ4yECbHcyA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	David Carlier <devnexen@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Yousef Alhouseen <alhouseenyousef@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	horatiu.vultur@microchip.com,
-	UNGLinuxDriver@microchip.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
+	lgirdwood@gmail.com,
+	peter.ujfalusi@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	daniel.baluta@nxp.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	sound-open-firmware@alsa-project.org,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] net: lan966x: restore RX state on reload failure
-Date: Mon, 31 Aug 2026 09:22:50 -0400
-Message-ID: <20260831133314.4125787-142-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] ASoC: SOF: validate probe info element counts
+Date: Mon, 31 Aug 2026 09:22:51 -0400
+Message-ID: <20260831133314.4125787-143-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -59,38 +59,25 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
 
-[ Upstream commit aa97f11a76e545ed73cc455bcdd1ece4b480b507 ]
+[ Upstream commit 95edf2dbb492f3ea2420111e9c0044c7dec9113c ]
 
-lan966x_fdma_reload() backs up rx->page_pool and rx->fdma before
-reallocating the RX resources for the new MTU. If the allocation fails,
-the restore path puts these fields back before restarting RX.
+Probe information replies contain a firmware-provided element count. IPC3
+uses that count to copy an array, then returns the unchecked count to its
+caller. A short reply can therefore make the caller walk beyond the copied
+array.
 
-However, the reload path also updates rx->page_order and rx->max_mtu
-before calling lan966x_fdma_rx_alloc(). These fields are not restored on
-failure, so RX can be restarted with the old pages, old FDMA state and
-old page pool, but with the page geometry from the failed new MTU.
+IPC4 similarly uses the count both to allocate the destination array and
+to walk the reply. On 32-bit systems the allocation size can wrap, while on
+all systems an excessive count reads beyond the reply payload.
 
-This can make the XDP path advertise a frame size derived from the new
-page_order while the actual RX pages still come from the old allocation.
-For example, after a failed reload to a jumbo MTU, xdp_init_buff() may be
-called with a frame size larger than the restored RX pages.
+Validate each count against the actual reply size before copying or
+allocating the array, and use kcalloc() for the IPC4 allocation.
 
-lan966x_fdma_rx_alloc_page_pool() also registers the newly allocated page
-pool with each port's XDP RXQ before fdma_alloc_coherent() is called. If
-fdma_alloc_coherent() fails, the new page pool is destroyed, but the
-rollback path does not restore the per-port XDP RXQ mem model
-registration either.
-
-Save and restore rx->page_order and rx->max_mtu, and restore the old page
-pool registration for each port's XDP RXQ before RX is started again.
-This keeps the restored RX state consistent after a failed reload.
-
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Reviewed-by: David Carlier <devnexen@gmail.com>
-Link: https://patch.msgid.link/20260607145747.1494514-1-lgs201920130244@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Link: https://patch.msgid.link/20260628000329.18606-1-alhouseenyousef@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
@@ -98,415 +85,398 @@ LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit Message Forensics
 
-**Step 1.1 — Subject line**
+### Step 1.1: Subject Line
+**Record:** `[ASoC: SOF]` `[validate]` — Validate firmware-provided
+probe info element counts before use in IPC3/IPC4 probe handlers.
 
-Record: `[net: lan966x] [restore] RX state on reload failure` —
-Microchip LAN966x Ethernet driver; restores incomplete RX state on
-failed buffer reload.
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Yousef Alhouseen `<alhouseenyousef@gmail.com>`
+  (author)
+- **Link:** `https://patch.msgid.link/20260628000329.18606-1-
+  alhouseenyousef@gmail.com`
+- **Signed-off-by:** Mark Brown `<broonie@kernel.org>` (ASoC maintainer)
+- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, `Tested-
+  by:`, or `Reviewed-by:` tags
+- Notable: maintainer sign-off; no fuzzer/user bug report in message
 
-**Step 1.2 — Tags**
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug:** Probe info IPC replies include a firmware-provided
+  `num_elems`. IPC3 uses it for `kmemdup()` and returns it to callers;
+  IPC4 uses it for allocation and iteration. Neither path validates the
+  count against the actual reply size.
+- **Symptoms:** Short/malformed replies can cause out-of-bounds reads
+  during copy/iteration; on 32-bit IPC4 paths, `num_elems *
+  sizeof(desc)` can wrap in `kzalloc()`.
+- **Root cause:** Missing bounds check on untrusted firmware IPC payload
+  fields.
+- **Version info:** None stated in the commit message.
 
-Record:
-- **Signed-off-by:** Guangshuo Li `<lgs201920130244@gmail.com>` (author)
-- **Reviewed-by:** David Carlier `<devnexen@gmail.com>` (reviewed
-  related lan966x stable fixes in this tree)
-- **Link:** https://patch.msgid.link/20260607145747.1494514-1-
-  lgs201920130244@gmail.com
-- **Signed-off-by:** Jakub Kicinski `<kuba@kernel.org>` (netdev
-  maintainer)
-- No Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org
-  (absence expected per review pipeline)
-
-**Step 1.3 — Body analysis**
-
-Record:
-- **Bug:** `lan966x_fdma_reload()` updates `rx->page_order` and
-  `rx->max_mtu` before allocation, but the failure restore path only
-  restores `page_pool` and `fdma`.
-- **Symptom:** RX restarts with old pages/pool/FDMA but new page
-  geometry metadata.
-- **XDP impact:** `xdp_init_buff()` may use a frame size (`PAGE_SIZE <<
-  page_order`) larger than the restored RX pages → out-of-bounds access.
-- **Second bug:** `lan966x_fdma_rx_alloc_page_pool()` registers a new
-  page pool with each port's XDP RXQ before `fdma_alloc_coherent()`. On
-  coherent alloc failure, the new pool is destroyed but XDP RXQ still
-  references it.
-- **Root cause:** Incomplete rollback of all fields modified during
-  reload.
-- **Version info:** None in message.
-
-**Step 1.4 — Hidden bug fix?**
-
-Record: Yes. Despite "restore" wording, this fixes real memory-safety
-bugs: XDP buffer size mismatch (OOB) and stale XDP page-pool
-registration (UAF).
+### Step 1.4: Hidden Bug Fix?
+**Record:** Yes. Although the subject says "validate" rather than "fix",
+this is a memory-safety bug fix: unchecked firmware metadata can cause
+OOB access and allocation-size wrap.
 
 ---
 
 ## Phase 2: Diff Analysis
 
-**Step 2.1 — Inventory**
+### Step 2.1: Inventory
+**Record:**
+- `sound/soc/sof/sof-client-probes-ipc3.c`: +19 / -4 lines
+- `sound/soc/sof/sof-client-probes-ipc4.c`: +11 / -1 lines
+- **Functions modified:** `ipc3_probes_info()`,
+  `ipc4_probes_points_info()`
+- **Scope:** Small, two-file, subsystem-local surgical fix
 
-Record:
-- **File:** `drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c` (+20
-  lines, 0 removed)
-- **Function:** `lan966x_fdma_reload()`
-- **Scope:** Single-file, surgical error-path fix
+### Step 2.2: Code Flow Changes
 
-**Step 2.2 — Code flow per hunk**
+**IPC3 (`ipc3_probes_info`):**
+- **Before:** After IPC success, used `reply->num_elems` directly to
+  compute `bytes *= num_elems`, `kmemdup()`, and `*num_params`.
+- **After:** Reads `payload_size = reply->rhdr.hdr.size`, rejects
+  undersized payloads, computes `elem_size`, validates `num_elems <=
+  payload_size / elem_size`, then copies/returns count.
 
-Record:
-- **Hunk 1 (backup):** Before reload, save `page_order` and `max_mtu`
-  alongside existing `page_pool`/`fdma` backups.
-  - Before: only `page_pool` and `fdma` saved.
-  - After: all four fields saved.
-- **Hunk 2 (restore):** On `lan966x_fdma_rx_alloc()` failure:
-  - Before: restore `page_pool` + `fdma`, restart RX.
-  - After: also restore `page_order` + `max_mtu`, re-register old page
-    pool with each port's XDP RXQ via `xdp_rxq_info_unreg_mem_model()` /
-    `xdp_rxq_info_reg_mem_model()`, then restart RX.
+**IPC4 (`ipc4_probes_points_info`):**
+- **Before:** Used `info->num_elems` directly for `kzalloc(*num_desc *
+  sizeof(**desc))` and loop bound.
+- **After:** Validates `info->num_elems` against `msg.data_size`,
+  switches to `kcalloc()`, rejects invalid counts.
 
-**Step 2.3 — Bug mechanism**
+### Step 2.3: Bug Mechanism
+**Record:** **Memory safety / bounds validation bug**
+- **IPC3:** Unchecked `num_elems` can make `bytes = elem_size *
+  num_elems` exceed actual reply payload; `kmemdup()` reads past valid
+  IPC data. If multiplication wraps, a small allocation can be paired
+  with a large returned count, and callers iterate past the allocation.
+- **IPC4:** Unchecked `num_elems` allows loop reads past `msg.data_ptr`
+  bounds; `kzalloc(n * size)` can wrap on 32-bit systems.
 
-Record:
-- **Category:** Memory safety / state consistency on error path.
-- **Mechanism 1:** Metadata mismatch — `page_order`/`max_mtu` reflect
-  failed (larger) MTU while hardware uses old (smaller) pages. XDP path
-  reads `page_order` directly in `lan966x_xdp_run()`.
-- **Mechanism 2:** Reference counting / UAF — XDP RXQ mem model points
-  to destroyed page pool after partial alloc failure.
-
-**Step 2.4 — Fix quality**
-
-Record:
-- Fix is minimal and mirrors existing backup/restore pattern.
-- Low regression risk: only runs on allocation failure, restores
-  previously valid state.
-- No API or behavioral changes on success path.
+### Step 2.4: Fix Quality
+**Record:** Fix is obviously correct and minimal. It mirrors the
+existing SOF pattern in `debug.c` (`struct_size(reply, elems,
+reply->num_elems) != reply->rhdr.hdr.size`). Regression risk is very
+low: only rejects malformed firmware replies.
 
 ---
 
 ## Phase 3: Git History Investigation
 
-**Step 3.1 — Blame**
+### Step 3.1: Blame
+**Record:** Buggy lines in both files trace to commit `5d324e5159d9e` in
+this shallow checkout. The vulnerable logic is present in the current
+tree at `sof-client-probes-ipc3.c:131-144` and `sof-client-probes-
+ipc4.c:251-264`.
 
-Record:
-- `lan966x_fdma_reload()` core logic from Horatiu Vultur (2022-04-08,
-  commit `2ea1cbac267e2a`).
-- `page_order`/`max_mtu` updates in reload from 2022 (`2ea1cbac`,
-  `11871aba`).
-- Recent UAF fix `92a6730199437` (David Carlier, Apr 2026) reworked
-  restore path but did not restore `page_order`/`max_mtu`.
-- Bug in reload restore has existed since 2022; XDP mem-model issue
-  since `77ddda44411c3` (Nov 2022).
+### Step 3.2: Fixes Tag
+**Record:** N/A — no `Fixes:` tag in the commit message.
 
-**Step 3.2 — Fixes: tag**
+### Step 3.3: Related File History
+**Record:** Repository is shallow (`git rev-parse --is-shallow-
+repository` → `true`), limiting history depth. The probe client files
+exist in this 6.18.44 tree. No duplicate fix found (`grep "invalid probe
+info element count"` → no matches).
 
-Record: No Fixes: tag. N/A.
+### Step 3.4: Author History
+**Record:** No prior SOF commits from Yousef Alhouseen found in this
+tree. Mark Brown is ASoC maintainer (sign-off).
 
-**Step 3.3 — Related file history**
-
-Record:
-- `92a6730199437` — fix UAF/leak in `lan966x_fdma_reload()` — **already
-  in 6.18.44**
-- `22e1ee9f22b5c` — page pool leak in error paths — **in tree**
-- `b5dcb41ba891b` — page_pool IS_ERR check — **in tree**
-- `89ba464fcf548` — refactor buffer reload — **in tree**
-- This commit is a follow-up completing the restore path after the UAF
-  fix.
-
-**Step 3.4 — Author context**
-
-Record: Guangshuo Li is a contributor; David Carlier (reviewer) authored
-the three Apr 2026 lan966x stable fixes already in this tree.
-
-**Step 3.5 — Dependencies**
-
-Record: Standalone. Requires `xdp_rxq_info_reg_mem_model()` (from
-`77ddda44411c3`, in tree) and post-UAF reload structure (from
-`92a6730199437`, in tree). No series dependencies.
+### Step 3.5: Dependencies
+**Record:** Standalone fix. Uses only existing headers (`offsetof`,
+`kcalloc`). No series dependency indicated. The commit is not yet
+present in this checkout.
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
-**Step 4.1 — Original discussion**
+### Step 4.1: Original Discussion
+**Record:** UNVERIFIED — `b4 dig` could not match the commit (not in
+local repo). WebFetch to patch.msgid.link and lore.kernel.org returned
+bot-protection pages (403/JS challenge). Could not read review thread.
 
-Record:
-- **URL:** https://patch.msgid.link/20260607145747.1494514-1-
-  lgs201920130244@gmail.com
-- **Series:** v2 only (b4 dig -a)
-- **Review:** David Carlier ACK'd code, provided Reviewed-by. No NAKs.
-- **Stable nomination:** None in thread.
+### Step 4.2: Reviewers
+**Record:** UNVERIFIED — `b4 dig -w` unavailable for this commit.
 
-**Step 4.2 — Reviewers**
+### Step 4.3: Bug Report
+**Record:** No `Reported-by:` or syzbot link. Issue identified by code
+inspection of firmware IPC parsing.
 
-Record: CC'd netdev/bpf maintainers (Kicinski, Abeni, Miller, Dumazet,
-Starovoitov, Borkmann, Brouer). David Carlier reviewed.
+### Step 4.4: Related Patches
+**Record:** UNVERIFIED — could not retrieve series revisions from lore.
 
-**Step 4.3 — Bug report**
-
-Record: No external bug report or syzbot link. Bug identified via code
-analysis of incomplete restore.
-
-**Step 4.4 — Related patches**
-
-Record: Follow-up to David Carlier's Apr 2026 lan966x reload fixes
-already backported to 6.18.y.
-
-**Step 4.5 — Stable list**
-
-Record: Not searched separately; no stable discussion found in patch
-thread.
+### Step 4.5: Stable List History
+**Record:** UNVERIFIED — lore stable search inaccessible.
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
-**Step 5.1 — Key functions**
+### Step 5.1: Key Functions
+**Record:** `ipc3_probes_info()`, `ipc3_probes_points_info()` (wrapper),
+`ipc4_probes_points_info()`
 
-Record: `lan966x_fdma_reload()`, `lan966x_fdma_rx_alloc()`,
-`lan966x_fdma_rx_alloc_page_pool()`, `lan966x_xdp_run()`.
+### Step 5.2: Callers
+**Record:**
+- `sof_probes_compr_shutdown()` in `sof-client-probes.c:78` —
+  compressed-stream shutdown path
+- `sof_probes_dfs_points_read()` in `sof-client-probes.c:227` — debugfs
+  read path (root-accessible)
 
-**Step 5.2 — Callers**
+Both invoke `ipc->points_info()` from the IPC ops table.
 
-Record:
-- `lan966x_fdma_reload()` ← `__lan966x_fdma_reload()` ←
-  `lan966x_fdma_change_mtu()` / `lan966x_fdma_reload_page_pool()`
-- `lan966x_fdma_change_mtu()` ← `lan966x_port_change_mtu()`
-  (`.ndo_change_mtu`)
-- `lan966x_fdma_reload_page_pool()` ← `lan966x_xdp_setup()` (XDP program
-  attach/detach)
-- `lan966x_xdp_run()` ← RX NAPI poll path when XDP program present
+### Step 5.3: Callees
+**Record:** `sof_client_ipc_tx_message()`,
+`sof_client_ipc_set_get_data()`, `kmemdup()`, `kzalloc()`/`kcalloc()`,
+`sof_client_get_ipc_max_payload_size()`
 
-**Step 5.3 — Callees**
+### Step 5.4: Reachability
+**Record:**
+- Trigger requires `CONFIG_SND_SOC_SOF_DEBUG_PROBES`, auto-selected on
+  Intel HDA (`SND_SOC_SOF_HDA_PROBES`) and AMD ACP
+  (`SND_SOC_SOF_ACP_PROBES`) SOF platforms.
+- Malformed `num_elems` must come from SOF firmware IPC replies during
+  probe point enumeration.
+- Not a direct unprivileged syscall path, but reachable during normal
+  audio probe shutdown and root debugfs use when probes are active.
+- Precedent: `sound/soc/sof/debug.c:227-231` already validates similar
+  IPC `num_elems` against `rhdr.hdr.size`.
 
-Record: `lan966x_fdma_rx_alloc()` → `lan966x_fdma_rx_alloc_page_pool()`
-→ `page_pool_create()`, `xdp_rxq_info_reg_mem_model()`; then
-`fdma_alloc_coherent()`. On failure, `page_pool_destroy()`.
-
-**Step 5.4 — Reachability**
-
-Record:
-- Triggered by MTU change (`ip link set mtu`) or XDP program
-  load/unload.
-- Requires `CAP_NET_ADMIN`.
-- Failure path needs allocation failure (typically ENOMEM under memory
-  pressure during jumbo MTU or XDP reload).
-- XDP OOB requires XDP program loaded (`CONFIG_LAN966X` + BPF/XDP).
-
-**Step 5.5 — Similar patterns**
-
-Record: Same incomplete-restore pattern partially fixed by
-`92a6730199437` (pages/fdma/pool). This commit completes it for metadata
-and XDP registration.
+### Step 5.5: Similar Patterns
+**Record:** `debug.c` already validates IPC element counts; probes code
+was missing equivalent checks. `ipc3-control.c` uses overflow checks for
+control data sizes.
 
 ---
 
 ## Phase 6: Cross-Reference Against Local Tree
 
-**Step 6.1 — Buggy code present?**
+### Step 6.1: Buggy Code Present?
+**Record:** **Yes.** Local tree is **v6.18.44** (`6.18.44`). Vulnerable
+code is present; fix is **not** applied. Confirmed by reading current
+sources and absent error string `invalid probe info element count`.
 
-Record: **Yes.** Local tree is **v6.18.44**. Current
-`lan966x_fdma_reload()` restore path (lines 856–865) lacks
-`page_order`/`max_mtu` restore and XDP mem-model re-registration. Commit
-`aa97f11a76e54` is on `master` but **not** an ancestor of HEAD.
+### Step 6.2: Backport Complications
+**Record:** Expected **clean apply** — current file contents match the
+patch base context exactly.
 
-**Step 6.2 — Backport complications**
-
-Record: `git apply --check` passes cleanly against current tree. No
-conflicts expected.
-
-**Step 6.3 — Related fixes already present?**
-
-Record: UAF fix `92a6730199437` is present; this complementary fix is
-not. No duplicate fix found.
+### Step 6.3: Related Fixes Already Present?
+**Record:** No equivalent validation found in probe IPC files. `debug.c`
+has similar validation for a different IPC path only.
 
 ---
 
 ## Phase 7: Subsystem and Maintainer Context
 
-**Step 7.1 — Subsystem**
+### Step 7.1: Subsystem
+**Record:** `sound/soc/sof` — ASoC / SOF audio driver. **Criticality:
+IMPORTANT** (not core kernel, but widely used on Intel/AMD
+laptop/desktop SOF platforms).
 
-Record: `drivers/net/ethernet/microchip/lan966x/` — network driver
-(IMPORTANT, driver-specific).
-
-**Step 7.2 — Activity**
-
-Record: Active; three lan966x stable fixes landed in Apr 2026, plus
-additional fixes in this tree.
+### Step 7.2: Activity
+**Record:** SOF client probe support is active in this tree (`sof-
+client-probes*.c` present, Makefile builds with
+`CONFIG_SND_SOC_SOF_DEBUG_PROBES`).
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
-**Step 8.1 — Who is affected**
+### Step 8.1: Who Is Affected
+**Record:** Users on SOF platforms with probes enabled (Intel HDA SOF,
+AMD ACP). Config-specific, not universal.
 
-Record: LAN966x switch users with FDMA enabled; XDP users for the
-primary severity path; embedded/industrial networking deployments.
+### Step 8.2: Trigger Conditions
+**Record:** SOF firmware returns probe info with `num_elems`
+inconsistent with reply size. Requires probes feature active and a
+probe-info IPC exchange. Most likely with buggy firmware; defense-in-
+depth against compromised firmware is also relevant. Root can trigger
+via debugfs when extractor is running.
 
-**Step 8.2 — Trigger conditions**
+### Step 8.3: Failure Mode Severity
+**Record:**
+- **IPC3:** OOB read in `kmemdup()`; potential `size_t` multiply wrap
+  leading to small allocation + large iteration count
+- **IPC4:** OOB read in `info->points[i]` loop; `kzalloc()` size wrap on
+  32-bit
+- **Severity: HIGH** (kernel memory safety; possible oops/KASAN fault)
 
-Record:
-- Admin-initiated MTU increase (especially jumbo) or XDP program change.
-- Allocation must fail mid-reload.
-- Unprivileged users cannot trigger directly; requires `CAP_NET_ADMIN`.
-
-**Step 8.3 — Failure mode severity**
-
-Record:
-- **XDP page_order mismatch:** `xdp_init_buff()` with oversized frame vs
-  actual page → **HIGH** (OOB / memory corruption).
-- **Stale XDP page pool:** use-after-free when XDP processes packets →
-  **HIGH**.
-- Non-XDP skb path uses restored `fdma->db_size`, so less directly
-  affected.
-
-**Step 8.4 — Risk-benefit**
-
-Record:
-- **Benefit:** Prevents memory corruption and UAF on a real error-
-  recovery path; completes fix started by already-backported
-  `92a6730199437`.
-- **Risk:** Very low — 20 lines, error-path only, mirrors existing
-  restore logic.
-- **Ratio:** Strong benefit, minimal risk.
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** Prevents kernel memory corruption/crash on malformed
+  firmware IPC in an existing code path
+- **Risk:** Very low — only rejects invalid replies; follows established
+  SOF validation pattern
+- **Ratio:** Strong benefit, minimal risk
 
 ---
 
 ## Phase 9: Final Synthesis
 
-**Step 9.1 — Evidence summary**
+### Step 9.1: Evidence Summary
 
-**FOR:**
-- Fixes real bugs (OOB in XDP, UAF from stale page pool registration).
-- Small, surgical, applies cleanly.
-- Reviewed by David Carlier (author of related stable fixes in this
-  tree).
-- Prerequisites present; buggy code confirmed in v6.18.44.
-- Complements already-backported `92a6730199437`.
+**FOR backport:**
+- Real memory-safety bug (OOB read, allocation-size wrap)
+- Small, surgical, obviously correct fix
+- Buggy code exists in this 6.18.44 tree; fix not yet present
+- Matches existing validation in `debug.c`
+- Maintainer-reviewed (Mark Brown)
+- Callers iterate using returned count after undersized allocation/copy
 
-**AGAINST:**
-- Driver-specific (LAN966x only).
-- Requires allocation failure + admin action to trigger.
-- No syzbot/user crash report.
-- XDP path needed for worst-case OOB scenario.
+**AGAINST backport:**
+- Config-limited (`CONFIG_SND_SOC_SOF_DEBUG_PROBES`)
+- Trigger requires malformed SOF firmware IPC, not direct userspace
+  input
+- No syzbot/user report in commit message
+- Mailing list review details unavailable
 
-**Unresolved:** No runtime crash report; severity inferred from code
-analysis (credible given direct `page_order` use in
-`lan966x_xdp_run()`).
+**Unresolved:**
+- Full lore review thread and any explicit stable nominations (web
+  access blocked)
 
-**Step 9.2 — Stable rules checklist**
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — logic is straightforward;
+   maintainer sign-off; pattern proven elsewhere in SOF
+2. Fixes a real bug affecting users? **PASS** — malformed firmware IPC
+   can crash/affect SOF probe users
+3. Important issue? **PASS** — HIGH severity memory safety
+4. Small and contained? **PASS** — ~30 lines, 2 files
+5. No new features or APIs? **PASS** — validation only
+6. Can apply to local tree? **PASS** — code exists; patch context
+   matches
 
-1. Obviously correct and tested? **PASS** — straightforward
-   save/restore; Reviewed-by from subsystem contributor.
-2. Fixes real bug? **PASS** — incomplete error-path rollback.
-3. Important issue? **PASS** — memory corruption / UAF (HIGH severity
-   for XDP users).
-4. Small and contained? **PASS** — 20 lines, one file.
-5. No new features/APIs? **PASS** — error-path state restoration only.
-6. Can apply to local tree? **PASS** — clean apply, all prerequisites
-   present.
+### Step 9.3: Exception Categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Standard
+bug-fix exception applies.
 
-**Step 9.3 — Exception categories**
+### Step 9.4: Decision Rationale
 
-Record: None (not device ID, quirk, DT, build, or docs). Standard bug
-fix.
-
-**Step 9.4 — Decision rationale**
-
-This commit completes the error-recovery path in `lan966x_fdma_reload()`
-for the 6.18.44 tree. After the already-backported UAF fix deferred page
-freeing on failure, the remaining gap — unreverted
-`page_order`/`max_mtu` and stale XDP page-pool registration — leaves RX
-running in an inconsistent state that can cause XDP buffer overflows and
-use-after-free. The fix is minimal, well-reviewed, and directly
-applicable.
+For **this** tree (6.18.44), the vulnerable probe IPC parsing code is
+present and lacks bounds checking on firmware-provided element counts.
+The fix is minimal, follows an established SOF pattern, and closes a
+real kernel memory-safety hole that can be triggered when SOF probes are
+in use and firmware returns inconsistent IPC data. While the feature is
+config-specific and firmware-mediated, stable trees routinely take such
+IPC validation fixes because the failure mode is kernel OOB access, not
+a benign error return.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit `aa97f11a76e54` message and tags via `git
-  show`
-- [Phase 2] Diff analysis: +20 lines in `lan966x_fdma_reload()` restore
-  path
-- [Phase 3] `git blame -L 814,866`: reload from 2022, UAF fix
-  `92a6730199437` in Apr 2026
-- [Phase 3] `git log --oneline -20 -- lan966x_fdma.c`: related stable
-  fixes present
-- [Phase 3] `git merge-base --is-ancestor`: `89ba464fcf548`,
-  `92a6730199437`, `77ddda44411c3` all in tree; `aa97f11a76e54` not in
-  tree
-- [Phase 4] `b4 dig -c aa97f11a76e54`: lore URL found
-- [Phase 4] `b4 dig -a`: v2 only
-- [Phase 4] `b4 dig -w`: netdev/bpf maintainers CC'd
-- [Phase 4] `/tmp/lan966x_restore.mbx`: David Carlier Reviewed-by, ACK
-  on code
-- [Phase 5] `grep lan966x_xdp_run`: called from RX poll path line 422
-- [Phase 5] Read `lan966x_xdp.c:82`: `xdp_init_buff()` uses
-  `lan966x->rx.page_order`
-- [Phase 5] Read `lan966x_fdma.c:75-110`: page pool registered before
-  `fdma_alloc_coherent()`
-- [Phase 5] Read `lan966x_main.c:402-423`: MTU change calls reload
-- [Phase 5] Read `lan966x_xdp.c:30`: XDP setup calls reload
-- [Phase 6] `git describe HEAD`: v6.18.44
-- [Phase 6] Read current restore path lines 856-865: missing fix
-- [Phase 6] `git apply --check`: patch applies cleanly
-- [Phase 8] Failure mode: OOB/UAF on failed reload with XDP — severity
-  HIGH
+- [Phase 1] Parsed subject, tags, body from provided commit message
+- [Phase 1] Confirmed no `Fixes:`, `Reported-by:`, or syzbot references
+- [Phase 2] Read diff hunks for `ipc3_probes_info()` and
+  `ipc4_probes_points_info()`
+- [Phase 2] Classified bug as unchecked firmware `num_elems` → OOB /
+  overflow
+- [Phase 3] `git describe HEAD` → `v6.18.44-1-g2736c32da98b9`; Makefile
+  → 6.18.44
+- [Phase 3] `git blame` on vulnerable lines → `5d324e5159d9e`
+- [Phase 3] `git rev-parse --is-shallow-repository` → `true`
+- [Phase 3] `grep "invalid probe info element count"` → no matches (fix
+  absent)
+- [Phase 4] `b4 dig -c HEAD` on wrong commit; target commit not in repo
+- [Phase 4] WebFetch patch.msgid.link and lore search → blocked by bot
+  protection
+- [Phase 4] curl lore raw → 403 Forbidden
+- [Phase 5] `grep` callers → `sof-client-probes.c:78`, `sof-client-
+  probes.c:227`
+- [Phase 5] Read `debug.c:227-231` — existing `num_elems` vs `hdr.size`
+  validation
+- [Phase 5] Read Kconfig — `SND_SOC_SOF_DEBUG_PROBES` auto-selected by
+  HDA/ACP probe options
+- [Phase 6] Read current `sof-client-probes-ipc3.c:102-148` — vulnerable
+  code confirmed
+- [Phase 6] Read current `sof-client-probes-ipc4.c:207-267` — vulnerable
+  code confirmed
+- [Phase 6] Verified patch context matches current tree contents
+- [Phase 7] Read `sound/soc/sof/Makefile` — probes built under
+  `CONFIG_SND_SOC_SOF_DEBUG_PROBES`
+- [Phase 8] Traced failure modes: OOB read, size wrap, caller over-
+  iteration
+- **UNVERIFIED:** Lore review thread, stable-list discussion, explicit
+  reviewer stable nomination
 
 **YES**
 
- .../ethernet/microchip/lan966x/lan966x_fdma.c | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ sound/soc/sof/sof-client-probes-ipc3.c | 23 +++++++++++++++++++----
+ sound/soc/sof/sof-client-probes-ipc4.c | 11 ++++++++++-
+ 2 files changed, 29 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-index 646f3d65274e3..b13c60438b978 100644
---- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-+++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-@@ -816,6 +816,7 @@ static int lan966x_fdma_reload(struct lan966x *lan966x, int new_mtu)
- 	struct page *(*old_pages)[FDMA_RX_DCB_MAX_DBS];
- 	struct page_pool *page_pool;
- 	struct fdma fdma_rx_old;
-+	int page_order, max_mtu;
- 	int err, i, j;
+diff --git a/sound/soc/sof/sof-client-probes-ipc3.c b/sound/soc/sof/sof-client-probes-ipc3.c
+index a78ec0954a618..a3e382d6161f1 100644
+--- a/sound/soc/sof/sof-client-probes-ipc3.c
++++ b/sound/soc/sof/sof-client-probes-ipc3.c
+@@ -107,7 +107,7 @@ static int ipc3_probes_info(struct sof_client_dev *cdev, unsigned int cmd,
+ 	struct device *dev = &cdev->auxdev.dev;
+ 	struct sof_ipc_probe_info_params msg = {{{0}}};
+ 	struct sof_ipc_probe_info_params *reply;
+-	size_t bytes;
++	size_t bytes, elem_size, payload_size;
+ 	int ret;
  
- 	old_pages = kmemdup(lan966x->rx.page, sizeof(lan966x->rx.page),
-@@ -826,6 +827,8 @@ static int lan966x_fdma_reload(struct lan966x *lan966x, int new_mtu)
- 	/* Store these for later to free them */
- 	memcpy(&fdma_rx_old, &lan966x->rx.fdma, sizeof(struct fdma));
- 	page_pool = lan966x->rx.page_pool;
-+	page_order = lan966x->rx.page_order;
-+	max_mtu = lan966x->rx.max_mtu;
+ 	*params = NULL;
+@@ -128,14 +128,29 @@ static int ipc3_probes_info(struct sof_client_dev *cdev, unsigned int cmd,
+ 	if (ret < 0 || reply->rhdr.error < 0)
+ 		goto exit;
  
- 	napi_synchronize(&lan966x->napi);
- 	napi_disable(&lan966x->napi);
-@@ -855,7 +858,24 @@ static int lan966x_fdma_reload(struct lan966x *lan966x, int new_mtu)
- 	return 0;
- restore:
- 	lan966x->rx.page_pool = page_pool;
-+	lan966x->rx.page_order = page_order;
-+	lan966x->rx.max_mtu = max_mtu;
- 	memcpy(&lan966x->rx.fdma, &fdma_rx_old, sizeof(struct fdma));
-+	/*
-+	 * lan966x_fdma_rx_alloc_page_pool() registered the new pool with
-+	 * each port's XDP RXQ before the allocation failed. The new pool is
-+	 * destroyed by lan966x_fdma_rx_alloc(), so restore the old pool's
-+	 * registration before restarting RX.
-+	 */
-+	for (i = 0; i < lan966x->num_phys_ports; i++) {
-+		if (!lan966x->ports[i])
-+			continue;
-+
-+		xdp_rxq_info_unreg_mem_model(&lan966x->ports[i]->xdp_rxq);
-+		xdp_rxq_info_reg_mem_model(&lan966x->ports[i]->xdp_rxq,
-+					   MEM_TYPE_PAGE_POOL, page_pool);
++	payload_size = reply->rhdr.hdr.size;
++	if (payload_size < offsetof(struct sof_ipc_probe_info_params, dma)) {
++		ret = -EINVAL;
++		goto exit;
 +	}
 +
- 	lan966x_fdma_rx_start(&lan966x->rx);
+ 	if (!reply->num_elems)
+ 		goto exit;
  
- 	lan966x_fdma_wakeup_netdev(lan966x);
+ 	if (cmd == SOF_IPC_PROBE_DMA_INFO)
+-		bytes = sizeof(reply->dma[0]);
++		elem_size = sizeof(reply->dma[0]);
+ 	else
+-		bytes = sizeof(reply->desc[0]);
+-	bytes *= reply->num_elems;
++		elem_size = sizeof(reply->desc[0]);
++
++	payload_size -= offsetof(struct sof_ipc_probe_info_params, dma);
++	if (reply->num_elems > payload_size / elem_size) {
++		dev_err(dev, "%s: invalid probe info element count %u\n",
++			__func__, reply->num_elems);
++		ret = -EINVAL;
++		goto exit;
++	}
++
++	bytes = reply->num_elems * elem_size;
+ 	*params = kmemdup(&reply->dma[0], bytes, GFP_KERNEL);
+ 	if (!*params) {
+ 		ret = -ENOMEM;
+diff --git a/sound/soc/sof/sof-client-probes-ipc4.c b/sound/soc/sof/sof-client-probes-ipc4.c
+index 758a56d271d77..2c2ab85979b83 100644
+--- a/sound/soc/sof/sof-client-probes-ipc4.c
++++ b/sound/soc/sof/sof-client-probes-ipc4.c
+@@ -248,10 +248,19 @@ static int ipc4_probes_points_info(struct sof_client_dev *cdev,
+ 		return ret;
+ 	}
+ 	info = msg.data_ptr;
++	if (msg.data_size < sizeof(*info) ||
++	    info->num_elems > (msg.data_size - sizeof(*info)) /
++			      sizeof(info->points[0])) {
++		dev_err(dev, "%s: invalid probe info element count %u\n",
++			__func__, info->num_elems);
++		kfree(msg.data_ptr);
++		return -EINVAL;
++	}
++
+ 	*num_desc = info->num_elems;
+ 	dev_dbg(dev, "%s: got %zu probe points", __func__, *num_desc);
+ 
+-	*desc = kzalloc(*num_desc * sizeof(**desc), GFP_KERNEL);
++	*desc = kcalloc(*num_desc, sizeof(**desc), GFP_KERNEL);
+ 	if (!*desc) {
+ 		kfree(msg.data_ptr);
+ 		return -ENOMEM;
 -- 
 2.53.0
 
