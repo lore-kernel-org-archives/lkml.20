@@ -1,36 +1,33 @@
-Received: from mta0.migadu.com (out-27.mta0.migadu.com [91.218.175.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F77230E85B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:04:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8CA38B14F
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788145458; cv=none; b=hXCYlPlznPdqyciT5PO13Y+3L32bJifohJZtY8wPVY0htFTCrYNLuImybI+0YbHwxMHBDuwX0AnKAlwAyeiUIv62G6fZXmCz3KRJODOLo21NzL+VM0FX4s0m9zR6jC9XbiuBilhBJ/x/SDq8+VnGRlIGWwBSaJFi8fFJ9pzlIhg=
+	t=1788145506; cv=none; b=RnM2yqslMhrVUIpP1rUjxPdpbyno3sIV1G3Z91CI0FNd2VGInG7KYagY6hKqx8LWEQUSFZhpOujJkSN8r670Wr7WPp0XOtN6qWB88bYWBUfOAS61OxCqyvVZtQ8e43AWmqr9DuvEPyrArdZMD3PWr2IdeZNCr5kfgXi/5QIBCsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788145458; c=relaxed/simple;
-	bh=7JG+Y/MbG1W3gGf8HyAY/yH0mRHjRKGLSpi2iB9OSXA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lm0zmXhvBE2Oj3Z6RZI/7PMsM/+SLqBUXFzt19L0jzd8cqd9b6Ol+YPDSvc3TZ/syg3nKXocl3KwmV/UbtgB4dDPKgYrsHhgd9KDzejfy5uhdtGZAVXC2gLcVDnr2zrW1WvM+VUFH+TDV3IM0wWA0uqFy2eU38lWUD54a5uh/ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Fou/b2MN; arc=none smtp.client-ip=91.218.175.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788145506; c=relaxed/simple;
+	bh=G7n6n/4nzFbfNosvchoensAPf66i38CJr3L/1qKsB3U=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=WXAxE00aMi2URUIWkZSch+jjRXFALfC/Hqp8LHtMthy264LImk2ObQOBi6uztShVyO2axwacrfLu/vorlohW1G9Kyf06Q5Y+lgZxXRAh+DVDl9uMGU4TMLLbGZE0XetQWYaTWDvJ4t4ctvB2b3up0+AU7GD80SHrR6jqFWeLhRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GdGF4HRC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Fou/b2MN"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7JG+Y/MbG1W3gGf8HyAY/yH0mRHjRKGLSpi2iB9OSXA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788145452; v=1; x=1788750252;
- b=Fou/b2MNxVkJEcUkrAb+NgKjNF/toU1T4Un230ZOiNeCsDDvYqMhqJuJ8uJFjD3srV0oWe/Z
- +ptDu/lKgYOVJo8G7IZjPLgLx+Bl8oTs5cUfnFdbZ30BdsL1RtbPatJr73QcIKdXuzoUROYda+n
- BAM1T+SXSygmMJrx6hGOfKYk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d5373d51ec0bae41;
-	Mon, 31 Aug 2026 03:04:12 +0000
-X-Mizu-Trace-ID: d5373d51ec0bae41
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <9b664d58-af07-40d9-bd35-846a517c1ddb@linux.dev>
-Date: Mon, 31 Aug 2026 11:04:08 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GdGF4HRC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC6F31F000E9;
+	Mon, 31 Aug 2026 03:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788145504;
+	bh=oEebLWyTv6mTMgMAViCyMOD6YE+9GCveTz1/KkW93A0=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=GdGF4HRC1qgiYNiU8BjVaEubUpvqN61pxm/1rOej9Ds0Zaw7x1T7PhvNMQhqWI00H
+	 2rZGzhDNSa5tqABX9Ke1qA1U67vq+dxnK0mHlJSLqzK0fITulW5SV4cJ2UzHI6hIF1
+	 H3gfl8jVns/ykoAC8FDRfpr94r2PSAjkNbca6bvY/x0N9+skIpWjb6ee4tQzY4zOIM
+	 DTWSkaMxm2ksiw4hMse/2jX+8Ad7AIOUptCiX2p5+RvvnR9C83OeIqxk3W8je7lTcp
+	 +apRD0oY8iUl0yJsK+tAuuvB3ZQ9DE2GT4ybHq7SORkQ7R0z3Yx6AYMNU48qfojmUg
+	 HCJMGVjWUcAcA==
+Message-ID: <c63dc427-b74f-451e-99c6-0ec392623fc5@kernel.org>
+Date: Mon, 31 Aug 2026 11:04:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,258 +35,457 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] cgroup/cpuset: Respect child CPU ownership in type
- changes
-To: Guopeng Zhang <guopeng.zhang@linux.dev>, cgroups@vger.kernel.org,
- longman@redhat.com
-Cc: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20260828095643.13395-1-guopeng.zhang@linux.dev>
- <20260828095643.13395-2-guopeng.zhang@linux.dev>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260828095643.13395-2-guopeng.zhang@linux.dev>
+Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
+ Nanzhe Zhao <nzzhao@126.com>, Juan Yescas <jyescas@google.com>,
+ Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org,
+ David Hildenbrand <David.Hildenbrand@arm.com>,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>, Pengfei Li <lipengfei28@xiaomi.com>
+Subject: Re: [PATCH 03/14] f2fs: support regular file buffered writes on large
+ folios
+To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20260826082641.2007658-1-zhaonanzhe@xiaomi.com>
+ <20260826082641.2007658-4-zhaonanzhe@xiaomi.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260826082641.2007658-4-zhaonanzhe@xiaomi.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 
 
-On 8/28/2026 5:56 PM, Guopeng Zhang wrote:
-> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+On 8/26/26 16:26, Nanzhe Zhao wrote:
+> To avoid the complexity of unlocking a large folio in write_begin,
+> preallocate partial blocks for inodes that can use large folios.
+> During write_begin, read only the partial head and tail 4K subpages
+> that need read-before-write, and skip read I/O for the full middle
+> subpages covered by the write.
 > 
-> effective_xcpus includes CPUs granted to valid child partitions. Changing
-> a parent between root and isolated must not apply its new isolation state
-> or housekeeping constraints to those CPUs.
-> 
-> For example, on a cgroup v2 system with CPUs 0-3 online:
-> 
->      cd /sys/fs/cgroup
->      echo +cpuset > cgroup.subtree_control
->      mkdir type-repro
->      echo 1-3 > type-repro/cpuset.cpus
->      echo isolated > type-repro/cpuset.cpus.partition
->      echo +cpuset > type-repro/cgroup.subtree_control
->      mkdir type-repro/child
->      echo 2-3 > type-repro/child/cpuset.cpus
->      echo isolated > type-repro/child/cpuset.cpus.partition
->      echo root > type-repro/cpuset.cpus.partition
->      cat cpuset.cpus.isolated
-> 
-> The isolated mask should still contain CPUs 2-3 after the parent becomes a
-> root partition. Without this change, those CPUs are removed even though
-> the child remains isolated.
-> 
-> Compute the CPUs owned directly by a partition by subtracting the
-> effective_xcpus of valid children. Use this mask for type-change isolation
-> accounting and housekeeping checks. Apply the same ownership rule when
-> validating a trial CPU mask; otherwise a later CPU-mask update can mark a
-> parent invalid because of a boot-isolated CPU owned by a valid child.
-> 
-> Limiting the parent check to directly owned CPUs also allows a root child
-> to hold the last housekeeping CPU while its parent becomes isolated. If
-> the child then becomes a member, returning that CPU to the isolated parent
-> would violate the housekeeping constraint. The transition back to member
-> must remain allowed, so invalidate the outermost isolated ancestor and
-> return its CPUs to a root partition.
-> 
-> Sashiko pointed out the trial-validation and CPU-return gaps while
-> reviewing the original series.
-> 
-> Link: https://sashiko.dev/#/patchset/20260820124202.517160-1-guopeng.zhang%40linux.dev?part=6
-> Fixes: 4a74e418881f ("cgroup/cpuset: Check partition conflict with housekeeping setup")
-> Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
-> Fixes: 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full don't leave any housekeeping")
-> Fixes: b1034a690129 ("cgroup/cpuset: Ensure domain isolated CPUs stay in root or isolated partition")
-> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 > ---
->   kernel/cgroup/cpuset.c | 92 ++++++++++++++++++++++++++++++++++++++----
->   1 file changed, 84 insertions(+), 8 deletions(-)
+>   fs/f2fs/data.c | 289 +++++++++++++++++++++++++++++++++++++++++++++++--
+>   fs/f2fs/f2fs.h |   1 +
+>   fs/f2fs/file.c |  17 ++-
+>   3 files changed, 293 insertions(+), 14 deletions(-)
 > 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 8f24171b6055..32a37d624c6b 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2155,6 +2155,31 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->   	rcu_read_unlock();
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index 8649d443ca74..7ce96ae02cfc 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -1249,6 +1249,40 @@ static void f2fs_submit_page_read(struct inode *inode, struct fsverity_info *vi,
+>   	f2fs_submit_read_bio(sbi, bio, DATA);
 >   }
 >   
 > +/*
-> + * Compute CPUs owned directly by a partition.
-> + *
-> + * effective_xcpus includes CPUs granted to valid child partitions. Exclude
-> + * those CPUs when checking or changing this partition's type.
+> + * Synchronously read a single 4K subpage by reusing f2fs_submit_page_read()
+> + * so that iostat, trace, blk-crypto and post-read handling are all preserved.
+> + * The caller must have already allocated ffs for the folio.
 > + */
-> +static void compute_partition_owned_cpumask(struct cpuset *cs,
-> +					    const struct cpumask *partition_cpus,
-> +					    struct cpumask *owned_cpus)
+> +static int f2fs_submit_page_read_sync(struct inode *inode, struct folio *folio,
+> +				      pgoff_t index, block_t blkaddr)
 > +{
-> +	struct cgroup_subsys_state *css;
-> +	struct cpuset *child;
+> +	struct f2fs_folio_state *ffs = folio->private;
+> +	unsigned long flags;
 > +
-> +	lockdep_assert_held(&cpuset_mutex);
-> +	cpumask_copy(owned_cpus, partition_cpus);
+> +	/* Add bias so end_io does not call folio_end_read(). */
+> +	spin_lock_irqsave(&ffs->state_lock, flags);
+> +	ffs->read_pages_pending++;
+> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
 > +
-> +	rcu_read_lock();
-> +	cpuset_for_each_child(child, css, cs) {
-> +		if (is_partition_valid(child))
-> +			cpumask_andnot(owned_cpus, owned_cpus,
-> +				       child->effective_xcpus);
-> +	}
-> +	rcu_read_unlock();
+> +	f2fs_submit_page_read(inode, NULL, folio, index, blkaddr,
+> +			      REQ_OP_READ, false);
+> +
+> +	/* Wait for pending drops back to bias which indicates all bio have completed. */
+> +	while (READ_ONCE(ffs->read_pages_pending) != 1)
+> +		f2fs_io_schedule_timeout(DEFAULT_SCHEDULE_TIMEOUT);
+> +
+> +	/* Remove the bias. */
+> +	spin_lock_irqsave(&ffs->state_lock, flags);
+> +	ffs->read_pages_pending--;
+> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
+> +
+> +	if (!f2fs_ffs_test_blk_uptodate(folio, index))
+> +		return -EIO;
+> +
+> +	return 0;
 > +}
 > +
-
-To be honest, it took me a while to understand what this function actually does.
-
-I think we should avoid adding terms like partition_cpus and owned_cpus, as they 
-only add confusion. We already have effective_xcpus, effective_cpus, xcpus, and 
-so on—introducing more terminology makes the code harder to follow.
-
-As I understand it, this function is computing local_effective_xcpus, where 
-"local" refers to the CPUs owned by this cgroup itself, excluding those 
-delegated to its children. However, this is really a v1 concept, and I'm not 
-sure it's appropriate to bring it into v2.
-
-Just my two cents.
-
->   /*
->    * update_cpumasks_hier - Update effective cpumasks and tasks in the subtree
->    * @cs:  the cpuset to consider
-> @@ -2401,7 +2426,9 @@ static int parse_cpuset_cpulist(const char *buf, struct cpumask *out_mask)
->    *
->    * Return: PRS error code (0 if valid, non-zero error code if invalid)
->    */
-> -static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *trialcs)
-> +static enum prs_errcode validate_partition(struct cpuset *cs,
-> +					   struct cpuset *trialcs,
-> +					   struct cpumask *owned_cpus)
+>   static void __set_data_blkaddr(struct dnode_of_data *dn, block_t blkaddr)
 >   {
->   	struct cpuset *parent = parent_cs(cs);
->   
-> @@ -2411,8 +2438,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->   	if (cpumask_empty(trialcs->effective_xcpus))
->   		return PERR_INVCPUS;
->   
-> +	compute_partition_owned_cpumask(cs, trialcs->effective_xcpus,
-> +					owned_cpus);
->   	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
-> -					  trialcs->effective_xcpus))
-> +					  owned_cpus))
->   		return PERR_HKEEPING;
->   
->   	if (tasks_nocpu_error(parent, cs, trialcs->effective_xcpus))
-> @@ -2438,7 +2467,7 @@ static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
->   	if (cs_is_member(cs))
->   		return;
->   
-> -	prs_err = validate_partition(cs, trialcs);
-> +	prs_err = validate_partition(cs, trialcs, tmp->new_cpus);
->   	if (prs_err) {
->   		WRITE_ONCE(cs->prs_err, prs_err);
->   		trialcs->prs_err = prs_err;
-> @@ -2917,6 +2946,36 @@ int cpuset_update_flag(cpuset_flagbits_t bit, struct cpuset *cs,
->   	return err;
+>   	__le32 *addr = get_dnode_addr(dn->inode, dn->node_folio);
+> @@ -2582,6 +2616,112 @@ static void ffs_detach_free(struct folio *folio)
+>   	kfree(ffs);
 >   }
 >   
-> +/*
-> + * Invalidate the highest isolated partition that contains @cs.
-> + *
-> + * A root partition returning CPUs to an isolated parent can consume the last
-> + * housekeeping CPU. Invalidating the whole chain returns the CPUs to a root
-> + * partition instead.
-> + */
-> +static struct cpuset *invalidate_isolated_ancestor(struct cpuset *cs,
-> +						   struct tmpmasks *tmp)
+> +bool f2fs_ffs_test_blk_uptodate(const struct folio *folio, pgoff_t index)
 > +{
-> +	struct cpuset *ancestor = parent_cs(cs);
-> +	int err;
+> +	struct f2fs_folio_state *ffs;
+> +	unsigned int idx;
 > +
-> +	lockdep_assert_held(&cpuset_mutex);
-> +	while (!is_remote_partition(ancestor) &&
-> +	       (parent_cs(ancestor)->partition_root_state == PRS_ISOLATED))
-> +		ancestor = parent_cs(ancestor);
+> +	if (!f2fs_folio_has_ffs(folio))
+> +		return folio_test_uptodate(folio);
 > +
-> +	WRITE_ONCE(ancestor->prs_err, PERR_HKEEPING);
-> +	if (is_remote_partition(ancestor)) {
-> +		remote_partition_disable(ancestor, tmp);
-> +	} else {
-> +		err = update_parent_effective_cpumask(ancestor,
-> +						      partcmd_invalidate, NULL, tmp);
-> +		WARN_ON_ONCE(err);
-> +	}
+
+Can we clean up w/:
+
+	if (folio_test_uptodate(folio))
+		return true;
+
+	if (!f2fs_folio_has_ffs(folio))
+		return false;
+
+Thanks,
+
+
+> +	if (!folio_contains(folio, index))
+> +		return false;
 > +
-> +	return ancestor;
+> +	ffs = (struct f2fs_folio_state *)folio->private;
+> +	idx = index - folio->index;
+> +	return test_bit(idx, ffs->state);
 > +}
 > +
->   /**
->    * update_prstate - update partition_root_state
->    * @cs: the cpuset to update
-> @@ -2929,6 +2988,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->   {
->   	int err = PERR_NONE, old_prs = cs->partition_root_state;
->   	struct cpuset *parent = parent_cs(cs);
-> +	struct cpuset *invalidated = NULL;
->   	struct tmpmasks tmpmask;
->   	bool isolcpus_updated = false;
->   
-> @@ -2985,11 +3045,14 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->   	} else if (old_prs && new_prs) {
->   		/*
->   		 * A change in load balance state only, no change in cpumasks.
-> -		 * Need to update isolated_cpus.
-> +		 * Need to update isolated_cpus for CPUs owned by this partition,
-> +		 * excluding CPUs distributed to valid child partitions.
->   		 */
-> +		compute_partition_owned_cpumask(cs, cs->effective_xcpus,
-> +						tmpmask.new_cpus);
->   		if (((new_prs == PRS_ISOLATED) &&
-> -		     !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
-> -		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
-> +		     !isolated_cpus_can_update(tmpmask.new_cpus, NULL)) ||
-> +		    prstate_housekeeping_conflict(new_prs, tmpmask.new_cpus))
-
-I don't think prstate_housekeeping_conflict is being used correctly. The 
-new_cpus should not be the "local" CPUs.
-
->   			err = PERR_HKEEPING;
->   		else
->   			isolcpus_updated = true;
-> @@ -2998,6 +3061,13 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->   		 * Switching back to member is always allowed even if it
->   		 * disables child partitions.
->   		 */
-> +		if (old_prs == PRS_ROOT &&
-> +		    parent->partition_root_state == PRS_ISOLATED &&
-> +		    !isolated_cpus_can_update(cs->effective_xcpus, NULL))
-> +			invalidated = invalidate_isolated_ancestor(cs, &tmpmask);
-> +		if (invalidated)
-> +			goto out;
+> +static bool __ffs_mark_subrange_uptodate(struct folio *folio,
+> +		struct f2fs_folio_state *ffs, size_t offset, size_t len)
+> +{
+> +	unsigned int nr_subpages = folio_nr_pages(folio);
+> +	unsigned int start, end;
 > +
->   		if (is_remote_partition(cs))
->   			remote_partition_disable(cs, &tmpmask);
->   		else
-> @@ -3025,11 +3095,17 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->   	if (!is_partition_valid(cs))
->   		reset_partition_data(cs);
->   	else if (isolcpus_updated)
-> -		isolated_cpus_update(old_prs, new_prs, cs->effective_xcpus);
-> +		isolated_cpus_update(old_prs, new_prs, tmpmask.new_cpus);
->   	spin_unlock_irq(&callback_lock);
->   
->   	/* Force update if switching back to member & update effective_xcpus */
-> -	update_cpumasks_hier(cs, &tmpmask, !new_prs);
-> +	if (invalidated) {
-> +		update_cpumasks_hier(invalidated, &tmpmask, false);
-> +		update_partition_sd_lb(invalidated, PRS_ISOLATED);
-> +		notify_partition_change(invalidated, PRS_ISOLATED);
-> +	} else {
-> +		update_cpumasks_hier(cs, &tmpmask, !new_prs);
+> +	start = offset >> PAGE_SHIFT;
+> +	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
+> +	end = min(end, nr_subpages);
+> +
+> +	bitmap_set(ffs->state, start, end - start);
+> +	return bitmap_full(ffs->state, nr_subpages);
+> +}
+> +
+> +static void f2fs_ffs_mark_subrange_uptodate(struct folio *folio, size_t offset,
+> +				       size_t len)
+> +{
+> +	struct f2fs_folio_state *ffs;
+> +	unsigned long flags;
+> +	bool mark_uptodate = false;
+> +
+> +	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
+> +
+> +	if (!f2fs_folio_has_ffs(folio)) {
+> +		folio_mark_uptodate(folio);
+> +		return;
 > +	}
+> +
+> +	ffs = (struct f2fs_folio_state *)folio->private;
+> +	spin_lock_irqsave(&ffs->state_lock, flags);
+> +	mark_uptodate = __ffs_mark_subrange_uptodate(folio, ffs, offset, len) &&
+> +			!ffs->read_pages_pending;
+> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
+> +	if (mark_uptodate)
+> +		folio_mark_uptodate(folio);
+> +}
+> +
+> +static void f2fs_ffs_mark_subrange_dirty(struct folio *folio,
+> +				    size_t offset, size_t len)
+> +{
+> +	struct f2fs_folio_state *ffs;
+> +	unsigned int nr_subpages, start, end;
+> +	unsigned long flags;
+> +
+> +	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
+> +
+> +	if (!f2fs_folio_has_ffs(folio))
+> +		return;
+> +
+> +	ffs = (struct f2fs_folio_state *)folio->private;
+> +	nr_subpages = folio_nr_pages(folio);
+> +	start = offset >> PAGE_SHIFT;
+> +	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
+> +	end = min(end, nr_subpages);
+> +
+> +	spin_lock_irqsave(&ffs->state_lock, flags);
+> +	bitmap_set(ffs->state, nr_subpages + start, end - start);
+> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
+> +}
+> +
+> +static bool find_next_valid_block(const struct folio *folio,
+> +				  size_t orig_off, size_t *need_off,
+> +				  size_t len)
+> +{
+> +	size_t start = orig_off;
+> +	size_t end = start + len;
+> +	size_t head, tail;
+> +	pgoff_t index;
+> +
+> +	if (start & (PAGE_SIZE - 1)) {
+> +		head = round_down(start, PAGE_SIZE);
+> +		index = folio->index + (head >> PAGE_SHIFT);
+> +		if (!f2fs_ffs_test_blk_uptodate(folio, index)) {
+> +			*need_off = head;
+> +			return true;
+> +		}
+> +	}
+> +
+> +	if (end & (PAGE_SIZE - 1)) {
+> +		tail = round_down(end - 1, PAGE_SIZE);
+> +		index = folio->index + (tail >> PAGE_SHIFT);
+> +		if (!f2fs_ffs_test_blk_uptodate(folio, index)) {
+> +			*need_off = tail;
+> +			return true;
+> +		}
+> +	}
+> +
+> +	return false;
+> +}
+> +
+>   static int f2fs_read_data_large_folio(struct inode *inode,
+>   		struct fsverity_info *vi,
+>   		struct readahead_control *rac, struct folio *folio)
+> @@ -3975,6 +4115,102 @@ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
+>   	return 0;
+>   }
 >   
->   	/* A newly created partition must have effective_xcpus set */
->   	WARN_ON_ONCE(!old_prs && (new_prs > 0)
-
--- 
-Best regards
-Ridong
+> +static int prepare_large_folio_write_begin(struct inode *inode,
+> +					  struct folio *folio, loff_t pos,
+> +					  unsigned int len)
+> +{
+> +	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+> +	struct f2fs_folio_state *ffs;
+> +	size_t ori_off = offset_in_folio(folio, pos);
+> +	size_t need_off = ori_off;
+> +	int err = 0;
+> +
+> +	len = min_t(unsigned int, len, folio_size(folio) - ori_off);
+> +
+> +	/*
+> +	 * When folio minimum order is non-zero, the fsverity
+> +	 * page_cache_write() path enters f2fs_write_begin() via
+> +	 * aops->write_begin without going through f2fs_write_iter(),
+> +	 * so preallocation from f2fs_write_iter() is skipped.  In that
+> +	 * case, if FI_PREALLOCATED_ALL is not set, we must preallocate
+> +	 * the write blocks here.
+> +	 */
+> +	if (!is_inode_flag_set(inode, FI_PREALLOCATED_ALL)) {
+> +		struct f2fs_map_blocks map = {};
+> +
+> +		map.m_lblk = F2FS_BYTES_TO_BLK(pos);
+> +		map.m_len = F2FS_BLK_ALIGN(pos + len) - map.m_lblk;
+> +
+> +		if (!IS_DEVICE_ALIASING(inode))
+> +			map.m_may_create = true;
+> +		map.m_seg_type = NO_CHECK_TYPE;
+> +
+> +		err = f2fs_map_blocks(inode, &map, F2FS_GET_BLOCK_PRE_AIO);
+> +		if (err)
+> +			return err;
+> +	}
+> +
+> +	/*
+> +	 * Skip read and ffs allocation if the folio is already fully
+> +	 * uptodate or the write covers the entire folio.
+> +	 */
+> +	if (folio_test_uptodate(folio) || len == folio_size(folio))
+> +		return 0;
+> +
+> +	ffs = f2fs_ffs_find_or_alloc(folio);
+> +	if (!ffs)
+> +		return -ENOMEM;
+> +
+> +	/* Inline data must have been converted before reaching here. */
+> +	f2fs_bug_on(sbi, f2fs_has_inline_data(inode));
+> +
+> +	while (find_next_valid_block(folio, ori_off,
+> +				     &need_off, len)) {
+> +		struct dnode_of_data dn;
+> +		pgoff_t index = folio->index + (need_off >> PAGE_SHIFT);
+> +		block_t blkaddr;
+> +		bool get_dn = false;
+> +
+> +		if (!f2fs_lookup_read_extent_cache_block(inode, index,
+> +							&blkaddr)) {
+> +			if (IS_DEVICE_ALIASING(inode))
+> +				return -ENODATA;
+> +
+> +			set_new_dnode(&dn, inode, NULL, NULL, 0);
+> +			err = f2fs_get_dnode_of_data(&dn, index, LOOKUP_NODE);
+> +			if (err)
+> +				return err;
+> +			get_dn = true;
+> +			blkaddr = dn.data_blkaddr;
+> +
+> +			if (blkaddr == NEW_ADDR) {
+> +				size_t off = offset_in_folio(folio,
+> +							     index << PAGE_SHIFT);
+> +
+> +				folio_zero_segment(folio, off, off + PAGE_SIZE);
+> +				f2fs_ffs_mark_subrange_uptodate(folio, off,
+> +							       PAGE_SIZE);
+> +				goto out;
+> +			}
+> +
+> +			if (!f2fs_is_valid_blkaddr(sbi, blkaddr,
+> +						  DATA_GENERIC_ENHANCE_READ)) {
+> +				err = -EFSCORRUPTED;
+> +				goto out;
+> +			}
+> +		}
+> +
+> +		err = f2fs_submit_page_read_sync(inode, folio, index, blkaddr);
+> +out:
+> +		if (get_dn)
+> +			f2fs_put_dnode(&dn);
+> +		if (err)
+> +			return err;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static int f2fs_write_begin(const struct kiocb *iocb,
+>   			    struct address_space *mapping,
+>   			    loff_t pos, unsigned len, struct folio **foliop,
+> @@ -3986,6 +4222,7 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+>   	pgoff_t index = pos >> PAGE_SHIFT;
+>   	bool need_balance = false;
+>   	block_t blkaddr = NULL_ADDR;
+> +	fgf_t fgp = FGP_LOCK | FGP_WRITE | FGP_CREAT;
+>   	int err = 0;
+>   
+>   	trace_f2fs_write_begin(inode, pos, len);
+> @@ -4033,9 +4270,9 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+>   	 * Do not use FGP_STABLE to avoid deadlock.
+>   	 * Will wait that below with our IO control.
+>   	 */
+> -	folio = f2fs_filemap_get_folio(mapping, index,
+> -				FGP_LOCK | FGP_WRITE | FGP_CREAT,
+> -				mapping_gfp_mask(mapping));
+> +	fgp |= fgf_set_order(len);
+> +	folio = __filemap_get_folio(mapping, index, fgp,
+> +				    mapping_gfp_mask(mapping));
+>   	if (IS_ERR(folio)) {
+>   		err = PTR_ERR(folio);
+>   		goto fail;
+> @@ -4048,7 +4285,7 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+>   	if (f2fs_is_atomic_file(inode))
+>   		err = prepare_atomic_write_begin(sbi, folio, pos, len,
+>   					&blkaddr, &need_balance);
+> -	else
+> +	else if (!folio_test_large(folio))
+>   		err = prepare_write_begin(sbi, folio, pos, len,
+>   					&blkaddr, &need_balance);
+>   	if (err)
+> @@ -4069,6 +4306,14 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+>   
+>   	f2fs_folio_wait_writeback(folio, DATA, false, true);
+>   
+> +	if (folio_test_large(folio)) {
+> +		err = prepare_large_folio_write_begin(inode,
+> +					folio, pos, len);
+> +		if (!err)
+> +			return 0;
+> +		goto put_folio;
+> +	}
+> +
+>   	if (len == folio_size(folio) || folio_test_uptodate(folio))
+>   		return 0;
+>   
+> @@ -4129,15 +4374,20 @@ static int f2fs_write_end(const struct kiocb *iocb,
+>   	trace_f2fs_write_end(inode, pos, len, copied);
+>   
+>   	/*
+> -	 * This should be come from len == PAGE_SIZE, and we expect copied
+> -	 * should be PAGE_SIZE. Otherwise, we treat it with zero copied and
+> -	 * let generic_perform_write() try to copy data again through copied=0.
+> +	 * If a short copy happens on a folio that isn't uptodate, we treat
+> +	 * it with zero copied and let generic_perform_write() try to copy
+> +	 * data again through copied=0.
+>   	 */
+>   	if (!folio_test_uptodate(folio)) {
+> -		if (unlikely(copied != len))
+> +		if (unlikely(copied != len)) {
+>   			copied = 0;
+> -		else
+> +		} else if (folio_test_large(folio)) {
+> +			f2fs_ffs_mark_subrange_uptodate(folio,
+> +					offset_in_folio(folio, pos), len);
+> +		} else {
+> +			/* This should be come from len == PAGE_SIZE */
+>   			folio_mark_uptodate(folio);
+> +		}
+>   	}
+>   
+>   #ifdef CONFIG_F2FS_FS_COMPRESSION
+> @@ -4156,6 +4406,9 @@ static int f2fs_write_end(const struct kiocb *iocb,
+>   	if (!copied)
+>   		goto unlock_out;
+>   
+> +	if (folio_test_large(folio))
+> +		f2fs_ffs_mark_subrange_dirty(folio, offset_in_folio(folio, pos),
+> +								   copied);
+>   	folio_mark_dirty(folio);
+>   
+>   	if (f2fs_is_atomic_file(inode))
+> @@ -4218,8 +4471,22 @@ static bool f2fs_dirty_data_folio(struct address_space *mapping,
+>   
+>   	trace_f2fs_set_page_dirty(folio, DATA);
+>   
+> -	if (!folio_test_uptodate(folio))
+> -		folio_mark_uptodate(folio);
+> +	if (!folio_test_uptodate(folio)) {
+> +		bool uptodate = true;
+> +
+> +		if (f2fs_folio_has_ffs(folio)) {
+> +			struct f2fs_folio_state *ffs =
+> +				(struct f2fs_folio_state *)folio->private;
+> +			unsigned long flags;
+> +
+> +			spin_lock_irqsave(&ffs->state_lock, flags);
+> +			uptodate = bitmap_full(ffs->state, folio_nr_pages(folio)) &&
+> +				   !ffs->read_pages_pending;
+> +			spin_unlock_irqrestore(&ffs->state_lock, flags);
+> +		}
+> +		if (uptodate)
+> +			folio_mark_uptodate(folio);
+> +	}
+>   	BUG_ON(folio_test_swapcache(folio));
+>   
+>   	if (filemap_dirty_folio(mapping, folio)) {
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index 31ddd321daf6..ae6031693700 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -4342,6 +4342,7 @@ int f2fs_write_single_data_page(struct folio *folio, int *submitted,
+>   				struct writeback_control *wbc,
+>   				enum iostat_type io_type,
+>   				int compr_blocks, bool allow_balance);
+> +bool f2fs_ffs_test_blk_uptodate(const struct folio *folio, pgoff_t index);
+>   void f2fs_write_failed(struct inode *inode, loff_t to);
+>   void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length);
+>   bool f2fs_release_folio(struct folio *folio, gfp_t wait);
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index d440231b8cb9..e40285d4f9c2 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -5405,9 +5405,20 @@ static int f2fs_preallocate_blocks(struct kiocb *iocb, struct iov_iter *iter,
+>   			return ret;
+>   	}
+>   
+> -	/* Do not preallocate blocks that will be written partially in 4KB. */
+> -	map.m_lblk = F2FS_BLK_ALIGN(pos);
+> -	map.m_len = F2FS_BYTES_TO_BLK(pos + count);
+> +	if (mapping_large_folio_support(inode->i_mapping)) {
+> +		/*
+> +		 * Preallocate all blocks touched by a large-folio buffered write so
+> +		 * the regular write_begin path does not need to unlock the folio for
+> +		 * f2fs_balance_fs().  Rechecking large-folio state after unlock is
+> +		 * unreliable since partial truncation can split the folio.
+> +		 */
+> +		map.m_lblk = F2FS_BYTES_TO_BLK(pos);
+> +		map.m_len = F2FS_BLK_ALIGN(pos + count);
+> +	} else {
+> +		/* Do not preallocate blocks that will be written partially in 4KB. */
+> +		map.m_lblk = F2FS_BLK_ALIGN(pos);
+> +		map.m_len = F2FS_BYTES_TO_BLK(pos + count);
+> +	}
+>   	if (map.m_len > map.m_lblk)
+>   		map.m_len -= map.m_lblk;
+>   	else
 
