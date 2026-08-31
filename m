@@ -1,134 +1,389 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9595E3839A0;
-	Mon, 31 Aug 2026 20:07:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B546D2FB0B2;
+	Mon, 31 Aug 2026 20:09:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788206836; cv=none; b=bBLOclQW5JzGi/a5YcsqM4z8UkRDHyOSBfJ+/ERe/jB6idBcQkwvx4IGvBy/ov9VWhiLvkR2Fdg2SDnGJZZiu4WLua62tZ8hazzegHg5XXMojy+bSNmPeDzMVcYDwZ9PiqMJCynNsYKNVOts3qs6GcUtLb0rf74prBJPSnhAYlQ=
+	t=1788206943; cv=none; b=M9oNV3bfDc7QX9sqTf+BMrxljFgipkVzTzZzxOccuM1Rocb/IvwvABQZJUMvpxdjQ6r/UyxmAWj15JzyPuMBaY2/EUkfIZdZalIj0E7K60UdmZ1beKPGnJUTfqdPnhSqweMKW+rxcoM8FxuubtK+n1vu4PYSXAeES32KkRlYD/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788206836; c=relaxed/simple;
-	bh=E1j7Sdfnpyfm0oFvVlaZ0kmjFpMXExSNpoRgtan/4OY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OZv/eEFxZzlLyicbRkI3eJWM1BbfSsKnicrIhnxcF62vz5vkjr+0LB6leP4PEwpvVAM/jQm1ITrqAUqw//5RAJnA1TI9o1DjTHaHgJfU8RbRpKcASIdvXDEErBaTVjk9jPcNFWcpAY5w7za/2AtjRFRUlOQceBQ+thQMd/ochDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqSHiqQS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788206943; c=relaxed/simple;
+	bh=PGbd5NXpsVnYi4s74Z2yfqsQw8XfHbW8x2qJEv1hCP8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
+	 References:In-Reply-To; b=sPXfag7OBgDBk2fby1xlj48qIEejFtoPTyK9RWBhBLkusw0dcd/goQVOdQ9ZSjI0Q7++bFQdQK5tnquc/PjIBn1zCI5qR7E/vWGjLcULtz/tO6pSANE2K19ND0CC4eqf18yv6nK+DLZuDAyRjiL3/yrJfkaIPj4hJVYx4jiixlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ehI0YhuJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqSHiqQS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88AB01F000E9;
-	Mon, 31 Aug 2026 20:07:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ehI0YhuJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A773C1F000E9;
+	Mon, 31 Aug 2026 20:08:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788206834;
-	bh=UqP6iE36qE2v5zs2vu7b45gepQqfDGbgB7LdmkYot78=;
-	h=From:To:Cc:Subject:Date;
-	b=XqSHiqQSXZJPiO8C17BPThmj6csk98jzri1M7ycoOEsDOFmjJH8Ghk0sE/rRRETAV
-	 ojSOkyoDCSsr8Ewa5PyQSEok0RosRcKwQx1YlvDSiZPI7vYKLg8NQEeYOoGRD4u65w
-	 Sd/QjtGlGUIHw9TFxiicjrenh4arLghSNDhOtJXudF0zDN2qr3sa2zve9VIMXsPbGs
-	 pQ3Kvw+9EakBBVxKn7VPKs/a5Zo5EGZob8ZIhZn9KuwcRCUD8I3liX4i1fO+/sKa2d
-	 SwUtFgFHrmyyFhXaxAFKDFxOWOz5egBTXztA3fj4wzSVQCvOjBWUCgwX1cVuHg0Lab
-	 mYLit8A4zKe1A==
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-To: Linux ACPI <linux-acpi@vger.kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v1] ACPI: bus: Drop two fields from struct acpi_device_pnp
-Date: Mon, 31 Aug 2026 22:07:10 +0200
-Message-ID: <6314925.lOV4Wx5bFT@rafael.j.wysocki>
-Organization: Linux Kernel Development - Intel
+	s=k20260515; t=1788206941;
+	bh=4ygFlvJcltem4BN7PhYT0mYnYEv5F0ppVgmGx6hrfEc=;
+	h=Date:Cc:To:From:Subject:References:In-Reply-To;
+	b=ehI0YhuJ01DhDahhb3DpeqX5TWkx2MQ6Bm611ACeX2FEtJOvaZTG2Cqb6XpsxAEXj
+	 ljHOR9YSjWAoduFdoftztYl5g4cgHMdGqJaKXcHbOE6L2hilUANvuEd5YIcwkQbmdr
+	 tRHhebjM/xvV6RWHLYmHxMpn712VoWul+ujw8Ug2EEzx4onozIfIJX0XEd13a105e+
+	 d3lJvHeOm1Tyqoavu3T0vstPP07KZNvUc2YJA1zJH7liZO+6cWmBGuLYGGNyDtv3sl
+	 ZMpdVFrQeKNfNL9S/Jtz5fu5TOtIQstsbH1YPN3eL5jqWRNWQ7Zgj0OSy0/Q/qxdnk
+	 DlK3k7CX5x8Mw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 22:08:56 +0200
+Message-Id: <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
+Cc: "nova-gpu" <nova-gpu@lists.linux.dev>, "M Henning"
+ <mhenning@darkrefraction.com>, "Alice Ryhl" <aliceryhl@google.com>, "David
+ Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>
+To: "Alistair Popple" <apopple@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v5 01/11] gpu: nova-core: Add public driver API to
+ nova-core
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-2-apopple@nvidia.com>
+In-Reply-To: <20260828033531.1117754-2-apopple@nvidia.com>
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
+> +/// API handle for the auxiliary bus child drivers to interact with nova=
+-core.
+> +pub struct NovaCoreApi<'bound> {
+> +    #[expect(unused)]
+> +    pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
+> +}
+> +
+> +impl NovaCoreApi<'_> {
+> +    /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registe=
+red
+> +    /// by nova-core.
+> +    pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreAp=
+i<'_>>> {
+> +        adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
+> +    }
+> +}
 
-There are two fields in struct acpi_device_pnp, device_name and
-device_class, that were supposed to be populated and used by device
-drivers, but they have never been used consistently and now they
-are only set for the bus object in acpi_set_pnp_ids() (and never
-read afterward).
+CovariantForLt does not hold anymore on latest drm-rust-next, as Cmdq has a
+Mutex. So, this needs ForLt now and therefore the approach that I shared in=
+ [1]
+a while ago. I applied the changes in [2] to fix it up.
 
-Drop them along with all of the associated symbols except for
-MAX_ACPI_CLASS_NAME_LEN and the acpi_device_class typedef that
-are used by the ACPI netlink messaging code.  Move those two
-definitions closer to the struct acpi_bus_event that refers to
-the acpi_device_class type.
+I think the closure access through api.with(|api| ...) is fine in most case=
+s,
+but there are a few options if we run into cases where we consider it a bit
+inconvinient.
 
-No intentional functional impact.
+I think it should be possible to support projections into T: 'static and
+covariant fields. The reason I differentiate them is because T: 'static is =
+very
+convinient, but non-'static covariant types need an annoying turbofish.
 
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
----
- drivers/acpi/scan.c     |    4 ----
- include/acpi/acpi_bus.h |   11 +++--------
- 2 files changed, 3 insertions(+), 12 deletions(-)
+For T: 'static types it would turn out like this
 
---- a/drivers/acpi/scan.c
-+++ b/drivers/acpi/scan.c
-@@ -28,9 +28,7 @@
- #include "internal.h"
- #include "sleep.h"
- 
--#define ACPI_BUS_CLASS			"system_bus"
- #define ACPI_BUS_HID			"LNXSYBUS"
--#define ACPI_BUS_DEVICE_NAME		"System Bus"
- 
- #define INVALID_ACPI_HANDLE	((acpi_handle)ZERO_PAGE(0))
- 
-@@ -1446,8 +1444,6 @@ static void acpi_set_pnp_ids(acpi_handle
- 			 acpi_object_is_system_bus(handle)) {
- 			/* \_SB, \_TZ, LNXSYBUS */
- 			acpi_add_id(pnp, ACPI_BUS_HID);
--			strscpy(pnp->device_name, ACPI_BUS_DEVICE_NAME);
--			strscpy(pnp->device_class, ACPI_BUS_CLASS);
- 		}
- 
- 		break;
---- a/include/acpi/acpi_bus.h
-+++ b/include/acpi/acpi_bus.h
-@@ -206,12 +206,8 @@ struct acpi_device_dir {
- 
- /* Plug and Play */
- 
--#define MAX_ACPI_DEVICE_NAME_LEN	40
--#define MAX_ACPI_CLASS_NAME_LEN		20
- typedef char acpi_bus_id[8];
- typedef u64 acpi_bus_address;
--typedef char acpi_device_name[MAX_ACPI_DEVICE_NAME_LEN];
--typedef char acpi_device_class[MAX_ACPI_CLASS_NAME_LEN];
- 
- struct acpi_hardware_id {
- 	struct list_head list;
-@@ -233,16 +229,12 @@ struct acpi_device_pnp {
- 	acpi_bus_address bus_address;	/* _ADR */
- 	char *unique_id;		/* _UID */
- 	struct list_head ids;		/* _HID and _CIDs */
--	acpi_device_name device_name;	/* Driver-determined */
--	acpi_device_class device_class;	/*        "          */
+	let spec =3D reg_data.api.project(|api| api.spec());
+
+such that everything that needs spec does not need to be in the closure any=
+more.
+
+For non-'static covariant fields we could have
+
+	let foo =3D reg_data.api.project_lt::<CovariantForLt!(Foo<'_>)>(|api| api.=
+foo());
+
+but as mentioned it unfortunately needs the turbofish. Of course we could i=
+nvent
+a macro around it to get rid of the turbofish, but we'd still need to expli=
+citly
+mention the type Foo<'_>, so it doesn't buy us a lot.
+
+This is the implementation I came up with in nova-core
+
+	/// Projects a `'static` sub-field out of the registration data.
+	///
+	/// `T` is fully inferred from the closure. For projected types with a lif=
+etime parameter,
+	/// use [`Self::project_lt`].
+	pub fn project<T: 'static>(
+	    &self,
+	    f: impl for<'b> FnOnce(Pin<&'b NovaCoreApi<'b>>) -> &'b T,
+	) -> &'a T {
+	    self.adev
+	        .registration_data_field::<ForLt!(NovaCoreApi<'_>), T>(f)
+	        .expect("TypeId was validated in NovaCoreApiHandle::of()")
+	}
+=09
+	/// Projects a covariant sub-field out of the registration data.
+	///
+	/// Supports projected types with a lifetime parameter via a
+	/// [`CovariantForLt`](trait@CovariantForLt) encoding. Unlike [`Self::proj=
+ect`], `G` cannot
+	/// be inferred and must be specified explicitly.
+	pub fn project_lt<G: CovariantForLt + 'static>(
+	    &self,
+	    f: impl for<'b> FnOnce(Pin<&'b NovaCoreApi<'b>>) -> &'b G::Of<'b>,
+	) -> &'a G::Of<'a> {
+	    self.adev
+	        .registration_data_project::<ForLt!(NovaCoreApi<'_>), G>(f)
+	        .expect("TypeId was validated in NovaCoreApiHandle::of()")
+	}
+
+and this is what we'd need in the auxiliary bus
+
+	/// Projects a covariant sub-field out of potentially invariant registrati=
+on data.
+	///
+	/// `F` is the [`ForLt`](trait@ForLt) encoding of the registration data ty=
+pe. `G` is the
+	/// [`CovariantForLt`](trait@CovariantForLt) encoding of the projected sub=
+-field type.
+	///
+	/// For projected types that are `'static`, prefer [`Self::registration_da=
+ta_field`] which
+	/// does not require a [`CovariantForLt`](trait@CovariantForLt) encoding a=
+nd fully infers `T`.
+	///
+	/// Returns [`EINVAL`] if `F` does not match the type used by the parent d=
+river when calling
+	/// [`Registration::new()`]. Returns [`ENOENT`] if no registration data ha=
+s been set.
+	#[inline]
+	pub fn registration_data_project<F, G>(
+	    &self,
+	    project: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> &'a G::Of<'a>,
+	) -> Result<&G::Of<'_>>
+	where
+	    F: ForLt + 'static,
+	    G: CovariantForLt + 'static,
+	{
+	    let ptr =3D self.registration_data_with::<F, *const ()>(|data| {
+	        core::ptr::from_ref::<G::Of<'_>>(project(data)).cast::<()>()
+	    })?;
+=09
+	    // SAFETY:
+	    // - The HRTB bound on `project` ensures the returned pointer is deriv=
+ed from the
+	    //   registration data (nothing else lives for universally quantified =
+`'a`).
+	    // - `G: CovariantForLt` guarantees that shortening the lifetime of `G=
+::Of` is sound.
+	    // - The registration data is heap-allocated and outlives the device's=
+ bound state.
+	    Ok(unsafe { &*ptr.cast::<G::Of<'_>>() })
+	}
+=09
+	/// Projects a `'static` sub-field out of potentially invariant registrati=
+on data.
+	///
+	/// Simplified variant of [`Self::registration_data_project`] for projecte=
+d types that are
+	/// `'static`. Since `&'a T` is trivially covariant when `T: 'static`, no
+	/// [`CovariantForLt`](trait@CovariantForLt) encoding is needed and `T` is=
+ fully inferred
+	/// from the closure.
+	///
+	/// Returns [`EINVAL`] if `F` does not match the type used by the parent d=
+river when calling
+	/// [`Registration::new()`]. Returns [`ENOENT`] if no registration data ha=
+s been set.
+	#[inline]
+	pub fn registration_data_field<F: ForLt + 'static, T: 'static>(
+	    &self,
+	    project: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> &'a T,
+	) -> Result<&T> {
+	    let ptr =3D self.registration_data_with::<F, *const T>(|data| {
+	        core::ptr::from_ref(project(data))
+	    })?;
+=09
+	    // SAFETY:
+	    // - The HRTB bound on `project` ensures the returned pointer is deriv=
+ed from the
+	    //   registration data (nothing else lives for universally quantified =
+`'a`).
+	    // - `T: 'static` means `&T` is trivially covariant; lifetime shorteni=
+ng is sound.
+	    // - The registration data is heap-allocated and outlives the device's=
+ bound state.
+	    Ok(unsafe { &*ptr })
+	}
+
+with the documentation being written by an LLM and unchecked.
+
+I think at least the T: 'static projection can provide an ergonomic advanta=
+ge
+and might be useful to add. Please let me know what you think.
+
+Thanks,
+Danilo
+
+[1] https://lore.kernel.org/all/DJQSY9ZY5M5F.3VI537GS00E1G@kernel.org/
+[2] CovariantForLt to ForLt changes for nova-core
+
+diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.r=
+s
+index 7fc0baef5f04..028020213ac5 100644
+--- a/drivers/gpu/drm/nova/driver.rs
++++ b/drivers/gpu/drm/nova/driver.rs
+@@ -1,7 +1,5 @@
+ // SPDX-License-Identifier: GPL-2.0
+
+-use core::pin::Pin;
+-
+ use kernel::{
+     auxiliary,
+     device::{
+@@ -20,7 +18,10 @@
+ use crate::file::File;
+ use crate::gem::NovaObject;
+
+-use nova_core::api::NovaCoreApi;
++use nova_core::api::{
++    NovaCoreApi,
++    NovaCoreApiHandle, //
++};
+
+ pub(crate) struct NovaDriver;
+
+@@ -32,7 +33,7 @@ pub(crate) struct Nova<'bound> {
+
+ /// DRM registration data, accessible from ioctl handlers via the registra=
+tion guard.
+ pub(crate) struct DrmRegData<'bound> {
+-    pub(crate) api: Pin<&'bound NovaCoreApi<'bound>>,
++    pub(crate) api: NovaCoreApiHandle<'bound>,
+ }
+
+ /// Convienence type alias for the DRM device type for this driver
+@@ -69,7 +70,7 @@ fn probe<'bound>(
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+         let drm =3D drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
+         let reg_data =3D DrmRegData {
+-            api: NovaCoreApi::of(adev)?,
++            api: NovaCoreApi::handle(adev)?,
+         };
+         // SAFETY: `reg` is stored in `Nova` and dropped when the driver i=
+s unbound; it is
+         // never forgotten.
+diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
+index e1223a29f8b1..798b14f33e20 100644
+--- a/drivers/gpu/drm/nova/file.rs
++++ b/drivers/gpu/drm/nova/file.rs
+@@ -32,13 +32,15 @@
+
+ impl GpuInfo {
+     fn new(reg_data: &DrmRegData<'_>) -> Self {
+-        Self(uapi::drm_nova_gpu_info {
+-            architecture: reg_data.api.architecture(),
+-            implementation: reg_data.api.implementation(),
+-            vram_size: reg_data.api.vram_size(),
+-            gpu_name: reg_data.api.gpu_name(),
+-            gpu_short_name: reg_data.api.gpu_short_name(),
+-            gpu_gid: reg_data.api.gpu_gid(),
++        reg_data.api.with(|api| {
++            Self(uapi::drm_nova_gpu_info {
++                architecture: api.architecture(),
++                implementation: api.implementation(),
++                vram_size: api.vram_size(),
++                gpu_name: api.gpu_name(),
++                gpu_short_name: api.gpu_short_name(),
++                gpu_gid: api.gpu_gid(),
++            })
+         })
+     }
+ }
+@@ -74,7 +76,7 @@ pub(crate) fn get_param(
+         _file: &drm::File<File>,
+     ) -> Result<u32> {
+         let value =3D match getparam.param as u32 {
+-            uapi::NOVA_GETPARAM_VRAM_BAR_SIZE =3D> reg_data.api.bar1_size(=
+)?,
++            uapi::NOVA_GETPARAM_VRAM_BAR_SIZE =3D> reg_data.api.with(|api|=
+ api.bar1_size())?,
+             _ =3D> return Err(EINVAL),
+         };
+
+diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
+index ad4b62db1e5f..c9ae48d278af 100644
+--- a/drivers/gpu/nova-core/api.rs
++++ b/drivers/gpu/nova-core/api.rs
+@@ -10,7 +10,7 @@
+     device::Bound,
+     pci,
+     prelude::*,
+-    types::CovariantForLt, //
++    types::ForLt, //
  };
- 
- #define acpi_device_bid(d)	((d)->pnp.bus_id)
- #define acpi_device_adr(d)	((d)->pnp.bus_address)
- const char *acpi_device_hid(struct acpi_device *device);
- #define acpi_device_uid(d)	((d)->pnp.unique_id)
--#define acpi_device_name(d)	((d)->pnp.device_name)
--#define acpi_device_class(d)	((d)->pnp.device_class)
- 
- /* Power Management */
- 
-@@ -582,6 +574,9 @@ int acpi_dev_for_each_child_reverse(stru
-  * ------
-  */
- 
-+#define MAX_ACPI_CLASS_NAME_LEN		20
-+typedef char acpi_device_class[MAX_ACPI_CLASS_NAME_LEN];
+
+ use crate::gpu::{
+@@ -39,10 +39,9 @@ impl NovaCoreApi<'_> {
+         *self.gpu.gsp_static_info.gpu_gid()
+     }
+
+-    /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registere=
+d
+-    /// by nova-core.
+-    pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreApi<=
+'_>>> {
+-        adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
++    /// Obtain a [`NovaCoreApiHandle`] from an auxiliary device registered=
+ by nova-core.
++    pub fn handle(adev: &auxiliary::Device<Bound>) -> Result<NovaCoreApiHa=
+ndle<'_>> {
++        NovaCoreApiHandle::of(adev)
+     }
+
+     /// Returns the architecture identifier of this GPU.
+@@ -66,3 +65,22 @@ pub fn vram_size(&self) -> u64 {
+         self.gpu.gsp_static_info.vram_size()
+     }
+ }
 +
- struct acpi_bus_event {
- 	struct list_head node;
- 	acpi_device_class device_class;
++/// Closure-based API handle for invariant registration data types.
++pub struct NovaCoreApiHandle<'a> {
++    adev: &'a auxiliary::Device<Bound>,
++}
++
++impl<'a> NovaCoreApiHandle<'a> {
++    fn of(adev: &'a auxiliary::Device<Bound>) -> Result<Self> {
++        adev.registration_data_with::<ForLt!(NovaCoreApi<'_>), ()>(|_| ())=
+?;
++        Ok(Self { adev })
++    }
++
++    /// Access the [`NovaCoreApi`] through a closure.
++    pub fn with<R>(&self, f: impl for<'b> FnOnce(Pin<&'b NovaCoreApi<'b>>)=
+ -> R) -> R {
++        self.adev
++            .registration_data_with::<ForLt!(NovaCoreApi<'_>), R>(f)
++            .expect("TypeId was validated in NovaCoreApiHandle::of()")
++    }
++}
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver=
+.rs
+index 4d3c18d6a733..025ba2869d6c 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -15,7 +15,7 @@
+         Atomic,
+         Relaxed, //
+     },
+-    types::CovariantForLt,
++    types::ForLt,
+ };
 
-
-
+ use crate::{
+@@ -29,7 +29,7 @@
+ #[pin_data]
+ pub(crate) struct NovaCore<'bound> {
+     #[allow(clippy::type_complexity)]
+-    _reg: auxiliary::Registration<'bound, CovariantForLt!(NovaCoreApi<'_>)=
+>,
++    _reg: auxiliary::Registration<'bound, ForLt!(NovaCoreApi<'_>)>,
+     #[pin]
+     pub(crate) gpu: Gpu<'bound>,
+     bar: pci::Bar<'bound, BAR0_SIZE>,
