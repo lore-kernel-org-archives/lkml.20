@@ -1,253 +1,190 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A1A2941A
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788159837; cv=pass; b=V8hnU81URF7SmDvu7jCtqc8JrBnKvH+JRza4r4vXBz/XSx9HJ3jJdMgonv3TTJyT+MAlCUAslvNZAw1GRiMJDyOY1TW0bBGQ65LeZzdjMCRD/Gqv1C7qTSrzsAMwd89e6ExEQmewEx1H0MHzZviPRicRMrU8zznK8TtEmWw8W78=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788159837; c=relaxed/simple;
-	bh=0BE+dmVmXkFgYYDKS56uE9rGx92Afk5IK7Am6Q8j+xM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=buqyCwkf0LeeUExmEE2ktfLmj736hsI5xpTPBj1FCefDaFE2xZMKbIcQrbHA75+9sref9PjAror2MvWV0W2pFdkxSrt9922eJT+MiUsbMqeCFo5lk00eaG9Jg2buPARilm4lfyvmyUyUgiuDVj5xZP7dbMOUCpgrtTd26FIm80I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mYur3Bm1; arc=pass smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B832941A;
+	Mon, 31 Aug 2026 07:04:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788159842; cv=none; b=nkQHbk+sF7at0Xz5HeZ++R9BJccW5cml7iB0ppD7BLyghA4k87T7S+TGtokwK/EH/bDbMYuTtGK0RhW+FcXKLp8KloHB4G+if9D4YM+MFQlLmrqc4yCiLicLoR2Y/ReSxhrHkfgTNYJWnaFZSa8r2hFi/16wDmvr852xv+kIXvE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788159842; c=relaxed/simple;
+	bh=gmNMkW8BJZK0ghbj5E3UG1lGb6HMaLQ+7eEIVm4U4TU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aueIJjjPO6MFW3gkEjUct6uxt9BcVD99g0zB8CGS1fIrYLZy44vgFZqALhQqC/hG7bZLcee/u5aL8TJ18r3Sjdl0p+FnXbuXpawN3vnh55rUdcUYDUhK+EPGCz3SoyL9nW9LaEHNSDpLqFIjzeNHUqVXCzU6uji/hpLjs7X2MEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AFKrmk+5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mYur3Bm1"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b45f2e5f58so2479159e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:03:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788159834; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MOAwq7oJXbCWAPle1r2UCUBBuG7MhZLaL1pMqF5w+xP3OC2CUntmVEzba8XbvVDTpJ
-         DwfeBfWJSP4JFTrfd+I6fUv24XTlAdNPr6NRPMRpISBE6uyKd/tjH1M2c3myBCXoK1xA
-         SxgCK6+1zw73RoTO5OoCUH6Dq6EpWG+sDdAgYcaVIJDzHWssbaljrJdvfQ0LGZNepNBE
-         4YuvXn8UTPGlOrNnV52YwIGeYTDSO0wyBuZhciY6ZJEoNGejZo2st9Y9XQdBLiMPJ6L6
-         4vh3QrV20+Ib6BteBlJ0znYgIJMqwAVhgXZ3ld26DOz1cwz2nBUnw1on5HaFyylaFvHU
-         qUvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=deOLXjvMZIXVeNANpLpVuO42of2g4qJoxwxhsXOLKno=;
-        fh=Xr/K1IsgunDXlImipVZ3bPYZ171+RPnsbEzxzdrlHz4=;
-        b=k1Bqch9V0+5+5UCJSslhzsEDe5BRsJhg0/tYj33KE8us/jlpmKamP00ivZpTZgO293
-         OB9b/k9cNizQgsurd2ECw/8+1uJmnqSgP57taQCdOrwnGE3p8ga86mWGyADDVAyH5cgZ
-         PB3OOoYnHSFutPYdyuX37cWr32QJxWLQ5dn3KOXsduNsBlqLVWxlIIZ1ExRJtRJIPxqj
-         94/UHIXUY63L1UBii9zHd5QKN2mjPFaaKF0oaOV2uGA1WCOWy6opD4+6i3s91Dv6SKHv
-         vCXaKZMJHmVuqyYd1M3XNQZpKLhO54n0tl1V+Vy0r1vKRQ9UQ94/69OWBuImZzJzTfdj
-         TXbw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788159834; x=1788764634; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=deOLXjvMZIXVeNANpLpVuO42of2g4qJoxwxhsXOLKno=;
-        b=mYur3Bm13RjuRWyCU/XB3bcup6MYfZq6Nl9+B8P0/mlrwc37YoP5PHrYMLErLOT2n8
-         FAU5ikeVLj/0aths0bZpWhP8LI2R+OfbNrvUqjLVCz+biWqZ8LcVaw4yw0+jrNgr9nMJ
-         RBukMTiWPG4AF4tJaqhTIBkYbcpio55O0F6FzgYWIkX9MYxb/CweVdIdFhoNAn1IWuPZ
-         0o/x3c6XcTP8mvUTA63bxC2zKZ9WV6WSdU/CbL+dny2OmE1hoz2Y7rGaygXRW3/bAXrU
-         pVZaGCsTuU7+2yywS6kE8rHCKjj3tIA42NWnOQvkT1hqQTqGd+xSsyeDsd+b/49r0Vj3
-         0tGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788159834; x=1788764634;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=deOLXjvMZIXVeNANpLpVuO42of2g4qJoxwxhsXOLKno=;
-        b=ZAwmlbsbb1/ZWHEAVNyodLRIt9NFP7Rh8FjWovsc3jje1wqNiF0wmBtsuOQITz1eI9
-         y9/q8YxxlaWTffSFT3NPssgab9oAk8XKQcafQTWT2bbaLOPP55n9ot5zcrAUhdZ1kAlE
-         DeflDS33xA9BCkAzG8YOEQu5RpnKruXt9gceAUYf0YyB/x6kFwsaEx32zl7MQ8ogVGVJ
-         OJxX5gC38Z+FZRJ+uARVOh8v3vl6bk++IGM3MgB1/tJAb3Av03KyUs1OI/GBedUEd/JH
-         KYSSXZKRzdecnf+8MPP5Q2oeV72NnCkACppzDlFc46INewm2N7T7o3jvsCS6I54fYYHx
-         uu2g==
-X-Forwarded-Encrypted: i=1; AKwUvBx3EuOZ9ZqT7YFv6ALOfektm+lIZAnKritja7SoOvRndjbTpizkuitx9ORQ6kmPivmEE2SwiPGwfaKkTQE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvyNZDqWNAQHZ/ZnKXXRyOFPasWqiDnmXdxZeR3O0588SbVFWM
-	z+g0jG1Gee0uNu1adc3e7S9BZJGsIfdnuVNZMakRzjAHdohN/VeeV9ckwj7Da9MmVDKW1lEsv/W
-	skjmnou7VqGonGK3+RdjuzX2VvhUhGJ/wTkAr
-X-Gm-Gg: AYBFou24tdgRbL2K+r+3Ca3BSsadmAdDDw01w34q/baZSXjPihMy126U6H8O1NL8CqI
-	yK1AlUR1I4aApnfOiGUPeS5Ve6yY0w0Eu+EmuOvonVqdEqjnO5LjRNo/sGUiv+Z3fVA13TvWdOd
-	OBPvQk1lx/bnQjFGmaT3YUg0gNDtwP9vtqRFPvJenHgaE1Snq7lIt8ifsSW2/3Z18XeGcwqPPic
-	gLNcgooWO73QXwc2Qp4kxvD4Vbk6wXRhUMnAAGsKgb82xxuJM8KhuZSKBxUzs9mkZy7RBVjEt77
-	2GLp6ZF9LyUQxX97vdKreVSPTNnAUg65IyTqH/iw9lU=
-X-Received: by 2002:a05:6512:3050:b0:5ae:bbd3:27e3 with SMTP id
- 2adb3069b0e04-5b5e689fb05mr7608311e87.5.1788159833464; Mon, 31 Aug 2026
- 00:03:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AFKrmk+5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 696831F000E9;
+	Mon, 31 Aug 2026 07:03:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788159841;
+	bh=dn2CLObij1YYUhH1wWw0aDiMly3mPdNFWYv1tBBXevA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AFKrmk+5vDmyG9G8H1JEEwJbmAk+fBzl7A0jPF47kKkG+EJygmQXSJwqVFQbAzhk/
+	 PQWVVpn+fKH7QbCTKRdmHwFbsuYrC/B8t8Gz0lS/xu7n/SOD6dRijaAxUSDkoyUoBR
+	 gBEi1NI5wl7DxC/qfV/hOWx4BA3YQJYDQfGeltl2TY784nvgMeCm7JtPYj72kkecdA
+	 tbubdBPTQfwKEazPBtnDGmq5dwRnog+8wTykLf3KSUrjIcF419bX1TSvaUkxIKVTxl
+	 8eiNF0B12+vwHQhjYN33moZ5mka0UJHlAnck/1tYihFEFYWZMlx7lc3ostmD3wvR2I
+	 KM0aMaRSvf+pw==
+Message-ID: <046e4b62-6d25-40fc-baa3-2978eb96eb70@kernel.org>
+Date: Mon, 31 Aug 2026 09:03:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAMuE1bHr84n5LKcj02HmMR5XefPtvQ-UEJAx7+UKfYvRgS0eDg@mail.gmail.com>
- <12744a63-ac8e-4808-a559-f78fede30a40@amd.com>
-In-Reply-To: <12744a63-ac8e-4808-a559-f78fede30a40@amd.com>
-From: Sagi Maimon <maimon.sagi@gmail.com>
-Date: Mon, 31 Aug 2026 10:03:26 +0300
-X-Gm-Features: AcwNN1XPOHnRAmLFiBiL9XpPMa9FXyfskqPKL5CI85UY29DSgAOGnONBrwV4igc
-Message-ID: <CAMuE1bHhsLnAOHkD85wrsJzZRvcZ4ib1fSfkcm_RYESRp+5_0g@mail.gmail.com>
-Subject: Re: [RFC] ptp: ocp: exposing the TimeCard X2 AXI Ethernet port -
- which approach?
-To: "Gupta, Suraj" <suraj.gupta2@amd.com>
-Cc: Netdev <netdev@vger.kernel.org>, Jonathan Lemon <jonathan.lemon@gmail.com>, 
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 11/11] scsi: ufs: ufs-qcom: support ICE keyslot
+ partitioning for guest VMs
+To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>, ebiggers@kernel.org,
+ axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
+ James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Cc: neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
+ mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
+ stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
+ xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
+References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
+ <20260827160806.1295313-12-linlin.zhang@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260827160806.1295313-12-linlin.zhang@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Aug 30, 2026 at 5:05=E2=80=AFPM Gupta, Suraj <suraj.gupta2@amd.com>=
- wrote:
->
-> Hi Maimon,
->
-> On 8/20/2026 8:31 PM, Sagi Maimon wrote:
-> > Hi,
-> >
-> > Before posting patches I would like to check which of two approaches yo=
-u would
-> > prefer, since they differ a lot in how much code lands and where.
-> >
-> > The ADVA TimeCard X2 is a PCIe card whose FPGA image contains a Xilinx =
-AXI
-> > Ethernet MAC and an AXI DMA engine alongside the timing blocks ptp_ocp =
-already
-> > supports. We want to expose that Ethernet port as a netdevice.
-> >
->
-> Is AXI Ethernet being used for 1588 timestamping here?
->
+On 27/08/2026 18:07, Linlin Zhang wrote:
+> From: linlzhan <linlin.zhang@oss.qualcomm.com>
+> 
+> On Qualcomm platforms where UFS inline encryption is shared between
+> the host and guest VMs, the ICE hardware keyslots must be partitioned
+> so that each VM operates only within its own physical slot range.
+> Without this, the host's blk_crypto_profile would manage all hardware
+> slots, conflicting with slots already allocated to guests.
+> 
+> Add ufs_qcom_ice_parse_slot_table() to read the qcom,ice-keyslot-map
+> device-tree node.  The function parses all child entries and validates
+> that no entry's slot range or the combined total exceeds the hardware
+> slot count from REG_UFS_CCAP.  The first child entry is taken as the
+> host's own reservation; its slot count and offset are returned to the
+> caller.
+> 
+> In ufs_qcom_ice_init(), use the parsed host reservation to initialize
+> the blk_crypto_profile with only the host's slot count rather than the
+> full hardware range.  Set profile->slot_offset so that
+> blk_crypto_keyslot_index() returns the correct physical ICE slot
+> number when programming hardware.  If no qcom,ice-keyslot-map node is
+> present, the existing behaviour (profile manages all slots) is
+> preserved.
+> 
+> Note: This patch is submitted for visibility. The ufs-qcom driver
+> gets its max_slots and slot_offset based on the the current
+> DT-based keyslot mechanis. we are aware this may need to be replaced
+> by a TZ SCM interface, submit it RFC for design discussion.
+> 
+> Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
+> ---
+>  drivers/ufs/host/ufs-qcom.c | 91 ++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 90 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+> index 62396212a0a7..0611ab50f4cc 100644
+> --- a/drivers/ufs/host/ufs-qcom.c
+> +++ b/drivers/ufs/host/ufs-qcom.c
+> @@ -163,6 +163,74 @@ static inline void ufs_qcom_ice_enable(struct ufs_qcom_host *host)
+>  		qcom_ice_enable(host->ice);
+>  }
+>  
+> +/**
+> + * ufs_qcom_ice_parse_slot_table() - parse qcom,ice-keyslot-map DT node
+> + * @dev:          UFS controller device
+> + * @hw_max_slots: total physical ICE keyslots reported by REG_UFS_CCAP
+> + * @num_slots:    receives host max_ice_slots (0 = no partitioning)
+> + * @slot_offset:  receives host ice-slot-offset
+> + *
+> + * Parses the qcom,ice-keyslot-map device-tree node.  The first child entry
+> + * is the host's own reservation; subsequent children are guest reservations.
+> + * Validates that no entry's range exceeds @hw_max_slots and that the sum of
+> + * all entries does not exceed @hw_max_slots.
+> + *
+> + * If no qcom,ice-keyslot-map phandle is present, sets @num_slots to 0 and
+> + * returns 0.  Returns -EINVAL if any entry or the total exceeds @hw_max_slots.
+> + */
+> +static int ufs_qcom_ice_parse_slot_table(struct device *dev,
+> +					 unsigned int hw_max_slots,
+> +					 unsigned int *num_slots,
+> +					 unsigned int *slot_offset)
+> +{
+> +	struct device_node *slots_np, *child;
+> +	unsigned int total_slots = 0;
+> +	bool first = true;
+> +	int ret = 0;
+> +
+> +	*num_slots   = 0;
+> +	*slot_offset = 0;
+> +
+> +	slots_np = of_parse_phandle(dev->of_node, "qcom,ice-keyslot-map", 0);
 
-No. The AXI Ethernet is a plain data path on this card. It does no 1588
-timestamping, and this series neither adds nor touches any timestamping
-support in axienet. It could be added later, as separate work.
+No
 
-> Could you please share the role of axienet in the TimeCard architecture,
-> including:
->
-> - Which timestamping device/IP is used
+> +	if (!slots_np)
+> +		return 0;
+> +
+> +	for_each_child_of_node(slots_np, child) {
+> +		u32 off, max;
+> +
+> +		if (of_property_read_u32(child, "qcom,ice-slot-offset", &off) ||
+> +		    of_property_read_u32(child, "qcom,max-ice-slots", &max))
 
-The FPGA clock/ToD block on the ptp_ocp side, disciplined by GNSS and the
-local oscillator, not by network packets. That block is the PHC that
-ptp_ocp registers. The MAC and AXI DMA sit at a separate register window
-with no timestamp unit between them.
+No, there is no such ABI.
 
-> - How timestamps are generated and handled
 
-Not on this path at all -- there is no timestamp unit on the Ethernet
-datapath to generate them.
-
-> - How the driver interacts with the timestamping mechanism
->
-
-It doesn't, and there is nothing in axienet for it to use: no
-.get_ts_info, no .ndo_hwtstamp_get/set, and axienet_ioctl() only
-forwards to phylink_mii_ioctl(). I mention this explicitly because the
-Xilinx vendor tree's axienet does carry a hwtstamp/TSU path -- we are
-not using, porting or touching it.
-
-The scope here is only to expose the existing Ethernet port as a
-netdevice by reusing the in-tree driver, rather than duplicating the MAC
-and DMA logic inside ptp_ocp.
-
-Thanks,
-Sagi
-
-> Regards,
-> Suraj
->
-> > Approach A - let xilinx_axienet drive it.
-> >
-> > ptp_ocp creates a platform device describing the two register windows a=
-nd the
-> > three MSI-X vectors, and xilinx_axienet binds to it. This is what ptp_o=
-cp
-> > already does for the Xilinx SPI and I2C cores on the same card, see
-> > ptp_ocp_i2c_bus() and ptp_ocp_register_spi().
-> >
-> > There is no device tree, so a software node stands in for one: "phy-mod=
-e"
-> > replaces a phy-handle, since the MAC is wired to the fabric internally =
-with no
-> > MDIO and no PHY, and a "fixed-link" child node pins the link at 1 Gbit/=
-s full
-> > duplex.
-> >
-> > This needs two things from xilinx_axienet:
-> >
-> >    1. Read its configuration through the generic device property API in=
-stead of
-> >       the OF-specific one, so it can be described by a software node. O=
-n a
-> >       device-tree system dev_fwnode() resolves to the OF fwnode and the=
- reads
-> >       land in the same OF code as today, so this is a no-op for existin=
-g users.
-> >       It is also in line with the wider move from of_* to
-> >       device_property_*/fwnode_*.
-> >
-> >    2. A dma_dev in struct axienet_local. Descriptors and buffers must b=
-e mapped
-> >       against the device that masters the bus, which for a platform dev=
-ice
-> >       created by a PCIe parent is that parent - a platform device does =
-not
-> >       inherit its parent's DMA ops or IOMMU domain. For every existing =
-user
-> >       dma_dev would equal dev, so no behavioural change.
-> >
-> > That comes to about 50 changed lines in xilinx_axienet and about 180 ne=
-w lines
-> > in ptp_ocp.
-> >
-> > Approach B - a separate driver under drivers/ptp.
-> >
-> > Reimplement the descriptor rings, NAPI and ethtool support against the =
-same IP,
-> > roughly 2500 lines, and share xilinx_axienet's register definitions out=
- of
-> > drivers/net/ethernet/xilinx/.
-> >
-> > We have both working. Approach A is tested on 7.0.0-rc1 with the card:
-> >
-> >    xilinx_axienet xilinx_axienet.512 eth0: configuring for
-> > fixed/internal link mode
-> >    xilinx_axienet xilinx_axienet.512 eth0: Link is Up - 1Gbps/Full -
-> > flow control off
-> >
-> > ping at 0% loss, a 90 s bulk TCP transfer moving ~9000 packets each way=
- with
-> > zero errors and no TX timeouts, ethtool -S/-g/-c/-a all working, and cl=
-ean
-> > module unload and reload.
-> >
-> > We would much rather do A than maintain a duplicate of an existing driv=
-er, so
-> > the questions are:
-> >
-> >    1. Is instantiating xilinx_axienet from a PCIe parent as a platform =
-device
-> >       acceptable, or would you prefer the driver split so the device ca=
-n be
-> >       created on the auxiliary bus? The platform device route keeps the=
- change
-> >       to xilinx_axienet small and matches what ptp_ocp already does for=
- the SPI
-> >       and I2C cores, but auxiliary bus is the more usual choice for sub=
--devices
-> >       of a PCIe function and would make the DMA parent explicit.
-> >
-> >    2. For the dma_dev, we currently infer it by testing whether the par=
-ent is a
-> >       PCI device. That is concise but implicit; we are happy to pass it=
- in
-> >       explicitly if you would prefer it were not inferred.
-> >
-> > I can post the series straight away if you would rather look at the cod=
-e.
-> >
-> > Thanks,
-> > Sagi Maimon
->
+Best regards,
+Krzysztof
