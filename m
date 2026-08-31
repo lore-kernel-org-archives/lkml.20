@@ -1,165 +1,228 @@
-Received: from mta1.migadu.com (out-191.mta1.migadu.com [95.215.58.191])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D948937106D
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:28:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.191
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2011B373BEC
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:28:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788204500; cv=none; b=MPPiO3DB3aIbvstdO/blYoYFdvjjVdgfThegKueVYwbOnK7YheETElUCNR3LMqIAVQ4GM1tTaIMBF3a7qg5vpJvn+CmF+xCrWxoy5OTXmUryp+zHL+wuVfD0QSkclVwfGdlbwNO0HeTnE9WnObSuzvS9/m1tLRjGDPsM56aCUII=
+	t=1788204531; cv=none; b=MlgcHlZfJnamnxk3uPl7uSuHSC9N+M8Ahqn8M5dFB7293dHDutwOdfvTeZx5BGHQH/6ox6rFLaRhsymdjQvP5dMxwTng2Nk0TJWIP2NsImsAoin70BIx/x7JkOSncCeQKpm5y+PQUUkC50arueN1rOgfC9lOeaahIUBUGfrUMcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788204500; c=relaxed/simple;
-	bh=QL9iDzTYCKrAUBeXvATSPUv4Y1G32BzzX2eraj3q3jQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=buiTboEd4kahZRtpSAKjhYvHRgqLp84nB8NZba4ePFg7xhoehtdhATA/Rwq5sOE5Gl0ThgKQH0VsGD6wkSYmEIyIwKM/eSWIZghqi1yu+Kd/27kOmKaz+tL0Gq7LwW0P3JPXmm1RoJXfqljq2ZQhaPRtiF9cbiKZ70qUascOGcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FMW/9ZYw; arc=none smtp.client-ip=95.215.58.191
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788204531; c=relaxed/simple;
+	bh=CNc95lDrdiZd8AV1B18H7xEULsiz1hAHeraG4TZsbas=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WRVNmpnCssv7LaZaOrEZufavRnHH/bKzxMjYPCYIyzz//4PyXpiZmyRo+D3rTl6YMONJQ1MtEbLtS8/n+VZbSpBZYdt//TuM4DU66TW3Us52kfxOfAY0XX67+JP3QkIxvNy6QT9fMvQwItYXQb62jM5irz3lFgFmLUuWqeMDIqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SGpDqF0y; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FMW/9ZYw"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=QL9iDzTYCKrAUBeXvATSPUv4Y1G32BzzX2eraj3q3jQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788204496; v=1; x=1788809296;
- b=FMW/9ZYwFhJa9/QqGaE2Q+/Z8cW2d+V1SYjVc1NXau0WslsMa5oqe/idgNrkHPW1474CwLP3
- VDlwCE550wV4bPIC1lWLTIPEwW6mP+CqX7EdHY++9PkWx+7Ei/+1T2Cekbt0XSk/2ZMQHeWOvlL
- RkI5dSVoUtJ+Tx1eN5lP/r9U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 90b0997e56b25950;
-	Mon, 31 Aug 2026 19:28:16 +0000
-X-Mizu-Trace-ID: 90b0997e56b25950
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b5e5aaf7deso1631e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:28:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByymcQCH/fIx0wJJJPn6MDNWbVYpmNe4jMJOWQ6r8udkvOj24KD8EUuUpC2z2ThxdRI9rCDgA0aY2byk4A=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwVxtmZfYOyRaRMIv0KYUP2QF+oCDnsLbEwN4Wg/jcl12IGfv1
-	eTxyBbffrK+OcmEZLhYR/tbfMXf9HdkFvXPFtCNCXEep8zWppXRLAw5Qo+PMCGuYfq9CNHa6EUD
-	M5aNidOOvwN0p4iSKoWU0FEgENr43BNrF9RVjQG3F
-X-Received: by 2002:a05:6512:3b0d:b0:5b4:9dba:4ece with SMTP id
- 2adb3069b0e04-5b5ff2ae0dcmr23112e87.12.1788204494566; Mon, 31 Aug 2026
- 12:28:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SGpDqF0y"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38e58034d05so3287746a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:28:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788204529; x=1788809329; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jOrdrxaxaxWhGxafBxna8Qbb07ro71OXhgW0DP7l1OQ=;
+        b=SGpDqF0y+LYj9lYiJUKTxXQ6PnhrJ0D4wrPmOj1t4HniEzwK0+9MIcO7hk9JQPUIIT
+         gU2R4kekH5d4TCoGd3Xp82Bk50loo8OOFRE51BU/bOl2krZNfbObQRoXY45R1FNUMYoq
+         xmXR5zfhyR1ynTGJWYzlHXgPyovYX+rDtX0L/ACbqhM3RBOs/SGzoZmjKV5rYh4rodOx
+         YNaiM4+uqoIIx9bhqPLvdr1sD0NMPZEH+oNL1pZM7vD99SrAQpZlZLfw9z3MFBEWoifP
+         TcsyQM/W5aVv7t2KD/IhqOcSD3b6u92zTzSvsZrMt/gFUCtHmhx/ZMx7yNGC9AAFh3VX
+         0lyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788204529; x=1788809329;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jOrdrxaxaxWhGxafBxna8Qbb07ro71OXhgW0DP7l1OQ=;
+        b=WcbI6uVmEPzRQ7w5yHrqfxelxOt9MctaHybZyhGZuTDoG6Ws1Nblqhdjn/WYo8grZw
+         cEc6Y+d6JsXaGJcuCFecbpFlwStPZrQwkKgppGRL/VUbQsifHRy6Vs6ubhzWARgw22dK
+         Z/QL3JAyF/WulkT5jsrJDCpAAPcjojYztNkzMOROyo7RnudAxk451XpBOctqBUsKbaVY
+         JiJr24/vJ1H7l0W+HNajZ5YJzIGaDlVm1JuKOZIfu/TlWtLmiA3ZGKPyNcJ3f+Uc84Ag
+         lNMwoU1rOHX3S6qiz+fXJzOa7qA/1xTfPJhd7QPzbGxm6jWRa2mnd7KvWvbhUSDebfGE
+         Dmkg==
+X-Forwarded-Encrypted: i=1; AKwUvBxYF2PA6lzQz9vk6qiNDBMYeM3Z5j6D54VF41ctWDwKZngjrLQ6BJJJQ08ps70Z6eXxBYB5pVXGjvLkrJk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+rd+7kQqe0PT5UoBT11GcBjder3UuaL7lMD3pikX07NFCaoz5
+	GKZ04teWUjYl9HS6m0TWqoa5uZOCM0W2I1ptEKcGGP5BFFmsUyigSp9v
+X-Gm-Gg: AYBFou0D0aTBgkE4QGjfqZClt7v2ore329W5jiy+fqfFHkoRLmEehqMMGvjIKB4+V/S
+	pvRIRQiZHgMkzdiHpYOaZdB2gs1BgvPpfZ/oB/2V/IPhl2R6ra4Y4usMRQW/hxZPJ2ThT0g+cNf
+	8pYL1rhOK0pm0qsH5vRJyGT9LFjOQnlpB1y7MLsz1zHQr19v4K5xP/nj9t9ozlONtE+bC+1dRZk
+	htxM2K0r0l3NYfxoMTerJXJ2ZVon1b9d6hhi+nhd2uhzM7OQVR6oVkUXu4raMP+FqSlFfHBikch
+	a6CTTxHFO6yVwbUK5O78bmz9ZyvF8ZCufIUaoHD/7UOAZVNVOF0RclrDQUyf0P5NomkBCzH9GRP
+	Ia8ebBOHLBHbbAfar5aSs8rWE4QvvZciUI0CHhnZOR7oNaRuMm6L/IoIOeTr72YLM+HnnxtowEr
+	p3WT3WB+TAJHydniYtaVV2uqPFn+/LhUuCmhhIu6smONndW/DcSdzEUH5MnbkHY+wMa1Ad8vfuU
+	V/zbwey
+X-Received: by 2002:a17:90b:5827:b0:381:11eb:d78e with SMTP id 98e67ed59e1d1-39907d6909fmr4255743a91.14.1788204529334;
+        Mon, 31 Aug 2026 12:28:49 -0700 (PDT)
+Received: from v4bel ([58.123.110.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bcf7c9csm1138684a91.2.2026.08.31.12.28.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 12:28:48 -0700 (PDT)
+Date: Tue, 1 Sep 2026 04:28:42 +0900
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: "Chen, Yu C" <yu.c.chen@intel.com>
+Cc: Tim Chen <tim.c.chen@linux.intel.com>, Kees Cook <kees@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Qais Yousef <qyousef@layalina.io>,
+	Aaron Lu <ziqianlu@bytedance.com>,
+	Srikar Dronamraju <srikar@linux.ibm.com>,
+	Vineeth Remanan Pillai <vineethr@linux.ibm.com>,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"chen.yu@linux.dev" <chen.yu@linux.dev>, imv4bel@gmail.com
+Subject: Re: [PATCH] sched/cache: Fix use-after-free of the mm replaced by
+ exec
+Message-ID: <apXV6t-7drLDf-lL@v4bel>
+References: <apPb-Dr4nPYuHQOK@v4bel>
+ <825d9dcc-b052-4367-a9c7-15efc4b354f8@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831163421.272420-1-fuad.tabba@linux.dev>
-In-Reply-To: <20260831163421.272420-1-fuad.tabba@linux.dev>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 31 Aug 2026 20:27:38 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTycOnoVv6jCE2M5bVLG5m1MhnaWSNTpS8vJaWVDk1+S3g@mail.gmail.com>
-X-Gm-Features: AcwNN1VeQcT49sFWxBpO5p7UEcrKsOyar9oNS5xestQbF8q3MfimLDxR9Ts3ohk
-Message-ID: <CA+EHjTycOnoVv6jCE2M5bVLG5m1MhnaWSNTpS8vJaWVDk1+S3g@mail.gmail.com>
-Subject: Re: [PATCH 00/17] KVM: arm64: Confine protected VM vCPU state to EL2
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Vincent Donnefort <vdonnefort@google.com>, Quentin Perret <qperret@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <825d9dcc-b052-4367-a9c7-15efc4b354f8@intel.com>
 
-On Mon, 31 Aug 2026 at 17:34, Fuad Tabba <fuad.tabba@linux.dev> wrote:
-...
->
-> The kvmtool changes that go with this will be posted separately, and I
-> will reply here with a link.
+On Mon, Aug 31, 2026 at 12:22:45PM +0800, Chen, Yu C wrote:
+> Hi Hyunwoo,
+> 
+> On 8/30/2026 3:30 PM, Hyunwoo Kim wrote:
+> > When the waker cannot use the wakelist, ttwu_queue() takes the target rq
+> > lock and goes down into update_curr(). If the target rq belongs to another
+> > CPU, the task handed to account_mm_sched() is the one running on that CPU,
+> > not the task being woken.
+> > 
+> > account_mm_sched() reads p->mm and updates mm->sc_stat. Nothing keeps that
+> > mm alive. The rq lock and rq->cpu_epoch_lock it holds have nothing to do
+> > with the lifetime of the mm.
+> > 
+> > If that task happens to be in execve(), exec_mmap() points tsk->mm and
+> > tsk->active_mm at the new mm, and exec_mm_put_old() from setup_new_exec()
+> > drops the old one. free_bprm() does the same when exec fails. On the way
+> > from mmput() down to __mmdrop(), mm_destroy_sched() calls free_percpu() on
+> > sc_stat.pcpu_sched and free_mm() returns the mm_struct.
+> > 
+> > Whoever already read the old pointer keeps using it. It adds to runtime in
+> > the freed per-cpu area and reads sc_stat in the freed mm_struct. Depending
+> > on the condition it also writes sc_stat.cpu. That is a use-after-free.
+> > 
+> > Commit 9f23469401b0 ("sched/cache: Fix potential NULL mm pointer access")
+> > changed the remaining p->mm dereference to the local variable, and said the
+> > active_mm reference keeps the structure allocated. That holds for the other
+> > paths that detach an mm, since they take an mmgrab_lazy_tlb() reference.
+> > exec reassigns active_mm to the new mm as well, so that reference is gone.
+> > What is left is the mm_users reference in bprm->old_mm, and dropping it is
+> > the free.
+> > 
+> >               CPU0                                CPU1
+> > 
+> >                                        write(pipe)
+> >                                        try_to_wake_up()
+> >                                          ttwu_queue()      // takes rq0 lock
+> >                                            enqueue_task_fair()
+> >                                              update_curr()
+> >                                                update_se()
+> >                                                  account_mm_sched()
+> >                                                    mm = rq0->curr->mm
+> >                                                          // old mm
+> >    execve()
+> >      exec_mmap()                       // tsk->mm = new mm
+> >      setup_new_exec()
+> >        exec_mm_put_old()
+> >          mmput() -> ... -> __mmdrop()
+> >            mm_destroy_sched()          // free_percpu()
+> >            free_mm()
+> >                                                    read mm->sc_stat.epoch
+> >                                                          // use-after-free
+> > 
+> 
+> Ah, thanks for catching this.
+> 
+> > ---
+> >   fs/exec.c             |  1 +
+> >   include/linux/sched.h |  4 ++++
+> >   kernel/events/core.c  |  2 ++
+> >   kernel/sched/fair.c   | 16 ++++++++++++++++
+> >   4 files changed, 23 insertions(+)
+> > 
+> > diff --git a/fs/exec.c b/fs/exec.c
+> > index 745f6eb5279e6..6194c38807980 100644
+> > --- a/fs/exec.c
+> > +++ b/fs/exec.c
+> > @@ -916,6 +916,7 @@ static void exec_mm_put_old(struct mm_struct *old_mm)
+> >   {
+> >   	setmax_mm_hiwater_rss(&current->signal->maxrss, old_mm);
+> >   	mm_update_next_owner(old_mm);
+> > +	sched_cache_exec_done();
+> >   	mmput(old_mm);
+> >   }
+> > diff --git a/include/linux/sched.h b/include/linux/sched.h
+> > index 8b3d47a325cca..6ae31bffe049e 100644
+> > --- a/include/linux/sched.h
+> > +++ b/include/linux/sched.h
+> > @@ -2415,10 +2415,14 @@ struct sched_cache_stat {
+> >   	int cpu;
+> >   } ____cacheline_aligned_in_smp;
+> > +void sched_cache_exec_done(void);
+> > +
+> >   #else
+> >   struct sched_cache_stat { };
+> > +static inline void sched_cache_exec_done(void) { }
+> > +
+> >   #endif
+> >   #ifndef MODULE
+> > diff --git a/kernel/events/core.c b/kernel/events/core.c
+> > index a6c8e38a31104..2f29cbccf03f1 100644
+> > --- a/kernel/events/core.c
+> > +++ b/kernel/events/core.c
+> > @@ -5427,6 +5427,8 @@ attach_task_ctx_data(struct task_struct *task, struct kmem_cache *ctx_cache,
+> >   	if (!cd)
+> >   		return -ENOMEM;
+> > +	/* @old, loaded by the try_cmpxchg() below, is only stable under RCU. */
+> > +	guard(rcu)();
+> 
+> Is this change related to this UAF issue?
 
-... and here they are:
-https://lore.kernel.org/all/20260831192406.1341841-1-fuad.tabba@linux.dev/
+Duh.. that one is unrelated. My mistake.
 
-Cheers,
-/fuad
+> 
+> > +/* exec() has switched to the new mm and is about to drop the old one. */
+> > +void sched_cache_exec_done(void)
+> > +{
+> > +	struct rq_flags rf;
+> > +	struct rq *rq;
+> > +
+> > +	/*
+> > +	 * account_mm_sched() dereferences rq->curr->mm under this rq's lock,
+> > +	 * so a remote CPU can still be using the old mm. The lock cycle waits
+> > +	 * for it, and the store to tsk->mm cannot be reordered past the
+> > +	 * release, so later acquirers see the new mm.
+> > +	 */
+> > +	rq = this_rq_lock_irq(&rf);
+> 
+> A smart fix, learnt! It behaves like a synchronize_rcu() to protect against
+> the read in account_mm_sched(). Small open: since the context of invoking
+> account_mm_sched() is preemption-disabled, I wonder if we can simply use
+> synchronize_rcu() directly instead of this_rq_lock_irq() - just to avoid
+> contention for rq-lock in heavy system?
 
->
-> Patch 1 is the HCR_EL2.VSE fix posted separately [2]. It is not part
-> of this series; it is carried so the series applies as is and Sashiko
-> can run on it.
->
-> The KVM_ARM_PREFERRED_TARGET documentation fix [3] went out just ahead
-> of this series. Nothing here needs it to apply, but patch 17 documents
-> vCPU feature availability as something the capabilities report, while
-> api.rst 4.83 still points userspace at a bitmap that has always been
-> empty.
->
-> The series is structured as follows:
->
->   01:     The HCR_EL2.VSE fix, posted separately.
->   02-03:  Capability allowlist and the PVTIME rejection.
->   04-05:  Per-exception-class entry handlers; EL2 owns a protected
->           vCPU's trap configuration.
->   06-08:  Timer state, system register reset and HVC handling at EL2.
->   09-10:  PSCI at EL2, and the KVM_ARM_VCPU_INIT and PSCI version
->           restrictions.
->   11-14:  Host PC adjustments blocked; an UNDEF at EL2 for exit
->           classes the host does not emulate; per-class state
->           marshalling; a protected guest's SError pended with
->           HCR_EL2.VSE.
->   15-16:  Host access to private state, and host power-on of a vCPU
->           EL2 holds powered off, rejected.
->   17:     Documentation.
->
-> Still to come: selftests, self-hosted debug, SVE for protected guests,
-> and much more, as separate series.
->
-> Based on v7.3-rc1 (cee9395acd804).
->
-> Cheers,
-> /fuad
->
-> P.S. Sashiko, bring it on!
->
-> [1] https://lore.kernel.org/all/20260729131823.2021516-1-fuad.tabba@linux.dev/
-> [2] https://lore.kernel.org/all/20260829071120.2522788-1-fuad.tabba@linux.dev/
-> [3] https://lore.kernel.org/all/20260831162815.269851-1-fuad.tabba@linux.dev/
->
-> Fuad Tabba (15):
->   KVM: arm64: Sync HCR_EL2.VSE back to the host vCPU under pKVM
->   KVM: arm64: Advertise the capabilities that protected VMs support
->   KVM: arm64: Reject the PVTIME vCPU attribute for protected VMs
->   KVM: arm64: Skip fixed-feature state flush for protected vCPUs
->   KVM: arm64: Add system register reset framework for protected VMs
->   KVM: arm64: Implement HVC handling for protected guests at EL2
->   KVM: arm64: Handle PSCI calls for protected VMs at EL2
->   KVM: arm64: Restrict KVM_ARM_VCPU_INIT and PSCI version for protected
->     VMs
->   KVM: arm64: Prevent host PC adjustments for protected vCPUs
->   KVM: arm64: Inject an UNDEF at EL2 for unhandled protected guest exits
->   KVM: arm64: Add per-EC entry/exit state marshalling for protected
->     guests
->   KVM: arm64: Pend a protected guest's SError with HCR_EL2.VSE only
->   KVM: arm64: Reject host access to protected VM private state
->   KVM: arm64: Reject host power-on of a vCPU that EL2 holds powered off
->   KVM: arm64: Document the protected VM userspace API
->
-> Marc Zyngier (2):
->   KVM: arm64: Introduce per-EC entry handlers for pKVM
->   KVM: arm64: Add {flush,sync}_hyp_timer_state() primitives
->
->  Documentation/virt/kvm/api.rst                |  22 +-
->  .../virt/kvm/arm/fw-pseudo-registers.rst      |   2 +
->  Documentation/virt/kvm/arm/pkvm.rst           | 141 ++++-
->  Documentation/virt/kvm/devices/vcpu.rst       |   4 +-
->  arch/arm64/include/asm/kvm_asm.h              |   1 +
->  arch/arm64/include/asm/kvm_host.h             |  21 +
->  arch/arm64/include/asm/kvm_pkvm.h             |  34 +-
->  arch/arm64/kvm/arm.c                          |  40 ++
->  arch/arm64/kvm/guest.c                        |  29 +
->  arch/arm64/kvm/hyp/exception.c                |  27 +-
->  arch/arm64/kvm/hyp/include/nvhe/pkvm.h        |  18 +
->  arch/arm64/kvm/hyp/nvhe/hyp-main.c            | 564 +++++++++++++++++-
->  arch/arm64/kvm/hyp/nvhe/pkvm.c                | 401 ++++++++++++-
->  arch/arm64/kvm/hyp/nvhe/switch.c              |  29 +-
->  arch/arm64/kvm/hyp/nvhe/sys_regs.c            |  91 ++-
->  arch/arm64/kvm/hypercalls.c                   |   7 +
->  arch/arm64/kvm/inject_fault.c                 |   5 +-
->  arch/arm64/kvm/pkvm.c                         |  21 +-
->  arch/arm64/kvm/psci.c                         |   3 +
->  19 files changed, 1378 insertions(+), 82 deletions(-)
->
->
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> --
-> 2.39.5
->
+Yeah, that works too. I think rcu is nicer here as well. I'll do some
+testing and send a v2.
+
+
+Best regards,
+Hyunwoo Kim
