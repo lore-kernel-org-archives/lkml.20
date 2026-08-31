@@ -1,74 +1,74 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FD83DD503
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EB33515E9
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:38:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788169097; cv=none; b=DVNb8wxIMceI13UEMAnCFhLiIT04jwBo9sBeaSlZBAApjx8gd0inKF62U20m8h/G+UnDCRySOhiej0QMldr+JpXdhHDXf4jSjJzh33SIPLUgOQLn2sD4V+70uvWjB0SJ2qvLkPHmoEBlWORGKyAFu9msLWdzz4V20EUkBk/KDuU=
+	t=1788169105; cv=none; b=m5WCLEtSk+vUTaNulyKMkmxgjkgetcbKCdIeNbFbO909qkg64vzGb/GOVwT5d403woBUU3dDcf/FXaaYAx6o9clJxYhLKyN0pq3iRhes4ROJTB9koDcL+zirM0dlgv/xO4EUp4pqwAuYN4OZsoMNtQlaietJxN/0jCLbRkCIBhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788169097; c=relaxed/simple;
-	bh=8CU9lUBSr36Vnjtnh3nf3UPr4d8FKMwSks35Tl01xaU=;
+	s=arc-20240116; t=1788169105; c=relaxed/simple;
+	bh=vTLeb2dANt+uqoDhcmB3qy+iNJr68ED+PMnVlEuYXPo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PRMXW+5/OKHDZpBG1gHsqOiLhm/6GVayfIqfRZJrEbSabr7WYj/KL5ZagHRQb197D3ElYegRTBprh8b3iLXXg+t8x/LCUkUcWvBkJYBwG3O+rxZ/HZ8TT0noYqNCmOEDQc2/OnboaEtj5M3gEynd3q31Vg6zGdJDuqA+LOlVZWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Wd18PPwR; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=bppXiou2e6FViJNUm8QVBC+UGym6qk4qm8A9wZXR4nAqlm6Msly/CCI1J1EfpSquFeZT7lWAI+6GWu8PFgXEXo8yBSsqYC2P/kAnn/qbU1M3YEP8y+kCVuzS8E3HPUf9QGYPCcIgXZ+pjbN+36XijJTG5oyr93rbQdpJhkU93qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=izrbNq43; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Wd18PPwR"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84f38f3b36eso2759779b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:38:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="izrbNq43"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so2534445a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:38:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788169095; x=1788773895; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1788169103; x=1788773903; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=d4945ExoKdc+YvBa/novL6lrWieQR91OCgBEeo72O9E=;
-        b=Wd18PPwR4XaqHg6klvQWxvmWR5iS0hdAFo+vhFQgVTIjTDyqi5SkkwMTicx2balH6c
-         AuZ9l44emh5yim/pLpXkelkhHPgwSYm7cvgB140ZGqgsF+gLuXUPnraYRywOxYi/CKNZ
-         ST3v9oKyczyjiytesUWG+IGxQ9OrX2Qu/zIXE=
+        bh=CW23LQEB4WoxPcN9t72NgpaNRCQygSurIOdrvN/ogho=;
+        b=izrbNq4386i7U7SQkhDTHRQec9DSipC56N4jA8bslNLjb9Eb959hapiSFfzn4snHmz
+         D95tj6Ru4nkFhR1fukvxLFq4pDLHSxqpT1F/dknIFpPN6z/j1iIyHzkvgUr/L1sEX8qB
+         4ziyJxGJNJpcw17d85Rpuq+GaaEGVs/Hf/yJylswLBmMvAALOFadTfbFlSEkbsXUcyDp
+         TZoManHQWZoX0ecjO791FobtNRP5cc1CUjoIH+2zjhqMPrJNSOdJyYEgJ2gmoHwv4d5p
+         kBXxlSWs0OuNftwqJqWGryBW1qNr/WwAZhFIk/QHLmrkYL3ILyeNecZDv/FZtFy5EvjU
+         Oifw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788169095; x=1788773895;
+        d=1e100.net; s=20251104; t=1788169103; x=1788773903;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d4945ExoKdc+YvBa/novL6lrWieQR91OCgBEeo72O9E=;
-        b=Lf5oMOP1SHvpvwQmCOPiXpTGWQBbljtancx5SbwX75n252YIYxw5p/bixNRvXnlEne
-         eXZVoBqOg+e9+x6rl/i7u1uUR5qxCucRsRmyWvUB063VBealgrqHm5S7ykb5rMOIu31k
-         HKa/5yWNYN9D8pl2eLGC4ZD3baH2RMeIh4tiB/aBDVgypNfXJzYsNjqUTElu2gtpUIDW
-         YdsF23tncJ8VpUDHHXaqOYBZTwRR77kXgwxX5SNuJaPL/N4wFhFUNpuJy0GxVaAGkx20
-         JsDYsT0eg1DPHX1jIN8kOeaFhxdJCg4LYFfik2f6cpjJDSw3XBD4yS9X+nhqDAp7vsr3
-         a9UA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5zWhbLAYk5jGJ5M+egtWIQm3Um89trg6lBLyg09FdIy6ejGbcbCBLaJ2YVETZMa/1Zre00UE1zvsBY5E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkGj0z6raeo45JCGG6A8ZnyzeZamb8jpeHvH3sEwqMhDjYrIwD
-	u3KaaqCDsdW/htR1CXL1ulkpNnbWtVRiHwTb7UTay8kNv8w3mMMuXjjYNCLZ6DF02Q==
-X-Gm-Gg: AR+sD12AK579aqKVTBd83vC3tNMiWYRyKsLNH1YxgEjZ+qbEVmKdaL9q24ZEpM7teI1
-	UBwcbMXs5mXUvi05LicjMa9GqbAshDtVXetEWpA4ONS2w6viwljs450cCP6Id772DL3hIUvu9wZ
-	y+NbFV08uCG7Xc0QwtjRtsaZMcpx7KO2H5jt5ctYE2ezia9xhWNhDbjLu01PBWcBQwIxTrnGPTi
-	t0NDUbC1yfEoHZAjbn2vUsZ7k4CCISuxyhEddy/Hq/VFJyosRzkpAgStfKzFCUJxxlG1+eoT4zl
-	QLKPbc/vy81ODAUOzi9IYJ6gk+KRMaAKPQxWyVSO8T91v3BpMB4p8HQENE5O6ydZQipOcG0cFP/
-	vZvdNbxJpwUnOiiWoVuAzghkUYZxCLwfLjoLBEf+WQpGBOlh9oLRT/dngImo6jOEcYE+FWmM1uP
-	oxg5UiB6C28OKQvwQmN8kSA21zi3kVoPazDyWnW0wWMqSBd66+X1YwTrEPJypCyAw7n785J/kv+
-	cmKnW6JwQz1Ulxi+L/+n94OsMTC
-X-Received: by 2002:a05:6a00:9508:b0:857:74ae:ad76 with SMTP id d2e1a72fcca58-85774aeb840mr22077655b3a.26.1788169094792;
-        Mon, 31 Aug 2026 02:38:14 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:8dd2:2971:8401:7686])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-856a3d689ccsm3376995b3a.58.2026.08.31.02.38.11
+        bh=CW23LQEB4WoxPcN9t72NgpaNRCQygSurIOdrvN/ogho=;
+        b=ZN6ZGVJCY/Dlzvl23qHiZY5vGh+gxHs9m63v7T86pr6XQqe33BjMp1uES5zXU2l/Gt
+         I7e8QdoeU41uGPrWS9vfDSWmYCrQeThrCt3WjxjE+/Bgi+rjkB/FUC9Mlam1LMbLtRz8
+         BgMqu0gGLaHStw+udHCR3kK7tzE3WrGan3Ur/YE2DLilCEp2Ik3M0u8rZ0piflkkWw9Z
+         7s0JNlSe31rmG8YidkYQvg2dqUAjlTfYdQ6/UuQaVY3BqmL8IqSHh8YtJyfWGnYgWnTU
+         cDuY+LeQEGenI8+c6KYmz4yv69FdVD347CkE4vG1h9fdG1ZSRvRzTmcbv6R7+Uxzjy2o
+         2asQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx+eMX6cNxKXYH25s4NajgOJVUOeJEuYTPzqQc5busBw3nvAhY+X9+K43L1dMvFriwqmjm3igmlix4bHRo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmTdLwPLm2aXU/MpS/fsF9cUX+a7CvWOAeOcbcECm4qxA5bcCN
+	5anj9GM460mY3Ky/bP7Ha+yCxQ4Cg1cP9x4AlJiaY030MMyIStrZvyWpCJ4k0aFMd/Q8JzShTa2
+	uk0WR
+X-Gm-Gg: AYBFou23u8tmQne7b6WFfOEZoqNGMu7eXevmi/puPuurMHmyKBsRhtxnRbObXtBx8Fg
+	/eNYF7zTswNMrHjNQKcWcuVyUQzz72zsMR284mcP0Q81racKMkIBQUQ+V7dWgLSYUFLrOZr/ctR
+	j1ym8SaUob91fgu+TfrH7mycgGG4/yeOI+AdNTnoA3cAPxP7m90g8817k1EWlAc1NuegSoU9Jax
+	mdhICt2LBPSROGl8gklL8SCuwWgZinQ+mUw0KBvfQJ+QEmp26c89kYJ+2WsKi5RtvIDHnFgfVBD
+	5xay4I7Km3Yjy5tVNdRN4JK7eF0aqgv2le953BP68Yec0tCAu7nQ6QNCBiUeEC1qUd9r0gYuQAO
+	uKjxFQ8jQvqp5jA5JZag3A0WVUI0+w7u/5I7LSZGVGaNLbPMvY/gJ2W0CFLBvb8gUCmP2FybA5y
+	91pTQ7mGMBdAebAPpV+o7bhVAQ4heSIvitMtWzxJkaLZe6jefH2JKWAIkyry64aMs=
+X-Received: by 2002:a17:90b:5287:b0:398:9c07:8907 with SMTP id 98e67ed59e1d1-3989c0797c7mr26090507a91.24.1788169103218;
+        Mon, 31 Aug 2026 02:38:23 -0700 (PDT)
+Received: from localhost ([122.172.87.224])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7be440sm32786117eec.7.2026.08.31.02.38.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 02:38:13 -0700 (PDT)
-Date: Mon, 31 Aug 2026 18:38:09 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Hao Jia <jiahao.kernel@gmail.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, minchan@kernel.org, axboe@kernel.dk, bgeffon@google.com, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] zram: fix idle age_sec underflow in idle_store()
-Message-ID: <apVK4g2ikVJe_Hcg@google.com>
-References: <20260828083149.45760-1-jiahao.kernel@gmail.com>
- <20260828102446.3eb7f3dc779753b831e33fe6@linux-foundation.org>
- <apT-ocFYDmU6iC-j@google.com>
- <c961850c-09d0-3366-73e0-1932c1dc00e5@gmail.com>
+        Mon, 31 Aug 2026 02:38:22 -0700 (PDT)
+Date: Mon, 31 Aug 2026 15:08:19 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Xueqin Luo <luoxueqin@kylinos.cn>
+Cc: patrice.chotard@foss.st.com, rafael@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] cpufreq: sti: avoid NULL dereference in dev_err()
+Message-ID: <apVLi1Lej-5lwkqd@vireshk-B250M-D3H>
+References: <20260831091159.3906287-1-luoxueqin@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,42 +77,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <c961850c-09d0-3366-73e0-1932c1dc00e5@gmail.com>
+In-Reply-To: <20260831091159.3906287-1-luoxueqin@kylinos.cn>
 
-On (26/08/31 16:37), Hao Jia wrote:
-> On 2026/8/31 12:15, Sergey Senozhatsky wrote:
-> > On (26/08/28 10:24), Andrew Morton wrote:
-> > > On Fri, 28 Aug 2026 16:31:49 +0800 Hao Jia <jiahao.kernel@gmail.com> wrote:
-> > [..]
-> > > 
-> > > Thanks.  Sashiko asked a couple of questions about this change:
-> > > 	https://sashiko.dev/#/patchset/20260828083149.45760-1-jiahao.kernel@gmail.com
-> > 
-> > 
-> > > Does this early return prevent marking valid boot-time pages as idle?
-> > > When a page is accessed during the first second of system boot, its ac_time
-> > > would be 0.
-> > 
-> > There is no possibility for zram to hold pages during first second of
-> > system boot, regardless of whether zram was configured as a swap device
-> > or as a block device (mount-ed with real filesystem).
-> > 
-> > 
-> > > Can the early return above bypass this zram device initialization check?
-> > 
-> > We already do that, e.g. when kstrtouint(buf, 0, &age_sec) fails.  Apart
-> > from that, that's not how one checks if device was initialized.  We may
-> > want to consolidate those checks, just for symmetry.
+On 31-08-26, 17:11, Xueqin Luo wrote:
+> ddata.cpu is NULL-checked, then immediately passed to dev_err().
+> Replace with pr_err() to avoid dereferencing NULL.
 > 
-> Agreed on both points -- the early return is not a new "bypass", and
-> the write() return value was never a way to probe init state.
-> 
-> How about moving the init_done() check to the top, so all the early
-> returns sit behind the same device-state check?
+> Fixes: ab0ea257fc58 ("cpufreq: st: Provide runtime initialised driver for ST's platforms")
+> Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
+> ---
+>  drivers/cpufreq/sti-cpufreq.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Yeah, I don't know...  Moving it under device lock doesn't buy us
-anything.  We don't need device lock to validate integer rangers,
-etc.  There are validations that we need to do under device lock
-because those require a consistent device state.  But things like
-"is system uptime less than supplied sysfs data" don't logically
-require a device lock.
+Applied. Thanks.
+
+-- 
+viresh
