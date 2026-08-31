@@ -1,108 +1,91 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA6C335564;
-	Mon, 31 Aug 2026 23:18:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3AD03E274C;
+	Mon, 31 Aug 2026 23:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788218307; cv=none; b=Gah1JkDHGzE+EigRv22hdBt4z2tqDIixGxmRSkJ8/b1o2FvEYtvLdue2ZxevY4Ex2a9o75h5W7K9Rk3dJMbIfD+nvIfHTwkqtj0FRXr7zmBsoCI/c3JYTowJa3AtFGgcoqwx0qLtuR5/l0Ep7lRcWAPOUKtmozo1g+umiBKsyTA=
+	t=1788218311; cv=none; b=d8RHone6YF+YJUXVx0Q7Lwyly56iBaoG6v1wYe36nFxll+KEofqEHKJ/1x7ccOv5uCBm/yr18VXTQ906UFsXrjqaH4YZuZu9ztRmXdwY1r3s+niHpfsKqK4iSCOJp5KUDZ2IftbFPevh4A4jxezUOX22+9VQgyvagkYPsYnYzK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788218307; c=relaxed/simple;
-	bh=CA0BsvG5MU8vmgNuKk4vbeK2abo0g/5hs5ykktK9VyI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q7PscIfpHwX8aHOG87xjjRVKUSfYSz+Yt2besq+qNDaZTL0SMFHOmFlSDhvQrDcAoyt9fBmJr1Qhh4kbRFDgV3BPbIAPisd6pZQq745eCTJI2tFM89b39qUFY3EjZJgYhdSKxLZd2dQNuYFPRisJmPNP1dRs5SKSdS8DSucxBtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=JCPBi3WZ; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788218311; c=relaxed/simple;
+	bh=bivl00aXJzLo0QkaUmlOlS45C1LsXDSzR+GV+Zh4vtQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pI1OizQZFK+hJHNe7t5mbl/5AYkcNZSeiNhUBvkywJgit+4mGksvH3HjalXJe6ejdT2BvM7IC0tqziN2HMcYZC2UKxhth5KszvrUueeZdUiD4kldsSWNsJ/jgBhkl1tquwN1aCNbGoZjhh7RqqqGCHE0bVpG5rITH2Hqsmdrses=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EEpub1GD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="JCPBi3WZ"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7D19D11C757;
-	Tue, 01 Sep 2026 01:18:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788218299; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=h31VU+R5UPSga0UvhcM5lnBnLp5VXrWzv1ka1JR7q+E=;
-	b=JCPBi3WZdTtIt78Td+gg97FO2qxleHJqq+HDx/8RsSIzoCPdlHbnXtZQwNrdbitVUkl2X9
-	O927rJNbbr9Vd1QqrexFtaEi6KaTNwrbsWQ933C2VEMy3mKn7RG1s5m1w0Xj/1acFGe+43
-	Rs2ecy1rJcKUKBpxYSMpDBKVbRnmV12w0UGGjLiDx6K0nR5Tusdkq4K1Z8drSv7gHUMET9
-	910gJUAhdS6E9NYt/2HDiryyOp7+fdeKmVmwJ/OBsCQWuZ6CS8vVv8J7xTlV2OMm2UEbLD
-	gKUCQmKapZ8hKTsBcdldjA7UMBXX6EI5ONtI9phbBSrHeSWPA6fjXOOvSIV9fQ==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-usb@vger.kernel.org
-Cc: fabrice.gasnier@foss.st.com,
-	Marek Vasut <marex@nabladev.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v5 0/4] arm64: dts: st: Add STM32MP2 USB support
-Date: Tue,  1 Sep 2026 01:17:31 +0200
-Message-ID: <20260831231814.137120-1-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EEpub1GD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C821F00A3D;
+	Mon, 31 Aug 2026 23:18:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788218310;
+	bh=VUcB70G9P5jAx1yv7UiuVEK89XWTWDQ7iyZGCes5l14=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EEpub1GDLIWivbpz2qLUS0PPs5/wDfsBlQfEsGphBi9/qFrATneAt5gyVOV8JFowj
+	 Lz3zVEvjVVRFtagsTEYoj5BMOk7kZh26+ruKvXGC1j6S3xeKpsHzdYH6Wcg1Y2a592
+	 dn/t/fjZT32l4aZ9/d+OIp9Hr5jkn0mcArj0mar+8KMMa2D0qJRXwrHqnLJjXvjbwp
+	 7sZEuv9BkMQmkxJMLlp5lqMLIviri9Hq7k0PRRXXAEXhNgpqQzintdPdbCItV+R2oi
+	 IzgdaVckXYDJUkniyUm/UywlmFgQSj9rfc/E+vnXTCqXqLLRGhop9BbCKSGDTQCF2R
+	 kb2w0iVfQ+c6w==
+Date: Mon, 31 Aug 2026 18:18:29 -0500
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RESEND PATCH] Input: tsc2007 - Read "ti,poll-period" as u32
+Message-ID: <20260831231829.GA1244140-robh@kernel.org>
+References: <20260831194352.1185860-1-robh@kernel.org>
+ <apXaYJhFnC0UCHb0@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apXaYJhFnC0UCHb0@google.com>
 
-Add USB support for STM32MP23xx/STM32MP25xx SoCs. This includes USB 2.0
-FEMTO-PHY driver, DWC3 glue code and DT adjustments. Parts of this are
-taken from ST downstream kernel fork, reduced, or rewritten, since not
-all of the content there was useful and bits which might be missing and
-are useful can be added later.
+On Mon, Aug 31, 2026 at 12:51:44PM -0700, Dmitry Torokhov wrote:
+> Hi Rob,
+> 
+> On Mon, Aug 31, 2026 at 02:43:51PM -0500, Rob Herring (Arm) wrote:
+> > The "ti,poll-period" property is documented as a normal uint32 cell.
+> > The driver used a u64 helper, which makes the helper type disagree with
+> > the schema even though the stored value is still small.
+> > 
+> > Read "ti,poll-period" with the u32 helper matching the documented DT
+> > cell size.
+> > 
+> > Assisted-by: Codex:gpt-5-5
+> > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> > ---
+> >  drivers/input/touchscreen/tsc2007_core.c | 5 ++---
+> >  1 file changed, 2 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/drivers/input/touchscreen/tsc2007_core.c b/drivers/input/touchscreen/tsc2007_core.c
+> > index e4d7da0f4434..e2f49b37e18c 100644
+> > --- a/drivers/input/touchscreen/tsc2007_core.c
+> > +++ b/drivers/input/touchscreen/tsc2007_core.c
+> > @@ -221,7 +221,6 @@ static int tsc2007_get_pendown_state_gpio(struct device *dev)
+> >  static int tsc2007_probe_properties(struct device *dev, struct tsc2007 *ts)
+> >  {
+> >  	u32 val32;
+> > -	u64 val64;
+> >  
+> >  	if (!device_property_read_u32(dev, "ti,max-rt", &val32))
+> >  		ts->max_rt = val32;
+> > @@ -237,8 +236,8 @@ static int tsc2007_probe_properties(struct device *dev, struct tsc2007 *ts)
+> >  	if (!device_property_read_u32(dev, "ti,fuzzz", &val32))
+> >  		ts->fuzzz = val32;
+> >  
+> > -	if (!device_property_read_u64(dev, "ti,poll-period", &val64))
+> > -		ts->poll_period = msecs_to_jiffies(val64);
+> > +	if (!device_property_read_u32(dev, "ti,poll-period", &val32))
+> 
+> Do we need to handle -EOVERFLOW and keep compatibility with device trees
+> that used /64/ to match driver implementation? Or we expect that there
+> were/are none?
 
-Unlike the downstream implementation, the DWC3 glue code is using plain
-dwc3-generic-plat, the EHCI and OHCI controllers are instantiated as
-plain generic controllers without any wrapper glue driver, and the USB2
-PHY driver is simplified.
+I suspect there aren't any users. Nothing upstream for sure and there 
+never was. We could probably just delete the property.
 
-Both USB 2.0 Host controller and DWC3 super-speed controller are tested.
-
-Depends:
-- dt-bindings: usb: generic-ohci: Document ST STM32MP1 SoC compatibles
-  https://lore.kernel.org/all/20260828150202.173109-1-marex@nabladev.com/
-- dt-bindings: usb: generic-ehci: Document ST STM32MP1 SoC compatibles
-  https://lore.kernel.org/all/20260828152130.176171-1-marex@nabladev.com/
-- dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO PHY
-  https://lore.kernel.org/all/20260828150739.174460-1-marex@nabladev.com/
-- dt-bindings: usb: dwc3: Document ST STM32MP2 DWC3 xHCI USB controller
-  https://lore.kernel.org/all/20260828150937.174735-1-marex@nabladev.com/
-- dt-bindings: arm: stm32: Document st,stm32mp23/25-syscfg subnodes and cells
-  https://lore.kernel.org/all/20260831231359.136475-1-marex@nabladev.com/
-
-Marek Vasut (3):
-  dt-bindings: usb: generic-ohci: Document ST STM32MP2 SoC compatibles
-  dt-bindings: usb: generic-ehci: Document ST STM32MP2 SoC compatibles
-  arm64: dts: st: Add USB nodes on stm32mp231
-
-Pankaj Dev (1):
-  arm64: dts: st: Add USB nodes on stm32mp251
-
- .../devicetree/bindings/usb/generic-ehci.yaml | 22 +++++++
- .../devicetree/bindings/usb/generic-ohci.yaml | 22 +++++++
- arch/arm64/boot/dts/st/stm32mp231.dtsi        | 64 +++++++++++++++++++
- arch/arm64/boot/dts/st/stm32mp251.dtsi        | 63 ++++++++++++++++++
- 4 files changed, 171 insertions(+)
-
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-usb@vger.kernel.org
-
--- 
-2.53.0
-
+Rob
