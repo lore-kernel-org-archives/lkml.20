@@ -1,162 +1,188 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2678E4B66D5
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BCE4B714A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788192502; cv=none; b=H9uaz6N3d4HX1s/Ho/ECYekT+Q/3mTVh8LOsucR3kvYD99k5JtYmNXx8xwIx548hqYC5cxh1iH2kHXqqRELYVT/Ye4sh93BQhvjQD4p3YZ+R4LbfqJOsdCuWLouvZ7MFpOrROtzShgRnz7mxJdtoLETgh7LkFdDhyIzwcBqK3iY=
+	t=1788192504; cv=none; b=BIW3O1kI099ILULNqI92KFdv0f1/HkCFjebu+3E8beq4MAWxT4ZccbEm62TlBbYzrSLOX/80eNj9s3wfvU0RwJcAujcrHjTcJV3DpXL/lck1vlyzXACLHmTfDzSDQvEtk52RGdmkjfGanCzPaTED2VI06Y8gT5xF8Z7TAzGM0UY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788192502; c=relaxed/simple;
-	bh=OdlS7s1mPHGrcu0CPS8FKPyzygbRnniwzOGYOk7XL7k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=asoJnIVh+aFYWv7snhkhqo8LVoqDgLC8vm03RGq552bzNZfikh9qeC2f2ah36zW6J26eKmSA4ba1R1aeQwd5NzNEPBhllAGePYhqIe/0A8wt+pomGtradHzwlzqK6aO22FPGzQM6SfGzNGmXMryO743qWCdo8uXb4SS6zjG5b9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pF2KzYB+; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788192504; c=relaxed/simple;
+	bh=GIOR13Vau//QjAP6pJ8tBGbxO1q6YYuEw0n2DA0RMB4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tanktXtjrTgD9iy1jnYtpVgn86F9aCuuOSoCDYmhjceM4tiiR9kGMjN1FjeHrEqP96B12BTlThRlxRRtBdKK7g7DdLlYEwdAgdYCaowQOHuNbFvTTxqPKcCtTK4zYlyTEVRzUALCZbTGxjiNVUOq+g7fvF2j/ou9OUMXnaRGTHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KBIr3F8a; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SIR7i8aR; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pF2KzYB+"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47fd4531020so2336349f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:08:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KBIr3F8a";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SIR7i8aR"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VFppVw3477053
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:08:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=52UHJM028Rn+QiJdUqrpXvZf
+	vhdocUvIr66ANCnExAg=; b=KBIr3F8a+d6CM7H6mBmIEkMo3Wc3Mu45/cGFFZEA
+	YCv+i0W5n0zNVo2zkvmEw8J4rcafCSLGyav35ZNUZwZkK8B1klCUkASzG2fDyIp9
+	37mcc45bqM0iga7CAIEhTOmtjn0aKWzHTePbo/3cITUKNeZ1FSFbTY6R6RLMbmBB
+	0DszzI0J/q04cF+RRZU6auFF1GoyOtDN0VTZ6f7PGrVxpP3KxqZtDdZVBEU3IE9u
+	Ikj758URRXgfdKA83a40Y4yonGmJWhtDrBOWGkbpygD4g/iWvghNPno63TS/R5/U
+	h6fk91Ecz2nH5y/Qlte25+8W1krKwP5GKYcpZPUTazEyGA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6ayhw09-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:08:21 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-930edb4362dso493693985a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:08:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788192498; x=1788797298; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mcYP4t6SR+tHZM0rfR5UPQlcdnVv/54YvSAwMnKZ6SA=;
-        b=pF2KzYB+DQrqDPIzaMh633WVfC+vPIqFjv0oDv0hkxt9aC/8Si7axdnlwKDr0Zo+9l
-         iVU2bwCv+BoaxYA/WrRqEhJYNqKj/K5r2eOE9LkF+HVuxqEyVBZIr1ZFZKXisIB0WxHm
-         KBSjrbbR2G7zfiia2iS3SMIQrvyA80YmsXtOCLfld7h2669S/m5W8MKH/mByD/bHUkbg
-         +kCfwsLWCenSPCLcMZKaECmM3kwEW8azOMk1LdieIF/5XNEPsjO4Mt5h2wLmiSFXhB0R
-         hSoeV1gGIy+/Uhb47y3CgLmewcUGhh5OVJ9p04UNnz9LqB3QwUDn0X+iGyEHx2z7n0y4
-         IVIw==
+        d=oss.qualcomm.com; s=google; t=1788192501; x=1788797301; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=52UHJM028Rn+QiJdUqrpXvZfvhdocUvIr66ANCnExAg=;
+        b=SIR7i8aR1iMQSXHqL54XO6D3X4s+FQToeU9wu6ZQJUtl9iOnk2xntrvNLr9qoDni3w
+         8zEbhXrYUfRJYKQ1N3xOUXeeYz0NIlt/IRdUL5+PeFv4/QpID5ZXWIPeIUDVDpxRYhnP
+         0awT18ljnK4YUIljM6hCSJEEGq6UA4vEVEMdtBoauhdz6Ge0mc9FEnpxbFPr6qDBvTZF
+         PPh0hQOm+8jKiosMv6i1kkpaNMQQe5uxk6Ihy8BfuW6efmELva9kcNYGzwt91hiYZMf2
+         7Tx7cAybWAe6AItTFpLaRI9IkjGgk7rb/IeDG0sB38ONaf/u8Pmp8OEwyFvQFhsTWO4h
+         MD1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788192498; x=1788797298;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mcYP4t6SR+tHZM0rfR5UPQlcdnVv/54YvSAwMnKZ6SA=;
-        b=dzNcFeZn3/0CoOAsyyQrNea53GJOddDmgEBg6m9KKG4SQ8oWbwTn9J2IiYrB0q+5w4
-         53X/ZkzcdhWc8d70Bz8EJKpFWGlowyzqxAwyiAgZxmtrzoWS8jqK2Vy48UQs5c7hQajn
-         aFanUwnG39DzV1G5oJieJzq4obLBbaVCUvTqFLHe1g0Rn+ycxa43H9HWmjmIhcaSQ3az
-         iZUq10nvoIg4Ls4hSBK7pkA5jCzSf5hHg7tBL6Sbc+9OHBmY6PfbwbJDtdzV6u5aINQc
-         cbqC7lvX0Euo7km26BLxO6zrPol92jQAxbwuSOHpq7SB0RYBNpiAfopdp2cqc8VXQKDF
-         iRLw==
-X-Gm-Message-State: AFuF++mGFvP4lXm7PCsTw/rYJ6/EPojwr1XBMbK4M0FOQUFRKYVMTb8B
-	i+7Dg0VOZ9VQ2kz0q0VxMPSgJrd82NlqlVYBa38dBRz/r0s+kvsa1sZjRHBts83YKJaEFA==
-X-Gm-Gg: AYBFou2h4eA5qYB6sjHV+SiHsCFIENQs2nJuxh19D5XfO3rQ19aZy0RWAKeXbMKrs27
-	QxFWAGfpJrBcuB0lpvsKSnc16tQyWnZw+8DndRhFT2z17bgbG/KEafC2l4svdkW+jQRqAgWTRAj
-	8f43hxFvGJFMQzgfFija1eEZeo7IXpzPwSX/yYhZLBa2pGZ5dgIoA0naCfYaXCOqplVXwCAZidS
-	z6cPy0oGNZEtjc1G3/D7/7hHr2PYwdEDQQvGpng/aAwbWdJrjmYhRGBC2ee3D0FleiWlRwb0q/B
-	DHUDoZujI1Bnye6GY7zjAGc34dvdlgF/xF/gCA+I+IBD/MJmR95gl2r6k57nHIDmunHP3YoaYeF
-	RzS3ARBE857YiUWTpc7SMfqQ7SRj7WYXMr7+ItZyPF/ZUzutvRb66h91m4BrQtUYBm8GSWaLHcT
-	tTVrJswqQhKRdNgxZwiWiXLxRK8Ka+2uKIIzAPdI0wMEoZ7NwQE686rWXj
-X-Received: by 2002:a5d:5e87:0:b0:481:51ce:542f with SMTP id ffacd0b85a97d-4844175c9cdmr973669f8f.21.1788192487128;
-        Mon, 31 Aug 2026 09:08:07 -0700 (PDT)
-Received: from TC-LAPTOP ([2a01:e0a:b8a:2610:ccbd:b529:37d3:c1b8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f3asm23849760f8f.3.2026.08.31.09.08.06
+        d=1e100.net; s=20251104; t=1788192501; x=1788797301;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=52UHJM028Rn+QiJdUqrpXvZfvhdocUvIr66ANCnExAg=;
+        b=Mi+Fb1YbPVAG0qs4eSqgz991S/tWMOQrF7k9molU0ooyUOcrJYDFpkEGMHlLUEyPqq
+         dCA0kjV+wvAySO3ZppFSbgMZYdzNqX91yqzYub0KOFN4E/oMUxog1irA5t4hky49t8t0
+         G90QJIex95RBwWETqSH70xn8akq6Iioc1WbtfBJMGKQAvZGECNzTiuLlKto/+1alOXui
+         hxqJbASyine1dsjSSLexGP7gdVv6fbNEzJh4l8HXaNySTmyXCwzmyxHNNquqBJWTWMxO
+         4TM4coiiJJD/7EdrOy2Yi0DiaPAb5LJnNqBJYqmdzCoxwZUaxgkEtClNvgwQl/RajbuH
+         6SkQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqD4KwbpXdlpXH9C03/L2hoHR/sg5gKBjGxo175qHFOKkgIcgxxbKGN6tWHjOBm3l6kAmz6M5G4O6b7wyY=@vger.kernel.org
+X-Gm-Message-State: AFuF++ns50CybV7XdomPdfXi3zFHYsNvL3wNYUV7T/I6QDRD6JCvZaKh
+	Q/o9EePCJg0k0wFDcyQeUlaC5KBaWF6uVNryIWm8xVznC7Zo1lhVIH++dgVkOaWZOAd2p7INoXT
+	U5kQSIstmS43DM8yVH2KqtUcx4DZmADbTcG5ghZ31p8b8Ly5VWyQKuXaYnSXmqMAZvKU=
+X-Gm-Gg: AR+sD12VSlq0TnzI3WNtFGKIXWG19nlFcy6viLUzsXxoa0xusb4r31INuv8FVOL+++M
+	elg6stv3bMqaYjrNL7tfT2+2y/HlCS+HNd/vECoVo6k93cV7P9McbGNILwh50sDs5m9+3VOKtVl
+	RkXcWcU+aDJcs82M9P3VNCsgIjIlqsNvlJFz6wdGi+l9ZtgR0bJ0kiF5x5mgkM2Y09GPa2X6nSf
+	haMlNw/iRBLJ4q7g0NvqpQnm9kX0/wTtY2fo5vtERbcdUXgCF7Tqrng0EOmEmGAc9X0BOL6mEL9
+	BTCX8OoV2yvrSZuXV7tqlL3VEn4+vVoP26aRuJ7hnMC2u5+FvvOEq7OOLfb5qR5zP4d+bHiMI97
+	QRdHO2OH3vv4r7A==
+X-Received: by 2002:a05:620a:40cb:b0:930:b4f9:f327 with SMTP id af79cd13be357-939138df3d1mr2695991985a.33.1788192500420;
+        Mon, 31 Aug 2026 09:08:20 -0700 (PDT)
+X-Received: by 2002:a05:620a:40cb:b0:930:b4f9:f327 with SMTP id af79cd13be357-939138df3d1mr2695976285a.33.1788192499764;
+        Mon, 31 Aug 2026 09:08:19 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.13])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9266be71sm632091255e9.2.2026.08.31.09.08.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 09:08:06 -0700 (PDT)
-From: Thierry Chatard <tchatard@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: hansg@kernel.org,
-	lee@kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com,
-	nicholas@rothemail.net,
-	andriy.shevchenko@intel.com,
-	v.vitovt@gmail.com,
-	Thierry Chatard <tchatard@gmail.com>
-Subject: [PATCH v10 4/8] platform/x86: int3472: tps68470: add static clock consumer support
-Date: Mon, 31 Aug 2026 18:07:50 +0200
-Message-ID: <20260831160754.9857-5-tchatard@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831160754.9857-1-tchatard@gmail.com>
-References: <20260831160754.9857-1-tchatard@gmail.com>
+        Mon, 31 Aug 2026 09:08:18 -0700 (PDT)
+Date: Mon, 31 Aug 2026 19:08:16 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>
+Subject: Re: [PATCH v8 2/3] arm64: dts: qcom: kodiak: enable inline crypto
+ engine for SDHC
+Message-ID: <uwo6mb7tfgir7k7yig3w4ych5rvx6gex5zzaeyvbjf5uv6coga@srxc4jbphri4>
+References: <20260629-ice_emmc_support-v8-0-1a26e1717b85@oss.qualcomm.com>
+ <20260629-ice_emmc_support-v8-2-1a26e1717b85@oss.qualcomm.com>
+ <ba96f5e3-6b6e-40b6-b6c1-300e862e8ee4@oss.qualcomm.com>
+ <d3be45ab-0390-4d0e-8d5b-330a48c529a1@oss.qualcomm.com>
+ <1a0b91c6-5e17-4330-a8ab-ac14d3339024@oss.qualcomm.com>
+ <ffca92db-a3ac-4345-8477-1f53ec61ef16@oss.qualcomm.com>
+ <56ab63c3-4288-45f7-bfea-d40046437a9f@oss.qualcomm.com>
+ <mwf5hq3gnkesmccede2sa5ni5lyxg3zfnxvwchts2nxh25zndw@uyn4dqehfdpv>
+ <b7658f61-17d2-4788-b635-ff2021d2033b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b7658f61-17d2-4788-b635-ff2021d2033b@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEzOSBTYWx0ZWRfX3MT2qSpdC5nU
+ KxNTrNzb1d7U1Q9SnXqmXD7ILLv1fw1oTDj9fYpzhAi5KdDsclKholjDVWYZgTUFUWN8dK33WCH
+ PbhrwE3owh+3Ggopq7u4zC4oW/UrjDc=
+X-Proofpoint-GUID: Upe5CPHXVhDsI14BRASrVqPN2kmJU5bh
+X-Authority-Analysis: v=2.4 cv=CYE4Irrl c=1 sm=1 tr=0 ts=6a95a6f5 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=clBUptZa5v5FR042Ey+sjA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=onLGS3NSUnbtietV6iIA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: Upe5CPHXVhDsI14BRASrVqPN2kmJU5bh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEzOSBTYWx0ZWRfX30GniAczHyRA
+ m+1n4xSNB2wycGdEncd+0DvBpA+vGcEYakht4aO6jCPOC1DsFjEKfPIJL8P92smfZsTlcxs80xB
+ lmtfB1saS2t1Klg6eE7e6Kj8TzXO0VdWidwnwrpL5kKgO85wkyPmWU4HOeEJRTPel2w7J7Ah+69
+ UwPPLS33K6lBJu8K5bjSYqs8qMYoI9LGeCzM5qvpoCGf3z454kKW4L/wdH0yIJ/Uk/RCofo8fi1
+ T/0kQ8qtaHtDCeqCgy45q7VSdkQfvw5oCVT6NQcuDAvOegNd91AnN6jBBSRkKmldF+un20I3aeK
+ 8F3zfwiu19IfUITi0nMtSNLjhOQxSXPcCVW4+Pwvg3DI1AzkyO4mq35BF5mqJcwna8RX3/D+HOI
+ kzMJf1QI5427fRSyCqgyHkV15WudWELwnaUqWhorvccgcNjy/+SArTj73YZ58ckYvyz/lt6utE+
+ Uj1gRfgSsGSLMF7Bc6A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310139
 
-On some platforms a sensor's ACPI _DEP does not list the INT3472 device,
-so for_each_acpi_consumer_dev() misses that sensor and never registers its
-tps68470-clk consumer entry, leaving the sensor without its MCLK.
+On 26-08-28 21:07:24, Konrad Dybcio wrote:
+> On 8/28/26 2:57 PM, Abel Vesa wrote:
+> > On 26-06-30 13:25:13, Konrad Dybcio wrote:
+> >> On 6/30/26 12:23 PM, Kuldeep Singh wrote:
+> >>>> qcom_ice_probe()
+> >>>>   -> qcom_ice_create()
+> >>>>     -> devm_clk_get_optional_enabled()
+> 
+> [...]
+> 
+> >> On the developer/customer experience side, would you expect having to
+> >> manually enable what's essentially a sub-feature of the storage media
+> >> on every single board?
+> > 
+> > Wait, don't we do that for display nodes anyway ?
+> > 
+> > Also there might be a case where you just don't want the ICE enabled.
+> 
+> I can think of literally none..
+> 
+> > So I suggest we disable the ICE by default and enable it only on boards
+> > where there is a consumer.
+> > 
+> > We don't normally leave stuff enabled just because runtime PM will
+> > disabled it for us.
+> 
+> We should because the hardware is in a state that's otherwise unknown
+> to Linux, I've been trying to push that forward, but many things
+> currently can't be enabled without side effects.
 
-Add optional n_clk_consumers/clk_consumers fields to the board data. When
-set, probe builds the tps68470-clk platform data from that static list
-instead of walking the ACPI consumers. Boards that leave the fields unset
-keep using the existing ACPI traversal.
+So interestingly, on Eliza at least, ICE isn't left powered by the
+bootloader. Are you saying that, in general, bootloader leaves things
+enabled on Qualcomm platforms? I'm assuming that would be ABL that does
+that, right?
 
-Assisted-by: Claude Code:claude-opus-4-8
-Signed-off-by: Thierry Chatard <tchatard@gmail.com>
----
- drivers/platform/x86/intel/int3472/tps68470.c | 19 ++++++++++++++++---
- drivers/platform/x86/intel/int3472/tps68470.h |  8 ++++++++
- 2 files changed, 24 insertions(+), 3 deletions(-)
+> 
+> With the right drivers in place, the hw can be safely powered off or
+> at least parked, instead of letting it spin in whatever state the
+> bootloader has left it in.
 
-diff --git a/drivers/platform/x86/intel/int3472/tps68470.c b/drivers/platform/x86/intel/int3472/tps68470.c
-index 35fa77eb3..df0f5f962 100644
---- a/drivers/platform/x86/intel/int3472/tps68470.c
-+++ b/drivers/platform/x86/intel/int3472/tps68470.c
-@@ -190,9 +190,22 @@ static int skl_int3472_tps68470_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, -ENODATA,
- 				     "No board-data found for this model\n");
- 
--	n_consumers = skl_int3472_fill_clk_pdata(dev, &clk_pdata);
--	if (n_consumers < 0)
--		return n_consumers;
-+	if (board_data->n_clk_consumers) {
-+		clk_pdata = devm_kzalloc(dev,
-+					 struct_size(clk_pdata, consumers,
-+						     board_data->n_clk_consumers),
-+					 GFP_KERNEL);
-+		if (!clk_pdata)
-+			return -ENOMEM;
-+		clk_pdata->n_consumers = board_data->n_clk_consumers;
-+		for (i = 0; i < board_data->n_clk_consumers; i++)
-+			clk_pdata->consumers[i] = board_data->clk_consumers[i];
-+		n_consumers = board_data->n_clk_consumers;
-+	} else {
-+		n_consumers = skl_int3472_fill_clk_pdata(dev, &clk_pdata);
-+		if (n_consumers < 0)
-+			return n_consumers;
-+	}
- 
- 	cells = kzalloc_objs(*cells, TPS68470_WIN_MFD_CELL_COUNT);
- 	if (!cells)
-diff --git a/drivers/platform/x86/intel/int3472/tps68470.h b/drivers/platform/x86/intel/int3472/tps68470.h
-index 3bbaade96..68303e6fa 100644
---- a/drivers/platform/x86/intel/int3472/tps68470.h
-+++ b/drivers/platform/x86/intel/int3472/tps68470.h
-@@ -12,12 +12,20 @@
- #define _INTEL_SKL_INT3472_TPS68470_H
- 
- struct gpiod_lookup_table;
-+
-+struct tps68470_clk_consumer;
- struct tps68470_regulator_platform_data;
- 
- struct int3472_tps68470_board_data {
- 	const char *dev_name;
- 	const struct tps68470_regulator_platform_data *tps68470_regulator_pdata;
- 	const struct software_node *tps68470_gpio_swnode;
-+	/*
-+	 * Optional static clock consumers, used in place of the ACPI _DEP
-+	 * traversal on platforms where a sensor's _DEP omits the INT3472.
-+	 */
-+	unsigned int n_clk_consumers;
-+	const struct tps68470_clk_consumer *clk_consumers;
- 	unsigned int n_gpiod_lookups;
- 	struct gpiod_lookup_table *tps68470_gpio_lookup_tables[];
- };
--- 
-2.53.0
+I understand that point, however, this kinda makes the ICE a one-off.
+We do not do that for mdss DSI/DP controllers/PHYs on boards without
+display, right?
 
+Not to mention that, on an end user device, the ICE driver would have
+to be provided as module for the sole purpose of powering it down. It
+doesn't make sense.
