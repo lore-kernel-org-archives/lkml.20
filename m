@@ -1,111 +1,141 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066FF3D994;
-	Mon, 31 Aug 2026 19:08:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C212EEE6C
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:11:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788203328; cv=none; b=EL5MBtT+VrqDSxSw+7kJpJZItM+jTIG0DVpiDQyaZD4C53m8tPwi2BFR8qGCH5R8TE74npGU5W59GDFRHRW8C6Ud2VIFVEZQCP0yBx04uWqGeql0Tb91GqtkpqNKf6QsCx5X2HYUX7bSPw/65grRQcdhrkcZ9OB/hF+P7z1HHBA=
+	t=1788203514; cv=none; b=NrqBlbI6Jvlc1Wyp3CC8hd309Oy3S7PtzmWTyVlJmNEXw3DB0PPFxzDU/iiSWiXYAlKPZy+5CE1yHtF/SG1/Fe47A0DkL+/fQIXhAjc02wgoVkQLGpTOu09CD4yVhWeYLZQ6ZehcdHWscE5wpMmpKsNu+FbWY18gcCadFaCAY3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788203328; c=relaxed/simple;
-	bh=O/OvX2JNj/PMLwb6Dl3P1RdjxL2cow2pKxyZ0z+Cp4Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ZjkCSFlPYvfp67LrJ6GXzZXyEk5bOxRS9V+arm2M8ZOmvr5fCcTwL4BVrL6lfB1gNBBNBtYPwFCeLdjK3hI2zXz8JgbujQKpxVyVnuhIfPrV47DNAFeCtcmRQeof+yIPh3uH5RyWTuIJtmMeY/ZKPjGnjfMYuhFnEEEOQU4JpkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=A4VSd6w7; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1788203514; c=relaxed/simple;
+	bh=FXXEx4MCYHMjoxsymbkUfncpijpehd9wrTIFJ4PF3ko=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Bt1U5OA/2rqk61+Fw6jtXsXliXeQMDyEuleBbArcnMy1Evc1t31mkAK5rpswuzmvrWWtRkkMaMlQuRO+jp0kqsNZfvuZF9VVH1diSH/lauGiyD83owuiyhp9Bmfu42WOfp9uVPG+6aTbIBRSXhiS6uU1mlODZz7XPEgzwhD6FRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=gopcgmuj; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="A4VSd6w7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788203244;
-	bh=4v5YqYy2bS2ns0Ll6WPVVeRfEriqH7bIUiTlWEzjnYQ=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=A4VSd6w7mA0v30fpXDcXD4y+d17H+9FcjgcXiBa3KZT8W8aPF7i+B3wr4rcD2EYc1
-	 iV+FWLgjFDy3fyMzm4PRBdlXaa5fgyOJIZZGugc1ZO0ipSDqDiazQw6pXcL5JsW6qR
-	 SjzHHDLFhDSYGYj7k/sFLZR+Oqyz/3sAcvesvXbk=
-X-QQ-mid: esmtpsz16t1788203238tbfcbbdb1
-X-QQ-Originating-IP: si/9pfdW12dT98S78z4TeK+EbcNEtA7KSwJddDE1Two=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 01 Sep 2026 03:07:15 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 16190420279150086281
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.6 00/91] 6.6.156-rc1 review
-Date: Tue,  1 Sep 2026 03:07:12 +0800
-Message-Id: <20260831190712.722297-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
-References: <20260831133359.468089036@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="gopcgmuj"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so495025e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:11:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788203511; x=1788808311; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=160ghW89x6vVgcdXm0ih8CF8apLHqLlHRmefcz3+9KE=;
+        b=gopcgmujNuj9AK+jElL2BIRO/PFcQXLVhNE6qzB4y4gNE5hHBOuFjVrOU8gtJVfbtu
+         uVshklIfiElQTkAD3YZ35xTFCHIdGlE/QqPqEKgZnlOlQLQ2Bah2xn3cRHCSTDbjpP+E
+         CmPVxujrcGqt87MWNdTIeep3Rinyz/L38D9oJJht3fIhFkQF1I4vRBfytMwOf0mkG4jh
+         tweKGG6g2Y8G0jsX+MQozPLz7VesGA6ftLiZ6yPgUUSLSSb9OffXDL4jbTswGSRJo+Td
+         bVmt2ECTAqd3EkHQAn9H9Rq1xwrsJKJMtte6SB2UFoTMDBpiQZPtPHrVQozmEjCnRgUx
+         XtOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788203511; x=1788808311;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=160ghW89x6vVgcdXm0ih8CF8apLHqLlHRmefcz3+9KE=;
+        b=qPOjmMhIooL/Bytdh9EesFdcIUDBAXM8fprLt7GAZt/cBLC6PhAi4U7GyziOGV8Dkg
+         J0d5/UEwYZJSfYiVaCdGapX2QHbvXi0H902EYhTluyyrmOuzkia2T8xMw7rGIrEuBCLY
+         PCCLVVSEmUQxpvW03pC/Q826K74htxZc/B38tcWdSiW6Sfk6VcO2XujN7VgwuL2L4zoa
+         CqQvbV3+tcvFHGw/DmLQegNPJCYDSOJ8JOx/603u0IGw2cfhOQd7+eKE64ycOKA6G51x
+         V9WB0PyPRquznQ+k4ZYFQSOkTKJ4UgEregafUaTM0HHz4kzEplwJu61T+kAUDKCr9KRA
+         /jUw==
+X-Forwarded-Encrypted: i=1; AHgh+RrJsizv9Ur+Ta4gRqQl9424LZhMF6sHCw+aAU1mztNVj6Zm2YaKK/6qia7q7gFvUA86cXLeIbx6r3c058M=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCKxGJCP5jcbyjGjZlNIubk/GNDRHU6bhSkEJA1GiNXMBLMufA
+	+BY9RRLpYOtToXupo0pin9yEXmWC9kT1YfVrVdgcn/E/aFY1qzxDIdhYgHOnd5OnohYCE40kOaV
+	xlt7/KV4=
+X-Gm-Gg: AR+sD11lHxkzqENY2tHC0bD0xL4WY5MUAt4RY3KKyu1r2YeH5Ynm4T/D7uZS/D90Y8b
+	hu4RgSN+OQ/EIiz/iVkyOzJy7GBhioF4CqxWVyUVY3DLaEQyOp5+almvcBHUriFHqe9A4uGFiXO
+	NnsczRoyU0eGX7vd5BJXMYXMzFiggjUnq/URNxSD09Fn1SVBauHZpEPDadq1NsYkDdCq+UvZMkl
+	oJScJz5ZuGlakhy2HmuoavTPOaDmLnU233k+UfRpR65WN0l9igHcIlevVrBxL2IR0W8CEC/FVq3
+	WSBbO2rJNk2158g/oTCVIg2F7X0hklxqvnqzDo7PdrBnBr3lBKzJwdeGAF4WXAZS7Dx+yhopvz0
+	8cz7GdsbsDb7N/rsbDhzOJSPSw1Zlz76LUHVcxnpyUEKSmWNqrhjqRHujqSu4ioskLDYzy4+fcs
+	BEIBo7EyhAWpdFnSgR6kX/n+1C+atej2u8vqc/1xgxQz3x15PVG1U8zez4gZGmaU78p862S5OUs
+	Q==
+X-Received: by 2002:a05:600c:354b:b0:495:4d88:e630 with SMTP id 5b1f17b1804b1-49b91c4fb4amr418655005e9.10.1788203511166;
+        Mon, 31 Aug 2026 12:11:51 -0700 (PDT)
+Received: from linaro.org ([2a02:2454:ff24:7241:bd4d:644d:33b9:dc56])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb28492sm23543129f8f.31.2026.08.31.12.11.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 12:11:50 -0700 (PDT)
+Date: Mon, 31 Aug 2026 21:11:45 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mark Pearson <mpearson-lenovo@squebb.ca>
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: hamoa-crd: Add thermal control
+Message-ID: <apXR8RMe5UriwO4r@linaro.org>
+References: <20260830-hamoa-sys-therm-v1-0-27108c40fba5@oss.qualcomm.com>
+ <20260830-hamoa-sys-therm-v1-2-27108c40fba5@oss.qualcomm.com>
+ <apVCUObyxf8Akbsc@linaro.org>
+ <apWIbtyQQ4mOjZKn@baldur>
+ <apWnounPP8kRxFeb@linaro.org>
+ <apXBxvBlgWa3xfEQ@baldur>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MXigUJMenSZJUQ5RoZAtfFjZ+MtI7KIqcHGhFGvYZka5lnC2RAwrf01r
-	50svXwYszjnv2pUMmpiVnix/08WzkSEJ5+haLHwWr7nDfTnZ9SVrV4ivpQRlAK+bKI/qxWg
-	ZSk8+kKAlBoOz/epXiU+tJwcoWGzPx3p6IrHGAwIeruu8rlXEs+PJu9iSyQm6SRtO7LHys1
-	bFVV0K/DJUvSrdReqpcOEZfwOoRiwOIg4/0wqRxjy5OWwDM/jm/0zqKAQd2I2nm82sDJ4Fb
-	84yKU+JvQM51mixSw4otkltnXgOCkHs0Aymf5xJhr8hEsFFW5vEa+vADCFdh8hyiAO6D/T1
-	t8Gvt0G8OrIfebSxE/dMSTyNI1PBUuJvCtA2ffcHIC3Y5K3hNWqCUoD3blY+9ySjnoqA02f
-	z+Lr6wLnWrVFxek7aWxnh9l4y4jBSczPenKbT/Di3WJxLIRg7SyNmiuNE3INojyIrd7hL6B
-	fh4OGNBsnCC9wrwNw6o4SEofzEBkn3pTnjIDqClYANdrcsM0QEs0n1ZDn4mIMq4agWQ4uol
-	hIR7rm7vd7nlBr14VBuPCR4/ukAK5TvlcJSOV1zhhH/SsfRUGp/FH0hOFSCORsPPwUcF4Q2
-	f11LL+5fJe+KlZPHoWmmUIzjqHr2pJkQqPOk4WUulDD11UDdtgq98Nn1HglZ6ogR+jMlIrs
-	V2TqgviYD5bKIkOSAYBbYetgbAuPpRifbjpFdGdaeyjCaRaHTv0lED0dy7mgjo7yooh4uOj
-	JfHWg0Dw0ToQBzm5JdrnlMwCZnwBiyIFr/GcVBHoeEsNqY8I2sRtZpxaWTwUj95pzCn4lEh
-	SB7qvpG7dfkPzHj8WzmfHe5o7QFFitaKo5QSOiseMzY4lRcXnHTjca3Hpy+xDUTXYanM/yr
-	V7Tt9o6NeKsjWSYD7BKjPWvWVRKBUF5kkse7M28NmFAlSc8sSKjl9DV6ziJU/KmBvtVzkrZ
-	xFkBoLMC4XCv4Lv84YlfW3CocBQACfvbeV8WqbOYittqcBsvlVNRau+yYXSO/nOjU/CZUs1
-	bCCQzWMMJiy+pyYdkuTl8AmD6KEnzOKfv/m4Awij1zvblSbOvbfbitldCYipDoUCuujrSnd
-	hkgzlkQqkm5uc3b7G7ac8w=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apXBxvBlgWa3xfEQ@baldur>
 
-Hi,
+On Mon, Aug 31, 2026 at 01:14:06PM -0500, Bjorn Andersson wrote:
+> On Mon, Aug 31, 2026 at 06:11:14PM +0200, Stephan Gerhold wrote:
+> > On Mon, Aug 31, 2026 at 09:20:14AM -0500, Bjorn Andersson wrote:
+> > > On Mon, Aug 31, 2026 at 10:58:56AM +0200, Stephan Gerhold wrote:
+> > > > On Sun, Aug 30, 2026 at 09:02:03PM +0000, Bjorn Andersson wrote:
+> [...]
+> > I have been working on finishing up my corresponding patch for the T14s
+> > (which is something I can still test unlike the CRD). That one is
+> > unfortunately currently stuck because the SYS_THERMx mapping really is
+> > different from the CRD and even the schematics are not sufficient to
+> > understand where each sensor is located. The mapping seems to be
+> > different from the CRD, unfortunately.
+> > 
+> 
+> Yes, each design have their own sensor setup, but at least if we land
+> this we have a reference for the mechanism.
+> 
+> Would certainly be nice to get the T14s pieces landed though. And I
+> would consider it to be perfectly fine to not fully replicate the
+> Windows/ACPI setup - since we don't have the additional layers.
+>
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+Indeed. I tried contacting Mark Pearson a few weeks ago to get some more
+details (since he offered his help in [1]), but unfortunately he did not
+reply so far.
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+I'll recheck the info I've already guessed so far and will see if this
+is sufficient to add some basic thermal throttling.
 
-Best Regards
-Wentao Guan
+[1]: https://lore.kernel.org/linux-arm-msm/ea0b329e-ab3e-4655-8f27-e7a74784302a@app.fastmail.com/
 
-Log:
-Linux version 6.6.156-rc1-arm64-desktop-hwe-g658884b4c6d2 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
-Linux version 6.6.156-rc1-arm64-desktop-hwe-g658884b4c6d2 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT Tue Sep  1 01:40:37 CST 2026
-Linux version 6.6.156-rc1-loong64-desktop-hwe-g658884b4c6d2 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
-Linux version 6.6.156-rc1-loong64-desktop-hwe-g658884b4c6d2 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT Tue Sep  1 01:56:17 CST 2026
-Linux version 6.6.156-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP 
-Linux version 6.6.156-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP Tue Sep  1 02:11:55 CST 2026
-Linux version 6.6.156-rc1-amd64-desktop-hwe-g658884b4c6d2 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
-Linux version 6.6.156-rc1-amd64-desktop-hwe-g658884b4c6d2 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Tue Sep  1 01:25:21 CST 2026
+> I did peek at the Dell XPS13 DSDT and I see the same problem there.
+> 
+> > The ACPI side is also extra tricky because it takes the thermal
+> > thresholds for the thermal zones through some lookup table in a random
+> > firmware memory region, which is also applied depending on the selected
+> > fan profile (for the T14s: "low power", "balanced", "performance").
+> 
+> I think we need to just treat the current ACPI situation as
+> "inspiration", do some measurements and provide something that seems to
+> work for DT/Linux.
+> 
+> And if nothing else, it's going to be way better than what we have now
+> (i.e. nothing).
+> 
 
+Agreed.
 
+Thanks,
+Stephan
