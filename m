@@ -1,226 +1,117 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222702C15A5
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788172810; cv=pass; b=VvI1u3z6OXBdxxRP/XoqZucL5XqKFcxDXnW7226vRzdZbVOjgHOTPFZSLIcSRe6O+8I1xvZGt9yvvXeiUBOLW/uEWwr0iuvHpT9p3LpxILZ0nadgoZztZJxQhCBgNc9PUOFw8kUUBugyXa98YYaaqqvrnnLgsp1a0ZhJUeSaPp4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788172810; c=relaxed/simple;
-	bh=zPd7uNGErn7MGI9vtI7+1qSA8cY6vjT2EFeY8ANUrWs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cCBH0ySujX8u7Ee7dK6Uy3gZBAoWwFzwDB5gqICJ0zgxKrTnJY9AEKX8V8b+qV9MH22+AkQHtLW0aAmRMH2JJCD9ITGPuzvpmcXxaL3qE/2VL/R9nTR5Vleoqruq1Xf9KvYsYvW9LVbGqQuA4Zy1zSNTZyD+LQoiHHtnKfiS0FA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iuhTNQg/; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=meRXm2bx; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4EF3AAF6A
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:41:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788172894; cv=none; b=fdyujJEotPyQpg5LM4UtACDp/oJZQDABCvopTeMlWz1FGL/RtQPv1O15v9bf1OqcP7BSJstIVK8zVTXnBijSeHfWanInjK8nbUcF9uw7sl+0mp+8xEKlImasoHmrVNhWZkFOEeusG463RBoT10dPcyWPjeuWxzMi3QIlJsBJFhg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788172894; c=relaxed/simple;
+	bh=n8nAlPzLuNaNzoYNMqWar7mbTNAmC/pl3V6wSXOs3a0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UWFuoYArzR+/P3DkqaxFjIkPOy9+kkO4yI+73uRF3OpMcuPv+CXNFjbCPVuDhXl4QBcMab1EDEN2i/2HtFyLLWYNVFV/XWC4TZFcqG8BzzLHBn804bZrt0bgYCkbgrYwdqsfdiIAmpjsbu2xHHbMgl+FQtQQyuLG0A/9eqdHNZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zn5MyVTS; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iuhTNQg/";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="meRXm2bx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788172807;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zPd7uNGErn7MGI9vtI7+1qSA8cY6vjT2EFeY8ANUrWs=;
-	b=iuhTNQg/pPsLzht2Tf6aTOQNcc5VSvMfw4n8yW/ABS40A44Tf8UpmSZo3DPoKNuHF2sBDw
-	JTGb2mre3wQ+6EdL+x7Jo94BJlVcR+HHPxttLa6V1G7BAooevKxZDJOMulFm1uvhFVeO+V
-	w/+TExpJJgjq4E1ZKDlbzO/wRxHuSD8=
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-661-pqSJpyUKNrGIxgWQhrXGKg-1; Mon, 31 Aug 2026 06:40:05 -0400
-X-MC-Unique: pqSJpyUKNrGIxgWQhrXGKg-1
-X-Mimecast-MFC-AGG-ID: pqSJpyUKNrGIxgWQhrXGKg_1788172805
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8461ade272bso45113407b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:40:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788172805; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AldGQcRS8k4n28xLFVszQu1Hg93+vF1zDqxZduoZ+g5OWANyjXv0tQkxh+knOZb5QS
-         i64SfrInXXKFUk4zbA7rUBdRjZCm4yyPTyZmqwALzy52SYlrPK1080Pae0dDWEzQHuJK
-         wglrJ0/dG/OwII0DeFpKdPuQluNVqeFnuJ7zD9ISohJYbrdyHcQmAhoLcN+2NSONrHmD
-         ZoGnTZSL8Z4lG6/+ggkjegRfO0l+lehRLyoHlOIyORr8odxpUJw8pqnDaXXVtHEWgXVd
-         sPOE7VFpykgrrFIeXZldCR97NbKVk/p5Qg9TGTR+TGRymGbPK7Y6cUMjKOaN21r/Jd3k
-         v2Vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zPd7uNGErn7MGI9vtI7+1qSA8cY6vjT2EFeY8ANUrWs=;
-        fh=/gD6BJzjucEil0s0ier+EifQIU+fEJll5oqXS6AFETk=;
-        b=AZESu7/sqgksikGL4nFaPstfdDNvRo2czQYsipOh+xEvIRYsWR5q7B7cxK42esAoB9
-         gAnDPltPXceidwFhN3mK8EPnmkMraBRkvDeQwkQ0pL4wNHrslza+AY4Dt/95Xs+rFp5/
-         T3JN4gl2Tbx0zRES5QBAjC07sttdBP9Cjl9EQhPA6o2SpFo1ZAooJfzeGlnEWSf/FeMZ
-         7ZB9TKd7VkODg8yWG9//vJidm1c9H9xNy2/VAC28vTzer4gs9ubP5azoOGXE28wIFI5Z
-         v3rwP4hPijcVorBA1OEl24pbZ+OYOEKGdGE4R4nERY+iET4YtFhVoh2fgpNGI7JDvmXl
-         Sayw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zn5MyVTS"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2544ff970dso509884466b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:41:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788172805; x=1788777605; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zPd7uNGErn7MGI9vtI7+1qSA8cY6vjT2EFeY8ANUrWs=;
-        b=meRXm2bxFthDhg3EXIkCov5Re7sAx0/F2GRbB0RwutW1QqYYauZkyt/z44ffiZyp5B
-         U6MyKYFyxeTIvh7ybJbbm7NxXQrkPdt2nwiQEsdp/gUoNaNN/g7W+46g/nIXAz9rkt1T
-         6dfdZ7Y8VLesucOi9vFFeZbVmwEcSu8kPho2YykowHUpnN3sBZqzM8X1zImYL/wEDwkt
-         qMY6j8/kfl8HOOKaEBJj8X5Lz/56FfjrtGEmlSoLFb6XhgNvRfQ/l1PXojlu8emnWUEk
-         CxdVBNjr4GSC5zW15omxhj+T+11CrzeB2olrZMoW8QzruahPFE1zUhE1itjtYK+0Aq9F
-         VQzw==
+        d=gmail.com; s=20251104; t=1788172891; x=1788777691; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=469VJ7ggqMApdca55dQKF9LKYksJ6nYjofl8G6D7M+A=;
+        b=Zn5MyVTSSGtIcOPOJ8yFj4AVz5fFB2LMUnipCoWjQa+r2bmK3Q/gQFn+kyvyiBUdDI
+         9Ye4kkMnhOJwUPjxfTxCFNh61OP947vP1hY1mAN+IT9cquAEUQ0/W8NyY+DR2wknPudD
+         WR7rV60sQebo5S0Hw1z7bv3ziF6pgRodcx9Nugs7MmCKjy61dcrwHgoRzC7iwZXWgLM3
+         GAyPFirHUS+eL7oDkVX8RYdHnL8wrrrJUkkmjXdc3N2xiqpPtJAWk7Jf4F78bMfe/0xp
+         wFr09WUqlUP06UfBYq38VACRZ4ufdU+e771Kd14LDeorWwO/HJ+V+Kp2yTrl+bNlQ5e4
+         /KUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788172805; x=1788777605;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zPd7uNGErn7MGI9vtI7+1qSA8cY6vjT2EFeY8ANUrWs=;
-        b=Fcryds4N/58sg0ZtdMa1bGpOWVMeBztTSfLjMIpT9u02B6j9CPFkbCT2GKFYx8bhRg
-         wmkGSQoNXmYjsfz+6/dzBx46o+/1b1FLM6Val36vWfksSjkcX9LhvmwmIQdHhfMWluHi
-         253Zm8LDwut2ITIiQBX4OhS4d44kxM/O5denDN5AbKQquDbAK+jpGlbdd3el4PGe3DeS
-         kLX1XwziW9PkBqoPe0UuKl2p/5Svc8yFuo3unfx7lVZ+C5IwB2/zvd3R1SciEvf5POeF
-         O01T05/np8kB+s/Z91DcX4S0FcVmqQd5Xmk83Kur2/N+tNilGjP+i6PL+b72uk9h72ui
-         g2aw==
-X-Forwarded-Encrypted: i=1; AKwUvBwiJIM8PYoMxeAndcXCCyfy4tfydbtkzT9n0kgL/zL1eoFKzJ2wf9leIv86UvtWkWCKhUrYOqN151DVPx4=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+dSQ+lOXI/rqini1H55mR1HwJ7AcdhY7j93bH8UM6La7Sk8CI
-	IQzDK6+Ayd+/UfUfc62Axnxk4+re3hWWV2QEvu1s29R0kPQ1zFxpzLcNxEm8L58rw0nuoZBcW89
-	YDpON2zJBQdToSRRYd87/4yWJRDY90dC7SCzz/wFNxsnoSGu52vZZCyaQLzVa4G9vT7TrbtYZ2V
-	sV0ZqFc+rgyDKQZKIz1cMfuOyaMlETgseqtMeacfKf
-X-Gm-Gg: AYBFou2lQQAoGp+zz6aHTtqOOH9+RuFZTo+qF3Wo03E6riMOAiSKFIkc2rT6XAVtZy7
-	+rbPR0uvL9mr9xgiOkQ6div8g4mIDPKLzQMwRtC1LZhKoT157Xu+KSqzI/XBd7ZQ1B8X0z0ovMw
-	KXPGgXapmncBsKG0PpvYGbTSrewOow+1ZbqwV2Cd6yfTFcrQu0PUzQ2tj92d7oZRMnVmpsMKdQY
-	f4xJ0zenJxJp3QIZzvTd5u1ZnBpNq5NmCh3XhxmKC3VXv70R6ukw9b73uA=
-X-Received: by 2002:a05:690c:309:b0:834:fadf:6050 with SMTP id 00721157ae682-864f57aea38mr31053007b3.16.1788172805024;
-        Mon, 31 Aug 2026 03:40:05 -0700 (PDT)
-X-Received: by 2002:a05:690c:309:b0:834:fadf:6050 with SMTP id
- 00721157ae682-864f57aea38mr31052797b3.16.1788172804630; Mon, 31 Aug 2026
- 03:40:04 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788172891; x=1788777691;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=469VJ7ggqMApdca55dQKF9LKYksJ6nYjofl8G6D7M+A=;
+        b=QiDlFlu8MLYqrUT1h2SQ7Yk8rfMpMDN7o5pL+VyEPqLspZuPySJ3Nf7qKu5Gb/xL0l
+         cXEECok4/L5luO7Ewlcbb+sLcPdLEwu8pS7KC9Lam7Sodxu0VdRuWYmYitncQs5KdvjX
+         Sk8z/KGWhdGoQuNEwnu9D/kj/8w/zHz7Tv0MhhW8McXBfRSqd8uDJiJi7A4m8Huh8sAo
+         ErAZsBLy+Wtyh3KSVW9f9U3X++A/7jJG+ZrMmZfqlUT/ggpIscESZZZU99VSEbdXUOY8
+         yLINrb54YPOubnnyhJGrw/meJ21y/gTcV82JD+jRnAtrB3Snk/Q1u07umMe+URWrKqT8
+         WEfQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoySznA5cjersU+4cN0dtgeo5VZaZsvl9BH6/1RC9Y/kjwUEHONDRalErcTfEFptDiGeYlE7e8Xy6l7KPU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLG5AFCZNtrQvoRelKtxY2qbyljh3Iqk5hWnyRzo934UG/mK69
+	FStqGFLuLQl+MI+wsc9/i4LQu/OZTF9S/sX+VOrjxDzb/n7VD1cw2o64OATjDpUeOgk=
+X-Gm-Gg: AR+sD11DOg0dWjl+LFL5PjXPP0mcdUXUHKdrJeDjVeXJwmkxm1C3ukfET+Q8eMXakFo
+	Sci/yusgUF7MKnwvTizK8iR6Cb6gNc+fZoYxKSUqCkHaTY33rz1ZW+E/+ASFjs2AUcgPrPkFuBL
+	oYjyhfKYHTbKMN0UHQxPPuLxvjiMkoG1fS7B7L4YfVWH9PFCWK2gHdD59sgyW6Lxz4gAuJLTUCH
+	HRKH7REVAmYYzYwwtWE1dljZxIUAI3IJAIa0j+AVTgaT3k81SnHkUUlgHqQnEL8UIrd1qS/TJ34
+	QKNbrPPQccVxb4CpAc3gvTLB8/+UJesdNwOCitUsTThu3+KCGgj6tFmLEcosvQZj2Or6IciXc5Z
+	OEakOo/0oKvQ5IhpV9nK/o7CdN0/Oc96XVQw7BVYeipD1vUglxcTBKHoiokPfaUigrAS0ZSUOVY
+	DCHRTx48UfPnr9ZEiiFOBpFeYs3gHExpXBCmZVvb3BrCFCT+ZaeqpRElc6Zbj/YysvEM04CtFPR
+	YjnIVDhUX48QAxBrul+AmkwBnzGVymGLIVneklpUcVtUBWmNLLDjA2WQEWnWAuA84srrL3ShyWb
+	Ev/JbHoCrwztWzXB0G5G4355K55E/okYybhLIUbj3RZ7myNWDg97zoyhvC5E5nd2H8LcNT0IH6U
+	eplxZQDvYN/06CknwhZixjisMe6AWaxvXIwTDj8YeBTvIymhRE8V6S6F9NJsNVA584hGqX0Xawv
+	idKjz5amYASzHpLC0qZUIQZnCuhwod1kOidmu+cfOe5jBtsjhhxBfGf69TZEz79U68JkAD3q/sK
+	fHGugIJOsuVlw==
+X-Received: by 2002:a17:907:980e:b0:c20:f529:2d6a with SMTP id a640c23a62f3a-c255721317amr1543011366b.22.1788172890441;
+        Mon, 31 Aug 2026 03:41:30 -0700 (PDT)
+Received: from cs-280612103108-default.europe-west4-b.c.i2f7e30109524dc12-tp.internal (230.182.6.34.bc.googleusercontent.com. [34.6.182.230])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f1facbcsm407675466b.44.2026.08.31.03.41.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 03:41:30 -0700 (PDT)
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: oe-linux-nfc@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	syzbot+59d5e6a8ed04e6a000c8@syzkaller.appspotmail.com
+Subject: [PATCH] nfc: nfcmrvl: fix null pointer dereference in nfcmrvl_bulk_complete
+Date: Mon, 31 Aug 2026 10:41:10 +0000
+Message-ID: <20260831104110.1307-1-joshua.crofts1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260818211425.91009-1-graf@amazon.com> <20260818211425.91009-5-graf@amazon.com>
- <CAJaqyWeGaoamHzYRd1ZVUJ+6fx_4RWDim+jLO964qKtgZ=zogQ@mail.gmail.com>
- <CAJaqyWe1fKBwBXXxHqDV676Uw03Pvr0uLizPmHKqm+sqmY_LgA@mail.gmail.com>
- <20260831022012-mutt-send-email-mst@kernel.org> <CAJaqyWc-a5orY1Rg2S_PmdPWt6gcGFM7-FyN4Pqk5hPd8vi0PQ@mail.gmail.com>
- <20260831042123-mutt-send-email-mst@kernel.org> <CAJaqyWcRwoAWMU9EQE-qDNmpzjc4xheU4Y+MxTx2EF8vP6wEKg@mail.gmail.com>
- <20260831063307-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20260831063307-mutt-send-email-mst@kernel.org>
-From: Eugenio Perez Martin <eperezma@redhat.com>
-Date: Mon, 31 Aug 2026 12:39:28 +0200
-X-Gm-Features: AcwNN1XqixT9XX9ulqXuds_8-rOHhQ_YFOF-lOx_ulmYah9DsENr0BDNXy5BV5c
-Message-ID: <CAJaqyWfKK7A2mgi1uJ_DqF-XhAsXOGmko19emTwdFfQEhrCX0g@mail.gmail.com>
-Subject: Re: [PATCH v2 04/12] virtio_ring: return -ENOMEM when a packed ring
- mapping fails
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Alexander Graf <graf@amazon.com>, Jason Wang <jasowangio@gmail.com>, nh-open-source@amazon.com, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Halil Pasic <pasic@linux.ibm.com>, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Stefan Hajnoczi <stefanha@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 12:33=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com=
-> wrote:
->
-> On Mon, Aug 31, 2026 at 12:04:57PM +0200, Eugenio Perez Martin wrote:
-> > On Mon, Aug 31, 2026 at 10:22=E2=80=AFAM Michael S. Tsirkin <mst@redhat=
-.com> wrote:
-> > >
-> > > On Mon, Aug 31, 2026 at 10:17:56AM +0200, Eugenio Perez Martin wrote:
-> > > > On Mon, Aug 31, 2026 at 8:21=E2=80=AFAM Michael S. Tsirkin <mst@red=
-hat.com> wrote:
-> > > > >
-> > > > > On Mon, Aug 31, 2026 at 08:00:00AM +0200, Eugenio Perez Martin wr=
-ote:
-> > > > > > On Wed, Aug 26, 2026 at 2:47=E2=80=AFPM Eugenio Perez Martin
-> > > > > > <eperezma@redhat.com> wrote:
-> > > > > > >
-> > > > > > > On Tue, Aug 18, 2026 at 11:15=E2=80=AFPM Alexander Graf <graf=
-@amazon.com> wrote:
-> > > > > > > >
-> > > > > > > > Commit f7728002c1c7 ("virtio_ring: fix return code on DMA m=
-apping
-> > > > > > > > fails") moved virtqueue_add_split() and virtqueue_add_indir=
-ect_packed()
-> > > > > > > > to -ENOMEM, because virtio_queue_rq() maps -EIO to BLK_STS_=
-IOERR and
-> > > > > > > > the request fails. We still return -EIO from virtqueue_add_=
-packed(),
-> > > > > > > > and virtqueue_add_packed_in_order() copied that when it was=
- added later.
-> > > > > > > >
-> > > > > > > > Guests that bounce their I/O through swiotlb (SEV-SNP, TDX,=
- s390 secure
-> > > > > > > > execution) run the pool out with enough I/O in flight. On a=
- split ring
-> > > > > > > > virtio_queue_rq() reports BLK_STS_RESOURCE and the block la=
-yer requeues
-> > > > > > > > the request. On a packed ring virtio_queue_rq() reports BLK=
-_STS_IOERR
-> > > > > > > > instead and the error reaches the filesystem.
-> > > > > > > >
-> > > > > > > > Return -ENOMEM from the packed unmap_release paths too. Bot=
-h are reached
-> > > > > > > > from a single goto on a failed mapping, which is where
-> > > > > > > > vring_map_one_sg() already produces -ENOMEM.
-> > > > > > > >
-> > > > > > > > That way every ring layout reports the same errno, and the =
-block layer
-> > > > > > > > requeues the request instead of failing it.
-> > > > > > > >
-> > > > > > > > Fixes: f7728002c1c7 ("virtio_ring: fix return code on DMA m=
-apping fails")
-> > > > > > > > Fixes: f6a15d854986 ("virtio_ring: add in order support")
-> > > > > > >
-> > > > > > > Acked-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
-> > > > > > >
-> > > > > >
-> > > > > > Even if I'd like to see this merged, I'm having second thoughts
-> > > > > > because it introduces userland visible changes in some drivers.=
- Are
-> > > > > > them acceptable?
-> > > > >
-> > > > > I mean, fixing the kernel for the userspace is kinda what we do, =
-right?
-> > > > >
-> > > >
-> > > > Yes, but changing error codes returned from the kernel to userland
-> > > > always reminds me of this old thread so I wanted to give a heads up=
-:
-> > > >
-> > > > https://lkml.org/lkml/2012/12/23/75
-> > > >
-> > > > Now I don't think we're in the same situation, though; probably no
-> > > > userland app checks the actual errno in these operations. However, =
-the
-> > > > userland apps are not limited to VMMs; they include actual subsyste=
-m
-> > > > users that do not know the backend is a virtio device, so the base =
-is
-> > > > large. If you still think that will not be a problem, I'm totally i=
-n
-> > > > :).
-> > > >
-> > > > Thanks!
-> > >
-> > > Well actual subsystem users for sure expect EIO on actual io errors n=
-o?
-> > >
-> >
-> > Yes, but code like drivers/scsi/virtio_scsi.c:virtscsi_queuecommand in
-> > the kernel explicitely checks for -EIO, and had a different code path
-> > to handle it than -ENOMEM. Even if both are valid, the visible
-> > behavior of the code changes.
->
-> For the better.
->
+A race condition in the current implementation can cause a null pointer
+dereference. When nfcmrvl_nci_register_dev() calls nci_register_device(),
+the NCI device is immediately exposed to userspace. If userspace brings
+up the device before probe() finishes assigning drv_data->priv,
+submitted bulk URBs can complete while priv is still NULL.
 
-Yes, I agree on that :). So, if you're ok with the change,
+Additionally, nfcmrvl_bulk_complete() incorrectly checked
+NFCMRVL_NCI_RUNNING on drv_data->flags instead of drv_data->priv->flags.
 
-Acked-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
+Fix this by adding a NULL check and testing NFCMRVL_NCI_RUNNING on
+drv_data->priv->flags before processing the completed URB.
 
-Thanks!
+Fixes: f26e30cc6b50 ("NFC: nfcmrvl: Initial commit for Marvell NFC driver")
+Reported-by: syzbot+59d5e6a8ed04e6a000c8@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=59d5e6a8ed04e6a000c8
+Tested-by: syzbot+59d5e6a8ed04e6a000c8@syzkaller.appspotmail.com
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
+ drivers/nfc/nfcmrvl/usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/nfc/nfcmrvl/usb.c b/drivers/nfc/nfcmrvl/usb.c
+index c7f2afe00b93..c22d783718fe 100644
+--- a/drivers/nfc/nfcmrvl/usb.c
++++ b/drivers/nfc/nfcmrvl/usb.c
+@@ -61,7 +61,7 @@ static void nfcmrvl_bulk_complete(struct urb *urb)
+ 	dev_dbg(&drv_data->udev->dev, "urb %p status %d count %d\n",
+ 		urb, urb->status, urb->actual_length);
+ 
+-	if (!test_bit(NFCMRVL_NCI_RUNNING, &drv_data->flags))
++	if (!drv_data->priv || !test_bit(NFCMRVL_NCI_RUNNING, &drv_data->priv->flags))
+ 		return;
+ 
+ 	if (!urb->status) {
+-- 
+2.47.3
 
