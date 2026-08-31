@@ -1,123 +1,126 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012004.outbound.protection.outlook.com [52.101.43.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B67C37E5DF
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EFDF37E5CB;
+	Mon, 31 Aug 2026 19:45:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.4
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788205515; cv=pass; b=UwrWV8ETkEU/7j+RvKLcWO+Npm/sI7Yjr7ttiKKheMq9XRp21IB4OoDzBoJ5IyL3YQOPNcoUFlBBE7qD1d1VH112bDrT007/IyykhWwKCDNNmsbZQy6yUkVNBlzUIoNlGzSNyZ9VRbGWgZmwI7fVOn5A4Qtm1sFai8TW+DsWLNs=
+	t=1788205525; cv=fail; b=QKYtOnu09XAL2xbmFEUvc/YT1DOhdqAEp/5ty4BAv3EdaA/xBM+t/zSfgrywvkiwX0D8Ne/CTTYzl3u/t60B/VyvSNc6It8g0AjCdZPE04A8elqYFqLkdkxhZbS2l4Tzsq927PUwDZdFZTkc0xFVkErda+dziRPhVzXZNl9RgAk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788205515; c=relaxed/simple;
-	bh=3Jrv9P/AlPMD6Sdxe3mYFdYybT0kcFDapqBsc6G6VY0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dtPktJ8gqMLT0v+9F9s5yixcNWm8+a5H2FG2u2GHzGI+336aXe1LnCjOszkIoffiF4XH1KXX9qGM7a+AsGeUkL6PS8cb+0qUaqNBvaFlr2Sz+dfREOE0UE7Frbqkbc0fD9bGQXUIGSTggM3pV90Mf1dwXgNWMcVBAdfKUV0UnHE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WQ0fnmqw; arc=pass smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788205525; c=relaxed/simple;
+	bh=TvvGP1i4uvFmiDFZmcOA0pGhvdBED5za42ENrSwKFyc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=o+WTOx1iJBIKeWgZx7AZvctSwdGSQrJqstqb8uAU17q+XerIe+6ImAo1ZxiNi1M9hXvrA5HJho2bIZFs8+QQ9R/uCfp2Jd8T+sFqbz79bBX6AeIy5+ejjSL+w+jPG9jIj3hrXqzfQqdiRBlY38b3TIV1/t1oPrWrISq0eFYcJq4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=WZ01fM1t; arc=fail smtp.client-ip=52.101.43.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WQ0fnmqw"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-855c3981b0eso436737b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:45:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788205513; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mtiKDdzjXLBENvaXTsYePFsKKxcRLQJ5o76nrBlDGVjDhcEFFd2M+9ZavKc7POcS2j
-         9bJaJifTEr1Z9ivnNycAzWs1Xcyyv9gUykLsW9fYuVAt6NL2C1t/UQGPaidJQwtphAdR
-         3NtIBl/7n31NLcUmkB8qfK7h6PiY52K27mp8iVVRAH9P50g/N0nA35UrikL8bienVi4y
-         DPC+Q1Bl98Y9yFpodhl4we0ZqrgyM6Ldibdq/rslgbsfzcyR7aHel5cXyc5bNqOgEwjT
-         dDq+CLyuE2eQ5qh0i/BWQAyS6p9d8snUNSkmHpUQU9qhQxk4MDhaSaKEDnxxwYFC5M/T
-         SdvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3Jrv9P/AlPMD6Sdxe3mYFdYybT0kcFDapqBsc6G6VY0=;
-        fh=9ZxSslQPVVHwdcitdvYFrHJF0txrxqETIzQFdug7kMI=;
-        b=iMxylZWBRWNkxuBVupRrVE3IvkQlE1j799OlkWm7E5miMSPuxLVuxx+XRQGf+gceJi
-         1ymPlsEgeMLvb8jFKX7Dg7eiuQ8RQwAoem3hxbBELeQtzl4iYlBLEsKwLXJC/Im0qejK
-         0cJVKcpZROK6SIhRzzQXdp5pG2n6nDWjXVUsUMvOXUvinySQvSIfGOlZFpSZfLfCe5Bg
-         luSftEx5B0UqLBy0ia1qb4ppVO/zoLOJ9Gmac+iQss7J4Pa+E50m1ap3yn2PnF8xfBX3
-         iTMKKqMyL1QDF5HXOprv4Y/ilY5+msA/+Aa7dJOxmxpAfRjlyOb/BIKkhO1qm7FM/APA
-         aLZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788205513; x=1788810313; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3Jrv9P/AlPMD6Sdxe3mYFdYybT0kcFDapqBsc6G6VY0=;
-        b=WQ0fnmqwEqXROfU23E1u3Q93KxAXTiyi/cr0TeJg7/mXcGK6G6HMN/hsUdx/MNiz0L
-         BuB5RkqagR5+t2PQpsmiWGMRwCiS/i2oLJ1J/avHFhoHHuhWP1L5dVsNp1SPsqL7/i42
-         a8oVmZcRK0oQVCFPlmSs8nb8ch1VkpMIqcxUq+sMKvpVG0wYn2P/Rz4YPDesPKYVUc33
-         vxDaemah7xH856d6jVVZQtE+PZZxa/OofIiR/SgmShjzIov0HVLqw7Setlohzg6UAFXh
-         WZ1PUyaXpPhC0Qktv0xif4c/uw6pYNaE0uCdhyNkx1zaJ9CSVsdRwlmQuH5npUjOL9Yg
-         4YTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788205513; x=1788810313;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3Jrv9P/AlPMD6Sdxe3mYFdYybT0kcFDapqBsc6G6VY0=;
-        b=OAp/mGwAAJSGn5pWd8TIaaPzGDj4JkVzGcdjJGmyv+xjM8I/U3vm7yLeLiyZOUoDG6
-         RvUaofObvfoCMhRvcUjKz5sOM/Ga2lDRtkh49GySeYnh4WoMB5jAtc+3jGE0OCKq1lKM
-         +zh0YO6g0nqYeea+U7LqUUh4RcCD1SeThu4NU8zxxO5csGDaSr4HeMaHF/gyqDcE62WQ
-         eYnGfjk82QJW5ZOpX8M1Stw9s20tKaXFOLQNhda8tRKZzQasF1TUNavg93RmfNYNm41p
-         yC228WQ7A+lzIM8huQX/eR90pHJjJeEqgyBguehRRiiXu0Dg6x5iIrlLYVYZMi3Ir11M
-         d+ag==
-X-Forwarded-Encrypted: i=1; AKwUvBxy0gwfWP3vCHu2KaGLiXzwcWIeM4ZjOY+SArpcRJfdRqlGdgbXdIRstW/BdniV7vwrxzkDUdpuK7+oCfU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mi108VzUNe61v5u/DZ5+8HWMNwmzm/aExu9TTyPmRbPSmpe+nC
-	Gw0BxokeC55zb8tsWHKmgrXqqEecJsFyg5WierLktHoYww1I9nKojQOZtDMxtx5PikSp1SU6/Cg
-	M2FxE5CHRjIoSUcBAAtsSQWTPg5vbQMg=
-X-Gm-Gg: AYBFou241t4N61h+owt5dOiejke11DViP12e2NRXfH6NILXNRy5tRCqTgbMrIr3Xk7v
-	xhSqA9E6ZDvl7vvOScMcIDlSooZCgjbTJWC8LMi4ZQsySm0AQAOmlxB2Et8yyr2saivvv5Omkm/
-	gk4gv+fSGqNEBeWudzNJOrNHiQXTPL5K5+pRiRGcbAymBtgKmn3lVOMSHXtEK7eoGXDd3+FZAFX
-	CEwPMbGX8NV9GOmOC0GO+XwZG5w+A+qW2uV7yTt5Mxd34JFEXTiW9keTOkUcIgTH/7fqZRuDuQo
-	JHSCFsZQSDzxiGXxgNVy1kVOEygURX8VX9fFAzL35X1AUpOEZqZCUjNSm/vHnbHlrkWSpt4ulgE
-	ZZr4D6BOjJP12BCYk/pLoT28cluwHZT8STHWl+458r+T+/KDukoYLcjIrbXej
-X-Received: by 2002:a17:90b:17cd:b0:390:af7c:fe5e with SMTP id
- 98e67ed59e1d1-398bab29b39mr13817320a91.2.1788205513452; Mon, 31 Aug 2026
- 12:45:13 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="WZ01fM1t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q49RmoB++JQDYZuUoWotCPOkZ/9pltelreD0W1hGF8/QVQOxsNUMpVAaQDcVVpGZ6FmWvx94BQq8LAar/RkP4unJ+1++jn8ZcGbgMggNrovWeXSoaVteHy78jYFaOyerePmv/uHmRdKo6X7qPftDxivXxpCHipme9aJTJMI98SLbUq5zVqPpErZJnyM9JhgB05J0TWXR4kNaXFyEom6lrOC4212xHFtzxdqG7XLc69aoSZot8hNcCdtm5AXn0YiyIJrGfwa/a9iuopsjWNr2A9DMStubGM75/aougFFvihtDTvTYh1wGRHBJlbLr+hc79I1aPzzhnZFG/bFYdszGGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fX3xnQCsFyFo0RwM5myE1UZe1xPqi8a/IhkYwN5lIN0=;
+ b=r7MAPxarSr4rfbUvqFfFMMoUd3jqDDEiB9LMFd6PFaYkLkpf8mllT0AX1hHWTTedtl70iIWe9X+uqdbuoHIr/RgAeqri6jzsDcgvM8U37ltGupcD6nC5rIKxz0qi0FkhmfAyn2dtflnnsjPecsT/9mlrkbXLmto74qK0QzPxO/0rFpzvLP1PAFfI3elz8GwhnLx0C8VwFJ6HMHiVA5XmLW6eIUsUB4XAwZ4HO5LMtLRjFLrKOvIf06mAWbSSrRRDIDhVKVJv1BE0FTACXfMCbcXNrgwXfSplj382NQs+XcurM8gOaKnIF6JxF70raX1ZWjT5Ia44CE7DIrqvlNEtCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fX3xnQCsFyFo0RwM5myE1UZe1xPqi8a/IhkYwN5lIN0=;
+ b=WZ01fM1tfs6utTxu7OaRcytKa+qX5tzIknw6c+E5fAM43RiMeSVAqK6hl3/JxrJsPAsWrs2uMl2KpOQOY0EvKQcxkmbPqYI2dPqf7a6tP/br58QEu6BuUbFfUgodzXIPzfiU3Oxh061d0hHKzJ5pCUxueetK30q8D4DKtcYEFgQ=
+Received: from BY3PR05CA0023.namprd05.prod.outlook.com (2603:10b6:a03:254::28)
+ by BY5PR12MB4116.namprd12.prod.outlook.com (2603:10b6:a03:210::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 19:45:16 +0000
+Received: from BY1PEPF0001AE16.namprd04.prod.outlook.com
+ (2603:10b6:a03:254:cafe::4b) by BY3PR05CA0023.outlook.office365.com
+ (2603:10b6:a03:254::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Mon,
+ 31 Aug 2026 19:45:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0001AE16.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 19:45:16 +0000
+Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 14:45:15 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+CC: <linux-acpi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-pm@vger.kernel.org>, K Prateek Nayak <kprateek.nayak@amd.com>,
+	<x86@kernel.org>, Vishal Badole <Vishal.Badole@amd.com>, Mario Limonciello
+	<mario.limonciello@amd.com>
+Subject: [PATCH 0/3] Zen6 client CPPC
+Date: Mon, 31 Aug 2026 14:44:25 -0500
+Message-ID: <20260831194428.2287055-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828122444.475-1-nils.lehnen@proton.me>
-In-Reply-To: <20260828122444.475-1-nils.lehnen@proton.me>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 31 Aug 2026 21:45:00 +0200
-X-Gm-Features: AcwNN1UrGd_bZLkMVyH1G38N0kEIKnS8OgGaNrIu6lFxBJ9qf_B_KFzk1Mhm8lI
-Message-ID: <CANiq72kzouWAJbbhpKQXYit=VnF-9z=iLspk6mgSQU6m4-Us5g@mail.gmail.com>
-Subject: Re: [PATCH] rust: of: replace `core::mem::zeroed` with `pin_init::zeroed`
-To: Nils Lehnen <nils.lehnen@proton.me>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Gary Guo <gary@garyguo.net>, Boqun Feng <boqun@kernel.org>, 
-	Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Onur Ozkan <work@onurozkan.dev>, 
-	Moritz Zielke <moritz.zielke@gmail.com>, devicetree@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE16:EE_|BY5PR12MB4116:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92dd9ba2-776b-4f40-e5fc-08df079861b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|56012099006|18002099003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	AYhxaUNKoCZxi3KjpFCanQCLxY7sebFteSEJq7WFw/Qe8OWFCtojTj1gQeZqaNFI7OQYybJ2qmVq16+MSAE/5xXrm1zQCjrGexCx/UCykJYKbbyEM5kZV8THDKy+rzKiYOKprOir+M7QeYJ3Y8aFgXiJM6WexM8gBFjlUHt5ypedKXrdGz1yT5Uo5mJebrxC8iSgsTDwo6iAZcIuEOQUk9Ek3lxBwkrQwWE103J8LR4v3a5/vAlQ9a3BZZtX5QtR9jtSf1PNQeX+s4TpXpStcH87QdoPS4pcgsHh5gqLsGWcKcfs+7qiI3lbN9dD24JyEZZFYsMymtLKihC9EuLY61FQ26tw13NT/XaSCjGaGKmWOHa4Onx++MBn4WZNDnBnqCKn8ZhpAwRLMMebZG6k6dzxl+dq9hkprL213g1WumO6vSQI4eaOn5E9/yYQ7wGm7u7Q7Pw8wpd4vCUI2BsKjOb7CwRIfUQKzFtkBaY8KPCkue+IlSa8tlLbUtqtx+iZveyh/a6MZQ0G6EgFAZfBUqwEh2sIPfwBmIPTWqe/vk5QAGl/pl+qfCMTFtEnRb87XAc08d3ty+QIBShemtfP4mKQaMcrmmElH0rfAlCh2GbZtLYp+v1S7cnlFg1kOHgzEPQm1Yd7TaxVu+Fxp6XYv98UCGz+m/FdzEeFDZmr9InVeNfTPGnxbx+E3OPJhHff+m7vIO0LueSe1wjoI0ubxg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(56012099006)(18002099003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	emOuLWY1krN1g4N4ZT/65ISDhG8D5tGMi2fyvy2xffoe1Xa8Pu+BSysPSw/AS5xkYRyLV5ouofAMN5B2zdGMvpHVFdQhNfHqTSkDkipLElnB+B37ayoJmw6OsWPPtOfx7PyZNfEDzfy6JMuHsfQJww2WGF8T7GurHZj/RdtkYZ+JFYsZvxs9mUFkv3VQwhZg6Sif9wY3LDOglYCd2o82qPwZ+Wf17qgmpPNEoTlBJ+OEVaspq3tLGTHU3h8zZBJb5ORxotQWXJdPv3hLSrgb26zJJ98ZztZwpjOBQa30cHNarvYsUtzLuMJYgmiSHhmPRMf4rP3z70shUzf4X/J7dgqFOOKAvGu4mqJZ27gdFCrDLr3AeiVlMdwKS8d/ZJwVgoGke3mKO9t2EXqoJGRW8WVvQmAAzwAsjVcCVNMQv85qv36tK756nJ6eaP6YYuFx
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 19:45:16.4504
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92dd9ba2-776b-4f40-e5fc-08df079861b7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0001AE16.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4116
 
-On Fri, Aug 28, 2026 at 2:25=E2=80=AFPM Nils Lehnen <nils.lehnen@proton.me>=
- wrote:
->
-> Resend of Benno's patch from the Zeroable series [1], as the issue [2]
-> asks; same shape as the security.rs resend Miguel confirmed today [3].
-> Rebased onto rust-next: one context conflict from the
-> `as_bytes_with_nul` -> `to_bytes_with_nul` rename, resolved keeping the
-> current name; the change itself is Benno's, unmodified. An incremental
-> defconfig build with CONFIG_RUST=3Dy passes, so `pin_init::zeroed()` is
-> fine in the `const fn` context.
+Zen6 client platforms use CPPC differently than previous platforms
+and knowing maximum frequency for a core type is needed for capacity
+calculations.
 
-Looks fine, thanks!
+Newer versions of the ACPI will introduce a proper interface
+for getting this information, but for now hardcode values so that
+these systems perform as intended and to unblock future scheduler
+work while we continue to wait.
 
-Rob, Saravana: it would be nice to get this done, please let me know
-if you prefer me to pick it up. Thanks!
+Mario Limonciello (3):
+  ACPI: CPPC: Refactor boost ratio handling
+  cpufreq/acpi-cpufreq: Use amd_get_boost_ratio()
+  cpufreq/amd-pstate: Get Highest Freq for a CPU
 
-Cheers,
-Miguel
+ arch/x86/kernel/acpi/cppc.c    | 174 ++++++++++++++++++++++-----------
+ drivers/cpufreq/acpi-cpufreq.c |  17 ++--
+ drivers/cpufreq/amd-pstate.c   |  22 +++--
+ include/acpi/cppc_acpi.h       |  14 ++-
+ 4 files changed, 154 insertions(+), 73 deletions(-)
+
+-- 
+2.43.0
+
