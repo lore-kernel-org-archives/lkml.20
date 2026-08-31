@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AF5449B2D;
-	Mon, 31 Aug 2026 13:40:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183CA4EF5F5;
+	Mon, 31 Aug 2026 13:40:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183645; cv=none; b=f7AzY/W1ZiLcQcL4uqkhOit3vfplu7UgGOeIJL/K1G5faIz5uUIMC+8NuIl9LABl/DEky2LXks088JWvYnCWse+MUwSax0hgibrhPYV2RQkdRNqjOJJOmoVDclzP98c6ijcgwjERg3WmB+uZ+P7Z8AVMJ9yk9hjFPhp/QhWQnf0=
+	t=1788183648; cv=none; b=dPjkYgScdMJEAdYKMdBSjnl8YPqfObtUpgNu6EewzWwz5DZxd4+S1MO8bGbyKy9+vEpqhUJeY0Sq/6lZ/Nrw35ySUFj/eTHE581m6+3FJgQv8yoT8uvWvtESNMz6xzfLcG1pOLlfNNZpHXpPMyKlBcUHij2554LWRfdvWTaXlQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183645; c=relaxed/simple;
-	bh=k7aiax2xeTYrk7YdAP2H1wi1KLgmG2GDiCNvyVMe7iM=;
+	s=arc-20240116; t=1788183648; c=relaxed/simple;
+	bh=ybRXSEKDxyPR94oCX853SdCK/fOAeaJohqaHlv4szGE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GbnvGcbOU9TjPWBCIbzgA9CXGiFMgvZ2cTSkt24FanNwC3wMCac6cGtY4eCvBcJWbU6xfAXLm0POn8hRgAaxJ2ieyM7Pw8E+g7oPWFdEclKmnofxzLLBIvT5lZhyq1zLiTyTgLbIvb4qGfhKlT2dpYJxMJ+DRx0gaGe0+nOlnao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZfxdgnAL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=EVrUgxac/UdmAG5WLRENHjOQoIrkUK/ahxP5zMGsZf+FTn3bHdPiRToap7dCpkjatDr1lqY30IP/CEgU0lzazpQF4jyORJrpX2XAVLeMNTtnsJubyJJuAlOJptH9g4fnALz0dUEUZzSnaKih5nTpWQayeN2+AJejAGg68ZwWgqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aZzN7QwY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZfxdgnAL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EFC91F00A3F;
-	Mon, 31 Aug 2026 13:40:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aZzN7QwY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27F971F00ACF;
+	Mon, 31 Aug 2026 13:40:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183643;
-	bh=gUeiXI3XyC926PlbUI79LZb1H3ffCrHpQ8ozWKv0f2Y=;
+	s=k20260515; t=1788183646;
+	bh=mRUTTgz3R/MNZTg3sShlIn2nyt4fV+v7UOFktzNW24w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZfxdgnALaQRqmWDpSl2NRdx/Ibo7HwlRpmjQ7FwlWlX3RztiIIZC6zHHOqJVf69FS
-	 o6FBKaYUgGu6ep3bZzJJKPQS4MygSDI2bHAajkGbzPHBeI6TJY+lcB2oIC3z6DpUaO
-	 2gAOekwU6lPpoG09KPnY8oBkvKONAjXw6MhjuA4bL+fzppFBNkdZJTi0z8LEUiesN0
-	 9h9hK57XtPTYprwtCPqlLNPPrYbczvNFEJhmpFy1YYBl9/5U+6l2Vz70mczuH4nACv
-	 t0R1ykdXH+czbJfqon/6jKusgXl5Oy8RwudqZyqXMkQ90SyySBfhetM7PxvGJxZeAQ
-	 kCHTOM9lwwY9w==
+	b=aZzN7QwYNsqelM0Q1elntEkh1C9Gnx3Mm9MAAuoRApCJnfpxTlqsrE3RiG8J0h3dm
+	 G64FUJtgZZtgQ9+Wc9qYRClYL+GQm8tSdUhkX2TMd4ooLc+1BwiId7u7X7Ea/RoQJ5
+	 DsNWyrpbi5wevOaucr+SAKWCYbM7PXJJS/pJnkhXHeW0ue/io1b21mZ1SYfkSHTkdl
+	 TgXIKfflIoVj3fTY+toSnDpCfUaborwr/vBUMZsyrwePPusXIpygx3z2sm4eoE6Xxs
+	 7y5OJ+9RkY+fwea1L4E6wj3os1+Jb54LbI1ZKkPMMoruChwhEfUq555ciEtuAvmnN5
+	 gkBXazSBNwZbA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: ZhengYuan Huang <gality369@gmail.com>,
-	David Sterba <dsterba@suse.com>,
+Cc: Niklas Cassel <cassel@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	clm@fb.com,
-	linux-btrfs@vger.kernel.org,
+	linux-ide@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] btrfs: balance: fix potential bg lookup failure in btrfs_may_alloc_data_chunk()
-Date: Mon, 31 Aug 2026 09:24:04 -0400
-Message-ID: <20260831133314.4125787-216-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] ata: libata-core: Disable LPM on WD Green 2.5 480GB
+Date: Mon, 31 Aug 2026 09:24:06 -0400
+Message-ID: <20260831133314.4125787-218-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,416 +52,381 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: ZhengYuan Huang <gality369@gmail.com>
+From: Niklas Cassel <cassel@kernel.org>
 
-[ Upstream commit 18d32b0013efba19f7ad3e5b08d7aee813d604a6 ]
+[ Upstream commit d549df8a0ace611bff0a336a907f93420648b462 ]
 
-[BUG]
-Running btrfs balance can trigger a null-ptr-deref before relocating a
-data chunk when metadata corruption leaves a chunk in the chunk tree
-without a corresponding block group in the in-memory cache:
+According to a user report, the WD Green 2.5 480GB has problems with LPM.
 
-  KASAN: null-ptr-deref in range [0x0000000000000088-0x000000000000008f]
-  RIP: 0010:btrfs_may_alloc_data_chunk+0x40/0x1c0 fs/btrfs/volumes.c:3601
-  Call Trace:
-    __btrfs_balance fs/btrfs/volumes.c:4217 [inline]
-    btrfs_balance+0x2516/0x42b0 fs/btrfs/volumes.c:4604
-    btrfs_ioctl_balance fs/btrfs/ioctl.c:3577 [inline]
-    btrfs_ioctl+0x25cf/0x5b90 fs/btrfs/ioctl.c:5313
-    ...
-
-[CAUSE]
-__btrfs_balance() iterates the on-disk chunk tree and passes the chunk
-logical bytenr to btrfs_may_alloc_data_chunk() before relocating a data
-chunk. That helper then queries the in-memory block group cache:
-
-  cache = btrfs_lookup_block_group(fs_info, chunk_offset);
-  chunk_type = cache->flags;   /* cache may be NULL */
-
-A corrupt image can contain a chunk item whose matching block group
-item is missing, so no block group is ever inserted into the cache. In
-that case btrfs_lookup_block_group() returns NULL.
-
-The code only guards this with ASSERT(cache), which becomes a no-op when
-CONFIG_BTRFS_ASSERT is disabled. The subsequent dereference of
-cache->flags therefore crashes the kernel.
-
-[FIX]
-Add a NULL check after btrfs_lookup_block_group() in
-btrfs_may_alloc_data_chunk() and print and error message for clarity.
-
-Signed-off-by: ZhengYuan Huang <gality369@gmail.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
+Link: https://lore.kernel.org/linux-ide/CAGiKK17Fg4SgS+y0GzD3new44QzD_yPZU5V3ZeHdUr9mFnfn1Q@mail.gmail.com/
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `ata: libata-core: Disable LPM on WD Green
+2.5 480GB`
 
-### Step 1.1: Parse the Subject Line
-**Record:** `[btrfs: balance]` `[fix]` — Fix potential block-group
-lookup failure in `btrfs_may_alloc_data_chunk()` during balance
-operations.
-
-### Step 1.2: Parse All Commit Message Tags
-**Record:**
-- **Fixes:** none in the provided message (v1/v3 on lore have `Fixes:
-  a6f93c71d412`)
-- **Reported-by:** none
-- **Tested-by:** none
-- **Reviewed-by:** David Sterba `<dsterba@suse.com>` (btrfs maintainer)
-- **Acked-by:** none
-- **Link:** none in provided message
-- **Cc: stable@vger.kernel.org:** absent in provided message; present in
-  v1 lore submission
-- **Signed-off-by:** ZhengYuan Huang; David Sterba (ignore any pipeline-
-  added SOBs)
-
-Notable: maintainer review; v1 explicitly nominated for stable on lore.
-
-### Step 1.3: Analyze Commit Body
-**Record:**
-- **Bug:** NULL pointer dereference in `btrfs_may_alloc_data_chunk()`
-  when running `btrfs balance` on a filesystem where metadata corruption
-  leaves a chunk in the chunk tree without a matching in-memory block
-  group.
-- **Symptom:** KASAN null-ptr-deref at `cache->flags` (offset 0x88),
-  stack through `__btrfs_balance` → `btrfs_balance` →
-  `btrfs_ioctl_balance`.
-- **Root cause:** `btrfs_lookup_block_group()` can return NULL; only
-  `ASSERT(cache)` guards it, and `ASSERT` is a no-op when
-  `CONFIG_BTRFS_ASSERT` is disabled (the default).
-- **Fix:** NULL check, `btrfs_err()` message, return `-EUCLEAN`.
-- **Version info:** Bug tied to function introduced in `a6f93c71d412ba`
-  (2017/2018).
-
-### Step 1.4: Detect Hidden Bug Fixes
-**Record:** Not disguised — explicitly a NULL-deref crash fix. The
-`unlikely()` wrapper in the provided diff matches existing EUCLEAN-path
-style in this tree (e.g. commit `9264d004a6c97`).
+**Local tree:** Linux **6.18.44** (`v6.18.44-2-g1b9e1abadee04`)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 2.1: Inventory the Changes
+### Step 1.1: Subject line
+**Record:** `[ata: libata-core]` `[Disable]` — disable Link Power
+Management (LPM) for the WD Green 2.5 480GB SSD via a device quirk.
+
+### Step 1.2: Tags
 **Record:**
-- **Files:** `fs/btrfs/volumes.c` (+5/-1 net in v1; +6/-1 with
-  `unlikely` in provided diff)
-- **Function:** `btrfs_may_alloc_data_chunk()`
-- **Scope:** Single-file, surgical fix
+- **Link:** `https://lore.kernel.org/linux-ide/CAGiKK17Fg4SgS+y0GzD3new4
+  4QzD_yPZU5V3ZeHdUr9mFnfn1Q@mail.gmail.com/` (user report)
+- **Signed-off-by:** Niklas Cassel `<cassel@kernel.org>` (libata
+  maintainer)
+- **Signed-off-by:** Damien Le Moal `<dlemoal@kernel.org>` (libata co-
+  maintainer)
+- No `Fixes:`, `Reported-by:`, `Cc: stable`, `Tested-by:`, or `Reviewed-
+  by:` in the candidate message
+- Part of a 2-patch series: `[PATCH 0/2] ata: disable LPM on some WDC
+  drives` (2026-07-28)
 
-### Step 2.2: Code Flow Change
+### Step 1.3: Body analysis
 **Record:**
-- **Before:** `cache = btrfs_lookup_block_group(...); ASSERT(cache);
-  chunk_type = cache->flags;` — ASSERT no-op in production → NULL deref.
-- **After:** If `!cache`, log error and return `-EUCLEAN`; otherwise
-  proceed as before.
-- **Path affected:** Balance relocation path in `__btrfs_balance()`
-  before `btrfs_relocate_chunk()`.
+- **Bug:** WD Green 2.5 480GB has problems with SATA Link Power
+  Management.
+- **Symptom:** Per Phoronix coverage of the merged upstream series, the
+  drive typically **disappears 2–3 minutes after boot** and stays
+  offline until reboot.
+- **Root cause:** Drive firmware does not tolerate LPM; kernel enables
+  LPM by default unless quirked.
+- **Workaround:** `libata.force=nolpm` boot parameter (confirmed by
+  Phoronix).
 
-### Step 2.3: Bug Mechanism
-**Record:** **Category:** NULL pointer dereference (memory safety).
-**Mechanism:** Missing NULL check after lookup; assertion disabled in
-production kernels. Fix converts kernel oops into controlled `-EUCLEAN`
-error propagation.
-
-### Step 2.4: Fix Quality
-**Record:** Obviously correct and minimal. Matches existing patterns in
-the same file (e.g. lines 3587–3589, 8326–8328). `-EUCLEAN` is the
-established btrfs corruption error code (used at lines 4272, 2041,
-etc.). **Regression risk:** Very low — only affects the already-broken
-corruption case.
+### Step 1.4: Hidden bug fix?
+**Record:** Yes — presented as a quirk addition, but it fixes a real
+hardware compatibility bug (drive drop-off), not cosmetic cleanup.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 2: DIFF ANALYSIS
 
-### Step 3.1: Blame Changed Lines
-**Record:** `btrfs_may_alloc_data_chunk()` introduced in
-`a6f93c71d412ba` (Liu Bo, 2017-11-15 / committed 2018-01-22).
-`ASSERT(cache)` present since introduction. Bug has existed ~8 years in
-this code path.
+### Step 2.1: Inventory
+**Record:**
+- **Files:** `drivers/ata/libata-core.c` (+1 line)
+- **Function/area:** `__ata_dev_quirks[]` static quirk table
+- **Scope:** Single-line, single-file hardware quirk
 
-### Step 3.2: Follow Fixes Tag
-**Record:** N/A in provided message. Lore v3 has `Fixes: a6f93c71d412` —
-that commit is in this tree and introduced the vulnerable function.
+### Step 2.2: Code flow change
+**Record:**
+- **Before:** WD Green 2.5 480GB not in quirk table → LPM may be enabled
+  → drive can drop off link.
+- **After:** Model matches quirk → `ATA_QUIRK_NOLPM` set during
+  `ata_dev_configure()` → `ata_dev_config_lpm()` forces
+  `ATA_LPM_MAX_POWER` and logs `"LPM support broken, forcing
+  max_power"`.
+- **Path:** Device probe/enumeration (normal boot path for affected
+  hardware).
 
-### Step 3.3: Related File History
-**Record:** Related recent fix `c19830db30a09` replaced `BUG()` with
-`-EUCLEAN` in `__btrfs_balance()` — same corruption-handling philosophy.
-Fix commit not found in this tree (`git log --grep='null-ptr-deref in
-btrfs_may_alloc_data_chunk'` returned empty). Buggy code confirmed
-present at lines 3723–3725.
+### Step 2.3: Bug mechanism
+**Record:**
+- **Category:** Hardware workaround / quirk
+- **Mechanism:** Broken device firmware mishandles SATA LPM; kernel
+  disables LPM for this exact model string, same pattern as existing
+  Seagate, ADATA, Samsung, Crucial NOLPM entries in this tree.
 
-### Step 3.4: Author's Other Commits
-**Record:** ZhengYuan Huang has other btrfs fixes in this tree (e.g.
-root drop_level validation). Part of a 4-patch series on lore fixing
-similar balance NULL derefs.
+### Step 2.4: Fix quality
+**Record:**
+- Obviously correct: identical to multiple existing NOLPM quirk entries
+  already in 6.18.44.
+- Minimal scope: one table entry.
+- **Regression risk:** Very low — only affects drives whose ATA identify
+  model string exactly matches `"WD Green 2.5 480GB"` (per
+  `glob_match()` full-string semantics in `lib/glob.c`).
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: Blame
+**Record:** Quirk table in this tree dates to long-standing libata code
+(WD SATA-I `ATA_QUIRK_WD_BROKEN_LPM` entries unchanged since v6.18 merge
+base). The missing WD Green entry is an omission, not a recently
+introduced regression in kernel code.
+
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag.
+
+### Step 3.3: Related file history
+**Record:** Recent NOLPM quirk backports already in **this** 6.18.44
+tree:
+- `a70fd483c4b93` — ST2000DM008-2FR102 (Jan 2026)
+- `87f0349beaaca` — ST1000DM010-2EP102 (Mar 2026, `Cc: stable`)
+- `2229b4cf97301` — ADATA SU680 (Mar 2026, `Cc: stable`)
+
+This commit is patch **2/2** of a series; patch **1/2**
+(`20b72163992eb`, WD100EFGX/WD102KFBX) is **not** in current HEAD but is
+independent for this drive.
+
+### Step 3.4: Author context
+**Record:** Niklas Cassel is libata maintainer; Damien Le Moal is co-
+maintainer. Same authors/maintainers as prior NOLPM quirk backports in
+this tree.
 
 ### Step 3.5: Dependencies
-**Record:** **Standalone.** Patch 3/4 in the series; fixes only
-`btrfs_may_alloc_data_chunk()`. Other series patches fix
-`chunk_usage_filter()` and `chunk_usage_range_filter()` separately. No
-structural prerequisites — applies cleanly to v6.18.44.
+**Record:**
+- Upstream patch 2/2 context places the line after WD100EFGX/WD102KFBX
+  entries from patch 1/2.
+- In **6.18.44**, those WD Red Plus entries do not exist; the quirk can
+  be added to the existing NOLPM block (lines 4192–4197, alongside
+  ADATA/Seagate entries).
+- **Standalone for this device:** does not require patch 1/2 to
+  function.
+- Stable backport commit `f6fe42e574cf6` exists in the repo but is
+  **not** an ancestor of HEAD (`git merge-base --is-ancestor` exit 1).
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Patch Discussion
+### Step 4.1: Original discussion
 **Record:**
-- `b4 dig` / `b4 am` did not find the commit (not yet merged here; no
-  commit hash provided).
-- Lore v1: https://lkml.iu.edu/2603.2/00971.html (Mar 16, 2026)
-- Lore v3 patch 3/4: https://lkml.iu.edu/2603.3/02434.html (Mar 24,
-  2026)
-- Series cover v3: https://lkml.iu.edu/2603.3/02432.html
-- v1 included `Cc: stable@vger.kernel.org`
-- v3 adds `btrfs_may_alloc_data_chunk` fix per maintainer feedback;
-  reviewed by David Sterba
+- `b4 dig -c d549df8a0ace6` →
+  `https://patch.msgid.link/20260728111310.722450-6-cassel@kernel.org`
+- Ratatoskr archive confirms series: PATCH 0/2, 1/2, 2/2 (2026-07-28);
+  Damien Le Moal replied 2026-07-29 (series accepted upstream).
+- Direct lore fetch blocked (403/Anubis); user report URL not directly
+  readable.
 
 ### Step 4.2: Reviewers
-**Record:** David Sterba (btrfs maintainer) reviewed and signed off.
-Series CC'd `linux-btrfs@`.
+**Record:** `b4 dig -w` returned only the msgid link (no recipient
+list). Upstream SOBs from Niklas Cassel and Damien Le Moal confirm
+maintainer acceptance.
 
-### Step 4.3: Bug Report
-**Record:** KASAN null-ptr-deref with full stack trace in commit
-message. Reproducible on corrupted images. No syzbot report. Trigger:
-`btrfs balance` on corrupted metadata.
+### Step 4.3: Bug report details
+**Record:**
+- **Phoronix (2026-08-01):** WD Green 2.5 480GB disappears 2–3 minutes
+  after boot; `libata.force=nolpm` is the workaround.
+- **linux-hardware.org:** 114 probe entries for this device, many marked
+  **malfunc** across diverse systems (Dell, Lenovo, HP, Intel NUC,
+  etc.).
+- **bugzilla.kernel.org #220693** referenced by patch 1/2 (WD Red
+  drives), not this specific drive.
 
-### Step 4.4: Related Patches
-**Record:** 4-patch series; patches 1–2 fix analogous NULL derefs in
-balance filters; patch 4 fixes mount-time verification. This commit
-(patch 3) is independently valuable even without the others.
+### Step 4.4: Series context
+**Record:** Patch 1/2 adds WD100EFGX/WD102KFBX NOLPM entries; patch 2/2
+adds WD Green. Each is independently useful for its respective hardware.
 
-### Step 4.5: Stable Mailing List
-**Record:** v1 explicitly requested stable backport via `Cc:
-stable@vger.kernel.org`. No stable-list rejection found.
+### Step 4.5: Stable list history
+**Record:** Not searched on lore stable list (blocked). Prior NOLPM
+quirk commits in this tree explicitly carried `Cc:
+stable@vger.kernel.org`.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `btrfs_may_alloc_data_chunk()` (modified); callers:
-`__btrfs_balance()`, device-shrink path (~line 5119), zoned repair path
-(~line 8333).
+### Step 5.1: Key functions
+**Record:** `__ata_dev_quirks[]`, `ata_dev_quirks()`,
+`ata_dev_configure()`, `ata_dev_config_lpm()`.
 
 ### Step 5.2: Callers
-**Record:**
-- `__btrfs_balance()` at line 4347 — primary path, checks `ret < 0` →
-  `goto error`
-- Device shrink loop at line 5119 — same error handling
-- Zoned repair at line 8333 — `ret < 0` → `goto out`
-All three callers properly propagate negative returns.
+**Record:** `ata_dev_quirks()` called from `ata_dev_configure()` (line
+2978); `ata_dev_config_lpm()` called during ATA device configuration
+(lines 3096, 3172). Every SATA disk probe goes through this path.
 
 ### Step 5.3: Callees
-**Record:** `btrfs_lookup_block_group()` →
-`block_group_cache_tree_search()` — can return NULL when no matching
-block group exists in cache.
+**Record:** `glob_match()` for model matching; `ata_dev_warn()` when
+forcing max power; `ata_dev_set_feature()` for DIPM disable if needed.
 
-### Step 5.4: Call Chain / Reachability
+### Step 5.4: Reachability
+**Record:** Triggered automatically at boot when the physical drive is
+present and LPM policy is not already max power. No special config
+required beyond normal SATA/AHCI.
+
+### Step 5.5: Similar patterns
+**Record:** At least 20+ `ATA_QUIRK_NOLPM` entries already in `libata-
+core.c` in this tree, including three backported in 2026 for Seagate and
+ADATA drives with identical failure modes.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
+
+### Step 6.1: Does buggy code exist?
+**Record:** **Yes.** `ATA_QUIRK_NOLPM`, `ata_dev_config_lpm()`, and the
+quirk table all exist. The WD Green entry is **absent** (`grep` finds no
+match). LPM can still be enabled for this drive in 6.18.44.
+
+### Step 6.2: Backport complications
+**Record:** **Minor placement adjustment.** Upstream context assumes
+patch 1/2 entries exist; in 6.18.44 the line belongs in the existing
+NOLPM section (~line 4197). Trivial one-line addition, no structural
+changes needed.
+
+### Step 6.3: Related fixes already present?
+**Record:** No WD Green quirk in HEAD. Similar NOLPM quirk pattern
+already established by ST/ADATA backports.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/ata/` — **IMPORTANT** (storage stack; affects any
+system with this SATA SSD).
+
+### Step 7.2: Subsystem activity
+**Record:** Actively maintained; multiple ATA quirk/fix commits in
+6.18.44 history.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** Users with a WD Green 2.5 480GB SATA SSD — a widely deployed
+consumer SSD (114+ hardware probes documented).
+
+### Step 8.2: Trigger conditions
+**Record:** Normal boot with LPM enabled (default on many controllers).
+Reproducible within minutes per user/Phoronix reports. Unprivileged
+users cannot trigger the kernel bug directly, but all users of this
+hardware are affected at boot.
+
+### Step 8.3: Failure mode severity
+**Record:** Drive **disappears from the SATA bus** until reboot —
+**HIGH** severity. Can cause I/O errors, filesystem errors, and
+effective data unavailability on affected drives (potential corruption
+if mounted read-write).
+
+### Step 8.4: Risk-benefit
 **Record:**
-```
-userspace btrfs balance (CAP_SYS_ADMIN)
-  → btrfs_ioctl_balance() [ioctl.c:3555]
-    → btrfs_balance() [volumes.c:4733]
-      → __btrfs_balance() [volumes.c:4347]
-        → btrfs_may_alloc_data_chunk() [volumes.c:3723]
-```
-Reachable from userspace via `BTRFS_IOC_BALANCE_V2` ioctl by root/admin.
-
-### Step 5.5: Similar Patterns
-**Record:** Same file already NULL-checks `btrfs_lookup_block_group()`
-at lines 3587–3589 and 8326–8328. `chunk_usage_filter()` and
-`chunk_usage_range_filter()` at lines 3968 and 3997 still dereference
-without NULL checks (fixed by sibling patches, not this one).
+- **Benefit:** HIGH — restores reliable operation for a known-broken
+  device model.
+- **Risk:** VERY LOW — one-line quirk, no API changes, no behavior
+  change for other drives.
+- **Ratio:** Strongly favors backport.
 
 ---
 
-## Phase 6: Cross-Referencing Against Local Tree
+## PHASE 9: FINAL SYNTHESIS
 
-### Step 6.1: Does Buggy Code Exist?
-**Record:** **YES.** Local tree is **v6.18.44** (`git describe HEAD`).
-At `fs/btrfs/volumes.c:3723–3725`:
-
-```3723:3726:fs/btrfs/volumes.c
-        cache = btrfs_lookup_block_group(fs_info, chunk_offset);
-        ASSERT(cache);
-        chunk_type = cache->flags;
-        btrfs_put_block_group(cache);
-```
-
-Fix error string not present (`grep` found no matches). Bug introduced
-with function in 2018.
-
-### Step 6.2: Backport Complications
-**Record:** **Clean apply expected.** Function and call sites unchanged
-in structure. Only line numbers differ from lore (3601 vs 3723) due to
-tree evolution.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** **No.** `c19830db30a09` fixed a different
-`__btrfs_balance()` BUG() path. Sibling NULL-deref fixes for balance
-filters not present.
-
----
-
-## Phase 7: Subsystem and Maintainer Context
-
-### Step 7.1: Subsystem Criticality
-**Record:** **btrfs filesystem** — IMPORTANT (widely deployed, data
-integrity critical).
-
-### Step 7.2: Subsystem Activity
-**Record:** Actively maintained; recent balance-related hardening
-(`c19830db30a09`, EUCLEAN annotations `9264d004a6c97`).
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-### Step 8.1: Who Is Affected
-**Record:** btrfs users running balance on filesystems with chunk/block-
-group metadata inconsistency. All btrfs-enabled configs.
-
-### Step 8.2: Trigger Conditions
-**Record:** Metadata corruption (chunk without block group) + balance
-operation. Uncommon but realistic — corruption can survive mount due to
-incomplete `check_chunk_block_group_mappings()` (per series cover).
-Requires `CAP_SYS_ADMIN` for balance ioctl.
-
-### Step 8.3: Failure Mode Severity
-**Record:** **CRITICAL** — kernel NULL pointer dereference / oops. Fix
-downgrades to `-EUCLEAN` returned to userspace with error log.
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** HIGH — prevents kernel crash during balance on corrupted
-  FS; balance is a common recovery/maintenance tool
-- **Risk:** VERY LOW — 5-line defensive check on error-only path
-- **Ratio:** Strongly favors backport
-
----
-
-## Phase 9: Final Synthesis
-
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real NULL deref with KASAN stack trace
-- Kernel crash → controlled error
-- Small, surgical, maintainer-reviewed fix
-- Bug present since 2018 in this tree
-- Consistent with existing EUCLEAN handling
-- v1 nominated for stable
-- Applies cleanly to v6.18.44
+- Real user-reported hardware bug with documented symptoms (drive drop-
+  off).
+- Same fix class as three NOLPM quirk backports already in 6.18.44.
+- Maintainers (Cassel, Le Moal) authored and accepted upstream.
+- Trivial, obviously correct one-line change.
+- Falls under stable **hardware quirk exception**.
+- Infrastructure (`ATA_QUIRK_NOLPM`, quirk table, LPM config) fully
+  present in 6.18.44.
+- Workaround (`libata.force=nolpm`) confirms the diagnosis.
 
 **AGAINST backport:**
-- Requires metadata corruption (rare)
-- Requires admin privileges to trigger via balance
-- Sibling patches fix related NULL derefs in other balance filters (this
-  commit doesn't fix those)
+- Patch 2/2 upstream context references patch 1/2 placement (cosmetic
+  backport adjustment only).
+- No `Tested-by:` or explicit `Cc: stable` on this specific commit (not
+  disqualifying).
+- Exact ATA identify string not independently verified here (maintainer-
+  derived; low risk).
 
-**Unresolved:** Exact upstream commit hash not in local tree (candidate
-evaluation). Does not affect decision.
+### Step 9.2: Stable rules checklist
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — standard quirk; upstream
+merged; maintainer SOBs |
+| 2. Fixes a real bug affecting users? | **PASS** — drive disappears
+with LPM enabled |
+| 3. Important issue? | **PASS** — HIGH: storage device becomes
+inaccessible |
+| 4. Small and contained? | **PASS** — 1 line, 1 file |
+| 5. No new features/APIs? | **PASS** — quirk table entry only |
+| 6. Can apply to local tree? | **PASS** — add to existing NOLPM section
+|
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — maintainer reviewed; logic
-   matches existing NULL-check patterns
-2. Fixes real bug? **PASS** — KASAN-confirmed NULL deref
-3. Important issue? **PASS** — kernel oops (CRITICAL severity)
-4. Small and contained? **PASS** — ~5 lines, one function
-5. No new features/APIs? **PASS** — defensive error handling only
-6. Can apply to local tree? **PASS** — buggy code confirmed present,
-   clean apply expected
+### Step 9.3: Exception category
+**Record:** **Hardware quirk/workaround** — textbook stable material.
 
-### Step 9.3: Exception Categories
-**Record:** None (standard bug fix, not device ID/quirk/build fix).
-
-### Step 9.4: Decision Rationale
-
-For **v6.18.44**, this commit fixes a long-standing NULL dereference in
-the btrfs balance path that crashes the kernel when metadata corruption
-leaves a chunk without a corresponding block group. The fix is minimal,
-follows established btrfs error-handling conventions (`-EUCLEAN`), is
-reviewed by the btrfs maintainer, and converts a kernel oops into a
-clean error return. The bug exists in this tree and the fix is not yet
-applied.
+### Step 9.4: Decision rationale
+For Linux **6.18.44**, this commit should be backported. The WD Green
+2.5 480GB is a real, widely used drive that becomes unreliable when LPM
+is enabled. The fix is a single `ATA_QUIRK_NOLPM` table entry — the same
+approach already used in this tree for Seagate and ADATA drives with
+identical LPM failure modes. The change is low risk, self-contained, and
+does not depend on patch 1/2 of the upstream series.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags (Reviewed-by: David Sterba), body
-  (KASAN trace, root cause, fix)
-- **[Phase 2]** Diff: replaces `ASSERT(cache)` with NULL check +
-  `-EUCLEAN` in `btrfs_may_alloc_data_chunk()`
-- **[Phase 3]** `git blame`: function from `a6f93c71d412ba` (2018);
-  `ASSERT(cache)` since introduction
-- **[Phase 3]** `git log --grep='null-ptr-deref in
-  btrfs_may_alloc_data_chunk'`: empty — fix not in tree
-- **[Phase 3]** Related commit `c19830db30a09`: BUG→EUCLEAN in
-  `__btrfs_balance()`
-- **[Phase 4]** `b4 am`: no match (commit not merged)
-- **[Phase 4]** WebFetch lkml v1 (00971): `Cc: stable@vger.kernel.org`
-  confirmed
-- **[Phase 4]** WebFetch lkml v3 (02434): patch 3/4, Reviewed-by David
-  Sterba
-- **[Phase 4]** WebFetch series cover (02432): standalone per-function
-  fixes, mount-time gap described
-- **[Phase 5]** Grep callers: lines 4347, 5119, 8333 — all check `ret <
-  0`
-- **[Phase 5]** `btrfs_lookup_block_group()` in `block-group.c:279-283`
-  — returns search result, can be NULL
-- **[Phase 6]** `git describe HEAD`: v6.18.44
-- **[Phase 6]** Read `volumes.c:3723-3725`: buggy code present
-- **[Phase 6]** Grep for fix message string: not found — fix absent
-- **[Phase 6]** Existing NULL checks at lines 3587-3589, 8326-8328
-  confirmed
-- **[Phase 6]** `messages.h:170-171`: `ASSERT` → `(void)(cond)` when
-  `CONFIG_BTRFS_ASSERT` disabled
-- **[Phase 6]** `Kconfig:76-85`: BTRFS_ASSERT defaults to N ("If unsure,
-  say N")
-- **[Phase 8]** Call chain traced: ioctl → balance → `__btrfs_balance` →
-  `btrfs_may_alloc_data_chunk`
-- **[Phase 8]** Error propagation: `ret < 0` → `goto error` → returned
-  through `btrfs_balance` → `btrfs_ioctl_balance`
+- **[Phase 1]** Parsed subject, tags, body; identified as patch 2/2 of
+  WDC LPM series.
+- **[Phase 1]** Link tag points to linux-ide user report (direct fetch
+  blocked).
+- **[Phase 2]** Diff: +1 line in `__ata_dev_quirks[]` with
+  `ATA_QUIRK_NOLPM`.
+- **[Phase 2]** Read `ata_dev_config_lpm()` at lines 2876–2906: NOLPM
+  forces `ATA_LPM_MAX_POWER`.
+- **[Phase 2]** Read `glob_match()` in `lib/glob.c`: pattern must match
+  entire string.
+- **[Phase 3]** `git describe HEAD` → `v6.18.44-2-g1b9e1abadee04`;
+  Makefile VERSION 6.18.44.
+- **[Phase 3]** `grep "WD Green"` in tree → no matches (quirk absent
+  from HEAD).
+- **[Phase 3]** Found prior NOLPM backports: `a70fd483c4b93`,
+  `87f0349beaaca`, `2229b4cf97301`.
+- **[Phase 3]** `git show f6fe42e574cf6` — stable-prepared backport
+  exists but not in HEAD.
+- **[Phase 3]** `git merge-base --is-ancestor f6fe42e574cf6 HEAD` → exit
+  1 (not in HEAD).
+- **[Phase 3]** `git show 20b72163992eb` — patch 1/2 also not in HEAD.
+- **[Phase 4]** `b4 dig -c d549df8a0ace6` → patch msgid link found.
+- **[Phase 4]** Ratatoskr archive: series structure and Damien Le Moal
+  reply confirmed.
+- **[Phase 4]** Phoronix article: drive disappears 2–3 min after boot;
+  `libata.force=nolpm` workaround.
+- **[Phase 4]** linux-hardware.org: 114 probes, many "malfunc" status
+  entries.
+- **[Phase 5]** `ata_dev_quirks()` called from `ata_dev_configure()`
+  line 2978.
+- **[Phase 5]** `ata_dev_config_lpm()` called at lines 3096, 3172.
+- **[Phase 6]** `ATA_QUIRK_NOLPM` defined in `include/linux/libata.h`.
+- **[Phase 6]** NOLPM quirk section present at lines 4192–4197 in
+  current tree.
+- **[Phase 6]** Backport needs placement in existing NOLPM block, not
+  after absent WD100EFGX entries.
+- **[Phase 8]** Failure mode: drive bus drop-off, severity HIGH.
 
-**YES**The background searches finished and match the earlier analysis:
+**YES**The background check confirmed the stable backport commit exists
+in the repo as `f6fe42e574cf6` ("Disable LPM on WD Green 2.5 480GB"),
+but it is **not** on the current HEAD (`6.18.44`). The quirk is still
+missing from the checked-out tree.
 
-- The fix commit is **not in v6.18.44** — `git log --grep` for the null-
-  ptr-deref / bg lookup fix returned nothing.
-- The only related hit was an older indentation cleanup
-  (`5ae2169290695`), not this fix.
-- The buggy `ASSERT(cache)` path is still present in
-  `fs/btrfs/volumes.c`.
+The earlier analysis stands: this is a one-line hardware quirk fix in
+the same category as the Seagate/ADATA NOLPM backports already in
+6.18.y, and it should be backported.
 
-Verdict stands: **YES** for backport to this tree.
+**YES**
 
- fs/btrfs/volumes.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/ata/libata-core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
-index ff67f5ecacb2e..a17fcf8bd8a99 100644
---- a/fs/btrfs/volumes.c
-+++ b/fs/btrfs/volumes.c
-@@ -3721,7 +3721,11 @@ static int btrfs_may_alloc_data_chunk(struct btrfs_fs_info *fs_info,
- 	u64 chunk_type;
+diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
+index ae1e5f82026c5..a7a89b675a912 100644
+--- a/drivers/ata/libata-core.c
++++ b/drivers/ata/libata-core.c
+@@ -4379,6 +4379,7 @@ static const struct ata_dev_quirks_entry __ata_dev_quirks[] = {
+ 	 */
+ 	{ "WDC WD100EFGX-68CPLN0",	NULL,	ATA_QUIRK_NOLPM },
+ 	{ "WDC WD102KFBX-68M95N0",	NULL,	ATA_QUIRK_NOLPM },
++	{ "WD Green 2.5 480GB",		NULL,	ATA_QUIRK_NOLPM },
  
- 	cache = btrfs_lookup_block_group(fs_info, chunk_offset);
--	ASSERT(cache);
-+	if (unlikely(!cache)) {
-+		btrfs_err(fs_info, "balance: chunk at bytenr %llu has no corresponding block group",
-+			  chunk_offset);
-+		return -EUCLEAN;
-+	}
- 	chunk_type = cache->flags;
- 	btrfs_put_block_group(cache);
- 
+ 	/*
+ 	 * This sata dom device goes on a walkabout when the ATA_LOG_DIRECTORY
 -- 
 2.53.0
 
