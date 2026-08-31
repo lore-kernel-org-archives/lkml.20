@@ -1,141 +1,174 @@
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440BE32ED39;
-	Mon, 31 Aug 2026 13:11:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A29332629;
+	Mon, 31 Aug 2026 13:11:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181868; cv=none; b=GTJUlwnvF787vt31E6rCkQkvjVuk4CL3iiA+/Jp69lu1dSD9WftwGmcZe3Yl7xJi/trLp9V1IWme7svwsTcuWSznFw5Um1iswS4m878B34j5gDPaDSA487ZhmdZiUg1n50aqbkYyQkiS+ucp815kf0T6bs7qM6pBBJ+Gbeq9wa8=
+	t=1788181885; cv=none; b=qWdA1f6NK5mrXqmdMUcIU0Ndub2/cEQYubHXiImhWSO+A9DY6J+kZeE1iwNa9YuFtnEbxmJtw/Gf8QbNs5quUnWpoe3FTZE4YvPRXctNcqJFrQz7RnEd44qDrvsmQS2AWLsQ/BuRBB3mGhFGKLpGwEGvFl0gmf0J428k76mDAa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181868; c=relaxed/simple;
-	bh=AwOJwGpElxv2dzX6LIPx8csmYq6W/1D3c+8Hq8DAQVw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LZgpjcwY+u530tTkounhR2TCVCoCpXGMGIGW+3S4WV1usdAoLlOOlMxS2p7/d9aiE2sddWzSgSYUwJoaddDakhvANNqAYGSI3vRPTpRjhWTVMM4RLtBzB56jOb9Ew9GkR3JPUFLLhNw76cxGtbVhoD3xgd+7RN35fCNy0jpYOmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=bJer3f7x; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1788181885; c=relaxed/simple;
+	bh=ucyM4onLXkPSEZvO5/C4dQElPwRmXuFtIA0SnpRRQP4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=JGcoU4fJL3UbmvaVPCddFIGDX4J2mT8Qm/A5QQCWbZKdlGIaEB8t5W0VbpDt+jAS0pYNDUXLZDtyXnfzh9clSZlLI1lMxP3ZDPbG9FM61wJcfEhfZ7uRsElx9lwD1sJXZ+1EY58Kuo4Vsp3z1wHm+YRopPFAJAzgt23Hni1ujzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Twp/d0JX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="bJer3f7x"
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VBBjUQ536832;
-	Mon, 31 Aug 2026 06:10:37 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=F
-	m78PwU1BlgVIF3kKgvRBSGtZYl43cW0jXyJ0fUStz4=; b=bJer3f7xpJAn0EnVc
-	suR1omw6D+274I4zSXeKYcyx1cr4xSjQn+YmaLi5b6l1WxkWmMyYO9s52ZmMAk7r
-	CQFHr9BA4ZGrWfoMVyIoYMKtePISLRbeeHJk8jzosqEdyrZISSOBRCvQQuuVYxZS
-	oDhA9Isaig5f9yle2Ip0EdmL+txDiVd8NC6g60KlisBSGKTcSLMtu8BM0PKyVH/z
-	XUWWU2PLvzO+AsFPEoqraz4HXndg9qN0AbmurDO1VLi6IJ5bOgmZERxoWXqwP94g
-	OO1A9VPkWTxURsGuVZvT2eSZqs08QT0WDbmi4wHTOVGD0ZczQIoxeDVa8DwCxXs1
-	BBxNQ==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gckp8jepf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 06:10:37 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Mon, 31 Aug 2026 06:10:36 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Mon, 31 Aug 2026 06:10:36 -0700
-Received: from rkannoth-OptiPlex-7090.. (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with ESMTP id DAFC33F7089;
-	Mon, 31 Aug 2026 06:10:31 -0700 (PDT)
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <netdev@vger.kernel.org>
-CC: <andrew+netdev@lunn.ch>, <ast@kernel.org>, <daniel@iogearbox.net>,
-        <davem@davemloft.net>, <edumazet@google.com>, <hawk@kernel.org>,
-        <horms@kernel.org>, <jhs@mojatatu.com>, <jiri@resnulli.us>,
-        <john.fastabend@gmail.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
-        <sdf@fomichev.me>, <sgoutham@marvell.com>,
-        Ratheesh Kannoth
-	<rkannoth@marvell.com>
-Subject: [PATCH v10 net-next 1/2] net/sched: mqprio: pass qdisc handle to offload drivers
-Date: Mon, 31 Aug 2026 18:40:12 +0530
-Message-ID: <20260831131014.2639581-2-rkannoth@marvell.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831131014.2639581-1-rkannoth@marvell.com>
-References: <20260831131014.2639581-1-rkannoth@marvell.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Twp/d0JX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D1901F000E9;
+	Mon, 31 Aug 2026 13:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788181883;
+	bh=2zMfPmkKorqPQ5aMdGvYIy7DLrVmOBzO79UdH0ZRRuA=;
+	h=From:To:Cc:Subject:Date;
+	b=Twp/d0JXQTWNcXIKf9mIzPTJlvHd/dKmI5P5xh9jy+porshFrMkHBkTF5jGtEheLZ
+	 OPmu06ZCztefHU1LS+/Ulw+m6epCsSDRWM9kX7kOVlQs684gKq3uZeFc4t/MOka3K3
+	 jULmgEj+qDl9s/6J+JlJADzsLj18j3VTtnOGPHYphnHXs6MLb76jNpJ9zB2NR360rP
+	 YL1DLohjDQ/LM2hz+wDyOwdANEzqTxv0wlqaiIFHQMAMhvjINlBZaNF8kgJHKmOZN1
+	 LJaUl7sZ/KLLu0pbTcSCnEH2jqaWZBVyqq2U0FHxQVNaBwW/SjpYrZvQh1VjGx5hLS
+	 WRX9QzhnBwOSg==
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Stephane Eranian <eranian@google.com>,
+	Stefano Sanfilippo <ssanfilippo@chromium.org>
+Subject: [PATCHES v4 0/12] perf jitdump: Input validation hardening
+Date: Mon, 31 Aug 2026 10:10:56 -0300
+Message-ID: <20260831131110.4681-1-acme@kernel.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDExNCBTYWx0ZWRfX62GshWewOsQi
- 7BW4+2b9wG3xTBitVZywxzNeGNWwNOoKa+wO3OU8CoIgbFkeZpu9SVRSo3dp/5+u8Aae3eGzkdT
- kQBcw+MVsLhHaDMCB7eIKwrUs8DAloFSiVT0+1X4+ZBdk9KX5GN4ATE5x/9gEeiiaNFJX3jmVGN
- 7ePNz26LLQnGOlHjhhGOADNE+P/by4B/QrAsod5jsi61XU2hsmBjUrxDq2IeL3wOnrQgq/3kSIP
- LmiYB0ynZ0dbwhROwy9VAtc0JD39fpoaECF7cGGk5MobBKyhDlOxOjuHshpz3DSa/urRMCaNL1R
- 2pukaiROkLcHnx7Z01EJt82D4na8nkTSDELt07Ulh7ORKQA7Y1t4JKyqNdlRO2UdcsOEAJfZ90c
- SvcQ9DYsxNvMmX0fy39/ICAuCT52z1YxhsGJeoYLjtdpbiMc4y3JC8eglhiIE0N6KQOHkcMExZx
- afpOGvZHvtC5xVA93yg==
-X-Proofpoint-GUID: Olz054qTy5FiiyOt5K0OAAvkfEqCxmBj
-X-Proofpoint-ORIG-GUID: Olz054qTy5FiiyOt5K0OAAvkfEqCxmBj
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDExNCBTYWx0ZWRfX7BOjS1WKLNUN
- 5Gbjy1nfKIsHC316A/Pf+TI3ND883Qy1nbDC9dQ48NqppRh+He0XH2W6Qo3NqlP0NAHiWMMzu8a
- t+/jlfe//XjYChFqqVedk08TclE5F9A=
-X-Authority-Analysis: v=2.4 cv=GLk41ONK c=1 sm=1 tr=0 ts=6a957d4d cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=TtqV-g6YmW1Jfm2GSLaY:22 a=M5GUcnROAAAA:8 a=9NOKFUTgC_054liOIZIA:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_04,2026-08-27_02,2025-10-01_01
 
-Extend struct tc_mqprio_qopt_offload with the owning qdisc handle and
-fill it from mqprio_enable_offload() and mqprio_disable_offload().
+Hi,
 
-Offload drivers need the handle to tell apart mqprio setup, teardown,
-and tc qdisc replace when they track committed configuration state.
+	Please consider merging,
 
-Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
----
- include/net/pkt_sched.h | 1 +
- net/sched/sch_mqprio.c  | 5 ++++-
- 2 files changed, 5 insertions(+), 1 deletion(-)
+This series addresses twelve classes of input validation and resource
+handling bugs in the jitdump file format parser that could cause OOB
+memory access or memory leaks when processing maliciously crafted or
+corrupted jitdump files.
 
-diff --git a/include/net/pkt_sched.h b/include/net/pkt_sched.h
-index 90d3e7943b19..9f8694ecd436 100644
---- a/include/net/pkt_sched.h
-+++ b/include/net/pkt_sched.h
-@@ -165,6 +165,7 @@ struct tc_mqprio_caps {
- struct tc_mqprio_qopt_offload {
- 	/* struct tc_mqprio_qopt must always be the first element */
- 	struct tc_mqprio_qopt qopt;
-+	u32 handle;
- 	struct netlink_ext_ack *extack;
- 	u16 mode;
- 	u16 shaper;
-diff --git a/net/sched/sch_mqprio.c b/net/sched/sch_mqprio.c
-index 6ced7008ef5c..adc1393f84ea 100644
---- a/net/sched/sch_mqprio.c
-+++ b/net/sched/sch_mqprio.c
-@@ -39,6 +39,7 @@ static int mqprio_enable_offload(struct Qdisc *sch,
- 	struct net_device *dev = qdisc_dev(sch);
- 	struct tc_mqprio_qopt_offload mqprio = {
- 		.qopt = *qopt,
-+		.handle = sch->handle,
- 		.extack = extack,
- 	};
- 	int err, i;
-@@ -79,7 +80,9 @@ static int mqprio_enable_offload(struct Qdisc *sch,
- 
- static void mqprio_disable_offload(struct Qdisc *sch)
- {
--	struct tc_mqprio_qopt_offload mqprio = { { 0 } };
-+	struct tc_mqprio_qopt_offload mqprio = {
-+		.handle = sch->handle,
-+	};
- 	struct mqprio_sched *priv = qdisc_priv(sch);
- 	struct net_device *dev = qdisc_dev(sch);
- 
--- 
-2.43.0
+All issues were discovered by sashiko-bot during automated review of the
+jitdump code path.  The bugs affect both the native-endian and byte-swap
+code paths, with some checks previously only enforced during
+byte-swapping.
 
+Critical fix:
+  code_size validation was bypassable via int truncation.  A record with
+  code_size in [2^31, record_size - 56] passed the existing bounds check
+  in jit_repipe_code_load() but truncated to a negative int when sent to
+  jit_process_code_load(), so the code pointer landed ~2GiB past the
+  record buffer, defeating the memchr() NUL scan and corrupting the
+  injected ELF.
+
+  Before: code_size = 0x80000010 passes the range check, then truncates
+          to a negative offset
+  After:  code_size > INT_MAX is rejected up front; all subsequent code
+          size arithmetic stays within the record buffer
+
+- Arnaldo
+
+Changes since v3:
+
+  - Address some issues about PATH_MAX
+
+Changes since v2 (fe3ab00d55aa56b4), series reordered:
+
+  - Reordered the series so that the leak plug for debug_data and
+    unwinding_data (now patch 2/12) comes before the code_size
+    validation patch that introduces the early-return path flagged by
+    sashiko-bot during review of v2.  With the fix in place first, the
+    early return no longer introduces a leak that would only have been
+    plugged later in the series.
+
+  - Otherwise the series is unchanged: the end result is byte-identical
+    to v2 (tree diff between the v2 and v3 tips is empty).
+
+  - The pre-existing issues reported by sashiko-bot that are outside the
+    scope of this series were recorded in a TODO list for the next
+    series (tools/perf/TODO.hardening), which is now in production.
+
+Changes since v1 (20260805133013.235016-1-acme@kernel.org):
+
+  - Rebased onto the current perf-tools-next head (fe3ab00d55aa56b4).
+
+  - All 12 patches now carry a Reviewed-by: Ian Rogers <irogers@google.com>.
+
+  - Applied the code-convention suggestions from Ian's review of v1:
+    - Patch "perf jitdump: Check snprintf return before computing header
+      size": the clamp now uses sizeof(event->mmap2.filename) instead of
+      PATH_MAX in both jit_repipe_code_load() and
+      jit_repipe_code_move(), tying the bound to the actual destination
+      buffer.
+    - Patch "perf jitdump: Use dirname() return value in jit_open()":
+      the strlcpy() bound uses sizeof(jd->dir) instead of PATH_MAX.
+    - A cosmetics-only remark about the include order of <limits.h> was
+      deliberately not applied.
+
+Issues fixed:
+
+  Validation and bounds checks:
+  - Validate code_size against both the record size and INT_MAX in
+    jit_repipe_code_load()
+  - Prevent integer underflow in the debug info size calculation
+  - Bounds-check the debug entry byte-swap loop
+  - Validate debug entries on the native (non-swap) path, matching the
+    existing byte-swap path checks
+  - Validate sym string NUL-termination in code load, bounding the
+    strlen() scan to the code blob
+  - Validate unwinding sizes against the record payload before allocating
+  - Check the snprintf() return before computing the header size, and
+    clamp against the actual buffer size
+
+  Stream and record handling:
+  - Fix the extended header read that always failed, causing records to
+    be misparsed
+  - Use dirname()'s return value in jit_open(), fixing ENOTDIR failures
+  - Fix funlockfile() being called on an unlocked stream in the jit_open()
+    error path
+
+  Resource management:
+  - Free the event in jit_repipe_code_move()
+  - Fix debug_data and unwinding_data leaks when records are overwritten
+
+Each patch includes a Fixes: tag pointing to the offending commit, dating
+back to jitdump mmap injection support (9b07e27f88b9cd78), source line
+info support (598b7c6919c7bbcc), and unwinding support
+(0284fecd13b6db3e), all from the original 2016 jitdump work.
+
+Testing: Built and tested on x86_64.  No existing tests cover jitdump
+parsing with malformed input; test suite expansion is left for future
+work.  The final series was re-reviewed after the fixes and the v1
+review (build-checked, Fixes: tags verified); no regressions found.
+
+Arnaldo Carvalho de Melo (12):
+  perf jitdump: Fix extended header read that always fails
+  perf jitdump: Fix debug_data and unwinding_data leaks
+  perf jitdump: Validate code_size against total_size in code load
+  perf jitdump: Prevent integer underflow in debug info size calculation
+  perf jitdump: Bounds-check debug entry byte-swap loop
+  perf jitdump: Check snprintf return before computing header size
+  perf jitdump: Fix funlockfile on unlocked stream in jit_open() error path
+  perf jitdump: Free event in jit_repipe_code_move()
+  perf jitdump: Use dirname() return value in jit_open()
+  perf jitdump: Validate debug entries on native (non-swap) path
+  perf jitdump: Validate sym string NUL-termination in code load
+  perf jitdump: Validate unwinding sizes against record payload
+
+ tools/perf/util/jitdump.c | 126 +++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 108 insertions(+), 18 deletions(-)
+
+base-commit: fe3ab00d55aa56b4d55cbc1150448f0aadd6732c
