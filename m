@@ -1,88 +1,87 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0AB34AB00
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:39:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC8E3AB26C
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:39:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788154795; cv=none; b=FyYqQhY48fuVNG6NRBb1GLPVvSXSajTI8VvdEnc7+6RCsckYIcmztFCzefDX3X5fRUNTtC0z43HMwe89pixQSpQEQI8hfd8jgqg2dVLpxx9/1hK4K+jgXJkn6JueYR575RLCoafCRFh2oYWBLdg/PUCvbpuN3Wln74W//4906eM=
+	t=1788154797; cv=none; b=gr8johgeoXdLrzpUHq4Ew8QIKTRGQ0hWdBOrAia5Bh/cPvpC5O3EnFV4+TTZPJ1CgkufIY7XkIu7j9BPDIOQ1FJX3iceBjHxSUYQ5kBzRpeZL4YqxgOhV06n5PJF0gUXkj5NtEKZ9mLSMzzx7QTqUtaBIPLB93muASae1lGvIdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788154795; c=relaxed/simple;
-	bh=DRVh1NGOtFPiFXurNbSZtTIhZuqLm87v4cS3YYOBw8M=;
+	s=arc-20240116; t=1788154797; c=relaxed/simple;
+	bh=o2gSCyz3Xi++alhJa0lOV5bJcDtOIULkAVDQXIyuY5A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZKXfYu13jWAKEROol7s68tQ8Eyl46Tfa2Rsnp/p9PnDj1227BQ0luFGgMtydZ/w5idPJySO9QCPEBkUzRt42SUTY6viX2yC5DxCIr+jartw6pySaAnfihC+PcvvUknVF9omi6hEyuKOAvOel/4AzyTUddu3oAI9Owqe7TCI1p3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dQha14jU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QqfDgJB+; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=YzyNzEjZkh05ySIWsEU7vIVwxEusIMY2Aiq1uzKo8xkhSdHm9/CAegxS38Lx6ZSzBn3x5HIqv1Xb/PQUy2qjqMNC20zap7xns2qKmqE7ullc6Hr2XdVMB9wFYmQkdL4u+qTuQ5IM4Lm9U7EHultwf21XYLsWVxNxypxnMnIFI70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ildIfNOi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RuZvD3wH; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dQha14jU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QqfDgJB+"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V52WDm2017589
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:39:53 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ildIfNOi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RuZvD3wH"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V53LiC3028627
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:39:54 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	w0o65gYeaHHV5pzyZfQ8OGpgi6ss+qnOuDKpJLbzhos=; b=dQha14jUUtGvaZwD
-	aaGiyEZ4EAQsj2D5z7KztcqTQOH8ymWv+GJdkGwM0s2ySkHaeYrAnq72McG9VATo
-	6XBRGxjtWWrVaVVeTi1sEHEpRflSFm3bj6/GP4KfGKnF9PN+49ImYilCpwexvoAw
-	5hMYIfBvN+M4rhLlBNG/zDqLRjSwN0IAzgRfPgEr0gNU00htG2xyEhX128hXIo1h
-	u4H+hhPZCTgoNHTYmbCoe1TpwU+Ey6Ts5RRMe2zBlfbuKmdDmPIerFp6boBtbs7H
-	Tp3NdxN432Ji2fxRWzTHqlax1L+riU5IBJEWI4qtjxDTdRqs5xx42qXjl8PFcmkT
-	xQSpew==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqt6mnsx-1
+	KLpd6iiIBm+skYcNXELPQUa3re3CrrMiOKBfusIDgHM=; b=ildIfNOiNArBl3DZ
+	fXEHhuIxZLe+zuYpBLpnZSY777Jo9eLtxefk+oDAPiVlMCy92IoLJPQxSS7//JLX
+	ozebHjdIk69hGDC5YTSnUAZN/FR5JUTnKby2XEP8O+zUsdZD07FvfSdD3Zvfi46z
+	lVrx+GJj7iPT30UxyqzWCXr1cxmeXCpf07AM4/YrcPSULcN8Dv+dvy+KIrrvIHx8
+	MJ9duqFNvViylS6zmhbdFijvzFEyu9RNIPe/NsYExaiRvhkGI3fc5iMdU6VjLarA
+	dE0n9uVjLUESQOPnv4513XT5CzF/6TToDmbcfVW7Odxd2e5XLGOGF8sGaKw4W1xo
+	cD6oxA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqdvmqem-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:39:52 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398d3a12589so377583a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:39:52 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:39:54 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3989c51d5daso574702a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:39:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788154792; x=1788759592; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788154793; x=1788759593; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=w0o65gYeaHHV5pzyZfQ8OGpgi6ss+qnOuDKpJLbzhos=;
-        b=QqfDgJB+hguSuBlcnaIbrMuGjqgdG/4vp7Q3M6wavhme+DVWWVrIe6ewl7PzN33qk0
-         /6D/Drui6TXlB9dWzBmYsFn9RYgIYsClAYBnLxPLZJ6NVr0K891rd/Pu6E0C2K6EVeD0
-         Q79mstpvdYS5AFyipd36KtxTaAIl/wqOfK5OwY+NlG6HQOvSQCpNtcnvSNIZiZF19y3y
-         O+JWJcO1ZjCdhCTw+igLqGeGCyFIQb12sirP9KG7QeIXymSuzLZtAdBW8XjMep8mMINA
-         8R4OdiMtXwpFDwss4/EKUwKS5JQc3DdgUuewjSjNppWMhzK/Qjal9076WJVEpD4zSqf+
-         0PEQ==
+        bh=KLpd6iiIBm+skYcNXELPQUa3re3CrrMiOKBfusIDgHM=;
+        b=RuZvD3wHCPAidIOjwYUUjZLB6FmJWP92RR9CbHxAILFLFYKjd843oDSilkqae391DK
+         01zAq1uJOuiTuXKNCKOkuTZib2o3+fr64FGTZsOpIxVqVh8bHc8gFwTA0Gnl5/2CpDrd
+         h8pfdXVA9Dl+JdQWKV2EBBPwX3aHLtdmNWI7clYkB0NAvce00LYTzyj0aAWVDjEL5qvt
+         UcmDHyYuu4/idCKPNRaoI6eGuHjxdLce2h2vYf3yo0e+wxCVOuy+k9Qk+fP61Fs1/5CU
+         BfajVQCMdrgvStX1O0tBXzlOIT/FKaZtFgLQMcwIeEv7cydlkSMlFXhYeTe30AkYauTc
+         5p2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788154792; x=1788759592;
+        d=1e100.net; s=20251104; t=1788154793; x=1788759593;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=w0o65gYeaHHV5pzyZfQ8OGpgi6ss+qnOuDKpJLbzhos=;
-        b=ZQkGemn802w+kf/m+T2zeKpz664YFV3pfXaAMPCbi0F/DYisAGqRqu07Ggj0ha97TN
-         FyjkGkjalebpCjgthlXAFzWj00mxid8XhTj11r/JMTTo0rknDiMIfBah+NmHjnDJOjeC
-         vj2BAhscly6NY6vrGH/d6QuFGiwowbr4I8R9jCNngiO0sKgtRJRmybmmi39z5N75C9/O
-         ZQpdjMebBr+eeXyFOAp0qidvztllcw8hQ7DloWGffeo7aWACUJ1zPos20rO5L/8/j1X3
-         bNW6pfTJPvTs8QIWmlbKv+40Rop/rv0jjDTzbZeUCtR4UxvEXc/RPAr5rQ7ZWptCOzwp
-         +hbw==
-X-Forwarded-Encrypted: i=1; AKwUvBxnE82LFESA03Q7WEwX3GsqoctK7fO/+9MZJVcuJw53xHJvZm3SPDgjxnHie+WBxiHCk/0AUdgBnQ9OTUs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnSQGvWLGzpXKfeB1EI4AbP1jHphjEtrWF3QlSmKUEcoE+sedr
-	LKiVU+AaFhxB2rZDtddPapFKmLUue4ogyBdPZWuHuEFZxgAQE/6hGAOPsPNbgxOa6LG4HYtAc2Z
-	ZAeXll1+ihhBo2w8hL6AGkAuLPi1ZBCg4h1bV6+55AjJZoyGEiArU4uMlT0IF6ZNxCgQ=
-X-Gm-Gg: AYBFou2sqEELSNZmLSMZXEb/6xr8Gno4auZJkx22HeZsYeXZCTZWafjUSgO6LnhdhVQ
-	sBzQJC9Ky+/LVofiJy6AMQx51eJQfwHh7bUS8PM5Utx0CSj8cHeHFhS5yZt4ngTe8lhl3iqH1GP
-	zHwNRv/EA92JCQr8LZv1tybkZ+rrKrKCBoXzpqyrHCCknYFtU3VjMYv4Hhr6ixsJCoajBIEm+K8
-	MVmt9z46QShzCA+da5TG4jJHTTNvOnIQXnOilb6Hkb0x99aLCtuK+1sW91jc1UD8iEVq7tUKswj
-	dnU9Gk031LyJOStRtclADfkPz+wvCaEYJ1o/iemZyQf4HUL3Q6jLS9qgqBEss7V3rH1bnuUeZtL
-	wrqRO63bzycBBmYf9GessYaJcJ+A1qBpW7aC+Jr8id9RHSdk=
-X-Received: by 2002:a17:90b:3c82:b0:398:a2e4:c784 with SMTP id 98e67ed59e1d1-398ba95da1bmr11552411a91.1.1788154792090;
+        bh=KLpd6iiIBm+skYcNXELPQUa3re3CrrMiOKBfusIDgHM=;
+        b=iVSQwCEY4uCx2UBtJ3YFc0/SITE5KQbtCcanYyN8GFWYCA+0mNAByak5qpLoSEYqQo
+         OmXZW+GDsZAGftieMg8R6Wxdq8l1X4/wxZVRi5PocdPlKjSc5Dab4jBFPVwau6u4tjkl
+         WBt6BPgURzAiOdX3N2q51mzHa4DC7i19TaLwytPQrwGvsMI08zA9Dt1tKnrB3wF1/tAj
+         2l8ausjbg2Lrnv8G4GjcQBZqPzQZRHeHqeeH8P/uaHidVV15mI/4QuPpMm5pqLLDElOZ
+         k4R+cj50TAr9INxHfHs46L3hYyNy0+o9zNE/VdrU8xAoPY/tzlHGxHLaOk+Q6Ju3dmum
+         1wEg==
+X-Forwarded-Encrypted: i=1; AKwUvBz8pEvycXasW3JuVF8amTdfebjCrfHCGMoHNGKyi4G+ePd953cTM7nECt4FCCooYn32QXEZy7kOG7DfVXA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nzpaViHmNDF7erBAOMRsAJotdqmCsbqgIsfB9vGLHeqxbz4dcj
+	wBE/KsSPKnBZsDZQiXSZujHmNP3NZyanZu4NHXCWg6bRybrzb3QXennWrDFMeNvNwSrqf9Cd7C7
+	ODlUbebvAXScNRp2wO+TkOdsM8G5CRbuNlXgEIiQ6cb4wsO8AYVhSmFMj9HAfYMALrNM=
+X-Gm-Gg: AYBFou1vNHILyJpjmNnhS7q4dxTHVjgi6J+WldPIoTvsqGLIxOHCgF2cyofs0k6LfHA
+	sH5uEGv5kRj9YQvpG6phF7OFoNSVcBzqZWm2woSr8WHUHYQhRrDvIN6c9AxdJP1ITyzUnER24yC
+	PvV3aAFrgfXZyvPwwUfLQjy2Vtnun+k2gKq14jHt7DEECLBhRe0U7PDwExCqRuLgAOVIWTRwlMj
+	9udAWG1p3ZYVJ21iFnFxbp15s8mQpMW+1SWCmCDQguMemgBIumv6EgDxyYyjBTuGTLQmfxrR+nD
+	ZU2UyjtYqkITuSUn2ZBWhW3uFYcVMqS7pB2iRYJ3/lqsIUkeOFiRYqO0NQX3khcVeiOuKLCzxcD
+	WjT+ovBL6KjgI94JBBSTkQoSHQ4BMYnbmfY9TQpUq3d75VF8=
+X-Received: by 2002:a17:90b:3e50:b0:398:bac0:238d with SMTP id 98e67ed59e1d1-398bac026a5mr10841833a91.5.1788154793124;
+        Sun, 30 Aug 2026 22:39:53 -0700 (PDT)
+X-Received: by 2002:a17:90b:3e50:b0:398:bac0:238d with SMTP id 98e67ed59e1d1-398bac026a5mr10841793a91.5.1788154792615;
         Sun, 30 Aug 2026 22:39:52 -0700 (PDT)
-X-Received: by 2002:a17:90b:3c82:b0:398:a2e4:c784 with SMTP id 98e67ed59e1d1-398ba95da1bmr11552370a91.1.1788154791574;
-        Sun, 30 Aug 2026 22:39:51 -0700 (PDT)
 Received: from hu-zijuhu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
         by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d3fdf6sm25566085c88.6.2026.08.30.22.39.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 30 Aug 2026 22:39:51 -0700 (PDT)
 From: Zijun Hu <zijun.hu@oss.qualcomm.com>
-Date: Sun, 30 Aug 2026 22:39:30 -0700
-Subject: [PATCH BlueZ v2 2/3] doc/hci-protocol: Add BT_RECV_VENDOR_PKT
- socket option for HCI_CHANNEL_USER
+Date: Sun, 30 Aug 2026 22:39:31 -0700
+Subject: [PATCH BlueZ v2 3/3] monitor: Support vendor HCI packets
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +90,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260830-vendor_hci-v2-2-9903760957ab@oss.qualcomm.com>
+Message-Id: <20260830-vendor_hci-v2-3-9903760957ab@oss.qualcomm.com>
 References: <20260830-vendor_hci-v2-0-9903760957ab@oss.qualcomm.com>
 In-Reply-To: <20260830-vendor_hci-v2-0-9903760957ab@oss.qualcomm.com>
 To: Marcel Holtmann <marcel@holtmann.org>,
@@ -99,87 +98,301 @@ To: Marcel Holtmann <marcel@holtmann.org>,
 Cc: Zijun Hu <zijun_hu@icloud.com>, linux-bluetooth@vger.kernel.org,
         linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Proofpoint-ORIG-GUID: DiOToZXT8Yjb0qwBO3AgV3Pdbwb0ZBEb
-X-Proofpoint-GUID: DiOToZXT8Yjb0qwBO3AgV3Pdbwb0ZBEb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA0NiBTYWx0ZWRfX/dK6oUMo1D81
- tGcL27tVTxRE5YoW2U3DawmrbcoTnfeqWJjYUz7vmiu8YyyiuBYDfu48ovsDAWFpAONa7ohFGFg
- izqPxhM0fCjuwiWwUe0oMsya8ahQLDFSn2aa6eTqgUiOr3vs8xYgN8wL9zZZ3NjbjHGEjEPlpfB
- d+KIolHLNls15jK6IancAzaGmf2zhr/Ir43W0EtK6lGaWHmbVE+DAkt/LYNTBLUkxmBNE9MbPsE
- AjnlklZtBSdUOsaVtcC5uVZxXu+an31vqYNfJypSLRPFEUaITqXeCYUWslaUJmeUY0QDQVWMObB
- edynopLP540y/I3p9ZWtFSPIAjMQdEwnVD1e8bI6O4TmJhD/2c5VP9/Tz/R5sd+3IfGgEJEEX0v
- /KQXhDLVkyLdIzcdi23yU/fRLc7sVrHdJ7+7LfI6xtLhFfw0R+MdZA0eHe/9tnzfghkX9FRQCWk
- GQ8/M1dSOc0ykZmv/5w==
-X-Authority-Analysis: v=2.4 cv=S8/pBosP c=1 sm=1 tr=0 ts=6a9513a9 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Proofpoint-GUID: jA7A8Git9JT3I0FkYP5PSCMSGGyipc-U
+X-Authority-Analysis: v=2.4 cv=P6EKQCAu c=1 sm=1 tr=0 ts=6a9513aa cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=wa7QpaTpAAAA:8 a=Ydnp389x0cl5jbVLM_IA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=ehqneT2-Ts4HTEaPPMaO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA0NiBTYWx0ZWRfX2GsKnovCs1fR
- /819QV5dxFfkbJxNGnE9roUBmhbf6H0+Y/nhRD0+oEGxbrVJKXcHYkv0hLmhgY8My7ofoyWL2f4
- sM7MeomsU9sGAGZsUHqjTmNSSBuma4U=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=wKszYPmeBrtX0xbgVwQA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA0NiBTYWx0ZWRfX5RkFyIF0dvOy
+ h2Mq2O/Nh65Jm0cnrCFdaSXe6QgoBAw7wK2gr/aRloPBplVCC/6gKMexadZGZ1Syo+dwhAA8HHH
+ odnGZDZ9MSp5byGCm4qEA3aPWHeRfCVVSrdPQcV7PmsMkM/x3PVvW3lQU16iswcupuTRkn4bFBZ
+ jOmAKXvwEFIA4mMREsxssWAtWyRMgENXYISo1YJZYEJcNyg6ZiAPTBBpsUs9NCJHzHonBZAhUWX
+ RaeeORGlUaHAk8PwODI9+b1U+Y30PKt9NOuGWfYWCB9BkW/r26ZE76TvNTydYTsG6D7WmDHCTNx
+ nzUfJBRKQNaskWgKfNeVTQl/GKVoKbNOTKMCIWtETFWUiS/FmyE6RpRT594vBQ3erSjLdTu6ThB
+ UDxwGwqmv14mIe3fZi+IPiI/bYzdtjQJHwUMfTEsV4slhnKnLjjWf+haprQbVz7oy/ABUzoY1Yl
+ qoDbklUKAmdyiZo3LOw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA0NiBTYWx0ZWRfXwpAlvNpJ/BHW
+ LIH2q3r2pq/iC37+m/o4sr65bxYIXNezOuS5JBB8HXxXdyMCdQm9ka7+3jbud53p1qvWXXHDNSi
+ wTaqaN7vo+e7AV7NDE8GT4hxNeYmZwA=
+X-Proofpoint-ORIG-GUID: jA7A8Git9JT3I0FkYP5PSCMSGGyipc-U
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-31_02,2026-08-27_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
- bulkscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310046
 
-BT_RECV_VENDOR_PKT controls receiving vendor HCI packets over
-HCI_CHANNEL_USER.
+Vendor HCI packets have 0xff as packet type.
 
-Disabled by default to avoid regressions for existing applications.
+Support them in tool btmon.
 
 ---
 Changes since previous version:
-- Rename BT_RCV_VENDOR_PKT to BT_RECV_VENDOR_PKT
-- Change @enable type from int to uint32_t
+- Rename COLOR_VENDOR_HCI to COLOR_HCI_VENDOR
+- Rename packet_vendor_hci() to packet_hci_vendor()
 - Improve the commit title and message
 ---
- doc/hci-protocol.rst | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ doc/btsnoop-protocol.rst |  8 ++++++++
+ monitor/analyze.c        | 23 +++++++++++++++++++++++
+ monitor/packet.c         | 26 ++++++++++++++++++++++++++
+ monitor/packet.h         |  2 ++
+ src/shared/btsnoop.h     |  2 ++
+ 5 files changed, 61 insertions(+)
 
-diff --git a/doc/hci-protocol.rst b/doc/hci-protocol.rst
-index db10b35df736..3cb5ce09bb2d 100644
---- a/doc/hci-protocol.rst
-+++ b/doc/hci-protocol.rst
-@@ -131,16 +131,34 @@ Example:
+diff --git a/doc/btsnoop-protocol.rst b/doc/btsnoop-protocol.rst
+index a875db63a9dd..81cd8fdc71ae 100644
+--- a/doc/btsnoop-protocol.rst
++++ b/doc/btsnoop-protocol.rst
+@@ -111,16 +111,24 @@ values match the definitions in ``src/shared/btsnoop.h``.
+    * - BTSNOOP_OPCODE_ISO_TX_PKT
+      - 18
+      - 0x0012
+      - Outgoing ISO packet
+    * - BTSNOOP_OPCODE_ISO_RX_PKT
+      - 19
+      - 0x0013
+      - Incoming ISO packet
++   * - BTSNOOP_OPCODE_VENDOR_TX_PKT
++     - 22
++     - 0x0016
++     - Outgoing vendor HCI packet
++   * - BTSNOOP_OPCODE_VENDOR_RX_PKT
++     - 23
++     - 0x0017
++     - Incoming vendor HCI packet
  
-     uint16_t mtu;
-     socklen_t len;
-     int err;
+ New Index
+ ---------
  
-     len = sizeof(mtu);
-     err = getsockopt(sock, SOL_BLUETOOTH, BT_RCVMTU, &mtu, &len);
+ Code: 0x0000
  
-+BT_RECV_VENDOR_PKT (since Linux 7.3)
-+------------------------------------
-+
-+Control receiving vendor HCI packets, requires hci_channel to be set to
-+HCI_CHANNEL_USER.
-+
-+Default is disabled.
-+
-+Example:
-+
-+.. code-block::
-+
-+    uint32_t enable = 1;
-+    int err;
-+
-+    err = setsockopt(fd, SOL_BLUETOOTH, BT_RECV_VENDOR_PKT, &enable,
-+                      sizeof(enable));
-+
- RESOURCES
- =========
+ Parameters:
  
- http://www.bluez.org
+diff --git a/monitor/analyze.c b/monitor/analyze.c
+index de9c23603a21..59e8ac819272 100644
+--- a/monitor/analyze.c
++++ b/monitor/analyze.c
+@@ -39,16 +39,17 @@ struct hci_dev {
+ 	struct timeval time_added;
+ 	struct timeval time_removed;
+ 	unsigned long num_hci;
+ 	unsigned long num_cmd;
+ 	unsigned long num_evt;
+ 	unsigned long num_acl;
+ 	unsigned long num_sco;
+ 	unsigned long num_iso;
++	unsigned long vendor_hci;
+ 	unsigned long vendor_diag;
+ 	unsigned long system_note;
+ 	unsigned long user_log;
+ 	unsigned long ctrl_msg;
+ 	unsigned long unknown;
+ 	uint16_t manufacturer;
+ 	struct queue *conn_list;
+ };
+@@ -460,16 +461,17 @@ static void dev_destroy(void *data)
+ 	printf("\n");
  
- REPORTING BUGS
- ==============
  
+ 	printf("  %lu commands\n", dev->num_cmd);
+ 	printf("  %lu events\n", dev->num_evt);
+ 	printf("  %lu ACL packets\n", dev->num_acl);
+ 	printf("  %lu SCO packets\n", dev->num_sco);
+ 	printf("  %lu ISO packets\n", dev->num_iso);
++	printf("  %lu vendor HCI packets\n", dev->vendor_hci);
+ 	printf("  %lu vendor diagnostics\n", dev->vendor_diag);
+ 	printf("  %lu system notes\n", dev->system_note);
+ 	printf("  %lu user logs\n", dev->user_log);
+ 	printf("  %lu control messages \n", dev->ctrl_msg);
+ 	printf("  %lu unknown opcodes\n", dev->unknown);
+ 	queue_destroy(dev->conn_list, conn_destroy);
+ 	printf("\n");
+ 
+@@ -1357,16 +1359,29 @@ static void iso_pkt(struct timeval *tv, uint16_t index, bool out,
+ 
+ 	if (out) {
+ 		conn_pkt_tx(conn, tv, size - sizeof(*hdr), NULL);
+ 	} else {
+ 		conn_pkt_rx(conn, tv, size - sizeof(*hdr), NULL);
+ 	}
+ }
+ 
++static void vendor_hci_pkt(struct timeval *tv, uint16_t index, bool out,
++					const void *data, uint16_t size)
++{
++	struct hci_dev *dev;
++
++	dev = dev_lookup(index);
++	if (!dev)
++		return;
++
++	dev->num_hci++;
++	dev->vendor_hci++;
++}
++
+ static void unknown_opcode(struct timeval *tv, uint16_t index,
+ 					const void *data, uint16_t size)
+ {
+ 	struct hci_dev *dev;
+ 
+ 	dev = dev_lookup(index);
+ 	if (!dev)
+ 		return;
+@@ -1463,16 +1478,24 @@ void analyze_trace(const char *path)
+ 		case BTSNOOP_OPCODE_ISO_TX_PKT:
+ 			num_frames++;
+ 			iso_pkt(&tv, index, true, buf, pktlen);
+ 			break;
+ 		case BTSNOOP_OPCODE_ISO_RX_PKT:
+ 			num_frames++;
+ 			iso_pkt(&tv, index, false, buf, pktlen);
+ 			break;
++		case BTSNOOP_OPCODE_VENDOR_TX_PKT:
++			num_frames++;
++			vendor_hci_pkt(&tv, index, true, buf, pktlen);
++			break;
++		case BTSNOOP_OPCODE_VENDOR_RX_PKT:
++			num_frames++;
++			vendor_hci_pkt(&tv, index, false, buf, pktlen);
++			break;
+ 		default:
+ 			unknown_opcode(&tv, index, buf, pktlen);
+ 			break;
+ 		}
+ 
+ 		num_packets++;
+ 	}
+ 
+diff --git a/monitor/packet.c b/monitor/packet.c
+index 0d3b23cc3fb7..7adcf64a3631 100644
+--- a/monitor/packet.c
++++ b/monitor/packet.c
+@@ -67,16 +67,17 @@
+ 
+ #define COLOR_HCI_COMMAND		COLOR_BLUE
+ #define COLOR_HCI_COMMAND_UNKNOWN	COLOR_WHITE_BG
+ #define COLOR_HCI_EVENT			COLOR_MAGENTA
+ #define COLOR_HCI_EVENT_UNKNOWN		COLOR_WHITE_BG
+ #define COLOR_HCI_ACLDATA		COLOR_CYAN
+ #define COLOR_HCI_SCODATA		COLOR_YELLOW
+ #define COLOR_HCI_ISODATA		COLOR_YELLOW
++#define COLOR_HCI_VENDOR		COLOR_GREEN
+ 
+ #define COLOR_UNKNOWN_ERROR		COLOR_WHITE_BG
+ #define COLOR_UNKNOWN_FEATURE_BIT	COLOR_WHITE_BG
+ #define COLOR_UNKNOWN_COMMAND_BIT	COLOR_WHITE_BG
+ #define COLOR_UNKNOWN_EVENT_MASK	COLOR_WHITE_BG
+ #define COLOR_UNKNOWN_LE_STATES		COLOR_WHITE_BG
+ #define COLOR_UNKNOWN_SERVICE_CLASS	COLOR_WHITE_BG
+ #define COLOR_UNKNOWN_PKT_TYPE_BIT	COLOR_WHITE_BG
+@@ -4523,16 +4524,22 @@ void packet_monitor(struct timeval *tv, struct ucred *cred,
+ 		packet_hci_scodata(tv, cred, index, true, data, size);
+ 		break;
+ 	case BTSNOOP_OPCODE_ISO_TX_PKT:
+ 		packet_hci_isodata(tv, cred, index, false, data, size);
+ 		break;
+ 	case BTSNOOP_OPCODE_ISO_RX_PKT:
+ 		packet_hci_isodata(tv, cred, index, true, data, size);
+ 		break;
++	case BTSNOOP_OPCODE_VENDOR_TX_PKT:
++		packet_hci_vendor(tv, cred, index, false, data, size);
++		break;
++	case BTSNOOP_OPCODE_VENDOR_RX_PKT:
++		packet_hci_vendor(tv, cred, index, true, data, size);
++		break;
+ 	case BTSNOOP_OPCODE_OPEN_INDEX:
+ 		if (index < MAX_INDEX)
+ 			addr2str(index_list[index].bdaddr, str);
+ 		else
+ 			sprintf(str, "00:00:00:00:00:00");
+ 
+ 		packet_open_index(tv, index, str);
+ 		break;
+@@ -14650,16 +14657,35 @@ malformed:
+ 		print_packet(tv, cred, '*', index, NULL, COLOR_ERROR,
+ 				"Malformed ISO Data RX packet", NULL, NULL);
+ 	else
+ 		print_packet(tv, cred, '*', index, NULL, COLOR_ERROR,
+ 				"Malformed ISO Data TX packet", NULL, NULL);
+ 	packet_hexdump(data, size);
+ }
+ 
++void packet_hci_vendor(struct timeval *tv, struct ucred *cred, uint16_t index,
++				bool in, const void *data, uint16_t size)
++{
++	char extra_str[16];
++
++	if (index >= MAX_INDEX) {
++		print_field("Invalid index (%d).", index);
++		return;
++	}
++
++	index_list[index].frame++;
++
++	sprintf(extra_str, "(len %d)", size);
++	print_packet(tv, cred, in ? '>' : '<', index, NULL, COLOR_HCI_VENDOR,
++				"Vendor HCI Packet", NULL, extra_str);
++
++	packet_hexdump(data, size);
++}
++
+ void packet_ctrl_open(struct timeval *tv, struct ucred *cred, uint16_t index,
+ 					const void *data, uint16_t size)
+ {
+ 	uint32_t cookie;
+ 	uint16_t format;
+ 	char channel[11];
+ 
+ 	if (size < 6) {
+diff --git a/monitor/packet.h b/monitor/packet.h
+index 73a86f64b242..8c519eca61c1 100644
+--- a/monitor/packet.h
++++ b/monitor/packet.h
+@@ -130,16 +130,18 @@ void packet_hci_command(struct timeval *tv, struct ucred *cred, uint16_t index,
+ void packet_hci_event(struct timeval *tv, struct ucred *cred, uint16_t index,
+ 					const void *data, uint16_t size);
+ void packet_hci_acldata(struct timeval *tv, struct ucred *cred, uint16_t index,
+ 				bool in, const void *data, uint16_t size);
+ void packet_hci_scodata(struct timeval *tv, struct ucred *cred, uint16_t index,
+ 				bool in, const void *data, uint16_t size);
+ void packet_hci_isodata(struct timeval *tv, struct ucred *cred, uint16_t index,
+ 				bool in, const void *data, uint16_t size);
++void packet_hci_vendor(struct timeval *tv, struct ucred *cred, uint16_t index,
++				bool in, const void *data, uint16_t size);
+ 
+ void packet_ctrl_open(struct timeval *tv, struct ucred *cred, uint16_t index,
+ 					const void *data, uint16_t size);
+ void packet_ctrl_close(struct timeval *tv, struct ucred *cred, uint16_t index,
+ 					const void *data, uint16_t size);
+ void packet_ctrl_command(struct timeval *tv, struct ucred *cred, uint16_t index,
+ 					const void *data, uint16_t size);
+ void packet_ctrl_event(struct timeval *tv, struct ucred *cred, uint16_t index,
+diff --git a/src/shared/btsnoop.h b/src/shared/btsnoop.h
+index c24755d56729..efa87a8f2971 100644
+--- a/src/shared/btsnoop.h
++++ b/src/shared/btsnoop.h
+@@ -37,16 +37,18 @@
+ #define BTSNOOP_OPCODE_SYSTEM_NOTE	12
+ #define BTSNOOP_OPCODE_USER_LOGGING	13
+ #define BTSNOOP_OPCODE_CTRL_OPEN	14
+ #define BTSNOOP_OPCODE_CTRL_CLOSE	15
+ #define BTSNOOP_OPCODE_CTRL_COMMAND	16
+ #define BTSNOOP_OPCODE_CTRL_EVENT	17
+ #define BTSNOOP_OPCODE_ISO_TX_PKT	18
+ #define BTSNOOP_OPCODE_ISO_RX_PKT	19
++#define BTSNOOP_OPCODE_VENDOR_TX_PKT	22
++#define BTSNOOP_OPCODE_VENDOR_RX_PKT	23
+ 
+ #define BTSNOOP_MAX_PACKET_SIZE		(1486 + 4)
+ 
+ #define BTSNOOP_TYPE_PRIMARY	0
+ #define BTSNOOP_TYPE_AMP	1
+ 
+ #define BTSNOOP_BUS_VIRTUAL	0
+ #define BTSNOOP_BUS_USB		1
 
 -- 
 2.34.1
