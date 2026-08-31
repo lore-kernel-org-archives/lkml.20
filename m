@@ -1,41 +1,41 @@
-Received: from out-2z4y-a139.jellyfish.systems (out-2z4y-a139.jellyfish.systems [198.54.127.139])
+Received: from out-zbxj-a74.jellyfish.systems (out-zbxj-a74.jellyfish.systems [198.54.127.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFB1449B3F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:27:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D779455619
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788193628; cv=none; b=Bq9f/Q4Lu5o2Gxsh0bej6GomdylAthWQQ+/+Neqd5FtZm1ozTysGo5nOOmeB8LWzS6KFd5j3zr5KKkh1icly0XPeN6onwpi7nTbWYOVzHb2qnC499k2j/OyuOexWZ5wTTst9LZ5UB4Aj/4JXDwhF2GAjeCKG1IAmVhnWxnAErt8=
+	t=1788193630; cv=none; b=NO+OCv4zRbi4sEd1kIRquyRHIytSrtyM0ZgpOM6qO1kK7aWQ1a08+gugMS7oef/yUuFwTW6wX6aT7EOZb2lQsUmgSXofDFbD2/aGrxmdFNsS9lwrqCct2r4UIqj7FWhtNmoDJfLIXZ3QRzcjd0uqrKDAAXjVrCxDLtBGEHv8fBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788193628; c=relaxed/simple;
-	bh=u0ZYjtGavKENeI/zuz5EwiNMeDpPPUy2TMwMLV6oW/Q=;
+	s=arc-20240116; t=1788193630; c=relaxed/simple;
+	bh=KzPvc7CmYgesOOtbeUQCIr7Dh7m2v5p9kHcd+JzBsd0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZYTdYf6NbAVYmna/lMs+YZwxtSnfrFVIxOHXaikDqYRoH4k9qewZM3kmKFScsY0IC+gtuV4E3JGrFwGf6kL8S6AZpWnhRTiYxZzbidc/C21RmYW8mOXzW9P0pPrhMa0lHpEP42c9cHUptcu2K+YKVp82LUMoHH2bhqjtUPC0KfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gurudas.dev; spf=pass smtp.mailfrom=gurudas.dev; dkim=pass (2048-bit key) header.d=gurudas.dev header.i=@gurudas.dev header.b=bchoTgCq; arc=none smtp.client-ip=198.54.127.139
+	 In-Reply-To:To:Cc; b=uBlPBqpqByQOM5aTK3awKCMsLTwYUFN6yTvPvC92QefeRbWNu6lb6jvPCvcxXoPsnmZuJCcZocym/5LecaIa8gwAVMCGqNEAVc70A+KHzKtdjRqsHEgSqBf/MmMlAy9Mab//lQUUU97qSwakMSqIB0yCbKa+w4KyaFOulhCtSyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gurudas.dev; spf=pass smtp.mailfrom=gurudas.dev; dkim=pass (2048-bit key) header.d=gurudas.dev header.i=@gurudas.dev header.b=e3PXBqEb; arc=none smtp.client-ip=198.54.127.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gurudas.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gurudas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gurudas.dev header.i=@gurudas.dev header.b="bchoTgCq"
+	dkim=pass (2048-bit key) header.d=gurudas.dev header.i=@gurudas.dev header.b="e3PXBqEb"
 Received: from [192.168.1.106] (107-194-158-19.lightspeed.sntcca.sbcglobal.net [107.194.158.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hYZBm0DLxz2xB6;
-	Mon, 31 Aug 2026 16:26:56 +0000 (UTC)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hYZBq15Ydz2xBB;
+	Mon, 31 Aug 2026 16:26:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gurudas.dev;
-	s=spacemail; t=1788193617;
-	bh=4TrA4xk009bAyQNQJy3hZYrjYVb5oA/qPg/Plwj2IlA=;
+	s=spacemail; t=1788193620;
+	bh=5tddOBd7dVOrv6zV3NixClhiHGTuWK8xZ1nqIYt6MhI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=bchoTgCqgtpnzSJgUlUawhsI5ypoQPgCJ2VeLI4l9ZxumhH1LUhDmKRjyjFDAI+nm
-	 U5HcFAMV0LCmQt6ARF+0RjY4rLIbB6BOWF53KQmGad6nrj4Vok6X6I729CCljYxTBM
-	 ksKDnm5TKJHjvzabxZDu5bH0TfByrIO/zGlL/hNHreZfRqw/xcbbyOIVZnbKYLH1ql
-	 aS/+O0eleig1m2jQ0f0tRI2cUJ3Z/bJtTVjXkok7jHqAV02u/YOL7ggeYmz0S2Qu5F
-	 AbEtCNhT8CHWPIBzLtkwXrQ5WuRmjToMXIdMtyZ2HXxWAkL2xNIIrao90i4xV/VTeY
-	 pN+FVvMLix2Ow==
+	b=e3PXBqEb4ZqVUXQJGU2eTcPPA0CkCRq4xZEoBpXKC8I+bhiR3zLjmvaB9Twwj3yGd
+	 8betetBYBRoGR34YiDYpxq8nv0e4bK5cldjD8BjCqwEPyRvTaqhclH3HJHXWSOhNcG
+	 FU80g0bvo6fdQ4y0wQzxBDS6cQtWEts3jYDV/AO/tdcvHhIDO9nklnP7xHhhyvor+m
+	 BduTvHXZUydH0sbaud2yVtVzaoJNfDHHjuG2MQYnDkpRp6UJ1rXW0/RKG9CgQTetra
+	 LzX6iIaXT2tlnZGnZJJq+aVqaCCQVe761Z1FYOw8CapwVzyv9J0sYV7kWUCD2oUGRM
+	 KU1VmUhzrOOeQ==
 From: Guru Das Srinagesh <linux@gurudas.dev>
-Date: Mon, 31 Aug 2026 09:26:28 -0700
-Subject: [PATCH v3 1/3] minmax: Add in_range_inclusive() for inclusive
- range checks
+Date: Mon, 31 Aug 2026 09:26:30 -0700
+Subject: [PATCH v3 3/3] iio: imu: bmi270: Use in_range_inclusive() in
+ bmi270_write_event_value()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,7 +44,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-minmax-in-range-incl-v3-1-30444a2fd2a5@gurudas.dev>
+Message-Id: <20260831-minmax-in-range-incl-v3-3-30444a2fd2a5@gurudas.dev>
 References: <20260831-minmax-in-range-incl-v3-0-30444a2fd2a5@gurudas.dev>
 In-Reply-To: <20260831-minmax-in-range-incl-v3-0-30444a2fd2a5@gurudas.dev>
 To: Alex Lanzano <lanzano.alex@gmail.com>, 
@@ -58,74 +58,51 @@ Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
 X-Mailer: b4 0.15.2
 X-Envelope-From: linux@gurudas.dev
 
-Extend the logic in in_range() to support checking for an inclusive
-range [min, max].
+Replace the three "in_range(val, 0, MAX + 1)" checks with the new
+in_range_inclusive() helper, expressing each as the inclusive [0, MAX]
+range it actually validates.
 
-The condition in the check is derived as follows, starting from the
-in_range() macro with len = (max - min + 1):
+No functional changes are introduced by this change because @min <= @max
+in the inclusive range in both signed and unsigned readings and hence
+the check correctly continues to hold and is unchanged in behaviour.
 
-    (val - min) <  (max - min + 1) // overflows for [0, U32/U64_MAX]
-    (val - min) <= (max - min)     // no overflow
-
-The behaviour of the macro from the signedness perspective is documented
-in the kernel-doc and in the in_range_inclusive KUnit test suite.
-
-Assisted-by: Claude-Code:claude-opus-5
+Assisted-by: Claude-Code:claude-sonnet-5
 Signed-off-by: Guru Das Srinagesh <linux@gurudas.dev>
 ---
- include/linux/minmax.h | 39 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+ drivers/iio/imu/bmi270/bmi270_core.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index a0158db54a04..dce3a8bea9e2 100644
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -299,6 +299,45 @@ static inline bool in_range32(u32 val, u32 start, u32 len)
- 	((sizeof(start) | sizeof(len) | sizeof(val)) <= sizeof(u32) ?	\
- 		in_range32(val, start, len) : in_range64(val, start, len))
+diff --git a/drivers/iio/imu/bmi270/bmi270_core.c b/drivers/iio/imu/bmi270/bmi270_core.c
+index 2ad230788532..7f386a615b39 100644
+--- a/drivers/iio/imu/bmi270/bmi270_core.c
++++ b/drivers/iio/imu/bmi270/bmi270_core.c
+@@ -1132,7 +1132,7 @@ static int bmi270_write_event_value(struct iio_dev *indio_dev,
+ 	guard(mutex)(&data->mutex);
  
-+static inline bool in_range_inclusive64(u64 val, u64 min, u64 max)
-+{
-+	return (val - min) <= (max - min);
-+}
-+
-+static inline bool in_range_inclusive32(u32 val, u32 min, u32 max)
-+{
-+	return (val - min) <= (max - min);
-+}
-+
-+/**
-+ * in_range_inclusive - Determine if a value lies within an inclusive range.
-+ * @val: Value to test.
-+ * @min: First value in range.
-+ * @max: Last value in range.
-+ *
-+ * This checks if a value lies within the closed range of [@min, @max]. Note that
-+ * "range" refers to values counting up from @min with wraparound at
-+ * unsigned-datatype max if encountered, continuing on till @max is reached.
-+ *
-+ * This macro is not a drop-in replacement for "if (val >= min && val <= max)".
-+ * Unsigned arithmetic determines what the 'true' range exactly is depending on
-+ * whether @min <= @max holds, and in which reading (signed vs unsigned) as follows::
-+ *
-+ *     Valid in reading   Example    'True' range is
-+ *     Both readings      [5, 10]     interval as written in either reading
-+ *     Signed only        [-10, 5]    signed interval
-+ *     Unsigned only      [5, -10]    unsigned interval
-+ *     Neither reading    [-5, -10]   neither; all values except [unsigned(-9), unsigned(-6)]
-+ *
-+ * The last two cases provide "surprising" results and are to be used carefully, if
-+ * at all. Further, if @max = @min - 1, every @val is in range.
-+ *
-+ * Return: true or false as described above.
-+ */
-+#define in_range_inclusive(val, min, max)						\
-+	((sizeof(val) | sizeof(min) | sizeof(max)) <= sizeof(u32) ?			\
-+	 in_range_inclusive32(val, min, max) : in_range_inclusive64(val, min, max))
-+
- /**
-  * swap - swap values of @a and @b
-  * @a: first value
+ 	if (type == IIO_EV_TYPE_CHANGE) {
+-		if (!in_range(val, 0, BMI270_STEP_COUNTER_MAX + 1))
++		if (!in_range_inclusive(val, 0, BMI270_STEP_COUNTER_MAX))
+ 			return -EINVAL;
+ 
+ 		raw = val / BMI270_STEP_COUNTER_FACTOR;
+@@ -1152,7 +1152,7 @@ static int bmi270_write_event_value(struct iio_dev *indio_dev,
+ 		if (ret)
+ 			return ret;
+ 
+-		if (!in_range(val, 0, (BMI270_G_MICRO_M_S_2 / uscale) + 1))
++		if (!in_range_inclusive(val, 0, BMI270_G_MICRO_M_S_2 / uscale))
+ 			return -EINVAL;
+ 
+ 		tmp = (u64)val * BMI270_MOTION_THRES_FULL_SCALE * uscale;
+@@ -1161,7 +1161,7 @@ static int bmi270_write_event_value(struct iio_dev *indio_dev,
+ 		regval = FIELD_PREP(BMI270_FEAT_MOTION_THRESHOLD_MSK, raw);
+ 		return bmi270_update_feature_reg(data, reg, mask, regval);
+ 	case IIO_EV_INFO_PERIOD:
+-		if (!in_range(val, 0, BMI270_MOTION_DURAT_MAX + 1))
++		if (!in_range_inclusive(val, 0, BMI270_MOTION_DURAT_MAX))
+ 			return -EINVAL;
+ 
+ 		raw = BMI270_INT_MICRO_TO_RAW(val, val2,
 
 -- 
 2.55.0
