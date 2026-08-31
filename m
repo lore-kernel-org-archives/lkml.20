@@ -1,405 +1,326 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012004.outbound.protection.outlook.com [52.101.53.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9FA5448A9;
-	Mon, 31 Aug 2026 13:46:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183971; cv=none; b=aK7NUXXmwl/FhQCUTpdJC6rexPpEErFNXugZyg9SdFthc/q/hmnuWVnPLBVSUhnXw0mcmvcpONhKf4FTlfanNKIO3EGbhr9yaLIwLlSz4UnxYhKvIhCatSVnl5J1aTIqrIvuUlCjFPzVjyiop+MXiT7vu3xW6kMHLWR/jT3hdPI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183971; c=relaxed/simple;
-	bh=kOCaNd5GKDpxFsKZiaI5cQCiIzu05tOI/l8XsP15mU0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509D95448A2
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183970; cv=fail; b=fbi50TqPLOiwQjS7WIgs0dWeRkF+bcOnSQ9+vNPWvJMgVWqkLxfq4lqvm3057lvwYoeY736YrNAAzjKx8B5OUKMacm9O3hlNrgjSwFwBCj+O0UzYvR9JBpLzZGGbd1RMYOyS435JzUwb9rDwd+djxHXkrTOLJpFemDEYoVpIGH4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183970; c=relaxed/simple;
+	bh=WzG0k1yeb5FVPVtC92BF7i1tZyQFwWhU5MMfw9TIIa0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uEu2lBN9N0hw3vk+Nlx7cSz5uGW4LNRAPIsmidFHORs/9AQqloWfxSEN41GFRm7Nin8L0U4OmN53tFzROTXT4AMa5+ihPVUWRsP4kEaEVy9TxVnP9VDXYHQAnfIcOc/EPWS7lR2J92HesEQhb8LO0L/z0+S3ZNV7eXyWCpInJz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mx8ssYoM; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=b/5VO5EcPM/R9Xc1OVq7KqmxTJLg1twGxJoKvZPnSVCVnQKYyOyyV/28DhZZ3AnFnIjndEmfz2yW4haVVKHQ/bPTBlkEDlz1gnfBYyRsa33TIVx+0dX9AAI9xXxO9KsiqhXNg8eDt5xxTK7VNnyPwNb7iBTOrXND0QHiMBrch28=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FGxc16VX; arc=fail smtp.client-ip=52.101.53.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mx8ssYoM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B7671F000E9;
-	Mon, 31 Aug 2026 13:46:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183967;
-	bh=kKdZtzSu0K1WOXba92VDkkedMzAsQTHSPtmtdiXhI7s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Mx8ssYoMlyUUAqN6LBSjpuDP3o+TgczvV50y/8rpWzqMKXMIK9XaVYaII0zhilaxy
-	 JzwRYt/0EdahdIQaMEzjXdW32fT0E6DXPh9ktBsKw+0Q0z0yuLyye3TpkvVg7pnZtE
-	 0xbegz67+w/Qzz01Y3x2nyZSkgU+FAwZg/ESojKm28Zt5EMXl6s+mSm1SrS5c5PeUI
-	 uLHxnM4LZz1DWmqfZeonge00yDFrOAOrE1iHtbeCYVkxTEhAUmipWSdP5KxTo/1E/E
-	 XtMdHVPF+XdSIxjKEIY+w39uGPscBrfAIcF/VCx/WUxIvVkitPKO4HY0rELlChsfBe
-	 NQ/sYvd71uRCg==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FGxc16VX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KkxHvkPhgHisAft6i0Xr5lfoyhvG6z/uVow7kKrBNbzV9nzWgsyEc2RQTvruxMaOs4b0LiEwvA7TTULS881Q3pDBjXEnASo4N7HfJp1dwy6UzV+wIxqkXm3Zt0cD5v6phlSRgoPU/XRYi7oPcRbzZL8N7XkrhUHFUV+YzvRzEEAquMUNL5emh/4UVavBcdBnbBVV2rDisxm0yKwWc5p2nGrmGaqiK8q84e9TCu4lk5s2NeIUM9QEhx2IwJ+AQWz3lenw6tYDVDJ9wRjDzZBef0yWQceEB2kZQyNKVsj7E6RQkcUGQuOjEPnEmqjMNq8w8lUkg6U9zwmnbTGkghVz7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Da/6DOy4DCvo0YfMcUzJJ+qiJ4IgyJh83GlRGCukyFA=;
+ b=LcRuqFNU0U0YdtZiiQXo1e2yZrH9SIenpsCbLMfxpj3FsLt0UtmfWvgYVo0fgy8mkPUMX/kcCIlUM6i9vHKIGWdksN9j1kErMj/mWOrzGjZFDxOVqnis3MF/kY08LlVbUpKL+pIn0h1j8tLYHrVza+BbqqkEM0u4wv6A+mmQzJJtExVB5nkoG435zwEajW4EsOLN+KxPQqaRFHNgIPWeFdaDq3fp9IxDd9mD8iVA/NyvUQ3Sj8rVn6/vxF9qSWQXupl7IV3ozyljU+9a6P4DMu4qIoJWcdolql1d6wF67oBMJ1TjLscOZUI5R8t7E2N/2axmhKu805/xbi+LsFog1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Da/6DOy4DCvo0YfMcUzJJ+qiJ4IgyJh83GlRGCukyFA=;
+ b=FGxc16VXAgncq4QEZKPZ8WLD1eYrZbjr/V1LSCm4qPK9tM9S2PrP3R2jG1jm2TW2uYuClTSAnvNSN+XFrROCNUH0Qp3xTXHXEXklQivsAtilFJLKI0Z67x4Tn6kESyzhwtcY0ybMjzL8JcQwTZGXu6JCEJqxB++ycb2i8mJzw1d2AGx4ea3gAKfHLzqmYawG5tKuauHqSS69nvVh4aWH15fDEtVAYnoSi0aImdinvJgpotgZfm7N4ZLbpvpmQhnw5IwSfcY7enzkyWeue3Cv8eaH0ZB+idTpPr+DcnAlYvx2xEbSmHrD0JfUrnHbRdWWxqGDsf4zrUjEx0KjUZotCg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by MW4PR12MB6755.namprd12.prod.outlook.com (2603:10b6:303:1ea::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Mon, 31 Aug
+ 2026 13:45:57 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 13:45:57 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>,
+	Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>,
+	Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>,
+	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] wifi: iwlwifi: mvm: add a check on the tid coming from the firmware
-Date: Mon, 31 Aug 2026 09:27:18 -0400
-Message-ID: <20260831133314.4125787-410-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Subject: [PATCH 17/18] sched_ext: scx_qmap: Add proxy execution support
+Date: Mon, 31 Aug 2026 15:42:27 +0200
+Message-ID: <20260831134338.1531664-18-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI1PEPF000008C4.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::426) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|MW4PR12MB6755:EE_
+X-MS-Office365-Filtering-Correlation-Id: e6714003-9915-4b91-8207-08df07662f48
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|3023799007|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ccEGpzbXYmZqmaylPcUlgPDsTraLEXy3j/b6Kvlrw3Ol+kAHVRKT0WF/KeMtQ5CiXq34jKTpF92cN8woHaArn/VA95EKUsQhL21NmMaGGWdOaMKcH5HRUOHOkP3+xz7yLWOHncxc2GOgv8c5ffFR9OvjKmmji6eLcoqm2sPJVCUxCy7Z/97m+DBVx4y4kHSWQyb16ajJvipcXPJI2Y0/BdGIPR5WWdmIg3hKu0Wg/Ea9Ysi4QqjxveOWC7oa4+wwulJTyW5n3/GR+Vj0ixkl1vJ2el82VCKZMRkc/OnPUt+XZ6vHNpKeHFSYjN+lkH5rUKmOcrChGXCvOOswWuGI1ep/BYzNGWME0J2C5zZ3XHLXbZUL8gRI2apHpxVJSA0x6I2vZYFKn4MGs8471Wv5CzhR8LFsNOuQBFL5r8CgoVAmf5vGtnPO35Ht2mWq4wrbcfdgAVG4hSdMQB1XVXwOlMtp8+zzyxpxq6RcW4MMQkt6Zw2R2GiVHOSf99LXKPoBHqYps7GyMPiC9g0zbIZvPAJYuMoFhYesXZwoX9fyULLhMqq1VVc8t65rAB0IpEYUgQoet0y5JdzgETouSQ1dUXuzBqHYipL8D4vs4kYxZIwJEQHxPk0gdKYAbukhohHR77ZRjopHxo+9jWoF4YWwIQycMF9Dp+3tupNuenEhX4s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(3023799007)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?yOgvFFd9Q6nFD490qT0YOPdql7KP9Hh7m3bYKx2tRsfYbG9F+m5iekcU6LvG?=
+ =?us-ascii?Q?g840yqe6ci7VHo+qV7R9+cNj1SOqrEiXpihqdCitFWZDEGEv5RyskSYHYm1P?=
+ =?us-ascii?Q?QQu26eWI8hIQjajdxrSci2su6brkS2jXRJLJrqFQLbbVPNHUMsNbtPbSYUbA?=
+ =?us-ascii?Q?zw0N99eiq8zyZrRso0mcTawoqDqDqpLYubQxFO+fITTXZUHn3VWhGvRk4vS4?=
+ =?us-ascii?Q?9WhwLdtJ6E5/fjKjXxcqYh0ijdJ0AAGpZDfwuvZRo8JKNFBMPQc254zDigWQ?=
+ =?us-ascii?Q?yEJcFd+XQpydx4/AKztrkMfORiPyK3Uy7yp0YpZy2Q/wUeIDHgpVuoNwo3jA?=
+ =?us-ascii?Q?pxZlSVzM96snKAQzKYFG+WCzh+Tro9n1XO8n3Fwi6WVXSLK9m5VZ1i9sIF0k?=
+ =?us-ascii?Q?H6hoBCkCybECfufKqBGgAL216IftjrO/mUbPDSTLT/UI5GLRYG8cKS5/RGGS?=
+ =?us-ascii?Q?3YsBq3JY7EDuEJ60hzNosANnhh9We2C6LeR3VCldr88nQSrJAvM/tl6CbFhF?=
+ =?us-ascii?Q?F2kqxRm3IdpoP3zD4lUPsa+r1oL2PdIAUvEX7073nw6wFvbSiRFHMT29EouL?=
+ =?us-ascii?Q?shKQTLr8e0eVD6lglRcnMB9PO/uQHE4bEcwWx1NTrTlAEmP2e/SL9MyJBjeN?=
+ =?us-ascii?Q?FP6MTK+hyxiorC7/pJxWxeKRKlUJD7TAQjjiX1I2lMGxm5KQ3Y0aQtxHE2z6?=
+ =?us-ascii?Q?MIgV48X4en6CxkjvcLNt/0gvE+dISf0PyiF5GfQI1n/0zJ+DdPLMi+xnHzCV?=
+ =?us-ascii?Q?ZXQ/R9kUaZbvanOTb4AOL7KxtpE+4VLJqCF0NJOvtmmIfTqdgacPJHcWwzq5?=
+ =?us-ascii?Q?Cx263EBvelxBh8aKIZKsqJV0Qd+OTx4Xr7awUz5aj44c1VyVLQlGwLP8Z4pg?=
+ =?us-ascii?Q?I8l5e+K7zUydxERgT7tZDvRSMmwFPQwd4FuLnkrBFD5Q5B4qX+u/bge/9sE3?=
+ =?us-ascii?Q?yJdlFNKjNJ9dTF9cMExYkhsKP4FyaTjM1RwVQQrWRK5aLq6Rr9V6SZA94/7L?=
+ =?us-ascii?Q?jzQOdPabfo5Z3Jupn681Pp8H/v0Ewfqk81PBIiq5kp3JLCITcGAgnsa/HbNO?=
+ =?us-ascii?Q?McQLkV5wXjF/kiG8hf1C8empwGz50SK5mIW8v601VpUhYEa5xU7FnHsJTdTO?=
+ =?us-ascii?Q?72iOOQ8CmmbtdlR8QK/rdGnozyrqQD2bNWhvHol2dHV7LKJoXvc+8XznFuWG?=
+ =?us-ascii?Q?STgMHkEyyBnw2xR+P/RoWUM9uN+WmgX7rYx5GfJObJDO5XaRE5gOr+UITHTg?=
+ =?us-ascii?Q?8dQgb6urWh0GxnvkHoon8fBwVLtO8flz8TtgXaHwYj2tnoztEPoeiVn1bTY0?=
+ =?us-ascii?Q?QWThLvJZH+SPKmkI/h4T0Sm7iW4x7iLLhfEQEIFh3qUTeFt7mnMVMRsm6RFV?=
+ =?us-ascii?Q?FTwTJ7Sr7B+2GALgCHTD6pE6OgqaJ6c4Hi9JRgmhOlcOiFY9GNHvOpCSh/ug?=
+ =?us-ascii?Q?Ma6J6vRJQepnem7IozPnf/QF+cvfz5HUKSFrXcrGiXRF47PCGs0VrFE6yiAI?=
+ =?us-ascii?Q?Wsd4cVxi+DhszvC8V9AHS8FSpfP6vIKvo+AlUwTexkiMCtxJBbDteelPdw7N?=
+ =?us-ascii?Q?yx8niFoqNznWKlCj2w51UQr3EpkDGscCp67Es/Z5MwJFI8ns9o0vP3H3bJX5?=
+ =?us-ascii?Q?NJroyZH3MNQDI0pN6Xc47Ayb6xuqaFdWXPIy7sqlZ6eMVVit7/qHl6cIDIWc?=
+ =?us-ascii?Q?VxiBEo5t/+1/LYNygwLQYYoVvuD5V3oTrSIeiqBQWu/m/PaAHi3EDCEIkgUk?=
+ =?us-ascii?Q?QuVoRgGR6A=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6714003-9915-4b91-8207-08df07662f48
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:45:57.2583
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dHS4wBbyjx5XNNopSxO1/OxKX9fZ31n98Xy5eZKLvWsV0ZUpRs6kChuQIBDe04O3A6y2zkan1GOt/qNM97UP9g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6755
 
-From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Add a -X option to opt scx_qmap into queueing mutex-blocked tasks for
+proxy execution. Without the option, SCX_OPS_ENQ_BLOCKED remains clear
+and mutex waiters block normally. With -X, blocked donors are passed to
+qmap_enqueue() with SCX_ENQ_BLOCKED.
 
-[ Upstream commit 0e4c0d83267261cf67ec9690856edf4a56bb7dfc ]
+When scx_qmap receives a blocked donor, select a cid allowed by the task
+and held by qmap, preferring its current cid. Dispatch the donor to that
+cid's local DSQ with a fresh slice and SCX_ENQ_PREEMPT, adding
+SCX_ENQ_IMMED when the cid is time-shared. This places the donor at the
+head of an eligible DSQ and requests an immediate reschedule, allowing
+the core proxy-exec path to run the mutex owner using the donor's
+scheduling context as soon as the donor is selected.
 
-ba_notif->tid is a firmware-controlled u8 that is used directly
-as an array index into tid_data[] without any validation. Add a
-bounds check against IWL_MAX_TID_COUNT before dereferencing the
-array.
+The blocked policy is intentionally unfair and can strongly prioritize
+tasks using contended mutexes, but scx_qmap is a demo scheduler and such
+aggressive behavior makes proxy-exec support easy to observe. Count all
+blocked dispatch attempts in nr_enq_blocked and report their per-interval
+delta.
 
-Assisted-by: GitHubCopilot:gpt-5.3-codex
-Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Link: https://patch.msgid.link/20260715215523.d7c3e75d47af.If88948108cfc8b5fb3ce5531d927855d1b3b6b30@changeid
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Acked-by: John Stultz <jstultz@google.com>
+Signed-off-by: Andrea Righi <arighi@nvidia.com>
 ---
-
-LLM Generated explanations, may be completely bogus:
-
-# Stable Backport Analysis: `wifi: iwlwifi: mvm: add a check on the tid
-coming from the firmware`
-
-**Local tree:** Linux **6.18.44** (`v6.18.44-2-g1b9e1abadee04`, `make
-kernelversion` → 6.18.44)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-**Step 1.1 — Subject line**
-Record: `[wifi: iwlwifi: mvm]` `[add]` — add bounds validation on
-firmware-supplied TID in legacy BA notification handler.
-
-**Step 1.2 — Tags**
-Record:
-- `Assisted-by: GitHubCopilot:gpt-5.3-codex`
-- `Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>`
-- `Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>`
-- `Link:` patch.msgid.link (redirects to lore; blocked by bot
-  protection)
-- No `Fixes:`, `Reported-by:`, `Cc: stable`, `Tested-by:`, or `Reviewed-
-  by:` tags
-- Part of Intel iwlwifi fix series `[PATCH 12/15]` (2026-07-15)
-
-**Step 1.3 — Body analysis**
-Record:
-- **Bug:** `ba_notif->tid` is firmware-controlled `u8`, used directly as
-  `tid_data[]` index without validation.
-- **Symptom:** Out-of-bounds access into `mvmsta->tid_data[]` when
-  firmware sends invalid TID.
-- **Root cause:** Missing bounds check before `&mvmsta->tid_data[tid]`
-  dereference in legacy (non-compressed) BA notification path.
-- No explicit crash report or syzbot reference; defensive validation of
-  untrusted firmware input.
-
-**Step 1.4 — Hidden bug fix?**
-Record: **Yes** — despite “add a check” wording, this is a real memory-
-safety bug fix (out-of-bounds array index), not cosmetic cleanup.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-**Step 2.1 — Inventory**
-Record:
-- **File:** `drivers/net/wireless/intel/iwlwifi/mvm/tx.c` (+3 lines)
-- **Function:** `iwl_mvm_rx_ba_notif()`
-- **Scope:** Single-file, surgical fix in one error-handling path
-
-**Step 2.2 — Code flow change**
-Record:
-- **Before:** `tid = ba_notif->tid` → RCU lock → STA lookup → `tid_data
-  = &mvmsta->tid_data[tid]` (unchecked).
-- **After:** Same, but return early via `IWL_FW_CHECK()` if `tid >=
-  ARRAY_SIZE(mvmsta->tid_data)`.
-- Affects the **legacy** BA notification path
-  (`!iwl_mvm_has_new_tx_api()`), not the compressed-BA path at the top
-  of the function.
-
-**Step 2.3 — Bug mechanism**
-Record:
-- **Category:** Buffer overflow / out-of-bounds array access (memory
-  safety).
-- **Mechanism:** `tid_data` is `struct iwl_mvm_tid_data
-  tid_data[IWL_MAX_TID_COUNT + 1]` (9 elements, indices 0–8).
-  `ba_notif->tid` is `u8` (0–255). Values ≥ 9 cause OOB read at:
-
-```2176:2180:drivers/net/wireless/intel/iwlwifi/mvm/tx.c
-        tid_data = &mvmsta->tid_data[tid];
-
-        ba_info.status.ampdu_ack_len = ba_notif->txed_2_done;
-        ba_info.status.ampdu_len = ba_notif->txed;
-        ba_info.status.tx_time = tid_data->tx_time;
-```
-
-- `iwl_mvm_tx_reclaim()` has `tid > IWL_MAX_TID_COUNT` guard, but that
-  runs **after** the OOB access above.
-
-**Step 2.4 — Fix quality**
-Record:
-- Fix is minimal and follows existing `IWL_FW_CHECK()` pattern in the
-  same function (STA ID check at lines 2169–2173).
-- `ARRAY_SIZE(mvmsta->tid_data)` is compile-time only (no runtime
-  dereference of uninitialized `mvmsta`); equivalent to `tid >
-  IWL_MAX_TID_COUNT`.
-- Low regression risk; only rejects invalid firmware values.
-- Note: related patch 11/15 in the same series fixes a **different** bug
-  in the compressed-BA path (`tid_data[i]` vs `tid_data[tid]`); this
-  commit is standalone for the legacy path.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-**Step 3.1 — Blame**
-Record: Legacy BA-notif code at lines 2158–2200 traces to
-`5d324e5159d9e` (6.18 merge base). Shallow history limits deeper blame;
-function has been in iwlwifi MVM for many releases.
-
-**Step 3.2 — Fixes: tag**
-Record: N/A — no `Fixes:` tag present.
-
-**Step 3.3 — Related file history**
-Record: This tree has multiple recent iwlwifi validation fixes
-backported (e.g. `dd90880` OOB read, `2d5dec5` wake-packet read,
-`a076b0c` SAR GEO validation). This TID check is **not** yet present.
-Patch 11/15 (compressed-BA `tid_data[i]` fix) is also **not** in this
-tree.
-
-**Step 3.4 — Author context**
-Record: Emmanuel Grumbach and Miri Korenblit are Intel iwlwifi
-maintainers. Part of a 15-patch Intel fix batch from 2026-07-15.
-
-**Step 3.5 — Dependencies**
-Record: **Standalone.** No prerequisite commits required. Applies to
-existing legacy path only.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-**Step 4.1 — Original discussion**
-Record: Patch found in local mbox
-`20260715_miriam_rachel_korenblit_wifi_iwlwifi_fixes_07_15_2026.mbx` as
-`[PATCH 12/15]`. `b4 dig` and lore.kernel.org blocked by Anubis bot
-protection; could not fetch live thread. No stable nomination found in
-available sources.
-
-**Step 4.2 — Reviewers**
-Record: UNVERIFIED from live lore. Cover letter shows Intel iwlwifi
-maintainers as authors; series is internal Intel bugfix batch.
-
-**Step 4.3 — Bug report**
-Record: No external bug report, syzbot, or user crash report referenced.
-Bug identified via code review (GitHub Copilot assisted).
-
-**Step 4.4 — Series context**
-Record: Patch 11/15 fixes compressed-BA path (wrong index + bounds
-check). Patch 12/15 fixes legacy path (missing bounds check).
-Independent; either can be backported alone.
-
-**Step 4.5 — Stable list history**
-Record: UNVERIFIED — lore stable search blocked.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-**Step 5.1 — Key functions**
-Record: `iwl_mvm_rx_ba_notif()` modified.
-
-**Step 5.2 — Callers**
-Record: Registered as `RX_HANDLER(BA_NOTIF, iwl_mvm_rx_ba_notif, ...)`
-in `ops.c` line 320. Invoked synchronously on firmware BA notification —
-hot TX completion path.
-
-**Step 5.3 — Callees**
-Record: After TID handling, calls `iwl_mvm_tx_reclaim()` and accesses
-`tid_data->tx_time`, `tid_data->rate_n_flags`.
-
-**Step 5.4 — Reachability**
-Record:
-- Reachable whenever firmware sends `BA_NOTIF` on devices with **legacy
-  TX API** (`!iwl_mvm_has_new_tx_api()` → `!mac_cfg->gen2`).
-- Covers older Intel WiFi hardware still supported in 6.18.y.
-- Trigger requires malformed/corrupt firmware notification (firmware
-  bug, corruption, or hostile firmware).
-
-**Step 5.5 — Similar patterns**
-Record: Driver consistently validates TIDs elsewhere (`WARN_ON_ONCE(tid
->= IWL_MAX_TID_COUNT)` in `tx.c:964`, `sta.c:3089`, `rs.c:593`, etc.).
-This path was an outlier missing validation.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
-
-**Step 6.1 — Buggy code present?**
-Record: **YES.** At lines 2160–2176 in this 6.18.44 tree, `tid =
-ba_notif->tid` is used without bounds check before `tid_data =
-&mvmsta->tid_data[tid]`. Fix is **not** present.
-
-**Step 6.2 — Backport complications**
-Record: **Clean apply expected.** 3-line insertion at a stable location;
-no structural conflicts visible. `IWL_FW_CHECK` macro exists in
-`fw/dbg.h`.
-
-**Step 6.3 — Related fixes already present?**
-Record: No. `git log --grep="check on the tid"` and `--grep="invalid
-TID"` return nothing for this fix. Compressed-BA patch 11/15 also not
-applied (`tid_data[i]` still at line 2141).
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-**Step 7.1 — Subsystem**
-Record: `drivers/net/wireless/intel/iwlwifi/mvm` — **IMPORTANT** (Intel
-WiFi, widely deployed; not core kernel but affects many
-laptops/desktops).
-
-**Step 7.2 — Activity**
-Record: Actively maintained; multiple iwlwifi validation fixes already
-backported to this 6.18.44 tree in 2026.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1 — Who is affected**
-Record: Users of Intel WiFi devices using legacy MVM TX API (pre-gen2
-MAC config). Driver-specific, but Intel WiFi is very common on x86
-laptops.
-
-**Step 8.2 — Trigger conditions**
-Record: Firmware sends `BA_NOTIF` with `tid >= 9` on legacy path.
-Unlikely in normal operation, but plausible with firmware bugs or
-corruption. Not userspace-triggerable directly, but firmware is treated
-as untrusted input in stable security practice.
-
-**Step 8.3 — Failure mode severity**
-Record: Out-of-bounds read (and potential write via subsequent
-`iwl_mvm_tx_reclaim` using corrupted `tid_data`) → kernel oops, memory
-corruption. **Severity: HIGH** (memory safety; possible
-crash/corruption).
-
-**Step 8.4 — Risk vs benefit**
-Record:
-- **Benefit:** Prevents OOB access on a firmware-driven hot path; aligns
-  with other iwlwifi validation backports already in this tree.
-- **Risk:** Very low — 3-line defensive check, rejects only invalid
-  values.
-- **Ratio:** Strong benefit, minimal risk.
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-**Step 9.1 — Evidence summary**
-
-| FOR backport | AGAINST backport |
-|---|---|
-| Real OOB bug on firmware-controlled index | No user crash report or
-syzbot reproducer |
-| HIGH severity if triggered (crash/corruption) | Legacy TX API only
-(not newest gen2 devices) |
-| 3-line, obviously correct fix | Part of 15-patch series (but this
-patch is standalone) |
-| Matches pattern of iwlwifi fixes already in 6.18.44 | Live lore review
-unverified |
-| Intel maintainer-authored | |
-| Buggy code confirmed present in this tree | |
-| Fix not yet applied | |
-
-**Step 9.2 — Stable rules checklist**
-1. Obviously correct and tested? **PASS** — logic is straightforward; no
-   runtime test cited but pattern is established in-driver.
-2. Fixes a real bug? **PASS** — confirmed OOB array index without
-   validation.
-3. Important issue? **PASS** — memory safety / potential crash (HIGH).
-4. Small and contained? **PASS** — 3 lines, one function.
-5. No new features/APIs? **PASS** — defensive validation only.
-6. Can apply to local tree? **PASS** — buggy code exists; clean apply
-   expected.
-
-**Step 9.3 — Exception categories**
-Record: None (not device ID, quirk, DT, build, or docs). Standard bug-
-fix category.
-
-**Step 9.4 — Decision rationale**
-This commit closes a genuine out-of-bounds access hole where firmware-
-controlled `tid` is used to index `tid_data[9]` without validation, on a
-path that still exists in Linux 6.18.44. The fix is minimal, follows
-existing conventions, and matches the class of iwlwifi validation fixes
-already backported to this stable tree. Even without a public crash
-report, validating firmware-controlled array indices is appropriate
-stable material given the severity of the failure mode.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed commit message from user query and local mbox
-  `20260715_miriam_rachel_korenblit_wifi_iwlwifi_fixes_07_15_2026.mbx`
-- **[Phase 2]** Read `tx.c` lines 2073–2201; confirmed OOB access before
-  `iwl_mvm_tx_reclaim()` guard
-- **[Phase 2]** Verified `tid_data` size: `IWL_MAX_TID_COUNT + 1` = 9 in
-  `sta.h:410`; `IWL_MAX_TID_COUNT` = 8 in `iwl-trans.h:271`
-- **[Phase 2]** Verified `iwl_mvm_tx_reclaim()` has `tid >
-  IWL_MAX_TID_COUNT` at `tx.c:1940-1942` but runs after OOB access
-- **[Phase 3]** `git blame` on lines 2160–2189 → `5d324e5159d9e`
-- **[Phase 3]** `git log --grep` — fix not present in tree
-- **[Phase 4]** Read patch 12/15 from local mbox; cover letter shows
-  series context
-- **[Phase 4]** `b4 dig` and lore.kernel.org — blocked by Anubis
-  (UNVERIFIED live review)
-- **[Phase 4]** patch.msgid.link — blocked by Anubis (UNVERIFIED)
-- **[Phase 5]** `grep iwl_mvm_rx_ba_notif` — handler in `ops.c:320`
-- **[Phase 5]** `iwl_mvm_has_new_tx_api()` → `mac_cfg->gen2` in
-  `mvm.h:1515-1518`
-- **[Phase 6]** `git describe HEAD` → v6.18.44; `make kernelversion` →
-  6.18.44
-- **[Phase 6]** Confirmed fix absent at `tx.c:2160` (no bounds check)
-- **[Phase 6]** Confirmed related patch 11/15 also absent (`tid_data[i]`
-  at line 2141)
-- **[Phase 7]** `git log --oneline -20 --grep=iwlwifi` — active iwlwifi
-  stable backports
-- **[Phase 8]** Assessed failure mode as OOB read/write →
-  crash/corruption (HIGH)
-
-**YES**
-
- drivers/net/wireless/intel/iwlwifi/mvm/tx.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/tx.c b/drivers/net/wireless/intel/iwlwifi/mvm/tx.c
-index 30aee52bf9cb4..ebb201bd23d85 100644
---- a/drivers/net/wireless/intel/iwlwifi/mvm/tx.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/tx.c
-@@ -2192,6 +2192,9 @@ void iwl_mvm_rx_ba_notif(struct iwl_mvm *mvm, struct iwl_rx_cmd_buffer *rxb)
- 	ba_notif = (void *)pkt->data;
- 	sta_id = ba_notif->sta_id;
- 	tid = ba_notif->tid;
-+	if (IWL_FW_CHECK(mvm, tid >= ARRAY_SIZE(mvmsta->tid_data),
-+			 "invalid TID %d in BA notif\n", tid))
+ tools/sched_ext/scx_qmap.bpf.c | 53 +++++++++++++++++++++++++++++++++-
+ tools/sched_ext/scx_qmap.c     | 13 +++++++--
+ tools/sched_ext/scx_qmap.h     |  1 +
+ 3 files changed, 63 insertions(+), 4 deletions(-)
+
+diff --git a/tools/sched_ext/scx_qmap.bpf.c b/tools/sched_ext/scx_qmap.bpf.c
+index 5bb8b90a275a3..21f8a9be9650c 100644
+--- a/tools/sched_ext/scx_qmap.bpf.c
++++ b/tools/sched_ext/scx_qmap.bpf.c
+@@ -439,6 +439,9 @@ void BPF_STRUCT_OPS(qmap_enqueue, struct task_struct *p, u64 enq_flags)
+ 	 */
+ 	taskc->core_sched_seq = qa.core_sched_tail_seqs[idx]++;
+ 
++	if (enq_flags & SCX_ENQ_BLOCKED)
++		__sync_fetch_and_add(&qa.nr_enq_blocked, 1);
++
+ 	/*
+ 	 * A task of ours that can run on none of our self cids - the parent
+ 	 * didn't grant them or we delegated them to children - would starve in
+@@ -446,7 +449,8 @@ void BPF_STRUCT_OPS(qmap_enqueue, struct task_struct *p, u64 enq_flags)
+ 	 *
+ 	 * Force it onto its first allowed cid's local DSQ. If we hold that cid
+ 	 * it runs. Otherwise the insert carries SCX_ENQ_RESCUE and the kernel
+-	 * diverts the task to its rescue path.
++	 * diverts the task to its rescue path. Do this before the blocked-donor
++	 * fast paths, which also require an eligible self cid to make progress.
+ 	 */
+ 	if (!cmask_intersects(&taskc->cpus_allowed, &qa.self_cids.mask)) {
+ 		s32 c = cmask_next_set_wrap(&taskc->cpus_allowed, 0);
+@@ -460,6 +464,53 @@ void BPF_STRUCT_OPS(qmap_enqueue, struct task_struct *p, u64 enq_flags)
+ 		}
+ 	}
+ 
++	/*
++	 * SCX_OPS_ALWAYS_ENQ_IMMED makes the local insertion below implicitly
++	 * carry SCX_ENQ_IMMED. If the CPU can't run the blocked donor immediately,
++	 * the core returns it through ops.enqueue() with SCX_ENQ_REENQ. Inserting
++	 * it into the same local DSQ would repeat the IMMED handback until the
++	 * scheduler is ejected. Move reenqueued blocked donors to the shared DSQ,
++	 * which doesn't carry SCX_ENQ_IMMED, so another CPU can consume them.
++	 */
++	if ((enq_flags & (SCX_ENQ_BLOCKED | SCX_ENQ_REENQ)) ==
++	    (SCX_ENQ_BLOCKED | SCX_ENQ_REENQ)) {
++		taskc->force_local = false;
++		scx_bpf_dsq_insert(p, SHARED_DSQ, 0, enq_flags);
++		cid = cmask_next_and2_set_wrap(&taskc->cpus_allowed,
++					       &qa.idle_cids.mask,
++					       &qa.self_cids.mask, 0);
++		if (cid < scx_bpf_nr_cids())
++			scx_bpf_kick_cid(cid, SCX_KICK_IDLE);
 +		return;
- 	/* "flow" corresponds to Tx queue */
- 	txq = le16_to_cpu(ba_notif->scd_flow);
- 	/* "ssn" is start of block-ack Tx window, corresponds to index
++	}
++
++	/*
++	 * Insert a blocked mutex donor at the head of an eligible local DSQ with
++	 * a fresh slice and %SCX_ENQ_PREEMPT, requesting an immediate reschedule.
++	 * The test above guarantees that cpus_allowed intersects self_cids, but
++	 * the donor's current cid may have been delegated to a child. Search the
++	 * intersection starting at the current cid, preserving it when qmap still
++	 * holds it and wrapping to another eligible self cid otherwise.
++	 *
++	 * A self cid may be held exclusively with SCX_CAP_ENQ or time-shared with
++	 * only SCX_CAP_ENQ_IMMED. Add needs_immed() so either kind can accept the
++	 * local insertion instead of rejecting and reenqueuing the donor for a
++	 * capability miss. Once selected, the core proxy-exec path can run the
++	 * mutex owner using the donor's scheduling context.
++	 *
++	 * This policy is intentionally unfair and can strongly prioritize tasks
++	 * using contended mutexes; scx_qmap is a demonstration scheduler and
++	 * this behavior makes proxy-exec support easy to observe.
++	 */
++	if (enq_flags & SCX_ENQ_BLOCKED) {
++		cid = cmask_next_and_set_wrap(&taskc->cpus_allowed,
++					      &qa.self_cids.mask,
++					      scx_bpf_task_cid(p));
++		scx_bpf_dsq_insert(p, SCX_DSQ_LOCAL_ON | cid, slice_ns,
++				   enq_flags | needs_immed(cid) | SCX_ENQ_PREEMPT);
++		return;
++	}
++
+ 	/*
+ 	 * Fault injection: deliberately dispatch one of our own tasks to a cid
+ 	 * we don't hold. The inserts carry SCX_ENQ_RESCUE and divert to the
+diff --git a/tools/sched_ext/scx_qmap.c b/tools/sched_ext/scx_qmap.c
+index 5bb5f687e579c..d5226e0716573 100644
+--- a/tools/sched_ext/scx_qmap.c
++++ b/tools/sched_ext/scx_qmap.c
+@@ -46,7 +46,7 @@ const char help_fmt[] =
+ "See the top-of-file comment in .bpf.c for the design.\n"
+ "\n"
+ "Usage: %s [-s SLICE_US] [-e COUNT] [-t COUNT] [-T COUNT] [-l COUNT] [-b COUNT]\n"
+-"       [-N COUNT] [-P] [-M] [-H] [-c CG_PATH] [-d PID] [-D LEN] [-S] [-p] [-I]\n"
++"       [-N COUNT] [-P] [-M] [-H] [-c CG_PATH] [-d PID] [-D LEN] [-S] [-p] [-I] [-X]\n"
+ "       [-F COUNT] [-i SEC] [-R MS] [-J MODE] [-v]\n"
+ "\n"
+ "  -s SLICE_US   Override slice duration\n"
+@@ -65,6 +65,7 @@ const char help_fmt[] =
+ "  -S            Suppress qmap-specific debug dump\n"
+ "  -p            Switch only tasks on SCHED_EXT policy instead of all\n"
+ "  -I            Turn on SCX_OPS_ALWAYS_ENQ_IMMED\n"
++"  -X            Turn on SCX_OPS_ENQ_BLOCKED\n"
+ "  -F COUNT      IMMED stress: force every COUNT'th enqueue to a busy local DSQ (use with -I)\n"
+ "  -C MODE       cid-override test (shuffle|bad-dup|bad-range|bad-mono)\n"
+ "  -i SEC        Stats interval, seconds (default 5)\n"
+@@ -107,6 +108,7 @@ struct hier_prev {
+ 	u64 nr_dsps[MAX_SUB_SCHEDS];
+ 	u64 nr_reenq_cap;
+ 	u64 nr_reenq_immed;
++	u64 nr_enq_blocked;
+ 	u64 nr_inject_attempts;
+ 	u64 nr_rescue_dsp;
+ };
+@@ -190,14 +192,16 @@ static void print_hier(struct qmap_arena *qa, struct hier_prev *prev, u64 own_cg
+ 	}
+ 
+ 	format_cid_ranges(qa, CID_SHARED, ranges, sizeof(ranges));
+-	printf("hier   : nsub=%llu excl=%u shared=%s rr=%s reenq cap/immed +%llu/+%llu inj=+%llu rescue=+%llu\n",
++	printf("hier   : nsub=%llu excl=%u shared=%s rr=%s reenq cap/immed +%llu/+%llu blocked=+%llu inj=+%llu rescue=+%llu\n",
+ 	       (unsigned long long)qa->nr_sub_scheds, qa->part.nr_excl, ranges, rr,
+ 	       (unsigned long long)(qa->nr_reenq_cap - prev->nr_reenq_cap),
+ 	       (unsigned long long)(qa->nr_reenq_immed - prev->nr_reenq_immed),
++	       (unsigned long long)(qa->nr_enq_blocked - prev->nr_enq_blocked),
+ 	       (unsigned long long)(qa->nr_inject_attempts - prev->nr_inject_attempts),
+ 	       (unsigned long long)(qa->nr_rescue_dsp - prev->nr_rescue_dsp));
+ 	prev->nr_reenq_cap = qa->nr_reenq_cap;
+ 	prev->nr_reenq_immed = qa->nr_reenq_immed;
++	prev->nr_enq_blocked = qa->nr_enq_blocked;
+ 	prev->nr_inject_attempts = qa->nr_inject_attempts;
+ 	prev->nr_rescue_dsp = qa->nr_rescue_dsp;
+ 
+@@ -263,7 +267,7 @@ int main(int argc, char **argv)
+ 	skel->rodata->max_tasks = 16384;
+ 
+ 	while ((opt = getopt(argc, argv,
+-			     "s:e:t:T:l:b:N:PMHc:d:D:SpIF:C:i:R:J:B:q:vh")) != -1) {
++			     "s:e:t:T:l:b:N:PMHc:d:D:SpIXF:C:i:R:J:B:q:vh")) != -1) {
+ 		switch (opt) {
+ 		case 's':
+ 			skel->rodata->slice_ns = strtoull(optarg, NULL, 0) * 1000;
+@@ -324,6 +328,9 @@ int main(int argc, char **argv)
+ 		case 'I':
+ 			skel->struct_ops.qmap_ops->flags |= SCX_OPS_ALWAYS_ENQ_IMMED;
+ 			break;
++		case 'X':
++			skel->struct_ops.qmap_ops->flags |= SCX_OPS_ENQ_BLOCKED;
++			break;
+ 		case 'F':
+ 			skel->rodata->immed_stress_nth = strtoul(optarg, NULL, 0);
+ 			break;
+diff --git a/tools/sched_ext/scx_qmap.h b/tools/sched_ext/scx_qmap.h
+index c78d61806b398..fc10b542fb477 100644
+--- a/tools/sched_ext/scx_qmap.h
++++ b/tools/sched_ext/scx_qmap.h
+@@ -178,6 +178,7 @@ struct qmap_arena {
+ 	/* bpf -> userspace: stats */
+ 	u64 nr_reenq_cap;		/* SCX_TASK_REENQ_CAP bounces */
+ 	u64 nr_reenq_immed;		/* SCX_TASK_REENQ_IMMED bounces */
++	u64 nr_enq_blocked;		/* SCX_ENQ_BLOCKED dispatches */
+ 	u64 nr_inject_attempts;		/* fault-injection: dispatches to an unheld cid */
+ 	u64 nr_rescue_dsp;		/* SCX_ENQ_RESCUE dispatch attempts */
+ 	u32 inject_mode;		/* fault-injection mode (QMAP_INJ_*) */
 -- 
-2.53.0
+2.55.0
 
