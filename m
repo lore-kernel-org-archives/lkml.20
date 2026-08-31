@@ -1,101 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC322514770;
-	Mon, 31 Aug 2026 15:02:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8D345A2BB;
+	Mon, 31 Aug 2026 15:03:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188561; cv=none; b=COC5THfjlk3roUogIMVrIAXLL6JqBkORJxxzkPU2hvHO0jieLy9NbKpfMHY4aNRA92c/ceQRaQNNjviKa0l+/x1c/vHjZwcj8QGFA/tv0uH9vdqljnjSrRuVF49n4KZDZ7BGajoGPnAWkygJPXDrN/Cjsu2YQlZDH1o9x9kDHX4=
+	t=1788188603; cv=none; b=MwF4gIr4mKiQo3SUO8LqJqsmIbLffylcGA5A2rt27m1/y02zG9IMx8DXmcw1R9HxWWHDmovQBpqVbZtlIdr/qALq9DTxgLHFG8Jl0eLRncoFpyS2kV9HDuOuYIyE/aZvU1KnHehHKD2TlXpcm66kxopEJPqEgAXCP2SKHnBKSwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188561; c=relaxed/simple;
-	bh=C+pCREtFQwkT20iqaLyc0Hd0RC9syYGE2DcfobTAwNA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BTXeyi0+BJ0F1b73yCYo9TF9f8qfxXGEabqLyVZ81RG1od6bJLeN/xdawytMRNk1rKjKWNT9nMSL29YO8bnti3A/gSkQc2Z3RAStmZ1iJ2kpG4puzyuBlzAfHeZt/By9dFVDPudg3hb7GIN6OxkOuYfOenOmrKjZwfjI9j3NKC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EaUqloqy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788188603; c=relaxed/simple;
+	bh=NuYwYcdTd63Sl4yThSMVv4RTv7iSb05aGjnVKK3RL1M=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=b8voGp0VxGOqdD2UmUYxQNMuPMGW4v/bKKXOHhABV/Mw+ldshkqBu/9umaW4qYWucJoOnCK5iPwkPhNnnLU8z3Ls7UZODkVvgmq+KUg4HxfnSCbsYb/90wZZPTYsaOwS4prQb9EW3tXIEAHLFUOqZeWGrR/Kk5OGAssPRe7ZmNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UCzEPP0/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EaUqloqy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1AF31F000E9;
-	Mon, 31 Aug 2026 15:02:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UCzEPP0/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DE421F000E9;
+	Mon, 31 Aug 2026 15:03:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788188559;
-	bh=C+pCREtFQwkT20iqaLyc0Hd0RC9syYGE2DcfobTAwNA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EaUqloqyuxlnfCqUSsbqAKqeud1q7C80WWI7C0AJMCTQpUQMkACHqRaMznwDc3A5U
-	 aHvX7v1NfltZMKUMZLgu/MNnhqOZPG4Uj+hf5hwge3wgnejSxrK0+TqwImRLr4fq9D
-	 a0v5xDhkAoPwEhANqCtNVNEHFi2MYfZ0NDf9LZzVczP9hGodi+X+Tf3LjxABkIn3h2
-	 NPgE7ONlnn6C7Re95i6fMQd1HwIyQga8UPP1hQkTSWfOToBwRofMfcY1JtO2Cnxb5I
-	 ZKmVJpuGrEbkfr3/HSW7Ojhr/iOJlcVRn3EJvc4iPS3vn9j3vGODl5uwz4I64QU/X4
-	 67EvLVs/dKY6A==
-Date: Mon, 31 Aug 2026 16:02:35 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-Cc: linux-bluetooth@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] Bluetooth: dt-bindings: net: bluetooth: add
- BCM4384
-Message-ID: <20260831-cosmic-crawling-cf0532d4d3c0@spud>
-References: <20260827110242.1203546-1-andy.chang@synaptics.corp-partner.google.com>
- <20260827110242.1203546-2-andy.chang@synaptics.corp-partner.google.com>
- <20260827-uncolored-onlooker-d62c44a3323b@spud>
- <CAF8VQdEA7=LRpHaVOVZxRi73kRf=0pK_etJOJ5oeULtgw4k5Bg@mail.gmail.com>
+	s=k20260515; t=1788188602;
+	bh=8fSdfrsulu5g0W5w5pyWz0kKJ1qwRHCJ9DqocKCmIgw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UCzEPP0/9N09l4VxyGThqOiGxHzKMVntjWZXWkV9LvSDJrjHBKjAuLUG2bso9k8gY
+	 RQ8eWyimAJwweGhzoF/n6bcXJOqN9zFRKTBg/ekww5t3bHHS9i2+s2f96HWWRCG2GF
+	 9Oz/EFfvh5lKhT6fB0RUFG3oLsczmckAByv0TrAfG3bghqI12JVzbUp/JxcTrSujJx
+	 yZIJuh1EFQWEtGjAd7cUTM3L+vxn2q9jkBjJE8/XAC696bCJ+be9qam6RGux3IGb9W
+	 vVlZOEMlxKoDwNWfoKGfF5B4AYlELti32lsrHpc34YImZvnYm8huCJx+pnnzlJPw2k
+	 r0irg62P1FGEw==
+Date: Mon, 31 Aug 2026 08:03:21 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, David Ahern
+ <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, Andrea Mayer
+ <andrea.mayer@uniroma2.it>, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, Hangbin Liu
+ <liuhangbin@kylinos.cn>
+Subject: Re: [PATCH net-next v2] selftests: net: move log_test to lib file
+ and remove duplicate code
+Message-ID: <20260831080321.59cc6af1@kernel.org>
+In-Reply-To: <20260831-self_log_test-v2-1-eda2e8490cf9@kylinos.cn>
+References: <20260831-self_log_test-v2-1-eda2e8490cf9@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Be5C8Jw/A1Wehthf"
-Content-Disposition: inline
-In-Reply-To: <CAF8VQdEA7=LRpHaVOVZxRi73kRf=0pK_etJOJ5oeULtgw4k5Bg@mail.gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
---Be5C8Jw/A1Wehthf
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Mon, 31 Aug 2026 17:21:28 +0800 Hangbin Liu wrote:
+> Many test scripts under tools/testing/selftests/net/ each define their own
+> log_test() function with near-identical logic for comparing a return
+> code against an expected value and printing OK/FAIL. Add a shared
+> log_test_expected() to lib.sh and replace each local definition with a
+> thin wrapper that delegates to it.
+> 
+> The function is named log_test_expected() rather than log_test() because
+> lib.sh already exports log_test() with a different signature used by
+> the forwarding tests.
+> 
+> Two tests required special handling:
+> 
+> - icmp_redirect.sh passed a fourth "xfail" argument to log_test(). The
+>   underlying issue has been fixed and the argument is always absent now,
+>   so it is simply dropped.
+> 
+> - fib_nexthops.sh checked for ksft_skip (exit code 4) inside log_test(),
+>   but no test in the file produces that code. The check is removed,
+>   callers that need to report a skip should use log_test_skip() instead.
+>   Two callers compared against exit code 2 are left as-is since code 2
+>   correctly counts as a failure in the previous log_test().
 
-On Mon, Aug 31, 2026 at 05:34:23PM +0800, Andy Chang wrote:
-> On Fri, Aug 28, 2026 at 12:38=E2=80=AFAM Conor Dooley <conor@kernel.org> =
-wrote:
-> >
-> > On Thu, Aug 27, 2026 at 07:02:41PM +0800, Andy Chang wrote:
-> > > Add the brcm,bcm4384-bt compatible string to support the
-> > > Synaptics BCM4384 Bluetooth controller.
-> >
-> > Please explain why a fallback compatible is not suitable here, or
-> > alternatively if it is, use one.
-> >
-> > pw-bot: changes-requested
-> >
-> > Thanks,
-> > Conor.
-> Hi Conor,
-> A fallback compatible is not suitable here because the BCM4384
-> controller requires a dedicated firmware patch file (.hcd) matching
-> its specific hardware ID and revision.
-> Falling back to an existing compatible would cause the driver to
-> request the wrong firmware binary and fail the controller
-> initialization.
-> Therefore, it requires a distinct compatible string.
-
-Cool, please put this info in the commit message.
-
-Thanks,
-Conor.
-
---Be5C8Jw/A1Wehthf
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWXiwAKCRB4tDGHoIJi
-0p4iAQCVA3m20ajQj2k9zBtN097mymUdLDsp1JMWDndTMrhANAD/Tytgo8aekMkc
-GfSxtdR9XDIIfvNCOseqR7jiWCDqEwg=
-=zh7V
------END PGP SIGNATURE-----
-
---Be5C8Jw/A1Wehthf--
+still breaks fib_tests.sh
