@@ -1,272 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105303AA1B6;
-	Mon, 31 Aug 2026 22:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E503C062F
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788216850; cv=none; b=AUe2UkrdBYG2dOTlTUFohVvW9NDltuE4zNVFBCh5JzFC1OgPYQBle0UE9MKQfWQd2599OEPhayzraTGasb1c2ASbRU5T1cLpAH83xZW+sN28dp8q/wLWZso1vtqOM5X2dZuC+Y4R907xk5TCDuntVHwas/zzC28rIlPtz7WP7i0=
+	t=1788216938; cv=none; b=WXz83z2Zs4z0/PAm14evb150KZ+ubO+2yNr0Hhg6CTCiYNm8JhLip63zqHuAMHhbrhCkKXZ/Y8m2z/4eHGOfu9oPxvbygBDKX7HqLHtVUx6L9CeZFz5VSnz56P4SOMwP89TpgTtbG/Xb39ra7ZESeMAJiu0SGls0IDt2TGyMdJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788216850; c=relaxed/simple;
-	bh=+kLJTOQcgtnujjFfaBXmldwr7QkPXcN2ecuSsR5BaNQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pp8DiRyeBZNS1e6vGlvKocEOTr6aPehDwCLYcgjsRsvUv2g3VxUT6eUSvXE3urWpZMeKRnxu98VeRf+XmsyfP1fSOfXuOySMXKf2FZ/lgwBje6P5cshV7cQIekV5hK9NgDH7/ZlzHNfPLjCAglowJfRNxPrmL1pzQAp+FtesOp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JNp2Fa+/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788216938; c=relaxed/simple;
+	bh=WtJVD2iK5o1Lc1dt5b26jeR027bI01ZPZnTWx/wR+Hw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M2cPgksMAwrtGyTnChJREEtB7r5vme60CH0qmH8c99jx44zncWyNSm2cP0FPhGgsBfm3EjvbJA+Z2FTDRQ1Dyguw1i1Gev0Yt67//lFwvuXnY3KVep4arLXEpGmD+LH2Km4lO0zbKGMpUcul9jEgFw9EuvhP2j9gZNx3UezuCdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PzLvqxy9; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JNp2Fa+/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59E41F000E9;
-	Mon, 31 Aug 2026 22:54:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788216848;
-	bh=c1xMaguqzWma2hDRCTuvoAbCewOIauRAijFiNm/Uyco=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JNp2Fa+/GWKkskm9Xq2o/HbnOQ07uGP+J9wZ+Q1RVOqIDNsfFCDYXi//popRWtaz3
-	 IOY9tSvDrjMGJUKIk8k4eITONAW4NYZNhs2jLrP5Ra598P3XJFK+/R38dm7N05EIK8
-	 jFVmsS6xUVHiZ0MTzzz+syUmpvf3W/Eo01FWAfMRLGNAe0G9tNvQvex5okhF50KEv4
-	 HEGbECO+libvCiQAFZ/OvdpBmOoeK4XpCrwHnyxsf8b9dutgGoRGvj9mE/y/nPDwq3
-	 daHl8lgTAENtYGU1jNwNHmmIG6i9goDTixqEXhCbwBApQBha2IBe2NkPoFNFmOylti
-	 6cAiVN7FDeY0A==
-Date: Mon, 31 Aug 2026 17:54:05 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Albert Esteve <aesteve@redhat.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Sudeepgoud Patil <quic_sudeepgo@quicinc.com>, 
-	Sarannya S <quic_sarannya@quicinc.com>, Pranav Mahesh Phansalkar <quic_pphansal@quicinc.com>
-Subject: Re: [PATCH 1/2] soc: qcom: smem: add boundary checks for partitions
-Message-ID: <apYFPXLD6hLWohz0@baldur>
-References: <20260820-port-smem-v1-0-d19a45f583bf@redhat.com>
- <20260820-port-smem-v1-1-d19a45f583bf@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PzLvqxy9"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-495590dde14so40691675e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:55:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788216935; x=1788821735; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3+ViYFK6cZ5RDnEJVte/faPIBmDF3fgsQUkS20n29yE=;
+        b=PzLvqxy99khyQT8UMXcMxgLjVG0xr/u/97yDxFMLd8dOv3aaFQuFRE+ZBur8zf5RQ/
+         7pqodILLRz/bcQ3uzGQ/rEchO7vOV7sswRav5MlBOhXpnh6C/0SrkSQRnOEgYKcP8QQ3
+         nnoDo5oA0zxIZSZESCRCbSqQDq9tY+FX2WdaWYx6Y0v3tnEiYNj9OI564kv4dFJevlMF
+         7c45znBGsq+dlQ8dpPWkUcx59o52Fcdn40DEb09kcmXel40Xf3miP+zypi188CAnDZ6J
+         mVG635/MkQZeTFOJ4GwQ9wTTQKPXD5Z02whPceUhLIqaqyQAuzS8bjIZiHPwODqqg/Bq
+         Nh/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788216935; x=1788821735;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3+ViYFK6cZ5RDnEJVte/faPIBmDF3fgsQUkS20n29yE=;
+        b=lbhbwEobiPhiX3Gn/sIgTqfogay69/7jP+Cx3JPS6vMB6PYL4U7OYc0Vwf5/lAkTnV
+         7CCDBvr9gFRhi/Ghqpc7xvRVuCm7pc9zO5N5+33bfPBXKhNG9gVWgfknWPeiJLqDGUxI
+         BvTtoUkaYqcd+Mrp4EpbVtrFLuVG7xFGviWcaIxRiu93lT0QZGErWFDfpH1bDsAcyQgf
+         LStPFV4WKlB4Y1MQGY1/lUgnNyPVHu/TdNQ3irADdnKsjxZHHurpd/XaYPsOo0eKHPOb
+         yFe/C1svOjuH8hNPXGjmlzEfsOBYEw+lb0tuK+LgfxXs4ScCoDNrO897ghA8ZS+/D1TA
+         ajfw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/amJuAJKHpCDpdwCFtwn0qw8yrzMfUsVuje00VYpVloldc2xaGrKMkr0M1dfW3mRwjU8rS229MAsuuBI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjADHdaRQ046HKSb3DrZrpMMKUKUJ/kM0iwQCt2HSeezCdsXFZ
+	3rbkf/dAkX7KeHaFjYYUOcMJB+6Nhn8HkEwxp6Cvt0OgP3dovURNGjrQ
+X-Gm-Gg: AR+sD12286AXylr0Dt8fz7FkVcPey6EQyLrz+DSGzlboh8t2jAnt1EC4aXdU0IAiJ1C
+	TMzQrr+RhZEWaZwpHHepOudtr0gTnmCqfGCCo+NlQ2g3ik58VsIJRxkvECbGr/DcdzKmVrzJjCV
+	vKqn8Mp92/zzZi10DxpIeoPYz5fLnbmGG37kYxYiZ8+L1jJ1Zw1JDWCrNaVstsqbRvnLc+Cg8mq
+	VlflNyDSV8WDZGcIk4ZUunqo8ANZgmw3nfN7mWYASyzhmUTz1+LzT/HzdHGcXsXMpZVY1XduGTf
+	nEJgxJcUUsJNHD1jZz9fntUGjE6vKGX0fX3HqtIXjhaN2kHJDzIrdxu62jYAEODeS+QeC9SrgVB
+	KPy9VJ7qAjTNKN3UEDaiy2CHNLzogeWd9wDVfKY5YEGrUkhJgUztqkPMZalZqQqWxCFfuLvSsTc
+	i3R1aVEigb0x6Q4Vds62Xz0lbJRuhPz0BtVIAhdDamlm5of/T1cwr56T1iIp0TNkg0uLBVqDo5+
+	6t2IOu0/di1Ny+E7CK7gu+yVA==
+X-Received: by 2002:a05:600c:3b13:b0:495:4d5c:903e with SMTP id 5b1f17b1804b1-49cdc4332d4mr66819045e9.7.1788216934602;
+        Mon, 31 Aug 2026 15:55:34 -0700 (PDT)
+Received: from GLaDOS.station ([187.14.102.81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce10153sm24452615e9.4.2026.08.31.15.55.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 15:55:33 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Marek Vasut <marex@nabladev.com>
+Subject: [PATCH v8 0/3] Add support for Variscite VAR-SOM-MX7 and MX7CustomBoard
+Date: Tue,  1 Sep 2026 00:55:17 +0200
+Message-ID: <cover.1788184274.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820-port-smem-v1-1-d19a45f583bf@redhat.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 20, 2026 at 01:34:18PM +0200, Albert Esteve wrote:
-> From: Sudeepgoud Patil <quic_sudeepgo@quicinc.com>
-> 
-> Add condition check to make sure that the end address
-> of private entry does not go out of partition.
-> 
-> Signed-off-by: Sarannya S <quic_sarannya@quicinc.com>
-> Signed-off-by: Pranav Mahesh Phansalkar <quic_pphansal@quicinc.com>
-> Signed-off-by: Sudeepgoud Patil <quic_sudeepgo@quicinc.com>
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+This patch series adds support for the Variscite VAR-SOM-MX7 system on
+module and the MX7CustomBoard carrier board.
 
-I'm sorry, Albert. Sudeepgoud messed up the authorship vs signed-off-by
-chain here. The author should be "Sarannya", as that's the first
-signed-off-by.
+The series includes:
 
-PS. It would also be nice if this was submitted with updated email
-addresses and copyright statement. But I'd not expect you to fix that.
+- DT bindings for the supported VAR-SOM-MX7 board configurations
+- VAR-SOM-MX7 device tree support, including V1 and V2 hardware revisions
+- MX7CustomBoard carrier board support
+- eMMC and NAND storage variants
+- optional WM8731 audio codec support
 
-Regards,
-Bjorn
+The implementation follows the standard SOM + carrier board pattern,
+where the common SOM dtsi contains the on-module peripherals and
+hardware revision differences, while the MX7CustomBoard dtsi contains
+the carrier-specific interfaces.
 
-> ---
->  drivers/soc/qcom/smem.c | 105 +++++++++++++++++++++++++++++++++---------------
->  1 file changed, 72 insertions(+), 33 deletions(-)
-> 
-> diff --git a/drivers/soc/qcom/smem.c b/drivers/soc/qcom/smem.c
-> index afb21a778fe7b..194ffb2ac010f 100644
-> --- a/drivers/soc/qcom/smem.c
-> +++ b/drivers/soc/qcom/smem.c
-> @@ -2,6 +2,7 @@
->  /*
->   * Copyright (c) 2015, Sony Mobile Communications AB.
->   * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
-> + * Copyright (c) 2023-2024 Qualcomm Innovation Center, Inc. All rights reserved.
->   */
->  
->  #include <linux/hwspinlock.h>
-> @@ -85,6 +86,17 @@
->  /* Processor/host identifier for the global partition */
->  #define SMEM_GLOBAL_HOST	0xfffe
->  
-> +/* Entry range check
-> + * ptr >= start : Checks if ptr is greater than the start of access region
-> + * ptr + size >= ptr: Check for integer overflow (On 32bit system where ptr
-> + * and size are 32bits, ptr + size can wrap around to be a small integer)
-> + * ptr + size <= end: Checks if ptr+size is less than the end of access region
-> + */
-> +#define IN_PARTITION_RANGE(ptr, size, start, end)		\
-> +	(((void *)(ptr) >= (void *)(start)) &&			\
-> +	 (((void *)(ptr) + (size)) >= (void *)(ptr)) &&	\
-> +	 (((void *)(ptr) + (size)) <= (void *)(end)))
-> +
->  /**
->    * struct smem_proc_comm - proc_comm communication struct (legacy)
->    * @command:	current command to be executed
-> @@ -403,6 +415,7 @@ static int qcom_smem_alloc_private(struct qcom_smem *smem,
->  				   size_t size)
->  {
->  	struct smem_private_entry *hdr, *end;
-> +	struct smem_private_entry *next_hdr;
->  	struct smem_partition_header *phdr;
->  	size_t alloc_size;
->  	void *cached;
-> @@ -415,19 +428,25 @@ static int qcom_smem_alloc_private(struct qcom_smem *smem,
->  	end = phdr_to_last_uncached_entry(phdr);
->  	cached = phdr_to_last_cached_entry(phdr);
->  
-> -	if (WARN_ON((void *)end > p_end || cached > p_end))
-> +	if (WARN_ON(!IN_PARTITION_RANGE(end, 0, phdr, cached) ||
-> +						cached > p_end))
->  		return -EINVAL;
->  
-> -	while (hdr < end) {
-> +	while ((hdr < end) && ((hdr + 1) < end)) {
->  		if (hdr->canary != SMEM_PRIVATE_CANARY)
->  			goto bad_canary;
->  		if (le16_to_cpu(hdr->item) == item)
->  			return -EEXIST;
->  
-> -		hdr = uncached_entry_next(hdr);
-> +		next_hdr = uncached_entry_next(hdr);
-> +
-> +		if (WARN_ON(next_hdr <= hdr))
-> +			return -EINVAL;
-> +
-> +		hdr = next_hdr;
->  	}
->  
-> -	if (WARN_ON((void *)hdr > p_end))
-> +	if (WARN_ON((void *)hdr > (void *)end))
->  		return -EINVAL;
->  
->  	/* Check that we don't grow into the cached region */
-> @@ -587,9 +606,11 @@ static void *qcom_smem_get_private(struct qcom_smem *smem,
->  				   unsigned item,
->  				   size_t *size)
->  {
-> -	struct smem_private_entry *e, *end;
-> +	struct smem_private_entry *e, *uncached_end, *cached_end;
-> +	struct smem_private_entry *next_e;
->  	struct smem_partition_header *phdr;
->  	void *item_ptr, *p_end;
-> +	size_t entry_size = 0;
->  	u32 padding_data;
->  	u32 e_size;
->  
-> @@ -597,67 +618,85 @@ static void *qcom_smem_get_private(struct qcom_smem *smem,
->  	p_end = (void *)phdr + part->size;
->  
->  	e = phdr_to_first_uncached_entry(phdr);
-> -	end = phdr_to_last_uncached_entry(phdr);
-> +	uncached_end = phdr_to_last_uncached_entry(phdr);
-> +	cached_end = phdr_to_last_cached_entry(phdr);
-> +
-> +	if (WARN_ON(!IN_PARTITION_RANGE(uncached_end, 0, phdr, cached_end)
-> +					|| (void *)cached_end > p_end))
-> +		return ERR_PTR(-EINVAL);
->  
-> -	while (e < end) {
-> +	while ((e < uncached_end) && ((e + 1) < uncached_end)) {
->  		if (e->canary != SMEM_PRIVATE_CANARY)
->  			goto invalid_canary;
->  
->  		if (le16_to_cpu(e->item) == item) {
-> -			if (size != NULL) {
-> -				e_size = le32_to_cpu(e->size);
-> -				padding_data = le16_to_cpu(e->padding_data);
-> +			e_size = le32_to_cpu(e->size);
-> +			padding_data = le16_to_cpu(e->padding_data);
->  
-> -				if (WARN_ON(e_size > part->size || padding_data > e_size))
-> -					return ERR_PTR(-EINVAL);
-> +			if (e_size < part->size && padding_data < e_size)
-> +				entry_size = e_size - padding_data;
-> +			else
-> +				return ERR_PTR(-EINVAL);
->  
-> -				*size = e_size - padding_data;
-> -			}
-> +			item_ptr =  uncached_entry_to_item(e);
->  
-> -			item_ptr = uncached_entry_to_item(e);
-> -			if (WARN_ON(item_ptr > p_end))
-> +			if (WARN_ON(!IN_PARTITION_RANGE(item_ptr, entry_size, e, uncached_end)))
->  				return ERR_PTR(-EINVAL);
->  
-> +			if (size != NULL)
-> +				*size = entry_size;
-> +
->  			return item_ptr;
->  		}
->  
-> -		e = uncached_entry_next(e);
-> -	}
-> +		next_e = uncached_entry_next(e);
-> +		if (WARN_ON(next_e <= e))
-> +			return ERR_PTR(-EINVAL);
->  
-> -	if (WARN_ON((void *)e > p_end))
-> +		e = next_e;
-> +	}
-> +	if (WARN_ON((void *)e > (void *)uncached_end))
->  		return ERR_PTR(-EINVAL);
->  
->  	/* Item was not found in the uncached list, search the cached list */
->  
-> +	if (cached_end == p_end)
-> +		return ERR_PTR(-ENOENT);
-> +
->  	e = phdr_to_first_cached_entry(phdr, part->cacheline);
-> -	end = phdr_to_last_cached_entry(phdr);
->  
-> -	if (WARN_ON((void *)e < (void *)phdr || (void *)end > p_end))
-> +	if (WARN_ON(!IN_PARTITION_RANGE(cached_end, 0, uncached_end, p_end) ||
-> +			!IN_PARTITION_RANGE(e, sizeof(*e), cached_end, p_end)))
->  		return ERR_PTR(-EINVAL);
->  
-> -	while (e > end) {
-> +	while (e > cached_end) {
->  		if (e->canary != SMEM_PRIVATE_CANARY)
->  			goto invalid_canary;
->  
->  		if (le16_to_cpu(e->item) == item) {
-> -			if (size != NULL) {
-> -				e_size = le32_to_cpu(e->size);
-> -				padding_data = le16_to_cpu(e->padding_data);
-> +			e_size = le32_to_cpu(e->size);
-> +			padding_data = le16_to_cpu(e->padding_data);
->  
-> -				if (WARN_ON(e_size > part->size || padding_data > e_size))
-> -					return ERR_PTR(-EINVAL);
-> -
-> -				*size = e_size - padding_data;
-> -			}
-> +			if (e_size < part->size && padding_data < e_size)
-> +				entry_size  = e_size - padding_data;
-> +			else
-> +				return ERR_PTR(-EINVAL);
->  
-> -			item_ptr = cached_entry_to_item(e);
-> -			if (WARN_ON(item_ptr < (void *)phdr))
-> +			item_ptr =  cached_entry_to_item(e);
-> +			if (WARN_ON(!IN_PARTITION_RANGE(item_ptr, entry_size, cached_end, e)))
->  				return ERR_PTR(-EINVAL);
->  
-> +			if (size != NULL)
-> +				*size = entry_size;
-> +
->  			return item_ptr;
->  		}
->  
-> -		e = cached_entry_next(e, part->cacheline);
-> +		next_e = cached_entry_next(e, part->cacheline);
-> +		if (WARN_ON(next_e >= e))
-> +			return ERR_PTR(-EINVAL);
-> +
-> +		e = next_e;
->  	}
->  
->  	if (WARN_ON((void *)e < (void *)phdr))
-> 
-> -- 
-> 2.55.0
-> 
+The final board device trees combine the supported VAR-SOM-MX7
+configurations with the MX7CustomBoard carrier board.
+
+v7->v8:
+ - Fixed commit message adding wm8904
+
+v6->v7:
+ - Added common dtsi for wm8904 codec removing it from base dtsi
+ - Spacing cleanup
+
+v5->v6:
+ - Removed unused 100mhz and 200mhz pinctrl
+
+v4->v5:
+ - Removed wrong gpio-hog
+
+v3->v4:
+ - Fixed non-generic names and wrong separators
+ - Fixed ads7846_ts pendown gpio
+
+v2->v3:
+ - Removed wrong header in dtsi
+ - Fixed pinctrl name
+ - Fixed sai clocks
+
+v1->v2:
+ - Fixed commit messages and spacing
+ - Moved ethphy1 reset pin mux
+ - Fixed irq types
+ - Removed duplicate assigned-clock-rates property
+ - fixed wifi child node name
+ - Added color property in gpio led definition
+ - Updated deprecated reset-gpio property
+ - Added disable-over-current property in usb nodes
+ - Fixed model names
+
+Stefano Radaelli (3):
+  dt-bindings: arm: fsl: add Variscite VAR-SOM-MX7 boards
+  ARM: dts: imx7d: add Variscite VAR-SOM-MX7 support
+  ARM: dts: imx7d: add Variscite MX7CustomBoard support
+
+ .../devicetree/bindings/arm/fsl.yaml          |  17 +
+ arch/arm/boot/dts/nxp/imx/Makefile            |   6 +
+ .../imx/imx7d-var-som-emmc-mx7customboard.dts |  23 +
+ ...x7d-var-som-emmc-wm8731-mx7customboard.dts |  23 +
+ .../boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi  |  56 ++
+ .../nxp/imx/imx7d-var-som-mx7customboard.dtsi | 358 ++++++++++++
+ .../imx/imx7d-var-som-nand-mx7customboard.dts |  23 +
+ ...x7d-var-som-nand-wm8731-mx7customboard.dts |  23 +
+ .../boot/dts/nxp/imx/imx7d-var-som-nand.dtsi  |  73 +++
+ .../imx7d-var-som-v2-emmc-mx7customboard.dts  |  24 +
+ .../imx7d-var-som-v2-nand-mx7customboard.dts  |  24 +
+ .../boot/dts/nxp/imx/imx7d-var-som-v2.dtsi    |  66 +++
+ .../dts/nxp/imx/imx7d-var-som-wm8731.dtsi     | 102 ++++
+ .../dts/nxp/imx/imx7d-var-som-wm8904.dtsi     | 118 ++++
+ arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi  | 533 ++++++++++++++++++
+ 15 files changed, 1469 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-wm8731-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-emmc-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-nand-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8904.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi
+
+
+base-commit: 9400c5b6aa357be2379c98ae86a207bc21dc7a48
+-- 
+2.47.3
+
