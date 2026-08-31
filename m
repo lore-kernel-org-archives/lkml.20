@@ -1,113 +1,163 @@
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167B53BB687
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:44:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26093A9611;
+	Mon, 31 Aug 2026 05:45:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788155093; cv=none; b=GJw6EKSJBB+04EUVd6VN2Hemmr4m24B2tuRARO9fyjlyfmGnd6CR8vUqmfOj0OR56HuhAKKFW2DGbKuIanTatpPTAGWS0QhV2lsBUQxDNwSGCfaOWcak75EFI5YEGZxuMhMmmNrsjyM4CXscMHMOJjNQQTeufjGipgOZrrlU0es=
+	t=1788155152; cv=none; b=gyPLfQ9FEIVclkjL99JbEgzpoicoCK+Lzf52UKZxuBUresPZrT8Ick59lKW40vE8y9VZQQ7I3kqG9FyqdgmQBq1wwtzj6AqGrY/n41Z9+gM62r5hh+UbXnUwhXU5r4JtzxIsCXLnkdJPk4kCnXlF1Nup0wFb6xKWcR5xoxeIjNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788155093; c=relaxed/simple;
-	bh=Q6d6FOYr9hS3YI7ZdjePKvr3g+MLXtD9221bmjYfgkg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DqfTob40eFbv3Qk1iz9sKS+9ENN+px8L5Gvpd3P+xYPeapfM7zbF06PFxKS7NFLY/30LLG2+6+yYRtxpO5kvxDn/3okQuCg6Ba7Oy+gaYRIYMPromCaOdG5dkDY9BeHyJ/JQOOqzEzx9mBGsVsEXVuPDQlUJzp3fP1rEsTNeFq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2ccc2e84048so13576065ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:44:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788155090; x=1788759890;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+Leo4TEKbsifUY9qx8kiJwn0buLofMp6xUgFHSeJz9E=;
-        b=bs2q8lzPAB/J40pVPhoKWGAEst5/TUVAWziYu2PVK5d2s29Pibaqr6vgmdCGac7ITN
-         43rDJ3Gxx//slerbx1+d/UaYSsLh1SYDQdwNy2cZJZnxfxJteRA8XP4ShrCeR/AUfEkf
-         mYb/DnQ0PxboE7KQBVws0DPo7wuqqC9GkS5w9RZmOWOCTQM1vjVywfe1zOKHXtZL3SWr
-         SxeeQiAgJJweQltyFeiU4KyroUc/XtQG4CX6+g3b+dVNRzYDxTZSf4KOQ+/9RpI19GXK
-         BsucCAFzsi+1XUAJgVQRP4df7axoda4AdGgerHc3slIV8iqTAklm9r+ZTG9Jd4CKZVgs
-         rIJQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoXf4uB+HRvpEaKbnuNXu2w1XVTbd3C2KCeGljaoWM4tW5zDLBOY2vogqa7E18lRhWrFBpKvMokKPf5ZU0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWG8iKxsLM+azVrJgPl+fdqtN5zMTz+5DlTPa5gGqWRdAHYMAC
-	HOm27blYSjhAt8gZLNNiItGr4t9Qjb9bvAawiE2TbXfXh0Leta35FOPZ
-X-Gm-Gg: AYBFou2l43U5YiQ7iiwrFP7Qrabi6nThEx6CadBe+JDCpNVDaMPCCIsfSwWyA754AZ2
-	i8wnezCknkG7mQnwYg2Zw6rCBVISgST0iz6XlhhOHu02oeV2/iW/Bai1LtdvwftccvtVSBnSKku
-	B2W9ye9EZ19N9D7QdCfJrv1kVDmV3TinQgYWfM9EV3iql2gOjD5HD1LnoXmu+hX0BlgUCz2zFkx
-	Ds2llUg4yFRV8Vl9xVJqG9j3aBidc0aCeIqNLcydxKztkVEIUMVjK0HXMeJgZmlAUDIeh7HSHCS
-	3qGOj9oGf73un1D2q7zKorNfSUo2IFFNB3YlUaMh6/5vNPRSq+dXLZ/qSs+TCS6XQXmHsWZGbL1
-	ME8AaohGvm/CgSdqU1L6l8THgq/yhLp3qc+CttH19arzFtBvjffDAh60WGHT6HydvxKthCnp9ts
-	QWGiKXSKCNNLE3ZVLhfeW003tLyx5tYPTo04PfX9AYQ/k4zL8kW9WJ/FIUiADE+guspBWDvWN8Q
-	PxGII6UB0A0O/1S7gUp
-X-Received: by 2002:a17:902:d4c7:b0:2d8:d4d3:da51 with SMTP id d9443c01a7336-2d93fa47634mr13039775ad.21.1788155090238;
-        Sun, 30 Aug 2026 22:44:50 -0700 (PDT)
-Received: from kylin-XiaoXinPro-16-AHP9.. ([116.128.244.169])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d759869aeesm28826835ad.46.2026.08.30.22.44.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 22:44:49 -0700 (PDT)
-From: Xueqin Luo <luoxueqin@kylinos.cn>
-To: rafael@kernel.org,
-	viresh.kumar@linaro.org,
-	zhongqiu.han@oss.qualcomm.com
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xueqin Luo <luoxueqin@kylinos.cn>
-Subject: [PATCH v2] cpufreq: sparc-us2e: fix frequency table index copy-paste error
-Date: Mon, 31 Aug 2026 13:44:38 +0800
-Message-ID: <20260831054438.3632612-1-luoxueqin@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1788155152; c=relaxed/simple;
+	bh=ZBy5f3YIs+HPHeNGQbgNnVreK4PHfNj6LSMcH3+gr4w=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=DlGfWimOsy2OryE9Wxz0nbkreAGF03ORir1Y7H8haSEgDc+McZGGvTpTINIrTAVHk2deTX3xvoj4wU4jBqV9Vc2qzxpUu3JssPGq+vop6g/HIwkDxt8296gO2hFA9MNM3F0psVPNgT6Z6VBRFVWzYYwBvXTkSIUSFqzDBiTPXYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=i1agS4Ur; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="i1agS4Ur"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:a9ae:3688:6dfb:71b0])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id C15BB4BB;
+	Mon, 31 Aug 2026 07:44:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788155057;
+	bh=ZBy5f3YIs+HPHeNGQbgNnVreK4PHfNj6LSMcH3+gr4w=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=i1agS4Ur9MZs/4XCx02eKMZs0OAJE6nCbd1ZG/M39j/SQ7dTGiOKItGaddUAH7ogT
+	 Gm1GYBZHShM77lIYROufvvarrInhDqTFXaWsZnVpSNV+SiWdpdjpkwQrVx4uBYgM92
+	 2BDvOhOoooIDzADsjREBkm7XHDK4eBTk7p47IyKg=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260717-b4-vchiq-isp-v3-2-fb8235e15c68@ideasonboard.com>
+References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com> <20260717-b4-vchiq-isp-v3-2-fb8235e15c68@ideasonboard.com>
+Subject: Re: [PATCH v3 2/9] platform/raspberrypi: vchiq-mmal: Move headers to include/linux
+From: Paul Elder <paul.elder@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Jai Luthra <jai.luthra@ideasonboard.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>, Jai Luthra <jai.luthra@ideasonboard.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Tomasz Figa <tfiga@chromium.org>
+Date: Mon, 31 Aug 2026 14:45:40 +0900
+Message-ID: <178815514049.1005982.6076319807701926619@neptunite.rasen.tech>
+User-Agent: alot/0.0.0
 
-In us2e_freq_cpu_init(), the last two frequency writes both use
-index [2] instead of [3] and [4] respectively, and the terminator
-uses [3] instead of [5].  This is a copy-paste error where the index
-was not incremented, causing the divider-6 and divider-8 entries to
-overwrite the already-written divider-4 entry.
+Quoting Jai Luthra (2026-07-17 20:04:17)
+> Now that VCHIQ interface is destaged, different drivers (like ISP or
+> codec) no longer live under the same tree as VCHIQ-MMAL, but in their
+> relevant trees like media or audio.
+>=20
+> Enable access to the MMAL headers for such drivers by moving them under
+> include/linux/raspberrypi with other VCHIQ headers.
+>=20
+> Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 
-As a result, only three frequency steps (div 1, 2, and 4) are actually
-available to the cpufreq core, while the intended dividers 6 and 8 are
-silently lost.  The struct us2e_freq_percpu_info::table[6] has room for
-5 entries plus a terminator, matching the 5 hardware dividers.
+Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
 
-Fix the indices so all five frequency steps are correctly populated:
-table[0]=div1, table[1]=div2, table[2]=div4, table[3]=div6,
-table[4]=div8, table[5]=TABLE_END.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
----
-v2: Correct commit message per Zhongqiu Han's review, no code change.
----
- drivers/cpufreq/sparc-us2e-cpufreq.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/cpufreq/sparc-us2e-cpufreq.c b/drivers/cpufreq/sparc-us2e-cpufreq.c
-index a68706406b88..5cda391ad03b 100644
---- a/drivers/cpufreq/sparc-us2e-cpufreq.c
-+++ b/drivers/cpufreq/sparc-us2e-cpufreq.c
-@@ -282,12 +282,11 @@ static int us2e_freq_cpu_init(struct cpufreq_policy *policy)
- 	table[1].frequency = clock_tick / 2;
- 	table[2].driver_data = 2;
- 	table[2].frequency = clock_tick / 4;
--	table[2].driver_data = 3;
--	table[2].frequency = clock_tick / 6;
--	table[2].driver_data = 4;
--	table[2].frequency = clock_tick / 8;
--	table[2].driver_data = 5;
--	table[3].frequency = CPUFREQ_TABLE_END;
-+	table[3].driver_data = 3;
-+	table[3].frequency = clock_tick / 6;
-+	table[4].driver_data = 4;
-+	table[4].frequency = clock_tick / 8;
-+	table[5].frequency = CPUFREQ_TABLE_END;
- 
- 	policy->cpuinfo.transition_latency = 0;
- 	policy->cur = clock_tick;
--- 
-2.43.0
-
+> ---
+> Changes in v3:
+> - Split missing includes patch
+> - Update commit message
+> ---
+>  MAINTAINERS                                                      | 1 +
+>  drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c             | 9 +++=
++-----
+>  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-common.h       | 0
+>  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-encodings.h    | 0
+>  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-msg-common.h   | 0
+>  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-msg-format.h   | 0
+>  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-msg-port.h     | 0
+>  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-msg.h          | 0
+>  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-parameters.h   | 0
+>  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-vchiq.h        | 0
+>  10 files changed, 5 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index f81226569eb2..d570a293b1d1 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -5114,6 +5114,7 @@ F:        Documentation/devicetree/bindings/pci/brc=
+m,stb-pcie.yaml
+>  F:     drivers/pci/controller/pcie-brcmstb.c
+>  F:     drivers/platform/raspberrypi/vchiq-*
+>  F:     drivers/staging/vc04_services
+> +F:     include/linux/raspberrypi/mmal*
+>  F:     include/linux/raspberrypi/vchiq*
+>  N:     bcm2711
+>  N:     bcm2712
+> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c b/drive=
+rs/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
+> index ccd8910c315f..80406e1f4bdc 100644
+> --- a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
+> +++ b/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
+> @@ -22,17 +22,16 @@
+>  #include <linux/mm.h>
+>  #include <linux/slab.h>
+>  #include <linux/completion.h>
+> +#include <linux/raspberrypi/mmal-common.h>
+> +#include <linux/raspberrypi/mmal-parameters.h>
+> +#include <linux/raspberrypi/mmal-vchiq.h>
+> +#include <linux/raspberrypi/mmal-msg.h>
+>  #include <linux/raspberrypi/vchiq.h>
+>  #include <linux/raspberrypi/vchiq_arm.h>
+>  #include <linux/raspberrypi/vc_sm_knl.h>
+>  #include <linux/vmalloc.h>
+>  #include <media/videobuf2-vmalloc.h>
+> =20
+> -#include "mmal-common.h"
+> -#include "mmal-parameters.h"
+> -#include "mmal-vchiq.h"
+> -#include "mmal-msg.h"
+> -
+>  /*
+>   * maximum number of components supported.
+>   * This matches the maximum permitted by default on the VPU
+> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h b/incl=
+ude/linux/raspberrypi/mmal-common.h
+> similarity index 100%
+> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
+> rename to include/linux/raspberrypi/mmal-common.h
+> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-encodings.h b/i=
+nclude/linux/raspberrypi/mmal-encodings.h
+> similarity index 100%
+> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-encodings.h
+> rename to include/linux/raspberrypi/mmal-encodings.h
+> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-common.h b/=
+include/linux/raspberrypi/mmal-msg-common.h
+> similarity index 100%
+> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-common.h
+> rename to include/linux/raspberrypi/mmal-msg-common.h
+> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-format.h b/=
+include/linux/raspberrypi/mmal-msg-format.h
+> similarity index 100%
+> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-format.h
+> rename to include/linux/raspberrypi/mmal-msg-format.h
+> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-port.h b/in=
+clude/linux/raspberrypi/mmal-msg-port.h
+> similarity index 100%
+> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-port.h
+> rename to include/linux/raspberrypi/mmal-msg-port.h
+> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-msg.h b/include=
+/linux/raspberrypi/mmal-msg.h
+> similarity index 100%
+> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-msg.h
+> rename to include/linux/raspberrypi/mmal-msg.h
+> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-parameters.h b/=
+include/linux/raspberrypi/mmal-parameters.h
+> similarity index 100%
+> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-parameters.h
+> rename to include/linux/raspberrypi/mmal-parameters.h
+> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h b/inclu=
+de/linux/raspberrypi/mmal-vchiq.h
+> similarity index 100%
+> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h
+> rename to include/linux/raspberrypi/mmal-vchiq.h
+>=20
+> --=20
+> 2.54.0
+>=20
+>
