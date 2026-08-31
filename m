@@ -1,160 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43A7468C29;
-	Mon, 31 Aug 2026 17:13:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F0D468C28;
+	Mon, 31 Aug 2026 17:13:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788196388; cv=none; b=TeV4eRdGTajafqsSQeP2hlyj7UgnZzoSF54ACSdjutpst28oH8e1bkpnh9lcKezORKLAJmdrsCqQenWtR/Hgnj3agG75CQHnZSCkNZ2clH5Hs+E4jyj2GQUNRKgN1qeQBEu2xNIuZ4YGuxQKCEFxH4ipM2LalbDa+qVOXL1SQ7g=
+	t=1788196420; cv=none; b=LeWvlh94SXLjnmtVBY6/0rowmvSBrWIv3HPgBvdmZBmMmhkLeVAg7wd3WNwB/qt4ZUgXexG+rDnXhtoHL/tb+n46TlvTCfbz69dhY/ioFOajBYbv3ooQb9Px63Va4qtxzCBwvo59Njx8PZoChxp/IP6VCB8XrixEokPPCxjx9pA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788196388; c=relaxed/simple;
-	bh=YjnEkHVaf5Olii24ZMCxUn/VOiymgJjMZdMxFngaIGk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g3SluRodv3QK5T+HJue8oJDJJbmqQwdjf1f5es1vl0tzmkvtHk9sbHPH/FVQbrsvDspcH7UUSg/WMwxYQ3JmN1B0hqAjsVEoaFYf6V/iqIoWEbKwTPZjYOelRi+HM/jwnCFREhqaK8C7PZbur7PT7TxvqNMza9Ewi1GcCRudFz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dOugAfkn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788196420; c=relaxed/simple;
+	bh=KTJu/kjJxksqIgM6W7l40pfwtu9qTxLS8TUVQjcOX/U=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RTrsH8gjeDh96uhllZckiYo/G19FZDpOdtXYZfHxVXEJrovp670f5ZSWdN3M5umQG86Tsh45Jgpxf9K0PqHiCeqPa1gf40xlDta7eMYoZxRjak8VdwuhjbZxum4TG3n3H60SIL1owvQzjHOqVMk6lYZ94BM1+g+1bnB2gdk3Hzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=3ChZsEk2; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dOugAfkn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA9C91F000E9;
-	Mon, 31 Aug 2026 17:13:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788196387;
-	bh=9NBepZs32jJuyj31qdS12NqahL9gkzrdWlTOwWDa6Zk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dOugAfknSWYgpXqCWh5rgXHbGJ32ERGty7oL7RF7QXjEtJoymox+iCZiXcwS64z0J
-	 SkDKOlGs6XAJmR326V35Jrou5sKhsBBvWSfCHEt/azJYFuriPC3rrGsl8688Wh7HLl
-	 tFAFxtA29z+jaizrYQmqG3o3wTEkFfWkCSeGFO3MfZSKeRTabFuwAI6mkzb5tdCSnr
-	 +p895wkSfO5L5zTLhCh2XrZHQxiqFcqz20ty/2eQagWLDcqqK2jUNeKZcAsMBe9UDJ
-	 fynXLcSVQSz4HRVqXCUk7GC2LtSf/fA3LUPibMsi0RKzqzzi8vhPUq3nKa6ZWrGUEs
-	 DSvDAt1VG5Itg==
-Date: Mon, 31 Aug 2026 18:13:02 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-arm-kernel@lists.infradead.org,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christophe Roullier <christophe.roullier@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
-	Rob Herring <robh@kernel.org>,
-	Yannick Fertre <yannick.fertre@foss.st.com>,
-	devicetree@vger.kernel.org, kernel@dh-electronics.com,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH v4 1/2] dt-bindings: arm: stm32: Document
- st,stm32mp23/25-syscfg subnodes and cells
-Message-ID: <20260831-craftily-operative-ac855bdbe897@spud>
-References: <20260828151216.175020-1-marex@nabladev.com>
- <20260828-target-operable-ebc87e0bf30a@spud>
- <0f959651-34d9-4fb2-9e07-238f731c5342@nabladev.com>
- <20260831-clustered-margarine-80bf19005aad@spud>
- <2b09012a-3cae-4589-b42d-f61d33f2f876@nabladev.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="3ChZsEk2"
+Received: from omf10.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id 1E43C1C0AA5;
+	Mon, 31 Aug 2026 17:13:36 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf10.hostedemail.com (Postfix) with ESMTPA id DD2A630;
+	Mon, 31 Aug 2026 17:13:32 +0000 (UTC)
+Date: Mon, 31 Aug 2026 13:14:29 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>,
+ x86@kernel.org, Jinchao Wang <wangjinchao600@gmail.com>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Ian Rogers <irogers@google.com>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH 2/2] tracing/probes: Fix BTF kflag check for anonymous
+ struct member access
+Message-ID: <20260831131429.0c949991@gandalf.local.home>
+In-Reply-To: <178818877624.104360.10938474138218043559.stgit@devnote2>
+References: <178818875393.104360.1469039168635349344.stgit@devnote2>
+	<178818877624.104360.10938474138218043559.stgit@devnote2>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2GKJtW1sIt798CcL"
-Content-Disposition: inline
-In-Reply-To: <2b09012a-3cae-4589-b42d-f61d33f2f876@nabladev.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: qkcgswixxk1xf51ddgqwr5gctckf9ahf
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: DD2A630
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/UFD8goJsadzEunf2mjYFyH4I5BI2DOcc=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=dZikL9fK9cf5YVH6B4xPPjKZ0oFUBJT7ZPBvy1fSxLg=; b=3ChZsEk2lnPWSPYgqTGsnrwEZwA38MH4mCFJdSZ3/Ubbk4+CCQt4Nwe5+3DeWoqOr7Q6wqIMDUkLlCj59dCosMg5T91LcBeBh6VWDbeWv6059pwVULEcXRJc8Iejt8yjeTeOlSQHoKiWOTYwLZsTtvH1ckqkmyDfS/KDeci6R9o=
+X-HE-Tag: 1788196412-118431
+X-HE-Meta: U2FsdGVkX1/MOib4Vh0/nc0IypkRyowKuc6rBLPhUJPSJFN+i3pUPytbbdnPBORdjH/9ks8nrwpwVc4BXEd2OggCI6ebhIN2xfgMNObe+a13gvUSAjPn+Tw5386J96z6yiFHtKI8exqR2Cpo71SKTtGQh8SBgUhzONnppsa1N51dwADK+VqNTfeKxecUw9u/0FtF2j1tNr1i+IRLJMy/yvBJy9sAbrO8CPp/+n5RTW39TDLGvgwNjUQwGRA44ZWE3XpaF5IyjTmUZYrPZ224F2EhxkZsWp74aRId7dYixRQxVzv3hWNOsgDENXdimuWkwitoAP0EBQVFtiExZKdXP+3oO6xsP8/w
 
---2GKJtW1sIt798CcL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue,  1 Sep 2026 00:06:16 +0900
+"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
+> diff --git a/kernel/trace/trace_btf.h b/kernel/trace/trace_btf.h
+> index 4bc44bc261e6..4bd26bceae23 100644
+> --- a/kernel/trace/trace_btf.h
+> +++ b/kernel/trace/trace_btf.h
+> @@ -8,4 +8,5 @@ const struct btf_param *btf_get_func_param(const struct btf_type *func_proto,
+>  const struct btf_member *btf_find_struct_member(struct btf *btf,
+>  						const struct btf_type *type,
+>  						const char *member_name,
+> -						u32 *anon_offset);
+> +						u32 *anon_offset,
+> +						const struct btf_type **member_type);
+> diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
+> index c4163904ba74..ce2a7bb00d28 100644
+> --- a/kernel/trace/trace_probe.c
+> +++ b/kernel/trace/trace_probe.c
+> @@ -625,6 +625,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
+>  {
+>  	const struct btf_type *type = *ptype;
+>  	const struct btf_member *field;
+> +	const struct btf_type *mtype = NULL;
 
-On Mon, Aug 31, 2026 at 06:27:21PM +0200, Marek Vasut wrote:
-> On 8/31/26 5:05 PM, Conor Dooley wrote:
->=20
-> Hello Conor,
->=20
-> > > > Sashiko comment here I believe is valid, the syntax here only works=
- if
-> > > > there's only the listed compatible present. It doesn't work with
-> > > > fallbacks.
-> > >=20
-> > > This syntax is used all over the place ?
-> > >=20
-> > > Documentation/devicetree/bindings/ata/ahci-platform.yaml-allOf:
-> > > Documentation/devicetree/bindings/ata/ahci-platform.yaml-  - $ref:
-> > > ahci-common.yaml#
-> > > Documentation/devicetree/bindings/ata/ahci-platform.yaml-
-> > > Documentation/devicetree/bindings/ata/ahci-platform.yaml-  - if:
-> > > Documentation/devicetree/bindings/ata/ahci-platform.yaml-      proper=
-ties:
-> > > Documentation/devicetree/bindings/ata/ahci-platform.yaml-        comp=
-atible:
-> > > Documentation/devicetree/bindings/ata/ahci-platform.yaml:          co=
-ntains:
-> >=20
-> >                                                                       ^=
-^^^^^^^
-> > This is the key difference, you need "contains" for partial matches.
->=20
-> Uh ... right ... fixed in V5. Thank you.
->=20
-> > > Documentation/devicetree/bindings/ata/ahci-platform.yaml-            =
-enum:
-> > > Documentation/devicetree/bindings/ata/ahci-platform.yaml-            =
-  -
-> > > qcom,apq8064-ahci
-> > > Documentation/devicetree/bindings/ata/ahci-platform.yaml-            =
-  -
-> > > qcom,ipq806x-ahci
-> > >=20
-> > > > pw-bot: changes-requested
-> > > >=20
-> > > > >        then:
-> > > > >          required:
-> > > > >            - "#clock-cells"
-> > > > > +        - "#address-cells"
-> > > > > +        - "#size-cells"
-> > > >=20
-> > > > else, false? But I'm also not sure what the benefit is of requiring
-> > > > addr/size cells when the child node is not?
-> > > The subnodes of this syscfg node have reg property , see [PATCH v4 0/=
-4]
-> > > arm64: dts: st: Add STM32MP2 USB support .
-> >=20
-> > Right, but I was questioning why the properties describing the reg
-> > property in children is required when the children (and thus the reg
-> > property in them) were not made required.
->=20
-> Do you mean this patternProperties should be made required in here ?
->=20
-> "
-> +patternProperties:
-> +  "^phy@[0-9a-f]+$":
-> "
->=20
-> Could you please give me a hint how to do that ? git grep gives me nothin=
-g.
+Why initialize mtype to NULL?
 
-I mean, if the phys aren't going to be required I would not make the
-cells properties required. I seem to recall a warning that dtbs_check
-can emit when there are size/addr cells properties in a node where there
-are no children, which is why I questioned this in the first place.
+>  	struct btf *btf = ctx_btf(ctx);
+>  	char *fieldname = *pfieldname;
+>  	int bitoffs = 0;
+> @@ -640,7 +641,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
+>  
+>  		anon_offs = 0;
+>  		field = btf_find_struct_member(btf, type, fieldname,
+> -						&anon_offs);
+> +						&anon_offs, &mtype);
 
-Otherwise, if the phys are to be made required (no idea if they should
-be), I can only recall this being done with the non-pattern variant. IOW
-required:
-  - phy@0
-  - phy@1
+If mtype is not set here, then field would be either an error or NULL.
 
-Cheers,
-Conor.
+>  		if (IS_ERR(field)) {
+>  			trace_probe_log_err(ctx->offset, BAD_BTF_TID);
+>  			return PTR_ERR(field);
 
---2GKJtW1sIt798CcL
-Content-Type: application/pgp-signature; name=signature.asc
+If field is an error or NULL, it exits out early.
 
------BEGIN PGP SIGNATURE-----
+> @@ -653,7 +654,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
+>  		bitoffs += anon_offs;
+>  
+>  		/* Accumulate the bit-offsets of the dot-connected fields */
+> -		if (btf_type_kflag(type)) {
+> +		if (btf_type_kflag(mtype)) {
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapW2HgAKCRB4tDGHoIJi
-0oDsAQCU71FAQQ1ExxLvSXyXK8BWpq+GTE6dd/z9sFMeJkNg/AD9FOwlnBwTzcbA
-Vd/ANfeIW8hrBeqGBGmJLJQit2I7Rw4=
-=T0Jt
------END PGP SIGNATURE-----
+mtype should be guaranteed as set here (maybe set to NULL, but set regardless)
 
---2GKJtW1sIt798CcL--
+Now, if btf_find_struct_member() did not set mtype, because this is in a
+loop, in a second iteration, mtype would be stale.
+
+So either set it to NULL at the top of the loop, or don't set it at all.
+
+Or am I missing something?
+
+-- Steve
+
+
+
+>  			bitoffs += BTF_MEMBER_BIT_OFFSET(field->offset);
+>  			ctx->last_bitsize = BTF_MEMBER_BITFIELD_SIZE(field->offset);
+>  		} else {
+> @@ -661,11 +662,11 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
+>  			ctx->last_bitsize = 0;
+>  		}
+>  
+> -			type = btf_type_skip_modifiers(btf, field->type, NULL);
+> -			if (!type) {
+> -				trace_probe_log_err(ctx->offset, BAD_BTF_TID);
+> -				return -EINVAL;
+> -			}
+> +		type = btf_type_skip_modifiers(btf, field->type, NULL);
+> +		if (!type) {
+> +			trace_probe_log_err(ctx->offset, BAD_BTF_TID);
+> +			return -EINVAL;
+> +		}
+>  
+>  		if (next)
+>  			ctx->offset += next - fieldname;
+
