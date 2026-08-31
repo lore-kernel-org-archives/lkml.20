@@ -1,116 +1,115 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134F042376A
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:21:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1AF47127D;
+	Mon, 31 Aug 2026 18:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200475; cv=none; b=cI3vvsAO/rbee/vadgzeSk9eKkUBAW/reBLabJIukY3htGNoxHkO8qw11CB+FTs1iTaC3qbaW7yT1gzflr2WkzQfHCJ8yUmcu51sPGa247/7VV/7+s5rGsNGZYR+Pn3AODA09xxP2aIflQX/9xuDCUhLBxVtHN7iEz6XGmlpJYA=
+	t=1788200530; cv=none; b=WI6Qzf+V0w7NiSVDGsDAf+P0risLHsUCakx2fl5h7IADykGUjfYJSad6nlI3V6oiC5QdjEVk/UVZP5XK75CZH+HB4zl65lvzt/9ARFmHb4+YJxV7q3UvsyTsCTM0+mdSQDuGgDAjHY0Fn/umSkdxGI+3SHOfcLwbWOMjZ7O3L80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200475; c=relaxed/simple;
-	bh=CTe7x0uus5Jyh61aGiyKsb0esjA18qPPL2GDz+sMqHg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PDwGAi0KTQAzhnNFE6JvdwQzvIOSxbdc13UtI4M9F9RiYRyxlUfhjehKqJOeGNCzQqWnNlWgqMKaC7P360F/hYUfJ4nGsO5Ymj9O4u/GUtjTmxFiswsaujea+jUzGZJO0DOn4+porYnOj2AwCeqkyFPbKfag74eb15TyquCL1A8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bu7OG3Em; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788200530; c=relaxed/simple;
+	bh=yj3EvYCLzjKFhv+Rquuc/IuVpIQmgnORf07dZ1mEddk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=faJsnUihaBfMMJORsMVJqTVpfFeqhfXlCCkIA/RolEiYftE8MUJtODsumSLXsiCA8FZFPcfuashhTHy6eVa4hEEhB6CywljMZ2aCIUAeRS2RUtLvHVRrf77qNFpyX93XVIbN2MZGNbGJIAJjDPUEEy+mlJs5cdNGeTu91PW4t8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IpmR2gMe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bu7OG3Em"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-39682983a0fso4888328a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:21:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788200473; x=1788805273; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2C8d9Mw5d8wycdXLHEiB7Z81VhrXXtSb8zZr7GQsQHI=;
-        b=Bu7OG3EmLNxUgEc1ZAZ6Yz2G2lLiJvtGbQUEDiSYmYsEALwOVeJvPB7P7Hd7NuSEDz
-         Tp0K9BMdmEXFeFL2qQzk9RCGyd43cy7PhiIsc8VX157NobeVrmgytmAsFdRg45F9UOzk
-         FNfQbTRSIA6BL8LF4a1BunrrST8gwwSlgejZnhQAtqXTZejhOfzVJwD28VcZkd70YCLp
-         CFNIuonkqjagzKj4BJIkKb7cRd74+mSU4op+XFYENlQncCgPmvm4SAIn2HTzD4bmoaCn
-         DoTMjAXbmwSBSsxrGSYfTMMB6hjHUFLN2kpNU4o6y6vQyXMDhZqwiBnnfZY/nazB6JQg
-         xnkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788200473; x=1788805273;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2C8d9Mw5d8wycdXLHEiB7Z81VhrXXtSb8zZr7GQsQHI=;
-        b=f0Hz0yU3FWCk4N1cI+LmbIckYlxtD3rShAzmxuLLg+dFcWlXqDbVRtVp4IqjbCVV7q
-         xddqturOOilsoxsD5E9gUdAAL7HaSCR5BO9vgnFcnbyrIhj0wOeVrNsQD/3iJD72wQ3V
-         DIbtpIcdvb90krd7C+vaRxFjVb3Xlh5BlQrrfVLF9ZX6BHbelCfE3G3Bd9fMudr4Y/vG
-         IxFJLKIaM0JVPbuM9cRhbmEwrniE/culgmfolYAHDFIotcOt+gMPc8WbnjWVq3Bju6L4
-         1AgRB2/OWLgNOMg2lgeMIsxd3I5sPYN/sYbY0L0tGBbNb86QaDPsM0p59tSvuaQQIySp
-         EYtA==
-X-Forwarded-Encrypted: i=1; AKwUvBwakijEmNw44ieUpJpFaTZKcOC37sUzH9L/t1AzAAkJzhg8uhpnIyWQLKDvREUeBJ33DIXqdqZddNGnEmc=@vger.kernel.org
-X-Gm-Message-State: AFuF++maQnBLlWYKQa8XRk+BuCVoSeGjoRdWFoWlDl2u8I7SSUMQn+m0
-	Px8fizAni2gu6xjOoaMxKsQMrdLCuN4TOrGzJDNHaQfwfJ3Ad+q4uGZG
-X-Gm-Gg: AYBFou1CT+oAZVe1vXCMo5j1kMnsuy+IiKh7zb2cD7yBK5YBFtvwMsIku7PDGTTGknm
-	3zKkrU5C5CfD3N3KfIgsjgQD7UASEKa/oH/QgqTGHKrrCYB+GXgD7Xd6kDKl4x4jlIwWkOwv0cG
-	wQMLWrWbENN5NkSuuffiPrbY/ZI7o3OKacLS0fVt9M0AYKiqMoNL9qu2rJZnjJJgASsJWfuZBIf
-	R2Dh3LfCPQQFsKAq6ziI9T4zEAEdrW4uur22DM8cRzX8G2xahmxShHpnCQk+Og2mSV2ZzPd4Bve
-	SB0h5PfpSZhfvn6rh6HbPaMvD9n2Bq3U/ygFOcGvxWhBuXmxWhpMMEneZGEbfyQc4nRcCwY05xh
-	WWuZDRzVgFEjBCw6A+dIVMmxexOjzTS11lyLFaFESnuzNT/7onDwPCl+DbWRQ2EM0Jxa06KplrR
-	PNsX6lQRHDa5i5/vKNZJvNotUPU43fNm45D1ZxB4ZvTdwJSr5tgPVmhwybNa0KvMhHMfrBhIUBl
-	paib3VKYumQWDDB3d2yP+npZlYc+g==
-X-Received: by 2002:a17:90b:5890:b0:392:e5b1:d833 with SMTP id 98e67ed59e1d1-396d0f1a83fmr43783255a91.13.1788200473351;
-        Mon, 31 Aug 2026 11:21:13 -0700 (PDT)
-Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0de4d92sm27298588c88.13.2026.08.31.11.21.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 11:21:12 -0700 (PDT)
-Message-ID: <e741bab6-782e-4e82-a7fb-7bcf526a93ec@gmail.com>
-Date: Mon, 31 Aug 2026 11:21:20 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IpmR2gMe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E24BB1F000E9;
+	Mon, 31 Aug 2026 18:22:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788200528;
+	bh=zdqiXvRTRVGzU0oGBApGif3Z6ViM1kOSdvfLnJu8eI4=;
+	h=From:Subject:Date:To:Cc;
+	b=IpmR2gMeJvzM2MxYBF13noOT3Ke4X3vXNGDtHuNxv5AJiMt9lGR8XrwGfQ2bzp6UH
+	 Aa7s0jd4K5fWT+2kSnmjgY09CJsTuZVLHGJNVcJRby+rHOR5ls3AXxJQog+Qy6KP6a
+	 cZkfxe5D2gCNm3DKSb+nQZ86g6iAi2Oxc9m9zif2xC6ymYiqFo9tBbkRMTZProbMMZ
+	 b64XU9mpVFbDWebMMnCkTvOnGX303+Afui4FYZoMLIDHmxIWVbiSFq3Q3SKz/2NsLR
+	 i/SRrBnURY4Q7blXrJGT9kC8z7deMXFzbGhtMgkbmHqIuBPAHxJdPbts0gnulEs3dm
+	 E9dIW33nFK+mg==
+From: Chuck Lever <cel@kernel.org>
+Subject: [PATCH RFC 0/8] Reduce lock contention in the NFS client
+Date: Mon, 31 Aug 2026 14:21:56 -0400
+Message-Id: <20260831-performance-v1-0-8d9fd9b67f96@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 00/91] 6.6.156-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260831133359.468089036@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBREr1L+2mATNYhbwQO4FRdJnLZfaFJ+q
+ gildzfR5XvMvIUyhJHp1CwkeHPmFAvoTUNhcLGH4kdhMq2x7XGn1QTpkowuBijs7QHW6KBDS+U
+ xCTr+/Go3ul7OdP/L/PJPhLl26sy7DOWlJIaqknDPcTu6PENoXb/oQy/ilAAAAA==
+X-Change-ID: 20260831-performance-e465e621c1c0
+To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+ Tejun Heo <tj@kernel.org>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>, linux-nfs@vger.kernel.org, 
+ open list <linux-kernel@vger.kernel.org>, Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.16-dev-da966
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2190; i=cel@kernel.org;
+ h=from:subject:message-id; bh=yj3EvYCLzjKFhv+Rquuc/IuVpIQmgnORf07dZ1mEddk=;
+ b=owEBbQKS/ZANAwAKATNqszNvZn+XAcsmYgBqlcZGbBbJadZ+pucCIr8Cp41aEhLVCUfC7wIuj
+ CPMNEdeV42JAjMEAAEKAB0WIQQosuWwEobfJDzyPv4zarMzb2Z/lwUCapXGRgAKCRAzarMzb2Z/
+ lzo7EAC/CA4xxI4g+rXaULp8hb50Ku1/8ijKNmFJmnTHB0ngNgo4uiVTiBPpj1J+xXAahUn7hEr
+ ckUWgq35eR8iBEu1HXvD4atjE9Xw7SbQQk7XHwGkyG9GKHHly47hN/nucZJBo2KWjeby4j1jvRO
+ KaY3NI22F+jMSgWQUeXkUjdNKx4oAgJruIID9vEK1EhuKfVvCxdFdSiVZoXg/jPgnnAfrupyL/w
+ E/kAOqua96DkPQ0hyCt6eS3RkAiit/EZ9HtvdRiQGpGb0blvWLdk2olm+j7Y2gZiFKQmtSUgLI5
+ Eg5zg1I89Y1M6Ph87V0yh0TvGQ8KbXnhTiyUH5F9SuOML01yAEviQglALhW0UstxwBiKd+T/l8T
+ t9mCu46AcrIMcincXCFd9c79j90S3JoA5MWfLiPtZJFG6taA7ycfV/r/gNWyK/AhtwgIpMNrdaG
+ rhcpPDVqaoSE5UCVCM0SjENljiotEgm0HVCRI9UUqJgddokU9Wu8amasg+4AziVwXHF6uH/ABT7
+ FZ27Ciiz6RvYqJAUfzi+00PyEdP4TqIANatFu7ma/xb250h5CpsXjrs+zxXbvNOg2fw4hO4Q94z
+ subiwKXjfsrOGmFeOKqElT2mqalLHNL1dg3XLp7bM/3diqN3KtD3mpHK1oUBEUoF2mgpl2ob/4P
+ A5YX0swC2hYv93A==
+X-Developer-Key: i=cel@kernel.org; a=openpgp;
+ fpr=28B2E5B01286DF243CF23EFE336AB3336F667F97
 
+Under a 4KB NFSv3 workload on 100GbE RDMA, roughly 150 RPC worker
+threads drive the client, and lock contention dominates its CPU
+profile: up to 53% of non-idle cycles are spent in
+native_queued_spin_lock_slowpath.
 
+An earlier RFC put this fix in the workqueue core, falling back
+automatically to a finer scope when the configured scope
+degenerates to a single pod. Tejun rejected a finer default for
+unbound workqueues and suggested two alternatives: a sharded
+scope between CACHE and SMT, and a scope change on the NFS
+workqueues themselves [1]. The first became the
+WQ_AFFN_CACHE_SHARD default, whose 8-core shards still leave a
+12-core single-LLC system with only two pools. This series does
+the second.
 
-On 8/31/2026 6:33 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.156 release.
-> There are 91 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.156-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+My test harness is transport-limited, so the freed cycles appear as
+reduced submission latency variance and lower tail completion
+latency rather than higher IOPS.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+[1] https://lore.kernel.org/all/aYUVVuIidMpuYy3j@slm.duckdns.org/
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+---
+Chuck Lever (8):
+      SUNRPC: Use atomic_t for XID allocation
+      SUNRPC: Execute initial async RPC states in caller's context
+      SUNRPC: Split recv_lock out of xprt->queue_lock
+      Set WQ_SYSFS on key NFS-related workqueues
+      workqueue: Export the functions needed for WQ attribute modification
+      SUNRPC: Reduce rpciod workqueue contention
+      NFS: Reduce nfsiod workqueue contention
+      SUNRPC: Reduce xprtiod workqueue contention
+
+ fs/nfs/inode.c                             | 18 ++++++++-
+ include/linux/sunrpc/xprt.h                |  8 +++-
+ kernel/workqueue.c                         |  3 ++
+ net/sunrpc/sched.c                         | 42 ++++++++++++++------
+ net/sunrpc/svcsock.c                       |  6 +--
+ net/sunrpc/xprt.c                          | 63 +++++++++++++++---------------
+ net/sunrpc/xprtrdma/rpc_rdma.c             | 14 +++----
+ net/sunrpc/xprtrdma/svc_rdma_backchannel.c |  8 ++--
+ net/sunrpc/xprtsock.c                      | 18 ++++-----
+ 9 files changed, 111 insertions(+), 69 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260831-performance-e465e621c1c0
+
+Best regards,
+--  
+Chuck Lever <cel@kernel.org>
 
