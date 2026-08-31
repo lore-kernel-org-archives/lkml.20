@@ -1,141 +1,102 @@
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5493321AA
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181966; cv=pass; b=HETnpTfHXa0WnSuQIxWwtDhN+qQxDsOi42oQPF/3ikklXzTIgj0iMtLHPYniHrDwRHFLDvwavOsLl/OzmITVVSLIS61o/8plok+Qnhxv46sQq6Z8ci+m1aprZVZ+NxqRRV9mGKqj3yFV2X4KVNeKO79hLoJmIXmlTneicG5XILU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181966; c=relaxed/simple;
-	bh=HysHiL2VRlqM9yAPSNQNOM34G5A/mOcb8+1e4IfygkQ=;
-	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YlEALddmd9NekRfDA5dmox9totawaNpejfEZBmLxNMOstkfIXn/gO5vgj+UmfIfgCb454m8CQdKiJ9yWRh5gnxoyEI3J/aAl4WglT3rvXtHZv+WF3U3V8sEB+IWcoXhtNR9PgU+FOB4Y+noFnomvgCZXDVH4mt7vU0YnPgmJp7Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VV08GCSS; arc=pass smtp.client-ip=209.85.161.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58490331EC0
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788181987; cv=none; b=APgl08edwR5Hn42DRKW+s7K5rvplJw/TAJKHjpINh5PNkuQJlr4RRhQLowjG3/Ru1GC5T09FVJjU/ysRl+dzdpwrnUADN8xnVp+TpqQXy7bnDRElG181SzkPSMA6aQsQru3uK/ib2j/SEzutQSgCA1lemMyd3tJMuguF+nIEPUk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788181987; c=relaxed/simple;
+	bh=jr7bAeHGUjJakE0Ol1IFo91skAoVHFLYkiKLxwwKXYA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iHnEbwfsvCFGzPC+5fj/UqUJ2e66K9N7p1P7UuJO1dLqxP+lClly0xAHudNI5Zc0y1byXmI3yAHthORGmB4yqJw6K8pWhRUmdvS55aZubQZNcX0rIseA7HxNSrxam/lHdtuFQhaHjhBrwcnAUc3LIxDFRkoqhqHzdmuEQTpRtO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=KPceeqwj; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VV08GCSS"
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6b1334a3b16so1343092eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:12:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788181964; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V/CEu+cfKDA249D3oFthGjjamfvS/czBMTXqRySJv2mLdXbctRyYRS0fmm/LECD0+r
-         XJw74Fdp9dJTGFu15eyW85QH9A/AFvvrnKEpXKukuvVXCIDNHPD+ZIuALnRB8BA8YMpw
-         ye+r055XrYdySUYcTGW/Q90Jb0bIR/0sz2jA7tyZEP+PuJ/wJ+U278AHoIqGRKsLluPD
-         vKXSA47gF0U8q4i6k3VxpNuhrO+p1/sRQborpc1lfGIvCXx7vawoWmRlgrO02A1qp/tb
-         6bOG3iClS80L9wzvI4+EQRWZWlklC795FVxKetJ64+bULp4m6PXPx6Rtj0Sg6czDZ5OW
-         AwfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:references:in-reply-to:from
-         :mime-version:dkim-signature;
-        bh=6dwdlMhiwvvGNP0Nbpo0VofOYlqAm52W9bR3+mOccsk=;
-        fh=zGW5HMQoOaMTuXZF0NSEJd1Gl+0JgnOC+Xizwgotm98=;
-        b=QBDVqaUO7/i9jjEzfRtJ/Viwl53SSXaMkBLDhwhHUhj3zCiw2wkNKCuFxjljNlA9rn
-         ACRNHMVAIhkqFreWLfbaihNoTiQnIHMJ4l8LseP6R4El/M0KqiO6V0R5ZnspBrTFaC7e
-         jFj0lZ2QZvt1Be00F9rTamQLkeYONEeA+M68Cy/zVSzxUn4M4l185tUTfF6SJHE7dEKj
-         sH9KS17wk6YYAN+YFgNAgqrmKlmN5Hagl/s5tYYr5v2YB86piRSYqJ/F1eeuGS96kfZE
-         VwOTOmPDV9oT7tAg59288KszPNZqb9iaeswHo41pPgg79H/52soHlTNiFH6pVE6PxW/T
-         kyZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788181964; x=1788786764; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6dwdlMhiwvvGNP0Nbpo0VofOYlqAm52W9bR3+mOccsk=;
-        b=VV08GCSSbfrHjcHjIU7kpu3/DRyWom83v3aJm96eETFzTCLGSqx3rukmZrIbyLigAc
-         emYI+CK5E+0RSSEKyz5n8L7TKQUkNdQM2fR2Irs1TYhdD7X627+b9K3bpfUL/OMXo5cx
-         13382coWUe+MIezB2Y6qWK1UZCXBK5JSA9FO9+VsyYGz5VbqxLmtEamIO1iQdRVT+geO
-         mlVx71hXS0TMu5ol/WMBqfFNQQvxfjzJAbZJGUrTrbd0H8otCtA+Q4i8fgd9jBG4JWNF
-         m+YBa472A3cAdBPhbYoqqIcsOC+/nRT9RnwxDBEbqrwV4OCChgBkNTBNMVTeMdBKIKYy
-         a43A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788181964; x=1788786764;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6dwdlMhiwvvGNP0Nbpo0VofOYlqAm52W9bR3+mOccsk=;
-        b=NLYXtM9yDapGaCotX0gOCPdkylCZzJH/KuSOegyOog+PuoPe00SmmWFnpWjeH1Nuap
-         kH8mzIIZVjUZIIXXKSsECJ5jvJbWGvQ6S2z/wpGYMImkmnniVl6O1fx3a0KrPhHF7zvE
-         iaKYk8K911pMJkg1Yf/5L/p3f5n6N5kJfqhHqdRrgzBs+F1cnHttGhWP5VGQd2zB+Ryf
-         lfbfTparRXYeZ82G7KIZBodcSEGQC7nQOfK2KXHGC5tgULFgg/nDcOtEB7vS+66DanU1
-         KA06V8ccOaTx+wJx/Dm9upsl/uKTOT+7YyyHCigEsRaQoSl1brt8gN18K/ah83h/XG2X
-         tSPg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp7xTpkWt4qaidi/MV8HyL8zZvtLLAIQC4FSRasCKUeehDs6Wf/V3O6c7OeVtwQJ2qHCaDgwrBMIk0h+9w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxkTESGQrZkV7QPwGUDKQ/AXlaEdQ06XxKSKh6eik6IhXwt7ax
-	Ro97LTYNbP+fJpT1en3EJrEJen5wetI147pk4CtRjL42oqPtDR5q9bV2FQfysl+l7Y8VPB8P4Nf
-	fVjuwXVxwoVzKbvFAkrBwc0MCUe8YyIo=
-X-Gm-Gg: AR+sD10uNDE4SfJhPYzrfrgykp+jrzeMHEf3SbeyJ8uPtbDNmeAK3xZWuXqWTRmgAyr
-	4x3rmsy4B53FaXQNvWxFXmX3SMSyLy5Ht062AKxaIHLJ9b7K7kxXHrrc72x33GdBHtNwHfmk8Br
-	V26AuQJbnA7bgQ0CtipbDM3AaOxg7inpjRM+DIFvFMWnGmMPY3VAf2pV5QsW95LqyOafkZCX6l6
-	YV9gLfHMl3ZVbXVnC9eqH1wTt9l3jW1g+6JmBJtkPa0bJazXjDVofgbTDsspkiFMcbzKN/UCGKL
-	177CZCbmL11Tk0yDXq+/Iizj1EZLRzjQ31bTguDI9Z32Jxnl62W77vbW645GAblUxgtNb0QKhuB
-	I0OXLaq9TrgGSzajUOz0krEA=
-X-Received: by 2002:a05:6820:824:b0:6b3:6bc7:2ea7 with SMTP id
- 006d021491bc7-6b36bc73476mr2621340eaf.7.1788181962932; Mon, 31 Aug 2026
- 06:12:42 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Mon, 31 Aug 2026 13:12:41 +0000
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Mon, 31 Aug 2026 12:56:57 +0000
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="KPceeqwj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=QhaSwmeDZX+FhVbqZef/6aoKxmBjWUBVyUihTtoeWgo=; b=KPceeqwjCU2Fbvj/fap1K6JGrk
+	VteOYqIzCZNBPGtbM43FSLgWNd2edxK+1Vs92twpxayUN6CDSPs6CvaEO6No61AnEAx2V9aHcyTy4
+	ghxRdltlbsAddchl2mSxeMBFP1jrO1O2cMTmr2a821ZcWWQjRIBIaR2cLVvV/Lh0iwZ4yuBtcrPLP
+	BXRK9RaEe7j2+ndGqH6JdmkD0e3B7lkryDd0GDcgMorqUzGpt37NsR/Gj38ICFYydN+M9Qt9GFoHH
+	lGqihR/t1jrONnRcOO1qkrJJyQsLjVIWLYX1eKo4KZJfSLkaxRisPNNBEYh2t2NR1ELbMF3J3X24T
+	OHbql/DQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x11ob-00000009sFC-353M;
+	Mon, 31 Aug 2026 13:12:46 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 918B9300E7E; Mon, 31 Aug 2026 15:12:44 +0200 (CEST)
+Date: Mon, 31 Aug 2026 15:12:44 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Jianyong Wu <wujianyong@hygon.cn>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Phil Auld <pauld@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, jianyong.wu@outlook.com, zhongyuan@hygon.cn,
+	huangsj@hygon.cn, wangfengyu@hygon.cn, yingzhiwei@hygon.cn,
+	justin.he@arm.com
+Subject: Re: [RFC PATCH v2 04/23] sched/topology: Introduce a method to
+ calculate the llc distance
+Message-ID: <20260831131244.GJ4120091@noisy.programming.kicks-ass.net>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
+ <20260827122816.756234-5-wujianyong@hygon.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: mauriziocasciano7@gmail.com
-In-Reply-To: <apVMALyPsJSsB5BR@ashevche-desk.local>
-References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
- <fb26c4cb3dae5d87ee877dd558d6ea5e0b3926fd.1787933456.git.mauriziocasciano7@gmail.com>
- <apVMALyPsJSsB5BR@ashevche-desk.local>
-Date: Mon, 31 Aug 2026 13:12:41 +0000
-X-Gm-Features: AcwNN1WESpYlXZuMNQwNmJqDlEN047cygLvkqCI7j1Rkc7gQt6d8EHm-v8YRiv0
-Message-ID: <CAO7O_xja+1XutiXhXUZ8k6+cF=P33htUVjxKZ1ELWR1brb4knQ@mail.gmail.com>
-Subject: Re: [PATCH v4 05/15] media: ov8858: Add INT3477 ACPI ID
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Bingbu Cao <bingbu.cao@amd.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Nicholas Roth <nicholas@rothemail.net>, 
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jose Maria Martin <jmmartinf@hotmail.com>, 
-	Uwe Kleine-Koenig <ukleinek@kernel.org>, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827122816.756234-5-wujianyong@hygon.cn>
 
-Hi Andy, Sakari,
+On Thu, Aug 27, 2026 at 08:27:57PM +0800, Jianyong Wu wrote:
+> The previous patch addresses NUMA inter-node distance handling. This
+> patch shifts focus to the LLC layer and introduces a scheme to compute
+> pairwise distances between sibling LLCs inside one NUMA node.
+> The calculation only guarantees distinct distance values for all peers
+> when viewed from a single reference LLC; it does not enforce globally
+> unique distances for every arbitrary LLC pair on the node.
+> 
+> One valid calculation scheme is defined by the formula below:
+> 
+>   dist(LLC1, LLC2) = (rank1 + rank2) % k + 1
+> 
+> Constraints: LLC1 and LLC2 must reside on the identical NUMA node.
+> rank1 = local index of LLC1 within its node; rank2 follows the same rule.
+> k = total count of LLCs available on the node.
+> 
+> The formula never yields zero, so diagonal self-distance entries are
+> explicitly hardcoded to 0.
+> 
+> For demonstration, consider a NUMA node with four LLCs (local ranks 0~3):
+>         LLC0    LLC1    LLC2    LLC3
+> LLC0    0       2       3       4
+> LLC1    2       0       4       1
+> LLC2    3       4       0       2
+> LLC3    4       1       2       0
+> 
+> Sorting each matrix row in ascending order generates a unique LLC affinity
+> sequence, which drives thread migration policies implemented in follow-up
+> patches.
 
-Thank you. The use of ACPI_PTR() in v4 was intentional and followed
-Sakari's explicit request in the v2 review:
+Aah, now I see. I got confused by your sched_cache_node_distance naming,
+and thought it was cache-to-cache distance.
 
-  "Please use ACPI_PTR() for this one."
 
-That review also referred to:
-
-  https://lore.kernel.org/linux-media/20260828084328.257703-1-sakari.ailus@linux.intel.com/T/#t
-
-Andy subsequently noted that the last patch in that related series was
-controversial and had been NAKed. I should have called out this conflict
-explicitly when sending v4 instead of leaving the rationale undocumented.
-
-For v5 I have retained ACPI_PTR() for now. Removing it unilaterally would
-discard an explicit media-maintainer request, while keeping it without
-clarification would ignore Andy's objection and would not earn his review
-tag.
-
-Could you please confirm which form you want for v5 while the related
-ACPI_PTR() work is unresolved?
-
-  .acpi_match_table = ACPI_PTR(ov8858_acpi_match),
-
-or:
-
-  .acpi_match_table = ov8858_acpi_match,
-
-I will use the agreed form and will not send v5 until this point is
-settled.
-
-With Best Regards,
-Maurizio Casciano
