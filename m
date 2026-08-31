@@ -1,204 +1,112 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5709E35CBD6;
-	Mon, 31 Aug 2026 18:54:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9ED395AD8
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:55:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788202491; cv=none; b=IAad+29fL19SAQ9Wy9ObuWtHbGgCIdIQ7MeHLLR+BP9uDbC3mYSU/AoG6pApd0U+fy0G7se/zneftR1w51XLHEBepVkvAIyMhZ5sJOnVsr+jCrdn36sjnBaAHXFJs2A4s25lUeRwGP7iAuXJ8vZS0TZQ14dgp99ajwkFwv3Rz9k=
+	t=1788202533; cv=none; b=Ht2upgGFZVtZv4MWwhuSD7yFy+kELpf4a6SV0N20+lgtA1EpX9UFPNDxQ0o6QKSzyQ0enA+kdu0xGDHMJavJ6+gHOt1JYtbvRlyFhGJyO0mJ4WuLYp17+xfJ956pcxGSOmRxSmsECv5e6iT/Shu3xVLOUlk894XGPi/ZKqzcoBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788202491; c=relaxed/simple;
-	bh=SVszuBnjkh4LvSoVjClvaHKYPF5PXx1qZak6pkRAAc4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PlTsSqorgE7/vEtkG7MAJBQOSEk91PwFJ65gEKJ2twqAhTQ1TUG8dFr0ub2+Ff140RwFb2CH+HhR158VgZS74PFZqnBqSQEIAXPErCTE4K0Hs3xNBsy8QS1B044aYSAZIjVAoPxsXAbH8iQgl3/t1lI7mzc6RIazILLWf5vPjq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=B6oKVLVS; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1788202533; c=relaxed/simple;
+	bh=FwC8XOV0B4kgwlLtD5BtYRBgGcM+gD2egCbMwwjh78c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WKOXfgwHWk9RMqU55+7uj7EJdKlVcDBfztzqZv/jY/Gv112cK59iwB6cC139YnMF2lSj8Ovec+p+HRl7cW/vgUa/cQCyeRrZdCDUYt2xcm42GBerBuHfkCY0fcwnGqDfpGoM4MUL6lCH8q5O6NKhI6ubdED0y/RjFnhgi1yb+9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qJ1AnoQs; arc=none smtp.client-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="B6oKVLVS"
-Message-ID: <680606d594645568c21afcc552558882c4f59a96.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1788202487;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SVszuBnjkh4LvSoVjClvaHKYPF5PXx1qZak6pkRAAc4=;
-	b=B6oKVLVS+tO0Ge8wthaj+H1yjDdvqA6CNlyZ1DUdhifYitSDFj/yLib02CuGTSuwXCetut
-	dqw8KO0KwE+f1ym5k0Hn39qY2kRBxLrhEgvGLaaulvYhBk1Ae2/FEAIReV/y9k0WsI8R++
-	+SQXaI6CSGOuhfFBevkvzvt1J35351U=
-Subject: Re: [PATCH v2] sparc64: increase kernel thread stack size to 32K
-From: Stian Halseth <stian@itx.no>
-To: Tony Rodriguez <unixpro1970@gmail.com>, andreas@gaisler.com, 
-	davem@davemloft.net, sparclinux@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, david.laight.linux@gmail.com, 
- glaubitz@physik.fu-berlin.de, thuth@redhat.com,
- regressions@lists.linux.dev,  nroach44@nroach44.id.au
-Date: Mon, 31 Aug 2026 20:54:46 +0200
-In-Reply-To: <afaa8ced-0717-4d62-8ea6-4ecdbf489694@gmail.com>
-References: <20260519075809.8993-1-unixpro1970@gmail.com>
-	 <20260831172928.3082853-1-stian@itx.no>
-	 <afaa8ced-0717-4d62-8ea6-4ecdbf489694@gmail.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qJ1AnoQs"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66c9995ca60so300843d50.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:55:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788202531; x=1788807331; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RhaWswkQxW+7On/cBV4TuoPoc9NhNmh0fp369raKMHM=;
+        b=qJ1AnoQsENY1k9m18tl4XLALtfzX7TL91Om1zOvmx3n79i96PQ/eyvyWN6OfkXvixJ
+         MVmBnkhoarHhGH5EUW7a4M2JNHLWFuFrjy8G3VxvK4s5Zp+wRcKPr53ldxoswqiMfMp8
+         Q0vcZGcIj3TJLU0VyJymVRodvoeUUS24IqQazK1eSrwklkvIB2oDa0Mfb2xNqDFphd1L
+         jBFskXjokCfozvwPvQFjFJxl9n6u10bNCcYGykCbledUOhJk+9q809YlkDLKNGuqeT5a
+         QGrfwqzkhlAjy5iLNMmi78jaibvkPdiItI3S7pr8ohNsuw4EUxWBGT3ZTprPwIqL+Vry
+         ib4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788202531; x=1788807331;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RhaWswkQxW+7On/cBV4TuoPoc9NhNmh0fp369raKMHM=;
+        b=RYoIMu99KfRVAHOqKYRpX/rwCLL+Y/9h0TvNUT/SdrAN1zH4wsi3GFA+P9NrgnIj9g
+         xPFOGAklFDPTgMNe28votDsX52ZZwvt4nuAAxonA6Eim005O5HbNFAJOxMY8ZabtrCWn
+         E0j0vKf2pvYZDr9o06bSscXdjBrucVhiwTAQqTwR9wEWL3K6MnMuDFSMOw6iN7zDPIkZ
+         uG9m8/JZwKmvMBILzS21sGXj84Tqti5mACRQyj+tmH5O4wTDBnKGa/bCCHyRBT7nDkZD
+         kn3pU8pZFMDv7755bqpmmfml/ZEoQLKLQAcFn269rImRwNQO1ezvzKooOC8DYk8vNV9+
+         MchA==
+X-Forwarded-Encrypted: i=1; AKwUvBwNVzK1HIV9pVkArx701KLZIWfmngMWKmFUVJaRPzCdIUmtRJkVSptz6KW3XXZwMM6w6S8bCR5/HvKBO1Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++njgybd1LSqmY5IYf1vnQcccpUKs+n2gLVu+DKQRrayWZA6ycSC
+	bq4UpS2oW7uIA1A5Dnh6mxqhiEFV94+HD9HFnW8hE1Ofz1f0GrZauhT/
+X-Gm-Gg: AYBFou2Pz9arfqhY/Oy0d62kFWcB9FQWB3QuKmLfx5SsX+A9nTqRBsVAGYorE5YCJlw
+	bRvbIpEl2EMml4PkfvHe8waxnlXUNDU9y6NbHjriLooDXLK2eg+Lvk3/ok02i2WLd64yFnByvHw
+	U+TvUQd9lUlA8vxPeXy9OQ+BNJZUOlpQORd8QF0NJOcgZA8CR1HfGrYHg19XUqAfanRyfJ0WuNe
+	041mcoeCb/d0v38ibd4WcSB8vJdxEtbK/VRVC+qNEMLkn585H1D4cRXfay+GmmK+jjmvDKTq9W9
+	AiMP6TItk5eYWTu0UEhRH9exh5yav/sdC/A1vmC4PDNmue81mt3nEKG/NJ9eSQCm+zu1Ns7FEwQ
+	onJHpJI4c4BVDoErS7Vw+cB6SLyr59jOXMzTUh1hTlnqj9nQpUqdXz7pVVlkeu9dCcVp2868AX8
+	hRJZRhXAwtGZR2GI9eK6iGL9DUrZHJslooOq/MHWriRMCgJ66qoYPiE5zHNENPaBgPDihXAXHKu
+	+B0Vrbr7DEbsZcpS3f8v1uZ
+X-Received: by 2002:a53:e904:0:b0:66f:8a2b:b693 with SMTP id 956f58d0204a3-66f8a509c19mr89306d50.17.1788202526777;
+        Mon, 31 Aug 2026 11:55:26 -0700 (PDT)
+Received: from fedora ([2804:30c:1f03:a800:30b7:8d7b:fa5e:4825])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ed2986csm6636227d50.18.2026.08.31.11.55.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 11:55:26 -0700 (PDT)
+Date: Mon, 31 Aug 2026 15:53:34 -0300
+From: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: Lance Yang <lance.yang@linux.dev>, david@kernel.org, 
+	baolin.wang@linux.alibaba.com, akpm@linux-foundation.org, ljs@kernel.org, ziy@nvidia.com, 
+	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH mm-stable] mm/khugepaged: avoid unnecessary checking for
+ swap entries when collapsing a mTHP
+Message-ID: <apXHC7uYXE99ZgPp@fedora>
+References: <d02405a5-1d0d-49d5-9056-1a34ccdeef10@kernel.org>
+ <20260827121151.7837-1-lance.yang@linux.dev>
+ <apBB01VBbmV28gWP@thinkstation>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <apBB01VBbmV28gWP@thinkstation>
 
-Hi Tony,=20
+On Thu, Aug 27, 2026 at 03:07:10PM +0100, Kiryl Shutsemau wrote:
+> On Thu, Aug 27, 2026 at 08:11:51PM +0800, Lance Yang wrote:
+> > For the candidate above, the loop only reads its PTEs and returns
+> > SCAN_SUCCEED. Pedro's bitmap lets mthp_collapse() determine that upfront
+> > and skip the walk.
+> > 
+> > Emm ... as I asked before[1], any numbers showing how much the extra scan
+> > costs?
+> 
+> With the win being only some scan cost, I don't think it is going to be
+> measurable.
+> 
+> It can open a path to future work. For example, we could find fully
+> populated mTHP windows in a PMD that is not eligible for collapse
+> because unmapped > max_ptes_swap. Right now we just give up on the whole
+> PMD in such cases.
+> 
+> But there are more wins to gain there. Just saying :P
 
-You're welcome.=A0
+Hi Kiryl,
 
-I saw it was stuck, and wanted to push it along. Looks to me like a
-proper fix that should be included.
+I devised a patch based on your proposed future work idea. If you think it
+makes sense, I can send it to the mailing list with a Suggested-by: tag.
 
-PS: Don't want to take any credit, this is 100% your fix. If you rather
-want to handle it yourself, let me know :)
+Thanks!
 
---=20
-Best regards
-Stian Halseth
-
-
-
-On Mon, 2026-08-31 at 11:25 -0700, Tony Rodriguez wrote:
->=20
-> When I compile the kernel with -fstack-usage to generate .su files,
-> on=20
-> 7.1 kerner, the static analysis shows small stack frames for all USB=20
-> core functions.
-> For example:
->=20
-> hub_event:=A0 =A0 =A0 2457 bytes=A0 (static)
-> hub_activate:=A0 =A01892 bytes=A0 (static)
-> usb_control_msg: 1248 bytes (static)
->=20
-> However, my runtime stack tracing shows a dramatically different
-> picture:
->=20
-> STACKTRACE: hub_event():entry: 31856 bytes used
-> STACKTRACE: hub_activate():entry: 31680 bytes used
-> STACKTRACE: usb_control_msg():entry: 30768 bytes used
->=20
-I'm not quite sure what I'm looking at. Stack usage must _increase_
-with call depth, but looks like it's decreasing?
-
-That shouldn't be possible, but maybe I'm misreading something?
-
-It kinda looks like you're showing sp - stack_base (space left).=20
-
-CONFIG_STACK_TRACER on the T4-1 measures 12.6K worst-case against 32K.
-Could you re-measure with stacktrace on the kernel command line?=A0
-Happy to share the exact config/procedure.
->=20
-> PS - I have not tested a 64K stack yet, only 32K, and this is a
-> heads-up=20
-> recommendation.
->=20
->=20
-> Tony
->=20
-> On 8/31/26 10:29 AM, Stian Halseth wrote:
-> > From: Tony Rodriguez <unixpro1970@gmail.com>
-> >=20
-> > Kernel stacks on sparc64 are 16K and this is no longer enough:
-> > several machines (SPARC T5-2 among them) panic early in boot during
-> > USB hub enumeration with "corrupted stack end detected inside
-> > scheduler". sparc has not been converted to THREAD_INFO_IN_TASK, so
-> > thread_info sits at the bottom of the kernel stack and a marginal
-> > overflow corrupts it first; CONFIG_SCHED_STACK_END_CHECK then fires
-> > from __schedule long after the deep path has unwound, which is why
-> > the reported backtraces look shallow.
-> >=20
-> > Measurements with CONFIG_STACK_TRACER on an UltraSPARC T4-1 show
-> > the
-> > problem is frame count, not any single large frame. The high-water
-> > mark of an ordinary successful boot is 12616 of 16384 bytes (77%),
-> > reached in hub_probe() with a printk console flush and then a timer
-> > interrupt (which runs on the task stack, and whose scheduler tick
-> > performs load balancing and IPI delivery) stacked on top. Of the 66
-> > frames in that path the largest is 408 bytes, and ~85% of them are
-> > 176-224 bytes - at or just above the SPARC V9 ABI minimum frame
-> > (128-byte register window save area plus 48-byte argument save
-> > area). An equivalent call chain on x86-64 costs roughly a third of
-> > the stack, so a 16K stack on sparc64 provides far less effective
-> > call depth than on other 64-bit architectures.
-> >=20
-> > Double THREAD_SIZE to 32K (four 8K pages). The PAGE_SHIFT
-> > conditionals are dropped: sparc64 only supports 8K base pages, so
-> > the other branches were dead code. Kernel stacks become order-2
-> > allocations; sparc64 has no VMAP_STACK, but stacks are allocated
-> > once per thread and the trade against boot-time panics is a good
-> > one.
-> >=20
-> > Link: https://lore.kernel.org/all/20260519075809.8993-1-
-> > unixpro1970@gmail.com/
-> > Signed-off-by: Tony Rodriguez <unixpro1970@gmail.com>
-> > [stian: reduced the diff to the THREAD_* defines, measured stack
-> > =A0 usage with CONFIG_STACK_TRACER and rewrote the changelog]
-> > Signed-off-by: Stian Halseth <stian@itx.no>
-> > ---
-> > v2:
-> > =A0 - drop the CONFIG_SPARC64 / PAGE_SHIFT conditional chain from v1;
-> > =A0=A0=A0 thread_info_64.h is only built on sparc64 and only 8K pages a=
-re
-> > =A0=A0=A0 supported, so define the three constants unconditionally
-> > =A0 - replace the panic backtrace in the changelog with stack tracer
-> > =A0=A0=A0 measurements answering David Laight's review comments:
-> > =A0=A0=A0 https://lore.kernel.org/all/20260520144104.618c75ca@pumpkin/
-> > =A0 - retitled from "unify thread stack sizing and add explicit 32KB
-> > =A0=A0=A0 stack"; the sizing logic for other configurations is unchange=
-d
-> >=20
-> > Tested on an UltraSPARC T4-1, booted with the stack tracer armed
-> > ("stacktrace") before and after this patch. The boot high-water
-> > mark
-> > is 12616 bytes on both kernels - the worst path (hub_probe with a
-> > printk and a timer interrupt on top) is deterministic - i.e. 77% of
-> > the 16K stack before, 38% of the 32K stack after. DEBUG_STACK_USAGE
-> > agrees: the peak boot-time task shows 9208 bytes left of 16K before
-> > vs 25592 bytes left of 32K after (7176 bytes used in both).
-> >=20
-> > =A0 arch/sparc/include/asm/thread_info_64.h | 15 +++------------
-> > =A0 1 file changed, 3 insertions(+), 12 deletions(-)
-> >=20
-> > diff --git a/arch/sparc/include/asm/thread_info_64.h
-> > b/arch/sparc/include/asm/thread_info_64.h
-> > --- a/arch/sparc/include/asm/thread_info_64.h
-> > +++ b/arch/sparc/include/asm/thread_info_64.h
-> > @@ -99,13 +99,8 @@
-> > =A0 #define FAULT_CODE_BLKCOMMIT 0x10 /* Use blk-commit ASI in
-> > copy_page */
-> > =A0 #define FAULT_CODE_BAD_RA 0x20 /* Bad RA for sun4v =A0=A0 */
-> > =A0=20
-> > -#if PAGE_SHIFT =3D=3D 13
-> > -#define THREAD_SIZE (2*PAGE_SIZE)
-> > -#define THREAD_SHIFT (PAGE_SHIFT + 1)
-> > -#else /* PAGE_SHIFT =3D=3D 13 */
-> > -#define THREAD_SIZE PAGE_SIZE
-> > -#define THREAD_SHIFT PAGE_SHIFT
-> > -#endif /* PAGE_SHIFT =3D=3D 13 */
-> > +#define THREAD_SIZE (4 * PAGE_SIZE)
-> > +#define THREAD_SHIFT (PAGE_SHIFT + 2)
-> > =A0=20
-> > =A0 /*
-> > =A0=A0 * macros/functions for gaining access to the thread information
-> > structure
-> > @@ -128,11 +123,7 @@
-> > =A0 #endif
-> > =A0=20
-> > =A0 /* thread information allocation */
-> > -#if PAGE_SHIFT =3D=3D 13
-> > -#define THREAD_SIZE_ORDER 1
-> > -#else /* PAGE_SHIFT =3D=3D 13 */
-> > -#define THREAD_SIZE_ORDER 0
-> > -#endif /* PAGE_SHIFT =3D=3D 13 */
-> > +#define THREAD_SIZE_ORDER 2
-> > =A0=20
-> > =A0 #define __thread_flag_byte_ptr(ti) \
-> > =A0=A0 ((unsigned char *)(&((ti)->flags)))
-> > --
-> > 2.53.0
