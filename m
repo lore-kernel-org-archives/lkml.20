@@ -1,144 +1,191 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013042.outbound.protection.outlook.com [40.107.201.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF323A9871
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:18:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200291; cv=none; b=t2zofsNiIf5Fry9ClqWSATVJvoW6axSDn6Zt1tv3QhbwYceIIsay21MYauQar1LvORG/CfD9UHG9w80NFtXj0J6NGiVKosViEipIKE38yGK17Tf5PYyItuh+SHxjTm7Qm8MOWYwNpP2WVMssON8GWgtVt9Y1nPseO7wel9F8yFY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200291; c=relaxed/simple;
-	bh=59NyyHL41/fxCKnVpkaZ9/UftIltcgBlLurz9X8b9lc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OSB2+DKUMHuFeu/9TiEHjFKP8s2M2bMB/fkBHcvqAEzFG84Yldyh3v+vgXpPuT0GumbNI0vsy0GOm2od19GqD0V+8ZEESaystoN6VigbrX9ydX9mmg3FrhX3ceGRe1P9jM90/uRQuTQZErCHYGdyoyJKLlz5Gf+Dn1SUHIcHl7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AmFpDPKe; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A887472098
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788200300; cv=fail; b=PuYYiWhZTPmeXfcs68qMpvmUjjmj2zVgkALencMlzagdT5D8jHGPkAG6XkI59XDyH9QQzGyYy7rVNX8CBbFR0HL8lJQTa6i61xOXh9JOqh1Kgvwkbu/RMG0B8PcIbA8USLUbZL/r8hqdqz7lhzCd11IxrPG6cyPpv8oTYGi5alo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788200300; c=relaxed/simple;
+	bh=hNwqjJYUwATyxoZdqlEvRhsaV1WH18tgdroEZ9kKcc4=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=sPtAuQqNDuyd/4DokMAbavnSD+1ZSYp6L8KCCO4LfOXjvanKTG/6uABilC9inOTo6XlHjDnhHv0+cWOicS1Q1K4doznyKUoQ/3/cOHZnxMQxJC8UgBzMvkXZoYtrS2Vvi3HIuaejnlrLgh5AK9XaNYJoffXTBusx0sxsUysP9sU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ARK08CZu; arc=fail smtp.client-ip=40.107.201.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AmFpDPKe"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-482f9309813so40142f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:18:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788200287; x=1788805087; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OtkK6MeXx36zYOmLk563en61hTj5SYJiMnh1Sx9Z2s8=;
-        b=AmFpDPKe+Yzzuh4X9MjlgpxQeqRNOMJ5mQretUU40ad/SSpzb6zNLYGbu8DGBOnCGn
-         MCYuU3M8E4MeKn/SOfrkqEkHFcQX20fWM8fHdyQHjZLHc3qGLZ+HktO8iWz6WQHteX8C
-         CZ1noK6yf17ALCD4nqBEpVex8ZNsKL1vp6EPQ6Dd6ryG+SPth9SiuzWzSativ3RoM29d
-         VTWjsXuLaHpM6nLHAtBPLehicVV75ECMv0orEXDiqEZX0hWawjZleaUGf/euIdoFpqPX
-         7QUb6+WLSk/C+yXi7QvEFh2mCKwYgs5bmOjAcjU9pxrOAvFwxSuYBj/XGRA0i/risgWM
-         7ZBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788200287; x=1788805087;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OtkK6MeXx36zYOmLk563en61hTj5SYJiMnh1Sx9Z2s8=;
-        b=DNMRDTa8trPFuUnKYa+2XxCUwZw54fV6Du+qvFmnZb7LQSeNaa6hJjBUq8a1gt+dJw
-         eiI33wic+JoOEzKzZVvtYXJNwpT22ylxLGa7PFO7Sr90b5JhEVhAQcP549KxcZnD9KoK
-         05jc7xBqRBCPBynceZIyWX1CUq9lyo7h6dnHbphQBlgERlyDpAF/GewfJEXPVZS0QLiV
-         ngEE0Jl9jwvvEp+wAwQH5QjS6p+/ab/bldmeCMuGxwwjhcALXgTugFFCML4Mg9ik9qqE
-         IeZ1YCuK9JWRAKa7NiEzK3IHs8ANZXY8IlvEanF1KNirTwAYkJlMQKKjNvL2XUdAEbgh
-         OUoA==
-X-Gm-Message-State: AFuF++mLOPGfXNLaISxOXu1g/vLKyD/M7mXOHGsCa05EfH6AcwBxog6V
-	iB79b7jSCdC1bMHekP1rAFU+4b8YUaYvznUvc4Jd8GJ+yCopdzRhsH0F4RY9iQ==
-X-Gm-Gg: AYBFou38kurbERo5jmDpFGMc4IwoiPMhln3Lzgf0DXIgGYeuFPMgzOr02d2C3Kj0Ob+
-	cDzt76Ldtm4MnIob00vHc2qH3Jthew4t5Nnn4ovJu6ZeOhD7bYTGWOx3rNy7ZZAjbb052xv3zeF
-	WgOQ0G919b3EuGxi6Li2Gw2Ts8PTvV6fUKDQLkVnwo8drSy5p+264+Ib5Lp46PbgdJwlGo2p1CD
-	VN0m1mnzBN2yA+c0nJMF/ggomxlGLhJZHA/SPkByGMnhjmjn6qbtaaqNHUXCr97goiikYazObYu
-	CwaCRVVeMfq9VIezuLgLQqH4iKhwhjq6FpUBDmMk2xi8TGOEEGWuiz7vFcBd2qMnyFvQim7Vbc3
-	2l9JM4a+zqhqhJWahNppqz6Qcx23Wt6LocQaFYTeVRTeTDctMYQRbAQaT3Vpwk0Wz+vbnsLztJK
-	g/f3m7YV4eW/3/fbdE9Kxr6oK0WqgzGbGhpSxEZjW7k8UUxj2mwtAJ1P5W55ovyfFdMaKiIaIt+
-	/WBqeslvlY4
-X-Received: by 2002:a05:6000:4692:b0:482:d7db:ec06 with SMTP id ffacd0b85a97d-482f79cfc09mr35102693f8f.22.1788200287133;
-        Mon, 31 Aug 2026 11:18:07 -0700 (PDT)
-Received: from localhost.localdomain ([2001:b07:5d3a:fe75:a74b:bc2a:bdfb:30ff])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48440e08b43sm2656289f8f.22.2026.08.31.11.18.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 11:18:06 -0700 (PDT)
-From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: Daniel Scally <dan.scally@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] media: ipu-bridge: Request non-continuous clock for ov5693 on IPU6
-Date: Mon, 31 Aug 2026 20:18:00 +0200
-Message-ID: <20260831181800.322529-1-fernandorimoli11@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <13d6659f-4b51-4041-8aff-70b991ac306e@ideasonboard.com>
-References: <20260717132021.18034-1-fernandorimoli11@gmail.com> <20260720163819.104130-1-fernandorimoli11@gmail.com> <20260720163819.104130-5-fernandorimoli11@gmail.com> <13d6659f-4b51-4041-8aff-70b991ac306e@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ARK08CZu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gjl91rysrTILEvMLgXc8qy7c8c4qe0W/HMTBmZozQ45vvr1GCoNQ6XJYlJz1nA6Gz5FGssHlVODzJLfXzKSNF9U5d4X3r5LLRGzb7RG0GyR7PBA1pQmC111r+U5M13Yjcc+7Ol425VrmscytkbHH5O68znbGRGwMqUMv8Gr9xkzdF6rMgiVTMe4E4Lc97A2dHBjDrp1WsYaQV//iO6gQ2SnWuOT88tJK7sGWw8mSmD18OQkgkmGamAUMVQAZz6UrgMo8iUlC7rxfsWN5fOsVEwlek4QPNJ1dBrBr0nJkhbNCPI4gsXGfplKfeKcmaL4fbpPlYABnRkFb4+5o+aFbMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=90hKnJqi8flNNql9zSvlZrF5lGGlotSa6h45XR068QY=;
+ b=MgoLKJX9lqddH2v65VdO2Jw4rEnDro5cdpSw0szgKnXLli2MjunZ2b0c91sU3dRTd+GSVttKesNmhDgn4Eeg42XHBsGyBukWlWDH+73tCt2/Rq7NZ0AqrPeLCpOQFTh7o62dihXeKxPW81Mbe27JUK5eE6Ycdn2ArZO56mJ8KjaWEvBLPiA3NQqtxw96NG60Nh5rrwDeO9KsAOJzOnIAFpUEkQZib/4xjyfPjy5Y33JB4rQo46iiw7HFzqAqAqoGzerlxWOp4r9JZa0Inm028nzn0+k5ci3AVTCUjwT8d5q8NVoAzhYZeGLOq4ViIjUDSxn7kIynCFsxqoVpmXDJfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=90hKnJqi8flNNql9zSvlZrF5lGGlotSa6h45XR068QY=;
+ b=ARK08CZuoUk/tTFaGnz7mT9wJWyxrtUtcVBi80GxewBd0/G+UmJnysT/N/E/PHAYVW+I1eJPOjvpFoD99cFf9Sn16KpgyUnp7BSXJBQ4Lv0OHDrrMG8WmV4heH8mUd06mTqGaEnIKgDmr+O5cqXhrqzmIY0IOWeyovmE/R03X6X/UAxVEduJNStBA8BQTyG3pYzu9DJVqgNriyK+n8WBrlSvuE60PVUaGzB+eMOpl8NGhaFg2KwsG1qGYTMjwhwTa9uyRmV2PgQYij3n/auAgJYcOvTJJexCYi2I/gprPjtvOVDv4NIKBCNCDx+ferJhUTcIfEha3KyDGgAvg/HcmQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by CH2PR12MB4264.namprd12.prod.outlook.com (2603:10b6:610:a4::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 18:18:12 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 18:18:11 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Phil Auld <pauld@redhat.com>,
+	Breno Leitao <leitao@debian.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] sched: Enable preferred SMT siblings on NVIDIA Olympus
+Date: Mon, 31 Aug 2026 20:10:49 +0200
+Message-ID: <20260831181800.1668646-1-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI1P293CA0014.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:2::17) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|CH2PR12MB4264:EE_
+X-MS-Office365-Filtering-Correlation-Id: f252a151-c790-41e9-a762-08df078c375d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|56012099006|11063799006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	S/gFgJfFfD8WHQml5D3/VY9+si8BEx4NKQjmx88DmCVmEC1T4aacnCE7mGrcjbgd9ZmXCm0cP4w8YV1oB0mkCzIUHVCsS1Oex+gEN3GTu6ZjuIXLLyO7gbieS1PC5bytTq8IfLM1ZxHNC2FDIiBp2WKxK/X5E74jM5/iY3ybwe3jdLjkuP0pgtWQzrC3vlPokcuO/HFUBksTMJcwITQH4zVdmYjTMciiisLZVQutkVd6qDn5CgLdWktu5waI+mkerD6Q46uEY4xweiSojrt/Y5vvph/gq3S55Co0rjKnsgqB1ubRHDC8LkNf//q0eQZEfgy1PutLbCCfKDBzSAXadZpy1YE2MwN7i2068KyDNemuGLLMpw8BP/ygOhg2Z8Z8/yCNoXmMBEWOul6F/CDuPqI+/J/57Yvn+oPJvojLyhqo4eLVoP1PctIZ46ZTX97Wticm4j/5Svju7qVZmH5ziPLWcRV2sXY/O1yd6HfwAiO0/HyOzzIneG/ph27ZhmzAllVSOvQ4rtWgxVCeaPcc2ldljf+KDojeJnb221uKVjXLFF5I3JY/m0Z8TJw81oJwAtvV8kgJehCXCQJWD3guulUpD3JHPMsxCtHFvE3/w5/Zbkpi/SCA+849p7YKxInO/rwTQVFYLBmmQX9iPdFxlOaSmw/OjVn4jDZsuWCIvVg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(56012099006)(11063799006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?5ycxO2G8y8wIsTHS781KcJvY/ClBSW8IfDHhU6hJ2V2yVKBRET80UnwUjs3l?=
+ =?us-ascii?Q?YFQJbsexPSEqehy5klSgYtltU6HGNUx8yYPEweSJBc0RueSfunQwjPUyfYLl?=
+ =?us-ascii?Q?g49MQFrHr5ewqkmYc2EXYH21JoWz0r8jnlu5aEEKSvZoNhtXCyhvTjer4oa1?=
+ =?us-ascii?Q?PKkDCubsNnm05kjS3cMmn8F7w/3F4xfpu8Qb+CZXvOuPRbCEFWHvmUrwPJ6T?=
+ =?us-ascii?Q?KTfvuNrXLSb3/qmMdvxAMBOF0YISVATiGaV1Twws9a++TSeTEL+AM0jDPGyR?=
+ =?us-ascii?Q?WZhSGr7HXMfWJ+2kEK4AOvcw6M2471uFgbyzar3KQ2vn5668lx8UmFeYL9j5?=
+ =?us-ascii?Q?OFOC1zHX13SaIdovfFC5pSGfxcGm3FqEgMRtDc5smTWfsg1t4GAxG9xYQ6XN?=
+ =?us-ascii?Q?7YA1SvtXvtuSYu/O2JTLifXRS6qUJ4zyVljYdAhPLVccvkpJZuZc25myDKId?=
+ =?us-ascii?Q?xYIMJEQILw7Q0xB0jpOr/Sp93Rdxrp3sxWmjH14vsl/Aan6a2uknhqzUm7f8?=
+ =?us-ascii?Q?ZhEv9itJ5xbA4PcfrwP8UuDfB+T40B/h5WZhJZ2r5rsL+MB9iG4un7QVOFcW?=
+ =?us-ascii?Q?os1KxvL+Pm/wFF+kiqjMaYYzomLORSM0SdsO2FzyD2jVK8TYQQBxrdMtnsZd?=
+ =?us-ascii?Q?bjhG8wXnWHggQd3KWPms7PdYs5OQ0HjkBEBOfw9tuLF8hLGqMKSp4gvOnB18?=
+ =?us-ascii?Q?1+0UrNdERzDB8kbumVwP1UrpLzEZhIKmBnOD1RZ6luHoEtWtBHT52iesR6MZ?=
+ =?us-ascii?Q?2fTVeQ1f4xG+3ufZTV1hXVVOW0c8hOl+7iKOSTzD6hdZIdryQey/gWgrFnJm?=
+ =?us-ascii?Q?B69Wbf0sQlllmthECeiO4nNIrXIHkcYZH/eNLLzHLU4L+jXHVx8HU6/9d5eW?=
+ =?us-ascii?Q?ICvrHtJ5rg/iVYcb6Utd1eJHLwZjf1VDS8XN4Ay5wLcGgRRn6u1O8K3gif3W?=
+ =?us-ascii?Q?ig4C/zKAzwDRusaXBWjAtOsrv2mbFfY3LfV9b8Tk7m391jZloxKvfD0b4vIL?=
+ =?us-ascii?Q?lRwujgO734Q04Kp4Llw+C+3HmgOewgoy+gJrIJ6ZAgIuceXflXqOmEEzEZrH?=
+ =?us-ascii?Q?UTykmgRyhDsDc75Vwg6lAhsSREQi2XCT0ftRlz/T0f1XUYL6dv2BYVekc6Ps?=
+ =?us-ascii?Q?Rv9YOvvhKqis1EoL7WQx4FUUSqHAblHwEe+urM2zvRotAh+8hNr3tVmXrdyY?=
+ =?us-ascii?Q?ZS2qDQm59i3Mp3xMqQvm01e0bkS/D32nsF8UPZzb+pKBUFPsDRGS8UYLC6hO?=
+ =?us-ascii?Q?0X4lIYQu6wgwR1/Q1pYCQI7HO75J3zC3A7F0MvEB55jzcmZQLS2fHbE5buuZ?=
+ =?us-ascii?Q?xRX0Ao2xy8YJISPOWy5+2pkknwR2T0guGGqJY0I2irKRxW6ra5HB2j9wAnHX?=
+ =?us-ascii?Q?L/My12V7QzSmkAbocjh2Xn/udANYr5EzEbWi1QuiJy81D+GAXSr3owY/PSnh?=
+ =?us-ascii?Q?9Uoa02YwLiWJ6sLEpn41mSJJ085f9YhQ/FFGW4KgP1+214mrrUGbOkPDt450?=
+ =?us-ascii?Q?deIVPm7I7qXX/d6yn7r3v3o7DDgBEYqCADRXuxNhenme6ZPGhe3r1D9Ya/j8?=
+ =?us-ascii?Q?DdzWfQIBqPQZ1s2kX7GbN88tNoM0XWTLiEFJ0pX5EtWWIL92bSN0ggSCmosJ?=
+ =?us-ascii?Q?xzx1FRi8wJqTl7cMXrN0kTw4LWQIEcYNnJ5N2VVprwUn462f193lP8K6/O+a?=
+ =?us-ascii?Q?gf+iHSH5cnegbQART5CD9F7QawXoxVbbkq1I6Z5XwzaMWVnlCoIRW0cZdXD0?=
+ =?us-ascii?Q?F6FK5GVJng=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f252a151-c790-41e9-a762-08df078c375d
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:18:11.7698
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 10rWBNg5eLwrVwBqQNYHwhb5HsIF0QEi8tuKJqmMSoEC8r8fG/2trZZbSpAIyFWrAowtm7usD4gDhEgUgH521A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4264
 
-Hi Dan,
+NVIDIA Olympus implements SMT with two symmetric processing elements (PEs).
+When only one PE is active, the core operates in single-thread mode and
+that PE can use the full core resources. When both PEs are active, the core
+operates in two-thread mode and the PEs share those resources. This
+behavior is common to SMT implementations, but Olympus is particularly
+sensitive to brief sibling activations because returning from two-thread
+mode to single-thread mode after a sibling becomes idle is not immediate.
+As described by commit 293f9611ae735 ("sched/fair: Prefer fully idle cores
+for NOHZ balancing"):
 
-Thanks for the reviews on v3, and sorry for the slow follow-up.
+  Briefly activating an otherwise idle sibling can reduce the performance
+  available to the other sibling and this effect does not necessarily end
+  once the activated sibling becomes idle: after the ILB finishes and its
+  CPU enters WFI, full single-thread performance is restored only after the
+  sibling has remained idle for a qualification interval (10 Ki cycles on
+  the tested Vera system).
 
-> Hm, I think this is functionally fine, but matching on PCI ID and sensor
-> does seem a bit quirky...do you know if the IPU3 case is fine with the
-> clock-noncontinuous flag too? If not I can test it tomorrow.
+That change prevents the NOHZ idle load balancer from unnecessarily waking
+a sibling of a busy PE. However, ordinary task placement can still select
+either sibling of an idle core and repeated changes of the active PE can
+keep Olympus cores in two-thread mode despite little or no useful overlap
+between the siblings.
 
-You and Sakari landed on the same objection, and v4 drops that helper
-entirely. Instead struct ipu_sensor_config gains an optional IPU PCI
-product ID and a flags field (Sakari's suggestion), so the ov5693 on IPU6
-becomes table entries rather than a special case in code:
+This series makes PE0 the preferred sibling of an Olympus core using
+SD_ASYM_PACKING and teaches the fair scheduler's idle-selection paths to
+honor asymmetric SMT priority. The scheduler first selects an idle core
+according to its existing placement and capacity rules, then chooses the
+highest-priority available sibling within that core. The generic scheduler
+behavior is enabled only when an architecture supplies an SD_ASYM_PACKING
+SMT domain.
 
-    IPU_SENSOR_CONFIG("INT33BE", 1, 419200000),
-    IPU_SENSOR_CONFIG_MATCH_FL("INT33BE", PCI_DEVICE_ID_INTEL_IPU6,
-                               CSI2_CLK_NONCONTINUOUS, 1, 419200000),
-    IPU_SENSOR_CONFIG_MATCH_FL("INT33BE", PCI_DEVICE_ID_INTEL_IPU6EP_ADLP,
-                               CSI2_CLK_NONCONTINUOUS, 1, 419200000),
+PE0 and PE1 have equal steady-state capacity, the preference does not
+identify a faster PE. PE0 is used only as a canonical choice when both
+siblings are available. Consistently selecting the same sibling avoids
+alternating the active PE across wakeups, lets PE1 remain idle for longer,
+and allows more cores to remain in, or return to, full-resource
+single-thread mode.
 
-That also answers your IPU3 question without needing the test: IPU3 has
-no matching entry, so it keeps using the generic one and never sees the
-flag, by construction rather than by a PCI check. So please don't spend
-hardware time on it on my account. If you are curious anyway I would
-still be interested in the result, since knowing IPU3 tolerates the flag
-would let a later patch collapse those three entries back into one, but
-it is not blocking anything now.
+The series was tested on a two-node Vera system using an 88-thread
+single-precision GEMM on the 88 physical cores of NUMA node 0.
 
-Since a PCI ID in the table is new, one semantic came with it that I would
-value your view on as the bridge's author: a sensor with both a specific
-and a generic entry for the same HID matches twice on the specific IPU, and
-ipu_bridge_connect_sensor() would then enumerate the same ACPI device twice
-and consume two of the four IPU ports. v4 therefore skips the generic entry
-when a specific one matches, as an order-independent filter in
-ipu_bridge_connect_sensors() rather than a rule about table ordering.
+With the workload allowed to choose either sibling of every core, observed
+throughput improved from approximately 9.4 TFLOP/s on the baseline kernel
+to approximately 10.1 TFLOP/s with this series applied. Repeated runs also
+became more predictable because the workload consistently settled on PE0
+while PE1 remained quiet.
 
-Two other things you should know about v4:
+Andrea Righi (2):
+  arm64: topology: Prefer PE0 on NVIDIA Olympus SMT cores
+  sched/fair: Honor asymmetric SMT priority in idle selection
 
-- Patch 3 now writes only bit 5 (clock-lane gate), not bit 5 + bit 2.
-  Sakari asked whether IPU6 needed bit 2; it does not, and my sweep data
-  agreed, so it is gone. It is also now set with cci_update_bits() rather
-  than a full-register cci_write(): the ov5693 does not otherwise program
-  MIPI_CTRL00, and since this driver serves IPU3/CIO2 and Rockchip too,
-  touching the one bit leaves anything the platform left there intact.
-  Because that changes behaviour I dropped your Reviewed-by from that
-  patch rather than carry it. Happy to add it back if you are still
-  content with the narrower write.
-
-  Since v3 a linux-surface user also reproduced the value question
-  independently on a Surface Pro 8 (Tiger Lake IPU6, INT33BE rather than
-  OVTI5693) and got the one result I was missing: the vendor value with
-  only bit 5 cleared does not stream, so bit 5 is necessary and not just
-  sufficient. Details and the caveats in the cover letter.
-
-- Your Reviewed-by on v3 2/4 is carried forward unchanged onto v4 2/6, as
-  that patch is untouched. Thank you for it.
-
-There is also a new no-op refactor as patch 4/6 (endpoint property indices
-assigned dynamically, per NEXT_PROPERTY() in mipi-disco-img.c). It turned
-out to fix a latent issue in my v3: because the property array is
-NULL-terminated, a conditional property at a fixed index would have been
-silently dropped for any sensor with nr_link_freqs == 0, INTC10C5 being
-the in-tree example.
-
-Thanks,
-Fernando
+ arch/arm64/include/asm/topology.h |  1 +
+ arch/arm64/kernel/smp.c           |  1 +
+ arch/arm64/kernel/topology.c      | 62 +++++++++++++++++++++++++++++++++++++++
+ kernel/sched/fair.c               | 81 +++++++++++++++++++++++++++++++++++++++++++------
+ kernel/sched/sched.h              |  6 ++++
+ kernel/sched/topology.c           | 36 ++++++++++++++++++++++
+ 6 files changed, 178 insertions(+), 9 deletions(-)
