@@ -1,83 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57AD4A092B;
-	Mon, 31 Aug 2026 18:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E563390CAC;
+	Mon, 31 Aug 2026 18:07:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788199421; cv=none; b=PasnbJRZxP3EdpsJF6QT+1w4Cy977QLn+JLtIWLjrGdpqfrybsZCxRdlo6gBoHx7hp0N7I79SCyt3g4A2QtKrky0o68CtkDuigByGfsr92hd1qP2kEDhTDwbkvP21Ascy1kUbe5HbJWHHBVL7EsiLcRT//D7ugXMlkQhfDzVITc=
+	t=1788199658; cv=none; b=VDZXXMEpdz2/zHiZ9JwJMmulEqGjnlEm7pfi4CXrsprSQywulux7bQrOjcJjQZIm5i1L0jbTcHIXE4ebWl8/aZ7yREJNiW5NkEIswCZc7Hhe2zLHlg0oYsxU4L6BK1pAN8fXE2up3IS0/PymKZGa/3j6V8In38qP5oPKoSs7P34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788199421; c=relaxed/simple;
-	bh=II9wom9svLKecnivIvV0TnL+nprkbs/6auF3lF1kiaI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=g3Y8f1rnjLeDO/NDVZdmkJ1rU3CJsoNioAXeV1UJZl4DcV3T9H12zXJyOcfZTEyusYOZ5Ph/dDpzVh/q8v+gckRILA9T5jIBBgSzkmrnL18WNYyWjCp5Bg2Bz25D1xyWUOSWQQ1odfodTU+4m8IbBC9KixltSslbWbtksO4Kkyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZwM9qGVs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788199658; c=relaxed/simple;
+	bh=wlBvWv5wAC+mYLHqVd2/cXFvgyXsx7SGWxIsHuZFY8k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LBsPytWUo+12f0Gj3r6OAjGBrjipS1MCoAke7btC9oUWhcH+OK2ynJ3CBpf3qtwAaOeI7IVrMNefqzucm4tQrbIdlZTlA301RJ+ZLB96rxx17CV59x/Vna+AfHWki4MNbN7UBIYSNMk38hz3jb7eRK9XvkHYsfiTuLFunbbUjJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=GPDavYa0; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZwM9qGVs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F29D51F000E9;
-	Mon, 31 Aug 2026 18:03:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788199419;
-	bh=mC8M8sDW7Z8VK7QyO3vAJB3ESBcsyz+W1uPbTLNMPQE=;
-	h=From:To:Cc:Subject:Date;
-	b=ZwM9qGVsjAJ0flyHc/PO7v1Xj/mNpoA+/903ziP6taT8M2XXcWbVO+bQeq8GZWWDE
-	 Ge27t5JPC4J2Kk73GmdsjYv/saxeqPwrPXAgPUOOy5TUFiBpovyHxA/pa446t9n0R+
-	 GaLeZuv7j13kea780ih2BPiBABpMA/a1y6N31jsCBqL61/tfu41drtvOXA0KDeBukP
-	 dxsoMEHxtejzu8ApXaqWiOQ80BgB6/Z/gstitPgzZf6j87twHMNpV16v9UhCl5La9B
-	 xO7xQtYcR/HGyqMFE5G0B1fgvB9oJy8qjA9aXWhXJV9ZyFvdyzn0SrZBTJLCdRhqd/
-	 J0LU2L5MSR0lA==
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-To: Linux ACPI <linux-acpi@vger.kernel.org>
-Cc: Linux PM <linux-pm@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Peixin Xie <peixin.xie@linux.spacemit.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Lukas Wunner <lukas@wunner.de>,
- Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Linux PCI <linux-pci@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
- Hans de Goede <hansg@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject:
- [PATCH v1 0/7] ACPI: scan: Address power management initialization and PCI
- devices handling
-Date: Mon, 31 Aug 2026 18:20:42 +0200
-Message-ID: <3435655.aeNJFYEL58@rafael.j.wysocki>
-Organization: Linux Kernel Development - Intel
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="GPDavYa0"
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1788199655;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QWROxA68Nbt4khZYWg/OSJ5zjSHC+mroG5OsDJm8z2Q=;
+	b=GPDavYa0rbB6zLs+pK0yXVZSusP0ltO+/BfAk70NqN6jOpyi0AZYVlj0PPWQURTfjOipSY
+	+miF+BkQ+GPLjq9cMfbc/0Zx1ugirVnVYMxXjyI1dfsq3jobSOXuhTzWOMyaCxn3Dlu4Dl
+	cUVEFFYPvCvCSK2B/VK7LfJipc39bIQ=
+To: tglx@kernel.org,
+	andreas@gaisler.com,
+	davem@davemloft.net,
+	sparclinux@vger.kernel.org
+Cc: Tony Rodriguez <unixpro1970@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	thomas.weissschuh@linutronix.de,
+	regressions@lists.linux.dev,
+	glaubitz@physik.fu-berlin.de,
+	linux@leemhuis.info,
+	torvalds@linux-foundation.org,
+	Stian Halseth <stian@itx.no>
+Subject: [PATCH v3] sparc64: Fix comparator problem with timer interrupts
+Date: Mon, 31 Aug 2026 20:07:27 +0200
+Message-ID: <20260831180728.3097740-1-stian@itx.no>
+In-Reply-To: <20260519022421.5978-1-unixpro1970@gmail.com>
+References: <20260519022421.5978-1-unixpro1970@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi All,
+From: Tony Rodriguez <unixpro1970@gmail.com>
 
-This series aims at addressing a few issues present in the core ACPI device
-enumeration code, mostly related to the acpi_bus_attach() function (that
-gets renamed in one of the patches).
+The tick/stick/hbtick add_compare() implementations program the
+comparator and then check whether the write took effect in time:
 
-The first one is that, on some systems, ACPI power management is initialized
-twice for devices that have missing dependencies to start with.  An attempt
-to address this issue had been made during the 7.3 merge window, but it had
-to be reverted [1].  The approach used here is roughly the same as in the
-reverted commit, but it takes PCI devices (which are a special case) into
-account.
+	exp = read_cnt() + delta_ticks;
+	write_cmp(exp);
+	return (read_cnt() - exp) > 0;
 
-The other issues are that flags are unnecessarily cleared by acpi_bus_attach()
-for devices with missing dependencies, the "initialized" ACPI device object
-flag is not particularly useful, the "visited" ACPI device object flag is
-used for two different things which is confusing at best, and that PCI
-devices are handled by acpi_bus_attach() like any other devices which is
-a mistake.
+A nonzero return value means the expiry time was already reached
+before the comparator write could take effect, so the interrupt may
+never fire, and the caller retries with a new expiry:
 
-Please see the changelogs of individual patches for details.
+	return tick.add_compare(delta_ticks) ? -ETIME : 0;
 
-I have tested this series on a couple of machines, but let's see what
-Sashiko has to say about it.
+The check only fails the write when the counter has advanced past the
+expiry time, but not when it is equal to it. In the equal case it is
+unknown whether the comparator write took effect before or after the
+counter reached the expiry value, so the compare match - and with it
+the timer interrupt - may have been missed. add_compare() then
+reports success, the caller does not retry, and the CPU is left with
+no pending timer interrupt.
 
-Thanks!
+This results in stalled hrtimers and RCU stalls / hangs under load,
+observed on SPARC S7-2 and T7-1 systems:
 
+    rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
+    rcu: rcu_sched kthread timer wakeup didn't happen for 5259 jiffies!
+    rcu:     Possible timer handling issue on cpu=100 timer-softirq=15
 
-Link: https://lore.kernel.org/linux-acpi/20260820-acpi-power-resource-ref-fix-v2-1-29818173ea13@linux.spacemit.com/ [1]
+Treat counter == expiry as failure as well, so the caller retries
+with a new expiry time. After this change S7-2 and T7-1 systems no
+longer hang.
 
+Diagnosed-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://lore.kernel.org/all/87tssb6olo.ffs@tglx/
+Link: https://lore.kernel.org/all/871pfcznw0.ffs@tglx/
+Link: https://lore.kernel.org/all/20260519022421.5978-1-unixpro1970@gmail.com/
+Signed-off-by: Tony Rodriguez <unixpro1970@gmail.com>
+[stian: rewrote the changelog per review of v2, retested]
+Signed-off-by: Stian Halseth <stian@itx.no>
+---
+v3:
+ - rewrite the changelog: describe the write/readback ordering and the
+   direction of the equal-compare case per Thomas Gleixner's review
+   https://lore.kernel.org/all/878q9fxywc.ffs@tglx/
+   (the code change is identical to v2)
+ - add the Link: tags to the original debugging discussion
+ - picked up with Tony's agreement after v2 stalled
+   https://lore.kernel.org/all/10382506-3f57-4b33-8356-34f23fb5f153@gmail.com/
 
+Tested on an UltraSPARC T4-1 (sun4v, stick variant): 9.1M hrtimer
+reprograms in 90s across 32 threads with 10-500us expiries, no
+stalls, no lost wakeups (worst oversleep 657us).
+
+ arch/sparc/kernel/time_64.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/sparc/kernel/time_64.c b/arch/sparc/kernel/time_64.c
+--- a/arch/sparc/kernel/time_64.c
++++ b/arch/sparc/kernel/time_64.c
+@@ -146,7 +146,7 @@
+ 			     : "=r" (new_tick));
+ 	new_tick &= ~TICKCMP_IRQ_BIT;
+ 
+-	return ((long)(new_tick - (orig_tick+adj))) > 0L;
++	return ((long)(new_tick - (orig_tick+adj))) >= 0L;
+ }
+ 
+ static unsigned long tick_add_tick(unsigned long adj)
+@@ -277,7 +277,7 @@
+ 			     : "=r" (new_tick));
+ 	new_tick &= ~TICKCMP_IRQ_BIT;
+ 
+-	return ((long)(new_tick - (orig_tick+adj))) > 0L;
++	return ((long)(new_tick - (orig_tick+adj))) >= 0L;
+ }
+ 
+ static unsigned long stick_get_frequency(void)
+@@ -411,7 +411,7 @@
+ 
+ 	val2 = __hbird_read_stick() & ~TICKCMP_IRQ_BIT;
+ 
+-	return ((long)(val2 - val)) > 0L;
++	return ((long)(val2 - val)) >= 0L;
+ }
+ 
+ static unsigned long hbtick_get_frequency(void)
+--
+2.53.0
