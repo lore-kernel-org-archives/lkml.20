@@ -1,194 +1,431 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC71A26B2CE;
-	Mon, 31 Aug 2026 11:11:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CECF344052
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:12:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788174694; cv=none; b=uOcZ9DIKCLDaw501SUV7EHITvNkniLAwbQzhd4SuxVNwu4wplhh6iKgBnP7r+5Dw5ZB4mNItjckFSzwvAcPnsAVOpNHa3Hcv/h6/sDb4GulYiC3ZuBXOYcx8DrLI1n5X3Cpf4ygVlBa9ihmu/DPiatyKW0vL1HS4Kz3OIJ0RK9g=
+	t=1788174727; cv=none; b=NNb/2WQELusYMyW2naipR+zuMpw8JaarlzbYRvc9nXMR21fcYMGC00As/wxNUEEKGdurhUELqm1NP+jC0weYoo1NrGlf5sIh6Mp1/leu1AuYoJ7ABoBRGp3hPDCedemZLiUcsT8qeR5h9/u9wLz+SPKX2Px7rEi5zI05sdMSRGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788174694; c=relaxed/simple;
-	bh=kym/LrhV/aYD7QLsJyv8b/49ADHeyC0z+mmkTMQEI0I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TLFJ1JkfediljAza+IMVTXn2ondMr9sWJuYvG1Nx7NsfB56ni5vKASNEwuavMUCk/rNTA7ZOrnAFaNlfFRK+2z29d2uNh8oG7l3XwwhW30T2Wj5rb3dZEEsuffuyw2qFQvs5ZSvU3x58JJl09+sVj+e3bSx0JJMYP4DRZitychU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AIU1nWyV; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AIU1nWyV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788174692; x=1819710692;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=kym/LrhV/aYD7QLsJyv8b/49ADHeyC0z+mmkTMQEI0I=;
-  b=AIU1nWyVuhoyvKyjIOeqUSa0iesXEjeKVq6wHWgm3CvQerRWKMfw+HMc
-   dpbMRM2ZjmHmbUvISu5sbj0+chZE5ODJObSEJe3IwtH8i7JdEeSjn17IF
-   HKysUPMpTsvXw1fGrcgSX3VrOJc4HkYqPOeIEAwuv4Oh3DNUCB/V9mXGz
-   J7LmKdZUO6CLhVnL4kCBQAxH+YSz+YNZeYRfAm0Hu/WyWA7ZTHhDEE92w
-   f2eBlU0JevQIgMhmyJq2bcHFsBqPqlafo/c1nx4C2EW8yvE7gGeWTKlsO
-   POvZ+n/HJxI4wqprfZsUvtMpGQ0cNKe1537MoLlxbgJs15oh51BSUs3tM
-   Q==;
-X-CSE-ConnectionGUID: +LGk/kcTQlaIezbOZoDMCQ==
-X-CSE-MsgGUID: /LZ5wrI3QUOvpJAQbyBq5A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88432200"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="88432200"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 04:11:32 -0700
-X-CSE-ConnectionGUID: SvHFtj21RH6jp6nsfUkA7w==
-X-CSE-MsgGUID: 5gDXYUL3SrCjlWveFNTg6A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="265528315"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa007.fm.intel.com with ESMTP; 31 Aug 2026 04:11:30 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id E3A0199; Mon, 31 Aug 2026 13:11:28 +0200 (CEST)
-Date: Mon, 31 Aug 2026 13:11:28 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Juan Martinez <juan.martinez@amd.com>
-Cc: westeri@kernel.org, mario.limonciello@amd.com, andreas.noever@gmail.com,
-	YehezkelShB@gmail.com, Basavaraj.Natikar@amd.com, Sanath.S@amd.com,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] thunderbolt: Fix tb->lock deadlock during hot-unplug
- on AMD USB4 routers
-Message-ID: <20260831111128.GH124825@black.igk.intel.com>
-References: <20260827215740.415496-1-juan.martinez@amd.com>
- <20260828051903.485922-1-juan.martinez@amd.com>
+	s=arc-20240116; t=1788174727; c=relaxed/simple;
+	bh=jx6m7TDAy3n2H1KmnOT50dstkrbrIEfHThU3enjgJ+s=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=AQXtY9101SOej1eHUbeJUV0Mfy/SlI84f5fIsupj67Q2bv0G60E2u3TQKWRnjVDJr+mJatRrzN74wG9i/rB9OqDExJVvla9nne1SgkfS7BTdVV5VN/mJWLBo2VHh7YiLwTf6LQ9SY8muUg5pRE0JmPPVHEinHvxpvdPKnmsXD8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b28db6c77aso5087848b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:12:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788174724; x=1788779524;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6AHpiCqC3lUjekaa7pzFDioIiCAl1doBUmmbvzVJYRo=;
+        b=JzaKgr8egmcLhkOWVVlT0M0zqTy24vqSMu3Ftb1kkwULRjUp0b0kwHdSAiCaJ3ZQlh
+         QvXwpIWBG8fNu+zDaZFt0sKNHijEQmrEfykb3fkAQ6Gx+1cU8rbBTO4PY1esBcXD4uk0
+         v4H3i/ZHkEJDh1UFbx506c9TyG6lFoig5/J5M7ti+rp/JL6ADWo9uPjBxG4YDuFvmkcR
+         X/gAzzKtpqhyjp5xza1zdBBDI+P4fwKT73Iv39McN58KzbL9OU6p5pGbXmY73VXgsQfJ
+         bfQjNSRPqHHwd39uO83FPOk6qNUZV/rTbrtFoGX20Toeu0Tq0e+ZjVivb1n7JyxRxjnM
+         FfBw==
+X-Forwarded-Encrypted: i=1; AHgh+RoTu1/oDA+/w9M0MYwmN2V6lwNmHsf0PWNA5oy0QGn7KM84IVnsZsAkHzhh2ccCDitRGCQNp2IJhLemft0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCqcC7jitXfouq5vnVqRnpApwTpjnaA9xt3lrs3NMkqKZHHUja
+	921tDU89dQduqpl7hmmQHBTC6s9RLukcUzotlVjMaqQm+Z1YRcMds2whNUjYXoDqZ5b75EK6QHX
+	rI4uJhaZUYixh4I5GkcDFGN5f2HTTmXC2GiEKOciGZrfRsjpM4av9pgNTL7I=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260828051903.485922-1-juan.martinez@amd.com>
+X-Received: by 2002:a05:6808:4f47:b0:4b2:21e2:82c6 with SMTP id
+ 5614622812f47-4b3982a9a00mr26600352b6e.10.1788174724066; Mon, 31 Aug 2026
+ 04:12:04 -0700 (PDT)
+Date: Mon, 31 Aug 2026 04:12:04 -0700
+In-Reply-To: <20260831084131.410457-1-junjie.cao@intel.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a956184.4d659fcc.734b4.004d.GAE@google.com>
+Subject: Re: [syzbot] [mm?] INFO: rcu detected stall in exit_to_user_mode_loop
+From: syzbot <syzbot+2642f347f7309b4880dc@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, cgroups@vger.kernel.org, davem@davemloft.net, 
+	edumazet@google.com, hannes@cmpxchg.org, hdanton@sina.com, horms@kernel.org, 
+	jackmanb@google.com, jhs@mojatatu.com, jiri@resnulli.us, junjie.cao@intel.com, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	mhocko@kernel.org, mhocko@suse.com, muchun.song@linux.dev, 
+	netdev@vger.kernel.org, pabeni@redhat.com, roman.gushchin@linux.dev, 
+	shakeel.butt@linux.dev, surenb@google.com, syzkaller-bugs@googlegroups.com, 
+	vbabka@suse.cz, vinicius.gomes@intel.com, ziy@nvidia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hello,
 
-On Fri, Aug 28, 2026 at 12:19:03AM -0500, Juan Martinez wrote:
-> Commit f1de1fc5f632 ("thunderbolt: Add quirk to reset host interface on
-> DMA path teardown for AMD USB4 routers") introduced a deadlock when
-> physically unplugging a Thunderbolt cable on AMD systems.
-> 
-> The problem occurs because tb_handle_hotplug() holds tb->lock while
-> processing the unplug event. When it removes the XDomain services,
-> tbnet_remove() calls tb_xdomain_disable_paths() which eventually calls
-> tb_domain_reset_interface(). That function tries to acquire tb->lock
-> via guard(mutex), but the hotplug worker already holds it, causing a
-> self-deadlock.
-> 
-> The deadlock manifests as a complete network hang because
-> tb_handle_hotplug() holds RTNL while waiting on its own mutex, blocking
-> all network operations system-wide.
-> 
-> The existing code already handles this scenario partially: when
-> xd->is_unplugged is true, tb_disconnect_xdomain_paths() intentionally
-> skips the DMA teardown because the hotplug handler will do it later
-> via __tb_disconnect_xdomain_paths(). However, the reset was still
-> being called unconditionally.
-> 
-> Fix this by:
-> 1. Splitting tb_domain_reset_interface() into a locked inner function
->    __tb_domain_reset_interface_locked() and a locking wrapper
-> 2. Skipping the reset in tb_domain_disconnect_xdomain_paths() when
->    xd->is_unplugged is true (matching the existing teardown skip logic)
-> 3. Calling __tb_domain_reset_interface_locked() from tb_handle_hotplug()
->    after __tb_disconnect_xdomain_paths() where the actual DMA teardown
->    happens and tb->lock is already held
-> 
-> This preserves the reset behavior for normal shutdown paths while
-> avoiding the deadlock during physical cable unplug.
-> 
-> Fixes: f1de1fc5f632 ("thunderbolt: Add quirk to reset host interface on DMA path teardown for AMD USB4 routers")
-> Signed-off-by: Juan Martinez <juan.martinez@amd.com>
-> ---
->  drivers/thunderbolt/domain.c | 20 +++++++++++++++++---
->  drivers/thunderbolt/tb.c     |  1 +
->  drivers/thunderbolt/tb.h     |  1 +
->  3 files changed, 19 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/thunderbolt/domain.c b/drivers/thunderbolt/domain.c
-> index 12c88509a54f..4cef9f4de523 100644
-> --- a/drivers/thunderbolt/domain.c
-> +++ b/drivers/thunderbolt/domain.c
-> @@ -788,14 +788,22 @@ int tb_domain_approve_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
->  			transmit_ring, receive_path, receive_ring);
->  }
->  
-> -static void tb_domain_reset_interface(struct tb *tb)
-> +/*
-> + * __tb_domain_reset_interface_locked - Reset host interface (lock held)
-> + *
-> + * Caller must hold tb->lock. Used by hotplug path where lock is already held.
-> + */
-> +void __tb_domain_reset_interface_locked(struct tb *tb)
->  {
->  	struct tb_nhi *nhi = tb->nhi;
->  
-> +	lockdep_assert_held(&tb->lock);
-> +
->  	if (!nhi->ops->reset_interface)
->  		return;
->  
-> -	guard(mutex)(&tb->lock);
-> +	if (!(nhi->quirks & QUIRK_RESET_DMA_ON_TEARDOWN))
-> +		return;
->  
->  	/* The reset clears the ring state so stop the control channel */
->  	tb_ctl_stop(tb->ctl);
-> @@ -803,6 +811,12 @@ static void tb_domain_reset_interface(struct tb *tb)
->  	tb_ctl_start(tb->ctl);
->  }
->  
-> +static void tb_domain_reset_interface(struct tb *tb)
-> +{
-> +	guard(mutex)(&tb->lock);
-> +	__tb_domain_reset_interface_locked(tb);
-> +}
-> +
->  /**
->   * tb_domain_disconnect_xdomain_paths() - Disable DMA paths for XDomain
->   * @tb: Domain disabling the DMA paths
-> @@ -835,7 +849,7 @@ int tb_domain_disconnect_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
->  	if (ret)
->  		return ret;
->  
-> -	if (tb->nhi->quirks & QUIRK_RESET_DMA_ON_TEARDOWN)
-> +	if (!xd->is_unplugged)
+syzbot tried to test the proposed patch but the build/boot failed:
 
-If I read this right, if you unplug a tree (say a router and then after
-that router there is inter-domain link) with this check the reset does not
-happen and AMD system still hangs?
+ 2.992004][    T1] Mandatory Access Control activated.
+[    2.993509][    T1] pnp: PnP ACPI init
+[    3.023863][    T1] pnp: PnP ACPI: found 6 devices
+[    3.105394][    T1] clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xf=
+fffff, max_idle_ns: 2085701024 ns
+[    3.113910][    T1] NET: Registered PF_INET protocol family
+[    3.116610][    T1] IP idents hash table entries: 131072 (order: 8, 1048=
+576 bytes, vmalloc)
+[    3.128889][    T1] tcp_listen_portaddr_hash hash table entries: 4096 (o=
+rder: 7, 294912 bytes, vmalloc)
+[    3.130899][    T1] Table-perturb hash table entries: 65536 (order: 6, 2=
+62144 bytes, vmalloc)
+[    3.133075][    T1] TCP established hash table entries: 65536 (order: 7,=
+ 524288 bytes, vmalloc)
+[    3.144444][    T1] TCP bind hash table entries: 65536 (order: 12, 94371=
+84 bytes, vmalloc hugepage)
+[    3.151706][    T1] TCP: Hash tables configured (established 65536 bind =
+65536)
+[    3.155107][    T1] MPTCP token hash table entries: 8192 (order: 8, 7208=
+96 bytes, vmalloc)
+[    3.158207][    T1] UDP hash table entries: 4096 (order: 8, 1048576 byte=
+s, vmalloc)
+[    3.161213][    T1] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    3.166692][    T1] RPC: Registered named UNIX socket transport module.
+[    3.167740][    T1] RPC: Registered udp transport module.
+[    3.168610][    T1] RPC: Registered tcp transport module.
+[    3.169492][    T1] RPC: Registered tcp-with-tls transport module.
+[    3.170446][    T1] RPC: Registered tcp NFSv4.1 backchannel transport mo=
+dule.
+[    3.187812][    T1] NET: Registered PF_XDP protocol family
+[    3.189221][    T1] pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 windo=
+w]
+[    3.190367][    T1] pci_bus 0000:00: resource 5 [io  0x0d00-0xffff windo=
+w]
+[    3.191848][    T1] pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bff=
+ff window]
+[    3.193134][    T1] pci_bus 0000:00: resource 7 [mem 0xc0000000-0xfebfef=
+ff window]
+[    3.195979][    T1] pci 0000:00:00.0: Limiting direct PCI/PCI transfers
+[    3.197272][    T1] PCI: CLS 0 bytes, default 64
+[    3.198358][    T1] PCI-DMA: Using software bounce buffering for IO (SWI=
+OTLB)
+[    3.199469][    T1] software IO TLB: mapped [mem 0x00000000b4400000-0x00=
+000000b8400000] (64MB)
+[    3.201954][    T1] ACPI: bus type thunderbolt registered
+[    3.211140][    T1] RAPL PMU: API unit is 2^-32 Joules, 0 fixed counters=
+, 10737418240 ms ovfl timer
+[    3.216011][   T61] kworker/u8:1 (61) used greatest stack depth: 27880 b=
+ytes left
+[    3.236610][    T1] kvm_amd: CPU 0 isn't AMD or Hygon
+[    3.236649][    T1] clocksource: tsc: mask: 0xffffffffffffffff max_cycle=
+s: 0x285d5483c8d, max_idle_ns: 440795228937 ns
+[    3.239738][    T1] clocksource: Switched to clocksource tsc
+[    3.247879][   T67] kworker/u8:3 (67) used greatest stack depth: 27160 b=
+ytes left
+[    3.274579][    T1] Initialise system trusted keyrings
+[    3.278300][    T1] workingset: timestamp_bits=3D40 (anon: 35) max_order=
+=3D21 bucket_order=3D0 (anon: 0)
+[    3.286066][    T1] DLM installed
+[    3.291910][    T1] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    3.299536][    T1] NFS: Registering the id_resolver key type
+[    3.299710][    T1] Key type id_resolver registered
+[    3.299721][    T1] Key type id_legacy registered
+[    3.299981][    T1] nfs4filelayout_init: NFSv4 File Layout Driver Regist=
+ering...
+[    3.300091][    T1] nfs4flexfilelayout_init: NFSv4 Flexfile Layout Drive=
+r Registering...
+[    3.304030][    T1] smbdirect: subsystem loading...
+[    3.312200][    T1] smbdirect: subsystem loaded
+[    3.342789][    T1] Key type cifs.spnego registered
+[    3.343043][    T1] Key type cifs.idmap registered
+[    3.346819][    T1] ntfs3: Enabled Linux POSIX ACLs support
+[    3.346847][    T1] ntfs3: Read-only LZX/Xpress compression included
+[    3.347118][    T1] jffs2: version 2.2. (NAND) (SUMMARY)  =C2=A9 2001-20=
+06 Red Hat, Inc.
+[    3.349230][    T1] romfs: ROMFS MTD (C) 2007 Red Hat, Inc.
+[    3.349425][    T1] QNX4 filesystem 0.2.3 registered.
+[    3.349531][    T1] qnx6: QNX6 filesystem 1.0.0 registered.
+[    3.350763][    T1] fuse: init (API version 7.46)
+[    3.354681][    T1] orangefs_debugfs_init: called with debug mask: :none=
+: :0:
+[    3.355943][    T1] orangefs_init: module version upstream loaded
+[    3.356821][    T1] JFS: nTxBlock =3D 8192, nTxLock =3D 65536
+[    3.369044][    T1] SGI XFS with ACLs, security attributes, realtime, sc=
+rub, repair, quota, no debug enabled
+[    3.378590][    T1] 9p: Installing v9fs 9p2000 file system support
+[    3.380623][    T1] NILFS version 2 loaded
+[    3.381303][    T1] befs: version: 0.9.3
+[    3.382815][    T1] ocfs2: Registered cluster interface o2cb
+[    3.384592][    T1] ocfs2: Registered cluster interface user
+[    3.386061][    T1] OCFS2 User DLM kernel interface loaded
+[    3.408890][    T1] gfs2: GFS2 installed
+[    3.423843][    T1] ceph: loaded (mds proto 32)
+[    3.437963][    T1] NET: Registered PF_ALG protocol family
+[    3.439495][    T1] async_tx: api initialized (async)
+[    3.440455][    T1] Key type asymmetric registered
+[    3.441477][    T1] Asymmetric key parser 'x509' registered
+[    3.442418][    T1] Asymmetric key parser 'pkcs8' registered
+[    3.443295][    T1] Key type pkcs7_test registered
+[    3.444626][    T1] Block layer SCSI generic (bsg) driver version 0.4 lo=
+aded (major 239)
+[    3.448227][    T1] io scheduler mq-deadline registered
+[    3.449247][    T1] io scheduler kyber registered
+[    3.450679][    T1] io scheduler bfq registered
+[    3.452609][    T1] raid6: skipped pq benchmark and selected avx512x4
+[    3.470190][    T1] input: Power Button as /devices/platform/LNXPWRBN:00=
+/input/input0
+[    3.473842][    T1] ACPI: button: Power Button [PWRF]
+[    3.477749][    T1] input: Sleep Button as /devices/platform/LNXSLPBN:00=
+/input/input1
+[    3.480757][    T1] ACPI: button: Sleep Button [SLPF]
+[    3.501883][    T1] ioatdma: Intel(R) QuickData Technology Driver 5.00
+[    3.538986][    T1] ACPI: \_SB_.LNKC: Enabled at IRQ 11
+[    3.540120][    T1] virtio-pci 0000:00:03.0: virtio_pci: leaving for leg=
+acy driver
+[    3.573242][    T1] ACPI: \_SB_.LNKD: Enabled at IRQ 10
+[    3.574257][    T1] virtio-pci 0000:00:04.0: virtio_pci: leaving for leg=
+acy driver
+[    3.611123][    T1] ACPI: \_SB_.LNKB: Enabled at IRQ 10
+[    3.612311][    T1] virtio-pci 0000:00:06.0: virtio_pci: leaving for leg=
+acy driver
+[    4.026288][  T629] kworker/u8:6 (629) used greatest stack depth: 26904 =
+bytes left
+[    4.103079][    T1] N_HDLC line discipline registered with maxframe=3D40=
+96
+[    4.105350][    T1] Serial: 8250/16550 driver, 4 ports, IRQ sharing enab=
+led
+[    4.114516][    T1] 00:02: ttyS0 I/O:0x3f8 (irq =3D 4, base_baud =3D 115=
+200) is a 16550A
+[    4.129686][    T1] 00:03: ttyS1 I/O:0x2f8 (irq =3D 3, base_baud =3D 115=
+200) is a 16550A
+[    4.144792][    T1] 00:04: ttyS2 I/O:0x3e8 (irq =3D 6, base_baud =3D 115=
+200) is a 16550A
+[    4.169157][    T1] 00:05: ttyS3 I/O:0x2e8 (irq =3D 7, base_baud =3D 115=
+200) is a 16550A
+[    4.206372][    T1] Non-volatile memory driver v1.3
+[    4.228763][    T1] usbcore: registered new interface driver xillyusb
+[    4.234701][    T1] ACPI: bus type drm_connector registered
+[    4.245698][    T1] [drm] Initialized vgem 1.0.0 for vgem on minor 0
+[    4.252028][    T1] ------------[ cut here ]------------
+[    4.252067][    T1] [PLANE:35:plane-0] pixel format with alpha exposed b=
+ut blend mode not setup
+[    4.252085][    T1] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at dr=
+m_mode_config_validate+0xfb4/0x1be0, CPU#0: swapper/0/1
+[    4.256488][    T1] Modules linked in:
+[    4.257080][    T1] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted syz=
+kaller #0 PREEMPT(full)=20
+[    4.258850][    T1] Hardware name: Google Google Compute Engine/Google C=
+ompute Engine, BIOS Google 08/05/2026
+[    4.260606][    T1] RIP: 0010:drm_mode_config_validate+0xfbb/0x1be0
+[    4.261603][    T1] Code: 00 49 8b 57 18 48 89 f8 48 c1 e8 03 0f b6 04 2=
+8 84 c0 74 08 3c 03 0f 8e 00 0b 00 00 48 8d 3d 5c 1f 7e 0b 41 8b b7 c8 00 0=
+0 00 <67> 48 0f b9 3a e9 fa fd ff ff 48 8b 5c 24 20 e8 d1 aa 39 fc 48 8d
+[    4.264757][    T1] RSP: 0000:ffffc90000067c18 EFLAGS: 00010246
+[    4.265631][    T1] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 000=
+0000000000000
+[    4.266846][    T1] RDX: ffff88802708ff80 RSI: 0000000000000023 RDI: fff=
+fffff91504ba0
+[    4.268445][    T1] RBP: dffffc0000000000 R08: 0000000000000001 R09: 000=
+0000000000000
+[    4.269744][    T1] R10: 0000000000000001 R11: 0000000000000000 R12: fff=
+fed1004ea1e23
+[    4.270879][    T1] R13: ffffed1004ea1e24 R14: 0000000000000001 R15: fff=
+f88802750f028
+[    4.272125][    T1] FS:  0000000000000000(0000) GS:ffff888123b65000(0000=
+) knlGS:0000000000000000
+[    4.273520][    T1] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    4.274598][    T1] CR2: ffff88823ffff000 CR3: 000000000eb96000 CR4: 000=
+00000003526f0
+[    4.275805][    T1] Call Trace:
+[    4.276304][    T1]  <TASK>
+[    4.276744][    T1]  drm_dev_register+0x56e/0x7b0
+[    4.277432][    T1]  vkms_create+0x491/0x5b0
+[    4.278450][    T1]  ? __pfx_vkms_init+0x10/0x10
+[    4.279187][    T1]  vkms_init+0x98/0xe0
+[    4.279870][    T1]  do_one_initcall+0x11c/0x6f0
+[    4.280657][    T1]  ? __pfx_do_one_initcall+0x10/0x10
+[    4.281473][    T1]  ? kernel_init_freeable+0x4ca/0x7b0
+[    4.282372][    T1]  kernel_init_freeable+0x6ea/0x7b0
+[    4.283205][    T1]  ? __pfx_kernel_init+0x10/0x10
+[    4.283952][    T1]  kernel_init+0x21/0x1e0
+[    4.284623][    T1]  ? __pfx_kernel_init+0x10/0x10
+[    4.285469][    T1]  ret_from_fork+0x730/0xd60
+[    4.286179][    T1]  ? __pfx_ret_from_fork+0x10/0x10
+[    4.286964][    T1]  ? __switch_to+0x800/0x10f0
+[    4.288061][    T1]  ? __pfx_kernel_init+0x10/0x10
+[    4.288883][    T1]  ret_from_fork_asm+0x1a/0x30
+[    4.289745][    T1]  </TASK>
+[    4.290229][    T1] Kernel panic - not syncing: kernel: panic_on_warn se=
+t ...
+[    4.291328][    T1] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted syz=
+kaller #0 PREEMPT(full)=20
+[    4.292619][    T1] Hardware name: Google Google Compute Engine/Google C=
+ompute Engine, BIOS Google 08/05/2026
+[    4.294006][    T1] Call Trace:
+[    4.294490][    T1]  <TASK>
+[    4.294982][    T1]  dump_stack_lvl+0x100/0x190
+[    4.295673][    T1]  vpanic+0x553/0x970
+[    4.296729][    T1]  ? __pfx_vpanic+0x10/0x10
+[    4.297560][    T1]  panic+0xd1/0xe0
+[    4.297698][    T1]  ? __pfx_panic+0x10/0x10
+[    4.297698][    T1]  check_panic_on_warn.cold+0x19/0x34
+[    4.297698][    T1]  ? drm_mode_config_validate+0xfb4/0x1be0
+[    4.297698][    T1]  __warn.cold+0x191/0x318
+[    4.297698][    T1]  __report_bug+0x30f/0x440
+[    4.297698][    T1]  ? drm_mode_config_validate+0xfb4/0x1be0
+[    4.297698][    T1]  ? __pfx___report_bug+0x10/0x10
+[    4.297698][    T1]  ? reacquire_held_locks+0xdd/0x1f0
+[    4.297698][    T1]  report_bug_entry+0xe2/0x290
+[    4.297698][    T1]  ? drm_mode_config_validate+0xfbb/0x1be0
+[    4.297698][    T1]  handle_bug+0x1cd/0x2a0
+[    4.297698][    T1]  exc_invalid_op+0x17/0x50
+[    4.297698][    T1]  asm_exc_invalid_op+0x1a/0x20
+[    4.297698][    T1] RIP: 0010:drm_mode_config_validate+0xfbb/0x1be0
+[    4.297698][    T1] Code: 00 49 8b 57 18 48 89 f8 48 c1 e8 03 0f b6 04 2=
+8 84 c0 74 08 3c 03 0f 8e 00 0b 00 00 48 8d 3d 5c 1f 7e 0b 41 8b b7 c8 00 0=
+0 00 <67> 48 0f b9 3a e9 fa fd ff ff 48 8b 5c 24 20 e8 d1 aa 39 fc 48 8d
+[    4.297698][    T1] RSP: 0000:ffffc90000067c18 EFLAGS: 00010246
+[    4.297698][    T1] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 000=
+0000000000000
+[    4.297698][    T1] RDX: ffff88802708ff80 RSI: 0000000000000023 RDI: fff=
+fffff91504ba0
+[    4.297698][    T1] RBP: dffffc0000000000 R08: 0000000000000001 R09: 000=
+0000000000000
+[    4.297698][    T1] R10: 0000000000000001 R11: 0000000000000000 R12: fff=
+fed1004ea1e23
+[    4.297698][    T1] R13: ffffed1004ea1e24 R14: 0000000000000001 R15: fff=
+f88802750f028
+[    4.297698][    T1]  ? drm_mode_config_validate+0xf76/0x1be0
+[    4.297698][    T1]  drm_dev_register+0x56e/0x7b0
+[    4.297698][    T1]  vkms_create+0x491/0x5b0
+[    4.297698][    T1]  ? __pfx_vkms_init+0x10/0x10
+[    4.297698][    T1]  vkms_init+0x98/0xe0
+[    4.297698][    T1]  do_one_initcall+0x11c/0x6f0
+[    4.297698][    T1]  ? __pfx_do_one_initcall+0x10/0x10
+[    4.297698][    T1]  ? kernel_init_freeable+0x4ca/0x7b0
+[    4.297698][    T1]  kernel_init_freeable+0x6ea/0x7b0
+[    4.297698][    T1]  ? __pfx_kernel_init+0x10/0x10
+[    4.297698][    T1]  kernel_init+0x21/0x1e0
+[    4.297698][    T1]  ? __pfx_kernel_init+0x10/0x10
+[    4.297698][    T1]  ret_from_fork+0x730/0xd60
+[    4.297698][    T1]  ? __pfx_ret_from_fork+0x10/0x10
+[    4.297698][    T1]  ? __switch_to+0x800/0x10f0
+[    4.297698][    T1]  ? __pfx_kernel_init+0x10/0x10
+[    4.297698][    T1]  ret_from_fork_asm+0x1a/0x30
+[    4.297698][    T1]  </TASK>
+[    4.297698][    T1] Kernel Offset: disabled
+[    4.297698][    T1] Rebooting in 86400 seconds..
 
->  		tb_domain_reset_interface(tb);
->  
->  	return 0;
-> diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-> index b7cc6894a598..89dfb3381345 100644
-> --- a/drivers/thunderbolt/tb.c
-> +++ b/drivers/thunderbolt/tb.c
-> @@ -2489,6 +2489,7 @@ static void tb_handle_hotplug(struct work_struct *work)
->  			tb_xdomain_remove(xd);
->  			port->xdomain = NULL;
->  			__tb_disconnect_xdomain_paths(tb, xd, -1, -1, -1, -1);
-> +			__tb_domain_reset_interface_locked(tb);
->  			tb_xdomain_put(xd);
->  			tb_port_unconfigure_xdomain(port);
->  		} else if (tb_port_is_dpout(port) || tb_port_is_dpin(port)) {
-> diff --git a/drivers/thunderbolt/tb.h b/drivers/thunderbolt/tb.h
-> index 4373336d9425..2e6e0920cb1f 100644
-> --- a/drivers/thunderbolt/tb.h
-> +++ b/drivers/thunderbolt/tb.h
-> @@ -789,6 +789,7 @@ int tb_domain_disconnect_pcie_paths(struct tb *tb);
->  int tb_domain_approve_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
->  				    int transmit_path, int transmit_ring,
->  				    int receive_path, int receive_ring);
-> +void __tb_domain_reset_interface_locked(struct tb *tb);
->  int tb_domain_disconnect_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
->  				       int transmit_path, int transmit_ring,
->  				       int receive_path, int receive_ring);
-> -- 
-> 2.43.0
+
+syzkaller build log:
+go env (err=3D<nil>)
+AR=3D'ar'
+CC=3D'gcc'
+CGO_CFLAGS=3D'-O2 -g'
+CGO_CPPFLAGS=3D''
+CGO_CXXFLAGS=3D'-O2 -g'
+CGO_ENABLED=3D'1'
+CGO_FFLAGS=3D'-O2 -g'
+CGO_LDFLAGS=3D'-O2 -g'
+CXX=3D'g++'
+GCCGO=3D'gccgo'
+GO111MODULE=3D'auto'
+GOAMD64=3D'v1'
+GOARCH=3D'amd64'
+GOAUTH=3D'netrc'
+GOBIN=3D''
+GOCACHE=3D'/syzkaller/.cache/go-build'
+GOCACHEPROG=3D''
+GODEBUG=3D''
+GOENV=3D'/syzkaller/.config/go/env'
+GOEXE=3D''
+GOEXPERIMENT=3D''
+GOFIPS140=3D'off'
+GOFLAGS=3D''
+GOGCCFLAGS=3D'-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=3D0=
+ -ffile-prefix-map=3D/tmp/go-build1798266567=3D/tmp/go-build -gno-record-gc=
+c-switches'
+GOHOSTARCH=3D'amd64'
+GOHOSTOS=3D'linux'
+GOINSECURE=3D''
+GOMOD=3D'/syzkaller/jobs-2/linux/gopath/src/github.com/google/syzkaller/go.=
+mod'
+GOMODCACHE=3D'/syzkaller/jobs-2/linux/gopath/pkg/mod'
+GONOPROXY=3D''
+GONOSUMDB=3D''
+GOOS=3D'linux'
+GOPATH=3D'/syzkaller/jobs-2/linux/gopath'
+GOPRIVATE=3D''
+GOPROXY=3D'https://proxy.golang.org,direct'
+GOROOT=3D'/usr/local/go'
+GOSUMDB=3D'sum.golang.org'
+GOTELEMETRY=3D'local'
+GOTELEMETRYDIR=3D'/syzkaller/.config/go/telemetry'
+GOTMPDIR=3D''
+GOTOOLCHAIN=3D'auto'
+GOTOOLDIR=3D'/usr/local/go/pkg/tool/linux_amd64'
+GOVCS=3D''
+GOVERSION=3D'go1.26.0'
+GOWORK=3D''
+PKG_CONFIG=3D'pkg-config'
+
+git status (err=3D<nil>)
+HEAD detached at 4cb2b096987
+nothing to commit, working tree clean
+
+
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+go list -f '{{.Stale}}' -ldflags=3D"-s -w -X github.com/google/syzkaller/pr=
+og.GitRevision=3D4cb2b096987c8122dc6b37eb51200b1ca7991e0f -X github.com/goo=
+gle/syzkaller/prog.gitRevisionDate=3D20260727-130118"  ./sys/syz-sysgen | g=
+rep -q false || go install -ldflags=3D"-s -w -X github.com/google/syzkaller=
+/prog.GitRevision=3D4cb2b096987c8122dc6b37eb51200b1ca7991e0f -X github.com/=
+google/syzkaller/prog.gitRevisionDate=3D20260727-130118"  ./sys/syz-sysgen
+make .descriptions
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+bin/syz-sysgen
+touch .descriptions
+GOOS=3Dlinux GOARCH=3Damd64 go build -ldflags=3D"-s -w -X github.com/google=
+/syzkaller/prog.GitRevision=3D4cb2b096987c8122dc6b37eb51200b1ca7991e0f -X g=
+ithub.com/google/syzkaller/prog.gitRevisionDate=3D20260727-130118"  -o ./bi=
+n/linux_amd64/syz-execprog github.com/google/syzkaller/tools/syz-execprog
+mkdir -p ./bin/linux_amd64
+g++ -o ./bin/linux_amd64/syz-executor executor/executor.cc \
+	-m64 -O2 -pthread -Wall -Werror -Wparentheses -Wunused-const-variable -Wfr=
+ame-larger-than=3D16384 -Wno-stringop-overflow -Wno-array-bounds -Wno-forma=
+t-overflow -Wno-unused-but-set-variable -Wno-unused-command-line-argument -=
+static-pie -std=3Dc++17 -I. -Iexecutor/_include   -DGOOS_linux=3D1 -DGOARCH=
+_amd64=3D1 \
+	-DHOSTGOOS_linux=3D1 -DGIT_REVISION=3D\"4cb2b096987c8122dc6b37eb51200b1ca7=
+991e0f\"
+/usr/bin/ld: /tmp/ccZHlTeq.o: in function `Connection::Connect(char const*,=
+ char const*)':
+executor.cc:(.text._ZN10Connection7ConnectEPKcS1_[_ZN10Connection7ConnectEP=
+KcS1_]+0x386): warning: Using 'gethostbyname' in statically linked applicat=
+ions requires at runtime the shared libraries from the glibc version used f=
+or linking
+./tools/check-syzos.sh 2>/dev/null
+
+
+Error text is too large and was truncated, full error text is at:
+https://syzkaller.appspot.com/x/error.txt?x=3D14ce4349580000
+
+
+Tested on:
+
+commit:         a8455260 ipvlan: unregister upper devices outside pnod..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.gi=
+t
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3D9cc692b98d9b4fd=
+b
+dashboard link: https://syzkaller.appspot.com/bug?extid=3D2642f347f7309b488=
+0dc
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Deb=
+ian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D11aef3795800=
+00
+
