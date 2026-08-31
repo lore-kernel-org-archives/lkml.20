@@ -1,144 +1,272 @@
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6AEC3D45D4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:57:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788166637; cv=pass; b=YZ1cZr9AZAPd09b9ebSiy8VDo38rY4d9wiUehFLGWsX3bEFZpPjkJsfEm2Y5RKGEfAQdj8ZyJlKxgq+oCX2xmB2NHY+Ij1VAPWkZEoyL5xS60LNCWHRG+X/hXpNYfoM7YpuEiJedQHNh/iNiVy8JAU1xYM93riDuCd71vIAHtSI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788166637; c=relaxed/simple;
-	bh=jzatqn9CD0GTpHr8meHYFhhCba0r1a0r6tq54url14M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rE/Sgf1jRbU36gSJNLQUGgA+jzfCs0OB1BSqC4ArnAQv+rPkhYUm+xL2z5DY2Ptkjvih4i1qtcdp154qk45OLFZVVPYFO+8Lp5QEUoIWnXE/sUR9vKtHWahYtZGGHF9YvaFbJ2yXDyGMnDR8BsK7uarpAqDtz9oO5aG6K3Y9qNk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=W1D3FK60; arc=pass smtp.client-ip=209.85.208.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="W1D3FK60"
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a33307ecd9so3940191fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:57:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788166634; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XR+STHgf2567xgnZ1imRnwn2K+VDcAKcJAOJHgA4GC63ZspsEkc7xW+BGvhluoexhX
-         SqPsUaA0VpcUBPmrbWK4wILb0MXl2q4+AMDZmHgmlaxooXktVawaiP/iUj/2RzCP9eua
-         bTzjZCSRzpbTBhFL6X52pupXq4pvbLhFTnhEGodt4eSryZqZNuHqXpS8ELq1dowtBPVB
-         viLY+aYqn+oSnGL+u4m37rLTqkgVne/AKchz3kl2jrkBYjYQhADaSbp4/zbTiRSiA1YZ
-         4rAtgEnfsQluOWAyEzxxzHrfS6QjdlVfDg9FvQWJJ9wXqMdPV7ywnI0v28f8iYSDnWSR
-         FCLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VAWtUADdu6jV6foFPi+AFBda3A8CxphweXBXCBefQmk=;
-        fh=0w5mna54IwGprKOzpO9S7hQ1YunjdXLvFGk5cNfCH+k=;
-        b=onDEu1QOSSOm6SXF2Y/yN2wecIWXmRuMFsCAhB0kc6PfJin8K9jl9/R1Z8C+IIMAHO
-         J5cKyAr+Q+xPuD8UXsfxCcV9ZSp0FRSiLkJ+RqNLqWaU1JzBbjwfVRu/3CpxBJUAAFNY
-         W2g5CS8wSPXeSL+wPQVwQ9z4N4uTSlZAncKvbn7kNL3ov6OI/V3YUvzyicU7vpc1QeGR
-         SfdNBzQh1w8O6TuXmkjp70B9YCNl23T1vTnHzunQJ9J0yKeL4PDI9r1HYnVNp75OJDyb
-         RglWvMOtCG9Cpaminz5fopSGN8pxgnGSVenXShhIcfr/RCkoykIPRV9uj+RpUdaBFB+j
-         ZYWQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788166634; x=1788771434; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VAWtUADdu6jV6foFPi+AFBda3A8CxphweXBXCBefQmk=;
-        b=W1D3FK60o+8srrN8n49rQyxI1X6eGtq0mQZVQYw9uJJdmKjraNeO1tApeG6+4JjTBy
-         Ip6LBQ3o1gW5hYe4V2nxNlCqEdkprpVoa1VJ76JCaMTWZx9cGmfxfkA1o1aV5siuMAiD
-         vtGa0GHfvzWNv9xP39D6BiKOFXyIdy1oWG42iM5GbL/VVdl2nnIi2MSC/uifMwYVflaq
-         pDZNo6LlNOkg/Fdzqr+7isEdvaUGYRNeOci/9FUbyKRRKXCZIFTVGv5HeH4y+ojhHawo
-         UDW+9l0rARTw8XGm0oF0ZtZqj0iOPSYoS50Ejk3wQzvnr59VZzZnvtMV5y1dBuFh/VEH
-         PsFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788166634; x=1788771434;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VAWtUADdu6jV6foFPi+AFBda3A8CxphweXBXCBefQmk=;
-        b=s8jEk67Av6VY6Kl5sMeyTVKEwErvIRiH/zF8haxuQRA5ZI2gg/WAfEoBZZriHeOppV
-         T/Y/5c9Fiw2E2m3nZaHozFZ5Y57YzaGq2CzZckCdtv0lJ4lMNVkNG2fWRk4wodrC6OOU
-         0uLZkqFTTVyN/yXLCYJmV0ixKXtZnmygvr3kFfDUtGiweY1odxA1VHP1AV3IPG0WOkhL
-         2iAyyaYvSrgz/4Fhgx79RkCzKpV+7ZRkD/if1jCkhSEqq20eLAP9pmNySpsAePm5DGsB
-         pereyz1cUMXkNdWMNSdXZMA5zinjFJjc/2/nIY4fje2Zx1uvQFZ9up9B5Tdp+5FU8ukX
-         QzQw==
-X-Gm-Message-State: AFuF++niFebykOyBgoAa0mT8g3L4ewOdtXyPUp/c7zugHHCThLhYGXU3
-	O7Ii70qiEzdH0/+ZGbuDNN/hBrWn/4H7KPkisBzIKin0wF+3IgjvoIJCfzOXTkP05cJJs7Jzb+0
-	TGrDX1UJemqvB8NgzebOW5oSHJnc0RCJEJH6W4Eczxg==
-X-Gm-Gg: AYBFou2ygX2G8KNZO5n080maNJV0G9Gezo2gNKmDhuSIuBHu3KAv0Q/Xxur1uOz0bnJ
-	9XWjGVuk0VYIXIqajr96mqV1hMkICQUFPeEdof0lZiT0UmhjRLwYcaMh2JmozaJBp+n8XfWm23p
-	Tu4PL/+kWZdRfU1R4C8Kv6OazqYwMHRkSdo28lLI0vU8aQNr17f/5AH0vdl97UTK8qgEKr+H/m2
-	Xg2YearU52kEuoyt/AVHHtTZYDf7sfHHINRuYyhnPAcq4pkDxvp42GhpgjXXTPEc6iGmPicSX2G
-	660pT+d9xa875uziZSfV1zEa5DsxDcGvEwCX7o2EhrFoonmUSdweDe3b2gA/mInm7cvY7ZkFEHT
-	ZmEpk/eJCxDZ0
-X-Received: by 2002:a05:651c:4084:b0:3a3:364:f797 with SMTP id
- 38308e7fff4ca-3a30364fddamr37950501fa.8.1788166633688; Mon, 31 Aug 2026
- 01:57:13 -0700 (PDT)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A8FF93D4127;
+	Mon, 31 Aug 2026 08:57:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788166638; cv=none; b=CVGXXeT8E9ihMttQ1woL6aUClT11BAoStNmNnC+RxrNkK4dyyfLHVlOggkvt12aEZKRxSjs5FxgngJh3bBopD822nqfPWn4f1naIsJuFWY5AP3oU4fkPqCEiI6ScpDYSXlyjKlUK6fSlYbNTWDRzeq/llwHU5+6WnSQyXZNvELs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788166638; c=relaxed/simple;
+	bh=DSj3s4wELAzEUrJo4A5JdVkD8AM004a/Xh1kam1XWwQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kAbThOx46iPBjIXTq1BKlbJP6yFyzGb3mcvu1bSkjByaXRpOg7ti5oatwEDsG5Q/XTk9hW1qm6tS4yii7p/RAUwRb7JIZozJQQH+YSkSVFqdy8sqSciXxVbDfnl0Z8AOnhxAkqVkFvYh6KrE+Z9gJ0qlg9x4Ue870km2/XYJdGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8CxPNLpQZVqzNgGAA--.18957S3;
+	Mon, 31 Aug 2026 16:57:13 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJDxTs_iQZVq3SoYAA--.50979S2;
+	Mon, 31 Aug 2026 16:57:07 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: loongarch@lists.linux.dev,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v2] selftests/bpf: Add test for indirect struct_ops trampoline
+Date: Mon, 31 Aug 2026 16:57:05 +0800
+Message-ID: <20260831085705.13747-1-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831081823.67972-1-marco.crivellari@suse.com>
- <20260831081823.67972-2-marco.crivellari@suse.com> <20260831085432.HdW_Nrqi@linutronix.de>
-In-Reply-To: <20260831085432.HdW_Nrqi@linutronix.de>
-From: Marco Crivellari <marco.crivellari@suse.com>
-Date: Mon, 31 Aug 2026 10:57:00 +0200
-X-Gm-Features: AcwNN1XbAMhYP4jgGNk94lHRcPmzvPU1VsFhwzUUJya6KwgFjOkjJCVWkaG3hvI
-Message-ID: <CAAofZF7g4sUk2M-=komtqNzbGAd4AeT68p5JbyFbNg1d6RMYvw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] doc: Change dynticks-testing repository name
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Anna-Maria Behnsen <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Michal Hocko <mhocko@suse.com>, 
-	Valentin Schneider <vschneid@redhat.com>, Waiman Long <longman@redhat.com>, 
-	"Paul E. McKenney" <paulmck@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxTs_iQZVq3SoYAA--.50979S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoW3Gw4kXr15JFWftw1fCFyxtFc_yoW3Ww4rpF
+	W8Jw1YyFnYvrWDXF18Xa1UZF4Sgrs3Z3yUCFWkG3s5uF93X34DJF18tFyIyr95GrZ5Zw13
+	A3ZY9r98uayUZ3cCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	AVWUtwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
+	6r1j6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
+	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xII
+	jxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
+	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x02
+	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8qXdUUUUUU==
 
-On Mon, Aug 31, 2026 at 10:54=E2=80=AFAM Sebastian Andrzej Siewior
-<bigeasy@linutronix.de> wrote:
->
-> On 2026-08-31 10:18:08 [+0200], Marco Crivellari wrote:
-> > Currently the documentation still mention dynticks-testing.
-> >
-> > Recently the repository name and the tool have been renamed
-> > to cpunoise, so fix the URL.
->
-> (as of https://lore.kernel.org/all/20260815083728.15470-1-marco.crivellar=
-i@suse.com/)
->
-> > Cc: Valentin Schneider <vschneid@redhat.com>
-> > Cc: Waiman Long <longman@redhat.com>
-> > Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> > Cc: "Paul E. McKenney" <paulmck@kernel.org>
-> > Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
-> > ---
-> >  Documentation/admin-guide/cpu-isolation.rst | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/Documentation/admin-guide/cpu-isolation.rst b/Documentatio=
-n/admin-guide/cpu-isolation.rst
-> > index 8c65d03fd28c..6d8f91d2d761 100644
-> > --- a/Documentation/admin-guide/cpu-isolation.rst
-> > +++ b/Documentation/admin-guide/cpu-isolation.rst
-> > @@ -354,4 +354,4 @@ Some tools may also be useful for higher level anal=
-ysis:
-> >    runs a kernel tracer that analyzes and output a summary of the noise=
-s.
-> >
-> >  - dynticks-testing does something similar to rtla-osnoise but in users=
-pace. It is available
-> Shouldn't this "dynticks-testing" be renamed to cpunoise, too?
+Add a test case to verify that arguments passed on the stack are correctly
+read by an indirect struct_ops trampoline.
 
-Yeah, good catch thank you!
+This test ensures the correctness of stack offsets on architectures like
+LoongArch and RISC-V where arguments beyond the first 8 slots are passed
+via the stack.
 
---=20
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+---
+This is to test the following two patches:
 
-Marco Crivellari
+bpf, riscv: Fix stack-passed arguments for indirect trampolines
+https://lore.kernel.org/bpf/20260821233516.3426127-3-memxor@gmail.com/
 
-SUSE Labs
+bpf, loongarch: Fix stack arguments for indirect trampolines
+https://lore.kernel.org/bpf/20260821233516.3426127-8-memxor@gmail.com/
+
+v2:
+  -- Fix use-after-free and race conditions
+  -- Modify current files to avoid new binary
+
+ .../prog_tests/test_struct_ops_multi_args.c   | 49 ++++++++++++++++++-
+ .../bpf/progs/struct_ops_multi_args.c         | 13 +++++
+ .../selftests/bpf/test_kmods/bpf_testmod.c    | 32 ++++++++++++
+ .../selftests/bpf/test_kmods/bpf_testmod.h    |  5 ++
+ 4 files changed, 98 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/bpf/prog_tests/test_struct_ops_multi_args.c b/tools/testing/selftests/bpf/prog_tests/test_struct_ops_multi_args.c
+index 0f321e889862..7f6f9d61c9e0 100644
+--- a/tools/testing/selftests/bpf/prog_tests/test_struct_ops_multi_args.c
++++ b/tools/testing/selftests/bpf/prog_tests/test_struct_ops_multi_args.c
+@@ -3,7 +3,54 @@
+ #include <test_progs.h>
+ #include "struct_ops_multi_args.skel.h"
+ 
++static void test_refcounted_multi(void)
++{
++	struct struct_ops_multi_args *skel;
++	int err;
++
++	skel = struct_ops_multi_args__open();
++	if (!ASSERT_OK_PTR(skel, "struct_ops_multi_args__open"))
++		return;
++
++	err = struct_ops_multi_args__load(skel);
++	ASSERT_EQ(err, -EINVAL, "struct_ops_multi_args__load");
++
++	struct_ops_multi_args__destroy(skel);
++}
++
++static void test_trampoline_stack_args(void)
++{
++	struct struct_ops_multi_args *skel;
++	struct bpf_link *link = NULL;
++	int err;
++
++	skel = struct_ops_multi_args__open();
++	if (!ASSERT_OK_PTR(skel, "struct_ops_multi_args__open"))
++		return;
++
++	bpf_program__set_autoload(skel->progs.test_refcounted_multi, false);
++	skel->struct_ops.testmod_ref_acquire->test_refcounted_multi = NULL;
++
++	err = struct_ops_multi_args__load(skel);
++	if (!ASSERT_OK(err, "struct_ops_multi_args__load"))
++		goto out;
++
++	link = bpf_map__attach_struct_ops(skel->maps.testmod_ref_acquire);
++	if (!ASSERT_OK_PTR(link, "bpf_map__attach_struct_ops"))
++		goto out;
++
++	ASSERT_EQ(skel->bss->got_arg9, 9999, "check_stack_passed_arg9");
++
++out:
++	bpf_link__destroy(link);
++	struct_ops_multi_args__destroy(skel);
++}
++
+ void test_struct_ops_multi_args(void)
+ {
+-	RUN_TESTS(struct_ops_multi_args);
++	if (test__start_subtest("test_refcounted_multi"))
++		test_refcounted_multi();
++
++	if (test__start_subtest("test_trampoline_stack_args"))
++		test_trampoline_stack_args();
+ }
+diff --git a/tools/testing/selftests/bpf/progs/struct_ops_multi_args.c b/tools/testing/selftests/bpf/progs/struct_ops_multi_args.c
+index c62be15757f0..f0f47676b099 100644
+--- a/tools/testing/selftests/bpf/progs/struct_ops_multi_args.c
++++ b/tools/testing/selftests/bpf/progs/struct_ops_multi_args.c
+@@ -29,7 +29,20 @@ int test_refcounted_multi(unsigned long long *ctx)
+ 	return 0;
+ }
+ 
++__u64 got_arg9 = 0;
++
++SEC("struct_ops/test_trampoline_stack_args")
++int BPF_PROG(test_trampoline_stack_args, int arg1, int arg2, int arg3,
++					 int arg4, int arg5, int arg6,
++					 int arg7, int arg8, int arg9)
++{
++	got_arg9 = arg9;
++
++	return 0;
++}
++
+ SEC(".struct_ops.link")
+ struct bpf_testmod_ops testmod_ref_acquire = {
+ 	.test_refcounted_multi = (void *)test_refcounted_multi,
++	.test_trampoline_stack_args = (void *)test_trampoline_stack_args,
+ };
+diff --git a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
+index 2380b6cbdead..8f0744e6075b 100644
+--- a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
++++ b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
+@@ -1678,6 +1678,9 @@ static bool bpf_testmod_ops_is_valid_access(int off, int size,
+ 	return bpf_tracing_btf_ctx_access(off, size, type, prog, info);
+ }
+ 
++static DEFINE_MUTEX(st_ops_trampoline_mutex);
++static struct bpf_testmod_ops *st_ops_trampoline;
++
+ static int bpf_testmod_ops_init_member(const struct btf_type *t,
+ 				       const struct btf_member *member,
+ 				       void *kdata, const void *udata)
+@@ -1691,6 +1694,18 @@ static int bpf_testmod_ops_init_member(const struct btf_type *t,
+ 		((struct bpf_testmod_ops *)kdata)->data = ((struct bpf_testmod_ops *)udata)->data;
+ 		return 1;
+ 	}
++
++	if (member->offset == offsetof(struct bpf_testmod_ops, test_trampoline_stack_args) * 8) {
++		mutex_lock(&st_ops_trampoline_mutex);
++		if (st_ops_trampoline) {
++			pr_err("st_ops_trampoline has already been registered\n");
++			mutex_unlock(&st_ops_trampoline_mutex);
++			return -EEXIST;
++		}
++		st_ops_trampoline = (struct bpf_testmod_ops *)kdata;
++		mutex_unlock(&st_ops_trampoline_mutex);
++	}
++
+ 	return 0;
+ }
+ 
+@@ -1720,11 +1735,20 @@ static int bpf_dummy_reg(void *kdata, struct bpf_link *link)
+ 	if (ops->test_2)
+ 		ops->test_2(4, ops->data);
+ 
++	mutex_lock(&st_ops_trampoline_mutex);
++	if (st_ops_trampoline && st_ops_trampoline->test_trampoline_stack_args)
++		st_ops_trampoline->test_trampoline_stack_args(1, 2, 3, 4, 5, 6, 7, 8, 9999);
++	mutex_unlock(&st_ops_trampoline_mutex);
++
+ 	return 0;
+ }
+ 
+ static void bpf_dummy_unreg(void *kdata, struct bpf_link *link)
+ {
++	mutex_lock(&st_ops_trampoline_mutex);
++	if (st_ops_trampoline == (struct bpf_testmod_ops *)kdata)
++		st_ops_trampoline = NULL;
++	mutex_unlock(&st_ops_trampoline_mutex);
+ }
+ 
+ static int bpf_testmod_test_1(void)
+@@ -1766,6 +1790,13 @@ bpf_testmod_ops__test_return_ref_kptr(int dummy, struct task_struct *task__ref,
+ 	return NULL;
+ }
+ 
++static int bpf_testmod_ops__test_trampoline_stack_args(int arg1, int arg2, int arg3,
++						       int arg4, int arg5, int arg6,
++						       int arg7, int arg8, int arg9)
++{
++	return arg9;
++}
++
+ static struct bpf_testmod_ops __bpf_testmod_ops = {
+ 	.test_1 = bpf_testmod_test_1,
+ 	.test_2 = bpf_testmod_test_2,
+@@ -1773,6 +1804,7 @@ static struct bpf_testmod_ops __bpf_testmod_ops = {
+ 	.test_refcounted = bpf_testmod_ops__test_refcounted,
+ 	.test_refcounted_multi = bpf_testmod_ops__test_refcounted_multi,
+ 	.test_return_ref_kptr = bpf_testmod_ops__test_return_ref_kptr,
++	.test_trampoline_stack_args = bpf_testmod_ops__test_trampoline_stack_args,
+ };
+ 
+ struct bpf_struct_ops bpf_bpf_testmod_ops = {
+diff --git a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.h b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.h
+index 210b919290cc..42257ae89fd5 100644
+--- a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.h
++++ b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.h
+@@ -46,6 +46,11 @@ struct bpf_testmod_ops {
+ 	struct task_struct *(*test_return_ref_kptr)(int dummy, struct task_struct *task,
+ 						    struct cgroup *cgrp);
+ 
++	/* Used to test indirect struct_ops trampolines stack-passed arguments (>8 args). */
++	int (*test_trampoline_stack_args)(int arg1, int arg2, int arg3,
++					  int arg4, int arg5, int arg6,
++					  int arg7, int arg8, int arg9);
++
+ 	/* The following fields are used to test shadow copies. */
+ 	char onebyte;
+ 	struct {
+-- 
+2.42.0
+
