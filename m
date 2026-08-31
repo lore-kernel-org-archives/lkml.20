@@ -1,106 +1,131 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DCE30C164
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1211539AD51
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788211322; cv=none; b=lM4fm4HuPi6tsa1zpQUubkmMOrmH0BmaGGeMlhpSEGcKrQYEfs3DDOF90O9x44wXca+EGyihRoQk4mrkO4itIz4K+v51gWW4NnHL2uN0QsMcLceAcIbM8CNd4ePR2YgXxCYl/DxW5M8Qkzpz3HPDsdC/wZ+lliDadzbzX9ltoME=
+	t=1788211363; cv=none; b=coLC5CwPgYsbhsGKa2GmcNVoVJkptpg5A+Sz4DeHRdT9vDtirnOF9M8XG80kLiBAB1/T2RdlocLkN5m6i+hdTSv/wGPqYcacfzIirG5aa1Kh4mZLq5OmnC7E4+wZsP6Th18+wgNDbQy7VhWtknYHTW6d0jRaF9zVaeNlVuElr7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788211322; c=relaxed/simple;
-	bh=Y2qk4HBX1AlLiEEPrVMcaqicrDq823MQUt2643iTcUA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZN6gvPfzX8hxhtHP3HUQ2VI+nySfxr5S66vEQQaPPIVN+Fb++WMpLASMUEnWIch8AoJY9mCFa+Eo8B+iX8piNf7evcerM36Zt9pqCWvg/g+SYKHSK+2h/jdMdD6VdtFtNVFu+Nlr+NJm3g2HyZZshQiejg5Y/ZMK8+3mLB8VGK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rM/SIWZV; arc=none smtp.client-ip=209.85.128.52
+	s=arc-20240116; t=1788211363; c=relaxed/simple;
+	bh=j+4P5I1w7yupkjtI1aHIdS2EV8F3BTV+hCLwZ4e00/Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e27WTnckgurfVYtS7njrPhveMR5dF2llS3k+KfaRwb+1f62De1AVoLV2nOz/8xrD+O6+ClyT+QCwZpt9xR0/kclaC9CuP2vS15NEqCliidK1oUYpxasySJuL/+CNwhV2DU2Tqo+GFXRiYIUqP5/9qA5GGMndOizjKmR/3hKj2Uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mqaRKwV7; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rM/SIWZV"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b8f86c6deso23530475e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:22:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mqaRKwV7"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-398a5aad413so220514a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:22:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788211319; x=1788816119; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RDiF/p4/pzvSLemuA3E3Ov7A4ABDMtf2q8xgprPA9ZQ=;
-        b=rM/SIWZV8IxZzfgdpeeTmlENPqDc8O40zNKqjePbXAQWUkW0QTWID8T4w8XxjOEjpO
-         yUCKi3OxuF8gx7FtduYUvueQExAUEdhj4f6GCCc7Ja7ecRCzptn/YN0rEZWrWFEHJjxV
-         XNCgP6pGRxc7PUiw3MzSDH/8zOUfGNrn1+JaRvnOnJmIfZ85qaTy33vuzMFUulRZq9ie
-         rwlpWyg/3Ot3JO9IK6v4VPEFL5qVccUSwDBET8gk5EFpvkA3m1ttw+GP4NgvWGNqfjbp
-         4WZVf9KW/R2/bPWJnx7UlayYozSM//bWTxG8TfaqIbUYKmO7aLMU/z38XQ5Y1Q8G0GM3
-         xjxQ==
+        d=gmail.com; s=20251104; t=1788211359; x=1788816159; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tAf9E7CenHe6l5YzESk+eJosOnuoeSazKjhyH+9ql1Q=;
+        b=mqaRKwV7gzP3vr0Gb29m9Q6UjUcqfOmdhGLENM3ypRBGi1cIaU42yiz+8+OE8YVqmP
+         y3J+3HJ34+CZSBPDyf5v27g2z8D+S9llW+g2udUGRnCmi1gz00Z5yjOME3g4JJCjExf+
+         crxYmIeDDEKN6cb9tEEEisSB8RRlzlNmyMqpJ5CnaNvQokJbZ6wDmt8TW0k3jBfZuyeN
+         CjKttedYveaNoX2nh06YxKdfMLXURfLB9w54N8a73s3Mu/nqBQgrvb4xJz08giZZSWrk
+         59P0Ya/GWsf/84WKACPpaKtJyeGY3Kd8IfQPtDykRK06rUViYPKC/csfJnAYEl3Y/Grm
+         LiTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788211319; x=1788816119;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RDiF/p4/pzvSLemuA3E3Ov7A4ABDMtf2q8xgprPA9ZQ=;
-        b=l+/90WKHKE7cSfE8zE+aOhh5bnA2ozrZGnhJLDXXefdcaKMhyUmh6xSGoAe52XOREw
-         Cr+SS/tlAqUYL+ccGP47QOst7Ds81irOY4xGak95N5SZYPURqE8q1X+19CufU+RHrhk2
-         94IufewF+1gnT0hFN0fh3posMar5zWbf+a6agUKseLRf4mPUKZEUktNSTZCLeH/mvBQJ
-         jEWtEtGr1guNTmc2nfjhf5y8LZn/RDCkw4dpTnkpVzR100VTWW3Qo3nXoXTEseMg1VU9
-         2VKRz/Yiw8ILr6VYStp5gXRWAj/9gDu9/qXLVPuEFZSyuQEZ8IUGF+fQ8cPkqpTOYjsK
-         Kenw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1cbpTDDc3keBNguT2SnDwFfZZ3B+80YMp2rI21jiwW4cT+e0SSUfKdEoqPMmrT0bOlYMMPtyYJP1sbWc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kRjNpJYSJDdBSXU9RhWhyVu4BKMvMj0d6Q9ncnJT3TpJSnsshg
-	yyPMcPHvd8vgzMtbc3vRFR16cu8aOIXPSA4uH+2gObM6txoJpyLo0bON
-X-Gm-Gg: AR+sD10T6J4zcflV3HR5s80bnkVphE8PO3Mg9vwyY/j4kECPGWkSfk0Qtg4QiRgZ1kG
-	L1NGptB+w1cK4QIjOdCOLsFrfqpK/5TyugFuKZN9ZilpeIxCrexIFuPJQjuMWYV0DZl1t92SJi4
-	dhuipPLVT3Wzzm8mZbh5SHDFyLy5iAVS18dOK+fPbPBnDMwcXaVuxTfYZMDO2CWIKyg6iHjgNho
-	RF9EVMGA6ZGn3qsB30oKWMLRxQwQLqltsqci5uilnh2yATPGXcf176fJoJv7QYNXvtowr12EBED
-	W6ERGzwm5IBzTzrSwE+GEzQ44eAClYBB15or+dpnUHeXrl7mG5aoir165O1V0Duj99vlQ21jXCf
-	Y0DpIac8vdaC+Auuyf8QYZTbTeFQE7uEuYTDFcc5+T86XlzwS9hPgMeg8Xl+CqSD5+AbwHmsHOZ
-	ljQTxMu/dYihVo0PA9JLN6vLSNYbPRfYTfJSz/pBAIhHFhzLnc7mbU1+C+XCc5SuOSfY8uZ6sMv
-	TLrr9cPIMhGuYYNd28e5+ldUO/L/VeMmvgitUHHiR56V/L2DZJUhfeSDIvNXBgcY1hhkESGIf45
-	vDUymE6knaH0tgk0xDxdnx3KS1XZASh6vgHIH+9YXI9hT8V4wL8+O5oWt4L1lG3XryENV7M5Z6I
-	l+b4xez6i6LSXioQvOknUva4fIXcnzgo=
-X-Received: by 2002:a05:600c:4f8b:b0:49a:2c4b:403f with SMTP id 5b1f17b1804b1-49b91c46494mr383888935e9.13.1788211319270;
-        Mon, 31 Aug 2026 14:21:59 -0700 (PDT)
-Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49c5a903eebsm196936865e9.4.2026.08.31.14.21.58
+        d=1e100.net; s=20251104; t=1788211359; x=1788816159;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tAf9E7CenHe6l5YzESk+eJosOnuoeSazKjhyH+9ql1Q=;
+        b=o8H1qGdFE9YMMVELl4rNiuthnwlMsTqSF6PUa7Ud5NZstbt9NZmEr7JS21BDWqVdaU
+         U2Z5lGjV9KQWQLr5yPngUnWejTeWvVvyQPCnscyynCY6u2vo2symtLWjOM3D39dVR+aM
+         cqn8gMFHhRPzflXjfYE0lvuGxWXMiDZCBu5/zW+I0XRKmm2b+ol7S5i/+kAGh8FaoFL6
+         FDhTWzKCBudH7MgkEqT1KoMB2QIeaJM1dQHUdJkjXiz8zEklpjqoR66KIREnW5AS8I8v
+         CqiXKCYZC2kfrzlYHGUFYIHQURD3oQuU95gbiGMcuiSwlfIhJB3/vYfdZKrLX6j79nxl
+         TRMA==
+X-Forwarded-Encrypted: i=1; AKwUvBwtTIuxJhSmDrI7fH169sPQrq8UJRPwBtSTyJ7aiUpOD/oexb5l10how67GcEpCIs381bnE8zqwijAjki4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kr7+v9GK40RBviFRV5gAZRBv/SYJ7UuhLnLU1MI/m8A1wIRW9i
+	h8nwm5Osmy/CXqrlNZfllF33MPGYgQNT4FwViiEkqoMR+Wa1+umFK5ol
+X-Gm-Gg: AYBFou3el/iIGHXiUNBhuqo1FuV3NNZ2ms5RAPBY1hgK9bkgWJGdBrAr8PRScQucGWE
+	Hz78HSCa3onrT93dbFBvzshgZBXCmEjxJCl7bUD236Ly8XeGZhCG4/i9VlGlolcjBNQc/WuPYyS
+	u76JblSgs/YRn0tMMTYwyBh963zKCaiTFgYNzAGLgvRsx65IFXfLM0Kl3l599Ior8h/YlVyKPBe
+	pWu98jI7Xy07OzTWGQXRVsF4LN5BhPywbWDY8yosjmfs5kKhPWoJ3YQpabG6tr/k1dAYpaBOx4I
+	R650RdPcAE+p/vwkMP3//JlVOwH7j5oOegXQNdIsTl5gDvbXgJyzJ0mgk4ZvxNAKh/IKxmLL0Jr
+	k2fJT8EasQ/IDLpnSpw4bf8un7+DTxsacIZvEdrHqiyrSA+zTW8psrkLm3w9CULtrU8MIJfVOM/
+	FsCumkP90qq24fTIA3htvtDOWiLrRRxeYRNC0umfUPWd4LPa91bTywmroLK9MaypAMv5fRxJWJk
+	P41+w==
+X-Received: by 2002:a17:90b:588f:b0:398:bf7e:b267 with SMTP id 98e67ed59e1d1-398bf7eb378mr22481809a91.2.1788211359423;
+        Mon, 31 Aug 2026 14:22:39 -0700 (PDT)
+Received: from localhost ([2620:10d:c090:500::6:bac7])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0bf8a13sm45871957c88.0.2026.08.31.14.22.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 14:21:59 -0700 (PDT)
-Date: Mon, 31 Aug 2026 23:21:57 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Akshat Chandra <notmissinge@gmail.com>
-Cc: linux-iio@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: chemical: add SGP41 driver
-Message-ID: <20260831232157.27037a5e@systembl0wer>
-In-Reply-To: <20260831151235.64076-1-notmissinge@gmail.com>
-References: <20260831151235.64076-1-notmissinge@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+        Mon, 31 Aug 2026 14:22:38 -0700 (PDT)
+From: Zinc Lim <limzhineng2@gmail.com>
+To: alexanderduyck@fb.com,
+	kuba@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	linux@roeck-us.net,
+	horms@kernel.org,
+	mohsin.bashr@gmail.com
+Cc: kernel-team@meta.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	zinclim@meta.com,
+	limzhineng2@gmail.com
+Subject: [PATCH net-next v2 0/6] eth: fbnic: expand hwmon sensor support
+Date: Mon, 31 Aug 2026 14:22:28 -0700
+Message-ID: <20260831212234.1212971-1-limzhineng2@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 31 Aug 2026 20:42:35 +0530
-Akshat Chandra <notmissinge@gmail.com> wrote:
+fbnic currently exposes only the raw temperature and voltage readings
+(temp1_input, in0_input) via hwmon. This series builds that out into a
+complete sensor interface and hardens the read path.
 
-> Signed-off-by: Akshat Chandra <notmissinge@gmail.com>
-> ---
->  .../devicetree/bindings/trivial-devices.yaml  |   2 +
->  drivers/iio/chemical/Kconfig                  |  11 +
->  drivers/iio/chemical/Makefile                 |   1 +
->  drivers/iio/chemical/sgp41.c                  | 384 ++++++++++++++++++
->  4 files changed, 398 insertions(+)
->  create mode 100644 drivers/iio/chemical/sgp41.c
-> 
+The firmware capability response already carries per-board sensor
+thresholds, and the firmware can asynchronously report when a sensor
+crosses one of them. This series surfaces both to userspace and cleans
+up the supporting plumbing:
 
-Not only you're missing a commit message, you're also missing a
-MAINTAINERS entry and a dt-bindings entry! Please fix this!
-(Note, the dt-bindings and MAINTAINERS entry should go together
-in one patch, preferrably first in the series).
+ - Move the sensor read logic out of fbnic_mac, closer to its only
+   caller in the hwmon code, and drop the now-unused get_sensor op.
+ - Expose all hwmon attributes unconditionally as read-only (0444).
+ - Cache the temperature and voltage readings for the current jiffy so
+   a burst of attribute reads issues a single firmware round-trip.
+ - Parse and expose the temperature (min/max/crit) and voltage
+   (min/max) thresholds. Thresholds the firmware did not populate read
+   back as -ENODATA.
+ - Add the corresponding alarm attributes, computed by comparing a live
+   reading against the stored thresholds.
+ - Translate the firmware's sensor-threshold-exceeded message into an
+   hwmon event so userspace is notified on the relevant attribute.
 
--- 
-Kind regards,
-Joshua Crofts
+Changes from v1:
+ - Addressed Jakub's patch 6 feedback on including a
+   if (!IS_REACHABLE(CONFIG_HWMON)) return; guard.
+
+Zinc Lim (6):
+  eth: fbnic: move sensor read logic out of fbnic_mac
+  eth: fbnic: expose all hwmon attributes unconditionally as read-only
+  eth: fbnic: cache hwmon sensor readings
+  eth: fbnic: report temperature and voltage thresholds via hwmon
+  eth: fbnic: report temperature and voltage alarms via hwmon
+  eth: fbnic: firmware notifies hwmon on sensor threshold events
+
+ drivers/net/ethernet/meta/fbnic/fbnic.h       |   8 +
+ drivers/net/ethernet/meta/fbnic/fbnic_fw.c    |  75 +++++
+ drivers/net/ethernet/meta/fbnic/fbnic_fw.h    |  30 ++
+ drivers/net/ethernet/meta/fbnic/fbnic_hwmon.c | 263 ++++++++++++++++--
+ drivers/net/ethernet/meta/fbnic/fbnic_mac.c   |  55 ----
+ drivers/net/ethernet/meta/fbnic/fbnic_mac.h   |   2 -
+ 6 files changed, 349 insertions(+), 84 deletions(-)
+
+--
+2.53.0-Meta
