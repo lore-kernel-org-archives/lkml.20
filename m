@@ -1,38 +1,39 @@
 Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17AB04B7147;
-	Mon, 31 Aug 2026 13:58:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88899430314;
+	Mon, 31 Aug 2026 13:58:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184685; cv=none; b=fDzIz1Ln9YmKtouR3i5UR9P6iu+/BqZ70EZ83VyWzSZDvj3ZSb4YnesOEjaVBKM6YaMvlJ+pgJ1GFGaQuhywqq8xQsZgMC8QkQdajsM40Tvf7z/pRRMeBdL/gspyooKtQeCh++jd+aaFEnz6jqoNQCfjl/s/s/XBySj1UmPfHfg=
+	t=1788184687; cv=none; b=M9VIByl+d9cBjzQc5QtTeF6+atkbci9Qn6yiDSRiGGCISIpvHveIA2B4EwNbLAgXTjHRAtD49i7S4tgG/y4dseahkrUgEN5U6N0fF73R3Gqhp30PCkRErC5TQVF5t+SGV5uwSqS4Wj1YhU3zcm5WmLhA+8V63YOuigOUsrKKVVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184685; c=relaxed/simple;
-	bh=iObjopHkeYEi25tSzD4CmCFw1z+jSJNYt1jhj6zWhM8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qbE/bY2StWUqLh07mUP9oSHgpC3/mD/tyJcFV27oiIz+800fqTG3rZEn4se6Qyuiy9vQHnW9drDR2PmX8XGClofZcqKClsMx2gM6mtuo2CevC445wEPYPv/MeOUBsHU4yFTb3CTeRvMC06v6xLMoqaWxTEt6Xp01kg7zfJrcCdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=GuBK8OL3; arc=none smtp.client-ip=217.70.183.193
+	s=arc-20240116; t=1788184687; c=relaxed/simple;
+	bh=uwNRHe9oEdd+Az66CwMiY13D7DzYIBVF+4Bk6egNFm8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ZLyDvjeU2vidIrnXggzyy1NtZFu5ps5R8icGfFp+NJKc+O+8+ItUqW7ah7SQmbKeVAV67ac3rFlFLOlv5/KOxxDi5Vfcpuio/7eqkW8E3szNiVa0b9fu5kQW3Zv4WyJkvYI1raKwkiCc+uzqhZMSKqp2m9O4lJncneD8DL7vZi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=QYahQhw+; arc=none smtp.client-ip=217.70.183.193
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="GuBK8OL3"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 3BEF33ECD8;
-	Mon, 31 Aug 2026 13:57:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="QYahQhw+"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 50DAE3EC13;
+	Mon, 31 Aug 2026 13:57:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1788184675;
+	s=gm1; t=1788184677;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=FTamnStOcGAtkUbsP5ZHfIdrQ0T8nrAJCsCYWpi2/bY=;
-	b=GuBK8OL3Ab/mtzao+dpjseW3KLvr8dLj6UAa01u9D9X1zthm2TgD/zx6SiKGPisjyNfgDY
-	7qebpYYPwQsl2z7y+VH5A79OZ3jyMwdIVlzyZMtgVzjQa4UgQCQN8k+5SqCDgRwrmwqyYl
-	b4locwkXzktp1ZkNO6aQHaRubl1qSPRsUk2C4DffDe23khGIJ6Gz2nbEDoUhVgDx1GTQL0
-	3RFsSK72ELf+gBQf13j+vXFDF+Rc8jP5EOucQCheknEzjBgHbGov1AYfWN0KHEBe36DLy1
-	TxnCh+dbL0xCxEeOIONya65FL87Xm31xZ+NqUaPpzOYj7aoZxTWRCqxKmmwPOQ==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qwQ77NLJdaDzor+bfxnMka8nUJ89yrwzWWtXG8TTC3c=;
+	b=QYahQhw+8EwR3D6iqj1IGM5giLPVBLJIiY6QUZ3pZdkWHVSvvKp3iGuusMnQlmOJGWUSWQ
+	E+0b+4eNU4KaNQNiMhTOTbxZwAmv8mOV/TnY3yioDbeNWE3HWnfVxFr+0hd4YVENPvIF4F
+	J31lA+IH7kzSwVwc8JADDHl3lH2lnsOFfmE3MIT2mkGGtKyIxJfpB26Dh8FYdV6iBC+rVH
+	CoJHUkJO+XB5yWEw4Pj65ORSiPYwWZwbxJqyrXVnwOB1gAM3p6WbaU1WR77GjIwGQYHurP
+	KXDPh64VwJEEHRS8YvA9QBU5XwhmWvUS2yg+2NDnSdW7OfP4t3ZFd9vz91bbow==
 From: Arthur Crepin Leblond <arthur@marmottus.net>
-Subject: [PATCH v4 0/2] usb: gadget: f_hid: allow setting different
- interval for each speed
-Date: Mon, 31 Aug 2026 15:57:21 +0200
-Message-Id: <20260831-usb_hid_interval-v4-0-609394103dcb@marmottus.net>
+Date: Mon, 31 Aug 2026 15:57:23 +0200
+Subject: [PATCH v4 2/2] docs: ABI: testing: document hid interval
+ attributes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,11 +42,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAEGIlWoC/32PQQ6CMBBFr2K6tqQdCm1deQ9jTIFRahRMWxoN4
- e5SXGiMcfl//nuTGYlHZ9GTzWokDqP1tu/mINYrUremOyG1zZwJMCiZYoIOvjq0tjnYLqCL5kJ
- ZozQoJYWCkszYzeHR3hflbv/KfqjOWIfkSYvW+tC7x3Iz8rR76SUvuRAaeMZ5KgrKqXGhHdz2a
- ty1D2HwWYeBJG2EDxAkL0CyIpM6V+Ivlr+xn+/EfMa1LIw+Yg2NrL4l0zQ9AWrxKs82AQAA
-X-Change-ID: 20260804-usb_hid_interval-0d8928874826
+Message-Id: <20260831-usb_hid_interval-v4-2-609394103dcb@marmottus.net>
+References: <20260831-usb_hid_interval-v4-0-609394103dcb@marmottus.net>
+In-Reply-To: <20260831-usb_hid_interval-v4-0-609394103dcb@marmottus.net>
 To: linux-usb@vger.kernel.org
 Cc: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
  Ben Hoff <hoff.benjamin.k@gmail.com>, 
@@ -55,56 +54,46 @@ X-Mailer: b4 0.15.2
 X-GND-Sasl: arthur@marmottus.net
 X-GND-State: clean
 X-GND-Score: -100
-X-GND-Cause: dmFkZTEhjPaIeqHWngbTOBdeig8xNSsVmyAyVQ2cncjqlIUuF4fHhw7vkk1dIwTst4ABfxbZhqkJkfv7fGyPXtDxttK1dKhDcG5KJUzOvP8qf8Ye5L7tCf/RdoK2ihArSAAL1OrxD1Ud2GEnVvDZoxOwHvBS+nW2jQXKkjB7O86uQZ0InAGPFvilM/3rRMgFLtbRbo2DbQsUYRAEz08+0oEtdfRsZRsw+J4rigXWKb1m9OHrAhRrEXvVwOJNJcv9PEO/N4hp7H5NS4SAWapYPE3udE3/3+J2itnzfCt9kTVxHe+FSNNJw3CuCZU9zHk/3fViD+Zk76MdfmhLQJF6y3iRxVnYIWn+43nAnA8POCq/K4SWvha90B1Ng+NYTULdNwi84j0JYsJuSuGneC9c4RF7Hs9A0RVINLgvb9ceI9cY/QZIN5VbIWvbmYZaYqi7S3j2EwFpLTimhUTlB2FwZHi2cUD/5fJsfnfXqabGCggTDRDvTByjKPmKM8Rd0QLLBv0Y7k7eTaGR99kpnmBfc5gLe6ZFWjlAMaq2rvvzvHJajCkWhEsaVCdvHM2fGWaFTX6cZu33LQtIKrxziaccHHo5a999BsgFNu11csyLCuf13oxH5ygkqMK5xl3SC5/BEDUwCzli3JUZ39N74TBvw7eJIBP5zmBmtf6WHqmeSaB18XOJ/Q
+X-GND-Cause: dmFkZTFsjoR8r0nNKrYTLPTkgNDX8KDWXiJDogWGk5/G/nb/gAHu3UKChiJzoPGLsw0cHPBeTRLWMQgv30rpEFRw4if01usPYSWO0+bapokZwe7E+siZGpMCnQkInBCDnU3wEQcFXw7laomBHhUj3+GiYQxSU34Yfh5zhOlBCo8m7Y9H+buN2Woh2OlqX4UPBNIWzocLpdMk9pVQeH7NQMrsHX2iCq5en+/yUyx2H7h7FQnYNIpGj9HsBR73Z3Mpwg3BlXj+PBzWy7D9vhFyi/G3TFOEwzAzRl4qaSkLy1hpzWa3nceIaURZ3kDgUgUklSfU/6gyazj9HYUjzL43DSd/wGLwg1Qd9ncYQGh8hVJ/GIbDI/dT3uuWMBOZzLJt3O9cA09RNqfN8+X9IGTrAdCy4ynOeEY6QkgDJjrYGhR+MObtIuyc0ljQBHXYRNI3KzBRFMABwubKkbIdcC8++5JwnC+b8BlO1M5uQiYDaasy0aW1wEyceHM1TjEdQrUNcuRTMasBGBWnK/pKWBNrozzpDrKRYGIifhv1sK9vVjB1plHfZM48HeLN2ioH37d8GVQ9Fpig02Bvvu39785rc0ucwsW7vSYNyI8n2KS5dKMgTuyk/KIoHHY5xwez2ZTTjdtz24aPpgXBhreXghn9sPZhB+axg2tBDjiS8tii1yVH9rj91Q
 
-Hi,
-
-I am using the HID USB gadget on a system that can be plugged in to
-different machines with different USB speeds (high or full).
-
-Since the HID polling interval unit depends on the USB speed:
- - Full speed: the units are in milliseconds
- - High/Super speed: the units are in micro-frames of 0.125ms
-
-Exposing directly the bInterval means that I would need to know
-which speed is currently in use and have to convert it accordingly.
-
-I propose a solution to to expose the interval for each speed:
- - interval_fs: bInterval for full-speed
- - interval_hs: bInterval for high-speed
- - interval_ss: bInterval for super-speed
- - interval: legacy attribute that takes precedence over the per-speed
-attributes and sets the same bInterval for each speed to keep backward
-compatibility.
-
-Thank you for your reviews!
-
-Arthur Crepin Leblond
+Add usb gadget hid function interval attributes documentation
+- interval
+- interval_fs
+- interval_hs
+- interval_ss
 
 Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
 ---
-Changes in v4:
-- Update documentation against 7.4
-- Removed unused struct f_hidg::interval
-- Edit cover letter
-- Link to v3: https://patch.msgid.link/20260804-usb_hid_interval-v3-1-975a9fec2d7b@marmottus.net
+ Documentation/ABI/testing/configfs-usb-gadget-hid | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-Changes in v3:
-- Use sysfs_emit
-- Link to v2: https://patch.msgid.link/20260727152705.79384-1-arthur@marmottus.net
+diff --git a/Documentation/ABI/testing/configfs-usb-gadget-hid b/Documentation/ABI/testing/configfs-usb-gadget-hid
+index 748705c4cb58..a889cae15a69 100644
+--- a/Documentation/ABI/testing/configfs-usb-gadget-hid
++++ b/Documentation/ABI/testing/configfs-usb-gadget-hid
+@@ -11,3 +11,21 @@ Description:
+ 		report_length	HID report length
+ 		subclass	HID device subclass to use
+ 		=============	============================================
++
++What:		/config/usb-gadget/gadget/functions/hid.name
++Date:		Aug 2026
++KernelVersion:	7.4
++Description:
++		The attributes:
++
++		=============	============================================
++		interval	HID endpoint bInterval for all speeds; if
++				set, it takes precedence over the per-speed
++				attributes below
++		interval_fs	HID endpoint bInterval for full-speed
++				(in milliseconds, default: 10)
++		interval_hs	HID endpoint bInterval for high-speed
++				(in 125 us units, default: 4)
++		interval_ss	HID endpoint bInterval for super-speed
++				(in 125 us units, default: 4)
++		=============	============================================
 
-Changes in v2:
-- Expose a specific interval attribute per USB speed
-- Use a define for the default values
-- Update ABI documentation
-- Link to v1: https://patch.msgid.link/20260716144921.1120265-1-arthur@marmottus.net
----
-Arthur Crepin Leblond (2):
-      usb: gadget: f_hid: allow setting different interval for each speed
-      docs: ABI: testing: document hid interval attributes
-
- Documentation/ABI/testing/configfs-usb-gadget-hid |  18 ++
- drivers/usb/gadget/function/f_hid.c               | 194 +++++++++++++---------
- drivers/usb/gadget/function/u_hid.h               |   9 +-
- 3 files changed, 143 insertions(+), 78 deletions(-)
+-- 
+2.55.0
 
