@@ -1,109 +1,130 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8871A9F96
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:15:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152D8348445;
+	Mon, 31 Aug 2026 01:18:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788138933; cv=none; b=Rvw40EZLU43eAP+hsmitnWgD1xbeFZ+uLpo/lijgaYLfZ2FKhTkDG9rXhYlPuOsmFwER1u7TCCc7tkabNY0iWyjZNV2DRrJnD/U9zkB9LHPQPWi1YFufAUo8GAh6MbHIP+6EEBJLbLxhK6XwcHpAeuMm+nZ7WE/Lyn68e4Bdh2I=
+	t=1788139117; cv=none; b=bLezbjdKExgUyY+8U6LoIjyuUKDC5XHDPBSD/FlEL+AxzKERT/M3rg/4rHMPL8096yJ2IwDVgo1CiQK2bHzJ6PX2VAg+U1F9bJn4BwqRuuoWRVcZFnQlynl5LfP2wGWWF0xmffg8bYk615rFu5VeIWedjWijKoxPLIrciPurFzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788138933; c=relaxed/simple;
-	bh=ON3K5XgKP7gpRDE7IbiXSTStuvEcMdc7cC0gAPZ0DiY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=emuISd8xi9OqXCwgxpEFnaN23Uzq57ngBzaMzW5Ed591Q78xgL/dHY74pWfJ0ONJHiTyhSs1ARY/rHFuC9osT+ZiP742fN/b3KDbNxd83mMDzoNRdBsLHbhtQGjMmRK2K4nCTviTsMWsN8BtOxI7nwxySN1nOiqirLHksw46+vU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=iOfrV6XZ; arc=none smtp.client-ip=209.85.222.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1788139117; c=relaxed/simple;
+	bh=R62aGQzTkbrTMbK+YcFb8dFuc0V81YdQHYu0jteuwFE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aFHJQPf/ynSYCogg51uPsk5dMyoF3JLMupeWLIdHDu95lhJbZCvyzt9YgFhXYEQn993/jeuC7ftawc3HjrBro8PFF7fQHSAXxFq0h6jGxeOXmGeWn6pEvH5eZ/o9OI/HLLz35XQXCSf0tH8xesFMI/6JMGpRq+co7ifKNSLpc2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LT5V5Y8l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="iOfrV6XZ"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-930c0f9c1b1so197928785a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 18:15:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1788138931; x=1788743731; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=M7y1NLVwXUSf08Tsy0vpaiU5Gq6j9SvxOp7x3iNDJJw=;
-        b=iOfrV6XZLm2+LHelUrpBUwPlEPq4ag2LNyEZpv5qe6oqZqKj6YXE+ibF4XR737tw70
-         se12RMLfxK6vGAFU7WiBXbT9W5Jk9rkQmBJsuI3umMLY9KialMhMvfykFZoSmUqB7qds
-         uGzD4Wr8tTMN7BQ6uxsKogbBjWwM1Cr6XN6k7oW2HNzbtytWShQoD1qje5inzFtA2/7u
-         PYlCRmp7yepP5wdy3U5X3mJPgItyQEhxecZUstQqlcTM+WNw5P5p/bOjzEbzuwj6MhI2
-         SO4bN1AeSK7oe2S99b8xJ9GnIpLC0n87RyD/htzr5XX/qdQqLWmbZSgtaHQ0VXj24YGh
-         YKnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788138931; x=1788743731;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M7y1NLVwXUSf08Tsy0vpaiU5Gq6j9SvxOp7x3iNDJJw=;
-        b=DTnNd01rgoFjTYlnGW+yujAa5KR7lwYBw8cc3bqKBvPGNGJ3Wz3oQ32FfmfMUCfgfM
-         +thMTCABuvh7j1QgmsQ03c2kOh1PyDjM0zPXU1VtPkr5GKd65t8C5pwwaBlLjJwOwPTC
-         vqGB+5F8NRuORPDQHkayJY8wGWi23ghPf//er/R2iUmcBhaier6mRdoIN/TB7l2RfQWc
-         nwEkzZR6e4K3thby6Kc2d4wIQqXg4I/NyWrwKoXNwdv37lf9X0MgxqHCRnPuUOjhoT3w
-         Owkt51asPtM5NfszkITyjU8jc6qnolfUgzuLGFW4dqBwuA3UdbIAWCMdgaWSP21/80Fj
-         0bZg==
-X-Forwarded-Encrypted: i=1; AHgh+RoQAz5UAylEnOSW/Ko3d/KR3LABiECxPZtcl5fVeQaUXdUJvlsHCRw/tfIQ0AW1jaZO9jL7KMgM4kLRu8k=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwt1fn94y566ZKa+EIwQI3jatBLJ813lb6O7uFXqhspNDeVzIp
-	CeWpjOp001EaCnFVrFhzZrzxNnrnWQZSX06pN5ca/uwFqccKyCVx0TVDNH/1yZOm8kBywd8LFZe
-	a21+vCg==
-X-Gm-Gg: AR+sD124ZTlwcec1VGR0uqy/jDRkVvB+N/ltn9MQWN1S1Ti9DlkaWkgMb2drWitkszm
-	gh2ptMAQhNakgF6PE9vJ5Ul9M4MHlZ7zdEa4wtQHLlBqVC0uyPz86ynQyMg4wsk7D5vPfJezZgx
-	cYF/W5zEPhLcg3ExQHQJ3ohiCRE+5pcF1sCCg3Ggcr57EX4uvH17s/iUugCY7xHrn9IZZD0qaBC
-	EGZXMlZVogDTk41OT2zkCi8+bAfzoVUDjFLMUY9g1zJo145b5fc/+QJpEUGMK1Uu/thcjRVv9LF
-	k6NP5+TkwAzGz1N073t1Fqaa6umckccvs/4PeG74gFWmvu5Y4sxpcfXY0A05swy9ICJkvCoHNB7
-	aRf+EqlovIaYRtZ4+L1HvqzP6vPKOj4ftqKcRA7cXuYeE7qWpDS4XanI6eCXJj+XAVewaMBqKn7
-	6nBmt2xjnoz2zIjueWaoFxcHJsx9T0CfeMPLtvfpEo8/syzWstQaHx855HkoBcEQ==
-X-Received: by 2002:a05:620a:8392:b0:938:e23a:2ce9 with SMTP id af79cd13be357-9393fcf9d39mr121937385a.16.1788138930985;
-        Sun, 30 Aug 2026 18:15:30 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce451513bsm71976996d6.35.2026.08.30.18.15.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 18:15:30 -0700 (PDT)
-Date: Sun, 30 Aug 2026 21:15:27 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Daniel Palmer <daniel@thingy.jp>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] usb: ehci: support controllers with non-standard
- registers
-Message-ID: <fef8be63-ab17-475a-a77a-4dc874d1a704@rowland.harvard.edu>
-References: <20260831-gemini-usb-fotg2-v1-0-8a8ee12c4b32@kernel.org>
- <20260831-gemini-usb-fotg2-v1-1-8a8ee12c4b32@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LT5V5Y8l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C23231F000E9;
+	Mon, 31 Aug 2026 01:18:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788139115;
+	bh=3ErGGCNtqbH/4uyNbF/FHiXjcbOI5guPjt9Iu9717vY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LT5V5Y8lMaYuF8qUe3ksESx6pHvo6tS8TF8wZL14TQMa12XE6+66g8YLpDkrwhQfU
+	 FmJPokOE/Kd/fQUXO6vbjQk4Bkvi4CEmPDFtaDfKfYelW4ShKdrMLWjje9ie80xBBI
+	 Zxmmtt56l9BnZuRNntE1rUWlhQH/p009A8dhbad+35sp8wiYzuymXRaKFJ4aqqtacv
+	 ylkFEUWlczOt4UfozvBUtqfRcx5xTlAV6ojCUAvUbWd9mbudPW5/uYitGw8XXcJlkx
+	 toRUHVQ0jjAk7tN3ToElF+uIghLfJrWcma/5pXsXD4IC6uC4xIOisYVuwQZtRH0TGG
+	 3RHxofQj0lZYw==
+Date: Mon, 31 Aug 2026 02:18:29 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jean-Baptiste Maneyrol <Jean-Baptiste.Maneyrol@tdk.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Jonathan Cameron
+ <jonathan.cameron@oss.qualcomm.com>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH] iio: inv_sensors: fix estimated value larger than
+ interrupt timestamp
+Message-ID: <20260831021829.5240cba4@jic23-huawei>
+In-Reply-To: <BE1P281MB142668824B5EB8067F8E1034CEAF2@BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM>
+References: <20260824-iio-common-inv-sensors-fix-estimated-use-v1-1-6e93506e7e93@tdk.com>
+	<aoxkI3SV4IGumncy@ashevche-desk.local>
+	<BE1P281MB142668824B5EB8067F8E1034CEAF2@BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831-gemini-usb-fotg2-v1-1-8a8ee12c4b32@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 12:24:19AM +0200, Linus Walleij wrote:
-> The Faraday FOTG210 EHCI implementation moves PORTSC, omits
-> CONFIGFLAG and USBMODE, and needs controller-specific speed and reset
-> handling. Add
-> per-controller hooks for those variations while preserving the standard
-> register path for existing drivers.
-> 
-> Also allow a controller to reject full/low-speed isochronous transfers
-> when its integrated transaction translator cannot schedule siTDs.
-> 
-> Assisted-by: LLM
+On Tue, 25 Aug 2026 13:31:38 +0000
+Jean-Baptiste Maneyrol <Jean-Baptiste.Maneyrol@tdk.com> wrote:
 
-Which LLM?  Or is that the actual name?
+> >
+> >
+> >________________________________________
+> >From: Andy Shevchenko <andriy.shevchenko@intel.com>
+> >Sent: Monday, August 24, 2026 17:32
+> >To: Jean-Baptiste Maneyrol
+> >Cc: Jonathan Cameron; David Lechner; Nuno S=C3=A1; Andy Shevchenko; Jona=
+than Cameron; linux-iio@vger.kernel.org; linux-kernel@vger.kernel.org; stab=
+le@vger.kernel.org
+> >Subject: Re: [PATCH] iio: inv_sensors: fix estimated value larger than i=
+nterrupt timestamp
+> >
+> >On Mon, Aug 24, 2026 at 05:=E2=80=8A16:=E2=80=8A58PM +0200, Jean-Baptist=
+e Maneyrol via B4 Relay wrote: > When interrupt timestamp interval is not v=
+alid, we use an estimated value > that can in rare case be bigger than the =
+interrupt timestamp. This is >
+> >ZjQcmQRYFpfptBannerStart
+> >This Message Is From an External Sender
+> >This message came from outside your organization.
+> >
+> >ZjQcmQRYFpfptBannerEnd
+> >
+> >On Mon, Aug 24, 2026 at 05:16:58PM +0200, Jean-Baptiste Maneyrol via B4 =
+Relay wrote:
+> > =20
+> >> When interrupt timestamp interval is not valid, we use an estimated va=
+lue
+> >> that can in rare case be bigger than the interrupt timestamp. This is
+> >> obviously wrong, so better use interrupt timestamp in this case. =20
+> >
+> >...
+> > =20
+> >> -             ts->period =3D ts->mult * ts->chip_period.val;
+> >> +             ts->period =3D min(ts->mult * ts->chip_period.val, perio=
+d); =20
+> >
+> >It's u32 * u32, how is this guaranteed to be always under the u32 result=
+? =20
+>=20
+> Hello Andy,
+>=20
+> (ts->mult * ts->chip_period.val) is an estimation of the sampling period =
+of
+> the chip in ns. It is limited by maximum setting 8kHz (125000) and minimum
+> setting 1.5625Hz (640000000), with a 2% margin. Meaning maximum value is
+> 652800000, which is below the 32 bits limit.
+>=20
+> ts->chip_period.val is an estimation of the internal frequency which is 8=
+kHz.
+> It's value will always be around 125000, with a 2% margin. Maximum value
+> being 127500.
+>=20
+> ts->mult will change from 8kHz setting (1) to 1.5625Hz setting (5120).
+>=20
+> Thanks,
+> JB
+Seems fine to me so applied to the fixes-togreg branch of iio.git
 
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
+Thanks
 
-This is a pretty unwieldy patch, which makes it a little difficult to
-review.  Can you split it into, say, three parts?  Such as: one for
-the port status register change, one for the port reset and speed change,
-and one for everything else?
+Jonathan
 
-Overall it looks okay; it's just hard to check the details.
+>=20
+> >
+> >--
+> >With Best Regards,
+> >Andy Shevchenko
+> >
+> >
+> >
+>  =20
 
-Alan Stern
