@@ -1,110 +1,145 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1924D3B8BCC;
-	Mon, 31 Aug 2026 07:08:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E264235C696
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:08:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788160083; cv=none; b=hkmHNnZDKT/9EQnadI5zW57m0L2PpdtLC0mKXAjduVR8LtWhqhDYxvDhwB8e09v7dlBMUalZ+VtaPiRVMMxWRO2DbRpquke8Xm4kMJRUtwSvpvJMS5vwYl4B6T/7aqTciqe7OC5X4c/dYdElyhmLLIH5pgMdLsB8ykBcZONcv+w=
+	t=1788160101; cv=none; b=bdAE3Uv4cfVIE3foHAUOSQVEARFWwzimc0TdXp4rYvpXKX5cbOBjKGJU+fPropMQxGV8Srggi6+s7Y0HVuhjpAjnrwrAUmTbv3Tr/w8vmRmu/URJyc2GYxxVUlLjOQBm9sXNLEyfV8/1uBcM+Yahf5zygSqDqMxQ/wfKQrDrC+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788160083; c=relaxed/simple;
-	bh=0WIM+qPhrT5aBolDJz4drM60KG4zXVaG7M7RJypKEeM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G8OTBmAVOyBXwQTDyPH3s6InQq9iUbSxRZOIYuNduct6Hy3ISAnnjzPrBzYTAXlVnUZ4bfXsYmnXZebYoBMc23isaOneL2mQ1wK7fG14jVnpfRay8hNlnRkVd9pgwwpVdyndnJsBhVnZK7yTp/tYlD8ra0q5drDcvrmqeehdupw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=a67/WBXc; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788160101; c=relaxed/simple;
+	bh=OtDf5kcTqEA1PEC3v0u0wM/mWSz9h5KHwFsQnufun3E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cmxL+vLLXrsjOt7nVYAkc/aQewzjLX1ewo0rnRXs1Kimy7O8fLBkF3uoj/Hg/iKAdJSaICRU7f4YpA5H/LG5KruOBddTc9Fm64vDtT8sDe3eoHAqufWuNlRtQ8XuT+vEp7+TIsSPxE7KtTc4XY6Jcci6phIDm9u9t73nuyH/rn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WW6EBvTt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fIau3zYA; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="a67/WBXc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=rlHsLIomUZDuyupnnAtNJaCHYl4a5Rg7e9MyiEzSdUU=; b=a67/WBXciwwfTXKyxpcVqnkgrD
-	AlJwjFjl6pELrCGWf+akgeocN9/XKhybGbgvTSS9Zx5nrvlXfgo2SBaz14PrrOZPS2VukRTfhD/q6
-	Jfr/OkRBqX0gkCPkMqhchghylTHtfrNvF52sQ+iAYXZbgLQaIpyZ/xgqDRNwxVXvgKMeQfd8kuRAF
-	A8SN9TtFhnhAFtadO1lcrnkSC0ny7YBwnc8+GDgsWrgg06hTDeGotwS9qoQdZKgI50gJWin2KZt6a
-	+qD2ksvaqTbKHuXTK4U/3I7+FKvGqy6LrTtZznalbKweNDNmLTET1K6dItlPFsOZHxPKP0vvF9ZXo
-	iSIhEE9A==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x0w7E-00000009b4c-0xtJ;
-	Mon, 31 Aug 2026 07:07:36 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 26E203002D8; Mon, 31 Aug 2026 09:07:33 +0200 (CEST)
-Date: Mon, 31 Aug 2026 09:07:33 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	David Stevens <stevensd@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
-Message-ID: <20260831070733.GS687043@noisy.programming.kicks-ass.net>
-References: <20260827232948.2520558-1-stevensd@google.com>
- <20260827232948.2520558-7-stevensd@google.com>
- <20260828133620._x2XfJR_@linutronix.de>
- <20260828135947.GU776954@noisy.programming.kicks-ass.net>
- <20260828151018.HnR9xV1N@linutronix.de>
- <20260828150836.2d5b378c@gandalf.local.home>
- <20260828151313.5c4a5e4b@gandalf.local.home>
- <20260828151747.20035d50@gandalf.local.home>
- <20260831065509.qqEtERDB@linutronix.de>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WW6EBvTt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fIau3zYA"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V52VKW2017570
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:08:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Z5+jtKls3jVZt1Vk8tCZgUdFuEyXJOu1YclDw7gKN9w=; b=WW6EBvTthhXbs/IQ
+	QKblKD9+s8LJJUVw81dIUv2Yv9CxXVAxNFroXU1TMH/OCnOfzGfZmiTe3//aew25
+	nloGvaRIljsbOELbTRFcewDIR4aCW+nBzX4b59eSZORL7i387oWq2BfkmreOg9wk
+	cwVlretRiHb+33uCW03OxZH1TXGtLZNS9pwp8+q+cjqe1PNQcH/wxEWmYrQD+uVs
+	S+cRxRN6HOd9BEsa2ha8YfD88YPWGQ/dLkU8KFWQjHktapOYaju/Q/d5DsyT65CB
+	OJh+wSfv6xKK48YN3crcC3G7+2VP9jyKagRW2olSyMccQCtZsw5neJAD5K96ZnXc
+	zZU3bw==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqt6n22h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:08:18 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-52ec554a80aso9283911cf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:08:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788160098; x=1788764898; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z5+jtKls3jVZt1Vk8tCZgUdFuEyXJOu1YclDw7gKN9w=;
+        b=fIau3zYALqBXVxnyZuWM2ztooE0hOL3PTGhsD5Kbd6URdw5Hl87QnQIi2ITlaIlcBz
+         BjrmIXxYVhA9lhTSyD4ep00EwpSOJkAI4jS98Q7bYSJErMGj6paY/nBu2ZjyHsr+g3vK
+         wZ67z0DY1q+tIDzzXkPt0ifRf1hOf0deJE+FTy10NY47C1RVObO6zcv76ImohIwsxF0A
+         X2git/OEHD5N7/lHOhNbyp6ec6m/Qj7Pw1CX4T9FogU+DiVKkb5g70DP4krylL7+47/d
+         +0Zx0hHspiVxv8teDknh6WG5qi3nHohLATI95mDujBRW6fFumQ60Lw7ETwOY7BYoposz
+         v7bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788160098; x=1788764898;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z5+jtKls3jVZt1Vk8tCZgUdFuEyXJOu1YclDw7gKN9w=;
+        b=q7Tz1NCKgQU3Kjfx1ISMvRPPLBfjrkBSxpMbZMG4YLWg57biJ5/wbZ9OaXbml8t7BU
+         TjireL6UWn89S2x7z1Hc0B9I7Rv2HElWtj++3fKKwx1nc+/u0NTi3dug6tnf/L1DhDXH
+         6iEH+2nt415wrY6AFsTznhPWY2iFl7vcJo1M2c1rUFRHxReVnNajsygfCU0zQusqZqMb
+         1SuabgezziaofnwkEw4hiQtttQRLfhzQ6nuSHDZToSmkBGVOu/j1dwlhhdsSB1QP4QiK
+         sL0bBy7NnJDy8rimDKKtMhzjE3+Cm7itnw5/HjkfswrNNk/8yKsOSo11dJxQqwQOVzHC
+         wGJg==
+X-Forwarded-Encrypted: i=1; AHgh+RqKfMy1sMCyG19wINVXK9iL5zQ289BfBkyTM/W2vokwkYvCV/g8gjJDtGS4IuJf2P55A0FyWT32CtORxCk=@vger.kernel.org
+X-Gm-Message-State: AFuF++miorRt1lKTdH2o9MPEsXKvR8CvuBEv+MTP8Axuzdjq1JEHpt0k
+	ZAb4FV2vPTbcXd0SXj46amxou4IfV0/R0of2zZ6HKDKX9r0+8YXTmVzf205fwDoeEdtnYVZnIK+
+	kZOdvJVCziauGkeOSuWOaG+cH3ckGAnBgD+bWSCVyx2AGQEgsNxGQjzfGTtP1koC7Ixk=
+X-Gm-Gg: AR+sD12h0DIwqIaT5UV9Kj+nxn/gqFHqIdY/VTXW5SEzgAglvHCJ1g9YyBT8FxKEFcQ
+	7LEcZi8NqVtKDEa/pMvhRQLyaivoVct3hSAiEYQNTMf/TgHVMk73SkkoCswO4PMgflKienVMVqN
+	ER+5BXQhQ/w1uKVyvLuj42BP+YgowyCmrPodfLRVlo/fcKwujaLHOmpRyOVpGugq02cMPLDa3Gc
+	CvH23JY45bjCilPLGA32WmpPU9E3Z8KaYUMMKPCoBnlSTYPHJK6+S4TpKbrHhgjXhDZl22ZnXH+
+	bomK5OVuxQ2CsNfHgX8kS0JAcyJ8Z9ACWLQbBywd2ItFYcTVw23gFYcgoaILf6CkvF9hwcjK6JM
+	DT2bUP3kp+Gh0MEsfMdlgDg==
+X-Received: by 2002:a05:620a:1b9a:b0:92b:7420:bd58 with SMTP id af79cd13be357-939285432f8mr768780885a.0.1788160098286;
+        Mon, 31 Aug 2026 00:08:18 -0700 (PDT)
+X-Received: by 2002:a05:620a:1b9a:b0:92b:7420:bd58 with SMTP id af79cd13be357-939285432f8mr768779785a.0.1788160097890;
+        Mon, 31 Aug 2026 00:08:17 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f249434sm389101766b.55.2026.08.31.00.08.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 00:08:17 -0700 (PDT)
+Message-ID: <1ad7deb5-5544-40aa-baab-865a4612af70@oss.qualcomm.com>
+Date: Mon, 31 Aug 2026 09:08:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831065509.qqEtERDB@linutronix.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] remoteproc: qcom_q6v5_pas: Add per-PD proxy
+ performance states for Hawi CDSP
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260828181311.4038346-1-mukesh.ojha@oss.qualcomm.com>
+ <20260828181311.4038346-3-mukesh.ojha@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260828181311.4038346-3-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: WkGeS3mPHdKryhO6KQ46CsoYoISABpp2
+X-Proofpoint-GUID: WkGeS3mPHdKryhO6KQ46CsoYoISABpp2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA1OSBTYWx0ZWRfX47U7xZXsdy7L
+ db9/NT0XoJY6NAOZrBzgyrNxYREfI0eOsBL1RMvlsUu8sP7AsB0pN9fiQdpq4iDJJgTYphpneRw
+ TkdOl9/hDJufL9AKehINO+2nZlXF+X+pHBRPYUBGnYHdfgpKEaxycP6IohJTaAASIkiwjVYB+R2
+ MOBMF1LLs37wRTyL6wNuz5AgNCPD+GYWIec/9Mqm0ggmLXrpkKqPvYQKcnz3v7RMlFXTrmE1mEU
+ IfK9A0U4VJFP/R1aENhyhE274DZ3xQwNwCvFs5gdWG8PwNLe+1RTwAN6Phlxv/XRxl+sNwZluoy
+ fqHTKdMhVt5+qAXDp0WkTkdE6U77128TX9p1zx6V8Dfp6QgJPm+5hY67kFjuVJup30HUND8WxNw
+ w9Yu0UIo9qgm1+vYZ+H2f5g5BwkWgNGNfSn7LKF12t3sLRM+qfO7WZtcjcSQArWt74LlhpNAnNF
+ cMQGBrEcGPq8JK/07Iw==
+X-Authority-Analysis: v=2.4 cv=S8/pBosP c=1 sm=1 tr=0 ts=6a952862 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=LiietuZ_TH7RrXzX-7sA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA1OSBTYWx0ZWRfX2/o3/QX/lSvI
+ nKZjSUjmGVh8c8cl4PLVQKJxfxbq/d2Wqj8TMq8caIDkR/+KWwAEF2kt9FJfVDEhka5vo8A31aQ
+ tnnU2cu4gpKSJoyX9qDwZNYv54sIp2o=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_02,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ bulkscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310059
 
-On Mon, Aug 31, 2026 at 08:55:09AM +0200, Sebastian Andrzej Siewior wrote:
-> (stack tracer running)
->         Depth    Size   Location    (60 entries)
->         -----    ----   --------
->   0)     8176      48   __css_rstat_updated+0x9/0x150
->   1)     8128       8   __cgroup_account_cputime+0x2f/0x50
->   2)     8120      48   update_se+0x10c/0x1b0
->   3)     8072      48   update_curr+0x31/0x180
->   4)     8024      56   put_prev_entity+0x153/0x1f0
->   5)     7968     136   pick_next_task_fair+0x684/0x8e0
->   6)     7832     120   __schedule+0x1ca/0x1130
->   7)     7712       8   preempt_schedule_irq+0x38/0x60
->   8)     7704      72   irqentry_exit+0x148/0x6b0
->   9)     7632     136   asm_sysvec_apic_timer_interrupt+0x1a/0x20
->  10)     7496     240   HUF_compress1X_usingCTable_internal_bmi2+0x12d2/0x1c40
+On 8/28/26 8:13 PM, Mukesh Ojha wrote:
+> The proxy power domain enable path currently requests INT_MAX performance
+> state for every proxy PD.  While this serves as a "take highest available"
+> hint, some SoCs require specific per-domain RPMH levels for correct
+> operation during firmware load rather than a blanket maximum.
 
-> 
-> Does this stack tracer distinguish between the kernel-stack and
-> IRQ-stack? I would expect asm_sysvec_apic_timer_interrupt() on the
-> IRQ-stack and not adding weight to the kernel stack.
+I would have assumed having a surplus of power shouldn't be an issue..
 
-This is the return from interrupt path, irqentry_exit() is right after
-we switch back from the IRQ stack and are back on the task stack. We
-have to be, in order to schedule the task and all that.
+Is this specific to Hawi? Is that a firmware bug essentially?
+
+Konrad
