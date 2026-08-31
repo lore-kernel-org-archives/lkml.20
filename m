@@ -1,135 +1,64 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC59537DAAA;
-	Mon, 31 Aug 2026 02:24:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405C3387363;
+	Mon, 31 Aug 2026 02:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788143052; cv=none; b=Dy+6xvRYbrrUQ/Qwy0KJ7x8ZLKSq+eP/wYOyGXk00MtkmJkeKe/4v4Wgqgdd7SbVQtMAuX0syayJdg/KwN/33Wist0YNuHk2x9YumSsSM4YtqGyHmxPB4KQHMcm03QF2KuBCkt4DmxPEphuSXc67wLfh0rSmMo/EYhIW/Uxgw+E=
+	t=1788143185; cv=none; b=PQ4tBUy7rp3A3Y2Jn9fR37dQGJ0hfiERdRaCQP6AyV6W//G61+hlmf2VqmZLZr7bDRbfGqXWip/ItnlCbt8bZq8Ak0I6jpr5fVCjAwHT+fXNOzMdh00oZOH8XK6kHp+pqIvpEd8YfvkIS7fs47H9tzLsDi5KUc429YeVWu+JPnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788143052; c=relaxed/simple;
-	bh=q2EnBoZCRQ8THpTvDCAgGjN5ekSyN5a6qJf9NWwmfAs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=MqGPMVJsW+ekkb27e+KjxUEQ/82qC58fjH4dapgfPz9Hpcf+tyTvR/o0Ny/b4dXUr75sUNKg7UPuGxHLHCtwzUjum6VMuVB3AGi/lrzCJ2PLK+U9kE5f9lPeFYPxK1goUU0P7ftIL7ZjfYQuG7PziuU0kKLq2JIYc0S107Kny5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=GqOBnzHa; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1788143185; c=relaxed/simple;
+	bh=d8Hs6S+dKfpFggHaqLVu/GufQyKEH6HRxbqNopsYD40=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qBYMiZ1w55Hf3zY4dLudoZuGChopuFb41UyPvZI7+5Pw0KpWjTfHxb0WcQyLO8aYyMK8tFBLEVETibiMC9js+Jm458rcbeymaS+pQ9cJRFbedmrVvu1SLkxIUDtDlv99SBDGbvLqwe9BYxJA6GKR6oJoMT+4WMUVTxCssxd08vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W7h8QDe5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="GqOBnzHa"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 67V2NnNL2371467, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1788143029; bh=q2EnBoZCRQ8THpTvDCAgGjN5ekSyN5a6qJf9NWwmfAs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=GqOBnzHajlJrY2llv7KtLo5xSKoTcmRkE1NFqwRjpguMd6H/LpZI9c3QDR4AQsyyO
-	 d3U3HMeWecjAcdHOxe0YdM8Lpw5UKiy1kx8LXtBQH6nr+9zcIniAskrvyJw+ktaSkR
-	 avxbkusuxDZI61vT9DORCYGhJvfqkax4odl/T8UWvYaTg0Xb06nHHVBF1hepY9dyNQ
-	 /9aD7MP/GiUuXG6HJjobbcQi7q4myBZFjmCJD/EoqNusQEx3Yctb2ftDp02CkNq+LP
-	 pyTqsFtCZmtTyTNz9ZOnXBl2j4/wUXlCrKohpsemU0kwe6K0IfTlbruSc3ErPkvxjU
-	 3OB5X23dl3m4Q==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 67V2NnNL2371467
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 31 Aug 2026 10:23:49 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 31 Aug 2026 10:23:49 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Mon, 31 Aug 2026 10:23:49 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, Bitterblue Smith
-	<rtl8821cerfe2@gmail.com>, Peter Robinson <pbrobinson@gmail.com>, "Hans de
- Goede" <johannes.goede@oss.qualcomm.com>
-Subject: RE: [PATCH v8 0/6] wifi: rtw88: preparations for RTL8723B/RTL8723BS
-Thread-Topic: [PATCH v8 0/6] wifi: rtw88: preparations for RTL8723B/RTL8723BS
-Thread-Index: AQHdNK98EWXiqeD5uE6QFc7swG8a87awGBYAgAdVyYA=
-Date: Mon, 31 Aug 2026 02:23:48 +0000
-Message-ID: <f1454e9c2add47b2b01a0adb8233455f@realtek.com>
-References: <20260825163314.1590-1-luka.gejak@linux.dev>
- <4866D935-FCC8-4F24-9C05-8678DCB22533@linux.dev>
-In-Reply-To: <4866D935-FCC8-4F24-9C05-8678DCB22533@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W7h8QDe5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88A771F000E9;
+	Mon, 31 Aug 2026 02:26:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788143174;
+	bh=PAuNlSD3KcRG2e6QUkGjSARsweEPhyxyVC+8H743MtY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W7h8QDe56JzPkyprp5woK7/y/j89Diw9LYnHmfTjkWmNwKb3fAjyN4DEgp7Z0P6kv
+	 gU46M2rbsN8sgqmUvO07Xw96GI9buacXspG6jmJZ0YSMWoJvvlhphjtggvjqMEeI7+
+	 rKhx5pBIfuZch4/bmuG76al5GfGQRy1pXaC9xI4WZqWDmHQ/kA4i6sANgKBWBdjXFD
+	 t8L7Mtsu/0m7dz6/owZbhTWA3S2QpwmU7yO9MHYhss8JM3191bxVke3Hgz/+vVlMd1
+	 CosQvExXlR1qC1u4DPqW98VWATBnS5nBH080huN1MSFf6Ws2i62PT3CoPFclo5YiCP
+	 Y2/6USXmrMnOg==
+Date: Mon, 31 Aug 2026 02:26:11 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Daniel Balint <dbalint@google.com>
+Cc: linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+	jakiela@google.com, hmazur@google.com,
+	Benson Leung <bleung@chromium.org>
+Subject: Re: [PATCH] platform/chrome: cros_ec: add API for power monitoring
+Message-ID: <apTmQ4w3aupzVp0p@google.com>
+References: <20260824155554.1046334-1-dbalint@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824155554.1046334-1-dbalint@google.com>
 
-THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiBPbiBBdWd1c3QgMjUs
-IDIwMjYgNjozMzowOCBQTSBHTVQrMDI6MDAsIGx1a2EuZ2VqYWtAbGludXguZGV2IHdyb3RlOg0K
-PiA+RnJvbTogTHVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+DQo+ID4NCj4gPlRoaXMg
-aXMgdGhlIGZpcnN0IG9mIHR3byBzZXJpZXMgYWRkaW5nIHN1cHBvcnQgZm9yIHRoZSBSZWFsdGVr
-IFJUTDg3MjNCDQo+ID44MDIuMTFuIGNoaXBzZXQgYW5kIGl0cyBSVEw4NzIzQlMgU0RJTyB2YXJp
-YW50IHRvIHJ0dzg4LiBJdCBjb250YWlucw0KPiA+b25seSB0aGUgY2hhbmdlcyB0byB0aGUgc2hh
-cmVkIHJ0dzg4IGNvcmUgdGhhdCB0aGUgY2hpcCBkcml2ZXIgZGVwZW5kcw0KPiA+b24uIFRoZSBj
-aGlwIGl0c2VsZiwgdGhlIGJ1aWxkIGdsdWUgYW5kIHRoZSBNQUlOVEFJTkVSUyBlbnRyeSBhcmUg
-YQ0KPiA+c2Vjb25kIHNlcmllcy4NCj4gPg0KPiANCj4gLi4uDQo+IA0KPiBIaSBQaW5nLUtlLA0K
-PiANCj4gQSB0ZXN0ZXIgaGFzIGJlZW4gcnVubmluZyB2OCBvbiBhIHNsb3cgQVJNIFNESU8gYm9h
-cmQuIEluIGEgZ29vZCBzaWduYWwNCj4gZW52aXJvbm1lbnQgaXQgcGFzc2VzIGEgdGhvdXNhbmQg
-aXRlcmF0aW9ucyBvZiBoaXMgc3RyZXNzIHRlc3Qgd2l0aA0KPiBub3RoaW5nIGluIHRoZSBsb2cu
-IEluIGEgcG9vciBvbmUgaGUgc3RpbGwgZ2V0cyAiZmFpbGVkIHRvIGdldCB0eCByZXBvcnQNCj4g
-ZnJvbSBmaXJtd2FyZSIsIGFuZCBhIHJlY29ubmVjdGlvbiBhbG9uZyB3aXRoIGl0LiBQb3dlciBz
-YXZlIHdhcyBvZmYgZm9yDQo+IGJvdGguDQo+IA0KPiBMb29raW5nIGF0IHdoeSwgdGhlIHR3byBl
-bmRzIG9mIHRoZSB0eCByZXBvcnQgcGF0aCBhcmUgbm90IHN5bW1ldHJpYzoNCj4gDQo+ICAgcnR3
-X3R4X3JlcG9ydF9oYW5kbGUoKSAtPiBydHdfdHhfcmVwb3J0X3R4X3N0YXR1cygpDQo+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAtPiBpZWVlODAyMTFfdHhfc3RhdHVzX2lycXNhZmUoKQ0KPiAN
-Cj4gICBydHdfdHhfcmVwb3J0X3B1cmdlX3RpbWVyKCkgLT4gc2tiX3F1ZXVlX3B1cmdlKCkNCg0K
-SSB0aGluayBpdCBzaG91bGQgdXNlIGllZWU4MDIxMV9wdXJnZV90eF9xdWV1ZSgpIGluc3RlYWQg
-b2Ygc2tiX3F1ZXVlX3B1cmdlKCkuDQoNCj4gDQo+IFdoZW4gdGhlIHJlcG9ydCBhcnJpdmVzIG1h
-YzgwMjExIGdldHMgYSB2ZXJkaWN0LiBXaGVuIGl0IGRvZXMgbm90LCB0aGUNCj4gZnJhbWVzIGFy
-ZSBmcmVlZCB3aXRoIGtmcmVlX3NrYigpIGFuZCBtYWM4MDIxMSBpcyB0b2xkIG5vdGhpbmcgYXQg
-YWxsLg0KPiBydHdfdHhfcmVwb3J0X2VucXVldWUoKSBhbHNvIHJlLWFybXMgdGhlIHRpbWVyIG9u
-IGV2ZXJ5IGZyYW1lLCBzbyBpdA0KPiBmaXJlcyBvbmNlLCA1MDAgbXMgYWZ0ZXIgdGhlIGxhc3Qg
-ZW5xdWV1ZSwgYW5kIHB1cmdlcyBldmVyeXRoaW5nDQo+IG91dHN0YW5kaW5nLCBpbmNsdWRpbmcg
-ZnJhbWVzIHF1ZXVlZCBhIG1vbWVudCBlYXJsaWVyLg0KDQpJIGd1ZXNzIGl0J2Qgc2ltcGxpZnkg
-dGhlIGRlc2lnbiB0aGF0IGl0IGV4dGVuZHMgbGlmZXRpbWUgb2YgcXVldWVkIGZyYW1lcw0Kb25j
-ZSBhIG5ldyBvbmUgaXMgcXVldWVkLiANCg0KPiANCj4gT25lIG9mIHRoZSBmcmFtZXMgdGhhdCBh
-c2tzIGZvciBhIHJlcG9ydCBpcyB0aGUgbnVsbGZ1bmMgbWFjODAyMTEgc2VuZHMNCj4gdG8gcG9s
-bCBhIGxpbmsgaXQgc3VzcGVjdHMgaXMgZGVhZC4gSWYgbm8gc3RhdHVzIGNvbWVzIGJhY2ssDQo+
-IGllZWU4MDIxMV9zdGFfdHhfbm90aWZ5KCkgaXMgbmV2ZXIgY2FsbGVkLCB0aGUgcG9sbCBjb3Vu
-dHMgYXMNCj4gdW5hbnN3ZXJlZCwgYW5kIG1hYzgwMjExIHRlYXJzIHRoZSBjb25uZWN0aW9uIGRv
-d24uIFRoYXQgZml0cyB3aGF0IHRoZQ0KPiB0ZXN0ZXIgc2VlczogdGhlIHdhcm5pbmcgYW5kIHRo
-ZSByZWNvbm5lY3Rpb24gYXJyaXZpbmcgdG9nZXRoZXIsIGFuZA0KPiBvbmx5IHdoZW4gdGhlIHNp
-Z25hbCBpcyBwb29yIGVub3VnaCBmb3IgcmVwb3J0cyB0byBnbyBtaXNzaW5nLg0KPiANCj4gUmFp
-c2luZyB0aGUgdGltZW91dCBmdXJ0aGVyIGRvZXMgbm90IGxvb2sgbGlrZSB0aGUgYW5zd2VyLiBQ
-YXRjaCAzIG9mDQo+IHRoaXMgc2VyaWVzIGFscmVhZHkgdGFrZXMgaXQgdG8gMjUwMCBtcyBmb3Ig
-dGhlIFJUTDg3MjNCUywgZml2ZSB0aW1lcw0KPiB0aGUgZGVmYXVsdCwgYW5kIGhlIHN0aWxsIHJl
-YWNoZXMgaXQuIEEgbG9uZ2VyIHdhaXQgb25seSBkZWxheXMgdGhlDQo+IHN0YXR1cy4NCg0KSSB0
-aGluayB0aGUgdGltZW91dCByZWxpZXMgb24gDQogICBzdGF0aWMgaW50IHByb2JlX3dhaXRfbXMg
-PSA1MDA7DQogICBtb2R1bGVfcGFyYW0ocHJvYmVfd2FpdF9tcywgaW50LCAwNjQ0KTsNCg0KU28s
-IGlmIHlvdSBlbmxhcmdlIHRoZSB0aW1lb3V0IGluIHJ0d190eF9yZXBvcnRfZW5xdWV1ZSgpIG92
-ZXIgNTAwbXMsDQppdCBjYW4ndCBoZWxwIHRoZSBjYXNlLg0KDQpNYXliZSwgeW91IGNhbiBzZXQg
-bGFyZ2VyIG51bWJlciB0byBtb2R1bGUgcGFyYW1ldGVyIHByb2JlX3dhaXRfbXMgdG8NCnNlZSBp
-ZiBpdCBjYW4gaGVscC4NCg0KPiANCj4gV2hhdCBsb29rcyByaWdodCB0byBtZSBpcyB0byByZXBv
-cnQgdGhlIGZyYW1lcyBpbnN0ZWFkIG9mIGRyb3BwaW5nDQo+IHRoZW06IHdhbGsgdGhlIHF1ZXVl
-IG9uIHRpbWVvdXQgYW5kIGhhbmQgZWFjaCBvbmUgYmFjayB3aXRoDQo+IHJ0d190eF9yZXBvcnRf
-dHhfc3RhdHVzKHJ0d2RldiwgY3VyLCBmYWxzZSkuIFRoYXQgdGVsbHMgbWFjODAyMTEgdGhlDQo+
-IGZyYW1lIHdhcyBub3QgYWNrbm93bGVkZ2VkLCB3aGljaCBpcyB0cnVlLCBhbmQgbGV0cyBpdCBh
-Y3QgcmF0aGVyIHRoYW4NCj4gd2FpdCBmb3IgYSBzdGF0dXMgdGhhdCB3aWxsIG5ldmVyIGNvbWUu
-IEl0IHdvdWxkIGFsc28gc3RvcCBtYWM4MDIxMSBUWA0KPiBza2JzIGJlaW5nIGZyZWVkIHdpdGgg
-a2ZyZWVfc2tiKCkgaW5zdGVhZCBvZiBiZWluZyByZXR1cm5lZCB0aHJvdWdoDQo+IGllZWU4MDIx
-MV90eF9zdGF0dXMoKS4NCg0KQXMgdGhlIGNvbW1lbnQ6DQoNCiAqIENhbGxzIHRvIHRoaXMgZnVu
-Y3Rpb24sIGllZWU4MDIxMV90eF9zdGF0dXNfc2tiKCkgYW5kDQogKiBpZWVlODAyMTFfdHhfc3Rh
-dHVzX25pKCkgbWF5IG5vdCBiZSBtaXhlZCBmb3IgYSBzaW5nbGUgaGFyZHdhcmUuDQoNClNob3Vs
-ZCB1c2UgaWVlZTgwMjExX3R4X3N0YXR1c19pcnFzYWZlKCkuIA0KDQpCdXQgSSBmZWVsIHRoaXMg
-Y2FzZSwgdXNpbmcgaWVlZTgwMjExX3B1cmdlX3R4X3F1ZXVlKCkgaXMgZXF1aXZhbGVudD8NCg0K
-PiANCj4gVGhhdCBpcyBjb3JlIGJlaGF2aW91ciBmb3IgZXZlcnkgY2hpcCwgbm90IGp1c3QgdGhp
-cyBvbmUsIHNvIEkgd291bGQNCj4gcmF0aGVyIGFzayB0aGFuIHNlbmQgaXQuIFdvdWxkIHlvdSB3
-YW50IGl0IGFzIGEgc2VwYXJhdGUgcGF0Y2ggb3V0c2lkZQ0KPiB0aGlzIHNlcmllcz8gDQoNClRo
-aXMgbG9va3MgYW4gaW5kZXBlbmRlbnQgcGF0Y2guIElmIHlvdSB3YW50IHRvIGdvIGZhc3Rlciwg
-YSBzZXBhcmF0ZQ0KcGF0Y2ggaXMgYmV0dGVyLiBJZiB5b3UgZG9uJ3QgY29uY2VybiB0aGUgdGlt
-ZSwgcHV0dGluZyB0b2dldGhlciB3aXRoDQp5b3VyIHBhdGNoc2V0IGlzIG9rYXkgdG8gbWUuDQoN
-Cj4gQW5kIGlzIHJlcG9ydGluZyAibm90IGFja2VkIiB3aGF0IHlvdSB3b3VsZCB3YW50IG9uIHRo
-ZQ0KPiBvdGhlciBwYXJ0cywgb3Igd291bGQgeW91IHJhdGhlciB0aGUgdGltZW91dCBzdGF5ZWQg
-c2lsZW50IGZvciB0aGVtIGFuZA0KPiBvbmx5IHRoaXMgY2hpcCBjaGFuZ2VkPw0KDQpJZiB1c2lu
-ZyBpZWVlODAyMTFfcHVyZ2VfdHhfcXVldWUoKSBjYW4gZ2V0IHBvc2l0aXZlIHJlc3VsdCwgbm8g
-bmVlZA0Kc3BlY2lhbCBjb25kaXRpb24gZm9yIGNlcnRhaW4gY2hpcHMuIA0KDQoNCg0KDQo=
+On Mon, Aug 24, 2026 at 03:55:54PM +0000, Daniel Balint wrote:
+> Add new EC host command and MKBP event to allow cros_ec_pwrmon
+> iio devices to query the EC for power monitoring data.
+> The actual cros_ec_pwrmon driver using this API is currently downstream
+> and will be upstreamed at a later date. This is a sync between the EC
+> header and the kernel.
+> 
+> [...]
+
+Applied to
+
+    https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-next
+
+[1/1] platform/chrome: cros_ec: add API for power monitoring
+      commit: b57af7f8d194617e965d9713a767cc012774a2b9
+
+Thanks!
