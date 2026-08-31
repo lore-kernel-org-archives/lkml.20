@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258A3525A6F;
-	Mon, 31 Aug 2026 13:44:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E265529402;
+	Mon, 31 Aug 2026 13:44:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183874; cv=none; b=osrvLkCT+MQPyv3jks5uA5bqOmzTg3AxIjCcExjtUyefowtqeX0zPzd/nqViKOqJnP6XOMN79ZTSqGxP+6qNUp1n8UgKOIzwWzdYRcoOEu+I0yWi4g0ytPVpfOMc4h8UsvwotSBZKnbTM7U+Xsp8+Fxrbs6wD00AU194Er2moIU=
+	t=1788183875; cv=none; b=hlIXv5q01eSZlL7CHKQ1aYJ0Ula+E1+41s+emmcdXGbz5u80EPrAMHPCWC+Go5z/6fbwJkJwY9bL116Zhh5uFDSGbcR/A1cc1DRJDc7rqJOSja4njIe46nvgBq49VL1O7+kZtR0MuN4/XlMh87VE+TjciI3OFvfSEB9xG9xJCbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183874; c=relaxed/simple;
-	bh=dVyXwQpOhSlcZaeS+Pb9nWCK/YswTgLI3aEufnhu3s0=;
+	s=arc-20240116; t=1788183875; c=relaxed/simple;
+	bh=nFXSYCry55EdaEUWfLjYeH4SpTT0xiTGgYhF7KRr9Jg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IewIwnkwhcoMZyYlOfupeTDUIm64loriyXliV07h591jUe2HlNk/BGJFCN1TIoiiKVzoO0sjOP4JLxBj8hNOm3wjg8B1YbunSrNZRfoOHr4EqPCU9/HEvtV03gJgfNuFiloDiHUlLdzzCPNl/FF/aMF8U8q7YXtfmhjYz0Yeb6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RrNnvBr5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=BDb/wxUiUY3eHN7WolZc1cVNAh8yiwItWchCKAeBBaZen0cXsaBdwlaHA1NM7WRtUMnb57LYwFKdQ5pGc+FPpvOQQhAo//cIkdQMcW1w6ipAvtCw/azvJqeIwUOxbLMGoqJOMhFIV2HG5mhoAyJewHMDjjiglQr0HsLYe9MQdlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f48LC4EH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RrNnvBr5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABDCA1F00A3E;
-	Mon, 31 Aug 2026 13:44:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f48LC4EH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F80B1F00A3F;
+	Mon, 31 Aug 2026 13:44:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183872;
-	bh=XrswinvKlteXXsU1UUGMT4NTv9PprhYDQw1IswwUcS8=;
+	s=k20260515; t=1788183873;
+	bh=AVxcecYfqKzkf+K6sEeSD8U++FsBsTuA1nkqXpso3B4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RrNnvBr5mEbzF9Q50Kvr3k9rdeRmQ30PtmQzo2LSicvP00T5TAgCnoCH1cCxV6afp
-	 LHWdsGnZgcDkjXHRHjW8acaqMF3t8OzMrdZMtsIhSUIeukJO4GTmsROw2YWM8BYUxV
-	 JJrEbn/hkpL841z26ZM8XJDFxT6rze2pNG96wFWUX/uylmDU7ZiFLdEhpyA5JSJgtQ
-	 w9joExCQvynGEiYXK0XOK60UnnSnJOuOpBeiTH85KERO1TvIBg5bqwGaVcuIcl7v9i
-	 3xOW+DaaTRqjVu20sBOu4Qyl+96wyXZzMpadOCb0gdGaO7e7BmyjG5KOKOLOrGk3l1
-	 aslU7tliKmYPw==
+	b=f48LC4EHoPgv9Hh7ToWohO1CH4oQM5yNsNnN8XQD2NaQsFsMtbeZc3UnXFGt8C9rP
+	 bEyjL0oi/66pu1dn67dlcWLPv/An7UphVFK4BhPAW5T/yrhsY61JB9PCvq8pN/xOPB
+	 JSPGGFcRwMjVnwmPkKnFLoG9Gg0snRD0k9UTTXI1+zB3HZKKBywnWMOVZyHmEQjJXa
+	 sMCtHYV23kSXfciV99xS/YFsqHk63MZVeYBIGeFGcPlGRhBMo6s8rKk3Y9ViRDMi6O
+	 SymT6g7K/MMgtZWAGLvmig1tCZL7lMFOqa89fLnxrGMqDdlwVmMWItMjTy7W00Z1w2
+	 PI5W0B8DdLG/Q==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Sunil Khatri <sunil.khatri@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Pagadala Yesu Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>,
+	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/userq: pin mqd and fw object bo to avoid eviction
-Date: Mon, 31 Aug 2026 09:26:21 -0400
-Message-ID: <20260831133314.4125787-353-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: mld: disallow puncturing in US/CA for WH
+Date: Mon, 31 Aug 2026 09:26:22 -0400
+Message-ID: <20260831133314.4125787-354-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -50,412 +47,431 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Sunil Khatri <sunil.khatri@amd.com>
+From: Pagadala Yesu Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>
 
-[ Upstream commit a3bbf32a336939a1d21b9561f8e53333b684b7ef ]
+[ Upstream commit ce2edf7c3910cb3222d51c0a7457b7a71703a5b1 ]
 
-mqd and fw objects are queue core objects which should remain
-valid and never be unmapped and evicted for user queues to work
-properly.
+FM continues to follow the BIOS/MCC policy, while WH sets
+DISALLOW_PUNCTURING for US/CA and clears it for other MCC values.
+Update the MCC handling accordingly.
 
-During eviction if these buffers are evicted the hw continue to
-use the invalid addresses and caused page faults and system hung.
-
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Pagadala Yesu Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>
+Reviewed-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Link: https://patch.msgid.link/20260515150751.df1f1fdd141f.I900c9e2e3dd722619db12ba10d0879a56a2a55f2@changeid
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amdgpu/userq: pin mqd and fw object bo
-to avoid eviction`
+# Stable Backport Analysis: `wifi: iwlwifi: mld: disallow puncturing in
+US/CA for WH`
 
-**Local tree:** Linux **6.18.43** (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`, `make kernelversion` → `6.18.43`)
-
-**Upstream commit:** `a3bbf32a336939a1d21b9561f8e53333b684b7ef` (not
-present in this tree)
+**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Parse the subject line
-**Record:** `[drm/amdgpu/userq]` — implicit **fix** (prevent eviction) —
-**pin MQD and firmware-object BOs so they are not evicted while user
-queues are active**.
+### Step 1.1: Subject line
+**Record:** `[wifi: iwlwifi: mld]` `[disallow]` — MLD driver regulatory
+policy: block EHT channel puncturing on WH RF hardware when MCC is US or
+Canada.
 
-### Step 1.2: Parse all commit message tags
+### Step 1.2: Tags
 **Record:**
-- **Fixes:** — none (expected for manual review)
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** Christian König `<christian.koenig@amd.com>`
-- **Acked-by:** — none
-- **Link:** — none
-- **Cc: stable@vger.kernel.org:** — none (not a negative signal)
-- **Signed-off-by:** Sunil Khatri (author), Alex Deucher (maintainer
-  merge)
-- **Notable:** Reviewed-by from AMDGPU subsystem maintainer; no
-  syzbot/reporter tags
+- **Signed-off-by:** Pagadala Yesu Anjaneyulu, Miri Korenblit
+- **Reviewed-by:** Emmanuel Grumbach (Intel iwlwifi maintainer)
+- **Link:** patch.msgid.link URL (Anubis-protected; could not fetch
+  content)
+- **No** Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org,
+  syzbot links
 
-### Step 1.3: Analyze commit body
+Notable: maintainer review present; no user/fuzzer bug report.
+
+### Step 1.3: Body analysis
 **Record:**
-- **Bug:** MQD and firmware context objects are core user-queue state;
-  they must stay mapped and valid for the lifetime of an active queue.
-- **Symptom:** Under eviction (memory pressure), these BOs can be
-  evicted while hardware still references their GPU addresses → GPU page
-  faults → **system hang**.
-- **Root cause (author):** Objects were created as kernel BOs in GTT but
-  were not pinned, unlike other queue-critical objects.
-- **Version info:** None in the message.
+- **Bug described:** WH RF type does not apply the correct puncturing
+  policy during MCC (Mobile Country Code) updates. FM follows BIOS/MCC
+  policy via `iwl_puncturing_is_allowed_in_bios()`; WH should
+  unconditionally disallow puncturing in US/CA and allow it elsewhere.
+- **Symptom:** WH adapters in US/CA would not have
+  `IEEE80211_HW_DISALLOW_PUNCTURING` set, so mac80211 would accept
+  punctured channel definitions that should be blocked.
+- **Root cause (author):** Incomplete MCC handling — only FM was covered
+  in the existing `if` block; WH needs its own branch.
+- **Version info:** None in message.
 
-### Step 1.4: Detect hidden bug fixes
-**Record:** Not disguised as cleanup — this is an explicit stability
-fix. Pinning prevents TTM eviction of BOs the GPU firmware still uses.
+### Step 1.4: Hidden bug fix?
+**Record:** Yes. Despite no "fix" in the subject, this closes a
+regulatory-policy gap on supported WH hardware. Not a crash fix, but
+incorrect driver behavior on real hardware in specific regions.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory the changes
+### Step 2.1: Inventory
 **Record:**
-- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c` (+10 / −3)
-- **Functions modified:** `amdgpu_userq_create_object()`,
-  `amdgpu_userq_destroy_object()`
-- **Scope:** Single-file surgical fix
+- **File:** `drivers/net/wireless/intel/iwlwifi/mld/mcc.c` (+11 / -2,
+  ~13 net lines)
+- **Function:** `iwl_mld_get_regdomain()`
+- **Scope:** Single-file, surgical regulatory-policy fix
 
-### Step 2.2: Code flow change (per hunk)
+### Step 2.2: Code flow change
 **Record:**
-- **Hunk 1 (`create_object`):** Before → reserve BO, alloc GART, kmap.
-  After → **pin BO first**, then GART/kmap; error paths goto `unpin_bo`
-  before `unresv`.
-- **Hunk 2 (`destroy_object`):** Before → kunmap + unref. After → kunmap
-  + **unpin** + unref.
-- **Paths affected:** Queue object creation/destruction for MQD and
-  firmware context objects.
+- **Before:** Only `IWL_CFG_RF_TYPE_FM` sets/clears
+  `DISALLOW_PUNCTURING` based on BIOS+MCC. WH (and PE) hit no branch —
+  flag never set for US/CA.
+- **After:** FM unchanged. New `else if` for `IWL_CFG_RF_TYPE_WH`: if
+  MCC is `IWL_MCC_US` (0x5553) or `IWL_MCC_CANADA` (0x4341), set
+  `DISALLOW_PUNCTURING`; otherwise clear it.
+- **Path affected:** Every MCC/regdomain update (init, firmware
+  notification, manual regdomain refresh) via `iwl_mld_get_regdomain()`.
 
 ### Step 2.3: Bug mechanism
-**Record:** **Memory safety / resource lifetime bug.** MQD
-(`queue->mqd`) and firmware context (`queue->fw_obj`) BOs created via
-`amdgpu_userq_create_object()` were evictable. Doorbell objects in the
-same file were already pinned (`amdgpu_bo_pin(...,
-AMDGPU_GEM_DOMAIN_DOORBELL)` at line 331). MQD/fw objects were an
-oversight.
+**Record:**
+- **Category:** Logic / regulatory correctness fix
+- **Mechanism:** WH hardware uses the MLD driver
+  (`iwl_drv_is_wifi7_supported()` → RF type ≥ FM). Without the WH
+  branch, `ieee80211_chandef_usable()` in mac80211 allows punctured
+  chandefs when `DISALLOW_PUNCTURING` is not set:
+
+```785:787:net/mac80211/mlme.c
+        if (chandef->punctured &&
+            ieee80211_hw_check(&sdata->local->hw, DISALLOW_PUNCTURING))
+                return false;
+```
+
+FM already uses `iwl_puncturing_is_allowed_in_bios()` for the same
+countries:
+
+```716:728:drivers/net/wireless/intel/iwlwifi/fw/regulatory.c
+bool iwl_puncturing_is_allowed_in_bios(u32 puncturing, u16 mcc)
+{
+        /* Some kind of regulatory mess means we need to currently
+disallow
+  - puncturing in the US and Canada unless enabled in BIOS.
+         */
+        switch (mcc) {
+        case IWL_MCC_US:
+                return puncturing & IWL_UEFI_CNV_PUNCTURING_USA_EN_MSK;
+        case IWL_MCC_CANADA:
+                return puncturing &
+IWL_UEFI_CNV_PUNCTURING_CANADA_EN_MSK;
+        default:
+                return true;
+        }
+}
+```
 
 ### Step 2.4: Fix quality
-**Record:**
-- **Obviously correct:** Mirrors existing doorbell pinning pattern in
-  the same file.
-- **Minimal:** 10 lines, proper error-path cleanup (`unpin_bo` label).
-- **Regression risk:** Low — pinning is standard for BOs hardware must
-  keep resident; unpin on destroy balances pin on create.
-- **Reviewer note:** Christian König suggested eviction-fence
-  association as a future improvement but gave **Reviewed-by** for
-  pinning as an immediate fix.
+**Record:** Obviously correct — mirrors existing FM pattern with WH-
+specific unconditional US/CA block. Minimal diff. Low regression risk;
+only affects WH RF type during MCC updates. Comment update clarifies
+prior misleading "later always do puncturing" note.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame changed lines
-**Record:** `amdgpu_userq_create_object()` / `destroy_object()` present
-in `7b923c78b50d2` (v6.18.43 tag) **without** pinning. `amdgpu_userq.c`
-also exists in `v6.17` and `v6.18` tags. Bug predates the fix commit.
+### Step 3.1: Blame
+**Record:** Puncturing block in `mcc.c` lines 132–140 attributed to
+commit `7e22de67e545d` (flattened history in this checkout — not the
+true origin commit). Buggy omission (WH not handled) is present in
+current tree at those lines.
 
-### Step 3.2: Follow Fixes: tag
-**Record:** N/A — no `Fixes:` tag.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no Fixes: tag.
 
-### Step 3.3: File history for related changes
-**Record:** Patch is **v2 2/2** in series with `drm/amdgpu/userq: use
-drm_exec in amdgpu_userq_fence_read_wptr` (patch 1/2, different file:
-`amdgpu_userq_fence.c`). **This patch is standalone** — no dependency on
-patch 1/2.
+### Step 3.3: File history
+**Record:** `git log --oneline` on `mld/mcc.c` returns only the
+flattened import commit. History is not useful for dating the original
+FM puncturing code. Patch is **15/15** in
+`v2_20260515_miriam_rachel_korenblit_wifi_iwlwifi_updates_2026_05_14`
+series; this commit is **standalone** within `mcc.c` and does not depend
+on other series patches.
 
-### Step 3.4: Author's other commits
-**Record:** Sunil Khatri is an active AMDGPU userq contributor (multiple
-userq fixes in drm tree). Alex Deucher merged; Christian König reviewed.
+### Step 3.4: Author context
+**Record:** Pagadala Yesu Anjaneyulu (Intel). Series collected by Miri
+Korenblit (Intel iwlwifi). Reviewed by Emmanuel Grumbach (maintainer).
 
-### Step 3.5: Prerequisites
-**Record:** No prerequisites. `amdgpu_bo_pin()` / `amdgpu_bo_unpin()`
-exist in this tree (`amdgpu_object.c`). `git show a3bbf32... | git apply
---check` succeeds on current checkout.
+### Step 3.5: Dependencies
+**Record:** No prerequisites. Uses symbols already in tree:
+`IWL_CFG_RF_TYPE_WH`, `IWL_MCC_US`, `IWL_MCC_CANADA`,
+`ieee80211_hw_set()`, `DISALLOW_PUNCTURING`. All verified present.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original patch discussion
-**Record:**
-- **b4 dig -c a3bbf32a336939a1d21b9561f8e53333b684b7ef:**
-  https://patch.msgid.link/20260508103910.2442183-2-sunil.khatri@amd.com
-- **b4 dig -a:** v1 single patch, v2 two-patch series; committed version
-  matches v2 2/2
-- **Reviewer feedback:** Christian König: "We should probably use the
-  eviction fence instead of pinning, but that can come in a later patch
-  set." → **Reviewed-by for now.** Author agreed pinning is acceptable
-  interim fix.
+### Step 4.1: Original discussion
+**Record:** Local mbox `v2_20260515_miriam_rachel_korenblit_wifi_iwlwifi
+_updates_2026_05_14.mbx` contains patch `[PATCH v2 15/15]` with
+identical diff and message. `b4 dig -c` could not be run (commit not in
+tree). lore.kernel.org blocked by Anubis.
 
 ### Step 4.2: Reviewers
-**Record:** **b4 dig -w:** To/CC: Sunil Khatri, Alex Deucher, Christian
-König, amd-gfx@lists.freedesktop.org — appropriate maintainer coverage.
+**Record:** Reviewed-by: Emmanuel Grumbach. Series cover lists multiple
+Intel iwlwifi developers; no stable nomination found in mbox grep.
 
 ### Step 4.3: Bug report
-**Record:** No external bug report or syzbot link. Hang described in
-commit message and patch submission; no stack trace provided.
+**Record:** No Reported-by, no syzbot, no crash trace. Issue is
+regulatory policy alignment, not a reported oops.
 
-### Step 4.4: Related patches
-**Record:** Patch 1/2 (drm_exec locking in fence read) is independent.
-Not required for this fix.
+### Step 4.4: Series context
+**Record:** Part of 15-patch iwlwifi update series (UHR, NAN, debugfs,
+PCI IDs, etc.). This patch is independently applicable — only touches
+`mcc.c`.
 
-### Step 4.5: Stable mailing list
-**Record:** Not searched on lore stable (Anubis blocked direct lore
-fetch). No explicit stable nomination found in accessible amd-gfx
-thread.
+### Step 4.5: Stable list
+**Record:** Could not search lore stable list (Anubis). No stable
+nomination found in local mbox.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `amdgpu_userq_create_object()`,
-`amdgpu_userq_destroy_object()`
+**Record:** `iwl_mld_get_regdomain()` modified.
 
 ### Step 5.2: Callers
-**Record:** `mes_userqueue.c`:
-- `mes_userq_create_ctx_space()` → `amdgpu_userq_create_object(uq_mgr,
-  &queue->fw_obj, ...)` (fw context)
-- MQD setup → `amdgpu_userq_create_object(uq_mgr, &queue->mqd, ...)`
-  (line 266)
-- Destroy paths call `amdgpu_userq_destroy_object()` for both objects
+**Record:** `iwl_mld_get_regdomain()` called from:
+- `iwl_mld_get_current_regdomain()` →
+  `iwl_mld_update_changed_regdomain()`, `iwl_mld_init_mcc()`
+- `iwl_mld_apply_last_mcc()` (init path)
+- `iwl_mld_handle_update_mcc()` (firmware MCC notification)
+
+All run on normal device operation / regdomain changes — common paths
+for WH hardware users.
 
 ### Step 5.3: Callees
-**Record:** `amdgpu_bo_create`, `amdgpu_bo_reserve`,
-**`amdgpu_bo_pin`**, `amdgpu_ttm_alloc_gart`, `amdgpu_bo_kmap`,
-`amdgpu_bo_kunmap`, **`amdgpu_bo_unpin`**, `amdgpu_bo_unref`
+**Record:** `CSR_HW_RFID_TYPE()`, `le16_to_cpu()`, `ieee80211_hw_set()`,
+`__clear_bit()`.
 
-### Step 5.4: Call chain / reachability
-**Record:**
-`userspace DRM_IOCTL_AMDGPU_USERQ (CREATE)` → `amdgpu_userq_ioctl()` →
-`amdgpu_userq_create()` → MES userq setup →
-`amdgpu_userq_create_object()` for MQD/fw_obj.
-
-**Reachable from userspace** by processes with DRM render access on
-supported AMDGPU hardware (GFX11+ with MES userq support). Trigger
-requires active user queues plus memory eviction pressure.
+### Step 5.4: Reachability
+**Record:** WH devices (BE211, BE213, AX221, Killer BE1775s/i) are
+registered under `CONFIG_IWLMLD` in `pcie/drv.c`. Driver selection uses
+MLD opmode for WiFi 7 (RF ≥ FM, fw ≥ 97). WH users in US/CA hit this
+code on every MCC update. **Userspace-reachable** via normal WiFi
+operation and regdomain changes.
 
 ### Step 5.5: Similar patterns
-**Record:** Doorbell pinning already done in
-`amdgpu_userq_get_doorbell_index()` (line 331). Fix aligns MQD/fw_obj
-with that established pattern.
+**Record:** FM branch in same function;
+`iwl_puncturing_is_allowed_in_bios()` in `fw/regulatory.c`; TAS US/CA
+block-list logic in `mld/regulatory.c` and `mvm/fw.c` for same
+countries.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
 
-### Step 6.1: Does buggy code exist?
-**Record:** **YES.** At `7b923c78b50d2` and current HEAD,
-`amdgpu_userq_create_object()` has no `amdgpu_bo_pin()`; only doorbell
-path pins. Fix commit `a3bbf32` is **not** an ancestor of HEAD (`merge-
-base --is-ancestor` returned 1).
+### Step 6.1: Buggy code present?
+**Record:** **Yes.** Current `mcc.c` lines 132–140 handle only FM; WH is
+not covered. WH hardware support exists (`cfg/rf-wh.c`, PCI IDs in
+`pcie/drv.c` lines 1062–1078). Commit not yet applied.
 
 ### Step 6.2: Backport complications
-**Record:** **Clean apply** — `git apply --check` passes with no
-conflicts. Line numbers differ slightly from upstream diff (487 vs 243)
-but context matches.
+**Record:** **Clean apply expected.** Target hunk matches current file
+structure exactly. No conflicting changes in recent tree history for
+this file.
 
 ### Step 6.3: Related fixes already present?
-**Record:** No equivalent pinning for MQD/fw_obj found. Doorbell pinning
-present; this fix completes the pattern.
+**Record:** FM puncturing logic already in tree. No WH branch found. No
+duplicate fix.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 7: SUBSYSTEM CONTEXT
 
 ### Step 7.1: Subsystem criticality
-**Record:** **drivers/gpu/drm/amd/amdgpu** — IMPORTANT (AMD GPU users;
-not universal core kernel, but affects all userq users on supported
-hardware).
+**Record:** **IMPORTANT** — `drivers/net/wireless/intel/iwlwifi` (Intel
+WiFi, widely deployed). WH = WiFi 7 adapters (BE211/BE213/Killer
+BE1775).
 
-### Step 7.2: Subsystem activity
-**Record:** Userq subsystem actively developed in 6.18.y (multiple
-userq-related stable fixes in drm-fixes stream). Feature is present and
-enabled via existing IOCTL path.
+### Step 7.2: Activity
+**Record:** iwlwifi MLD actively developed; WH is current-generation
+hardware in this tree.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who is affected
-**Record:** Users of **AMDGPU user mode queues** on hardware where
-`userq_funcs` is registered (GFX11/GFX12, SDMA v6/v7, etc.). Config:
-`CONFIG_DRM_AMDGPU` with userq-capable ASIC.
+**Record:** Users with **WH RF Intel WiFi 7 adapters**
+(`CONFIG_IWLMLD=y/m`) in **US or Canada**. Not universal; driver- and
+region-specific.
 
 ### Step 8.2: Trigger conditions
-**Record:** Create user queues via `DRM_AMDGPU_USERQ`, then
-**VRAM/memory pressure triggers TTM eviction** while queues are active.
-Not every boot — requires memory pressure plus active userq workloads.
-Triggerable by unprivileged render-capable processes.
+**Record:** WH device boot, MCC update from firmware/BIOS, or regdomain
+change while MCC is US (0x5553) or Canada (0x4341). Common on WH laptops
+in North America. Unprivileged users indirectly trigger via normal WiFi
+stack operation.
 
 ### Step 8.3: Failure mode severity
-**Record:** GPU page faults from stale MQD/fw addresses → **system
-hang**. Severity: **CRITICAL**.
+**Record:** **Incorrect regulatory behavior** — punctured EHT channels
+allowed when they must be disallowed. Not a kernel crash, UAF, or data
+corruption. Potential FCC/ISED non-compliance and possible
+connectivity/regulatory mismatch with firmware. **Severity: MEDIUM**
+(regulatory/hardware correctness, not system stability).
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** HIGH for userq users — prevents GPU hangs under memory
-  pressure
-- **Risk:** LOW — 10-line change, established pin/unpin API, reviewed by
-  maintainer
-- **Ratio:** Strong benefit, minimal risk
+- **Benefit:** Corrects regulatory policy on supported WH hardware in
+  US/CA; aligns with FM precedent in same function.
+- **Risk:** Very low — 9 lines of logic, WH-only, maintainer-reviewed.
+- **Ratio:** Moderate benefit for WH US/CA users; very low risk.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence compile
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Fixes real system hang (page faults → hang) under eviction
-- Small, surgical, reviewed by Christian König, merged by Alex Deucher
-- Mirrors existing doorbell pinning in same file
-- Applies cleanly to 6.18.43
-- Buggy code confirmed present in this tree
-- Standalone — no series dependency
+- Real bug on supported WH hardware in this tree
+- Small, surgical, maintainer-reviewed fix
+- FM already has analogous logic; WH was an oversight
+- WH adapters (BE211, BE213, Killer BE1775) are in `pcie/drv.c` for
+  6.18.44
+- Hardware-specific regulatory policy fix (stable-acceptable category)
+- Clean apply to current tree
 
 **AGAINST backport:**
-- Userq is a relatively new feature (not all stable users enable it)
-- Pinning is acknowledged as interim; eviction-fence integration
-  preferred long-term
-- No syzbot/reporter — harder to quantify frequency
-- Affects driver-specific path, not core kernel
+- No crash, security issue, data corruption, or deadlock
+- No user reports or fuzzer findings
+- Pure regulatory/policy fix without demonstrated functional breakage
+- Part of a larger feature series (though this hunk is independent)
+- Stable rules emphasize crash/security/corruption class issues
 
-**Unresolved:** Exact reproduction rate in production; no public CVE or
-bugzilla reference.
+**Unresolved:** Original lore thread content; exact mainline commit SHA;
+date WH support landed (history flattened in this checkout).
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — pattern matches doorbell
-   pinning; reviewed by maintainer
-2. Fixes real bug affecting users? **PASS** — hang under eviction with
-   active user queues
-3. Important issue? **PASS** — CRITICAL (system hang)
-4. Small and contained? **PASS** — 1 file, +10/−3
-5. No new features/APIs? **PASS** — lifecycle fix only
-6. Can apply to local tree? **PASS** — clean apply verified
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — simple MCC check;
+Reviewed-by maintainer |
+| 2. Fixes real bug affecting users? | **PASS** — WH US/CA users get
+wrong puncturing policy |
+| 3. Important issue? | **PASS (borderline)** — regulatory correctness
+on active hardware, not crash class |
+| 4. Small and contained? | **PASS** — 1 file, ~11 lines |
+| 5. No new features/APIs? | **PASS** — enforces existing
+`DISALLOW_PUNCTURING` flag |
+| 6. Applies to local tree? | **PASS** — buggy code and WH support both
+present in 6.18.44 |
 
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-bug fix.
+### Step 9.3: Exception category
+**Record:** Hardware-specific regulatory workaround for WH RF in US/CA —
+analogous to existing FM puncturing policy and other iwlwifi US/CA
+regulatory handling (TAS block lists).
 
 ### Step 9.4: Decision rationale
-
-For **Linux 6.18.y**, the userq infrastructure is present and the bug is
-real: MQD and firmware context BOs can be evicted while hardware still
-references them, causing hangs. The fix is minimal, maintainer-reviewed,
-follows an existing pattern in the same file, and applies cleanly. While
-userq affects a subset of AMDGPU users, a system hang under memory
-pressure meets stable criteria for important fixes.
+For **6.18.44**, WH WiFi 7 hardware is fully supported under
+`CONFIG_IWLMLD`, but `iwl_mld_get_regdomain()` omits WH from puncturing
+restrictions that FM already enforces. Without this fix, WH adapters in
+US/Canada incorrectly permit EHT channel puncturing. The fix is minimal,
+obviously correct, independently applicable, and corrects wrong behavior
+on shipping hardware in this tree. It does not meet the strongest stable
+signals (crash/security/corruption), but it is a real, user-visible
+regulatory bug on supported hardware with very low backport risk.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-  and `git show a3bbf32`
-- **[Phase 1]** Reviewed-by: Christian König; Signed-off-by: Sunil
-  Khatri, Alex Deucher
-- **[Phase 2]** Diff: +10/−3 in `amdgpu_userq.c`;
-  `create_object`/`destroy_object` modified
-- **[Phase 2]** Confirmed doorbell already pinned at line 331 in local
-  tree
-- **[Phase 3]** `git describe` / `make kernelversion`: 6.18.43
-- **[Phase 3]** `git merge-base --is-ancestor a3bbf32 7b923c78b50d2`:
-  NOT in tree (exit 1)
-- **[Phase 3]** `git show 7b923c78b50d2:...amdgpu_userq.c`:
-  create_object lacks pin
-- **[Phase 3]** `git apply --check` on upstream patch: clean apply
-- **[Phase 3]** `git show v6.18:...amdgpu_userq.c | grep amdgpu_bo_pin`:
-  only doorbell pin
-- **[Phase 3]** `git show v6.17:...amdgpu_userq.c`: file exists (982
-  lines)
-- **[Phase 4]** `b4 dig -c a3bbf32`: lore URL found
-- **[Phase 4]** `b4 dig -a`: v1/v2 series; v2 2/2 is committed version
-- **[Phase 4]** `b4 dig -w`: Alex Deucher, Christian König CC'd
-- **[Phase 4]** spinics.net msg143086: König Reviewed-by; eviction-fence
-  noted as future work
-- **[Phase 5]** Grep callers: `mes_userqueue.c` uses create_object for
-  `fw_obj` and `mqd`
-- **[Phase 5]** IOCTL path: `DRM_IOCTL_AMDGPU_USERQ` in `amdgpu_drv.c`
-- **[Phase 6]** Buggy code at HEAD lines 243–303: no pin in
-  create_object
-- **[Phase 6]** Eviction path: `amdgpu_eviction_fence.c` →
-  `amdgpu_userq_evict()` exists but does not pin MQD/fw BOs
-- **[Phase 8]** Failure mode: page faults + system hang per commit
-  message
+- **[Phase 1]** Parsed subject, tags, body from user-provided commit
+  message and local mbox
+- **[Phase 1]** Confirmed no Fixes:/Reported-by:/syzbot tags
+- **[Phase 2]** Read full diff; verified FM and new WH branches
+- **[Phase 2]** Read `net/mac80211/mlme.c:785-787` —
+  `DISALLOW_PUNCTURING` gates punctured chandefs
+- **[Phase 2]** Read `fw/regulatory.c:716-728` — FM US/CA BIOS
+  puncturing policy
+- **[Phase 3]** `git describe HEAD` → v6.18.44; Makefile VERSION 6.18.44
+- **[Phase 3]** `git blame -L 130,145 mcc.c` — puncturing block present,
+  FM-only
+- **[Phase 3]** Read local mbox cover + patch 15/15 — standalone in
+  mcc.c
+- **[Phase 4]** Read `v2_20260515_miriam_rachel_korenblit_wifi_iwlwifi_u
+  pdates_2026_05_14.mbx` — no stable Cc found
+- **[Phase 4]** WebFetch lore/patch.msgid.link — blocked (Anubis)
+- **[Phase 4]** `b4 dig` — commit not in tree; could not match by SHA
+- **[Phase 5]** Grep `iwl_mld_get_regdomain` — 4 call sites in mcc.c
+- **[Phase 5]** Read `iwl-drv.c:180-183,1861-1864` — WH uses MLD opmode
+  (RF ≥ FM)
+- **[Phase 5]** Read `pcie/drv.c:1062-1078` — WH PCI device entries
+  present
+- **[Phase 5]** Read `cfg/rf-wh.c` — BE211, BE213, AX221, Killer BE1775
+  names
+- **[Phase 6]** Read current `mcc.c:132-140` — FM-only, WH missing (bug
+  confirmed)
+- **[Phase 6]** Grep `IWL_CFG_RF_TYPE_WH`, `IWL_MCC_US`,
+  `IWL_MCC_CANADA` — all symbols exist
+- **[Phase 7]** Confirmed `CONFIG_IWLMLD` in Kconfig/Makefile
+- **[Phase 8]** Assessed impact: WH + US/CA + MLD path; regulatory
+  MEDIUM severity
+- **UNVERIFIED:** Exact mainline commit date; lore reviewer discussion
+  beyond mbox headers
 
-**YES**
+**YES**The background `git show` on `7e22de67e545d` finished: that
+commit is actually `drm/amdgpu/gfx10: replace BUG_ON() with WARN_ON()`,
+not iwlwifi work. The iwlwifi `mcc.c` lines show up under it because
+this 6.18.44 checkout has flattened history, so blame/log can’t reliably
+date when FM puncturing support or WH hardware landed.
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+That doesn’t change the backport call: WH adapters are supported in this
+tree, the FM-only puncturing logic is present, and the missing WH US/CA
+handling is a real regulatory-policy gap. Verdict remains **YES** for
+6.18.44.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 7e3175f82a20d..0f4281c9aea2f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -270,16 +270,20 @@ int amdgpu_userq_create_object(struct amdgpu_userq_mgr *uq_mgr,
- 		goto free_obj;
- 	}
+ drivers/net/wireless/intel/iwlwifi/mld/mcc.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/intel/iwlwifi/mld/mcc.c b/drivers/net/wireless/intel/iwlwifi/mld/mcc.c
+index 16bb1b4904f99..8502129abe493 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mld/mcc.c
++++ b/drivers/net/wireless/intel/iwlwifi/mld/mcc.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
+ /*
+- * Copyright (C) 2024-2025 Intel Corporation
++ * Copyright (C) 2024-2026 Intel Corporation
+  */
  
-+	r = amdgpu_bo_pin(userq_obj->obj, AMDGPU_GEM_DOMAIN_GTT);
-+	if (r)
-+		goto unresv;
+ #include <net/cfg80211.h>
+@@ -129,7 +129,7 @@ iwl_mld_get_regdomain(struct iwl_mld *mld,
+ 
+ 	mld->mcc_src = resp->source_id;
+ 
+-	/* FM is the earliest supported and later always do puncturing */
++	/* FM follows BIOS/MCC policy, WH disallows puncturing only in US/CA. */
+ 	if (CSR_HW_RFID_TYPE(mld->trans->info.hw_rf_id) == IWL_CFG_RF_TYPE_FM) {
+ 		if (!iwl_puncturing_is_allowed_in_bios(mld->bios_enable_puncturing,
+ 						       le16_to_cpu(resp->mcc)))
+@@ -137,6 +137,15 @@ iwl_mld_get_regdomain(struct iwl_mld *mld,
+ 		else
+ 			__clear_bit(IEEE80211_HW_DISALLOW_PUNCTURING,
+ 				    mld->hw->flags);
++	} else if (CSR_HW_RFID_TYPE(mld->trans->info.hw_rf_id) ==
++			IWL_CFG_RF_TYPE_WH) {
++		u16 mcc = le16_to_cpu(resp->mcc);
 +
- 	r = amdgpu_ttm_alloc_gart(&(userq_obj->obj)->tbo);
- 	if (r) {
- 		drm_file_err(uq_mgr->file, "Failed to alloc GART for userqueue object (%d)", r);
--		goto unresv;
-+		goto unpin_bo;
++		if (mcc == IWL_MCC_US || mcc == IWL_MCC_CANADA)
++			ieee80211_hw_set(mld->hw, DISALLOW_PUNCTURING);
++		else
++			__clear_bit(IEEE80211_HW_DISALLOW_PUNCTURING,
++				    mld->hw->flags);
  	}
  
- 	r = amdgpu_bo_kmap(userq_obj->obj, &userq_obj->cpu_ptr);
- 	if (r) {
- 		drm_file_err(uq_mgr->file, "Failed to map BO for userqueue (%d)", r);
--		goto unresv;
-+		goto unpin_bo;
- 	}
- 
- 	userq_obj->gpu_addr = amdgpu_bo_gpu_offset(userq_obj->obj);
-@@ -287,11 +291,13 @@ int amdgpu_userq_create_object(struct amdgpu_userq_mgr *uq_mgr,
- 	memset(userq_obj->cpu_ptr, 0, size);
- 	return 0;
- 
-+unpin_bo:
-+	amdgpu_bo_unpin(userq_obj->obj);
- unresv:
- 	amdgpu_bo_unreserve(userq_obj->obj);
--
- free_obj:
- 	amdgpu_bo_unref(&userq_obj->obj);
-+
- 	return r;
- }
- 
-@@ -299,6 +305,7 @@ void amdgpu_userq_destroy_object(struct amdgpu_userq_mgr *uq_mgr,
- 				 struct amdgpu_userq_obj *userq_obj)
- {
- 	amdgpu_bo_kunmap(userq_obj->obj);
-+	amdgpu_bo_unpin(userq_obj->obj);
- 	amdgpu_bo_unref(&userq_obj->obj);
- }
- 
+ out:
 -- 
 2.53.0
 
