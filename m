@@ -1,90 +1,95 @@
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6346D4FB9B5
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82BFE4FB9D5
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188412; cv=none; b=h8+w3vELKR+jASA5jYBfUPR0J/wRcKEhNzIs2I3/FKCXsk/qz5A8F7H0KDl6zZgz3kp1oQVWWI4h5YnEe7LTTDFpFZk0H+MGOmh4Qot81b+7QdjUWlyUpCC+LRTcgycVsJIDTGYMZ4TqNNKbeYuD5zFhLrSLRdC5JHRJ+mFuzqg=
+	t=1788188413; cv=none; b=Is/7rLLcrXn0ZFfc6LkVngVm4qAfOmTcW+j9hL5m1LNvW/6vsyaXT9oydyqoCNzOZmzaVG2hsJsA+KiiXy71JnHfesQbLSHJ4qX81YQRc/pFKTnoOA+CSDoltzYOxeuZWpEdbN3g40auhm7WRBywGBWbFcjCoPQIoulYENWvl+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188412; c=relaxed/simple;
-	bh=ZSuaHxdeSmdK1XVdgW9I78FY4WiLUsxPZgAk1jSE970=;
+	s=arc-20240116; t=1788188413; c=relaxed/simple;
+	bh=TFwknJ0YqCRA1LM+i6U61SM1MSuulgej0FGruggnW7I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WjQ4A9azTZ7x4a/pIfmzHRwJ5SU9nQr9XAWWF3zyqkMl9VQg/vomwZ0wwNVM2ifApNToFZiXpvJBJVvV67nH9fGpxu52zIqvLfNxczrzdID3rJgGczCHO0lpf1UPf8ZsL40fAw99eETK+DGh5NVuHgD94Xq7ds4ZMD8hto0fEnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y2/Vm0nU; arc=none smtp.client-ip=209.85.128.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=gU8vK0fPEk82V5BfEpi7p54HZsywDsaL+UHA9V3bGZjfuLSdazopO2J/qsqQWrjpXggQCGnuh9jpQqFEEj+I6zdkkNDslyujXnklvtKXIKh0XVFLFwob4pdzpf461RkMveXEgQkhrVA7EcosTZz1k2hUUwpKgotYTu6BtyaJI9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FJY+UZ5w; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NjodTiDZ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y2/Vm0nU"
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8664769db58so10149467b3.3
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FJY+UZ5w";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NjodTiDZ"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VETQKT3296598
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=Z/0MUXfJDNe
+	HlErsfNSNArUm0DaS7PuJvPVjEpFxNjQ=; b=FJY+UZ5wY0Pooggdsd9At+BbBAQ
+	Lp1R9dHZfYhnMrLjazZTQTXXwd13pRpgl/GN0BiudGNYxrw9VJpGYA4/YN7zt+BP
+	aoo3n6IhpIxds9ukDfa3Sy65BuHW8PBuOBZZoKTkzKymwwgZxWhkpPsQJudLB+hX
+	jYhqzb9rpHN2MJ+JtRsxBOLlSrh/I93wMoGfQbgpJCbBwxtANfeHpX1GK7IZhdSF
+	DT56QYgg5H6tyR14AvzaAySlrenn2x2hcYYQ6bm62wz2pEs6RL6l70pKoxfbbSFE
+	i1BL/AkVHtlAYA96jrfouNy7xxL2zzlszBLikRA8Pb5ENI6VCcUbT2hdxGg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6ayhj0r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:00:10 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-934963b2bc0so527850185a.3
         for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:00:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788188409; x=1788793209; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788188410; x=1788793210; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xKtb+s5mvwWHR2Dm56oQU87T2PX0PUH0OEkGW4x95GI=;
-        b=Y2/Vm0nUmzXzhAQjDw/2Y5pc/FwY5dIj308vVT12yAbmD6fVCV68CiTqI/nRoKK+to
-         fhf7XtN5CWyG/ydMSnekty57XGpqqI8mDNg+OMiJarRYCjocUGVwFypCNmj96Q3PZjuf
-         mPZ7yqpuqyPWnTfzje3Q2SjPE3qM0Mbq+wT8XfEXr4d3mnVWgt9UIlcyOQcJgrD9yWpu
-         1LbqAdnvzdIWd5x7BiesnOp/b6SWJWrEbLMaHLryZ7VczXWEIRBpfcWd0fDWNCaDRfjx
-         1SvaajZ5iaOmCXDr+DHbtTpm3RQxW7pY7QMMMeAuWMGdHbavFNsE+hAugDlJ0apH2uQB
-         Vs/w==
+        bh=Z/0MUXfJDNeHlErsfNSNArUm0DaS7PuJvPVjEpFxNjQ=;
+        b=NjodTiDZPJpTCSktQVNCerMnMeLLFNQRgkxr+T/t21LzsAJeI/84rfIOKHpWfLCib0
+         fIAPzoJfldymeUZbzxlgl6L/zZcy8d5DE+8auNxoEqDhTWj4rzGigvLgB9jCTIPSQLLG
+         KxlwcbPAST+tKi/JJYMjc75EyZvwNlhoh66gI8CHWGQGpfldAtcxdrNjn6DpZxZxyOzt
+         vvBdP7HS2e/RQIWZVL+SE8zKw13WeibB6z12Wk8KwaTdoEQJr5aJyGNI2eE0/6pv5naB
+         njzTrmXem+81NeNSSTzx/AT6Hr28p7X8VCDOU5VtR+Nd83YoF1tmvUkoZwK0qpcnrTSP
+         o2Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788188409; x=1788793209;
+        d=1e100.net; s=20251104; t=1788188410; x=1788793210;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xKtb+s5mvwWHR2Dm56oQU87T2PX0PUH0OEkGW4x95GI=;
-        b=NTWTXw66m8ZSIeWTyOUmXEPeQVycnjtnrYOf+T2PR8JROcvCsKjUZl7UfPDUOTi/OV
-         xtL6Uy8jHiAAFZR34WTJZGDsQXnR9urIDe/T/LMuxujsSRu8ICl4EJOGszY2KP8hu4Mz
-         EQjtgBOBTh8OEAyEi57WZ3GxYjvQEGAt/G9pnDFz5mmpootwGgq941Jb6JsacZQYGUy/
-         +1j/HqAizvQgzwXlh96BN7GCMjkN6jWR0PMA+t5PmW+8jhtfqnUMND5D6UfosO3FVLtd
-         MaMEvSqXiTfp7TASa4jYji8KkR1rdmVFlWvhd2lzYZcMHy3aloDOdCdmu8us6ZUVqS5C
-         2mww==
-X-Forwarded-Encrypted: i=1; AKwUvBy5o1HgPtsDKP/o+C6povRGYb6e9V0jlWANOorsrDvGGYnEHu43jIWtZC8ZeGuGUYZqcGtjHmgv6/+WsaI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjsIcZ/Uu6Qv/AY2HykKkdE7MrA4/yLEvaIe6ByGrqrXk2cF7K
-	msWgj/UHYHp1X3HE5vxW8+aMXu+YQoaqew2YRCKstxHpDNOYFj5UmlGr
-X-Gm-Gg: AYBFou3/Wt9yUGBan1pMWCD+ScV5vYT8owGe21IZD/0xkiBOPKfBJvynXrPBKAoogqw
-	fFnY2aKhPEwUsubP++j4z60TypzUuRmRudLCOwrtFAGH7yhfq5iuhkj8cD4x+rdLjZoXXNSeIe7
-	7Ij+vKlJF8+Pbdcs7znLiGgiUQF/lSxOKjI2W3j9X6n73DvcUXgFJI4rMpegLkg/ix3lJTB0hx6
-	wHjeRQve8DB1Uw/n9VjRVKPDA7St0JC0vhSz0bsHxgCGgOuQ18LtNEZbMQI+sV3yU5oPkUkQ008
-	hrideVHyirFjXfEN/mrwBje7ZM80KW/fMrvf8iyGVBpTzDvjfVmXrBn+Itj39pUo/YLXEztTE2z
-	b3x9+OG+FBQUQdx/osbHlLcqqiEK11t98dN/rxlSNHTlsMLZ4OxXBmBGZ+9mB3f1jy3hG0/dUO5
-	qyVz/+PUczVI2LIFeU4qORHarXpKFJjymVLb3Yuk/LS45gJ4BjDI9BHs1cCQZ1LoY3D0yWLHaaz
-	SCBZ6ulzrS4gniZN/qhdtg=
-X-Received: by 2002:a05:690c:c6c5:b0:85c:79d2:91a4 with SMTP id 00721157ae682-85d6b275eacmr80105927b3.17.1788188408827;
+        bh=Z/0MUXfJDNeHlErsfNSNArUm0DaS7PuJvPVjEpFxNjQ=;
+        b=pfAfcdP/eFIYSknEVj0sBQ7URXHN9QigsZaGzM2ka5oUV0juSPm25KZxNDEOSqNhZ6
+         eOd9mTkYATSDFZCnFopUenbN0mF4tuYEKENBEMgMMwc98y7oS/FSPMqIsFh8UMoqC3S3
+         3IEdLNtabFw8CxwreXxjIa6MzcPOaGpCRuPTX2ADHH+BVgkQfqGCOkVbRzFIJbFt/lvs
+         bK6NwTRbvmlI8dSjlxC4LLzLgth4zsycqG0nP4Kluwjax6DixFkSJ3zBgYos7FQHyQV3
+         wMF6WncAvskJ0fkz5rT215g5+dTwl6uPEYgJjwODePyOkLGVpNNehKzEtXyfuWk1xNBi
+         8ZjQ==
+X-Gm-Message-State: AFuF++liIYf8SJFMN0uvDDdJ2cbtcuDx5acdMuds83wZo/yTG9KWxA4b
+	CIGkBp9bjLEVfGuLDre8vC1Wrc+9gacPAeFqt/ncbeR40UftvYQGFBiDWOnYs898hwEgZOb5FdK
+	NhDqgxPA6A4KyEGlsWrAvibx3oKhiFTXG+qPqs66bUFn22rGQqBcI/UeRg+MVZwEeKTo=
+X-Gm-Gg: AR+sD10sAJKgSTw+G7ERm6+Zd+YMwhPVGsdN5IglJsKsdmsOPmnhzOK0NJ8GG+587n9
+	TaPGT72x1z8+nLYpy+uuZW/XrrVgf4iXnhDdyrQPawAgqvnBuT1ylVd/wDIFiN1ItzMHVYlUnwm
+	O5Xka/MpxPJyvxglF49dz4lx95hDPqSTWHPos0O6/1gARJyPZfn/yEyEroD596GJH0E07h545Pq
+	HG2citnIaSDhXEhdV18vjyzheokBp/FwLhNi/3jsRacOVS6396NAiggGsrVBu2AqR0rmI1DljMS
+	e2PLZmvmwV4rbwzEVl+ZnZUYyPrazJrvuSzvc/9n4ujtSc9JmFEjo7Zqjoaqa090RFTTVPDDGEo
+	EepM8LrNBczPk73v9kSCmI4z61BXwtanxVmg=
+X-Received: by 2002:a05:620a:a404:20b0:939:365b:37d8 with SMTP id af79cd13be357-9394817f9d9mr195749685a.36.1788188409698;
+        Mon, 31 Aug 2026 08:00:09 -0700 (PDT)
+X-Received: by 2002:a05:620a:a404:20b0:939:365b:37d8 with SMTP id af79cd13be357-9394817f9d9mr195730785a.36.1788188408868;
         Mon, 31 Aug 2026 08:00:08 -0700 (PDT)
-Received: from zenbox ([2600:1700:18fb:6011:f6fc:b424:b1bb:6ff0])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e58666e15sm53903827b3.0.2026.08.31.08.00.08
+Received: from localhost (ip-86-49-251-7.bb.vodafone.cz. [86.49.251.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ccd1e19desm252798825e9.1.2026.08.31.08.00.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 31 Aug 2026 08:00:08 -0700 (PDT)
-From: Justin Suess <utilityemal77@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	kpsingh@kernel.org,
-	paul@paul-moore.com,
-	mic@digikod.net,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org,
-	kees@kernel.org
-Cc: gnoack@google.com,
-	jack@suse.cz,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	martin.lau@linux.dev,
-	m@maowtm.org,
-	bpf@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Justin Suess <utilityemal77@gmail.com>
-Subject: [PATCH v2 06/15] lsm: Add the bpf_lsm_policy_acquire kfunc
-Date: Mon, 31 Aug 2026 10:58:48 -0400
-Message-ID: <20260831145858.3869191-7-utilityemal77@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831145858.3869191-1-utilityemal77@gmail.com>
-References: <20260831145858.3869191-1-utilityemal77@gmail.com>
+From: Andrew Jones <andrew.jones@oss.qualcomm.com>
+To: linux-riscv@lists.infradead.org, iommu@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev,
+        tjeznach@rivosinc.com, jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org,
+        will@kernel.org, robin.murphy@arm.com, pjw@kernel.org,
+        palmer@dabbelt.com, anup@brainfault.org, tglx@kernel.org,
+        kevin.tian@intel.com, fangyu.yu@linux.alibaba.com,
+        Nutty Liu <nutty.liu@hotmail.com>
+Subject: [PATCH v5 14/17] vfio: enable IOMMU_TYPE1 for RISC-V
+Date: Mon, 31 Aug 2026 16:59:40 +0200
+Message-ID: <20260831145943.313726-15-andrew.jones@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com>
+References: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,116 +97,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyOSBTYWx0ZWRfX+OJ5RUDbwFVy
+ VSeirUHrmL+NUTwqok5/+e4FcBqS2uezgL6tlIGO0wGi6fkyB3kLd9GEQTy5ah04uNqvU1ZY/ZK
+ 2+Bd4vCeLsFqRhFy2p/+4qSHyZ+DpHo=
+X-Proofpoint-GUID: DDZku3CxVgt0RI-ADMDtlDEdQcehNFDs
+X-Authority-Analysis: v=2.4 cv=CYE4Irrl c=1 sm=1 tr=0 ts=6a9596fa cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=on9AXyaqQ0RhfYpiXjjEXA==:17
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=h0uksLzaAAAA:8
+ a=EUspDBNiAAAA:8 a=69EAbJreAAAA:8 a=e-vb6wPzIjHU0Swrx_MA:9
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=MSi_79tMYmZZG2gvAgS0:22
+X-Proofpoint-ORIG-GUID: DDZku3CxVgt0RI-ADMDtlDEdQcehNFDs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyOSBTYWx0ZWRfX+33Q4Jui/MUW
+ WHMGGVn2W0c2BvAK24yIQgPf5rXQciYrNO62uEw1oVLsrPQ+IUothVXUWz5dP/uCUnNM9wbgSvy
+ cM2zFmtxAmIs5s8NFocq/pLTpUuFhlH6H0o9g6igTGHfoLu3ADXQpUGa2P/pYQG40nXvRtcAAtv
+ C9b0vSWvXjOH9ZZPbTCfF8PBmdxEtMjkgwnEZRw2te+HKPte2ubQ3FfJz0XlXOrpUK+WCv2Hz9+
+ Qxq5Qw20XKqzeH8TL2SPffiqeh17HNQeZMzggkouXXHwjKcfjxzMGwrNvTbfBXr92uzDrFM5dMm
+ R4jzXWyUj9e87XXcRxcLv4XLN9YKcOCU14TLyHEBU6zFdR9+a2mDPxl3hHj5qCWg6tHx0nLCjrm
+ Pa8valj9iZ6WIPPe9VdQsnB9BEuvpnFF/kaFb4v0IJVtMz0EzuTU9BPrvZon5iNvm9i8HTquF8q
+ tz7NVV81TQgIne9j/RQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310129
 
-Add the kfunc acquiring a reference on a policy object the program
-does not own:
+From: Tomasz Jeznach <tjeznach@rivosinc.com>
 
-  bpf_lsm_policy_acquire(object)        KF_ACQUIRE|KF_RCU|KF_RET_NULL
+Enable VFIO support on RISC-V architecture, now that the RISC-V IOMMU
+driver reports the IOMMU_CAP_CACHE_COHERENCY capability VFIO_TYPE1 and
+iommufd both require before allowing a device to be bound.
 
-bpf_kptr_xchg() is the only way to take an owned pointer out of a map
-kptr field, and it empties the slot: concurrent executions of an
-enforcement program would race for the one stored reference.  Modeled
-after bpf_task_acquire(), this kfunc removes the exclusivity: a
-program loads the kptr field with a plain read under
-bpf_rcu_read_lock(), acquires its own reference through the
-policy_object_get hook, and leaves the map slot untouched.  The
-acquired reference survives bpf_rcu_read_unlock(), carrying over to a
-sleepable bpf_lsm_policy_apply_bprm() call, and is released with
-bpf_lsm_policy_release().
-
-Adding struct lsm_policy_object to the verifier's rcu_protected_types
-set makes the plain load yield an RCU-protected pointer instead of an
-untrusted one.  This is where the policy object contract's RCU
-requirements become load-bearing: the kfunc and the get hook examine
-the object concurrently with a possible last put, which is safe
-because implementations free only after an RCU grace period and
-acquire with inc-not-zero semantics.  A failed get makes the kfunc
-return NULL, per KF_RET_NULL.
-
-The kfunc does not sleep and is meaningful wherever a policy object
-pointer can be loaded, so the filter adds no per-kfunc rule.
-
-Cc: Paul Moore <paul@paul-moore.com>
-Cc: KP Singh <kpsingh@kernel.org>
-Signed-off-by: Justin Suess <utilityemal77@gmail.com>
+Signed-off-by: Tomasz Jeznach <tjeznach@rivosinc.com>
+Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
 ---
- kernel/bpf/verifier.c     |  3 +++
- security/bpf_lsm_kfuncs.c | 34 +++++++++++++++++++++++++++++++++-
- 2 files changed, 36 insertions(+), 1 deletion(-)
+ drivers/vfio/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 7aa47342dc65..ba9972c572e1 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -4394,6 +4394,9 @@ BTF_ID(struct, task_struct)
- #ifdef CONFIG_CRYPTO
- BTF_ID(struct, bpf_crypto_ctx)
- #endif
-+#ifdef CONFIG_BPF_LSM
-+BTF_ID(struct, lsm_policy_object)
-+#endif
- BTF_SET_END(rcu_protected_types)
+diff --git a/drivers/vfio/Kconfig b/drivers/vfio/Kconfig
+index ceae52fd7586..ad62205b4e45 100644
+--- a/drivers/vfio/Kconfig
++++ b/drivers/vfio/Kconfig
+@@ -39,7 +39,7 @@ config VFIO_GROUP
  
- static bool rcu_protected_object(const struct btf *btf, u32 btf_id)
-diff --git a/security/bpf_lsm_kfuncs.c b/security/bpf_lsm_kfuncs.c
-index 988dcd6f4dd9..43a4bf57fd31 100644
---- a/security/bpf_lsm_kfuncs.c
-+++ b/security/bpf_lsm_kfuncs.c
-@@ -14,6 +14,36 @@
- 
- __bpf_kfunc_start_defs();
- 
-+/**
-+ * bpf_lsm_policy_acquire - Acquire a reference on a shared policy object
-+ * @object: RCU-protected pointer to a policy object, e.g. loaded from
-+ *          a map kptr field under bpf_rcu_read_lock()
-+ *
-+ * Acquire a reference of its own on a policy object the program does
-+ * not own, so that any number of concurrent program executions can
-+ * use the object shared through one map kptr field, without emptying
-+ * it as bpf_kptr_xchg() would.  The returned reference stays valid
-+ * after bpf_rcu_read_unlock() and must be released with
-+ * bpf_lsm_policy_release().
-+ *
-+ * Return: A referenced policy object, or NULL if the object's
-+ * reference count concurrently dropped to zero.
-+ */
-+__bpf_kfunc struct lsm_policy_object *
-+bpf_lsm_policy_acquire(struct lsm_policy_object *object)
-+{
-+	struct lsm_static_call *scall;
-+
-+	lsm_for_each_hook(scall, policy_object_get) {
-+		if (scall->hl->lsmid->id != object->lsmid)
-+			continue;
-+		if (scall->hl->hook.policy_object_get(object))
-+			return NULL;
-+		return object;
-+	}
-+	return NULL;
-+}
-+
- /**
-  * bpf_lsm_policy_from_fd - Get an LSM policy object from a fd
-  * @fd: file descriptor referring to a policy object, resolved in the
-@@ -57,7 +87,8 @@ __bpf_kfunc struct lsm_policy_object *bpf_lsm_policy_from_fd(int fd, u32 flags)
-  * bpf_lsm_policy_release - Release a policy object reference
-  * @object: policy object to release
-  *
-- * Release a reference acquired with bpf_lsm_policy_from_fd().
-+ * Release a reference acquired with bpf_lsm_policy_from_fd() or
-+ * bpf_lsm_policy_acquire().
-  */
- __bpf_kfunc void bpf_lsm_policy_release(struct lsm_policy_object *object)
- {
-@@ -83,6 +114,7 @@ CFI_NOSEAL(bpf_lsm_policy_release_dtor);
- __bpf_kfunc_end_defs();
- 
- BTF_KFUNCS_START(bpf_lsm_policy_kfunc_ids)
-+BTF_ID_FLAGS(func, bpf_lsm_policy_acquire, KF_ACQUIRE | KF_RCU | KF_RET_NULL)
- BTF_ID_FLAGS(func, bpf_lsm_policy_from_fd,
- 	     KF_ACQUIRE | KF_RET_NULL | KF_SLEEPABLE)
- BTF_ID_FLAGS(func, bpf_lsm_policy_release, KF_RELEASE)
+ config VFIO_CONTAINER
+ 	bool "Support for the VFIO container /dev/vfio/vfio"
+-	select VFIO_IOMMU_TYPE1 if MMU && (X86 || S390 || ARM || ARM64)
++	select VFIO_IOMMU_TYPE1 if MMU && (X86 || S390 || ARM || ARM64 || RISCV)
+ 	depends on VFIO_GROUP
+ 	default y
+ 	help
 -- 
-2.55.0
+2.43.0
 
