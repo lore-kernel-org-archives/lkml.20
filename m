@@ -1,80 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1160433E60;
-	Mon, 31 Aug 2026 16:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CADF434406;
+	Mon, 31 Aug 2026 16:06:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788192341; cv=none; b=RVIv76QLa2VeG3qf5dFQObTcaaOMLXzQgiJwrlUaPaDOJE40e5rA0ARwCuwoZ8y4UvoOT6Mz8ia/dgTGnpxVvysoBn4doBc+y4u7DCcEN3N6/2bTlVeraM+Be3kF/qZtUx5VhByOMEJGkj/WtPPPqrmgi9eRka23BZvlzh/QA4U=
+	t=1788192400; cv=none; b=BdFM4tWFcIbfoFVWghq99IPOuoI5O+OePXgHYzM7hRGJY50Z0LWQfTk1rPJghJpIpZQisXlEUP2xb5My8sO0+HW3325vVsvg14tWSkHG+hoJG/yqVmi3qil97bgkPhlLWK6JzMPH8es2bQ2XJMSG+SD5grbto9fX/t+IGtSoWYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788192341; c=relaxed/simple;
-	bh=yd5Zjbf77lFiu27qGLetH8t6WXRRuUBUmrfM9GJXrSw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rf734tSOqq5t1Ns8Sh32C7oVRtLpeP2c3suIEZFJS1sUBmks7mbrKyNS04vW1ozUh3D8DFASIffeXQgaVZfyhXvpIDirgzwoVCCNIf+pKRcgIWoKukkgRUqUU+LgdJuexwZ8lJokRE3HEV8q48eM1YoGNbq4IcoB7vOhjS2HpjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qqb0HqLL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788192400; c=relaxed/simple;
+	bh=dInqbBwUod+Sa+lEygi1HhCFJ31GmSpVykqCR05UGjY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=duDn72mXvtXFMU+vhy2M/LrQProV14Yn+9pPKZWm5aZd+bRxl9mPYFPiuSHPBubwNIMlMvARZYK8cw7xK5oRLOy9adMG64ZZFNDFz6JlOMImP62TxAv5g8zuiy36ThydPeA1NEyIllBClO5oc8PkKOOV1KOJG36K3EPiVjgWUx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LP6Vpi6K; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qqb0HqLL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 859FE1F000E9;
-	Mon, 31 Aug 2026 16:05:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788192340;
-	bh=vgR5M+6ZYz/VrjJr/mfmgzQ0+WMBSquUg5LaMjaKZcA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qqb0HqLLLJbm1wUu3bd1T8JmUn8HAzoMsYCNxuLkTMLjFV7f42YTxoPz5LU73+f9i
-	 J2hvr/VLjRcdrGGC/lGMO4Pgp/BP/Vyo0Rbcb2O8gTgSPPtJBr6a2D1OUzy3Ql2UsJ
-	 zBdqM2rTtjIMywooILCieSX88UcCPuKaq+SYMACZijKVxd1R8JmFZ9jv0cZLzab/6l
-	 mLNuENI8c7bTHrRzLCAUcyf7rOt1GQNxkyuJNEb0aR7tyb3uPxQCr0Lgk1StzNIxZi
-	 ICYWpDfSLObz8PBfsj4k5i5iNjtvB7KBffnwOWJUuE+UdXcI0TBJrM/3RQ4nFznkHN
-	 3hZyL8PTuEHjA==
-Date: Mon, 31 Aug 2026 17:05:37 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Subject: Re: Missing signoff in the risc-v-fixes tree
-Message-ID: <06a13fc5-7efd-4a77-ab0e-5f1caf35ba5d@sirena.org.uk>
-References: <aog9BzBzb-2Yfgyz@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LP6Vpi6K"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id B1C794E41471;
+	Mon, 31 Aug 2026 16:06:35 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7CDA460231;
+	Mon, 31 Aug 2026 16:06:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6B18A11C78AC8;
+	Mon, 31 Aug 2026 18:06:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788192394; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=Iu8DxQ3dzl8wZqpvD364DVvQYiKdo2ESja+zACmBA7Q=;
+	b=LP6Vpi6K8cpGr0XmcFffIH8q5sJEkFlVjmad6wamz9RvpKEIsg2ouUm1Pn2LEDPqjW3VuW
+	EEDhaKKWOCPkAPez2zLN/n7fdDEC+JArgq5sc5ak8bil4UVk8htAqqVVYBSxOQlEtUDo8R
+	NeZFQRBWON8LKGcMGm+xhzg5UxzIMedPtLDT1JLbPl3NKDc5DWDZQSDIX/K14aUNf5lgSh
+	sGVza5M6ePqgTsolTzJIzP+s4P1BrPfhaI6Nninl4r3Xx/QHEkx716yDranwNs0KfudY5Z
+	ISlU71RT2r58TNAWCg6GJIsqi7vuCBYI21KGwKo1bauJEztiyVpvKP/hohEEZg==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Subject: [PATCH 6.6.y 0/4] ipv4: start using dst_dev_rcu()
+Date: Mon, 31 Aug 2026 18:06:19 +0200
+Message-Id: <20260831-cve-2025-40074-6-6-v1-0-027e51b162a3@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gpBO5MQEQ/7hYkF0"
-Content-Disposition: inline
-In-Reply-To: <aog9BzBzb-2Yfgyz@sirena.org.uk>
-X-Cookie: E = MC ** 2 +- 3db
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CQAxFr0K6tqQDTFGuYlwMQ9G6QDOjREO4u
+ xXyV+8n7y2QJalk6IoFksya9TEZuEMB8Ramq6AOxlBRxXSsHcZZ0MBjQ9Q2yLYQgm/rnk7sHZj
+ 4TDLqZ4uegUsuv3DZ7/zu7xJf/yCs6w8nlO8bfQAAAA==
+X-Change-ID: 20260831-cve-2025-40074-6-6-aaa573b09651
+To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Martin KaFai Lau <kafai@fb.com>, 
+ Wei Wang <weiwan@google.com>, David Ahern <dsahern@kernel.org>, 
+ Steffen Klassert <steffen.klassert@secunet.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Jozsef Kadlecsik <kadlec@netfilter.org>, Florian Westphal <fw@strlen.de>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+ coreteam@netfilter.org, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>, 
+ Kuniyuki Iwashima <kuniyu@google.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788192387; l=1484;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=dInqbBwUod+Sa+lEygi1HhCFJ31GmSpVykqCR05UGjY=;
+ b=giRQwpY7Cb5C1FPQqhu+P9zUWdAfSfC3qeQGOhiwoW1C0DnP/0cAhGJ52t9VSaBQs9U38wNUr
+ fynR1Tazx+yC6o53qu2nAbb0Zo5Ipql2Lmiik2XZXlw/h3EUzmaz9h1
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
+Three other patches are required to be able to apply cleanly the final patch.
 
---gpBO5MQEQ/7hYkF0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+---
+Eric Dumazet (4):
+      net: dst: add four helpers to annotate data-races around dst->dev
+      ipv4: adopt dst_dev, skb_dst_dev and skb_dst_dev_net[_rcu]
+      net: dst: introduce dst->dev_rcu
+      ipv4: start using dst_dev_rcu()
 
-On Fri, Aug 21, 2026 at 12:56:55PM +0100, Mark Brown wrote:
-> Commit
->=20
->   3c98c44748385 ("riscv: patch: skip fixmap mapping when kernel text is a=
-lready writable")
->=20
-> is missing a Signed-off-by from its author
+ include/net/dst.h             | 34 ++++++++++++++++++++++++++++++----
+ include/net/inet_hashtables.h |  2 +-
+ include/net/ip.h              | 11 ++++++-----
+ include/net/route.h           |  2 +-
+ net/core/dst.c                |  4 ++--
+ net/core/sock.c               |  8 ++++----
+ net/ipv4/icmp.c               | 28 +++++++++++++++-------------
+ net/ipv4/igmp.c               |  2 +-
+ net/ipv4/ip_fragment.c        |  6 ++++--
+ net/ipv4/ip_output.c          |  4 ++--
+ net/ipv4/ip_vti.c             |  4 ++--
+ net/ipv4/ipmr.c               |  2 +-
+ net/ipv4/netfilter.c          |  4 ++--
+ net/ipv4/route.c              | 10 +++++-----
+ net/ipv4/tcp_fastopen.c       |  4 +++-
+ net/ipv4/tcp_ipv4.c           |  3 ++-
+ net/ipv4/tcp_metrics.c        |  8 ++++----
+ net/ipv4/xfrm4_output.c       |  2 +-
+ 18 files changed, 86 insertions(+), 52 deletions(-)
+---
+base-commit: a4a971135a2ff64382ae4235b3ae60503bb1036a
+change-id: 20260831-cve-2025-40074-6-6-aaa573b09651
 
-This issue is still present today.
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
---gpBO5MQEQ/7hYkF0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqVplAACgkQJNaLcl1U
-h9AbUQf7B+UnXcuP9U9Ym8RKDADtYl68KLf+NgVXjW+ThXHkGkoTY0hEx/SPlvfT
-50+IgmMZE509Qdgs2q0gMiPJ6HA0xH1oNoqChBi83+O4xPt9OxVGJN7+yx5hWuG0
-rchwEJ9G6f1Vok6nu3AFIRtZQ4S0c4JRzWd5OUmjiuZ3XmgLK8FUUwUmo8mXum0j
-UgJElKqCUaj3YkV/4MPCkZWLNPDJE/WufTDcagI2sV14Z9PjtWdxvGcgeVJBe4F/
-2PiQTCWIlrbS6qPxjLX2B2uyQmEpETcbmP39GVVeX1xbqVnenT9moO3QSSlNOAzl
-snz9Q+DCu6tRVJ5iXacDwzjp8z+XSQ==
-=TnJE
------END PGP SIGNATURE-----
-
---gpBO5MQEQ/7hYkF0--
