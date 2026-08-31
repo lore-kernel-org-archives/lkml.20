@@ -1,179 +1,313 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CB53DA5B0
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:51:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B6C3F9F45;
+	Mon, 31 Aug 2026 12:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180679; cv=none; b=EM/QlHtQ/CfnTRskTozh7//2ZJ6/iQDOc8IAnnlohwD9ESLXm4z9mg8W5fpQ9uqNOmfnRTZIZmJT11TPNe2brz2I3VJiSZkeSDjacOqpaskYeNXVEC644+XwUYI53XMnniDqYteoVFkfQjpCy54Ql9kv5qSp7WUi7jDjFLs5k0E=
+	t=1788180720; cv=none; b=ntoIQBwwwbLaBbqFL1l4NnbtgPnUuKZgkG+AZIv/AjSSdqVxD0+BEzTvickoJvXoO1bmogzZHBY9+u4SvYaUu+Kl1TQA1b0XRQ9lSkgzQnAFvJVtU6cmTen1+Vt7PnurFtqArNbxZo3IB6lKCf578vziLQzanZja5ZGlNXi/g68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180679; c=relaxed/simple;
-	bh=MsgD6xMrJ817lE4I/y63u6Ufiz4oIuiclFfZLj4rF+8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=gP8bYfFVdaBj4a1ZYDeIsZHuMyF8ZxbJ1uEbF+ObDXR8oIQfCo8z7q19rm3ZRB/Em/ucxzHBuBdif2uXriNX9TXXR1rpo94hhfAYPLc1BZ1hg25L10X0eZZPkrZJyxMBl+dLu1bsCDrKXV8wAi9iC2kFP3iLLgHwYUjNG5vHxco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=ncTawx13; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
+	s=arc-20240116; t=1788180720; c=relaxed/simple;
+	bh=Oajofr7KPV85sFuo8LuV95A6tWjTPeAaHRq02rjjfeU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IeDKUKt2GUJzRdWq4Q8jb2+lxHmGpSKia3txq0dFrMFO4/9dA34LDYJt4aKVMx8SoEc7fyMakQ3eXbPQzHBffV+nG9RziNppI4whlEGV35cz1Lsy9zouZ8CX4koMT7g91nA4GDGrMPtDJN5Nwqa+NH/mkz4e7aEobn4SF0PITTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UbLRK3oa; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="ncTawx13"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so23446785e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:51:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bynar.io; s=google; t=1788180675; x=1788785475; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5A26gOuAVOyjv1TvWMYcqopm/IcXjJSkKIFefy8rQWY=;
-        b=ncTawx13/dDkgf/CUItoXetCbuNzsZLgQ6QEoQEQqVkugqaz9ZIDut1O+t1Zsnt3Zp
-         LybQMbgR4HFKG3mXdOjOEET7OR9hdrnUK9Nk3tsAxfgUuRHuoPmo+mgCC/VYYAiTVeyf
-         DNNwGm9AAwRubePJQxHd6wN1cfATQBxhUL7fXTi28BGsaAXZkqC/EIjernZZeodJRiMs
-         5EiLHVYTT2h4HVt93Gcy6pXaLrwgikQewM9dL/INOj6NfeXiK81SwS72E9oKo15d9gdY
-         LyHRNPlF+eLqgztP1iBWavHJyJLWJfCwILfW/plQRk7d8NlzN86L2hj4pLn2Va+Keb7f
-         F/Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788180675; x=1788785475;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5A26gOuAVOyjv1TvWMYcqopm/IcXjJSkKIFefy8rQWY=;
-        b=PyZZr24wQI3AAt12GwXeE0A533GV/p3qrVW7G11X3bcU6p1LDChPa3FutE9KDfLJJ/
-         IXWt40/2POISZS/s51L8Zu2DHCdESkvdr/ZmpBwXAikP0quuB0kUOCLZdcGCBWWaY5bj
-         nwOYQPnSVxkEGwdBMcd2MGxay/0OS7TmdhN2GkPoT8mSrkwyhHtpDcUs1hHKMF/73tHg
-         PCVMJkm8i0IjRdeUYV9qAT33DJEwoPqtyIKB+xda0V0VtrrorVzxTG1UIEnf7wqODJsW
-         uYyUp8DPIYDD9Gi94+wN4hxoUvkjMQjJOlYR31vahvNCmtRvByuWdayHT6JRF+MQMrSM
-         4B0w==
-X-Forwarded-Encrypted: i=1; AHgh+RrfnkAP5SwKOW88B1bN0OsW7I3mMcbTlUVooGrtEA2Ut9OzubCioamWi1AakjOHkDtgStXQNs6G0Q7gvMc=@vger.kernel.org
-X-Gm-Message-State: AFuF++np7rH+yk0/AbnSs7KjnPwnAPsWb6ACvhT9LXJq6LHoXSuS2Mby
-	PtIAwFItOtTuJigmmomL0Rhi1aspzhDZKqh51cxWMfyHUPDSbR19nloTXZYofpBhoVKN
-X-Gm-Gg: AR+sD13H/2N1Uoe2TTto5gY4r/TZeR5A7uPWoX7nKTQhTFvfT61929ITrwRuqL3aSJs
-	h+jV8pUrI8sG4y105fSgHgAI6b1l+zUsRzpD/UzW2fR7kb0BCljlnOrM3BPf8uy0Ks6SuzdcwUg
-	vZwM2ZoT0XirujmzdVwO2y8pIa2W0C1IKcNtNRm0A+ShcWCTQJBMmtzx82zmm7XSZ9isE7rwtvh
-	Pic4QeV+sxeCBvKCpUamylMgodY4xUaliUyG0P7nf/rzMS/8+YcDnasx+T4ojyK6HQbb0j0x3vO
-	+ZALn++p1e0lt6oIPRfUP6EvJ6FLRQqOzOedNz8ZfEnK8XZgYYWTrNKOeuuoNO2gPJUBxFyTVA4
-	GGrHGI3ah8KQqbNhV1/xcmPvtRvtMheED3fEBOqlBjPiUckzap6keHZBVSXoxTO44Hw7aV0diSH
-	3PDyFq+o7D/2MYGD8WgMv3ek987tFsQzYiuZUPDYPrEeDKkhSj+PQgD8rRyw2k/QNk
-X-Received: by 2002:a05:600c:8b86:b0:493:f5bf:4dc6 with SMTP id 5b1f17b1804b1-49b91c2777emr454968265e9.7.1788180674354;
-        Mon, 31 Aug 2026 05:51:14 -0700 (PDT)
-Received: from localhost.localdomain ([151.18.18.196])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48432022ab8sm15739457f8f.28.2026.08.31.05.51.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 05:51:13 -0700 (PDT)
-From: Diego Oliva <diego@bynar.io>
-To: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	linux-cifs@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] smb: client: reject out-of-bounds DataOffset in CIFSSMBRead()
-Date: Mon, 31 Aug 2026 13:50:45 +0100
-Message-Id: <20260831125045.479576-1-diego@bynar.io>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260828150203.1419003-1-diego@bynar.io>
-References: <20260828150203.1419003-1-diego@bynar.io>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UbLRK3oa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788180717; x=1819716717;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Oajofr7KPV85sFuo8LuV95A6tWjTPeAaHRq02rjjfeU=;
+  b=UbLRK3oaPRsAVIMYjpg7xB8PFmGp6Hv/5S8MM78iR3D2iS5UwfThJ+Bm
+   ATQCJ44RKIOivkgvYpSSi1joOm6Vr6OljrsuRqeOAyFyRXJwvLGQPw+qk
+   emtgWP+kvg8gjcJWYboOhEZDPbzptZmxLuBT0bEWvYqszd8VLM6AiHFQ+
+   vgzPqUYo1tA0rPwB1W1K4lEUfAubWd0FUmdz6AF9tBT6E9uHbe/ZWdPcF
+   Buy5mzPAVHplCY9Q4aIzkThmuPzwaZyk5dSAe7YoFG9S3bL9K1S5makMs
+   jbRqvLb345TC6xsyGD0EKw7rVdQ1QUCVYLKWNxFIHoyDr0hgyWoPxIS+/
+   A==;
+X-CSE-ConnectionGUID: 97hTi5eUTjuoKy765E3bkQ==
+X-CSE-MsgGUID: Zpg5qCWFSoWxoxFK1lQbmA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88463140"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="88463140"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 05:51:56 -0700
+X-CSE-ConnectionGUID: l4RmVY4yRKewSayijrYXnA==
+X-CSE-MsgGUID: Z2L+3ySJSeazq0gcpPIuSQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="267460591"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.140])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 05:51:53 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id B8B5411F7F5;
+	Mon, 31 Aug 2026 15:51:49 +0300 (EEST)
+Date: Mon, 31 Aug 2026 15:51:49 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Jakob Berg Jespersen <dev@berg.pm>, linux-media@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: i2c: ov13858: add regulator, clock and reset
+ GPIO handling
+Message-ID: <apV45bZYB3MAd7tE@kekkonen.localdomain>
+References: <20260831124352.86935-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831124352.86935-1-lsa.uz@pm.me>
 
-The SMB1 synchronous read helper CIFSSMBRead() validates the server's
-DataLength against CIFSMaxBufSize and the caller's count, but never
-validates DataOffset. The copy source is formed as
+Hi Sergey,
 
-	&pSMBr->hdr.Protocol + le16_to_cpu(pSMBr->DataOffset)
+Thanks for the update. A new more comments below...
 
-and memcpy()'d for DataLength bytes with no check that the
-[DataOffset, DataOffset + DataLength) range lies within the response
-actually received from the server.
+On Mon, Aug 31, 2026 at 12:44:00PM +0000, Sergey Lebedev wrote:
+> The driver assumes the sensor is already powered when probe() reads its chip
+> ID. That holds where the rails and clock are ACPI power resources, but not
+> where an INT3472 companion device registers them as regulators, a clock and a
+> reset GPIO for the sensor driver to consume, which this driver does not do.
+> 
+> Request the three supplies and the reset GPIO, and sequence them along with
+> the clock the driver already looks up, in runtime PM callbacks.
+> 
+> Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+> ---
+> Changes in v2, all from Sakari Ailus's review:
+> - commit message cut down; the detail below
+> - dropped the comment on the supply names; it is a KAPI with int3472
+> - ARRAY_SIZE() directly instead of a local macro
+> - fsleep() instead of usleep_range()
+> - one function each for power on and off, used as the PM callbacks directly,
+>   instead of a pair of wrappers
+> - removed the now-useless dev_err() in the probe error path
+> - i declared inside its loop
+> Link to v1: https://patch.msgid.link/20260831100404.40463-1-lsa.uz@pm.me
+> 
+> Without the patch the first I2C transaction fails:
+> 
+>   ov13858 i2c-OVTID858:00: failed to find sensor: -5
+> 
+> The power sequence follows ov02c10: supplies, then clock, then release reset,
+> and the reverse on the way down.
+> 
+> Measured on a Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7),
+> with the parts isolated one at a time:
+> 
+>   supplies enabled, clock enabled   sensor identifies, driver binds
+>   supplies enabled, clock left off  -EIO
+>   supplies left off, clock enabled  -EIO
+> 
+> so both are needed; a longer settling delay alone is not enough. Verified
+> across five module unload/load cycles with no probe failure, and again after
+> this rework, with the sensor streaming each time.
+> 
+> This needs POWER1 GPIO support in int3472 to be useful on that machine: the
+> dvdd rail is described there as an INT3472 GPIO of type 0x08, and without that
+> patch the rail is never registered.
+> Link: https://patch.msgid.link/20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm
+> 
+> The same sensor on the Surface Pro 10 was made to work downstream by forcing
+> the regulators on for the driver's lifetime, which the people who did it
+> called too broad for upstream. Runtime PM keeps them off while the sensor is
+> idle instead.
+> Link: https://github.com/linux-surface/linux-surface/issues/2153
+> 
+> dovdd is not described on this machine and resolves to a dummy regulator. It
+> is listed because it is one of the three supplies these sensors normally take.
+> 
+> A working camera also needs an ipu-bridge entry for OVTID858, separately.
+> ---
+> --- a/drivers/media/i2c/ov13858.c
+> +++ b/drivers/media/i2c/ov13858.c
+> @@ -3,9 +3,12 @@
+>  
+>  #include <linux/acpi.h>
+>  #include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+>  #include <linux/i2c.h>
+>  #include <linux/module.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/regulator/consumer.h>
+>  #include <media/v4l2-ctrls.h>
+>  #include <media/v4l2-device.h>
+>  #include <media/v4l2-event.h>
+> @@ -1028,9 +1031,17 @@
+>  	}
+>  };
+>  
+> +static const char * const ov13858_supply_names[] = {
+> +	"dovdd",	/* Digital I/O power */
+> +	"avdd",		/* Analog power */
+> +	"dvdd",		/* Digital core power */
+> +};
+> +
+>  struct ov13858 {
+>  	struct device *dev;
+>  	struct clk *clk;
+> +	struct regulator_bulk_data supplies[ARRAY_SIZE(ov13858_supply_names)];
+> +	struct gpio_desc *reset_gpio;
+>  
+>  	struct v4l2_subdev sd;
+>  	struct media_pad pad;
+> @@ -1653,8 +1664,54 @@
+>  {
+>  	v4l2_ctrl_handler_free(ov13858->sd.ctrl_handler);
+>  	mutex_destroy(&ov13858->mutex);
+> +}
+> +
+> +static int ov13858_power_on(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> +	struct ov13858 *ov13858 = to_ov13858(sd);
+> +	int ret;
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(ov13858_supply_names), ov13858->supplies);
 
-A malicious or compromised SMB1 server can return a short response
-carrying an in-range DataLength and a large DataOffset, driving the
-source pointer past the end of the response buffer. The memcpy() then
-copies adjacent kernel heap into the caller's read buffer (information
-disclosure), or reads unmapped memory and oopses (denial of service).
-SMB1 is not negotiated by default; reaching this code requires an
-explicit vers=1.0 mount.
+Please wrap lines over 80 unless there's a specific reason to do otherwise.
 
-Both DataOffset and the received response length recorded in
-rsp_iov.iov_len are relative to the start of the SMB header, so reject
-the response unless DataOffset + DataLength fits within that length,
-using overflow-safe arithmetic, before forming the source pointer.
+> +	if (ret) {
+> +		dev_err(ov13858->dev, "failed to enable regulators: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ret = clk_prepare_enable(ov13858->clk);
+> +	if (ret) {
+> +		dev_err(ov13858->dev, "failed to enable clock: %d\n", ret);
+> +		regulator_bulk_disable(ARRAY_SIZE(ov13858_supply_names), ov13858->supplies);
+> +		return ret;
+> +	}
+> +
+> +	if (ov13858->reset_gpio) {
+> +		/* Hold reset for at least 1 ms on a back to back off-on */
+> +		fsleep(1000);
+> +		gpiod_set_value_cansleep(ov13858->reset_gpio, 0);
+> +	}
+> +
+> +	/* t4: 8192 XVCLK cycles after reset is released, before the first I2C */
+> +	fsleep(5000);
+> +
+> +	return 0;
+>  }
+>  
+> +static int ov13858_power_off(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> +	struct ov13858 *ov13858 = to_ov13858(sd);
+> +
+> +	gpiod_set_value_cansleep(ov13858->reset_gpio, 1);
+> +	regulator_bulk_disable(ARRAY_SIZE(ov13858_supply_names), ov13858->supplies);
+> +	clk_disable_unprepare(ov13858->clk);
+> +
+> +	return 0;
+> +}
+> +
+> +static DEFINE_RUNTIME_DEV_PM_OPS(ov13858_pm_ops, ov13858_power_off,
+> +				 ov13858_power_on, NULL);
+> +
+>  static int ov13858_probe(struct i2c_client *client)
+>  {
+>  	struct ov13858 *ov13858;
+> @@ -1678,14 +1735,34 @@
+>  				     "external clock %lu is not supported\n",
+>  				     freq);
+>  
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(ov13858_supply_names); i++)
+> +		ov13858->supplies[i].supply = ov13858_supply_names[i];
+> +
+> +	ret = devm_regulator_bulk_get(ov13858->dev, ARRAY_SIZE(ov13858_supply_names),
+> +				      ov13858->supplies);
+> +	if (ret)
+> +		return dev_err_probe(ov13858->dev, ret,
+> +				     "failed to get regulators\n");
+> +
+> +	ov13858->reset_gpio = devm_gpiod_get_optional(ov13858->dev, "reset",
+> +						      GPIOD_OUT_HIGH);
+> +	if (IS_ERR(ov13858->reset_gpio))
+> +		return dev_err_probe(ov13858->dev,
+> +				     PTR_ERR(ov13858->reset_gpio),
+> +				     "failed to get reset GPIO\n");
+> +
+>  	/* Initialize subdev */
+>  	v4l2_i2c_subdev_init(&ov13858->sd, client, &ov13858_subdev_ops);
+>  
+> +	ret = ov13858_power_on(ov13858->dev);
+> +	if (ret)
+> +		return ret;
+> +
+>  	/* Check module identity */
+>  	ret = ov13858_identify_module(ov13858);
+>  	if (ret) {
+>  		dev_err(ov13858->dev, "failed to find sensor: %d\n", ret);
+> -		return ret;
+> +		goto error_power_off;
+>  	}
+>  
+>  	/* Set default mode to max resolution */
+> @@ -1693,7 +1770,7 @@
+>  
+>  	ret = ov13858_init_controls(ov13858);
+>  	if (ret)
+> -		return ret;
+> +		goto error_power_off;
+>  
+>  	/* Initialize subdev */
+>  	ov13858->sd.internal_ops = &ov13858_internal_ops;
+> @@ -1729,8 +1806,10 @@
+>  
+>  error_handler_free:
+>  	ov13858_free_controls(ov13858);
+> -	dev_err(ov13858->dev, "%s failed:%d\n", __func__, ret);
+>  
+> +error_power_off:
+> +	ov13858_power_off(ov13858->dev);
+> +
+>  	return ret;
+>  }
+>  
+> @@ -1744,11 +1823,14 @@
+>  	ov13858_free_controls(ov13858);
+>  
+>  	pm_runtime_disable(ov13858->dev);
+> +	if (!pm_runtime_status_suspended(ov13858->dev))
+> +		ov13858_power_off(ov13858->dev);
+> +	pm_runtime_set_suspended(ov13858->dev);
+>  }
+>  
+>  static const struct i2c_device_id ov13858_id_table[] = {
+> -	{ .name = "ov13858" },
+> -	{ }
+> +	{ "ov13858" },
+> +	{}
 
-While here, make data_length unsigned. It holds a length derived from
-an unsigned on-the-wire field and is only ever compared against
-unsigned quantities. This is not required by the validation added
-above, but it matches what the variable represents.
+This is an unrelated change (and not preferred either).
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: Bynario AI
-Signed-off-by: Diego Oliva <diego@bynar.io>
----
-v2:
- - make data_length unsigned, as suggested by Namjae Jeon
- - rebased on current upstream
- - v1: https://lore.kernel.org/linux-cifs/20260828150203.1419003-1-diego@bynar.io/
+>  };
+>  
+>  MODULE_DEVICE_TABLE(i2c, ov13858_id_table);
+> @@ -1766,6 +1848,7 @@
+>  	.driver = {
+>  		.name = "ov13858",
+>  		.acpi_match_table = ACPI_PTR(ov13858_acpi_ids),
+> +		.pm = pm_ptr(&ov13858_pm_ops),
+>  	},
+>  	.probe = ov13858_probe,
+>  	.remove = ov13858_remove,
+> 
 
-Note for backporting: this uses the smb_EIO2() tracepoint helper added
-in v6.19 with f80ac7eda1cf5. For older kernels, the call can be
-replaced with a simple return of -EIO.
-
- fs/smb/client/cifssmb.c | 13 ++++++++++---
- fs/smb/client/trace.h   |  1 +
- 2 files changed, 11 insertions(+), 3 deletions(-)
-
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index f5aad5f61dce..b89d49395362 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -1720,7 +1720,8 @@ CIFSSMBRead(const unsigned int xid, struct cifs_io_parms *io_parms,
- 	if (rc) {
- 		cifs_dbg(VFS, "Send error in read = %d\n", rc);
- 	} else {
--		int data_length = le16_to_cpu(pSMBr->DataLengthHigh);
-+		unsigned int data_length = le16_to_cpu(pSMBr->DataLengthHigh);
-+		__u16 data_offset = le16_to_cpu(pSMBr->DataOffset);
- 		data_length = data_length << 16;
- 		data_length += le16_to_cpu(pSMBr->DataLength);
- 		*nbytes = data_length;
-@@ -1733,9 +1734,15 @@ CIFSSMBRead(const unsigned int xid, struct cifs_io_parms *io_parms,
- 			rc = smb_EIO2(smb_eio_trace_read_overlarge,
- 				      data_length, count);
- 			*nbytes = 0;
-+		} else if ((size_t)data_offset + data_length > rsp_iov.iov_len) {
-+			/* check that the data lies within the received response */
-+			cifs_dbg(FYI, "bad data offset %u length %d for read response of %zu\n",
-+				 data_offset, data_length, rsp_iov.iov_len);
-+			rc = smb_EIO2(smb_eio_trace_read_bad_offset,
-+				      data_offset, data_length);
-+			*nbytes = 0;
- 		} else {
--			pReadData = (char *) (&pSMBr->hdr.Protocol) +
--					le16_to_cpu(pSMBr->DataOffset);
-+			pReadData = (char *) (&pSMBr->hdr.Protocol) + data_offset;
- /*			if (rc = copy_to_user(buf, pReadData, data_length)) {
- 				cifs_dbg(VFS, "Faulting on read rc = %d\n",rc);
- 				rc = -EFAULT;
-diff --git a/fs/smb/client/trace.h b/fs/smb/client/trace.h
-index 12241abb8e2e..982b6ba1e429 100644
---- a/fs/smb/client/trace.h
-+++ b/fs/smb/client/trace.h
-@@ -79,6 +79,7 @@
- 	EM(smb_eio_trace_qreparse_setup_count,		"qreparse_setup_count") \
- 	EM(smb_eio_trace_qreparse_sizes_wrong,		"qreparse_sizes_wrong") \
- 	EM(smb_eio_trace_qsym_bcc_too_small,		"qsym_bcc_too_small") \
-+	EM(smb_eio_trace_read_bad_offset,               "read_bad_offset") \
- 	EM(smb_eio_trace_read_mid_state_unknown,	"read_mid_state_unknown") \
- 	EM(smb_eio_trace_read_overlarge,		"read_overlarge") \
- 	EM(smb_eio_trace_read_rsp_malformed,		"read_rsp_malformed") \
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
-2.39.5
+Kind regards,
 
+Sakari Ailus
