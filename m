@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE245A5142;
-	Mon, 31 Aug 2026 13:52:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096094749FA;
+	Mon, 31 Aug 2026 13:52:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184338; cv=none; b=kCNA/lb2dQZLJLyEJNg/Pc6O9MJyqjxcR+5Tlq6P6KjrLNuvv50CkO0kUAifMIsZKnU3yeY51y9b13RF3qA5GfT1TM2OAjwbHYPYjbEZODoLML3PFrdfBlNMRjsSanoDdavQHA2d3GxgG1aJtkRnlcutxFYhAO8MHyDqCpK/BiY=
+	t=1788184340; cv=none; b=PWfi+Nav29EJs5q9GFV844LSsb3geu+9nc6g4khMfBM2726eFHn8ymO1N6nJEPbWE852LkrF87p/BLNWtIPB/ARfwJfzoD05rixEDcuRif+gfh/KIEzEDZUTLctMiOiSRn2AO1umhX7tfSQaXK/4qsoaHi524dAmJBYR/OKAeE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184338; c=relaxed/simple;
-	bh=YZIvxUQeoIWU+qk7vGIrjZ88RH6Sh3WqwfQAZmAWMmU=;
+	s=arc-20240116; t=1788184340; c=relaxed/simple;
+	bh=KJK3ycfqUwN1KDk7Ki5klCghE4HY+wFirozkycJ1jTQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YNOsAvZu0Uyd9fBhnFEtqqkc4vLjNoqcavmVHLoX6OPoI7+oAlOvgyw7IQQ99ycsouRrW0dmNSHstzQeSWXSoA50mqpkb70sHz6yP2X9ZpvM2FaibT1lq3IG3JhBF7jLngXNZRY/ZYL4ir7FUkaBQX2JCk4F4u7vKL7gDZaNJ/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jk+9XX0N; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=FGEpGftJ2jOjLuZdqpBcLy3l7kWci1Zz6a32XRCDhfwHXb4yh+0QEXEShzF7+yBAidma6HV79YrbdodGkEzlq8lZlUX1CE8a9PpQV0v61JFqYJWjEEv0Zlnz1BXBH1J3RQ2Gh7y12Tl4iT41dUuYQi0JdsV9ojytzHkzlS43Mgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZE8Mi7A5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jk+9XX0N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 294CD1F00A3F;
-	Mon, 31 Aug 2026 13:52:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZE8Mi7A5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88F651F000E9;
+	Mon, 31 Aug 2026 13:52:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184336;
-	bh=Nhwg4k6YpAqkSMc8ZUEpSURpmfGFhXWr3FMAzIJLWXY=;
+	s=k20260515; t=1788184337;
+	bh=l6e8MCFDdZ45iyK12XDZh0vNZV6G6YO/jnD4tg1Cyk0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jk+9XX0N8WRFSva/EXbaIVa4ynScFuljqQcEZ86iAmryU1fqtRrvKX0a8YAiIItAp
-	 RuIEBK97OweaYczv/dOcxd3Z2DUq7MQAWTa7DcHkgUyD/U79F3lC3A0bcZZugux+Jm
-	 jGlBtmXK1jib3h00z/DeFRoJsS+yXw7Y0dqZIb1pD/bf/9DZjNRrhR+irYI8egl3SM
-	 SeubfYZBh7Z4BOcUiVIoTxejJRDsY2k1Gf9thOJf5JVG3MM/liCg+Om06SEzyxhOM0
-	 BMVsOdApZhXCbEUA5iXYOSMOCElX9OprY7fdBzFKLmtuhmAMuGdr0WNI/0zBidFZDb
-	 7glgMjefORSWg==
+	b=ZE8Mi7A5yg/6WplFYswVtgx7NgZkOyrUEk9jxNraymfyeTyZYxLA34mCYA2k6pTBZ
+	 bElGVpLAZUCM/75XaoVEUmGEJh2+6156p6Q9D+kWeuAzvRdpdvp3565VsdUDSJHNrB
+	 sBkp3aljiURPVEyFj+8Yf32EAalUL05vEvDECWiDhNISI6EqX0ldEy/t4WEWE9mS34
+	 xabs/xqwHUXRViLoaDUApRmUPihUsLNXNENBEnOjV95MWUw0WNkhh7ads92bextwoi
+	 0aodmWhgRfniPmq2AEK9wEBqE0IFr9CUE6Y6LO+SMW7fPMubdJ4o3TmLyzhQcDR/8o
+	 IYsFR9PdUQdEQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Jiri Kosina <jkosina@suse.com>,
-	zdi-disclosures@trendmicro.com,
+Cc: Lukas Wunner <lukas@wunner.de>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Mario Limonciello (AMD)" <superm1@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	jikos@kernel.org,
-	bentiss@kernel.org,
-	linux-input@vger.kernel.org,
+	linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] HID: hidpp: fix potential UAF in hidpp_connect_event()
-Date: Mon, 31 Aug 2026 09:31:01 -0400
-Message-ID: <20260831133314.4125787-633-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] PCI: Stop setting cached power state to 'unknown' on unbind
+Date: Mon, 31 Aug 2026 09:31:02 -0400
+Message-ID: <20260831133314.4125787-634-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -54,17 +53,28 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jiri Kosina <jkosina@suse.com>
+From: Lukas Wunner <lukas@wunner.de>
 
-[ Upstream commit 6df6b1f2c49678211f65647c300bc51dda02893b ]
+[ Upstream commit d462c8e89e84bfb6417e6b4c88e0cb7cc747ba41 ]
 
-If input_register_device() fails, we call input_free_device(), but keep
-stale pointer to the old device in hidpp->input, which could potentially
-lead to UAF. Fix that by resetting it to NULL before returning from
-hidpp_connect_event().
+When a PCI device is unbound from its driver, pci_device_remove() sets the
+cached power state in pci_dev->current_state to PCI_UNKNOWN.  This was
+introduced by commit 2449e06a5696 ("PCI: reset pci device state to unknown
+state for resume") to invalidate the cached power state in case the system
+is subsequently put to sleep.
 
-Reported-by: zdi-disclosures@trendmicro.com
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+For bound devices, the cached power state is set to PCI_UNKNOWN in
+pci_pm_suspend_noirq(), immediately before entering system sleep.
+
+Extend to unbound devices for consistency.
+
+This obviates the need to change the cached power state on unbind, so stop
+doing so.
+
+Signed-off-by: Lukas Wunner <lukas@wunner.de>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Link: https://patch.msgid.link/af7d11d3ceb231acc90829f7a5c8400c2446744f.1776415510.git.lukas@wunner.de
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
@@ -72,376 +82,355 @@ LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit Message Forensics
 
-**Step 1.1 — Subject line**
+### Step 1.1: Subject Line
+**Record:** `[PCI]` `[Stop]` — Stop setting cached power state to
+`PCI_UNKNOWN` on driver unbind; move invalidation to the system-suspend
+path for driverless devices.
 
-Record: **[HID/hidpp] [fix] [potential UAF in hidpp_connect_event() when
-input_register_device() fails]**
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Lukas Wunner `<lukas@wunner.de>` (author)
+- **Signed-off-by:** Bjorn Helgaas `<bhelgaas@google.com>` (PCI
+  maintainer)
+- **Reviewed-by:** Mario Limonciello (AMD) `<superm1@kernel.org>`
+- **Link:** https://patch.msgid.link/af7d11d3ceb231acc90829f7a5c8400c244
+  6744f.1776415510.git.lukas@wunner.de
+- **No** Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org,
+  or syzbot tags
+- Notable: PCI subsystem maintainer sign-off; AMD reviewer found no
+  corner cases
 
-**Step 1.2 — Tags**
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug described:** On driver unbind, `pci_device_remove()` sets
+  `pci_dev->current_state = PCI_UNKNOWN` while hardware may still be in
+  D0. Bound devices only invalidate the cache in
+  `pci_pm_suspend_noirq()` right before sleep. Driverless/unbound
+  devices on the `!pm` suspend path skipped that invalidation.
+- **Symptom/failure mode:** Stale cached power state after
+  suspend/resume can cause `pci_set_power_state(dev, PCI_D0)` to return
+  early (believing the device is already in D0) when hardware is
+  actually in D3 — the same class of failure as bugzilla #6024 fixed by
+  commit 2449e06a5696.
+- **Version info:** References 2449e06a5696 (2006); commit d462c8e89e84
+  landed in mainline April 2026.
+- **Root cause:** PCI_UNKNOWN invalidation was done at unbind time (too
+  early) and was missing from the `!pm` branch of
+  `pci_pm_suspend_noirq()`.
 
-Record:
-- **Fixes:** — not present (expected for manual review)
-- **Reported-by:** zdi-disclosures@trendmicro.com (Trend Micro Zero Day
-  Initiative — security disclosure channel)
-- **Tested-by:** — not present
-- **Reviewed-by:** — not present
-- **Acked-by:** — not present
-- **Link:** — not present
-- **Cc: stable:** — not present (expected)
-- **Signed-off-by:** Jiri Kosina (author); ignore pipeline-added SOBs
-  per instructions
-
-Notable: ZDI disclosure is a strong security-relevant signal.
-
-**Step 1.3 — Body analysis**
-
-Record:
-- **Bug:** On `input_register_device()` failure in
-  `hidpp_connect_event()`, the driver calls `input_free_device()` but
-  leaves a stale pointer in `hidpp->input`.
-- **Symptom:** Potential use-after-free when later code dereferences
-  `hidpp->input`.
-- **Root cause:** `hidpp_populate_input()` sets `hidpp->input = input`
-  before registration; the error path frees the device without clearing
-  the pointer.
-- **Version info:** Not specified in the message.
-
-**Step 1.4 — Hidden bug fix?**
-
-Record: **No — this is an explicit UAF fix**, not disguised cleanup.
+### Step 1.4: Hidden Bug Fix?
+**Record:** Yes. Described as “consistency,” but it closes a real PM
+correctness gap: driverless PCI devices on S2RAM suspend never had their
+cached state invalidated, and prematurely setting UNKNOWN at unbind left
+cache ≠ hardware between unbind and suspend.
 
 ---
 
 ## Phase 2: Diff Analysis
 
-**Step 2.1 — Inventory**
+### Step 2.1: Inventory
+**Record:**
+- **File:** `drivers/pci/pci-driver.c` (+2 / −8 lines)
+- **Functions:** `pci_device_remove()`, `pci_pm_suspend_noirq()`
+- **Scope:** Single-file surgical fix
 
-Record:
-- **Files:** `drivers/hid/hid-logitech-hidpp.c` (+1 line)
-- **Function:** `hidpp_connect_event()`
-- **Scope:** Single-file, single-line surgical fix on an error path
+### Step 2.2: Code Flow Changes
+**Record:**
+- **Hunk 1 (`pci_device_remove`):** Before — set `PCI_UNKNOWN` on unbind
+  if cached state was D0. After — remove that; cached state stays
+  accurate while hardware is still D0.
+- **Hunk 2 (`pci_pm_suspend_noirq`):** Before — `!pm` path
+  (`pci_save_state` then `goto Fixup`) skipped
+  `pci_pm_set_unknown_state()`. After — `goto set_unknown` ensures
+  driverless devices also invalidate cache immediately before sleep,
+  same as bound devices.
 
-**Step 2.2 — Code flow change**
+### Step 2.3: Bug Mechanism
+**Record:** **Logic / correctness fix (PCI PM cache coherency).**
+`pci_set_power_state()` early-returns when `dev->current_state == state`
+(see `__pci_set_power_state()` at line 1545 in `pci.c`). Stale D0 after
+BIOS changes hardware to D3 during suspend prevents powering the device
+back up on driver bind — identical mechanism to bugzilla #6024.
 
-Record:
-- **Before:** On `input_register_device()` failure →
-  `input_free_device(input)` → return, with `hidpp->input` still
-  pointing at freed memory.
-- **After:** On failure → `hidpp->input = NULL` →
-  `input_free_device(input)` → return.
-- **Path affected:** Delayed-init connect work item error path only
-  (devices with `HIDPP_QUIRK_DELAYED_INIT`).
-
-**Step 2.3 — Bug mechanism**
-
-Record: **Category: use-after-free / memory safety**
-- `hidpp_populate_input()` assigns `hidpp->input = input` (line 3810).
-- Failure path frees `input` but does not NULL the stored pointer.
-- Existing `if (!hidpp->input)` guards do not help — the pointer is non-
-  NULL but dangling.
-
-**Step 2.4 — Fix quality**
-
-Record:
-- **Obviously correct:** Yes — standard pattern: clear pointer before
-  freeing referenced object.
-- **Minimal:** One line, no unrelated changes.
-- **Regression risk:** Very low — only affects the failure path;
-  successful registration is unchanged.
+### Step 2.4: Fix Quality
+**Record:** Minimal, obviously correct, mirrors existing bound-device
+behavior. Low regression risk: only moves UNKNOWN invalidation from
+unbind to suspend_noirq; hibernate path (`pci_pm_freeze_noirq`) already
+called `pci_pm_set_unknown_state()` for all devices.
 
 ---
 
 ## Phase 3: Git History Investigation
 
-**Step 3.1 — Blame**
+### Step 3.1: Blame
+**Record:** Unbind-time `PCI_UNKNOWN` logic traces to 2449e06a5696
+(“PCI: reset pci device state to unknown state for resume”, 2006). That
+commit is present in this tree. `pci_pm_set_unknown_state()` exists at
+line 606 in current `pci-driver.c`.
 
-Record:
-- Delayed-init block in `hidpp_connect_event()`: `c39e3d5fc9dd` (2014,
-  Benjamin Tissoires).
-- `hidpp_populate_input()` before register: `e54abaf675ca76` (2019, Hans
-  de Goede).
-- `hidpp->input = input` in `hidpp_populate_input()`: `0610430e3dea`
-  (2019).
-- Error-path `return` without NULLing: `98d67f250472cd` (2022) fixed
-  `delayed_input` assignment but missed `hidpp->input`.
-- **Bug present since ~2019** when populate-before-register was
-  introduced.
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag. Referenced commit 2449e06a5696 is in
+this tree and introduced the unbind-time behavior this patch refines.
 
-**Step 3.2 — Fixes: tag**
+### Step 3.3: Related Changes
+**Record:** Related recent fix: 382895a288515 “PCI/PM: Reinstate
+clearing state_saved in legacy and !PM codepaths” (already in 6.18.43).
+No patch-series dependency; standalone 1/1 commit (d462c8e89e84).
 
-Record: **N/A** — no Fixes: tag in commit message.
+### Step 3.4: Author Context
+**Record:** Lukas Wunner is a regular PCI/PM contributor. Bjorn Helgaas
+(PCI maintainer) applied and signed off. No other related commits from
+this author in the immediate `pci-driver.c` history of this tree.
 
-**Step 3.3 — Related file history**
-
-Record:
-- Recent related fix in this tree: `b846fb0a73e99` — separate G920
-  force-feedback UAF fix (already backported).
-- `680ee411a98e8` — connect event race fix (2023).
-- **Standalone fix** — not part of a multi-patch series.
-
-**Step 3.4 — Author context**
-
-Record: Jiri Kosina is the HID subsystem maintainer. Upstream commit:
-`6df6b1f2c4967`; stable-format commit: `67eae1a739c6d`.
-
-**Step 3.5 — Dependencies**
-
-Record: **None.** Self-contained one-liner; no prerequisite commits
-required.
+### Step 3.5: Dependencies
+**Record:** No prerequisites. Requires only existing
+`pci_pm_set_unknown_state()` and `pci_pm_suspend_noirq()` `!pm` path —
+all present in Linux 6.18.43. Patch applies cleanly (`git apply --check`
+passed).
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
-**Step 4.1 — Original discussion**
+### Step 4.1: Original Discussion
+**Record:** b4 dig found thread at https://patch.msgid.link/af7d11d3ceb2
+31acc90829f7a5c8400c2446744f.1776415510.git.lukas@wunner.de. Single v1
+patch; Bjorn applied to `pci/pm`; Mario Limonciello Reviewed-by with no
+corner cases found. No stable nomination or NAKs.
 
-Record:
-- `b4 dig -c 6df6b1f2c4967`: https://patch.msgid.link/r7qq6043-p432-
-  51o0-3s93-r9382q44n027@xreary.bet
-- Single v1 submission (2026-06-12); no follow-up revisions found.
-- Lore fetch blocked by Anubis bot protection — **could not read thread
-  replies**.
+### Step 4.2: Reviewers
+**Record:** b4 dig -w: To/Cc included Bjorn Helgaas, Rafael Wysocki,
+Mario Limonciello, Alex Williamson, linux-pci@vger.kernel.org.
 
-**Step 4.2 — Reviewers (b4 dig -w)**
+### Step 4.3: Bug Reports
+**Record:** No new bug report. Commit references historical bugzilla
+#6024 class via 2449e06a5696. No syzbot link.
 
-Record: CC'd to Jiri Kosina, Benjamin Tissoires (HID maintainer), linux-
-kernel, linux-input.
+### Step 4.4: Series Context
+**Record:** Standalone patch, not part of a multi-patch series.
 
-**Step 4.3 — Bug report**
-
-Record: **Reported-by: zdi-disclosures@trendmicro.com** — ZDI security
-disclosure. No public syzbot/bugzilla link. ZDI typically reports
-exploitable or high-severity kernel issues. Full ZDI advisory not
-verified (no Link: tag).
-
-**Step 4.4 — Related patches**
-
-Record: **Standalone** — v1 only, no series dependencies.
-
-**Step 4.5 — Stable list discussion**
-
-Record: **Not searched** (no stable-specific thread found via b4). Not a
-negative signal.
+### Step 4.5: Stable List History
+**Record:** lore.kernel.org blocked by bot protection; no stable-list
+discussion found via b4 mbox thread.
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
-**Step 5.1 — Key functions**
+### Step 5.1: Key Functions
+**Record:** `pci_device_remove()`, `pci_pm_suspend_noirq()`,
+`pci_pm_set_unknown_state()`, `pci_set_power_state()` /
+`__pci_set_power_state()`.
 
-Record: `hidpp_connect_event()`, `hidpp_populate_input()`,
-`hidpp_allocate_input()`, `hidpp_raw_event()`, `m560_raw_event()`,
-`wtp_raw_event()`
+### Step 5.2: Callers
+**Record:** `pci_device_remove` — PCI bus `.remove` callback (sysfs
+unbind, module unload). `pci_pm_suspend_noirq` — PCI bus
+`.suspend_noirq` for every PCI device during system suspend.
 
-**Step 5.2 — Callers**
+### Step 5.3: Callees
+**Record:** `pci_save_state()`, `pci_pm_set_unknown_state()`,
+`pci_fixup_device()`, `pci_prepare_to_sleep()` (bound path only).
 
-Record:
-- `hidpp_connect_event()` — scheduled from `hidpp_raw_hidpp_event()` on
-  connect events; also from `hidpp_probe()` via `schedule_work()` +
-  `flush_work()`.
-- `hidpp->input` used from raw event handlers (`m560_raw_event`,
-  `wtp_raw_event`, wheel/button handlers, scroll counter).
+### Step 5.4: Reachability
+**Record:** Any PCI device without a bound driver (or driver without PM
+ops) going through system suspend hits the `!pm` path. Users can trigger
+via S3/S2RAM; driver bind after resume via `modprobe` or sysfs is
+common. Reachable without privileges for suspend; driver bind typically
+requires root.
 
-**Step 5.3 — Callees**
-
-Record: `hidpp_allocate_input()` → `devm_input_allocate_device()`;
-`hidpp_populate_input()` → sets `hidpp->input`;
-`input_register_device()` / `input_free_device()` on failure.
-
-**Step 5.4 — Reachability**
-
-Record:
-- Affects devices with `HIDPP_QUIRK_DELAYED_INIT`: wireless touchpads
-  (0x4011, 0x4101, T651) and M560 mouse (0x402d).
-- Trigger: `input_register_device()` fails during delayed connect (e.g.
-  memory pressure).
-- After failure, device stays bound and continues receiving HID reports
-  → `hidpp_raw_event()` → class-specific handlers use dangling
-  `hidpp->input`.
-- **Userspace-reachable** via device plug/connect; no special privileges
-  needed to connect a HID device.
-
-**Step 5.5 — Similar patterns**
-
-Record: `b846fb0a73e99` fixed a different UAF in the same driver (G920
-FF init). Same driver, same class of bug.
+### Step 5.5: Similar Patterns
+**Record:** `pci_pm_freeze_noirq()` already calls
+`pci_pm_set_unknown_state()` unconditionally (line 1098). Suspend path
+was inconsistent for driverless devices.
 
 ---
 
 ## Phase 6: Cross-Reference Against Local Tree
 
-**Step 6.1 — Buggy code in tree?**
+### Step 6.1: Buggy Code Present?
+**Record:** **Yes.** Tree is **Linux 6.18.43** (`git describe HEAD` →
+v6.18.43). Buggy code confirmed at lines 497–498 (unbind UNKNOWN) and
+line 874 (`goto Fixup` skipping `pci_pm_set_unknown_state` for `!pm`).
 
-Record: **YES.** Local tree is **6.18.44** (`git describe`:
-`v6.18.44-1-g2736c32da98b9`). At lines 4279–4284:
+### Step 6.2: Backport Complications
+**Record:** Patch applies cleanly with no modifications. No significant
+refactoring conflicts in this area of 6.18.43.
 
-```4279:4287:drivers/hid/hid-logitech-hidpp.c
-        hidpp_populate_input(hidpp, input);
-
-        ret = input_register_device(input);
-        if (ret) {
-                input_free_device(input);
-                return;
-        }
-
-        hidpp->delayed_input = input;
-```
-
-Missing `hidpp->input = NULL`. Upstream fix `6df6b1f2c4967` is **not**
-an ancestor of HEAD.
-
-**Step 6.2 — Backport complications**
-
-Record: **`git apply --check` passes cleanly** — no conflicts expected.
-
-**Step 6.3 — Related fixes already present?**
-
-Record: G920 FF UAF fix (`b846fb0a73e99`) is present. **This specific
-`hidpp_connect_event()` UAF fix is not.**
+### Step 6.3: Related Fixes Already Present?
+**Record:** No equivalent fix in this tree. Commit d462c8e89e84 is not
+in 6.18.43.
 
 ---
 
 ## Phase 7: Subsystem Context
 
-**Step 7.1 — Subsystem**
+### Step 7.1: Subsystem / Criticality
+**Record:** **drivers/pci** — CORE subsystem. PCI PM affects virtually
+all systems.
 
-Record: **drivers/hid** (Logitech HID++ driver). Criticality:
-**IMPORTANT** — common consumer peripherals (mice, touchpads).
-
-**Step 7.2 — Activity**
-
-Record: Actively maintained; multiple recent fixes in `hid-logitech-
-hidpp.c`.
+### Step 7.2: Activity
+**Record:** Actively maintained; recent PM fix 382895a288515 already
+backported to this tree.
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
-**Step 8.1 — Who is affected**
+### Step 8.1: Who Is Affected
+**Record:** Systems with PCI devices that are driverless at suspend time
+(never probed, intentionally unbound, or drivers without PM ops) that
+later get a driver bound after resume.
 
-Record: Users of Logitech HID++ devices with delayed input registration
-— wireless touchpads (T650/T651/4011) and M560 mouse on Unifying
-receivers.
+### Step 8.2: Trigger Conditions
+**Record:** System suspend (S2RAM) → resume → driver bind. Uncommon but
+realistic for manual sysfs bind/unbind workflows and devices without in-
+tree drivers. Not security-relevant; requires suspend cycle.
 
-**Step 8.2 — Trigger conditions**
+### Step 8.3: Failure Mode Severity
+**Record:** Device fails to power up / probe after resume (stale D0
+cache). **Severity: MEDIUM-HIGH** for affected users (hardware non-
+functional), but not a kernel crash, deadlock, or data corruption.
 
-Record:
-- Device connects with `HIDPP_QUIRK_DELAYED_INIT`.
-- `input_register_device()` fails (uncommon but possible under resource
-  pressure).
-- Device continues operating at the HID layer; subsequent input events
-  hit stale `hidpp->input`.
-- **Unprivileged users** can trigger by connecting affected hardware.
-
-**Step 8.3 — Failure mode**
-
-Record: **Use-after-free** on `struct input_dev` via `input_report_*()`
-/ `input_event()` / `input_sync()`. Severity: **HIGH** (kernel memory
-corruption; potential security impact given ZDI disclosure).
-
-**Step 8.4 — Risk vs benefit**
-
-Record:
-- **Benefit:** HIGH — prevents UAF on a reachable path for common
-  hardware.
-- **Risk:** VERY LOW — one-line NULL assignment on error path only.
-- **Ratio:** Strongly favors backport.
+### Step 8.4: Risk-Benefit
+**Record:** **Benefit:** MEDIUM — fixes latent PM bug for driverless
+devices; improves cache accuracy between unbind and suspend. **Risk:**
+VERY LOW — 10-line change, maintainer-reviewed, net deletion of code.
+**Ratio:** Favorable.
 
 ---
 
 ## Phase 9: Final Synthesis
 
-**Step 9.1 — Evidence summary**
+### Step 9.1: Evidence Summary
 
-**FOR:**
-- Real UAF with clear mechanism (stale pointer after free).
-- ZDI security disclosure.
-- Small, obviously correct fix.
-- Buggy code confirmed in 6.18.44 tree.
-- Patch applies cleanly.
-- Affects common Logitech peripherals.
-- HID maintainer-authored fix.
+**FOR backport:**
+- Fixes real PCI PM cache bug for driverless devices on S2RAM suspend
+  (same failure class as bugzilla #6024)
+- Stops incorrect premature UNKNOWN at unbind while hardware is still D0
+- Tiny, surgical, PCI maintainer + AMD reviewed
+- Applies cleanly to 6.18.43
+- Aligns suspend path with existing hibernate path behavior
 
-**AGAINST:**
-- `input_register_device()` failure is uncommon.
-- No public crash reproducer verified in this analysis.
-- Lore thread content unverified (bot protection).
+**AGAINST backport:**
+- No explicit user bug report or syzbot hit
+- Failure is device malfunction, not kernel oops/panic
+- Described primarily as “consistency” in commit message
+- No stable nomination in review thread
 
-**UNRESOLVED:**
-- Full ZDI advisory details and exploitability assessment not retrieved.
-- No reviewer Ack/Tested-by in commit message.
+**Unresolved:** None material to the decision.
 
-**Step 9.2 — Stable rules checklist**
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — minimal diff, maintainer-
+   reviewed, corner-case review done
+2. Fixes a real bug affecting users? **PASS** — stale power-state cache
+   prevents device power-up after suspend+bind
+3. Important issue? **PASS (moderate)** — device non-functionality after
+   suspend, same class as historical PCI PM bug
+4. Small and contained? **PASS** — 1 file, 10 lines
+5. No new features or APIs? **PASS**
+6. Can apply to local tree? **PASS** — verified clean apply
 
-1. Obviously correct and tested? **PASS** (logic is trivial; no Tested-
-   by)
-2. Fixes a real bug? **PASS**
-3. Important issue? **PASS** — UAF / potential security (ZDI)
-4. Small and contained? **PASS** — 1 line, 1 file
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — verified with `git apply --check`
+### Step 9.3: Exception Categories
+**Record:** None (not a quirk, device ID, DT, or build fix).
 
-**Step 9.3 — Exception category**
+### Step 9.4: Problem Summary for Stable Users
 
-Record: **N/A** — standard bug fix, not a quirk/ID/DT exception.
+This commit fixes a gap in PCI core suspend handling: devices without a
+driver (or without PM callbacks) never had their cached power state
+invalidated before sleep, while bound devices did. After suspend/resume,
+if the BIOS changes the hardware power state, the kernel can believe the
+device is still in D0 and skip the transition back to D0 when a driver
+is later bound — leaving hardware dead. The patch also stops marking the
+cache as UNKNOWN at unbind time when hardware is still in D0, deferring
+invalidation to `pci_pm_suspend_noirq()` where bound devices already do
+it.
 
-**Step 9.4 — Decision rationale**
-
-For the **6.18.44** tree checked out here, the buggy code exists and the
-fix is absent. The commit closes a real UAF on an error path where
-`hidpp->input` becomes a dangling pointer. Existing NULL checks do not
-protect against this. The fix is minimal, maintainer-authored, security-
-disclosed, and applies cleanly. This meets all stable kernel criteria.
+For Linux 6.18.43, the buggy code is present, prerequisites exist, and
+the patch applies cleanly with very low risk.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit `6df6b1f2c4967`: subject, body, Reported-by
-  ZDI
-- [Phase 2] Read diff: +1 line `hidpp->input = NULL` in error path
-- [Phase 2] Read `hidpp_populate_input()`: sets `hidpp->input = input`
-  at line 3810
-- [Phase 3] `git blame` on lines 4269–4287: bug path dates to 2014–2019
-  code
-- [Phase 3] `git log -1 -S "hidpp->input = input"`: introduced in
-  `0610430e3dea` (2019)
-- [Phase 3] `git show 98d67f250472cd`: fixed `delayed_input` on failure,
-  missed `hidpp->input`
-- [Phase 3] `git merge-base --is-ancestor 6df6b1f2c4967 HEAD`: exit 1 —
-  fix NOT in tree
-- [Phase 4] `b4 dig -c 6df6b1f2c4967`: lore URL found
-- [Phase 4] `b4 dig -w`: CC to HID maintainers
-- [Phase 4] `b4 dig -a`: v1 only
-- [Phase 4] UNVERIFIED: Lore thread replies (Anubis blocked fetch)
-- [Phase 5] Grep `hidpp->input`: multiple uses in raw event paths; NULL
-  checks insufficient for dangling pointer
-- [Phase 5] Read `hidpp_raw_event()`: dispatches to `wtp_raw_event` /
-  `m560_raw_event` for affected quirks
-- [Phase 5] Grep `HIDPP_QUIRK_DELAYED_INIT`: touchpads + M560 mouse
-- [Phase 6] `git describe HEAD`: v6.18.44-1-g2736c32da98b9 / kernel
-  6.18.44
-- [Phase 6] Read lines 4279–4287: buggy code present
-- [Phase 6] `git apply --check` on upstream patch: applies cleanly
-- [Phase 8] ZDI Reported-by: security-relevant disclosure channel
+- [Phase 1] Parsed subject, tags, body from provided commit message and
+  kernel.org (d462c8e89e84)
+- [Phase 1] Confirmed no Reported-by/syzbot/Fixes:/Cc: stable tags
+- [Phase 2] Diff analysis: 2 insertions, 8 deletions in `pci-driver.c`;
+  two functions modified
+- [Phase 2] Read `__pci_set_power_state()` early-return at line 1545 in
+  `pci.c`
+- [Phase 3] `git describe HEAD` → v6.18.43; Makefile VERSION 6.18.43
+- [Phase 3] `git show 2449e06a5696` — original unbind UNKNOWN logic and
+  bugzilla #6024 context
+- [Phase 3] `git blame` lines 493–498 — unbind UNKNOWN code present
+- [Phase 3] Confirmed `pci_pm_set_unknown_state()` at line 606 in local
+  tree
+- [Phase 4] `b4 dig -c d462c8e89e84` — found lore thread URL
+- [Phase 4] `b4 dig -w` — reviewers/maintainers CC'd
+- [Phase 4] Downloaded mbox: Bjorn applied, Mario Reviewed-by, no stable
+  nomination
+- [Phase 4] lore.kernel.org direct fetch blocked (403/bot protection)
+- [Phase 5] Traced `pci_pm_suspend_noirq` `!pm` → `goto Fixup` at line
+  874 (buggy)
+- [Phase 5] Confirmed `pci_pm_freeze_noirq` already sets UNKNOWN at line
+  1098
+- [Phase 6] Buggy code at lines 497–498 and 874 confirmed in 6.18.43
+- [Phase 6] `git apply --check` on upstream patch — applies cleanly
+- [Phase 6] Commit d462c8e89e84 not in 6.18.43 tree
+- [Phase 8] Failure mode: stale D0 → device won't power up on driver
+  bind; severity MEDIUM-HIGH for affected cases
 
-**YES**
+**YES**The background searches finished and line up with the earlier
+analysis:
 
- drivers/hid/hid-logitech-hidpp.c | 1 +
- 1 file changed, 1 insertion(+)
+- **Local tree (6.18.43):** The fix is **not** present. The buggy paths
+  are still there — `PCI_UNKNOWN` is set on unbind, and the `!pm` branch
+  in `pci_pm_suspend_noirq()` still skips `pci_pm_set_unknown_state()`.
+- **Mainline (kernel.org):** The commit is **d462c8e89e84** (“PCI: Stop
+  setting cached power state to 'unknown' on unbind”), merged April 27,
+  2026 via the `pci/pm` branch.
 
-diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index 4ba652ae54765..83d625f361f49 100644
---- a/drivers/hid/hid-logitech-hidpp.c
-+++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -4280,6 +4280,7 @@ static void hidpp_connect_event(struct work_struct *work)
+That confirms the patch is a valid backport candidate for this tree and
+applies cleanly. **Verdict remains YES.**
+
+ drivers/pci/pci-driver.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
+index f9ead94d5ebb6..1219f39b1c69b 100644
+--- a/drivers/pci/pci-driver.c
++++ b/drivers/pci/pci-driver.c
+@@ -490,13 +490,6 @@ static void pci_device_remove(struct device *dev)
+ 	/* Undo the runtime PM settings in local_pci_probe() */
+ 	pm_runtime_put_sync(dev);
  
- 	ret = input_register_device(input);
- 	if (ret) {
-+		hidpp->input = NULL;
- 		input_free_device(input);
- 		return;
+-	/*
+-	 * If the device is still on, set the power state as "unknown",
+-	 * since it might change by the next time we load the driver.
+-	 */
+-	if (pci_dev->current_state == PCI_D0)
+-		pci_dev->current_state = PCI_UNKNOWN;
+-
+ 	/*
+ 	 * We would love to complain here if pci_dev->is_enabled is set, that
+ 	 * the driver should have called pci_disable_device(), but the
+@@ -871,7 +864,7 @@ static int pci_pm_suspend_noirq(struct device *dev)
+ 
+ 	if (!pm) {
+ 		pci_save_state(pci_dev);
+-		goto Fixup;
++		goto set_unknown;
  	}
+ 
+ 	if (pm->suspend_noirq) {
+@@ -923,6 +916,7 @@ static int pci_pm_suspend_noirq(struct device *dev)
+ 		goto Fixup;
+ 	}
+ 
++set_unknown:
+ 	pci_pm_set_unknown_state(pci_dev);
+ 
+ 	/*
 -- 
 2.53.0
 
