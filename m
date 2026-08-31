@@ -1,144 +1,133 @@
-Received: from prime.voidband.net (prime.voidband.net [199.247.17.104])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100AD2F747A;
-	Mon, 31 Aug 2026 13:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.247.17.104
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181298; cv=none; b=Q239KZXOGq+DqFaVSJ/4HIKJXQW8hLkrBcko22vGNqwKSQ5V4i/aAjCMoxLiIPzUBSvrmKGk1fWXRErdR1fNCzs2rKX4Zouo/gJYkIxCNhE+WxUztzAt9FtJga1tSXdUyXp+pmvwuswEc6XRc83U97uzRh6BucilzBerUzOSKHs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181298; c=relaxed/simple;
-	bh=6Br8hzMSTA1lJTk1xRXZt5M8m6mB2XpRmP5DwPhh25Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oLWO2v1NJOwHMFIf6mYIMqet9qj67q4CeB2kHA+xs2cOJl+jV4/PfLjrCOAoZAwgxSiGsgky6wy+urGwJsvFFcIyKc4PALkQlyEZnZ3n1n5xpI+xx/piDGSw+FvqDrKmYcbXyCKvm+8rkr6/fgnD+DyJM85RDKf/secnMxItOAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=natalenko.name; spf=pass smtp.mailfrom=natalenko.name; dkim=pass (1024-bit key) header.d=natalenko.name header.i=@natalenko.name header.b=tq3UD49r; arc=none smtp.client-ip=199.247.17.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=natalenko.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=natalenko.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C7B2F8E8F;
+	Mon, 31 Aug 2026 13:01:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788181311; cv=pass; b=heNCxjbJ57FRzemfArmKkCVByj12B5gz6Vh7N18U46tuXugu1KvUXNlhait8XqyrZElLE80jocEvdJtVNkpvpQABw6HHIRkAlkAiZ8adT9ji2xITEA8fbgLblCyFpShbxw6ahNC41WiNtL9mI+WESlZs474mCKDs2IaQ6HLr3Nw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788181311; c=relaxed/simple;
+	bh=sHBexSQ4uDOsbNPAj0VKPBr/Zf7xOkTCorvaMnBp3pA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=T4RJcUAqRci6T/rqfVtvrcZXtbgQtsOb80JDyai8wXr0PVcD6SYNTvKKem6T4TgrLmiBCePC/RQ0ep5UMvdR9t1ZX0pPsLBHnu/KV0sPvNb1gYg2mHaPrQC0Bc3YpXpKKyFUMUAMVlvVy6TPUmKP44RI2OFsgSeFs3r9ay7NDi0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=j2ex/EGP; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=UpKQF25b; arc=pass smtp.client-ip=85.215.255.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=natalenko.name header.i=@natalenko.name header.b="tq3UD49r"
-Received: from spock.localnet (unknown [212.20.115.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by prime.voidband.net (Postfix) with ESMTPSA id 8FAEF635B040;
-	Mon, 31 Aug 2026 15:01:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=natalenko.name;
-	s=dkim-20170712; t=1788181288;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PA1cS1FfafxMWazdG6J5KfTxyGBl8DLna3cwR6X5eUA=;
-	b=tq3UD49raDLzZCgHRkxYACITtHW/0o8zlGA6YJmtel07XwqHEHukrwgVrI0HDwf+sG3PTx
-	OnD+KeOM3NZGtfkMtiPlL8ERkNf1/pHQ7j6Rp00UxEDj9fjTSLK7HMpolAVmGhx3T92iZA
-	z6Us8mrL6X5BvpDkWNCZIel9rCO8fqQ=
-From: Oleksandr Natalenko <oleksandr@natalenko.name>
-To: linux-kernel@vger.kernel.org
-Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- Hans de Goede <hansg@kernel.org>,
- Ilpo =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
- Pedro Falcato <pfalcato@suse.de>, Sanket Goswami <Sanket.Goswami@amd.com>,
- platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH] platform/x86/amd/pmf: fix build on !CONFIG_AMD_PMF_DEBUG
-Date: Mon, 31 Aug 2026 15:01:10 +0200
-Message-ID: <eyfjqxPuTjOJWaKP7sJSbw@natalenko.name>
-In-Reply-To: <20260831114346.2041361-1-pfalcato@suse.de>
-References: <20260831114346.2041361-1-pfalcato@suse.de>
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="j2ex/EGP";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="UpKQF25b"
+ARC-Seal: i=1; a=rsa-sha256; t=1788181298; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=ALGTti9KxykSWzFJRCzdBpRMcBm+Q5U6z3q4LLXqc/vrDLPiCyaCRaW4DbokbeVqBt
+    0U1HpUlA6l2kR9MbVFKuggSbYTwyuLIOiHoe130fIhTD/2jxHiEQaucF70ZKnKRldFAL
+    Zn8D4eSyysM6IOjb0guMGLWhetLtbGd0j5jRlGUR2fZRPc/2wIIL3yF8JSw8AQXyU9KV
+    jVQmF0pMrNxl2RHdzLirpKFrPVkiLlaOlHIOq9arucAg+9tn4NrJcgkB2dV5utTDTIfR
+    0PzcULTmqnKm7FL619JasycxK5A3CgrSkzw1QDTuRe1pgnpX1AR8jVtsKzJ509ivt/qn
+    rCUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1788181298;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=/oDoPiLP0MWOOPKiSVzIL8l7Vm0Qb4HJZfvT0e7GXIo=;
+    b=MsoG2wdi696Xr+LOiRmw9LOvGs2cBqN9K04RlClGyJgZW+dpwXmcyL+X83QJ838PHS
+    2cTVGncXG5OsUjZH03vgjdxi0kD0k0AS2q2K2Gtvm2EnJtcHv8E7MWqv2F0vhEpotusY
+    UOJzxQBb2hK4VuACKzZc16u5tyT0Pwk1upLrZ2EXOcIetb04A1hp4vpUdvdqsAT7KkP+
+    Ya+c/2Tywm+KkqdLnUrWexanqVvly/dxAy8Gf18oJxFYZem4ue6JweN004KaB1A6h4Jg
+    BbVcn9vW6WiMCHwzXu/OI+Wm4N3zaCShgtdN8j9wKtrczZ4TyelsWDbxNBekT/HlXXO/
+    4S8A==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1788181298;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=/oDoPiLP0MWOOPKiSVzIL8l7Vm0Qb4HJZfvT0e7GXIo=;
+    b=j2ex/EGPEGG+ccC9DqiOuhVuxb11X9X0aqheP8Z51B5lon4RSR497r6cZ+ZMwf5HM8
+    vgC9wj4+lsBre6nhrf5grmwSM11/393H17pjHB6tKmo7djtGlx49WsfnIOPA7T8VWuR9
+    morYL7S3jGczEFtaVHCGTIrHr6MgGdBDffPVarEEfZblJ2TLl94hNFgV0KLpVWbZWUu4
+    OA1w4TLy1LVUZgJ3NQLcJjz03yvjJWnhmaaKQofU56rlo1fTG2SZFfAnqnM6BpaLYR+O
+    HXMyeL9X8DT54ZE8QSwgNYjw2lKWQUYKVRd+WY0LpYHjdFqjLamovAkhX7s+95bq8vEZ
+    lmXg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1788181298;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=/oDoPiLP0MWOOPKiSVzIL8l7Vm0Qb4HJZfvT0e7GXIo=;
+    b=UpKQF25bzwXbjTHPScPYlHY9bdEFuuzLUkSepaIiizB++tQtSJGLfE+USf+LV70u/T
+    CyLYlzgObSmRq+aiGpCA==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSfNuhhDSDt3O2J2YOom0XQaPis+nU/xK"
+Received: from Munilab01-lab.micron.com
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id ze37e127VD1bkHi
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Mon, 31 Aug 2026 15:01:37 +0200 (CEST)
+From: Bean Huo <beanhuo@iokpp.de>
+To: MyungJoo Ham <myungjoo.ham@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Jie Zhan <zhanjie9@hisilicon.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-pm@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bean Huo <beanhuo@iokpp.de>
+Subject: [PATCH 0/3] devfreq: check the get_cur_freq() return value and use it in ufshcd
+Date: Mon, 31 Aug 2026 15:01:26 +0200
+Message-Id: <20260831130129.3979454-1-beanhuo@iokpp.de>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartsw2MwA-XS16apVyHs8V1Vw";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
-x-ms-reactions: disallow
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
---nextPartsw2MwA-XS16apVyHs8V1Vw
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Oleksandr Natalenko <oleksandr@natalenko.name>
-To: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] platform/x86/amd/pmf: fix build on !CONFIG_AMD_PMF_DEBUG
-Date: Mon, 31 Aug 2026 15:01:10 +0200
-Message-ID: <eyfjqxPuTjOJWaKP7sJSbw@natalenko.name>
-In-Reply-To: <20260831114346.2041361-1-pfalcato@suse.de>
-References: <20260831114346.2041361-1-pfalcato@suse.de>
-MIME-Version: 1.0
+The devfreq core has three users of the optional ->get_cur_freq()
+callback. Two of them check the return value, the third one does not and
+passes an uninitialized frequency to the transition notifiers when the
+callback fails. Patch 1 fixes this.
 
-Hello.
+Patch 3 adds the callback to ufshcd. Without it the cur_freq attribute
+shows the last frequency the governor selected, which is wrong whenever
+the controller is scaled outside the governor, for example after writing
+0 to clkscale_enable.
 
-On pond=C4=9Bl=C3=AD 31. srpna 2026 13:43:46, st=C5=99edoevropsk=C3=BD letn=
-=C3=AD =C4=8Das Pedro Falcato wrote:
-> amd_pmf_get_ta_custom_bios_inputs() is used by non-debug features.
->=20
-> Fix the build on !CONFIG_AMD_PMF_DEBUG by moving
-> amd_pmf_get_ta_custom_bios_inputs() outside the ifdef CONFIG_AMD_PMF_DEBU=
-G.
->=20
-> Fixes: 5bda82c797c9 ("platform/x86/amd/pmf: Implement util layer ioctl ha=
-ndler")
-> Reported-by: Oleksandr Natalenko <oleksandr@natalenko.name>
-> Link: https://lore.kernel.org/all/fS7s9V_xTaedaqEAaxwKnQ@natalenko.name/
-> Signed-off-by: Pedro Falcato <pfalcato@suse.de>
-> ---
->  drivers/platform/x86/amd/pmf/spc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/platform/x86/amd/pmf/spc.c b/drivers/platform/x86/am=
-d/pmf/spc.c
-> index 94355b435a66..592ba4de4c7f 100644
-> --- a/drivers/platform/x86/amd/pmf/spc.c
-> +++ b/drivers/platform/x86/amd/pmf/spc.c
-> @@ -17,7 +17,6 @@
->  #include <linux/units.h>
->  #include "pmf.h"
-> =20
-> -#ifdef CONFIG_AMD_PMF_DEBUG
->  u32 amd_pmf_get_ta_custom_bios_inputs(struct ta_pmf_enact_table *in, int=
- index)
->  {
->  	switch (index) {
-> @@ -31,6 +30,7 @@ u32 amd_pmf_get_ta_custom_bios_inputs(struct ta_pmf_ena=
-ct_table *in, int index)
->  }
->  EXPORT_SYMBOL(amd_pmf_get_ta_custom_bios_inputs);
-> =20
-> +#ifdef CONFIG_AMD_PMF_DEBUG
->  void amd_pmf_dump_ta_inputs(struct amd_pmf_dev *dev, struct ta_pmf_enact=
-_table *in)
->  {
->  	int i;
->=20
+The patches touch two subsystems. Patches 1 and 2 are for the devfreq
+tree and patch 3 is for the SCSI tree. They do not depend on each other
+at build time and can be applied separately. Patch 3 only needs patch 1
+for the error case described above, which requires OPPs and happens
+before the controller is scaled for the first time.
 
-This fixes it for me, thank you.
+Tested on a Radxa Dragon Q6A with UFS 3.1, with patch 3 applied:
 
-Tested-by: Oleksandr Natalenko <oleksandr@natalenko.name>
+  before "echo 0 > clkscale_enable":  cur_freq 75000000, target_freq 75000000
+  after  "echo 0 > clkscale_enable":  cur_freq 300000000, target_freq 75000000
 
-=2D-=20
-Oleksandr Natalenko, MSE
---nextPartsw2MwA-XS16apVyHs8V1Vw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
+Before patch 3 both files report 75000000 and keep doing so for as long
+as clock scaling stays disabled.
 
------BEGIN PGP SIGNATURE-----
+Clock scaling itself still works. A 4 GiB direct read moved the controller to
+300000000 and back, and trans_stat recorded it.
 
-iQIzBAABCgAdFiEEZUOOw5ESFLHZZtOKil/iNcg8M0sFAmqVexYACgkQil/iNcg8
-M0tp/Q/8CJAnsrT2K6FMWR+Wgsj80NaVyR7At2WnvZeMT84WtY46XeTdyaOdv2CD
-yGrZFoy5/9Jd3Wns/y34cffX29/d/vTcqInYzxYMtnDTQZs2lW2lRe0ZfXDtHj2W
-aOhILoRROYfIw8eSyF8zR6CkVg/Z0Ru3/CzGd1kHsNBsdeHk56W8med+ISltyrzt
-HF85IsTLh20fr3I9SA0x1NdW/VCS/qtMtOYuRlPDk2pGx/Rrw19mH6DM6RyvlZts
-UAoM/p2rPlKXiFqWX3khvkLq0sMKh7c565W1uVOHLzNt2UzV6krJ3r6VStAebWZ4
-lJes+86UIt9ShhO7ajjtZf8GqDEhpSH37LZtU7OT1on39PryVbMGm5LaP9NbhOnU
-Y98x3CEk1HR9RbnHW3h1gXjlZu6L861q9iTh4Q+xljanqr4xn+5hOmkDE4+v5NGT
-YVPIwRgN5lffzTFwOGbzzLv2ssVHqQ3P6DVw8tFS7E+VgWpFJCIehtxyKT2qm03e
-sN0Ypq9F6Y/3Bkd63weMiiohp0AvQUlPlTgNZZUpiWtUF7+Zven24g2nhcDxwbyD
-dVtEupgSarlMRRXHDPmdkozW9gxCWVwzMyHibdYGh/lwBSID8kWSModInLalvHbB
-G9mwjYgeF/b4+tCIr9rGoomKPzxYO/wsdsw06IrkGxnTpmprcKk=
-=7IXP
------END PGP SIGNATURE-----
+Bean Huo (3):
+  PM / devfreq: Fall back to previous_freq when get_cur_freq() fails
+  PM / devfreq: Add more details to the get_cur_freq() comment
+  scsi: ufs: core: Report the current clock frequency to devfreq
 
---nextPartsw2MwA-XS16apVyHs8V1Vw--
+ drivers/devfreq/devfreq.c |  5 ++---
+ drivers/ufs/core/ufshcd.c | 32 ++++++++++++++++++++++++++++++++
+ include/linux/devfreq.h   |  7 +++++--
+ 3 files changed, 39 insertions(+), 5 deletions(-)
 
 
+base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
+-- 
+2.34.1
 
