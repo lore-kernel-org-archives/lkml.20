@@ -1,28 +1,29 @@
 Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AD0FD3537EE
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:30:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F1483DA5AB
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:30:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.136.161.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788175825; cv=none; b=EqGaQEnuI3x1WucHWxGQ45stlSdsT1kK6TbGbcr/HM9H7qcO28Jk5tgVBsEea+oYUV0mFobcWyYO0HaYACULUtlfgn57lmRv6lIgpmSd7lJOefeHmXQhmAIugAvPw37ffuTnWBiVwMnb8BG7U6zFtexBwriwWDUzcmby1h6twVc=
+	t=1788175827; cv=none; b=EwZcJDcIQtYE1MO8Q6EY3Y8BC6ZnE5RgWWqFEVSKgMhVN6uSKsv6jMmULRSQG5phFTwvV8vSilZ/1gskYVWizPCfXRM6MDt+S/VFSKtRSTXQgdNBPU4m71eHIxBPXv8ZhmYL45eWqdGWGio9I10VU8iyuuRO8vgcUi9NewsLgEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788175825; c=relaxed/simple;
-	bh=sMKECYlbbY+zJgtA1Bu5FPVwu63muDWThlWdRUcC0IQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oPVQNuetsbK2evKvZRFEPrwqgFfAmocccw7UcTdA+TwYFP5p+NUB65Aef+Hmkfr90Sn05+hnBOIawaYdgAAy/37DYxCm9Tw4uD6jMoDWjQomipgO5BS+Zh5164ulv8reemT/3WrNwzg2DKxsGjkhinrQct1GCuXpW0UwD13HBvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it; spf=pass smtp.mailfrom=cs.unibo.it; dkim=pass (1024-bit key) header.d=cs.unibo.it header.i=@cs.unibo.it header.b=PKhUscg1; arc=none smtp.client-ip=130.136.161.50
+	s=arc-20240116; t=1788175827; c=relaxed/simple;
+	bh=W9iD/bOfEqPrunYUCgVVM2rMwVFfUsJuX6F5x97mCws=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=K6n+UohC/8r+0+J39EXCsdS699qTTxppdXmpw8RjXNuqO7sHsini/bMrUYCMvGD0+q3r3189/P74ZQKWz01ofI5JTfsxV87RMX6c0Uk+5byLxbVbCJOhG4DNKSvHMTHnLxz5XOlLq0ZLR9jCrhHb1XPLaM7f2vKT/VNpEU+jdiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it; spf=pass smtp.mailfrom=cs.unibo.it; dkim=pass (1024-bit key) header.d=cs.unibo.it header.i=@cs.unibo.it header.b=x5kY3hJS; arc=none smtp.client-ip=130.136.161.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cs.unibo.it header.i=@cs.unibo.it header.b="PKhUscg1"
+	dkim=pass (1024-bit key) header.d=cs.unibo.it header.i=@cs.unibo.it header.b="x5kY3hJS"
 Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 8B3041C0249;
-	Mon, 31 Aug 2026 13:30:18 +0200 (CEST)
+	by mail.virtlab.unibo.it (Postfix) with ESMTPA id DEE8B1C025A;
+	Mon, 31 Aug 2026 13:30:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1788175818;
-	bh=sMKECYlbbY+zJgtA1Bu5FPVwu63muDWThlWdRUcC0IQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=PKhUscg1IL/CogGlTrXQwC7TOBWjRZ58pgTbbNsEghT1piFkI5lg9WaCrCTq1G7eq
-	 UyoPsIHX+K+3YgnF9RTLuWpBTXeBVvtNL5VGWb8gqUBLDrqpfxlSnvz/qqyowMcWoI
-	 qLzEotYIgtugHnhdAE+1zf2R4TihlOw0lGk34c/s=
+	s=virtlab; t=1788175824;
+	bh=W9iD/bOfEqPrunYUCgVVM2rMwVFfUsJuX6F5x97mCws=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=x5kY3hJS9+M5Z7dT+YmVGPBN8svT5O4oinBaDINcVhxa2qDi5wcTtyqts8kYxfvyg
+	 AhuoAGKIy6LyOHijWUVQTlYwTvLqgfjx0bHdeqDIElP4IAntmBMXwbDzGrsoAtimFF
+	 OPVDxxtntXngQ5zYZKspZHzZazG8wLN2B//vuk9Q=
 From: Renzo Davoli <renzo@cs.unibo.it>
 To: linux-kernel@vger.kernel.org
 Cc: Renzo Davoli <renzo@cs.unibo.it>,
@@ -35,10 +36,12 @@ Cc: Renzo Davoli <renzo@cs.unibo.it>,
 	strace-devel@lists.strace.io,
 	"Dmitry V . Levin" <ldv@strace.io>,
 	Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Subject: [PATCH v3 0/3] ptrace_set_syscall_info: add support for instruction pointer modification
-Date: Mon, 31 Aug 2026 13:30:01 +0200
-Message-ID: <20260831113004.259991-1-renzo@cs.unibo.it>
+Subject: [PATCH v3 3/3] selftests/ptrace: add a test case for PTRACE_SYSCALL_INFO_FLAG_SET_IP
+Date: Mon, 31 Aug 2026 13:30:04 +0200
+Message-ID: <20260831113004.259991-4-renzo@cs.unibo.it>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831113004.259991-1-renzo@cs.unibo.it>
+References: <20260831113004.259991-1-renzo@cs.unibo.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,142 +50,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-PTRACE_SET_SYSCALL_INFO is a generic ptrace API that complements
-PTRACE_GET_SYSCALL_INFO by allowing a tracer to modify details of a
-system call in which the tracee is currently blocked.
+Check whether PTRACE_SYSCALL_INFO_FLAG_SET_IP semantics implemented in the
+kernel matches userspace expectations.
 
-The API is designed to let tracers inspect and modify system call
-information in a simple, architecture-agnostic manner.
-
-The current implementation only supports modifying the subset of
-system call information needed by strace: the system call number,
-arguments, and return value.
-
-This patch set extends PTRACE_SET_SYSCALL_INFO with support for
-modifying the tracee's instruction pointer.
-
-To do this, the tracer stores the new instruction pointer value in the
-instruction_pointer field of the ptrace_syscall_info structure and
-sets the PTRACE_SYSCALL_INFO_FLAG_SET_IP flag in the flags field.
-
-This flag is introduced to avoid breaking existing code that uses
-PTRACE_SET_SYSCALL_INFO and currently ignores the
-instruction_pointer field.
-
-The proposal does not add any new ptrace capability. It merely provides a
-portable interface for a capability that already exists and is already relied
-upon by existing applications.
-
-WHY
-
-PTRACE_SYSCALL_INFO_FLAG_SET_IP completes the set of actions that a tracer can
-request when intercepting a system call.
-
-A tracer can currently instruct a tracee to:
-
-* execute the original system call;
-* execute a different system call (or the same system call with modified arguments);
-* skip the system call and provide the desired return value and/or errno.
-
-The proposed PTRACE_SYSCALL_INFO_FLAG_SET_IP adds a fourth possibility:
-* execute an arbitrary sequence of two or more system calls in place of the original one.
-
-The mechanism is straightforward. During a PTRACE_SYSCALL_INFO_EXIT stop, the
-tracer rewinds the instruction pointer to the system call instruction (e.g. by
-2 bytes on x86-64 for syscall, or by the appropriate amount on other
-architectures). When the tracee resumes, it immediately generates a new
-syscall-entry stop, allowing the tracer to provide a new system call number and
-arguments. By repeating this process, a tracer can transparently replace a
-single system call with any sequence of system calls.
-
-This capability already exists on all architectures through
-architecture-specific interfaces such as PTRACE_POKEUSER, PTRACE_SETREGS, or
-PTRACE_SETREGSET. PTRACE_SYSCALL_INFO_FLAG_SET_IP does not introduce a new
-capability; it merely exposes an existing one through the portable
-PTRACE_GET_SYSCALL_INFO/PTRACE_SET_SYSCALL_INFO API.
-
-WHO
-
-The VUOS project uses this mechanism extensively.
-VUOS provides namespace-like execution environments implemented entirely in
-user space, without relying on kernel namespaces.
-https://wiki.virtualsquare.org/#/tutorials/vuosbasics
-
-For example, VUOS allows unprivileged processes to use user-space
-implementations of filesystems (FUSE), networking stacks, virtual devices, and
-other resources.
-
-To improve scalability on multicore systems, VUOS implements what we call the
-guardian angel model: each traced thread has its own dedicated tracer thread.
-This avoids a single tracer becoming a bottleneck.
-
-When a traced thread creates a child, ownership of the new tracee must be
-transferred to a newly created guardian angel. This requires delaying execution
-of the child's first system call until the new tracer has attached.
-
-The current implementation proceeds as follows:
-* save the original system call number and arguments;
-* replace the system call with a blocking ppoll(NULL, 0, NULL, NULL) call;
-* detach the original tracer;
-* attach the new guardian angel using PTRACE_SEIZE;
-* interrupt the blocking ppoll() with PTRACE_INTERRUPT;
-* at the subsequent syscall-exit stop, rewind the instruction pointer to the system call instruction;
-* at the following syscall-entry stop, restore the original system call number and arguments.
-
-This mechanism is currently implemented using architecture-specific register
-manipulation. PTRACE_SYSCALL_INFO_FLAG_SET_IP would allow the same
-implementation to be written using the portable ptrace syscall information API.
-
-Although VUOS is the primary motivation for this proposal, the feature is
-generally useful for any project implementing ptrace-based system call
-interposition, including PRoot, strace's syscall injection machinery, and
-similar frameworks.
-
-This patchset is a new version of the proposed patchset entitled:
-ptrace_set_syscall_info: add support for seccomp syscall skipping and
-instruction pointer modification
-
-The patchset has been split in two:
-syscall skipping(previously sent)
-instruction pointer modification (this)
-
-This patch seried depends on the syscall-skipping series:
-[PATCH v7 0/2] PTRACE_SET_SYSCALL_INFO: add support for seccomp syscall skipping
-https://lore.kernel.org/lkml/20260831082753.165731-1-renzo@cs.unibo.it/
-
-This series is based on top of v7 of that series and should be applied
-after it.
-
-The prerequisite series is currently not in mainline.
-
-Changes in v03:
-rebased to Linux 7.3-rc1
-
-Changes in v02:
-compatibility issues with updated syscall skipping
-set_syscall_info selftest: improve error messages
-
-Renzo Davoli (3):
-  asm/ptrace.h: add instruction_pointer_set
-  ptrace: add PTRACE_SYSCALL_INFO_FLAG_SET_IP
-  selftests/ptrace: add a test case for PTRACE_SYSCALL_INFO_FLAG_SET_IP
-
- arch/alpha/include/asm/ptrace.h               |   6 +
- arch/hexagon/include/asm/ptrace.h             |   6 +
- arch/m68k/include/asm/ptrace.h                |   6 +
- arch/microblaze/include/asm/ptrace.h          |   6 +
- arch/nios2/include/asm/ptrace.h               |   6 +
- arch/um/include/asm/ptrace-generic.h          |   6 +
- arch/xtensa/include/asm/ptrace.h              |   6 +
- include/uapi/linux/ptrace.h                   |   4 +
- kernel/ptrace.c                               |  25 ++-
+Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
+---
  .../selftests/ptrace/set_syscall_info.c       | 166 ++++++++++++++++++
- 10 files changed, 232 insertions(+), 5 deletions(-)
+ 1 file changed, 166 insertions(+)
 
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-prerequisite-patch-id: 85c29843e62833d036e4a6b492ca77235b1f23d9
-prerequisite-patch-id: 70c352bc91debf7841fec79077217efd9b20eece
+diff --git a/tools/testing/selftests/ptrace/set_syscall_info.c b/tools/testing/selftests/ptrace/set_syscall_info.c
+index cb2fe5295ae3..d7463fe4e011 100644
+--- a/tools/testing/selftests/ptrace/set_syscall_info.c
++++ b/tools/testing/selftests/ptrace/set_syscall_info.c
+@@ -90,6 +90,10 @@ static struct sock_fprog seccomp_prog = {
+ 	.len = ARRAY_SIZE(seccomp_filter)
+ };
+ 
++static char w1[] = {'A', '\n'};
++static char w2[] = {'B', '\n'};
++static char w3[] = {'C', '\n'};
++
+ static void
+ check_psi_entry(struct __test_metadata *_metadata,
+ 		const struct ptrace_syscall_info *info,
+@@ -698,4 +702,166 @@ TEST(set_syscall_info_seccomp)
+ 	}
+ }
+ 
++TEST(set_syscall_info_setip)
++{
++	tracer_pid = getpid();
++	tracee_pid = fork();
++
++	ASSERT_LE(0, tracee_pid) {
++		TH_LOG("fork: %m");
++	}
++
++	/* tracee */
++	if (tracee_pid == 0) {
++		int rv;
++
++		tracee_pid = getpid();
++		ASSERT_EQ(0, sys_ptrace(PTRACE_TRACEME, 0, 0, 0)) {
++			TH_LOG("PTRACE_TRACEME: %m");
++		}
++		ASSERT_EQ(0, kill(tracee_pid, SIGSTOP)) {
++			/* cannot happen */
++			TH_LOG("kill SIGSTOP: %m");
++		}
++
++		ASSERT_EQ(0, prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)) {
++			TH_LOG("prctl: %m");
++			_exit(1);
++		}
++		ASSERT_EQ(0, sys_seccomp(SECCOMP_SET_MODE_FILTER, 0,
++					 (void *) &seccomp_prog)) {
++			TH_LOG("seccomp: %m");
++			_exit(1);
++		}
++
++presyscall:
++		/* this sysall will run twice
++		   (the tracer steps back the instruction pointer) */
++		rv = write(1, w1, sizeof(w1));
++		if (rv != 2) {
++			_exit(1);
++		}
++
++		/* run write unmodified */
++		rv = write(1, w3, sizeof(w3));
++		if (rv != 2) {
++			_exit(1);
++		}
++		_exit(0);
++	}
++
++	int status;
++	void *doitagain = &&presyscall;
++
++	/* tracer */
++	ASSERT_LE(0, waitpid(-1,&status,0)) {
++		LOG_KILL_TRACEE("waitpid: %m");
++	}
++
++	ASSERT_EQ(0, sys_ptrace(PTRACE_SETOPTIONS, tracee_pid, 0, PTRACE_O_TRACESECCOMP | PTRACE_O_TRACESYSGOOD))
++		LOG_KILL_TRACEE("PTRACE_SETOPTIONS: %m");
++
++	ASSERT_EQ(0, sys_ptrace(PTRACE_CONT, tracee_pid, 0, 0)) {
++		LOG_KILL_TRACEE("PTRACE_CONT: %m");
++	}
++
++	const char *testname[] = {
++		"unknown error",
++		"write unexpected return value",
++		"write unexpected set ip return value",
++		"final write unexpected set ip return value"
++	};
++
++	for (ptrace_stop = 0; ; ++ptrace_stop) {
++		ASSERT_EQ(tracee_pid, wait(&status)) {
++			/* cannot happen */
++			LOG_KILL_TRACEE("wait: %m");
++		}
++		if (WIFEXITED(status)) {
++			tracee_pid = 0; /* the tracee is no more */
++			ASSERT_EQ(0, WEXITSTATUS(status)) {
++				LOG_KILL_TRACEE("unexpected exit status %u",
++						WEXITSTATUS(status));
++			}
++			break;
++		}
++		ASSERT_FALSE(WIFSIGNALED(status)) {
++			tracee_pid = 0; /* the tracee is no more */
++			LOG_KILL_TRACEE("unexpected signal %u",
++					WTERMSIG(status));
++		}
++		ASSERT_TRUE(WIFSTOPPED(status)) {
++			LOG_KILL_TRACEE("unexpected wait status %#x", status);
++		}
++
++		ASSERT_LT(ptrace_stop, ARRAY_SIZE(testname)) {
++			LOG_KILL_TRACEE("ptrace stop overflow");
++		}
++
++		if (status >> 8 == (SIGTRAP | (PTRACE_EVENT_SECCOMP << 8))) {
++			struct ptrace_syscall_info info;
++			size_t info_size = sizeof(info);
++			ASSERT_LT(0, sys_ptrace(PTRACE_GET_SYSCALL_INFO, tracee_pid, info_size, (uintptr_t) &info)) {
++				LOG_KILL_TRACEE("PTRACE_GET_SYSCALL_INFO: %m");
++			}
++			ASSERT_EQ(PTRACE_SYSCALL_INFO_SECCOMP, info.op) {
++				LOG_KILL_TRACEE("entry op mismatch: %m");
++			}
++			ASSERT_TRUE(info.arch) {
++				LOG_KILL_TRACEE("entry arch mismatch: %m");
++			}
++			ASSERT_TRUE(info.instruction_pointer) {
++				LOG_KILL_TRACEE("entry instruction_pointer mismatch: %m");
++			}
++			ASSERT_TRUE(info.stack_pointer) {
++				LOG_KILL_TRACEE("entry stack_pointer mismatch: %m");
++			}
++
++			ASSERT_FALSE(info.seccomp.nr == __NR_exit_group && info.seccomp.args[0] == 1) {
++				LOG_KILL_TRACEE("tracee error: %s",
++						testname[ptrace_stop]);
++			}
++
++			switch (ptrace_stop) {
++			case 0:
++				ASSERT_EQ(__NR_write, info.seccomp.nr) {
++					LOG_KILL_TRACEE("step %d nr __NR_write mismatch: %m", ptrace_stop);
++				}
++				info.instruction_pointer = (uintptr_t) doitagain;
++				info.flags = PTRACE_SYSCALL_INFO_FLAG_SET_IP;
++				break;
++			case 1:
++				info.seccomp.nr = __NR_write;
++				info.seccomp.args[0] = 1;
++				info.seccomp.args[1] = (uintptr_t) w2;
++				info.seccomp.args[2] = sizeof(w2);
++				break;
++			case 2:
++				ASSERT_EQ(__NR_write, info.seccomp.nr) {
++					LOG_KILL_TRACEE("step %d nr __NR_write mismatch: %m", ptrace_stop);
++				}
++				break;
++			case 3:
++				ASSERT_EQ(__NR_exit_group, info.seccomp.nr) {
++					LOG_KILL_TRACEE("step %d nr __NR_exit_group mismatch: %m", ptrace_stop);
++				}
++				break;
++			default:
++				LOG_KILL_TRACEE("unexpected system call: %m");
++				break;
++
++			}
++			ASSERT_EQ(0,sys_ptrace(PTRACE_SET_SYSCALL_INFO, tracee_pid, info_size, (uintptr_t) &info)) {
++				LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO: %m");
++			}
++
++			ASSERT_EQ(0,sys_ptrace(PTRACE_CONT, tracee_pid, 0, 0)) {
++				LOG_KILL_TRACEE("PTRACE_CONT: %m");
++			}
++		} else {
++			LOG_KILL_TRACEE("unexpected signal: %m");
++		}
++	}
++}
++
+ TEST_HARNESS_MAIN
 -- 
 2.55.0
 
