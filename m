@@ -1,83 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B1E3D301F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:29:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BCB30FF1D;
+	Mon, 31 Aug 2026 10:30:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788172192; cv=none; b=e27BlpK2eQ6KsJbFelho4DJoscCi4ItZJyzji7s3DrarvH227pnW3/vCmP8fY+aDDrbxyedI3f5RHrdC3yjXRWWfWpx34Fmq2cXB7ETfOtnyqxg821uO3+ZmbjXV8tImCaCFHzWCfYw+hntWzryhACU9VWBcxpjxxIlPXAleWNc=
+	t=1788172247; cv=none; b=Z1QO6DEw+giLVfE7IQe1R5dIEjxsVsAy0kFfBx0Ex23t8WOGd04/dvEOWb0GkAoiG55It6Uz8ttKAQrrWBomQeCuLEn4OwQyvK/SlO43ZYdh/bYBP380sDicHqqCZCfHbnyyzVdGDuyfJJ+KWLuHf+ZTpTTXLcd2RGN/TQUYESc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788172192; c=relaxed/simple;
-	bh=vz/x+njknvCF3+T8KTf2EJ0gVlbMbUx3xf/uAnT/uj0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GwYVbOpeM6OETnv8A0N8us/FE/CSBCKqpxHH1B78E2fdjhuIzUYKRsh7JqiLatRa0/FRt4nwioYa4oKobf2WStnDlVilh2ic9FqfK9uAukWByIK21B2VBckHP7vUBTN49Iiqa6G7ntc5nRnWdR7VP/69WFN5YLY59/NlCgJU14M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MqrxyanQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788172247; c=relaxed/simple;
+	bh=iFnYzcxPCUETXVhNBv+KM8e+EYfMN+vUAWIUun1HXzo=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=WIm8U4X8SPTCgaV2e40ss+T4P96bA6H55E9ejO1vt0erkye0Ym93QzLRwmAdFh9BuIjBbmr/d99TSuPiOWj0cYx95AopylgU+R8M3J1l6F2sUyaV52tKEch2v3E15A918Smk4ryrVoHmo7uHwwGwEboCTE5R7LzQ3n2xoO11F9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hUKxJxVY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MqrxyanQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 974331F000E9;
-	Mon, 31 Aug 2026 10:29:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hUKxJxVY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE9181F000E9;
+	Mon, 31 Aug 2026 10:30:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788172189;
-	bh=7praDXPKQSaQsDkDkWhFjamJJb1ssgLavRYctRk+9WY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MqrxyanQ2O0K2bBV2/RJe8pE3sPmrwTJhzrt0WgikSs3+V6V4s9BMJHAXppy3Dcv5
-	 0XHl4vjrDEIyHkSqj6ZpCbe7e8yiBQBfEBszDolTNrBGqRLQqnk1nYsHjVAXc3K0Wm
-	 aSWRziaaMrmVcwS5uxHqiSSTPDtyY1lTvww3UK/r4ZALzidu6AxW5wEjNphumpgj+z
-	 wQKR/ynn1Wd3rWtjTqKBjUEy26zGf51MjiqPHk36eODIvE9kR3girG01LH235P+AXe
-	 75yAIvBoo9+9CHJTa91KiRLIhEdZXQNiD4/D9zaGGUwbyd10K1HWoa56FhZoKmj3Px
-	 mNCdaG/LssCCQ==
-From: Christian Brauner <brauner@kernel.org>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	NeilBrown <neil@brown.name>,
-	Manfred Spraul <manfred@colorfullife.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jan Kara <jack@suse.cz>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ipc/mqueue: release notification resources during inode eviction
-Date: Mon, 31 Aug 2026 12:29:26 +0200
-Message-ID: <20260831-liegt-salzgehalt-flach-f157f2077ded@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260824042359.925145-1-4ncienth@gmail.com>
-References: <20260824042359.925145-1-4ncienth@gmail.com>
+	s=k20260515; t=1788172246;
+	bh=sMjEOiR4aoFiJu+sj3qn4Q9Lswnv2I+gPsZQbwsoA1s=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=hUKxJxVYNSHxP6iBrkoe0/NqtQ9zDEnnrIPIoGw2JbqBCLTbGpFzvl1WG7nO6avAP
+	 LSQ5fmE8Wf/YBWTZ0mNSKoZp9ylCxmJLbRgvaDN3tb82RwkunKwnS4t/qlLb1ubWGm
+	 Waq0ODq0fAFJzLni2dVt44/oZPkpmU0QOt3d/HFbzBSlqoPLp4PNRQkrywj2WLrPEX
+	 WGrkP65uxzBQZb8g7HqzdSEO0avlczOtKeYBKS0Pw4k27DdRwPGFDv4bvL4QWxKWQa
+	 AI/iXuWIZ3eg34J9CF+WGYNQNGBi0rO9tG08PasoubNFUtRRYSn2vYZOA/mmASfj6P
+	 hnZQvg1beBKgQ==
+Content-Type: multipart/mixed; boundary="===============5908284071656517942=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1315; i=brauner@kernel.org; h=from:subject:message-id; bh=vz/x+njknvCF3+T8KTf2EJ0gVlbMbUx3xf/uAnT/uj0=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRNDZ8xcVPygXqv97d8RKbdYV2xg+V4z+8LB+r/6EToF xzqD8hK6ShlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZjI1O+MDBfnuX//ejxji9oR jX/tyTdqpAJzJ54I3bDi9ewJfYIhvvMY/ql6pi/5Lb7FYlnZZmdRnmc8gTP4ayJM57fuK1Jo/f9 +IR8A
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Message-Id: <27ef653d703dedfccac377609bf32e8bc15ef63260463f19adc8e05e332a555a@mail.kernel.org>
+In-Reply-To: <20260831092305.42062-4-tasos.papagiannnis@gmail.com>
+References: <20260831092305.42062-4-tasos.papagiannnis@gmail.com>
+Subject: Re: [PATCH bpf-next v3 3/7] exec: Clear bprm->mm before dropping its reference
+From: bot+bpf-ci@kernel.org
+To: tasos.papagiannnis@gmail.com,bpf@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,linux-mm@kvack.org,linux-fsdevel@vger.kernel.org,viro@zeniv.linux.org.uk,brauner@kernel.org,akpm@linux-foundation.org,david@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,kpsingh@kernel.org,matt@bobrowski.net,song@kernel.org,utilityemal77@gmail.com,tasos.papagiannnis@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Mon, 31 Aug 2026 10:30:44 +0000 (UTC)
 
-On Mon, 24 Aug 2026 13:23:59 +0900, Daehyeon Ko wrote:
-> mqueue_flush_file() removes an mq_notify() registration only when the
-> closing task belongs to the thread group stored in notify_owner.
-> 
-> A task in a separate thread group created with CLONE_FILES can register
-> SIGEV_THREAD notification and exit without closing the shared file table.
-> If another thread group then unlinks and last-closes the queue, ->flush()
-> skips the registration and inode eviction loses the only pointers to its
-> resources.
-> 
-> [...]
+--===============5908284071656517942==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Applied to the ipc-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the ipc-7.4.misc branch should appear in linux-next soon.
+> commit d3633d366b08f6123fe20f3fd64fd2a8c5f6a5af
+> Author: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
+> Date:   Mon Aug 31 12:23:01 2026 +0300
+>
+>     exec: Clear bprm->mm before dropping its reference
+>
+>     Once mmput() drops the final reference to bprm->mm, the pointer must no
+>     longer remain accessible through struct linux_binprm.
+>
+>     The successful exec path and the bprm initialization error path already
+>     clear bprm->mm when ownership is transferred or released. Do the same in
+>     free_bprm() before calling mmput().
+>
+>     This is required for eBPF kfuncs where bprm->mm is either NULL or points
+>     to a live mm_struct to ensure safe access.
+>
+>     Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+This looks like a bug fix. Should this include a Fixes: tag?
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+The dangling pointer bug was introduced when eBPF kfuncs were added that
+access bprm->mm. At that point, bprm->mm needed to be either NULL or
+point to valid memory, but free_bprm() wasn't updated to clear bprm->mm
+before calling mmput().
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+Suggested:
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: master
+  Fixes: ef5769fc8b1e ("bpf: Add user memory access kfuncs for mm_struct")
 
-[1/1] ipc/mqueue: release notification resources during inode eviction
-      https://git.kernel.org/vfs/vfs/c/7add7d60ff30
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33379004067
+--===============5908284071656517942==--
