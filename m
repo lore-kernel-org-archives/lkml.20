@@ -1,110 +1,111 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70F33D45D4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:01:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1333C584F
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:01:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788166878; cv=none; b=tChmT2kyYYWYLJf4caqD8geOFXbWXBdanqd+/V7uy0CLb5zAAvIxKx0hywJah/4wd024sQBLhvmMiYiLSaBvnSVZKDYV/df+AZhtkuv+qlPt80ZyrwP1hX7p0w17+ilLvzs3JZH3XDKgI3aekEspQWlaS1aAhkhxXjxavmPxxn4=
+	t=1788166894; cv=none; b=Fn2Tx6kMCcSVcNQ641NMlOCJsP3TO76QGNSrXSCJAkkGZCuKzl6jh4EDWsBVfrXCd56mRZgwgoJ/MMF3FmX+cdQnq3GtIwv7oqZEx+ve9vK67UAklXaQ1NsdQOAZq/FfMfsLx9ZhchGnH3krj0v9fywM/vfL/wutD/oHj6SRWSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788166878; c=relaxed/simple;
-	bh=T6oxC/12nbIyG/hWKvWHljzUeneLjy2WW6xRew8IQUw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=aDyPmZuZq0mHB9MpDO23x5QB554BIPU68X4AIYVA4X14pN4OpXAlEKiSn5aZwgGxMORf+z0mBHtNJpSVwMR1U1yZqaTLtjxPk0IehcVfRehY7IkByRtbMMMl8fl8jd/mOeDpDQ3r0d39gvpjKoM2mSBHGSTdhn5fu3PxB8dpmzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=y8DDw05V; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788166894; c=relaxed/simple;
+	bh=GGn5/FnwMdOylbNe2joCABYvSXnYHKiHqQwO2uRUNeQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F73eMaccpGgvD59HA7d55sVBRy/6O/VKkuh72qyMyH6H3EhaterbFguQm+yJSpFS6QrPYHTy8qvjbQSEyyUVk05RalKDE3jyHjr/XN9pVlIVz/j4H05g/C+GWFiQUOM24JeNfnuLOM/xn31WaovNERL+Gbq0NNy9q4RZSBNzghs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=atsmSRP0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="y8DDw05V"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 049A64E41464;
-	Mon, 31 Aug 2026 09:01:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C1D2A60231;
-	Mon, 31 Aug 2026 09:01:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6B0C311C78388;
-	Mon, 31 Aug 2026 11:01:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788166868; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=T6oxC/12nbIyG/hWKvWHljzUeneLjy2WW6xRew8IQUw=;
-	b=y8DDw05VRpqx6+EBYe8Kh0paGC4OlXEQn85iwNSnK6ozkBH8WL71eThmTB1aYF1yaZQ5az
-	kde5NzGrZ9ZbFiP3PUTT40AAJlnEcuK8sX08rnulqazFr3bKAiuy7jUZcCV0/cu8znSHH0
-	QUMv0uMuFhMNvWVLttVcDIpkjgRHkC6bF7J6bG7W7melvug4gfcB65hQHgVyQ9ArN498qE
-	cCrdK6ofajyojrYumICdfGukAz55XBLYsklNukBtBdrlXbXWAJfX0Kn2pgXmhSzRGFJdQA
-	j8Gso1ao1Fos2IGJym5rizTP9Fy6dYdsqyw1BQsuFEXuPOpAgfh5gxVWT5nE5w==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="atsmSRP0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112871F000E9;
+	Mon, 31 Aug 2026 09:01:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788166891;
+	bh=IFUViO5z4Y+XAB5uPhbTOwoEc6WJIUEHXXu3zrTrA4M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=atsmSRP0yTem4BuDZMH4FBRRe/Fsouc7fL5l8UIs5ZEdOAVY8OX6/MCoUiZ7Q6s6d
+	 Q+cm5WB7bQ8BQyBa+QMyfw0iRTW+SQZ9cExjiQxMu0n4uCoPDSYLxuUaYJ7ONhma2i
+	 PJFRtzXGzQEYNuHAlnSF50cdG6Vz62latGOGtA7OElUGUThBUq9jOhVrH05eI/TCqx
+	 hMaUcgVbT7y4zoBmmejGF2ILrpS941ENdEqRS+RVqZgVqguSIL/YuY6tnU3Mh69RIO
+	 EaQvXwYfqa8IiiGkygQxDD+lT9vlltnFEQY05yKUAIA7mCdE1FvGbZJqTtZ5nzh7Zq
+	 V4lyv/5RfUhlg==
+Date: Mon, 31 Aug 2026 10:01:25 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Wei Yang <richard.weiyang@gmail.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, liam@infradead.org, 
+	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
+	brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [Patch v2] mm: adjust out-dated document of __GFP_NOFAIL
+Message-ID: <apVC3tNDMx0AGsQj@gremlin>
+References: <20260829025847.26779-1-richard.weiyang@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 31 Aug 2026 11:01:00 +0200
-Message-Id: <DL308Z0JXJ31.2V3H29DTG4MSM@bootlin.com>
-Subject: Re: [PATCH v2 08/12] drm/bridge: parade-ps8640: select
- DRM_PANEL_BRIDGE
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Matthias
- Brugger" <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
- <angelogioacchino.delregno@collabora.com>, "Hui Pu"
- <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-mediatek@lists.infradead.org>, "Jitao Shi" <jitao.shi@mediatek.com>,
- "CK Hu" <ck.hu@mediatek.com>, "Pin-yen Lin" <treapking@chromium.org>,
- "Enric Balletbo i Serra" <eballetbo@kernel.org>
-To: "Doug Anderson" <dianders@chromium.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260825-drm-bridge-drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com> <20260825-drm-bridge-drm_panel-cleanup-v2-8-c6c88ba7ffd2@bootlin.com> <CAD=FV=Xdj_foBqt9A9EVVoCA2BxAV3UZNz3SuVPu2ZoNXgnS=w@mail.gmail.com>
-In-Reply-To: <CAD=FV=Xdj_foBqt9A9EVVoCA2BxAV3UZNz3SuVPu2ZoNXgnS=w@mail.gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260829025847.26779-1-richard.weiyang@gmail.com>
 
-Hi,
-
-On Thu Aug 27, 2026 at 6:23 PM CEST, Doug Anderson wrote:
-> Hi,
+On Sat, Aug 29, 2026 at 02:58:47AM +0000, Wei Yang wrote:
+> Commit ee040cbd6e48 ("mm/page_alloc: don't warn about large allocations
+> with __GFP_NOFAIL") remove a warning on allocating large folio with
+> __GFP_NOFAIL, which was placed there by commit 903edea6c53f ("mm: warn
+> about illegal __GFP_NOFAIL usage in a more appropriate location and
+> manner").
 >
-> On Tue, Aug 25, 2026 at 3:11=E2=80=AFAM Luca Ceresoli <luca.ceresoli@boot=
-lin.com> wrote:
->>
->> This driver uses the drm_panel_bridge API and not the drm_panel API so i=
-t
->> should select DRM_PANEL_BRIDGE and not DRM_PANEL.
+> While in that commit, it also documented this behavior which is
+> out-dated now.
 >
-> Which exact "drm_panel_bridge" API does it use? I don't see any...
+> Adjust the document to align to current code, and adjust the comment
+> while at it.
+>
+> Signed-off-by: Wei Yang <richard.weiyang@gmail.com>
 
-It calls devm_drm_of_get_bridge() [0], which is in bridge/panel.c [1],
-which is enabled by CONFIG_DRM_PANEL_BRIDGE [2].
+LGTM so:
 
-[0] https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/bridge/p=
-arade-ps8640.c#L636
-[1] https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/bridge/p=
-anel.c#L483-L515
-[2] https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/Makefile=
-#L159
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-> Certainly it's highly likely that the next bridge in the chain is a
-> panel, but there are no API calls that I see. Maybe the scripts got
-> confused because the variable name didn't get updated in commit
-
-No script, just this humble human got confused X-)
-
-> 5486eac81004 ("drm/bridge: parade-ps8640: switch to
-> devm_drm_of_get_bridge") ?
-
-Luca
+>
+> ---
+> v2:
+>   * s/is adjusted/was placed there/ in change log
+>   * instead of removing the document, say "is discouraged"
+>
+> v1: https://lore.kernel.org/all/20260827030548.16631-1-richard.weiyang@gmail.com/T/#u
+> ---
+>  include/linux/gfp_types.h | 2 +-
+>  mm/page_alloc.c           | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/include/linux/gfp_types.h b/include/linux/gfp_types.h
+> index 190191411009..bfd4c43ed777 100644
+> --- a/include/linux/gfp_types.h
+> +++ b/include/linux/gfp_types.h
+> @@ -244,7 +244,7 @@ enum {
+>   * definitely preferable to use the flag rather than opencode endless
+>   * loop around allocator.
+>   * Allocating pages from the buddy with __GFP_NOFAIL and order > 1 is
+> - * not supported. Please consider using kvmalloc() instead.
+> + * discouraged. Please consider using kvmalloc() instead if possible.
+>   */
+>  #define __GFP_IO	((__force gfp_t)___GFP_IO)
+>  #define __GFP_FS	((__force gfp_t)___GFP_FS)
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index ab385bc252cc..146f7e0a9462 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -4804,7 +4804,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+>
+>  	if (unlikely(nofail)) {
+>  		/*
+> -		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
+> +		 * We don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
+>  		 * otherwise, we may result in lockup.
+>  		 */
+>  		WARN_ON_ONCE(!can_direct_reclaim);
+> --
+> 2.34.1
+>
 
 --
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Cheers, Lorenzo
