@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 595C44A0927;
-	Mon, 31 Aug 2026 13:41:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C954FB9D4;
+	Mon, 31 Aug 2026 13:41:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183688; cv=none; b=CTgNN/tFsNHdBMix7re6NWXWLH/3hMOBDyDThsie7CV1GVgUyyD8t+h29vfKJeG6z4QvA+TLiThwdpYgajKC2p5IKyAH6XBEQM6Gv/Z4ZraJV5UPRKGU/jYDzXETdNeENraG2IDnCLy8WrrrLNU6zBTbUQUNqNOL4LhKVMhiVcA=
+	t=1788183692; cv=none; b=RxUuXApntzdl9kETRtL9SvPmpVoPwGFUZLykSN9AwvDGmgF4Zfi5epX8SASL89Ss+WPDV/ATy05kWtHOZ7TT645nSVLX4EAGbcte42b967EgvpukAmgAkEX5slMV3R9p6ApV+vm4yDQxKNiTL+O8tKM3yiSaDCZgiNvQjiVXK5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183688; c=relaxed/simple;
-	bh=98dAFk8oW6aPfWaMsLFH6NmvYeEs02fg8AF/i05tdio=;
+	s=arc-20240116; t=1788183692; c=relaxed/simple;
+	bh=PUm7uMgdUV3Rb8tefvy5CYz6eu3nuqdKgTzNHDgciOY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u2mPiaUserGYmbiXHGipo78QQ0B/9MWk5B/bcqlk9lzYxHutXw1+PD1bifeRB98+OlnzkpEgNDxuvcDTS+BaKdsHTAFgi0g30xZC83Ms95g/3yBe4Jm4Ed2MplWUt0pLPSoGsrZ1HSU35sYrrdNlVeScLrWXqohinlWue9OPXww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LBnUVA3S; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=oW78fEtW+Drzazx2qx5U7EyDe7mH2bmGIUoOHVw5GDnQ4aMbqI4U+WRU4CfoG8FuInlNYlw3+zGOnCYrehtWjR45kds8cD3UKZAmaPnRkTo7yH/db1ImGdzTKPg8tAlzwn7NedeWGBABCYFa710bRYTgQlQdW7kZLcgJY6MpPao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hvoYp6YJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LBnUVA3S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C0891F00A3D;
-	Mon, 31 Aug 2026 13:41:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hvoYp6YJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25FA21F000E9;
+	Mon, 31 Aug 2026 13:41:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183686;
-	bh=Hx2z5k1Uq4wfvI+d1q0h0X0hPB81KDLNqDGz4Wg5BYs=;
+	s=k20260515; t=1788183689;
+	bh=XDqSKgGV//gQU+mzSlxLV5q54IoLXRRkDEmhxgLCrFU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LBnUVA3SDxOvLt/+PgKcu9CrL9BV+kpZ3VtfnOR45ZA5qXauPjIKlEU7vjcldjSnd
-	 /EC3AHfQ1gTNP8DjzAIz8dfqDkGosvUTmpRWQnHaciQ51Npo7bZRtezLXlv4XAE3VK
-	 xxlQZeRYqwjUIUCaj/AfgrMj9YUhoCREWGtQAguKOq7YCDxT0LUaI/5WWtjTrq7Ekj
-	 C4tFcdsQQQVLIqU08xRRrk6AAXF1I1wnzahvYvfn4cwhBfDdkuQG78qrELRQyDvOyF
-	 7oSialsfqzbdcQEbVgqrtW1CgE+Pdp9HiRUAlTxIM3UeOUau+iLq6YavFmnz3l8ICC
-	 n3xEHgS6s4M8g==
+	b=hvoYp6YJIFbPqWs34nSrA8OhiYB0vZ7nJbjxh7TNix8aJfnKOB9uiajTmmtj+tBp6
+	 6Gd8O83gYjKeyZWyyUFZkmmvjE68M7DSs/x+qat1iUW0zSCVotQPi9DcYB4iH4lrSK
+	 vRVqi1FeWuFaa+PxfTHR7FQZfM5N0bQJ+27kD9esg8JSlQRmW+pi0vNXgf6D6b6c03
+	 0fP+vAzEWGeG70p/ZrZibAS6bYpGMGRft5l5CLmM8rADHtWmoM1kyifVLPBxrNVVdc
+	 bL+u0qmRaDpaMHzJfhcDnvCFzBGpMsl0VLyVe58C+0Q/XNHi6fzpnNptSQtKia1GII
+	 GJl9FUp62TMhw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Johannes Berg <johannes.berg@intel.com>,
-	Miriam Rachel Korenblit <miriam.rachel.korenblit@intel.com>,
+Cc: Rudi Heitbaum <rudi@heitbaum.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	johannes@sipsolutions.net,
-	linux-wireless@vger.kernel.org,
+	oder_chiou@realtek.com,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] wifi: mac80211: use chandef in ieee80211_get_sta_bw()
-Date: Mon, 31 Aug 2026 09:24:32 -0400
-Message-ID: <20260831133314.4125787-244-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] ASoC: rt5645: Perform the initial jack detect at probe
+Date: Mon, 31 Aug 2026 09:24:34 -0400
+Message-ID: <20260831133314.4125787-246-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,441 +56,371 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Johannes Berg <johannes.berg@intel.com>
+From: Rudi Heitbaum <rudi@heitbaum.com>
 
-[ Upstream commit e36b3322a41b7de0168ad6a37bdd1219cfe35077 ]
+[ Upstream commit 54b279699279411c77c8afbc73b83c70740a7303 ]
 
-When getting the bandwidth the station uses in order to
-calculate the channel context's min_def, pass the channel
-for the link to _ieee80211_sta_cap_rx_bw() instead of using
-ieee80211_sta_cap_rx_bw(), which looks it up.
+The only initial jack detect is the rt5645_irq(0, rt5645) at the end of
+rt5645_set_jack_detect(). A card described with simple-audio-card has no
+machine driver to call that, so jack state is only ever sampled from an
+edge on hp-detect-gpios.
 
-Reviewed-by: Miriam Rachel Korenblit <miriam.rachel.korenblit@intel.com>
-Link: https://patch.msgid.link/20260415144514.d2bdf106a39f.I6ae07289a272dd9e27118f9fa324a4865f994003@changeid
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+A headphone already in the socket at boot is therefore never noticed, and
+the card is silent with every mixer control set correctly.
+rt5645_jack_detect() is what force enables the "LDO2" and "Mic Det Power"
+supplies that the "HP amp" widget depends on, and what programs
+RT5645_CHARGE_PUMP away from its reset value, so without it "HP amp"
+cannot power up. Unplugging and replugging the jack is the only way to
+recover.
+
+Do the detect at the end of the component probe when the driver owns a
+hp-detect GPIO and the codec's own jack detect is unused, which is the
+case that has no other trigger. A machine driver calling
+rt5645_set_jack_detect() later just repeats it.
+
+Signed-off-by: Rudi Heitbaum <rudi@heitbaum.com>
+Link: https://patch.msgid.link/anNU3tOUR7rOReSB@5e001e58230e
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `wifi: mac80211: use chandef in
-ieee80211_get_sta_bw()`
-
-**Local tree:** Linux **6.18.43** (`git describe HEAD` → `v6.18.43`)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase 1: Commit Message Forensics
 
 ### Step 1.1: Subject line
-**Record:** `[wifi: mac80211]` `[use]` — When computing per-station
-bandwidth for channel-context `min_def`, pass the link's channel
-definition explicitly instead of looking it up indirectly.
+**Record:** `[ASoC: rt5645]` `[Perform]` — Perform initial headphone
+jack detection during component probe for GPIO-based jack-detect setups
+without a machine driver.
 
 ### Step 1.2: Tags
 **Record:**
-- **Reviewed-by:** Miriam Rachel Korenblit
-  \<miriam.rachel.korenblit@intel.com\>
-- **Link:** https://patch.msgid.link/20260415144514.d2bdf106a39f.I6ae072
-  89a272dd9e27118f9fa324a4865f994003@changeid
-- **Signed-off-by:** Johannes Berg \<johannes.berg@intel.com\>
-- No Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org
-- Part of **[PATCH 4/20]** in series "wifi: mac80211: clean up and fix
-  per-STA BW handling"
-- Notable pattern: subsystem maintainer-authored, Intel reviewer; no
-  syzbot/fuzzer report
+- **Signed-off-by:** Rudi Heitbaum `<rudi@heitbaum.com>` (author)
+- **Link:** https://patch.msgid.link/anNU3tOUR7rOReSB@5e001e58230e
+- **Signed-off-by:** Mark Brown `<broonie@kernel.org>` (ASoC maintainer,
+  committer)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
+  stable@vger.kernel.org`
+- Notable: maintainer ack/applied; no syzbot or multi-reporter tags
 
 ### Step 1.3: Body analysis
 **Record:**
-- **Bug:** `ieee80211_get_sta_bw()` calls `ieee80211_sta_cap_rx_bw()`,
-  which internally looks up the band from the STA's own
-  `sdata->vif.link_conf[]` when no `chandef` is passed.
-- **Symptom:** Wrong band used when computing STA RX bandwidth
-  capability for channel-context `min_def` recalculation.
-- **Root cause:** The function should use the channel of the **link
-  being evaluated** (`link->conf->chanreq.oper`), not whatever channel
-  the STA's `sdata` happens to reference.
-- No explicit crash/stack trace in the commit message; failure mode is
-  incorrect bandwidth derivation.
+- **Bug:** With `simple-audio-card` (no machine driver calling
+  `rt5645_set_jack_detect()`), jack state is only sampled on GPIO edge
+  transitions. Headphones already inserted at boot are never detected.
+- **Symptom:** Card is silent despite correct mixer settings;
+  unplug/replug is the only recovery.
+- **Root cause:** `rt5645_jack_detect()` enables `LDO2`, `Mic Det
+  Power`, and programs `RT5645_CHARGE_PUMP` — required for the `HP amp`
+  DAPM widget. Without an initial detect, HP amp cannot power up.
+- **Fix approach:** Call `rt5645_irq(0, rt5645)` at end of
+  `rt5645_probe()` when `jd_mode == 0` and codec `hp-detect` GPIO is
+  present.
+- **Version info:** None in message.
 
 ### Step 1.4: Hidden bug fix?
-**Record:** **Yes.** Although the subject doesn't say "fix", this
-corrects a real logic error. When `ieee80211_get_max_required_bw()`
-includes stations from sibling interfaces in the same BSS (notably
-**AP_VLAN** clients), `ieee80211_sta_cap_rx_bw()` with `chandef == NULL`
-looks up band from the VLAN `sdata`'s `link_conf`, not the parent AP
-link's channel. That parallels the already-backported AP_VLAN crash fix
-(`5a86d4e920d97`) but in the `ieee80211_get_sta_bw()` →
-`ieee80211_recalc_chanctx_min_def()` path.
+**Record:** Yes — clearly a functional bug fix disguised as
+initialization. Not cleanup or optimization; restores missing probe-time
+hardware setup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
 ### Step 2.1: Inventory
 **Record:**
-- **Files:** `net/mac80211/chan.c` only (+5 / -5 lines)
-- **Functions modified:** `ieee80211_get_sta_bw()`,
-  `ieee80211_get_max_required_bw()`
+- **Files:** `sound/soc/codecs/rt5645.c` (+4 lines, 0 removed)
+- **Function modified:** `rt5645_probe()`
 - **Scope:** Single-file, surgical fix
 
 ### Step 2.2: Code flow change
 **Record:**
-- **Hunk 1 (`ieee80211_get_sta_bw`):** Before: takes `link_id`, calls
-  `ieee80211_sta_cap_rx_bw(link_sta)` (NULL chandef → internal RCU band
-  lookup from `link_sta->sta->sdata`). After: takes `struct
-  ieee80211_link_data *link`, calls `_ieee80211_sta_cap_rx_bw(link_sta,
-  &link->conf->chanreq.oper)` — uses the evaluating link's operating
-  channel.
-- **Hunk 2 (`ieee80211_get_max_required_bw`):** Before: passes `link_id`
-  to `ieee80211_get_sta_bw()`. After: passes full `link` pointer.
-- **Path affected:** Normal AP/station channel-context `min_def`
-  recalculation (hot path, not error-only).
+- **Before:** `rt5645_probe()` returns after EQ param allocation with no
+  jack detect when using external GPIO (`jd_mode == 0`).
+- **After:** When `!rt5645->pdata.jd_mode && rt5645->gpiod_hp_det`,
+  calls `rt5645_irq(0, rt5645)`, which queues `jack_detect_work` (250 ms
+  delay), reads GPIO, and runs `rt5645_jack_detect()` to power codec
+  paths.
+- **Path affected:** Component probe initialization for GPIO jack-detect
+  configurations.
 
 ### Step 2.3: Bug mechanism
 **Record:**
-- **Category:** Logic / correctness fix; potential NULL pointer
-  dereference on AP_VLAN path
-- **Mechanism:** `ieee80211_get_max_required_bw()` iterates all STAs on
-  the same BSS:
-
-```298:303:net/mac80211/chan.c
-        list_for_each_entry(sta, &sdata->local->sta_list, list) {
-                if (sdata != sta->sdata &&
-                    !(sta->sdata->bss && sta->sdata->bss == sdata->bss))
-                        continue;
-
-                max_bw = max(max_bw, ieee80211_get_sta_bw(sta,
-link_id));
-```
-
-For AP_VLAN clients, `sta->sdata` is the VLAN interface.
-`ieee80211_sta_cap_rx_bw()` with NULL chandef enters
-`__ieee80211_sta_cap_rx_bw()` and does:
-
-```368:376:net/mac80211/vht.c
-                if (chandef) {
-                        band = chandef->chan->band;
-                } else {
-                        struct ieee80211_bss_conf *link_conf;
-
-                        rcu_read_lock();
-                        link_conf =
-rcu_dereference(sdata->vif.link_conf[link_id]);
-                        band = link_conf->chanreq.oper.chan->band;
-                        rcu_read_unlock();
-```
-
-Here `sdata` is the VLAN `sdata`, whose link never participates in
-chanctx reservations (documented in `5a86d4e920d97`). The fix passes the
-parent AP link's valid `chanreq.oper` instead.
+- **Category:** Logic / correctness — missing initialization
+- **Mechanism:** Initial jack detect only happened via
+  `rt5645_set_jack_detect()` → `rt5645_irq(0, rt5645)`. Cards without a
+  machine driver never trigger this; GPIO edges after boot are the only
+  other trigger, so a pre-inserted jack is missed and HP power path
+  stays off.
 
 ### Step 2.4: Fix quality
-**Record:** Obviously correct — the caller already has the correct link
-context and other code in the same file (e.g.
-`ieee80211_chan_bw_change()`) already passes explicit chandefs. Minimal
-regression risk; no new locks or APIs.
+**Record:**
+- Obviously correct: reuses the existing `rt5645_irq()` →
+  `rt5645_jack_detect_work()` → `rt5645_jack_detect()` path already used
+  by `rt5645_set_jack_detect()`.
+- Minimal and self-contained.
+- **Regression risk:** Low. `snd_soc_jack_report()` safely no-ops on
+  NULL jack (`if (!jack || !jack->jack) return;`). Machine drivers that
+  call `rt5645_set_jack_detect()` later simply repeat detection, per
+  commit message. Condition limits scope to `jd_mode == 0` with codec
+  `hp-detect` GPIO.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
 ### Step 3.1: Blame
-**Record:** Buggy lines in `ieee80211_get_sta_bw()` present in current
-tree at lines 238–303. Git blame points to `19eef1d98eeda` (merge
-artifact in this stable tree's truncated history). The function and
-`_ieee80211_sta_cap_rx_bw()` API both exist in 6.18.43.
+**Record:** Probe return path (lines 3493–3500) dates to 2018 (EQ param)
+and 2021 (ENOMEM check). Missing initial detect is longstanding. GPIO
+hp-detect path via `gpiod_hp_det` since commit `0b0cefc8fd105` (2015).
+`jd_mode == 0` GPIO path in `rt5645_jack_detect_work()` since
+`6e747d5311fc6` (2015).
 
 ### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag present.
+**Record:** N/A — no `Fixes:` tag.
 
 ### Step 3.3: Related file history
-**Record:**
-- `5a86d4e920d97` — "mac80211: fix crash in ieee80211_chan_bw_change for
-  AP_VLAN stations" — already in this tree; fixes same class of
-  AP_VLAN/wrong-sdata problem in a different function
-- This commit is patch 4/20; patches 1–3 change NAN/HT handling in other
-  files; patch 5 fixes TDLS similarly; patches 19–20 are larger
-  refactors — **patch 4 is standalone** for the current code layout
+**Record:** Recent rt5645 changes in this tree include deadlock fix
+(`6ef5d5b92f711`), DMI quirks, push-button fixes.
+`rt5645_set_jack_detect()` added in `f3fa1bbd836a7` (2014); `set_jack`
+component callback in `7f6ecc220272d` (2023). Standalone one-patch fix,
+not part of a series.
 
 ### Step 3.4: Author context
-**Record:** Johannes Berg is mac80211/cfg80211 maintainer. Reviewed by
-Intel mac80211 developer Miriam Rachel Korenblit.
+**Record:** Rudi Heitbaum is an active embedded/DRM contributor; this is
+his first rt5645 change in this tree. Mark Brown (maintainer) committed
+it to mainline as `54b2796992794`.
 
 ### Step 3.5: Dependencies
-**Record:** No prerequisites. `_ieee80211_sta_cap_rx_bw(struct
-link_sta_info *, struct cfg80211_chan_def *)` is declared in
-`ieee80211_i.h` and implemented in `vht.c` in this tree. Patch applies
-cleanly to current `chan.c`.
+**Record:** No prerequisites. All symbols (`rt5645_irq`, `gpiod_hp_det`,
+`jd_mode`) exist in this tree. `git apply --check` on mainline patch
+succeeds cleanly.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
 ### Step 4.1: Original discussion
-**Record:** Local mbox `20260415_johannes_wifi_mac80211_clean_up_and_fix
-_per_sta_bw_handling.mbx` contains patch 4/20. Cover letter references
-earlier RFC at lore.kernel.org (blocked by bot protection). `b4 dig -c`
-could not run without upstream commit hash. Link URL also blocked. No
-stable nomination found in mbox (no "Cc: stable" anywhere in series).
+**Record:**
+- **URL:** https://patch.msgid.link/anNU3tOUR7rOReSB@5e001e58230e
+- **Series:** v1 only (single patch)
+- **Feedback:** Mark Brown applied to `for-7.2` sound tree; no NAKs, no
+  stable nomination in thread
+- Thread saved via `b4 dig -m /tmp/rt5645-jack.mbox`
 
 ### Step 4.2: Reviewers
-**Record:** Reviewed-by from Miriam Rachel Korenblit (Intel). Series
-author is subsystem maintainer.
+**Record:** CC'd: `lgirdwood@gmail.com`, `broonie@kernel.org`, `linux-
+sound@vger.kernel.org`, `linux-kernel@vger.kernel.org`
 
-### Step 4.3: Bug reports
-**Record:** No external bug report, syzbot, or stack trace linked to
-this specific patch. Related AP_VLAN NULL-deref was reported/fixed
-separately in `5a86d4e920d97`.
+### Step 4.3: Bug report
+**Record:** No external bug report or syzbot link. Bug described in
+commit message from author's platform experience.
 
-### Step 4.4: Series context
-**Record:** Patch 4/20 is independent of patches 1–3 (NAN/HT changes).
-Patch 5 is a similar chandef fix for TDLS. Patches 19–20 rename/refactor
-functions — not required for this fix in 6.18.43.
+### Step 4.4: Related patches
+**Record:** Standalone; no series dependencies.
 
-### Step 4.5: Stable list history
-**Record:** Not searched successfully (lore blocked). No stable
-discussion found in local mbox.
+### Step 4.5: Stable list
+**Record:** Not searched (lore blocked for web fetch); b4 thread shows
+no stable nomination. Absence is not a negative signal per instructions.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
 ### Step 5.1: Key functions
-**Record:** `ieee80211_get_sta_bw()`, `ieee80211_get_max_required_bw()`,
-`_ieee80211_sta_cap_rx_bw()`, `__ieee80211_sta_cap_rx_bw()`
+**Record:** `rt5645_probe()` (modified); calls `rt5645_irq()` →
+`rt5645_jack_detect_work()` → `rt5645_jack_detect()`.
 
 ### Step 5.2: Callers
-**Record:** `ieee80211_get_max_required_bw()` called from
-`ieee80211_get_chanctx_max_required_bw()` for `NL80211_IFTYPE_AP`,
-`NL80211_IFTYPE_AP_VLAN`, and associated `NL80211_IFTYPE_STATION`. That
-feeds `_ieee80211_recalc_chanctx_min_def()` →
-`ieee80211_recalc_chanctx_min_def()`, which is invoked from many paths
-(client connect/disconnect, HE operations, channel changes in `chan.c`,
-`he.c`, `util.c`).
+**Record:** `rt5645_probe()` is the component `.probe` callback, invoked
+during ASoC card bring-up. `rt5645_irq()` also called from
+`rt5645_set_jack_detect()` (machine drivers: `rockchip_rt5645.c`, Intel
+`cht_bsw_rt5645.c`, `bdw-rt5650.c`, AMD `acp-rt5645.c`, Mediatek mt8173
+boards) and codec I2C IRQ handler.
 
 ### Step 5.3: Callees
-**Record:** `_ieee80211_sta_cap_rx_bw()` uses HE/EHT/VHT capability
-parsing band-specifically; wrong band → wrong bandwidth enum returned.
+**Record:** `rt5645_irq()` queues delayed work; work handler reads
+`gpiod_hp_det`, calls `rt5645_jack_detect()` which writes registers,
+enables DAPM pins (`LDO2`, `Mic Det Power`), programs charge pump.
 
 ### Step 5.4: Reachability
-**Record:** Triggered during normal AP operation with VLAN clients
-(4-address/WDS) or any multi-interface BSS sharing. Common operational
-path, not obscure init-only code. Reachable without special privileges
-beyond having WiFi AP+VLAN configured.
+**Record:** Triggered at every boot/probe for boards with `jd_mode == 0`
+and codec `hp-detect` GPIO. Common on embedded DT boards using `simple-
+audio-card` without custom machine driver.
+`simple_util_init_aux_jacks()` does not help rt5645 because rt5645 lacks
+`get_jack_type` callback.
 
 ### Step 5.5: Similar patterns
-**Record:** Patch 5 in same series applies identical chandef-passing
-pattern to TDLS. `ieee80211_chan_bw_change()` already uses explicit
-chandef and `get_bss_sdata()` after the AP_VLAN crash fix — this patch
-closes the analogous gap in `ieee80211_get_sta_bw()`.
+**Record:** `rt5645_set_jack_detect()` already ends with `rt5645_irq(0,
+rt5645)` — fix mirrors that established pattern.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.43)
+## Phase 6: Cross-Reference Against Local Tree
 
 ### Step 6.1: Buggy code present?
-**Record:** **Yes.** Current tree still has `width =
-ieee80211_sta_cap_rx_bw(link_sta);` at line 257 of `chan.c`. Fix not yet
-applied.
+**Record:** **Yes.** Local tree is **v6.18.44** (`stable/linux-6.18.y`).
+`rt5645_probe()` at lines 3497–3500 returns without initial jack detect.
+All relevant infrastructure (`gpiod_hp_det`, `jd_mode`, `rt5645_irq`,
+`rt5645_jack_detect_work` case 0) is present. Bug predates 6.18 branch
+(present since ~2015 GPIO path).
 
 ### Step 6.2: Backport complications
-**Record:** **Clean apply expected** — 5-line change, no structural
-conflicts. `_ieee80211_sta_cap_rx_bw()` API exists. No dependency on
-later series refactors.
+**Record:** **Clean apply** — `git apply --check` on mainline commit
+`54b2796992794` succeeds with no conflicts.
 
 ### Step 6.3: Related fixes already present?
-**Record:** `5a86d4e920d97` (AP_VLAN crash in
-`ieee80211_chan_bw_change`) is present but does **not** fix this code
-path. This commit is complementary, not duplicate.
+**Record:** No equivalent fix in this tree. Commit `54b2796992794` is in
+mainline but not in `stable/linux-6.18.y` (confirmed via `git log
+stable/linux-6.18.y..origin/master -- sound/soc/codecs/rt5645.c`).
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## Phase 7: Subsystem and Maintainer Context
 
 ### Step 7.1: Subsystem criticality
-**Record:** `net/mac80211` — **IMPORTANT** (WiFi stack; affects
-connectivity for AP/station users)
+**Record:** **IMPORTANT** — ASoC codec driver
+(`sound/soc/codecs/rt5645.c`). Affects audio on rt5645/rt5650 platforms
+(ARM SBCs, some x86 ACPI tablets).
 
-### Step 7.2: Activity
-**Record:** Actively maintained; recent stable backport of related
-AP_VLAN fix confirms this area is live in 6.18.y.
+### Step 7.2: Subsystem activity
+**Record:** Actively maintained; recent stable-tree rt5645 commits
+include DMI quirks, deadlock fix, push-button fixes.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## Phase 8: Impact and Risk Assessment
 
 ### Step 8.1: Who is affected
-**Record:** Users of mac80211 AP mode with **AP_VLAN** (multi-
-BSSID/VLAN) or any setup where `ieee80211_get_max_required_bw()`
-evaluates stations whose `sta->sdata` differs from the link's `sdata`.
-Also affects associated station mode path that includes TDLS/BSS-shared
-peers.
+**Record:** **Platform-specific** — boards using rt5645 with:
+- `realtek,jd-mode = <0>` (or unset jd_mode via DT parse path)
+- Codec `hp-detect` GPIO
+- No machine driver calling `rt5645_set_jack_detect()` (e.g. `simple-
+  audio-card`)
 
 ### Step 8.2: Trigger conditions
-**Record:** Channel-context `min_def` recalculation while VLAN-
-associated stations exist on the BSS. Common during client association,
-bandwidth changes, and HE/EHT operations. Not timing-dependent race.
+**Record:** Headphones plugged in before/during boot. Deterministic on
+affected hardware; not timing-dependent. Unprivileged users cannot
+trigger remotely, but every boot with pre-inserted headphones hits it.
 
 ### Step 8.3: Failure mode severity
-**Record:**
-- **Wrong bandwidth for `min_def`:** incorrect channel-width degradation
-  decisions → connectivity/performance issues (**MEDIUM**)
-- **Potential NULL deref** on AP_VLAN `link_conf->chanreq.oper.chan`
-  (same class as fixed `5a86d4e920d97`) → kernel oops (**HIGH** if
-  triggered; analogous path already proven crash-worthy)
+**Record:** **MEDIUM-HIGH** — complete loss of headphone audio at boot
+(silent output). No crash, corruption, or security impact. Workaround
+exists (unplug/replug). For embedded devices this is a significant
+functional defect.
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** HIGH for AP+VLAN deployments; fixes correctness bug in
-  common chanctx path
-- **Risk:** VERY LOW — 5-line change passing already-available chandef;
-  matches established pattern in same file
-- **Ratio:** Strongly favors backport
+- **Benefit:** HIGH for affected hardware users (audio works at boot)
+- **Risk:** VERY LOW (4 lines, reuses existing path, guarded conditions)
+- **Ratio:** Favorable — classic hardware workaround fix
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real bug: wrong band lookup when STA `sdata` ≠ link `sdata` (AP_VLAN
-  case)
-- Complements already-backported AP_VLAN crash fix in same subsystem
-- Affects common `ieee80211_recalc_chanctx_min_def()` path
-- Small, surgical, maintainer-reviewed
-- API and buggy code both exist in 6.18.43
-- Clean apply, no series dependencies
+- Real, reproducible user-visible bug (silent audio with headphones at
+  boot)
+- Small, surgical, obviously correct fix
+- Maintainer-reviewed and merged
+- Hardware platform workaround category (explicit stable exception)
+- Buggy code exists in v6.18.44; patch applies cleanly
+- No dependencies
 
 **AGAINST backport:**
-- No explicit user crash report for this exact path
-- Part of larger 20-patch series (but this patch is self-contained)
-- No Cc: stable tag (expected for manual review)
+- Not a crash/security/corruption issue
+- Narrow hardware configuration
+- User workaround available (replug jack)
+- No explicit stable nomination or external bug reports
 
-**UNRESOLVED:**
-- Could not fetch lore discussion (bot protection)
-- Exact NULL-deref on this specific path not confirmed with a reported
-  crash (inferred from parallel AP_VLAN fix and code analysis)
+**Unresolved:** No independent Tested-by; exact board DT that triggered
+the fix not identified in-tree (no rt5645 DTS nodes in this checkout).
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic is clear; Reviewed-by
-   present; no Tested-by
-2. Fixes real bug? **PASS** — wrong chandef/band for per-STA BW in
-   chanctx min_def
-3. Important issue? **PASS** — MEDIUM-HIGH (connectivity correctness;
-   potential oops on AP_VLAN)
-4. Small and contained? **PASS** — 5 lines, one file
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — verified present and applicable
+1. Obviously correct and tested? **PASS** — mirrors
+   `rt5645_set_jack_detect()`; maintainer merged; logic verified in code
+2. Fixes a real bug affecting users? **PASS** — silent audio on affected
+   boards
+3. Important issue? **PASS** — significant functional failure on
+   affected hardware (hardware quirk category)
+4. Small and contained? **PASS** — 4 lines, one file
+5. No new features or APIs? **PASS**
+6. Can apply to local tree? **PASS** — clean apply verified
 
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-bug fix.
+### Step 9.3: Exception category
+**Record:** Hardware quirk/workaround — missing initialization for GPIO
+jack-detect platforms.
 
-### Step 9.4: Problem summary for stable users
+### Step 9.4: Decision rationale
 
-When mac80211 recalculates the minimum channel width for a channel
-context, it sums per-station bandwidth requirements. For stations on
-AP_VLAN interfaces (same BSS, different `sdata`), the old code looked up
-the RF band from the VLAN interface's link configuration instead of the
-parent AP link's operating channel. That yields incorrect HE/EHT/VHT
-bandwidth capability parsing and wrong `min_def` values. This is the
-same class of AP_VLAN sdata confusion that already caused a NULL-pointer
-crash in `ieee80211_chan_bw_change()` (fixed in this tree as
-`5a86d4e920d97`). This patch closes the gap in the
-`ieee80211_get_sta_bw()` path with a minimal, obviously-correct change.
+For **linux-6.18.y (v6.18.44)**, this commit fixes a longstanding
+initialization gap where rt5645 codec HP amplifier power paths are never
+enabled when headphones are already inserted at boot on GPIO jack-detect
+platforms without a machine driver. The fix is minimal, reuses existing
+detection infrastructure, applies cleanly, and falls squarely in the
+hardware workaround category that stable trees routinely accept. While
+not a crash or security issue, silent audio on every cold boot is a
+meaningful functional defect for affected embedded platforms.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags; identified as patch 4/20; Reviewed-by
-  Miriam Rachel Korenblit; no Fixes:/Reported-by/Cc: stable
-- [Phase 1] Read commit body from user query and local mbox
-- [Phase 2] Diff analysis: 5 lines in `chan.c`;
-  `ieee80211_sta_cap_rx_bw()` → `_ieee80211_sta_cap_rx_bw(...,
-  &link->conf->chanreq.oper)`
-- [Phase 3] `git describe HEAD`: v6.18.43 / 6.18.43
-- [Phase 3] `git blame -L 238,303 net/mac80211/chan.c`: buggy code at
-  lines 257, 303
-- [Phase 3] `git show 5a86d4e920d97`: related AP_VLAN crash fix already
+- [Phase 1] `git describe HEAD` → v6.18.44; parsed commit message tags
+  and body
+- [Phase 2] Read diff and `rt5645_probe()`, `rt5645_irq()`,
+  `rt5645_jack_detect_work()`, `rt5645_jack_detect()` in local tree
+- [Phase 2] Verified `snd_soc_jack_report()` NULL safety in
+  `sound/soc/soc-jack.c:39-40`
+- [Phase 3] `git blame -L 3493,3500 sound/soc/codecs/rt5645.c` → lines
+  from 2015–2021
+- [Phase 3] `git log -S "gpiod_hp_det"` → introduced `0b0cefc8fd105`
+  (2015)
+- [Phase 3] `git show 7f6ecc220272d` → set_jack callback (2023), present
   in tree
-- [Phase 3] Verified `_ieee80211_sta_cap_rx_bw()` exists in
-  `ieee80211_i.h` and `vht.c`
-- [Phase 4] Read local mbox `20260415_johannes_wifi_mac80211_clean_up_an
-  d_fix_per_sta_bw_handling.mbx` patch 4/20 and cover letter
-- [Phase 4] `b4 dig -c HEAD`: failed (no commit hash in detached stable
-  tree)
-- [Phase 4] lore.kernel.org / patch.msgid.link: blocked by bot
-  protection — UNVERIFIED for thread content
-- [Phase 4] No Cc: stable in mbox series — verified via grep
-- [Phase 5] `grep ieee80211_get_max_required_bw`: called from
-  `ieee80211_get_chanctx_max_required_bw()` line 352
-- [Phase 5] `grep ieee80211_recalc_chanctx_min_def`: many callers in
-  `chan.c`, `he.c`, `util.c`
-- [Phase 5] Read `__ieee80211_sta_cap_rx_bw()` NULL-chandef path in
-  `vht.c` lines 368–376
-- [Phase 5] Read `get_bss_sdata()` AP_VLAN handling in `driver-ops.h`
-  lines 25–29
-- [Phase 6] Confirmed buggy `ieee80211_sta_cap_rx_bw(link_sta)` at
-  `chan.c:257` in 6.18.43
-- [Phase 6] Confirmed fix not yet applied; API available for clean
-  backport
-- [Phase 8] AP_VLAN NULL-deref on analogous path: documented in
-  `5a86d4e920d97`; this path inferred — UNVERIFIED with separate crash
-  report
+- [Phase 3] `git show 54b2796992794` → mainline commit SHA and metadata
+- [Phase 3] `git log stable/linux-6.18.y..origin/master --
+  sound/soc/codecs/rt5645.c` → fix not yet in stable branch
+- [Phase 4] `b4 dig -c 54b2796992794` → lore URL found
+- [Phase 4] `b4 dig -c 54b2796992794 -a` → single v1 patch
+- [Phase 4] `b4 dig -c 54b2796992794 -w` → CC list with
+  broonie@kernel.org, linux-sound
+- [Phase 4] `b4 dig -m /tmp/rt5645-jack.mbox` → Mark Brown applied, no
+  objections
+- [Phase 5] `grep rt5645_set_jack_detect` → machine driver call sites
+  verified
+- [Phase 5] Verified rt5645 lacks `get_jack_type` →
+  `simple_util_init_aux_jacks()` won't call set_jack
+- [Phase 6] Confirmed missing fix at `rt5645_probe()` lines 3497–3500
+- [Phase 6] `git apply --check` on `54b2796992794` patch → clean apply
+- [Phase 6] `grep rt5645` in `*.dts*` → no in-tree DTS examples (driver
+  code still present)
+- [Phase 8] Verified `rt5645_get_pdata()` / `rt5645_check_dp()` jd_mode
+  handling in local tree
 
 **YES**
 
- net/mac80211/chan.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ sound/soc/codecs/rt5645.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/net/mac80211/chan.c b/net/mac80211/chan.c
-index a6895b40d4322..8403b5248a953 100644
---- a/net/mac80211/chan.c
-+++ b/net/mac80211/chan.c
-@@ -235,11 +235,12 @@ ieee80211_find_reservation_chanctx(struct ieee80211_local *local,
- 	return NULL;
+diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
+index 29a403526cd9e..428cc6850dc5e 100644
+--- a/sound/soc/codecs/rt5645.c
++++ b/sound/soc/codecs/rt5645.c
+@@ -3497,6 +3497,10 @@ static int rt5645_probe(struct snd_soc_component *component)
+ 	if (!rt5645->eq_param)
+ 		return -ENOMEM;
+ 
++	/* no machine driver to call rt5645_set_jack_detect(), so detect here */
++	if (!rt5645->pdata.jd_mode && rt5645->gpiod_hp_det)
++		rt5645_irq(0, rt5645);
++
+ 	return 0;
  }
  
--static enum nl80211_chan_width ieee80211_get_sta_bw(struct sta_info *sta,
--						    unsigned int link_id)
-+static enum nl80211_chan_width
-+ieee80211_get_sta_bw(struct sta_info *sta, struct ieee80211_link_data *link)
- {
- 	enum ieee80211_sta_rx_bandwidth width;
- 	struct link_sta_info *link_sta;
-+	int link_id = link->link_id;
- 
- 	link_sta = wiphy_dereference(sta->local->hw.wiphy, sta->link[link_id]);
- 
-@@ -254,7 +255,7 @@ static enum nl80211_chan_width ieee80211_get_sta_bw(struct sta_info *sta,
- 	 * capabilities here. Calling it RX bandwidth capability is a bit
- 	 * wrong though, since capabilities are in fact symmetric.
- 	 */
--	width = ieee80211_sta_cap_rx_bw(link_sta);
-+	width = _ieee80211_sta_cap_rx_bw(link_sta, &link->conf->chanreq.oper);
- 
- 	switch (width) {
- 	case IEEE80211_STA_RX_BW_20:
-@@ -289,7 +290,6 @@ static enum nl80211_chan_width
- ieee80211_get_max_required_bw(struct ieee80211_link_data *link)
- {
- 	struct ieee80211_sub_if_data *sdata = link->sdata;
--	unsigned int link_id = link->link_id;
- 	enum nl80211_chan_width max_bw = NL80211_CHAN_WIDTH_20_NOHT;
- 	struct sta_info *sta;
- 
-@@ -300,7 +300,7 @@ ieee80211_get_max_required_bw(struct ieee80211_link_data *link)
- 		    !(sta->sdata->bss && sta->sdata->bss == sdata->bss))
- 			continue;
- 
--		max_bw = max(max_bw, ieee80211_get_sta_bw(sta, link_id));
-+		max_bw = max(max_bw, ieee80211_get_sta_bw(sta, link));
- 	}
- 
- 	return max_bw;
 -- 
 2.53.0
 
