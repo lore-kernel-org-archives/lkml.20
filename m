@@ -1,75 +1,84 @@
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E4C4CCDCD
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84D1373BEC
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:45:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788201609; cv=none; b=LSXp0rQfPcg5cb1t7TD8NHt/ZUBhRKT7o++rSQdXggVqbbF9Savpd+SwOOjIHgx+bjnMUMfPceSwrSFiSSfS1Eq1pQ3/mgpxm/pbGPUZCbydYfCSE0PT/D7giLUTgYiXVcCzuj5llZQc2l2fJnUibGwUMrT+n/8tP7QHcTH7rcs=
+	t=1788201957; cv=none; b=tOYKaVo2uO5jhfDxRiBGR8CrAIB5d51gztbCIXd2At/Jx0wziHJ68DbP7WD/Y5BWGczySo9t80KO8+0md+c54I5kOLWq4SZkoMJluIHsjsdsrJv4LFT1M9bHRGGNvnZWhPeQLy4/euj+LqWgqNh2AlAqUZxnAUZEcMBl+RFwh14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788201609; c=relaxed/simple;
-	bh=aewfOdf/3WAUvkkFdDrIdOFI2f7ZAM15rd2oXKGgb4I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BGYuGkUkevaAT1BEm7CqtSdewT5FTb6eKipSxDhNFbN7G7lgIHAnFT6E7hj3+JRQOoJ1q6Ims+BUDsOK0Xh+g9xc4LDvBxrj629HSV3siPsumxiXxFsv9lzaR9fLdX9qmegzedtgqjCZELFNwMwr2OA92Rf6+BULvl4ApBS2aWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eFakrzFf; arc=none smtp.client-ip=209.85.217.51
+	s=arc-20240116; t=1788201957; c=relaxed/simple;
+	bh=gOdMOlsXmXX38oBAS7XFGOJoRmhlChqbGSNBwd2N6Gs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JoYs76j42aPGa3l4N4ENv/9aSxxf0TJf0OWDpFG6T6SUrZnbJ9M7SQCa+N/P6s1rOY5KsPmuZ6pspK4t1APxHVJxt7S8X2FwRfiaSflKK8iWRht9xEGdEiy65Rx3xrKvHMeMtQHMwncYc9fprbjdZIaDH5GdpIgbHnP2q6wIS6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TwOL3DIL; arc=none smtp.client-ip=74.125.227.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eFakrzFf"
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-783d429d0cfso2558904137.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:40:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TwOL3DIL"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-396d27bb2beso79542a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:45:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788201606; x=1788806406; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788201954; x=1788806754; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GbhZLTo9aV7ORbQe8pCNK+Oy/E8FGCzgPkcrwk0Y9GE=;
-        b=eFakrzFfV0IJubLDxmDE453rSE/2KSryDLxvTR+E4gakW62mr3xDO2rfh9gK6guRiZ
-         n68vIqpPvFrYWTCbDiZMxvgOnVGBQRreYlq/awGF/LrqTqVlm70kmWMW5jh0L5blbkOw
-         qRk7ArZmAlFzUfq0dqyy8S7IcTrPQ2RAnZc65oBZVCoqGZW0Tif9iLAp8bp7nHB7i51N
-         qwZey+mrT+jhAYmnqAJd3di9G6VbYmO+5RSE66rBhWRncGIHbpXjUH3dx9GnB4uzAlM3
-         2IzyhfFqYaUdIgUWmt53iB5e01HuyKJNrHf8MSRDoJ6c0pOUUgORccN2XELadT48qrjp
-         Yv9A==
+        bh=Ibz8/jF/Lx7KPFMOOYUTs3vW1cvNeIhgyAw0sqrv9B8=;
+        b=TwOL3DILeFBFevjvOYeNxYo5LG+gCCxQZQxM7jAFKBgEwz9nWzE68ounWDKemSDkAw
+         Wuw7WZmId+cUatZO7WNPsQ1AiGr3pH+el1fZwpsXTI+TA9Hr2Eh9lOMS4W1qR9UEW/9d
+         ulXnEcSz3hOQP55ZOlYlvrW7/Rk2ofTYJazuQJelf+0TGuw8q2jiYxjYXaReu6pKrCt7
+         CUlfoSZOfEy95DT7Q47c7FDthS7ua2AlObcxzwtc5MD7l0BWGE7GrGvv5g9D3KCIF1dV
+         8rS/NN++nlyRzYumfOdup7VnFojshibUcK+MvYUzbPk6Xr/t9hZ5wtNqzOaq50jqCmku
+         dIAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788201606; x=1788806406;
+        d=1e100.net; s=20251104; t=1788201954; x=1788806754;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GbhZLTo9aV7ORbQe8pCNK+Oy/E8FGCzgPkcrwk0Y9GE=;
-        b=Pyqe7maX62PdILgUTQnXNBbp0dN18heAs349JQWaS6h8WtAWmz6Jj07UJQnRuDbi6g
-         JRwz8/NtNUG0qSUL5ELoA8TiQNaCUK3pfHaOCtP7j69LpOcMeDoHW79DhIPqOObTdsLs
-         5nglkbOfxNqlopdgxEaSaZUtfzPZ/GHYqq7U26E5yyjQLTF+VzexRGDIvEfihS4J+LQz
-         C7w6JZORxHmDRQdFIzqzMLVjQbZXWki5EuPCJKgX9Msr49nZTT5uSg5DUlLMvbJlmLqV
-         5nhU4TLP36cK3Ydf4PnyQeU8noSaJfhPRzWjA1uPSTvJ2Smn7mQOmwjWoJesup9wHH2k
-         3uaA==
-X-Forwarded-Encrypted: i=1; AHgh+RodDHxKPd85NKg0bYkNEMVai6rtBy2LG8jG8rP2G/9SUURNMx8RXofsqc/bTBfAbnmr2e+HQJq1g1IJwFc=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+MNvxDxOV8q6GgCCclReSaYpgLjcztbskR9uLhlyJPDkGAmb6
-	bm6qjbN2bcsrZOcmFnMzL/It79/UiKEQMV3APo1Bnd7XiEVgfdSOyijA
-X-Gm-Gg: AR+sD107S2BSmQ2aXZonrupWRHYD4VRZDqNMFo2QM7NsUlNPnqJBe3oSHI7uNXckFHG
-	V3GdK2qaxfDIiCkPmdvlIPPsB8StCeJJXwu8AKdNpCNj8U7l6CQRVjsg6neNgP+t2XRaQKoCoFo
-	+JewvcN1+ibVdKYXbnvvIRsfLF4TLcYgevEYaEwS+SA+47BETL7QTF6kfvpdnjCO4YUalSkUAo2
-	lo948u2NB79zTdOHDXBxLceaHf5wXZz24Z7ZwaVLV5xscGQ+Zb9EM3W/xfjQD+piqn+IubwjwsH
-	pVPNXhQ6ynXMuKZkPmU+f4lvnF5crPE3/OoUhSzFUbZkm8z3ZeV55NKLNAoyu5BqH4+kQyxgUi4
-	cq4C0W2e/T4YWXU6ilve02+5mRQdOomAXoCmSmA+Uxe1SuoNUg1/oIudM04a7vc8drbXAkzPcZg
-	G32RgKLrWPSYR/i2YaBMkXPt1eIQHv+53PIzt6n4BClDLG0R9RahUkhugi0PBBzss=
-X-Received: by 2002:a05:6102:424d:b0:789:3f43:6455 with SMTP id ada2fe7eead31-7893f43668emr6870967137.0.1788201606502;
-        Mon, 31 Aug 2026 11:40:06 -0700 (PDT)
-Received: from adriano ([190.215.95.120])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97e847c49ebsm8747242241.0.2026.08.31.11.40.03
+        bh=Ibz8/jF/Lx7KPFMOOYUTs3vW1cvNeIhgyAw0sqrv9B8=;
+        b=JtR1l5zAy8CjDCIdkdVTN5eGLixWhzlwNxczR2qBcDKxw+pMrfUFI8VFmfm5tY3sBj
+         nIvP308ZH6MwEdE9QosQe4UYOKFSvPCj+c3zaLyaiBr/w5NYaWldc3VJ2xzQholIjQ7G
+         vHuSpvzOl4TJRKKZkGwHmJFNd12KLd8UnXTONEs0+ZwdPPIPe1zaTL+JitTEaETk9XGj
+         xstj3aImxa55PFnqWFGZaF93hUstgsmsFKeXEMxc0xdqx+Y5Yamg30a10zutmpapLbPm
+         um1pvL5WDe0sbUP4F8Pd2RJeZIf4Lx/1AzgfedoK1yBV3Ab6h6Gn4k4mc2HoNm/FZvc8
+         86Iw==
+X-Forwarded-Encrypted: i=1; AKwUvBxdr2bUZ9opFhtwcmPNZDx6AONsiNltbfJoG41XJGBs370ZBL9P437XK5F/TQgXbxNo49MgKfAFGr7qFF0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4L0L6BbF6hlSPU8eUzk58GVAGIcKnQOCu1vRnvJTNanKt1ley
+	1N+gkT6LvAQroKmPlN7UXs04zUNBp4VQ2GXYXKeUOVdSSYNx/kbBzdZy
+X-Gm-Gg: AYBFou14GDyqQoaOamqAK75zY+jCZ0X2gD/sY9CZ5ptsg0oZyveE94mijhO/k27736o
+	BD7aH1oy9wIaq8RzzzTiTFAbUh+1C/caXu6rgwOg7DK9Hk5+W1+yT4jiTxZqGTFbChVOU1qOEMB
+	9emc7XkJ0vaccwStXUkQuZguAszcDmbqh8i8jopWStYa+G+BTWUUW6d+bOlzvLrRvdgTQB35gbI
+	kAi5n09fm7UuOJnc9P/EQG3QoIWeNfKvpsl6tsC5j5fDo0q9vpmxMA7wgR8+BXLSZH6626ExM5m
+	F9dvHN+74XZI9H7qgTmT7cqqmaXmTRQ2iPyv5AQao5pZ1/BX73wyqIZyK/PhAF2Jv9ERb8Qr1ha
+	rIltU6V8h/Bj3j3iGSdua4iHaPUOHbKzSiCGXfexdz3mLVmm9DivuB9l4OnDINpN3YLz6GESQmY
+	N3mm2fcASNBHuodK1LryBUagoSqEJGcHVI7gYTEs0BQk6GtGpTFy7D74jwdP3/FYBGsxCkOoUB4
+	b8w/IJz
+X-Received: by 2002:a17:90a:4cc2:b0:396:d27b:89b9 with SMTP id 98e67ed59e1d1-396d27bb20fmr21407728a91.10.1788201954154;
+        Mon, 31 Aug 2026 11:45:54 -0700 (PDT)
+Received: from DESKTOP-M0MLFVC.localdomain ([165.99.41.159])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0dc854dsm29459223c88.10.2026.08.31.11.45.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 11:40:06 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+        Mon, 31 Aug 2026 11:45:53 -0700 (PDT)
+From: Shehryar Ahmad <shehryar.amd@gmail.com>
+To: jic23@kernel.org
+Cc: nuno.sa@analog.com,
+	Michael.Hennerich@analog.com,
+	dlechner@baylibre.com,
+	andy@kernel.org,
+	gregkh@linuxfoundation.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>,
-	syzbot+989ff6506f5c6d1ff56b@syzkaller.appspot.com
-Subject: [PATCH net] netdevsim: take bus device refcount before registering device
-Date: Mon, 31 Aug 2026 14:39:52 -0400
-Message-ID: <20260831183952.1345042-1-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	linux-staging@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	marcelo.schmitt1@gmail.com,
+	danascape@gmail.com,
+	Shehryar Ahmad <shehryar.amd@gmail.com>
+Subject: [PATCH 0/3] iio: accel: merge adis16203 into mainline adis16201 and remove from staging
+Date: Mon, 31 Aug 2026 23:41:58 +0500
+Message-ID: <20260831184201.34416-1-shehryar.amd@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,48 +87,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nsim_bus_dev_release() drops nsim_bus_devs when a device is freed, but
-the matching increment was done in new_device_store() only after
-nsim_bus_dev_new() returned successfully.  When device_register() failed
-inside nsim_bus_dev_new(), put_device() invoked the release callback and
-decremented nsim_bus_devs without the increment, driving the refcount to
-zero.  A later successful device creation then incremented from zero and
-triggered:
+This series merges the adis16203 staging driver into the mainline
+adis16201 driver and removes staging copy. Following discussion at [1].
 
-  refcount_t: addition on 0; use-after-free.
+Register addresses are identical between both parts (SUPPLY_OUT,
+AUX_ADC, TEMP_OUT, inclination regs all match). Pin config is identical
+too, all 16 pins, same names/types (Table 5, both datasheets). SPI
+protocol is identical as well (Figure 3, both datasheets, Phase = 1,
+Polarity = 1). adis16203's second (180-degree) inclination channel is
+dropped, since userspace can trivially compute it from the first channel
+anyway.[2]
 
-Increment nsim_bus_devs in nsim_bus_dev_new() before device_register() so
-the release callback's decrement is balanced on both the success and error
-paths.
+Differences between chips selected per-device via a new struct
+differ_info, picked in probe() off of_device_id match, same pattern as
+adis16475.c, similar thing in adis16480 but different mechanism.
 
-Reported-by: syzbot+989ff6506f5c6d1ff56b@syzkaller.appspot.com
-Closes: https://syzkaller.appspot.com/bug?extid=989ff6506f5c6d1ff56b
-Fixes: 6aff7cbfe7bfa ("netdevsim: Block until all devices are released")
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
----
- drivers/net/netdevsim/bus.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Don't have hardware for either part, only tested locally with KUnit that
+the sign_extend32 and SCALE/OFFSET paths of real read_raw behave
+correctly for both chips. Register read/write and probe aren't tested.
 
-diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
-index 5c55c308487b..426fb438b922 100644
---- a/drivers/net/netdevsim/bus.c
-+++ b/drivers/net/netdevsim/bus.c
-@@ -194,7 +194,6 @@ new_device_store(const struct bus_type *bus, const char *buf, size_t count)
- 		goto err;
- 	}
- 
--	refcount_inc(&nsim_bus_devs);
- 	/* Allow using nsim_bus_dev */
- 	smp_store_release(&nsim_bus_dev->init, true);
- 
-@@ -465,6 +464,7 @@ nsim_bus_dev_new(unsigned int id, unsigned int port_count, unsigned int num_queu
- 	/* Disallow using nsim_bus_dev */
- 	smp_store_release(&nsim_bus_dev->init, false);
- 
-+	refcount_inc(&nsim_bus_devs);
- 	err = device_register(&nsim_bus_dev->dev);
- 	if (err)
- 		goto err_nsim_bus_dev_id_free;
+Patch 3's binding content is unchanged from [3].
+
+If this isn't the right direction, guidance would be appreciated.
+
+Link: https://lore.kernel.org/all/20250308144239.0442f1a7@jic23-huawei/
+Link: https://lore.kernel.org/linux-iio/20180204163124.67234ae5@archlinux/
+Link: https://lore.kernel.org/all/20260812043506.456ced6d@jic23-huawei/
+
+Shehryar Ahmad (3):
+  iio: accel: adis16201: merge adis16203 support from staging
+  staging: iio: accel: remove adis16203, merged into mainline adis16201
+    driver
+  dt-bindings: iio: accel: adi,adis16201: add adis16203 compatible
+
+ .../bindings/iio/accel/adi,adis16201.yaml     |   6 +-
+ drivers/iio/accel/adis16201.c                 | 289 +++++++++-------
+ drivers/staging/iio/Kconfig                   |   1 -
+ drivers/staging/iio/Makefile                  |   1 -
+ drivers/staging/iio/accel/Kconfig             |  19 --
+ drivers/staging/iio/accel/Makefile            |   6 -
+ drivers/staging/iio/accel/adis16203.c         | 315 ------------------
+ 7 files changed, 178 insertions(+), 459 deletions(-)
+ delete mode 100644 drivers/staging/iio/accel/Kconfig
+ delete mode 100644 drivers/staging/iio/accel/Makefile
+ delete mode 100644 drivers/staging/iio/accel/adis16203.c
+
 -- 
-2.51.0
+2.43.0
 
