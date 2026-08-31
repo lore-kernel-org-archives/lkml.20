@@ -1,98 +1,96 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.102])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DBC305664;
-	Mon, 31 Aug 2026 07:05:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA1C3C09E7;
+	Mon, 31 Aug 2026 07:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788159907; cv=none; b=qZQu2AvNtQh+eCYJ1fIiIsALO0S8gRWfX+wpW3mr/H8zAIRCsWrZvoVBVr2YOYtelnPgXDrdxIdz+TBRkLBKfVtU5oFBbbZyuzqugSbSsZ9RbaBDDxHuENSVmgTjsU+4h5rR+a5m8FbgGdNY4+Zn6wEixsUtDnsP7+Ba2PUZUi8=
+	t=1788159914; cv=none; b=kq8eLTAwsTCDzz4uhcTJm1Gf7D/jPvu3NM9xF39q4vLmYMEJ+OAjtQ7qQqc6G43IGGCObhl9IcYVCbaUebFw/S+GYj6iwkFFg41WZtgqiXPkz4NZO4gocgAMYaVu4nexmJG4q7zjWUO1t2PymBKuhh/c0NYb5R0AEtxqMyGF1lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788159907; c=relaxed/simple;
-	bh=OsT9wSR3yxny15+BmcuiJ+mNDi5s7WDwal1ui55WUS0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MTvWW6+yv0zbz8UGe65HUS+8r6NjCxWhomHq1Ur4HEofuimUXPlbg2xe0cHxOjy9ZukIdGLOvSDJf43dxvhZA2XyY4kSkeJe8wRhgKZS9gIuYAnch/8fCXKFD5XRVGY7SvnlrMWlC9r4NrU8ig3pmq75vHAPv/OY2+6SzUDYtq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=ZM0jHShE; arc=none smtp.client-ip=188.68.63.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1788159914; c=relaxed/simple;
+	bh=KMA0y2gJ+SIDBUH1IFare7qX+NGD24kexNWBIT9z0oo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IGQiOavlHUcxM3XQn7hDDZJcw2YdVO14FHJSP663PEYkMQ5BSGb4Qoj0IazS7FTSvtf8pki7E2B1IZz21kDUDZ68/zRk+L91Atzgj90bB4Eo0iEAZJaq44XJV2waqB6g6ZCB/a6xGjmoK1MXFWkYLPRJxRzW78cz93ps8ng0tl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A/ZaFCL6; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="ZM0jHShE"
-Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hYKWy6W3wz6F5q;
-	Mon, 31 Aug 2026 08:55:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1788159358;
-	bh=OsT9wSR3yxny15+BmcuiJ+mNDi5s7WDwal1ui55WUS0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZM0jHShE24T+GzkuKdbh4evQfvvlbFUM8Mq8egMD1k+CD32gj0clgIJZm/FmKJNc5
-	 xMBaW+SUBdj3utN4GqSMAhKegD2I9kmFuoz6WHz4OMRSqYryMnao736gFp7+sKNedn
-	 c16AUcUFNLp0I9+QRCU0755p/t0FSafp//n4B4sWLkzjiygfeorWLYEs4DxpRCw8Yl
-	 ywc19pbbhO8sc7JU6caOD8UN4d4Q+8vO2SHHCGCuqkR54R3vhLoAB0sK5sOeZBLdJA
-	 Xj7un0L5GLRaMc49jByFe1fqckdHB/7nVbgqokqkjgRAfCWB1iPhYwz1Stpt/2e/jS
-	 GDypiwKomT/vg==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hYKWy5nq8z50kj;
-	Mon, 31 Aug 2026 08:55:58 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.901
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hYKWv3V24z8tbl;
-	Mon, 31 Aug 2026 08:55:55 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id C6B325FAC8;
-	Mon, 31 Aug 2026 08:55:54 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <64a7ce30-b346-4e94-974f-f30893d66829@leemhuis.info>
-Date: Mon, 31 Aug 2026 08:55:53 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A/ZaFCL6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788159912; x=1819695912;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KMA0y2gJ+SIDBUH1IFare7qX+NGD24kexNWBIT9z0oo=;
+  b=A/ZaFCL6d6g/TCDM8BzgxN+E4WBjRrNRurJ4RUuNgA6CmPYQaqrbGNS0
+   /k1utL6MfUFQ04/U8qLdU+c6y3xB7IGN4mGdAr5Jc+KoveXnlPe/B2Nlv
+   93eKVpMosIbKqQ7JzkGDVHfhV1tSyg2gtVdlLSBYU7b36XjaQw8UcGHr0
+   iXIzHNlwMj0i3ZUwRrNf9qQVSIc+WbYdZU+QMXSUOvC3DhSq893LvLv5E
+   TkesHAbdehuxEXpLrmGYaEmB3792DTl4bUFujwCwe0/brZ0MNFo1r6y0y
+   H616jZNe2/OqJNu7ptRQzAAMrln6Pvqp5aV4zUW8WGmnhSrx+CPKpQNPQ
+   w==;
+X-CSE-ConnectionGUID: wgpYo6JCT8a5hnsC/1ZN/A==
+X-CSE-MsgGUID: 3ZZf0Yv9S4yxK2ksTtZFiQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="106082690"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="106082690"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:05:11 -0700
+X-CSE-ConnectionGUID: DevC9x73TOm0q53Kyz17mw==
+X-CSE-MsgGUID: 1MXxaRr8RWakykGavS//jQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="269306552"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:05:09 -0700
+Date: Mon, 31 Aug 2026 10:05:06 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Yang Zi <2959243019@qq.com>, lorenzo@kernel.org,
+	linux-iio@vger.kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: humidity: hts221: fix division by zero in
+ calibration data parsing
+Message-ID: <apUnohaFf1HaqWN9@ashevche-desk.local>
+References: <tencent_0F43B1BC41CE4066DA52B7B25FBC04C41A09@qq.com>
+ <ao7zrbXG6f-pPxIB@ashevche-desk.local>
+ <20260831010021.67cbf4c1@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: xhci: fix maximum event ring segments calculation
-To: Pierre-David Belanger <pierredavidbelanger@gmail.com>,
- Shixiong Ou <oushixiong1025@163.com>
-Cc: Shixiong Ou <oushixiong@kylinos.cn>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Niklas Neronin <niklas.neronin@linux.intel.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev
-References: <20260828105926.930033-1-oushixiong1025@163.com>
- <20260830031233.1810986-2-pierredavidbelanger@gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260830031233.1810986-2-pierredavidbelanger@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: 
- <178815935522.2907656.14889156823355571379@mxe9fb.netcup.net>
-X-NC-CID: eiXoVUb+xadsh/1ByZXAYrQjTaBHEI2FtxuHLrDBusnQ1zxHnPA=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831010021.67cbf4c1@jic23-huawei>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 8/30/26 05:12, Pierre-David Belanger wrote:
+On Mon, Aug 31, 2026 at 01:00:21AM +0100, Jonathan Cameron wrote:
+> On Wed, 26 Aug 2026 17:09:49 +0300
+> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+> > On Tue, Aug 25, 2026 at 05:21:10PM +0800, Yang Zi wrote:
 
-> The failure on 08dbfad3f504:
-> 
->   xhci_hcd 0000:00:04.0: xHCI Host Controller
->   xhci_hcd 0000:00:04.0: new USB bus registered, assigned bus number 1
->   xhci_hcd 0000:00:04.0: Failed to allocate interrupter erst
->   xhci_hcd 0000:00:04.0: can't setup: -12
->   xhci_hcd 0000:00:04.0: USB bus 1 deregistered
->   xhci_hcd 0000:00:04.0: init 0000:00:04.0 fail, -12
->   xhci_hcd 0000:00:04.0: probe with driver xhci_hcd failed with error -12
-FWIW, not my area of expertise, but to me it looks like there were two
-similar fixes submitted earlier to address this and "usb: xhci: Fix
-HCS_ERST_MAX conversion" (
-https://lore.kernel.org/all/20260828105926.930033-1-oushixiong1025@163.com/
-) seems to be heading towards mainline already according to Mathias.
-Sadly this missed -rc1, wonder why it wasn't submitted for it to prevent
-more people from running into this, but whatever, that's ship has sailed.
+...
 
-Ciao, Thorsten
+> > Do you have HW to test? Any fault injection perhaps?
+> > The problem with div-by-0 is that it's implementation defined, meaning
+> > that it's how compiler decides. Now, the question is, what will compiler
+> > do in the current code (no patch applied)?
+> > 
+> Whilst all this is true, the code shouldn't be relying on any particular
+> behavior.  So do we need to know?
+
+That's my point. If code relies on that, it should be spelled clearly in
+the commit message. Then we will deliberately break that (nasty and wrong)
+behaviour.
+
+> Reality is the hardware is almost certainly never returning values where this
+> is true.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
