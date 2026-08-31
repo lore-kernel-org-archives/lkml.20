@@ -1,142 +1,92 @@
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498DE4BB5A4
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0E44854F2;
+	Mon, 31 Aug 2026 14:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184959; cv=none; b=UFKwKcdZL5ICdsqrnI62go15icFM1m6PHwulleBQRb0pPEa2tJeCT9OxQwKQF46YQe+2Gy6a5nazniImpPE68NlzO+vxZBlLxQYCbCgiGT7vB9BuicRn7+cdBuVZN6JAA+NEm7sqJiF26CSvMKREopFdXy5nGDyw4jA8zEmD95k=
+	t=1788184983; cv=none; b=EFrqO1MsORt+F0ipz5rA+p++wAMba5/aJ19PLPbZbuDE6PbxY8m51+lkJRUvM688oPrPJzX2CajKebVNZhvoEnSzkrt0VUlNB++0fo3aLRxBMqJBYhW5Fk22guFnqGtued62ckjNWPaV18T7fPRtdKPM4iD7EbZhdAPxEsV2ll8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184959; c=relaxed/simple;
-	bh=j0rR9MGESIIEuqcISsQKYNt5XVOHewIyabitt0SxDbk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lzrew8YC1WeeG1dclvBlJg9bqS5jgzzMaWtPqFG0zNRLQehreQXA62tLscOGx9V4+NTF2RgY03wB44sJsbVCeEtxdgRcwiAlT9e/i5GEBpb27h3u7ZHaqwab73bdfqd+o4d7OLsVSPEJlaj90lgJqFWWlA1pjn49WPYz7b7LGsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=eEhWzK95; arc=none smtp.client-ip=209.85.208.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788184983; c=relaxed/simple;
+	bh=ZgzJ8xNsJonkAYjq+FTVYNFVRbALFz9xF6x+nNbB9bQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ihzb+fccJ7oZBwFSZWCa2SBKFVki3zi2VpwPY3DEV3IzVIPyUqNZ6H0lsklcMCfGpvLA2lRpeTaj78BfbjGhJUAozUA6CHskhT0VJTiP+UKw4dMcqrvPbQlfuXHRDegVGac+lVAqK3G+fCd5c8w6syUHjdA9J//BoB1QEPnlbm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VWF0A9jU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="eEhWzK95"
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a20bf98748so2052691fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:02:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788184954; x=1788789754; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+6NgNBrKED1HZLTTfXtmSzKHM84oxFz3evM2YzN+h9A=;
-        b=eEhWzK95HTVNoBTxreBIhtX/5MlJo2NiX4TgxkUNd17yKqY5z/3KiquFlU6nqaEN9r
-         zfSPbYNHnHaRLE4wPFERjMmva4HM52KnKroaPYmYdYBW6E7o7HC/Cq5n9iZjB4h/Jzv9
-         tkNI6MwnsJqCT1eQX5EJCmHg3rSBZAjQmgjVtZ7+RJyaPYbnQtlCRnzJ6BKYTqfxOznK
-         ARHYkxRK6i9bEEZ9GP89e/Ay2rVxozQcqBAgMPjamfUkS4LfgDNC4J5h1p48TFPr9z+8
-         BJrY16j0P6waHKEL7DZnFOqBHFa0itDsIZjFjaLF/FT8IA8j2XGY/l8MeGLuFaDHtVU8
-         pzAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788184954; x=1788789754;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+6NgNBrKED1HZLTTfXtmSzKHM84oxFz3evM2YzN+h9A=;
-        b=d8PPiTJvxPFXDlRzU6d3X9wQq+z4LqDzxkSPAFXlo9/HjwlJEAucFlSNsNbJwd74CL
-         oq91G6q5rqPEGYAqbCmoAcuA/Iektg0a5oAQunPlzDayZOtE7R/ahdgS3wBLWWjGWVAV
-         N18pb+2GS3dND8TuV30qRo34fOTqClTeN8ouzPfgj0fUMH6xetDGAtzY7v0vxBQORrfj
-         91wXt6x1IV1p8X3EPOAck2CjqezcO9Yi8cU2ePoVabqxfi69QLgUPahFEp83x63Z1AuZ
-         +GMP8mMmzB+1iHyDOyeUglKOQBH4TFS9fGSYRSiV8BydkciIJy4zTWvwrltUcSIPj+YH
-         LaZg==
-X-Forwarded-Encrypted: i=1; AKwUvBzx5+yLHAFv9lkP1XLwYCT3GwN15aqtJFjEluEPcHjkOftcTgLSkzt5ONaiMRJIpYceso3Q9gFy7ZVamr8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuqephlCk6MbvAJvqCbQ+90it4RQ7AVdk9nNpomxHP05V61WA/
-	gqrq9fRZLt+7eemP9NaDaQEkdoBR5tIzlSpnNBThKYqHhN/FfZdCfs/oM3FTt3tjwrzg+YNa7VD
-	cA+AI9d0=
-X-Gm-Gg: AYBFou0Ah4HbXlCTUy2SjtMf1UFKGKf4qScXKr8CIpQFTdBE3gjs8AammDc3KkIFh0p
-	rGEF7e+y30jdniqQAR9krdEPq5F7ppoTq+9yjHV2xTI53ygv2TVJmZpVp1NjaIDz+PeIHfuzEok
-	6Ip6DUZ0BvM98vlo/IoDricNHN3FgWt1XyKMXyxob5cYV7Rn7D1hGOHzqyuveEmS5h37ZCgVyLy
-	npeI4mMUNnZrSEKILVZO42w7X/EiYDFj1pdDdY2g/ilGCm5flZNeUL+enIuQVZrrjYe3k51m4sK
-	5QmW4LfI9zJW76z9Nq75pg2TnUXarYaqeGhfGgvyc2MQRc0UB7PJKJuNbtfJU0xqw9GMQWJfLEZ
-	P+Ollto36AlvafUkAK7nvz/qN/+OfFmbLFsZq1JqqHseSUpwyIvmj9HOJdbvdHpVv+r9KMGlPum
-	+FX/uWemCDFkzlusBQfipnLUqEONBgHZvlbHo0S0C1N+/+8BhxkEnGulPBfZo=
-X-Received: by 2002:a05:651c:a107:10b0:3a3:38e2:aea1 with SMTP id 38308e7fff4ca-3a338e2b1eamr1597451fa.2.1788184954189;
-        Mon, 31 Aug 2026 07:02:34 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396d77f7643sm5961747a91.3.2026.08.31.07.02.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:02:32 -0700 (PDT)
-Date: Mon, 31 Aug 2026 22:02:30 +0800
-From: Heming Zhao <heming.zhao@suse.com>
-To: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to
- system inodes
-Message-ID: <apWJLyCNwqfdiRQb@p15>
-References: <20260831062848.2743436-1-joseph.qi@linux.alibaba.com>
- <20260831062848.2743436-2-joseph.qi@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VWF0A9jU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57E351F00A3D;
+	Mon, 31 Aug 2026 14:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788184982;
+	bh=paIdgif6hw8T3V3Zj2lvN5z7nl45Qgmr3NwmsBxfwpA=;
+	h=From:To:Cc:Subject:Date;
+	b=VWF0A9jUIsDIf4RCs5BXyowwOSvrSz3CgGBYwd2l6Ijs0Ap3U25FEVv/GLHswkXgU
+	 tK5JOF4gDLPa3K258uM691drUtp40UT/n3wKxRQcP7hgo7ClbsLlUW78bxF2+XuSPT
+	 7xAkjrwCyejfH3CSSEosqAtFoOuWWJ0sMc6+VS2VnMgz9i+KmUaagAgLBGTbRozI0I
+	 kylJpb5iEgxbHFR21rS2l7LUSZHrUxgab3XZhKE3i9DFZMrZJz5iBYV7TWR4OP5g3P
+	 ylR5Z12bVJ7nPCpL1y2wPs4nygz9+LbqX/cwd+kUHLeJOcH2tsrvY2YBIUfBkst2Aw
+	 ykkiRGmTbj+8A==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Usama Arif <usamaarif642@gmail.com>,
+	Yueyang Pan <pyyjason@gmail.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH v1.2 0/8] mm/damon: fix DAMOS bugs in core, paddr and vaddr
+Date: Mon, 31 Aug 2026 07:02:39 -0700
+Message-ID: <20260831140254.72004-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831062848.2743436-2-joseph.qi@linux.alibaba.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 02:28:45PM +0800, Joseph Qi wrote:
-> ocfs2_validate_inode_block() currently permits i_suballoc_slot to be
-> OCFS2_INVALID_SLOT for any dinode.  Only system inodes created by
-> mkfs.ocfs2 are allocated from the global allocator and thus
-> legitimately carry this value; regular inodes are always allocated
-> from a per-slot suballocator and hence must have a valid slot.
-> 
-> If a corrupted regular inode with OCFS2_INVALID_SLOT is accepted,
-> ocfs2_remove_inode() will pass the slot to ocfs2_get_system_file_inode()
-> and get_local_system_inode() will hit BUG_ON(slot == OCFS2_INVALID_SLOT)
-> when the inode is deleted.  This can be triggered by an unprivileged
-> user unlinking such a corrupted file.
-> 
-> Reject OCFS2_INVALID_SLOT for non-system dinodes during validation,
-> while still accepting it for system inodes.
-> 
-> Fixes: fe7a283b3916 ("ocfs2: add suballoc slot check in ocfs2_validate_inode_block()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Fix misc bugs of DAMOS.  Patch 1 makes DAMOS less stress memory
+allocator under extreme situation.  Patches 2 and 3 fix wrong folios
+walking in DAMON_PADDR.  Patches 4 and 5 fix wrong folios walking in
+DAMON_VADDR.  Patches 6-8 handle extreme and unlikely memory situations
+that can cause divide by zero and underflow.
 
-LGTM.
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
-> ---
->  fs/ocfs2/inode.c | 19 +++++++++++++++++--
->  1 file changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-> index 180107a11046..eda50f13ffb5 100644
-> --- a/fs/ocfs2/inode.c
-> +++ b/fs/ocfs2/inode.c
-> @@ -1520,8 +1520,23 @@ int ocfs2_validate_inode_block(struct super_block *sb,
->  		goto bail;
->  	}
->  
-> -	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
-> -	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
-> +	/*
-> +	 * Only system inodes created by mkfs.ocfs2 are allocated from the
-> +	 * global allocator and thus legitimately carry OCFS2_INVALID_SLOT.
-> +	 * Regular inodes are always allocated from a per-slot suballocator.
-> +	 * If a regular inode with OCFS2_INVALID_SLOT was accepted here,
-> +	 * deleting it would pass the slot to get_local_system_inode() via
-> +	 * ocfs2_remove_inode() and trigger BUG_ON(slot == OCFS2_INVALID_SLOT).
-> +	 */
-> +	if (le16_to_cpu(di->i_suballoc_slot) == (u16)OCFS2_INVALID_SLOT) {
-> +		if (!(le32_to_cpu(di->i_flags) & OCFS2_SYSTEM_FL)) {
-> +			rc = ocfs2_error(sb,
-> +					 "Invalid dinode %llu: suballoc slot %u for non-system inode\n",
-> +					 (unsigned long long)bh->b_blocknr,
-> +					 le16_to_cpu(di->i_suballoc_slot));
-> +			goto bail;
-> +		}
-> +	} else if ((u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
->  		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
->  				 (unsigned long long)bh->b_blocknr,
->  				 le16_to_cpu(di->i_suballoc_slot));
-> -- 
-> 2.39.3
-> 
+All bugs are discovered by Sashiko.
+
+The bugs are not very critical, but better to be merged sooner than
+later.  Since mm.git is closed for urgent changes, I aim for 7.3-rcX.  I
+will drop the RFC tag after 7.3-rc1.
+
+Changes from RFC v1.1
+- RFC v1.1: https://lore.kernel.org/20260802162631.90304-1-sj@kernel.org
+- Fix wrong commit message (patch 7).
+- Return 100% and 0% for used and free memory (patches 7 and 8).
+- Drop incomplete last_psi_total initialization (patch 2).
+- Rebase to latest mm-new.
+Changes from RFC
+- RFC: https://lore.kernel.org/20260801173554.94710-1-sj@kernel.org
+- Use cached pte content (patch 5 and 6).
+- Handle totalram < freeram case (patch 7).
+- Fix wrong function name in commit message (patch 9).
+
+SJ Park (8):
+  mm/damon/core: skip applying scheme if region split for quota fails
+  mm/damon/paddr: respect folio end for DAMOS_STAT
+  mm/damon/paddr: respect folio end for DAMOS actions except STAT
+  mm/damon/vaddr: respect folio end for DAMOS_STAT
+  mm/damon/vaddr: respect folio end for DAMOS_MIGRATE_{HOT,COLD}
+  mm/damon/core: handle extreme memory state in damon_get_node_mem_bp()
+  mm/damon/core: handle extreme memory state in get_node_memcg_used_bp()
+  mm/damon/core: handle extreme memory state in get_in_active_mem_bp()
+
+ mm/damon/core.c  | 18 ++++++++++++++++--
+ mm/damon/paddr.c |  8 ++++----
+ mm/damon/vaddr.c | 10 ++++++++--
+ 3 files changed, 28 insertions(+), 8 deletions(-)
+
+
+base-commit: 59a8d789d9478797978640a7a640b086ad400b37
+-- 
+2.47.3
