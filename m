@@ -1,103 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACDAC51356B;
-	Mon, 31 Aug 2026 15:02:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC322514770;
+	Mon, 31 Aug 2026 15:02:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188558; cv=none; b=AGnXZc41YtMHlhmz5D+2qeRf2nPR63s39+vgD/ROuG87/uMH5wZZXStmQcTESE8L3FJv5xCK+ZhZORo3pBP5brSNC2ffGk6orFx3f4YeCPvZGG5zXlp6w0G0zJqzI3xJ+hVZMpr2Yb2aS9qO4jERofkw2wNYM1HAAxe/sShu5aU=
+	t=1788188561; cv=none; b=COC5THfjlk3roUogIMVrIAXLL6JqBkORJxxzkPU2hvHO0jieLy9NbKpfMHY4aNRA92c/ceQRaQNNjviKa0l+/x1c/vHjZwcj8QGFA/tv0uH9vdqljnjSrRuVF49n4KZDZ7BGajoGPnAWkygJPXDrN/Cjsu2YQlZDH1o9x9kDHX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188558; c=relaxed/simple;
-	bh=WS9IkyLIoDhqnmtPMHzmEZHH+zFH+nqwXWryqrjT36I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g8iPkPf33N/HJv/yPcyV/IsdkIejGklxEL8QMPdrpw0bX2nGfzeNtxf/TFvf2WE3SeCi/Km1JrH+KgvRgpstqBti495N1W+q9Cdzt0S4Goo0ciKFPqhmDmSDon0gREjPIERUXqxSgjqeBGgnwe1czVREtCHwr4sAtwcwi8XwjV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SLIlB6Sf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788188561; c=relaxed/simple;
+	bh=C+pCREtFQwkT20iqaLyc0Hd0RC9syYGE2DcfobTAwNA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BTXeyi0+BJ0F1b73yCYo9TF9f8qfxXGEabqLyVZ81RG1od6bJLeN/xdawytMRNk1rKjKWNT9nMSL29YO8bnti3A/gSkQc2Z3RAStmZ1iJ2kpG4puzyuBlzAfHeZt/By9dFVDPudg3hb7GIN6OxkOuYfOenOmrKjZwfjI9j3NKC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EaUqloqy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SLIlB6Sf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE1F01F00A3E;
-	Mon, 31 Aug 2026 15:02:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EaUqloqy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1AF31F000E9;
+	Mon, 31 Aug 2026 15:02:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788188557;
-	bh=fP0OmW7AaCN1UBBu3eieNVT1hiNAdPr1GoBH/nwPos4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SLIlB6SfpA8AmTf/M6tefYj3BeCtREJ4QvfdwfP4DPz6DdnexLbsxZLrTiYPJSBfW
-	 KUYuEPlc4eGJ2e1oa7uaeuyF/DoZROmih/gY+20vA4Tzi90xWYOfwzC0+E7VL0/lDf
-	 qu51ty0064PMl8WzWR0NSawth/Gf/7cyzZOeDoREMjLq80zC3I0mF4ZraAkAN7yv1d
-	 NBaT3GkT/9lqzirq9o/PvpDmqya4XEoQxSkyz9Nzd7i4sPxsbJlfrfrUFkXzh+Ur/+
-	 Gq/8OCXK62Eh+dayewVvEJDr+uhwHiEYQS3dDKfMmYa7ruPI5BkESAVGPtFo8xR7g8
-	 i0LaH7vzQ3+vw==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Liew Rui Yan <aethernet65535@gmail.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	David Hildenbrand <david@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	SJ Park <sj@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v3 3/3] docs/mm/damon/design: fix typo of max_nr_snapshots
-Date: Mon, 31 Aug 2026 08:02:26 -0700
-Message-ID: <20260831150227.83416-4-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260831150227.83416-1-sj@kernel.org>
-References: <20260831150227.83416-1-sj@kernel.org>
+	s=k20260515; t=1788188559;
+	bh=C+pCREtFQwkT20iqaLyc0Hd0RC9syYGE2DcfobTAwNA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EaUqloqyuxlnfCqUSsbqAKqeud1q7C80WWI7C0AJMCTQpUQMkACHqRaMznwDc3A5U
+	 aHvX7v1NfltZMKUMZLgu/MNnhqOZPG4Uj+hf5hwge3wgnejSxrK0+TqwImRLr4fq9D
+	 a0v5xDhkAoPwEhANqCtNVNEHFi2MYfZ0NDf9LZzVczP9hGodi+X+Tf3LjxABkIn3h2
+	 NPgE7ONlnn6C7Re95i6fMQd1HwIyQga8UPP1hQkTSWfOToBwRofMfcY1JtO2Cnxb5I
+	 ZKmVJpuGrEbkfr3/HSW7Ojhr/iOJlcVRn3EJvc4iPS3vn9j3vGODl5uwz4I64QU/X4
+	 67EvLVs/dKY6A==
+Date: Mon, 31 Aug 2026 16:02:35 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
+Cc: linux-bluetooth@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] Bluetooth: dt-bindings: net: bluetooth: add
+ BCM4384
+Message-ID: <20260831-cosmic-crawling-cf0532d4d3c0@spud>
+References: <20260827110242.1203546-1-andy.chang@synaptics.corp-partner.google.com>
+ <20260827110242.1203546-2-andy.chang@synaptics.corp-partner.google.com>
+ <20260827-uncolored-onlooker-d62c44a3323b@spud>
+ <CAF8VQdEA7=LRpHaVOVZxRi73kRf=0pK_etJOJ5oeULtgw4k5Bg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Be5C8Jw/A1Wehthf"
+Content-Disposition: inline
+In-Reply-To: <CAF8VQdEA7=LRpHaVOVZxRi73kRf=0pK_etJOJ5oeULtgw4k5Bg@mail.gmail.com>
 
-From: Liew Rui Yan <aethernet65535@gmail.com>
+--Be5C8Jw/A1Wehthf
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes a typo (nr_snapshots -> max_nr_snapshots) and corrects a grammar
-error.
+On Mon, Aug 31, 2026 at 05:34:23PM +0800, Andy Chang wrote:
+> On Fri, Aug 28, 2026 at 12:38=E2=80=AFAM Conor Dooley <conor@kernel.org> =
+wrote:
+> >
+> > On Thu, Aug 27, 2026 at 07:02:41PM +0800, Andy Chang wrote:
+> > > Add the brcm,bcm4384-bt compatible string to support the
+> > > Synaptics BCM4384 Bluetooth controller.
+> >
+> > Please explain why a fallback compatible is not suitable here, or
+> > alternatively if it is, use one.
+> >
+> > pw-bot: changes-requested
+> >
+> > Thanks,
+> > Conor.
+> Hi Conor,
+> A fallback compatible is not suitable here because the BCM4384
+> controller requires a dedicated firmware patch file (.hcd) matching
+> its specific hardware ID and revision.
+> Falling back to an existing compatible would cause the driver to
+> request the wrong firmware binary and fail the controller
+> initialization.
+> Therefore, it requires a distinct compatible string.
 
-Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
----
- Documentation/mm/damon/design.rst | 4 ++--
- include/linux/damon.h             | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+Cool, please put this info in the commit message.
 
-diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
-index 74170a2285501..63cbb7b536da2 100644
---- a/Documentation/mm/damon/design.rst
-+++ b/Documentation/mm/damon/design.rst
-@@ -873,8 +873,8 @@ action is ``pageout`` while all pages of the region are unreclaimable, applying
- the action to the region will fail.
- 
- Unlike normal stats, ``max_nr_snapshots`` is set by users.  If it is set as
--non-zero and ``nr_snapshots`` be same to or greater than ``nr_snapshots``, the
--scheme is deactivated.  Note that, unlike watermarks, even if a scheme's
-+non-zero and ``nr_snapshots`` equals or is greater than ``max_nr_snapshots``,
-+the scheme is deactivated.  Note that, unlike watermarks, even if a scheme's
- ``nr_snapshots`` reaches ``max_nr_snapshots``, monitoring will not stop.
- 
- To know how user-space can read the stats via :ref:`DAMON sysfs interface
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index d3f45f4dcdafa..7b1b6050a8286 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -551,7 +551,7 @@ struct damos_migrate_dests {
-  *
-  * After applying the &action to each region, &stat is updated.
-  *
-- * If &max_nr_snapshots is set as non-zero and &stat.nr_snapshots be same to or
-+ * If &max_nr_snapshots is set as non-zero and &stat.nr_snapshots equals or is
-  * greater than it, the scheme is deactivated.
-  */
- struct damos {
--- 
-2.47.3
+Thanks,
+Conor.
+
+--Be5C8Jw/A1Wehthf
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWXiwAKCRB4tDGHoIJi
+0p4iAQCVA3m20ajQj2k9zBtN097mymUdLDsp1JMWDndTMrhANAD/Tytgo8aekMkc
+GfSxtdR9XDIIfvNCOseqR7jiWCDqEwg=
+=zh7V
+-----END PGP SIGNATURE-----
+
+--Be5C8Jw/A1Wehthf--
