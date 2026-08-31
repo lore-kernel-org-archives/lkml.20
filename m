@@ -1,128 +1,90 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECE5345ECC;
-	Tue,  1 Sep 2026 11:24:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DED72C027F;
+	Tue,  1 Sep 2026 11:25:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788261897; cv=none; b=uzCj/AueiKKjeP3tb7is6dyhrcZz+PvAqUx+oR3jDuRWf7CJHbC+K7tLs504MMH4jUMQDfX1b32mC8+381RoORQcvgfpoa9dbm3+4txnj6wi7CT28woICnFizy82qjXQZ8Cc5nR/rizQdn29hFhfspn3sfdVxJ8uuGY52xhV54o=
+	t=1788261905; cv=none; b=Cdane+/5FQzkiNm6EOQ89aT/NV9091PYI5imkTbIuXzVcyH7riDWWnhfhCDN3DX2B88WBoBZg0zYhpSr8fiVbLZLUG2Xg8VMcWNV0hrk/c/1++AjQu8qJFnjWPxUSLrSN1DZz6fI3NcBcsGceFHFDex8V/VSMlZ1i29F50A8oXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788261897; c=relaxed/simple;
-	bh=XW2dwApA0a329Z5E7Ie15jEWR+nXLdDXttO3vc+pxwQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PWppjeihbMmMUjayNwmW6GB25TjOyBDgzTok3a+UkIB36/KOoqypIbxksSuRhkZEyl28siHgZ9l1flfiUJWxtcq0ivdKaG1nzF6+mSczDPH1Shcti07MaSHhX+Sof45JARotcSg4NdKCRTRPztzvWbKxq3urg6MI8B1ZVNUgenY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LILcLUfI; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788261905; c=relaxed/simple;
+	bh=yWfNKdz7HAVroXMHN7/2NOMoTKz5E9piBvjTaavTBd4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=jcq1lLfvK2izZ2tvgCnuqoqRwNDZ545420KD2beKqvdFyslodlxBPTSwGIdj6ZAzoGXwbRntHebWDaSSCzHJIq86fBO97J8q5xhg5HOyVdysgoSn2B+qgy5sDhuH3cumlGje4+BNY8wNzL3E4ELWxBPtjXeeIoNe2thoeghBhW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YX14xIXF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LILcLUfI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788261896; x=1819797896;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XW2dwApA0a329Z5E7Ie15jEWR+nXLdDXttO3vc+pxwQ=;
-  b=LILcLUfIgTv/BQRtTluxloav04picz1wqXFcKvfw+LSA274Pk6JKYB0r
-   fXHBhumwXywcJl3JgwWEaMqq9YR5tTrvQndXXpyXP0ShpIyFPZ4c4nxvb
-   2XG4x7TMKhBaJvMOpUUu87fSuUJOoTErIsKmKVmIeKqzoQdjiwygJ2Yvd
-   OD82f56qg+3qOyVb/ayw7ipu90a+uXC8VYWQOdJ3HfC2YRAIxYD8aHv/a
-   q2LY35wgOw1m3M20bgH0/6+ysIo2wYBFhMvBExkakzkVqLknRxuW8KnwJ
-   aVAOehfzmBU1HzzRHEOlHEtLjpIvruM/SagcFfyzf3ZzKObx5S3nIKrd6
-   Q==;
-X-CSE-ConnectionGUID: zu/5bxvdQjm9OuUlp+hTNw==
-X-CSE-MsgGUID: d9cfoD+KQwmKZNJ1dmaJKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="114225712"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="114225712"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:24:55 -0700
-X-CSE-ConnectionGUID: 6lMX8GZFRy2X+RMFr28l+A==
-X-CSE-MsgGUID: Uxo+ltewS3mtiG1hVBxKHw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="267756790"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:24:52 -0700
-Date: Tue, 1 Sep 2026 14:24:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	Uwe Kleine-Koenig <ukleinek@kernel.org>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 02/16] media: ov8858: support 19.2 MHz clock and CHT
- gain setup
-Message-ID: <apa2AYWacrGWLl-7@ashevche-desk.local>
-References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
- <20260831180101.3109854-1-mauriziocasciano7@gmail.com>
- <20260831180101.3109854-3-mauriziocasciano7@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YX14xIXF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 042CE1F000E9;
+	Tue,  1 Sep 2026 11:25:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788261903;
+	bh=9/pgRNnN1oUPIt1S0++4gkkUojIODOUZLdqpUMSg968=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=YX14xIXFOcAMoFwwHcrzk6CuhG0+T5zXW4lJFg2lV+EKBCfbc2X3hZH8YKpnq0dlS
+	 HWpJ1RcLHKZDIweBxjy2rqg2LYINR2ahOSYvfNemL0nA1qNF/gZ7oo6Wz0O79aPr0v
+	 0GkuEqTyidlRbLrUGJydkERPy+k23OL9sS6YfFM0fiJmsP9nYlL/Fb3L/tc5rQu5dh
+	 ylD+5vtFc6v5lmHWqyOswxkfUc9oU3LIRQH3w6/wUNmT0ZyFtoFp9LQVjSTFe8W/ym
+	 6oMlv+7HHNMvwSl2LJ7vJYUI6O9C4Vf4EdBJ2QfW9mZa0kg73bYg97ObdYyM6TQkoe
+	 Pgqab0O+vXEoA==
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ patches@opensource.cirrus.com
+In-Reply-To: <20260831094506.57467-1-rf@opensource.cirrus.com>
+References: <20260831094506.57467-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: cs35l56: Fix pm_runtime imbalance if suspending
+ before first attach
+Message-Id: <178818236777.141190.622965646011500936.b4-ty@b4>
+Date: Mon, 31 Aug 2026 14:19:27 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831180101.3109854-3-mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1170; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=yWfNKdz7HAVroXMHN7/2NOMoTKz5E9piBvjTaavTBd4=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqlrYKE7MlZTUpnCzFFRWnw9bTnHjWC6DwlJ3aF
+ vzY47VH6fqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapa2CgAKCRAk1otyXVSH
+ 0PCyB/4wKYS5aCIbrvaf7GIglQw1tBVSPsXIT4d7FHCPNgpShdxj/l26Av1O8ctaFDn1/005dT6
+ rQyNyvyfzi0BrnblBDW1ik3OhLn2O7b/Saz2h52awHxDDpYEGM9z+vGZ4y57+72EcnNtFXT+8nY
+ yzKS/BP8UlY+M6E0cmnZfmH608L6jbpskhJs8UftIuWxKpm4wb7y/WyietUiGtG/mpy0QyIBiqP
+ GI/Bl8WBAJ8G0/BmyLCTQCAFeRfmNwPiIiC7BQ7Dy6L13ZE64luml3qxJ7BCHOQaRq3qLCjTzTa
+ plsk7x1oGhFauUal7yrHsSDZc4Ii++gwtZ6zt6nTNiKUuf5x
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, Aug 31, 2026 at 08:00:47PM +0200, Maurizio Casciano wrote:
-> The Yoga Book drives its OV8858 from a 19.2 MHz platform clock, while
-> the existing mode tables program the sensor PLL for 24 MHz. Reusing
-> those settings produces incorrect internal and CSI-2 clocks.
-> 
-> Accept both input rates and use the actual rate for the reset delay. For
-> 19.2 MHz, apply the Cherry Trail MRD PLL and black-level settings after
-> the generic mode table.
-> 
-> The 19.2 MHz platform uses the per-channel manual white-balance
-> registers for digital gain. Program registers 0x5032, 0x5034 and 0x5036
-> and expose their 1x-to-4x range, while retaining the existing
-> long-exposure gain block for 24 MHz systems.
-> 
-> The manual white-balance register definitions and programming follow
-> the GPL-2.0 Intel OV5670 driver, so retain its 2017 Intel copyright
-> notice in this file. No proprietary source or tuning binary is included.
-> 
-> Tested on the Lenovo Yoga Book YB1-X91L OV8858 with full-range test bars
-> and real 10-bit Bayer frames.
+On Mon, 31 Aug 2026 10:45:06 +0100, Richard Fitzgerald wrote:
+> ASoC: cs35l56: Fix pm_runtime imbalance if suspending before first attach
 
-...
+Applied to
 
-> -#define OV8858_LINK_FREQ		360000000U
-> -#define OV8858_XVCLK_FREQ		24000000
-> +#define OV8858_LINK_FREQ		(360 * HZ_PER_MHZ)
-> +#define OV8858_XVCLK_FREQ		(24 * HZ_PER_MHZ)
-> +#define OV8858_XVCLK_FREQ_19_2MHZ	(192 * HZ_PER_MHZ / 10)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
 
-No. I told you already few times this...
+Thanks!
 
-In the given context of the change I expect to see either all in plain numbers
+[1/1] ASoC: cs35l56: Fix pm_runtime imbalance if suspending before first attach
+      https://git.kernel.org/broonie/sound/c/fbf2c660bac8
 
-#define OV8858_LINK_FREQ		360000000U
-#define OV8858_XVCLK_FREQ_24MHz		24000000
-#define OV8858_XVCLK_FREQ_19_2MHz	19200000
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-or only first one converted
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-#define OV8858_LINK_FREQ		(360 * HZ_PER_MHZ)
-#define OV8858_XVCLK_FREQ_24MHz		24000000
-#define OV8858_XVCLK_FREQ_19_2MHz	19200000
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-And better to name XVCLK definitions less ambiguous.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-(Also read this https://gruhn.me/blog/2026-08-03/)
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Thanks,
+Mark
 
