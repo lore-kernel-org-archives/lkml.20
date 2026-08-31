@@ -1,66 +1,66 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A723E3152
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:59:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4190F3E3152
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170380; cv=none; b=sw0lhkAT907G45K3qHRTocJ0Q5+MpECH0JDsaJ4Pv63Ljb6mff+5ZRSMGlIY+hyDYNdwXYVM+YdRZH6jWG+KFei5MBTsHiLzQ/m20MJNECYGGLfB3jccd9dqDsY7LoQxisXqW8Zb2H9hcakZ2Y9tgsrN5WxjnngRbt8pOLshge8=
+	t=1788170385; cv=none; b=vDlfDscPqHpVe8r/T7QYQcUETcRt/nqdcfMzw7ZfZa68VtcTSkTBYyAAAtlvdKWGa13L/8tk1DgCaq2+Kk/USHRSv8so7+eD8QBOraQEpvtrWpj5KnSJgF6w6ay3JceCaU+9DSquxqyv+jrJheGCtxrs283Y3tcP6arxF6eQAO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170380; c=relaxed/simple;
-	bh=8oIoq3/BxEm7Bcl0GQ8KUIZQgDk0bEzaSgG154+Dchg=;
+	s=arc-20240116; t=1788170385; c=relaxed/simple;
+	bh=MzFCtlg7NQAurQZpo0kH6aO7FER+9XzqIwyG0ItL1QY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GD4YkgSXgTOwiDM/cJOKg4BUi9kHRH3Fh3nAPNFOLrR9ncQchx9vGWXA05iY3SdPiHKm0auqlLAGSxM8ba//2Pt/J41h8t4UUt/t85MGj/9rDNKaKVoAGmepvmrRqdR3JhudDWCC+jPI57xfF3itz/CuhKwXrJVomSlX+jQuJ+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OWrVi+6i; arc=none smtp.client-ip=209.85.214.179
+	 MIME-Version; b=k6tNz1HtaTPf17ZyWOTsYJfkBCVN+pvrjjGNEQefPIWMahMaUmD/GpHmd9y7iuvjFVB4PK3KJpWAERiU6cMY48xkIHA5IT84A88LS7rTPVMPVWJQGsAzOFKtF3NGzLiAHU2dfWdgaMP2NNheJUqT97TI+Cpim6d79HOXO9cwLtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FmnRR0cR; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OWrVi+6i"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d7195706f1so31674385ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:59:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FmnRR0cR"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2ceab75934dso37641805ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:59:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788170379; x=1788775179; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788170383; x=1788775183; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=31EY+ggiKNRoWg2rQDHXLSRikiCKuhKgERxrI2qpU+M=;
-        b=OWrVi+6iXR47cNS6+VM3OlpgOUkXSHfpL0LxGCxDx827Ets3+Nx+Gj/694y/mTrA/Y
-         oz5t4WCnWdDAUriwRym7yvC8K3pzwO2uQmPZlJFXa2CAfG69q7RspsPstfz9d1M95pTJ
-         OJKQNSmTNhQWJ2ZQ124OeX+iFJbKtapca8C/BZiWcPh7PjWtQt3HWWQB4qcqxL3xxExs
-         STcMWzC4N8ob5Ucb17XkxgdZajW06/m3pFnltTLooyys/xLpBBUFXtgPY/o1B3Af72r/
-         SDHB8+32rrUAZS8kzpgrHjRu/gZdbOgL9/Nz1t85N7STxLMXtiFrR0i5sy7c+jNuyUP2
-         2dFA==
+        bh=JWug8GNdY5MzAA3B+UQMoRVhKpGdZFi0ogypUl1fSBQ=;
+        b=FmnRR0cRIex16fT5cQKbPdU+e1z3okzFfXGz+VYIIRfRqQmYqqt4MmFXPatjZx880Y
+         kbWYUzSLVo0iH19Uty/972VyppFc6pvepefxo5unQqJnc9T3qVpgPWzfeVhqibAo4lqN
+         FKdz+4I40CFyo/5kZCtkq9vogCd4aIFsHUadfglH7qD5gv6XXHFFSQO3gfDs0eT1B2UO
+         ZCjAo2H267R14AFB6Bv0cr0WkPxrkgdu6U7zAinobXv+LKBxOwooIhM5PY/TWwVYqLDq
+         xNg43j8BE02QtqQqYFV+ZL63Wr/B2V8iBxLtWMoXtgRMj8dk+/5gWzBJKaOquj228/T3
+         F2TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788170379; x=1788775179;
+        d=1e100.net; s=20251104; t=1788170383; x=1788775183;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=31EY+ggiKNRoWg2rQDHXLSRikiCKuhKgERxrI2qpU+M=;
-        b=AiuG6Ta9Bb9AiTjlV+OCZmvpuKcukD/1h3eTnt+6kOjiunrSWSXGXcxEW1zunEXij7
-         3iYxGeUk03FtivXSDs2sccYvfwKvPnzdMU1JN/pNxgdcZvyf6PeBxprEL/CcMY62Xiuu
-         13ac/VqLMHKHwFYp8xVwt2ibkYuvsWkgC+6hWm1NszuIpEE37vdSlIP8foLtCwWYp7EQ
-         XX7rr4jVUfRiTTTE3UhZsXXf7Lr9OvIAr8aUjmqlmLciOYpf5ngSODP/CDYGOUIk17uC
-         ZO+J0iUGEb/Zlf8wWcPljKFN/DTNcJlpIbOTxnWv+7M6HLu3YUqnZhWJRap2IR4zXUhS
-         1odA==
-X-Forwarded-Encrypted: i=1; AHgh+RrAcsvcMr5dKNYN+IOBF2rsvZk6jORkz08vqyW2Qb1k3mKklla+eB8rtZL1yURycesm3qRuqPEYGW2FtkU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mTsawWxjdg+PTuMd8sbuJidniNH4WaRnHxaSyL76wpkDoKUKB1
-	fmv2B1SE4wumY0fg/PHcBLrkc4EGqMrxNT898pXFZzRcMFQ05HDSjgtg
-X-Gm-Gg: AYBFou2gARcZXOhUMIbND1K/rL9eCRzEeM5SAXMIb9gEH3G+ttvghowuoXu8BVmRc1S
-	tGfHff7Uf+5gNDINvVe8iUEvCiDqq9T9ENWv17uBQKbB+hYxSk21X2punhzZQ5v7kuu/Jdp0P/s
-	fVNMMML8GitSbo7jrmRQTqzxZ5lDHObLt9CqXs0gmY9SNqALCAOLXAncKljcWPMDnnUecfcHcyT
-	a1iHcYwEGjH5IYIT6jTGak+on0d5T4IgcpmSu4mmHbI6n5UNVjfM5Y7DBxSU3fN5TPB2N/ssID5
-	akUDMdrIFiUfVTA6b751OO0olZo9Nrzk4YA6odXA7h4NhXXLoGdpvEFntV9D1h26qqb/0rzTW5X
-	rzDdMdy0pnrvbEDW94DMEKHJLON2KWhMN4kiefA9DOpiCu0AHtdsAS/e3JFXmEaJwyUg6xAFh3u
-	vVUnPxAAOSyUFSfOaCVFom1jD2Vp9Xg9bElV3gF3FP0feLEwOq7TjekxpVVaoSWystEZ4yieWWp
-	XiJNYGQ3QZzI43d7R30XWhGRxMUOziC+xIzpzmZRk1KtH3uRGZ7pWmdq1cPCqWgELopEvqVBrpV
-	+3qu30BBM5kYW9ZIdUdTFdKtdxrCnq3GLIArdqtEkSGcp17bP1RPJ3XYE9RbPd4kOIkcXxsGYto
-	gmmZBzJLTyud9l/T94pVOv5FBo/FWm8iUl4jl8JKYdlh0dN0=
-X-Received: by 2002:a17:902:d2cb:b0:2cc:f5aa:9513 with SMTP id d9443c01a7336-2d93f9f7c7fmr28821375ad.10.1788170378759;
-        Mon, 31 Aug 2026 02:59:38 -0700 (PDT)
+        bh=JWug8GNdY5MzAA3B+UQMoRVhKpGdZFi0ogypUl1fSBQ=;
+        b=l9IT62D/pcbNyoRqucDfWtApZ/J7dPiwIbBc+FBxrjlBU3Hg6LghoweXpF0cR3gwO4
+         ashsQoQvzgsiADlT4V24tjXZboYHVJNg4kJFN+WAJ9QcEduDKR00tUe8hjCHAbETzcJr
+         J3gGgKA8XyjERXCubBTS2wHsxHLEmgSPy+mcuH5X2iAnCD61LPf9djlc1yEOIXpuBjOU
+         8W92duUQKXJQkubRPFXyW57r6rBzK4Y6O7yOM7/8+/0QJNmDzDPkeN1sZMrDbrL7P8Qm
+         /sGMdvS9mMsXSyQ1duzuM/NduU6JvWnyY0Cp1dndczV/wzFFsG1x5lVuhu+ViYqhR4fN
+         3taQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro0LwN9fEfHV3h4Dx5jiwzrvmX9QGA1bdHV/tXYLfm6mA73KzxJsssHE9+tlWvc+4SIj18MtYF8njvmKYc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSdBWxk76QbSOs9PMakL56heITbwgVJbX/gjNdN1muvl98hVyZ
+	eqzkpwt3SE93K6A/DBPJPkjSilBIj18AnE1wDxq1xchA9Acy4FM246Q5
+X-Gm-Gg: AYBFou09UdtGGZns32NMAO3I+L94ehCMpvBkxov0ZxTmBQUBZnD61d8qx4LXjLROcc9
+	8PfEtjHTJVzZa1iuSWYAhmnnupoGnRxoo3hdkKtijh2jtNTrSWqc9UOfdW/u3OYuOXoUdJuMFjY
+	0kFOwldJhDWvI5/I1A+40MCnPK0L4gQ8HUjdQ6u77bNBfBOv5RXdsupjrVqRR3E6wyPMuy8/51+
+	ejJa+2IU2UlKPlml/8Y5xGf33wzcfPSSoGtS4XTbt+EsHU2FRW1hkbAX6GWtkzn45d2ylyMCyM7
+	X2Glr4algUKoCAXgu+T2UIqy/7hO6Ha0kiNdAslwPCncn5zv411EmAaUPN6/A3b5JgnZDL7dBYp
+	QNzra5pRBBwksihRHnBotk+ulIr6E5i6eq7byaFGbDautOlSR5u44xfaiCFP7zOdPeHy/pRIHGc
+	GLbknOoEKCJpJu+Y5TUxEpodPn6xQ2nTriUKqV3RMkPTjUFXPt8mb+MveMeCExXrcCx1jmGpfcV
+	aAbgutb7YquuVMZyTECUBwtm3XUoHP/poUweyCPZaPS6yFtXL6f0e3xxcNrdeLRLvnwnUKbWYAN
+	FCNAluXoRPgz1gckk3kGX8T4qfwZmszq3xUyC7+vyyqIKx0H7t/quL0KicJ5++Z3AWVT3xiLal/
+	JOsCc++Mc2aqfVJ2VpW1ya+jLa9XRks6WZE38gV/XvX5mVkZ+F7wtY1aF0w==
+X-Received: by 2002:a17:902:e804:b0:2ce:9c48:22d3 with SMTP id d9443c01a7336-2d74df05f9cmr355235905ad.11.1788170383473;
+        Mon, 31 Aug 2026 02:59:43 -0700 (PDT)
 Received: from localhost.localdomain ([101.251.7.10])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d759640becsm32270775ad.36.2026.08.31.02.59.34
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d759640becsm32270775ad.36.2026.08.31.02.59.39
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 31 Aug 2026 02:59:38 -0700 (PDT)
+        Mon, 31 Aug 2026 02:59:43 -0700 (PDT)
 From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
 To: linux-bluetooth@vger.kernel.org
 Cc: marcel@holtmann.org,
@@ -72,9 +72,9 @@ Cc: marcel@holtmann.org,
 	ravishankar.srivatsa@intel.com,
 	amit.k.bag@intel.com,
 	Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Subject: [PATCH v3 1/3] Bluetooth: btintel: validate version TLV value lengths
-Date: Mon, 31 Aug 2026 15:44:21 +0545
-Message-ID: <20260831095923.18830-2-acharyalaxman8848@gmail.com>
+Subject: [PATCH v3 2/3] Bluetooth: btintel: bound firmware ID by TLV length
+Date: Mon, 31 Aug 2026 15:44:22 +0545
+Message-ID: <20260831095923.18830-3-acharyalaxman8848@gmail.com>
 X-Mailer: git-send-email 2.51.2
 In-Reply-To: <20260831095923.18830-1-acharyalaxman8848@gmail.com>
 References: <20260814171503.42684-1-acharyalaxman8848@gmail.com>
@@ -87,83 +87,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-btintel_parse_version_tlv() verifies that a complete TLV is present in
-the response, but it does not ensure that the value is long enough for
-the specific TLV type. A short value can therefore cause an
-out-of-bounds read through get_unaligned_le16(), get_unaligned_le32(),
-or memcpy().
+The firmware ID is treated as a NUL-terminated string even though the
+TLV length is its only boundary. If the value does not contain a NUL
+terminator, snprintf() can read beyond the received response.
 
-Reject values shorter than the minimum required by each known TLV type.
-Also reject responses that do not contain the Command Complete Status
-field.
+Limit the conversion to the advertised TLV value length.
 
-Fixes: 57375beef71a ("Bluetooth: btintel: Add infrastructure to read controller information")
+Fixes: 164c62f958f8 ("Bluetooth: btintel: Add firmware ID to firmware name")
 Reviewed-by: Ali Ahmet Memis <ali@iusegentoo.com>
 Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
 ---
- drivers/bluetooth/btintel.c | 37 ++++++++++++++++++++++++++++++++++++-
- 1 file changed, 36 insertions(+), 1 deletion(-)
+ drivers/bluetooth/btintel.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/bluetooth/btintel.c b/drivers/bluetooth/btintel.c
-index cbeb27033..998c99b17 100644
+index 998c99b17..887170534 100644
 --- a/drivers/bluetooth/btintel.c
 +++ b/drivers/bluetooth/btintel.c
-@@ -573,12 +573,44 @@ int btintel_version_info_tlv(struct hci_dev *hdev,
- }
- EXPORT_SYMBOL_GPL(btintel_version_info_tlv);
- 
-+static u8 btintel_version_tlv_min_len(u8 type)
-+{
-+	switch (type) {
-+	case INTEL_TLV_CNVI_TOP:
-+	case INTEL_TLV_CNVR_TOP:
-+	case INTEL_TLV_CNVI_BT:
-+	case INTEL_TLV_CNVR_BT:
-+	case INTEL_TLV_BUILD_NUM:
-+	case INTEL_TLV_GIT_SHA1:
-+		return sizeof(u32);
-+	case INTEL_TLV_DEV_REV_ID:
-+	case INTEL_TLV_TIME_STAMP:
-+		return sizeof(u16);
-+	case INTEL_TLV_IMAGE_TYPE:
-+	case INTEL_TLV_BUILD_TYPE:
-+	case INTEL_TLV_SECURE_BOOT:
-+	case INTEL_TLV_OTP_LOCK:
-+	case INTEL_TLV_API_LOCK:
-+	case INTEL_TLV_DEBUG_LOCK:
-+	case INTEL_TLV_LIMITED_CCE:
-+	case INTEL_TLV_SBE_TYPE:
-+		return sizeof(u8);
-+	case INTEL_TLV_MIN_FW:
-+		return 3;
-+	case INTEL_TLV_OTP_BDADDR:
-+		return sizeof(bdaddr_t);
-+	default:
-+		return 0;
-+	}
-+}
-+
- int btintel_parse_version_tlv(struct hci_dev *hdev,
- 			      struct intel_version_tlv *version,
- 			      struct sk_buff *skb)
- {
- 	/* Consume Command Complete Status field */
--	skb_pull(skb, 1);
-+	if (!skb_pull(skb, 1))
-+		return -EINVAL;
- 
- 	/* Event parameters contain multiple TLVs. Read each of them
- 	 * and only keep the required data. Also, it use existing legacy
-@@ -598,6 +630,9 @@ int btintel_parse_version_tlv(struct hci_dev *hdev,
- 		if (skb->len < tlv->len + sizeof(*tlv))
- 			return -EINVAL;
- 
-+		if (tlv->len < btintel_version_tlv_min_len(tlv->type))
-+			return -EINVAL;
-+
- 		switch (tlv->type) {
- 		case INTEL_TLV_CNVI_TOP:
- 			version->cnvi_top = get_unaligned_le32(tlv->val);
+@@ -704,7 +704,7 @@ int btintel_parse_version_tlv(struct hci_dev *hdev,
+ 			break;
+ 		case INTEL_TLV_FW_ID:
+ 			snprintf(version->fw_id, sizeof(version->fw_id),
+-				 "%s", tlv->val);
++				 "%.*s", tlv->len, tlv->val);
+ 			break;
+ 		default:
+ 			/* Ignore rest of information */
 -- 
 2.51.2
 
