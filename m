@@ -1,106 +1,167 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820AB282F06
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788154371; cv=none; b=Ofj1eyF+IvikcdwcRkJlZQI242sDG3kZ9fJCMBawzFwZKjYN9R9ncTIju4AbwBNsqcv/gmR66Cbz+/7tN1LIHi06ITmmwYLHrr/fz5mxfnFIs4XVZPVIozB1Yokyy5JLqfboFrvOQuKXIhWFPMCtePb6qwcy22y3GilgMuELlRc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788154371; c=relaxed/simple;
-	bh=DbE10ieYAAPdZ/aMj7Jha3L88yCriiIiyuo63Lm7PCU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NL+EafFUZ55W1LZxubdmjp25tfIr4r9Vj4xyjGdJYEscKdBfVJV+GpHlUOhgHXLCOe9YcSyXqD5J/vHNZx1e47qyODR16LJHh7ldqNEzHAC+lnT9tPxYrs58/K19dB3p5EJOr3ugmCdiWnE71NgVI8EQqtWadqkbiGUgtFIrqTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=yUOn5QLc; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B73282F06
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788154378; cv=pass; b=KY1kutGUGfFF1rfFQJnNnzWLBCJpMXlvsMGn0EJxfLfujISzGsLUx6Cd6bBST4ASoHur8ZOF+pUO+XN2QeEPb+/GYG0cp/Z2FB4V7R6AUou4d0rb1/EkrY4qyPyFQT+Ivp0Wx/Yz8cIXy9ADZVdFYzv796o2ZtAScg+XmnE8RMQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788154378; c=relaxed/simple;
+	bh=MXFqWr7Uky0TUxYJJ7ciGR+LjTO2h6aLcYNxNAXrW0o=;
+	h=From:MIME-Version:In-Reply-To:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cbGiAB3V/wTggasbPJhetv9O6+gWNyFjThJnCjQ05q84vyGsgcGWMIFyw8Kvc0EB0SMwikvQDtHZZ6mzhxEFngbNHNY6KkD4ZlcfjsF3nqLY/5ELnTp89uKjRqpN5/SjztFAjvNfyZe+fcn3R+hLnbR1D2UZNPLuTQ/nx2c6v8Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qzAvsw/7; arc=pass smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="yUOn5QLc"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-381b831d535so5295804a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:32:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qzAvsw/7"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a5e971c970so6640814a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 22:32:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788154375; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VJ0t5hk3Hb7j7gAUzV6sZBJiEqkeFYoy+9BPNPYnClAYTGp+w+aCPqVlEAGPHoS2m8
+         CtYs+gggWT/duCusJGWvfiE/s1dUixRieWtss/l/tdpfzH423YnZCIpMyCKJKlnZdIJP
+         +q36cDZYeQiHGmDOGrAwUSPjsXToQPmFF2jyqqGRyoBUagkVaqYiCdhvoiv/GajoP/bg
+         NwNxqK1oR1U/8spaKLKa5+0S/3VE8/6ApPhAQx88Z2njcwhqCTcUbDUirEDdO2zdXKAr
+         +snjZ61CImtS3LrhV5U4ENSM6Z8lVff8E9m1ukuX3Gcq/pFbNTWjehwhQWFGzuOvFlEW
+         v5cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:references:in-reply-to:mime-version
+         :from:dkim-signature;
+        bh=C/Ut8igNUUEDDCrdtbCLiaGMVpNyyvqtTQshGja4fhw=;
+        fh=POU6SzYe5CWeIgr8em/2wmPwP8Zmg3EF8OLaDPR1u70=;
+        b=W0x/dr6x23YMkc9ShGKBUrUcI2Svn+UqPvVcZc9RiIq+VcmMc5FCbc4RKZ8nloqOjl
+         xV+jDqiCAhD58cTu+hFp+ZOHtCF1R5OyUYl/obbmhlD3Im62S/noZoOwxRvHiAwQximT
+         ckzSWMCLins1pj+Wu1DgYNaVMit9I/ti2b7TT8pcYSqSaFhYHjIvYOIg8NLZh0xaMXtt
+         MlWNvC6ufA3RG9ovtSvQbpJGuTh+5EaQrTEB3U4OSdklteLwXDDkMrxRaYzO6qVxCdHH
+         OxH6glpNqf4xJFymckjqV5XH/DspuPc3KPfH5xEU9mTy+3iurlpzsWdmlJZS7OoH7A9v
+         AEPQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788154370; x=1788759170; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z3oEOL/HCSYn6nVXIxkFld926tCj7R+jnIQrhk3OHvk=;
-        b=yUOn5QLcKIShaSFftZdQbmyej5/roTsoUwXl6MliySgXKrmvEh3m0snZd6vqjY42yA
-         qaxdf7D3k6ESk59InZzH3Xfa4eMXDGsUO/tZIuhD9a+mxYsmlsg128qoRZHuZVpFYnYv
-         gZdQzRjj3anUtg9sugk5TwYjUHACrfq6T2D7OYI/ZYoysueMZuuzusWBqG/TuGxqF+FK
-         Kfa/yEeKKIKH/pukEPB70eWmlQar4Gze+r1gj13OLewshMgrlIB1RiqVTOlkcPMuOiUL
-         vp9O6TaAo8ND6WosT5+RLiLtkkLZykywg8qnkQEH6/Azm2mJQItT7+EyVg8CIRhffB4q
-         P1Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788154370; x=1788759170;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788154375; x=1788759175; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :mime-version:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Z3oEOL/HCSYn6nVXIxkFld926tCj7R+jnIQrhk3OHvk=;
-        b=Qhht9t2ihoq2WxFdhUVa4AFgp6UuBDsTOE6CPDRH99R2iGiohxQ0vNhbSidyNR30Kc
-         qTs7XrKds4rPgKZIRWLIm2HLFZ+ZR9wQAn1lngmXnL04pFNNFkBPfvJ8dx57cnSIYOQm
-         uvMeUubdPP+Zp1eeGdzBpvS4okkqTWDD+WiZt++9GcXfDFJKgqGUlhpCVd5CbbQlqluU
-         z6wRmbSXP6r3qipj/lLtyxj+YMCn4R6pcdryxIjrTw9LMu3X8k/JYL2aac07FH42izA8
-         zFdurVuOX0xxrQZVIc6XQygSMAr02MJoPdG10uzHXXux4Rb94y4seIHl/Dt8dYt+07rE
-         INkw==
-X-Forwarded-Encrypted: i=1; AKwUvBwo9OFhr8W2mNDp7r23ekUNOp73VceRiwJyzXrNrQ8QkyK9iu+Dn1zgEt3l2zaCAULylrHa0F9hMK4soL4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ma72odx1baje+3+RdXqwERnsT4YlX8uGjSM1Yp1YNhNlHH7Im8
-	Jvo04EKuCdgWtpxNGCp1L66tCdQvM91jK4DDf44vNY592USPks4KlxTGs/KThzMOYQhywC7dhWM
-	vKMN9cRU=
-X-Gm-Gg: AYBFou3kLFJK5NKAUDkh/3dDZMfAki5U/2EdfnOWpaZ6iFBiioDhcFOIenizbl38yJp
-	ZM7YyThF20pnf6R9K53L6Zdpc40FpvegQrc482iLUKmkkqWqp0mryEeqpkyf8WoQ/mwLTcmdrQV
-	XOrWy/bMJnoA+/wKGf3xKD5/AD0G01lrKheey4EmVJ0ro4cgcuOIxdc+bwVxwReCqB2MNkBO9rX
-	qs+YN47nUxKI00dE9P7gJG/QY3/TeQaMuc6J1LAb42YV8OKVLjsXvLJQzUIQLfPRT6DGDWeMIKZ
-	IjY2z+62LzXRksEfilbCrKS+sA59TpfaP6RtwwUYSeM3ei+oIH5bEQmWzSjTrfcJVjrCpPT2XFQ
-	Q7mxUeKjfIET6bG4ZSraOc5xXGLR4ln8+v/S6nHLl4DGzXv9drTbEFpWKKSREk+m3y+A9mnKwUY
-	8JrG/IQKhDSdO6Ow0vPBbeE2VFA4bLESoTzKR6VllbO4YN0+UCEPpRBDdHlMLBi5Q=
-X-Received: by 2002:a17:90b:388c:b0:396:5f7f:52f5 with SMTP id 98e67ed59e1d1-396d0e2466fmr36959506a91.3.1788154369601;
-        Sun, 30 Aug 2026 22:32:49 -0700 (PDT)
-Received: from localhost ([122.172.87.224])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32bdfd03e71sm9171326eec.1.2026.08.30.22.32.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 22:32:48 -0700 (PDT)
-Date: Mon, 31 Aug 2026 11:02:46 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daniel Schwierzeck <daniel.schwierzeck@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] cpufreq: airoha: fix probe failure with correct error
- check
-Message-ID: <apUR_vBWRwMfUlsK@vireshk-B250M-D3H>
-References: <20260821084541.139703-1-ansuelsmth@gmail.com>
+        bh=C/Ut8igNUUEDDCrdtbCLiaGMVpNyyvqtTQshGja4fhw=;
+        b=qzAvsw/7T6rauOmg/zDJBs8WNQpn5vFlV4s+PciRyKYyKuLpja6SvBphhYNt0eOt4O
+         GmR8AmzGkcuaW8ztvMyrt6DXfD+e13PLCrmRVRDaw9iwuAcL5GWQPd+/2fkcmayHWw/u
+         Qa8yftm1mpcuHeBiBNalXDpYOJwYWk+O0JM1uYxvvWIgq1cksraeRcJdWq31qGVljh7d
+         X4Qa+TiVamOO8CYKIgFEuCyqs0Mk+W85WAP612mkKpqRenGXxYvfHgcFQrhZ1FE/7+dp
+         H7ly7yM1lIXzmk0aT7jXcnNZQTcdnsGFSqzSoHKJTikyFl8M/T4TFx9XhIQBGmHLGohN
+         Dnog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788154375; x=1788759175;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :mime-version:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=C/Ut8igNUUEDDCrdtbCLiaGMVpNyyvqtTQshGja4fhw=;
+        b=PV0zwDQl7EdBPX3xJBf2o0akjJgjvFeuqi6Cq1P2HIxZ2EBFBDBr2uoFsWwPqdt976
+         Y7grlJLWHAhHN6XgfExOevrVtg0Ax9H2YAnus+z+KxH2R5dbSvMRfAyTMKv/1Ya8tj7W
+         otmWuHJ2YXzyr2T1ecr+310/Kw/UzsCIibEVU5yNFXyxRE8eWfyDFj+99/R+jDG4S9ku
+         ATrwHxTN8ZfLqCsZKAmjFq40BrqnsYdQjEDshRZVIj5eb/EXar0Zy8xV+6/3I4gsYlKA
+         F/q7ZQI7lriPSzK42FV7aB9TTRx9u+L/JMkdfw3RQRf1FpOAOiH3xlcGx+BH6kGwG2di
+         rEzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy2E9rFignaVlYna75bsJCXGn8rgmmNR1aHTjhh481sakCcvRkDpTJUGaI0kum7E170zV/WEuqRDtMrCwI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUlXSQWjjuMuPPkNP35tRAbSjd7EgZuoAcomLkFRPtHQ9bmdd0
+	JY7x6+oaUMuBbkqihZLy0a9Av87qC5inGH3rDDRn2tYlCHQU9qbqyj2VY8+/Bn6nl1kMBgy9bZ1
+	hKYoaWTKryaR2nfDjIVlFLYHk81WK/3A=
+X-Gm-Gg: AYBFou3cVw16LWFKY55pjJtf8jWMg5bwovds2NT7RkYzbxj3OHuG2mPqqJaVOx5FhiL
+	Lfz6K+RUYhd/qlXuvOd32YXXm4BjuLeNW0K7BaD7wg0jrEH6E9Ch8Dg/VHA+/W817ufbITbToZS
+	p/V8/pyHTMusTXr5ybpj9HeicYnI04g3pldFKks7WjBm0Ye8BWySobj2AvZfh8SouASacIL/fwL
+	cY/fSUQvbC7G2A54zUHpCo8FE4PZpFRy+ih8y0JMPICfw1plbv/BzuCDKDGlBvuw20WoqGGdGvk
+	zOfFyvb4wuynngLL+RqyepMQYQYARnM1bEnSTlthONVXt7WatxCN3KY9BqNCtYQJmsIQHSscGYU
+	llg==
+X-Received: by 2002:a05:6402:20cd:b0:6a0:a46b:ad3c with SMTP id
+ 4fb4d7f45d1cf-6a647693f75mr3043988a12.1.1788154375170; Sun, 30 Aug 2026
+ 22:32:55 -0700 (PDT)
+Received: from 637551599889 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 31 Aug 2026 07:32:54 +0200
+Received: from 637551599889 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 31 Aug 2026 07:32:54 +0200
+From: Xinping Zhang <zhangxp1998@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821084541.139703-1-ansuelsmth@gmail.com>
+In-Reply-To: <CAH=xXfEFL7w7nsU3xjNubKJ1soYMqT-DbJBuyzfEX4Rv3rdFEA@mail.gmail.com>
+References: <CAH=xXfEFL7w7nsU3xjNubKJ1soYMqT-DbJBuyzfEX4Rv3rdFEA@mail.gmail.com>
+Date: Mon, 31 Aug 2026 07:32:54 +0200
+X-Gm-Features: AcwNN1W8uweP2JBSMGV-7BI3xN00j4I-usGHDHDv_RvI16_JsR6crt1gVAKyW-I
+Message-ID: <CAH=xXfHL4bWFMVa=-a8sRuR_bn9VcaFRo+X3eeZfedSa0C7dww@mail.gmail.com>
+Subject: [PATCH v3 01/11] f2fs: initialize sb_info early in f2fs_fill_super
+To: linux-f2fs-devel@lists.sourceforge.net
+Cc: jaegeuk@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 21-08-26, 10:45, Christian Marangi wrote:
-> From: Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
-> 
-> dev_pm_domain_attach_list() returns the number of attached PM domains
-> on success (a positive count), or a negative error code on failure.
-> The driver checks "if (ret)" which treats a successful attachment of
-> one or more PM domains as an error, causing the probe to fail with
-> return code 1.
-> 
-> Fix by checking "if (ret < 0)" like all other users of this API.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 84cf9e541ccc ("cpufreq: airoha: Add EN7581 CPUFreq SMCCC driver")
-> Signed-off-by: Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  drivers/cpufreq/airoha-cpufreq.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+Previously, init_sb_info() was invoked late in f2fs_fill_super(), after
+processing superblock error tracking, mount options, and sb->s_maxbytes.
 
-Applied. Thanks.
+However, read_raw_super_block() reads the superblock folio directly
+from the block device mapping using folio page offsets. This makes the
+initial static sb_set_blocksize(sb, F2FS_BLKSIZE) call redundant.
 
+Move init_sb_info() to execute immediately after sbi->raw_super is
+attached, allowing the block device block size to be set dynamically via
+sb_set_blocksize(sb, sbi->blocksize).
+
+This early initialization also prepares for upcoming patches that add
+dynamically computed filesystem geometry fields, such as
+sbi->addrs_per_block and sbi->nids_per_block, to init_sb_info(). These
+fields are required by earlier initialization steps, including mount option
+consistency checks and sb->s_maxbytes computation.
+
+Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
+---
+ fs/f2fs/super.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 253a579e9d5b..2d9f5b77f815 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -5125,12 +5125,6 @@ static int f2fs_fill_super(struct super_block
+*sb, struct fs_context *fc)
+ 	}
+ 	mutex_init(&sbi->flush_lock);
+
+-	/* set a block size */
+-	if (unlikely(!sb_set_blocksize(sb, F2FS_BLKSIZE))) {
+-		f2fs_err(sbi, "unable to set blocksize");
+-		goto free_sbi;
+-	}
+-
+ 	err = read_raw_super_block(sbi, &raw_super, &valid_super_block,
+ 								&recovery);
+ 	if (err)
+@@ -5138,6 +5132,14 @@ static int f2fs_fill_super(struct super_block
+*sb, struct fs_context *fc)
+
+ 	sb->s_fs_info = sbi;
+ 	sbi->raw_super = raw_super;
++	init_sb_info(sbi);
++
++	/* set a block size */
++	if (!sb_set_blocksize(sb, sbi->blocksize)) {
++		f2fs_err(sbi, "unable to set blocksize %u", sbi->blocksize);
++		err = -EINVAL;
++		goto free_sb_buf;
++	}
+ 	sbi->max_atc_write_bio_size = UINT_MAX;
+
+ 	INIT_WORK(&sbi->s_error_work, f2fs_record_error_work);
+@@ -5217,8 +5219,6 @@ static int f2fs_fill_super(struct super_block
+*sb, struct fs_context *fc)
+ 	if (err)
+ 		goto free_bio_info;
+
+-	init_sb_info(sbi);
+-
+ 	err = f2fs_init_iostat(sbi);
+ 	if (err)
+ 		goto free_bio_info;
 -- 
-viresh
+2.53.0
