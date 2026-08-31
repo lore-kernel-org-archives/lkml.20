@@ -1,445 +1,132 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011032.outbound.protection.outlook.com [52.101.52.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B1D38655A;
-	Mon, 31 Aug 2026 19:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788204380; cv=fail; b=E5WmHvjeV0DdiuKBWdHQXuOvlUbghAFx9R9qQQPMcaJLgz4Q8KLS15CDaFNku+UIKXmiREMA3ro33QMyf5ojhpNfi9G1LPYk3NTkQnwNYowhd1K0LT4p6ae5LnJiw6MO948mBmGcJD/6w5w0A7SIhoSVF7WZLdxicga4BhgYpGQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788204380; c=relaxed/simple;
-	bh=b6qFoLdbolJM5tiVVVGRDBn3A4MSnguHLn8+g22gpOo=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=CmShGVOTxrRXw2nvzw1v/i54UmkhYb8H1hyQvE1x9IYs2pl+X+Xhjz2/eEMBXCjXbRvfg+Qovi4zD6jj9pLyf+O8gcRvDYxQjJc3Z6hvSrgnl9VMRcHmWch7u6ZDKz3IvvYhDfm2FwYKENSLpOADuY0s0SOh5s5QcyZWBDiLudQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PYBid6iJ; arc=fail smtp.client-ip=52.101.52.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B6F371D13
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:27:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788204423; cv=none; b=iaDWYHsw8pLTCL45ElEphFxAtOpOoQgDNm1irDV+lZldi1qprcOAGPtGBID4f+zRDGlyZ5bnMaTqlBoY1aIxwsPmvO2hyZebuBAGWtnrFvPBWEXU1AAERLN6t2xYydAtYwwWhHdpyMsdVNmPDoslyNcrXOt2Kf82X2EORPuVX2I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788204423; c=relaxed/simple;
+	bh=m8l2QUXhApjrCsVzfi6W2WccB51qMXqtc/wGQ+hJ4hc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=M3ZZDDiW09qUvf67cAOqrpPM+c6GQJbjCiZb+MRCxBDsJZducZjOxPzE51PDUBhEvHoLvon7g0xGUcf+n48O4We9vFlG9Bsy27SOr0eDGrLSTAItly8KGnqj/anp3Q6JFEXvUS5BImsmR1alnV1+fbflyn6AuwP7dV3ffpyEfIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mhK64jr9; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PYBid6iJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IrBzxAPU+QwR2KhQfLprfz/gGJNg3WuD/7idTnOkWbXPM/XR0KnYzf9b1pl9fRyJB4thV1ZSamzERsuc4SEq0q1A2tVyRDOcu8x56eoLB8drxPYkycPQPyz4/6zoLMKIUQqMeMN3rFJWR+E4UzT5uMzuEzhUDEmcc/866aewbrhIRKBXclRYtplftBMeg6PpFYq9sNDhEC4JFlkFfH5eyFeucTVLxdB542bC0ZiaQ73TyCDhs1jrBezsCdH1YGHilzvPDFyJ+Qxr3uosTM083WFFUy0FICSLkPFVekR9DeP12ADbwdP+NZKJDeBQMXwoYjOZtGAanF2Yq0Vw0yW4YQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u9fPVkDVsEiwg5A3aIUFy0PO5BH27mCIZ5RprNl/2rc=;
- b=feq9SYjnY/p9V6nn8Bn/YicX4vaQ7MMK24H3h8qaQwyfDLa5IVxY95Z3g5mO+dBOvvvbIyaVH/iXGGdtp4kF3M61vrxjC4cmGWtbHQSp0V4ZgdgB71d7jd66dZ53gCysuOQUvTk+hqANgy5Z/cnZigtKeu+ZGZTjjoQDeQCgL8CYSSEk42tcRdKEDVQKv6yh+HwXPGTlaKDO2eHkMcpc8stPpZzKq9/Mx3IVK3K/CaWHljelEG3nVzIutxruHclJq8wapuOJRple5XmlACVS6WlGJHfKPTVpd+ZD5wR4yMdQJIwTyW1tPprdMOPdPXMEWhYlKdt8eWahdVHCrOl6cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u9fPVkDVsEiwg5A3aIUFy0PO5BH27mCIZ5RprNl/2rc=;
- b=PYBid6iJ9AW98Uv9fYnPYsm5KFNqvYK5d/tmEIOLOgYKr8qKJyDq/0AHUnE936C7Q3Wso18N3G1NP+qmuANhw3wxOzs4wF/Kvo/l9MmUeprwyGPc5p/gqf47BS4GyK1RYlVGQ2fBvX7nAi/X7M3qQdBGCZpEZvcZEowT9InRoYDct0l9azqJuGx2zAaqWHzQR2NNrYEPKe4wLDqd0rABrSVw2ZdIlRf33PgqmGXdmv3WHIQ22wk2fyZxCMn0jCiMZBK02WOfS94CKx52P6G9TcD2HHjR3cCvm5TXNywgJVghRx3KTBoNJQOwy4ekGZVmNPbwW/uY4ah9hWWOMVBBHQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by SA1PR12MB8742.namprd12.prod.outlook.com (2603:10b6:806:373::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Mon, 31 Aug
- 2026 19:25:55 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 19:25:55 +0000
-From: Zi Yan <ziy@nvidia.com>
-Date: Mon, 31 Aug 2026 15:25:32 -0400
-Subject: [PATCH v2 09/14] mm/page-flags: check page/folio->private instead
- of PG_private
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-remove-pg_private-v2-9-3668159cd9e8@nvidia.com>
-References: <20260831-remove-pg_private-v2-0-3668159cd9e8@nvidia.com>
-In-Reply-To: <20260831-remove-pg_private-v2-0-3668159cd9e8@nvidia.com>
-To: David Hildenbrand <david@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Kairui Song <kasong@tencent.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Zi Yan <ziy@nvidia.com>, Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Jan Kara <jack@suse.cz>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, linux-fsdevel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: YQBP288CA0046.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c01:9d::19) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mhK64jr9"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cede6375caso23605ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:27:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788204421; x=1788809221; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1qiY4Gs9W/SFQ2HMe/A+IO8vIdD1aF3hD3uNun4m4bw=;
+        b=mhK64jr93q+X349t5WlvgWQhIhtnoa7y/VZIu0TrTMXMIWEKPhnSx8KtNJvchj6cC2
+         tplFxFMkifYkvyiWtJ7b5LAsuqvhHFomB9RZ0sd29dd67h3g8l0g5uggeSmHhDKyiLPl
+         jAyAGd8un8Ey9NDyh624y2wLqhhy9omQp68K0guusx4IPpY9FCUHdsnmm2uS/Al4X0qr
+         U/Ah+l8RsmNQNlxnFtP77nMYhdkBe008MBrblQ2Q0oM5W5WuGHaXGrsv/aty8A5QCq8p
+         Ho5PfI4pvtjmaCPVp10o8SDWXjnFX9shd3Ypdc24K+ybdaL/3hLvM0l7nOLxO7eEgX5t
+         U15w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788204421; x=1788809221;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1qiY4Gs9W/SFQ2HMe/A+IO8vIdD1aF3hD3uNun4m4bw=;
+        b=BmAYdgBhHWEE+Sw2WD1w+nlRxJWfjcchJggGx+RTGyjzMloAnF6y0Y7YvE5oaLXH5o
+         AK0Z2T7RIg5P3xrgcnqA87q6pyJigr+2F/FkBW4jxH1Dm/5X4E5aitDnzZY2d3QQdzMY
+         Z1PFDC3um+ejBUqZXVMGp9MKd1pEoYA8Zc+eJIJoeTmLm32wKxYD+p6fsaUnJlSKR5b/
+         THknCyuRHqzt1w9fYdSwyhe2+feOaHxwaD82MdpVehD5xbg1LEpH/fyFBqfHdlkdHtdK
+         J+GAG9Lpi7PFvHBwensRZz8bkprl9D2Jiyp9vWkjJqanczS3hmuYguyNqp4s2aTw7teH
+         T2qg==
+X-Forwarded-Encrypted: i=1; AKwUvBzsrpWTwWFnRzfMasBECMDL+olDMgd7GoxRkQEIofbqUXe8sLCjeeJ2SA+RnN6cgNq0jXRT4CzpxnmFIos=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZsiNTQau0mKyf/UzDLzKrcMO/zQmmna6t3d8DwjRUwlM3akr8
+	sXYBG8DOWeaTArItzXQZZCqIh9Agt0Lu19XV/Si2EyciaGNxGJ0+IPqbZyhLgYxZfA==
+X-Gm-Gg: AYBFou33FjY8gkUTGJ2zOye1cFVA+GOH8skpGkMR+nybSRcuLIjZXgCqvJkhyqCwV3a
+	wJz+A0BzFehwE8ZVtsFy/oBnOvqV1yXSqD5+hKJhA7ZI3LlclShsPhAXdv2fbQe5h/9gJjP34c2
+	Z+I4LB0k5b9XMJoFagTPpIzZeYshGeidUswUXrRVIYcIk4WD5AAGRguyHU+i+LWJEWyIRyREm4E
+	KWmqr73axe/anDBrKEJZVARnj/5KPneT8nD8fCBVHoFVR/bA7peHz+FrmpyPQOrdD5Y61alDZfg
+	ece4IunPNJcyaRliSm6hYwBJcMvDjZynLqAnb0jj1jYGkjzIDE4cs9Ci4jqmZmOy/xeMNK4VHbK
+	LQ9CI34Te48w7cgbgwnQUGBAi6WgVTCjMR0/uf6p7i/vk9CkQmoO5c0has3hgZ4i/UDSAuWEyGD
+	6ttVrydXwv5ADMimjzKAcHByqFHxI0yGrdtngWcpcyqC+ufS6mR2sOtu48KcD+Poy7wV8aw1ePx
+	zbDCkznExLfHXGnnXT2/X04Qmy7fj3kVU7xB1W3oIYjLr/svFI45S7W2LhBnZ8IxBk8uaLHA7Zu
+	387ptvaIPPJMwEA=
+X-Received: by 2002:a17:902:cf05:b0:2c9:bd54:cf with SMTP id d9443c01a7336-2d95208bd60mr1394265ad.4.1788204420447;
+        Mon, 31 Aug 2026 12:27:00 -0700 (PDT)
+Received: from [2a00:79e0:2eb4:9:ed0b:e40b:2b08:1810] ([2a00:79e0:2eb4:9:ed0b:e40b:2b08:1810])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d62b807sm1130653a91.16.2026.08.31.12.26.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 12:26:59 -0700 (PDT)
+Date: Mon, 31 Aug 2026 12:26:58 -0700 (PDT)
+From: David Rientjes <rientjes@google.com>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+    William Roche <william.roche@oracle.com>, Jiaqi Yan <jiaqiyan@google.com>, 
+    linmiaohe@huawei.com, ljs@kernel.org, ziy@nvidia.com, osalvador@kernel.org, 
+    harry.yoo@oracle.com, willy@infradead.org, osalvador@suse.de, 
+    jackmanb@google.com, hannes@cmpxchg.org, nao.horiguchi@gmail.com, 
+    tony.luck@intel.com, wangkefeng.wang@huawei.com, jane.chu@oracle.com, 
+    akpm@linux-foundation.org, muchun.song@linux.dev, liam@infradead.org, 
+    duenwen@google.com, jthoughton@google.com, linux-mm@kvack.org, 
+    linux-kernel@vger.kernel.org, rppt@kernel.org, shuah@kernel.org, 
+    surenb@google.com, mhocko@suse.com, boudewijn@delta-utec.com
+Subject: Re: Linux MM Alignment Session on hwpoison (was: Re: [PATCH v6 0/5]
+ Only free healthy pages in high-order has_hwpoisoned folio)
+In-Reply-To: <8f023b9f-53d0-0eb8-6f75-65957761cf40@google.com>
+Message-ID: <1bd6206f-fa12-9195-7b57-f8c24e235176@google.com>
+References: <20260705180714.3708947-1-jiaqiyan@google.com> <85cb7ea8-8116-4092-8310-69b61eb8602c@kernel.org> <ee6bcc74-0846-43f2-bcca-b1bedff74351@oracle.com> <1dea7b3c-7740-474d-b9d4-cd2baf47f181@kernel.org> <168ad406-f6b5-4623-adac-9f894e410e48@kernel.org>
+ <8f787434-5326-4a8f-92d0-467e817a23b4@kernel.org> <8f023b9f-53d0-0eb8-6f75-65957761cf40@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SA1PR12MB8742:EE_
-X-MS-Office365-Filtering-Correlation-Id: fcc2b33e-f5fd-48ba-d902-08df0795abd5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|56012099006|10067099003|5023799004|11063799006|22082099003|18002099003|6133799003|921020;
-X-Microsoft-Antispam-Message-Info:
-	ElGByrrL7Cl1kA97Gt6SHEiSssdqtgx6+mEOkPmfi8W4u+xdX4rdh93RMH4MJMmDEyGxC7fzprdS6EVALit5IXCgWsgE0A+XOR3I/nLEEbdtMfSCS44lRx6+fSutqpXn7nt+CUUr96NeqKyk0WSzw7JZSqkA7e302WDkwGXmtotAnD2ktkARLtThXOJH7kwNZOG3+I0eRAH2vhoopMvWCm3SBJY0VgRo2LLSxb02ydiVt2n3cNkHduAnYwMHkvNqECzGZltF+vfWu6Vbr2ksxDSO2zmCn/YbjeXsSbar0WaKs9Q0ciwSsp6toct0wD7Ntdo9tzWfIAMVuvhI1CizMc6aRFTmXwITddiv4nEabrrrIjpqr5Llvm+cUEKeamcprb34LCGa97W5iX5Xj02rNKSLEe8FGIwUNRUk8RBZM2sgSw97kERYDJBpL1wHNVm4CTFb3YkGszjTvgw/MwJkzLdwCoaYxJ74aeFRFJVo2nP2cVB5krk1WeeEl/fM5esKJP+z9iFZiyokG0HP5stmDNSfpbKU2gO0SikRaqmb4Xd5yYf+ve8TTVuI0rEXPJhcUoNqa9chW9uCC104Xf0xJ+l41vYNx13DBJVKgBzeZ/VRjy8PxfNsC2pHPqvzGrmFgJqh8NTBRR5fNPHAie1bpwaBtlF4bCTS6uJV2fe88PKR5thN+01gamXuIdgJjNWt1m1TkXa0L13hTyA/3vzgTQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(56012099006)(10067099003)(5023799004)(11063799006)(22082099003)(18002099003)(6133799003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y2ZBbWRXcklNZ0NuTW9YS0g2OHpHdFVldnk2SHJYSnlVblMvWHRZeXNmcFlh?=
- =?utf-8?B?RUs2SFdTa0svMzhncjRFYUhEa3VuWFZTRXVaKzFKS1MvSUk2d3Ira05VRW5Y?=
- =?utf-8?B?WFNaekNKSUNoeU5DMTBvY0hwQ2RnM01PY2JHQmU4Qnd4QWNtTE8vazJacnpR?=
- =?utf-8?B?SzEySEJldURBcVUvMHZ2eHNNTFVjMU9ZWmdsanpmNTJrUGsvS2Z1bXFOWmNO?=
- =?utf-8?B?Sk55akhGZVJVb0V0SGF1ZDByK21URi9SWHJSR2VEcFNXSEp0Y1g2RlJSMjRL?=
- =?utf-8?B?U1YyUG1meXZtamlmQ203TVJUdjRITmxlbkg3alBPaVBoN25EUDFFNVR2Mk10?=
- =?utf-8?B?NGdBcGVMWGtXVjRJNVBqb0VscXNSNFpxUk9VNVg5Zm4yN0drVklMbGhIRWd6?=
- =?utf-8?B?d09DSXlLZUF5QjkyMmliMnFoTHpnVkZ6aHUvM2M5Skx3bXp6MW9VTVNTZkty?=
- =?utf-8?B?bkttRTBhSU9mQWJaSDBLVVRmQWNBcU9IMGdtcy9kUFVFdE56Y1JydUttWXc3?=
- =?utf-8?B?bUJBQ3JlOVpIMFBONzg1ZkdrRkNIaHVmWHpyYkdGQ082Z3dCMjNNV3pYUmlx?=
- =?utf-8?B?UUw2S1MyNWcwR25vWU5QRDZZaWRoWFpUTGVQQUZJdFJMT3QxZ1BWWHJqcFc2?=
- =?utf-8?B?Y0d3M2sxYW5ZeEM2MDZaY0hUMjJFVEhIWkNDWlArMHhXa3ZVUFYyUG96YWlo?=
- =?utf-8?B?YUpCcEgya2VtYkFaalBkem15aTRtQzVyNkNVQytNak5lTnY4aURoSDRTUnh6?=
- =?utf-8?B?SzlmSTNtdk81SzNYWWlDTkNHQ0N4ZVhXeXN3bFpWUmRoWlFZNk5Yb3lPVEhB?=
- =?utf-8?B?NGJJWlM4bWtISXhDbmYyam9XQVJSemtYRC9pM1VQaXZEUytmOE9JOUVCZjdQ?=
- =?utf-8?B?UjhvMzJLaVNPNFlWL2RLOUQ2SXpqejA5dFRGTVdyZ2d4UWJVQmZqUkQ2eU5r?=
- =?utf-8?B?SFQ4U1BjZURSaWdWRDg4a3htQkxYQ0drcFZUYkFQMGdhcVVBRlliUkZ5ZE4w?=
- =?utf-8?B?QjRZcC9sdjN1RTVMVVRoY2QrWWtMMUJjNlZRdXBjcFlHR0FZenRzbCtGaXgz?=
- =?utf-8?B?SldPKzY3MUhha2xEc2l6eFRIMVFsaVNhZUdLSTJkeGNteDFudFJDbDAvYlVF?=
- =?utf-8?B?SzNOMXVEMEhmYThwZWpiNzJPOFpDUDQzZTZZTklVU3FWM21SWEpzTE5Jd3NC?=
- =?utf-8?B?eUJpZVJRYnRDNFF5eEE0d1VudWZYbFJNdXNwR3h2aVNlejVFVTZvekZVQ0dt?=
- =?utf-8?B?Sk1xRDBoNkFWaGVwTDllRjE3L28rMmxWdWwrZE9HME9qNmlKUkw5VnJMeEs5?=
- =?utf-8?B?b3pzMzNlN2RwOEowa09RZFpvOHNmcGhBbmRML3pnaEFvc25ONW1aVmIreXhU?=
- =?utf-8?B?Rks1OHdnRC8vRXljUUhyNGxUSk92b1VudzduVTVBY21pWXpOelp1NnlPa2sz?=
- =?utf-8?B?YlR5MGxvM1BQM05VWlhDNDdvZlVHRy9WRC9BR0I2cTJNc01vV3gyOGtVSVJh?=
- =?utf-8?B?WHRwWGhpVEl0UTRUSGt0cVBwc3V0Zk41T0RQVkJKMi8xcUN5Y0tnNXR1a0VI?=
- =?utf-8?B?ODBRa01tT1RydFJDQUkzWkM2Z2Vxc2JkYXV2QW8wT2NYSkNjOHczVEI4OGk5?=
- =?utf-8?B?b2N0UHJpNzBpeVJtWHIyZ0duZ1RwQzhWUUVkUFBSa3BhbGNzM2pHOXBxK3hx?=
- =?utf-8?B?RWNaeGJLc3FJTGVyeUVlV1BqRXJBMG1iRENhSGJZdXYvYllyR0pCdTdmZjlL?=
- =?utf-8?B?TlZEOUYvbTgrdy9GcExWNlM1QnJyejAvYUd1ZkRjVk5GMVdPLzV0M3M4Sm96?=
- =?utf-8?B?K1B5SG1DYU9lK0l3eVRVdVRWOXdrOTNDeVhKK3kwRkFNRGdEU3hJM2MzeFFl?=
- =?utf-8?B?c1RSbndYbTNJVDZTWGR6RTNRbjNIY0xWRHluSHhYTkNLQ2k4a0hkbXpTODIw?=
- =?utf-8?B?czNBSmdpNnQvOG9pdXMycmlWazAzZDA4UmxxSTRoZmNMWTdSenNOUVVVUmdL?=
- =?utf-8?B?NStKUUdueVNsMWl3cHNLMGxDRkJqNm5ZNXRPUkVaUHlORUZIcUc5eWxJQkNu?=
- =?utf-8?B?NTJaOEQwZjNBVU9iZzllRGJJdkNEK0FXMkdYWWdCRElTbE9QbzlmQzlTSXRL?=
- =?utf-8?B?MkJQK2FvUFh5Wlk4ZEZlY0lta2ZleE1xZW1oazVYeG1tWFNWcWxVTnkxRGtP?=
- =?utf-8?B?QnU1aEJockowd0h3T285OVQvd3FyMGZrMUdaY3FrdFJ1WkZYS25mSHVoOGVn?=
- =?utf-8?B?dUw3UHRSY3g5N2UzekZ4ZStGUTB1MzRNTEdmSmt4UmtmVlZTOEREelRPZ0tD?=
- =?utf-8?Q?sng61tDcs2KtVR1YNQ?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fcc2b33e-f5fd-48ba-d902-08df0795abd5
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 19:25:52.5395
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3ntwS54ZZp3xlBqOFghqrpDqiDfDrnLihengUAlJW9sPmNa44knjX2MH8RRGZp+E
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8742
+Content-Type: text/plain; charset=US-ASCII
 
-After the changes of the prior commits, page/folio->private != NULL is now
-equivalent to checking PG_private.
+On Fri, 28 Aug 2026, David Rientjes wrote:
 
-Stop checking PG_private on pages and folios and use page/folio->private
-instead, except swapcache and hugetlb folios, because the former uses a
-field (swp_entry_t swap) overlapping with ->private and the latter sets its
-flags in ->private. Exclude swapcache and hugetlb when the code is meant to
-check PG_private only.
+> Following up on this thread and the suggestion from Matthew (thank you!), 
+> I think it would be useful to have a hwpoison requirements and roadmap 
+> discussion on how its support is currently integrated into the core MM, 
+> get an understanding of what the areas to improve are, and get a sense of 
+> future work in this area that people are planning.
+> 
+> This particular patch series is addressing an area of interest to Google, 
+> but it's also quite clear from the thread that there are multiple areas to 
+> improve for hwpoison in the core MM and it wouldn't hurt to get more 
+> insight into what dependencies users have on it.
+> 
+> I'd propose this for discussion in one of our upcoming Linux MM Alignment 
+> Sessions: Wednesday, September 16 9-10am PDT (UTC-7).
+> 
+> No specific agenda other than to gather core MM developers with hwpoison 
+> developers and discuss:
+>  - where validation should live, esp with regard to the page allocator, or
+>    strict invariants in the page allocator
+>    + implications for the fastpath
+>  - handling for folios of arbitary orders
+>  - handling partial folio poisoning and split failures
+>  - race conditions between memory_failure() and concurrent
+>    alloc/free/compaction
+>  - soft offline for pages in the pcp lists
+> 
+> We might even want to be bold and discuss a holistic design overhaul if 
+> it's warranted.
+> 
+> I'll invite those on this email thread and anybody else is welcome to 
+> attend as well, the announcement email goes out two days ahead of time to 
+> linux-mm@kvack.org.
+> 
+> If the time just doesn't work for somebody who needs to attend, please 
+> reach out to me separately and we can discuss other times.
+> 
 
-folio_expected_ref_count() can be called without folio lock, so annotate
-folio_test_private() with data_race() to avoid triggering race condition
-checks. While at it, annotate folio->mapping too.
+Due to a couple of conflicts that people have, we'll suggest doing this at 
+a special time: Wednesday, September 23 9-10am PDT (UTC-7).
 
-folio_set/clear_private() and Set/ClearPagePrivate() become no-ops.
-PG_private is no longer checked at page free time.
-
-Remove KPF_PRIVATE since PG_private is no longer used.
-
-Assisted-by: Claude:claude-opus-4-8
-Assisted-by: Codex:gpt-5
-Signed-off-by: Zi Yan <ziy@nvidia.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-To: David Hildenbrand <david@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-To: Jan Kara <jack@suse.cz>
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Nico Pache <nico.pache@linux.dev>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Usama Arif <usama.arif@linux.dev>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Qi Zheng <qi.zheng@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: Wei Xu <weixugc@google.com>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-fsdevel@vger.kernel.org
-Cc: linux-mm@kvack.org
-Cc: linux-trace-kernel@vger.kernel.org
----
- fs/proc/page.c                    |  1 -
- include/linux/kernel-page-flags.h |  1 -
- include/linux/mm.h                | 22 +++++++++++++++-------
- include/linux/page-flags.h        | 26 +++++++++++++++++++++-----
- include/trace/events/pagemap.h    |  4 +++-
- mm/huge_memory.c                  |  4 +++-
- mm/migrate.c                      |  3 ++-
- mm/page-writeback.c               |  5 ++++-
- mm/vmscan.c                       |  3 ++-
- tools/mm/page-types.c             |  2 --
- 10 files changed, 50 insertions(+), 21 deletions(-)
-
-diff --git a/fs/proc/page.c b/fs/proc/page.c
-index 260772b20bd99..f90e1030825e9 100644
---- a/fs/proc/page.c
-+++ b/fs/proc/page.c
-@@ -232,7 +232,6 @@ u64 stable_page_flags(const struct page *page)
- 
- 	u |= kpf_copy_bit(k, KPF_RESERVED,	PG_reserved);
- 	u |= kpf_copy_bit(k, KPF_OWNER_2,	PG_owner_2);
--	u |= kpf_copy_bit(k, KPF_PRIVATE,	PG_private);
- 	u |= kpf_copy_bit(k, KPF_PRIVATE_2,	PG_private_2);
- 	u |= kpf_copy_bit(k, KPF_OWNER_PRIVATE,	PG_owner_priv_1);
- 	u |= kpf_copy_bit(k, KPF_ARCH,		PG_arch_1);
-diff --git a/include/linux/kernel-page-flags.h b/include/linux/kernel-page-flags.h
-index 196778a087c4d..fe5ab6e50bd70 100644
---- a/include/linux/kernel-page-flags.h
-+++ b/include/linux/kernel-page-flags.h
-@@ -11,7 +11,6 @@
- #define KPF_RESERVED		32
- #define KPF_MLOCKED		33
- #define KPF_OWNER_2		34
--#define KPF_PRIVATE		35
- #define KPF_PRIVATE_2		36
- #define KPF_OWNER_PRIVATE	37
- #define KPF_ARCH		38
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index dd09c438fa23e..786f8a47cea6d 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -3022,9 +3022,9 @@ static inline bool folio_maybe_mapped_shared(struct folio *folio)
-  * @folio: the folio
-  *
-  * Calculate the expected folio refcount, taking references from the pagecache,
-- * swapcache, PG_private and page table mappings into account. Useful in
-- * combination with folio_ref_count() to detect unexpected references (e.g.,
-- * GUP or other temporary references).
-+ * swapcache, private data (folio->private != NULL) and page table mappings into
-+ * account. Useful in combination with folio_ref_count() to detect unexpected
-+ * references (e.g., GUP or other temporary references).
-  *
-  * Does currently not consider references from the LRU cache. If the folio
-  * was isolated from the LRU (which is the case during migration or split),
-@@ -3062,10 +3062,18 @@ static inline int folio_expected_ref_count(const struct folio *folio)
- 	ref_count += folio_test_swapcache(folio) << order;
- 
- 	if (!folio_test_anon(folio)) {
--		/* One reference per page from the pagecache. */
--		ref_count += !!folio->mapping << order;
--		/* One reference from PG_private. */
--		ref_count += folio_test_private(folio);
-+		/*
-+		 * One reference per page from the pagecache.
-+		 * Use data_race() since folio might not be locked.
-+		 */
-+		ref_count += !!data_race(folio->mapping) << order;
-+		/*
-+		 * One reference from filesystem private data.
-+		 * Use data_race() since folio might not be locked.
-+		 */
-+		ref_count += data_race(folio_test_private(folio)) &&
-+			     !folio_test_hugetlb(folio) &&
-+			     !folio_test_swapcache(folio);
- 	}
- 
- 	/* One reference per page table mapping. */
-diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
-index 7a863572adce7..ee7abb3000c11 100644
---- a/include/linux/page-flags.h
-+++ b/include/linux/page-flags.h
-@@ -578,7 +578,23 @@ FOLIO_FLAG(swapbacked, FOLIO_HEAD_PAGE)
-  * for its own purposes.
-  * - PG_private and PG_private_2 cause release_folio() and co to be invoked
-  */
--PAGEFLAG(Private, private, PF_ANY)
-+
-+static __always_inline bool folio_test_private(const struct folio *folio)
-+{
-+	return folio->private;
-+}
-+
-+static __always_inline int PagePrivate(const struct page *page)
-+{
-+	return !!page->private;
-+}
-+
-+/* no-ops during transition */
-+static __always_inline void folio_set_private(struct folio *folio) { }
-+static __always_inline void folio_clear_private(struct folio *folio) { }
-+static __always_inline void SetPagePrivate(struct page *page) { }
-+static __always_inline void ClearPagePrivate(struct page *page) { }
-+
- FOLIO_FLAG(private_2, FOLIO_HEAD_PAGE)
- 
- /* owner_2 can be set on tail pages for anon memory */
-@@ -1170,7 +1186,7 @@ static __always_inline void __ClearPageAnonExclusive(struct page *page)
-  */
- #define PAGE_FLAGS_CHECK_AT_FREE				\
- 	(1UL << PG_lru		| 1UL << PG_locked	|	\
--	 1UL << PG_private	| 1UL << PG_private_2	|	\
-+	 1UL << PG_private_2	|				\
- 	 1UL << PG_writeback	| 1UL << PG_reserved	|	\
- 	 1UL << PG_active 	|				\
- 	 1UL << PG_unevictable	| __PG_MLOCKED | LRU_GEN_MASK)
-@@ -1194,8 +1210,6 @@ static __always_inline void __ClearPageAnonExclusive(struct page *page)
- 	(0xffUL /* order */		| 1UL << PG_has_hwpoisoned |	\
- 	 1UL << PG_large_rmappable	| 1UL << PG_partially_mapped)
- 
--#define PAGE_FLAGS_PRIVATE				\
--	(1UL << PG_private | 1UL << PG_private_2)
- /**
-  * folio_has_private - Determine if folio has private stuff
-  * @folio: The folio to be checked
-@@ -1205,7 +1219,9 @@ static __always_inline void __ClearPageAnonExclusive(struct page *page)
-  */
- static inline int folio_has_private(const struct folio *folio)
- {
--	return !!(folio->flags.f & PAGE_FLAGS_PRIVATE);
-+	return (!!folio->private && !folio_test_swapcache(folio) &&
-+		!folio_test_hugetlb(folio)) ||
-+		folio_test_private_2(folio);
- }
- 
- #undef PF_ANY
-diff --git a/include/trace/events/pagemap.h b/include/trace/events/pagemap.h
-index 36c3a90f0acca..fb9abec40ec79 100644
---- a/include/trace/events/pagemap.h
-+++ b/include/trace/events/pagemap.h
-@@ -22,7 +22,9 @@
- 	(folio_test_swapcache(folio)	? PAGEMAP_SWAPCACHE  : 0) | \
- 	(folio_test_swapbacked(folio)	? PAGEMAP_SWAPBACKED : 0) | \
- 	(folio_test_mappedtodisk(folio)	? PAGEMAP_MAPPEDDISK : 0) | \
--	(folio_test_private(folio)	? PAGEMAP_BUFFERS    : 0) \
-+	(folio_test_private(folio) && \
-+	 !folio_test_swapcache(folio) && \
-+	 !folio_test_hugetlb(folio)	? PAGEMAP_BUFFERS    : 0) \
- 	)
- 
- TRACE_EVENT(mm_lru_insertion,
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index ced400f72d43a..546b37ccce37f 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4810,7 +4810,9 @@ static int split_huge_pages_pid(int pid, unsigned long vaddr_start,
- 		 * will try to drop it before split and then check if the folio
- 		 * can be split or not. So skip the check here.
- 		 */
--		if (!folio_test_private(folio) &&
-+		if (!(folio_test_private(folio) &&
-+		      !folio_test_swapcache(folio) &&
-+		      !folio_test_hugetlb(folio)) &&
- 		    folio_expected_ref_count(folio) != folio_ref_count(folio))
- 			goto next;
- 
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 15b45832bcfa7..f14e7bfee14bd 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -1327,7 +1327,8 @@ static int migrate_folio_unmap(new_folio_t get_new_folio,
- 	 * free the metadata, so the page can be freed.
- 	 */
- 	if (!src->mapping) {
--		if (folio_test_private(src)) {
-+		if (folio_test_private(src) && !folio_test_swapcache(src) &&
-+		    !folio_test_hugetlb(src)) {
- 			try_to_free_buffers(src);
- 			goto out;
- 		}
-diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-index eeab25d6ce364..4022d6c381896 100644
---- a/mm/page-writeback.c
-+++ b/mm/page-writeback.c
-@@ -2705,7 +2705,10 @@ bool filemap_dirty_folio(struct address_space *mapping, struct folio *folio)
- 	if (folio_test_set_dirty(folio))
- 		return false;
- 
--	__folio_mark_dirty(folio, mapping, !folio_test_private(folio));
-+	__folio_mark_dirty(folio, mapping,
-+			   !(folio_test_private(folio) &&
-+			     !folio_test_swapcache(folio) &&
-+			     !folio_test_hugetlb(folio)));
- 
- 	if (mapping->host) {
- 		/* !PageAnon && !swapper_space */
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index f11491ee9ed5c..ac275eec086b9 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -955,7 +955,8 @@ static void folio_check_dirty_writeback(struct folio *folio,
- 	*writeback = folio_test_writeback(folio);
- 
- 	/* Verify dirty/writeback state if the filesystem supports it */
--	if (!folio_test_private(folio))
-+	if (!(folio_test_private(folio) && !folio_test_swapcache(folio) &&
-+	      !folio_test_hugetlb(folio)))
- 		return;
- 
- 	mapping = folio_mapping(folio);
-diff --git a/tools/mm/page-types.c b/tools/mm/page-types.c
-index 7fc5a8be5997f..47e4781c5fc38 100644
---- a/tools/mm/page-types.c
-+++ b/tools/mm/page-types.c
-@@ -73,7 +73,6 @@
- #define KPF_RESERVED		32
- #define KPF_MLOCKED		33
- #define KPF_OWNER_2		34
--#define KPF_PRIVATE		35
- #define KPF_PRIVATE_2		36
- #define KPF_OWNER_PRIVATE	37
- #define KPF_ARCH		38
-@@ -131,7 +130,6 @@ static const char * const page_flag_names[] = {
- 	[KPF_RESERVED]		= "r:reserved",
- 	[KPF_MLOCKED]		= "m:mlocked",
- 	[KPF_OWNER_2]		= "d:owner_2",
--	[KPF_PRIVATE]		= "P:private",
- 	[KPF_PRIVATE_2]		= "p:private_2",
- 	[KPF_OWNER_PRIVATE]	= "O:owner_private",
- 	[KPF_ARCH]		= "h:arch",
-
--- 
-2.53.0
-
+Please email me privately if you're essential for the dicussion and can't 
+make this time.  Thank you!
