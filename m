@@ -1,207 +1,133 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832E73D902C
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:06:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4863C0A03
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788167170; cv=none; b=WFUVetJpCALmBx2YBFbb3HfXl/d5+RfjV8hthMiFO24WFXEX/Vg6tGOZojk0XRtM0YZe0W4BICvJ/xDJ+ow+hvfhfaaQBHQ/bLFJVZndKA94r12F2qWcItZVor4ptvVKyIG5iFPPuQZucYtsxLvtgMvkRg78hQ/qdZ9X2nWAIqE=
+	t=1788167189; cv=none; b=X1JzfWGRdBUWE7Q5cebZh7jgqcUI/3QFoD3jOyMV6hNHpG+2YtuD5f8ln1rIhl38clX+8GKZT/ItIrOZ23de3ld5P1Gy/+IHpHTxIOOCnEUR5MjgpFs9NMRoms5OaRwDW3o2sJWX4UV34W4h5/5FOA52SatkQHgj5jw40kbBgbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788167170; c=relaxed/simple;
-	bh=TSjQv2kv33mQ7oT7q5/VS3eIH77VGTQ7EdvXU/w9ZL4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SwZFwPe2XaTShW3Mp9ht++ohoUEDOidCbnnk7riPADyrann43FYO7he9jMLZyQ1fq/AK+14q0D9CMrjsNJ6rlBXTlMDvgkeu0G99q96mzMroGqFtywIhkkfffJuDFpdxrzxXiymdFa0TqK4Drx6MJWbGvItwbzTIOsB63hZ7ZKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dPedd1Fh; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788167189; c=relaxed/simple;
+	bh=tKqWAnX/XUlT7Y31NfwqWk6fb2LHwCqlwTIBGzmaINU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sKxTZ2ecAsHIbURbnWLyAUmVEP3Hc7iKVC1NPLCX6f89O3KCk1reX6PBLIa1xlN8/4ss2OGBEKER3pj2eD5srTi5zEuYcJF4crWxCHxqayJ5q4/4nGFw3ijmSmIHTx4ZH+7OlfRlk/auzwcHhTK9giHo5RMJHZMcuRv2T+cHWr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=V1w0EbcQ; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dPedd1Fh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788167167;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=1pOcDoAHlIQ/T7N5WMkupgAQ1iNS60H7SPvWRp7UHsI=;
-	b=dPedd1FhWy/KOzg6WhfESL7wWHMNeXkicey6y07dArMG+xvhrUU+BYLsqkjZQsywFOFYTS
-	HOP6TtZlJYWJxB7QHsKIy5VRg7xDq5LI1a2uWMMJmHkhG9A81ORiYpv/WXmShBjNzpMj33
-	r0ELfdkcBJM1z2T9A9KXzdZ11Vn2p94=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-588-U00ojmBnNUqIPfA02WZ_3A-1; Mon,
- 31 Aug 2026 05:06:04 -0400
-X-MC-Unique: U00ojmBnNUqIPfA02WZ_3A-1
-X-Mimecast-MFC-AGG-ID: U00ojmBnNUqIPfA02WZ_3A_1788167163
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C1073185CE87;
-	Mon, 31 Aug 2026 09:06:02 +0000 (UTC)
-Received: from gmonaco-thinkpadt14gen3.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 761E018005BD;
-	Mon, 31 Aug 2026 09:05:59 +0000 (UTC)
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Cc: Gabriele Monaco <gmonaco@redhat.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Nam Cao <namcao@linutronix.de>,
-	Wen Yang <wen.yang@linux.dev>,
-	Tobias Schaffner <tobias.schaffner@siemens.com>,
-	Viktor Malik <vmalik@redhat.com>
-Subject: [RFC PATCH 00/20] rv: Add support for BPF monitors
-Date: Mon, 31 Aug 2026 11:05:04 +0200
-Message-ID: <20260831090524.106845-1-gmonaco@redhat.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="V1w0EbcQ"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d9201076b3so8406865ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:06:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788167188; x=1788771988; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0QBclJz4ZjOwafIIGP9vesiqXcHQH7lAQx5p2rWrCkA=;
+        b=V1w0EbcQI3P5dxWkuhdk4EFIaQJk9qHy5Y063GsWY3dbol0e6l7Ab7qU4kqxSRPkvO
+         ajRFaVSp7YVodSoyMKFqtELqZAJDJc1Zl5sFUV0QdxC1jV6qfQBIsu4TDSSXrWOL9ykn
+         fGzib09FTDxVvIBR9O3GaIxpxv46BfWeEQ8gg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788167188; x=1788771988;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0QBclJz4ZjOwafIIGP9vesiqXcHQH7lAQx5p2rWrCkA=;
+        b=JJ4b3FlOzrHvK65lUqEJTgmVnUkGBlCers3WaViDwqIiQWzMdUVph5TcgLpSX82tE+
+         N7udTacomX8unXrM4Imwpi0HfnJnDc/jr0NINDcrIiV7yT/NGeTUmwszN+6XGBf6QTOd
+         Go1kRvVDv6jJkzMKPpZHP8IakulrUnZCaXfzWX+hExxvV/YtX2xAnFWJz+NKWfDYZ6BF
+         7RzaVCpf6a1oYdUpuKx0DCgVzu5dpVoHT3CMtkB2XOAiyCwwILhfJmGlZXuin58U7yUv
+         LIDje2XjUJDFoddjEhABSHeQTpmp3HmORy9FXZMtCOqLCl3AaNNMRybHsMxQEvZjyKQW
+         dGyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwaGtNKZ1Z7iILXA/+SPX3TmyGbqWb2XaMmwktUlIT8vNuUTDoO87EgbovrGQhH+7lhT+YWIUlF9etE65U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mf/ObxIRs9BbeExAcZvzyLdw/cBr8xqU96BFclLRzM1eDBhH7j
+	ivSFKjS6GkYL6pZkDUcYz6YMr5F/oIP0LdEE4jcVJI6Bqopsp3hdWMN8eZ6VwQDbyAgYS2sNXDz
+	zPvKgkaVP
+X-Gm-Gg: AR+sD13sYeJ1f5C6IPQHeu/TvGslDf8ATa7XSBV8TjnKgF7DhF5/nmxjfA6b2LrCQ6z
+	R/CL60CI9QE/xyJoxX1GHc/hB7UL5VJt3L/B3QJ6Ka53FQjVMumL7zLacc3D8aA9KPrsDHJ9q71
+	zOXhOzvd22TBA3EtJJqfYnbPiCYyiqPytsji1oxh+tEULnt7KRCXEDJ876eE1kdJPppbW0PExqX
+	hY3UMP2TsDTuxPoeSYPW/7tJ6+tH6cDDFzR6qyPH4Xqf7uvp26uXi7Q7Fy5ojUDrGUuxzHnoQ73
+	jb/mNgGIwwnS9K3yk1nHhzYRcghdo87LIPS4PDJ9ZaebNG8H6kyAN9oG05AmZFEAti0am1aPGZy
+	Q5UzktrNdv305LH841Bj8/uzgAmZBYTAuBVD9SwPLvthk6xDsAjRRlqntAAx2tQj75Kf+Y1T1Vl
+	X+IKN6+5HGZMw9rlHS/ruFgEPL4cAi0RLwrqfZfh9dBaElzeQnMPMKKhIBwYjHZ6+sBQnVdNO3+
+	tK62ewiY4SaqgjrUOOZS8s+ls/z2WqJYbVy
+X-Received: by 2002:a17:903:24f:b0:2cf:c543:2c7e with SMTP id d9443c01a7336-2d74df5fa9dmr377273175ad.10.1788167187455;
+        Mon, 31 Aug 2026 02:06:27 -0700 (PDT)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com. [209.85.216.54])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7594fc0b3sm32471065ad.16.2026.08.31.02.06.26
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 02:06:27 -0700 (PDT)
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso3870596a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:06:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzsQu/03SVDTsrHUJ6mC0pw5NYCM4M6KwdzAcQuXG83nwGaRvnioiGesk7aaRNDW8hUg/PbqdeL1+ciEiQ=@vger.kernel.org
+X-Received: by 2002:a17:90b:5905:b0:381:a766:efcb with SMTP id
+ 98e67ed59e1d1-396d0d7b94bmr39842739a91.4.1788167185477; Mon, 31 Aug 2026
+ 02:06:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+References: <20260831-common_clk_mt8173-v1-1-2d7241f70379@chromium.org> <CAGXv+5HaxFCfe4FkPih4z_kPKc_k9=uighfoxjpD1r+KJ=PZ6A@mail.gmail.com>
+In-Reply-To: <CAGXv+5HaxFCfe4FkPih4z_kPKc_k9=uighfoxjpD1r+KJ=PZ6A@mail.gmail.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 31 Aug 2026 11:06:12 +0200
+X-Gmail-Original-Message-ID: <CANiDSCsaQGe9cHCF=oYpWDHm8yP-S5qBnxP43k9YkWmW-iSH7g@mail.gmail.com>
+X-Gm-Features: AcwNN1XQTqww76phd4AsllCU6mg1cRdglEfcZzeuamdPB_miugwlSSd3Y9nMY_k
+Message-ID: <CANiDSCsaQGe9cHCF=oYpWDHm8yP-S5qBnxP43k9YkWmW-iSH7g@mail.gmail.com>
+Subject: Re: [PATCH] clk: mediatek: Add missing depend for COMMON_CLK_MT8173
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Brian Masney <bmasney@redhat.com>, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Extend the rv userspace tool to load BPF monitors, those can be found in
-specific locations (e.g. /usr/share/rv/bpf_monitors/) and are plain
-object files including BTF data.
+Hi Chen-Yu
 
-This type of BPF monitors can be generated from rvgen using the -b flag
-just like in-kernel monitors and, after manual adaptation, can be built
-and run transparently by the rv userspace tool.
+On Mon, 31 Aug 2026 at 11:03, Chen-Yu Tsai <wenst@chromium.org> wrote:
+>
+> On Mon, Aug 31, 2026 at 4:50=E2=80=AFPM Ricardo Ribalda <ribalda@chromium=
+.org> wrote:
+> >
+> > PM_GENERIC_DOMAINS_OF depends on OF, by adding a select to it without
+> > adding a depend on OF, the following warning is triggered:
+> >
+> > WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS_OF
+> >   Depends on [n]: PM_GENERIC_DOMAINS [=3Dy] && OF [=3Dn]
+> >   Selected by [y]:
+> >   - COMMON_CLK_MT8173_MFGTOP [=3Dy] && COMMON_CLK [=3Dy] && (ARCH_MEDIA=
+TEK || COMPILE_TEST [=3Dy]) && COMMON_CLK_MT8173 [=3Dy] && PM [=3Dy]
+>
+> I guess this happens on COMPILE_TEST=3Dy with !OF architectures.
 
-Only DA monitors are supported (as they are the only class the rv tool
-currenly supports) and the tool aims to work in the same way for both
-in-kernel and BPF monitors.
+It was triggered by media-ci.
+https://gitlab.freedesktop.org/linux-media/users/hverkuil/-/pipelines/17368=
+35/test_report?job_name=3Dconfigs
 
-The da_monitor header is adapted to be included directly in BPF programs
-and share as much logic as possible.
+A way to repro is:
+make allyesconfig
+scripts/config -d OF
+make olddefconfig
 
-BPF monitors are implemented using the struct_ops framework to integrate
-as much as possible with in-kernel monitor. After registering, they
-look like standard monitors in the tracefs, although to properly enable
-them we need to load handlers from userspace and this is done by the rv
-tool. BPF monitors cannot generate tracepoints so the rv -t for those
-monitors is reading events from a ringbuffer.
-
-Selftests (make -C tools/verification/rv check) are present to validate
-and demonstrate the usage, which boils down to:
-
-  rv bpf register          # load struct_ops and maps for all monitors
-  rv list                  # unmodified, list BPF monitors transparently
-  rv mon -t <mon>          # run the monitor with tracing (ringbuffer)
-  rv mon -r printk <mon>   # run the monitor with a reactor
-  rv bpf unregister        # remove all BPF monitors
-
-Patch 1 adds tracepoints required in a later monitor example.
-Patch 2 improves the rv tool selftest reporting.
-Patches 3-9 prepare and add support for BPF monitors in the kernel.
-Patch 10 adds a feature check for tools/build
-Patch 11-14 prepare and add support for BPF monitors in the rv tool.
-Patch 15-17 prepare and include BPF monitors examples
-Patch 18 adds support for generating BPF monitors in rvgen
-Patch 19-20 adds BPF selftests (make check) for the rv and rvgen tools
-
-To: linux-trace-kernel@vger.kernel.org
-To: bpf@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Nam Cao <namcao@linutronix.de>
-Cc: Wen Yang <wen.yang@linux.dev>
-Cc: Tobias Schaffner <tobias.schaffner@siemens.com>
-Cc: Viktor Malik <vmalik@redhat.com>
-
-Gabriele Monaco (19):
-  tools/rv: Skip empty pid error in selftest if command failed
-  rv: Refactor da_trace() functions to get strings internally
-  rv: Use static arrays for rv_monitor name and description
-  rv: Add in-kernel support for BPF monitors
-  rv: Add rv_get_monitor_by_name()
-  rv: Add reactors support to BPF monitors
-  rv: Cast result of model_get_*_name()
-  rv: Handle unregistered monitors safely in tracefs
-  tools/build: Add a feature test for bpftool-btf
-  tools/rv: Move argument parsing from in_kernel to utils
-  tools/rv: Export functionality for in_kernel monitors
-  tools/rv: Implement BPF monitor loading and tracing
-  tools/rv: Implement BPF monitor registration logic
-  tools/rv: Copy stripped bpf_atomic.h from libarena
-  tools/rv: Add BPF monitors
-  tools/rv: Define CONFIG_X86_64 statically for BPF monitors
-  verification/rvgen: Add support for BPF monitors
-  tools/rv: Add selftest for rv bpf
-  verification/rvgen: Add selftest for rvgen -b
-
-Nam Cao (1):
-  sched: Add task enqueue/dequeue trace points
-
- include/linux/rv.h                            |    9 +-
- include/rv/automata.h                         |    4 +-
- include/rv/da_monitor.h                       |   67 +-
- include/trace/events/sched.h                  |    8 +
- kernel/sched/core.c                           |   12 +-
- kernel/sched/sched.h                          |    2 +
- kernel/trace/rv/Kconfig                       |   10 +
- kernel/trace/rv/Makefile                      |    1 +
- kernel/trace/rv/rv.c                          |   68 +-
- kernel/trace/rv/rv.h                          |    5 +-
- kernel/trace/rv/rv_bpf.c                      |  174 +++
- kernel/trace/rv/rv_reactors.c                 |    6 +
- tools/build/Makefile.feature                  |    1 +
- tools/build/feature/Makefile                  |    7 +-
- tools/verification/models/nohz.dot            |   16 +
- tools/verification/models/tqueue.dot          |   15 +
- tools/verification/rv/Makefile                |   51 +-
- tools/verification/rv/Makefile.config         |   49 +
- tools/verification/rv/Makefile.rv             |    5 +
- tools/verification/rv/bpf_monitors/.gitignore |    2 +
- .../verification/rv/bpf_monitors/bpf_atomic.h |  105 ++
- .../rv/bpf_monitors/da_monitor_bpf.h          |  400 +++++++
- tools/verification/rv/bpf_monitors/nohz.c     |   47 +
- tools/verification/rv/bpf_monitors/nohz.h     |   49 +
- tools/verification/rv/bpf_monitors/tqueue.c   |   35 +
- tools/verification/rv/bpf_monitors/tqueue.h   |   47 +
- tools/verification/rv/include/bpf_monitor.h   |   21 +
- tools/verification/rv/include/in_kernel.h     |    5 +
- tools/verification/rv/include/utils.h         |   17 +-
- tools/verification/rv/src/Build               |    5 +
- tools/verification/rv/src/bpf_monitor.c       | 1025 +++++++++++++++++
- tools/verification/rv/src/in_kernel.c         |  205 ++--
- tools/verification/rv/src/rv.c                |   10 +-
- tools/verification/rv/src/utils.c             |   95 +-
- tools/verification/rv/tests/rv_bpf.t          |  104 ++
- tools/verification/rvgen/__main__.py          |   15 +-
- tools/verification/rvgen/rvgen/dot2c.py       |   15 +-
- tools/verification/rvgen/rvgen/dot2k.py       |   22 +-
- tools/verification/rvgen/rvgen/generator.py   |   26 +-
- .../rvgen/rvgen/templates/dot2k/main_bpf.c    |   26 +
- .../tests/golden/da_bpf_cpu/da_bpf_cpu.c      |   40 +
- .../tests/golden/da_bpf_cpu/da_bpf_cpu.h      |   47 +
- .../tests/golden/da_bpf_obj/da_bpf_obj.c      |   54 +
- .../tests/golden/da_bpf_obj/da_bpf_obj.h      |   47 +
- .../verification/rvgen/tests/rvgen_monitor.t  |   11 +
- tools/verification/tests/engine.sh            |    5 +-
- 46 files changed, 2770 insertions(+), 220 deletions(-)
- create mode 100644 kernel/trace/rv/rv_bpf.c
- create mode 100644 tools/verification/models/nohz.dot
- create mode 100644 tools/verification/models/tqueue.dot
- create mode 100644 tools/verification/rv/bpf_monitors/.gitignore
- create mode 100644 tools/verification/rv/bpf_monitors/bpf_atomic.h
- create mode 100644 tools/verification/rv/bpf_monitors/da_monitor_bpf.h
- create mode 100644 tools/verification/rv/bpf_monitors/nohz.c
- create mode 100644 tools/verification/rv/bpf_monitors/nohz.h
- create mode 100644 tools/verification/rv/bpf_monitors/tqueue.c
- create mode 100644 tools/verification/rv/bpf_monitors/tqueue.h
- create mode 100644 tools/verification/rv/include/bpf_monitor.h
- create mode 100644 tools/verification/rv/src/bpf_monitor.c
- create mode 100644 tools/verification/rv/tests/rv_bpf.t
- create mode 100644 tools/verification/rvgen/rvgen/templates/dot2k/main_bpf.c
- create mode 100644 tools/verification/rvgen/tests/golden/da_bpf_cpu/da_bpf_cpu.c
- create mode 100644 tools/verification/rvgen/tests/golden/da_bpf_cpu/da_bpf_cpu.h
- create mode 100644 tools/verification/rvgen/tests/golden/da_bpf_obj/da_bpf_obj.c
- create mode 100644 tools/verification/rvgen/tests/golden/da_bpf_obj/da_bpf_obj.h
+>
+> > This patch explicitly adds a dependency on OF to solve this issue.
+> >
+> > Cc: stable@vger.kernel.org
+> > Fixes: ebd0b73d2137 ("clk: mediatek: Add mt8173-mfgtop driver")
+> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+>
+> Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
+>
+> Thanks!
 
 
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
--- 
-2.55.0
 
+--=20
+Ricardo Ribalda
