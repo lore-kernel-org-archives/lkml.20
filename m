@@ -1,154 +1,181 @@
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB1B3C456B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:38:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553B6242D9B;
+	Mon, 31 Aug 2026 07:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788161927; cv=none; b=NVDjyD6W+OAUg2ge6XK/fQRM/7fgo0mYBXC+RrWw/UBrEfiF0DaUwF8LBKo33fTz5mt6kkXLN9pbE67d9OVWT/ke3i8rQsaOTS71gFrP9iKCWnhN7sdGGtkvnu5duiGaCMO5DnkS0nGPiwLB6SMbx5o0BpkyAXvhmFFUa5VhYT4=
+	t=1788161961; cv=none; b=knndsQy6d3A+HvL7HsJ8JS5zSjgQelIxBKEVpIra62hCb7Tz6xJ4pnrUQzZXUQT/3qZZqwkktpLTVDt4q//GBAPC+nCWx9txevwWL1FAnU2oo76oPJULETlMBooXrbAvAPnZftcun2Efxjm59K5QA0tmdo9Yzi3NqwFOgAOoRvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788161927; c=relaxed/simple;
-	bh=n+bm+oD3kn40fyS7L0liJo1kS7q5/LI+20B3up/88HQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Qg2SFOyLhgS9Q+nH7zL6Rp/GVB43+JVldy/bzOEn6kYQPFbY3e/cKBVMWNx3B0Xrz4QEX1DblJWeWnhX7UPzfLNsmQvP3zq9YpAHwWJ8DKn1IqMnHzmOlGbpREnsCEtntbltIXr0UkjNMKNaWK3qWLQvYD4rRrxuDRsoqXEt6iY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7466771f1caso690870137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:38:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788161924; x=1788766724;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1+Wb6c4hy/mllkEGw9UkJDy4J8V6hEIxHDRjaIVv61Q=;
-        b=abr81bYDSELD3F4glx0aze1aGPa6xBG8WoJN93OXUKzqy4+wgdX997eltg8AWWdD4Q
-         v2yJ3O278QZ8PB8tNAViL3YpNTv1YJZJVIOiPUXwV4piO7HDSt8eKVfTD5eTFHi5reZ7
-         ZO7jrizzBpvra/cNhWE8tdhZhDotL0LH+sWoBwMbx4a3KcNFqm+wzXmPZliOr+x60Gwy
-         Qb2YzxWMkDIgtm1uwsbpoq4Wka9ouanE+y+nBKEYdprOND7sXNOv/Nk40S5SJe4tb7VZ
-         rC17FmB3wPPGyhegDWLlmnffer6AIkRYko19xa/dTOhMmWiix5ttStXkQwMJGdQaLaYj
-         JMGA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqp/ZSBvKBzvJ292lOLwAP5kbE7Oe6i0CIHGqcOvjZQ2jUjv8vnsdIbNLGuH2lZ1UD7xu0B7cbzHC/cLNQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n285ahaaaZNJ+Cym0cYMF0+KsIlijK7o0HyyJ16oDxHyCuHl/I
-	TlphXocDAkAD6usObb6u9aot1xhDJ44LwSQtrlMLTqnybPHoVXQc+gmlphR3nv52
-X-Gm-Gg: AR+sD11BTni4lP01O7jp8UWOWN0F5iGEj7aX18WND0JYzXPXXDB2W/0m9KlJwm0tjzG
-	FV7JyJbNoMhBXcceiJ7056O9iKnnQrZwFqXYqrqnhSGrcmyRXwMCMQvHVuvqaI7uLwQVVZH5izt
-	gJQXnxXfY5NHR9uK6ZBjMJX7jwbFFtoUvHklwehB6EnK0UQnO9MT2lJVpjjdAC/EAGEQUT6UWxQ
-	4GsP6/QqNjKReQrbUWsIC50LVRNNzWZ24mcMUzUsnDoHLSI+w4+rBfI17GQY2kF/A+oSlqKKr64
-	7DaeSO6MlddR54CtALiXvwRZpNhvULCaQFpQHy5kc/99MQm9gEIZ0W4/aZG0DQb84JAwf/aiZhJ
-	0kDnP+uPQzHmnO8suv+7T0iRCnC1Nkph8oh9Yd6QDpQSJmVd7+qRgiRpqQ0mfNtc/alUu0pq1EB
-	yHQjIuNaZG8WvoEfCU69j2wkLVQh7KdGVZm5GxTTiREmGTBKvR1//iDRfTCs2DVG3LnV8bkc7GT
-	TA/+Cv/dM7KHWBuOglkP56tTWttJg==
-X-Received: by 2002:a05:6102:508b:b0:787:74cc:2cff with SMTP id ada2fe7eead31-78774cc4a2amr4234887137.3.1788161924204;
-        Mon, 31 Aug 2026 00:38:44 -0700 (PDT)
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com. [209.85.221.174])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-785f532aafcsm6207829137.1.2026.08.31.00.38.43
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 00:38:44 -0700 (PDT)
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5c6559620e3so1301261e0c.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:38:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqCgQzqdpYAi8LCZO0ES7Ws8dy2gefF78Tsxh2eOmRFaBxw1CNvkobIUjQHot9uyxHJ32lXV8Utgdtsecw=@vger.kernel.org
-X-Received: by 2002:a05:6102:418b:b0:778:721:53db with SMTP id
- ada2fe7eead31-7859426191emr7077458137.0.1788161923583; Mon, 31 Aug 2026
- 00:38:43 -0700 (PDT)
+	s=arc-20240116; t=1788161961; c=relaxed/simple;
+	bh=4aV+uNocUPu6ad3MUH6dQ4ZhLN5HpItl7d4/3/78rlI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iRr6YB7mQmIXkAGyPqHhMORH6CMsu1mAnxnOuiPIbggks2b7mNcKQXfxYrpdwJRBzFNiwpRL10gVWoe4CCpSN85PIAv/r0P7Gq/w7+xyL/A3Wam9QoKfF1ikDpPXEwGbk2WiyPcLi/KCiKURB36cr/ZDHv1AM4LXcKIx+N0uxow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mhRBBZIM; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mhRBBZIM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788161959; x=1819697959;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4aV+uNocUPu6ad3MUH6dQ4ZhLN5HpItl7d4/3/78rlI=;
+  b=mhRBBZIM105OYCJz4FfGRemw90jDi5KnNxiuUb4I6xuosoSwGEqhuJuX
+   gY1a0V3UIzBX4ZronnCTQrIqNaQCNynvGmbsEixXEewqUk1Pl08P+Qvu1
+   K8ATL2Z+mGMLJCGO0SR54tlHRw4BADeQwp0ViUhs80jCO3AhYF3QwsJLr
+   9xa7YQ4I7l94CA9SDsI5gJ6xgEjSAarBYCAdcUjt/4IY+qSzCtaupb+QV
+   EFYe+RS1/uA7D7uhDaDNq1hPDOprDTaaLiLvFAoJWma3XV3sTaQdoihGV
+   sZ7UItYVwXYfw1AzkQFVBENkJ7P2lB5xsTY02jE2iwks8Du6ZHJJkbEFJ
+   A==;
+X-CSE-ConnectionGUID: +nKOMRCmSda0zy3ANYGIGQ==
+X-CSE-MsgGUID: Yc0dp/3lRjSq1hhzdtp90g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="105935986"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="105935986"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:39:19 -0700
+X-CSE-ConnectionGUID: Rd5aCz1uRAyziFJ0rCElqw==
+X-CSE-MsgGUID: rc5eIhJjRay0KONvkcGa3g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="266915404"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:39:16 -0700
+Date: Mon, 31 Aug 2026 10:39:13 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kim Seer Paller <kimseer.paller@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 4/4] iio: dac: ad3530r: add support for AD5710R/AD5711R
+Message-ID: <apUvod3OC6IcGcK1@ashevche-desk.local>
+References: <20260829-iio-ad5710r-upstream-v4-0-8af3121c7d21@analog.com>
+ <20260829-iio-ad5710r-upstream-v4-4-8af3121c7d21@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1786929430.git.fthain@linux-m68k.org> <1e349506a7cc6aa574aacbd4c69c240b5a1e3eb8.1786929430.git.fthain@linux-m68k.org>
-In-Reply-To: <1e349506a7cc6aa574aacbd4c69c240b5a1e3eb8.1786929430.git.fthain@linux-m68k.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 31 Aug 2026 09:38:32 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXgtstGtcbRkrtKtQ+d1c=mCe5zgYZCx4dyUQ_YnVhbbw@mail.gmail.com>
-X-Gm-Features: AcwNN1XVC3wu-2rZS0i2vSr8DmQmHBettg6W2uihbfihhqw2AlLs5EB1RzHcC7M
-Message-ID: <CAMuHMdXgtstGtcbRkrtKtQ+d1c=mCe5zgYZCx4dyUQ_YnVhbbw@mail.gmail.com>
-Subject: Re: [PATCH v2 07/32] swim: Enable clock divider only where appropriate
-To: Finn Thain <fthain@linux-m68k.org>
-Cc: Jens Axboe <axboe@kernel.dk>, Laurent Vivier <laurent@vivier.eu>, 
-	Joshua Thompson <funaho@jurai.org>, linux-block@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260829-iio-ad5710r-upstream-v4-4-8af3121c7d21@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Finn,
+On Sat, Aug 29, 2026 at 01:59:23PM +0800, Kim Seer Paller wrote:
+> Add support for the AD5710R/AD5711R, 8-channel 16-/12-bit configurable
+> IDAC/VDAC parts. They share the AD3530R register map and access model,
+> so fold them into this driver.
+> 
+> Each channel is configured as voltage or current output from its DT
+> channel@N node via adi,ch-func, building the iio_chan_spec dynamically.
+> Voltage channels enable VMODE_EN and report the reference-derived scale,
+> current channels report the 50 mA internal Iref scale. The powerdown
+> mode is read-only and derived from the channel's configured type.
 
-Thanks for your patch!
+...
 
-On Mon, 17 Aug 2026 at 03:55, Finn Thain <fthain@linux-m68k.org> wrote:
-> Some models have a 16 MHz FCLK oscillator and others 32 MHz. Put this
-> information into the swim device platform_data so that the driver can
-> correctly enable the clock divider. When this is enabled incorrectly,
-> nothing can be read and failures from the Error Correction Machine are
-> flagged in the error register.
->
-> This is chip initialization, so do this in swim_floppy_init() rather
-> than floppy_open(). Drop the udelay() which was apparently copied and
-> pasted from swim3.c, where it relates to interrupts (of which this chip
-> has none).
-
-This move should be a separate patch.
-
-> Cc: Joshua Thompson <funaho@jurai.org>
-> Reviewed-by: Laurent Vivier <laurent@vivier.eu>
-> Fixes: 8852ecd97488 ("m68k: mac - Add SWIM floppy support")
-> Signed-off-by: Finn Thain <fthain@linux-m68k.org>
-> ---
->  arch/m68k/mac/config.c | 31 ++++++++++++++++++++++++++++++-
-
-For the m68k part:
-Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
-
-> --- a/arch/m68k/mac/config.c
-> +++ b/arch/m68k/mac/config.c
-> @@ -984,8 +984,37 @@ static int __init mac_platform_init(void)
->                         .start = swim_base,
->                         .end   = swim_base + 0x1FFF,
->                 };
-> +               unsigned int data = 0;
-
-Nit: in the absence of a real platform_data structure, please use a
-more explanatory name.
-
-Perhaps s/data/s_fclk/, and store S_FCLK_DIV2 or zero?
-Or s/data/setup/, and store the full register value?
-
-> --- a/drivers/block/swim.c
-> +++ b/drivers/block/swim.c
-
-> @@ -807,8 +806,10 @@ static void swim_set_parameters(struct swim __iomem *base)
->                 swim_write(base, parameter, mem[i]);
->  }
->
-> -static int swim_floppy_init(struct swim_priv *swd)
-> +static int swim_floppy_init(struct platform_device *pdev)
->  {
-> +       struct swim_priv *swd = platform_get_drvdata(pdev);
-> +       unsigned int *data = pdev->dev.platform_data;
-
-Likewise.
-
->         struct queue_limits lim = {
->                 .features               = BLK_FEAT_ROTATIONAL,
->         };
-> @@ -816,6 +817,8 @@ static int swim_floppy_init(struct swim_priv *swd)
->         int drive;
->         struct swim __iomem *base = swd->base;
->
-> +       swim_write(base, setup, S_IBM_DRIVE | (*data ? S_FCLK_DIV2 : 0));
+> +static int ad3530r_parse_channel_cfg(struct iio_dev *indio_dev)
+> +{
+> +	struct ad3530r_state *st = iio_priv(indio_dev);
+> +	struct device *dev = regmap_get_device(st->regmap);
+> +	struct iio_chan_spec *channels;
+> +	unsigned int num_chan, i;
+> +	int ret;
+> +	u32 reg;
 > +
->         swim_set_parameters(base);
->
->         /* scan floppy drives */
+> +	num_chan = device_get_child_node_count(dev);
+> +	if (!num_chan)
+> +		return dev_err_probe(dev, -ENOENT, "No channels configured\n");
+> +
+> +	channels = devm_kcalloc(dev, num_chan, sizeof(*channels), GFP_KERNEL);
+> +	if (!channels)
+> +		return -ENOMEM;
+> +
+> +	i = 0;
+> +	device_for_each_child_node_scoped(dev, child) {
+> +		unsigned int mode_reg, mode_mask, ch_func;
+> +		enum iio_chan_type chan_type;
+> +
+> +		ret = fwnode_property_read_u32(child, "reg", &reg);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to read reg property of %pfwP\n",
+> +					     child);
+> +
+> +		if (reg >= st->chip_info->num_channels)
+> +			return dev_err_probe(dev, -EINVAL,
 
-Gr{oetje,eeting}s,
+-ECHRNG
 
-                        Geert
+> +					     "reg out of range in %pfwP\n",
+> +					     child);
+> +
+> +		ret = fwnode_property_read_u32(child, "adi,ch-func", &ch_func);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Missing adi,ch-func property for %pfwP\n",
+> +					     child);
+> +
+> +		switch (ch_func) {
+> +		case CH_FUNC_VOLTAGE_OUTPUT:
+> +			ret = regmap_set_bits(st->regmap, AD5710R_CHN_VMODE_EN,
+> +					      AD5710R_CHN_VMODE_EN_BIT(reg));
+> +			if (ret)
+> +				return dev_err_probe(dev, ret,
+> +						     "Failed to set voltage output for %pfwP\n",
+> +						     child);
+> +
+> +			chan_type = IIO_VOLTAGE;
+> +			break;
+> +		case CH_FUNC_CURRENT_OUTPUT:
+> +			chan_type = IIO_CURRENT;
+> +			break;
+> +		default:
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "Invalid adi,ch-func %u for %pfwP\n",
+> +					     ch_func, child);
+> +		}
+> +
+> +		channels[i] = ad5710r_channels[reg];
+> +		channels[i].type = chan_type;
+> +		i++;
+> +
+> +		ad5710r_get_op_mode_reg(reg, &mode_reg, &mode_mask);
+> +
+> +		/* Enable the channel in normal operation mode */
+> +		ret = regmap_update_bits(st->regmap, mode_reg, mode_mask,
+> +					 field_prep(mode_mask, AD3530R_NORMAL_OP));
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to set normal operating mode for %pfwP\n",
+> +					     child);
+> +	}
+> +
+> +	indio_dev->channels = channels;
+> +	indio_dev->num_channels = num_chan;
+> +
+> +	return 0;
+> +}
+
+...
+
+And in case you are not using --histogram diff algo when preparing patches,
+better to start using it. It might make patches more readable (for review).
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+With Best Regards,
+Andy Shevchenko
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+
