@@ -1,225 +1,278 @@
-Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
+Received: from mta0.migadu.com (out-235.mta0.migadu.com [91.218.175.235])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EFD23DB620
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:49:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649683DB620
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:49:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788169771; cv=none; b=tPYsHcjOn/hwcHx2jomHSax/2QrdOKW2GV3nIHaLMsP3VBeEw1aMgR441q2Lm5yE1kSOFekvkePrQOJYxikRpn/2W0FckmkOyv9QbR1tlzQG45FdkY+yLc7HVtse733sYhikCM0aFxM0lGdyZ0VdDwauDwlN+Qbvg277fA9S2bs=
+	t=1788169778; cv=none; b=ZNleTjV2rNTe4Ckd+YSLGwzYw7Z7ePwwYql9Dv2n3Y/Y1DX4MAFH34gPozpqAI3VBb4kWBHES/lhTucq/3FhYCCfhq7bnrDiK3qSxK2z6EfpDXIUsTTB6TH36B2eQveT9yMHILUMziHtbMgjzTOAVUqy7wAnLfUigNqq58Vp3rM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788169771; c=relaxed/simple;
-	bh=jFkDjmEyqyiWfrpYXxLtDdtA9fMSc4XIhiKy4OnakCk=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=m5/3wvf2MXU3SMAsqOIIxoTuWpBwIhxx4Bv5tDcvhXD0Z8nqQ8htgvGWNse4ozBnw6A+JGCTpyohj2IDoOTHN1Vy2TDjLqeTjZd1Z54j7r3fbHJ3eEniwaYfFJyKxwggU/zlyWO6iL8C/3tbGi2hJCgHx6/L0rIdzBswnNf01qA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-44cdbcd53b8so275566fac.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:49:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788169768; x=1788774568;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Kb6/DvD2yhBb3DVkM1VqLGvfuN4hkrtvjLZBLuP8QX8=;
-        b=I7QNhYrHlUbmUlCMEiZUYbPoYn8lcTcqKF8oIDkk+9jznOZZIcmV3mymL7kua0rQPM
-         Fg6qC/GAzOIi9Xk+jqXzCV3aGWPMGJd++l7sn/XhWdga3Y3ypc0UKHGoM3I2/fMmW+2N
-         MIGUpnABNfi0id8EXhQFOfZ49Euq4/Hkb/0uqjAZunnyIN2DXRtFLEULIyEoqwYmQ4AM
-         a9Mrqht/dYQ+BcidF/Dhp5+jsIX3mh9zyssZbwdQl4mgEZPnGd6xa80e1nWg4LiBy1M0
-         WJRZj5k2WmFpORtzkVIzOayPfHqIrJXdrffdn5Py32p9JUfV/bMKAdjSIOKM3a06TUv9
-         1C6w==
-X-Forwarded-Encrypted: i=1; AHgh+RoBkEETd4ZCCJlw6QBKEIIL1jLdKup6jyc08RW6EAme1+TXqc27GZ/BFJQk7HMNbodnIOvL8oLdbC0E9zo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nbZMhKEKJWoGBqsteEaBevs915y0XlJlHiOcEdGCE0c1dSyPve
-	Xdlb+i99DoRRatfY/RyTPmbKQ6htMx5vdcEDSWlkdwftyh3kSs8frrKHETg8huLtCDDlg86HtVT
-	sz7rB13755v0zjOFw7aor4vvmKlHxkI/RL4g2sq+rmEx/9iNDSulQ68b+RKo=
+	s=arc-20240116; t=1788169778; c=relaxed/simple;
+	bh=2tQ8kc8Ed0EXiv4AJfetOVW4cPn5i1WpwfCATVSfhG4=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=SmRO5n6R0B5qM2LxLKu7yUWERCsd2tTybaBfCIAaouTxbJKwPknZm8z9JJ5Q+XDif1XO0c8ZUvUVqXXplKDPqHSqvcoXo1tFK+m5R4cbgmLD2diMJxn7+5OJl879kio2ZeeBf9Tw7NJ8TZoUI7DVnH2cYg4LKOyKlsoi9anr6bQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nZTmAivR; arc=none smtp.client-ip=91.218.175.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nZTmAivR"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2tQ8kc8Ed0EXiv4AJfetOVW4cPn5i1WpwfCATVSfhG4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788169774; v=1; x=1788774574;
+ b=nZTmAivROI3QPvbKgW9/X3P9Pf+1p0Rev/SDbZe0poBfQAduPE1xFqHi8hAnzDmWV0REKtYQ
+ k6o8dj/v6rzyZ973prNFiUjEYsSbFvLRpfM54hON91zkFfScvHr9rqsYKYKx7t12ii/NWXpIto6
+ aDBNYfU9BdFsyEa7gBifzylg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id dc3f19ad1b3d1efa;
+	Mon, 31 Aug 2026 09:49:34 +0000
+X-Mizu-Trace-ID: dc3f19ad1b3d1efa
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f4b:b0:4b2:8e1c:5920 with SMTP id
- 5614622812f47-4b3981ace12mr24126505b6e.9.1788169767878; Mon, 31 Aug 2026
- 02:49:27 -0700 (PDT)
-Date: Mon, 31 Aug 2026 02:49:27 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a954e27.4d659fcc.734b4.0046.GAE@google.com>
-Subject: [syzbot] [bridge?] KASAN: use-after-free Read in skb_clone
-From: syzbot <syzbot+22c4f9a7026c86bcc3b8@syzkaller.appspotmail.com>
-To: bridge@lists.linux.dev, davem@davemloft.net, edumazet@google.com, 
-	horms@kernel.org, idosch@nvidia.com, kuba@kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, 
-	razor@blackwall.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    1b78070aaef6 Merge tag 'net-7.3-rc1' of git://git.kernel.o..
-git tree:       net
-console output: https://syzkaller.appspot.com/x/log.txt?x=1535ce25580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=22c4f9a7026c86bcc3b8
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/9bf9d046731e/disk-1b78070a.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/31e105356045/vmlinux-1b78070a.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/6087b1118967/bzImage-1b78070a.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+22c4f9a7026c86bcc3b8@syzkaller.appspotmail.com
-
-bridge0: received packet on bridge_slave_1 with own address as source address (addr:aa:aa:aa:aa:aa:1c, vlan:1)
-==================================================================
-BUG: KASAN: use-after-free in skb_zcopy include/linux/skbuff.h:1793 [inline]
-BUG: KASAN: use-after-free in skb_orphan_frags include/linux/skbuff.h:3435 [inline]
-BUG: KASAN: use-after-free in skb_clone+0x31d/0x3a0 net/core/skbuff.c:2107
-Read of size 1 at addr ffff88802ad30080 by task kworker/u8:15/7915
-
-CPU: 1 UID: 0 PID: 7915 Comm: kworker/u8:15 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: events_unbound cfg80211_wiphy_work
-Call Trace:
- <IRQ>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- skb_zcopy include/linux/skbuff.h:1793 [inline]
- skb_orphan_frags include/linux/skbuff.h:3435 [inline]
- skb_clone+0x31d/0x3a0 net/core/skbuff.c:2107
- deliver_clone net/bridge/br_forward.c:125 [inline]
- maybe_deliver net/bridge/br_forward.c:191 [inline]
- br_flood+0x3c3/0x8d0 net/bridge/br_forward.c:245
- br_handle_frame_finish+0x1119/0x1950 net/bridge/br_input.c:229
- nf_hook_bridge_pre net/bridge/br_input.c:313 [inline]
- br_handle_frame+0x81b/0x1510 net/bridge/br_input.c:442
- __netif_receive_skb_core+0x989/0x30c0 net/core/dev.c:6151
- __netif_receive_skb_one_core net/core/dev.c:6262 [inline]
- __netif_receive_skb net/core/dev.c:6377 [inline]
- process_backlog+0x727/0x18b0 net/core/dev.c:6728
- __napi_poll+0xaa/0x330 net/core/dev.c:7787
- napi_poll net/core/dev.c:7850 [inline]
- net_rx_action+0x61d/0xf50 net/core/dev.c:8007
- handle_softirqs+0x226/0x860 kernel/softirq.c:645
- do_softirq+0x77/0xd0 kernel/softirq.c:546
- </IRQ>
- <TASK>
- __local_bh_enable_ip+0x100/0x140 kernel/softirq.c:473
- spin_unlock_bh include/linux/spinlock.h:407 [inline]
- cfg80211_inform_single_bss_data+0x1491/0x1be0 net/wireless/scan.c:2426
- cfg80211_inform_bss_data+0x263/0x3cc0 net/wireless/scan.c:3266
- cfg80211_inform_bss_frame_data+0x3c7/0x840 net/wireless/scan.c:3358
- ieee80211_bss_info_update+0x791/0xa50 net/mac80211/scan.c:230
- ieee80211_rx_bss_info net/mac80211/ibss.c:1065 [inline]
- ieee80211_rx_mgmt_probe_beacon net/mac80211/ibss.c:1546 [inline]
- ieee80211_ibss_rx_queued_mgmt+0x1ce3/0x2c40 net/mac80211/ibss.c:1573
- ieee80211_iface_process_skb net/mac80211/iface.c:1769 [inline]
- ieee80211_iface_work+0x78a/0x1010 net/mac80211/iface.c:1823
- cfg80211_wiphy_work+0x29e/0x420 net/wireless/core.c:541
- process_one_work kernel/workqueue.c:3387 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88802ad36000 pfn:0x2ad30
-flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
-raw: 00fff00000000000 ffffea0000a99c08 ffff8880b87417b0 0000000000000000
-raw: ffff88802ad36000 0000000000000000 00000000ffffffff 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as freed
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0x528c0(GFP_NOWAIT|__GFP_IO|__GFP_FS|__GFP_NORETRY|__GFP_COMP), pid 13508, tgid 13502 (syz.2.1942), ts 299754405803
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
- alloc_pages_mpol+0x21e/0x390 mm/mempolicy.c:2486
- alloc_frozen_pages_noprof mm/mempolicy.c:2557 [inline]
- alloc_pages_noprof+0xb1/0x2b0 mm/mempolicy.c:2577
- skb_page_frag_refill+0xf5/0x460 net/core/sock.c:3193
- tun_build_skb drivers/net/tun.c:1706 [inline]
- tun_get_user+0x1b32/0x44d0 drivers/net/tun.c:1856
- tun_chr_write_iter+0x113/0x200 drivers/net/tun.c:2091
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x612/0xba0 fs/read_write.c:687
- ksys_write+0x150/0x270 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-page last free pid 7915 tgid 7915 ts 394412542880 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
- skb_free_frag include/linux/skbuff.h:3559 [inline]
- skb_free_head net/core/skbuff.c:1093 [inline]
- pskb_expand_head+0x6d1/0x13a0 net/core/skbuff.c:2347
- __skb_cow include/linux/skbuff.h:3904 [inline]
- skb_cow_head include/linux/skbuff.h:3938 [inline]
- __vlan_insert_inner_tag include/linux/if_vlan.h:368 [inline]
- vlan_insert_inner_tag include/linux/if_vlan.h:441 [inline]
- vlan_insert_tag include/linux/if_vlan.h:468 [inline]
- vlan_insert_tag_set_proto include/linux/if_vlan.h:489 [inline]
- __vlan_hwaccel_push_inside include/linux/if_vlan.h:529 [inline]
- validate_xmit_vlan net/core/dev.c:3976 [inline]
- validate_xmit_skb+0x3aa/0x14f0 net/core/dev.c:4081
- __dev_queue_xmit+0xb04/0x3820 net/core/dev.c:4913
- dev_queue_xmit include/linux/netdevice.h:3461 [inline]
- vlan_dev_hard_start_xmit+0x201/0x420 net/8021q/vlan_dev.c:126
- __netdev_start_xmit include/linux/netdevice.h:5429 [inline]
- netdev_start_xmit include/linux/netdevice.h:5438 [inline]
- xmit_one net/core/dev.c:3937 [inline]
- dev_hard_start_xmit+0x2cd/0x830 net/core/dev.c:3953
- __dev_queue_xmit+0x14c0/0x3820 net/core/dev.c:4926
- dev_queue_xmit include/linux/netdevice.h:3461 [inline]
- br_dev_queue_push_xmit+0x370/0x4b0 net/bridge/br_forward.c:53
- NF_HOOK+0x360/0x3f0 include/linux/netfilter.h:325
- br_forward_finish+0xd3/0x130 net/bridge/br_forward.c:66
- NF_HOOK+0x360/0x3f0 include/linux/netfilter.h:325
- __br_forward+0x397/0x540 net/bridge/br_forward.c:115
- deliver_clone net/bridge/br_forward.c:131 [inline]
- maybe_deliver net/bridge/br_forward.c:191 [inline]
- br_flood+0x3e6/0x8d0 net/bridge/br_forward.c:245
- br_handle_frame_finish+0x1119/0x1950 net/bridge/br_input.c:229
- nf_hook_bridge_pre net/bridge/br_input.c:313 [inline]
- br_handle_frame+0x81b/0x1510 net/bridge/br_input.c:442
- __netif_receive_skb_core+0x989/0x30c0 net/core/dev.c:6151
-
-Memory state around the buggy address:
- ffff88802ad2ff80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88802ad30000: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
->ffff88802ad30080: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-                   ^
- ffff88802ad30100: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff88802ad30180: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-==================================================================
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH 01/11] mm/sparse-vmemmap: introduce
+ CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <0e1c3bb8-49a4-479e-adb3-17c21261d409@linux.dev>
+Date: Mon, 31 Aug 2026 17:49:16 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Jonathan Corbet <corbet@lwn.net>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org,
+ linux-doc@vger.kernel.org,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <9BB960A5-E8C8-4094-BD28-87FE483AB680@linux.dev>
+References: <20260831075342.57563-1-songmuchun@bytedance.com>
+ <20260831075342.57563-2-songmuchun@bytedance.com>
+ <0e1c3bb8-49a4-479e-adb3-17c21261d409@linux.dev>
+To: Qi Zheng <qi.zheng@linux.dev>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> On Aug 31, 2026, at 17:44, Qi Zheng <qi.zheng@linux.dev> wrote:
+>=20
+>=20
+>=20
+> On 8/31/26 3:53 PM, Muchun Song wrote:
+>> The section-based vmemmap optimization infrastructure is still =
+guarded by
+>> CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP, but it also can be used by =
+device
+>> DAX. Introduce CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION as a common =
+config
+>> for the shared infrastructure.
+>> Select the new option from HUGETLB_PAGE_OPTIMIZE_VMEMMAP and from
+>> DEV_DAX when the architecture opts in to DAX vmemmap optimization, =
+and
+>> use it to guard the generic sparse-vmemmap state and helpers.
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> ---
+>>  arch/x86/entry/vdso/vdso32/fake_32bit_build.h |  2 +-
+>>  drivers/dax/Kconfig                           |  1 +
+>>  fs/Kconfig                                    |  1 +
+>>  include/linux/mm.h                            |  3 +++
+>>  include/linux/mmzone.h                        | 13 +++++++------
+>>  include/linux/page-flags.h                    |  5 ++---
+>>  mm/Kconfig                                    |  3 +++
+>>  mm/sparse.h                                   |  4 ++--
+>>  8 files changed, 20 insertions(+), 12 deletions(-)
+>> diff --git a/arch/x86/entry/vdso/vdso32/fake_32bit_build.h =
+b/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
+>> index bc3e549795c3..5f8424eade2b 100644
+>> --- a/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
+>> +++ b/arch/x86/entry/vdso/vdso32/fake_32bit_build.h
+>> @@ -11,7 +11,7 @@
+>>  #undef CONFIG_PGTABLE_LEVELS
+>>  #undef CONFIG_ILLEGAL_POINTER_VALUE
+>>  #undef CONFIG_SPARSEMEM_VMEMMAP
+>> -#undef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
+>> +#undef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
+>>  #undef CONFIG_NR_CPUS
+>>  #undef CONFIG_PARAVIRT_XXL
+>>  diff --git a/drivers/dax/Kconfig b/drivers/dax/Kconfig
+>> index 602f9a0839a9..85ad4c135cdd 100644
+>> --- a/drivers/dax/Kconfig
+>> +++ b/drivers/dax/Kconfig
+>> @@ -8,6 +8,7 @@ if DAX
+>>  config DEV_DAX
+>>   tristate "Device DAX: direct access mapping device"
+>>   depends on TRANSPARENT_HUGEPAGE
+>> + select SPARSEMEM_VMEMMAP_OPTIMIZATION if =
+ARCH_WANT_OPTIMIZE_DAX_VMEMMAP
+>>   help
+>>     Support raw access to differentiated (persistence, bandwidth,
+>>     latency...) memory via an mmap(2) capable character
+>> diff --git a/fs/Kconfig b/fs/Kconfig
+>> index d1c210c6508f..9b32ce79cc80 100644
+>> --- a/fs/Kconfig
+>> +++ b/fs/Kconfig
+>> @@ -278,6 +278,7 @@ config HUGETLB_PAGE_OPTIMIZE_VMEMMAP
+>>   def_bool HUGETLB_PAGE
+>>   depends on ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP
+>>   depends on SPARSEMEM_VMEMMAP
+>> + select SPARSEMEM_VMEMMAP_OPTIMIZATION
+>>    config HUGETLB_PMD_PAGE_TABLE_SHARING
+>>   def_bool HUGETLB_PAGE
+>> diff --git a/include/linux/mm.h b/include/linux/mm.h
+>> index a9fbe26536f4..edadd7549b72 100644
+>> --- a/include/linux/mm.h
+>> +++ b/include/linux/mm.h
+>> @@ -5188,6 +5188,9 @@ static inline bool =
+__vmemmap_can_optimize(struct vmem_altmap *altmap,
+>>   	unsigned long nr_pages;
+>>   	unsigned long nr_vmemmap_pages;
+>> + 	if (!IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION))
+>> + 		return false;
+>> +
+>>   	if (!pgmap || !is_power_of_2(sizeof(struct page)))
+>>   		return false;
+>>  diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+>> index c9ae7991a8b2..e9b54ea0eff0 100644
+>> --- a/include/linux/mmzone.h
+>> +++ b/include/linux/mmzone.h
+>> @@ -102,9 +102,9 @@
+>>   *
+>>   * HVO which is only active if the size of struct page is a power of =
+2.
+>>   */
+>> -#define MAX_FOLIO_VMEMMAP_ALIGN \
+>> - 	(IS_ENABLED(CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP) && \
+>> -  	is_power_of_2(sizeof(struct page)) ? \
+>> +#define MAX_FOLIO_VMEMMAP_ALIGN \
+>> + 	(IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION) && \
+>> +  	is_power_of_2(sizeof(struct page)) ? \
+>>    	MAX_FOLIO_NR_PAGES * sizeof(struct page) : 0)
+>>    /* The number of retained vmemmap pages with HVO enabled. */
+>> @@ -116,7 +116,8 @@
+>>  #define __VMEMMAP_OPTIMIZATION_NR_ORDERS \
+>>   (MAX_FOLIO_ORDER - VMEMMAP_OPTIMIZATION_MIN_ORDER + 1)
+>>  #define VMEMMAP_OPTIMIZATION_NR_ORDERS \
+>> - 	(__VMEMMAP_OPTIMIZATION_NR_ORDERS > 0 ? =
+__VMEMMAP_OPTIMIZATION_NR_ORDERS : 0)
+>> + 	((__VMEMMAP_OPTIMIZATION_NR_ORDERS > 0 && \
+>> +   	IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION)) ? =
+__VMEMMAP_OPTIMIZATION_NR_ORDERS : 0)
+>>    enum migratetype {
+>>   MIGRATE_UNMOVABLE,
+>> @@ -1155,7 +1156,7 @@ struct zone {
+>>   	/* Zone statistics */
+>>   	atomic_long_t vm_stat[NR_VM_ZONE_STAT_ITEMS];
+>>   	atomic_long_t vm_numa_event[NR_VM_NUMA_EVENT_ITEMS];
+>> -#ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
+>> +#ifdef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
+>>   	struct page *vmemmap_tails[VMEMMAP_OPTIMIZATION_NR_ORDERS];
+>>  #endif
+>>  } ____cacheline_internodealigned_in_smp;
+>> @@ -2019,7 +2020,7 @@ struct mem_section {
+>>   	unsigned long section_mem_map;
+>>     	struct mem_section_usage *usage;
+>> -#ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
+>> +#ifdef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
+>>   	/*
+>>   	 * Normally, sections hold regular (order-0) pages. However, for
+>>   	 * sections with HVO enabled, this tracks the compound page =
+order
+>> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+>> index ae2ebaed6d4d..de3c06062bc6 100644
+>> --- a/include/linux/page-flags.h
+>> +++ b/include/linux/page-flags.h
+>> @@ -208,14 +208,13 @@ enum pageflags {
+>>  static __always_inline bool compound_info_has_mask(void)
+>>  {
+>>   	/*
+>> - 	 * Limit mask usage to HugeTLB vmemmap optimization (HVO) where =
+it
+>> - 	 * makes a difference.
+>> + 	 * Limit mask usage to HVO where it makes a difference.
+>>   	 *
+>>   	 * The approach with mask would work in the wider set of =
+conditions,
+>>   	 * but it requires validating that struct pages are naturally =
+aligned
+>>   	 * for all orders up to the MAX_FOLIO_ORDER, which can be =
+tricky.
+>>   	 */
+>> - 	if (!IS_ENABLED(CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP))
+>> + 	if (!IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION))
+>>   		return false;
+>>     	return is_power_of_2(sizeof(struct page));
+>> diff --git a/mm/Kconfig b/mm/Kconfig
+>> index c1ddf59c0d71..b5f8372cd164 100644
+>> --- a/mm/Kconfig
+>> +++ b/mm/Kconfig
+>> @@ -461,6 +461,9 @@ config SPARSEMEM_VMEMMAP
+>>     pfn_to_page and page_to_pfn operations.  This is the most
+>>     efficient option when sufficient kernel resources are available.
+>>  +config SPARSEMEM_VMEMMAP_OPTIMIZATION
+>> + bool
+>=20
+> As sashiko was concerned about [1], it seems we need to add
+>=20
+>        depends on SPARSEMEM_VMEMMAP
+>=20
+> here.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+You are right. Besides that, we also need DEV_DAX to depend on
+ZONE_DEVICE explicitly.
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+>=20
+> Apart from that, LGTM. With this fix included:
+>=20
+> Acked-by: Qi Zheng <qi.zheng@linux.dev>
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+Thanks.
 
-If you want to undo deduplication, reply with:
-#syz undup
+>=20
+> Thanks,
+> Qi
+>=20
+> [1]. =
+https://sashiko.dev/#/patchset/20260831075342.57563-1-songmuchun%40bytedan=
+ce.com
+>=20
+>> +
+>>  #
+>>  # Select this config option from the architecture Kconfig, if it is =
+preferred
+>>  # to enable the feature of HugeTLB/dev_dax vmemmap optimization.
+>> diff --git a/mm/sparse.h b/mm/sparse.h
+>> index 049272aba84e..b408d15baf7b 100644
+>> --- a/mm/sparse.h
+>> +++ b/mm/sparse.h
+>> @@ -10,7 +10,7 @@
+>>    #include <linux/mmzone.h>
+>>  -#ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
+>> +#ifdef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
+>>  static inline unsigned int section_order(const struct mem_section =
+*section)
+>>  {
+>>   	return section->order;
+>> @@ -72,7 +72,7 @@ static inline bool vmemmap_optimizable_pfn(unsigned =
+long pfn)
+>>    static inline bool vmemmap_optimizable_order(unsigned int order)
+>>  {
+>> - 	if (!IS_ENABLED(CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP))
+>> + 	if (!IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION))
+>>   		return false;
+>>     	if (!is_power_of_2(sizeof(struct page)))
+
+
