@@ -1,120 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2884F4052AC;
-	Mon, 31 Aug 2026 23:49:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788220147; cv=none; b=LQLI5DU/c+n8LyB5v5jh7H5uRDDdJcUQkf8zgOAuvY7vLzC4T7HPwOkfttNOpjtdNz2mPpeTRlu5YWLW10HiYEfAeWOU/8s4Ue/Zup6WKOgT91nzck2b8VlWLm0zRXm8CsKIrVkZvwuRRTYl2G+CkU2ftkWA6nYnTB3DMOorsg0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788220147; c=relaxed/simple;
-	bh=C6IeKNwQm/sqLTjJ8znlz4zTxXZTyh46Mj0/8a8vvz4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s9WdNKy4o4jfMgIAfFSYsOXiNYGodhVZGxW64l0/7Xc06XAWrDxj5b4gxou1hZnYgi92NRO4phjPVdYg1v8qXe8QAbOg01WqfuN+SRIM2XGxQweM1TLz60W60k9dyQkBpT7MBx872ZdLI1j9bMssKZgMbQGLkMMHROcnDkVMY5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZW8hiMNR; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C81041B8CC
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:51:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788220314; cv=pass; b=VOz80o7RSca3dulTfBESdGKfVRtKb0gzQ0tCgxfUVWH5rJyCX/L6/m7EJfcis3bDioh4CblY/D+JFvdtHS3kRdhaDNS+fyYRlPkmpeAmthnZzetRoWOyWPcdgIFD8T53sRHFTmAlcMC8S5Y4kCh95onoMJHYKHv15N2c8X4YQm8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788220314; c=relaxed/simple;
+	bh=t3xYH86c4ExcaKChH03nscVoJU8EICNUpRC002l28p4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PU3fgn+v8lK/8qa75Ms6L+X9VYEJ8kfHEib7dfjji1aNglRqVN0o9hLHiPP6kB2t5vf+Y0ROjNK3ZoJrgnhlZD8jd+OoN7HQmNV/4qmzlHxr4KdjLgLVR1/yb/1sNrsRDHAAlpg3g5fTQd0J/1pxbh0HxFFz4gfgYqbVYP52mac=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j0XmTq+M; arc=pass smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZW8hiMNR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31AAF1F000E9;
-	Mon, 31 Aug 2026 23:49:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788220145;
-	bh=Unxr3BbyQGkGI0cPruc6eSumydLU0CJBjIYvcTDq5Qc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZW8hiMNRQlKPNHk5SB6pekdpxoh5wqhetiSHQDU0LUepKpz064MG3/YKIwp9y0trv
-	 j6xjzAd+bYb0/wUHzxIk2f1bgu2LsO/BAajf0gHOKFURgbwn9I+8M64lyxK7P9G1u6
-	 Sx40y7ZAqMp3ULpATWYPhJDo3tv2PPw9qamTvIe7jr0bwXTtQFBBKiudRR3LfzAbuD
-	 SmrejKoobgfCHCgXkVZtdWfQp+9kXTwuVayRkUlNvQX/IvNL2DuQX8tTXNfcHlhvOz
-	 WRqWDHg1pt2eUV4MwWCau0RBtoaND/ZwJvKyUbIPtC7+oFaswN+2Mg6UTNKIlsncX3
-	 2+tsuaSU91HoA==
-Date: Mon, 31 Aug 2026 16:49:04 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, shuah@kernel.org,
- joabreu@synopsys.com, jun.ann.lai@intel.com, yi.fang.gan@intel.com,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH net v3 5/5] selftests: drv-net: Add VLAN test
-Message-ID: <20260831164904.325ed438@kernel.org>
-In-Reply-To: <20260825164522.4244-6-ovidiu.panait.rb@renesas.com>
-References: <20260825164522.4244-1-ovidiu.panait.rb@renesas.com>
-	<20260825164522.4244-6-ovidiu.panait.rb@renesas.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j0XmTq+M"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c254ce42dc2so57175166b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:51:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788220311; cv=none;
+        d=google.com; s=arc-20260327;
+        b=E+6fgnmqOMfra4uuz/n7AAAN203mD+CYE0/P9O+Hcsn21KG4IvE7N4CsISRAXKqpiw
+         reLXDQ/Z/CsgLQEH9vp0T11M0YdvnlBzbjN8nnzc2ivsWOYMW+TvOnI8TE8jDtoKsRa5
+         mJTQ3cQfC4XgQh3zi7fUnMzcmXBX3L/DfAq9l7uyQdbzbJBINe9EBiwmL+2FMcJ/AuC1
+         RAsnE7ilKwtWPEuGFVt8mUUzKUw3lkYF19abrY3WCHRkI2jOrDvBNSo4zfRjaqzmrAXN
+         5ealX19IITyGDZ4Eqai6yy4daidUoF3hdEVVvIVsiMaop0pRFpoSNWx0NLB3d/pfTyim
+         2upA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EdeoGj3QRUvukE27/0x3ejCrlyT2DNzcW+QIx6ZFAP8=;
+        fh=V1Q/XKOAKq7MbamkPYE3d7QJJqDLnK0XwZVfYmtn1RY=;
+        b=gjELaxFZvadfqaDegSKtz7CUQkReGlMbmIUtVt6TprcjU4iCRH4PzDQyfiSPTIZVkT
+         bC7pEoEiYEcIckndP9T5tBPNUTDDAhGJiksp+yQNu8WRyULlwdAxkpkh6Nu9IflAtzbN
+         AUWbfOcDM1Mrv0cIpoLZON2G1VJ+GQv9Fx6nE80/1KNeQYsOItDARYtiPGU8k5fOsiH2
+         8+tkXAzGggz/hrOO+EZBYXVVkJZ/h24I61O8NnA6JVegHbZeNgRIO4aMt15diCgrweU/
+         jKxMPyroopWDDUw/dax3ejQFkYK/kGlisJYPSqWVHzRY7J5REApmrdLNwLhU+1Z+wNZa
+         g6zA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788220311; x=1788825111; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EdeoGj3QRUvukE27/0x3ejCrlyT2DNzcW+QIx6ZFAP8=;
+        b=j0XmTq+MWVZZoJEyl/HiVf27hDQ62KTcKDngUOqX7Rd3DpMLYfEluu04viTfJFTn7u
+         u6YfwiwqjNOxshrgiJJlsfCwGfDGYxAN0ObJwOXhV//1uVn9YoTboLUVW1jdAn+AUcV6
+         JdRaxvynPp4feqSyEuXdhWfFSRq+dO3mOtjvmxCRyj76kKFvaP1AZSvLGto4h4wRPDkA
+         KP7Jr6KjexuDZtzK7A3h2G0rmwOZI0Ey1rxXxCuTsqgSV25dXj9pCz0HGnEMshUNd9Ji
+         7Oxk2tOzLCt5Yf4g/hLFyr6aZdk5UWMnK3ZqNKBFQ1UxL2MpkG+DvQs4nlUjn9jGMr5V
+         no2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788220311; x=1788825111;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EdeoGj3QRUvukE27/0x3ejCrlyT2DNzcW+QIx6ZFAP8=;
+        b=biTnakoQwK/J1Jnqd4NHt2ZEM+dUanYtpkLttJ4DHYV8BLlDPBJAOMZRmwlnYtMIdt
+         WpCk4awQT94PdgztSYCx7u24UiO/atuVfmF5/SB2RXt2ciNygh/ur0EIC7WOaykHfKvr
+         QGa5CVXQnukgnspvtBMHrjOmarig8FLnYf63D+GIY4lOIvVoFglkb0uOqIHNAny7213V
+         5kNlHUUic+qhCFPcdrtM3PSfNIkYDoniTiT9hApD5I6EiJvbYgpwR6Eap8yxNulmMdoO
+         6RDEkcqtSAZCFSFzEvLtm1QNxeHpXc+jQBmKheewlFY25QogzB32bGjUhSlhZKwzEI1Q
+         J7Cg==
+X-Forwarded-Encrypted: i=1; AKwUvBxgBdxzEcUHAGDtnX8Mw1afmyxLtDELwA7R6qoRGH4Q9UX761Rj/GR2N7HCtdPEOs+yI82jWJNi1LRL070=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtZBy18l6rxdlOEl7pUtUgo1YlJge64/A/okJzlF6o0Odl0iRT
+	rqq2AA/P+u7M7mjbGGrnKAQnoojl0C44HXNGij24k6nfA+1dZU3fxkFxacU0o8M9NkyUrnUC44h
+	kzBmdUGEdX3nqwFmtXAxwU6BHljvCnnQ=
+X-Gm-Gg: AYBFou3VMByDTOaHuYFUr/fgV8cz6zjLHqQ5yjC/XvesgtJBl0EfITlrWCaydVneL77
+	WE4EronQ+u5R/B7MH37c020ZY5cJKoP7Qn/fV765qX5iqkPJpwNBJaNZQKwWAHHTMuhN3TY+C3/
+	LzURIKj9DIaEX6Vqcw6llHYDembqYOcklyq9sNLTL85fndDg47uOagbGcEe1j9mwjGN+whyECIT
+	TpIB9OmkIDQ+dbUPlukGhmi3yk06mLSbMEgwgh9ZBpp7nxuOR9dr18LRcvHfyuC+qg2miQzNFbL
+	aE/QK6Slb3gqE+1/cw2NhMTCxG4xxZ9feU+RWr1TgDZsgH6rzYWbZFSzd7PbrEAHpHXh02Ijzsv
+	LIK8=
+X-Received: by 2002:a05:6402:3204:b0:68e:4c0:f59a with SMTP id
+ 4fb4d7f45d1cf-6a668cbdadamr1448205a12.2.1788220310870; Mon, 31 Aug 2026
+ 16:51:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260822-ti-tps6586x-v1-1-93cb46b32b27@gmail.com> <20260830-honored-llama-of-realization-38eddd@quoll>
+In-Reply-To: <20260830-honored-llama-of-realization-38eddd@quoll>
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Tue, 1 Sep 2026 05:21:38 +0530
+X-Gm-Features: AcwNN1W9t_PNkWAnCMFSJa_lGVlfSOa-JFT3_994hP0eVrH-g0-08VIHzNJXlew
+Message-ID: <CAOWyW_44Z4rQ98H_i_tO8bB2Jkj5psCeEEtT8kSEgL+XOGshOg@mail.gmail.com>
+Subject: Re: [PATCH] regulator: dt-bindings: ti,tps6586x: Convert to DT schema
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@avionic-design.de>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+	daniel.baluta@gmail.com, simona.toaca@nxp.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 25 Aug 2026 16:45:22 +0000 Ovidiu Panait wrote:
-> Add a test that validates ping traffic over VLAN interfaces. It aims
-> to catch drivers which mishandle hardware VLAN tag stripping, in
-> particular QinQ.
+On Sun, Aug 30, 2026 at 2:47=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On Sat, Aug 22, 2026 at 12:40:28AM +0530, Bhargav Joshi wrote:
+> > +    patternProperties:
+> > +      "^ldo([0-9]|_rtc)$":
+> > +        type: object
+> > +        $ref: regulator.yaml#
+> > +        unevaluatedProperties: false
+> > +
+> > +        properties:
+> > +          nvidia,tegra-cpu-regulator:
+> > +            type: boolean
+> > +            description:
+> > +              designates regulator as the "CPU domain" voltage regulat=
+or.
+> > +
+> > +          nvidia,tegra-core-regulator:
+> > +            type: boolean
+> > +            description:
+> > +              designates regulator as the "Core domain" voltage regula=
+tor.
+> > +
+> > +          nvidia,tegra-rtc-regulator:
+> > +            type: boolean
+> > +            description:
+> > +              designates regulator as the "RTC domain" voltage regulat=
+or.
+>
+> These are coming from nvidia,tegra-regulators-coupling.txt, so the best
+> if you also:
+> 1. First patch: convert nvidia,tegra-regulators-coupling.txt, to a
+> shared schema and correct other devices which use nvidia properties,
+> e.g.: ti,tps62360.yaml if I am right.
+>
+> 2.  Second/this patch: reference here the schema
+> allOf:
+>  - $ref: regulator.yaml#
+>  - $ref: nvidia,tegra-regulators-coupling.yaml
 
-I take it back, sorry, looks like AI found something to complain about:
-
-> +def _setup(cfg, outer_proto, inner_proto, hw_strip):
-> +    """Configure VLAN stripping and create the VLAN interfaces."""
-> +
-> +    feat = ethtool(f"-k {cfg.ifname}", json=True)[0]
-> +    set_ethtool_feat(cfg.ifname, feat, {"rx-vlan-offload": hw_strip})
-
-Does toggling rx-vlan-offload here actually change anything for the
-802.1ad and QinQ variants?
-In net/ethtool/common.c, netdev_features_strings maps the two RX VLAN
-parse features to distinct bits:
-	[NETIF_F_HW_VLAN_CTAG_RX_BIT] =  "rx-vlan-hw-parse",
-	...
-	[NETIF_F_HW_VLAN_STAG_RX_BIT] =  "rx-vlan-stag-hw-parse",
-rx-vlan-offload is the alias for rx-vlan-hw-parse, i.e.
-NETIF_F_HW_VLAN_CTAG_RX (TPID 0x8100). Stripping of an 802.1ad S-tag
-(TPID 0x88a8) is controlled by NETIF_F_HW_VLAN_STAG_RX, which this test
-never reads or sets.
-For the st_gmac/stmmac driver used in the commit message log,
-stmmac_rx_vlan() gates each TPID on its own feature bit:
-	if ((vlan_proto == htons(ETH_P_8021Q) &&
-	     dev->features & NETIF_F_HW_VLAN_CTAG_RX) ||
-	    (vlan_proto == htons(ETH_P_8021AD) &&
-	     dev->features & NETIF_F_HW_VLAN_STAG_RX)) {
-and STAG_RX is only advertised for DWMAC_CORE_XGMAC, so on other cores
-the outer-tag stripping state is unaffected by the flag the test flips.
-Also, set_ethtool_feat() in tools/testing/selftests/drivers/net/lib/py/feat.py
-only programs the feature names the caller passes, and _setup() applies
-them to cfg.ifname only, never to cfg.remote. The TX counterparts
-(tx-vlan-hw-insert / tx-vlan-stag-hw-insert) are left untouched as well.
-Would it make sense to include the corresponding STAG feature in the dict
-passed to set_ethtool_feat() for the 802.1ad and QinQ variants (xfail or
-skip when the bit is fixed), or otherwise document the limitation?
-
-> +
-> +    _vlan_setup(cfg.ifname, LOCAL_IP, outer_proto, inner_proto)
-> +    _vlan_setup(cfg.remote_ifname, REMOTE_IP, outer_proto, inner_proto,
-> +                host=cfg.remote)
-> +
-> +
-> +def _vlan_variants():
-> +    """Generator that yields the VLAN protocols and the stripping mode."""
-> +
-> +    yield KsftNamedVariant("8021q_hw", "802.1q", None, True)
-> +    yield KsftNamedVariant("8021q_sw", "802.1q", None, False)
-> +    yield KsftNamedVariant("8021ad_hw", "802.1ad", None, True)
-> +    yield KsftNamedVariant("8021ad_sw", "802.1ad", None, False)
-> +    yield KsftNamedVariant("qinq_hw", "802.1ad", "802.1q", True)
-> +    yield KsftNamedVariant("qinq_sw", "802.1ad", "802.1q", False)
-
-Following on from the above: do the 8021ad_hw/8021ad_sw and
-qinq_hw/qinq_sw pairs end up running the same outer-tag configuration
-twice on devices that implement S-tag stripping separately from C-tag
-stripping?
-If so, the commit message statement
-  "Three VLAN configurations are covered, each with hardware VLAN
-   stripping enabled and disabled"
-and the module docstring entries for 8021ad_hw/8021ad_sw and
-qinq_hw/qinq_sw would describe coverage the test does not establish, and
-the QinQ mis-stripping case the test aims to catch would pass in both
-variants.
-
+sure I'll send v2 shortly with suggested changes
+>
+> Rest looks good, thank you for doing the conversion. It is very
+> appreciated, although I am bit slow with the reviews last days.
+>
+> Best regards,
+> Krzysztof
+>
