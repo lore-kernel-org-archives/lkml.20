@@ -1,307 +1,226 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466AB3B14C0;
-	Mon, 31 Aug 2026 22:10:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788214256; cv=none; b=MRVSxka0ymcvaqb1cC/3feRXH9QRTLfbiXsCMokMii34sx/ZtKuOeWmIZwB2sPRaSD2fdYcZFehBtFyJLlr4BljoRM7IWI4Qlx+70xIcusSU82cZuCx/pODR8lG2BWnvj6H/c+XF6j/8sngreXPNGLKq4WU2xABKJDgmNGagzts=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788214256; c=relaxed/simple;
-	bh=74uWWSroKtUahBYD0O1rtruEN1eXOPLWBDX0MXkOELo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LZvH1BmjN4JzOp+VZVbTJJ2RAqfctvxsSL5jmO+8nzCFVXEOlY5c+2mPu03gwg/UjznrmtA3X+InzrMlGlg3ETyuMLxmCTns2bb48x1yQlIE0cZCMzBuPUgcX3wEwQHKRm3dRJheVD3Lj3rE/W91qbrm+h8fglIC4DF9pWqy7TI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ULZXCIg4; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B045E37DEBB;
+	Mon, 31 Aug 2026 22:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788214275; cv=fail; b=pzO4CbY+j8cDl8mmFmmJVYcTa0dLoImmlVNaWYjzSnlFiPAW63OgFKpqtyxLiHX1qZfR084Fzabiq/nIIoGAnFfEJsCSzDBFgzqRJ6GD7FSUeLITYob3BhWdDnK9ZDCH0hbyL4tBBA/AqbeYv1PJsymfC+iVeFk7NjTfp/NsCUU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788214275; c=relaxed/simple;
+	bh=Y4OJ8nemcyFTEAOOxOShtosqGc4F1FD+YCrRmoFhvQ0=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=uOMPGAss0oATnmqF9JZU+G4SgDBdIF5AjETL/CuoiHCczWL0pFj/4ETC82Lp8JQBxZ+o1kG/vGeyQMhhJ58QHSOVUiZbXyPeWUiN0MfiqJH1k0ZWj4leN4RkgfMkHmpjCUTrbSyJX48PEaZTL79IBS4bCK4mJCAFxDpFm/7FYBQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fNLUi3hn; arc=fail smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ULZXCIg4"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fNLUi3hn"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788214245; x=1819750245;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=74uWWSroKtUahBYD0O1rtruEN1eXOPLWBDX0MXkOELo=;
-  b=ULZXCIg4vli+YwfKZvNMpjYeYgWST9ge9NlmXUNKMiDdq2noFNv6E3sW
-   3R/mIjFBiKK97CWywgRPBRmiVwuW/ENKluotIX+g9l42cITria5XAUV1f
-   aMoyHEd1ETrh1WoGbYax0e4/3lsMCb+orQgQqmuhbCj3Ph1s8BTOsKZ7p
-   b11s45ylnKmfhu2xbI9AdQVl1OPDsFQEwXhFKxF5rrI+53TSh1iAXgxO1
-   iEemSLbt+UbQE2wfEQ/WDHNx7eWevlMn+sc6HUdyHCEevrqPFhjpdmUGD
-   8MZGO3sO0Uj6/OsloMyhIqSZIV83wO6/8ApvdcrU4rvsW4MDLt8ttqVRM
-   w==;
-X-CSE-ConnectionGUID: UAuvuKc8QFGYbG2jLUiVxw==
-X-CSE-MsgGUID: ZzD3CRRWT1K7JJOLupMnYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88655867"
+  t=1788214272; x=1819750272;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=Y4OJ8nemcyFTEAOOxOShtosqGc4F1FD+YCrRmoFhvQ0=;
+  b=fNLUi3hn+m7QoCXUUdtFOE1pdBATu3+FjYPi83PG/iYO2P7BvhKQdWTy
+   XYDc3w7A2ZuAF6VPLq04du7JjJ2rKHISR8neHWQMyKMtaQLzHHqECY2mo
+   fG7JOSNlHcryXslU9WvvHMIqu1qDkteQEMr2NT479MynBaH68DJ6C9Jfb
+   gPidfY/Qg+xEmdP3unIpWtCn6Jl4hdTU1ea53IGMCXjza3DIzGPj/265r
+   XRgYaIbXgykc/vSyYyd+P1dAfKZPJ/9nI1cFHDHD5DVZNfOQyw+1kKvAA
+   2rtWrvx8hVWhljuicjs3SbUqwOYX85axmAOjlorRCkpWtjb4dRth+EP3z
+   A==;
+X-CSE-ConnectionGUID: /ntSq7StT1WQxSLv02eLlA==
+X-CSE-MsgGUID: dWMPmzFvRXervFVh/6Q9TA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="114169153"
 X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="88655867"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 15:10:42 -0700
-X-CSE-ConnectionGUID: oOmRa3boQGqtiDT+CE1A1Q==
-X-CSE-MsgGUID: o0d0SNirTICSHrrEFg7Vog==
+   d="scan'208";a="114169153"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 15:11:11 -0700
+X-CSE-ConnectionGUID: GP9mVcqISIaM/K3pvG1b5w==
+X-CSE-MsgGUID: oHz+0AvqR4umQprTo1NBZA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="264622730"
-Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 15:10:40 -0700
-Message-ID: <db2436d91e2e04a8a1063553ce64acc74b533f5c.camel@linux.intel.com>
-Subject: Re: [PATCH] sched/cache: Fix use-after-free of the mm replaced by
- exec
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Hyunwoo Kim <imv4bel@gmail.com>
-Cc: "Chen, Yu C" <yu.c.chen@intel.com>, Kees Cook <kees@kernel.org>, 
- Christian Brauner	 <brauner@kernel.org>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Jan Kara	 <jack@suse.cz>, Juri Lelli
- <juri.lelli@redhat.com>, Vincent Guittot	 <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,  Steven Rostedt
- <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
- <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
- Nayak <kprateek.nayak@amd.com>, Shrikanth Hegde	 <sshegde@linux.ibm.com>,
- Qais Yousef <qyousef@layalina.io>, Aaron Lu	 <ziqianlu@bytedance.com>,
- Srikar Dronamraju <srikar@linux.ibm.com>, Vineeth Remanan Pillai
- <vineethr@linux.ibm.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- 	linux-fsdevel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>, Peter
- Zijlstra	 <peterz@infradead.org>, "chen.yu@linux.dev" <chen.yu@linux.dev>
-Date: Mon, 31 Aug 2026 15:10:40 -0700
-In-Reply-To: <apX1ufR1reYZ9LBc@v4bel>
-References: <apPb-Dr4nPYuHQOK@v4bel>
-	 <825d9dcc-b052-4367-a9c7-15efc4b354f8@intel.com> <apXV6t-7drLDf-lL@v4bel>
-	 <a1a0bc24108e68656041dc17824d6b88b4120058.camel@linux.intel.com>
-	 <apX1ufR1reYZ9LBc@v4bel>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+   d="scan'208";a="307133929"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 15:11:11 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 15:11:10 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 15:11:10 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.32) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 15:11:10 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AABGhqDr8WfYJHPvRq95Gz/58bas9idy3v8RpYl3TRDMvEgaORMyAaN6wgsJ0HByJhMTHn1NLQ3adwb5W+djrxy8icE9Gh6nkbIDMQuopVtjazJB2D2tTX5vW52K93vYxPdCdhoeZ7Y/UdV3uGTnbem7Fngm8IueFbvhwW9nLF6Zf6/U6216srbl3fFV3OtP0r8n3yRGQ2WtZSWewpVCagXG6qLVVvBcMDEqBALTgjHhCFTRtvDQ6G/c+bCfFnYEqIv+t6uFRDX3ksUKtxo/9Mmxs+RSDC6mBKBI2tab8PeiahV9o6tSCHI4s6E+ukbY87T7crqyjFoiRBgzAJkAxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DhInLjuOSVd6ToknclSzB+5Ld8hVOkmJNlq2yIod/5E=;
+ b=Phc9ZeRudbMrV+oGYMjZR4g495QPa4SHoJ2GtjT8dnUEUR8+YhG0/S74qKFT+EdAS1DWoZeawUwkR3Ry/46NLoqDz2rSYJiGH53IGXeVpKBVObYF5zMqWCtIsxna5WuA+R4WioluxHKjoBnZQ85OzR3Ma5BLYmg5T2TiCH+b5RuBe8n3vBRHbHd2Ybtre9UPAutGQLADtKAeQq3H0vXVgyjcPj5HeVYCPfwM2hX7Pzm+RUPJ2RZqwhBqDbjq0a3BZmjapNOliLYxxj/VX6J0z1LLVsuEhd+/ahWjqooWIQpuARpD1dSaYlh4ni4Yq7GkT4ogCtivmasJne08afaFkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CH3PR11MB435924.namprd11.prod.outlook.com
+ (2603:10b6:610:34a::8) by BL1PR11MB5319.namprd11.prod.outlook.com
+ (2603:10b6:208:31b::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 22:11:07 +0000
+Received: from CH3PR11MB435924.namprd11.prod.outlook.com
+ ([fe80::1696:c90e:60af:a0cd]) by CH3PR11MB435924.namprd11.prod.outlook.com
+ ([fe80::1696:c90e:60af:a0cd%6]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 22:11:07 +0000
+Date: Mon, 31 Aug 2026 15:10:42 -0700
+From: Peter Fang <peter.fang@intel.com>
+To: Sean Christopherson <seanjc@google.com>
+CC: Xiaoyao Li <xiaoyao.li@intel.com>, Lisa Wang <wyihan@google.com>, "Andrew
+ Jones" <ajones@ventanamicro.com>, Ackerley Tng <ackerleytng@google.com>,
+	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, "Chenyi
+ Qiang" <chenyi.qiang@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <ira.weiny@intel.com>, "Isaku
+ Yamahata" <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+	<linux-kselftest@vger.kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Reinette Chatre
+	<reinette.chatre@intel.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>, "Sagi
+ Shahar" <sagis@google.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton
+	<oupton@kernel.org>, Jeremiah McReynolds <jmcrey@google.com>,
+	<kvm@vger.kernel.org>, <linux-coco@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <x86@kernel.org>
+Subject: Re: [PATCH v14 21/22] KVM: selftests: Add ucall support for TDX
+Message-ID: <20260831221042.GI33657@pedri>
+References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
+ <20260722-tdx-selftests-v14-21-15ad654a50db@google.com>
+ <6f89fc78-0344-4a7e-bbd8-ac201b8f845a@intel.com>
+ <20260828020612.GF33657@pedri>
+ <b4cffa34-864d-4fd0-9fc7-a7d4514075b2@intel.com>
+ <20260828042044.GG33657@pedri>
+ <apGYxwdCSuC-X732@google.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <apGYxwdCSuC-X732@google.com>
+X-ClientProxiedBy: SJ0PR03CA0050.namprd03.prod.outlook.com
+ (2603:10b6:a03:33e::25) To CH3PR11MB435924.namprd11.prod.outlook.com
+ (2603:10b6:610:34a::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR11MB435924:EE_|BL1PR11MB5319:EE_
+X-MS-Office365-Filtering-Correlation-Id: 95cc5077-9a23-4d10-3a3c-08df07acc183
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: LoBsQGJhebOOOQkJ3/vYGUKftOs1I1fGkjYagRMgdrbgIjcpg6QoebVwm6dlhLVvFpWyoKvcUbpxhnRCBguY6g2IoB3ZdyAjv9q1hjbqpIr8jWGjzRbMhD9d3wxqs3ZQHJ418S8LOKTP68SIsTMpDJzM0WLPhyL6FypULXpbssLQZbR5P2nG9pnwmmdbOpNAL2ihlQz75GF+uFRXn5SVGvxGFoXjBqV1c1JwvcyauSWjTk+YLEZvvbv1gauScQYxSCCpoj6C1V+HvZXAlSeEHBmtZhplLRg2AHElfw/qVDKJnvOGF16rzbotZTjF+r9WxrDkG3kGU1rhizt/fuOncZalXi1raSVD6Z/I77sdjPYB+Ns+idyGbq4jEXF8xli7mtLHw1vyv1WEEyIwjBOCcy0B7bKmqz3m4XUQqmKXGykKn8/kM51AUPiIxOde1Hm9Z7LcI5U7t+o8701bK/hABAnRyEzglezni0XQAKxRYhn7CjZWBJ6U4Mgou+4pszRyvHNTHldpBe4gDBl9EVvzMPvj6rA+ixgrV0sWgQdd499Mqv6WohMHp/Ch9Z6k32j188gREeQtp4SaC4y3TM4fzb94AxSRRNfxEMKLDoQ6zrr+UjLz1i6COO4gBe0HfC+uQcnQdcYAaL3npg68NB8tIlEBIQoNVn9RtkkLmQolu0o=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB435924.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?c/IbiWxqJfQX9U1y1+eXJrTXumFzUKPV1mOIlDgE43OGnCmXDE9EWBoKPxzS?=
+ =?us-ascii?Q?kbtPeRf9dZ9Wp+7oMBZ4LNHLonRfpH5Gn5FQsridG7cr1zLphUE7a48OtkMn?=
+ =?us-ascii?Q?irKtR24xUiQ/5tnBFAu2FND6I7jNQpNcPDfmaWZgFBp2Mm4t7wpzE7wy6fWc?=
+ =?us-ascii?Q?E02J3Bpxd8SBVkmC8MdP0lXx19e2OdOA3giS6BGuJDQMv8KJCDEj22+7WCFI?=
+ =?us-ascii?Q?f8f35Yl56BlmiW7AnIs4zbuClFZyP0lXvdIrKU1AokLEw5+LqjVDsLFtgKx7?=
+ =?us-ascii?Q?FqEQYnJCWTZmtcujE1rukFStNPl9s0ogLmaGx9fcqx6NAjDlpvVGam/c9bgr?=
+ =?us-ascii?Q?YKWJ6f9FtCpuIfcYzzDB9zX3cBuuOyIW2FxEMgo5dlXxmldpMzrf0LXlbeRl?=
+ =?us-ascii?Q?BY/BLyL44BoEQ6eZmEgQoJIqas2Nl8HbpFSJ0GrccETrdJ3idGffY1LGk2Cx?=
+ =?us-ascii?Q?BSNUDeUgnAA8TYU8WpnWlPUAajjOFmrnkKob+x9mq9+KtckIW71UyQcDAKOx?=
+ =?us-ascii?Q?P+SAyXZgDbysGARVotRMwQxF66++EXXW6lepf+6naGk4plStT76EGMsxiWsx?=
+ =?us-ascii?Q?Zc6CU6q7xqYd/uBMER1pFB3n7Sqe9jmqEi2yk462T1ZMAury0uzxOw4Wcs0z?=
+ =?us-ascii?Q?zlYS2XFEAylGgJ4SoWaGIb2Ha5/92Aiu3yYtLOZlHSj/G7vPf/vMfLl0jlMs?=
+ =?us-ascii?Q?VEIc4JimWyofq863Gg+fq97ek3MY6X+ObahU9/gCsnP36ubNTmLiIQMItXLD?=
+ =?us-ascii?Q?rD+LDGiPfcWpxtuJ2PcJnb5Zz31tHbX9md0ANphalTkQGxLrWtvd2UzOm/Lx?=
+ =?us-ascii?Q?lm7FsSeXzK3+Yz752/vJgKX9hLUBZQDuApIH2c6bXHTEfMjRRs3tpK4bQOld?=
+ =?us-ascii?Q?m1RgLGiK1LVlb93Me+gzwatfDfpXTbcst7rI/cW0Oz/s0g54Gp2JHhLUPjFb?=
+ =?us-ascii?Q?VssrqmH6+FHxzkvvl/FwApVOvD4urKewUyAlrSMaT7bVPZUGrFxWWdBbUg5m?=
+ =?us-ascii?Q?gcec4KegdGAal/6x2BHSEEOuT9ZVpsZuEFBjwjSgO94Awkx2pO8Y/kvh8F+l?=
+ =?us-ascii?Q?9vgP8I1A0XJ738rt3aX+Ec646ZfCAAkPD5vll4W2GmnzpLZKIcAcXzuJVV54?=
+ =?us-ascii?Q?8HAfpF42uv/gse9wrdnmXH+bbdJSEpfMhwaORfNwy53Fi1Flq4MpNdBqVmUW?=
+ =?us-ascii?Q?ZqqpFQb7lLEHcCD/1Xi+zZ30C5cipDJm49DpAxl/K/cjthSLAwD/Up3wnlPA?=
+ =?us-ascii?Q?Cx7u2P+121LtnqV1nAJIQvMOCat5LUETInfBC1OdANjv1nKl2THkrFPhtWc2?=
+ =?us-ascii?Q?HpfdFTwjwJkpx6rgz0r4zCdNoo45j4OuROh2k6vzDztfNOvopMKPMb1W+ZKa?=
+ =?us-ascii?Q?mcwH6B4v18thwLWx+i19qdgcRVwh+K+FN36ebK5xIGyTVPYkwcoORC3rFhza?=
+ =?us-ascii?Q?aVcD5SG74uCGwZ2MQWuwA6IOqaW1kWP42h7s2jDfUB+KhrzpuGG/G4aP3C26?=
+ =?us-ascii?Q?WSbfpxW7NOcUCu2Kc2xmWL5mbi0CYmSpfG3pa4MegfoaSxY1OrHsDfTd61ZC?=
+ =?us-ascii?Q?uZilRRyptXHzSVL1ZhLf5MvUGqcisv8WB4rwpIryG1YO1B9syEDhngoWOxYU?=
+ =?us-ascii?Q?/86WGCirrEqGmbCnF035Hwr3DoMfHh3Wz7cBXgJSyvlc4esHg/qITGOsjwQJ?=
+ =?us-ascii?Q?lAKoSFSHfUPp8rlK7UX4guVmL9SgkHozCkfbZqvo/oFp/xMFwlTWMP5WLAj8?=
+ =?us-ascii?Q?Z3uyttD+kw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: eHVt7YUOCG3Yr30Y0Gt9Pk/d7kFd6BZpY6Z6+MIqpQypFBcgQ6MPfdoHDIeIJn13uHhQWhaVdCIN67hM4xzrpaFGPcLHZTf2gsy0noFB+YTCNWiEEBlCOTB65bMP4O5pFyrPS0hiu/Gik2N6DBu8BpWc6IIuXhtcPV1S4Y6X7MYjC59xifrp15F3MYINIFZYF/DAlruQq8tlio6lgNzfRF8zoGA3+iplXxptixb92Tq46o4w6t2HfbhEPZH8Rll0wpEXtGAH+49+klX2epItBb0cKKPfQMSYA7SR5vnoYgTfvIGqnZmzN3rkP3i/WiNVTc7PwAxMx9hxrUYpzyIDDQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95cc5077-9a23-4d10-3a3c-08df07acc183
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB435924.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 22:11:07.3247
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OmgLIqwWca68j00q/q6+InjqTXIdCm2COR1+zRPYIo3jE3STnOJQ5WslRJiRNqG1JVZNEk4/ptYCnPXk+cX0kw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5319
+X-OriginatorOrg: intel.com
 
-On Tue, 2026-09-01 at 06:44 +0900, Hyunwoo Kim wrote:
-> On Mon, Aug 31, 2026 at 01:25:06PM -0700, Tim Chen wrote:
-> > On Tue, 2026-09-01 at 04:28 +0900, Hyunwoo Kim wrote:
-> > > On Mon, Aug 31, 2026 at 12:22:45PM +0800, Chen, Yu C wrote:
-> > > > Hi Hyunwoo,
-> > > >=20
-> > > > On 8/30/2026 3:30 PM, Hyunwoo Kim wrote:
-> > > > > When the waker cannot use the wakelist, ttwu_queue() takes the ta=
-rget rq
-> > > > > lock and goes down into update_curr(). If the target rq belongs t=
-o another
-> > > > > CPU, the task handed to account_mm_sched() is the one running on =
-that CPU,
-> > > > > not the task being woken.
-> > > > >=20
-> > > > > account_mm_sched() reads p->mm and updates mm->sc_stat. Nothing k=
-eeps that
-> > > > > mm alive. The rq lock and rq->cpu_epoch_lock it holds have nothin=
-g to do
-> > > > > with the lifetime of the mm.
-> > > > >=20
-> > > > > If that task happens to be in execve(), exec_mmap() points tsk->m=
-m and
-> > > > > tsk->active_mm at the new mm, and exec_mm_put_old() from setup_ne=
-w_exec()
-> > > > > drops the old one. free_bprm() does the same when exec fails. On =
-the way
-> > > > > from mmput() down to __mmdrop(), mm_destroy_sched() calls free_pe=
-rcpu() on
-> > > > > sc_stat.pcpu_sched and free_mm() returns the mm_struct.
-> > > > >=20
-> > > > > Whoever already read the old pointer keeps using it. It adds to r=
-untime in
-> > > > > the freed per-cpu area and reads sc_stat in the freed mm_struct. =
-Depending
-> > > > > on the condition it also writes sc_stat.cpu. That is a use-after-=
-free.
-> > > > >=20
-> > > > > Commit 9f23469401b0 ("sched/cache: Fix potential NULL mm pointer =
-access")
-> > > > > changed the remaining p->mm dereference to the local variable, an=
-d said the
-> > > > > active_mm reference keeps the structure allocated. That holds for=
- the other
-> > > > > paths that detach an mm, since they take an mmgrab_lazy_tlb() ref=
-erence.
-> > > > > exec reassigns active_mm to the new mm as well, so that reference=
- is gone.
-> > > > > What is left is the mm_users reference in bprm->old_mm, and dropp=
-ing it is
-> > > > > the free.
-> > > > >=20
-> > > > >               CPU0                                CPU1
-> > > > >=20
-> > > > >                                        write(pipe)
-> > > > >                                        try_to_wake_up()
-> > > > >                                          ttwu_queue()      // tak=
-es rq0 lock
-> > > > >                                            enqueue_task_fair()
-> > > > >                                              update_curr()
-> > > > >                                                update_se()
-> > > > >                                                  account_mm_sched=
-()
-> > > > >                                                    mm =3D rq0->cu=
-rr->mm
-> > > > >                                                          // old m=
-m
-> > > > >    execve()
-> > > > >      exec_mmap()                       // tsk->mm =3D new mm
-> > > > >      setup_new_exec()
-> > > > >        exec_mm_put_old()
-> > > > >          mmput() -> ... -> __mmdrop()
-> > > > >            mm_destroy_sched()          // free_percpu()
-> > > > >            free_mm()
-> > > > >                                                    read mm->sc_st=
-at.epoch
-> > > > >                                                          // use-a=
-fter-free
-> > > > >=20
-> > > >=20
-> > > > Ah, thanks for catching this.
-> > > >=20
-> > > > > ---
-> > > > >   fs/exec.c             |  1 +
-> > > > >   include/linux/sched.h |  4 ++++
-> > > > >   kernel/events/core.c  |  2 ++
-> > > > >   kernel/sched/fair.c   | 16 ++++++++++++++++
-> > > > >   4 files changed, 23 insertions(+)
-> > > > >=20
-> > > > > diff --git a/fs/exec.c b/fs/exec.c
-> > > > > index 745f6eb5279e6..6194c38807980 100644
-> > > > > --- a/fs/exec.c
-> > > > > +++ b/fs/exec.c
-> > > > > @@ -916,6 +916,7 @@ static void exec_mm_put_old(struct mm_struct =
-*old_mm)
-> > > > >   {
-> > > > >   	setmax_mm_hiwater_rss(&current->signal->maxrss, old_mm);
-> > > > >   	mm_update_next_owner(old_mm);
-> > > > > +	sched_cache_exec_done();
-> > > > >   	mmput(old_mm);
-> > > > >   }
-> > > > > diff --git a/include/linux/sched.h b/include/linux/sched.h
-> > > > > index 8b3d47a325cca..6ae31bffe049e 100644
-> > > > > --- a/include/linux/sched.h
-> > > > > +++ b/include/linux/sched.h
-> > > > > @@ -2415,10 +2415,14 @@ struct sched_cache_stat {
-> > > > >   	int cpu;
-> > > > >   } ____cacheline_aligned_in_smp;
-> > > > > +void sched_cache_exec_done(void);
-> > > > > +
-> > > > >   #else
-> > > > >   struct sched_cache_stat { };
-> > > > > +static inline void sched_cache_exec_done(void) { }
-> > > > > +
-> > > > >   #endif
-> > > > >   #ifndef MODULE
-> > > > > diff --git a/kernel/events/core.c b/kernel/events/core.c
-> > > > > index a6c8e38a31104..2f29cbccf03f1 100644
-> > > > > --- a/kernel/events/core.c
-> > > > > +++ b/kernel/events/core.c
-> > > > > @@ -5427,6 +5427,8 @@ attach_task_ctx_data(struct task_struct *ta=
-sk, struct kmem_cache *ctx_cache,
-> > > > >   	if (!cd)
-> > > > >   		return -ENOMEM;
-> > > > > +	/* @old, loaded by the try_cmpxchg() below, is only stable unde=
-r RCU. */
-> > > > > +	guard(rcu)();
-> > > >=20
-> > > > Is this change related to this UAF issue?
-> > >=20
-> > > Duh.. that one is unrelated. My mistake.
-> > >=20
-> > > >=20
-> > > > > +/* exec() has switched to the new mm and is about to drop the ol=
-d one. */
-> > > > > +void sched_cache_exec_done(void)
-> > > > > +{
-> > > > > +	struct rq_flags rf;
-> > > > > +	struct rq *rq;
-> > > > > +
-> > > > > +	/*
-> > > > > +	 * account_mm_sched() dereferences rq->curr->mm under this rq's=
- lock,
-> > > > > +	 * so a remote CPU can still be using the old mm. The lock cycl=
-e waits
-> > > > > +	 * for it, and the store to tsk->mm cannot be reordered past th=
-e
-> > > > > +	 * release, so later acquirers see the new mm.
-> > > > > +	 */
-> > > > > +	rq =3D this_rq_lock_irq(&rf);
-> > > >=20
-> > > > A smart fix, learnt! It behaves like a synchronize_rcu() to protect=
- against
-> > > > the read in account_mm_sched(). Small open: since the context of in=
-voking
-> > > > account_mm_sched() is preemption-disabled, I wonder if we can simpl=
-y use
-> > > > synchronize_rcu() directly instead of this_rq_lock_irq() - just to =
-avoid
-> > > > contention for rq-lock in heavy system?
-> >=20
-> > Thanks to Kyunwoo to show this potential use-after-free problem.
->=20
-> It is a real, triggerable issue.
->=20
+On Fri, Aug 28, 2026 at 07:18:47AM -0700, Sean Christopherson wrote:
+> On Thu, Aug 27, 2026, Peter Fang wrote:
+> > On Fri, Aug 28, 2026 at 10:31:14AM +0800, Xiaoyao Li wrote:
+> > > > 
+> > > > Hmm... This makes me wonder if vm->arch.s_bit below could be replaced
+> > > > with the same architectural approach. GPAW is available through
+> > > > TDG.VP.INFO or the initial RBX value. This does require a bit more
+> > > > plumbing though.
+> > > 
+> > > I'm afraid not. Because below is host code, and vm->arch.s_bit is not used
+> > > in guest code.
+> > > 
+> > > Or are suggesting something like dropping the
+> > > 
+> > > 	if (is_tdx_vm(vm)) {
+> > > 		ucall_mmio_gpa = UCALL_MMIO_GPA | vm->arch.s_bit;
+> > > 		sync_global_to_guest(vm, ucall_mmio_gpa);
+> > > 	}
+> > > 
+> > > entirely and use below hardcoded value instead in guest code?
+> > > 
+> > > 	UCALL_MMIO_GPA | 1 << (GPAW - 1)
+> > 
+> > Yeah this is what I meant. Just drop sync_global_to_guest() entirely and
+> > do things like a normal TDX guest would.
+> 
+> Blech.  Every time I come back to this series we're still discussing ucall crud,
+> and "doing thing like a normal TDX guest".  Selftests aren't normal guests.
+> 
+> I know I suggested using the HPET base, but I only did so very begrudgingly as I
+> couldn't come up with a better alternative to emulated MMIO, and the end result
+> is quite gross.  Not only does the code ignore @mmio_gpa but still obviously use
+> emulated MMIO, it requires synchronizing data to the guest because KVM disallows
+> "private" MMIO.
+> 
+>   void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
+>   {
+>          vm_type = vm->type;
+>          sync_global_to_guest(vm, vm_type);
+> 
+>          if (is_tdx_vm(vm)) {
+>                  ucall_mmio_gpa = UCALL_MMIO_GPA | vm->arch.s_bit;
+>                  sync_global_to_guest(vm, ucall_mmio_gpa);
+>          }
+>    }
+> 
+> Retrieving GPA via TDG.VP.INFO isn't any better, it's still an absurd amount of
+> "work" for something that should be trivial.
+> 
+> Can't we just abuse TDVMCALL_REPORT_FATAL_ERROR?  AFAICT, there's no restriction
+> on the data payload, and there's enough space to all but guarantee we'll never get
+> a false positive.
 
-Appreciate if you can check whether the first 2 patches in=20
-https://lore.kernel.org/lkml/cover.1787955777.git.tim.c.chen@linux.intel.co=
-m/
-fixes this issue.
+Ohh interesting idea to use TDVMCALL_REPORT_FATAL_ERROR to pass through
+data. Yeah this looks good to me.
 
-> >=20
-> > While synchronize_rcu() avoids rq lock, it could introduce a long delay
-> > of a full grace period that will be undesirable.
-> >=20
-> >=20
-> > I think a better fix is to decouple sc_stat from mm and make it its own=
- structure.
-> > Then we can do proper refcounting and rcu management on sc_stat itself.
-> > We will let task points to sc_stat with proper ref count and change the=
- access
-> > as task->sc_stat directly nstead of via task->mm->sc_stat.
-> >=20
-> > Then we will know sc_stat exists in account_mm_sched() execution
-> > as long as a task points to it and do not have to worry that sc_stat is
-> > released due to the mm life cycle.
-> >=20
-> > In the first 2 patches of the prctl control series for cache aware sche=
-duling
-> > we posted, we introduced the change I described above and should=C2=A0
-> > fix this issue without additional rq locking or synchronize_rcu() overh=
-ead.
-> >  https://lore.kernel.org/lkml/cover.1787955777.git.tim.c.chen@linux.int=
-el.com/
-> >=20
-> > We should probably prioritize to merge the first couple of patches from
-> > that series now in light of this issue.  It will make maintenance and f=
-uture
-> > modification of the cache aware scheduling code easier.
->=20
-> That is a fairly large change.=20
-
-However adding rcu synchronization will slow down the launch of a new proce=
-ss
-too much.  The rq lock solution has less latency in my opinion.  But I
-think decoupling sc_stat is the best solution without adding latency in the
-exec path.
-
-Wonder what is Peter's opinion?
-
->=20
-> If you add a Reported-by: tag for this UAF to the patch, I am fine with=
-=20
-> handling it that way.
-
-I'll be happy to do that. If you let us know if those two patches from prct=
-l series fixes
-the bug you found in KASAN log, I can also add a Tested-by tag in addition =
-to Reported-by.
-
-Thanks.
-
-Tim
-
->=20
->=20
-> Best regards,
-> Hyunwoo Kim
+> 
