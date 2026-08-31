@@ -1,36 +1,36 @@
 Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAF13B0597;
-	Mon, 31 Aug 2026 03:50:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FBB3BB671;
+	Mon, 31 Aug 2026 03:50:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788148228; cv=none; b=m/A+vvv++7nDJeatfNRAz5dWZrA3B0O3R3TiYLA1CDmvXMuU5VxdhU7/Zn4+yAZzCXSgKNbWNmJOobCS6wqU2uKEh/BL//LwHY+R3bllXR1xwxtNsf6LR6MV4nxoac0lARAwoe1NuzDYV12y5LYFJoWQhiWFbDRqc/SZHX/FpRY=
+	t=1788148229; cv=none; b=oCuLY+p5Z/OqNeFqkjCOLYwaPzf6JjDBnRyE8Dvyvgtgku99bKa849WEw02qOw/4/IOUrHBQyi8CRooL+eNXy0JGb45GEhd2ttUYjFVzmZxt++YSSkBTYItElRwW1l4UkdqUsy4C665NzTbfw8+dFGM0uWszPmHrgy2zEV63t50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788148228; c=relaxed/simple;
-	bh=eMNksmG246mpogtFnGw7NQKjqaMgijpHuCZKhIxXsAw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ONriNG71fT2d73BaotF1p7+NaXyeDmk+9PKINYYNptNrj70dUnTgY+twGDBeM9SCRrAano6V0PQVbCrnBBKvk+Sm3Miy46+wEtQ/pTB0Vo8kE4Avue3w6STC1Gznrc2VIpWqs17M7eCdmmDVT3lwujXVDjDpxqzxRsUjhrJYbOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=Lo1m7J8x; arc=none smtp.client-ip=203.29.241.158
+	s=arc-20240116; t=1788148229; c=relaxed/simple;
+	bh=T2zwEOSKeJVPvjSKm2GKFRJuXwoncrPadWyEQ19not8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=A5frTtiipyPNbkL5DWfPqSOZZbZd1SyTwuPjo22xnPcGUNuwA8Kfvcr9SyU8aKEstqqxJnCosOuAVIQY0/JKq8N/H4HFo6gBeXv50Zwur14s906dBIqLx/0myOAdoSBDHTLgyTn4WGNFglhf7Uh9GZSBIBHrbH8QI8w1osFvT6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=gyxrraBw; arc=none smtp.client-ip=203.29.241.158
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="Lo1m7J8x"
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="gyxrraBw"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=codeconstruct.com.au; s=2022a; t=1788147869;
-	bh=QPr6gXN/7uyZQTV9SxUUgaKwIhtQfjpGIPQEZJv4uMI=;
-	h=From:Subject:Date:To:Cc;
-	b=Lo1m7J8xOkAuArwu5eemn9m5+2FQkF9s2x8QRF8vquy+Gi0AuMt8ejq67oG9UNdvK
-	 xN2AS00sBio9maxwz/x9bZi392uOsNi2i7sz0B64V87hJmjZJAjS7+Pw1yFO0oVu4z
-	 ybSqiirZPVCzmdfuGXrVPFJxaj8BN8bNHU80PzVVTqk9Ih4vZpmsu05MAW0AlVb3oy
-	 ekFTEVXsc0XmeVA3evB6sy5+1GeRA8ad1a/Agt5pWRQaYW/pCS/QIHkPqR2ZE8uOZv
-	 mjH2pXm3RcRSQV9YLoU1yunRIFxlRknQQYcIzVsFnSqiIS/QgsZVZpQC7UODEvrikV
-	 nWPJlU3yueCaw==
+	bh=PbFhoF6jYTVQDww2xy+ijFIf+3flRX07CkM/MkYCtcE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=gyxrraBwUMewyZP9zu2YdxFbIxkpU5oSn9zMlfDLhmvJAQsb/NNDgQPKzoBPYnjis
+	 zQWxBBOJ9BAuiCuLrZmJyY3Z92K2sUdikyldhOgBw8n+4lkURcijFoZCdNxLRnpQsp
+	 hsXvdXjBT4G+bIIDvzmjU0PhV+WaRGe2T1lou/sp5cWsdCePearGOFvbFF7KeBMSTc
+	 RHF8OuP87gmyfr9C3zHwifPDCyxEO9a/rjCe9EbEoKRPeFJtpi0BUw3jdWinilPnu+
+	 +5tbBzlSJJilewX3x6Q4bFgMcujao9Aed0j/NtdqhZhGqW8FyGXBkLgVbBy7o2nO44
+	 d9eNT7Rb1O4FQ==
 Received: by codeconstruct.com.au (Postfix, from userid 10004)
-	id 53CCD682D8; Mon, 31 Aug 2026 11:44:29 +0800 (AWST)
+	id BAF3F6844B; Mon, 31 Aug 2026 11:44:29 +0800 (AWST)
 From: James Lee <james@codeconstruct.com.au>
-Subject: [PATCH 0/7] net: mctp: usblib: Increase coverage of kunit testing
-Date: Mon, 31 Aug 2026 11:43:39 +0800
-Message-Id: <20260831-dev-mctp-usb-lib-test-v1-0-79699bf67a18@codeconstruct.com.au>
+Date: Mon, 31 Aug 2026 11:43:40 +0800
+Subject: [PATCH 1/7] net: mctp: usblib: Add to parameterized kunit tests.
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,10 +39,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGv4lGoC/x3MTQ5AMBBA4avIrE2iDYqriAU1mMRfOiUS6d01l
- t/ivReEHJNAk7zg6GbhY49QaQJ26feZkMdo0Jkus1IZHOnGzfoTLxlw5QE9iUdVKKMrY3KqC4j
- t6Wji5/+2XQgfJMCYtWcAAAA=
-X-Change-ID: 20260617-dev-mctp-usb-lib-test-151728774e95
+Message-Id: <20260831-dev-mctp-usb-lib-test-v1-1-79699bf67a18@codeconstruct.com.au>
+References: <20260831-dev-mctp-usb-lib-test-v1-0-79699bf67a18@codeconstruct.com.au>
+In-Reply-To: <20260831-dev-mctp-usb-lib-test-v1-0-79699bf67a18@codeconstruct.com.au>
 To: Jeremy Kerr <jk@codeconstruct.com.au>, 
  Matt Johnston <matt@codeconstruct.com.au>, 
  Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -53,31 +52,39 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-hardening@vger.kernel.org, James Lee <james@codeconstruct.com.au>
 X-Mailer: b4 0.14.2
 
-Current usblib tests only check receipt of a limited combination of 
-packets lengths.
-
-Added tests of receiving packets with invalid fields, and more complex
-packet spanning. Also created tests for transmitting packets, covering
-most code, except for mctp_usblib_tx_cancel() and allocation failures.
+Add parameterized tests to cover worst case scenarios for packet
+splitting and length.
 
 Signed-off-by: James Lee <james@codeconstruct.com.au>
 ---
-James Lee (7):
-      net: mctp: usblib: Add to parameterized kunit tests.
-      net: mctp: usblib: Add test for splits inside headers
-      net: mctp: usblib: Add tests of invalid headers
-      net: mctp: usblib: Complete rx tests
-      net: mctp: usblib: Simplify allocation logic in mctp_usblib_test_rx_init
-      net: mctp: usblib: Add initial kunit tx tests
-      net: mctp: usblib: Add test for failing append
+ drivers/net/mctp/mctp-usblib-test.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
- drivers/net/mctp/mctp-usblib-test.c | 546 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 535 insertions(+), 11 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260617-dev-mctp-usb-lib-test-151728774e95
+diff --git a/drivers/net/mctp/mctp-usblib-test.c b/drivers/net/mctp/mctp-usblib-test.c
+index 9df401a914ff537207911f03bd08f32b5a5e20d1..4c27307900fb6116572bc9d89f3def6f06c30397 100644
+--- a/drivers/net/mctp/mctp-usblib-test.c
++++ b/drivers/net/mctp/mctp-usblib-test.c
+@@ -386,12 +386,18 @@ static const struct mctp_usblib_test_pkt_span mctp_usblib_test_pkt_spans[] = {
+ 	{ "1p2x-split-mctphdr", 1, { 16 }, 2, { 6, 10 } },
+ 	/* Single packet split over 3 transfers, middle entirely continuation */
+ 	{ "1p3x-split", 1, { 12 }, 3, { 4, 4, 4 } },
++	/* A packet split over 5 transfers, splitting on and between each header. */
++	{ "1p5x-split", 1, { 12 }, 5, { 3, 1, 1, 3, 4}},
+ 	/* Max-sized single transfer */
+ 	{ "1p1x-large", 1, { 8191 }, 1, { 8191 } },
+ 	/* Two large packets, split at the worst-case for allocation, with a
+ 	 * single byte continuing the span
+ 	 */
+-	{ "2p2x-large-split", 2, { 8190, 8190 }, 2, { 8191, 8189 } },
++	{ "2p2x-large-split", 2, { 8190, 8191 }, 2, { 8191, 8190 } },
++	/* Three large packets, split at the worst-case for allocation,
++	 * with a single byte continuing each span
++	 */
++	{ "3p3x-large-split", 3, { 8190, 8191, 8191 }, 3, { 8191, 8191, 8190 } },
+ };
+ 
+ KUNIT_ARRAY_PARAM(mctp_usblib_test_rx_pkt_span, mctp_usblib_test_pkt_spans,
 
-Best regards,
 -- 
-James Lee <james@codeconstruct.com.au>
+2.47.3
 
