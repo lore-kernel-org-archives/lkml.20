@@ -1,89 +1,154 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EB43BBFC7;
-	Mon, 31 Aug 2026 06:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE383BCD2F
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 06:43:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788158413; cv=none; b=KeCK7q3De/lpgb3k6zNBEOIJK44oU6jOAP919kx+MtkXX1IAXOeIxsasdnPPSqjC/wgB5Nvj1AtsmPp7hBO+eFpRVeh4Voz+yWTqV9228XUQrM5hAllgXCzfseyKeVxFcGinOOHjVeG0lHgStdjl7F6L7vjSZb6Uqo7S6ejXaJ0=
+	t=1788158594; cv=none; b=CTUWO99o4lKHMJEg4V0uv60k7b6Yv7lw/aHexH8/73xIcfSFcFehUnr9ja0QgacaDJJM4mg4Yb9HASgMxYlLk4bSf75AyA2SJ/mjZCAvJ01Sg+fs4l+ovB+f/0xhqdynKoqGlmjjdj8LPVJ5GZZ379LDvPD7EpO17Hmnm040jNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788158413; c=relaxed/simple;
-	bh=xEYskKPPHRAzKQ2JxjPwFUvRJdNmKZNeq4QYv1cFtTw=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=QDv1HfMIWM5mJ2d2TjFCOEvUVPBAzB/ecwALGzX2NY6sOO0uCv1PHHY5/lmBPqgrDLT2n3/WIogGz9cjHBQdeT60bYnWCVehjtB0zsDdUqTxE6ZltyR5MKwYKgEJhdWfmcLI6PmQSbJGPN9wSza60aAuCSuvSMl5T7A1r1V2KI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=E4lX4t8J; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788158594; c=relaxed/simple;
+	bh=hD504iWH6SSSqkjmHen1AbOwW4nA7QRPXc/vue4tvrQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AA1Q435nGqVy8H3PKHPYn1foraf/FpqY39cF6W/I7kzGGSDKbELnV7ArwSoytF6ecl/EGakSwo1cMTcc/v3dyHbc99+jBXGwFgfHhAoeVpU8wPPOlJLptSl1lws415pPhNb844bQR90IkQdQMgx8exJDvvVD4K8liuOviZRxLWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Jz154Pd7; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="E4lX4t8J"
-Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:a9ae:3688:6dfb:71b0])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 53FF24BB;
-	Mon, 31 Aug 2026 08:38:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788158319;
-	bh=xEYskKPPHRAzKQ2JxjPwFUvRJdNmKZNeq4QYv1cFtTw=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=E4lX4t8Jzc2hBnhHPSsWMUqlJmSYf7oLs885v2uc+s94o9WrFmgqRZDNPoFqvTkOm
-	 CqHTlkztwv/0O6DKy1VMD7bz1RxzRWZxca1zDiAeOCd09YdMQyZ4SAkki0VhkpnXRf
-	 DLzP3gJ0jHk+rIUu7VkWyL6iXmAHNLiqTBS0uqxU=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Jz154Pd7"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788158588; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=KnRpGDNSnmGwK0xm9uTwqT9M/s9RecAQEpuoHsJ108I=;
+	b=Jz154Pd7448EH9h+OJohu5ZrLqg32P/J14Z18NojExTVFofHVZCejL3EzC50p09bda9XTFv5htwwEyXSdm914ovv+Y+Nsd3tio2l+yUiQzsoGYVNU0vf1l5i0H3zD8VGostH7wOa7i0Zt3jUHROUbq+jRDae5RvkBN5hNEL8LPk=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0X9uOgwV_1788158578;
+Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0X9uOgwV_1788158578 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 31 Aug 2026 14:43:07 +0800
+From: Yuanhe Shu <xiangzao@linux.alibaba.com>
+To: joro@8bytes.org,
+	will@kernel.org,
+	jgg@ziepe.ca
+Cc: robin.murphy@arm.com,
+	baolu.lu@linux.intel.com,
+	kevin.tian@intel.com,
+	smostafa@google.com,
+	praan@google.com,
+	skhawaja@google.com,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yuanhe Shu <xiangzao@linux.alibaba.com>,
+	Jason Gunthorpe <jgg@nvidia.com>
+Subject: [PATCH] iommupt/kunit: Unmap in the tests before freeing the domain
+Date: Mon, 31 Aug 2026 14:42:56 +0800
+Message-ID: <20260831064256.2233356-1-xiangzao@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260717-b4-vchiq-isp-v3-5-fb8235e15c68@ideasonboard.com>
-References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com> <20260717-b4-vchiq-isp-v3-5-fb8235e15c68@ideasonboard.com>
-Subject: Re: [PATCH v3 5/9] platform/raspberrypi: vchiq: Add helpers for vchiq driver data
-From: Paul Elder <paul.elder@ideasonboard.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Jai Luthra <jai.luthra@ideasonboard.com>, Umang Jain <uajain@igalia.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>, Jai Luthra <jai.luthra@ideasonboard.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Tomasz Figa <tfiga@chromium.org>
-Date: Mon, 31 Aug 2026 15:40:02 +0900
-Message-ID: <178815840263.1005982.5693616363350713202@neptunite.rasen.tech>
-User-Agent: alot/0.0.0
+Content-Transfer-Encoding: 8bit
 
-Quoting Jai Luthra (2026-07-17 20:04:20)
-> Add helpers to set and get vchiq driver data. vchiq_set_drvdata() and
-> vchiq_get_drvdata() wraps dev_set_drvdata() and dev_get_drvdata()
-> respectively.
->=20
-> Signed-off-by: Umang Jain <umang.jain@ideasonboard.com>
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+test_increase_level(), test_pgsize_boundary() and test_mixed() leave
+their mappings installed and let pt_kunit_iommu_exit() free the whole
+table, while the other cases unmap and then check that the table is
+empty.
 
-Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
+Besides being inconsistent, the mappings which survive into
+pt_iommu_deinit() keep the IOMMU_DEBUG_PAGEALLOC references that
+iommu_map() took on the mapped pages.  Nothing drops them, so with
+iommu.debug_pagealloc=1 the pages behind the hard-coded test OAs stay
+counted as IOMMU-mapped and every later allocation or free of one of
+them reports:
 
-> ---
->  include/linux/raspberrypi/vchiq_bus.h | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->=20
-> diff --git a/include/linux/raspberrypi/vchiq_bus.h b/include/linux/raspbe=
-rrypi/vchiq_bus.h
-> index 9de179b39f85..6eff6b0bf599 100644
-> --- a/include/linux/raspberrypi/vchiq_bus.h
-> +++ b/include/linux/raspberrypi/vchiq_bus.h
-> @@ -37,6 +37,16 @@ static inline struct vchiq_driver *to_vchiq_driver(str=
-uct device_driver *d)
->         return container_of(d, struct vchiq_driver, driver);
->  }
-> =20
-> +static inline void *vchiq_get_drvdata(const struct vchiq_device *device)
-> +{
-> +       return dev_get_drvdata(&device->dev);
-> +}
-> +
-> +static inline void vchiq_set_drvdata(struct vchiq_device *device, void *=
-data)
-> +{
-> +       dev_set_drvdata(&device->dev, data);
-> +}
-> +
->  extern const struct bus_type vchiq_bus_type;
-> =20
->  struct vchiq_device *
->=20
-> --=20
-> 2.54.0
->=20
->
+    WARNING: drivers/iommu/iommu-debug-pagealloc.c:91 at __iommu_debug_check_unmapped+0x4e/0x70, CPU#0: init/1
+    iommu: Detected page leak!
+
+Unmap what these tests map, and check in pt_kunit_iommu_exit() that
+nothing was left behind so this does not come back.  KUNIT_EXPECT is
+used there rather than KUNIT_ASSERT because a failing assert aborts the
+rest of the cleanup, which leaves pt_kunit_dev registered and cascades
+into the following test cases.
+
+Verified with the generic_pt kunit suite (tools/testing/kunit/kunit.py
+--arch=x86_64, drivers/iommu/generic_pt/.kunitconfig), which covers the
+amdv1, vtdss, riscv64 and x86_64 formats: the pt_kunit_iommu_exit() check
+on its own, without the unmaps, makes exactly these three cases fail and
+nothing else (23 of 227 results); with the unmaps there are no failures,
+214 passed and 13 skipped.
+
+Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+Link: https://lore.kernel.org/r/20260827161828.GA3769797@ziepe.ca
+Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+---
+ drivers/iommu/generic_pt/kunit_iommu_pt.h | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/iommu/generic_pt/kunit_iommu_pt.h b/drivers/iommu/generic_pt/kunit_iommu_pt.h
+index ece1c9b8c55d..a9c414951637 100644
+--- a/drivers/iommu/generic_pt/kunit_iommu_pt.h
++++ b/drivers/iommu/generic_pt/kunit_iommu_pt.h
+@@ -119,19 +119,22 @@ static void test_increase_level(struct kunit *test)
+ 	/* Add every possible level to the max */
+ 	while (common->max_vasz_lg2 != pt_top_range(common).max_vasz_lg2) {
+ 		struct pt_range top_range = pt_top_range(common);
++		pt_vaddr_t va;
+ 
+ 		if (top_range.va == 0)
+-			do_map(test, top_range.last_va + 1, 0,
+-			       priv->smallest_pgsz);
++			va = top_range.last_va + 1;
+ 		else
+-			do_map(test, top_range.va - priv->smallest_pgsz, 0,
+-			       priv->smallest_pgsz);
++			va = top_range.va - priv->smallest_pgsz;
++		do_map(test, va, 0, priv->smallest_pgsz);
+ 
+ 		KUNIT_ASSERT_EQ(test, pt_top_range(common).top_level,
+ 				top_range.top_level + 1);
+ 		KUNIT_ASSERT_GE(test, common->max_vasz_lg2,
+ 				pt_top_range(common).max_vasz_lg2);
++
++		do_unmap(test, va, priv->smallest_pgsz);
+ 	}
++	KUNIT_ASSERT_EQ(test, count_valids(test), 0);
+ }
+ 
+ static void test_map_simple(struct kunit *test)
+@@ -404,6 +407,8 @@ static void test_pgsize_boundary(struct kunit *test)
+ 		kunit_skip(test, "Format does not have the required range");
+ 
+ 	do_map(test, 0xfef80000, 0x208b95d000, 0xfef9ffff - 0xfef80000 + 1);
++	do_unmap(test, 0xfef80000, 0xfef9ffff - 0xfef80000 + 1);
++	KUNIT_ASSERT_EQ(test, count_valids(test), 0);
+ }
+ 
+ /* See https://lore.kernel.org/r/20250826143816.38686-1-eugkoira@amazon.com */
+@@ -425,6 +430,8 @@ static void test_mixed(struct kunit *test)
+ 	/* 14 2M, 3 1G, 3 2M */
+ 	KUNIT_ASSERT_EQ(test, count_valids(test), 20);
+ 	check_iova(test, start, oa, len);
++	do_unmap(test, start, len);
++	KUNIT_ASSERT_EQ(test, count_valids(test), 0);
+ }
+ 
+ static struct kunit_case iommu_test_cases[] = {
+@@ -465,6 +472,12 @@ static void pt_kunit_iommu_exit(struct kunit *test)
+ 	if (!test->priv)
+ 		return;
+ 
++	/*
++	 * The tests are expected to unmap what they map. Use EXPECT so a
++	 * failure here does not abort the rest of the cleanup.
++	 */
++	KUNIT_EXPECT_EQ(test, count_valids(test), 0);
++
+ 	pt_iommu_deinit(priv->iommu);
+ 	/*
+ 	 * Look for memory leaks, assumes kunit is running isolated and nothing
+
+base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
+-- 
+2.43.7
+
