@@ -1,76 +1,89 @@
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548D54A43ED;
-	Mon, 31 Aug 2026 14:57:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF9533987E;
+	Mon, 31 Aug 2026 14:58:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188256; cv=none; b=U0sWnuB8diZ9zK++H0L6qaIzQNh0mhD9vPesZNZmCuaOB0zbWiW3BgdfthTaBmZyLNEjp3wWOxxm89JdhwMYjHkenLkrbJVGyYTP93sOG91nJX4Qdxb0/jS1K5fp9/c7dTzc6kKO4W7/Z5+IUszbSCcYclin23ydbk529vODkmY=
+	t=1788188295; cv=none; b=ZgXaF2WC+ZlSDgDM+L3UfFZejlC0vKEEhU2UEkxgCZz+H2yvIMaiWwCx5wRuFDkUYgh6EN2Yr1OSLStVGLs3u1Yrojs/ZDLfVoG4dQ9J+6DaNt9Gd/towGNCtUc3QZQasMJDg3FKyFdwxmekInrDmxBoFIpzmx3Pz3Wu23WyuL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188256; c=relaxed/simple;
-	bh=hx8R/AApQKzG7E/fkYUEPAjK1cuHUksamCW4BIOX3Ec=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Wnt+m2BFUjJZWXPEaJaSRobjUUzapi2eSzCV+jWAYuRMP+z+bymDcObbL5QG+ejPiYI/j03N+2pRwhsNnhxsRdxjkwWC1cHwhnYcy6joNANJXsQDDGjxKj91hBci88MzrwEk34lzRKx/LEVteZaeSKcdirokbPsLu1vSMMB7BXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=CEBXjHXo; arc=none smtp.client-ip=216.40.44.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788188295; c=relaxed/simple;
+	bh=mpE3Lesp3GRm0LJGdC9YOGMakFgfHsPvnQgmn1e6rhI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TDeXYDUHSDiSzScs6CndkqeSjgffPUFNYIdni9iD5mACB+sLoyZgDWMvCIiMd3eszRKYPcMpFBX2bZmpZ2xQnuwWGftxptDgIf6BYNcAPjEEizsGtvp/oEMtJGSOUPU0FpyfRuPKmzkH8dSTNtgNLIysK0z+9akh8257C4wXOvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l7mm+Gz7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="CEBXjHXo"
-Received: from omf17.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id 3F804C018C;
-	Mon, 31 Aug 2026 14:57:26 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf17.hostedemail.com (Postfix) with ESMTPA id 14DDF1D;
-	Mon, 31 Aug 2026 14:57:23 +0000 (UTC)
-Date: Mon, 31 Aug 2026 10:58:20 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Rui Qi" <qirui.001@bytedance.com>
-Cc: <mhiramat@kernel.org>, <mark.rutland@arm.com>, <pjw@kernel.org>,
- <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
- <linux-kernel@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>
-Subject: Re: [PATCH] riscv: ftrace: reject out-of-range non-direct targets
-Message-ID: <20260831105820.22085739@gandalf.local.home>
-In-Reply-To: <20260901020000.1-qirui.001@bytedance.com>
-References: <20260707121235.759104-1-qirui.001@bytedance.com>
-	<20260901020000.1-qirui.001@bytedance.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l7mm+Gz7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6F201F000E9;
+	Mon, 31 Aug 2026 14:58:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788188294;
+	bh=P5qMAuORAMa8auZQozsefwEp8+Ze9NizqRFOfJHbvco=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l7mm+Gz7mt3Nd3u2UpAfNEgVUsN6NkaLBbFMItL7FqpHUqe1TYgSB0IP50YzFsUHs
+	 US3n+39SDAr0zVE9LNAi9RzX0JCKmDlHNLFyeWItHNMum5JLl81GdSy0u/XCZENcxt
+	 +xAnqOkn/geqoERhWTaXX+GNbFXt0Hjx12msOu4NE/RSR7PLnxsnfcoKYLjPOxR2pB
+	 v6zVHNzIeC7yvXDfBz91zSoJFebw0F7U18v0nZteba5JkufLDka022mkcuyHBCpG3r
+	 i5A1dj1Wlb9S6uo8W58WKsRYwIJggjllHwdGRuLvMqSIfFIua6RuV3ndllI5rojArc
+	 gN0l/uVmTeFdQ==
+Date: Mon, 31 Aug 2026 09:58:10 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Jason Pettit <jason.pettit@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>, Mahadevan P <mahadevan.p@oss.qualcomm.com>, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Jingyi Wang <jingyi.wang@oss.qualcomm.com>, 
+	Ananthu C V <ananthu.cv@oss.qualcomm.com>
+Subject: Re: [PATCH v5 2/3] arm64: dts: qcom: Add HP EliteBook X G2q 14 AI
+Message-ID: <apWWTGM7vtKT08OF@baldur>
+References: <20260829-glymur-send-v5-0-a11bdf6a4b66@oss.qualcomm.com>
+ <20260829-glymur-send-v5-2-a11bdf6a4b66@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: i3pjcmzphm14rwrt1owf6ty49twegz1t
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: 14DDF1D
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1//eGqi8bpd7aR+4JRxanQExgdzhlCWk8w=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=kimCP8YvJCUrptM2WnuQUVqNPk5kAPjReUuPtX6bnJo=; b=CEBXjHXo/VvdsMQTjfUVOvrvdTU2K9wWoKunjm5+neGQf+heP7S4QpWKvNqXJ5DC619z43JnJMeT4+2ZSC4pz2pgo5mdltlbKDtldo4R+juO5Z7HJfcVKmHpffF7T7AyoC/anhPYEbDZTmkBI/6BgNj5im8omFwbblloWVliimg=
-X-HE-Tag: 1788188243-30817
-X-HE-Meta: U2FsdGVkX19lQdUL0R9LZgKiHVJI6aXbwu2zVZ/wFibAXM2rhRi59Dnl1TnGlQ96Wv8srtUKsRWlob/uDFb7hygVDLaWVpyAgWSACryK37fyeTbGFDkskivDNtHwXiWByiLLiIIccRVuUuhFr5F/GWBMgdKYqKsXdEl17M1LAJ4E8qd64ogN0lg2HPP4oFPAJxVpzhIfaLIh9em+EHnxK9T4YFw2vWHXFWoDkbH9W0iF2Qjry0wl5pVjF7/cPFk8sMV/U2eS39zZ9Ryj/eGiJ0YPc7BivS9+FPKfj6YSq4aZ+vvlECRxB29glzPuCM99zhmBPx6gI8GV4Ds3DGEQjqbrxoWY1tkb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260829-glymur-send-v5-2-a11bdf6a4b66@oss.qualcomm.com>
 
-On Mon, 31 Aug 2026 11:50:45 +0800
-"Rui Qi" <qirui.001@bytedance.com> wrote:
-
-> Hi Steven,
+On Sat, Aug 29, 2026 at 12:08:09PM -0700, Jason Pettit wrote:
+> Add board support for the HP EliteBook X G2q 14" Next Gen AI PC
+> (product SKU C4JG0AV, board 8E91), a Snapdragon X2 Elite (Glymur)
+> laptop, using the "hp,elitebook-x-g2q" / "qcom,glymur" compatible.
 > 
-> Gentle ping on this patch. It's been over a month since submission
-> and I'd appreciate your review when you have a chance.
+> Enabled by this device tree:
 > 
-> The patch fixes ftrace_modify_call() on RISC-V to properly validate
-> old_addr/addr instead of always treating sites as FTRACE_ADDR, and
-> rejects out-of-range non-direct targets that can't be dispatched
-> through the existing ftrace_caller path.
+>   - internal eDP panel (samsung,atna33xc20)
+>   - 2x USB Type-C with DisplayPort alt-mode and USB
+>   - chassis USB-A host port (usb_mp multiport controller)
+>   - internal eUSB2 host with the Elan fingerprint reader
+>   - NVMe SSD on PCIe5
+>   - Wi-Fi and Bluetooth
+>   - HID-over-I2C keyboard, touchpad, touchscreen; lid switch
+>   - Adreno GPU and GMU (Freedreno GL on Mesa)
+>   - audio playback and capture
+>   - real-time clock
+>   - compute DSP (cDSP)
+> 
+> The DisplayPort outputs need the Glymur DP PHY series at runtime. This
+> device tree builds without it.
+> 
+> The chassis HDMI jack is removed in v5. It is driven from the usb_2
+> combo PHY as a DisplayPort-only instance, and that path does not come up on
+> Glymur. The same failure was reported against the already-merged Asus
+> Zenbook A16 (UX3607OA), which describes its usb_2 combo PHY the same way. A
+> fix is in progress but not yet available.
+> 
 
-This patch looks very architecture specific. Is there a generic ftrace
-issue you have with this? "out-of-range" issues are specific to an
-architecture (x86 doesn't have this issue).
+I dropped this paragraph while applying the patch.
 
-You need the RISC-V maintainers to review and accept this patch. I don't
-see anything specific to generic ftrace infrastructure here, which is what
-I maintain.
+> Assisted-by: Claude:claude-opus-4-8
+> Assisted-by: Claude:claude-opus-5
 
--- Steve
+This should from now on be "Assisted-by: LLM".
 
+Regards,
+Bjorn
