@@ -1,16 +1,16 @@
 Received: from one.firstfloor.org (one.firstfloor.org [65.21.254.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D43951E434;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1CDB51E441;
 	Mon, 31 Aug 2026 15:07:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.254.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188834; cv=none; b=bFObyd//tBKrxx4YyoPnLKR6yZgmP9geVZXTg8Gb1qT/Y/nsQ7wPdpVuU2IM2bo/F1lux2Sv0+crZRHCIWLLXxJIE081FfevBtXQ2USr2boiCV3UUJDpLNMrdMkNNnpW+Rf+3SiSg5J8UW4guEZnG/XqMIYMSVlNCjopnSUj6cY=
+	t=1788188835; cv=none; b=UDf1cao858RVZeLBYoLebxfMLYoirRReTnV22NYUJriGy0bFxnlDzmVQxPkef9IcSuP0OkOIiPhcI6QEJM4RbCf8ScHqgaz/Z+pDtOKYN230XqyKfUCzQ1H9SFFVI1xOFs0no+9JDBV6aBgcHKELXit89iuTDSoqFSEtmkTtDNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188834; c=relaxed/simple;
-	bh=3mC+caGRf+f/0b51Gt9CZ3eMuviqKDBVm8omEevmghY=;
+	s=arc-20240116; t=1788188835; c=relaxed/simple;
+	bh=tCuBz2tow3wSwKOTr7sRMMWOK1i4uX9Aa7ctKXhqzOQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ECYwAhzGp/pI0m44XP1x/l0rjFcd/g06LDYWv9Ddz0eJXIwd23jQVISzxdHrJWqmuC+n9T7ZUoaO0u2vP9/Cb79yOoWGOMA2tofakBjoz5xaZsefgNvRrNI9NfESeA0Jsgw+f8i1lFJ/xztTUAKxkVZv9T894nbn+bOBmMTp6yQ=
+	 MIME-Version; b=rhvFyVjmxP8CtG7xDpdE4a9qAPu5Vjt5H5IWu33j1NlGhdonORvBWYhVFsK4vABLQS1rwwA6eTqf9AQz2kkhBUqbyoeAse7iMFhPfhKirIvl0vfNDMd6L92iuCF5KjrzSmybT3pGmT2HJm/RkpTmO2xUJxSKb9ppFyYWKffw108=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org; spf=pass smtp.mailfrom=firstfloor.org; arc=none smtp.client-ip=65.21.254.221
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=firstfloor.org
@@ -18,10 +18,10 @@ Received: from firstfloor.org (c-73-11-123-161.hsd1.or.comcast.net [73.11.123.16
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by one.firstfloor.org (Postfix) with ESMTPSA id 7FFB663F86;
+	by one.firstfloor.org (Postfix) with ESMTPSA id C6E1C63F8C;
 	Mon, 31 Aug 2026 17:07:08 +0200 (CEST)
 Received: by firstfloor.org (Postfix, from userid 1000)
-	id 0C65B162265; Mon, 31 Aug 2026 08:07:03 -0700 (PDT)
+	id 19B2F162293; Mon, 31 Aug 2026 08:07:03 -0700 (PDT)
 From: Andi Kleen <ak@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: mhiramat@kernel.org,
@@ -33,9 +33,9 @@ Cc: mhiramat@kernel.org,
 	linux-perf-users@vger.kernel.org,
 	adrian.hunter@intel.com,
 	Andi Kleen <ak@kernel.org>
-Subject: [RFC v1 06/19] ptwrite uprobes: Add a sample module to exercise interface
-Date: Mon, 31 Aug 2026 08:04:42 -0700
-Message-ID: <20260831150651.1134594-7-ak@kernel.org>
+Subject: [RFC v1 11/19] ptwrite uprobes: Add multinop support
+Date: Mon, 31 Aug 2026 08:04:47 -0700
+Message-ID: <20260831150651.1134594-12-ak@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260831150651.1134594-1-ak@kernel.org>
 References: <20260831150651.1134594-1-ak@kernel.org>
@@ -47,289 +47,206 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a basic test module and a test program for uprobes ptwrite.
-
-The module allows to configure and register a ptwrite uprobe in a
-executable.
-
-This for testing and not intended as a production interface.
+GCC's -fpatchable-function-entry=5 may emit five one-byte NOPs. Normally
+that's not safe to patch because some might jump into a later nop.
+But for the gcc case it's safe because nobody jumps into the nops.
+Add a %multinop that allows the user opting into patching these sites.
+This way patching for the gcc instrumentation works.
 
 Assisted-by: omp:gpt-5.6-luna
 Signed-off-by: Andi Kleen <ak@kernel.org>
 ---
- samples/Kconfig                              |  13 ++
- samples/Makefile                             |   1 +
- samples/uprobe-ptwrite/Makefile              |  13 ++
- samples/uprobe-ptwrite/test_prog.c           |  35 ++++
- samples/uprobe-ptwrite/uprobe_ptwrite_test.c | 163 +++++++++++++++++++
- 5 files changed, 225 insertions(+)
- create mode 100644 samples/uprobe-ptwrite/Makefile
- create mode 100644 samples/uprobe-ptwrite/test_prog.c
- create mode 100644 samples/uprobe-ptwrite/uprobe_ptwrite_test.c
+ arch/x86/include/asm/uprobes.h               |  1 +
+ arch/x86/kernel/uprobes.c                    |  4 +-
+ include/linux/uprobes.h                      |  1 +
+ kernel/trace/trace_uprobe.c                  | 42 ++++++++++++++------
+ samples/uprobe-ptwrite/uprobe_ptwrite_test.c |  6 +++
+ 5 files changed, 40 insertions(+), 14 deletions(-)
 
-diff --git a/samples/Kconfig b/samples/Kconfig
-index a75e8e78330d..47bbef5d3e76 100644
---- a/samples/Kconfig
-+++ b/samples/Kconfig
-@@ -322,6 +322,19 @@ config SAMPLE_HUNG_TASK
- 	  Reading these files with multiple processes triggers hung task
- 	  detection by holding locks for a long time (256 seconds).
+diff --git a/arch/x86/include/asm/uprobes.h b/arch/x86/include/asm/uprobes.h
+index efffdc44f00a..4fc98eafbd5a 100644
+--- a/arch/x86/include/asm/uprobes.h
++++ b/arch/x86/include/asm/uprobes.h
+@@ -50,6 +50,7 @@ struct uprobe_ptwrite_arch {
+ 	u8	orig[MAX_UINSN_BYTES];	/* pristine file bytes, before generic analysis */
+ 	u16	ft_off;	/* fault table offset within the block (0 if none) */
+ 	u8	nft;		/* number of fault entries */
++	u8	allow_nop_run;	/* accept a five-byte run of 0x90 */
+ };
  
-+config SAMPLE_UPROBE_PTWRITE
-+	tristate "Build ptwrite uprobe test module -- loadable module only"
-+	depends on UPROBES && X86_64 && m
-+	help
-+	  Builds the minimal ptwrite uprobe prototype driver. It replaces
-+	  a 5-byte NOP at a user-specified file offset with a jmp to a per-mm
-+	  user-mode stub that emits the requested live registers / immediates
-+	  with the PTWRITE instruction into an externally configured Intel PT
-+	  stream (no kernel entry, no syscall, no single-step at probe-hit
-+	  time). The companion userspace target is test_prog.c in the same
-+	  directory; the module params (path/offset/args/event_id) select the
-+	  probe site and the emitted values.
-+
- source "samples/rust/Kconfig"
+ /* Per-mm page holding generated ptwrite stub blocks (mirrors trampolines). */
+diff --git a/arch/x86/kernel/uprobes.c b/arch/x86/kernel/uprobes.c
+index 90e702a4a8e9..e17e0397eaae 100644
+--- a/arch/x86/kernel/uprobes.c
++++ b/arch/x86/kernel/uprobes.c
+@@ -1401,7 +1401,8 @@ int arch_uprobe_ptwrite_prepare(struct arch_uprobe *auprobe,
+ 		return -EINVAL;
+ 	if (desc->nargs > UPROBE_PTWRITE_MAX_ARGS)
+ 		return -E2BIG;
+-	if (desc->flags & ~UPROBE_PTWRITE_FL_ALLOW_MEM)
++	if (desc->flags & ~(UPROBE_PTWRITE_FL_ALLOW_MEM |
++			     UPROBE_PTWRITE_FL_ALLOW_NOP_RUN))
+ 		return -EINVAL;
  
- source "samples/damon/Kconfig"
-diff --git a/samples/Makefile b/samples/Makefile
-index 07641e177bd8..0c970d46653e 100644
---- a/samples/Makefile
-+++ b/samples/Makefile
-@@ -44,4 +44,5 @@ obj-$(CONFIG_SAMPLE_DAMON_WSSE)		+= damon/
- obj-$(CONFIG_SAMPLE_DAMON_PRCL)		+= damon/
- obj-$(CONFIG_SAMPLE_DAMON_MTIER)	+= damon/
- obj-$(CONFIG_SAMPLE_HUNG_TASK)		+= hung_task/
-+obj-$(CONFIG_SAMPLE_UPROBE_PTWRITE)	+= uprobe-ptwrite/
- obj-$(CONFIG_SAMPLE_TSM_MR)		+= tsm-mr/
-diff --git a/samples/uprobe-ptwrite/Makefile b/samples/uprobe-ptwrite/Makefile
-new file mode 100644
-index 000000000000..086d84be6ad2
---- /dev/null
-+++ b/samples/uprobe-ptwrite/Makefile
-@@ -0,0 +1,13 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# ptwrite uprobe prototype sample.
-+#
-+# Module build (in-tree or via make M=samples/uprobe-ptwrite):
-+#   obj-$(CONFIG_SAMPLE_UPROBE_PTWRITE) += uprobe_ptwrite_test.o
-+#
-+# The userspace test target (test_prog) is built by the out-of-tree test
-+# harness (see /home/oc/uprobe-ptwrite-test); the harness computes the file
-+# offset of target()'s 5-byte NOP and passes it to the module's offset
-+# parameter.
-+
-+obj-$(CONFIG_SAMPLE_UPROBE_PTWRITE) += uprobe_ptwrite_test.o
-diff --git a/samples/uprobe-ptwrite/test_prog.c b/samples/uprobe-ptwrite/test_prog.c
-new file mode 100644
-index 000000000000..813841ce5020
---- /dev/null
-+++ b/samples/uprobe-ptwrite/test_prog.c
-@@ -0,0 +1,35 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * test_prog - userspace target for the ptwrite uprobe test.
-+ *
-+ * target() carries a 5-byte NOP (nopl 0(%rax,%rax,1) = 0f 1f 44 00 00) at
-+ * its entry. A probe installed at that file offset emits rdi/rsi (a, b)
-+ * via PTWRITE. In the test loop a == i and b == i + 1.
-+ */
-+#ifndef noinline
-+#define noinline __attribute__((noinline))
-+#endif
-+
-+#include <stdio.h>
-+
-+static noinline unsigned long
-+target(unsigned long a, unsigned long b)
-+{
-+	/* 5-byte NOP: nopl 0(%rax,%rax,1) = 0f 1f 44 00 00.
-+	 * Emitted as raw bytes: the assembler would otherwise shrink
-+	 * "nopl (%rax,%rax,1)" to the 4-byte form (0f 1f 04 00), which
-+	 * the probe site validation rejects (jmp rel32 needs 5 bytes).
-+	 */
-+	asm volatile(".byte 0x0f, 0x1f, 0x44, 0x00, 0x00");
-+	return a * 31 + b;
-+}
-+
-+int main(void)
-+{
-+	unsigned long i, acc = 0;
-+
-+	for (i = 0; i < 2000; i++)
-+		acc += target(i, i + 1);
-+	printf("acc=%lu\n", acc);
-+	return 0;
-+}
-diff --git a/samples/uprobe-ptwrite/uprobe_ptwrite_test.c b/samples/uprobe-ptwrite/uprobe_ptwrite_test.c
-new file mode 100644
-index 000000000000..c3b9dd6bec16
---- /dev/null
-+++ b/samples/uprobe-ptwrite/uprobe_ptwrite_test.c
-@@ -0,0 +1,163 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * uprobe_ptwrite_test - minimal ptwrite uprobe prototype driver.
-+ *
-+ * Registers a trap-free ptwrite uprobe at a user-specified file offset and
-+ * emits the requested live registers / immediates into an externally
-+ * configured Intel PT stream (no kernel entry at probe-hit time):
-+ *
-+ *   perf record -e intel_pt/ptw=1,fup_on_ptw=1//u -o perf.data ./test_prog
-+ *
-+ * Usage (module params):
-+ *   path=/path/to/prog   file to probe
-+ *   offset=0xADDR        file offset of the probe site
-+ *   args="r0,r1,i0x42"             comma-separated;
-+ *                        r<N> = x86-64 GPR index 0..15,
-+ *                        i<hex> = immediate constant,
-+ *   event_id=0x1234      identifier carried in the PTW header word
-+ */
-+#include <linux/module.h>
-+#include <linux/uprobes.h>
-+#include <linux/fs.h>
-+#include <linux/shmem_fs.h>
-+
-+static char *path = "/nonexistent";
-+module_param(path, charp, 0444);
-+MODULE_PARM_DESC(path, "path of the binary to probe");
-+
-+static ulong offset;
-+module_param(offset, ulong, 0444);
-+MODULE_PARM_DESC(offset, "file offset of the 5-byte NOP to probe");
-+
-+static ushort event_id = 0x1234;
-+module_param(event_id, ushort, 0444);
-+MODULE_PARM_DESC(event_id, "event id carried in the PTW header word");
-+
-+static char *args = "r0";
-+module_param(args, charp, 0444);
-+MODULE_PARM_DESC(args, "comma-separated args: r<N> GPR, i<hex> immediate, m<N>[:disp][:4|8] memory");
-+
-+static struct file *probe_file;
-+static struct uprobe *probe;
-+static struct uprobe_consumer consumer;
-+static struct uprobe_ptwrite_desc desc;
-+
-+/* Never invoked: ptwrite probes do not trap. Satisfies the core contract. */
-+static int noop_handler(struct uprobe_consumer *self, struct pt_regs *regs,
-+			__u64 *data)
-+{
-+	return 0;
-+}
-+
-+static int parse_probe_args(void)
-+{
-+	char *s, *p, *tok;
-+	unsigned int n = 0;
-+
-+	s = kstrdup(args, GFP_KERNEL);
-+	if (!s)
-+		return -ENOMEM;
-+
-+	p = s;
-+	while ((tok = strsep(&p, ",")) != NULL) {
-+		struct uprobe_ptwrite_arg *a;
-+
-+		if (n >= UPROBE_PTWRITE_MAX_ARGS) {
-+			pr_err("uprobe_ptwrite_test: too many args\n");
-+			goto err;
-+		}
-+		a = &desc.args[n];
-+
-+		a->size = 8;
-+		if (tok[0] == 'r') {
-+			unsigned long reg;
-+
-+			if (kstrtoul(tok + 1, 10, &reg) || reg > 15) {
-+				pr_err("uprobe_ptwrite_test: bad reg '%s'\n", tok);
-+				goto err;
-+			}
-+			a->src = UPROBE_PTW_SRC_REG;
-+			a->reg = reg;
-+		} else if (tok[0] == 'i') {
-+			unsigned long long v;
-+
-+			if (kstrtoull(tok + 1, 0, &v)) {
-+				pr_err("uprobe_ptwrite_test: bad imm '%s'\n", tok);
-+				goto err;
-+			}
-+			a->src = UPROBE_PTW_SRC_IMM;
-+			a->val = v;
+ 	/* The generic registration path copied these bytes before this hook. */
+@@ -1567,6 +1568,7 @@ int arch_uprobe_ptwrite_prepare(struct arch_uprobe *auprobe,
+ 	ptw->ndata = 1 + n_imm + (n_mem ? 1 : 0);
+ 	ptw->ft_off = n_mem ? ft_off : 0;
+ 	ptw->nft = n_mem;
++	ptw->allow_nop_run = !!(desc->flags & UPROBE_PTWRITE_FL_ALLOW_NOP_RUN);
+ 	return 0;
+ }
+ #undef PTW_NEED
+diff --git a/include/linux/uprobes.h b/include/linux/uprobes.h
+index c0d189bef8bd..b93ab24173c7 100644
+--- a/include/linux/uprobes.h
++++ b/include/linux/uprobes.h
+@@ -210,6 +210,7 @@ enum uprobe_ptwrite_src {
+ 
+ /* uprobe_ptwrite_desc.flags */
+ #define UPROBE_PTWRITE_FL_ALLOW_MEM	BIT(0) /* SRC_MEM args enabled */
++#define UPROBE_PTWRITE_FL_ALLOW_NOP_RUN	BIT(2) /* accept five 1-byte NOPs */
+ 
+ struct uprobe_ptwrite_arg {
+ 	u8	src;		/* enum uprobe_ptwrite_src */
+diff --git a/kernel/trace/trace_uprobe.c b/kernel/trace/trace_uprobe.c
+index c457c89afd73..b54cc2057329 100644
+--- a/kernel/trace/trace_uprobe.c
++++ b/kernel/trace/trace_uprobe.c
+@@ -645,6 +645,7 @@ static int __trace_uprobe_create(int argc, const char **argv)
+ 	enum probe_print_type ptype;
+ 	bool is_return = false;
+ 	bool is_ptwrite = false;
++	bool is_nop_run = false;
+ 	int i, ret, arg_start = 2;
+ 
+ 	ref_ctr_offset = 0;
+@@ -670,12 +671,6 @@ static int __trace_uprobe_create(int argc, const char **argv)
+ 
+ 	trlog = trace_probe_log_init("trace_uprobe", argc, argv);
+ 
+-	if (argc - 2 > MAX_TRACE_ARGS ||
+-	    (is_ptwrite && argc - 2 > UPROBE_PTWRITE_MAX_ARGS)) {
+-		trace_probe_log_set_index(2);
+-		trace_probe_log_err(0, TOO_MANY_ARGS);
+-		return -E2BIG;
+-	}
+ 
+ 	if (is_ptwrite)
+ 		event = argv[0][4] ? &argv[0][4] : NULL;	/* after "ptw:" */
+@@ -738,8 +733,13 @@ static int __trace_uprobe_create(int argc, const char **argv)
+ 	/* Check if there is %return suffix */
+ 	tmp = strchr(arg, '%');
+ 	if (tmp && is_ptwrite) {
+-		trace_probe_log_err(tmp - filename, BAD_ADDR_SUFFIX);
+-		return -EINVAL;
++		if (!strcmp(tmp, "%multinop")) {
++			*tmp = '\0';
++			is_nop_run = true;
 +		} else {
-+			pr_err("uprobe_ptwrite_test: bad arg '%s'\n", tok);
-+			goto err;
++			trace_probe_log_err(tmp - filename, BAD_ADDR_SUFFIX);
++			return -EINVAL;
 +		}
-+		n++;
-+	}
-+	if (!n || n > UPROBE_PTWRITE_MAX_ARGS) {
-+		pr_err("uprobe_ptwrite_test: need 1..%d args\n",
-+		       UPROBE_PTWRITE_MAX_ARGS);
-+		goto err;
-+	}
-+	desc.nargs = n;
-+	kfree(s);
-+	return 0;
-+err:
-+	kfree(s);
-+	return -EINVAL;
-+}
-+
-+static int __init uprobe_ptwrite_test_init(void)
-+{
-+	struct inode *inode;
-+	int ret;
-+
-+	desc.event_id = event_id;
-+	ret = parse_probe_args();
-+	if (ret)
-+		return ret;
-+
-+	probe_file = filp_open(path, O_RDONLY, 0);
-+	if (IS_ERR(probe_file))
-+		return PTR_ERR(probe_file);
-+
-+	inode = file_inode(probe_file);
-+	if (!inode->i_mapping->a_ops->read_folio &&
-+	    !shmem_mapping(inode->i_mapping)) {
-+		pr_err("uprobe_ptwrite_test: unsupported mapping\n");
-+		ret = -EIO;
-+		goto out_file;
+ 	} else if (tmp) {
+ 		if (!strcmp(tmp, "%return")) {
+ 			*tmp = '\0';
+@@ -756,6 +756,19 @@ static int __trace_uprobe_create(int argc, const char **argv)
+ 		trace_probe_log_err(arg - filename, BAD_UPROBE_OFFS);
+ 		return ret;
+ 	}
++	if (is_ptwrite) {
++		while (arg_start < argc && !strcmp(argv[arg_start], "%multinop")) {
++			is_nop_run = true;
++			arg_start++;
++		}
 +	}
 +
-+	consumer.handler = noop_handler;
-+	consumer.ret_handler = NULL;
-+	consumer.filter = NULL;
-+
-+	probe = uprobe_register_ptwrite(inode, probe_file, offset, &consumer, &desc);
-+	if (IS_ERR(probe)) {
-+		ret = PTR_ERR(probe);
-+		pr_err("uprobe_ptwrite_test: register failed: %d\n", ret);
-+		goto out_file;
++	if (argc - arg_start > MAX_TRACE_ARGS ||
++	    (is_ptwrite && argc - arg_start > UPROBE_PTWRITE_MAX_ARGS)) {
++		trace_probe_log_set_index(arg_start);
++		trace_probe_log_err(0, TOO_MANY_ARGS);
++		return -E2BIG;
 +	}
+ 
+ 	/* setup a probe */
+ 	trace_probe_log_set_index(0);
+@@ -791,8 +804,8 @@ static int __trace_uprobe_create(int argc, const char **argv)
+ 		kfree(tail);
+ 	}
+ 
+-	argc -= 2;
+-	argv += 2;
++	argc -= arg_start;
++	argv += arg_start;
+ 
+ 	tu = alloc_trace_uprobe(group, event, argc, is_return);
+ 	if (IS_ERR(tu)) {
+@@ -815,7 +828,7 @@ static int __trace_uprobe_create(int argc, const char **argv)
+ 
+ 	/* parse arguments */
+ 	for (i = 0; i < argc; i++) {
+-		trace_probe_log_set_index(i + 2);
++		trace_probe_log_set_index(i + arg_start);
+ 		ret = traceprobe_parse_probe_arg(&tu->tp, i, argv[i], ctx);
+ 		if (ret)
+ 			return ret;
+@@ -823,13 +836,14 @@ static int __trace_uprobe_create(int argc, const char **argv)
+ 
+ 	if (is_ptwrite) {
+ 		if (!argc) {
+-			trace_probe_log_set_index(2);
++			trace_probe_log_set_index(arg_start);
+ 			trace_probe_log_err(0, NO_ARG_BODY);
+ 			return -EINVAL;	/* core rejects desc->nargs == 0 */
+ 		}
+ 		tu->is_ptwrite = true;
+ 		tu->ptwrite_desc.nargs = argc;
+-		tu->ptwrite_desc.flags = 0;
++		tu->ptwrite_desc.flags = is_nop_run ?
++			UPROBE_PTWRITE_FL_ALLOW_NOP_RUN : 0;
+ 		for (i = 0; i < argc; i++) {
+ 			ret = ptwrite_compile_arg(tu, i);
+ 			if (ret) {
+@@ -888,6 +902,8 @@ static int trace_uprobe_show(struct seq_file *m, struct dyn_event *ev)
+ 			   trace_probe_group_name(&tu->tp),
+ 			   trace_probe_name(&tu->tp), tu->filename,
+ 			   (int)(sizeof(void *) * 2), tu->offset);
++		if (tu->ptwrite_desc.flags & UPROBE_PTWRITE_FL_ALLOW_NOP_RUN)
++			seq_puts(m, "%multinop");
+ 	} else
+ 		seq_printf(m, "%c:%s/%s %s:0x%0*lx", c,
+ 			   trace_probe_group_name(&tu->tp),
+diff --git a/samples/uprobe-ptwrite/uprobe_ptwrite_test.c b/samples/uprobe-ptwrite/uprobe_ptwrite_test.c
+index 5eafc26104ad..b09521e5cd16 100644
+--- a/samples/uprobe-ptwrite/uprobe_ptwrite_test.c
++++ b/samples/uprobe-ptwrite/uprobe_ptwrite_test.c
+@@ -17,6 +17,7 @@
+  *                        m<N>[:<disp>][:<size>] = memory arg [reg + disp32],
+  *                        size 4 (u32 load) or 8 (u64 load, default)
+  *   event_id=0x1234      identifier carried in the PTW header word
++ *   allow_nop_run=1      accept five one-byte NOPs at the site
+  */
+ #include <linux/module.h>
+ #include <linux/uprobes.h>
+@@ -35,6 +36,10 @@ static ushort event_id = 0x1234;
+ module_param(event_id, ushort, 0444);
+ MODULE_PARM_DESC(event_id, "event id carried in the PTW header word");
+ 
++static bool allow_nop_run;
++module_param(allow_nop_run, bool, 0444);
++MODULE_PARM_DESC(allow_nop_run, "accept five one-byte NOPs at the site");
 +
-+	pr_info("uprobe_ptwrite_test: probe %s+0x%lx, %u args, event_id=0x%x\n",
-+		path, offset, desc.nargs, desc.event_id);
-+	return 0;
-+
-+out_file:
-+	fput(probe_file);
-+	return ret;
-+}
-+
-+static void __exit uprobe_ptwrite_test_exit(void)
-+{
-+	uprobe_unregister_nosync(probe, &consumer);
-+	uprobe_unregister_sync();
-+	fput(probe_file);
-+	pr_info("uprobe_ptwrite_test: unregistered\n");
-+}
-+
-+module_init(uprobe_ptwrite_test_init);
-+module_exit(uprobe_ptwrite_test_exit);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("ptwrite uprobes testing driver");
+ static char *args = "r0";
+ module_param(args, charp, 0444);
+ MODULE_PARM_DESC(args, "comma-separated args: r<N> GPR, i<hex> immediate, m<N>[:disp][:4|8] memory");
+@@ -151,6 +156,7 @@ static int __init uprobe_ptwrite_test_init(void)
+ 	int ret;
+ 
+ 	desc.event_id = event_id;
++	desc.flags = allow_nop_run ? UPROBE_PTWRITE_FL_ALLOW_NOP_RUN : 0;
+ 	ret = parse_probe_args();
+ 	if (ret)
+ 		return ret;
 -- 
 2.54.0
 
