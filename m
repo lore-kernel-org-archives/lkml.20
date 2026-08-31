@@ -1,490 +1,522 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010057.outbound.protection.outlook.com [40.93.198.57])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B9CF53A8AA
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:45:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183936; cv=fail; b=YXObX/HulKMRK5AR6VcDD65sJUslCB2UCwCJeMJfiWvRD6hFZlxEK8Dv+3+xYch1Gct5A7G6dprvpdc/gi9NF3bL5rwwFXX16BdPrZXF75K+S/5rnx2M1+YBRmMYG4ERFEPzSPvshTabdz6Ux9vLN/82sG5g3pw5AF83tGR1PBc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183936; c=relaxed/simple;
-	bh=OZxc00Sae5WShxuZDHzCnhXy3RnEVTNwJ8xQemXNlHk=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D3353B5FE;
+	Mon, 31 Aug 2026 13:45:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183938; cv=none; b=fLrpkXL+5XqMSr2ykja8KLqHjdTSpq8yEOa7V6khDMnQDafE3PFZ3rK6UHEzBOVtcWWg+U/PZOlXkdawsxy/YdXA5IfSwbH5Iozg2QnoQcCr/0oekcDKCG/mZ0tSxuuDs8UGOpXU5GJTBezX/nx3tO6F9KvMg/vMrIvjSgMsFCQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183938; c=relaxed/simple;
+	bh=BWronw7LbUR+XzbnlxwneCzdZptZ7YifxLAIFekZ6h0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uw4hMoSjE/w573e0t7KPGRyhZYG/KzXy8qYqO1X8e1Q73SWDV1pdbWVHlRXKHMLzFHTh4J8GxwwCacwzGKDamkxxrQ1Yk1KrEFwrdkdokCCGWNSc1RcDJZTsUf8XfEAQjN+755olJmiGaeEtIbytibhDIvewHE2yO46rzWRTsgo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=G2SVL6hU; arc=fail smtp.client-ip=40.93.198.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version:Content-Type; b=PAucpac3eMUskxjenHDp67yUwkpQlXzq1gqQGVrvBr9Idc1zDURIKf86OVKl43sU/YiaZp90aHrK9zg41yCK0fY4HWIu4YskrB06ajwwdZy4iRN2KdMxcVLOtHAI6Ac8zvUw+eMw2LsoVKb6INUcbarAjF8Iy7yZyxyf43LxC0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JVg88Wpx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="G2SVL6hU"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V8nTg9exzQRlGlTGsWo6WiOL8FiKCJJX1PEwKIl2YJu9I8mGZWI2IHQq6kC+auDP2k+07AQPCPRe2Wg5fbF64f0PtbdYqFFP0gioou3tGAwuVIBpOWywKzAq6oU+BkMzfYagXxxq47oxfinkxWsuMaRoqWhp6vLkiHsyKtrscBMI3VQMhHEBCE+8VOZWTkcMHhxWQlNkMBpe4DIDCPScO2VH2cnYgRVnQ5p40qBG9lkV/y7G18lMn/4mKWW/DiHseDXMhDnmmTuhXyFZzrbf/26rf9vA8HTjgylSV1CfzWOMPVrTJ8JMHjkmc2z6tLOALGD/M3esCzk1Ozf5jJ+hhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vgJN9L6JoI/KzvQXEkiQhqImLjG4UpcYqZ6hYUtdqp8=;
- b=aYOAiYBK8ajS5dYxua/EvGm8Vtb2taP3qSJyHhdB3qAhixJYD6jCMV/2sIyPifC4rIItQgU+ZPD09vPEXrIK0KSlodZCXFKd1Zgo0hxTxTtPIh1dyMCFq/t8lD396yUHsOmcAb6VRIf65uCkNrHCoRc9Rv9XOmozdvS6Wn32M8Jwni1R+fS2e/v1tWuQIgEvla/qtHqWFFiW5slXz9A1JLW25anXQA/KUPLqyC4emnboZNQfn4AAZFBkemZfXyNHc0T3KWpHekUjcu8kyoVTeXv4MgR4qrBx9EdIc6uXZw2KDZapGhJXEukshV4hyMgxeAfgM2UcHWVUXdwkiPGmCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vgJN9L6JoI/KzvQXEkiQhqImLjG4UpcYqZ6hYUtdqp8=;
- b=G2SVL6hUoOr3YN0TwkTuZsnMeH0lW2wpmXp0lJ1MPJvZMJxPNFFv+BmE0AOUMXMBdLf400KD0hrp+LBpEPnzj9bhBgJr+fy2qLRAui8pv4DA4TfeqQyuCyIHkBWynGZCL8DAvXiL9HkiFmO7/LiHzuwhamSD6AZOmCQlvCsAJVr2XZdsdpqfePzMuB0E0By9sDbvM0YhFXviNFrJ1cuovlUZErOrC2Wr9/6nweJ78YlgMjtBBRAZxc17euCvU1SdkHJNe+PVEB+eiilz05FoxmQeNxZr3SITn2ya/XV+Lpz7plaJcf+oPK1RwDuytszi+NSu+wrdbKsjAbgOloIg8A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by MW4PR12MB6755.namprd12.prod.outlook.com (2603:10b6:303:1ea::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Mon, 31 Aug
- 2026 13:45:26 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 13:45:26 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>,
-	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JVg88Wpx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FD041F00ACA;
+	Mon, 31 Aug 2026 13:45:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183935;
+	bh=nUjakMz7XCw/mM8U//7fZqVX+Mh5FMZMN57/lTdmwBg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JVg88Wpx8v2sFH3iGgMTEuG0rftKS1DzSraoRRSNe2Hqxr4Z29+qGzZss57ujRwO2
+	 8XwLces+tJdaK2uvv6sBZzgTnf1lqMkGXlnDB7ZPTt+s7SpbAVOmLhu4kZ+N4RyRiZ
+	 RhINA8Zj1S9dT3jfWsx/qfty4INFbVamxWS2S1hBXmuKJjGYxcf9YihvfE5QGuDmwv
+	 TktCsSsbaSvVYdgMFSPHv5iLHwQCXNlnA5QTAt3bWQOq1U9bwSilwTwvaveatIIwgI
+	 UymCWgshCyGTlOGbFz5y+Q/A6I9nnAxqngnXkPPPRuwdSAA6HJ5ZmlrnvQcbu+2bUp
+	 ob6Chckp3rRSQ==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	netfs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 13/18] sched_ext: Handle proxy-exec races in remote DSQ transfers
-Date: Mon, 31 Aug 2026 15:42:23 +0200
-Message-ID: <20260831134338.1531664-14-arighi@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MI0P293CA0007.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:290:44::10) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+Subject: [PATCH AUTOSEL 6.18-6.12] netfs: Fix decision whether to disallow write-streaming due to fscache use
+Date: Mon, 31 Aug 2026 09:26:58 -0400
+Message-ID: <20260831133314.4125787-390-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|MW4PR12MB6755:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1005c10-c3c0-499b-6162-08df07661cef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	rS6Hp871b5TJv76CgjfjszFG51ueuSSWSrM/xNemw4FNuJ6rz0nYNY2zPGSZ5AlHc9Y3YzUjsm2P99Sh9fCGFMksYDu/yyWFz1YJIzvG6lvTjWrE4D/DsUuiR1AuLXwIv033BEWwiPK8If0/8A9AH2D37s2vjoDoDmrmjx/vxOk0tYyo+2gGdo2zTTP4o/yuFqVeTX7fnZiX8zHk85JVAsCzsBNGyy53SK6nI0eTVyKqkUTU4HH8++q7ie7b+6Fr0nCmBF1MN51q+D1VoUMatHUBGz37eXiW1jnPLwwgZNcGuD1ZcVkp1sxhEuCJn3KTiwoFpVB7FT72uxUhFp4SVo9knPAGbXQ90eRn9/6bVW+XuVvgLENZf3EcBt64uhoACUN0vhcLLu7EhUvmyqyWOXnJDBRyvsL7LkWew/PUL/LhqUZwAA30nML3l4fj5Az9N/ts13VFaiiyaWSMd0m2tSYgor2unlaij1j4X2gC7hKkS5I5gXXojqlMCmAfgaFEphgjpqRmS/onFCLEKq1TawfZH8uwQiWqZ7AjH5pi1RlMP3QQ2CC1ojidATXq7ZIaMLEnbfu8fYQzEmTK0exL3KHgH8FsRDsudil8G5RcmaqblzjHELSOjGCOak0by994YGd5D/Fk9+pibtxM0UMgZRIalkVeL5oqDfircS+URso=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?qaEFrjuneL0r3DqeSUq6j5c25apvYHZVYmRw6Vi9tw83/HMa/HOxqwsQQgzl?=
- =?us-ascii?Q?JlMEg72rz8ypNsCgpdHirF2R8100j4pmQeZeMaqFLurm/1e0ccXa0t9dpOfb?=
- =?us-ascii?Q?ikRBqmiWSDsZOB/fFVSSkxk8W9P8nHbumXVmE59959Q2j07qTC0qSqKBUDFa?=
- =?us-ascii?Q?xsTCKJW2aG+h5PGIRoyYJsmHcx69dSZaAM4C2I8hOFV5CZMEIUNnaqgbvoA4?=
- =?us-ascii?Q?QurluHsWgj3TLLpascHMp1yEbFQ+ZWA3sCyvHVWU544jkafV3pqRCL6wqtFY?=
- =?us-ascii?Q?Bs+i0zF5Mgy9do0so1Vpnnu+3LnZ2xaaIxQe2clHmrWApFEDSBEarXx1FS80?=
- =?us-ascii?Q?18f6YCDHSBmguuSlgZeP+A7DK4OUJ9P3RXqUykALXn7L7/HDoVjGpGx66/4M?=
- =?us-ascii?Q?qUZ7FmZNnKPKkeT1CkwlBGeJrngceRD86CN2OqfGwVHebASNYvk+MFtQsvbF?=
- =?us-ascii?Q?PyDCUlZfF/urk5GurH80VV+NzP7KG7QCx6vbfh4voGHa0pWpIboCthPg8Zi8?=
- =?us-ascii?Q?4l1bWjaOahDls6eofcJpNaGN9xWQ7P/JlbdnVosIG905zQ26UMKZ2nc4/hl5?=
- =?us-ascii?Q?zzjYRvZz7IInzbDSUYlOGEGtxU9IontozVZ2YWbWXtXM74V6MHMP7CF4O5Ko?=
- =?us-ascii?Q?LbtIq8B51/xPLuG27w5fLkdfF34UxtlVKqgW5viF9QgZcT75mBmZBYj9pKsR?=
- =?us-ascii?Q?wPhgV2f169at8l9jm7qEuaoa0Eb5GlwiXhx78EK7dio1OIGrHjQYVe9RLB88?=
- =?us-ascii?Q?T+gxeU4V+0Y+T8g8XuT3Z7iv5xFA6WhpTUMB2QskmShiBQbtEG1Jqf/84HHV?=
- =?us-ascii?Q?Ui3wmH3EQKZhgcbRdTJYLC9mt0ej8oXJpKpahI5zEGbxtci/7E9R57oizx+r?=
- =?us-ascii?Q?cxDYHY9cOcZqRjPK7BtszApt5argEXHocafC7tsZChw8sziaKw0w68D10HXe?=
- =?us-ascii?Q?NRrb6Qo386H2GZtzhgu+2hj1LzEWD+VrH7ZZejGgbP0QKZ1v1kjvDuTkcjh1?=
- =?us-ascii?Q?E2F4EMeCjvldHGEGFjHCx0gxbwL9ze5j0/BUzko+j+xolRPC2S3+3rOL6n0X?=
- =?us-ascii?Q?QBOrs6yPrsFSju67b0BobZ4q46jErGUjrriC6zcyvpzn0gNI1XCEkAAFREkS?=
- =?us-ascii?Q?i84aDKfmGq6zhlfYONN1Og7Ebb9YS2i+eIQoG8dumg4juv3BbTotzVtX1GUw?=
- =?us-ascii?Q?wKlSY8+Vr120o8QN9ANuvs3dlQ3trvgD90Ly1S+Q1dFFsf6AfPxKGyXUpsTX?=
- =?us-ascii?Q?wHaBN8fN8A2s6uKS1wlTR5GMvIVpTSCXWUyT07ZUN4mMx7iMhW7fvdehguDe?=
- =?us-ascii?Q?rDUGFcmgxJBg163VFYv+UEEccW0eqotL4zjlw1tMz8P5WV+CPSJ970UE2Tcz?=
- =?us-ascii?Q?LCLM/jqM7a7zWKaaaArspwhW+0VDA2zdtxa1r+f91oHGMEUJEAa311XP7kag?=
- =?us-ascii?Q?fU7h91Mm0dyYFRHD7piLQ+q0G4P6/rS7D/qzL1N4zg2yrq/IMOdzAgq3iX/j?=
- =?us-ascii?Q?3KKrAJJXETEUlNwddB7PqcCPrFSu1yXPxmunkrnaUpU/yC1KPlnVBfscTls6?=
- =?us-ascii?Q?zXp9KO4MCrAx5e2+qw01ilhE8QDxaqXyrGBDPCRVZXVxCC0bxufS5LJ0eQPe?=
- =?us-ascii?Q?mWZxmCzntYezY0Pv1kdOvtWFp0AWqsSxcSve3/hajVER0tsviiCiZpDzwPCr?=
- =?us-ascii?Q?Bndum6tQ9vdDMi3X+Matgipd839P5a+Iexk4yUkjZVLy6GTHTw+fQp/0Tamf?=
- =?us-ascii?Q?A6GmD4e/Bg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1005c10-c3c0-499b-6162-08df07661cef
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:45:26.5731
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SvG5RXxK7DyFF/mqk+mE1m9xah9rhaO13anFm3dz/A141u0SVFWhXyTnFSXe6mg6rmd1tLICxd/yX3tTsl9rAg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6755
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Without proxy execution, the DSQ lock and holding_cpu handshake ensure
-that a task cannot be dequeued or start running during an rq-lock
-handoff without clearing holding_cpu.
+From: David Howells <dhowells@redhat.com>
 
-Proxy execution is an exception: a task can start physically executing
-as a lock owner while its scheduling context remains on a DSQ; its
-on-CPU or migration-disabled state can therefore change without clearing
-holding_cpu.
+[ Upstream commit b61cbeadaa83a712afb2f759aa7e65d43cdef322 ]
 
-Recheck these states after acquiring the source rq lock. If the transfer
-can no longer proceed, park the task on the source rq's reject DSQ and
-reenqueue it through its owning scheduler. This preserves the BPF
-scheduler's placement policy and keeps descendant tasks within their
-sub-scheduler's cap grants.
+netfs_perform_write() buffers data by writing it into the pagecache for
+later writeback.  If the folio it wants to write to isn't present, it uses
+"write streaming" in which is will store partial data in a non-uptodate,
+but dirty folio.
 
-Queue a deferred drain for every rejection. If a drain finds a
-proxy-rejected task still running or donating, leave it parked and record
-a retry request on the rq. scx_proxy_resolved() consumes the request and
-schedules another drain when proxy state changes.
+However, when fscache is in use, this is a potential problem as writes to
+the cache have to be aligned to the cache backend's DIO granularity, and so
+netfs_perform_write() attempts to suppress write-streaming in such a case,
+requiring the folio content to be fetched first unless the entire folio is
+going to be overwritten.  This allows the content to be written to the
+cache too.
 
-Without this change and proxy execution enabled, stress-ng --pipeherd
-can trigger this race and migrate an active execution context, leading
-to sleeping-while-atomic warnings and subsequent lockdep corruption.
+Unfortunately, the test netfs_perform_write() uses isn't correct because it
+doesn't take into account the fact that the object lookup is asynchronous
+and farmed off to a work queue, so there's a short window in which the
+cache is doing a lookup but the test fails because the answer is undefined.
 
-This is a preparatory change to support proxy execution with sched_ext.
+This can be triggered by the generic/464 xfstest, and causes a warning to
+be emitted in cachefiles (in code not yet upstream) because it sees a write
+that doesn't have its bounds rounded out to DIO alignment.
 
-Suggested-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
+Fix this by changing the condition to whether FSCACHE_COOKIE_IS_CACHING is
+set on a cookie rather than whether the cookie is marked enabled.  Note
+that this is really just a hint as to whether we allow write streaming or
+not and no other aspects of the cookie or cache object are accessed.
+
+Also apply the same fix to netfs_write_begin().
+
+Reported-by: Marc Dionne <marc.dionne@auristor.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Link: https://patch.msgid.link/20260625140640.3116900-2-dhowells@redhat.com
+cc: Paulo Alcantara <pc@manguebit.org>
+cc: netfs@lists.linux.dev
+cc: linux-fsdevel@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sched/ext.h                     |   2 +
- kernel/sched/ext/ext.c                        | 143 +++++++++++++++---
- kernel/sched/ext/internal.h                   |   8 +
- kernel/sched/ext/sub.c                        |   4 +-
- kernel/sched/sched.h                          |   1 +
- .../sched_ext/include/scx/enum_defs.autogen.h |   1 +
- 6 files changed, 139 insertions(+), 20 deletions(-)
 
-diff --git a/include/linux/sched/ext.h b/include/linux/sched/ext.h
-index 9912ad0c2d445..55c2665a6d37a 100644
---- a/include/linux/sched/ext.h
-+++ b/include/linux/sched/ext.h
-@@ -137,6 +137,7 @@ enum scx_ent_flags {
- 	 * IMMED	reenqueued due to failed ENQ_IMMED
- 	 * PREEMPTED	preempted while running
- 	 * CAP		sub-sched cap miss, see p->scx.reenq_reason_*
-+	 * PROXY	proxy state prevented a remote DSQ transfer
+LLM Generated explanations, may be completely bogus:
+
+## Phase 1: Commit Message Forensics
+
+### Step 1.1: Subject Line
+**Record:** `[netfs] [fix] decision whether to disallow write-streaming
+due to fscache use` — subsystem is netfs (network filesystem library /
+fscache integration); action verb is "Fix"; intent is correcting the
+condition that decides when write-streaming must be suppressed for
+fscache DIO alignment.
+
+### Step 1.2: Commit Message Tags
+**Record:**
+- **Reported-by:** Marc Dionne `<marc.dionne@auristor.com>` — real-world
+  reporter (AuriStor/AFS ecosystem)
+- **Signed-off-by:** David Howells `<dhowells@redhat.com>` — author,
+  netfs/fscache maintainer
+- **Signed-off-by:** Christian Brauner (Amutable) `<brauner@kernel.org>`
+  — VFS maintainer merge
+- **Link:**
+  https://patch.msgid.link/20260625140640.3116900-2-dhowells@redhat.com
+- **cc:** Paulo Alcantara, netfs@lists.linux.dev, linux-
+  fsdevel@vger.kernel.org
+- No Fixes:, Cc: stable@vger.kernel.org, Tested-by:, Reviewed-by:, or
+  syzbot tags
+- Notable: single real-world reporter; patch is part of a June 2026
+  netfs fix series (sibling patches already in this tree)
+
+### Step 1.3: Commit Body Analysis
+**Record:**
+- **Bug:** `netfs_perform_write()` and `netfs_write_begin()` use
+  `netfs_is_cache_enabled()` to decide whether to suppress write-
+  streaming when fscache is active. That helper requires
+  `cookie->cache_priv`, but fscache object lookup is asynchronous
+  (queued to a worker). During the lookup window,
+  `FSCACHE_COOKIE_IS_CACHING` is already set but `cache_priv` is not yet
+  populated.
+- **Symptom:** Write-streaming proceeds when it should not; cachefiles
+  sees writes whose bounds are not rounded to DIO granularity.
+  Reproducible via xfstests `generic/464`; triggers a warning in
+  cachefiles (per commit message).
+- **Root cause:** Test checks "cache enabled" (needs `cache_priv`)
+  instead of "cache is being set up / caching"
+  (`FSCACHE_COOKIE_IS_CACHING`).
+- **Fix:** New `netfs_is_cache_maybe_enabled()` checks
+  `FSCACHE_COOKIE_IS_CACHING`; used in both write paths.
+
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Not disguised — this is an explicit correctness fix for a
+race between async fscache lookup and write-streaming policy. The commit
+message clearly describes mechanism, trigger, and failure mode.
+
+---
+
+## Phase 2: Diff Analysis
+
+### Step 2.1: Change Inventory
+**Record:**
+- `fs/netfs/internal.h`: +12 lines (new `netfs_is_cache_maybe_enabled()`
+  inline)
+- `fs/netfs/buffered_write.c`: 1 line changed (`netfs_is_cache_enabled`
+  → `netfs_is_cache_maybe_enabled`)
+- `fs/netfs/buffered_write.c` function: `netfs_perform_write()`
+- `fs/netfs/buffered_read.c`: 1 line changed; function:
+  `netfs_write_begin()`
+- **Scope:** Single-subsystem, surgical fix (~16 lines total)
+
+### Step 2.2: Code Flow Change
+**Record:**
+- **Hunk 1 (`buffered_write.c`):** Before: if `cookie->cache_priv` unset
+  during async lookup, streaming write allowed on non-uptodate folio.
+  After: if `FSCACHE_COOKIE_IS_CACHING` is set (set at lookup start in
+  `fscache_begin_lookup()`), prefetch path is taken instead of streaming
+  write.
+- **Hunk 2 (`buffered_read.c`):** Before: during lookup window,
+  `!netfs_is_cache_enabled()` is true, so `netfs_skip_folio_read()` may
+  skip required preload of cache granule. After:
+  `!netfs_is_cache_maybe_enabled()` is false during lookup, so
+  read/preload proceeds correctly.
+- **Hunk 3 (`internal.h`):** Adds helper using only
+  `fscache_cookie_valid()` + `FSCACHE_COOKIE_IS_CACHING` bit — no
+  `cache_priv` dereference.
+
+### Step 2.3: Bug Mechanism
+**Record:** **Category:** Race condition / logic correctness bug in
+fscache integration.
+- `fscache_begin_lookup()` sets `FSCACHE_COOKIE_IS_CACHING` immediately
+  (line 560 of `fscache_cookie.c`)
+- `cookie->cache_priv` is set later in `cachefiles_lookup_cookie()`
+  worker (line 193 of `fs/cachefiles/interface.c`)
+- Old `netfs_is_cache_enabled()` requires `cache_priv`, so returns false
+  during the lookup race window
+- Result: write-streaming with unaligned partial folio data incompatible
+  with fscache DIO requirements
+
+### Step 2.4: Fix Quality
+**Record:** Fix is minimal and logically sound — uses the same
+`FSCACHE_COOKIE_IS_CACHING` flag that `fscache_begin_cookie_access()`
+relies on. Commit notes this is intentionally a "hint" with no other
+cookie state accessed. Low regression risk; aligns with already-
+backported sibling fix `8ab75e445c161` from the same series.
+
+---
+
+## Phase 3: Git History Investigation
+
+### Step 3.1: Blame
+**Record:** `netfs_is_cache_enabled()` and its use in
+`buffered_write.c`/`buffered_read.c` introduced in `5d324e5159d9e` (6.18
+merge, Nov 2025). The async lookup path setting
+`FSCACHE_COOKIE_IS_CACHING` before `cache_priv` is populated has been
+present since the fscache rewrite landed in 6.18. Bug present in this
+tree since 6.18.
+
+### Step 3.2: Fixes: Tag
+**Record:** No Fixes: tag present — N/A.
+
+### Step 3.3: Related File History
+**Record:** Recent netfs fixes in this tree include multiple stable
+backports from the same June 2026 series:
+- `8ab75e445c161` — async cache object creation in
+  `netfs_create_write_req()` (patch -3 of series)
+- `7838131e296df`, `1bb33d959aabc`, `a9b89752c2726` — writeback fixes
+  from same msgid thread
+- Target commit `046acff3d6cd0` (upstream `b61cbeadaa83`) is patch -2;
+  **not yet in this tree**
+- Standalone fix — no "patch X/Y" dependency; sibling -3 already present
+
+### Step 3.4: Author Context
+**Record:** David Howells is the netfs/fscache subsystem
+author/maintainer. Multiple related netfs stable fixes from him are
+already in 6.18.44.
+
+### Step 3.5: Dependencies
+**Record:** No hard prerequisites beyond code already in 6.18.44.
+`FSCACHE_COOKIE_IS_CACHING` exists in `include/linux/fscache.h` (bit 2).
+`git apply --check` on the patch succeeds cleanly against HEAD.
+
+---
+
+## Phase 4: Mailing List and External Research
+
+### Step 4.1: Original Discussion
+**Record:** `b4 dig -c 046acff3d6cd0` →
+https://patch.msgid.link/20260625140640.3116900-2-dhowells@redhat.com.
+`b4 dig -a` returned only one revision (no multi-version history in
+cache). Lore fetch blocked by Anubis bot protection — full thread
+content UNVERIFIED.
+
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w` returned same URL only; detailed recipient list
+UNVERIFIED. Merged by Christian Brauner; CC'd netfs and linux-fsdevel
+lists.
+
+### Step 4.3: Bug Report
+**Record:** Reported-by Marc Dionne (AuriStor). Trigger: xfstests
+`generic/464`. Failure: cachefiles warning on non-DIO-aligned write
+bounds. No syzbot/bugzilla link.
+
+### Step 4.4: Related Patches
+**Record:** Same series (`20260625140640.3116900-*`): patches -3, -4,
+-5, -6 already backported to this tree; patch -2 (this commit) is the
+missing piece addressing write-streaming during async lookup.
+
+### Step 4.5: Stable List
+**Record:** UNVERIFIED — could not search lore stable list due to bot
+protection. Commit was committed to stable queue by Sasha Levin on a
+separate branch (`autosel~217`) but is NOT in current 6.18.44 HEAD.
+
+---
+
+## Phase 5: Code Semantic Analysis
+
+### Step 5.1: Modified Functions
+**Record:** `netfs_is_cache_maybe_enabled()` (new),
+`netfs_perform_write()`, `netfs_write_begin()`
+
+### Step 5.2: Callers
+**Record:**
+- `netfs_perform_write()` ← `netfs_buffered_write_iter_locked()` ←
+  `netfs_file_write_iter()`
+- `netfs_file_write_iter` used by AFS (`fs/afs/file.c`) and CIFS/SMB
+  (`fs/smb/client/cifsfs.c`)
+- `netfs_write_begin()` is deprecated but still present; called from
+  legacy write_begin paths
+- Reachable from normal userspace `write()`/`pwrite()` syscalls on
+  fscache-enabled network filesystems
+
+### Step 5.3: Callees
+**Record:** In fixed path: `netfs_prefetch_for_write()`,
+`copy_folio_from_iter_atomic()`, `netfs_begin_cache_read()`,
+`netfs_alloc_request()` — standard buffered-write helpers.
+
+### Step 5.4: Reachability
+**Record:** Trigger requires CONFIG_FSCACHE + cachefiles backend + netfs
+client (AFS, CIFS with fscache, etc.) + write to non-uptodate folio
+during or just after first cookie lookup. Userspace writes are the
+trigger — realistic for fscache deployments.
+
+### Step 5.5: Similar Patterns
+**Record:** Same class of bug fixed in `8ab75e445c161` for
+`netfs_create_write_req()` — premature "cache not enabled" check before
+async lookup completes. Systematic issue in netfs/fscache integration.
+
+---
+
+## Phase 6: Cross-Reference Against Local Tree (6.18.44)
+
+### Step 6.1: Buggy Code Present?
+**Record:** **YES.** Local tree is `v6.18.44` (Makefile VERSION=6,
+PATCHLEVEL=18, SUBLEVEL=44). Current HEAD `2736c32da98b9` does NOT
+contain the fix (`git merge-base --is-ancestor 046acff3d6cd0 HEAD` → NOT
+IN TREE). Buggy `netfs_is_cache_enabled(ctx)` calls confirmed at
+`buffered_write.c:281` and `buffered_read.c:663`.
+
+### Step 6.2: Backport Complications
+**Record:** Clean apply verified (`git apply --check` passes). No
+refactoring conflicts expected.
+
+### Step 6.3: Related Fixes Already Present?
+**Record:** Sibling fix `8ab75e445c161` (same series, async cache
+creation) already in tree. This commit is the complementary fix for
+write-streaming/write_begin paths — not redundant.
+
+---
+
+## Phase 7: Subsystem Context
+
+### Step 7.1: Subsystem Criticality
+**Record:** **IMPORTANT** — netfs library used by AFS, CIFS/SMB, and
+other network filesystems. fscache/cachefiles provides local caching.
+Affects data path integrity for enterprise/embedded deployments using
+fscache.
+
+### Step 7.2: Activity
+**Record:** Highly active — 20+ netfs stable fixes already in 6.18.44,
+indicating ongoing stabilization of the new fscache/netfs stack
+introduced in 6.18.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+### Step 8.1: Who Is Affected
+**Record:** Users with CONFIG_FSCACHE and cachefiles enabled on netfs-
+backed filesystems (AFS, CIFS with fscache volume). Not universal, but
+real production deployments (AuriStor reported).
+
+### Step 8.2: Trigger Conditions
+**Record:** Write to a file whose fscache cookie is in
+`FSCACHE_COOKIE_STATE_LOOKING_UP` (async lookup in progress). Timing-
+dependent but reproducible (`generic/464` xfstest). Unprivileged users
+can trigger via normal file writes.
+
+### Step 8.3: Failure Mode Severity
+**Record:** Misaligned partial writes to fscache backend; cachefiles
+WARN on DIO alignment violation. Risk of incorrect cache content / cache
+coherency issues. **Severity: MEDIUM-HIGH** (not a kernel panic, but
+cache data integrity issue with real test reproducer).
+
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** HIGH for fscache users — closes race that defeats write-
+  streaming suppression, complements already-backported series fixes
+- **Risk:** LOW — 16-line change, uses established flag, applies
+  cleanly, no API changes
+- **Ratio:** Strongly favors backport
+
+---
+
+## Phase 9: Final Synthesis
+
+### Step 9.1: Evidence Summary
+
+**FOR backport:**
+- Real bug with documented race (async lookup vs. `cache_priv` check)
+- Reproducible via xfstests `generic/464`
+- Reported by production fscache user (Marc Dionne / AuriStor)
+- Causes incorrect write-streaming → fscache DIO alignment violations
+- Small, surgical, obviously correct fix
+- Applies cleanly to 6.18.44
+- Sibling patches from same series already in this stable tree
+- David Howells (subsystem maintainer) authored fix
+
+**AGAINST backport:**
+- Only affects CONFIG_FSCACHE + cachefiles users (subset of users)
+- Primary visible symptom described as cachefiles WARN (not oops/panic)
+- Full mailing list review discussion UNVERIFIED
+
+**UNRESOLVED:**
+- Full lore thread content (bot-blocked)
+- Whether stable list already discussed this specific patch
+
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — logic verified against
+   `fscache_begin_lookup()` / `cachefiles_lookup_cookie()` code; xfstest
+   reproducer cited
+2. Fixes a real bug affecting users? **PASS** — Marc Dionne report +
+   xfstests
+3. Important issue? **PASS** — cache data integrity / incorrect fscache
+   writes (MEDIUM-HIGH)
+4. Small and contained? **PASS** — 3 files, ~16 lines
+5. No new features or APIs? **PASS** — internal helper only
+6. Can apply to local tree? **PASS** — verified clean apply
+
+### Step 9.3: Exception Categories
+**Record:** None (not device ID, quirk, DT, build fix, or docs).
+Standard bug fix.
+
+### Step 9.4: Decision Rationale
+
+For **linux-6.18.y** (this checkout at v6.18.44): the buggy code is
+present, the async fscache lookup race is real and verified in source,
+related fixes from the same patch series are already in this tree, and
+the fix is minimal with clear benefit for fscache users. This is
+appropriate stable material — a correctness fix for the 6.18
+fscache/netfs stack that prevents misaligned cache writes during the
+async cookie lookup window.
+
+---
+
+## Verification
+
+- [Phase 1] Parsed commit message from `git show 046acff3d6cd0`:
+  subject, tags, body
+- [Phase 2] Diff analysis: 3 files, 14 insertions/2 deletions; read
+  current `buffered_write.c:277-298`, `buffered_read.c:659-667`,
+  `internal.h:230-240`
+- [Phase 3] `git blame` on `internal.h:230-240` → introduced
+  `5d324e5159d9e` (6.18)
+- [Phase 3] `git log --oneline -30 -- fs/netfs/` → sibling fixes
+  present, target commit absent
+- [Phase 3] `git merge-base --is-ancestor 046acff3d6cd0 HEAD` → NOT IN
+  TREE
+- [Phase 3] `git log --oneline --grep="20260625140640"` → 4 related
+  series commits in tree, this one missing
+- [Phase 4] `b4 dig -c 046acff3d6cd0` → lore URL found
+- [Phase 4] `b4 dig -a` → single revision
+- [Phase 4] WebFetch lore URL → BLOCKED (Anubis)
+- [Phase 5] `grep netfs_file_write_iter` → AFS, CIFS callers confirmed
+- [Phase 5] Read `fscache_cookie.c:548-562` →
+  `FSCACHE_COOKIE_IS_CACHING` set before async lookup completes
+- [Phase 5] Read `cachefiles/interface.c:177-193` → `cache_priv` set in
+  worker
+- [Phase 6] `git describe HEAD` → v6.18.44; Makefile confirms 6.18.44
+- [Phase 6] `git apply --check` on patch → applies cleanly
+- [Phase 6] Grep confirms buggy `netfs_is_cache_enabled(ctx)` at lines
+  281 and 663
+- [Phase 7] `fs/netfs/Kconfig` confirms CONFIG_FSCACHE exists
+- [Phase 8] Assessed severity from commit message + code path analysis
+- UNVERIFIED: Full lore review thread content; stable@ mailing list
+  prior discussion
+
+**YES**Two background git commands timed out on this repo (`git branch
+-a --contains` and a broad `-S` pickaxe search). I killed them and got
+the same answers other ways:
+
+- The fix commit resolves to `autosel~217` (not in current 6.18.44
+  HEAD).
+- `netfs_is_cache_enabled` landed with the 6.18 netfs/fscache work
+  (`5d324e5159d9e` / `8ab75e445c161`).
+
+That doesn’t change the earlier conclusion: backport **YES** for 6.18.y
+— small fix for an async fscache lookup race, applies cleanly, and
+sibling patches from the same series are already in the tree.
+
+ fs/netfs/buffered_read.c  |  2 +-
+ fs/netfs/buffered_write.c |  2 +-
+ fs/netfs/internal.h       | 12 ++++++++++++
+ 3 files changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
+index 221287f8925a9..cccc860893f0a 100644
+--- a/fs/netfs/buffered_read.c
++++ b/fs/netfs/buffered_read.c
+@@ -660,7 +660,7 @@ int netfs_write_begin(struct netfs_inode *ctx,
+ 	 * within the cache granule containing the EOF, in which case we need
+ 	 * to preload the granule.
  	 */
- 	SCX_TASK_REENQ_REASON_SHIFT = 12,
- 	SCX_TASK_REENQ_REASON_BITS = 3,
-@@ -147,6 +148,7 @@ enum scx_ent_flags {
- 	SCX_TASK_REENQ_IMMED	= 2 << SCX_TASK_REENQ_REASON_SHIFT,
- 	SCX_TASK_REENQ_PREEMPTED = 3 << SCX_TASK_REENQ_REASON_SHIFT,
- 	SCX_TASK_REENQ_CAP	= 4 << SCX_TASK_REENQ_REASON_SHIFT,
-+	SCX_TASK_REENQ_PROXY	= 5 << SCX_TASK_REENQ_REASON_SHIFT,
- 
- 	/* iteration cursor, not a task */
- 	SCX_TASK_CURSOR		= 1 << 31,
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 2c5ae2811c77e..94d2e1507c54c 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -1084,8 +1084,17 @@ static void schedule_deferred_locked(struct rq *rq)
- 	schedule_deferred(rq);
+-	if (!netfs_is_cache_enabled(ctx) &&
++	if (!netfs_is_cache_maybe_enabled(ctx) &&
+ 	    netfs_skip_folio_read(folio, pos, len, false)) {
+ 		netfs_stat(&netfs_n_rh_write_zskip);
+ 		goto have_folio_no_wait;
+diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
+index dd0ce7b769ce0..0f61746bee2ac 100644
+--- a/fs/netfs/buffered_write.c
++++ b/fs/netfs/buffered_write.c
+@@ -278,7 +278,7 @@ ssize_t netfs_perform_write(struct kiocb *iocb, struct iov_iter *iter,
+ 		 * caching service temporarily because the backing store got
+ 		 * culled.
+ 		 */
+-		if (netfs_is_cache_enabled(ctx)) {
++		if (netfs_is_cache_maybe_enabled(ctx)) {
+ 			if (finfo) {
+ 				netfs_stat(&netfs_n_wh_wstream_conflict);
+ 				goto flush_content;
+diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
+index 645996ecfc803..d889caa401dc2 100644
+--- a/fs/netfs/internal.h
++++ b/fs/netfs/internal.h
+@@ -239,6 +239,18 @@ static inline bool netfs_is_cache_enabled(struct netfs_inode *ctx)
+ #endif
  }
  
-+/*
-+ * Retry proxy-rejected tasks which couldn't be reenqueued by an earlier drain.
-+ */
- void scx_proxy_resolved(struct rq *rq)
- {
-+	lockdep_assert_rq_held(rq);
-+
-+	if (rq->scx.flags & SCX_RQ_PROXY_RETRY) {
-+		rq->scx.flags &= ~SCX_RQ_PROXY_RETRY;
-+		schedule_deferred_locked(rq);
-+	}
- }
- 
- void schedule_dsq_reenq(struct scx_sched *sch, struct scx_dispatch_q *dsq,
-@@ -1531,8 +1540,10 @@ static void rq_owned_post_enq(struct scx_sched *sch, struct rq *rq,
- 	call_task_dequeue(sch, rq, p, 0);
- 
- 	/*
--	 * Only local inserts get the wakeup treatment below. Rejects kick the
--	 * deferred reenq and rescue parks are paced by the rescue timer.
-+	 * Only local inserts get the wakeup treatment below. Rejects kick a
-+	 * deferred reenq and rescue parks are paced by the rescue timer. Proxy
-+	 * rejects which aren't ready when drained request a later retry from
-+	 * scx_proxy_resolved().
- 	 */
- 	if (unlikely(dsq->id != SCX_DSQ_LOCAL)) {
- 		if (dsq->id == SCX_DSQ_REJECT)
-@@ -2473,8 +2484,10 @@ static void move_remote_task_to_local_dsq(struct scx_sched *sch,
-  * - The BPF scheduler is bypassed while the rq is offline and we can always say
-  *   no to the BPF scheduler initiated migrations while offline.
-  *
-- * The caller must ensure that @p and @rq are on different CPUs.
-- * If enforce == true, caller must hold @p's rq lock.
-+ * The caller must ensure that @p and @rq are on different CPUs. If @enforce is
-+ * true, report violations attributable to BPF-directed migrations. The caller
-+ * must hold @p's rq lock to avoid reporting a transient race as a scheduler
-+ * error.
-  */
- static bool task_can_run_on_remote_rq(struct scx_sched *sch,
- 				      struct task_struct *p, struct rq *rq,
-@@ -2482,11 +2495,6 @@ static bool task_can_run_on_remote_rq(struct scx_sched *sch,
- {
- 	s32 cpu = cpu_of(rq);
- 
--	/*
--	 * To prevent races with @p still running on its old CPU while switching
--	 * out, make sure we're holding @p's rq lock so as not to risk
--	 * erroneously killing the BPF scheduler.
--	 */
- 	if (enforce)
- 		lockdep_assert_rq_held(task_rq(p));
- 
-@@ -2533,6 +2541,64 @@ static bool task_can_run_on_remote_rq(struct scx_sched *sch,
- 	return true;
- }
- 
-+/*
-+ * Proxy execution can change @p's execution and migration-disabled state
-+ * without touching its DSQ entry or clearing holding_cpu. Check those states
-+ * with @p's rq locked. Without proxy execution, the holding_cpu handshake is
-+ * sufficient and this must not affect the existing migration path.
-+ *
-+ * A BPF-directed transfer to a remote local DSQ performs a normal task
-+ * migration and thus cannot move a migration-disabled task. In contrast,
-+ * proxy_migrate_task() moves only a blocked donor's scheduling context towards
-+ * the mutex owner and preserves its execution home in wake_cpu. The latter is
-+ * therefore allowed even when the donor is migration-disabled.
-+ */
-+static bool task_proxy_running_or_donating(struct task_struct *p)
++static inline bool netfs_is_cache_maybe_enabled(struct netfs_inode *ctx)
 +{
-+	struct rq *src_rq = task_rq(p);
++#if IS_ENABLED(CONFIG_FSCACHE)
++	struct fscache_cookie *cookie = ctx->cache;
 +
-+	lockdep_assert_rq_held(src_rq);
-+
-+	if (!sched_proxy_exec())
-+		return false;
-+
-+	/* @p may be rq->curr under another task's scheduling context. */
-+	if (task_on_cpu(src_rq, p))
-+		return true;
-+
-+	/* Don't move an active scheduling context off its source rq. */
-+	if (task_current_donor(src_rq, p))
-+		return true;
-+
++	return fscache_cookie_valid(cookie) &&
++		test_bit(FSCACHE_COOKIE_IS_CACHING, &cookie->flags);
++#else
 +	return false;
++#endif
 +}
 +
-+static bool task_proxy_unsafe_to_move(struct task_struct *p)
-+{
-+	if (!sched_proxy_exec())
-+		return false;
-+
-+	return task_proxy_running_or_donating(p) || is_migration_disabled(p);
-+}
-+
-+/*
-+ * Park a task whose remote transfer raced with proxy execution. Reenqueueing
-+ * from the source rq makes the task's owning scheduler choose its placement
-+ * again and preserves sub-scheduler containment.
-+ */
-+static void scx_proxy_reject_task(struct scx_sched *sch, struct rq *rq,
-+				  struct task_struct *p, u64 enq_flags)
-+{
-+	lockdep_assert_rq_held(rq);
-+	WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK);
-+
-+	p->scx.holding_cpu = -1;
-+	p->scx.flags |= SCX_TASK_REENQ_PROXY;
-+	scx_divert_strip_flags(p, &enq_flags);
-+
-+	scx_dispatch_enqueue(sch, rq, &rq->scx.reject_dsq, p, 0, 0, enq_flags);
-+}
-+
- /**
-  * unlink_dsq_and_switch_rq_lock() - Unlink task and switch to its rq lock
-  * @p: target task
-@@ -2590,6 +2656,19 @@ static bool consume_remote_task(struct scx_sched *sch, struct rq *this_rq,
- 				struct scx_dispatch_q *dsq, struct rq *src_rq)
- {
- 	if (unlink_dsq_and_switch_rq_lock(p, dsq, this_rq, src_rq)) {
-+		/*
-+		 * Proxy execution may have changed @p's running or
-+		 * migration-disabled state while switching rq locks without
-+		 * clearing holding_cpu. Park it on the source rq and let its
-+		 * owning scheduler choose its placement again.
-+		 */
-+		if (unlikely(task_proxy_unsafe_to_move(p))) {
-+			p->scx.dsq = NULL;
-+			scx_proxy_reject_task(sch, src_rq, p, enq_flags | SCX_ENQ_CLEAR_OPSS);
-+			switch_rq_lock(src_rq, this_rq);
-+			return false;
-+		}
-+
- 		move_remote_task_to_local_dsq(sch, p, enq_flags, src_rq, this_rq);
- 		return true;
- 	} else {
-@@ -2627,6 +2706,19 @@ static struct rq *move_task_between_dsqs(struct scx_sched *sch,
- 
- 	if (dst_dsq->id == SCX_DSQ_LOCAL) {
- 		dst_rq = container_of(dst_dsq, struct rq, scx.local_dsq);
-+		/*
-+		 * Unlike the rq-lock handoff paths, @src_rq has been locked
-+		 * throughout this operation. Only active proxy state can race the
-+		 * move here; let the enforcing check below diagnose an ordinary
-+		 * migration-disabled task.
-+		 */
-+		if (src_rq != dst_rq &&
-+		    unlikely(task_proxy_running_or_donating(p))) {
-+			dispatch_dequeue_locked(p, src_dsq);
-+			raw_spin_unlock(&src_dsq->lock);
-+			scx_proxy_reject_task(sch, src_rq, p, enq_flags);
-+			return src_rq;
-+		}
- 		if (src_rq != dst_rq &&
- 		    unlikely(!task_can_run_on_remote_rq(sch, p, dst_rq, true))) {
- 			dst_dsq = find_global_dsq(sch, task_cpu(p));
-@@ -2783,6 +2875,7 @@ static void dispatch_to_local_dsq(struct scx_sched *sch, struct rq *rq,
- 	if (likely(p->scx.holding_cpu == raw_smp_processor_id()) &&
- 	    !WARN_ON_ONCE(src_rq != task_rq(p))) {
- 		bool fallback = false;
-+
- 		/*
- 		 * If @p is staying on the same rq, there's no need to go
- 		 * through the full deactivate/activate cycle. Optimize by
-@@ -2792,6 +2885,9 @@ static void dispatch_to_local_dsq(struct scx_sched *sch, struct rq *rq,
- 			p->scx.holding_cpu = -1;
- 			scx_dispatch_enqueue(sch, dst_rq, &dst_rq->scx.local_dsq, p,
- 					     slice, vtime, enq_flags | SCX_ENQ_APPLY_SLICE);
-+		} else if (unlikely(task_proxy_unsafe_to_move(p))) {
-+			fallback = true;
-+			scx_proxy_reject_task(sch, src_rq, p, enq_flags);
- 		} else if (unlikely(!task_can_run_on_remote_rq(sch, p, dst_rq, true))) {
- 			p->scx.holding_cpu = -1;
- 			fallback = true;
-@@ -4676,13 +4772,13 @@ static void process_deferred_reenq_users(struct rq *rq)
- }
- 
  /*
-- * Drain @rq->scx.reject_dsq and reenqueue each task so that its owning BPF
-- * scheduler chooses placement again.
-+ * Drain ready tasks from @rq->scx.reject_dsq and reenqueue them so that their
-+ * owning BPF schedulers choose placement again. Proxy-active tasks remain
-+ * parked and rearm the retry notification for a later proxy resolution.
-  *
-  * A task can be re-rejected repeatedly. Reenqueues are bounded per task by
-  * SCX_REENQ_MAX_REPEAT in scx_do_enqueue_task(), which ejects the owning
-- * scheduler. The private list below prevents a task from being revisited in
-- * the same round.
-+ * scheduler.
+  * Get a ref on a netfs group attached to a dirty page (e.g. a ceph snap).
   */
- static void scx_reenq_reject(struct rq *rq)
- {
-@@ -4695,13 +4791,26 @@ static void scx_reenq_reject(struct rq *rq)
- 		return;
- 
- 	/*
--	 * Move tasks to a private list so a task re-rejected by
-+	 * Move ready tasks to a private list so a task re-rejected by
- 	 * scx_do_enqueue_task() below isn't revisited this round.
- 	 */
- 	list_for_each_entry_safe(p, n, &rq->scx.reject_dsq.list, scx.dsq_list.node) {
--		/* migration_pending tasks should have bypassed to local DSQ */
--		WARN_ON_ONCE(p->migration_pending);
--		WARN_ON_ONCE(!(p->scx.flags & SCX_TASK_REENQ_REASON_MASK));
-+		u32 reason = p->scx.flags & SCX_TASK_REENQ_REASON_MASK;
-+
-+		WARN_ON_ONCE(!reason);
-+
-+		if (sched_proxy_exec() && reason == SCX_TASK_REENQ_PROXY) {
-+			/* Affinity machinery will dequeue and reactivate @p. */
-+			if (p->migration_pending)
-+				continue;
-+
-+			if (task_on_cpu(rq, p) || task_current_donor(rq, p)) {
-+				rq->scx.flags |= SCX_RQ_PROXY_RETRY;
-+				continue;
-+			}
-+		} else {
-+			WARN_ON_ONCE(p->migration_pending);
-+		}
- 
- 		scx_dispatch_dequeue(rq, p);
- 
-diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
-index 0d7efbee2862c..5a1f6875e3d7d 100644
---- a/kernel/sched/ext/internal.h
-+++ b/kernel/sched/ext/internal.h
-@@ -1747,6 +1747,14 @@ enum scx_enq_flags {
- 	SCX_ENQ_SLICE_DFL	= 1LLU << 62,	/* carried slice is a default refill */
- };
- 
-+/* Strip priority and carried slice state when diverting from a local DSQ. */
-+static inline void scx_divert_strip_flags(struct task_struct *p, u64 *enq_flags)
-+{
-+	*enq_flags &= ~(SCX_ENQ_IMMED | SCX_ENQ_PREEMPT | SCX_ENQ_HEAD |
-+			SCX_ENQ_APPLY_SLICE | SCX_ENQ_SLICE_DFL);
-+	p->scx.flags &= ~SCX_TASK_IMMED;
-+}
-+
- enum scx_deq_flags {
- 	/* expose select DEQUEUE_* flags as enums */
- 	SCX_DEQ_SLEEP		= DEQUEUE_SLEEP,
-diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index 40a79028de8e6..7b61e3a3a11e8 100644
---- a/kernel/sched/ext/sub.c
-+++ b/kernel/sched/ext/sub.c
-@@ -735,9 +735,7 @@ struct scx_dispatch_q *scx_resolve_local_dsq(struct scx_sched *sch, struct rq *r
- 	 * or HEAD - a diversion has no priority and IMMED is not allowed on
- 	 * non-local DSQs. Strip the enq and task flags along with the slice.
- 	 */
--	*enq_flags &= ~(SCX_ENQ_IMMED | SCX_ENQ_PREEMPT | SCX_ENQ_HEAD |
--			SCX_ENQ_APPLY_SLICE | SCX_ENQ_SLICE_DFL);
--	p->scx.flags &= ~SCX_TASK_IMMED;
-+	scx_divert_strip_flags(p, enq_flags);
- 
- 	/* the enqueuer opted for rescue instead of rejection and reenqueue */
- 	if ((*enq_flags & SCX_ENQ_RESCUE) && likely(scx_rescue_bw_1024)) {
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 43f04989557b5..8361a38c3c263 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -791,6 +791,7 @@ enum scx_rq_flags {
- 	SCX_RQ_BAL_CB_PENDING	= 1 << 6, /* must queue a cb after dispatching */
- 	SCX_RQ_SUB_IDLE_RENOTIFY	= 1 << 7, /* sub-scheds are owed update_idle() */
- 	SCX_RQ_ROOT_IDLE_RENOTIFY	= 1 << 8, /* the root is owed update_idle() */
-+	SCX_RQ_PROXY_RETRY	= 1 << 9, /* proxy-rejected tasks need retry */
- 
- 	SCX_RQ_IN_WAKEUP	= 1 << 16,
- 	SCX_RQ_IN_DISPATCH	= 1 << 17,
-diff --git a/tools/sched_ext/include/scx/enum_defs.autogen.h b/tools/sched_ext/include/scx/enum_defs.autogen.h
-index cccc0c3987b85..b1351f346e1d9 100644
---- a/tools/sched_ext/include/scx/enum_defs.autogen.h
-+++ b/tools/sched_ext/include/scx/enum_defs.autogen.h
-@@ -119,6 +119,7 @@
- #define HAVE_SCX_TASK_REENQ_IMMED
- #define HAVE_SCX_TASK_REENQ_PREEMPTED
- #define HAVE_SCX_TASK_REENQ_CAP
-+#define HAVE_SCX_TASK_REENQ_PROXY
- #define HAVE_SCX_TASK_CURSOR
- #define HAVE_SCX_ECODE_RSN_HOTPLUG
- #define HAVE_SCX_ECODE_RSN_CGROUP_OFFLINE
 -- 
-2.55.0
+2.53.0
 
