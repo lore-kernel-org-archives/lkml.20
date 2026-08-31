@@ -1,507 +1,436 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4FE4AA3FE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFE1F4AA403;
 	Mon, 31 Aug 2026 13:46:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184007; cv=none; b=TY5wd8gNFDP24lzGnTzjbRywqSfSdyQfQ+qd4bLurFrpGjUM17BNY7QvbCcyQ+6lyAehhbPcJsPr/dc45ohC9t1JMi+zgPzHEzDggMHUjNh3PuBw0hLXlsriP03TCBeMjkvtHR0nUuyDViGyRzpB8I+KPTaro2ai5jKN4WIsbQU=
+	t=1788184009; cv=none; b=s7iiFsITrvQ/gmKsNxLuZr6zQoWrDFetI4Iwa6es+MCxR+Red2TJh7JDSzotbcOsr6WBaB1JJ/UY1kN2Z2feiHYwuRU25/lGSPaz2A65wHii7duZYhelCMxIHknGyf4C2sLlrSzIdQEoRSjTcxS1AmX4tjCq1/I1eRJsT9HrhFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184007; c=relaxed/simple;
-	bh=WB+f9TzNRoGgZwon+SI33FdAdwqrZKA9RN+IbyqZCtg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YB99EY5IT8bx2DeGFLuQfRP67GffNpJjkgp4HntCHan/B/JfN8Ax3tsg7pDSMKSEWfzAEWAhfaseF2JiKTsJ5mYGwlblB9Ctf+wVJsDdAvju+IgHUlaWl6hP3IfC4nvMWnzEGIpN18rX3LQcol1ISfQMW0/hGfZ+xfHghtMYA6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fJiBie8+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788184009; c=relaxed/simple;
+	bh=gfPGG30TMT0Qzaau8CtQZ22zNjQPSKQVJpDXwi1PXX8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hDKBxuRi58eg5VcfG6m7g/SpGmGNSBN8K7xYonuSZZfI11uykYAzYIkh/BkzMfFQDZjLleqqev4qkXnI5jgd8nQ9lOMJZbDkyIcdOfVDBOtQCicN/ZtF7Mstj+UgMIciABDmNEt6d7LVPfLLhyFNxw4JbfVy1MBbZAcf/q95/Gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ndqe0SR8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fJiBie8+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21F1C1F00A3E;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ndqe0SR8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F2ED1F00ADF;
 	Mon, 31 Aug 2026 13:46:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184002;
-	bh=FpXrqiS4I00ayqbEOnR9AiBOSu5k6dNYuuvgpi5JfdA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fJiBie8+vuSA1Vmt5+svmtzvD7gg7CqEdj1p6QnJmXvu4xizHREvAGwz6LFCe3SNh
-	 HD4gORi8BcwcwzWnvhqmg2w2eUlu3iNhiMgK0ZbSJHBcHfIup/RRE3+T/jrN1a5ZK1
-	 sy1hOzfRl6A5lMjaaCkiYxtDxXodMZlSQKYERg9PMsX2MJ9w+VNOEVDECOthJDv/x9
-	 ibZxQ7XP4HpXpnA637O4ZEydEvra5jDYCi/UdwLgndRci117n//rse8UxMvYi8UQZa
-	 pWmJVcHbvCltZyBjTwfsusAhBWDXzVJf+fzLRCKxoFKWzuz/kLkYtIasLMio7D1WHB
-	 iFeypU6MZkppw==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: mvm: validate MCC header before n_channels
-Date: Mon, 31 Aug 2026 09:27:39 -0400
-Message-ID: <20260831133314.4125787-431-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788184002;
+	bh=7NGFQby2y4MJ/GdPhOxA1q0AB/3nUFGVIreRpYhMDBE=;
+	h=From:To:Cc:Subject:Date;
+	b=Ndqe0SR8o6qoszyNHK1uDipqa1P0aA9asxikYStSjAL84pvO4nPwZduoNye3kAVPv
+	 G7UMlXi0qVF+/4deRfpZQoI0o5eoYx6mLZohD7F5SeX8sKl0utj5gyzsyUzqLzNC9N
+	 m8v6EG3ch6ZQ4vwtqu0/rOQfPl2jxl184xxNbcAc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com
+Subject: [PATCH 6.18 00/83] 6.18.49-rc1 review
+Date: Mon, 31 Aug 2026 15:33:36 +0200
+Message-ID: <20260831133359.207714926@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: quilt/0.69
 X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
+X-Patchwork-Hint: ignore
+X-KernelTest-Patch: http://kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.49-rc1.gz
+X-KernelTest-Tree: git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+X-KernelTest-Branch: linux-6.18.y
+X-KernelTest-Patches: git://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git
+X-KernelTest-Version: 6.18.49-rc1
+X-KernelTest-Deadline: 2026-09-02T13:34+00:00
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
-
-[ Upstream commit 77f33bed0cb49a11f03427f2fa368830c1cae3c2 ]
-
-MCC response parsing read n_channels from v8/v4/v3 response variants
-before ensuring the payload contained the fixed response header.
-
-Add a minimum payload-length check for each response version before
-reading n_channels, and keep the existing exact-size validation for the
-channels array payload.
-
-Assisted-by: GitHub Copilot:gpt-5.3-codex
-Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
-Link: https://patch.msgid.link/20260714141909.cb2cef3d3e7e.Iee7b48614289da576de842157ad3730b7589a4b1@changeid
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-## Phase 1: Commit Message Forensics
-
-### Step 1.1: Parse the subject line
-**Record:** `[wifi: iwlwifi: mvm]` `[validate]` — validate MCC response
-header before reading `n_channels` from firmware MCC update responses.
-
-### Step 1.2: Parse all commit message tags
-**Record:**
-- **Fixes:** — none
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** — none
-- **Acked-by:** — none
-- **Link:** `https://patch.msgid.link/20260714141909.cb2cef3d3e7e.Iee7b4
-  8614289da576de842157ad3730b7589a4b1@changeid`
-- **Cc: stable@vger.kernel.org:** — none (expected for manual review)
-- **Assisted-by:** GitHub Copilot:gpt-5.3-codex
-- **Signed-off-by:** Emmanuel Grumbach `<emmanuel.grumbach@intel.com>`
-- **Signed-off-by:** Miri Korenblit
-  `<miriam.rachel.korenblit@intel.com>`
-
-Notable: Intel iwlwifi maintainers authored/reviewed; no syzbot or user
-bug report.
-
-### Step 1.3: Analyze commit body
-**Record:**
-- **Bug:** MCC response parsing reads `n_channels` from v8/v4/v3
-  response layouts before confirming the payload contains the fixed
-  header.
-- **Symptom:** Out-of-bounds read from `pkt->data` on
-  truncated/malformed firmware responses; subsequent `struct_size()` /
-  `kzalloc()` / `memcpy()` use an unvalidated `n_channels`.
-- **Root cause:** Validation order — field access precedes minimum-
-  length check.
-- **Version info:** Affects all three MCC response variants (v8, v4,
-  v3).
-
-### Step 1.4: Detect hidden bug fixes
-**Record:** Not disguised as cleanup — explicit defensive validation
-fix. Same class of bug as iwlwifi “read field before payload size check”
-fixes already in this tree.
-
----
-
-## Phase 2: Diff Analysis
-
-### Step 2.1: Inventory changes
-**Record:**
-- **File:** `drivers/net/wireless/intel/iwlwifi/mvm/nvm.c` (~29 lines
-  added, minor refactor)
-- **Function:** `iwl_mvm_update_mcc()`
-- **Scope:** Single-file surgical fix in one function
-
-### Step 2.2: Code flow change
-**Record:**
-- **Before:** Cast `pkt->data`, read `n_channels`, then compare full
-  payload length to `struct_size(..., channels, n_channels)`.
-- **After:** Cache `pkt_len = iwl_rx_packet_payload_len(pkt)`; for each
-  variant, `IWL_FW_CHECK(pkt_len < sizeof(*mcc_resp_vN))` before reading
-  `n_channels`; keep exact-size check, now via `IWL_FW_CHECK` with
-  better diagnostics.
-- **Paths:** All three MCC response version branches; error path returns
-  `ERR_PTR(-EINVAL)` and jumps to `exit`.
-
-### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** Memory safety / out-of-bounds read (buffer bounds)
-- **Mechanism:** `n_channels` sits at offset 12 (v3), 16 (v4), or 20
-  (v8). Header sizes are 16/20/24 bytes respectively. A payload shorter
-  than `sizeof(*mcc_resp_vN)` causes OOB read when dereferencing
-  `mcc_resp_vN->n_channels`. Garbage `n_channels` can then drive
-  `struct_size()` and `memcpy()` logic on a still-untrusted buffer.
-
-### Step 2.4: Fix quality
-**Record:**
-- Matches established iwlwifi pattern (`IWL_FW_CHECK` + `pkt_len`
-  caching) used in `mvm/fw.c`, `mvm/rxmq.c`, `mvm/mac-ctxt.c`, etc.
-- Minimal, obviously correct ordering fix.
-- **Regression risk:** Low — only rejects responses that were already
-  invalid; successful paths unchanged.
-
----
-
-## Phase 3: Git History Investigation
+This is the start of the stable review cycle for the 6.18.49 release.
+There are 83 patches in this series, all will be posted as a response
+to this one.  If anyone has any issues with these being applied, please
+let me know.
 
-### Step 3.1: Blame changed lines
-**Record:** Current buggy code in `iwl_mvm_update_mcc()` is present at
-HEAD (`v6.18.44`). Blame points to base import `5d324e5159d9e` (shallow
-history in this checkout). All three version branches share the same
-pattern.
-
-### Step 3.2: Follow Fixes: tag
-**Record:** N/A — no `Fixes:` tag in commit message.
-
-### Step 3.3: Related file history
-**Record:** Recent iwlwifi mvm commits in this tree include closely
-related backports:
-- `2d5dec517b539` — move field read after size check in WoWLAN wake
-  packet handler
-- `a076b0c457c71` — validate SAR GEO response payload before access
-- `dd90880eb5ec5` — OOB read fix in `iwl_mvm_nd_match_info_handler()`
+Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
+Anything received after that time might be too late.
 
-This MCC fix is the same bug class and same Intel batch (July 2026). The
-MCC fix itself is **not** yet in this tree (`git log --grep` found
-nothing; no `MCC v8 response too short` string in tree).
+The whole patch series can be found in one patch at:
+	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.49-rc1.gz
+or in the git tree and branch at:
+	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+and the diffstat can be found below.
 
-### Step 3.4: Author context
-**Record:** Emmanuel Grumbach is iwlwifi maintainer; Miri Korenblit is
-Intel iwlwifi lead. Same review chain as other July 2026 iwlwifi stable
-backports already merged here.
+thanks,
 
-### Step 3.5: Dependencies
-**Record:** Standalone — uses existing `IWL_FW_CHECK`,
-`iwl_rx_packet_payload_len()`, and MCC structs already in tree. No
-series dependencies.
+greg k-h
 
----
+-------------
+Pseudo-Shortlog of commits:
 
-## Phase 4: Mailing List and External Research
+Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+    Linux 6.18.49-rc1
 
-### Step 4.1: Original patch discussion
-**Record:** `b4 dig` could not match this commit (not in local git
-history). Link URL blocked by bot protection (403). No local `.mbx` for
-this patch found.
+Miguel Peñaranda <mig.penaranda07@gmail.com>
+    usb: usbfs: fix use-after-free of usb_device in usbdev_release()
 
-### Step 4.2: Reviewers
-**Record:** UNVERIFIED from lore; commit SOBs show Intel iwlwifi
-maintainers.
+Devin Wittmayer <lucid_duck@justthetip.ca>
+    wifi: mt76: mt7925: ensure tx headroom in usb_sdio_tx_prepare_skb
 
-### Step 4.3: Bug report
-**Record:** No external bug report, syzbot, or sanitizer report
-referenced.
-
-### Step 4.4: Related patches
-**Record:** Part of Intel iwlwifi July 2026 validation batch; sibling
-fixes (`2d5dec517b539`, `a076b0c457c71`) already backported to this
-6.18.y tree.
+Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+    USB: c67x00: fix use-after-free in c67x00_add_iso_urb()
 
-### Step 4.5: Stable list history
-**Record:** UNVERIFIED on lore stable list; analogous iwlwifi fixes
-already accepted into this stable tree.
+Johan Hovold <johan@kernel.org>
+    USB: serial: spcp8x5: drop broken carrier detect support
 
----
+Jiale Yao <yaojiale02@163.com>
+    USB: serial: option: fix slab OOB read in interrupt URB callback
 
-## Phase 5: Code Semantic Analysis
-
-### Step 5.1: Key functions
-**Record:** `iwl_mvm_update_mcc()` (modified)
+Will Porter <mrwillporter@gmail.com>
+    ALSA: usb-audio: Complete cleanup after system-resume errors
 
-### Step 5.2: Callers
-**Record:**
-- `iwl_mvm_get_regdomain()` in `mac80211.c` (primary caller)
-- Indirect callers: `iwl_mvm_init_mcc()`,
-  `iwl_mvm_rx_chub_update_mcc()`, `iwl_mvm_apply_last_mcc()` in `nvm.c`
-  / `mac80211.c`
-- Gated by `iwl_mvm_is_lar_supported(mvm)` (LAR-capable Intel devices
-  with NVM+FW support)
-
-### Step 5.3: Callees
-**Record:** `iwl_mvm_send_cmd()`, `iwl_fw_lookup_notif_ver()`,
-`iwl_rx_packet_payload_len()`, `IWL_FW_CHECK()`, `kzalloc()`,
-`memcpy()`, `iwl_free_resp()`
-
-### Step 5.4: Reachability
-**Record:** Triggered during driver init (regulatory setup), BIOS MCC
-application, and runtime Chub MCC notifications. Userspace can
-indirectly trigger regulatory/MCC paths via cfg80211 country updates on
-LAR-enabled hardware. Requires `CONFIG_IWLMVM`.
-
-### Step 5.5: Similar patterns
-**Record:** Same “validate before read” pattern fixed in
-`iwl_mvm_wowlan_store_wake_pkt()` (`2d5dec517b539`) in this tree.
-`mld/mcc.c` `iwl_mld_copy_mcc_resp()` has a similar ordering issue but
-is **outside** this commit’s scope.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree
-
-### Step 6.1: Does buggy code exist?
-**Record:** **YES.** Local tree is **6.18.44** (`git describe HEAD` →
-`v6.18.44-1-g2736c32da98b9`). `nvm.c` lines 442–493 read `n_channels`
-before any minimum header-length check. Fix not present.
-
-### Step 6.2: Backport complications
-**Record:** Clean apply expected — same file structure, `IWL_FW_CHECK`
-exists, no conflicting recent changes to `iwl_mvm_update_mcc()`.
-
-### Step 6.3: Related fixes already present?
-**Record:** Same-category iwlwifi firmware-response validation fixes are
-already in tree; this specific MCC fix is not.
-
----
-
-## Phase 7: Subsystem and Maintainer Context
-
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/net/wireless/intel/iwlwifi/mvm` — **IMPORTANT**
-(Intel WiFi, widely deployed on laptops; regulatory/MCC path affects
-channel legality).
-
-### Step 7.2: Subsystem activity
-**Record:** Active — multiple iwlwifi mvm fixes landed recently in this
-6.18.y tree.
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-### Step 8.1: Who is affected
-**Record:** Users of Intel iwlwifi MVM devices with LAR support
-(`CONFIG_IWLMVM`). Not universal, but a large laptop population.
-
-### Step 8.2: Trigger conditions
-**Record:** Truncated or malformed `MCC_UPDATE_CMD` firmware response.
-Uncommon in normal operation (requires FW bug, communication error, or
-corrupted response), but the code path runs at init and on MCC updates.
-Not directly userspace-injectable, but reachable from normal driver
-operation.
-
-### Step 8.3: Failure mode severity
-**Record:** Out-of-bounds read from SKB payload; possible kernel
-oops/KASAN report; potential follow-on issues from garbage `n_channels`.
-**Severity: HIGH** (memory safety in kernel), though trigger likelihood
-is **MEDIUM-LOW**.
-
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** Prevents OOB read on a real driver path; aligns with
-  fixes already accepted for this tree.
-- **Risk:** Very low — adds early rejection of invalid packets only.
-- **Ratio:** Strong benefit, minimal risk.
-
----
-
-## Phase 9: Final Synthesis
-
-### Step 9.1: Evidence summary
-
-**FOR backport:**
-- Real out-of-bounds read before bounds checking
-- Small, surgical, maintainer-authored fix
-- Matches iwlwifi conventions (`IWL_FW_CHECK`)
-- Buggy code confirmed present in 6.18.44
-- Same bug pattern as `2d5dec517b539` already backported here
-- Intel iwlwifi maintainers signed off
-- Standalone, no dependencies
-
-**AGAINST backport:**
-- No syzbot/user report (defensive hardening)
-- Trigger requires malformed FW response (rare)
-- Only LAR-enabled iwlwifi hardware
-
-**Unresolved:**
-- Full lore review thread (blocked/unavailable)
-- Exact upstream commit SHA not in local git
-
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — ordering fix is standard;
-   tested implicitly by maintainer merge; no Tested-by.
-2. Fixes a real bug? **PASS** — OOB read on short payload verified by
-   struct layout.
-3. Important issue? **PASS** — memory safety / potential crash (HIGH
-   severity, medium-low likelihood).
-4. Small and contained? **PASS** — ~30 lines, one function, one file.
-5. No new features/APIs? **PASS** — validation only.
-6. Can apply to local tree? **PASS** — code exists, fix not present,
-   clean apply expected.
-
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Qualifies
-as a standard bug fix.
-
-### Step 9.4: Problem and decision
-
-This commit fixes an ordering bug in `iwl_mvm_update_mcc()` where
-`n_channels` is read from the firmware response before verifying the
-packet is large enough to contain the fixed MCC header (16/20/24 bytes
-for v3/v4/v8). On a truncated response, that is an out-of-bounds read.
-The existing exact-size check does not prevent the initial invalid read.
-
-For **6.18.44**, the vulnerable code is present and the fix is absent.
-The change is small, follows patterns already backported in this tree
-(`2d5dec517b539`, `a076b0c457c71`), and addresses a real memory-safety
-defect on a regulatory/MCC path used by LAR-enabled Intel WiFi hardware.
-Risk of regression is negligible.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-- **[Phase 2]** Analyzed provided diff; verified `IWL_FW_CHECK` in
-  `fw/dbg.h`
-- **[Phase 2]** Computed struct sizes: v3=16, v4=20, v8=24 bytes;
-  `n_channels` offsets 12/16/20
-- **[Phase 3]** `git blame` on `nvm.c:439-495`: buggy pattern at HEAD
-- **[Phase 3]** `git log --oneline -20 --
-  drivers/net/wireless/intel/iwlwifi/mvm/`: found related backports
-- **[Phase 3]** `git show 2d5dec517b539`, `a076b0c457c71`,
-  `dd90880eb5ec5`: confirmed same fix class already in tree
-- **[Phase 3]** `git log --grep="validate MCC"` / `--grep="MCC header"`:
-  no matches (fix not applied)
-- **[Phase 4]** `b4 dig` with message-id: failed (wrong usage / no
-  match)
-- **[Phase 4]** WebFetch/curl lore + patch.msgid.link: blocked (403 /
-  bot protection)
-- **[Phase 4]** Grep `*.mbx` for patch subject: no local mbox found
-- **[Phase 5]** `grep iwl_mvm_update_mcc`: callers in `mac80211.c`,
-  `nvm.c`
-- **[Phase 5]** Read `iwl_mvm_is_lar_supported()` in `mvm.h`
-- **[Phase 5]** Grep `pkt_len < sizeof` in iwlwifi: established
-  validation pattern
-- **[Phase 6]** `git describe HEAD`: `v6.18.44-1-g2736c32da98b9`;
-  Makefile 6.18.44
-- **[Phase 6]** Read `nvm.c:439-514`: confirmed buggy code at HEAD
-- **[Phase 6]** Grep `MCC v8 response too short`: not in tree
-- **[Phase 8]** Read MCC struct definitions in `fw/api/nvm-reg.h`
-
-**YES**The analysis is done. For the **6.18.44** tree checked out here,
-the iwlwifi MCC validation commit should be backported.
-
-**Verdict: YES**
-
-The bug is real: `iwl_mvm_update_mcc()` reads `n_channels` from firmware
-MCC responses before checking that the payload is large enough for the
-fixed header (16/20/24 bytes for v3/v4/v8), which can cause an out-of-
-bounds read on truncated responses. The vulnerable code is present in
-this tree; the fix is not.
-
-The patch is small, uses the existing `IWL_FW_CHECK` pattern, and
-matches similar iwlwifi validation fixes already backported here (e.g.
-wake-packet and SAR GEO payload checks). Risk is low; benefit is
-preventing a memory-safety defect on the LAR/MCC regulatory path for
-Intel WiFi hardware.
-
- drivers/net/wireless/intel/iwlwifi/mvm/nvm.c | 43 ++++++++++++++++----
- 1 file changed, 36 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/nvm.c b/drivers/net/wireless/intel/iwlwifi/mvm/nvm.c
-index 953218f1e025a..f76e57399c1f3 100644
---- a/drivers/net/wireless/intel/iwlwifi/mvm/nvm.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/nvm.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
- /*
-- * Copyright (C) 2012-2014, 2018-2019, 2021-2025 Intel Corporation
-+ * Copyright (C) 2012-2014, 2018-2019, 2021-2026 Intel Corporation
-  * Copyright (C) 2013-2015 Intel Mobile Communications GmbH
-  * Copyright (C) 2016-2017 Intel Deutschland GmbH
-  */
-@@ -416,6 +416,7 @@ iwl_mvm_update_mcc(struct iwl_mvm *mvm, const char *alpha2,
- 	int ret, resp_ver;
- 	u32 status;
- 	int resp_len, n_channels;
-+	unsigned int pkt_len;
- 	u16 mcc;
- 
- 	if (WARN_ON_ONCE(!iwl_mvm_is_lar_supported(mvm)))
-@@ -431,6 +432,7 @@ iwl_mvm_update_mcc(struct iwl_mvm *mvm, const char *alpha2,
- 		return ERR_PTR(ret);
- 
- 	pkt = cmd.resp_pkt;
-+	pkt_len = iwl_rx_packet_payload_len(pkt);
- 
- 	resp_ver = iwl_fw_lookup_notif_ver(mvm->fw, IWL_ALWAYS_LONG_GROUP,
- 					   MCC_UPDATE_CMD, 0);
-@@ -439,9 +441,18 @@ iwl_mvm_update_mcc(struct iwl_mvm *mvm, const char *alpha2,
- 	if (resp_ver >= 8) {
- 		struct iwl_mcc_update_resp_v8 *mcc_resp_v8 = (void *)pkt->data;
- 
-+		if (IWL_FW_CHECK(mvm, pkt_len < sizeof(*mcc_resp_v8),
-+				 "MCC v8 response too short: %u\n", pkt_len)) {
-+			resp_cp = ERR_PTR(-EINVAL);
-+			goto exit;
-+		}
-+
- 		n_channels =  __le32_to_cpu(mcc_resp_v8->n_channels);
--		if (iwl_rx_packet_payload_len(pkt) !=
--		    struct_size(mcc_resp_v8, channels, n_channels)) {
-+		if (IWL_FW_CHECK(mvm,
-+				 pkt_len !=
-+				 struct_size(mcc_resp_v8, channels, n_channels),
-+				 "invalid MCC v8 response size: %u (n_channels=%d)\n",
-+				 pkt_len, n_channels)) {
- 			resp_cp = ERR_PTR(-EINVAL);
- 			goto exit;
- 		}
-@@ -464,9 +475,18 @@ iwl_mvm_update_mcc(struct iwl_mvm *mvm, const char *alpha2,
- 			       IWL_UCODE_TLV_CAPA_MCC_UPDATE_11AX_SUPPORT)) {
- 		struct iwl_mcc_update_resp_v4 *mcc_resp_v4 = (void *)pkt->data;
- 
-+		if (IWL_FW_CHECK(mvm, pkt_len < sizeof(*mcc_resp_v4),
-+				 "MCC v4 response too short: %u\n", pkt_len)) {
-+			resp_cp = ERR_PTR(-EINVAL);
-+			goto exit;
-+		}
-+
- 		n_channels =  __le32_to_cpu(mcc_resp_v4->n_channels);
--		if (iwl_rx_packet_payload_len(pkt) !=
--		    struct_size(mcc_resp_v4, channels, n_channels)) {
-+		if (IWL_FW_CHECK(mvm,
-+				 pkt_len !=
-+				 struct_size(mcc_resp_v4, channels, n_channels),
-+				 "invalid MCC v4 response size: %u (n_channels=%d)\n",
-+				 pkt_len, n_channels)) {
- 			resp_cp = ERR_PTR(-EINVAL);
- 			goto exit;
- 		}
-@@ -489,9 +509,18 @@ iwl_mvm_update_mcc(struct iwl_mvm *mvm, const char *alpha2,
- 	} else {
- 		struct iwl_mcc_update_resp_v3 *mcc_resp_v3 = (void *)pkt->data;
- 
-+		if (IWL_FW_CHECK(mvm, pkt_len < sizeof(*mcc_resp_v3),
-+				 "MCC v3 response too short: %u\n", pkt_len)) {
-+			resp_cp = ERR_PTR(-EINVAL);
-+			goto exit;
-+		}
-+
- 		n_channels =  __le32_to_cpu(mcc_resp_v3->n_channels);
--		if (iwl_rx_packet_payload_len(pkt) !=
--		    struct_size(mcc_resp_v3, channels, n_channels)) {
-+		if (IWL_FW_CHECK(mvm,
-+				 pkt_len !=
-+				 struct_size(mcc_resp_v3, channels, n_channels),
-+				 "invalid MCC v3 response size: %u (n_channels=%d)\n",
-+				 pkt_len, n_channels)) {
- 			resp_cp = ERR_PTR(-EINVAL);
- 			goto exit;
- 		}
--- 
-2.53.0
+Marouane El Moufid <eun0us@espilon.net>
+    ALSA: usb-audio: fix OOB write in snd_usbmidi_novation_output()
+
+Griffin Kroah-Hartman <griffin@kroah.com>
+    usb: core: Strengthen error handling in hub_hub_status()
+
+Griffin Kroah-Hartman <griffin@kroah.com>
+    usb: core: Add lock to usb_wakeup_notification()
+
+Christian Borntraeger <borntraeger@linux.ibm.com>
+    KVM: s390: vsie: zero stale crypto bits
+
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+    crypto: qce - Remove unsafe/deprecated algorithms
+
+Thorsten Blum <thorsten.blum@linux.dev>
+    crypto: mxs-dcp - fix source scatterlist length access
+
+Md Sadre Alam <md.alam@oss.qualcomm.com>
+    crypto: qce - fix CCM AAD buffer underallocation
+
+Jan Sebastian Götte <linux@jaseg.de>
+    crypto: krb5 - use kfree_sensitive() for derived key buffers
+
+Thorsten Blum <thorsten.blum@linux.dev>
+    crypto: atmel-tdes - use scatterlist length before DMA mapping
+
+Eric Biggers <ebiggers@kernel.org>
+    crypto: qcom-rng - Allow zero as a random number
+
+Eric Biggers <ebiggers@kernel.org>
+    crypto: qcom-rng - Remove crypto_rng interface
+
+Eric Biggers <ebiggers@kernel.org>
+    crypto: qcom-rng - Enable clock in hwrng case
+
+Bryam Vargas <hexlabsecurity@proton.me>
+    crypto: virtio - bound the akcipher result length
+
+Eric Biggers <ebiggers@kernel.org>
+    kunit: irq: Continue increasing hrtimer interval for longer
+
+Eric Biggers <ebiggers@kernel.org>
+    mm/swap: reject swapon() on filesystem-level encrypted files
+
+Fourie Zhang <littleddfu@gmail.com>
+    netfilter: nf_tables: don't queue packet path object notifications
+
+Eric Biggers <ebiggers@kernel.org>
+    netfilter: nft_set_pipapo_avx2: add missing vzeroupper
+
+Kyle Zeng <kylebot@openai.com>
+    vxlan: keep the last remote linked during FDB flush
+
+Kyle Zeng <kylebot@openai.com>
+    batman-adv: reject unrepresentable multicast TVLV offsets
+
+Kyle Zeng <kylebot@openai.com>
+    ipv6: seg6: clear IPv4 control block on IPIP decapsulation
+
+Norbert Szetei <norbert@doyensec.com>
+    net: bridge: mcast: fix use-after-free of a master VLAN's multicast context
+
+Zihan Xi <zihanx@nebusec.ai>
+    xfrm: bound nat keepalive state collection
+
+Zihan Xi <zihanx@nebusec.ai>
+    xfrm: fix xfrm_state_construct() auth-trunc leak
+
+Asim Viladi Oglu Manizada <manizada@pm.me>
+    xfrm: ah6: validate routing header segments_left
+
+Zihan Xi <xizh2024@lzu.edu.cn>
+    xfrm: avoid lock inversion in nat keepalive work
+
+Zhiling Zou <roxy520tt@gmail.com>
+    xfrm: drop ESP-in-TCP packets with no ingress device
+
+Sabrina Dubroca <sd@queasysnail.net>
+    xfrm: espintcp: fix UAF during close
+
+Hyunwoo Kim <imv4bel@gmail.com>
+    net/tcp-ao: fix use-after-free of current_key on reconnect to another peer
+
+Qing Ming <a0yami@mailbox.org>
+    tcp: fix AO info use-after-free in tcp_ao_connect_init()
+
+Rastislav Szabo <rastislav.szabo@isovalent.com>
+    net/tcp: fix TCP-AO key deletion in VRFs
+
+Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
+    x86/CPU/AMD: Carve out a Zen5 models range
+
+Qing Ming <a0yami@mailbox.org>
+    gtp: serialize PDP context updates
+
+Jiayuan Chen <jiayuan.chen@linux.dev>
+    tls: device: fix out-of-bounds write in tls_append_frag()
+
+Sean Christopherson <seanjc@google.com>
+    KVM: SEV: Wire up kvm_x86_ops.gmem_xxx() if and only if CONFIG_KVM_AMD_SEV=y
+
+Sean Christopherson <seanjc@google.com>
+    KVM: SEV: Mark vCPU RUNNABLE after AP_CREATE, even if VMSA is unusable
+
+Sean Christopherson <seanjc@google.com>
+    KVM: SEV: Extract loading of guest-provided VMSA to a separate helper
+
+Sean Christopherson <seanjc@google.com>
+    KVM: SEV: Track the GPA of the guest-controlled VMSA used for SNP guests
+
+Pankaj Gupta <pankaj.gupta@amd.com>
+    KVM: SEV: Drop FOLL_WRITE for encrypted region registration
+
+Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+    usb: gadget: f_tcm: keep port count until LUN teardown completes
+
+Aleksandr Nogikh <nogikh@google.com>
+    usb: usbtest: disable dynamic ID support
+
+Baokun Li <libaokun@linux.alibaba.com>
+    fuse: fix invalidate lock leak on open O_TRUNC DAX failure
+
+Baokun Li <libaokun@linux.alibaba.com>
+    fuse: fix invalidate lock leak on setattr writeback failure
+
+Lucas De Marchi <ldemarchi@nvidia.com>
+    xhci: dbgtty: Fix unregister on tty_alloc_driver() failure
+
+Lucas De Marchi <ldemarchi@nvidia.com>
+    xhci: dbgtty: Fix unregister on tty_register_driver() failure
+
+Semih Baskan <strst.gs@gmail.com>
+    usb: xhci: Handle USB3 port events when there is one roothub
+
+Michal Pecio <michal.pecio@gmail.com>
+    usb: xhci: Handle bogus TRB pointers in Missed Service Error events
+
+Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
+    accessibility: speakup: unregister tty ldisc on later init failures
+
+Griffin Kroah-Hartman <griffin@kroah.com>
+    fpga: dfl: fme: add error handling
+
+DaeMyung Kang <charsyam@gmail.com>
+    ksmbd: harden file lifetime during session teardown
+
+Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>
+    HID: ft260: fix stack-use-after-return write in I2C read race
+
+Michael Zaidman <michael.zaidman@gmail.com>
+    HID: ft260: validate i2c input report length
+
+Jann Horn <jannh@google.com>
+    HID: asus: fix missing hid_is_usb() check
+
+Antheas Kapenekakis <lkml@antheas.dev>
+    HID: asus: simplify RGB init sequence
+
+Jose Villaseñor Montfort <pepemontfort@gmail.com>
+    HID: magicmouse: prevent unbounded recursion in magicmouse_raw_event()
+
+Jens Axboe <axboe@kernel.dk>
+    io_uring: defer eventfd signaling when queued from a wakeup handler
+
+Pavel Begunkov <asml.silence@gmail.com>
+    io_uring/rsrc: improve regbuf iov validation
+
+Caleb Sander Mateos <csander@purestorage.com>
+    io_uring: simplify IORING_SETUP_DEFER_TASKRUN && !SQPOLL check
+
+Jens Axboe <axboe@kernel.dk>
+    io_uring/futex: only mark private futex waits as inflight
+
+Aboorva Devarajan <aboorvad@linux.ibm.com>
+    powerpc/hv-gpci: fix preempt count leak in sysfs show paths
+
+Jesper Dangaard Brouer <hawk@kernel.org>
+    veth: fix OOB txq access in veth_poll() with asymmetric queue counts
+
+Stephen Smalley <stephen.smalley.work@gmail.com>
+    selinux: switch two allocations to use kzalloc_objs()
+
+Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+    ASoC: nau8821: Cancel pending work before suspend
+
+Michael Neuling <mikey@neuling.org>
+    riscv: Fix register corruption from uninitialized cregs on error
+
+Jiayuan Chen <jiayuan.chen@linux.dev>
+    bpf: Fix use-after-free in offloaded map/prog info fill
+
+Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+    ASoC: nau8821: Cancel delayed work on component remove
+
+Bryam Vargas <hexlabsecurity@proton.me>
+    selinux: require a class's permission values to cover its permission count
+
+Bryam Vargas <hexlabsecurity@proton.me>
+    selinux: reject a permission value exceeding the class permission count
+
+Christian Göttsche <cgzones@googlemail.com>
+    selinux: more strict policy parsing
+
+Christian Göttsche <cgzones@googlemail.com>
+    selinux: use u16 for security classes
+
+Wentao Guan <guanwentao@uniontech.com>
+    Revert "selinux: reject a permission value exceeding the class permission count"
+
+Dmitry Bogdanov <d.bogdanov@yadro.com>
+    nvme-tcp: fix usage of page_frag_cache
+
+Jinu Kim <kimjw04271234@gmail.com>
+    KVM: x86/mmu: Check write tracking in all address spaces
+
+Jia Yao <jia.yao@intel.com>
+    drm/xe/guc_ads: use uncached mapping for UM queue BO
+
+Jia Yao <jia.yao@intel.com>
+    drm/xe/guc_ads: allocate UM queues in VRAM on dGFX
+
+Jia Yao <jia.yao@intel.com>
+    drm/xe/guc_ads: allocate UM queues in a separate BO
+
+Peiyang He <peiyang_he@smail.nju.edu.cn>
+    RDMA/rxe: Fix OOB in free_rd_atomic_resources()
+
+Ibrahim Hashimov <security@auditcode.ai>
+    RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp
+
+
+-------------
+
+Diffstat:
+
+ Documentation/filesystems/fscrypt.rst              |   4 +
+ Makefile                                           |   4 +-
+ arch/powerpc/perf/hv-gpci.c                        |  24 +-
+ arch/riscv/kernel/compat_signal.c                  |   2 +
+ arch/riscv/kernel/ptrace.c                         |   4 +-
+ arch/s390/kvm/vsie.c                               |   1 +
+ arch/x86/kernel/cpu/amd.c                          |   1 +
+ arch/x86/kvm/mmu/page_track.c                      |  32 ++-
+ arch/x86/kvm/svm/sev.c                             |  76 +++---
+ arch/x86/kvm/svm/svm.c                             |   8 +-
+ arch/x86/kvm/svm/svm.h                             |  13 +-
+ crypto/krb5/krb5_api.c                             |   8 +-
+ drivers/accessibility/speakup/main.c               |   1 +
+ drivers/crypto/Kconfig                             |   1 -
+ drivers/crypto/atmel-tdes.c                        |   5 +-
+ drivers/crypto/mxs-dcp.c                           |   2 +-
+ drivers/crypto/qce/aead.c                          |  58 +----
+ drivers/crypto/qce/common.c                        |  55 +----
+ drivers/crypto/qce/common.h                        |  16 +-
+ drivers/crypto/qce/regs-v5.h                       |   4 -
+ drivers/crypto/qce/sha.c                           |  30 +--
+ drivers/crypto/qce/sha.h                           |   1 -
+ drivers/crypto/qce/skcipher.c                      |  97 +-------
+ drivers/crypto/qcom-rng.c                          | 156 ++-----------
+ .../crypto/virtio/virtio_crypto_akcipher_algs.c    |   3 +-
+ drivers/fpga/dfl-fme-perf.c                        |   2 +
+ drivers/gpu/drm/xe/xe_bo.h                         |  14 ++
+ drivers/gpu/drm/xe/xe_guc_ads.c                    |  92 +++++---
+ drivers/gpu/drm/xe/xe_guc_ads_types.h              |   5 +
+ drivers/hid/hid-asus.c                             |  52 ++---
+ drivers/hid/hid-ft260.c                            |  41 +++-
+ drivers/hid/hid-magicmouse.c                       |  25 +-
+ drivers/infiniband/sw/rxe/rxe_qp.c                 |  18 +-
+ drivers/net/gtp.c                                  |  21 +-
+ drivers/net/veth.c                                 |   3 +-
+ drivers/net/vxlan/vxlan_core.c                     |  11 +-
+ drivers/net/wireless/mediatek/mt76/mt7925/mac.c    |   4 +
+ drivers/nvme/host/tcp.c                            |   8 +
+ drivers/target/target_core_fabric_configfs.c       |   8 +
+ drivers/usb/c67x00/c67x00-sched.c                  |   4 +-
+ drivers/usb/core/devio.c                           |   2 +-
+ drivers/usb/core/hub.c                             |   7 +-
+ drivers/usb/gadget/function/f_tcm.c                |   2 +-
+ drivers/usb/host/xhci-dbgtty.c                     |  15 +-
+ drivers/usb/host/xhci-ring.c                       |  20 +-
+ drivers/usb/misc/usbtest.c                         |   1 +
+ drivers/usb/serial/option.c                        |  20 +-
+ drivers/usb/serial/spcp8x5.c                       |  13 --
+ fs/fuse/dir.c                                      |   9 +-
+ fs/fuse/file.c                                     |   4 +-
+ fs/smb/server/smb2pdu.c                            |   6 +-
+ fs/smb/server/vfs_cache.c                          | 179 +++++++++++++--
+ fs/smb/server/vfs_cache.h                          |   4 +-
+ include/kunit/run-in-irq-context.h                 |  10 +-
+ include/linux/io_uring_types.h                     |   8 +
+ include/linux/skbuff.h                             |  24 ++
+ include/target/target_core_fabric.h                |   2 +
+ io_uring/eventfd.c                                 |   8 +-
+ io_uring/eventfd.h                                 |   2 +-
+ io_uring/futex.c                                   |  21 +-
+ io_uring/io_uring.c                                |   7 +-
+ io_uring/poll.c                                    |  23 +-
+ io_uring/rsrc.c                                    |  31 +--
+ io_uring/waitid.c                                  |   2 +-
+ kernel/bpf/offload.c                               |  10 +-
+ mm/swapfile.c                                      |   7 +
+ net/batman-adv/tvlv.c                              |   5 +-
+ net/bridge/br_multicast.c                          |   4 +-
+ net/ipv4/tcp_ao.c                                  |  19 +-
+ net/ipv6/ah6.c                                     |  29 ++-
+ net/ipv6/seg6_local.c                              |   7 +
+ net/netfilter/nf_tables_api.c                      |  36 +--
+ net/netfilter/nft_set_pipapo_avx2.c                |  17 +-
+ net/tls/tls_device.c                               |   3 +-
+ net/xfrm/espintcp.c                                |   9 +-
+ net/xfrm/xfrm_nat_keepalive.c                      |  53 ++++-
+ net/xfrm/xfrm_user.c                               |   2 +-
+ security/selinux/include/security.h                |   1 +
+ security/selinux/ss/avtab.c                        |  35 ++-
+ security/selinux/ss/avtab.h                        |  13 ++
+ security/selinux/ss/conditional.c                  |  25 +-
+ security/selinux/ss/constraint.h                   |   1 +
+ security/selinux/ss/policydb.c                     | 254 +++++++++++++++++----
+ security/selinux/ss/policydb.h                     |  31 ++-
+ security/selinux/ss/services.c                     |   8 +-
+ sound/soc/codecs/nau8821.c                         |  13 ++
+ sound/usb/card.c                                   |  14 +-
+ sound/usb/midi.c                                   |   2 +
+ 88 files changed, 1156 insertions(+), 776 deletions(-)
+
 
