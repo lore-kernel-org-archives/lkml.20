@@ -1,134 +1,72 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521193C3F5B;
-	Mon, 31 Aug 2026 07:23:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09832346FA0
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:24:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788160981; cv=none; b=Bi2O+8L/1c39gd/UtoVb25ipp1rekZmZsKaTkI+DZNFOtb44E5R+69H2xFRLkIgfWtbA0guzKTqNU6kpAlDRFmspzzvHx0kVZFU8xE8RbYTBf6Jgtq1IWldC4+YOitjK6Y6zs28eawdQjBPQlqjJaWLYGVRJNMStC9jLqAPJq+A=
+	t=1788161044; cv=none; b=TaBv623SNTx3loXi8IST0jzQEPMl1xET7x4QZqvYJD+eLguBvlFRgeWXGqtH/3OfFci0fixMcVrIP5iu8dC2U6dR1VV4QIe6dn9YGMOI7z4UFH5EZSkUXYMqw+dvRAeI5e5tcX0Av2OEuXJrS7kNbNEirlXMQogjOpH7wrSggJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788160981; c=relaxed/simple;
-	bh=SP8uKDhSqFzjoxUA4LVWk+SQL0x7ZDHcGG98kPcrOFg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LgvN7gxFqwMxjr4pfBKtEpv91puf8EXX+fxE+Ao3y5QsNu0ZJnnuCtbp9WksVXj72/UqkSkeNONt872cXnAsKjpWvFuDf96zExqPfE49qdHaOhdKm1Xl4jjQfhL/cTusyQjqNB1fUI1vLct71Ncq22ysqs6DRu2Xda3Nr++2mdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M2qP1Ck0; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M2qP1Ck0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788160981; x=1819696981;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=SP8uKDhSqFzjoxUA4LVWk+SQL0x7ZDHcGG98kPcrOFg=;
-  b=M2qP1Ck0oIaGHOYoXLEP/5as+pSDGs4n/AYXPHcYyWzpgAf0Py4DSd8N
-   Pjrl7M+Ud++W6zzs7KUP/SXHvx1bqS8Ls80VfMuAxYhfILpb5EkqEwHdh
-   rionNH5sxFzT/4FhZ2svkjmqNI+WbaKWgHnKFUHTEdGjKofDpZvTs1P5k
-   oYQbIHwH815GpkOOg7ZAsGlMXJext3Pvc0Ny/lEImpukoft3k+IGas24x
-   1DZuFGnEAuYnjI/QfkWjeCmwPSInjQQVYOA2qL9utRc+IWWY4p1Ql6/+k
-   EjHbtrfOLlAmq5J1q5PyvMUcRWHbT3x/D2D+j3KbtTYFguV6Y5HpJrDuI
-   A==;
-X-CSE-ConnectionGUID: qXjpE+yZR1amk89Ne1sV+g==
-X-CSE-MsgGUID: Ydm6nf+4TqOfrbanK2Ek/Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="114097203"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="114097203"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:23:00 -0700
-X-CSE-ConnectionGUID: fXdhKB+5RbuaN7lqU1bYXQ==
-X-CSE-MsgGUID: pL2Nq5nQS0WeSfO8yp0AIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="306964250"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:22:58 -0700
-Date: Mon, 31 Aug 2026 10:22:55 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Peter Rosin <peda@lysator.liu.se>
-Cc: Ahmad Byagowi <ahmadexp@gmail.com>, Andy Shevchenko <andy@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 3/3] i2c: mux: Propagate software nodes to channel
- adapters
-Message-ID: <apUrz0iqOL5iEQuy@ashevche-desk.local>
-References: <cover.1787502619.git.ahmadexp@gmail.com>
- <a4abcd31c3a6758e219f5edcdd4acd307e674f18.1787502619.git.ahmadexp@gmail.com>
- <ao0tPhBvK1Er_Vs0@gryt>
- <CAOQiBWNVvHpO7X8yWyZEa3-nV76YJfRbkzo+_4U-upEj4VNfow@mail.gmail.com>
- <ao_VE0W-FohWqPPt@ashevche-desk.local>
- <apO31ydKoiqWCEKo@gryt>
+	s=arc-20240116; t=1788161044; c=relaxed/simple;
+	bh=G2U+dpDhdyjhEF89ujP4g8nUUr6JGFjbMk4f99GYFsU=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=IfLzsyH5gedz0MXEFK5pZOL9cb24wJRVbpAFi7fzDZo4EXv2FcNGVV4MmMTkCaBb8gBy93NJld6eW/Fu3qU/pneQDoGGZ6GelN/uBfFAjzMUi7bAgujacG2Sw0U7Cx94b5+aqxGwXt8Xu4iZFRC1AjWNJ1+5yYOFPZZ2D6s0YrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b2f2b8d88fso5972106b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:24:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788161042; x=1788765842;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=h8qoGsuawWLrFjlzcIsepzotGVqYYnfivDwWIXWf/Zg=;
+        b=Lu0TZWBQpTn42P2lLNTLA4ro0DrOQyUMX+7W53QLuZA89bRVRqZkPe9795QzDsofBH
+         O4jysfzWRES51nAr9lRN9NmSuKxYuAMPh7h9lusgVBCwcEwi11w48AzGLsKQ5/vZ/YOY
+         Wj2ZcHYRiCT9oDQcJVf9msss8FADxaoQ9AneRuL3bTrF5FFFL1T92NkIrmHGtqH8PZRP
+         rrNX4kWb93j88FaFJFloVbbMkoUwy+qJyjTrgU0cqj/YNkZ7BIKdqukGDuLw23J8Sd/h
+         XF2i7krRSusDuaQCN/mc4ZVY7GK+LWqmpjlgvcIii9/Ny831JKLwJlZ5gDIQQSCvedJN
+         GbGw==
+X-Gm-Message-State: AFuF++nrqoLFEeFByC28QRNeRlw9KvS8eG4679GoO+DFhYkT+736mFO5
+	YhzPrNPGZpH4UbCQFNat0UIX3GQfAj1TVOGOV1SqJdqvJBHj/Z/SPcZkk2Rh9OO+pbBP43GAQl8
+	Pr43GyBH1BDFCNqDadLaM5oUFUl7fNoH2EN/MiE5pLGDVdV2jFZBciTVCg/o=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <apO31ydKoiqWCEKo@gryt>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-Received: by 2002:a05:6808:1794:b0:495:fb79:7712 with SMTP id
+ 5614622812f47-4b5b0fdacfcmr1088492b6e.0.1788161042005; Mon, 31 Aug 2026
+ 00:24:02 -0700 (PDT)
+Date: Mon, 31 Aug 2026 00:24:01 -0700
+In-Reply-To: <b51511ac-8334-4898-a586-a5e3c5d7f69en@googlegroups.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a952c11.4d659fcc.734b4.0045.GAE@google.com>
+Subject: Re: [syzbot] [cgroups?] INFO: task hung in cgroup_subtree_control_write
+ (2)
+From: syzbot <syzbot+bb2e19a1190a556c01b1@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	tao1.yu@intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Aug 30, 2026 at 06:55:51AM +0200, Peter Rosin wrote:
-> Den Thu, Aug 27, 2026 at 09:11:31AM +0300, skrev Andy Shevchenko:
-> > On Wed, Aug 26, 2026 at 08:29:47AM -0700, Ahmad Byagowi wrote:
+Hello,
 
-> > > Yes, software-node handling is needed for the ptp_ocp use case.
-> > 
-> > That driver is a mess. I'm surprised nobody told to the authors of
-> > the respective changes to look at the auxiliary implementation.
-> > 
-> > > ptp_ocp is a PCI driver. It creates its board-specific I2C topology at
-> > > runtime with software nodes: the mux, its channel nodes, sensors, and LED
-> > > controller. Firmware does not provide ACPI nodes for this topology.
-> > > 
-> > > The existing acpi_preset_companion() path only associates a mux adapter
-> > > with an existing ACPI child. It does not associate the adapter with one of
-> > > these dynamically created software-node channel nodes. Without that
-> > > association, i2c_get_adapter_by_fwnode() cannot find the channel adapter by
-> > > the channel software node, so ptp_ocp cannot instantiate the downstream I2C
-> > > devices on the correct channel.
-> > > 
-> > > Does this address the concern, or would you prefer a different way to
-> > > represent this dynamically created topology?
-> > 
-> > Wouldn't it be possible to use some kind of DT overlay to have that?
-> 
-> For me, the above is a bit unrelated to this patch series, which is
-> about converting i2c-mux from of-only properties to device properties.
-> That seems like a change that stands on its own.
-> 
-> I probably wasn't clear enough with my original question, but what I
-> wondered about was what regression risk that conversion might have
-> for the ACPI case. Specifically, there might be ACPI properties that
-> match what the code is now looking for. It seems unlikely that such
-> properties are actually deployed, but I know next to nothing about
-> ACPI...
-> 
-> TL;DR
-> 
-> My original question should have been: Is it safe to simply remove
-> these lines from the patch:
-> > +	if (!is_of_node(dev_node) && !is_software_node(dev_node))
-> > +		return NULL;
-> and let the code trawl all kinds of device properties?
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Technically it's safe. Administratively, it might be some "creative" ACPI
-firmware author (who presumably hasn't seen anything than OF in their life
-before) may assume that it's fine to use OF approach (while ACPI has even
-documented "binding" for I²C muxes). So my answer "yes and no" :-) It all
-depends on the human factor. If we trust people enough to read documentation
-and follow, we are fine without these lines.
+Reported-by: syzbot+bb2e19a1190a556c01b1@syzkaller.appspotmail.com
+Tested-by: syzbot+bb2e19a1190a556c01b1@syzkaller.appspotmail.com
 
-> Sorry for the confusion...
+Tested on:
 
-NP, I'm glad to help with ACPI.
+commit:         0e09c068 cgroup: don't block subtree_control writes on..
+git tree:       https://github.com/yutao-intel/linux.git fix-linux-next-cgroups
+console output: https://syzkaller.appspot.com/x/log.txt?x=16f4d379580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=31bc85a68b5b5754
+dashboard link: https://syzkaller.appspot.com/bug?extid=bb2e19a1190a556c01b1
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Note: no patches were applied.
+Note: testing is done by a robot and is best-effort only.
