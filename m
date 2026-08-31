@@ -1,97 +1,100 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C8E39B972;
-	Mon, 31 Aug 2026 09:11:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C023B9DB6
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:12:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788167513; cv=none; b=t5SXwScYHj+tfBOCTtoKc56nLI2HKvVpIOQ9vLxR26hNjLb5KEMXRTkR4B8y4Tqv0sMSEJHjekQAOLsBXOjfvJIXJquarLr1krfaT/VuwlCOFFQFj3Az43ZAyiNrTaoRRxwUY7rwnQ+73uUqlMjBz7IJinNEGoTtX/xIqnDsdbs=
+	t=1788167532; cv=none; b=aEQPIOuN7LpLMXe/lQFu2nHk7Kge1+3N97p91+uq9A0ymTWjdSr0zL5PMdZSJQzPMZfij3iFM+GmJltwF1JxoBOhp/XWOd6Ek01GASWaJbFcxhYKxlbPH3GTHMFvqExVGiosEDfMCRUoIo6GSoBI5ErMeseSa4YdNcVw2bW9IEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788167513; c=relaxed/simple;
-	bh=8cBgtHL/rCZyAM6c4HMYcXqzfxPCRFkBY7TBfv1f9vE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bCwkxDnTRqdjuT7S88cUR6I+PtjBZPlgYgpCgPe9a4WxoAQReIwejzILSf8oFdpTsKGnGuWtZUpqFuWEZsWGBYDIXPN+xI/t0zofvX4+MGkH9Sxkq6sIpq5grd5E9LgMF/FH8gPFLG4DgJr2M/TO6YDhSyiHypT0ZYNZwQq/fso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=c3ASnrYo; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="c3ASnrYo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788167511; x=1819703511;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=8cBgtHL/rCZyAM6c4HMYcXqzfxPCRFkBY7TBfv1f9vE=;
-  b=c3ASnrYo51gAl7jTNotebtuecbDReYPG4Ftgpb2/GXILf5McBbjiUaqP
-   gd8mdV4POPIHJW91gqf8A4MBSqli49XgBbBEse9LUM81RpoSH77DKkBRh
-   Oz2CO/5s5x/yctwo7tYxeq4VM4Ysh+2Ro5/vC9ctui/YQo+wn1KZhPm3a
-   lWILSs5LRCTmM2NX0B/EJzKkFDHnu72LBUq9inOlm5UgD/JBEc4hl1szj
-   KuyPTh0WJDwRRN7a7roncU28T1l5xXNMMF6JP5+GhMltQrHvADBYtUSlG
-   D0mUK7VvJES6v4p+LzU4VXvPH8D/nZrYmmU5s4qdEcOipeADxO5z+o6Lk
-   Q==;
-X-CSE-ConnectionGUID: 2ESUJqWyTR2EeJNBtQ5OEg==
-X-CSE-MsgGUID: aU5/Td5ERiGVnKGDKGFAHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="91082692"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="91082692"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:11:51 -0700
-X-CSE-ConnectionGUID: M13EvuugTnuMyCuwkJwGYg==
-X-CSE-MsgGUID: fhVNOEncSh+krxAY2u9cdw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="265027104"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:11:48 -0700
-Date: Mon, 31 Aug 2026 12:11:46 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Linus Walleij <linusw@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/6] platform/x86: x86-android-tablets: fix Arizona and
- Crystal Cove GPIO lookups
-Message-ID: <apVFUoSmLmj51zJh@ashevche-desk.local>
-References: <20260830-x86-android-lenovo-swnode-v1-0-066a91acb4ba@gmail.com>
+	s=arc-20240116; t=1788167532; c=relaxed/simple;
+	bh=5OhO7H5wy/8gR1JroAGflKbDlfbgFnL6qS3SY0hElg4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EXyjyro+gHZ0ZlNddCcT0fiDzYuUPNyVy1xW0I1KClc/IVsSeEnX4WV/CjjOM0gJ2Vnp4Z9oGAvzfQIZ7ATT/lGJYdj1oxKevBmh5v2Kl8cuFV5hfgzGnhbs/KTVlttPeTV+AJpOspEzn9nlHE0oGcMXPFwqdamG0ZB+I8aZ2eA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2d8fcda61c8so6959675ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:12:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788167529; x=1788772329;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2MVWbIG+FPtZ3MOvl/1hLGDkOqyRLPEPkcfNhS/eoCo=;
+        b=PP+p+0NUw2jzkCBF6WbIW4p2+kXqlQVGbrgXtzWJUNjPesiWd7cxn/H4UNYdKvZMtr
+         WlZJurd5T3o2Ts1MOXGNov1nE2Cwt5LQKs6aBbAFbBr5knf73r6MnJvon114lwc3BTYM
+         cgkZ1VJmfBS1H0pUbhyJAxcoDeo5AnS2agU1QObdFIdkSwU69suiju6oVStXxqt/acO4
+         7WAnzo0uetF9P+p2YEh39PcpB6RZu3jad8WGfiaLBZp9lg7SIJK9U7uusq96yekFF0gu
+         cX+9y86TANfI/DuT0ZMbL3hYlqgJrg5kdyQKa/uwUKOQBgr6pWlpNh1RJ3Ce/rFm0+34
+         Do8w==
+X-Forwarded-Encrypted: i=1; AKwUvBwGMNue201xK+bJF2fKEASFKPEfyBb4tTUB0bvJXkWr+phrHz8PJBIsp0WLp0Or6w73WiPywEom52iE9KA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9veCKC/ed0dfZUp5QFO4bc7l6b+9eR773eGUea61jgoddtGDf
+	qW0DifDqm0lyPDcJoU9l+9w5RjcDsr+eJNYMmPR2f5/nzEkJYxe/I6y9
+X-Gm-Gg: AYBFou2s4W9q7/DAa4QMVW4MqsQPV939J3gbbDCpAokD8D3Z7UXKCobu47gsYjwaQpP
+	PL5CPQ/Xd/n4HeDbcJ7r7Kq0FHk70i7PxleWf+o8kecSV0WFkJPJvGUzVeKbwI5gPHRRuJRYqN4
+	qUMjHOzNqITytBKFHMCxQrtgwk6EyTnQ2wwBNPt6QodxVVVGAzq2l8ybPrGt1+FhUht0Ka9zBeB
+	1dM5bNTYNRNnUtt4SS7AGhJ5zolixrE17DsRmi41E7cHY6SUzsikf9SW8nrEwzzxRbrNx7c6SRE
+	e9mKs/eRLr0rhnn7/a/7YRl+GYhDzZBPiVnEXFTI+RRjB5gOzlBwELxNkkff/M7M9osF/ORonFg
+	JPRndDmmKoc3hnRopFxUCLuKRWcCSXxn1j7FOwbzGdRrWrHBsfj1njQIBP0p44f5NNyE8isG5MB
+	J9BcaJOeY1Ebcv8Yji/AzGK9RLBZEPEKNsYPy+aptwS9baBAxyBpxxnY3MBgVd6hcM88v+9htMv
+	oW6w+DzUw==
+X-Received: by 2002:a17:90b:3c8f:b0:398:dc16:3c29 with SMTP id 98e67ed59e1d1-398dc16407dmr10064170a91.7.1788167529083;
+        Mon, 31 Aug 2026 02:12:09 -0700 (PDT)
+Received: from kylin-XiaoXinPro-16-AHP9.. ([116.128.244.169])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75952ea3dsm31587995ad.24.2026.08.31.02.12.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 02:12:08 -0700 (PDT)
+From: Xueqin Luo <luoxueqin@kylinos.cn>
+To: patrice.chotard@foss.st.com,
+	rafael@kernel.org,
+	viresh.kumar@linaro.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xueqin Luo <luoxueqin@kylinos.cn>
+Subject: [PATCH] cpufreq: sti: avoid NULL dereference in dev_err()
+Date: Mon, 31 Aug 2026 17:11:59 +0800
+Message-ID: <20260831091159.3906287-1-luoxueqin@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830-x86-android-lenovo-swnode-v1-0-066a91acb4ba@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 30, 2026 at 04:15:04AM -0700, Dmitry Torokhov wrote:
-> When gpiolib dropped name-against-label matching in favor of firmware node
-> identity mapping, lookups referencing unattached software nodes (such as
-> arizona and gpio_crystalcove in x86-android-tablets) stopped working.
-> 
-> This series fixes the lookups and cleans up redundant software node
-> registrations on Lenovo tablets:
-> - Point Arizona GPIO property entries directly to the codec device software
->   node, which is attached to the parent device.
-> - Hold a device reference in gpio_secondary_fwnode_init() to ensure safety
->   during devres action teardown.
-> - Generalize gpio_secondary_fwnode_init() to accept a node group argument
->   and use it to attach crystalcove_gpiochip_node as a secondary firmware
->   node to INT33FD:00 on Lenovo Yoga Tab 2 models.
-> - Drop redundant swnode group registrations on Lenovo Yoga Tab 3 and
->   Yoga Tab 2 models where codec software nodes are already registered when
->   attached to their respective devices.
+ddata.cpu is NULL-checked, then immediately passed to dev_err().
+Replace with pr_err() to avoid dereferencing NULL.
 
-Nice series, thanks!
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Fixes: ab0ea257fc58 ("cpufreq: st: Provide runtime initialised driver for ST's platforms")
+Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
+---
+ drivers/cpufreq/sti-cpufreq.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/cpufreq/sti-cpufreq.c b/drivers/cpufreq/sti-cpufreq.c
+index b15b3142b5fe..144ac0f1d85d 100644
+--- a/drivers/cpufreq/sti-cpufreq.c
++++ b/drivers/cpufreq/sti-cpufreq.c
+@@ -263,7 +263,7 @@ static int __init sti_cpufreq_init(void)
+ 
+ 	ddata.cpu = get_cpu_device(0);
+ 	if (!ddata.cpu) {
+-		dev_err(ddata.cpu, "Failed to get device for CPU0\n");
++		pr_err("Failed to get device for CPU0\n");
+ 		goto skip_voltage_scaling;
+ 	}
+ 
+@@ -281,7 +281,7 @@ static int __init sti_cpufreq_init(void)
+ 		goto register_cpufreq_dt;
+ 
+ skip_voltage_scaling:
+-	dev_err(ddata.cpu, "Not doing voltage scaling\n");
++	pr_err("Not doing voltage scaling\n");
+ 
+ register_cpufreq_dt:
+ 	platform_device_register_simple("cpufreq-dt", -1, NULL, 0);
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
