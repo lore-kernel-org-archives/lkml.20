@@ -1,139 +1,117 @@
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0210E41BA82
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6687E2989B5;
+	Mon, 31 Aug 2026 13:29:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788182887; cv=none; b=PKP4UJhlZxkj51RmE8i86Ga53a8K03zXw4FDEsymdlWQO+ngSjBO0b/Le9Q9xkwly1yu47vu0BRUv+LU/bJC+wNktpH0Gn7bgu7uW4obYK0BcIuJdehFalJaqg8U9SlBfLjfJ8/ksRZ7PJ+oKxJDvt0S6hEX7aLN8E72BgT+OXs=
+	t=1788182975; cv=none; b=KZofP+mX520LOocldtPVPyy8NFbUuu4dBRrKY6v35JJA4/0eFEa2tJn4Y+hyCyaDSqQsM5vxgowSIzn/7NQFKpwu3Gd/h+XHSsy/uoHFavxcQCLJ9grHM4bhb1J8BCSOAz9BEonhBiHqx7jllVy5tlGuxCa30H95Kyd0jYM2pIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788182887; c=relaxed/simple;
-	bh=/bLvlYLVzYKa8dr8mwlM3algYzuLPgYV2ydoxEptCkg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pb23AK6oy0QpjFQyWDro4cy8bECDm656ZiaLpI/BveSpSsW/PvwzeMViAb/tKwwG9Ot3Vj8sV9h6j4nQAKJIE+sHa0IzvdTeIiz38+UxWL9G1VRdn2rQxtPB0hNTGQlDcikj9C2p/MfJP2ByVX/vgbYiyhMbNwBEbPDTJ0KBiCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=fnVMgMaK; arc=none smtp.client-ip=109.224.244.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1788182975; c=relaxed/simple;
+	bh=RMY8kasRUAlCZRti/5kb5I+qo8xk+7XDnMoOMN97pKA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F40fFu1KgeUu4vLYI5isAV8P5nGjjGD4lnvZgxQwyGYmUpKPZQGFtIi1REhBbeQnPjeGifyV3n/Th5vR6un80Mdj6s6ucVU8vZBuSW4LsA83XhAxqRMlOYNSMLxXXojfMvA7yCxuKKqO0icMmB5rhIn9byUcLt8y810lV0Rqlvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X6Rzu2vc; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="fnVMgMaK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1788182880; x=1788442080;
-	bh=m3XXQ4PRUOBQ1QkgQNZUZzV0arhK7ELWxV2Q/hoH5jg=;
-	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=fnVMgMaKKw0QIlHGu+8gNdEuC5SE2HnEZX85CzzKdr/p5KPFh3Mtue2F63kV6wEWh
-	 wvpn8FSV0y3oV1Mmn0pi06bWIdDCKHChKRxG0uS8niz2gdq5AvU4N2PfrN+pAtQ6iF
-	 p5ZeDKjmN23cG4u38wEvvIPZp7ofa7ZLFj8VTVidASaRtc20WK4Zo5eQHpuJShczg7
-	 qCwho7bgSn8qA612IM1ty7njp2aVaGhG47A4d1WmQXcn6CL77z3Sqj1XN8V/nnayc/
-	 L96Jw99p5ON0tBHoTCnsiUVIbPBKOrdItMji4t+3KEyVaOyl7dBnmWimpyM00qaZNR
-	 Hr5FeUmJqFKHg==
-X-Pm-Submission-Id: 4hYVDB3fC5z2Schm
-From: Esben Haabendal <esben@geanix.com>
-Subject: [PATCH v4 0/4] drm/bridge: nwl-dsi: Various fixes
-Date: Mon, 31 Aug 2026 15:27:42 +0200
-Message-Id: <20260831-nwl-dsi-fixes-v4-0-6a2a1cb23910@geanix.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X6Rzu2vc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788182973; x=1819718973;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RMY8kasRUAlCZRti/5kb5I+qo8xk+7XDnMoOMN97pKA=;
+  b=X6Rzu2vctpGLH5B8onBBduoKsMAX5MRedtayWMxRzIY35ddsg2YmXlio
+   LMRiFx0KjCGyiuCZ8a3oJcTymiieD//wQIEYqeiK9/Q18vguQ4BQgvuwQ
+   7kwRim+B9WYgiwCPwWD0aAcWaX2ua4Z3IsAyaWfq97GD+RbJwkaNu7juD
+   lwdbncu1j4O7dCLU4z6xpuWtJ1HZzYbbUA3gi9W27Zr8WQ6Ljqy1quLH7
+   W2jOjuUUYFYBED3tWowoF5EOnz6gK/lbudAcJx1Wn/r217NBFO6C8anxu
+   KsTTTqY3Z7ZL/pu+qRj76HKf8R7K1C83raGX5JfBQ3klnSwoNO2k0A8Aq
+   Q==;
+X-CSE-ConnectionGUID: t4dE0wsgSJqvVtvSr9ivIQ==
+X-CSE-MsgGUID: j/xSQZJZS3iOuHKG4lnEow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88518026"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="88518026"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:29:32 -0700
+X-CSE-ConnectionGUID: uJ28TDVuRrmGJHeiuGNSsA==
+X-CSE-MsgGUID: xzafnzCWShOI2cPn3TZdiw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="266999069"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:29:29 -0700
+Date: Mon, 31 Aug 2026 16:29:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: mauriziocasciano7@gmail.com
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe Kleine-Koenig <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 05/15] media: ov8858: Add INT3477 ACPI ID
+Message-ID: <apWBt07FXlDhu5-g@ashevche-desk.local>
+References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+ <fb26c4cb3dae5d87ee877dd558d6ea5e0b3926fd.1787933456.git.mauriziocasciano7@gmail.com>
+ <apVMALyPsJSsB5BR@ashevche-desk.local>
+ <CAO7O_xja+1XutiXhXUZ8k6+cF=P33htUVjxKZ1ELWR1brb4knQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNzRKCIBQF4FdxWEcDqIiteo+mBcJVaQobMbJxf
- PfAFv04Lc/c8507IQe9AYd2yYR68MaZzoaQbRKkWmkbwEaHjBhhnBSUYHs/Y+0Mrs0IDiuaiYp
- IXXGRo2CuPSyHQA7HV3a36gRqiCOx0Ro3dP1jeehp7P3b9hQTXLJCl1RIwaXeNyCtGbequ6A47
- tmbC5L+chY4FaSURKosT+sVTz/4+nsaOMu5lqXmBQP6xed5fgIev5cJOwEAAA==
-X-Change-ID: 20260710-nwl-dsi-fixes-c148b0adb685
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
- Sam Ravnborg <sam@ravnborg.org>
-Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- "Oliver F. Brown" <oliver.brown@oss.nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788182874; l=2866;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=/bLvlYLVzYKa8dr8mwlM3algYzuLPgYV2ydoxEptCkg=;
- b=FFTQkGGFUYAoRidnkDgVA7gUqZ7Hp2uc6so4Wj9R5GUhcoTkrHOwEZtKgc6e3P/jPrFxoVqnj
- j8p4mwbGDEfBcq8MOs5cuHzz9TdL24OiwZ/KEwEKYDpGaft1mApWOzU
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAO7O_xja+1XutiXhXUZ8k6+cF=P33htUVjxKZ1ELWR1brb4knQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-This series brings a few patches fixing horizontal sync timing, EOTP packet
-behavior and hsync/vsync polarity selection when using DCSS endpoint, as
-well as a small fix to properly handle if/when nwl_dsi_mode_set() fails.
+On Mon, Aug 31, 2026 at 01:12:41PM +0000, mauriziocasciano7@gmail.com wrote:
+> Hi Andy, Sakari,
+> 
+> Thank you. The use of ACPI_PTR() in v4 was intentional and followed
+> Sakari's explicit request in the v2 review:
+> 
+>   "Please use ACPI_PTR() for this one."
+> 
+> That review also referred to:
+> 
+>   https://lore.kernel.org/linux-media/20260828084328.257703-1-sakari.ailus@linux.intel.com/T/#t
+> 
+> Andy subsequently noted that the last patch in that related series was
+> controversial and had been NAKed. I should have called out this conflict
+> explicitly when sending v4 instead of leaving the rationale undocumented.
+> 
+> For v5 I have retained ACPI_PTR() for now. Removing it unilaterally would
+> discard an explicit media-maintainer request, while keeping it without
+> clarification would ignore Andy's objection and would not earn his review
+> tag.
+> 
+> Could you please confirm which form you want for v5 while the related
+> ACPI_PTR() work is unresolved?
+> 
+>   .acpi_match_table = ACPI_PTR(ov8858_acpi_match),
+> 
+> or:
+> 
+>   .acpi_match_table = ov8858_acpi_match,
+> 
+> I will use the agreed form and will not send v5 until this point is
+> settled.
 
-The 3rd commit ("Correct auto-insert EOTP behavior") is taken directly from
-NXP vendor tree, so I have kept Author unchanged, although I have modified
-the commit message. Let me know if I should change Author for that.
+Sakari is media maintainer, do how he says.
 
-Signed-off-by: Esben Haabendal <esben@geanix.com>
----
-Changes in v4:
-- Change calculation of hfp/hbp/hsa to use the raw clock rates directly to
-  eliminate intermediate rounding errors.
-- Drop patch 4 (will be included in follow-up patch series, together with
-  a patch addressing the unblanced resource teardown and PM runtime
-  underflow problems in the error path).
-- Link to v3: https://patch.msgid.link/20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Changes in v3:
-- Added Fixes and Cc: stable tags.
-- Split patch 1 into two, with change of endpoint mux control in a separate
-  patch.
-- Fixed mux_control_try_select() state argument.
-- Link to v2: https://patch.msgid.link/20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com
-
-Changes in v2:
-- Added safeguard against small horizontal sync timings, protecting against
-  division by zero and integer underflow.
-- Added error handling of nwl_dsi_mode_set() call.
-- Link to v1: https://patch.msgid.link/20260710-nwl-dsi-fixes-v1-0-927d918a86ad@geanix.com
-
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Robert Foss <rfoss@kernel.org>
-To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-To: Jonas Karlman <jonas@kwiboo.se>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Guido Günther <agx@sigxcpu.org>
-To: Fabio Estevam <festevam@gmail.com>
-To: Robert Chiras <robert.chiras@nxp.com>
-To: Sam Ravnborg <sam@ravnborg.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Esben Haabendal (3):
-      drm/bridge: nwl-dsi: Cleanup endpoint mux control selection
-      drm/bridge: nwl-dsi: Limit LCDIF specific sync override
-      drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing
-
-Robert Chiras (1):
-      drm/bridge: nwl-dsi: Correct auto-insert EOTP behavior
-
- drivers/gpu/drm/bridge/nwl-dsi.c | 87 ++++++++++++++++++++++++++++++++++------
- 1 file changed, 74 insertions(+), 13 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260710-nwl-dsi-fixes-c148b0adb685
-
-Best regards,
---  
-Esben Haabendal <esben@geanix.com>
 
