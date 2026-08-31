@@ -1,291 +1,157 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D504E3F54C6
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:47:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180441; cv=pass; b=akoMMe6aOfE5ONC8Pj9sUMWpxf24wCP1GT9HZRHPAFaCtje17QlDmdj3J5VsNs1XN6pFFXvkN/0d74IdnLOpF4SuLeabcA8Y0jjHeN9/sqMyEg6YyITeWeGXOQueHNMfO2d5pt79bsiaS+U2HTLpzaoMq46qZyJEvGz1UgDUuDQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180441; c=relaxed/simple;
-	bh=Se/KxHv+wKCtXiceCMCBlL7rWl8p/0OTHf8X9oOErOo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XMuLFI3VfQd6MLW63jPcTVf+McD9ikGXbT5o3zwH96qxyn1PcvNIc7KuAafTkzp0SnQdvYHL1/yw1mJH7r49oEHrBbbk6JadM5mR80X90YHoArtU4+1RcU+hqyi0YhMhWs93K+bX9ezEpaSSpZfOILHUClWdRNkT+cqF+A0Vf9w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HaRhsqXP; arc=pass smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C5A337699
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:47:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788180460; cv=none; b=t3uDjk2RffbZze+54CQzcEzaHPvFajtseJ3wRbQ2ES0FLa4ep98zGIF2zb0uIxI8Amb9DzWPDPcM3kmzdUS7Hq0sGrta4jtHZ6HIXmonu1To6xCbnAKiYZsexisD4byiECF7CnJ1PuEXmIlgtXaDQsGGFlTYoYLnwHoV41f9LzE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788180460; c=relaxed/simple;
+	bh=wh/usU8PfMdv8Q0zcva5WvxQQI9WUSSFSzU9ey8jYxI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M2DVtAeprTtO1Pv9nnqVM4xAeHHg+81Odpe1zxn/IR0NcrZw/GORFNkEXl1fnhrrrMe7E4IKssDXEzvYfaOHY2ekSSl/lpF/ItmboWONUAvkeHM8H+E2gMNC5SUmpGRQfpdiWOOTpAM9KPEOtja+cw7wZJQ/nJVjqyJO3zHVjRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aW4FYJdH; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HaRhsqXP"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c207cb16cf5so557265766b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:47:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788180435; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JTImvRbjas1Katmva2HVD1iIA+VX1cCy7nGuadruexOYWpB48616pPGRVnVa6dClFO
-         tEvWdiPq003CXRn5WK9S9iSnQnGhBjmlwS8LT0eCFeRH+0NZbOqhXlQ7lzt3ibX1zRn1
-         tc7xXin6WAPHami708zHhjps4kud37QB0wm74kI7Y8+BwR5rZyZLXw+Ivxs7cdjRNCLi
-         MCjxtBxR3iytiDRZQJ9F96IWqeDV7TO5eDmeHY0p+BogvQC+orC/o7OhFsXfWNhdpjtN
-         PZoYGjPdymziDqnYbGRpDaggJIcoBZvlHdwAEymzHk+T10um9P6c55NafdilK9Idn4NV
-         QaBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zLqTvy52sKSUUsDTZl72qNN+V6zjfC7RltS1uqqFZgU=;
-        fh=s0I8ZeAO3J71DWs7r8OsDiFsWmm7zyGc71v3GkQTz8w=;
-        b=IRnoDyXMUoVF2uHY4QP7EyDEBCpPE8aeEUZu4NpMwEoYtlfchTuMpghs0fQ89DaYa3
-         1odkycf2F/+2Nk1NGFFmFE7/+hw9N0zR9MU8aweMVHdG6AccbE5/Ao4yXEw7ufPnoMwh
-         WN/P7F+tCypZQm5PpYX21n4wLE0kYZn4ZMaGJJFnFu7gH7geyaHs/wpV6or39iUJvcLh
-         002NMSyPDTEPbZXd+7XccigjAojpOMdItm9An5owfSWMpNNBTAfyJ7IpUAIskkKW10gv
-         A5m6fsX4glAwVeH9W1FbfkhQhqhY8LV3ZRykbCZa4WvCKYmhkGCi0RCYKMgMjK1yUnoE
-         ixzA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aW4FYJdH"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3964e480f76so4150750a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 05:47:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788180435; x=1788785235; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788180455; x=1788785255; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=zLqTvy52sKSUUsDTZl72qNN+V6zjfC7RltS1uqqFZgU=;
-        b=HaRhsqXPzPom2G0Rk6v20+cLVhq93R4JinVaHq11h/DMVhiDOYorJMP/A6KWvhAw2Y
-         jZc2VbWjUmLrBaQxviryyYfaoZHfrDqv+RUjfxYG1hN2Jjm4VDihlAXyvzQAzCV4lPdZ
-         7JParGxkKnktq1E4enxBxEuYG0wnMNHNpFwvA84Mzts0phjxAg2RTD83f1DuYQQwF/nr
-         dlCeK7SEMg+6AHcxDxw3bNd6aeZ1bwXCPloTJt2+WGAh3vVmq0mbJnbVoq3XOo+l04K1
-         7ybjnEWO3UiD5zdOwKDyNk3JalVfd1eqxAdw1YXz2T+LcfRoxzuTRB7PJzE34lBZGbYn
-         PM6g==
+        bh=Wgm3ZGfYPmE/vTxPbnTRUSBVqhRpYYPYKdu/n7NN0+A=;
+        b=aW4FYJdHMvAHmv43bxg7/qcAGOr31VqhPy/9bev0g84ZCZQEEb+Gxt9ZmtSpgF/Ol6
+         65TkabUFwCw6yAUaIkeVpV7vKkqAFDeVYnUYeMw/OQhFmsteWE2QDzNaPFFnf3gY6fF/
+         lbZJHUjhYxQFY9db4d9DgWhE+5LGoNidK8eGf8o2EzQPzDqaZfTKG2kujBo0lXBp7lVE
+         C7TbscmlSA91LWQFHoPfIrYkxF2o17RLMj+eqi2IxB3vbE2bCDb/8Ujl9KeZJjEeoLOc
+         HkuxyCQM5g8S4dtESlHuiY5yeSiNoVU1RglVWjt95EXBZ3nzQBjzKbXy8zZN7we3J3Oo
+         +4WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788180435; x=1788785235;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788180455; x=1788785255;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zLqTvy52sKSUUsDTZl72qNN+V6zjfC7RltS1uqqFZgU=;
-        b=V6U/zHnalSPxExoQ4XleaLqbsWtmC2uzWPMNwd1GRWdRTad+xHqjs0pUZn2b1wdeft
-         s/xFFQowqVlhxSxfHCcQHj5xi774KWxkSUBCPTPZuB5V3cI10trwf6nItAUu5ObE6y2s
-         fjpwk9NFEe79ztW2ucjilVCGPH3M8AY+pC19obqdJ1AFeKdTLVOs50FyNsOEhNtgEzn+
-         zVgbxXyyITPLhxpai4l/+9F6DWhIoTlF1SzQBWC+qLhxin++nIYBneY7EJKyh7LMj2XV
-         OSwsAx/TGj2ri7zwlYCJaLHss9ftqSLEvXo8Et0a0qYQw9X9JwoGnblDzkTiOlevLr7U
-         XCAw==
-X-Forwarded-Encrypted: i=1; AHgh+RpZlHVLOQByx+mcxuXaaW6Y5gCSSLJTBrDMfifzY9P0eCMCaloqgI8aQVRptYmcxmw9mkJdIZ0SMu8ILf8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEOR74bC2cq7sb22ig8lfCtlx0PvYhpDSX0xJWrgpaIrMydGDO
-	chY2RggS1BssXPOX3XtehjpDdrUJCulQmUmiF+HkY+53NyWc1nOoVhDvoXzyaX5qxxJVXI6TiDx
-	ByAYdcRjux25/Gl7DoV3JqRsxcDykB9s=
-X-Gm-Gg: AR+sD13cov6HNzB7StRNjKmWbcTKW86sLRQZWhQxgB1LuqEKqYIMoCiPlF9CWb9/isH
-	Za1bv/4GLoc5g78vg/zIxE1vLGwwIR423sFq0onFkrOVFyrvkJVYFYpc8pvtVReSArXVN12yRRK
-	146wtUmkRFGu/Yb5NwzrXX1I9xGumhSYNANKUlTau/xnXcVlANdOSa4VcHeItNtdbjXYXwFY70r
-	TP3BlaQvec20URaiI9WPH2wiJ2KAviHBnTl8DkkH1J+3C6krVm+EgO1ojEQ/Yc7GceOi89Gi9Fw
-	6q4zMm7w0gxv6vFVUFTJpv3bE/HUuN+qfYfYdsN5dWhYtw==
-X-Received: by 2002:a17:906:6444:b0:c16:101d:7afa with SMTP id
- a640c23a62f3a-c25b3cde78emr15785266b.16.1788180435211; Mon, 31 Aug 2026
- 05:47:15 -0700 (PDT)
+        bh=Wgm3ZGfYPmE/vTxPbnTRUSBVqhRpYYPYKdu/n7NN0+A=;
+        b=hBrMOGgs2xTp4XoNq2h0yNBa3v73MkCbolDMHicFJLhlfov/jXk0PCuPpBq/QWkBVl
+         phBRecljLwNBTl3gVlT4jHx7H3xYmT4v6G7pZcVH6iGLYcIvUxzo+A+Pc9Cr1rnP9SlW
+         yHBZVgh/eyamqJCHhr0S9dMgtxC5u7sCwgzFFiEwYMD0dUNcfd8ETan4d25V+peVtr/W
+         UmsMCWTBaJCx/7lmx56Ybmu25M/pAZMVGangzZ8yohwLmIuEjJ5EbCNScyTCCVKkkevr
+         q2LQT8OWnen3B5hrHvnR5cAxW6slKl9/xZnkSdf7unFOA8n4TGs13b8nThjNZ1uDT5fw
+         s0Zg==
+X-Forwarded-Encrypted: i=1; AKwUvBzQkSj/YmmJ9i6VjjfcwXWjfhoRfXE0J+3Eg8DI2zSkMkp5WDOr4EFuSiddF4Q39ehFfko1VHiOuYC0W24=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdqfyIRgN2irO33g7ZId/p90DsVhoup4exqNpzHZCImnEubS43
+	cPr1G2QBMslZmXztdMjiUxIhM0HKGEepDqIdeKX4K8dUPkIQ5vKPx1OC
+X-Gm-Gg: AYBFou1QR+sxHUHYzN/TpBEWJa1BMBnE13UlZBVC8ScbCGUkUp5NSPHvAz2DzJEGuKS
+	0zqkQsBw9+SeB5YCBVxFxEO8rNl0vnnsLZrOrmGBRz6g4ywvdbr2gVF4nY21OqtossPuBaBqfhh
+	jzQM169atnQPzVG2GEiUXBbclH8ZTKWZ74GckoT6tVL7oqPM++AIDfyg+EH/rvM3Hz9L1iuFHKK
+	dVBRVeDbb86D5clYFRsBH1XLhWhyyRncDjAxbekntFp756H3TzzDMIOzfviuBsgrINCrGapUHiN
+	5mDhQjbX+BvZ+aen2hgaIHm8rP8jDGOQZ9RtUp/EFHqhJGFYSx6aZAT679x7nxqc6kuwylFWfoa
+	xfzBGwDy3NemLfyuNAILZ7seepo765RJow4dXmUY2vUp3zAlwSerKZwnPBgB1+PhzNGbnd0jpwK
+	Va35B3GeknJyEBlw+WM96ZOTSYix/8V7/vtkP6rlyNChgXGgFCwHyR2OGzjiZcTJ9EGbuCDfi9B
+	KHHcQWQLbOhlMH5HIT9NEI8CDlyKQ==
+X-Received: by 2002:a17:90b:590f:b0:398:9be5:b417 with SMTP id 98e67ed59e1d1-3989be5b4bdmr27613593a91.18.1788180455457;
+        Mon, 31 Aug 2026 05:47:35 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:15e9:e9f4:23e3:4f32])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286fa400c8sm34340875eec.30.2026.08.31.05.47.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 05:47:30 -0700 (PDT)
+Date: Mon, 31 Aug 2026 05:47:22 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Hans de Goede <hansg@kernel.org>
+Cc: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Linus Walleij <linusw@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/6] platform/x86: x86-android-tablets: fix Arizona and
+ Crystal Cove GPIO lookups
+Message-ID: <apV3jbqWfNRa8zN2@google.com>
+References: <20260830-x86-android-lenovo-swnode-v1-0-066a91acb4ba@gmail.com>
+ <eadd7091-c61e-4fb7-b1a4-cf307108b199@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
- <20260830182036.284736-3-prasanth.padarthi10@gmail.com> <178817979463.20922.10263529532171804189.b4-review@b4>
-In-Reply-To: <178817979463.20922.10263529532171804189.b4-review@b4>
-From: Prasanth <prasanth.padarthi10@gmail.com>
-Date: Mon, 31 Aug 2026 18:17:02 +0530
-X-Gm-Features: AcwNN1XIrIC7I6xOS5BaNQ3PLnAnWSJKPgHogQbkIGatLAVm1UY68sNUIGJAplc
-Message-ID: <CAMFFDGi5eb_+ec5hGz6nE7OXpqYTMg7oZSPAzttXDPZJZw8v2Q@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-To: Tan Siewert <tan.siewert@9elements.com>
-Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <eadd7091-c61e-4fb7-b1a4-cf307108b199@kernel.org>
 
-Hi Tan,
+On Mon, Aug 31, 2026 at 11:42:06AM +0200, Hans de Goede wrote:
+> Hi,
+> 
+> On 30-Aug-26 1:15 PM, Dmitry Torokhov wrote:
+> > When gpiolib dropped name-against-label matching in favor of firmware node
+> > identity mapping, lookups referencing unattached software nodes (such as
+> > arizona and gpio_crystalcove in x86-android-tablets) stopped working.
+> > 
+> > This series fixes the lookups and cleans up redundant software node
+> > registrations on Lenovo tablets:
+> > - Point Arizona GPIO property entries directly to the codec device software
+> >   node, which is attached to the parent device.
+> > - Hold a device reference in gpio_secondary_fwnode_init() to ensure safety
+> >   during devres action teardown.
+> > - Generalize gpio_secondary_fwnode_init() to accept a node group argument
+> >   and use it to attach crystalcove_gpiochip_node as a secondary firmware
+> >   node to INT33FD:00 on Lenovo Yoga Tab 2 models.
+> > - Drop redundant swnode group registrations on Lenovo Yoga Tab 3 and
+> >   Yoga Tab 2 models where codec software nodes are already registered when
+> >   attached to their respective devices.
+> > 
+> > Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> 
+> So I've given this a test on a Yoga Tablet 3 (yt3) tablet yesterday and
+> there everything works.
+> 
+> Then I also tested this on a Lenovo Yoga Tablet 2 1380 since the YT3 does
+> not cover the crystal_cove GPIO case and there things do not work.
+> 
+> It seems that trying to get the crystal_cove GPIOs indefinetely returns
+> -EPROBE_DEFER. I'll try to debug thus further this evening.
 
-Thanks, this is very helpful, especially since you have tested the same boa=
-rd.
+I wonder if the patch below will help.
 
-I will rework the next revision to use the existing ASRock Rack DTS
-patterns, including the I2C7 EEPROM/NVMEM MAC address handling and the
-standard 64 MiB OpenBMC flash layout. I will also investigate the
-GPIOs and video memory reservation you mentioned.
+Thanks.
 
-For MAC0, I will change the PHY mode to rgmii-id and remove the claim
-that the board requires RX-only PHY delay. I will also investigate the
-ASPEED SoC-specific MAC delay configuration and the difference between
-upstream U-Boot and openbmc/u-boot before sending the next revision.
+-- 
+Dmitry
 
-Thanks,
-Prasanth
+From 9376af2b6a9c91cd6a05969b583f40d451050988 Mon Sep 17 00:00:00 2001
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Mon, 31 Aug 2026 04:59:24 -0700
+Subject: [PATCH] gpio: crystalcove: add missing MODULE_ALIAS()
 
-On Mon, Aug 31, 2026 at 6:07=E2=80=AFPM Tan Siewert <tan.siewert@9elements.=
-com> wrote:
->
-> Hi Prasanth,
->
-> On 8/30/26 8:20 PM, Prasanth Kumar Padarthi wrote:
-> > Add the device tree for the ASRock Rack B650D4U BMC, which is
-> > based on the ASPEED AST2600 SoC.
-> >
-> > Describe the BMC memory, SPI NOR flash layout, UART console, and
-> > MAC0 connected to an RTL8211F Ethernet PHY.
->
-> Why no GPIOs? Why no I2C buses? You'd need at least i2c7 with an at24c128=
- to
-> populate the MAC address on MAC0.
->
-> >
-> > The MAC0 RGMII RX delay configuration was validated on hardware.
-> > The RTL8211F requires its internal RX delay for reliable operation,
-> > while an additional TX delay is not required.
->
-> No, it does not. The traces have the same length and don't require specia=
-l
-> delays. If you use u-boot/next, then it might be true because it still mi=
-sses
-> the correct SoC-specific delays. This is, however, fixed in openbmc/u-boo=
-t.
->
-> I know that this is not optimal. I'm already working on getting this fixe=
-d in
-> upstream U-Boot too.
->
-> >
-> > Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-> >
-> > diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspe=
-ed/Makefile
-> > index 6b68671f9379..b109491d5c8f 100644
-> > --- a/arch/arm/boot/dts/aspeed/Makefile
-> > +++ b/arch/arm/boot/dts/aspeed/Makefile
-> > @@ -10,6 +10,7 @@ dtb-$(CONFIG_ARCH_ASPEED) +=3D \
-> >       aspeed-bmc-ampere-mtmitchell.dtb \
-> >       aspeed-bmc-arm-stardragon4800-rep2.dtb \
-> >       aspeed-bmc-asrock-altrad8.dtb \
-> > +     aspeed-bmc-asrock-b650d4u.dtb \
-> >       aspeed-bmc-asrock-e3c246d4i.dtb \
-> >       aspeed-bmc-asrock-e3c256d4i.dtb \
-> >       aspeed-bmc-asrock-paul-ipmi-card.dtb \
-> > diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts b/a=
-rch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-> > new file mode 100644
-> > index 000000000000..aa623f0ca36c
-> > --- /dev/null
-> > +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-> > @@ -0,0 +1,95 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/dts-v1/;
-> > +
-> > +#include "aspeed-g6.dtsi"
-> > +
-> > +/ {
-> > +     model =3D "ASRock Rack B650D4U BMC";
-> > +     compatible =3D "asrock,b650d4u-bmc", "aspeed,ast2600";
-> > +
-> > +     aliases {
-> > +             serial0 =3D &uart5;
-> > +     };
-> > +
-> > +     chosen {
-> > +             stdout-path =3D "serial0:115200n8";
-> > +     };
-> > +
-> > +     memory@80000000 {
-> > +             device_type =3D "memory";
-> > +             reg =3D <0x80000000 0x20000000>;
-> > +     };
->
-> Where's the reservation for video?
->
-> > +};
-> > +
-> > +&fmc {
-> > +     status =3D "okay";
-> > +
-> > +     flash@0 {
-> > +             compatible =3D "jedec,spi-nor";
-> > +             reg =3D <0>;
->
-> That's already defined in aspeed-g6.dtsi
->
-> > +             label =3D "bmc";
-> > +             m25p,fast-read;
-> > +             spi-max-frequency =3D <50000000>;
-> > +             spi-rx-bus-width =3D <4>;
-> > +             status =3D "okay";
-> > +
-> > +             partitions {
-> > +                     compatible =3D "fixed-partitions";
-> > +                     #address-cells =3D <1>;
-> > +                     #size-cells =3D <1>;
-> > +
-> > +                     u-boot@0 {
-> > +                             reg =3D <0x00000000 0x000e0000>;
-> > +                             label =3D "u-boot";
-> > +                             read-only;
-> > +                     };
-> > +
-> > +                     u-boot-env@e0000 {
-> > +                             reg =3D <0x000e0000 0x00020000>;
-> > +                             label =3D "u-boot-env";
-> > +                     };
-> > +
-> > +                     kernel@200000 {
-> > +                             reg =3D <0x00200000 0x00800000>;
-> > +                             label =3D "kernel";
-> > +                     };
-> > +
-> > +                     rofs@a00000 {
-> > +                             reg =3D <0x00a00000 0x02000000>;
-> > +                             label =3D "rofs";
-> > +                             read-only;
-> > +                     };
-> > +
-> > +                     rwfs@2a00000 {
-> > +                             reg =3D <0x02a00000 0x01600000>;
-> > +                             label =3D "rwfs";
-> > +                     };
->
-> No. Include the partitions via `#include openbmc-flash-layout-64.dtsi`.
->
-> > +             };
-> > +     };
-> > +};
-> > +
-> > +&mac0 {
-> > +     status =3D "okay";
-> > +
-> > +     /*
-> > +      * The RTL8211F provides the required RGMII RX delay. No addition=
-al
-> > +      * TX delay is required for this board.
-> > +      */
->
-> No? I do have this board myself with a custom BMC ROM and I can tell you =
-that
-> you don't have to set delays other than the described SoC-specific delays=
-, but
-> this is, as mentioned, already done in the BSP. (And no, I haven't upstre=
-amed
-> my DTS yet bc I haven't had the time to do it.)
->
-> > +     phy-mode =3D "rgmii-rxid";
->
-> `rgmii-id`
->
-> > +     phy-handle =3D <&ethphy0>;
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&pinctrl_rgmii1_default>;
->
-> No nvmem cell to set the MAC address? i2c7@57 offset 0x3f80? Please see t=
-he
-> other device-trees for ASRock Rack mainboards.
->
-> For me, it is a:
->
-> NACKed-by: Tan Siewert <tan.siewert@9elements.com>
->
-> Tan
->
-> --
-> Tan Siewert <tan.siewert@9elements.com>
+The crystalcove GPIO driver lacks a MODULE_ALIAS() to allow it to be
+auto-loaded. This results in consumers indefinitely deferring their
+probe with -EPROBE_DEFER (waiting for the GPIO controller to appear)
+when it's compiled as a module, as it will never be loaded.
+
+Fix this by adding the missing platform alias.
+
+Fixes: 104fb1d5153c ("gpio: Add support for Intel Crystal Cove PMIC")
+Assisted-by: LLM
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/gpio/gpio-crystalcove.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpio/gpio-crystalcove.c b/drivers/gpio/gpio-crystalcove.c
+index 0fb5c06d0886..ab7fab5b9754 100644
+--- a/drivers/gpio/gpio-crystalcove.c
++++ b/drivers/gpio/gpio-crystalcove.c
+@@ -396,3 +396,4 @@ module_platform_driver(crystalcove_gpio_driver);
+ MODULE_AUTHOR("Yang, Bin <bin.yang@intel.com>");
+ MODULE_DESCRIPTION("Intel Crystal Cove GPIO Driver");
+ MODULE_LICENSE("GPL v2");
++MODULE_ALIAS("platform:crystal_cove_gpio");
+-- 
+2.55.0.897.gb25b4bd76c-goog
+
+
+
+
