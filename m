@@ -1,227 +1,451 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010055.outbound.protection.outlook.com [52.101.85.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75122522ECD
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183855; cv=fail; b=R/2cNH4xHwr44o2lefNtNvFmcEycfmf2Gb+rUzabWcgtTZjbWOCxnC12m+X767iMJgqBLo3sK7QPqXWPAL3Y78lMEOfG7gkSKrdQIrNOoBmas0eWUgrhMD1D0xtHXQdnVw+lguXCUEV/lXlI0woidcaji4Z5KmtkiDNyJ9K99uY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183855; c=relaxed/simple;
-	bh=Oq6xmh92QkGHnPwUu8gz/zwNU2NmL5VwxwNjEw5f8uE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A5A522EC5;
+	Mon, 31 Aug 2026 13:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183856; cv=none; b=twX2vAK8w9PtnzvGNfiFXEv5B+uu4SXwgEvgNDVCwph7YR0PnHGjqm8QPVAzMZ7gqwu9veAShQdgoWF2nmvC0pB5m1+2EIfVbKlfwx7Faqe1sT5Oshg8J3JMRCYKqvg5H5CCWgLo2/uIXkZqEf37RILvlWXEbJEsfH1hthRTJ4U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183856; c=relaxed/simple;
+	bh=YzomyiaSSYlSEVqtsSwnQ1VSK21Q6sA+HUUrTBdFNvI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cOEPbj+1VLJ8pRYx/Nf8+E2CRkYJEE7/DN83AjGuJZoYE3K4hZVwa+C1x7gxshOLLv9lBVQqQD1SZS6ALNSPeH55oc4CpRp9DC8qeOgs4d9B6vUT4E0XfL2WLITYDFLqRDPc0kzKKRB4VJ5o0waOdF8mZUIfzHxRwdNBz6Qiw4c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=TJghdJ2b; arc=fail smtp.client-ip=52.101.85.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version:Content-Type; b=FmgKCBBgrKGE8S8abDY00x+OZY1zvuGfPi1JMCT9K+JdaWRwsp5razy7UugVJqfXfg2/ggjSwn3AUAJPhMCPvY7pWZ05+g//BqPriDPLd1PHo5sOW9iqDMz8zhaU1XylKtkodcrey64HsDjIGpicO5pJnmd9/0dnZ20pfOFqm6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GGrsBYIC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="TJghdJ2b"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IIrdUN6iRtDt0ns0SShE+o3RS7kRnFhxbuLEouFJUqpd7Yv9I2rhV+f3wEgW9A9XJ9y/y/dt5dhelsgxUMP432rkp+GcamrK/2R0iecPe54RPG9MQ/qcOVVdEr50JGJAqvS0wxjWu+Xwkznlq+PHt9D1aNGS8kEcpMtF3QdTOHyfrK1SVJT5G9YwjEOi5YdJK0R25Tc9TA4wQO/QHQdSP9vkg4iOOwskwJs8vggibXs6ihP1P2ajSdGwJl760keYgKqPxbbv45YSEcrXcZ/KwDpU7KXO7up44CHA4+VMzUp1e5Cvhd7oyaOL4DyjxobX/ORJIK5PH4gqDcgMx509rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iiZoPV1Nm5qgTSiR8OpUKaRmqyZma22TeG1uvkt9iRo=;
- b=jQn2VeI0/Oj1NTaUxBp9yAmIOKrlm54eJxASiaInVW1QGARrEaMleqSN3nXA5APt4jDXn3o0KjLbO+brt63pWeUtMgclJxSBeaDxCfwuhe7E+Es4o1bZLqyTHF3NHgmNxZkalZtuhtzb5hRAq8tX5AxCyMkguxOgK5KpBhIYrKKvGjjGovtcbLii6ZT/sEIe7m3IwWaMrgVS0b15mctK7ldE6GJIoI6wQtZzpFkukCHhZ+1xNKE9y46/SQHedQ146Sa+u6NqE0RAzFEZO/HPiaIuJXoWVx9BzpOwlOs/WiItpMJdznPu4ROdMCfdMZ6YIJpGQ2yu5BKrx75Bkb8wSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iiZoPV1Nm5qgTSiR8OpUKaRmqyZma22TeG1uvkt9iRo=;
- b=TJghdJ2bg96EIEipTg8IkLTXqmbvrg4c5bA9lBGEhDP1Y8SAODQGnpCmnHHKhKtiIoGXmcWDcbsFcJJNwvsr3Peud77kn8KuZURkF6WmtL+XxddseEcpKyFxZRFEYQkTaIT+GxlEUBDyvVzEAnGDaWEGBzwfVvlo2fJeMFoANEl6+iJDTQTuIc7o23rsg4oLJtutG4GnRpEfMahHAPmYnTw0iMpYv4v7rySjcjDoNQfy/UFYnLl+Bo/tx+/6VxrDoSnv+shzGg3NzjAeqUWUBCS6U4oJ9RXLR8BfyqrSV0Pjx/t2DvejsxoyXl+fVdutgCpVX9toHezJiTSaGpjLGw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 13:44:06 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 13:44:06 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>,
-	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GGrsBYIC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CC601F000E9;
+	Mon, 31 Aug 2026 13:44:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183853;
+	bh=gey/pA+MqLSign78ltl1Z+G5U1XGzfWV9TBfTmZofj8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GGrsBYICdmnzHpkk8pJtbeu44an+jR8Ikh6BsEZxLJGuT/MDHDiBD+woyHCTrb7hA
+	 slW6LSry5tFgl84XeZG9vbfMT1IUacGNyCUs7TxpLl6AqSdNWJdCeZK+b4QvJvt2wo
+	 BUVTzANrACxhP4IvMx10MzeZ3918WMd9p900CeXPngHE56tpAg6oU+MBBiZLvI6/Oj
+	 GM2JhSFL4SYLBIB0JbLu6LCrvmbi+t0ebfixcItvQpmDA8vsBzTQIFJwWUNSbXT3lx
+	 zApQkqjM3rdL9BYlZbaROjYG0i5upuZIAOtivjAKH5zI31lpR2IKNzQHEAuF9LNm3x
+	 IYwAGM0D+H3NQ==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Michal Pecio <michal.pecio@gmail.com>,
+	Mathias Nyman <mathias.nyman@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	mathias.nyman@intel.com,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 02/18] sched/core: Dequeue waking proxy donors before reset
-Date: Mon, 31 Aug 2026 15:42:12 +0200
-Message-ID: <20260831134338.1531664-3-arighi@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MI3PEPF00007548.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::4d4) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+Subject: [PATCH AUTOSEL 6.18-6.12] usb: xhci: Improve Soft Retries after short transfers
+Date: Mon, 31 Aug 2026 09:26:11 -0400
+Message-ID: <20260831133314.4125787-343-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|CH2PR12MB4198:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5be621d7-7b46-4b9f-0e54-08df0765ed25
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|6133799003|10067099003|56012099006|18002099003|22082099003|5023799004|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	I2jnrqF84nexyABI3AiTbSxm8dPZ1HxEFdX+1/2+3AE4XO+QF8wGRw0w46x2AkAWluu0rA0CaXEalWzFVdZevbWHyo69QxNHSSnle0+LUiqBEsZfRjLWamAzCZI63/6KM4NAmfjPc/y5H+t9jg6efmJEcR6kQHumltXKQOH4Nk3arS/6zzjUrtYsxYByrJxhDanE6QoxvxVCIv5brwj0P1fymtzMhljyfeB4bAJdKwxc0mPshdlaroRYQqysQNAYE+edjV7lDwCiYzv0Al8dtEJM2S2/1HGxC866FlnbXU5F0tWJEPvqsjQSl1FplS84iB/3zg3EkyAvjHV/ByaP7Q00yfgiflfCPxCCWwZZzEqgqy6KxpatJhh1ls8JrzjjJYdHLysYaZ2EODhMgt30Yhg/Mo14mUDInBtGr7KJ/Go1Z/FLZhbGSePk5FdWmi5STBT0YVXmhdRen0mfcxlEKA2ibSvdlt9XNSKJd2c1/HQg1n2EYCCeGQeMOgYfW/CdzO72F4cae/qe3H7Rwi6If0QD4LnfNbGc+odbBw0p9+gkRcliAvR8eakwGYceiCW01xvEw5q5MawHzZogqqXc1+RozxoF/35nW1uPqzMWWnDN0nRAkHf46aLCs6GYXuZZbkE5NcTtNoYDq8rR52eEc84Gm1Fo0TFXtUKGCu9kq0Q=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(6133799003)(10067099003)(56012099006)(18002099003)(22082099003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?0tg9ZYhwPvUus7cSmCSAy0REfJlEU46dMc3C6d+WalOtmdifXZYgrAhU7flt?=
- =?us-ascii?Q?23zu8nm7bI8x1JxV0JyE1wN8aLJ8cSw+uRcvILK2/NI96h3DSMmzuvK7cIBA?=
- =?us-ascii?Q?IAcnrJOxMFmHQv8k1DV/a/wipsV5nmREaV+xnAW+wPaF8iE2V8XdF+FtLrEc?=
- =?us-ascii?Q?DSzc4GXdXcdrLmDqpY6yz81kbCbAWq4qC7nmwnOfwuAkfQjDqoTsCzXv4ma/?=
- =?us-ascii?Q?fdpHwJLOLEA0qOty5mBZfI4zusK0m+4tHwwcGmoOpcudEvCmgHlYGUVTLFzs?=
- =?us-ascii?Q?3RM6AOycx0SlbOJfDi//LOEKHHF2w8p/8VipkjfV5AqEGk5n6HvuJxv5+cSO?=
- =?us-ascii?Q?DkixUVofG4L6jLrddtQNSiT8wnfngsBVifCFIICVy6ExEMr3AhKweOi3Oszu?=
- =?us-ascii?Q?M0HhnvTVqNOU4H2lCeCAb0LJNB9RrR4/HfRKDMJWSsdiY91tBCwoIUOy1cgh?=
- =?us-ascii?Q?M6tRKdzNC17xM80WxTRKVz+8lnEf4wA7dsjR/chTbzkV2tXjkOGeslUaTtJW?=
- =?us-ascii?Q?MGvMF5yISLOOzU1MO/p8pBKR6xyJ3SWOKpSSiwAS2cALzx7w+BzL0oe/HHn8?=
- =?us-ascii?Q?uMLlHA7sQ6jatTGxra4Qr4x+2TSTPJ63UCW8twj1IoQOvqbkynK7fBbxj9GT?=
- =?us-ascii?Q?GRaqwKnccRTc8RXg2HGmlSXMxO9Ph/HoFWzs9QPDBvY5AsK0gyUAnNE4uwWa?=
- =?us-ascii?Q?Ovy/XdkC0UGZ17vLz4J33Nwa1yjD2VjLB9TV1XMFbErdmRyfmAWGXfhcPAR4?=
- =?us-ascii?Q?EF5Fh9BHNMjcQzxuHz3pyRn8auzJfqpiaeJMdb3XQDUfJli3oeS6Yo6rvB4z?=
- =?us-ascii?Q?XxgUV0VrNVSa4g65Q2rBNruhyaeRYBEiWJph5jLgtMRnyWCvK93f6umiUm+2?=
- =?us-ascii?Q?GemqMzaEOVQusdHMGMd5uragN3AU06QRZoOqaNLA6a6FA/EJaEkEkqO1lzdI?=
- =?us-ascii?Q?UONzxomBuGkgs6UgMnMwiONsf0Du/LyexNd3NTA6V2fWBLrmXCNrQorDa+Vc?=
- =?us-ascii?Q?ykv12j/YKrzmILbjMVqdCHh4kZgqHOabKZ5cx+l6muEtSzPuHrkNB2BZbVIy?=
- =?us-ascii?Q?l8z3MqnoBDj63HciSwC6Ht11GfkPINb2p1/SxSSDVB6Tp9O48f4kk2melO+v?=
- =?us-ascii?Q?OIqZyv66PA6Y610AalaxTUz/GlfgMLuAvE1IgLb2J5qukzNfZoOrEY2AeG3q?=
- =?us-ascii?Q?fUq2O6rHF0PhOgZ8jc6g9qXmVxT0fxGTt/Cx2LCh/b/kmiBgCxDz5GgKuH1o?=
- =?us-ascii?Q?EXPs+1V1P3CvqAcc1pxVHlqACJ9aduWh+rQM5k/xot8/AxNJjm2AlgYb8oxe?=
- =?us-ascii?Q?zOFM9xvhFv495BHiHHQKC32wO9SJX+oetboKSDy7hc2noAwkeoeu5LurIhKi?=
- =?us-ascii?Q?CoWwkvsa6AinFrMQxx9+7JdzAGC07JdQeSnS5RkOhmm0zzPx1rhF1f1PG8or?=
- =?us-ascii?Q?Qzei/diB3411aPHUTOVLN7bL8hKYLmbI6Iqte2DWVRu0gmr6blr++JqDTVFv?=
- =?us-ascii?Q?xlAGy5POmad2xd9W5fAzLZlo1q21RI+Ag98IuFZypbOHZEXgcXSuubbficIO?=
- =?us-ascii?Q?ZxKCmnrHXO427pDcNtEUfC8RXlkqvKet+xA5S1oxLPldd2/HVbiOIBxjQv/G?=
- =?us-ascii?Q?twII1umxe7Dwr4FGYytv+8fQcLsoeUJfLXNeVa3l3DxOzpQzOIMp58X/BM3C?=
- =?us-ascii?Q?dxUlre9DOekxTpodmzT/Bd+WhkGxZCPERaOOejvhp0j/2txpXXWDv6w2LMrU?=
- =?us-ascii?Q?2V84U4Q6bw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5be621d7-7b46-4b9f-0e54-08df0765ed25
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:44:06.3500
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PSZDfAA9iEAAzPe+gWHjqRzsT97R38Y0HvuIRNYVWbQR2v9lq55daLZa8ypQeZ+zas0Qc2VfhKF112e6g9Q/8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4198
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-proxy_needs_return() resets an active donor while holding blocked_lock.
-proxy_reset_donor() invokes scheduling-class callbacks, adding an
-unnecessary raw-spinlock nesting. It also presents the waking donor to
-put_prev_task() as still runnable immediately before block_task()
-removes it from the runqueue.
+From: Michal Pecio <michal.pecio@gmail.com>
 
-Split block_task() so the waking donor can first be dequeued from its
-scheduling class. Release blocked_lock, dequeue the donor while its
-generic on_rq state still prevents migration, replace all donor
-references, and only then complete the generic runqueue removal. This
-follows the normal sleep ordering and avoids transiently re-enqueuing
-the waking donor.
+[ Upstream commit e765ab012f73717238c95ab9c34bfc3c767fa48c ]
 
-This is a preparatory change to support proxy execution with sched_ext.
+A short transfer is a successful one, so reset the error count.
+Otherwise, endpoints which always complete short are limited to
+three retries per endpoint life rather than per URB.
 
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
+Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Link: https://patch.msgid.link/20260603091132.1110849-7-mathias.nyman@linux.intel.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/core.c | 30 +++++++++++++++++++++++-------
- 1 file changed, 23 insertions(+), 7 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 5817d1a4cea2c..237d216382f46 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -2252,7 +2252,8 @@ void deactivate_task(struct rq *rq, struct task_struct *p, int flags)
- 	dequeue_task(rq, p, flags);
- }
- 
--static void block_task(struct rq *rq, struct task_struct *p, unsigned long task_state)
-+static bool dequeue_block_task(struct rq *rq, struct task_struct *p,
-+			       unsigned long task_state)
- {
- 	int flags = DEQUEUE_NOCLOCK;
- 
-@@ -2273,9 +2274,15 @@ static void block_task(struct rq *rq, struct task_struct *p, unsigned long task_
- 	 *
- 	 * Where __schedule() and ttwu() have matching control dependencies.
- 	 *
--	 * After this, schedule() must not care about p->state any more.
-+	 * Once the caller invokes __block_task(), schedule() must not care about
-+	 * p->state any more.
- 	 */
--	if (dequeue_task(rq, p, DEQUEUE_SLEEP | flags))
-+	return dequeue_task(rq, p, DEQUEUE_SLEEP | flags);
-+}
-+
-+static void block_task(struct rq *rq, struct task_struct *p, unsigned long task_state)
-+{
-+	if (dequeue_block_task(rq, p, task_state))
- 		__block_task(rq, p);
- }
- 
-@@ -3774,6 +3781,9 @@ static inline void proxy_reset_donor(struct rq *rq)
-  */
- static inline bool proxy_needs_return(struct rq *rq, struct task_struct *p)
- {
-+	bool reset_donor = false;
-+	bool dequeued;
-+
- 	/*
- 	 * Typically per __set_task_cpu(), task_cpu(p) == p->wake_cpu.
- 	 *
-@@ -3797,11 +3807,17 @@ static inline bool proxy_needs_return(struct rq *rq, struct task_struct *p)
- 		if (task_current(rq, p))
- 			return false;
- 
--		/* If we're return migrating the rq->donor, switch it out for idle */
--		if (task_current_donor(rq, p))
--			proxy_reset_donor(rq);
-+		reset_donor = task_current_donor(rq, p);
- 	}
--	block_task(rq, p, TASK_WAKING);
-+
-+	dequeued = dequeue_block_task(rq, p, TASK_WAKING);
-+
-+	/* Keep on_rq set until all donor references have been replaced. */
-+	if (reset_donor)
-+		proxy_reset_donor(rq);
-+
-+	if (dequeued)
-+		__block_task(rq, p);
- 	return true;
- }
- #else /* !CONFIG_SCHED_PROXY_EXEC */
+LLM Generated explanations, may be completely bogus:
+
+## Phase 1: Commit Message Forensics
+
+**Step 1.1 – Subject line**
+
+Record: `[usb: xhci]` `[Improve]` – Improve soft-retry error counting
+after short bulk/interrupt transfers.
+
+**Step 1.2 – Tags**
+
+Record:
+- `Signed-off-by: Michal Pecio <michal.pecio@gmail.com>` (author)
+- `Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>` (xHCI
+  maintainer)
+- `Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>` (USB
+  maintainer)
+- `Link: https://patch.msgid.link/20260603091132.1110849-7-
+  mathias.nyman@linux.intel.com` (patch 7/7 in a series)
+- No `Fixes:`, `Reported-by:`, `Cc: stable`, `Tested-by:`, or `Reviewed-
+  by:` tags
+
+**Step 1.3 – Body analysis**
+
+Record:
+- **Bug:** `ep->err_count` is not cleared on `COMP_SHORT_PACKET`, even
+  though a short transfer is a successful completion.
+- **Symptom:** Endpoints that routinely complete short are limited to
+  three soft retries over the endpoint’s lifetime, not per URB/transfer.
+- **Root cause:** `err_count` is reset on `COMP_SUCCESS` but not on
+  `COMP_SHORT_PACKET`, so successful short transfers do not reset the
+  counter.
+- **Version info:** None in the message.
+
+**Step 1.4 – Hidden bug fix?**
+
+Record: **Yes.** Although the subject says “Improve,” this is a
+correctness bug in xHCI soft-retry error accounting, not a cosmetic
+cleanup.
+
+---
+
+## Phase 2: Diff Analysis
+
+**Step 2.1 – Inventory**
+
+Record:
+- **Files:** `drivers/usb/host/xhci-ring.c` (+1 line)
+- **Function:** `process_bulk_intr_td()`
+- **Scope:** Single-file, one-line surgical fix
+
+**Step 2.2 – Code flow change**
+
+Record:
+- **Before:** `COMP_SHORT_PACKET` sets `td->status = 0` only;
+  `ep->err_count` is unchanged.
+- **After:** `COMP_SHORT_PACKET` also sets `ep->err_count = 0`, matching
+  `COMP_SUCCESS`.
+- **Path:** Bulk/interrupt transfer completion in
+  `process_bulk_intr_td()`, called from `handle_tx_event()` for non-
+  control, non-isoc endpoints.
+
+**Step 2.3 – Bug mechanism**
+
+Record: **Logic / error-recovery bug.** `MAX_SOFT_RETRY` is 3. On
+`COMP_USB_TRANSACTION_ERROR`, `ep->err_count` is incremented; if it
+exceeds 3, soft retry is skipped and the error path proceeds without
+`xhci_handle_halted_endpoint(..., EP_SOFT_RESET)`. Successful
+completions should reset the counter, but short completions did not.
+
+**Step 2.4 – Fix quality**
+
+Record:
+- **Obviously correct:** Short packet is a successful transfer
+  (`td->status = 0`); resetting `err_count` matches `COMP_SUCCESS` and
+  the design intent.
+- **Minimal:** One line.
+- **Regression risk:** Very low; only resets a counter on a success
+  path.
+
+---
+
+## Phase 3: Git History Investigation
+
+**Step 3.1 – Blame**
+
+Record:
+- Soft retry introduced in `f8f80be501aa2` (2018): `ep_ring->err_count =
+  0` on `COMP_SUCCESS`.
+- `err_count` moved to endpoint in `a1575120972ec` (Nov 2022, backported
+  with `Cc: stable`).
+- `COMP_SHORT_PACKET` handling dates to 2017; never reset `err_count`.
+- Bug present since soft-retry accounting was added (~2018).
+
+**Step 3.2 – Fixes: tag**
+
+Record: N/A – no `Fixes:` tag.
+
+**Step 3.3 – Related file history**
+
+Record:
+- Related short-packet work by Michal Pecio: `9e3a28793d2fd` (“Fix Short
+  Packet handling rework ignoring errors”), affecting UAC, UVC, serial,
+  UAS.
+- This fix is standalone; no dependency on other series patches for
+  correctness.
+
+**Step 3.4 – Author context**
+
+Record: Michal Pecio is an active xHCI contributor; Mathias Nyman is the
+xHCI maintainer. Both signed off.
+
+**Step 3.5 – Dependencies**
+
+Record: **Standalone.** One-line addition; no new symbols or structures.
+Patch 7/7 in submission, but this hunk is self-contained.
+
+---
+
+## Phase 4: Mailing List and External Research
+
+**Step 4.1 – Original discussion**
+
+Record: Link points to patch 7/7 in a Mathias Nyman series (2026-06-03).
+`b4 dig` did not find the committed hash (commit not in this tree).
+`patch.msgid.link` and `lore.kernel.org` were blocked (403/Anubis).
+Discussion content could not be fetched.
+
+**Step 4.2 – Reviewers**
+
+Record: UNVERIFIED from lore. Commit has SOBs from author, xHCI
+maintainer, and USB maintainer.
+
+**Step 4.3 – Bug report**
+
+Record: No external bug report or syzbot link. Bug inferred from code
+analysis and commit message.
+
+**Step 4.4 – Series context**
+
+Record: Patch 7/7; this change does not appear to require earlier series
+patches.
+
+**Step 4.5 – Stable list**
+
+Record: UNVERIFIED – could not search lore stable archives due to access
+restrictions.
+
+---
+
+## Phase 5: Code Semantic Analysis
+
+**Step 5.1 – Key functions**
+
+Record: `process_bulk_intr_td()`, caller `handle_tx_event()`.
+
+**Step 5.2 – Callers**
+
+Record: `handle_tx_event()` is the main xHCI transfer-event handler,
+invoked from the xhci interrupt path for every bulk/interrupt transfer
+completion. High-traffic, common path.
+
+**Step 5.3 – Callees**
+
+Record: On transaction error with `err_count <= MAX_SOFT_RETRY`, calls
+`xhci_handle_halted_endpoint(..., EP_SOFT_RESET)`. When limit exceeded,
+soft retry is skipped and `finish_td()` runs with `-EPROTO`.
+
+**Step 5.4 – Reachability**
+
+Record: **Highly reachable.** Any bulk/interrupt endpoint can hit this.
+Critically, in `handle_tx_event()`:
+
+```2707:2712:drivers/usb/host/xhci-ring.c
+        case COMP_SUCCESS:
+                if (EVENT_TRB_LEN(le32_to_cpu(event->transfer_len)) !=
+0) {
+                        trb_comp_code = COMP_SHORT_PACKET;
+                        xhci_dbg(xhci, "Successful completion on short
+TX for slot %u ep %u with last td comp code %d\n",
+                                 slot_id, ep_index,
+ep_ring->old_trb_comp_code);
+                }
+```
+
+Short transfers reported as `COMP_SUCCESS` are converted to
+`COMP_SHORT_PACKET` before `process_bulk_intr_td()` runs. So the
+`COMP_SUCCESS` `err_count` reset does **not** apply to short transfers
+on typical hosts; they go through `COMP_SHORT_PACKET` without resetting
+the counter.
+
+**Step 5.5 – Similar patterns**
+
+Record: `ep->err_count = 0` exists only on `COMP_SUCCESS` in
+`process_bulk_intr_td()`. `handle_transferless_tx_event()` increments
+`err_count` on stream transaction errors but never resets it on success.
+This fix addresses the bulk/intr path only.
+
+---
+
+## Phase 6: Cross-Reference Against Local Tree
+
+**Step 6.1 – Buggy code in this tree?**
+
+Record: **Yes.** Local tree is **v6.18.44** (`git describe HEAD`, `make
+kernelversion`). At lines 2572–2574, `COMP_SHORT_PACKET` does not reset
+`ep->err_count`. The candidate commit is not yet applied.
+
+**Step 6.2 – Backport complications**
+
+Record: **Clean apply expected** – single line in a stable function with
+no recent churn at that hunk.
+
+**Step 6.3 – Related fixes already present?**
+
+Record: `git log --grep='Soft Retries'` returned nothing. No equivalent
+fix in this tree.
+
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+**Step 7.1 – Subsystem**
+
+Record: `drivers/usb/host/` – USB xHCI host controller driver.
+**Criticality: IMPORTANT** (core USB path for most modern systems).
+
+**Step 7.2 – Activity**
+
+Record: Active subsystem; recent xhci fixes include HCE interrupt storm,
+memory leaks, and short-packet handling.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+**Step 8.1 – Who is affected**
+
+Record: Users of xHCI with bulk/interrupt endpoints that complete short
+(serial, UVC, UAC, storage status pipes, interrupt IN with fixed
+buffers). Essentially all xHCI users with typical USB devices.
+
+**Step 8.2 – Trigger conditions**
+
+Record:
+- Endpoint sees successful short transfers (very common).
+- Plus occasional `COMP_USB_TRANSACTION_ERROR` (transient bus errors).
+- After 3 such errors, `err_count` stays elevated because short
+  successes never reset it.
+- **Likelihood:** Moderate for long-lived endpoints with occasional bus
+  noise.
+
+**Step 8.3 – Failure mode severity**
+
+Record:
+- Soft retry stops after 3 transaction errors over endpoint lifetime.
+- Subsequent errors skip `EP_SOFT_RESET` and proceed to error completion
+  / harder recovery.
+- **Severity: MEDIUM-HIGH** – device malfunction, transfer failures,
+  possible disconnect; not a kernel oops, but real user-visible USB
+  breakage.
+
+**Step 8.4 – Risk vs benefit**
+
+Record:
+- **Benefit:** HIGH for affected endpoints – restores intended per-
+  transfer error accounting.
+- **Risk:** VERY LOW – one line, mirrors existing `COMP_SUCCESS`
+  behavior.
+- **Ratio:** Strong benefit, minimal risk.
+
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1 – Evidence**
+
+**FOR:**
+- Real, long-standing logic bug in soft-retry accounting
+- Affects a very common path (short bulk/interrupt transfers)
+- `handle_tx_event()` converts success-with-remaining to
+  `COMP_SHORT_PACKET`, so most short transfers hit the buggy path
+- After 3 transaction errors, error recovery degrades permanently for
+  that endpoint
+- One-line, obviously correct fix
+- Signed off by xHCI and USB maintainers
+- Bug present in v6.18.44; fix applies cleanly
+
+**AGAINST:**
+- No syzbot report or user bug report in commit message
+- Failure mode is degraded recovery, not kernel crash
+- Lore discussion could not be verified
+
+**UNRESOLVED:**
+- Full mailing-list review thread inaccessible
+- No explicit stable nomination found
+
+**Step 9.2 – Stable rules checklist**
+
+1. Obviously correct and tested? **PASS** – logic is clear; maintainer
+   SOBs present; no runtime test cited.
+2. Fixes a real bug affecting users? **PASS** – short transfers are
+   routine; error accounting is wrong.
+3. Important issue? **PASS (MEDIUM-HIGH)** – USB communication failures
+   on common device classes.
+4. Small and contained? **PASS** – 1 line, 1 file.
+5. No new features or APIs? **PASS**.
+6. Can apply to local tree? **PASS** – buggy code confirmed in v6.18.44.
+
+**Step 9.3 – Exception categories**
+
+Record: None (not device ID, quirk, DT, build, or docs). Standard bug
+fix.
+
+**Step 9.4 – Decision rationale**
+
+This is a clear correctness bug in xHCI error recovery. Because
+`handle_tx_event()` rewrites success-with-short-data to
+`COMP_SHORT_PACKET`, the existing `err_count` reset on `COMP_SUCCESS`
+does not cover the common short-transfer case. Endpoints that routinely
+short-packet can exhaust their three soft retries permanently after only
+three transient transaction errors, causing degraded USB error recovery.
+The fix is minimal, obviously correct, and low risk.
+
+---
+
+## Verification
+
+- **[Phase 1]** Parsed subject, tags, and body from provided commit
+  message.
+- **[Phase 2]** Confirmed diff: +1 line `ep->err_count = 0` in
+  `COMP_SHORT_PACKET` case.
+- **[Phase 3]** `git blame -L 2560,2595 drivers/usb/host/xhci-ring.c`:
+  soft retry from 2018, `err_count` on endpoint from 2022.
+- **[Phase 3]** `git show f8f80be501aa2`: original soft retry added
+  `err_count` reset on `COMP_SUCCESS` only.
+- **[Phase 3]** `git show a1575120972ec`: moved `err_count` to endpoint;
+  had `Cc: stable`.
+- **[Phase 3]** `git log --oneline -20 -- drivers/usb/host/xhci-ring.c`:
+  recent xhci activity confirmed.
+- **[Phase 4]** `b4 dig`: no match (commit not in tree).
+  Lore/patch.msgid.link: blocked (403/Anubis). **UNVERIFIED:** review
+  thread content.
+- **[Phase 5]** `grep process_bulk_intr_td`: called from
+  `handle_tx_event()` line 2982.
+- **[Phase 5]** Read `handle_tx_event()` lines 2707–2712: `COMP_SUCCESS`
+  with remaining length converted to `COMP_SHORT_PACKET`.
+- **[Phase 5]** `grep err_count drivers/usb/host/`: only reset on
+  `COMP_SUCCESS` in xhci-ring.c.
+- **[Phase 6]** `git describe HEAD` → v6.18.44; `make kernelversion` →
+  6.18.44.
+- **[Phase 6]** Read lines 2572–2574: bug present (no reset on
+  `COMP_SHORT_PACKET`).
+- **[Phase 6]** `git log --grep='Soft Retries'`: no existing fix in
+  tree.
+- **[Phase 8]** `MAX_SOFT_RETRY` = 3 in `drivers/usb/host/xhci.h` line
+  1272.
+- **[Phase 8]** Read `COMP_USB_TRANSACTION_ERROR` path: when `err_count
+  > 3`, soft retry skipped.
+
+**YES**
+
+ drivers/usb/host/xhci-ring.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index 2bb7569c95054..3f1a6089a01ce 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -2570,6 +2570,7 @@ static void process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
+ 		td->status = 0;
+ 		break;
+ 	case COMP_SHORT_PACKET:
++		ep->err_count = 0;
+ 		td->status = 0;
+ 		break;
+ 	case COMP_STOPPED_SHORT_PACKET:
 -- 
-2.55.0
+2.53.0
 
