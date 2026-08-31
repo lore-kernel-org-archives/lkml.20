@@ -1,342 +1,165 @@
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4D53BCD12
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387C23BE659
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:33:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788215618; cv=none; b=hlv/W6KU9MbvqMRKYS0ieALp+8p4/4N1G45fcL2WPX+pd88efVcH+aYASKBfvolYUzurfGrlHf8TnjwNbRfB5NgHQ91f0VslV0+no2pI5GCBI4/Xp4CFc2c7plPfu8zHClyKd46xMbjeXVCot6Ho/btBtXYekTR7+S/WtzriImw=
+	t=1788215629; cv=none; b=QYzqmBPQTceg+CFHjaNyI0SNoF0/Kj5bq6PfVH7+7aXDUNVkn6IpP1zyY9Hx+I4iggCvq231ZnIAPA/eh5YggfqRRWPVNpCBKSl8TNWX+XGPVCRdB3NnIMnyAiquPdG5uCP1LkQ0HNhsnsNPdByKWUSc29IHcPyZXpVqhXrX+tA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788215618; c=relaxed/simple;
-	bh=dF35K/bh+G8dYF4IpPkVtNQSdxnGQ3RIqR6+CssnJfU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mXwc3YRjokT5f4bOQo+5yImAXptGflI0zJ9nAfq2cpsCcRxxnXPDCHGELZ5sgASwjtzX8n02W60z1Z238gyeYBqGKLOU91YAf4Z1Kspr7CNf8Oel/fcmnDFp8CUct3lZRs9WZvU57FraW0FKGeYOyBhnbmqVCSia2dx/HuhQaVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=GaKq6345; arc=none smtp.client-ip=209.85.216.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1788215629; c=relaxed/simple;
+	bh=UwgdN0K7gnHlOTkjqBBhV4oiNuExOuc6FRGBeHc9TTI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fc1akT0u9ieWwIsme7eNaLvdY7P9yU+JVZsqgHBB+NqdDCF6bEci/OUyfaQKZGX2UNzzDXmVgzyu9sjfpgOGoVql5D+8HvdXxvzIN5sGMDZfmsQ7WwbJXkSmYoe303KB7JtkWSjOETzWFHiqqmIw8QxbnybZ3vHccFWQs5icsLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Hq2s6VTC; arc=none smtp.client-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="GaKq6345"
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3964e480f76so275030a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:33:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788215616; x=1788820416;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MktfjH0QhVcYSsYu0ASxJuidikePYJZ/HYVJNzpD21g=;
-        b=lxDxWHHjuYZ4wDNoGNVxhr3LKvuRFX+PE7MYWyr0c6XmmpLiVB54qJrSt6GGCHiYxr
-         Esx8lHdKUh/yk5OrBTvVORApHXuDPbRN8YMJNonzjZ/pPR0uPt4u2E0J0ww+t0q8sREq
-         dVQEeVpe+s+bmwqx42GKCn53MypC/1P/5okDa1hrl82yMZcYlU80P+Ea8XAQUqkh5GND
-         03iNc8I8f76enqqN4FFAXjvV3hgkn9FThZfjJ5JD5s4lUDvRBy4/+pDk5Ab80nf0nhat
-         ydAvO3PamN2pQLSQvP/nSx3yS1nswg52DKyFxBX6PuQwgTiqpKAKgOKiB2PH9WXkLo54
-         LjaA==
-X-Forwarded-Encrypted: i=1; AKwUvBwgxq2xMXsxYD22o28E4PYPYKtjO52ZYKDvwBIr+lHdAMtjaZE/Gs7P3C4TwPrypJtzIgQ5fQWwEngarf4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXgNu0LD9jYMlrchrWE2PcEnGlu+OaxMvnrLLcc162+ZZhlpII
-	r+eFPgoOjL/7Sl22SGH9bSYmeNXC3xpIa35osdKtmvavcOPOvUJhVhMxdPVR/hSRWxQ+NgsGqOI
-	SsQsoTS/pd9hGWM5x3qhr5zSnUMvj+QHyeJnHmpvMNwg8BiqxNtOKE9g75trat9tDIcm3To4ba8
-	9todSmKpgHTeBmj2eyEL7lRe0hyxuGIyRn/tCsq2MYPSiYoUwtlJIMwu0AObJ6P75snonlgj2Wq
-	pfrtoDPtof/Wk62
-X-Gm-Gg: AYBFou0M7e2+nNj69ZDuVt0925oJuVavTzqp1KW4ALVoaWEwqy1lI0ujnFUargngZS0
-	oW6iLYPpZRiNnEWITGMRhakwlOzCMj+fLHD+8+tERlEyY6OueUCM769xqaavmzn1eZ0g1hYxIHz
-	McNH73Q1s5CITZsH7exN6rP1lTpl+ktqgRHU6w/f6uzTvVZNhsmAyFXPkftw3zgt9R5uvefKjqk
-	/l7c48fGmmtIKqL0nTALjNchyUIPbJ+SkUVh7rQnIvTpkz2fQNofiKLjja6+L3xfqzXe9krwRiv
-	PVymowOPo01A/HQNW7CdCtZXc27GbUXPzrcAeSg6dyRxJqIk+O1riQVtLvXz+4n/m0CX2nVBxwY
-	B0nrGal+M2N4DGS9QAjnwiu7yPgJQpsa6KoiDLmyR6xctQKQ8UUEvo779UPfy0nWBqinrhZxSkL
-	GGzkCzegWQF8KLxlGo5ohbRS9yDTk7dzMW
-X-Received: by 2002:a17:90a:e7cb:b0:398:bbe9:73af with SMTP id 98e67ed59e1d1-398bbe97548mr18924714a91.7.1788215616433;
-        Mon, 31 Aug 2026 15:33:36 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-20.dlp.protect.broadcom.com. [144.49.247.20])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-396d1eb5db0sm1036528a91.0.2026.08.31.15.33.35
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 31 Aug 2026 15:33:36 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c25148e933eso312369466b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:33:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Hq2s6VTC"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7f18c0e03e3so2403093a34.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:33:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788215614; x=1788820414; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MktfjH0QhVcYSsYu0ASxJuidikePYJZ/HYVJNzpD21g=;
-        b=GaKq6345DHxicfmBZJBHG4RZTUQLirDGE3tJWmaqUBGk3iQKRGeIa152Ji31XwXQQG
-         rj1ueXNsYmbekBes3PuO7JCsjOdT5sTB+eCgZTC7EJwhf5xMWXjxgpn/4UHvKsC7opfo
-         WzN2ISDlyhcQ3UPqtQeZDzJ0aSd6ggHQQdZ6g=
-X-Forwarded-Encrypted: i=1; AHgh+RoDbPYBOQ0SXAtMCcM65uJ1DwtwBAZzUn+1C8oA5GWOoMPSussMHvLF8rUcWb7wOGDvf5bk1BDeBymETEY=@vger.kernel.org
-X-Received: by 2002:a17:906:4fc8:b0:c25:2e93:28a6 with SMTP id a640c23a62f3a-c2556be5796mr1757005166b.3.1788215614420;
-        Mon, 31 Aug 2026 15:33:34 -0700 (PDT)
-X-Received: by 2002:a17:906:4fc8:b0:c25:2e93:28a6 with SMTP id
- a640c23a62f3a-c2556be5796mr1757002166b.3.1788215613904; Mon, 31 Aug 2026
- 15:33:33 -0700 (PDT)
+        d=baylibre.com; s=google; t=1788215625; x=1788820425; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=u5FPFvneOuCmlRH9X10KUb8zYPvC+ewoTJvlKieDUdY=;
+        b=Hq2s6VTCvFwXIZ4hAZjRlVNsmDgGndyHar9FqyRpVEoEzV27FQv4scuuQoyhLHRnpY
+         BFtaFH3xjomcjgzIrBitsXci4W0W49hDVHuYU18wj9HN8YIVfZGzuzZQCmVkF9An5NkT
+         bzbJ5OV2BBZ1tc4g0FKdkQJqr3Jm/Yd2rNtdh1kGGi/8JEMbwwNT8rfedisY/AIAUqvv
+         negfQsp1qm0QZptuHH+4Q0gKfkQQov+8fpxJyGd4OodFIM2+AFVDOtTu3/AU1HS6kv8k
+         4q0KZ5l9OWNkEXzFUgPe+bDtL7igbsQDXaO28HdH1hCDBwzfjL40eE78wDij0rvOICPU
+         Ya6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788215625; x=1788820425;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=u5FPFvneOuCmlRH9X10KUb8zYPvC+ewoTJvlKieDUdY=;
+        b=ZS9Y5ffFlAvwaZjlO1+9WBPJohtazBiqd7xlkCQNUI6b7X2QHjIKkfc6CjIQ0JorzN
+         QnF8qs6lgpvRMhPhtp/K2IfriZAVSX+EXJHU2yYjx8pjw44juuxHFegPx1N3rGOv4OAu
+         4Us/u2ZoqQZPJKYVhTQLUEwsCsUO5Cixk6MFu0Fv0llXl4mgjX+p/jbzpEPx4by5UO0e
+         Vww49MfVeaL9nDKSbOChSVIhzmDEOjwxw3gyjjZTj+CHyK+GK3ffkUE5Lk/o8ti9C9Cv
+         AaVzuzWFOm/kXFmUF9UnlTwHoC21QppL3EoakR8QAciJSAApVCLMBfxlECbBOk8xSjox
+         7tAw==
+X-Forwarded-Encrypted: i=1; AHgh+RpDc7533IzbKLNMR2KHc4limESltgxAnzJNa2IzFqdg3eYgpnyy7wsphk23bzlooHiyty7pidXMk71tauU=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljw16aNHze505jX2sj7NZ67nRyQ5E1V6ybdocpSxl+itrCTkY5
+	5Y3ZfPq2rJjdB5t2PNWGsbOq15gwaJLtT+UtOFw1qgsHXLOBhzj9ugEWEp5Ekb2VpSeKXJYhiEA
+	N5ofQ
+X-Gm-Gg: AR+sD11nWfaYeNDrscBKnp1JE3k7beeISiwPHxEisn4qUOVUtRDAP9tjoJ9jo762Rzv
+	z5aLhvOp3JBUtkuwIPtXuc+Y0vvPKVkj6sxh4VyhB0vfFvxYD/gsCI3yEnyJq28kRmt2jb8hb7r
+	3ZbTrtHS10WM9gnBH4/eyUsDs5QpeKWRRhuT6wE5HcHKWrqq3LYqO9zIyYED1DFHJ0A0kp7jqFf
+	oT7n1N0RiO+te4RSQVeUiKWO0GAN9DMZXLKVcowMVzrj/k73mn7PdB13MZjFhBwaKITIJ93+AyD
+	MfN7/+fernQO9if8Tzd5OCxIOgcVMT+UlSmfAMFVWQG0/RH6pxRnCosa25QbhG0PhevtCtq6Puw
+	lTQ9XP9Hf4B1KbmKw2EaAcH17rTIz20o6hUKIHK5sddcGbsiKPw8V0VwUJDL93/i7fQi/2xqNwm
+	A9XNrS3SiVFdnP5f5wZDjLhfLnulXwhyJ7V803b6axpM9rfZ0M1liHNQbSgW+/BzBk
+X-Received: by 2002:a05:6830:828c:b0:7f4:d68b:dff6 with SMTP id 46e09a7af769-7f4f22fb1efmr32935756a34.7.1788215624843;
+        Mon, 31 Aug 2026 15:33:44 -0700 (PDT)
+Received: from [127.0.1.1] ([2600:8803:e7e4:500:778b:da9:a8a1:bc78])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f4fa7efe09sm9190551a34.11.2026.08.31.15.33.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 15:33:42 -0700 (PDT)
+From: "David Lechner (TI)" <dlechner@baylibre.com>
+Subject: [PATCH v5 0/3] iio: adc: ti-ads112c14: continuous mode support
+Date: Mon, 31 Aug 2026 17:33:04 -0500
+Message-Id: <20260831-iio-adc-ti-ads112c14-continuous-mode-v5-0-76f80a04b94f@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826003929.966160-1-4ncienth@gmail.com> <20260826003929.966160-3-4ncienth@gmail.com>
-In-Reply-To: <20260826003929.966160-3-4ncienth@gmail.com>
-From: Vishnu Dasa <vishnu.dasa@broadcom.com>
-Date: Mon, 31 Aug 2026 15:33:21 -0700
-X-Gm-Features: AcwNN1UohuGEOIEsqdIyo2DNfPV6378dBW_fPaBppWjFWBvMgwOd303g94W5MlI
-Message-ID: <CAF+opq1DfP1d5RBQwcP6ffiUtsUwxGH3a5twyd9Gct2iHZ3CuQ@mail.gmail.com>
-Subject: Re: [PATCH net v4 2/2] vsock/vmci: validate packet source for
- connected sockets
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: netdev@vger.kernel.org, sgarzare@redhat.com, stefanha@redhat.com, 
-	bobbyeshleman@gmail.com, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, mst@redhat.com, 
-	jasowangio@gmail.com, xuanzhuo@linux.alibaba.com, eperezma@redhat.com, 
-	bryan-bt.tan@broadcom.com, bcm-kernel-feedback-list@broadcom.com, 
-	virtualization@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, sashiko-bot@kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000007ef960065a5f6401"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XQS07DMBAG4KtUXmPiV5ykK+6BWPgxaY1IXGwno
+ qpyd6YpEhXqIqyskWe+f+wLyZACZLLfXUiCOeQQRyzqpx1xRzMegAaPNRFMaNYIRUOI1HhHS8A
+ jcy4cV9TFsYRxilOmQ/RAved1y5paadYRpE4J+vC1xry+3eo82Xdw5Wr/dCT4nDC/3NqINRkQH
+ oZQ9jucz1WCIeJthStUeGLigVy1Y8glpvP6hpmvw/9bd+aU0Q4ss41RPRPsxZrzR7AJnnGBNWM
+ Wd67kG12BLlguvZEttL174MpfF39soyvRbTQwLxlop+0DV925Yqur0OVQc6NBMKO7P+6yLN8wv
+ oKNMQIAAA==
+X-Change-ID: 20260724-iio-adc-ti-ads112c14-continuous-mode-dd1580754609
+To: Jonathan Cameron <jic23@kernel.org>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>, 
+ Kurt Borja <kuurtb@gmail.com>, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, "David Lechner (TI)" <dlechner@baylibre.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3174; i=dlechner@baylibre.com;
+ h=from:subject:message-id; bh=UwgdN0K7gnHlOTkjqBBhV4oiNuExOuc6FRGBeHc9TTI=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqlgEij8KTjWtZoJ6FBNDr7783jPXDDgTXTiSfu
+ omkUCiuW1KJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCapYBIgAKCRDCzCAB/wGP
+ wP/zB/0RL909eE56rrerP7yj3Pr7E0XwhdwJ1HhvbsVvaooW/afDYPvto/zRpyPwtj6dHSQTJPa
+ Y01DhSuE5QKS5M+3fdb2UlohwrasSzZHubtNgtn8aal5qIyAeAkRzAfKkvJ/3A5NX9SXnPxCXW2
+ Rm+xRNSCfw9XQPbjEU626L5GfiNecLB/yrPZ0McQ+54MA1wC8A/H1qajQ1lT80mVVMIC058+iM/
+ kMaF2wNNvHlCfITjX4oPCDjC3hFXVeO1hZ3FuiszpLaXaU6Yep7+DsM1/bPfku3Dz9dCygdKim+
+ jD3j0xwMYTWdFnfbncQTa0/nPqKjoUOFeR7k+lfKLwPXUb7y
+X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
+ fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
---0000000000007ef960065a5f6401
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The TI ADS112C14 ADC has a continuous mode where it can trigger
+conversions using its own clock and signals that data is ready using
+the /DRDY line. This allows capturing data at higher rates since it
+avoids the settling time between conversions. But it is limited to only
+being able to sample one channel at a time.
 
-On Tue, Aug 25, 2026 at 5:40=E2=80=AFPM Daehyeon Ko <4ncienth@gmail.com> wr=
-ote:
->
-> vmci_transport_recv_stream_cb() looks up sockets first by the full source
-> and destination tuple, then by destination only in the bound table. The
-> fallback can select a non-listening socket without checking whether the
-> packet came from its stored peer.
->
-> This was reproduced with two VMCI contexts. A RST from the context not
-> stored in a TCP_SYN_SENT socket reset that socket after it was selected b=
-y
-> the destination-only lookup.
->
-> VMCI can process notification packets in bottom-half context when the
-> socket is not owned by user context, or defer packets to a workqueue. Use
-> vsock_check_source() after taking the socket lock in the bottom-half path=
-,
-> and recheck after lock_sock() in the workqueue path. Listening sockets
-> continue to accept packets from any source.
->
-> Reply with a RST addressed from the received packet before dropping a
-> source that fails validation. This preserves the existing reset behavior
-> for bound non-listening and concurrently closed sockets without directing
-> the reset to a connected socket's stored peer.
->
-> Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/netdev/20260814121255.6B5001F000E9@smtp.k=
-ernel.org/
-> Cc: stable@vger.kernel.org
-> Suggested-by: Stefano Garzarella <sgarzare@redhat.com>
-> Suggested-by: Paolo Abeni <pabeni@redhat.com>
-> Assisted-by: Codex:gpt-5.6-sol
-> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Users will be able to select between continuous and single-shot mode
+for buffered reads by selecting the trigger. If the "own" trigger from
+the /DRDY interrupt is selected, continuous mode will be used. Or if
+some other (software) trigger is selected, single-shot mode will be used
+as was already implemented before this series.
 
-Reviewed-by: Vishnu Dasa <vishnu.dasa@broadcom.com>
+Supporting open-drain /DRDY is deferred for future work. In simple cases
+we have just done a `drive-open-drain` DT property for this, but on this
+chip there is more than one pin (GPIO, FAULT interrupt) that could also
+need to be open-drain and not all at the same time.
 
-Thanks!
+Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+---
+Changes in v5:
+- Use a flag set while the buffer is enabled instead of inspecting
+  indio_dev->trig in the /DRDY interrupt handler.
+- Use ads112c14_using_drdy_trigger() in the trigger handler instead of
+  iio_trigger_using_own() so all of the checks match.
+- Use update_scan_mode() instead of ads112c14_validate_scan_mask() to
+  enforce the one channel restriction when the buffer is enabled.
+- Link to v4: https://patch.msgid.link/20260827-iio-adc-ti-ads112c14-continuous-mode-v4-0-1e51a6e20a69@baylibre.com
 
-> ---
->  net/vmw_vsock/vmci_transport.c | 34 ++++++++++++++++++++++++++++------
->  1 file changed, 28 insertions(+), 6 deletions(-)
->
-> diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transpor=
-t.c
-> index 1c4ee039c..1f186e8f8 100644
-> --- a/net/vmw_vsock/vmci_transport.c
-> +++ b/net/vmw_vsock/vmci_transport.c
-> @@ -680,11 +680,13 @@ static int vmci_transport_recv_stream_cb(void *data=
-, struct vmci_datagram *dg)
->         struct vmci_transport_packet *pkt;
->         struct vsock_sock *vsk;
->         bool bh_process_pkt;
-> +       bool drop_pkt;
->         int err;
->
->         sk =3D NULL;
->         err =3D VMCI_SUCCESS;
->         bh_process_pkt =3D false;
-> +       drop_pkt =3D false;
->
->         /* Ignore incoming packets from resources that aren't vsock
->          * implementations.
-> @@ -765,17 +767,29 @@ static int vmci_transport_recv_stream_cb(void *data=
-, struct vmci_datagram *dg)
->         bh_lock_sock(sk);
->
->         if (!sock_owned_by_user(sk)) {
-> -               /* The local context ID may be out of date, update it. */
-> -               vsk->local_addr.svm_cid =3D dst.svm_cid;
-> +               if (sk->sk_state !=3D TCP_LISTEN &&
-> +                   !vsock_check_source(vsk, &vmci_transport, &src)) {
-> +                       drop_pkt =3D true;
-> +                       err =3D VMCI_ERROR_NO_ACCESS;
-> +               } else {
-> +                       /* The local context ID may be out of date, updat=
-e it. */
-> +                       vsk->local_addr.svm_cid =3D dst.svm_cid;
->
-> -               if (sk->sk_state =3D=3D TCP_ESTABLISHED)
-> -                       vmci_trans(vsk)->notify_ops->handle_notify_pkt(
-> -                                       sk, pkt, true, &dst, &src,
-> -                                       &bh_process_pkt);
-> +                       if (sk->sk_state =3D=3D TCP_ESTABLISHED)
-> +                               vmci_trans(vsk)->notify_ops->handle_notif=
-y_pkt(sk, pkt, true,
-> +                                                                        =
-      &dst, &src,
-> +                                                                        =
-      &bh_process_pkt);
-> +               }
->         }
->
->         bh_unlock_sock(sk);
->
-> +       if (drop_pkt) {
-> +               if (vmci_transport_send_reset_bh(&dst, &src, pkt) < 0)
-> +                       pr_err("unable to send reset\n");
-> +               goto out;
-> +       }
-> +
->         if (!bh_process_pkt) {
->                 struct vmci_transport_recv_pkt_info *recv_pkt_info;
->
-> @@ -900,6 +914,7 @@ static void vmci_transport_recv_pkt_work(struct work_=
-struct *work)
->  {
->         struct vmci_transport_recv_pkt_info *recv_pkt_info;
->         struct vmci_transport_packet *pkt;
-> +       struct sockaddr_vm src;
->         struct sock *sk;
->
->         recv_pkt_info =3D
-> @@ -908,6 +923,12 @@ static void vmci_transport_recv_pkt_work(struct work=
-_struct *work)
->         pkt =3D &recv_pkt_info->pkt;
->
->         lock_sock(sk);
-> +       vsock_addr_init(&src, pkt->dg.src.context, pkt->src_port);
-> +       if (sk->sk_state !=3D TCP_LISTEN &&
-> +           !vsock_check_source(vsock_sk(sk), &vmci_transport, &src)) {
-> +               vmci_transport_reply_reset(pkt);
-> +               goto out;
-> +       }
->
->         /* The local context ID may be out of date. */
->         vsock_sk(sk)->local_addr.svm_cid =3D pkt->dg.dst.context;
-> @@ -937,6 +958,7 @@ static void vmci_transport_recv_pkt_work(struct work_=
-struct *work)
->                 break;
->         }
->
-> +out:
->         release_sock(sk);
->         kfree(recv_pkt_info);
->         /* Release reference obtained in the stream callback when we fetc=
-hed
+Changes in v4:
+- Check for the "interrupt-names" property instead of "interrupts" to
+  detect the /DRDY interrupt so that it works on ACPI systems too.
+- Add ads112c14_first_active_channel() helper instead of duplicating the
+  find_first_bit() lookup.
+- Use regmap_update_bits() with FIELD_PREP() instead of
+  regmap_assign_bits() for the CONV_MODE field.
+- Link to v3: https://patch.msgid.link/20260807-iio-adc-ti-ads112c14-continuous-mode-v3-0-76e0d30e6c6b@baylibre.com
 
---0000000000007ef960065a5f6401
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+Changes in v3:
+- Leave DRDY interrupt always enabled.
+- Link to v2: https://patch.msgid.link/20260731-iio-adc-ti-ads112c14-continuous-mode-v2-0-eb13da38e8fc@baylibre.com
 
-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
-R/NZ5tTafc0SyuWmEVyFR825FbSoi1HwMkY1/lsU/2Ny0PK1+9WamuvV11QKd2dN0bYDXrT9uWC/
-Cw+IDnr+5S21lWL9xM3S7htf+QjbSezM58DicE0QLGoXIYZ98zGOum91sMMgq2YfQKCVeOcD/7SL
-0tftIn9SftUtPTeRab5qssPI8Aqo18uk3WxLqQRQv57jHWDis/0CAwEAAaOCAdkwggHVMA4GA1Ud
-DwEB/wQEAwIFoDCBkwYIKwYBBQUHAQEEgYYwgYMwRgYIKwYBBQUHMAKGOmh0dHA6Ly9zZWN1cmUu
-Z2xvYmFsc2lnbi5jb20vY2FjZXJ0L2dzZ2NjcjZzbWltZWNhMjAyMy5jcnQwOQYIKwYBBQUHMAGG
-LWh0dHA6Ly9vY3NwLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMzBlBgNVHSAEXjBc
-MAkGB2eBDAEFAwEwCwYJKwYBBAGgMgEoMEIGCisGAQQBoDIKAwIwNDAyBggrBgEFBQcCARYmaHR0
-cHM6Ly93d3cuZ2xvYmFsc2lnbi5jb20vcmVwb3NpdG9yeS8wCQYDVR0TBAIwADBBBgNVHR8EOjA4
-MDagNKAyhjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmww
-IwYDVR0RBBwwGoEYdmlzaG51LmRhc2FAYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwME
-MB8GA1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBSDkmQlbsGdC/WLbyB/
-f4VlMvD+ozANBgkqhkiG9w0BAQsFAAOCAgEAYv4/sGMrazXrWECSGMFJ6YIDir3jLsYCcD/xTMfS
-bXSiWFQ/ZiFLbxfVV9JJKkkKR29ow0Eo1fBaZMCDhnax7746XJn6qJ0Iz5MyLKFB2DKt3UO2q1PB
-+wh73XKXTx6FDnbFRDjtyam6uKjknIMrZcFVTyFwUiY9zKz5pK40OPx4ZzdWxOCKMnCblGOiqvS+
-gHpKXHRfCd9Ul1teGR1+muz+L7fJfrx9WUBNDFFIhwZEevLSVo7wIoyT2PG0fIk2yjKCFOT3CVVy
-E5LT/kzQHjq7Y36GeUxozu21FbrNYm4Ivlh1OV9suNl/3iN1j9kFAdgg/8QXh9USKmg2zaS/S9lc
-1YYUOS+Epg0WBwhAwWtVym636KWqu4Esgz2XWX1260rHG0sIxkdxzvBwsUYpf3e1axBlOHHr1Jz+
-vDtQVeBUS7fBAVDWnBJrKNn+jseGnpcqBDQSSNq1kB44XhKZFApne6lKSCqYkE3qXnr7Dp0CXm+G
-pPoyxqxotis4l4Dl4A3btCkYLp/dzOS00M71f185BKufW7S/16rj/jVUzgz2AjGvM/OC0SWvGoB2
-tDdyBMmW1/0xK5rKGnmfM07/k8agfS2J6eI1iWB35m1Ni2SoCoLGoLlvUA4OhexyRqMTTjyllKtA
-0Z9TF7kzBYUx8Qa7zfaTaIsVorChiSjphpgxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkw
-FwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlN
-RSBDQSAyMDIzAgwcY9XKjV0+TQvViOkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIE
-IL0+KEKWDs1IUl1oWfUPGMIoLX2d1z2ft91D4VXOKojPMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0B
-BwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDgzMTIyMzMzNFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgB
-ZQMEASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcw
-CwYJYIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAE+6IjpGMo4w2bbYr02StDOjQT8kzAsuPABe
-G9YeMt42e2S+FF2Be1SSU+UCRRinTXAR4yjPxHNmtjpEdHDtou1JJ6YjYnsSAQiWzefA50Pj+Kxo
-7aQ9fCRFO2l2TVTfP9wWyIfvxCe/tDc91u7p5fFkRafsLQZljqydDgpgk7awH3bT0Laxeo5mu2GT
-qNOHSAETwf4Njncw+yi96ueLStpycplvybFu7oAj0eGAFynwF3eiREtjbMh7zy1Qn2F4XXwjmVVz
-Ish9xOUIc9rV8BINcq1IE0W/SS+sd08cMMty+wSbxZPXGN6oNM1MAR3ctyMrA65vGaOjjPwI54GU
-vYY=
---0000000000007ef960065a5f6401--
+Changes in v2:
+- Split out irq and poll code paths into separate functions.
+- Split refactoring into separate patch.
+- Use iio_validate_scan_mask_onehot().
+- Just return immediately on error in buffer_predisable().
+- Don't set default trigger.
+- Code style improvements.
+- Fixed null pointer dereference bug when no trigger.
+- Link to v1: https://patch.msgid.link/20260724-iio-adc-ti-ads112c14-continuous-mode-v1-0-9eb0b7a4f020@baylibre.com
+
+---
+David Lechner (TI) (3):
+      iio: adc: ti-ads112c14: add DRDY interrupt support
+      iio: adc: ti-ads112c14: create data read helper functions
+      iio: adc: ti-ads112c14: add continuous mode support
+
+ drivers/iio/adc/ti-ads112c14.c | 298 +++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 269 insertions(+), 29 deletions(-)
+---
+base-commit: 26bdafb3bdf58436579a1f6f0ef1ddb9011015ea
+change-id: 20260724-iio-adc-ti-ads112c14-continuous-mode-dd1580754609
+
+Best regards,
+--  
+David Lechner (TI) <dlechner@baylibre.com>
+
