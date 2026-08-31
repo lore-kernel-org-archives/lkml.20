@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27C1415F2E;
-	Mon, 31 Aug 2026 13:33:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB4941B8F7;
+	Mon, 31 Aug 2026 13:33:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183198; cv=none; b=oSSgtp/WPIgZ+754X/r0BlOeLofDQTEP8iUaSlKo80yuTmZ2RakVLF4Ii15hIVIWq9OvA2F+dI5fNjySjrWxnNMSFXvManBFPp2gMBJPC7tG9vCkISKb2/lli2D4p7PSBAPfg2xLEA54Es6GCQvNnFCkvPGD2bqOu4amV51XONI=
+	t=1788183201; cv=none; b=s8LWQSq1WFIADE49fP85d7rCDol58n/fnq1PiNIIqp6GNbW9hQEofO8rMoQSZrxltKGQVcTuNYITYPwikwFe6Id4Xpbh+QUuOphoaJzXZwkxvEqm3ZEhno1M1T1ExiYd6be3+YJTH6oS6359hv/oJCIFSBhlCwPz+FqJkDjPMuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183198; c=relaxed/simple;
-	bh=yV1RDIhNSNFbcxqQ19tWu+IIBErRIfLgNZa1zvqIgSA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Rwu1dby0nzGwM4lXp2b0Z1H0RDpOSbtG91IV4Xk4mljAjce8WETPe1yRoNpshIwQlkmhfB6fpY794kxXJID29fhHCalZXn0EYfTAOuwmuBVZlyVzCzBlVg4gl22UuXxe1zq+h4gmS8JFLnanlkG2W2Wc9tzU4vVia7+Cb1o7Pgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bS2jq2Hy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788183201; c=relaxed/simple;
+	bh=K8LMQo5pHIEYPhl47hifXyrP06S40nRKtJ1EekNJJJA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LO0PlmrSEedA5e6iMl9IouDBDB/sueJUQxLnnhopvkGE7esglWyYDNmrczEz8JdwGGqcfAnCkWusyziJOS85KHyzYOYp01I3zR7dW8nouGnicm/CMBu3NzbkoXHptvuSlymU2Ou6zED0Gf82JI/ZNhVoqOqie0e/lZHE/1r60c8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N3YuJI6g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bS2jq2Hy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50B061F000E9;
-	Mon, 31 Aug 2026 13:33:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N3YuJI6g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C1691F00ADB;
+	Mon, 31 Aug 2026 13:33:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183196;
-	bh=1J77XU+FRYLHnC+JWeMz+Cme7b3XPiYHdf82jWlS5kQ=;
-	h=From:To:Cc:Subject:Date;
-	b=bS2jq2HyaLGzggUI//8K6gY3Uu4GgUijMe4NgKr1RbXFkaS3eW7RCbqAj/haet98O
-	 xoptXExsggFd+S/0am4eYcIfE5pNAG664T1sVuGwFAcn12gIaTEy0+2xbzji3JVvy5
-	 RNtszlZFJxYvWGTtMRrpvXJbNtRPlZFjtJRatL8KdLCR2mW10b8Qqqf3Sb5/bgHcM5
-	 xykF2VUS0q4QFIcepyYE2z75rKCgo+ShIit/ZahKAqaOMe8wAztiZB3m3i0v7wA0IV
-	 eeQRPQUTw7Tu9kRo+s5ZodkRhIgG40kWqZuDFhiQ03FxjIIQKSaoy2QtdgtQq3v2rW
-	 xhYU/gkKE13+w==
+	s=k20260515; t=1788183199;
+	bh=+hHAJNcn3CcPnANLQp8lYUzqx56Dix9TWBfCNMpVvZs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=N3YuJI6gzAxZS7MlX1u2Ub9k2siCgNePHSe9A0XqdxHbHpifnkBbU0WGWQnzxqcwd
+	 ld+BnebW2LtZKBkI/s950L3PA29/j69VK0Th7LOOgQe1F168shH0OmjV6NsjtkHA7j
+	 qHUL0h13tdgN972lIAVmUMl3CURHzDmZEEUpSDAa2K0HVLeclCX1LeKk2mLEAkfI59
+	 BoM8uWLBmzUNvlLW3ba4nNywJIJVU9brZfUCmjm8LrCNme8azwUTTt3YdoVcdNW9WO
+	 gDOwGAUSP1DLuqPKzyJ95AHKhrbukSgiiCuvrTkHmfV5TZG+MoF88FOOnpPU09oBKZ
+	 SORxnFPNtPDgA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+cc867e537e4bd36f69bb@syzkaller.appspotmail.com,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Charles Vosburgh <trilobyte777@gmail.com>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>,
-	johannes@sipsolutions.net,
-	linux-wireless@vger.kernel.org,
+	smfrench@gmail.com,
+	linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] wifi: cfg80211: validate IEs in cfg80211_wext_siwgenie()
-Date: Mon, 31 Aug 2026 09:20:29 -0400
-Message-ID: <20260831133314.4125787-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] ksmbd: preserve VFS inherited POSIX ACL mask
+Date: Mon, 31 Aug 2026 09:20:31 -0400
+Message-ID: <20260831133314.4125787-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,33 +54,20 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Deepanshu Kartikey <kartikey406@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit a2f5286ca4f304d3fd469f01b96b518608912a5c ]
+[ Upstream commit e148e567a9252643baa125cb65d7ae9c2c6cf68a ]
 
-The KASAN allocation trace shows that a malformed IE buffer is
-stored via SIOCSIWGENIE (cfg80211_wext_siwgenie()) without any
-validation. The crash trace shows that a subsequent SIOCSIWESSID
-triggers a connection attempt which calls cfg80211_sme_get_conn_ies()
-to process the stored IE buffer, causing:
+The VFS initializes a child's POSIX ACL from the parent's default ACL and
+the requested creation mode. Do not mutate the parent ACL or overwrite the
+child's VFS-computed access and default ACLs afterwards.
 
- - An out-of-bounds read in skip_ie() which reads ies[pos+1]
-   (the length byte) past the end of the 1-byte buffer.
+This preserves restrictive ACL_MASK entries and prevents SMB object creation
+from widening effective permissions.
 
- - An integer underflow in the memcpy size argument when offs
-   returned by ieee80211_ie_split() exceeds ies_len, causing
-   unsigned subtraction to wrap to SIZE_MAX and triggering a
-   fortify panic.
-
-Fix this by validating the IE buffer in cfg80211_wext_siwgenie()
-before storing it.
-
-Reported-by: syzbot+cc867e537e4bd36f69bb@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=cc867e537e4bd36f69bb
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-Link: https://patch.msgid.link/20260725142028.32560-1-kartikey406@gmail.com
-[drop unnecessary ie_len check, update commit message]
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Reported-by: Charles Vosburgh <trilobyte777@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
@@ -85,39 +75,35 @@ LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit Message Forensics
 
-### Step 1.1: Subject Line
-**Record:** `[wifi: cfg80211]` `[validate]` — Add IE validation in
-`cfg80211_wext_siwgenie()` before storing user-supplied generic IE data.
+### Step 1.1: Subject line
+**Record:** `[ksmbd] [preserve] [Do not mutate parent ACL or overwrite
+VFS-computed child POSIX ACLs on SMB create]`
 
 ### Step 1.2: Tags
 **Record:**
-- **Reported-by:** syzbot+cc867e537e4bd36f69bb@syzkaller.appspotmail.com
-  (fuzzer-found, strong YES signal)
-- **Closes:**
-  https://syzkaller.appspot.com/bug?extid=cc867e537e4bd36f69bb
-- **Link:**
-  https://patch.msgid.link/20260725142028.32560-1-kartikey406@gmail.com
-- **Signed-off-by:** Deepanshu Kartikey, Johannes Berg (cfg80211
-  maintainer committed/applied)
-- No Fixes:, Cc: stable, Reviewed-by, Tested-by, or Acked-by tags
-- Notable: syzbot report with maintainer application
+- **Reported-by:** Charles Vosburgh `<trilobyte777@gmail.com>` — real
+  user report
+- **Signed-off-by:** Namjae Jeon `<linkinjeon@kernel.org>` — author
+- **Signed-off-by:** Steve French `<stfrench@microsoft.com>` — ksmbd
+  maintainer
+- No Fixes:, Cc: stable, Link:, Tested-by, Reviewed-by, or Acked-by tags
+- Notable: maintainer sign-off; user report; no syzbot
 
-### Step 1.3: Body Analysis
+### Step 1.3: Body analysis
 **Record:**
-- **Bug:** Malformed IE buffer stored via `SIOCSIWGENIE` without
-  validation; later `SIOCSIWESSID` triggers connection and
-  `cfg80211_sme_get_conn_ies()` processes the bad buffer.
-- **Symptoms:** (1) OOB read in `skip_ie()` reading `ies[pos+1]` past a
-  1-byte buffer; (2) integer underflow in `memcpy` size when
-  `ieee80211_ie_split()` returns `offs > ies_len`, wrapping to
-  `SIZE_MAX` and triggering fortify panic.
-- **Root cause:** Wext path lacked the IE validation that nl80211
-  already performs.
-- **Version info:** None in commit message.
+- **Bug:** After VFS creates a child inode, ksmbd re-applies the
+  parent's default ACL to the child and forces `ACL_MASK` to `0x07`
+  (full rwx), overwriting VFS-computed access/default ACLs.
+- **Symptom:** SMB-created files/directories get wider effective
+  permissions than intended; restrictive `ACL_MASK` entries are lost.
+- **Root cause:** Redundant post-create ACL handling that mutates the
+  parent ACL and overwrites correct VFS inheritance.
+- **Version info:** None in the message.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** No — this is an explicit bug fix for KASAN-reported OOB read
-and fortify panic, not disguised cleanup.
+### Step 1.4: Hidden bug fix?
+**Record:** Yes. Although the subject says "preserve" rather than "fix",
+this is a real permissions/security bug: ACL mask widening on SMB object
+creation.
 
 ---
 
@@ -125,321 +111,320 @@ and fortify panic, not disguised cleanup.
 
 ### Step 2.1: Inventory
 **Record:**
-- **Files:** `net/wireless/wext-sme.c` (+9 lines, 0 removed)
-- **Function:** `cfg80211_wext_siwgenie()`
-- **Scope:** Single-file surgical fix
+- **Files:** `fs/smb/server/vfs.c` only
+- **Scope:** ~25 lines removed, 1 added (net -24 lines)
+- **Function modified:** `ksmbd_vfs_inherit_posix_acl()`
+- **Classification:** Single-file, surgical fix
 
-### Step 2.2: Code Flow Change
+### Step 2.2: Code flow change
 **Record:**
-- **Hunk (before):** If `ie_len > 0`, immediately `kmemdup()` and store
-  buffer.
-- **Hunk (after):** Before `kmemdup()`, walk IEs with
-  `for_each_element()` and reject with `-EINVAL` if
-  `!for_each_element_completed()`.
-- **Path affected:** Error/input-validation path on `SIOCSIWGENIE`
-  ioctl.
+- **Hunk 1 (function body):** Before: fetch parent default ACL → mutate
+  `ACL_MASK` to `0x07` → `set_posix_acl()` on child access ACL → for
+  directories, also set default ACL → return `rc`. After: fetch parent
+  default ACL → release → return `0`. VFS-computed ACLs from
+  `vfs_create()`/`vfs_mkdir()` are left intact.
+- **Path affected:** Post-create ACL setup in SMB2 open/create (`created
+  == true`).
 
-### Step 2.3: Bug Mechanism
+### Step 2.3: Bug mechanism
 **Record:**
-- **Category:** Buffer overflow / out-of-bounds read + integer underflow
-- **Mechanism:** `skip_ie()` assumes well-formed IEs (`u8 len = ies[pos
-  + 1]`). A 1-byte stored buffer causes OOB read. Bad split offset leads
-  to `ies_len - offs` underflow in `cfg80211_sme_get_conn_ies()`:
+- **Category:** Logic/correctness + security (permission widening)
+- **Mechanism:**
+  1. Filesystem `->create`/`->mkdir` (e.g. ext4 via `ext4_init_acl()` →
+     `posix_acl_create()`) already applies parent's default ACL with
+     correct `ACL_MASK` masking per creation mode.
+  2. `ksmbd_vfs_inherit_posix_acl()` then overwrote those ACLs.
+  3. `pace->e_perm = 0x07` forced mask to rwx, removing restrictive
+     masks.
+  4. `get_inode_acl()` can return a cached/shared ACL object; in-place
+     mutation may also corrupt the parent's cached default ACL.
 
-```529:534:net/wireless/sme.c
-                offs = ieee80211_ie_split(ies, ies_len, before_extcapa,
-                                          ARRAY_SIZE(before_extcapa),
-0);
-                memcpy(buf, ies, offs);
-                /* leave a whole for extended capabilities IE */
-                memcpy(buf + offs +
-rdev->wiphy.extended_capabilities_len + 2,
-                       ies + offs, ies_len - offs);
-```
-
-### Step 2.4: Fix Quality
-**Record:**
-- **Quality:** High — matches existing `validate_ie_attr()` pattern in
-  `nl80211.c`.
-- **Regression risk:** Very low — only rejects malformed input that
-  would crash later; well-formed IEs unchanged.
-- **Note:** Johannes dropped the explicit `ie_len < 2` check from v2;
-  `for_each_element_completed()` correctly rejects 1-byte buffers (loop
-  never runs, completion check fails).
+### Step 2.4: Fix quality
+**Record:** Obviously correct — trusts standard VFS ACL inheritance.
+Minimal change. Preserves the parent-has-no-default-ACL check
+(`-ENOENT`) used by caller fallback logic. Low regression risk; only
+affects ksmbd create path when `CONFIG_FS_POSIX_ACL` is enabled.
 
 ---
 
 ## Phase 3: Git History Investigation
 
 ### Step 3.1: Blame
-**Record:** Current `cfg80211_wext_siwgenie()` in this tree dates to
-initial import at `5d324e5159d9e` (v6.18 merge base). The unvalidated
-`kmemdup()` path has been present since wext-sme support was added — a
-long-standing gap, not a recent regression.
+**Record:** In this tree (`6.18.44`), buggy lines in
+`ksmbd_vfs_inherit_posix_acl()` blame to `5d324e5159d9e` (merge where
+`vfs.c` entered this checkout's history). Mainline history shows the
+`pace->e_perm = 0x07` pattern present since at least `25933573ef48`
+(2023-05-30); function dates to ksmbd POSIX ACL work (~2021,
+`67d1c432994c`).
 
-### Step 3.2: Fixes: Tag
+### Step 3.2: Fixes: tag
 **Record:** N/A — no Fixes: tag.
 
-### Step 3.3: Related Changes
-**Record:** Many related validation fixes in `net/wireless/` (e.g.
-`f8c547e543e12`, `cfbda103aeae6`, `584657c5fc58d`). nl80211 already
-validates IEs via `validate_ie_attr()`; wext path was the missing piece.
-Standalone fix — v3 helper series was explicitly rejected by maintainer.
+### Step 3.3: Related file history
+**Record:** Recent `vfs.c` changes in this tree are unrelated (path
+resolution, credentials). No duplicate fix found. Standalone commit
+(mainline `e148e567a925`).
 
-### Step 3.4: Author Context
-**Record:** Deepanshu Kartikey is a contributor; Johannes Berg (cfg80211
-maintainer) applied the patch with modifications.
+### Step 3.4: Author context
+**Record:** Namjae Jeon is ksmbd maintainer. Steve French (co-
+maintainer) signed off. Recent ksmbd stable-worthy fixes in this tree
+include UAF, ACL validation, credential handling.
 
 ### Step 3.5: Dependencies
-**Record:** No prerequisites. Uses `for_each_element` /
-`for_each_element_completed` from `include/linux/ieee80211.h` (included
-via `cfg80211.h`). No dependency on rejected v3
-`cfg80211_validate_ies()` helper.
+**Record:** No prerequisites. Self-contained. Function and caller exist
+in this tree.
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original Discussion
-**Record:**
-- **URL:**
-  https://patch.msgid.link/20260725142028.32560-1-kartikey406@gmail.com
-- **Series:** v1 (2026-07-10) → v2 (2026-07-25, committed version)
-- **Maintainer:** Johannes Berg applied modified v2 on 2026-07-28,
-  declined v3 refactor: *"the bigger cleanup isn't great for wireless as
-  a fix right now"*
-- No explicit Cc: stable nomination; no NAKs
+### Step 4.1: Original discussion
+**Record:** `b4 dig -c e148e567a925` matched patch-id to `https://lore.k
+ernel.org/all/CAKYAXd-
+4MuqT49GwTO2meR0Lt338vTygzTrQ%2B6xBNpVW7kE0Xg@mail.gmail.com/` but could
+not fetch thread content (lore fetch failure). Mainline commit dated
+2026-07-17, merged via `8e371eff3f72` (v7.2-rc4 smb3-server-fixes).
 
 ### Step 4.2: Reviewers
-**Record:** CC'd: johannes@sipsolutions.net, linux-
-wireless@vger.kernel.org, syzbot. Jeff Johnson replied on thread.
-Maintainer applied directly.
+**Record:** `b4 dig -w` failed (same fetch issue). Steve French
+maintainer sign-off verified via GitHub API.
 
-### Step 4.3: Bug Report
-**Record:**
-- **syzkaller:** KASAN slab-out-of-bounds in `skip_ie()` /
-  `ieee80211_ie_split_ric()`
-- **Repro:** C reproducer on 2026/07/09; fix commit `a2f5286ca4f3`
-  identified
-- **Stack trace confirms path:** `cfg80211_wext_siwgenie()` →
-  `cfg80211_mgd_wext_siwessid()` → `cfg80211_sme_get_conn_ies()` → crash
-- **Severity:** Kernel crash (KASAN OOB); syzbot security assessment
-  flags DoS/exploitable
+### Step 4.3: Bug report
+**Record:** Reported-by Charles Vosburgh — user-reported ACL permission
+widening on SMB create. No public bugzilla/syzbot link.
 
-### Step 4.4: Related Patches
-**Record:** v3 series (`cfg80211_validate_ies()` helper) exists but was
-explicitly not taken for this fix cycle.
+### Step 4.4: Related patches
+**Record:** No multi-patch series. Standalone fix.
 
-### Step 4.5: Stable List
-**Record:** lore.kernel.org/stable search blocked (bot protection). No
-stable discussion found.
+### Step 4.5: Stable list
+**Record:** Could not search stable@ list (lore inaccessible). No
+evidence of prior stable rejection.
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
-### Step 5.1: Key Functions
-**Record:** `cfg80211_wext_siwgenie()` (modified); downstream:
-`cfg80211_mgd_wext_connect()`, `cfg80211_sme_get_conn_ies()`,
-`skip_ie()`.
+### Step 5.1: Key functions
+**Record:** `ksmbd_vfs_inherit_posix_acl()` (modified); callers:
+`smb2_open()` path in `smb2pdu.c`.
 
 ### Step 5.2: Callers
-**Record:**
-- `cfg80211_wext_siwgenie()` registered in `wext-compat.c` as
-  `IW_HANDLER(SIOCSIWGENIE, ...)`
-- Stored IEs consumed at connect time via `cfg80211_mgd_wext_connect()`
-  (lines 31–32) → `cfg80211_connect()` → `cfg80211_sme_get_conn_ies()`
+**Record:** Single caller at `smb2pdu.c:3376`, inside `if (created)`
+after `smb2_creat()` → `ksmbd_vfs_create()`/`ksmbd_vfs_mkdir()` →
+`vfs_create()`/`vfs_mkdir()`. Userspace-reachable via SMB2 CREATE.
 
 ### Step 5.3: Callees
-**Record:** `for_each_element()`, `for_each_element_completed()`,
-`kmemdup()`, `kfree()`, `cfg80211_disconnect()`.
+**Record:** Before fix: `get_inode_acl()`, `set_posix_acl()`,
+`posix_acl_release()`. After fix: `get_inode_acl()`,
+`posix_acl_release()`.
 
 ### Step 5.4: Reachability
-**Record:**
-- Reachable from userspace via `ioctl(SIOCSIWGENIE)` on wireless
-  netdevice
-- Requires `CAP_NET_ADMIN` (`wext_permission_check()` in `wext-
-  core.c:991-996`)
-- Only when `CONFIG_CFG80211_WEXT` is enabled (common on distros
-  supporting `iwconfig`)
+**Record:** SMB client CREATE on a share backed by a POSIX-ACL
+filesystem (ext4, xfs, etc.) with parent default ACL containing
+`ACL_MASK`. Unprivileged network user can trigger.
 
-### Step 5.5: Similar Patterns
-**Record:** Identical validation pattern in
-`nl80211.c:validate_ie_attr()` and `scan.c:2749`. Wext path was the
-outlier.
+### Step 5.5: Similar patterns
+**Record:** `ksmbd_vfs_set_init_posix_acl()` also sets
+`acl_state.mask.allow = 0x07`, but only as fallback when inheritance
+fails and SD buffer setup fails — separate intentional path. No other
+`pace->e_perm = 0x07` in ksmbd.
 
 ---
 
 ## Phase 6: Cross-Reference Against Local Tree
 
-### Step 6.1: Buggy Code Present?
-**Record:** **YES.** Local tree is **v6.18.44** (`git describe HEAD`).
-`cfg80211_wext_siwgenie()` at lines 321–324 does unvalidated
-`kmemdup()`. Fix commit `a2f5286ca4f3` is **NOT** an ancestor of HEAD
-(`git merge-base --is-ancestor` → fix NOT in HEAD).
+### Step 6.1: Buggy code present?
+**Record:** **Yes.** Local tree is **6.18.44** (`git describe`:
+`v6.18.44-2-g1b9e1abadee04`). Buggy code at
+`fs/smb/server/vfs.c:1967-2004` with `pace->e_perm = 0x07` and post-
+create `set_posix_acl()` calls. Fix not yet applied.
 
-### Step 6.2: Backport Complications
-**Record:** **Clean apply.** `git apply --check` on the fix diff
-succeeds with no conflicts.
+### Step 6.2: Backport complications
+**Record:** `patch -p1 --dry-run` of the mainline diff applies cleanly
+to this tree (line offset differs from mainline but hunks match). Minor
+offset only — no logic conflicts.
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** No equivalent validation in `cfg80211_wext_siwgenie()`.
-nl80211 IE validation exists separately; does not cover wext path.
+### Step 6.3: Related fixes already present?
+**Record:** No. Grep found no "preserve VFS inherited POSIX ACL" commit
+in this tree.
 
 ---
 
 ## Phase 7: Subsystem Context
 
-### Step 7.1: Subsystem
-**Record:** `net/wireless` (cfg80211) — **IMPORTANT** subsystem; affects
-wireless stack users.
+### Step 7.1: Subsystem criticality
+**Record:** `fs/smb/server` (ksmbd) — **IMPORTANT**. Network file
+server; ACL bugs affect multi-user share security.
 
 ### Step 7.2: Activity
-**Record:** Actively maintained; multiple recent IE-validation hardening
-commits in this tree.
+**Record:** Actively maintained in 6.18.y (recent ksmbd commits in this
+tree).
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
-### Step 8.1: Who Is Affected
-**Record:** Users with `CONFIG_CFG80211_WEXT` and wireless interfaces
-using wext ioctls (`iwconfig`, legacy tools). Not universal, but common
-on desktop/server distros.
+### Step 8.1: Who is affected
+**Record:** ksmbd users (`CONFIG_SMB_SERVER`) exporting POSIX-ACL-
+enabled filesystems with default ACLs using `ACL_MASK`. Not universal,
+but real production deployments.
 
-### Step 8.2: Trigger Conditions
+### Step 8.2: Trigger conditions
+**Record:** SMB2 create of file/directory under parent with default
+POSIX ACL containing `ACL_MASK`. Common on managed shares. Remote SMB
+clients can trigger.
+
+### Step 8.3: Failure mode severity
+**Record:** Permission widening / ACL bypass — **HIGH** security impact
+(unauthorized access via elevated effective permissions). Possible
+parent ACL cache corruption from in-place mutation of cached ACL. Not a
+crash, but serious correctness/security issue.
+
+### Step 8.4: Risk-benefit
 **Record:**
-- `SIOCSIWGENIE` with malformed IE (e.g. 1-byte buffer) + `SIOCSIWESSID`
-  to trigger connect
-- Requires `CAP_NET_ADMIN` (not unprivileged)
-- syzbot has reproducible C reproducer
-
-### Step 8.3: Failure Mode
-**Record:** KASAN slab-out-of-bounds read → potential kernel oops/panic;
-fortify panic on memcpy underflow. **Severity: HIGH** (kernel crash).
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** HIGH — prevents kernel crash from malformed wext IE input
-- **Risk:** VERY LOW — 9-line input validation, established pattern,
-  maintainer-reviewed
+- **Benefit:** HIGH — restores intended ACL semantics, closes
+  permission-widening hole
+- **Risk:** LOW — 24-line deletion, defers to proven VFS path
 - **Ratio:** Strongly favors backport
 
 ---
 
 ## Phase 9: Final Synthesis
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- syzbot-reported, reproducible KASAN OOB read
-- Kernel crash (fortify panic) on realistic ioctl sequence
-- Small, surgical, maintainer-applied fix
-- Matches existing nl80211 validation pattern
-- Applies cleanly to v6.18.44
-- Buggy code confirmed present; fix not yet in tree
-- Part of ongoing cfg80211 IE hardening in stable
+- Real user-reported ACL security bug
+- Permission widening on SMB create (restrictive `ACL_MASK` ignored)
+- VFS already handles ACL inheritance correctly (`posix_acl_create()` /
+  `ext4_init_acl()`)
+- Small, surgical, maintainer-reviewed fix
+- Bug present in this 6.18.44 tree
+- Patch applies cleanly
+- Long-standing bug (since ~2021)
 
 **AGAINST backport:**
-- Requires `CAP_NET_ADMIN` (not unprivileged attack)
-- Only affects wext compat path (`CONFIG_CFG80211_WEXT`)
-- No explicit Cc: stable nomination (not a negative per instructions)
+- Only affects ksmbd + POSIX ACL configurations (not all kernel users)
+- No syzbot/CVE yet (severity still clear from code analysis)
 
-**Unresolved:** None material to the decision.
+**Unresolved:**
+- Full lore review thread unavailable (fetch failed)
+- No explicit stable@ nomination found
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — standard `for_each_element`
-   validation; syzbot repro; maintainer applied
-2. Fixes real bug affecting users? **PASS** — KASAN-confirmed crash path
-3. Important issue? **PASS** — kernel crash (HIGH severity)
-4. Small and contained? **PASS** — 9 lines, 1 file
-5. No new features/APIs? **PASS** — input validation only
-6. Can apply to local tree? **PASS** — verified clean apply
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — logic is clear; maintainer
+   sign-off; user tested/report
+2. Fixes real bug affecting users? **PASS** — user report + verified
+   code path
+3. Important issue? **PASS** — ACL permission widening (security)
+4. Small and contained? **PASS** — one function, ~24 lines removed
+5. No new features/APIs? **PASS** — removes incorrect behavior
+6. Can apply to local tree? **PASS** — dry-run apply succeeds
 
-### Step 9.3: Exception Categories
-**Record:** N/A — standard bug fix, not device-ID/quirk/DT/docs
-exception.
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Standard
+security/correctness bug fix.
 
-### Step 9.4: Decision Rationale
-
-This commit closes a validation gap in the wext compatibility path that
-nl80211 already covers. A `CAP_NET_ADMIN` caller can store a malformed
-1-byte IE via `SIOCSIWGENIE`; a subsequent `SIOCSIWESSID` triggers
-connection processing that reads past the buffer end in `skip_ie()` and
-can panic via fortify-checked `memcpy`. The fix is minimal, follows an
-established in-tree pattern, was applied by the cfg80211 maintainer,
-applies cleanly to this v6.18.44 tree, and the vulnerable code is
-confirmed present without the fix.
+### Step 9.4: Decision rationale
+For **this 6.18.44 tree**, the buggy code is present and reachable. The
+fix stops ksmbd from overwriting VFS-correct ACLs and forcing `ACL_MASK`
+to full rwx. That is a clear, important security/correctness fix with
+minimal risk. It meets all stable kernel criteria.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reported-by syzbot, Closes syzkaller URL,
-  Signed-off-by author + Johannes Berg
-- [Phase 1] Subject: wifi: cfg80211 validate IEs in
-  cfg80211_wext_siwgenie()
-- [Phase 2] Diff: +9 lines in cfg80211_wext_siwgenie(), adds
-  for_each_element validation before kmemdup
-- [Phase 2] Verified skip_ie() OOB: `u8 len = ies[pos + 1]` at
-  util.c:1967 with comment "assume validly formed"
-- [Phase 2] Verified underflow path: cfg80211_sme_get_conn_ies() memcpy
-  at sme.c:534 uses `ies_len - offs`
-- [Phase 3] git blame: vulnerable function present in v6.18.44 tree
-- [Phase 3] git merge-base --is-ancestor a2f5286ca4f3 HEAD → fix NOT in
-  HEAD
-- [Phase 3] git apply --check on fix diff → applies cleanly
-- [Phase 4] b4 dig -c a2f5286ca4f3 →
-  https://patch.msgid.link/20260725142028.32560-1-kartikey406@gmail.com
-- [Phase 4] b4 dig -a → v1 and v2 series; v2 is committed version
-- [Phase 4] b4 dig -w → johannes@sipsolutions.net, linux-wireless CC'd
-- [Phase 4] Mbox: Johannes applied modified v2, declined v3 refactor
-- [Phase 4] syzkaller report fetched: KASAN OOB in skip_ie, C repro, fix
-  commit a2f5286ca4f3
-- [Phase 4] Stack trace confirms siwgenie → siwessid → sme_get_conn_ies
-  → skip_ie path
-- [Phase 5] Call chain: wext-compat.c SIOCSIWGENIE handler → wext-sme.c
-  connect path → sme.c
-- [Phase 5] CAP_NET_ADMIN required: wext-core.c:991-996
-  wext_permission_check()
-- [Phase 5] for_each_element_completed pattern exists in nl80211.c:284
-  and scan.c:2749
-- [Phase 5] Macros available via cfg80211.h → ieee80211.h include chain
-- [Phase 6] git describe HEAD → v6.18.44-2-g1b9e1abadee04 (6.18.y tree)
-- [Phase 6] Makefile VERSION/PATCHLEVEL/SUBLEVEL → 6.18.44
-- [Phase 6] Current wext-sme.c:321-324 lacks validation (buggy code
-  confirmed)
-- [Phase 7] net/wireless recent commits show active IE validation
-  hardening
-- [Phase 8] Failure mode: KASAN OOB + fortify panic, severity HIGH
-- [Phase 8] Trigger requires CAP_NET_ADMIN (syzbot assessment:
-  Unprivileged ❌)
+- **[Phase 1]** `git describe HEAD` → v6.18.44; parsed commit message
+  tags
+- **[Phase 2]** Read `fs/smb/server/vfs.c:1967-2004` — confirmed buggy
+  code matches diff "before" state
+- **[Phase 2]** Read `fs/posix_acl.c:459-511` —
+  `posix_acl_create_masq()` correctly handles `ACL_MASK`
+- **[Phase 2]** Read `fs/ext4/acl.c:278-303` — `ext4_init_acl()` calls
+  `posix_acl_create()` during inode creation
+- **[Phase 3]** `git blame -L 1967,2005 fs/smb/server/vfs.c` — buggy
+  code present
+- **[Phase 3]** GitHub API: mainline fix `e148e567a925` (2026-07-17);
+  bug present in `25933573ef48` (2023-05-30)
+- **[Phase 3]** `git log --oneline -30 -- fs/smb/server/vfs.c` — no
+  duplicate fix
+- **[Phase 4]** `b4 dig -c e148e567a925` — matched lore URL; thread
+  fetch failed
+- **[Phase 4]** GitHub API — commit message and maintainer sign-off
+  confirmed
+- **[Phase 5]** `grep ksmbd_vfs_inherit_posix_acl` — single caller at
+  `smb2pdu.c:3376`
+- **[Phase 5]** Read `smb2pdu.c:2609-2644, 3268-3393` — create → inherit
+  ACL call chain verified
+- **[Phase 5]** Read `posix_acl.c:189-193` — `get_inode_acl()` returns
+  potentially cached/shared ACL
+- **[Phase 6]** `make kernelversion` → 6.18.44; buggy code confirmed
+  present; fix absent
+- **[Phase 6]** `patch -p1 --dry-run` of mainline diff → applies cleanly
+- **[Phase 6]** `diff` local vs mainline pre-fix function → identical
+- **[Phase 8]** Assessed severity as ACL permission widening — HIGH
+  security impact
 
-**YES**
+**YES**The background `git log --all` search was stopped — as expected,
+it’s too slow on this repo. History was covered instead with targeted
+`git log` (no `--all`) and the GitHub API.
 
- net/wireless/wext-sme.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+**Verdict for this tree (6.18.44): YES**
 
-diff --git a/net/wireless/wext-sme.c b/net/wireless/wext-sme.c
-index 573b6b15a446e..b5914f3658db4 100644
---- a/net/wireless/wext-sme.c
-+++ b/net/wireless/wext-sme.c
-@@ -319,6 +319,15 @@ int cfg80211_wext_siwgenie(struct net_device *dev,
- 		return 0;
+`ksmbd_vfs_inherit_posix_acl()` in `fs/smb/server/vfs.c` overwrites VFS-
+correct child ACLs and forces `ACL_MASK` to `0x07`, widening effective
+permissions on SMB creates when the parent has a restrictive default
+ACL. The fix is small, applies cleanly here, and restores correct POSIX
+ACL inheritance.
+
+ fs/smb/server/vfs.c | 26 +-------------------------
+ 1 file changed, 1 insertion(+), 25 deletions(-)
+
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 6680638bb85b5..f129386a56c8f 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -1974,10 +1974,6 @@ int ksmbd_vfs_inherit_posix_acl(struct mnt_idmap *idmap,
+ 				const struct path *path, struct inode *parent_inode)
+ {
+ 	struct posix_acl *acls;
+-	struct posix_acl_entry *pace;
+-	struct dentry *dentry = path->dentry;
+-	struct inode *inode = d_inode(dentry);
+-	int rc, i;
  
- 	if (ie_len) {
-+		const struct element *elem;
-+
-+		for_each_element(elem, extra, ie_len) {
-+			/* nothing */
-+		}
-+
-+		if (!for_each_element_completed(elem, extra, ie_len))
-+			return -EINVAL;
-+
- 		ie = kmemdup(extra, ie_len, GFP_KERNEL);
- 		if (!ie)
- 			return -ENOMEM;
+ 	if (!IS_ENABLED(CONFIG_FS_POSIX_ACL))
+ 		return -EOPNOTSUPP;
+@@ -1985,27 +1981,7 @@ int ksmbd_vfs_inherit_posix_acl(struct mnt_idmap *idmap,
+ 	acls = get_inode_acl(parent_inode, ACL_TYPE_DEFAULT);
+ 	if (IS_ERR_OR_NULL(acls))
+ 		return -ENOENT;
+-	pace = acls->a_entries;
+-
+-	for (i = 0; i < acls->a_count; i++, pace++) {
+-		if (pace->e_tag == ACL_MASK) {
+-			pace->e_perm = 0x07;
+-			break;
+-		}
+-	}
+-
+-	rc = set_posix_acl(idmap, dentry, ACL_TYPE_ACCESS, acls);
+-	if (rc < 0)
+-		ksmbd_debug(SMB, "Set posix acl(ACL_TYPE_ACCESS) failed, rc : %d\n",
+-			    rc);
+-	if (S_ISDIR(inode->i_mode)) {
+-		rc = set_posix_acl(idmap, dentry, ACL_TYPE_DEFAULT,
+-				   acls);
+-		if (rc < 0)
+-			ksmbd_debug(SMB, "Set posix acl(ACL_TYPE_DEFAULT) failed, rc : %d\n",
+-				    rc);
+-	}
+ 
+ 	posix_acl_release(acls);
+-	return rc;
++	return 0;
+ }
 -- 
 2.53.0
 
