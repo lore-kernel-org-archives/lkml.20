@@ -1,211 +1,176 @@
-Received: from mail-wm2-f11.google.com (mail-wm2-f11.google.com [74.125.225.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F586348445
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:43:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C63736C5B4
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:44:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788144238; cv=none; b=aoWooKQEoelDRtgJaWjUraQtQyD0hc90SBK8Y3Z/fNF+oPw7fVCrXQvB9+1fnyANdlYw1bPX3g05A6blpWTV4+8rUJnl2/t2ZyfNeVhInLV0FJR4V9/HHz/10g7KPxJPc1016f9gESuB7EjDdLzcrWfbf90jEGwV4ra4ljamjmg=
+	t=1788144251; cv=none; b=HkVb5IM8VVzF/0QeER8K4PR8lEQvAZwIr/epxrVF3WuKHq2ZhYHvr83DfKChnxMTt9LT/nCz6Xit7UrZchibuy7fiySh8ZAkcicTUkX6BJHRRurUG/7a8yQzhr3EwIi9kPLmCXp4gdbk7YXMo7dNjicXsgvphwYexZkO18vxLwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788144238; c=relaxed/simple;
-	bh=MsdmLVRegQiwqggtnxMkuCIHzVN4jOC7xy523DaRM50=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=lCdpBwGAaS0ePlLw+Ml2aZRSHhFQR1AWQPzWJg/SPih6s9uhPalAtEkL8m684ATGxp+PRuAFHRrDLbxo+iFGgJBr9+Fa2+whHAVah/MbaoGkbBbfgXYIZ3lGK2CNgUtiKt4wBf4WXYkCg6BBg/Bp6Tvf//7fyQKAeRMM7vsRiMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gxzG66uV; arc=none smtp.client-ip=74.125.225.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788144251; c=relaxed/simple;
+	bh=PUDMY4WLXFBReBbRmBaTP6+PE4Cv4pgZHtjopE2nWgQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=rwMWBs5U3EtyOw5+hON5X2luD+Wu9xHK6lwT+Udm44EW51Wb5RLkNF4XXlo8e8BHE/+zeWjNedhRI9kqBO67BPlwUx9SnDHB6CbJwEC1VrB3TCZOnTErUGpOYfsatctgzRrDvo4De01jpmj2ujBOtnySni+1ysMYBV35IFuuTFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fFnrlXPD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LTO+x2Am; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gxzG66uV"
-Received: by mail-wm2-f11.google.com with SMTP id 5b1f17b1804b1-49ccea58fe3so6808835e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 19:43:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fFnrlXPD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LTO+x2Am"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V1bsxa2820902
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:44:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=ZhT897pRpBM+tJ1kem0SH3
+	LVJgXDEhaNUrTZzsCdCzY=; b=fFnrlXPD9K3X/8Mh5DZSOKTSit6U3Mkn2qO8T5
+	mLY0gVCWx/Sc7SAmVg7LezJ4mdTYBXdief200KjLzrRhYhR+kMT2nw2YAJB6upNw
+	89X99tW/Hz+Xi4bbqw4bVhF2s3x8gMwShrnX/yeOkLjKALHOfJq37/YuAVSv1eKT
+	dpvD3Zz5xNZMzG3+U39mrFwQ9qGoha5fGK0eOn3eIuMEXHLLWj5hZt8My4W/CY+M
+	5megf/0LffzvB1a67XIjkifBqWKgeHdxWIpDv+MK8tL5nr7vN2n0G1GYKks38F65
+	dT7LWu1u4cIYEWMJFGqw3EfuRDpnCykIjwokQmQx7MMiuz2A==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqdfm8ra-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:44:06 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cc6dd43737so60674295ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 19:44:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788144232; x=1788749032; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ymc/NdJXhMPL+BOqGNmfc6XPTw7UulT/4bPOKgW49BQ=;
-        b=gxzG66uVpaYteYedDIeU58PpYVxZZI1lUxYXTvk2b6mn/5peyBi19S5WaIKkXytpcP
-         IhLBL2p1Qt2v5CMPNiiBoG6WHV5AE7m40yybsaR479Urku7fr+lA12Tdgq/yEDmfwbUR
-         Ft9tUzvl/HDFbxvFuiBbsHp74S0l0E7wg5u3DDObPArypuhYtIpNYB6gIMEMdv3iJ3d0
-         JILPYFgF3KmInQVDrau3I4VPjJrahmifiSA+n8y/C2ksK6uze0V5kOnqaSkEDyR20YLA
-         rMliR92uXe2AmCIYTGzIqILvMp4U7BhQkSPRY/fjGGX7WKBxqSIhXksbNHhMFHfEsvT+
-         We9g==
+        d=oss.qualcomm.com; s=google; t=1788144245; x=1788749045; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZhT897pRpBM+tJ1kem0SH3LVJgXDEhaNUrTZzsCdCzY=;
+        b=LTO+x2Am+105Wsf+5ru2b5JUUUhvB2/8yNzPp1NZOhI/aSFW+TbQKuMsNmX3NfBSN8
+         Idfgnu3CYnyhKZteSJ0XCN7lUv7mpv2Xk8csASuRgtmo828VeX157pWsUq8G8qU3vWEc
+         dRwlBjdyTboa0Cgnd5tvPC+LBbfGtGcpxJqcpJ849JhS4Tjuw6s6pmIFQARUDfU0reJf
+         pUENXF3kcgO5UTLxolAYu/g4MDjncWR0FrYUEq1JP2Fp+unrrqjZ70K2IcyzLAi7Dgbj
+         FnKfs6MfflV2ZrdQoVbIt/qxf9RfMHIoeoaVzsQ98tmJf5wm+Hul/J2sOn9Aa4F1PXYr
+         j9Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788144232; x=1788749032;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ymc/NdJXhMPL+BOqGNmfc6XPTw7UulT/4bPOKgW49BQ=;
-        b=LKFOjWY22W4qeaxWt5WnRCjNhGKHQ2HOaBYdO1v1UvNYudXCidvMV/cFNuh4Zvl9u3
-         oWPUCP/SXmCyfZhEBYn7V3hkFoyiX9PX3SG8ki3xWcGGng9dJFd8459QMkG80sJlcvTq
-         Ppile8hoLUHG2twfkXyJ7SLIVbcK6M0SUzRjoro/E3SUtDcuE86AxLzcSIyPhWIdtOlg
-         FG7yINcPUbvhdDPhxbNY4tQwEvyXiX/UMf4iGR0aceluEU5x+A9weH3Gh7l7D3Y0DiOa
-         /3SHdhbUpZLPXAw+FBsB0svYqGJAuIVT/G7qELiX4VDSmiDR9OUhQwxczcvbqD+aWJEn
-         RKyg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq6v+EA6KePeRjVxMKtCK/blDNxpC5CRQy6LvZyAyHp8tTXRWyG07UeNy/9g7jlRrkqhVcbn5yc0NH3f38=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYVkraeRF1ovKGBD/kt7gOc0cc2Zexkq+hp9PqemOxIF1tP198
-	auoQD5cFdJcEQWQJK/lg9kRzh8m0uLwmDRARNmmaGEcMZ0SH5J3s/nvM
-X-Gm-Gg: AR+sD10FHL0+C2ujokA88pO3Wyl4oMKYKhkaRpbcba6QOuOVt3rwbFaWvmZkQCqu4tC
-	jv4OBd3ttDITzCPvyQnFR7naXOD5JRwMXlyvCAYgX0e+77Yidl6F8ywnZ4SgZKDjFykoUUnpKBH
-	wrWAal9mud1p7KzOqaaKgaeJEGABeAHxgb6TWH5wIrlOCoPuSkOa09Fb30T5AHN14IElvhR+Rd5
-	g7yitb5buIimVUGcUrX3hTi5tdEWdtl1CelVpxc/x6KHFEGW3LmhLi7LlTAiGxiG4iiqoMuSjGb
-	k33rOH1bCgOq9EbqlVcFuz9n89FMMzeSiK2sZAxKCFM8Ip1V0nGjHejvSwd0CmlHalTAHFdNFh9
-	n0hkNLZTtlevGf1H+LGZZRYRpwSXUDWOmDh/mpuACc1EJUF2AJPhIvRdNDniiz+hn3LQ/MjunHL
-	z27D1tPj7oYTr8fw41mKHlRXQ0uLgsNPcUWd63hzwX3hF7C4I54kfLMxNFokIQgULrNfl3Xlq6d
-	+9lcm26kD35SoOwzBHdxdFtKnBFF7zz/thGlOlLDcO+X10DLd9tUVvqqNEY02kR+Wkq4iUzx1F6
-	so86R0lb5kpVjrCVDu8wJjUCVSE=
-X-Received: by 2002:a05:600c:8b27:b0:49c:d27f:ed81 with SMTP id 5b1f17b1804b1-49cd27fee09mr141280485e9.11.1788144231971;
-        Sun, 30 Aug 2026 19:43:51 -0700 (PDT)
-Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd8b9a2efsm13744795e9.3.2026.08.30.19.43.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 30 Aug 2026 19:43:51 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788144245; x=1788749045;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ZhT897pRpBM+tJ1kem0SH3LVJgXDEhaNUrTZzsCdCzY=;
+        b=RsK75vNoip9DtZ4i9yE5HplIqED4gkxKKkd5C+fijdVnj3CSlW7eMN8jmGPf8Nh5Jr
+         8ui+XUNJ1+Hwuln5WFkmZA8UE8OCseBAcucFOW5uP/eG09lJ+HxroAnjXP8NCfbCKACH
+         Bn6hMKBWR78+RT9+UM9NLyU1AMotz98Je00SfnBs1xFDT5JQkHxmrIkV/nbyR4A41i6C
+         JnekLPIewXwY709UO3UGPF61v4yUvaSunytLuNOc2mVugGQTmKit7gcbQTwnoDl1paKT
+         /JX6DAhwLV9RX58BBUivpIXIQjBFYqNcy9Y5WPrHIc2unuNZlsO9b7DagMISZyBp5dSy
+         VbYg==
+X-Forwarded-Encrypted: i=1; AKwUvBx2T8oQL7g42BshtzIsOnkWjcrJCtcm5WMgkI7lm0vS8rXr0CkNaxX7pdfF/vfyDqKW4+SM5dN6Urs7AnY=@vger.kernel.org
+X-Gm-Message-State: AFuF++meM5hCPoT04n7f7XswYJuC8bN9sN4/7PffxhMiBGq6O4+EPYnt
+	mkwSs1qUEQ8rIBAiUgnxyaumcUyEalEwUgYwjhQyLj7e4TVo+8E/dUF6TQ58jfEy5aHTx411xLC
+	V4lQzbPoTKkCImTUiPdioO7upVPqkTGTPnTCofCaHwgVnQ7hSaUV+0mBnA7OZb/oHW8I=
+X-Gm-Gg: AYBFou2BslkDAk5yaQzM8ug7Ad5GB5lCHt/hzHGWoS8dV3lP8jHSsx2CxjRc5pxAj9J
+	mPI5OnBCJH28kMw/ipwlf9+lJZhg2YbL3bQ7VgtzxSie1kPufzfp82omsRE6VhJoqtGKm4oZ92T
+	hbAeD71uGYI4yh2jB70hd9Y59KgwwmrUGkfgOdHgWfIvqCEwXj15tK0NewkZRNjEUUOxryAeeBq
+	wrIllLn+4sW4QxZOCGrSDxWGHPf0tu8035wZLaG4xk7H+Jt5ESWWkvGH5rs3pOMZyNMv+AZCtcY
+	vZwrgyBTVJPz2o1ss6OFlrMy5c0Rab8Ig01SDJwJNtOu7Pa18n2hdbVvb5TvgAgSzO7+jpdW26Y
+	5+P4tJgz5WIb0K+V9npj3v3dT4tN+dPagaE78I9LNm2oEwiJp1NU=
+X-Received: by 2002:a17:902:f685:b0:2d3:716e:e2ae with SMTP id d9443c01a7336-2d93f94ccc6mr3407035ad.6.1788144245458;
+        Sun, 30 Aug 2026 19:44:05 -0700 (PDT)
+X-Received: by 2002:a17:902:f685:b0:2d3:716e:e2ae with SMTP id d9443c01a7336-2d93f94ccc6mr3406595ad.6.1788144244994;
+        Sun, 30 Aug 2026 19:44:04 -0700 (PDT)
+Received: from hu-jingyw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7bf283sm27982915eec.8.2026.08.30.19.44.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 19:44:04 -0700 (PDT)
+From: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Date: Sun, 30 Aug 2026 19:44:03 -0700
+Subject: [PATCH] dt-bindings: arm-smmu: Document GPU SMMU on Qualcomm Maili
+ SoC
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 31 Aug 2026 04:43:50 +0200
-Message-Id: <DL2S878KSOI5.1SZMLIAWMCNUJ@gmail.com>
-Cc: "Florent Revest (Anthropic)" <florent.revest@linux.dev>, "bpf"
- <bpf@vger.kernel.org>, "Alexei Starovoitov" <ast@kernel.org>, "Daniel
- Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>,
- "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman"
- <eddyz87@gmail.com>, "Song Liu" <song@kernel.org>, "Yonghong Song"
- <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "KP Singh"
- <kpsingh@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "John
- Fastabend" <john.fastabend@gmail.com>, "Paul E. McKenney"
- <paulmck@kernel.org>, "Jose Fernandez" <jose.fernandez@linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf] bpf: Keep progs alive until the trampoline image
- calling them is freed
-From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
-To: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-X-Mailer: aerc 0.21.0
-References: <20260819122252.1782790-1-florent.revest@linux.dev>
- <DL27QZ6SEZKT.1CV2HAX4A3WI4@gmail.com>
- <CAADnVQLxi-R1KDUXJJjpq69SpV8UcNJVqBi7uicO=V0WhAvyQA@mail.gmail.com>
-In-Reply-To: <CAADnVQLxi-R1KDUXJJjpq69SpV8UcNJVqBi7uicO=V0WhAvyQA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260830-maili-gpu-smmu-v1-1-253e1108ce82@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAHLqlGoC/x3MwQqDMAyA4VeRnBeI6dCyVxk71Bo1sHbSoAzEd
+ 1/n8Tv8/wEmRcXg0RxQZFfTT65obw3EJeRZUMdqYOKOvCNMQd+K87qhpbShcyNTbKd71zPUaC0
+ y6fcaPl/VQzDBoYQcl/+GPHs4zx+Fon9wdwAAAA==
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: aiqun.yu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
+        trilok.soni@oss.qualcomm.com, yijie.yang@oss.qualcomm.com,
+        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-3d134
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788144244; l=1316;
+ i=jingyi.wang@oss.qualcomm.com; s=20250911; h=from:subject:message-id;
+ bh=PUDMY4WLXFBReBbRmBaTP6+PE4Cv4pgZHtjopE2nWgQ=;
+ b=krsN/QHNnWo2ZNh6r/qHqaAjxKhPy5UC4KhZI3frkNdGfG0+mq/11lmoD+0xzxia4RJKXtfT5
+ tlwXFEoOKHzDB4pbzbCndHHGOxah27KU6AAiho5NtqUTMk3egOPuUU9
+X-Developer-Key: i=jingyi.wang@oss.qualcomm.com; a=ed25519;
+ pk=PSoHZ6KbUss3IW8FPRVMHMK0Jkkr/jV347mBYJO3iLo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDAyMiBTYWx0ZWRfX+LljUSV2zN0Q
+ xqVoHupK2o4ovAiJJ/quL4kioYBzzEP4MxeomZPb5oq4aIQNUL9I3b2PuD+iqX5a8jPfj9sr2Jm
+ VvdLHpOBJOtmTS/KLN5oJcWAbCbfSFtT4oN4SbOtZfpfAww0BwyzGqcXGdVIvXS2wBGs+vbQroR
+ eoNAvgX/q/aDyiHCfGTt/CJxCnBlT5ZCxboTtDnZ4u0Uq7cMlxWLP6rqrw+lODrMNwgDpf2ikQq
+ +j89tHZHrTUsbNwy2nZySaR7bnnKaTQMc58yJjbQb3nbBJCvAvikg+J5w8zg+9x1P8RM4saod8s
+ l/9CRI0Gvr1tSSsrshmfkLDYsIHmIQbEyTPA5UMwyjRCTz2ygNGVL9HcjF/SGAiwKHI6V/1orfF
+ /EMLHzIlcFsoLpVr9VL2x/6g4cu3UrqYukAG/GGIHwilWyHEZgAGLCZzTG76oWiGUkGUCfrAhih
+ psFrnqxwT6m0bnqtzjw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDAyMiBTYWx0ZWRfX1yZ1sdB56lhJ
+ uRt1yt5k1PT2YxUZR8m6Bx94Z2X3hNrfnD6e/5LF1v/cREK9PlXWh8X9bZgv3nugb7w2PJnmHvU
+ umPnhrxDiqXVDDceUSsW9yiigjqNS4Q=
+X-Authority-Analysis: v=2.4 cv=B7eJFutM c=1 sm=1 tr=0 ts=6a94ea76 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=TpgbzC6p0oeasEHOM3UA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: -odno8m5SqL-EGjZUX5iOqEnDtw3m5QI
+X-Proofpoint-ORIG-GUID: -odno8m5SqL-EGjZUX5iOqEnDtw3m5QI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_01,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 clxscore=1015 phishscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608310022
 
-On Sun Aug 30, 2026 at 3:21 PM CEST, Alexei Starovoitov wrote:
-> On Sun, Aug 30, 2026 at 3:41=E2=80=AFAM Kumar Kartikeya Dwivedi
-> <memxor@gmail.com> wrote:
->>
->> On Wed Aug 19, 2026 at 2:22 PM CEST, Florent Revest (Anthropic) wrote:
->> > bpf_tramp_image_put() makes sure a trampoline image is not freed while
->> > a task may still be running in it (call_rcu_tasks() + im->pcref), but
->> > nothing similar is done for the progs called by that image. Since
->> > commit e21aa341785c ("bpf: Fix fexit trampoline."), detach patches the
->> > return path so that a task still in the original function skips the
->> > fexit progs when it comes back, and counts on the prog's own RCU flavo=
-r
->> > to cover a task that is inside a prog. On that basis the last prog
->> > reference is dropped right away and the prog is freed after a single
->> > RCU / RCU tasks trace grace period.
->> >
->> > That leaves out a task in the trampoline glue itself: between two
->> > progs, or already past the patched jump but not yet in the first fexit
->> > prog's enter helper. On !PREEMPT kernels this is a few instructions
->> > that cannot be preempted, so it did not matter. With CONFIG_PREEMPTION
->>
->> I guess it would make sense to highlight why it may not have mattered. I=
- think
->> the real reason was that on !PREEMPT kernels, the execution in the tramp=
-oline
->> image counted as (implicit) RCU read section which caused program free p=
-ath to
->> wait for someone executing the trampoline image? For non-sleepable progs=
-, they
->> wait for RCU grace period already, for sleepable, RCU tasks trace has im=
-plicit
->> RCU grace period wait as well, hence this never showed up on !PREEMPT.
->>
->> > a task can sit there, in no RCU read section of any flavor and holding
->> > only im->pcref, for longer than it takes to free the prog it is about
->> > to call:
->> >
->> >   CPU 0                               CPU 1
->> >   in image I, orig_call() returned
->> >   [preempted before lsm.s prog A]
->> >                                       bpf_tracing_link_release()
->> >                                        -> bpf_tramp_image_put(I)
->> >                                       bpf_link_dealloc()
->> >                                        bpf_prog_put(A), last ref
->> >                                       tasks trace GP, A's text freed
->> >   __bpf_prog_enter_sleepable(A)
->> >   call A->bpf_func
->> >
->> > On x86 this is an int3 in poisoned bpf_prog_pack memory:
->> >
->> >   Oops: int3: 0000 [#1] SMP NOPTI
->> >   CPU: 18 UID: 0 PID: 94573 Comm: x169 Not tainted 6.18.44 #1 PREEMPT(=
-lazy)
->> >   RIP: 0010:0xffffffffc0601d8d
->> >   Call Trace:
->> >    <TASK>
->> >    ? bpf_trampoline_6442515411+0x1a4/0x21b
->> >    bpf_lsm_bprm_committed_creds+0x5/0x10
->> >    security_bprm_committed_creds+0x5f/0x70
->> >    begin_new_exec+0x2d6/0x410
->> >    ...
->> >
->> > We hit this in production on preemptible kernels when progs attached
->> > through trampolines got detached while their hooks were busy. Adding
->> > grace periods before the prog free would not help with sleepable progs=
-:
->> > neither RCU tasks nor RCU tasks trace waits for a task that slept in a
->> > prog and then got preempted in the gap after it.
->> >
->> > Fix it by having the image take a reference on every prog it calls, in
->> > bpf_tramp_image_alloc(), and drop them in bpf_tramp_image_free(). A
->> > detached prog now stays loaded until the old image is gone, which
->> > reverts a deliberate choice of commit e21aa341785c ("bpf: Fix fexit
->> > trampoline."). Detached fexit progs still stop being called right away
->> > since the return path is patched.
->> >
->> > Fixes: e21aa341785c ("bpf: Fix fexit trampoline.")
->> > Assisted-by: Claude:unspecified
->> > Signed-off-by: Florent Revest (Anthropic) <florent.revest@linux.dev>
->> > ---
->>
->> Overall, looks good to me. Thanks for the fix!
->>
->> Acked-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
->>
->> Note for whoever applies this: please add Reported-by: tag for Sechang a=
-s well.
->> Optionally, wordsmith the commit log with the suggestion above.
->
-> Hold on. I don't think we can proceed with this fix.
-> It defeats the point of fexit jmp patching and keeps progs
-> pinned until a sleepable kernel function that were attached to
-> will return. Which means that the tracing prog attached to "unlucky" kern=
-el
-> function that sleeps for an hour will stay pinned for an hour.
-> Let's think of a different way of fixing the race.
+Document GPU SMMU which uses "hlos" vote clock on Qualcomm Maili SoC.
 
-I don't have background on the original commit being fixed, but is that rea=
-lly
-realistic? Or worrisome even if it happens in practice, since worst case th=
-e
-program refcounts remains raised for that duration?
+Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-We have similar worst case for programs too (e.g. using bpf_copy_from_user =
-on
-user controlled buffer in, say, LSM progs). At least here we won't be exten=
-ding
-any RCU flavored GP.
+diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+index ffa33b7f4a96..187710fcc567 100644
+--- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
++++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+@@ -101,6 +101,7 @@ properties:
+               - qcom,glymur-smmu-500
+               - qcom,hawi-smmu-500
+               - qcom,kaanapali-smmu-500
++              - qcom,maili-smmu-500
+               - qcom,milos-smmu-500
+               - qcom,qcm2290-smmu-500
+               - qcom,qcs615-smmu-500
+@@ -579,6 +580,7 @@ allOf:
+                 - qcom,glymur-smmu-500
+                 - qcom,hawi-smmu-500
+                 - qcom,kaanapali-smmu-500
++                - qcom,maili-smmu-500
+                 - qcom,sm8750-smmu-500
+             - const: qcom,adreno-smmu
+             - const: qcom,smmu-500
 
-That said I will think about alternative fixes in the meantime, if we accep=
-t the
-premise that we don't want to pin program references in the image and keep =
-their
-lifetimes decoupled.
+---
+base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
+change-id: 20260830-maili-gpu-smmu-33d20c1f4672
 
->
-> pw-bot: cr
+Best regards,
+-- 
+Jingyi Wang <jingyi.wang@oss.qualcomm.com>
 
