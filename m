@@ -1,70 +1,54 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E6EB53AFAF1;
-	Mon, 31 Aug 2026 05:43:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D6B3AFD05;
+	Mon, 31 Aug 2026 05:43:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788155025; cv=none; b=usMqGECZhJARPLPjxoxCuBI6oDv4jtNjZTShHYDQBXSIxGF63Z3CVb0FaFUlzi+26v2/yqRDuoSV161PQaiAQ9iO9O8PVv5CP3NkmCOVGZWAYKHkG/IcInmZfEeyJD9bIbW8lY6BhxtF3KBdDD71veK3yog6SSOKLeC/o8U/ThU=
+	t=1788155025; cv=none; b=Q8EBavPy51817J/UaKuS2QWqfJUxfZabDjqNMIHRc2fJyNwMTQXUGVv642MuvG7nDY674j5tBM9zjZMyJ0LLJJmfK+MVPegwkDH34y3uJaHxkzqGOBS+4gakP1iGnAhhXQ8Up6FFm46vTW5mUvuqqqt/8mJkfq90TAZHAdWpRXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788155025; c=relaxed/simple;
-	bh=QXu4QCgmr2H1ZCNmIiMG/ZtqTETXJXvgk4Bv9ZBGY20=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SBw+7Mp0J8kX2GvHeoIyAKKfZ+l69GFwxBi9BjMqcixnJSfwzvN7CUWXW7G/7BXCZCooTH5U+Y0Kv3sDBrQznww3hwnjn+Q6ccLSO0In8dOpJF1tBQ1zBOkWq9/NxlJaJSfcZg9eTZMUlfvSDHoEyEugnd9WGUxtVKwL1lo8Keg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bOYCZ7KY; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	bh=b/2g+e3OLdUc7E7theFsBI9h38B46SJT8W4mzdyrkmM=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=X3okfzQoOCMsY+VaeopukeT4G7vX7OY/ns+mNL5qJUOSYZldoAJ06uL/m8/dd58Hd2jSbRFwpxgSrNymtVKC4QffYlaQLpTjbn0QRpg+mPWRFVo40h8HkGFJ15e5GzbQ+Kq4F0PpxXrGs8QpjBX0fwBpZA2nolAdYu6z2PJ+56A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=TzrLeqFx; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bOYCZ7KY"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 81995176C;
-	Sun, 30 Aug 2026 22:43:38 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 85D1D3F85F;
-	Sun, 30 Aug 2026 22:43:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788155022; bh=QXu4QCgmr2H1ZCNmIiMG/ZtqTETXJXvgk4Bv9ZBGY20=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=bOYCZ7KYkGWJMwi9hv08o8CPIK1B1PpAWsT/CWN6Rgcfw95970wz0SYilqsTPRRdM
-	 jy771f4RrMqp3RlkJj0jL31egGOxLsKMhmyO6mjoCsqu3qGWanVlVBYExkolRR0f08
-	 s6ecC7ZYicemVZWC8wmn+aaVAZnWZ7DbjWG2cN+I=
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-mm@kvack.org
-Cc: samuel.holland@sifive.com,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Helge Deller <deller@gmx.de>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	linux-alpha@vger.kernel.org,
-	linux-snps-arc@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-csky@vger.kernel.org,
-	linux-hexagon@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-m68k@lists.linux-m68k.org,
-	linux-mips@vger.kernel.org,
-	linux-openrisc@vger.kernel.org,
-	linux-parisc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org,
-	linux-s390@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-arch@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/8] mm: Stop using pxd_ERROR()
-Date: Mon, 31 Aug 2026 11:13:24 +0530
-Message-ID: <20260831054331.625505-3-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831054331.625505-1-anshuman.khandual@arm.com>
-References: <20260831054331.625505-1-anshuman.khandual@arm.com>
+	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="TzrLeqFx"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 67V5bo093479100, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
+	s=dkim; t=1788154670;
+	bh=28Epu+o01K6XXNZzCDOsehSCBiuceUvR1ip+VhnHcFM=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	b=TzrLeqFxBg/uSpRSGMTLKNf4U4kBAYjA8qVewjku0p+btXiS5SFDqiZ0floHIML/i
+	 06sz/bISJhdv0Xz8lQ0eHPg6+BMs53PQ0G53tpV1ysWKWI0CXBpgrSUTDMcHJSayed
+	 +n6DggkC407aozLwologhcRavHx4xvtXT8PBA1RgEU44i5+5RU7Y7oIYN5Y8fudxyp
+	 PmSxVxCZelrWM7GRcfb9Qay+JpVnXuY5eQBy5BW+y+f1DcYmu7R8tYhSWUSjltLCgh
+	 ldpbpis8FW0C54cArhtEe2MH+azP7G8KEq+xCoyZIjeaBG7bmDafClam8NrMJHTY/b
+	 6ZJICalEhYc0g==
+Received: from RS-EX-MBS1.realsil.com.cn ([172.29.17.101])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 67V5bo093479100
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 31 Aug 2026 13:37:50 +0800
+Received: from RS-EX-MBS2.realsil.com.cn (172.29.17.102) by
+ RS-EX-MBS1.realsil.com.cn (172.29.17.101) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 31 Aug 2026 13:37:50 +0800
+Received: from 172.29.37.154 (172.29.37.152) by RS-EX-MBS2.realsil.com.cn
+ (172.29.17.102) with Microsoft SMTP Server id 15.2.2562.43 via Frontend
+ Transport; Mon, 31 Aug 2026 13:37:50 +0800
+From: javen <javen_xu@realsil.com.cn>
+To: <hkallweit1@gmail.com>, <nic_swsd@realtek.com>, <andrew+netdev@lunn.ch>,
+	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <maxime.chevallier@bootlin.com>, <horms@kernel.org>
+CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<daniel@makrotopia.org>, <linux@armlinux.org.uk>, <enelsonmoore@gmail.com>,
+	<daniel@thingy.jp>, Javen Xu <javen_xu@realsil.com.cn>
+Subject: [PATCH net-next v9 0/7] r8169: add support for phylink
+Date: Mon, 31 Aug 2026 13:37:38 +0800
+Message-ID: <20260831053745.1197-1-javen_xu@realsil.com.cn>
+X-Mailer: git-send-email 2.50.1.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,83 +56,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-pxd_ERROR() has been used in generic mm just to print the page table entry
-in pxd_clear_bad() before clearing those out with pxd_clear() later. These
-pxd_ERROR() macros have been provided by all platforms which basically did
-the same thing.
+From: Javen Xu <javen_xu@realsil.com.cn>
 
-Make pxd_clear_bad() use recently added ptval_to_str() instead for printing
-page table entries thus completely dropping dependency on platform provided
-pxd_ERROR() macros which can then be dropped off later on.
+This series patch adds support for phylink. RTL8116af is a fiber mode
+card, link status and speed can not be read from standard phy reg. So
+we read link status and speed from serdes reg by pcs. So as RTL8127atf.
 
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
----
-Changes in V1:
+Javen Xu (7):
+  r8169: add speed in private struct
+  net: phy: phylink: add helper to modify pause
+  r8169: add support for phylink
+  r8169: add support for RTL8116af
+  r8169: add support for RTL8127atf
+  r8169: add ltr support for RTL8117 series
+  r8169: fix RTL8116af can not enter s0idle and c10
 
-- Dropped including mm_type.h
+ drivers/net/ethernet/realtek/Kconfig      |   2 +-
+ drivers/net/ethernet/realtek/r8169_main.c | 705 +++++++++++++++++-----
+ drivers/net/phy/phylink.c                 | 171 ++++--
+ drivers/net/phy/realtek/realtek_main.c    |  54 --
+ include/linux/phylink.h                   |   2 +
+ include/net/phy/realtek_phy.h             |   7 -
+ 6 files changed, 684 insertions(+), 257 deletions(-)
+ delete mode 100644 include/net/phy/realtek_phy.h
 
- mm/pgtable-generic.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
-
-diff --git a/mm/pgtable-generic.c b/mm/pgtable-generic.c
-index b91b1a98029c..224c444cf45d 100644
---- a/mm/pgtable-generic.c
-+++ b/mm/pgtable-generic.c
-@@ -26,14 +26,20 @@
- 
- void pgd_clear_bad(pgd_t *pgd)
- {
--	pgd_ERROR(*pgd);
-+	char str[PTVAL_STR_MAX];
-+
-+	ptval_to_str(str, pgd_val(*pgd));
-+	pr_err("bad pgd %s.\n", str);
- 	pgd_clear(pgd);
- }
- 
- #ifndef __PAGETABLE_P4D_FOLDED
- void p4d_clear_bad(p4d_t *p4d)
- {
--	p4d_ERROR(*p4d);
-+	char str[PTVAL_STR_MAX];
-+
-+	ptval_to_str(str, p4d_val(*p4d));
-+	pr_err("bad p4d %s.\n", str);
- 	p4d_clear(p4d);
- }
- #endif
-@@ -41,7 +47,10 @@ void p4d_clear_bad(p4d_t *p4d)
- #ifndef __PAGETABLE_PUD_FOLDED
- void pud_clear_bad(pud_t *pud)
- {
--	pud_ERROR(*pud);
-+	char str[PTVAL_STR_MAX];
-+
-+	ptval_to_str(str, pud_val(*pud));
-+	pr_err("bad pud %s.\n", str);
- 	pud_clear(pud);
- }
- #endif
-@@ -53,7 +62,10 @@ void pud_clear_bad(pud_t *pud)
-  */
- void pmd_clear_bad(pmd_t *pmd)
- {
--	pmd_ERROR(*pmd);
-+	char str[PTVAL_STR_MAX];
-+
-+	ptval_to_str(str, pmd_val(*pmd));
-+	pr_err("bad pmd %s.\n", str);
- 	pmd_clear(pmd);
- }
- 
 -- 
 2.43.0
 
