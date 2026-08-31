@@ -1,114 +1,220 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F3B3515FB
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:59:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921F7399889
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:59:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788195542; cv=pass; b=AEFIVOdRi3+RNSqa+5uQeFVX53NSU0nxhfJVfL9iWWqdF1yCPIdWmbeAfakzsc87/5+IL2cOe5pcCYBd+P1kn4Pw/ViBSAgm8lFVX4sLS2dx+zqvFIkUPqIekvZXbL5ZOeJY9qFKYykEfLUZV6QEgrKpMzJf5emHvWpYRlqjeyo=
+	t=1788195551; cv=pass; b=u2n+lTw48zW2QKHlMs4Dyy9M6E8EFXODvBFZTsnbQrXgHavi4hUye/IlBs/YZveXugj54L7g8NKwIxBzH4xPKi4c4vxrMQQXzyZV6TRCxO+8bZJWeb9b6+OrWojLip/D+OSmcH3A5plMU4x8ouBpDGJZ0nzpDCpIyNTwiazysV8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788195542; c=relaxed/simple;
-	bh=CsQfL1tfliO9VnEQEMentzg6G++ksmXz6fvZ/EjRAig=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pMYpDRf/CiItENysvyg5a5zZyp42uwnX2XWTyeRwfKsesEHLllJ8QS+/7pHQ0ExQ8iZcIAH1eCc7vv4pioo5OlsvT2bqvhz9BPhF4t3lBRW1jASjVjqI1fsYTy/pb2YflyGeKPYbT6rS0/9N7DwaiP33CFRK+ZvX+kTPk0LT2Lk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZGsOi5WU; arc=pass smtp.client-ip=209.85.208.42
+	s=arc-20240116; t=1788195551; c=relaxed/simple;
+	bh=O8g1SAHmmnWE8/wxuaWY6UltB+D5JOukYmyaNXWpjfc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SAz+OtEKtv7uridwh6CSrduhXSVrKKmWkB1Snd2hfOmKWDab14F9dpul4zouu8mDOZCdZLTeKfSDh0YgS6zIXGo1eFH6Gl2aaNwKAj14R12rMLSICTmxjK7A7InNa7Tfou3KERDusv3YVw8neoz8VjAegnipL+AT8g5O8HsLiSs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=liRF/oKl; arc=pass smtp.client-ip=209.85.215.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZGsOi5WU"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a60f0dbeccso4906730a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:59:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788195539; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="liRF/oKl"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1cc97b84bso3319679a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:59:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788195549; cv=none;
         d=google.com; s=arc-20260327;
-        b=TTOdsFiGyqRipZV8Ti6i1H2L0D0hfhAPTLOCI1pAu9FYre7d2xTuY5q4JlcTYoMI6v
-         0VVzFTUIO9ATQb76vRZG5CFneGBp89OI3f3puYe+zsokF7RBFRGw8LFNxeZZ0kvnLtR2
-         r9YukQyhAzM9IaG9qEiBmfSkxKEB8bdYXLOzQNDKWeGOgp00DjCB3Ki6Ugd1/j5DBkVb
-         fxcsNEWAr0CHGg8q+RQF3oqxdVOMmKcLWMzxbqqC98CNMjAk8B1YdKLqYqtOw0bzt+uf
-         KEwQzvSccctIKx0QAH9zT1rqJn1aF2Xw+hAyFZ0g90FVADeBc7yUR83Buh/p9ov2p3lp
-         Ktgw==
+        b=GYUTZ4zYWwbpAems5W0FdZ31LLp46kc5BJ+sMp05vUy+Zmq1FkBaawqpXcsFjPaDIr
+         0zXfMOm8fnqM72+d1ArcMVg4nR7JT+RLxN/5Q7/apddth9jEGWFDhNsWuJS7uOzqiTA+
+         H5skMQFbejRugtXK30kBL0EtOnFCJHSxBNJKIvHmPFafU2SWtGJM8ui9Tv8oicFegQeC
+         WdNhmfXMilXkavbzyq6k5RsLh6ypvSjWHGGWWo22gRMsyCksppa1SM3oc1EwdUrii02P
+         Ba09jUhq1Zdyj7ljJVjrV+9NzYNXteXVQ6R/UH/21oq5w8aoVaePHMlWsq94lBtDqWTd
+         E/uw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=CsQfL1tfliO9VnEQEMentzg6G++ksmXz6fvZ/EjRAig=;
-        fh=FerOyxVzYYC/PcNuvUsGmOXhjR9GcgFZAYUgGIUoXwI=;
-        b=KF6w4Rv40WAtCKFWpPAt56k89QCgjVOQ/jr1+/E9SOdPr9FuEJZ3qirkWMl6sqAk97
-         +tzcjgaJDgXQo09npLrIW4fsncSOSy196zpZQRsPTRVB+u80rLOoaY5EEKzpJHriRj9j
-         X0bCsW2pQsGMiYGTDM9SRld05FLAwsglpxvMrPLBXz77WzAJ0mdGDkKVeTh1aRDITF5Z
-         vB+Z9QN3XQCkGS4KGFMmBkLBIU5ck+mLA4cRg4DpCBVpCteIwFSpT9vBlvDfR9WWWX3q
-         g54x5Zq9DebnMTHzoLR3n8NYFgQDu2KcL3zF//ZwYKpGFirxjHzUPz62I652zg3ofGM/
-         TwmQ==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Lnj8rGRS4zyy3t2mjmHLPxQEcfwJOCyqagcfDb9wGJM=;
+        fh=S37afB5gERsS4gZOVs0bSiByACLzI+U9W4XZXfbP6uo=;
+        b=UepWp+vcY2e5+IQIg+2Q06mSaye/2Cvvhu8EYnGTVYe0DSK/dwkD0OfYklAVEMDabQ
+         1Pf2uHd+awL0eN6lkhqGLeFJxcnTcN1Vv3FlXBZ/BL0Xk71zTmS6nyJj0vqJsCCLrAgQ
+         ifuSXpcDAsz8KJkp/jX/sEDIUB0xVQaf8kALowhcCrFmGr1IE6UB1vMdkjFENX7h54R7
+         oiBLsLyGzmBmZyAn/ALoUsonGQwS2UcyfExeCfrbC/L1ZCPE8TTwDCMlna9a/S9DRVh7
+         BPLMgD/Av3sgpjEg/7CnhDOsADHaB/uu+3wfhIJDAqzQYFNrZ7e6P/dVmz/sxA6wawUD
+         ThyQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788195539; x=1788800339; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CsQfL1tfliO9VnEQEMentzg6G++ksmXz6fvZ/EjRAig=;
-        b=ZGsOi5WU9NCQ6LpJt2GfhoVhcq89740BkN5EAsWwL23z5tXHZOdYrFpPAxCORjnYCz
-         wcacjl/jgGNZfd0aOYrasGmlwizhuT9FrkAD5yZCJxHIjGrOWuS9+dnxGU2CqM4unriD
-         lRlgCvZa0i//bnUwiRaoDyPEQmghvv4HFod1xoee8OqgPtK96Lqe/4nwD0wIRX//a4TD
-         e52wZx6pAv6+sLbaVTdMZb0lxUZhsM+XAJ4DXBborvYWXQjEsU0qZff6VHucIYFsE2Lq
-         svCDEXUZZTJWFm/bXEOln/MpdjpLMgdAdsN5xeCXD6AzolaBqkTXbhQHO/LVarr5d4pr
-         Myqg==
+        d=gmail.com; s=20251104; t=1788195549; x=1788800349; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Lnj8rGRS4zyy3t2mjmHLPxQEcfwJOCyqagcfDb9wGJM=;
+        b=liRF/oKlMvagpo+7K6pHO70AELN95Rg64MHzaA1OJugxawTpOsZoARcXFQKFZCmpdW
+         5sbFYnapn2MPnZU0cSNIkhe6BQzU9aIWFWh9yBpBVibrsBqYFO07KWhN/LuYxebYx4Uf
+         SQJm+wVuBpE/2nhJt9obqTFVkDQ7o9rczHTHdOeVEgq6ssPyFoYwdQDz79FSUwmyD7kj
+         V7A9j5BGNq1/n1u83af4FTRUye7exSdSdqREhk7YUnpCO4R29+5l85J1lPvKJvzf59fU
+         1Rt3tQwfQSgsi3I9pi/cLs8oOUjyBjnJvLbjIj37SzYDiiUjUFN/AtTOB4Disou2uYZa
+         vgbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788195539; x=1788800339;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CsQfL1tfliO9VnEQEMentzg6G++ksmXz6fvZ/EjRAig=;
-        b=WeGKJKEU6o1mDO9QSoEir7a9TgBg0njig1WF6yTJGGOK6f76e1RM34mvdUs7t3+mf/
-         POYeIr14C1a1CoP2R84+lYREXCcwDdH00QILxe00HNAK35MtxfBkQJee7lVK3hoCCPOE
-         dNTSfPgPTUL+VH95xnIw1oaS/X0baEMR6xr/FZSbR0+GUkbHjUS43+QPi4+d81ToLRmP
-         ieC2lwQ8K7kHVWJDl2AqbkdsjeTanSx4MY0Jqd1AHxEfioKJmVAGRfz6Z4+ZuhGbqxOr
-         r+k3DNuGRVS8h8+H8CzDVz1yEI7UTt5/JhlNe/6QwKgPSzXhO/xKUA7onXLaPCbTe8XS
-         ccVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBweuEExV/5OWhtb2P7q2SkO7Wx6GEkJpZXsJ1dc/P4RWGyFMTd6BE7M9EBZZML1KAmbp4zNva5sZSUzR64=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9HZqryHcfJgR0JukgRvU+YbpofvgePwGc00byQujCVtDhil3C
-	4s0dYjl2syTuYrACOxCJ7SeYg3eRIZkoK4bs/Av6HTowkQzm3JNiZPYuT/nGNIW4jSyTnioYHQW
-	cB7uQ9Mjc06GuX1C/K2jNNYj0O77DwHk=
-X-Gm-Gg: AYBFou38As7eaB6NB1ukbGlbctlWfG3i0fXt/UvL05D13GdT/epEFIT3s3HGwumRWB7
-	ritOPiEgTSGHevwJP5i82iuWECguOXFAT9Rt+ZcUJa4zXs+herx8WIzCRIkWA4Buft+F/i+h4r4
-	iXO0KG7vuRUR+Koe+cFnUfQLXkB3N7LQC1x0Sl4qxGijkQOg9hXWZTqNquZycqVFzBJs9Rpm4YR
-	ILO7L7ALi+dJg8xj+do81qapK1hOKVO3LWDuci4H+k3ezcHBjqhVtTo+ZzemLbQmaGSUDjHwrU3
-	7lVvy5Q6S/fmE8Z7meQsQDvvYv6lOtLZ+EwEnJUs7cAEr045tp2gK3j8iIzQ89EMLTxJXbIgCC+
-	r3w==
-X-Received: by 2002:a05:6402:3509:b0:6a6:32f9:d7d0 with SMTP id
- 4fb4d7f45d1cf-6a632f9d92bmr7965344a12.21.1788195538559; Mon, 31 Aug 2026
- 09:58:58 -0700 (PDT)
-Received: from 637551599889 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 31 Aug 2026 18:58:57 +0200
-Received: from 637551599889 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 31 Aug 2026 18:58:57 +0200
-From: Kelvin Zhang <zhangxp1998@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <69df3654-4f5d-4f8e-8860-62e545897192@kernel.org>
-References: <CAH=xXfEFL7w7nsU3xjNubKJ1soYMqT-DbJBuyzfEX4Rv3rdFEA@mail.gmail.com>
- <CAH=xXfHL4bWFMVa=-a8sRuR_bn9VcaFRo+X3eeZfedSa0C7dww@mail.gmail.com> <69df3654-4f5d-4f8e-8860-62e545897192@kernel.org>
+        d=1e100.net; s=20251104; t=1788195549; x=1788800349;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Lnj8rGRS4zyy3t2mjmHLPxQEcfwJOCyqagcfDb9wGJM=;
+        b=D4rOm33eIWr//5r7OL0M9Z8hpaxOungsaTIX+QliOGw0dg64iQSMAqBTaPvy6wyWR1
+         jHhpN1R05iYIcE/xMgFU055uXhAuoSd9/3u0SZdu5s/nu426RRVswORccn/DvSmotUy+
+         AlICrld/VqjJ+q4HQtPVdI653sjvMIkbIhO+ltrYYFpY1bYDg48fup0z1U2Kwvs5DQNC
+         kDtm5CyMSa3AH8Sauwn+yj1V6jCWo/UshdR671Vy4sCT2JlZebrpPW+g//BT6UzHyGv6
+         X8NJnIEMPeJrteD7KiNcExMH5raPHINV0fkSemNo+yZU8hXu5+85T7Fbt02Yvgh6N4WI
+         8p5Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpjGe/X1owJC9fZS60gDFRK1ROu+wMq0ewF3vCTZynUI5W12NMAjxaxagFp7h5AyqTeQhBJ5i+8LX0/y0k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXDs+abyNqKcQ04ngs+4+0p6MMysmFT1Okt8ehRkou6RT/9gps
+	urq/nhcQJHYWYdFi77NF2D8fp8Xcu2xnHWZQ++EqvwCPCnid3Y6IFv4pxj1zgz6/Tms5Uu23fml
+	kvlQo7KjtJSEoYkuENAASthBxcfTqM0w=
+X-Gm-Gg: AR+sD12CzGkNV7qzvpsGSlbQZqO0+AzYlAVDHS0wwZB1Omheq+7gN7FzdHb76MeihUJ
+	bj3n+P88xhOglYnhZbwGUsZisJUOfFmiCwulg9QqN9jEIMjZvJRjGYTfXQwP7EA5kDXlSUo9SYl
+	Etism/tN180N8bwiG8sDcqTgSroxiHz8wf3gBA5IbncybumHnFaM3niguREpokHr4BTOjvSji0A
+	HbNNOMF6XfKVrg8F1HgqxDJ0Zvin/c1gtBOAXbou5StWl4FHEJdo/TddawgdD+0FaOGVCjAQMmQ
+	E4JgqcxdTkV+Z6APLJK5n4plHnqX0c+ZnMR3pcacyTRvreMZJnB2MoJvzaP0utOtADKK2FeSWER
+	ZPd4=
+X-Received: by 2002:a05:6a21:a34c:b0:3cd:2e96:5929 with SMTP id
+ adf61e73a8af0-3d7af831e7fmr3734718637.14.1788195548626; Mon, 31 Aug 2026
+ 09:59:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 31 Aug 2026 18:58:57 +0200
-X-Gm-Features: AcwNN1VwC0SeCPllS52NvRnYaVl9oX696Jt5ylne-NYCkQLRrEX8lr32DGjiAPU
-Message-ID: <CAH=xXfGNRpY9y6p7u6dJwUqv2ct2RX+W=K8F0t96hJoA-tMkzQ@mail.gmail.com>
-Subject: Re: [PATCH v3 01/11] f2fs: initialize sb_info early in f2fs_fill_super
-To: Chao Yu <chao@kernel.org>, linux-f2fs-devel@lists.sourceforge.net
-Cc: Jaegeuk Kim <jaegeuk@kernel.org>, linux-kernel@vger.kernel.org
+References: <20260829011901.325379-1-rafad900@gmail.com> <991f3432-02af-47e7-b470-b21d36d09ac5@rowland.harvard.edu>
+In-Reply-To: <991f3432-02af-47e7-b470-b21d36d09ac5@rowland.harvard.edu>
+From: =?UTF-8?Q?Rafael_Alejandro_D=C3=ADaz_Cruz?= <rafad900@gmail.com>
+Date: Mon, 31 Aug 2026 09:58:57 -0700
+X-Gm-Features: AcwNN1XU52XwzNG3k-NXOURpKqLJZm2DZf5C7B0JVw987cwLk-O_rqZRoKbdZmE
+Message-ID: <CALp66yH0C0WAgUDkXArbLHgwSdrJ0hfQP2id2xhztg-d=qK1Jw@mail.gmail.com>
+Subject: Re: [PATCH usb-next v2] USB: gadgetfs: Fix use-after-free in gadgetfs_kill_sb
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Chao,
+Hello,
+Sorry for the confusion. I assume I can just address the
+concerns here and create another patch once the message
+is clear.
 
-Sorry about that. The previous Gmail API send path encoded the patch body as
-quoted-printable, and the delivered copy ended up with hard-wrapped hunk
-headers.
+I suppose there are actually two errors but because they
+are triggered by the same syzkaller reproducer, I'm
+treating them as one. The initial problem is the UAF on
+the_device pointer when put_dev() is called both by the
+error path of gadgetfs_fill_super() and gadgetfs_kill_sb().
+This is triggered by the fault_injection in the reproducer.
+I'll assume that one is clear.
 
-I have switched to git send-email and am resending the unchanged series as v4.
-I will also verify the received copy with git am.
+The second underlying issue is still related to the_device
+but not itself, rather the_device->count variable keeping
+the references. The syzkaller reproducer still triggers the
+same fault_injection in the reproducer but the
+fault_injection might fail which leads to the success path
+being taken. This means that the gadgetfs_fill_super()
+will succeed and the the_device->count will be initialized
+with 1 as you had mentioned. However, at the end of
+the reproducer close() and umount() will each be called.
+This leads to the following:
 
-Thanks for catching this.
+close() -> dev_releave() -> put_dev()
+umount -> gadgetfs_kill_sb() -> put_dev()
 
-Regards,
-Kelvin
+the_device->count =3D=3D 1 at the start but is decremented
+twice. refcount < 0 triggers second UAF.
+
+This is fixed by incrementing the reference on the success
+path of gadgetfs_fill_super(). That is what the get_dev(dev);
+call is for.
+
+As a side note, I'm part of the Linux Kernel Mentorship
+and I appreciate your feedback! Please don't hold back on
+the suggestions. Every bit helps me!
+
+Thanks,
+Rafael.
+
+On Sat, Aug 29, 2026 at 8:05=E2=80=AFAM Alan Stern <stern@rowland.harvard.e=
+du> wrote:
+>
+> On Fri, Aug 28, 2026 at 06:19:01PM -0700, Rafael Alejandro Diaz Cruz wrot=
+e:
+> > When gadgetfs_fill_super() fails, it's error path calls
+> > put_dev() which drops refcount inside the_device to 0
+> > and frees the objet. But the_device pointer is not
+> > cleared, leading to point at freed memory.
+> >
+> > VFS will then call gadgetfs_kill_sb() after mount
+> > failure leading to put_dev() to be called on the
+> > already freed pointer.
+> >
+> > Fix by setting the_device =3D NULL during error path
+> > before calling put_dev() inside gadgetfs_fill_super()
+> > so that gadgetfs_kill_sb() skips put_dev().
+> >
+> > However, if the fault injection from syzbot failed
+> > and it began the open()/write()/close()/unmount()
+> > sequence then close() and umount() will each trigger
+> > the refcount to drop once via put_dev(). This will
+> > still cause UAF since refcount is only incremented
+> > once on creation but decremented twice.
+>
+> I don't understand this last paragraph at all.  What fault injection
+> from syzbot are you talking about?  The earlier part of the description
+> doesn't mention syzbot at all.
+>
+> Why do you spell "unmount" the first time with an 'n' but "umount" the
+> second time without an 'n'?
+>
+> Is there any reason why close and unmount shouldn't both do a
+> put_dev()?  Doesn't the open increment the refcount to 2, so close
+> and unmount will set it to 0, causing a deallocation but not a UAF?
+>
+> Why is the refcount incremented upon creation?  Normally refcounts are
+> created with an initial value of 1 so they don't need to be incremented.
+>
+> > Reported-by: syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
+> > Link: https://syzkaller.appspot.com/bug?extid=3D4a5c87a01894ca37f25c
+> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > Signed-off-by: Rafael Alejandro Diaz Cruz <rafad900@gmail.com>
+> > ---
+> >  drivers/usb/gadget/legacy/inode.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/leg=
+acy/inode.c
+> > index d87a8ab51510..77efa984ce84 100644
+> > --- a/drivers/usb/gadget/legacy/inode.c
+> > +++ b/drivers/usb/gadget/legacy/inode.c
+> > @@ -2059,6 +2059,7 @@ gadgetfs_fill_super (struct super_block *sb, stru=
+ct fs_context *fc)
+> >       rc =3D gadgetfs_create_file(sb, CHIP, dev, &ep0_operations);
+> >       if (rc) {
+> >               put_dev(dev);
+> > +             the_device =3D NULL;
+> >               goto Enomem;
+> >       }
+> >
+> > @@ -2066,6 +2067,7 @@ gadgetfs_fill_super (struct super_block *sb, stru=
+ct fs_context *fc)
+> >        * from binding to a controller.
+> >        */
+> >       the_device =3D dev;
+> > +     get_dev(dev);
+>
+> Does this have something to do with that mysterious last paragraph in
+> the description?  I can't see any relation between the two.  In
+> particular, that paragraph doesn't say anything about adding a
+> get_dev().
+>
+> Alan Stern
+>
+> >       rc =3D 0;
+> >       goto Done;
+> >
+> > --
+> > 2.43.0
