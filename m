@@ -1,47 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9B84E2371;
-	Mon, 31 Aug 2026 13:39:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D2049C4A4;
+	Mon, 31 Aug 2026 13:39:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183591; cv=none; b=dcjP1k1jJeSeyv5c0Rk4pC8u6tlLAHqDVb/JRw/pl3xsyVbIWH+Q4GXu0ElNSzMJxXSj9fF2EkUEuM0VuZMXSsTJh9ts5QQ/hVzbFkDkkTU571uw86ItFC1gOj68OYttEtJT3Ick5qpLQwgMuTk0O5mdCijuHrUfmDrLkVTe1ro=
+	t=1788183593; cv=none; b=Adj8XxIq0tpv+jQrRyGdOnqFtqhklR9GVKwLnFPj1KXD5uAUEjBJKjRFhvg+ZZgkr3ZPvfH6MiOhMyqnf2mL2+YjZiM557LYAFsXViMTqu0HakNauOVcHlrYIe7FpfQMsx42cA00Y5OW4dTvaKr7poFwv/jvRY4bn2lM7XvhkTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183591; c=relaxed/simple;
-	bh=jOkKjOLzh5yYutxY2QhcV2MlCPna5oTuCiDgrwvJHhE=;
+	s=arc-20240116; t=1788183593; c=relaxed/simple;
+	bh=UWE3/x+BwZ8oc5bBCLk8y333X/YVAIFJfVhZ7lMAFwo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uQ9sRmBT+0i4PRlVUj20INLBNJOqD3+2Ro0Fho/dqKlOUjJxnegmTaRV8FON686xgMa9zl+40nr0zfLVL6nlccT+I9FeBV65iCPmFtEmbw/PEOTWNytuKuDEPeTzOZmrwkPHHLLTf2JmFFfJmyZcNRJeCfy982RAh8mFyPeeISk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HU29c2xl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=r+cgbz+uGeNcb9KXKs2FrC16qWJnWh8cJj2zblfANhSntTO9DBPFCoA0yCeDbdv/ICDFwSSgUHEORwWY4oJO6lFVlFp4kqLfPrGy3M27SR/YU6DLq8YnK7QpcO4qvITgtieFwEo05WjmYK5iq9xcGcXsQAz6bMYWIC+6GDPHjaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pdc1WjYK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HU29c2xl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C15B81F00A3E;
-	Mon, 31 Aug 2026 13:39:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pdc1WjYK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A3101F00ACF;
+	Mon, 31 Aug 2026 13:39:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183590;
-	bh=YygtfXTan2nafBKTj0tGgsUYKB05+ycgPkoAs9yo+rY=;
+	s=k20260515; t=1788183591;
+	bh=PUf6ryr4k5wygbciAqCC4GJMVIQgnWiFUIM3Fc8zmc0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HU29c2xlP36UIbxDd2+x9HNYeaYHseBG3P+QszYJC5oSIQqIUCycQ+R6YlXld/ycZ
-	 669RzG37pxQmm+Y90sa/BGJGSDqX31v32v4loD+c/AIx+FEyuYJPYOHeU4X62cwMmq
-	 kPNRm7eLYyrECMKBlCCYk6k18SxyiqiDDf/Zb4ALsgB7kqfft9SlZn+A0ze3jaRvZO
-	 EmbAPr0q43qJ+henJWmUfKpCZVRs6buEvFCq9IJp0DsuMiWIRHX/Q4IRLD3Rf/vnLY
-	 YUkEUIX3aP+sZJ2Q54HUPfOznJAohuncgKHTE1ZKFrSgXnCskA+hZfTZHFaZqScgFM
-	 78DYdcGCwoFAg==
+	b=Pdc1WjYK/l89/5siC59YAL1Sr7s3V49zW+hckkNRh7rdSjYtnTe9q5LBfPZl68Nae
+	 F4FG334q27j6QqmOluURmITGmJF0oE0oi4P2Qj/tsO4a6wNI8+jlwhq8RTeAUzX2NI
+	 08fmRhb31nfE1RSuEGJ9yVBAL3kh6Xt0NHDf2166aStYCSJEQCaBpW8tBA0KV9xcZ7
+	 3f8saAwGcTDh4KA8ctSibvOP7JBEmUejLvW8rCS7eeNJBW47GZMSEAL7fLugAGOzZk
+	 zISA6xCEXLuXWX//G6JqlOMSn4qzElRiaTSrTyiox7NyvfOItDT4gyk4+7YGJPq09T
+	 s4RABvadMpbAg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Perry Yuan <perry.yuan@amd.com>,
-	Yifan Zhang <yifan1.zhang@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	catalin.marinas@arm.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdgpu: flush pending RCU callbacks on module unload
-Date: Mon, 31 Aug 2026 09:23:33 -0400
-Message-ID: <20260831133314.4125787-185-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] arm64/daifflags: Make local_daif_*() helpers __always_inline
+Date: Mon, 31 Aug 2026 09:23:34 -0400
+Message-ID: <20260831133314.4125787-186-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -51,95 +48,82 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
 Content-Transfer-Encoding: 8bit
 
-From: Perry Yuan <perry.yuan@amd.com>
+From: Leonardo Bras <leo.bras@arm.com>
 
-[ Upstream commit 67a654b41cfa73c3b83402c4a01b2689cad5b9bc ]
+[ Upstream commit 827ce94e0897a70241abf810b1d3d7d083053a39 ]
 
-Call rcu_barrier() in module exit to wait for outstanding call_rcu() callbacks
-before freeing module text, preventing late callback execution in freed memory.
+Make sure those helpers are always inlined and instrumentation safe.
 
-BUG: unable to handle page fault for address: ffffffffc1d59c40
-PGD 6a12067 P4D 6a12067 PUD 6a14067 PMD 13698b067 PTE 0
-Oops: 0010 [#1] SMP NOPTI
-RIP: 0010:0xffffffffc1d59c40
-Code: Unable to access opcode bytes at RIP 0xffffffffc1d59c16.
-RSP: 0018:ffffc900198c0f28 EFLAGS: 00010286
-RAX: ffffffffc1d59c40 RBX: ffff897c7d6b61c0 RCX: ffff88826aff4590
-RDX: ffff8884d8b35490 RSI: ffffc900198c0f30 RDI: ffff88812af67290
-RBP: 000000000000000a (DONE segment entries) R08: 0000000000000000 R09: 0000000000000100
-R10: 0000000000000000 R11: ffffffff82a06100 R12: ffff88811a4e3700
-R13: 0000000000000000 R14: ffff897c7d6b6270 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff897c7d680000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: ffffffffc1d59c16 CR3: 00000104a980a001 CR4: 0000000002770ee0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe07f0 DR7: 0000000000000400
-PKRU: 55555554
-Call Trace:
- <IRQ>
- ? rcu_do_batch+0x163/0x450
- ? rcu_core+0x177/0x1c0
- ? __do_softirq+0xc1/0x280
- ? asm_call_irq_on_stack+0xf/0x20
- </IRQ>
- ? do_softirq_own_stack+0x37/0x50
- ? irq_exit_rcu+0xc4/0x100
- ? sysvec_apic_timer_interrupt+0x36/0x80
- ? asm_sysvec_apic_timer_interrupt+0x12/0x20
- ? cpuidle_enter_state+0xd4/0x360
- ? cpuidle_enter+0x29/0x40
- ? cpuidle_idle_call+0x108/0x1a0
- ? do_idle+0x77/0xf0
- ? cpu_startup_entry+0x19/0x20
- ? secondary_startup_64_no_verify+0xbf/0xcb
-
-Signed-off-by: Perry Yuan <perry.yuan@amd.com>
-Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit feaa5039f6c12acc9aa934c2d45dcd251a12c69f)
+Suggested-by: Mark Rutland <mark.rutland@arm.com>
+Signed-off-by: Leonardo Bras <leo.bras@arm.com>
+Signed-off-by: Will Deacon <will@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The background check finished: `feaa5039f6c12` is on mainline but not in
-`stable/linux-6.18.y` (about 1.37M commits ahead of the stable branch
-tip). A grep for "flush pending RCU" on the stable branch returned
-nothing, so this fix still needs to be backported.
+That check also confirms the fix is **not** in this tree: the latest
+`daifflags`-related commit is `8cb7eff32cc00` (PMR restore operations),
+and the `-S'__always_inline void local_daif'` search found no matches.
+Backport recommendation remains **YES**.
 
-That matches the earlier analysis: the bug is present in v6.18.44, the
-patch should apply cleanly at the end of `amdgpu_exit()`, and the
-backport recommendation remains **YES**.
+ arch/arm64/include/asm/daifflags.h | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 99f22633abf53..20e614db485cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -3217,6 +3217,14 @@ static void __exit amdgpu_exit(void)
- 	amdgpu_userq_fence_slab_fini();
- 	mmu_notifier_synchronize();
- 	amdgpu_xcp_drv_release();
-+
-+	/*
-+	 * Flush outstanding call_rcu() callbacks before the
-+	 * module text is freed.  Otherwise a grace period elapsing after
-+	 * unload invokes a callback in already-freed module memory and
-+	 * faults in rcu_do_batch().
-+	 */
-+	rcu_barrier();
+diff --git a/arch/arm64/include/asm/daifflags.h b/arch/arm64/include/asm/daifflags.h
+index 5fca480090434..795b351284673 100644
+--- a/arch/arm64/include/asm/daifflags.h
++++ b/arch/arm64/include/asm/daifflags.h
+@@ -19,7 +19,7 @@
+ 
+ 
+ /* mask/save/unmask/restore all exceptions, including interrupts. */
+-static inline void local_daif_mask(void)
++static __always_inline void local_daif_mask(void)
+ {
+ 	WARN_ON(system_has_prio_mask_debugging() &&
+ 		(read_sysreg_s(SYS_ICC_PMR_EL1) == (GIC_PRIO_IRQOFF |
+@@ -38,7 +38,7 @@ static inline void local_daif_mask(void)
+ 	trace_hardirqs_off();
  }
  
- module_init(amdgpu_init);
+-static inline unsigned long local_daif_save_flags(void)
++static __always_inline unsigned long local_daif_save_flags(void)
+ {
+ 	unsigned long flags;
+ 
+@@ -53,7 +53,7 @@ static inline unsigned long local_daif_save_flags(void)
+ 	return flags;
+ }
+ 
+-static inline unsigned long local_daif_save(void)
++static __always_inline unsigned long local_daif_save(void)
+ {
+ 	unsigned long flags;
+ 
+@@ -64,7 +64,7 @@ static inline unsigned long local_daif_save(void)
+ 	return flags;
+ }
+ 
+-static inline void local_daif_restore(unsigned long flags)
++static __always_inline void local_daif_restore(unsigned long flags)
+ {
+ 	bool irq_disabled = flags & PSR_I_BIT;
+ 
+@@ -124,7 +124,7 @@ static inline void local_daif_restore(unsigned long flags)
+  * Called by synchronous exception handlers to restore the DAIF bits that were
+  * modified by taking an exception.
+  */
+-static inline void local_daif_inherit(struct pt_regs *regs)
++static __always_inline void local_daif_inherit(struct pt_regs *regs)
+ {
+ 	unsigned long flags = regs->pstate & DAIF_MASK;
+ 
 -- 
 2.53.0
 
