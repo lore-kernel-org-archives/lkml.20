@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055324F4721;
-	Mon, 31 Aug 2026 13:41:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742994F474B;
+	Mon, 31 Aug 2026 13:41:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183665; cv=none; b=LoIoOXC510ZDZR32pSUcYZkBV+OOJ0I6GDiUKbTj4CdbDpB3lxotErr2jDdUEZ15BwHC7qjEBm0eAd6s/Rb7Sbyc/9ojgj2wAAQDiHF6xFyL4R4MhjqLc981bR062fhZmQyO43G2znkEjn/E7NDz0x1q9M3RISwg3dZrdiQfTx8=
+	t=1788183667; cv=none; b=GGX2/v/Q5uSGHUHxqyUUif1Jtz8u3GSXolEkSqCt4bq5hd7Gf9dxjx2TKqkTG5/EKQ3gryYo03lOcVzSEd1G2rw0YrlrTX7uuWSROwBDYn9dE5YDiazVl+9zqJvxE023EX3EYK+oa+3h73BBVwwMub0vKPG51pSo/wX9zoD+LZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183665; c=relaxed/simple;
-	bh=BW4xLsWHKB5l0atcZ9qxOX/DFKtJ8J3aw15FQLe0Jqs=;
+	s=arc-20240116; t=1788183667; c=relaxed/simple;
+	bh=llzVnJLeQbXOrHSawcsh46MO63Snx3rhYl1ZzSeUnV8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PBiaqADioWn6rG8MXaxLb8QIdWLJ/bhCd4VUKoNvzkLBNKn3oNnQpM/glb9etEiZFr9gz+pyDItflmabe6KonTyMwQiv4M27extAlniP2g61EBwRKjoOXAHkUOTttOK8+wOBj8VT+NW4QeLnj9NEDrsFgAZC3wbrv5pc8pdQMbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kI1jpGyW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Y46jup+ZN2XDxuPFMcAykP/yXmtpqTGe6ygQo7ICmt0zSJIL1KTKmeQYz72aIqxrP981I1o1rogTaQ8lwmGUf+6XQF1U5ksuKTzbw79+rpn7CSSJz5/Ss6urgnAnKzG4fErQTxKy30FZWfMOItJIeOBbZeWRTfJuo8w/4oq+Qu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/RskeyI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kI1jpGyW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAF9F1F00A3F;
-	Mon, 31 Aug 2026 13:41:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/RskeyI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1EA1F00A3D;
+	Mon, 31 Aug 2026 13:41:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183662;
-	bh=bJRaqYwtJATJVndD9WvdSR6tW7hyJbdXhIGYO3A3wTs=;
+	s=k20260515; t=1788183664;
+	bh=uuj8A5e7nnoDpMMwZamaJ9ej6ugo57OPNOW4T/OwTNM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kI1jpGyWo9pKc81QktOP2Q7t5X7w5IiA4XctTc5U46Uras6gmn6snyorxh08mrxGw
-	 NybhHcyKdAzPvvcxja6h5zXQShTBZO/Mc5jLmn/skjv/umTau6G4Q8scM3Kmlb4LS1
-	 NDKChOYKgcOIn4YxQcyDrz1bAwg79w4jmGt691uF2Nb33XZBUsOpDJJ5XgSKhGEaby
-	 CIxQiC8NcMiVmixZb9zp/fOLul6G/onoxGYc2BApnP5T+uHE/qSTqm2VCrq9bu6A4w
-	 mVLljT4pb5EWUhpyOW4ykNddIdQbBBBUZrfYQ0QIXjmEt7/UPH2o6eloz6veHWlhZM
-	 1/beSLYvpNTdw==
+	b=A/RskeyIIAoltiMc4OV0S1ZHutI3hX3AY+hkXPOZo36Mg/RrZMWEMHLtBIdCGghjY
+	 l1vt8naqQoQQFIVleDrwoLbLUgTexXU1bPt+3TX3A6Fk3daKI39946eT6+Cq69W/5J
+	 63xZNCPnE80+fd+ahQA8+7HRe2QZL33ph8fDINgTB4GI91v02ZG3F7ekMdAW9hi23s
+	 zMfnZ2F5+c1gd+Y3iJRzJHy4YHhquOqkIcdMla0eXEQCMaXE2KlhrtXUJg9l2Bv9Fl
+	 9VHqrtDsIEweTrUiBh4bUROANAn+CZ6JVuwAFe/LjkNUyYkAPYwnrN4ANxqcS4oAXA
+	 rN58y5uegq4EA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: "Borislav Petkov (AMD)" <bp@alien8.de>,
+Cc: Mostafa Saleh <smostafa@google.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] x86/microcode/AMD: Move the no-revision fixup to get_patch_level()
-Date: Mon, 31 Aug 2026 09:24:17 -0400
-Message-ID: <20260831133314.4125787-229-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] irqchip/gic-v4: Don't advertise VLPIs if no ITS is probed
+Date: Mon, 31 Aug 2026 09:24:18 -0400
+Message-ID: <20260831133314.4125787-230-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -48,79 +47,92 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Borislav Petkov (AMD)" <bp@alien8.de>
+From: Mostafa Saleh <smostafa@google.com>
 
-[ Upstream commit 098bcea71b8d257d80b0037b97b66070806600a5 ]
+[ Upstream commit e61654fbc3bc5d07ec9fafe29f33e19b2b5d0fd5 ]
 
-On machines which don't have microcode applied yet, the revision is 0.
-However, this doesn't work with the Zen family/model/stepping patch
-arithmetic. So move the fixup to the patch level getter function and
-this way make sure the patch level is always proper and thus the
-arithmetic always works.
+When accidentally setting “kvm-arm.vgic_v4_enable=1” on a system that has
+no MSI controller device tree node and GICv4, it results a panic as
+“gic_domain” is NULL and the kernel attempts to access it.
 
-And now that it can be called on any family, make this Zen-only.
+    Unable to handle kernel NULL pointer dereference at virtual address 0000000000000028
+    Mem abort info:
+      ESR = 0x0000000096000006
 
-Assisted-by: claude/claude-opus-4-6
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Link: https://lore.kernel.org/r/20260530024213.86137-1-bp@kernel.org
+    CPU: 1 UID: 0 PID: 295 Comm: lkvm-static Not tainted 7.1.0-rc4-ge3f15ad3970e #5 PREEMPT
+    Hardware name: linux,dummy-virt (DT)
+    pstate: 81402005 (Nzcv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+    pc : __irq_domain_instantiate+0x1d4/0x578
+    lr : __irq_domain_instantiate+0x1cc/0x578
+
+Set vLPI support to false at init time if the host has no ITS, so it
+propagates properly to kvm_vgic_global_state.has_gicv4.
+
+Suggested-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Mostafa Saleh <smostafa@google.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Acked-by: Marc Zyngier <maz@kernel.org>
+Link: https://patch.msgid.link/20260526125317.3672297-1-smostafa@google.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `x86/microcode/AMD: Move the no-revision
-fixup to get_patch_level()`
+# Stable Backport Analysis: irqchip/gic-v4: Don't advertise VLPIs if no
+ITS is probed
 
-**Local tree:** `v6.18.44` on branch `stable/linux-6.18.y` (detached
-HEAD)
+**Local tree:** `v6.18.44` (`git describe HEAD` → `v6.18.44`, Makefile
+`6.18.44`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject line
-**Record:** `[x86/microcode/AMD]` `[move]` — Relocate the zero-revision
-workaround from `need_sha_check()` into `get_patch_level()` so Zen
-patch-ID arithmetic always sees a valid revision.
+**Record:** `[irqchip/gic-v4]` `[prevent/advertise]` — Don't advertise
+VLPIs if no ITS is probed.
 
 ### Step 1.2: Tags
 **Record:**
-- **Fixes:** — absent (expected for manual review)
-- **Reported-by:** — absent on this commit (original reporter is on
-  prerequisite `fcf8239ad6a5d`: Vítek Vávra)
-- **Tested-by:** — absent
-- **Reviewed-by / Acked-by:** — absent
+- **Suggested-by:** Marc Zyngier `<maz@kernel.org>` (GIC maintainer
+  suggested the approach)
+- **Signed-off-by:** Mostafa Saleh `<smostafa@google.com>` (author)
+- **Signed-off-by:** Thomas Gleixner `<tglx@kernel.org>` (irq
+  maintainer)
+- **Acked-by:** Marc Zyngier `<maz@kernel.org>` (GIC subsystem
+  maintainer ack)
 - **Link:**
-  `https://lore.kernel.org/r/20260530024213.86137-1-bp@kernel.org`
-- **Cc: stable:** — absent
-- **Signed-off-by:** Borislav Petkov (AMD) `<bp@alien8.de>`
-- **Assisted-by:** claude/claude-opus-4-6
-- Notable: upstream commit `098bcea71b8d2`; no syzbot, no multi-reporter
-  tags on this specific commit
+  https://patch.msgid.link/20260526125317.3672297-1-smostafa@google.com
+- No Fixes:, Reported-by:, Tested-by:, or Cc: stable tags (expected for
+  manual review)
+- Ignore pipeline-added markers per instructions
+
+**Notable:** Maintainer ack from Marc Zyngier; irq maintainer merge
+sign-off from Thomas Gleixner.
 
 ### Step 1.3: Body analysis
 **Record:**
-- **Bug:** On machines with no BIOS microcode loaded,
-  `MSR_AMD64_PATCH_LEVEL` reads as 0. Zen encodes family/model/stepping
-  inside the patch revision word; revision 0 breaks that arithmetic.
-- **Symptom:** Patch matching, cache lookup, and Entrysign cutoff
-  selection fail or behave incorrectly when revision stays 0.
-- **Root cause:** Prior fix (`fcf8239`) synthesized a lowest revision
-  only inside `need_sha_check()`, but many callers use
-  `get_patch_level()` directly and still see 0.
-- **Fix approach:** Centralize the synthesis in `get_patch_level()`,
-  limit it to Zen (family ≥ 0x17).
+- **Bug:** On GICv4 hardware with no ITS device-tree node, `has_vlpis`
+  remains true even though ITS init fails.
+- **Symptom:** Kernel panic — NULL pointer dereference in
+  `__irq_domain_instantiate` when `kvm-arm.vgic_v4_enable=1` is set.
+- **Stack trace:** `__irq_domain_instantiate` on `linux,dummy-virt` with
+  `lkvm-static`, kernel `7.1.0-rc4`.
+- **Root cause:** `gic_domain` (static in `irq-gic-v4.c`) is never
+  initialized because `its_init_v4()` is never reached; KVM still
+  believes GICv4 is available via `kvm_vgic_global_state.has_gicv4`.
+- **Fix:** Set `rdists->has_vlpis = false` when `its_nodes` list is
+  empty, so `gic_v3_kvm_info.has_v4` propagates correctly as false.
 
 ### Step 1.4: Hidden bug fix?
-**Record:** Yes — despite “move” wording, this completes an incomplete
-bug fix. The prior commit addressed only the SHA-check path; this fixes
-all `get_patch_level()` consumers.
+**Record:** No — this is an explicit bug fix (NULL deref / kernel
+panic), not disguised cleanup.
 
 ---
 
@@ -128,334 +140,297 @@ all `get_patch_level()` consumers.
 
 ### Step 2.1: Inventory
 **Record:**
-- **Files:** `arch/x86/kernel/cpu/microcode/amd.c` only
-- **Scope:** ~4 insertions, ~5 deletions (net −1 line); single-file
-  surgical fix
-- **Functions modified:** `need_sha_check()`, `get_patch_level()`
+- **Files:** `drivers/irqchip/irq-gic-v3-its.c` (+1 line)
+- **Functions:** `its_init()`
+- **Scope:** Single-file, surgical one-line fix on an error path
 
-### Step 2.2: Code flow per hunk
-
-**Hunk 1 — `need_sha_check()`:**
-- **Before:** If `cur_rev == 0`, synthesize lowest Zen revision via
-  `cpuid_to_ucode_rev()`.
-- **After:** Passes `cur_rev` through unchanged to
-  `get_cutoff_revision()`.
-- **Path affected:** SHA256 digest verification during microcode
-  application.
-
-**Hunk 2 — `get_patch_level()`:**
-- **Before:** Returns raw MSR value (0 when no BIOS microcode).
-- **After:** If MSR is 0 and CPU is Zen+ (family ≥ 0x17), synthesize
-  lowest revision from CPUID; pre-Zen still returns 0.
-- **Path affected:** All microcode revision queries — early BSP load,
-  patch verification, cache lookup, CPU info collection, reload.
+### Step 2.2: Code flow change
+**Record:**
+- **Before:** `its_init()` finds no ITS nodes → prints warning → returns
+  `-ENXIO` with `rdists->has_vlpis` unchanged (still true from hardware
+  capability detection).
+- **After:** Same path, but `rdists->has_vlpis = false` is set before
+  return, so downstream KVM info correctly reports no GICv4 support.
 
 ### Step 2.3: Bug mechanism
-**Record:** **Logic / correctness fix** in Zen patch-ID arithmetic.
+**Record:** **Logic / correctness fix** — stale capability flag after
+failed ITS probe.
 
-When `get_patch_level()` returns 0 on Zen:
-1. **`verify_patch()`** (added by `d75aa97c90da2`, present in this
-   tree): `get_cutoff_revision(0)` returns 0 → `if (!cutoff) goto ok`
-   accepts every patch, breaking Entrysign pre/post-cutoff selection.
-2. **`cache_find_patch()` / `patch_cpus_equivalent()`**:
-   `ucode_rev_to_cpuid(0)` does not match the CPU-encoded patch ID →
-   cache miss → `find_patch()` returns NULL → runtime microcode update
-   fails (`UCODE_NFOUND`).
-3. **`patch_newer()`**: revision comparisons against 0 produce wrong
-   ordering.
-
-The fix ensures all callers of `get_patch_level()` see a valid Zen-
-encoded revision.
+Call chain when bug triggers:
+1. `gic_update_rdist_properties()` sets `has_vlpis` from
+   `GICR_TYPER_VLPIS` hardware bit
+2. `its_init()` returns early with no ITS → `has_vlpis` stays true
+3. `gic_v3_kvm_info.has_v4 = gic_data.rdists.has_vlpis`
+   (```2279:2280:drivers/irqchip/irq-gic-v3.c```)
+4. `kvm-arm.vgic_v4_enable=1` → `kvm_vgic_global_state.has_gicv4 = true`
+   (```668:670:arch/arm64/kvm/vgic/vgic-v3.c```)
+5. `vgic_v4_init()` → `its_alloc_vcpu_irqs()` →
+   `irq_domain_create_hierarchy(gic_domain, ...)` where `gic_domain` is
+   NULL (```167:169:drivers/irqchip/irq-gic-v4.c```, never set because
+   `its_init_v4()` never called)
+6. Kernel panic in irq domain instantiation
 
 ### Step 2.4: Fix quality
-**Record:** Obviously correct — centralizes existing logic at the single
-source of truth. Minimal diff. Low regression risk: pre-Zen explicitly
-excluded (`family < 0x17` returns 0 unchanged). Removing the duplicate
-fixup from `need_sha_check()` is safe because callers now get a
-synthesized revision from `get_patch_level()` first.
+**Record:**
+- **Obviously correct:** If no ITS exists, VLPIs cannot work; clearing
+  `has_vlpis` is semantically right and consistent with existing pattern
+  at lines 5864 and 3274 in the same file.
+- **Minimal:** One line, no unrelated changes.
+- **Regression risk:** Very low — only affects the no-ITS error path;
+  systems with working ITS are untouched.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:**
-- Zero-revision fixup in `need_sha_check()` introduced by
-  **`fcf8239ad6a5d`** (Aug 2025): “Handle the case of no BIOS microcode”
-- `get_patch_level()` introduced by **`037e81fb9d2df`**; present since
-  before Zen encoding changes
-- Zen patch-ID encoding introduced by **`94838d230a6c`** (Jul 2024) — in
-  this tree
-- Patch selection using `get_patch_level()` + cutoff:
-  **`d75aa97c90da2`** (Sep 2025, backported Jan 2026) — in this tree
+**Record:** Worktree has flattened history (single squash commit
+`7e22de67e545d`). The `list_empty(&its_nodes)` early-return path exists
+at ```5836:5838:drivers/irqchip/irq-gic-v3-its.c``` without the fix.
+GICv4/VLPI infrastructure is present throughout 6.18.
 
 ### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag on this commit. Related fix:
-`fcf8239ad6a5d` with `Fixes: 94838d230a6c`, `Cc:
-stable@vger.kernel.org`, `Reported-by: Vítek Vávra`.
+**Record:** N/A — no Fixes: tag in commit message.
 
-### Step 3.3: File history
-**Record:** Recent related commits in this tree:
-- `fcf8239ad6a5d` — incomplete zero-rev fix (SHA path only)
-- `d75aa97c90da2` — patch selection via `verify_patch()` +
-  `get_cutoff_revision()`
-- `54e9bd5025a07` — Entrysign Zen5 fixes
-- This commit (`098bcea71b8d2`) is on `origin/master` but **not yet** in
-  `stable/linux-6.18.y`
-
-Standalone single-patch fix; not part of a multi-patch series.
+### Step 3.3: Related file history
+**Record:** Limited git history in this worktree. The buggy code path
+and all related infrastructure (`has_vlpis`, `kvm-arm.vgic_v4_enable`,
+`its_init_v4`, `gic_domain`) are present in this 6.18.44 tree.
 
 ### Step 3.4: Author context
-**Record:** Borislav Petkov is the x86/AMD microcode maintainer.
-Multiple recent commits in `amd.c` in this tree.
+**Record:** Mostafa Saleh (Google). Marc Zyngier (GIC expert/maintainer)
+suggested and acked the fix.
 
 ### Step 3.5: Dependencies
-**Record:**
-- Requires `cpuid_to_ucode_rev()`, `get_cutoff_revision()`, Zen patch-ID
-  logic — all present in v6.18.44
-- Requires `fcf8239ad6a5d` (already in tree) for `cpuid_to_ucode_rev()`
-  and the original partial fix
-- **`git apply --check` on `098bcea71b8d2` passes cleanly** on current
-  tree
-- No other commits required
+**Record:** Standalone — no series dependencies, no prerequisite
+commits. Applies to existing `its_init()` error path.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 ### Step 4.1: Original discussion
-**Record:**
-- **b4 dig -c 098bcea71b8d2:**
-  `https://patch.msgid.link/20260530024213.86137-1-bp@kernel.org`
-- **b4 dig -a:** v1 only (May 29, 2026); mbox also contains v2 (Jun 3,
-  2026) with same diff
-- **Reviewer feedback:** No replies, NAKs, stable nominations, or
-  Tested-by in thread (single-patch post, no discussion)
+**Record:** `b4 dig -c <commit>` could not be run — fix commit SHA not
+present in local repos (fix targets 7.1.0-rc4 per commit message; local
+tree is 6.18.44). Link fetch to lore/patch.msgid.link blocked by bot
+protection (Anubis). Could not retrieve thread discussion.
 
 ### Step 4.2: Reviewers
-**Record:** **b4 dig -w:** To/Cc: Borislav Petkov, X86 ML, LKML. No
-external reviewers listed.
+**Record:** UNVERIFIED via b4 dig -w. Commit message confirms Acked-by
+Marc Zyngier and Signed-off-by Thomas Gleixner.
 
 ### Step 4.3: Bug report
-**Record:** No direct bug report on this commit. Original user report on
-`fcf8239ad6a5d` (Vítek Vávra) — machines shipped without BIOS microcode.
-This commit completes that fix.
+**Record:** Commit message includes full oops trace with reproducible
+scenario: `linux,dummy-virt` DT, `kvm-arm.vgic_v4_enable=1`, no ITS
+node. Severity: kernel panic.
 
 ### Step 4.4: Related patches
-**Record:** Follow-up to `fcf8239ad6a5d`. Interacts with `d75aa97c90da2`
-patch-selection logic. No other series patches needed.
+**Record:** Standalone fix, not part of a series.
 
-### Step 4.5: Stable list
-**Record:** No stable-list discussion found for this specific commit.
-Prior commit `fcf8239` had `Cc: stable@vger.kernel.org`.
+### Step 4.5: Stable list history
+**Record:** UNVERIFIED — lore access blocked. No stable discussion found
+locally.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `get_patch_level()`, `need_sha_check()`, and downstream:
-`verify_patch()`, `cache_find_patch()`, `find_patch()`,
-`load_ucode_amd_bsp()`, `collect_cpu_info_amd()`, `reload_ucode_amd()`,
-`__apply_microcode_amd()`.
+**Record:** `its_init()`, `its_alloc_vcpu_irqs()`, `vgic_v4_init()`,
+`vgic_v3_probe()`, `irq_domain_create_hierarchy()`
 
-### Step 5.2: Callers of `get_patch_level()`
-**Record:** (verified via grep in `amd.c`)
-- `verify_patch()` — patch container scanning / Entrysign selection
-- `load_ucode_amd_bsp()` — early BSP microcode load
-- `__apply_microcode_amd()` — post-apply verification
-- `find_patch()` → `cache_find_patch()` — runtime patch lookup
-- `reload_ucode_amd()`, `collect_cpu_info_amd()` — reload and sysfs/CPU
-  info
-
-All are boot-time or microcode-update paths on AMD x86 systems.
+### Step 5.2: Callers
+**Record:**
+- `its_init()` called from `gic_of_init()` / ACPI init when
+  `gic_dist_supports_lpis()` (```2137:2138:drivers/irqchip/irq-
+  gic-v3.c```)
+- `vgic_v4_init()` called during KVM VM setup when GICv4 is enabled
+- `its_alloc_vcpu_irqs()` called from `vgic_v4_init()`
+  (```266:266:arch/arm64/kvm/vgic/vgic-v4.c```)
 
 ### Step 5.3: Callees
-**Record:** `native_rdmsr(MSR_AMD64_PATCH_LEVEL)`,
-`cpuid_to_ucode_rev()`, `x86_family()`, `pr_info_once()`.
+**Record:** `irq_domain_create_hierarchy()` → `irq_domain_instantiate()`
+→ `__irq_domain_instantiate()`; uses static `gic_domain` set only by
+`its_init_v4()`.
 
 ### Step 5.4: Reachability
-**Record:** Triggered on every AMD Zen+ system boot where BIOS has not
-applied microcode (MSR reads 0). Common during early boot microcode
-loading and later reload paths. Not userspace-syscall reachable, but
-affects all such hardware at boot.
+**Record:** Reachable from userspace via KVM — boot param `kvm-
+arm.vgic_v4_enable=1` + creating/running a VM with vITS on GICv4-capable
+hardware without ITS. QEMU `virt` platform matches the reported
+scenario.
 
 ### Step 5.5: Similar patterns
-**Record:** `cpuid_to_ucode_rev()` fixup was duplicated in
-`need_sha_check()` and `get_patch_level()`'s `CONFIG_MICROCODE_DBG`
-path. This commit consolidates into one place.
+**Record:** Same file already clears `has_vlpis` on GICv4 init failure
+(```5864:5864:drivers/irqchip/irq-gic-v3-its.c```) and in other error
+paths (```3274:3274```). Fix follows established convention.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.y)
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
 
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Current tree at
-`arch/x86/kernel/cpu/microcode/amd.c:236-238` still has fixup only in
-`need_sha_check()`. `get_patch_level()` at lines 340-342 returns raw MSR
-without zero-rev handling. All prerequisite commits (`94838d`,
-`fcf8239`, `d75aa97`) are ancestors of HEAD.
+### Step 6.1: Buggy code exists?
+**Record:** **YES.** At ```5836:5838:drivers/irqchip/irq-
+gic-v3-its.c```, the early return on empty `its_nodes` does NOT clear
+`has_vlpis`. All prerequisite code (GICv4, KVM vgic_v4_enable,
+`gic_domain` in irq-gic-v4.c) exists in 6.18.44.
 
 ### Step 6.2: Backport complications
-**Record:** **Clean apply** — `git apply --check` on upstream commit
-succeeds with no conflicts. No rework needed for 6.18.y (the
-`hypervisor_present` change in master is a separate commit, not part of
-this patch).
+**Record:** **Clean apply expected** — single line insertion in
+unchanged context. No refactoring conflicts observed.
 
 ### Step 6.3: Related fixes already present?
-**Record:** `fcf8239ad6a5d` (partial fix) is in tree. This commit is
-**not** yet applied. No alternate fix found.
+**Record:** **NO** — grep shows no `rdists->has_vlpis = false` in the
+`list_empty(&its_nodes)` path. Fix not yet in this tree.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem
-**Record:** `arch/x86` — AMD microcode loader. **Criticality:
-IMPORTANT** (CPU security mitigations, boot-time correctness; not
-universal like mm/VFS, but affects all AMD Zen+ users without BIOS
-ucode).
+### Step 7.1: Subsystem criticality
+**Record:** **IMPORTANT** — ARM64 KVM + GIC interrupt controller.
+Affects virtualization hosts on ARM64 with GICv4.
 
-### Step 7.2: Activity
-**Record:** Actively maintained — multiple microcode commits in
-2025–2026 in this tree (Entrysign, Zen5, patch selection).
+### Step 7.2: Subsystem activity
+**Record:** GICv3/v4/ITS actively maintained; GICv4 KVM direct injection
+is a supported feature path in 6.18.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who is affected
-**Record:** AMD Zen and newer (family ≥ 0x17) systems where BIOS has not
-applied microcode (MSR revision = 0). Config: `CONFIG_MICROCODE` + AMD
-CPU.
+**Record:** ARM64 hosts running KVM with `CONFIG_KVM` +
+`CONFIG_ARM_GIC_V3_ITS`, GICv4-capable hardware (VLPI in GICR_TYPER), no
+ITS in firmware/DT, and `kvm-arm.vgic_v4_enable=1`. Common in QEMU virt
+development/testing.
 
 ### Step 8.2: Trigger conditions
-**Record:** Boot or microcode reload on hardware with no prior microcode
-applied. Documented real-world scenario (machines shipped without BIOS
-microcode). Not timing-dependent.
+**Record:**
+- Requires explicit boot param `kvm-arm.vgic_v4_enable=1` (not default)
+- Requires GICv4 hardware features without ITS node
+- Triggered when KVM VM with vITS is initialized
+- **Likelihood:** Low in production (param is opt-in), but realistic in
+  dev/QEMU environments
+- **Unprivileged trigger:** Indirect — root sets boot param; any user
+  with KVM access could then trigger VM creation path
 
 ### Step 8.3: Failure mode severity
-**Record:**
-- Microcode fails to load/update (`find_patch()` → NULL)
-- Wrong patch may be selected when dual-patch containers are used
-  (`verify_patch()` bypasses cutoff logic)
-- Missing CPU security/errata mitigations
-- **Severity: HIGH** (functional failure + potential security impact
-  from wrong/missing microcode; not a kernel oops, but materially
-  affects CPU security state)
+**Record:** **CRITICAL** — kernel NULL pointer dereference → oops/panic.
+Host crash.
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit: HIGH** — fixes broken microcode loading on real hardware;
-  completes a stable-nominated partial fix
-- **Risk: VERY LOW** — 9-line move, maintainer-authored, applies
-  cleanly, Zen-only guard
+- **Benefit:** Prevents host kernel panic on a valid-but-misconfigured
+  GICv4-without-ITS scenario; corrects false capability advertisement
+- **Risk:** Very low — one line on error-only path, maintainer-acked
 - **Ratio:** Strong benefit, minimal risk
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence compile
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Fixes real bug on Zen+ systems without BIOS microcode (user-reported
-  scenario)
-- Completes incomplete fix from `fcf8239` (which had `Cc: stable`)
-- Breaks `verify_patch()` cutoff selection and `cache_find_patch()` when
-  rev=0
-- Small, surgical, maintainer fix; applies cleanly to 6.18.44
-- All prerequisites present in this tree
-- Upstream in mainline (`098bcea71b8d2`)
+- Real kernel panic (NULL deref) with stack trace in commit message
+- Small, surgical, obviously correct fix
+- GIC maintainer (Marc Zyngier) suggested and acked
+- Buggy code confirmed present in 6.18.44
+- Follows existing `has_vlpis = false` pattern in same file
+- Prevents false GICv4 advertisement to KVM
 
 **AGAINST backport:**
-- No independent Tested-by or review discussion
-- No crash/oops — functional/security impact rather than kernel panic
-- Narrow hardware/config scope (AMD Zen+ without BIOS ucode)
+- Requires opt-in boot param `kvm-arm.vgic_v4_enable=1` (niche trigger)
+- No ITS on GICv4 hardware is an unusual/misconfigured platform
 
-**Unresolved:** None material to the decision.
+**UNRESOLVED:**
+- Full lore review thread inaccessible (bot protection)
+- b4 dig could not match commit (not in local git history)
+
+The niche trigger does not outweigh a host panic fix — stable trees
+routinely backport fixes that prevent panics on misconfiguration.
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic is clear; `git apply
-   --check` passes; author is maintainer (no formal Tested-by)
-2. Fixes real bug affecting users? **PASS** — microcode load/selection
-   broken when MSR=0 on Zen
-3. Important issue? **PASS** — HIGH: missing/wrong microcode, security
-   mitigations at stake
-4. Small and contained? **PASS** — single file, ~9 lines changed
-5. No new features/APIs? **PASS** — relocates existing fixup logic
-6. Can apply to local tree? **PASS** — clean apply verified
+1. Obviously correct and tested? **PASS** — logically sound; maintainer
+   acked; reproducer in commit message
+2. Fixes a real bug? **PASS** — NULL deref panic on KVM GICv4 init
+3. Important issue? **PASS** — CRITICAL (kernel panic)
+4. Small and contained? **PASS** — 1 line, 1 file
+5. No new features/APIs? **PASS** — corrects existing capability flag
+6. Can apply to local tree? **PASS** — buggy code present; clean apply
+   expected
 
 ### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Qualifies
-on merit as a bug fix.
+**Record:** N/A — standard bug fix, not a quirk/DT/device-ID exception.
 
-### Step 9.4: Problem summary for stable users
-
-Commit `fcf8239` added a workaround for machines with no BIOS microcode,
-but only inside `need_sha_check()`. Meanwhile `get_patch_level()` — used
-by patch verification (`d75aa97`), cache lookup, early load, and CPU
-info — still returned 0. On Zen CPUs, revision 0 is not a valid encoded
-patch level, so patch matching arithmetic fails and Entrysign cutoff
-selection is bypassed. This commit moves the synthesis to
-`get_patch_level()` with a Zen-only guard, fixing all consumers at once.
+### Step 9.4: Decision rationale
+For **Linux 6.18.44**, this commit fixes a confirmed host kernel panic
+when KVM GICv4 is force-enabled on GICv4-capable hardware without an
+ITS. The buggy code exists in this tree, the fix is one maintainer-acked
+line on an error path, and it prevents false advertisement of VLPI/GICv4
+support to KVM. The opt-in nature of the boot parameter reduces
+production exposure but does not diminish the fix's correctness or
+stable suitability.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, body, tags; Link to lore confirmed
-- [Phase 2] Read diff and current `amd.c` at lines 232-248, 321-343,
-  504-575, 822-876, 916-930
-- [Phase 3] `git blame` on changed lines; `fcf8239ad6a5d`,
-  `d75aa97c90da2`, `94838d230a6c` identified; ancestry confirmed in tree
-- [Phase 3] `git apply --check` on `098bcea71b8d2` — passes
-- [Phase 4] `b4 dig -c 098bcea71b8d2` — lore URL found; `-a` shows v1;
-  `-w` shows recipients; mbox saved, no review replies
-- [Phase 5] `grep get_patch_level` — 6 call sites in `amd.c`; traced
-  `verify_patch`, `cache_find_patch`, `find_patch` logic
-- [Phase 6] `git describe HEAD` → v6.18.44; buggy code confirmed
-  present; fix not yet in tree
-- [Phase 6] `git merge-base --is-ancestor` — `fcf8239`, `d75aa97`,
-  `94838d` all in tree
-- [Phase 8] Failure modes derived from code paths at
-  `verify_patch():554-556` and `cache_find_patch():851-855`
+- [Phase 1] Parsed subject, tags (Acked-by Marc Zyngier, Suggested-by
+  Marc Zyngier, Link to patch)
+- [Phase 1] Identified explicit NULL deref panic bug, not hidden cleanup
+- [Phase 2] Diff: +1 line in `its_init()` at `list_empty(&its_nodes)`
+  path
+- [Phase 2] Traced bug chain: `has_vlpis` stale → `has_v4` true →
+  `has_gicv4` true → `gic_domain` NULL → panic
+- [Phase 3] `git describe HEAD`: v6.18.44
+- [Phase 3] Buggy code at lines 5836-5838 confirmed without fix
+- [Phase 3] No Fixes: tag; standalone patch
+- [Phase 4] b4 dig: commit SHA unavailable in local repos — could not
+  run
+- [Phase 4] WebFetch lore/patch.msgid.link: blocked by Anubis bot
+  protection
+- [Phase 4] UNVERIFIED: full mailing list review thread
+- [Phase 5] Verified callers: `its_init` from gic init, `vgic_v4_init` →
+  `its_alloc_vcpu_irqs`
+- [Phase 5] Verified `gic_domain` static NULL until `its_init_v4()` at
+  ```376:382:drivers/irqchip/irq-gic-v4.c```
+- [Phase 5] Verified `gic_v3_kvm_info.has_v4 =
+  gic_data.rdists.has_vlpis` at lines 2279, 2639
+- [Phase 5] Verified `kvm-arm.vgic_v4_enable` early_param at
+  ```615:619:arch/arm64/kvm/vgic/vgic-v3.c```
+- [Phase 6] Buggy code EXISTS in 6.18.44 tree
+- [Phase 6] Fix NOT yet applied in local tree
+- [Phase 6] Clean apply expected (single line insertion)
+- [Phase 7] Subsystem: irqchip GIC + ARM64 KVM, IMPORTANT criticality
+- [Phase 8] Failure mode: NULL deref panic, CRITICAL severity
+- [Phase 8] Trigger: opt-in boot param + no ITS + GICv4 hardware + KVM
+  VM init
+
+**YES**The background `git log --all` lookup for when the “No ITS
+available, not enabling LPIs” path was introduced was killed after
+timing out (and `--all` isn’t appropriate here anyway). That doesn’t
+change the backport analysis: the buggy path is present in this
+**6.18.44** tree, and the fix is still a one-line, maintainer-acked
+correction on the no-ITS error path.
 
 **YES**
 
- arch/x86/kernel/cpu/microcode/amd.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/irqchip/irq-gic-v3-its.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/x86/kernel/cpu/microcode/amd.c b/arch/x86/kernel/cpu/microcode/amd.c
-index 46673530bc6f0..4a33d10685587 100644
---- a/arch/x86/kernel/cpu/microcode/amd.c
-+++ b/arch/x86/kernel/cpu/microcode/amd.c
-@@ -233,11 +233,6 @@ static bool need_sha_check(u32 cur_rev)
- {
- 	u32 cutoff;
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+index a1661657391d6..38190c5196936 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -5834,6 +5834,7 @@ int __init its_init(struct fwnode_handle *handle, struct rdists *rdists,
+ 		its_acpi_probe();
  
--	if (!cur_rev) {
--		cur_rev = cpuid_to_ucode_rev(bsp_cpuid_1_eax);
--		pr_info_once("No current revision, generating the lowest one: 0x%x\n", cur_rev);
--	}
--
- 	cutoff = get_cutoff_revision(cur_rev);
- 	if (cutoff)
- 		return cur_rev <= cutoff;
-@@ -338,6 +333,13 @@ static u32 get_patch_level(void)
+ 	if (list_empty(&its_nodes)) {
++		rdists->has_vlpis = false;
+ 		pr_warn("ITS: No ITS available, not enabling LPIs\n");
+ 		return -ENXIO;
  	}
- 
- 	native_rdmsr(MSR_AMD64_PATCH_LEVEL, rev, dummy);
-+	if (!rev) {
-+		if (x86_family(bsp_cpuid_1_eax) < 0x17)
-+			return rev;
-+
-+		rev = cpuid_to_ucode_rev(bsp_cpuid_1_eax);
-+		pr_info_once("No current revision, generating the lowest one: 0x%x\n", rev);
-+	}
- 
- 	return rev;
- }
 -- 
 2.53.0
 
