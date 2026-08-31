@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BECCC493641;
-	Tue,  1 Sep 2026 18:20:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87ED849B1EF;
+	Tue,  1 Sep 2026 18:20:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788286808; cv=none; b=ui9d9BATRLsHkFTXDDQ2TFqHWhdGywqY4XR4ACFbp7NjYi5f8zn6p42UgRgx4kKS3e+3KsMjmL/Inr3Xx2a3fWjEJ/tUdTRXGrX0EymiRTmIPu/YijNpQlLCJLO+kxDDgbSWC4DPnKAacalI4d+G0+pY3jTp+mEaiEe3bzCDGxs=
+	t=1788286813; cv=none; b=apFtl/MXbWpT47c0rwXLwir9vamueDac8oUpwjp0liTJcFORmjGUR1icVWrZg31YjfzrAwtaxuzMp4tSNRdB6ldwIwyCooKSN9ceOLzzinsY/5uSoOl6bOShz8DNIPloG4+snZPWsygCEqhVFne5Lh3DVsnqpNDYtBjZi50o8Ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788286808; c=relaxed/simple;
-	bh=GRxmfZFhoYhv9N3u18s8botWqRJLuiPVT8Wl+5mrUF0=;
+	s=arc-20240116; t=1788286813; c=relaxed/simple;
+	bh=nK6KOhe5vnxyWuppPoiY8PgXoR/dG8HvCsleUp652/U=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=pdypSyGVqB2z+Gx93wLsB7TQkm6aqN/351j1B8xwGyEOgo2gy30/jJLYQmzI9wZTe2ohEOPb5vcQF8qFP/FwXLJsJoWORp69UcR6wnYhO2VubxS5kY4IuQxS5vNZdiOXuqA9cbwgVhs6pPhwlP9FTlUa7EXdwMav1wBxu1NsL3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iOfKe1ZK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ky/BSERv3wdl1yVMV4eHiCQu3vp/Oh7LWA/kWjGpas3QvrEDc5MYckxWKq5lkvN6wSayJ7YjCfcvJLIqUx+HuZ/kb/iX+tUKXErpHSHe2VkDgXeY6UuVJpot/GyJ2vmliUu2CE5W7QSoDOt6NnYiAQn6MM/lxHUk1eyZl6lNV60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j0kZKo44; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iOfKe1ZK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541CB1F000E9;
-	Tue,  1 Sep 2026 18:20:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j0kZKo44"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ED591F000E9;
+	Tue,  1 Sep 2026 18:20:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788286807;
-	bh=yjuJaT4wUvu61e193Gx8FSbNgh81UlU26f6irVLePAo=;
+	s=k20260515; t=1788286812;
+	bh=LtX7KnnVs9LVBq9yb/c4TC+txGpPRdYZ4CX3PUwsgmE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=iOfKe1ZKKTAnwSDcQD+Ws2mXrAfKzil7/i4QtJxvWcIk7fYXzf57oTR79s7eXhZJt
-	 G3vTzgqTWvHSiSpIrAta/6TVWB7Oz61HQuj21i8dSRW1NSBrCvDw0y3sJkQbArjEVK
-	 WT/xm+4btvwXi+RxSDhzc6ndgVQ0xejDbFBbxVbcje7P8xtZeItuUnGbeu9618g5td
-	 b7FzC5G0coe427eOUbnJzWskhyrZ+wp6P9JuWx/gUdGfJQfOASBoMaIIibDJt4z413
-	 b9HT1XpPmg2IJLckdlH9R4Uk2q+EC2cuBI3JMJIpEhF98rWkJbUwRNAysTuwNQzEOO
-	 ZOcEyfykNxO7Q==
+	b=j0kZKo445icEly1JveqfpNvFV8P7Bn4wGpW3it7cjdTsujwC8wMFjDYhQN2gc34BI
+	 e7tcHmcU8BNtkfb0//GG4u7l6oWvdP64/Cv992qGy5U5YBCzfj5j6BjCja5FGeGcu6
+	 3gVT09KpEJtW6NRKYIhhbnK6KJNh1Xy1ACLf4Fg44vwW+YufNLYrrQ44GPHcFmTKyb
+	 sZjY7J/38xkpeOOzpY2FNHKruGOwgMKallICE4e3t1rf1IBEbvLEEAC5ZabmAotc8Z
+	 6/nFVeDcSSzpB4Pni+9G7ocw7pE8IE8AJCIUsMaCYEU7EacXNaRD8ZWZqSgX3U0l3Q
+	 3AmoWf4FGbDbA==
 From: Mark Brown <broonie@kernel.org>
 To: Matthias Brugger <matthias.bgg@gmail.com>, phucduc.bui@gmail.com
 Cc: Liam Girdwood <lgirdwood@gmail.com>, 
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Rosen Penev <rosenp@gmail.com>, Daniel Golle <daniel@makrotopia.org>, 
  linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260817104929.63152-1-phucduc.bui@gmail.com>
-References: <20260817104929.63152-1-phucduc.bui@gmail.com>
-Subject: Re: [PATCH 1/3] ASoC: mediatek: mt2701: Use
- devm_clk_get_optional() for audio_mrgif_pd
-Message-Id: <178812923300.13461.6038175593818524679.b4-ty@b4>
-Date: Sun, 30 Aug 2026 23:33:53 +0100
+In-Reply-To: <20260818104526.37904-1-phucduc.bui@gmail.com>
+References: <20260818104526.37904-1-phucduc.bui@gmail.com>
+Subject: Re: [PATCH] ASoC: mediatek: mt7986: Drop redundant probe error
+ messages
+Message-Id: <178819855760.141190.17148674455255470925.b4-ty@b4>
+Date: Mon, 31 Aug 2026 18:49:17 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,20 +48,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1422; i=broonie@kernel.org;
- h=from:subject:message-id; bh=GRxmfZFhoYhv9N3u18s8botWqRJLuiPVT8Wl+5mrUF0=;
- b=owGbwMvMwMWocq27KDak/QLjabUkhqzp4kGXGdou/X8Z8TJxZa129b3+xIx7D59msn10T930e
- 5F9sOuvTkZjFgZGLgZZMUWWtc8yVqWHS2yd/2j+K5hBrEwgUxi4OAVgIoKe7P89X0lV9HTmHHM1
- s/76yGPidknnJpHAS+WmJzozP5bdLhTi2NNyoL+Iq9NihcDOsrqNV3v4wpjrNtz7oHWJ8dvdvgo
- urnJNV+VAmwXdL6LcG6dGFgY8TNheM2HvRdadIh9s39XYVl/9rZtVPtd0YnWtz9uXB10jesqj+j
- ZeatgrMVuU24y7al0Rk3Wi/5ODQrqCyTp1jcmpGzve2/sfdPg6KePSkxnnmLx+1IU/uGUqIO6w/
- YtR95lk2zjOZl71TeEftqjzNIUaZav0CM2c42JqN3n1XJFfflP7P8UYr3mQtrNO/cJci9I9c/pV
- HW+Ziq9avk/p+N34nzvS7v4ILzPruMyYb1kpEDX/020/AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1145; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=nK6KOhe5vnxyWuppPoiY8PgXoR/dG8HvCsleUp652/U=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqlxdYOkDxwXiajN7CRGmgpsBTTI/iDdWlnxDHN
+ BnKbToxTt6JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapcXWAAKCRAk1otyXVSH
+ 0AeWB/9pnqbxX8ONvGcVOlGrctcP7VrncGXYs6sKm0DCcrVGnr+RMfFwQ2XYEXzk5m1ecE2u980
+ 00pFI6GT1t03qIC9PGpCKCpRsHzb+9YwPPVm/doeyn+KAZThAOza/1HEk9YM82n4ErEi7VzWd3V
+ YHX0izX7PhH3YfxnGreSC9ST72z+vt7lJ6h3B7k6j65loPepOu+CqfoNWWOeDyqKejAIf5J+acQ
+ 5jOXP+Q4/g1qRoRjRYB6XQmOkhBqR52LiL2bgBfEUHfJBT7VS44XcBQivn3LLBEBo5oD5FUczwd
+ t2K3VEudWw0/DxzhTyzpiL2dSzFxH6zNaXnTQF4utjjDPVgn
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, 17 Aug 2026 17:49:27 +0700, phucduc.bui@gmail.com wrote:
-> ASoC: mediatek: mt2701: Use devm_clk_get_optional() for audio_mrgif_pd
+On Tue, 18 Aug 2026 17:45:26 +0700, phucduc.bui@gmail.com wrote:
+> ASoC: mediatek: mt7986: Drop redundant probe error messages
 
 Applied to
 
@@ -70,12 +69,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: mediatek: mt2701: Use devm_clk_get_optional() for audio_mrgif_pd
-      https://git.kernel.org/broonie/sound/c/e1c41b5395a1
-[2/3] ASoC: mediatek: mt2701: Use dev_err_probe() for error handling
-      https://git.kernel.org/broonie/sound/c/d468c1c89e7d
-[3/3] ASoC: mediatek: mt2701: Drop redundant probe error messages
-      https://git.kernel.org/broonie/sound/c/fd97db580cea
+[1/1] ASoC: mediatek: mt7986: Drop redundant probe error messages
+      https://git.kernel.org/broonie/sound/c/bf71d5c64cd0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
