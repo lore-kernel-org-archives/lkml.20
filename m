@@ -1,48 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54314A1DEB;
-	Mon, 31 Aug 2026 13:41:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D104A2055;
+	Mon, 31 Aug 2026 13:41:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183709; cv=none; b=MN5yum7qqpVjfWQKC+a/i0lj7VZHUDB9QbTqsMkG2O2n6RuWybb/ShtpCSSIHGX1Vk2CFLUB2BTB90iHbz+EXTFMVds3hfZGWg7ZXhVyy7WwwETQKm32ujzqTfsA730i0k4cWhwe/kKXBgfHyZQDUe7gJ7VeBUrb0sKIBrnviAY=
+	t=1788183713; cv=none; b=ReHWUBVRle1A2rpxSgwxQ08VDkqSgNvtIEcRC0URe4O+C9wyyFKKciOmmMMTkLc8o0aCxkgGXnBAzmjHQMQeS9oHg2K5v/+0QSCSSEda8OxBTbR7G/MtUIsIwfRLfrjcBpvPSpj7m5J4ADScEC9+XhLleFtdbboknlo6SDu6X44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183709; c=relaxed/simple;
-	bh=+eJpnimL5yaekQdsaA9HO7wbnIc+Ma1yI1LBNnfYZIM=;
+	s=arc-20240116; t=1788183713; c=relaxed/simple;
+	bh=lG0ixKQ1mLCxQGPnXgn1lo1cOCb9q3hH11X63UuZKSQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=usCLIQ3+XaEgOkUUJpJ9Te0Kh803JGJOszeSG6GjRdATo+VMSxUukdo1RCbSwDYD+ykESCSHNiph8Wh5G/M77MSGBQ2Faf9T41mLapMBQjgK2zkhpI/DNSijDgiby6N9cARotqX7lUPn51SikppwvIr6L/o3euj4PFsawbRI05c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bHM0d/SU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Wt5+sMq72TxDU+dQ9AgQw138RH7zup/Jb9alfVeNlpXVCTxqjUTBJxVWVqeYmI8J1TuufnebngYFE7X1k+crEVMR78G0V5OJYOgXpmWhZkk1Mc6fyg8zqTjTD9WIU46HdpCpXT5O3vSbtbYPxSK4YHB1MZu2oeWoyLlCyatlvvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aqZdnV5E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bHM0d/SU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 528C21F00A3F;
-	Mon, 31 Aug 2026 13:41:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aqZdnV5E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 239701F00A3F;
+	Mon, 31 Aug 2026 13:41:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183706;
-	bh=9RrjIxMMq22H6qcH5KABP0SzS8mkDlZEnFetbud6ZZk=;
+	s=k20260515; t=1788183711;
+	bh=3NlhHbvyFPMU6mH5r1dGOqevBmHLJaKBG2LBztKcTZ4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bHM0d/SUtqNFfehX62o3CKgaMQKAHgUYFNZ+Hd2IucrfS7ImWpMslucy0kM4uQ3Pk
-	 eSUkgRnsXa43zCn9PxnsVLrtZG1YcQj9KrcoOfP4IjqtEXZMaEFPMOO0bLO+KVCCu9
-	 3HQqC869OT8nRhieexXVB69unlplTpEdegbvkNyZqLYcc+oR/Q7FsFlWJvsbKuQZ1c
-	 OkcI6G6rURKEBNCkMmthZCg8AnKk0Hf8YKldTr11o5fhSdtm2QAnaErPjnKvLpBIi0
-	 VVWvsVcnDxGmu1W1ONeb+UeD/W2JY6Mw94JnmPK/K+/yoMhxhAzS8EHlAJ3AX9tS9y
-	 Mnzk46qsI3+uA==
+	b=aqZdnV5EJBQy4hjrSgodr+nVMGulnJLU9RS4vbC8F3+hmKjVzJjj/7Y8GZuQHQdAU
+	 8BWpTjK2JgrCCGvFVabdGVHU6MqWoKH2jf/uSxd1G7ytd3soNgzaRZn3AXYwgdtRiR
+	 hLpRJ3QH4elVhEHrgs2FtnD0Aljcaz51WerU+3SjtmMszNF7JurxhtUdluf0yN4Qn6
+	 lQ+M2xGTCBlho1jziiVK6Oteva90k+VBRpIPOz418zYQyT5i14G0bx7Nq/L0YhpFkA
+	 ETIwR3PA1GnIiovsazJUj5Pqg0qyvlwn5JdtRq9y64PPi7F20nK20/ZBF2RR1s/MbC
+	 mGoYQI8fEcDBw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	Alexander Lobakin <aleksander.lobakin@intel.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	linux-arm-msm@vger.kernel.org,
-	netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] net: qrtr: fix node refcount leak on ctrl packet alloc failure
-Date: Mon, 31 Aug 2026 09:24:44 -0400
-Message-ID: <20260831133314.4125787-256-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] wifi: iwlwifi: mvm: validate TX_CMD response layout
+Date: Mon, 31 Aug 2026 09:24:47 -0400
+Message-ID: <20260831133314.4125787-259-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -58,418 +52,101 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
 
-[ Upstream commit 3b09ff54114566864eea59020f6b69c5bb325b9d ]
+[ Upstream commit 8d70881707b47353359df57df12f6de67fdacdd2 ]
 
-qrtr_send_resume_tx() calls qrtr_node_lookup() which takes a
-reference on the returned node. If the subsequent call to
-qrtr_alloc_ctrl_packet() fails due to memory allocation failure, the
-function returns -ENOMEM without calling qrtr_node_release() to
-release the node reference.
+TX_CMD parsing uses frame_count to walk status entries and then
+read the trailing SCD SSN. Make the minimum-length check follow
+that exact runtime layout calculation before parsing the payload.
 
-Add qrtr_node_release(node) before returning on the allocation failure
-path to properly release the reference.
+For new TX API, reject TX_CMD responses with frame_count != 1 and
+warn/return in the aggregation handler to document that aggregated
+accounting is expected via BA notifications.
 
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com>
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-Link: https://patch.msgid.link/20260528080019.1176700-1-vulab@iscas.ac.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: GitHubCopilot:gpt-5.3-codex
+Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Link: https://patch.msgid.link/20260715215523.0474ee89bab9.I84f151aabecb8921b587da092f29f78c47128f0f@changeid
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `net: qrtr: fix node refcount leak on ctrl
-packet alloc failure`
-
-**Local tree:** `v6.18.44` (Makefile: 6.18.44)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: PARSE THE SUBJECT LINE
-**Record:** `[net: qrtr]` `[fix]` — On `qrtr_alloc_ctrl_packet()`
-allocation failure in `qrtr_send_resume_tx()`, release the node
-reference acquired by `qrtr_node_lookup()` to avoid a refcount leak.
-
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-**Record:**
-- **Fixes:** — not present (expected for manual review)
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** Alexander Lobakin `<aleksander.lobakin@intel.com>`,
-  Manivannan Sadhasivam `<mani@kernel.org>` (QRTR maintainer)
-- **Acked-by:** — none
-- **Link:**
-  `https://patch.msgid.link/20260528080019.1176700-1-vulab@iscas.ac.cn`
-- **Cc: stable@vger.kernel.org:** — not present (expected)
-- **Signed-off-by:** Wentao Liang (author), Jakub Kicinski (net
-  maintainer merge); ignore pipeline SOB per instructions
-
-**Notable patterns:** Two subsystem reviewers, including the QRTR
-maintainer. No syzbot/fuzzer report.
-
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
-**Record:**
-- **Bug:** `qrtr_send_resume_tx()` calls `qrtr_node_lookup()` (takes a
-  ref) then `qrtr_alloc_ctrl_packet()`. On alloc failure it returns
-  `-ENOMEM` without `qrtr_node_release(node)`.
-- **Symptom:** Leaked `qrtr_node` reference; node cannot be fully torn
-  down when its refcount should reach zero.
-- **Version info:** None in message.
-- **Root cause:** Missing cleanup on a single error path; success path
-  already calls `qrtr_node_release(node)` at line 1021.
-
-### Step 1.4: DETECT HIDDEN BUG FIXES
-**Record:** Not disguised — explicitly labeled a refcount leak fix.
-Straightforward error-path resource management bug.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: INVENTORY THE CHANGES
-**Record:**
-- **Files:** `net/qrtr/af_qrtr.c` (+3 / −1 net)
-- **Function:** `qrtr_send_resume_tx()`
-- **Scope:** Single-file, surgical fix on one error path
-
-### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-**Record:**
-- **Hunk (lines 1011–1013):**
-  - **Before:** `if (!skb) return -ENOMEM;` — node ref leaked.
-  - **After:** `if (!skb) { qrtr_node_release(node); return -ENOMEM; }`
-    — ref balanced.
-- **Path affected:** Error path in `qrtr_send_resume_tx()`, called from
-  `qrtr_recvmsg()` when `cb->confirm_rx` is set (flow-control resume-
-  tx).
-
-### Step 2.3: IDENTIFY THE BUG MECHANISM
-**Record:**
-- **Category:** Reference counting / resource leak (error-path cleanup)
-- **Mechanism:** `qrtr_node_lookup()` documents that callers must call
-  `qrtr_node_release()`. The ENOMEM branch was the only exit after a
-  successful lookup that skipped release. Each leak increments
-  `node->ref` permanently for that failure, preventing
-  `__qrtr_node_release()` from running when the node should otherwise be
-  destroyed.
-
-### Step 2.4: ASSESS THE FIX QUALITY
-**Record:**
-- **Quality:** Obviously correct; mirrors the `out_node:` pattern in
-  `qrtr_sendmsg()` (lines 991–992).
-- **Regression risk:** Very low — only runs on allocation failure, adds
-  the symmetric `put` that was missing.
-- **Red flags:** None.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: BLAME THE CHANGED LINES
-**Record:**
-- `qrtr_send_resume_tx()` introduced in `cb6530b99fafea` (2020-01-14,
-  "net: qrtr: Move resume-tx transmission to recvmsg").
-- Missing release on ENOMEM present since introduction.
-- `qrtr_alloc_ctrl_packet()` call added in `f7dec6cb914c89`
-  (2020-11-06).
-- **Confirmed:** `cb6530b99fafea` is an ancestor of HEAD in this tree.
-
-### Step 3.2: FOLLOW THE FIXES: TAG
-**Record:** No `Fixes:` tag. N/A.
-
-### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-**Record:** Multiple prior QRTR leak/refcount fixes in this tree:
-- `44d807320000d` — refcount bug in `qrtr_recvmsg()` /
-  `qrtr_send_resume_tx()` path (syzbot)
-- `8a03dd925786b` — memory leak on `qrtr_tx_wait` failure
-- `f2664bc4f0f35` — xarray migration to fix memory leak
-- `ab269990ed581` — refcount saturation / UAF in `qrtr_port_remove`
-- **Standalone:** Yes; no series dependency indicated.
-
-### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-**Record:** No prior Wentao Liang commits in `net/qrtr/` in this tree.
-Fix reviewed by QRTR maintainer (Mani) and net reviewer (Lobakin).
-
-### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-**Record:** No dependencies. All symbols (`qrtr_node_lookup`,
-`qrtr_node_release`, `qrtr_alloc_ctrl_packet`) exist in this tree. Patch
-applies cleanly to current `af_qrtr.c`.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-**Record:** `b4 dig -c <commit>` could not run — commit not present in
-this checkout. WebFetch/curl to lore.kernel.org and patch.msgid.link
-returned 403/bot-protection pages. **UNVERIFIED:** Review thread
-content, stable nominations, NAKs.
-
-### Step 4.2: CHECK WHO REVIEWED THE PATCH
-**Record:** From commit message — Reviewed-by Manivannan Sadhasivam
-(QRTR maintainer) and Alexander Lobakin. **UNVERIFIED:** Full recipient
-list via `b4 dig -w`.
-
-### Step 4.3: SEARCH FOR THE BUG REPORT
-**Record:** No Reported-by or bugzilla/syzbot link. Bug identified by
-code inspection, not a filed crash report.
-
-### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-**Record:** Appears standalone (single hunk, no "patch X/Y").
-**UNVERIFIED:** Series context from lore.
-
-### Step 4.5: CHECK STABLE MAILING LIST HISTORY
-**Record:** Could not search lore (403). **UNVERIFIED.**
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-**Record:** `qrtr_send_resume_tx()` (modified). Related:
-`qrtr_node_lookup()`, `qrtr_node_release()`, `qrtr_alloc_ctrl_packet()`.
-
-### Step 5.2: TRACE CALLERS
-**Record:**
-- `qrtr_send_resume_tx()` called only from `qrtr_recvmsg()` at line 1074
-  when `cb->confirm_rx` is true.
-- `qrtr_recvmsg()` is the socket recv path (`recvmsg` syscall) for
-  `AF_QIPCRTR`.
-- `confirm_rx` is set during QRTR flow control when a data packet needs
-  a resume-tx acknowledgment (see `qrtr_tx_wait()` /
-  `qrtr_node_enqueue()`).
-
-### Step 5.3: TRACE CALLEES
-**Record:**
-- `qrtr_node_lookup()` → `qrtr_node_acquire()` → `kref_get(&node->ref)`
-- `qrtr_alloc_ctrl_packet()` → `alloc_skb(..., GFP_KERNEL)` — can return
-  NULL under memory pressure
-- `qrtr_node_release()` → `kref_put_mutex()` → may call
-  `__qrtr_node_release()` (frees node, purges queues, destroys xarray)
-
-### Step 5.4: FOLLOW THE CALL CHAIN
-**Record:**
-`recvmsg()` → `qrtr_recvmsg()` → `qrtr_send_resume_tx()` →
-`qrtr_node_lookup()` + `qrtr_alloc_ctrl_packet()`.
-Reachable from userspace on systems with `CONFIG_QRTR` (Qualcomm IPC,
-Android modem stacks, etc.). Trigger additionally requires memory
-pressure at ctrl-packet allocation time.
-
-### Step 5.5: SEARCH FOR SIMILAR PATTERNS
-**Record:** `qrtr_sendmsg()` uses `out_node:` label to always call
-`qrtr_node_release(node)` on all paths after lookup (lines 991–992),
-including `-ENOMEM` from `sock_alloc_send_skb()`.
-`qrtr_send_resume_tx()` was inconsistent — the fix aligns it with
-established convention. Comment at line 387: *"callers must release with
-qrtr_node_release()"*.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-
-### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-**Record:** **YES.** Current code at lines 1007–1013:
-
-```1007:1013:net/qrtr/af_qrtr.c
-        node = qrtr_node_lookup(remote.sq_node);
-        if (!node)
-                return -EINVAL;
-
-        skb = qrtr_alloc_ctrl_packet(&pkt, GFP_KERNEL);
-        if (!skb)
-                return -ENOMEM;
-```
-
-Bug present since v5.5-era introduction; long predates 6.18 branch.
-
-### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-**Record:** Clean apply expected — 3-line change, no surrounding churn
-in this function. Recent `af_qrtr.c` history shows other qrtr fixes but
-not conflicting edits to this hunk.
-
-### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-**Record:** The fix commit is **not** in this tree. Related
-refcount/leak fixes (`44d807320000d`, `8a03dd925786b`, etc.) are present
-but address different bugs. No duplicate fix for this specific ENOMEM
-path.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-**Record:** **Subsystem:** `net/qrtr` — Qualcomm Router (IPC) socket
-family. **Criticality:** IMPORTANT — not universal core networking, but
-critical for Qualcomm/Android/embedded platforms using QRTR for modem
-and coprocessor IPC.
-
-### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-**Record:** Active maintenance — multiple qrtr leak/refcount fixes in
-recent history of this tree (`ab269990ed581`, `f2664bc4f0f35`,
-`22100a8f73d4a`, etc.).
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: DETERMINE WHO IS AFFECTED
-**Record:** **Config-specific** — users with `CONFIG_QRTR` enabled
-(Qualcomm platforms, some Android kernels, embedded IPC). Not all
-generic Linux servers, but a real production population.
-
-### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-**Record:**
-- Receive QRTR message with `confirm_rx` set (normal flow-control path
-  under load).
-- `qrtr_alloc_ctrl_packet()` fails (`GFP_KERNEL` allocation under memory
-  pressure).
-- Return value of `qrtr_send_resume_tx()` is ignored by caller — leak is
-  silent.
-- **Likelihood:** Moderate under memory pressure on busy QRTR links; not
-  every boot, but realistic on constrained embedded systems.
-
-### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-**Record:**
-- **Failure mode:** Permanent refcount leak per triggering event →
-  `qrtr_node` and associated resources (`rx_queue`, `qrtr_tx_flow`
-  xarray) cannot be freed when the node should be torn down.
-- **Severity:** **MEDIUM-HIGH** — not an immediate oops, but a kernel
-  resource leak that can accumulate and block node cleanup. Precedent:
-  similar QRTR leak fixes have been accepted to stable in this
-  subsystem.
-
-### Step 8.4: CALCULATE RISK-BENEFIT RATIO
-**Record:**
-- **Benefit:** Prevents node refcount leaks on a real error path in
-  recvmsg-driven flow control; aligns with documented API contract.
-- **Risk:** Very low — 3 lines, error-path only, matches existing
-  `qrtr_sendmsg()` pattern.
-- **Ratio:** Strong benefit, minimal risk.
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: COMPILE THE EVIDENCE
-
-**FOR backport:**
-- Real, verifiable refcount leak on documented error path
-- Bug in tree since 2020; affects 6.18.44
-- Small (3 lines), obviously correct
-- Reviewed by QRTR maintainer + net reviewer
-- Matches established `qrtr_sendmsg()` cleanup pattern
-- Subsystem history of similar leak fixes backported
-- Reachable from userspace `recvmsg()` on QRTR-enabled systems
-
-**AGAINST backport:**
-- Requires memory pressure to trigger (not every workload)
-- QRTR is platform-specific, not universal
-- No syzbot/user crash report attached
-
-**UNRESOLVED:**
-- Lore thread content and any explicit stable nomination (fetch blocked)
-- Whether fix is already merged to mainline in a commit hash not in this
-  tree
-
-### Step 9.2: STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — symmetric
-   `qrtr_node_release()` on error path; reviewed by maintainers (no
-   Tested-by).
-2. Fixes a real bug affecting users? **PASS** — refcount leak on QRTR
-   recvmsg resume-tx path.
-3. Important issue? **PASS** — resource leak preventing node teardown
-   (MEDIUM-HIGH; stable accepts QRTR leak fixes).
-4. Small and contained? **PASS** — 3 lines, one function.
-5. No new features or APIs? **PASS**
-6. Can apply to local tree? **PASS** — buggy code confirmed present;
-   clean apply expected.
-
-### Step 9.3: EXCEPTION CATEGORIES
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-bug-fix exception via resource-leak category.
-
-### Step 9.4: DECISION RATIONALE
-This is a clear error-path refcount leak in `qrtr_send_resume_tx()` that
-has existed since the function was introduced. The fix is minimal,
-follows the same pattern as `qrtr_sendmsg()`, and is endorsed by the
-QRTR maintainer. While the trigger requires memory pressure and QRTR is
-platform-specific, the QRTR subsystem has a well-established pattern of
-backporting similar leak and refcount fixes to stable trees, and this
-tree (`6.18.44`) contains the buggy code without the fix.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed subject, tags, body from user-provided commit
-  message
-- **[Phase 2]** Read current `net/qrtr/af_qrtr.c` lines 998–1024,
-  387–402, 548–571, 930–995; confirmed leak and fix pattern
-- **[Phase 3]** `git describe HEAD` → `v6.18.44`; Makefile → 6.18.44
-- **[Phase 3]** `git blame -L 998,1025 net/qrtr/af_qrtr.c` → bug since
-  `cb6530b99fafea` (2020)
-- **[Phase 3]** `git merge-base --is-ancestor cb6530b99fafea HEAD` →
-  ancestor confirmed
-- **[Phase 3]** `git log --oneline -20 -- net/qrtr/af_qrtr.c` → related
-  fixes listed
-- **[Phase 3]** `git show 44d807320000d` → prior syzbot refcount fix in
-  same call chain
-- **[Phase 3]** `git show 8a03dd925786b` → precedent for QRTR leak fixes
-- **[Phase 4]** `b4 dig -h` → requires `-c COMMITISH`; commit not in
-  tree, could not run
-- **[Phase 4]** WebFetch lore.kernel.org + curl raw → 403/bot
-  protection; thread content **UNVERIFIED**
-- **[Phase 4]** No mbox file for this patch found in workspace
-- **[Phase 5]** `grep qrtr_send_resume_tx` → single caller at line 1074
-- **[Phase 5]** `grep confirm_rx` in `net/qrtr/` → flow-control path
-  documented
-- **[Phase 6]** Confirmed buggy ENOMEM path at lines 1011–1013 without
-  release
-- **[Phase 6]** `git log --grep="fix node refcount leak"` → not in tree
-- **[Phase 7]** `git log --grep="qrtr.*leak"` → active QRTR leak-fix
-  history in tree
-- **[Phase 8]** Assessed trigger (memory pressure + confirm_rx recvmsg)
-  and leak severity from `kref`/`__qrtr_node_release` code
-
-**YES**The background git searches finished and match what the analysis
-already used:
-
-- **Commit search:** The candidate fix (`fix node refcount leak on ctrl
-  packet alloc failure`) is **not** in this `v6.18.44` tree. A related
-  prior fix was found: `44d807320000d` (syzbot refcount bug in
-  `qrtr_recvmsg()` / `qrtr_send_resume_tx()`).
-- **Related fixes:** This tree already has several QRTR leak/refcount
-  fixes (`ab269990ed581`, `44d807320000d`, `f2664bc4f0f35`,
-  `8a03dd925786b`, etc.), supporting backport of this small error-path
-  leak fix.
-
-**Verdict for this tree: YES** — the buggy ENOMEM path without
-`qrtr_node_release()` is still present at lines 1011–1013 of
-`net/qrtr/af_qrtr.c`.
-
- net/qrtr/af_qrtr.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
-index fcd24a7df3f00..1f40496d84a33 100644
---- a/net/qrtr/af_qrtr.c
-+++ b/net/qrtr/af_qrtr.c
-@@ -1009,8 +1009,10 @@ static int qrtr_send_resume_tx(struct qrtr_cb *cb)
- 		return -EINVAL;
+The background lookup finished: commit `5a6d47d1037f5` is on the
+`autosel` branch but not in the checked-out **v6.18.44** tree.
+
+**Verdict: YES** — backport this to 6.18.y.
+
+The MVM TX_CMD handler parses variable-length firmware responses using
+`frame_count` without checking that the packet is large enough for all
+status entries plus the trailing SCD SSN. That can cause an out-of-
+bounds read on a common TX completion path. The fix is small (34 lines,
+one file), applies cleanly, and matches validation already used in the
+MLD path and other iwlwifi handlers already backported to this tree.
+
+ drivers/net/wireless/intel/iwlwifi/mvm/tx.c | 34 +++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/tx.c b/drivers/net/wireless/intel/iwlwifi/mvm/tx.c
+index bb97837baedaf..30aee52bf9cb4 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mvm/tx.c
++++ b/drivers/net/wireless/intel/iwlwifi/mvm/tx.c
+@@ -1581,6 +1581,17 @@ static inline u32 iwl_mvm_get_scd_ssn(struct iwl_mvm *mvm,
+ 	return val & 0xFFF;
+ }
  
- 	skb = qrtr_alloc_ctrl_packet(&pkt, GFP_KERNEL);
--	if (!skb)
-+	if (!skb) {
-+		qrtr_node_release(node);
- 		return -ENOMEM;
-+	}
++static inline size_t iwl_mvm_tx_resp_min_len(struct iwl_mvm *mvm,
++					     struct iwl_tx_resp *tx_resp)
++{
++	struct agg_tx_status *agg_status =
++		iwl_mvm_get_agg_status(mvm, tx_resp);
++
++	/* The aggregate response ends with a trailing SCD SSN __le32 word. */
++	return (u8 *)(agg_status + tx_resp->frame_count) - (u8 *)tx_resp +
++		sizeof(__le32);
++}
++
+ static void iwl_mvm_rx_tx_cmd_single(struct iwl_mvm *mvm,
+ 				     struct iwl_rx_packet *pkt)
+ {
+@@ -1884,6 +1895,9 @@ static void iwl_mvm_rx_tx_cmd_agg(struct iwl_mvm *mvm,
+ 	int queue = SEQ_TO_QUEUE(sequence);
+ 	struct ieee80211_sta *sta;
  
- 	pkt->cmd = cpu_to_le32(QRTR_TYPE_RESUME_TX);
- 	pkt->client.node = cpu_to_le32(cb->dst_node);
++	if (WARN_ON_ONCE(iwl_mvm_has_new_tx_api(mvm)))
++		return;
++
+ 	if (WARN_ON_ONCE(queue < IWL_MVM_DQA_MIN_DATA_QUEUE &&
+ 			 (queue != IWL_MVM_DQA_BSS_CLIENT_QUEUE)))
+ 		return;
+@@ -1918,6 +1932,26 @@ void iwl_mvm_rx_tx_cmd(struct iwl_mvm *mvm, struct iwl_rx_cmd_buffer *rxb)
+ {
+ 	struct iwl_rx_packet *pkt = rxb_addr(rxb);
+ 	struct iwl_tx_resp *tx_resp = (void *)pkt->data;
++	size_t min_len;
++
++	if (IWL_FW_CHECK(mvm, !tx_resp->frame_count,
++			 "invalid TX_CMD frame_count %u\n",
++			 tx_resp->frame_count))
++		return;
++
++	if (IWL_FW_CHECK(mvm,
++			 iwl_mvm_has_new_tx_api(mvm) &&
++			 tx_resp->frame_count != 1,
++			 "invalid TX_CMD frame_count %u for new TX API\n",
++			 tx_resp->frame_count))
++		return;
++
++	min_len = iwl_mvm_tx_resp_min_len(mvm, tx_resp);
++	if (IWL_FW_CHECK(mvm, iwl_rx_packet_payload_len(pkt) < min_len,
++			 "invalid TX_CMD len %u (frame_count %u, min %zu)\n",
++			 iwl_rx_packet_payload_len(pkt), tx_resp->frame_count,
++			 min_len))
++		return;
+ 
+ 	if (tx_resp->frame_count == 1)
+ 		iwl_mvm_rx_tx_cmd_single(mvm, pkt);
 -- 
 2.53.0
 
