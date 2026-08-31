@@ -1,88 +1,104 @@
-Received: from mail-244117.protonmail.ch (mail-244117.protonmail.ch [109.224.244.117])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AC33DA5C1
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:26:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.117
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748DA3C2B8F;
+	Mon, 31 Aug 2026 08:26:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164768; cv=none; b=mVqoEjQvbojqgE8aHgH6JNNDymjUgUJg5X1M6XOTJfed8SjcXrgsAgCrKfgAz7xXiMzK8ky3DZM8uNG2og2jnNLV1jFo+0mYxIaCeKK7kwjOKeh+rjfMhVoFYuI54boklwZoKibBwYOrf2KUw070aEPkB6QZd2pDGfI+JwLcJt0=
+	t=1788164806; cv=none; b=Y4x6kQnH1WcKQf8X114EYDvcQMuctKZRGm6SodCFcyMPb32aIOrt7ff8yb+6cCfpMlZ+JNKrfYlN957PUvwIKKpNGPmJ/9gWFGer+ELRG0SldvoPFvIVxirTWsMyxcUcALs+g6jD8Ac4P1OAtRp/mYvapK1Z8yIJzPRsVjc6Y64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164768; c=relaxed/simple;
-	bh=LC32bx4buY8+xqOpBc5EJnaO4rGmOf7j4BLQfXrglKg=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=YSjFdiQshgdTu511UYtejEJJBj1hxW3uSYedH5cSl+chtl9OtEcknTZtr97tVrxAW/p5+twVEUHGSv/CPeJWqUoV2dQNtS6erYpY8V0Rw9aW2eo7hgYCDUXG5Pr1qnexJmcJvXHt874WDJ2rKEarjybxQWbwH+4UjTkxFaKpiQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=luites.com; spf=pass smtp.mailfrom=luites.com; dkim=pass (2048-bit key) header.d=luites.com header.i=@luites.com header.b=kGp1ZHIz; arc=none smtp.client-ip=109.224.244.117
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=luites.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=luites.com
+	s=arc-20240116; t=1788164806; c=relaxed/simple;
+	bh=EYGaBasvwHpOTSkApWMpEFG5CRz6v6kZSL7h1iC5nYY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YHXXP8Kt/AvJucsTsxYshq20GEKsCRuRzLNo3aqrLtrylPHCeZtAjIHZBHQZTRw7h83NygsOh25aw40inMCfKpLJn1nG7llfZbSMATFvE7oMh0am8KW2M9RjceksvL/hMPzsV3UwRHeqhoOsBWFEjLFImVgATQYbAqEh8khJ9os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=je2+U+Kb; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=luites.com header.i=@luites.com header.b="kGp1ZHIz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=luites.com;
-	s=protonmail; t=1788164754; x=1788423954;
-	bh=LC32bx4buY8+xqOpBc5EJnaO4rGmOf7j4BLQfXrglKg=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=kGp1ZHIz22gESbubnvN1MOiO2P+JiF7ne39IfceQZiz9lh3/qqjGF4opQ01iyiT3I
-	 oTv42nmAiYy05RkjH/qTCxDxtlK2Ld39fv+yD/aY0FsFA0+hCbSJKA84AZDqBjX6nB
-	 3uR7yTgC0lL3pfn04fbUL7bYZaMwYCchqkvqjGJax+S5YvpDWxLCdlaEdQGnZvG8Gh
-	 Ds51wv5e167q3//nK2GBCBGnsDpmoYoTwa1jWvA6w+I7kWlxvoMn1f1K7/G8kFiqZO
-	 GFvarSLnZZeKtO1wBYW3GbMRNLTemkOWIr/M3O3hfDkpEcqWzxj47Ufq3esxDg4dHY
-	 R9TrkyHzhXvYQ==
-Date: Mon, 31 Aug 2026 08:25:47 +0000
-To: Vinod Koul <vkoul@kernel.org>
-From: Ian Luites <ian@luites.com>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Charles Keepax <ckeepax@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Ian Luites <ian@luites.com>
-Subject: [PATCH] soundwire: dmi-quirks: Disable ghost Realtek on Asus GX651AX
-Message-ID: <20260831082534.224716-1-ian@luites.com>
-Feedback-ID: 196833966:user:proton
-X-Pm-Message-ID: 63d591cc6fdcf620e988376798c5e88949e2347d
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="je2+U+Kb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788164805; x=1819700805;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=EYGaBasvwHpOTSkApWMpEFG5CRz6v6kZSL7h1iC5nYY=;
+  b=je2+U+KbXYu9TXvUpaE4tJ2lSK01HNIq3WyxzK8OdS35yn6O2njakA4v
+   CXtrtIUwDIyEDogQS2c/tmjZKJUqA0ch+uqqaSQw2yM0pV3b7aXHozfcl
+   R0rbeXbUZKzwwRSQcLWzZgYJY19ADNmAM/btnjuoqFWwayuSpc4gETxFV
+   /vQQbYzXxPAPq74LBZL8Lq2aSShyRX0+MjM1klaZQDBPFZ0b3KNvnr+Si
+   JwD/Is+0Qar6Fc/CUyEJ+fF9lL8/ruZYa7RdqvFe9dhft/jslgtsruWVU
+   KABkXYSa8RMwsGMD7kzbvXVs3LX9ZN7coWtpwOHmC56QUuWdktiLZnS8T
+   Q==;
+X-CSE-ConnectionGUID: mbzpYk7FTgeEBQ525OUOIw==
+X-CSE-MsgGUID: ZDSQoojbQAiI+fD2/KrdqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88615820"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="88615820"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:26:44 -0700
+X-CSE-ConnectionGUID: ZvQUIszGR62WSweUwQICrw==
+X-CSE-MsgGUID: 9luAs2UaQXGF0Gm4D3O3gg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="268775231"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:26:37 -0700
+Date: Mon, 31 Aug 2026 11:26:36 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Michael Walle <mwalle@kernel.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v5 13/20] iio: adc: ad7768: Add calibration controls
+Message-ID: <apU6vIykfQ0RP2-_@ashevche-desk.local>
+References: <20260828-ad7768-driver-v5-0-e33ca6f841a2@analog.com>
+ <20260828-ad7768-driver-v5-13-e33ca6f841a2@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828-ad7768-driver-v5-13-e33ca6f841a2@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The Asus ROG Zephyrus Duo GX651AX exposes a Realtek RT722 device in
-ACPI which does not exist in the physical hardware. The device remains
-unattached while the CS42L43 and both CS35L56 devices attach
-successfully.
+On Fri, Aug 28, 2026 at 05:30:36PM +0200, Janani Sunil wrote:
+> Expose the per-channel offset and gain calibration registers through the
+> IIO calibbias and calibscale attributes.
 
-This confuses the function topology machine driver into creating
-duplicate DAI links named SDW3-Playback-SimpleJack, and the sof_sdw
-probe fails with error -12. Add a model-specific quirk to remove the
-ghost RT722 device.
+...
 
-Fixes: 45cf24da0a10 ("ASoC: Intel: soc-acpi-intel-ptl-match: Remove unneces=
-sary cs42l43 match")
-Cc: <stable@vger.kernel.org> # 7.2.x
-Assisted-by: LLM
-Signed-off-by: Ian Luites <ian@luites.com>
----
- drivers/soundwire/dmi-quirks.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+>  		chan[chan_idx] = (struct iio_chan_spec) {
+>  			.type = IIO_VOLTAGE,
+> -			.info_mask_separate = BIT(IIO_CHAN_INFO_SCALE) |
+> +			.info_mask_separate = BIT(IIO_CHAN_INFO_CALIBBIAS) |
 
-diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.=
-c
-index 768255dd12..62fa64b224 100644
---- a/drivers/soundwire/dmi-quirks.c
-+++ b/drivers/soundwire/dmi-quirks.c
-@@ -200,6 +200,13 @@ static const struct dmi_system_id adr_remap_quirk_tabl=
-e[] =3D {
- =09=09},
- =09=09.driver_data =3D (void *)ghost_realtek,
- =09},
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_MATCH(DMI_SYS_VENDOR, "ASUS"),
-+=09=09=09DMI_MATCH(DMI_BOARD_NAME, "GX651AX"),
-+=09=09},
-+=09=09.driver_data =3D (void *)ghost_realtek,
-+=09},
- =09{
- =09=09.matches =3D {
- =09=09=09DMI_MATCH(DMI_SYS_VENDOR, "ASUS"),
---=20
-2.55.0
+Why? Leave the existing code and just squeeze the new ones accordingly.
+
+> +					      BIT(IIO_CHAN_INFO_CALIBSCALE) |
+> +					      BIT(IIO_CHAN_INFO_SCALE) |
+>  					      BIT(IIO_CHAN_INFO_SAMP_FREQ),
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
