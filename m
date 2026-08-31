@@ -1,159 +1,104 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD9B48F82F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290D64C67ED
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185073; cv=none; b=jE5BQOV9HiF/f6aCmET6nszSsgNd+iMMFUmetucceKKFvQDDh0zyCowdoLgNDK3AJhX4DhAjEvHtSLLqgPoyHTcXv4mbWrKZrCqYxUU1W+szGQFoL7seQOUPSnNifCjCs+jutGe2WHwxfp/I2Q8OWfor61EQn1fygF6VH0tFG9M=
+	t=1788185092; cv=none; b=fHNHjSXz7we1SsUpskameulNPnuePOopXNhsPqvuwZfl435H6eVh8oC6a2KEVTFi5se7jlpKNDU+x3SbUws99khVfmepNaVR5dvI7UBq/rS94Sp7Pmtvo8PBBBWInR1l6fn58AnWX7OiENowwMPd8N2N63PyzNfpIa+sji0ULAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185073; c=relaxed/simple;
-	bh=bsO0Lz6NalUUi/xtQJR4DcUiPJ+Y3NID7uVGeE2DMH0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fXvrX7DPUmSLmmPcnJZL31ZyGNfiEnX52c0BWXVrYebApg9oq0P8yRCjn+01ZzANqs+2pROJKmtZErwUHthrmKhQtI6haxmEYQaFn4CiJ91Xh3S73kses4rSQ2kwvRw54d4SRIaMdvitjOV0PU5xdmczkxs8tqKd8pupWJoDgOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=brSljbJ2; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788185092; c=relaxed/simple;
+	bh=xLPhcn633UxUUaKC4vzFrP/xR7wwEy8KtFue6KjCb3U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LRU1544CZqrkNUpOfc33RXcf57aIg76fCPk/wBUfj6E1iiPQADVbmqIL9lhod/5DjOuMvOJRPckrXBkTwBSjhBuugedqt/fCSEK1MRB9A3z91Ms3/IBu9PF/e2S20QhaCInCfV0sZrbAJNHsWZ+JkziF1nCc1XY8GSt67Fl83wY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ihUF8/PM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="brSljbJ2"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4996c452e95so1986575e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:04:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788185069; x=1788789869; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=n01oHYb01qW4w3RHhJYkHOqlZfqUwQaVGvitMYTsJNc=;
-        b=brSljbJ2V7Pvo/2kamXhmmfG8U1C9MRB1tzog2hG3drBl5lnlaCH4JaIlbDGoZavrk
-         S4LhQp7XUfeJFET0fUftAgau8ZLieEpDLFEOlMpxE0KSqr6akJRxdKEAds2++W4qzWyc
-         iw2OgQKejHMVyVzQZ7PRnGgRvv2THi+nGyJ0XOI3ZJDb2HLUeR4C88hbMShp3K6GYUWS
-         HETx18FOkaRqJ7qSsW7ggYWAmmHFZ71ponbN8XJs8hZiaVWGADL+Y6jqkCk7ItEkPhlm
-         IeH2HId/XxCW9nCJ+Wwc9nz+b1JALTmidFCvfbBQs176yXcxRuocEnOknWveiHnS3cd7
-         Q2Pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788185069; x=1788789869;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n01oHYb01qW4w3RHhJYkHOqlZfqUwQaVGvitMYTsJNc=;
-        b=exuzzwkTsC6617UZDRvsgDZLWKbwRvpa8Wo33HDzTuFRKE7Ht+RQMyelDY8XTYhJC2
-         dAT4jL2AuHbwhp49kWD5vGRmSqX5+WiCKfQ5l8ymooOsrwCdjPBtfhQSgpvq2A+SLt1l
-         KdSV+XlDjsvoxBKtfM3WMJkyFle2PCjCwkhWHqm7sDoCuoNCmeRWpAWPws0Psc6/4NvY
-         jQYHtT87TtgKTaX6JNUp8BkEXYivr5mnVSANRnzMB5M/MOlkWeDnO0llehjBYCcC1/Ry
-         5v4+4iHpdVBvr9sdDF9TIfoT0C9F6muaKgSmrMvvPHgqMyQCkCixjMNgygn1DGeGRYF2
-         VnbQ==
-X-Forwarded-Encrypted: i=1; AHgh+Roay3s9ULTvHSxZb2kv5mkjhbOC0jdyGmk3PTupqYBX4Rr8xQ9YVq6rcVOBkuBzyTN0AdINYvlXHSqeTe4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6dVRTn9npkirUnPLfEsZfjaavIeqvBpzPj+MhKib161AtjtlJ
-	GEDKtdgQwAV/F933k0inHQtGvmodTjbuv4L6bI6mOfDQH2ODaAzup0ORJ7SsqUaVx2k=
-X-Gm-Gg: AR+sD11zTjlNDhFxyiWlSHzqfaQpwPgkz9nbAU5FqkqOpMplkK7lBStwgk5toHYAYEm
-	IkVjpb3/0u8C2Hj6RHjjdp+iS4COXHUXvumF4qsuIawvgBEVH4GXiCnNLadyZyPk0qDXkIwymAI
-	p86P/tm5JJACUaRRKI/MFiyW/LfHHWPNWREjCuqYM+LIWUTFu4R6Imv8XQGmI1vpt2UAc1Uw1T7
-	ToCQoYM3NGe4oof9HfNgaBZw/1WT1nJz45MdcmEk79yRxij7ZUdEeh5kmCJCkQHlVep9XeJsPmZ
-	gIUyxAKgRYYrpW6v/ywwq114rBtSMFern+rZRaeAdskyVauPViAILicl0lV175isluKdcaU/Qbb
-	iGCdQ+rNuwgx0+Qq9nyjLMvj4TFZVlkceJhJ0PbmD++qbOPje7mptPYEtYHhpML0ulE4efSJW5S
-	C0s6UblajVCjKrLNQwMqTEA4Sd5AcQipH2fznncvnNtEdNu8Id1BZMB80tCNo=
-X-Received: by 2002:a05:600c:c0c2:b0:49c:cbf4:572b with SMTP id 5b1f17b1804b1-49ccbf4575cmr112530775e9.2.1788185068963;
-        Mon, 31 Aug 2026 07:04:28 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda36a53sm17432747a91.3.2026.08.31.07.04.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:04:27 -0700 (PDT)
-Date: Mon, 31 Aug 2026 22:04:25 +0800
-From: Heming Zhao <heming.zhao@suse.com>
-To: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] ocfs2: validate suballoc slot of xattr and dir index
- blocks
-Message-ID: <apWJxbUk2gk5Kq9o@p15>
-References: <20260831062848.2743436-1-joseph.qi@linux.alibaba.com>
- <20260831062848.2743436-4-joseph.qi@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ihUF8/PM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D75951F00ACF
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:04:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788185089;
+	bh=FzX+10cDhmW0hwDmYTE7152l7j2EZIR1C4UvMnU53IQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ihUF8/PMhzJeYrYbYKKZ3CfldjIAWfS3HvzsSf8nZ+5ZJjiOMfRXL7l1UL7Tm5iG9
+	 KAcGlkommNiNTV8j2LwC30aNS9gTJgxIws+2EkaRj2H4gEMQBYNccMi29R+7wOK6t/
+	 exg2oyr/uiQTLGz075cO8aOKcw94kMi6swAJtmwGNg71cZ+ANghZu+XRtG6rH7lQ8e
+	 Bl6v/U1GE7Kl5yfKB8qS/PB63f7piUoz+byXfI1H434K33nJn9t4ctIDLLKm2aSZ9A
+	 ltj0zDcAq6PKhVWrw7tBZOlA0hITVoVD7qRwU9vJgsBK8J7baN40sXmH7LecPvsAyk
+	 3nYsJgpwgka3A==
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c247f6687dcso577644066b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:04:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpFhx1ChUAECvNuOHonck53+HLcVpuNBn6fQXx9Y8aQqwXG7hncVRz2LaWbJCu3Kd/bAm+rnWnLiIpOblA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nggsrt9R8s1MFsQWRKYYoK49iqQurLxudd/7JeN3aGrEaifGw5
+	IMNcr8pquLrP0JIUKB1FDdNzPtQzvDLngjcBYRxKnsMVL5/EuMX5eOxabcErcxZjCyBrIw3GwN8
+	3QISmFYXnYkl4YPyHJ+A5f+dXY+JLlaA=
+X-Received: by 2002:a17:906:fd84:b0:c25:9102:fa with SMTP id
+ a640c23a62f3a-c25b3bcf4b6mr53883166b.8.1788185088429; Mon, 31 Aug 2026
+ 07:04:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831062848.2743436-4-joseph.qi@linux.alibaba.com>
+References: <20260817123918.2738447-1-nagachaithanya9911@gmail.com>
+In-Reply-To: <20260817123918.2738447-1-nagachaithanya9911@gmail.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Mon, 31 Aug 2026 22:04:35 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5eaFd9t5CikZA0Lhy6eVbnUBvvLV5cV7rvo42M47yeWQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VDSGpC4QI19ueXEEvghR72mgVgMiabqgpi1oIqT6rLIE-ia0qxu3ODzvI
+Message-ID: <CAAhV-H5eaFd9t5CikZA0Lhy6eVbnUBvvLV5cV7rvo42M47yeWQ@mail.gmail.com>
+Subject: Re: [PATCH] LoongArch: KVM: Free init resources if kvm_init() fails
+To: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+Cc: zhaotianrui@loongson.cn, maobibo@loongson.cn, kernel@xen0n.name, 
+	kvm@vger.kernel.org, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 02:28:47PM +0800, Joseph Qi wrote:
-> ocfs2_validate_xattr_block() and ocfs2_validate_dx_root() do not
-> validate xb_suballoc_slot and dr_suballoc_slot against the mounted
-> filesystem's slot range.  Since xattr blocks and dir index root blocks
-> are allocated from a per-slot suballocator at runtime, their suballoc
-> slots must be within range.
-> 
-> Otherwise a corrupted image can carry an out-of-range slot.  When the
-> xattr block or dir index is removed, ocfs2_xattr_block_remove() or
-> ocfs2_dx_dir_remove_index() passes the unvalidated slot to
-> ocfs2_get_system_file_inode() and get_local_system_inode() will either
-> hit BUG_ON(slot == OCFS2_INVALID_SLOT) or compute an out-of-bounds
-> index into the local_system_inodes array.
-> 
-> Reject out-of-range suballoc slots during validation.
-> 
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Hi, Bibo,
 
-LGTM, thanks for the contribution.
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+What do you think about this?
+
+
+Huacai
+
+On Mon, Aug 17, 2026 at 8:39=E2=80=AFPM Chaithanya Lagisetty
+<nagachaithanya9911@gmail.com> wrote:
+>
+> kvm_loongarch_init() calls kvm_loongarch_env_init() to allocate the
+> per-CPU kvm_context (vmcs) and kvm_loongarch_ops and to register the
+> perf callbacks, and then calls kvm_init(). If kvm_init() fails its
+> result is returned directly, but since module_init() does not run
+> module_exit() on failure, kvm_loongarch_env_exit() is never called and
+> those resources are leaked.
+>
+> Call kvm_loongarch_env_exit() when kvm_init() fails, matching the
+> teardown-on-failure pattern used by riscv_kvm_init().
+>
+> Fixes: 2bd6ac687261 ("LoongArch: KVM: Implement kvm module related interf=
+ace")
+> Signed-off-by: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
 > ---
->  fs/ocfs2/dir.c   | 14 ++++++++++++++
->  fs/ocfs2/xattr.c | 13 +++++++++++++
->  2 files changed, 27 insertions(+)
-> 
-> diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
-> index 0075e1624310..eb9850610ba3 100644
-> --- a/fs/ocfs2/dir.c
-> +++ b/fs/ocfs2/dir.c
-> @@ -605,6 +605,20 @@ static int ocfs2_validate_dx_root(struct super_block *sb,
->  		goto bail;
->  	}
->  
-> +	/*
-> +	 * Dir index root blocks are allocated from a per-slot suballocator,
-> +	 * so the slot must be in range.  Otherwise removing the index passes
-> +	 * it to get_local_system_inode(), which hits BUG_ON() for
-> +	 * OCFS2_INVALID_SLOT or computes an out-of-bounds index otherwise.
-> +	 */
-> +	if ((u32)le16_to_cpu(dx_root->dr_suballoc_slot) >= OCFS2_SB(sb)->max_slots) {
-> +		ret = ocfs2_error(sb,
-> +				  "Dir Index Root # %llu has invalid dr_suballoc_slot %u\n",
-> +				  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-> +				  le16_to_cpu(dx_root->dr_suballoc_slot));
-> +		goto bail;
-> +	}
+>  arch/loongarch/kvm/main.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/loongarch/kvm/main.c b/arch/loongarch/kvm/main.c
+> index 3e1005526f4b..b6ddf5827c03 100644
+> --- a/arch/loongarch/kvm/main.c
+> +++ b/arch/loongarch/kvm/main.c
+> @@ -428,7 +428,11 @@ static int kvm_loongarch_init(void)
+>         if (r)
+>                 return r;
+>
+> -       return kvm_init(sizeof(struct kvm_vcpu), 0, THIS_MODULE);
+> +       r =3D kvm_init(sizeof(struct kvm_vcpu), 0, THIS_MODULE);
+> +       if (r)
+> +               kvm_loongarch_env_exit();
 > +
->  	if (!(dx_root->dr_flags & OCFS2_DX_FLAG_INLINE)) {
->  		struct ocfs2_extent_list *el = &dx_root->dr_list;
->  
-> diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-> index 0062cbeb1e8b..5acc8091d06f 100644
-> --- a/fs/ocfs2/xattr.c
-> +++ b/fs/ocfs2/xattr.c
-> @@ -517,6 +517,19 @@ static int ocfs2_validate_xattr_block(struct super_block *sb,
->  				   le32_to_cpu(xb->xb_fs_generation));
->  	}
->  
-> +	/*
-> +	 * Xattr blocks are allocated from a per-slot suballocator, so the
-> +	 * slot must be in range.  Otherwise freeing the block passes it to
-> +	 * get_local_system_inode(), which hits BUG_ON() for
-> +	 * OCFS2_INVALID_SLOT or computes an out-of-bounds index otherwise.
-> +	 */
-> +	if ((u32)le16_to_cpu(xb->xb_suballoc_slot) >= OCFS2_SB(sb)->max_slots) {
-> +		return ocfs2_error(sb,
-> +				   "Extended attribute block #%llu has an invalid xb_suballoc_slot of %u\n",
-> +				   (unsigned long long)bh->b_blocknr,
-> +				   le16_to_cpu(xb->xb_suballoc_slot));
-> +	}
-> +
->  	if (!(le16_to_cpu(xb->xb_flags) & OCFS2_XATTR_INDEXED)) {
->  		size_t region_offset =
->  			offsetof(struct ocfs2_xattr_block, xb_attrs.xb_header);
-> -- 
-> 2.39.3
-> 
+> +       return r;
+>  }
+>
+>  static void kvm_loongarch_exit(void)
+> --
+> 2.43.0
+>
