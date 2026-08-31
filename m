@@ -1,56 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A2C388E46;
-	Mon, 31 Aug 2026 20:21:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF7538D400;
+	Mon, 31 Aug 2026 20:21:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788207713; cv=none; b=AFAf8h61TjwAjdp4PDpCI/okNIWywmgt8Js4nT72rtR8GZK5LWTDuXsu1RbsqwuYt4pWwowSnzeuGNcsmafOFUW5ci07CQTSycXI/qEYnWcaRDF3IMHsqw+vyOgJblrfxWvXrnVOzoEHb6piq+3pAs307fMNR+LqDD0qcLQT5Vc=
+	t=1788207714; cv=none; b=hq2RqiLcuQoBf9jza4haGCQpvlJVI5W6pFjOnkltD2RNUbePNp5L6XSkT+6BZ5qRx58v/csxLb/3rYlif9MLVYAFwNY8Y7OKb1d9+Fd4x8BSFFo3Vv9katJwQww+RmByuDza0Ba5LG48diEHvzZYiW5MAV9rpyMEVP/J88j4f28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788207713; c=relaxed/simple;
-	bh=7nI3kNPQwnYqe4dt7ndI5E8gWXPyEPTZNf6gCb7OOBQ=;
+	s=arc-20240116; t=1788207714; c=relaxed/simple;
+	bh=niubZhaSaQOSAglHhxWxrGIcwRg6d5RMq0/11sKxdiE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f+zst2NCcv/DhrAy4rsPhALV/KEQ7+IYv82Qcz0vJEEQNrurF2vpXxPDIWs9G/ihNaFsCuyofAEGXZhnuVuqhmDaubwQh04ZlbjJa5oC6QxJi96UHDAcDrMDR5Eb+filOucQAmrFmY1cTO/l5p7ziZfFkTC3CSbxt96umqy2rjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cwh/2IiM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=TbtNt39tvuryP7/Vkm0E/QWryG9iC8Gcw7XRxUFxpi7Ks8uPS6jU96yXGZ11dUxVVxP4cxqLJhGM0bRv80rBvttIXPfxLMvVyQpDcyhiO6fQpPf9QvsOHMmudAd60htKUBznZHcmMzzPOp1lQGGY5vESsUMxohlUorVpF6p5yUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cnfiaSlA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cwh/2IiM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E8411F000E9;
-	Mon, 31 Aug 2026 20:21:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cnfiaSlA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93A3C1F00A3E;
+	Mon, 31 Aug 2026 20:21:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788207712;
-	bh=we3LHapMrXe47u1JBAesusbnbfi1RZSVTWPihX5IJ1w=;
+	s=k20260515; t=1788207713;
+	bh=fJWCfrj1h9YwemEQOCT40RimxSdoxsax3NIOZvlYVr0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cwh/2IiMTB42mrSV4HW4k6o3qPCbxycPY3VYKa+fK/TDNqbehw2HFQnzZYGiJFY1S
-	 ZJe/5K/agoqWyubutQlOqh2+ycSYfRfOLj5ITCeqvUY/6/xFyYTl9Zwlb59CHpztkj
-	 tUZ5Rv3R/4I11rD56iz/Gj7d3/4EW6JdPi+pTZoZZT+qjC7uWQnymirmBWAYL7ST5j
-	 cncOoKjDMobphbk/Xn+PIClPTTvQqgkBZMvRkeXtmAR8oRxHIhKUb9omvcZmSeseo0
-	 z91pnO8ui3HIw9QfsFpmiTzRr/7Fp13TlncJGNIAGAr2KZs58h+OipjVcWKQ/2CL0e
-	 UyvEPgICAIZjQ==
+	b=cnfiaSlAieTZeya4jPpSnTXb23aUv6N/qDYgxKOMgr/xNTECy7GIgIoVxy8vvNJAe
+	 t63DZiqSJfmmaol3hS6izaepxPLAsBKoBX0XH478RcfCLaOTll/Nlp9tZygNb02/NF
+	 mUoWnTUQicXBecgrnIewiiqGBwORWym8cSCjGDdnAd3fsQuHl5DcS6epILkZmUTvon
+	 GxvvmPkf63jcLd09Tl9lswZRR5U12UJWDsidTNBRUY2Scd2GRGPzhFWjjIUIZA/2kE
+	 NR3GF+vd/g4CJ37cGoZL11NLIaob6PFpAnicCTek7HSUwcNz9zcJGJUJhhOP9Dx7UO
+	 qmDrcE8gxie+w==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jagadeesh Kona <quic_jkona@quicinc.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-	Imran Shaik <imran.shaik@oss.qualcomm.com>,
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v2 0/6] clk: qcom: Add video and camera clock controller support for Nord
-Date: Mon, 31 Aug 2026 15:21:27 -0500
-Message-ID: <178820768666.1699313.3176059404911714855.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/6] arm64: dts: qcom: sc8280xp: set GPI DMA channels according to DSDT
+Date: Mon, 31 Aug 2026 15:21:28 -0500
+Message-ID: <178820768636.1699313.15912570106526449407.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260801-nord_videocc_camcc-v2-0-674d7718e41f@oss.qualcomm.com>
-References: <20260801-nord_videocc_camcc-v2-0-674d7718e41f@oss.qualcomm.com>
+In-Reply-To: <20260602081451.3808833-1-zhengxingda@iscas.ac.cn>
+References: <20260602081451.3808833-1-zhengxingda@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,26 +51,30 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sat, 01 Aug 2026 19:43:51 +0530, Taniya Das wrote:
-> Add the DT bindings and clock drivers for the Video Clock Controller
-> (VIDEOCC) and Camera Clock Controller (CAMCC) on the Qualcomm
-> Technologies, Inc. Nord SoC.
+On Tue, 02 Jun 2026 16:14:45 +0800, Icenowy Zheng wrote:
+> Some bugs of the GPI driver exhibits a fact that some GPI interfaces
+> aren't available to HLOS, and accessing them leads to system stucks /
+> resets [1] [2].
 > 
-> The VIDEOCC driver enables video clients to request clocks required
-> for video encode/decode, and the CAMCC driver enables camera clients
-> to request clocks required for image capture and camera processing
-> on Nord.
+> This patchset sets the DMA channel mask of sc8280xp device trees to the
+> values indicated by the DSDTs of the corresponding devices.
 > 
 > [...]
 
 Applied, thanks!
 
-[2/6] clk: qcom: nwgcc-nord: Add video axi clock resets for Nord
-      commit: c07297f8e0e7dda7589c74be7ad570ef3a244efb
-[5/6] clk: qcom: videocc-glymur: Add video clock controller support for Nord
-      commit: 7f26939a78de32f9f2b0b9cd67c311ef4a0caf29
-[6/6] clk: qcom: camcc: Add support for camera clock controller for Nord
-      commit: 7647815dfc8f7282ca37bb28fa22599edd9bb597
+[1/6] arm64: dts: qcom: sc8280xp-crd: set GPI DMA channels
+      commit: 63f13ee5a595a160433b3f1a6c8f0b5c1716cc1e
+[2/6] arm64: dts: qcom: sc8280xp-huawei-gaokun3: set GPI DMA channels
+      commit: 19c311c8fe5e439a9c89ee842839e5f1cfa2a48d
+[3/6] arm64: dts: qcom: sc8280xp-lenovo-thinkpad-x13s: set GPI DMA channels
+      commit: efc4bb04c5aaf3ef65033f8b8b9e1d50b76cd62f
+[4/6] arm64: dts: qcom: sc8280xp-microsoft-arcata: set GPI DMA channels
+      commit: 6407f4c98700f4315c9dc97fb42a2261b71618cf
+[5/6] arm64: dts: qcom: sc8280xp-microsoft-blackrock: set GPI DMA channels
+      commit: d7ecaf9eea5e3e12388a25a94d10ed8260e3a68a
+[6/6] arm64: dts: qcom: sc8280xp: remove GPI DMA channel masks
+      commit: db4ac552889f6a952de872ea6128e1caca07fffb
 
 Best regards,
 -- 
