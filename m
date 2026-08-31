@@ -1,107 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554B5361DB1;
-	Mon, 31 Aug 2026 07:59:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0B43CB56D
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:00:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788163190; cv=none; b=Bazd3ovCYG8DyTpO1k7R5GRa3/65WJXM5rhQw2s36knUk1G/SN67Pr2CwnTdwY8fc5ih+tSqHaFyjJlnMFkw7fb3s8Bi/IWLFN8eZfpZpKUHtJhMv/qbrDv8RhUGQsXpKcuSRQGNZBXA44DTKFskQMinZuOMfnHSu8VXCDlsyqY=
+	t=1788163220; cv=none; b=fsypjp4pou95bqvEUjU176qYbdsvnP1ylCV6ZpS8c0W6vdrgYHBxToRqlevt9EXWgDW+27LB+LmfHkINXjVct0PANb42iGAkU1YVG4RONAqgP1QRJI56homrUSiJCpym4eGgalUYcBrmVqK5eevsXzS4+2JIHxGbxe2gUpB600E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788163190; c=relaxed/simple;
-	bh=M+ca4BbEDUhnXsj6pHU94ccRAgyMx7xJH05aCW3YEF4=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=uSVob3QVUQQAEzs/+dH/iw5Gk3SVMIQNfUK/BuvxGC9NaehKjmqHQmb+dSJh+Hy33J7G0SjNoED/mifLc5lkRKFB8o0VIejMqB9Q60GqeXiMXnoif2RxbuZlQte7+LLr4dqrl0kJXnOwyyrRxl2bHFKgXtSW1hv5sTPgoWtH640=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PYAdygqq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788163220; c=relaxed/simple;
+	bh=ZGzJd83BAGjp2cT7TwaBLsmXWFTNbze0BK2Zfeclrok=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fg8fyXtViqO3BSbyKEKA0UxpoRw4+yCyrKagSc6thvjWfEmpxa7LV2R1UlPBUu+DLFZSIYKDhH28+3mPxFEP8W0+NI7jtftIpPcK1EZJDM6whhrSq6Ck5UFQbXD9hN6K7UcSTBLV96UMgMMpHcj0ITvbmGgedW066OA9KAyfAgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zk7w2p99; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PYAdygqq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9017C1F00A3D;
-	Mon, 31 Aug 2026 07:59:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zk7w2p99"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C408C1F00A3E
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:00:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788163188;
-	bh=jYreoZcujyLJ/iMujgGPHYwEbZ3dcD0hmxyQImw9gVI=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=PYAdygqqE35pRqFDer53JiQg59D8pIDqRnH2rROKHcp1XYBetyy4tYYK57mmYED1E
-	 Ex+Tyx1v+NR3hTMxAf4UdIQoFWpMW6bdsqW0iw5FPMDF/XnTdCNI5679WmC8g1CgYt
-	 ZhX2wivYRUwFttzavn+tsYYctnOUzC9It5txC/H3dOBFA18Lkr1RMN+hEzgHKWc5bI
-	 wCaRdGvVgCUyGnwidH6NJaPtJqcQ0rkNvCWKInJXLEBradGAyWF5jpeUkCl1vnP0tV
-	 zcVxtuk0RfMWSJEAiCHiYlyS/SFdo7O9ugGqhrorDZW9vHq4u/IcrqKdzCGCb5eCGX
-	 0wTMVbM0Zs8iA==
+	s=k20260515; t=1788163219;
+	bh=ULeEqtlOWfhTY3DrPTSE+Wp5uaJoZujCu6a+kI8cVj8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Zk7w2p99/mZBnqFjSLarLEjWOOOBgEqqURig2DPtwdStDAMiFy8UL6nXLUMzVc7AV
+	 jGmgcM1VtfOrBF4idjqDdWTyoJLDISDBJOzY1SGd4+5lS81nF1MmPGlE4GHHirbjB4
+	 zCJFNVaTTDFrtKKcKPofUqPPEgLXJ55N0c0AsA3VHuklL2IV3JEYA/dUYzJtUPBGmD
+	 CHdWtGiwI76fU5hathNBPSkmfU5nz6Jd0jRMcc953B1jQXADMKMdTdNBvLQ+3r6Ns9
+	 MLXCK83YxmbjyyYrZrl8lZs+V3gXRM9XfWLrIuu5fKdMtEAdw1jZzf6CvnzUJNIFpT
+	 ryuwZPeeZRopA==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4aa47bc97so2515004e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:00:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxSgTYuaiEJT07zzcQNY4VVN96XvMf7873kk5FYk4QVMNMUMG8K66ZML0fZ0Q9eQXGxE9MHz/NDqvskka8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5jR4W+XvYd1Hi/f/dgW6T8A5e8Z1NuCiEyi1Kegg/iD5Yd3Cs
+	SXRM4AoArkObA3K2PHyPvjjYrzMqnjLrobjFj+KCkQNtuHkN8GZyXa1QXKiklj/yNR+ORw7BUXJ
+	xSocDSF5sS3UN2Jiqq9Hw++WOghcwPLg=
+X-Received: by 2002:a05:6512:10cd:b0:5ae:bba5:aee8 with SMTP id
+ 2adb3069b0e04-5b5e6b0b37dmr7480095e87.24.1788163218511; Mon, 31 Aug 2026
+ 01:00:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] fs: refuse to drop a dentry reference
- d_make_persistent() never took
-From: Christian Brauner <brauner@kernel.org>
-To: Narek Jilavyan <njilav@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260818125549.2315538-1-njilav@gmail.com>
-References: <20260818125549.2315538-1-njilav@gmail.com>
-Date: Mon, 31 Aug 2026 09:59:44 +0200
-Message-Id: <20260831-fototermin-aufrichten-nahmen-bbced956ac99@brauner>
-X-Mailer: b4 0.17-dev-362b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1977; i=brauner@kernel.org;
- h=from:subject:message-id; bh=M+ca4BbEDUhnXsj6pHU94ccRAgyMx7xJH05aCW3YEF4=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRNNSn+edS06lj4ku55jw51PZm9MHx6ZOPDSz8CFXtvz
- ebkWylT0VHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjAR/VSG/6GzNx7p28VkKsJw
- VeCYbvbUZ9aHH0/6tlewvzreVvj07DqGv6LF6196lM2vXOsUJyt/IiL77JZJyXYMPOvCL28MkhQ
- 6yQUA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+References: <20260831-gemini-usb-fotg2-v1-0-8a8ee12c4b32@kernel.org>
+ <20260831-gemini-usb-fotg2-v1-1-8a8ee12c4b32@kernel.org> <fef8be63-ab17-475a-a77a-4dc874d1a704@rowland.harvard.edu>
+In-Reply-To: <fef8be63-ab17-475a-a77a-4dc874d1a704@rowland.harvard.edu>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 31 Aug 2026 10:00:05 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkAmnmmQSN=jvcdkna8Bm1CZQkfN1yTAPGGMcCROqUSJQ@mail.gmail.com>
+X-Gm-Features: AcwNN1U8zrlOhVBSjBzSBDLJoAvR6uqOqWolnu1rJQ3dFN_Vs5QGLXi4txoZams
+Message-ID: <CAD++jLkAmnmmQSN=jvcdkna8Bm1CZQkfN1yTAPGGMcCROqUSJQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] usb: ehci: support controllers with non-standard registers
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Daniel Palmer <daniel@thingy.jp>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> DCACHE_PERSISTENT records that d_make_persistent() took a reference on
-> the dentry with dget_dlock(). d_make_discardable() announces that
-> precondition but does not act on it:
-> 
-> 	spin_lock(&dentry->d_lock);
-> 	WARN_ON(!(dentry->d_flags & DCACHE_PERSISTENT));
-> 	dentry->d_flags &= ~DCACHE_PERSISTENT;
-> 	dentry->d_lockref.count--;
-> 	finish_dput(dentry);
-> 
-> so a caller that never made the dentry persistent still has a reference
-> taken from it.  finish_dput() runs dentry_kill(), so the result is not a
-> stale flag but a d_lockref underflow that can free a dentry another
-> holder still references.
-> 
-> The same file already enforces the invariant rather than announcing it,
-> in select_collect_umount():
-> 
-> 	if (dentry->d_flags & DCACHE_PERSISTENT) {
-> 		dentry->d_flags &= ~DCACHE_PERSISTENT;
-> 		dentry->d_lockref.count--;
-> 	}
-> 
-> All seven in-tree callers are correctly paired (fs/libfs.c, fs/devpts,
-> fs/autofs, fs/tracefs).  Both d_make_persistent() and
-> d_make_discardable() are EXPORT_SYMBOL, so the contract is module-facing
-> and currently unenforced.
-> 
-> Make the check act.  On a mismatch the failure mode becomes a leaked
-> pinned dentry with a warning naming the caller, instead of a freed live
-> one.  The early return unlocks explicitly, since finish_dput() - which
-> normally releases d_lock - is no longer reached on that path.
-> 
-> Demonstrated with a late_initcall calling d_make_discardable() on a
-> d_alloc_name() dentry, which by construction lacks DCACHE_PERSISTENT.
-> Same kernel, only fs/dcache.c differs:
-> 
-> 	unpatched:  count before=2 after=1	(reference dropped)
-> 	patched:    count before=2 after=2	(refcount untouched)
-> 
-> Both kernels emit the warning; only the patched one declines to act on
-> it.
-> 
-> Fixes: bacdf1d70bbe ("primitives for maintaining persisitency")
-> Signed-off-by: Narek Jilavyan <njilav@gmail.com>
+On Mon, Aug 31, 2026 at 3:15=E2=80=AFAM Alan Stern <stern@rowland.harvard.e=
+du> wrote:
+> On Mon, Aug 31, 2026 at 12:24:19AM +0200, Linus Walleij wrote:
+> > The Faraday FOTG210 EHCI implementation moves PORTSC, omits
+> > CONFIGFLAG and USBMODE, and needs controller-specific speed and reset
+> > handling. Add
+> > per-controller hooks for those variations while preserving the standard
+> > register path for existing drivers.
+> >
+> > Also allow a controller to reject full/low-speed isochronous transfers
+> > when its integrated transaction translator cannot schedule siTDs.
+> >
+> > Assisted-by: LLM
+>
+> Which LLM?  Or is that the actual name?
 
-I struggle to the see the point in this change.
+The new kernel policy is to just say "LLM"
+Documentation/process/coding-assistants.rst
+commit 816d9992d9ed434ec52cfbd63080d518e535a41b
+"coding-assistants: simplify attribution"
 
--- 
+...but it is GPT 5.6!
 
+> This is a pretty unwieldy patch, which makes it a little difficult to
+> review.  Can you split it into, say, three parts?  Such as: one for
+> the port status register change, one for the port reset and speed change,
+> and one for everything else?
+
+Of course, no problem.
+
+Yours,
+Linus Walleij
