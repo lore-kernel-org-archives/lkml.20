@@ -1,41 +1,50 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD6E431A23
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:25:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272EB432BD3
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:25:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788182742; cv=none; b=cwgwWpCYSpHlcxhlriY8vwMsirN9ZThIVNA+hykb0kKY3CJDKdBqqQ0idDCvdWYgM9itl6BTV0qFuFYTamerAqY3mPyUNxgduf2DndrYoA4+vrn8AfU4Hw+q9rw1o/11Ok7fdabrTvglxYyBnVDqac4yRO9tWptTiRoIKhv88rc=
+	t=1788182742; cv=none; b=YmnbeaUd8WPaA4xHAOSXkEFtv2bZJL9zc51mCVEoNzZVk3CwpSIEwL3g8kkvoTToXn6VElFvYYlOO4kG06ycgwWnxKNZVConfqnkWiRI5iPnjG3LpeT8TadD65wQwSfFvpVIl/l8bT3zKhuyaxwJSQW5BvzIEwCdehrddxlNSeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788182742; c=relaxed/simple;
-	bh=8G7v58vm4MsYglvYir8IarLbnRs5ks3dw3PAJnTs2gU=;
+	bh=PE4JPXxCMmTovVJCHys+isKwpKyed0ZqK7DIvREANXQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uDaW2RB0pMDTFOVwKGUR77vh0uHyPvnFqKlhYhUL9D9CqDomG5+XvPHbzOKyBseNMmKhFLif3DU0aXjNr2ToYOPpzTX0+K5l4EDnJ7QXJhMWe43SzpIbc0Hg23/0w9pRyTwzwmfwhLeX03YS3u1hRtDhkQwryxS85b3/3a92Duk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GRag/eW7; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=mHoKwJdroy0C2q8WQHdx4vl2Hr1GRzDwDMavEi+UrlR11p80LMx787MrFeNWfjv5DwfP0iuKe9Mc7d2w6ugC6jamcyViLeH1M7KxF6qDCIivQgRfDjn2QTNpspAbshvGMvCBglF/4rRcXDwMv5YN3pBfYGe3k6o2AVflZ/SFBgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MMKBvvdP; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GRag/eW7"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 59A601A191B;
-	Mon, 31 Aug 2026 13:25:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2E3EF60231;
-	Mon, 31 Aug 2026 13:25:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DBE7811C78D6B;
-	Mon, 31 Aug 2026 15:25:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788182737; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=o9jL6igQLJRDua5JaF1IyEJ/zeHLPSI/dmv7m8kdRo8=;
-	b=GRag/eW7QCChVCagJn3HhZ10uDVbLGKR8KS91GCmRMqpGoq5yHaCdE8bxGL9tOf/eKX05O
-	i1DcdsmSEzo0UCnoq5pslTyLxHP/fFgs1TtlraoNPh3wRJENoOIkv27bzLopXj8h+ahbGM
-	NrXChSPPc5UUCW0o1lOlVbhMeOMtcuHfIY2Vx6raAaAV4QlFMbZYL8HlfKh6f3D/p3K8Y9
-	Kqfc28MnEYbwU5kQsnjXHwLfifKxTMOBjPeCYvTB2T41aIFhXvAdYSXMr+QVPnyp1pi10D
-	lzx4IRit2MuQMDv/LFKDWYr44rwpvwUzFp+umQHqaG9A5XGWEVIf6Aj52DIJLg==
-From: "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
-Date: Mon, 31 Aug 2026 15:25:27 +0200
-Subject: [PATCH net-next 05/10] net: dsa: microchip: extract ptp_get_pin
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MMKBvvdP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788182740;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ykDFvI3Z1xGBk6sVr4D5Kbs14PCVANsX2P0KGcoLyiA=;
+	b=MMKBvvdPuIspuYf5JBZT4WVH5+sd7FeVwMrjuF43FDADLo5wwj5OKqEawmEgX4N7LDAj72
+	DSFGqjoEyoZQU2+jUQogka9cNvJqjHPNmgsPraHVsqZ5G6Yryk7Tp0014PlZjqbgexXdwB
+	geL1puocvOiYRV8Oie8osLQs+ueZvEI=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-310-dS4ZbrEXMQez5N6CxENTiA-1; Mon,
+ 31 Aug 2026 09:25:34 -0400
+X-MC-Unique: dS4ZbrEXMQez5N6CxENTiA-1
+X-Mimecast-MFC-AGG-ID: dS4ZbrEXMQez5N6CxENTiA_1788182733
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 54A7F18A3C09;
+	Mon, 31 Aug 2026 13:25:22 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4D54A40E;
+	Mon, 31 Aug 2026 13:25:20 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Date: Mon, 31 Aug 2026 15:25:12 +0200
+Subject: [PATCH v6 2/3] selftests: cgroup: Add KB() helper
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,87 +53,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-ksz-perout-v1-5-14202db763b3@bootlin.com>
-References: <20260831-ksz-perout-v1-0-14202db763b3@bootlin.com>
-In-Reply-To: <20260831-ksz-perout-v1-0-14202db763b3@bootlin.com>
-To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Richard Cochran <richardcochran@gmail.com>
-Cc: Pascal Eberhard <pascal.eberhard@se.com>, 
- =?utf-8?q?Miqu=C3=A8l_Raynal?= <miquel.raynal@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Message-Id: <20260831-kunit_cgroups-v6-2-63b6c7695287@redhat.com>
+References: <20260831-kunit_cgroups-v6-0-63b6c7695287@redhat.com>
+In-Reply-To: <20260831-kunit_cgroups-v6-0-63b6c7695287@redhat.com>
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Albert Esteve <aesteve@redhat.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788182715; l=776;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=PE4JPXxCMmTovVJCHys+isKwpKyed0ZqK7DIvREANXQ=;
+ b=215S8Y2djG8kZm2WkG+9TfxCaGvQGMCtOyYrmzkgu0AlJ+nyvuiaAFSJ8k2I9i9JZjOOU80GG
+ XDgaD8gFoARAaTw6i4rK6+yCxtF9j0g4UVyDsV0pfEDRNujuSB9a3O5
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-The KSZ8463 supports periodic outputs but doesn't handle them in the same
-way as the other KSZ switches. To add proper support for the KSZ8463, a
-dedicated ksz8463_ptp_enable_perout() function needs to be created. This
-function will use the same algorithm to select the output pin as the
-common ksz_ptp_enable_perout() function.
+cgroup_util.h already has MB() and GB() for size
+literals. Add KB() in the same style so tests can
+spell kilobyte values without in-code shifts.
 
-Extract the pin selection algorithm into a dedicated function so it can
-be used later by the KSZ8463 support.
-
-Signed-off-by: Bastien Curutchet (Schneider Electric) <bastien.curutchet@bootlin.com>
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
- drivers/net/dsa/microchip/ksz_ptp.c | 31 ++++++++++++++++++++++---------
- 1 file changed, 22 insertions(+), 9 deletions(-)
+ tools/testing/selftests/cgroup/lib/include/cgroup_util.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/dsa/microchip/ksz_ptp.c b/drivers/net/dsa/microchip/ksz_ptp.c
-index ea22601f6b26..f97ea9d69ebc 100644
---- a/drivers/net/dsa/microchip/ksz_ptp.c
-+++ b/drivers/net/dsa/microchip/ksz_ptp.c
-@@ -183,17 +183,11 @@ static int ksz_ptp_configure_perout(struct ksz_device *dev,
- 	return 0;
- }
+diff --git a/tools/testing/selftests/cgroup/lib/include/cgroup_util.h b/tools/testing/selftests/cgroup/lib/include/cgroup_util.h
+index 5d39c709ac7a..0e5d7b87ad19 100644
+--- a/tools/testing/selftests/cgroup/lib/include/cgroup_util.h
++++ b/tools/testing/selftests/cgroup/lib/include/cgroup_util.h
+@@ -6,6 +6,7 @@
+ #define BUF_SIZE 4096
+ #endif
  
--static int ksz_ptp_enable_perout(struct ksz_device *dev,
--				 struct ptp_perout_request const *request,
--				 int on)
-+static int ksz_ptp_get_pin(struct ksz_device *dev,
-+			   struct ptp_perout_request const *request)
- {
- 	struct ksz_ptp_data *ptp_data = &dev->ptp_data;
--	u64 req_pulse_width_ns;
--	u64 cycle_width_ns;
--	u64 pulse_width_ns;
--	int pin = 0;
--	u32 data32;
--	int ret;
-+	int pin;
++#define KB(x) (x << 10)
+ #define MB(x) (x << 20)
+ #define GB(x) ((unsigned long long)(x) << 30)
  
- 	if (request->flags & ~PTP_PEROUT_DUTY_CYCLE)
- 		return -EOPNOTSUPP;
-@@ -206,6 +200,25 @@ static int ksz_ptp_enable_perout(struct ksz_device *dev,
- 	if (pin < 0)
- 		return -EINVAL;
- 
-+	return pin;
-+}
-+
-+static int ksz_ptp_enable_perout(struct ksz_device *dev,
-+				 struct ptp_perout_request const *request,
-+				 int on)
-+{
-+	struct ksz_ptp_data *ptp_data = &dev->ptp_data;
-+	u64 req_pulse_width_ns;
-+	u64 cycle_width_ns;
-+	u64 pulse_width_ns;
-+	int pin = 0;
-+	u32 data32;
-+	int ret;
-+
-+	pin = ksz_ptp_get_pin(dev, request);
-+	if (pin < 0)
-+		return pin;
-+
- 	data32 = FIELD_PREP(PTP_GPIO_INDEX, pin) |
- 		 FIELD_PREP(PTP_TOU_INDEX, request->index);
- 	ret = ksz_rmw32(dev, REG_PTP_UNIT_INDEX__4,
 
 -- 
 2.55.0
