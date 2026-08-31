@@ -1,42 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A795073A0;
-	Mon, 31 Aug 2026 13:42:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5245E5083BA;
+	Mon, 31 Aug 2026 13:42:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183745; cv=none; b=B69uApcFqfefUmL4Iq4+HYjUBZ89q1KIYgsXK1PXbwnNeshdZM577AoGrss66OBRN7tl60rAUiu/2Ojb1yUEPp2ImCsXBVDTQhx9u8OMHEqkIVYGVBZdUQEu7+R5Q6NOsvBsdWW1FbyJIp572DeuWggCWh0fvYanBOxOQtoZtBY=
+	t=1788183748; cv=none; b=TQa5fzJqFrB2b+WFAv6AFZG80CA2NVYOVPjPOVsuFL5wLgnv7kf89vxbxn3J7ck5FuoclNmaeww741FEkKgDy8VQSCAZMaGtneVHNVzdM6YjxNPKtYjkhQxqhjc0YRtdM9+54xltMd94QGUI9RM73G7b6PVz8foiUJhmBvBV6wQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183745; c=relaxed/simple;
-	bh=kK1aO7mm/Sjdl6ShM3gtjqViSePMcDQTo4OhfgAJaiA=;
+	s=arc-20240116; t=1788183748; c=relaxed/simple;
+	bh=kODEKTy31iVyNAgfSs1OhbB6x0ysHistFz6mDpQwqME=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cNS/xTPYYPZL72oiCZ7CJO4qQV8NKFRbK91ZrKeyDK0OYJTHmas1g9NmIC271TyQf+CRv6a6OGOmdQ68cMXtiPBNC3JixReJ/vGoTTYbDI2JmcFHmJVQ450XNtml8RFbUiZLNV4DeXVOzoYVkdFs+mmIpheqgY8O7vhZSVrMKhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QSBocgEN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ToTvcv4ovYDKnhOaM14efZM9HUdSN17Qbq2htBd5RmWWvxtqfTQGsS0np0vtO01uoDzI32HpWytWWzATou4z330ATLBvOHLw5vgG3E6TiZcKC7OkUUJAoCPiTnF/FKTvRVeETSf20M097ySk4Bmxq4k3GshZ+/hRxSUxDXvkTXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GTX+CCBG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QSBocgEN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9591F00A3E;
-	Mon, 31 Aug 2026 13:42:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GTX+CCBG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3F41F00ADB;
+	Mon, 31 Aug 2026 13:42:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183742;
-	bh=QcRiy7EsNXkKQ0pBtMrEGi9AV8gEyn7siXmGqyX6rL8=;
+	s=k20260515; t=1788183746;
+	bh=2snaxlnwBvKp12KEOFcIunRxCJsX0dN+U8uJnsJGq24=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QSBocgENCohCeMCC3ZGQu6oeoXYopBvnEe9FyUpxCqqnxaLbp4bo0WiWs8uiTvum/
-	 ySrcO/qdGR/ttmos6Vg+NZBJdxLqOsYYjGf5dGT5ayG5YQeNg6nNHP/uHljpsj5T8I
-	 jorDQyRRG7BPkPzH0mXimbg2kHvYXix9+K1ScYiEuGjN6zhTxPZviCUoaBxJef/vhr
-	 SNcoMqfdonATQVZZCWhMKA/PUOMbMeoUJ13TugP7C+NT6yHyd7D71hT10eCXz9xRXA
-	 cST0j/gTAO2BvQSP8WVfjPaEQUTqXm67yWV6vUtV3WzAQ11wF8jmXoxXzJsh+TsUjC
-	 fE+SgMUu/KtDQ==
+	b=GTX+CCBGJfC0nd7+9Yh/Uk/zdncAbPegIVEcoRMFQVmI4jVC1I0LG0ZLvdnlmDMXD
+	 XJ77kwFYqqqJ9T42tYBQdGc0+Ae1YNwCOSCgj0sHljf/RK12XNQA78Je17xXJmNdzH
+	 dhC0bR0WM631hKw6uNNjOfqOhFYt/600GGrNdXyt7Lbb4A9BmxKMz/jTDSA4zPoCW9
+	 bV4u9hwJw+H9B6JZ2hYNcKpBt28ei+KZTYdlJcHoT5T4L5D8v9S+AsJe/yyj/7MqiX
+	 8tfaIDmW3bi/RKbIeGBy1ubhTNOhffrRZZfmwZHdF/t6LNeS5gmk9cHVOzHlziZmxw
+	 BI2ssSaL+CNOw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+Cc: Timur Tabi <ttabi@nvidia.com>,
+	Danilo Krummrich <dakr@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
+	lyude@redhat.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: mld: honor BSS_CHANGED_BEACON_ENABLED
-Date: Mon, 31 Aug 2026 09:25:05 -0400
-Message-ID: <20260831133314.4125787-277-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] drm/nouveau/gsp: add SEC2 to GA100 chip table
+Date: Mon, 31 Aug 2026 09:25:07 -0400
+Message-ID: <20260831133314.4125787-279-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -52,456 +59,377 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+From: Timur Tabi <ttabi@nvidia.com>
 
-[ Upstream commit a342c99cb70dde344723f6c802efd24e614f4fda ]
+[ Upstream commit 604d0efb17cc0dd197e089134736ac2698d5fca7 ]
 
-We should stick to mac80211's flow to start / stop beaconing. This
-allows to stop beaconing before we remove the BIGTK.
+The booter-load and booter-unload firmware run on the SEC2 falcon.
+During tu102_gsp_oneinit(), the booter constructor needs device->sec2
+to access the SEC2 falcon.
 
-Note that the start and stop beaconing flows are not exactly symmetric.
-When we start beaconing, we just update the beacon template. We assume
-that mac80211 won't update the beacons, if we're not supposed to be
-sending it.
+Without the .sec2 entry, device->sec2 is NULL and this dereference
+crashes during GSP-RM boot.
 
-Also note that we now send the beacon template after the broadcast
-station was added to the firmware: the broadcast station is added in
-the start_ap() flow, while the beacon template is now added in the
-link_changed() flow which happens later. This is not what we did
-before this patch, but this sequence is supported by the firmware as
-well.
-
-Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
-Link: https://patch.msgid.link/20260511203428.cf10e5754171.I8022517c6c5aedb4b56fba30a5545de8f62dddbe@changeid
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Signed-off-by: Timur Tabi <ttabi@nvidia.com>
+Link: https://patch.msgid.link/20260430223838.2530778-3-ttabi@nvidia.com
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `wifi: iwlwifi: mld: honor
-BSS_CHANGED_BEACON_ENABLED`
+# Stable Backport Analysis: `drm/nouveau/gsp: add SEC2 to GA100 chip
+table`
 
-**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`,
-`make kernelversion` → `6.18.44`)
+**Local tree:** `v6.18.44` (stable/linux-6.18.y)
+**Commit under review:** `604d0efb17cc0` (on `origin/master`, not yet in
+this tree)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1 – Subject line**
-Record: `[wifi: iwlwifi: mld]` `[honor]` — Implement proper handling of
-mac80211 `BSS_CHANGED_BEACON_ENABLED` in the Intel MLD (WiFi 7) driver.
+### Step 1.1: Subject line
+**Record:** `[drm/nouveau/gsp]` `[add]` — Add missing SEC2 engine entry
+to the GA100 (`nv170`) chipset table so GSP-RM boot can access the SEC2
+falcon.
 
-**Step 1.2 – Tags**
-Record:
-- `Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>`
-  (author)
-- `Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>`
-  (series submitter)
-- `Link: https://patch.msgid.link/20260511203428...` (patch submission)
-- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, `Tested-
-  by:`, or `Reviewed-by:` tags
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Timur Tabi `<ttabi@nvidia.com>` (author)
+- **Signed-off-by:** Danilo Krummrich `<dakr@kernel.org>` (DRM
+  maintainer committer)
+- **Link:**
+  https://patch.msgid.link/20260430223838.2530778-3-ttabi@nvidia.com
+- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, or `Tested-
+  by:`
 
-**Step 1.3 – Body analysis**
-Record:
-- **Bug:** Driver does not follow mac80211’s beacon start/stop flow;
-  beaconing is not stopped when mac80211 disables it.
-- **Symptom:** On AP teardown, firmware may continue beaconing while
-  keys (specifically BIGTK) are removed.
-- **Root cause:** Missing `BSS_CHANGED_BEACON_ENABLED` handler; beacon
-  template was sent too early in `start_ap()` instead of via
-  `link_info_changed`.
-- **Version info:** None stated.
+Notable: part of **PATCH v2 02/10** in series “drm/nouveau: fix GA100
+issues”. Absence of stable tag is expected for manual review.
 
-**Step 1.4 – Hidden bug fix?**
-Record: **Yes.** Although the subject says “honor,” this is a
-driver/mac80211 contract bug: beaconing must stop before key removal on
-AP stop.
+### Step 1.3: Body analysis
+**Record:**
+- **Bug:** `device->sec2` is NULL on GA100 because `nv170_chipset` lacks
+  a `.sec2` entry.
+- **Symptom:** NULL pointer dereference during GSP-RM boot in
+  `tu102_gsp_oneinit()`.
+- **Mechanism:** Booter-load/unload firmware runs on the SEC2 falcon;
+  booter constructor needs `device->sec2->falcon`.
+- **Root cause:** Oversight when GSP was wired into the GA100 chip table
+  without the matching SEC2 entry.
+
+### Step 1.4: Hidden bug fix?
+**Record:** No — this is an explicit crash fix (NULL deref), not
+disguised cleanup.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-**Step 2.1 – Inventory**
-Record:
-- `drivers/net/wireless/intel/iwlwifi/mld/ap.c` (+25/−4): new
-  `iwl_mld_stop_beacon()`, remove early beacon update from `start_ap`
-- `drivers/net/wireless/intel/iwlwifi/mld/ap.h` (+4): declare
-  `iwl_mld_stop_beacon()`
-- `drivers/net/wireless/intel/iwlwifi/mld/mac80211.c` (+6/−2): handle
-  `BSS_CHANGED_BEACON_ENABLED`, add `WARN_ON(!link->enable_beacon)` for
-  `BSS_CHANGED_BEACON`
-- **Functions:** `iwl_mld_stop_beacon()` (new),
-  `iwl_mld_start_ap_ibss()`, `iwl_mld_link_info_changed_ap_ibss()`
-- **Scope:** Single-subsystem, surgical (~32 lines)
+### Step 2.1: Inventory
+**Record:**
+- **Files:** `drivers/gpu/drm/nouveau/nvkm/engine/device/base.c` (+1
+  line)
+- **Function/structure:** `nv170_chipset` static chip table
+- **Scope:** Single-file, surgical one-liner
 
-**Step 2.2 – Code flow changes**
-Record:
-- **Hunk 1 (`iwl_mld_stop_beacon`):** Sends `BEACON_TEMPLATE_CMD` with
-  `byte_cnt = 0` and valid `link_id` → tells firmware to stop beaconing.
-  Only if `BEACON_TEMPLATE_CMD` version ≥ 15.
-- **Hunk 2 (`start_ap`):** Removes `iwl_mld_update_beacon_template()`
-  call; beacon setup deferred to `link_info_changed`.
-- **Hunk 3 (`link_info_changed`):** On `BSS_CHANGED_BEACON`, only update
-  if `enable_beacon` is true (with `WARN_ON`). On
-  `BSS_CHANGED_BEACON_ENABLED` with `!enable_beacon`, call
-  `iwl_mld_stop_beacon()`.
+### Step 2.2: Code flow change
+**Record:**
+- **Before:** GA100 chip table has `.gsp = ga100_gsp_new` but no
+  `.sec2`; `device->sec2` stays NULL after device construction.
+- **After:** `.sec2 = { 0x00000001, tu102_sec2_new }` is added; SEC2 is
+  instantiated like other Turing/Ampere GSP-RM platforms.
+- **Path affected:** Device probe → subdev construction → GSP `oneinit`
+  → booter constructor.
 
-**Step 2.3 – Bug mechanism**
-Record: **Logic / correctness fix** — missing mac80211 callback
-handling. mac80211 notifies drivers to stop beaconing
-(`BSS_CHANGED_BEACON_ENABLED`) **before** removing keys; iwl_mld ignored
-this, so firmware could keep transmitting beacons while BIGTK/GTK keys
-were torn down.
+### Step 2.3: Bug mechanism
+**Record:** **Category:** NULL pointer dereference
+**Mechanism:** `tu102_gsp_oneinit()` unconditionally dereferences
+`device->sec2->falcon`:
 
-**Step 2.4 – Fix quality**
-Record: Fix is minimal and matches patterns used by ath10k, ath11k,
-mt76, rtw88, etc. Low regression risk. Minor concern: `cmd_ver < 15`
-silently skips stop (partial coverage on older firmware).
+```307:313:drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c
+        ret = gsp->func->booter.ctor(gsp, "booter-load",
+gsp->fws.booter.load,
+                                     &device->sec2->falcon,
+&gsp->booter.load);
+        if (ret)
+                return ret;
+
+        ret = gsp->func->booter.ctor(gsp, "booter-unload",
+gsp->fws.booter.unload,
+                                     &device->sec2->falcon,
+&gsp->booter.unload);
+```
+
+`ga100_gsp` uses this same `oneinit` handler:
+
+```53:54:drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c
+        .dtor = r535_gsp_dtor,
+        .oneinit = tu102_gsp_oneinit,
+```
+
+### Step 2.4: Fix quality
+**Record:** Obviously correct — mirrors every other GSP-RM-capable
+Turing chipset (e.g. `nv164_chipset` at line 2508 uses
+`tu102_sec2_new`). Minimal risk; no API or behavioral change beyond
+enabling a subdev that was always required.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.1 – Blame**
-Record: This stable tree has shallow per-file history (single unrelated
-commit on blame). iwl_mld code is present as part of the 6.18.44 import.
-Buggy pattern (`BSS_CHANGED_BEACON` only, no
-`BSS_CHANGED_BEACON_ENABLED`) is present in the checked-out tree.
+### Step 3.1: Blame
+**Record:**
+- `nv170_chipset` introduced in `3b050680c8415` (Jan 2021, “recognise
+  GA10[024]”).
+- `.gsp = ga100_gsp_new` added in `015ef6187f69e` (Sep 2023, “prepare
+  for GSP-RM”) — **this is when the bug was introduced**.
+- `.sec2` never added to `nv170_chipset` until `604d0efb17cc0`.
 
-**Step 3.2 – Fixes: tag**
-Record: N/A — no `Fixes:` tag.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag. Bug introduced by `015ef6187f69e`,
+which is present in this stable tree.
 
-**Step 3.3 – Related file history**
-Record: Part of Intel iwlwifi update series `[PATCH 0/15] wifi: iwlwifi:
-updates - 2026-05-11` (patch 4/15). Patch 5/15 only moves the function
-to `ap.c` (refactor, not a functional prerequisite).
+### Step 3.3: Related file history
+**Record:** Related GA100 work on master (not in 6.18.44):
+`20e0c197802c5` (add GA100 GSP support), `0094a7a95d52b` (WPR
+placement), `f0de0f89cc1e0` (require GSP-RM), `61de054a772a1` (formally
+support GA100). This SEC2 commit is patch 2/10 of v2 series but is
+**standalone** for the NULL-deref it fixes.
 
-**Step 3.4 – Author context**
-Record: Emmanuel Grumbach is a long-time iwlwifi maintainer. Miri
-Korenblit submits Intel iwlwifi series regularly.
+### Step 3.4: Author context
+**Record:** Timur Tabi (NVIDIA) authored the GA100 fix series. Reviewed
+on list by Lyude Paul (nouveau maintainer). Committed by Danilo
+Krummrich (DRM maintainer).
 
-**Step 3.5 – Dependencies**
-Record: **Standalone.** No prerequisite commits required; patch 5/15 is
-optional cleanup.
+### Step 3.5: Dependencies
+**Record:** No hard dependencies. `tu102_sec2_new` exists in this tree
+since `8d2c1e337604f` (2019). Patch applies cleanly (`git apply --check`
+passes). Self-contained.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 4.1 – Original discussion**
-Record: `b4 dig` failed (commit not in this tree). Patch content
-verified from local mbox
-`20260511_miriam_rachel_korenblit_wifi_iwlwifi_updates_2026_05_11.mbx`.
-Lore URL blocked by bot protection.
+### Step 4.1: Original discussion
+**Record:** `b4 dig -c 604d0efb17cc0` found thread: [PATCH v2 02/10] at
+https://patch.msgid.link/20260430223838.2530778-3-ttabi@nvidia.com.
+Series: v1 (6 patches, Apr 7) → v2 (10 patches, Apr 30).
 
-**Step 4.2 – Reviewers**
-Record: Not verified from lore (fetch blocked). Series cover letter
-lists Intel iwlwifi maintainers as authors.
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w` — CC'd: Lyude Paul, Danilo Krummrich, David
+Airlie, nouveau@lists.freedesktop.org. **Reviewed-by: Lyude Paul** found
+in mbox for the series.
 
-**Step 4.3 – Bug report**
-Record: No external bug report or syzbot link. Internal Intel finding.
+### Step 4.3: Bug report
+**Record:** No external bug report or syzbot link. Bug identified by
+code analysis during GA100 bring-up.
 
-**Step 4.4 – Series context**
-Record: Patch 4/15 in a 15-patch iwlwifi series. Functionally
-independent of other patches.
+### Step 4.4: Related patches
+**Record:** Part of “fix GA100 issues” series. Other patches improve WPR
+placement, FRTS handling, and formal GA100 enablement. This commit fixes
+a crash independent of those follow-ups.
 
-**Step 4.5 – Stable list discussion**
-Record: Not searched/found. No stable nomination in commit message
-(expected for manual review).
+### Step 4.5: Stable list discussion
+**Record:** No explicit `Cc: stable` nomination found in saved mbox. Not
+a negative signal.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1 – Key functions**
-Record: `iwl_mld_link_info_changed_ap_ibss()`,
-`iwl_mld_start_ap_ibss()`, `iwl_mld_stop_beacon()` (new),
-`iwl_mld_set_key_remove()`
+### Step 5.1: Key functions
+**Record:** `nv170_chipset` (chip table), `tu102_sec2_new`,
+`tu102_gsp_oneinit`, `ga100_gsp_new`.
 
-**Step 5.2 – Callers**
-Record:
-- `iwl_mld_link_info_changed_ap_ibss()` ←
-  `iwl_mld_mac80211_link_info_changed()` ← mac80211
-  `drv_link_info_changed()`
-- `iwl_mld_start_ap_ibss()` ← `.start_ap` / `.join_ibss` ops
-- Key removal ← `iwl_mld_set_key_remove()` ← `.set_key(DISABLE_KEY)`
+### Step 5.2: Callers
+**Record:** Chip table entries drive `NVKM_LAYOUT_ONCE` macros in
+`nvkm_device_ctor()` (`base.c` ~3412). `tu102_gsp_oneinit` called via
+`nvkm_gsp_oneinit` during `nvkm_device_init()` subdev init loop.
 
-**Step 5.3 – Callees**
-Record: `iwl_mld_send_cmd_pdu(BEACON_TEMPLATE_CMD)`,
-`iwl_mld_update_beacon_template()`, `iwl_fw_lookup_cmd_ver()`
+### Step 5.3: Callees
+**Record:** `tu102_sec2_new` → `r535_sec2_new` when GSP-RM is active
+(`nvkm_gsp_rm(device->gsp)`). Booter constructor uses SEC2 falcon
+registers.
 
-**Step 5.4 – Call chain / reachability**
-Record:
-```
-ieee80211_stop_ap()
-  → enable_beacon = false
-  → ieee80211_link_info_change_notify(BSS_CHANGED_BEACON_ENABLED)
-[driver should stop beacon]
-  → ieee80211_remove_link_keys()
-[BIGTK/GTK removed]
-  → drv_stop_ap() → iwl_mld_stop_ap_ibss()
-```
-Userspace triggers this via `nl80211` AP stop (hostapd, wpa_supplicant
-P2P GO, etc.). **Reachable from normal AP operation.**
+### Step 5.4: Reachability
+**Record:** Triggered on GA100 probe when:
+1. `NvEnableUnsupportedChipsets=1` (required in 6.18.44 — case `0x170`
+   only in unsupported path at line 3362–3364)
+2. GSP-RM firmware loads (default `NvGspRm=true` in `tu102_gsp_load_rm`)
 
-**Step 5.5 – Similar patterns**
-Record: **Every major mac80211 driver** handles
-`BSS_CHANGED_BEACON_ENABLED` (ath10k, ath11k, ath12k, mt76, rtw88,
-iwllegacy, etc.). iwl_mld is the outlier.
+Driver load / module init path — reachable by root loading `nouveau` on
+A100 hardware.
+
+### Step 5.5: Similar patterns
+**Record:** All TU10x chipsets (`nv164`–`nv168`) and GA102+ have `.sec2`
+entries. GA100 is the sole GSP-enabled chipset missing it.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
 
-**Step 6.1 – Buggy code exists?**
-Record: **Yes.** Current tree at
-`drivers/net/wireless/intel/iwlwifi/mld/mac80211.c:1157-1158` only
-handles `BSS_CHANGED_BEACON`. `ap.c:279` still calls
-`iwl_mld_update_beacon_template()` inside `start_ap`. iwl_mld subsystem
-fully present (`CONFIG_IWLMLD`, 31 source files).
+### Step 6.1: Buggy code present?
+**Record:** **YES.** `nv170_chipset` at lines 2512–2532 has `.gsp` but
+no `.sec2`. Commit `604d0efb17cc0` is on master but not in `v6.18.44`.
 
-**Step 6.2 – Backport complications**
-Record: **Clean apply expected.** File structure matches the patch
-context (`index 5c59acc8c4c5` etc.). No conflicting changes detected.
+### Step 6.2: Backport complications
+**Record:** **Clean apply** — verified with `git apply --check`. No
+conflicts expected.
 
-**Step 6.3 – Related fixes already present?**
-Record: **No.** `grep BSS_CHANGED_BEACON_ENABLED` under `iwlwifi/mld/`
-returns zero matches.
+### Step 6.3: Related fixes already present?
+**Record:** No alternate fix for this issue in 6.18.44. Grep shows no
+`.sec2` in `nv170_chipset`.
 
 ---
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-**Step 7.1 – Subsystem / criticality**
-Record: `drivers/net/wireless/intel/iwlwifi/mld` — **IMPORTANT** (Intel
-WiFi 7 MLD hardware driver; AP/P2P GO/IBSS modes).
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/gpu/drm/nouveau` — **IMPORTANT** (GPU driver,
+affects GA100/A100 users).
 
-**Step 7.2 – Activity**
-Record: Active new driver (Copyright 2024–2025, MLD opmode `iwlmld`).
-Targets BZ/SC/DR chip families.
+### Step 7.2: Activity
+**Record:** GSP subsystem actively maintained; multiple GSP fixes in
+6.18.y history.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 8: IMPACT AND RISK
 
-**Step 8.1 – Who is affected**
-Record: Users of Intel MLD-capable hardware (`CONFIG_IWLMLD`) running
-AP, P2P GO, or IBSS — especially WPA3 setups using BIGTK (key indices
-6/7).
+### Step 8.1: Who is affected
+**Record:** GA100 (NVIDIA A100) users running nouveau with GSP-RM.
+Narrow hardware population but high-value datacenter GPUs. In 6.18.44,
+requires `NvEnableUnsupportedChipsets=1`.
 
-**Step 8.2 – Trigger conditions**
-Record: **Common** — every AP stop/teardown. Requires AP/IBSS mode with
-iwl_mld driver loaded. Not userspace-exploitable as a security
-primitive, but normal admin operations trigger it.
+### Step 8.2: Trigger conditions
+**Record:** GA100 hardware + nouveau module load + GSP-RM path. GSP-RM
+is default-on (`nvkm_boolopt(..., "NvGspRm", true)`). Trigger is
+deterministic on affected config, not a race.
 
-**Step 8.3 – Failure mode severity**
-Record: Firmware may continue beaconing after BIGTK removal → potential
-**firmware assert, hang, or corrupted teardown**. Related iwl_mvm code
-documents firmware asserts (0x2b00) from incorrect beacon/key teardown
-ordering. Severity: **HIGH** (stability during normal operation).
+### Step 8.3: Failure mode severity
+**Record:** **CRITICAL** — kernel oops / NULL pointer dereference during
+driver initialization. GPU completely non-functional; potential system
+instability.
 
-**Step 8.4 – Risk vs benefit**
-Record:
-- **Benefit:** HIGH for affected hardware — fixes real teardown ordering
-  bug
-- **Risk:** LOW — ~30 lines, follows mac80211 contract, maintainer-
-  authored
-- **Ratio:** Strongly favors backport
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH for GA100 users — prevents guaranteed crash on GSP-
+  RM boot
+- **Risk:** VERY LOW — one line, matches established pattern, no new
+  APIs
+- **Ratio:** Strongly favorable
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Evidence FOR:**
-- Real mac80211 contract violation (only iwl_mld driver missing this
-  among peers)
-- mac80211 explicitly stops beaconing before key removal
-  (`cfg.c:1879-1887`)
-- BIGTK removal while beaconing continues is a concrete failure scenario
-- Small, surgical, maintainer fix
-- Code and bug both exist in Linux 6.18.44
-- Clean apply expected
+### Step 9.1: Evidence summary
 
-**Evidence AGAINST:**
-- No external crash report or syzbot finding
-- `cmd_ver < 15` path leaves bug unfixed on older firmware (mitigated:
-  MLD firmware likely always ≥ v15)
-- iwl_mld is newer hardware with smaller install base than iwl_mvm
-- Part of larger series (but this patch is standalone)
+**FOR backport:**
+- Real, reproducible NULL pointer dereference
+- Kernel crash on driver init (CRITICAL severity)
+- One-line, obviously correct fix
+- Bug introduced in-tree by `015ef6187f69e` (Sep 2023) and present since
+- Applies cleanly to 6.18.44
+- Reviewed by nouveau maintainer (Lyude Paul)
+- Matches how all sibling GSP-RM chipsets are configured
 
-**Stable rules checklist:**
-1. Obviously correct and tested? **PASS** — matches mac80211 design and
-   peer drivers; no Tested-by but logic is clear
-2. Fixes a real bug? **PASS** — missing beacon-stop on AP teardown
-3. Important issue? **PASS** — teardown stability / potential firmware
-   crash
-4. Small and contained? **PASS** — 3 files, ~32 lines
-5. No new features/APIs? **PASS** — implements existing mac80211
-   callback semantics
-6. Can apply to local tree? **PASS** — iwl_mld code present, patch
-   applies cleanly
+**AGAINST backport:**
+- GA100 still requires `NvEnableUnsupportedChipsets` in 6.18.44 (limited
+  exposure)
+- Full GA100 support series not yet in stable (other patches may also be
+  needed for complete GA100 functionality, but not for this specific
+  crash fix)
 
-**Exception category:** Standard driver bug fix (not device
-ID/quirk/DT/docs).
+**Unresolved:** No user crash reports or syzbot reproduction found (bug
+found during development).
 
----
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — mirrors TU10x pattern;
+   reviewed on list
+2. Fixes a real bug? **PASS** — NULL deref with clear code path
+3. Important issue? **PASS** — kernel oops on GPU probe/init
+4. Small and contained? **PASS** — 1 line, 1 file
+5. No new features/APIs? **PASS** — enables existing subdev constructor
+   already used elsewhere
+6. Can apply to local tree? **PASS** — clean apply verified
 
-## Problem Summary for Stable Users
+### Step 9.3: Exception categories
+**Record:** Hardware enablement fix for existing driver — analogous to
+missing chip-table entry quirk. Not a new driver.
 
-When an AP on Intel MLD WiFi hardware is stopped, mac80211 tells the
-driver to disable beaconing **before** removing encryption keys
-(including BIGTK for WPA3 broadcast integrity). The iwl_mld driver
-ignored `BSS_CHANGED_BEACON_ENABLED`, so the firmware could keep
-transmitting beacons while keys were removed — violating the teardown
-order mac80211 and every other major WiFi driver follow. This can cause
-firmware instability during normal AP shutdown (hostapd, P2P GO, etc.).
+### Step 9.4: Decision rationale
 
-The fix adds `iwl_mld_stop_beacon()` (empty beacon template to
-firmware), handles `BSS_CHANGED_BEACON_ENABLED`, and moves beacon
-template installation to the correct point in the mac80211 flow (after
-broadcast STA is added).
+When GSP-RM support was added to the GA100 chip table in September 2023,
+the matching SEC2 entry was omitted. Because `ga100_gsp` uses
+`tu102_gsp_oneinit()`, which unconditionally accesses
+`device->sec2->falcon`, any attempt to boot GSP-RM on GA100 in this tree
+crashes. The fix is a single missing table entry — the same
+`tu102_sec2_new` used by all Turing GSP-RM platforms — and it applies
+cleanly to v6.18.44.
+
+Even though GA100 remains behind `NvEnableUnsupportedChipsets` in this
+stable release, users who enable it for A100 testing will hit this crash
+deterministically. The fix is minimal, low-risk, and prevents a serious
+initialization failure.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body from provided commit message and
-  local mbox
-- [Phase 2] Diff analysis: 3 files, `iwl_mld_stop_beacon()` +
-  `link_info_changed` + `start_ap` reorder
-- [Phase 3] `git describe HEAD` → v6.18.44; shallow mld git history (1
-  entry); series context from mbox cover letter
-- [Phase 4] `b4 dig` failed (commit not in tree); patch verified from `2
-  0260511_miriam_rachel_korenblit_wifi_iwlwifi_updates_2026_05_11.mbx`;
-  lore fetch blocked
-- [Phase 5] `grep BSS_CHANGED_BEACON_ENABLED` across
-  `drivers/net/wireless` — iwl_mld is only Intel driver missing it;
-  traced `ieee80211_stop_ap()` ordering in `cfg.c:1879-1901`
-- [Phase 6] Confirmed buggy code at `mac80211.c:1157-1158` and
-  `ap.c:279`; `grep` shows no existing fix; `CONFIG_IWLMLD` present
-- [Phase 7] iwl_mld subsystem confirmed (31 `.c` files, Kconfig entry)
-- [Phase 8] Failure mode: beaconing continues during key teardown;
-  severity HIGH for AP stop path
-- [Phase 8] mac80211 key removal after beacon-disable notification
-  verified at `cfg.c:1884-1887`
-- [Phase 8] BIGTK handling in `mac80211.c:2141-2142` (`keyidx == 6 ||
-  keyidx == 7`)
-- [Phase 8] Peer driver pattern verified in `ath10k/mac.c:6212` and
-  `ath11k/mac.c:3611`
+- [Phase 1] Parsed subject, tags, body; identified NULL-deref crash
+  during GSP-RM boot
+- [Phase 2] Read diff (+1 line to `nv170_chipset`); traced
+  `tu102_gsp_oneinit()` NULL deref at lines 307–313
+- [Phase 3] `git describe HEAD` → v6.18.44; `git blame` → GSP added to
+  GA100 in `015ef6187f69e`, sec2 never added
+- [Phase 3] `git show 015ef6187f69e` confirmed GSP added without SEC2;
+  bug commit is in this tree
+- [Phase 3] `git log v6.18.44..origin/master` → commit `604d0efb17cc0`
+  on master, not in stable
+- [Phase 4] `b4 dig -c 604d0efb17cc0` → lore URL found; v2 02/10 of
+  10-patch series
+- [Phase 4] `b4 dig -a` → v1 and v2 series revisions listed
+- [Phase 4] `b4 dig -w` → Lyude Paul, Danilo Krummrich, Airlie CC'd
+- [Phase 4] mbox grep → Reviewed-by: Lyude Paul; no stable nomination
+- [Phase 5] Confirmed `ga100_gsp.oneinit = tu102_gsp_oneinit` in
+  `ga100.c`
+- [Phase 5] Confirmed `tu102_sec2_new` exists and handles GSP-RM via
+  `r535_sec2_new`
+- [Phase 5] Confirmed GA100 only enabled with
+  `NvEnableUnsupportedChipsets` at `base.c:3362`
+- [Phase 6] Confirmed `nv170_chipset` lacks `.sec2` in current tree
+  (lines 2512–2532)
+- [Phase 6] `git apply --check` on commit patch → applies cleanly
+- [Phase 8] Failure mode: NULL deref → kernel oops, severity CRITICAL
 
-**YES**The analysis is done for **Linux 6.18.44**.
+**YES****Verdict: YES** — backport to this tree (v6.18.44).
 
-**Verdict: YES** — backport this commit.
+The background checks confirmed `604d0efb17cc0` ("add SEC2 to GA100 chip
+table") is on `origin/master` but not in stable/linux-6.18.y. In the
+current tree, `nv170_chipset` has GSP support but no `.sec2` entry, so
+`tu102_gsp_oneinit()` will NULL-deref `device->sec2` during GSP-RM boot
+on GA100.
 
-The iwl_mld driver in this tree ignores `BSS_CHANGED_BEACON_ENABLED`, so
-on AP/P2P GO/IBSS teardown the firmware can keep beaconing while
-mac80211 removes keys (including BIGTK). mac80211 expects beaconing to
-stop first; other WiFi drivers already do this. The fix is small (~32
-lines), self-contained, and should apply cleanly here.
+The fix is a one-line addition (`.sec2 = { 0x00000001, tu102_sec2_new
+}`) that matches other Turing GSP-RM chipsets and applies cleanly.
 
-The background `b4 dig` run didn’t find a lore match because it was
-pointed at an unrelated commit in this tree; the patch itself was
-verified from the local iwlwifi mbox instead.
+ drivers/gpu/drm/nouveau/nvkm/engine/device/base.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- drivers/net/wireless/intel/iwlwifi/mld/ap.c   | 25 +++++++++++++++----
- drivers/net/wireless/intel/iwlwifi/mld/ap.h   |  6 ++++-
- .../net/wireless/intel/iwlwifi/mld/mac80211.c |  8 +++++-
- 3 files changed, 32 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/ap.c b/drivers/net/wireless/intel/iwlwifi/mld/ap.c
-index 5c59acc8c4c5a..c29e4a77be058 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/ap.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/ap.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
- /*
-- * Copyright (C) 2024 Intel Corporation
-+ * Copyright (C) 2024, 2026 Intel Corporation
-  */
- #include <linux/crc32.h>
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+index a965914f1c2fb..0dab8b6cbf9f3 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+@@ -2529,6 +2529,7 @@ nv170_chipset = {
+ 	.vfn      = { 0x00000001, ga100_vfn_new },
+ 	.ce       = { 0x000003ff, ga100_ce_new },
+ 	.fifo     = { 0x00000001, ga100_fifo_new },
++	.sec2     = { 0x00000001, tu102_sec2_new },
+ };
  
-@@ -239,6 +239,25 @@ int iwl_mld_store_ap_early_key(struct iwl_mld *mld,
- 	return -ENOSPC;
- }
- 
-+void iwl_mld_stop_beacon(struct iwl_mld *mld, struct ieee80211_vif *vif,
-+			 struct ieee80211_bss_conf *link)
-+{
-+	struct iwl_mld_link *mld_link = iwl_mld_link_from_mac80211(link);
-+	struct iwl_mac_beacon_cmd cmd = {};
-+	int cmd_ver = iwl_fw_lookup_cmd_ver(mld->fw, BEACON_TEMPLATE_CMD, 14);
-+
-+	if (WARN_ON(!mld_link))
-+		return;
-+
-+	if (cmd_ver < 15)
-+		return;
-+
-+	/* leave byte_cnt 0 */
-+	cmd.link_id = cpu_to_le32(mld_link->fw_id);
-+
-+	iwl_mld_send_cmd_pdu(mld, BEACON_TEMPLATE_CMD, &cmd);
-+}
-+
- static int iwl_mld_send_ap_early_keys(struct iwl_mld *mld,
- 				      struct ieee80211_vif *vif,
- 				      struct ieee80211_bss_conf *link)
-@@ -276,10 +295,6 @@ int iwl_mld_start_ap_ibss(struct ieee80211_hw *hw,
- 	if (vif->type == NL80211_IFTYPE_AP)
- 		iwl_mld_send_ap_tx_power_constraint_cmd(mld, vif, link);
- 
--	ret = iwl_mld_update_beacon_template(mld, vif, link);
--	if (ret)
--		return ret;
--
- 	/* the link should be already activated when assigning chan context,
- 	 * and LINK_CONTEXT_MODIFY_EHT_PARAMS is deprecated
- 	 */
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/ap.h b/drivers/net/wireless/intel/iwlwifi/mld/ap.h
-index 4a6f52b9552d7..a3b6bed814adf 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/ap.h
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/ap.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause */
- /*
-- * Copyright (C) 2024 Intel Corporation
-+ * Copyright (C) 2024, 2026 Intel Corporation
-  */
- #ifndef __iwl_ap_h__
- #define __iwl_ap_h__
-@@ -14,6 +14,10 @@ int iwl_mld_update_beacon_template(struct iwl_mld *mld,
- 				   struct ieee80211_vif *vif,
- 				   struct ieee80211_bss_conf *link_conf);
- 
-+void iwl_mld_stop_beacon(struct iwl_mld *mld,
-+			 struct ieee80211_vif *vif,
-+			 struct ieee80211_bss_conf *link_conf);
-+
- int iwl_mld_start_ap_ibss(struct ieee80211_hw *hw,
- 			  struct ieee80211_vif *vif,
- 			  struct ieee80211_bss_conf *link);
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c b/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
-index 67b61765adf39..322669d78b193 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
-@@ -1154,8 +1154,14 @@ iwl_mld_link_info_changed_ap_ibss(struct iwl_mld *mld,
- 	if (link_changes)
- 		iwl_mld_change_link_in_fw(mld, link, link_changes);
- 
--	if (changes & BSS_CHANGED_BEACON)
-+	if (changes & BSS_CHANGED_BEACON) {
-+		WARN_ON(!link->enable_beacon);
- 		iwl_mld_update_beacon_template(mld, vif, link);
-+	}
-+
-+	/* Enabling beacons was already covered above */
-+	if ((changes & BSS_CHANGED_BEACON_ENABLED) && !link->enable_beacon)
-+		iwl_mld_stop_beacon(mld, vif, link);
- }
- 
- static
+ static const struct nvkm_device_chip
 -- 
 2.53.0
 
