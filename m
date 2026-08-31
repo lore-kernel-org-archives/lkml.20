@@ -1,181 +1,283 @@
-Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com [209.85.222.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7232AF1D
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:51:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788137493; cv=none; b=AyxKKy29i+727+8PL+uYuRJQZH2fLrnOemf6LYx+L/CuoQ2oohcIUasZt/LAsrJnfnvYlJFxjtTzmNn9glB+aD7dZVSODnQMFNunHfh/QJv7x+ekNIKB1XQOKDnMkFTcKSHlDZI6E3lRkZhQDmkMg7G5tmdORyPprl0lXdNwRjY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788137493; c=relaxed/simple;
-	bh=oHEVBF03cPJoQ3jlK+PeO9ih9pb+31Aq8qjS2efB/rc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rX5k4ZPRLf2MlbG1g4DPHYokBf6646Tjzh1LfTYS18EiRuX9+gXp64tlR5ug/jOKU2Ii9YbiZ1GFzQ+uTZfm7vg1wwII6LcNzYf/DHN52hRhp3TIMIpUHmc+49xp5AeFqWFlVHwpOS/K7JUIDgjryG3+doTYmb1ttOCgeslyv7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com; spf=pass smtp.mailfrom=idkmanager.com; dkim=pass (2048-bit key) header.d=idkmanager.com header.i=@idkmanager.com header.b=xsJ3fNMn; arc=none smtp.client-ip=209.85.222.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=idkmanager.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756362E62A9;
+	Mon, 31 Aug 2026 00:55:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788137762; cv=fail; b=XZ+ItU2hV+FLzK1HdI58YVA2/mjzOmNdpGrzYV5WOUMt+9caOnHvie3vUCLImI88a2O8zD3+SuwP0vPBdnirPa3RcuWzsa47QRrQRk9FVO7+NHRhdEOwIJ6riLswmM/9MhrNEy3PEUxzJYCSJ6FzJGWglQ0IJKIGX63ZFMgvuLw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788137762; c=relaxed/simple;
+	bh=V9/gJuUxrCE4e9yFXKQ+wDZmZejf5fI6ZdhUu3XRYtg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=iAmwmV6cLacMAwyoY6lUf8w2XrVWHUkhRd1fGewnOEOFdtEo3c5Wah+keom4iDLJP8bSbeFHFWJ6edKIu9YG2DttHhXenOODpn9LgS2yGkHeNZLUs2fqIOMqTLo47ROVyiahSIBLMsrcOI9zLsbyjIn7ZLhxd9/oVkrxBfJNzwQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hOGGpUJO; arc=fail smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=idkmanager.com header.i=@idkmanager.com header.b="xsJ3fNMn"
-Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-97ea7f0d417so152816241.2
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:51:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=idkmanager.com; s=google; t=1788137490; x=1788742290; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ba4TYNQwJkIIEP9Ptfm6U3S+ptJAfpuHjbRlL4XIV28=;
-        b=xsJ3fNMn95rq6uxQJEkLB3VQK/FiWc9IQJJLxpMNC94K/6lbNw0rl6IMSY29BOB9Qr
-         lJyJkQqlOBmABadkKbmvGhuF4LGdfBhVttAGrM+hDh46VzVve5/JY0jFHgOSnhV9Q1qx
-         FD8I1R4oJH7wA23ZQZRjdSu8RaF/iNJ6rtbFO2vLYt4eDu3R+he1qRHJiTdeJwqjHOOm
-         ZXnU4nEcGbtoGmen13xtPvvStRgnaP4Nu8311E3xGajzPXLSqcbmN6PREis0ctuMsfqZ
-         BsRe9PoxuHtRrLOlu+sVzOV71ea/ma81SxGFQ8j8uYmNajryta9jASK4Umczi+jS0x55
-         OVnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788137490; x=1788742290;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ba4TYNQwJkIIEP9Ptfm6U3S+ptJAfpuHjbRlL4XIV28=;
-        b=kz16o8qdDkIBZcgiZRjGovry5ff8pl2R/SbBut7I5W3g8QTlrzGC6PGS4X7BeLVjEg
-         fiF0bDwy2xpiQh06zKM1vJJ/Px2QyAtOXDN6L01TQrmYNXnQlZJgYC8sqMRZAQgRj2yQ
-         Wnt2Jueblbf7HSG7MyfpJeplK/1hORP+7pVQY4fTMb9EKocKMywINo/2Sa1zcBwtZrq9
-         vlxMElmoYdHrIsTZwGh6rubJpdWwVgr1kTIWbD9BkzpP8YBNak9un72C2vNO8XW+4+L8
-         ySxeH4flk+4Cwhap+2xrjJMB8qNNuiPFlSgX1LOh0t4sl1drXwQ8Q2i/8nr4qOzOl8LF
-         ya+Q==
-X-Forwarded-Encrypted: i=1; AHgh+RplQByWBf4n3YeMaVcytGwIIqIQxSbnIrXjAai/tPTTTD6rXpte7K2uvA26cSk5FiDte9znGmNaZqMCZs8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDKWv846E0VXYhK1yrR+R+GoJYFLjwtutfyZzYCAjKbzEDS1bz
-	0Db+yHVteFACl1ESZYjYgNp7kE+EcXph73dthKLIHhRqqco6NuMBL+sXS35BfO63lm8=
-X-Gm-Gg: AR+sD13s5gd2FAZO8tp+RFAYsG7opBU+Od5AXBCZndpSwkNfsIhA4EIdLT6sPuRKxYg
-	X4dZBKlIRsxDWw1s0cK48S5mfLvT48lunYC5lqKzVeqOOHHg5r7Rpppt/wJplEIJRgNsHxPyh4K
-	rDxG2AgeteIyimdFWWplS1oGMBhsd4SXj0aUrczTCqkaJG8vaArMed8I/eel2Ai6/zt1jkRERtL
-	B0VEMbaorV3Rpqaj7J6WXG16RrWH2LnQgbheepzlGrbvifZ5pAY2rk/kXA7spmcUPlGeAnfeP1z
-	e/0XRMBPfsRHs0xN0LLYn9WkMqQM9rR9cRwxV6Qo8ReTHah99eFhw+yfTgcA+k+4ZcblPLHO3xi
-	q+fLNspWLTxfzxMGCwzYOkIWolAZvVq2/BrH6bg17kusXJYY1BzyGZ/IUA9LjkyZyRFlt6TgE4V
-	3n28J6/OwqJSgn5SYXgOb1UMjHjBsebEUFXQcgc9wFBFrHHakt8P/ZAKSVy8hBzGDWNKt0jquQl
-	MkA5RTMV1Y3IcYfOdcx7h55mwWM5wp+MqjctlV1y2/yvKP5qNod9uKr
-X-Received: by 2002:a05:6102:80a3:b0:789:3f43:645b with SMTP id ada2fe7eead31-789ef7277f6mr175545137.2.1788137490503;
-        Sun, 30 Aug 2026 17:51:30 -0700 (PDT)
-Received: from localhost.localdomain (corp-190-12-36-222.uio.puntonet.ec. [190.12.36.222])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-785f247e397sm5757890137.0.2026.08.30.17.51.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 17:51:30 -0700 (PDT)
-From: Alfonso Kuen <gerencia@idkmanager.com>
-To: hch@lst.de,
-	sagi@grimberg.me,
-	kch@nvidia.com
-Cc: linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Alfonso Kuen <gerencia@idkmanager.com>
-Subject: [PATCH v3] nvmet-tcp: report a bounded MDTS instead of "no limit"
-Date: Sun, 30 Aug 2026 19:51:16 -0500
-Message-ID: <20260831005117.142713-1-gerencia@idkmanager.com>
-X-Mailer: git-send-email 2.53.0.windows.1
-In-Reply-To: <20260829013900.10392-1-gerencia@idkmanager.com>
-References: <20260829013900.10392-1-gerencia@idkmanager.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hOGGpUJO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788137760; x=1819673760;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=V9/gJuUxrCE4e9yFXKQ+wDZmZejf5fI6ZdhUu3XRYtg=;
+  b=hOGGpUJOiGCA43YNK60lbJh+dHHwT9DcA3wXsJYnCT5XB+suGUmrgYpz
+   bfXBTzBgNJCG58BefvWR+hY3y5qiubq+x/ZPbiyLOn1J1Oq6rmZnzg2uy
+   OxBthIpQ3IPxbXl6wvXSN8WJkjZizaj3AeXlRvXNtBuLEWg1/W9z+8JW8
+   voiKJ2nFiU4cd/UKda8v/QYOidBGZgC+6ikB5W4H+Kl6zUqw0uu+QJjDe
+   N7A7sSO7mtdZ2pqH/DO+PxADddlkaKz8trLSviF9SUFvyC/vEFQK2utXy
+   oW+ZBXRx/AwQNA5k9jE6JPi6PqITtyhL6fvS4B4FTV7UxaBDLIG384NtF
+   w==;
+X-CSE-ConnectionGUID: uyFsAgXNRMmZoyL8MI8Cig==
+X-CSE-MsgGUID: TPAr9IbPQuK2lDNQXS/TBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="98876624"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="98876624"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 17:55:59 -0700
+X-CSE-ConnectionGUID: SZVVZfPHTNSbgPu1npLEGA==
+X-CSE-MsgGUID: HHF9umBoSrKM/W/UaLlXFw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="298568143"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 17:55:57 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Sun, 30 Aug 2026 17:55:58 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Sun, 30 Aug 2026 17:55:58 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.22) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Sun, 30 Aug 2026 17:55:57 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LiB/QFN8bFs35mIRqXFZD94wicf9x/hOIGzbojVpU+N/Wn9PSdTx8vmAy6gNOWU7RR1BkzThpysMub2L/kniWCHpcteZeAMydlfNLLlYlGLB3vVlyKRcYIs3eOXA7qA1yqTpLY98KTpOt0aYQBGroqQnhQpeZw05YU1MokmKGGndkhUtFrp6LVa1fTUg6UGC04n/5z+EPeOxHW1eAN7SuBhaX+3/+dE+bcu2oeciph+osH1KZfE5Fhu6wqaJB3GXVuCzE4AEDucM8wHmnUBQOwcQoBSLSdt9Tn+BdAXPruPpGS5qBlgU5StBydESU2CmIGT9XGMhBgjGMJ0wPj5WoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xYFn9SDfJSBSiUU1uBLTdaHQJSmEaI6JTbUmF+uYOY8=;
+ b=QzrfA0BMyJorKyF1HacdPiC3xF0RSpC2/C0M4OuSxSI1ZykmWZ79YVypnOBI6cHKIddlAsz/jz02sfDu7xgw+GCCB8Zu3h/pKXjWnoeiParRj+9kjIpWIp3OsSu+o9/2mBp4VzOgkVnhtdDrpM3cQzuK2w6J9F+jfJDWGtJS22JLKWNTuutf7A7ftCflvQXM+drO8VNOZQoWqHtjVuoGUzq1ZcjcbOf15q6u4RldC/96OjR4tCHPuIiYrOEV9nm2Mbll7mgft27R9lcIsvvs15JIR0nCtRr3js0TbOFVVz88UQUstu3WgqH/AbwakjYjzvCdtxvCPheOQnqtcMT42A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from SJ2PR11MB8424.namprd11.prod.outlook.com (2603:10b6:a03:53e::10)
+ by IA0PR11MB7862.namprd11.prod.outlook.com (2603:10b6:208:3dc::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Mon, 31 Aug
+ 2026 00:55:53 +0000
+Received: from SJ2PR11MB8424.namprd11.prod.outlook.com
+ ([fe80::3df:33f9:59a1:da76]) by SJ2PR11MB8424.namprd11.prod.outlook.com
+ ([fe80::3df:33f9:59a1:da76%5]) with mapi id 15.21.0360.006; Mon, 31 Aug 2026
+ 00:55:53 +0000
+From: "Liao, Bard" <bard.liao@intel.com>
+To: Amaan Lalani <zlzzm2014@outlook.com>, Mark Brown <broonie@kernel.org>
+CC: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Peter Ujfalusi
+	<peter.ujfalusi@linux.intel.com>, Bard Liao
+	<yung-chuan.liao@linux.intel.com>, Pierre-Louis Bossart
+	<pierre-louis.bossart@linux.dev>, "linux-sound@vger.kernel.org"
+	<linux-sound@vger.kernel.org>, "sound-open-firmware@alsa-project.org"
+	<sound-open-firmware@alsa-project.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 2/2] ASoC: sdw_utils: skip unattached SoundWire
+ peripherals
+Thread-Topic: [PATCH 2/2] ASoC: sdw_utils: skip unattached SoundWire
+ peripherals
+Thread-Index: AQHdNyANN39lr9KkVEWTJkuV6mcun7a3WFVg
+Date: Mon, 31 Aug 2026 00:55:53 +0000
+Message-ID: <SJ2PR11MB84249B32D24729C3CAB3612CFFA92@SJ2PR11MB8424.namprd11.prod.outlook.com>
+References: <BY5PR02MB63701A05A58EF6B4D6CAAC31A0AC2@BY5PR02MB6370.namprd02.prod.outlook.com>
+ <BY5PR02MB6370329690DCC8FF0F5DA8E8A0AC2@BY5PR02MB6370.namprd02.prod.outlook.com>
+In-Reply-To: <BY5PR02MB6370329690DCC8FF0F5DA8E8A0AC2@BY5PR02MB6370.namprd02.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ2PR11MB8424:EE_|IA0PR11MB7862:EE_
+x-ms-office365-filtering-correlation-id: 27f77489-43ef-41a5-0eef-08df06fa9bef
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|18002099003|38070700021|10067099003|6133799003|3023799007|56012099006|11063799006|4143699003|22082099003;
+x-microsoft-antispam-message-info: tZ9HAdtJQa/xvArWw5ZAAy7RgPc3xNj4Q0RXfm3BP3bEmrg95QOyLR7QLXYoYb269LR/M1tRDNJx+7ntqjOgRYlB+KoyVbsjzhRyg/ajQZAXGSgf2jgMz+/gXbG2xBPD5SJ977LghVj8H2BBlzCNAT1JMjA6tDzMfOdYIwcBWXmQHRwdYRzYhvjEuXz5UCpUY0gOrEfYlmfeSLOEwQCxSc4nFxpQ4+b6VcUFE0LBx/gMW0d8DXECIasJrqR+RsajMwAWBv0QMia2d1Jb6Hd2SGlIRHDmVmVJSV99f9+QrWTbFkwInFEEDz90v54v8HJVJWYljcO78cFZHVwgQLXN86P2hcpKhzNHQcAPe4ItvVBuWxj7kR4w7tz5ZHr2AC0ypL++Mq2WYo2TbzQiW3OFR8I8jAj7se04I2lb8iM4ZVsM2MXaYSnU7/SPmNKtbf4WuLoMVQ1zcyo910hdUcau3yKoRgKXzUGsMHXFRXcJto7dNzmt9XkkXqMAsIYcKg0cgPNeJjxnKrBK8ymD/fLOKCta1y9imqHbLIDA3R1AwVMwbmejgR9FLL7PlVUMmm9CcZtHHaZxi2vDtBzBXbWMBhzS5SDqnDrOSRS9hpsJedUBIiUlRIw4H1awe2Q3uMhnpxWpZXZ0AjpBcX706os/pOOxB3oE3Mlrp3P9TaorFMxthf4QC6RqoxQ3KFvJ04JN9Cmv92yhsQ4PrZ8q/4CKz8XcSSdqXhA4N5q/EoBzt6Y=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8424.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(18002099003)(38070700021)(10067099003)(6133799003)(3023799007)(56012099006)(11063799006)(4143699003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Ecry7eHU12iP8xENxq82as3HBC/Yli1AkPHFAGK1baVIIq+aTW18whiZCB55?=
+ =?us-ascii?Q?vYPztgY6esGet/l35iTPmiWoauj1JRY9HzqYUpnyeDxMKWYgD4dqTiCwyvJu?=
+ =?us-ascii?Q?R3IkxN3LOflM63sqV0oLQKroZAlIJl4su4eMrgI0c8za8xPkpdo2EyMITsWG?=
+ =?us-ascii?Q?q+PvUmx8hAw81WMTB8VCYL21sOSJlmmm2RWznypeO18w2uHFPkzQcdXOMVXN?=
+ =?us-ascii?Q?x0QhfeafZXC70InCSwdDBlYIvUaFECH4fgqRobETZfi3cnJarYWbIlx2yHlE?=
+ =?us-ascii?Q?3pELocwFZRYcU06IAYOz+byzuFaxT64sXElaTuRjVXbflsGZTN7x10NvZWZA?=
+ =?us-ascii?Q?Np97CbIN7DEiffgbX7Tc/uri+AGHtEg8+VAi7RQUBB6uMQJdX4ytS98faXvw?=
+ =?us-ascii?Q?7CJpWqbJkIzdZ/KLlXPyCBRqX+QKLLOZza8HVpZs6Q/jFeXFuGNvJsY0UFZu?=
+ =?us-ascii?Q?6kklCmpZTN19Q0STm7rVyz26k5BfkLhLeaBNqoOtnOTw5lR0nC9SuLtJZFl8?=
+ =?us-ascii?Q?T3Tg2rra934jL1MtMis7fHtl1jfBjnCho7RXdDywzUUfN58j0WMALtsxxj9V?=
+ =?us-ascii?Q?PJN7JmH5kklYdiV5gk9ujOhSU02ZGJdR3zXZ6GkuDNCz8GZ4/0vfHmpsLLc7?=
+ =?us-ascii?Q?8cWhhS1x76+WE8CLP9OWaHsRPcPwVQab+reZHTHD27fXZUQZPFbWpG+gBV77?=
+ =?us-ascii?Q?XsuIec7bnej6R5+jfKCtV3IBtCejo2uix5cfg/faTLkurlAZO0BGEKowOsZP?=
+ =?us-ascii?Q?lxdhsVdrOIB7Wf/GtrQ+8gs78KAp3QWAvFIH9xr16t426SguUI9AELYE+aHf?=
+ =?us-ascii?Q?YR/hFrL6z+DcTGgL+rGKrYLnMt3+9HAKhECgszSNyICDiZMP/dx2RG3PYGaV?=
+ =?us-ascii?Q?IMtKA3BeH/NP/SdtvXLGD/AXMAIrrCVarAIMb8lRcfRwncu/2AIHE11zuq6z?=
+ =?us-ascii?Q?1jJW9i25ufZ7sCwvSkqev1ESm6c5CsimfHsB6n5zt6acn6K9my4teF4cfMHs?=
+ =?us-ascii?Q?pkL+HIoGJJs+eWO+KsB6rNaimoBkbzXapEtnCz/fDpIZTB9N7/xnynKCaQJD?=
+ =?us-ascii?Q?h7vThMvOCO7YLlysqxmDOx7YnB4jdF3n25SHAqlOgUUpwHc1o0mHFgw6fBwy?=
+ =?us-ascii?Q?KctbxA9hEzDT955lufR9FaL1wl8ps7AhiZDLEhqHUL7fCry8Yo0A7YLo+nr+?=
+ =?us-ascii?Q?+h60fHRgxS/9UcnBk+eyzOFrKzAhOhM44EIJku8rxVDl/p4PMH0NtcaxoK+k?=
+ =?us-ascii?Q?4uh4tmRE+du/+GUDXNMG+O7+PBhWyzu463p7elZDzNUpSZrfzdcUgF972lSC?=
+ =?us-ascii?Q?0hgHXCuEx5lkR5o7Z0nW+GM9C83MN9UMndb3LCCXRlxvVjAVjpBKIOTo0xEn?=
+ =?us-ascii?Q?ru0o5A+kTycl7b+zWmkm4o+1GCCuDIduDdaTwckHvk30WR8sLU6hbreG6Mvo?=
+ =?us-ascii?Q?8zzVwlRx9ThutsfJN+4x7g/j5pLF4p4FDnrD0gviOBbhr2ge3JfhpYmCWR2I?=
+ =?us-ascii?Q?RznNW9QK67aCHvUovUlNJvk8DUw/7zYd2vZD/Fo1zJJNEalh2SZk8rFDtW4F?=
+ =?us-ascii?Q?vg4GNaWciow4rVwAgabRBv0UZA4XlUVUfM/oX+XhExtnLX9BIrcQUxHHWZls?=
+ =?us-ascii?Q?RJU7YUwQ5yvWIygIxemQx2RbKexefZA8uY0BOPLrXWVY02ralW8yuxC+TqzR?=
+ =?us-ascii?Q?r3GxZHzWaY4tDuQXPL5SsdukLP2wABnbWlAiQzkOscQN2xXw?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: VBC6owcmiHW0giOYcntBrRRvzyH7rQystAXF5X7BAS3z+oQdxn/TP+DvJshoQRoJ2M9UY63yXDIqvgHy9BMC5Yg2wEM9sCsqNybcUU0HJXOuf6a+G5MActe1ja1/l5DSbtHMr0o/yYqv5c8dd50LQqGFnVNq9vbsXNM38Y6d9DVAPddWbgIqpAY5b/arntU2CbRmuxrLtdcmMRmHtN1n/9W20VMAHDmyosPbyFkllNNOPxr7AUNf2xJVhfAxMr5YYn8qRA2ntvXC6B4xKbM2plnyVu3htrMqFfdTvm+CMp0AC55rVKduxkrfH3sta1aaikwEsSXA51niFgouVyo5Kw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8424.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27f77489-43ef-41a5-0eef-08df06fa9bef
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2026 00:55:53.7095
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: yrgAmnwwJd92/Zi3JWDNMsO58xAc4zgDONrbxrLL4gHRl7pOuqcftwYMWgY3NUvmT4trKoHwVLYFbQSqbUeouQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7862
+X-OriginatorOrg: intel.com
 
-nvmet-tcp does not implement .get_mdts, so nvmet_ctrl_mdts() falls back
-to the port value (0 by default) and identify-controller advertises "no
-maximum data transfer size". The initiator believes it:
-nvme_init_ctrl_finish() sets max_hw_sectors to UINT_MAX.
 
-What the initiator then issues is decided by the block layer. The
-generic cap is 4 MiB (BLK_DEF_MAX_SECTORS_CAP), but a namespace that
-advertises a large NOWS raises it: blk_validate_limits() takes
-max_sectors from io_opt once io_opt exceeds that cap. On the array we
-measured, NOWS is 65535, so io_opt is 32 MiB and the initiator emitted
-32 MiB commands -- from a controller that advertised no MDTS at all.
 
-The target cannot serve those, in one of two ways depending on the
-kernel.
+> -----Original Message-----
+> From: Amaan Lalani <zlzzm2014@outlook.com>
+> Sent: Saturday, August 29, 2026 3:04 AM
+> To: Mark Brown <broonie@kernel.org>
+> Cc: Liam Girdwood <lgirdwood@gmail.com>; Jaroslav Kysela
+> <perex@perex.cz>; Takashi Iwai <tiwai@suse.com>; Peter Ujfalusi
+> <peter.ujfalusi@linux.intel.com>; Bard Liao <yung-
+> chuan.liao@linux.intel.com>; Pierre-Louis Bossart <pierre-
+> louis.bossart@linux.dev>; linux-sound@vger.kernel.org; sound-open-
+> firmware@alsa-project.org; linux-kernel@vger.kernel.org; Amaan Lalani
+> <zlzzm2014@outlook.com>
+> Subject: [PATCH 2/2] ASoC: sdw_utils: skip unattached SoundWire periphera=
+ls
+>=20
+> Firmware may describe SoundWire peripherals which do not physically
+> enumerate on the bus. The corresponding SoundWire device can still be
+> present with SDW_SLAVE_UNATTACHED status.
+>=20
+> Counting and parsing endpoints for such peripherals can create entries
+> for devices which are not actually present and therefore interfere with
+> sound card registration.
+>=20
+> Check the SoundWire slave status before counting or parsing a
+> peripheral. Skip peripherals reported as SDW_SLAVE_UNATTACHED while
+> preserving the existing behavior when the SoundWire device cannot be
+> looked up.
+>=20
+> Fixes: 27fd36aefa00 ("ASoC: Intel: sof-sdw: Add new code for parsing the
+> snd_soc_acpi structs")
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Amaan Lalani <zlzzm2014@outlook.com>
+> ---
+>  sound/soc/sdw_utils/soc_sdw_utils.c | 35
+> +++++++++++++++++++++++++++++
+>  1 file changed, 35 insertions(+)
+>=20
+> diff --git a/sound/soc/sdw_utils/soc_sdw_utils.c
+> b/sound/soc/sdw_utils/soc_sdw_utils.c
+> index 8a07ba2a29e5..381eb884efb9 100644
+> --- a/sound/soc/sdw_utils/soc_sdw_utils.c
+> +++ b/sound/soc/sdw_utils/soc_sdw_utils.c
+> @@ -1854,6 +1854,33 @@ static int is_sdca_aux_dev_present(struct device
+> *dev,
+>  	return 0;
+>  }
+>=20
+> +static bool is_peripheral_attached(struct device *dev,
+> +				    const struct snd_soc_acpi_link_adr
+> *adr_link,
+> +				    int adr_index)
+> +{
+> +	const char *sdw_codec_name;
+> +	struct sdw_slave *slave;
+> +
+> +	sdw_codec_name =3D _asoc_sdw_get_codec_name(dev, adr_link,
+> adr_index);
+> +	if (!sdw_codec_name)
+> +		return true;
+> +
+> +	struct device *sdw_dev __free(put_device) =3D
+> +	  bus_find_device_by_name(&sdw_bus_type, NULL,
+> sdw_codec_name);
+> +	if (!sdw_dev)
+> +		return true;
+> +
+> +	slave =3D dev_to_sdw_dev(sdw_dev);
+> +
+> +	if (slave->status =3D=3D SDW_SLAVE_UNATTACHED) {
+> +		dev_dbg(dev, "%s not present on the bus, skipping\n",
+> +		  sdw_codec_name);
+> +		return false;
+> +	}
+> +
+> +	return true;
+> +}
+> +
+>  int asoc_sdw_count_sdw_endpoints(struct snd_soc_card *card,
+>  				 int *num_devs, int *num_ends, int
+> *num_aux)
+>  {
+> @@ -1870,6 +1897,11 @@ int asoc_sdw_count_sdw_endpoints(struct
+> snd_soc_card *card,
+>  			const struct snd_soc_acpi_adr_device *adr_dev =3D
+> &adr_link->adr_d[i];
+>  			struct asoc_sdw_codec_info *codec_info;
+>=20
+> +			if (!is_peripheral_attached(dev, adr_link, i)) {
 
-Since commit 4a3f00262a04 ("nvmet-tcp: bound SGL data length before
-allocating command buffers"), nvmet_tcp_map_data() rejects any len above
-NVMET_TCP_MAXH2CDATA (4 MiB) with NVME_SC_SGL_INVALID_DATA | DNR, so the
-command fails hard and deterministically. That is the right response to
-an oversized command, but the initiator had no way to avoid sending it:
-nothing advertised the limit it was exceeding.
+Sorry, but I don't think it is correct.
+The status just means the current state. A Peripheral aka Slave on the
+bus could be attached or unattached. We can't use the slave->status to
+determine whether a Peripheral is physically on the bus or not.
+Checking slave->dev_num_sticky may work. However, there is a timing
+issue that the Peripheral could be attached after the check.
 
-Before that commit the command reached sgl_alloc(), which for 32 MiB
-needs 8192 scatterlist entries -- 256 KiB, an order-6 kmalloc. Under
-fragmentation that fails, and it surfaces as NVME_SC_INTERNAL, a generic
-status, so NVMe multipath does not fail the command over to another
-path. A 1 MiB command needs 256 entries, 8 KiB, served from the
-kmalloc-8k slab, which does not fail. That failure mode is intermittent
-and load-dependent rather than deterministic; on a vendor kernel
-predating the bound it cost us roughly 98 GiB of a 2 TiB image copy,
-with the copy tool exiting 0.
-
-Commit ec6d20e16c2d ("nvmet-rdma: Implement get_mdts controller op")
-left the other transports untouched. Do the same for TCP, using the
-same 1 MiB value, so initiators size their commands to something the
-target accepts instead of discovering the limit by failing.
-
-Signed-off-by: Alfonso Kuen <gerencia@idkmanager.com>
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
----
-Changes in v3:
-- Cite the RDMA change as commit ec6d20e16c2d ("nvmet-rdma: Implement
-  get_mdts controller op") rather than by patch title, per Sagi's review.
-- Pick up Sagi's Reviewed-by.
-- No functional change: the diff is byte-identical to v1 and v2.
-
-Changes in v2:
-- Rewrite the rationale. v1 described the sgl_alloc() order-6 failure as
-  current behaviour; since 4a3f00262a04 that path is unreachable and an
-  oversized command is rejected earlier with SGL_INVALID_DATA | DNR. Both
-  failure modes are now described, and which kernels see which.
-- v1 attributed the 32 MiB command size to a "generic 32 MiB ceiling" in
-  the block layer. The generic cap is 4 MiB; the 32 MiB came from the
-  target's own NOWS raising io_opt. Corrected -- and it sharpens the
-  point, since the same controller advertises an optimal I/O size it
-  cannot serve.
-- v1 called the 1 MiB SGL an order-0 allocation; it is 8 KiB.
-- No functional change: the diff is byte-identical to v1.
-
- drivers/nvme/target/tcp.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
-index e4f603b2a..414ba896e 100644
---- a/drivers/nvme/target/tcp.c
-+++ b/drivers/nvme/target/tcp.c
-@@ -23,6 +23,9 @@
- #include "nvmet.h"
- 
- #define NVMET_TCP_DEF_INLINE_DATA_SIZE	(4 * PAGE_SIZE)
-+
-+/* Assume mpsmin == device_page_size == 4KB */
-+#define NVMET_TCP_MAX_MDTS		8
- #define NVMET_TCP_MAXH2CDATA		0x400000 /* 16M arbitrary limit */
- #define NVMET_TCP_BACKLOG 128
- 
-@@ -2243,6 +2246,11 @@ static ssize_t nvmet_tcp_host_port_addr(struct nvmet_ctrl *ctrl,
- 			(struct sockaddr *)&queue->sockaddr_peer);
- }
- 
-+static u8 nvmet_tcp_get_mdts(const struct nvmet_ctrl *ctrl)
-+{
-+	return NVMET_TCP_MAX_MDTS;
-+}
-+
- static const struct nvmet_fabrics_ops nvmet_tcp_ops = {
- 	.owner			= THIS_MODULE,
- 	.type			= NVMF_TRTYPE_TCP,
-@@ -2254,6 +2262,7 @@ static const struct nvmet_fabrics_ops nvmet_tcp_ops = {
- 	.install_queue		= nvmet_tcp_install_queue,
- 	.disc_traddr		= nvmet_tcp_disc_port_addr,
- 	.host_traddr		= nvmet_tcp_host_port_addr,
-+	.get_mdts		= nvmet_tcp_get_mdts,
- };
- 
- static int __init nvmet_tcp_init(void)
--- 
-2.47.3
+> +				(*num_devs)--;
+> +				continue;
+> +			}
+> +
+>  			*num_ends +=3D adr_dev->num_endpoints;
+>=20
+>  			codec_info =3D
+> asoc_sdw_find_codec_info_part(adr_dev->adr);
+> @@ -2029,6 +2061,9 @@ int asoc_sdw_parse_sdw_endpoints(struct device
+> *dev,
+>  				return -EINVAL;
+>  			}
+>=20
+> +			if (!is_peripheral_attached(dev, adr_link, i))
+> +				continue;
+> +
+>  			codec_info =3D
+> asoc_sdw_find_codec_info_part(adr_dev->adr);
+>  			if (!codec_info)
+>  				return -EINVAL;
+> --
+> 2.55.0
+>=20
 
