@@ -1,48 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C125678ED;
-	Mon, 31 Aug 2026 13:48:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B7D568540;
+	Mon, 31 Aug 2026 13:48:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184089; cv=none; b=gOTy/4mNc9UrnMmIvbkknCbtj7DuUcWGYJd/k3GSPQyE6/CCkrbUjU4hWiGeu0DMt2D3dVQAy3BPnaiF951SNQjYao91AiReUovABxWER7GRo3I18N1yKmTmKUulaGwuvrSzAt6Yhe7GVwMZpkQEK6iy6XxQsOCJVDsC0MEGtFI=
+	t=1788184090; cv=none; b=ehwguW8whvjVnpG7MTiKpbMhMYhWNvCd8r4X2GXEbb9w83J91Hq+OMuBU4BBOrVdw2/YsTMbe/DLydIa6ntT0e0g+CCLAuIPCZbKdmPL5sX0MIXkBYSCZpRjv0mv7WiveJjHpqOiSkhDCf+m1ALjDfY+t/hda7Md6iGbwo1TyoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184089; c=relaxed/simple;
-	bh=HPh1+K8z50chjoh1AS4lqFYWOSmTGRbB3wRmetVIK2g=;
+	s=arc-20240116; t=1788184090; c=relaxed/simple;
+	bh=zOjpnBRBvh7HOWBxpkOw8Ix8BKL473KAfyMHTFn5oVg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XnKpUNi5N2jNhs2kqm0gVzNCRJNIqEgMYTjFWeV2d7H7LYSDCCNG6i6RjY0J40BYZR8Hf/kruvY08+HFySCcFA2OqoaTAvlEkEjtESoDbJWoUBC1CJEf0jbYY1JkKE5Y4J059POFmVBo9CY2GYlJdrcThzUY7wBKoyQmVG2blac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=djE6Z8hs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=I7F7YsKnZdqwT9BxFXgYkYTTJay7CgptTSl91LOyhQeX1mU6xa5+mEbu78FP/Z0UfB/icaoG8hu2JmjXJhoiGO54nkTg220lgr1ftEJV00qx53eo2xF9TSf4rylgfkD1OhP699bvZREpD9/9fH5OZ8PUGO0c9vtlHyolPGPL2io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NY3+haBg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="djE6Z8hs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EDF81F00A3E;
-	Mon, 31 Aug 2026 13:48:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NY3+haBg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A4F01F000E9;
+	Mon, 31 Aug 2026 13:48:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184085;
-	bh=0d9n3jwUIqfDYpN8X4JkH/rBGvoUBMz3sO4aQ/1nhGk=;
+	s=k20260515; t=1788184087;
+	bh=Q4ZbAl0hTh63oth7NjFJjAwcZcpB411MsBEkNGifzyA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=djE6Z8hscfvq+XKrDOKhCtHrEBjGonbShOeWEhY7Ydt+eBqrHWNPt7SvQfm6pyVxD
-	 91vO9krGyGWpeuB/iD+OQgLaRHajJMpOK7pYiIypjm92U+zuROJ8C8MILsxnBb9KaK
-	 zVLP0uNQRJJvwii4T7LGxY99GJxsdvmTU7CYWxLjcb3bP/FRltYg0wYWwZCmn/Yd39
-	 4y1qWCGHXnYh+kkN+UhgyUqFuU4XbckZWYdsoZ2sinrwLKDU77Gc4EwGbge+2O/Ad6
-	 Wy9MnaoEtGjTbH4JS09ZYytSMEwcaLbANyaovt7Ktj+U2V3iPv/+OqnS50QuAjlD6c
-	 x2ycBzvJLR56A==
+	b=NY3+haBgdgqDc3adSvjJFJcQ7uKx5ZDQtBvuBeg+kIm5hUQTcatbU/UXicRYC5oqb
+	 q1CdRGxUY74ipaMqbbXW7w6ryebAz+w2xtuAZRX4su3iAHHFzdX/6QdarPmKdp6/EL
+	 fT4Wdq0yiPhSGje/81MQvpOFiXsrk/gFZ+IB02W3VmVMQRt2du5jLQjTNS/Wag58jO
+	 SqsipP/qjK3Q6CQ+m9OiG8YFK49zjzskjP/pFAycuFfo55w5feIJgfMOj6YmWDfr2i
+	 m/8b/5UGH2luEyoTUYu8B2S3wyZ8XSypiN+45+cCMJEYt+cmxmQ76YEKIJ58FjqE3i
+	 qp4SaR3pJHtIA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Lijo Lazar <lijo.lazar@amd.com>,
-	Asad Kamal <asad.kamal@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Huiwen He <hehuiwen@kylinos.cn>,
+	ChenXiaoSong <chenxiaosong@kylinos.cn>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>,
-	kenneth.feng@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	pc@manguebit.org,
+	linkinjeon@kernel.org,
+	linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] drm/amd/pm: Check SMUv13.0.6/12 metrics integrity
-Date: Mon, 31 Aug 2026 09:28:30 -0400
-Message-ID: <20260831133314.4125787-482-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] smb/client: do not account EOF extension as allocation
+Date: Mon, 31 Aug 2026 09:28:31 -0400
+Message-ID: <20260831133314.4125787-483-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -58,378 +56,403 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Lijo Lazar <lijo.lazar@amd.com>
+From: Huiwen He <hehuiwen@kylinos.cn>
 
-[ Upstream commit 6fc63d80c01a480e3d2c98620f07d46e5bcfc85a ]
+[ Upstream commit 99cd0a6eeb6c20fc6b914e7ce192c6b08e1ef906 ]
 
-Check if data fetch is proper by matching the first few bytes against
-0xFFs. If 0xFFs, that means data couldn't be read properly.
+cifs_setsize() updates the local inode size after SetEOF succeeds. It also
+used the new EOF as a local i_blocks estimate, but extending EOF does not
+prove that the intervening range was allocated.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Asad Kamal <asad.kamal@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+For example, after writing 1 MiB and then extending EOF to 10 MiB, the
+client can report the file as fully allocated even though the server still
+reports a much smaller AllocationSize:
+
+        $ dd if=/dev/zero of=test bs=1M count=1
+        $ truncate -s 10M test && stat -c 'size=%s blocks=%b' test
+        $ stat --cached=never -c 'size=%s blocks=%b' test
+
+        client stat:                    size=10485760 blocks=20480
+        server stat:                    size=10485760 blocks=2056
+        client stat after revalidation: size=10485760 blocks=2056
+
+A later attribute revalidation may correct i_blocks, but callers such as
+xfstests generic/495 invoke swapon immediately after truncate. The swapfile
+hole check can therefore observe the inflated local i_blocks value and
+accept a sparse file.
+
+Do not grow i_blocks from cifs_setsize() on EOF extension.  Only clamp it
+on shrink; allocation growth must come from write completion or from
+server-reported AllocationSize.
+
+With this change, EOF extension no longer makes a sparse file appear
+fully allocated before the next attribute revalidation, and xfstests
+generic/495 no longer accepts it through the inflated local i_blocks value.
+
+Signed-off-by: Huiwen He <hehuiwen@kylinos.cn>
+Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: Steve French <stfrench@microsoft.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amd/pm: Check SMUv13.0.6/12 metrics
-integrity`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** `v6.18.43` (Linux 6.18.43)
+**Step 1.1 — Subject line**
+Record: `[smb/client]` `[fix implicit: "do not"]` — Stop treating EOF
+extension as block allocation in `cifs_setsize()`.
 
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject line
-**Record:** `[drm/amd/pm]` `[Check]` — Add integrity validation for SMU
-v13.0.6/12 metrics table reads.
-
-### Step 1.2: Tags
-**Record:**
-- `Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>` (author)
-- `Reviewed-by: Asad Kamal <asad.kamal@amd.com>`
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (AMD DRM
+**Step 1.2 — Tags**
+Record:
+- Signed-off-by: Huiwen He \<hehuiwen@kylinos.cn\> (author)
+- Reviewed-by: ChenXiaoSong \<chenxiaosong@kylinos.cn\>
+- Signed-off-by: Steve French \<stfrench@microsoft.com\> (SMB/CIFS
   maintainer)
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`, or
-  `Tested-by:`
+- No Fixes:, Reported-by:, Link:, Cc: stable, or Tested-by: tags
 
-Notable: AMD maintainer review and sign-off, but no public bug report or
-fuzzer report.
+**Step 1.3 — Body analysis**
+Record:
+- **Bug:** `cifs_setsize()` sets `inode->i_blocks` from the new EOF
+  (`offset`), but extending EOF does not allocate the intervening range
+  on SMB.
+- **Symptom:** After `truncate -s 10M` on a 1 MiB file, cached `stat`
+  shows `blocks=20480` (10 MiB) while the server reports `blocks=2056`
+  (~1 MiB). Revalidation corrects it later.
+- **Failure mode:** `xfstests generic/495` calls `swapon` immediately
+  after `truncate`; `cifs_swap_activate()` sees inflated `i_blocks` and
+  accepts a sparse swapfile that should be rejected.
+- **Root cause:** Conflating logical file size with physical allocation
+  size in `cifs_setsize()`.
+- **Fix approach:** Only clamp `i_blocks` on shrink; allocation growth
+  must come from write completion or server-reported `AllocationSize`.
 
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** SMU metrics table fetch can succeed at the SMC-message level
-  while the copied data is invalid (all `0xFF`, meaning unread).
-- **Symptom:** Driver treats poisoned/unread data as valid metrics.
-- **Root cause:** No post-copy validation after `GetMetricsTable` +
-  VRAM/CPU copy.
-- **Fix:** Check first 16 bytes with `memchr_inv()`; if all `0xFF`,
-  return `-EHWPOISON`.
-- No kernel version or hardware list in the message; subject names
-  SMUv13.0.6/12.
-
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Despite “Check” wording, this is a real correctness bug
-fix: it stops silently consuming invalid SMU metrics that would
-otherwise drive power limits, clock tables, sysfs metrics, and XGMI
-configuration.
+**Step 1.4 — Hidden bug fix?**
+Record: Yes — this is a real correctness bug disguised as an accounting
+fix, not cosmetic cleanup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory
-**Record:**
-- **File:** `drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c` (+4
-  lines)
-- **Function:** `smu_v13_0_6_get_metrics_table()`
-- **Scope:** Single-file, surgical fix
+**Step 2.1 — Inventory**
+Record:
+- 1 file: `fs/smb/client/inode.c` (+7 / -4 net)
+- Function modified: `cifs_setsize()`
+- Scope: single-file, surgical fix
 
-Note: upstream diff context uses `amdgpu_hdp_invalidate()` +
-`smu_cmn_vram_cpy()`. This tree uses `amdgpu_asic_invalidate_hdp()` +
-`memcpy()` — same logical point, different API names.
+**Step 2.2 — Code flow change**
+Record:
+- **Before:** On every `cifs_setsize()`, unconditionally
+  `inode->i_blocks = CIFS_INO_BLOCKS(offset)`.
+- **After:** Save `old_size`, update `i_size`, and only if `offset <
+  old_size` clamp `i_blocks` down; on EOF extension, leave `i_blocks`
+  unchanged.
+- **Paths affected:** All callers of `cifs_setsize()` —
+  truncate/ftruncate, fallocate EOF extension, clone/duplicate extents,
+  truncate-to-zero.
 
-### Step 2.2: Code flow change
-**Record:**
-- **Before:** After SMC message + copy, metrics are cached and returned
-  unconditionally.
-- **After:** After copy, if first `min(16, table_size)` bytes are all
-  `0xFF`, return `-EHWPOISON` and do not update `metrics_time`.
-- **Path:** Metrics refresh path (cache bypass or >1 ms stale).
+**Step 2.3 — Bug mechanism**
+Record: **Logic/correctness bug** — `i_blocks` (allocation estimate) was
+derived from EOF instead of actual allocation. This breaks the sparse-
+file invariant used by swap activation.
 
-### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** Memory/hardware data integrity / logic correctness
-- **Mechanism:** Uninitialized or failed VRAM read leaves `0xFF`
-  pattern; driver previously treated it as valid. With all-`0xFF` data,
-  `AccumulationCounter` appears non-zero, so
-  `smu_v13_0_6_setup_driver_pptable()` can exit its retry loop
-  immediately and write garbage into `pptable` (power limits, clock
-  tables, serial numbers). The fix detects poisoned data before
-  caching/propagation.
-
-### Step 2.4: Fix quality
-**Record:**
-- Obviously correct: `0xFF` fill is a standard “unread” sentinel;
-  `memchr_inv()` is used elsewhere in the kernel for this pattern (e.g.
-  `amd_pmf` policy buffer validation).
-- Minimal (4 lines), no API changes.
-- Low regression risk: only triggers on fully-`0xFF` prefix; legitimate
-  metrics are unaffected.
-- `-EHWPOISON` is already used in amdgpu for hardware data integrity
-  failures.
+**Step 2.4 — Fix quality**
+Record: Obviously correct per SMB semantics (SetEOF ≠ allocate). Minimal
+change. Low regression risk: shrink path still clamps; growth paths
+(`netfs_update_i_size()` on write, `cifs_fattr_to_inode()` /
+`smb2_close_getattr()` from server) remain intact.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame
-**Record:** `smu_v13_0_6_get_metrics_table()` at lines 750–778 is
-present in this tree; blame points to merge commit `5d324e5159d9e`
-(history is flattened through merges). The vulnerable function exists in
-v6.18.43.
+**Step 3.1 — Blame**
+Record: Unconditional `inode->i_blocks = CIFS_INO_BLOCKS(offset)`
+introduced in `f4e35576da439` (Paulo Alcantara, 2026-03-18) — "smb:
+client: fix generic/694 due to wrong ->i_blocks". `cifs_setsize()`
+itself dates to 2007; the buggy `i_blocks` assignment is recent.
 
-### Step 3.2: Fixes tag
-**Record:** N/A — no `Fixes:` tag.
+**Step 3.2 — Fixes: tag**
+Record: N/A — no Fixes: tag. The regression source is `f4e35576da439`,
+which **is** in this tree (ancestor of HEAD, present since v6.18.22).
 
-### Step 3.3: Related file history
-**Record:** Recent PM commits in this tree include `75849e13e428e` (xgmi
-max speed reporting) and `33c3a4db31719` (invalid energy_accumulator on
-smu v13.0.x). No duplicate integrity-check fix found. This commit is not
-in this tree yet (`git log --grep` returned nothing).
+**Step 3.3 — Related file history**
+Record: Recent `inode.c` changes include `efbcecdecefc2`
+(fscache_resize_cookie in cifs_setsize), `f4e35576da439` (generic/694
+i_blocks fix). This commit is a direct follow-up correcting the over-
+broad generic/694 approach. Standalone; no "patch X/Y" series.
 
-### Step 3.4: Author context
-**Record:** Lijo Lazar is an active AMD PM contributor (`75849e13e428e`
-xgmi fix in this tree). Patch reviewed by fellow AMD engineer Asad Kamal
-and maintainer Alex Deucher.
+**Step 3.4 — Author context**
+Record: Huiwen He has prior SMB client commits in this tree (e.g.
+fallocate overlap handling). Steve French (maintainer) signed off.
 
-### Step 3.5: Dependencies
-**Record:** Standalone. `memchr_inv()` and `-EHWPOISON` are available.
-Backport inserts after the local copy call (`memcpy`), not upstream’s
-`smu_cmn_vram_cpy`.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original discussion
-**Record:** Patch submitted to amd-gfx on 2026-04-18 by Lijo Lazar.
-Thread: https://lists.freedesktop.org/archives/amd-
-gfx/2026-April/143042.html (also mirrored at yhbt.net). Included in Alex
-Deucher’s drm-next-7.2 pull. `b4 dig -c` could not be run (commit not in
-this checkout). lore.kernel.org direct fetch blocked (bot protection).
-
-### Step 4.2: Reviewers
-**Record:** CC’d Hawking.Zhang, Alexander.Deucher, Asad.Kamal. Asad
-Kamal replied 2026-04-20 (Reviewed-by in final commit). No NAKs found.
-
-### Step 4.3: Bug report
-**Record:** No public bug report, syzbot, or Bugzilla link. Likely
-internal AMD testing discovery.
-
-### Step 4.4: Series context
-**Record:** Standalone 1-patch fix, not part of a multi-patch series.
-
-### Step 4.5: Stable list discussion
-**Record:** No stable@ discussion found (UNVERIFIED beyond search; no
-stable nomination seen in available sources).
+**Step 3.5 — Dependencies**
+Record: **Requires `f4e35576da439`** — without it, `cifs_setsize()` does
+not set `i_blocks` from offset and this patch has nothing to fix in that
+function. In this 6.18.44 tree, that prerequisite is satisfied. Patch
+applies cleanly with only minor context (current tree has
+`fscache_resize_cookie()` after `netfs_wait_for_outstanding_io()`).
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 4: Mailing List and External Research
 
-### Step 5.1: Key functions
-**Record:** `smu_v13_0_6_get_metrics_table()` (modified).
+**Step 4.1 — Original discussion**
+Record: UNVERIFIED — lore.kernel.org blocked by bot protection. `b4 dig`
+on the related generic/694 upstream commit (`23b5df09c27a`) found
+https://patch.msgid.link/20260319034252.472217-1-pc@manguebit.org. Could
+not locate this specific commit's thread (not yet in local git history,
+no SHA for `b4 dig -c`).
 
-### Step 5.2: Callers
-**Record:** Direct callers in this tree:
-- `smu_v13_0_6_get_pm_metrics()` — sysfs PM metrics (checks `ret`)
-- `smu_v13_0_6_setup_driver_pptable()` — DPM init, power/clock limits
-  (checks `ret` in retry loop; caller at line 1088 ignores return — pre-
-  existing)
-- `smu_v13_0_6_get_smu_metrics_data()` — clock/power/thermal sysfs
-  (checks `ret`)
-- Partition metrics paths at lines 2657, 2758 (check `ret`)
-- `smu_v13_0_12_ppt.c:258` — XGMI max speed/width fallback (checks
-  `ret`)
+**Step 4.2 — Reviewers**
+Record: Reviewed-by and maintainer Signed-off-by present in commit
+message. Full recipient list UNVERIFIED.
 
-### Step 5.3: Callees
-**Record:** `smu_cmn_send_smc_msg()`, HDP invalidate, `memcpy()` from
-driver table CPU address.
+**Step 4.3 — Bug report**
+Record: Concrete reproduction in commit message (dd + truncate + stat).
+xfstests `generic/495` cited as trigger. No syzbot/external bug link.
 
-### Step 5.4: Reachability
-**Record:** Reachable from GPU init (DPM table setup) and runtime
-sysfs/metrics queries on SMU IP 13.0.6 and 13.0.12 hardware (MI300-class
-datacenter GPUs). Not a syscall path, but reachable from normal driver
-operation on affected hardware.
+**Step 4.4 — Related patches**
+Record: Direct follow-up to `f4e35576da439` (generic/694). Complements
+existing allocation update paths in `cifs_fattr_to_inode()`,
+`smb2_close_getattr()`, and `netfs_update_i_size()`.
 
-### Step 5.5: Similar patterns
-**Record:** `amd_pmf` uses `memchr_inv(dev->policy_buf, 0xff, ...)` for
-the same invalid-read detection pattern. No existing `memchr_inv` +
-`0xff` check in amdgpu PM code in this tree.
+**Step 4.5 — Stable list history**
+Record: UNVERIFIED — could not search lore stable archive.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (v6.18.43)
+## Phase 5: Code Semantic Analysis
 
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** `smu_v13_0_6_get_metrics_table()` at lines 750–778
-lacks integrity check. SMU 13.0.6/12 support is wired in `amdgpu_smu.c`
-(cases `IP_VERSION(13, 0, 6)` and `IP_VERSION(13, 0, 12)`).
+**Step 5.1 — Key functions**
+Record: `cifs_setsize()` (modified); related: `cifs_swap_activate()`,
+`netfs_update_i_size()`, `cifs_fattr_to_inode()`.
 
-### Step 6.2: Backport difficulty
-**Record:** **Clean apply with trivial context adjustment.** Insert
-after:
+**Step 5.2 — Callers of `cifs_setsize()`**
+Record:
+- `cifs_file_set_size()` — truncate/ftruncate path (`inode.c`)
+- `smb3_simple_falloc()` — EOF extension (`smb2ops.c`)
+- `smb2_duplicate_extents()` — clone size extension (`smb2ops.c`)
+- truncate-to-zero in `file.c`
 
-```768:769:drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-                amdgpu_asic_invalidate_hdp(smu->adev, NULL);
-                memcpy(smu_table->metrics_table, table->cpu_addr,
-table_size);
+**Step 5.3 — Callees**
+Record: `i_size_write()`, `truncate_pagecache()`,
+`netfs_wait_for_outstanding_io()`, timestamp updates.
+
+**Step 5.4 — Reachability**
+Record: **Userspace-reachable** via `truncate(2)`/`ftruncate(2)` →
+`cifs_setattr()` → `cifs_file_set_size()` → `cifs_setsize()`. Swap
+activation via `swapon(2)` → `cifs_swap_activate()` reads cached
+`i_blocks`.
+
+**Step 5.5 — Similar patterns**
+Record: NFS has identical swap hole check (`fs/nfs/file.c:584`).
+`cifs_fattr_to_inode()` correctly uses `fattr->cf_bytes` (allocation),
+not EOF — the fix aligns `cifs_setsize()` with that model.
+
+---
+
+## Phase 6: Cross-Reference Against Local Tree (6.18.44)
+
+**Step 6.1 — Buggy code present?**
+Record: **YES.** At `fs/smb/client/inode.c:3037`:
+
+```3031:3037:fs/smb/client/inode.c
+        spin_lock(&inode->i_lock);
+        i_size_write(inode, offset);
+        /*
+  - Until we can query the server for actual allocation size,
+  - this is best estimate we have for blocks allocated for a file.
+         */
+        inode->i_blocks = CIFS_INO_BLOCKS(offset);
 ```
 
-### Step 6.3: Related fixes already present?
-**Record:** **No.** `grep` found no `memchr_inv` + `0xff` in amdgpu PM.
-Commit not in tree history.
+The candidate fix is **not** yet in this tree (no matching commit or
+strings).
+
+**Step 6.2 — Backport complications**
+Record: Clean apply expected. Only contextual difference:
+`fscache_resize_cookie()` line after the modified block (commit diff
+predates or omits it; trivial merge).
+
+**Step 6.3 — Related fixes already present?**
+Record: `f4e35576da439` (generic/694) is present and is the source of
+the regression this commit corrects. No duplicate fix found.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## Phase 7: Subsystem and Maintainer Context
 
-### Step 7.1: Subsystem and criticality
-**Record:** `drivers/gpu/drm/amd/pm` — **IMPORTANT** (AMDGPU power
-management for datacenter GPUs; affects power/thermal/clock behavior,
-not core kernel).
+**Step 7.1 — Subsystem**
+Record: `fs/smb/client` (CIFS/SMB3 client). Criticality: **IMPORTANT** —
+network filesystem used broadly; swap-on-SMB is experimental but the
+`i_blocks` cache affects `stat()` and hole detection for all truncate
+users.
 
-### Step 7.2: Activity
-**Record:** Actively maintained; recent stable-relevant PM fixes in this
-tree (xgmi reporting, energy_accumulator invalidation).
-
----
-
-## PHASE 8: IMPACT AND RISK
-
-### Step 8.1: Who is affected
-**Record:** Users of AMD GPUs with SMU firmware IP 13.0.6 or 13.0.12
-(MI300/MI325X-class hardware). Config: `CONFIG_DRM_AMDGPU`.
-
-### Step 8.2: Trigger conditions
-**Record:** SMU metrics table VRAM read fails or returns uninitialized
-`0xFF` data while SMC message succeeds. Can occur during init or runtime
-metrics refresh. Not user-triggerable from syscalls; hardware/firmware
-timing dependent. Plausible during error recovery or SMU communication
-issues.
-
-### Step 8.3: Failure mode severity
-**Record:** Without fix: corrupt power limits, clock frequency tables,
-thermal/activity metrics, and XGMI parameters derived from `0xFF` data —
-risk of incorrect DPM behavior, bogus sysfs readings, and potential
-hardware stress. **Severity: HIGH** (incorrect power/clock configuration
-from poisoned data). Not a kernel oops, but can cause real hardware
-misbehavior.
-
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** HIGH for affected datacenter deployments — prevents
-  silent use of completely invalid SMU metrics.
-- **Risk:** LOW — 4-line defensive check, AMD-reviewed, established
-  errno pattern.
-- **Ratio:** Strong benefit, minimal risk.
+**Step 7.2 — Activity**
+Record: Actively maintained; multiple recent smb/client fixes in this
+tree.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 8: Impact and Risk Assessment
 
-### Step 9.1: Evidence summary
+**Step 8.1 — Who is affected**
+Record: CIFS/SMB3 mount users who truncate files (especially sparse
+files). Swap-on-CIFS users hit the worst case. `stat -c %b` can report
+wrong block counts until revalidation.
+
+**Step 8.2 — Trigger conditions**
+Record: Extend EOF without allocating (truncate up, sparse fallocate).
+Common operation. Unprivileged users can trigger on files they own.
+
+**Step 8.3 — Failure severity**
+Record: **HIGH** — `cifs_swap_activate()` hole check (`blocks*512 <
+isize`) is bypassed when `i_blocks` is inflated, allowing swap
+activation on a sparse file:
+
+```3237:3244:fs/smb/client/file.c
+        spin_lock(&inode->i_lock);
+        blocks = inode->i_blocks;
+        isize = inode->i_size;
+        spin_unlock(&inode->i_lock);
+        if (blocks*512 < isize) {
+                pr_warn("swap activate: swapfile has holes\n");
+                return -EINVAL;
+        }
+```
+
+Using unallocated regions as swap risks data corruption. Wrong `stat`
+blocks is a secondary user-visible correctness issue.
+
+**Step 8.4 — Risk/benefit**
+Record: **Benefit: HIGH** (correctness, swap safety, xfstests). **Risk:
+LOW** (small, well-scoped; shrink still clamped; write/server paths
+still grow `i_blocks`). Strong benefit/risk ratio.
+
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1 — Evidence summary**
 
 **FOR backport:**
-- Fixes real bug (silent consumption of unread `0xFF` metrics data)
-- Can corrupt power/clock initialization in `setup_driver_pptable()`
-- Small, surgical, AMD-maintainer-reviewed
-- Code and affected hardware exist in v6.18.43
-- Matches existing kernel/amdgpu integrity-check patterns
-- Clean backport to this tree
+- Real bug: EOF ≠ allocation on SMB; code incorrectly equates them
+- Verifiable in local tree (`f4e35576da439` regression present)
+- Causes swap hole check to accept invalid sparse swapfiles
+- xfstests generic/495 failure documented
+- Small, surgical, maintainer-reviewed fix
+- Prerequisite commit present in 6.18.44
 
 **AGAINST backport:**
-- No public bug report or crash trace
-- Hardware-specific (MI300-class, niche vs consumer GPUs)
-- `setup_driver_pptable()` return still ignored at one call site (pre-
-  existing; fix still prevents writing garbage into `pptable`)
-- Severity is misconfiguration rather than kernel panic
+- Fix depends on `f4e35576da439` being present (satisfied here)
+- Swap-on-SMB is experimental (but the `stat`/i_blocks bug affects all
+  truncate-up paths)
+- Lore discussion UNVERIFIED
 
-**Unresolved:** Exact production trigger frequency; no syzbot/user
-reports.
+**Step 9.2 — Stable rules checklist**
+1. Obviously correct and tested? **PASS** — logic matches SMB semantics;
+   xfstests cited; maintainer SOB
+2. Fixes real bug affecting users? **PASS** — wrong cached allocation,
+   swap acceptance
+3. Important issue? **PASS** — HIGH: swap integrity / data corruption
+   risk on sparse files
+4. Small and contained? **PASS** — ~10 lines, one function
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — prerequisite present, clean apply
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — simple sentinel check;
-   Reviewed-by from AMD engineer; maintainer SOB.
-2. Fixes real bug affecting users? **PASS** — invalid metrics used for
-   PM decisions on real hardware.
-3. Important issue? **PASS** — incorrect power/clock limits from
-   poisoned SMU data on datacenter GPUs (HIGH severity
-   misconfiguration).
-4. Small and contained? **PASS** — 4 lines, one function, one file.
-5. No new features/APIs? **PASS** — error-path validation only.
-6. Can apply to local tree? **PASS** — code present; minor context
-   adjustment for `memcpy` vs `smu_cmn_vram_cpy`.
+**Step 9.3 — Exception categories**
+Record: N/A (standard bug fix).
 
-### Step 9.3: Exception categories
-**Record:** N/A (not device ID, DT, build fix, or docs). Standard bug
-fix.
-
-### Step 9.4: Decision rationale
-This patch prevents the driver from silently building power-management
-state from completely invalid SMU metrics. On MI300-class hardware in
-the 6.18.y tree, a failed metrics read currently produces `0xFF` data
-that can populate `pptable` power and clock limits. The fix is minimal,
-low-risk, AMD-reviewed, and directly applicable to this checkout.
+**Step 9.4 — Decision rationale**
+This is a regression fix for `f4e35576da439` in the 6.18.y tree. The
+buggy code is present at HEAD. The fix restores correct `i_blocks`
+accounting without breaking shrink or write/server update paths. It
+meets all stable-kernel criteria.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message and tags from user-provided diff
-- **[Phase 2]** Read `smu_v13_0_6_get_metrics_table()` at lines 750–778;
-  confirmed missing integrity check
-- **[Phase 2]** Traced `setup_driver_pptable()` lines 873–942; confirmed
-  garbage `0xFF` metrics can populate power/clock limits
-- **[Phase 3]** `git describe HEAD` → `v6.18.43`
-- **[Phase 3]** `git blame -L 750,778` → function present, no integrity
-  check
-- **[Phase 3]** `git log --grep="metrics integrity"` → no match (commit
-  not in tree)
-- **[Phase 3]** `grep memchr_inv.*0xff drivers/gpu/drm/amd/pm` → no
-  matches
-- **[Phase 4]** Web search found amd-gfx submission (2026-04-18) and
-  drm-next-7.2 pull inclusion
-- **[Phase 4]** lore.kernel.org fetch failed (bot protection); Asad
-  Kamal reply noted via search snippet
-- **[Phase 4]** `b4 dig` without commit hash unavailable; commit not in
-  local tree
-- **[Phase 5]** `grep smu_v13_0_6_get_metrics_table` → 6 call sites in
-  `smu_v13_0_6_ppt.c`, 1 in `smu_v13_0_12_ppt.c`
-- **[Phase 5]** Verified callers check `ret` (except
-  `smu_v13_0_6_setup_driver_pptable()` at line 1088)
-- **[Phase 5]** `grep EHWPOISON drivers/gpu/drm/amd` → used in amdgpu
-  core (ras, cs, job, kms, xgmi)
-- **[Phase 5]** Found `memchr_inv(..., 0xff, ...)` pattern in
-  `drivers/platform/x86/amd/pmf/tee-if.c`
-- **[Phase 6]** Confirmed `IP_VERSION(13, 0, 6)` and `IP_VERSION(13, 0,
-  12)` in `amdgpu_smu.c`
-- **[Phase 6]** Confirmed upstream diff context differs
-  (`smu_cmn_vram_cpy` vs local `memcpy`); fix placement is equivalent
-- **[Phase 7]** `git log --oneline -20 -- drivers/gpu/drm/amd/pm/` →
-  active PM maintenance
-- **UNVERIFIED:** Exact hardware SKU list beyond IP version 13.0.6/12;
-  production incident frequency; full Asad Kamal review thread content
+- [Phase 1] Parsed subject, tags, body from provided commit message
+- [Phase 2] Analyzed provided diff; confirmed current `cifs_setsize()`
+  at inode.c:3029-3043
+- [Phase 3] `git describe HEAD` → v6.18.44-1-g2736c32da98b9; `make
+  kernelversion` → 6.18.44
+- [Phase 3] `git blame` on inode.c:3037 → f4e35576da439 introduced
+  unconditional i_blocks assignment
+- [Phase 3] `git show f4e35576da439` → generic/694 fix added i_blocks to
+  cifs_setsize
+- [Phase 3] `git merge-base --is-ancestor f4e35576da439 HEAD` →
+  prerequisite present
+- [Phase 3] `git tag --contains f4e35576da439` → present since v6.18.22
+- [Phase 3] `git log --grep="EOF extension"` / `--grep="account EOF"` →
+  no match (fix not in tree)
+- [Phase 4] WebFetch lore.kernel.org → blocked (bot protection)
+- [Phase 4] `b4 dig -c 23b5df09c27a` → found generic/694 thread URL
+- [Phase 4] UNVERIFIED: lore thread for this specific commit
+- [Phase 5] `grep cifs_setsize` → 4 call sites in smb/client
+- [Phase 5] Read `cifs_swap_activate()` at file.c:3223-3244 → hole check
+  uses i_blocks vs i_size
+- [Phase 5] Read `netfs_update_i_size()` at buffered_write.c:38-72 →
+  write path grows i_blocks
+- [Phase 5] Read `cifs_fattr_to_inode()` at inode.c:236-238 → server
+  revalidation uses cf_bytes
+- [Phase 5] Read `smb2_close_getattr()` at smb2ops.c:1530-1532 → server
+  AllocationSize updates i_blocks
+- [Phase 6] Confirmed buggy line at inode.c:3037 in HEAD
+- [Phase 6] Confirmed fix strings absent from tree
+- [Phase 8] Severity: swap hole check bypass → HIGH
 
-**YES****Verdict: YES** — backport to this tree (`v6.18.43`).
+**YES**The background searches are done. They match the earlier
+analysis:
 
-The commit adds a 4-line check in `smu_v13_0_6_get_metrics_table()` so
-unread SMU metrics (all `0xFF`) return `-EHWPOISON` instead of being
-used for power limits, clock tables, and sysfs metrics on SMU 13.0.6/12
-hardware (MI300-class). The buggy code is present in this tree; the
-patch applies cleanly after the existing `memcpy()` call.
+- **Target commit not in tree** — no matches for "EOF extension",
+  "account EOF", or "generic/495" in `fs/smb/client/`.
+- **Author history** — Huiwen He has prior SMB client work here
+  (fallocate overlap handling, `FS_IOC_GETFLAGS`, etc.).
+- **Fix-not-present check** — the `git log -S` search timed out, but a
+  direct read of `cifs_setsize()` still shows the buggy unconditional
+  `i_blocks = CIFS_INO_BLOCKS(offset)` at `inode.c:3037`, with no "Only
+  clamp" fix applied.
 
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 4 ++++
- 1 file changed, 4 insertions(+)
+**Verdict unchanged: YES** for backport to this 6.18.44 tree — it
+corrects a regression from `f4e35576da439` where EOF extension is
+wrongly treated as allocation, which can let `cifs_swap_activate()`
+accept sparse swapfiles.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 43965b1135fe7..0d065e4073655 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -768,6 +768,10 @@ int smu_v13_0_6_get_metrics_table(struct smu_context *smu, void *metrics_table,
- 		amdgpu_asic_invalidate_hdp(smu->adev, NULL);
- 		memcpy(smu_table->metrics_table, table->cpu_addr, table_size);
+ fs/smb/client/inode.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+index c9e955d0d799e..af36936fde08b 100644
+--- a/fs/smb/client/inode.c
++++ b/fs/smb/client/inode.c
+@@ -3028,13 +3028,20 @@ int cifs_fiemap(struct inode *inode, struct fiemap_extent_info *fei, u64 start,
  
-+		if (!memchr_inv(smu_table->metrics_table, 0xff,
-+				min(16, table_size)))
-+			return -EHWPOISON;
+ void cifs_setsize(struct inode *inode, loff_t offset)
+ {
++	loff_t old_size;
++	u64 blocks = CIFS_INO_BLOCKS(offset);
 +
- 		smu_table->metrics_time = jiffies;
- 	}
- 
+ 	spin_lock(&inode->i_lock);
++	old_size = i_size_read(inode);
+ 	i_size_write(inode, offset);
++
+ 	/*
+-	 * Until we can query the server for actual allocation size,
+-	 * this is best estimate we have for blocks allocated for a file.
++	 * Extending EOF does not allocate the intervening range. Only clamp
++	 * i_blocks on shrink; allocation growth comes from writes or from the
++	 * server-reported AllocationSize.
+ 	 */
+-	inode->i_blocks = CIFS_INO_BLOCKS(offset);
++	if (offset < old_size && (u64)inode->i_blocks > blocks)
++		inode->i_blocks = blocks;
+ 	spin_unlock(&inode->i_lock);
+ 	inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
+ 	truncate_pagecache(inode, offset);
 -- 
 2.53.0
 
