@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DD147A87F;
-	Mon, 31 Aug 2026 13:35:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7F247ACF6;
+	Mon, 31 Aug 2026 13:35:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183351; cv=none; b=kJ0mzN4V3GxYy0S8oFVfPxR3sqcjEk8IA4sdKDK8jCWBjNR3Zm2VaXUUrxjbQa4C/x/DjoyVTAtpluK9FksLSae8ZmI3paEFV0H3xpsU3cxY2erCtr53jSfTwB56FSsg/ip3xQ9WeZhq2Tk+5BH3HiyBv3dFNgTpFBgVIgUBo/E=
+	t=1788183355; cv=none; b=kZmd+1C0uCL8JfDMnJSMblaBJxPbHsRv+jzBcjymMUGwtQbpj7pb4Cv/jU3ec5kP3Bi9/yJn3pthg0QWHw5HNLblxjgJiGWZJBohQH4JScB9bErlJCSP8MKPIOtirktP8P+f2C7XgQnzrOi3fPmtJOYxueYOQMeqBdo51KVtyLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183351; c=relaxed/simple;
-	bh=SUrGa9hpVSxXWp6iGgLALxyqevl6hgtPM9V/wOpcCNw=;
+	s=arc-20240116; t=1788183355; c=relaxed/simple;
+	bh=BJErzeiI74JZ6qJ6Jfpj0pcjLngiaLD5yiI1F16yZok=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YWywiXCtGYEg4HixiE69zAKZnH5EGDGYdUDzU2VFrbLFF8XqSSVoevmeRZIhxxHIAu6exoIMG1gsAMJbIZdUGsG0Xf5CY0VksZxRg4sfN7s+fxEgyKPdNnq9PGpCtWnUg/eI2tN0lhLSzULZs4dF+zLQueC5KhkoXGGA/iCLYUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OnpkGrOs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Wneyb5snPGTDN+mKyxAK198H8zCuRtu0IAI+yc8Yu1lkl8AF/9bXTqu2x+QwBzYjlOffJFmVREaJgZWenqM7/CNAh6LF7TDSYM2gMp1jBWY7hItnIQZzhn5vSssZqLyoRXIR1et5/Sg+hhZ1NaDrWvRSYENh3ipcd5Kvun6i3kQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G/0HuDbW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OnpkGrOs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA6671F00A3F;
-	Mon, 31 Aug 2026 13:35:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G/0HuDbW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 320A71F00A3E;
+	Mon, 31 Aug 2026 13:35:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183349;
-	bh=/STGmrD+OrQuVINnyV8r9fWm+EQyQVnJ7YvdmWdM7mM=;
+	s=k20260515; t=1788183352;
+	bh=ANVOKDALVKlsJxxBXK2vwRUxJHGkyc/zQzu+BCjziio=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OnpkGrOs2B3kxK+Q9BYijd+6z2Yz5AZMxepcKSxCOQBeufQq4FBv2Tmo3zMJoHJrh
-	 T/Dl9GuhQ/39JD1v2P5TfziDf8cksQI8x8KtPKPMOSp8PDxNXAVyjMlZZIMb9ctIQm
-	 /YrK/k6HLlhfykQ8CLX4Z3+1KfXbU9Hx7BvWuQomIQ1eoEEoN9XhKCpKywvtaAd+Au
-	 +TvEdHx6ePMR+v94E5EB8jAoBkJbr/vjYujbTl5+PJwZQc3A7zwB7ZvWA7tUyzDZeB
-	 QA3c3dqNHyiNBoa2G/Wb3W03CgeGfrh9n4l+hjOqE/Lee4YcL3YqKqMnXo1GgLXcUl
-	 /5NpfJoJ60kxw==
+	b=G/0HuDbWMfV6ooKSpYJ4zLbADI89yHmqrrN86Pbs62O68hfmaGWwfwXVv7T3gbWOA
+	 axcgJQ4RIgKSJ3lOBqorJzDVnvYE3usX7ZTRqQ1mM36aqwpirhrOa/oeBHv9P+3Wwt
+	 DIWI0QTVzPZxZgc4c36v6Hjq1Uawmg+iE+Q4w1RVKShD+GkNy47ZBEV/E2/29HTN+q
+	 iAp229fBGKHYr6YGZMGSAJWKDdxNJ25zfL4wq05Z031AkrhRUZKRol6A5MMsz7V4ST
+	 RHQmwVAB22RzfX/s8kUqIVqP8EuDH8NIDWLXoliQsWksYY/MMT6d8ly1O/jCI3ytRp
+	 cYdQI++5wOMvw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
+	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	linux-bluetooth@vger.kernel.org,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] Bluetooth: RFCOMM: validate skb length in rfcomm_recv_frame
-Date: Mon, 31 Aug 2026 09:22:03 -0400
-Message-ID: <20260831133314.4125787-95-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] soundwire: only handle alert events when the peripheral is attached
+Date: Mon, 31 Aug 2026 09:22:05 -0400
+Message-ID: <20260831133314.4125787-97-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -48,408 +49,402 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jiale Yao <yaojiale02@163.com>
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-[ Upstream commit b230e5bf501c5edaf2eb0991cb862ac142031d4b ]
+[ Upstream commit 38cd651ebce7065a81c7e950d9e2ea1572304605 ]
 
-rfcomm_recv_frame() casts skb->data to struct rfcomm_hdr and dereferences
-hdr->addr and hdr->ctrl without validating skb->len first. A truncated
-frame with skb->len less than the minimum header size causes an
-out-of-bounds read of uninitialized memory. Additionally, a zero-length
-frame causes skb->len-- to underflow to UINT_MAX, making
-skb_tail_pointer() read far past the buffer.
+It doesn't make sense to handle an alert event when the peripheral is
+not attached. The slave->status could be SDW_SLAVE_ATTACHED or
+SDW_SLAVE_ALERT when it is attached on the bus.
 
-Commit 23882b828c3c ("Bluetooth: RFCOMM: validate skb length in MCC
-handlers") fixed the same class of missing-length-check bugs in the MCC
-sub-handlers, but the top-level rfcomm_recv_frame() was left unfixed.
-KMSAN reports:
-
-  BUG: KMSAN: uninit-value in rfcomm_run
-  ...
-  Uninit was created at:
-    __alloc_skb+0x474/0xb60
-    vhci_write+0xe9/0x870
-
-Fix this by rejecting frames smaller than sizeof(struct rfcomm_hdr) + 1
-(the minimum frame must have a 3-byte header and a 1-byte FCS).
-
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Link: https://patch.msgid.link/20260520025720.1999367-1-yung-chuan.liao@linux.intel.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `soundwire: only handle alert events when
+the peripheral is attached`
 
-### Step 1.1: Subject Line
-**Record:** `[Bluetooth: RFCOMM]` `[validate]` — Add skb length
-validation in `rfcomm_recv_frame()` before parsing RFCOMM frame headers.
-
-### Step 1.2: Commit Message Tags
-**Record:**
-- **Fixes:** — not present (expected for manual review)
-- **Reported-by:** — not present (KMSAN stack trace in body instead)
-- **Tested-by:** — not present
-- **Reviewed-by:** — not present
-- **Acked-by:** — not present
-- **Link:** — not present
-- **Cc: stable@vger.kernel.org** — not present (expected)
-- **Signed-off-by:** Jiale Yao `<yaojiale02@163.com>` (author)
-- **Signed-off-by:** Luiz Augusto von Dentz `<luiz.von.dentz@intel.com>`
-  (Bluetooth maintainer, committer)
-
-Notable: KMSAN report in body; references prior related fix
-`23882b828c3c` for MCC handlers.
-
-### Step 1.3: Commit Body Analysis
-**Record:**
-- **Bug:** `rfcomm_recv_frame()` casts `skb->data` to `struct
-  rfcomm_hdr` and reads `hdr->addr`/`hdr->ctrl` without checking
-  `skb->len`. Truncated frames cause out-of-bounds reads of
-  uninitialized memory. Zero-length frames cause `skb->len--` to
-  underflow to `UINT_MAX`, making `skb_tail_pointer()` read far past the
-  buffer.
-- **Symptom:** KMSAN `uninit-value` in `rfcomm_run`, stack through
-  `vhci_write` → `__alloc_skb`.
-- **Root cause:** Missing minimum-length check at the top-level frame
-  parser; same class of bug fixed in MCC sub-handlers by `23882b828c3c`
-  but `rfcomm_recv_frame()` was missed.
-- **Fix:** Reject frames with `skb->len < sizeof(struct rfcomm_hdr) + 1`
-  (3-byte header + 1-byte FCS minimum).
-
-### Step 1.4: Hidden Bug Fix Detection
-**Record:** Not disguised — this is an explicit memory-safety bug fix
-(OOB read + integer underflow), not cleanup or optimization.
+**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, detached HEAD)
+**Upstream commit:** `38cd651ebce70` (not yet in this tree)
+**Verdict target:** Should `38cd651ebce70` be backported to **this**
+6.18.y tree?
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 2.1: Change Inventory
+### Step 1.1: Subject line
+**Record:** `[soundwire] [handle/prevent] only handle alert events when
+the peripheral is attached` — subsystem is SoundWire bus core; action is
+defensive filtering of alert handling.
+
+### Step 1.2: Tags
 **Record:**
-- **Files:** `net/bluetooth/rfcomm/core.c` (+5 lines, 0 removed)
-- **Functions modified:** `rfcomm_recv_frame()` only
-- **Scope:** Single-file, surgical fix in one function
+- **Fixes:** — none
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** Péter Ujfalusi, Ranjani Sridharan, Pierre-Louis
+  Bossart
+- **Acked-by:** — none
+- **Link:** https://patch.msgid.link/20260520025720.1999367-1-yung-
+  chuan.liao@linux.intel.com
+- **Cc: stable:** — none (expected for manual review)
+- **Signed-off-by:** Bard Liao (author), Vinod Koul (maintainer); ignore
+  pipeline-added SOBs
 
-### Step 2.2: Code Flow Change
+Notable: three Intel SoundWire reviewers plus subsystem maintainer
+Pierre-Louis Bossart.
+
+### Step 1.3: Body analysis
 **Record:**
-- **Hunk (lines ~1792–1796):** Before: after the `!s` session check,
-  code immediately dereferenced `hdr->addr` and `hdr->ctrl`. After:
-  frames shorter than 4 bytes are dropped with `kfree_skb()` and the
-  session is returned unchanged. Normal frames proceed as before.
+- **Bug:** Alert events are processed even when the peripheral is not
+  attached on the bus.
+- **Symptom:** Spurious alert handling on unattached slaves; author
+  later clarified this is seen rarely during suspend/resume testing
+  (mailing list).
+- **Root cause (author):** `slave->status` should only be
+  `SDW_SLAVE_ATTACHED` or `SDW_SLAVE_ALERT` when the peripheral is
+  actually attached; otherwise alert handling is nonsensical.
+- **Version info:** none in commit message.
 
-### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** Memory safety — out-of-bounds read + integer underflow
-- **Mechanism:**
-  1. `struct rfcomm_hdr` is 3 bytes (`addr`, `ctrl`, `len` in
-     `include/net/bluetooth/rfcomm.h`)
-  2. Without length check, `hdr->addr`/`hdr->ctrl` read past skb tail on
-     truncated frames
-  3. `skb->len--` on a zero-length skb wraps to `UINT_MAX`
-  4. `*(u8 *)skb_tail_pointer(skb)` then reads arbitrarily far past the
-     buffer
-
-### Step 2.4: Fix Quality
-**Record:** Obviously correct — mirrors the minimum-size logic described
-in the commit message and the pattern established by the MCC handler fix
-already in this tree. Minimal change on an error/drop path only. Very
-low regression risk.
+### Step 1.4: Hidden bug fix?
+**Record:** Yes. Although the subject does not say "fix", this is a
+correctness/race-condition guard. Mailing-list follow-up confirms a real
+suspend/resume race where `sdw_handle_slave_alerts()` runs while the
+peripheral is still `SDW_SLAVE_UNATTACHED`.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory
+**Record:**
+- **Files:** `drivers/soundwire/bus.c` (+4 / -0)
+- **Function:** `sdw_handle_slave_status()`
+- **Scope:** Single-file, surgical fix in one `switch` case.
+
+### Step 2.2: Code flow change
+**Record:**
+- **Hunk (`SDW_SLAVE_ALERT` case):**
+  - **Before:** Any hardware-reported `SDW_SLAVE_ALERT` immediately
+    calls `sdw_handle_slave_alerts(slave)`.
+  - **After:** Alert handling is skipped (`continue`) unless
+    `slave->status` is `SDW_SLAVE_ATTACHED` or `SDW_SLAVE_ALERT`.
+  - **Path affected:** IRQ/work-driven bus status processing during
+    enumeration, attach/detach, and suspend/resume.
+
+### Step 2.3: Bug mechanism
+**Record:**
+- **Category:** Logic/correctness + race-condition guard.
+- **Mechanism:** Without the check, a spurious or raced
+  `SDW_SLAVE_ALERT` status from hardware is acted on while the driver's
+  view of the slave is still `SDW_SLAVE_UNATTACHED`.
+  `sdw_handle_slave_alerts()` then:
+  1. Forces `slave->status` to `SDW_SLAVE_ALERT` via
+     `sdw_modify_slave_status()`.
+  2. Calls `pm_runtime_get_sync()`.
+  3. Performs register I/O (`sdw_read_no_pm`, etc.) on a device not
+     attached on the bus.
+
+This is inconsistent with other code in the same file that already skips
+unattached slaves.
+
+### Step 2.4: Fix quality
+**Record:**
+- **Quality:** High. Matches an established pattern already used
+  elsewhere in `bus.c` (clock-stop paths at lines 1074–1076, 1129–1130,
+  etc.).
+- **Regression risk:** Low. Only suppresses alert processing when the
+  driver already believes the slave is not attached.
+- **Note from review:** Pierre-Louis Bossart said the patch is "probably
+  not enough but it's not wrong either" and still gave `Reviewed-by`.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** `rfcomm_recv_frame()` body dates to ancient RFCOMM code
-(blame shows merge commit `5d324e5159d9e` as last touch, but the
-function predates that). The MCC fix (`3eabc6d47a0ad`, upstream
-`23882b828c3c`) explicitly notes `Fixes: 1da177e4c3f4
-("Linux-2.6.12-rc2")` for the same class of missing validation — this
-top-level path has had the bug since RFCOMM existed.
+**Record:**
+- `SDW_SLAVE_ALERT` handling without guard introduced in `b0a9c37b0178b`
+  ("soundwire: Add slave status handling", 2017-12-14).
+- That commit is an ancestor of this tree; the buggy pattern has been
+  present since early SoundWire bus support.
 
-### Step 3.2: Fixes: Tag
-**Record:** No `Fixes:` tag on this commit. Related fix `23882b828c3c`
-("Bluetooth: RFCOMM: validate skb length in MCC handlers") is present in
-this tree as `3eabc6d47a0ad` and left `rfcomm_recv_frame()` unfixed.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag.
 
-### Step 3.3: Related File History
-**Record:** Recent `net/bluetooth/rfcomm/` commits in this tree:
-- `780b04d09c941` — RFCOMM session UAF fix
-- `3eabc6d47a0ad` — MCC skb length validation (prerequisite/context)
-- `8802413ce6317` — listener socket hold fix
+### Step 3.3: Related file history
+**Record:**
+- Related prior guard pattern: `929cfee314d15` "soundwire: bus:
+  clock_stop: don't deal with UNATTACHED Slave devices"
+- Related unattached-peripheral fix already in this tree:
+  `d3896c944338c` "soundwire: don't program SDW_SCP_BUSCLOCK_SCALE on a
+  unattached Peripheral" (same author, same class of bug)
+- Standalone 1/1 patch; no series dependency.
 
-Standalone one-patch fix; not part of a multi-patch series.
+### Step 3.4: Author context
+**Record:** Bard Liao is an active Intel SoundWire contributor with
+multiple fixes in this subsystem, including the already-backported
+unattached-peripheral guard in `stream.c`.
 
-### Step 3.4: Author Context
-**Record:** Jiale Yao also authored Bluetooth L2CAP UAF fix
-(`58e3c5289ad23`). Committer/maintainer Luiz Augusto von Dentz is the
-Bluetooth subsystem maintainer.
-
-### Step 3.5: Dependencies
-**Record:** References `23882b828c3c` for context only — does not
-require it to apply. The MCC fix is already an ancestor of HEAD in this
-tree. `git show b230e5bf501c5 | git apply --check` succeeds cleanly on
-current HEAD. Standalone backport.
+### Step 3.5: Prerequisites
+**Record:** No prerequisite commits required. Patch applies cleanly
+(`git apply --check` succeeded). Uses only existing `slave->status` enum
+values and control flow.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Discussion
-**Record:** `b4 dig -c b230e5bf501c5` →
-https://patch.msgid.link/20260722092616.1122797-1-yaojiale02@163.com.
-Single v1 submission (no v2/v3). Patchwork bot and BlueZ test bot
-replies only; no NAKs. No explicit stable nomination in thread.
+### Step 4.1: Original discussion
+**Record:**
+- **URL:** https://patch.msgid.link/20260520025720.1999367-1-yung-
+  chuan.liao@linux.intel.com
+- **Series:** v1 only (standalone patch)
+- **Key feedback:**
+  - Pierre-Louis Bossart initially questioned the scenario.
+  - Bard Liao replied: race during suspend/resume testing;
+    `sdw_handle_slave_alerts()` called while peripheral still
+    unattached.
+  - Bossart: incomplete but not wrong; gave `Reviewed-by`.
+  - Vinod Koul applied to mainline.
+- **Stable nomination:** none found in thread.
 
 ### Step 4.2: Reviewers
-**Record:** `b4 dig -w` CC'd Marcel Holtmann, Luiz Augusto von Dentz,
-Kees Cook, Jakub Kicinski, linux-bluetooth@vger.kernel.org, linux-
-kernel@vger.kernel.org, and others. Committed by subsystem maintainer.
+**Record:** CC'd linux-sound, vkoul@kernel.org, Pierre-Louis Bossart,
+Péter Ujfalusi. Appropriate subsystem coverage.
 
-### Step 4.3: Bug Report
-**Record:** KMSAN report embedded in commit message — `BUG: KMSAN:
-uninit-value in rfcomm_run`, allocation via `vhci_write`. No separate
-syzbot Link: tag, but KMSAN finding indicates a reproducible, reachable
-bug.
+### Step 4.3: Bug report
+**Record:** No syzbot/bugzilla report. Bug evidence is author's
+suspend/resume test observation and maintainer acknowledgment of a
+plausible race.
 
-### Step 4.4: Related Patches
-**Record:** Companion to MCC handler validation (`23882b828c3c` /
-`3eabc6d47a0ad`). That fix is already in this tree; this completes the
-same validation gap at the top-level entry point.
+### Step 4.4: Related patches
+**Record:** Same author recently fixed similar "don't touch unattached
+peripheral" issues; those are already in 6.18.y.
 
-### Step 4.5: Stable List History
-**Record:** Not searched separately on lore stable@; the related MCC fix
-was already backported to this tree (has upstream-commit marker and
-stable maintainer SOB), establishing precedent for this class of RFCOMM
-skb validation fixes.
+### Step 4.5: Stable list
+**Record:** No stable-list discussion found for this specific patch.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `rfcomm_recv_frame()` modified.
+### Step 5.1: Key functions
+**Record:** `sdw_handle_slave_status()`, `sdw_handle_slave_alerts()`,
+`sdw_modify_slave_status()`, `sdw_update_slave_status()`.
 
 ### Step 5.2: Callers
-**Record:** `rfcomm_recv_frame()` is called only from
-`rfcomm_process_rx()` (line 1993), which dequeues skbs from the session
-socket receive queue.
+**Record:** `sdw_handle_slave_status()` called from:
+- `drivers/soundwire/cadence_master.c` (Intel Cadence manager, IRQ path)
+- `drivers/soundwire/amd_manager.c` (AMD, workqueue)
+- `drivers/soundwire/qcom.c` (Qualcomm)
+
+All are hot paths for bus state changes and interrupts.
 
 ### Step 5.3: Callees
-**Record:** After parsing, calls `rfcomm_recv_sabm()`,
-`rfcomm_recv_disc()`, `rfcomm_recv_ua()`, `rfcomm_recv_mcc()`,
-`rfcomm_recv_data()`, etc. The bug occurs before any of those sub-
-handlers run.
+**Record:** `sdw_handle_slave_alerts()` does runtime PM, register
+reads/writes, optional driver `interrupt_callback`, and status
+modification — all inappropriate on an unattached peripheral.
 
-### Step 5.4: Call Chain / Reachability
+### Step 5.4: Reachability
+**Record:** Reachable from hardware interrupts and suspend/resume
+status-update work on systems with `CONFIG_SOUNDWIRE`. This is a real
+device operation path, not init-only dead code.
+
+### Step 5.5: Similar patterns
+**Record:** Identical `slave->status != SDW_SLAVE_ATTACHED &&
+slave->status != SDW_SLAVE_ALERT` guard already exists in clock-stop
+helpers in the same file. This patch closes a gap in alert handling.
+
+---
+
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
+
+### Step 6.1: Buggy code present?
+**Record:** Yes. Current `drivers/soundwire/bus.c` at lines 1960–1966
+handles `SDW_SLAVE_ALERT` without any `slave->status` check. Bug present
+since 2017 (`b0a9c37b0178b`).
+
+### Step 6.2: Backport complications
+**Record:** Clean apply expected and verified. No structural divergence
+in the target hunk.
+
+### Step 6.3: Related fixes already present?
+**Record:** Related unattached-peripheral guard (`d3896c944338c`) is
+already in this tree. This specific alert-path guard is not.
+
+---
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/soundwire/` — **IMPORTANT** (common on modern
+Intel/AMD laptop audio paths; not core-kernel-wide, but affects many
+consumer devices).
+
+### Step 7.2: Activity
+**Record:** Actively maintained; multiple recent bus.c changes in
+6.18.y.
+
+---
+
+## PHASE 8: IMPACT AND RISK
+
+### Step 8.1: Who is affected
+**Record:** Users with SoundWire audio (Intel/AMD/Qualcomm platforms),
+especially during suspend/resume.
+
+### Step 8.2: Trigger conditions
+**Record:** Rare race during suspend/resume where hardware reports
+`SDW_SLAVE_ALERT` before driver state reflects attachment. Not
+userspace-triggerable directly, but system PM operations are universal
+on laptops.
+
+### Step 8.3: Failure mode severity
 **Record:**
-```
-rfcomm_run() → rfcomm_process_sessions() → rfcomm_process_rx() →
-rfcomm_recv_frame()
-```
-`rfcomm_run()` is the `krfcommd` kernel thread (started at module init).
-Data arrives via L2CAP PSM RFCOMM (`L2CAP_PSM_RFCOMM` at lines 808,
-2116) from connected Bluetooth peers. **Reachable from a remote
-Bluetooth device** sending malformed RFCOMM frames over an established
-L2CAP connection. KMSAN reproducer used `vhci_write` (virtual HCI),
-which exercises the same receive path.
+- Incorrect state transition (`UNATTACHED` → `ALERT`)
+- Spurious register I/O and error logging
+- Potential suspend/resume/audio instability
+- **Severity: MEDIUM** (functional PM/audio issue, not demonstrated
+  kernel panic or memory corruption)
 
-### Step 5.5: Similar Patterns
-**Record:** MCC handlers in the same file were fixed by `3eabc6d47a0ad`
-using `skb_pull_data()` validation. This commit closes the same gap at
-the parent `rfcomm_recv_frame()` entry point that all frame types pass
-through first.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree
-
-### Step 6.1: Buggy Code Present?
-**Record:** **YES.** Local tree is **6.18.44** (`git describe HEAD` →
-`v6.18.44-2-g1b9e1abadee04`). Current `rfcomm_recv_frame()` at lines
-1798–1803 still dereferences `hdr` and decrements `skb->len` without any
-length check. Commit `b230e5bf501c5` is **not** in this tree (`git
-merge-base --is-ancestor` confirms).
-
-### Step 6.2: Backport Complications
-**Record:** **Clean apply.** `git show b230e5bf501c5 | git apply
---check` passes with no conflicts. No rework needed.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** MCC handler validation (`3eabc6d47a0ad`) is present. No
-duplicate fix for `rfcomm_recv_frame()` (`git log -S "skb->len <
-sizeof(*hdr)"` returns empty).
-
----
-
-## Phase 7: Subsystem Context
-
-### Step 7.1: Subsystem Criticality
-**Record:** `net/bluetooth/rfcomm/` — **IMPORTANT** subsystem. RFCOMM is
-widely used for Bluetooth serial profiles (SPP, HFP, etc.). Security-
-sensitive: processes untrusted input from remote Bluetooth devices.
-
-### Step 7.2: Subsystem Activity
-**Record:** Active — multiple recent security/memory-safety fixes in
-RFCOMM and broader Bluetooth stack in this tree (UAF, skb validation,
-listener socket lifetime).
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-### Step 8.1: Who Is Affected
-**Record:** Users with `CONFIG_BT_RFCOMM` enabled and active Bluetooth
-connections — laptops, phones, embedded devices using RFCOMM-based
-profiles. Any system accepting inbound Bluetooth RFCOMM traffic.
-
-### Step 8.2: Trigger Conditions
-**Record:** Remote peer sends an RFCOMM frame with `skb->len < 4`
-(including zero-length). Requires an established Bluetooth L2CAP/RFCOMM
-session — not arbitrary internet exposure, but **a paired/connected or
-connecting malicious Bluetooth device can trigger it**. KMSAN confirms
-reachability.
-
-### Step 8.3: Failure Mode Severity
+### Step 8.4: Risk-benefit
 **Record:**
-- Truncated frames: **OOB read of uninitialized memory** (info leak
-  potential, KMSAN-detected)
-- Zero-length frames: **`skb->len` underflow to UINT_MAX** →
-  `skb_tail_pointer()` reads far past buffer (**HIGH** — potential
-  crash, further OOB access)
-- **Severity: HIGH** (memory safety, remotely triggerable over
-  Bluetooth)
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit: HIGH** — closes a remotely reachable memory-safety hole in
-  a common Bluetooth code path; completes validation started by the
-  already-backported MCC fix
-- **Risk: VERY LOW** — 5 lines, drop-path only, no API/behavior change
-  for valid frames
-- **Ratio: Strongly favors backport**
+- **Benefit:** Prevents incorrect alert processing during PM
+  transitions; aligns with existing defensive patterns; author hit it in
+  testing.
+- **Risk:** Very low (4 lines, same pattern as existing code).
+- **Ratio:** Favorable for stable.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real memory-safety bug (OOB read + integer underflow)
-- Remotely triggerable via Bluetooth RFCOMM from connected peer
-- KMSAN-confirmed reproducible issue
-- Small (5 lines), obviously correct fix
-- Applies cleanly to this 6.18.44 tree
-- Prerequisite MCC fix already present in tree
-- Same bug class already deemed stable-worthy (MCC handler fix
-  backported)
-- Committed by Bluetooth maintainer
+- Real bug observed during suspend/resume testing (author)
+- Prevents nonsensical I/O and status corruption on unattached
+  peripherals
+- Tiny, obviously correct, matches existing in-tree pattern
+- Applies cleanly to 6.18.44
+- Reviewed by subsystem maintainer and Intel SoundWire developers
+- Same class of fix already backported to this tree (`d3896c944338c`)
 
 **AGAINST backport:**
-- None significant
+- Bug is rare
+- Maintainer noted fix may be incomplete for all race scenarios
+- No crash/oops/data-corruption report attached
+- No explicit stable nomination
 
 **Unresolved:**
-- Lore thread had no explicit `Cc: stable` nomination (not a negative
-  signal per instructions)
-- WebFetch of lore URL blocked by bot protection (b4 mbox download
-  succeeded instead)
+- Exact failure symptoms beyond spurious alert handling not fully
+  documented (no stack trace in thread)
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — logic is straightforward;
-   BlueZ test bot ran on submission
-2. Fixes a real bug affecting users? **PASS** — KMSAN report, remote
-   Bluetooth input path
-3. Important issue? **PASS** — memory safety / potential crash / info
-   leak, remotely triggerable
-4. Small and contained? **PASS** — 5 lines, one function
-5. No new features or APIs? **PASS** — validation guard only
-6. Can apply to local tree? **PASS** — clean apply verified; buggy code
-   confirmed present
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — logic is sound;
+   suspend/resume testing cited; three Reviewed-by.
+2. Fixes a real bug affecting users? **PASS** — suspend/resume race on
+   SoundWire hardware.
+3. Important issue? **PASS** — PM/audio stability on laptop hardware
+   (MEDIUM severity).
+4. Small and contained? **PASS** — 4 lines, one file.
+5. No new features/APIs? **PASS**.
+6. Can apply to local tree? **PASS** — verified clean apply.
 
-### Step 9.3: Exception Categories
-**Record:** Not a device-ID/quirk/DT/docs exception — standard
-security/memory-safety bug fix.
+### Step 9.3: Exception categories
+**Record:** None (not device ID/quirk/DT/build/docs). This is a straight
+bug fix.
 
-### Step 9.4: Decision Rationale
-This commit closes a gap left by the already-backported MCC skb
-validation fix. The buggy code is present in the local **6.18.44** tree,
-the patch applies cleanly, and the failure modes (OOB read of
-uninitialized memory, `UINT_MAX` length underflow leading to massive
-out-of-bounds access) are serious and reachable from a remote Bluetooth
-peer. This is exactly the kind of small, surgical, security-relevant fix
-stable trees need.
+### Step 9.4: Decision rationale
+This commit closes a real gap in SoundWire bus status handling that can
+cause spurious alert processing during suspend/resume races. The fix is
+minimal, follows an established pattern already present in the same file
+and tree, applies cleanly to 6.18.y, and addresses a user-visible
+PM/audio issue. While rare and possibly incomplete for all races, it is
+clearly correct defensive code with low regression risk — appropriate
+for stable.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit `b230e5bf501c5`: subject, body, SOBs from
-  Jiale Yao and Luiz von Dentz; KMSAN stack in body
-- **[Phase 2]** Diff: +5 lines in `rfcomm_recv_frame()`, adds `skb->len
-  < sizeof(*hdr) + 1` guard
-- **[Phase 2]** `struct rfcomm_hdr` confirmed 3 bytes in
-  `include/net/bluetooth/rfcomm.h` (lines 104–108)
-- **[Phase 3]** `git blame -L 1786,1820`: function present since ancient
-  RFCOMM code
-- **[Phase 3]** `git show 23882b828c3c` / `3eabc6d47a0ad`: related MCC
-  fix confirmed, `Fixes: 1da177e4c3f4`
-- **[Phase 3]** `git merge-base --is-ancestor 3eabc6d47a0ad HEAD`: MCC
-  fix IS in tree
-- **[Phase 3]** `git merge-base --is-ancestor b230e5bf501c5 HEAD`: this
-  fix NOT in tree
-- **[Phase 3]** `git show b230e5bf501c5 | git apply --check`: clean
-  apply
-- **[Phase 4]** `b4 dig -c b230e5bf501c5`: lore URL found
-- **[Phase 4]** `b4 dig -a`: single v1, no revisions
-- **[Phase 4]** `b4 dig -w`: Marcel Holtmann, Luiz von Dentz, Kees Cook
-  CC'd
-- **[Phase 4]** `b4 dig -m /tmp/rfcomm_thread.mbx`: patchwork-bot +
-  bluez test bot, no NAKs
-- **[Phase 5]** `grep rfcomm_recv_frame`: single caller
-  `rfcomm_process_rx()` at line 1993
-- **[Phase 5]** Call chain: `rfcomm_run` → `rfcomm_process_sessions` →
-  `rfcomm_process_rx` → `rfcomm_recv_frame`
-- **[Phase 5]** L2CAP PSM RFCOMM at lines 808, 2116 confirms remote
-  Bluetooth input path
-- **[Phase 6]** `git describe HEAD`: v6.18.44-2-g1b9e1abadee04 / `make
-  kernelversion`: 6.18.44
-- **[Phase 6]** Read `core.c` lines 1786–1814: buggy code confirmed
-  present, no length check
-- **[Phase 6]** `git log -S "skb->len < sizeof(*hdr)"`: no existing fix
+- [Phase 1] Parsed subject, tags, body; no Fixes/Reported-by/syzbot
+- [Phase 1] Mailing-list follow-up confirms suspend/resume race (`b4 dig
+  -m /tmp/sdw_alert.mbox`)
+- [Phase 2] Diff: +4 lines in `sdw_handle_slave_status()`
+  `SDW_SLAVE_ALERT` case
+- [Phase 2] Read `sdw_handle_slave_alerts()`: performs status change,
+  PM, register I/O
+- [Phase 3] `git blame`: alert case from `b0a9c37b0178b` (2017), present
   in tree
-- **[Phase 8]** Failure modes verified from code: OOB hdr dereference +
-  `skb->len` underflow on zero-length frame
+- [Phase 3] `git merge-base --is-ancestor 38cd651ebce70 HEAD` → exit 1
+  (commit NOT in tree)
+- [Phase 3] `git merge-base --is-ancestor b0a9c37b0178b HEAD` → exit 0
+  (buggy code in tree)
+- [Phase 3] Related fix `d3896c944338c` already in tree
+- [Phase 4] `b4 dig -c 38cd651ebce70`: lore URL found
+- [Phase 4] `b4 dig -a`: single v1 patch
+- [Phase 4] `b4 dig -w`: vkoul, linux-sound, Bossart CC'd
+- [Phase 4] Mbox: Bossart questioned, author cited suspend/resume race,
+  Bossart Reviewed-by
+- [Phase 5] `grep sdw_handle_slave_status`: callers in cadence_master.c,
+  amd_manager.c, qcom.c
+- [Phase 5] `grep slave->status != SDW_SLAVE_ATTACHED`: same guard
+  pattern at lines 1074+, 1129+, 1200+, 1242+
+- [Phase 6] `git describe HEAD` → v6.18.44
+- [Phase 6] `make -s kernelversion` → 6.18.44
+- [Phase 6] Read current bus.c lines 1960–1966: missing guard confirmed
+- [Phase 6] `git show 38cd651ebce70 -p | git apply --check` → clean
+  apply
+- [Phase 8] Failure mode assessed as MEDIUM PM/audio correctness issue
+  from code analysis
 
-**YES**
+**YES**The background searches finished and match what the analysis
+already used:
 
- net/bluetooth/rfcomm/core.c | 5 +++++
- 1 file changed, 5 insertions(+)
+- **Git history search** (`--grep "only handle alert events"`): no hit
+  on the current `stable/linux-6.18.y` checkout — the fix is not in this
+  tree yet.
+- **Master search**: found upstream commit `38cd651ebce70` on `master`
+  (merged via `soundwire-7.2-rc1`).
 
-diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
-index d2c869e8286b2..7e91e31877987 100644
---- a/net/bluetooth/rfcomm/core.c
-+++ b/net/bluetooth/rfcomm/core.c
-@@ -1795,6 +1795,11 @@ static struct rfcomm_session *rfcomm_recv_frame(struct rfcomm_session *s,
- 		return s;
- 	}
+**Verdict for v6.18.44:** **YES** — small suspend/resume race guard,
+applies cleanly, same pattern as other unattached-peripheral fixes
+already in this tree.
+
+ drivers/soundwire/bus.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index 14e1351a3f8ae..8951044c491e2 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -1958,6 +1958,10 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
+ 			break;
  
-+	if (skb->len < sizeof(*hdr) + 1) {
-+		kfree_skb(skb);
-+		return s;
-+	}
+ 		case SDW_SLAVE_ALERT:
++			if (slave->status != SDW_SLAVE_ATTACHED &&
++			    slave->status != SDW_SLAVE_ALERT)
++				continue;
 +
- 	dlci = __get_dlci(hdr->addr);
- 	type = __get_type(hdr->ctrl);
- 
+ 			ret = sdw_handle_slave_alerts(slave);
+ 			if (ret < 0)
+ 				dev_err(&slave->dev,
 -- 
 2.53.0
 
