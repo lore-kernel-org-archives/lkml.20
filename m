@@ -1,477 +1,325 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013022.outbound.protection.outlook.com [40.93.196.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E265529402;
-	Mon, 31 Aug 2026 13:44:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183875; cv=none; b=hlIXv5q01eSZlL7CHKQ1aYJ0Ula+E1+41s+emmcdXGbz5u80EPrAMHPCWC+Go5z/6fbwJkJwY9bL116Zhh5uFDSGbcR/A1cc1DRJDc7rqJOSja4njIe46nvgBq49VL1O7+kZtR0MuN4/XlMh87VE+TjciI3OFvfSEB9xG9xJCbw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183875; c=relaxed/simple;
-	bh=nFXSYCry55EdaEUWfLjYeH4SpTT0xiTGgYhF7KRr9Jg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E817529415
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:44:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183876; cv=fail; b=BiJ/OwKjEUTy1Kk7tt/0rUFKtREaxqKpuvkxC1KjZ9msBXAsd9PO/viMEq8eO+0NMTS7tH3RfGJ9pwp1lTEJf0/7eJ8bOJFUPKMn9X4KFxup08y1a/lHWwfA668nZbLkDij1JBMaBW28uhJiPu4CzkvrCyXEHei7PnT3+VfyOzI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183876; c=relaxed/simple;
+	bh=/tZxOJ1pI6L/Jw5ME3cxwwC2D8nhMCOxd2cKYgj+eCQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BDb/wxUiUY3eHN7WolZc1cVNAh8yiwItWchCKAeBBaZen0cXsaBdwlaHA1NM7WRtUMnb57LYwFKdQ5pGc+FPpvOQQhAo//cIkdQMcW1w6ipAvtCw/azvJqeIwUOxbLMGoqJOMhFIV2HG5mhoAyJewHMDjjiglQr0HsLYe9MQdlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f48LC4EH; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=Lu3vIzw7iTAmOIZ0HLUDLuFnSQyj2Lef8qXLUDdiSWUi0jklh/7OYAglBVhnfuWHVPL7AZCbPz8+P+Sxy9Igv6obJAfj3VF7usUUaYnLLUFRVsKS6LQw3VjHHL0bQF1/ZeJ/r3+0OTa7FYQXfBBtfKBjRptuKXdWec9Jsd/LtqQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WyWCcc3H; arc=fail smtp.client-ip=40.93.196.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f48LC4EH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F80B1F00A3F;
-	Mon, 31 Aug 2026 13:44:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183873;
-	bh=AVxcecYfqKzkf+K6sEeSD8U++FsBsTuA1nkqXpso3B4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f48LC4EHoPgv9Hh7ToWohO1CH4oQM5yNsNnN8XQD2NaQsFsMtbeZc3UnXFGt8C9rP
-	 bEyjL0oi/66pu1dn67dlcWLPv/An7UphVFK4BhPAW5T/yrhsY61JB9PCvq8pN/xOPB
-	 JSPGGFcRwMjVnwmPkKnFLoG9Gg0snRD0k9UTTXI1+zB3HZKKBywnWMOVZyHmEQjJXa
-	 sMCtHYV23kSXfciV99xS/YFsqHk63MZVeYBIGeFGcPlGRhBMo6s8rKk3Y9ViRDMi6O
-	 SymT6g7K/MMgtZWAGLvmig1tCZL7lMFOqa89fLnxrGMqDdlwVmMWItMjTy7W00Z1w2
-	 PI5W0B8DdLG/Q==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Pagadala Yesu Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>,
-	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WyWCcc3H"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aC2bTnUWYE5COng60Q15yX6NPBSLg1tualNKQBRLuNWQkHUlOI20DO8cAo2q3DkyxEfoUTVWFNEW2jgW+3BE9Zboec18D70AK5SseWzIM5tj6hDz5P5N9d1kodPLo2NaGSfWswZFT1n5NC+5zOoA4ljLPnr5oAyCijUX2MKybtusTZ/1P4RGQjqyQxHM3dbVSb4nLPGGhGo95eh6r32ij5exHRYP9DX1jCOaHg7rxZKl/cugt0jw6jZxYiajiTCHWj0w8k5yGO9fRUyuX1KrlY1LnN86OsuXwJ9IVPOzVmfF93CUJfhX02YBEermHWwi1wfbO+i9S1Wt6XsmzH5MJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uG6e8PCVljnYMooSMxSzGNMu7Xo9+qywTphurOe8yUw=;
+ b=yFOaelt70rJjhcGfCdrt3uCLvm0PLlnET9S3lWkJe1jMRFIbeZNdyiHoPPOlFRvO6vX175njkiZ4IHJ/krwm6veykI9uuQ4lqb88wn/lHd5T03WlCcxi5z/WwyTLVE186Aqoq97DBYnAR6QCSh3kln8NpiyCkXViLjYM/RE78FTUvm8+QJK23TlMEc8TMH3YJZxDddNdOLDgoUomJhgAOvxXgMPeRuwgMI4WTQmBMxFbbzLNwTv41PO6sUwhcs8XHv2ZQp5woyzcNganCys0uIydx+wNJjFRYWHAuWvWSRpws28BBPMsb8bhQUcdxaYbP+XHV470L1H9QdaKGLDplw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uG6e8PCVljnYMooSMxSzGNMu7Xo9+qywTphurOe8yUw=;
+ b=WyWCcc3HGDhgb4DWKdjV8WFceAEJMFEzbpjTAHlJ43wRbSB31HaEfxh8Wkem/POd4arHkhZ7uEdiiC2XnORH8jHnRuOsPU2QZ02BJzS6Itw7fphS8uNc8IYVkYyZeYCVV5a6xQLlTlQJb19Vbdt4ltIn/MMSBJElR+XpnA8E2jMiax4cL2td7y2+HwZm3g6HqF0GIufsnn+yhqsbK3n/MmhpfAg6W4eeauBG1oCnlVHqleeHjR7YPUgwe+MSexcSImsfhIophuwrd81P5qojzmBCMoE0VCK1vf9YuytOK/k+cmSSjf9iqZdiy0ECAMveEiFkg8RRqDeslDKQkNXsZQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by MW4PR12MB6755.namprd12.prod.outlook.com (2603:10b6:303:1ea::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Mon, 31 Aug
+ 2026 13:44:29 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 13:44:28 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>,
+	Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>,
+	Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>,
+	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: mld: disallow puncturing in US/CA for WH
-Date: Mon, 31 Aug 2026 09:26:22 -0400
-Message-ID: <20260831133314.4125787-354-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Subject: [PATCH 05/18] sched: Pass next class to sched_change_begin()
+Date: Mon, 31 Aug 2026 15:42:15 +0200
+Message-ID: <20260831134338.1531664-6-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BY3PR05CA0043.namprd05.prod.outlook.com
+ (2603:10b6:a03:39b::18) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|MW4PR12MB6755:EE_
+X-MS-Office365-Filtering-Correlation-Id: 244a813c-12b1-48fc-3bac-08df0765fa02
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|5023799004|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	U73xZ376NNUq4AGEoUlX4f9c9nZJ4iqUDv0O8qYA98ZL8vmmU0wqBWlW9LV9gw94cq0oz7QZ5F/q45OgHej9t+i57GDkA3XrtE8+ebdUQmG1203vFE/5tUJ9S2SjhfcXMDPuofr/2bDO5q1Vd/R7XNi59acwaqNpP7uGhzIr8s7VIll2OzLOliENcM5Y9xiF73wx+3E1rBx3BiqjqCf1Ni3GC6dm6GRJpD/egO4IZgvs3JU11uEyX80K4KbTR1xtAo+dZQfsVTRkhFgJ8mW9VvsRb+eijOk2YuPobgjkNyCCQ4gP4sHPsjH4vtZ/A/qXacaI46YAfxMAecX91tqFwz8ArCz6RdCmz8+tp6wu+FpieDh603vAeoPKTxM0/6Hzc7U5EI3/aArazB4h5t74OmRW/b5jAgGpPTVc4AvzBUA2Ga04D/XRWlSMtSaepZNpq09cW6OuTryOYxREbS3gYKQzzbecKqNmvuK0ofaHeikEv3FMhNWU3kCG1nLgxH58ZgVbuSHyi8fewFxwE7rSfUn/c1MvAhIeMzpQc0GASdCiPpnX06hIhVlc1NsFENQFqA1h/DelUcSslw/g5SX+UWtvkFeafdGMFeqZHw/Bpw4XP4hFmHa9kPGqW+zLVMJ8MLBcoJfK/4OhBtm+6FQL/j9YcuFN0syAepWpmnOGlbk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?OWL3W2TGvzqyqmKcZTouYYxgIaFQBh7W2pFPseKRPSOCZ5uVnmSSIT/3S6J2?=
+ =?us-ascii?Q?lGw5Lh6lc6qKiIm+QfIm/JKgW9l/13Ciyk9mhmUmo+K7+ra1hFH2Rkq4aVFW?=
+ =?us-ascii?Q?mZbhBdv+omW9KpxpDm+whukifZmjgkGcUfwXv9tqKN7OHge6Qd6qWytr112o?=
+ =?us-ascii?Q?aP1E34avBIOCyTB577C4OPSEbA37v4ugd6B7IXn/WxQIYt48XKaBMxpWwBPh?=
+ =?us-ascii?Q?5+ArRkI2PwbyjTlykvKCYMzB1nqzCgGGOHc8wG1vwsNnvOqwhybvk7V/j2hG?=
+ =?us-ascii?Q?a+V/6x7lgGrH09JAd7icejkulrO0FcGEcqIT+IM5XbO8a01oyaEzmdxsaebm?=
+ =?us-ascii?Q?+nZu+OPItRIApExKiATtbrstjgCxOIOzGhprpWRCOduV6tb+WtiK25cJ3p5s?=
+ =?us-ascii?Q?JPSuIYdVI0jLi+uPf0+ALqzmRMIJr6m4dMU4ulCqLWP97UR667gciT094f5u?=
+ =?us-ascii?Q?7hQgpmuIXVpgJFuGIollH/VRsambNVUtzW9vTYuqfewfSEquMtypUBA1Vks6?=
+ =?us-ascii?Q?MEEKyowzfoooUX5sUllIo+QdymKAhsDpJqra+EI+7kkEDKeCX+fXjrJMnr/I?=
+ =?us-ascii?Q?2zqTDdipyFov9XxnbctTWiAz8eg/8YcUlgHgjk1LdvkGYUFPp46L1yBQiyL1?=
+ =?us-ascii?Q?u6KpLT1/iguYx4UYjZuPDfPiXsIEBm7OOTceqABGcONmnZgGNztTTeVfK/IB?=
+ =?us-ascii?Q?yoS4XByWUlN/HBozXO2Kvm7MYVkX35TQ8mHj+JNgi/BAZXYtz9lruI76j/Yc?=
+ =?us-ascii?Q?9z/kUmFo2t6UaKgN4PqixMYtMQmkWPRRC2rdCVCwt8G08dXiMC96dHy10SDe?=
+ =?us-ascii?Q?9FruSLyR08ofXcvgCQYEdUISSOaoWYOeJ16Q2ksTmHr2ScQJ6Y6JV6qEA7M7?=
+ =?us-ascii?Q?z75x8tv2ykakFvG/ib5y7+l7kHLeJhAnvFNNdWbwzTJR4V7hZ6RReeHgtMJN?=
+ =?us-ascii?Q?48ipzb8zyUsYQUAvLun36VpJdOdsfqXFKMiYaLSsFYmlTemI4Lh8vrMMU3iS?=
+ =?us-ascii?Q?1TvGcYfEq/R++WsXpeZQfdBeXSHOEvNV8b5thVQ3HSf3llyzeOWMMI9+Zkbx?=
+ =?us-ascii?Q?kJq87alQMMp3/AY+NrWjRfPd+39Fyqe5Kgd3wZsqc/LrgTgthsLs31LwIFI5?=
+ =?us-ascii?Q?VFVUsMMiBL08/pHazXH+kHoG6F62FpPiaridlF46j7+LgLncqQanBpbpIKxQ?=
+ =?us-ascii?Q?QkzoOpSJg18tIWKLVmX6jrJaACQ60eAXK6KUBeIS0qHSVMLmUZivAdvnv/0b?=
+ =?us-ascii?Q?FC21jLQHWycZmIoXnkLyA5g4zVz8Q0YWPDv2WL/kKne9cV18airCarROfj+Z?=
+ =?us-ascii?Q?ogUj5LaXgtbLRBhKljjzWggr4yEdCZHlqkeXA6xGKnP2sbfwAGQiz2yRN8DB?=
+ =?us-ascii?Q?A3tgKAso8W8xApgRlwU7g3Xyh6wWPuVx+837S92c3fTcdVAUJDcntpMXswSm?=
+ =?us-ascii?Q?6W50n6j7HDSyU2PYhYx3FIVuWuxQ9e/ETn1VOG5HeNx0BL/LmDqHPSpXZgGV?=
+ =?us-ascii?Q?i9AkPcJj7/brGGkUkG5yHFySOmqV6UtERFr87xbp59HUIUsEfbLSO32OKNlf?=
+ =?us-ascii?Q?wzl9454l+6hvgKZbhX07zoezH3HLJcEV8ZjdbfhG0fQGT00UDBNbMIlV7EeV?=
+ =?us-ascii?Q?sdLSX9MRL5vEIEnmRRZCkUGbaGc+7QMXX/6FR/5wCtG9DDkhAZD3dnpOol6w?=
+ =?us-ascii?Q?4+wBnpZvoj9SnpZt6TB8YweOTF58GT0/LzpF1vuHC3zv+YZlpaX0XW+aeKZF?=
+ =?us-ascii?Q?bEqGEiETDw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 244a813c-12b1-48fc-3bac-08df0765fa02
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:44:28.1384
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: srPJd9KftlivBAAk3RHkzhRCRcSmpORagcHssAUwAz8Mfn8lZnPIfsa4G6t/aUntlhk2lUBvBXeTwZP7GQIdlw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6755
 
-From: Pagadala Yesu Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>
+sched_change_begin() currently only receives the task whose scheduling
+state is being changed. It cannot distinguish a class transition from a
+same-class update before recording the task queueing state.
 
-[ Upstream commit ce2edf7c3910cb3222d51c0a7457b7a71703a5b1 ]
+Pass the incoming scheduling class to sched_change_begin() and update all
+callers. This allows transition handling to run before the normal dequeue
+and class change.
 
-FM continues to follow the BIOS/MCC policy, while WH sets
-DISALLOW_PUNCTURING for US/CA and clears it for other MCC values.
-Update the MCC handling accordingly.
+This is a preparatory change to support proxy execution with sched_ext.
 
-Signed-off-by: Pagadala Yesu Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>
-Reviewed-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
-Link: https://patch.msgid.link/20260515150751.df1f1fdd141f.I900c9e2e3dd722619db12ba10d0879a56a2a55f2@changeid
-Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Andrea Righi <arighi@nvidia.com>
 ---
-
-LLM Generated explanations, may be completely bogus:
-
-# Stable Backport Analysis: `wifi: iwlwifi: mld: disallow puncturing in
-US/CA for WH`
-
-**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject line
-**Record:** `[wifi: iwlwifi: mld]` `[disallow]` — MLD driver regulatory
-policy: block EHT channel puncturing on WH RF hardware when MCC is US or
-Canada.
-
-### Step 1.2: Tags
-**Record:**
-- **Signed-off-by:** Pagadala Yesu Anjaneyulu, Miri Korenblit
-- **Reviewed-by:** Emmanuel Grumbach (Intel iwlwifi maintainer)
-- **Link:** patch.msgid.link URL (Anubis-protected; could not fetch
-  content)
-- **No** Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org,
-  syzbot links
-
-Notable: maintainer review present; no user/fuzzer bug report.
-
-### Step 1.3: Body analysis
-**Record:**
-- **Bug described:** WH RF type does not apply the correct puncturing
-  policy during MCC (Mobile Country Code) updates. FM follows BIOS/MCC
-  policy via `iwl_puncturing_is_allowed_in_bios()`; WH should
-  unconditionally disallow puncturing in US/CA and allow it elsewhere.
-- **Symptom:** WH adapters in US/CA would not have
-  `IEEE80211_HW_DISALLOW_PUNCTURING` set, so mac80211 would accept
-  punctured channel definitions that should be blocked.
-- **Root cause (author):** Incomplete MCC handling — only FM was covered
-  in the existing `if` block; WH needs its own branch.
-- **Version info:** None in message.
-
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Despite no "fix" in the subject, this closes a
-regulatory-policy gap on supported WH hardware. Not a crash fix, but
-incorrect driver behavior on real hardware in specific regions.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Inventory
-**Record:**
-- **File:** `drivers/net/wireless/intel/iwlwifi/mld/mcc.c` (+11 / -2,
-  ~13 net lines)
-- **Function:** `iwl_mld_get_regdomain()`
-- **Scope:** Single-file, surgical regulatory-policy fix
-
-### Step 2.2: Code flow change
-**Record:**
-- **Before:** Only `IWL_CFG_RF_TYPE_FM` sets/clears
-  `DISALLOW_PUNCTURING` based on BIOS+MCC. WH (and PE) hit no branch —
-  flag never set for US/CA.
-- **After:** FM unchanged. New `else if` for `IWL_CFG_RF_TYPE_WH`: if
-  MCC is `IWL_MCC_US` (0x5553) or `IWL_MCC_CANADA` (0x4341), set
-  `DISALLOW_PUNCTURING`; otherwise clear it.
-- **Path affected:** Every MCC/regdomain update (init, firmware
-  notification, manual regdomain refresh) via `iwl_mld_get_regdomain()`.
-
-### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** Logic / regulatory correctness fix
-- **Mechanism:** WH hardware uses the MLD driver
-  (`iwl_drv_is_wifi7_supported()` → RF type ≥ FM). Without the WH
-  branch, `ieee80211_chandef_usable()` in mac80211 allows punctured
-  chandefs when `DISALLOW_PUNCTURING` is not set:
-
-```785:787:net/mac80211/mlme.c
-        if (chandef->punctured &&
-            ieee80211_hw_check(&sdata->local->hw, DISALLOW_PUNCTURING))
-                return false;
-```
-
-FM already uses `iwl_puncturing_is_allowed_in_bios()` for the same
-countries:
-
-```716:728:drivers/net/wireless/intel/iwlwifi/fw/regulatory.c
-bool iwl_puncturing_is_allowed_in_bios(u32 puncturing, u16 mcc)
-{
-        /* Some kind of regulatory mess means we need to currently
-disallow
-  - puncturing in the US and Canada unless enabled in BIOS.
-         */
-        switch (mcc) {
-        case IWL_MCC_US:
-                return puncturing & IWL_UEFI_CNV_PUNCTURING_USA_EN_MSK;
-        case IWL_MCC_CANADA:
-                return puncturing &
-IWL_UEFI_CNV_PUNCTURING_CANADA_EN_MSK;
-        default:
-                return true;
-        }
-}
-```
-
-### Step 2.4: Fix quality
-**Record:** Obviously correct — mirrors existing FM pattern with WH-
-specific unconditional US/CA block. Minimal diff. Low regression risk;
-only affects WH RF type during MCC updates. Comment update clarifies
-prior misleading "later always do puncturing" note.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame
-**Record:** Puncturing block in `mcc.c` lines 132–140 attributed to
-commit `7e22de67e545d` (flattened history in this checkout — not the
-true origin commit). Buggy omission (WH not handled) is present in
-current tree at those lines.
-
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag.
-
-### Step 3.3: File history
-**Record:** `git log --oneline` on `mld/mcc.c` returns only the
-flattened import commit. History is not useful for dating the original
-FM puncturing code. Patch is **15/15** in
-`v2_20260515_miriam_rachel_korenblit_wifi_iwlwifi_updates_2026_05_14`
-series; this commit is **standalone** within `mcc.c` and does not depend
-on other series patches.
-
-### Step 3.4: Author context
-**Record:** Pagadala Yesu Anjaneyulu (Intel). Series collected by Miri
-Korenblit (Intel iwlwifi). Reviewed by Emmanuel Grumbach (maintainer).
-
-### Step 3.5: Dependencies
-**Record:** No prerequisites. Uses symbols already in tree:
-`IWL_CFG_RF_TYPE_WH`, `IWL_MCC_US`, `IWL_MCC_CANADA`,
-`ieee80211_hw_set()`, `DISALLOW_PUNCTURING`. All verified present.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original discussion
-**Record:** Local mbox `v2_20260515_miriam_rachel_korenblit_wifi_iwlwifi
-_updates_2026_05_14.mbx` contains patch `[PATCH v2 15/15]` with
-identical diff and message. `b4 dig -c` could not be run (commit not in
-tree). lore.kernel.org blocked by Anubis.
-
-### Step 4.2: Reviewers
-**Record:** Reviewed-by: Emmanuel Grumbach. Series cover lists multiple
-Intel iwlwifi developers; no stable nomination found in mbox grep.
-
-### Step 4.3: Bug report
-**Record:** No Reported-by, no syzbot, no crash trace. Issue is
-regulatory policy alignment, not a reported oops.
-
-### Step 4.4: Series context
-**Record:** Part of 15-patch iwlwifi update series (UHR, NAN, debugfs,
-PCI IDs, etc.). This patch is independently applicable — only touches
-`mcc.c`.
-
-### Step 4.5: Stable list
-**Record:** Could not search lore stable list (Anubis). No stable
-nomination found in local mbox.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: Key functions
-**Record:** `iwl_mld_get_regdomain()` modified.
-
-### Step 5.2: Callers
-**Record:** `iwl_mld_get_regdomain()` called from:
-- `iwl_mld_get_current_regdomain()` →
-  `iwl_mld_update_changed_regdomain()`, `iwl_mld_init_mcc()`
-- `iwl_mld_apply_last_mcc()` (init path)
-- `iwl_mld_handle_update_mcc()` (firmware MCC notification)
-
-All run on normal device operation / regdomain changes — common paths
-for WH hardware users.
-
-### Step 5.3: Callees
-**Record:** `CSR_HW_RFID_TYPE()`, `le16_to_cpu()`, `ieee80211_hw_set()`,
-`__clear_bit()`.
-
-### Step 5.4: Reachability
-**Record:** WH devices (BE211, BE213, AX221, Killer BE1775s/i) are
-registered under `CONFIG_IWLMLD` in `pcie/drv.c`. Driver selection uses
-MLD opmode for WiFi 7 (RF ≥ FM, fw ≥ 97). WH users in US/CA hit this
-code on every MCC update. **Userspace-reachable** via normal WiFi
-operation and regdomain changes.
-
-### Step 5.5: Similar patterns
-**Record:** FM branch in same function;
-`iwl_puncturing_is_allowed_in_bios()` in `fw/regulatory.c`; TAS US/CA
-block-list logic in `mld/regulatory.c` and `mvm/fw.c` for same
-countries.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
-
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Current `mcc.c` lines 132–140 handle only FM; WH is
-not covered. WH hardware support exists (`cfg/rf-wh.c`, PCI IDs in
-`pcie/drv.c` lines 1062–1078). Commit not yet applied.
-
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected.** Target hunk matches current file
-structure exactly. No conflicting changes in recent tree history for
-this file.
-
-### Step 6.3: Related fixes already present?
-**Record:** FM puncturing logic already in tree. No WH branch found. No
-duplicate fix.
-
----
-
-## PHASE 7: SUBSYSTEM CONTEXT
-
-### Step 7.1: Subsystem criticality
-**Record:** **IMPORTANT** — `drivers/net/wireless/intel/iwlwifi` (Intel
-WiFi, widely deployed). WH = WiFi 7 adapters (BE211/BE213/Killer
-BE1775).
-
-### Step 7.2: Activity
-**Record:** iwlwifi MLD actively developed; WH is current-generation
-hardware in this tree.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who is affected
-**Record:** Users with **WH RF Intel WiFi 7 adapters**
-(`CONFIG_IWLMLD=y/m`) in **US or Canada**. Not universal; driver- and
-region-specific.
-
-### Step 8.2: Trigger conditions
-**Record:** WH device boot, MCC update from firmware/BIOS, or regdomain
-change while MCC is US (0x5553) or Canada (0x4341). Common on WH laptops
-in North America. Unprivileged users indirectly trigger via normal WiFi
-stack operation.
-
-### Step 8.3: Failure mode severity
-**Record:** **Incorrect regulatory behavior** — punctured EHT channels
-allowed when they must be disallowed. Not a kernel crash, UAF, or data
-corruption. Potential FCC/ISED non-compliance and possible
-connectivity/regulatory mismatch with firmware. **Severity: MEDIUM**
-(regulatory/hardware correctness, not system stability).
-
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** Corrects regulatory policy on supported WH hardware in
-  US/CA; aligns with FM precedent in same function.
-- **Risk:** Very low — 9 lines of logic, WH-only, maintainer-reviewed.
-- **Ratio:** Moderate benefit for WH US/CA users; very low risk.
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence summary
-
-**FOR backport:**
-- Real bug on supported WH hardware in this tree
-- Small, surgical, maintainer-reviewed fix
-- FM already has analogous logic; WH was an oversight
-- WH adapters (BE211, BE213, Killer BE1775) are in `pcie/drv.c` for
-  6.18.44
-- Hardware-specific regulatory policy fix (stable-acceptable category)
-- Clean apply to current tree
-
-**AGAINST backport:**
-- No crash, security issue, data corruption, or deadlock
-- No user reports or fuzzer findings
-- Pure regulatory/policy fix without demonstrated functional breakage
-- Part of a larger feature series (though this hunk is independent)
-- Stable rules emphasize crash/security/corruption class issues
-
-**Unresolved:** Original lore thread content; exact mainline commit SHA;
-date WH support landed (history flattened in this checkout).
-
-### Step 9.2: Stable rules checklist
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — simple MCC check;
-Reviewed-by maintainer |
-| 2. Fixes real bug affecting users? | **PASS** — WH US/CA users get
-wrong puncturing policy |
-| 3. Important issue? | **PASS (borderline)** — regulatory correctness
-on active hardware, not crash class |
-| 4. Small and contained? | **PASS** — 1 file, ~11 lines |
-| 5. No new features/APIs? | **PASS** — enforces existing
-`DISALLOW_PUNCTURING` flag |
-| 6. Applies to local tree? | **PASS** — buggy code and WH support both
-present in 6.18.44 |
-
-### Step 9.3: Exception category
-**Record:** Hardware-specific regulatory workaround for WH RF in US/CA —
-analogous to existing FM puncturing policy and other iwlwifi US/CA
-regulatory handling (TAS block lists).
-
-### Step 9.4: Decision rationale
-For **6.18.44**, WH WiFi 7 hardware is fully supported under
-`CONFIG_IWLMLD`, but `iwl_mld_get_regdomain()` omits WH from puncturing
-restrictions that FM already enforces. Without this fix, WH adapters in
-US/Canada incorrectly permit EHT channel puncturing. The fix is minimal,
-obviously correct, independently applicable, and corrects wrong behavior
-on shipping hardware in this tree. It does not meet the strongest stable
-signals (crash/security/corruption), but it is a real, user-visible
-regulatory bug on supported hardware with very low backport risk.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed subject, tags, body from user-provided commit
-  message and local mbox
-- **[Phase 1]** Confirmed no Fixes:/Reported-by:/syzbot tags
-- **[Phase 2]** Read full diff; verified FM and new WH branches
-- **[Phase 2]** Read `net/mac80211/mlme.c:785-787` —
-  `DISALLOW_PUNCTURING` gates punctured chandefs
-- **[Phase 2]** Read `fw/regulatory.c:716-728` — FM US/CA BIOS
-  puncturing policy
-- **[Phase 3]** `git describe HEAD` → v6.18.44; Makefile VERSION 6.18.44
-- **[Phase 3]** `git blame -L 130,145 mcc.c` — puncturing block present,
-  FM-only
-- **[Phase 3]** Read local mbox cover + patch 15/15 — standalone in
-  mcc.c
-- **[Phase 4]** Read `v2_20260515_miriam_rachel_korenblit_wifi_iwlwifi_u
-  pdates_2026_05_14.mbx` — no stable Cc found
-- **[Phase 4]** WebFetch lore/patch.msgid.link — blocked (Anubis)
-- **[Phase 4]** `b4 dig` — commit not in tree; could not match by SHA
-- **[Phase 5]** Grep `iwl_mld_get_regdomain` — 4 call sites in mcc.c
-- **[Phase 5]** Read `iwl-drv.c:180-183,1861-1864` — WH uses MLD opmode
-  (RF ≥ FM)
-- **[Phase 5]** Read `pcie/drv.c:1062-1078` — WH PCI device entries
-  present
-- **[Phase 5]** Read `cfg/rf-wh.c` — BE211, BE213, AX221, Killer BE1775
-  names
-- **[Phase 6]** Read current `mcc.c:132-140` — FM-only, WH missing (bug
-  confirmed)
-- **[Phase 6]** Grep `IWL_CFG_RF_TYPE_WH`, `IWL_MCC_US`,
-  `IWL_MCC_CANADA` — all symbols exist
-- **[Phase 7]** Confirmed `CONFIG_IWLMLD` in Kconfig/Makefile
-- **[Phase 8]** Assessed impact: WH + US/CA + MLD path; regulatory
-  MEDIUM severity
-- **UNVERIFIED:** Exact mainline commit date; lore reviewer discussion
-  beyond mbox headers
-
-**YES**The background `git show` on `7e22de67e545d` finished: that
-commit is actually `drm/amdgpu/gfx10: replace BUG_ON() with WARN_ON()`,
-not iwlwifi work. The iwlwifi `mcc.c` lines show up under it because
-this 6.18.44 checkout has flattened history, so blame/log can’t reliably
-date when FM puncturing support or WH hardware landed.
-
-That doesn’t change the backport call: WH adapters are supported in this
-tree, the FM-only puncturing logic is present, and the missing WH US/CA
-handling is a real regulatory-policy gap. Verdict remains **YES** for
-6.18.44.
-
- drivers/net/wireless/intel/iwlwifi/mld/mcc.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/mcc.c b/drivers/net/wireless/intel/iwlwifi/mld/mcc.c
-index 16bb1b4904f99..8502129abe493 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/mcc.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/mcc.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
- /*
-- * Copyright (C) 2024-2025 Intel Corporation
-+ * Copyright (C) 2024-2026 Intel Corporation
-  */
+ kernel/sched/core.c     | 12 +++++++-----
+ kernel/sched/ext/ext.c  |  7 ++++---
+ kernel/sched/ext/sub.c  |  9 ++++++---
+ kernel/sched/sched.h    |  9 ++++++---
+ kernel/sched/syscalls.c |  4 ++--
+ 5 files changed, 25 insertions(+), 16 deletions(-)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 0a2eabadfee02..26b8da8c8a2c5 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -2802,7 +2802,7 @@ void set_cpus_allowed_common(struct task_struct *p, struct affinity_context *ctx
+ static void
+ do_set_cpus_allowed(struct task_struct *p, struct affinity_context *ctx)
+ {
+-	scoped_guard (sched_change, p, DEQUEUE_SAVE)
++	scoped_guard (sched_change, p, p->sched_class, DEQUEUE_SAVE)
+ 		p->sched_class->set_cpus_allowed(p, ctx);
+ }
  
- #include <net/cfg80211.h>
-@@ -129,7 +129,7 @@ iwl_mld_get_regdomain(struct iwl_mld *mld,
+@@ -7753,7 +7753,7 @@ void rt_mutex_setprio(struct task_struct *p, struct task_struct *pi_task)
+ 	if (prev_class != next_class)
+ 		queue_flag |= DEQUEUE_CLASS;
  
- 	mld->mcc_src = resp->source_id;
+-	scoped_guard (sched_change, p, queue_flag) {
++	scoped_guard (sched_change, p, next_class, queue_flag) {
+ 		/*
+ 		 * Boosting condition are:
+ 		 * 1. -rt task is running and holds mutex A
+@@ -8430,7 +8430,7 @@ int migrate_task_to(struct task_struct *p, int target_cpu)
+ void sched_setnuma(struct task_struct *p, int nid)
+ {
+ 	guard(task_rq_lock)(p);
+-	scoped_guard (sched_change, p, DEQUEUE_SAVE)
++	scoped_guard (sched_change, p, p->sched_class, DEQUEUE_SAVE)
+ 		p->numa_preferred_nid = nid;
+ }
+ #endif /* CONFIG_NUMA_BALANCING */
+@@ -9548,7 +9548,7 @@ void sched_move_task(struct task_struct *tsk, bool for_autogroup)
+ 	CLASS(task_rq_lock, rq_guard)(tsk);
+ 	rq = rq_guard.rq;
  
--	/* FM is the earliest supported and later always do puncturing */
-+	/* FM follows BIOS/MCC policy, WH disallows puncturing only in US/CA. */
- 	if (CSR_HW_RFID_TYPE(mld->trans->info.hw_rf_id) == IWL_CFG_RF_TYPE_FM) {
- 		if (!iwl_puncturing_is_allowed_in_bios(mld->bios_enable_puncturing,
- 						       le16_to_cpu(resp->mcc)))
-@@ -137,6 +137,15 @@ iwl_mld_get_regdomain(struct iwl_mld *mld,
- 		else
- 			__clear_bit(IEEE80211_HW_DISALLOW_PUNCTURING,
- 				    mld->hw->flags);
-+	} else if (CSR_HW_RFID_TYPE(mld->trans->info.hw_rf_id) ==
-+			IWL_CFG_RF_TYPE_WH) {
-+		u16 mcc = le16_to_cpu(resp->mcc);
-+
-+		if (mcc == IWL_MCC_US || mcc == IWL_MCC_CANADA)
-+			ieee80211_hw_set(mld->hw, DISALLOW_PUNCTURING);
-+		else
-+			__clear_bit(IEEE80211_HW_DISALLOW_PUNCTURING,
-+				    mld->hw->flags);
+-	scoped_guard (sched_change, tsk, queue_flags) {
++	scoped_guard (sched_change, tsk, tsk->sched_class, queue_flags) {
+ 		sched_change_group(tsk);
+ 		if (!for_autogroup)
+ 			scx_cgroup_move_task(tsk);
+@@ -11252,7 +11252,9 @@ static inline void sched_mm_cid_fork(struct task_struct *t) { }
+ 
+ static DEFINE_PER_CPU(struct sched_change_ctx, sched_change_ctx);
+ 
+-struct sched_change_ctx *sched_change_begin(struct task_struct *p, unsigned int flags)
++struct sched_change_ctx *
++sched_change_begin(struct task_struct *p, const struct sched_class *next_class,
++		   unsigned int flags)
+ {
+ 	struct sched_change_ctx *ctx = this_cpu_ptr(&sched_change_ctx);
+ 	struct rq *rq = task_rq(p);
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 10af28a9f2c0c..00c368e2fc82d 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -6159,7 +6159,8 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
+ 				scx_task_slice_ended(rq, p);
+ 
+ 			/* cycling deq/enq is enough, see the function comment */
+-			scoped_guard (sched_change, p, DEQUEUE_SAVE | DEQUEUE_MOVE) {
++			scoped_guard (sched_change, p, p->sched_class,
++				      DEQUEUE_SAVE | DEQUEUE_MOVE) {
+ 				/* nothing */ ;
+ 			}
+ 		}
+@@ -6441,7 +6442,7 @@ static void scx_root_disable(struct scx_sched *sch)
+ 		if (old_class != new_class)
+ 			queue_flags |= DEQUEUE_CLASS;
+ 
+-		scoped_guard (sched_change, p, queue_flags) {
++		scoped_guard (sched_change, p, new_class, queue_flags) {
+ 			p->sched_class = new_class;
+ 		}
+ 
+@@ -7802,7 +7803,7 @@ static void scx_root_enable_workfn(struct kthread_work *work)
+ 		if (old_class != new_class)
+ 			queue_flags |= DEQUEUE_CLASS;
+ 
+-		scoped_guard (sched_change, p, queue_flags) {
++		scoped_guard (sched_change, p, new_class, queue_flags) {
+ 			scx_set_task_slice(p, READ_ONCE(sch->slice_dfl));
+ 			p->sched_class = new_class;
+ 		}
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index 0554448835bd0..c3955c8163a03 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -1255,7 +1255,8 @@ static void scx_rehome_task(struct scx_sched *to, struct task_struct *p)
+ 	lockdep_assert_held(&p->pi_lock);
+ 	lockdep_assert_rq_held(task_rq(p));
+ 
+-	scoped_guard (sched_change, p, DEQUEUE_SAVE | DEQUEUE_MOVE) {
++	scoped_guard (sched_change, p, p->sched_class,
++		      DEQUEUE_SAVE | DEQUEUE_MOVE) {
+ 		scx_disable_and_exit_task(scx_task_sched(p), p);
+ 		scx_set_task_state(p, SCX_TASK_INIT_BEGIN);
+ 		scx_set_task_state(p, SCX_TASK_INIT);
+@@ -1285,7 +1286,8 @@ static void scx_punt_task(struct scx_sched *to, struct task_struct *p)
+ 	lockdep_assert_rq_held(task_rq(p));
+ 	WARN_ON_ONCE(!READ_ONCE(to->bypass_depth));
+ 
+-	scoped_guard (sched_change, p, DEQUEUE_SAVE | DEQUEUE_MOVE) {
++	scoped_guard (sched_change, p, p->sched_class,
++		      DEQUEUE_SAVE | DEQUEUE_MOVE) {
+ 		scx_disable_and_exit_task(scx_task_sched(p), p);
+ 		scx_set_task_sched(p, to);
+ 	}
+@@ -1939,7 +1941,8 @@ void scx_sub_enable_workfn(struct kthread_work *work)
+ 		if (!(p->scx.flags & SCX_TASK_SUB_INIT))
+ 			continue;
+ 
+-		scoped_guard (sched_change, p, DEQUEUE_SAVE | DEQUEUE_MOVE) {
++		scoped_guard (sched_change, p, p->sched_class,
++			      DEQUEUE_SAVE | DEQUEUE_MOVE) {
+ 			/*
+ 			 * $p must be either READY or ENABLED. If ENABLED,
+ 			 * __scx_disabled_and_exit_task() first disables and
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index e656c7059bf86..6bba1f3b5d4cd 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -4240,13 +4240,16 @@ struct sched_change_ctx {
+ 	bool			running;
+ };
+ 
+-struct sched_change_ctx *sched_change_begin(struct task_struct *p, unsigned int flags);
++struct sched_change_ctx *
++sched_change_begin(struct task_struct *p, const struct sched_class *next_class,
++		   unsigned int flags);
+ void sched_change_end(struct sched_change_ctx *ctx);
+ 
+ DEFINE_CLASS(sched_change, struct sched_change_ctx *,
+ 	     sched_change_end(_T),
+-	     sched_change_begin(p, flags),
+-	     struct task_struct *p, unsigned int flags)
++	     sched_change_begin(p, next_class, flags),
++	     struct task_struct *p, const struct sched_class *next_class,
++	     unsigned int flags)
+ 
+ DEFINE_CLASS_IS_UNCONDITIONAL(sched_change)
+ 
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index b215b0ead9a60..bc32ce76ff4fe 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -85,7 +85,7 @@ void set_user_nice(struct task_struct *p, long nice)
+ 		return;
  	}
  
- out:
+-	scoped_guard (sched_change, p, DEQUEUE_SAVE) {
++	scoped_guard (sched_change, p, p->sched_class, DEQUEUE_SAVE) {
+ 		p->static_prio = NICE_TO_PRIO(nice);
+ 		set_load_weight(p, true);
+ 		old_prio = p->prio;
+@@ -678,7 +678,7 @@ int __sched_setscheduler(struct task_struct *p,
+ 	if (prev_class != next_class)
+ 		queue_flags |= DEQUEUE_CLASS;
+ 
+-	scoped_guard (sched_change, p, queue_flags) {
++	scoped_guard (sched_change, p, next_class, queue_flags) {
+ 
+ 		if (!(attr->sched_flags & SCHED_FLAG_KEEP_PARAMS)) {
+ 			__setscheduler_params(p, attr);
 -- 
-2.53.0
+2.55.0
 
