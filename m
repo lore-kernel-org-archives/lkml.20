@@ -1,160 +1,123 @@
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E0C3769FF
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:44:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788205468; cv=none; b=DqOTKNDer/5diMxdDgylSm+7iF1wU74iBL1LUhqCoeMlq8ok5jNGqaqHzFmLNNXs7Qn9hrp5kA0hgy7XrOQy1WnW4cT2EdUuhWmHGysdiT8wTY/zkIDgqpwpqGmKtt/lQTMGPfiNwVUFh6+fQfB5QwMSOrxlp/6SjYXFJ1iVDhE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788205468; c=relaxed/simple;
-	bh=eWpXRhxHS2WF406Ert5+8cxUb29KHQLVMqQPlC+E5vA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aaneaWvbpUljEbIhQwaxzuJXLp+dqPV4ZEiSwq684pDob6vNhWVFGlVkXCBqe4ebpX9hJfouNR2sDq4tDrURGkw68J1I2Odzz5OQlhm2NaCOSOiW0XcKkxnwxm8jBCfNQrhwt9Iyqe7ak7XC0glY7uNC3h9ZjM6r3+cW2rbTJWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=d9fJEm2/; arc=none smtp.client-ip=209.85.210.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B67C37E5DF
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:45:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788205515; cv=pass; b=UwrWV8ETkEU/7j+RvKLcWO+Npm/sI7Yjr7ttiKKheMq9XRp21IB4OoDzBoJ5IyL3YQOPNcoUFlBBE7qD1d1VH112bDrT007/IyykhWwKCDNNmsbZQy6yUkVNBlzUIoNlGzSNyZ9VRbGWgZmwI7fVOn5A4Qtm1sFai8TW+DsWLNs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788205515; c=relaxed/simple;
+	bh=3Jrv9P/AlPMD6Sdxe3mYFdYybT0kcFDapqBsc6G6VY0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dtPktJ8gqMLT0v+9F9s5yixcNWm8+a5H2FG2u2GHzGI+336aXe1LnCjOszkIoffiF4XH1KXX9qGM7a+AsGeUkL6PS8cb+0qUaqNBvaFlr2Sz+dfREOE0UE7Frbqkbc0fD9bGQXUIGSTggM3pV90Mf1dwXgNWMcVBAdfKUV0UnHE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WQ0fnmqw; arc=pass smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="d9fJEm2/"
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-7f4df360cc9so309713a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:44:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WQ0fnmqw"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-855c3981b0eso436737b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 12:45:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788205513; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mtiKDdzjXLBENvaXTsYePFsKKxcRLQJ5o76nrBlDGVjDhcEFFd2M+9ZavKc7POcS2j
+         9bJaJifTEr1Z9ivnNycAzWs1Xcyyv9gUykLsW9fYuVAt6NL2C1t/UQGPaidJQwtphAdR
+         3NtIBl/7n31NLcUmkB8qfK7h6PiY52K27mp8iVVRAH9P50g/N0nA35UrikL8bienVi4y
+         DPC+Q1Bl98Y9yFpodhl4we0ZqrgyM6Ldibdq/rslgbsfzcyR7aHel5cXyc5bNqOgEwjT
+         dDq+CLyuE2eQ5qh0i/BWQAyS6p9d8snUNSkmHpUQU9qhQxk4MDhaSaKEDnxxwYFC5M/T
+         SdvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3Jrv9P/AlPMD6Sdxe3mYFdYybT0kcFDapqBsc6G6VY0=;
+        fh=9ZxSslQPVVHwdcitdvYFrHJF0txrxqETIzQFdug7kMI=;
+        b=iMxylZWBRWNkxuBVupRrVE3IvkQlE1j799OlkWm7E5miMSPuxLVuxx+XRQGf+gceJi
+         1ymPlsEgeMLvb8jFKX7Dg7eiuQ8RQwAoem3hxbBELeQtzl4iYlBLEsKwLXJC/Im0qejK
+         0cJVKcpZROK6SIhRzzQXdp5pG2n6nDWjXVUsUMvOXUvinySQvSIfGOlZFpSZfLfCe5Bg
+         luSftEx5B0UqLBy0ia1qb4ppVO/zoLOJ9Gmac+iQss7J4Pa+E50m1ap3yn2PnF8xfBX3
+         iTMKKqMyL1QDF5HXOprv4Y/ilY5+msA/+Aa7dJOxmxpAfRjlyOb/BIKkhO1qm7FM/APA
+         aLZw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788205465; x=1788810265; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IGP7GGTvrEowNva1rbNoI+VHdtW9WuY11cAsUH1ZGFI=;
-        b=d9fJEm2/EoHMYtc3tZWjdZcR21hq8CFqm1RLJkTqk3Y95VoFSTqW593IZ5r2FIYqK2
-         jzgP3BAqTfR5LfaUJaaW96Wknlie6LmkDuOKuYRH5VqJXqYGMwWd3GuLXAKuLj16jYIy
-         ahywBIPSl/fFsnKUlEX+ahiwE17ijDmXVoUGdmTCgN2IhvthMIefzA3ewh6JIK/bjVar
-         PglNOU8MkgfKqWwebFP5/6AguRNODrokx04Edib6BQGg+tR8YRf1vQDgx9Dkwhd70QnH
-         2JwyAPX+dJHjgVqv8jFcyuYCTTfXG4lmeRi0wh8JCGCjAVtFIoqG4YcsusG6I0ZZ+dFz
-         DfaA==
+        d=gmail.com; s=20251104; t=1788205513; x=1788810313; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3Jrv9P/AlPMD6Sdxe3mYFdYybT0kcFDapqBsc6G6VY0=;
+        b=WQ0fnmqwEqXROfU23E1u3Q93KxAXTiyi/cr0TeJg7/mXcGK6G6HMN/hsUdx/MNiz0L
+         BuB5RkqagR5+t2PQpsmiWGMRwCiS/i2oLJ1J/avHFhoHHuhWP1L5dVsNp1SPsqL7/i42
+         a8oVmZcRK0oQVCFPlmSs8nb8ch1VkpMIqcxUq+sMKvpVG0wYn2P/Rz4YPDesPKYVUc33
+         vxDaemah7xH856d6jVVZQtE+PZZxa/OofIiR/SgmShjzIov0HVLqw7Setlohzg6UAFXh
+         WZ1PUyaXpPhC0Qktv0xif4c/uw6pYNaE0uCdhyNkx1zaJ9CSVsdRwlmQuH5npUjOL9Yg
+         4YTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788205465; x=1788810265;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IGP7GGTvrEowNva1rbNoI+VHdtW9WuY11cAsUH1ZGFI=;
-        b=amD63ui/PgQOcNMIKLddcld5WehtdB818NNC4CZoylAEnf+kdBJpw3MKIB89/8RwEF
-         +8kAj4ruT4a0XNuuTRm+881I7Xv+WR3TNrlaiLOhqKmbKW5B61hkOBKcp4GtGCwBjEFc
-         3usG7G8jezdrfQZzV7kDw9lcwd6y7+UyIuInH86FiwS8PcffJ4XvKYPwrK/CTTgPhHw9
-         z6pVGsolpXVj+c/AGLcp6jSqkS0doWo9lOK9ZXfNEe9HLhW6ze4ovohDHf6EXD/YBFDD
-         +nn70i964/MEpNFNX2CW9LMqJr+ExBCHC91v1T7Gvq+l2QcEWa77uDFx7QFD5/wsSoZt
-         t1cw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrv8g2N2ubNZbte6AMRiLOHkSvc/iAqFqSeBNk8F0NyFXFvZ1B5DnzkkXZZK9bKIYK/X9Xai7dE/vgwIoE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lMXyFrPbtoO8H8L4fnztnMFomV3HPmSAnIsGzIxFde5KdXY4e9
-	4TZy/IfX3Q0v8IIlplecqL49lnq0AUacea0zp3P9gf1idvAKyG0T82PIGLfeL3HMO5s=
-X-Gm-Gg: AR+sD10b90u8HVGTeopsGYbc6xCJ3Ahd9Ifq0nE8ULXnyWgtF7gR3AuEg+DzxwY9zAc
-	G5l7LZKtB2yhT9vY3Z0IvHonhBpznzP6FkKkDfI3236fRG0sKg9NUvFuO62XWI55l/wWQqJSn9E
-	KibRiK9PoQnWBjqWrtGmNqrP4QSO2wHl8w0AeEOLkGzDpGh/4V9uQnupmsk/mxkHuAkyWUALfD0
-	uDFbQ/ELlmbNNDjxGXC14M7gMYbGcMYFEDcmF6Vmc4wTRW1morQEP/w6+18gI2uDV5XKELICEtm
-	Aa8bAMF2XKehCCRI70PupcmiCAdZ+oAOXMODtpZCustGxG+7FwX56m5Wuh1Dfk2wlAYsAZ0UkqF
-	wN2ffwsopRllrSetwISftqFxghUnwPgKY+eov0fmne3JDVUG4UoLvGnFwgTYyjIYvlkYlfljHe8
-	zvj3uuu2QVf8LWHG4t6EYOcbuLoCSlXAIWqmnHKeeWBoHexo0F7be29zYOjZGT4c4RbYT+tXJTk
-	Zhw/MaOcEtzQTJ9fSNb4zLdulLdazu/ClUb
-X-Received: by 2002:a05:6830:8545:20b0:7e9:ca12:37bf with SMTP id 46e09a7af769-7f68f5d5015mr470147a34.7.1788205464675;
-        Mon, 31 Aug 2026 12:44:24 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:778b:da9:a8a1:bc78? ([2600:8803:e7e4:500:778b:da9:a8a1:bc78])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f4fa7e92c1sm8939784a34.8.2026.08.31.12.44.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 12:44:24 -0700 (PDT)
-Message-ID: <aae42329-f531-41fc-80df-2cb5e445f1db@baylibre.com>
-Date: Mon, 31 Aug 2026 14:44:23 -0500
+        d=1e100.net; s=20251104; t=1788205513; x=1788810313;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3Jrv9P/AlPMD6Sdxe3mYFdYybT0kcFDapqBsc6G6VY0=;
+        b=OAp/mGwAAJSGn5pWd8TIaaPzGDj4JkVzGcdjJGmyv+xjM8I/U3vm7yLeLiyZOUoDG6
+         RvUaofObvfoCMhRvcUjKz5sOM/Ga2lDRtkh49GySeYnh4WoMB5jAtc+3jGE0OCKq1lKM
+         +zh0YO6g0nqYeea+U7LqUUh4RcCD1SeThu4NU8zxxO5csGDaSr4HeMaHF/gyqDcE62WQ
+         eYnGfjk82QJW5ZOpX8M1Stw9s20tKaXFOLQNhda8tRKZzQasF1TUNavg93RmfNYNm41p
+         yC228WQ7A+lzIM8huQX/eR90pHJjJeEqgyBguehRRiiXu0Dg6x5iIrlLYVYZMi3Ir11M
+         d+ag==
+X-Forwarded-Encrypted: i=1; AKwUvBxy0gwfWP3vCHu2KaGLiXzwcWIeM4ZjOY+SArpcRJfdRqlGdgbXdIRstW/BdniV7vwrxzkDUdpuK7+oCfU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mi108VzUNe61v5u/DZ5+8HWMNwmzm/aExu9TTyPmRbPSmpe+nC
+	Gw0BxokeC55zb8tsWHKmgrXqqEecJsFyg5WierLktHoYww1I9nKojQOZtDMxtx5PikSp1SU6/Cg
+	M2FxE5CHRjIoSUcBAAtsSQWTPg5vbQMg=
+X-Gm-Gg: AYBFou241t4N61h+owt5dOiejke11DViP12e2NRXfH6NILXNRy5tRCqTgbMrIr3Xk7v
+	xhSqA9E6ZDvl7vvOScMcIDlSooZCgjbTJWC8LMi4ZQsySm0AQAOmlxB2Et8yyr2saivvv5Omkm/
+	gk4gv+fSGqNEBeWudzNJOrNHiQXTPL5K5+pRiRGcbAymBtgKmn3lVOMSHXtEK7eoGXDd3+FZAFX
+	CEwPMbGX8NV9GOmOC0GO+XwZG5w+A+qW2uV7yTt5Mxd34JFEXTiW9keTOkUcIgTH/7fqZRuDuQo
+	JHSCFsZQSDzxiGXxgNVy1kVOEygURX8VX9fFAzL35X1AUpOEZqZCUjNSm/vHnbHlrkWSpt4ulgE
+	ZZr4D6BOjJP12BCYk/pLoT28cluwHZT8STHWl+458r+T+/KDukoYLcjIrbXej
+X-Received: by 2002:a17:90b:17cd:b0:390:af7c:fe5e with SMTP id
+ 98e67ed59e1d1-398bab29b39mr13817320a91.2.1788205513452; Mon, 31 Aug 2026
+ 12:45:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/10] dt-bindings: iio: adc: support the TI ADS126x
- ADC family
-To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
- <20260828-ads126x-v4-2-1dc27e9c0260@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260828-ads126x-v4-2-1dc27e9c0260@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260828122444.475-1-nils.lehnen@proton.me>
+In-Reply-To: <20260828122444.475-1-nils.lehnen@proton.me>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 31 Aug 2026 21:45:00 +0200
+X-Gm-Features: AcwNN1UrGd_bZLkMVyH1G38N0kEIKnS8OgGaNrIu6lFxBJ9qf_B_KFzk1Mhm8lI
+Message-ID: <CANiq72kzouWAJbbhpKQXYit=VnF-9z=iLspk6mgSQU6m4-Us5g@mail.gmail.com>
+Subject: Re: [PATCH] rust: of: replace `core::mem::zeroed` with `pin_init::zeroed`
+To: Nils Lehnen <nils.lehnen@proton.me>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Gary Guo <gary@garyguo.net>, Boqun Feng <boqun@kernel.org>, 
+	Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Onur Ozkan <work@onurozkan.dev>, 
+	Moritz Zielke <moritz.zielke@gmail.com>, devicetree@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/28/26 1:38 AM, Kurt Borja wrote:
-> The ADS1262 and ADS1263 are 32-bit, 38.4-kSPS delta-sigma ADCs with an
-> integrated PGA, internal reference, excitation and burn-out current
-> sources for sensor biasing and diagnostics. The ADS1263 is compatible
-> with ADS1262, but includes a second auxiliary ADC (ADC2) to perform main
-> channel (ADC1) cross-checking measurements, system background
-> measurements, or temperature compensation of the primary sensor.
-> 
+On Fri, Aug 28, 2026 at 2:25=E2=80=AFPM Nils Lehnen <nils.lehnen@proton.me>=
+ wrote:
+>
+> Resend of Benno's patch from the Zeroable series [1], as the issue [2]
+> asks; same shape as the security.rs resend Miguel confirmed today [3].
+> Rebased onto rust-next: one context conflict from the
+> `as_bytes_with_nul` -> `to_bytes_with_nul` rename, resolved keeping the
+> current name; the change itself is Benno's, unmodified. An incremental
+> defconfig build with CONFIG_RUST=3Dy passes, so `pin_init::zeroed()` is
+> fine in the `const fn` context.
 
-...
+Looks fine, thanks!
 
-> +  '#io-channel-cells':
-> +    minimum: 1
-> +    maximum: 2
-> +    description: |
-> +      The first cell selects the channel by its reg. The second cell selects
-> +      between the main ADC (ADC1) and the auxiliary ADC (ADC2) as follows:
-> +        0: ADC1
-> +        1: ADC2
-> +
+Rob, Saravana: it would be nice to get this done, please let me know
+if you prefer me to pick it up. Thanks!
 
-I like the suggestion to make this always 2 cells. Makes it simpler. And
-to put ADC first.
-
-And maybe make the first cell take 1, 2 so we don't have to make the
-translation?
-
-
-> +  "^channel@[0-9a-f]+$":
-> +    $ref: /schemas/iio/adc/adc.yaml#
-> +    unevaluatedProperties: false
-> +
-
-...
-
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ti,ads1263
-> +    then:
-> +      properties:
-> +        '#io-channel-cells':
-> +          minimum: 1
-> +          maximum: 2
-> +      patternProperties:
-> +        "^channel@[0-9]+$":
-
-These don't match the pattern above (missing a-f).
-
-> +          properties:
-> +            reference-sources:
-> +              minItems: 3
-> +              maxItems: 3
-> +              default: [internal-p, internal-n, internal]
-> +    else:
-> +      properties:
-> +        '#io-channel-cells':
-> +          const: 1
-> +      patternProperties:
-> +        "^channel@[0-9]+$":
-> +          properties:
-> +            reference-sources:
-> +              minItems: 2
-> +              maxItems: 2
-> +              default: [internal-p, internal-n]
-> +
-With those fixed...
-
-Reviewed-by: David Lechner <dlechner@baylibre.com>
+Cheers,
+Miguel
