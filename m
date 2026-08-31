@@ -1,24 +1,25 @@
 Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020136.outbound.protection.outlook.com [52.101.195.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B27463B6D
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:16:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D65463B79
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:16:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.136
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200165; cv=fail; b=tdFn1BjHk+oUv1e7fPT/WqBGc+1U9EqZ0VIWa/hrna7BzfJxGb2HII2TfayFheJwWEzV1ed/FBSj+cgdoRReitNSelE4qjiJSzqsQeOgALHR83IKHToHYFW6ubkVM5DS6y2U4lurn3qJDuH7kDd50GItpouaSKq59ebioMmgzmQ=
+	t=1788200167; cv=fail; b=ENotYoYElw1Dn1rBumDmg/YF2qhEM20zUV0nblwmPRZ3iK1aTYAJjc+soS34543p2cBSy9lR5oTxxiNtrpvqM7Yn4+YW4qpQOzdlCBL4CNeyqgk3c516tEhmvTFNhvPtNn69pVNGE/ADqLOdmscylWAjU0eZF6Y4WTeegekbp4s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200165; c=relaxed/simple;
-	bh=JepIf3wkGGPmfxdnv7pF68gAuRmFf9dx3biC+4YJ0uo=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Qx73rbnIyl8jzN7jAZ0bLPtAkf5UoDv1MiuwcIWoed48APuUStf06+St/Lgkf2Mp0g6UlGoyFm7yXkIFdd934bcArZ6kAqt6ckc67D8iSq8x7NQP+14t1LIZyWuxE0LWnBSMn+6fwT1jlwNYGyZXrlhwo6KwDVFOrSat6fAyF2Y=
+	s=arc-20240116; t=1788200167; c=relaxed/simple;
+	bh=nsjHhYmXZN4hzlgMkVyJKl82cRbGUqrKfqXybFeNbsU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=kQ8pAx5ibGpJhVT5sJBQtOgx6cIBfDyU3im5ddG+3HDfbktf828DIqpFBqMRfAXSSWwHe4iJe50lVinwliUgC3gqiqqNHDXd2kCn1d1j/0Efq1HKPMSBj9M4s1qY3+dhXDf56LiEOPGzIJ2Q21UhMtzSd7w4XPK7vqJm/Kgj2FA=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.195.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ItsSmh5KkhsTYwVTpYGCFF5tWBDO+q276HcRmVqskNTxzelOim3JYJ2FvBJUTU8QpkYqh+XRYYKbCbao3nJG7AjQIj7o4PDLG4JbPVUX0IcC2D9vuAzey6CIBKXt6/dustDK9m2TNinYal/T0Hoh+AWxaI8LovHWSFVHCCPJN1VleQdfmIUremvCh/wwLDgb7MU+R/5Oll6oLmzROepj0rYxfYKsT4TeZfbdtx9AzuZWf6JF3Hp3xgP5NHZV+fVMwc0ugwITQJg+omZlW42OI7bTyl01GpH+kVL7/cwTxwp/SRfWOfz5uhKsstLBuuQYc/fix33qhS+M+4ik0VTNdw==
+ b=UGgTlCcpCN5X66SNI7JhN0HsNLGYgqMybdMtKmDAzLsRlF7M6W+0sWRs18/93RwGaKbAlT4iumQphzjfSqb0XaX5ZF0aaYTubQiDpLrmEFohELouH4yCejNGMkDvttGAK/PD/YFBzJH4EzuUCc207p30E9VlY7axuDy5Mo311nlRNPFdysWlExwZTr15YEqIgYgMf/V6hbJAnoPRJfwBNxijfKwg9E2zN2E3sJu9B6ulFWoCH8Cup7U0WwrhyhKuYNv+XPxjg1UdiXJPSdgCxWyV5bOUWujgo27auiDfkzdfdGXsAaGa+m3HW6ORa3YmfpNB+lFHlnxa7jV7clW/iA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=WKLUZvWXzA2IsnBNBwGRHtWBRECyI7/KjHA5bac8RZ0=;
- b=vnies5hHWEiYqRZH+PQW7RmDZDRTipd1Qsm9QhUFKARZ5tWS2WPAUwkJFoGcekUVTnvcX+gQoM+WyZBeT2uSwp9fjeOYxgeCWURPot15mC3ZYt2sdEWNx2nF/aHu+LNuz0NAZX61IRanTSwWDPf+xAywwd/aavDC1cKwngHrbDYaed8XMInOOKP/pDvTDIJrMnNVJx7Gmy38QHnH13cqWAl4b/ixG5slkLQeJCQWXnxLmoMvkC4JaUfjkaisjJ8KrV346CXnI0XaHy9Fpx/NRXWLB1YIPILgT8IodLcAJOxQK7bMDr/CIYlHIyOkV1rJ8Any7K8Ocmt53kjSlAJxwA==
+ bh=wofrUf1LNJlgQBmBIXLOM/IDN2ezCsqRS71TGhhPVFg=;
+ b=POfLh6d7KmR4aOpsaUqeviCxj0qIDyV1TVEOB4mSYKOWsU3JTisXUgsGiQhUQivwSaf8z7PmBZS/IXXvLTAi7eRbkCriSNRhUnPWM5CwLnMxCd45DSErqxby/qgMn/LiSyooUGep3j1Jfe6vVFZw2YfBnxkO5rFQOEgdGSq1ArYqv8hb6Hqc6r6ExwNmh9FRwu880NfONSRNfaH4AVF6i7sLCi5A97ereTxPhcsLVCWJ6axBRiQq6v/tpKo0iFOjIfxm9SO5nhMghohUyz+FhEKsBm2YUrBB7y2OWzXGzGtVnBP1cjXG9HjgAXoJPVzbGxhs2AXyg1TroLMysaaJAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
  dkim=pass header.d=atomlin.com; arc=none
@@ -28,24 +29,26 @@ Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
  by LO3P123MB3339.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:bf::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 18:15:59 +0000
+ 2026 18:16:02 +0000
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 18:15:58 +0000
+ 18:16:02 +0000
 From: Aaron Tomlin <atomlin@atomlin.com>
 To: tj@kernel.org
 Cc: leitao@debian.org,
 	atomlin@atomlin.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] tools/workqueue/wq_dump.py: Backward compatibility and live worker inspection
-Date: Mon, 31 Aug 2026 14:15:52 -0400
-Message-ID: <20260831181554.117795-1-atomlin@atomlin.com>
+Subject: [PATCH 1/2] tools/workqueue/wq_dump.py: Support backward compatibility for wq->attrs rename
+Date: Mon, 31 Aug 2026 14:15:53 -0400
+Message-ID: <20260831181554.117795-2-atomlin@atomlin.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831181554.117795-1-atomlin@atomlin.com>
+References: <20260831181554.117795-1-atomlin@atomlin.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BN9PR03CA0683.namprd03.prod.outlook.com
- (2603:10b6:408:10e::28) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-ClientProxiedBy: BN0PR08CA0024.namprd08.prod.outlook.com
+ (2603:10b6:408:142::14) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -55,88 +58,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO3P123MB3339:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6a0f4cd-41b7-40a3-9ea8-08df078be829
+X-MS-Office365-Filtering-Correlation-Id: 25878bb6-b142-46d0-edf7-08df078bea56
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|6133799003|10067099003|18002099003|56012099006;
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|6133799003|10067099003|22082099003|18002099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	XxYMJ+nFM8gpRxcCCXXO7Ay6trKdRQKYW4GsojQQin804JbNSTipPwiJlGNwypv1sl6wOqljRGgXtbLNbe/0HN7qepzGBmXbHvwPn4UoBS1s29iQ1dn3Z1z/s9EflQ0Rkyg/stWDp5dup2o1ch2nN13q0P0k2aOOEAdYFgmTDeLJfc1kGuuA3ghU6wixsQGRQHQnq390Ph6JULeEpA1EjWs/d9DxXvCOMCi7ugAFylPpKE+1q3Z+NEf3h4AhxrcsR2yogDb32fdZoWIqyCzjYha5ojatkkuLjYkpm8Ajyss0mcv5Jp0/3qD+mpQohWzShDZlHXL0cGkqhO/g+Q9acoJgCJsd8aLfOVUZpw5FvKjQsn/Ezk2A96WL3tAnwYuggcBJJODbczHkeyJ5p/3xYjXGrBB7WDEpeM0wPCH6wblacOAFx4vj9OKB5ZNlEMvx6O22A6ocoNR1wSaq8tYMBO5j61p9br+3GYFUiA5EoFKTwSr/tEVp3IjfaUzGLFJi1keXKcW5iVfjZv98Ht/zPggp35gz3QuDVUUQNd4bS6zewcw1urcJS+RWsRQ84OQcZNLpaBgq8WyZyoiyZozA2fqGnbiPLLN1lhwxEA9iZgEXlp2QwBJA94hJyX4pBzr4Bho8ZY997dyllLn6Tl9sG7A+Zizgq0euENImMHDF2nk=
+	cRIbK2o3+qc0nsI1mS+zMieexFvGf1+ZDuMNZnF7cYhiujQrjheVzrsJxNFb5OD9cfS5ZiJy3I6VTsbyYQY1eq5ipBi42L7ZFn+qxM4DMikxrcBXQhANyOQJ6LEzU+JhsnMQTAZUYpvxCTb6nPs4s2+JOzQ9vwGbhTQNiuQAEJ+MmzAXn85gCL0G3T7VR1irl5hVfruE2vPlKd3Jnss7RJBIyET/H9UjbSWR3R6p2lEdgy6kOQeMHBd2BOLFqwrMi69BzestzfpGmJiLBYwjyVHE1VOqxA8JLG9qgkV93WLffR5oQ59SBMZWmFlvXO/j/9JMZEOigpoYvcuWh42Is6YM7wXkxKoeS3y4N/x6euFrXm+fNkns4BdDZ0OVaqMmb5phYrM3J0LKPx8YhqYUm7oh6Nj8e4tI17CSf9AAy03tNDEOvacuTxmkGv4Sn8MKj/L4z0LyBFqcIy/FVsZFQ0e6EtPLkSrsDE6zfXKjp166MFimY4DiatdIq1/1+ATm69rh1xvZPS+shyeZITb/7UbK2M4FkNoJyYFPh2QJg9/RGy3d9GIkzr2m3TDfFuxctoquR8O2U/hQ6AdfSOeG63CTbcbGXg9g9FMZMvFSVjekgGLL/UBQDtoxRsaZxk5zj4sYqj3Cer/4OSomDYnWLLKo/SDpsmUwJh1rpWaZr+4=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?AgP9box5HW1pCqd4ukPAkJCT2g0p0WFPkCqfC2vc+0nagXJ/9ocQ4/6t/AhU?=
- =?us-ascii?Q?EO2TETQv+SwfRw67Yry2K/nwl7GJ/fRG2F1Fxij6Jxt/i64XP6VIUdqq/Ibo?=
- =?us-ascii?Q?yOKQMMhbgHNZdzi1ZpL6W8Dk+KuF4KXyR7w4qjp0EPNV06m4g4pc+FXg0mMW?=
- =?us-ascii?Q?QP0l9jC4zJRWfWyCSnsc4FoL1BDCHLnfc2xPLi6JWRdjF7UbqrNH34Wuc4tm?=
- =?us-ascii?Q?ngccaSnVHMlUsSmvHISnxpSUkEwPGxO/iZlvmqh3mNKSyhjvYiOlxbYtQ8F5?=
- =?us-ascii?Q?pOPODLWbSYny+KQol8Mkn3SfXxndSAaVTlgOQsB8Z0NItlv/Mqu5GJP3tRgI?=
- =?us-ascii?Q?mvLjXS+pi8AeU5wJsCRDr0xlf/61KpDarBUR+bhBi56L//pfwyODASaMhbRs?=
- =?us-ascii?Q?7/5heNdqq2fMBKEj7phsDLOYBbM4IVJAy6ov5vv2KAkIM/tJhopSUSQIDVBk?=
- =?us-ascii?Q?+U8BKb+m5V14wSCPD/oeOFDOxi9NHm+AztqhKXc0dShkEifpRZZxConi1hwx?=
- =?us-ascii?Q?LSyV2jW3seBAHJMVAUfVfLdqt29g2DuPcoCXZZhNDpXNNTKflqTEvOT+fDPF?=
- =?us-ascii?Q?h9EXjyM+zwHbi/1eHjPmKTSy2UV5KFEt7R83Z8wzwHkU+yp8qBxfGSNkPMLP?=
- =?us-ascii?Q?iLqQ2ooGu09K9qKXhPNuTDhvTAGKLdD7obTVD/X1KuI55wU47OIr8HfDpUW4?=
- =?us-ascii?Q?MomL1v6QAWl3StRd8KeZrobSed13Sai8RWUV3HK5C4mAcl/jrrv24k9FKewt?=
- =?us-ascii?Q?7tD/MkQTSoNfDHAziuwinAzNF9rGazJyxi4RXx0Gr9m5uLVaydUXhpkNQe88?=
- =?us-ascii?Q?LBxc/Ha3TO59gmM34slmQzGaelHfKarXVLpBSYVzBLYybDRuOPO8Q9U8sgO4?=
- =?us-ascii?Q?LVvSHhOmKOjuDejT0hKciDjPzWU7Oa0Lzob8HA9EWFn04mXvRU4rz6G7AhFt?=
- =?us-ascii?Q?uZcoERawvfiIVhAjAUDW7/ajS0CL+uqIFQ8nVQT7YILzK4KW/wIygjiGNq2M?=
- =?us-ascii?Q?HlOvLD2HG4NNHx01O4AcL43mufWsXeKAWoXZuCoAM60GvoTLqMrVco+Px76e?=
- =?us-ascii?Q?+cpoehAHUjfntGFxjWmF2aZzgjM5w2/qMsHreizHVn5f7UONn6Z1BfuFCfQ9?=
- =?us-ascii?Q?ecB6OO2htDrDU2D6eGjhchHCFNMvl3fluAUF7awqSZ28tSD60DM91IGxNncY?=
- =?us-ascii?Q?f2BsnrAm2nka3S7E47K1By++pmoA8A89CubxlMbF9Sjks3iq/Lg7AkO3E7ac?=
- =?us-ascii?Q?muiyn0LqlqOWUgaPR0YhJxM/uuZSZXl5bb8L7b/KkQDp4JJWn6ZX1sND/7hl?=
- =?us-ascii?Q?XGCXBXUCIfgNk9ohl97c5eihdB3rsiLpNCBWYoBLeORcjj8g2LJx/hqvNZ2F?=
- =?us-ascii?Q?fOg8e8hP78fwJSXXCzmXUzulkP4K80zvN+xs+AFVjrEx3KljAu+lauSMqgMP?=
- =?us-ascii?Q?rekeFH3WW3gksvc9iNmCIbM9bgLwiyIRn3m1W70fqFtgM54Gsg7VkaONe4xM?=
- =?us-ascii?Q?RmouRRP/4sLshccdUHscajhKEX2J9p0N4yG3kw1mxm8FUX1H5hmEQGXnDffs?=
- =?us-ascii?Q?RF1Q0AdCbyf5HUyY1IgTwxIVA0DInWz63m4fSqVpQNP8unX1+za8lmcB9/+d?=
- =?us-ascii?Q?23dOHHrFN0vxh9zIWH+ZojDejji3TlUIJHuD92xJHJ2bm2Hs2zlsOi/2G42T?=
- =?us-ascii?Q?y2ohhNaoXFcqKSagJsgf+2UY4bTtaltvXKUBJJO9f+lEL0sXA2e086fHsTvQ?=
- =?us-ascii?Q?AuoqMo/dWQ=3D=3D?=
+	=?us-ascii?Q?cwpra8hi1kz72OrSSe6bhJJbiT8BtLU21GPt8CA787ap8Mhppz9D5FOomBJ+?=
+ =?us-ascii?Q?2z48PrdZFHFQWHnzMs8JviBzxDd2NHHniM3VCPV9cusEtTEFUu7KvCvp5MRp?=
+ =?us-ascii?Q?/1+xfAc6SgidKTpgLI0tJfbxK7HMV8A1QJ1sNg18mt/MpG3yYhbljRaeYZbq?=
+ =?us-ascii?Q?iStFsy+aIfsA8a3j1Gx0Nh2C2nXm83PUAW6NZHslCzpYHZIZCPRrVn9Rbkdh?=
+ =?us-ascii?Q?6BmH5Ve2KjfsCzE7rjs8gsVslupu/6vAfk6Q0uzPYf694caDxfn8KZLjrTgI?=
+ =?us-ascii?Q?LajFXELzFdmfvFkVJ65uYE0j08dC8kEEklyfbOA1LGqooKYrJdv6s0kLYigf?=
+ =?us-ascii?Q?4LzhjR6lqVr2euoiz/foMoSE2VIIYnLS/ishX0CXsdltYutqXMjB/AotjcGl?=
+ =?us-ascii?Q?dhtEuojSIsr6/hWvx0/EOClwBLcOLrpmRP4EorQAZiH7v9DXN1wUgT8Qt0Ci?=
+ =?us-ascii?Q?djnRpFqfRLQNFvX7biXQyKiGYJbDruPutQl789lFub9FnkJwS0McYrrj2nYZ?=
+ =?us-ascii?Q?KiCJ00b5wusNxxJoApgnXBpTFZwrhVqdC7k9jGzeo0rCjwe6QQCTUM75d1sS?=
+ =?us-ascii?Q?LfPcf9LSFKz3RHMfPvcsrcR2Ajx77F9s9jrlwfikw+vu28xPxdBFXAoX+ORa?=
+ =?us-ascii?Q?yAgt0nO9/dbE8U9X6wd012hS6ejewJ3cJ5hGeHc52j3Nhq31AE1HCwc1/hkl?=
+ =?us-ascii?Q?BpJzXUXodh6Jh/zfM880cWBND6UF8v3qSrCnn+nd/rADxbdnx0UxGchHndgJ?=
+ =?us-ascii?Q?senWzJMuLZnLqn7t/cVjZP0VDZhHyZR14jLJD1ivAJX+e7G923W1CWj4cM/G?=
+ =?us-ascii?Q?sdlp154WJvQmncfuEZISJ56O2JHNq14o3jUhLOebrQxzXWxELoFxgBCqQxq7?=
+ =?us-ascii?Q?5Whcj4S5BI31u/YKPIX0yY6QKO3oYjl30Fw1Ah5Ksu6rUopjHSbcQi3ESmpX?=
+ =?us-ascii?Q?1wSNSLmmqT6ALuX5evT38GWkqQN9kci+hgpzN4Ghx0XcVS2YA6JRhk1usJP3?=
+ =?us-ascii?Q?fkN8V9e2oxVVb+e+EeOpSqMk5bLMq2RfpJnOcirU/5b8GDNcP34AjlhAwLJh?=
+ =?us-ascii?Q?q8b2CZm12GiHPEBZMab+4Wewr3R88FqQocJO0qtWy+lKQDPb47CnUXmGm0RG?=
+ =?us-ascii?Q?RxbHfZOElELTYubjUd+bDtTeu4EafcBM9ANjjFICzNWv2GJQ/1U78efIcAjy?=
+ =?us-ascii?Q?Ue/wqnwnebw595eX5eFwDzlRHMgK1UsoDbx5N4RC4rJcrefShNeLyOFN+KOQ?=
+ =?us-ascii?Q?30Jk1kAPG5p6nX3JaEGb0ZtgPOfSHDCdwVds/aJjHsoYWBj2VWz5f4uj/UZc?=
+ =?us-ascii?Q?lk3O2m8KcPI4opJgx50BQGhISOxsQxeUiI1WFE81ivHWRVkZMneP0hV2IfPl?=
+ =?us-ascii?Q?C4BSPSrBUy9qDP9LY5N/c+hpDlVWxN5njqFyFy5HmCeWq3Ohw+fl+ttVV3yH?=
+ =?us-ascii?Q?085zKWy5w4EsKXXppJotSgHjAuBlyVOZK7p0Kju0Bd9iMmqeYrEkWgWUXkEx?=
+ =?us-ascii?Q?cuBcAxHEvIkr+wfS4CN52RayMndgXIQ52o8p7VFbiftbVA7Pwt3wcqo7fThV?=
+ =?us-ascii?Q?UU3hQ6fQil7lybyD+fCAgA+d45XpR9CkffQriTjQdvwOKVxskvvUbuyzFzCN?=
+ =?us-ascii?Q?7wYtSSXGWRG0SWN2vA2bIt+5OetKd35aBM3nz7TOysC4uU07hL5vaxXiwatm?=
+ =?us-ascii?Q?IHRIeAZrPAMRmMamClZgHTbNm8c4ocJo9BwV3ZGjL4TFng0TcIETfVxl2KQr?=
+ =?us-ascii?Q?JMq/C/yN+Q=3D=3D?=
 X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6a0f4cd-41b7-40a3-9ea8-08df078be829
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25878bb6-b142-46d0-edf7-08df078bea56
 X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:15:58.8241
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:16:02.5176
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1nZuj3+QMXrSDMlCNT1X2eXcj5grULOEVYWJkD5kDXt6o9xpby0qDFVaoTozR+709trRaQMH2Vnkv/1HVgpzvg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0ExG8EMudCZpChGMm0nD9yyt7SCL6IICxPfARB7IO72VtElP6KszXwHgV6VmaB5/5ogzxFe2OkNgksVA4SiLjA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO3P123MB3339
 
-Hi Tejun, Breno,
+Commit 464e454e1cb4 ("workqueue: rename wq->unbound_attrs to wq->attrs")
+renamed wq->unbound_attrs to wq->attrs. When running wq_dump.py against
+older running kernels or vmcores where struct workqueue_struct still
+contains unbound_attrs, drgn raises an AttributeError.
 
-The Drgn program wq_dump.py is used to inspect workqueue configurations,
-affinity scopes, and pool associations. However, it currently focuses on
-static topology and lacks visibility into live, in-flight work items and
-transient pool states. Furthermore, recent refactoring broke compatibility
-when running against older kernels.
-
-This 2-part series addresses these limitations:
-
-Patch 1 introduces a wq_attrs() helper to support both older and newer
+Add a wq_attrs() helper to allow wq_dump.py to inspect both older and newer
 kernel versions seamlessly.
 
-Patch 2 provides live busy worker inspection (via option -b|--busy). It
-iterates through each pool's busy_hash table to dump active worker PIDs,
-command names, workqueues, callback function symbols, descriptions, and
-elapsed durations.
+Fixes: 464e454e1cb4 ("workqueue: rename wq->unbound_attrs to wq->attrs")
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+---
+ tools/workqueue/wq_dump.py | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Feedback and comments are welcome.
-
-Aaron Tomlin (2):
-  tools/workqueue/wq_dump.py: Support backward compatibility for
-    wq->attrs rename
-  tools/workqueue/wq_dump.py: Add busy worker inspection and BH pool
-    states
-
- tools/workqueue/wq_dump.py | 60 ++++++++++++++++++++++++++++++++++----
- 1 file changed, 55 insertions(+), 5 deletions(-)
-
+diff --git a/tools/workqueue/wq_dump.py b/tools/workqueue/wq_dump.py
+index 31afc24ef17b..9313ebe0c525 100644
+--- a/tools/workqueue/wq_dump.py
++++ b/tools/workqueue/wq_dump.py
+@@ -78,6 +78,12 @@ def cpumask_str(cpumask):
+ 
+ wq_type_len = 9
+ 
++def wq_attrs(wq):
++    try:
++        return wq.attrs
++    except AttributeError:
++        return wq.unbound_attrs
++
+ def wq_type_str(wq):
+     if wq.flags & WQ_BH:
+         return f'{"bh":{wq_type_len}}'
+@@ -85,7 +91,7 @@ def wq_type_str(wq):
+         if wq.flags & WQ_ORDERED:
+             return f'{"ordered":{wq_type_len}}'
+         else:
+-            if wq.attrs.affn_strict:
++            if wq_attrs(wq).affn_strict:
+                 return f'{"unbound,S":{wq_type_len}}'
+             else:
+                 return f'{"unbound":{wq_type_len}}'
+@@ -206,7 +212,7 @@ for wq in list_for_each_entry('struct workqueue_struct', workqueues.address_of_(
+ 
+     print(f'{wq.name.string_().decode():{WQ_NAME_LEN}}', end='')
+     if wq.flags & WQ_UNBOUND:
+-        print(f' {cpumask_str(wq.attrs.cpumask):{ucpus_len}}', end='')
++        print(f' {cpumask_str(wq_attrs(wq).cpumask):{ucpus_len}}', end='')
+     else:
+         print(f' {"":{ucpus_len}}', end='')
+ 
 -- 
 2.55.0
 
