@@ -1,124 +1,134 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0EB2FBDE0
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:09:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300E03DDDDE;
+	Mon, 31 Aug 2026 10:09:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170958; cv=none; b=PXgEgNJVTNV4AWxssCoxE19VLC+AH45ZZU/Q58mHB293LIvqPrCJRTAZ5+qSyVT/6Ma690TvCalOlNbV9HI4TuCtJkxLZ2aq3IRF4WWXLP/BaJdzt3SjSMYTP2eu2QDaOvOoZBBlLrcFX3jyXCEMa0wOB3Q/3ZDsl4pGpWkXqf0=
+	t=1788170983; cv=none; b=uDRBomkOg4dd8TXWW1DjY1WplV66eMbRNLlydNsa4FoVipggk/BJ2qRQRMWmr2lerO7IvL5nMiOzyia1l2Fha5JOiUbmSRjANglzGuISSmUevuoJXn98XSEjiE9E3axoLBOp5JdKCESYO+QHTQXmJYPGZAB5PoJ+ObjFctlh7qY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170958; c=relaxed/simple;
-	bh=GETuGlx9YbsBvylfdCf1CXJH+H4woz4StNzG++rg8to=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TJOSGCeWaPILxQ82I2XQJXtXHfVhVbuGwDFLh5w1wYBLrcMr8CcKoruk7s9dTZj/n2fuMin1j58Y8sQGtw8RzfsC7IZz5ropVyXQmxt3/J2hosTyho9lZVTVSECMZ3H44l6ITZoRQ9ZCufs7zr9lfq2Dx12KYHLR82kK2FXsgkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=co8z/rZU; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788170983; c=relaxed/simple;
+	bh=x+8lU402WCpYO7mhIG+KCEDw/P223Qpg3y2Ef+3Lxvc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SR9k3onRa5GSo0Z4kW4YilY0xsAP9ATUokfwv5Rzw41Z4Gl34g35huRDbY7GXxDXS/3xJbGmUsuVq4+wcpyrPQ9jtCzVGMlkrxSxwpzWoKqEol59CoE9VEbG3hCrLUDThOrTX7WY8W/KbD0wnAt1teSx+pexnKLuOUrGRZMPz3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ST8rPUhj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="co8z/rZU"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-495590dde14so31624015e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:09:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788170955; x=1788775755; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0b6snvUzL0C95PkbFwQuYpM+8m6QVzJMDdB66/XMz4k=;
-        b=co8z/rZUlNitYFeIMXSjiDB03hXpaRy/Z8ZfHZrUiEFDtsIRKl0n/CR0F2qMIo6do3
-         zmtvMDT6Qc6mnyrtxgimqT8WMIsdLq/cGRWGIbmYJbUVWyAoBDd3xRgNEqnyeME5tiDq
-         RaAOsDfGEPYek/yCrbcXDTdrIFC3AVQPdYtUgh9YVGf1Pim23F/L/Nt8bit38ZE1bZiL
-         K5VRvQFqk7ut9Ru7jF0D2MXVC9EbWfBEbFFfCYQHdkSyDoMzcaKql9h2D6i9vOQ1zhxS
-         iPNkB86sxl86nE3ZvNSsaHynZlLb8VcVLspJz4JI2ZXX2L0Swvpc9JZ7tuJ1nrUgk7iI
-         JvNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788170955; x=1788775755;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=0b6snvUzL0C95PkbFwQuYpM+8m6QVzJMDdB66/XMz4k=;
-        b=pH9HqQ4LTql/OBc1tUF7We41azrR/BW/rAPznJWpkHGCi7PtpAxw3gq8sFjeYAnnHm
-         P6S15z93nzN8WLm+DHN7q85iDXuiSL3VxOvJ721vTV5nMYagSO14l/YWo7BG09Bvw/Eq
-         aurlsf1GTrOyrCYTvmaarNXeEgEUb8U6B9ZkFxRyw2RPb3CdaTHUKhc+g4N+A5H3UJQE
-         F15xnFYSwXF6LvN0+XTxhuwE2Rn+pUeawvpnU9LQFS/Z9kn5+BqDdntiTV1uAWe2QxxM
-         vuCPPSw0NybmF3G27HDc0s2W4liPx5dmQsXBFgxrzC2FfTBSUlLy4P3EFEh4TTHhQeFc
-         fVcA==
-X-Forwarded-Encrypted: i=1; AHgh+Ron1DtUPLs4bNM+tQ9N7kv3Y9QpWamN0jegB4vPOfqwkyqHlx7gLoaHGqr/xCk61goXWqdengb+VUPo8ZI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5HtJooKr6zYmKAu6jDhPF/GPNRGi+VwCzQGeZWmqt5iRodCES
-	RUDsiJvxeCQligQm4qxWAmOCdbXtDq01VOIlO0s9ROW5hGh6d8alyWld
-X-Gm-Gg: AR+sD136iLfH520byDBz2kCt8FxdgXyMFOLSNLy/vYW3cdOypBJ2iO0t+pDuhTknHBz
-	pSh/cdrNlghA6gLNsZOlSFLSexYEkmXD8hY/J/SaFhVUDqJiLzLyh3NQh2ffwD0qhAwVVxLTD9I
-	KAGY5vLEIC5t6VO42FxL+Ig1DOgMWU0i6LFkaK70LkbMgUpfFlbKIzoz0u2hSdAKGXOmDtivg8E
-	mO4d17yIlSqKIcoD/D+pXjbHJENQmGiQEZZyE/cfJ19EffmokTfdgi5qRKRU/zx8JuepwTK/box
-	VqqUfLNID5YLE64iqD1qBDBEGhXG/FjrX7Cx5+ZPnt9ekjjgTAZK+BOPs7XXoOgMuuplDDiYPHO
-	PxSxGky63UTAA/Y7yR6ednKv6UxxkI1Ud8Zts/HROFinWWVi2r429C3XlvU1RD0dtZnq7FY2Uzh
-	USeiRCVGw5jF7UjfLWxDQDlnd5DU1uMKHcajyA5Nh5XsB/oPYjWiXCbC9I/32F6GUkitJfVJW5i
-	4M=
-X-Received: by 2002:a05:600c:34cf:b0:499:593b:a15b with SMTP id 5b1f17b1804b1-49cd940c51fmr34622945e9.1.1788170954593;
-        Mon, 31 Aug 2026 03:09:14 -0700 (PDT)
-Received: from [127.0.1.1] ([2001:4bb8:128:b749:8793:c76d:302:4caa])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ccea87e1asm134097045e9.2.2026.08.31.03.09.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 03:09:13 -0700 (PDT)
-From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Mon, 31 Aug 2026 12:09:09 +0200
-Subject: [PATCH] iio: rename stale IIO_DEV_ACQUIRE_ERR reference to
- IIO_DEV_ACQUIRE_FAILED
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ST8rPUhj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1220D1F000E9;
+	Mon, 31 Aug 2026 10:09:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788170981;
+	bh=AZV9NH3a7XWgTTIIp4Spi0yx8YwNlaofiwjwTGL5HTw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ST8rPUhjPYc7++xH1o6amwnTNVU0r4dBUYU14fe5hv/LGFEUhen7aT6yNoejdOvt+
+	 nWhfStHr8Kd4aqaNlGJ+Devp6I/A2tlKqZiuH99ZgdJSrbLfnR/wYDYFwpEHw8mFWq
+	 RyncQ9tMUiNgWIrwAhN+QI8UCALSiHwnwLW7/bzw=
+Date: Mon, 31 Aug 2026 12:09:38 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Rishabh Jain <rishabh.jain1198@gmail.com>
+Cc: Mathias Nyman <mathias.nyman@intel.com>,
+	Mario Limonciello <superm1@kernel.org>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] usb: pci-quirks: always assert xHCI OS ownership
+Message-ID: <2026083129-justice-egomaniac-01cd@gregkh>
+References: <69fdc442-a4f2-42e0-80f6-6b35cbc207bf@kernel.org>
+ <20260816181519.88865-1-rishabh.jain1198@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-doc_acquire_failed-v1-1-3c8e59c07d18@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAMRSlWoC/x3MQQqAIBBA0avErBPULKqrRITpWAOhpRRBdPek5
- Vv8/0DCSJigLx6IeFGi4DNEWYBZtV+Qkc0GyWXD20owG8ykzXFSxMlp2tCy2XLXKSVqlA5yuEd
- 0dP/TYXzfD5Jk6vBkAAAA
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Javier Carrasco <javier.carrasco.cruz@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788170952; l=1209;
- i=javier.carrasco.cruz@gmail.com; s=20260111; h=from:subject:message-id;
- bh=GETuGlx9YbsBvylfdCf1CXJH+H4woz4StNzG++rg8to=;
- b=HObEwJHbU0xLgmkAryyLWKuHTpJwywNuG9f4Do1zUVvwNqggOgew/7UeFzeBHPXVGv76r/3XM
- fgIuVcj3tziBP5jAY4Im8fbuXXdwxvfvoEye80rowhTAc3nK0CzBFS/
-X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
- pk=Lge8w8xidNSf/INy7JAIbAW+Hezkp3nsBh2OjKL7lLU=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260816181519.88865-1-rishabh.jain1198@gmail.com>
 
-Update the kernel-doc reference left over from an earlier revision
-of the series, before the macro was renamed to IIO_DEV_ACQUIRE_FAILED().
+On Sun, Aug 16, 2026 at 11:15:19AM -0700, Rishabh Jain wrote:
+> The xHCI ownership protocol requires the OS driver to assert the HC OS
+> Owned semaphore before using the host controller, then wait for HC BIOS
+> Owned to clear if firmware owns it.
+> 
+> quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
+> is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
+> while both ownership semaphores remain clear.
+> 
+> On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
+> resume to terminate Controller Restore State with USBSTS 0x401. Linux
+> then reset the host controller, both root hubs and the USB Bluetooth
+> adapter.
+> 
+> The controller entered resume ready and halted with USBSTS 0x1.
+> Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
+> device contexts and command, event and transfer rings were verified not
+> to cause the restore error.
+> 
+> Asserting only HC OS Owned changed USBLEGSUP from 0x00000801 to
+> 0x01000801 and eliminated the restore failure across four S3 cycles,
+> including a stock-kernel test. Clearing USBLEGCTLSTS was independently
+> verified to be unnecessary.
+> 
+> Always assert OS Owned when the xHCI Legacy Support capability is
+> present. Use the existing ownership masks with a single initial register
+> read/write, and leave a debug breadcrumb when firmware owns the
+> controller. Keep the existing BIOS handoff recovery and legacy SMI
+> cleanup unchanged.
+> 
+> Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+> Tested-by: Rishabh Jain <rishabh.jain1198@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
 
-Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
----
-Trivial documentation stuff that I found while getting the next version
-of the veml6031x00 driver ready.
----
- include/linux/iio/iio.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Tested-by: is implied if you sign off on a patch, no need to include it.
 
-diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
-index 711c00f67371..989c1db8fb36 100644
---- a/include/linux/iio/iio.h
-+++ b/include/linux/iio/iio.h
-@@ -789,7 +789,7 @@ DEFINE_GUARD_COND(__priv__iio_dev_mode_lock, _try_direct,
-  *
-  * Tries to acquire the direct mode lock with cleanup ACQUIRE() semantics and
-  * automatically releases it at the end of the scope. It most be always paired
-- * with IIO_DEV_ACQUIRE_ERR(), for example (notice the scope braces)::
-+ * with IIO_DEV_ACQUIRE_FAILED(), for example (notice the scope braces)::
-  *
-  *	switch() {
-  *	case IIO_CHAN_INFO_RAW: {
 
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260831-doc_acquire_failed-bd0f94415e2f
 
-Best regards,
--- 
-Javier Carrasco <javier.carrasco.cruz@gmail.com>
+> ---
+> Ah, agreed, I didn't see XHCI_HC_OS_OWNED is defined! The +3 in v1 was
+> for selecting byte 3 of USBLEGSUP.
+> 
+> I've simplified v2 to use the existing ownership masks, one initial
+> read/write (makes sense to batch the writes), and the debug breadcrumb
+> you suggested.
+> 
+> Changes in v2:
+> - Use XHCI_HC_OS_OWNED instead of byte-offset access.
+> - Fold the TI/Renesas forced handoff into the ownership-register write.
+> - Add a debug breadcrumb when BIOS ownership is initially set.
+> - Make the BIOS handoff wait unconditional and gate recovery on the initial
+>   BIOS ownership state.
+> 
+> Additional context:
+> 
+> * Kernel Bugzilla #216470 documents the same USBSTS 0x401/reinitialize
+>   behavior and its impact on attached USB devices:
+>   https://bugzilla.kernel.org/show_bug.cgi?id=216470
+> 
+> * Commit a7d57abcc8a5 ("xhci: workaround CSS timeout on AMD SNPS 3.0
+>   xHC") is related workaround history: it tolerates a distinct AMD CSS
+>   timeout and resets the controller on resume:
+>   https://github.com/torvalds/linux/commit/a7d57abcc8a5bdeb53bbf8e87558e8e0a2c2a29d
+> 
+> The external reports do not record their ownership semaphore values but
+> are included as corroborating failure signatures that this might fix.
+> 
+>  drivers/usb/host/pci-quirks.c | 30 +++++++++++++++---------------
+>  1 file changed, 15 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
+> index 0404489c2f6a..29e635a036a6 100644
+> --- a/drivers/usb/host/pci-quirks.c
+> +++ b/drivers/usb/host/pci-quirks.c
+> @@ -1185,31 +1185,31 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
+>  		dev_warn(&pdev->dev, "xHCI controller failing to respond");
+>  		goto iounmap;
+>  	}
+> +
+>  	val = readl(base + ext_cap_offset);
+> +	if (val & XHCI_HC_BIOS_OWNED)
+> +		pci_dbg(pdev, "BIOS owns xHCI HC\n");
 
+Who needs this new message?
+
+thanks,
+
+greg k-h
