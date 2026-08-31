@@ -1,141 +1,84 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C61231B101;
-	Mon, 31 Aug 2026 03:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C6C35AC33;
+	Mon, 31 Aug 2026 03:44:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788147714; cv=none; b=bN4wmKxE9+2cDnn5aQqmfiMMEmrhTVT4ISOnco8sxqcjG0BJ74t5YeTq+LQJ8/LYKRMY2aeYuwidv53Pqd1L3rQekI12cSzYMRRUD0+qZz6FM1GbjJDj43GIt/7/WE2KFrHS/X81qXl46oQj4BtmzwYrdJhgc9AbtkA7vTOXExY=
+	t=1788147888; cv=none; b=tjln2ONfVGffok7dNllf9My3a3mjkGe0B/G80r3/cAgspxXXnsLY18DPuiuDqJjbjrGhI+UoHw46R/2CXh4Hw4Xd1J6GEZy/aVWtcr+MvdoZNWjLaciZLtCK+N5CoA+VLoFpQ3KXKyRhF4NWeKhLXEcyhAqNhYAvqgA2kko8kBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788147714; c=relaxed/simple;
-	bh=BQqSfNw7698Sa/HXE9sQWxU1pHqkCDM/++aa3ehKA9Q=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=s8DUJ5FJT9upBzdnde3wTcyhi6VBghhP/uU9rHPf49VHoMJ6bai2wEHf6DTt+hJN1X1xKF4NeiqhNBKcuG/OO3jjCx/l+N+ZzZUYkb37s7Qy/I+RCTl3+/jN6PJrXF1sZ/Z0xS1nh/hKUuveJqIWo3kXwOUDm2Uc8gi24qYdeEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=yGkPIQmE; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788147888; c=relaxed/simple;
+	bh=V72aHCmF4b7VfASa0RriukX8iwwBYX/nI2WEc7fM5oI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dHtZUanWeM+BwF++hCFCT4HIGCYN+nxMOrppTc7If+BoojBuBspAsYYjwozW7rsDcBi6UyRvlOdXaJ20sDM38q4/XBs42bgtQGbvB6GIAJ0d9BXCYne5hn9ELyPLxoBwJdDEZjDxdVnN3/8/8LVB7k90QoFcVJFD8fl9LVmnTEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=M3T2hIth; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="yGkPIQmE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788147653;
-	bh=NnwaB5ujAvJmVoXXw/A5RDLqLJgznXnQE/ZxtU6ybE0=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=yGkPIQmExOaTkwbdhWCa6ATbsYK3mxUNchv46ryjHsKuGIc6m3fx09y3joCLe6l5G
-	 Q8HaT/EDppW4pWio6h4j/5C438HyHiH9VZ4UE8UWoB9vP2KuL1/XXiV6ShUFb6ZWNF
-	 mFKTpkxxwWAny9ggL3WNaAlRedONkFm02vAR5P48=
-X-QQ-mid: esmtpsz16t1788147647t12fcc224
-X-QQ-Originating-IP: r/8jVrT4i8gNmZxm/dFB1QWDjJiD0EoKNYpdcbUmelk=
-Received: from = ( [183.48.245.118])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 31 Aug 2026 11:40:45 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 10785841376019705639
-EX-QQ-RecipientCnt: 17
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="M3T2hIth"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1788147871;
+	bh=tcBolFJ4EIF2q/e/NdkFEkTsXlaM1Jg3zKGnjeS3tug=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=M3T2hIthfByLiB53LvXYC1lLRJ9iwPqGavMIuY/iRqEuVRNCxkNJDRSbqfqlosVkr
+	 yl0sGf/rcW8X1q3cY6M4ObHO1nY+mkXjSZBFyg3qIm/V/UtTFB7nG7ucSqNY7ad9iw
+	 69PLZc4E4NDvOKLCCIHd1sau2tpgbvSV98H7JppBH0vRECNXW59faZDQq1JXCGZ+An
+	 Wvmyk7MBTPk3kXC6Nd3HM8eGsI5yaOWR/HHz5VNRuKvq4oaZ+oSkNyF6bfRvWoDWFu
+	 U9Fm7Yg2YX9Gbn/k4T7WlOR1+ghJRdP+17bKP+DkSCyFIDVm/CHn3vkvuBrxwzFsxH
+	 Zwa1nmrTxjOFQ==
+Received: by codeconstruct.com.au (Postfix, from userid 10004)
+	id 799F368450; Mon, 31 Aug 2026 11:44:31 +0800 (AWST)
+From: James Lee <james@codeconstruct.com.au>
+Date: Mon, 31 Aug 2026 11:43:44 +0800
+Subject: [PATCH 5/7] net: mctp: usblib: Simplify allocation logic in
+ mctp_usblib_test_rx_init
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=76c5c7c6483ed5fd9eb1e185aa1b9ece1314890f287a7c78af87385efe71;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Mon, 31 Aug 2026 11:06:00 +0800
-Message-Id: <DL2SP646WOSO.2762R9GD5RXSI@linux.spacemit.com>
-Cc: "Michael Turquette" <mturquette@baylibre.com>, "Stephen Boyd"
- <sboyd@kernel.org>, "Brian Masney" <bmasney@redhat.com>, "Yixun Lan"
- <dlan@kernel.org>, "Inochi Amaoto" <inochiama@outlook.com>, "Alex Elder"
- <elder@riscstar.com>, "Haylen Chu" <heylenay@4d2.org>,
- <linux-clk@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Paul Walmsley"
- <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
- <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>
-Subject: Re: [PATCH v2] clk: spacemit: k3: add 1.8 GHz PLL5 and PLL8 rates
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Aurelien Jarno" <aurelien@aurel32.net>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260810-k3-pll5-pll8-1800mhz-v2-1-aabff510a797@linux.spacemit.com> <apRncBmtm7w0Emwf@aurel32.net>
-In-Reply-To: <apRncBmtm7w0Emwf@aurel32.net>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NDcdydrNm/XtFmDWDwG77Y3qnBeQf5lPsnF07Lnr7kH6dWJ3t470x8rg
-	oZCmOoa35/xxf5nhi44yg4lsOPXKfHaZZXnU+Fujc32UG/EPR/PAfbv3f0xtYz7825myR+Y
-	gSAmE2ko8K+yf94AflJPOcfioLMbxW3fpMiUsmTddQA14a7tENN0/sac2InpiLuXDeizCUC
-	c+UpYMl6O4a+PIpFMz/weM6jUtiUQhhBLnWUp6LG6/tCGsl6d7yEqeeePcn3Aw1Z7UPsbvL
-	J5SS9Z+cRXrDv1pnULHcHb2l7AOmdiAsofmXZ7eN48gAdHJWsTq+FyaEdPZtwpAbePK4DiW
-	zs9GN5gQRyDsFMJOhtlTULyi6U6BFak6yTh6CQY+9YDPyL9FpttjRWO/D+Zok9jxTvDsp4N
-	CFqfTRUNTN2Z7PVb+rTgiFA7yomxnX89gku0lH2e8OU7fIjmt3aRj0hiMgMuoMl/mR0fnnd
-	eedhP48uQt6pEl+iW+dTRp8DO/0WqjcDLjAXgaQzTW74PtVtCEa2ZcR89WJD8a4FGxV2AVZ
-	/yfvgA/MU6GH/6VtkGFPySVBAc0bPl9iVh4Gzi0vLJ934PfszngAEWFkTTGqJnPC+vFiI9x
-	CA7W8mWT9qWKIDUS5i69Sl6OlKtc/duyEAPg/zFWxTIoCeB9A1yCLmEBhTaP3fpmveEyoTX
-	klygI1Yu/8wzxgbUScIsbOmugieRnkk8ij3LS5PZbWAZ7+h454Mtp+FydCVnMpe9022PMy2
-	WWG6iLePfPaEm0P3M5CFkeP1RpsCnXPaj+R+CYudx9hP3csY4veVQ9NK8NEfPS1w3a/Twtz
-	I4QZGvrF9pyHiAfz1q40TFGp7ydAwWcCCpqt5t3POfmXiR12s1ZPwaA2K6uOW6q67psgxXc
-	ODzegRiqxajATKwc4bIUGXXFb0OdsCFekjK2yZHVe0ykWKl/j8KbzJFLMX4sjVuvnQGvxMF
-	EYshqQDLEDCtvbLkaDTkB8PvEFISjNwNY/7tfbOJ4yldGdtzYswjRZWmvH4srHgcTE2Ni7I
-	mhsvgm6DhrtghH3EKVHluNHSJP1vK0GfK0mUM0xfs2Ow17ilpupYpQdYluT7EC+6UmI2+ky
-	P4+GxWLX0RiYoASVdygvYBs3hQHhMPghP7bURwg00CHZSLYrZK0uKfQOb+c0+kw/vPKHm4Y
-	y+VdV4e5IqKBM3VRJoR5PwkhuRg+PxS9hCxyQRotrx0tn674VnLsNIRawT9mFzkK/LW/
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-dev-mctp-usb-lib-test-v1-5-79699bf67a18@codeconstruct.com.au>
+References: <20260831-dev-mctp-usb-lib-test-v1-0-79699bf67a18@codeconstruct.com.au>
+In-Reply-To: <20260831-dev-mctp-usb-lib-test-v1-0-79699bf67a18@codeconstruct.com.au>
+To: Jeremy Kerr <jk@codeconstruct.com.au>, 
+ Matt Johnston <matt@codeconstruct.com.au>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, James Lee <james@codeconstruct.com.au>
+X-Mailer: b4 0.14.2
 
---76c5c7c6483ed5fd9eb1e185aa1b9ece1314890f287a7c78af87385efe71
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+The if statement testing rx's allocation is unneeded.
 
-On Mon Aug 31, 2026 at 1:25 AM +08, Aurelien Jarno wrote:
-> Hi Troy,
->
-> On 2026-08-10 16:46, Troy Mitchell wrote:
->> K3 boot firmware configures the C2 and C3 CPU clock domains at
->> 1.8 GHz. PLL5 feeds C2 and PLL8 feeds C3, but their rate tables
->> currently contain only the 2 GHz overclocking operating point.
->>=20
->> Add the nominal 1.8 GHz configuration as the first entry in both
->> tables. This lets determine_rate() and set_rate() select the firmware
->> operating point while retaining 2 GHz as a supported overclocking rate.
->>=20
->> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
->> ---
->> The related U-Boot change is available at:
->> https://github.com/spacemit-com/uboot-2022.10/commit/fb95cf3d848b771c61b=
-5a1b3e5cbbee223faf352
->> ---
->> Changes in v2:
->> - Drop "clk: spacemit: re-enable PLLs after init"; the PLL init issue
->>   will be handled in a separate series.
->> - Send the K3 PLL5 and PLL8 1.8 GHz rate-table update as a standalone
->>   patch.
->> - Clarify that 1.8 GHz is nominal and 2 GHz is an overclocking rate.
->> - Link to v1: https://patch.msgid.link/20260804-k3-pll5-pll8-1800mhz-v1-=
-0-a3a75866ce32@linux.spacemit.com
->
-> This make sense and looks good:
->
-> Reviewed-by: Aurelien Jarno <aurelien@aurel32.net>
-> Tested-by: Aurelien Jarno <aurelien@aurel32.net>
->
-> I wonder if it should be backported to stable, as users will deploy=20
-> newer firmware.
-Yes. I'll Cc: stable@vger.kernel.org in the next version.
+Signed-off-by: James Lee <james@codeconstruct.com.au>
+---
+ drivers/net/mctp/mctp-usblib-test.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-Thanks for your tags.
+diff --git a/drivers/net/mctp/mctp-usblib-test.c b/drivers/net/mctp/mctp-usblib-test.c
+index ab323a31161a415d93eafe4314e0e52cedfcd42e..772484df32a7d7b4d30e51808e06853febe272b6 100644
+--- a/drivers/net/mctp/mctp-usblib-test.c
++++ b/drivers/net/mctp/mctp-usblib-test.c
+@@ -202,11 +202,9 @@ mctp_usblib_test_rx_init(struct kunit *test, bool span)
+ 	int rc;
+ 
+ 	rx = kzalloc_obj(*rx);
+-	if (rx) {
+-		rc = kunit_add_action_or_reset(test, action_rx_fini, rx);
+-		KUNIT_ASSERT_EQ(test, rc, 0);
+-	}
+ 	KUNIT_ASSERT_NOT_NULL(test, rx);
++	rc = kunit_add_action_or_reset(test, action_rx_fini, rx);
++	KUNIT_ASSERT_EQ(test, rc, 0);
+ 
+ 	rc = mctp_usblib_rx_init(rx, ep_maxpacket, span);
+ 	KUNIT_ASSERT_EQ(test, rc, 0);
 
---=20
-Troy Mitchell
+-- 
+2.47.3
 
-
---76c5c7c6483ed5fd9eb1e185aa1b9ece1314890f287a7c78af87385efe71
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCapTvmA0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQvQDIA/3RL7VXwzHuHjnzdOwa1VtWuQpzXbNq9GItBdCdH
-0H0gAQDz6KseX2X3tpAb+avR3WoWXHlYlpXdXrZQ7y29Mk+zCg==
-=sgJs
------END PGP SIGNATURE-----
-
---76c5c7c6483ed5fd9eb1e185aa1b9ece1314890f287a7c78af87385efe71--
