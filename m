@@ -1,212 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91623EF0DC;
-	Mon, 31 Aug 2026 12:05:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943B93EAC75;
+	Mon, 31 Aug 2026 12:06:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788177955; cv=none; b=jwI9oh+KTdvi57GbBIjD9ZzRqaoCbhp87rRjDTxYaOxUvczBErn6+EVS1p0wyz1dbvl8dbTnn1A4BO9czznxtszYv1EbODVlkVJlGKrccI7DCc9F3XlL26hKzTF0x4HGkt2Lg6XJSTvk6S064CZMOyM+Dx2r6REgphFlwowAN0E=
+	t=1788177966; cv=none; b=lbCfirOUWmPxjFCDifM2p4klUNf8wApIdZbVVkkMUAcmoFwsSrSpY95bDK+vvPcXmJwk8qD9YT6rhkw+LSIy+Aiolbp//Y35xHNVbt2ivQhwt9fYUEp4oFjxs6Q1xMknJwEiMUjGGl9rYVkBRj0UkmiAT4LXi5FnlJpUTkWoUa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788177955; c=relaxed/simple;
-	bh=kHQGesbCcImkblBLI4Q2Mc47miAuY3bdoqDw2nlRzP0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dJCYkG5TNJybKvDghgK5DUANfCkBOmwMPmEERIr63fg8VzDS+4hEge4s/6/4W1v+1f1KEzh/4ZVgO/jXymsN7dXslX22yn4akBNSPJ7rk8XbmtBbO1btXfhOfiQa5o2oYZ7LSaUSQmZDGnfzhylPEtgYS8gQQjPkr/+GAxQDCco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jc8TuW6H; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788177966; c=relaxed/simple;
+	bh=2h/3aVmffoHVOJhCRSxD6k9KV8BdrBbV1UvqZ4MEKfI=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=Wp0JndPFQWz/FyJ86ajg8qIuVj4MFQD1cFOpdDp6k11TI/m4IYKvfhriWCvg3TJMChdgw3kNG9FdCD/xdcaqtN57pEdbr/1fhRGTW4HDy8CRmg4a09u5cBA5nMNQ8bNWOeUNmmPKl0TJBgaEwxXG5XEr+6hv6ONo8r9d6dapxE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=unIdRtVl; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jc8TuW6H"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 87E97C2BCB8;
-	Mon, 31 Aug 2026 12:05:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788177955;
-	bh=kHQGesbCcImkblBLI4Q2Mc47miAuY3bdoqDw2nlRzP0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Jc8TuW6Hok33Secphh/iSb3+ubNglM9b0omzZnZiCJPiruB+w7xGmDDrrIClF22yF
-	 Dk0s//yza/XTAiVMw7Jq2RbpEA6ACgeBKLtxiCJp3eEGfGwyVnS7xDofKYSRAnvPr6
-	 ZeSkef5o8l/t6QsuHhe1IFLa/iBfqS+vpfTimoozCCQYnpHD2JzjeHZEJtpJ+zTFFC
-	 n4F1aZBalrcZ3xyCS0YUPAlDtIoeK1jAR2tjTC8JwB1NpW2Scn580oDsx8uaHzWxI0
-	 fLMdZAsEcXYaE1hkWEsQHUpdED0Ar2tdzlqp81fjB5eu46S+XF0FN6rINZnOluiRkZ
-	 PFX90WRRSV3YA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69927C61DE2;
-	Mon, 31 Aug 2026 12:05:55 +0000 (UTC)
-From: Tobias Jakobsen via B4 Relay <devnull+tjakobsen84.protonmail.com@kernel.org>
-Date: Mon, 31 Aug 2026 14:05:51 +0200
-Subject: [PATCH v2 1/2] mtd: spi-nor: allow the platform to supply write
- protection state
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="unIdRtVl"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 59B95A418E;
+	Mon, 31 Aug 2026 14:06:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1788177961; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=CvYaTbwQSK0LJJBsjgTm93gEm5vYJxmimJC+fF1vySM=;
+	b=unIdRtVlp19MCSQglFCY+aKbD1azbCpssbH2o0lKAgQROidOe4hlT5RStr4i1+MTGX/ZR4
+	tHHXCKruj+bRyL0smyVl8KEeoZ4dV/u2ZzEumfLIwEOPp2CyFPCGksEIkciDGsUqiVH3jj
+	5/oIyfPpBDiZSIm3YT6eUEidzIGLo83+EKA2PBvBDaXXFNdjjzcJn59lOLLcU9SEIBAZn/
+	7JpYElUB3myI6he74j1ImqjgPgrErGJITR23BgE0emhn/+zE/lfZVqPc9pE8U5qF8kM478
+	QSW0NQIr9Nmp30N3h0S/ElQK19JGGA2xxnyqCMmOmM861gfjRL7pQkWhpSJqNQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Date: Mon, 31 Aug 2026 14:06:01 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
+ davem@davemloft.net, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Russell King <linux@armlinux.org.uk>,
+ thomas.petazzoni@bootlin.com, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
+ <alexis.lothore@bootlin.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH net-next 2/2] net: stmmac: dwmac4: Use the full perfect
+ filter ability for UC filter
+In-Reply-To: <20260831070121.349778-3-maxime.chevallier@bootlin.com>
+References: <20260831070121.349778-1-maxime.chevallier@bootlin.com>
+ <20260831070121.349778-3-maxime.chevallier@bootlin.com>
+Message-ID: <04156e434531ec68e8862e23bd84bc20@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-spi-nor-platform-lock-v2-1-6cc75b909241@protonmail.com>
-References: <20260831-spi-nor-platform-lock-v2-0-6cc75b909241@protonmail.com>
-In-Reply-To: <20260831-spi-nor-platform-lock-v2-0-6cc75b909241@protonmail.com>
-To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
- Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Mark Brown <broonie@kernel.org>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>, 
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-spi@vger.kernel.org, Tobias Jakobsen <tjakobsen84@protonmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788177954; l=5359;
- i=tjakobsen84@protonmail.com; s=20260829; h=from:subject:message-id;
- bh=MSys8cnXbQBoWVAcIhue35cuWVEU+RVJ5eSR/jS9c98=;
- b=ajtrL7jE2GkvUCH6m2KQ0jishkNtM0TF0PpJb/axYVNuluOZtf1Qa9FzPiA4zAu5tUgw9Gp6c
- /lHveFpouueDqLb4AAyQZYtx4URG+RMherINPr34hszuGz3ETL+COZH
-X-Developer-Key: i=tjakobsen84@protonmail.com; a=ed25519;
- pk=UREd6cisfwsFIDP455nUH6Ysx+ZDGnAVE9nGmKzm1Ks=
-X-Endpoint-Received: by B4 Relay for tjakobsen84@protonmail.com/20260829
- with auth_id=986
-X-Original-From: Tobias Jakobsen <tjakobsen84@protonmail.com>
-Reply-To: tjakobsen84@protonmail.com
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Tobias Jakobsen <tjakobsen84@protonmail.com>
+Hi Maxime
 
-Some flashes are write protected by the platform they are attached to
-rather than by their own block protection bits. An Intel PCH SPI
-controller programmed with protected range registers is one example: it
-refuses writes to a range regardless of what the chip's status register
-says, while the chip's block protection bits are typically left clear.
+On 31.8.2026 09:01, Maxime Chevallier wrote:
+> Contrary to dwmac1000 that gets its number of perfect filter entries
+> through the 'snps,perfect-filter-entries' property, dwmac4 allows
+> reading the filter size from the HW features registers.
+> 
+> Perfect filter is used for Unicast filtering, and can contain up to 128
+> entries, each having its own set of registers to access it.
+> 
+> The registers are always at the same location in the map, regardless
+> whether or not the entry is implemented in hardware. Accessing a 
+> register
+> for an un-implemented entry just doesn't do anything.
+> 
+> The filter is made of one always-available entry, and 3 configurable
+> banks :
+> 
+>  Entry 0 : Always implemented, stores the primary MAC address
+> 
+>  Entry 1  \
+>   ...     + -- Can contain between 0 and 31 entries. Number of 
+> available
+>  Entry 31 /    entries in HW_Features0[18:22].
+> 
+>  Entry 32 \
+>   ...     + -- Additional 32 entries, all or nothing. Availability is
+>  Entry 63 /    specified by HW_Features0[23]
+> 
+>  Entry 64  \
+>   ...      + - Additional 64 entries, all or nothing. Availability is
+>  Entry 127 /   specified by HW_Features0[24].
+> 
+> Each of the 3 configurable banks are independently selectable, meaning
+> we can have gaps in the register banks.
+> 
+> For instance, a setup with 50 addresses enabled will have 17 entries in
+> the first bank and the additional 32 bank enabled (50 = 32 + 17 + 1).
+> 
+> Another example with 70 addresses : 64 addr bank on, 5 addresses in the
+> first bank (70 = 64 + 5 + 1).
+> 
+> While I haven't seen HW with gaps in the banks, Synopsys confirmed this
+> is a real possibility.
+> 
+> Let's therefore introduce a dwmac4 helper to get the physical slot
+> number of a given entry, allowing to configure the correct bank when
+> populating the filter. As we need the HW feature-set to compute the
+> index, store the bank info in the mac_device_info struct.
+> 
+> The total number of available entries is computed based on the
+> discovered parameters, instead of using the default value of 1.
+> 
+> Results on HW that uses dwmac4 :
+> 
+>  - imx8mp   : goes from 1 entry to 64 (1 + 31 + 32)
+>  - stm32mp1 : goes from 1 entry to 4 (1 + 3)
+>  - jh7110   : goes from 1 entry to 9 (1 + 8)
+>  - yt6801   : goes from 1 entry to hum, 1 entry (no extra addresses)
+> 
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> ---
 
-MEMISLOCKED therefore either fails with -EOPNOTSUPP, or, once the chip
-gains SPI_NOR_HAS_LOCK, reports a range as unlocked while writes to it
-are in fact being refused.
+> [...]
 
-Let the platform supply an optional is_locked() callback in struct
-flash_platform_data, alongside the partitions it can already supply, and
-prefer it over the chip's own block protection bits. This is independent
-of SPI_NOR_HAS_LOCK, so an answer is also given for chips that have no
-block protection support of their own.
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 
-lock() and unlock() return -EOPNOTSUPP, as platform enforced protection
-is not expected to be changed at runtime.
-
-Platforms that do not supply the callback are unaffected.
-
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221927
-Assisted-by: LLM
-Signed-off-by: Tobias Jakobsen <tjakobsen84@protonmail.com>
----
- drivers/mtd/spi-nor/core.c | 52 ++++++++++++++++++++++++++++++++++++++++++++--
- include/linux/spi/flash.h  | 12 +++++++++++
- 2 files changed, 62 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-index ccf4396cd..a5c37eea4 100644
---- a/drivers/mtd/spi-nor/core.c
-+++ b/drivers/mtd/spi-nor/core.c
-@@ -3001,6 +3001,50 @@ static void spi_nor_init_fixup_flags(struct spi_nor *nor)
- 		nor->flags |= SNOR_F_IO_MODE_EN_VOLATILE;
- }
- 
-+static int spi_nor_platform_lock(struct spi_nor *nor, loff_t ofs, u64 len)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static int spi_nor_platform_unlock(struct spi_nor *nor, loff_t ofs, u64 len)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static int spi_nor_platform_is_locked(struct spi_nor *nor, loff_t ofs, u64 len)
-+{
-+	struct flash_platform_data *data = dev_get_platdata(nor->dev);
-+
-+	return data->is_locked(nor->spimem->spi, ofs, len);
-+}
-+
-+static const struct spi_nor_locking_ops spi_nor_platform_locking_ops = {
-+	.lock = spi_nor_platform_lock,
-+	.unlock = spi_nor_platform_unlock,
-+	.is_locked = spi_nor_platform_is_locked,
-+};
-+
-+/**
-+ * spi_nor_init_platform_locking_ops() - Use the platform supplied write
-+ *	protection query, if there is one.
-+ * @nor:	pointer to a 'struct spi_nor'
-+ *
-+ * Some flashes are write protected by the platform they are attached to rather
-+ * than by their own block protection bits, for example by an Intel PCH SPI
-+ * controller programmed with protected range registers. In that case the chip's
-+ * block protection bits are typically left clear and say nothing about what is
-+ * actually enforced, so prefer the platform supplied query when available.
-+ */
-+static void spi_nor_init_platform_locking_ops(struct spi_nor *nor)
-+{
-+	struct flash_platform_data *data = dev_get_platdata(nor->dev);
-+
-+	if (!data || !data->is_locked || !nor->spimem)
-+		return;
-+
-+	nor->params->locking_ops = &spi_nor_platform_locking_ops;
-+}
-+
- /**
-  * spi_nor_late_init_params() - Late initialization of default flash parameters.
-  * @nor:	pointer to a 'struct spi_nor'
-@@ -3040,9 +3084,13 @@ static int spi_nor_late_init_params(struct spi_nor *nor)
- 	spi_nor_init_fixup_flags(nor);
- 
- 	/*
--	 * NOR protection support. When locking_ops are not provided, we pick
--	 * the default ones.
-+	 * NOR protection support. Platform enforced protection is preferred
-+	 * over the chip's own, as the chip is not necessarily aware of it.
-+	 * When locking_ops are not provided, we pick the default ones.
- 	 */
-+	if (!nor->params->locking_ops)
-+		spi_nor_init_platform_locking_ops(nor);
-+
- 	if (nor->flags & SNOR_F_HAS_LOCK && !nor->params->locking_ops)
- 		spi_nor_init_default_locking_ops(nor);
- 
-diff --git a/include/linux/spi/flash.h b/include/linux/spi/flash.h
-index 2401a0887..f415e2c0b 100644
---- a/include/linux/spi/flash.h
-+++ b/include/linux/spi/flash.h
-@@ -2,7 +2,10 @@
- #ifndef LINUX_SPI_FLASH_H
- #define LINUX_SPI_FLASH_H
- 
-+#include <linux/types.h>
-+
- struct mtd_partition;
-+struct spi_device;
- 
- /**
-  * struct flash_platform_data: board-specific flash data
-@@ -11,6 +14,13 @@ struct mtd_partition;
-  * @nr_parts: number of mtd_partitions for static partitioning
-  * @type: optional flash device type (e.g. m25p80 vs m25p64), for use
-  *	with chips that can't be queried for JEDEC or other IDs
-+ * @is_locked: optional callback to query write protection enforced by the
-+ *	platform rather than by the flash chip itself, for example a SPI
-+ *	controller that gates writes to a range of the flash. Returns 1 if
-+ *	the whole range is protected, 0 if it is not, or a negative errno.
-+ *	When supplied it takes precedence over the chip's own block
-+ *	protection bits, which do not necessarily reflect what is actually
-+ *	being enforced.
-  *
-  * Board init code (in arch/.../mach-xxx/board-yyy.c files) can
-  * provide information about SPI flash parts (such as DataFlash) to
-@@ -26,6 +36,8 @@ struct flash_platform_data {
- 
- 	char		*type;
- 
-+	int		(*is_locked)(struct spi_device *spi, loff_t ofs, u64 len);
-+
- 	/* we'll likely add more ... use JEDEC IDs, etc */
- };
- 
-
--- 
-2.53.0
-
-
+Thanks,
+Nicolai
