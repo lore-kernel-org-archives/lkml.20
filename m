@@ -1,170 +1,192 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06F7438FE6
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E3A42DA20;
+	Mon, 31 Aug 2026 13:36:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183388; cv=none; b=S5vAubHiQ84E6RliImlsDUwL6dDJGJ+AbJ3JdQ9UznAzXlYESIElQkfU+tZV5i5RzQhy8mdqZ6JSWTrzbhgZBMCPLjBuBIBpqWLQmf2atSaRjbVB4RT3Wude0Oo5rSTgIr1wGHLEeIcvk4w5xg10xp88LMxsOozVunY7MjFm+k4=
+	t=1788183398; cv=none; b=W89FnZS0imKWI+OI3kFTX/SEaDrGK74yvzwnWFOUFuo2qrAFANbZ2W8Ku/0NAXdz38ausnSSz/rlCyarh+FLIy5ATtlRQUcboHcLLFvt+k244Kar6vELX15wi1i7dhwzzRiELGzKWQ7BEIJnl7Co1MFfNjEgcwZWvLi495MRLbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183388; c=relaxed/simple;
-	bh=c3XB6pclgUDulfG0w1HZ57HAEcJOtSCEIStcIHB0wrc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NSruIpdrmhQV/MVnpkifalKFTKGrdI8WtXW9c+vE9DQ73rqZQgv2ST8qvuytCmyRBBoVqsqIjIHDoveaXft1RxxlYYqXFnoO6FbFiyXnsLb1NyrWjoiVBoqo8WK9YVbxjibaXxRh/rXaV3QE9HPTRJxRsHo9E2jbdH28tyigKI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LWrUCsyp; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788183398; c=relaxed/simple;
+	bh=8cEVuI0cwRWEQIB80MzkJ1sJnBDi+nXRRCp/lPNqvOM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hRle+pjOyHOlJPcgDnrRo7zZLxRoarXzkMG08tAWb4VKdbQv9XLZRfiCOjpKE3h7sbDYgUVWayImmccYiMexdu/DW7R8jhFHnU2qRGs3wnKYa+WoED/dk6x4EvooO6mPLUk4UDM/EYAF/GvPCtWm7oeCPcDSBb+KDYSZZlTD1go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NBXJ4cCh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LWrUCsyp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=w/
-	ZOvr0cFnO+KxNXzKLYo9hHd8muTFSoABjiNPb5SQo=; b=LWrUCsyp6sBJRjuFFH
-	WoX/i60LcZJIhpl9tb8texE4kWXekPjEjDwGD0GBLWceXAlSipmfOb1zX3SH5iGW
-	Nndy4j6SMPn2S98e9bLe+YVaEsNI7xnQl0qloYEDZnJH2MgTjYLRYO3oxjymQtLj
-	9Ag1QdX40jVFjzUjGlD6nfAW8=
-Received: from XLL-9950X.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wBHHmEbg5VqFKS5Sg--.13223S4;
-	Mon, 31 Aug 2026 21:35:27 +0800 (CST)
-From: Longlong Xia <xialonglong2025@163.com>
-To: muchun.song@linux.dev,
-	osalvador@suse.de,
-	akpm@linux-foundation.org
-Cc: david@kernel.org,
-	mike.kravetz@oracle.com,
-	yuzhao@google.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Longlong Xia <xialonglong@kylinos.cn>
-Subject: [PATCH v2 2/2] mm/hugetlb: cap demotion at currently available free pages
-Date: Mon, 31 Aug 2026 21:35:19 +0800
-Message-ID: <20260831133519.2505020-3-xialonglong2025@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831133519.2505020-1-xialonglong2025@163.com>
-References: <20260831133519.2505020-1-xialonglong2025@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NBXJ4cCh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7819C1F000E9;
+	Mon, 31 Aug 2026 13:36:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183396;
+	bh=+OMa8Ih155PVJeVTe5EYTcczdcfldm2UcGJZZGpV1go=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NBXJ4cCh9uk/EJzmJDww4u39YjImYD3aZJN5P5vzMd4avGHf3fH/mWqL7EDM1bYni
+	 BidPrGBoTdwysdTmKAh8cqRhgC0QHOpSHyBwEvBUK7r/AFexy9DyC52ZUYrb1ezD0v
+	 ARXImshNKeZdRfdPe8rAi5P4XG+XIDNGnq2tz7NeN8cmBM9RGqRGX8Cr134DFHeGkP
+	 BV/CG+cXRA6y5ka7hbozTz/w1XNPmTgGDhdc335rcijeShZdu8BPqAHmSwMk4w/Wgd
+	 zQxcvGqbsAywoLdwd95rXoBWF7HGkbZ+cAdKgqHv4pUhlxTpg80PzJmprYjZ6GUi05
+	 OmSVnBtYVGASA==
+Date: Mon, 31 Aug 2026 08:36:35 -0500
+From: Rob Herring <robh@kernel.org>
+To: Eduard Bostina <egbostina@gmail.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev, daniel.baluta@nxp.com, simona.toaca@nxp.com,
+	goledhruva@gmail.com, m-chawdhry@ti.com
+Subject: Re: [PATCH v3] dt-bindings: mfd: Convert TI TWL6040 to DT schema
+Message-ID: <20260831133635.GA712512-robh@kernel.org>
+References: <20260817100207.2970303-1-egbostina@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBHHmEbg5VqFKS5Sg--.13223S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZr17Cw1xArW5Aw45tF1rCrg_yoWrJFy5pr
-	W8tw1Sk3ykZF9rGr1Sqw1Dt3WfZw4xKrWrA34fJ3y5Zw13X3sF9r1xJryUZa4xuFWfJanI
-	9F4DZ34DZry5XaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jc6p9UUUUU=
-X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC+B-n4GqVgx+NqAAA3m
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260817100207.2970303-1-egbostina@gmail.com>
 
-From: Longlong Xia <xialonglong@kylinos.cn>
+On Mon, Aug 17, 2026 at 10:02:07AM +0000, Eduard Bostina wrote:
+> Convert the Texas Instruments TWL6040 audio codecs family bindings to DT
+> schema.
+> 
+> During the conversion, the following updates were made:
+> - Changed 'twl6040,audpwron-gpio' to 'ti,audpwron-gpio', which was
+>   misnamed in the old txt binding.
+> - Made 'gpio-controller', '#gpio-cells', and 'ti,audpwron-gpio' optional
+>   because modern platforms do not require them.
+> - Renamed the vibra 'vddvibl_uV'/'vddvibr_uV' properties to
+>   'ti,vddvibl-uV'/'ti,vddvibr-uV', the names actually read by the
+>   twl6040-vibra driver.
+> - Required 'vddvibl-supply' and 'vddvibr-supply' when the 'vibra' child
+>   node is present, since the twl6040-vibra driver unconditionally
+>   requests both.
+> 
+> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+> ---
+> Changes in v3:
+> - Required 'vddvibl-supply' and 'vddvibr-supply' when the 'vibra' child
+>   node is present, since the twl6040-vibra driver requests both
+>   unconditionally.
+> 
+> Link to v2: https://lore.kernel.org/all/20260816092847.2522994-1-egbostina@gmail.com/
+> Link to v1: https://lore.kernel.org/all/20260815083451.2147129-1-egbostina@gmail.com/
+> 
+>  .../devicetree/bindings/mfd/ti,twl6040.yaml   | 151 ++++++++++++++++++
+>  .../devicetree/bindings/mfd/twl6040.txt       |  67 --------
+>  2 files changed, 151 insertions(+), 67 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/mfd/twl6040.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml b/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+> new file mode 100644
+> index 000000000000..0d4e620d25a5
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+> @@ -0,0 +1,151 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/mfd/ti,twl6040.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments TWL6040 family audio codec
+> +
+> +maintainers:
+> +  - Eduard Bostina <egbostina@gmail.com>
+> +
+> +description:
+> +  The TWL6040s are 8-channel high quality low-power audio codecs providing
+> +  audio, vibra and GPO functionality on OMAP4+ platforms. They are connected
+> +  to the host processor via i2c for commands, McPDM for audio data and
+> +  commands.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,twl6040
+> +      - ti,twl6041
+> +
+> +  reg:
+> +    const: 0x4b
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  gpio-controller: true
+> +
+> +  "#gpio-cells":
+> +    const: 1
+> +
+> +  "#clock-cells":
+> +    const: 0
+> +
+> +  ti,audpwron-gpio:
+> +    maxItems: 1
+> +    description: Power on GPIO line for the twl6040
+> +
+> +  vio-supply:
+> +    description: Regulator for the twl6040 VIO supply
+> +
+> +  v2v1-supply:
+> +    description: Regulator for the twl6040 V2V1 supply
+> +
+> +  enable-active-high:
+> +    type: boolean
+> +    description: To power on the twl6040 during boot.
+> +
+> +  clocks:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    maxItems: 2
+> +    items:
+> +      enum:
+> +        - clk32k
+> +        - mclk
+> +
+> +  vddvibl-supply:
+> +    description: Regulator for the left vibra motor
+> +
+> +  vddvibr-supply:
+> +    description: Regulator for the right vibra motor
+> +
+> +  vibra:
+> +    type: object
+> +    additionalProperties: false
 
-Demotion must not remove free huge pages that back existing reservations.
-The sysfs path checks whether any page is available, but passes the entire
-request to demote_pool_huge_page(). For example, with two free pages and
-one reservation, a request for two pages removes both and leaves the
-reservation without a backing page.
+blank line
 
-Cap the sysfs request by both global availability and the selected node's
-free pages. Recheck global availability in demote_pool_huge_page() before
-each node batch because that function drops hugetlb_lock while restoring
-vmemmap and reservations can change before the next batch.
+> +    properties:
+> +      ti,vibldrv-res:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description: Resistance parameter for left driver
 
-Testing:
-Tested on an x86_64 QEMU guest booted with:
+blank line
 
-  hugepagesz=1G hugepages=2
+> +      ti,vibrdrv-res:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description: Resistance parameter for right driver
 
-Reserve one 1 GiB huge page with an untouched hugetlbfs mapping:
+and so on...
 
-  nr=2 surplus=0 free=2 resv=1
+With those fixes,
 
-Request demotion of two pages. Before this fix, both free pages are
-demoted:
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-  nr=0 surplus=0 free=0 resv=1
 
-Touching the reserved mapping then fails with SIGBUS. After this fix, the
-request is capped at the single available page:
-
-  nr=1 surplus=0 free=1 resv=1
-
-Touching the reserved mapping succeeds. After the process exits, the
-counters are:
-
-  nr=1 surplus=0 free=1 resv=0
-
-Fixes: c0f398c3b2cf ("mm/hugetlb_vmemmap: batch HVO work when demoting")
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
----
- mm/hugetlb.c       | 22 +++++++++++++++++++++-
- mm/hugetlb_sysfs.c | 10 +++++-----
- 2 files changed, 26 insertions(+), 6 deletions(-)
-
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 640df58be4e5..ae26d400ad31 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -3998,6 +3998,26 @@ long demote_pool_huge_page(struct hstate *src, nodemask_t *nodes_allowed,
- 		LIST_HEAD(list);
- 		LIST_HEAD(surplus_list);
- 		struct folio *folio, *next;
-+		unsigned long nr_available, nr_target;
-+
-+		/*
-+		 * Re-check available each node batch: the previous
-+		 * batch released hugetlb_lock for vmemmap restore/split,
-+		 * and a new reservation could have been added in that
-+		 * window, shrinking the budget.  available is global
-+		 * (resv is not per-node), so 0 means no node can
-+		 * contribute -- stop the whole scan.
-+		 */
-+		nr_available = available_huge_pages(src);
-+		if (!nr_available)
-+			break;
-+
-+		/*
-+		 * Cap this batch at the current budget; expressed as a
-+		 * cumulative stop point because nr_demoted is running.
-+		 */
-+		nr_target = nr_demoted + min_t(unsigned long,
-+				nr_to_demote - nr_demoted, nr_available);
- 
- 		list_for_each_entry_safe(folio, next, &src->hugepage_freelists[node], lru) {
- 			bool adjust_surplus;
-@@ -4012,7 +4032,7 @@ long demote_pool_huge_page(struct hstate *src, nodemask_t *nodes_allowed,
- 			if (!adjust_surplus)
- 				nr_persistent++;
- 
--			if (++nr_demoted == nr_to_demote)
-+			if (++nr_demoted == nr_target)
- 				break;
- 		}
- 
-diff --git a/mm/hugetlb_sysfs.c b/mm/hugetlb_sysfs.c
-index 79ece91406bf..326a54b4d991 100644
---- a/mm/hugetlb_sysfs.c
-+++ b/mm/hugetlb_sysfs.c
-@@ -211,15 +211,15 @@ static ssize_t demote_store(struct kobject *kobj,
- 		 * Check for available pages to demote each time thorough the
- 		 * loop as demote_pool_huge_page will drop hugetlb_lock.
- 		 */
-+		nr_available = h->free_huge_pages - h->resv_huge_pages;
- 		if (nid != NUMA_NO_NODE)
--			nr_available = h->free_huge_pages_node[nid];
--		else
--			nr_available = h->free_huge_pages;
--		nr_available -= h->resv_huge_pages;
-+			nr_available = min(nr_available,
-+					   h->free_huge_pages_node[nid]);
- 		if (!nr_available)
- 			break;
- 
--		rc = demote_pool_huge_page(h, n_mask, nr_demote);
-+		rc = demote_pool_huge_page(h, n_mask,
-+					   min(nr_demote, nr_available));
- 		if (rc < 0) {
- 			err = rc;
- 			break;
--- 
-2.43.0
-
+> +      ti,viblmotor-res:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description: Resistance parameter for left motor
+> +      ti,vibrmotor-res:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description: Resistance parameter for right motor
+> +      ti,vddvibl-uV:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description: vddvibl default voltage if it needs to be changed
+> +      ti,vddvibr-uV:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description: vddvibr default voltage if it needs to be changed
