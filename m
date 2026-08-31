@@ -1,124 +1,177 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5793623D7FB;
-	Mon, 31 Aug 2026 02:10:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055C425B093;
+	Mon, 31 Aug 2026 02:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788142214; cv=none; b=YAefhCTn4bAONavz3Dq2YpVjQn9tVQ+1amvunfBdkRKJdtQe2ZkUttdVD8v1aOTbf2QBMYAoID4jx09/EygZB9sPReK2Z2fRPX2ou1yPQ5MWzvpUrsS1o8mYZdd0tnMVMJ7c/eneFj7eQL52uBLpSBkHACwRBODZtl7Ct9IUSMY=
+	t=1788142265; cv=none; b=QPdc9w/IOVj8BiDLtdqKxwqcoHgIQ8wOpi400n6mfF2KDMlkMk6Evp3tUoEELLEeG+4FaoJK3ztOWP1w/lL8F5GeSEM7BrCuj7lGZCa8JI8t+JEKuoFDG2UL8de6nyj2JZkUm9Z9EyRHJo1wuGjDBdtMuCcqbSzjVpGL1nD1Qeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788142214; c=relaxed/simple;
-	bh=gOHdHbyFwmSt0pq+fYqTSruFCmYvjBlEASAyj09CZno=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=rPgoEAxJ8zzCDonylaX6TJyVNtDeZPrHFAcxbX2iMj73SxS7g2ojt3I8i2f5qCz5cKcRU9p8ATRBVL2YG4hBThXR9G25fvNj/dY/Q/vLiu8GUW4BTv4QURbcqOuYQwSuBcb68kWvcheNZnFFIvQiSALBMT/rzXdwrsp28tb8uHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8CxutGB4pRqr7wGAA--.18885S3;
-	Mon, 31 Aug 2026 10:10:09 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJCxf8994pRqOfUXAA--.51660S2;
-	Mon, 31 Aug 2026 10:10:07 +0800 (CST)
-Subject: Re: [PATCH] LoongArch: KVM: Preserve memslot arch flags on
- KVM_MR_FLAGS_ONLY
-To: Zeng Chi <zeng_chi911@163.com>, zhaotianrui@loongson.cn,
- chenhuacai@kernel.org
-Cc: kvm@vger.kernel.org, loongarch@lists.linux.dev,
- linux-kernel@vger.kernel.org, zengchi@kylinos.cn, stable@vger.kernel.org
-References: <20260828094825.357630-1-zeng_chi911@163.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <5cc77794-ffac-f0b3-2b04-c9c322631dc5@loongson.cn>
-Date: Mon, 31 Aug 2026 10:09:50 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1788142265; c=relaxed/simple;
+	bh=YaOoMf94FzD0v7rOS2FNsADL67IVHeiA9cSabYztE8g=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bcsCvDbm/oOIIa/U1FFvF/62x4+E4Kub1726D+ZSGR/erpfXR7aOmyRMQqZlrTnZKonNIV9KzUVnNVaapXOea2uNOdHQ+spRoqHaQvY66eS5XBnoIjiM+BtvaYqTCcS31ysvGsQQqFN3SwTE9Tj7YktywptQr3/YSC6skREZ0U4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h8fYOfok; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h8fYOfok"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A7311F000E9;
+	Mon, 31 Aug 2026 02:11:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788142263;
+	bh=vkyZ1f8b6Irt1T+MHj5caDYZ3HGOvaiJXa0mBGRsmjM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=h8fYOfokplJSjYnTXG+ZnJ/P4ulaGGi/qVH8fODr/X/XKwBobAiB6ujQfI70WLQfO
+	 E3VfpAVMmd0ktrx/ktTXj6HeGlO8xwm84/LFkVn3rYmqojwXnh1eUKmnafsOP5DPNz
+	 Q9Lb2LeLBJloxfg69vgbLi+gQIQ1gui1hoOO9DHlGOPl9tedzrgHj/zI+OK8TtKt5h
+	 DFOueOafQ813Yfgr2PVQXkX/D16VSxEERC02/sr3da9AQf78gsZv+4Kq7l0JJqfhtD
+	 9GP7i213DbtXsTYaVutvEfr2sIJh9i+3oFzM4wI+GaEeiHGd0SWUHfk7/kBq7y8Y7+
+	 Xitboc/BbAJKQ==
+Date: Mon, 31 Aug 2026 03:10:57 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Kurt Borja" <kuurtb@gmail.com>
+Cc: "David Lechner" <dlechner@baylibre.com>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
+ "Bartosz Golaszewski" <brgl@kernel.org>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH v3 7/9] iio: adc: ti-ads1262: support triggered buffer
+ sampling
+Message-ID: <20260831031057.0e44cf67@jic23-huawei>
+In-Reply-To: <DKZY65U6LPP1.AIH4CZKUGVWJ@gmail.com>
+References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
+	<20260807-ads126x-v3-7-f89925d72792@gmail.com>
+	<1b6b6981-1a08-42a2-a03a-4366b980da13@baylibre.com>
+	<DKK9S36LB543.2T124NE3TNETN@gmail.com>
+	<f3ea3859-aff1-4c15-9302-095119faec78@baylibre.com>
+	<DKME9LSBXSXA.28PS1V6ZAH79O@gmail.com>
+	<20260816225424.27c9d223@jic23-huawei>
+	<DKZY65U6LPP1.AIH4CZKUGVWJ@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260828094825.357630-1-zeng_chi911@163.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxf8994pRqOfUXAA--.51660S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxCFWrtw4kJrWxJF1rAw15ZFc_yoW5Gr45pF
-	WxCwn0krWfGrn2kFZ3J347Wa1rZ397KF4I9FyxK34UAr98t34Ikay0ka1DW3yrJ3yxCF42
-	qF1Yq3sxK3Wqv3cCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUB0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWU
-	AwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
-	k0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
-	Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
-	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
-	cVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI
-	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v2
-	6r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4s2-UUUUU
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Thu, 27 Aug 2026 13:45:17 -0500
+"Kurt Borja" <kuurtb@gmail.com> wrote:
 
+> On Sun Aug 16, 2026 at 4:54 PM -05, Jonathan Cameron wrote:
+> > On Tue, 11 Aug 2026 15:24:46 -0500
+> > "Kurt Borja" <kuurtb@gmail.com> wrote:
+> >  
+> >> On Mon Aug 10, 2026 at 11:31 AM -05, David Lechner wrote:  
+> >> > On 8/9/26 3:28 AM, Kurt Borja wrote:    
+> >> >> On Sat Aug 8, 2026 at 1:39 PM -05, David Lechner wrote:    
+> >> >>> On 8/7/26 10:58 PM, Kurt Borja wrote:    
+> >> >>>> Add triggered buffer support and a data-ready (DRDY) hardware trigger.
+> >> >>>>    
+> >> >
+> >> > ...
+> >> >    
+> >> >>>    
+> >> >>>> +	u8 tx[11] __aligned(IIO_DMA_MINALIGN);
+> >> >>>> +	u8 rx[11] __aligned(IIO_DMA_MINALIGN);    
+> >> >>>
+> >> >>> don't need second one to be aligned, they aren't independent.    
+> >> >> 
+> >> >> Ah, I forgot this observation in the last version. These are used in a
+> >> >> full-duplex transfer, wouldn't that require for both to be on its own
+> >> >> cache line? I just started learning about DMA.    
+> >> >
+> >> > No. In this case, it works roughly like this...
+> >> >
+> >> > - We fill the TX buffer before the transfer. (CPU access to memory may
+> >> >   just live in the cache at this point and not actually be sent to RAM)
+> >> > - We request to start the SPI transfer.
+> >> > - The core SPI code flushes (or maybe I should say invalidates) the cache
+> >> >   on the TX buffer. This ensures that what we wrote with the CPU available
+> >> >   to DMA.  
+> >
+> > Extra fun - it has to flush the rx buffer too.  Because...  
+> >> > - The actual SPI transfer happens that uses DMA to access both TX and
+> >> >   RX buffers. (Again, could just live in a cache and not be sent to RAM)
+> >> > - The SPI core code flushes the cache on the RX buffer. This ensures
+> >> >   that when the CPU reads the memory, it will see what the DMA just
+> >> >   wrote.    
+> > If the RX buffer had old dirty lines (could have been used for something
+> > completely different) in it, that is modified data that hadn't
+> > been written back to RAM, then this flush would wipe out the hardwork of
+> > the DMA by writing those CPU cache held rx bytes over the top.  
+> 
+> Makes sense too. In this case, if both buffers share the same cache
+> line, I *guess* that would just be a redundant flush.
 
-On 2026/8/28 下午5:48, Zeng Chi wrote:
-> From: Zeng Chi <zengchi@kylinos.cn>
-> 
-> kvm_arch_prepare_memory_region() computes new->arch.flags, i.e. whether
-> a memslot is KVM_MEM_HUGEPAGE_CAPABLE or KVM_MEM_HUGEPAGE_INCAPABLE, only
-> for KVM_MR_CREATE and KVM_MR_MOVE, and returns early for every other
-> change.  But the generic code allocates a zeroed memslot for every
-> change and never copies old->arch, so after a KVM_MR_FLAGS_ONLY update,
-> e.g. toggling KVM_MEM_LOG_DIRTY_PAGES for live migration, the active
-> memslot has arch.flags == 0.
-> 
-> With both flags clear, fault_supports_huge_mapping() falls through to
-> the alignment check on the HVA range alone, which no longer verifies
-> that the GPA and HVA have the same offset within a PMD.  A memslot that
-> was marked KVM_MEM_HUGEPAGE_INCAPABLE because of a GPA/HVA offset
-> mismatch can then be mapped with PMD entries on read faults, and since
-> kvm_map_page() aligns the gfn and the pfn independently, the guest ends
-> up accessing the wrong host pages, exactly the "d -> f, e -> g" case
-> described in the comment above the check.
-> 
-> Carry the arch flags over from the old memslot for KVM_MR_FLAGS_ONLY,
-> as the GPA, HVA and size are guaranteed to be unchanged for that case.
-> 
-> Fixes: 7ab6fb505b2a ("LoongArch: KVM: Optimization for memslot hugepage checking")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
-> ---
->   arch/loongarch/kvm/mmu.c | 10 ++++++++++
->   1 file changed, 10 insertions(+)
-> 
-> diff --git a/arch/loongarch/kvm/mmu.c b/arch/loongarch/kvm/mmu.c
-> index e104897aa532..4ca7c6ea8f08 100644
-> --- a/arch/loongarch/kvm/mmu.c
-> +++ b/arch/loongarch/kvm/mmu.c
-> @@ -383,6 +383,16 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm, const struct kvm_memory_slot
->   	hva_t hva_start;
->   	size_t size, gpa_offset, hva_offset;
->   
-> +	/*
-> +	 * The generic code allocates a fresh, zeroed memslot for every change,
-> +	 * so the arch flags computed below must be carried over when only the
-> +	 * userspace flags change, e.g. when dirty logging is toggled.
-> +	 */
-> +	if (change == KVM_MR_FLAGS_ONLY) {
-> +		new->arch = old->arch;
-> +		return 0;
-> +	}
-> +
->   	if ((change != KVM_MR_MOVE) && (change != KVM_MR_CREATE))
->   		return 0;
->   	/*
-> 
- >
-yes, when VM starts to migrate and set KVM_MEM_LOG_DIRTY_PAGES flag, or 
-cancel migration and clear KVM_MEM_LOG_DIRTY_PAGES flag. The arch 
-specified flag in new memslot should be kept the same. Thanks for the 
-contribution.
+In some paths maybe. I'd need to draw it out and it's Sunday evening
+so not today! :)
 
-Reviewed-by: Bibo Mao <maobibo@loongson.cn>
+> 
+> >
+> > (Next bit is just to scare anyone who thinks they know how this all works -
+> > completely irrelevant here :)
+> > Don't get me started on architectures that do clean write back (occasionally).
+> > Thankfully I don't believe any of them also have non coherent DMA as to
+> > be able to do that nasty hack you have to know no one can see it.  
+> 
+> With "clean write back" are you referring to a write back without
+> invalidating the line?
+
+No.  Writing back a line that was known to be be clean - neither CPU
+nor devices ever wrote it.  The problem lies that it could have been
+fetched in by a prefetcher at any random time. Then written back at
+another random time - potentially on top of what ever DMA occurred
+in the meantime.  It's completely broken but only if there is a way
+to see it.  On that platform one was introduced much later than the
+original design on basis everyone pretty much assumes cache coherency
+protocols never do clean write backs.
+
+Anyhow, tales that should be accompanied by strong spirits.  Not even
+beer is enough for this one (and I was only on the side lines!)
+
+> 
+> > For more fun, one large CPU vendor thought that was the case and there is
+> > a spec out there that has a magic flag to let the OS know it does this
+> > because there are cases where you care.
+> > </rant>
+> >  
+> >> 
+> >> Oh, this makes a lot of sense.
+> >>   
+> >> >
+> >> > Since there isn't a time when CPU and DMA both write to the cache line
+> >> > at the same time before a flush, there is never a time we could have
+> >> > an issue with stale data replacing data that had not been flushed.
+> >> >
+> >> > It does mean that we can't update the tx buffer for the next message
+> >> > until after this message is done, but we have to do that anyway.
+> >> >
+> >> > What does cause problems is if we just had a regular unrelated variable
+> >> > after this in the cache line and the driver updated it during a SPI
+> >> > transfer. If this new value was just living in the CPU cache, then
+> >> > when the RX flush happened, it would write over that new value with
+> >> > stale data from the DMA's version of the cache.    
+> >> 
+> >> Thanks! I'll look deeper into DMA, it's very interesting.
+> >>   
+> > Wolfram Sang did a nice ELCE talk on the more normal flows for this a
+> > few years back when he was working on reducing copies in the i2c subsystem.
+> > https://www.youtube.com/watch?v=JDwaMClvV-s&pp=ygUQd29sZnJhbSBzYW5nIGRtYQ%3D%3D
+> > Is the one I think.  
+> 
+> Very interesting talk, DMA is way messier than I thought. I guess it's
+> the price of supporting so many different architectures.
+> 
+> I recently got my hands on an FPGA board so I'm gonna be playing with
+> it, although it seems DMA is still way out of my reach :p.
+> 
+> ...
+> 
+> Thanks for your review! I already finished v4 and I should be able to
+> submit it tonight.
+> 
 
