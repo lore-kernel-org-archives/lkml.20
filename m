@@ -1,123 +1,195 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3ED53ED0A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB1A53ED0B
 	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:26:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788189988; cv=none; b=I/3C3waeUDQz/xlgvFy3O+ZHvJ8SWkZnUCjUfVZ/nNPOLXHpiTVjt/dYNXBMkYP5cRPQnqk49Z2hztmPSesVk/YcQC9nOUdqhfPJzC2AYAUstaL9V/a+t22bFtIS3eIUcSC8d0WH/57kAZ37BIlXA/YswVumIXRD4rf8Ang9a1I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788189988; cv=pass; b=o8kEeKM7z+ZY41zX4v58gDuvJbWWu1Eq1Pf9M21I4leLyvPI6U3fzXrsmQFQnjSACokjR2bIpdGHcuuyYOrKxxoQeRlo59Xu9SkmXEaSp2tcL6QfNgbU4rJ8Nsknlz8qWVZZM98WZiEF//8VKZm0ngjFOKFVsgtVGo4DV0/AeeM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788189988; c=relaxed/simple;
-	bh=MOSEqx16yAn5Bafqgfej14UnvGnZ0sZeAYdUubBwfXw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=sWnwAujrPeGISC48YYU2um4IMujFwXAgxLv9Q0xkPGiQ+zRAm/eDgo6uHpGB1nWOFOrz2ObjWzGCrSHln0yEcgnkEZNVUf0LMmMckC0J6tLqP9OScqe7zg74DuvvXHmEUpmK96OTsYwU2dlwnIxtchs/ktx93FlP7jumzlUNszo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Q2MLXKc/; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	bh=PSPMRmWPcYte4abw7ulwi8Gm7cYsldtwsvZeCimevjo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mKJNlaVmkALbVvpUcuKs8o95jqHjKv+13wLTS66oP3VbzbjOddRouCBKBqU4k3dTacJ/DE/LnWemPtnsEY3ROYt8uN6MhuSpdKuaFgFlOaDzCACi/S34B8h6ggP329jafxRwYhBA2mfzlu0WcQz63kK9TM/MGohJRqjwst3a5SQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h+TE+GVZ; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Q2MLXKc/"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id B01B04E4146B;
-	Mon, 31 Aug 2026 15:26:23 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 78D0260231;
-	Mon, 31 Aug 2026 15:26:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9386C11C78AC8;
-	Mon, 31 Aug 2026 17:26:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788189981; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=MOSEqx16yAn5Bafqgfej14UnvGnZ0sZeAYdUubBwfXw=;
-	b=Q2MLXKc/oRyrOrt5bUK/hzX58z7rF6JIiqY6ZUOPOSQIGKtaI5fg9Oeb1RV0NWqutDvaPv
-	gOJ/0FOFFdpkdIwaF/Cvr45Mys4ZncMbplmBKHbMWqg9ZLspZSv8Ep00y2lumGKCRs4v2H
-	6gQdw4/h+YXmx870Cy71EBf+ALZLLpxbk4uMOFlsizSLUt+shIDdx1iVxZi8WokNXjmlMZ
-	G2hBOrntCutZ5ipOcFTONtGS0Tt6ujgIiHJf+jpm5CS7Zm1c7iHAuTxUtyIhKj4cmQW98y
-	EYJDqIQaptAlVZQypV6Iqv5HNYDXKEDHTFaQ7QQ1NGkRvKNt+nqg4xnkotsgig==
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h+TE+GVZ"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-52fac937235so360141cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:26:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788189984; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZtYsYKEMhD/skWFFptk70r58huKw5m3vRal9lU4pscCmSRLjWxhEX2TcqXSVa+JU5j
+         NkrF7xdcxex9QkdVRF9O0zyC347b+/cDsR2l5o+7cTViyD1746JM/6PKZE7deVFCgAnP
+         q4xu9jq1LTpfzz8DXvU3lP4aSXjM8HaxmpBZ9XoLcXgOwJW8GTmmYReUMokSejpqZhRh
+         1qNHQ3dtKx52cztdocUSaq7d8BS5Pw3D0ceRVjy1JUo+x7E3yb7br7W+WlLc3w0NsD0X
+         QBvQ/c/+x1J+bvhgH2NuJXJvgQjY4mpbFVSI7KZyGHgTCJNcLaU2sXPmrMIiwPolyqQN
+         eleA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HKx4z/gVUVYo3h0sY7zCFMtg9vG2hgH7eEzaxSp487c=;
+        fh=t3upZq/Wz9hDa5qPbqz3RJb5L6sAptD7vQe3dsvBIPc=;
+        b=g0moQHAOk0gyHhLvoZiHSy/NlZgjHMGAnZrpKDvrz6U6TkoiC0iVL1OsZdKRK6Y9EI
+         jSIs4d0YuiwJPkYYwIgpkHawerlC1io4j2C3GaGmpRZflbJQaO4uQq9RqzfXLzB5YIEu
+         H+zfc+XNjEluYi94nG1hFdEotiL2CIqMcmbArJnpN8hEzk2NYNKagxWJAthcXX+gYAJS
+         7E+K/f7mEKEP7YdzOAhTDpummYCNLAbZJbs3SEFCX0OoEbabsuHx8++y0iGo+nH81tWq
+         eCqny9boWQaN3TDMj3NoOjNOCc3Q/jvCZPhbRxwOXJvSPfh+qGmXHFpElnALTTxsZG13
+         o52A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788189984; x=1788794784; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HKx4z/gVUVYo3h0sY7zCFMtg9vG2hgH7eEzaxSp487c=;
+        b=h+TE+GVZdJ3h9caROdNsfMLza7qu7ybcRXIYjqlDqz2x52dzSuOdw6UGiU1l43bjCx
+         3mrYmbHH+KUYoL+d9b9nq1Pdb7duVys3uC/O3YqxXjGlXeJ6bQwEFnepDLKhlPNpO6Rm
+         EKsK9gwHOuv1LhroBpxO/0YLzjG08f7Bvwj90BZOomTxnq46Cp9/FAEC5H7gDLk9CbnZ
+         n5VfVv7VFqQtZRjUGlawic9LwtrHvKmmb53cQ1fdM9ldcj5YSxmQ8Hav6tHsI2mUniWw
+         g6y6dTVUIyvohN8KWc2P8VywQp0qJVY5Ubv2yHN8oLvRE5Ovip3DmkyI6+YHqEmhqWqq
+         BS+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788189984; x=1788794784;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HKx4z/gVUVYo3h0sY7zCFMtg9vG2hgH7eEzaxSp487c=;
+        b=nna9WRIehlUeb1ZiQTJh9dzYVsPQvjTb7Tp7Cki0HDWzXBL/VZWC/Co7IcCNXUYAIz
+         5IVb+x/WI9uvvACBdqadAjbK53ZhkEU/4F+Or4KpqKXvl9i1AgTNuFZ4kT4raGODJyDy
+         AdCg2kGP6satxmmEeX+1A9KcjXFEgid4B0S723rOallFlF3e2aJt4v6rRskMv/GeORkH
+         T3GDwqxwNyPVRl2JXu+8CTJa9AnVxq7ObwvJuBHAeWVvLsYJdjsABjbmLS/vH5WOMwxl
+         xDNNsYuRhGDDO7KAIlLvr/vaTHpMOwRAsglBt29Yh+7ldW+jCWlvwusmoZpiFSNypFmu
+         uM5Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+YVDSOaWVklPGY+yzG1bzrNlA5ck4G9qpzG25RJtbgp5OnYp5Wc8Gk6x8/9ln1arZmc36zoZZr5MIvOE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVO4sj2XU3SuE0nJxYj6rGzeaLAd8B6v4E4ZYN/0XidYtzM9+Y
+	1iqx7fZ5/cz7Dn+1Zpl9pmqvqEFPd2CR7uqtUH1wcj7fa+WXtx5EDV1YNGtLz2YjsEtPgyCrVZr
+	esxmGir9hJhcrh17kWc7/npmX2kJwm9469H8JfXj0
+X-Gm-Gg: AR+sD12S1BGF9KEepWzf4gh7amXczzTd8vjKJtUheV0dEZ6MO3bUTl2uSfWZtkC0Sc8
+	z0WhmfvmNPRBs++kB40WdKnDLqEAdM+XLncTe3xutz0fdYjYZ0GKhfbRx3mibio43q+j0LljEUe
+	H7TKuCJj/b9JRD9M6VJLBuOl6cHJ0bHrf7vV0kWJlh/FNpxxiZVIxp8pc1hvPaIbxQDh2sHReYV
+	XYAovTQxrIvatA/5319ebKCGGE21rK84gs2ogHZzOIgZXVeqn9yBv+qpfzukqYmo8Lh0Xjlqg4y
+	sRBFNejmcJ8oEVcyx4ZrSfj9DawvzVcQ2GA81NbOEGI=
+X-Received: by 2002:a05:622a:598e:b0:52d:7a3c:8396 with SMTP id
+ d75a77b69052e-52ff6f30c8emr34733291cf.2.1788189983103; Mon, 31 Aug 2026
+ 08:26:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260831-docs-memalloc-guide-v1-0-547718c274c1@kernel.org> <20260831-docs-memalloc-guide-v1-1-547718c274c1@kernel.org>
+In-Reply-To: <20260831-docs-memalloc-guide-v1-1-547718c274c1@kernel.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Mon, 31 Aug 2026 08:26:11 -0700
+X-Gm-Features: AcwNN1WFRSN--wzS21rSGRH8C_o1FPRMTwmuGQ5Gza9KkI5iwhlrj79hsn8yfPE
+Message-ID: <CAJuCfpGMOW89vVaAX_69MiMy+4VV0o-H+OBqkLRVUVHToM241g@mail.gmail.com>
+Subject: Re: [PATCH 1/2] docs/core-api: memory-allocation: add
+ k[mz]alloc_obj() and clarify kmalloc
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Michal Hocko <mhocko@suse.com>, Randy Dunlap <rdunlap@infradead.org>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Vlastimil Babka <vbabka@kernel.org>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 31 Aug 2026 17:26:12 +0200
-Message-Id: <DL38FWMPAVYW.3H964111WXW4T@bootlin.com>
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Matthias
- Brugger" <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
- <angelogioacchino.delregno@collabora.com>, "Hui Pu"
- <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-mediatek@lists.infradead.org>, "Jitao Shi" <jitao.shi@mediatek.com>,
- "CK Hu" <ck.hu@mediatek.com>, "Pin-yen Lin" <treapking@chromium.org>,
- "Enric Balletbo i Serra" <eballetbo@kernel.org>
-To: "Doug Anderson" <dianders@chromium.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v2 08/12] drm/bridge: parade-ps8640: select
- DRM_PANEL_BRIDGE
-X-Mailer: aerc 0.22.0
-References: <20260825-drm-bridge-drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com> <20260825-drm-bridge-drm_panel-cleanup-v2-8-c6c88ba7ffd2@bootlin.com> <CAD=FV=Xdj_foBqt9A9EVVoCA2BxAV3UZNz3SuVPu2ZoNXgnS=w@mail.gmail.com> <DL308Z0JXJ31.2V3H29DTG4MSM@bootlin.com> <CAD=FV=UOwWdVc8p1js+28C1u7=iRqRpv86PkwWf5g8yL-Uq5kw@mail.gmail.com>
-In-Reply-To: <CAD=FV=UOwWdVc8p1js+28C1u7=iRqRpv86PkwWf5g8yL-Uq5kw@mail.gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon Aug 31, 2026 at 4:58 PM CEST, Doug Anderson wrote:
-> Hi,
+On Mon, Aug 31, 2026 at 8:13=E2=80=AFAM Mike Rapoport (Microsoft)
+<rppt@kernel.org> wrote:
 >
-> On Mon, Aug 31, 2026 at 2:01=E2=80=AFAM Luca Ceresoli <luca.ceresoli@boot=
-lin.com> wrote:
->>
->> Hi,
->>
->> On Thu Aug 27, 2026 at 6:23 PM CEST, Doug Anderson wrote:
->> > Hi,
->> >
->> > On Tue, Aug 25, 2026 at 3:11=E2=80=AFAM Luca Ceresoli <luca.ceresoli@b=
-ootlin.com> wrote:
->> >>
->> >> This driver uses the drm_panel_bridge API and not the drm_panel API s=
-o it
->> >> should select DRM_PANEL_BRIDGE and not DRM_PANEL.
->> >
->> > Which exact "drm_panel_bridge" API does it use? I don't see any...
->>
->> It calls devm_drm_of_get_bridge() [0], which is in bridge/panel.c [1],
->> which is enabled by CONFIG_DRM_PANEL_BRIDGE [2].
->>
->> [0] https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/bridg=
-e/parade-ps8640.c#L636
->> [1] https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/bridg=
-e/panel.c#L483-L515
->> [2] https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/Makef=
-ile#L159
+> Since v7.0 the most used memory allocation function is kzalloc_obj().
 >
-> Ah, indeed! I missed that since it didn't have "panel" in the name.
-> FWIW, then I think for this patch:
+> Update hte memory-allocation guide to describe k[mz]alloc_obj() family
+
+s/hte/the
+
+> and make kzalloc_obj() the first answer to "How should I allocate
+> memory?" question.
 >
-> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> While on it, clarify description of kmalloc() size limitations.
 >
-> ...but, ironically, that means that for the other patch I looked at
-> (ti-sn65dsi86.c) we're missing the "select DRM_PANEL_BRIDGE" since it
-> uses the same API call, doesn't it?
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-Ouch, indeed! Thanks for noticing.
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 
-I will send v3 with that fixed, can I keep your R-by if there's just that
-change to the sn65dsi86 patch?
-
-I am also going to double check all patches for this mistake.
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> ---
+>  Documentation/core-api/memory-allocation.rst | 30 +++++++++++++++++++++-=
+------
+>  1 file changed, 23 insertions(+), 7 deletions(-)
+>
+> diff --git a/Documentation/core-api/memory-allocation.rst b/Documentation=
+/core-api/memory-allocation.rst
+> index 0f19dd5243239..8ecfa4d35f4f5 100644
+> --- a/Documentation/core-api/memory-allocation.rst
+> +++ b/Documentation/core-api/memory-allocation.rst
+> @@ -19,6 +19,12 @@ Diversity of the allocation APIs combined with the num=
+erous GFP flags
+>  makes the question "How should I allocate memory?" not that easy to
+>  answer, although very likely you should use
+>
+> +::
+> +
+> +  kzalloc_obj(<VAR_OR_TYPE>);
+> +
+> +or
+> +
+>  ::
+>
+>    kzalloc(<size>, GFP_KERNEL);
+> @@ -139,10 +145,13 @@ allocate memory for an array, there are kmalloc_arr=
+ay() and kcalloc()
+>  helpers. The helpers struct_size(), array_size() and array3_size() can
+>  be used to safely calculate object sizes without overflowing.
+>
+> -The maximal size of a chunk that can be allocated with `kmalloc` is
+> -limited. The actual limit depends on the hardware and the kernel
+> -configuration, but it is a good practice to use `kmalloc` for objects
+> -smaller than page size.
+> +Since 7.0 there are type aware kmalloc-family helpers that let you safel=
+y and
+> +conveniently allocate a single object or arrays of objects with kzalloc_=
+obj()
+> +and kmalloc_obj() and their array versions kzalloc_objs() and
+> +kmalloc_objs(). These helpers only need the type of the object that shou=
+ld be
+> +allocated and the count of elements in the array for the array versions.
+> +
+> +As of v7.2, vast majority of the memory allocations use kzalloc_obj().
+>
+>  The address of a chunk allocated with `kmalloc` is aligned to at least
+>  ARCH_KMALLOC_MINALIGN bytes. For sizes which are a power of two, the
+> @@ -154,9 +163,16 @@ Chunks allocated with kmalloc() can be resized with =
+krealloc(). Similarly
+>  to kmalloc_array(): a helper for resizing arrays is provided in the form=
+ of
+>  krealloc_array().
+>
+> -For large allocations you can use vmalloc() and vzalloc(), or directly
+> -request pages from the page allocator. The memory allocated by `vmalloc`
+> -and related functions is not physically contiguous.
+> +`kmalloc` always allocates physically contiguous memory and the maximal =
+size of
+> +a chunk that can be allocated with `kmalloc` is limited by `MAX_ORDER`, =
+the
+> +same limit also applies to the page allocator.
+> +
+> +Internally, slab allocator differentiates allocations of different order=
+s and
+> +delegates larger allocations to the page allocator, but for the users of
+> +`kmalloc` family it is entirely transparent.
+> +
+> +For large allocations that do not require physically contiguous memory y=
+ou can
+> +use vmalloc() and vzalloc() family.
+>
+>  If you are not sure whether the allocation size is too large for
+>  `kmalloc`, it is possible to use kvmalloc() and its derivatives. It will
+>
+> --
+> 2.53.0
+>
