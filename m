@@ -1,161 +1,109 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8183E38889B
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:37:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC53C3A59BC;
+	Mon, 31 Aug 2026 02:38:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788143841; cv=none; b=YblOmqAI9LfglTejoxw7n1Jk0Tbspzerq+Po0xGgIVgHoy/9Dqum6Wn2/OuuUwm45BPQ7pHO8zqoSYjOyYXuNrPnQCzehmnAw/g12EEtO9RMWqh1M49CZFeV6GPsJ20egvHn3INJR/1ipvGoOUHvf4wZMIrH71yNULHuc/f+d9U=
+	t=1788143941; cv=none; b=dpeqjleeFmTajPt5XxREDDBE9SQIbwNy/+palo5WaQ48HZSX8CKwolg5H0fad8HuPRhWg8GDjY3Q+Sv0/fPe2iwdhM3xII9bPo24ms56l2JH+QauKDFpzF4a8ErWBZYRx+XylFV7nTg1bQn6rh6pdBbb64MyzzCXsYsYEFwpFNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788143841; c=relaxed/simple;
-	bh=62DEX6DHb57E3s+a/b4S93uPbw7Dit546+vTJRw0S68=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DBPkJOfxtmgy8UTyXWrCyuMsrTCRHXoJXERMxtGQHeglSSOXlmzTWmj1BHtY+EwQnDTMwqo13kKJt5t84Z3hgZrjYFwEosETjDRfaWYSH6xxdZTPHietjWL90kVB4K2tMZhy/fbmvA1KK9C7cSBiUGbw/TrWi1reqaS7UWdvzcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AdZbfDXV; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788143941; c=relaxed/simple;
+	bh=7s0xBomybd8KcX7yxMNeR6pnGCzyWJA1/waJv9jtQrc=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QT7Nf/gYUWuMiYnqmX7S74A/PS6rd2VEP3n8mToqE7VJ2BXopvRcIJLirXisdRFVVLfr16SJ1l4G9rnGaj6SWwAVhsZf7BBdOncKNLLz8vSakLxE13hAVqfa9I66sTsktGZHZgB7t5sknvIAMVa83nyZktRzYLRxOCEtTzPvz6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=SYlMqLk8; arc=none smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AdZbfDXV"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3964e76d0f4so3051397a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 19:37:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788143837; x=1788748637; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PNqy5MN83JTGwUAaeejS1KoqOZ5xExZsRuOWPYVEuQ8=;
-        b=AdZbfDXVABbgXas3HBKQCyTXv2HGwHz5osB2DnxETmqcj+6EfEhNXMFL4qCBLEbLFL
-         BqTT2Vv1EMJfWDdwZN7+KZFpqJMMDOeD0Z71oU8pHAQdF7EArazTKo7OOKuXDvlL6P1a
-         pwcilISngtde2BdSHi2l8uYmkoGf322FOHZvWSEw/6EPW758J9MlRhiKd8ndD8ivnu5I
-         baul2v2SKM88EaXYi1RIc9WARGFh4/BaSoyU4BoREn+wTdBju1VesTMaCbfF8A4L0TSx
-         eS1vzzhN9Av1Eyxsxk8iN0NSxxsJDuyTAxiA8Du28RlVo4WOE4POZxgKFXakvc9ffQj/
-         yulA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788143837; x=1788748637;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PNqy5MN83JTGwUAaeejS1KoqOZ5xExZsRuOWPYVEuQ8=;
-        b=p5i+sai+YpvDJ4AUUcGG+i7IqWhM6TuT02zD99ObYDeExPubuB1r4T9ib4wEUcDqte
-         ufknQqu1iD6vO4xKHQQ92osvAZtQKeW3cXDWdkiyQJ39Pez2OdrDVj6IjvBEKoUcC9Sr
-         7jbQqvT0xqLCpH26fYSzTmnA2jIoWUpRFR1FYl++f/MpUaUA2Ejl5z//6fQRKDRMGZa7
-         Ra3SKUmjbjok7XRHZbTWIfzodo1mkuxJ+/iQqf60UF7NfQn6KVfRea6LHgEdh2IO56qZ
-         zTOPaWsJ7Sb/3zHLonz/zQ9JXMH4G5q1DnTCxSHjJxb9y68bpmixtdVFkMHVEf7OME+u
-         1UhA==
-X-Forwarded-Encrypted: i=1; AKwUvBzjGMoJze25aJdHO8ObhYNqfKsrR7OXxbim6lft3215UO3H0hMLtYb/Gj8Blneee4LVVwEntypMYkOIQTY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvfT9RdVsrenzInYDpfwG31JEK7JogPDgY0BqgI2RjVn4BG1oh
-	kGDNoDBEBs8ljXDtOk78Ht4uy00CVpQDRfjL6DrlLik4dAknGPVXhbmt
-X-Gm-Gg: AYBFou0+O1i6j96gYgzQKG1HZ8Lid0dgbClOcYeggS05YkSYMhzusEhIZn9GIdJ/kqH
-	moPj86xk5W1CdfnjHjv3572yd3Jye6AdGAgh9pSZztWxjeI/2fnu7qbX81DMJEHYIlMPvsvw/aY
-	f5gF7HBE02o6UeYpnXH3jPBX0hq/zVhVossz7NeAqQlsfaVzMwRmRMp6o+QK+8ICwzLu1lNkTDE
-	N+YpkvI6KiZsQlsOPr+KlAgdJvky7ift+0mIiFtZxuJIlPZB63oj/EhUg/f9ziVKYN/U1wy09ie
-	II3cHSrQ08UIlllw0RGv3NfvHjlWgzGVjUgZfEC+e8Uv33+s3Sq2sgRGV6aGcyhAqqKcLwOniyY
-	9HBQB74fcPm+Kojg29doy78U7s6WaH1Lq+siNf4MydpXNXoxmSrCsGPgSpzOXhL15c5J8sgpEVR
-	eahaf/DDqigFPhIKhe6AUgyNPzqBFOAbPZAIxlaqdT57a6aERXVtrzdEIChZatp5q+FeXfMwjtv
-	WILWRYFPFx5WBkzEYRLpvKAt9/i45eLTXaQfWw0RISYYEiKEQLTOg==
-X-Received: by 2002:a17:90b:538c:b0:398:d6e6:4671 with SMTP id 98e67ed59e1d1-398d6e68870mr9608724a91.25.1788143836731;
-        Sun, 30 Aug 2026 19:37:16 -0700 (PDT)
-Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:3ff5:d9d7:73c3:8d0d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda7c922sm14216308a91.7.2026.08.30.19.37.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 19:37:16 -0700 (PDT)
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-To: johan@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+5fabc1ae99ff40690d84@syzkaller.appspotmail.com
-Subject: [PATCH] USB: serial: keyspan: fix use-after-free in keyspan_close
-Date: Mon, 31 Aug 2026 08:07:01 +0530
-Message-ID: <20260831023701.9579-1-kartikey406@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="SYlMqLk8"
+Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V1buKx3698144;
+	Sun, 30 Aug 2026 19:38:38 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pfpt0220; bh=7s0xBomybd8KcX7yxMNeR6pnG
+	CzyWJA1/waJv9jtQrc=; b=SYlMqLk8Vu4g3TD01TJ24xUo1jWRfnNHTwLX23v0y
+	D2x2RPWXwXGZxMxMdfUrI2x6DlzZl8eHmaWueiPMQlO2vLKWvLnLssZg4NclmRu7
+	Diqq0YTNzg3ZT324fh6i3XxT04iT8RZse33MO+p9eVTv8Ho0eI7OL2OalHAt6gP8
+	q3QxDVfR4z1qd7Ou0d4BXQNOeTxUklxYapdszQgScmTtUN1/IpY/8cze67RvGOdP
+	xL4ykb1egaD9IIjWo7C7eJTmg811SB0GYSf7oElC2EMkCXOiCy+h5pc2JG+U1RE3
+	bg5QdWTXtwokOwbc1UDmQKlXWup/so3CgxvzjHiR0A5zg==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gckp8h1yj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 30 Aug 2026 19:38:37 -0700 (PDT)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Sun, 30 Aug 2026 19:38:36 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Sun, 30 Aug 2026 19:38:36 -0700
+Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with SMTP id 30ABC3F7082;
+	Sun, 30 Aug 2026 19:38:33 -0700 (PDT)
+Date: Mon, 31 Aug 2026 08:08:33 +0530
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: <davem@davemloft.net>, <gakula@marvell.com>,
+        <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+        <sgoutham@marvell.com>
+CC: <andrew+netdev@lunn.ch>, <edumazet@google.com>, <kuba@kernel.org>,
+        <pabeni@redhat.com>
+Subject: Re: [PATCH v3 net] octeontx2-af: allocate qmem from page allocator
+ to avoid CMA
+Message-ID: <apTpKcN_S1xIwRbZ@rkannoth-OptiPlex-7090>
+References: <20260827070554.3919891-1-rkannoth@marvell.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260827070554.3919891-1-rkannoth@marvell.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDAyMSBTYWx0ZWRfX9HRkKDcgwrJg
+ XObUHqm8ri0S7Fz75BU0k1B1Vd9j65s1JxEdbDlTJRlUCrz9X5NaQK4hZI1r5rq0gC89W+5b2zd
+ KV4rlqqKIPLp07U3JDTzLQVyeLtANocJ2mLMfL6hZBmHOq77LDnJdGtL+5BtTiM8S1q3RCD5QX3
+ +/vwqfXbQWRbG9vF2zjS5SQi/xJ66TiL1TfOQqlMNBbMSSlOcXjh1SIzhPnypUAnDRB6lJEob40
+ XsqUSJbR5Dyl2wkwYv9wdTzzxOSsW/fiy9AXX2gsdhMpdOeS6JR+fVRKg6CB2sVc7vgNl2xbdJ8
+ j+ZD1sF62GCQIegYXHX1Fv25N6yNhGST/2y3OAL+0qXiFl3WqcMfecUexN+vX/6Nv76nkc2U0Ou
+ DpHTZVM0WVkR0CaAbnyYpINJk4YoYd84p9vNhhGPPmeZUnZJcursfSN3N+nDuctWf032WvkTPJ2
+ TMO4NgdB/BrOaPJvG6A==
+X-Proofpoint-GUID: nvP_6FqLw9Hou00AEJV7fcgiXAQvx7mw
+X-Proofpoint-ORIG-GUID: nvP_6FqLw9Hou00AEJV7fcgiXAQvx7mw
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDAyMSBTYWx0ZWRfX+Ltj68FyYyMp
+ WK9mOjSUcHYp6khdxtRx108EGcokNISwwpTQ4p9RcHEndkrbpd6SFk7BfKGm73JBHL5+F1Xdvpu
+ h1/FFF4gwaTssSoKUKV0dTwxlKmXe2Q=
+X-Authority-Analysis: v=2.4 cv=GLk41ONK c=1 sm=1 tr=0 ts=6a94e92d cx=c_pps
+ a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=l0iWHRpgs5sLHlkKQ1IR:22 a=TtqV-g6YmW1Jfm2GSLaY:22 a=M5GUcnROAAAA:8
+ a=X1YraWbzWtjX4d_u3iIA:9 a=CjuIK1q_8ugA:10 a=OBjm3rFKGHvpk9ecZwUJ:22
+ a=Oh551-UHZqmTy8JkqTUo:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_01,2026-08-27_02,2025-10-01_01
 
-keyspan_port_remove() frees the port's private data (p_priv) while
-keyspan_close() may still be running concurrently on another task,
-e.g. triggered by an explicit TIOCVHANGUP ioctl on an already-open
-tty racing with device disconnect. This results in keyspan_close()
-dereferencing freed memory.
+On 2026-08-27 at 12:35:53, Ratheesh Kannoth (rkannoth@marvell.com) wrote:
+> qmem_alloc() uses dma_alloc_attrs() with DMA_ATTR_FORCE_CONTIGUOUS for
+> physically contiguous DMA memory (e.g. CN10K LMTST regions spanning page
+> boundaries). With CMA enabled, those allocations are drawn from the CMA
+> pool. qmem backs NIX/NPA queue contexts, admin queues, and LMTST regions,
+> so total usage scales with enabled interfaces and is hard to provision in
+> CMA.
+>
+> Add otx2_dma_alloc_coherent() and otx2_dma_free_coherent() helpers that
+> allocate compound pages from the buddy allocator via __get_free_pages()
+> with __GFP_COMP, __GFP_ZERO, and __GFP_RECLAIM (qmem_alloc() runs in
+> GFP_KERNEL context), select DMA-reachable memory with dma_coherent_ok()
+> (retrying with GFP_DMA32), and map the contiguous physical range for DMA
+> through dma_map_phys() and dma_unmap_phys() with DMA_ATTR_REQUIRE_COHERENT
+> so SMMU/IOMMU page table entries are installed on IOMMU-backed platforms.
+> Switch qmem_alloc() and qmem_free() to these helpers instead of
+> dma_alloc_attrs()/dma_free_attrs() with DMA_ATTR_FORCE_CONTIGUOUS.
+>
 
-Fix this by adding a mutex to keyspan_serial_private that serializes
-keyspan_close() against keyspan_port_remove(): the latter clears the
-port's private data pointer under the lock before freeing it, and
-the former re-fetches and checks that pointer under the same lock
-before use.
+Will address compilation issues in v4.
 
-Reported-by: syzbot+5fabc1ae99ff40690d84@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5fabc1ae99ff40690d84
-Tested-by: syzbot+5fabc1ae99ff40690d84@syzkaller.appspotmail.com
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- drivers/usb/serial/keyspan.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/serial/keyspan.c b/drivers/usb/serial/keyspan.c
-index 4d3746c7a94e..623f15b51a6a 100644
---- a/drivers/usb/serial/keyspan.c
-+++ b/drivers/usb/serial/keyspan.c
-@@ -541,6 +541,7 @@ struct keyspan_serial_private {
- 	struct urb	*glocont_urb;
- 	char		*glocont_buf;
- 	char		*ctrl_buf;	/* for EP0 control message */
-+	struct mutex	lock; /* protects p_priv vs port_remove races */
- };
- 
- struct keyspan_port_private {
-@@ -1581,8 +1582,15 @@ static void keyspan_close(struct usb_serial_port *port)
- {
- 	int			i;
- 	struct keyspan_port_private 	*p_priv;
-+	struct keyspan_serial_private	*s_priv = usb_get_serial_data(port->serial);
- 
-+	mutex_lock(&s_priv->lock);
- 	p_priv = usb_get_serial_port_data(port);
-+	if (!p_priv) {
-+		/* port_remove() already ran and freed this */
-+		mutex_unlock(&s_priv->lock);
-+		return;
-+	}
- 
- 	p_priv->rts_state = 0;
- 	p_priv->dtr_state = 0;
-@@ -1599,6 +1607,7 @@ static void keyspan_close(struct usb_serial_port *port)
- 		usb_kill_urb(p_priv->in_urbs[i]);
- 		usb_kill_urb(p_priv->out_urbs[i]);
- 	}
-+	mutex_unlock(&s_priv->lock);
- }
- 
- /* download the firmware to a pre-renumeration device */
-@@ -2794,7 +2803,7 @@ static int keyspan_startup(struct usb_serial *serial)
- 	s_priv = kzalloc_obj(struct keyspan_serial_private);
- 	if (!s_priv)
- 		return -ENOMEM;
--
-+	mutex_init(&s_priv->lock);
- 	s_priv->instat_buf = kzalloc(INSTAT_BUFLEN, GFP_KERNEL);
- 	if (!s_priv->instat_buf)
- 		goto err_instat_buf;
-@@ -2971,10 +2980,14 @@ static int keyspan_port_probe(struct usb_serial_port *port)
- 
- static void keyspan_port_remove(struct usb_serial_port *port)
- {
-+	struct keyspan_serial_private *s_priv = usb_get_serial_data(port->serial);
- 	struct keyspan_port_private *p_priv;
- 	int i;
- 
-+	mutex_lock(&s_priv->lock);
- 	p_priv = usb_get_serial_port_data(port);
-+	usb_set_serial_port_data(port, NULL);
-+	mutex_unlock(&s_priv->lock);
- 
- 	usb_kill_urb(p_priv->inack_urb);
- 	usb_kill_urb(p_priv->outcont_urb);
--- 
-2.43.0
-
+pw-bot: changes-requested
