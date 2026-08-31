@@ -1,45 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46CC501F27;
-	Mon, 31 Aug 2026 13:41:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F6C44C661;
+	Mon, 31 Aug 2026 13:41:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183717; cv=none; b=noWqDYbOKP7RzCY8p3a1BmDhqrefVOkFjar4oJbA62PU5Bx8ZTW7IlVLlf8+xQNzcIj9UaW1w/nn/iNxKhE4Jy94m5VTwmAcQ1G6yWVRjeQUzFOi2m7xo8peO9xQ5XMq+76L8HwEdYyo4Ai5IKP9aTiiADmML5rmPIJC17Pz+mc=
+	t=1788183719; cv=none; b=Ipoy+OCCIUHEZA9OvsPw2+vLU4UeG5JiIzpEEPxnqB2RqvG5UG4bbtgQ3oy+Ti+wcxHF8rKGC1ya9DGMPbq3gvWbQRv0SYkeSkDUe9i2bqd57hVXAbPz09DE8N9OJKHVsT2PLjnXNTwL/Vsk2tqfG/DTxhwwVYCVo6kgzwevNP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183717; c=relaxed/simple;
-	bh=6KOOvtfb7cGHsYFNTlIPjtqRi9fxDInnK+6l0hr9gqQ=;
+	s=arc-20240116; t=1788183719; c=relaxed/simple;
+	bh=t5p6h4sHwiice89Cbl+eDokuMQZamDoWSrdz3mbcHRM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RlIes2pOapdZTU9poNAmG+Z3HhscXPL9N7qKoJLhu0QWw7AbkxCryEnRvhxBdpvk7xxoz8RK0ge8GBFa94xO0BX92gwFtxfJGldnvfGigVBZtjayBz58IO8E4LOMjcsL7XgHcOXbIUlP440VhVhOzSU4RVYnANjwCDd11h0SeTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Im8eSlK/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Ov4wXmhWuhY6jwqyKVPYgNEVaFYGZWTQMOVKPYyTZtiLDMrY0Z0wKSlJbwmaVNwUjmOAdJwsD0VJDAhLs6vpmJxXJVGsArjZAKu5HErgnEOGDY4Kyov6SVOmCOwWLKsUD8yaZglOYqI2nYY+p3A1WKktKmFE2B3HfDK6SlNy3mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W6tjZme/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Im8eSlK/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96401F00A3D;
-	Mon, 31 Aug 2026 13:41:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W6tjZme/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB6821F00A3E;
+	Mon, 31 Aug 2026 13:41:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183714;
-	bh=fNucr4Uw+dh1zyVWSZKfz25AiQlNs9j0FZlzfSEhuG4=;
+	s=k20260515; t=1788183716;
+	bh=9waQiWmGIRreL2pS/vRF0HC/WvchDTgVV64118m7PDE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Im8eSlK/0PTGtZhtxnbMY4EW0+sguMlKrXL8C4dvn63w3qH064opZEvEXf3TqbOJx
-	 QnPzM4Cpz4v2M15v+jyGMxz8W/y4UeMkDheCZ/H/BZRks4eZguXF5ccumYgbL4OBkg
-	 b3qjvPv5zka8tevXLEoOvMpPv/+TRwiZxfhTOahUjnCMraqxUHLn5BOzB7bLWBVhLd
-	 8rgLWWMh4CjVhNvVjLiVw/YN9ISBFQXg+RRtTgLQyC0LHFlyiBwzlHn+u4ES4ObTgw
-	 SMWdhz1Yxn7JNFPFEzi98cUUsl+MnZeiItKS3sEPcORBAEOFXiyNh9YQYycf2754Rr
-	 DuPIDhVZHWOOA==
+	b=W6tjZme/UAej6dvIG6QuzVr1jWsV90B4VaEnkEcq2Tf8qbmXh290HH01n19CFD4A4
+	 ILrLC1BQaZm1YSoiUVRvqMEOXFw32KuUfn2IFK5q6bhkymzIudVBj8owDBd0J3CNAL
+	 /BqmnbFJWSnnTJ3emtUQAar50ff/lU/OhzHt4ZeHEWKlX1TqzlJd94VZDA6a9YvcjY
+	 2GbCwIBi4KQcLLbWUxoqIrdADLbQjluOr7+++7NtJ3KbxYFH/kKbD/McQyeaxJZack
+	 u44/Z7SinV00sioB/5HoiyfHnJp+tKV2aJqGPjGlmA+/Y+Fwa0+drqDIZQ93HDiKn+
+	 hilyNxLhxitMg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Qiang Liu <liuqiang@kylinos.cn>,
-	ChenXiaoSong <chenxiaosong@kylinos.cn>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Steve French <stfrench@microsoft.com>,
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	CK Hu <ck.hu@mediatek.com>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	smfrench@gmail.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.15] ksmbd: Fix acl.sd_buf memory leak and invalid sd_size error handling
-Date: Mon, 31 Aug 2026 09:24:49 -0400
-Message-ID: <20260831133314.4125787-261-sashal@kernel.org>
+	p.zabel@pengutronix.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	matthias.bgg@gmail.com,
+	dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH AUTOSEL 6.18-6.12] drm/mediatek: dsi: Add compatible for mt8167-dsi
+Date: Mon, 31 Aug 2026 09:24:50 -0400
+Message-ID: <20260831133314.4125787-262-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -55,436 +60,391 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Qiang Liu <liuqiang@kylinos.cn>
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 
-[ Upstream commit d708a36634bb7b6f94d0e76d587d2ec50b2b93b5 ]
+[ Upstream commit 6428eaf0c1f39815b08d57054895c1934d5782f3 ]
 
-1. When ndr_decode_v4_ntacl() fails, the code jumped to free_n_data
-   which only freed n.data, skipping kfree(acl.sd_buf) and leaking
-   the buffer. Zero-initialize struct xattr_ntacl acl, reorder error
-   labels to out_free to release acl.sd_buf on all error paths.
+The mt8167 DSI controller is fully compatible with the one found in
+mt2701. Unfortunately the device tree has a dedicated compatible for
+mt8167 since 2022 and it cannot be changed with a fallback nor removed at
+this point. The only way to get the device to work is to add the
+compatible to the driver.
 
-2. if (acl.sd_size < sizeof(struct smb_ntsd)) is true, original code
-   returned success without freeing sd_buf and left stale *pntsd.
-   Set rc = -EINVAL before jumping to out_free to return error code and
-   free buffer.
-
-Signed-off-by: Qiang Liu <liuqiang@kylinos.cn>
-Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
-Acked-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: CK Hu <ck.hu@mediatek.com>
+Link: https://patchwork.kernel.org/project/dri-devel/patch/20260505214541.333657-3-l.scorcia@gmail.com/
+Signed-off-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: drm/mediatek: dsi: Add compatible for
+mt8167-dsi
 
-**Step 1.1 — Subject line**
-
-Record: `[ksmbd] [Fix] acl.sd_buf memory leak and invalid sd_size error
-handling in ksmbd_vfs_get_sd_xattr()`
-
-**Step 1.2 — Tags**
-
-Record:
-- `Signed-off-by: Qiang Liu <liuqiang@kylinos.cn>` (author)
-- `Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>`
-- `Acked-by: Namjae Jeon <linkinjeon@kernel.org>` (ksmbd maintainer)
-- `Signed-off-by: Steve French <stfrench@microsoft.com>` (SMB
-  maintainer)
-- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, or `Link:`
-  tags
-- Mainline commit: `d708a36634bb7`
-
-**Step 1.3 — Body analysis**
-
-Record:
-- **Bug 1:** On `ndr_decode_v4_ntacl()` failure, control jumps to
-  `free_n_data`, which frees only `n.data` and skips
-  `kfree(acl.sd_buf)`, leaking the security-descriptor buffer.
-- **Bug 2:** When `acl.sd_size < sizeof(struct smb_ntsd)`, the function
-  returns success (`rc` still 0) without freeing `sd_buf`, leaving a
-  stale `*pntsd`.
-- **Symptom:** Memory leaks on ACL/security-descriptor xattr error
-  paths; incorrect success return on malformed data.
-- **Root cause:** Misordered cleanup labels (`free_n_data` vs
-  `out_free`) and missing `rc = -EINVAL` on the invalid-size path.
-
-**Step 1.4 — Hidden bug fix?**
-
-Record: No — this is an explicit bug fix (memory leak + incorrect error
-handling), not disguised cleanup.
+**Local tree:** `v6.18.43` (Makefile: 6.18.43)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 2.1 — Inventory**
+### Step 1.1: PARSE THE SUBJECT LINE
+**Record:** `[drm/mediatek: dsi]` `[Add]` — Add `mediatek,mt8167-dsi`
+compatible string to the existing MediaTek DSI platform driver so MT8167
+boards can bind.
 
-Record:
-- File: `fs/smb/server/vfs.c` (+3 / -4 lines)
-- Function: `ksmbd_vfs_get_sd_xattr()`
-- Scope: Single-file, surgical fix
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Record:**
+- **Signed-off-by:** Luca Leonardo Scorcia `<l.scorcia@gmail.com>`
+  (author)
+- **Reviewed-by:** AngeloGioacchino Del Regno
+  `<angelogioacchino.delregno@collabora.com>`
+- **Reviewed-by:** CK Hu `<ck.hu@mediatek.com>` (MediaTek maintainer)
+- **Link:** https://patchwork.kernel.org/project/dri-
+  devel/patch/20260505214541.333657-3-l.scorcia@gmail.com/
+- **Signed-off-by:** Chun-Kuang Hu `<chunkuang.hu@kernel.org>` (applied
+  to mediatek-drm-next)
+- No Fixes:, Reported-by:, Cc: stable, or syzbot tags
+- Notable: two subsystem Reviewed-by tags, including MediaTek maintainer
 
-**Step 2.2 — Code flow changes**
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Record:**
+- **Bug:** MT8167 DSI hardware is register-compatible with MT2701, but
+  the DSI platform driver’s `of_match` table lacks
+  `mediatek,mt8167-dsi`.
+- **Symptom:** DSI platform device does not probe; display pipeline
+  cannot complete on MT8167 boards whose DT uses `mediatek,mt8167-dsi`.
+- **Root cause:** DT binding has listed `mediatek,mt8167-dsi` since
+  2022; that compatible cannot be removed or replaced with a fallback;
+  driver was never updated to match.
+- **Version info:** Binding present since 2022; fix is May 2026.
 
-Record:
-- **Hunk 1:** `struct xattr_ntacl acl` → `struct xattr_ntacl acl = {0}`
-  — ensures `acl.sd_buf` is NULL when decode fails before allocation.
-- **Hunk 2:** `goto free_n_data` → `goto out_free` on
-  `ndr_decode_v4_ntacl()` failure — routes through the path that frees
-  `acl.sd_buf` when `rc < 0`.
-- **Hunk 3:** Adds `rc = -EINVAL` before `goto out_free` on invalid
-  `sd_size` — ensures error return and buffer cleanup.
-- **Hunk 4:** Removes separate `free_n_data:` label; `kfree(n.data)` now
-  always runs after `out_free` cleanup.
-
-**Step 2.3 — Bug mechanism**
-
-Record:
-- **Category:** Resource leak (memory) + logic/correctness bug (wrong
-  return code)
-- **Mechanism 1:** `ndr_decode_v4_ntacl()` allocates `acl->sd_buf` at
-  line 508 of `ndr.c` and can fail on the final `ndr_read_bytes()` at
-  line 512. The old `goto free_n_data` bypassed `out_free`'s
-  `kfree(acl.sd_buf)`.
-- **Mechanism 2:** On invalid `sd_size`, `rc` remained 0 (from
-  successful `ndr_encode_posix_acl()`), so `if (rc < 0)` in `out_free`
-  skipped freeing `acl.sd_buf`, and the function returned 0 with
-  `*pntsd` set.
-
-**Step 2.4 — Fix quality**
-
-Record: Fix is minimal and obviously correct. Zero-initialization is
-required (not cosmetic) so that early `ndr_decode` failures reaching
-`out_free` safely call `kfree(NULL)`. Regression risk is very low.
+### Step 1.4: DETECT HIDDEN BUG FIXES
+**Record:** Not disguised as cleanup. This is explicit hardware-
+enablement: a missing `of_device_id` entry leaves DSI non-functional on
+affected hardware. Functionally a driver/DT mismatch bug, not a new
+feature API.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 2: DIFF ANALYSIS
 
-**Step 3.1 — Blame**
+### Step 2.1: INVENTORY THE CHANGES
+**Record:**
+- **Files:** `drivers/gpu/drm/mediatek/mtk_dsi.c` (+1 line)
+- **Functions/areas:** `mtk_dsi_of_match[]` static table
+- **Scope:** Single-file, one-line surgical change
 
-Record: `ksmbd_vfs_get_sd_xattr()` dates to 2021 (`f44158485826c0`,
-Namjae Jeon). The `out_free`/`free_n_data` structure was introduced in
-`78ad2c277af4c` (Jul 2021, "ksmbd: fix memory leak in
-ksmbd_vfs_get_sd_xattr()"). That earlier fix was incomplete — it added
-`out_free` but left the `ndr_decode` failure path on `free_n_data`. Bug
-present since 2021; this tree (6.18.44) still has it.
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Record:**
+- **Before:** `mtk_dsi_probe()` only runs for `mt2701-dsi`,
+  `mt8173-dsi`, `mt8183-dsi`, `mt8186-dsi`, `mt8188-dsi` compatibles.
+- **After:** Also runs for `mediatek,mt8167-dsi`, using
+  `mt2701_dsi_driver_data` (same register offsets as MT2701).
+- **Path affected:** Platform probe → `of_device_get_match_data()` → DSI
+  host/bridge registration → DRM component bind.
 
-**Step 3.2 — Fixes: tag**
+### Step 2.3: IDENTIFY THE BUG MECHANISM
+**Record:**
+- **Category:** Logic/correctness — missing hardware identification
+  entry (compatible-string quirk).
+- **Mechanism:** `mtk_drm_drv.c` already recognizes
+  `mediatek,mt8167-dsi` in `mtk_ddp_comp_dt_ids[]` and adds a component
+  match, but `mtk_dsi_driver` never probes the device without a matching
+  `of_match` entry. DRM bind stalls or fails for the DSI component.
 
-Record: Not applicable — no `Fixes:` tag in commit message.
-
-**Step 3.3 — Related file history**
-
-Record: Part of a 3-patch series fixing ksmbd VFS memory leaks (June
-2026). This patch (`d708a36634bb7`) is standalone for `get_sd_xattr`; no
-prerequisite commits needed. Merged to mainline via `1e9cdc2ea15ad`
-(v7.2-rc1 smb3-server-fixes). **Not present in this 6.18.44 tree.**
-
-**Step 3.4 — Author context**
-
-Record: Qiang Liu; Acked-by from ksmbd maintainer Namjae Jeon and SMB
-maintainer Steve French.
-
-**Step 3.5 — Dependencies**
-
-Record: No dependencies. Cherry-pick to current HEAD applies cleanly
-(verified). Self-contained.
-
----
-
-## Phase 4: Mailing List and External Research
-
-**Step 4.1 — Original discussion**
-
-Record: `b4 dig -c d708a36634bb7` →
-https://patch.msgid.link/20260624011320.9146-3-liuqiangneo@163.com. Part
-of `[PATCH 0/3] ksmbd: fix some memory leaks in ksmbd_vfs_* functions`
-(June 23, 2026). Reviewer ChenXiaoSong requested label-name cleanup in
-v2 (https://lists.openwall.net/linux-kernel/2026/06/23/215). Final
-committed version addresses this by removing the misplaced `free_n_data`
-label.
-
-**Step 4.2 — Reviewers**
-
-Record: `b4 dig -w` returned the patch msgid link. Original series CC'd
-`linkinjeon@kernel.org`, `smfrench@microsoft.com`, `linux-
-cifs@vger.kernel.org`, `linux-kernel@vger.kernel.org`. Maintainer acks
-present in final commit.
-
-**Step 4.3 — Bug reports**
-
-Record: No external bug reports or syzbot links. Bug identified via code
-review in the leak-fix series.
-
-**Step 4.4 — Series context**
-
-Record: 3-patch series in one file. Patches 1 and 3 fix leaks in
-`ksmbd_vfs_set_sd_xattr` and `ksmbd_vfs_set_dos_attrib_xattr`. Each is
-independently backportable.
-
-**Step 4.5 — Stable list**
-
-Record: No stable-list discussion found. Absence of `Cc: stable` is
-expected per review instructions.
+### Step 2.4: ASSESS THE FIX QUALITY
+**Record:**
+- Obviously correct: reuses existing `mt2701_dsi_driver_data`; author
+  and reviewers confirm hardware identity.
+- Minimal, no unrelated changes.
+- Regression risk: very low — only adds a new match entry pointing at
+  proven driver data.
+- No API, structure, or locking changes.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 5.1 — Key functions**
+### Step 3.1: BLAME THE CHANGED LINES
+**Record:** In this checkout, `git blame` on `mtk_dsi_of_match[]`
+attributes all lines to a single squashed base commit (`a112b91dd6349`);
+per-file history is not useful for dating the omission. The omission is
+the absence of `mt8167-dsi` while other MT8167 compatibles exist
+elsewhere in the same driver tree.
 
-Record: `ksmbd_vfs_get_sd_xattr()` modified; calls
-`ndr_decode_v4_ntacl()`, `ndr_encode_posix_acl()`.
+### Step 3.2: FOLLOW THE FIXES: TAG
+**Record:** N/A — no `Fixes:` tag in the commit message.
 
-**Step 5.2 — Callers**
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+**Record:**
+- Patch is **v4, 2/2** of series “Add support for mt8167 display
+  blocks”.
+- **v4, 1/2:** `arm64: dts: mediatek: mt8167: Add DRM nodes` (adds DSI
+  and other display nodes to `mt8167.dtsi`).
+- This driver patch is standalone: it only needs a DT node with
+  `mediatek,mt8167-dsi`, which the binding has documented since 2022 and
+  which `mtk_drm_drv.c` already handles.
 
-Record: 3 call sites:
-- `fs/smb/server/smb2pdu.c:5800` — SMB2 query security descriptor
-- `fs/smb/server/smbacl.c:1179` — inherit POSIX ACL from parent
-- `fs/smb/server/smbacl.c:1442` — Windows ACL permission check
+### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+**Record:** Luca Leonardo Scorcia is an active MT8167 display
+contributor. Maintainer Chun-Kuang Hu applied the patch to `mediatek-
+drm-next`. Git history in this tree is too squashed to enumerate author
+commits locally.
 
-**Step 5.3 — Callees**
-
-Record: `ksmbd_vfs_getxattr()`, `ndr_decode_v4_ntacl()` (allocates
-`acl.sd_buf`), `ndr_encode_posix_acl()`, `sha256()`, `kfree()`.
-
-**Step 5.4 — Reachability**
-
-Record: Triggered by SMB clients when `KSMBD_SHARE_FLAG_ACL_XATTR` is
-enabled and NT ACL xattrs are read. Reachable from network-facing SMB
-protocol handlers — unprivileged remote clients can trigger error paths
-with malformed xattr data.
-
-**Step 5.5 — Similar patterns**
-
-Record: Sibling function `ksmbd_vfs_set_sd_xattr()` at line 1521 already
-uses `struct xattr_ntacl acl = {0}` — the get path was inconsistent. The
-3-patch series fixes analogous leak patterns in set paths.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree
-
-**Step 6.1 — Buggy code in tree?**
-
-Record: **Yes.** Local tree is **Linux 6.18.44** (`git describe HEAD` →
-`v6.18.44-1-g2736c32da98b9`). Buggy code confirmed at
-`fs/smb/server/vfs.c:1589-1648`:
-- `struct xattr_ntacl acl` (uninitialized)
-- `goto free_n_data` on decode failure (line 1600)
-- Missing `rc = -EINVAL` on invalid `sd_size` (lines 1624-1626)
-
-**Step 6.2 — Backport complications**
-
-Record: **Clean apply.** `git cherry-pick --no-commit d708a36634bb7`
-auto-merged with no conflicts.
-
-**Step 6.3 — Related fixes already present?**
-
-Record: Earlier partial fix `78ad2c277af4c` (2021) is in this tree but
-did not fix these paths. Fix `d708a36634bb7` is **not** in HEAD.
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+**Record:**
+- No kernel-code prerequisites beyond existing `mt2701_dsi_driver_data`
+  and `mtk_dsi` driver (both present in 6.18.43).
+- DTS patch 1/2 is **not** required for the driver fix to apply cleanly;
+  it is required for in-tree `mt8167.dtsi` to expose a DSI node.
+  Vendor/out-of-tree DTS may already use `mediatek,mt8167-dsi`.
+- **Can apply standalone:** PASS for the driver change.
 
 ---
 
-## Phase 7: Subsystem Context
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 7.1 — Subsystem**
+### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+**Record:**
+- `b4 dig -c <sha>` failed (commit not in this repo).
+- Patchwork: https://patchwork.kernel.org/project/dri-
+  devel/patch/20260505214541.333657-3-l.scorcia@gmail.com/
+- Series: v4, 2/2; v4, 1/2 adds DRM DT nodes.
+- Reviewed-by from AngeloGioacchino Del Regno and CK Hu on list.
+- Chun-Kuang Hu: “Applied to mediatek-drm-next”.
+- No stable nomination or NAK found in thread.
+- lore.kernel.org fetch blocked (bot protection).
 
-Record: `fs/smb/server` (ksmbd in-kernel SMB server). Criticality:
-**IMPORTANT** — network-facing file server subsystem
-(`CONFIG_SMB_SERVER`).
+### Step 4.2: CHECK WHO REVIEWED THE PATCH
+**Record:** CC list included `linux-mediatek`, `dri-devel`,
+`devicetree`, `chunkuang.hu@kernel.org`, `ck.hu@mediatek.com`, and other
+DRM/DT maintainers. MediaTek maintainer reviewed and applied.
 
-**Step 7.2 — Activity**
+### Step 4.3: SEARCH FOR THE BUG REPORT
+**Record:** No formal bug report or syzbot link. Impact inferred from
+incomplete driver/DT binding alignment and partial MT8167 DRM support
+already in-tree.
 
-Record: Actively maintained in 6.18.y (recent commits on credentials,
-path resolution, lock-range fixes).
+### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+**Record:** Companion patch adds DSI node to `mt8167.dtsi`. In **this**
+tree, `mt8167.dtsi` has mmsys/SMI nodes but **no DSI node**;
+`mt8167-pumpkin.dts` also has no display nodes. Driver fix still matters
+for downstream/vendor DTS and for when patch 1/2 lands.
 
----
-
-## Phase 8: Impact and Risk Assessment
-
-**Step 8.1 — Who is affected**
-
-Record: Users running ksmbd (`CONFIG_SMB_SERVER`) with ACL xattr support
-enabled. Not universal, but affects production SMB server deployments.
-
-**Step 8.2 — Trigger conditions**
-
-Record:
-- **Leak path 1:** Corrupt/truncated NT ACL xattr causing
-  `ndr_decode_v4_ntacl()` to fail after `sd_buf` allocation.
-- **Leak path 2:** Valid decode but `sd_size` smaller than
-  `sizeof(struct smb_ntsd)`.
-- Remote SMB clients can trigger repeatedly → cumulative memory leak
-  (DoS potential).
-
-Verified caller leak on path 2: `smbacl.c:1179-1182` returns `-ENOENT`
-when `ppntsd_size <= 0` without freeing `parent_pntsd` set by the buggy
-success return.
-
-**Step 8.3 — Failure mode severity**
-
-Record:
-- Memory leak on error paths: **HIGH** (eventual OOM under repeated
-  triggers)
-- Incorrect success return with stale pointer: **MEDIUM-HIGH** (caller-
-  dependent; confirmed leak in inherit-ACL path)
-- Not a direct UAF or privilege escalation, but real stability issue
-
-**Step 8.4 — Risk-benefit**
-
-Record:
-- **Benefit:** HIGH for ksmbd users — fixes reproducible leaks and
-  incorrect error handling
-- **Risk:** VERY LOW — 7-line change, maintainer-reviewed, applies
-  cleanly
-- **Ratio:** Strongly favors backport
+### Step 4.5: CHECK STABLE MAILING LIST HISTORY
+**Record:** Not searched (lore blocked). No stable discussion found on
+Patchwork.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 9.1 — Evidence summary**
+### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+**Record:** `mtk_dsi_of_match[]`, `mtk_dsi_probe()`, `mtk_dsi_driver`
+(platform driver registration via `mtk_drm_init()`).
+
+### Step 5.2: TRACE CALLERS
+**Record:**
+- `mtk_dsi_driver` registered in `mtk_drm_init()` →
+  `platform_register_drivers()`.
+- `mtk_drm_probe()` iterates MMSYS children, matches
+  `mediatek,mt8167-dsi` via `mtk_ddp_comp_dt_ids[]`, calls
+  `drm_of_component_match_add()` for DSI nodes.
+- Without `mtk_dsi` probe, component bind cannot succeed.
+
+### Step 5.3: TRACE CALLEES
+**Record:** `mtk_dsi_probe()` uses `of_device_get_match_data()`,
+clock/PHY/IRQ setup, `mipi_dsi_host_register()`, DRM bridge setup — all
+standard, unchanged by this patch.
+
+### Step 5.4: FOLLOW THE CALL CHAIN
+**Record:** Boot → DT populates DSI platform device → `mtk_dsi_probe()`
+(needs `of_match`) → component bind in `mtk_drm_bind()` → display
+pipeline. Reachable on any MT8167 board with a DSI DT node; not a
+syscall path, but normal embedded boot/display init.
+
+### Step 5.5: SEARCH FOR SIMILAR PATTERNS
+**Record:** `mtk_drm_drv.c` already lists many `mediatek,mt8167-*`
+compatibles (mmsys, ovl, rdma, **dsi**, etc.) while `mtk_dsi.c` lacked
+the DSI entry — clear inconsistency, same pattern as other SoC-specific
+compat strings in `mtk_dsi_of_match[]`.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE (6.18.43)
+
+### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+**Record:** **YES.**
+- `mtk_dsi.c` lines 1303–1309: `mtk_dsi_of_match[]` has no `mt8167-dsi`.
+- `mtk_drm_drv.c` line 813: `mediatek,mt8167-dsi` **is** in
+  `mtk_ddp_comp_dt_ids[]`.
+- `Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml`
+  line 28: `mt8167-dsi` documented.
+- `mt2701_dsi_driver_data` exists at line 1271.
+- Partial MT8167 DRM support is already in 6.18.43; DSI driver match is
+  the missing piece.
+
+### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+**Record:** **Clean apply** — single line insertion after the
+`mt2701-dsi` entry. No structural conflicts observed; table layout
+matches the upstream diff context.
+
+### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+**Record:** No existing commit in this tree adds `mt8167-dsi` to
+`mtk_dsi.c`. `git log --grep="mt8167-dsi"` returned nothing.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+**Record:** `drivers/gpu/drm/mediatek` — **IMPORTANT** (embedded/display
+on MediaTek SoCs; not core kernel, but user-visible on affected
+hardware).
+
+### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+**Record:** MT8167 display support is actively being completed (v4
+series, May 2026). 6.18.43 already carries substantial MT8167 DRM driver
+data, indicating the platform is in scope for this stable series.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: DETERMINE WHO IS AFFECTED
+**Record:** Users of MT8167-based devices with DSI panels (tablets,
+embedded boards such as Pumpkin, vendor trees using
+`mediatek,mt8167-dsi`). Config-dependent on `CONFIG_DRM_MEDIATEK` and
+MT8167 DT support.
+
+### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+**Record:** Boot on MT8167 hardware with a DSI node using `compatible =
+"mediatek,mt8167-dsi"`. Common on intended display bring-up; not
+userspace-triggered. Likelihood: **certain** on any such board without
+this fix.
+
+### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+**Record:** DSI driver does not probe → display does not work (no
+framebuffer/DRM output). **Severity: MEDIUM** — hardware broken for
+display use, but not a crash, security issue, or data corruption.
+
+### Step 8.4: CALCULATE RISK-BENEFIT RATIO
+**Record:**
+- **Benefit:** Enables DSI display on MT8167; fixes inconsistency with
+  binding and `mtk_drm_drv.c`.
+- **Risk:** One line, existing driver data, maintainer-reviewed — **very
+  low**.
+- **Ratio:** Favorable for stable; fits the “compatible / device ID
+  addition to existing driver” exception.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: COMPILE THE EVIDENCE
 
 **FOR backport:**
-- Real, verified memory leaks on two error paths
-- Incorrect success return leaves stale `*pntsd` and leaks in at least
-  one caller
-- Small, surgical, maintainer-acked fix
-- Buggy code present in 6.18.44; fix absent
-- Applies cleanly
-- Network-reachable via SMB ACL operations
+- Fixes real broken display on MT8167 when DT uses `mediatek,mt8167-dsi`
+- One-line, obviously correct; reviewed by MediaTek maintainer
+- Reuses `mt2701_dsi_driver_data` — no new APIs or logic
+- Binding and `mtk_drm_drv.c` already expect this compatible in 6.18.43
+- Classic stable exception: compatible-string addition to existing
+  driver
+- Very low regression risk
 
 **AGAINST backport:**
-- Only affects `CONFIG_SMB_SERVER` users (not all kernel users)
-- No syzbot/CVE report (lower urgency than security fixes)
-- Part of a 3-patch series (other two patches fix similar leaks in
-  sibling functions — ideally backported together but this patch is
-  self-contained)
+- Could be framed as “new hardware enablement” rather than crash fix
+- In-tree `mt8167.dtsi` in 6.18.43 still lacks DSI nodes (patch 1/2 not
+  merged)
+- No syzbot/user crash reports
+- Display failure is functional, not a kernel oops
 
-**Unresolved:** None material to the decision.
+**UNRESOLVED:**
+- Exact mainline commit SHA not in this repo (`b4 dig` failed)
+- lore.kernel.org thread not readable (403)
+- When `mt8167-dsi` first entered the DT binding in mainline history
+  (squashed git in this checkout)
 
-**Step 9.2 — Stable rules checklist**
+Neither unresolved item changes the technical conclusion for 6.18.43.
 
-1. Obviously correct and tested? **PASS** — logic verified in code;
-   maintainer acks; clean cherry-pick
-2. Fixes a real bug? **PASS** — confirmed leaks and wrong return code
-3. Important issue? **PASS** — memory leak in network server path (HIGH)
-4. Small and contained? **PASS** — 7 lines, one function
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — verified clean apply
+### Step 9.2: STABLE RULES CHECKLIST
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — maintainer Reviewed-by;
+maps to known-good MT2701 data |
+| 2. Fixes a real bug affecting users? | **PASS** — DSI cannot probe
+without this entry |
+| 3. Important issue? | **PASS (MEDIUM)** — display non-functional on
+affected hardware |
+| 4. Small and contained? | **PASS** — 1 line, 1 file |
+| 5. No new features/APIs? | **PASS** — compatible quirk only; exception
+applies |
+| 6. Can apply to local tree? | **PASS** — clean one-line apply;
+prerequisites present |
 
-**Step 9.3 — Exception category**
+### Step 9.3: EXCEPTION CATEGORIES
+**Record:** **Hardware quirk / device compatible addition** — adding
+`mediatek,mt8167-dsi` to an existing driver’s `of_match` table, reusing
+established `mt2701_dsi_driver_data`. Explicitly allowed for stable.
 
-Record: Not applicable (standard bug fix, not device ID/quirk/docs).
+### Step 9.4: DECISION RATIONALE
 
-**Step 9.4 — Decision rationale**
-
-This commit fixes two real bugs in `ksmbd_vfs_get_sd_xattr()` that exist
-in the 6.18.44 tree: a memory leak when NDR decode fails after
-allocating `acl.sd_buf`, and a second leak plus incorrect success return
-when the security descriptor size is invalid. Both are reachable from
-SMB client operations on ACL-enabled shares. The fix is minimal,
-reviewed by the ksmbd maintainer, and applies without modification. This
-is appropriate stable material.
+For **6.18.43**, MT8167 DRM support is already partially merged:
+`mtk_drm_drv.c` recognizes `mediatek,mt8167-dsi` and builds an MT8167
+display pipeline, but `mtk_dsi.c` omits the compatible. That is a clear
+driver bug/oversight, not greenfield feature work. The fix is one line,
+low risk, maintainer-reviewed, and aligns driver behavior with the DT
+binding that has documented `mt8167-dsi` since 2022. Stable trees
+routinely take such compatible-string additions for existing drivers.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit `d708a36634bb7`: tags, body, subsystem prefix
-- [Phase 2] Read diff: 3 insertions, 4 deletions in
-  `ksmbd_vfs_get_sd_xattr()`
-- [Phase 2] Read `ndr_decode_v4_ntacl()` at `ndr.c:507-513`: confirms
-  `sd_buf` allocated before possible failure
-- [Phase 2] Traced invalid `sd_size` path: `rc` remains 0,
-  `kfree(acl.sd_buf)` skipped
-- [Phase 3] `git blame` on `vfs.c:1580-1648`: function from 2021,
-  structure from `78ad2c277af4c`
-- [Phase 3] `git show 78ad2c277af4c`: earlier incomplete leak fix
-  confirmed
-- [Phase 3] `git log master --grep="acl.sd_buf"`: found `d708a36634bb7`
-  on master, not in HEAD
-- [Phase 3] `git merge-base --is-ancestor d708a36634bb7 HEAD`: fix NOT
-  in current tree
-- [Phase 3] `git cherry-pick --no-commit d708a36634bb7`: clean apply
-- [Phase 4] `b4 dig -c d708a36634bb7`: lore URL found
-- [Phase 4] WebFetch openwall review: ChenXiaoSong label feedback
-- [Phase 4] WebFetch series cover letter: 3-patch leak-fix series
-- [Phase 5] `grep ksmbd_vfs_get_sd_xattr`: 3 callers in `smb2pdu.c`,
-  `smbacl.c`
-- [Phase 5] Read `smbacl.c:1179-1182`: caller returns `-ENOENT` without
-  free on `rc==0` — leak confirmed
-- [Phase 5] Read `smbacl.c:1442-1445,1597`: alternate caller frees at
-  `err_out`
-- [Phase 5] Read `smb2pdu.c:5800,5832`: caller kfrees `ppntsd` at
-  `release_acl`
-- [Phase 6] `git describe HEAD` / `make kernelversion`: tree is 6.18.44
-- [Phase 6] Read current `vfs.c:1589-1648`: buggy code present
-- [Phase 7] `fs/smb/server/Kconfig`: `CONFIG_SMB_SERVER` confirmed
-- [Phase 8] Assessed severity: memory leak HIGH for ksmbd deployments
+- **[Phase 1]** Parsed subject, tags, body from user-provided commit
+  message and Patchwork
+- **[Phase 2]** Confirmed diff: +1 line in `mtk_dsi_of_match[]` pointing
+  to `mt2701_dsi_driver_data`
+- **[Phase 3]** `git describe HEAD` → `v6.18.43`; `git blame` on
+  `mtk_dsi.c:1303-1310` and `mtk_drm_drv.c:813-814`
+- **[Phase 3]** `git log --grep="mt8167-dsi"` → no results in this tree
+- **[Phase 4]** Patchwork fetch: v4 2/2 series, Reviewed-by, applied to
+  mediatek-drm-next
+- **[Phase 4]** `b4 dig -c 2257966bbaa9a` → commit not found in repo
+- **[Phase 4]** lore.kernel.org → 403 Forbidden
+- **[Phase 5]** Read `mtk_dsi_probe()`, `mtk_drm_probe()`,
+  `mtk_drm_init()` registration path
+- **[Phase 5]** `grep mt8167` in `drivers/gpu/drm/mediatek/` → extensive
+  MT8167 support in `mtk_drm_drv.c`, HDMI in `mtk_hdmi.c`
+- **[Phase 6]** `grep mt8167-dsi` → present in `mtk_drm_drv.c` and
+  binding; **absent** in `mtk_dsi.c`
+- **[Phase 6]** Read `mt8167.dtsi`, `mt8167-pumpkin.dts` → no DSI node
+  in-tree yet
+- **[Phase 6]** Confirmed `mt2701_dsi_driver_data` exists at
+  `mtk_dsi.c:1271-1275`
+- **[Phase 7]** Identified subsystem as DRM/MediaTek display driver
+- **[Phase 8]** Assessed failure as non-probing DSI / no display (MEDIUM
+  severity)
 
-**YES**The background history searches finished and match what the full
-review already used:
+**YES**
 
-- **Related-commit search** turned up `78ad2c277af4c` (“ksmbd: fix
-  memory leak in ksmbd_vfs_get_sd_xattr()”, 2021). That earlier fix
-  added the `out_free`/`free_n_data` structure but left the paths this
-  commit corrects.
-- **Author/subject search** did not find `d708a36634bb7` on the current
-  6.18.44 branch; the fix lives on mainline (merged for v7.2-rc1) and is
-  not in this tree yet.
+ drivers/gpu/drm/mediatek/mtk_dsi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-**Verdict for Linux 6.18.44: YES** — backport `d708a36634bb7`; it
-applies cleanly and fixes real memory leaks plus incorrect error
-handling in `ksmbd_vfs_get_sd_xattr()`.
-
- fs/smb/server/vfs.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 859ca7c87bd4c..6680638bb85b5 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -1592,7 +1592,7 @@ int ksmbd_vfs_get_sd_xattr(struct ksmbd_conn *conn,
- 	struct ndr n;
- 	struct inode *inode = d_inode(dentry);
- 	struct ndr acl_ndr = {0};
--	struct xattr_ntacl acl;
-+	struct xattr_ntacl acl = {0};
- 	struct xattr_smb_acl *smb_acl = NULL, *def_smb_acl = NULL;
- 	__u8 cmp_hash[XATTR_SD_HASH_SIZE] = {0};
+diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+index acee2227275b7..6845bb8043254 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dsi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+@@ -1302,6 +1302,7 @@ static const struct mtk_dsi_driver_data mt8188_dsi_driver_data = {
  
-@@ -1603,7 +1603,7 @@ int ksmbd_vfs_get_sd_xattr(struct ksmbd_conn *conn,
- 	n.length = rc;
- 	rc = ndr_decode_v4_ntacl(&n, &acl);
- 	if (rc)
--		goto free_n_data;
-+		goto out_free;
- 
- 	smb_acl = ksmbd_vfs_make_xattr_posix_acl(idmap, inode,
- 						 ACL_TYPE_ACCESS);
-@@ -1629,6 +1629,7 @@ int ksmbd_vfs_get_sd_xattr(struct ksmbd_conn *conn,
- 	*pntsd = acl.sd_buf;
- 	if (acl.sd_size < sizeof(struct smb_ntsd)) {
- 		pr_err("sd size is invalid\n");
-+		rc = -EINVAL;
- 		goto out_free;
- 	}
- 
-@@ -1648,8 +1649,6 @@ int ksmbd_vfs_get_sd_xattr(struct ksmbd_conn *conn,
- 		kfree(acl.sd_buf);
- 		*pntsd = NULL;
- 	}
--
--free_n_data:
- 	kfree(n.data);
- 	return rc;
- }
+ static const struct of_device_id mtk_dsi_of_match[] = {
+ 	{ .compatible = "mediatek,mt2701-dsi", .data = &mt2701_dsi_driver_data },
++	{ .compatible = "mediatek,mt8167-dsi", .data = &mt2701_dsi_driver_data },
+ 	{ .compatible = "mediatek,mt8173-dsi", .data = &mt8173_dsi_driver_data },
+ 	{ .compatible = "mediatek,mt8183-dsi", .data = &mt8183_dsi_driver_data },
+ 	{ .compatible = "mediatek,mt8186-dsi", .data = &mt8186_dsi_driver_data },
 -- 
 2.53.0
 
