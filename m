@@ -1,100 +1,70 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C164E21CC71
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:44:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D8B4CCDDF
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:44:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198271; cv=none; b=ETJdUs0JGNx+8eSVrmB9EjEHGos8X2y4zzZSlRxaib6EraIU5QvLGFPSvT4WJHwifge08MRw2uIRj3CQp3nmAgnWeMmg04Xj1tVt/TOlGGb0vcyVdLqIMMyq/zFAwQ7yuxGIxyv7F/E2XjeWWKqjLuqqLtxCTYo2EvcLtylPvhQ=
+	t=1788198273; cv=none; b=cKXbWavts+1dge+UTcL+yJkR8lM+o9h/7wj8kTjiyW7oHHdgyvWorRBP0o++vZb0WUIjw2y9/mBcZSySnj07QtmK+fX0dMHGh+DuawvhwMEzE96opGwfzBihbedNia4HIKUmtLlkVIGn8TJbuvuYrhmPeWjvhwLseb2rIZWXSXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198271; c=relaxed/simple;
-	bh=HhWeHjZ5gz8kg7DHpx58PDuTw0CVTiLv2vHhFu1HlI8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LVUIpwsJEBMO1cvKZ/a7CSAW5N7J384A/tSUlCRz0KRYvTjfQn9Tk0JCbcJ/LW/BsuO/MbghgjtxWnpp4xlBShlGYN4xttTen7e4ACXrHjhxlIkPiIouREBR6DdHBbtLqYQB8VILrq/tnRlHJLpgaW4gqVRHZ7YIUsOI6MQG9Gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jEb6eX3j; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GpHGQQkP; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788198273; c=relaxed/simple;
+	bh=m4mCceyYGSEylh507AjhMHMA9CPOWNWzet0C2V3dNlE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=W8hkVw9hHqBOnBNa9kxSNtiTNbbvJPnEwU33qoDd21+W6QzVJ45wgQkn+l6FLeXcTEbUcZGlQ7gUgPR7ur3bWfJwZb1nvLbwKNzloN0PiqcaeHkRhx7T9C4UplCILtwOQKWV3uhIddGTp5Zuhkt3YvFXBx18eYdOwRxh4WDoikI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iDeT0F59; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jEb6eX3j";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GpHGQQkP"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VFrQbm3891205
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:44:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=tb6Old0Ag1lEg3tHScHhxpyXT5GNHcc8VNH
-	j8DsUkAU=; b=jEb6eX3jnUvAy8R1MKaDv7FfFKGDl/Z/XmUmsi5jyYKmfoZQAof
-	r1Mk2Mq+Ac9XmHMQbRgsBE59qcItpMqi+sari5jwEi/o4JwWBAdMLZcgCo1Z8dnA
-	AqMA2lzQd2qQH/ry2sBOwc3vQKiTpHXNDdSprrIlnCu4A1+1An8e9mXVRQpHtz4V
-	bjceksArlVmev6trF6dpTvBvJe7KB9LUnML2LQc0NksymODv9vz1ZSPYvaLn66pt
-	PqWWFSX67ildBPbqWh/lQlfebXt9CWQBMNPgg/0NRKOiiBfma9Hil9h1lknSydKw
-	fsrnspFgY5cgTo3Haufiv4KovjwE8Hy5Gsg==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6yat7ru-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:44:28 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38f57e31b6eso4123545a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:44:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788198267; x=1788803067; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tb6Old0Ag1lEg3tHScHhxpyXT5GNHcc8VNHj8DsUkAU=;
-        b=GpHGQQkPTw35yf3Ln0V8TA2RWubDf+fKiMP39aLvVj0ZuI9HYgx0gWKoiuZ/o5KExO
-         lHYnVNFe90KhV4uBzj5HjypGFVApx9OLmswEH/hsTQO7Xg3Ty/yRODRB2mr3Ku0W4qMC
-         ZvHy13dnT2fHOzRQdo0AZ/DUJaCuEWjzwYXsvKbXJTz+IhsPZA58xEL8zNVV+NBRPUq6
-         c7Ao7PO6uLsDaDFCBpMn3OdaihMKfjsL8Ko220WzoxCFiEWmenfKlG+4cXd+zeMqefnO
-         r8CpLFfjlNQlhCBDDxE/LtTZQzOBCgteePb+m7s2B7ZpPOxg1gycOx/dTi5Z0Lc4cZIP
-         Nf6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788198267; x=1788803067;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tb6Old0Ag1lEg3tHScHhxpyXT5GNHcc8VNHj8DsUkAU=;
-        b=ELS3LVTJb1Qp+uW68Gy5tRYU4ii3MsLTn3AodO16kH4b1mfmlznvQ+bP2rpg8fMEB5
-         5JaGdRTSr//2Jkfb+Fwp0qwUELkrJUpnZh8cdqltzUVFo6OSgt4VTZOnxWyk4ipqkmnx
-         6IScUVuFU5Xxe/cTEuHL+ZFdnqdhQh9qd2iJX/PogIF3l54kudMsdWE3RKh3P7uVVLcO
-         LDOk0EOalwXlA4O1mf8Ebfvj3R4zgF85MKFq4m2k65S0pKbkSGlsL+wrx3i+FraR1wcD
-         RLH+GMRRXFilJUvVaE5L9I1lHzXd73VspmASbA4jItxERUSHQIacHpob0p8w/AV9NPqh
-         db/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzkNV+0Nq7jt/vZTFFk20hxwp1tjwYCETel5EVxaSTApBGrrulN7I0mACAJzuIIhDDYlvf9cAE5y3o4WGE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGEmwJJ7P2fWGQ2hR/lDAivkduFWx5xbY11IgOhvLprjOsm1/3
-	6AIEAbi+W7MEx7ia+BtyFYUd04tPVIw7V+9RdbhLoPUX4z33lIhc6p5lILwq0LMpZZnRERmGK1H
-	aJfm0Y2MObNd4r0FepCr36X/SAwyoUAUFOTbFq9kcIwrR3fei9ddicXuO9Jf9lgh8Cqw=
-X-Gm-Gg: AYBFou2rN/g0ESNlGl29aTONi0vnSRVKvjmNBXig6T45z+kEB/yZ1qWo7s1OwQhVJL5
-	atSNeYtFQ36NV7vA5aK3/ldcwdZzErRwbC7VDyTxGy/mTqBYRd7HsvtEAo4YXyeGUEulxinqtR9
-	BDKvXS0Cz6nkKAUCU6rJo2iredXeK9R0iy6OESX1KTLP+Wm00M9xUB1DDzkZ3gJniJFThqy5SIi
-	Q3M4vOLS64UuD4YX2yuwGS3TIoGoUSqAhI9t0qBfggkN/WmYIELoAINfzsVA2dFhVbhfiqjCtl0
-	8xZN1t2HFewQOkQegT3wDY1uZl5WkngYjzD1fOtDVnWyqVYwWY36ZBewNIq5Nt8GF1K46UZ4uI6
-	3QGJZ/b+CdkSd75eh1eTG0JGHn09A517+E7H96L4O6mPT3oE=
-X-Received: by 2002:a17:90b:5284:b0:396:4dfb:5890 with SMTP id 98e67ed59e1d1-396d0e5bbc0mr45970769a91.2.1788198267248;
-        Mon, 31 Aug 2026 10:44:27 -0700 (PDT)
-X-Received: by 2002:a17:90b:5284:b0:396:4dfb:5890 with SMTP id 98e67ed59e1d1-396d0e5bbc0mr45970686a91.2.1788198266770;
-        Mon, 31 Aug 2026 10:44:26 -0700 (PDT)
-Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d4a1732sm630545a91.7.2026.08.31.10.44.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 10:44:26 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Boris Brezillon <boris.brezillon@collabora.com>,
-        Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
-        linux-kernel@vger.kernel.org (open list),
-        linux-arm-msm@vger.kernel.org (open list:DRM DRIVER for Qualcomm display hardware),
-        freedreno@lists.freedesktop.org (open list:DRM DRIVER for Qualcomm display hardware)
-Subject: [PATCH] drm/gem: Drop ticket arg to lru_scan()
-Date: Mon, 31 Aug 2026 10:44:08 -0700
-Message-ID: <20260831174409.465181-1-robin.clark@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iDeT0F59"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788198272; x=1819734272;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=m4mCceyYGSEylh507AjhMHMA9CPOWNWzet0C2V3dNlE=;
+  b=iDeT0F59lBGBtgWpEczIw35PWv3pjyiDzitZ6xHDXoGnMou7yc216HR4
+   UFFmcarENnniUCHoLx7p8dgDcRPVyL42etp6sqSsjJDn2RZflIAX6kmsr
+   mGHRvhI4N9KebDqtsP9yhFRico2KE6puw+8dTJ1BFYyR7hFkoYjnZaiig
+   veSk/t/ue23/in9vvB995sk3muYPO4PXE4He1eQlgWwGDej/HOE74obfq
+   OxySwan8CUJBT54sYzkMQ+ZopuqA5RZMaGC57e2RYTZwcKcO3+PN5x/eH
+   EAOhIC2rOkqefNh5KuMk7kPwr05DeSJ5CGi+SI9xk/Xw0OhoXDx3clUUy
+   g==;
+X-CSE-ConnectionGUID: 9IgGMvzVSdSdo77JBEeC4w==
+X-CSE-MsgGUID: SZUn+nxjSs2S61ckD3AsvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="92479896"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="92479896"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 10:44:31 -0700
+X-CSE-ConnectionGUID: oyh3d6yoRQar0JlkqKYxeg==
+X-CSE-MsgGUID: 6pizaa+7SniFHBRsJIjcng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="268906938"
+Received: from aherrold-mobl1.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.220.17])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 10:44:30 -0700
+From: Tony Luck <tony.luck@intel.com>
+To: Fenghua Yu <fenghuay@nvidia.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Peter Newman <peternewman@google.com>,
+	James Morse <james.morse@arm.com>,
+	Babu Moger <babu.moger@amd.com>,
+	Drew Fustini <dfustini@baylibre.com>,
+	Dave Martin <Dave.Martin@arm.com>,
+	Chen Yu <yu.c.chen@intel.com>,
+	David E Box <david.e.box@intel.com>,
+	x86@kernel.org
+Cc: Christoph Hellwig <hch@infradead.org>,
+	linux-kernel@vger.kernel.org,
+	patches@lists.linux.dev,
+	Tony Luck <tony.luck@intel.com>
+Subject: [PATCH v11 01/23] x86/resctrl: Give better names to X86_FEATURE flags for monitoring
+Date: Mon, 31 Aug 2026 10:43:59 -0700
+Message-ID: <20260831174421.13921-2-tony.luck@intel.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831174421.13921-1-tony.luck@intel.com>
+References: <20260831174421.13921-1-tony.luck@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,290 +72,138 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDE1MyBTYWx0ZWRfXzf2xAEWMHqH2
- roNh+0835sXm7SdkluI0HrlZBl86fLALAQ6wvzB/CO1wUaPJE8FIp5hs1PXMV1UZ52P7TSWknsg
- PWf8JpzJVqGhTAljgFGdzztNYAdBy0I=
-X-Authority-Analysis: v=2.4 cv=CpaPtH4D c=1 sm=1 tr=0 ts=6a95bd7c cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=19Wyn7e3V/0aNffMjNCMQw==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=tUov0DBtqpY1NIlP9OAA:9 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDE1MyBTYWx0ZWRfX5oo9Caip7ApF
- NySSLW58Cfrl0zuljhS66owKLT9ftVf9Z4s8EBHRW72/p3CyyAfq/MAMGjcTCl0cDEjEz6vsTtm
- WmgudWgJmiQE3WK/fCP1CXe6QW6mQEVZJiaORsJQKcXr5v83rrl+SrLBWM6R5AjiosRDyoNUBDQ
- pJZ2ircKx3Gpg8ccL0V/wiWeYZFVnjyhVS3JvTlBZ42rKFjrP5hJ3tPM4D8Vpse3o6XXPt89NZa
- Fjw98sn14NCSWqe37FvsRnNciM2GXSbRuwZ0H7CJ8PULzHYArBNWt6S0f4iEf0hx+K8vHA1XD2q
- +bjUCVRv1817g5LWchtwj/31+YzQxF55hdLkGoJAylPnmuZKke2n59VQ+I+qAdTXg3RJKQSbu/E
- DpsQhw+56iZhC0gEkwojIwVi/6yKwsAqb/eIcflUr79Kswlq/IlFKtl0NEfTi7I4DSV5yDWDYEX
- 7l/aTBKzJQxUXi8/3PQ==
-X-Proofpoint-ORIG-GUID: pS0sFiWCFlu_2V7VF2Tp--KzTdgkpYme
-X-Proofpoint-GUID: pS0sFiWCFlu_2V7VF2Tp--KzTdgkpYme
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_05,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 phishscore=0 suspectscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310153
 
-Commit 3392291fc509 ("drm/msm: Fix shrinker deadlock") dropped the only
-use of the ticket arg, but at the time left drm_gem_lru_scan() unchanged
-to avoid conflicts with in-flight pathor shrinker support.  This commit
-is the followup to remove the unused arg.
+The feature flags for enumeration of Resource Director Technology (RDT)
+capabilities were chosen when the only feature was LLC cache occupancy
+monitoring and they were given names using the abbreviation CQM for
+Cache Quality of Service Monitoring.
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+Additional monitoring features have been added to CPUs and the names
+are now more likely to confuse than inform the purpose of these flags.
+
+Rename X86_FEATURE_CQM to X86_FEATURE_RDT_M (to match the Intel Software
+Developer's Manual, and for symmetry with X86_FEATURE_RDT_A).
+
+Rename X86_FEATURE_CQM_LLC to X86_FEATURE_L3_MON since it enumerates
+that some L3 monitoring features may be present.
+
+Add missing dependency to cpuid_deps[].
+
+Signed-off-by: Tony Luck <tony.luck@intel.com>
 ---
- drivers/gpu/drm/drm_gem.c              | 13 +++----------
- drivers/gpu/drm/msm/msm_gem_shrinker.c | 22 ++++++++++------------
- drivers/gpu/drm/panthor/panthor_gem.c  | 14 ++++++--------
- drivers/gpu/drm/panthor/panthor_mmu.c  |  5 ++---
- drivers/gpu/drm/panthor/panthor_mmu.h  |  3 +--
- include/drm/drm_gem.h                  |  3 +--
- 6 files changed, 23 insertions(+), 37 deletions(-)
+v11:
+	New patch. Fix FEATURE options
 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index e3ed684ddcf2..15acb958ecd5 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -1656,8 +1656,7 @@ drm_gem_lru_scan(struct drm_device *dev,
- 		 struct drm_gem_lru *lru,
- 		 unsigned int nr_to_scan,
- 		 unsigned long *remaining,
--		 bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket),
--		 struct ww_acquire_ctx *ticket)
-+		 bool (*shrink)(struct drm_gem_object *obj))
+ Documentation/arch/x86/cpuinfo.rst       | 2 +-
+ arch/x86/include/asm/cpufeatures.h       | 4 ++--
+ tools/arch/x86/include/asm/cpufeatures.h | 4 ++--
+ arch/x86/kernel/cpu/cpuid-deps.c         | 8 +++++---
+ arch/x86/kernel/cpu/resctrl/core.c       | 2 +-
+ arch/x86/kernel/cpu/scattered.c          | 2 +-
+ 6 files changed, 12 insertions(+), 10 deletions(-)
+
+diff --git a/Documentation/arch/x86/cpuinfo.rst b/Documentation/arch/x86/cpuinfo.rst
+index 17fce95367e6..5aa4e9d2ad23 100644
+--- a/Documentation/arch/x86/cpuinfo.rst
++++ b/Documentation/arch/x86/cpuinfo.rst
+@@ -96,7 +96,7 @@ Flags can be from scattered CPUID-based features
+ Hardware features enumerated in sparsely populated CPUID leaves get
+ software-defined values. Still, CPUID needs to be queried to determine
+ if a given feature is present. This is done in init_scattered_cpuid_features().
+-For instance, X86_FEATURE_CQM_LLC is defined as 11*32 + 0 and its presence is
++For instance, X86_FEATURE_L3_MON is defined as 11*32 + 0 and its presence is
+ checked at runtime in the respective CPUID leaf [EAX=f, ECX=0] bit EDX[1].
+ 
+ The intent of scattering CPUID leaves is to not bloat struct
+diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
+index f70ee74b5f92..6a7f0adb123e 100644
+--- a/arch/x86/include/asm/cpufeatures.h
++++ b/arch/x86/include/asm/cpufeatures.h
+@@ -252,7 +252,7 @@
+ #define X86_FEATURE_ERMS		( 9*32+ 9) /* "erms" Enhanced REP MOVSB/STOSB instructions */
+ #define X86_FEATURE_INVPCID		( 9*32+10) /* "invpcid" Invalidate Processor Context ID */
+ #define X86_FEATURE_RTM			( 9*32+11) /* "rtm" Restricted Transactional Memory */
+-#define X86_FEATURE_CQM			( 9*32+12) /* "cqm" Cache QoS Monitoring */
++#define X86_FEATURE_RDT_M		( 9*32+12) /* "cqm" Resource Director Technology Monitoring */
+ #define X86_FEATURE_ZERO_FCS_FDS	( 9*32+13) /* Zero out FPU CS and FPU DS */
+ #define X86_FEATURE_MPX			( 9*32+14) /* "mpx" Memory Protection Extension */
+ #define X86_FEATURE_RDT_A		( 9*32+15) /* "rdt_a" Resource Director Technology Allocation */
+@@ -285,7 +285,7 @@
+  *
+  * Reuse free bits when adding new feature flags!
+  */
+-#define X86_FEATURE_CQM_LLC		(11*32+ 0) /* "cqm_llc" LLC QoS if 1 */
++#define X86_FEATURE_L3_MON		(11*32+ 0) /* "cqm_llc" LLC QoS if 1 */
+ #define X86_FEATURE_CQM_OCCUP_LLC	(11*32+ 1) /* "cqm_occup_llc" LLC occupancy monitoring */
+ #define X86_FEATURE_CQM_MBM_TOTAL	(11*32+ 2) /* "cqm_mbm_total" LLC Total MBM monitoring */
+ #define X86_FEATURE_CQM_MBM_LOCAL	(11*32+ 3) /* "cqm_mbm_local" LLC Local MBM monitoring */
+diff --git a/tools/arch/x86/include/asm/cpufeatures.h b/tools/arch/x86/include/asm/cpufeatures.h
+index 6547c0aee45b..9b71a7663e26 100644
+--- a/tools/arch/x86/include/asm/cpufeatures.h
++++ b/tools/arch/x86/include/asm/cpufeatures.h
+@@ -242,7 +242,7 @@
+ #define X86_FEATURE_ERMS		( 9*32+ 9) /* "erms" Enhanced REP MOVSB/STOSB instructions */
+ #define X86_FEATURE_INVPCID		( 9*32+10) /* "invpcid" Invalidate Processor Context ID */
+ #define X86_FEATURE_RTM			( 9*32+11) /* "rtm" Restricted Transactional Memory */
+-#define X86_FEATURE_CQM			( 9*32+12) /* "cqm" Cache QoS Monitoring */
++#define X86_FEATURE_RDT_M		( 9*32+12) /* "cqm" Resource Director Technology Monitoring */
+ #define X86_FEATURE_ZERO_FCS_FDS	( 9*32+13) /* Zero out FPU CS and FPU DS */
+ #define X86_FEATURE_MPX			( 9*32+14) /* "mpx" Memory Protection Extension */
+ #define X86_FEATURE_RDT_A		( 9*32+15) /* "rdt_a" Resource Director Technology Allocation */
+@@ -275,7 +275,7 @@
+  *
+  * Reuse free bits when adding new feature flags!
+  */
+-#define X86_FEATURE_CQM_LLC		(11*32+ 0) /* "cqm_llc" LLC QoS if 1 */
++#define X86_FEATURE_L3_MON		(11*32+ 0) /* "cqm_llc" LLC QoS if 1 */
+ #define X86_FEATURE_CQM_OCCUP_LLC	(11*32+ 1) /* "cqm_occup_llc" LLC occupancy monitoring */
+ #define X86_FEATURE_CQM_MBM_TOTAL	(11*32+ 2) /* "cqm_mbm_total" LLC Total MBM monitoring */
+ #define X86_FEATURE_CQM_MBM_LOCAL	(11*32+ 3) /* "cqm_mbm_local" LLC Local MBM monitoring */
+diff --git a/arch/x86/kernel/cpu/cpuid-deps.c b/arch/x86/kernel/cpu/cpuid-deps.c
+index 99801e844b30..58482c264b76 100644
+--- a/arch/x86/kernel/cpu/cpuid-deps.c
++++ b/arch/x86/kernel/cpu/cpuid-deps.c
+@@ -67,9 +67,11 @@ static const struct cpuid_dep cpuid_deps[] = {
+ 	{ X86_FEATURE_AVX512_4FMAPS,		X86_FEATURE_AVX512F   },
+ 	{ X86_FEATURE_AVX512_VPOPCNTDQ,		X86_FEATURE_AVX512F   },
+ 	{ X86_FEATURE_AVX512_VP2INTERSECT,	X86_FEATURE_AVX512VL  },
+-	{ X86_FEATURE_CQM_OCCUP_LLC,		X86_FEATURE_CQM_LLC   },
+-	{ X86_FEATURE_CQM_MBM_TOTAL,		X86_FEATURE_CQM_LLC   },
+-	{ X86_FEATURE_CQM_MBM_LOCAL,		X86_FEATURE_CQM_LLC   },
++	{ X86_FEATURE_L3_MON,			X86_FEATURE_RDT_M     },
++	{ X86_FEATURE_CQM_OCCUP_LLC,		X86_FEATURE_L3_MON    },
++	{ X86_FEATURE_CQM_MBM_TOTAL,		X86_FEATURE_L3_MON    },
++	{ X86_FEATURE_CQM_MBM_LOCAL,		X86_FEATURE_L3_MON    },
++	{ X86_FEATURE_ABMC,			X86_FEATURE_L3_MON    },
+ 	{ X86_FEATURE_BMEC,			X86_FEATURE_CQM_MBM_TOTAL   },
+ 	{ X86_FEATURE_BMEC,			X86_FEATURE_CQM_MBM_LOCAL   },
+ 	{ X86_FEATURE_SDCIAE,			X86_FEATURE_CAT_L3    },
+diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+index 55214d6fdc49..2435eddd24eb 100644
+--- a/arch/x86/kernel/cpu/resctrl/core.c
++++ b/arch/x86/kernel/cpu/resctrl/core.c
+@@ -1078,7 +1078,7 @@ static enum cpuhp_state rdt_online;
+ /* Runs once on the BSP during boot. */
+ void resctrl_cpu_detect(struct cpuinfo_x86 *c)
  {
- 	struct drm_gem_lru still_in_lru;
- 	struct drm_gem_object *obj;
-@@ -1690,20 +1689,17 @@ drm_gem_lru_scan(struct drm_device *dev,
- 		 */
- 		mutex_unlock(&dev->gem_lru_mutex);
- 
--		if (ticket)
--			ww_acquire_init(ticket, &reservation_ww_class);
--
- 		/*
- 		 * Note that this still needs to be trylock, since we can
- 		 * hit shrinker in response to trying to get backing pages
- 		 * for this obj (ie. while it's lock is already held)
- 		 */
--		if (!ww_mutex_trylock(&obj->resv->lock, ticket)) {
-+		if (!ww_mutex_trylock(&obj->resv->lock, NULL)) {
- 			*remaining += obj->size >> PAGE_SHIFT;
- 			goto tail;
- 		}
- 
--		if (shrink(obj, ticket)) {
-+		if (shrink(obj)) {
- 			freed += obj->size >> PAGE_SHIFT;
- 
- 			/*
-@@ -1727,9 +1723,6 @@ drm_gem_lru_scan(struct drm_device *dev,
- 
- 		dma_resv_unlock(obj->resv);
- 
--		if (ticket)
--			ww_acquire_fini(ticket);
--
- tail:
- 		drm_gem_object_put(obj);
- 		mutex_lock(&dev->gem_lru_mutex);
-diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-index 9d2788f79ace..3514d5c84989 100644
---- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-+++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-@@ -102,7 +102,7 @@ with_vm_locks(void (*fn)(struct drm_gem_object *obj),
- }
- 
- static bool
--purge(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
-+purge(struct drm_gem_object *obj)
- {
- 	if (!is_purgeable(to_msm_bo(obj)))
- 		return false;
-@@ -114,7 +114,7 @@ purge(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
- }
- 
- static bool
--evict(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
-+evict(struct drm_gem_object *obj)
- {
- 	if (is_unevictable(to_msm_bo(obj)))
- 		return false;
-@@ -133,21 +133,21 @@ wait_for_idle(struct drm_gem_object *obj)
- }
- 
- static bool
--active_purge(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
-+active_purge(struct drm_gem_object *obj)
- {
- 	if (!wait_for_idle(obj))
- 		return false;
- 
--	return purge(obj, ticket);
-+	return purge(obj);
- }
- 
- static bool
--active_evict(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
-+active_evict(struct drm_gem_object *obj)
- {
- 	if (!wait_for_idle(obj))
- 		return false;
- 
--	return evict(obj, ticket);
-+	return evict(obj);
- }
- 
- static unsigned long
-@@ -156,7 +156,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
- 	struct msm_drm_private *priv = shrinker->private_data;
- 	struct {
- 		struct drm_gem_lru *lru;
--		bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket);
-+		bool (*shrink)(struct drm_gem_object *obj);
- 		bool cond;
- 		unsigned long freed;
- 		unsigned long remaining;
-@@ -180,8 +180,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
- 		stages[i].freed =
- 			drm_gem_lru_scan(priv->dev, stages[i].lru, nr,
- 					 &stages[i].remaining,
--					 stages[i].shrink,
--					 NULL);
-+					 stages[i].shrink);
- 		nr -= stages[i].freed;
- 		freed += stages[i].freed;
- 		remaining += stages[i].remaining;
-@@ -222,7 +221,7 @@ msm_gem_shrinker_shrink(struct drm_device *dev, unsigned long nr_to_scan)
- static const int vmap_shrink_limit = 15;
- 
- static bool
--vmap_shrink(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
-+vmap_shrink(struct drm_gem_object *obj)
- {
- 	if (!is_vunmapable(to_msm_bo(obj)))
- 		return false;
-@@ -250,8 +249,7 @@ msm_gem_shrinker_vmap(struct notifier_block *nb, unsigned long event, void *ptr)
- 		unmapped += drm_gem_lru_scan(priv->dev, lrus[idx],
- 					     vmap_shrink_limit - unmapped,
- 					     &remaining,
--					     vmap_shrink,
--					     NULL);
-+					     vmap_shrink);
- 	}
- 
- 	*(unsigned long *)ptr += unmapped;
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 54535bae2b0c..17408f832af3 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -1392,8 +1392,7 @@ panthor_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
- 	return count ? count : SHRINK_EMPTY;
- }
- 
--static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj,
--					       struct ww_acquire_ctx *ticket)
-+static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj)
- {
- 	/*
- 	 * Track last locked entry for unwinding locks in error and
-@@ -1479,8 +1478,7 @@ static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj,
- 	return ret == 0;
- }
- 
--static bool panthor_gem_try_evict(struct drm_gem_object *obj,
--				  struct ww_acquire_ctx *ticket)
-+static bool panthor_gem_try_evict(struct drm_gem_object *obj)
- {
- 	struct panthor_gem_object *bo = to_panthor_bo(obj);
- 
-@@ -1488,7 +1486,7 @@ static bool panthor_gem_try_evict(struct drm_gem_object *obj,
- 	if (dma_resv_wait_timeout(obj->resv, DMA_RESV_USAGE_BOOKKEEP, false, 10) <= 0)
- 		return false;
- 
--	return panthor_gem_try_evict_no_resv_wait(&bo->base, ticket);
-+	return panthor_gem_try_evict_no_resv_wait(&bo->base);
- }
- 
- static unsigned long
-@@ -1503,13 +1501,13 @@ panthor_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
- 
- 	freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.unused,
- 				  sc->nr_to_scan - freed, &remaining,
--				  panthor_gem_try_evict_no_resv_wait, NULL);
-+				  panthor_gem_try_evict_no_resv_wait);
- 	if (freed >= sc->nr_to_scan)
- 		goto out;
- 
- 	freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.mmapped,
- 				  sc->nr_to_scan - freed, &remaining,
--				  panthor_gem_try_evict_no_resv_wait, NULL);
-+				  panthor_gem_try_evict_no_resv_wait);
- 	if (freed >= sc->nr_to_scan)
- 		goto out;
- 
-@@ -1523,7 +1521,7 @@ panthor_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
- 
- 	freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.gpu_mapped_shared,
- 				  sc->nr_to_scan - freed, &remaining,
--				  panthor_gem_try_evict, NULL);
-+				  panthor_gem_try_evict);
- 
- out:
- #ifdef CONFIG_DEBUG_FS
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index e10dbd18d8cf..ab070bc74857 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -3133,8 +3133,7 @@ int panthor_vm_prepare_mapped_bos_resvs(struct drm_exec *exec, struct panthor_vm
- unsigned long
- panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
- 			     unsigned int nr_to_scan, unsigned long *remaining,
--			     bool (*shrink)(struct drm_gem_object *,
--					    struct ww_acquire_ctx *))
-+			     bool (*shrink)(struct drm_gem_object *))
- {
- 	unsigned long freed = 0;
- 	LIST_HEAD(remaining_vms);
-@@ -3160,7 +3159,7 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
- 
- 		freed += drm_gem_lru_scan(&ptdev->base, &vm->reclaim.lru,
- 					  nr_to_scan - freed,
--					  remaining, shrink, NULL);
-+					  remaining, shrink);
- 
- 		mutex_lock(&ptdev->base.gem_lru_mutex);
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
-index 3522fbbce369..abc36e7204be 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.h
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.h
-@@ -52,8 +52,7 @@ int panthor_vm_evict_bo_mappings_locked(struct panthor_gem_object *bo);
- unsigned long
- panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
- 			     unsigned int nr_to_scan, unsigned long *remaining,
--			     bool (*shrink)(struct drm_gem_object *,
--					    struct ww_acquire_ctx *));
-+			     bool (*shrink)(struct drm_gem_object *));
- int panthor_vm_prepare_mapped_bos_resvs(struct drm_exec *exec,
- 					struct panthor_vm *vm,
- 					u32 slot_count);
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index 8a704f6a65c1..ffa607c91aa2 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -616,8 +616,7 @@ drm_gem_lru_scan(struct drm_device *dev,
- 		 struct drm_gem_lru *lru,
- 		 unsigned int nr_to_scan,
- 		 unsigned long *remaining,
--		 bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket),
--		 struct ww_acquire_ctx *ticket);
-+		 bool (*shrink)(struct drm_gem_object *obj));
- 
- int drm_gem_evict_locked(struct drm_gem_object *obj);
- 
+-	if (!cpu_has(c, X86_FEATURE_CQM_LLC) && !cpu_has(c, X86_FEATURE_ABMC)) {
++	if (!cpu_has(c, X86_FEATURE_L3_MON) && !cpu_has(c, X86_FEATURE_ABMC)) {
+ 		c->x86_cache_max_rmid  = -1;
+ 		c->x86_cache_occ_scale = -1;
+ 		c->x86_cache_mbm_width_offset = -1;
+diff --git a/arch/x86/kernel/cpu/scattered.c b/arch/x86/kernel/cpu/scattered.c
+index 8665a6474806..7e5490e1e537 100644
+--- a/arch/x86/kernel/cpu/scattered.c
++++ b/arch/x86/kernel/cpu/scattered.c
+@@ -32,7 +32,7 @@ static const struct cpuid_bit cpuid_bits[] = {
+ 	{ X86_FEATURE_APX,			CPUID_EDX, 21, 0x00000007, 1 },
+ 	{ X86_FEATURE_RRSBA_CTRL,		CPUID_EDX,  2, 0x00000007, 2 },
+ 	{ X86_FEATURE_BHI_CTRL,			CPUID_EDX,  4, 0x00000007, 2 },
+-	{ X86_FEATURE_CQM_LLC,			CPUID_EDX,  1, 0x0000000f, 0 },
++	{ X86_FEATURE_L3_MON,			CPUID_EDX,  1, 0x0000000f, 0 },
+ 	{ X86_FEATURE_CQM_OCCUP_LLC,		CPUID_EDX,  0, 0x0000000f, 1 },
+ 	{ X86_FEATURE_CQM_MBM_TOTAL,		CPUID_EDX,  1, 0x0000000f, 1 },
+ 	{ X86_FEATURE_CQM_MBM_LOCAL,		CPUID_EDX,  2, 0x0000000f, 1 },
 -- 
 2.55.0
 
