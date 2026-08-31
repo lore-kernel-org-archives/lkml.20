@@ -1,92 +1,80 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08624B1285
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B076F470EAF
 	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:48:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788191293; cv=none; b=oG7w+xR4K8MA3uVKByifY8wFGyP1sf0R2zRgqjLWoOT0kKujOMJy9gf6T/3APuqR3I2d4EP6pei1TS0Xbnit8bSkhZDoUqS86ZuOVlJAfQWd217s61y73FYgDWpUt1x6tYqvrEk0TefuTM5k2ywMkRDEsngHHVK/TCMxkGHCpe0=
+	t=1788191294; cv=none; b=IPise4GCZZA3+5LWodarT/46Wu8lb+P7cNtcDWRk4pIYKIaClnO+yOZuBEB77SX5YVPbY+olBAEZGz+a/cfdNuFGRW/eEIhYnbUMqWUsl9Z6ZUSXGkgT6TCFxh3RzA3RelW8owXaR2UpR1TeSQ/jYWVQiplxD/da4Xsf6/yG6xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788191293; c=relaxed/simple;
-	bh=YuKf4TfuLSdGcJuTuRIIpFh/EgM5srvGQvIHuE7PH7w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HveoQyCOI0Mi04h8N41VBeHA+jQnY1IMmtTGOTcBVHlofw4EZ41prKuHhu+iRtEUr3NuwIYiKjArF9f2llPVPZaLbBgpV8/HYJBtp1i4g+vofh79A/deA7x5lSz/cJhay+JJKevIfgiLMZmnDq8TUY2pURgvQ6lAWE7ydOUbnMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mU3lnRsN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gcjow6IO; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788191294; c=relaxed/simple;
+	bh=mDc/wOCeEkqkQbOiB0yuDBTvbbSjVfGhwobrCDJ6veg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bumLN0ODp6LVU4b5TupUILyDFLtDh716uq7Ug81RmdQ9rI0lrXL3oQEpQ9c7PeKX4Aa7EHmTcZJwqKmMFLyHVXZ8K2KrUULYAuxwQBSorwJsiaic+FBHHni5l9P7CO8aq6olvXbY5R+Uglhz+7syey4s8zce+3Vub1hQ0aiGuTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=qA+Sbbd7; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mU3lnRsN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gcjow6IO"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VETagi121883
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:48:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=QHh/nIGzCoRgzWrKEq4S+OEYLKw4ImM5Urz
-	S+/gfDoQ=; b=mU3lnRsNSYlMYCEIiPZ3eu+N7BYcecUPtZgG4kBAeXFPD30iZ96
-	9RfRKS9iOaqgtBkcYcnacwRFBO9kvL7+wR6/KA5l5IyQF0Dqb/oyV0yKt8S515Yb
-	Hj+uhvT2Y8N9it8VbFGFLFgJorRoq+jbvqquAb6MNUHnLzX3Xwn4zZ51HsfRHenK
-	5Hu/bsd7C9bPdnn62stacyujdVphdHpdzKdngy9Jp9G8K8fgbEMmxLQNI37nYljz
-	FXq1s6F1EaswEFr0PbQwnrQWaThoKPiXK0pdp29+8OFoKMlcx3g/npHAqlATRX9S
-	kxBrgbTV0eyG3vyU9zo7o9w6O4DqGCD82Jw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd4pma83j-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 15:48:10 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-936e393061dso405055385a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:48:10 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="qA+Sbbd7"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so42773305e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:48:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788191289; x=1788796089; darn=vger.kernel.org;
+        d=amarulasolutions.com; s=google; t=1788191290; x=1788796090; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QHh/nIGzCoRgzWrKEq4S+OEYLKw4ImM5UrzS+/gfDoQ=;
-        b=gcjow6IOZI90LNrcHMbEehFMS81uA+otCCSNjuS8za/qTrLe1P7dpTE8pUjM/ilH9r
-         COuJTLw6jV/ek7SzHXZXokOVkqwn5ORJKvp3gVWBYrZxvwXVwx0Dyxb3EJLci0oEnEE3
-         BjCMdItcx+IoZTms183KbT63gk8fVJvLk+U8+6U933zGq/pQOHHkzRxc6yelTGrYht37
-         Ln2I00MJiV9JkTNILAxEwlHVo5hnyHgPrY/0JaoDpBy7cRUmUs+3RaJLyO/ryToXEzWh
-         +RCj16ECrsaSdgwrUZRC4evxqeCAvgAnCqiD4278EnVXAwideapDHofgphJNKxXLChm0
-         VCiw==
+        bh=BvbNBLloRSv8ElrT72fx3PwVc7bEOOXc32Z9sS23w5s=;
+        b=qA+Sbbd7OdwBfYv2REImsryMMxmos52Ke95aAsQWy5BW/9ZnjDdouKnRuu4w1LguP5
+         /eiNPZ/7DrQXKfhpgulh3Mg/oUpKe98q1y5r9RY8R59ximPzJPqI6FvyiF/J38GC8vaW
+         gO5Bq8SBTKAZE9bQzdRYuCIoeJIJXkokEICGs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788191289; x=1788796089;
+        d=1e100.net; s=20251104; t=1788191290; x=1788796090;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QHh/nIGzCoRgzWrKEq4S+OEYLKw4ImM5UrzS+/gfDoQ=;
-        b=OUGEPmx6DnqiJf/QyrA2uhFGaRvbcTey87jHosqd1okXQaw4iwzDlrhOYpKprTEVAt
-         F/5eo8gtBVLLXJ/1jvIaEEZPUTw+VAGe3TLetCiLb2DYOgqE0BqYiMEcaXyPRI32ewys
-         62jEWAU+OIEeLtBb8tBTbKfcu/QkHY8hx6t2x7hjp5ACC+O8k282L4T9wOUwM7lTzERl
-         /dGkY4eKe8xnrpR0+0jErUSYCPtA0FJI8ob6j7spmAq3cpedPqPFtIS5TH00DCOyQzYD
-         L04FHLbhB39oUp/BKUQTIN1RJcmISU13/mKim5BCCz/EcvDSnti7iKZs+nCUDcbhIz/5
-         lkOA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqyvn2BkU2ADBrUswvg64lil6yNZG9BGA4hy6MXDaRZrxwqBQz8xJ+4k0Cfp644+Un9+C0igf3X2Q9fKFM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1GtgNZoTj8sbL776mI+Lu516U3eS3xVHBJ5cqSsuiM4xXkF9R
-	2U5JpkEviSvnTCyxReD1oy4gfAXDSkVFY2cczHyikVUIeqcKrGLTU3H8yN0rkV8Ou+PErmkYHWP
-	QXN7ZP0hcSPKEgKDOgBFQ3YM6YpE+ZxJBMmXiXcTszx54nqTt2Q2rK8RAWR5c027NGNc=
-X-Gm-Gg: AR+sD11Qt5PzwBMHRm5DNOpfZ2i7Y3Hf1TByQn6mU35wF01FTkv/eAqFDolo/YwSnMK
-	TH5TA7WvmB0XhyCdz+N6ycbronJ3du/d+oOhD4ZTSduazZRoyPt5jyaA5gS8pNbL/yPSAsF/Vhy
-	XZwyLjGVYZtTmNjhWFnGBxBjRh8ItCLhQ+IVapBUMAirrR4+SgMur4Y38vXiZrcqKmasr18AhH1
-	qkJZBSIA2atTUPrp7LGSfuVEN8JQYz0sUUkcDZJpyJPFZbg9Jlq/iBeUGRNN5VQhVVMAFuzts06
-	Yhc34JTF6F7aJERW+vn5bmtSkLepmNmhYz+YGVp2ks3emKWsc933DMC2ebzhMOv+XewawwhQoi/
-	iiGJQmYuauhBWwKBZaNH3nqgY5nGQJcJ4tq0j5G3h1OMNHYI=
-X-Received: by 2002:a05:620a:40cb:b0:936:cda7:554d with SMTP id af79cd13be357-93913798773mr3050736285a.14.1788191289358;
+        bh=BvbNBLloRSv8ElrT72fx3PwVc7bEOOXc32Z9sS23w5s=;
+        b=Gfl6Y3MvhkFkQ/1DkP1pX7PT7HanH9xcxMKnXJdQ1XpcdFHH5crX5nDwNVdMPtbHVP
+         fG14sEUuSP/XRDhwZOPHZ1DilSORn20QNB+aU2WvpRLSD9k2oS/85qX8+9EG3CzamwJ7
+         29dXgcF5lc6cfDz0R1tzIQ1C6cv0cJpm00IWnC+XXC9Gkh4MgmVfSsgIab823V0vTRrq
+         nA9QUAWbTOzNcfgHzc98uv1PLr5QGmoHU0Jx6in+h+8vonYZJ/lTsJFacoo+j4bJACwF
+         whXKoEOdajDQM1DhBrEjcRuzTQnRETaUaPU+6gGaFmG9EaYvDa1bmLa4kujC3LOzucZf
+         Z/6w==
+X-Gm-Message-State: AFuF++nrWjdLJMAIOE0SQ4Ljq6FE4F6mWVVSEbitXpaF2FiVapZ59hc8
+	p2OqMPlnOrvV3+HfIpRmo5q8tKPjlFMf8OR+dsQBJxGDhVirNWZwFcFC+pUVnLfoLrfr6vwTQ4E
+	MSEE4ekw=
+X-Gm-Gg: AR+sD12c3WyKgmgTzBYNNu9qGTBZwaziGUajXt93rLwv8E+TcTGES+Mgvqh7WZOD7X7
+	Rogym3S+QQLcZHllVzh5c3z974Mu5dav4AsmvumT95E/Swnd3GC3+JtJ7z3CH/Eyct65XaW36HV
+	fbRFBiucdh3lBosUo9FXXkNVw6m2a4MS4IRPlaP4E+3SoLyM0JcvLiE+LhJk2RPVcu0KWHEuQFA
+	Oq6DeNVJS6LIuMtJeB03YvMJHGG3gEpvTwqTv3sVkEWg/E/2dtFERtrqFnJYHb7Ft4LqU9/Hpwg
+	1KUWJnrcj4D67vrcwx0KKLcjwnjtVjPKTGLU4MHWzc/MFOUy+rn450uZJAJeJ6h8Ncf3vFUE7dP
+	Th3v1AbFLEZYDT6FkEq5/nwj8mU/+Nxkgjb2oayPy21CqgnPfq8BFbJnVeE2X8fqPE5huU1P80v
+	UXT4CgD8iMBnhcs90He3IMq2IDS+asIoT9qtKq27+yEahNR27EhP0PbRiWmqyKttzdHWcloPwiz
+	n9Shz1Y/G3KqhSofAOPxRCrq7zIiaRFh8RCcQ6od/MHfAj8zto99SFkPGsXKDdTsu2N7e0PqcsP
+	sNlmmTQDPiJBTQXfpscdTQRjLOTkstB161gZUTkPiB50VaSrwyALVx2KBAQD
+X-Received: by 2002:a05:600c:c490:b0:499:726a:a017 with SMTP id 5b1f17b1804b1-49b91c17294mr422161085e9.1.1788191289687;
         Mon, 31 Aug 2026 08:48:09 -0700 (PDT)
-X-Received: by 2002:a05:620a:40cb:b0:936:cda7:554d with SMTP id af79cd13be357-93913798773mr3050728285a.14.1788191288866;
-        Mon, 31 Aug 2026 08:48:08 -0700 (PDT)
-Received: from trex (250.red-81-38-139.dynamicip.rima-tde.net. [81.38.139.250])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce0b456sm1558315e9.2.2026.08.31.08.48.07
+Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-87-9-102-148.retail.telecomitalia.it. [87.9.102.148])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9269f1b6sm220191845e9.4.2026.08.31.08.48.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 08:48:07 -0700 (PDT)
-From: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
-To: jorge.ramirez@oss.qualcomm.com, stanleyjhu@google.com, beanhuo@micron.com,
-        beanhuo@iokpp.de, James.Bottomley@hansenpartnership.com,
-        martin.petersen@oracle.com, alim.akhtar@samsung.com,
-        avri.altman@wdc.com, bvanassche@acm.org, can.guo@oss.qualcomm.com,
-        sumit.garg@oss.qualcomm.com, jenswi@kernel.org
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-        op-tee@lists.trustedfirmware.org
-Subject: [PATCH v5 0/2] ufs: rpmb: make RPMB usable with OP-TEE key derivation
-Date: Mon, 31 Aug 2026 17:47:59 +0200
-Message-ID: <20260831154804.719528-1-jorge.ramirez@oss.qualcomm.com>
-X-Mailer: git-send-email 2.54.0
+        Mon, 31 Aug 2026 08:48:09 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-amarula@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Stephen Boyd <sboyd@kernel.org>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org
+Subject: [PATCH v10 0/1] Support spread spectrum clocking for i.MX8M PLLs
+Date: Mon, 31 Aug 2026 17:27:00 +0200
+Message-ID: <20260831154752.15401-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,117 +82,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: _DD2NvINU-_aGKZbdiQIaw7qOd2mr7GM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEzNSBTYWx0ZWRfX7uUJb0EBfw3T
- GJkgd6ZWzCCR24FzXBdVhVSd4rYKB7wF5duaGYpnveUtI9vPOjrQvhkh9Fjr6w/tAlR7QSRfetO
- swz7I2NP2RXcw9ZR8zam44YQ3y55qi/ltxW4wBY5dQw/q2+OKStF0PLpadiP5Bv/oKuJnyAc+3m
- qIpUhSak7/8+7OD/Uv16D3xKofD35lhsz+xt/RgXmNyVSST9yFLjTUwxUloR5NtrEh/4DQFWHNW
- vdkcIFGVIBI6Br6f++m4m4Bpczcwbu4tFbOTpIyvz1gev7DmFM1gEdt3iLKTL2LrNcSVHC29cmA
- xTA0qssK14V9rdzMBpryQKGWPaeOMAeyCgnQDSyFRQxm9Wx176h3Dh3FQPlkBnW6EKfcwUpWvOw
- DPEankcbcXdnb10hlf4dBTONQi4yl1SnONpsVe/iyMNsB5SijQDLjbs7rtXtqDgXh0G+bdFBCfJ
- LNiohQayjr9VtK6JFpA==
-X-Proofpoint-GUID: _DD2NvINU-_aGKZbdiQIaw7qOd2mr7GM
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEzNSBTYWx0ZWRfX3igJo3WxEovO
- dU/HXW9Fg5eXf2/iVe5bmr65qHBp9Ca3k8yG6ro5MIx49JtWxfIlmQNK4KESJP/NFixMoN8aM3H
- JluqidWRQVUoKLM2OUn2KFJHXkgDbXE=
-X-Authority-Analysis: v=2.4 cv=GbQnWwXL c=1 sm=1 tr=0 ts=6a95a23a cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=N2KLPU99T7rsMuN2xAoQUA==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=_EMmJvYMAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=NEAV23lmAAAA:8 a=wgeUl87hhcvhY68aDoIA:9
- a=qcg49hLlgF0N60+LroqrWnV/Vu4=:19 a=IoWCM6iH3mJn3m4BftBB:22
- a=emCv1hD2LFd8cNRmW21v:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015
- bulkscore=0 priorityscore=1501 adultscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310135
 
-This series makes UFS RPMB work out of the box with an OP-TEE that
-implements the standard eMMC RPMB key-derivation flow, without requiring
-any fundamental changes on the OP-TEE side.
+The series adds support for spread spectrum clocking for i.MX8M{M,N,P}
+PLLs (audio, video and DRAM). It has been tested for the video PLL on
+boards using i.MX8MN and i.MX8MP.
 
-RPMB provides an authenticated, replay-protected storage area whose
-security relies on a secret authentication key. In our setup that key is
-never exposed to the kernel: OP-TEE derives it in the secure world from
-its hardware-unique key and a device identifier (dev_id) that the RPMB
-core hands down. OP-TEE's implementation targets eMMC, where dev_id is
-the 16-byte eMMC CID, and both the fixed length and the raw-CID layout
-are baked into its key derivation.
+Changes in v10:
+- Drop patches 1-22, superseded by the generic spread spectrum clocking
+  support from Peng Fan, merged in 7.3, so the i.MX8M specific infrastructure
+  is no longer needed. This patch is now based on the following commits:
+  - ae794aa6e88d ("dt-bindings: clock: Add spread spectrum definition")
+  - c86814e70390 ("clk: Introduce clk_hw_set_spread_spectrum")
+  - a7f16660af39 ("clk: conf: Support assigned-clock-sscs")
+  - 7d98de6ffdab ("clk: Add KUnit tests for assigned-clock-sscs")
+  https://lore.kernel.org/all/20260826165611.236321-1-sboyd@kernel.org/
 
-Two things stand in the way of reusing that same, unmodified OP-TEE flow
-for UFS RPMB:
+Changes in v9:
+- Add 'Reviewed-by' tag of Peng Fan for imx8mn platform patches
+- Fix building warning raised by the kernel test robot for patch
+  v8, 11/18 clk: imx: add support for i.MX8MN anatop clock driver
+- Add patches for imx8m{m,p} platforms:
+  - 23/23 clk: imx8mm: support spread spectrum clock generation
+  - 22/23 clk: imx: add support for i.MX8MM anatop clock driver
+  - 21/23 clk: imx8mp: support spread spectrum clock generation
+  - 20/23 clk: imx8mp: rename ccm_base to base
+  - 19/23 clk: imx: add support for i.MX8MP anatop clock driver
 
-  1. On a cold boot the very first frame sent to the RPMB well-known LU
-     comes back with a power-on UNIT ATTENTION (ASC 0x29), which the SCSI
-     core reports rather than retries. RPMB has no earlier guaranteed
-     access that could clear the condition first, so RPMB fails on every
-     power cycle. Patch 1 asks the SCSI core to retry the power-on UNIT
-     ATTENTION on the RPMB WLUN.
+Changes in v8:
+- Drop the patches added in version 7:
+  - 10/23 dt-bindings: clock: imx8m-clock: add phandle to the anatop
+  - 11/23 arm64: dts: imx8mm: add phandle to anatop within CCM
+  - 12/23 arm64: dts: imx8mn: add phandle to anatop within CCM
+  - 13/23 arm64: dts: imx8mp: add phandle to anatop within CCM
+  - 14/23 arm64: dts: imx8mq: add phandle to anatop within CCM
 
-  2. The UFS RPMB id is "<device_id>-R<region>", which is variable length
-     and longer than 16 bytes. Passing it verbatim would tie the derived
-     key to a length OP-TEE does not expect and diverge from the fixed
-     eMMC CID ABI. Patch 2 hashes it into a fixed 16-byte dev_id with
-     blake2b, keeping the key stable and unique per region while matching
-     the eMMC CID layout OP-TEE relies on. The hash algorithm and input
-     string are thus part of the key-derivation ABI and must stay stable.
+Changes in v7:
+- Add and manage fsl,anatop property as phandle to the anatop node with
+  the new patches:
+  - 10/23 dt-bindings: clock: imx8m-clock: add phandle to the anatop
+  - 11/23 arm64: dts: imx8mm: add phandle to anatop within CCM
+  - 12/23 arm64: dts: imx8mn: add phandle to anatop within CCM
+  - 13/23 arm64: dts: imx8mp: add phandle to anatop within CCM
+  - 14/23 arm64: dts: imx8mq: add phandle to anatop within CCM
 
-With both patches, UFS RPMB is functional from the first access after a
-cold boot and derives keys through the existing eMMC-style OP-TEE flow,
-(requires minimal OP-TEE changes pending on the CID proposal done here).
+Changes in v6:
+- Merge patches:
+  10/20 dt-bindings: clock: imx8mm: add binding definitions for anatop
+  11/20 dt-bindings: clock: imx8mn: add binding definitions for anatop
+  12/20 dt-bindings: clock: imx8mp: add binding definitions for anatop
+  to
+  05/20 dt-bindings: clock: imx8m-anatop: define clocks/clock-names
+  now renamed
+  05/18 dt-bindings: clock: imx8m-anatop: add oscillators and PLLs
+- Split the patch
+  15/20 dt-bindings-clock-imx8m-clock-support-spread-spectru.patch
+  into
+  12/18 dt-bindings: clock: imx8m-clock: add PLLs
+  16/18 dt-bindings: clock: imx8m-clock: support spread spectrum clocking
 
-Tested on IQ-9075 with Open Firmware [1], pending OP-TEE changes
-[1]https://ldts.github.io/qcom-buildroot
+Changes in v5:
+- Fix compilation errors.
+- Separate driver code from dt-bindings
 
-Dependencies:
+Changes in v4:
+- Add dt-bindings for anatop
+- Add anatop driver
+- Drop fsl,ssc-clocks from spread spectrum dt-bindings
 
-U-boot:
-https://lore.kernel.org/u-boot/20260720085202.537019-1-jorge.ramirez@oss.qualcomm.com/T/#mc423eb4dcf8a15849077029e4f7c1913bb7d8873
+Changes in v3:
+- Patches 1/8 has been added in version 3. The dt-bindings have
+  been moved from fsl,imx8m-anatop.yaml to imx8m-clock.yaml. The
+  anatop device (fsl,imx8m-anatop.yaml) is indeed more or less a
+  syscon, so it represents a memory area accessible by ccm
+  (imx8m-clock.yaml) to setup the PLLs.
+- Patches {3,5}/8 have been added in version 3.
+- Patches {4,6,8}/8 use ccm device node instead of the anatop one.
 
-OP-TEE:
-https://github.com/OP-TEE/optee_os/pull/7881
+Changes in v2:
+- Add "allOf:" and place it after "required:" block, like in the
+  example schema.
+- Move the properties definition to the top-level.
+- Drop unit types as requested by the "make dt_binding_check" command.
 
-v5:
-  * added Reviewed-by tags from Bean Huo and Stanley Jhu; no code change.
+Dario Binacchi (1):
+  clk: imx: pll14xx: support spread spectrum clock generation
 
-v4:
-  * ufs: rpmb: retry power-on UNIT ATTENTION on the RPMB WLUN: open-code
-    the power-on ASC 0x29 (with a naming comment) as the rest of the SCSI
-    tree does, instead of a UFS_RPMB_ASC_POWER_ON define; add a
-    UFS_RPMB_UA_RETRIES define for the retry count; reworded the commit
-    message.
-  * ufs: rpmb: use a fixed-length RPMB dev_id: reworded the commit
-    message; no functional change.
+ drivers/clk/imx/clk-pll14xx.c | 58 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 58 insertions(+)
 
-v3:
-  * ufs: rpmb: use a fixed-length RPMB dev_id: hash into a stack buffer
-    instead of a kzalloc'd one; rpmb_dev_register() copies dev_id, so the
-    heap allocation and its cleanup were unnecessary.
-
-v2:
-  * ufs: rpmb: replace blake2s with blake2b so that the same support
-    can be added to u-boot (CRYPTO_LIB_BLAKE2B)
-  * added links to U-boot and OP-TEE changes.
-
-v1:
-  * ufs: rpmb: retry power-on UNIT ATTENTION on the RPMB WLUN:
-     - fix using uses SCMD_FAILURE_ASC_ANY to retry any Unit Attention
-     - fix unused variable
-  * ufs: rpmb: use a fixed-length RPMB dev_id
-     - fix selecting a non-existent Kconfig symbol
-
-Jorge Ramirez-Ortiz (2):
-  ufs: rpmb: retry power-on UNIT ATTENTION on the RPMB WLUN
-  ufs: rpmb: use a fixed-length RPMB dev_id
-
- drivers/ufs/Kconfig         |  1 +
- drivers/ufs/core/ufs-rpmb.c | 29 ++++++++++++++++++++++++++---
- 2 files changed, 27 insertions(+), 3 deletions(-)
+---
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+branch: imx-pll14xx-spread-spectrum
 
 -- 
-2.54.0
+2.43.0
 
