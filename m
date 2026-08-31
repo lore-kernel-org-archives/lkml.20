@@ -1,140 +1,128 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0C320E030;
-	Mon, 31 Aug 2026 08:07:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F15325771
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:08:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788163672; cv=none; b=IKI34recWynTIGHoWokHZsT6oXnequ6na0UPKlFOBQCBuqo+pVI6AB1KYkR/PZK8G94kMJjaB+uM8jia4GbkIXHGRzzJNuS85slrvSOyMPJUSeyiH7SMTfBVB4UELlHuEt7ATDn/qRVpqwf8+FW3e8xfWEvKyPn1no0prleoWlY=
+	t=1788163693; cv=none; b=C+PrwH1L9crxmCOhr/fzsd7hDayY1HqWmDeWMyIzY+R+Udc/7QBqwI/UXMVh5/OaAijcelZTAr2OHu+v0v3BkjjlawXXHM2LtfVmQFxQn6A25XdIyN+g1+l+EXJ7K9sa4fselnBgsjDkrSCfevv9aNuutnBdV2C2/Rd18LiDhLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788163672; c=relaxed/simple;
-	bh=6/cLM5g/WJtoVYtFL4iQi5aHQ/XQuWJSmCt3KKsQUq0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tHD8U5QnFJ+4uJEk5tSQJn43qsihIM1Y8AiGBGVzdAa94AI1a3dutGRSiLNJV5KkAvQBqGFtrO0Y+L3Axsq3hVSb1EBSfXsjGjw0vVkH51NHifZv8yZmeupPnkDcQS9lBBlAwruJGhizzLLsxn+4TYDBnjVJlXImJ/NN2MpCvoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VluFJj+f; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=UdxE+aJk; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wTCdp06O; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=roSde+xp; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788163693; c=relaxed/simple;
+	bh=UKX9q9oIJSnrg3PkOmKbLEBVHZJHu9rSC2zcqfRiq/U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f17hHuwNoytANNdahGLlGKd8wW8ekfGMo14w44qiOTEJuurD0YSPGGLtPMAUUY3Dv5xY0Ta1MYb7fRQKA0oDjWqPXZIBP/J1GidrcmT4WfAfhUnJpitEcPfpkgeZ056/hFJPJgxjbUTQsxecGZuCGHV80SHN+PtGIeCBvDFSksQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=UqyAcgbk; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=N9IKktNN; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VluFJj+f";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UdxE+aJk";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wTCdp06O";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="roSde+xp"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8C46521B98;
-	Mon, 31 Aug 2026 08:07:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788163664; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="UqyAcgbk";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="N9IKktNN"
+Date: Mon, 31 Aug 2026 10:08:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788163685;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Bh1K3xCV332i7tHch/0JGEeOZf6yxFo27FgjHyV/hZ0=;
-	b=VluFJj+fAcN3mXs5NEh52I5dWSF0oNQvNqDqNV79b8Tr92a91RklZpyHa+MSHNXctpmcEK
-	Ts6wOBGW5gSLvjll3ZP63UCX3F0T5dyAopsDDIKJBkF8Vw1BCUKF/xr0f5LxG/ruAd8wI4
-	ytQFUhxlqb4CFBo5zz14scAsqTNUJ3E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788163664;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	bh=kOSOst4In022OAgVRNxSdoYjl0jKl41mZxfh1QOXGYk=;
+	b=UqyAcgbknTYn3fJW+77HU4qPPnTrytzLhryZvvJYqEuIx8qphJckoDifDfdm+rCRRjuKx3
+	X5AYx39fVc8NNQX0G53A5jZPrsmNKDCRCO17shC7V7IzmBfEvXg+awsNTsMSRKtjVuoish
+	6esMnTvDM2bG4LZr+N3HLR7SrxRC29FZ3/9FFEJPR5tIXTO8wMMMtHknvUzs1BeoJHSEES
+	fjqXjpkR/1miN9p7UOSQgsfBnbgFNVII3NxwD42wrshQxcc3VIE4WWUYwfm+VVzt4DLsDf
+	KxMDmIxUDVB+MF902mkKdqmc/xK1S4lVk0DJdJ9CvipP2ojiOg/aG7AJ5W14fQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788163685;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Bh1K3xCV332i7tHch/0JGEeOZf6yxFo27FgjHyV/hZ0=;
-	b=UdxE+aJkc30cYDxPwquM5B24X/iZrtVTE4UBdh7eDpKju8cUkkEz4p0S7RoeBisuqKnQhI
-	h0z+e2RDW3M6pNCw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=wTCdp06O;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=roSde+xp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788163660; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Bh1K3xCV332i7tHch/0JGEeOZf6yxFo27FgjHyV/hZ0=;
-	b=wTCdp06Ov80WEksnOri+bmCyUKoZxspEObMWnSHKhIHMdi/qlly3/EJxhuE2zAnRcL4WAd
-	5xb1Of7RJ7/xGrr8e8RiC6rPwKabqpuE8k5vGX81PWBvmBqRRIngnE/i33d01Nu+u5mOuB
-	GI5IUyJJtOixaDgBeK7ZtvefDHPCBhI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788163660;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Bh1K3xCV332i7tHch/0JGEeOZf6yxFo27FgjHyV/hZ0=;
-	b=roSde+xpPOWHfVfLbnKq29zVCK4YK3m3fsDpL36JgjmePXY1QbilzoW+zff6diBO+TdJJv
-	DvB7AkZfnJsc/qAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 441A613515;
-	Mon, 31 Aug 2026 08:07:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id fDpDD0w2lWo+fQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 31 Aug 2026 08:07:40 +0000
-Date: Mon, 31 Aug 2026 10:07:39 +0200
-Message-ID: <87bjaisofo.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: tiwai@suse.de,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	jianhao.xu@seu.edu.cn
-Subject: Re: [PATCH] ALSA: harmony: initialize locks before requesting IRQ
-In-Reply-To: <20260830063411.2215691-1-runyu.xiao@seu.edu.cn>
-References: <20260830063411.2215691-1-runyu.xiao@seu.edu.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	bh=kOSOst4In022OAgVRNxSdoYjl0jKl41mZxfh1QOXGYk=;
+	b=N9IKktNNqgpGblx0PmDvTe0TsNYwsV/Spk75gDgAMfcaFRBv4+VoIfFsyYXqyU/3U78EvG
+	MvmNWirnPXNVdQCw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: David Stevens <stevensd@google.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
+Message-ID: <20260831080803.LhShiZ4V@linutronix.de>
+References: <20260827232948.2520558-1-stevensd@google.com>
+ <20260827232948.2520558-7-stevensd@google.com>
+ <20260828133620._x2XfJR_@linutronix.de>
+ <CAOiLmNHK5Hw55omycg_EAHzi=g1iqJn1NTap1Mt98im3xTXcvA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.51
-X-Rspamd-Queue-Id: 8C46521B98
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAOiLmNHK5Hw55omycg_EAHzi=g1iqJn1NTap1Mt98im3xTXcvA@mail.gmail.com>
 
-On Sun, 30 Aug 2026 08:34:11 +0200,
-Runyu Xiao wrote:
+On 2026-08-28 14:17:49 [-0700], David Stevens wrote:
+> > Did lockdep see this?
 > 
-> snd_harmony_create() registers the IRQ before initializing h->lock and
-> h->mixer_lock. A pending interrupt can invoke the handler while these
-> locks are uninitialized.
+> What are you referring to by "this"? I did stress testing with lockdep
+> enabled and didn't see any errors, although I will admit the bulk of
+> that stress testing was !PREEMPT_RT.
+
+I am (was) just surprised that lockdep did not complain about the memory
+allocation under the PI lock. It was pointed out in that thread later
+that the new trylock usage could mask that.
+
+> > If I understood the whole exercise correct then you have a kernel stack
+> > of two pages and in best case you can unmap and release the second page
+> > while the task is napping.
+> >
+> > What might be a tad simpler is to memset(,0,) the remaining part of the
+> > stack. Since the stack is vmap-ed it should be swapped out on its own
+> > without additional tricks. That memset() would help zram to compress
+> > better so it uses less memory. ta-da.
+> >
+> > What also should be simpler (and I am not saying just to move you away
+> > from the scheduler) is to have a shrinker which iterates over all tasks
+> > which are marked for reclaim and then similar to swap just unmap both
+> > stack pages and release the second page which is not used.
+> > Upon wake up the task should create a page_fault which would be used to
+> > allocate the second stack page and map the whole stack again.
+> >
+> > This sounds simpler.
 > 
-> Initialize both locks before requesting the IRQ so the handler always
-> sees valid lock state.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:GPT-5
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> There is no swap for kernel memory, only user memory. I did contribute
+> to some previous work that aimed to only only prepopulate one page of
+> each kernel stack and then to dynamically fault in further pages as
+> needed [1], but handling that architecturally and guaranteeing that
+> memory is available when needed is difficult. Full-on swap to zram
 
-Applied now.  Thanks.
+but faulting it in while the task is running is sort of complicated
+since the task might have page_faults disabled. This is what I missed
+initially (the task is with disabled interrupts in the scheduler).
 
+But unmap the stack while application is sleeping (via shrinker) and
+fault it in via another thread on wake up should be doable.
 
-Takashi
+Sebastian
