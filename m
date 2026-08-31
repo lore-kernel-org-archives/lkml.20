@@ -1,62 +1,63 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC964A1DE7
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:31:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905734A1DFD
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:31:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186669; cv=none; b=e5iqg6RRTg3FBO9mhenC48FfO1jIs0CR/Mv5ZnX7p23Cp8iMQgUyKbPcpY+CFxuHnZe3WbbhTmwes/68hQFPNAkrPnnoRMV0q6ZYCca6e9EkDIkJOJczxsGpX3/VRrUWW11jSvW6y+9kxboyQbaAXtd6/WuS0+f283iWZU61AdY=
+	t=1788186672; cv=none; b=s+7kLDisocW83k94KjnA2S7OJXBtjYNIPADGnejfkEvBRP4fnHHAHzPOt0Y8GvoIOUOedVj99+VPO7hlnw+uZZFEOi39tqyPvZhy/CiGcjL3FrZeOqUVHoeKzQYMo0La9JeyylNEoUtFoqtaszTR9IgTQ9IBqQyK5oOgHyJ3NxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186669; c=relaxed/simple;
-	bh=8JWcZcSbKiZgsmRV1Y1OcStfvIfC+SugJo9Q81iZvpw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NIYpeOM56FrGP7AfPzKtSw2el89Pr2vhCxpKLqUrADo9DJ3HwO3PRIfRh52eUdmH6IN0yd+2hRlmq1ceugLL6rA69vEjYtb3Iq38plq/cvhnsEQOIljO04rGgYInNVzhoYHoSArFzrzMymuvFW/NUo7W7OJtTnficKeODi+MX/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pONTGYE9; arc=none smtp.client-ip=209.85.210.175
+	s=arc-20240116; t=1788186672; c=relaxed/simple;
+	bh=YZbKszZy3ChYxt2JVB23rZ6z1qPmN9Q7oTKWBYYDYYs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AL5HumrEHzdU7gn1Kn3tQ/e9RJOBablyoDD/lh2gn4jRktvy+3tOz6YNBL6iqqUmzCOG6Seq3E+wsNkpPiaBjE/92TBZvIPEsTwHicuEyJv/AS/VJ9WLuT5RQAqaqhJzOEJVU63BsDB3oxwZAhKezGVkDHFQlXPDZH4wp85Uybs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZKu4NVgZ; arc=none smtp.client-ip=209.85.210.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pONTGYE9"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-851cbd64814so1678666b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:31:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZKu4NVgZ"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-852c481415fso4345474b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:31:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788186667; x=1788791467; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WZ5oUnPH+Fi+rmudX4EiRwks3Vn6HHm7xh6Ub6H58ZE=;
-        b=pONTGYE9fWLt08pbtMLifWPm+N1YrVvy78VikiwV+nJTPICLgprPLEF70GmUlqPB+t
-         Ny5AVreloM4/PmCZPkKqEwbudlej3lMgws0qE4khEPbl3LAg+8LUT/yqV0Iei/kOODcg
-         PTqU4nPgf0ZNtBofiM9EjBbhKRJ3mj6GEraOkZmxcOkbaAkrJjVQ5Hns/+IsRVYdFFx9
-         4kuvwWYw6dlAQnSZKG58pueOb+xFwMUlbRqH8aeNDmoK09SEx8uj+sdYBJUIZb5GxTae
-         hjaabpd//5RzRmf1i4ER1ldSK5ilDwE68/WIfw9LplEc/L9PEkeN5Zrv0s7n+3NU6tOX
-         hBVA==
+        d=gmail.com; s=20251104; t=1788186671; x=1788791471; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jPh9WrfgsA1BT7kCoB0rFWY5ZOMllfKrUZerjtmx/jo=;
+        b=ZKu4NVgZ9mp6p4aQxJcXA8vX87Fu4bQWJ6rOAjrs63J0tXMlOhABmk9lGrhYn0+Dje
+         aRONWr9K2sQPyDq7uniLV7XPc/5irsQ0Ybf/fXERLgrG72vXsyX+8Nx0DsjQppPxTZZj
+         5qRR6agSA9+VCHHxUQLYHX6ibHvkuLP0uCOgiUdQLda8uEianvq0WZ/YGxYLdEd2f5ee
+         2GYeAOmDw8C9otcuheK4XcqCHyDsfuB4L7JJqfWt5i0weNwE6BExPicsk1UgOeW9UfZr
+         lZA/INHg2YbpkCMKhMXZX6Ro105dIK5jIdxF16jVZ4OdhFErmlMoeaDiTukMGjtT6vCo
+         ZVdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788186667; x=1788791467;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WZ5oUnPH+Fi+rmudX4EiRwks3Vn6HHm7xh6Ub6H58ZE=;
-        b=O6A4vRAU37jBZHnntWHQHSfVBcuqZXQrNmbCrWW6qLQoZtwGwDCzfu+cSmdMG4kSDd
-         ffIP4EexilC2C6pKTIVECai2Q2lF1K+ghNxzAhh6AvZkLUb/jX95cdH8qmUbwF4i8pRv
-         F4/QvzUf5ba/PQMhGZ0/8o9dJEmPZM2ZqysnBbcm1S61pIoo5TlhVDBGCcaQ+lvyYV+P
-         7ZQ1C3yTJdm3m6vkzLCLhwY19TCEApSjHIn45hrLW4/bOGObD3tR2DHoZdOVvNBlupWI
-         //t80wZyEAl+trpWO/mNQh6Ao8XG6yABy3QmJ9poZ1jcab1r9xvh+TR14A6tt+PHQecR
-         ICCw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr+EfmrrI0v2Uwwy/4GHQql2HMGPr+TmWPV9B+EOCBi0XzdzKeI7Fmsu3CDivhBVhZ3DcUXd/JcJnqf68g=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3AX9eAuQsLoGQ4oRZeAr3SMhsqXAsFKqmzRC3PNLd5/cG5SZ0
-	04G68bWHEhvEyNAxrjkzdgX6FCKrz2VAvBNryboP/vQjbf8gi02MUJ1a
-X-Gm-Gg: AR+sD13wh1Sd2UIVOTSSSzlJRiEpXaEJkXnGJWfmSb8NoHHeEsYkeGu2fbYeS9bOcHX
-	pKu4UCjDSQRpMUXnUAWH9tW7ueOHmOLVqEkqPSHbj64cpx7+0npoPlJB4CqPMHqPsWRnW3sA6ey
-	6D5QalYvG4ZMBoMEJc7OP/kqUJGT8o+nDoHba3z3+vkxD10Hv2L9bVhVTCmq5lZk8keYNj54JxR
-	T8dKEYL0KylxUOcujQRN30q4lybKixsxqsg7TW/yt+t6kwBler4bJLx2jt72OaffERG0GJvFx1q
-	T5mUw2b/Aub+fLPkdnoDDDovQXT5TllrhBHmV4PVss6OBlp7yofK9yPjPcK2WEATI9/8Nhnf/nO
-	SGEuANxIILDOyD5uKRXJ9b6wHovfx97AMkn1+UsNpvvUAQIFB2HJ+EhtLa8X6pFMwt6NOZyL4Pt
-	/zUwcSC+IKx5DaM6XHhmVxqHesGy6C5iiX+AQbqGKAlrdXUd1+fRJmktJUe87B3SRX3DYmgcqz
-X-Received: by 2002:a05:6a21:b8f:b0:3d3:ad3c:49a8 with SMTP id adf61e73a8af0-3d3ad3c6cb0mr30102499637.22.1788186667148;
-        Mon, 31 Aug 2026 07:31:07 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788186671; x=1788791471;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jPh9WrfgsA1BT7kCoB0rFWY5ZOMllfKrUZerjtmx/jo=;
+        b=AXYW8zXl9HYxHJM9pvnx45oFuOceGnqEsFrx79wLfl3QigoNaScWUP3KKsSW7oGDx/
+         wBBVuRXBjiEjyLU5Op4yUH2RFhCkQaihDY1ouj9wJOMgeCtrbDJBEmN3utOKTxVeAIl/
+         6kmCMdOiDhH1i7NEGtyez1lQPH58vM31SyWT02f3TUuMVoifnIlW1WLOgWIjZiMtwYy3
+         ZJUu2+hJuS/eLMIf9J7+Qgp9GJTPncNGiht9MzdFkfUtN5K62ixs8KHwV3vh46hkpn2O
+         LjGPSiTylcnVhP1964cFjYEpyaq3dEwjYx4xPSj3hAOx4RpZ1Bs1Wc9s/s11EgN/ko0J
+         G14A==
+X-Forwarded-Encrypted: i=1; AHgh+RrplTmsR45fByBdxE4GT6S1g6vLelfuhFcqbeDLfJMRgU+Ez+FiQZixuhxWpXiMjJ2ACHaN1Jix7qeswQI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndCtD4bLnxN61gEl/NZcIr3zngqAVeAiPawCPD8mpT4q6jzQta
+	Ad01Z9FiOghjnoPDMXAplFMNilzlbEqdQ8bzwTwZvOL/fWI5kQuK9YT9
+X-Gm-Gg: AR+sD119sc2pQNPoVEiUukBDz022uV8Isz5CwmuUegEGc8CU7GV/But0wGgQl/6wIJN
+	3m8h8S0X0X0uoJqOiURhS9NdHH/Gkhg9YJpKaLpw/8NMaoNJDVRctX4EzVOSJCwoJYktyrdA82T
+	oPhO+71Mz8tFw6XTYNCLhzAJFAktvXCU+mhSJp0If4FCDLPRGuKdThYInfxUlriGofEEjYzvqQ9
+	4jovJNXYJfXkWIBmEIzrzF7ZJJUypiNrVa4x6v6XzdpmgIJf7QiyQ+kVwqIQEtHNVZseM9DTV1x
+	IkseRgzd0COwGPDT7Spg9aL43a2FQx5Vp/W4NIRI732mE8LK/Eyr712MZodfSWxtWB6yMjj7vrI
+	BB/i9YVOdP/qTAbbT6cBlRg9+mQaqH51IGamycq1AE+OxtU2+ve8mwHIhQH1SwZq59GbmTaqyaa
+	eepwU8aqGv2yy9OksWlbu/128KiIP8TAGxQfxn1rOltoyTc+5JrkuGozJ42GLXQA0ERgqZyLKe
+X-Received: by 2002:a05:6a20:3c90:b0:3d2:2011:d184 with SMTP id adf61e73a8af0-3d2681aa109mr41291931637.14.1788186670767;
+        Mon, 31 Aug 2026 07:31:10 -0700 (PDT)
 Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f330f88csm4248961a12.10.2026.08.31.07.31.04
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f330f88csm4248961a12.10.2026.08.31.07.31.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:31:06 -0700 (PDT)
+        Mon, 31 Aug 2026 07:31:10 -0700 (PDT)
 From: Zhan Xusheng <zhanxusheng1024@gmail.com>
 X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 To: tglx@kernel.org,
@@ -65,69 +66,115 @@ To: tglx@kernel.org,
 Cc: thomas.weissschuh@linutronix.de,
 	linux-kernel@vger.kernel.org,
 	zhanxusheng@xiaomi.com
-Subject: [PATCH v2 0/3] vdso: Keep the CLOCK_AUX base at full precision
-Date: Mon, 31 Aug 2026 22:30:56 +0800
-Message-ID: <20260831143059.1592875-1-zhanxusheng@xiaomi.com>
+Subject: [PATCH v2 1/3] vdso/math64: Add and use __iter_div64_u64_rem()
+Date: Mon, 31 Aug 2026 22:30:57 +0800
+Message-ID: <20260831143059.1592875-2-zhanxusheng@xiaomi.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831143059.1592875-1-zhanxusheng@xiaomi.com>
+References: <20260831143059.1592875-1-zhanxusheng@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-v1: https://lore.kernel.org/all/20260831125557.1490398-1-zhanxusheng@xiaomi.com
+The vDSO basetimes for CLOCK_MONOTONIC and CLOCK_BOOTTIME are kept in the
+scaled nanoseconds of tkr_mono, so normalising them means dividing by
+NSEC_PER_SEC << shift, which does not fit the u32 divisor of
+__iter_div_u64_rem().
 
-Changes in v2, all from Thomas' review of 1/3:
+update_vdso_time_data() therefore open-codes the iterative division twice.
+Turning the loops into a plain modulo is not an option either, as the vDSO
+has no 64-bit division helpers on 32-bit.
 
- - Drop the nsec_per_sec local and spell the divisor out at each site.
- - Store the remainder straight into the basetime, as the coarse clocks
-   already do.  It works at every site including CLOCK_MONOTONIC, whose
-   remainder feeds CLOCK_BOOTTIME, because the copy can read it back from
-   the CLOCK_MONOTONIC basetime.  That also makes the copy take sec and
-   nsec from the same place instead of one from the basetime and one from
-   a local left over from the division.  It is not a codegen win: gcc 13
-   emits the same 419 instructions either way, with two movs scheduled a
-   slot later.
- - Keep "vdso_ts->sec = sec;" on its own line under the copy comment.
- - Keep the asm() barrier rather than OPTIMIZER_HIDE_VAR(), matching
-   __iter_div_u64_rem().
- - 2/3 drops the same local and stores into the basetime too.
- - Picked up the Reviewed-by on 3/3, which is unchanged.
+Add __iter_div64_u64_rem(), the u64-divisor counterpart of
+__iter_div_u64_rem(), keeping the asm() barrier that stops the compiler
+turning the loop into a division, and use it for both.  The remainder goes
+straight into the basetime as the coarse clocks already do, which also
+makes the copy of the CLOCK_MONOTONIC values for CLOCK_BOOTTIME take both
+of them from the same place.
 
-The problem 2/3 fixes: the CLOCK_AUX basetime is shifted down to
-nanoseconds and back up, which drops the fractional nanoseconds of
-xtime_nsec, so the vDSO floors the base and the cycle delta separately
-where ktime_get_aux() floors their sum.  The vDSO reading ends up 0 or
-1 ns below the syscall for the same clock, and clock_getres() advertises
-1 ns for these clocks.  Thomas confirmed this was unintentional.
+No functional change.
 
-Checked under QEMU with an auxiliary clock enabled through
-/sys/kernel/time/aux_clocks/0/aux_clock_enable, comparing CLOCK_AUX via
-the vDSO against the raw syscall at offset 0, at +5.123456789 s, and with
-offs_aux driven negative.  The two agree within read latency in all three,
-and over 100000 interleaved pairs each the vDSO reading is never ahead of
-a syscall reading taken after it.
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+---
+ include/vdso/math64.h  | 21 +++++++++++++++++++++
+ kernel/time/vsyscall.c | 18 +++++++-----------
+ 2 files changed, 28 insertions(+), 11 deletions(-)
 
-The 1 ns bias itself is not measurable that way: a pair of reads costs
-several hundred nanoseconds, so it cannot be separated from read latency.
-The argument for it is the algebra in 2/3, plus a sweep over
-(xtime_nsec, delta) which puts the 1 ns case at 60% for shift 24.
-
-Zhan Xusheng (3):
-  vdso/math64: Add and use __iter_div64_u64_rem()
-  vdso/vsyscall: Keep the CLOCK_AUX base scaled
-  vdso/gettimeofday: Assert that the clock id fits the dispatch mask
-
- include/vdso/math64.h   | 21 +++++++++++++++++++++
- kernel/time/vsyscall.c  | 28 ++++++++++++----------------
- lib/vdso/gettimeofday.c |  2 ++
- 3 files changed, 35 insertions(+), 16 deletions(-)
-
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+diff --git a/include/vdso/math64.h b/include/vdso/math64.h
+index 22ae212f8b28..eb39d3411981 100644
+--- a/include/vdso/math64.h
++++ b/include/vdso/math64.h
+@@ -21,6 +21,27 @@ __iter_div_u64_rem(u64 dividend, u32 divisor, u64 *remainder)
+ 	return ret;
+ }
+ 
++static __always_inline u64
++__iter_div64_u64_rem(u64 dividend, u64 divisor, u64 *remainder)
++{
++	u64 ret = 0;
++
++	while (dividend >= divisor) {
++		/*
++		 * Prevent the compiler from optimising this loop into a
++		 * modulo operation.
++		 */
++		asm("" : "+rm"(dividend));
++
++		dividend -= divisor;
++		ret++;
++	}
++
++	*remainder = dividend;
++
++	return ret;
++}
++
+ #if defined(CONFIG_ARCH_SUPPORTS_INT128) && defined(__SIZEOF_INT128__)
+ 
+ #ifndef mul_u64_u32_add_u64_shr
+diff --git a/kernel/time/vsyscall.c b/kernel/time/vsyscall.c
+index aa59919b8f2c..993258d5f1e7 100644
+--- a/kernel/time/vsyscall.c
++++ b/kernel/time/vsyscall.c
+@@ -41,14 +41,13 @@ static inline void update_vdso_time_data(struct vdso_time_data *vdata, struct ti
+ 
+ 	nsec = tk->tkr_mono.xtime_nsec;
+ 	nsec += ((u64)tk->wall_to_monotonic.tv_nsec << tk->tkr_mono.shift);
+-	while (nsec >= (((u64)NSEC_PER_SEC) << tk->tkr_mono.shift)) {
+-		nsec -= (((u64)NSEC_PER_SEC) << tk->tkr_mono.shift);
+-		vdso_ts->sec++;
+-	}
+-	vdso_ts->nsec	= nsec;
++	vdso_ts->sec	+= __iter_div64_u64_rem(nsec,
++				(u64)NSEC_PER_SEC << tk->tkr_mono.shift,
++				&vdso_ts->nsec);
+ 
+ 	/* Copy MONOTONIC time for BOOTTIME */
+ 	sec	= vdso_ts->sec;
++	nsec	= vdso_ts->nsec;
+ 	/* Add the boot offset */
+ 	sec	+= tk->monotonic_to_boot.tv_sec;
+ 	nsec	+= (u64)tk->monotonic_to_boot.tv_nsec << tk->tkr_mono.shift;
+@@ -56,12 +55,9 @@ static inline void update_vdso_time_data(struct vdso_time_data *vdata, struct ti
+ 	/* CLOCK_BOOTTIME */
+ 	vdso_ts		= &vc[CS_HRES_COARSE].basetime[CLOCK_BOOTTIME];
+ 	vdso_ts->sec	= sec;
+-
+-	while (nsec >= (((u64)NSEC_PER_SEC) << tk->tkr_mono.shift)) {
+-		nsec -= (((u64)NSEC_PER_SEC) << tk->tkr_mono.shift);
+-		vdso_ts->sec++;
+-	}
+-	vdso_ts->nsec	= nsec;
++	vdso_ts->sec	+= __iter_div64_u64_rem(nsec,
++				(u64)NSEC_PER_SEC << tk->tkr_mono.shift,
++				&vdso_ts->nsec);
+ 
+ 	/* CLOCK_MONOTONIC_RAW */
+ 	vdso_ts		= &vc[CS_RAW].basetime[CLOCK_MONOTONIC_RAW];
 -- 
 2.43.0
 
