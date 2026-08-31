@@ -1,210 +1,261 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011046.outbound.protection.outlook.com [52.101.62.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61233537C7;
-	Mon, 31 Aug 2026 07:19:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2FD29408
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:20:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788160795; cv=fail; b=cc9Qk2IYoL5lTnZBrZqJn8Gznj7OFCPMmWcqG4oWvvYdWMxNOgpT1jGdE1EX2o4ooSLTJMXi3oSLAjYpP6tKC0X0c2mE8CR4WP73vFsRlCHVRPuszDVC+qtQvQuLZs2RSGFCXKr7ck4U8yB77xQXrLbV4Mxjm4SPnuLRehqjy4k=
+	t=1788160824; cv=pass; b=b+ajhr0NVlmcRVhklq4U4WPbvQvetEpn6KLOURB8FPp0TOn6RtqP7iNmylSLcWRde7DqLEcZNo+zjb5hrfodvOFuZe3IwIp2tFWol99QNGfo4TRerKVkbxf4yPLB7I7PSVOrgHIgzW/ZNbw6bQNnw6U/0h94YyixDospQ5O0+mQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788160795; c=relaxed/simple;
-	bh=vxBSaemJTmFSsR1we5BqmSq9rQODSIoi8m/4vBTNtrk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Aa/daeH472WgkdsCYeUKY0mdfOrHAtrr+Z+7VRhpOsfaUzrZEgVucCgG9H95mgfQjNvyVoSFi58IW0l9spyZ45WDJkT5pONv6nBhKcbGzLPqlnv33xfJR6zJAKsjV34zsHdriMCALZ+Al4oYA1plbYGBuvnvr9NH0Mw2fN352CI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=bgeYHKze; arc=fail smtp.client-ip=52.101.62.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1788160824; c=relaxed/simple;
+	bh=n9o2swquvhR29jn4mFjOtM91XSnruoxkyihW01u7frE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ib49CW/IwLfRJnsvJjzvFtgl4u6QaCQqaDWA2pAijjcAgQr7JBvUNeBTtqKm06kq65jcsPLXGCMY6I8+ioqnU62oaRW1AdDpApxSn+Kx6BXr59YAFOkxUrGuKxTMPCKBF+ZhAWh+RiIGgrxLxLuzJKjqGTn/SnQ8iAy/wUYY1og=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net; spf=pass smtp.mailfrom=tomeuvizoso.net; dkim=pass (2048-bit key) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b=oKkDKIrp; arc=pass smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tomeuvizoso.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="bgeYHKze"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GE/bGkMWorK83Owwi2ZM6cps4G4XuPKo0+AyvCdrH9eWRovHu+liNwoGAXVi2qREvjVTKssNCjE6iPG6yvMyeM8cetY6XX92jhFqHYCtZZhmbfQrKPmWzQbrAcGlvt4tX4zoOVIzF8i3cxb/vSSpLBns+pJzPt6JSMbgOf9tGiGRN5q/usahGMm+uGGdWbD60AFklc77hXAyv4aneYBn9XI6n7dADSc6d2ReoOmKQHnPbpfm/m/ap6TkwvV1oQ1UP70yTf4rk9JjgNUjUk0FpyksCXGZNG/kyc8yxfpToCC9rHGVKNjjan7DcdK/ZbgnSTc5s16WuFRAF0lEQFdJZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SjTEUE551aR76aJw3Y6D8wYi4+EsIC3RJieqp8HZSOw=;
- b=QH9u5BU8hulgkaqcgoyarAkjtCiEcjykP8aggkRK5R3YQSMBCqnl7hIwzTv81hrGuet3ZHjbh/PsEiV0mbq5RGhfrcP5xKlVw/1TYnkMUB2lDOXaq/Yg0eEqWh3T9GXHp0xpgpDvb0lcATqLdtQUZ01VHYzHGMZX9frt79Xh6Aqhp1Ou21PFiEc6DZHMv+ppXt+KlZcG4a3qtM/YzsjVjWJ+0tN8v7Ku31lNDeR3wO3d2m2qgZxg6ZrRcWtaoztGMOlyluG1BwqjP09Rav+de11lv1TS23+/l29CinsOdS+sWeNbIKOAS3AxxbKvdDLPc97zepM9OjgenZk4wfUx9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SjTEUE551aR76aJw3Y6D8wYi4+EsIC3RJieqp8HZSOw=;
- b=bgeYHKzexKFOaoMpQl2i0t4i5X2w9iMjtEloE6XJifcezgfPh/bU5TfoPWdQ98V38YsaIAYSXHCIFPjy653jgIvGR0hlg6L4pm8NcjiXsF9qTOoqLKOyZDR/fkTF5w5k6s6J7S21E53xGDMvJ8uEobBNnNaK+w2QEaL/6I10RFI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from LV5PR12MB9779.namprd12.prod.outlook.com (2603:10b6:408:301::14)
- by SJ5PPFD5E8DE351.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::9a4) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 07:19:49 +0000
-Received: from LV5PR12MB9779.namprd12.prod.outlook.com
- ([fe80::8ac8:e862:8ae9:9287]) by LV5PR12MB9779.namprd12.prod.outlook.com
- ([fe80::8ac8:e862:8ae9:9287%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 07:19:49 +0000
-Message-ID: <891250a6-ae3f-4abe-b58c-92c8b9cb35ee@amd.com>
-Date: Mon, 31 Aug 2026 09:19:43 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] firmware: xilinx: ufs: move PHY/SRAM ready polling into
- the firmware backend
-To: linux-kernel@vger.kernel.org, monstr@monstr.eu, git@amd.com,
- "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: Ajay Neeli <ajay.neeli@amd.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
- "moderated list:ARM/ZYNQ ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- "open list:SCSI SUBSYSTEM" <linux-scsi@vger.kernel.org>
-References: <eaeaaea8ed76069943e0706a0917139ff6569929.1785855749.git.michal.simek@amd.com>
-Content-Language: en-US
-From: Michal Simek <michal.simek@amd.com>
-Autocrypt: addr=michal.simek@amd.com; keydata=
- xsFNBFFuvDEBEAC9Amu3nk79+J+4xBOuM5XmDmljuukOc6mKB5bBYOa4SrWJZTjeGRf52VMc
- howHe8Y9nSbG92obZMqsdt+d/hmRu3fgwRYiiU97YJjUkCN5paHXyBb+3IdrLNGt8I7C9RMy
- svSoH4WcApYNqvB3rcMtJIna+HUhx8xOk+XCfyKJDnrSuKgx0Svj446qgM5fe7RyFOlGX/wF
- Ae63Hs0RkFo3I/+hLLJP6kwPnOEo3lkvzm3FMMy0D9VxT9e6Y3afe1UTQuhkg8PbABxhowzj
- SEnl0ICoqpBqqROV/w1fOlPrm4WSNlZJunYV4gTEustZf8j9FWncn3QzRhnQOSuzTPFbsbH5
- WVxwDvgHLRTmBuMw1sqvCc7CofjsD1XM9bP3HOBwCxKaTyOxbPJh3D4AdD1u+cF/lj9Fj255
- Es9aATHPvoDQmOzyyRNTQzupN8UtZ+/tB4mhgxWzorpbdItaSXWgdDPDtssJIC+d5+hskys8
- B3jbv86lyM+4jh2URpnL1gqOPwnaf1zm/7sqoN3r64cml94q68jfY4lNTwjA/SnaS1DE9XXa
- XQlkhHgjSLyRjjsMsz+2A4otRLrBbumEUtSMlPfhTi8xUsj9ZfPIUz3fji8vmxZG/Da6jx/c
- a0UQdFFCL4Ay/EMSoGbQouzhC69OQLWNH3rMQbBvrRbiMJbEZwARAQABzSlNaWNoYWwgU2lt
- ZWsgKEFNRCkgPG1pY2hhbC5zaW1la0BhbWQuY29tPsLBlAQTAQgAPgIbAwULCQgHAgYVCgkI
- CwIEFgIDAQIeAQIXgBYhBGc1DJv1zO6bU2Q1ajd8fyH+PR+RBQJn8lwDBQkaRgbLAAoJEDd8
- fyH+PR+RCNAP/iHkKbpP0XXfgfWqf8yyrFHjGPJSknERzxw0glxPztfC3UqeusQ0CPnbI85n
- uQdm5/zRgWr7wi8H2UMqFlfMW8/NH5Da7GOPc26NMTPA2ZG5S2SG2SGZj1Smq8mL4iueePiN
- x1qfWhVm7TfkDHUEmMAYq70sjFcvygyqHUCumpw36CMQSMyrxyEkbYm1NKORlnySAFHy2pOx
- nmXKSaL1yfof3JJLwNwtaBj76GKQILnlYx9QNnt6adCtrZLIhB3HGh4IRJyuiiM0aZi1G8ei
- 2ILx2n2LxUw7X6aAD0sYHtNKUCQMCBGQHzJLDYjEyy0kfYoLXV2P6K+7WYnRP+uV8g77Gl9a
- IuGvxgEUITjMakX3e8RjyZ5jmc5ZAsegfJ669oZJOzQouw/W9Qneb820rhA2CKK8BnmlkHP+
- WB5yDks3gSHE/GlOWqRkVZ05sUjVmq/tZ1JEdOapWQovRQsueDjxXcMjgNo5e8ttCyMo44u1
- pKXRJpR5l7/hBYWeMlcKvLwByep+FOGtKsv0xadMKr1M6wPZXkV83jMKxxRE9HlqWJLLUE1Q
- 0pDvn1EvlpDj9eED73iMBsrHu9cIk8aweTEbQ4bcKRGfGkXrCwle6xRiKSjXCdzWpOglNhjq
- 1g8Ak+G+ZR6r7QarL01BkdE2/WUOLHdGHB1hJxARbP2E3l46zsFNBFFuvDEBEACXqiX5h4IA
- 03fJOwh+82aQWeHVAEDpjDzK5hSSJZDE55KP8br1FZrgrjvQ9Ma7thSu1mbr+ydeIqoO1/iM
- fZA+DDPpvo6kscjep11bNhVa0JpHhwnMfHNTSHDMq9OXL9ZZpku/+OXtapISzIH336p4ZUUB
- 5asad8Ux70g4gmI92eLWBzFFdlyR4g1Vis511Nn481lsDO9LZhKyWelbif7FKKv4p3FRPSbB
- vEgh71V3NDCPlJJoiHiYaS8IN3uasV/S1+cxVbwz2WcUEZCpeHcY2qsQAEqp4GM7PF2G6gtz
- IOBUMk7fjku1mzlx4zP7uj87LGJTOAxQUJ1HHlx3Li+xu2oF9Vv101/fsCmptAAUMo7KiJgP
- Lu8TsP1migoOoSbGUMR0jQpUcKF2L2jaNVS6updvNjbRmFojK2y6A/Bc6WAKhtdv8/e0/Zby
- iVA7/EN5phZ1GugMJxOLHJ1eqw7DQ5CHcSQ5bOx0Yjmhg4PT6pbW3mB1w+ClAnxhAbyMsfBn
- XxvvcjWIPnBVlB2Z0YH/gizMDdM0Sa/HIz+q7JR7XkGL4MYeAM15m6O7hkCJcoFV7LMzkNKk
- OiCZ3E0JYDsMXvmh3S4EVWAG+buA+9beElCmXDcXPI4PinMPqpwmLNcEhPVMQfvAYRqQp2fg
- 1vTEyK58Ms+0a9L1k5MvvbFg9QARAQABwsF8BBgBCAAmAhsMFiEEZzUMm/XM7ptTZDVqN3x/
- If49H5EFAmfyXCkFCRpGBvgACgkQN3x/If49H5GY5xAAoKWHRO/OlI7eMA8VaUgFInmphBAj
- fAgQbW6Zxl9ULaCcNSoJc2D0zYWXftDOJeXyVk5Gb8cMbLA1tIMSM/BgSAnT7As2KfcZDTXQ
- DJSZYWgYKc/YywLgUlpv4slFv5tjmoUvHK9w2DuFLW254pnUuhrdyTEaknEM+qOmPscWOs0R
- dR6mMTN0vBjnLUeYdy0xbaoefjT+tWBybXkVwLDd3d/+mOa9ZiAB7ynuVWu2ow/uGJx0hnRI
- LGfLsiPu47YQrQXu79r7RtVeAYwRh3ul7wx5LABWI6n31oEHxDH+1czVjKsiozRstEaUxuDZ
- jWRHq+AEIq79BTTopj2dnW+sZAsnVpQmc+nod6xR907pzt/HZL0WoWwRVkbg7hqtzKOBoju3
- hftqVr0nx77oBZD6mSJsxM/QuJoaXaTX/a/QiB4Nwrja2jlM0lMUA/bGeM1tQwS7rJLaT3cT
- RBGSlJgyWtR8IQvX3rqHd6QrFi1poQ1/wpLummWO0adWes2U6I3GtD9vxO/cazWrWBDoQ8Da
- otYa9+7v0j0WOBTJaj16LFxdSRq/jZ1y/EIHs3Ysd85mUWXOB8xZ6h+WEMzqAvOt02oWJVbr
- ZLqxG/3ScDXZEUJ6EDJVoLAK50zMk87ece2+4GWGOKfFsiDfh7fnEMXQcykxuowBYUD0tMd2
- mpwx1d8=
-In-Reply-To: <eaeaaea8ed76069943e0706a0917139ff6569929.1785855749.git.michal.simek@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY3PR04CA0028.namprd04.prod.outlook.com
- (2603:10b6:a03:217::33) To LV5PR12MB9779.namprd12.prod.outlook.com
- (2603:10b6:408:301::14)
+	dkim=pass (2048-bit key) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b="oKkDKIrp"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-938cd95b06eso257295485a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:20:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788160820; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XkAREleqiMjxj8dOXspOL5SsrBvie205tfQe8vMHuA5enS3GpIzIpkxCIwc7EZID3+
+         unArtUg7bKLYhsrF3ApeKl9dvcC/vwFvscabX7fQt6VA9YkL4DCdKZDJWHSf8xC5cOZC
+         YOE66RtjELhu7GuDJQUMfnnqacPL4BRnnN29eUGiR/Uz6kaIlaDoipexm24J4HD/WuaS
+         Q8l/MQaJjS84wJ5cAwtZTuLf7HZt3CUAELYpKoty6t7GmrNitA+z0fVmZi10Na1cH+37
+         JLm2fqTCIxrqfP2bARGp+O0ObZUdWMF6As1wGgGP80iccojdl8LP/04OZUTHv8bZ/UH2
+         V5Aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bFWfbb/gIctZHoo0CDVoZsBSY4wt/NAsN/U4bJzB5KM=;
+        fh=LFOFC7Bpn111Io7qA1O7EwwroR5fYLUmYsm0jLKLdF0=;
+        b=CNAK88UAGiCh+lUn3zHNK8J0bLFxpfdJLl3Z9fYnE6VBLWKsOIhzU+oCHcaJ4/UxON
+         dNGrMKPAs3/MoKE0ESC9ArjpgMWwXzp8GZWH2FyyTw/KzDdOg0cdyjbfflsqBumbLTpR
+         Ve6Wm+63YMSOIsbczGEtNPt9nKNIFVUOFx8AO8c2D2Sgsn43TS18DM9Ozhv6B/q9RzYu
+         VySmoElW8WWL2AK4CipXRnVGbRxUpy1vi0TmLgKuXZuhwbdsBxuIZ8tG+vRqW+PfNPew
+         btvkeVaYDPn+jP5oA7rgBz1tdXyMy2idNvL3pIR2kw3Zth6jNjtAzNMh1plR8QvX4g7C
+         bO0w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tomeuvizoso-net.20251104.gappssmtp.com; s=20251104; t=1788160820; x=1788765620; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bFWfbb/gIctZHoo0CDVoZsBSY4wt/NAsN/U4bJzB5KM=;
+        b=oKkDKIrp3dd1z/MFoWMPTe92a7sYHI0OriCkfqNLgRX3fwZHkPBNKTcMznXcJjkL9K
+         wMJEtNGO8lbxlMPrh/8IRYu60TTsZxxekMMRgzZpzMcfj5g8V1tiNmHhumSehIpPK9CX
+         4QJwW/KbQgZfIZbQh4HDHG5JVq0j4umLIfx9WLA/n2VJA795VWThsG7ydtQyWgS/Fg5A
+         QMjBRjlIZ+gNvZE4XphqIntjccUq/stBsE+F13cZ6fP/UwykeTYM46BoirNZ8V9mZhSM
+         AfVZes2zycLMeNOsjbMDIyREnmFTowIpgyuk5lHpPUJzbjT1UEAyexVCNGqIARYvsRNI
+         3Cuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788160820; x=1788765620;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bFWfbb/gIctZHoo0CDVoZsBSY4wt/NAsN/U4bJzB5KM=;
+        b=NBMYx/F7L1FqFvH9ycw3H0z3VVoKocYT1jleehZ2r8gFez67QSx6o5FTVZJSWWeZ4H
+         6f/p2tK6pQKNecfDxurDuNqpdru799AZmeYoeyBH99UHar0UUXywLW4oJUfLoPES+JSI
+         aqV1y7X7Hu1Mb6aPKeokT8VgP0dehD24WMNIBaqaUAAKcAzLtw/VcN7W0QqPn7gu1FOc
+         e3+qV0uXPhrXni4DjqQiFdozqBBiSQ5FMjyPj+pGX48Z7g4duSELcf2Qk7UbY2y/XnLs
+         Gyl4xw/j62tH6bhWd3Bt0k9sHjx1qQJubrJU2+OT04atkScVnPVYfv0PlYeE1s8bEwAR
+         Jl3Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpkO5uFLwwXAQMgv8Vl/JadXp7VR7oA3TN4ZSNyfd2m2n7COnajhMTPSr+sYTK2lL1ziKm4BJLoSc56Iak=@vger.kernel.org
+X-Gm-Message-State: AFuF++nzkA5+/nDrA/Ef5QxM7Ecp8KQM97gc5UXIZRJ8Da9AJkHaU0wB
+	77hB14pW6csAZ66R8IWvS0l+f2ayE7FKNNgvALzajqKKaboc+eEmV7k6k2qjdyp4S3hR5ByWPaK
+	7buFl1aNqB7jRryW74GTwjaMMd4S9QgJKJWA0eIrGJg==
+X-Gm-Gg: AR+sD11gdPyIW198lX8ir9LlIYUabB2TF34V7DZtJRtlDWUIUjL26723BIPEPe7HLL+
+	GcCRybkInAJAWVkBsxc7xq2QBn6RIvYJDgngkiQgIYn1oPmqyt3XkWrSLOUUzOUDEGijKkCcPAM
+	35lcC+Vriqk2pB2j7NjEoUgHV4nfPoIskSckDxJ/fiLmdVVWQP8SWNlXj9cEBJV4fI80MOv3EDI
+	YaLLqCnlM4q70Ze5gDZMNZABiK8OxMLFWmoqBS2JmH2Mhzyde6DI7eB/uTibCYxnLachRf2EZGC
+	KjXhTxRCnVxKvUCV05ctyuWnyjJnX6+OtUE4Ot7m66zX
+X-Received: by 2002:a05:620a:1d02:b0:939:619:c6eb with SMTP id
+ af79cd13be357-93936c7a141mr714176285a.8.1788160820472; Mon, 31 Aug 2026
+ 00:20:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV5PR12MB9779:EE_|SJ5PPFD5E8DE351:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0484da0b-b532-4d75-ac96-08df07303e1a
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|56012099006|10067099003|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	rEzXNPhixTYPOkiXB9u4/ora0cJy3SV9+D2Vc9IGY/Rtn1Jm7kMigoEHRijfs2R66HSqxqjCoSeHleatZV5Rguq0kenItB45GS59O2S84S0XSUkVYQDdKanyM99ZKtzJf40O2rnpgJNrMjXxby3YnwvkplktKE7+BiA1TldsnndckW5tyrCx2xVIl4fA0Ify6B//K/gGxBXSksKdL4WaQ69kDPleYbmI7WkWK08QTGfpEr0YpuxP1VU7uELWH6qiSwv0wRNlCM/Z4c/JFnjk+hJcdhmPa7o7VaU3lbJPJmlEYfR08pxbG7gKtC6fYOdBgvdTSVxT3Wl512YydgWTRMl9tTIooTqz23HDbTIWMKDorNaFl/b+vQ3txIclQtCWS+mFh5tG3/HdRO0RrVPmVNvE0TlkyVOFqDHMvnLwU8iiyUUi2iuG9coNHKsqXL7Gk8GwTz46lB2Tm2hqndAF3/qXe2U4aJO9QJtamIEQq0ME17gv0qq+l7yIX/n6/Kz7VU4+fIaW4JtOaojlkxbY85IHNQwqD8hm/3kRoLrHQUnNoblZGGSsnX6WoVFvKHjfe7B3OVadaFxP++D1GYUtTQIuLQxi6EuYc63e6xKdkDKQ9ZpG1Gq1NmVJhNlz7og2x040sQAzQpPr5ElkFsfG2g==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV5PR12MB9779.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(56012099006)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?THZrM2kzbFN6ZFdGMDRVaEZUT1FsVFVwbVVBRCtSaE55WWpQN1BwZjRDNXhQ?=
- =?utf-8?B?MXdRQXVGZXVCNWV0RWVFUWU2UmtzSFlQTHRXaXgxNnExYS9sdDczUzhqRDhx?=
- =?utf-8?B?YzdLNWV4SUpUTTFFMmROdmJTYTFJRmx3aHIvNkFpMW4veHExWVI1WUMxNS90?=
- =?utf-8?B?U3FMSjBFMVcwOHNza0trdllib25zUHZRU2lJVktGb2lnSHp0OHVqY0M2eHA5?=
- =?utf-8?B?R1FmWFFaVVlYNDd4Qlc5aFF6UDVUOGswVmRQbWZIVlZ1ZzdvZ3RZbHQrbHFL?=
- =?utf-8?B?ZE5vK0UvdVhUMU55Z0JWS253cW1QL0JzNzQ1YmdvczF1YzBNMXZsVjBaUjZv?=
- =?utf-8?B?eTA3UmMvemZuckFCTTh0MXNQL2VRSURlbGdQU3pZQUVYSVI4QzRub29hYWdp?=
- =?utf-8?B?MmdaNDZ1YlR1enhId0FPZEdQd0ZQbnplV2NJMHBBNDA1dkNHNzh2N1V1dzFr?=
- =?utf-8?B?OFZ0TkxIdWx5WTloelcwdjM2UFg4Q0RLZ2hxbHJPV3BUZVVvQnN3Y3Mwa3p6?=
- =?utf-8?B?SmV5M09rYTFicmJsckdJVURNQWVEejJLZUxLQm5yaEladWdQdW5ocWJwTi93?=
- =?utf-8?B?eTkybVN3dW5UNjJyTmpMN1QvK0tqcHBlbEc2d2lhOWlRbStrV2NtVDJCSVpj?=
- =?utf-8?B?cGZsSWI5MlBxZkp3anc2VzYraXkyVTFjTlZLclljZ2ZHek5sVURWcW1pVGtv?=
- =?utf-8?B?WHdyMG5kdk1ZS09KSnpHZDVKaS9yYkZBUEF1NWo0d3FIQm5MY2hub0JlRG9R?=
- =?utf-8?B?emJDcDByWWxTYTM1cUU0ZzRNMmxRZGttYlExNXFrU24yTFY5Y2xpRG5jQ3FJ?=
- =?utf-8?B?Zmk5bzBrRjJHcldML0tlaXZGa0RieGdpYWJQcFd6TGt5c2J3ZVFlVnU3TUcv?=
- =?utf-8?B?YTZzT0dWN1lMQ1IzcjRBUHQrVy9pNmhLUmFCMUtWZ0NUcitkc28rL2hGS01D?=
- =?utf-8?B?UzFUUEs2WHR6eFVjcjF3dGhXaE5XZVlsQXFUTEp1YkY1ZFByNHpwL3NEaHdY?=
- =?utf-8?B?SDN0clRYWHFLK29QQlRkckJxckhUa1NMV3JsM25vN1ZHSDZINzZEWTBlOTM4?=
- =?utf-8?B?bzlRQ042cXZvU1RXOHJCRFp4STlhZWlkVVcyc1ZVSVJQenBPeUdCWlVqUVZ6?=
- =?utf-8?B?QXdja1dRbHh0TlkyaDY4L1BrY2Y0YlhUWUZVUXpUc29tYVZaclhiL3VsdnRa?=
- =?utf-8?B?MW92L2IzMStTeW5lV29TVkVhaVBVbUlqeUNoUklWOEVEQmEweGJlVGVmODQ0?=
- =?utf-8?B?V0k1dU5MWDNXOTRjNEQ2aURiczdZNkY4d1RCNEg3OERRcmJJRXozZG96Qjla?=
- =?utf-8?B?OG9pYktQMVJWVjBYZ3FJQXpiUnduNjR1dUozbSswaHFrUkdrRzQwZkNpZW5D?=
- =?utf-8?B?TjBZSHVHeGowOTlpb1pBY2tNSTBsVE45RmpyNmJHbU4zanVjMHZsZ1RINTZu?=
- =?utf-8?B?Z3N4cHRodU5zc1RUUlorSXgyV0JkbHprbWs2bWsxbUgvcytFSnU5MitFSGFY?=
- =?utf-8?B?Nno4TENFN1MvZ3Z5M1hOR3NJNHFveG5lT3R6dG5MbmxKM2VqYlQ2Z2g1dlU0?=
- =?utf-8?B?V2xCcklnNEVzeUJFTUdKbzluUXRzK3E0S0hEdjQ4bFZNTmY5cEsxUnp1aU1J?=
- =?utf-8?B?bndaM3hPRktFTnNITEdQemY1N0EvNjFmN2xzTENHWkdkdDdSaU0yd1FKNnNE?=
- =?utf-8?B?eHBaWHFrUUtid0ZUdWY4UkZtREZUOHI2R0tGa0NJYUwzd1NvYmJGNnJUU3RW?=
- =?utf-8?B?a3U5S1lSempXUmp3Vm0zQ2d5aExnNmVPRzA4MGVMMytuNTl0cDVlNjdUVWx0?=
- =?utf-8?B?Z2RUdXVMVWpLSWVSdUdIRzVCQnJXekhMOUZ2a0RGaDRVTUw3VE16SFFKUGto?=
- =?utf-8?B?QlI1ckE0akNoRlhqYk5kL3ZtTEdjc3hxMklIeEZpeHBXbTcwMkJNcFNuM2Yr?=
- =?utf-8?B?enBNZ0tvR1FaRjlTKzQzWUlZZ2xXSmN0VWNQTEdlTG10eEdyN2ZVWkpORzd4?=
- =?utf-8?B?dG5kcWFsc05rRFIvNWNzRkU0MERtNHJrWlJVUjZUYVVNeElqS3lybGc3STkz?=
- =?utf-8?B?TzRRaEpGSmcrc2ZLVTBndlBqU1FLV2RSWGpFVHpteFVqaEtLL09SUE8xSmhY?=
- =?utf-8?B?aEZKWmRFQ0JjNHp4dk5yMEcvekZXdnZPai9teFYwZmVsa3V5L1RqRDZnemhY?=
- =?utf-8?B?KzhGblptQURrclQ0YnVlZlJaaHNLYlpaTXR1emY0dGVuS0xrcWg5V25aeENm?=
- =?utf-8?B?ajcxQ1ZHUlQxeDVlTmdINVp5QVhqcnEyQnZtc0NsTUJ0OEsraWtzalBDVzVi?=
- =?utf-8?B?U05YaTV6dzc1TVFuWGZJUnRXd2dBODZQUzZGR0hSSXF3MW9BeW1jUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0484da0b-b532-4d75-ac96-08df07303e1a
-X-MS-Exchange-CrossTenant-AuthSource: LV5PR12MB9779.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 07:19:49.2994
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 70n2kLYd3wkircTF8t4AiHMkB7SBULXGQ9WKBKFsoMtPkrXH3/Zah63peUtj9ve1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFD5E8DE351
+References: <20260831040804.24111-1-gahing@gahingwoo.com>
+In-Reply-To: <20260831040804.24111-1-gahing@gahingwoo.com>
+From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Date: Mon, 31 Aug 2026 09:20:09 +0200
+X-Gm-Features: AcwNN1Uwr5NzEhJ7J-T4GkpAbcQEn3hzAH0qQngAbR_wX7Qh73vwn6zU-qNzhjg
+Message-ID: <CAPsqS2TGXOCOL8BzaJ4NaJqtuKid7vhRdJq-80ngGxhNN_UWCw@mail.gmail.com>
+Subject: Re: [PATCH v10 00/13] accel/rocket: RK3576 NPU (RKNN) enablement
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org, 
+	p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com, 
+	royalnet026@gmail.com, u.kleine-koenig@baylibre.com, 
+	chaoyi.chen@rock-chips.com, diederik@cknow-tech.com, alchark@flipper.net, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+	iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Martin,
+On Mon, Aug 31, 2026 at 6:08=E2=80=AFAM Jiaxing Hu <gahing@gahingwoo.com> w=
+rote:
+>
+> Based on Igor Paunovic's "[PATCH v2] accel/rocket: request the core
+> clocks by name", as v6 through v9 were.
+>
+>   https://lore.kernel.org/linux-rockchip/20260729130743.128876-1-royalnet=
+026@gmail.com/
+>
+> Tested on a Radxa ROCK 4D, on next-20260814. The tree is byte identical
+> to v9, so that is the same test rather than a new one.
+>
+> This adds the RK3576 NPU to accel/rocket, which today supports RK3588
+> only. The RK3576 carries two cores of the same RKNN block, wired up
+> differently. Two extra convolution buffer clocks, two power domains per
+> core, one reset rather than two, no NPU SRAM rail, and a PC_TASK_CON
+> that packs the task number into sixteen bits rather than twelve.
+>
+> What changed since v9
+>
+> No code. Every patch's diff is byte identical to its v9 counterpart, and
+> below the --- the only change anywhere is 5/13's git note. Above it, six
+> commit messages each gained one trailer line and nothing else. Six tags,
+> that note, and the base-commit trailers back where v8 had them.
+>
+> The note first, because v9's cover letter said 5/13 carried it and the
+> posted mail did not. Rob Herring's bot asked on v8 for the dependency to
+> be recorded in the patch rather than only in the letter, v9 said it was
+> there, and it was not: my send script never passed --notes. Igor
+> Paunovic noticed while applying the series and said so before v10 rather
+> than after, and he had the cause right. Nothing was lost in a rebase;
+> the flag was missing. The script now regenerates with --notes and
+> refuses to send unless exactly one patch carries a Notes block.
+>
+> Igor also ran the 19 August protocol again on v9 as posted, on RK3588,
+> an Orange Pi 5 Plus with all three cores bound, PROVE_LOCKING=3Dy and
+> DEBUG_ATOMIC_SLEEP=3Dy, and a local test-only patch lowering
+> JOB_TIMEOUT_MS to 2 ms so healthy jobs cross the timeout. Two passes per
+> kernel at console loglevel 8 and 4, serial captured on a second machine.
+>
+>   v9, two passes         12 and 11 induced resets, all recovered,
+>                          48 of 48 within 1 on both, including the
+>                          inference after a forced autosuspend and
+>                          resume. No MMU faults, no lockdep hits,
+>                          nothing on the console.
+>
+>   without 1 and 2/13,    8, 10, 12, 8 and 15 induced resets, all
+>   five runs in the       recovered. Four runs clean. In the
+>   same session           remaining one the inference after autosuspend
+>                          reported success and returned a constant
+>                          buffer, all 48 output channels at 0x80,
+>                          which is not this model's output zero
+>                          point, while the CPU reference varied
+>                          normally. Zero kernel messages, zero
+>                          lockdep hits, nothing on the console.
+>
+>   1, 2 and 3/13 only,    13 and 13 induced resets, all recovered,
+>   two passes             oracle 48 of 48 throughout, including after a
+>                          forced autosuspend and resume. On the 1+2 arm
+>                          a round that ends in a timeout leaves the
+>                          affected core runtime-active even through a
+>                          forced autosuspend; with 3/13 applied the same
+>                          sequence leaves all three cores suspended.
+>                          That arm is where 3/13's Tested-by comes from.
+>
+> A job that signals completion while its output buffer is never written
+> is the silent form of the race 1/13 and 2/13 close, and across 102
+> induced resets in nine runs that day it appeared only on the arm without
+> them. It is a better statement of what those two patches are for than
+> anything my own logs have caught, which has always been the loud form:
+> a message, a wrong answer, something to look at.
+>
+> The tags, and where each came from:
+>
+>   02/13  Tested-by: Igor Paunovic   # RK3588, three cores, induced
+>                                     # reset, differential base,
+>                                     # JOB_TIMEOUT_MS=3D2
+>   03/13  Tested-by: Igor Paunovic   # RK3588, three cores, induced
+>                                     # reset, JOB_TIMEOUT_MS=3D2
+>   06/13  Acked-by: Conor Dooley
+>   07/13  Acked-by: Conor Dooley
+>   08/13  Reviewed-by: Abel Vesa
+>   09/13  Reviewed-by: Abel Vesa
+>
+> The two Tested-by comments are not the same string, and that is how they
+> were given. 1/13, 4/13 and 5/13 keep the tags they had; Igor checked befo=
+re
+> testing that 1/13 is byte identical to v8 1/12 up to the base-commit
+> trailer and 4/13 identical to v8 3/12, so those tags still describe what
+> was tested.
+>
+> The bindings are unchanged since v9, where dt_binding_check was clean on
+> all three with dtschema 2026.6 and yamllint 1.38.0, and CHECK_DTBS was
+> clean on all 13 rk3576 and all 48 rk3588 dtbs.
+>
+> Two things I raised in v9 and would still rather hear about than guess
+> at. 8/13 does three things: it adds the settle delay, renames a macro,
+> and gives RK3576_PD_NPU a regulator, which also makes every RK3576 board
+> force that domain off at probe. I asked whether it wants splitting;
+> Abel Vesa's Reviewed-by may be the answer, but nobody has said so, and I
+> would rather split it than have it merged on my silence. And 12/13 gives
+> each core both NPU domains, which is the description that has been
+> tested here rather than the topology; if it should be one domain per
+> core, 5/13's minItems has to change with it. That one has had no reply
+> at all.
+>
+> Nothing else moved.
+>
+> Jiaxing Hu (13):
+>   accel/rocket: take the completion register writes under job_lock
+>   accel/rocket: wait for a running IRQ handler before resetting a core
+>   accel/rocket: let the core suspend after a reset
+>   accel/rocket: factor the completion tail out of the IRQ handler
+>   dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+>   dt-bindings: power: rockchip: allow resets in a power domain node
+>   dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+>   pmdomain/rockchip: add optional per-domain power-on settle delay
+>   pmdomain/rockchip: cycle optional power-domain resets on power-on
+>   accel/rocket: select the per-core clock and reset counts from match
+>     data
+>   accel/rocket: add RK3576 NPU (RKNN) support
+>   arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+>   arm64: dts: rockchip: rk3576-rock-4d: enable NPU
+>
+>  .../bindings/iommu/rockchip,iommu.yaml        |  28 +++++
+>  .../npu/rockchip,rk3588-rknn-core.yaml        |  47 ++++++-
+>  .../power/rockchip,power-controller.yaml      |   8 ++
+>  .../boot/dts/rockchip/rk3576-rock-4d.dts      |  13 ++
+>  arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  82 +++++++++++-
+>  drivers/accel/rocket/rocket_core.c            |  28 ++++-
+>  drivers/accel/rocket/rocket_core.h            |  11 +-
+>  drivers/accel/rocket/rocket_device.c          |   7 +-
+>  drivers/accel/rocket/rocket_drv.c             |  28 ++++-
+>  drivers/accel/rocket/rocket_drv.h             |   2 +
+>  drivers/accel/rocket/rocket_job.c             | 119 ++++++++++++++----
+>  drivers/pmdomain/rockchip/pm-domains.c        |  75 +++++++----
+>  12 files changed, 385 insertions(+), 63 deletions(-)
+>
+>
+> base-commit: 4477a78374a57c3809b172ad30cceabda48c47c6
+> prerequisite-patch-id: 46ebb679e93d3d25393e8cbf8fc3c955bcc01bd4
 
-On 8/4/26 17:02, Michal Simek wrote:
-> The Versal Gen 2 UFS driver polls the firmware for M-PHY TX/RX
-> configuration readiness and SRAM initialisation completion with two
-> open-coded do/while loops. Each iteration is a full firmware round-trip
-> (PM_IOCTL/IOCTL_READ_REG of a protected PMC_IOU_SLCR register), so the
-> loop can issue up to a million EEMI calls, and it hard-codes the wait
-> policy inside the controller driver.
-> 
-> Introduce coarse blocking helpers, zynqmp_pm_wait_mphy_tx_rx_config_ready()
-> and zynqmp_pm_wait_sram_init_done(), that take a caller-supplied timeout
-> budget and contain the poll loop. The loop is EEMI-specific (legacy
-> firmware only exposes the per-read status primitive) so it lives in the
-> firmware driver, keeping the UFS driver backend-agnostic: a future
-> backend can offload the wait to the platform in a single call without
-> touching the controller driver again. The existing per-read primitives stay
-> exported, so the current EEMI interface is unchanged.
-> 
-> The timeout budget remains owned by the UFS driver (the consumer that
-> knows the hardware) and is passed down, so EEMI and any future backend
-> stay consistent.
-> 
-> Signed-off-by: Michal Simek <michal.simek@amd.com>
-> ---
+Hi Jiaxing,
 
-Do you have any issue with this patch? If not, I would take it via my soc tree.
+I want to get soon to review this and the other pending rocket series,
+and in the meantime something that could help this moving would be to
+get a review from Sashiko.
+
+As you can see in [0], Sashiko is not reviewing this series because it
+doesn't not understand yet prerequisite-patch-id. Can you please
+resubmit the series with Igor's (presumably) patches bundled in it?
+
+[0] https://sashiko.dev/#/patchset/20260831040804.24111-1-gahing%40gahingwo=
+o.com
 
 Thanks,
-Michal
+
+Tomeu
