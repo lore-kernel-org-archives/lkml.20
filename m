@@ -1,149 +1,333 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011059.outbound.protection.outlook.com [52.101.62.59])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F8A3E6DCA;
-	Mon, 31 Aug 2026 12:01:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788177665; cv=fail; b=NQFWZG4Gqs/ILoRkQYdUZs4e+ghhqZBfG+FAsv8U9KVOWEa4+TjFD1m5DgPghGRPRmNGrCOcHXD9csxv+2lI8LnZNSew456PSUbfLa6rQ1ntm9FMwNTjvoGu4MNxqM0sWmNu5XpXRiEKa1QkmRJlC50bUa4pDDsQyM5+YFUvBTQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788177665; c=relaxed/simple;
-	bh=/qjrLW8xjHhnjSrLu9Iwu/isblZT2pi7b4JRwQSczzA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=uD8uajNwFCk8j6AK7tgbe9WW4McAjyb5VfVwYW2+MxHn8Ex04T1ATiN6F0xMYNxe0B891fqOAAr5HNRxNd6HFfHmOK6HMdCoQeMjj6d02bchhu/lSjCw5tawIC11GQVfaLZaKSS6TqEI8U1o3JkDf9edmo0eKb2TxIFiehDc60Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=NARTzsKN; arc=fail smtp.client-ip=52.101.62.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9683ED5C7;
+	Mon, 31 Aug 2026 12:01:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788177698; cv=none; b=E50fIO1u8RU7Wa9bpGZdCNj2eZ9CkxF+Szt3VZvvOKFzWGlZXSKw13SIHoCo2EesRHgK/cmLflz7c3nTJDMpzuW+xxNNH5l4K7dQs6JP8m+dQ8MF3EQa3O+qXMYv0MNZ6Adr1WGFeXP6yDMzeJLOaI5BcyhHJp0h0FKCirV+q7k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788177698; c=relaxed/simple;
+	bh=UeStCgx93G/Rc9wyKFfNXZQQ9+u6ARkcctm1alR4w4k=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tUbWzePe92BtCqeUoXUrNqU9gOQiwm4MIb1ylD0jHH+Qj8G2KE1z8lSAKdgOZqd0gJg0SBHtqHpOCF487vSRlUH+DLpQ0F7vN4zhr+jy5xq+kR9wruBP8pr4HtFsb3/DKqRHknH4TmLNgdLRRtYaZC4x4McscvOWTb2VSYrhGDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FVNfS4Hn; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="NARTzsKN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RfG1dFD5iRU4O+GFZUs0Rd3tlxZBf+kxq5/Gi4WPXBP2NAHv+wCeyNCu5HgF/AfPFRMbHI6TGxJXWNHNPI/RT3cLFkoE2zvrG+JKxHmAGiZDCJX6gpD18Z/mzLGLgmgw7CgNuCyErT9Vf//Pqcn+roK98d7bQEa1L8kUlad2LBc3FJwHD6EFS3pBL5Es1wJCkVglJMvLb25FTyKcr6LwzruNk+wAS++jV1VZ7Kx5FsM3V6r4EalRv/XDJy8I81X+vhCtCKSBgTkq7Oz1zIuJ6i/wm8GYtyTXsA8I2/UlzgbX8QNnHZeTzAZPP3GIPqMXWnBWKHe296fRQRO6FK7jHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UgfKeGfTp4uPr53HHs7lc45jZNlwpNQI2qlg9cgZ8ko=;
- b=FImgsZjmQgD+20PSWWUXKNuP9yJyTzyRLyxuwj//zI+06k01Z/baerhqPHHYF2Y6wruwuMeVEJ14yHj9LzVOASZM4zntKkVs17kBpZQ3cuJO0ZKm8RZyaEz3ziqnAu3+tyTi7XiqN5uWPsqNC0vny7g1dABFqapwoSjRlT+PtM74pyI8f66r6uA6Erc7JVOLNTb4Y0R/vDsf8JXXE2cLDARJWGrjUzO88PCX1WYX7FA5U65p7VJpLuCtIJ/pvx4pn6r7an2zDoG0Y1zwigRRQxsap14kXCU0QEmM9aPD//IARNtfsdNX4dmmQ4qa7y3X0Ah9jw0XKehrZ4smnlG2QA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UgfKeGfTp4uPr53HHs7lc45jZNlwpNQI2qlg9cgZ8ko=;
- b=NARTzsKNziVWr9OqM2QhUpMPMqfoGihecunPETtv3GpEx/yuclaPOnEx/rc3qqn/Xg7K1yL/i9luE1iKpXhISUIQREQzypQSxpDorT1VbR8gBVXzjfi3Om7vLwoTDtb7mVkIMF9tMe+WDvwzSLqaVW/3sch4oGKRQCmuDI62bsT+DWK2Hm0HhvKz3pOwyvqnZer5NWiigJXrwSLihFsVdjs75ueg+bXhqSCommrNlq663WpDbOG/ypE0elhjIy66XgZdp/YYab36zfyin6GmrAn0B6o+pIriM9ka/234e+fKcu1mmQW8XbzvL1cXUXfCdeOP+8Zij6KZ0oP0yJsTOA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by MW4PR12MB6875.namprd12.prod.outlook.com (2603:10b6:303:209::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 12:00:58 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 12:00:57 +0000
-Date: Mon, 31 Aug 2026 09:00:56 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, Matt Evans <matt@ozlabs.org>
-Subject: Re: [PATCH v4 00/18] PCI/P2PDMA: Fix ACS egress control handling
-Message-ID: <20260831120056.GE4157646@nvidia.com>
-References: <20260821-fix-p2p-acs-v4-0-v4-0-94426b96de73@nvidia.com>
- <178761377033.3197084.14418777457559555376.b4-review@b4>
- <20260830090223.GC24140@unreal>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830090223.GC24140@unreal>
-X-ClientProxiedBy: YT4PR01CA0122.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d5::13) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FVNfS4Hn"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id D226D4E41473;
+	Mon, 31 Aug 2026 12:01:32 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 961E760231;
+	Mon, 31 Aug 2026 12:01:32 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4DBED11C78C5E;
+	Mon, 31 Aug 2026 14:01:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788177687; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=o7rqoXYl2sTVTebULhbe3smL3G+StGnprS3t+Z32JNA=;
+	b=FVNfS4HnG1oFzMSgTBvoV6vQ7uOnsDYScPrytCFg9nqm5tQheqHi0Ys0LWlOimxe4kWBwF
+	mOTQK7tTGCwJUz/xCsMp/cnKn7L0huKsvftXLgJMI3U4jFDt/YOVNZePo7V5PSgrb6JtrS
+	7TCOD5lO9FVjkrbCTYXtNQa2RPk9AWm4bBpfnfEt4Z5LZwJagJmai++9m4zzimLiycPSL4
+	vj/9XV2A897ISrj72H1tSHM6q8xbTHu43kWUIPMMkSXvTaEDeBpqoEEh4Rix75+y0+x+Oo
+	+RfabjDF5JKuFumuZtFrL6VOb9tylapTe/HRQ2jDF+O5svmN609NHEcrpicsJA==
+Date: Mon, 31 Aug 2026 14:01:19 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 02/15] libfdt: Don't assume the root node is
+ available at offset 0
+Message-ID: <20260831140119.1f14b420@bootlin.com>
+In-Reply-To: <apOhk-NQusFgV5Sx@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-3-herve.codina@bootlin.com>
+	<apOhk-NQusFgV5Sx@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|MW4PR12MB6875:EE_
-X-MS-Office365-Filtering-Correlation-Id: b07178cd-2d90-4665-b04c-08df0757848d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|23010399003|366016|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ocNuoLT6ZiDS4TI692Gb2vhkroFtBC17UYQVTqw79YlBxzQDRC9m8j9tqKtaByNZ6NOmcbZDolwso2U1XbS2pjb+BtWVJhCbyHvNTofVQ3MBqYdSvW4NCRwPeCvJkVenEetuXbHYMCHP2NGXYlLmtBqji7jS3iIPVGwp0ybln6WfB/nomJ0F+DQ2Y7tWcF5A9rh1KTj6VCycN1/oMb+7svfYgW6sohQiWJc2gJuZ4jvSOW19rew8K2JiOvOTQXvP20pZ+pb9iuqsYIdVkPL5It8zxtJ3+6zyxMRER0QDmzeqUxIBY4FQDVALh5Ja/boBPirgqcxuxmDZPKL7ugPTURSSvh6PiFEg2MpbvTOtS1bV/pAXczMUgeLXRha+mGoWwaBf622E2a1BeFFYTlt1s76FT+Rpr2ASQaCQbnEfq/Cx7XqIGfDaCArDQYc8Ed9s5m0CaLJvKMvtPSUzQfhhj6lz9vqerr8FsfhLuJhEoGEV4WqRyFEIBnxSdnqEWiOGT6ZZIVoMqbpjoRqfOAewrfZZnlC+8x0/bNDK/MP2WRLXoP/RseyrI1sny2KobaNwUVNexXmm3IBrn3xUGDFY9qiRWX9xp13RRp0zoi88xZjcwrPO7PbK/QOWoyTfpUChTGMupH+MVk6633Fa4dAchs0dTKcgwInqhpBqUAbuM/g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(366016)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?HlEit6OZNKYYIuLoNZHw9vz9S4ZHJUKwjErCuUhX3PI7nh7xDwAM9pRKCpIp?=
- =?us-ascii?Q?UraM2TBn6mZA0W8QOgoYjqYaGjeh4hssXOJ22jIwt6fcWCrH/8/XBK+vKki/?=
- =?us-ascii?Q?LjStoAuk31iKyaDgbVdU1j5kk2iKV9JpadYcdkezujHMaBGMGHLGXrEcifsB?=
- =?us-ascii?Q?m1GfTkx0GQuL4UeF+zApCZPLz8HG6sOgCZB2KT1jdmcnOQbT5oiyUreXsdjG?=
- =?us-ascii?Q?5hr3E1mK3S33KaJQDOvLSki8vIOxehSNwSa1yWYbPeJFmJbvgQZBeUo/1g2V?=
- =?us-ascii?Q?tkEVcq/8RGD87B7vnafirrexVUS9kvaipO22UNGM0QTxNBxP3uayqmQn/vU/?=
- =?us-ascii?Q?OMRM7czl1IhY0rTKbKS9n4F2VVksWdeMlHAoweh7llkWqJrtHBpZlYrr3yf+?=
- =?us-ascii?Q?lytGr9VqGr2fOPr4kDH5xrOBTSO1N7kb8jNXw+WMIPRkl5AXP7UyPz+86taM?=
- =?us-ascii?Q?UbeXEaHkQxXaZ6L/GBf8z/PZAzAtyiq0i0eh2qoEzoKo3Gg9GdRZ7tl97wMG?=
- =?us-ascii?Q?U2G6pCQfeQg93X/qW49dbzMnQL3ntknBRXgWWns+bBhRM875Ts+RJUPtdyL5?=
- =?us-ascii?Q?A9zFg7Gy5eaxRn2NhLi+WcgzsV2GeWiuW55/S8rElJ7ocadnWDg4UsPPL23f?=
- =?us-ascii?Q?sYhFZ0XVs425JknXe89qH1o3FmzKtxhLj0ep04S7nqR0ruj3p1DuLQltxOR4?=
- =?us-ascii?Q?wRkl6ABOgd+/L7OEeRw/hALio741+VxqrKZRu34P1x7uCceqCUnY/W3g/P6b?=
- =?us-ascii?Q?RRTrIbaoSslIVJjBkFjlXJRNQdQ2/yr8jg3wLRF0kUY5UItIWbKKynB4SxIk?=
- =?us-ascii?Q?2Fsh0sbwwzH2Jjir7polRsS8UQV+mA/zoXEF2QdeQXp6mNzKzFhMo18PCPui?=
- =?us-ascii?Q?9AJo+MNWBNLI/iH9BTWPxGQo6Id7mVDw/zpJcXE8bsb/Mbr0n2hP/DD2Kvol?=
- =?us-ascii?Q?tRwoWICE341kORn7RtN25TnjghtrinXoT1qMyNNiXi9fiUxsAVx39V49+FHk?=
- =?us-ascii?Q?P41b35dmAtHfwkp0jSdZx3U0zASVEnZrz56hMRJA/DIafbJnC4wv3re3HzZ+?=
- =?us-ascii?Q?Y2R/QL9XwqglMEi2L2gEsQiFr3V3gGnSFlHev/awWrmTFtKS8+xTiP5B5SBo?=
- =?us-ascii?Q?rCacRlkcdfDXZMCYhqfMp3xyp3jYm+pxd9QDEHXikSVin75tltYpzvZSFgEn?=
- =?us-ascii?Q?gpdZXFtQZ/mM1LCtUmJPXiWFfAYt9Ippuc3zHQcUOqR9KHmzdLtw+WJw95ns?=
- =?us-ascii?Q?D9WfqpGO6FHUo0TEHGjHyqxUq6Rpx0C8rx33cbn1dx06r0PsbCaaNVcDdPNk?=
- =?us-ascii?Q?hB9XEKFm6hbLHjoag/hG0azInrqWdgqrUWgC/pK89WhUwt+L/z6tL3Bebty0?=
- =?us-ascii?Q?LcaJ5PDOlMHOxcZj5Tk3znHLzPlD20Jrevtwc868eHzfLQAjhDF1tVDbX7E3?=
- =?us-ascii?Q?rt6YtMfP+xSCgnW4KHYECyBN9LN3z7l04IY/n7z2hhOCpCeebKanRnplGPir?=
- =?us-ascii?Q?dc7N/GTJT5I9kw9BIOq5YQQbmk8whb8tHLx4HmgmRytp9XPOpTR0QYrkHFKA?=
- =?us-ascii?Q?cr7JQj3Kk4PQsYPGNe9acII/ddz7dN5JzvR0Ch4vFhyhZfu3TO5JKXJZ7+on?=
- =?us-ascii?Q?wFmTvvl8GVvdCErYMPqGdBF3mO94YVmt62gBYY3EvMrGm7MO+D7v3QO0v87c?=
- =?us-ascii?Q?9h3p4vxjSAo0qn0fOxYBOWRSFwpnb7+1La1EYsSOQRPVu87J?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b07178cd-2d90-4665-b04c-08df0757848d
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 12:00:57.9361
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nePDKOxOShp+xA49A/IUJTlo3j4cSDhyFitrJ5bt7Bggcd+Ge2Sg6OpvrrGJzSOL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6875
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, Aug 30, 2026 at 12:02:23PM +0300, Leon Romanovsky wrote:
-> > I don't know how the driver facing API should work, but at least real
-> > devices have options to use ATS or not, use RO or not, and can make
-> > use of information from the P2P subsytem to make the right choice.
+Hi David,
+
+On Sun, 30 Aug 2026 13:21:06 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
+
+...
+
+> > -int fdt_next_node(const void *fdt, int offset, int *depth)
+> > +int fdt_root_offset(const void *fdt)
+> >  {
+> >  	int nextoffset = 0;
+> > +	int offset;
+> > +	uint32_t tag;
+> > +
+> > +	do {
+> > +		offset = nextoffset;
+> > +		tag = fdt_next_tag(fdt, offset, &nextoffset);
+> > +		switch (tag) {
+> > +		case FDT_END_NODE:
+> > +		case FDT_PROP:
+> > +			return -FDT_ERR_BADSTRUCTURE;
+> > +
+> > +		case FDT_BEGIN_NODE:
+> > +			return offset;
+> > +
+> > +		default:
+> > +			break;
+> > +		}
+> > +	} while (tag != FDT_END);
+> > +
+> > +	return (nextoffset < 0) ? nextoffset : -FDT_ERR_NOTFOUND;  
 > 
-> Do you see a function like mlx5_umem_needs_ats() being implemented as part of
-> the PCI P2P logic?
-> https://lore.kernel.org/all/4-v1-bd147097458e+ede-umem_dmabuf_jgg@nvidia.com/
+> This should be BADSTRUCTURE rather than NOTFOUND: a dtb without a root
+> node is not validly constructed.  (This could matter quite a lot if
+> this error gets propagated up a call chain - a NOTFOUND is usually
+> non-fatal, but BADSTRUCTURE means there's basically nothing that can
+> usefully be done with the dtb, which the caller needs to know as soon
+> as possible).
 
-Maybe someday, virtualization makes it hard since the information
-needed gets wiped away, but lets start by imagining bare metal working
-right.
+Now yes, a dtb without a root node is an invalid dtb but soon with addon this
+will be allowed [1].
 
-Ideally	if the P2P route requires ATS then the driver should know and
-it should setup ATS. Similarly if it doesn't then it shouldn't. The
-only way to know is to evaluate the paths through the ACS controls to
-figure what works.
+addon dtbs will be clearly identified (the dt_flags header field has
+FDT_FLAG_ADDON set for addon dtbs) and so what do you think if the error code
+returned depends on this flag.
 
-Jason
+NOTFOUND in case of addon and BADSTRUCTURE otherwise.
+
+If you are ok with that, I will update this current patch to return BADSTRUCTURE
+in all case. Indeed, addon are not yet available.
+
+[1] https://lore.kernel.org/all/20260826094950.1088288-54-herve.codina@bootlin.com/
+
+> 
+> > +}
+> > +
+> > +int fdt_next_node(const void *fdt, int offset, int *depth)
+> > +{
+> > +	int nextoffset = offset;  
+> 
+> This initialiser should be omitted, since it is now overwritten in
+> every possible case.
+
+Yes indeed, will be updated in the next iteration.
+
+> 
+> >  	uint32_t tag;
+> >  
+> > +	/*
+> > +	 * Get the root node if asked for next node from the root node
+> > +	 * (offset == 0) or if the given offset is not valid (negative).
+> > +	 */
+> > +	if (offset <= 0) {
+> > +		nextoffset = fdt_root_offset(fdt);
+> > +		if (nextoffset < 0)
+> > +			return nextoffset;
+> > +	}
+> > +  
+> 
+> The various changes you've made look correct, but I don't love the
+> fact that it requires nearly every function which takes a node offset
+> to be altered non-trivially.  As well as making for a large diff, it
+> strikes me as fragile - a bit of logic that could easily be forgotten
+> on a new function.
+> 
+> I think we want to move the offset 0 handling into a common helper.
+> Logically that should be fdt_check_node_offset_(), since that's the
+> standard way of validating a node offset parameter.  As you've pointed
+> out, that doesn't work with the current signature/semantics of
+> fdt_check_node_offset_() - but it's a strictly internal function, so
+> we can alter its signature freely.
+
+Ok, you insist on this point. I will updade fdt_check_node_offset_() to
+handle the offset 0 case.
+
+> 
+> >  	if (offset >= 0)
+> > -		if ((nextoffset = fdt_check_node_offset_(fdt, offset)) < 0)
+> > +		if ((nextoffset = fdt_check_node_offset_(fdt, nextoffset)) < 0)
+> >  			return nextoffset;
+> >  
+> >  	do {
+> > diff --git a/libfdt/fdt_ro.c b/libfdt/fdt_ro.c
+> > index 11f2e2ee..856c62f1 100644
+> > --- a/libfdt/fdt_ro.c
+> > +++ b/libfdt/fdt_ro.c
+> > @@ -231,6 +231,12 @@ int fdt_subnode_offset_namelen(const void *fdt, int offset,
+> >  
+> >  	FDT_RO_PROBE(fdt);
+> >  
+> > +	if (!offset) {
+> > +		offset = fdt_root_offset(fdt);
+> > +		if (offset < 0)
+> > +			return offset;
+> > +	}
+> > +
+> >  	for (depth = 0;
+> >  	     (offset >= 0) && (depth >= 0);
+> >  	     offset = fdt_next_node(fdt, offset, &depth))
+> > @@ -253,13 +259,17 @@ int fdt_path_offset_namelen(const void *fdt, const char *path, int namelen)
+> >  {
+> >  	const char *end = path + namelen;
+> >  	const char *p = path;
+> > -	int offset = 0;
+> > +	int offset;
+> >  
+> >  	FDT_RO_PROBE(fdt);
+> >  
+> >  	if (!can_assume(VALID_INPUT) && namelen <= 0)
+> >  		return -FDT_ERR_BADPATH;
+> >  
+> > +	offset = fdt_root_offset(fdt);
+> > +	if (offset < 0)
+> > +		return offset;
+> > +
+> >  	/* see if we have an alias */
+> >  	if (*path != '/') {
+> >  		const char *q = memchr(path, '/', end - p);
+> > @@ -304,14 +314,24 @@ int fdt_path_offset(const void *fdt, const char *path)
+> >  
+> >  const char *fdt_get_name(const void *fdt, int nodeoffset, int *len)
+> >  {
+> > -	const struct fdt_node_header *nh = fdt_offset_ptr_(fdt, nodeoffset);
+> > +	const struct fdt_node_header *nh;
+> >  	const char *nameptr;
+> >  	int err;
+> >  
+> > +	if (!nodeoffset) {
+> > +		nodeoffset = fdt_root_offset(fdt);
+> > +		if (nodeoffset < 0) {
+> > +			err = nodeoffset;
+> > +			goto fail;
+> > +		}
+> > +	}
+> > +
+> > +
+> >  	if (!can_assume(VALID_DTB) && (((err = fdt_ro_probe_(fdt)) < 0)
+> >  	    || ((err = fdt_check_node_offset_(fdt, nodeoffset)) < 0)))
+> >  			goto fail;
+> >  
+> > +	nh = fdt_offset_ptr_(fdt, nodeoffset);
+> >  	nameptr = nh->name;
+> >  
+> >  	if (!can_assume(LATEST) && fdt_version(fdt) < 0x10) {
+> > @@ -344,6 +364,12 @@ int fdt_first_property_offset(const void *fdt, int nodeoffset)
+> >  {
+> >  	int offset;
+> >  
+> > +	if (!nodeoffset) {
+> > +		nodeoffset = fdt_root_offset(fdt);
+> > +		if (nodeoffset < 0)
+> > +			return nodeoffset;
+> > +	}
+> > +
+> >  	if ((offset = fdt_check_node_offset_(fdt, nodeoffset)) < 0)
+> >  		return offset;
+> >  
+> > @@ -581,7 +607,7 @@ int fdt_get_path(const void *fdt, int nodeoffset, char *buf, int buflen)
+> >  	if (buflen < 2)
+> >  		return -FDT_ERR_NOSPACE;
+> >  
+> > -	for (offset = 0, depth = 0;
+> > +	for (offset = fdt_root_offset(fdt), depth = 0;
+> >  	     (offset >= 0) && (offset <= nodeoffset);
+> >  	     offset = fdt_next_node(fdt, offset, &depth)) {
+> >  		while (pdepth > depth) {
+> > @@ -619,7 +645,7 @@ int fdt_get_path(const void *fdt, int nodeoffset, char *buf, int buflen)
+> >  	else if (offset == -FDT_ERR_BADOFFSET)
+> >  		return -FDT_ERR_BADSTRUCTURE;
+> >  
+> > -	return offset; /* error from fdt_next_node() */
+> > +	return offset; /* error from fdt_next_node() or fdt_root_offset() */
+> >  }
+> >  
+> >  int fdt_supernode_atdepth_offset(const void *fdt, int nodeoffset,
+> > @@ -627,13 +653,21 @@ int fdt_supernode_atdepth_offset(const void *fdt, int nodeoffset,
+> >  {
+> >  	int offset, depth;
+> >  	int supernodeoffset = -FDT_ERR_INTERNAL;
+> > +	int root_offset;
+> >  
+> >  	FDT_RO_PROBE(fdt);
+> >  
+> >  	if (supernodedepth < 0)
+> >  		return -FDT_ERR_NOTFOUND;
+> >  
+> > -	for (offset = 0, depth = 0;
+> > +	root_offset = fdt_root_offset(fdt);
+> > +	if (root_offset < 0)
+> > +		return root_offset;
+> > +
+> > +	if (!nodeoffset)
+> > +		nodeoffset = root_offset;
+> > +
+> > +	for (offset = root_offset, depth = 0;  
+> 
+> Do you need this special casing? Won't the fact you've update
+> fdt_next_node() to handle the offset 0 case be enough?
+
+The full loop is the following:
+--- 8< ---
+	for (offset = root_offset, depth = 0;
+	     (offset >= 0) && (offset <= nodeoffset);
+	     offset = fdt_next_node(fdt, offset, &depth)) {
+		if (depth == supernodedepth)
+			supernodeoffset = offset;
+
+		if (offset == nodeoffset) {
+			if (nodedepth)
+				*nodedepth = depth;
+
+			if (supernodedepth > depth)
+				return -FDT_ERR_NOTFOUND;
+			else
+				return supernodeoffset;
+		}
+	}
+--- 8< ---
+
+The test 'offset == nodeoffset' is the problematic one. nodeoffset
+is the parameter passed to the function.
+
+I have chosen to avoid offset 0 for the root node and I have updated 'nodeoffset'
+previously if it is 0.
+
+Even if fdt_next_node() updates 'offset' if it is 0, 'nodeoffset' has also to be
+update if it is 0. Indeed, 'offset' will be updated from 0 to the real root node
+offset. In all case to have the test be correct, 'nodeoffset' should be updated
+to the real root node offset if it is 0.
+
+Having fdt_next_node() updating 'offset' if it is 0 will not handle all case.
+When offsets comparison is done, both offsets should consider the real offset of
+the root node instead of the 0 value.
+
+Also the fdt_supernode_atdepth_offset() can be called with 'nodeoffset' set to the
+real root node offset instead of 0. Indeed, fdt_root_offset() is available (and
+needed).
+
+My feeling was that it is less error prone to have offset 0 converted to the real
+root node offset as soon as possible and then consider only the real offset of the
+root node instead of a mix between the real offset and the offset 0.
+
+I think that "for (offset = root_offset, ..." will still be needed.
+
+Best regards,
+Hervé
