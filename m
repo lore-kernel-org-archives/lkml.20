@@ -1,262 +1,465 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021087.outbound.protection.outlook.com [52.101.125.87])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E77047D46C;
-	Mon, 31 Aug 2026 16:11:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.87
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788192681; cv=fail; b=QjPq64vmQvJml0qtCqWBitGv01g4WlgLUzqu/Lkb5mCLaXtnxJAX4xUsxcKo5ZZzu5SwJoBZat943HIYhSylRrU0Qz6HwC0osyp4a9MrFlFGfSJ/RmikbeI40fQPo0QlEgCnFQ0wnVu1ooOP67c7cYMsyT2fOEyiz3s8RG611PA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788192681; c=relaxed/simple;
-	bh=/jvovHECkWG8u+vb+mIdwKgSWvoBO+6p/8cwA3RmkLw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=UJMgtdBmdjKbSih2x9//p+1obwnjKWipJLxbDnNZA2fRuEymL51Uc99ZEuvcjS53myL9lG3PP94yCVjh4oHDt1AzadKfL+nSlvdm3HMhM/fsPRfGrEhyId3I/Z7Rp00InSI29OMqdm7yLtMN77KEe5ZfvlBfCfqlAESouQp4ftQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=trOfWhAI; arc=fail smtp.client-ip=52.101.125.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A11E47D46C
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 16:11:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788192692; cv=none; b=BKGovJiRb6yru9kDWfGr7eseeX0wDmvjWTyXhbJ62A3lwU5TZ9ValTPnYu+CxqNC7KjhON+hi9mjeQ42xAkziWaOE5ZhNtxJjlzDWjQArlBOfla446E6KDLIpsM93pQHk4FdZkt62J3ZdGTD4l4DopKmh2US1jtzn/9cOOmjDN0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788192692; c=relaxed/simple;
+	bh=JagSOV+iew7LTbLUPUucQYo4WeOv9NMqj17vWep7AlM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rx0Wnny2jgVqJ51uE6dmID8nQvYggfvj2BnBOqEicVDlatwgGmmW2/DTFrMXoOORXsIs8dN7+WFET0+jGzkEKdmnfoBBALLzf9BJWKhjK+7iYwNgKxla9+zb47mJDPQI6wLnvpWgIUkwzJW7bfA9mGBbLSjD1phxYZu2CODom8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=w3/a3Kpn; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="trOfWhAI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OSgqILIF4DyaR8opYPOy/4dtQiLXOrd9JTgUCAOKOrRqGFTkjeGelUgq3DcQPp8a2A6QmTiAy0oGxfQLqg1lZYVn1wJZRjfD0aio/1/ApevMi35hjK7Ltmf4lcpNwZL1v3P1KVfuLPBOCQ+lR+TR9B4CuFgKZ9D/LcyKIw7gaPTgG2BRlcViegjfIk33Mi12paWTdl+pPw9fCPm8EO2RKK0g1mlihnHf69P8DxqEMEtfebtNL7Tvm+zbhtk1BaQSiFmX5hPstPH/0F389p5flC4dmXATq7202tFEOU2v+ijvtzyEDNeUqNC1afn/IW5cABXmCBGdPGWf5wiGw3aqCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5HLespaaa6W1UsF0Xw+tSb3nI9cRJGC8HaYzeOGpxoU=;
- b=NNvHQP6jyy9D4S0d1/Le1kuLTakPH+02aPjvdpDkSVaWH8Xwr8JNFR9dAbTsT6uq6cPO4VoX5MEAFxj+g/HWQSjEUTUtLPprAck8/A0eRfRPDi0GJemy71dAAC6NvdJmtvIdHenNizICERkPcDEg5ozhPYCsAa7qf0oDeXmn6PfUdZ3F/G8iPohNKPjSeFLSu/Qm9etn2Auw1xbnMShDedkWTFhnqBvTYc0jr/FDxqiNOoi/TpVnjbTo/tra0Nq98hVvEPYeCwHcWR/4ks6FHssDqV9bfwttb+kuIKE9JjNC7ocsqWvVuwClD8u3gjSyaCaFYhqXrYy8C3Dmdn9z+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5HLespaaa6W1UsF0Xw+tSb3nI9cRJGC8HaYzeOGpxoU=;
- b=trOfWhAItQjsDk2IgV6LJkoIkcHND1kcAZhnieeO+RqFJJ8iTIT7jzD5pJrIKrqLXcV7dtDly3/9+E7XFQsuBrb0qAvS37Xlz8hGxQUMgugKVcsQ00k0fZBjiy4EOmtcPfYM5SvWjwrTis7qrCY4Kzt0FjInbEV8jSBt6xjpic4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
- by TY4P286MB6085.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:26a::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 16:11:11 +0000
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 16:11:10 +0000
-Date: Tue, 1 Sep 2026 01:11:09 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Niklas Cassel <cassel@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>, 
-	Frank Li <Frank.Li@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Jingoo Han <jingoohan1@gmail.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Aksh Garg <a-garg7@ti.com>, Christoph Hellwig <hch@lst.de>, 
-	Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>, 
-	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
-	Allen Hubbe <allenbh@gmail.com>, Heiko Stuebner <heiko@sntech.de>, 
-	Shawn Lin <shawn.lin@rock-chips.com>, Manikanta Maddireddy <mmaddireddy@nvidia.com>, 
-	Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>, linux-pci@vger.kernel.org, linux-nvme@lists.infradead.org, 
-	ntb@lists.linux.dev, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] PCI: endpoint: Support hardware-owned MSI-X table
- and PBA
-Message-ID: <pj5vpwwd5tr5tuvhdq3bcpefnq27r6ljvwoysguz2o4tglcqx5@l7zmb6wjnhla>
-References: <20260830151948.3547577-1-den@valinux.co.jp>
- <apVWd1u9JjTKQczu@ryzen>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apVWd1u9JjTKQczu@ryzen>
-X-ClientProxiedBy: TYCP286CA0127.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b6::9) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:38f::10)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="w3/a3Kpn"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49557167508so38949345e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:11:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788192688; x=1788797488; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c/vUa6jrSKfv9b260MkvoS0N0rnO/tAMsnWTvLOBSRA=;
+        b=w3/a3KpnREodIMaYR33kZ2AA38FSTV0IXXSxCRWMCG5ODbCubKZvTwzKXC1S1Qmk9v
+         /n0c1+gG0Azm1E6CHQ8HkfkAfrqnKH+nZ3lP1WTF7ojm5JLi1rXPZgEZjxm6T8I5+Z1p
+         omxVQ+vBF55CSd2hK0QGSVllr8SIaB87zuA09FFj2oUR4iP59hU1JPrxdrcDcERCYeo3
+         m+tZ7wToJA1LtkJLiCd0RHXYZs01cx/nwvuv+ga0qNKn/tywpc0VFxdz2npOUBjIebhA
+         VQVdp3niSkKWfzrnjLfBg3ssLLbZVIMUe1iUI/V8kRpHI2e5TMjZLHEvhhxesDnbHYcE
+         09Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788192688; x=1788797488;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=c/vUa6jrSKfv9b260MkvoS0N0rnO/tAMsnWTvLOBSRA=;
+        b=TpqIVAaGLwS0pVs8HRMz/TFu8nLSN/gKIfHZjDNUZYiXW8hfQY6FMNWy3hCXAuPwzU
+         IgIbzO6EJjAiRi3HF1kCY9ixpW6aBV0GKiO/4lquRB5Xi+cKlACIAinvweiRMSF/L5Hy
+         aijSv42UevHEn5+XFEZNhn2uALODubAAh8qwu9+MzWoUGTTPwk5IyYCpHk/TRykRBZO5
+         CD2Bn3RsOh+JyOC0wz59LyQrZ+aZyMpcwLEjDdrvYak/GqHfg8pKumDcWzzw/wWqeIZF
+         HomXS8e4RDAf5TnLj6BsYp4VanVnND3EULURvp0riYe1SovHgiFr/omGXwWn1qbWUgzW
+         BYKQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rps9e4oK/JldDOEGpoujiy8FHBfutIStvvHQLs/jH7e67GMPY1h2VfDWWEWuIdKwPFOfwSjlvmZFszDsbQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nF/RuxigCv5tYb6PHjf6ksfUYuBEt7wmZLUaSceH65ExHzxrNO
+	8ZtTnQ4AhJC612MLc7Vs9HXBaFddftalj5uRJz3k/BOY8yVl7D6p8NlQaRsaaapZLj4=
+X-Gm-Gg: AR+sD12YABxbWlzw0w3UWRXDQegHfADnsZWMcOQDDup0sXcCducmm9PJK0AhJB9DlZ4
+	/j0Ruyfyr2uCexopIFa5U6hrf0ykHQ3o/u2V+Ie+1FgKqlRtqhmH3BMMof3T5mtmjGqNSMw7tnU
+	irltLjPkKAsYrBXiS56eVZfk7BuF0QPwlbuSgHRRHn91ckns8wUUOsII/LDOztO9agpqtajQeFJ
+	YzK+EDzXPDhXpVHthrRwBzJl1E9SktL5fwmub7bYmetsYo7k4i0EjR6jHz4JKF0oXSyegq2BGte
+	+N2HUh8Tu8ZzoEgjBhSk8RcoT55PGFKT9kTGq0Y1QunJfCKJW/qHBT3rGK+pBgoz5yvZhls5iuc
+	P72r65iEKzLBn1MJiOD2NVqM/9ORUtJYHO6AvQf+vgdfiRnO4nU1leJ82w1HeO2LSHx4mJe0pm3
+	uM5pmNfJe1IjjeLWOp3NjHpX9TAY17CbHiDwaIjnHlU4bxf+tPu8mo94tIUpKxjA13C4rtijSzP
+	w==
+X-Received: by 2002:a05:600c:4fd4:b0:499:83f1:398 with SMTP id 5b1f17b1804b1-49cdc59f62emr33347815e9.9.1788192687604;
+        Mon, 31 Aug 2026 09:11:27 -0700 (PDT)
+Received: from linaro.org ([2a02:2454:ff24:7241:bd4d:644d:33b9:dc56])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce0d4f3sm2877545e9.5.2026.08.31.09.11.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 09:11:26 -0700 (PDT)
+Date: Mon, 31 Aug 2026 18:11:14 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: hamoa-crd: Add thermal control
+Message-ID: <apWnounPP8kRxFeb@linaro.org>
+References: <20260830-hamoa-sys-therm-v1-0-27108c40fba5@oss.qualcomm.com>
+ <20260830-hamoa-sys-therm-v1-2-27108c40fba5@oss.qualcomm.com>
+ <apVCUObyxf8Akbsc@linaro.org>
+ <apWIbtyQQ4mOjZKn@baldur>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TY4P286MB6085:EE_
-X-MS-Office365-Filtering-Correlation-Id: b41eb1f4-e9a2-484e-5933-08df077a7905
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|10070799003|376014|7416014|23010399003|366016|6133799003|10067099003|56012099006|4143699003|5023799004|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	EIQIzVl4VN3VzAijZOPJz0JYAZXK5eR+QuCquGw3d49d9Zo8Jc7sO8fERm1vwp8WBmH8ckN5pBkTQnNutYDElNIPmvbJrK/HV4oM6siPjRQHyKHCrvottCqXCpL/H9AJfOMNMbjfMREMxriyul+pd/mKuQwx5qjpBwjAezISF6W50qvR1kMelO4FqTg5mJiIIUIXBHkgNztbaR2H6aK/CroRoPAVbV7vxoYO8HoIrJnI8t8U0vNIganqiwoyQlATA+KLaQ+yMxemqefRAx7ILWDLH/YUYvCZg7PKZ0lQYauDYJher4wnlWrjOxFsDq/rwcWGhkYBrwjHFCkaH7IeYmUXvmVBPkma111eMvLp6Sj6fbUM5QGELiXL+bIw5jpOjnKBtr8TsPIz2fe8AiYkPrXLKUvSG6GOoVQRa2EFH7YkeFz3cj2mwHgkP5PdVp1eYFzm0JNd2We6aU87p3JD4iOM6YViTemcoBnvcJQr4unC5W4ChLLq+/MOxp0JNzmZ5syA/vz5fBLsRdAut3oBgn7NfOJbyFddoZ86w2z7eCNSTC3TC8w5o8KdBuAjovuh8tc6n5IlIjuJBdv5dB3ceQtLtRN62raqJPdaqGyU5GByIixr86hK6VJxt6wh32Tl69adx45nf8nZ+Lc1H5X4D4UiNB8+ju31VaoMJKuCTws=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(376014)(7416014)(23010399003)(366016)(6133799003)(10067099003)(56012099006)(4143699003)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?6rfSuF5oitl8aigYrS6dugE5IIKhXE5nTmHmWvUhLmdxfZ1unUKlW5oOBHOu?=
- =?us-ascii?Q?RSoshDYTD40WG/pd7SdnVVLK9GyvLXHfhCObRqjZBtye5Bkjy4EJ1sK7L2Tj?=
- =?us-ascii?Q?0Q5qc0r97jy4PEyQuA8r1xRjsghnYu4CwJXRK4jq4Fb+ZX8mhEDKFn5M8LMr?=
- =?us-ascii?Q?fwuUQSKJraVxuFB1gJdrg8aXQphDGgWYfuLNPHbawyv+ByRTTBqOoNL4d3ps?=
- =?us-ascii?Q?7xO7OZEY7uYy3V2u4DFuskmBZZEysKpaQL6FRQ5CcZuiG3empBaeo2HJEGee?=
- =?us-ascii?Q?VF55iNibwL/xH+ZwJSZry1TGUM5EB2ScT6+EE8vXM1wU9zwCvXnZ2Sb/4Y0d?=
- =?us-ascii?Q?SQO6/hq7oTTH416VRZgT/SRasF13/r7oXh6EglD/JbQHVodbID3uAF6TnSkN?=
- =?us-ascii?Q?LzZODHAjVgTpVRdxh0H6upV+RfftpiGwYf6jRdlAY4Jb8ducpWe1Ft1K/ky6?=
- =?us-ascii?Q?VUtC4217lK7khCVUCPYH1GjvnomMV2SkJS+lseDMOfyBORSlnaDTEOppUCUp?=
- =?us-ascii?Q?ZBzrGxmZxA2MCtJzWku1RNnqffTAC4WZ/wTDOKjLww8o1t/hUugPcF0NkqLT?=
- =?us-ascii?Q?eNT26Qn/oG+FMS/R26Pizy+fehw1MikoPh9NjsIqQsEh2TxL+FqDqB1klLoV?=
- =?us-ascii?Q?Bn8Lba4ArvKr5v8zDgtzjGpSycJLufUGD+YjGLjMljbH6BrkPEkFZZPwACWX?=
- =?us-ascii?Q?2Edfw3M1BOSEVR81+rq6oFx0tvGEW4yBQUmUEHmey385j74bJAQJRCgaHNNI?=
- =?us-ascii?Q?yaFqHIooE1QBZvLoTlNxIwQtyY9C5TwVEvUJVIV+dxwJggEqV7UtV2ZO5D7a?=
- =?us-ascii?Q?OfuHChNF/O06HsJJA990HX3k5XG5FwN59DICPsoHvhADFWpn2Y6lauN1OjFu?=
- =?us-ascii?Q?ZvGqzs5xvZrB0J8mdvExjQKgaWrFpP0Sjdl/VZA50k1fMEAuVcfr/OzojmM8?=
- =?us-ascii?Q?frg/CMZx46M7vIeBLkO/fIKIl3LMexulKc9awjt/2F8P039gDlIEYE0JffZN?=
- =?us-ascii?Q?iTmYo5RBJ7Mzx6CW3E1v5wC5x6LVuZoP321KuEbwy9QSI0x+jTUc4aFuCU2z?=
- =?us-ascii?Q?o6TqRrY1RLgxcPse2J4fd7nSmK2QSpnhsMyP3Wcj87e2sFI4kNKvaTF92mXK?=
- =?us-ascii?Q?xSNef+EFetoGt57b8/Om3ycFOTSAM3G3CFV6ZQtiXFPomGLqusXFNnA+KMqf?=
- =?us-ascii?Q?ISHPPlZQkMszacwexpciSwptCQppPIgmAyVjKNcR27qzqkf+TW+OWzj6n9Mt?=
- =?us-ascii?Q?CX4njMFAGq+Nuwen7uLTvZ/41E/pmIayGsE3nKim25JAUTKZrTbFuGVJQ4ZG?=
- =?us-ascii?Q?IIJ9FMZpb9T1F/JM7n9pg97FoWWbiGXnTCuX7hXXor6BwkiPhQ7elmOCZaoU?=
- =?us-ascii?Q?RW98AzYg4gI8hz7eZRq1V14n//XT2Nm1LD4POGIBMCvOw443XvxB3OqrAjYv?=
- =?us-ascii?Q?yKhqm1c/R1eooDxdnuEI8QEV8xHEMn4KcUA7PSLi20imP8hi0Ts9wh5R/PLo?=
- =?us-ascii?Q?Flm+Z9/ZF99vwkjKQPeztA+qtsT3vqsy2FuAio4OrkxxM3earmJyyYr3h4KZ?=
- =?us-ascii?Q?22anEfQtpz3R2CNeeAUwmCQ22PLvevSrK/Sc90TddfH5ckRDL+6/EDdsgC25?=
- =?us-ascii?Q?ocJS4yxRfQ/081XrA2UwwUZBfWtCyTm3QeNknSNZP0LLA19xc6GKaOdrbTwO?=
- =?us-ascii?Q?L5SN88zv5fg6WFV5LyaE015o9PYFKdWNuHii9XZM1ihhAZ2Wiva4y3GF3ysc?=
- =?us-ascii?Q?ahzJ2lfGY6yO4EMwKncxxfajdz4RJQP0UwkPsSsaA36A79btqZyT?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: b41eb1f4-e9a2-484e-5933-08df077a7905
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 16:11:10.8950
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ph0CgJbLzpQPZsLZ9oGHwdOf+W37lyOUqahT9SuiEvN29dZt/OUXBcY0FxmosMVOEYQQsmaDaYMSMkGtsNc03Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4P286MB6085
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <apWIbtyQQ4mOjZKn@baldur>
 
-On Mon, Aug 31, 2026 at 12:24:55PM +0200, Niklas Cassel wrote:
-> Hello Koichiro,
-> 
-> On Mon, Aug 31, 2026 at 12:19:45AM +0900, Koichiro Den wrote:
-> > Hi,
+On Mon, Aug 31, 2026 at 09:20:14AM -0500, Bjorn Andersson wrote:
+> On Mon, Aug 31, 2026 at 10:58:56AM +0200, Stephan Gerhold wrote:
+> > On Sun, Aug 30, 2026 at 09:02:03PM +0000, Bjorn Andersson wrote:
+> > > The "limits" hardware performs rapid thermal management of the CPU
+> > > cores, but during prolonged CPU usage the system's overall temperature
+> > > need to be further managed by software.
+> > > 
+> > > The reference design provides seven "system thermistors", connected to
+> > > the PMK8550 VADC. Particularly interesting is the "keyboard hotspot
+> > > thermistor", which is wired up to sys_therm1.
+> > > 
+> > > Use this to throttle the CPUs, in the same way that we're throttling
+> > > previous generation laptops based on "skin-temp". The trips are chosen
+> > > from those existing examples, but are comparable with the ACPI thermal
+> > > policy.
+> > > 
 > > 
-> > Some DWC endpoint controllers keep the MSI-X Table and PBA at fixed
-> > locations in a reserved BAR. On RK3588, the MSI-X doorbell uses this
-> > hardware-owned layout, as discussed in e.g. [1].
+> > In general, following the ACPI thermal policy as close as possible is
+> > better than following existing examples. Most X1E-based devices use
+> > hybrid active/passive cooling, with the fan controlled independently by
+> > the EC. If you start throttling even just 1-2°C before the EC reaches
+> > its highest fan trip point, it will result in bad performance. Linux
+> > will try to keep the temperature below the specified temperature, and
+> > the EC will never fully ramp up the fan.
 > > 
-> > The reserved-region types for the Table and PBA were added with the
-> > Tegra194 description. The MSI-X setup API, however, still takes only the
-> > Table BAR and offset and assumes that the PBA immediately follows it in
-> > the same BAR.
+> 
+> That's certainly true. On X13s it was a bit easier as it's passively
+> cooled, but these things needs to be taken into consideration.
+> 
+> > This is what I determined from the CRD ACPI tables last year:
+> > https://github.com/stephan-gh/linux/commit/24f053436ec2eaf70968803adfa8c17905e53cae.patch
 > > 
-> > This series passes the complete layout to pci_epc_set_msix() and adds
-> > pci_epc_get_hw_msix_layout() to expose a hardware-owned layout. The core
-> > does not select it automatically. The choice stays with the EPF.
+> 
+> Why don't you post your patches!? Have I missed it?
+>
+
+No, you haven't missed it. I wanted to send them back when I wrote them
+(early 2025), but unfortunately the PMIC5 Gen3 ADC patches then blocked
+sending it for almost 1.5 years... :/
+
+I lost track of the long ongoing series at some point and nowadays
+I don't even have a CRD to test on anymore, that's why my patch is sadly
+stuck in the archive.
+ 
+> > The fact that GPU is only throttled based on back-thermal is a little
+> > odd, but this is what the ACPI tables specified back then as far as
+> > I could tell (maybe it was fixed since then).
 > > 
-> > A hardware-owned layout is not a direct replacement for every caller.
-> > pci-epf-ntb, for example, reads host-programmed Table entries from its
-> > own BAR to set up peer outbound mappings.
+> > Your changes seem close enough to not cause the performance problem
+> > I mentioned above, although I think it would be worth setting a good
+> > examples for others to follow.
 > > 
-> > The series also fixes an interrupt-type mismatch in vNTB. ntb_hw_epf can
-> > select MSI-X, while pci-epf-vntb currently configures and raises only
-> > MSI. On RK3588, selecting the fixed BAR4 layout also selects the DWC
-> > MSI-X doorbell. EPF-owned layouts continue to use the regular path.
+> 
+> Sure, I'll compare with ACPI tables and adjust the numbers accordingly.
+> 
+
+Thanks!
+
+As far as I remember, ACPI has separate thresholds for each of the EC
+fan profiles (see [1]). I don't think we can model dynamic temperature
+thresholds in the DT, so we'll have to pick some default. IIRC the
+default is "best performance without charger", which - back then - was
+the 326 kelvin (~53°C) I used in my patch.
+
+[1]: https://lore.kernel.org/linux-arm-msm/20260728-ec_add_more_commands-v1-3-771abd65ee1a@oss.qualcomm.com/
+
+> > > While not used for cooling/throttling, also add the other thermal zones
+> > > for temperature reporting purposes.
+> > > 
+> > > Enable thermal-monitor mode for all 7 channels in the ADC.
+> > > 
+> > > Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> > > ---
+> > >  arch/arm64/boot/dts/qcom/x1e80100-crd.dts | 116 ++++++++++++++++++++++++++++++
+> > >  1 file changed, 116 insertions(+)
+> > > 
+> > > diff --git a/arch/arm64/boot/dts/qcom/x1e80100-crd.dts b/arch/arm64/boot/dts/qcom/x1e80100-crd.dts
+> > > index 429deffcf3e9..065af18357d7 100644
+> > > --- a/arch/arm64/boot/dts/qcom/x1e80100-crd.dts
+> > > +++ b/arch/arm64/boot/dts/qcom/x1e80100-crd.dts
+> > > @@ -11,6 +11,92 @@
+> > >  / {
+> > >  	model = "Qualcomm Technologies, Inc. X1E80100 CRD";
+> > >  	compatible = "qcom,x1e80100-crd", "qcom,x1e80100";
+> > > +
+> > > +	thermal-zones {
+> > > +		soc-thermal {
+> > > +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
+> > > +		};
+> > > +
+> > > +		keyboard-thermal {
+> > > +			polling-delay-passive = <250>;
+> > > +
+> > > +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
+> > > +
+> > > +			trips {
+> > > +				skin_alert0: trip-point0 {
+> > > +					temperature = <55000>;
+> > > +					hysteresis = <1000>;
+> > > +					type = "passive";
+> > > +				};
+> > > +
+> > > +				skin_alert1: trip-point1 {
+> > > +					temperature = <58000>;
+> > > +					hysteresis = <1000>;
+> > > +					type = "passive";
+> > > +				};
 > > 
-> > In short:
+> > What does this second trip point do differently than the first? It has
+> > the same cooling devices. Will it try throttling "harder" than before?
 > > 
-> > - pci-epf-vntb gains MSI-X support and uses the hardware-owned layout
-> >   when available.
-> > - pci-epf-test, pci-epf-ntb, and the NVMe PCI EPF keep their EPF-owned
-> >   layouts. This avoids unnecessary changes and reduces regression risk.
-> >   They can use a hardware-owned layout later if/when needed.
+> > I know sc8280xp-lenovo-thinkpad-x13s.dts has the same, but I'm not
+> > entirely sure what it does there either.
 > > 
-> > [1] https://lore.kernel.org/r/aY2q80zeRKSRO21H@fedora
+> > My experience was if you specify 55°C as one passive trip point, then
+> > Linux will try its best to keep it with the specified cooling devices.
+> > 
+> 
+> I didn't dive into this rabbit hole... I'll review and update
+> accordingly.
 > 
 
-Hello Niklas,
+Thanks!
 
+> > > +
+> > > +				skin-crit {
+> > > +					temperature = <73000>;
 > 
-> Perhaps you could improve the cover letter to more clearly state why you
-> are doing this change.
-
-Thanks, that's a fair point, the cover letter does not explain the
-motivation clearly enough.
-
+> Your patch has 115C here. That may be what the ACPI tables are saying,
+> but it seems a bit excessive.
 > 
-> Some guesses:
-> - Better performance. We avoid the need to map + unmap the MSI target
->   address using an iATU each time we raise an MSI-X. We also avoid the
->   need to flush posted write before unmap.
->   Is there any performance difference? If so, it would be nice with some
->   numbers.
-> - Allows more concurrent I/Os. By not using an iATU when raising an MSI-X,
->   we have one more iATU available, so we can have one more outstanding I/O.
-> - Less waste of BAR space. (Since the MSI-X table and PBA already
->   always takes up space in one of the BARs, it is wasteful to have
->   the EPF drive duplicate it in another BAR.)
 
-This is not driven by a performance target, so I do not have numbers. The
-immediate issue is correctness. ntb_hw_epf can select MSI-X, but pci-epf-vntb
-currently configures and raises MSI. I want that MSI-X path to work on RK3588
-with the controller doorbell. I will make it clear in the next cover letter
-that, with this series, a doorbell sent from ntb_tool on the pci-epf-vntb side
-of RK3588 reaches ntb_tool on the ntb_hw_epf host side when MSI-X is selected.
-I believe that is the simplest E2E test showing what this series fixes.
+I agree, feel free to change that.
 
-For pci-epf-vntb this is a new MSI-X path, not a change to an existing working
-path, so it seemed like a safe first user of the hardware-owned layout.
-Honestly, adding a new MSI-X path to pci-epf-vntb while allocating another
-Table/PBA in an EPF-owned BAR on RK3588 seemd rather odd to me.
-
-So, avoiding the temporary iATU mapping and duplicate Table/PBA is good, but for
-me performance was not the goal for my RK3588 case.
-
+> > > +					hysteresis = <1000>;
+> > > +					type = "critical";
+> > > +				};
+> > > +			};
+> > > +
+> > > +			cooling-maps {
+> > > +				map0 {
+> > > +					trip = <&skin_alert0>;
+> > > +					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+> > > +				};
+> > > +
+> > > +				map1 {
+> > > +					trip = <&skin_alert1>;
+> > > +					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> > > +							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+> > > +				};
+> > > +			};
+> > > +		};
+> > > +
+> > > +		backcover-thermal {
+> > > +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
+> > > +		};
+> > 
+> > Should we add throttling here as well to match Windows?
+> > 
 > 
+> Then there are the reports that indicate that we should throttle things
+> when the SMB temperatures reaches something like 80C, which doesn't seem
+> to be something represented in the ACPI tables.
 > 
+
+Windows has quite some extra logic in the PEP driver that does
+additional fine-grained throttling based on PMIC die temperatures,
+battery current, power source / battery percentage and other factors.
+Unfortunately, I never fully understood how that works, but it may be
+handled in there.
+
+> I'll do a respin of this and then we can tweak it from there. The
+> important thing for me is to get some reference in, so we can propagate
+> this to the consumer devices (NB: which doesn't have the same sys_therm
+> mapping).
 > 
-> Personally, I don't see why we should only change pci-epf-vntb to use
-> the hardware-owned layout when available. I don't see why we would not
 
-I initially considered making the hardware-owned layout automatic for every EPF.
-pci-epf-ntb (not vNTB!) is the reason I did not. It currently reads
-host-programmed MSI-X entries through epf_bar[] backing and uses them to set up
-peer outbound mappings. A hardware-owned Table has no such backing, and the
-current EPC API has no generic way to read those entries. I suspect that
-supporting it there would require a broader design change. Also, I do not have
-hardware for the pci-epf-ntb bridge configuration.
+Thanks!
 
-pci-epf-test and nvmet-pci-epf should be easier to convert. However, converting
-only those would not remove the per-layout handling while pci-epf-ntb still uses
-an EPF-owned Table. I would prefer to handle those separately when they can be
-properly tested. This is what I meant by this part of the cover letter:
+I have been working on finishing up my corresponding patch for the T14s
+(which is something I can still test unlike the CRD). That one is
+unfortunately currently stuck because the SYS_THERMx mapping really is
+different from the CRD and even the schematics are not sufficient to
+understand where each sensor is located. The mapping seems to be
+different from the CRD, unfortunately.
 
-     [...]
+The ACPI side is also extra tricky because it takes the thermal
+thresholds for the thermal zones through some lookup table in a random
+firmware memory region, which is also applied depending on the selected
+fan profile (for the T14s: "low power", "balanced", "performance").
+I had some luck with using PowerShell on Windows to obtain the computed
+ACPI values using
 
-     layouts. This avoids unnecessary changes and reduces regression risk.
-     They can use a hardware-owned layout later if/when needed.
+  Get-CimInstance -Namespace "root/wmi" -ClassName MSAcpi_ThermalZoneTemperature
 
-> want to change pci-epf-test, pci-epf-ntb, and nvmet-pci-epf as well.
-> (If the EPC defines a HW defined MSI-X table + PBA, why not always
-> use that? If there is no HW defined MSI-X table + PBA, let the EPF
-> put the MSI-X table in any BAR it likes.)
-> 
-> 
-> I understand that you introduce dw_pcie_ep_msix_layout_is_hw_owned()
-> because you want an EPF driver optionally use the HW defined table.
-> But if all EPF drivers always use the HW defined table if available, I think
-> you can avoid introducing this helper, and let rockchip_pcie_raise_irq()
-> unconditionally call dw_pcie_ep_raise_msix_irq_doorbell() for case PCI_IRQ_MSIX.
+With that I could see the thresholds (PassiveTripPoint) changing when I
+change the power profile in Windows.
 
-Yes, under that assumption I agree. With the current mix, however, the Rockchip
-callback still has to choose the helper according to the selected layout. That
-is why the DWC code records which layout was selected.
+For fun I had LLM create this PowerShell script that directly outputs DT
+snippets, although unfortunately the missing part is actually mapping
+the thermal zones to their purpose (right now it outputs zones like
+qcom0658-1-0-thermal or even just tz73-0-thermal).
 
-I will update the cover letter to state the motivation and this boundary more
-directly. Does keeping the layout choice with each EPF for this reason sound
-reasonable?
+Just sharing it for reference below.
 
-Best regards,
-Koichiro
+Thanks,
+Stephan
 
-> 
-> See e.g. drivers/pci/controller/dwc/pci-layerscape-ep.c which already calls
-> dw_pcie_ep_raise_msix_irq_doorbell() unconditionally for case PCI_IRQ_MSIX.
-> 
-> 
-> Kind regards,
-> Niklas
+---
+<#
+.SYNOPSIS
+    Exports Windows WMI MSAcpi_ThermalZoneTemperature instances to Linux Devicetree (DTS) format.
+
+.DESCRIPTION
+    Queries the 'root\wmi' namespace for ACPI thermal zone instances and translates
+    temperatures, passive/active/critical trip points, and sampling rates into Linux
+    kernel thermal zone DTS nodes.
+
+.PARAMETER OutputFile
+    Optional file path to save the generated DTS nodes. If omitted, prints directly to stdout.
+
+.EXAMPLE
+    .\Convert-AcpiToDts.ps1
+
+.EXAMPLE
+    .\Convert-AcpiToDts.ps1 -OutputFile "thermal_zones.dtsi"
+#>
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $false, Position = 0)]
+    [string]$OutputFile
+)
+
+function ConvertTo-Millicelsius ([uint32]$tenthsKelvin) {
+    # ACPI trip points of 0, >= 65535 (0xFFFF), or <= 2732 (<= 0°C) are uninitialized/disabled
+    if ($tenthsKelvin -le 2732 -or $tenthsKelvin -ge 65535) {
+        return $null
+    }
+    return [long]($tenthsKelvin * 100) - 273150
+}
+
+function Get-DTNames ([string]$instanceName) {
+    # Sanitize instance name (e.g. "ACPI\QCOM0658\0_0" -> "qcom0658-0-0")
+    $parts = $instanceName -split '\\'
+    if ($parts.Count -ge 3) {
+        if ($parts[1] -ieq "ThermalZone") {
+            $raw = $parts[2]
+        } else {
+            $raw = "$($parts[1])-$($parts[2])"
+        }
+    } else {
+        $raw = $parts[-1]
+    }
+
+    $cleanNode = ($raw.ToLower() -replace '_', '-' -replace '[^a-z0-9-]', '') -replace '-thermal$', ''
+    $cleanLabel = $cleanNode -replace '-', '_'
+
+    return @{
+        NodeName  = "${cleanNode}-thermal"
+        BaseName  = $cleanNode
+        LabelName = $cleanLabel
+    }
+}
+
+# Fetch CIM instances safely into an array
+$zones = @(Get-CimInstance -Namespace "root/wmi" -ClassName MSAcpi_ThermalZoneTemperature -ErrorAction SilentlyContinue)
+
+if ($zones.Count -eq 0) {
+    Write-Error "No MSAcpi_ThermalZoneTemperature instances found in root\wmi."
+    return
+}
+
+$dtsNodes = [System.Collections.Generic.List[string]]::new()
+
+foreach ($zone in $zones) {
+    $names     = Get-DTNames $zone.InstanceName
+    $nodeName  = $names.NodeName
+    $baseName  = $names.BaseName
+    $labelName = $names.LabelName
+
+    # Check for passive trip point
+    $psvMC      = ConvertTo-Millicelsius $zone.PassiveTripPoint
+    $hasPassive = ($null -ne $psvMC)
+
+    # Collect valid trip points
+    $tripsList = [System.Collections.Generic.List[string]]::new()
+    $tripIndex = 0
+
+    # 1. Passive Trip Point (_PSV)
+    if ($hasPassive) {
+        $tripsList.Add("        ${labelName}_alert${tripIndex}: trip-point${tripIndex} {")
+        $tripsList.Add("            temperature = <${psvMC}>;")
+        $tripsList.Add("            hysteresis = <1000>;")
+        $tripsList.Add("            type = `"passive`";")
+        $tripsList.Add("        };")
+        $tripIndex++
+    }
+
+    # 2. Active Trip Points (_AC0.._ACx)
+    if ($zone.ActiveTripPointCount -gt 0 -and $zone.ActiveTripPoint) {
+        for ($i = 0; $i -lt $zone.ActiveTripPointCount; $i++) {
+            $acMC = ConvertTo-Millicelsius $zone.ActiveTripPoint[$i]
+            if ($null -ne $acMC) {
+                $tripsList.Add("        ${labelName}_active${i}: trip-point${tripIndex} {")
+                $tripsList.Add("            temperature = <${acMC}>;")
+                $tripsList.Add("            hysteresis = <1000>;")
+                $tripsList.Add("            type = `"active`";")
+                $tripsList.Add("        };")
+                $tripIndex++
+            }
+        }
+    }
+
+    # 3. Critical Trip Point (_CRT)
+    $crtMC = ConvertTo-Millicelsius $zone.CriticalTripPoint
+    if ($null -ne $crtMC) {
+        $tripsList.Add("        ${baseName}-critical {")
+        $tripsList.Add("            temperature = <${crtMC}>;")
+        $tripsList.Add("            hysteresis = <1000>;")
+        $tripsList.Add("            type = `"critical`";")
+        $tripsList.Add("        };")
+    }
+
+    # Assemble thermal zone node
+    $nodeLines = [System.Collections.Generic.List[string]]::new()
+    $nodeLines.Add("${nodeName} {")
+    $nodeLines.Add("    thermal-sensors = <&placeholder_sensor>; /* Replace with target sensor phandle */")
+
+    # Include polling-delay-passive ONLY if a passive trip point exists
+    if ($hasPassive) {
+        $pollingPassiveMs = if ($zone.SamplingPeriod -gt 0) { $zone.SamplingPeriod * 100 } else { 1000 }
+        $nodeLines.Add("    polling-delay-passive = <${pollingPassiveMs}>;")
+    }
+
+    # Include trips {} block ONLY if trip points exist
+    if ($tripsList.Count -gt 0) {
+        $nodeLines.Add("")
+        $nodeLines.Add("    trips {")
+        foreach ($line in $tripsList) {
+            $nodeLines.Add($line)
+        }
+        $nodeLines.Add("    };")
+    }
+
+    $nodeLines.Add("};")
+    $dtsNodes.Add(($nodeLines -join "`n"))
+}
+
+$finalOutput = $dtsNodes -join "`n`n"
+
+if (-not [string]::IsNullOrWhiteSpace($OutputFile)) {
+    $finalOutput | Out-File -FilePath $OutputFile -Encoding utf8
+    Write-Host "Successfully exported Devicetree thermal zones to: $OutputFile" -ForegroundColor Green
+} else {
+    $finalOutput
+}
