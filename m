@@ -1,131 +1,117 @@
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7BD3D47BF
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:18:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164329; cv=pass; b=fvNbXKMtCBhakqNGCSFBkSEnzm0xDE3WDHvobgShVcVHJwFyTDGWl4DkTWqOgS87Knwf+db8eE6rR3A3+sNVd5WYx8A6VkDMT8YaQTkaW1Um7eeQO478HvCcQsM9SszNmMz2XO/gO2LIxu5YMe0o4sR9aUPSNkE7DdF+nIkCUq4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164329; c=relaxed/simple;
-	bh=sD6vhg5MsGN+btViVFDykTsdqmpJvIDQmR5Kspi7Sis=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jxAE84KDH0qKqOW06N2uxoKlQFQzng+UmHNkkX+mLTIx9RkoUIFF2yff5DTyo8WN5weN5dZNHh9zbHsb2+3JO5E2JU0zBRXSR2nsyccEronPkLXmLd2GrBZGE5B5c82V748U7DkhhNYvgAt5xKAulPOkt4O4XVMauflo6laKFJg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=OfFHeKMs; arc=pass smtp.client-ip=209.85.160.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CB43D47DA
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:18:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788164330; cv=none; b=vD7tJYUJnDf0dmmoytsAnMbny3U9tCxVlOmM4quF9psRJyzRvMStDQ/+TPmwavRVzMiRYnRldg6EbWlmzcPtxNA7MvzB9BIotjmLjLUSkNNezcEip9g41BG1e4JPAxrHFqxNFDyvzIoTSkGNyfToBvuseDDKBZvkgtF994Fir9Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788164330; c=relaxed/simple;
+	bh=M57nYAvtHZuzk/k0zSVexxNRkLn35oYM5StlLNA0GAc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X9M3fMvmt/EJj4kjLz9cYJDPHw4HBFlQ7lNYO7CIhr8DBKEXMNQnh47Ah2T7HGqORFSDDYY1nCIjY85z79kA/Tn4NLVCRuZHzgluYwveTWTmAuxRbwubChidH3pOSGHXJWL995GiYj3pvm038ufsFGi/SSiKrnYv6HXFpK76ygU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Y89Rnl/C; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="OfFHeKMs"
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-52eaeddc837so22917931cf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:18:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788164325; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jcl+8YWObg2roqk9taYLatUrrQRwFqhBkJ3MaTDpizd2WgmdrmQgmBr1EmQ0vs3pqh
-         SHZzMn7e7ibXnKSgtysqI4A6xiz5M447ewM4G1nqLjlchrLgn2F6q0Zzw+p93+jUmyzc
-         JS0KRDdZTVcGfV0rFkGox+fSrrPo6/R1wkRCWbfYImxT7GOXcytB6phx5yDURR4I2EGd
-         mJCC2dVAYus3T7SGAG64oGZAvJOoKDL6+1XBldJo536BGqONPohlxk0VBw5Q6eCeY5Dt
-         ZQLWw2J4nSVUpuMMh7Z7x5krVLExLNMeAbfsnnzpUeKKd5kmRi00LlfCLjzvzzpHqt96
-         ItLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=xkiZoIxNervah7q7cypbGBqjGwr4LoCCTOgNZ2t/KAw=;
-        fh=JhGNEPRGtL+8m6NOt70MkPjH7P3iwViZ8oL3KrT3wzA=;
-        b=d8JG5gjvrz7mVM5RYnvD5cpuckfMujqZ1VTRD9QgucZJ2PAFQLusZIQqJomMMYfiyf
-         5Zv5Tywrlw38HL+4Z+BZe50wDZJkToCQj+mOsFzM0Imp7KHEDxNPV44kF5JDUNkiUXqA
-         dQXFfTCAY3M0uh3L85ZZm04v6TKWz1ZjYv7GrWwfqxBYCzVUfZRdl6byDFZwX+I+Il6B
-         l5cm+jEkB9+OS8n270/Ba1HsKvH64LTDJAUfv7xynU5Ra257iwRWlm/lOj86Kcz/XVuH
-         QmjhuYI5mrI7m3lsr+JPV9No9UjY+tH5gVFH2MafmSLGM6xNULW1oI1D/B5Owgqu0rj6
-         zt5w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Y89Rnl/C"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482f9309813so2075578f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:18:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1788164325; x=1788769125; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xkiZoIxNervah7q7cypbGBqjGwr4LoCCTOgNZ2t/KAw=;
-        b=OfFHeKMs+lIUuWJEtJIy1Dbgk/XKump7L8AmjnPaLZlawmQlItExOplROTwQthx892
-         Qvh18y5yk5BjqfpXKsNhchg3lHzpt/+qTCOzuIOP0imDHR1lTT9Vs07OPEUJOL4IiZ6O
-         dpjVFiPG+OrcfBUH2dtJ3oaZ+H5axZL9eHejE=
+        d=suse.com; s=google; t=1788164327; x=1788769127; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5eOQHA6+swCgEPwguYdSiKthdZXu2/f6D/U75aSk8Sw=;
+        b=Y89Rnl/CoQK0JxlxeQLT8yCj21xWZECkSETZx3mN8s8wyHsXw0AodwqZc4XYnFN8sK
+         aLvrOP7sySdtbj75h0263CRlT+49RaB6gqN6LLDppMNOoiCLByaXkbIuyEQvzJt4Fxg4
+         PdikUZnBnUabW9c9J9SVvnWWy+hcKiJAhg1VqNG89g5Cu/UCVwcWthNnxk6V9SsKIYUG
+         W3y5Rj5aqhahJOJ7JFr+4vKQaj/Ncl1Kyw4C5YqLDUppCq7TApqOL7VK05giu1KxMUJd
+         tplYN45TJUZ35RHFISs++V3GJPxujAeDc8YsGsZHc7hplr2Uq0ZeOO57je/BYexfnpWd
+         JTSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788164325; x=1788769125;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xkiZoIxNervah7q7cypbGBqjGwr4LoCCTOgNZ2t/KAw=;
-        b=Y04MD0jiJ58F/MRKcUTGrqNKOmiUPDENC8moUx/n9YNDT1TFtABBtnTHt0pw58N+QF
-         9RWZl3Z9ca8HwwMivJd7HFjC9qQRdwtIdaoQRCixg2+qgHwFjoo4Iltme/UeqjdhQOtF
-         NOZXJtmWJEiAmwh2zAcxNMAP8n2pP86whU5nHo8LNv88gf3SNazoy9NIFQF2EuIj8R/b
-         BuqlVH7ffMgNXhTm0ZEw3zItsm4RVRNNI8z4PStCvMapQNzitSDDYLF/SmwCp2mC07HD
-         ch/4Nu8f+wizJh+phmMlGDJVZ3ZkhgILludCa4IGd0AWAlf1R081frsg3xxMl9VbK1nG
-         TEXg==
-X-Forwarded-Encrypted: i=1; AHgh+RqLC0FDr8X+JBaI1HATtXfectQSrpzNJ5H2itCC30/3p7hNO3yrOBQTLJ2QXY+NDPRPJz7Q5JpYlbRvRv4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgJ3OGzjFeo74yJL54L7drDOWz8SPe57Bay8ubj/rlZJ8s1NFx
-	TwT40YsFQ38Zsg7FwZjthZg4OKmVj4G/JU8FRj5Jmx2JdlKHKnmRkjRso1sjJy8hheNN73n6yyd
-	lJwvctsM0B+cGiYBEMChx7wgk4DndhMP4/qRPaoSlXg==
-X-Gm-Gg: AR+sD12ZaGkAT3A8JZdSpA4bJJt4ENOaI6nQI+85U2m8bjzO1l2/YWOrLPCghek/f5E
-	r6jouzIjkvKBNkuFMrC2XO9krweR+K96g13Qt1dgPLoZ2u9yrD6hLirKthM9xPnORDRFAQyEYBQ
-	bO6+fz3KSke4VbQTYIzpGub7XPAxCy8DEmn9cKTPIRa7H8WwBg6KzJOHiiTXnSpUuMqIh8SsArj
-	CoLK5n3WU3CiVUnUK0VeQm4ClM5hIRJ3x1CYb5xgwy5sOB/aIPkWFmsoz6cctX8BNNaLDjcY1VG
-	wSRz99dN3fCYHiqNwkkIa4gUNVKdbV6L1x8KWLvQ7whxQmif0/rdAnQfhFCUAVgwUJWiLJ/QjOW
-	iXdfmOeEnUZM=
-X-Received: by 2002:a05:622a:1b0e:b0:51c:1cf8:ca4d with SMTP id
- d75a77b69052e-52fb94b76acmr354793171cf.13.1788164324676; Mon, 31 Aug 2026
- 01:18:44 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788164327; x=1788769127;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5eOQHA6+swCgEPwguYdSiKthdZXu2/f6D/U75aSk8Sw=;
+        b=paeeOj5Ot2xSdcfAcCGocplntb88lklMa+8IfHMFwVc0DXCJwTUG1EJCCwHZIwnJX/
+         ClCEOt6xuQ8SLzRvY489VPCxgBFhwZBYvYfZEWbkCNhXK44CZMu+FDukdqRUL6t0ePlo
+         gaVgXKR4iKKyOGLJ/gJlaX1I/ulO/fDq818VN19tkZEku4FkH9dLPF43/S1RiHl3mxr+
+         DBanimDbOYkY0gWDNVeW+mdegrb1HrIGq5v8rTPuo0Vn3rFjqOYs3iesjS9KFSYS9Jar
+         3OQfMxg1/VyabQA6b5QnwkzRR/liz1g6HmpbAVAr2TgNl2m+ZdYf2+8vxo+lTswdbrHj
+         FZwg==
+X-Gm-Message-State: AFuF++nqsEf3vhSHMFg++8K2NqsweGzIOnWKRhMnd+/p/UJPtZmJYru7
+	XyOM+Fza45ZwpUpWdOXQLeo6p1uO5zY4FyRZcxVvXa2IGD5MjRlRhutVmcKhmydL3XMixpQ7cxU
+	RtFJpxSw=
+X-Gm-Gg: AR+sD13LEV0Km8J4s0I3qcfOrEhTMLcorP0VyouZdonV86hbAXkAX96KBz5GZzQkiI0
+	yJObHb1GOccTHjFJEPkt41n4YKd5y+9SI0j6W1elUHJQDCXcpeMvfBD2Cv98dAUZUMuD4V0cyYc
+	WqYS4R78OZ5bYLPDQSHRSsIDqFaGDO6EAotQAmoKsZDWhcHP3YtpyYKyOJCDDmJ+I+I/vRrELGs
+	jXWpMFL1miuTTbq4BNdD0BmnVDu/OxYKk1H6EiVPgy8A2k48xxVpLZQldY6gZLmpKOUJl6Tfvgn
+	CsEbjj0GeFp/6q0lHtic7EvHcVZFWDdeiiio8Eon1ESX/YVFeVgnePqXRpckBl/aIyU+OKLw8Ab
+	2I809EOcR0Y1h0r5MaaaHVCNH618u8yQPvkJgUTyJ8RdNZxSSlmHUCU4MIRVsUcm6T7oSnfqkR0
+	y8vF3TW3SM1ZF8W4uUc1oVtZ1GKJKgHlTA/DmYbGOQonCceqS70tsjeSJ6LRn/xY6CNQv4HD8ze
+	YnNNOFDh3U=
+X-Received: by 2002:a05:600c:4704:b0:493:cefc:d113 with SMTP id 5b1f17b1804b1-49b91c2d8femr360266815e9.5.1788164326979;
+        Mon, 31 Aug 2026 01:18:46 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dd2517sm273218065e9.7.2026.08.31.01.18.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 01:18:46 -0700 (PDT)
+From: Marco Crivellari <marco.crivellari@suse.com>
+To: linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Waiman Long <longman@redhat.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	"Paul E. McKenney" <paulmck@kernel.org>
+Subject: [PATCH 1/2] doc: Change dynticks-testing repository name
+Date: Mon, 31 Aug 2026 10:18:08 +0200
+Message-ID: <20260831081823.67972-2-marco.crivellari@suse.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831081823.67972-1-marco.crivellari@suse.com>
+References: <20260831081823.67972-1-marco.crivellari@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827170718.497-1-aa9736195201@gmail.com> <CAOQ4uxjxDV0U9yrDA_StN968P_6cpjRAN2mBCx1c_RYd7BF4Og@mail.gmail.com>
- <apGCDtf-gE1osJqE@casper.infradead.org>
-In-Reply-To: <apGCDtf-gE1osJqE@casper.infradead.org>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Mon, 31 Aug 2026 10:18:32 +0200
-X-Gm-Features: AcwNN1WtuG1c2F0CSiDk17jHE9we46hn9ZVdZmfYdI6sy7esBdj1sJKhsZBvuCE
-Message-ID: <CAJfpeguhxCEs3pZuqAZ-gpG5gm7NV-TuzniSkCCrgAQ-TV6ZpA@mail.gmail.com>
-Subject: Re: [PATCH] ovl: implement ->get_unmapped_area()
-To: Matthew Wilcox <willy@infradead.org>
-Cc: Amir Goldstein <amir73il@gmail.com>, Yuan-Hao Hsu <aa9736195201@gmail.com>, 
-	linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
-	Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>, David Hildenbrand <david@kernel.org>, 
-	Linux MM <linux-mm@kvack.org>, Christian Brauner <brauner@kernel.org>, 
-	"zhangyi (F)" <yi.zhang@huawei.com>, tujinjiang@huawe.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, 28 Aug 2026 at 14:41, Matthew Wilcox <willy@infradead.org> wrote:
+Currently the documentation still mention dynticks-testing.
 
-> No, not at all.  All this patch needs to be is:
->
-> +++ b/fs/overlayfs/file.c
-> @@ -657,6 +657,7 @@ const struct file_operations ovl_file_operations = {
->         .fallocate      = ovl_fallocate,
->         .fadvise        = ovl_fadvise,
->         .flush          = ovl_flush,
-> +       .get_unmapped_area = thp_get_unmapped_area,
->         .splice_read    = ovl_splice_read,
->         .splice_write   = ovl_splice_write,
->
->
-> All this "oh we have to call the underlying filesystem's
-> get_unmapepd_area" betrays a lack of understanding of the problem.
->
-> And Lorenzo suggested this in the linked thread:
->
-> https://lore.kernel.org/linux-unionfs/69b72e3d-b101-4641-9ce5-51346c93a98d@lucifer.local/
+Recently the repository name and the tool have been renamed
+to cpunoise, so fix the URL.
 
-There seems to be a logical fallacy in saying thp_get_unmapepd_area is
-the most suitable value, yet not making it the default for all
-filesystems.
+Cc: Valentin Schneider <vschneid@redhat.com>
+Cc: Waiman Long <longman@redhat.com>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: "Paul E. McKenney" <paulmck@kernel.org>
+Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+---
+ Documentation/admin-guide/cpu-isolation.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Saying this without any understanding of the subtle difference between
-setting .get_unmapepd_area to NULL and to thp_get_unmapepd_area.   All
-I can see that the difference is indeed subtle.
+diff --git a/Documentation/admin-guide/cpu-isolation.rst b/Documentation/admin-guide/cpu-isolation.rst
+index 8c65d03fd28c..6d8f91d2d761 100644
+--- a/Documentation/admin-guide/cpu-isolation.rst
++++ b/Documentation/admin-guide/cpu-isolation.rst
+@@ -354,4 +354,4 @@ Some tools may also be useful for higher level analysis:
+   runs a kernel tracer that analyzes and output a summary of the noises.
+ 
+ - dynticks-testing does something similar to rtla-osnoise but in userspace. It is available
+-  at git://git.kernel.org/pub/scm/linux/kernel/git/frederic/dynticks-testing.git
++  at git://git.kernel.org/pub/scm/linux/kernel/git/frederic/cpunoise.git
+-- 
+2.55.0
 
-Can you please explain?
-
-Thanks,
-Miklos
