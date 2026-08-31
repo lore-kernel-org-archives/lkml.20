@@ -1,193 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DFDB49EC5A;
-	Mon, 31 Aug 2026 14:23:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCCE44A403
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:24:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186192; cv=none; b=cz82yqMdk+UV/agllWjDlFaiKUQptpskV67VB/muDpfgern4lJ3hS3frFpsG8jJCEmtkn+IrSjztIVZOkmrLNgbVwFPnrlBcH4SaPKglFhT2DdCf7jUQkgZQDOFy5lbYEik91f0+JdbUnfXGFGRaLPKMTCEM7eyTuwI7xBXnJjg=
+	t=1788186249; cv=none; b=CHEWgnKnvyUX3viB1g7mjQj2LI1Gu88xhiZA4BEmtSaVIdNPNtaw3g2XiOjw9UpkqLZURZXbLDufQnkgxlTENDQMl0JCc/ihTPGJPUhtWtZ97uWPpBOkFF4C9mJOhDwmp8nyb/Z6oTJa/ahF6Ahiqla03UxtkkkXrmQLsS1WmAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186192; c=relaxed/simple;
-	bh=ERs2tMdWbAT8+KZwRD7EcKoycyB3va8nMspS75hqNsM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=LeCFo8ObjaDTSrBd5zo0sGFHOexXaOoG3VqWbuc6p3RKwppXjl+YDP7esKeRo7bLBKdy76T8WJ5eXzS5gWsjNJjnoSVB3ILFi09e5aV58HrY51lBAv7sqdtyqR7FGCyMc0tKDQFzdDjzZ+U7Opfq1nKKRD8BTBS5qrMoL2P0JlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M4f0BJfA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788186249; c=relaxed/simple;
+	bh=9mlgq9kswA383J6vVWIkDQP86PxyZMrEWKdREvtgIGw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Xh7eOt0at3Tvclam5fHTShflFOGmdzXFIbHiDdgzxiZBLg/yS0C/0kTfZDngJhvj0chg48vgncd00FXX/oCKW3hUJ5tGVMQ9PqlvTW+QNENzuB83dPnyh04e9NgE2zpvKitn1HnWal9upUSE3309xi3DqUpDsI6W/xH1pnzRgpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ffjybD54; arc=none smtp.client-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M4f0BJfA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92D0C1F000E9;
-	Mon, 31 Aug 2026 14:23:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788186186;
-	bh=ZfhCnlNwaOt0kHN3M0pPLUZxE3ygK6m+vGelvT+G1+0=;
-	h=Date:Cc:To:From:Subject:References:In-Reply-To;
-	b=M4f0BJfA/Apjjv5W54jmYEjD2CgRVcStQsuC4B5ShDTGdj3m1zpbb0XeTo0GCQhmO
-	 sv/oTnGIzML+mcXQR/H/QH5SKjgvrUarpyqsiDnJOx9xQ/6XdEFrLNAesdWRNhAD0M
-	 dUVv4dsgcOXoidnB1VrNe7zY5qkc7M57vJJPC0Qq8EG2dwSpE4oxGFm5C80a+lJdcm
-	 7puoA12SfC+OAQl7C+ytIjwGP1MUS5v4mM5l4/XLFEi/rZBRh1aDf7YdUBJPuttO3X
-	 2n3O4INPUmYVrsBdnUbSETvVeVFYUY0Fhfj5Ke9HYsqe9fJjmnKoXaajdIMCsPnHjT
-	 RduguPWE1vl8A==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ffjybD54"
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4af730f8aso3758422e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:24:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788186245; x=1788791045; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JaVEwReoXhJ6W9rZ7l7CMc6ajDjovCb+0lJwxGj7ri8=;
+        b=ffjybD54nHnXlXN1sT2mX6p4xE0jveme0aKApRR/mYmau4Tevgv3txXcW/KQzL88He
+         xqvl78guR0blgcHBUWMdFf8BcELMeJ4fJbjY5ug1ljG6ps08N/fcZJBECcqqXpgSdzg2
+         PVGZcdPmfBHgmLnMiyxTPWXcKWx95Xh5kmPGnuFQMPGKrx7FVdiuPo8nWVnYTXO0V/BZ
+         +Ktp0gkQ/ayEAdqXb9hH4ymIb9WuG+lbGO6aiM0vkY84od6/o20LoAzKY/jiu8FLm7jA
+         i0n1QYNZ1wm3m+urBXhBFGviZ0+BGgMpwSqzcap2VyD5sfVLcVrzFhZO1Z5VaH9vX+ls
+         NPyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788186245; x=1788791045;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JaVEwReoXhJ6W9rZ7l7CMc6ajDjovCb+0lJwxGj7ri8=;
+        b=oFuTsNn9EJ0AGpZelhfauccU/vq8mA+77OxGsrN+DspcMvWlip7oHddYqv27e2Gi/5
+         RvackE1VP1zlI8fYbTrp43FnH+4iSmYIMkLJOmpbZIS+0e+zxWUsDCQWYUQ+17DA0WWK
+         AXiEC92cnZ0zq3sLH1pJUKXk1wr9bIV683ZsEFsuZWJEaaX8RQKH1irlTdbEU4NJSENW
+         71PZ0xgdW1S0qCB89NqAqbU/OQuP39T6aeEjJOkZiwXW1cmSN8PTX4HaydKUYkJJYv7c
+         KpBTgtfDmpMPB3OHC+g72JEnMVg1MbxuG5PmDWHOmHBscsiQbRPd8gwC5vgS7QIwZ/lf
+         YDuA==
+X-Gm-Message-State: AFuF++mJzK+kb1jdQ54jLIo8fKYSnV3vSpgImLXvE73uDnzGNY0mHupm
+	ChzbhBjndDZyU+/ch5xYFIEMf6SArN8TawLihJvLtsNqQndv1bbPYBGo+x4cJAtc
+X-Gm-Gg: AYBFou3tAgK+2OSriogIG45fxGHkZMa47LoyiEQTul9tad5unSw9DxB49Ftso4oqqcQ
+	r4++Q2sFmKXbuohL0WDw3YznBd5qJ5VIQJav6bWiLWH5wGM72/H+9rbYlRejGoD7nh3ivg0pqqz
+	P6YshA63ZRMjNytal4PaYH7a6pjOUuiT9Kmp7EOsf37gUyPmXXADx3XHSpJrnYEfNDvbFMmeHt4
+	ZbR4MVEr6BIsc73O1B6PfBapjgASKQkJk3zHppHxwfhXCJVHbvX7fMZx1LZiLTEpzYrVdkWa0vK
+	9EpAbllUtlGDFQUAA/30By1BPQHVuEvI5uFo/mjko1PLUKwrFQ3PPFEerX10VQGNp8mhjytOMxL
+	wWZ2IE0eCzZb1RJoqb02EDEEfZ+zogvHAxNBd2YwrbgfHM9hJMYozPz3m+zFdG70oIYmxprQS6A
+	ro28w5UyGcOPfK4jXXkBruMtfO8CC687gZhmWCvleZJTLxpFelUszLLEAtzSWHWUdcug==
+X-Received: by 2002:a05:6512:244f:b0:5b4:9d34:eb7a with SMTP id 2adb3069b0e04-5b5e68ec8ddmr7131619e87.12.1788186245049;
+        Mon, 31 Aug 2026 07:24:05 -0700 (PDT)
+Received: from kali ([37.114.129.26])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e89c5c8fsm2292919e87.9.2026.08.31.07.24.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 07:24:04 -0700 (PDT)
+From: Tabriz Hasanli <cybersec467@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	ntfs3@lists.linux.dev
+Cc: almaz.alexandrovich@paragon-software.com,
+	w@1wt.eu,
+	Tabriz Hasanli <cybersec467@gmail.com>
+Subject: [PATCH 0/1] fs/ntfs3: fix OOB writes in do_action() log replay via unvalidated trailing index entry
+Date: Mon, 31 Aug 2026 10:23:43 -0400
+Message-ID: <20260831142344.472594-1-cybersec467@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 31 Aug 2026 16:23:01 +0200
-Message-Id: <DL373JA1ZANX.21L51RTEUQ2UG@kernel.org>
-Cc: "nova-gpu" <nova-gpu@lists.linux.dev>, "M Henning"
- <mhenning@darkrefraction.com>, "Alice Ryhl" <aliceryhl@google.com>, "David
- Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-To: "Alistair Popple" <apopple@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-6-apopple@nvidia.com>
-In-Reply-To: <20260828033531.1117754-6-apopple@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
-> +/// GPU information returned to userspace.
-> +///
-> +/// # Invariants
-> +///
-> +/// - The layout of this type is identical to `struct drm_nova_gpu_info`=
-.
-> +/// - All bytes in the value are initialized.
+Hi Willy, Konstantin,
 
-I don't think we need those invariants. The first one is covered by
-#[repr(transparent)] and the second invariant is trivally satisfied by the =
-fact
-that we create a value of that type.
+Thank you for the quick and detailed feedback.
 
-Maybe you meant to say that we explicitly initialized everything despite
-uapi::drm_nova_gpu_info being FromBytes (i.e. no "random" values)? But I th=
-ink
-even that wouldn't need an invariant.
+First, apologies about the display name — it was a placeholder from
+when I first created the account.  I have since updated it to my real
+name: Tabriz Hasanli.
 
-> +#[repr(transparent)]
-> +struct GpuInfo(uapi::drm_nova_gpu_info);
-> +
-> +impl GpuInfo {
-> +    fn new(reg_data: &DrmRegData<'_>) -> Self {
-> +        Self(uapi::drm_nova_gpu_info {
-> +            architecture: reg_data.api.architecture(),
-> +            implementation: reg_data.api.implementation(),
-> +        })
-> +    }
-> +}
-> +
-> +// SAFETY: `GpuInfo` has no implicit padding, kernel pointers, or interi=
-or
-> +// mutability, and all of its fields are initialized before it is writte=
-n to
-> +// userspace.
-> +unsafe impl AsBytes for GpuInfo {}
-> +
-> +fn write_info<T: AsBytes>(info: &mut uapi::drm_nova_info, value: &T) -> =
-Result {
+As requested, here is the fix as a proper git format-patch against
+mainline (cf72cbb39).  A single patch addresses both check_if_alloc_index()
+and check_if_root_index() since they share the same root cause and
+the same fix pattern.
 
-We could take T by value I guess? We don't need it anymore after it has bee=
-n
-written to the user buffer.
+Per your note that crafted-FS issues are outside the private
+disclosure threat model, I am sending this to the public lists.
 
-> +    let mut writer =3D
-> +        UserSlice::new(UserPtr::from_addr(info.data as usize), info.size=
- as usize).writer();
-> +
-> +    info.size =3D writer.write_truncated(value)? as u32;
-> +
-> +    Ok(())
-> +}
-> +
->  impl drm::file::DriverFile for File {
->      type Driver =3D NovaDriver;
-> =20
-> @@ -78,4 +112,27 @@ pub(crate) fn gem_info(
-> =20
->          Ok(0)
->      }
-> +
-> +    /// IOCTL: info: Query device information.
-> +    pub(crate) fn info(
-> +        _dev: &NovaDevice<Registered>,
-> +        reg_data: &DrmRegData<'_>,
-> +        info: &mut uapi::drm_nova_info,
-> +        _file: &drm::File<File>,
-> +    ) -> Result<u32> {
-> +        if info.data =3D=3D 0 {
-> +            info.size =3D match info.id {
-> +                uapi::DRM_NOVA_INFO_GPU =3D> size_of::<GpuInfo>() as u32=
-,
-> +                _ =3D> return Err(EINVAL),
-> +            };
-> +            return Ok(0);
-> +        }
+Summary of the bug:
 
-I think this check can go into write_info(), so we don't have to repeat thi=
-s for
-every info. I.e. we can just add
+check_if_alloc_index() and check_if_root_index() do not stop at
+de_is_last() and do not validate the target entry at attr_off.
+This allows a crafted NTFS image's $LogFile to direct four
+do_action() write operations to an attacker-controlled fake entry
+in the trailing gap, producing heap OOB writes of 8 or 56 bytes
+during mount.
 
-	if info.data =3D=3D 0 {
-	    info.size =3D size_of::<T>() as u32;
-	    return Ok(());
-	}
+These are variant siblings of the view.data_off fix (3e127829e57f)
+and the DeleteIndexEntryAllocation fix (fc4626bb3656).
 
-at the beginning of write_info(). It may construct the value even if
-info.data =3D=3D 0, but I don't think we care. :)
+Confirmed with userspace ASan harnesses using kernel-faithful
+512-byte INDEX_BUFFER geometry (fix_off=0x28, fix_num=2, full
+check_index_buffer gate chain).  Harness source files are
+available on request.
 
-> +
-> +        match info.id {
-> +            uapi::DRM_NOVA_INFO_GPU =3D> write_info(info, &GpuInfo::new(=
-reg_data))?,
-> +            _ =3D> return Err(EINVAL),
-> +        }
-> +
-> +        Ok(0)
-> +    }
->  }
-> diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
-> index 610cfc01111e..cff730a38c1d 100644
-> --- a/drivers/gpu/nova-core/api.rs
-> +++ b/drivers/gpu/nova-core/api.rs
-> @@ -12,11 +12,12 @@
->      types::CovariantForLt, //
->  };
-> =20
-> -use crate::gpu::Gpu;
-> +use crate::gpu::{
-> +    Gpu, //
-> +};
-> =20
->  /// API handle for the auxiliary bus child drivers to interact with nova=
--core.
->  pub struct NovaCoreApi<'bound> {
-> -    #[expect(unused)]
->      pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
->  }
-> =20
-> @@ -26,4 +27,14 @@ impl NovaCoreApi<'_> {
->      pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreAp=
-i<'_>>> {
->          adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
->      }
-> +
-> +    /// Returns the architecture identifier of this GPU.
-> +    pub fn architecture(&self) -> u32 {
-> +        self.gpu.spec.chipset.arch() as u32
-> +    }
-> +
-> +    /// Returns the implementation identifier of this GPU.
-> +    pub fn implementation(&self) -> u32 {
-> +        self.gpu.spec.chipset.implementation()
-> +    }
+Thanks,
+Tabriz
 
-We should make the NovaCoreApi just provide an accessor for &Spec and make =
-every
-subsequent method we need public. Otherwise we end up with endless forwardi=
-ng
-methods. We can also add as_raw() methods to the specific types as needed.
+Tabriz Hasanli (1):
+  fs/ntfs3: validate target index entry in
+    check_if_alloc_index/check_if_root_index
+
+ fs/ntfs3/fslog.c | 42 ++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 36 insertions(+), 6 deletions(-)
+
+--
+2.53.0
+
