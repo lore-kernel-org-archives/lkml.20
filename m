@@ -1,466 +1,218 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012064.outbound.protection.outlook.com [52.101.48.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC2B52B1FE;
-	Mon, 31 Aug 2026 13:44:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183883; cv=none; b=RYRt5MCoeL0gWb/MIHzVyiIrYIR3XK88cngZRAp5HzDRTMK/rrrNQyZDkM4Pg9/JqMXNB85a36uCMvWaUYid6oj9ncYASaDoeHsI1zrOzDN0oEvgS54auWpKu85WbLtD7u1Rl/QFLlxZg4QxlnWL+Ifjqrpm8eKisNGv84HMWTg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183883; c=relaxed/simple;
-	bh=QbMQzexjY/XOShu7dBxYDv/eYbYozd7dnLbuUTfgWUY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669A74A64DB
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 13:44:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183885; cv=fail; b=g/73RJUE/TepX4AkJSI0TS7Ykqpao8ecbd47VKZiTYMXj4uAX0PXttBHHOkI1sK10LSaXvvsjYF8tUmTUZApTeDE5o5Am6Ug4/BEr9neGPePDUCJR4O34fKiroJ8nZSBATbV0EiPmnAahppdA8AJcXRsKL2orKYHzRt7Dg04On4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183885; c=relaxed/simple;
+	bh=1lIhMj5GpskGsUTmdB/pdpgJOLljensR26uPwauMuco=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gvG6HLYx02iAXCRdJ6dwCXfyzfvxHxSIaxikODJiv1csS6U6C31bpvHrKuEuNYU46k37GGnJ4wkIkgMU1DWBFxmBpJP4qfHcJtaluSqu8W0lUcwUxFEEsW37iCLiyluGsm9L9bGx3LuPcletkTyK8Waneg/7fjUkccCsPBzJzGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UlALr4SA; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=IkAm0uK0XH/Br5NoNlrC/HOsUm18Uco4dHU0IC6YQeZ2dKyor0YMbTglDFWwAiaBAsXBYKF4mL8LMlDJl8TZqVy5Gr0OxKmCxOeDEb3xF/JJOMs5XrsxX5s5ipCFPlvHegogCH2LjzwdC7SI3g7oRfGkbI23oWv+eyFiUpNEjXI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PsqApy0J; arc=fail smtp.client-ip=52.101.48.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UlALr4SA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA011F00ADE;
-	Mon, 31 Aug 2026 13:44:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183880;
-	bh=XdGz328xTlkQ6Cul4SWgdJ/Sm6sjC60Xa8F08i/Exa4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UlALr4SA4jGFugjpSB8q4EHP0Ob8AGB4G4DqdhsnizlC/XBxrA5yVo5DuR64UIc5n
-	 N++xK6wWsMXZCVVaHXPR8mPjcM2gJO4d9cIMWdS5F3sUP+hmaX/852W8MN7F+KvwVw
-	 xAwSi7RYS8cnAsja40Gw/okR6X+9w3vh+GyqIYFD7vocFZkAapNb1EvhQLFamtee+u
-	 EGvE6ERnB0KW3/MWPv+57VUGIPiNEiL+nunq/ZqbAakUpVWNO7zyMFsTSqmNuR+Owr
-	 8eGZGTUoHFvg8HU27Rrq6LhjlvO79zl7I+bmxytgO6GpFPLli7lt6mRCO23Jxmo5Dh
-	 nu604xaPAS6Eg==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Sasha Levin <sashal@kernel.org>,
-	arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PsqApy0J"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Eaj7GIhvXiGZoIckphqAV3Mdv9exui8dnqYtqqFeABIH41E55cviHTBiYRkTcS/TB71WPrPNFL8MS51KbwYTBj/g+dk8TGedNy2batj8fGisIUkfXPXJIB8jZL+fn8pMBnsKs8ihhs+IE0eRWTIVZ7t0tO4/1eljEgAyU3+pylSEeAvVgil9LEw3FMDbdYsXBqz5Tm8/rI77gUS/10gS2oucPTjpM1h1IjDTsrC39/grSjp+P7Eqar1qmJmQViA927L3D2AopmDMxKvicucVcRq+Vhkj3RKUk/643s384nOg7vX8BJHedZS5bWYOwTxEeVeWQ1EZgbKotGRy4Mlw9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CzvmCBlE0CesQOzMKLvl9ZcKGgINP3hKjck4QWMZyaM=;
+ b=pLpjnQBuuON+VdAWZAzF2RYZhCjMNXtVFd8kxbIbk+F8ioPdHUDDfHPdaJjDG4Xj2ephsCzISODiH08j8gqckKz+H2v99vFzAo3bBTh7ThukuvlQpc4okO67PM5oetQ88Pp1KXpTjOXQsgUybzrvwaBMYdwOYmPukY1ZJ1vK+YefzcdI4xGPrDOHwHLk5mwbblqL4reXW0WFC+bjjmGx3HlxvlRiVdf00F0Toh9MwpCVp/E3POXBAeP93m7DydQPiP1H8bYAvgb8pr3/daZAFj+t6o/22LSawwnKFHCbBkbxgBn/cbojdkBY3AlbFmrPPJyWZW2n+we67YRZaHQQrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CzvmCBlE0CesQOzMKLvl9ZcKGgINP3hKjck4QWMZyaM=;
+ b=PsqApy0JtHv252wAMkR0PaPNE5cdwP+FKr2GOzBzQD0pOURKs4fIqIrxJCFs8dwJ3znjjoBr8TwMVNjFL7enV9EVKVeCGL8kQnn3HCv7iJbGNAiPLhFrH9e3HaPR/YfmsE5eS5NzFCFiDgBPYP3opjXfYSSaj5dGUGcROFTLOpzXiVZgEFeLAZOUK/CwuRyBjjbRi6Xe6y/hvGXDKZ+LPzGB3RwjGeILIcKAdqVX71YZ6P1tEUre0mwvRSknesZFC2suDT2H2SDnYHEwLo2Wa4WlLKxVHmlYjt8mFJAZIi1DSe+16LO/+U4S3S9etWmgbOhCfoo4ZWVJZ8bcUCvzNA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by MW4PR12MB6755.namprd12.prod.outlook.com (2603:10b6:303:1ea::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Mon, 31 Aug
+ 2026 13:44:36 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 13:44:36 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>,
+	Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>,
+	Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>,
+	Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.15] firmware: arm_scmi: Validate SENSOR_UPDATE payload size
-Date: Mon, 31 Aug 2026 09:26:26 -0400
-Message-ID: <20260831133314.4125787-358-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Subject: [PATCH 06/18] sched: Add helper to block retained proxy donors
+Date: Mon, 31 Aug 2026 15:42:16 +0200
+Message-ID: <20260831134338.1531664-7-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831134338.1531664-1-arighi@nvidia.com>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI1P293CA0023.ITAP293.PROD.OUTLOOK.COM (2603:10a6:290:3::9)
+ To DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|MW4PR12MB6755:EE_
+X-MS-Office365-Filtering-Correlation-Id: 238eab13-d018-4d24-5304-08df0765ff15
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	oNBl1TnBMpaGc4ImTK9ymPjVlDynITGVoMyJWB7Curw2NVTry/j3xq5hZHRBQKUxfM7jnDK7HCHA//1xxTLOjw6fHMWhAGpDATS17k0Wh3BCsKIOv+e2vI+qR54IaU50ZuwW/jr9NiZHFYfaq9XY9qSBp48xd6K2dZmjeEgKkX58MmJvnJcZcdOW8tQMmOyPncTTJzDPXqgKtPFeBlRbVte79rCpeDA5obtoTBBJ3Ha/MmZJPi+9GWuMRIVbt5/4gM/MfbTVyaJjlxL1XJ9ekNvEmKj7aojw3hVQmZAXTrDv88EuAhfN57SBkL0yjjExOaQYMyqGYTxAhaaAiUNm6BXbx5d7vvcnqJo9d2/W8y8FEhHFy8Auriq7+2uRHLmvdn8L199+3bkzSpEZ8rV041w07JT5e+MYXIvib6dcKIexXybOcICUQOsxwXJ0hR3CvY3PYy/HfBiD1Nsszr+wugnRH/qLe6RfBmrYSke7uCsjCam0AOHjbyL1wnnNe06tSa+ulSoImSgEuUgBQ6u0LpTQQKqKchopyZRR5CvGHpFELfu9bDdso84DibCoWjb43xDR4KTZYsfc4C3xinxM/4FlVjuAOdOXkrDVr9MrylJlBWtKX7PpZGiSXdogVUu9n9p6Ka0mspiGi5YW6zyKja68pM5YaruYt8t9ZrI7P08=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?S/TRYk+uI6ZA2wqOU7tb+IfgCnNYMfS2qOlUAI8yNROX9h0Db2Zq6uFbFijF?=
+ =?us-ascii?Q?pfCHP1QCddXzf5nMAO9+HlV0uMe3gyoE0WB9BJTBVcfrrt24H8l/sEWWLpsu?=
+ =?us-ascii?Q?F4mCvielq0I2rDDz58G/LzWmTP1zv1cySumChHHZVRuFwSQkGj1FHPXV2Oua?=
+ =?us-ascii?Q?0I8YZwhAPG9rDMMCnbiHRfeRwjLUxv6US/dU/RIXrHzoXurjqIpNtgqsFJ58?=
+ =?us-ascii?Q?ZR3hGT2++1pcVHW2atZDz7HkM1WWMAlniQoQb7r/QNchjsBCGdEF0PNY8ZBi?=
+ =?us-ascii?Q?QfvXUPXgzFDeaHZ22nsrSEnE5aWMDdtGlZ7EkEWS0fGU4z6m+nd3bGPhnyfb?=
+ =?us-ascii?Q?Tc0YaJvRty6MobkQ8zxkfFO5eBOshE/adUUNcegf4sZluWWtPRpa8ALqUvuG?=
+ =?us-ascii?Q?1qxse8ec+4CUK+8PysOcKdJBPYI9D/fV+0taGGYt1uzZs13NUXtRCylgA1Rh?=
+ =?us-ascii?Q?q9XoH9p0heX7kE36aMa9ENETdnSYgHWi7v3F5Tasvx9Pm67N0cNjcicdt0Vd?=
+ =?us-ascii?Q?wcUNV6Gq3sbjTQYUtqAt2RShOOjkLlLc7epMBCqXSAgb7iy2QA/DDlU/Ywwg?=
+ =?us-ascii?Q?TPfICgi6M4NGCxwWQnjKFfTTiQ19KL2P/uzZiUi/IbV2ds12WQjanlfAHhcM?=
+ =?us-ascii?Q?KoVgm5sc9dZ+3EK1g4510qM8gnEWxeE5kwyS0AhmgDJ4sa73ABGnZFgZztAm?=
+ =?us-ascii?Q?mitUc97IOfDQK+cbA2CD607HJSK9ZhZsreVQR8GSN8PcxBLvkl0M9A5Jyvug?=
+ =?us-ascii?Q?F3IpnuE7fNVIsuN8ztWRrIj1uSt7zRXYpJpyGYrLQpvnmrCt3H+kOd4WTvhO?=
+ =?us-ascii?Q?l64saamjjfV1G5JsXMxUCEY0az4r5prOym4iGkGqOOd9TMpX29+4YhCi7wm+?=
+ =?us-ascii?Q?jXCDM6oV1IVBG/jdHo8ZYPoqbGTo8c8xxX2EifTQ+XqGphxVXvhFLsXD5Aup?=
+ =?us-ascii?Q?uRelWwFpu6srUulmmw4ObISdqCca6DmT1o0OJsHvoM1fhw+l2qZfnwtdh31Y?=
+ =?us-ascii?Q?yfXAYBuNToXsMEDXtRjwYSZrhYPGqj62o/U/cbBiD6N24sgtuEL3QsVCEGBs?=
+ =?us-ascii?Q?+9d9ZIYa4bqY+eEmUq8RdXurtXh5hSvlkOe1E28ND9rftVcP8hTW+Z+AESln?=
+ =?us-ascii?Q?CdqWvFxWQOspE4mPPr/LTkPW2bh8isdqWWXyRyFaC6rfrSskIBpkcU4K7hJj?=
+ =?us-ascii?Q?FxtRvyU7k4OtMqSHAJLL6GJ1XUVm7YjLJ3VJtrEOBEhEz0XsVm9IW4bJgYJH?=
+ =?us-ascii?Q?Zm+73lQXydMU5Lg/5h6q0DzYhnPseJZCiZBdxh7sHwZt8ZrjSwN4SeEXIZm7?=
+ =?us-ascii?Q?HMnKBSqZ2eS99/sxHvGLr5fnY4/rmFoIzSeKCN3xx03AO+a08LR+y87ZQjyA?=
+ =?us-ascii?Q?IaVimyUpVKT+IOOwPePOeQVydWavK/UZJ8DDpFufn72uFbyc8GKCBd/FVxXi?=
+ =?us-ascii?Q?CXzwKC4YuzbOu70MstdK7MIOzbKL4McNjuXykBM7QSn+WdwSrARXIqltKcX3?=
+ =?us-ascii?Q?a1d3vmb/KTh1WSpk2OVoUeVU5Ztw5xdJcUYv4lE0O96bNTpo5tsPgaRbPUjh?=
+ =?us-ascii?Q?oMmYf+jyQkYM4nf1uclfBAFwwJYnRWcXK/HD8bSg5UjuAL+dFphsmfrDoeYF?=
+ =?us-ascii?Q?et1uvN27qpuRfGdL8Ev2jJbdZ/VG8y4bQuG64vnMSPx0pS/inPyeXRe7W33H?=
+ =?us-ascii?Q?Zwro6Oo8PdVii7XEK8ndQTLME1e6fL11rdO3BpQDvvoWMT4COryEqe2oUs6l?=
+ =?us-ascii?Q?jok2ep4j4Q=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 238eab13-d018-4d24-5304-08df0765ff15
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:44:36.4341
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +pFHEdUizzFD4A9NuRWubJVck5vcg660vDiuWYtkZKWUS0wpTuR8EUPfvvUtMkyiYqim6nKnJ/s4WHABHkX8/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6755
 
-From: Sudeep Holla <sudeep.holla@kernel.org>
+Scheduler ownership changes may need to turn a mutex-blocked task
+retained on the runqueue for proxy execution back into a normally
+blocked task.
 
-[ Upstream commit 32bc5496b48174dbca1f187f710955ee4d9527a1 ]
+Add sched_proxy_block_task() to perform that transition while holding
+p->pi_lock and the task's runqueue lock. Reset an active donor to the
+physical current task before blocking it. If DELAY_DEQUEUE keeps a FAIR
+donor queued, the immediately following sched_change_begin() completes
+the dequeue through switching_from_fair() before recording its queued
+state.
 
-SENSOR_UPDATE carries one or more sensor readings after the fixed
-notification header. The parser derives the expected reading count
-from the sensor description, but it did not verify that the received
-payload contains those entries before parsing them.
+This is a preparatory change to support proxy execution with sched_ext.
 
-Reject truncated update notifications before reading the variable
-array.
-
-Link: https://patch.msgid.link/20260517-scmi_fixes-v1-3-d86daec4defd@kernel.org
-Reviewed-by: Cristian Marussi <cristian.marussi@arm.com>
-Signed-off-by: Sudeep Holla <sudeep.holla@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Acked-by: John Stultz <jstultz@google.com>
+Signed-off-by: Andrea Righi <arighi@nvidia.com>
 ---
-
-LLM Generated explanations, may be completely bogus:
-
-## Phase 1: Commit Message Forensics
-
-**Step 1.1 — Subject line**
-- Record: `[firmware: arm_scmi]` `[Validate]` — Validate SENSOR_UPDATE
-  notification payload size before parsing variable-length sensor
-  readings.
-
-**Step 1.2 — Tags**
-- Record:
-  - `Link:` https://patch.msgid.link/20260517-scmi_fixes-v1-3-
-    d86daec4defd@kernel.org
-  - `Reviewed-by: Cristian Marussi <cristian.marussi@arm.com>` (ARM SCMI
-    maintainer)
-  - `Signed-off-by: Sudeep Holla <sudeep.holla@kernel.org>` (SCMI
-    maintainer)
-  - No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, or syzbot
-    tags
-  - Part of `[PATCH 3/4]` in series `firmware: arm_scmi: Fix protocol
-    parsing and validation`
-
-**Step 1.3 — Body analysis**
-- Record:
-  - **Bug:** `SCMI_EVENT_SENSOR_UPDATE` notifications carry a fixed
-    header plus a variable array of readings. The parser derives
-    `readings_count` from the sensor description but never checks that
-    `payld_sz` covers those entries.
-  - **Symptom:** Truncated notifications are parsed anyway; readings
-    beyond the valid payload are read and forwarded to handlers.
-  - **Root cause:** Missing minimum and expected payload size validation
-    before accessing `p->readings[]`.
-  - **Version info:** None in commit message; code has existed since
-    SCMI v3.0 sensor notifications (2020).
-
-**Step 1.4 — Hidden bug fix?**
-- Record: **Yes.** Despite the neutral “validate” wording, this is a
-  real parsing bug fix, not cosmetic cleanup. It prevents out-of-spec
-  payload processing.
-
----
-
-## Phase 2: Diff Analysis
-
-**Step 2.1 — Inventory**
-- Record:
-  - `drivers/firmware/arm_scmi/sensors.c`: +9 / -1 lines
-  - Function modified: `scmi_sensor_fill_custom_report()`
-  - Scope: single-file, surgical fix in one `switch` case
-
-**Step 2.2 — Code flow change**
-- Record:
-  - **Hunk 1 (minimum header check):** Before → reads `p->sensor_id`
-    immediately. After → returns early if `payld_sz < sizeof(*p)` (8
-    bytes).
-  - **Hunk 2 (expected size check):** Before → loops `readings_count`
-    times over `p->readings[i]` unconditionally. After → computes
-    `expected_sz = sizeof(*p) + readings_count * sizeof(p->readings[0])`
-    and breaks if `payld_sz < expected_sz`.
-  - **Failure path:** `break` leaves `rep = NULL`; caller logs and skips
-    notification handlers.
-
-**Step 2.3 — Bug mechanism**
-- Record:
-  - **Category:** Memory safety / bounds validation (out-of-bounds read
-    of notification payload).
-  - **Mechanism:** `scmi_notify()` only enforces an upper bound (`len >
-    max_payld_sz`). For `SENSOR_UPDATE`, `max_payld_sz` allows up to 63
-    axis readings, but a shorter payload is accepted. The handler then
-    reads 16-byte `scmi_sensor_reading_resp` entries beyond the copied
-    `payld_sz` bytes. The scratch buffer (`pd->eh`) is pre-allocated to
-    max size, so this typically reads stale buffer contents rather than
-    faulting — but wrong sensor values are still delivered to consumers.
-
-**Step 2.4 — Fix quality**
-- Record:
-  - Fix is obviously correct; mirrors the existing fixed-size check on
-    `SCMI_EVENT_SENSOR_TRIP_POINT_EVENT` and the variable-size pattern
-    in `system.c`.
-  - Minimal, no API changes.
-  - Regression risk: very low — only rejects malformed/truncated
-    notifications that were already being mishandled.
-
----
-
-## Phase 3: Git History Investigation
-
-**Step 3.1 — Blame**
-- Record: `SCMI_EVENT_SENSOR_UPDATE` handler introduced in
-  `e3811190acf85` (Cristian Marussi, 2020-11-19, “Add SCMI v3.0 sensor
-  notifications”). Bug present since introduction. Present in this tree
-  at `drivers/firmware/arm_scmi/sensors.c:1074-1101`.
-
-**Step 3.2 — Fixes: tag**
-- Record: Not applicable — no `Fixes:` tag.
-
-**Step 3.3 — Related file history**
-- Record:
-  - Recent related hardening: `76f89c9547887` (“Harden accesses to the
-    sensor domains”), `3b0041f6e10e5` (“Validate
-    BASE_DISCOVER_LIST_PROTOCOLS response”) — same class of “don’t trust
-    SCMI payload sizes.”
-  - Patch 1/4 of the same series is already in this tree:
-    `bac3e70c2fb10` (“Read sensor config as 32-bit value”).
-  - Patches 2/4 and 4/4 of the series are not yet in this tree; patch
-    3/4 is standalone.
-
-**Step 3.4 — Author context**
-- Record: Sudeep Holla is the SCMI maintainer. Cristian Marussi is the
-  primary SCMI protocol author and reviewed this patch.
-
-**Step 3.5 — Dependencies**
-- Record: **Standalone.** Only touches existing
-  `SCMI_EVENT_SENSOR_UPDATE` path. No prerequisite commits required
-  beyond code already in `linux-6.18.y`.
-
----
-
-## Phase 4: Mailing List and External Research
-
-**Step 4.1 — Original discussion**
-- Record:
-  - Lore URL: https://lore.kernel.org/linux-arm-
-    kernel/20260517-scmi_fixes-v1-3-d86daec4defd@kernel.org/
-  - Series cover (patch 0/4) explains: “The next two patches harden
-    notification parsing for variable-sized payloads. BASE_ERROR_EVENT
-    and SENSOR_UPDATE both carry counted trailing arrays…”
-  - “No functional change is intended for well-formed SCMI responses.”
-  - Review reply from Cristian Marussi on patch 3/4 exists in thread
-    (Reviewed-by in final commit).
-
-**Step 4.2 — Reviewers**
-- Record: CC’d to `Cristian Marussi`, `arm-scmi@vger.kernel.org`,
-  `linux-arm-kernel@lists.infradead.org`. Subsystem maintainers were
-  included.
-
-**Step 4.3 — Bug report**
-- Record: No external bug report or syzbot link. Issue found during
-  spec-compliance review per series cover letter.
-
-**Step 4.4 — Series context**
-- Record: 4-patch series; patch 3 is independent of patches 2 and 4.
-  Patch 1 already backported to this tree, indicating stable maintainers
-  already consider the series appropriate for `6.18.y`.
-
-**Step 4.5 — Stable list history**
-- Record: No explicit `Cc: stable` nomination found in thread. Not a
-  negative signal per instructions.
-
----
-
-## Phase 5: Code Semantic Analysis
-
-**Step 5.1 — Key functions**
-- Record: `scmi_sensor_fill_custom_report()`,
-  `scmi_parse_sensor_readings()`
-
-**Step 5.2 — Callers**
-- Record:
-  - `REVT_FILL_REPORT()` macro in `notify.c:495` called from
-    `scmi_process_event_payload()`
-  - `scmi_process_event_payload()` called from
-    `scmi_events_dispatcher()` workqueue handler
-  - Context: process context, SCMI notification worker path
-
-**Step 5.3 — Callees**
-- Record: `le32_to_cpu()`, `scmi_parse_sensor_readings()` (reads 16-byte
-  unaligned LE64 pairs per axis)
-
-**Step 5.4 — Reachability**
-- Record:
-  - Triggered when platform firmware sends `SCMI_EVENT_SENSOR_UPDATE`
-    notifications
-  - Affects ARM/ARM64 systems using SCMI (Juno, NXP i.MX, STM32 MP,
-    Neoverse, etc.)
-  - Not directly userspace-triggerable, but firmware bugs, transport
-    corruption, or spec violations can deliver truncated payloads
-  - Downstream consumers include
-    `drivers/iio/common/scmi_sensors/scmi_iio.c` (registers for
-    `SCMI_EVENT_SENSOR_UPDATE` and copies `readings[]` into IIO buffers)
-
-**Step 5.5 — Similar patterns**
-- Record:
-  - `SCMI_EVENT_SENSOR_TRIP_POINT_EVENT` already validates `sizeof(*p)
-    != payld_sz`
-  - `scmi_system_fill_custom_report()` validates `payld_sz !=
-    expected_sz`
-  - `scmi_reset_fill_custom_report()`,
-    `scmi_power_fill_custom_report()`, `scmi_perf_fill_custom_report()`
-    all validate payload sizes
-  - `SENSOR_UPDATE` was the outlier missing validation
-
----
-
-## Phase 6: Cross-Reference Against Local Tree
-
-**Step 6.1 — Buggy code exists?**
-- Record: **Yes.** Local tree is `stable/linux-6.18.y` at `v6.18.44`.
-  Buggy code confirmed at `sensors.c:1082-1098` — no payload size
-  validation before parsing readings.
-
-**Step 6.2 — Backport complications**
-- Record: **Clean apply expected.** File is present and structure
-  matches the diff context exactly. No conflicting refactors in this
-  area.
-
-**Step 6.3 — Related fixes already present?**
-- Record: Patch 1/4 of same series already backported (`bac3e70c2fb10`).
-  This specific SENSOR_UPDATE validation is **not** yet present. No
-  duplicate fix found.
-
----
-
-## Phase 7: Subsystem and Maintainer Context
-
-**Step 7.1 — Subsystem criticality**
-- Record: `firmware/arm_scmi` — **IMPORTANT** for ARM embedded/server
-  platforms. Sensor notifications feed hwmon/IIO/thermal subsystems.
-
-**Step 7.2 — Subsystem activity**
-- Record: Actively maintained; recent commits include protocol
-  versioning, sensor domain hardening, and the first patch of this same
-  fix series.
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-**Step 8.1 — Who is affected**
-- Record: ARM platforms using SCMI sensor continuous-update
-  notifications — embedded, mobile, server BMC paths. Config-dependent
-  on `CONFIG_ARM_SCMI` and sensor notification registration.
-
-**Step 8.2 — Trigger conditions**
-- Record: Truncated or malformed `SENSOR_UPDATE` notification from SCMI
-  firmware. Uncommon in normal operation but possible with buggy
-  firmware or corrupted messages. Not unprivileged-userspace-
-  triggerable.
-
-**Step 8.3 — Failure mode severity**
-- Record:
-  - **Failure mode:** Reads beyond valid payload into stale scratch-
-    buffer data; incorrect sensor readings propagated to IIO/hwmon
-    notifiers.
-  - **Severity:** **MEDIUM-HIGH** — data integrity issue in sensor
-    reporting path; could affect thermal/power decisions on affected
-    platforms. Unlikely to panic (buffer is pre-allocated to max size),
-    but wrong data is a real bug.
-
-**Step 8.4 — Risk vs benefit**
-- Record:
-  - **Benefit:** Prevents bogus sensor data from truncated
-    notifications; aligns with existing SCMI validation patterns; same
-    series already partially backported.
-  - **Risk:** Very low — 9-line validation-only change on error path.
-  - **Ratio:** Strong benefit, minimal risk.
-
----
-
-## Phase 9: Final Synthesis
-
-**Step 9.1 — Evidence summary**
-
-*For backporting:*
-- Real bounds-check bug in notification parser since 2020
-- Incorrect sensor readings possible on truncated payloads
-- Small, obviously correct, maintainer-reviewed fix
-- Consistent with prior SCMI validation backports in this tree
-  (`3b0041f6e10e5`)
-- Patch 1/4 of same series already in `linux-6.18.y`
-- Standalone, clean apply to this tree
-
-*Against backporting:*
-- No user crash report or syzbot finding
-- Requires malformed firmware notification (trusted path)
-- Part of a series where patches 2 and 4 are not yet backported (but
-  patch 3 is independent)
-
-*Unresolved:*
-- No explicit stable nomination in lore thread (not required)
-
-**Step 9.2 — Stable rules checklist**
-1. Obviously correct and tested? **PASS** — logic is straightforward;
-   reviewed by SCMI maintainer; series patch 1 already in tree with
-   multiple Tested-by tags on series.
-2. Fixes a real bug? **PASS** — truncated payloads parsed without bounds
-   check.
-3. Important issue? **PASS** — data integrity in sensor notification
-   path (MEDIUM-HIGH).
-4. Small and contained? **PASS** — 9 lines, one function, one file.
-5. No new features/APIs? **PASS** — validation only.
-6. Can apply to local tree? **PASS** — buggy code present, clean apply
-   expected.
-
-**Step 9.3 — Exception categories**
-- Record: Not a device ID/quirk/DT/build/doc exception. Standard bug
-  fix.
-
-**Step 9.4 — Decision rationale**
-
-For `linux-6.18.y` at `v6.18.44`, this commit should be backported. The
-`SCMI_EVENT_SENSOR_UPDATE` handler has been missing payload size
-validation since 2020, allowing truncated notifications to produce
-incorrect sensor readings that flow into IIO consumers. The fix is
-minimal, matches established patterns elsewhere in the same driver, was
-reviewed by the SCMI maintainer, and belongs to a series whose first
-patch is already in this stable tree.
-
----
-
-## Verification
-
-- [Phase 1] `git describe HEAD` → `v6.18.44`; parsed commit message tags
-  and body
-- [Phase 2] Read diff and `sensors.c:1050-1108`; confirmed
-  `scmi_sensor_reading_resp` is 16 bytes; `sizeof(*p)` is 8 bytes
-- [Phase 3] `git blame -L 1074,1101 sensors.c` → bug from
-  `e3811190acf85` (2020-11-19)
-- [Phase 3] `git show e3811190acf85` → introduced SCMI v3.0 sensor
-  notifications
-- [Phase 3] `git log --oneline -20 --
-  drivers/firmware/arm_scmi/sensors.c` → recent activity confirmed
-- [Phase 3] `git log --oneline -1 bac3e70c2fb10` → patch 1/4 already in
-  tree
-- [Phase 4] Fetched lore thread via `curl .../t.mbox.gz`; confirmed
-  series context and Reviewed-by
-- [Phase 4] `b4 am 20260517-scmi_fixes-v1-3-d86daec4defd@kernel.org` →
-  found thread on lore.kernel.org
-- [Phase 5] `grep fill_custom_report notify.c` → call chain through
-  `scmi_process_event_payload()`
-- [Phase 5] Read `scmi_iio.c:39-55` → consumer copies
-  `sensor_update->readings[]` to IIO buffers
-- [Phase 5] Read `notify.c:598-611, 759-789` → upper-bound-only check in
-  `scmi_notify()`; scratch buffer sized to max
-- [Phase 6] Confirmed buggy code at `sensors.c:1082-1098` without fix
-- [Phase 6] `git branch` shows `HEAD detached at stable/linux-6.18.y`
-- [Phase 6] No existing SENSOR_UPDATE validation fix in tree
-- [Phase 8] Assessed failure as stale-data reads → incorrect sensor
-  values, not kmalloc overflow (scratch buffer pre-allocated to
-  `max_payld_sz`)
-
-**YES****Verdict: YES** — backport to `linux-6.18.y`.
-
-The `SCMI_EVENT_SENSOR_UPDATE` handler in
-`drivers/firmware/arm_scmi/sensors.c` parses variable-length sensor
-readings without checking that the notification payload is large enough.
-Truncated messages can produce incorrect readings that reach IIO/hwmon
-consumers.
-
-The fix is small (9 lines), reviewed by SCMI maintainer Cristian
-Marussi, and matches validation patterns already used elsewhere in the
-driver. Patch 1/4 of the same series is already in this tree; this one
-is standalone and should apply cleanly.
-
- drivers/firmware/arm_scmi/sensors.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/firmware/arm_scmi/sensors.c b/drivers/firmware/arm_scmi/sensors.c
-index 1be0f89fc2c4b..99233742714c9 100644
---- a/drivers/firmware/arm_scmi/sensors.c
-+++ b/drivers/firmware/arm_scmi/sensors.c
-@@ -1074,12 +1074,15 @@ scmi_sensor_fill_custom_report(const struct scmi_protocol_handle *ph,
- 	case SCMI_EVENT_SENSOR_UPDATE:
- 	{
- 		int i;
-+		size_t expected_sz;
- 		struct scmi_sensor_info *s;
- 		const struct scmi_sensor_update_notify_payld *p = payld;
- 		struct scmi_sensor_update_report *r = report;
- 		struct sensors_info *sinfo = ph->get_priv(ph);
+ kernel/sched/core.c  | 28 ++++++++++++++++++++++++++++
+ kernel/sched/sched.h |  6 ++++++
+ 2 files changed, 34 insertions(+)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 26b8da8c8a2c5..bb79fcfa21cd2 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -6822,6 +6822,34 @@ static void proxy_deactivate(struct rq *rq, struct task_struct *donor)
+ 	block_task(rq, donor, state);
+ }
  
--		/* payld_sz is variable for this event */
-+		if (payld_sz < sizeof(*p))
-+			break;
++/*
++ * Remove a retained proxy donor before changing its scheduler ownership.
++ * The caller holds p->pi_lock, so p cannot wake and migrate if block_task()
++ * drops it from the runqueue. If DELAY_DEQUEUE keeps a blocked fair task
++ * queued, switching_from_fair() completes the dequeue in the immediately
++ * following sched_change_begin().
++ */
++void sched_proxy_block_task(struct rq *rq, struct task_struct *p)
++{
++	unsigned long state = READ_ONCE(p->__state);
 +
- 		r->sensor_id = le32_to_cpu(p->sensor_id);
- 		if (r->sensor_id >= sinfo->num_sensors)
- 			break;
-@@ -1093,6 +1096,11 @@ scmi_sensor_fill_custom_report(const struct scmi_protocol_handle *ph,
- 		 * readings defined for this sensor or 1 for scalar sensors.
- 		 */
- 		r->readings_count = s->num_axis ?: 1;
-+		expected_sz = sizeof(*p) + r->readings_count *
-+			      sizeof(p->readings[0]);
-+		if (payld_sz < expected_sz)
-+			break;
++	lockdep_assert_held(&p->pi_lock);
++	lockdep_assert_rq_held(rq);
 +
- 		for (i = 0; i < r->readings_count; i++)
- 			scmi_parse_sensor_readings(&r->readings[i],
- 						   &p->readings[i]);
++	if (!p->is_blocked || !task_on_rq_queued(p))
++		return;
++	if (WARN_ON_ONCE(state == TASK_RUNNING))
++		return;
++
++	if (task_current_donor(rq, p))
++		proxy_reset_donor(rq);
++
++	if (!p->se.sched_delayed)
++		block_task(rq, p, state);
++
++	WARN_ON_ONCE(task_on_rq_queued(p) && !p->se.sched_delayed);
++}
++
+ static inline void proxy_release_rq_lock(struct rq *rq, struct rq_flags *rf)
+ 	__releases(__rq_lockp(rq))
+ {
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 6bba1f3b5d4cd..56ac104f1f825 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2508,6 +2508,12 @@ static inline bool task_is_blocked(struct task_struct *p)
+ 	return !!p->blocked_on;
+ }
+ 
++#ifdef CONFIG_SCHED_PROXY_EXEC
++void sched_proxy_block_task(struct rq *rq, struct task_struct *p);
++#else
++static inline void sched_proxy_block_task(struct rq *rq, struct task_struct *p) {}
++#endif
++
+ static inline int task_on_cpu(struct rq *rq, struct task_struct *p)
+ {
+ 	return p->on_cpu;
 -- 
-2.53.0
+2.55.0
 
