@@ -1,130 +1,201 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F08F3E1218
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 11:30:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A272DF719;
+	Mon, 31 Aug 2026 11:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788175855; cv=pass; b=EOkAJSfiB9PHbx+chRZx/cDkKEsM2INmT7WYeInpcv2F2/2+NxST8QHd2gOIvOf8WeHnlOo/05bgS2wp+4LXKhe/2oYv3H7sv23nd+NDfBtArNRCKsU9iIp6/yW46Ae0cZjX6tdkgEW4AcCAHkZN3RA9FWrpppso/hjkzT2gqbk=
+	t=1788175895; cv=fail; b=XgKTH2z++ovGU/bUlnRAl/p7YT+RG+YQ9qX7JNgeYvdfzImgGQE25G3+yCvuFUlMAF4gHIOloqDn2aZFWwd+dGVv3nkLqL638baaxXUhOQ89mjzQ00DFuvp9ZaBVI6uRdQYViCAfgHbHbvFynd0tL/tLLnMPhJ0BSlN34/fElYA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788175855; c=relaxed/simple;
-	bh=VN2Aj2uRjvinb/wuyWmk90q+RPHJ/JuYj+O1pcR4530=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uxiz++m1tPNx4g2HrqINXvHxaHzc/9Vaji4LbNc8WzZrlgc0agX3P9hGLdGT8G9y1VGxvzlL+84jCvtgED0TrOnUh2AzE/O1kSSrPitSdr13KWUikAE+VZLngP6ekZ4B/VteEuTz++AIre49sKje48VjUedyplMJOjdPbqFfnzU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c3Xz9TDG; arc=pass smtp.client-ip=74.125.224.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788175895; c=relaxed/simple;
+	bh=5siRdqd8fMqa/tA/cZh+6folhHi0Un7j6prfazq3ddU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mda21CjSIKsEHkGA0Na6/0QMqLtEczupolTToR4+AOQ8E1X/p3J8kzRC3zxh4cNFZIuLJJRmwypXBI1fK3tLTfY3MbH1LV7Ul/nX+Ww5e5VR38CGOPTaR2FlNFCgDaKJPNLh5OPnVy/FlOjRMphNdA0RWeiybT7TDqvFrR13zkI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=N0ixawzG; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=AsY+Z2wM; arc=fail smtp.client-ip=67.231.149.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c3Xz9TDG"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66d23c88af0so1265116d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:30:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788175851; cv=none;
-        d=google.com; s=arc-20260327;
-        b=szyImUoCISRaiYRGf71nN386EAVMjI0KEyV0TEz1PZUYL2klZ8jmKm/v4C4M7PZ7bA
-         DZCnHsu0dUHZxi8zVCkwJNpz6gTuVAIYAxvtnwJCDhzdl4u6JQxZVTJVIWOoqQ8xI3OR
-         RkBugMKjrWkEg870obrP+a3OOXi2pCoY0eVto+Pt80sV2fdKeDkj9FzbLGo9mLKqHPrz
-         2o48Lo+EFWicHzBtnrFuY7JTRGpii6aFoxSmfiCt3hB4+VUBbcgALeVQ64dYj28uBIIS
-         UGKTVhrJ6czt1eL2kgYYFihAwWjPlaRU1sGTUD21jcv2b97U0GnrYoeWbE3JsnBdhz2b
-         L88A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=B62KGiNz54kxYfvsaX6Te6uL5bqj9S2a+691iHGSfMM=;
-        fh=Z1DaRhr89R3oBCJvZflbSqWzBKN56rJCEJD9paczdAE=;
-        b=SKIHdk/d1+a9QQWG+MUShI7m1CweKWrtVBNvAWszf7x8E0XFXfIw2fBCzTI59CsCGH
-         1FFo3AZTMkURZ0VszYJLThEFDoBS1cqh5W7/sYWg4g6n4ROhSma6yz8y8lFeZSaWPDXE
-         XTyzpMC/Q+krAsITO/2ozfbpSP2B9pZyN3Np+qDG02DIwLhZ6ngyEQeh9MMTKfQhkFAP
-         R/JD7guaoblKVwnAPBovpOu1X+jf1U1+QMsVJ5HhBwDbAAogIaj48RTLAAPBzk24TqlG
-         9Svrr3VGS/u4/USSe+KaHwIiTowOhrEHjLOuZZE/scXXM3Enfg+CG/US8jPtn/rnXfoH
-         j5Gw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="N0ixawzG";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="AsY+Z2wM"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V5RRGx1516251;
+	Mon, 31 Aug 2026 06:30:58 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=PODMain02222019; bh=0IAvIequYYb/jK4e
+	QogfXqQZ4tC57b1elP3vmUndbM4=; b=N0ixawzGxFiVmst/57HgHuvzvn5iaedq
+	VTDVNIyhACyw8bC7CJ1vMo0vbJiIVLEVH4QBfmAdL1KKi+UlHlmxKEIC7KIIJQ/I
+	mDeU38SjR5e3GynbKplkltiE9MchCc6sXyuMNFnDpzoVFCtYgwqbm3X9uLG71vVZ
+	ZvSOWYz0mTcmtn/4BfYju/Yp7Isgc94vUKYryREY0NyDZmZjNJQZ71bmKlJgmqn7
+	TvcmhohT6FHUwztfDfNyjr5fhL5/3Hnu5TyMj+wJT02Wy14LRMcH57jRfaPIt9zX
+	C8w1LE0CrttvoVAO1Cb7xCpeiz1MF02+4WPm3BPR1t6hGXlXdpbQaQ==
+Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11022073.outbound.protection.outlook.com [52.101.48.73])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4gbvtysxf9-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 06:30:58 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nyCd2TO9c/7DsOhSiUNr/yb3GljCBAIzukH4x0tdL2v5etsULJgcD6CwHop39RD00eEWj9PJR+6Wscfb2ZJExkSbRgyvJRi8u0o8u9uO/9Ll6unFep6U4NYxwTqX/REQGQQ5L1uiRbclV2DlUUzy2L+c4313VEWqlhrVITSjjg1skTJAGIlmGRKmkQyoHCpQVWKHw0u1WQBVN0pT4MzEM9Ql7BCWDmHly5QrsJINV7/Ib5lLeNFHQffD6iObh8m7vDmJjKAPaC6QOi1Y+LtP1t3lg3qnjcOO36JrB7yA2eseJYFKGTpDj17Sq48YRuBpLOZMJGvc05hD9167j3Z9dA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0IAvIequYYb/jK4eQogfXqQZ4tC57b1elP3vmUndbM4=;
+ b=lZfizS0yWNHBHM34NNMWNyUDxOKqQDkPK7sW6Al4PD8Wii/vMq7eRwgjvzanqgLb2azSI/Ryjq3OY0T1P/4b4baRSSSkf38pND7kmzjuDuSSNSOlzVwQRu4uAI1p3ouoNWjFspDmkmvYwXJesRRWo32PiSBat4R0MoW+e/MTQHfjIxElvpU6pUokCS9SNiH3I+5pU+wHzIr+FGb7j6c2Tay1fGEFFPvwB43v0hCkIaogZ4z17egSS0es0lpGsAmsTw68mCTaVg2E3XdPspQgnC5B9VlMAugi9CZ+lETBJlIWKPd6LTw5tewU4QB9yRShrPtseHh6YPoYPbDCMvnkhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788175851; x=1788780651; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B62KGiNz54kxYfvsaX6Te6uL5bqj9S2a+691iHGSfMM=;
-        b=c3Xz9TDGjFbTfDtndG628BHmyyqpbRKAeHCPFRcv7ruc4yK6Mw4hgPHSeMvOTlH0Lj
-         bYy4VJe0L+vh150OoN4RPEVPnwRAfUaFfXxi/OZnQcJMRhP63vnfgu3w2g4te6KPpw+4
-         fSqX/1xogxyPED5tYxy04XQJI7vokWWB2xy3FSVruvY0aYsQ4vkNdfUDuVOtrSLWhRlV
-         epMe0vJpujWG7qJrTsf3v6n+5jnA8CsEJ9w0B480jFnlDfw3qaJLyATr3YipepSRjSgl
-         dxkOW5a++a4l8x5DsdpUAWH1LXcjt+p6yxQp48Y7C6NyWs2XwKGZ5pUPM0xxJyaPLMJW
-         d7lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788175851; x=1788780651;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B62KGiNz54kxYfvsaX6Te6uL5bqj9S2a+691iHGSfMM=;
-        b=CpolHSCRqliIALVNYJf0k49s3RAcmG94J6NzI0U8vNHmnxvGwQiWIjDjaS/srH9Q+m
-         UQxZKdHQucs+Tq4ireExUAI1LSPfp99gqQ8ANBNk1KaBvlYHW1GBV1WBHWphbki13/lU
-         7Ysu/m0ce2QsY0zsQLvkEx/cEA2w2F3QAkjaHiy5Z2e/1zwqGnip+IfD88oiNy4G8qDZ
-         v+myu4Xmvu7kTfyCbcOPp4VbtohLkbEQvlvxhatPuj49lPgohOzt0sFuZwkmwaDLqLav
-         M9oAec5TEv9K857ojizS+HxUqyVGML5AljF9RlFVMZOSufDfmWwhgORvOKqYISngITrT
-         P4ew==
-X-Forwarded-Encrypted: i=1; AKwUvBzbi5m8M4ZnnwXa4t5aoH9H6lYAsi0/v4pOQabJI6s3Hw7rWj+R4DW03V/FAZWpz8XjWceYqGR//LNEuNY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBUYNXQQtDAJrr8ZJDdRcKQUpgLnu/Mx2VDEIpvWQedebZQXgI
-	bZmOsrNFHNWv2wo5NdW8aaUubq+XFX+iem68t5LYmcZ5G8rg2zeTS1nQrbg9VfLKoAtHhgjzlA+
-	RCjPeL/hWuoEzVONlYcO/BtkUX9Ym53KAJWCa
-X-Gm-Gg: AYBFou2nKPgva1PtsNuqAJlWBNlbmuxy224MiBXdYD9x8Jwh/drpHedgBy1Dw7CVs7O
-	sCuRv88pmtwVg9XKfQMaH9Qv13olUjhb2j5ntUcanPzYLEyeSFvm3IeqyekfY1s3dbCWrf04P+H
-	0XJsfCrfsbUH2H8O2dPzH2ZjlSNCitX/h23E7bPd7hHvxuk7f2WS6n6pnUvgIv7oGG5b+gv0NEu
-	pdPz0Ac2KTWaEzIB1eS5h9uADCDT50T0zUMRJU12TjQi47eCEUVvLiALGszWqWhIFQk0+YMnOMV
-	P+jKvfozmLUkEc6n+l6rbXOS26XA5IyEwORwA4krRZiGsitBmEp7
-X-Received: by 2002:a05:690e:12c4:b0:66e:6486:e809 with SMTP id
- 956f58d0204a3-66f87597547mr2148d50.30.1788175851291; Mon, 31 Aug 2026
- 04:30:51 -0700 (PDT)
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0IAvIequYYb/jK4eQogfXqQZ4tC57b1elP3vmUndbM4=;
+ b=AsY+Z2wMlXhzZtg7HHxabn16K37BP7EKY/rMRwpfkaTX4R8jdprdL31EXByMKvVngdPs9hPcHZaQj4RQNpgS6MjeyZAt3JT1JRH2X7UsK60gaylORFquJ6F6J5SlKRDKzEk9HQLMfjJWUq2k7QIhyBZjT+3Wtw9ematJPQKloeE=
+Received: from CH0PR04CA0005.namprd04.prod.outlook.com (2603:10b6:610:76::10)
+ by MW3PR19MB4345.namprd19.prod.outlook.com (2603:10b6:303:49::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 11:29:42 +0000
+Received: from CH2PEPF0000014A.namprd02.prod.outlook.com
+ (2603:10b6:610:76:cafe::8d) by CH0PR04CA0005.outlook.office365.com
+ (2603:10b6:610:76::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
+ 31 Aug 2026 11:29:41 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ CH2PEPF0000014A.mail.protection.outlook.com (10.167.244.107) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
+ via Frontend Transport; Mon, 31 Aug 2026 11:29:41 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 2B591406544;
+	Mon, 31 Aug 2026 11:29:40 +0000 (UTC)
+Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com [198.90.208.11])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 1383E820247;
+	Mon, 31 Aug 2026 11:29:40 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: vkoul@kernel.org
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+        patches@opensource.cirrus.com
+Subject: [PATCH] soundwire: bus_type: Use devres to free slave IDA
+Date: Mon, 31 Aug 2026 12:29:39 +0100
+Message-ID: <20260831112939.126708-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827144151.486192-1-ekffu200098@gmail.com> <178816183737.3691663.7482057515031348878.b4-review@b4>
-In-Reply-To: <178816183737.3691663.7482057515031348878.b4-review@b4>
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-Date: Mon, 31 Aug 2026 20:30:40 +0900
-X-Gm-Features: AcwNN1Uqx3mPqCwuwqOkUz_hqxHT3iPOElbh9dodPcQG9GTSKkZdXkVBQFWRaI8
-Message-ID: <CABFDxMHQjXUhbkUs_5Ki7Q6ZpQkF6Y-fDCS+LfxERFv09UgOrA@mail.gmail.com>
-Subject: Re: [PATCH] mm/mm_init: remove zone_absent_pages_in_node()
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000014A:EE_|MW3PR19MB4345:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 417d0954-c5c8-4acd-ce9c-08df0753262f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|34020700016|61400799027|36860700016|23010399003|82310400026|10067099003|16102099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	FVsytd9jBFy4OZOezb/m8EcLo+JGmzvf21CPGHO9/Mmuhw/NcZq++8/zhREI80F5xcrHPmzEGRcpuRlKrzefMSRYqrQfutkYQ7yVpoTZulXVwk4qY5OKVR5eJKMxgXkCTde10vrJG2eJkDB6t/XBTic72iXDjGxEZs39KB+aCZVY3BRwKJuhGpI8/oQAqYzWnAwGBIgMl3+gxMpK5sOd2Td0GhK09rI+ebXP35W0oXZreTzyeoGozO4Fefrt6wo9hE3EhzSXrqaXaxLDYWLA8XguMlQ//OJy+dVFPFkNfqhShD4n8Z2mxAWnrdChTchY4avpTXuPYZA+g1s1xEyvlI0MsiCfMyG+n25UUr0G8RbG7QNI82QbvN8rTYK98MzT8JPeDLCYgj7pFwZOgy9qYsQyJ4zf7BHbb05kQH4Aa+LCfmYWFSWsQhk5mfGRdmrS3sHCzvXp3EP1SDVOhyFrO9ut21IrMSOdPY17iD++rU0s96C111+XlV1FUkghyOVu+Oe6yGXoSGh3lUzFqewa2zkW1AOuoMq+JLuktnCb02BwqKBB/g8f96BRvFy/WYVpjT/Pe3zwD8RKEboggEmDc1rB3QEJtWWwilKO1eq9E6KRwXUYFNozqZYnF0mLU/VRdv08NdduWqKfPNbaOkCvxhfXJtDhA9GASEbj246SP+4057tgkNCi72X5WB2SNIWbeCfaGJpzvJsOMjkQJv9itQ==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(34020700016)(61400799027)(36860700016)(23010399003)(82310400026)(10067099003)(16102099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	RBc0TpJx04UAFml+BsoP3zBJlOVcQl/TZ/qFBonolbd9WGFTxXjAXmFthIxRUIKlrZ/6ZCbYtV+b/upbwIbuBo3ndkQvy/9MP+Je6ltAP0uvWLS7coKWpixdYiye5HBAyNPWKZ/AKhCmiYdPMPsd7J2N3bOHnEVpNsPVS7FhpgtAPi7P2MRIHRUEIuNNp6J9in5zK7TIBdNoUfj0ZW58x8WAjL6g7QTcw61UzSxPoj918qvuVvtMuj2+qkof9YMltD4n2JCFbhmz10NW4i++coKyau7K6P3MoCwtoSZcDWfyjBt9C7l5lXmt7J/Vqy2hgZ8NIyHvMGbiuzpmUNcKuOzZUFS5VnVNYV3cNRxiC+bT4MThmWhBALkkZ3AuNGcmLzHnTtibLr73idXLZngYTCSkhPNL9kDQuUf4hofxQ6ztwKIa+bbW39+72lcMdUQI
+X-Exchange-RoutingPolicyChecked:
+	d58JI57raTPazFcJLH9lfPvvEiVmc1K/lkKIHTV3XshNIMXFLNixsFFKAGIE1DPexp2QeExRjnj62HDQjtr0Xij1DRicuMR4puSr1PdVEzI2NnbyC+F23DGSr4/7ITEfxFxOiAGolkZjOiDeTi1ZH3AJYzjzKlyRqFe8PSiS8caFmzQHiwupKxVzpzrqfvjskl3QXOWhopT1YMwAhYxdZBeAgfDozGQIFYAHTSTyStl3xitcr2szXznyuC24DpfYkXUYDKVrPYS9lFLSkXRxwcG21rZcVI5inMg3wAUZnAlpFA9Xyr5eODZsF6Fxl3IZsepU8lIcMqc8GPEFsDQLTg==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 11:29:41.1865
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 417d0954-c5c8-4acd-ce9c-08df0753262f
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CH2PEPF0000014A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR19MB4345
+X-Proofpoint-GUID: YfCaqIf2BdHshIcfcdI9X7ej1itKjTT-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA5OSBTYWx0ZWRfX8P5Snen4rcJh
+ wwNb7AvNY2qc0u5IQ6Fs+os0/OceMXCZvoyjOFy+2vlNZ+ob/Q31E86jyJ+FdNFzXQ/7SEzCV2c
+ 9YkEU3qtsjao4UrMkqAGnfmuUEdtA7k5N30VvaKn9bH0c2OMJ23UzzovsqLbDvDwYfjLMo2eJaT
+ MeOZuh5PC5dWAI8qeXYpmFdzNkGmAzepHvNwyHvSRgK70peIkcPo/d4sjUNpergiZ2hz7xiIFTq
+ avmWhaJwsYcw0pL4umdaMvXHFtudkmA6YEY7I8Lvh6k8iz6qRSgvKBQsX0cIVw+QLUEVHbCKFYL
+ GVB7WrHzwMlhxZ6/MamWOnnXz1AHfYQgMF1ApYQcwHLmGpNB4sfV3D5uvsIV8B7Nx9SFA2wtreY
+ sVDo1IXvXlHf9Sge2sJRzSU8FWf8T99CP5MdC8rcbFYZzHDosHSd0UvuJtYaZbbvfRxlbBN3i6L
+ +1VC7HGBp+1aN1I/9IQ==
+X-Authority-Analysis: v=2.4 cv=LcMMLDfi c=1 sm=1 tr=0 ts=6a9565f2 cx=c_pps
+ a=o5n9MpPAMAXLgzyrJXPTXg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=Sv0fKeRqtYgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
+ a=w1d2syhTAAAA:8 a=RrUWIrlwsjPz-q60CHAA:9
+X-Proofpoint-ORIG-GUID: YfCaqIf2BdHshIcfcdI9X7ej1itKjTT-
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA5OSBTYWx0ZWRfX1qtMe1CwwAzp
+ 5dcow3NvkYDeIpMSo4z0Z1BC3bl8Qi5keHUVmxQgno26JQuTVquzzpr63Z/sIr4zLK0WGvxApHl
+ abK5IqkbB3mGiYULc0WTeeYF9bSGtKQ=
+X-Proofpoint-Spam-Reason: safe
 
-Hi,
+Create a devres cleanup action to call ida_free(). This ensures that it
+is freed after anything that is cleaned up by devres and might have been
+using the allocated ID. It also avoids mixing devres and manual cleanup
+during sdw_bus_probe().
 
-On Mon, Aug 31, 2026 at 4:37=E2=80=AFPM Mike Rapoport <rppt@kernel.org> wro=
-te:
->
-> > zone_absent_pages_in_node() returns 0 when the zone is empty and
-> > otherwise calls __absent_pages_in_range(), which already returns 0 for
-> > an empty range.
->
-> Right, but it loops over memblock memory for an empty zone to get that 0
+Fixes: aab12022b076f ("soundwire: bus: Add internal slave ID and use for IRQs")
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ drivers/soundwire/bus_type.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-Indeed. How about adding an early return in __absent_pages_in_range()
-to avoid unnecessary iteration? I just want to remove the wrapper,
-which never uses its zone_type argument since eb0e5b61369f
-("mm/mm_init: don't overlap NORMAL and MOVABLE zones with
-kernelcore=3Dmirror")
-
-        unsigned long nr_absent =3D range_end_pfn - range_start_pfn;
-        unsigned long start_pfn, end_pfn;
-        int i;
-
-+       if (!nr_absent)
-+               return 0;
+diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
+index d61a97c5b41ef..fea15107cd9b9 100644
+--- a/drivers/soundwire/bus_type.c
++++ b/drivers/soundwire/bus_type.c
+@@ -71,6 +71,13 @@ int sdw_slave_uevent(const struct device *dev, struct kobj_uevent_env *env)
+ 	return 0;
+ }
+ 
++static void sdw_slave_ida_free(void *data)
++{
++	struct sdw_slave *slave = data;
 +
-        for_each_mem_pfn_range(i, nid, &start_pfn, &end_pfn, NULL) {
-                start_pfn =3D clamp(start_pfn, range_start_pfn, range_end_p=
-fn);
-                end_pfn =3D clamp(end_pfn, range_start_pfn, range_end_pfn);
++	ida_free(&slave->bus->slave_ida, slave->index);
++}
++
+ static int sdw_bus_probe(struct device *dev)
+ {
+ 	struct sdw_slave *slave = dev_to_sdw_dev(dev);
+@@ -104,15 +111,16 @@ static int sdw_bus_probe(struct device *dev)
+ 		return ret;
+ 	}
+ 	slave->index = ret;
++	ret = devm_add_action_or_reset(dev, sdw_slave_ida_free, slave);
++	if (ret)
++		return ret;
+ 
+ 	/* Create IRQ mapping now so the driver can get it in probe() */
+ 	sdw_irq_create_mapping(slave);
+ 
+ 	ret = drv->probe(slave, id);
+-	if (ret) {
+-		ida_free(&slave->bus->slave_ida, slave->index);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	mutex_lock(&slave->sdw_dev_lock);
+ 
+@@ -170,8 +178,6 @@ static void sdw_bus_remove(struct device *dev)
+ 
+ 	if (drv->remove)
+ 		drv->remove(slave);
+-
+-	ida_free(&slave->bus->slave_ida, slave->index);
+ }
+ 
+ static void sdw_bus_shutdown(struct device *dev)
+-- 
+2.47.3
 
-> --
-> Sincerely yours,
-> Mike.
->
