@@ -1,124 +1,65 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B1F49F124;
-	Mon, 31 Aug 2026 14:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765D244AB81
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:26:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186388; cv=none; b=e5SJnM1bBCMLnfJjG4kFqhKLiITxltvXDm+42GlFDCY104SORbBM6/YGTiwoY2jBiS3nmMM97ivs2/vMVQhZpCwJ0NF13h8grG0G+JX+VxbjpX8Mtr1ypaBot6w0Iz9xXJD5SX610NBq9gOMU6uFSmZgKxku1Pi7SOU50QBz2bU=
+	t=1788186394; cv=none; b=O+MrYZAKj69En3mFcNljIk6EGlwKuw49LDqUwKgGbouNPNADYDHKZbqwVqSw9IPNAKV5xK2DjIhWQjPOlCqduVfKfLgHxNY5QrChXdY8l6rE0H3YbLjVcixre2ODQn7T6CrXbbwjhL5xdjZbqzWDtnBCs4yGoLwsZPCli2Dx2NA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186388; c=relaxed/simple;
-	bh=cAxH+FQImjIHhDQ4CddMNt7r1x1NdRpj8H2hlk8EDEY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IQvPHl6568fiqKwiiHJWEPruht9emy2bIJt2lsIbbqflI38xeZWXnljxjarOJBqOEAONrJKGKb7Dag0S+ur9FetapaccR9kK8fsWYAj/IYAlQgyvrD94Z/jNuwrjM18GSDQ/kb9/h2WL1dqc7bnf6EJgsjz1aV8hMmrGwQONP4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bxBtxJIO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788186394; c=relaxed/simple;
+	bh=Hpb9AsJSUbHVhUxawK+xAxFZ8wkD/lYe5Qr7QRFkK9U=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LHjhXz6E7SkrGH4gUbThrf6mxwNTnl0H6iUitmhB1GwkWau6zaeR64KYE3Xz/P2KbkSufGxHWYzSR/NVGUuVbtEHDs6MZTnK5UNmpSOXYkUTnNZZBq0itolb68HkU7atkr/CrDmPbYrdzvUIuXhPrs1FYMrtmW33iIej7m0dM8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=J+xcncOa; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bxBtxJIO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 875591F00A3E;
-	Mon, 31 Aug 2026 14:26:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788186384;
-	bh=+x+8VzAIyEFRtjjppXXd0Fa0HpYfRCyX/dog/XxHT84=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bxBtxJIO003RZUnygIKZ3OXt7NF5DiVsifsOtcqU97JTvnoq/g5TI693DWnBLJa7A
-	 E0FKTpCHFsU5xOUHCOjccOYZgan1zMZo4q1B+Se9DZhFiBRcQ/SMjqz0IdGU9jeItq
-	 82aUnOVfFkFjag3u1oF4GHzTc1zb7PfkuD3MI5BKOnzy+DpKgTQ9oODbMgmxU+jf32
-	 x7Y8wQ9eqA/STpjnWIalK/UIW1h8lFksVA93fYyKTMWjyJ3kXDfn2KiGsau2Avlq4S
-	 n+QwiTDN68KSS1lTtYy5NOZls55eMVxiVhbpr12wprl2tIgEl1CleCn02PF9q7lypo
-	 +pafQn6JFqaIA==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Li Youhong <liyouhong@kylinos.cn>,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 3/7] mm/damon/ops-common: factor out damon_putback_folio_list()
-Date: Mon, 31 Aug 2026 07:26:05 -0700
-Message-ID: <20260831142611.77572-4-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260831142611.77572-1-sj@kernel.org>
-References: <20260831142611.77572-1-sj@kernel.org>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="J+xcncOa"
+Received: from omf06.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id 378601C06B6;
+	Mon, 31 Aug 2026 14:26:30 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf06.hostedemail.com (Postfix) with ESMTPA id 23CCC20010;
+	Mon, 31 Aug 2026 14:26:28 +0000 (UTC)
+Date: Mon, 31 Aug 2026 10:27:24 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>, Rasmus
+ Villemoes <linux@rasmusvillemoes.dk>, Luc Van Oostenryck
+ <luc.vanoostenryck@gmail.com>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Chris Li <sparse@chrisli.org>
+Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with
+ sparse
+Message-ID: <20260831102724.1df839e0@gandalf.local.home>
+In-Reply-To: <ce48c6ba-bdc6-4adf-8f38-faa6fe9e6707@acm.org>
+References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
+	<ce48c6ba-bdc6-4adf-8f38-faa6fe9e6707@acm.org>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: fd43gd33y9r6zrs1sbn6f8r37zcoefch
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: 23CCC20010
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18ftBXxj1lmA/uTb101yPuO5LQaPuaaypo=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=Hpb9AsJSUbHVhUxawK+xAxFZ8wkD/lYe5Qr7QRFkK9U=; b=J+xcncOaLHLfw0cJvRRKaZjlC+OI7Jpu+teimR2M+i5j+F6lJHrJJcjpYywf64o6/a2m3EHbAwp56PWl/6yDfbpyz3tKLuij0JX8RCRH9S90vx1KGMA3uxBhUUOgUFf0azs7e1M9GG4P9tJ2Rk+2zHZp7hQ1ijVK2rLZPEnGLN4=
+X-HE-Tag: 1788186388-892540
+X-HE-Meta: U2FsdGVkX19LGdl6OzsYT/6taP/9pkzHdSZ0z59JVxwGBxQA3D/lFGRnoNPgD563l/2iyV3+w6oh267wLPA0/72/1h9izzbZ9vYWYIIPpvwdNNhczJjeifjtIWY/ALSTP+buhqxvZhd4eF8aFfZXYWhS1uoUDwQuB18s6oVHYrftCcsJXATBieulDtfd3gToV53/lJMT86lCvAiTPURoH4T/fD/3MEWNMFtyOHIHmTgGxgYZ9ItNExdnr1eqpK7nHPSRus9uODunWJmGRMBXkRsOASIJljpD+fFxuVqjHyQCwJmsVRgAhtYv/9QpC6BMlbOKboSogEGViISAtF9MwFDmrv+E+/26jr3nt88u6HtelDO6Un7FqQ==
 
-From: Li Youhong <liyouhong@kylinos.cn>
+On Sun, 30 Aug 2026 17:20:37 -0700
+Bart Van Assche <bvanassche@acm.org> wrote:
 
-The putback loop is duplicated in damon_migrate_folio_list() and on the
-invalid-nid path of damon_migrate_pages().  Factor it into a small helper
-for readability.  No functional change.
+> This patch still applies on Linux kernel v7.3-r1c. Do you agree that
+> this patch is ready to be queued for the next merge window?
 
-Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Changes from v1
-- v1: https://lore.kernel.org/20260818020650.2844354-1-dayou5941@163.com
-- Collect R-b: from SJ.
-- Rebase to latest mm-new.
+Could you please Cc: linux-trace-kernel@vger.kernel.org
 
- mm/damon/ops-common.c | 30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+If it's not in patchwork, I don't see it ;-)
 
-diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
-index fbda70d8ea4d0..7a2e40bc7baed 100644
---- a/mm/damon/ops-common.c
-+++ b/mm/damon/ops-common.c
-@@ -330,6 +330,19 @@ static unsigned int __damon_migrate_folio_list(
- 	return nr_succeeded;
- }
- 
-+static void damon_putback_folio_list(struct list_head *folio_list)
-+{
-+	struct folio *folio;
-+
-+	while (!list_empty(folio_list)) {
-+		folio = lru_to_folio(folio_list);
-+		list_del(&folio->lru);
-+		node_stat_sub_folio(folio, NR_ISOLATED_ANON +
-+				folio_is_file_lru(folio));
-+		folio_putback_lru(folio);
-+	}
-+}
-+
- static unsigned int damon_migrate_folio_list(struct list_head *folio_list,
- 						struct pglist_data *pgdat,
- 						int target_nid)
-@@ -371,13 +384,7 @@ static unsigned int damon_migrate_folio_list(struct list_head *folio_list,
- 
- 	list_splice(&ret_folios, folio_list);
- 
--	while (!list_empty(folio_list)) {
--		folio = lru_to_folio(folio_list);
--		list_del(&folio->lru);
--		node_stat_sub_folio(folio, NR_ISOLATED_ANON +
--				folio_is_file_lru(folio));
--		folio_putback_lru(folio);
--	}
-+	damon_putback_folio_list(folio_list);
- 
- 	return nr_migrated;
- }
-@@ -394,14 +401,7 @@ unsigned long damon_migrate_pages(struct list_head *folio_list, int target_nid)
- 
- 	if (target_nid < 0 || target_nid >= MAX_NUMNODES ||
- 			!node_state(target_nid, N_MEMORY)) {
--		while (!list_empty(folio_list)) {
--			struct folio *folio = lru_to_folio(folio_list);
--
--			list_del(&folio->lru);
--			node_stat_sub_folio(folio, NR_ISOLATED_ANON +
--					folio_is_file_lru(folio));
--			folio_putback_lru(folio);
--		}
-+		damon_putback_folio_list(folio_list);
- 		return nr_migrated;
- 	}
- 
--- 
-2.47.3
+-- Steve
