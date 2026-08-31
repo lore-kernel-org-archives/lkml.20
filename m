@@ -1,165 +1,122 @@
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB513D648F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471463D3339
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 09:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788166964; cv=pass; b=XWQuUoa9cH99hv9yyVnypOEDJYtF3SrocmlUCD6PvvC86Sm1Oe1ZLEpY2fUv2mujA2K1xWVIDI7feJZi4mQYgY3SmMrKNNfqeMaJhb6NGAKDHuCXW3sPBGN+XIW4Z+2UeGSietLGrJ9iuTujEpnzYiZZUlUNVlHmB7p86BC71ug=
+	t=1788166983; cv=pass; b=hjHEvUEctkXWqbK8pPvhN7g6ykSihmdU19hfOvVRy9Z3HN6ck/vlVz6IqnGnfG6Sr62+DKEaX1T8whTkTjtArSqIiki2IWv+EVAcpNfXDxAcD1UqwqONq92DoaEnHKFOkcAIyJNJ7eMD3QJiGIp+EzufCBDN33gzshJnc3cfMAw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788166964; c=relaxed/simple;
-	bh=3ExR3fMMoBIjoHcxh1zhm4q4KVLaLv8xDMILL6sUfL8=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=GhablJrpa2jD9p63VkbuXZNIk3nOV5Ty0257Mf8iCKeq/kDl6CW26YkQ1qgNBs42YTBASGp+o23D76E0fUR1eyj16nGqAJpeGs90IxnIT22fYoAGvhJBQoq/4TI8suzwWA/FtuavQzbyCkc39R8vIF7hHLPTwzpyWUNpMFZR0uU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LdYV/mjV; arc=pass smtp.client-ip=209.85.221.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788166983; c=relaxed/simple;
+	bh=6Gdm/Jwa++tYCYBFL3h6ykFgGzgM/L/iYtKQijxE/DE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Xgg5cKsYRUY8+5jmz/Afistvxw5z2g4T9xJl9/pNdIiTMQPp4j/d6yG/lqWkQ4XE5RvqXk33FszRM0SPN+Hw7S0XG/ZSRK9uVsKFw3e3oickHBTAbtYnQE2N6k3yWDeuPV7xo6HhQ5n5c/q7FGw3DKsaXKtt0T9TJP7lWMQrfKI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=gxS25cX7; arc=pass smtp.client-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LdYV/mjV"
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5bf5370d38fso1219287e0c.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:02:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788166961; cv=none;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="gxS25cX7"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-66e63afda8fso972881d50.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 02:03:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788166981; cv=none;
         d=google.com; s=arc-20260327;
-        b=ajbIwYJDET+ClwE3wdpca1xMl7hWw3SZqPpf3iqjIXr7ozkmojaE8tcnlTwiquTpTH
-         vYmWt7Mr4vfR/B6EpSAAczw82RlUs03Qh2fwdTixYkK1EUjcHHoHKmuvlM6OtSGjhBEA
-         MiTSeR/6jTfgBgLE3JEn5O32T2IFmeJjDq8HsZHb+drHLy4jC2O7KLuMfzrSy484fmDP
-         ICHw6IWHOmwTu7bxQnsohqj8Ysodf7Wl/x4UZUh+g0YaY/eROdWbN1vI+hQzWQ5v0auP
-         c2TsnLO6G1vYeQo66KyEGe0rjAOUhhyMkLlX3IPSl1dGHPDGMZilhK+6AFNgXG2zCXRF
-         JA0w==
+        b=gZIQMivTlEBFOipBxGG9n6FmB6TOo8fEU2IQ6d0JJA2DnfaYlI7Y90FMdX7HioUnEt
+         MOW3LlRJ2zhWRB1aQlBM7ZUoDpC5J9QL3hl3vTSqVJGkH22I0Vp798MM9CCnC/h2y/vr
+         l/mEDmkcnVmDOt86m3xvy2X3mMXlp/nXGPwSH1m8Ojfq0sY5JxQVMC9jbFFb+NtZ0kHR
+         zDuPsJ2HFo701PQt3EMNZHg4AE2eZT9AvEK7kSh7mkDOhn5c7yGecitUxnan2OMiw/Fl
+         3qRGmScNvFgn4SZawkINGk0r8mte4pjv7McmqqYb6pSUNeYIdJglloFAeAtEPDSCbdWY
+         0TfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=3ExR3fMMoBIjoHcxh1zhm4q4KVLaLv8xDMILL6sUfL8=;
-        fh=OI45rNzA597SzKTL9ce+UTBflpcsQM34lUrLpF+8WIM=;
-        b=rfLatiS9HNZztgomMcSVYabW0N+czf+1rto6CA0QIjZFTO+6nn0hs6lGBzUbKOlk8L
-         S0x/8I660UfMpLnRF9w0fr4JXE0CAxhnQFCfdSdfPDheP9FJmeLVCt0dW5NHrQM/v5yF
-         f6lO0JwMLQ9BNvi0HfdE1gJPCoRJreR8HojF8i9GzVVKPmizB8sKhFGzxkxcUE0FDBzy
-         SzMsGt3J/MXAOPTkw631NjE+icZ3zRCdENKuda5kiqyZw1qCM8vpDvdGXq3hH0+uf4jM
-         3ncuD4oiYv29SzJbBTgkzCSSn1vfssrWvta/qtTrJpzSijZjXZsTvLRZ5Ko9GUWeMqZA
-         MApw==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uJC6+3Z9te5tWmjIrgAr6jz8Uxtgp4B6abtI+nY7s+0=;
+        fh=GcIaJ0Wp+1yOdaFL4ru2wdNTdTMsKqO8+kdKaYsTHgE=;
+        b=Ig9MdeQ7+ptvb8WrOco137cwFst4pHip0Bxcr59df90hwUpJN5e6m1jOvRR4gdwb04
+         jcvGtdHpRiIP2tYnbpK87zVJDfmAekjvqHGyzOJo+3qasXeBKP9dOxu5R+rwjDhsWM0r
+         qVVxgrFPuISc37sQ5CS8NwKZSLNqcSoAcgnXOgJiTQ5cGcZBec2VIW9LafSkO7HIgm15
+         uO4x58kvDypHXAgKVRAigMHI9WNU3uDswz6ly/PA9xyiWNRB9zaty5Zn691xI7Qoer6u
+         yUU6HXmUf68iHoFsrnOY4bX//1KmlR6bnoTlL1DSqQmKwwC4Z7rYZZd0Y8JSJD1LoAq8
+         K/mA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788166961; x=1788771761; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3ExR3fMMoBIjoHcxh1zhm4q4KVLaLv8xDMILL6sUfL8=;
-        b=LdYV/mjVLjXZ8vdGM+ItZsPuWqgtLfGp9u1DactcSvsfa+rZsmh2DgriMrhpk+1lln
-         VnotjlfsUtWdU7kqWhfMZSQVkSeP7WYJ9GdZhz/kgHlQ++DGbRHXrJobmKfdMEn9k8gx
-         y1d6HsCTM6ziSZ2hdEwYHGY34QZjYVfaGvDLS/4K5kzaXVC7VQ1DLc1t4Wv6grpxIRV6
-         N6qT1BJBp+yhG1HIfOfL/t15bM3PmjSJnhBxeBQwN7/bZYtdsKve2WieWnySkRg3mO6q
-         cPQ09JzOI4G5vn9jE14I5N4VI/6gQiw7dkmhojXojbv/WDzmKq3iClQM6CqDvl/ZAY01
-         xR4w==
+        d=chromium.org; s=google; t=1788166981; x=1788771781; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uJC6+3Z9te5tWmjIrgAr6jz8Uxtgp4B6abtI+nY7s+0=;
+        b=gxS25cX7MAPuDkGYYMpRu/B0tb/U0Ofrw4GkY2KSp6/H5JP+q4J+jB55lgrTVepUf4
+         /8A1RxtOvXnosSZHZiuH6cmmTbqvJf5Ohd5hYc0kMRscToOmolILKEWSELXv7u3e7NCL
+         h3ogp9DXbBBPYOmhxmcFjxIPP/6tUW+Q/Izx0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788166961; x=1788771761;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3ExR3fMMoBIjoHcxh1zhm4q4KVLaLv8xDMILL6sUfL8=;
-        b=e65yM51G3DZRVgIbVqwufWBgs/7MnlZVj/tGHKJgXyt0WdArMiqmEv+pDtv7rJtFCF
-         pxBFlm9ShUvTOECw7QZVyU89HGc7snOVNQRDZsDR2R1jryn2xutj+Gj29jMXmP5JpmSi
-         eb4WPYLKGWkXv1MvQKxKFFo4Ugsd76nziWje4fH8LVAV5+3mMOTdvUDZCI9rrjdQPsTk
-         aE+1K7uQQh55e0EvGjYnrtoR3Gqn4zogV2skE/YY50hEO34zQZs3gngZAoXpuFGGOk+9
-         WxhXojxwxlhPN5NNFh36u/mxqHxy0W+X53acgcTXOWKBoFKI9b4KtyGqLzb2PwEaZk6Y
-         MSaA==
-X-Gm-Message-State: AFuF++lzzwC7+FKQwRpEV1B0PP9/HujlYgzKUhdD6DuMQ7wZN1hQRvj9
-	mwnC0BUdPp8bOMCX6Mm4RnvhVgVDHIawP7P8cudWbP5vBL0HqLq9gvTpfOQdqkv+/w8YtUgfcRS
-	XOu1910zgMUTR4l0NkmQLQSHufv5Epd+Z7p7OORbqYA==
-X-Gm-Gg: AR+sD13nYmOTm540uM/ZMUEygJfmM4oJ/fBGmG6n+i0jdBsU9+QPyJdn1qWxa5NHYjZ
-	V6qeAYwIlHLb/t0ImjFHp5qRT8annzjPIrbEvA1MkHCbEZ3LToLSCt7DRKvitoy7iRTTP9AJCwJ
-	b2fl1bNTvJKa05WvDyIjRo6f6tswoTMpDgkT0ouG+1HEEIRlm7O1pri7VjYEyZZPZccdfe7PCic
-	PucPC2J4s5PndaG0c6KCPcs+TRw4bFwzqLJT4+oEdqxW7m4bNlQeA7UH0ORVUAJOOv8SLD8Bftf
-	4iLg75Fva4mg35MHJwdAiVR9KwhXyKHQSGghwlkEh9jabDJwZzHCaPz3vx2t5pQ6kGTOVGXJ2jo
-	y
-X-Received: by 2002:a05:6102:6b02:b0:786:7a59:a313 with SMTP id
- ada2fe7eead31-7867a59b4admr5270861137.13.1788166960753; Mon, 31 Aug 2026
- 02:02:40 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788166981; x=1788771781;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uJC6+3Z9te5tWmjIrgAr6jz8Uxtgp4B6abtI+nY7s+0=;
+        b=DUlK7QjrwZ0PJDI8gCvyhkIPNPdtl8/QqGRcTgeIxnywXhRP32lzYJvUY8KMX9VGea
+         1CdVY8aKB+8C+bV/KQyT7FNayWaN0W/vjaKD5gOTqDVLBj4dGVo4lJ6+fvlUEzykvgG9
+         AlWZT+s/YcmfjmYeVrkjeb7PM+8Q2t58c3OBLCBAmEAz+QHves+8tWl8EetZLbPSZ/c7
+         Lt3AqRECCPxIQ29hEOBJHIdulFgt7DbUT/evUhhUi71CxoJRf0U2q6tJJds7qaI5Zg8J
+         22pIIjWe6qHGaGvz2oxxzWMdl5AnmiqRHIiaC6q1qd5qahadDwxW6UFwwr6gLC8pAGJ1
+         x5Ew==
+X-Forwarded-Encrypted: i=1; AKwUvByOJl2VucOLKKwp1H9h3Wt4T06gaxzWgKz5MIIyi/iEa/G3FSSTpm5nno0nI5SJTN4gD+LuDfLYou3tX9c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqZA/LbnQR1iNWtbTg/KqbUSY6YXaMrJPnrgK6g1fpmqCrZzH5
+	sCSLIcq0jBXbiBSHUBtpyDCOE7C3dfMNiNWxEixjfyNt1KwG9lg6boHRZpI0eXPJxME9AeJwelZ
+	I7xXCfgmjlGCPvKsghEnTghVvtPk21eEFU37G0AAc
+X-Gm-Gg: AYBFou07N9N1TGBLh527GON4g7yx8B6F66P3QkhURFrOiJgfFJfEdaNDR4d1E5M2LZL
+	tTUeuseHn8u6ax8FClw/+RqrJrOUHBB3yZZiUuOrri1LyM6R+37R2FlLb3WiEvcUhWi5nuY4q2u
+	A10GSrWIrdWRBcW7AAW1ztlwziHvx44PpOg9bv0P/J69R02bowl+9B5bh5w9FpZtMS6TcaY1jos
+	yPd1X7FXvDsi7pamVqwgdUAKxh40aWZRm+b7EyAhwwNtr4HuzEtGX6n9ZTLDQP10zq3x0OMKVOO
+	Wt1hF+ObPTsKC6qrJPYsBh1Q0y8nxwD9gdDZqMGzFsDwcsB2mGbB1jRzWEgI34i812+OiZhUIQ=
+	=
+X-Received: by 2002:a53:b9c9:0:b0:66d:289f:6498 with SMTP id
+ 956f58d0204a3-66f814d5729mr574191d50.36.1788166981090; Mon, 31 Aug 2026
+ 02:03:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Xianying Wang <wangxianying546@gmail.com>
-Date: Mon, 31 Aug 2026 17:02:28 +0800
-X-Gm-Features: AcwNN1UYUKNXvyzXxNd3uzBU6aOxy9y0vnIIBO47B42osXy7lz1NmALa8IU2wEk
-Message-ID: <CAOU40uBQG6_o+wU7UbWgRzZq4865QmLfJBdK0RP+iqLNy7Q8ew@mail.gmail.com>
-Subject: [BUG] usb: gadget: dummy_hcd: general protection fault in
- dummy_set_selfpowered after unbinding dummy_hcd.0
-To: gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, kees@kernel.org
+References: <20260831-common_clk_mt8173-v1-1-2d7241f70379@chromium.org>
+In-Reply-To: <20260831-common_clk_mt8173-v1-1-2d7241f70379@chromium.org>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Mon, 31 Aug 2026 17:02:49 +0800
+X-Gm-Features: AcwNN1VqX8uTSrN71dAKaA8eOGbgkkf6CrhjupqKO6wVb7uBj_O5pF3ip4I9SqE
+Message-ID: <CAGXv+5HaxFCfe4FkPih4z_kPKc_k9=uighfoxjpD1r+KJ=PZ6A@mail.gmail.com>
+Subject: Re: [PATCH] clk: mediatek: Add missing depend for COMMON_CLK_MT8173
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Brian Masney <bmasney@redhat.com>, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Mon, Aug 31, 2026 at 4:50=E2=80=AFPM Ricardo Ribalda <ribalda@chromium.o=
+rg> wrote:
+>
+> PM_GENERIC_DOMAINS_OF depends on OF, by adding a select to it without
+> adding a depend on OF, the following warning is triggered:
+>
+> WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS_OF
+>   Depends on [n]: PM_GENERIC_DOMAINS [=3Dy] && OF [=3Dn]
+>   Selected by [y]:
+>   - COMMON_CLK_MT8173_MFGTOP [=3Dy] && COMMON_CLK [=3Dy] && (ARCH_MEDIATE=
+K || COMPILE_TEST [=3Dy]) && COMMON_CLK_MT8173 [=3Dy] && PM [=3Dy]
 
-I would like to report that a previously observed
-syzkaller-triggerable crash is still reproducible on Linux 7.2-rc3.
+I guess this happens on COMPILE_TEST=3Dy with !OF architectures.
 
-The reproducer first unbinds `dummy_hcd.0` through sysfs, after which
-the kernel logs show that the dummy HCD/UDC instance is removed and
-the emulated USB bus is deregistered. It then writes `dummy_udc.0` to
-the gadget's `UDC` attribute through configfs, which triggers gadget
-binding.
+> This patch explicitly adds a dependency on OF to solve this issue.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: ebd0b73d2137 ("clk: mediatek: Add mt8173-mfgtop driver")
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 
-During the bind path, `configfs_composite_bind()` calls into
-`composite_dev_prepare()`, which in turn invokes
-`usb_gadget_set_selfpowered()`. This reaches `dummy_set_selfpowered()`
-in `drivers/usb/gadget/udc/dummy_hcd.c`, where the driver obtains the
-backing dummy HCD from `gadget_to_dummy_hcd(_gadget)` and dereferences
-it. At that point, the associated HCD pointer appears to be NULL or no
-longer valid after the earlier unbind/remove sequence, leading to the
-reported KASAN null-ptr-deref / general protection fault.
+Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
 
-Based on the call trace and the reproducer flow, this seems to be a
-lifetime/state validation issue in the dummy UDC path: after
-`dummy_hcd.0` has been removed, binding `dummy_udc.0` is still able to
-proceed far enough to call gadget operations that assume a live
-associated HCD.
-
-This appears to match the previously reported `general protection
-fault in dummy_set_selfpowered` issue, and I am sending this report
-because it is still reproducible on 7.2-rc3.
-
-Thank you for your time and review.
-
-Kernel:
-
-HEAD commit: 1137d8b5df06137fb49513cc923b3b24d94cb809
-git tree: torvalds/linux
-kernel version: 7.2.0-rc3 #1 PREEMPT(full) (QEMU Ubuntu 24.10)
-
-report: https://pastebin.com/raw/ncMhmiK0
-console output :https://pastebin.com/raw/1TSvPDWW
-kernel config : https://pastebin.com/raw/fBXuYyvu
-
-Relevant log:
-KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-CPU: 1 PID: 5928 Comm: syz.0.17 Not tainted syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine,
-BIOS Google 07/24/2026
-RIP: 0010:dummy_set_selfpowered+0xbb/0x150
-drivers/usb/gadget/udc/dummy_hcd.c:905
-
-Call Trace:
- <TASK>
- usb_gadget_set_selfpowered+0x6e/0x230 drivers/usb/gadget/udc/core.c:578
- composite_dev_prepare+0x2fa/0x320 drivers/usb/gadget/composite.c:2464
- configfs_composite_bind+0xa1/0x13f0 drivers/usb/gadget/configfs.c:1699
- gadget_bind_driver+0x2b3/0x770 drivers/usb/gadget/udc/core.c:1651
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x247/0xae0 drivers/base/dd.c:717
- __driver_probe_device+0x1f5/0x390 drivers/base/dd.c:879
- driver_probe_device+0x4f/0x420 drivers/base/dd.c:909
- __driver_attach+0x444/0x6d0 drivers/base/dd.c:1295
- bus_for_each_dev+0x235/0x2b0 drivers/base/bus.c:370
- bus_add_driver+0x340/0x630 drivers/base/bus.c:723
- driver_register+0x23a/0x310 drivers/base/driver.c:246
- usb_gadget_register_driver_owner+0xf9/0x270 drivers/usb/gadget/udc/core.c:1730
- gadget_dev_desc_UDC_store+0x1c7/0x2e0 drivers/usb/gadget/configfs.c:300
- flush_write_buffer fs/configfs/file.c:207 [inline]
- configfs_write_iter+0x312/0x400 fs/configfs/file.c:229
- call_write_iter include/linux/fs.h:2018 [inline]
- new_sync_write fs/read_write.c:491 [inline]
- vfs_write+0x474/0x9a0 fs/read_write.c:584
- ksys_write+0x151/0x260 fs/read_write.c:637
- do_syscall_x64 arch/x86/entry/common.c:46 [inline]
- do_syscall_64+0x55/0xb0 arch/x86/entry/common.c:76
- entry_SYSCALL_64_after_hwframe+0x68/0xd2
+Thanks!
