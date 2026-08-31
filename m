@@ -1,65 +1,185 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765D244AB81
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:26:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29CC14A0127
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:26:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186394; cv=none; b=O+MrYZAKj69En3mFcNljIk6EGlwKuw49LDqUwKgGbouNPNADYDHKZbqwVqSw9IPNAKV5xK2DjIhWQjPOlCqduVfKfLgHxNY5QrChXdY8l6rE0H3YbLjVcixre2ODQn7T6CrXbbwjhL5xdjZbqzWDtnBCs4yGoLwsZPCli2Dx2NA=
+	t=1788186408; cv=none; b=aXgabq+6rJmNe5vRWIfkX9ScXUI9U1/L5v2O/fpgFRwZMEc2rkfCZBTjuX0WopAZM91OjcqhA8WxwSW6QhJAuQ4v1e7Od15krLQO+zkJDh41RgiDwoM6QZUk1QPy84jWPikFDuqnIe0uYAktyufZdB41e/gQDsRPrcBHYFko4sg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186394; c=relaxed/simple;
-	bh=Hpb9AsJSUbHVhUxawK+xAxFZ8wkD/lYe5Qr7QRFkK9U=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LHjhXz6E7SkrGH4gUbThrf6mxwNTnl0H6iUitmhB1GwkWau6zaeR64KYE3Xz/P2KbkSufGxHWYzSR/NVGUuVbtEHDs6MZTnK5UNmpSOXYkUTnNZZBq0itolb68HkU7atkr/CrDmPbYrdzvUIuXhPrs1FYMrtmW33iIej7m0dM8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=J+xcncOa; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788186408; c=relaxed/simple;
+	bh=wsKRpLlsmgcTbJ1BWZgMNeanaZZBwWDLeXmduYOOh3g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fAgJaCFM1v/IzJoYmWufCu53DuDFARd94iV/h3CpSvF+dHr1fdwW/jsCcztHUf/yNULJoXDh9AbAb8pmtH6U3TR+DY70Yo381WArGA19zJEyeysVdFOggc6dvZCWLoLzko4ZNW4jH9Kr+/hmd64iObVwV94FP/cG8JbQ6Cr/JM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BXV4a/66; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="J+xcncOa"
-Received: from omf06.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id 378601C06B6;
-	Mon, 31 Aug 2026 14:26:30 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf06.hostedemail.com (Postfix) with ESMTPA id 23CCC20010;
-	Mon, 31 Aug 2026 14:26:28 +0000 (UTC)
-Date: Mon, 31 Aug 2026 10:27:24 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>, Rasmus
- Villemoes <linux@rasmusvillemoes.dk>, Luc Van Oostenryck
- <luc.vanoostenryck@gmail.com>, Linus Torvalds
- <torvalds@linux-foundation.org>, Chris Li <sparse@chrisli.org>
-Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with
- sparse
-Message-ID: <20260831102724.1df839e0@gandalf.local.home>
-In-Reply-To: <ce48c6ba-bdc6-4adf-8f38-faa6fe9e6707@acm.org>
-References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
-	<ce48c6ba-bdc6-4adf-8f38-faa6fe9e6707@acm.org>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BXV4a/66"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so3640337a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:26:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788186405; x=1788791205; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WluRCjkia+1tPs9bNfIuaxHPsKCaiBiYVNlOY7m4ry8=;
+        b=BXV4a/662qnUodISD1RawZ9cxj2ePdlBGePPXXYmwFUwHsEExvcC2fg82/JXOg73Ox
+         7YGkDmHGICUS31mbKJWYjpLrqVfUNlLhYlRg+df/JXn2EFm6ceOfOaaY476EF981/ww2
+         oLs9M4F4IIfw0EB/nCtPon8pR8tluQ+syG1P8MkBGCQYiOByM6mSqhwsBlJzjUBohbiv
+         2LRnCbLaDBWVEKdJeOhT+wl+Xf/A1YAsHrK5a2ribSUsfWm90IP8NuQ0M9dSFQpxEh+T
+         8GeT+uCWuNX+ZCJ0yxs2syCAqDOjYGEMTSMRyV7b+v63792p19j2P5z0SZBMb6hgpLtE
+         bZ6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788186405; x=1788791205;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WluRCjkia+1tPs9bNfIuaxHPsKCaiBiYVNlOY7m4ry8=;
+        b=g6ityQX3ReaH3ktiqAUaVtE03gYXUMhN9b3Ej7NVoQYKcVHu5RZ+PE41x9XO6IE1L6
+         3PIuZA5BjplU5wT1xKNCew82Wu7Ncn47pp7miKuwgqo/HSzBxoZVhAhkxCAMw6UnJ9oB
+         Xh8j/lknVp48WmmFDyYW5HpyLX7EHVpIHkQuOACJLPf5pCSMAyYcBHKF5B0k9zDfRzl0
+         DkFTxK71Qrsn9aPLwUolbv8vtHW0Bo+8wrNWIE7Noqq/KjNA4PWvFXSYi5+fOh8Z1V/t
+         ffq76ju72aFLq6Sh0t9r7vA4YaXazuHrBhp/U4TQQ9g4rxLQtPnBaoHowwtAiEQZJsE1
+         adDg==
+X-Forwarded-Encrypted: i=1; AHgh+RonuJQJkVERuYw2+KFz44/e63ckZ4ISVzClNhAWENqJbPPJlqzOiV60kTBTir3JKP50qC421eESJASX5dM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZdZVS9Y1yM4wh0Abg7lU30VYwrB/Tv2RmlDE7uDAv40G+nEEW
+	QCqNaPLCe/VNxKI1uOrJXEJ05LyD7ETzJdm9IqW/ZMNuk5u9Sf8WffL63PunvA==
+X-Gm-Gg: AYBFou3MW5R7W9l3/1tVOYt8ygAIX8rl4YWk2+3Sl+i2IjSvMsuZU+t2bAYgCY3AymK
+	9obgrTDyQiH2QFD1fNhMTBUuaueM/T2c1RJeCdivKuGu3lx7C/VlXZOBNu2w+UVZ446kMD8Faqt
+	VaihcaDp+0XWKzM8kgz91Xg6qk7to0K9+LxRJGUyGR/Po/5wA1ZR4SBSysPnzM64KnFAVtRQvPt
+	tley41psRqQieq5BO4Seh3GCtkIB06vIg1W1745rRHVBeNeFkPGxt8AmteWp0DAQx8kHOGEINCs
+	rJuokBYqhu3O/2i33BU3uKv4quT08aaqg7v3Kt0mMB/9F9d5Q+KAuLXdQ7/abgUdoDDCdh0u9Je
+	/dOTxL9Ew+erS9Mj8/I+txTBprYyGZdKFSLXt9kLyQUCbdnd9ShkSWlr/LIj+tBK1BmlneDcuBq
+	NfSotIg1OnIY50Ftc5EEss64B0akWhiFzKf5rfvpShvIC1tIlFULrtMQTLRw5C2QhO+1FfD0JsU
+	nxqNwpNQycT
+X-Received: by 2002:a17:903:2b04:b0:2c9:d277:2cdb with SMTP id d9443c01a7336-2d91b002e3fmr73563805ad.9.1788186405287;
+        Mon, 31 Aug 2026 07:26:45 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d8750057e5sm33541385ad.66.2026.08.31.07.26.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 07:26:44 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 31 Aug 2026 07:26:43 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Linmao Li <lilinmao@kylinos.cn>
+Cc: Marius Zachmann <mail@mariuszachmann.de>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2] hwmon: (corsair-cpro) Create debugfs entries after
+ hwmon registration
+Message-ID: <a3bfd099-c81e-4a0c-9796-6afd1502a8f0@roeck-us.net>
+References: <20260831014509.3352442-1-lilinmao@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: fd43gd33y9r6zrs1sbn6f8r37zcoefch
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: 23CCC20010
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18ftBXxj1lmA/uTb101yPuO5LQaPuaaypo=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=Hpb9AsJSUbHVhUxawK+xAxFZ8wkD/lYe5Qr7QRFkK9U=; b=J+xcncOaLHLfw0cJvRRKaZjlC+OI7Jpu+teimR2M+i5j+F6lJHrJJcjpYywf64o6/a2m3EHbAwp56PWl/6yDfbpyz3tKLuij0JX8RCRH9S90vx1KGMA3uxBhUUOgUFf0azs7e1M9GG4P9tJ2Rk+2zHZp7hQ1ijVK2rLZPEnGLN4=
-X-HE-Tag: 1788186388-892540
-X-HE-Meta: U2FsdGVkX19LGdl6OzsYT/6taP/9pkzHdSZ0z59JVxwGBxQA3D/lFGRnoNPgD563l/2iyV3+w6oh267wLPA0/72/1h9izzbZ9vYWYIIPpvwdNNhczJjeifjtIWY/ALSTP+buhqxvZhd4eF8aFfZXYWhS1uoUDwQuB18s6oVHYrftCcsJXATBieulDtfd3gToV53/lJMT86lCvAiTPURoH4T/fD/3MEWNMFtyOHIHmTgGxgYZ9ItNExdnr1eqpK7nHPSRus9uODunWJmGRMBXkRsOASIJljpD+fFxuVqjHyQCwJmsVRgAhtYv/9QpC6BMlbOKboSogEGViISAtF9MwFDmrv+E+/26jr3nt88u6HtelDO6Un7FqQ==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831014509.3352442-1-lilinmao@kylinos.cn>
 
-On Sun, 30 Aug 2026 17:20:37 -0700
-Bart Van Assche <bvanassche@acm.org> wrote:
+On Mon, Aug 31, 2026 at 09:45:09AM +0800, Linmao Li wrote:
+> ccp_debugfs_init() registers debugfs files whose private data is the devm
+> allocated ccp.  It runs before hwmon_device_register_with_info(), so when
+> that registration fails, ccp_probe() returns with the files still in
+> place.  The HID core then frees ccp, and ccp_remove() is not called for a
+> failed probe, so nothing removes them later either.  Reading one of the
+> files dereferences the freed pointer.
+> 
+> Create the debugfs entries only after the hwmon device has been
+> registered, so no failing path can leave them behind.
+> 
+> The two version queries stay where they are.  They send USB commands
+> without holding ccp->mutex, which is only safe as long as nothing else
+> can call send_usb_cmd(); once the hwmon device is registered its
+> callbacks can do so concurrently.  Only the debugfs creation moves, and
+> it is told which queries succeeded.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/linux-hwmon/20260708031612.BD7E61F000E9@smtp.kernel.org/
+> Suggested-by: Guenter Roeck <linux@roeck-us.net>
+> Fixes: 5997eb60f896 ("hwmon: (corsair-cpro) Add firmware and bootloader information")
+> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
 
-> This patch still applies on Linux kernel v7.3-r1c. Do you agree that
-> this patch is ready to be queued for the next merge window?
+Applied.
 
-Could you please Cc: linux-trace-kernel@vger.kernel.org
+Thanks,
+Guenter
 
-If it's not in patchwork, I don't see it ;-)
-
--- Steve
+> ---
+> 
+> Notes (v2changelog):
+>     v2: Create the debugfs entries after hwmon registration instead of
+>         removing them on the error path, as suggested by Guenter Roeck.  The
+>         version queries stay before the registration.
+>     Link: https://lore.kernel.org/linux-hwmon/20260828061949.3151191-1-lilinmao@kylinos.cn/
+> 
+>  drivers/hwmon/corsair-cpro.c | 20 +++++++++++++-------
+>  1 file changed, 13 insertions(+), 7 deletions(-)
+> 
+> 
+> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+> 
+> diff --git a/drivers/hwmon/corsair-cpro.c b/drivers/hwmon/corsair-cpro.c
+> index 8354a002f4c5..56de0fe0f544 100644
+> --- a/drivers/hwmon/corsair-cpro.c
+> +++ b/drivers/hwmon/corsair-cpro.c
+> @@ -566,21 +566,18 @@ static int bootloader_show(struct seq_file *seqf, void *unused)
+>  }
+>  DEFINE_SHOW_ATTRIBUTE(bootloader);
+>  
+> -static void ccp_debugfs_init(struct ccp_device *ccp)
+> +static void ccp_debugfs_init(struct ccp_device *ccp, bool fw_valid, bool bl_valid)
+>  {
+>  	char name[32];
+> -	int ret;
+>  
+>  	scnprintf(name, sizeof(name), "corsaircpro-%s", dev_name(&ccp->hdev->dev));
+>  	ccp->debugfs = debugfs_create_dir(name, NULL);
+>  
+> -	ret = get_fw_version(ccp);
+> -	if (!ret)
+> +	if (fw_valid)
+>  		debugfs_create_file("firmware_version", 0444,
+>  				    ccp->debugfs, ccp, &firmware_fops);
+>  
+> -	ret = get_bl_version(ccp);
+> -	if (!ret)
+> +	if (bl_valid)
+>  		debugfs_create_file("bootloader_version", 0444,
+>  				    ccp->debugfs, ccp, &bootloader_fops);
+>  }
+> @@ -588,6 +585,7 @@ static void ccp_debugfs_init(struct ccp_device *ccp)
+>  static int ccp_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  {
+>  	struct ccp_device *ccp;
+> +	bool fw_valid, bl_valid;
+>  	int ret;
+>  
+>  	ccp = devm_kzalloc(&hdev->dev, sizeof(*ccp), GFP_KERNEL);
+> @@ -632,7 +630,13 @@ static int ccp_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  	if (ret)
+>  		goto out_hw_close;
+>  
+> -	ccp_debugfs_init(ccp);
+> +	/*
+> +	 * Query the versions before registering the hwmon device: they send
+> +	 * USB commands without holding ccp->mutex, which is only safe while
+> +	 * nothing else can call send_usb_cmd().
+> +	 */
+> +	fw_valid = !get_fw_version(ccp);
+> +	bl_valid = !get_bl_version(ccp);
+>  
+>  	ccp->hwmon_dev = hwmon_device_register_with_info(&hdev->dev, "corsaircpro",
+>  							 ccp, &ccp_chip_info, NULL);
+> @@ -641,6 +645,8 @@ static int ccp_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  		goto out_hw_close;
+>  	}
+>  
+> +	ccp_debugfs_init(ccp, fw_valid, bl_valid);
+> +
+>  	return 0;
+>  
+>  out_hw_close:
