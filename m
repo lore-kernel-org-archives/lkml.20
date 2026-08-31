@@ -1,80 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43BC426690;
-	Mon, 31 Aug 2026 13:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C0042CB17;
+	Mon, 31 Aug 2026 13:30:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788182978; cv=none; b=csm65no6pnGdS+Tv1JiC9+a1QA4olfkBRWh9/ygUbM6YCwcb27OVzJiiMUqBSDNS2Uo5XBmpupKc9Yo7qDuno9oCsMlI8YLBfraq4GIViKOl8iFCrOm4+rkwPCGgOC7+uwodV66U125FN+lCA4Z1fxN7fMjk8hqQMIBVafQXB90=
+	t=1788183027; cv=none; b=j4zeTfjey9OJ5wBE2fFSjh6efiuzKBjKfhmPl+kQTU5dd/7HputXVs2nutOC6+a65LN8MlX4Zuhe9bYCHcHm3EkAJO7Uzi6UUWW4XS+fW76R2qw7I2KTRvOuyqWJVIYmaedgft+L4T1MTz8PdI/HAxhFHfKbn+gO3+5S9VGXq4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788182978; c=relaxed/simple;
-	bh=73mSS0Tt6A1dF0wd+cp2ahK9NmE2qOPfwz+DR+7Whdg=;
+	s=arc-20240116; t=1788183027; c=relaxed/simple;
+	bh=GpJ36QiFihR7ILzrSn52Ene7SEy6i9/ut6OVUX10yM8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MAvqBPrYonnsLwcbmfhJtxXZuEP0qLwVL1xVB7f0M79UUAVKc5rdyYcOoYCXIWBpDfOuOJjhg8gAMfjQwRwgisIvZcAaaVn+eqAv8KCGmCnLzvSovFVGnNLSyUNWLeprAWriJ3Gl546CeaX9eJHCC9pfDpkv0eIDJbzNzogRqww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Or94cuh/; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=V/jyocuaiORLSMj8RmEx81uz/F5sPTx9LlV2qmxQv7N5rC8yKcJqtfU45rRDTdsw/ODb7uauyAieWjw4i25ZSOdgLG1opRQfJXq/fnvIU60DL4xZUbt7DlP+BMBcnK0nJtjOehktua4TG1U2j1luW9O0vTzqbTzPOwdNZOtTa2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=E9S0sHEA; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NLjBWjyN; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Or94cuh/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EFEE1F000E9;
-	Mon, 31 Aug 2026 13:29:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788182977;
-	bh=bSGncVD5qJeowyD9nhbZoeYdhb4eCRI1Fy+X8N6WL3Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Or94cuh/gVo4Pfz9Y33b8l/4PK/nS1P8FN++kCjxZh3Kbv1W7JjXhW+6wXKAumXku
-	 PTFPfgfakVQSLGzE5pg3pjPHOta7nZ4ZM9QnAVsQkAC/48pzYLkZt9cjbKTnsXpJ5F
-	 VhbvO2V4gZvV5dDIzclI1yK9xPSg/Kby+r7coUfVXsFRaNWhYJ6nNwm02ilc5rpj+m
-	 DkYm6kzwPDzFXm2mfalXnQ3aha4Tv2xoBPoR1dtU2O1eORR1QbkBYlXGbmHPOd8eVt
-	 GBasDih2ioiOEoZIfSeZrDi/6zBmmo//q4Yb2c3Y/0R9AznCM2LpFAmYyaodemfUtj
-	 VTxXdnoUugbaA==
-Date: Mon, 31 Aug 2026 08:29:36 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: simona.toaca@nxp.com, linux-kernel@vger.kernel.org,
-	Bartosz Golaszewski <brgl@kernel.org>, daniel.baluta@gmail.com,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, goledhruva@gmail.com,
-	Nishanth Menon <nm@ti.com>, linux-spi@vger.kernel.org,
-	m-chawdhry@ti.com, devicetree@vger.kernel.org,
-	Santosh Shilimkar <ssantosh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 2/2] dt-bindings: spi: ti,davinci-spi: convert to DT
- schema
-Message-ID: <178818297576.700625.8066248525340534710.robh@kernel.org>
-References: <20260816-ti-davinci-spi-v1-0-a7f57dfd5262@gmail.com>
- <20260816-ti-davinci-spi-v1-2-a7f57dfd5262@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="E9S0sHEA";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NLjBWjyN"
+Date: Mon, 31 Aug 2026 15:30:21 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788183023;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cVGuNF8qD6UqnwkTHihKqYq1cd9lNgxObqJddhRcS7Q=;
+	b=E9S0sHEAR/rqboYxmQDQImgTc1cyi1TjztRchyYrKcfqXf49hbqMmE306U0eHseTaoWgvg
+	kJWVM+aLOF33trW1DAMJA9vHa0IYlTmnT56EiiTeFqaoYP/z91ANoE+Fot6oUu1K9jyIuq
+	c38c2cIz3zFLeYTeC3Tz4TPjkdns/BkplmAbmb/AgXzQGOCV14Blog/rIrU6muwwIetK7a
+	ILhqCHAKulpyZVcLcFqaW8ikrQ+LecMnBzfz7WgoDbwOeZtgzPI5T/0TMo5v6xFnRPf3AC
+	MDeuEQjc/3+961+sVkFxXfrKAlxLZI5Ti5EvDguVQBE4SRX7ed/DR08Hux9PKw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788183023;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cVGuNF8qD6UqnwkTHihKqYq1cd9lNgxObqJddhRcS7Q=;
+	b=NLjBWjyNF+towU9TxmUzcgkxELcIvQyCYlvZ5RP3GywbfarxGEC3okL8hB2vLepE5dn3V/
+	BkhD7r+o7FBFTMBg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Petr Mladek <pmladek@suse.com>
+Cc: linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Kees Cook <kees@kernel.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tycho Andersen <tycho@tycho.pizza>
+Subject: Re: [PATCH v2 1/2] vsprintf: Don't leak pointers for %ps without
+ KALLSYMS enabled
+Message-ID: <20260831133021.PtgflU-O@linutronix.de>
+References: <20260821152614.2202196-1-bigeasy@linutronix.de>
+ <20260821152614.2202196-2-bigeasy@linutronix.de>
+ <ao8MnDuF9nnI9KxG@pathway.suse.cz>
+ <20260827091407.yUpoFiuF@linutronix.de>
+ <apAIhJImGHCCPEH-@pathway.suse.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260816-ti-davinci-spi-v1-2-a7f57dfd5262@gmail.com>
+In-Reply-To: <apAIhJImGHCCPEH-@pathway.suse.cz>
 
-
-On Sun, 16 Aug 2026 03:19:32 +0530, Bhargav Joshi wrote:
-> Convert the TI DaVinci/Keystone SPI controller binding from text format
-> to DT schema.
+On 2026-08-27 11:51:00 [+0200], Petr Mladek wrote:
 > 
-> Changes during the conversion:
-> - Create a separate ti,davinci-spi-peripheral-props.yaml schema to
->   properly define the ti,spi-wdelay peripheral property.
-> - Add missing dmas and dma-names properties.
-> - Add constraints to ti,spi-wdelay based on the 6-bit width
->   of the SPIFMTn.WDELAY hardware register field.
-> - Add constraints to num-cs based on the maximum hardware chip
->   selects available on the DA850 SoC.
+> I think that it is a matter of taste. I could understand that
+> "(unknown)" might look more obvious to some people.
 > 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
->  .../devicetree/bindings/spi/spi-davinci.txt        | 100 -----------------
->  .../bindings/spi/spi-peripheral-props.yaml         |   1 +
->  .../spi/ti,davinci-spi-peripheral-props.yaml       |  25 +++++
->  .../devicetree/bindings/spi/ti,davinci-spi.yaml    | 118 +++++++++++++++++++++
->  4 files changed, 144 insertions(+), 100 deletions(-)
-> 
+> I would still prefer the hashed pointer. It make it consistent with
+> %p handling. Both print addresses in this case.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+For %p expect a pointer, for %pS you expect a name.
 
+> The motivation for the hash in %p is that it is slightly more useful
+> than a static string, e.g. "(address)" or "(pointer)". The hash allows
+> to match the same addresses. It is not 100% reliable but better
+> than nothing.
+
+but is this helpful?
+
+> Also the hash makes it more obvious the connection with "no_hash_pointer"
+> option.
+
+Assuming you know about the no_hash_pointer. And then you get a
+randomized pointer. Enabling kallsym would be a _bigger_ help than
+rebooting with no_hash_pointer.
+
+> IMHO, the only drawback is that people might confuse the hash with
+> a real value. But it is easier on 64-bit systems because the higher
+> 32-bits are zeros.
+
+That, too. Do you continue to insist on this hashed pointer output here?
+
+> Best Regards,
+> Petr
+
+Sebastian
