@@ -1,63 +1,73 @@
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B457F28488F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:30:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373892D838E;
+	Mon, 31 Aug 2026 07:30:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788161438; cv=none; b=GvVkfvpKcJsM5x8KZlzCkHo7xiIKF+AbGJIpVDs5pEHyCZBgbkkLP6yeM6sXml6Tco9ohugAFJIN97H1/lpwGuqmbyeZ5uZ47AYCRddN/OIBz3x4X1xftDJdRjxrR4zTVBlFhJY/rvPtDFZFewTJ90Pwyd5j6I4ZaVsoPbCMlYc=
+	t=1788161444; cv=none; b=Ogr8409qoEEyXhCC3Op5zA0zsA4/lFsgnOkeR5q7UeOjqq9x4N8Axt/3iIdOOXu1TY9wyF8bkDfEEtJTOeviryPnn8gbbYn3NTSifr7WmZmzlSswfllwdCOkqPe+baAixGtR8uxWwJeymzGV0fH1YFyH3C+SpugEFIVXI/hEa8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788161438; c=relaxed/simple;
-	bh=2B1kl82sYmAxF1gcvXNtWp/v9p548DwYxTPqP/ibams=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EZforVG6nn2GFkCmrxwRDTU+0KsZLRIhal5xbTuE2a5SyvHOLZHlemYBtuHEYpp+3MRr4mgB7d27c09TD0wfD7QNd818vQ7SQi8/Imgie1SVMHOFEYdFFlI5RnLRxMnJoZbSJ7Q1wp3DRQtTbhN33VERIYVANhrFkHoXq0IUGlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2d6fbdc8772so13105005ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:30:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788161434; x=1788766234;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cm/3LxFAE23VmmspdwwF2dVngvqHxTwL+4Y3pEVCqwE=;
-        b=eVzIgabvMvTIN8KlaXwOi7T+XTEDsHrtYyu5uPr6MWEDhqf+GYLVW+KkVd/ajtXrZA
-         ZL33e6tJmFpdqS3wND7w8Tg/XWjEWS1fFCPsTPcshfUrsUvob6TOlL5564806DaDRMlf
-         YI2TZzV6C9bF2fOhHRMKzU1ZqPpglpCjRYSNPjIiTgUMDa+gM7+3O4dzob5fUuPNviQd
-         62hlXp2CZEvoPjQRbGvyJNw/jiT+Nv7cyL/gITPB3CbQiauPcvjUP7HenVNciV0bMqkM
-         TrQMsfLVxPbfBtv4/kPfMfNcldLPW9vDqmI/AYT3mWEUuE+zi3AW8KVa4JR10ECW8Ae4
-         Wjpg==
-X-Forwarded-Encrypted: i=1; AKwUvByp8hFIFdEu/HFubrH43UOJtriyvbbqJJiw8JS7BMj/rqooo4JxRIHgkNADZZto3pzrTxn3hQfBx/QcPR4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1JjGVd0onDT0nN0ybsjv6kipQeRUfMcx9m8uqLsUhr9licq0I
-	oUM9EZbEcZ6HCca9vHvXeEHPhQORZD3wm8/eOtWHPObaU1/bLWMISu5R
-X-Gm-Gg: AR+sD13tcObAVr6EYsprjj8+CEupOTe1HcX73uyhV9Pf5j7WKCQW8pJJxY/qLXMZbW2
-	r/PvnaANqTLZatH6gjYlnvuk0wXx66usMzlZd6IoPiCT1Z8joqbCE6D7poG3WO4o/66FvGmfyAo
-	SyQHEdCZ3ol2+kzZY+PKUMMDiaChZJ83cR2WTo88ouLH0l0P7FooRNvAF12QlgvUZTPtwiTyZgE
-	vyR6pLrmNbpNbqqnmXgjKsUgay/Ed7+ec+0EAkRt/m4kCAeGgPERJp25eCOiZXN2K39svh9LVO1
-	AlRGojg5zhqRzXOotfrPoE5OVJzyqVWb1Dzz46OjIm0JUW6UTHJkwSGewOhQJuymYDyygg/jLL9
-	/B4eMuztv8LJxxDlP1hxBFH+D0DpqiLW4fyU4T3FUOJtsj7TjX3EMhIs2300mP6VKqHa2ZfjyPA
-	Nh5Tg1tpHOPAljE+IOTPaQab8P14u3UvO3osa02PYOIj0VJfgmAV57FWltKgdKaA1xJ7XOGql7K
-	ectqK0MhxOmIiYA1MScbg==
-X-Received: by 2002:a17:903:3244:b0:2d8:d4cd:dc90 with SMTP id d9443c01a7336-2d8d4cddf8bmr245815485ad.19.1788161433689;
-        Mon, 31 Aug 2026 00:30:33 -0700 (PDT)
-Received: from kylin-XiaoXinPro-16-AHP9.. ([116.128.244.169])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988d184sm30107865ad.62.2026.08.31.00.30.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 00:30:33 -0700 (PDT)
-From: Xueqin Luo <luoxueqin@kylinos.cn>
-To: rafael@kernel.org,
-	viresh.kumar@linaro.org,
-	thierry.reding@kernel.org,
-	jonathanh@nvidia.com
-Cc: sumitg@nvidia.com,
-	linux-pm@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
+	s=arc-20240116; t=1788161444; c=relaxed/simple;
+	bh=Q+IuMSlpQzt2kZCTJZXgjd64tnopR9oFjZyuOJCKVNg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IFcOalGUtpoZko/bgwYqV/FrWE4hcKjg60Tey6HIqpzKL2WGxssM4pNy6Or2GF2rxHuPm0pPjnqKrjPHJ06LTwvP9VyH7XHEhgum1hRPXlVg2312CV8qlFA7UqN9eAtUMW5hkaeE3p3Z1/Cndt/CeP8lE7nJXYi1WPzE9wZP9bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=j0Jau098; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="j0Jau098"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788161443; x=1819697443;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Q+IuMSlpQzt2kZCTJZXgjd64tnopR9oFjZyuOJCKVNg=;
+  b=j0Jau098bY0IwqmGO22bnJJTMGzyxVBY/fClfJLm9Fd9pSNJ72f0yROA
+   6Bpk6QAAY3vYb1bi86tSiCLtcbXfUlLiaZExyTdbJZ01ysm1s3Ga4zwQE
+   PNHFc571zAb58rD2KfcwJ85my8jYAHJh0oKks4CMzshf6HTeP0Q60t1pO
+   cD2llaVWPFq8pNx8JO6xNmki5xDn73HkktFKv+S0vz3Ugq4TzgTo6JfdO
+   h+0pAwGYbq7T6DB4HMb/ZaykCfPFuMYLElxVZAVxSLitW1u5XUKta/nLn
+   I3ojcI3bJmTUkyMEHUKBaVFGoZPQgMU0/ZZvqP7gYZ4yAvU9qLDa+nziF
+   A==;
+X-CSE-ConnectionGUID: VtN56IAGS0GyB9381yR3Sw==
+X-CSE-MsgGUID: +5bSnh3ARWuwjBqeKqz1eQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="99160569"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="99160569"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:30:42 -0700
+X-CSE-ConnectionGUID: CuvcaCpmS0uo8MoLP33PQQ==
+X-CSE-MsgGUID: sVvopwRsQTW9Nzt0o+Uqog==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="272514915"
+Received: from junjie-desk-dev.bj.intel.com (HELO junjie-desk-dev.tail2c02c1.ts.net) ([10.238.152.71])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:30:39 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	jhs@mojatatu.com,
+	jiri@resnulli.us,
+	vinicius.gomes@intel.com,
+	shuah@kernel.org,
+	bestswngs@gmail.com,
+	uladzislau.zhauniarovich@gmail.com,
+	hdanton@sina.com,
+	syzbot+19d01f6082ec61dd45b2@syzkaller.appspotmail.com,
+	syzbot+8785aaf121cfb2141e0d@syzkaller.appspotmail.com,
+	syzbot+2642f347f7309b4880dc@syzkaller.appspotmail.com,
 	linux-kernel@vger.kernel.org,
-	Xueqin Luo <luoxueqin@kylinos.cn>
-Subject: [PATCH] cpufreq: tegra194: fix double-pointer error in get_cpu_ndiv
-Date: Mon, 31 Aug 2026 15:30:08 +0800
-Message-ID: <20260831073009.3772408-1-luoxueqin@kylinos.cn>
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH net v2 1/3] net/sched: taprio: catch up in bounded time when the schedule falls behind
+Date: Mon, 31 Aug 2026 15:30:25 +0800
+Message-ID: <20260831073025.409831-1-junjie.cao@intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260824185335.2703968-1-kuba@kernel.org>
+References: <20260824185335.2703968-1-kuba@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,30 +76,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ndiv is already a u64 pointer, passing &ndiv to smp_call_function_single()
-results in a u64** being written to instead of the caller's u64 variable,
-so the caller always reads back an uninitialized ndiv.  Drop the spurious
-'&'.
+On Mon, 24 Aug 2026 11:53:35 -0700, Jakub Kicinski <kuba@kernel.org> wrote:
+> No Link: tags present in the commit header.
 
-Fixes: 0839ed1fd7ac ("cpufreq: tegra194: add soc data to support multiple soc")
-Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
----
- drivers/cpufreq/tegra194-cpufreq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v3 will carry the syzbot tags, including a fourth bucket akpm had syzbot
+test this patch alone against:
+https://lore.kernel.org/all/6a936ec2.4d659fcc.734b4.0032.GAE@google.com/
 
-diff --git a/drivers/cpufreq/tegra194-cpufreq.c b/drivers/cpufreq/tegra194-cpufreq.c
-index c6375e14d445..1eb96e9f3310 100644
---- a/drivers/cpufreq/tegra194-cpufreq.c
-+++ b/drivers/cpufreq/tegra194-cpufreq.c
-@@ -367,7 +367,7 @@ static void tegra194_get_cpu_ndiv_sysreg(void *ndiv)
- 
- static int tegra194_get_cpu_ndiv(u32 cpu, u32 cpuid, u32 clusterid, u64 *ndiv)
- {
--	return smp_call_function_single(cpu, tegra194_get_cpu_ndiv_sysreg, &ndiv, true);
-+	return smp_call_function_single(cpu, tegra194_get_cpu_ndiv_sysreg, ndiv, true);
- }
- 
- static void tegra194_set_cpu_ndiv_sysreg(void *data)
--- 
-2.43.0
+> has a second exit condition (--budget), so taprio_catch_up() can return
+[...]
+> jump makes end == now, and the strict ktime_before(end, now) test then skips
 
+Right. v3 treats end == now as behind, in the walk and its caller, and
+the comment mentions the cap.
+
+> case, so a large gate control list turns a previously O(1) critical section
+> into an O(num_entries) walk over separately allocated entries.
+
+One lap at most per hold now, versus no bound at all before. Leaving it
+as is.
+
+> inoperative. Adding N * cycle_time then shifts the timeline by
+> (N * cycle_time) modulo the interval sum, and the gate_close_time[] values
+
+Yes. v3 jumps whole laps instead: min(cycle_time, sum of intervals) on
+the entry timeline, cycle_time on cycle_end_time, i.e. exactly what N
+restarts of the current code do.
+
+> then terminates on budget exhaustion with end < now, and behind stays below
+[...]
+> changelog describes does not converge at all. Is the intent that this patch
+> depends on the minimum interval patch for the bound to hold?
+
+No. With the jump in laps the residual is under one lap, so the walk
+finishes within num_entries steps for any schedule. v3 drops 2/3 anyway.
+
+> be observed torn, which is also pre-existing. Is it worth a comment that
+> advance_sched() may legitimately update the currently published entry?
+
+Yes, will add.
