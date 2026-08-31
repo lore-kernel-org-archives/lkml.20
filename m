@@ -1,141 +1,112 @@
-Received: from va-2-26.ptr.blmpb.com (va-2-26.ptr.blmpb.com [209.127.231.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D2D3C1D40
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 04:55:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6847F352016;
+	Mon, 31 Aug 2026 04:58:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788152146; cv=none; b=TMHvtb8zMNSFyaW1DP0rnVmhkkA4htnSEINwlf7J4KYZPpbFZiVX+VGps5ILOJED2IQL6NUrmUM88uhb3wMe0rGsC515i6qfazRYVohznfe9SVSw57tr/uqh0er76VbCe31Rj7aEM/mVSfbE7UIbCi80wWkj82AHAE9SxyU/Yo0=
+	t=1788152285; cv=none; b=QbHOKMY6/Zt19hPZAyq8gy6EeO8tBgYY2YWuZH5Fz3zzE2VAK1GXpDBk3nXC7v2+9ltjv1fmqcYM1r0u2vePgM19uRJHNq9US7TTZTeeKjU70Q084MizyWjW241AzeT051pf7iZt03F6fO6qVdhct4KNE3geUCMT4w47bJ8qjms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788152146; c=relaxed/simple;
-	bh=Ax64etgIAtuiMSY9v0hJJ+Zy8ZscVg0ooBhAR4GMufM=;
-	h=Date:To:Content-Type:From:Subject:Mime-Version:Cc:Message-Id; b=BUkompkXPQjZPhw0LQZmSV78VRO8EKIASmxPCJ8iyQX4OLA29k2iKPuS4nxBqxKZUklk7knZFO8qaap7y3PHEvhaR5ua43+3oPixwREQaS+kZVGXhzi9Xkpq7Msa4JltQuW19+6/2ZLg5jxSkquO7Ik4nNT7y63JcarQ04XpXRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=moonshot.ai; spf=pass smtp.mailfrom=moonshot.ai; dkim=pass (2048-bit key) header.d=moonshot.ai header.i=@moonshot.ai header.b=Y37iTFxD; arc=none smtp.client-ip=209.127.231.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=moonshot.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=moonshot.ai
+	s=arc-20240116; t=1788152285; c=relaxed/simple;
+	bh=96/tAAC68rvcVuNxA2B1XMv7ZheF//EIw8OXspk+nyQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QVjYxvMpl2OswMq7WnmO1ko7EL/8lEoiYnRjVaJEo6VdiUajG/A0i7F+623ZBYuUbZ+8dywkIouVjNRypACFjbvfN2cjjjOLlmQ8UMHZ3ObzNLtNw0FtFjyw4UfIT5D9NwmE1UV9hTW2Jq9yaGpViIA/pOA8QGzvTUZAnIdq+KE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=h9mR8eNa; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=moonshot.ai header.i=@moonshot.ai header.b="Y37iTFxD"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2510091218; d=moonshot.ai; t=1788152133; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=JTNBYzTVvEFBkVlvhYr+tJv6fEBe1dkT+9DimDVSK0U=;
- b=Y37iTFxDgy266GXCcKQQApdWhoWvqVDz00PXimcy94eEbjNdGtHBXPFyRrBZv3NOkYDX74
- R/CANjOx8Kq5YsCKHGwAkM5mNYPXRo9wov2t6FOOnn1d1UQtm9zXJQmbG6iPt8YzSYIgSA
- eI44Ps0AJwWxlb3hQv/fUgnF9uReON2EqmagClyI1/wg8MrWFyK8H/OqrArsZ5GJpYeEwQ
- 7Q5sOOTH1PKrAoPIWpP6rXwmhDG5QIWYxhXM3NJ2bS+xAJT0x1VhqHKo3vnpUVu1hs1G/b
- B2ah/huySN0tdtn4JJQYblsi7/BQ9ZgAnBAk2iqfYBJDYjmU5Uli36nA+H0yYQ==
-Date: Mon, 31 Aug 2026 12:55:06 +0800
-X-Original-From: Yilin Zhang <yilinzhang@moonshot.ai>
-Received: from dev.msh-dev.svc.cluster.local ([117.157.206.135]) by smtp.feishu.cn with ESMTPS; Mon, 31 Aug 2026 12:55:30 +0800
-X-Mailer: git-send-email 2.34.1
-To: <tiwai@suse.com>, <perex@perex.cz>
-Content-Type: text/plain; charset=UTF-8
-From: "Yilin Zhang" <yilinzhang@moonshot.ai>
-Subject: [PATCH] ALSA: pcm: Serialize PCM mmap with buffer reallocation to fix page UAF
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="h9mR8eNa"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7778B40E01F9;
+	Mon, 31 Aug 2026 04:57:59 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id Zsd5TJJcqUEJ; Mon, 31 Aug 2026 04:57:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788152269; bh=xFrvPnNlLdUQjLHvIvqLAChpxkF69CgdvcJiHEyRuc4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=h9mR8eNafVwanBIlKOe2d7r91HlvjJru91BrwuItHFMaC+ABo94oHJjeD95GPylH9
+	 TY2qD1G3dCcmaaAE9mufphbOhZdzfYve84jHQTBVoxialn+f/DPxxK23MCUgnIv480
+	 E6A6XRg8cKIVoKHipfWA1WNH9Hn6RcIfp817gT0XfPkSSgH4XBlusCFdcF1OUhjop3
+	 pvWD8SjG1gnweKB29A800zyl/YYG83j/kFUgBsllGw617+PVAYMvY+7ZkXgRmEYR8z
+	 kmG+tuLWrDyavxc667zTx52km2+YR7cXX5TPlHzFkGW9iHFlTxC6snTMrFRgtuKx2u
+	 92ik7Jf5i+3TrSDRhnMfQzH9UiRSncEfTWTrWJwXH7muxvtcpuBpf0gvnCioNsTLKO
+	 ZtOp7lbrdw3bt7czomIGadbtgj5dB8jKDHgbndKvYOX74xDF3Cp/LGXjzFIqJdiCfS
+	 eJhzRmINum1bTXbKUsNrQg+rge2ifoJMIHtkLjTzlPAbrB2lFJYNULtcIhT0Sziony
+	 7NvoOHyUc0sx0Dp2OwWXqC/kk0LXTI9bC9niScA1v+0QMw++/FlpkWvuKTUddRNmRr
+	 8qJD1asQfmPMEGAA4W+VD8EMZ8y15khgQGlzZWtINFizWwj82BAKLouFnjbYW//c7b
+	 XUq9Y88Q6YV4j3elgaIwiG5o=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D3F3140E01DD;
+	Mon, 31 Aug 2026 04:57:34 +0000 (UTC)
+Date: Sun, 30 Aug 2026 21:57:31 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: "Luck, Tony" <tony.luck@intel.com>
+Cc: Breno Leitao <leitao@debian.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"x86@kernel.org" <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"kernel-team@meta.com" <kernel-team@meta.com>
+Subject: Re: [PATCH 2/2] x86/mce: Add mce=panic_on_ce_count to panic on a
+ corrected error flood
+Message-ID: <20260831045731.GAapUJu0a1EK4i1t5p@fat_crate.local>
+References: <ao2eT0TWS9EaA28N@gmail.com>
+ <SJ1PR11MB60837D32B5D89336C87280A3FCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <20260825161625.GAao2_2d3U7xQFgHrw@fat_crate.local>
+ <SJ1PR11MB60839657B965AC3FDA53C186FCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <20260825191555.GCao3p63v3fXzwa7E7@fat_crate.local>
+ <SJ1PR11MB608315809B99B7194D167D8EFCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <20260825225202.GEao4ckknyv8nRc8Dh@fat_crate.local>
+ <ao7nGM9sCQyxJvsD@gmail.com>
+ <20260826160934.GBao8PvsM8M-U7XuFR@fat_crate.local>
+ <ao8jGwH_mPDpACFd@agluck-desk3>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: "Yilin Zhang" <yilinzhang@moonshot.ai>, <linux-sound@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Kimi Security Team" <bug-report@moonshot.ai>
-Message-Id: <20260831045506.889070-1-yilinzhang@moonshot.ai>
-X-Lms-Return-Path: <lba+26a950943+78c6d3+vger.kernel.org+yilinzhang@moonshot.ai>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ao8jGwH_mPDpACFd@agluck-desk3>
 
-snd_pcm_hw_params() and snd_pcm_hw_free() guard buffer reallocation
-with an mmap_count check performed under the PCM stream lock, but the
-lock is released long before the buffer is actually freed:
-snd_pcm_sync_stop(), constraint refinement and do_free_pages() all
-happen in between.  snd_pcm_mmap_data(), on the other hand, takes no
-lock at all: it validates against the old buffer's state and
-dma_bytes, remaps its pages into the VMA, and only then increments
-mmap_count.
+On Wed, Aug 26, 2026 at 10:32:11AM -0700, Luck, Tony wrote:
+> The only problem they cause is performance due to the time taken to log them.
 
-A concurrent mmap() can therefore slip in between the check and the
-free.  remap_pfn_range() installs writable PTEs for the old buffer's
-pages without taking page references, and the subsequent
-do_free_pages() returns those pages to the page allocator while the
-VMA still maps them.  This leaves a stale, writable mapping of freed
-pages: a page-level use-after-free that can be leveraged for local
-privilege escalation.
+Yeah, and I think it is noticeable when you're working on a machine which
+generates an excessive CE interrupts or drops into storms.
 
-Make snd_pcm_mmap_data() participate in the buffer-access scheme
-introduced for hw_params/hw_free: acquire runtime->buffer_accessing
-before validating and remapping, and release it afterwards.  Buffer
-reallocation already fails with -EBUSY while accessors are active,
-and the mmap side now fails with -EBUSY while a reallocation is in
-progress, so the validate/remap sequence and the check/free sequence
-can no longer interleave.
+> Absolute numbers are a problem. Maybe you choose 8000 as your threshold.
+> But then some system ticks along happily logging one error per hour with
+> virtually no effect on system performance. Then panics when it has been
+> up for almost a year because it reaches the 8000 threshold.
+> 
+> Perhaps it would be better to adapt the storm code to allow tuning
+> the criteria for a storm and have a mce=panic_on_storm option?
 
-A reproducer that turns this race into a stale writable mapping of
-the freed DMA buffer pages is available on request.
+But we already have the CEC. And yes, it is only for memory errors now but we
+can expand it to all error types and we can use the bucket decaying behavior
+paired with the page offlining or even have a per-error-type recovery callback
+there to handle it all without any user interaction, no?
 
-Reported-by: Kimi Security Team <bug-report@moonshot.ai>
-Fixes: 92ee3c60ec9f ("ALSA: pcm: Fix races among concurrent hw_params and hw_free calls")
-Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
----
- sound/core/pcm_native.c | 35 +++++++++++++++++++++++++----------
- 1 file changed, 25 insertions(+), 10 deletions(-)
+I mean, *if* that is really necessary.
 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -3937,20 +3937,33 @@
- 			return -EINVAL;
- 	}
- 	runtime = substream->runtime;
--	if (runtime->state == SNDRV_PCM_STATE_OPEN)
--		return -EBADFD;
--	if (!(runtime->info & SNDRV_PCM_INFO_MMAP))
--		return -ENXIO;
-+	/* don't race with buffer reallocation in hw_params/hw_free */
-+	if (!atomic_inc_unless_negative(&runtime->buffer_accessing))
-+		return -EBUSY;
-+	if (runtime->state == SNDRV_PCM_STATE_OPEN) {
-+		err = -EBADFD;
-+		goto out;
-+	}
-+	if (!(runtime->info & SNDRV_PCM_INFO_MMAP)) {
-+		err = -ENXIO;
-+		goto out;
-+	}
- 	if (runtime->access == SNDRV_PCM_ACCESS_RW_INTERLEAVED ||
--	    runtime->access == SNDRV_PCM_ACCESS_RW_NONINTERLEAVED)
--		return -EINVAL;
-+	    runtime->access == SNDRV_PCM_ACCESS_RW_NONINTERLEAVED) {
-+		err = -EINVAL;
-+		goto out;
-+	}
- 	size = area->vm_end - area->vm_start;
- 	offset = area->vm_pgoff << PAGE_SHIFT;
- 	dma_bytes = PAGE_ALIGN(runtime->dma_bytes);
--	if ((size_t)size > dma_bytes)
--		return -EINVAL;
--	if (offset > dma_bytes - size)
--		return -EINVAL;
-+	if ((size_t)size > dma_bytes) {
-+		err = -EINVAL;
-+		goto out;
-+	}
-+	if (offset > dma_bytes - size) {
-+		err = -EINVAL;
-+		goto out;
-+	}
- 
- 	area->vm_ops = &snd_pcm_vm_ops_data;
- 	area->vm_private_data = substream;
-@@ -3960,6 +3973,8 @@
- 		err = snd_pcm_lib_default_mmap(substream, area);
- 	if (!err)
- 		atomic_inc(&substream->mmap_count);
-+out:
-+	atomic_dec(&runtime->buffer_accessing);
- 	return err;
- }
- EXPORT_SYMBOL(snd_pcm_mmap_data);
+Thx.
+
 -- 
-2.43.0
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
