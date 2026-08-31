@@ -1,109 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A7731A065;
-	Mon, 31 Aug 2026 08:49:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90383D2FE6
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788166189; cv=none; b=c124OFjY/H1BOWGphpjkFfxQSbN4yRsIRA6nQYpk9Ivu6LndO5F/qtp+CiQhLsskqwRBrNJmWAK58bDjHAExXOeA8TJe8vZ2VzfIXdZQX4HxVDfaOkVFoywDON9QynNDLnBEGjCFpulkjm6ZBIOtMTtji4wGk0qWYkBugnARwAI=
+	t=1788166249; cv=none; b=rNctpzxa5XGVvQszMlbFk3tYdpUeWRk8r5VjHAxXRhDjOP31xIhX5Tl4jJNv5yAn1MuatlqchEZKbzY3efxr+VSrwaoUsDvrGadHyztnsWTpb06g6q1JIlbpErDUIKB3JGCqQuHKC01cR4tRY8oN7fx6lFRjfxh15AAefqrf4Aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788166189; c=relaxed/simple;
-	bh=RZsKRXUZ5MHkySOQ0pr1OGOzLW4PFVPPjI5FsfQV+lQ=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=kzWprTAXAfw7fxUh/q2FdFldHWXZ8hqhveOFjEvVLGbvdT/9lybsLb+QLsiBuSVVdiGwT0U3gdmC435hZTGFWb4R1YMpzuaLjimGi8+a1ufn0sMI3BfUju1Ks2v8R5R3cmfTZKSEk2WeiBPDqIkA+ZX4iJ1ke5nI/7VAF2QxY0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FaZekYeZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788166249; c=relaxed/simple;
+	bh=5UTMMcykg9OmB0p84JxHVopNVxW3ILV7lIXs63RpxU0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pjRsceUYeUUqxhpLSV9o/NFWMP+zg2yifPodzqG7ON4UQt3zhXVcjvxiXOhjRomqZEzh0B3HmYjhsrRhwNtEI47zdR6sFRY8yFeWNaBv98B6UKWt/+215EJpjUyaV9+IE6nTz5HfeBGWY/C12j3dZzWIbNFYzBeG2LBQYZCJyI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=OBk0eQBN; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FaZekYeZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8873A1F000E9;
-	Mon, 31 Aug 2026 08:49:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788166188;
-	bh=U0RHUkeCK2+wI7g+xlveFyXCiygTgGH8M2YKQRICDbA=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=FaZekYeZ0wFn0PLi2UeXQLR+DZ7Ga92WjP0iO0y3hPuhr7su7CkEDkn33bWwnytSy
-	 bqfIgL6Rvjq0S5SBAEUGLQx7m56Qtzy1v1x0BCgLs8JTn59a05Qv/61kCQttaR5FwC
-	 YK8Ew7IZDm5mKZIZOXrACM/O3Hd4VPjUO0iNW/CrvH3+p84aniky+0n76MgfvfEi2x
-	 Zbsd+LfZzInCbDD3bgwwXSgCnoyLUGMWS0X87UtMiUPqI/6dGX4yKUDx6YF6soUTOE
-	 luXbDuWAdjKCDJnaCAzS4n8PEKm7feSkY70ckwlXke+xvNMjIPhfKeAH6WuZjRBYoK
-	 pT1ZRHj5evrxw==
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="OBk0eQBN"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482ea739de2so1905275f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:50:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788166244; x=1788771044; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/xZyaAg66k9TLx8NY7SMIXexMYIBf1wy6bXwBWHCg/w=;
+        b=OBk0eQBNdoA+5NGStDkanogJba775VzQQs9y1CM/B+VhaMUAUW5u93hhgydgOhVr9t
+         rHNpoBtPTwvB3QMkRcxL1qxVz3+OTDE8cODf0JN7t3dKHVw+lKyFpDeQBQ1GVIyGxcqb
+         Z3KD6kBT3nYR+zlAp6QAJUxAW1ANLNZuZTJVjedbiWpUyxnDw/+9P/VzuV/UAul7hlJd
+         frzA4Zc5W3n2Ps/uBjSYj/gWMZINHDPOTkgHYWEJYpcgIrzZO1FU+SGA6e1lw6E2QhN3
+         2R5YNKJLzPImo+BiuWELO2KqbRDns6xmDp8UO+bdioeT1fJeH42NwQk/RIIHYARW+82r
+         h/rQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788166244; x=1788771044;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/xZyaAg66k9TLx8NY7SMIXexMYIBf1wy6bXwBWHCg/w=;
+        b=kqzK+wbHOW3FbZ9LTqAuoIVBPltq1yEEcRqTN30D2vWfH3y+PQqwPH8csQN3qD4XNJ
+         PlRCl/uClGgv61xtk1uTaFoGkY5Zenaj/syA1kZHORWphBkAwjwVHSdEp46r8QXRL21k
+         1S2Mt8z7hzAPd1eQQZ5vKdPMDpqT58X/jzSQnFzCd9YaR/j87ysUXsVUTQbsjk9MltSu
+         nooelANuUyrjNvKST3BFC20llwuzN0fnEZikC9YZVNeyPWhHictvh8lAbiFicvobTEqR
+         qfLTuyGgQhyHJYsWeC4mxgroUHAJnoPF87oZvLkHeMjPEQe0+bG2yHwY6hGyhrTxjp5O
+         7iNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzl+lDQdYKzctn3kPK+FsSVGbRLnXHF/VRkziNFgIpn+oZfT0UVNH2LB6QV85edwtOuGKQIOaWib5sRiQ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKRG3M0t/XTI4qd76KQw2lwEPQ+vMqlLyHhhn+nNItW8tbtkfA
+	HoWBGxSy6TZ9s3HqnG6mPV13t9wgDtWtKJi1a3jk/I4hJ0nE+Ee5dLubRFiK+1vuk+8=
+X-Gm-Gg: AYBFou2SO//C82LaeyHjJKawkAjUDzaCqvGQANBG6E6R+mWMnGrZApIGuQqmQ1YYnk1
+	2cvTdjuMcXrLUweTAWcIhBAu/Zg/D9IPSQGhcxejqK356LFRO3tyTj+7Nk7JZj+uTVnpFl2Cpu/
+	+oF26xtCEVBHuW2AoMiBLhlqJX3XX/EfTkBFsnhblZdSmH4gvFA1iN2mWnRq1OJrorrwQ0sRjJK
+	kPLF3grbBlHC7dbDCHHl9SdrMpTyZUIh2TS2fwcA37RTADnyYE7uVJ1gyy8cyqSFFxnm2vlQ3PI
+	l0brVcSdwgna8XQM3IxDv6ATwffVx+y9sZyRYZiRIDdhT1gdCjETO50ZfiaSq03PZ4+swcRHqA9
+	cQlwM60UoVinEAWf1pjWxvDzB6TjnxoQocX8k+JzPA7VnM43LtMrGHMXvkcmaFlrkvt36vrTMll
+	tgAlqTeYFaWjl2PY04tlFKmmlcok2Qzmx8UPLzhIPZyP7z9lIz9k+xGOBi2kE5tyY=
+X-Received: by 2002:a05:6000:454a:b0:482:fb60:2f0 with SMTP id ffacd0b85a97d-482fb60045amr29493186f8f.8.1788166244167;
+        Mon, 31 Aug 2026 01:50:44 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48436e2af45sm12480867f8f.9.2026.08.31.01.50.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 01:50:43 -0700 (PDT)
+Date: Mon, 31 Aug 2026 10:50:41 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Bradley Morgan <brads@mainlining.org>, john.ogness@linutronix.de,
+	gregkh@linuxfoundation.org, jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org, rostedt@goodmis.org,
+	senozhatsky@chromium.org, tglx@kernel.org,
+	thierry.reding@kernel.org
+Subject: Re: [PATCH printk v2 0/2] nbcon irq_work fixes
+Message-ID: <apVAYTE1C52cQOOV@pathway.suse.cz>
+References: <20260828140218.232439-1-john.ogness@linutronix.de>
+ <6CCFF45A-3C60-4A38-BF22-7BA556DF28C0@mainlining.org>
+ <20260831063648.7j2bEr1S@linutronix.de>
+ <E462DFFC-320A-48AA-90E3-B61B026BBC58@mainlining.org>
+ <20260831082237.lo_33Mqq@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 0/3] pidfd: add task path ioctls
-From: Christian Brauner <brauner@kernel.org>
-To: Chen Linxuan <me@black-desk.cn>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Dietmar Eggemann <dietmar.eggemann@arm.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
- K Prateek Nayak <kprateek.nayak@amd.com>, Kees Cook <kees@kernel.org>, 
- John Johansen <john.johansen@canonical.com>, 
- Georgia Garcia <georgia.garcia@canonical.com>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, apparmor@lists.ubuntu.com, 
- linux-security-module@vger.kernel.org, linux-api@vger.kernel.org
-In-Reply-To: <20260831-pidfd-get-paths-v2-0-c59ea6a21b72@black-desk.cn>
-References: <20260831-pidfd-get-paths-v2-0-c59ea6a21b72@black-desk.cn>
-Date: Mon, 31 Aug 2026 10:49:39 +0200
-Message-Id: <20260831-tauwetter-werkbank-dramen-b37eb4025283@brauner>
-X-Mailer: b4 0.17-dev-362b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1813; i=brauner@kernel.org;
- h=from:subject:message-id; bh=RZsKRXUZ5MHkySOQ0pr1OGOzLW4PFVPPjI5FsfQV+lQ=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRNdVCtzLdnsxG4xVH55O6X/3MWT28u6stlL3/36Y9nz
- sMr/3++7yhlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZiIBTsjw+0H/otM9kquFjxX
- qq2ymFcwSzPDN64tZGXTnGtv3k+b8ZDhf4ZlH8PR9v3Ja9p6IlIU38x3dXzKfuFz2+O+CwxaSzy
- WcwIA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831082237.lo_33Mqq@linutronix.de>
 
-On 2026-08-31 10:59 +0800, Chen Linxuan wrote:
-> Obtaining a target task's executable, working directory, or root
-> currently requires walking procfs symlinks such as /proc/<pid>/exe,
-> /proc/<pid>/cwd, and /proc/<pid>/root.  That makes the operation depend
-> on procfs being mounted and visible to the caller, even when it already
-> holds a pidfd for the target.
+On Mon 2026-08-31 10:22:37, Sebastian Andrzej Siewior wrote:
+> On 2026-08-31 08:31:22 [+0100], Bradley Morgan wrote:
+> > On 31 August 2026 07:36:48 BST, Sebastian Andrzej Siewior
+> > <bigeasy@linutronix.de> wrote:
+> > >On 2026-08-29 00:39:15 [+0100], Bradley Morgan wrote:
+> > >> Tested-by: Bradley Morgan <brads@mainlining.org> # PKVM, based on Pixel
+> > >7 (ARM64)
+> > >
+> > >Does this PKVM even use a nbcon and if so which one?
+> > >
+> > 
+> > heh, not PKVM itself, I booted a kernel inside PKVM, which is the
+> > hypervisor, the kernel has nbcon inside. My T-B is for the kernel 
 > 
-> This series adds PIDFD_GET_EXE, PIDFD_GET_CWD, and PIDFD_GET_ROOT. Each
-> ioctl takes no argument and returns a close-on-exec O_PATH file
-> descriptor referencing the corresponding task path.  The new ioctls use
-> the same ptrace permission check and nonzero-argument rejection as the
-> existing pidfd namespace ioctls.
-> 
-> The target task is sampled while holding its exec_update_lock. This
-> keeps the access decision and the task-state read in the same exec
-> critical section, preventing a concurrent execve() from changing the
-> credentials or target state between the check and the use.
-> 
-> The first patch factors out helpers for acquiring referenced task paths
-> and reuses them in procfs and AppArmor.  The second patch introduces
-> scoped cleanup for privileged pidfd task access and separates namespace
-> lookup from namespace fd creation.  The final patch uses these pieces to
-> implement the three new ioctls.
-> 
-> Signed-off-by: Chen Linxuan <me@black-desk.cn>
-> ---
+> That tested-by is futile if none of the suggested changes were actually
+> tested.
 
-I really have difficulties forming an opinion on this. So this sounds
-very useful but it has implications.
+Yeah, I am going to omit this tested-by tag if I remember to remove
+it from the patch generated by b4.
 
-Right now, pidfd ioctls are available even in situations where the task
-in question would not be accessible via procfs, e.g., when procfs is
-mounted with "hidepid" options or similar. So this would expand the
-surface of operations you could potentially do.
+Best Regards,
+Petr
 
-But again, I do think it is actually useful. Adding Jann.
-
+PS: Bradley, this is not a good way to become part of the kernel
+    community. The tested-by flag would be valuable only when
+    the modified code was used during the test.
