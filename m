@@ -1,145 +1,185 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31EC73C1F
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:10:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A7F25771
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 00:12:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788135023; cv=none; b=EwbYHS65//wWi0TjJScIe0+of3JjyEYPX1L0/8qiXw8SdkKGUXoBGbNuP5XBTaen1ivOhHN1PIXcf5G+qKjh/2/D2v660wm+laM9U8aKvGiIO/e02WjPhL4KtwY7ErF5LtofSBSbJeOZw4/V8GE4wV66oC7V2TqkXT9XR0Nfueg=
+	t=1788135158; cv=none; b=YDwi+iAJ6V/f8qRxRrLaJ8VGk8y2EaPq4TAVOeqDrXdbm7zBsImFQzHcU31fMFE9nFiC/3PMWocCdqnbzyTQJ8ZU1YHk9QhmLzCmYr0hMCJ8rF7Wa/eXUR1MiRWAwfspVdkfbXpHO4Z4icNJYs6eu/gZFl1qxQMltqo3ABCcjfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788135023; c=relaxed/simple;
-	bh=5kPYoH2H2zgChuEacH1BWXP1LfpDwSvK8bJDuSpqjwY=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=T8m+ZE0Za+K6tCGtWsLyv2+GLRGIumeu4QeKJSNTpNwEHP7Y/KRLl6RGjgxhe+8T/idB+NRiNaC7buEUA2jj5mvJtVaRdjM9+z+eXDyKGr8hqBfV9M4GQzfhVKD5CBCnFZ6GTMNGDAXvrFm5Xs+4nXXu4dk2Gh5thfsLs2F0myo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b12abf0e49so1432829eaf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:10:21 -0700 (PDT)
+	s=arc-20240116; t=1788135158; c=relaxed/simple;
+	bh=kNrbOsCEPY0M5OftSW2I5EzAkoMiQPi8tHEFlCA/ZTk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nYx4N8wpg2pvngsGoya9JvpERBK3GP5Uv9B8UsCbNLrlKbMDcP9YNlB6xG5+l+xoka0LDu2s5iYygymbUHEJbNXrR7LgcSK7B6jqY3Ng0B9psShVDhZYCH/O7MeCHzfC4DSOrQdoVw/e8WR7qFY3KIdXHr4HfY6R8tRnY84ytIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a3iiqS6b; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a3iiqS6b"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8535a9be75eso2104721b3a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 17:12:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788135156; x=1788739956; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TS9zFXHclAz7UpENmLtE6ii1ULHUCqAUDk+wz8SniSw=;
+        b=a3iiqS6btElZV109O5NNgr6Eh3R4zh+u/7VG6/lyaH5GMdL7rW1V7rzl8xxZ1Q0kwe
+         gsPnYBLQdCSFoH4GMfhccYDKeqKSIUcXa3rptlB9oxgEPjjLCo+Mlzufr5SlZUz+Ct+P
+         XyFMKvV2gaRq1zuvWX7+bvxuJ1PSx45Wxs/CCk4DBB1GSObn1It6LVz6FmsirhDImDZx
+         O1zxGbUX8xjJxyhHaZI2E9cNxxqJ0F66Q3McKFYJd/5aumOk4IKLNHyOR9oBHRsGNFPG
+         lSE79CPY47fjxM6HqiAj/JliOtJZHYMxSOOxOeQJaTFAeDML+ioQtPXhZJ1z5l4I+AQz
+         QGqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788135021; x=1788739821;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SNpCZbxiRt+RAAxmUaTs+FBpK4/fvtQs6Gqoox7oH2o=;
-        b=qNyT+mGABU2b7AYPIwPPh2A8dnbFGh5MOXoGobBEIM/0JOplnYTEecLhl+FmDDMY3h
-         Mhqp4LAe4thMfwylGBy8/rapx8pJq+iULR/n4BlKN32H48RRpwNThxhGRuLZBcXQxY78
-         +IM2zIq+Dz77XxEDn3hRnXxXS9L5hEx1ov5tLQBvgHSZanJDGxh0F18+V0U2AkrWqHR3
-         6Y3j/OGgpSF5Z29lrGlbcEp6tq+ZhrkRGfSmW96sEeWvRsrG9qyOAttf243nCVT8I98d
-         0VozwpbLJwcCb5BocIGl7XQs9/bvEXDnLAxFQHbio9jl5FGjDf/uqJxxshe6RPZ6O4Z0
-         pfUQ==
-X-Gm-Message-State: AFuF++nK+5kvFepYnORkrNo9w93I1g3t4dHXuSBNjn6Ymh/Br1HS2x0l
-	ZjzVN4Fz864v4lpt0z0WGTpRV/9FF9guBdeFEfVd8POzJJhSUN4RUS977oh4xBSCYfy5tRSd9nH
-	9WI5M0J42r3Q63/sifGSgpZ4GRpZ0agEw+rlmL5Qi21Nk/TMTsGSv2xJgdLY=
+        d=1e100.net; s=20251104; t=1788135156; x=1788739956;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TS9zFXHclAz7UpENmLtE6ii1ULHUCqAUDk+wz8SniSw=;
+        b=KAkFEo64/AtqSmjlrOaP/RMuYRqE3ry+16yFzrIxGGKegZS5gZL62DjkaLTt04FHpm
+         Hf6IZmEI0q+wnGEUWW3QvsgkxYHSZQb3P75bdC12x9bXWTjiMn58qxc62Xuu882Yp7uw
+         7ZBLu+X2PNywY5kz9dqEpEUwq4XjDMSCaYOMXlO2nKpyw39Dqy+M27HHdml0oUhtF3ym
+         wdkrv2LDn7IXbw77zPwQqbC81igzqlbS9i+49Z6nt4InFhQ4nmmkOGsxk17Mc6/PLLMr
+         bxj+Qn/ZiMQQYWRuFmNnr0J6uRqdCcwYmrgspUWYXgfxmKNsUTpLLsB88LSpKLVEw63h
+         PaIg==
+X-Forwarded-Encrypted: i=1; AHgh+RpNkOUebIz/41q+sSqexrTsP0+57XwA5sTI19efE1gtAOr60LJxKxrsPF57MlHtH4EXVzyMTIAfWYAnkDg=@vger.kernel.org
+X-Gm-Message-State: AFuF++m02dsYazjt4Y4rJmil7jBB8+XgIiqJRLX26+aVeV9dxj+5Xxn8
+	TQd+2s0mPh/7pzTk76hxqLrinlZKp4M9grniIeZQRRLcYTnuRWnOVcczDE6oiw==
+X-Gm-Gg: AR+sD13Q1Dd2BJKML0k6FNUPM3AUASUfglZP4w9w5TDv+YxLBP5ro6zqwL0Sp7jG1fX
+	m0m7GAvRkP43WLiTCODrl5S9muz2JvMzk3bJ2cnVKpHvVguiw9T9n5QBapojxTjHxkwmq+LhZtk
+	ROUCZKExBPdEXoGh5thS2sPPD56KXNbXN1pph43h6DRd2ukRw2OwuHyBW4+s2ASKygZxGsK2IXJ
+	lys195RJO0FnkLM6ZC4sTKV3wAAEoVt8++/I4z+slwt70ih9tQ5/g5j8Ib0avq51ef8cuOiY5WI
+	AEtN891LM9ADR7DrR1qFOUgEnCsYWxaxpIGMgbnw+8XGhUnw0OneqWBBVcCVJB6eg7UloVnMW95
+	eaRXTlxYmUNscpy5Y1UGrgs9V3uQbalpMM4N21uKSVGD2Lk5ijWdWfx5rbsQD9aYkhvfEINZx9S
+	tNCU5/kTV+gX1yaHOZ/QNKv7VzPJOMANGtszWiRHNh8AfUWFDmLNE0Gut1IOgZn4S7jbXV3sfB
+X-Received: by 2002:a05:6a00:909e:b0:83e:b443:965e with SMTP id d2e1a72fcca58-85628893892mr39231859b3a.3.1788135156299;
+        Sun, 30 Aug 2026 17:12:36 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8569ff73a9asm2700400b3a.27.2026.08.30.17.12.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 17:12:35 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	syzbot+0aee5e8066eddbbe7397@syzkaller.appspotmail.com,
+	syzbot+e8b3520b53e78e90034e@syzkaller.appspotmail.com
+Subject: [PATCH v2] exit: hold a reference to thread_pid across proc_flush_pid
+Date: Mon, 31 Aug 2026 09:12:21 +0900
+Message-ID: <20260831001221.3755948-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f0c:b0:6b1:7798:a80e with SMTP id
- 006d021491bc7-6b36b51e32dmr168015eaf.6.1788135021065; Sun, 30 Aug 2026
- 17:10:21 -0700 (PDT)
-Date: Sun, 30 Aug 2026 17:10:21 -0700
-In-Reply-To: <6a944641.4d659fcc.734b4.003c.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a94c66d.4d659fcc.734b4.003f.GAE@google.com>
-Subject: Forwarded: [PATCH] USB: serial: keyspan: fix use-after-free in keyspan_close
-From: syzbot <syzbot+5fabc1ae99ff40690d84@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Commit 0a36bad01731 ("release_task: kill the no longer needed
+get/put_pid(thread_pid)") removed the reference around proc_flush_pid().
+It assumed that free_pids(post.pids) at the end of release_task() would
+keep thread_pid alive until then.
 
-***
+That assumption is wrong.  __change_pid() only records a detached PID in
+post.pids when pid_has_task() is false for every PIDTYPE.  If another task
+still uses the exiting task's PID as its process group or session ID,
+__unhash_process() removes the exiting task's PIDTYPE_PID link but leaves
+the PID out of post.pids.  release_task() therefore holds no reference to
+it after dropping tasklist_lock.
 
-Subject: [PATCH] USB: serial: keyspan: fix use-after-free in keyspan_close
-Author: kartikey406@gmail.com
+The other task can then remove the remaining PIDTYPE links.  Its
+free_pids() call schedules delayed_put_pid(), and the RCU callback can free
+the PID before the first release_task() reaches proc_flush_pid().
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+An unprivileged reproducer races wait4(-1) against setsid() to trigger this
+ordering.  Three of three fresh v7.2 KASAN boots reported:
 
+    BUG: KASAN: slab-use-after-free in
+    proc_invalidate_siblings_dcache+0x3e2/0x3f0
+    Read of size 8 by task h7_pid_reaper/1921
 
-keyspan_port_remove() frees the port's private data (p_priv) while
-keyspan_close() may still be running concurrently on another task,
-e.g. triggered by an explicit TIOCVHANGUP ioctl on an already-open
-tty racing with device disconnect. This results in keyspan_close()
-dereferencing freed memory.
+    Call Trace:
+     proc_invalidate_siblings_dcache
+     release_task
+     wait_consider_task
+     __do_wait
+     do_wait
+     kernel_wait4
 
-Fix this by adding a mutex to keyspan_serial_private that serializes
-keyspan_close() against keyspan_port_remove(): the latter clears the
-port's private data pointer under the lock before freeing it, and
-the former re-fetches and checks that pointer under the same lock
-before use.
+    Freed by task 0:
+     kmem_cache_free
+     put_pid
+     delayed_put_pid
+     rcu_core
 
-Reported-by: syzbot+5fabc1ae99ff40690d84@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5fabc1ae99ff40690d84
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+    Last potentially related work creation:
+     __call_rcu_common
+     free_pids
+     ksys_setsid
+
+KASAN identified a 144-byte object from the pid cache and located the bad
+read 80 bytes into the freed object, matching pid->inodes.  With an
+explicit reference, three of three fresh boots completed without a KASAN
+report.  The concurrent RCU callback dropped its reference while
+proc_flush_pid() was protected, and the balancing put_pid() performed the
+final free afterward.
+
+Take a reference before __unhash_process() clears p->thread_pid and release
+it after proc_flush_pid() completes.
+
+A tested source reproducer is available privately on request.  No
+controlled read or write, information leak, or privilege escalation is
+claimed.  The mainline patch applies directly to v6.19.y and newer;
+v6.16.y through v6.18.y need a context-adjusted backport.
+
+Fixes: 0a36bad01731 ("release_task: kill the no longer needed get/put_pid(thread_pid)")
+Reported-by: syzbot+0aee5e8066eddbbe7397@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0aee5e8066eddbbe7397
+Reported-by: syzbot+e8b3520b53e78e90034e@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=e8b3520b53e78e90034e
+Cc: <stable@vger.kernel.org> # see patch description, needs adjustments for 6.16.y-6.18.y
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
 ---
- drivers/usb/serial/keyspan.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+Changes in v2:
+- Rewrite the root-cause explanation around __change_pid(), pid_has_task(),
+  and the last PIDTYPE detach, as requested by Oleg.
+- Explain in the source comment why thread_pid needs an explicit reference.
+- Rebase onto current Torvalds master cee9395acd80.
 
-diff --git a/drivers/usb/serial/keyspan.c b/drivers/usb/serial/keyspan.c
-index 4d3746c7a94e..623f15b51a6a 100644
---- a/drivers/usb/serial/keyspan.c
-+++ b/drivers/usb/serial/keyspan.c
-@@ -541,6 +541,7 @@ struct keyspan_serial_private {
- 	struct urb	*glocont_urb;
- 	char		*glocont_buf;
- 	char		*ctrl_buf;	/* for EP0 control message */
-+	struct mutex	lock; /* protects p_priv vs port_remove races */
- };
+ kernel/exit.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/exit.c b/kernel/exit.c
+index 97686af89501..4e028f157597 100644
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -261,8 +261,11 @@ void release_task(struct task_struct *p)
+ 	pidfs_exit(p);
+ 	cgroup_task_release(p);
  
- struct keyspan_port_private {
-@@ -1581,8 +1582,15 @@ static void keyspan_close(struct usb_serial_port *port)
- {
- 	int			i;
- 	struct keyspan_port_private 	*p_priv;
-+	struct keyspan_serial_private	*s_priv = usb_get_serial_data(port->serial);
+-	/* Retrieve @thread_pid before __unhash_process() may set it to NULL. */
+-	thread_pid = task_pid(p);
++	/*
++	 * Pin @thread_pid before __unhash_process() clears it. The last
++	 * PIDTYPE detach can otherwise free it before proc_flush_pid().
++	 */
++	thread_pid = get_pid(task_pid(p));
  
-+	mutex_lock(&s_priv->lock);
- 	p_priv = usb_get_serial_port_data(port);
-+	if (!p_priv) {
-+		/* port_remove() already ran and freed this */
-+		mutex_unlock(&s_priv->lock);
-+		return ;
-+	}
- 
- 	p_priv->rts_state = 0;
- 	p_priv->dtr_state = 0;
-@@ -1599,6 +1607,7 @@ static void keyspan_close(struct usb_serial_port *port)
- 		usb_kill_urb(p_priv->in_urbs[i]);
- 		usb_kill_urb(p_priv->out_urbs[i]);
+ 	write_lock_irq(&tasklist_lock);
+ 	ptrace_release_task(p);
+@@ -291,8 +294,8 @@ void release_task(struct task_struct *p)
  	}
-+	mutex_unlock(&s_priv->lock);
- }
  
- /* download the firmware to a pre-renumeration device */
-@@ -2794,7 +2803,7 @@ static int keyspan_startup(struct usb_serial *serial)
- 	s_priv = kzalloc_obj(struct keyspan_serial_private);
- 	if (!s_priv)
- 		return -ENOMEM;
--
-+	mutex_init(&s_priv->lock);
- 	s_priv->instat_buf = kzalloc(INSTAT_BUFLEN, GFP_KERNEL);
- 	if (!s_priv->instat_buf)
- 		goto err_instat_buf;
-@@ -2971,10 +2980,14 @@ static int keyspan_port_probe(struct usb_serial_port *port)
- 
- static void keyspan_port_remove(struct usb_serial_port *port)
- {
-+	struct keyspan_serial_private *s_priv = usb_get_serial_data(port->serial);
- 	struct keyspan_port_private *p_priv;
- 	int i;
- 
-+	mutex_lock(&s_priv->lock);
- 	p_priv = usb_get_serial_port_data(port);
-+	usb_set_serial_port_data(port, NULL);
-+	mutex_unlock(&s_priv->lock);
- 
- 	usb_kill_urb(p_priv->inack_urb);
- 	usb_kill_urb(p_priv->outcont_urb);
--- 
-2.43.0
+ 	write_unlock_irq(&tasklist_lock);
+-	/* @thread_pid can't go away until free_pids() below */
+ 	proc_flush_pid(thread_pid);
++	put_pid(thread_pid);
+ 	exit_cred_namespaces(p);
+ 	add_device_randomness(&p->se.sum_exec_runtime,
+ 			      sizeof(p->se.sum_exec_runtime));
 
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.55.0
