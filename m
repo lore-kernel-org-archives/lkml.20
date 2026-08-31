@@ -1,335 +1,328 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013060.outbound.protection.outlook.com [52.101.83.60])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2153E9F60;
-	Mon, 31 Aug 2026 08:20:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164406; cv=fail; b=fhx6XDiCEEkYCyB3JJ8MhFSjLnDPMwk76k96FFoaD7EdyZ7+PMFpNB5Kzo22xwopH0Z2Phb00x+9qAvPE9nZ9+mZll5NDeUtA3HhRYS/vU2+pb4CcDd0oaWl/Qzj2O3oheMTIJYiGh8vNh+2BqHo9B5fGvy1wlSl5YspGgyg3Ik=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164406; c=relaxed/simple;
-	bh=92ch4yGlrVWR6iLsSB73722CpqnhW5U/de05QxsEIg0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=phzpvZ5otpmQ4eVC0mrYnNhybJKOFzjfj0fbpGmqgde+Nt8yMSjx8hs0X5YJQLwAHt/WqmzCEznqrCr9VCCAmPQiluzQgIyva59c4oqXOPU8v4X2s5kR9y9FrMHnIiTrtfLsebCE5RNVSWTTtTWu4utFBp/XBRNKx2jmVgYpQhk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=HdXWXhNP; arc=fail smtp.client-ip=52.101.83.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988AB3CF202
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:20:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788164407; cv=none; b=BqLaZzVa0VENDsMPzQWqQkt3QickBxwQPxxpSFqQuhE0Bi6mdk1GraROZ/uzenTs2SQ1sM5eKbtpY7sQ9WtVWzErXxD1NHpobgCoUpcMVlN5PblMzd2DP1AML/Py8fPfbxIpgbn+PZYGVC9TipbAdBIU/sLsCi+fNEjwDd4esaM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788164407; c=relaxed/simple;
+	bh=nkrNz+77v3rJdHEYFsHcEMPGXjBx6xVUGJoYMgqzVw8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=sG6sHQWZpJ23Dmqe1D4fdaXOCJrskQ2CSd+FnyuoN1JH1dw1+zKOBzOKM3m+Qm4uciDeaOVhBzX6CiZz8iBY75Im1zGNq9EzPehdP+7ZHUx/2XLRonS02yvli91eJH8vxhK/h6CR3rlvmT0MWvVWkTKtTQO1zGuND4rgP0DgbrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iqHW096j; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dydn6ADF; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="HdXWXhNP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=erqzOYWCd8il4CRUcDorp3QWN7oGsWOY2SM53ZVkOBJOqRH5FsqxsK3NQYxsbjMQYzeGAkuetIn4D+e5em/tG2QcUtcVNCyKR/w1uj4Ul+mpPBxXtyCsC4STIWIfjAUywMpiC0+SKQl02BTPtBqZfYpGnAZpS+CpDShhccdnzINfAst2TEcApxilI4JB9uLUghi4yiNBCa2wVfOa1iHacTxHwfgzwt6QrdMg2Y02YJwzi48eclT12XPJ06Bc6TAxxQ4cSLjCpJm0Q0wx4cZn+3Mp0Rss9Xmm2dLTLPBJShqNJlNsOg2upf+/BGX3LF9AnJKxpY1AuqIdQYNJSUXNQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dUUTVoKF73qN9xCaIGE9utmPgrdLCgoMoqDyrvqHrrA=;
- b=pLg0j8jhw5whTI7Syg+CstOrfWmZZI63y4DyG5Ee0SDp0fDKzBo7aZDnavup/wl4CEt9/bdth6Pb/xKtmbZ7hKcUwcsp0KETQzHtt5xu+cBsZoHrlF7THNV5BV+YetKAxRl52kpeavUR4ENUggKQF63N0L/dxw8nfXc+SKOBuWeMgMxq0WFRgrPvRpy0yuR/C3O2rRX7puwfqq1VUphcUPqKluJyPhZABhH1eSRDzpLUOqjmb/zrJmwTIy4+TUGjdtBK5RnPfAaeNv2vSGChPBZEuUnnfr6dBh/Wnh2zIFwZ3kwwsavDPj7RtKcvLq0QDJH3xv58JHRBBXccdu5SxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dUUTVoKF73qN9xCaIGE9utmPgrdLCgoMoqDyrvqHrrA=;
- b=HdXWXhNPC0b+bE+p1eU2n43xDK7fpeZtrcHphMDXP0mZiKfhp187guaZ89H7PCrf8P9jLokw4OBrL0BFHUV4Pw9GQ0ZyeV6vFmuImJVzErEhOfApKfI2424YjFCDRUOv0jhw2RaxKfVtfJJqICyVclhh7jrIIDQdjwRxIThIjdCH/WS1g9k82k6jQm0ViVT8x8Nu2n3nmUuFUcZxADFYh0uRrE09s8wmWUMurJaEd59tJ+foagXak0bHPPkI4AG0Y8QZpKk95p509TlOYJrulsMc1iGRTsv23ABSwahI2SNUKPaNrjd6O0Y6qdqKYAHTWBE6lHeECTPmqhfNo0xVDA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com (2603:10a6:800:1b0::22)
- by ZR6PR04MB349300.eurprd04.prod.outlook.com (2603:10a6:910:da::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 08:20:01 +0000
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74]) by VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74%3]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 08:20:00 +0000
-From: wei.fang@oss.nxp.com
-To: xiaoning.wang@nxp.com,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	richardcochran@gmail.com
-Cc: wei.fang@nxp.com,
-	imx@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v3 net-next 5/8] net: dsa: netc: check return value of ntmp_ipft_delete_entry()
-Date: Mon, 31 Aug 2026 16:23:32 +0800
-Message-Id: <20260831082335.1184605-6-wei.fang@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260831082335.1184605-1-wei.fang@oss.nxp.com>
-References: <20260831082335.1184605-1-wei.fang@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2P153CA0016.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::17) To VE1PR04MB7216.eurprd04.prod.outlook.com
- (2603:10a6:800:1b0::22)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iqHW096j";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dydn6ADF"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V7xjxc2419583
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:20:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	JMJxYVwjgN4k+mFm4VS/dxq4WKhyHKBwLuJ9pdotNNg=; b=iqHW096jC8G2TY7F
+	A/sCxxKlh2JlDNudHSy7rX4iUJnbcNoU0kknjyszC7uNWIO8gDLZlrw690NJIRaN
+	uJJ4OBQmcQ1/qxY5r89xhMPWattX+VZsR4rlGVR80eZ7NJS9iCNoxEogOzXWcp3J
+	2fhgiRtnEuEc1RN7LZbdqiB7P0vpMpwCLR0r7tYiV0fYX9y963rsxnWiuuVuB5Up
+	3bG9Zt8qbeYt4IOhJJaDm7ZyEDijM6f2ThK/W+ok8YNdrTaIzYin8rVo723GeMQE
+	dMXZQZTAxtPce56VnJkmxWtjNwNWqCK4Sx7HTN9TNASTRZcI49taH8V86RN1NPPj
+	f73Hxw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqt6nc9d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 08:20:04 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9382f9430deso504847185a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 01:20:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788164404; x=1788769204; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JMJxYVwjgN4k+mFm4VS/dxq4WKhyHKBwLuJ9pdotNNg=;
+        b=dydn6ADFyoRbaTCsaYMeKkbJ64WVWVaLbMNhgE/WAGVJZMluhMNDcW75yB6er2JXbW
+         SRizPe7W2C0di8bOLU5ehrSNro1345CoYXyNwi7rWcu7UEcu6iXaVP9xGNkFpNiWBTb3
+         SMU4Xgxcw4i5RMjEXFcSL8We3UVwdXfBPFykGg6TlKXMYkQh/GbJ8a1Gdm0n1OW/g7vx
+         NGyt8b1B8T485KNoku2ulR4H/g8F3mKHsWRSo4stDC2NEUHxzPlYV5QJ9W2H70e+L0uO
+         7l2f9m6qcvLjgkPY3na0deGqQrX6WnYB49yAZ17xu6rcX7yc6yxmcRvbLU2wgySKQFUO
+         uysw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788164404; x=1788769204;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JMJxYVwjgN4k+mFm4VS/dxq4WKhyHKBwLuJ9pdotNNg=;
+        b=XV43L5XHUMxivGVt5+ZC3huSCSPQXiDTHFff8Vq7XX2qtbuoAOw9EJohSsXJ6zkGeW
+         p6qVpsH1UlHzFUuYHZiKmmx9OQF7l9cLrCU0YrmO2fHM8dqOTyi9H7L/BlUqxwmoV9p+
+         qpS3pTkJ9NsER+GAXS0exlq7wYOypRFNMJPDkVc1paHGAtOGpOlVaD+08xP3Sz0bEme/
+         QIHvGWcbcO0WyUq14umRbsOe7IoGX2tHCHz5Zo6tqu4n/nfPlaN0DPPAfhU7o0NQxoBV
+         gByG0YMo8NfmtOX4yjvt7QNgUQAurTnT8aQFlwLRAvdErz9MGO4KjgdjhBqH0Yykj21m
+         5U5A==
+X-Forwarded-Encrypted: i=1; AHgh+Rq40aLg2Y9KZo8WeJcf6wq0W/tW0MbE2+Jp/LGHGpmI1C+C0PEMLio9kVd7xoQ3cW8BTJqJFRZkohZEoB8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6IXO+N4zZo8qINb9YAKXDbYA7NB/gc488s1UR8JZa9lcEsty9
+	Vhw3C/v9RnIFRvPAu95H2DPHfrK6NDkO8cnfFVb7Bp0LUR0Dzk+uwrLvZrcCT1EJFbKV3oMDhYJ
+	TUHAUzXaHJgtwuypiGh50T+zlr6aa+o6hKCm7NGYv7wHjkCnWZRwMs1omavWpELvkfI4=
+X-Gm-Gg: AR+sD12nj9QN2K8nx4cSEwO5hI+aqMkUcD6RDhC8LCBnBqH85zeD+mfG8gbbmREqktn
+	Ldgr491dOVotp6G3cL5rxzNDx2KKafo5Fguc9B7yB0N1NXdgZXJwB/8o5ZBEIuqm5ruRikq1h1G
+	yyh7kdjdg7s6KFnt8Lk1SO47J320FkXhuKKq//M9kMoLiNrQXHqg9N3wbx2Q5OKjEp0ZJ6hgO3Q
+	purwJ2tiSp2fwesF7Pay3bqbSQlJULjQUufwxUGnK6d59QU6iUGxA0Xnm8Zd/J0hj3X9f/BvM3X
+	+rF6nDHFtfnMn557gJKzOof0xJrMnmUs/7016IfKALbs8PuywcxC+UjjtNHDRksCqd233UZo/5g
+	cXVdtt+6xha4yA9eF3imwDUsiciTj2SIweS3KKLMO2iqniT3kjr7CRvGKkmtCzi8=
+X-Received: by 2002:a05:620a:2b48:b0:936:ce17:dac3 with SMTP id af79cd13be357-939139aef87mr2862034785a.40.1788164403914;
+        Mon, 31 Aug 2026 01:20:03 -0700 (PDT)
+X-Received: by 2002:a05:620a:2b48:b0:936:ce17:dac3 with SMTP id af79cd13be357-939139aef87mr2862030485a.40.1788164403453;
+        Mon, 31 Aug 2026 01:20:03 -0700 (PDT)
+Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93917236b86sm735974285a.13.2026.08.31.01.19.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 01:20:03 -0700 (PDT)
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Date: Mon, 31 Aug 2026 16:17:44 +0800
+Subject: [PATCH v6 27/29] drm/msm/dp: enable MST on capable sinks
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB7216:EE_|ZR6PR04MB349300:EE_
-X-MS-Office365-Filtering-Correlation-Id: cac34283-9f03-48eb-153b-08df0738a6a9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|19092799006|23010399003|3023799007|10067099003|11063799006|5023799004|56012099006|921020|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	YpKpQAo24fCxdVBGMV5n46TE+/aypORkMsfFVZ6B++RR/7i9pOn7zHWf8BmPC9Ie+vGtZBCC/m/M4fB9E/2V4NAn32kVy8MGg+0zZV+P9d1FDd4bw8gcVftjqz9PMIEqq1AZNsF1/xH9SULQHBk3WDXo9RD3iE+TSgyRrYdIN0gme173P+oA/ltUpN594JGvVBZ6AriwfR2HWZ4u5FkWUVO4wo0MP/Sumlx9QyEAefXo+/2vSxNq8TpbCgwXpG6T4WAFsb0Zg2Gg6j8tRYzQwVeM63ZdbsE5kQkEvu7CL1e2R4kA8ljT5khtM6PMCV7lUOSupxF9nRomHtKdw7XG812YzWziwMQ3L+sbaRNOjHZ+cCY77x1NxgYE3P09pauYpFkp+c3DnKZPFYWcL18GOK0jtNm5L9jr0Scrm0kiM4A3BGCu0v7WT+7B1i7mAM9pviUwHBrq1lAVBJ0xxY/22NY08vKS/KAa0vD8LPBBCPJCUT5Li6UV3wSHc29xq0WA1Rrv408y8gFyKBREkRM1xdGgUzwEsX2+t9EUs1lkGTb9XuRGBMPW2UswxdVpU3gEweF3Q+TjnYAW8To95tBHECRMhobY1ypyP/e8xNW6oqFffpurtRYxDvwwIt43EERtgjxkzATVOXLy9DUYdIkS+qO3Vq6gKJiQZSKM35GWfmfiKDmehPIZrO8IpLZYl3MaMtsRI8tdiPa/KdX1ndhG4A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB7216.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(19092799006)(23010399003)(3023799007)(10067099003)(11063799006)(5023799004)(56012099006)(921020)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?mrW35XQuDiZIZ9RZPwPMVRVQfoZ6J+e8CZ350LD6aMIzIJQJzNpKPgHMWkBX?=
- =?us-ascii?Q?SMYU4cmq2Fc5q/LhEbbOCeiGA7h2dR8bk63RDYnTKONY6XUUbnyuB9MON9k4?=
- =?us-ascii?Q?GzflLbcyU1pe4nhLTwtAnOngXdnj/7/zK2ZRk2gfTeU8tZECLLVKLhx76Qmy?=
- =?us-ascii?Q?x9uIuspBrQrcM7nZ2UVZQpX7VRgZaFDV6B7K6wxjEgjjJjEL/uy167b5oyVL?=
- =?us-ascii?Q?77Z5clfJUO0Wt4ohw7r1Cpm9zXdnA9xmEsVsT3pRlsD8tLqhgo/lQ/E3PCOT?=
- =?us-ascii?Q?V+25qTbnf6COKVzXe2EUyd1aGJPGpJ9m4flrWzm1vbcGUGH4SdRBsjTCOaTM?=
- =?us-ascii?Q?fYOLggcS+1V+hKj6O2Gdb9tpn8qzX06VdjRY1gY9psrePshW0R5lpwv5lKwR?=
- =?us-ascii?Q?XIoiq0zwFIRbMdgGqQO1gX3bXQgfNWsBkm3NyK78IvHTNOw5E9f3TYh/fMRm?=
- =?us-ascii?Q?v0CZBcremwRk2xq1Ph/71EUjZrMKPfO8ThQbCTHaKYJSP8jRC9+LVqfchmJ/?=
- =?us-ascii?Q?os/+g5LD3t9+lpKIbxZ0RsDL5F0jndpYeeb8/yjzBY7UpfgQEMaWOvLfRm8e?=
- =?us-ascii?Q?4sacUb63H+NgV3LURAxAeewqp4h+U6ElhweWEBbrSyvqvOtKnLFJKqTFyZU3?=
- =?us-ascii?Q?Vx88BgGqAGZUepahPtzON2u/UsAM0LZi9Ynsjqch8o1e/HKdvkorsFTDOMWU?=
- =?us-ascii?Q?aylDkDrKUPnhvEHh+8q1eVg9N/pk0SwecKkUeDCi5nhnKy1oKUFoiqbxuteF?=
- =?us-ascii?Q?C4girB0+6xR9UhUgnH/gBzp9+RlZemF82QWDJo6hX1PaxZbNdg/ctOr+6yqt?=
- =?us-ascii?Q?bv2+VCIe0IQR7XxKOYNjDi15nb8UR8B0ChHQ5LVmUdIM4+Mw5YkE000egO+9?=
- =?us-ascii?Q?82QcCg9dgdbOCOlcv4bE4+xaS1b+1N8RFZcdDBG3l0t1iBaoraUZ7AEQfvNQ?=
- =?us-ascii?Q?TlAIbDSjMD34G87wmHYBeoEkg/Q64QOLt9vkgxf3bFe7RA87G5m+/UOy/dCV?=
- =?us-ascii?Q?fdgO/e46dBVYnweQdamdjkbeQniYvd8t/VQKZDJ50ReVBK5THJiyKdmNsj2w?=
- =?us-ascii?Q?WkJ7q96AFqzSJ49HOaQclc7NkuYx4TNAdKOMX3HuReLr1lsnMPRbLabkZ+KG?=
- =?us-ascii?Q?Y2l8y7Naz9FXIElk3zO+Iq3RkcBmcpc+iPA76qa4kC5L0I+Z0nT5RMue+NhT?=
- =?us-ascii?Q?bSCS5Ee3RVM1HF+HH2xprLPtZKkFfsRO+tfHNT4bVGNhXjpViDRBNMRUApgz?=
- =?us-ascii?Q?cq0pIyOZTKD76+IEQhflRhd7nkh/50CRvfm4rETP34KoTEOx/gKXZ2sEiW3P?=
- =?us-ascii?Q?v44FGVujoS9kRJzQsp3XSYhZlVQfE5X6dFm3gGsTZ3oDybMoT17Ponngyhn2?=
- =?us-ascii?Q?sz9t5dEusWI85hN0wS4TjPzE1i2p/8uamt3O06LQqIMMR9mBPvCa4NcZJFMu?=
- =?us-ascii?Q?6Ukf2vJ/UU/QsUPGIdMKH2LkCj9Vihg0MOQ15FgPSuJGL0jRnDDe7YLsYtw1?=
- =?us-ascii?Q?O0GJ7sFWtyCNVm5/frq0EIoWLJN6C+MEFpHQSLFg9dvYPlAi3sCaWYjQ50Xu?=
- =?us-ascii?Q?OACRkED/BIdxEgfJxMvlkbhAWp5lCiJDKKijhqoHVYQaD8GQoKbuFwHP51Fy?=
- =?us-ascii?Q?/1bjNL9Ak0Xrz+fc1KQUAva81M5yWY8x9nZWx5cjzpllcdaZuMVOcBOF4XpQ?=
- =?us-ascii?Q?PXAdqoP9pff2RJgKkW4uZIwKTC8NJ7sacLtdz4ZtBTl4ipZWsq93K75wTXvx?=
- =?us-ascii?Q?BEapnIweJej4jr2idk4B4vCkZuNlReIoD6bC8WOukbFKxmt1w6w/?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cac34283-9f03-48eb-153b-08df0738a6a9
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7216.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 08:20:00.7457
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i9TkXSXIfWaGUSRfyUnWEYmpgu6D+cfdQeX+iBALAO4h2b6zNKgS+V0vvPI+PoT2OD3joDA5iz+IE2Wth2EEkK/JzgL1r4fyU7yIq5OFZw9gXUX58YpfX0REHA5LuVOM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR04MB349300
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-msm-dp-mst-v6-27-c91d35d6fb9e@oss.qualcomm.com>
+References: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
+In-Reply-To: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Jessica Zhang <jesszhan0024@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+        Abhinav Kumar <quic_abhinavk@quicinc.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788164246; l=6893;
+ i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
+ bh=mcUALd6iaRGlrPJ5zk1Qq/kc9K8hnA46zdrjtFBolVA=;
+ b=iH4w4T7aWISCno+nXOlT4cFopuM323XTtUezd1kX0b9gpLZLGstz3sFM85Ugw9lx2wEWOsCYs
+ 6MxN7IGAVLDBCCpyECzyy1SW/XLRO2bRiLh82qMuwL/1LZKwT0wik5+
+X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
+ pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
+X-Proofpoint-ORIG-GUID: tjQFWIP-nYcWa0sejviBb-qeVMcI5N3J
+X-Proofpoint-GUID: tjQFWIP-nYcWa0sejviBb-qeVMcI5N3J
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA3MCBTYWx0ZWRfXwtnKDVo+Xefs
+ AuLnvI9DnHS+IDLI7GsBpfD9+mAaLwEw5oTDQHhst6d/K2w8p94QJBCw59h33bXQsUgsKxV40ls
+ 8BEhw8HaehBa3yRjgm3PKtSJRLEGJlatntNZLm/MOzGpQNcpIXFx46ZdRUg6FV7hZWRC2hLlpA9
+ uElshUGur3nMT/IxrhHsjNZfzlsN1RLJJivP/uGi4620Sn3qewaIbfNREX0B3wWl71BWvLXXFxt
+ 4F17JXwUbgCcKyWcRCdfM40KsZE5xnxX5Q7a5dyEtelX0iE3AI808ZBwYhNEHiH7a2jNeotdDrI
+ VKfVkF62zuXcSnJUBIybP1o6+cfo+w+QnMuRUSLZ/RTQ+6FYB53YinTKRRswb9VIoYn7NHw7bzC
+ 6lXaJzUYeb6UlC3LY2hqYU9zVl1jYxcdkZRtLwqfprRSqaxrtpJ8KNqnjIJRN51jVf1KBV4OyCo
+ +OSwQmQgN7+uxkVlglg==
+X-Authority-Analysis: v=2.4 cv=S8/pBosP c=1 sm=1 tr=0 ts=6a953934 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=7j1SYuFnmNb8ZMggdUIA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA3MCBTYWx0ZWRfX0N0a90WeRt2Z
+ BebVH8S7HTOHPHpzuJG0GvntKwFV0PIjVS1l78oxuCaeQy8JzVMUnA9Afus8FkamfFXFEqtmkul
+ sHuBYsVcz4tkDU2HrSnf2ypnhyWaMV0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_03,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ bulkscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310070
 
-From: Wei Fang <wei.fang@nxp.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-ntmp_ipft_delete_entry() can fail, e.g. when DMA memory allocation fails.
-The driver previously ignored the return value, so a failed deletion
-would leave the IPFT entry untracked and impossible to clean up later.
+MST topology discovery requires the sink to operate in MST mode.
+Enable MST on sinks that advertise MST capability and are connected
+to a multi-stream capable DP controller.
 
-Convert netc_port_remove_host_flood() from void to int and propagate the
-error to all callers. In netc_port_add_host_flood_rule(), delete the old
-entry before adding the new one, and guard against adding a new entry
-when the old one still exists. In netc_port_set_host_flood() and
-netc_port_bridge_join(), handle deletion failures and add rollback paths
-to restore the host flood entry on error.
+Once MST is enabled, downstream sink discovery and EDID retrieval are
+handled through the MST topology rather than the primary DP connector.
+Activate the MST topology manager on connect and disable it on
+disconnect to track the sink topology lifecycle.
 
-Note that the rollback itself may also fail, in which case there is
-nothing more the driver can do. This is an acceptable limitation because
-such failures only occur under resource exhaustion conditions that are
-already abnormal, and the host flood feature is not critical to basic
-packet forwarding.
+Snapshot the negotiated link parameters when MST is enabled so
+subsequent MST payload allocation can derive bandwidth information
+from a stable link configuration.
 
-Signed-off-by: Wei Fang <wei.fang@nxp.com>
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 ---
- drivers/net/dsa/netc/netc_main.c | 93 ++++++++++++++++++++++----------
- 1 file changed, 64 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 59 ++++++++++++++++++++++++++++++++-----
+ drivers/gpu/drm/msm/dp/dp_display.h |  2 ++
+ drivers/gpu/drm/msm/dp/dp_mst_drm.c | 18 +++++++++++
+ drivers/gpu/drm/msm/dp/dp_mst_drm.h |  1 +
+ 4 files changed, 73 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc_main.c
-index d326a00104e1..2171c83f3640 100644
---- a/drivers/net/dsa/netc/netc_main.c
-+++ b/drivers/net/dsa/netc/netc_main.c
-@@ -1707,15 +1707,23 @@ static int netc_port_add_host_flood_rule(struct netc_port *np,
- 	u32 cfg;
- 	int err;
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index f350c1d03b06..dbc0e82d333a 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -14,6 +14,7 @@
+ #include <linux/string_choices.h>
+ #include <drm/display/drm_dp_aux_bus.h>
+ #include <drm/display/drm_hdmi_audio_helper.h>
++#include <drm/display/drm_dp_mst_helper.h>
+ #include <drm/drm_edid.h>
  
--	if (!uc && !mc) {
--		/* Disable ingress port filter table lookup */
--		netc_port_wr(np, NETC_PIPFCR, 0);
--		np->uc = false;
--		np->mc = false;
-+	if (np->ipft_hf_eid != NTMP_NULL_ENTRY_ID) {
-+		/* The old rule is the same as the new rule, return directly.
-+		 * But if the existing rule differs from the requested one,
-+		 * return an error.
-+		 */
-+		if (np->uc == uc && np->mc == mc)
-+			return 0;
- 
--		return 0;
-+		dev_err(priv->dev,
-+			"The old host flood rule has not been removed from port %u\n",
-+			np->dp->index);
-+		return -EINVAL;
- 	}
- 
-+	if (!uc && !mc)
-+		return 0;
-+
- 	host_flood = kzalloc_obj(*host_flood);
- 	if (!host_flood)
- 		return -ENOMEM;
-@@ -1762,32 +1770,33 @@ static int netc_port_add_host_flood_rule(struct netc_port *np,
- 	return err;
+ #include "msm_drv.h"
+@@ -269,6 +270,29 @@ static int msm_dp_display_lttpr_init(struct msm_dp_display_private *dp, u8 *dpcd
+ 	return lttpr_count;
  }
  
--static void netc_port_remove_host_flood(struct netc_port *np, u32 entry_id)
-+static int netc_port_remove_host_flood(struct netc_port *np)
- {
- 	struct netc_switch *priv = np->switch_priv;
--	bool disable_host_flood = false;
-+	u32 entry_id = np->ipft_hf_eid;
-+	int err;
- 
- 	if (entry_id == NTMP_NULL_ENTRY_ID)
--		return;
-+		return 0;
- 
--	if (np->ipft_hf_eid == entry_id)
--		disable_host_flood = true;
-+	err = ntmp_ipft_delete_entry(&priv->ntmp, entry_id);
-+	if (err)
-+		return err;
- 
--	ntmp_ipft_delete_entry(&priv->ntmp, entry_id);
-+	np->ipft_hf_eid = NTMP_NULL_ENTRY_ID;
-+	np->uc = false;
-+	np->mc = false;
-+	netc_port_wr(np, NETC_PIPFCR, 0);
- 
--	if (disable_host_flood) {
--		np->ipft_hf_eid = NTMP_NULL_ENTRY_ID;
--		np->uc = false;
--		np->mc = false;
--		netc_port_wr(np, NETC_PIPFCR, 0);
--	}
-+	return 0;
- }
- 
- static void netc_port_set_host_flood(struct dsa_switch *ds, int port,
- 				     bool uc, bool mc)
- {
- 	struct netc_port *np = NETC_PORT(ds, port);
--	u32 old_entry_id;
-+	bool old_uc = np->uc;
-+	bool old_mc = np->mc;
- 
- 	/* Do not add host flood rule to ingress port filter table when
- 	 * the port has joined a bridge. Otherwise, the ingress frames
-@@ -1795,7 +1804,12 @@ static void netc_port_set_host_flood(struct dsa_switch *ds, int port,
- 	 * will be redirected directly to the CPU port.
- 	 */
- 	if (dsa_port_bridge_dev_get(np->dp)) {
--		netc_port_remove_host_flood(np, np->ipft_hf_eid);
-+		if (!netc_port_remove_host_flood(np))
-+			return;
++static void msm_dp_display_mst_enable(struct msm_dp_display_private *dp)
++{
++	struct msm_dp *msm_dp = &dp->msm_dp_display;
++	int ret;
 +
-+		dev_err(ds->dev,
-+			"Failed to delete host flood rule on bridge port %u\n",
-+			port);
- 
- 		return;
- 	}
-@@ -1804,19 +1818,29 @@ static void netc_port_set_host_flood(struct dsa_switch *ds, int port,
- 		return;
- 
- 	/* IPFT does not support in-place updates to the KEYE element,
--	 * we need to add a new entry and then delete the old one. So
--	 * save the old entry ID first.
-+	 * we need to delete the old one and then add the new rule. If
-+	 * the deletion fails, return immediately.
- 	 */
--	old_entry_id = np->ipft_hf_eid;
-+	if (netc_port_remove_host_flood(np)) {
-+		dev_err(ds->dev,
-+			"Failed to delete old host flood rule on port %u\n",
-+			port);
-+
++	/* Clear any pre-existing MST state before enabling MST. */
++	ret = drm_dp_dpcd_write_byte(dp->aux, DP_MSTM_CTRL, 0);
++	if (ret < 0) {
++		DRM_ERROR("failed to clear DP_MSTM_CTRL, ret=%d\n", ret);
 +		return;
 +	}
- 
- 	if (netc_port_add_host_flood_rule(np, uc, mc)) {
- 		dev_err(ds->dev, "Failed to add host flood rule on port %d\n",
- 			port);
--		return;
--	}
- 
--	/* Remove the old host flood entry */
--	netc_port_remove_host_flood(np, old_entry_id);
-+		/* Try to restore the old flood rule, if the recovery fails,
-+		 * there is nothing else we can do; this is a limitation.
-+		 */
-+		if (netc_port_add_host_flood_rule(np, old_uc, old_mc))
-+			dev_err(ds->dev,
-+				"Failed to restore host flood rule on port %d\n",
-+				port);
-+	}
- }
- 
- static int netc_single_vlan_aware_bridge(struct dsa_switch *ds,
-@@ -1981,6 +2005,8 @@ static int netc_port_bridge_join(struct dsa_switch *ds, int port,
- 	struct netc_port *np = NETC_PORT(ds, port);
- 	struct netc_switch *priv = ds->priv;
- 	u16 vlan_unaware_pvid;
-+	bool uc = np->uc;
-+	bool mc = np->mc;
- 	int err;
- 
- 	if (!bridge.num) {
-@@ -1992,6 +2018,12 @@ static int netc_port_bridge_join(struct dsa_switch *ds, int port,
- 	if (err)
- 		return err;
- 
-+	err = netc_port_remove_host_flood(np);
-+	if (err) {
-+		NL_SET_ERR_MSG_MOD(extack, "Failed to delete host flood rule");
-+		return err;
++
++	ret = drm_dp_dpcd_write_byte(dp->aux, DP_MSTM_CTRL,
++				     DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC);
++	if (ret < 0) {
++		DRM_ERROR("sink MST enablement failed\n");
++		return;
 +	}
 +
- 	netc_port_set_mlo(np, MLO_NOT_OVERRIDE);
- 
- 	if (br_vlan_enabled(bridge.dev))
-@@ -2005,8 +2037,6 @@ static int netc_port_bridge_join(struct dsa_switch *ds, int port,
- 	netc_port_set_pvid(np, vlan_unaware_pvid);
- 
- out:
--	netc_port_remove_host_flood(np, np->ipft_hf_eid);
--
- 	if (atomic_inc_return(&priv->br_cnt) == 1)
- 		schedule_delayed_work(&priv->fdbt_ageing_work,
- 				      READ_ONCE(priv->fdbt_ageing_delay));
-@@ -2016,6 +2046,11 @@ static int netc_port_bridge_join(struct dsa_switch *ds, int port,
- disable_mlo:
- 	netc_port_set_mlo(np, MLO_DISABLE);
- 
-+	if (netc_port_add_host_flood_rule(np, uc, mc))
-+		dev_err(ds->dev,
-+			"Failed to restore host flood rule on port %u\n",
-+			port);
++	msm_dp->mst_active = true;
++	msm_dp_mst_display_set_mgr_state(msm_dp, true);
++}
 +
- 	return err;
+ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+ {
+ 	struct drm_connector *connector = dp->msm_dp_display.connector;
+@@ -287,14 +311,17 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+ 	if (rc)
+ 		goto end;
+ 
+-	drm_edid = drm_edid_read_ddc(connector, &dp->aux->ddc);
+-	drm_edid_connector_update(connector, drm_edid);
++	if (msm_dp_ctrl_get_stream_cnt(dp->ctrl) <= 1 ||
++	    !drm_dp_read_mst_cap(dp->aux, dp->panel->dpcd)) {
++		drm_edid = drm_edid_read_ddc(connector, &dp->aux->ddc);
++		drm_edid_connector_update(connector, drm_edid);
+ 
+-	if (!drm_edid) {
+-		DRM_ERROR("panel edid read failed\n");
+-		/* check edid read fail is due to unplug */
+-		if (!msm_dp_aux_is_link_connected(dp->aux))
+-			return -ETIMEDOUT;
++		if (!drm_edid) {
++			DRM_ERROR("panel edid read failed\n");
++			/* check edid read fail is due to unplug */
++			if (!msm_dp_aux_is_link_connected(dp->aux))
++				return -ETIMEDOUT;
++		}
+ 	}
+ 
+ 	msm_dp_link_process_request(dp->link);
+@@ -316,6 +343,10 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+ 	 */
+ 	msm_dp_link_psm_config(dp->link, &dp->panel->link_info, false);
+ 
++	if (msm_dp_ctrl_get_stream_cnt(dp->ctrl) > 1 &&
++	    drm_dp_read_mst_cap(dp->aux, dp->panel->dpcd))
++		msm_dp_display_mst_enable(dp);
++
+ 	msm_dp_link_reset_phy_params_vx_px(dp->link);
+ 
+ end:
+@@ -490,6 +521,11 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_display_private *dp)
+ 						 dp->panel->dpcd,
+ 						 dp->panel->downstream_ports);
+ 
++	if (dp->msm_dp_display.mst_active) {
++		msm_dp_mst_display_set_mgr_state(&dp->msm_dp_display, false);
++		dp->msm_dp_display.mst_active = false;
++	}
++
+ 	/* signal the disconnect event early to ensure proper teardown */
+ 	msm_dp_display_handle_plugged_change(&dp->msm_dp_display, false);
+ 
+@@ -566,6 +602,15 @@ struct msm_dp_panel *msm_dp_display_get_panel(struct msm_dp *msm_dp_display,
+ 	return dp_panel;
  }
  
++void msm_dp_display_get_link_info(struct msm_dp *msm_dp_display,
++				  struct msm_dp_link_info *link_info)
++{
++	struct msm_dp_display_private *dp =
++		container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
++
++	memcpy(link_info, &dp->panel->link_info, sizeof(*link_info));
++}
++
+ static void msm_dp_display_deinit_sub_modules(struct msm_dp_display_private *dp)
+ {
+ 	msm_dp_audio_put(dp->audio);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+index ca2faf478c95..96b53d5b6090 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.h
++++ b/drivers/gpu/drm/msm/dp/dp_display.h
+@@ -65,4 +65,6 @@ int msm_dp_get_mst_max_stream(struct msm_dp *msm_dp_display);
+ int msm_dp_mst_register(struct msm_dp *msm_dp_display);
+ struct msm_dp_panel *msm_dp_display_get_panel(struct msm_dp *msm_dp_display,
+ 					      enum msm_dp_stream_id stream_id);
++void msm_dp_display_get_link_info(struct msm_dp *msm_dp_display,
++				  struct msm_dp_link_info *link_info);
+ #endif /* _DP_DISPLAY_H_ */
+diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+index 2e625a7db981..b2905c894ce5 100644
+--- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
++++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+@@ -328,6 +328,24 @@ int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int stream_id,
+ 	return 0;
+ }
+ 
++int msm_dp_mst_display_set_mgr_state(struct msm_dp *dp_display, bool state)
++{
++	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
++	int rc;
++
++	rc = drm_dp_mst_topology_mgr_set_mst(&mst->mst_mgr, state);
++	if (rc < 0) {
++		drm_err(dp_display->drm_dev,
++			"[MST] failed to set topology mgr state to %d rc:%d\n", state, rc);
++	}
++
++	if (state)
++		msm_dp_display_get_link_info(dp_display, &mst->link_info);
++
++	drm_dbg_kms(dp_display->drm_dev, "[MST] set_mgr_state state:%d\n", state);
++	return rc;
++}
++
+ void msm_dp_mst_display_hpd_irq(struct msm_dp *dp_display)
+ {
+ 	int rc;
+diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.h b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+index 8546214cbca1..4a5707dd50a9 100644
+--- a/drivers/gpu/drm/msm/dp/dp_mst_drm.h
++++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+@@ -10,6 +10,7 @@
+ int msm_dp_mst_mgr_init(struct msm_dp *dp_display, u32 max_streams, struct drm_dp_aux *drm_aux);
+ int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int stream_id,
+ 			      struct drm_encoder *encoder);
++int msm_dp_mst_display_set_mgr_state(struct msm_dp *dp_display, bool state);
+ void msm_dp_mst_display_hpd_irq(struct msm_dp *dp_display);
+ 
+ #endif /* _DP_MST_DRM_H_ */
+
 -- 
-2.34.1
+2.43.0
 
