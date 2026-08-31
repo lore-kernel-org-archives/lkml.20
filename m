@@ -1,218 +1,261 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D98739D6DD
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188111; cv=pass; b=Ex6hzGhHtFr8Pj8fj+GxPHQbhZLlb0PsUUN/9j8HwpRC93PLVowzpNvo92yF1tY+QqgFkQ+TY2Se5xQAeYB9YynVoIlITldMe70AcjgxIoDyS8YWM8i87b7StOElqzud31EI34KJHDPU4T00KiOy7Yw8Ge+3qgSqsA3I/pIBXts=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188111; c=relaxed/simple;
-	bh=xY7PzJAuFl926gP7M2esENWf67rjFL/VYhM4pp0oYZg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OC3ED9qjfh5i8b69kK0Ae4wwCjdPG/0AypNZZppYE1vWX5IDgQhrFdXwHgGc2TVBJgFD9H/UECXGQbprODlhXGKimzo+d9IaCM/42cv/11DkSwH6Ypd7TrrMvUk3p0mmUYbuWPPkwPyXbISVc/a8t1VWacuelBu6Mg0FIk38PxI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M3qLFVy4; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE1B39D6DD
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:55:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788188127; cv=none; b=JbvbHAs/HPjGflsvogvbkwk6MEBlXp0bcAPHOxbv8YwNFhG3z7boH5CIyYqDgvw181CMMwXzWJaOvW8jyi1cFQ1l01+P6ulR7+q4S5W37rfNaTm+EiIrN6S1CiQcEeVxWIUqNcR1sPSgm76Ijm8mbt34EK7nvLqeZ8//ibVl7Wo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788188127; c=relaxed/simple;
+	bh=NfGwyNS3nSMtqkM6HpLnrWndie2664n3kCYdebQAdLY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HypROqlhquy5wEPf38XUf4uZo0rBJgQUBfTss04LrHrrJFbnaty62LXeRtMcOxchrWvYmvUSo9reqUqHH8/FnDmElt50CtpCoiPDPfy3rwtg9c0bzazpobvPRu67B6GlbdqBBnPlYAnC/+2svLGR7hRIFrxJh4le+sf5UnJ6QqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JqKnRYll; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M3qLFVy4"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso4604559a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:55:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788188107; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KPJ73QCTgUE8V1wIjBRb9Wk9ajKpUXiLXdVYwOe/tQFr/dh+WZ52l67F4sGlxbtJ4u
-         XSDnMVpLOTdm97bv2np+F77DUbGXBBp2NjfOFcWRXUKQkBwxCMOTVWvKKV0KO5fuETjE
-         pLCwpDV1ooVVHpEH3k0/Xuzm25OuqmEAs3BIwDujTm5mJTAOEyThtLjRx6YFxgK09Mck
-         wqRVo3QIJcIAHUF/dbUa+itVdCgfGAfo8jHeXsWibSibADfCTst1nUIgmpbgzPUuHdd7
-         YJxQOBjwCiYsW1B7Ng105iIgD3c54IZuYylfW6NQGaUoSzTNR/ultz23fF9gACd9tj2X
-         KBEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=o8pw78oMi9uY1RnWmqztihIod3VWCHkHOIfZPGYQtiA=;
-        fh=/PKyPABmlgcPAcqjByh0u40TVS1Jfwc1u//I7dGtLok=;
-        b=sI0S0/tLaISL5HvUBpTl/0TIDZ0fnuT5C+NoXloTWwgDOIJGDbG4IQIpoGSwVxTSDh
-         WO4A4VPNpJE1ouiX8zA3ITZeldzl3ND8swhIcICyWjP0AqcFB4rGq+9GNq5p5aidRDMa
-         TYDOAqLCSjza6/4aULj6YSrhy98UEEg76Qr9goguJI9Shd0ic0z37aB145Aun6eB9nmr
-         soaEPkXlpZ5T6eTBVl/iFvJf3YynfBHge1cJeT4HjaALHyTqiicDsK/CQ0aSKB0jk72G
-         IQO9Z0Ydkht9YiQcavWyDG4F7B4feb6alwBdkpgSvLk1c/tye4QIUDRqu3bnNM6DOkgU
-         JINg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788188107; x=1788792907; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=o8pw78oMi9uY1RnWmqztihIod3VWCHkHOIfZPGYQtiA=;
-        b=M3qLFVy4uPXuP55qv4JPXLBrGKvUHbq3bqWz+SC9PY+jbA4k08d/DfMLOEOjqotBOk
-         v844+/fS8Ln1x8XiJYtqHtTgnCJ7kCeaAG6Kns+hm0lwkWiNFRVEXTRQBPMQXAGMLGDP
-         qbFymvrWMRuXRnkvrt0nkxxYIXUvabBhfuR88bMDCHoV+4Cj9bRURtxzapkGaGBrZxK/
-         xafe8WUvyKWw0XnBNzlnCbB0N+S0r3gKPp+PvotPKeKJogFCmCkhCdKeEqUCyIFbEVL3
-         ObgK3xrzKWX38sPp/Hk243YZuJnqofUOcP/h9smsEMOaarrEUKxQGIDRSrA/KM7b99XX
-         k4Dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788188107; x=1788792907;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o8pw78oMi9uY1RnWmqztihIod3VWCHkHOIfZPGYQtiA=;
-        b=MPnKDAIKgE6fPMcx7lnPmX0RRPo1RQAD3R/WdmcP5wtEOGxlyLrUkdqIbMgQRojd41
-         CvCfVe4FVbVaqSDixXeP/Si65AQ848dHm7EItCY9a9ZlYqoZkS/CpgOYV7j1c1gavcPf
-         m3Dkh30Gzps0bH8OOOy2roVdUdJy/usdz21+hyoKdZrbrBd70QXMohGqB8AzKG1JNxRC
-         iy1ABzRvYC2OwhyN6J2pqO6rZ8so1nBbPwsVCEmUQhLPwtaqFLlUhd09Whiwd90vxv1b
-         k5dXDv2bzJitB9JkAbiCPdprNG7IRhXrM5C7zmj23nMIZ+IpnsZbBpzd+rNiH/UlHdgk
-         Jrfg==
-X-Forwarded-Encrypted: i=1; AKwUvBzrwjoKr+O5Fc3TIQ4TEvLeaTgi7aKr8ZV4TYyI5UIwoZhu96htgM30o1DUM8TwjqG8Oh03s0zBy+u+6NQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjhd3mwRaCxJIIBYqyHg6c1E/i4GYuoCk83SvZPWW1EeS3H+EG
-	RNAEIivE8ypjZiHtHHLj9C02P4nF3ha+tb0SOdpy8VQY6h4p/QW5QGEwP1bHcSZ5e66g39b/zgV
-	e4mOqwjnBaGhFARThlSM0fsdiauYxtl8=
-X-Gm-Gg: AYBFou0lp5K9nXqA7y8pS+AANcAZ6n0izN2rrKDaTVonC/wmH+S2H233xv1twaTinU+
-	hgf+sIiIduk9kHxm9bFyIZQZgPa3wisSlNRgFfhgomMNk4SuP4uJAFek4CwVI1MIs79oZnXy2gz
-	1nTsvux3SobApsJ6ViWSpstAzU5LuC6RYUn/Aq9smff89YkcqhNO5dMIXtnlZr7F0xxiz7dS9GW
-	Zvb4FLWDJaOvQICFU0sCSB6DCLwbcahI/cHj//7kKZ3WhN+YLUZEe5899eVE2jZwfia3OQwvoLv
-	8qf2nSlHo1E+b7/xUTFEGnxEjzKg8Qzp9Y78V5ulz2i3eYH/eR2q0lER
-X-Received: by 2002:a05:6402:4586:b0:6a5:d907:7703 with SMTP id
- 4fb4d7f45d1cf-6a60d3d5a52mr16807888a12.14.1788188107151; Mon, 31 Aug 2026
- 07:55:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JqKnRYll"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VEZ9EP652844;
+	Mon, 31 Aug 2026 14:55:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=1fxtE9
+	eeS9Yt+xUAsP37ppCuAO30jFY/gxbihtekrqs=; b=JqKnRYllf0YlUISERaPHJH
+	VLNdBt1AS7RwK+Wg2K0bv0nEPp6At/47XNYbEe+my/+ixur+Q0pQJ3hwysgGVx35
+	bRPGXIS8MKTuxUyRcvckmSDAHBQ6IFoa+F1qF87A2Mg5vK4TfAjjtoZA5sskuAYy
+	l8Y0inxyfolGTB6H3c+NznIA1XhSpOOzgzOe3jkfDFw27b2s91hbI32XhbKW1nNq
+	AGYek8rplu5gxI7kjEie5RgdOz0s292oavg/hjRksInzLVuwMaEbgImMRJMyTmsC
+	XAczUBZBWpdGOzxTAXg7tajsbvsFcW0GUkf309gH4tAw7A6yLSuSyfF2wFEmFqDQ
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3r2056-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 14:55:10 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VEfjJp000540;
+	Mon, 31 Aug 2026 14:55:09 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbyg6a5h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 14:55:09 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VEt39646334250
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 31 Aug 2026 14:55:03 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BABE820043;
+	Mon, 31 Aug 2026 14:55:03 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4672620040;
+	Mon, 31 Aug 2026 14:55:00 +0000 (GMT)
+Received: from [9.124.217.83] (unknown [9.124.217.83])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 31 Aug 2026 14:55:00 +0000 (GMT)
+Message-ID: <d43bd71d-d5a3-45df-bf49-8a5e617061ac@linux.ibm.com>
+Date: Mon, 31 Aug 2026 20:24:59 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827045007.3831259-1-4ncienth@gmail.com> <yjfqzckumtd32dgqidi5sndvth2t67mjwah4kt4jiahlx2a5uf@if55sinfv5o7>
- <20260828042421.964822-1-4ncienth@gmail.com> <ptco7s5x7tjzp42dzlsitibdigpwucl2whwrq37tknjpo7x2lc@b7q27ldlorak>
- <CAOQ4uxgB9anyJcWem04w65VCJdxbbb2cQDZ_u8qMusw3xpB9Gw@mail.gmail.com>
- <63aj7jbfaoamdmcurlge2c2kqpliaifgq4vbythrrxpfyr5vtm@z64myom426zd>
- <CAOQ4uxh-NZ76hEFoNNGjyhodr9U=dvZuGVmYHVPGZ_=jRxCAsA@mail.gmail.com> <67hq7zqnvp6onwwjp24axucgxbzsko2dphielupdfzmfyk6x57@bdeef7fjkqfa>
-In-Reply-To: <67hq7zqnvp6onwwjp24axucgxbzsko2dphielupdfzmfyk6x57@bdeef7fjkqfa>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Mon, 31 Aug 2026 16:54:55 +0200
-X-Gm-Features: AcwNN1VUPugjGbqI4B0wT9HaChvwtiMplXNGta4vMaUOc8DwPfjODDDmdmwDO_I
-Message-ID: <CAOQ4uxiQF4M_YSBMW3h8VCKR15GV6g_K5nf=2odtYetEwKHm9A@mail.gmail.com>
-Subject: Re: [BUG] fanotify: destroy/add race leaves a mark on a detached connector
-To: Jan Kara <jack@suse.cz>
-Cc: Daehyeon Ko <4ncienth@gmail.com>, Miklos Szeredi <mszeredi@redhat.com>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/5] powerpc/rtas: Allocate ibm,errinjct buffer below
+ RTAS limit
+To: Sourabh Jain <sourabhjain@linux.ibm.com>, mahesh@linux.ibm.com,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
+        gregkh@linuxfoundation.org, oohall@gmail.com, npiggin@gmail.com
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+        tyreld@linux.ibm.com, vaibhav@linux.ibm.com, sbhat@linux.ibm.com,
+        ganeshgr@linux.ibm.com, haren@linux.ibm.com, thuth@redhat.com
+References: <20260721033815.5300-1-nnmlinux@linux.ibm.com>
+ <20260721033815.5300-3-nnmlinux@linux.ibm.com>
+ <9c12964a-f35a-464a-8e65-e0e9fa674819@linux.ibm.com>
+Content-Language: en-US
+From: Narayana Murty N <nnmlinux@linux.ibm.com>
+In-Reply-To: <9c12964a-f35a-464a-8e65-e0e9fa674819@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a9595ce cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=0DTG2NOfNbhX3YZ-qi4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX7+Ibm2ae0A76
+ vnPNDi8D0vMBFJzQckiGfEQmpSuxSySr/YSUGDOFibNP5skU3lwk13Dhtk0tD0Y2NKj+1g0xpuU
+ XL+8mVgmcRvWgwBOnweus5uC4StwEIczZdM8XAh/QpG3PWa377CCJjjaJcAOJhmpyX24vUlRH0e
+ QzHh5jkCoBiToCrqHpkoP/9h6zahw71ZbTeYJhKYWe/DIVMGdhIQFGiIbzxLiU6/0M17tcLk63J
+ 31Hk3yS73A6wxfiVCf+KL5CAW00S8hSdpyICHi3cVOvVXwdEXQwzewcLAGOVMFL5a82mhWOJ0Cu
+ VGxfgZnchJer8zkmkdR9I5JiubS6SQqjwOX3SUw2qxivXbcErZyy34pdW6s1WQfJLKxnVDe38QT
+ QHVsFhlompyphY8rmtgDEMTKbo9BqOTNVp+0LxWNUOzo2ilpItvOrj7WctDK6ooBibYICIO2bMB
+ Mqfnwnzy2r/TrPFuJVA==
+X-Proofpoint-GUID: T-nBCFkRvkMzPYFWg2cV6jWFHjDK2uSY
+X-Proofpoint-ORIG-GUID: XX_lvHF8GkwY7uv6rwN7UJbeeO_qn_zf
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfXyEwbxo3VmHCA
+ l1pfBiqMPKfpr0H17ZAEBRHhYhxk5J2LnUuiF/kYCnJx96Aoq4eFJJr5rjKuv8zVc8eXFiUvOlK
+ thtX18Z/nkrrJ+i4EXM7XTPCvm1YhLY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310125
 
-On Mon, Aug 31, 2026 at 1:39=E2=80=AFPM Jan Kara <jack@suse.cz> wrote:
->
-> On Sat 29-08-26 17:04:19, Amir Goldstein wrote:
-> > On Fri, Aug 28, 2026 at 7:36=E2=80=AFPM Jan Kara <jack@suse.cz> wrote:
-> > > > > Now there's the question about the best fix for the problem. I've=
- realized
-> > > > > we cannot just remove the call to fsnotify_inode_delete() from th=
-e place
-> > > > > where fsnotify_inoderemove() is called (and rely on the call from
-> > > > > __destroy_inode()) because the connector holds inode reference an=
-d so
-> > > > > __destroy_inode() would never get called. Hrm, this is a hairy is=
-sue and so
-> > > > > far I don't see a good place to reliably trigger detaching of con=
-nector
-> > > > > from the inode. One reliable place would be iput() but that's rea=
-lly ugly
-> > > > > and would slow down every iput() user. The cleanest solution I ca=
-n
-> > > > > currently see is to stop holding inode reference from a connector=
- as I've
-> > > > > proposed in the past. Then we can reliably perform the cleanup in
-> > > > > __destroy_inode(). But that will be a rather non-trivial undertak=
-ing. Amir,
-> > > > > do you see some other option?
-> > > >
-> > > > What about the option I proposed to live with the orphan marks
-> > > > Is it so bad? I mean it's confusing and removing the assertion coul=
-d
-> > > > hide real bugs/races, but maybe it's worth not complicating the cod=
-e
-> > > > until we move forward to re-attachable marks.
-> > >
-> > > I'm not so much worried about the case when placing of the mark races=
- with
-> > > unlink. There I agree we can somehow paper over the problem for now. =
-What
-> > > I'm more worried about is the case where someone places a precontent =
-/
-> > > permission mark on the inode and a malicious user does hardlink + ope=
-n +
-> > > unlink trick and after unlinking the original link to the inode, he h=
-as an
-> > > open fd to the inode stripped of any notification marks which I'd say
-> > > violates the promise of precontent / permission marks.
-> >
-> > I see. so we need a point where there are no more hardlinks and no more
-> > dentry aliases to the inode.
-> >
-> > How about we check for this condition?
-> >
-> > --- a/fs/dcache.c
-> > +++ b/fs/dcache.c
-> > @@ -471,7 +471,7 @@ static void dentry_unlink_inode(struct dentry * den=
-try)
-> >         raw_write_seqcount_end(&dentry->d_seq);
-> >         spin_unlock(&dentry->d_lock);
-> >         spin_unlock(&inode->i_lock);
-> > -       if (!inode->i_nlink)
-> > +       if (!inode->i_nlink && hlist_empty(&inode->i_dentry))
-> >                 fsnotify_inoderemove(inode);
->
-> This looks like an intriguing idea. But I think it still has a hole. Unti=
-l
-> the last inode reference is put, open_by_handle() can still get you a new
-> dentry and an open file pointing to that inode.
+Hi Sourabh,
 
-Maybe we can close this hole, because whether open_by_handle()
-should or should not succeed in this case is not well defined,
-We can make it defined.
-Something like this?
-NFS should have a sillyrenamed link to avoid undefined behavior
-around unlinked open files.
+On 04/08/26 12:52 PM, Sourabh Jain wrote:
+> Hello Narayana,
+> 
+> How about using the rtas_work_area_alloc() instead of allocating a new 
+> dedicated buffer
+> for errinjct only?
+> 
+> Checkout Commit 43033bc62d34 ("powerpc/pseries: add RTAS work area 
+> allocator") for
+> infrastructure to allocated working buffer.
+> 
+> Also checkout commit e27e14231eb5 ("powerpc/pseries/dlpar: use RTAS work 
+> area API")
+> on how to use work area API.
+> 
+Agreed. I reworked this in v4 to use the RTAS work area allocator 
+instead of adding a dedicated global rtas_errinjct_buf.
+
+The v3 approach allocated a separate error-injection buffer during
+rtas_initialize(), but that is not necessary now that the RTAS work area
+allocator already provides the right infrastructure for RTAS-accessible 
+working buffers.
+
+In v4, the pseries error-injection path allocates a work area for the 
+RTAS parameter buffer, fills it using the mapped kernel address, passes 
+the RTAS-visible physical address to firmware, and frees the work area 
+after the open/inject/close sequence.
+
+This also removes the extra global buffer only for error injection.
 
 Thanks,
-Amir.
+Narayana
 
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -459,6 +459,7 @@ static void dentry_unlink_inode(struct dentry * dentry)
-        __releases(dentry->d_inode->i_lock)
- {
-        struct inode *inode =3D dentry->d_inode;
-+       bool dead;
+> - Sourabh Jain
+> 
+> On 21/07/26 09:08, Narayana Murty N wrote:
+>> ibm,errinjct requires a caller-provided work buffer whose physical
+>> address is passed to RTAS firmware.
+>>
+>> A static C array such as:
+>>
+>>    char rtas_errinjct_buf[1024] __aligned(SZ_1K);
+>>
+>> only guarantees alignment, not physical placement.  If the array lands
+>> above the RTAS-safe range (RTAS_INSTANTIATE_MAX, 1 GB) or above 4 GB,
+>> RTAS receives a truncated or invalid address and the injection call
+>> will fail silently or corrupt memory.
+>>
+>> Instead, introduce rtas_errinjct_buf as a global unsigned long storing
+>> the physical address allocated during rtas_initialize() using
+>> memblock_phys_alloc_range() with the same rtas_region upper bound used
+>> for rtas_rmo_buf.  This matches the existing placement model for
+>> RTAS-accessible buffers and guarantees the physical address fits in 32
+>> bits.
+>>
+>>    Usage:
+>>      void *buf    = __va(rtas_errinjct_buf);       /* kernel VA to 
+>> fill */
+>>      u32  buf_phys = lower_32_bits(rtas_errinjct_buf); /* PA for RTAS */
+>>
+>> Always check upper_32_bits(rtas_errinjct_buf) == 0 before passing the
+>> lower 32 bits to RTAS.
+>>
+>> Add rtas_errinjct_mutex to serialise the complete open-session /
+>> inject / close-session firmware call sequence.  A mutex is required
+>> because the sequence involves multiple rtas_call() invocations with
+>> possible busy/extended-delay retries that may sleep.
+>>
+>> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+>> ---
+>>   arch/powerpc/include/asm/rtas.h | 26 ++++++++++++++++++++++++++
+>>   arch/powerpc/kernel/rtas.c      | 17 +++++++++++++++++
+>>   2 files changed, 43 insertions(+)
+>>
+>> diff --git a/arch/powerpc/include/asm/rtas.h b/arch/powerpc/include/ 
+>> asm/rtas.h
+>> index d046bbd5017d..59e3c1296018 100644
+>> --- a/arch/powerpc/include/asm/rtas.h
+>> +++ b/arch/powerpc/include/asm/rtas.h
+>> @@ -4,6 +4,7 @@
+>>   #ifdef __KERNEL__
+>>   #include <linux/mutex.h>
+>> +#include <linux/sizes.h>
+>>   #include <linux/spinlock.h>
+>>   #include <asm/page.h>
+>>   #include <asm/rtas-types.h>
+>> @@ -519,6 +520,31 @@ int rtas_get_error_log_max(void);
+>>   extern spinlock_t rtas_data_buf_lock;
+>>   extern char rtas_data_buf[RTAS_DATA_BUF_SIZE];
+>> +/*
+>> + * RTAS error-injection work buffer.
+>> + *
+>> + * ibm,errinjct requires a caller-provided work buffer whose physical
+>> + * address is passed to firmware.  A static C array only guarantees
+>> + * alignment, not physical placement; if it lands above the RTAS-safe
+>> + * range or above 4 GB, RTAS receives a truncated or bogus address.
+>> + *
+>> + * rtas_errinjct_buf stores the physical address allocated during
+>> + * rtas_initialize() using memblock_phys_alloc_range() with the same
+>> + * rtas_region upper bound used for rtas_rmo_buf, matching the existing
+>> + * placement model for RTAS-accessible buffers.
+>> + *
+>> + * Use __va(rtas_errinjct_buf) to obtain the kernel virtual address for
+>> + * filling the buffer, and lower_32_bits(rtas_errinjct_buf) to pass the
+>> + * physical address to RTAS (after checking upper_32_bits() == 0).
+>> + *
+>> + * rtas_errinjct_mutex must be held across the complete
+>> + * ibm,open-errinjct / ibm,errinjct / ibm,close-errinjct sequence.
+>> + */
+>> +#define RTAS_ERRINJCT_BUF_SIZE    SZ_1K
+>> +
+>> +extern unsigned long rtas_errinjct_buf;
+>> +extern struct mutex rtas_errinjct_mutex;
+>> +
+>>   /* RMO buffer reserved for user-space RTAS use */
+>>   extern unsigned long rtas_rmo_buf;
+>> diff --git a/arch/powerpc/kernel/rtas.c b/arch/powerpc/kernel/rtas.c
+>> index 27d53f34494d..7883f973e8c9 100644
+>> --- a/arch/powerpc/kernel/rtas.c
+>> +++ b/arch/powerpc/kernel/rtas.c
+>> @@ -769,6 +769,17 @@ EXPORT_SYMBOL_GPL(rtas_data_buf);
+>>   unsigned long rtas_rmo_buf;
+>> +/*
+>> + * Physical address of the ibm,errinjct work buffer.  Allocated during
+>> + * rtas_initialize() using memblock_phys_alloc_range() below rtas_region
+>> + * so the address fits in 32 bits and is safe to pass to RTAS firmware.
+>> + */
+>> +unsigned long rtas_errinjct_buf;
+>> +EXPORT_SYMBOL_GPL(rtas_errinjct_buf);
+>> +
+>> +DEFINE_MUTEX(rtas_errinjct_mutex);
+>> +EXPORT_SYMBOL_GPL(rtas_errinjct_mutex);
+>> +
+>>   /*
+>>    * If non-NULL, this gets called when the kernel terminates.
+>>    * This is done like this so rtas_flash can be a module.
+>> @@ -2109,6 +2120,12 @@ void __init rtas_initialize(void)
+>>           panic("ERROR: RTAS: Failed to allocate %lx bytes below %pa\n",
+>>                 PAGE_SIZE, &rtas_region);
+>> +    rtas_errinjct_buf = 
+>> memblock_phys_alloc_range(RTAS_ERRINJCT_BUF_SIZE,
+>> +                              SZ_1K, 0, rtas_region);
+>> +    if (!rtas_errinjct_buf)
+>> +        panic("ERROR: RTAS: Failed to allocate %lu bytes below %pa\n",
+>> +              (unsigned long)RTAS_ERRINJCT_BUF_SIZE, &rtas_region);
+>> +
+>>       rtas_work_area_reserve_arena(rtas_region);
+>>   }
+> 
 
-        raw_write_seqcount_begin(&dentry->d_seq);
-        __d_clear_type_and_inode(dentry);
-@@ -469,9 +470,12 @@ static void dentry_unlink_inode(struct dentry * dentry=
-)
-         */
-        dentry->waiters =3D NULL;
-        raw_write_seqcount_end(&dentry->d_seq);
-+       dead =3D !inode->i_nlink && hlist_empty(&inode->i_dentry);
-+       if (dead)
-+               inode->i_state |=3D I_ZOMBIE;
-        spin_unlock(&dentry->d_lock);
-        spin_unlock(&inode->i_lock);
--       if (!inode->i_nlink)
-+       if (dead)
-                fsnotify_inoderemove(inode);
-        if (dentry->d_op && dentry->d_op->d_iput)
-                dentry->d_op->d_iput(dentry, inode);
-@@ -2244,6 +2248,12 @@ static struct dentry *__d_obtain_alias(struct
-inode *inode, bool disconnected)
-
-        security_d_instantiate(new, inode);
-        spin_lock(&inode->i_lock);
-+       if (inode->i_state & I_ZOMBIE) {
-+               spin_unlock(&inode->i_lock);
-+               dput(new);
-+               iput(inode);
-+               return ERR_PTR(-ESTALE);
-+       }
-        res =3D __d_find_any_alias(inode); /* recheck under lock */
-        if (likely(!res)) { /* still no alias, attach a disconnected dentry=
- */
-                unsigned add_flags =3D d_flags_for_inode(inode);
