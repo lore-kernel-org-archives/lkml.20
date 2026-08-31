@@ -1,166 +1,137 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D86FA3E3D98;
-	Mon, 31 Aug 2026 10:06:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7868B3E0C5C
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:06:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170792; cv=none; b=teurUiRfxzsMpQQo7EHQJPX6upEZwUNT94d5K5W+mnWVBKrvoOF5cdPSx1Ip+0g5NEPCc+FmMcO6K3MLk0IU+C8aNa6As9hkLDnS7t0Cd/KH5wDtUrm6fyEzXAqZ81LaDTWOSrJHuMgMvShDlcOwbjHtxTzxDdrKHqjO6CjbOTE=
+	t=1788170810; cv=none; b=leDzXUhQbMgACyitRJ+kXEg9n0tFbrFZ6xwUKe4ANEM/jR/0psY2DoAARlKeDXmuvWuQWO8WQu0HgbezgPlde5TCfzZc2CQvII/DOfJB23sKwtNsXXM1VNeP5L4yvJli+u3vk/5MldBpNeEnWQBKwPz3+pTVZhBg4bseOctgjBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170792; c=relaxed/simple;
-	bh=Zd1I1rzGLjNP5UHFN8ObvHcchBTEBO14g7z2JtxlA6U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WipoBEKfkz/UjLtCRtwj+xtjTcwHdU5e4G5YTxqHjAevR0azLN0+QbepOiE007tNYnwsH1H9KZvyTWeZtcHTWs+EIbrzRV89daNi9Lw4yD8woxrSt9NCRYlswJ5XN9awijx4zIKaJzyQz/g4m/wiOB7gDEnpedFBnbYrKvJXj4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=jKwu2asG; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=yIyma6zn; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=hmYbXGPh; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=NxsPq1pR; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788170810; c=relaxed/simple;
+	bh=n+da0A4rftMZVf5eI/Yp+jPaS4Rq6J2ReGW5L1G66o8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kznMPE7I43OVo6MIJeVSdW7xhFn7KF2uWhqTv2TTZVQIHyw8KWaR86BBPPxelwDgM8uyjJvGBPfHVhn2CaizwaKlsDzP4uZ1zG4JGTnMnEFFv6VxTW1NITzoBXDZZ2n06751GXucYIwmGGUJ93hb0ODZFSOplhj7So068dGmhTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DATBspxv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="jKwu2asG";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="yIyma6zn";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="hmYbXGPh";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="NxsPq1pR"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id BFE4A22347;
-	Mon, 31 Aug 2026 10:06:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788170785; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SUNwtZYE0BZEojiBC/c0w28QoGhVaGYNfF8bWOZe0J0=;
-	b=jKwu2asGObmXrCsHXGJTde/JBaodQf9kqgWIndpdOxVluroTDfauMTBO87hFsi47W9KcoG
-	jTgX2l/rLJlcsCTFRacAZ2K+zTVb5Ooi78ojcnFceF6jE/F3XQrDGXyyTV6GSINgRdKdUj
-	IGjwvAFewJgqf5MAhcrCXoZPYAYhKWc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788170785;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SUNwtZYE0BZEojiBC/c0w28QoGhVaGYNfF8bWOZe0J0=;
-	b=yIyma6znJVeJA846qMD4dW9M6BkaUTMQadp7YwBU7cxzIj4+DotGWnUz5DXezz9prWZN7K
-	fKkGBq2AfP44yZCA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=hmYbXGPh;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=NxsPq1pR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788170780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SUNwtZYE0BZEojiBC/c0w28QoGhVaGYNfF8bWOZe0J0=;
-	b=hmYbXGPhmUjtMThBiWN66fg3p2akpd1bjj3OoOiVFs9FqqACy6WhIHqVFhAJTkl1C9V1+q
-	4nQmI7fdTVlE1EMLQLRBwvK+u5HOeSd+xpKRCs3tU7rsnpdEWJiPkZ77htZDfLDb0/QQZQ
-	fcH0uzgkh6yNv79d9TeAp2ZjkITPx4Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788170780;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SUNwtZYE0BZEojiBC/c0w28QoGhVaGYNfF8bWOZe0J0=;
-	b=NxsPq1pRW+nFN8R1t1REtUrjBb1pfxdB/lVWZH7awRQ22iz9nXcNbdcQkRu+rVA5x1pYaz
-	Zl45bp/pNmdh+iDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9D1FC13682;
-	Mon, 31 Aug 2026 10:06:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Li5UJhxSlWoodwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 31 Aug 2026 10:06:20 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 2C9C8A13B5; Mon, 31 Aug 2026 12:06:20 +0200 (CEST)
-Date: Mon, 31 Aug 2026 12:06:20 +0200
-From: Jan Kara <jack@suse.cz>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: Christian Brauner <christian@brauner.io>, Jan Kara <jack@suse.cz>, 
-	Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, Theodore Tso <tytso@mit.edu>, 
-	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
-	Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>, 
-	Phillip Lougher <phillip@squashfs.org.uk>, linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org, ntfs@lists.linux.dev, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 8/9] filemap: Remove redundant FGP_NOFS
-Message-ID: <d3w3bedhmbl7d2ssfq2ov43safj7hynj7rpwztdiu22fkasrhm@e4qjbeohazgv>
-References: <20260830041901.2668-1-willy@infradead.org>
- <20260830041901.2668-9-willy@infradead.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DATBspxv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14D741F000E9;
+	Mon, 31 Aug 2026 10:06:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788170809;
+	bh=rTCa3x1+NLElVZAzpXp0yBo3FBCgVkxgyOn4AqetuYc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DATBspxvVs8agfsX5YhOCluh8TkwJHWyMCd4BSL1dTeYmEDfDsaCxZEJjDKrjKvOz
+	 +RF2NtLVrHEoSP3sc2RhlhoVs4Jo9HPzeIrhYcM8vAO2iDokd5nUHDsTlGtd5ePScf
+	 t76hAjtpxb7lZqcYvcun9GWkZpg+Ka+cC/yeXhBJUVRbpoVhrMnVuUuuBRXSbrnOT/
+	 4KqA0KoPyzsh+d5qhNIhDMGqzRXy5I6/qP6i2cWOUIoqEOb3O00cg2MbPu6go4uRut
+	 hSsH0kjGDEbsNwSnaemTYucOGQRHcltY6KgDJ0PUWzIMU0VmLUoZ07EEP1lOVeNagK
+	 fK9VMEfu6YK1g==
+Message-ID: <3d3c124b-04ae-49bf-8bbd-684b412f0a1c@kernel.org>
+Date: Mon, 31 Aug 2026 12:06:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830041901.2668-9-willy@infradead.org>
-X-Spam-Score: -2.51
-X-Rspamd-Queue-Id: BFE4A22347
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_CC(0.00)[brauner.io,suse.cz,kernel.org,mit.edu,gmail.com,squashfs.org.uk,lists.ozlabs.org,vger.kernel.org,lists.linux.dev,kvack.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,infradead.org:email]
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] mm/slab_common: reject zero object_size before
+ calculate_alignment
+Content-Language: en-US
+To: Longlong Xia <xialonglong2025@163.com>, harry@kernel.org,
+ akpm@linux-foundation.org
+Cc: hao.li@linux.dev, cl@gentwo.org, rientjes@google.com,
+ roman.gushchin@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Longlong Xia <xialonglong@kylinos.cn>
+References: <20260826015506.3178758-1-xialonglong2025@163.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260826015506.3178758-1-xialonglong2025@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun 30-08-26 05:18:55, Matthew Wilcox (Oracle) wrote:
-> The flags already include FGP_NOWAIT which prohibits all reclaim, not
-> just reclaiming from the filesystem.
+On 8/26/26 03:55, Longlong Xia wrote:
+> From: Longlong Xia <xialonglong@kylinos.cn>
 > 
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> calculate_alignment() with SLAB_HWCACHE_ALIGN halves ralign in a
+> while (size <= ralign / 2) loop. When size is 0, ralign eventually
+> reaches 0 and the condition stays true indefinitely, hanging the
+> kernel.
+> 
+> kmem_cache_sanity_check() rejected size > KMALLOC_MAX_SIZE but not
+> size == 0. Add !size to the check so a 0-size kmem_cache_create() is
+> caught on CONFIG_DEBUG_VM builds, where it can be diagnosed when it
+> surfaces.
+> 
+> Suggested-by: Hao Li <hao.li@linux.dev>
+> Assisted-by: Codex:gpt-5.6-sol
+> Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
 
-Looks good. Feel free to add:
+Applied to mm/slab.git slab/for-next, thanks.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
+I however support Harry's suggestion wrt (not) adressing theoretical issues
+like this going forward.
 
 > ---
->  include/linux/pagemap.h | 2 +-
+> Changes in v2:
+> - Drop the !object_size check in __kmem_cache_create_args() that v1
+>   added to the always-compiled path, and keep the guard only in the
+>   debug-only kmem_cache_sanity_check(), as suggested by Hao Li.
+> 
+> Link: https://lore.kernel.org/all/20260824092454.1693745-1-xialonglong2025@163.com/
+> ---
+>  mm/slab_common.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-> index 0adfa6605653..3974b063a049 100644
-> --- a/include/linux/pagemap.h
-> +++ b/include/linux/pagemap.h
-> @@ -929,7 +929,7 @@ static inline struct page *grab_cache_page_nowait(struct address_space *mapping,
->  				pgoff_t index)
->  {
->  	return pagecache_get_page(mapping, index,
-> -			FGP_LOCK|FGP_CREAT|FGP_NOFS|FGP_NOWAIT,
-> +			FGP_LOCK | FGP_CREAT | FGP_NOWAIT,
->  			mapping_gfp_mask(mapping));
->  }
+> diff --git a/mm/slab_common.c b/mm/slab_common.c
+> index 95ddbab290d4..e205a99d85cf 100644
+> --- a/mm/slab_common.c
+> +++ b/mm/slab_common.c
+> @@ -102,7 +102,7 @@ static bool kmem_cache_is_duplicate_name(const char *name)
 >  
-> -- 
-> 2.47.3
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>  static int kmem_cache_sanity_check(const char *name, unsigned int size)
+>  {
+> -	if (!name || in_interrupt() || size > KMALLOC_MAX_SIZE) {
+> +	if (!name || in_interrupt() || !size || size > KMALLOC_MAX_SIZE) {
+>  		pr_err("kmem_cache_create(%s) integrity check failed\n", name);
+>  		return -EINVAL;
+>  	}
+
