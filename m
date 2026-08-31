@@ -1,111 +1,68 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216444E66C5
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 14:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC1641B8CC;
+	Mon, 31 Aug 2026 14:32:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186748; cv=none; b=C+UPB54ldyIldmD6bsMRItMkfIGuVNNkjPoMKqpTNcukGcOyyLWPo9pNQhBdCinwrd61g7mTWeHCbutDixtUH8EWWwxHZlgCv6H+kLdyLBfcZGzS6svIT3tpvod4fWLhZ2+YKMR3y3T3Qkf4QjskKvIYbXHoy398SQmZl7StZ3A=
+	t=1788186760; cv=none; b=N6bcecETlqMHqQr/7NAQ5a+Ng6/q819xRi8jrsXES5V1j/2QnoDwFxP4JdXFL6LLYRlnMEEFbUie6CM9oXZ73jg7yz1PSk6mq4jTsr4k5AMXcLKMKdGedBE3EbX1xW/71nqxOPSMoCP+pa6a295y9cyCyM1m2vsGYibWz5qxYys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186748; c=relaxed/simple;
-	bh=lVZf6gXYP3rEKtgCbZ1/usOfq9IncQX1+3NXISeMmjI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=e9RQZi2hyaUwiWuCrVyvXYczwaUcmr3TNntgCniyqVCVGHSt7faY5xZy5I1KCm8zDkDWNNgttB/zORBIBI8PAtuDwGWabvQhcDN+b9EgSNBsBJrSqiNldszilqKrwxa8oX7hQbOEKfhEh+ZQo3z5a4ToqLh5kTz/C2zQBI/gSEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nkv0toe2; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788186760; c=relaxed/simple;
+	bh=EyEgCzuxeJQC3nLUACqDsYEgC9pfzOG3fIzRvn1TRmw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M13Q/gwbkJPSXBnghRBcYw1M+RPPLTC6PKImaI+ZXi3HDRz5bD+EESAQRIYSMALdeUl+UgE3Kz9oVttNZqH9o54K1j6P7HhSUhNRWKvq0QqwUjW+72pw1+ROsuI3hCb/95LxlQfYq/q8HwILa9eXnjdf1jdKnUdbrP0XTTqpo8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=hlsqDf7M; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nkv0toe2"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b8f86c6deso20873505e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 07:32:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788186745; x=1788791545; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/OQas85hzDcBR25BQh9+KAtaxVWL/DH8U0ZJQTxmJD8=;
-        b=Nkv0toe2RMtu4schcQreMthBPsxhBLWPSLYMWI7zMWjZIQtZwrGlKijoof46rz5sb0
-         O4yafgC7W054ts751jRYoD8NS/mO4n/EzzA4eISqkMo9Neop69PdRu0XmvAfhTyr4bId
-         XMdo8fZWxF3/4o6oA+LZm4vMs/P+1b+m8myt4l5xZHrQSm6BJ7EUhGDQv28shiV8K+s/
-         5WemsB/8beAoC/8e7gCz+5nm2778JTiK4paQb/3x948O7ZQ7BBfttkY0wSA40aPLe5rR
-         8aDJAVePcQtN2YvM0RK7wVHgOwX+XHrrHUbQ92x+Qt2yoEQ2JJUbmedRlDj9Zh5JuIFX
-         bj/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788186745; x=1788791545;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/OQas85hzDcBR25BQh9+KAtaxVWL/DH8U0ZJQTxmJD8=;
-        b=kaPxNlx+udBAcBNhpnjZtiBY1fa5vpXG2uczC3K/+ds40vVOg1qc3o3BgBciESSkKO
-         aAzkCsVGpsn1rbrJknEOZ5hpge/u27BH+MGnT8umjZJIhbrBIpcjb3IHqpQtNoyAY2Ts
-         n9XC1XftpNV03SSxUUF1s8yx4g/pAvMSAfjJjItbOls9tzgEWL/ukdBKOARxm9m9MRqf
-         rxpCwWzZz1I55Q5h4T3BRxvznWi8qgaMwC8MSe0L9XH1Rok92ZHq3seLCG1Vilx2Vg3B
-         JqeiuSiqJIExoCzNxQexnsFyYuOHHkIPTxK4RE9I+W4sA0cIUl4fhdDsLCBzZykzP3FL
-         TVyQ==
-X-Forwarded-Encrypted: i=1; AHgh+RojL+gCoV5CzbcZhmSrF90abjlwKu+jn6YJSP12yFELI9zI4uVdaTxVqhHZr4Q/m42IY7hlYj04fXZMfcg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfQ6Sd7cZ1dCIMRF9IjNpLczhI3hwqdxaMEZH9vHlL+J4+jf4F
-	9uojaBXLqxK0ka+G+9Z0TVApPHi0KhdiidmHPXmGTNV6u3IFOOT6Jx2P
-X-Gm-Gg: AR+sD13WuvKZf+Mp4LhvRmfq64eYqJFRxf1Zc+Rspq8DQlv2XDyKVzELzux/BUbMC6F
-	h7YQ0AVAwtySeNy5Pjk0DiWfu/tjza7crw7hT6JjgDBNA6t++sr6RyJnAlvpEAhHKFpV8W6rOkm
-	51lxUR6ucjAZZKw6D55F1Ba/JtTLBdMtFcVsSR0zysDFRbhu1C1vbRXqiH98FGHbuD9XXErvh11
-	eBR++hpBngqHGX6X1bGW5uIGDo5pzv+5hi5811EeUk6Zfwjo0j1zGju7jRGgeaisrxGDptg70GI
-	/LdIR6jIonZopa+DMeEuHvHa3gPjiG/nveH1C2y6yadTHPvxXckmaRC5dPfH3kagQa895fAJW6T
-	7x3nuOk2O+90QAt+hE7fkH8af+9/8GItF0HGmqXJxZlm3yX3gVgKObgU46r46mGr/06v1Zb+yph
-	WNqPHbFEXxgyFMlESjwjMbgUF7gMlukUOYa/DRjF5NyzjgA53XR+gJ9JqBbCbuBLhXyI2PLK7gV
-	Gygmap8rGh1+AHRhwWbXc/u
-X-Received: by 2002:a05:600c:a48:b0:499:9eb8:a1d7 with SMTP id 5b1f17b1804b1-49b91c3b7b6mr330456825e9.9.1788186745344;
-        Mon, 31 Aug 2026 07:32:25 -0700 (PDT)
-Received: from unix.. (244.red-81-44-253.staticip.rima-tde.net. [81.44.253.244])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b945816f2sm344786125e9.8.2026.08.31.07.32.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:32:24 -0700 (PDT)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Jason Wang <jasowangio@gmail.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-Subject: [PATCH 4/7] docs: dma-buf-heaps: fix CMA heap name typo
-Date: Mon, 31 Aug 2026 11:31:22 -0300
-Message-ID: <20260831143125.151360-5-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831143125.151360-1-ivanrwcm25@gmail.com>
-References: <20260831143125.151360-1-ivanrwcm25@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="hlsqDf7M"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=VTGirr9jlAj9jGAixqMmWdmq+Us0PYSlDcy8/h2zW8Q=; b=hlsqDf7Mvp823e/YE0+2Q5BwgL
+	TlwPv7NTuO+hmur0/SjfVynnipMBlF8TgYfg9YqjnKjA8ReflYPQe7sC+zZxcZzHYZnHBk2Ld4gQd
+	Ze6i5yYWDhY4W/7FkX7FaqnBupof+t5h57YJsQ9zBnxN2OhTe/zrWIg9Ca0MtVeyuHbg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x133m-002CFV-7j; Mon, 31 Aug 2026 16:32:30 +0200
+Date: Mon, 31 Aug 2026 16:32:30 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Birger Koblitz <mail@birger-koblitz.de>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>, linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Jianhui Xu <neuromoments@gmail.com>
+Subject: Re: [PATCH net-next v8 11/15] ax88179_178a: Add Suspend/resume
+ support for AX88179A/772D/279
+Message-ID: <8a28bc56-8307-4f88-9add-ee7fa032ae4e@lunn.ch>
+References: <20260831-ax88179a-v8-0-de905f2ee426@birger-koblitz.de>
+ <20260831-ax88179a-v8-11-de905f2ee426@birger-koblitz.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831-ax88179a-v8-11-de905f2ee426@birger-koblitz.de>
 
-Line 39 used default-cma-region with hyphens; the registered heap name
-is default_cma_region, already named correctly at line 26.
+On Mon, Aug 31, 2026 at 11:59:00AM +0200, Birger Koblitz wrote:
+> The suspend and resume functions are called via the usb_driver structure,
+> for which the driver has only a single instance. Add wrapper functions
+> for the different implementations for the AX88179 and AX179A architecutres
+> in ax88179_lib which calls the 2 implementations in ax88179_178a and
+> ax88179a_devices, respectively.
+> 
+> Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
+> Suggested-by: Jianhui Xu <neuromoments@gmail.com>
 
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
----
- Documentation/userspace-api/dma-buf-heaps.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-diff --git a/Documentation/userspace-api/dma-buf-heaps.rst b/Documentation/userspace-api/dma-buf-heaps.rst
-index f56b743cdb36..92099188893e 100644
---- a/Documentation/userspace-api/dma-buf-heaps.rst
-+++ b/Documentation/userspace-api/dma-buf-heaps.rst
-@@ -36,7 +36,7 @@ following heaps:
-  - A heap will be created for each reusable region in the device tree
-    with the ``shared-dma-pool`` compatible, using the full device tree
-    node name as its name. The buffer semantics are identical to
--   ``default-cma-region``.
-+   ``default_cma_region``.
- 
- Naming Convention
- =================
--- 
-2.43.0
-
+    Andrew
