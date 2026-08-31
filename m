@@ -1,85 +1,182 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495813A5E89;
-	Mon, 31 Aug 2026 17:00:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D2F3AAF6E;
+	Mon, 31 Aug 2026 17:01:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788195645; cv=none; b=sRH+6sOU8k+UwciGogqcpk0QicfAPH7M7rO8fJiJwBa3lGl5aHDyeWhtzwUOuxisb2r73HUATzRjWNxPCzZend++c5x04Stbs38Ju7g4B7QljSLHJxfIVdqLd8bxB1y3QVXu+oPb1GhmXkrw3lUETua3iRHRb1/d+Hy6gU1+V3k=
+	t=1788195678; cv=none; b=Y+1NHSSzJq+ej2Lt2fzts7Gwj6vWg56UWjaU8FCcZOA7d8ffUiviGddYfCPxlc4+6aki9I4Ex7NN6HZ0wrMhH8711DlJCG8HbzX6b/OSKBqYlwt5EiMZhPxYfOBzg2Is0b6UbSTX9AFha/GABcXgAOCtz2Ukj/JFwftg3a6AbxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788195645; c=relaxed/simple;
-	bh=iXahD0twFxrsPC4xNEUZNmOuShlmcRsERnw5koF1RP0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ru4sf5fyUC7N/+MQ4rEQvx1dEWbG+HhWibXZWrPeiwE9iHBCQLIV8793sgkCCe6GQ9ZTumX3WKV/HjeIoPWP73UO6jcVOkJvnM1wKgFFZgWnhXvmL0aool+GmPxQVrbtK/IZW2q7AoDk6IiKvtroZJtkbxVLNf0OTXwHxp6WTQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=6BqugJpz; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788195678; c=relaxed/simple;
+	bh=bRQmaVK5YtPc9OyhbJlSSLkDRzpF1K/eb8Kd9SdfqB8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tEXg4pd0zasQoYkO2wenNgBKUxINayQNQhMbVH4EWQxz2VDXoxOgdhH66Yog8BjL43aCc3C2MXxah5ViRgsEk4zW0TwL4xj50q6HMFjfWVXZIDSteSHHuvpR+9nmJNmSXtsYRNhKieVpmhy1GrOhDJOVCXKQ51lKCeFAKcnyOg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CQrF/Ej3; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="6BqugJpz"
-Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id AE6D8A373C;
-	Mon, 31 Aug 2026 17:00:40 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id 73DA02F;
-	Mon, 31 Aug 2026 17:00:37 +0000 (UTC)
-Date: Mon, 31 Aug 2026 13:01:33 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>,
- x86@kernel.org, Jinchao Wang <wangjinchao600@gmail.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@linutronix.de>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Ian Rogers <irogers@google.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH 1/2] tracing/probes: Fix anon_stack check for unnamed
- bitfields in btf_find_struct_member
-Message-ID: <20260831130133.3018b81a@gandalf.local.home>
-In-Reply-To: <178818876548.104360.13229872396750615226.stgit@devnote2>
-References: <178818875393.104360.1469039168635349344.stgit@devnote2>
-	<178818876548.104360.13229872396750615226.stgit@devnote2>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CQrF/Ej3"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 1A88C1A1910;
+	Mon, 31 Aug 2026 17:01:14 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D938860231;
+	Mon, 31 Aug 2026 17:01:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1D87111C791C9;
+	Mon, 31 Aug 2026 19:01:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788195672; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=NeMX3TyIVgiWv0EHpllg7BARTZozM1wKfOdY7ITpCSQ=;
+	b=CQrF/Ej30jVPaNnk9wov2SvTuyLFk4VzE9ygj76VdqnEPfF1aND5Yvpc0cLjIUPM/cQQnR
+	RsPZ1ctIAyUR4PD/0V+TWEtajDw3WzOECJHmqXVtAa2q9UYL1gYiluTgdODsKbcqxZdy/A
+	uhHxEfUYh624qacTBT1kjC8BBhquwpgSkTdxGO0VqjrEbs2W67rPw1ruG/UwyUwwVfxx6Q
+	iXz5WGtqpbSIBIBg1FE8IogG9bavMTphVYll5Quke4vvzd6MpSMN7ATOG4DOp/X/nv+OMx
+	U801DB1uCIWxhMoSVDFR1lEY1UNWwOlQeh3cmV8HDupzJW2rpZoCzjqr6QLRUw==
+Message-ID: <b36109c3-00e5-434e-a9b7-46049b0bff40@bootlin.com>
+Date: Mon, 31 Aug 2026 19:01:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 3/9] net: stmmac: qcom-ethqos: fix RGMII_ID mode to
+ use DLL bypass
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>, linux-arm-msm@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20260612-shikra_ethernet-v1-0-f0f4a1d19929@oss.qualcomm.com>
+ <20260612-shikra_ethernet-v1-3-f0f4a1d19929@oss.qualcomm.com>
+ <42355330-c22a-4fce-98ab-dc22b321ff16@lunn.ch>
+ <ai93X/cNWHtEQsDt@oss.qualcomm.com>
+ <82705420-771d-41bf-a4d9-ed94dff86ff0@lunn.ch>
+ <ajF6q5eKz92ddqVl@oss.qualcomm.com> <apU8Yx08/PJiS9Xw@oss.qualcomm.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <apU8Yx08/PJiS9Xw@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 73DA02F
-X-Stat-Signature: xmmuzzdbpm9jdq9bf6k9cxysirwfh6i9
-X-Rspamd-Server: rspamout07
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/cl9iYNiIKShFUdufTESmQMX5u9D0nFJM=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=v9/PHUSS7Q4WIpCc40DdWGuXHA3SZrhDhmXgNoC2nEg=; b=6BqugJpzevbcWvx6n7uPaIUsuS9lyJRhAXKPm2n5NMJEOCY7A8pERmex1saDxM1OmEzu5Pb8W2pJ6TOluCrlrBO9gzKKYfabnYnOmlWj/fy69n80rlfNQp1qN8/rsvarhNiSqNOnYOLlHda+UlRDLSLJFTovf86NWEo1S4q7yoY=
-X-HE-Tag: 1788195637-278297
-X-HE-Meta: U2FsdGVkX1+0Rw05Z5fvWGSHQamMCwzBItP6rJNXN9UpS2zJBaxN2fvnOXtj9xsOKb3O1/tb4XcDs1GhRXRIxEGdrmhWQ98Z42HmAzBGhvpp4Nx7JFy1uhh7FlA1IdevYKm74yqM0KrDOXUnNTtMHzcZLtCxb55EkReE9rjYzftMFHP85evSWl03kh8d/vijPYXfJwyYLNP4MK/e0wcx8y5NvOp3FLqLwCm5PgBXXZUkkXn9+JvLbghLMIowTKzVbGBtfLvu4RRACCa3eszAbrOOaJEWzpBgXNNVsHwOzWazRhOzqiT3r/CUhX5vKHCiqjWdqIjIjs69cVCFFoEkRdxXtdOjR4i1uXKDDiWyUbA9HuBE9ppfCumjcWp387K2bIx4VVV38spvdZRLAd1GDg==
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue,  1 Sep 2026 00:06:05 +0900
-"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
+Hi Mohd,
 
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On 8/31/26 10:33, Mohd Ayaan Anwar wrote:
+> Hi Andrew,
 > 
-> btf_find_struct_member() traverses into nested anonymous structures
-> and unions by pushing members with !member->name_off onto anon_stack.
-> However, it does not consider the unnamed bitfields (e.g. `int : 5`
-> or `unsigned int : 0`) which also have member->name_off == 0.
+> On Tue, Jun 16, 2026 at 10:02:51PM +0530, Mohd Ayaan Anwar wrote:
+>> On Mon, Jun 15, 2026 at 06:48:55PM +0200, Andrew Lunn wrote:
+>>>>> I'm curious how this works at the moment? Do no boards make use of
+>>>>> RGMII ID? Are all current boards broken?
+>>>>
+>>>> Searching through the DTS, I found that we have two boards using "rgmii"
+>>>> (qcs404-evb-4000.dts and sa8155-adp.dts) and another board using
+>>>> "rgmii-txid" (sa8540p-ride.dts). No board which uses RGMII ID.
+>>>
+>>> So this causes problems. We cannot break existing boards, yet it would
+>>> be good to fix the current broken behaviour.
+>>
+>> I am trying to track down the sa8155-adp and sa8540p-ride boards. The
+>> EMAC on QCS404 is extremely similar to QCS615 Ride [0], and I got that
+>> board to work with this series (with RGMII ID mode). So I am fairly
+>> confident that QCS404 would not break (if its even booting up with the
+>> upstream kernel currently). Also, I think we could change the phy-mode
+>> for QCS404 to "rgmii-id" from "rgmii" if these fixes go in.
+>>
+>>> It could be the best way forward is that you issue a warning when
+>>> "rgmii" is found and pass rgmii-id to the PHY. And you also change the
+>>> two boards to use rgmii-id. Lets think about the rgmii-txid case once
+>>> we better understand it.
+>>>
+>>
+>> As Konrad mentioned, it would be great to know if we can test out these
+>> boards. Looking at the different versions of the ETHQOS programming
+>> guide, stopping MAC side delay should be as simple as what we are doing
+>> in this commit. But whether the two boards work directly with the
+>> default PHY delays is unknown.
+>>
 > 
-> If such an unnamed bitfield is pushed to anon_stack, the
-> btf_find_struct_member() return an error even if there are other
-> valid entries in anon_stack.
+> So I did find the sa8540p-ride board but have so far been unsuccessful
+> in getting it to boot. While that goes on, I would like to proceed with
+> a series to fix RGMII on qcom-ethqos due to the following reasons:
 > 
-> To fix this, only push unnamed struct/union members to anon_stack.
-> Also move the btf_type_is_struct() check to the entry of this function
-> because now it is sure only struct/union are pushed to anon_stack.
+>  1. All versions of programming guides give a programming sequence for
+>  MAC-side delay or PHY-side delay. There is no concept of "rgmii-txid".
+> 
+>  2. I also found some downstream code that was using "rgmii" phy-mode to
+>  program MAC-side delays on the sa8540p-ride board. So it looks like
+>  "rgmii-txid" was a workaround to enable ethernet while support for
+>  this board was being upstreamed.
+> 
+>  3. I have been able to test this patch on a variety of boards now,
+>  including:
+>      - Shikra CQ/IQ variants (with the TI DP83867 PHY)
+>      - QCS615 Ride (with the Micrel KSZ9031 PHY)
+>      - Talos EVK (again with the Micrel KSZ9031 PHY)
+>      - Talos Lyra (with the TI DP83867 PHY)
+>  These platforms cover the two RGMII configurations that Qualcomm has
+>  typically deployed.
+
+I've been able to get my hands on a qualcomm devkit for ipq8064 :
+
+Compex WPQ864 6A02, has the IPQ8064 connected to a QCA8337 switch
+through both the ports, one using RGMII (no ID), and one with SGMII.
+
+The DT is downstream, in OpenWRT :
+
+https://git.openwrt.org/openwrt/openwrt/tree/target/linux/ipq806x/dts/qcom-ipq8064-ap148.dts#n198
+
+happy to help in some testing as well if needed, this board is going
+in my CI for stmmac stuff.
+
+> 
+> With this in mind, I was thinking of breaking up this patch series into
+> separate ones to solve one problem at a time:
+> 
+>  1. Introduce support for "rgmii-id" using PHY-side delays rather than
+>  MAC-provided delays. Also, issue a warning if any other phy-mode is
+>  being used.
+> 
+>  2. Fix the DTS of the existing boards to use "rgmii-id".
+> 
+>  3. Once the DTS is fixed, remove the now-unused code handling non
+>  RGMII-ID cases. This should also allow us to remove the whole
+>  ethqos_emac_por code since it wouldn't be needed for RGMII-ID.
+
+I'm wondering if we should add some temporary very loud warning for
+boards that use "rgmii" before changing this, or even just keep the
+actual "rgmii" behaviour which inserts the delays, as there seems to
+be lots of such users...
+
+This is going to be quite the breaking change.
+
+> 
+>  4. Add support for regulator voting in the DP83867 driver, mirroring
+>  what Daniel Thompson/ Alex Elder did for QCA8081 [1]. This will help
+>  in adding support for the Shikra/Talos Lyra boards which need the
+>  supply for the PHY to be explicitly enabled.
+> 
+>  5. Support for Shikra can be added once these changes are in.
+> 
+> Does this plan sound reasonable? Thanks.
+> 
+> 	Ayaan
+> ---
+> [1] https://lore.kernel.org/netdev/20260605010022.968612-3-elder@riscstar.com/
 > 
 
-Should we add Reported-by and a link to the Sashiko report?
-
-> Fixes: 302db0f5b3d8 ("tracing/probes: Add a function to search a member of a struct/union")
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
-
--- Steve
+Maxime
