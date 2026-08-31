@@ -1,158 +1,73 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4FF3CBE6D;
-	Mon, 31 Aug 2026 10:08:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058CD400987
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170920; cv=none; b=R7K+aqqnFkj7dr5qiveIJhYOHC61+DxSpLE6vzjvlLGcfSNEMEJTz6o+z6hQpDSQAlplZXCyIjT3tqSinXe9DBxzonz1qRtkXK7nAHpPmVrI9KUO9QO4kiCFHRXhJ/gJbCZ7tvbDk1twx8awZsl8yFTpF2rsXDgGerK/lzicjcU=
+	t=1788170933; cv=none; b=IviJEUMMqGzZupYDd/eoyN25PGK26F0ebrrYdqX5YyBGTtDBcoccP6SjqZaZEbmyMXm9PRCzA5ja/gf8Yca1+YjDBpqnN/n7O5DKMupzx1rEnZXf6/YMdrT3qaiNzW3ta3iSzJqiy9zoMbNn/6d7nFtjnZEhBNibXd60y4281JE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170920; c=relaxed/simple;
-	bh=zIBA2wVyu5PVLfEr3rdlXXKP/OFIRB1MwGRzMAKjpf0=;
+	s=arc-20240116; t=1788170933; c=relaxed/simple;
+	bh=tLnReXmhVdRvFaQKJDAq8PXo4nJzzNLxzvfuSmZADnY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MUwIbdFUTNJYdXrr5EBfNcGXvf1J/+uTRLspXK4e2QeNDoQsWsDFronUzBSbuqaofADsTPqFPimpRFbu4xw/i+aecSHdE/kKQVcJ/OGImyLU5SkhyhjCShL05p/GocrA5mac8eeJMHMtm7LYf9IjZP8ZkJq1R+JPD3nSAO6/KJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=wvCAPAaO; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=MuNFlc0w; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Uzb2LIye; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=2QEJLTbQ; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=DR3JWkEPgO9DGd6UUiOOgGLEB/9GmuIk/2ZnhufcZnPN4pW0ayJjk3fZfWrngY1I3xTuu3zClzVNIieJ5NTn5EZaktbQFtvtn1+c1OxFONdXCHd39mzcCBwPSoPH044lKeq1cfBIzdDO/d64lQSG+jk0uSVRjYDFrvFvffBbS2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jk0tFo4R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="wvCAPAaO";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="MuNFlc0w";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Uzb2LIye";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="2QEJLTbQ"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B04771FAAB;
-	Mon, 31 Aug 2026 10:08:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788170912; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lA5FCsiRqGndfeMhZtC7v36Drbd7FKDYcliDfcaFBCA=;
-	b=wvCAPAaOBjCH6h5DpcGNw20wGJraW6tqmFfCZRE4f0gB9Uldet5NHUI4/7ss0YhFfzjiUi
-	Ib3XtHq+lR7ra/rHE57SPzW9JwUbR3boz3K17aubjxatwviLB59gnaatZNB2lS4P54uFl5
-	sdLceqjzcCPyhFSxqs0pTeLheSXwxsk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788170912;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lA5FCsiRqGndfeMhZtC7v36Drbd7FKDYcliDfcaFBCA=;
-	b=MuNFlc0wuVFNREQjM3uDInI1xqoKYuSIku37TCzfZRKnr3m8sObEzSqGZ/FZWxana9tuBh
-	plS0E1jvKoMxVDCw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788170908; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lA5FCsiRqGndfeMhZtC7v36Drbd7FKDYcliDfcaFBCA=;
-	b=Uzb2LIyeuI2zzZ6PPJCUe3sYzl8wN3xZ45UCQ0bozlLNXU5s9kHegZuYzn+z08Z+iteFb6
-	IAyEIvGBGy2dUmap0bFSJPtayw6duO9d0Gh93m8pb5tHjQAEKcvTPK+p8Ey+6liQIPjile
-	ketJuKT0EYc9GbdtiBJWDiD3bqZdpJE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788170908;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lA5FCsiRqGndfeMhZtC7v36Drbd7FKDYcliDfcaFBCA=;
-	b=2QEJLTbQMarN1cka2KHebxL2wHEsQtXf2BBQREtgNuzIvrRzInPCHYKgZM+PjsOG4QBFeH
-	9hQozRRssdd46YCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8BC1213682;
-	Mon, 31 Aug 2026 10:08:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id GhsbIpxSlWpOeQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 31 Aug 2026 10:08:28 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 34131A13B5; Mon, 31 Aug 2026 12:08:20 +0200 (CEST)
-Date: Mon, 31 Aug 2026 12:08:20 +0200
-From: Jan Kara <jack@suse.cz>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: Christian Brauner <christian@brauner.io>, Jan Kara <jack@suse.cz>, 
-	Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, Theodore Tso <tytso@mit.edu>, 
-	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
-	Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>, 
-	Phillip Lougher <phillip@squashfs.org.uk>, linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org, ntfs@lists.linux.dev, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 3/9] erofs: Remove redundant FGP_NOFS
-Message-ID: <7cb6z6bmqbk3dj7mwew3tiomxstzjigs5tel6qhbxmhej3rd3q@pajlpq7y25og>
-References: <20260830041901.2668-1-willy@infradead.org>
- <20260830041901.2668-4-willy@infradead.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jk0tFo4R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 083031F000E9;
+	Mon, 31 Aug 2026 10:08:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788170931;
+	bh=z/Cx6rxW4jszDkKMv1lPDOHzq0Kq6lt8KT1TIKFLaG8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Jk0tFo4RReOyXlIFcgroPA+8suCmv2Nba4g65fn0HkMxjGx1OyMBiEpom5lvDzxF/
+	 PtVSstnd31fRPZ1b0gxikrJxo+PWN8feTqfXz/cYf37GGXaHCKyuxzIQitgqBofbwP
+	 gJDv5PlJVBGHzHdTRnKzu72beXZhEKYvltMwFhV6GNOTOH0fvtO7Nicb5So/diZMOv
+	 JCvNHqtGXYe2w6Ii2dSkR03WGjQCsRwMrlmiCLtjsg2hpg0B44OK6CTjjtlKu3pC1L
+	 6KVlQ3Yq1HYREur3cBlWdNpqalPb7o+OGUVIpyAXKtT0WMsl5MIZynMQXe0OEG3MDs
+	 YmBby4J493vFA==
+Date: Mon, 31 Aug 2026 12:08:47 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Jan Kara <jack@suse.cz>
+Cc: Tao Cui <cui.tao@linux.dev>, kees@kernel.org, cyphar@cyphar.com, 
+	containers@vger.kernel.org, linux-kernel@vger.kernel.org, cuitao@kylinos.cn
+Subject: Re: [PATCH 2/2] userns: don't clear the install target map on
+ map_write() failure
+Message-ID: <20260831-ammoniak-blaskapelle-abbitten-db32791d39b7@brauner>
+References: <20260828091659.358700-1-cui.tao@linux.dev>
+ <20260828091659.358700-3-cui.tao@linux.dev>
+ <37ur33kehusvq7scjflrr3df6d36xtaminoricp6ituocpapef@3we4ql6o2ozz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260830041901.2668-4-willy@infradead.org>
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	TAGGED_RCPT(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[brauner.io,suse.cz,kernel.org,mit.edu,gmail.com,squashfs.org.uk,lists.ozlabs.org,vger.kernel.org,lists.linux.dev,kvack.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,infradead.org:email,suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
+In-Reply-To: <37ur33kehusvq7scjflrr3df6d36xtaminoricp6ituocpapef@3we4ql6o2ozz>
 
-On Sun 30-08-26 05:18:50, Matthew Wilcox (Oracle) wrote:
-> The flags already include FGP_NOWAIT which prohibits all reclaim, not
-> just reclaiming from the filesystem.
+On Fri, Aug 28, 2026 at 11:51:10AM +0200, Jan Kara wrote:
+> On Fri 28-08-26 17:16:59, Tao Cui wrote:
+> > From: Tao Cui <cuitao@kylinos.cn>
+> > 
+> > At the out: label of map_write() the destination map is also cleared
+> > (map->forward = NULL; map->reverse = NULL; map->nr_extents = 0)
+> > whenever the write failed and the extent arrays had to be freed.
+> > 
+> > However, the destination map is written by the successful install
+> > block above, which has no failure exit; every error path reaches
+> > out: without having touched it.  A second write to a mapped
+> > namespace is also rejected with -EPERM before any parsing happens,
+> > so the clearing can never roll back a previously installed map
+> > either.
+> > 
+> > The three assignments just zero an already-zero map.  Remove them.
+> > 
+> > Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 > 
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> I agree this is a dead code but it kind of makes it easier to argue about
+> the correctness of the error handling branch. I guess I'll leave it to for
+> Christian to decide whether he wants to take this or not.
 
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  fs/erofs/internal.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
-> index 65974e57aebf..84b3cdc8e88f 100644
-> --- a/fs/erofs/internal.h
-> +++ b/fs/erofs/internal.h
-> @@ -327,7 +327,7 @@ static inline struct folio *erofs_grab_folio_nowait(struct address_space *as,
->  						    pgoff_t index)
->  {
->  	return __filemap_get_folio(as, index,
-> -			FGP_LOCK|FGP_CREAT|FGP_NOFS|FGP_NOWAIT,
-> +			FGP_LOCK | FGP_CREAT | FGP_NOWAIT,
->  			readahead_gfp_mask(as) & ~__GFP_RECLAIM);
->  }
->  
-> -- 
-> 2.47.3
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Nah, let's leave this as is. :)
