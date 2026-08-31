@@ -1,150 +1,244 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A7B3B893C
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 03:58:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788148686; cv=pass; b=e94uRNlCa/6rF/a3XNQX6WQQCAJ8NDEZiFOGkDvg4NCHxUKG4fYQhlhVmRAD6bAkaeNoqpZlChi9Y670Mzh+rYECBHO3nvaoeCubVCbRlNz3+xLuTx0v9XUi8YOHzooVjEQlxB0Cv9epeNqXnu//mSxOQEy5KcDhlL9uWSYyK+o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788148686; c=relaxed/simple;
-	bh=4c+RsoD9+II3cHrkxTAlyGXQJa9lVnbS0MKfyDhd8XI=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=fkelLwjffsQ/mY8Mw5gbhWs0w+LF8wfnWOO2uT8i4gCyxXeyatCsLjIh3pMGSnzvtr1uHHErIxy63HHz7zJmGaRwlLvfNyvBk046PeNeP25kbw+ki1nBM+V/0KjXqJkljhkLPF0SRet8N0jwBw7Ts/TIJDKwcBkwEp26aOS8k/E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ql1L32lx; arc=pass smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7606A2931FE;
+	Mon, 31 Aug 2026 04:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788149300; cv=none; b=iVvg//jdn+uthHFHCISuB2ybZB4gtK6rDW/KEiRpn6Jq2hsGdjtpYkddYnVjCvPmB8cwqUnjuBqfzQmRCq3rYa6JOAv5Z9zyM/deGmz9ikZbsyjm+bL/7EDm5p5uK7YnUSE0cihQy8zEvT1QmE+uJBJODviuxPqEJe7I982x9sY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788149300; c=relaxed/simple;
+	bh=iaXHoqUjWmSZRCZPtA6qFJvy8rfObBn3vbXe5+knbek=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=svleAMjaDVWPzSF7U72N3Oi4MkyRMrDOqhBTRSxWKeDEZ5PyQewkduiB4E0Q9bQSrlh6yjCvwuUXC0ZYlA9+emlR/vFVsY7YOvaZoq7eLlVCVxiGEDTa7RhqjAbEPG/lo2q1KKFPAFEZtp/DSZLshjfNj11eGKRmB1UU8oNcUjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=UaVntlbu; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=KMYVmn9i; arc=none smtp.client-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ql1L32lx"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-52b3934af3fso34030101cf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 30 Aug 2026 20:58:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788148683; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ClV5IYed1eizhH/5NMtl7vuMPhH/ltX4G1CIkKSQssuwSaL3ceUdpbLVPsU6JG3Rnu
-         YeP22/mBffRHl2VLP50Tnj7vUVHqcFKtD1EbVCFxgKv7UT1v/VGPlGnB6gk8sEpKD6Jy
-         mvrL2H+PS3ih9Iv6pbLQLuuqbODaxiBkgOUEoHTEVedxaFSDhO9bBl+DeuI3d95ylkgp
-         6m1CdviA6MkuLjwik/cHpdNP3mlhKZxdutfoKKHz6QvUdeqw8qpFHKWBbQEkk+A4rp07
-         zlruyPiEoO2ARg5K/CPMdgVQ8rLCapsIFlKrQ08Z0mwkdlo1Vh8j0DJR6R7qAH7s4clT
-         AE/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=4c+RsoD9+II3cHrkxTAlyGXQJa9lVnbS0MKfyDhd8XI=;
-        fh=eqK4ozBIWylPvys/BY+aD0k2NUURA1l5tny2XP7lTUs=;
-        b=SlefwFvywjQY0PWdos95ask8Vx9iaFREH5gusUk+83skuCTCpHoFDo8Q/OdT4RsNOQ
-         62t1rMhtvhfX3P+GZ+3RBUq/r2ir5z6qYdjl/YPNgX2zlk3+3Ys4W0iz951UtoeqIK2Q
-         4p3pIfYwn1W02jHFdLtJntby6ukr+8+ljQEQuV88IcqDdxqTB0+PQkYxTx/YzuAqQ9le
-         qakEB7z3i8yBl9UkiRN5KrTNsIDXPTfXeSNqFIbFnwZCz2t4zpT06nFhvznTJxFq8O7O
-         zFylePPwe8/UrZz8IhLNoneb/532OiP+FmUbHpuwkVYlPnxHnRGmw9rWnrR+7YIEiCUm
-         9Z+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788148683; x=1788753483; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4c+RsoD9+II3cHrkxTAlyGXQJa9lVnbS0MKfyDhd8XI=;
-        b=ql1L32lx0opywnNcCcqNo9pV137Gqha16UOiDMoksPDgU6+st4YU2oSTbExEsSAeRE
-         A4MmPP2IPG9tAF6RsvahZDhdAfOIM1jDHQCKXBPkCy3bS0yNsK4YosmFirwuySZHevL3
-         AfpzHjNrM5gG2iRb5f4js7LN83rBeXsyRWK2TRC9Lt9StYvECubja8/ncUPQyj+4/x6P
-         5RcBGSsKwDhkFetdld9YdM4O+maTMTx3J5DSJUyUkHcHgF2N3d97bgdqe7DbGItMWXGV
-         BfTQcSufv6uhuYzRnduYpDBhe62+lQfq4fT8NkJSgyOI+EcPu6fM46DbO0HqFXLroV/D
-         Ck7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788148683; x=1788753483;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4c+RsoD9+II3cHrkxTAlyGXQJa9lVnbS0MKfyDhd8XI=;
-        b=HkQu8tAwDRkzKWsgiFKCDTN5+uxieBZLdEyZ8yqoTJ8Rwuperju6rKi8sZJvaOl491
-         k3qmuLvWTAa3pkUx0mtogCtnDovyNqR4XfrP9R9pJGFLCHR4WNK7aUEu8GRmFodhUZ1n
-         Kc0vw4dSwVH6/+M7Qc2sGypz4zWJlGPfzphbbctEJu0ddYMST6J8BN9B1wTPa5gEK/P0
-         PA1zlbI3ofPrNPIrg6HzjZAr6mQmuTBzwQazaHEw3yslC3lcQiflOdNKIK6buLtb+sFA
-         1+ZnYogbDyHS5nwf+MhCMvDHSDzxqX5acSVkX+Dt06zdVDSQMA6Vz8kGmiL64+EU5azK
-         ypcg==
-X-Forwarded-Encrypted: i=1; AHgh+RquxHUf5/+U1urJWRTER1IJCKndqFFi2fbDD0rK3rHiXEdrLLkuNSv+rcy5WXfMVycQWSogQdbFSh4W9VY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kveZL6hEaZGzHcH+aMX0e88NeAXFHlD9bL1qh/Z0pQXoFpBM7C
-	vtmXRTuX6XVX+sDXUGkbiODb55SGaHnWAjZVEZdCYnAL7lnx4TbTav1wjsOqMHXamtSKYn1P+ve
-	dEa7/8cReCzRSnQB9IXOp8cxxUJXLdEY=
-X-Gm-Gg: AR+sD13a++PvNAqbqKmgt9olO4QDwYbdWbtJBwZYs9E/sw8VVVjwnl0uy0dW2aXecQq
-	K+qiL6Spo3tbDydzz3h1jFU2nmYaO3DruLT11lqy0c+Np0LoqSxRFR0DfceNbUwMvFwByGwOl1M
-	El6O5ulqDlgPJihdP8w7O5qU9Y1ZNp9MiZt99vxWAVgENN7K425BEZEEk1gXRozjFD17ngz0rIe
-	0AkMNJt6rcNnrPaLwlpVeYAFRwM8K5nkAeN7Y3y6Rq31zzx1+Ebz81zMvRNu67UDBAg0K+wee2D
-	Gy6D4EvVtdk++1JTmaZjqbr/AXQEyMPS7EYNCYOQD1glbyIGNxUBe/KJXS9Vfd1ql5B9ILVbldK
-	TdJ7bf7SJZXftR/4GK3F7vpn168FJDex1rzHfbTOLYhZc/BLY
-X-Received: by 2002:ac8:5a06:0:b0:52b:4e1f:941d with SMTP id
- d75a77b69052e-52fb9374694mr266748461cf.6.1788148682642; Sun, 30 Aug 2026
- 20:58:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="UaVntlbu";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="KMYVmn9i"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id 05C0B1D000E1;
+	Mon, 31 Aug 2026 00:08:16 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Mon, 31 Aug 2026 00:08:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1788149296; x=1788235696; bh=Ok0yODTO4p
+	p190CYF+CpkqDcLLLFQuDigTuF57O5j1c=; b=UaVntlbulI8kKGZL0r6kgetPb+
+	B+X7YUuvZ2mvhFUGZZdP3pT5Fh/lEByEvEuShgifz5VQFJ/0F6R3LOvWgLGcZ0bK
+	7maK8Gfayr1Eu9HQ2eK28vEXQDHzDOQy3I9TNV16YdQ/UAFop7f1C+3MDd1ZNALw
+	RevfIj03ZKz1Ym/gy2c/eoZZsSlupDUrG3FDCdV1wBSa3T4Iklwmr7n0/CJQrEAy
+	Eyj76xasq9rHGZ3lh27uyZ9OgTt2J54NUTvYwgb2evQD/RAG/CKI+7rpbilOG1X8
+	RKrZ18Rc6pRqMyvkCMFOXpKmwjAyfpQpkKM8HSl/kR9Q4xcCQGzjvcE28Qgw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1788149296; x=1788235696; bh=Ok0yODTO4pp190CYF+CpkqDcLLLFQuDigTu
+	F57O5j1c=; b=KMYVmn9iYbLJcHhYuJVyvUevt2z111Gp/LJD1GlG5UWXFV/HuZ8
+	MpP1n4l9bAFyN/AwNXLY+fgT8naaRc1WYDEASQCYsu7RDQhQcxQjz+eqYn68LPis
+	PkrASqkUc04MBmBaX3D0H+D3Hok9/lZ5qOtS5WAQo46S0E1BkdxXr+KQsp7CBM1O
+	WhqyPeNtKCNZUsPwDgLdxjAOVJSKR1rAkbIt1cCD29DM+B2v7Adju4mocFi4ZeM5
+	NnazD26tMmz0+FPDM2KS9R9mJNBzKhZun9Zj+lW7RiTqnAtd6yCup4zJhRJin4S/
+	B7ok1gEvPsTRvpJG+kKRJ38uEzBUZA11tjQ==
+X-ME-Sender: <xms:Lv6Uan-vxpMbTkQQ98dj2JZOTxeDJUR9GMhLAtRG_NKSG0IJ9mJQPA>
+    <xme:Lv6UajlSO3lX-KWCKnf1-B98vJFO5jBCJy3SsGjTvdtkl-J2KDqAXTTU26H8NDblD
+    _GycqzREecai3Nn6MMwfqfYF5z5EimNYowso0z_vWbWUO8cxBwD5dY>
+X-ME-Received: <xmr:Lv6UaiU_hXumVbcoUMpzj3KqHGpPK4J1lmRMD5zjuNwj7J7LRWRFVdrHehjCat-3L2A6WBkZWg>
+X-ME-Proxy-Cause: dmFkZTFjleNt2D8nndZWhJ5yvo5C5ZHXbBkeSZNG7NPUTS2r4A2tYWuhETcsy1iq9ecouS
+    NTWTuiFZMm0mh8Tx08qUgC+f7xB5R5AehVGN1A2ReNz3EOOWEPtVYJXnypdubgAJRZskGD
+    PwIj0uY1HnyfWY50Yn3UL2054TwJ81UcJOpYlo7Ej+yjUm8Unb6TpIv25S4PndyjmIpxO1
+    LWwZAu+Bf8PZcZicZPqovp8OPkYuDp+cjDqbx4lCaXdAf0FjbOSjTJrwS/PvFaS+FzScn/
+    +ZyIRnE8CG0D0Qh39Q+qe5BbVOxGNcnmp8nxexkyoBvNSjYO6OzNG93/Gpi/bpKDguWELy
+    9K7z+WWBiz70ojFi+MDPzTQwpNy7rSdTVJtRFlZdHuGwcfvV5Z8h44jNzwReerwjYr6ZD1
+    1SavmOPLul9j9uZEAakNRqRfXlWKbLDyYQ+BxG03Sw3tZ9qICEg18zZfYV0+zBoqkKKIs8
+    FUjbe3PXkVYhOeISni8VeQDz2wTtIQZh1pFGiljzqCazFy5wP/TnCFNIOcwkTWfkyL53GH
+    +5y2jrg/vnQRWxU7EnRTxsYP4/qfza0l7+b/zColpd2ohtygEZkl2ixhCtHAUXc+gLmUGF
+    +TC+VPRHHa3kNZRdP21NYaA4dCaJD+80BEL0hlwEj7oloBY8cVTgKdeX3ksQ
+X-ME-Proxy: <xmx:Lv6UavrXQ4I-eRcpGmKji1ETWbXs2YrFM_v0-nSJPLUpKNmNR9tD7A>
+    <xmx:Lv6UapVm7YfmydsV-zFrsElXmoBH512m89j5DyAzG3IGneMsuULXLA>
+    <xmx:Lv6UanDRdESKZsSUBakXd9xJWxuyAs1OrJdXssLNa3EGIE-bJXX46Q>
+    <xmx:Lv6UalWIeGs4Bi7Wv8me_u0-lE2fHpGL5GhRaZu1TDcdXKUkZK14Hg>
+    <xmx:MP6UaqGp2Hc2oQX0vPfAK-WxGGk3bJzDqE-EVdOSdYhW4C__71EnOwKM>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 31 Aug 2026 00:08:07 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [PATCH v10 00/13] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Mon, 31 Aug 2026 16:07:51 +1200
+Message-ID: <20260831040804.24111-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: ZW Tang <tangzw515@gmail.com>
-Date: Mon, 31 Aug 2026 11:57:51 +0800
-X-Gm-Features: AcwNN1UlLAAe-jLwhlyyvq1Inj8sGqFww0HtJyfJLkVnL2nqFBrYPyn0YlJZXbM
-Message-ID: <CAA2SOT45iFOrqCArQ8izfMO8npM-L-VjPctCoLrHaGZG=OD81w@mail.gmail.com>
-Subject: [BUG] nvmet: NULL pointer dereference in nvmet_file_ns_enable without device_path
-To: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Based on Igor Paunovic's "[PATCH v2] accel/rocket: request the core
+clocks by name", as v6 through v9 were.
 
-I am reporting a NULL pointer dereference triggered by a syzkaller
-reproducer on Linux 7.2.0-rc3. A similar issue appears to have been
-reported before, but I can still reproduce it on Linux 7.2.0-rc3 with HEAD
-commit 1137d8b5df06137fb49513cc923b3b24d94cb809.
+  https://lore.kernel.org/linux-rockchip/20260729130743.128876-1-royalnet026@gmail.com/
 
-The reproducer mounts configfs, creates an NVMe target subsystem and a
-namespace, sets buffered_io to 1, and then enables the namespace without
-setting a device_path. During the enable path, nvmet_ns_enable_store()
-calls nvmet_ns_enable(), which then reaches nvmet_file_ns_enable().
-nvmet_file_ns_enable() passes ns->device_path to filp_open(), but
-ns->device_path is NULL. This eventually reaches do_getname_kernel() and
-strlen(), causing a NULL pointer dereference.
+Tested on a Radxa ROCK 4D, on next-20260814. The tree is byte identical
+to v9, so that is the same test rather than a new one.
 
-This looks like an nvmet configfs validation issue. Enabling a namespace
-without a configured device_path should be rejected cleanly instead of
-passing a NULL path to filp_open().
+This adds the RK3576 NPU to accel/rocket, which today supports RK3588
+only. The RK3576 carries two cores of the same RKNN block, wired up
+differently. Two extra convolution buffer clocks, two power domains per
+core, one reset rather than two, no NPU SRAM rail, and a PC_TASK_CON
+that packs the task number into sixteen bits rather than twelve.
 
-Reproducer:
+What changed since v9
 
-syz reproducer: https://pastebin.com/raw/HheWvkXb
-console output: https://pastebin.com/raw/K1ppzMhe
-kernel config: https://pastebin.com/raw/EhG6vG6K
+No code. Every patch's diff is byte identical to its v9 counterpart, and
+below the --- the only change anywhere is 5/13's git note. Above it, six
+commit messages each gained one trailer line and nothing else. Six tags,
+that note, and the base-commit trailers back where v8 had them.
 
-Kernel:
+The note first, because v9's cover letter said 5/13 carried it and the
+posted mail did not. Rob Herring's bot asked on v8 for the dependency to
+be recorded in the patch rather than only in the letter, v9 said it was
+there, and it was not: my send script never passed --notes. Igor
+Paunovic noticed while applying the series and said so before v10 rather
+than after, and he had the cause right. Nothing was lost in a rebase;
+the flag was missing. The script now regenerates with --notes and
+refuses to send unless exactly one patch carries a Notes block.
 
-HEAD commit: 1137d8b5df06137fb49513cc923b3b24d94cb809
-git tree: torvalds/linux
-kernel version: 7.2.0-rc3 #1 PREEMPT(full) (QEMU Ubuntu 24.10)
+Igor also ran the 19 August protocol again on v9 as posted, on RK3588,
+an Orange Pi 5 Plus with all three cores bound, PROVE_LOCKING=y and
+DEBUG_ATOMIC_SLEEP=y, and a local test-only patch lowering
+JOB_TIMEOUT_MS to 2 ms so healthy jobs cross the timeout. Two passes per
+kernel at console loglevel 8 and 4, serial captured on a second machine.
 
-Relevant log:
+  v9, two passes         12 and 11 induced resets, all recovered,
+                         48 of 48 within 1 on both, including the
+                         inference after a forced autosuspend and
+                         resume. No MMU faults, no lockdep hits,
+                         nothing on the console.
 
-nvmet: adding nsid 1 to subsystem testnqn
+  without 1 and 2/13,    8, 10, 12, 8 and 15 induced resets, all
+  five runs in the       recovered. Four runs clean. In the
+  same session           remaining one the inference after autosuspend
+                         reported success and returned a constant
+                         buffer, all 48 output channels at 0x80,
+                         which is not this model's output zero
+                         point, while the CPU reference varied
+                         normally. Zero kernel messages, zero
+                         lockdep hits, nothing on the console.
 
-Oops: general protection fault, probably for non-canonical address
-0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+  1, 2 and 3/13 only,    13 and 13 induced resets, all recovered,
+  two passes             oracle 48 of 48 throughout, including after a
+                         forced autosuspend and resume. On the 1+2 arm
+                         a round that ends in a timeout leaves the
+                         affected core runtime-active even through a
+                         forced autosuspend; with 3/13 applied the same
+                         sequence leaves all three cores suspended.
+                         That arm is where 3/13's Tested-by comes from.
 
-KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+A job that signals completion while its output buffer is never written
+is the silent form of the race 1/13 and 2/13 close, and across 102
+induced resets in nine runs that day it appeared only on the arm without
+them. It is a better statement of what those two patches are for than
+anything my own logs have caught, which has always been the loud form:
+a message, a wrong answer, something to look at.
 
-CPU: 0 UID: 0 PID: 10781 Comm: syz.0.17 Not tainted 7.2.0-rc3 #1 PREEMPT(full)
-Hardware name: QEMU Ubuntu 24.10 PC (i440FX + PIIX, 1996)
+The tags, and where each came from:
 
-RIP: 0010+0x1e/0xa0
+  02/13  Tested-by: Igor Paunovic   # RK3588, three cores, induced
+                                    # reset, differential base,
+                                    # JOB_TIMEOUT_MS=2
+  03/13  Tested-by: Igor Paunovic   # RK3588, three cores, induced
+                                    # reset, JOB_TIMEOUT_MS=2
+  06/13  Acked-by: Conor Dooley
+  07/13  Acked-by: Conor Dooley
+  08/13  Reviewed-by: Abel Vesa
+  09/13  Reviewed-by: Abel Vesa
 
-Call Trace:
-<TASK>
-do_getname_kernel+0x1d/0x250
-filp_open+0x1d/0x50
-nvmet_file_ns_enable+0x97/0x4a0
-nvmet_ns_enable+0x494/0x6b0
-nvmet_ns_enable_store+0x11c/0x150
-configfs_write_iter+0x2f4/0x4c0
-vfs_write+0xbaf/0x1160
-ksys_write+0x121/0x240
-do_syscall_64+0xc4/0x7a0
-entry_SYSCALL_64_after_hwframe+0x76/0x7e
-</TASK>
+The two Tested-by comments are not the same string, and that is how they
+were given. 1/13, 4/13 and 5/13 keep the tags they had; Igor checked before
+testing that 1/13 is byte identical to v8 1/12 up to the base-commit
+trailer and 4/13 identical to v8 3/12, so those tags still describe what
+was tested.
 
-Kernel panic - not syncing: Fatal exception
+The bindings are unchanged since v9, where dt_binding_check was clean on
+all three with dtschema 2026.6 and yamllint 1.38.0, and CHECK_DTBS was
+clean on all 13 rk3576 and all 48 rk3588 dtbs.
+
+Two things I raised in v9 and would still rather hear about than guess
+at. 8/13 does three things: it adds the settle delay, renames a macro,
+and gives RK3576_PD_NPU a regulator, which also makes every RK3576 board
+force that domain off at probe. I asked whether it wants splitting;
+Abel Vesa's Reviewed-by may be the answer, but nobody has said so, and I
+would rather split it than have it merged on my silence. And 12/13 gives
+each core both NPU domains, which is the description that has been
+tested here rather than the topology; if it should be one domain per
+core, 5/13's minItems has to change with it. That one has had no reply
+at all.
+
+Nothing else moved.
+
+Jiaxing Hu (13):
+  accel/rocket: take the completion register writes under job_lock
+  accel/rocket: wait for a running IRQ handler before resetting a core
+  accel/rocket: let the core suspend after a reset
+  accel/rocket: factor the completion tail out of the IRQ handler
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  dt-bindings: power: rockchip: allow resets in a power domain node
+  dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+  pmdomain/rockchip: add optional per-domain power-on settle delay
+  pmdomain/rockchip: cycle optional power-domain resets on power-on
+  accel/rocket: select the per-core clock and reset counts from match
+    data
+  accel/rocket: add RK3576 NPU (RKNN) support
+  arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+  arm64: dts: rockchip: rk3576-rock-4d: enable NPU
+
+ .../bindings/iommu/rockchip,iommu.yaml        |  28 +++++
+ .../npu/rockchip,rk3588-rknn-core.yaml        |  47 ++++++-
+ .../power/rockchip,power-controller.yaml      |   8 ++
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      |  13 ++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  82 +++++++++++-
+ drivers/accel/rocket/rocket_core.c            |  28 ++++-
+ drivers/accel/rocket/rocket_core.h            |  11 +-
+ drivers/accel/rocket/rocket_device.c          |   7 +-
+ drivers/accel/rocket/rocket_drv.c             |  28 ++++-
+ drivers/accel/rocket/rocket_drv.h             |   2 +
+ drivers/accel/rocket/rocket_job.c             | 119 ++++++++++++++----
+ drivers/pmdomain/rockchip/pm-domains.c        |  75 +++++++----
+ 12 files changed, 385 insertions(+), 63 deletions(-)
+
+
+base-commit: 4477a78374a57c3809b172ad30cceabda48c47c6
+prerequisite-patch-id: 46ebb679e93d3d25393e8cbf8fc3c955bcc01bd4
+-- 
+2.43.0
+
