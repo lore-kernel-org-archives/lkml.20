@@ -1,54 +1,39 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D98F33E8C74
-	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:04:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0664D3E8C74
+	for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 10:04:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170659; cv=none; b=I6pEVUB5cbfzWCFKw7hHm7cxA3kUym25yWSDoRKLHwwsezIf9Uf3/binWeeQMgAnOkmBWJ7zHnoF6KwbxADNvcB9HgkC4gc1FRmDz2NV+I0M0FEZAh3uYGIcF/K69J4eMsA7Xu3eryq77hVwLlWY0s2yiPzzCk+JwFpqhF9gm54=
+	t=1788170668; cv=none; b=U+PsmgzMHw+t22mXkrvWqKE10swbV4kzfEQYvZvbO01QdsLt6vSzJntUuJ3k5sJUYRCoSekhh+wogZDidPt3xGG2RdPbmAs9oB5IUkQZB2hhV6p4DDbSDTV5KdMUYEi7GLOgbcjrPd3Z+YHd3vVp/fs/uCSjv1T7uUVIlTwE/X8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170659; c=relaxed/simple;
-	bh=pB/yhQAIvwPCcGshpVqZwoCOt73inVedOwPpehLLcos=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ncn+DcqEyOca6s5NyLY5zlffIelHAgH5HQdWzwzxB8qwe2C9yMIQeBchxgZ2odeSk7BI/fPXWF8d3rNIM4+hcQqviNefGLJfhg3xhMPS2Xh+E7/LpUUSrrfjam/ema3uWYJQgOmBVO86vKxlAN1ZVk66Cvb/xYKn9CgpNj8d86g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vcWR19Vc; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ZdYB0sm/; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788170668; c=relaxed/simple;
+	bh=sGemyPXXBm2FHq+9BCXB0xeIxmOj9PnmpbOQSA1awWE=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=E88WQMyoiJKQdda6+5rW3hscLCta6qaga6NzI4KEWMw4tissQDWRfgop1Zia+zXj6iepD5B57gysQQkNerO2WmHy2wg9sUMDKkyhsr8sXj0KwKpBy9kt3NTEspXO3IT9XQjDfRzo8pCtBrkSbOLoYHka7oXRb20NZwwO3p6efJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=QJECRUZG; arc=none smtp.client-ip=79.135.106.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vcWR19Vc";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ZdYB0sm/"
-Date: Mon, 31 Aug 2026 12:04:14 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788170656;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uCQ0uyM4692RoIkTWKrkGu+rliBBROpUs8fWhmht4h8=;
-	b=vcWR19VcrvMLVUa/4K8K3SOnyMwCg1ghhwEs0ehCHq9u1rYo6KytDe6agVmijeuCGNEhjD
-	UW7enWy7B0sl2zS4ho0V8cmhZfJvGQD3jPiQ4Uj6yOqW49PSPx7wsBZarsQql2Ap75Vcjo
-	lzmeRlQiAgV/A5RXzfOF4n/MweY7DdYTZofKPtcZsk3DxYinI+X38n/c4IF4EOY5J9u7DM
-	W4Pcj+iSfXkvCDCYvgFgd+SKs0OifuhHZH0QXJXNW7TtLTRFfgruSZ3lNSClkAbYdo1lm4
-	PeSf/zg4IjxGXF1KzwovQBIH2wHofs8MDz8DVsf4RHEOhoDohazB13yaC72V/g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788170656;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uCQ0uyM4692RoIkTWKrkGu+rliBBROpUs8fWhmht4h8=;
-	b=ZdYB0sm//eKlIf0ySbEEjnBQEcqTseALllEudAJfgw+DWF8nit5vZyQ7ZUb3Tagf72UJr7
-	+I2ZZk40qRYznTBQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Hugh Dickins <hughd@google.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>,
-	syzbot <syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com>,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [mm?] WARNING in __mod_zone_page_state
-Message-ID: <20260831100414.Yx-lNATi@linutronix.de>
-References: <6a931c5a.08e933ee.dbf97.0093.GAE@google.com>
- <apNjw0HRyr1Oj7q4@linux.dev>
- <apOAF5CPFWUUH9du@linux.dev>
- <a2288e73-5001-2104-1e7a-2b383e7edd61@google.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="QJECRUZG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788170657; x=1788429857;
+	bh=ppDjzDf9Ff93FbB9scTpr5J69xukhr3h6UB/qk0lXRc=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=QJECRUZG004Ifw1rd2ADRMhNiTXpinlQyBttDIq7neCoCi09Q5XE8rqgN1C2grrda
+	 QTSDhMF30DH335jEBi4LlCx8mtuUjMJnGgAyPoKj+KDzz6ro/334YKA0BUOfikKBr+
+	 s7Z34owpk+JqzQzzjlaFb0ejC+3sBjmgWaaiIBrL/7xQsI+GyopY2Pq/NBgN1czNkm
+	 Pe/CR59tzVXf2L2b/zpwkQZkLW+qDOjmBU70T4DJnZROixn1L+WgzMd7AcnmNgDXpS
+	 3SjYwSvT4x0VRUhkwOJFtCGgVQXQwSdylCvpcL4MMiYF/prQtJLfjEzNjTusGJ8c9/
+	 g6fUDrThvH5Ow==
+Date: Mon, 31 Aug 2026 10:04:13 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Jakob Berg Jespersen <dev@berg.pm>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] media: i2c: ov13858: add regulator, clock and reset GPIO handling
+Message-ID: <20260831100404.40463-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 383b98c99eda73552f4ed70e7e7d4fc83c2e0e1d
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,36 +41,260 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <a2288e73-5001-2104-1e7a-2b383e7edd61@google.com>
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-08-29 20:26:02 [-0700], Hugh Dickins wrote:
-> > Something like below. I will run some tests before proposing a formal patch.
-> 
-> Thanks for looking into this, Shakeel, but I don't think complicating
-> __munlock_folio() is at all the right fix. This is peculiar to the use
-> by mlock_drain_remote(), isn't it? Which is not taking the usual local_lock
-> because the CPU is going offline. I would say, just take the local_lock in
-> mlock_drain_remote(), but (I haven't read the history) for all I know,
-> there may be PREEMPT_RT reasons why that would be completely wrong.
+ov13858_probe() reads the chip ID over I2C on the assumption stated in its
+own comment:
 
-PREEMPT_RT does local_lock() as a replacement for various
-preempt_disable()/ local_irq_save() usage in mm aiming for the same sort
-of synchronisation.
+=09/*
+=09 * Device is already turned on by i2c-core with ACPI domain PM.
+=09 * Enable runtime PM and turn off the device.
+=09 */
 
-On !RT __mod_zone_page_state() is usually invoked under an IRQ lock or
-within an local_irq_save() section which ensures the per-CPU counter can
-be updated safely without racing against another counter update due
-preemption in the critical section.
-The counter update does the not share the same local_lock() so for
-PREEMPT_RT reasons the preempt_disable_nested() got added to ensure
-preemption is disabled on RT, avoiding the race window since there can
-not be any in-IRQ updates.
+That holds where the sensor's rails and clock are ACPI power resources. It
+does not hold where an INT3472 companion device describes them, because
+INT3472 registers them as regulators, a clock and a reset GPIO for the
+sensor driver to consume - and this driver consumes none of them. They stay
+off, the sensor stays in reset, and the first I2C transaction fails:
 
-If this warning triggers on !PREEMPT_RT I would say you missed disabling
-interrupts somewhere. Unless __mod_zone_page_state() relies on disabled
-preemption, too if there are no longer any in-IRQ updates.
+  ov13858 i2c-OVTID858:00: failed to find sensor: -5
 
-> Hugh
+Add the three standard supplies, the reset GPIO and the clock the driver
+already looks up, sequenced in runtime PM callbacks the driver did not have=
+.
+The shape follows ov02c10, which handles the same situation: supplies, then
+clock, then release reset, and the reverse on the way down.
 
-Sebastian
+This depends on POWER1 GPIO support in int3472. On the Surface Pro 11 the
+dvdd rail is described as an INT3472 GPIO of type 0x08, so without that pat=
+ch
+the rail is never registered and there is nothing here to consume:
+
+Link: https://patch.msgid.link/20260829-sp7plus-int3472-v3-1-454b50485ce2@b=
+erg.pm
+
+The same sensor on the Surface Pro 10 was made to work downstream by adding
+reset handling to ov13858_probe() and forcing the regulators on for the
+lifetime of the driver; the people who did it called that second half too
+broad for upstream, and it is. Driving the rails from runtime PM instead
+keeps them off while the sensor is idle, which is what the companion device
+registered them for:
+
+Link: https://github.com/linux-surface/linux-surface/issues/2153
+
+Measured on a Microsoft Surface Pro 11 for Business (Intel Lunar Lake,
+IPU7), kernel 7.0.0-30, with the parts isolated one at a time:
+
+  supplies enabled, clock enabled   sensor identifies, driver binds
+  supplies enabled, clock left off  -EIO
+  supplies left off, clock enabled  -EIO
+
+so both are needed; a longer settling delay alone is not enough. Verified
+across five module unload/load cycles with no probe failure, and the sensor
+streams after each one.
+
+dovdd is not described on this machine and resolves to a dummy regulator. I=
+t
+is listed because it is one of the three supplies these sensors normally
+take, and machines that do describe it should get it.
+
+With this patch the sensor probes on every boot and runtime PM powers it
+down when idle. Producing a working camera also needs an ipu-bridge entry
+for OVTID858, which is a separate patch.
+
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+---
+Hans suggested two patches, one for the regulators and one for the reset
+GPIO. They are sent as one here because neither half leaves the sensor in a
+working state on its own - with supplies but no reset handling the part sta=
+ys
+held in reset, and vice versa. Happy to split it if you would still prefer
+that.
+
+An earlier version of this patch released reset before starting the clock. =
+It
+worked on this hardware, but only because the 8192-cycle wait that follows
+covered for it, and it is the wrong order. Mentioning it in case anyone is
+carrying that version downstream.
+---
+--- a/drivers/media/i2c/ov13858.c
++++ b/drivers/media/i2c/ov13858.c
+@@ -3,9 +3,12 @@
+=20
+ #include <linux/acpi.h>
+ #include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
++#include <linux/regulator/consumer.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-event.h>
+@@ -1037,9 +1040,23 @@
+ =09}
+ };
+=20
++/*
++ * The sensor's rails are described by an INT3472 companion device on ACPI
++ * platforms; the names match the con_ids that driver registers.
++ */
++static const char * const ov13858_supply_names[] =3D {
++=09"dovdd",=09/* Digital I/O power */
++=09"avdd",=09=09/* Analog power */
++=09"dvdd",=09=09/* Digital core power */
++};
++
++#define OV13858_NUM_SUPPLIES ARRAY_SIZE(ov13858_supply_names)
++
+ struct ov13858 {
+ =09struct device *dev;
+ =09struct clk *clk;
++=09struct regulator_bulk_data supplies[OV13858_NUM_SUPPLIES];
++=09struct gpio_desc *reset_gpio;
+=20
+ =09struct v4l2_subdev sd;
+ =09struct media_pad pad;
+@@ -1699,10 +1716,66 @@
+ =09mutex_destroy(&ov13858->mutex);
+ }
+=20
++static int ov13858_power_on(struct ov13858 *ov13858)
++{
++=09int ret;
++
++=09ret =3D regulator_bulk_enable(OV13858_NUM_SUPPLIES, ov13858->supplies);
++=09if (ret) {
++=09=09dev_err(ov13858->dev, "failed to enable regulators: %d\n", ret);
++=09=09return ret;
++=09}
++
++=09ret =3D clk_prepare_enable(ov13858->clk);
++=09if (ret) {
++=09=09dev_err(ov13858->dev, "failed to enable clock: %d\n", ret);
++=09=09regulator_bulk_disable(OV13858_NUM_SUPPLIES, ov13858->supplies);
++=09=09return ret;
++=09}
++
++=09if (ov13858->reset_gpio) {
++=09=09/* Hold reset for at least 1 ms on a back to back off-on */
++=09=09usleep_range(1000, 1500);
++=09=09gpiod_set_value_cansleep(ov13858->reset_gpio, 0);
++=09}
++
++=09/* t4: 8192 XVCLK cycles after reset is released, before the first I2C =
+*/
++=09usleep_range(5000, 6000);
++
++=09return 0;
++}
++
++static void ov13858_power_off(struct ov13858 *ov13858)
++{
++=09gpiod_set_value_cansleep(ov13858->reset_gpio, 1);
++=09regulator_bulk_disable(OV13858_NUM_SUPPLIES, ov13858->supplies);
++=09clk_disable_unprepare(ov13858->clk);
++}
++
++static int ov13858_runtime_resume(struct device *dev)
++{
++=09struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
++
++=09return ov13858_power_on(to_ov13858(sd));
++}
++
++static int ov13858_runtime_suspend(struct device *dev)
++{
++=09struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
++
++=09ov13858_power_off(to_ov13858(sd));
++
++=09return 0;
++}
++
++static DEFINE_RUNTIME_DEV_PM_OPS(ov13858_pm_ops, ov13858_runtime_suspend,
++=09=09=09=09 ov13858_runtime_resume, NULL);
++
+ static int ov13858_probe(struct i2c_client *client)
+ {
+ =09struct ov13858 *ov13858;
+ =09unsigned long freq;
++=09unsigned int i;
+ =09int ret;
+=20
+ =09ov13858 =3D devm_kzalloc(&client->dev, sizeof(*ov13858), GFP_KERNEL);
+@@ -1722,14 +1795,34 @@
+ =09=09=09=09     "external clock %lu is not supported\n",
+ =09=09=09=09     freq);
+=20
++=09for (i =3D 0; i < OV13858_NUM_SUPPLIES; i++)
++=09=09ov13858->supplies[i].supply =3D ov13858_supply_names[i];
++
++=09ret =3D devm_regulator_bulk_get(ov13858->dev, OV13858_NUM_SUPPLIES,
++=09=09=09=09      ov13858->supplies);
++=09if (ret)
++=09=09return dev_err_probe(ov13858->dev, ret,
++=09=09=09=09     "failed to get regulators\n");
++
++=09ov13858->reset_gpio =3D devm_gpiod_get_optional(ov13858->dev, "reset",
++=09=09=09=09=09=09      GPIOD_OUT_HIGH);
++=09if (IS_ERR(ov13858->reset_gpio))
++=09=09return dev_err_probe(ov13858->dev,
++=09=09=09=09     PTR_ERR(ov13858->reset_gpio),
++=09=09=09=09     "failed to get reset GPIO\n");
++
+ =09/* Initialize subdev */
+ =09v4l2_i2c_subdev_init(&ov13858->sd, client, &ov13858_subdev_ops);
+=20
++=09ret =3D ov13858_power_on(ov13858);
++=09if (ret)
++=09=09return ret;
++
+ =09/* Check module identity */
+ =09ret =3D ov13858_identify_module(ov13858);
+ =09if (ret) {
+ =09=09dev_err(ov13858->dev, "failed to find sensor: %d\n", ret);
+-=09=09return ret;
++=09=09goto error_power_off;
+ =09}
+=20
+ =09/* Set default mode to max resolution */
+@@ -1737,7 +1830,7 @@
+=20
+ =09ret =3D ov13858_init_controls(ov13858);
+ =09if (ret)
+-=09=09return ret;
++=09=09goto error_power_off;
+=20
+ =09/* Initialize subdev */
+ =09ov13858->sd.internal_ops =3D &ov13858_internal_ops;
+@@ -1773,6 +1866,9 @@
+=20
+ error_handler_free:
+ =09ov13858_free_controls(ov13858);
++
++error_power_off:
++=09ov13858_power_off(ov13858);
+ =09dev_err(ov13858->dev, "%s failed:%d\n", __func__, ret);
+=20
+ =09return ret;
+@@ -1788,6 +1884,9 @@
+ =09ov13858_free_controls(ov13858);
+=20
+ =09pm_runtime_disable(ov13858->dev);
++=09if (!pm_runtime_status_suspended(ov13858->dev))
++=09=09ov13858_power_off(ov13858);
++=09pm_runtime_set_suspended(ov13858->dev);
+ }
+=20
+ static const struct i2c_device_id ov13858_id_table[] =3D {
+@@ -1810,6 +1909,7 @@
+ =09.driver =3D {
+ =09=09.name =3D "ov13858",
+ =09=09.acpi_match_table =3D ACPI_PTR(ov13858_acpi_ids),
++=09=09.pm =3D pm_ptr(&ov13858_pm_ops),
+ =09},
+ =09.probe =3D ov13858_probe,
+ =09.remove =3D ov13858_remove,
+
