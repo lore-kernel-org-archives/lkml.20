@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA664854FC;
-	Mon, 31 Aug 2026 14:03:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E886485CC1;
+	Mon, 31 Aug 2026 14:03:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184985; cv=none; b=igOj5B6pZQvJHicIhIHPhkDUu4vim/nykhhgSjMv0axQPcfCtYAZBrHLnCdRr+zDLrAeCjpj9ImJWWpD5x9rV5pw7A8HgG2SflgOFvO7am5CNSog+c2w5nzrjnMJA0IAnVKkh5F70/tyG6ypwc1D2fCUtF2Q+MYA5Hg3ZCQaFP0=
+	t=1788184986; cv=none; b=LtjXfLrnLmXvVUDfdAYQmI/zeO7TF/Y8vgoKyUd0fDXhK/j/urFzsQb/1oM4mC4wpe5xYh9zBwhot1Wh25l1Gw+5s/y0RhZ8642aw2RLSZePyXWlTJqKb+7lwmgUnwKAXhj8wGPrDTftKrIAg8AbtwtnG7Lg+5yK+X23AcxFj+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184985; c=relaxed/simple;
-	bh=5AGJ58CxaHUHnA7OwFTsM+2rMQoeaY6UpbD7qoJcoXk=;
+	s=arc-20240116; t=1788184986; c=relaxed/simple;
+	bh=lj/M1S5oaN42+56NlgGpIrZFtQOGxHB9iPCOijXVAX4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BvWxT8grh2jMa/ZCbF+LxUsiiROuQkh9aPbX4/CXhXevHSU5C+pggX6MDZHqiADN/d9AgMJ+1uVrOm7sFdqZXAwqVF3AAKQ1j2hYZUyic5dGkbbK7GL6Dkfwf2K8OzEGQw+DLgSL3t/gSHU33kp37WEEt3QbKpBs04AD01qAwCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TGzATSIN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ATBn8aEFC3h0JdPx4dQYOUBACOy2THJ6AE7WMIkQfuM7KFBGkIeAgeRYKCT49WhKM07GMQPyFE70mFjx8n/UavAcwttCvvCRiO1jjesBzd3i1eYj1ppqjwRYxcMu4YYqKMp4tNh6C/lyLRUuf0HTJypyJnNGOtt/vVA02TrSfjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=erWnS5qg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TGzATSIN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5E201F00ACF;
-	Mon, 31 Aug 2026 14:03:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="erWnS5qg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B32B1F00ACA;
+	Mon, 31 Aug 2026 14:03:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184984;
-	bh=nSTjwnDV8A+NiGPVQu+FC6bukzN4Edj/bjp5VqLzRxU=;
+	s=k20260515; t=1788184985;
+	bh=W4ZULCHKs962Ql2lXNfqffyY3ieZ1mpdjWXyoNcHe50=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TGzATSINz42tKbEmPPTcS4J9tASvuhG6q2ioTy7mYUo2FOsQA+bY3ccQjSzWis/QN
-	 QMqkOCwDM5mJRH1zLaR421tWxE1piSSa1KRtVKWamXiwOzmoitvQnfWHvW+dl/DYA9
-	 75rR7U7JuWkaK55dlUNdvknDGqIDpIUPTvVVnZJllJ5v0FI6IDWa8xWeQn9kDr7Q5v
-	 otERl2mpbErQaw/3QwaR2o64E5Z0ZzJ5KYuqTbM+lgGUQ9fqY7XgFZcF3/pDQjrCaF
-	 TlVkTEHyEuZ2hhpTttLuv9uK2OR5eWtZVA5uk8LTaGf2kOnSGkilVygLGQ+z5MjqZg
-	 x1hdN0POOUXcQ==
+	b=erWnS5qgR382J6JC8z3nVk1ADCqsV8VhofU2Ph+h8YZCbWmv4FeaOqyakgTD3sVT6
+	 SCDWU3vMlqX54v/PG7m1wVOXEswl6nXm00wz0VJf1/lwCiwoCY6x84Nr8suHAxrml1
+	 HYX2AqXO5O0XBw0XgDnmhCcAsrFQG6jZCOXpgTM7chqvOzAfbTmkPZRdUFtgHqupVn
+	 KFECZgtDxf1hYRvQLoN0g0494AS6/lMMnnPUqTbS1HlN3doLwddGJzAqXf8UQr5gMo
+	 Wo5XQy6dUpXn7VLZLO5JQ+v4igVQ51FDFI8oDOcG+r5CGMMu3QBHsVi/DP4Xbz3rs4
+	 5HnIhItzFoL/Q==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Yueyang Pan <pyyjason@gmail.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH v1.2 4/8] mm/damon/vaddr: respect folio end for DAMOS_STAT
-Date: Mon, 31 Aug 2026 07:02:43 -0700
-Message-ID: <20260831140254.72004-5-sj@kernel.org>
+Subject: [RFC PATCH v1.2 8/8] mm/damon/core: handle extreme memory state in get_in_active_mem_bp()
+Date: Mon, 31 Aug 2026 07:02:47 -0700
+Message-ID: <20260831140254.72004-9-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260831140254.72004-1-sj@kernel.org>
 References: <20260831140254.72004-1-sj@kernel.org>
@@ -49,58 +48,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For applying DAMOS_STAT action to a region, DAMON virtual address space
-operation set (vaddr) calls walk_page_range[_vma]() for the region.  The
-pmd walk entry function, namely damon_va_stat_pmd_entry(), applies DAMOS
-filters to folios of addresses of the region in the pmd.  It starts from
-the walking address and advances the address by the size of the folio of
-the address until it goes out of the pmd or the region.
-
-Let's suppose it is for the first pmd of the region, and the region
-start address is in the middle of a large folio.  Also, the next folios
-are small.  Then, some of the next folios could be skipped.  Fix the
-issue by advancing the address to exactly the start address of the next
-folio.
-
-The user impact is that the DAMOS_STAT-based page level monitoring
-results become inaccurate.  Since the page level monitoring is supposed
-to provide relatively high precision, this is definitely a problem.  It
-is arguably not critical since it is only monitoring quality
-degradation.
+damos_get_in_active_mem_bp() uses the sum of the active and inactive
+memory amount as a denominator.  In an extreme and unlikely environment,
+active and inactive memory might be zero.  In this case, hence, it
+results in a divide by zero problem.  Avoid it by changing the
+denominator to one if it is zero, before it is being used.
 
 The issue was discovered [1] by Sashiko.
 
-[1] https://lore.kernel.org/20260514015053.149396-1-sj@kernel.org
+[1] https://lore.kernel.org/20260721034756.147011-1-sj@kernel.org
 
-Fixes: 63f39737d1e3 ("mm/damon/vaddr: support stat-purpose DAMOS filters")
-Cc: <stable@vger.kernel.org> # 6.18.x
+Fixes: 4835e2871321 ("mm/damon/core: introduce [in]active memory ratio damos quota goal metric")
+Cc: <stable@vger.kernel.org> # 7.0.x
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/vaddr.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ mm/damon/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index 0648400b2d65b..4b0b5edf67952 100644
---- a/mm/damon/vaddr.c
-+++ b/mm/damon/vaddr.c
-@@ -831,6 +831,8 @@ static int damos_va_stat_pmd_entry(pmd_t *pmd, unsigned long addr,
- 		return 0;
- 
- 	for (; addr < next; pte += nr, addr += nr * PAGE_SIZE) {
-+		unsigned long page_idx;
-+
- 		nr = 1;
- 		ptent = ptep_get(pte);
- 
-@@ -844,7 +846,8 @@ static int damos_va_stat_pmd_entry(pmd_t *pmd, unsigned long addr,
- 
- 		if (!damos_va_filter_out(s, folio, vma, addr, pte, NULL))
- 			*sz_filter_passed += folio_size(folio);
--		nr = folio_nr_pages(folio);
-+		page_idx = folio_page_idx(folio, pte_page(ptent));
-+		nr = folio_nr_pages(folio) - page_idx;
- 		s->last_applied = folio;
- 	}
- 	pte_unmap_unlock(start_pte, ptl);
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 3779a04753061..f8dddbff74a77 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3015,7 +3015,7 @@ static unsigned int damos_get_in_active_mem_bp(bool active_ratio)
+ 		global_node_page_state(NR_LRU_BASE + LRU_ACTIVE_FILE);
+ 	inactive = global_node_page_state(NR_LRU_BASE + LRU_INACTIVE_ANON) +
+ 		global_node_page_state(NR_LRU_BASE + LRU_INACTIVE_FILE);
+-	total = active + inactive;
++	total = max(active + inactive, 1);
+ 	if (active_ratio)
+ 		return mult_frac(active, 10000, total);
+ 	return mult_frac(inactive, 10000, total);
 -- 
 2.47.3
