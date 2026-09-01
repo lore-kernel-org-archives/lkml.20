@@ -1,121 +1,104 @@
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939F33803C7;
-	Tue,  1 Sep 2026 10:25:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808C42FC876;
+	Tue,  1 Sep 2026 10:25:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788258323; cv=none; b=Os6+5sRNpgXk3EtZgfLbbusZyZjNMoA34sOMnOuEJw8SJQ8veaHiWthdDG0ZMduzydwpklyGsN9sWCQ4ymaCxrSMLAIANPgy6B1KF8X6KmN2JOrNYyeIlXrNDID7sKePZH1ybr9Impt8dyi5CMUVkwyJrg8UWidjczleecnDCq4=
+	t=1788258346; cv=none; b=D07FDvOQVu0yHpWYGRoRypkzXyU19FhrmHFt0wunAaCbk5m8qpAtNG9fWeAGAiHE/Bx/W64JFAKkO9XfGksrdAODE9hF94Y0nNWe3UOd9PxDYVaecbktPSeea3SPe1f7ncgqEpGAglhD4iKIl0+zTz1w+dBMeMIA4Ey31vMfqrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788258323; c=relaxed/simple;
-	bh=dpgQTcDFAntabKQEPWMXBkyxDsa/0xz/pF71/sI+/ys=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=azEplsxovHD+kHa9tTD1CYOLX7VQGKtK+x66lBnezEZMOQhwyzd49EQHik0YMyR79WtasMqm/G3oNHDEl6XcWVuhKYCH/hbaVUyKvDTWlCYqkjXBK7K7KUaf2X7IsJ9hX+Ps5WMDW7mUJVq7oABndln1nP7XHnEyCZUnzR9GzUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=ZyrGbhdT; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1788258346; c=relaxed/simple;
+	bh=UDIE28nH8nZMH31X5TGo/kBgOT+/3V1ygevfVhPBTHg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p+lOm21i/N/57odGB5tdV9XQaWoKveGWR/sksdZibCSOjAzNA+ruptdHQyFzZIbLhuH1lwb5udYN9gO9Nk6YePFgdOQzD+uBGURFKInDVogOTFP511NQRhM9qSlerS1uHcQ6lahiMDM2ql6e1kBn+1FEYESfKg+omkJRzByxdqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GwKJ2pb2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="ZyrGbhdT"
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681AKLXT3033126;
-	Tue, 1 Sep 2026 03:25:08 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=shsVEbJ7R+9Q8yEbl+KCswJ
-	0c2jlh9zRxu2kKEgXDoE=; b=ZyrGbhdTgykoM1zvKdUmK/31d9S9YE7HrY2ACCc
-	dYNEPHm5x0ysXOa9+fa4iIvQdmQNXFhagVaqcCiH0cHtYgsOuChmkltUxyw3SBw4
-	FQJsP87f5Rm3RcqxrqUl8cADbc+rnCBBZv3ZwM3V1US6aQzYp+JpbJDMyNmbBdE4
-	mYhJoNwPWs+jilLJQwpD+pnnHvjGoVG3+pnYWx8Rdckw+dqO4RycGoq/WQJ6JV0+
-	E0Hlpg7FJdVTg6P4CQudKvwgKRYlfhUgZPIAJNFhkdMxYJjM6MAr5BgnqrNvjCsf
-	c2fSb/Jqi8uApgOLA9YlndHA7T2bMax/w8D7WdhOuhBuv5g==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gdvpwg1g3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 03:25:08 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Tue, 1 Sep 2026 03:25:07 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Tue, 1 Sep 2026 03:25:07 -0700
-Received: from kernel-ep2.caveonetworks.com (unknown [10.29.36.53])
-	by maili.marvell.com (Postfix) with ESMTP id BCDA55B6928;
-	Tue,  1 Sep 2026 03:25:03 -0700 (PDT)
-From: <nshettyj@marvell.com>
-To: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Rakesh Kudurumalla <rkudurumalla@marvell.com>,
-        Nitin Shetty J
-	<nshettyj@marvell.com>,
-        Sunil Goutham <sgoutham@marvell.com>,
-        "Ratheesh
- Kannoth" <rkannoth@marvell.com>,
-        Geetha sowjanya <gakula@marvell.com>,
-        Subbaraya Sundeep <sbhatta@marvell.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH net] octeontx2-af: Fix BPID leak in nix_bp_enable()
-Date: Tue, 1 Sep 2026 15:55:00 +0530
-Message-ID: <20260901102500.1534911-1-nshettyj@marvell.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GwKJ2pb2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F40851F000E9;
+	Tue,  1 Sep 2026 10:25:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788258345;
+	bh=JILWnOs54Nn3C+Kuiyqfpag/plbfbFDDxTr4XHpskoY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GwKJ2pb20IazCMdTzU5Hgo8RXNWu8ZZnGm6PIg9BsHyoQJnaEmS4BmR4y8WeFGnTn
+	 oLLkO9ba7prZwJj7sScsLLMAEsTE0f4s5YmpfnsHiI+QbOs+0tUjXj3Mydt4nYfTfT
+	 TZfuPnXRQZjOrpliQObdkKuYcCBoHsO3XDC7IoU+wuDwAyYfCDhL2a/SvQjoK6YbPs
+	 HcT0SgwLq3/0xAO30SY9kS1UX5P0iel5EP9MtMXfqPnz8K62k6mxQtO8Bl288kXKqe
+	 1P7ip+w7s6bicT5OnN3+buZ4N+LKT10n8BUyHYI0y34N8bQisn6din/SO6CT4as7hB
+	 gvZ5OO9OE2ncg==
+Date: Tue, 1 Sep 2026 11:25:33 +0100
+From: Will Deacon <will@kernel.org>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: catalin.marinas@arm.com, tsbogend@alpha.franken.de, tglx@kernel.org,
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+	hpa@zytor.com, peterz@infradead.org, kees@kernel.org,
+	nathan@kernel.org, linusw@kernel.org, ojeda@kernel.org,
+	david.kaplan@amd.com, lukas.bulwahn@redhat.com,
+	ryan.roberts@arm.com, maz@kernel.org, timothy.hayes@arm.com,
+	lpieralisi@kernel.org, thuth@redhat.com, menglong8.dong@gmail.com,
+	oupton@kernel.org, yeoreum.yun@arm.com, miko.lenczewski@arm.com,
+	broonie@kernel.org, kevin.brodsky@arm.com, james.clark@linaro.org,
+	yangyicong@hisilicon.com, tabba@google.com, osandov@fb.com,
+	arnd@arndb.de, anshuman.khandual@arm.com, david@kernel.org,
+	akpm@linux-foundation.org, ljs@kernel.org, dev.jain@arm.com,
+	yang@os.amperecomputing.com, chaitanyas.prakash@arm.com,
+	kprateek.nayak@amd.com, chenl311@chinatelecom.cn,
+	sshegde@linux.ibm.com, thorsten.blum@linux.dev,
+	chang.seok.bae@intel.com, tim.c.chen@linux.intel.com,
+	x86@kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org
+Subject: Re: [PATCH v3 00/12] arm64: Add HOTPLUG_PARALLEL support for
+ secondary CPUs
+Message-ID: <apaoHUrbY_1JFjfU@willie-the-truck>
+References: <20260624092537.2916971-1-ruanjinjie@huawei.com>
+ <ajvKkLw5bL-FT5JC@willie-the-truck>
+ <32d41a67-cf37-4079-8218-bed2b73bbf14@huawei.com>
+ <akvoN5vvQaW3MdmI@willie-the-truck>
+ <110d75e9-1580-42d3-b137-89bdad22b80a@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA5MiBTYWx0ZWRfX/7uGCg6c/cTG
- Tjd8I5Z8JxhC4AZ6POcauIPDf55syMCUiYMV9G+4YPSc9joNV3kuDmzR6KEXJ4igrTYxXFuftSf
- ba/Mu0fYXHnEjDFSivwJPBj9jlkiPCY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA5MiBTYWx0ZWRfX5Dn9Li16eyhT
- mJse3hSkFmPzT5vAyMFv7CXngWqLjXbS4x4GYzayAeB57UcCTMhHogTIXJrDW9yFcfNukiWtPCX
- Bt8WyLgMwQ4UIMsdmDXQFDCwIrov5NHw5cPcntlX1iqoCdKI2ejs7uROK4h6FHGxJ2IxSWFGx1u
- gOPK2mM0rJ72Xma5AcReKVF1GhSfeZJtkM2U3xR08yJMQO7p5ZIDR9sYypFcUEkKGz7tYcw6wRc
- wNUbuAnFWvS+odvT57Y3nXqN6NiekpiTlX9LaUBA4jdMIk7+uIKwhl9+0Qf8g5znu+I/6iSS94W
- npQMi7qJ8xOiDeuPI3KFTyMekIlB8fa5WOiQC64cZTqOv7x/QpiT6U6CGd0rl1Q4UsPOgJr13BG
- q6mZZNBlVkznSa1uCfxIZ2WPTR6tV/Ad1CqzKxQKNKkUlMNj4MWHFe8+PRw4//PI3EOrUnJ7Y7O
- lA7ofD6g7Sd+UdpM2QA==
-X-Authority-Analysis: v=2.4 cv=brF8wkai c=1 sm=1 tr=0 ts=6a96a804 cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=TtqV-g6YmW1Jfm2GSLaY:22 a=M5GUcnROAAAA:8 a=1oJNLSowvIMRzDzG_ikA:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-ORIG-GUID: 0mmI7mcS_6bs9PcDt566LJDQYMUzDvOH
-X-Proofpoint-GUID: 0mmI7mcS_6bs9PcDt566LJDQYMUzDvOH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
+In-Reply-To: <110d75e9-1580-42d3-b137-89bdad22b80a@huawei.com>
 
-From: Rakesh Kudurumalla <rkudurumalla@marvell.com>
+On Mon, Aug 31, 2026 at 11:18:47AM +0800, Jinjie Ruan wrote:
+> 在 2026/7/7 1:39, Will Deacon 写道:
+> > On Thu, Jun 25, 2026 at 09:34:36AM +0800, Jinjie Ruan wrote:
+> >> On 6/24/2026 8:16 PM, Will Deacon wrote:
+> >>> Please just give me the time I asked for. If you want to help out in the
+> >>> meantime, there are plenty of patches that need reviewing...
+> >>
+> >> It was a mistake on my part, and I sincerely apologize for wasting
+> >> community review resources and disrupting your schedule.
+> >>
+> >> I will absolutely back off now and wait for your official series. Lesson
+> >> learned. Thanks for your patience and for calling me out on this.
+> > 
+> > So I've mostly got the old series back on its feet:
+> > 
+> >   https://git.kernel.org/pub/scm/linux/kernel/git/will/linux.git/log/?h=cpu-hotplug
+> > 
+> > but there are still two issues left to resolve:
+> > 
+> >   1. The printing that can happen before RCU has started. Although I've
+> >      reduced this somewhat, there are still error paths in e.g.
+> >      verify_local_cpu_capabilities() that print a message before dying.
+> > 
+> >   2. check_local_cpu_capabilities() can mutate the system capability
+> >      state via update_cpu_capabilities(), so it's really dodgy running
+> >      that prior to synchronisation.
+> 
+> Just a gentle ping on this. I replied to the two remaining issues
+> earlier — any thoughts on my response? Happy to help test or rebase if
+> that helps.
 
-Avoid calling rvu_nix_get_bpid() after the last channel is programmed.
-For LBK interfaces, each call allocates a BPID, so the extra final call
-can leak one BPID.
+I've been preparing a series to post asap (I was waiting for the merge
+window to close), but I'm also looking at some of the id register issues
+that have been pointed out around rng, mpam and mte.
 
-Fixes: 27150bc4286c ("octeontx2-af: Interface backpressure configuration")
-Signed-off-by: Nitin Shetty J <nshettyj@marvell.com>
-Signed-off-by: Rakesh Kudurumalla <rkudurumalla@marvell.com>
----
- drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-index b81c47ea023b..c6164da4caa6 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-@@ -784,7 +784,8 @@ static int nix_bp_enable(struct rvu *rvu,
- 		rvu_write64(rvu, blkaddr, NIX_AF_RX_CHANX_CFG(chan_v),
- 			    cfg | (bpid & GENMASK_ULL(8, 0)) | BIT_ULL(16));
- 		chan_id++;
--		bpid = rvu_nix_get_bpid(rvu, req, type, chan_id);
-+		if (chan_id < req->chan_cnt)
-+			bpid = rvu_nix_get_bpid(rvu, req, type, chan_id);
- 	}
- 
- 	for (chan = 0; chan < req->chan_cnt; chan++) {
--- 
-2.48.1
-
+Will
