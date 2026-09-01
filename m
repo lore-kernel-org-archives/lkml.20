@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C4FC6486B82
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:16:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 73E3A488225
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:16:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788282969; cv=none; b=rvyTUMDF1ncX8r7mypNvVWzShZYJkhw8NeY8PS8UldiB0DhHXZz4ktulwq3tWK3IOAwSqpFg8+X44GSITYTjZlyYHm5UlKTgrqV0a/pYkjVx1XPRvEu+qvShqNRRx0+7F95HQ5poiGVRlmGOv9Js/AQEqc4a2qz2cmQGULZUU2w=
+	t=1788282972; cv=none; b=QDYTwpXgiT57z+Y81+1yjVkHazGJyLDidlAzM1hf8+hyTZ/OedUGftIlzAR1aiPGN4tqfnazW8wDL3DFKpLk2KlYYTo85OW0sBkMU37zhSxlHWCrQ36WmivnxXlbzJCZ3qrJabzAFGaret5husWi1GA71/AuXLRChTuh6gmWdIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788282969; c=relaxed/simple;
-	bh=D3HeJ7zjz9bBhOtcqSqLw8x6tNR/CWKmRK3aKt2UT4w=;
+	s=arc-20240116; t=1788282972; c=relaxed/simple;
+	bh=cUkDq0mjr3TsA7BpjTcTYdqNjWROCRQ9y+M5Y07ELLk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ICDaFCxkgbIbJrFpGdwNwedlQzDLedUlBeHGDc9PYsCkawOIHCStEwAZ4mEnLZ6aoGtXEIgdS8GX/KYIrXzhyES8MtNPVNAfetASHVZ9A4v2qrvmQhn/phuWWLXCTVYQMX8Cim4jFpUAqsyxi7t1O2+20Hr6Uvqke1O2DlnbWTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KggqkEEg; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=b8AVjkgkEVQnCZkS+x5sQFguhXuASiX7mGapoqbJNJxrS10z4vCZ7RbvinAbky4t1c1wYSHpKrxJaEjRYJJ8GsAW5k5+ya06hAa2OarLXy2OcbdNL24174oNue7eRUukkSD2Y8M9m4AZjUKimqpjdpFcbNelemXWO6P25BC+zPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Nt9Elcsv; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KggqkEEg"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Nt9Elcsv"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6CAE71BD0;
-	Tue,  1 Sep 2026 10:16:02 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 20A731CE0;
+	Tue,  1 Sep 2026 10:16:07 -0700 (PDT)
 Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2E8B13F7D8;
-	Tue,  1 Sep 2026 10:16:04 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D902A3F7D8;
+	Tue,  1 Sep 2026 10:16:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788282966; bh=D3HeJ7zjz9bBhOtcqSqLw8x6tNR/CWKmRK3aKt2UT4w=;
+	t=1788282970; bh=cUkDq0mjr3TsA7BpjTcTYdqNjWROCRQ9y+M5Y07ELLk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=KggqkEEg8p9v2mh/x9AFk+GPbtf3DwwbME9qdyDpScThwx++GnH9rv9MD8UwRDYqw
-	 T8tGo76TcFcmjjPQ7qS1PmqfXf8lJTMtjp42ppG9ouhLXDHh7R8NVFNalmysteoabd
-	 S2jFJESf4rR/GEKTOoEsPe4Fzcg94z9UJVWQXakE=
+	b=Nt9Elcsvd3jZ+LcqUqz1b+KB9JX1ovs+EflajajcYUOxxMmm27aBQ9hPb61JgRE1h
+	 C8n5H+fQF0osMb4k1W0lZn7okuI3B0i5oBIL/EvgSymIg17RJup5E+mLzQHi818l29
+	 E3grDL3AYL4u1r42PQTWxIhJfjfF12WXGAo7F/lw=
 From: Leonardo Bras <leo.bras@arm.com>
 To: Marc Zyngier <maz@kernel.org>,
 	Oliver Upton <oupton@kernel.org>,
@@ -43,9 +43,9 @@ To: Marc Zyngier <maz@kernel.org>,
 Cc: linux-arm-kernel@lists.infradead.org,
 	kvmarm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 1/5] KVM: arm64: pgtables: Change write bit from S2AP_W to DBM
-Date: Tue,  1 Sep 2026 18:15:52 +0100
-Message-ID: <20260901171558.2674031-2-leo.bras@arm.com>
+Subject: [RFC PATCH 3/5] KVM: arm64: Introduce a dedicated walker for stage2 write-protect
+Date: Tue,  1 Sep 2026 18:15:54 +0100
+Message-ID: <20260901171558.2674031-4-leo.bras@arm.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260901171558.2674031-1-leo.bras@arm.com>
 References: <20260901171558.2674031-1-leo.bras@arm.com>
@@ -55,107 +55,29 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6188; i=leo.bras@arm.com; h=from:subject; bh=D3HeJ7zjz9bBhOtcqSqLw8x6tNR/CWKmRK3aKt2UT4w=; b=owGbwMvMwCX2pizjszvTwvWMp9WSGLKms83V/vPEZoZpvvwUr0vH8xb8lFda+eXEJzeVxpktW xXuFKg87ChlYRDjYpAVU2SRfTR/Fc/3KRlHrvxYADOHlQlkCAMXpwBM5M4jhn+ayjqvDPqZxZ7d 3sorJr3hyZGpes0/+BJf87s9N8kyWK3LyPBb5DvH383uV07c1NWbf75EaO7vQhEP66juXZNb539 lCGEAAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1978; i=leo.bras@arm.com; h=from:subject; bh=cUkDq0mjr3TsA7BpjTcTYdqNjWROCRQ9y+M5Y07ELLk=; b=owGbwMvMwCX2pizjszvTwvWMp9WSGLKms839fqptm9uuVyxG3C8UWvP+Z230rRcKjkyzP3Mxl 8WR03BFRykLgxgXg6yYIovso/mreL5PyThy5ccCmDmsTCBDGLg4BWAiiiUM/0x4nv4SvsdpK7Zn ju37c39F1q6wulF7tm25x+Sj/1Zu/sjB8Jtd9s2qFrdzCeXz0x69q5i/Zp9rgXyi710tJZ/Lq48 FlfABAA==
 X-Developer-Key: i=leo.bras@arm.com; a=openpgp; fpr=36E6C95AE0F111CC5B6F4D2E688C33F8A0C5B0C5
 Content-Transfer-Encoding: 8bit
 
-As a first step of changing the encoding for the Stage2 PTE descriptor,
-introduce the DBM bit, and adapt every usage of writable to use the DBM bit
-(51) instead of S2AP[1]/Dirty bit (7).
+The new walker cleans the dirty bit on leaf entries, as well as clean
+the DBM bit in blocks so it still faults for lazy hugepage splitting when
+we enable FEAT_HDBSS in future patches.
 
-For this step, we convert usages of RW(Dirty) -> WD(DBM|Dirty).
+With disabled HDBSS, there should be no change in faulting behavior.
 
 Signed-off-by: Leonardo Bras <leo.bras@arm.com>
 ---
- arch/arm64/include/asm/kvm_pgtable.h | 3 +++
- arch/arm64/kvm/hyp/pgtable.c         | 8 +++++---
- arch/arm64/kvm/nested.c              | 4 +++-
- arch/arm64/kvm/ptdump.c              | 4 ++--
- 4 files changed, 13 insertions(+), 6 deletions(-)
+ arch/arm64/kvm/hyp/pgtable.c | 26 ++++++++++++++++++++++----
+ 1 file changed, 22 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
-index 41a8687938eb..37baa86d6fd8 100644
---- a/arch/arm64/include/asm/kvm_pgtable.h
-+++ b/arch/arm64/include/asm/kvm_pgtable.h
-@@ -86,24 +86,27 @@ typedef u64 kvm_pte_t;
- #define KVM_PTE_LEAF_ATTR_HI		GENMASK(63, 50)
- 
- #define KVM_PTE_LEAF_ATTR_HI_SW		GENMASK(58, 55)
- 
- #define KVM_PTE_LEAF_ATTR_HI_S1_XN	BIT(54)
- #define KVM_PTE_LEAF_ATTR_HI_S1_UXN	BIT(54)
- #define KVM_PTE_LEAF_ATTR_HI_S1_PXN	BIT(53)
- 
- #define KVM_PTE_LEAF_ATTR_HI_S2_XN	GENMASK(54, 53)
- 
-+#define KVM_PTE_LEAF_ATTR_HI_S2_DBM	BIT(51)
-+
- #define KVM_PTE_LEAF_ATTR_HI_S1_GP	BIT(50)
- 
- #define KVM_PTE_LEAF_ATTR_S2_PERMS	(KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R | \
- 					 KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W | \
-+					 KVM_PTE_LEAF_ATTR_HI_S2_DBM | \
- 					 KVM_PTE_LEAF_ATTR_HI_S2_XN)
- 
- /* pKVM invalid pte encodings */
- #define KVM_INVALID_PTE_TYPE_MASK	GENMASK(63, 60)
- #define KVM_INVALID_PTE_ANNOT_MASK	~(KVM_PTE_VALID | \
- 					  KVM_INVALID_PTE_TYPE_MASK)
- 
- enum kvm_invalid_pte_type {
- 	/*
- 	 * Used to indicate a pte for which a 'break-before-make'
 diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-index b74dd5ce1efd..ca49f1bd7c34 100644
+index 2ff33d3e371e..2849c136f366 100644
 --- a/arch/arm64/kvm/hyp/pgtable.c
 +++ b/arch/arm64/kvm/hyp/pgtable.c
-@@ -725,42 +725,43 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
- 	}
+@@ -1287,26 +1287,44 @@ static int stage2_update_leaf_attrs(struct kvm_pgtable *pgt, u64 addr,
+ 		return ret;
  
- 	r = stage2_set_xn_attr(prot, &attr);
- 	if (r)
- 		return r;
- 
- 	if (prot & KVM_PGTABLE_PROT_R)
- 		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
- 
- 	if (prot & KVM_PGTABLE_PROT_W)
--		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-+		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-+
- 
- 	if (!kvm_lpa2_is_enabled())
- 		attr |= FIELD_PREP(KVM_PTE_LEAF_ATTR_LO_S2_SH, sh);
- 
- 	attr |= KVM_PTE_LEAF_ATTR_LO_S2_AF;
- 	attr |= prot & KVM_PTE_LEAF_ATTR_HI_SW;
- 	*ptep = attr;
- 
- 	return 0;
- }
- 
- enum kvm_pgtable_prot kvm_pgtable_stage2_pte_prot(kvm_pte_t pte)
- {
- 	enum kvm_pgtable_prot prot = pte & KVM_PTE_LEAF_ATTR_HI_SW;
- 
- 	if (!kvm_pte_valid(pte))
- 		return prot;
- 
- 	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R)
- 		prot |= KVM_PGTABLE_PROT_R;
--	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W)
-+	if (pte & KVM_PTE_LEAF_ATTR_HI_S2_DBM)
- 		prot |= KVM_PGTABLE_PROT_W;
- 
- 	switch (FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, pte)) {
- 	case 0b00:
- 		prot |= KVM_PGTABLE_PROT_PX | KVM_PGTABLE_PROT_UX;
- 		break;
- 	case 0b01:
- 		prot |= KVM_PGTABLE_PROT_UX;
- 		break;
- 	case 0b11:
-@@ -1281,20 +1282,21 @@ static int stage2_update_leaf_attrs(struct kvm_pgtable *pgt, u64 addr,
+ 	if (orig_pte)
  		*orig_pte = data.pte;
  
  	if (level)
@@ -163,13 +85,34 @@ index b74dd5ce1efd..ca49f1bd7c34 100644
  	return 0;
  }
  
++static int stage2_wrprotect_walker(const struct kvm_pgtable_visit_ctx *ctx,
++				   enum kvm_pgtable_walk_flags visit)
++{
++	kvm_pte_t new = ctx->old & ~KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
++
++	/* We remove DBM on blocks so they can fault and get split */
++	if (ctx->level < KVM_PGTABLE_LAST_LEVEL)
++		new &= ~KVM_PTE_LEAF_ATTR_HI_S2_DBM;
++
++	if (kvm_pte_valid(ctx->old) && ctx->old != new)
++		WRITE_ONCE(*ctx->ptep, new);
++
++	return 0;
++}
++
++
  int kvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
  {
- 	return stage2_update_leaf_attrs(pgt, addr, size, 0,
-+					KVM_PTE_LEAF_ATTR_HI_S2_DBM |
- 					KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
- 					NULL, NULL,
- 					KVM_PGTABLE_WALK_IGNORE_EAGAIN);
+-	return stage2_update_leaf_attrs(pgt, addr, size, 0,
+-					KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
+-					NULL, NULL,
+-					KVM_PGTABLE_WALK_IGNORE_EAGAIN);
++	struct kvm_pgtable_walker walker = {
++		.cb	= stage2_wrprotect_walker,
++		.flags	= KVM_PGTABLE_WALK_LEAF,
++	};
++
++	return kvm_pgtable_walk(pgt, addr, size, &walker);
  }
  
  void kvm_pgtable_stage2_mkyoung(struct kvm_pgtable *pgt, u64 addr,
@@ -177,87 +120,9 @@ index b74dd5ce1efd..ca49f1bd7c34 100644
  {
  	int ret;
  
-@@ -1361,21 +1363,21 @@ int kvm_pgtable_stage2_relax_perms(struct kvm_pgtable *pgt, u64 addr,
- 	s8 level;
- 	int ret;
- 
- 	if (prot & KVM_PTE_LEAF_ATTR_HI_SW)
- 		return -EINVAL;
- 
- 	if (prot & KVM_PGTABLE_PROT_R)
- 		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
- 
- 	if (prot & KVM_PGTABLE_PROT_W)
--		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-+		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
- 
- 	if (prot & KVM_PGTABLE_PROT_X) {
- 		ret = stage2_set_xn_attr(prot, &xn);
- 		if (ret)
- 			return ret;
- 
- 		set |= xn & KVM_PTE_LEAF_ATTR_HI_S2_XN;
- 		clr |= ~xn & KVM_PTE_LEAF_ATTR_HI_S2_XN;
- 	}
- 
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 17123f0b6dab..eb8dfffc32c7 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -379,21 +379,23 @@ static int walk_nested_s2_pgd(struct kvm_vcpu *vcpu, phys_addr_t ipa,
- 	}
- 
- 	addr_bottom += contiguous_bit_shift(desc, wi, level);
- 
- 	/* Calculate and return the result */
- 	paddr = (desc & GENMASK_ULL(47, addr_bottom)) |
- 		(ipa & GENMASK_ULL(addr_bottom - 1, 0));
- 	out->output = paddr;
- 	out->block_size = 1UL << ((3 - level) * stride + wi->pgshift);
- 	out->readable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
--	out->writable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-+	/* Takes care of both RO/RW and RO/WC/WD encodings */
-+	out->writable = desc & (KVM_PTE_LEAF_ATTR_HI_S2_DBM |
-+				KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W);
- 	out->level = level;
- 	out->desc = desc;
- 	return 0;
- }
- 
- #define _has_tgran_2(__r, __sz)						\
- 	({								\
- 		u64 _s1, _s2, _mmfr0 = __r;				\
- 									\
- 		_s2 = SYS_FIELD_GET(ID_AA64MMFR0_EL1,			\
-diff --git a/arch/arm64/kvm/ptdump.c b/arch/arm64/kvm/ptdump.c
-index 69899797dbad..b0cb8d84a9e9 100644
---- a/arch/arm64/kvm/ptdump.c
-+++ b/arch/arm64/kvm/ptdump.c
-@@ -33,22 +33,22 @@ static const struct ptdump_prot_bits stage2_pte_bits[] = {
- 		.set	= " ",
- 		.clear	= "F",
- 	},
- 	{
- 		.mask	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R,
- 		.val	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R,
- 		.set	= "R",
- 		.clear	= " ",
- 	},
- 	{
--		.mask	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
--		.val	= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
-+		.mask	= KVM_PTE_LEAF_ATTR_HI_S2_DBM,
-+		.val	= KVM_PTE_LEAF_ATTR_HI_S2_DBM,
- 		.set	= "W",
- 		.clear	= " ",
- 	},
- 	{
- 		.mask	= KVM_PTE_LEAF_ATTR_HI_S2_XN,
- 		.val	= 0b00UL << __bf_shf(KVM_PTE_LEAF_ATTR_HI_S2_XN),
- 		.set	= "px ux ",
- 	},
- 	{
- 		.mask	= KVM_PTE_LEAF_ATTR_HI_S2_XN,
+ 	ret = stage2_update_leaf_attrs(pgt, addr, 1, KVM_PTE_LEAF_ATTR_LO_S2_AF, 0,
+ 				       NULL, NULL, flags);
+ 	if (!ret)
 -- 
 2.55.0
 
