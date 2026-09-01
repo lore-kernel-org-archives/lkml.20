@@ -1,184 +1,301 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B727411F8B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:58:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40FC41D135;
+	Tue,  1 Sep 2026 14:58:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788274697; cv=none; b=NEX0sq+IirMVm28XuituNYJwUNNJE9O0/4OnLlXQPe8+M6QFR0cL1+iFnTu1NfedjN7Quaji6QdEFT1wPAeSCjTLKqYXwxvLF+G2afsnY/szf0bZaja8Omvocqk+joWr9Q6P8S3VzixOsrjvAIave9hGoM7vaB9RqIgYC0bHlsg=
+	t=1788274697; cv=none; b=qbzcY7aE8g9IyTRD6XSEe6oN93K42+CPm6EZ441n2pHrvej5LaH60Ys0DwjwIaqo4SOohAPucIsEKDhpLlwTXMn65tG2SHeQ9ATWtlHZ5TvHlfnrQ2D1M0sI2F3b4hx/P09ouTqRLyHC+BUtdak9GSEV5G7WKgE5jU/KTwwbRz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788274697; c=relaxed/simple;
-	bh=xksdRuihJ6RQTqUvVSFVXcRtvXMnSxoSEw/clmOQOt0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=me2JGorculi6xQpg0IRze7tvNKTRxEn4qLc9zBjrDUarrhBGwfV7qUzZuaUIlrHVfWg2PtDfa4jHdwQ5TdCR38sycmIxwouMrPdtLX1SrRQXB/5TNdku822SirOZLdBvlpLRO4yvCcSnewhitX/dFtX/gICxxzEcByYhC4LUyaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=VyDC4Wv1; arc=none smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	bh=0NZj8dzHMvDPafeShpBt1PLgjhP7gFYn0JXz851agAI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qVcxduYfeuBd6iy5Ay/NtrE9LR8b6SOdIdGqwhnX0YcMZVcAmjXUjbBReRfWaRvB0c08cJcJf0G6d1JSNlJXlPdn3S/x1rg4aIyj1d0WlUJ3X+a25TcD88+uTRvGCfLyIKtjqkvsoYWNoSVd7eaLh7M2WAVZLYbFLJrWi+xx9bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHmVoYtD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="VyDC4Wv1"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-51c0006ea8eso48793161cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:58:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788274693; x=1788879493; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KCwYat8AACN3jrzTsU7VQdP9QBM1LUdIVo5Kd7wh13Y=;
-        b=VyDC4Wv1EUCDYNddG/RWCy+vUU0cVHnUEapNQGjogg64q60bySJhzHazdP3mxvyv5T
-         VTIiLb/R+gIki/mIfR3SpGU6gDSd4uVIR75EZhhk/ZLFZZ1cv5eW0HKg0gQvXPERt604
-         52uZqKte+feGj60AGWNxP9hPmeeH/QpNfVC1akHPYKok9CtU5N6vrxF4bA9f5rFWgJlv
-         R0hTNAw6wNGsEDNdJvjLeA6jCbH9u747RNGRl7rFF5PYbelS3ptuGRL8loe3XNzuj2Tq
-         QMvw4OS9FCmoAxwfXnxqawqWDLd9yPeEtbSQcPw6jdlBtir5IU34UNI6qXn6gu15c4VW
-         BbVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788274693; x=1788879493;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KCwYat8AACN3jrzTsU7VQdP9QBM1LUdIVo5Kd7wh13Y=;
-        b=iCrOKKv7TTFqxANnLabFGB3ohJiftRTZsCANMAdMXNhOiviUGcF8H4FCo0THdDPTBw
-         SUuzwRb+JE4tmHTt0s1VwbLCWWz5RsQA+OpkonhiORoHg8mhU90b3otNR5BhjKGHHWpv
-         GetkwayPZiLUTZ6aR9WtKq+MCX6kRdccw9iCUB398pa0THQwh31wmnjbv+Mh6nHk50S5
-         sNfwju9NqLSgyKrEayQ97N7/Q+RIJcqShXW7DbVaorjXTHalM9OY0KTj+lCVEpHpgZeM
-         4Wk27AghwO2hBQARqHD0r8xJX2mcwQ/6TptGmef2x+xP5YHebpEMkXoAqz/2xorCmCug
-         HQlA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3wlzY1/BEBKqnfSkOPayuzoEsq1j/VQaaoBaNNhRBenI6Pf3e5tej2LR14wVATB+Jerry/JFfZuyOyPo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTiVnwkovTAqpVeHQD47gHMrrKH2IFxi6nKmNxcfBTHEpAii+t
-	BkLSjzW5+APwU2wyUhC7exbYtduVoE544pYqXaQP4tiF4jDVxyBW52bqmfb65EjaH/RSdotE8uU
-	OZeoT0v4=
-X-Gm-Gg: AR+sD11F8pumwuoQe8rytQ7KDwkuoQRq81XVaKwBcW+OKBc4ytlfNMT6mS9RTNYchE1
-	qsq/9AIjOBvPVYMjCwrlcQ+rlgvqwkqJFdcy7P0iNma2LJlh53lvnZjrBqzPNqcL8QVEFO4Ww38
-	DLQCUS2qu79zxVCjvay1eTrjUjKZ9cvks1OtxSrttQiEfkCS+bjCr5L4045zsZX0btI15KHrSOF
-	GAJalxcLGepje3hnmVcf8Rp8OJ9TAERJtACi/ozvbHb4l+kYtJVNy2fjzzKJ9+JSF0DYAmnTt6J
-	HL0enrX9UwmZtbUloaUaDIshs4m20fqd3ZIXZaP6HpHP7linDTk+3WqmSFcrv0PXdTgoJcavXbt
-	hW77nqifREOIW/9mUJR6BmkQI/BflZ6bcX5s2c19OmbBcmYyDTQ4AzvUtMJ38FtzlwmEKcm7PfG
-	jp0jpdTH79VCvneTQNt9wR7MwMEy6l0DYuTUkVw07L0eY4gGCV3PbO5+Tm9b90
-X-Received: by 2002:a05:622a:c8c:b0:52f:a319:da85 with SMTP id d75a77b69052e-52fb96af1b0mr447135601cf.39.1788274692940;
-        Tue, 01 Sep 2026 07:58:12 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52ff6f363fasm81508941cf.16.2026.09.01.07.58.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 07:58:12 -0700 (PDT)
-Message-ID: <6a5bec41-71ef-4d9c-a34f-77d166b15ca6@riscstar.com>
-Date: Tue, 1 Sep 2026 09:58:10 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHmVoYtD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CF741F00ADE;
+	Tue,  1 Sep 2026 14:58:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788274695;
+	bh=UTvJDIw3wcg7xi4i0kyVSun0Dn6RIuyJL6Ze7BRUb5M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fHmVoYtD48si7U4QBauUocNTZRD1pcYnoGOdDynX3BhCHV/UgsIB+z2JK1nYO11t8
+	 JVRGqHItgAbcTdxPsb66Wk+Ro3HzpCxFUkarQlX9yShbQVZAejZNohwd3QUzip7HTx
+	 kOlFQBv5nTbH304V+gsJvn+5WY3k++rpVpkiiOnLMYI3i/byofcDRs/VEYNnsetO46
+	 AXWLkz3z1eMUD06SvLIF7oLZFGEIqd2oC54Tu7qs/JVJ81jzKMbS+H5YtJFCZe4Z03
+	 OJi+j8iP4uy6xNa0eMsl4tyPxiNMtFDlv0RJU5uAGwo0iMO7kt5OmA+k/MUp8WvYfO
+	 ioQkgoguf72Lg==
+From: Eric Biggers <ebiggers@kernel.org>
+To: x86@kernel.org
+Cc: linux-um@lists.infradead.org,
+	linux-raid@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	David Laight <david.laight.linux@gmail.com>
+Subject: [PATCH v5 8/8] xor: Add AVX-512 optimized xor_gen()
+Date: Tue,  1 Sep 2026 07:57:40 -0700
+Message-ID: <20260901145740.42337-9-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260901145740.42337-1-ebiggers@kernel.org>
+References: <20260901145740.42337-1-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] of: address: kill of_node_is_pcie()
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: bhelgaas@google.com, robh@kernel.org, saravanak@kernel.org,
- daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, linux-pci@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260901011338.1323243-1-elder@riscstar.com>
- <20260901011338.1323243-5-elder@riscstar.com>
- <20260901084546.424c6ef2@bootlin.com>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260901084546.424c6ef2@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 9/1/26 1:45 AM, Herve Codina wrote:
-> Hi Alex,
-> 
-> On Mon, 31 Aug 2026 20:13:37 -0500
-> Alex Elder <elder@riscstar.com> wrote:
-> 
->> The of_bus->match function for the "PCI" bus type is fairly liberal
->> in what it accepts as a PCI bus devicetree node.  If a node has no
->> device_type property, it even allows a node named "pcie@" to be
->> accepted as represnting a devicetree bus, though it issues a warning
->> in that case.
->>
->> A recent PCI commit introduced of_pci_verify_node().  When a PCI
->> device is added, if it has a devicetree node, that function checks
->> its device_type property.  For PCI bridge devices, if there is no
->> device_type property (value "pci"), a warning is issued.
->>
->> That warning duplicates the warning made by of_node_is_pcie(), and
->> there's no point in that.  Avoid the second (OF) warning by just
->> checking the node name directly in of_bus_pci_match().
->>
->> That leaves of_node_is_pcie() unused, so get rid of it.
->>
->> Signed-off-by: Alex Elder <elder@riscstar.com>
->> ---
->> v3: - Added (new) in this version of the series
->>
->>   drivers/of/address.c | 12 +-----------
->>   1 file changed, 1 insertion(+), 11 deletions(-)
->>
->> diff --git a/drivers/of/address.c b/drivers/of/address.c
->> index 499d37ceae210..ee2eb44884d85 100644
->> --- a/drivers/of/address.c
->> +++ b/drivers/of/address.c
->> @@ -134,16 +134,6 @@ static unsigned int of_bus_pci_get_flags(const __be32 *addr)
->>    * PCI bus specific translator
->>    */
->>   
->> -static bool of_node_is_pcie(const struct device_node *np)
->> -{
->> -	bool is_pcie = of_node_name_eq(np, "pcie");
->> -
->> -	if (is_pcie)
->> -		pr_warn_once("%pOF: Missing device_type\n", np);
->> -
->> -	return is_pcie;
->> -}
->> -
->>   static int of_bus_pci_match(struct device_node *np)
->>   {
->>   	/*
->> @@ -156,7 +146,7 @@ static int of_bus_pci_match(struct device_node *np)
->>   	 */
->>   	return of_node_is_type(np, "pci") || of_node_is_type(np, "pciex") ||
->>   		of_node_is_type(np, "vci") || of_node_is_type(np, "ht") ||
->> -		of_node_is_pcie(np);
->> +		of_node_name_eq(np, "pcie");
->>   }
->>   
->>   static void of_bus_pci_count_cells(struct device_node *np,
-> 
-> The warning here was printed based on the node name whereas of_node_is_pcie()
-> prints the message based on the 'device_type' property of a pci_dev node.
+Add an implementation of xor_gen() using AVX-512.
 
-You're right.  Both warnings were getting reported for me, but for
-different reasons.
+It uses 512-bit vectors, i.e. ZMM registers.  It also uses the
+vpternlogq instruction to do three-input XORs when applicable.
 
-I would be happy to just drop this patch and live with two warnings
-in some cases (we should rarely see either one of them anyway, right?).
+It's enabled on x86_64 CPUs that have AVX512F && !PREFER_YMM.  In
+practice that means:
 
-Is that OK with you?  Does anyone feel this patch should be kept?
+    - AMD Zen 4 and later (client and server)
+    - Intel Sapphire Rapids and later (server)
+    - Intel Rocket Lake (client)
+    - Intel Nova Lake and later (client)
 
-Thank you.
+The !PREFER_YMM condition excludes the older AVX-512 implementations in
+Intel Skylake Server and Intel Ice Lake.  They could run this code, but
+they're known to have overly-eager downclocking when ZMM registers are
+used.  This is the same policy that the crypto and CRC code uses.
 
-					-Alex
+Results from xor_benchmark on AMD Ryzen 9 9950X (Zen 5):
 
-> For PCI to PCI bridges, no problem the warning is indeed duplicated but what
-> happens for the PCI host controller?
-> 
-> PCI host controller drivers calls pci_host_probe() and are seen by the PCI core
-> as a struct pci_host_bridge.
-> 
-> of_node_is_pcie() is called for children of the PCI host controller (i.e. PCI
-> devices scanned on the PCI bus handled by the host controller) but not for the
-> PCI host controller itself.
-> 
-> The OF node of the host controller must have the 'device_type' property set
-> to "pci".
-> 
-> I am not so sure that this warning was duplicated when we consider the PCI
-> host controller node.
-> 
-> Can you double check on your side?
-> 
-> Best regards,
-> Hervé
+Before:
+
+    # xor_benchmark:           	 4096 bytes	16384 bytes
+    # xor_benchmark:   4 disks:	  256  GB/s	  185  GB/s
+    # xor_benchmark:   5 disks:	  233  GB/s	  165  GB/s
+    # xor_benchmark:   6 disks:	  243  GB/s	  174  GB/s
+    # xor_benchmark:   7 disks:	  244  GB/s	  176  GB/s
+    # xor_benchmark:   8 disks:	  265  GB/s	  179  GB/s
+    # xor_benchmark:  10 disks:	  249  GB/s	  175  GB/s
+    # xor_benchmark:  12 disks:	  219  GB/s	  173  GB/s
+    # xor_benchmark:  15 disks:	  206  GB/s	  177  GB/s
+    # xor_benchmark:  16 disks:	  212  GB/s	  180  GB/s
+    # xor_benchmark:  32 disks:	  193  GB/s	  177  GB/s
+
+After:
+
+    # xor_benchmark:           	 4096 bytes	16384 bytes
+    # xor_benchmark:   4 disks:	  492  GB/s	  202  GB/s
+    # xor_benchmark:   5 disks:	  436  GB/s	  191  GB/s
+    # xor_benchmark:   6 disks:	  466  GB/s	  193  GB/s
+    # xor_benchmark:   7 disks:	  491  GB/s	  194  GB/s
+    # xor_benchmark:   8 disks:	  513  GB/s	  205  GB/s
+    # xor_benchmark:  10 disks:	  454  GB/s	  199  GB/s
+    # xor_benchmark:  12 disks:	  330  GB/s	  204  GB/s
+    # xor_benchmark:  15 disks:	  266  GB/s	  198  GB/s
+    # xor_benchmark:  16 disks:	  243  GB/s	  177  GB/s
+    # xor_benchmark:  32 disks:	  187  GB/s	  165  GB/s
+
+Reviewed-by: David Laight <david.laight.linux@gmail.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Acked-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+---
+ lib/raid/xor/Makefile         |   2 +-
+ lib/raid/xor/x86/xor-avx512.c | 122 ++++++++++++++++++++++++++++++++++
+ lib/raid/xor/x86/xor_arch.h   |  30 ++++++---
+ 3 files changed, 143 insertions(+), 11 deletions(-)
+ create mode 100644 lib/raid/xor/x86/xor-avx512.c
+
+diff --git a/lib/raid/xor/Makefile b/lib/raid/xor/Makefile
+index 9b0fad459cdb..e1e3455c219d 100644
+--- a/lib/raid/xor/Makefile
++++ b/lib/raid/xor/Makefile
+@@ -31,7 +31,7 @@ xor-$(CONFIG_SPARC32)		+= sparc/xor-sparc32.o
+ xor-$(CONFIG_SPARC64)		+= sparc/xor-sparc64.o sparc/xor-sparc64-glue.o
+ xor-$(CONFIG_S390)		+= s390/xor.o
+ xor-$(CONFIG_X86_32)		+= x86/xor-avx.o x86/xor-sse.o x86/xor-mmx.o
+-xor-$(CONFIG_X86_64)		+= x86/xor-avx.o x86/xor-sse.o
++xor-$(CONFIG_X86_64)		+= x86/xor-avx.o x86/xor-sse.o x86/xor-avx512.o
+ obj-y				+= tests/
+ 
+ CFLAGS_xor-neon.o		+= $(CC_FLAGS_FPU) -I$(src)/$(SRCARCH)
+diff --git a/lib/raid/xor/x86/xor-avx512.c b/lib/raid/xor/x86/xor-avx512.c
+new file mode 100644
+index 000000000000..c11d83441875
+--- /dev/null
++++ b/lib/raid/xor/x86/xor-avx512.c
+@@ -0,0 +1,122 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * AVX-512 optimized implementation of xor_gen()
++ *
++ * Copyright 2026 Google LLC
++ */
++
++#include <linux/types.h>
++#include <asm/fpu/api.h>
++#include "xor_impl.h"
++#include "xor_arch.h"
++
++/*
++ * Implementation notes:
++ *
++ * Unrolling by the number of buffers (2-5) is very important.
++ *
++ * Unrolling by length is less important, especially when using register-indexed
++ * addressing with negative indices from the end of the buffers.  That approach
++ * results in just two loop control instructions being needed per iteration,
++ * regardless of the number of buffers.
++ *
++ * In fact, benchmarks showed that the 2 and 3 buffer cases require only 2x
++ * unrolling by length, while the 4 and 5 buffer cases don't require any
++ * unrolling by length.  Benchmarks also showed that the register-indexed
++ * addressing isn't a bottleneck either; i.e., we can't do any better by
++ * incrementing the pointers as we go along, even with more unrolling.
++ */
++
++static void xor_avx512_2(long bytes, u8 *p1, const u8 *p2)
++{
++	long i = -bytes;
++
++	asm volatile("1: vmovdqa64 (%1,%0), %%zmm0\n"
++		     "vmovdqa64 64(%1,%0), %%zmm1\n"
++		     "vpxorq (%2,%0), %%zmm0, %%zmm0\n"
++		     "vpxorq 64(%2,%0), %%zmm1, %%zmm1\n"
++		     "vmovdqa64 %%zmm0, (%1,%0)\n"
++		     "vmovdqa64 %%zmm1, 64(%1,%0)\n"
++		     "add $128, %0\n"
++		     "jnz 1b\n"
++		     : "+&r"(i)
++		     : "r"(p1 + bytes), "r"(p2 + bytes)
++		     : "memory", "cc");
++}
++
++static void xor_avx512_3(long bytes, u8 *p1, const u8 *p2, const u8 *p3)
++{
++	long i = -bytes;
++
++	asm volatile("1: vmovdqa64 (%1,%0), %%zmm0\n"
++		     "vmovdqa64 64(%1,%0), %%zmm1\n"
++		     "vmovdqa64 (%2,%0), %%zmm2\n"
++		     "vmovdqa64 64(%2,%0), %%zmm3\n"
++		     "vpternlogq $0x96, (%3,%0), %%zmm2, %%zmm0\n"
++		     "vpternlogq $0x96, 64(%3,%0), %%zmm3, %%zmm1\n"
++		     "vmovdqa64 %%zmm0, (%1,%0)\n"
++		     "vmovdqa64 %%zmm1, 64(%1,%0)\n"
++		     "add $128, %0\n"
++		     "jnz 1b\n"
++		     : "+&r"(i)
++		     : "r"(p1 + bytes), "r"(p2 + bytes), "r"(p3 + bytes)
++		     : "memory", "cc");
++}
++
++static void xor_avx512_4(long bytes, u8 *p1, const u8 *p2, const u8 *p3,
++			 const u8 *p4)
++{
++	long i = -bytes;
++
++	asm volatile("1: vmovdqa64 (%1,%0), %%zmm0\n"
++		     "vmovdqa64 (%2,%0), %%zmm1\n"
++		     "vpxorq (%3,%0), %%zmm0, %%zmm0\n"
++		     "vpternlogq $0x96, (%4,%0), %%zmm1, %%zmm0\n"
++		     "vmovdqa64 %%zmm0, (%1,%0)\n"
++		     "add $64, %0\n"
++		     "jnz 1b\n"
++		     : "+&r"(i)
++		     : "r"(p1 + bytes), "r"(p2 + bytes), "r"(p3 + bytes),
++		       "r"(p4 + bytes)
++		     : "memory", "cc");
++}
++
++static void xor_avx512_5(long bytes, u8 *p1, const u8 *p2, const u8 *p3,
++			 const u8 *p4, const u8 *p5)
++{
++	long i = -bytes;
++
++	asm volatile("1: vmovdqa64 (%1,%0), %%zmm0\n"
++		     "vmovdqa64 (%2,%0), %%zmm1\n"
++		     "vpternlogq $0x96, (%3,%0), %%zmm1, %%zmm0\n"
++		     "vmovdqa64 (%4,%0), %%zmm1\n"
++		     "vpternlogq $0x96, (%5,%0), %%zmm1, %%zmm0\n"
++		     "vmovdqa64 %%zmm0, (%1,%0)\n"
++		     "add $64, %0\n"
++		     "jnz 1b\n"
++		     : "+&r"(i)
++		     : "r"(p1 + bytes), "r"(p2 + bytes), "r"(p3 + bytes),
++		       "r"(p4 + bytes), "r"(p5 + bytes)
++		     : "memory", "cc");
++}
++
++DO_XOR_BLOCKS(avx512_inner, xor_avx512_2, xor_avx512_3, xor_avx512_4,
++	      xor_avx512_5);
++
++/*
++ * Preconditions: bytes is a nonzero multiple of 512, and all buffers are
++ * 64-byte aligned.
++ */
++static void xor_gen_avx512(void *dest, void **srcs, unsigned int src_cnt,
++			   unsigned int bytes)
++{
++	kernel_fpu_begin();
++	xor_gen_avx512_inner(dest, srcs, src_cnt, bytes);
++	asm volatile("vzeroupper");
++	kernel_fpu_end();
++}
++
++struct xor_block_template xor_block_avx512 = {
++	.name = "avx512",
++	.xor_gen = xor_gen_avx512,
++};
+diff --git a/lib/raid/xor/x86/xor_arch.h b/lib/raid/xor/x86/xor_arch.h
+index 991abe3f4bbd..ed5921d2e2aa 100644
+--- a/lib/raid/xor/x86/xor_arch.h
++++ b/lib/raid/xor/x86/xor_arch.h
+@@ -6,21 +6,31 @@ extern struct xor_block_template xor_block_p5_mmx;
+ extern struct xor_block_template xor_block_sse;
+ extern struct xor_block_template xor_block_sse_pf64;
+ extern struct xor_block_template xor_block_avx;
++extern struct xor_block_template xor_block_avx512;
+ 
+-/*
+- * When SSE is available, use it as it can write around L2.  We may also be able
+- * to load into the L1 only depending on how the cpu deals with a load to a line
+- * that is being prefetched.
+- *
+- * When AVX2 is available, force using it as it is better by all measures.
+- *
+- * 32-bit without MMX can fall back to the generic routines.
+- */
+ static __always_inline void __init arch_xor_init(void)
+ {
+-	if (boot_cpu_has(X86_FEATURE_AVX)) {
++	if (IS_ENABLED(CONFIG_X86_64) && boot_cpu_has(X86_FEATURE_AVX512F) &&
++	    !boot_cpu_has(X86_FEATURE_PREFER_YMM)) {
++		/*
++		 * Use the AVX-512 code on CPUs that support AVX-512 without
++		 * overly-eager downclocking.  On such CPUs the AVX-512 code
++		 * should always work at least as well as the AVX code, so
++		 * runtime selection is unnecessary.
++		 *
++		 * The AVX-512 code can work on X86_32.  However, due to lack of
++		 * use case for that, for now it's built only for X86_64.
++		 */
++		xor_force(&xor_block_avx512);
++	} else if (boot_cpu_has(X86_FEATURE_AVX)) {
++		/* AVX will be the best; no need to try others. */
+ 		xor_force(&xor_block_avx);
+ 	} else if (IS_ENABLED(CONFIG_X86_64) || boot_cpu_has(X86_FEATURE_XMM)) {
++		/*
++		 * When SSE is available, use it as it can write around L2.  We
++		 * may also be able to load into the L1 only depending on how
++		 * the cpu deals with a load to a line that is being prefetched.
++		 */
+ 		xor_register(&xor_block_sse);
+ 		xor_register(&xor_block_sse_pf64);
+ 	} else if (boot_cpu_has(X86_FEATURE_MMX)) {
+-- 
+2.55.0
 
