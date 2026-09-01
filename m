@@ -1,137 +1,128 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8B52FC876;
-	Tue,  1 Sep 2026 11:24:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECE5345ECC;
+	Tue,  1 Sep 2026 11:24:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788261876; cv=none; b=KH4tp9yZbXqxUXNya6z7zCLYCC+7yv1lO44MJ4CWn5L0/vPim928nF5WH5IESwV62zJ/H8eX+sYo9Nmlg6J1cZCp4UQpEQxN3WFGu7kez7GS+IDceHBxotDJ2F6Hut/f9w15nr8Q8NxKQQX8EDYOx9lk4GnoGT9igmNRoaWi8ko=
+	t=1788261897; cv=none; b=uzCj/AueiKKjeP3tb7is6dyhrcZz+PvAqUx+oR3jDuRWf7CJHbC+K7tLs504MMH4jUMQDfX1b32mC8+381RoORQcvgfpoa9dbm3+4txnj6wi7CT28woICnFizy82qjXQZ8Cc5nR/rizQdn29hFhfspn3sfdVxJ8uuGY52xhV54o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788261876; c=relaxed/simple;
-	bh=6A74c6VeFiGCcRUJXPOiiloHoNuVTWCrnP59el5AHIU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=D2sUKvRcfsdf+hNf/mQXZgUNm3dyGVWW4GMIgttM0+r0bJNgJFuA6z6teNF87ykOT/ewgSO24UEF6gz4b/42W0wS/xkrdcNUjTjUApAVUrzie9/tAbCsAejapkZnZKOMXdMUEOA9RvYLKXiccfo4q+EcwDoyYPT+PZ4RFfaQGYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Fahymril; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788261897; c=relaxed/simple;
+	bh=XW2dwApA0a329Z5E7Ie15jEWR+nXLdDXttO3vc+pxwQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PWppjeihbMmMUjayNwmW6GB25TjOyBDgzTok3a+UkIB36/KOoqypIbxksSuRhkZEyl28siHgZ9l1flfiUJWxtcq0ivdKaG1nzF6+mSczDPH1Shcti07MaSHhX+Sof45JARotcSg4NdKCRTRPztzvWbKxq3urg6MI8B1ZVNUgenY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LILcLUfI; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Fahymril"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788261870; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=E3VURlQpvCj0IFlfDMpwATe4ShsH6UZzlqTrim1jfqQ=;
-	b=FahymrilpzSI1AUpye2VtepI1PGqGi494INZmVf1EuBaKve/DFgEHQzif/iUfUg1fq3ZGHWmj1JFVbzzYLM2EXqTOYkxb5EWlJg8zsXAMnsiX6tGLkJ3Y3wDIzkFNqWHjp7OTYnOGocIEyWfE7dgTV4fQ9wIeJ6RjkT5V9K2T90=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R751e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XA7CcCs_1788261862;
-Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0XA7CcCs_1788261862 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 01 Sep 2026 19:24:28 +0800
-From: "Huang, Ying" <ying.huang@linux.alibaba.com>
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org,  linux-kernel@vger.kernel.org,
-  kernel-team@meta.com,  akpm@linux-foundation.org,  david@kernel.org,
-  ziy@nvidia.com,  matthew.brost@intel.com,  joshua.hahnjy@gmail.com,
-  rakie.kim@sk.com,  byungchul@sk.com,  apopple@nvidia.com,
-  urezki@gmail.com,  chenwandun@huawei.com,  Chelsy Ratnawat
- <chelsyratnawat2001@gmail.com>,  stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mempolicy: take a cpuset cookie for the interleave
- node count
-In-Reply-To: <20260828193111.1023497-1-gourry@gourry.net> (Gregory Price's
-	message of "Fri, 28 Aug 2026 15:31:11 -0400")
-References: <20260828193111.1023497-1-gourry@gourry.net>
-Date: Tue, 01 Sep 2026 19:24:21 +0800
-Message-ID: <877bl5qknu.fsf@DESKTOP-5N7EMDA>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LILcLUfI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788261896; x=1819797896;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XW2dwApA0a329Z5E7Ie15jEWR+nXLdDXttO3vc+pxwQ=;
+  b=LILcLUfIgTv/BQRtTluxloav04picz1wqXFcKvfw+LSA274Pk6JKYB0r
+   fXHBhumwXywcJl3JgwWEaMqq9YR5tTrvQndXXpyXP0ShpIyFPZ4c4nxvb
+   2XG4x7TMKhBaJvMOpUUu87fSuUJOoTErIsKmKVmIeKqzoQdjiwygJ2Yvd
+   OD82f56qg+3qOyVb/ayw7ipu90a+uXC8VYWQOdJ3HfC2YRAIxYD8aHv/a
+   q2LY35wgOw1m3M20bgH0/6+ysIo2wYBFhMvBExkakzkVqLknRxuW8KnwJ
+   aVAOehfzmBU1HzzRHEOlHEtLjpIvruM/SagcFfyzf3ZzKObx5S3nIKrd6
+   Q==;
+X-CSE-ConnectionGUID: zu/5bxvdQjm9OuUlp+hTNw==
+X-CSE-MsgGUID: d9cfoD+KQwmKZNJ1dmaJKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="114225712"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="114225712"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:24:55 -0700
+X-CSE-ConnectionGUID: 6lMX8GZFRy2X+RMFr28l+A==
+X-CSE-MsgGUID: Uxo+ltewS3mtiG1hVBxKHw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="267756790"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:24:52 -0700
+Date: Tue, 1 Sep 2026 14:24:49 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe Kleine-Koenig <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 02/16] media: ov8858: support 19.2 MHz clock and CHT
+ gain setup
+Message-ID: <apa2AYWacrGWLl-7@ashevche-desk.local>
+References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+ <20260831180101.3109854-1-mauriziocasciano7@gmail.com>
+ <20260831180101.3109854-3-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ascii
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831180101.3109854-3-mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Gregory Price <gourry@gourry.net> writes:
+On Mon, Aug 31, 2026 at 08:00:47PM +0200, Maurizio Casciano wrote:
+> The Yoga Book drives its OV8858 from a 19.2 MHz platform clock, while
+> the existing mode tables program the sensor PLL for 24 MHz. Reusing
+> those settings produces incorrect internal and CSI-2 clocks.
+> 
+> Accept both input rates and use the actual rate for the reset delay. For
+> 19.2 MHz, apply the Cherry Trail MRD PLL and black-level settings after
+> the generic mode table.
+> 
+> The 19.2 MHz platform uses the per-channel manual white-balance
+> registers for digital gain. Program registers 0x5032, 0x5034 and 0x5036
+> and expose their 1x-to-4x range, while retaining the existing
+> long-exposure gain block for 24 MHz systems.
+> 
+> The manual white-balance register definitions and programming follow
+> the GPL-2.0 Intel OV5670 driver, so retain its 2017 Intel copyright
+> notice in this file. No proprietary source or tuning binary is included.
+> 
+> Tested on the Lenovo Yoga Book YB1-X91L OV8858 with full-range test bars
+> and real 10-bit Bayer frames.
 
-> alloc_pages_bulk_interleave() counts pol->nodes without a cpuset cookie:
->
-> 	nodes = nodes_weight(pol->nodes);
-> 	nr_pages_per_node = nr_pages / nodes;
->
-> nodemask_t spans several words once MAX_NUMNODES exceeds BITS_PER_LONG, so
-> a concurrent cpuset rebind can tear that read and yield an empty mask even
-> though neither version of it was empty.  The call then allocates nothing
-> and returns 0.
->
-> Some compilers will hoist the loop entry test above the division,
-> because nr_pages_per_node is dead when the loop does not run.
->
-> 	682e:	call	...		<- nodes_weight()
-> 	6838:	test	%eax,%eax
-> 	683a:	jle	692d		<- nodes <= 0 skips the loop
-> 	684a:	div	%rcx
->
-> So in most deployments, this div/0 is unreachable - but nothing in the
-> source guarantees that, it's just not easily exercised.
->
-> Take the cookie around the count and bail if the mask really is empty.
-> Only the count needs it, interleave_nodes() takes the cookie itself so
-> so a torn read there is already retried.
->
-> A rebind landing mid-loop can still leave the count disagreeing with the
-> mask, so the loop may revisit a node or skip one - but a rebind where
-> nodes change causes migration, so a handful of misplaced pages isn't
-> catastrophic in any sense.
->
-> Measured on a 72 node VM (NODES_SHIFT=10) with a cgroup v2 cpuset flipping
-> cpuset.mems between a word 0 and a word 1 node set, and the two word read
-> artificially widened: 330 zero counts in 130414 calls without the cookie,
-> and 401 retries with it.
->
-> Reported-by: Chelsy Ratnawat <chelsyratnawat2001@gmail.com>
-> Link: https://lore.kernel.org/all/20250907160829.91628-1-chelsyratnawat2001@gmail.com/
-> Fixes: c00b6b961099 ("mm/vmalloc: introduce alloc_pages_bulk_array_mempolicy to accelerate memory allocation")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
->  mm/mempolicy.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
->
-> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-> index 79053ece02cd..060a0eb26917 100644
-> --- a/mm/mempolicy.c
-> +++ b/mm/mempolicy.c
-> @@ -2592,6 +2592,7 @@ static unsigned long alloc_pages_bulk_interleave(gfp_t gfp,
->  		struct mempolicy *pol, unsigned long nr_pages,
->  		struct page **page_array)
->  {
-> +	unsigned int cpuset_mems_cookie;
->  	int nodes;
->  	unsigned long nr_pages_per_node;
->  	int delta;
-> @@ -2599,7 +2600,16 @@ static unsigned long alloc_pages_bulk_interleave(gfp_t gfp,
->  	unsigned long nr_allocated;
->  	unsigned long total_allocated = 0;
->  
-> -	nodes = nodes_weight(pol->nodes);
-> +	/* count the nodes, retry if a rebind happened during the read */
-> +	do {
-> +		cpuset_mems_cookie = read_mems_allowed_begin();
-> +		nodes = nodes_weight(pol->nodes);
-> +	} while (read_mems_allowed_retry(cpuset_mems_cookie));
-> +
-> +	/* if the nodemask has become invalid, we cannot do anything */
-> +	if (!nodes)
-> +		return 0;
-> +
->  	nr_pages_per_node = nr_pages / nodes;
->  	delta = nr_pages - nodes * nr_pages_per_node;
+...
 
-LGTM, feel free to add my
+> -#define OV8858_LINK_FREQ		360000000U
+> -#define OV8858_XVCLK_FREQ		24000000
+> +#define OV8858_LINK_FREQ		(360 * HZ_PER_MHZ)
+> +#define OV8858_XVCLK_FREQ		(24 * HZ_PER_MHZ)
+> +#define OV8858_XVCLK_FREQ_19_2MHZ	(192 * HZ_PER_MHZ / 10)
 
-Reviewed-by: Huang Ying <ying.huang@linux.alibaba.com>
+No. I told you already few times this...
 
-in the future version.
+In the given context of the change I expect to see either all in plain numbers
 
----
-Best Regards,
-Huang, Ying
+#define OV8858_LINK_FREQ		360000000U
+#define OV8858_XVCLK_FREQ_24MHz		24000000
+#define OV8858_XVCLK_FREQ_19_2MHz	19200000
+
+or only first one converted
+
+#define OV8858_LINK_FREQ		(360 * HZ_PER_MHZ)
+#define OV8858_XVCLK_FREQ_24MHz		24000000
+#define OV8858_XVCLK_FREQ_19_2MHz	19200000
+
+And better to name XVCLK definitions less ambiguous.
+
+(Also read this https://gruhn.me/blog/2026-08-03/)
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
