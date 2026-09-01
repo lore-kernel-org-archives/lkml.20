@@ -1,356 +1,120 @@
-Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069A84779B9
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:13:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD765476CF6;
+	Tue,  1 Sep 2026 09:13:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253990; cv=none; b=qRIYbcNOrnE9WuIe/zzMZotNwHnSFIJF2018anuZkm2AOtPBWXAmPTOXssYL5bTB78p0MjNYC7KdWBOsaO6heOZfpKgJM5F7B6VL6eiKt+3x0fAwUNr1frjJdlSGRN8Bg0fxoQFxj0D/Tkjsmu5/x1RrC7ZxsRmPSaE7kV0vIsM=
+	t=1788254004; cv=none; b=EUD/0lap9dMAEmvoP9Jl67Ko7I4g8zCdK45xAzau57rx6JF5QwUtrLQK/C23NGj9fikFJYtjPA1XgGx9FR0qE7qufYE/9mvQdJAb2H+JJP0Br0mjgkq5QzVDB9mOiaDJywn0UHPv0u9zkgW36Z4MPzVZyhmwnG2x3Q6lmRiROHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253990; c=relaxed/simple;
-	bh=8uJOowBp8VCu1y67aq7L73a1vzkStQA+SCBPipldYWU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aLjv4aiQH/3hyLGKiNu7sVhxRLum7tEceYypRcMz6nINducwW/D48gllFSFioNyaUPNRISffobCO1dJVs3MknZJzEXn2MdIXqKdxH6o0ModmWHpSLwIYqrvcvs6d56Js+y79Om8qKqqROtl7sM/+cWjHJfLSHel1J1B1vhKzIek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QZh2AOfo; arc=none smtp.client-ip=91.218.175.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788254004; c=relaxed/simple;
+	bh=pd1acZ0l+zUOeZobkaoqxgpVJGbI2mEIMZ+5P/Tso5Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JTnsiz5cuMxIldpvoSB08doMU/usu67yNmcdJ+gyZ0pSMnsvGYQsTXIqzjmeJOFaovRN5IUhuuL4NjjcSX0w0K7DQw6fxi/cnMisPqMuxNyNqDupRP6Y3GK0eUHT90pVGxTAtTlD9k1uELWW39oGVYYkzzCFqpLfpeXFkteVy2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HawesVss; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QZh2AOfo"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8uJOowBp8VCu1y67aq7L73a1vzkStQA+SCBPipldYWU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788253985; v=1; x=1788858785;
- b=QZh2AOfokA5HVuMaAADAD9aDdWjbY9f/zIPKSkmnIf6igP+lDhmSA8pC6D8kLrGHjTX+egz1
- tGkBPtb9L5ZXXceHwA4sd8i9NQUKfmQPy29r5ioNBl8ba2BlJBCTLzxndyq5Y9VJM2xjotDMEgU
- DGZ7oYwCsQ4/6EvWxRb9jP5c=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 41a52598f51d4228;
-	Tue, 01 Sep 2026 09:13:05 +0000
-X-Mizu-Trace-ID: 41a52598f51d4228
-X-Migadu-Flow: FLOW_OUT
-From: "Hui Zhu" <hui.zhu@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-Subject: [PATCH mm-unstable v5 2/2] mm/vmscan: throttle MGLRU eviction when isolated folios pile up
-Date: Tue,  1 Sep 2026 17:12:19 +0800
-Message-ID: <fa8d2aa1807b8b8fde3050c72609ac1caefcff93.1788252038.git.zhuhui@kylinos.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1788252038.git.zhuhui@kylinos.cn>
-References: <cover.1788252038.git.zhuhui@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HawesVss"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788254003; x=1819790003;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=pd1acZ0l+zUOeZobkaoqxgpVJGbI2mEIMZ+5P/Tso5Q=;
+  b=HawesVss57UC3TnRlfBf846MlXGh149EyB/W7Hn4my5reukjOVC78f5a
+   Yax3wykJsa1kmL8g7l4jnlXaYivsxPJaAqoYWX+x7ARme3LgkmXYLr5Jn
+   Ki78cDrG59XOjDW/rWt8wzfNsUy/EHm8eu2QomwDMLiHFR4MzxNQ3DjZH
+   si5Pye2eSaCdRe2B6N0IsOATAsxfLtEAaa8DHTikj3M2oe7Iu7SoSZEyP
+   3letHdtkjf8ykblc4+HdeTy0iuU6xRbzwYycHX08gm7BLDzqXPRb0ACjT
+   IWoqctqfTK+yyEMnAsSwOeHqOGDTIlUk62ipXtcA6FczGagiEKKIfLgnK
+   w==;
+X-CSE-ConnectionGUID: 3JESCGOeTFWEaFbUmpaIVw==
+X-CSE-MsgGUID: pyfjR6k+T3ySeqG0ucz6eQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88603758"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="88603758"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 02:13:22 -0700
+X-CSE-ConnectionGUID: 2eKjT+udSB6mMZPX1dBpZA==
+X-CSE-MsgGUID: y9fKTNKyTUOUmNAApqtZXQ==
+X-ExtLoop1: 1
+Received: from unknown (HELO [10.238.2.33]) ([10.238.2.33])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 02:13:06 -0700
+Message-ID: <a11190b1-908f-48a0-9f75-1d4472b2007e@linux.intel.com>
+Date: Tue, 1 Sep 2026 17:13:04 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 01/45] KVM: guest_memfd: Optimize away conversion
+ overheads via dead-code elimination
+To: ackerleytng@google.com
+Cc: aik@amd.com, andrew.jones@linux.dev, brauner@kernel.org,
+ chao.p.peng@linux.intel.com, david@kernel.org, jmattson@google.com,
+ jthoughton@google.com, michael.roth@amd.com, oupton@kernel.org,
+ pankaj.gupta@amd.com, qperret@google.com, rick.p.edgecombe@intel.com,
+ rientjes@google.com, shivankg@amd.com, steven.price@arm.com,
+ willy@infradead.org, wyihan@google.com, yan.y.zhao@intel.com,
+ forkloop@google.com, pratyush@kernel.org, suzuki.poulose@arm.com,
+ aneesh.kumar@kernel.org, liam@infradead.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
+ <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>,
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, tarunsahu@google.com,
+ Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Fuad Tabba <fuad.tabba@linux.dev>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-mm@kvack.org, linux-coco@lists.linux.dev
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
+ <20260830-gmem-inplace-conversion-v12-1-85e5fd25252a@google.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <20260830-gmem-inplace-conversion-v12-1-85e5fd25252a@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Hui Zhu <zhuhui@kylinos.cn>
+On 8/31/2026 8:25 AM, Ackerley Tng via B4 Relay wrote:
+> From: Sean Christopherson <seanjc@google.com>
+> 
+> Add and use kvm_arch_has_gmem_convert() to guard guest_memfd's invocation
+> of arch hooks related to converting memory between private and shared, as
+> only one half of the x86 CoCo duo needs the runtime hooks (any pre-work is
+> pure overhead for TDX).  At this exact moment, the overhead is negligible,
+> but that will change when in-place conversion comes along, at which point
+> to-shared conversions will "need" to find all affected folios prior to
+> calling into arch code.  In quotes because very technically that work could
+> be pushed to arch code, but that would bleed guest_memfd details into arch
+> code and would be far worse than adding yet another kvm_arch_has... hook.
+> 
+> Opportunistically provide the kvm_arch_gmem_make_private() declaration, and
+> rely on dead-code elimination to eliminate the call to non-existent code
+> when CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT=n.
+> 
+> Reported-by: Binbin Wu <binbin.wu@linux.intel.com>
+> Closes: https://lore.kernel.org/all/1ec08cd8-3072-4753-ad5e-cd34956647f8@linux.intel.com
+> Suggested-by: Ackerley Tng <ackerleytng@google.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 
-The legacy path throttles direct reclaim via too_many_isolated() when
-isolated folios pile up, but MGLRU's evict_folios() isolates folios
-without this check, which can lead to unnecessary swapping, thrashing
-and OOM.
-
-Add lru_gen_too_many_isolated() and throttle_evictable_types(), called
-from evict_folios() before the lruvec lock is taken since throttling
-sleeps.
-
-The check is per lruvec rather than node-wide: reclaimers contend per
-lruvec, and a node-wide check would let isolation in one memcg throttle
-reclaim in another. The threshold is the evictable size of the type
-divided by MIN_NR_GENS, approximating one generation.
-
-Since isolate_folios() picks the type from refault feedback and may fall
-back to the other one, throttle_evictable_types() collects the types
-that are not over-isolated and have evictable folios, and sleeps only
-when all of them are over-isolated. The mask is passed to
-isolate_folios() to restrict its choice and fallback, so an
-over-isolated type never blocks the other, and isolation never lands on
-a throttled or empty type.
-
-Like the legacy path, kswapd and !writeback_throttling_sane() reclaim
-are exempt, the threshold is raised for GFP_NOIO/GFP_NOFS callers, and
-a dying task fakes progress to exit reclaim quickly.
-
-Tested with threads write-touching a 48MB anonymous working set in a
-16MB memcg backed by swap delayed 50ms via dm-delay. With 192 threads
-the task is OOM-killed without this patch and survives with it. With
-64 threads both kernels survive the 60s run, and the patched kernel
-completes ~22% more touches (301B vs 246B).
-
-Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
----
- include/linux/mmzone.h |   2 +
- mm/vmscan.c            | 170 +++++++++++++++++++++++++++++++++++++----
- 2 files changed, 158 insertions(+), 14 deletions(-)
-
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 94f9c3ff5416..819b6c059116 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -580,6 +580,8 @@ struct lru_gen_folio {
- 	/* can be modified without holding the LRU lock */
- 	atomic_long_t evicted[NR_HIST_GENS][ANON_AND_FILE][MAX_NR_TIERS];
- 	atomic_long_t refaulted[NR_HIST_GENS][ANON_AND_FILE][MAX_NR_TIERS];
-+	/* the number of folios isolated from this lruvec and being reclaimed */
-+	atomic_long_t nr_isolated[ANON_AND_FILE];
- 	/* whether the multi-gen LRU is enabled */
- 	bool enabled;
- 	/* the memcg generation this lru_gen_folio belongs to */
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 98226bb021f3..b5b38d296004 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4151,25 +4151,34 @@ static void set_initial_priority(struct pglist_data *pgdat, struct scan_control
- 	sc->priority = clamp(priority, DEF_PRIORITY / 2, DEF_PRIORITY);
- }
- 
--static unsigned long lruvec_evictable_size(struct lruvec *lruvec, int swappiness)
-+static unsigned long lruvec_type_evictable_size(struct lruvec *lruvec, int type)
- {
--	int gen, type, zone;
-+	int gen, zone;
- 	unsigned long seq, total = 0;
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
- 	DEFINE_MAX_SEQ(lruvec);
- 	DEFINE_MIN_SEQ(lruvec);
- 
--	for_each_evictable_type(type, swappiness) {
--		for (seq = min_seq[type]; seq <= max_seq; seq++) {
--			gen = lru_gen_from_seq(seq);
--			for (zone = 0; zone < MAX_NR_ZONES; zone++)
--				total += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
--		}
-+	for (seq = min_seq[type]; seq <= max_seq; seq++) {
-+		gen = lru_gen_from_seq(seq);
-+		for (zone = 0; zone < MAX_NR_ZONES; zone++)
-+			total += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
- 	}
- 
- 	return total;
- }
- 
-+static unsigned long lruvec_evictable_size(struct lruvec *lruvec, int swappiness)
-+{
-+	unsigned long total = 0;
-+	int type;
-+
-+	for_each_evictable_type(type, swappiness)
-+		total += lruvec_type_evictable_size(lruvec, type);
-+
-+	return total;
-+}
-+
- static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc)
- {
- 	unsigned long total;
-@@ -4833,15 +4842,128 @@ static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
- 	return positive_ctrl_err(&sp, &pv);
- }
- 
-+/*
-+ * The MGLRU counterpart to too_many_isolated().
-+ *
-+ * too_many_isolated() compares node-wide isolated counts against
-+ * node-wide inactive sizes. It predates per-memcg LRU lists, which
-+ * moved isolation to per-lruvec granularity. MGLRU reclaimers contend
-+ * per lruvec, so this check is per lruvec as well, and isolation in
-+ * one memcg does not throttle reclaim in another.
-+ *
-+ * The legacy threshold, the size of the inactive list, is not usable
-+ * here either: in MGLRU the inactive counters are only a compatibility
-+ * shim - they jump around when swap runs out or a memcg hits its swap
-+ * limit, and proactive aging can inflate them. Compare against the
-+ * total number of evictable pages of the type divided by MIN_NR_GENS,
-+ * approximating the size of one generation - the same unit the
-+ * original MGLRU aging heuristics used.
-+ */
-+static bool lru_gen_too_many_isolated(struct lruvec *lruvec, int type,
-+				      struct scan_control *sc)
-+{
-+	unsigned long isolated, evictable;
-+
-+	if (current_is_kswapd())
-+		return false;
-+
-+	if (!writeback_throttling_sane(sc))
-+		return false;
-+
-+	isolated = atomic_long_read(&lruvec->lrugen.nr_isolated[type]);
-+	evictable = lruvec_type_evictable_size(lruvec, type);
-+
-+	/*
-+	 * GFP_NOIO/GFP_NOFS callers are allowed to isolate more pages, so
-+	 * they won't be blocked by normal direct-reclaimers, forming a
-+	 * circular deadlock.
-+	 */
-+	if (gfp_has_io_fs(sc->gfp_mask))
-+		evictable >>= 3;
-+
-+	return isolated > evictable / MIN_NR_GENS;
-+}
-+
-+/*
-+ * Unlike the legacy path, where the LRU list to isolate from is known
-+ * before isolation, isolate_folios() picks the type from the refault
-+ * feedback and may fall back to the other one. Therefore, instead of
-+ * throttling on a single type, collect the evictable types that do not
-+ * have too many isolated folios, and only sleep when all of them do.
-+ *
-+ * Returns the mask of the types isolate_folios() may isolate from, or
-+ * 0 if reclaim should stop. Also sets @fatal to tell the caller that
-+ * the task received a fatal signal while waiting.
-+ */
-+static unsigned int throttle_evictable_types(struct lruvec *lruvec,
-+					     int swappiness,
-+					     struct scan_control *sc,
-+					     bool *fatal)
-+{
-+	unsigned int allowed;
-+	bool stalled = false;
-+	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-+	int i;
-+
-+	*fatal = false;
-+
-+	for (;;) {
-+		allowed = 0;
-+		for_each_evictable_type(i, swappiness) {
-+			/*
-+			 * A type with no evictable folios has nothing to
-+			 * isolate. Don't allow it, otherwise reclaim can be
-+			 * redirected to it and spin making no progress, e.g.
-+			 * when the only type with folios is over-isolated.
-+			 */
-+			if (!lruvec_type_evictable_size(lruvec, i))
-+				continue;
-+
-+			if (!lru_gen_too_many_isolated(lruvec, i, sc))
-+				allowed |= BIT(i);
-+		}
-+
-+		if (allowed) {
-+			/* Wake up reclaimers waiting on the isolation to go down. */
-+			wake_throttle_isolated(pgdat);
-+			return allowed;
-+		}
-+
-+		/*
-+		 * All evictable types are over-isolated. Like the legacy
-+		 * path, wait once for concurrent reclaimers to put their
-+		 * isolated folios back; give up if that makes no progress.
-+		 */
-+		if (stalled)
-+			return 0;
-+
-+		stalled = true;
-+		reclaim_throttle(pgdat, VMSCAN_THROTTLE_ISOLATED);
-+
-+		/* We are about to die and free our memory. Return now. */
-+		if (fatal_signal_pending(current)) {
-+			*fatal = true;
-+			return 0;
-+		}
-+	}
-+}
-+
- static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 			  struct scan_control *sc, int swappiness,
--			  struct list_head *list, int *isolated,
--			  int *isolate_type, int *isolate_scanned)
-+			  unsigned int allowed, struct list_head *list,
-+			  int *isolated, int *isolate_type, int *isolate_scanned)
- {
- 	int i;
- 	int total_scanned = 0;
- 	int type = get_type_to_scan(lruvec, swappiness);
- 
-+	/*
-+	 * The preferred type may have been excluded by
-+	 * throttle_evictable_types(); start from the other one.
-+	 */
-+	if (!(allowed & BIT(type)))
-+		type = !type;
-+
- 	for_each_evictable_type(i, swappiness) {
- 		int scanned;
- 		int tier = get_tier_idx(lruvec, type);
-@@ -4858,9 +4980,10 @@ static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 		/*
- 		 * If scanned > 0 and isolated == 0, avoid falling back to the
- 		 * other type, as this type remains sufficient. Falling back
--		 * too readily can disrupt the positive_ctrl_err() bias.
-+		 * too readily can disrupt the positive_ctrl_err() bias. Only
-+		 * fall back to a type that is not throttled.
- 		 */
--		if (!scanned)
-+		if (!scanned && (allowed & BIT(!type)))
- 			type = !type;
- 	}
- 
-@@ -4883,18 +5006,36 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	bool skip_retry = false;
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-+	unsigned int allowed;
-+	bool fatal;
-+
-+	allowed = throttle_evictable_types(lruvec, swappiness, sc, &fatal);
-+	if (!allowed) {
-+		/*
-+		 * We are about to die and free our memory. Like the legacy
-+		 * path, pretend some pages were reclaimed so reclaim
-+		 * unwinds quickly instead of looping back into the
-+		 * throttle.
-+		 */
-+		if (fatal)
-+			sc->nr_reclaimed += SWAP_CLUSTER_MAX;
-+
-+		return 0;
-+	}
- 
- 	lruvec_lock_irq(lruvec);
- 
- 	/* In case folio deletion left empty old gens, flush them */
- 	try_to_inc_min_seq(lruvec, swappiness);
- 
--	scanned = isolate_folios(nr_to_scan, lruvec, sc, swappiness,
-+	scanned = isolate_folios(nr_to_scan, lruvec, sc, swappiness, allowed,
- 				 &list, &isolated, &type, &type_scanned);
- 	nr_isolated = isolated;
--	if (nr_isolated)
-+	if (nr_isolated) {
- 		__mod_node_page_state(pgdat, NR_ISOLATED_ANON + type,
- 				      nr_isolated);
-+		atomic_long_add(nr_isolated, &lruvec->lrugen.nr_isolated[type]);
-+	}
- 
- 	/* Scanning may have emptied the oldest gen, flush it */
- 	if (scanned)
-@@ -4957,6 +5098,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 		goto retry;
- 	}
- 
-+	atomic_long_sub(nr_isolated, &lruvec->lrugen.nr_isolated[type]);
- 	mod_node_page_state(pgdat, NR_ISOLATED_ANON + type, -nr_isolated);
- 
- 	if (nr_isolated > total_reclaimed)
--- 
-2.53.0
-
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
