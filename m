@@ -1,107 +1,100 @@
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-102.mta1.migadu.com [95.215.58.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638904756D4
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CC747CC61
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:49:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270569; cv=none; b=ZuFcInkyN64e+Lp4WWmR4fyRc8YuDwwzN0MUNPDZJFPzMO86FW4CwVkhkNQyEojt9kTh0ir2yErjZNRyK1YCsvtnJztLjIKYeRCpVIbL3irk8bxCzHzVO4/EuWvjX3LKl3LTj380eLmW7KbDBCVq8F75h57CAsjo1K919rthtyg=
+	t=1788270577; cv=none; b=UssdooDAU1dMVuWnYpO1GtD5ImXTT61Ndmbjh09cyWmHE/LK9q2qJWQ1MyGmmWgx7/+f75BI1YDQcPNMCXME5XZN7/VRVKPMjdiXXyu3DKqJb57xCVOyHuMm7NtWAHmxN4kPEL2MDJyab5wICCfITsYofSdo/+VaKFANoKTciGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270569; c=relaxed/simple;
-	bh=SjKX9sTXwz2ut/h6O2xnuMaCyCGtGNClcvUcOouqPhk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gj60vSuRw4Ihtj3fNbg4uEEFBEHF5IS5g+SS8ZsNjP0g6MFJtIkUaEXybPdMeuMRio1wsMAPjHT6K4j52PIHjoB9QDMa9ChVFbrbNs/kqa1QVleNR5F5rQuLPXxIvdAVQ2LpxEtcL9Zpc42tcdOJ8F5YEg4TtjiRyRh6QktoHXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=u3Nt6eEr; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ou1vbeiN; arc=none smtp.client-ip=103.168.172.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1788270577; c=relaxed/simple;
+	bh=8QFSnlpySFykmoc6yP1oqqE80w3/ep3oZQ4c2DH1o2c=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=kUX6/ygklfMgDfAVUxf166nG5cltF910zPOfarkL3yp+Eb6+EHjjoFyu4ME5pwB5ArqUm8JQ+dTcYkhASse0vSxuSpOuVDCCVPuoSmtRGu7OfoXz8eu8IG08J0aujwI/yuq+d9z3L+LXnLN+kb0eNhBj4I1Qmf5eGAg4GFd7rRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=J2nMIk0u; arc=none smtp.client-ip=95.215.58.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="u3Nt6eEr";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ou1vbeiN"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id 6CB85EC017E;
-	Tue,  1 Sep 2026 09:49:24 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Tue, 01 Sep 2026 09:49:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm3; t=1788270564; x=1788356964; bh=Rw520xsl7v
-	KOsSdNaWhpcfGBoEErTWf7w/EMGC0/QcM=; b=u3Nt6eErZI014vbwI5MK/XBuTv
-	aFKVObzPH8Y0+96/Cp07AayGKtZXagDXlFngba48rdU/qPXegTguWfoWXCf/82dh
-	D2z2UFMd+knL0UrCstg2CHKpFUpHW7xyQnSfgWWIHAAL/x1oOvXbl1m/NCAWIBcn
-	tMKnclmN6V4TgfftPMYvEHok5kRZArFqWVkVmRty7t9LAbkWhU2uvG6qzWCeY7lY
-	1KhFDjiGmxAKmoFG5pPNQpqeF9Y8PG9mptzWZrBU3FXdWMGpp1gtXvOQ2WjzUwO6
-	uHnMHGAIX/SXFI1P8zYa3lhMieswM6q1R6Ni9Mbz60Vil/ta29tYwG9iJ1HQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1788270564; x=1788356964; bh=Rw520xsl7vKOsSdNaWhpcfGBoEErTWf7w/E
-	MGC0/QcM=; b=Ou1vbeiN9B9/HbU89UQxLo/MM/fpTVGiQ6v8igee+TpyHRxRBMk
-	ZBy3LQ6G2hW1P8xmHIUGeaVTD9MlYJorSmfSLXl88vTqBGryK7uKnPG6434MGcU1
-	N0HH1C8Z/UPt+16RvGVI9VgQ71+a1iMjemyJtN3EDdD3V68AQUdYmt+vbLnEIGwC
-	efKW/fkSXYAA4hqRZzwLiuC8tLNObQgjEe+jRP+tcJW2o7r2U0Gmnk4UrJzIiq3B
-	n5LfBACZ5Mudhdgp3YRZr53uXMZkFwxGljBoa87Z9vlf/Z2qxYdD1AOEyqW2y5mk
-	onwiplkyrv4jodHLJs66e5mcAeJdxLABVsw==
-X-ME-Sender: <xms:5NeWampKpnOWb-mLk8B32zrSrZqG3_ruNFOEH9bELYFb5e5ZKER4KQ>
-    <xme:5NeWaik0O1ITpESFdQer0O6hpWWo63KYJ2uMtbMQVySs_hts3krS-E4lwAvrj8CeQ
-    _M34OJBpC1zpBD-VdxZXRrNvyde_HVtlM-jFuSdnnXI-L6F99nzY695>
-X-ME-Received: <xmr:5NeWaiyJpMFUcH0XFz3pcK3-FpHWtCd7VJbKAvpJsVvGWFLNFDGjVC3EsKAlVTU3JrF8Bwgw3OjMXDON0edo9h9bXa7z909yJNAc3W0bXOE>
-X-ME-Proxy-Cause: dmFkZTFXzn7K4IBs0AWjSrBi1tbDLqn6FsjD8REj5nY2iBOsmJjfU3X2RVJOVPSr6tvI6N
-    2pywvJryIh6VWDcFn2Psxxy46x4iX/JXqIMck4YkJxS80Pd641e7UecTacmQXX8p4mO2e8
-    O7HoMXyVkYRSDIQcDx9/a295NAnSfTAt/B826qrjb9ohqI+Q4lOOPdixq4WheWtbn5QW8U
-    1IAtneHXj0cMlXdDRVre5HPv9Rm2oCaXNS+uhO2mOXPMiCj1FZ2bw1+Ilwh2IVjIfkAhNh
-    yfDXrgXbjaCYOnWWDrEYR/63u4lxqJNHti6k2tsKkX1DhtsK60cX8dpVE/Z9DvqyTJGneD
-    eFAS0N/pl1fYRcjFgg3De8W4BCjt6so+IZan9TEjXfzdM4db63wFKQAXED63KGtdb0E4Hv
-    7QWVCOlLvn2z9jTF3QKjXan62ZUrPXk7Se41F/Hr5Wqg4nKvrZj5Ghj8b5uKlaTZMG0cgD
-    xTSBOgLiej4Zh3OowPJYVwMv16Sb58c27wZyCYxaKaVT85Yf8ctUE0PmgJIFfpmnIi2ZR9
-    +5sLh2G6AinjT7hZpvdfCYWQEO6S8Bndy8Io1TS9lRKrhfEE7PURG9Wpdypdok3ysuII0I
-    cNL/Onq1CnRM+8pUN3MkblhKrz7SsUBomv8BJHbcTqfzpwImmbwDL3rMswQg
-X-ME-Proxy: <xmx:5NeWainbc4BRxmOZbMfIcqVA15FYtcDSRQ5LqB9muzU3bafPgEsVPA>
-    <xmx:5NeWajfZmzuhnCRJ5LKi6M3Hm_tncgWEH_mvrNuOFAzS2wvIpPZW_g>
-    <xmx:5NeWagreCAn8NQBU0NiQ8ivPyVj8xvGA9buSfiryA1yQ1D5a1oea4A>
-    <xmx:5NeWap6O-WGL9VYX8dpAzfSnDLXxxl1XPjpVpt2QiS1e-oNy194jdw>
-    <xmx:5NeWate5tYJAnzT7qPk2SDeqjP3LY1ioj7At6zAWKlLqNOp2VMqikxA->
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 1 Sep 2026 09:49:23 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] firewire: core: fix wrong git hash in code comment
-Date: Tue,  1 Sep 2026 22:49:21 +0900
-Message-ID: <20260901134921.2386739-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="J2nMIk0u"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8QFSnlpySFykmoc6yP1oqqE80w3/ep3oZQ4c2DH1o2c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788270569; v=1; x=1788875369;
+ b=J2nMIk0uDH6PGukag9s3rj8JytwxaY2785gBuaNtbmxpWbkp4tMAzlSjfhC+CRpqtmwKqOVT
+ 85SvJZudDRyANBEsb+771w0LfDTk6dqHiRfXFMQTgaesDkGUI0T0BaX8wrVRaQP0Xwafzl88R43
+ A/sHm3MW/X5wcVSII1etqm/I=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7ef7f32c45b88611;
+	Tue, 01 Sep 2026 13:49:19 +0000
+X-Mizu-Trace-ID: 7ef7f32c45b88611
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 01 Sep 2026 15:49:13 +0200
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ping-Ke Shih <pkshih@realtek.com>,
+ "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Michael Straube <straube.linux@gmail.com>,
+ Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+ Peter Robinson <pbrobinson@gmail.com>,
+ Hans de Goede <johannes.goede@oss.qualcomm.com>, luka.gejak@linux.dev
+Subject: RE: [PATCH v8 0/6] wifi: rtw88: preparations for RTL8723B/RTL8723BS
+User-Agent: Thunderbird for Android
+In-Reply-To: <f1454e9c2add47b2b01a0adb8233455f@realtek.com>
+References: <20260825163314.1590-1-luka.gejak@linux.dev> <4866D935-FCC8-4F24-9C05-8678DCB22533@linux.dev> <f1454e9c2add47b2b01a0adb8233455f@realtek.com>
+Message-ID: <B2A0C047-C517-4AB4-BD6E-3EC6E9DA23EB@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-When refactoring device quirk code, the wrong git hash from my local
-repository slipped into the common header.
+Hi Ping-Ke,
+On August 31, 2026 4:23:48 AM GMT+02:00, Ping-Ke Shih <pkshih@realtek=2Eco=
+m> wrote:
 
-Fixes: 5a43dc9f4ee0 ("firewire: core: detect device quirk when reading configuration ROM")
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- include/linux/firewire.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The probe_wait_ms test you suggested has run, nine hours in the tester's
+poor signal environment=2E At 2000 ms he saw one "Failed to send nullfunc
+=2E=2E=2E disconnecting"=2E At 500 ms it was one every twenty to forty sec=
+onds=2E
+Same environment, same driver=2E
 
-diff --git a/include/linux/firewire.h b/include/linux/firewire.h
-index b41af502bd89..7fa1a3fc8ed4 100644
---- a/include/linux/firewire.h
-+++ b/include/linux/firewire.h
-@@ -175,7 +175,7 @@ enum fw_device_quirk {
- 	// See 10389536742c ("firewire: core: check for 1394a compliant IRM, fix inaccessibility of Sony camcorder").
- 	FW_DEVICE_QUIRK_IRM_IS_1394_1995_ONLY = BIT(0),
- 
--	// See a509e43ff338 ("firewire: core: fix unstable I/O with Canon camcorder").
-+	// See 6044565af458 ("firewire: core: fix unstable I/O with Canon camcorder").
- 	FW_DEVICE_QUIRK_IRM_IGNORES_BUS_MANAGER = BIT(1),
- 
- 	// MOTU Audio Express transfers acknowledge packet with 0x10 for pending state.
--- 
-2.53.0
+The reports are late rather than missing:
 
+  txrpt: nullfunc sn=3Df0 queued
+  wlan0: Failed to send nullfunc to AP after 500ms, disconnecting
+  txrpt: nullfunc sn=3Df0 acked after 810ms
+
+The frame was acknowledged and the link was alive=2E Nullfunc reports run
+400 to 1000 ms on this chip when the link is poor, against 0 to 20 ms
+for management frames on the same hardware, so it is firmware retry
+time=2E
+
+That also rules out the timeout path as the mechanism=2E It fires 2500 ms
+after the last enqueue, well after mac80211 has given up, and a build
+that handed the frames back as not acked instead of dropping them made
+no difference=2E The sequence number aliasing I raised does not show up
+either: every instance had one frame in the queue=2E
+
+So there is nothing here for the driver to fix, and probe_wait_ms is not
+something a driver can set=2E I am not proposing anything for it=2E
+
+> But I feel this case, using ieee80211_purge_tx_queue() is equivalent?
+
+Not equivalent=2E ieee80211_purge_tx_queue() calls ieee80211_free_txskb(),
+which calls ieee80211_report_used_skb() with dropped =3D true: that
+settles the airtime accounting and frees the skb properly, but never
+reaches ieee80211_sta_tx_notify()=2E Only ieee80211_tx_status_*() does=2E =
+It
+fixes the ownership bug and tells the connection poll nothing, which
+given the above does not matter=2E
+
+Still worth doing on its own=2E I will send it separately, no chip
+condition=2E
+
+Best regards,
+Luka Gejak
