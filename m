@@ -1,131 +1,89 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A8135B63C;
-	Tue,  1 Sep 2026 12:38:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA8F38F934
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:38:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266300; cv=none; b=F0ctWnPJtzY/gNanHTbhXZF0eZQVLlvOlJsA9kHV/apWoPCPQ8pFqyXvWjXaIc1ZOoHgOQE6A7LNY70uBjVxdgxOHbJ4N5xybDiWCZ5zYGwDnT/9x/T23GlPU6C/DXLbeM4X69fYk0ASR+XxMobHfLiDQ11FUDGl4Lk5Kc4m2mg=
+	t=1788266302; cv=none; b=Jxv3k4fNIuMgd4tPew91GAUjZUTFkS/W+NG31PyZV+4nItI+duuf53DLOnP5NIwSTh6wQY5uFVg+T37eR6xp7gfg2QCIAuxUga0iPezvJyDq62sWAyiMQ4X+ZDN1pTOuh5Gp/mvA+jO8ZifK4GAQrNpnopeXTRtCHUAAwNJOMcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788266300; c=relaxed/simple;
-	bh=tybral73O94yJ3AK3rRIF6TtP3axjEUn9rrWo0LeLO8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BKtEjhkJVpTbyfm3QGT15cG+BXTHclezrnEg+kPOnjDJGaXx0DBMUIBsqrc8zx7KD8paM60ArP8cgBWa901G1rTJccBwzRdfDuSLQBFlnFcwoTQ71+vh5dLNQNwErGGEtBbVHWCNPDV1SSgOD4KC/p/SVKKzPUU1zhrBcF0+Rvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=3z6MQ7zH; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788266302; c=relaxed/simple;
+	bh=qbVwHURkAKyFHHtbizAsYH9lY5Vz/aHvJjaVpPDGR0E=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=sIetrdMfpE3ex6DZ3EFi7ibv7tR3WDaMA2anZbA4zW46zrPr4ln9Bx9HuA078vcmYZgJPK9joAHlxPxLgm/OGyEh9y4sGGmZ5p353lvbcbofWfxuz6G6icDsMwFxljRq3a4gm8ovD435i3A9nBqXA69l1ANjCBdIhV3nyAeGf1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EfIF4r9u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="3z6MQ7zH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=+0OfScGfVNxdaLgqeCIO9xxQE676Gfne+cxN+29Fig8=; b=3z6MQ7zHSYBiydDAWot2oJhVD/
-	GDe7TK+lnmOY85Sqt+n/sBofwbKjgHyS3dTAKQVTb824OD9zbjeyOfl2jNZ+f+fQ+i9jnDcajNEZt
-	EMDdlqCd+n9TNqgAvxrAQR8gzup/rBm59gXvTDuUeQyo9ams3GKout1DxVcfNYb3grFs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x1Nkc-002M2c-CY; Tue, 01 Sep 2026 14:38:06 +0200
-Date: Tue, 1 Sep 2026 14:38:06 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Nicolai Buchwitz <nb@tipi-net.de>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>, davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Russell King <linux@armlinux.org.uk>, thomas.petazzoni@bootlin.com,
-	Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH net-next 1/2] net: stmmac: dwmac4: Read the UC filter
- size from hardware capabilities
-Message-ID: <96eae005-8be7-4d65-9461-8a8475e38089@lunn.ch>
-References: <20260831070121.349778-1-maxime.chevallier@bootlin.com>
- <20260831070121.349778-2-maxime.chevallier@bootlin.com>
- <2631c832d5aebc56e152628132494545@tipi-net.de>
- <480f15e2-e045-46b7-89af-1fbcefd3c4eb@bootlin.com>
- <b2fbcec7-90ee-4a6f-bd15-32e4e1ff1a47@lunn.ch>
- <b677535a-5395-4703-aa08-a71a6b26ccb6@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EfIF4r9u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E58F91F000E9;
+	Tue,  1 Sep 2026 12:38:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788266300;
+	bh=pG6pq+g9QZo4FaYnQsrkXq9VfyWEAlzBgyFTRaAjOio=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=EfIF4r9u16TKu9LDPL9yKKNv6SUK5MCDqbQ8QbRzKxbc5DryPLkSVgcp/LWToT7HU
+	 +UB6g2lmXDOhI9Fhh94jsXlASYIC6cBxoy2oJk774Y+EHEsGCi7E6sVspW/MDSNfHu
+	 UZJ3ub+Q3JRr9/Rv385tvgC9K13ip17/gsHp/gAtHYSGfJhbzdZ9m75tjfrFCtyQY5
+	 Uxc3VY3oOLb95S6Gsa3yJHrFKGbU88Vqv9R5JX38kPoVCr5ZTlCTrF8dHWaKq5tykD
+	 6MHi1nBdNhoSLln7Bvx2WZyzFaO+DlOt1A/0YC9q0ePfCVIic2XoLEGL7l447dFqfs
+	 VqIf3dHGYPPig==
+Message-ID: <f633cdb1-f00c-46e9-b159-bcb51fdc49d3@kernel.org>
+Date: Tue, 1 Sep 2026 20:38:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b677535a-5395-4703-aa08-a71a6b26ccb6@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org, qiwenjie@xiaomi.com
+Subject: Re: [PATCH] f2fs: wait for inode record work before clearing ino
+ bitmaps
+To: Wenjie Qi <qwjhust@gmail.com>, jaegeuk@kernel.org
+References: <20260831133916.2110470-1-qiwenjie@xiaomi.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260831133916.2110470-1-qiwenjie@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 09:04:28AM +0200, Maxime Chevallier wrote:
+On 8/31/26 21:39, Wenjie Qi wrote:
+> APPEND/UPDATE inode state recording was moved to the inode eviction
+> workqueue. These entries were later converted to bitmap values stored in
+> XArrays, but the workqueue drain was left behind in the list cleanup loop
+> where it is now a no-op.
 > 
+> During unmount, inode eviction work can therefore remain queued when
+> f2fs_release_ino_entry() destroys the bitmap XArrays. A delayed worker can
+> repopulate them before the workqueue is finally destroyed, leaking newly
+> allocated XArray nodes when the F2FS superblock is freed.
 > 
-> On 9/1/26 02:26, Andrew Lunn wrote:
-> >> Yeah but dwmac4 has a hash filter, but same as the UC filter it's just not plumbed
-> >> in :/
-> >>
-> >> Let's leave this flag here, hash filter addition for MC filtering is coming-up, so let's not
-> >> drop it now only to re-enable it after, one of the other wonderful discoveries found by
-> >> running the selftests...
-> > 
-> > I assume you can put a MC address in a perfect match filter? You can
-> > perfectly match a multicast address just as well as a unicast address.
-> > 
-> > The hash filter is less accurate, but again can be used to match a
-> > unicast or multicast address, and then you need additional filtering
-> > in software, which Linux will do.
-> > 
-> > So it seems to me, you should use a perfect match filters if you have
-> > one available, independent of unicast or multicast, and only use a
-> > hash filter if you have run out of perfect match filters.
+> Wait for APPEND/UPDATE inode record work before destroying each bitmap
+> XArray, restoring the required ordering.
 > 
-> That's an interesting point. The HW supports that, we have 3 control knobs
-> for that in the MAC_PACKET_FILTER register :
+> Fixes: 9a9ee7408a1f ("f2fs: reduce memory footprint of ino management")
+> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> ---
+>  fs/f2fs/checkpoint.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
->  - HPF (bit 10) : Use Hash or Perfect Match for filtering.
->                   0 : Match UC and MC against hash filter
->                   1 : Match UC and MC according to HMC and HUC
-> 
->  - HMC (bit 2) : Use Hash or Perfect Match for MC filtering
->                  0 : Match MC against perfect filter
->                  1 : Match MC against Hash table
-> 
->  - HUC (bit 1) : Use Hash of PF for UC filtering
->                  0 : Match UC against PF
->                  1 : Match UC against Hash table
-> 
-> I don't know though how this all interacts with the primary MAC address. We
-> always have one entry in PF for the device's own MAC address, we should
-> probably always perfect match that one.
+> diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+> index 4b59f30ef45d..400eab730c14 100644
+> --- a/fs/f2fs/checkpoint.c
+> +++ b/fs/f2fs/checkpoint.c
+> @@ -902,6 +902,8 @@ void f2fs_release_ino_entry(struct f2fs_sb_info *sbi, bool all)
+>  	for (i = APPEND_INO; i < MAX_INO_ENTRY; i++) {
+>  		struct inode_management *im = &sbi->im[i];
+>  
+> +		f2fs_wait_for_inode_record(sbi, i);
 
-Yes, i agree, the primary should be a perfect match.
+We need to remove f2fs_wait_for_inode_record(sbi, i) from above loop for cleanup?
 
-> But as the UC Perfect Filter toggle is global for All UC addresses it means
-> we're stuck with perfect filter for all UC then ?
 
-> For MC, this is a good point, but I'm worried about the complexity vs gain.
-> 
-> If we consider the 4 dwmac boards I have (may not be a very representative sample),
-> we have :
-> 
->  - imx8mp   : 64 PF (Perfect Fitler) entries
->  - jh7110   : 9 PF entries
->  - stm32mp1 : 4 PF entries
->  - yt6801   : 1 PF entry
+Thanks,
 
-I assume the imx8mp is using bank 1 and back 2? The designers of this
-device seem to think the use cases for the device include lots of UC
-and MC addresses.
+> +
+>  		spin_lock(&im->ino_lock);
+>  		xa_destroy(&im->ino_root);
+>  		spin_unlock(&im->ino_lock);
 
-Maybe, reserve bank 0 for UC, but allow both UC and MC in bank 1 and
-2? That would allow imx8mp to make use of its hardware in an efficient
-way, but it also keeps things simple and efficient for the more
-restricted devices like the yt6801 and stm32mp1.
-
-This discussion should however not effect this patchset. This sort of
-optimisations can come later.
-
-	Andrew
