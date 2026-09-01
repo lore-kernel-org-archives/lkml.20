@@ -1,124 +1,105 @@
-Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057D43033E6;
-	Tue,  1 Sep 2026 13:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF831ABED9
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:56:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270957; cv=none; b=Mt5yomniK06b3upPM2M94Foy0OzVfUPdlYIrHG/KzmMf52JGPlFRP31oNOJX9lpSRsT8rm3NhJL15GJ8oyEGYb8GKfF2fLcCbtrnYBiJXQmA59P5IkAhoc030JNnUqvuwleS0txlgnWL+pPEcqA+Repp8d7FYma1uRfnL6jeFLE=
+	t=1788270998; cv=none; b=M2xY1YC+CEi8ftwnqrj9l73ZzN3yj5qSgrfCLqhbKvfJvPUXnX41J8eFmlS0ViMqKfqRnYRCexTglHgZJirrtmiZI9aZ4HpND5u0YQ4F2nZHbVha3GUaD7BFVZVkvzRG6Xv8ExaBex56urpv2j2jmgr8is9YeFRK8KK+JFtqoqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270957; c=relaxed/simple;
-	bh=bz4t76tc9Sqh4peXj1ABtUMfrElA2dA8HE+vh8PhAtA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MvGDhdr1b4awC6gEX5Kt7sesZZBqJioXCNOiw9HkjNquK3kYQ4x4zZV9GTUhDL1aqtRj6VByh0H2DddMMEi8s5SiQnSHYnRlHnFBJL7Do3n4Z0y7AOkGyYzT7ubZS5UULsuF6RFC+hhaIs/8UMvzKV0J/RSuUEB7M2jSinqwQ3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; arc=none smtp.client-ip=141.14.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
-Received: from [141.14.220.42] (g42.guest.molgen.mpg.de [141.14.220.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pmenzel)
-	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 2AB444C2C37F01;
-	Tue, 01 Sep 2026 15:55:41 +0200 (CEST)
-Message-ID: <254803cb-7b5c-41c6-84bb-0de7fe7e6f12@molgen.mpg.de>
-Date: Tue, 1 Sep 2026 15:55:38 +0200
+	s=arc-20240116; t=1788270998; c=relaxed/simple;
+	bh=2UkeVRlH4o/r9otxZthrQnh9tFl/pr5Ij+aJENpNkc4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GHrD21wUZX5o+CWUB5e6WfP1f7WTuH8Yc4IjqBb1Zr9DSWuElBCZergs41FxRC8xG4sJ1i/poNblDTHKvATCz+xXVuK/YazvOiagPRdEHg0eLA9Jup7A+ChzJX7HiB+BlZtSj587hxikszCp5G724fW4SF+lFp6llyR5kmrhVBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=MiPThU53; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=T0sn0Zpj; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MiPThU53";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="T0sn0Zpj"
+Date: Tue, 1 Sep 2026 15:56:33 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788270995;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4Kh4vHCR8DFl1zJRV6a5XIuWnnPSg2m7aA2BtlDq5F8=;
+	b=MiPThU53gTbNlQ4I1UR+sUYGGApnXjtFfHr18uHxk0E9Zby6DstGwKWLXYnSg/BqYXgPyM
+	zdsi03fvRwUAsftw4goOrL+oeYgpQmgFCa+OZvsADJCXuPBwcB60cZq3WGNUt3aBszYzXr
+	Huz8MXgBrraKNWZv1JncEvMmRhef6wxucSCukst77xbmuCTveyh693F4zIO5lK+fyzKR1A
+	xqdOsnK0U5MeuHcICzCOQRGYLYQs0xAbuRBqitpdy2uIVaErprboqG0l8gJHclnLfPkjGf
+	p4483ustft4Hhn2cb9cqTsUoK9RDccrfYKs9xixFXyf7Kg8FkNyhhaVgl1NlXg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788270995;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4Kh4vHCR8DFl1zJRV6a5XIuWnnPSg2m7aA2BtlDq5F8=;
+	b=T0sn0ZpjxeC+fXh1SywADjUJTmRvASRAkfZqguZG6xhWr4LM2nxcvQ3t1q/z1HxzGHp+AB
+	LtM6/gmi+h898UCw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: linux-kernel@vger.kernel.org
+Cc: =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>, Yao Kai <yaokai34@huawei.com>
+Subject: Re: [PATCH v4 1/2] futex: Provide rt_mutex_.*_schedule() equivalents
+ for futex scheduling
+Message-ID: <20260901135633.wBOUP152@linutronix.de>
+References: <20260901135453.3121948-1-bigeasy@linutronix.de>
+ <20260901135453.3121948-2-bigeasy@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] Bluetooth: btbcm: Add Synaptics 4384 chip support
-To: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org
-References: <20260901023300.1382808-2-andy.chang@synaptics.corp-partner.google.com>
- <20260901085702.1515378-1-andy.chang@synaptics.corp-partner.google.com>
- <20260901085702.1515378-3-andy.chang@synaptics.corp-partner.google.com>
-Content-Language: en-US
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <20260901085702.1515378-3-andy.chang@synaptics.corp-partner.google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260901135453.3121948-2-bigeasy@linutronix.de>
 
-Dear Andy,
+On 2026-09-01 15:54:51 [+0200], To linux-kernel@vger.kernel.org wrote:
+> By mistake futex_wait_requeue_pi() -> rt_mutex_wait_proxy_lock() did not
+> get the rt_mutex_{pre|post}_schedule() annotation. This was not noticed
+> because in this callchain the lock is (usually) not contended and so
+> rt_mutex_slowlock_block() does not schedule, triggering the assert.
 
+The following makes it trigger more reliably.
 
-Thank you for your patch. Same comments as in *PATCH v3 1/2*.
+diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
+index 4728631ae7194..15037c35c684f 100644
+--- a/kernel/locking/rtmutex.c
++++ b/kernel/locking/rtmutex.c
+@@ -1633,13 +1633,14 @@ static int __sched rt_mutex_slowlock_block(struct rt_mutex_base *lock,
+ 	struct rt_mutex *rtm = container_of(lock, struct rt_mutex, rtmutex);
+ 	struct task_struct *owner;
+ 	int ret = 0;
++	int first_loop = 1;
+ 
+ 	__assume_ctx_lock(&rtm->rtmutex.wait_lock);
+ 
+ 	lockevent_inc(rtmutex_slow_block);
+ 	for (;;) {
+ 		/* Try to acquire the lock: */
+-		if (try_to_take_rt_mutex(lock, current, waiter)) {
++		if (!first_loop && try_to_take_rt_mutex(lock, current, waiter)) {
+ 			lockevent_inc(rtmutex_slow_acq3);
+ 			break;
+ 		}
+@@ -1665,7 +1666,11 @@ static int __sched rt_mutex_slowlock_block(struct rt_mutex_base *lock,
+ 			owner = NULL;
+ 		raw_spin_unlock_irq_wake(&lock->wait_lock, wake_q);
+ 
+-		if (!owner || !rtmutex_spin_on_owner(lock, waiter, owner)) {
++		if (first_loop || !owner || !rtmutex_spin_on_owner(lock, waiter, owner)) {
++			if (first_loop) {
++				first_loop = 0;
++				__set_current_state(TASK_RUNNING);
++			}
+ 			lockevent_inc(rtmutex_slow_sleep);
+ 			rt_mutex_schedule();
+ 		}
 
-Am 01.09.26 um 10:57 schrieb Andy Chang:
-> Add support for the Synaptics 4384 Bluetooth controller
-> by adding the corresponding chip IDs.
-> 
-> Tested on the VIM3 platform. Verified that the controller initializes
-> successfully and that firmware loading and basic Bluetooth operation
-> work as expected.
-> 
-> The VIM3 is a Khadas single-board computer that I used as the host
-> platform for testing the BCM4384 Bluetooth controller.
-
-Should you resend, please paste the new Linux log message into the 
-commit message, as most people don’t have the hardware for testing.
-
-> Signed-off-by: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-> ---
->   drivers/bluetooth/btbcm.c   | 6 +++++-
->   drivers/bluetooth/hci_bcm.c | 1 +
->   2 files changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
-> index 463d59890bef..63c4c788d9c4 100644
-> --- a/drivers/bluetooth/btbcm.c
-> +++ b/drivers/bluetooth/btbcm.c
-> @@ -31,6 +31,7 @@
->   #define BDADDR_BCM4334B0 (&(bdaddr_t) {{0x00, 0x00, 0x00, 0xb0, 0x34, 0x43}})
->   #define BDADDR_BCM4345C5 (&(bdaddr_t) {{0xac, 0x1f, 0x00, 0xc5, 0x45, 0x43}})
->   #define BDADDR_BCM43341B (&(bdaddr_t) {{0xac, 0x1f, 0x00, 0x1b, 0x34, 0x43}})
-> +#define BDADDR_BCM4384B0 (&(bdaddr_t) {{0x93, 0x76, 0x00, 0xb0, 0x84, 0x43}})
->   
->   #define BCM_FW_NAME_LEN			64
->   #define BCM_FW_NAME_COUNT_MAX		4
-> @@ -130,7 +131,8 @@ int btbcm_check_bdaddr(struct hci_dev *hdev)
->   	    !bacmp(&bda->bdaddr, BDADDR_BCM4345C5) ||
->   	    !bacmp(&bda->bdaddr, BDADDR_BCM43430A0) ||
->   	    !bacmp(&bda->bdaddr, BDADDR_BCM43430A1) ||
-> -	    !bacmp(&bda->bdaddr, BDADDR_BCM43341B)) {
-> +	    !bacmp(&bda->bdaddr, BDADDR_BCM43341B) ||
-> +	    !bacmp(&bda->bdaddr, BDADDR_BCM4384B0)) {
->   		/* Try falling back to BDADDR EFI variable */
->   		if (btbcm_set_bdaddr_from_efi(hdev) != 0) {
->   			bt_dev_info(hdev, "BCM: Using default device address (%pMR)",
-> @@ -514,6 +516,8 @@ static const struct bcm_subver_table bcm_uart_subver_table[] = {
->   	{ 0x4106, "BCM4335A0"	},	/* 002.001.006 */
->   	{ 0x410c, "BCM43430B0"	},	/* 002.001.012 */
->   	{ 0x2119, "BCM4373A0"	},	/* 001.001.025 */
-> +	{ 0x2128, "BCM4384A0"	},	/* 001.001.040 */
-> +	{ 0x4119, "BCM4384B0"	},	/* 002.001.025 */
->   	{ }
->   };
->   
-> diff --git a/drivers/bluetooth/hci_bcm.c b/drivers/bluetooth/hci_bcm.c
-> index 9a103db7e355..e70b9f3fd968 100644
-> --- a/drivers/bluetooth/hci_bcm.c
-> +++ b/drivers/bluetooth/hci_bcm.c
-> @@ -1593,6 +1593,7 @@ static const struct of_device_id bcm_bluetooth_of_match[] = {
->   	{ .compatible = "brcm,bcm4349-bt", .data = &bcm43438_device_data },
->   	{ .compatible = "brcm,bcm43540-bt", .data = &bcm4354_device_data },
->   	{ .compatible = "brcm,bcm4335a0" },
-> +	{ .compatible = "brcm,bcm4384-bt" },
->   	{ .compatible = "cypress,cyw4373a0-bt", .data = &cyw4373a0_device_data },
->   	{ .compatible = "infineon,cyw55572-bt", .data = &cyw55572_device_data },
->   	{ },
-
-Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
-
-
-Kind regards,
-
-Paul
+Sebastian
