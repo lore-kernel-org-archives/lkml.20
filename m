@@ -1,106 +1,137 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0461D34C155;
-	Tue,  1 Sep 2026 11:08:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7186D431E4A
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:08:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260931; cv=none; b=g0nDy0VnENok7VBWwon40njGa8ZQxglA5DtLqIz0y/y+3KX3dzhm+QEk+H2Pw4W3WtdjCvXOET6RC7ku+cL7Lf23Ic1MY19wznHkn+lp2j3jm04GUNtv3IVWpYtgZlyQZzhPIdOK+MEWT9UaEUxJlSiQ1u+Clhxm55gubM6+lqg=
+	t=1788260938; cv=none; b=AszHuTOY3S0h+WP9MMt3SLB87eIf8maAkVcoZ6NwSCmJ7Ik4LwUHzt4N1aRBPzQllOE1HRkbZIoYAlsrNMsIcdyCz5BuWBDPUa4fXcrbePqOhoEORd6XTXrDspAYYugEwA2ChG6r/jis3IjqGEiUsh+YCU+YgJZ0SzTQafkZ0H4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260931; c=relaxed/simple;
-	bh=UNKZkOMzPZIh28Hv7FYnWll/E5+0XCgiQO/XQp8ZPF4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=km/Gicn2KLZx4VvYx4fuyeaCuwY5S1J4EJirn9LhYh5kADn7Dtoigp41T/WUU0eISUpuCv0AD25mFUD4yosnxEpmURvs51qIeYMcQ4mAycezPWL5LuNWQfeKQ8fMaZ1ctbWiae1o/YSHB7EtioW2RctTKSQEjb+ye3H/XR+hnJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iFPa+9AT; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788260938; c=relaxed/simple;
+	bh=NGIiPq72QIAq/398f4PecY3glDArqj+VPub/xKcw/bw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bDQhGoU1uEqXXLZjw5luysMoLnYcXoSyGZr300XQtditj8EBGSkVzCnb8DVju+RUkocL3/48gVoQrEFkU8M0x6JLop6EMGcaw16epJnikO6BZDW/9hot75ttAhR93eR9leQu1idvEgP4eWzOkIXFjDYnIKpE1LIdhsaSykPiAf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=v2VK9EN3; arc=none smtp.client-ip=91.218.175.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iFPa+9AT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788260930; x=1819796930;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UNKZkOMzPZIh28Hv7FYnWll/E5+0XCgiQO/XQp8ZPF4=;
-  b=iFPa+9ATJLvCBtAMj9RheEOLiPIErzprOxFAmwJp7LRvXC4zGqFI3ELY
-   7CTp+RAsXE54M9+fUD016zu1Jvb/lVOs1b/etNCM3uldok7G5aNJzfxTK
-   PGSFT9HEbYmfHk5QmStXwvCgjeWX1FBKGtPPb+TWI7Pbla4jFHGaRME3y
-   oCqZ4GnuEKWbJdhmkAgArmp86pYuYtxau0dlJVNU81yzHPy0LNA3pd7HP
-   EKaUWYTe0QpUyYrKD86wIcf4kmpEei+fPQ/L2jmsDxna0Zn2YqWo1wPbk
-   O7XYTfB48YQRLd1cZWTrGMBMB8UpEWdDjjYd8xb1p8hWJzVA4d3IqSgcE
-   g==;
-X-CSE-ConnectionGUID: PjPU9BzVSHmOJMs4IHMG7w==
-X-CSE-MsgGUID: z1xFkxryTIixBnhlxybzzw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="91199928"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="91199928"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:08:49 -0700
-X-CSE-ConnectionGUID: D7QzytwNRGKxu51raKwFZw==
-X-CSE-MsgGUID: 9NVgcpWzRtS+5wkvr2LN3g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="272581352"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:08:45 -0700
-Date: Tue, 1 Sep 2026 14:08:44 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Salah Triki <salah.triki@gmail.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Esteban Blanc <eblanc@baylibre.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] iio: adc: ad4030: fix invalid oversampling_ratio
- validation
-Message-ID: <apayPCk4ln_Hh_Bb@ashevche-desk.local>
-References: <20260901104243.48732-1-salah.triki@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="v2VK9EN3"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=NGIiPq72QIAq/398f4PecY3glDArqj+VPub/xKcw/bw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788260933; v=1; x=1788865733;
+ b=v2VK9EN3GDkMN4lGqdd/p/eR1O33REUddkMZPv8z2yn8elfNH00BugQR5tNZ6kiHjR2UYs0T
+ wIGH8LO0oDrgKV1pWnX0mmeuwDLUaseNx6GzsLcLSqV1eyNb2OIw5NTazhcnwcceqE/XqgSIYLt
+ 5BsfDbyAu8dfOBxkckguccWo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 19666a9344a0270b;
+	Tue, 01 Sep 2026 11:08:53 +0000
+X-Mizu-Trace-ID: 19666a9344a0270b
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: dsterba@suse.com,
+	linux-kernel@vger.kernel.org,
+	terrelln@fb.com,
+	terrelln@meta.com,
+	linux-crypto@vger.kernel.org,
+	yosry@kernel.org,
+	ebiggers@kernel.org,
+	torvalds@linux-foundation.org
+Cc: hannes@cmpxchg.org,
+	nphamcs@gmail.com,
+	chengming.zhou@linux.dev,
+	shakeel.butt@linux.dev,
+	kernel-team@meta.com,
+	Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH v3 0/2] zstd: use x86 feature infrastructure for BMI2 dispatch
+Date: Tue,  1 Sep 2026 04:07:55 -0700
+Message-ID: <20260901110850.1805747-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901104243.48732-1-salah.triki@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 11:42:43AM +0100, Salah Triki wrote:
-> In ad4030_set_avg_frame_len(), the logarithm is calculated before input
-> validation. Passing zero or negative values leads to an undefined result
-> from ilog2().
-> 
-> Validate that the input is strictly positive prior to computing its
-> logarithm to ensure only valid values are processed.
+Zstd currently probes CPUID whenever a compression or decompression
+context is initialized, stores the result in the context, and tests that
+value at each BMI2 dispatch site. For normal x86 kernel builds this
+duplicates the kernel's CPU feature infrastructure, bypasses its feature
+policy, and leaves an ordinary runtime test in the dispatch path.
 
-...
+Use cpu_feature_enabled(X86_FEATURE_BMI2) directly at the dispatch sites
+for normal x86 kernel objects. This uses the x86 alternatives-backed
+static CPU feature mechanism, allowing the feature test to be resolved at
+boot instead of loading and testing a value stored in each context.
 
-> -	if (avg_val < 0 || avg_val > ad4030_average_modes[last_avg_idx])
-> +	if (avg_val <= 0 || avg_val > ad4030_average_modes[last_avg_idx])
->  		return -EINVAL;
+ZSTD_USE_BMI2() keeps the other build modes working as before. It expands
+to the caller-provided flag for standalone and preboot builds and to false
+when DYNAMIC_BMI2 is disabled. ZSTD_SET_BMI2() similarly stores the
+caller-provided state only when it will be used, avoiding preprocessor
+conditionals at the context initialization sites.
 
-I still find '<= 0' confusing. Why not check against 1?
-And I would rather see an additional comment.
+Patch 1 adds aliases from BMI2 function names to their default
+implementations when the BMI2 variants are not compiled. This is a
+no-functional-change preparation: after patch 2 removes the affected
+selector-level preprocessor guards, the compiler must still resolve the
+function named in an if (0) branch before eliminating it.
 
-What about
+Patch 2 adds ZSTD_USE_BMI2() and ZSTD_SET_BMI2(), converts the runtime
+selectors, and avoids Zstd's private CPUID probes in normal x86 kernel
+objects. The kernel-specific policy lives in zstd_deps.h. Preboot builds
+are excluded because the normal alternatives infrastructure is not
+available there, so they retain the existing raw-CPUID dispatch.
 
-	/* Reject unsupported modes */
-	if (avg_val > ad4030_average_modes[last_avg_idx])
-		return -EINVAL;
+A 4 KiB zstd-generic crypto_acomp benchmark [1] in a one-vCPU KVM guest
+gave these median results:
 
-	/* Avoid invalid values for logarithm since it's undefined */
-	if (avg_val < 1)
-// In this case, when condition is split, if (avg_val <= 0) is also possible
-		return -EINVAL;
+                    Before      After     Change
+  Compression      16,634 ns   13,394 ns   -19.5%
+  Decompression     3,480 ns      963 ns   -72.3%
 
-> +	avg_log2 = ilog2(avg_val);
+The improvement is especially large in a guest because raw CPUID causes
+a VM exit.
 
+[1] https://gist.github.com/uarif1/5cf02f0e22c23f0d1b3d84348f12914c
+
+v2 -> v3: https://lore.kernel.org/all/20260830222100.2706175-1-usama.arif@linux.dev/
+- Add ZSTD_SET_BMI2() and use it at the context initialization sites.
+  (Linus Torvalds)
+- Move ZSTD_USE_KERNEL_CPU_FEATURES from Makefile define into zstd_deps.h.
+  (Linus Torvalds)
+
+v1 -> v2:
+https://lore.kernel.org/all/20260826122558.2662013-1-usama.arif@linux.dev/
+- Replace the proposed cached feature value with
+  cpu_feature_enabled(X86_FEATURE_BMI2) at each dispatch site.
+  (Eric Biggers and Linus Torvalds)
+- Check only X86_FEATURE_BMI2 instead of BMI1, BMI2, and ABM.
+  (Linus Torvalds)
+- Split the fallback aliases into a separate no-functional-change patch.
+ 
+Usama Arif (2):
+  lib/zstd: add fallback aliases for disabled BMI2 variants
+  zstd: use cpu_feature_enabled() for in-kernel BMI2 dispatch
+
+ lib/zstd/common/compiler.h                    | 12 +++++++
+ lib/zstd/common/entropy_common.c              | 16 ++++++----
+ lib/zstd/common/fse_decompress.c              |  9 ++++--
+ lib/zstd/common/zstd_deps.h                   |  5 +++
+ lib/zstd/compress/huf_compress.c              |  6 +++-
+ lib/zstd/compress/zstd_compress.c             | 12 +++----
+ lib/zstd/compress/zstd_compress_internal.h    |  9 ++++++
+ lib/zstd/compress/zstd_compress_sequences.c   | 12 +++++--
+ lib/zstd/compress/zstd_compress_superblock.c  |  2 +-
+ lib/zstd/decompress/huf_decompress.c          | 22 +++++++------
+ lib/zstd/decompress/zstd_decompress.c         |  4 +--
+ lib/zstd/decompress/zstd_decompress_block.c   | 31 ++++++++++++-------
+ .../decompress/zstd_decompress_internal.h     |  2 +-
+ 13 files changed, 97 insertions(+), 45 deletions(-)
+
+
+base-commit: 4b18edbd8e70f7e6860d56370f13244896d0f95c
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0-Meta
 
