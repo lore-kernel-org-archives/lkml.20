@@ -1,232 +1,108 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010052.outbound.protection.outlook.com [52.101.85.52])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72E9499F36
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:09:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788289770; cv=fail; b=NmHJV6zSAod8tCxfkl/ZdwiEKJTBLGZJL+SZIhRAOusXmxNXoAB8dFqhJxywrTY1ZVKKZrXo33PEEmF9o8HSuKVcq6ZgoVzfEUgVOdJh64ygjmo44idOd58U8yI+Fx7TX5SU5JGYGlr8L3nwcg1qz+e2PfLSrQITyFaIxIjFQtA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788289770; c=relaxed/simple;
-	bh=lgn2+SWeVWvmnKkGS4cF2sE8Iq3FjVXJef4aNtLXOIA=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OhDqo9gljANbKvFKkAJmCua8p+dHGNYtZgMsrA4gaG46CmPAIT4RlsJ8lroL+61u1duM20J75enB40FJn+Y/FcbTIHKn8VOErNPTdLD+6LS4vRD1eaKAwzFkFWYPjbeepz8DJeqz4kKthDa2F/8Rz2j0LqKe4iGYpAyYIfU/WcU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PrMNUi7z; arc=fail smtp.client-ip=52.101.85.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D9549F13E;
+	Tue,  1 Sep 2026 19:11:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788289868; cv=none; b=IJFd+hUYD4hjaPCS61KjvavKzLta6NISF9tjBWtzrX4KGpMWOgtda70eMpDwvSu7BlaZnFi2N7zF1/lYcRFMK3CJwk4qK+gLAxPxsdkLcCWAdhMuSpiOtAh4psZw7FYSsX3VmtsoCDtqouUsv9Xk8n+DYzaGpDLGdKfJVO1Of0c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788289868; c=relaxed/simple;
+	bh=rs0jCfJXyjnPvhTklQ/4yWYYNyY4EwZ8N29mEDVsO5I=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=DpKnlwwEr0XluB0xLzo6aUrAY1lp7IaRVM3uzs81uPogUdTIqEOhJabu+VHRq+vP7F2OOrRrYDAUa3Mp+SdC2O1jqFou+Njan9hInvcSUnLcuPAf9NQCiiuVwKveMg8+RCyMJdVoVy4uNwpGjAqggTeJ4YuHknS9Poueb4uJf0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e6NpF66X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PrMNUi7z"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dvX2XmVhQCS8BJ9h+KyBlqwM1gDrInuBy+ex3y3eEJeDjPG3pTrj8sN/69CqCp0tE6mQ3fXJNIf+QEr2mR1cnk6PFWzxRGAwnSECCWIHZlHeS/QNdWguUkCLILr7IDFRBu7TJ7uEH/U7YTACMHvDP2+vxQlYJ+B6IKbqKh4BSkORZdPNMSXh2Xqt4RniuGnI1o88mBHKVa6oL7jdISorWaxwB01Sr7/ytVqR4Ox9/iN/sUMl33IL93inwEFeRRiq6vJzy3sGdwYC88jnToNolkH/qHNXGFYpM7WXlFera2iiA7HK06wZL9l7pTr3VV+jmSY8OOYkzAwMI8NClH3zjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s7uW5KskTS4dXl+SOZwtRz5cWx2MZfZbWxPzt/1WPV0=;
- b=Gtzo1PNDcFGf5FBl7GZbHQJOcGZwzrwww3TAXfE1cHHbOs3WmdvU91Te4CQQOEwhQM709LTZR2xs6EeWxl97WfrggiX5PQe2PZ+hxFbDGQvkzEkVquFrnPrRMAsK+legCi9nsroZol969Ne6SRVYS0z1uqi1aa/JjkX5MgQLjmRkNAR+YvrFkaLznQRA23a5ofUJGZqrC446SO5Q+7muzlvPJVR6bC2aEjwqyoygwXuhWh2uggKzu2Xfk4DIhbkJRYbd2FgwV6hYxUsv6yLeLCbA8Vz5psq7dqN3/x0eqcJ2wrnF6OrOawQL3r6QWjWvzIlq2GccRfeo13GiKJb+SA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=ziepe.ca smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s7uW5KskTS4dXl+SOZwtRz5cWx2MZfZbWxPzt/1WPV0=;
- b=PrMNUi7z8X3l2rz/4gTenHqFOS/V6pGIKoK92ineeXr3N2Lfmzzkc0Qgte2cfS5XGH/xJGb/kfxUgkUMqq6jdKyKoB0P+ZZiuHMIKDd93xb6emvZopj5arsDWzmvUyyKFLwxAxzS7E0mAMW7RKINZUQTpbc+4IGXLpzbfgNV4kSS25uWlf2ZuQSSqpqOluSI2HRMVy7L3sG+pNZ1EQ6Y0SgqYZJvq11DZ0XllYR3EHT8wqA9M4Zmx0Aw8b8s2liWhh/O8co8WzZGjto6c3E4659sqv1nln8fSFLXo6Hb11MsPYe8VNIJTSQtL2f4+Hzo8TC0kq9rfSw8nsDxzEDoeA==
-Received: from BY3PR03CA0025.namprd03.prod.outlook.com (2603:10b6:a03:39a::30)
- by SJ2PR12MB8718.namprd12.prod.outlook.com (2603:10b6:a03:540::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 19:09:04 +0000
-Received: from SJ1PEPF000026C8.namprd04.prod.outlook.com
- (2603:10b6:a03:39a:cafe::7f) by BY3PR03CA0025.outlook.office365.com
- (2603:10b6:a03:39a::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Tue, 1
- Sep 2026 19:09:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- SJ1PEPF000026C8.mail.protection.outlook.com (10.167.244.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 19:09:04 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
- 2026 12:08:41 -0700
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 1 Sep 2026 12:08:40 -0700
-Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.126.190.181)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
- Transport; Tue, 1 Sep 2026 12:08:39 -0700
-Date: Tue, 1 Sep 2026 12:08:38 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-CC: Aneesh Kumar K.V <aneesh.kumar@kernel.org>, <linux-coco@lists.linux.dev>,
-	<kvmarm@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, Alexey Kardashevskiy <aik@amd.com>, "Catalin
- Marinas" <catalin.marinas@arm.com>, Dan Williams <dan.j.williams@intel.com>,
-	Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>, "Marc
- Zyngier" <maz@kernel.org>, Pranjal Shrivastava <praan@google.com>, "Robin
- Murphy" <robin.murphy@arm.com>, Samuel Ortiz <sameo@rivosinc.com>, "Steven
- Price" <steven.price@arm.com>, Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	"Will Deacon" <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
- viommu plumbing
-Message-ID: <apcitkpASOREamQs@nvidia.com>
-References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
- <20260427085344.941627-4-aneesh.kumar@kernel.org>
- <apM6dOHcEI2ztWS0@nvidia.com>
- <yq5a8q5lz5yn.fsf@kernel.org>
- <yq5aecfdnv4i.fsf@kernel.org>
- <20260901143445.GC56830@ziepe.ca>
- <apcHoHKGoI7WNFXp@nvidia.com>
- <20260901174230.GA2847102@ziepe.ca>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e6NpF66X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5B7C1F000E9;
+	Tue,  1 Sep 2026 19:11:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788289866;
+	bh=VaVNWr+zO2+Vhz9h17a5NMUgtZKXJ7bOKDal6FUnz1k=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=e6NpF66Xr2BqZK/XcDuxd327L0dDvovUhBtJ1rqLfXVOJmXPhHoIr7DnYPQ5qA34y
+	 KsRhvaF416qKBQG8AXCtGjZiRi+P4iaKe32al5LAbDfRCeNm8YscZZhhfg0bknTM+b
+	 Mmhbz/dM+vgQ6qkhv9Z0GytCJ5qFt5d2APqHdbx/EHSCVMSE05pPsaGNxblpjYQDY/
+	 fxSO5+y/+MybsYl9ykoPta8FKtnNS1XxP8+rcn5FE++yPz1EDSndBNXkA7OTESFosW
+	 U0K7dveg782aaPt+ZFy72y1fHRXNwwEbN3GJHYmjIJ6wZA7Ec9GwlzdqAgIJzsj4Dl
+	 7NgdxM3wDfKuA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9392B39253E6;
+	Tue,  1 Sep 2026 19:10:10 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260901174230.GA2847102@ziepe.ca>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C8:EE_|SJ2PR12MB8718:EE_
-X-MS-Office365-Filtering-Correlation-Id: b94e85a9-e126-4c95-5ad5-08df085c7d5e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|7416014|376014|6133799003|10067099003|4143699003|56012099006|11063799006|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	mzhxmUjEwmpKKkqjSA6VsVXyfOIBeFR0r3as9S3p3Sd0x0oqEex/Huj65UKNKH1fX+o2sLMvxUAMVRgxAATMYAoGaPBs/gjN/tHzq4lntdRrjasRgIG7nZFyVPzT2Czjwtjj7JRJCJBHWjfUiWSliBt0QbXExZdbqwU6ZH1TbpqOGx7HamlW5IUXqCDjq7j2rzD+7viZpvZtLVEbgGc96DuERGpUTyj1DD840MIaa9dpV2oFqAS/NpAst7D1CkJdlbqWFNnEKdEhzMTwW31CR5AVy/JfWHpnZ9+ZHu+1+oGG36VbmepT1HoNEnJb3sp16dyZ2HG8zYoiJSLkxzhVhakVEdsi70uP63pwD/XRnDAd89x0KbTkCWc+51MdSdrW8mJZ0aiF+hO8TgR3uDNwBrp8FwqUeD2AEmf081l//0M5l0k2JO9Fa/r8313NW/rFKSbztPv/1s0hb+fVJE1RawbKbrWS3/cMsQSrOezP12lRNuABvNTfCJPwNJ8VPkXu8iX8glyCYoSHmKqELoOsgde0s6mPMLF1Xt+o7geZWUsfydy8qwlBPjeqvhMbPAGokG0m+38bOBWuPu/OGCO6TEvxHKdkBuzL7jgjvJjWl8AZXqGo3mfeljkK5+soiNO087xPGJnscrzjhvihR1QH4srntOwF4qfOTisTrS4xBiSNKKVlHEHPMI9W/R3WFMgGhPblGqnKGBofG5N89wIWEg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(7416014)(376014)(6133799003)(10067099003)(4143699003)(56012099006)(11063799006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	sIkvFzOkPF46m21AYRbJR5jPxvHhoc7/1WnOwzmGr9vs31wQkley/YMhqrm9sdcOo8As9WU1Kb8Kd/cn106k2w3Cs8656o+BR+yq9GbC1ARKoQPKkgCNT4xhusKZgxbuCtel3D6NX5f5Ci5RI2gEWqFp3wCtJSv0FgwOrQwbrnPWb2eyigVUBpJluBvBH4A50YbuWTiIyyUJ24J2eNlvs+boDnKV6twD4hHkr6AsQtstq8S82U8xIwO4Aun8W/edFpkVWSYq7iPyDSbVQb7X2V+DzdbQGO9VQMidBPc31NCvUK3vBEjmOLm4O5th5pH3YDzw0Iz8d9w8lrruXZtcVUOSJNCdTvuw9xUtIwVLqyastMpWx6ZjYZTeHPqzjnh0FASqCIBelgFQWRwY7GnKIASFG/HegPiT5tpd8Gq6cfUDw7U/Gh3v7QJuU7u56uLo
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 19:09:04.2982
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b94e85a9-e126-4c95-5ad5-08df085c7d5e
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026C8.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8718
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 00/16] Bluetooth: L2CAP: fix and annotate
+ l2cap_conn::chan_l
+ locking
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <178828980914.1804078.16309494402667039315.git-patchwork-notify@kernel.org>
+Date: Tue, 01 Sep 2026 19:10:09 +0000
+References: <cover.1788013041.git.pav@iki.fi>
+In-Reply-To: <cover.1788013041.git.pav@iki.fi>
+To: Pauli Virtanen <pav@iki.fi>
+Cc: linux-bluetooth@vger.kernel.org, marcel@holtmann.org,
+ luiz.dentz@gmail.com, oss@fourdim.xyz, error27@gmail.com, elver@google.com,
+ linux-kernel@vger.kernel.org
 
-On Tue, Sep 01, 2026 at 02:42:30PM -0300, Jason Gunthorpe wrote:
-> On Tue, Sep 01, 2026 at 10:13:04AM -0700, Nicolin Chen wrote:
+Hello:
+
+This series was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+
+On Sat, 29 Aug 2026 17:19:55 +0300 you wrote:
+> The intent in current code is that:
 > 
-> > +/**
-> > + * enum iommu_viommu_arm_realm_vsmmuv3_flags - Flags for ARM SMMUv3 Realm
-> > + * @IOMMU_VIOMMU_ARM_REALM_SMMUV3_FLAGS_VSMMU: Indicates whether the Realm has
-> > + *                                             a guest-visible VSMMU instance
-> > + */
-> > +enum iommu_viommu_arm_realm_vsmmuv3_flags {
-> > +	IOMMU_VIOMMU_ARM_REALM_SMMUV3_FLAGS_VSMMU = 1 << 0,
-> > +};
-> > +
-> > +/**
-> > + * struct iommu_viommu_arm_realm_vsmmuv3 - ARM Realm VSMMUv3 parameters
-> > + *                                         (IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3)
-> > + * @flags: Combination of enum iommu_viommu_arm_realm_vsmmuv3_flags
-> > + * @reg_base: MMIO base address of the VSMMU in the guest VM
-> > + * @reg_top: MMIO top address of the VSMMU in the guest VM
-> > + * @aidr: AIDR register value of the VSMMU in the guest VM
-> > + * @idr: IDR register values of the VSMMU in the guest VM
-> > + */
-> > +struct iommu_viommu_arm_realm_vsmmuv3 {
-> > +	__aligned_u64 flags;
-> > +	__aligned_le64 reg_base;
-> > +	__aligned_le64 reg_top;
-> > +	__aligned_le64 aidr;
-> > +	__aligned_le64 idr[7];
-> > +};
+> - l2cap_conn::chan_l read/write is guarded by l2cap_conn::lock
 > 
-> Yeah, broadly what I would expect. Pass everything needed to execute
-> RMI_VSMMU_CREATE through this struct.
+> - l2cap_chan_del called with held l2cap_chan::lock (l2cap_sock.c uses
+>   this)
 > 
-> Is there anything more than RMI_VSMMU_CREATE needed from a RMM
-> perspective? What about that dpt/ats stuff?
+> [...]
 
-DPT is a bit hacky currently..
+Here is the summary with links:
+  - [01/16] Bluetooth: L2CAP: take chan->lock for l2cap_chan_add/ready/del
+    https://git.kernel.org/bluetooth/bluetooth-next/c/ca52f4764c87
+  - [02/16] Bluetooth: L2CAP: add l2cap_chan_close_unlocked() and locking helpers
+    https://git.kernel.org/bluetooth/bluetooth-next/c/368dc7fcaced
+  - [03/16] Bluetooth: L2CAP: fix race condition in l2cap_sock_shutdown()
+    https://git.kernel.org/bluetooth/bluetooth-next/c/86b377359826
+  - [04/16] Bluetooth: 6lowpan: use l2cap_chan_close_unlocked()
+    https://git.kernel.org/bluetooth/bluetooth-next/c/4e64bd587b64
+  - [05/16] Bluetooth: L2CAP: remove unused l2cap_chan_close()
+    https://git.kernel.org/bluetooth/bluetooth-next/c/c5123fddfef1
+  - [06/16] Bluetooth: 6lowpan: avoid concurrent peer_del() in bt_6lowpan_disconnect
+    https://git.kernel.org/bluetooth/bluetooth-next/c/02122fd80029
+  - [07/16] Bluetooth: L2CAP: hold conn->lock for __l2cap_ecred_conn_rsp_defer
+    https://git.kernel.org/bluetooth/bluetooth-next/c/62df59925278
+  - [08/16] Bluetooth: L2CAP: hold l2cap_conn::lock in l2cap_connect_cfm()
+    https://git.kernel.org/bluetooth/bluetooth-next/c/604e2f6d1e95
+  - [09/16] Bluetooth: L2CAP: add annotations for l2cap_chan list locking
+    https://git.kernel.org/bluetooth/bluetooth-next/c/886931f0c7e6
+  - [10/16] Bluetooth: L2CAP: take lock for l2cap_chan_del in l2cap_ecred_rsp_defer
+    (no matching commit)
+  - [11/16] Bluetooth: L2CAP: hold chan in l2cap_ecred_conn_rsp()
+    https://git.kernel.org/bluetooth/bluetooth-next/c/26836086682a
+  - [12/16] Bluetooth: L2CAP: annotate locking for l2cap_chan_del()
+    (no matching commit)
+  - [13/16] Bluetooth: L2CAP: annotate locking for l2cap_ops callbacks
+    (no matching commit)
+  - [14/16] Bluetooth: L2CAP: make concurrent l2cap_set_timer() refcounting safe
+    https://git.kernel.org/bluetooth/bluetooth-next/c/761224d13f8a
+  - [15/16] Bluetooth: L2CAP: remove conditional locking from l2cap_connect()
+    https://git.kernel.org/bluetooth/bluetooth-next/c/2c127ee79a0b
+  - [16/16] Bluetooth: L2CAP: refuse __l2cap_chan_add if chan already has conn
+    (no matching commit)
 
-Prior to RMM v2.0 ABI, DPT was allocated statically in RMM; there
-was no RMI command for DPT allocations.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Now, with RMM v2.0 ABI, DPT can be managed via RMIs. I am making
-it follow GPT at this point, similar to the static idea. But, in
-the long run, I will think of decoupling, but I haven't looked at
-that closely.
- 
-> > I think this should work. But I still feel awkward that a non-vsmmu
-> > case has to allocate a viommu object for a set of RMI commands that
-> > don't need an Realm Descriptor.
-> 
-> It is for the RMI_VDEV_CREATE which needs the RD:
-> 
-> 	case IOMMU_VDEVICE_TSM_BIND:
-> 		rc = tsm_bind(vdev->idev->dev, kvm, vdev->virt_id);
-> 		break;
-> 
-> It has to be tied to a vdevice on a viommu to pick up the kvm and
-> vSID.
-> 
-> If we don't do that we need a new way to get the virt_id and kvm into
-> the flow, which doesn't really seem worthwhile to me.
 
-Okay. I see the gap now...
-
-For tsm_bind: idev has dev, idev has kvm, but idev has no vBDF.
-
-Maybe we could allow vdevice to have no viommu? In which way, VMM
-can forward vBDF independently. If VMM has a vsmmu instance, then
-it can allocate vdevice in the traditional way.
-
-The viommu object here is an empty vehicle that almost has no use
-but to allow another vehicle (vdevice) on top to forward vBDF. It
-makes VMM code a bit awkward: there is no iommu instance, so VMM
-doesn't enable iommu driver, then there is no good place to alloc
-the viomu object for VIOMMU_TYPE_ARM_REALM_SMMUV3.
-
-> > Things could be cleaner if we allow RMI_PSMMU_ACTIVATE and
-> > RMI_PSMMU_ST_L2_CREATE to be independent on a viommu; then leave
-> > IOMMU_VIOMMU_TYPE_ARM_SMMUV3 to vsmmu-visiable case.
-> 
-> This is why I asked in the other message if RMM spec is clear that
-> PSMMU and STE are not required for anything but VDEV_CREATE. If so,
-> the PDEV create and SPDM stuff is fuly independent.
-
-I think the spec is clear. And you are right PDEV is independent,
-only linked to PSMMU when VDEV is created.
-
-> Which is why I'm saying the split doesn't make sense. PSMMU,
-> interrupts, STE, VDEV are all related objects that should be managed
-> together by the SMMUv3 driver. You need a PDEV to create a STE, and
-> you need a STE to create a VDEV.
-> 
-> PDEV is the SPDM channel and should be managed by the TSM driver.
->
-> So, I think the IOMMU_VDEVICE_TSM_BIND is not justified. "BIND" should
-> happen when the SMMUv3 realm viommu ops create the vdevice. The same
-> way the vcmdq sets up the VSID tables when the vdevice is created. Is
-> there a reason to have it in its own command?
-> 
-> Further the implementation of IOMMU_VDEVICE_TSM_BIND in this series
-> *requires* a viommu to work. So OK, let's lean into that. (to be clear
-> I am saying delete tsm_bind)
-
-Yea, IOMMU_VDEVICE_TSM_BIND feels redundant..
-
-Thanks
-Nicolin
