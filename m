@@ -1,151 +1,181 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DFC9470E99
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:54:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064D3286D56
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:55:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788256501; cv=none; b=BBHsVgX3EMjlme8UlVDYkeIpZS15O373+wNngejcNNSj0VyjUBoxuf1XwIUp83S88rEYUqcwGgVYTWg+UtiLb+73uW0lgoN6bnsUKNmdiDrKXd9YvQIXx63ndfqTpjs62is9coe5uPIZ3VrbuDedt4qiTmeYGD2njf/FAmerM2A=
+	t=1788256526; cv=none; b=cKeaM+Bh31qIw08jORShytcM+m8lvPZR8p67HiPlDDUveglHMsaxgv8/GRI7M6lfP0szKs10Wi+lxj9ceSccbWzo8iOSmsVSIDzw5fmrUGlr5qofLQTllX2Mbtnbe2yR39yglQ4HOR3mWE7bLoMLJ7Y6uzvshu3vxslia4sPmJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788256501; c=relaxed/simple;
-	bh=aqTx+S7mshxuBbBdKgQ5CtXuCc2qvNYpagvsr0pk6Mw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qgPymthxODBvMCfWCkb7p4E6aGA/WKOsOaj7igfUDJt0XDm4xYyA1qxf3bhpuqRGtn2uUmbs7ZOADyZXBiuXy9C/Nn3lmJc6DQCSvqKnLcllC03c/8WaGC+9Gem/CuGP69/PX8Lc53+pF7+mXDD/16SImR88L+Du/mJ7HEPNBwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DFMV54XW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SnzA1X6e; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788256526; c=relaxed/simple;
+	bh=VKK2FKU6ga5dMkaUkFpuPEJ4LQvPAltaxJYOizCcDWI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q9AM5oX+Pu/oPue7BlP59D4HP67eYxElWcDx0ubpGdr2wkasBrxwLTs81v11e/Co34L3X4GFnd9FGdWwHcAYO+CRkEJ37olgHzKQxiQvUschM+GK9wx2oYnef9bZhEqaLpvtApIUlrnBTkkfbP2my3euiGqgV24lVO2zNCbR5Dc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JEjvUnVj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DFMV54XW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SnzA1X6e"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68179QMD1811491
-	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 09:54:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RLFLzCTnod+0cKWMNOkucUdWpp2/XKB75rkTGpsWY3k=; b=DFMV54XWK56mGXde
-	2ZYukS7rpdABxgRYXB9l1+MCK/QkIvyGVbwkpE7Q/JXBe/7+7BIDLiPVWibp6ujZ
-	EPgO2sHganB/FmWSPsIsvHZ+mzkCCRQjcjjAw7nntXf9DyDZ84atno3qKdeIf64a
-	CHvUrQZLRnVa7Jr5PYSFadNVRFz0o/mETFmbmOcXWCdma87H5sCaPeWtmtMtUhAn
-	KQEQ+hLV4q38GqBL+GVzRyHuIz5/5NkKOilRYs1+4ZUgmZnQmofUGuakww3JXG2u
-	RoqPikhDDqQrqSiGzcZamwaRglpEDChb/Wu/S5c0asY5y12igfIZFoGjlcd2OzTm
-	HqFK0Q==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdd4dv6x7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:54:58 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93821883e26so93711185a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:54:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788256498; x=1788861298; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RLFLzCTnod+0cKWMNOkucUdWpp2/XKB75rkTGpsWY3k=;
-        b=SnzA1X6eqvyBr8e1QwwacuzBooND1MiNBqEv1mwlXwJQCnrN6kvhZIjv8SrePhlirT
-         ZQBDUH/85u6s0n6FAoRMoCibnVnrfJD1WuaBT/5IzRy9qKb7W25NpP8Eay6f+KqySWcZ
-         kSEWng51RkOEJXd5CoVyXeGULV95kg534ElLvYtuYmCpInPx+weUglxuym66jIBtDXU/
-         9xK4DZpZ3I/cNZy6NtFvvNjAjVubeZm4t9WZ5ZG/9jJ2/m+oEACwygUDCEcOEqTPCm3b
-         /xGeBJImLGoRXeWGF3i2fOGmE8ocBnF8tuz6qp+dKdCI5UFt/jF+xXdCwgyKAQGRxcut
-         XeuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788256498; x=1788861298;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RLFLzCTnod+0cKWMNOkucUdWpp2/XKB75rkTGpsWY3k=;
-        b=NRKeVL07+veY4tanocuNTeJwJx4KybAQE6vLGpo8CSVZZTjGrt6PIzqMFsQO69Tdcx
-         AkaNz6x55pxZWfieQW+FKPTjWKcCa2+2JmWb05KaqaJvCzccMXo74vPpn0uQEBkE0pyh
-         SNXBJCM3vZupSJZUqi4DFMujmB80vTLXcoHvF/G3IasR1VH9BqfWJqJDPHk6NkNcjYa3
-         0UcHuQix6KGostQDK1QYfGgfTKoLJDDGIHLrqa4OnUI5/EAYkHdqAfJDxwaorT4pk1Ji
-         cDG0NRZEvyAilIJ5qoVf+tVXII9Do0nWGArZhbgHIPuUJ4gcz34o64aUuVoKl0M6VKW9
-         f1yQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqGo9hlSXdF2SaaTKVeo0nw3VKgL7rjYUYhVSnE/o4R0NnC7DXC/4emm2TNAyVSSiQ7uBmwRd0BgPFVigg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjzYIXqsvNi3ZiHF2mSopvMhqvQ25I1vrGaY0W1xFiEL+lnFZ+
-	xHkaGjFWh2NhkRl4/wIqiodra2inxf6jdPIVOuFXW8z1QyZWpTqwGsYROMM7XV5JBu9hDDDU0Vn
-	zXZ6ibztH6k3tD2Erp/4oXZ6DSwLDUGwNlhfjfQy3COoNIBx2XA2D9N9mVVHmARhcVz5EtVNfBN
-	U=
-X-Gm-Gg: AR+sD13S+Mkc86nvVFoE0yzq+X/wnOzil/Ykk46k45dJwmZ5zuRAp7Qx4XGNG7VNL0S
-	TcsXB9OcB3PkU4cHxGe/4lm4IT+ZRXS2Veg9XfN0qEErmIYji9GsFQM9AbUEzIyr+e1OqqlWkm1
-	STupLvfi/vE0V005wpPnHrNgtDv0sRgdF8tUDF+gB+j8aDO8wDuifZ4F7fPzZr3SCHaj0G+CjhK
-	7iMyPrdBhyRbrA7tI9rp67S47Np3YUWZds1ae+bvdmyTwzugddbwEL86N6OoY+PXpdohEccY251
-	Ndgjh1LP5BrtOwFCuYnM3ZMkH3uoMkomT7KlUag7hvWrhG7t1bzr8ISja6hSBmh2+hiHv+nFuB+
-	GromQzjkgoGjzK45upGli3g==
-X-Received: by 2002:a05:620a:1a2a:b0:939:17ec:8a81 with SMTP id af79cd13be357-9392879009emr1329688685a.3.1788256498235;
-        Tue, 01 Sep 2026 02:54:58 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a2a:b0:939:17ec:8a81 with SMTP id af79cd13be357-9392879009emr1329686385a.3.1788256497692;
-        Tue, 01 Sep 2026 02:54:57 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25ab2f9aa6sm193944666b.35.2026.09.01.02.54.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 02:54:56 -0700 (PDT)
-Message-ID: <e1b7e953-2372-41d4-84cf-cd2fbc54f88a@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 11:54:54 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JEjvUnVj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CC7A1F000E9;
+	Tue,  1 Sep 2026 09:55:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788256524;
+	bh=VKK2FKU6ga5dMkaUkFpuPEJ4LQvPAltaxJYOizCcDWI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JEjvUnVjlrC1+x//uhaFrgAkPGR7RagUCMde9lL/pt4tOL5YRVgkMvFnuaogJqRkR
+	 uO2DpAm6+8ipbSsRa0ZEWC2+nXghTH9IPkwlTiyR42iOrONr+BlRH9k+neerbVdDNH
+	 yHx8k27aarKUgJr2fMPeWJTJeLjPI6pwHrg10iNav99OQmXOewgQKzXUdeILGFuM1J
+	 W8Z/PJ1B/yxPWfwYIUgnDnQtJBSu4JUqUZDtGm+EcGtiIYPWMV/gnGhny/SP2/txv4
+	 fIllJ8UP5Mg1U9SN0raE7R6eaGOJVWeuLbd4trRIoHVVumXtJHSJPwmLAzmQCJ7cnm
+	 VnH7zTybw/oDw==
+Date: Tue, 1 Sep 2026 10:55:21 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] riscv: introduce cap framework and use it to
+ optimize pgtable_l4|l5_enabled
+Message-ID: <20260901-mountable-engraved-f47c899ed194@spud>
+References: <20260830170414.4505-1-jszhang@kernel.org>
+ <20260830170414.4505-4-jszhang@kernel.org>
+ <20260831-falsify-arrogance-6917870b8596@spud>
+ <apYafAJvKqz_hRzR@xhacker>
+ <apZa3EnjGjpaydGm@xhacker>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] serial: qcom-geni: Avoid double-free of PM domain list
-To: Aniket Randive <aniket.randive@oss.qualcomm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jiri Slaby <jirislaby@kernel.org>
-Cc: naresh.maramaina@oss.qualcomm.com, praveen.talari@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-serial@vger.kernel.org
-References: <20260901-probe_cleanup_uart-v1-1-0bc2b00c970e@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260901-probe_cleanup_uart-v1-1-0bc2b00c970e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=b9qCJNGx c=1 sm=1 tr=0 ts=6a96a0f2 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=5Qeq7Wt-fVvOjBGoxIkA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA4NyBTYWx0ZWRfX5ICBylwUoWtH
- kwkTczdQLGRn0nd8OLX2yazyfJ+PMwtp8vTbVpX5FS5NQkYBmJeNJceqtUNcI1xV3jgNfoA0Mrx
- kc79HM5k8CZJkqy/Mhpk8wB5OAKzf1NpUMn1kTrO1Y8O1jkRi7DY9vFmHgkCnFZ9fgPjMaIMsRi
- er2sdzwTQiHv1in3Fb5RNJQ2070YWLC4wE374z/M+1oV0K1hvZ6pbxB3NK2v9bkFEU6AqSp47Lw
- owr3+0NJd4Aelf7wOOnCWEwxGpEeyHq3iAEgbQGOoIpqDSW3XIllgnrkehvkN9FSienhFjI73ZY
- Lpfbzo/n0cQLEEDjOgq61sHD6spD14HYwRXuEZbbcsDbZXy0hDoOxNWcrEiUdNOreo6wTMGAJrU
- oPyZDKvMVrKu3R5HhWrO1wQeQuHweIJun5ZseE1U4vIdvz/cdWT6ttapODZWLf9MY054d2pI8tC
- NUDSa5jarAdYAHYpi8w==
-X-Proofpoint-GUID: uVJEgJ8O9BYKFHE07uYR78f16zdH3-Ky
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA4NyBTYWx0ZWRfX636BI6nYhkZP
- Nos7/KGhia9UuuqHwRBRA8rsp02wlvX/YjZqOZjVUrXKcGF1j65f8PhT3L6Ryb9LBIkNQAwq10P
- Zl+LyVRYs3dYwF6EFeod5QZBlulo5io=
-X-Proofpoint-ORIG-GUID: uVJEgJ8O9BYKFHE07uYR78f16zdH3-Ky
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 clxscore=1015 impostorscore=0
- spamscore=0 priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010087
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="m86E7V2/eBf8L2Q6"
+Content-Disposition: inline
+In-Reply-To: <apZa3EnjGjpaydGm@xhacker>
 
-On 9/1/26 11:50 AM, Aniket Randive wrote:
-> The SA8255P UART variants attach PM domains through
-> devm_pm_domain_attach_list(), which registers a devres cleanup action
-> to detach and free the PM domain list automatically on probe failure
-> or device removal.
-> 
-> Remove the manual dev_pm_domain_detach_list() calls from the probe
-> error path and remove callback. These calls can operate on memory
-> that has already been freed by the devres-managed cleanup, resulting
-> in a potential double-free. Also remove the unused pm_domain.h header.
-> 
-> Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
-> ---
+--m86E7V2/eBf8L2Q6
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Tue, Sep 01, 2026 at 12:55:56PM +0800, Jisheng Zhang wrote:
+> On Tue, Sep 01, 2026 at 08:21:16AM +0800, Jisheng Zhang wrote:
+> > On Mon, Aug 31, 2026 at 11:04:12PM +0100, Conor Dooley wrote:
+> > > On Mon, Aug 31, 2026 at 01:04:01AM +0800, Jisheng Zhang wrote:
+> > > > The pgtable_l4|[l5]_enabled check sits at hot code path, performance
+> > > > is impacted a lot. Since pgtable_l4|[l5]_enabled isn't changed after
+> > > > boot, we can use alternative mechanism to optimize them.
+> > > >=20
+> > > > So the question is whether we can add RISCV_ISA_EXT_SV48/SV5 and use
+> > > > riscv_has_extension_*() or not. Although, per [1] and [2], SV48 and
+> > > > SV57 are ISA exensions too, RISCV_ISA_EXT_SV48/SV57 are to describe=
+ hw
+> > > > supported extensions, while this doesn't mean the pgtable_l4|l5 is
+> > > > enabled, for example, we may pass no5lvl/no4lvl kernel boot args or
+> > > > explicitly ask for SV39 by setting dt mmu-type property as
+> > > > "riscv,sv39". If we clear RISCV_ISA_EXT_SV48|SV57, then internal
+> > > > extension queries and potentially userspace reporting can no longer
+> > > > distinguish =E2=80=9Cunsupported=E2=80=9D from =E2=80=9Csupported b=
+ut disabled.=E2=80=9D
+> > >=20
+> > > That's the case for all extensions that the kernel does not support,
+> > > like if the fpu is disabled because the kernel doesn't have the
+> > > configuration option set. In fact, I think the CFI extensions are very
+> >=20
+> > To be honest, before introduce the cap framework, I did think about FPU,
+> > ZACAS, ZABHA etc. ISA extensions' cases. Finally I came to a conclusion
+> > that the SV48/57 is a different case: Let me take FPU for an example.
+> > FPU once probed, the ISA support is never disabled, IOW, the
+> > riscv_has_extension_likely(FPU) is always true no matter the CONFIG_FPU
+> > is enabled or not. There's "no supported but disabled" case for FPU.
+> > But for SV48 case, that's different. The underlying HW may support SV48
+> > or SV57, but the "no5lvl and no4lvl" may explicitly force SV39, thus
+> > if we go with exisiting riscv_has_extension_*() API, we need to
+> > explicitly disable it by clear the isa bitmap. IOW, riscv_has_extension=
+_likely(SV48)
+> > is false even the underlying HW supports SV48, thus the user can't
+> > distinguish between =E2=80=9Cunsupported=E2=80=9D from =E2=80=9Csupport=
+ed but disabled.=E2=80=9D
+> > What do you think?
 
-Konrad
+(moving things around a little bit)
+
+> and change its meaning a
+> bit from "the underlying HW supports the feature" to "the underlying HW
+> enables the feature".
+>=20
+> or keep it only for ISA extensions only.
+>=20
+> X86's X86_FEATURE_* take the first path, I.E it only means the feature
+> is enabled or disabled on current platform, but doesn't mean the current
+> platform HW supports the feature or not.
+>=20
+> Any comments is appreciated.
+
+On this particular point, this is already how it works.
+riscv_has_extension_[un]likely() and other related functions report
+whether the extension is supported and enabled on the platform, not just
+whether the underlying hardware can support it. As I mentioned
+yesterday, the F and D extensions depend on CONFIG_FPU being enabled. If
+CONFIG_FPU is disabled, but F and D appear in the DT or ACPI, we clear
+the relevant bits in the bitmap. In turn, if there are extensions that
+depend on F and D being enabled, they'll get turned off too.
+
+>=20
+> Other thoughts:
+>=20
+> performance PoV: usually, an ISA extension improves the performance, so
+> there's no case where we clear the ISA bit map. But SV48/SV57 is
+> different, e.g on a board w/ only 4GB DDR but the cpu supports SV57,
+> there's no reason to enable SV57 which impacts performance a bit. This
+> is the reason why no4lvl/no5lvl are introduced, AIUI.
+
+Again, I think this applies to CFI, I don't think what's being done here
+is fundamentally different to that.
+
+> > > similar here, because they also have riscv_nousercfi command line
+> >=20
+> > This is another story, neither CPU ISA extension nor CPU capbility.
+
+They are extensions though, riscv_nousercfi disables the cfilp and cfiss
+extensions. You can see that in cpufeature.c. Maybe there's some
+semantic argument about whether they're /CPU/ extensions, but there's
+other stuff that aren't really CPU extensions and we treat them all the
+same. I guess the difference for sv48/sv57 is that we'd just be setting
+the bitmap bits rather than parsing it from DT/ACPI - but there's prior art
+for that already.
+
+> >=20
+> > > options that can disable them.
+> > > If that's the reason for making a new-but-similar mechanism, I think =
+you
+> > > should just introduce RISCV_ISA_EXT_SV{48,57} and use that.
+
+> other cap usage PoV: the cap can be used to replace various static
+> branch usage in arch/riscv, for example the fast_unaligned_access_speed_k=
+ey
+> As is known, the static branch has some drawbacks.
+>=20
+> So no matter which direction this series goes to, we need similar cap
+> framework. The key question is whether we can extend the
+> riscv_has_extension_*() to cover cpu/HW cap,
+
+It'd be nice to see if we could reuse the functions, if we don't
+want to invent a bunch of XLINUXFOO for them. The vendor extension stuff
+that Charlie added reuses it, but since there's no Linux Foundation
+JEDEC ID (AFAIK anyway) perhaps there's just no easy way to do it and
+duplicating the functions with a different name is required.
+
+This particular case is an extension, so I think we should try to make
+it work using that framework though.
+
+--m86E7V2/eBf8L2Q6
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapahCAAKCRB4tDGHoIJi
+0qnHAP90+sOs6LO8ojMJfAhCXNMGFc8ojLDBve6pxw5OBElYagEAgj/2EkQMe9ls
+QBsNhEVXYz6xhSecB0B/IsCh2SNbHgY=
+=Fvnc
+-----END PGP SIGNATURE-----
+
+--m86E7V2/eBf8L2Q6--
