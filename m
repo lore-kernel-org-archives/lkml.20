@@ -1,126 +1,116 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402C541A551
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19FE443315;
+	Tue,  1 Sep 2026 07:09:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788246558; cv=none; b=IBmrXe9GR+evqmSXDpZrbKRsgZmsSSvG+PolyWu6MsRWniQzGpNial9KnENVeNjAVaq/uYTCXkC2XVp4K2hRRz4qpM5nYtH22lrXzm3g6aMtW108tA/vRY65C++5RMDbXjRJa1WSZaC5Kz8/JpeOLzuidZYsixx7mQJAKPy5Qfo=
+	t=1788246566; cv=none; b=DIMPbHPGPKjFoH3NUcFlwLHz4VzAt00rdq4jmMiFUwxUpN+JBxWalZSr8S3TQjJSy60pS5JK5lmB/9keFxOknnGssRCCjNvgYLgTRHujz+ACwvaju9RHjznQuAKwwmnfE8vdWDQjcSkun186S6phqpcF9pxVzwQ8AxqimT8KIKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788246558; c=relaxed/simple;
-	bh=6sYp6gwLdM8q2X0kWDCuDxQHrC8+z3UsdjNuoTgAQ4E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FCA/uFvX22PvezIO2BO8Nv1OfBcbQLycsaGEJgyog9W31F98rDGaJwTUxmwWhlpv2ZAgVbiVNmP3xTAC9UpNNwp1t3ylbDyw8Sf0Iqec8bggLxK6V4EhKHPP4ftE8F3ronJim1/p6+HIGD2/qodDg4AcjXsH2mYtRi2VOPWHP4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iqd3TB8C; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788246566; c=relaxed/simple;
+	bh=vtIrC8TakK09zNf74g0t4AkIV0EtG0GErTao6iHQiyg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=m6SfPg2yphgG6rILcMOkudWAKrsbPY/muxyxM2QjpOQz4q37Qeo5QmGcgj/gcYUhI+tvctluip4bahT+t4cm6ulOeGL+amPrRCA11hOkGKDzXEDhBeM1rVT3lrlXXtnotQPiJA4CYIJVJqr/RbLwq3wxgEqFOoROZszAspeuKv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=S46tbBRs; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iqd3TB8C"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38759bcd877so4363687a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:09:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788246553; x=1788851353; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jvcz145bWmmDM17NuFw1MIOBpRinQuOt1aSfmpsmn2w=;
-        b=iqd3TB8Crm8vVVDn7O3VnZ14MbuYGqLv37HgF+ppCEQxR5MLaf4aFweP50pqN7cA4q
-         wlxPbA2/aziFmlJGmtXDeQC5NfJ/K23wa/HJcu5WGU2Jghf/0rJ/kg08nm5FNkU3itOh
-         8imFBAS9DTw3AGSH0U8O6MZ6MAc57RUtvSLElkWlizfDm4oNmx51VKyX8gW4K4nrx0px
-         V7dq2e32sMZ6RraCQ16mcGsLo2FmFik0D9QVUzLze8+LqZPHGQMzQJiv30vzdoikY/iu
-         9IWYq3HGvHM8fYzujcpSCPczQgUYwxXJyAjJ0jKWfMBUegGMirCubQG+oBIzkz+pnDI9
-         MLvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788246553; x=1788851353;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jvcz145bWmmDM17NuFw1MIOBpRinQuOt1aSfmpsmn2w=;
-        b=M2DdVdENnj0ly7kSwRPhUlMjyQY2VNafzIyUij+Lrgjk5ubG3eUoa2PHB0GnHP4bCo
-         B9ZJIgGyPGWWu5oPOO1GGtzSjOf4WpX8hXHDi1Z/j/XHOywTpRvkLoyJU9gIs5aXcbbb
-         iJsiGjB+e+xtUKeqwLT8IPs5FrDXkh//2nlipPyjfV3qqNzRGUJRcH18n8zBjrwwTMhx
-         uaasCL1C6s+/qFS4LNDBTy1auw8K0wInBpWrcbbJdUxB/UlW8llaSOMAeBrIPgmHf6gy
-         coP3dDlcJWz6QG6mRSl+wMxWF9UvSJsI+vGjTtsUtFKu+0FFl/HuMqXNo/iZHWR4y/6A
-         hp4w==
-X-Forwarded-Encrypted: i=1; AKwUvBxtubjTrOIXEy3IhRlWUTJCMV3TQ/3lGRE51O4/Y5LVuTDET2jltUGT4G/hF1TLEpWZjCSH4YAtY7M6J5A=@vger.kernel.org
-X-Gm-Message-State: AFuF++npMyHvIRLZwTI8bbyzwW5UlB2Mu45QReoqNsVeGmpFu4a9ehQD
-	0FONc1LxTN0JPAJKysVrqNbYQu8z1cAuZsmZoywAGaF+R6w9ZAhKNOyv
-X-Gm-Gg: AYBFou0+a348gduqyg8spShIHAhcM1/tGklo8NRXShiDIGqHPxpZB86rb1xO2DIjKrx
-	uuvyUxNaXBkUwUYBSXGXdUqe3P37avbMJcKvQi2jxACWBYS3fTcVmDCQXdZp/6HzR90wGZ8Mq8B
-	9Ga+4aBzsDIpLfbYEiC+huqP/SD+O2xubB0Certb2cybrouip+lnm/g8LfQPUCyt94XQ9Px9jrH
-	HtgQmvIHwk2KH0GgaErUohzXSiIUoAwTtpCvvXlpbvHLTeaWYKo0XSoUwRzgxtOTkUI5Y/0cZNw
-	rUVLv4ArZ+LU6X8Kd6q+GG2Fkzn/87MPqMNIhl4JqHlLxbQ7txo/T1BZeBvoAepgij+YW51MuIG
-	3pZidZqtapHaYsxWYgmiJGVBZwBAi9TylAaifEo8XJy+7HXkjTyZYwe42CJioRG4NoSfGhQ4ZEG
-	5NEJd9FhTBcodO/PkzbiX+VY7eqXmRpyIigQCK6fHnptxBs54qMR0yhBL6SYM/k5tnRPu9vBvnH
-	FF3pMckQlzC
-X-Received: by 2002:a17:90b:2b4b:b0:398:9beb:5c18 with SMTP id 98e67ed59e1d1-3989beb635dmr35063238a91.19.1788246552818;
-        Tue, 01 Sep 2026 00:09:12 -0700 (PDT)
-Received: from localhost.localdomain ([157.51.207.128])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32bdfd03e71sm18274680eec.1.2026.09.01.00.09.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:09:11 -0700 (PDT)
-From: Sreeshankar K <sreeshankar0910@gmail.com>
-To: andersson@kernel.org,
-	sboyd@kernel.org,
-	bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	rafael@kernel.org,
-	viresh.kumar@linaro.org,
-	konradybcio@kernel.org,
-	tglx@kernel.org,
-	ulfh@kernel.org
-Cc: radu@rendec.net,
-	abel.vesa@oss.qualcomm.com,
-	taniya.das@oss.qualcomm.com,
-	danila@mainlining.org,
-	davidwronek@gmail.com,
-	mani@kernel.org,
-	robimarko@gmail.com,
-	linux@gurudas.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Sreeshankar K <sreeshankar0910@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v8 10/12] dt-bindings: interrupt-controller: qcom,pdc: Document SM7250 PDC
-Date: Tue,  1 Sep 2026 07:07:15 +0000
-Message-ID: <20260901070717.20513-11-sreeshankar0910@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901070717.20513-1-sreeshankar0910@gmail.com>
-References: <20260901070717.20513-1-sreeshankar0910@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="S46tbBRs"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E03E61A1851;
+	Tue,  1 Sep 2026 07:09:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A96676053C;
+	Tue,  1 Sep 2026 07:09:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5A05911C78A73;
+	Tue,  1 Sep 2026 09:09:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788246559; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=azbA4EriyIuSSgA9MK6fPCdkyDzmm+8sSS/z2y87Z5U=;
+	b=S46tbBRspM5s0aKsHNokZfOfNb8cl+p0i1dapuhgbhX4RFRQMvUxoA/OAEfbFKnAZcy9Tw
+	uMaannzJwpY0e2mWLI2p/xJZvIYWw3AumCHdFxIYH/hj9/1gtmOO0I0/FQTJ8T1uAUxJ4M
+	1b84GsLHAKA0HJZUbC5mC6I5YxtIb5szVmtzIUHnhjy0O+X5yf/06Iz08gkClHtM0mAQMT
+	g/q42mKkHayvwWJEa1m0GOAFR5Z+XApPMDPXglD81DMNBYcE+H81NQvIsQdUrCQbGxMRay
+	0u2b73EcCt/VW/d35Wf4J1AHj7+JfSFQQGtiL645y4oPLA1cAJ7wlJ/qnXgdcg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 09:09:11 +0200
+Message-Id: <DL3SHWGWGJRM.8EBXAKKNSVB5@bootlin.com>
+Subject: Re: [PATCH v11 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI
+ DSI to HDMI driver
+Cc: "Sunyun Yang" <syyang@lontium.com>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Vinod Koul" <vkoul@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <venkata.valluru@oss.qualcomm.com>,
+ "Jessica Zhang" <jesszhan0024@gmail.com>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>
+To: "Mohit Dsor" <mohit.dsor@oss.qualcomm.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260824-lt9611c-v7-v11-0-eb4a79cb597c@oss.qualcomm.com>
+ <20260824-lt9611c-v7-v11-2-eb4a79cb597c@oss.qualcomm.com>
+ <178766696083.117435.16339828039068931624.b4-review@b4>
+ <apXKES8WQzVDbQG8@hu-mdsor-hyd.qualcomm.com>
+In-Reply-To: <apXKES8WQzVDbQG8@hu-mdsor-hyd.qualcomm.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Document the PDC block on the SM7250 SoC.
+Hello Mohit,
 
-Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- .../devicetree/bindings/interrupt-controller/qcom,pdc.yaml       | 1 +
- 1 file changed, 1 insertion(+)
+On Mon Aug 31, 2026 at 8:38 PM CEST, Mohit Dsor wrote:
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-index 8162a49d4..c30b88589 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-@@ -50,6 +50,7 @@ properties:
-           - qcom,sdx75-pdc
-           - qcom,sm4450-pdc
-           - qcom,sm6350-pdc
-+          - qcom,sm7250-pdc
-           - qcom,sm8150-pdc
-           - qcom,sm8250-pdc
-           - qcom,sm8350-pdc
--- 
-2.43.0
+[...]
 
+>> > +#include <drm/drm_of.h>
+>>
+>> Unused include?
+> Using this header for of_drm_get_bridge_by_endpoint
+
+of_drm_get_bridge_by_endpoint() is declared in drm_bridge.h.
+
+>> > +static enum drm_mode_status
+>> > +lt9611c_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
+>>                      ^^^^
+>> Out of curiosity, what does "char" means here?
+> "char" =3D character =E2=80=94 TMDS (Transition Minimized Differential Si=
+gnaling) transmits data using 8b/10b encoding, where each
+>   encoded 10-bit symbol is called a "character". The TMDS character rate =
+is the number of these symbols transmitted per second
+>   per lane, which equals the TMDS clock frequency.
+
+Ah, OK, thanks for the explanation.
+
+>> Also, I _think_ lt9611c_regulator_init() could just
+>> devm_regulator_bulk_get_enable() to do both things at once, but I'm not
+>> sure that would be compatible with PM. If it's safe it would simplify th=
+e
+>> code quite a lot, and also allow using devm_drm_bridge_add() below, maki=
+ng
+>> the remove function almost empty.
+> regulator_bulk_disable/enable are called in suspend/resume and in remove =
+=E2=80=94 so devm_regulator_bulk_get_enable is not suitable
+>   here
+
+OK, I was not sure about that, thanks for checking.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
