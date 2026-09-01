@@ -1,102 +1,99 @@
-Received: from smtph3-05.21cn.com (smtph3-05.21cn.com [150.223.194.107])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E917B425CC6;
-	Tue,  1 Sep 2026 02:55:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.223.194.107
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF573B4EBF
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:58:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788231355; cv=none; b=nKpU5l+L5LUZ79TeS7u7NaR6xkw8CGkVdk534qFB/aKnMCpt9/E5ih2whTyxXwPZdsD1g1i6k2t3oGtmAKFgn74lG32vHGdPQCmCRk0GGASQCzR8GSkyiG8MlSj/Jr7EO70dR2vStE8o7zIvccaYH3zF/f+NEsBVt5XMvYp0ppg=
+	t=1788231519; cv=none; b=sWHS12fByOv6Y5KxIR55HbT093bwZ9VCYboaodnzFO/3lmigilF/9Yk5XVrCOjp0p/U1ja8RTom7wXbrGeknVe9d3eU+pRjH5YmSL0N4qq+uvShhHY4E92+Df3lVSXeAp54JArZmJDMNRJaxqLhtyTQAecpa8fsMIOd+CT+BTCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788231355; c=relaxed/simple;
-	bh=FK0oujqZrzfmpznB4R4N8bIo1NBQAuZJk7/i6Wh/YnU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LzlMxXGSnaAtQbA/bQUedXqjomZGaM9mdhgQ6fHTmzCqKln+q5dKk2m50A52UcwstPTuHS3dzxFihPYWtZbsZceJobP3wxyoF5qzur1JrQ33dMXhoLprh631VyjLpEHX3f2THKNPu64ip9ELAHNfPrIfFMahuzrkENyu64ow+7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chinatelecom.cn; spf=pass smtp.mailfrom=chinatelecom.cn; arc=none smtp.client-ip=150.223.194.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chinatelecom.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chinatelecom.cn
-HMM_SOURCE_IP:172.27.0.101:0.173858605
-HMM_ATTACHE_NUM:0000
-HMM_SOURCE_TYPE:SMTP
-Received: from clientip-139.200.108.11 (unknown [172.27.0.101])
-	by smtph3-05.21cn.com (HERMES) with SMTP id 014B31402F0E4;
-	Tue,  1 Sep 2026 10:44:54 +0800 (CST)
-X-189-SAVE-TO-SEND: +pengqh1@chinatelecom.cn
-Received: from  ([139.200.108.11])
-	by gateway-ssl-dep-7c9d777cd6-x28fn with ESMTP id b78d24f82f2d490791e3e49d533111c6 for shuah@kernel.org;
-	Tue, 01 Sep 2026 10:45:18 CST
-X-Transaction-ID: b78d24f82f2d490791e3e49d533111c6
-X-Real-From: pengqh1@chinatelecom.cn
-X-Receive-IP: 139.200.108.11
-X-MEDUSA-Status: 0
-Sender: pengqh1@chinatelecom.cn
-From: Qianheng Peng <pengqh1@chinatelecom.cn>
-To: shuah@kernel.org,
-	broonie@kernel.org,
-	jackmanb@google.com,
-	liuhangbin@gmail.com,
-	rbm@suse.com
-Cc: skhan@linuxfoundation.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	pengqh1@chinatelecom.cn
-Subject: Re: [PATCH] selftests: runner.sh: avoid overriding kselftest_cmd_args with empty variable
-Date: Tue,  1 Sep 2026 10:44:52 +0800
-Message-Id: <20260901024452.485159-1-pengqh1@chinatelecom.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <1784010883-25386-1-git-send-email-pengqh1@chinatelecom.cn>
-References: <1784010883-25386-1-git-send-email-pengqh1@chinatelecom.cn>
+	s=arc-20240116; t=1788231519; c=relaxed/simple;
+	bh=l9BpW+9AQa5fio5skrVoXenJrvSLXLe4Yo9TabK2Mr4=;
+	h=Date:Message-Id:Content-Type:Subject:References:From:Mime-Version:
+	 To:In-Reply-To:Cc; b=bOEmVw/oQEPVPzgZq9rRimKPFlSCdw07gIJaE3MqRaQsQTNIMzhRbThQ14M+LiBmNV/n5oDf5ZrX7LpOwQzKxnVXnWolP3/JYCFLXHesWd6wObjcWehAjmLwYfVboZ4qzP9HWgM4+XawXGognMYEdEylU1xtjmW30fgxjTOMudQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=MD+vUrVF; arc=none smtp.client-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="MD+vUrVF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1788231515; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=IWe25f/V5EyAwZsvk6syK52ldRZujBuH0XXRF2BXP3E=;
+ b=MD+vUrVFicEHcFJMjTPGRq6Hk0+JtBfXimuJxV/K1+U1GKhIJvSFuOuO3HjlBECscRZnXN
+ qf6I0ArmHihdxq+LsZSa+7KCceSEcA8bdECHWHru8TcB0iL5vOjTQSAa/17SFOgZQ6vChg
+ vSAWMxVC5wU9ZXn+QDi80lAdeeV4RCiXvKiX78Hu6NVMMsyCWwijdk1GTHLI96XIdskDyc
+ 0B8txRfAqnSaMpUI3O0gngG4JF+QyLzMgt51zMBSbYo4ydxrHHsKnOjhgLpAEH/80ny68T
+ S/Q5Cmg2/DLMRoC4HykEL1r+qwSlrmRIRK0b9q7HwH0Cwi2TTVS47yXJMGdRYA==
+Date: Tue, 1 Sep 2026 10:58:09 +0800
+Message-Id: <f7099580-870f-4cdf-84cc-a82cc47a42b0@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26a963f56+68a3f2+vger.kernel.org+lizhe.67@bytedance.com>
+Subject: Re: [PATCH v11 0/7] mm: optimize zone-device memmap initialization
+User-Agent: Mozilla Thunderbird
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+Content-Transfer-Encoding: 7bit
+References: <20260831111638.76012-1-lizhe.67@bytedance.com> <20260831164531.be5a8fa210401830e85eb974@linux-foundation.org>
+From: "Li Zhe" <lizhe.67@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+To: "Andrew Morton" <akpm@linux-foundation.org>
+In-Reply-To: <20260831164531.be5a8fa210401830e85eb974@linux-foundation.org>
+Cc: <apopple@nvidia.com>, <arnd@arndb.de>, <balbirs@nvidia.com>, 
+	<bp@alien8.de>, <dave.hansen@linux.intel.com>, <david@kernel.org>, 
+	<kees@kernel.org>, <mingo@redhat.com>, <muchun.song@linux.dev>, 
+	<rppt@kernel.org>, <tglx@kernel.org>, <linux-arch@vger.kernel.org>, 
+	<linux-hardening@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-mm@kvack.org>, <x86@kernel.org>
 
-On Tue, 14 Jul 2026 14:34:43, Qianheng Peng wrote:
->Normally the value of kselftest_cmd_args can be read from settings file,
->but it will be overridden by KSELFTEST_TEST_KMOD_SH_ARGS which can be
->empty if user did not give it a real value.So it should be better to
->check if KSELFTEST_TEST_KMOD_SH_ARGS is emty before referring its
->value to kselftest_cmd_args.
+On 9/1/26 7:45 AM, Andrew Morton wrote:
+> On Mon, 31 Aug 2026 19:16:31 +0800 "Li Zhe" <lizhe.67@bytedance.com> wrote:
 >
->Signed-off-by: QianhengPeng <pengqh1@chinatelecom.cn>
->---
-> tools/testing/selftests/kselftest/runner.sh | 10 +++++++++-
-> 1 file changed, 9 insertions(+), 1 deletion(-)
+>> memmap_init_zone_device() can take a noticeable amount of time when large
+>> pmem namespaces are bound or rebound, because it initializes nearly
+>> identical struct page descriptors one PFN at a time. This series reduces
+>> that ZONE_DEVICE memmap initialization overhead by reusing prepared
+>> struct page templates and, on x86, using memcpy_nontemporal() for the
+>> template copy path.
+>>
+>> ...
+>>
+>> This reduces the average memmap initialization time measured during
+>> rebind by about 48.0% for nd_pmem and 41.6% for dax_pmem on that arm64
+>> VM setup. Since this arm64 setup does not use the x86 MOVNTI fast paths,
+>> the result also suggests that the generic template-copy optimization can
+>> benefit architectures without an architecture-specific
+>> memcpy_nontemporal() backend.
+> Well that's nice.
 >
->diff --git a/tools/testing/selftests/kselftest/runner.sh b/tools/testing/selftests/kselftest/runner.sh
->index 311811d..a99147a 100644
->--- a/tools/testing/selftests/kselftest/runner.sh
->+++ b/tools/testing/selftests/kselftest/runner.sh
->@@ -103,6 +103,15 @@ run_one()
-> 		ktap_print_msg "timeout set to $kselftest_timeout" >> "$logfile"
-> 	fi
-> 
->+	# Exported environment variable overrides the settings file
->+	eval kselftest_eval_cmd_args="\$${kselftest_cmd_args_ref:-}"
->+	if [ -n "$kselftest_eval_cmd_args" ]; then
->+		kselftest_cmd_args=$kselftest_eval_cmd_args
->+		ktap_print_msg "overriding cmd_args to $kselftest_cmd_args" >> "$logfile"
->+	elif [ -n "$kselftest_cmd_args" ]; then
->+		ktap_print_msg "cmd_args set to $kselftest_cmd_args" >> "$logfile"
->+	fi
->+
-> 	TEST_HDR_MSG="selftests: $DIR: $BASENAME_TEST"
-> 	echo "# $TEST_HDR_MSG"
-> 	if [ ! -e "$TEST" ]; then
->@@ -113,7 +122,6 @@ run_one()
-> 		if [ -x /usr/bin/stdbuf ]; then
-> 			stdbuf="/usr/bin/stdbuf --output=L "
-> 		fi
->-		eval kselftest_cmd_args="\$${kselftest_cmd_args_ref:-}"
-> 		if [ -x "$TEST" ]; then
-> 			cmd="$stdbuf ./$BASENAME_TEST $kselftest_cmd_args"
-> 		elif [ -x "./ksft_runner.sh" ]; then
->-- 
->1.8.3.1
+> Sashiko seems to have found some new things to complain about:
+> 	https://sashiko.dev/#/patchset/20260831111638.76012-1-lizhe.67@bytedance.com
 >
+Hi Andrew,
 
-Gentle ping. This patch has been sent on July and has not got response since then.
-The patch still applies cleanly to current mainline.Glad to resend if it's preferable.
+Thanks for taking a look.
 
-Thanks and Regards,
-Qianheng
+For the comment on patch 5 about the cnt == 0 case, I agree that
+memcpy_flushcache() should preserve the usual zero-length memcpy
+semantics. This is a pre-existing issue in the x86
+memcpy_flushcache()/__memcpy_flushcache() implementation, not a bug
+introduced by this series. The new ZONE_DEVICE call site added by this
+series always copies sizeof(struct page), so it cannot hit the
+zero-length case.
+
+Since this is a pre-existing issue and is independent of this patchset,
+would you prefer me to send a separate standalone fix for the x86
+memcpy_flushcache() zero-length case, rather than folding it into this
+series?
+
+For the MOVNTI ordering concern in patch 6, this was discussed in the
+previous round. Based on that discussion, I believe the current code is
+correct, so I do not plan any additional code changes for these items.
+
+Thanks,
+Zhe
