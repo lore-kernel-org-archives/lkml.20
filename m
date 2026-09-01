@@ -1,96 +1,100 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 445313BA246;
-	Tue,  1 Sep 2026 12:21:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA4A47DFAF;
+	Tue,  1 Sep 2026 12:22:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788265319; cv=none; b=fvaZMihllGD2ZdZzFlbaHyDgm8HiHCu8J1ew4sFgdPDZx4hxasdWAHtZCucAHSRWGnbwC7jZVoJViGqTT509hDXAtYd+sGJ88Jy8jOWgkUtUWQXNdsOfNlXcNo70NIE/BiWOqj7KaWCo3yuwRT1eHSVho3zpeQttUQhAqBOI6Pw=
+	t=1788265324; cv=none; b=UZH0YYlXdUuXRXrUjfBN00uzMZevQaMCcFccS8zZ/dSGYyoH1Uni3ibYQ9FiMz/TjGJxPmCs9zE8DOBBCc2l0PEw+sdXQgqiCdfdfFBwTJ5ne9owdykhdBqvlLJA7dTO9Qj/aRM/x6GxaztLZmVMsAzaWfa3bQ/aU9Jnf14B7dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788265319; c=relaxed/simple;
-	bh=GTAV1btrciy8QWORbwi47W3ulx/1ZieXdXfDbZrZxsk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IInOFpHSLHpHcpifuEGX0j0lFArLgf9ePbsb3jfGWCnGo3xqVYTAj/OW79gQnXjpVjjA3RFeQjtn0uEVnkLuH+69GVeJwk42+xf7YXO3LKqxdehYDp/ELGJAaJRAV1UJQE/kqoAgRk+MO1Gy5Pu2f6B3EvghTNvlxaqkThRdDsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fTQWBEmy; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788265324; c=relaxed/simple;
+	bh=jguE+jBNVdn2uoYwoeLueg6h98XsLE2+XBGA/50gzoU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lmFd/Jh7mW3LMu27LEK6uy11EmEfu6y2+zHnG4T9VeqMFsoxAgDNCgYSBGm5DSv4gTqtTTJUBPluRWeEF6fc/2cysiwwnHqrR0sdse1eMJHiCMKDimMKHN0mrbyaRRRXXSEwG6kxx+jmZRJ0p53FZNufUr/YDCdIHMZttu/J6+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=wIYwJysD; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fTQWBEmy"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D8F351756;
-	Tue,  1 Sep 2026 05:21:51 -0700 (PDT)
-Received: from [192.168.178.6] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 68BBE3F85F;
-	Tue,  1 Sep 2026 05:21:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788265315; bh=GTAV1btrciy8QWORbwi47W3ulx/1ZieXdXfDbZrZxsk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fTQWBEmyPuLjDIFIOCsXXBnQ6v5dqPWKi5VUWTFfbkkypETbpDop7Xbd0kaRH7EON
-	 /M7epJ8PP7scyLzzpTqJSvL6JOuikn59kEtFuQqudt4R8rEQinSRDadvhPXOKsqu6F
-	 9/2xo6l5xY0mb4wZQFr8kq6RHiln9PGVi2UeGvJs=
-Message-ID: <3368b089-32ce-4521-ab19-e37c9f029b8b@arm.com>
-Date: Tue, 1 Sep 2026 14:21:40 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="wIYwJysD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=HdWnpN5iGKqOjiVIG1o47AbqSjEI69XYYtz2Z3ole4A=; b=wIYwJysDRjxZNe5mlKoAshLsC2
+	PGC67MswfnqliG2iCZ95UIO8R4sNNbOsVYb46auguwyTiUI0Da3FoVY+EyrkoWI1XybrcrkBovnn0
+	9DD6ZjySSPtjJpRsFLjXVEOFyD2MbWsA58IFoADS8g+uup2dUBBEHh6frpxKs2hss8h8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x1NUu-002Lya-1S; Tue, 01 Sep 2026 14:21:52 +0200
+Date: Tue, 1 Sep 2026 14:21:52 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Russell King <linux@armlinux.org.uk>, thomas.petazzoni@bootlin.com,
+	Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH net-next 2/2] net: stmmac: dwmac4: Use the full perfect
+ filter ability for UC filter
+Message-ID: <c7819431-d33d-4e9c-ab36-be55b94d29f4@lunn.ch>
+References: <20260831070121.349778-1-maxime.chevallier@bootlin.com>
+ <20260831070121.349778-3-maxime.chevallier@bootlin.com>
+ <285c8969-2f0d-46de-b098-60ff10f30cf6@lunn.ch>
+ <493afde2-8603-41e8-b6ce-f8e399c53275@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 05/12] sched/core: Try to use a preferred CPU in
- is_cpu_allowed
-To: Vincent Guittot <vincent.guittot@linaro.org>,
- Yury Norov <ynorov@nvidia.com>
-Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
- mingo@kernel.org, peterz@infradead.org, juri.lelli@redhat.com,
- yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
- corbet@lwn.net, meted@linux.ibm.com, tglx@kernel.org,
- gregkh@linuxfoundation.org, pbonzini@redhat.com, seanjc@google.com,
- vschneid@redhat.com, huschle@linux.ibm.com, rostedt@goodmis.org,
- maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com,
- chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org,
- arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com,
- tj@kernel.org, tommaso.cucinotta@gmail.com, maz@kernel.org,
- rafael@kernel.org, rdunlap@infradead.org, kernellwp@gmail.com,
- linux-doc@vger.kernel.org, jgross@suse.com, virtualization@lists.linux.dev,
- sunlightlinux@gmail.com
-References: <20260825103855.721013-1-sshegde@linux.ibm.com>
- <20260825103855.721013-6-sshegde@linux.ibm.com>
- <8262d2f9-9f2f-4821-8497-991d7c8448a3@arm.com> <apMziCV_8y0xeIBT@yury>
- <53035ba4-53ec-4907-93b8-c8b957d1fa61@linux.ibm.com>
- <CAKfTPtA5Bdw89hezn1wi_p0m0dJgJJ1GYg8H93PsvsMC4bVJxA@mail.gmail.com>
- <apWxmL_brfi4fa4z@yury>
- <CAKfTPtA4zmD=0Es2cXSHAodTZGLJPvv88s0_4QScp745PxFVMw@mail.gmail.com>
-Content-Language: en-GB
-From: Dietmar Eggemann <dietmar.eggemann@arm.com>
-In-Reply-To: <CAKfTPtA4zmD=0Es2cXSHAodTZGLJPvv88s0_4QScp745PxFVMw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <493afde2-8603-41e8-b6ce-f8e399c53275@bootlin.com>
 
-On 01.09.26 08:21, Vincent Guittot wrote:
-> On Mon, 31 Aug 2026 at 18:54, Yury Norov <ynorov@nvidia.com> wrote:
->>
->> On Mon, Aug 31, 2026 at 05:09:41PM +0200, Vincent Guittot wrote:
->>
->>>> Dietmar/Vincent,
->>>> Do you think it makes sense to enable the driver on ARM64 now?
->>>> Or you think it is better to delay it and once the feature is stable
->>>> ARM ecosystem can enable it?
->>>
->>> It's always better to support all arch by default, unless something is
->>> missing which is not the case here.
->>
->> ARM64 testing is obviously missed.
+On Tue, Sep 01, 2026 at 08:37:20AM +0200, Maxime Chevallier wrote:
+> Hi,
 > 
-> But the cpumask is already available not like if you need to create a new one
+> On 9/1/26 02:12, Andrew Lunn wrote:
+> > On Mon, Aug 31, 2026 at 09:01:20AM +0200, Maxime Chevallier wrote:
+> >> Contrary to dwmac1000 that gets its number of perfect filter entries
+> >> through the 'snps,perfect-filter-entries' property, dwmac4 allows
+> >> reading the filter size from the HW features registers.
+> > 
+> > Does dwmac4 take any notice of "snps,perfect-filter-entries"? Should
+> > it be marked deprecated?
+> 
+> It's only used on :
+> 
+>   "st,spear600-gmac"
+>   "snps,dwmac-3.50a"
+>   "snps,dwmac-3.70a"
+>   "snps,dwmac-3.72a"
+>   "snps,dwmac"
+> 
+> So, dwmac1000.
+> 
+> I'd say, we can definitely deprecate on IPs that don't match these.
+> 
+> Interestingly, there are _some_ dwmac4 devicetrees out there that use
+> this property. It achieves nothing, and even worse, doesn't match what
+> the HW reports :
+> 
+> In arch/riscv/boot/dts/starfive/jh7110.dtsi for example :
+> 
+> gmac1: ethernet@16040000 {                                            
+> 	compatible = "starfive,jh7110-dwmac", "snps,dwmac-5.20";
+> 	[...]
+> 	snps,perfect-filter-entries = <256>;
+> }
 
-IMHO, when testing the steal_governor on arm64 w/o
-`allow_mismatched_32bit_el0`, I wouldn't expect much difference in this
-respect compared to the architectures already tested.
+So another thing for the TODO list, extend the YAML description to
+make properties conditional on the IP core version, so the validator
+tools will pick this up.
 
-Also, AFAIK, `allow_mismatched_32bit_el0` was mainly relevant for
-Android devices up to Android 13 that supported 32-bit userspace, so I
-wouldn't expect it to be commonly enabled on recent devices.
-
-As Vincent pointed out, `task_cpu_possible_mask(p)` (which defaults to
-`cpu_possible_mask`) is already used in `kernel/sched/core.c` and
-`kernel/cgroup/cpuset.c` to support `allow_mismatched_32bit_el0`.
-
+	Andrew
