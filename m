@@ -1,135 +1,145 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F32146AF16;
-	Tue,  1 Sep 2026 07:39:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDE646AEF1
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:39:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248355; cv=none; b=WLDOmvvv/bhrgk4ckE2dm4Q4sPx71/CKtr81pWEk41gY9F7rwl2iQaa0MA+92FKOoMHDvuYScwbCsmUbwHQSkSBIsBns7Jsxu/jfVEGfM6YSrCaWkAXX4+PkaBSQNn7kR81UdTSkIGg1s8XdGeO4KaWqb+PH7RQKtuQgixiQqbA=
+	t=1788248400; cv=none; b=We+wFHihL70r4KsOoWkXmNBo6jolx0Hq1FWb+dXwaH+PSAXHfYIzsJkW7gn9mv67hqcC0ITRkaOKlQneAMOrIgPWrhyZOFtIW6hTNme+8ZNwOqOLUPXwL+tyBGqU6FRVn0gPh3Ha+dhCZoc5UpoTa3vDarj0HplgJO+SNb6t54k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248355; c=relaxed/simple;
-	bh=5dZXMTuVIB4/rqwu6qguosRA2gdca0Wy/7vnL6NSoxI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=md1Po3matZ4OW+J+ZEpOdG/J7W9oA9V0DHO991H/2xyCNg2zvZbyOkV4xmusKDTVdUJXrdEq05MmtbbN1dly/E9CugR9w/EG8hVS0AQsbfJN2iE06WpMjz8RDBmApgU6yEMaTOrYqMqkqWBH2kr5vdrR0oyS0bBaivkhv7X7N/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=VtE2Iu6v; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788248400; c=relaxed/simple;
+	bh=ehDE7RYYfCpdnswzW+7J85+kStX5HZj/6Uo3Dns6YP8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u3egYe+FeTNAUaAGFUlhqWX6+fC/TS5r3Zr2JZgTDutvULh0TfJrNJKcSzHLNgiXPcNQ4gnfcBDacivV1vKI8/SgtqNDS4XmUfK33SnGcxY6ZWs5PYkasoXsnaBFaZnknMwfbBbW31mUIXiHBC/Rp1jnQl9HVUC3D1XPgk8IYIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OkN5XOxk; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="VtE2Iu6v"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6817VmxK458568;
-	Tue, 1 Sep 2026 07:38:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=8fY/Dl2/758QW1rxNPqXXC5GnM3C1m
-	V2NhcBW5N/hzY=; b=VtE2Iu6vRlD48u8PHjVDsTvgegEBr/79jCKiybkRPJe7UN
-	HPVFeHIADAUPsnAIBXkfDFkK25itwdH477EP6Db8l4IVanDDZxPkBZ7PCLYDF7MB
-	ZOMcIljS5r5HKDJWRjEh8VXVaNos15k2cgXKefjBcj4rRdwPkE0yoezdBPIQjcw0
-	JpJSVUESF7fhvHDH91Pss94yKVAadhvE+jQp5yd62iIiS1QwDQRAJGIApP71EFTf
-	wELUrzuebzD+gYbjXDHXw6LOOnCnEYI19o39+SisAobiAY9xkpiqeYLG3EY/CSBn
-	sXmz5WtDwZpY0/r2TS2SyJBHz/Zkc5jf0ktSU6WQ==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbmuhpeew-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 07:38:52 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6817QH1c000869;
-	Tue, 1 Sep 2026 07:38:51 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcark2f88-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 07:38:51 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6817cnE342140150
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 1 Sep 2026 07:38:49 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3CBD020043;
-	Tue,  1 Sep 2026 07:38:49 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0204420040;
-	Tue,  1 Sep 2026 07:38:49 +0000 (GMT)
-Received: from osiris (unknown [9.224.76.185])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue,  1 Sep 2026 07:38:48 +0000 (GMT)
-Date: Tue, 1 Sep 2026 09:38:59 +0200
-From: Steffen Eiden <seiden@linux.ibm.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-        kvmarm@lists.linux.dev, Fuad Tabba <fuad.tabba@linux.dev>,
-        Joey Gouly <joey.gouly@arm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Zenghui Yu <yuzenghui@huawei.com>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-        Paolo Bonzini <pbonzini@redhat.com>,
-        Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: Return -EINVAL for an empty SMCCC filter
- range at base 0
-Message-ID: <20260901073859.185345-A-seiden@linux.ibm.com>
-References: <20260829054856.70549-1-kmehltretter@gmail.com>
- <20260829054856.70549-2-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OkN5XOxk"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so42965895e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:39:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788248397; x=1788853197; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aFV4yBSab23d+ZQcyN166yeywrzh3EvBwUi0GdjrM3I=;
+        b=OkN5XOxkn178Mt+tc9zfovUharsZ9AP3Jv1pjQJTOH/WRYlDe9bblk/3371ipG+ksB
+         xAldPxJpFFNUvNSVJ+rNZHKoqI8Pno/D/eF5Ya17OvWl49dawbRaU0UeSLe4bJmm6sQK
+         9kyfe4qUxfdHE2oHexCEYCRF8tmoKuB/ybArYorgEuraIUkKw0Voab4MhdoHAvz+kqFx
+         cWkOstEp4IfLoKfJ7mWiXvNAVM9RV+za7ArP5oC680G/yPFX1w7RELXikrdHlo+pNSVE
+         sz3DhFoXjD+5SuKB6xNgvPXHtNHIY4K1uUZHiwbYEIAatL6YjAbRnyvopzR08JzC3LBi
+         OBcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788248397; x=1788853197;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aFV4yBSab23d+ZQcyN166yeywrzh3EvBwUi0GdjrM3I=;
+        b=FzSm8ZFJdoTqM1T7GA7orBAcSeNTWNYPh9ak+OvX6AJ9uDTIFpDPPDGDHdS8uT6dt4
+         JeRawsof6skiA1V+uSfik2w3nJZ4i4ZmwHv7uWhLwvIqT89vs6STpoRjPglzxyXuyHoF
+         4fdhbAck1A6dAxeUYhmAkZFo9tztk3Uf0qOKZwlQMmgo3imI7me+mYktebwOrVqFIJ7X
+         u36Q1t9dGf/Ed2ECVwi4ueb4WQPio3CIRn8+LIaSIN2g6tZw9PhtDbhAdIZUL5TtD/bC
+         L6mGHn6eo6CJ+G9+oznyl4bRRGq9GkIDHC7MLB7GqiD6XwHLtRW7bJNEfOb4lW0HolWN
+         ymqA==
+X-Forwarded-Encrypted: i=1; AHgh+RrufIjjm9DmSlDrSvc1FL0UNOr+dSyF9ot62ALjKoxQF7ziiulj+XKESgphZ2GITAu/bGaT0MXzpz0Q/Vk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lx0eaeRxgWXAeK61+BPUFjviN3HZ6ehUW8UqLw4BaI8ALluumt
+	mXxuxp5AqVA55Eru+qO2sT7kj9IedzL1OwxrRaXYi/PFs6HBkwiJ3Mn2
+X-Gm-Gg: AR+sD13a61EDSDuT8tGIOhhD7ZALdjmH9vA0MujVIl/t8tQD7s6bZWZMNhQhHXabBeq
+	8K2VzkYtLdaPlkXMWBO4vBydEb9PftjSgVzsem89kYFMRRAYkH1ZhL1C8gEd3fwYxYZN+uykDnU
+	MjvbtFdcQfYnvivEy8FxXUzhCZEkRFwcojvsqiiBaBW6p9dKC3YRdXCPmsPdbkVJkFkXAQD9P8a
+	WLojiSwzuFuH1Ibt+9R05uomnw8HWxsjF2fUP9blVExwVQH1kmjSjkidNaQqq9riQq2k+r59r7j
+	luhuCiNEKRfo/jZrrLkd8cFLYBrYWW2KDFwdyqDb3TSfHtRqLho0xbwu+o0v6So+LNm4+hxWeZ8
+	o+47lHV76hgpjj4PqfKO/sBJw0o5iTkEUfZPHaqOdcpEKXBxl10t//kZhMTL7IYVZYQ0FuY/LZC
+	LRWrCWr1Sfk2YLwkihTCmmFnfSDQa/MrAGFUqk0Q8Y9V1CPQll0YXiEVrTJ05K1ic=
+X-Received: by 2002:a05:600c:1906:b0:499:9240:9a1c with SMTP id 5b1f17b1804b1-49cdc555496mr97428045e9.15.1788248396295;
+        Tue, 01 Sep 2026 00:39:56 -0700 (PDT)
+Received: from [172.31.2.29] ([5.2.194.157])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce1e1ebsm48703365e9.14.2026.09.01.00.39.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 00:39:55 -0700 (PDT)
+Message-ID: <65b703e7-e4a0-4046-9d35-7d0ff1057f96@gmail.com>
+Date: Tue, 1 Sep 2026 10:39:53 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260829054856.70549-2-kmehltretter@gmail.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: ZCbQ-ZklX7stda1AuCkPQ0Djjt_a0WKY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfX4h+TXCOEI7wH
- 6eMfhCl9yIVObK3BCrNHD8Dq3qA3ZMS/VYvCRHiJftV4ivux8cMKSQfM92VTBM9XfXw3PmxqFNh
- 9OTN9SgrFiyzSNKVKBmZQwyaJEU1aJmlrNpYpjbcYTC+RtkDGKeVc9YQb9alJ3jlq/OhHgov1uV
- JX30A0+5iKSHW0PB6rGEkJGZTI/7vGzNAVe3pr31cENAs+mjp9eQ6qUEJ9EV3ezAHEB79sQ58Y9
- nJ5YwZGiqaGAWTxYGyWT6R9F6OKuMB9e0fnyZMIEbtUjBbV8UoTAPDcecO6siPiNJ9gBLHbFoDs
- O7vd0JCz9y8jF5x+LHatF7wO03UuBCd2SnD7m6JEV5zYZD82drlk8SZD8sPtMcGJteuByBxvocw
- vIArUz59EW6PIbbEWkY4nWUN6wdufOT1SrLKPZWhZx1odnRqyito0KZSb+SkDigDpDaCZsUgAYX
- WMfgJ6x3bko8mOt7fuw==
-X-Authority-Analysis: v=2.4 cv=Osl/DS/t c=1 sm=1 tr=0 ts=6a96810c cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=pGLkceISAAAA:8
- a=VnNF1IyMAAAA:8 a=sTVcf0stEawvOQYPuTgA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfXy4lZ/J7YpckL
- K0SY6MkUpi5sUw7oztTXtF2gTI3R/neK7rxtxiz60RLfyOvT9Nf0r+CbEwZfrLb399CxCRuQ3Y3
- sM+IqxmBNeFFM3kYX5eDNYok2nAILFA=
-X-Proofpoint-ORIG-GUID: GL9tonZEYnwAQvDdc17GjcJN60W2-KOG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 phishscore=0 clxscore=1011 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010066
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+To: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ dumitru.ceclan@analog.com
+Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-gpio@vger.kernel.org, Martin Hecht <Martin.Hecht@avnet.eu>,
+ Andrian Suciu <Adrian.Suciu@analog.com>,
+ Cosmin Tanislav <demonsingur@gmail.com>,
+ Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
+References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
+ <20260831170303.GB1116206@ragnatech.se>
+Content-Language: en-US
+From: Ceclan Dumitru <mitrutzceclan@gmail.com>
+In-Reply-To: <20260831170303.GB1116206@ragnatech.se>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 29, 2026 at 07:48:55AM +0200, Karl Mehltretter wrote:
-> kvm_smccc_set_filter() only rejects a range if its inclusive end,
-> base + nr_functions - 1, is below base. That catches an empty range
-> (nr_functions == 0) at every nonzero base, but at base 0 the end wraps
-> to U32_MAX and KVM tries to insert [0, U32_MAX], which overlaps the
-> reserved Arm Architecture Calls ranges. KVM_ARM_VM_SMCCC_FILTER then
-> returns -EEXIST instead of the -EINVAL that the smccc_filter selftest
-> expects for an empty range.
+
+
+On 8/31/26 8:03 PM, Niklas Söderlund wrote:
+> Hello,
 > 
-> Reject a zero function count explicitly.
+> Thanks for  your continued effort pushing this work forward!
 > 
-> Tested with a userspace reproducer on an arm64 VHE host under QEMU TCG:
-> EEXIST before, EINVAL after.
+> On 2026-08-31 16:21:19 +0300, Dumitru Ceclan via B4 Relay wrote:
+>> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
+>> replacing the few GMSL2 drivers already in upstream, and introducing a
+>> common framework that can be used to implement such GMSL chips, which
+>> avoids code duplication while also adding support for previously
+>> unsupported features.
+>>
+>> While the normally acceptable and polite way would be to extend the
+>> current mainline drivers, the choice was made here to add a totally new
+>> set of drivers. The current drivers support only a small subset of the
+>> possible features, and only a few devices, so the end result after
+>> extending them would in any case be essentially fully rewritten, new
+>> drivers.
+>>
+>> This series depends on support for internal pads, for which a patch has
+>> been added.
 > 
-> Fixes: 821d935c87bc ("KVM: arm64: Introduce support for userspace SMCCC filtering")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> It also depends on enabling the streams API right? At least I need to do 
+> so to be able to use the TPG. Out of curiosity do you know the plan to 
+> enable it by default upstream?
+> 
 
-Good catch.
+I do not know when default enable is planned, but series could make it
+so VIDEO_MAXIM_SERDES selection causes v4l2_subdev_enable_streams_api=1.
+  I am not sure that such a hack would be acceptable by Sakari or
+upstream in general.
 
-Reviewed-by: Steffen Eiden <seiden@linux.ibm.com>
-
-FWIW: Tested it on my downstream version of arm-on-s390 with hypercalls
-already implemented. 
+>> The drivers have been tested on the following hardware combinations, 
+>> but
+>> further testing is welcome to ensure no / minimal breakage:
+>> * Raspberry Pi 5 + MAX9296A + 2xMAX96717 + 2xIMX219
+>> * Raspberry Pi 5 + MAX96714 + 1xMAX96717 + 1xIMX219
+>> * Raspberry Pi 5 + MAX96716A + 2xMAX96717 + 2xIMX219
+>> * Raspberry Pi 5 + MAX96712 + 4xMAX96717 + 4xIMX219
+>> * Raspberry Pi 5 + MAX96724 + 4xMAX96717 + 4xIMX219
+>> * Raspberry Pi 5 + MAX96792A + 1xMAX96793 + 1xMAX96717 + 2xIMX219
+>> * Raspberry Pi 5 + MAX96792A + 2xMAX96717 + 2xIMX219
+>> * Renesas V4H + MAX96712 + 2xMAX96717 + 2xIMX219
+> 
+> I tested the TPG on Renesas V3U + MAX96712 and it works as just as good 
+> or better then the staging driver this work makes obsolete.
+> 
