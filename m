@@ -1,123 +1,137 @@
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96473C10A2
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271567; cv=pass; b=o7UsbuVdQxXaqhvYpgsy1Ym/YZ7pHIwEcIn3FBRG2q5HzQgRE3/RYBmEmaIMJl1ipbEBpp/waAtHX/Y+h4hwqranAu5KCYROHlZgev0ojM4Lp3MBxeER+ha+1y0c0dZmzvYNwOCM6OQ2NdATTVBOtKAcnii2kDH8Dub7quySx+8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788271567; c=relaxed/simple;
-	bh=4q6iuHKZ/050PNB6y0beFVr46SQsOfuApu0ccHHkTuY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Jfz6IN5cOsz9fwctxwBF29P65T1FbR3fHLCp8QK25v1gtYWLT4k5CDTWhKiVo7pEJoFrDAQCZEQJsn9okOTpbmQyPBlB/OAfDslUhJXfhLhnSEqV72NUeP9cKjED5Ck9A2uEf0st+7MAUH8mxyzsqlt3TFKj0cQMUbyXL9l7lwQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=AJkfkWHF; arc=pass smtp.client-ip=209.85.217.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8768406269
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:06:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788271571; cv=none; b=rsOumdniTsGyEINmoicg+4Jv8gTdIZA0Qkov7cTJK51Lhlqx6iD4oHfrjmP09wEuilV3DAq3bTRDXy76SkTfrsXSshL8h6/lMZMdFRXMOv/jS63u6RBvtjkMkNOm8dabbCJlOcIfGc3k6mCf6iZHPzVLjHLSf3pZiqhmly2BKvw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788271571; c=relaxed/simple;
+	bh=SgwD3wWY96UMdD/fOd5W3tOGifSkfDvuwVKz8MZDNjQ=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 Mime-Version:Content-Type; b=UhTQDiynWi2J9jhw+Vdn7+m4WqXbzuOneGtj1NvyiMBX47ndNpi1gu2W3BJCc9ZYYDwJQOyBt3CIXiQcU61GgMTNAP+70EcxcZen/0RwaOrrP+KzGhN5pQQKyGWpDmLKOqwfEqQQVnmhRnyIuEXVY7rNwqnl9x3nt84bUaylAqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K9uQRAn+; arc=none smtp.client-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="AJkfkWHF"
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7466771f1caso268644137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:06:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788271564; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mS4OgU1TTgbYVgB7XCeLczeZSh+QHs1BM74km1smwYDEVp7rmctEi4m0wWLL+4lMhI
-         aHD6umMO9cyyYH6UiqjOB7HoZEsJyOrMJEaeS/brVpFgucKALqmoPawC2qyMtR1SEyQk
-         +VkbmZGufnpCB6eE5nsodx/xdXnuvcYdjJo/chJdq7cJs5U/E+cKIVTrH/12xOdWko6O
-         A4CgTS5+cOv3n37RNzOcP69HR3prOAXXpYO3PDBz6T7FYKDtgwZ87A9ddZ69XoZq43ku
-         dKBACLThLDwBz17ENtoc+3nz0XgyFYJc1rC0aXto5YRtaAUg3V0N4dOydihmHoftZlZK
-         wxEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hoBjSKSvVy1UEYsxbY/vRWyWBXYVCJ0DS+nH66eBBn4=;
-        fh=rOvTuGzqWiz3r3rR8gLAa0fOflPKOscpLdA0oo0T+3w=;
-        b=ERgaBmMqP2XnitGV0UbI9bkEWN6h8v8bXc0iH310YXnisCKqc89A69q9XFkh6ZeFAE
-         w+pQ401VmdRYJ82GspE/LEydHsIyfATzLK3wgq+aQib+vAL0uJ7iTNcPbL5bcuqbnUlH
-         HIAbGJprJugfcp4A9/U5ZCPU6k1DoJjaWGGIlP3IHY0Uc3PHr7tftW/xlqVkIhMx4hP0
-         P7x0HAiVC32p/oCXhLM6S5OhSqCUDAoiMkpRoAF5pl5wJr7IZRDmt27wefExHghdUyvY
-         7TizVJoNfBU9bClwh/0S+MxGF7/AEKMTVO0aqURqfPy1IKvi9cjHL/TRvpta1OunmrLf
-         5Q4Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K9uQRAn+"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-81f3b227a4aso12056177b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:06:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bynar.io; s=google; t=1788271564; x=1788876364; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hoBjSKSvVy1UEYsxbY/vRWyWBXYVCJ0DS+nH66eBBn4=;
-        b=AJkfkWHFgouF1QLMw4p9x41XAUYQKXUJL6PS9Mxs9uzWanuHafqwN+S4ZQloiAiPQA
-         U7afngQ+LPJd9mTCzKCmJgPgrT5S8zX0OrV3IjJrpjqXCxW/z8sUe48A+YSeP9YNFjUu
-         D3eZyurtL1w0/Hd4CSP1CBCWA4PpdWy5nVs+gp2z81M/QahGpoknp5tRrjabEtFesKci
-         OfQ2VIhC2f3lKJXCwcaA/Ugo+VMNLOezXTCLEYhzs1eDjD+6MSPl2Sj9omXmQ1HIEjH1
-         /c0h25tF65tNtMqo0nbC+dV/oE9xcGwR0NlElIRCWwvU73CnyyG+8FyAbyBN1+s1imAL
-         kRuA==
+        d=gmail.com; s=20251104; t=1788271569; x=1788876369; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5lSbV3WqhosfQnjNgDrl2jnEdo6wDJR4cvwjRytfZyc=;
+        b=K9uQRAn+k71QtZNvSzsBKx7/DCfdJCKMWGVIWixYKN+FmYxGQJn1oamJ6mbUQVcNKN
+         DozhuVA2pm80fKADaD2BEk93PRLCCLfwnSRCoreU8dOde9BcJaPWH0wWRIrrqnwX0sNW
+         qNtb7yt3/lfCcmdznN7y7rXgC86kz7TID5MKpCih8KALdeA8/Fbr9Kn0BW5GWI4iDOy6
+         oqvd0Sd+qVYUxLY28SEA0xn9rWmIkZ97a18ybuXWqy+1RNxM/6VWz5qgqxv4AYNLPUFJ
+         TroAbKUuWLryMnvh4/t/Dccf62saFgQtih+xs4+KsFDlkxQn7ARYmwQ9bAUWQKuP5dP6
+         3vaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788271564; x=1788876364;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788271569; x=1788876369;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hoBjSKSvVy1UEYsxbY/vRWyWBXYVCJ0DS+nH66eBBn4=;
-        b=CDM/kmEZ6ouARYH0918MDCqu3yy4FQ6YH9wP48NrJvxZmrHQF4yo8CQDdup1ZQRtFu
-         t4bVzzHtRWba/5/pk60H+rty3Pz0z42nObiVHsB+it7PA8qs19zfxivHfbCps2ubioSO
-         WtU2x3PWFPO7a8XqveSWJusrgIwdqXE/EaVO5rgWu7D7uq/xCh478N0r4eQNFxS0ZXPu
-         VUb0zSZdLw865uGjVbjloXKGYagx4npFgwazyGx1aZ1WjUrZ2AE5F7Y+6BuLHFYA98HX
-         EHmCRdMPHTu7D4/k86ibxTjRYDDntpseS6vk4u5rZrzZNo4PGq0rm+qEjVpEoVnciEvm
-         WZTQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrA6gddRC/jrLxFiW9mckR3JpBXB+TMQL6G4dYQ/RhNgsTxiLqeRER5QnzHy5xWye3aEBPlIsLBtDYh8hA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mI2j50N5yv2nvxcjczQxaxprXyc8U324RJQdLEfEyO67Yfn4VW
-	MC8sSvtiYEP9G+7NWeo8v0sYErRUyQL0agxdOEf58LTispDrF+vTdsj915Ws27uI3181CM7gItW
-	hpxKxGWil/gtY3XVJ6ohtggOulu69IQkEu0VL6ZzoDsY=
-X-Gm-Gg: AR+sD12FzqFQk0zdTK+bZ4yVGX5tuH2A3xKkCheYDr4r7q+WeSeU0PFW3D1GOFOy9WN
-	Xz6D+74fmOoq9KpYU0fQSH8zh1lmMgh4uxNiYVMqsDSa2v+HT3PcgMtzXfg3miCtQTP+2GdLeMl
-	DepRZItb09FfywVrtiz2jOLo+YMScwkyo8F1QT3of+q8OC6AIGpCRi9gCi+yqsh23GjhPjKLZi9
-	vgUZG6FUnr/jNWqStOkFAyLZBPCwXTSN7I2E9c9dSuI9mJLylfFp7uUyrOJ//7BG8wexmVOzgkL
-	UBxL4ZCjKdhT3twS9pyFKnemPJ4dVMDWb1QKTEfSKA==
-X-Received: by 2002:a05:6102:418b:b0:778:721:53db with SMTP id
- ada2fe7eead31-7859426191emr10137186137.0.1788271564295; Tue, 01 Sep 2026
- 07:06:04 -0700 (PDT)
+        bh=5lSbV3WqhosfQnjNgDrl2jnEdo6wDJR4cvwjRytfZyc=;
+        b=Ri+EgflMROSnK8SD6P9CKGRrVNFFsc5u0jxzu4yWds+zm1thuXNV87IF6Fby0rjYzg
+         qFe059IcIyMD8cu9q8vXZY1v+vQCrvmZAv7w9c/6YRzZke+MaiXYyEUbpKF3uaoEYua+
+         WJ862aeb+iv10k4+6SEEt3sCeWMwDBflZNw5S/0KkSMP6hNTlOIYGHlN4aaiWY8okz+q
+         ZTiiakgV+tJAI+hn4Iz0+Jfjz2H2p/A5OQof/1CMe94d68aQ4WyBBEAhw3jDZr/Onxm7
+         yvg3NoAdl6lNdFuIH1PIfKUSWphRve//ZfYYrcbjBIgmrjqFQSqejqcc4lA0Jyxv/eCx
+         wDbQ==
+X-Forwarded-Encrypted: i=1; AKwUvByvxEnew5KAVbtJmmu0m6GdCPoio5BDj6sKQdc0xCwnKb00Z/MKml/6gBN6hhM6GJEKqfrBkLj+uenbpd0=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9ejiWKCgy7swf3OQOuyB+exwY7Kabj9WMf5s+wpGE0RU03YzQ
+	tjXaATmWG4DRIKFSSh6cizUtK4JeJ6aiRdADE+R9n8QREGqzibpF+C7q
+X-Gm-Gg: AYBFou3D8dSfi1NpCHKq+hUeeNVBQyYllJZ140wXuyarypEo6Xb1Kta56jv/HmC56hp
+	3F7ruKntuyPLFFSKrayH3POLd5UFz0hut9pmLZzOqnBvNLbnjkxiVUQco4arhXSwetvJ/5y07x1
+	2Liwjc4zjb+T6aq2YM0z9x0kkpiDo8SYkXIDo/Cyj7KTVmGj70e/LikxtPt3P5Mpyl+Wtowng60
+	LLd7C6mVMsaNBW0KPnar7IDMYVOC4PVroS3diUOR9RcoEIRw9yfYuxMgLbBdK/GhLSjVlnVNqQS
+	WUxXr/m1UCOAlUJmK2RO4psOuxg01/5WNqNySKj6UIv8x+I14Z2Tq3ZrMIkCstoe7cZR2R+uEzK
+	qUxZ01AdjcecSgJRXDSqUc1co4FeE8lKmUKNMdHe5eEbJXoAy2BEWZSRUNYmzi379l2xbpIxJ1o
+	TncUXtL09CxRFUzE2u2QsY+yFC38vInS8D3Ybh0oEtKSrPX5KIAt7Mu0y2yARm8zzcTPTgcE7km
+	MRU7lvrqm81rRILKmEHeV1tLZ5iygFBgyXEdG/1gw==
+X-Received: by 2002:a05:690c:e3c4:b0:854:5db3:4ed0 with SMTP id 00721157ae682-85d6f3dd5aamr124890337b3.31.1788271568230;
+        Tue, 01 Sep 2026 07:06:08 -0700 (PDT)
+Received: from gmail.com (234.207.85.34.bc.googleusercontent.com. [34.85.207.234])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e679512easm74673717b3.48.2026.09.01.07.06.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 07:06:07 -0700 (PDT)
+Date: Tue, 01 Sep 2026 10:06:06 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Junnan Zhang <zhangjn_dev@163.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ "David S . Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, 
+ "Michael S . Tsirkin" <mst@redhat.com>, 
+ Hangbin Liu <liuhangbin@gmail.com>, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ zhangjn_dev@163.com, 
+ Junnan Zhang <zhangjn11@chinatelecom.cn>, 
+ Shouxin Sun <sunshx@chinatelecom.cn>
+Message-ID: <willemdebruijn.kernel.2ca4f939269a3@gmail.com>
+In-Reply-To: <20260901074214.57717-1-zhangjn_dev@163.com>
+References: <20260901074214.57717-1-zhangjn_dev@163.com>
+Subject: Re: [PATCH net v3] net/packet: fix network header offset for non-VLAN
+ raw packets on VLAN subinterfaces
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260828150203.1419003-1-diego@bynar.io> <20260831125045.479576-1-diego@bynar.io>
- <0abfb2d2f99e54aceac4cea63947b65a@manguebit.org>
-In-Reply-To: <0abfb2d2f99e54aceac4cea63947b65a@manguebit.org>
-From: Diego Oliva <diego@bynar.io>
-Date: Tue, 1 Sep 2026 15:05:52 +0100
-X-Gm-Features: AcwNN1WU18vieHng4ytPQGO18uS5XIOEm5pHMhikRsNphUH1T23WWbWetU5SBiQ
-Message-ID: <CAExJZk2r1wycZPrkvmFpUBM+3vyOBpj4+FAqs0uZ-ZUx5a_jcw@mail.gmail.com>
-Subject: Re: [PATCH v2] smb: client: reject out-of-bounds DataOffset in CIFSSMBRead()
-To: Paulo Alcantara <pc@manguebit.org>
-Cc: Namjae Jeon <linkinjeon@kernel.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
-	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
-	Bharath SM <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org, 
-	samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 31, 2026 at 11:15=E2=80=AFPM Paulo Alcantara <pc@manguebit.org>=
- wrote:
+Junnan Zhang wrote:
+> AF_PACKET SOCK_RAW sets skb network_header to dev->hard_header_len in
+> packet_snd(). On VLAN subinterfaces with software tag insertion,
+> hard_header_len includes space for the VLAN tag (ETH_HLEN + VLAN_HLEN =
+> 18) while min_header_len is the on-wire Ethernet header length
+> (ETH_HLEN = 14). A non-VLAN SOCK_RAW frame carries a standard 14-byte
+> Ethernet header, so its L3 header sits at min_header_len, not
+> hard_header_len.
+> 
+> packet_parse_headers() only corrects network_header for VLAN-tagged
+> frames. For non-VLAN frames it leaves network_header at hard_header_len,
+> so the IP header is found VLAN_HLEN bytes too late and
+> inet_gso_segment() fails with -EINVAL.
+> 
+> Observed on a virtio_net NIC (KVM guest) that advertises
+> NETIF_F_HW_VLAN_CTAG_FILTER but not NETIF_F_HW_VLAN_CTAG_TX, so VLAN
+> subinterfaces use software tag insertion (hard_header_len = 18). An
+> AF_PACKET SOCK_RAW socket bound to the VLAN subinterface with
+> PACKET_VNET_HDR enabled sends a large IPv4/TCP frame exceeding the path
+> MTU, with gso_type set in the virtio-net header. The user frame is a
+> plain [ethhdr][IP...] layout without a VLAN tag;
+> vlan_dev_hard_start_xmit() only attaches the tag metadata via
+> __vlan_hwaccel_put_tag(), and validate_xmit_vlan() on the physical
+> device later inserts the actual tag bytes via
+> __vlan_hwaccel_push_inside(). With network_header stuck at 18 while the
+> real IP header is at ETH_HLEN (14), inet_gso_segment() reads a
+> misaligned ip_hdr(skb) and returns -EINVAL.
+> 
+> For non-VLAN SOCK_RAW frames on VLAN subinterfaces, set network_header
+> to min_header_len so that the L3/L4 header positions match the actual
+> on-the-wire frame.
+> 
+> This fix is placed before skb_probe_transport_header() so that both the
+> transport header probe (which uses skb_network_offset() as nhoff) and
+> subsequent GSO see the right L3/L4 offsets. It complements
+> commit 01fdecc0480d ("net: packet: fix wrong transport_header when sending VLAN-tagged frame")
+> which only covers VLAN-tagged frames.
+> 
+> Fixes: dfed913e8b55 ("net/af_packet: add VLAN support for AF_PACKET SOCK_RAW GSO")
+> Signed-off-by: Junnan Zhang <zhangjn11@chinatelecom.cn>
+> Signed-off-by: Shouxin Sun <sunshx@chinatelecom.cn>
+> Signed-off-by: Junnan Zhang <zhangjn_dev@163.com>
 
-> Shouldn't you also validate the minimum response size so that you can
-> safely dereference the above fields?  E.g.,
->
-> if (rsp_iov.iov_len < tcon->ses->server->read_rsp_size) {
->         rc =3D smb_EIO(...);
->         *nbytes =3D 0;
-> } else {
->         unsigned int data_length =3D le16_to_cpu(pSMBr->DataLengthHigh);
->         ...
-> }
-
-I've reproduced the scenario you referenced and confirmed an
-additional check is needed.
-
-> @data_length is now unsigned, so use '%u' instead.  Also, print __func__
-> in cifs_dbg().
-
-Will do.
-
-Thanks for your time!
+Reviewed-by: Willem de Bruijn <willemb@google.com>
