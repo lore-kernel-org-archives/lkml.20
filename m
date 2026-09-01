@@ -1,29 +1,29 @@
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DBD44485505;
-	Tue,  1 Sep 2026 16:57:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 95C69485CC4;
+	Tue,  1 Sep 2026 16:57:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788281855; cv=none; b=jyK9kVh/YvGu5RaZdFgefPfiTODq1kg3/FEQZ0qh27ytOsyRFJbS8A9j8nq8C/eJwRkUJ3FGfIwa7kRToYS/1Cg/iMUFdJTK0dm78VWcKMoXScQud3sIC+232hbO5sZJN9gR8if3yJdc7SBSKAKmWlmj6YYl5eCipI3M65diL6Y=
+	t=1788281856; cv=none; b=Hya2gG0Mm15zcy7AxHY/eHpcVh+q2kXwP/mR3JsWYCdulqFqzT8niiT1pGPxecq/7h1LPhKwByZumKW6hYPRSVgXrNe2DABX8bKIPccsc+W0s2LG5PZkbV2v/7hjBI15sHVOo9CCH60+8L4GGybFQcsLmcdVj21Ufl9CDbsvGYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788281855; c=relaxed/simple;
-	bh=ziuWZRHDWh2PU3/BB3TR4+/uqBnepWg0Ao5P6VoLQgI=;
+	s=arc-20240116; t=1788281856; c=relaxed/simple;
+	bh=AqlGXiVXf37eh22vHSTx9JaWG/V6ubR35mhahPGPQBM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q2FBGqJtzzNJCQBF7dHLzNHzDzIWsZ1eHllfQpLOpe861V1WG4rL1B4vyTdhBmJU7VydBL9gnKhz4bVCdZ6b3Rmi8aCYHHeX9okeHM/TB/V78DOR0X1nZHKX8h9O43fD5BiVFCNg59CiooZSD6uPiyg1Prag0hUqbgDXyUaxWm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=HGjFoByZ; arc=none smtp.client-ip=13.77.154.182
+	 MIME-Version; b=RCF6PWpQ+hXLyxM9d0y+zz7jBcqCgSSdUJvduHeUxhXfgK9btRrgp1p914uzbQm+sSlmHJCMvNsRJuCtoY6l1R0ItbS8iLw3LFuKAM7fUShO0/TPEdto2HpzbBqQ2M6AAVoQYrDeFqScc0ONcRqbe4vdEI7ffWDI32I9brz0aJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=WX8y3hoB; arc=none smtp.client-ip=13.77.154.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="HGjFoByZ"
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="WX8y3hoB"
 Received: by linux.microsoft.com (Postfix, from userid 1130)
-	id 0C2EC20B713B; Tue,  1 Sep 2026 09:56:54 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0C2EC20B713B
+	id 4E7F520B703B; Tue,  1 Sep 2026 09:56:55 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4E7F520B703B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1788281815;
-	bh=PyfYnkH7UX4a6l5GYM+ronzmhwCwStnMtn2lvCR7eAo=;
+	bh=Pnx8Bj8E6wa9z9v4waAAekvlC25njxpIEY0WH/R0iXY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=HGjFoByZUo1tYxbGkGVnOWikojULOmwtFj71D5WPTpV8AmwrVzx72KSoq5FKdx9vi
-	 1j2OuH7Qbq9ndac+AzEmYG1yedhTEnatx4zL/ACXTmkEa2KeMi2+FaLids0c8mt7Cw
-	 EctTiu2q46rGnNDkPBOQnzToYq+VrdgrnsPSnhUQ=
+	b=WX8y3hoBoGyybXNeAFKK+e/bkxFiPQ1o+ld/V9sMIm3//6oWYQPfpsRuS0uCZwu+n
+	 bE6V3bvgRkADF2qA0orsEWApO0QyM005HzYejVGds1mJji4i/k5ylIz4gKvfQzTh3w
+	 Droee3zX8Sp0VncsDb586EPDsfebMXHZrvbBy3yU=
 From: Thara Gopinath <tgopinath@linux.microsoft.com>
 To: kys@microsoft.com,
 	haiyangz@microsoft.com,
@@ -42,11 +42,10 @@ Cc: James.Bottomley@HansenPartnership.com,
 	tgopinath@microsoft.com, x86@kernel.org,
 	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-efi@vger.kernel.org,
-	Thara Gopinath <tgopinath@linux.microsoft.com>,
-	Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
-Subject: [RFC PATCH 07/12] drivers: hv: hv_vsm_boot: load secure kernel image from firmware
-Date: Tue,  1 Sep 2026 09:55:21 -0700
-Message-ID: <20260901165647.3160413-8-tgopinath@linux.microsoft.com>
+	Thara Gopinath <tgopinath@linux.microsoft.com>
+Subject: [RFC PATCH 12/12] drivers: hv: hv_vsm_boot: Boot secondary processors in VTL1
+Date: Tue,  1 Sep 2026 09:55:26 -0700
+Message-ID: <20260901165647.3160413-13-tgopinath@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
 References: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
@@ -58,336 +57,204 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-LVBS bring-up requires loading a secure kernel image into VTL1 before
-starting it. Add the VTL0-side loader that stages the image in the
-memory region reserved by hv_vsm_securekernel, in preparation for the
-VTL1 bring-up.
+The next step after the primary CPU is running in VTL1 is to boot
+the remaining CPUs in VTL1, so the secure kernel executes on every
+VP rather than only VP0. Hyper-V does not drive this: VTL1 needs to
+know which APs to expect, and each AP must issue its own vtlcall
+from VTL0 to actually transition.
 
-The image is a 64-bit ELF fetched via request_firmware("vsm_sk"). It
-is expected to ship inside the signed UKI/initramfs so it is
-authenticated end-to-end via Secure Boot before the loader consumes
-it; sourcing it from an unauthenticated location would break the LVBS
-trust model.
+As on the boot CPU, VTL1 must be enabled at each VP and its initial
+VP context (RIP, GDT, page tables, etc.) built before that VP can
+enter VTL1. This can only be done from VTL1 for non boot CPus.
+Introduce VSM_VTL_CALL_FUNC_ID_BOOT_APS, a vtlcall the boot cpu issues
+from VTL0, which asks the secure kernel to enable VTL1 and set up the
+initial VP context for each AP in the supplied online-CPU mask.
+The mask is handed to VTL1 via a shared page whose PFN is passed in
+the vtlcall arguments; VTL1 copies it synchronously so the page can be
+freed as soon as the call returns.
 
-The loader validates the ELF header, stages the PT_LOAD segments into
-the reserved region and records the entry point as a physical address
-for use at VTL1 start time.
+Once VTL1 has prepared the APs, bring them into VTL1 one at a time
+using a CPU-bound FIFO kthread and a completion. Serialising this
+way keeps VTL1 entries ordered and lets a per-AP failure be
+surfaced synchronously to the caller. Uniprocessor systems skip AP
+bring-up entirely.
 
-If VSM support has been advertised to the hypervisor but no secure
-kernel region was reserved on the command line, panic: LVBS bring-up
-is committed at this point and there is no safe way to continue.
-
-Signed-off-by: Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
 Signed-off-by: Thara Gopinath <tgopinath@linux.microsoft.com>
 ---
- drivers/hv/hv_vsm.h      |  17 ++++
- drivers/hv/hv_vsm_boot.c | 201 ++++++++++++++++++++++++++++++++++++++-
- include/hyperv/vsm.h     |  21 ++++
- 3 files changed, 238 insertions(+), 1 deletion(-)
- create mode 100644 drivers/hv/hv_vsm.h
- create mode 100644 include/hyperv/vsm.h
+ drivers/hv/hv_vsm.h      |   2 +
+ drivers/hv/hv_vsm_boot.c | 125 ++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 126 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/hv/hv_vsm.h b/drivers/hv/hv_vsm.h
-new file mode 100644
-index 0000000000000..88f099f88eeb4
---- /dev/null
+index 88f099f88eeb4..679cb9dc9afda 100644
+--- a/drivers/hv/hv_vsm.h
 +++ b/drivers/hv/hv_vsm.h
-@@ -0,0 +1,17 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (c) 2023-2026, Microsoft Corporation.
-+ *
-+ * Author: Thara Gopinath <tgopinath@linux.microsoft.com>
-+ *
-+ */
+@@ -12,6 +12,8 @@
+ #include <linux/ioport.h>
+ #include <linux/types.h>
+ 
++#define VSM_VTL_CALL_FUNC_ID_BOOT_APS		0x1FFE1
 +
-+#ifndef _HV_VSM_H
-+#define _HV_VSM_H
-+
-+#include <linux/ioport.h>
-+#include <linux/types.h>
-+
-+extern struct resource sk_res;
-+
-+#endif /* _HV_VSM_H */
+ extern struct resource sk_res;
+ 
+ #endif /* _HV_VSM_H */
 diff --git a/drivers/hv/hv_vsm_boot.c b/drivers/hv/hv_vsm_boot.c
-index 99e4dc8695837..dc20f935da5b2 100644
+index c4f15c42df1f6..ad161b2f56653 100644
 --- a/drivers/hv/hv_vsm_boot.c
 +++ b/drivers/hv/hv_vsm_boot.c
-@@ -6,6 +6,7 @@
-  * Copyright (c) 2023-2025, Microsoft Corporation.
-  *
-  * Author: Thara Gopinath <tgopinath@linux.microsoft.com>
-+ *         Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
-  *
-  */
- 
-@@ -13,10 +14,26 @@
- 
- #include <linux/hyperv.h>
- #include <linux/cpumask.h>
-+#include <linux/namei.h>
-+#include <linux/acpi.h>
-+#include <linux/firmware.h>
-+#include <hyperv/vsm.h>
-+#include <asm/e820/types.h>
+@@ -17,6 +17,7 @@
+ #include <linux/namei.h>
+ #include <linux/acpi.h>
+ #include <linux/firmware.h>
++#include <linux/kthread.h>
+ #include <hyperv/vsm.h>
+ #include <asm/e820/types.h>
  #include <asm/mshyperv.h>
- #include "mshv.h"
-+#include "hv_vsm.h"
- 
- #define HV_VTL1_ENABLE_BIT	BIT(1)
-+/*
-+ * Firmware name looked up via request_firmware() under /lib/firmware/.
-+ *
-+ * The secure kernel image is expected to be delivered inside the signed
-+ * UKI/initramfs so that it is authenticated end-to-end via Secure Boot
-+ * before request_firmware() returns it.
-+ */
-+#define SK_FW_NAME		"vsm_sk"
-+
-+static void *vsm_skm_va;
- 
- static int hv_vsm_get_register(u32 reg_name, u64 *result)
- {
-@@ -38,6 +55,167 @@ static int hv_vsm_get_register(u32 reg_name, u64 *result)
+@@ -64,6 +65,20 @@ static int hv_vsm_get_register(u32 reg_name, u64 *result)
  	return 0;
  }
  
-+static Elf64_Addr __init hv_vsm_elf_min_load_paddr(void *image)
++static __init struct page *hv_vsm_alloc_shared_page(void)
 +{
-+	Elf64_Ehdr *ehdr = image;
-+	Elf64_Phdr *phdr = image + ehdr->e_phoff;
-+	Elf64_Addr paddr = U64_MAX;
-+	int i;
++	struct page *page;
 +
-+	for (i = 0; i < ehdr->e_phnum; i++, phdr++) {
-+		if (phdr->p_type != PT_LOAD)
-+			continue;
-+
-+		if (phdr->p_paddr < paddr)
-+			paddr = phdr->p_paddr;
++	page = alloc_page(GFP_KERNEL);
++	if (!page) {
++		pr_err("Unable to establish VTL0-VTL1 shared page\n");
++		return ERR_PTR(-ENOMEM);
 +	}
 +
-+	return paddr;
++	memset(page_address(page), 0, PAGE_SIZE);
++	return page;
 +}
 +
-+static size_t __init hv_vsm_elf_binary_size(void *image)
+ static Elf64_Addr __init hv_vsm_elf_min_load_paddr(void *image)
+ {
+ 	Elf64_Ehdr *ehdr = image;
+@@ -326,6 +341,107 @@ static int __init hv_vsm_init_code_page_offsets(void)
+ 	return 0;
+ }
+ 
++struct hv_vsm_ap_boot_ctx {
++	struct completion done;
++	int ret;
++};
++
++static int __init hv_vsm_boot_sec_vp_thread_fn(void *arg)
 +{
-+	Elf64_Ehdr *ehdr = image;
-+	Elf64_Phdr *phdr = image + ehdr->e_phoff;
-+	Elf64_Addr min_paddr, max_paddr = 0;
-+	int i;
++	struct hv_vsm_ap_boot_ctx *ctx = arg;
++	struct hv_vtlcall_param args = {0};
++	int cpu = smp_processor_id();
++	u16 vp_enabled_vtl_set = 0;
++	u8 active_mbec_enabled = 0;
++	s64 sk_status;
++	int ret = 0;
 +
-+	min_paddr = hv_vsm_elf_min_load_paddr(image);
-+	if (min_paddr == U64_MAX)
-+		return 0;
++	pr_info("cpu%d entering vtl1 boot thread\n", cpu);
++	sk_status = hv_vsm_vtlcall(&args);
++	if (sk_status)
++		pr_warn("VP%d VTL1 boot returned status %lld\n", cpu, sk_status);
 +
-+	for (i = 0; i < ehdr->e_phnum; i++, phdr++) {
-+		if (phdr->p_type != PT_LOAD)
-+			continue;
++	ret = hv_vsm_get_vp_status(&vp_enabled_vtl_set, &active_mbec_enabled);
++	if (ret)
++		goto out;
 +
-+		max_paddr = max(max_paddr, phdr->p_paddr + phdr->p_memsz);
++	if (!active_mbec_enabled) {
++		pr_err("Failed to enable MBEC for VP%d\n", cpu);
++		hv_vsm_mbec_enabled = false;
 +	}
-+
-+	return max_paddr - min_paddr;
-+}
-+
-+static int __init hv_vsm_load_elf(void *image, Elf64_Addr *sk_entry_pa)
-+{
-+	Elf64_Ehdr *ehdr = image;
-+	Elf64_Phdr *phdr = image + ehdr->e_phoff;
-+	Elf64_Addr min_paddr;
-+	Elf64_Xword first_load_align = 0;
-+	size_t size;
-+	void *base_addr;
-+	int i;
-+
-+	/* Find alignment of the first PT_LOAD segment. */
-+	for (i = 0; i < ehdr->e_phnum; i++) {
-+		if (phdr[i].p_type == PT_LOAD) {
-+			first_load_align = phdr[i].p_align;
-+			break;
-+		}
-+	}
-+	if (!first_load_align) {
-+		pr_err("Secure kernel does not have loadable segments\n");
-+		return -EINVAL;
-+	}
-+
-+	/* Align the base load address up to the first PT_LOAD segment alignment */
-+	base_addr = PTR_ALIGN(vsm_skm_va + first_load_align, first_load_align);
-+
-+	size = hv_vsm_elf_binary_size(image);
-+	if (vsm_skm_va + VSM_SK_INITIAL_MAP_SIZE - base_addr < size) {
-+		pr_err("secure kernel does not fit: %zu > %td\n", size,
-+		       vsm_skm_va + VSM_SK_INITIAL_MAP_SIZE - base_addr);
-+		return -EFBIG;
-+	}
-+
-+	pr_debug("secure kernel binary size: %#zx\n", size);
-+
-+	min_paddr = hv_vsm_elf_min_load_paddr(image);
-+	pr_debug("secure kernel minimal paddr: %#llx\n", min_paddr);
-+
-+	pr_debug("loading secure kernel ELF segments:\n");
-+
-+	/* Validate PT_LOAD alignment first, before touching any target memory. */
-+	for (i = 0; i < ehdr->e_phnum; i++) {
-+		if (phdr[i].p_type != PT_LOAD)
-+			continue;
-+		if (phdr[i].p_align % SZ_2M) {
-+			pr_err("LOAD segment is not aligned by 2MB\n");
-+			return -EINVAL;
-+		}
-+	}
-+
-+	for (i = 0; i < ehdr->e_phnum; i++, phdr++) {
-+		void *load_addr;
-+
-+		if (phdr->p_type != PT_LOAD)
-+			continue;
-+
-+		/*
-+		 * Adjust the load address by min_paddr to compensate the
-+		 * offset.
-+		 */
-+		load_addr = base_addr + (phdr->p_paddr - min_paddr);
-+
-+		pr_debug("  p_offset: %#016llx, p_filesz: %#016llx, p_memsz: %#016llx to pa %#016llx\n",
-+			 phdr->p_offset, phdr->p_filesz, phdr->p_memsz,
-+			 virt_to_phys(load_addr));
-+		memcpy(load_addr, image + phdr->p_offset, phdr->p_filesz);
-+
-+		if (phdr->p_memsz == phdr->p_filesz)
-+			continue;
-+
-+		pr_debug("    zeroing %#016llx bytes at pa %#016llx\n",
-+			 phdr->p_memsz - phdr->p_filesz,
-+			 virt_to_phys(load_addr + phdr->p_filesz));
-+		memset(load_addr + phdr->p_filesz, 0,
-+		       phdr->p_memsz - phdr->p_filesz);
-+	}
-+
-+	*sk_entry_pa = virt_to_phys(base_addr + (ehdr->e_entry - min_paddr));
-+	pr_debug("secure kernel entry pa: %#llx\n", *sk_entry_pa);
-+
++out:
++	ctx->ret = ret;
++	complete(&ctx->done);
 +	return 0;
 +}
 +
-+static int __init hv_vsm_load_secure_kernel(Elf64_Addr *sk_entry_pa)
++static int __init hv_vsm_boot_one_ap(unsigned int cpu)
 +{
-+	const struct firmware *fw;
-+	Elf64_Ehdr *ehdr;
++	struct hv_vsm_ap_boot_ctx ctx;
++	struct task_struct *t;
++
++	init_completion(&ctx.done);
++	ctx.ret = 0;
++
++	t = kthread_create(hv_vsm_boot_sec_vp_thread_fn, &ctx,
++			   "hv-vtl1-ap%u", cpu);
++	if (IS_ERR(t))
++		return PTR_ERR(t);
++
++	kthread_bind(t, cpu);
++	sched_set_fifo(t);
++	wake_up_process(t);
++
++	wait_for_completion(&ctx.done);
++	return ctx.ret;
++}
++
++static int __init hv_vsm_boot_ap_vtl(void)
++{
++	struct hv_vtlcall_param args = {0};
++	struct page *cpu_online_page;
++	unsigned int cpu, cur_cpu = smp_processor_id();
++	s64 sk_status;
 +	int ret;
 +
-+	ret = request_firmware(&fw, SK_FW_NAME, NULL);
-+	if (ret) {
-+		pr_err("Failed to load %s firmware: %d\n", SK_FW_NAME, ret);
-+		return ret;
-+	}
++	cpu_online_page = hv_vsm_alloc_shared_page();
++	if (IS_ERR(cpu_online_page))
++		return PTR_ERR(cpu_online_page);
 +
-+	ehdr = (Elf64_Ehdr *)fw->data;
-+	if (fw->size < sizeof(*ehdr) ||
-+	    memcmp(ehdr->e_ident, ELFMAG, SELFMAG) ||
-+	    (ehdr->e_type != ET_EXEC && ehdr->e_type != ET_DYN)) {
-+		pr_err("Not a valid ELF file: %s\n", SK_FW_NAME);
-+		ret = -ENOEXEC;
-+		goto out_release;
-+	}
++	cpumask_copy(page_address(cpu_online_page), cpu_online_mask);
 +
-+	if (ehdr->e_ident[EI_CLASS] != ELFCLASS64) {
-+		pr_err("Not a 64-bit compatible ELF file: %s\n", SK_FW_NAME);
-+		ret = -ENOEXEC;
-+		goto out_release;
-+	}
-+
-+	if (!elf_check_arch(ehdr)) {
-+		pr_err("Not a valid ELF file: %s\n", SK_FW_NAME);
-+		ret = -ENOEXEC;
-+		goto out_release;
-+	}
-+
-+	ret = hv_vsm_load_elf((void *)fw->data, sk_entry_pa);
-+
-+out_release:
-+	release_firmware(fw);
-+	return ret;
-+}
-+
- static int __init hv_vsm_enable_partition_vtl(void)
- {
- 	u64 status = 0;
-@@ -85,6 +263,7 @@ static int __init hv_vsm_bootstrap_vtl(void)
- {
- 	u16 partition_enabled_vtl_set = 0, partition_mbec_enabled_vtl_set = 0;
- 	u8 partition_max_vtl;
-+	Elf64_Addr sk_entry_pa;
- 	int ret;
- 
- 	/* Check and enable VTL1 at the partition level */
-@@ -120,7 +299,25 @@ static int __init hv_vsm_bootstrap_vtl(void)
- 			return -EINVAL;
- 		}
- 	}
--	return 0;
-+
-+	return hv_vsm_load_secure_kernel(&sk_entry_pa);
-+}
-+
-+static void __init hv_vsm_get_sk_mem(void)
-+{
 +	/*
-+	 * The reserved secure kernel region is mandatory once VSM support has
-+	 * been advertised. Without it we cannot load the secure kernel and
-+	 * bringing up VTL1 is impossible, so fail hard rather than continuing
-+	 * in an unusable state.
++	 * Hand VTL1 the set of APs to expect. VTL1 copies the mask
++	 * synchronously inside this vtlcall and does not reference the
++	 * page after it returns, so freeing it here is safe.
 +	 */
-+	if (!sk_res.start)
-+		panic("No memory reserved in cmdline for secure kernel");
++	args.a0 = VSM_VTL_CALL_FUNC_ID_BOOT_APS;
++	args.a1 = page_to_pfn(cpu_online_page);
++	sk_status = hv_vsm_vtlcall(&args);
++	__free_page(cpu_online_page);
++	if (sk_status) {
++		pr_err("VTL1 refused BOOT_APS: status %lld\n", sk_status);
++		return -EIO;
++	}
 +
-+	vsm_skm_va = phys_to_virt(sk_res.start);
++	/*
++	 * Bring the APs into VTL1 one at a time. Each AP kthread issues
++	 * a single vtlcall on its bound CPU and signals completion; wait
++	 * for it to finish before starting the next so VTL1 entries stay
++	 * serialized.
++	 */
++	for_each_online_cpu(cpu) {
++		if (cpu == cur_cpu)
++			continue;
++		ret = hv_vsm_boot_one_ap(cpu);
++		if (ret) {
++			pr_err("Failed to boot VP%u into VTL1: %d\n", cpu, ret);
++			return ret;
++		}
++	}
++	return 0;
++}
 +
-+	pr_info("secure kernel region: %#llx-%#llx (%lld MB)\n",
-+		sk_res.start, sk_res.end, resource_size(&sk_res) >> 20);
+ static int __init hv_vsm_boot_vtl1(void)
+ {
+ 	struct hv_vtlcall_param args = {0};
+@@ -430,7 +546,14 @@ static int __init hv_vsm_bootstrap_vtl(void)
+ 		return ret;
+ 
+ 	/* Boot primary virtual processor in VTL1 */
+-	return hv_vsm_boot_vtl1();
++	ret = hv_vsm_boot_vtl1();
++	if (ret)
++		return ret;
++
++	if (num_present_cpus() == 1)
++		return 0;
++
++	return hv_vsm_boot_ap_vtl();
  }
  
- static bool __init vsm_arch_has_vsm_access(void)
-@@ -143,6 +340,8 @@ static int __init hv_vsm_boot_init(void)
- 	if (!vsm_arch_has_vsm_access())
- 		return 0;
- 
-+	hv_vsm_get_sk_mem();
-+
- 	/*
- 	 * Copy the current cpu mask and pin rest of the running code to boot cpu.
- 	 * Important since we want boot cpu of VTL0 to be the boot cpu for VTL1.
-diff --git a/include/hyperv/vsm.h b/include/hyperv/vsm.h
-new file mode 100644
-index 0000000000000..51555c09413d5
---- /dev/null
-+++ b/include/hyperv/vsm.h
-@@ -0,0 +1,21 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Common definitions shared by generic and arch code for enabling VTL1
-+ * and the Virtual Secure Mode (VSM) framework on Microsoft Hyper-V.
-+ *
-+ * Copyright (c) 2025-2026, Microsoft Corporation.
-+ *
-+ * Author: Thara Gopinath <tgopinath@linux.microsoft.com>
-+ */
-+
-+#ifndef _HYPERV_VSM_H
-+#define _HYPERV_VSM_H
-+
-+/*
-+ * Size of memory that is initially mapped for the secure kernel by the
-+ * VTL0-side loader. The secure kernel image itself may be larger than
-+ * this and map additional memory on its own.
-+ */
-+#define VSM_SK_INITIAL_MAP_SIZE		(16 * 1024 * 1024)
-+
-+#endif /* _HYPERV_VSM_H */
+ static void __init hv_vsm_get_sk_mem(void)
 -- 
 2.34.1
 
