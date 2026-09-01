@@ -1,72 +1,72 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C4143F09B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:51:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A73743F4BF
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:51:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788277862; cv=none; b=C7HPRMm8LqStnYSoiQ/IJhNHQjoS4c75J8k+x0N+1WSouPWdquwS5PbnGePpAd2n+t5VeMx6XsfI9IGSKFWo2TMapU4D725TwmOSh4aBbEmiQIZIZja6J9kALLGpDtGmMzw5j6/LOOsonKUWcdpeQNrg7zpsor2/qqB1Z5+Uevo=
+	t=1788277864; cv=none; b=TKVO8gVugJC0RMgGpFy4UTIcGdgp7133xjVduNxdMVsFnoVXJnmUTzzSSvWE2xnvuPagt/X8g2MH2bRB55gFOCLOhIQlYDzAzJeFuNMPDWoGpmrUkAYwuDFwnRzlBNZ3vFIyuUSVmJDTXuOwOkOndKCctR4CIBHHePZcbsc7UDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788277862; c=relaxed/simple;
-	bh=3lOQEUDybbd+0QiixzpLYFm6hRd9mjudXB8HqiCXs2E=;
+	s=arc-20240116; t=1788277864; c=relaxed/simple;
+	bh=ooUyUDyEY9urQKmPXtQbNfBaknArlp01QEzHC8ogxlg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rg/IiqAHueD7Ek/O5cWP/4z+fi9Bg86w2mx9zL2Be1sOsYLaz1tJ6ERHxilybuwo3RV5ld2l54aGN1vEY84FSoiiGjKmzUVmqPMpPwNzAnPXpKz1QxaT6G1lEPeqSPF0Es5SvDBmD6o8Th9tzFFc1rGPgHRnZ2tzClAESMjI3dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QHLPnLh2; arc=none smtp.client-ip=209.85.128.181
+	 MIME-Version; b=W0rbza8UlRXyhQxMZHEgd+8tPstwI7Cqxsx+c5TN0eMmcaHs75Ug5e2i3iDu0FzkzLjeldyTpqjHYgKFHy7MYIYDwv10vNkFmMazpd09CWaOC8wS+5thabAdVNHlaec6jD99hrEAqX3sCZ/TzuTlY0masnFW0NGq9+7Dgj+DgnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vi5fYDbi; arc=none smtp.client-ip=209.85.128.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QHLPnLh2"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-836cb2fa1bcso1259877b3.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:51:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vi5fYDbi"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-86a29a48ed9so838497b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:51:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788277859; x=1788882659; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788277862; x=1788882662; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r284T3Ls54xM3Z+Z7Ip63aactiab8jQhrZfKc2EHynQ=;
-        b=QHLPnLh2sRZSkneAI69J2eCvlJlZdfyfIllLDSiG/Yno9a9BB3vPIRb3/97S21MrW8
-         c3PDoSQm3JrLILM+ZmNCZDdkF67I2NKFtXH44ARYM0lNdTUB2hdlhpKhSKKrNxEQ/JnJ
-         VBjaoguQkqYYYwK38oIYVuTdvtnYOvvdHx3jFGrvyME/JmwU+D721HAEiUxGHdhiov23
-         lb/R2pyZgrExMknIYfzrL6MpnYVbUvuPfxHwYdhU2QraIsmihkO7cn9r3a4emXB0DFBG
-         NqyFIqIkbnmxYwYh9vhg2qVk16ItE9UiWmtppVx7x/iW/DIiak1lYrO7tumz2cRiH97a
-         oVcA==
+        bh=zMwbRDzP9YKrcfjXPIte/jx760DDuwwcQ/UTIZn7k3A=;
+        b=Vi5fYDbik4JTIZQh4D5zElIBQgFkvJKBz9u/xcLLjgiZzWkiQ89xDv549qcvmbJNqF
+         dJEBJa4Zfn9n/4aLyl3M3sr1DLegQaMqQ7ohSx9y2ke9qMyH2bgIMomc1YR8XzkuvE/c
+         gVSqkzS+CgdaY5QBSHHOejOyteSTUC8f0qmJRBuLA0stqXPu6BaJq5QadiENuyNNK7zm
+         ME5lU+D7GcXpG7bO4CDS0D2gC6Loy6bHAllAuVnZGVkYXc9uX1jw7PIOsgZd5r+GeKOI
+         TMVsQ54+QkC3ym3ngoqwfSAmg+ldELauOlp0RZlAmXHtd1tGsQi25iLevJxj5y15EnTr
+         P2Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788277859; x=1788882659;
+        d=1e100.net; s=20251104; t=1788277862; x=1788882662;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r284T3Ls54xM3Z+Z7Ip63aactiab8jQhrZfKc2EHynQ=;
-        b=hDzkTv6Mwk9IXsSga/+gZ7pVi3LwwknkCs7ogLOh9vxmZrHQRV52mGrrDNJb04FmUi
-         7DL7X3K/2Q7C9/1EsAFhMaaRe+g6R2ZWWVjIq89W6pbjS9WEoDpHRL1OPI+xWspYxeQc
-         FSsqherinITtDhmr9Vko2oQvmb1y8m8OV/w0Rn5NBkVhddamqCiV4nBDV89lOgIhPyTi
-         nxTQJs27S1WLL/9f8sr/Emq/WzCTYQYBUy++RHWlrnOrp0rwbRdbWmuO2NBUKALaf5Di
-         +QG9w71TzfIypi6v1mT2LA3X2fmX3yIyl3GaUQoPmVQwoggZZ1JvjrlyAaYTJFNZ+eLl
-         Xl8w==
-X-Forwarded-Encrypted: i=1; AKwUvBwzs+oGb+twTW4i4LKuL44KF2zXoZSK5DXkPiONzNZbbJXZoSQHeUDVLyrKK/WgD26Fe7hXJt/CaHzqN3U=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgvcb4Bji98PJqTL5iwFq8zWIZ/mx3o8h6a2cCsmhRiq7mwmWv
-	QbyN8NPrx5wk+sFHtWjlyIM84mJVjqqcvpB488opAh7jEdGNExFRH0Cg4+8b6A==
-X-Gm-Gg: AYBFou1geiYqRfKV1zG7XOT3Mh+CskKNV2yhXlqlQp8ksGxq6GEtu/t7seyOMsLlugT
-	2rj6SpXCE0tz2+GoGXL/0ssDVLCVZRi7yzNfLD9fQOiL+9rugMiEym6C2kyrcvqS+HFRjkBulYt
-	OWPL57TskpddwJZENkRF9DvGEmA/NdNr48+LesK4yTkOeZQCL2lFT48myEIiAwjKasfq/OgAALM
-	gBab95aMDX1+gVx7Xzi+os6pFnxN4Fs684iFEk8GGF9/eN8lG9IgyGhxS8G3YUgeor6cQET6rMW
-	NqFF+jwyF0mvQ3gtYv6Im4D6pmBgPAwY5QwMqoSMXhAkZhsaJiKFXvQL+bDJohLOI5FmQFXbgj6
-	E1oXxExx+R5VHvoFUyHtwym29zUN2HceAY5mavWI7sfeGmk4spDUagK6F88uECIN+doXl9OFrfI
-	TFViRwJ0mv1eE9cJdTRbMAwXkTUZK4z8FTSaJWMBGmLW9QmTxzznUqX3xrGVyiN2kP+kgD1UFMG
-	fjLp7kLHG4nj2kdOMrTiWxVoZOX5R78Ngv4MEF3Qct1+M6rdb0=
-X-Received: by 2002:a05:690c:81:b0:864:6f4d:ef7f with SMTP id 00721157ae682-8646f4df760mr77130987b3.7.1788277859417;
-        Tue, 01 Sep 2026 08:50:59 -0700 (PDT)
+        bh=zMwbRDzP9YKrcfjXPIte/jx760DDuwwcQ/UTIZn7k3A=;
+        b=BmMzjtaOQDUO9nFQ+ACEgEI4+w+GzYwzKi0fUXUbh17G0a7annFuaWw8F1i0i/x2G4
+         y2mefx/nsmdv1jwaJv/qtdp9D+ZJGKpZTWuri4D9CgsS04hwtQydOTjhxLhRsmqcuxQe
+         hYtmbY9LeeAM1i9cOAPEsD2F2yVOWjIcdPptMHrOdXDPIj8+cDtfQMrrOtMEP568ZA7W
+         w+rRRXrfwkc2jdaHO6ge9pnulqS6al5iDRq9vnQhBflpnFLkDIQbZtKqrV08EZF8AnYn
+         /SZW4EsThQ/h8hQjJCfnAt16vHABrUqIByPo+VUrqritkwvWIMJQnMdJ2cdZ5CKYGXT7
+         LWmA==
+X-Forwarded-Encrypted: i=1; AKwUvBymrirvwliigvDv9ncYd4TNxYALpMnu70XPST35lFmrIFqzUEbuglyhfCNy45wS21ARqFp/NA9Cko02S8Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFi0IO8SD3HFk+vjOXK9RUCjLQoNkn+0InBBDoZWix5MbI2Aon
+	In7mso1YmHr05R2VZ4OEIFQuNqe5RW2vPibUm2QpSTFA/OtpXjrVitMwG2cWAQ==
+X-Gm-Gg: AYBFou3gBwykBM+3vfgPBuAYT6wVAKVBBw9D8InDLgT8nPkKWNVi6vQsDqdAhEU8Zzh
+	Vnrrj8fzYS0ELOQTBiMDd92aqeF3Emd15V8icwV7Qhl/fBU2/NcydsIlEQm9LqWKvddB0lcxD6y
+	SLG+yMUc7HOTYQUiPfZyvQuooYUirE9e881g7Stnv58X06cNBGvKwvONsioCBQAagJ7zK5NEvwZ
+	yQylpZnWVkXHZdYybINg2OsUvZHcdufvfBTsfVFlYM450KBYlknSEk0I7AC5Ucwxd4o0WQxlrbl
+	qr+e9N0Zz5mp49IxVyVmdxBinJ8d4bYHL9Kg8WqvTHxJmHz7zFdNw3xYb7uO0VDO3+DfPtV1KsM
+	jt5udUc4VVdNO3KaygdvffK8y1ArlEZHKHnYDQXQwlR5zdBZC/hrLS3Vz1kjqUNK+ASx0woyvhx
+	F5pjrq6Szjh8Z+d1BgFmescZtOB75WW1E9EN1N7MeWTzUSWDwt5EIsFoy2amrc06s7J5RkopMoQ
+	GCDWDIJTNLhB2mxzYTye6R3BKb0OfuyloVt5Z2iLg==
+X-Received: by 2002:a05:690c:12:b0:81f:2403:9e70 with SMTP id 00721157ae682-86874be3a5cmr39817697b3.19.1788277861999;
+        Tue, 01 Sep 2026 08:51:01 -0700 (PDT)
 Received: from localhost (107-220-129-194.lightspeed.chrlnc.sbcglobal.net. [107.220.129.194])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e5ed19446sm76489177b3.14.2026.09.01.08.50.53
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-86326649752sm52513987b3.3.2026.09.01.08.50.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:50:53 -0700 (PDT)
+        Tue, 01 Sep 2026 08:51:00 -0700 (PDT)
 From: Matt Turner <mattst88@gmail.com>
 To: linux-alpha@vger.kernel.org,
 	richard.henderson@linaro.org
 Cc: linmag7@gmail.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 06/24] alpha: select EDAC_SUPPORT
-Date: Tue,  1 Sep 2026 11:50:19 -0400
-Message-ID: <bceafe2ff479886d45eb410d8cd4db0027050bd4.1788277742.git.mattst88@gmail.com>
+Subject: [PATCH 07/24] alpha: select ARCH_SUPPORTS_ATOMIC_RMW
+Date: Tue,  1 Sep 2026 11:50:20 -0400
+Message-ID: <bb81b54cdc536e3ae12b27b477d1299bacea9577.1788277742.git.mattst88@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1788277742.git.mattst88@gmail.com>
 References: <cover.1788277742.git.mattst88@gmail.com>
@@ -78,29 +78,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The EDAC core builds and works on Alpha; it only needs the architecture
-to declare support.  There is no Alpha memory controller driver yet, but
-the core is what a future driver, or the existing machine check error
-decoding in err_ev6.c and err_ev7.c, would report through.
+Alpha has native LL/SC instructions (LDL_L/STL_C, LDQ_L/STQ_C) that
+provide atomic read-modify-write capability, and already selects
+ARCH_HAVE_NMI_SAFE_CMPXCHG.
 
-Assisted-by: Claude:claude-opus-5
+Selecting ARCH_SUPPORTS_ATOMIC_RMW enables MUTEX_SPIN_ON_OWNER and
+RWSEM_SPIN_ON_OWNER on SMP, allowing optimistic spinning on contended
+locks rather than immediately sleeping.
+
+Assisted-by: Claude:claude-opus-4-6
 Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
  arch/alpha/Kconfig | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git ./arch/alpha/Kconfig ./arch/alpha/Kconfig
-index a435b71203f0..d2f9ef592f78 100644
+index d2f9ef592f78..0655e36608cc 100644
 --- ./arch/alpha/Kconfig
 +++ ./arch/alpha/Kconfig
-@@ -30,6 +30,7 @@ config ALPHA
- 	select ARCH_WANT_IPC_PARSE_VERSION
- 	select ARCH_HAVE_NMI_SAFE_CMPXCHG
- 	select AUDIT_ARCH
-+	select EDAC_SUPPORT
- 	select GENERIC_CPU_VULNERABILITIES
- 	select GENERIC_SMP_IDLE_THREAD
- 	select HAS_IOPORT
+@@ -12,6 +12,7 @@ config ALPHA
+ 	select ARCH_MODULE_NEEDS_WEAK_PER_CPU if SMP
+ 	select ARCH_NO_PREEMPT
+ 	select ARCH_NO_SG_CHAIN
++	select ARCH_SUPPORTS_ATOMIC_RMW
+ 	select ARCH_USE_CMPXCHG_LOCKREF
+ 	select FORCE_PCI
+ 	select PCI_DOMAINS if PCI
 -- 
 2.54.0
 
