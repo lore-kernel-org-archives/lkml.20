@@ -1,171 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE46843DA5C;
-	Tue,  1 Sep 2026 16:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687E147F2CD
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788280866; cv=none; b=E/ePG8sVuWFTS865qUmV00YSerNWmno1PZzWNC9KEu4eMiJgyVnoYYWe+j4XjCi8bvpdwmCGGdqBSAf3ln2gsGSvdHQjZTg9a56cScGJoYLnh3nRH5lTxNCH8WBL7W2LSO4/4gmzNROJxY5vlvQ5GdWoJcZYr4YXNC5j7pak8qY=
+	t=1788280946; cv=none; b=YRWZ1nw7JFRPswL6i7nhgS4t1KxP3lDvrFjGupHpWKAQ8jfdIRa+p/phs5VGNay43NiMzRXb/S00LkoMMnsdedCC+LTtEjSRJoSKQD+NwvQQ3jJuXr4Szc4fVjjikuQrJ4wG/horhZeqx7U6t9+wJ1raqRLwERSpgr2zHM1uiKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788280866; c=relaxed/simple;
-	bh=hbYcEZ5t1jKLdhhzBsDiDxzVfK9mLxWF7x5pUlvRtKw=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=j++LC9OWTbYbnqHvh1Lso70So+n20xllTUJqP0jN8qhiWoptwRboSIe9gfmivsYUTGUvBk8tjOXLrPhlhcPz7Ho9yxag+QLypoOpa6PQB60umy8PKSyIVJbxL0+XzKEg5vNVw+Egcwxl+4RJE8UVjQJJHaClOhNU6FTyodsO2k8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GdR5JF/D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788280946; c=relaxed/simple;
+	bh=ZD/kCtjz8xee7i676g+C50i9IkQsD/dILLlKmohF2p4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o8X5cCJp1Rnpwn9gC3wqTR4L+dttA0MC4G6UjzjPI4JMprUIr3br3xCO7xl1DkGcWPMxNUfLSZoXySJqOn3KSfuipQUHlfyBDnw0joaJ0XfAlRdwOseqHO2jGxdH42zmE4NCcAp2em4zt/qF6HtiVXpeoY09imspnV/agBLPWa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=k4oNKKk6; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GdR5JF/D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3AA21F000E9;
-	Tue,  1 Sep 2026 16:41:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788280864;
-	bh=BquFv9yL+oqsu0iQAMjKTxvhkEp4Ce4d3z7hB0ao2xo=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=GdR5JF/Dmj2wZevDdv7KegcbJudOgutQNKy34uQpxez/dctKOb4zz44h2Rz2TRcx6
-	 2yMFhiM3AtvWh9Xf1VJbO10cn490cDPuoPpnVkrVhDfjTLKITznz01zuqMkxE05Tf/
-	 VZZrp2J7/0GV1N1eatTN5GALxUHhWzqHvGd0VhB+PzGGm3W4AFHIXZrZpTkWaUFne0
-	 KCxb2F5pHoP8TjHsSVgMIJoQVlgdc7RMH2UueUBQjUHFKSRoozXlk8GEbX33rL1/Ft
-	 jrWZ54OkKEdLaztPBClepf3fv3w1MXV7aX9JIWN2IkL6TGj3xrHynhtNEywifxiVDJ
-	 zIpqgDsXN7l4w==
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="k4oNKKk6"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 254871A192A;
+	Tue,  1 Sep 2026 16:42:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id EC0BC6053C;
+	Tue,  1 Sep 2026 16:42:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4095711C7927A;
+	Tue,  1 Sep 2026 18:42:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788280936; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=RyCFguoNYjy2w/mkeOQR3Xu3bsp4TaY18KFr9XMsMRA=;
+	b=k4oNKKk65oP9+cQtozKRueW9PiexLe/nuE2gHqwSbTL7+blLA5j1NIGt9ZkjVnDz+7Rqz4
+	EvxyO9NdaHsbUaA1qsdz42M9bA4CDlLiYdOwe6HGw/+V4HZ7M+JZ8hpFeqXh7dQkFI9ZRg
+	NIizZQGC3bE59MumAyaTOjpcSajWz8xkDg+4QWpJylS98n7WUEy0rNDNEeOUAqu1p7xuEx
+	ZjshAvyBtoz+TndLh9/s9B/qZdzHR/wDBUPUfR9iK5TZaWLK6UmQ3fZhGfuzPKe8+x+OZr
+	teC1J2EN8axcK0xtdgp2lZJ9TqjkQQzMnAzo+DiNVhtMhgGEevBCIU2YLgsxuw==
+From: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	matttbe@kernel.org,
+	Stanislav Fomichev <sdf@fomichev.me>
+Cc: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	thomas.petazzoni@bootlin.com,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH net-next 0/2] selftests: drv-net: Allow cross-compiling the hardware tests
+Date: Tue,  1 Sep 2026 18:41:57 +0200
+Message-ID: <20260901164200.1124343-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 4/4] iio: accel: adxl367: add support for INT2
- interrupt pin
-From: Jonathan Cameron <jic23@kernel.org>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
- linux@analog.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260831083122.3486-5-antoniu.miclaus@analog.com>
-References: <20260831083122.3486-1-antoniu.miclaus@analog.com>
- <20260831083122.3486-5-antoniu.miclaus@analog.com>
-Date: Tue, 01 Sep 2026 17:40:47 +0100
-Message-Id: <178828084760.2788519.15283878760227392025.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3722;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=hbYcEZ5t1jKLdhhzBsDiDxzVfK9mLxWF7x5pUlvRtKw=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqlwASftjEjfF3ZyUA6ese3Ya24ehr89RVnfPPx
- ORps2fw6wiJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapcAEhEcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiB45D/99eOXNRUuVsk/PP5iZpNLacTHlahYX0ZZvUJkbAkb1tHU
- ukpiURwyRIdyBIGVR8fsZunhVk9NOtHcFP+siR937JMzYgqt+49Gujb40nyRJIpelHsRSoHjglg
- 3FkjgfXpFn6YTZjI50elzyx/iSAdf0YvZUKGb5DO0rSPaOMNZM2L/qeFLdmVBN9Abo6L8b+CNtQ
- 58+vnZvqz5YNJWbl/EpRWcKKJRu5+IoN585yCGwlC9JY7Uj1z37SKVfIx6LzE5AZImg4TsWrVXx
- EPEROwS67pv878cse9YGVcbp24MUL7OnKf4BPka0HlJy1goASt2uo4Wv/d9ZYvnXjEb+7tecVMA
- aZKaW8Wi185FYinTLm4VKUG7Kk+b7K8w1JNbXFLQYK8GLUwIH7i05ee2zewoi+oluk5WOmvIGkP
- a4/aGQMS5KVA5V8ZP3EvNnnkZy4O1D8Aw5HM6kd34TMRBL0SnvwfYt+eitplrXwvqXZSYVmTH8M
- oPmaBXntVs5S0wU5iw5zVO5aHpI1krZzQbkTlP/A4q8Vz6VMJwaNBJrRvQiJumTilTqomIePcx6
- tdSDxhHDFYlT2166a2yC+lE6AtNTDgFpEXu3aJN2aa2MWgk8kguU/WnFP/7RnPTEpqJ+QEZsRMy
- VwZ4o15VssTpK5iZjioHPJChp6/h4FyCAjrj7pg==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-> The ADXL367 provides two independent interrupt output pins, INT1 and
-> INT2, each with its own event mapping register (INTMAP1_LOWER at 0x2A
-> and INTMAP2_LOWER at 0x2B) sharing an identical bit layout. Until now
-> the driver hardcoded INT1 for all interrupt mappings, so a board that
-> routes only INT2 to the host could never receive activity, inactivity
-> or FIFO watermark interrupts.
-> 
-> Determine the connected pin from the interrupt-names device tree
-> property using fwnode_irq_get_byname(), and route the interrupt
-> mappings to the matching register. Use the interrupt number returned by
-> the lookup for devm_request_threaded_irq() so the requested line always
-> matches the routed INTMAP register, regardless of the order in which the
-> interrupts are listed. When no interrupt-names are present, default to
-> INT1 and the bus-provided interrupt to preserve the existing behaviour.
-> 
-> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
->
+Hi everyone,
 
-One follow on thing to look at via sashiko.
+Here a small series to address some of the issues found while trying to run
+the drivers/net/hw selftests on some variety of embedded devices. In
+that case, tests are cross-compiled and installed to the rootfs with the
+'install' target of the selftests.
 
-Otherwise, this looks good to me, but given the active discussion on previous
-version I'm not going to pick this up until plenty of time has passed
-or tags have been given.
+Some tests require ynl, and ynl's build machinery hardcodes CC to gcc,
+which doesn't work with cross-compiled setups. Let's use the
+tools/scripts/Makefile.include instead.
 
-> diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
-> index b4e8dc6d6a5c..9b47e66c49ea 100644
-> --- a/drivers/iio/accel/adxl367.c
-> +++ b/drivers/iio/accel/adxl367.c
+This is duplicated across the ynl tools as it seems to be fairly common
+to build alone.
 
-> @@ -1430,6 +1434,36 @@ static int adxl367_setup(struct adxl367_state *st)
->  	return adxl367_set_measure_en(st, true);
->  }
->  
-> +static int adxl367_set_int_map_reg(struct adxl367_state *st, int irq)
-> +{
-> +	int ret;
-> +
-> +	/*
-> +	 * Route the mappings to whichever of INT1/INT2 is named in the
-> +	 * interrupt-names property. -EINVAL (property absent) and -ENODATA
-> +	 * (name not listed) are not errors; anything else is.
-> +	 */
-> +	ret = fwnode_irq_get_byname(dev_fwnode(st->dev), "INT1");
-> +	if (ret > 0) {
-> +		st->int_map_reg = ADXL367_REG_INT1_MAP;
-> +		return ret;
-> +	}
-> +	if (ret != -ENODATA && ret != -EINVAL)
-> +		return ret;
-> +
-> +	ret = fwnode_irq_get_byname(dev_fwnode(st->dev), "INT2");
-> +	if (ret > 0) {
-> +		st->int_map_reg = ADXL367_REG_INT2_MAP;
-> +		return ret;
-> +	}
-> +	if (ret != -ENODATA && ret != -EINVAL)
-> +		return ret;
-> +
-> +	/* No INT1/INT2 named: default to INT1 and the bus interrupt. */
-> +	st->int_map_reg = ADXL367_REG_INT1_MAP;
-> +	return irq;
+Let's also deal with the io_uring zerocopy check that builds a tiny program
+to verify that liburing is available and in the right version.
 
-I'd like to explore the helper idea for this, but it can be a separate
-series when someone has the time.
+Maxime Chevallier (Netdev Foundation) (2):
+  selftests: drv-net: ynl: Allow cross-compiling ynl and associated
+    tools
+  selftests: drv-net: Use cross-compilation environment for the io_uring
+    check
 
-> +}
-> +
->  int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
->  		  void *context, struct regmap *regmap, int irq)
->  {
-> @@ -1486,6 +1520,11 @@ int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
->  	if (ret)
->  		return ret;
->  
-
-[Severity: Medium]
-Since fwnode_irq_get_byname() inside adxl367_set_int_map_reg() can return
--EPROBE_DEFER if the interrupt controller is not yet ready, will placing this
-lookup after adxl367_setup() cause repeated boot delays and leave the device
-powered up on deferral?
-
-Looking at adxl367_probe(), it resets the hardware, sleeps for 15ms, and calls
-adxl367_setup() which powers up the device into measurement mode.
-
-If adxl367_set_int_map_reg() then returns -EPROBE_DEFER, the probe aborts
-without an error cleanup path to power down the device.
-
-Could this software resource acquisition be performed before the hardware
-interaction to avoid unnecessary boot stalls and power leaks during probe
-deferral?
-
--
-
-This obviously isn't new, but it might make sense to turn the device
-off at least.
-
-Can be a follow up patch.
+ tools/net/ynl/Makefile                          | 1 +
+ tools/net/ynl/generated/Makefile                | 3 ++-
+ tools/net/ynl/lib/Makefile                      | 3 ++-
+ tools/net/ynl/tests/Makefile                    | 2 +-
+ tools/net/ynl/ynltool/Makefile                  | 4 ++--
+ tools/testing/selftests/drivers/net/hw/Makefile | 3 +++
+ 6 files changed, 11 insertions(+), 5 deletions(-)
 
 -- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+2.55.0
+
