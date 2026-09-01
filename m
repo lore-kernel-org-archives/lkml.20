@@ -1,222 +1,154 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A437325F988
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:58:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5FD3655C2
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:59:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788267537; cv=none; b=aGnuSoAFl9d8JcpbJxlA2qTlAnxSPaB0c+q/rEzRCYmJJ3qVpkPyfs/9vDJdvV6wsmGmb21ZHGUiru3zAOfZxPe7T5RwaLiGgWBgLoJfNwe9wZjnexnbsw6rpi1yjAXFUvvIBIei2+qxS2E0boDM2GcNe2s4Rh7nFkOc6ISuOc4=
+	t=1788267570; cv=none; b=m7UX/jHbAvxz6/lRfXsdn84oqvZQFuvZ8a11hSOoQEhUqiigcQqyNDcRp/SWXg5CykrSaXMNKIz3CmbDlwPNi0QxQikmO6kNNVdUAmyLaAeNd9MshgP7iDh5lQ4XIVvOqFdVVj5xtc7S0P6CzSQ6/0vWNS1ugjfqxEeOMVjZMzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788267537; c=relaxed/simple;
-	bh=HeFf1h/TleEc8dsAQ2uxWCJ/EFaBsCk3gj0/fOEmgXw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X8fdUNtqnUZRh0uJQAstbuwHYp6X/zqWerpIAWXAoitcp24YXFTYuZxRlq+kj/YZuteYptk10DiK2/vic8yjSLPSI/NG03QSGMiNZiL1sLvffeZ/dSQRm+zv4WgYmVX/Huw4ED5Y1X6SxZ69UBpLspDCY4Iq9km3Oeu3yGw1+F8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=k/ZqZCHs; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788267570; c=relaxed/simple;
+	bh=Pqs+cj4xtjDFOIqE9jaFWHBHduMHrWgBCyN13kFuM8c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QnDzlkJP2LcvRFY40ESJj171Qk4BAfzF8Ey4hV8pPZSu86ZqO+glcNudrqJMWKA2Og8xc6EKFt/oGNGcJ2tbEbUbpx4ifK3DKZAAcBZu2O6FM4d5Aybw4YIhaftJ5W9tvbnYgMffSXM8oAbHVFj3v56vg4CKRdg2IG7ufeD3ggM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=nMH+HSqp; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=gF8yg+jQ; arc=none smtp.client-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="k/ZqZCHs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788267533;
-	bh=HeFf1h/TleEc8dsAQ2uxWCJ/EFaBsCk3gj0/fOEmgXw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=k/ZqZCHsgE1W+X4jw/ernZFJZlPs4KiBkX+GhOVp0vYRWntKEO+l0yaj0zS2THjXX
-	 AkdtwZ9NfDRqZ+Hjc/lhz+BBpE/d8EbLvq9v3hmy6bWoRmYUZUD1VdpPYUTMiem8z9
-	 NL9bXjLhHf0vxIS8Ry+h3p98taMjBo+vHWlDvo8OFytMJgu+qbLucbTOnFDMT6SiP4
-	 6IgPxgKFTWf7RvOsj/DABL3/boEg3u1k7i3yR+w/cGE3HnjO0VEKUvs0kbujVPmw0A
-	 Mgnaf/o22zvUZgDSfhv1Z9CYk/Zp0yylOhm2jXP2r8nLI4bdxhFA7FfI97aUxZD1es
-	 gOKdpSNsjhh+w==
-Received: from fedora-21.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E3B9B17E0472;
-	Tue, 01 Sep 2026 14:58:52 +0200 (CEST)
-Date: Tue, 1 Sep 2026 14:58:47 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 07/17] drm/panfrost: Stop all jobs before commencing
- device teardown
-Message-ID: <20260901145847.779f9eb0@fedora-21.home>
-In-Reply-To: <20260828-claude-fixes-v7-7-72a13b2c125d@collabora.com>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
-	<20260828-claude-fixes-v7-7-72a13b2c125d@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="nMH+HSqp";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="gF8yg+jQ"
+Received: from pps.filterd (m0499198.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681CXrAP1569749
+	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 08:59:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=I6x0aIMNF/APTHzjlwyItONqvh
+	P3bzfUtmEMlPeRvu8=; b=nMH+HSqpCeYAtqsXegpahaw1UyYQ5PPrVfwfv6K+CU
+	EPBG2oxk2GjHpC1pFe5oXbRxkFElbmNZhTKAlv565KApyjOP4qjUY+9PWQLtAzxu
+	hYsmV4cfw3NZ36qHC+BwZEkouDexjEfMgNxM8BJjdmP6bU59rbRVcVQ2ZmHfZIF6
+	VRviuq/8IrdHJZuB+yYKYFXSp5XYulfXfw1N/GBJFtl22ahedbMkAdeu4M4oJRbj
+	oMoKQOcEodOB5+JmkNgeNyqIdC73CaGKHRceqiJC2lWyo7KHgbNG9KVtpaoBt3vV
+	4m65hP/AHH2MUt1MePHgnIH3YXqQ+i9qfDMV2qLx9TqA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4gdhfhc043-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:59:27 -0400 (EDT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52dcf1bb6e9so17552471cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:59:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1788267567; x=1788872367; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=I6x0aIMNF/APTHzjlwyItONqvhP3bzfUtmEMlPeRvu8=;
+        b=gF8yg+jQH3X8M4Szf6NJHJyrq3saMyDMnjbhCr07Dk48FYwagAK1mA0QeCZFgCYRSF
+         2RUV+l3dDv2KFoq3I96zkmp1tScc5GR1WHW8V5xGActg3iQt+/vGBWxibr3HI2va1z3L
+         XzoTis3vhf+t7a6F6a2xu1hlHWKSDcFwwcA4xZT/RqQcSrAxQ2PDrhAz34CgOQP8YLuF
+         4lnFmAn/Ls9piLLZnfW7TUe6EC5VRW54Bvqa+Xfww8O9RBb8BZGw1Xwsw2w/IZPcqJ7M
+         OXCKUwDb93xSDvNr3wknvK7kKC+DOs5LyZFgBtLaASR+MwHAo6kLC2D7buwq+naBoqH0
+         Taiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788267567; x=1788872367;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=I6x0aIMNF/APTHzjlwyItONqvhP3bzfUtmEMlPeRvu8=;
+        b=JN0zI3VBkmAtDjMMAOKjEzqJgbq0798Mbq2c4udf6g5v8KCJVE18h2CztySzwn1UsR
+         HPOxnEkMVYZbtMnjSwRipdgnYKowBnEJHyaUasLFKv5LnjlviLsasUxAzIrrobuRjmQR
+         2UTp3d6R4lYT3ExBFr8EYIkNPFE45Bc9AnqRHwcAURUhIziFOvBQ2BPswo5Y9ye7lzGH
+         lZQJVtGid/yE/YqgDvx/NLKsut88CiK6qz8TQzeL3HFFklVitbVqMpKIsi9seJ9zkPeq
+         HjY5o5cQoTz8HGZKuXLk6Z179nnOQJC7oFUlU28gxnsFVLjeiOwgQt7dpNxmgVJQbJwu
+         uZ/Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrFOo25QWX0Z1m+lOnSWurkB0KA5AMl8Qznlqa4V+2dKY78r+7utSZtifTtzv578mkGhDxJqBKXudx/aw0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmbRH5aBRqC5cnLysLVesFfeqEb4qW8k3VnlS61cqrr57Uueh2
+	pIP5Y8pyzzMfOjk+Iy4whKsfDpL5rs5wyLlKM65xw7xtzhii92g71IxqNH/OLRz6PpSwaO0uVCL
+	zUWnDAL2ixFpMJJeLvp4gGdiYj4e4MSSjNEKHAX6AlCWQpNaOHKBgNo93PwDCpa5FAz9C4byPBV
+	I=
+X-Gm-Gg: AR+sD11YwteM7K+8BQq8rLvtyTyHOJszhRAtZdcRfUvtxALAoqaBCoQLDpbZh8+EsYq
+	xSYJ6z/pi1BUfcWwdbw5UYP5VTOjJhjkeryaIHHXhNlonYc8e6UUKBpxmJGjtLevjQ2NFS97W9V
+	jBY9gy4XSxKX6dkAH9FIMhvjJtx77vURQX0BgAxH6DGkfigV60ddPLAoZdPe+hWbhPljO00ilbo
+	jez+OAyQh2HQfh/laIC3FsaM/JYgW8AXVnTZIgG/AwQ1mFAqahr6c9AMo11BctzQ8UJnLyhlvNc
+	lYfc5Xx1rQt5U28C8JgdVzaWRTXygkY9O7TBRoa89tBwta+nqpbD8ukqZdOwESwvxzudBk0bfyX
+	m/naN5KiYr0UE3Aj3ZxYUeiFsqOdv7W8HblLaaOs2GaE9pBfQXvg=
+X-Received: by 2002:a05:622a:1f93:b0:51c:ca9:7cdf with SMTP id d75a77b69052e-5302521fdc3mr73571261cf.2.1788267567218;
+        Tue, 01 Sep 2026 05:59:27 -0700 (PDT)
+X-Received: by 2002:a05:622a:1f93:b0:51c:ca9:7cdf with SMTP id d75a77b69052e-5302521fdc3mr73570571cf.2.1788267566713;
+        Tue, 01 Sep 2026 05:59:26 -0700 (PDT)
+Received: from [127.0.1.1] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52fbe830222sm96194331cf.20.2026.09.01.05.59.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 05:59:26 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Subject: [PATCH 0/2] mm: remove three unused helpers from mm.h
+Date: Tue, 01 Sep 2026 08:59:18 -0400
+Message-Id: <20260901-mm-remove-unused-helpers-v1-0-f092d086f7dc@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACbMlmoC/yXMywrCMBBG4Vcps3YgvRisryIuNP21IyYtM6YIp
+ e9u1OW3OGclgwqMjtVKikVMplRQ7yoK4yXdwTIUU+Ma73pXc4ysiNMCzikbBh7xnKHGbev23nX
+ 9wXeBSj4rbvL+rU/nvy1fHwiv74+27QP+ni7OfAAAAA==
+X-Change-ID: 20260901-mm-remove-unused-helpers-33056049864c
+To: Andrew Morton <akpm@linux-foundation.org>,
+        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788267565; l=538;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=Pqs+cj4xtjDFOIqE9jaFWHBHduMHrWgBCyN13kFuM8c=;
+ b=v7OUuFlykjFon2/xI0TirQn4FrxC2L8ziRFt3kNCOKCLO+H51gFCuWnVas7TMNJm3W5x4b7VR
+ 6a4tCgXPVjXA2C/2OtBT7aNyBjd542zmpQsV2O2Bwy5KkSnkbbaIiNk
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDExNSBTYWx0ZWRfX2g+8sQelLGSc
+ 15hbuqXfVkbk4E2iVOq07YIWhyV0Cmjt5aQ0r/64z7L3E2cAE8T5sViYNmZZD0iVTsTycwMXyBZ
+ P4HSi1LnKPrlPhBeNbCfZmOlOtWTHd16vL3bDr6DgY9t+LD9kFVK5KMgUkhwWFDBrn46e0TiWQw
+ 3LHNPzqzw1Vq5jYAavEZNaAXVieqEp0KqRjblRwrE32mSZclBSRDfJ9+E2+zsZa0GKSeztSE9mM
+ xglANjLfdo5GWSHmlsGmxE+WNqlZRIPU7I2RfWCnreW2dgkA8TcibM0B4Mya/HHF6R5XLlWyK0c
+ LMxZ99ieUiJDAQIX0JbQ9zuFzO3DVoCVGnhDEVEfWVQC2aSC2xhiZey0X7oSDV/A0NaaGJcge5u
+ hRPrzC5jxPd0I3n4s6ZeZ0g2sR0LSlr1rzKv0ZjqTchjYHYXrP9o3NdLEmXn9JpD+FRVIjvVIYf
+ PfQXE6gMWlVdJ13IM6w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDExNSBTYWx0ZWRfX1HOepaMZcdWM
+ 8hejtA97YWL4dZlatn9xhYlUI8RJhfLaRHmKpWO/DVDSgkPI6qOJXkhbB53u/RDzacniEYf3iiC
+ rfoNT9xHt65GK62/MBw8ynBTMv7K7Mb91+6oD1iFpODKcwaTYSDr
+X-Proofpoint-GUID: 007SN63ZoN19N1Sc2nBgb01M4qUhtocJ
+X-Proofpoint-ORIG-GUID: 007SN63ZoN19N1Sc2nBgb01M4qUhtocJ
+X-Authority-Analysis: v=2.4 cv=Y8DIdBeN c=1 sm=1 tr=0 ts=6a96cc2f cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=BpGzv1V74M3SfeTrGa8v:22
+ a=rF-OBKQuQRgILe8AnB4A:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11892
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=10 priorityscore=1501 clxscore=1015 bulkscore=10
+ suspectscore=0 spamscore=0 lowpriorityscore=10 phishscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010115
 
-On Fri, 28 Aug 2026 21:56:47 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+I happened to notice these were unused. Two of them are relatively
+recently unused, and one has been unused for a few years. Remove them.
 
-> We should make sure there are no inflight jobs at the time we finish driv=
-er
-> structures and synchronise their IRQs, and even more so by the time clocks
-> and power domains are disabled.
->=20
-> To that end, stop submissions from existing scheduler entities and force =
-HW
-> to stop all running jobs.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c |  2 +
->  drivers/gpu/drm/panfrost/panfrost_job.c    | 71 ++++++++++++++++++------=
-------
->  drivers/gpu/drm/panfrost/panfrost_job.h    |  1 +
->  3 files changed, 46 insertions(+), 28 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 9549ddb7854a..9e02fb5f73c8 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -341,6 +341,8 @@ void panfrost_device_fini(struct panfrost_device *pfd=
-ev)
->  	pm_runtime_get_sync(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
-> =20
-> +	panfrost_jm_stop_sched_jobs(pfdev);
+---
+Tal Zussman (2):
+      mm: remove unused mark_page_reserved()
+      mm: remove unused totalram_pages_inc() and totalram_pages_dec()
 
-Do we really want to do the SOFT_STOP+HARD_STOP dance in that case?
-Can't we just SOFT_RESET the GPU and collect the pieces in the
-panfrost_<component>_fini() functions?
+ include/linux/mm.h | 16 ----------------
+ 1 file changed, 16 deletions(-)
+---
+base-commit: ead700ca770c82167af32622cf8b68c9f87c3c7c
+change-id: 20260901-mm-remove-unused-helpers-33056049864c
 
-> +
->  	panfrost_gem_fini(pfdev);
->  	panfrost_perfcnt_fini(pfdev);
->  	panfrost_jm_fini(pfdev);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_job.c
-> index 5016d2d53da2..630298b7ea8a 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> @@ -655,39 +655,12 @@ static u32 panfrost_active_slots(struct panfrost_de=
-vice *pfdev,
->  	return js_state & *js_state_mask;
->  }
-> =20
-> -static void
-> -panfrost_reset(struct panfrost_device *pfdev,
-> -	       struct drm_sched_job *bad)
-> +static void panfrost_stop_jobs(struct panfrost_device *pfdev)
->  {
->  	u32 js_state, js_state_mask =3D 0xffffffff;
->  	unsigned int i, j;
-> -	bool cookie;
->  	int ret;
-> =20
-> -	if (!atomic_read(&pfdev->reset.pending))
-> -		return;
-> -
-> -	/* Stop the schedulers.
-> -	 *
-> -	 * FIXME: We temporarily get out of the dma_fence_signalling section
-> -	 * because the cleanup path generate lockdep splats when taking locks
-> -	 * to release job resources. We should rework the code to follow this
-> -	 * pattern:
-> -	 *
-> -	 *	try_lock
-> -	 *	if (locked)
-> -	 *		release
-> -	 *	else
-> -	 *		schedule_work_to_release_later
-> -	 */
-> -	for (i =3D 0; i < NUM_JOB_SLOTS; i++)
-> -		drm_sched_stop(&pfdev->js->queue[i].sched, bad);
-> -
-> -	cookie =3D dma_fence_begin_signalling();
-> -
-> -	if (bad)
-> -		drm_sched_increase_karma(bad);
-> -
->  	/* Mask job interrupts and synchronize to make sure we won't be
->  	 * interrupted during our reset.
->  	 */
-> @@ -730,6 +703,48 @@ panfrost_reset(struct panfrost_device *pfdev,
->  	}
->  	memset(pfdev->jobs, 0, sizeof(pfdev->jobs));
->  	spin_unlock(&pfdev->js->job_lock);
-> +}
-> +
-> +void panfrost_jm_stop_sched_jobs(struct panfrost_device *pfdev)
-> +{
-> +	for (u32 i =3D 0; i < NUM_JOB_SLOTS; i++)
-> +		drm_sched_wqueue_stop(&pfdev->js->queue[i].sched);
-
-Do we have something cleaning up the pending list if this is stopped
-while jobs are in-flight? If not, we probably need a ::cancel_job()
-implementation.
-
-> +
-> +	panfrost_stop_jobs(pfdev);
-> +}
-> +
-> +static void
-> +panfrost_reset(struct panfrost_device *pfdev,
-> +	       struct drm_sched_job *bad)
-> +{
-> +	unsigned int i;
-> +	bool cookie;
-> +
-> +	if (!atomic_read(&pfdev->reset.pending))
-> +		return;
-> +
-> +	/* Stop the schedulers.
-> +	 *
-> +	 * FIXME: We temporarily get out of the dma_fence_signalling section
-> +	 * because the cleanup path generate lockdep splats when taking locks
-> +	 * to release job resources. We should rework the code to follow this
-> +	 * pattern:
-> +	 *
-> +	 *	try_lock
-> +	 *	if (locked)
-> +	 *		release
-> +	 *	else
-> +	 *		schedule_work_to_release_later
-> +	 */
-> +	for (i =3D 0; i < NUM_JOB_SLOTS; i++)
-> +		drm_sched_stop(&pfdev->js->queue[i].sched, bad);
-> +
-> +	cookie =3D dma_fence_begin_signalling();
-> +
-> +	if (bad)
-> +		drm_sched_increase_karma(bad);
-> +
-> +	panfrost_stop_jobs(pfdev);
-> =20
->  	/* Proceed with reset now. */
->  	panfrost_device_reset(pfdev, false);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.h b/drivers/gpu/drm/pa=
-nfrost/panfrost_job.h
-> index 3e3b9717838f..dc9d3c9dc67b 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.h
-> @@ -73,6 +73,7 @@ int panfrost_jm_is_idle(struct panfrost_device *pfdev);
->  int panfrost_job_get_slot(struct panfrost_job *job);
->  int panfrost_job_push(struct panfrost_job *job);
->  void panfrost_job_put(struct panfrost_job *job);
-> +void panfrost_jm_stop_sched_jobs(struct panfrost_device *pfdev);
-> =20
->  #ifdef CONFIG_DEBUG_FS
->  void panfrost_sched_debugfs_init(struct drm_minor *minor);
->=20
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
 
