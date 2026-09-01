@@ -1,70 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8053D390991;
-	Tue,  1 Sep 2026 10:07:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E5D313543;
+	Tue,  1 Sep 2026 10:09:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788257272; cv=none; b=DhScd1jx6eC0shz8sKKzplkfkxgEJmmSh0lwkauCWQ/BMJ7XQZMPGrCn51PaP0MZHStNeluaDYaINgwO42GYPxECoeM078PLcOd7xnBhPUSB5EGMcMCazSlk2tCorGsGQC2k9COk5Cx37fNARoLqpZeUxNFGhjRSBs+ZsNuGXJI=
+	t=1788257352; cv=none; b=NXZq01F1/8RevLEBKYbisyD6kJr17cZ5b/pCmCKA9Ogz2flX7pJOGvDRRCb9iDxvoMGPXXYsGsEB21fk+M2WATJTh+1bXovKIDjUmBJ0dSjxRutaPTprNjM1qQaHwnS/PaHsRAVwgzElc+SG5SAkjn5O559Okw6/YWTIVwvEHIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788257272; c=relaxed/simple;
-	bh=AVAxjRXT/Oy2zbDACIouUK9OdY5+CAhx5iFIEV2zNz8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=DTJ/QT0Dn4HP8Nrq3qIU0PKCLrkim+xeVyy72kA7ZfHdwDuEod3O8ex4k1an4oWbc3Pm5QO6Srzl+nNKx79s/tLyK3LplXiHcSVJXbnsVZ5MFz3hbO6bbkAuCJGRusPRB5SEnkPaFLRotLyyvYg7P0w1vRrrfIkuX5AQAQegzGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ADTqWGDa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788257352; c=relaxed/simple;
+	bh=lBvRvUx38NoGosjNGpx7o+KN31KUtj0kc3nvz84NAvE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U2KlFr9ORQRVISBUF5nHKy5dkljQ4HZaIaIu8O9zx3SZXwSayLTPy3J3gHj2iBUoe9uL64XtAQ9MpHh6r7B3I1zE8xoGKFIIT6PKFBWC3B/u8QiP6ayFlwL8IpKRUdJ/gUU9M4k6ClsKv7dMBPbQc7vVajNjdZV6WLPtpGWJVA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GWhLLNZq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ADTqWGDa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11AA1F000E9;
-	Tue,  1 Sep 2026 10:07:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788257271;
-	bh=PoK3LpUQD7xnXiZoA+/eWJWA3Z/fW24lxnC+mG9Dc6c=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ADTqWGDasqn7azaBYvHz9MneKZQYxxHfj7mOquB8BT29vR0mlwWeQPP6Ad3Zf6RV+
-	 SUmmUaK+xIcasihOWi98D+9ovMVTM4M5RkhxrczDTAQ1R5lbmEn7s1yebbhfB2N/Qw
-	 7MYqxi6CT66O/VCLk9ZUDn4TBcgux+opyrojY1IQ81wZYx1maI9BC3Rg/Uk5KIle0P
-	 0xX/tkxRySthpiFKM22zzoV68WUmpPpqECgEr+J3NrkqorQZ8Eqvlg+cTCr+KqzB4R
-	 sdkOdvFcY2/FxoClUVhHUYKwZT5o5KbDatsWXrdR9VTYwxiVoSiv5waXduUf+PRp+t
-	 VoRzaUDhd9bJA==
-From: Leon Romanovsky <leon@kernel.org>
-To: linux-rdma@vger.kernel.org, Norbert Szetei <norbert@doyensec.com>
-Cc: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <46E1D5C0-24BE-4D01-BDB3-634FE09B22C5@doyensec.com>
-References: <46E1D5C0-24BE-4D01-BDB3-634FE09B22C5@doyensec.com>
-Subject: Re: [PATCH] RDMA/rxe: validate access flags before swapping the
- MR's PD
-Message-Id: <178825726861.1143543.16023047492405321671.b4-ty@kernel.org>
-Date: Tue, 01 Sep 2026 06:07:48 -0400
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GWhLLNZq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BC281F000E9;
+	Tue,  1 Sep 2026 10:09:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788257351;
+	bh=XOh5n9kE//yjlx3OBC2EABNkxL//DPBNHqP9vmJhGPM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GWhLLNZqcGW0PApwuFD+EGiPFHBroMH2lju7n8Gg0T6dBL2GvA/0iGPeZhT5nB2PF
+	 R5/JToWnqzXkOjv0/4JbyXiMfkU2L8uYGBNZG6QU4lN329qlmDxTQiS52BQPML+vHQ
+	 PGJBygO3bJuVWr2AZ4xW5fbUk21rXWH5cZpwbNR4=
+Date: Tue, 1 Sep 2026 12:09:07 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: use strscpy() for ifname copy
+Message-ID: <2026090141-revenue-crawfish-0f8d@gregkh>
+References: <20260826143418.5713-1-nsvatoslav515@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826143418.5713-1-nsvatoslav515@gmail.com>
 
-
-On Thu, 27 Aug 2026 19:18:07 +0200, Norbert Szetei wrote:
-> rxe_rereg_user_mr() reassigns mr->ibmr.pd first and only then
-> validates the IB_MR_REREG_ACCESS argument:
+On Wed, Aug 26, 2026 at 05:34:18PM +0300, Svyatoslav Nikolenko wrote:
+> Replace snprintf() with strscpy() when copying ifname into registry_par
+> to avoid unnecessary format specifier parsing.
 > 
-> 	if (flags & IB_MR_REREG_PD) {
-> 		rxe_put(old_pd);
-> 		rxe_get(pd);
-> 		mr->ibmr.pd = ibpd;
-> 	}
+> Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+> ---
+>  drivers/staging/rtl8723bs/os_dep/os_intfs.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> [...]
+> diff --git a/drivers/staging/rtl8723bs/os_dep/os_intfs.c b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
+> index f31196f54b3e..dd0c5fc813c8 100644
+> --- a/drivers/staging/rtl8723bs/os_dep/os_intfs.c
+> +++ b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
+> @@ -256,7 +256,7 @@ static void loadparam(struct adapter *padapter, struct net_device *pnetdev)
+>  
+>  	registry_par->enable80211d = (u8)rtw_80211d;
+>  
+> -	snprintf(registry_par->ifname, 16, "%s", ifname);
+> +	strscpy(registry_par->ifname, ifname, sizeof(registry_par->ifname));
+>  
+>  	registry_par->notch_filter = (u8)rtw_notch_filter;
 
-Applied, thanks!
+the ifname module option, and field, should just be removed from this
+driver entirely.  Can you do that instead?
 
-[1/1] RDMA/rxe: validate access flags before swapping the MR's PD
-      https://git.kernel.org/rdma/rdma/c/ae36a5b609ae79
+thanks,
 
-Best regards,
--- 
-Leon Romanovsky <leon@kernel.org>
-
+greg k-h
