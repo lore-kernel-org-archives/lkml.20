@@ -1,139 +1,181 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-169.mta1.migadu.com [95.215.58.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2664C471404;
-	Tue,  1 Sep 2026 08:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3520D47126B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:54:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252851; cv=none; b=FCBxq2DwmCSy3qbyo1k5vy8/6oR93q9DKhx+hvGNqSVaa8hEjv4OR4IfP4CnJh4GSLtMpNMwc17o+9WdD6xjOmhyyyIg9b1U6PbKpi+bcwthc6408B1G9xxuF8G3bGIgGw1a4Jq9Y8aNV72671+QfeIVd+Lts1BK5K+SnWP8N94=
+	t=1788252852; cv=none; b=SAbdNR3R5VgqCGRHsreckMhEGHxwoT3Ti1a2UK0QrpbwOc+3wbi2AsPB247IMUcgveXP09jV7JgNKVcsIoAs1xSZcuivpdN4XL4ONqtRvqjkQsIe8kC/Lrqvx0sdR9VR9Db2NCsGqdsNRXZnQl1kr5JSeSduUItaDooHbRcYBfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252851; c=relaxed/simple;
-	bh=0G7uy8JLNAmprieqWJ95xv7RIvhVnHrsQ5A3d4H2dPk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u3xeVHph2kRMIryOYe9t0YcHxzUgGdiUWZ+/Otrlai1nx1Wj+A3rC2Hc4juPKSF8Es1+bdGtwjpTxZ80FbKz4y9ZIFeObH+wOmNM0qQWp55rt1/adBzKC6eQCqyyHUFFDiU4PMBbQAen1h/vJfOsmniKILtBxMR+AHVom30XoSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TN2z760V; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788252852; c=relaxed/simple;
+	bh=g8f2dez90PDz4Ck0r4rT5yrBdapilOB4Xhu/hGJhOsQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QBInN2tjxrL7+a9TpdTSS+9zBkaFSO/w6eGbRKtplb72Qjm/E9LudOJG722+Yqfhz5o8Eq3NxYBVS+F6h3bJiBvzQe/mBVc/LR7oYTxnXBL5ZNFp1fDB/AVhNKZ9Y/tef/zatzz8ULpiORbDELrR80wQzxCKqbQo6JFZppTgwkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dUxTrN4z; arc=none smtp.client-ip=95.215.58.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TN2z760V"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788252850; x=1819788850;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0G7uy8JLNAmprieqWJ95xv7RIvhVnHrsQ5A3d4H2dPk=;
-  b=TN2z760VeStunKuLh8r0lceFnvbiBAAlgNG5JcSPkaOWrlxjJw3R5ep+
-   AweEYTNHjszaSqC+9i8Ta2HjfoTv7egfpFhyfmIbznzjJPz0cI2mzP+H6
-   awxb8k83cjtnB+eTkipxREXbRpmx7jNqfroE8vqYH7SLvICvKevgDOQPn
-   D2zm5iJB9RUOu15oizihdZahZj2w5erA07CB0pRvmbInD/z8mR/fm5oxH
-   UwiAM6nR1LJ5orORj0xSohH42PSM7TKAW1z3GBXMNLMWBf/KL/WXBmjZp
-   O4lrvCtuEbdCqmmfbzAS1vriMtWJJgpDsKGQEX91dVpQsj4+CHp6CzJod
-   A==;
-X-CSE-ConnectionGUID: QbT7/hqlTEqVVOx7ZCeGzg==
-X-CSE-MsgGUID: vgA2o2nHSc2BzcuscTWhPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="92363727"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="92363727"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:54:09 -0700
-X-CSE-ConnectionGUID: duhObOGwT3ulEDaosVIVbw==
-X-CSE-MsgGUID: YKDMBUWLRqa/cFEZ/5OyTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="292544114"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:54:06 -0700
-Date: Tue, 1 Sep 2026 11:54:04 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Ahmad Byagowi <ahmadexp@gmail.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Peter Rosin <peda@lysator.liu.se>,
-	Andy Shevchenko <andy@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 2/2] i2c: mux: Propagate firmware nodes to channel
- adapters
-Message-ID: <apaSrJFAp5Fr6ZT1@ashevche-desk.local>
-References: <cover.1788181174.git.ahmadexp@gmail.com>
- <7a4cf4b288afaaa085e1c4ec592fbb0fb43eefd4.1788181174.git.ahmadexp@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dUxTrN4z"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=g8f2dez90PDz4Ck0r4rT5yrBdapilOB4Xhu/hGJhOsQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788252848; v=1; x=1788857648;
+ b=dUxTrN4zCb+9bk6Yhc8UuEprcwz2HQK5ufyJH5eoFx+vN/jLUbBmlNv1txZiyJQZ+Pclzfcn
+ vZEADnf4Y260fnCoigtm96lrVTPrM3Jj3auLojk2PX107HkidFYz3DGHR/nR4w/LletfRREBgpr
+ vnbo8ejy/XBdcr/HDOu7l+EQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 01307ef19bc2d902;
+	Tue, 01 Sep 2026 08:53:58 +0000
+X-Mizu-Trace-ID: 01307ef19bc2d902
+X-Migadu-Flow: FLOW_OUT
+From: Qingfang Deng <qingfang.deng@linux.dev>
+To: Robin Murphy <robin.murphy@arm.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Qingfang Deng <qingfang.deng@linux.dev>
+Subject: [PATCH] dma-mapping: use exact allocation for DMA pages
+Date: Tue,  1 Sep 2026 16:53:47 +0800
+Message-ID: <20260901085348.53140-1-qingfang.deng@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7a4cf4b288afaaa085e1c4ec592fbb0fb43eefd4.1788181174.git.ahmadexp@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 10:22:07AM -0700, Ahmad Byagowi wrote:
-> Device Tree channel nodes are associated with the adapters created by
-> i2c-mux, but equivalent firmware-node descriptions are not.
-> 
-> Use generic firmware-node operations for the existing channel lookup
-> and associate the returned node with the adapter. Do not restrict the
-> lookup by firmware-node type, so Device Tree, software nodes, and ACPI
-> descriptions all follow the same property traversal. The existing
-> acpi_preset_companion() call remains in place for the standard ACPI
-> channel association.
-> 
-> Keep a separate reference to the node returned by the generic lookup
-> because acpi_preset_companion() may replace the device's primary
-> firmware node. Release the saved reference after adapter deletion.
+DMA page allocation fallbacks use alloc_pages_node() with get_order(size),
+wasting the unused tail for non-power-of-two requests.
 
-...
+Use alloc_pages_exact_nid() and free_pages_exact() so that a buddy
+fallback retains only requested pages.
 
->  	if (muxc->arbitrator)
-> -		mux_node = of_get_child_by_name(dev_node, "i2c-arb");
-> +		mux_node = fwnode_get_named_child_node(dev_node, "i2c-arb");
->  	else if (muxc->gate)
-> -		mux_node = of_get_child_by_name(dev_node, "i2c-gate");
-> +		mux_node = fwnode_get_named_child_node(dev_node, "i2c-gate");
->  	else
-> -		mux_node = of_get_child_by_name(dev_node, "i2c-mux");
-> +		mux_node = fwnode_get_named_child_node(dev_node, "i2c-mux");
->  
->  	if (mux_node) {
-> -		/* A "reg" property indicates an old-style DT entry */
-> -		if (!of_property_read_u32(mux_node, "reg", &reg)) {
-> -			of_node_put(mux_node);
-> +		/* A "reg" property indicates an old-style firmware entry. */
-> +		if (!fwnode_property_read_u32(mux_node, "reg", &reg)) {
-> +			fwnode_handle_put(mux_node);
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+---
+ drivers/iommu/dma-iommu.c   | 10 ++++++----
+ include/linux/dma-map-ops.h |  2 +-
+ kernel/dma/contiguous.c     |  6 +++---
+ kernel/dma/direct.c         |  8 +++++---
+ kernel/dma/ops_helpers.c    | 11 +++++++----
+ 5 files changed, 22 insertions(+), 15 deletions(-)
 
-Consider using __free(fwnode_handle) at some point. Perhaps as a patch
-on top of this.
-
-It also may help with the rest of the existing code elsewhere in the file.
-
->  			mux_node = NULL;
->  		}
->  	}
->  
->  	if (!mux_node)
-> -		mux_node = of_node_get(dev_node);
-> +		mux_node = fwnode_handle_get(dev_node);
->  	else if (muxc->arbitrator || muxc->gate)
->  		return mux_node;
->  
-> -	for_each_child_of_node(mux_node, child) {
-> -		ret = of_property_read_u32(child, "reg", &reg);
-> +	fwnode_for_each_child_node(mux_node, child) {
-> +		ret = fwnode_property_read_u32(child, "reg", &reg);
->  		if (ret)
->  			continue;
->  		if (chan_id == reg)
->  			break;
->  	}
->  
-> -	of_node_put(mux_node);
-> +	fwnode_handle_put(mux_node);
->  	return child;
->  }
-
-
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index 58c624513cd4..8f262c83802c 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -1628,10 +1628,12 @@ static void *iommu_dma_alloc_pages(struct device *dev, size_t size,
+ 	void *cpu_addr;
+ 
+ 	page = dma_alloc_contiguous(dev, alloc_size, gfp);
+-	if (!page)
+-		page = alloc_pages_node(node, gfp, get_order(alloc_size));
+-	if (!page)
+-		return NULL;
++	if (!page) {
++		cpu_addr = alloc_pages_exact_nid(node, alloc_size, gfp);
++		if (!cpu_addr)
++			return NULL;
++		page = virt_to_page(cpu_addr);
++	}
+ 
+ 	if (!coherent || PageHighMem(page)) {
+ 		pgprot_t prot = dma_pgprot(dev, PAGE_KERNEL, attrs);
+diff --git a/include/linux/dma-map-ops.h b/include/linux/dma-map-ops.h
+index 8fae2b7deb20..3ef3003713a6 100644
+--- a/include/linux/dma-map-ops.h
++++ b/include/linux/dma-map-ops.h
+@@ -143,7 +143,7 @@ static inline struct page *dma_alloc_contiguous(struct device *dev, size_t size,
+ static inline void dma_free_contiguous(struct device *dev, struct page *page,
+ 		size_t size)
+ {
+-	__free_pages(page, get_order(size));
++	free_pages_exact(page_address(page), size);
+ }
+ #endif /* CONFIG_DMA_CMA*/
+ 
+diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+index 66093460584e..90937dc7c627 100644
+--- a/kernel/dma/contiguous.c
++++ b/kernel/dma/contiguous.c
+@@ -451,8 +451,8 @@ struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp)
+  *
+  * This function releases memory allocated by dma_alloc_contiguous(). As the
+  * cma_release returns false when provided pages do not belong to contiguous
+- * area and true otherwise, this function then does a fallback __free_pages()
+- * upon a false-return.
++ * area and true otherwise, this function then does a fallback
++ * free_pages_exact() upon a false-return.
+  */
+ void dma_free_contiguous(struct device *dev, struct page *page, size_t size)
+ {
+@@ -476,7 +476,7 @@ void dma_free_contiguous(struct device *dev, struct page *page, size_t size)
+ 	}
+ 
+ 	/* not in any cma, free from buddy */
+-	__free_pages(page, get_order(size));
++	free_pages_exact(page_address(page), size);
+ }
+ 
+ /*
+diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+index da665ca22d5c..ea64453d7370 100644
+--- a/kernel/dma/direct.c
++++ b/kernel/dma/direct.c
+@@ -120,6 +120,7 @@ static struct page *__dma_direct_alloc_pages(struct device *dev, size_t size,
+ 	int node = dev_to_node(dev);
+ 	struct page *page;
+ 	u64 phys_limit;
++	void *va;
+ 
+ 	WARN_ON_ONCE(!PAGE_ALIGNED(size));
+ 
+@@ -133,9 +134,9 @@ static struct page *__dma_direct_alloc_pages(struct device *dev, size_t size,
+ 		dma_free_contiguous(dev, page, size);
+ 	}
+ 
+-	while ((page = alloc_pages_node(node, gfp, get_order(size)))
+-	       && !dma_coherent_ok(dev, page_to_phys(page), size)) {
+-		__free_pages(page, get_order(size));
++	while ((va = alloc_pages_exact_nid(node, size, gfp)) &&
++	       !dma_coherent_ok(dev, virt_to_phys(va), size)) {
++		free_pages_exact(va, size);
+ 
+ 		if (IS_ENABLED(CONFIG_ZONE_DMA32) &&
+ 		    phys_limit < DMA_BIT_MASK(64) &&
+@@ -146,6 +147,7 @@ static struct page *__dma_direct_alloc_pages(struct device *dev, size_t size,
+ 		else
+ 			return NULL;
+ 	}
++	page = va ? virt_to_page(va) : NULL;
+ 
+ 	return page;
+ }
+diff --git a/kernel/dma/ops_helpers.c b/kernel/dma/ops_helpers.c
+index 6b5f9208d31c..5cdf3f60cf47 100644
+--- a/kernel/dma/ops_helpers.c
++++ b/kernel/dma/ops_helpers.c
+@@ -67,10 +67,13 @@ struct page *dma_common_alloc_pages(struct device *dev, size_t size,
+ 	phys_addr_t phys;
+ 
+ 	page = dma_alloc_contiguous(dev, size, gfp);
+-	if (!page)
+-		page = alloc_pages_node(dev_to_node(dev), gfp, get_order(size));
+-	if (!page)
+-		return NULL;
++	if (!page) {
++		void *va = alloc_pages_exact_nid(dev_to_node(dev), size, gfp);
++
++		if (!va)
++			return NULL;
++		page = virt_to_page(va);
++	}
+ 
+ 	phys = page_to_phys(page);
+ 	if (use_dma_iommu(dev))
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
