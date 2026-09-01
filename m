@@ -1,293 +1,195 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D63F481223;
-	Tue,  1 Sep 2026 16:42:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788280973; cv=pass; b=ZguxYRC776ptteMWd4HOeN3vEO4NW4epM8LVFqdAQa3dNeTbKO54K0uOm3Ok1x4InY2ZHAaFTZS2MSrWxW/z3p3oQvjfpAFqjgtQjySjTC85uw9k/m8+jg3u/9uPNgqXjjqn7MbpWE3UOx4BXUK5fyECMByytwjkMilwFA89p3s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788280973; c=relaxed/simple;
-	bh=gNx8RkWAn3+MDnKFUhraTiHN89qbNB3ZQysFj7mwD5M=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=Z6t8/v48WG5gszKhBRteWDJr2s+6l54Zph8SpC3eYIyTZSdTqD6kC+ogxHc563DDOUrH50Xbvsy/uoRkncPkSqlld+4Fvu7n4Dx4EhhDjbv7RmabM+1uBEu9P02tihlMX/2irUAcznol1Fxkx58jQwrqFUxUBIBbFE+d19pwkro=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=cWWhXRp3; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 711063515DF
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788281019; cv=none; b=Rk2Wk4XspwNL9mzxPs+z+HGThhBVHyC8sXYO3mjR9Qt3bA2vyVNxF+BebpReBF7Pwpa94gl3VYp7Co73Vr9OEXwxVes14iTPcAHPJHRhXo44Mt/7x7055XI2Z6FfbLnLfxFj7b5iG0A1zTrBLV42T4ZtVmlc0NOtMlxPMz+4ou8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788281019; c=relaxed/simple;
+	bh=NM1OhZ9rfYb9F3MzDtG1tc94qtUJK44wkdFmtomAr2I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fjT8pw4YM4Z2vfxlq+jWd8M3ZAO0F5tVGI3hukGtPbvi1uKP5JgGM3Ss3uJ5QD/3vp5SC7ECqG3P7QTjEH+iAGNrLgJ2/54FJ/6tFy65L1fQc5aVVm9JkPeTTEUS8jOJVhkWIFtJCRRVFLwcHgP5CbmDJgrfoDScwhfNFSI3xLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YgskcyZZ; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="cWWhXRp3"
-ARC-Seal: i=1; a=rsa-sha256; t=1788280957; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=XDWm3uwvnZHLBvsndM4gHUkLPU6ZiY9hjH5bB1WF0FWMUaqLsICxnjMqgMOE691P9+RmL3wFioHiyfOKRMehftq0zeV1mu+yYuNcqm8RTjJ7LUUomczRxet3FxKutYr+sDXZKIrx99bTBdiG3qthYKNBaeWghCF+RhoIxu3SOLU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788280957; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=iuish5hluWdY71WX+l22NL4cSYu/RU1lYznBGbg7EhU=; 
-	b=Ab2lSfDdVhxEObA8hbG+3eETu3FpRC5vRVCMfrkvxWtqlKwc313Vc7MAcNntOTba6F/qPViM4vN4oRawmo1nWxi4KpDBOmlkd0MFoeUFH5XpJJYq+xORIyuuxuigK8T1oY1vpfIpzTGXN+Fk1lHcLQk1VQZDztjB+5mf/K3+OF4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788280957;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
-	bh=iuish5hluWdY71WX+l22NL4cSYu/RU1lYznBGbg7EhU=;
-	b=cWWhXRp3TIwhIyBIrh/SfLhTPj1DRrPZXLqFZbE6Hsr2SrccUSpuIkTkaZ9hWkif
-	JImILrx0Qkce1JrJxNtq7AlcqA904ov5x7R74ZsmDWR9moabEKW+dJumPv5nF2gtiMC
-	nOl8NxAlPqOVqXiQu2YWpN0GoWYfisNWKhjHHA4plX358hG1cijWN0ZlmiU3yPm54oJ
-	VHdPGC15OeOGQaZMefFzTwueLzxM7qPRj3b/hJEPV86JApEwvidm/aT7J/6JrlPQSEi
-	BS5Nic6MSlgaNHdnuo3BbGEZhQ7mWW7IObxGL2hE0eXbDb7zfUHg6myGYuce4V5DZR5
-	ZiJEtifaog==
-Received: by mx.zohomail.com with SMTPS id 1788280954716290.2395123693982;
-	Tue, 1 Sep 2026 09:42:34 -0700 (PDT)
-Message-ID: <8783d4c77f112c55c9f9678b5a8e0a88d49c1141.camel@rong.moe>
-Subject: Re: [PATCH v2] Bluetooth: Properly disable remote wakeup for
- MT7922/MT7925 on Ryzen platform
-From: Rong Zhang <i@rong.moe>
-To: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz
-	 <luiz.dentz@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, Chris Lu
- =?Big5?Q?=28=B3=B0=B8X=AAl=29?=
-	 <Chris.Lu@mediatek.com>, Will-CY Lee =?Big5?Q?=28=A7=F5=ACF=BFo=29?=
-	 <Will-CY.Lee@mediatek.com>, SS Wu =?Big5?Q?=28=A7=C5=BE=CB=AAY=29?=
-	 <ss.wu@mediatek.com>, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org
-In-Reply-To: <20260701-btmtk-ryzen-remote-wakeup-v2-1-767ac7907472@rong.moe>
-References: <20260701-btmtk-ryzen-remote-wakeup-v2-1-767ac7907472@rong.moe>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 00:37:25 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YgskcyZZ"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b96837ca3so28578865e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:43:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788281016; x=1788885816; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yUjhJUdR6YGxtlP3WPGJhQ87yiDLscKuDto9mJ9pZts=;
+        b=YgskcyZZCdunLm7pbAHhsVRJSUL8Q7DvB1l5PdI962LlFFu7nB/C00jAqRAWYrt5NK
+         KGMah9tVKiCOByrNHFIy2VJO9pPYn18+A3Zio1OH2oNLnSV3t8yoKTPDoCOYhRs5ExJi
+         yTcFTndHD0f1KxvrpR+PgFcHHtjNVz0/RARxz4HLTrV57kSPD0G9xmqEKowlAezy7OL9
+         vKAG4nOpnKrKSWVaVsWzyF3h2dxTcx3uFzsYnCa/tRGe9sTe1+K3l17Qa+5F+0Yt2Gy/
+         M/DY7peSMuNRp7cr7XcR0Iu/Z8Mo9ESTXUD1nkhICInG3KHfvkrz+PNr6pjsHOGLe/UQ
+         QiUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788281016; x=1788885816;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yUjhJUdR6YGxtlP3WPGJhQ87yiDLscKuDto9mJ9pZts=;
+        b=gClmYHATp2LfZEuHaDp73wFMu9t62sjAb8nECG43XmSXYIyDyfbjeuzxt6mT1czTum
+         H7wyjNfycFBhdLpIE2Gjzg3Qb2BC/AoQT52I47sgKVmbkxuTjMGvpDPTTqN10VXtxWiD
+         yXItBHsX+96rzvMZ3bzmF6uqvfXxeE3vLbQSUVFnhTSw09hhIGwuXkBt0UHtZTMkEbRi
+         tMOV/b9yxrDLkxaW3AngyhdiPV/aRO0WgNWdTtzYWtqK14K3b2I85d73BavaogTj7FY9
+         E6yc/ZeLqcVExSeDmRmOtMBCMYF4ErqxTcttS9V580Yuq6DiMe51Mpgk1g1opH8V6/z4
+         HVxg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr89wkuQczA1Dxd8ySVg7rSgz4UkFtVqewx+Esjp34Rvjo1GohFXTLsyk79sAsENDbcLvcHnL9SECBkTE0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlxMATBS7oqrR2mVOS024A+NQXOWINJjAtT6OXALQJeqegbatz
+	Lku+N5W9CujWZuP/gxKqJjPmBucqsZfWwiQDbUGB85YjeU30xWa4X+Ae
+X-Gm-Gg: AR+sD13TEETxacU1bHeqKqKWuUc2q+ZR4RxMV2ghcMQR98q20Hu7sMklFazeW6yTost
+	UHZUK+4pvWufo8c+O6U6N3oR3CdjWEcIf1VSr1nY9mOhSBFJGjbzRvKVLDx99YWgMsg5gDIb2KZ
+	5m8pkDjJwAr9Y9zdv9BE8/kfD4WYYoHG7xLP4TjWyE228IaVyIsaN9nGvSsqhIZH6psviZPip64
+	jgbh3na4OrF93UWeP3nHpkTCM+y08CGl+0++n197cSa3KFmmqUXNr8wPHXgTt57SlFDdnmMPHHh
+	b69v2U2rEoKEJLZrFmzxq6evKJj57FNEKLGNIlXiN//8AURblpA+LKdF5yIqpJWzzByMp0W6LxR
+	ZCu/fW6lhWxWAOulCestDEGFNo4B7qmKcKTwNOvlKo1n1RTgfvCe3VKsZ45dllgBaB+kLN2eCi8
+	nrTGAudo3zkWE0qNi9BGipOicGdS2hFFgT3lKMDzILfVBhKsmiBmQQt6BDWYVPdRCCFwV3dK1Va
+	vD7fxJwhBMSRDb+FwcemUueK8wQCm9woUY+M1apMdap4jeEouKAzlQZin/zHZs/cnUwqhs6Qjln
+	sbU6KY3PBFRLmPFRi/9MqV9qcKdPhf63d0hLnRs6ARfyGUo8KeguDlyAEOFwHX7Sdind5K+gyPw
+	rnkS1cA==
+X-Received: by 2002:a05:600d:8498:20b0:499:dbae:86be with SMTP id 5b1f17b1804b1-49b91c4de9bmr443281585e9.14.1788281015501;
+        Tue, 01 Sep 2026 09:43:35 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a16a-7801-fd8c-4b37-36b4-e53a.310.pool.telefonica.de. [2a02:3100:a16a:7801:fd8c:4b37:36b4:e53a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce309e418sm22960605e9.13.2026.09.01.09.43.34
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 01 Sep 2026 09:43:35 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: David Howells <dhowells@redhat.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] keys: finalize persistent keyring timeout after link attempt
+Date: Tue,  1 Sep 2026 18:43:23 +0200
+Message-Id: <20260901164323.35785-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-Hi Luiz,
+When no keyring exists for the requested UID, KEYCTL_GET_PERSISTENT
+creates and registers one before linking it to the requested destination.
+The configured timeout is set only after the destination link succeeds.
 
-Gentle ping.
+A destination restricted with KEYCTL_RESTRICT_KEYRING makes that link fail
+with -EPERM. With persistent_keyring_expiry set to 60 seconds, /proc/keys
+still reports the registered keyring's expiry as "perm".
+The failed call therefore leaves a quota-exempt keyring in the namespace's
+hidden register, where it may remain until namespace teardown.
 
-On Wed, 2026-07-01 at 23:43 +0800, Rong Zhang wrote:
-> It is reported that a remote wakeup could cause MT7922/MT7925's btusb
-> interface completely unresponsive. Resetting the xHCI root hub doesn't
-> help at all, and recovering from such a state needs a power cycle.
->=20
-> All reports seen to be relevant to Ryzen-based laptops. These NICs are
-> usually used as OEM components thanks to some sort of reference designs.
-> Their popularity on other platforms is unclear. While there is still a
-> chance that the quirk may exist on other platforms, be cautious and only
-> apply the quirk to direct children of Ryzen platforms's root hubs for
-> the time being. In most cases the root hub is on the SoC or PCH, which
-> needs the quirk. Unfortunately, this can't distinguish root hubs on PCIe
-> add-in cards. Such roughness should be acceptable, as PCIe USB
-> controller add-in cards are less commonly used nowadays. On the other
-> hand, applying the quirk doesn't hurt any functionalities either, as the
-> device can still be used as a wakeup source if desired. Theoretically,
-> we could retrieve the root hub's PCI vendor ID with some hierarchy
-> magic, but that's too intrusive...
->=20
-> Meanwhile, though device_set_wakeup_capable(false) is the correct fix
-> for other NICs with fake remote wakeup capabilities, doing so for
-> MT7922/MT7925 effectively prevents it from being used as wakeup
-> sources as per userspace requests. Hence, return -EBUSY on runtime
-> suspend to prevent the interface from being autosuspended while it's
-> still opened, which has the same effect as
-> device_set_wakeup_capable(false), since disabling remote wakeup simply
-> causes the USB core to gate runtime autosuspend as well due to
-> needs_remote_wakeup =3D=3D 1. The interface can be safely autosuspended a=
-s
-> long as remote wakeup is disabled, i.e., after closing the HCI device.
->=20
-> Specifically, the interface may still take the advantage of remote
-> wakeup in order to wake up the system from sleep if userspace has
-> enabled it as a wakeup source.
->=20
-> Fixes: e31d761628ad ("Bluetooth: btmtk: Disable remote wakeup for MT7922/=
-MT7925")
-> Signed-off-by: Rong Zhang <i@rong.moe>
+Have key_create_persistent() report whether it allocated a new keyring.
+Another caller may create one between the initial read-locked lookup and
+the retry under the write lock. Set the timeout after permission checking
+and linking. Do this on success, or on failure if the call allocated the
+keyring.
 
-Could you kindly take a look at the patch?
+This leaves a new keyring collectible after failure without starting its
+timeout while linking is still in progress.
 
-Chris Lu from MediaTek has relied with a "LGTM" to the patch, and there
-is already a Tested-by from Rafael Passos. Additionally, based on
-Rafael's debugging observations, the issue does exist on AMD PCHs, so
-matching X86_FEATURE_ZEN is appropriate.
+Fixes: f36f8c75ae2e ("KEYS: Add per-user_namespace registers for persistent per-UID kerberos caches")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Changes in v2:
+- Rewrite the commit message around the restricted-destination reproducer
+  and trim the explanation (Jarkko).
+- Track whether the persistent keyring was newly allocated and finalize its
+  timeout after the permission and link checks. This preserves an existing
+  keyring's timeout on failure and avoids expiry during linking.
 
-Thanks,
-Rong
+Tested with QEMU 10.2.1 TCG on i386 and x86_64. With
+persistent_keyring_expiry set to 60 seconds, KEYCTL_GET_PERSISTENT returned
+-EPERM and /proc/keys reported "perm" before the fix and "1m" after it on
+both architectures.
 
-> ---
-> Changes in v2:
-> - Only apply the quirk to to direct children of Ryzen platforms's root
->   hubs
->   - Theoretically, we could retrieve the root hub's PCI vendor ID with
->     some hierarchy magic to further limit the range down to only root
->     hubs on the SoC or PCH, but that's too intrusive -- the hierarchy
->     magic really made me nervous once I saw what I have wrote, so I gave
->     it up
-> - Link to v1: https://patch.msgid.link/20260629-btmtk-ryzen-remote-wakeup=
--v1-1-1d2f1cee6d22@rong.moe
-> ---
->  drivers/bluetooth/btmtk.c | 10 -------
->  drivers/bluetooth/btusb.c | 73 +++++++++++++++++++++++++++++++++++++++++=
-+++---
->  2 files changed, 69 insertions(+), 14 deletions(-)
->=20
-> diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
-> index 02a96342e964..4614434dd57b 100644
-> --- a/drivers/bluetooth/btmtk.c
-> +++ b/drivers/bluetooth/btmtk.c
-> @@ -1381,16 +1381,6 @@ int btmtk_usb_setup(struct hci_dev *hdev)
->  		break;
->  	case 0x7922:
->  	case 0x7925:
-> -		/*
-> -		 * A remote wakeup could cause the device completely unresponsive, and
-> -		 * recovering from such a state needs a power cycle.
-> -		 *
-> -		 * Since the remote wakeup capability is super broken, just disable it
-> -		 * to get rid of the troubles. The device can still be autosuspended
-> -		 * when the bluetooth interface is closed.
-> -		 */
-> -		device_set_wakeup_capable(&btmtk_data->udev->dev, false);
-> -		fallthrough;
->  	case 0x7961:
->  	case 0x7902:
->  	case 0x6639:
-> diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-> index 08c0a99a62c5..eef6e3b43bf9 100644
-> --- a/drivers/bluetooth/btusb.c
-> +++ b/drivers/bluetooth/btusb.c
-> @@ -6,6 +6,7 @@
->   *  Copyright (C) 2005-2008  Marcel Holtmann <marcel@holtmann.org>
->   */
-> =20
-> +#include <linux/cpufeature.h>
->  #include <linux/dmi.h>
->  #include <linux/module.h>
->  #include <linux/usb.h>
-> @@ -957,6 +958,7 @@ struct qca_dump_info {
->  #define BTUSB_USE_ALT3_FOR_WBS	15
->  #define BTUSB_ALT6_CONTINUOUS_TX	16
->  #define BTUSB_HW_SSR_ACTIVE	17
-> +#define BTUSB_WAKEUP_BROKEN	18
-> =20
->  struct btusb_data {
->  	struct hci_dev       *hdev;
-> @@ -2936,10 +2938,25 @@ static int btusb_send_frame_mtk(struct hci_dev *h=
-dev, struct sk_buff *skb)
->  	}
->  }
-> =20
-> +static inline bool platform_is_ryzen(void)
-> +{
-> +#ifdef CONFIG_X86
-> +	return boot_cpu_has(X86_FEATURE_ZEN);
-> +#else
-> +	return false;
-> +#endif
-> +}
-> +
-> +static inline bool is_direct_child_of_root_hub(struct usb_device *udev)
-> +{
-> +	return udev->parent =3D=3D udev->bus->root_hub;
-> +}
-> +
->  static int btusb_mtk_setup(struct hci_dev *hdev)
->  {
->  	struct btusb_data *data =3D hci_get_drvdata(hdev);
->  	struct btmtk_data *btmtk_data =3D hci_get_priv(hdev);
-> +	int err;
-> =20
->  	/* MediaTek WMT vendor cmd requiring below USB resources to
->  	 * complete the handshake.
-> @@ -2956,7 +2973,40 @@ static int btusb_mtk_setup(struct hci_dev *hdev)
->  		btusb_mtk_claim_iso_intf(data);
->  	}
-> =20
-> -	return btmtk_usb_setup(hdev);
-> +	err =3D btmtk_usb_setup(hdev);
-> +	if (err)
-> +		return err;
-> +
-> +	switch (btmtk_data->dev_id) {
-> +	case 0x7922:
-> +	case 0x7925:
-> +		/*
-> +		 * All reports seen to be relevant to Ryzen-based laptops. These
-> +		 * NICs are usually used as OEM components thanks to some sort
-> +		 * of reference designs.
-> +		 *
-> +		 * Their popularity on other platforms is unclear. While there
-> +		 * is still a chance that the quirk may exist on other
-> +		 * platforms, be cautious and only apply the quirk to direct
-> +		 * children of Ryzen platforms's root hubs for the time being.
-> +		 *
-> +		 * In most cases the root hub is on the SoC or PCH, which needs
-> +		 * the quirk. Unfortunately, this can't distinguish root hubs on
-> +		 * PCIe add-in cards. Such roughness should be acceptable, as
-> +		 * PCIe USB controller add-in cards are less commonly used
-> +		 * nowadays. On the other hand, applying the quirk doesn't hurt
-> +		 * any functionalities either, as the device can still be used
-> +		 * as a wakeup source if desired.
-> +		 *
-> +		 * Theoretically, we could retrieve the root hub's PCI vendor ID
-> +		 * with some hierarchy magic, but that's too intrusive...
-> +		 */
-> +		if (platform_is_ryzen() && is_direct_child_of_root_hub(data->udev))
-> +			set_bit(BTUSB_WAKEUP_BROKEN, &data->flags);
-> +		break;
-> +	}
-> +
-> +	return 0;
->  }
-> =20
->  static int btusb_mtk_shutdown(struct hci_dev *hdev)
-> @@ -4532,11 +4582,26 @@ static int btusb_suspend(struct usb_interface *in=
-tf, pm_message_t message)
-> =20
->  	BT_DBG("intf %p", intf);
-> =20
-> -	/* Don't auto-suspend if there are connections or discovery in
-> -	 * progress; external suspend calls shall never fail.
-> +	/*
-> +	 * It is reported that remote wakeup events could sometimes cause some
-> +	 * adapters completely unresponsive. Resetting the xHCI root hub doesn'=
-t
-> +	 * help at all, and recovering from such a state needs a power cycle.
-> +	 * Since disabling remote wakeup simply causes the USB core to gate
-> +	 * runtime autosuspend as well due to needs_remote_wakeup =3D=3D 1, let=
-'s do
-> +	 * this ourselves to make our life easier. The interface can be safely
-> +	 * autosuspended as long as remote wakeup is disabled, i.e., after
-> +	 * closing the HCI device.
-> +	 *
-> +	 * Don't auto-suspend if there are connections or discovery in progress=
-.
-> +	 *
-> +	 * External suspend calls shall never fail. Specifically, a device with
-> +	 * broken remote wakeup may still take the advantage of remote wakeup i=
-n
-> +	 * order to wake up the system from sleep if userspace has enabled it a=
-s
-> +	 * a wakeup source.
->  	 */
->  	if (PMSG_IS_AUTO(message) &&
-> -	    (hci_conn_count(data->hdev) || hci_discovery_active(data->hdev)))
-> +	    ((test_bit(BTUSB_WAKEUP_BROKEN, &data->flags) && data->intf->needs_=
-remote_wakeup) ||
-> +	     hci_conn_count(data->hdev) || hci_discovery_active(data->hdev)))
->  		return -EBUSY;
-> =20
->  	if (data->suspend_count++)
->=20
-> ---
-> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-> change-id: 230ba8c9-btmtk-ryzen-remote-wakeup-055a407682ef
->=20
-> Thanks,
-> Rong
+Also tested on x86_64 with persistent_keyring_expiry set to 1 second and
+gc_delay set to 0. Successful calls reused the same serial, a newly created
+keyring from a failed call expired, and a failed call using an existing
+keyring left its timeout unchanged. A test-only two-second delay before
+timeout finalization did not allow the keyring to be collected before link.
+
+ security/keys/persistent.c | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
+
+diff --git a/security/keys/persistent.c b/security/keys/persistent.c
+index 97af230aa4b22..f356df8f3c973 100644
+--- a/security/keys/persistent.c
++++ b/security/keys/persistent.c
+@@ -38,7 +38,8 @@ static int key_create_persistent_register(struct user_namespace *ns)
+  * Called with the namespace's sem locked for writing.
+  */
+ static key_ref_t key_create_persistent(struct user_namespace *ns, kuid_t uid,
+-				       struct keyring_index_key *index_key)
++				       struct keyring_index_key *index_key,
++				       bool *created)
+ {
+ 	struct key *persistent;
+ 	key_ref_t reg_ref, persistent_ref;
+@@ -63,6 +64,8 @@ static key_ref_t key_create_persistent(struct user_namespace *ns, kuid_t uid,
+ 	if (IS_ERR(persistent))
+ 		return ERR_CAST(persistent);
+ 
++	*created = true;
++
+ 	return make_key_ref(persistent, true);
+ }
+ 
+@@ -78,6 +81,7 @@ static long key_get_persistent(struct user_namespace *ns, kuid_t uid,
+ 	key_ref_t reg_ref, persistent_ref;
+ 	char buf[32];
+ 	long ret;
++	bool created = false;
+ 
+ 	/* Look in the register if it exists */
+ 	memset(&index_key, 0, sizeof(index_key));
+@@ -100,7 +104,7 @@ static long key_get_persistent(struct user_namespace *ns, kuid_t uid,
+ 	 * also need to create the register.
+ 	 */
+ 	down_write(&ns->keyring_sem);
+-	persistent_ref = key_create_persistent(ns, uid, &index_key);
++	persistent_ref = key_create_persistent(ns, uid, &index_key, &created);
+ 	up_write(&ns->keyring_sem);
+ 	if (!IS_ERR(persistent_ref))
+ 		goto found;
+@@ -108,15 +112,16 @@ static long key_get_persistent(struct user_namespace *ns, kuid_t uid,
+ 	return PTR_ERR(persistent_ref);
+ 
+ found:
++	persistent = key_ref_to_ptr(persistent_ref);
+ 	ret = key_task_permission(persistent_ref, current_cred(), KEY_NEED_LINK);
+-	if (ret == 0) {
+-		persistent = key_ref_to_ptr(persistent_ref);
++	if (ret == 0)
+ 		ret = key_link(key_ref_to_ptr(dest_ref), persistent);
+-		if (ret == 0) {
+-			key_set_timeout(persistent, persistent_keyring_expiry);
+-			ret = persistent->serial;
+-		}
+-	}
++
++	if (ret == 0 || created)
++		key_set_timeout(persistent, persistent_keyring_expiry);
++
++	if (ret == 0)
++		ret = persistent->serial;
+ 
+ 	key_ref_put(persistent_ref);
+ 	return ret;
+
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+-- 
+2.53.0
