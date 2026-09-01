@@ -1,327 +1,258 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBF4413781
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C30A384CF5
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:01:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788274897; cv=none; b=ABxsS2SPj5hFsBaMKc0rI+iLGkWg/PbgqIv2dZsNZJs+kfzmAWYqUGBfsxWg0X9l+x6yLutAgYov498c0M9ZM/pP1jrwf2/JPzyi/F5+2foJlDTbsQ4dqg+ZOp9zAIbzLv92AjAARBN1csNpBP+aOErY9O+sVgJUeP/Nw43Hqes=
+	t=1788274919; cv=none; b=pO07QjabPRq1QazFAe6a7j4+2GmLtgXj/nPpkq6M6wjWaOtv4Bq5caJ4j4eIHYaRg3B9Dqypj9Qd80p9b26IFt3cLl5aBl3lJIr43g6RmddKKwzzKKG9c++QFvmo5fNTGSB55Dg96qWsJ8b49tddhx65/gbXapZ7qPfpiODT6mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788274897; c=relaxed/simple;
-	bh=gaDa/AVc8i0giVByFhnqh2MlR7P1I+oFGwFmQiOiACs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NxUOGikEY41vkpygQ1mL1KXyHkVQOyRHU9VzxXtffe0D51RSfpzWxCwObxKhdGNlU2Dd24hzR5hiBiuAONFGLdJqbTb8pi6b95xhekWtogGXzoIDuDmQX0rzlGg71MktF7cvfRr1ImTSa5MXs8Cvn96HOfTMJhUrI9V4EOZM188=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U5gb7Mcn; arc=none smtp.client-ip=209.85.214.174
+	s=arc-20240116; t=1788274919; c=relaxed/simple;
+	bh=pL+Q+ktqyanz07sm0nXL98eQ+x5pe/qTN9ZqL+Jo3cM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=vB3+Xj6Hcn0VUpeh26NDNPTjouNDbbMZYT6mFIhVbgyiYzhknQQ/NZE1pefgykMlitJFFLRXRXjXGg/J3h5u2V0NUQaNFfYewCZwMuDZ0usYZ1iJ/kWBo6tJUwUlhwQ1aEIsiQ9eYMozE0LrclI0v0HceAj6bIHNJD5yxpxIKzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pigXGKTj; arc=none smtp.client-ip=74.125.228.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U5gb7Mcn"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d9004f39d3so32711855ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:01:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pigXGKTj"
+Received: by mail-pz2-f1.google.com with SMTP id 41be03b00d2f7-c9fe62e0da3so1695094a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:01:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788274895; x=1788879695; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J/o6CDpDoiumdf70zLvYrkixliDa/i4j2e/4W+sIqmw=;
-        b=U5gb7McncDZ1r0QDtXQ8Zpsle5PecoT5fk88i5eP6E2xRQ1nTGLI4vCPKTXJqCqm7e
-         ULEHKXeSn/fzT1MQagCVSMjC1bVonquMPaIFgOT3X2PE1VsCVB7hdoA92qa7F4+OR6Gr
-         YpaIk8vDsVxt0hPuZUv2ttDo4ov2NTJXaYXDJN383B7wgCo0o+EwIepdYpjzBgok1Han
-         dBOMFkKTG8UkkUNwdT+qB1xZ33AtD2TQ9uBjE7QEhGL26YMwvjH06uieMifvBphpR8Lq
-         edfKUCumcKvHnRGVW//gTj6Eeytx0nxKSNp62Fqh+bpZMJ0wYnKmuH+7tT+4lffW3xdu
-         Ko9A==
+        d=gmail.com; s=20251104; t=1788274917; x=1788879717; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G4upqtk25tpRU54+kLrj9L2TKzcfs0ynaE33ROHv7ww=;
+        b=pigXGKTjsx2EUpvoTNP8x4xqX3+peHdQ1dFklOUCfiRku8IK7wgj/NjmtJr6G2ufG4
+         J7T9iVlkn5rXCvW8aK1ovo7nCM0e3oNvFStHtBHSLzj+EtXrBPqzVomD0VMwv4dFYjrl
+         09/t7uiHc6xGFQga5YXDju1pVq8Mjy+1b75QvQY8r1K2FPqi84AzKq5dn/0dyY9gZ6BN
+         icjDAJYQ2gGjyoKzyfkFcMJ10glA/99/r5RKNiO/d3WfsnA3LWudEylNdHgTwtXHBAoW
+         UvKWu2hhxOHZ9vFHUXmsSBGLFArJQHLH6OovAX22SoWda+PGQ0HnAdjtJes/XrTuNKVZ
+         r3eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788274895; x=1788879695;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J/o6CDpDoiumdf70zLvYrkixliDa/i4j2e/4W+sIqmw=;
-        b=jGTqnXTDvYHaW53/GYc4d8iytUL9dfjCAB7B2Q6/LGjwySVP4GY873sKW2LAyAh+4d
-         fWP7s/FcwtVKnu4uKYkUIPkzXLtybsjRnNqgXTyvKY0vitV1lrKY0zmy8+JyhG+F4m/5
-         P94xItjAyihGOVdjp4JtHG+GrLRSh9WRVMV4wNXO4BbZFdVotPt8iLnBRlLncQ0YJg63
-         0XPD5Tgit7nitFo9ciT9cJ6KMf9yhOwLenU/CA3gcw7EUpgJBa1Vo/dqR/q8M100KydJ
-         hHNKOpUylKF6baRTqkG1s44XAH7glcsyQoNIOekBEuWFiCI8r+DMBQyh2oAD62rECzJL
-         IbPA==
-X-Forwarded-Encrypted: i=1; AKwUvBypcxQd/i4k3MpcUYjfoyQFM/lRjoXlhttHsUvzLTNa0jfNkrk17MLiv39+JI4xX9yaZVtLy+pqEcX+IxM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kdaTCb2X5siLVN7eH++MTUFjBOm3qo7cMUI1pOo+TS+/8tYS+g
-	XW48/RZoYthsa/rOokX0rMp4buw60iKkBWW/LYqgIsjeVMhNqHNK5pff
-X-Gm-Gg: AR+sD136r/0HlfsowomQzi8Hq2SlIJruy3urmD7Qdqjnhq/3ogGsMwv0dh3LzKEHtw5
-	ro061rLoUKokTwIaAWjl6ONywMQDZ33Juq1xRgSz3tGXMbiNJck1br05Wv6WiJnN6SSjrF+htRh
-	4j8Q+Q92fIifLD7WZ8X+b+DBDECBzYiwTs3D1dcvTfmXnfHLHUtnD/tvD5QbSg54++H3yuEcP22
-	5uwoNe33BiLVYPm/YrHfkImKwdM+ArwJV5yYIHaj+GTkD7SesHdsnu3GydArAoEY1D+4t8CY7sB
-	kut7gfZVIsfBhAeB5Nd5G7JApOEzprv8Nz/Q6MkewZroJUh0FwHDrSUdDipD5O8jPbnpXjXlHRj
-	4Fp9KokhZ4Ng7HkIeLabC+v2AScukXYSPCRaTCKrA+mhTmjP5BNXJlAxk9QHokA5igyVpxljt5+
-	/8CJrpK90CRliNytwERj6IFHKG2Hx4XSHtQjKoR2zjCwqDS3AwAk/JXt7YE0I=
-X-Received: by 2002:a17:903:1983:b0:2d7:203b:9863 with SMTP id d9443c01a7336-2d94a75bfadmr136713045ad.1.1788274894707;
-        Tue, 01 Sep 2026 08:01:34 -0700 (PDT)
-Received: from gmail.com ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd4bc66esm209375ad.68.2026.09.01.08.01.28
+        d=1e100.net; s=20251104; t=1788274917; x=1788879717;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G4upqtk25tpRU54+kLrj9L2TKzcfs0ynaE33ROHv7ww=;
+        b=JS8L4JomksHW2vX/BcpbwR24S/nuvaByUin34zX1KxCsQMJFAN4BaNqzklxnVUyb4l
+         JCY1GtrUkAKZkqnPyX9327QIQ3zmxmVUUrVPOl8ha6AVw0uWp9ogEBYMvbkmTivlQsI8
+         RLXbiZlgI1xiiRfCBHXpS/hZn7RD73fO67hKJ5Kr9vJ+sgW9GpsRrsQQwF/rFusxNr3H
+         fKpkR3qdBFcRsD82/NFWzdyxMutZ/qbU4aPT2H6hBBPsFQJw+v12FmdNsvjmeJjr6ds8
+         rjg+hlhgSvCW6co6alL3ZFfntr3mZRJA3tBBpNIw3BXl5YbaLcS0jdDYXXGyfdOTmLW5
+         fM5w==
+X-Forwarded-Encrypted: i=1; AHgh+Rq44OaitCXlK6U1jVdRVrk6/Q+7yAKimwtAg8Ku/Vj7DQ3rdNQdxzunKGt8fA7u+ClmmarhQwkVypaThT4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPel/9hIuSBvpqACPTAAcMZYxk8HR3KL5ysB56OD5CTeZ1pYah
+	l+d29jQ2diuupV8LWxZTGR6KhDi6Ti1lQ0pmYkOIr7/gCT4Vhh4tp812
+X-Gm-Gg: AR+sD103r5hbjigFjMKcK5lQ/1tHa4xp5L4lVQmk8cG9jl8y05VWIpwUiUyBpGhuTBT
+	sy6nzPYzB/UaDiqh16DSE9zcYfKXOyE/vsUL1x2KSHHqIEMEvCqoT3Qyl/U8A0P69fQdSL894DI
+	6/yuSWUWdlhi4p0CHM9OVKMOY5y6T5YuxfHLa5NQSMKLE9MipEan2hFS3BHhEezoeyxfr7Kwj/v
+	XlA+qSOOhxaPmX92MqhedsvsoMMec41J8ysRqOFgkR7Je4rCFl6PDuiw5LFAWfKFWvGuNMGIwNR
+	QNUdGFMFi+7qCSymcr702AQeAiyNdY2eQ/Upx7bCP500imH7/u3ITVhpi68wA/zQd0QIzD1oI/E
+	yJUdE4iSUyjiVVyPqgH1X6Md7GTmuIr0LBUEDy4Os5yB0nT/YJR/7CDNzOwNakKSfWlMf1YqT+j
+	aSYSzQSx7rbCUXlRKPunxd1kl+G/0w7iEooOBzBNAFKGOsD+zrZQ+cl/x5DRE=
+X-Received: by 2002:a05:6a00:2d82:b0:857:73e2:9106 with SMTP id d2e1a72fcca58-85773e29373mr34165922b3a.22.1788274915955;
+        Tue, 01 Sep 2026 08:01:55 -0700 (PDT)
+Received: from server.lan ([150.230.217.250])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc0716846sm27914b3a.45.2026.09.01.08.01.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:01:33 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
-To: "Lian Wang (ProcessMission)" <lianux.mm@gmail.com>
-Cc: Kunwu Chan <kunwu.chan@linux.dev>,
-	linux-mm@kvack.org,
+        Tue, 01 Sep 2026 08:01:54 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Coia Prant <coiaprant@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	David Heidelberg <david@ixit.cz>,
+	netdev@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Kairui Song <kasong@tencent.com>,
-	Jihan LIN <linjh22s@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linux-hardening@vger.kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: Re: [RESEND RFC PATCH v2 00/13] mm/swap: introduce per-priority allocation queues
-Date: Tue,  1 Sep 2026 23:01:20 +0800
-Message-ID: <20260901150122.3374554-1-kunwu.chan@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260829-swap-pcp-priq-v2-resend-0-68d3d925578c@gmail.com>
-References: 
+	linux-phy@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH net-next v3 00/10] net: pcs: add basic support for RK3568 XPCS
+Date: Tue,  1 Sep 2026 23:01:00 +0800
+Message-ID: <20260901150111.141037-1-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Sat, 29 Aug 2026 15:43:50 +0800 "Lian Wang (ProcessMission)" <lianux.mm@gmail.com> wrote:
+This series adds proper SGMII support for the Rockchip RK3568 SoC
+using the integrated Synopsys DesignWare XPCS, along with necessary
+fixes and refactoring in the stmmac core and XPCS driver.
 
-> Hi all,
-> 
-> RESEND: Only the first cover letter was sent, with an outdated sender
-> display name.  No patches from the series were sent.  This resend uses
-> the corrected sender identity and starts the complete thread.  There are
-> no code or content changes from the previously reviewed v2 draft.
-> 
-> This is v2 of Kairui's swap priority queue RFC [1].  With Kairui's
-> agreement, I am carrying this revision while preserving the original
-> authorship of his patches and Youngjun's per-device percpu-cluster patch.
-> 
-> My substantive code changes are concentrated in patches 3, 9 and 11.
-> Patches 5, 10 and 12 contain the dependent adaptations needed to keep
-> the stack coherent and bisectable.  The code patch-ids of patches 1, 2,
-> 4, 6, 7, 8 and 13 are unchanged from v1.  My Signed-off-by on the full
-> series records the handoff and DCO chain; Co-developed-by is limited to
-> the three patches with substantive changes.
-> 
-> The current swap allocator rotates swap_avail_head with plist_requeue()
-> when it moves between devices of the same priority.  That couples device
-> selection to the global cluster cache and serializes cluster transitions
-> on swap_avail_lock.
-> 
-> This series first restores per-device percpu clusters, then replaces the
-> allocation-time plist rotation with a priority-ordered queue.  Each
-> priority has a mostly immutable ring of devices.  Per-CPU readers rotate
-> within a ring after a fixed allocation quota, so the allocator preserves
-> strict priority ordering without contending on one global rotation point.
-> 
-> The queue is also intended to separate device selection policy from the
-> per-device cluster allocator.  Youngjun's swap-tier series [2] remains
-> under separate review.  This RFC does not introduce a tier ABI or assume
-> that the tier series has landed: a ring is keyed by the existing swap
-> priority.  If tiers land first, the same queue can become an in-tier
-> allocation policy rather than a competing tier definition.
-> 
+Motivation
+==========
+The RK3568 integrates a DW XPCS accessed via APB3 and connected to
+a Naneng Combo SerDes PHY.  Several boards (e.g., Ariaboard
+Photonicat) use this interface for Gigabit Ethernet.  However, the
+current upstream stmmac driver does not support this configuration,
+and the XPCS driver has issues in SGMII poll mode that cause the
+link to be reported incorrectly.
 
+This series addresses these issues by:
+- Refactoring stmmac PCS lifetime management to allow platform drivers
+  full control over PCS creation/destruction
+- Fixing the XPCS driver's SGMII link recovery
+- Adding a Rockchip XPCS platform glue driver and wiring it up in
+  dwmac-rk
 
-I've completed the functional, stress, and A/B/C/D/E performance testing
-on my side.
+Series overview
+===============
 
-The results are consistent with the expected v1 performance shape, and
-I don't see a significant performance regression for the full v2 series
-in this workload.
+Generic:
+  Patch 1: move XPCS lifetime management to platform drivers
 
-I'm also reviewing the v2 code, particularly the allocation queue,
-locking, and swapoff/lifetime changes. I'll follow up on the thread with
-any findings.
+PHY:
+  Patch 2: DT binding for Naneng Combo PHY SGMII MAC selection
+  Patch 3: implement the PHY SGMII MAC selection in driver
 
-Tested-by: Kunwu Chan <kunwu.chan@gmail.com>
+RK3568 XPCS/SGMII:
+  Patch 4: DT binding for Rockchip RK3568 XPCS
+  Patch 5: add XPCS and fixed-clock nodes to rk3568.dtsi
+  Patch 6: add ANRESTART support for SGMII link recovery
+  Patch 7: implement the Rockchip XPCS platform glue driver
+  Patch 8: wire up SGMII support in dwmac-rk
+  Patch 10: update MAINTAINERS
 
-Best,
-Kunwu
+Board enablement:
+  Patch 9: enable SGMII LAN port on Photonicat board
 
-> Changes since v1
-> ================
-> 
-> The core allocator and lifetime changes are:
-> 
-> - keep a task-local cursor stable across retries, so a retry walk visits
->   each same-priority peer exactly once even if another task rotates the
->   shared per-CPU reader;
-> - disable task migration across the queue walk, keeping queue accounting
->   and per-CPU cluster allocation on the same CPU while leaving the loop
->   sleepable;
-> - retry every same-priority peer for a large folio before returning
->   -E2BIG, without falling through to a lower priority merely because one
->   device is fragmented;
-> - initialize the per-CPU quota consistently;
-> - represent full/disabled devices with tagged ring entries, serialize tag
->   writers, and use READ_ONCE()/WRITE_ONCE() for lockless readers;
-> - publish swap_file, the live percpu reference, queue membership and
->   SWP_WRITEOK in one swapon writer section, and tighten swapoff disable
->   and teardown ordering;
-> - fix the transitional available-list locking and publication issues
->   reported by Jihan;
-> - bound allocation-path synchronous discard to one cluster, while the
->   background worker can continue draining the list; and
-> - remove the transitional available/active plists and the now-unused
->   plist_requeue() API after the queue becomes authoritative.
-> 
-> These changes address the public review on patch 9 from Youngjun and
-> Jihan [3][4].
-> 
-> Open questions
-> ==============
-> 
-> Two performance-policy questions from the v1 discussion remain open:
-> 
-> - A one-device ring, which is likely the most common configuration,
->   still follows the common reader path and takes the local lock.  A
->   size-one fast path could return ring->dev[0] directly while
->   swapon_rwsem keeps the ring stable.  This revision keeps the tested
->   common path unchanged; feedback on whether the special case is worth
->   adding would be welcome.
-> - Full devices remain as masked entries in the static ring.  Readers skip
->   them rather than rebuilding the ring on each full/available transition.
->   This keeps writers simple, but a workload with many full devices in a
->   higher-priority ring still pays the masked-entry checks before falling
->   through.  It is not clear that extra per-ring availability state would
->   justify its synchronization complexity.
-> 
-> Testing
-> =======
-> 
-> Kunwu ran an A/B/C/D/E matrix on a Kunpeng 920 server with 256 CPUs,
-> 249 GiB RAM and an aarch64 kernel.  The workload built a fixed kernel
-> source with "make -j96 defconfig Image modules" under 2 GiB and 3 GiB
-> memory cgroups, using eight equal-priority ZRAM devices.  Every arm used
-> one warm-up followed by 12 measured runs.
-> 
-> A/B/C share the v1 base and reproduce the progression reported in v1:
-> 
->   A: before the series
->   B: after patch 8, with per-device percpu clusters but the old plist
->   C: after patch 13, with the complete priority queue
-> 
-> D/E share the tested v2 base and isolate the current series:
-> 
->   D: before the series
->   E: after all 13 v2 patches
-> 
-> 1. Reproducing the v1 performance shape
-> 
-> Average system time over 12 measured kernel builds:
-> 
->                               2 GiB       3 GiB
->   Before (A)                40899.14s    22621.86s
->   After patch 8 (B)         88712.52s    53244.70s
->   After patch 13 (C)        41140.76s    22925.48s
-> 
-> Patch 8 alone increased system time by 116.9% in the 2 GiB workload
-> and 135.4% in the 3 GiB workload.  Adding the priority queue returned
-> system time to within 0.59% and 1.34% of A, respectively.  The absolute
-> times differ from the v1 machine, but the expected performance shape is
-> reproduced: moving the cluster cache back to device scope is expensive
-> while allocation still rotates the plist, and the queue removes that
-> contention.
-> 
-> 2. Isolating the v2 delta
-> 
-> Average system time over 12 measured runs:
-> 
->                               2 GiB       3 GiB
->   Base (D)                  39643.77s    22139.66s
->   Full v2 (E)              40336.91s    22984.62s
->   Delta                       +1.75%       +3.82%
-> 
-> Average elapsed time, with sample standard deviation:
-> 
->                               2 GiB       3 GiB
->   Base (D)              518.97 +/- 5.87s  334.07 +/- 4.01s
->   Full v2 (E)           527.24 +/- 5.21s  342.98 +/- 2.78s
->   Delta                       +1.59%       +2.67%
-> 
-> The arms were run sequentially rather than interleaved, so these small
-> D/E deltas may include temporal drift.  They are reported as observed
-> instead of being described as zero regression.
-> 
-> 3. Correctness and stress
-> 
-> All 120 measured builds completed with build_exit=0, oom_kill=0,
-> pswpout>0 and a clean dmesg delta.  Arm E also passed tests covering:
-> 
-> - same-priority distribution and lower-priority isolation;
-> - concurrent swapon/swapoff and /proc/swaps readers;
-> - full-device mask, unmask and peer refill;
-> - same-ring large-folio peer retry without fallback; and
-> - dmesg cleanliness and complete cleanup.
-> 
-> A 600-second stress run concurrently migrated the memory-pressure tasks
-> across CPUs and inserted and removed a device from the priority ring.  It
-> completed with live workers, swapout progress and a clean dmesg delta.
-> 
-> For the 48 D/E measured runs, all eight ZRAM devices had nonzero recorded
-> peak usage.  On E, the per-sample largest/smallest peak ratio averaged
-> 1.021 for 2 GiB and 1.031 for 3 GiB; the worst observed ratio was 1.049.
-> 
-> 4. Scope and posting base
-> 
-> The full server matrix was run from commit 94f9b3980dd4
-> ("mm/page_reporting: Add page_reporting_delay_ms module parameter") to
-> commit d5c8964cf19f ("lib/plist.c: remove requeue function").  The series
-> below is rebased onto current mm-unstable; range-diff shows all 13 patches
-> are patch-identical.
-> 
-> The original 48 GiB BRD workload and a real multi-SSD workload were not
-> rerun, so this revision makes no BRD or hardware-scaling claim.
-> 
-> Link: https://lore.kernel.org/20260714-swap-pcp-priq-v1-0-de9b164ed419@tencent.com [1]
-> Link: https://lore.kernel.org/20260713025644.170839-1-youngjun.park@lge.com [2]
-> Link: https://lore.kernel.org/alZ7UBXweuuOX4qz@yjaykim-PowerEdge-T330 [3]
-> Link: https://lore.kernel.org/77d6da3d-10af-49a1-a356-72aa8b462e85@gmail.com [4]
-> 
-> Thanks to Kairui for the original design and handoff, Youngjun and Jihan
-> for the v1 review, and Kunwu for the server validation.
-> 
-> Signed-off-by: Lian Wang (ProcessMission) <lianux.mm@gmail.com>
-> ---
-> 
-> Kairui Song (12):
->   mm/swap: remove unused parameter for reading swap header
->   mm/swap: slightly cleanup the code for hibernation error handling
->   mm/swap: cleanup and document swap device availability flag usage
->   mm/swap: introduce swap device iteration helper
->   mm/swap: change the swapon lock into a percpu rwsem
->   mm/swap: remove swapon mutex and update proc reader
->   mm/swap: consolidate swap inuse accounting helpers
->   mm/swap: add priority queue for swap device allocation
->   mm/swap: remove available list
->   mm/swap: bound synchronous discard during allocation
->   mm/swap: drop swap active plist
->   lib/plist.c: remove requeue function
-> 
-> Youngjun Park (1):
->   mm/swap: change back to use each swap device's percpu cluster
-> 
->  include/linux/plist.h |    2 -
->  include/linux/swap.h  |   43 +-
->  lib/plist.c           |   64 --
->  mm/swap.h             |   12 +-
->  mm/swapfile.c         | 1301 +++++++++++++++++++++++++----------------
->  5 files changed, 817 insertions(+), 605 deletions(-)
-> 
-> 
-> base-commit: aeddb4d52acfcc5ce5e988acd48f2906fe966ca3
-> -- 
-> 2.55.0
-> 
+Changelog
+=========
 
-Sent using hkml (https://github.com/sjp38/hackermail)
+Changes since v2:
+
+Patch 4 (DT binding for Rockchip RK3568 XPCS)
+- Made phys, phy-names, power-domains required properties
+- Removed redundant descriptions
+- Fixes reg ranges requirements for MII port
+
+Patch 7 (net: pcs: xpcs: add Rockchip RK3568 platform glue driver)
+- Removed `depends on PM || COMPILE_TEST` from Kconfig,
+  ARCH_ROCKCHIP already selects PM.
+- Added `default ARCH_ROCKCHIP` in Kconfig
+- Added comment in xpcs_rk_serdes_phy_poweron() and xpcs_rk_remove()
+- Added device_lock()/device_unlock() around platform_get_drvdata()
+  in xpcs_rk_create() to prevent concurrent drvdata access
+- Added error handling for device_link_add() failure
+- Switched from SET_RUNTIME_PM_OPS to DEFINE_RUNTIME_DEV_PM_OPS
+- Changed .pm from direct pointer to pm_ptr() for proper PM handling
+
+Patch 9 (arm64: dts: rockchip: rk3568-photonicat)
+- Changed PHY compatible from "ethernet-phy-id0000.011a" to
+  "ethernet-phy-ieee802.3-c22" (generic C22 PHY)
+- Removed eee-broken-* properties (unused properties)
+
+Key design decisions
+====================
+- The stmmac core now delegates XPCS creation entirely to platform
+  drivers via pcs_init/pcs_exit.  This is necessary because the
+  generic XPCS creation logic would override any XPCS set up by the
+  platform driver.
+
+- The Rockchip XPCS driver creates a virtual MDIO bus over the APB3
+  registers and implements address remapping.  The generic XPCS core
+  handles all PCS configuration via phylink_pcs_ops.
+
+- On RK3568 in SGMII mode, the MAC clock is fixed at 125 MHz and
+  cannot be dynamically changed.  In-band mode is used, and the
+  generic stmmac set_clk_tx_rate callback is disabled to prevent
+  incorrect clock updates that would break RX.
+
+- The SerDes and power domain are attached to the XPCS device tree
+  node rather than the MAC node. This reflects the actual hardware
+  topology and simplifies the dwmac-rk driver by keeping all PCS-related
+  resources self-contained. It also prepares for possible future QSGMII
+  support, where a single SerDes serves multiple MACs and would be
+  more naturally managed under the XPCS node.
+
+Testing
+=======
+Board: Ariaboard Photonicat (RK3568)
+OS: Armbian (trixie)
+Kernel: 6.18 (backports)
+Result: The SGMII interface obtains an IP address, SSH works, and
+        ping traffic passes without loss.
+
+Notes
+=====
+- When testing out-band mode with set_clk_tx_rate, only 1000Mbps
+  works on both TX/RX; 10/100Mbps only works on TX side.
+
+Dependencies
+============
+None. All patches apply cleanly on top of torvalds master tree (v7.3).
+
+Acknowledgments
+===============
+This work was inspired by and builds upon the excellent work of others:
+- Serge Semin's Synopsys DesignWare XPCS platform driver (pcs-xpcs-plat.c)
+- Clément Léger's Renesas MIIC driver (pcs-rzn1-miic.c)
+- The Rockchip TRM and downstream OEM drivers
+
+Thanks in advance,
+Coia Prant
+---
+Coia Prant (10):
+  net: stmmac: move XPCS lifetime management to platform drivers
+  dt-bindings: phy: rockchip: naneng-combphy: add rockchip,sgmii-mac-sel
+    property
+  phy: rockchip: naneng-combphy: add SGMII MAC selection for RK3568
+  dt-bindings: net: pcs: add rockchip,rk3568-xpcs support
+  arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
+  net: pcs: xpcs: add ANRESTART support for SGMII link recovery
+  net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+  net: stmmac: dwmac-rk: add SGMII support for RK3568
+  arm64: dts: rockchip: rk3568-photonicat: enable SGMII LAN port
+  MAINTAINERS: add entry for Rockchip XPCS driver
+
+ .../bindings/net/pcs/rockchip-dwxpcs.yaml     | 110 ++++
+ .../phy/phy-rockchip-naneng-combphy.yaml      |  13 +
+ MAINTAINERS                                   |   9 +
+ .../boot/dts/rockchip/rk3568-photonicat.dts   |  74 ++-
+ arch/arm64/boot/dts/rockchip/rk3568.dtsi      |  45 ++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  44 +-
+ .../stmicro/stmmac/dwmac-renesas-gbeth.c      |   7 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 121 +++-
+ .../net/ethernet/stmicro/stmmac/dwmac-rzn1.c  |   7 +-
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |   7 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |  37 +-
+ drivers/net/pcs/Kconfig                       |  23 +
+ drivers/net/pcs/Makefile                      |   7 +-
+ drivers/net/pcs/pcs-xpcs-rk.c                 | 561 ++++++++++++++++++
+ drivers/net/pcs/pcs-xpcs.c                    |  16 +-
+ .../rockchip/phy-rockchip-naneng-combphy.c    |   8 +
+ include/linux/pcs/pcs-xpcs-rk.h               |  11 +
+ 18 files changed, 1033 insertions(+), 68 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
+ create mode 100644 drivers/net/pcs/pcs-xpcs-rk.c
+ create mode 100644 include/linux/pcs/pcs-xpcs-rk.h
+
+-- 
+2.47.3
+
