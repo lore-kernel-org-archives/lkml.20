@@ -1,97 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FFAC483806;
-	Tue,  1 Sep 2026 20:14:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D233485516;
+	Tue,  1 Sep 2026 20:14:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788293685; cv=none; b=hLAlfvByXnxNOBimIE09zPg/NH/GXIw3Y5RUcAoFZyAAOYCkNfhY9WlVVvHPL5Y/eTh69qaXj9RlPx3dfG7OWGstpEuZ7mmTMblxEDI265tN7GYLQu4Z1Ouhfjh8ZceOi3ToXyRmMZW5czN3Xftwx+xxJ3nV2tXtk+gEDsacikY=
+	t=1788293690; cv=none; b=M8rp3zgl93Q18c8GHMDbGbeqghaYp0lOHrA/Wc7fvQWzNB30QHefkZ4qkViD2Sv+u0dPN8jVb0l9rRaoUoED/o4x2typ5LsqBbQtIkWv3VRX5TKsZ2TL3OZTVcyuwJCSArAMY+dwQkGdrqfLlhwR97fIApd1+zjzo0ASvCgQM/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788293685; c=relaxed/simple;
-	bh=1EQTWVE6vW13h9FuEqPnBJ3FGLWh6+X7UcUMlAUWCGU=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=GA4lt8BvEzC4hvAXa7JU0EKTIYKO9Brlp/5Gg4ThWFNVavVIab6hC8WxLMUZ1ZFe7GjIaSYOlqwZy6tF+Fn8vQdkcpSNDDkydg2b/DkCsR4KilXglnZhPiQwPkZ6CgKvEwMWhBebD+ovh2eLv2zik+Uqwu9udJW3sapTF1E15B0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oK7KIXR6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788293690; c=relaxed/simple;
+	bh=cONvZ9VMq397XbxuAVnhR5tBd6PC1wL0EzVZTTnTiCw=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=Zc9iI3olr1kveuWdWUTDVUaeLyCa0nr9LhwGMMzSTgAieRB8wbBMhi8YrUhrYhqbKiJScEOE76pVOTdmFdRsd9UkNyvwpGMPtUlks5AL39RzpMFbqFC1JPqbl5G3FTHLwilz8TKY/ceGtOJPmgurArvkKf9Pek8EuJBXnYpJ2QI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=9acK4i5K; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oK7KIXR6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30A11F000E9;
-	Tue,  1 Sep 2026 20:14:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788293683;
-	bh=XYAL/uAoi+EN4roiOHSrXabP2vbnl7qcOw3MP41npbU=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=oK7KIXR6KUMFaGOJIUsL9dZOFAkwrVf2yKPCXU01KHGex01sBreWT258WZzUfcFn5
-	 N93Z1YC0ijmCWwzdoNGAU4G9utTIZGp5IgWf8X4H4hbfF5zVWFBqKBg4YeUMPjN0IR
-	 GRqaT6bQ/HcAeFBzveARB1bTlhtt6tGhp5xI9YMBwzO/d1SEgK960i+4ONjpEjdAwa
-	 7tG2nwlX09g2Zqlhw5BescVjXG5aZz+VId6dbPlddwI3F+7kLFJCguutYFwbYGa2Rb
-	 BvAnrQEVhQOr9OmQCQw70saSaDN2Yet3d9/+LJIvw+JtUjv3/nv6xht6k1tPEvBw4K
-	 3vqUArPhf7QvA==
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="9acK4i5K"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Date:Subject:Cc:To:From:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=gVULXO/0fQg84dpKqhqqkw+U2olTmmNeBB81/cbxFgw=; b=9acK4i5KKRpgynOEoP2Xc5f7o2
+	7G3zmCmRWfNzKPNYCk3rfB0GKBPpk3tC4+/sxS/TUPHWQVaLYpgTIBqubaffIrnim2OMapB3KIML0
+	ZMxiKy0qJeEL2a8blI19ImH+Xm5Mn0rmADf4q6hK5IeS/zRs5dLScPg3RHeynDElZDKrRikbhtBsU
+	n55++tCSHV6ibt9mQc5yyB6FpCnZ8pDbMYcVeJ9zPA861z290VRst9mNZJUBbZMC8O/KSz2qa3PbH
+	8N8so+/w8KOlabJJGJKmjLYUyCLRfOsbo21YnSL1GmQqZRIZJIAcx+ahWG7sSzLN3DHlFHZtjm1Yi
+	pCBjwQDQ==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x1UsX-00000000SFa-2Ptg;
+	Tue, 01 Sep 2026 17:14:45 -0300
+Message-ID: <9b4b26eaff2ed89ee2da77e8d32881fb@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-cifs@vger.kernel.org
+Subject: [GIT PULL] smb client fixes for 7.3-rc2
+Date: Tue, 01 Sep 2026 17:14:45 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 08/17] crash: Extract crash_get_memory_ranges()
- helper
-From: Mike Rapoport <rppt@kernel.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
- chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com, 
- mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, tglx@kernel.org, 
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
- akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org, 
- pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev, 
- kees@kernel.org, thuth@redhat.com, gshan@redhat.com, jic23@kernel.org, 
- james.morse@arm.com, ardb@kernel.org, leitao@debian.org, 
- yeoreum.yun@arm.com, sourabhjain@linux.ibm.com, coxu@redhat.com, 
- tangyouling@kylinos.cn, hbathini@linux.ibm.com, adityag@linux.ibm.com, 
- ionut.nechita@windriver.com, liaoyuanhong@vivo.com, seanjc@google.com, 
- fuqiang.wang@easystack.cn, makb@juniper.net, piliu@redhat.com, 
- ebiggers@kernel.org, jbouron@amazon.com, mclapinski@google.com, 
- me@linux.beauty, graf@amazon.com, bgwin@google.com, robh@kernel.org, 
- takahiro.akashi@linaro.org, palmer@rivosinc.com, x86@kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-mm@kvack.org
-In-Reply-To: <20260826092541.3905933-9-ruanjinjie@huawei.com>
-References: <20260826092541.3905933-1-ruanjinjie@huawei.com>
- <20260826092541.3905933-9-ruanjinjie@huawei.com>
-Date: Tue, 01 Sep 2026 23:14:00 +0300
-Message-Id: <178829364020.3691424.10343800427604677653.b4-review@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Linus,
 
-> Factor out the crash memory range collection logic from
-> crash_prepare_headers() into a separate function. This allows
-> the memory hotplug path to obtain and modify the range list
-> (e.g. remove offlined memory) before generating the elfcorehdr.
-> 
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Baoquan He <baoquan.he@linux.dev>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-> Cc: Pratyush Yadav <pratyush@kernel.org>
-> Cc: Dave Young <ruirui.yang@linux.dev>
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->
-> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
-> index bc087124cd78e..619af312bd9a5 100644
-> --- a/include/linux/crash_core.h
-> +++ b/include/linux/crash_core.h
-> @@ -62,6 +62,7 @@ extern int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_ma
->  extern int crash_prepare_headers(int need_kernel_map, void **addr,
->  				 unsigned long *sz, unsigned long *nr_mem_ranges);
->  extern int crash_exclude_core_ranges(struct crash_mem **cmem);
-> +extern int crash_get_memory_ranges(struct crash_mem **mem_ranges);
+Please consider pulling these SMB client fixes for v7.3-rc2. They
+address data corruption in fallocate range operations and O_TRUNC with
+concurrent writes, heap overflows in SMB1 extended attribute and ACL
+handling, a krb5 multiuser mount regression and a minor debug print
+fix.  All fixes are for stable.
 
-No need for extern here as well.
+Thanks,
+Paulo
 
--- 
-Sincerely yours,
-Mike.
+----------------------------------------------------------------
+The following changes since commit 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229:
 
+  Merge tag 'hwlock-v7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/=
+remoteproc/linux (2026-08-25 14:21:47 -0700)
+
+are available in the Git repository at:
+
+  https://git.manguebit.org/linux.git tags/cifs-fixes-7.3-rc2
+
+for you to fetch changes up to 4aa2c106aef4bf3dfd97c30842db0767b26e8428:
+
+  smb: client: reject SetEA requests that do not fit the request buffer (20=
+26-08-31 12:01:07 -0300)
+
+----------------------------------------------------------------
+SMB client fixes for v7.3-rc2
+
+A batch of bug fixes for the SMB client:
+
+ - Fixes for fallocate range operations (insert, collapse, zero, punch
+   hole): the insert range implementation copied overlapping chunks in
+   the wrong direction, corrupting file data on every server except
+   Windows.  Several related issues in the same area are also
+   addressed =E2=80=94 stale page cache and FS-Cache readback, an integer
+   truncation on large files, missing RLIMIT_FSIZE validation and
+   missing sparse file marking.
+
+ - Data corruption fixes in the O_TRUNC open path: one where i_size
+   was zeroed before the server confirmed the truncate and another
+   where the lack of locking allowed concurrent buffered writes to be
+   silently discarded.
+
+ - Heap overflow fixes in legacy SMB1 paths: one in extended attribute
+   writes and one in POSIX ACL handling, both exploitable via
+   unprivileged setxattr(2).
+
+ - Fix for multiuser mount with krb5 failing because the username
+   option was not propagated to new per-user connections.
+
+ - Fix for split debug message in __release_mid() after a printk
+   conversion.
+
+----------------------------------------------------------------
+Andy Shevchenko (1):
+      smb: client: transport: Fix debug printing in __release_mid()
+
+Frank Sorenson (3):
+      cifs: add revalidation on FSCTL failure in smb2_duplicate_extents()
+      smb: client: fix heap overflow in cifs_do_set_acl()
+      cifs: don't update i_size in cifs_do_truncate without a cached handle
+
+Huiwen He (7):
+      smb/client: validate new EOF for insert range
+      smb/client: validate new EOF for zero range
+      smb/client: mark file sparse before emulating insert range
+      smb/client: fix data corruption in emulated insert range
+      smb/client: fix integer truncation in collapse range
+      smb/client: fix stale page cache in insert/collapse range
+      smb/client: invalidate fscache for fallocate range operations
+
+Paulo Alcantara (2):
+      smb: client: fix multiuser mount with krb5
+      smb: client: fix data corruption with concurrent writes and O_TRUNC
+
+Yunpeng Tian (1):
+      smb: client: reject SetEA requests that do not fit the request buffer
+
+ fs/smb/client/cifssmb.c   |  24 +++++-
+ fs/smb/client/connect.c   |  21 +++--
+ fs/smb/client/file.c      |  36 +++++++--
+ fs/smb/client/smb2ops.c   | 195 +++++++++++++++++++++++++++++++++++++-----=
+----
+ fs/smb/client/transport.c |  11 ++-
+ 5 files changed, 231 insertions(+), 56 deletions(-)
