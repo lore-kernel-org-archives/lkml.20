@@ -1,176 +1,161 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FBE4766BC
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:14:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A183390991;
+	Tue,  1 Sep 2026 09:15:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254089; cv=none; b=Jt3kJRMR5YWrPplnoCzOiwxRMshs2yVEgsUIG8tkL7rF/lXwqoY8Qvmtym7uvSvqBkxlQQ0Wc/7kgHVOrMuKgJmBzLpErlaAxhQi36HfEhc+ioH+MetclzqCZJv+9xJuzi51hgryYmHZL8HO4XjhHnV5Fw8wGf31sIoin2d0690=
+	t=1788254151; cv=none; b=RQ4/wn4nTt6wbQQRdnqxo1sBJPh70OgurCImm0d/6snIwVPOgdIB5ybOOMWuJtC23A8boqBKYF4fkVHYPaZkaYHj2Hnnt2VVCTZOMR4VA7+TazuDJLc5qNpek+14MO7JEFvpILSexXvcS55HbPTs+A1quhv6exxaHh6IrXPGUGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788254089; c=relaxed/simple;
-	bh=Y4ENEduwtQrp/hEgKcy2T8xhY0yIVbWnr9t/KGqQJXU=;
+	s=arc-20240116; t=1788254151; c=relaxed/simple;
+	bh=3nGsT1a8ZAxjr6zYdLM1ZD2KxJd2Bpj/IpTiJ0lSTeI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gtFR+H6axE4Kpc2lBguKBgla6f8gx522/MEuiJAJgbl1naPPxhod9DBru+ojg97ez7wDKMD+3QsJPEcpXvbYPy1UXT3MnjycPCupjbYwMDc8uwRmf3fijgF01vYw1DOiuQKda0aUC+k/LtAnPjAj6AALwB+MvirTAVnJmX9QCY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NN/ocogX; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dye571l1; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=KgtEkHjyYhUZe9cRG6dou/H598uAbkcG6fKaYNvQQfJ5bbqxq4D+9SIp5565guX8EdrQOpbzUPe1d8qpeck/J742uDNqoBRK2TYe8kGR1uFmit5cG+DJzHtvnIssgHVWCKOpKsORLCxNk3uq8VTmwZvDRecnW3rg5968qV7zHBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=T5HDpcGc; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=XOsNivaS; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=UpUhZkNW; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=r9D50IQ1; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NN/ocogX";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dye571l1"
-Date: Tue, 1 Sep 2026 11:14:45 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788254085;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="T5HDpcGc";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XOsNivaS";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="UpUhZkNW";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="r9D50IQ1"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0AF362264D;
+	Tue,  1 Sep 2026 09:15:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788254143; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=V7lS5ZdVI0+ym+hDntmH2DECmLk/W4n23Z3P4FplKMI=;
-	b=NN/ocogXMXoaF1K6Ek1l1RdLtCGDihloCP0cnbzTyvlPBQrtoJn8DTgEq6HDieY3t8WfEr
-	Oq/qXiA7hIZ0PcOwLbJpnTBuv3G5aIX9FtPlgrbR+oNNNGTFeIJtxebZGdvqhM+WVN0N7i
-	2ld9bDuSxfw4SjWBgUFTm6bum1agcXw3yPo6mfngH01W8coG/bPQRfnIt0ELT4cp/5dpWj
-	t1FaeKzsPrZSCKWEaGgEWnlZaP5iZsM65X6X4vjK72RPfmLNH+3gQ2CiButJQg7NzlmQQX
-	EQmdFKiu6l+/IYgrm1jpZ5eVnJVYveJS7+fYbnXYb3anHHBqq0bApurP6Z82pg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788254085;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	bh=JfSyDPEMs2JFoyqupch3mU4oxd1RHFxIvwMKRSaKMG4=;
+	b=T5HDpcGcG/KB1IH0GvXrcFzwv9nCU+jaCzuB1yTTcmbxQHeVunzqzvVos0wQUbw1prnWc/
+	bj5MYX+0IXnHbk3+qzuTyj5Rd/uPiMCybnO5zlYkhvss1RLFybvns01Gi3qQMZMTPXsj5Y
+	b4AfpQoBWq/vOqXbhpisDqaR11exqF8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788254143;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=V7lS5ZdVI0+ym+hDntmH2DECmLk/W4n23Z3P4FplKMI=;
-	b=dye571l1LEPCQhPFKwRxcjXoqUEMreVsIKro1NOoGG1OZrIzFDK8ID9l3F0Xk8eUy7zPU4
-	BSeKoyDCByRq2QAw==
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>, 
-	Deepa Dinamani <deepa.kernel@gmail.com>, Cassio Neri <cassio.neri@gmail.com>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] time: Prevent time64_to_tm() day truncation on 32-bit
-Message-ID: <20260901110349-7fc309aa-0ed4-4bd9-a4af-71cc703fa054@linutronix.de>
-References: <8d421725051450cecf0a7e6d2c514b6926df43b1.1788019619.git.kmehltretter@gmail.com>
+	bh=JfSyDPEMs2JFoyqupch3mU4oxd1RHFxIvwMKRSaKMG4=;
+	b=XOsNivaS80SdQXPUnjK1cTi7rhPg77P53aD5Wop2hxaOme1HTxw9LXMgp+V5sBagzFEph1
+	VcGcCK3/gS0hpFCw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788254139; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JfSyDPEMs2JFoyqupch3mU4oxd1RHFxIvwMKRSaKMG4=;
+	b=UpUhZkNWbAE6kB9Qlh3lkmABTgnrEPfmYsFXeBK14HH0GRJazixdaPibc8fqP46VNZxNbC
+	dzmvWlQWBEU5AJDAv2chkW/GMJ5uHPvXVRVpmUItI82IW++NiG42pmSNGRPbrB8qHgcbOy
+	hsP7v+A+4jn1WVViod8+lgfFU3UVsH0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788254139;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JfSyDPEMs2JFoyqupch3mU4oxd1RHFxIvwMKRSaKMG4=;
+	b=r9D50IQ1Xg9M5tgff5s+OkJKJadGeFmladvUf/FfgsYQLgy88zNc7/d5AMAg2kmglvm/7M
+	6fEHWmsVVUfihyAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF67813515;
+	Tue,  1 Sep 2026 09:15:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id PMOBNrqXlmosNQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 01 Sep 2026 09:15:38 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 7AD3BA13AF; Tue, 01 Sep 2026 11:15:30 +0200 (CEST)
+Date: Tue, 1 Sep 2026 11:15:30 +0200
+From: Jan Kara <jack@suse.cz>
+To: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH V2] fs: Kconfig: Alignment of code and text in the FS_DAX
+ help section for better readability
+Message-ID: <tobxd52ikncxgffyrbz6bwvz3rk4joxrf2i7agh2ajevkgwfre@xekv4txekrsf>
+References: <20260823212851.1187668-1-unixbhaskar@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8d421725051450cecf0a7e6d2c514b6926df43b1.1788019619.git.kmehltretter@gmail.com>
+In-Reply-To: <20260823212851.1187668-1-unixbhaskar@gmail.com>
+X-Spam-Level: 
+X-Spam-Score: -3.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,suse.com:email,imap1.dmz-prg2.suse.org:helo]
 
-On Sat, Aug 29, 2026 at 06:12:12PM +0200, Karl Mehltretter wrote:
-> time64_to_tm() accepts a 64-bit seconds value, but stores the quotient in
-> long. On a 32-bit kernel the day count therefore wraps when it reaches
-> 2^31, even though the corresponding year remains representable in
-> struct tm.
+On Mon 24-08-26 02:50:18, Bhaskar Chowdhury wrote:
+> I thought eliminating the line break and add an empty line would improve the
+> readability.
 > 
-> This is reachable when formatting externally supplied timestamps. For
-> example, NILFS recovery copies the little-endian 64-bit ss_create field
-> from an on-disk segment summary into time64_t. Its sysfs attributes then
-> print that value with %ptTs, whose formatter calls time64_to_tm(). A
-> corrupted image can consequently produce an architecture-dependent printed
-> date.
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202608240313.d7SDG2tE-lkp@intel.com/
 > 
-> Keep the day quotient in s64 while leaving the seconds-within-day remainder
-> as long. Use div_s64_rem() for the weekday calculation so 32-bit builds do
-> not require compiler runtime division helpers. Add a KUnit case at the
-> first positive day count outside signed 32-bit range. The baseline i386
-> kernel returns a negative year and wrong calendar fields; the fixed kernel
-> returns the same result as x86_64.
-> 
-> Fixes: e6c2682a1da3 ("time: Add time64_to_tm()")
+> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
 
-If this is supposed to be a fix which might get backported, the kunit
-test changes should probably be in a dedicated commit.
+I don't know. It depends on the width of your terminal what's more
+readable. I'd just leave it as is.
 
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-
-Reviewed-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
+								Honza
 
 > ---
-> Review notes:
+>  Changes from V1:
+>  Getting rid of the unwanted ":" ;that was the source of build failure.
+>  fs/Kconfig | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
 > 
->   - On a test-only baseline, QEMU/i386 passed the existing case but failed
->     the wide-day case with tm_year=-5879541 and four other wrong fields.
->     Baseline x86_64 and fixed i386, x86_64 and lockdep x86_64 passed 2/2.
->   - A direct s64 modulo emitted __moddi3 on i386 and __aeabi_ldivmod on ARM
->     with Clang 21. The submitted form uses div_s64_rem(); W=1 builds of
->     both objects contain neither compiler-runtime reference.
->   - The narrow type came from time_to_tm() in the Fixes commit. The 2021
->     arithmetic rewrite kept it and tested only +/-80,000 years, below the
->     approximately 5.88-million-year 32-bit day boundary.
-
-We still have an overflow when year exceeds LONG_MAX on 32-bit.
-Not sure how relevant it is to handle years over 2 billion, however it
-is likely as relevant as years over 5.88 million.
-
+> diff --git a/fs/Kconfig b/fs/Kconfig
+> index e05917adcd60..a2e724cae76f 100644
+> --- a/fs/Kconfig
+> +++ b/fs/Kconfig
+> @@ -71,11 +71,10 @@ config FS_DAX
+>  	  struct pages.  For the nfit based NVDIMMs this can be enabled
+>  	  using the ndctl utility:
 > 
->  kernel/time/time_test.c | 16 ++++++++++++++++
->  kernel/time/timeconv.c  |  6 ++++--
->  2 files changed, 20 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/time/time_test.c b/kernel/time/time_test.c
-> index 1b99180da2881..8b718767b3baf 100644
-> --- a/kernel/time/time_test.c
-> +++ b/kernel/time/time_test.c
-> @@ -87,8 +87,24 @@ static void time64_to_tm_test_date_range(struct kunit *test)
->  	}
->  }
->  
-> +static void time64_to_tm_test_wide_day_count(struct kunit *test)
-> +{
-> +	/* 2^31 days: the first count that does not fit in a 32-bit long. */
-> +	time64_t timestamp = (1LL << 31) * 86400;
-> +	struct tm result;
+> -		# ndctl create-namespace --force --reconfig=namespace0.0 \
+> -			--mode=fsdax --map=mem
+> +	  # ndctl create-namespace --force --reconfig=namespace0.0 --mode=fsdax --map=mem
 > +
-> +	time64_to_tm(timestamp, 0, &result);
-> +
-> +	KUNIT_EXPECT_EQ(test, result.tm_year, 5879680);
-> +	KUNIT_EXPECT_EQ(test, result.tm_mon, 6);
-> +	KUNIT_EXPECT_EQ(test, result.tm_mday, 12);
-> +	KUNIT_EXPECT_EQ(test, result.tm_yday, 193);
-> +	KUNIT_EXPECT_EQ(test, result.tm_wday, 6);
-> +}
-> +
->  static struct kunit_case time_test_cases[] = {
->  	KUNIT_CASE_SLOW(time64_to_tm_test_date_range),
-> +	KUNIT_CASE(time64_to_tm_test_wide_day_count),
->  	{}
->  };
->  
-> diff --git a/kernel/time/timeconv.c b/kernel/time/timeconv.c
-> index 59b922c826e77..292a855827b7a 100644
-> --- a/kernel/time/timeconv.c
-> +++ b/kernel/time/timeconv.c
-> @@ -49,7 +49,8 @@ void time64_to_tm(time64_t totalsecs, int offset, struct tm *result)
->  	u32 u32tmp, day_of_century, year_of_century, day_of_year, month, day;
->  	u64 u64tmp, udays, century, year;
->  	bool is_Jan_or_Feb, is_leap_year;
-> -	long days, rem;
-> +	s64 days;
-> +	long rem;
-
-This now breaks reverse christmas-tree order.
-
-Tiniest of nitpicks: The reverse christmas tree looks better with the
-'s64' line below the 'long' one.
-
->  	int remainder;
->  
->  	days = div_s64_rem(totalsecs, SECS_PER_DAY, &remainder);
-> @@ -70,7 +71,8 @@ void time64_to_tm(time64_t totalsecs, int offset, struct tm *result)
->  	result->tm_sec = rem % 60;
->  
->  	/* January 1, 1970 was a Thursday. */
-> -	result->tm_wday = (4 + days) % 7;
-> +	div_s64_rem(days + 4, 7, &remainder);
-> +	result->tm_wday = remainder;
->  	if (result->tm_wday < 0)
->  		result->tm_wday += 7;
->  
+> +	  See the 'create-namespace' man page for details on the overhead of --map=mem
 > 
-> base-commit: cf72cbb39da84b6f02f90c07f33b102fc10b16f0
-> -- 
-> 2.53.0
+> -	  See the 'create-namespace' man page for details on the overhead of
+> -	  --map=mem:
+>  	  https://docs.pmem.io/ndctl-user-guide/ndctl-man-pages/ndctl-create-namespace
+> 
+>  	  For ndctl to work CONFIG_DEV_DAX needs to be enabled as well. For most
+> --
+> 2.54.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
