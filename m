@@ -1,104 +1,281 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808C42FC876;
-	Tue,  1 Sep 2026 10:25:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E55472084;
+	Tue,  1 Sep 2026 10:27:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788258346; cv=none; b=D07FDvOQVu0yHpWYGRoRypkzXyU19FhrmHFt0wunAaCbk5m8qpAtNG9fWeAGAiHE/Bx/W64JFAKkO9XfGksrdAODE9hF94Y0nNWe3UOd9PxDYVaecbktPSeea3SPe1f7ncgqEpGAglhD4iKIl0+zTz1w+dBMeMIA4Ey31vMfqrU=
+	t=1788258462; cv=none; b=lw9bxGW+d3En3PuAQMeQC3ESVyA4dmlPiUypuzKDsySKJWltjdMs3mzSU7A5nPfBt5bu9z4dxELjxFkm7psFH2oJo61jhaaXQtM+Tl4oEy5oDi4IeGkXkPDYio2UIlVGgKuocLu+wPjxFneIt5J2VGtdWkBp6xFk9a/b11bbxkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788258346; c=relaxed/simple;
-	bh=UDIE28nH8nZMH31X5TGo/kBgOT+/3V1ygevfVhPBTHg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p+lOm21i/N/57odGB5tdV9XQaWoKveGWR/sksdZibCSOjAzNA+ruptdHQyFzZIbLhuH1lwb5udYN9gO9Nk6YePFgdOQzD+uBGURFKInDVogOTFP511NQRhM9qSlerS1uHcQ6lahiMDM2ql6e1kBn+1FEYESfKg+omkJRzByxdqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GwKJ2pb2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788258462; c=relaxed/simple;
+	bh=B8ums80A+BXGaWv6pR5BVF6ePSQrQMQTgeVhFGLrzNs=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=T7qx0OtZF38YYkfMvytoRaJ11kjsffMYOKfJnYT58uh7awcZiAVh0UlRUQnglCmtqOltkR2TBbAEs2DoAOg+GMLdETsDTo4YCMRjc6SvesbVPtLRtXRICQArbuA7nvESwdn2YpzztcgcNIFSvPMfj6apFelYNTFYX/OvMFnfRX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZnLVANCZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GwKJ2pb2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F40851F000E9;
-	Tue,  1 Sep 2026 10:25:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZnLVANCZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 597521F000E9;
+	Tue,  1 Sep 2026 10:27:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788258345;
-	bh=JILWnOs54Nn3C+Kuiyqfpag/plbfbFDDxTr4XHpskoY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GwKJ2pb20IazCMdTzU5Hgo8RXNWu8ZZnGm6PIg9BsHyoQJnaEmS4BmR4y8WeFGnTn
-	 oLLkO9ba7prZwJj7sScsLLMAEsTE0f4s5YmpfnsHiI+QbOs+0tUjXj3Mydt4nYfTfT
-	 TZfuPnXRQZjOrpliQObdkKuYcCBoHsO3XDC7IoU+wuDwAyYfCDhL2a/SvQjoK6YbPs
-	 HcT0SgwLq3/0xAO30SY9kS1UX5P0iel5EP9MtMXfqPnz8K62k6mxQtO8Bl288kXKqe
-	 1P7ip+w7s6bicT5OnN3+buZ4N+LKT10n8BUyHYI0y34N8bQisn6din/SO6CT4as7hB
-	 gvZ5OO9OE2ncg==
-Date: Tue, 1 Sep 2026 11:25:33 +0100
-From: Will Deacon <will@kernel.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: catalin.marinas@arm.com, tsbogend@alpha.franken.de, tglx@kernel.org,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	hpa@zytor.com, peterz@infradead.org, kees@kernel.org,
-	nathan@kernel.org, linusw@kernel.org, ojeda@kernel.org,
-	david.kaplan@amd.com, lukas.bulwahn@redhat.com,
-	ryan.roberts@arm.com, maz@kernel.org, timothy.hayes@arm.com,
-	lpieralisi@kernel.org, thuth@redhat.com, menglong8.dong@gmail.com,
-	oupton@kernel.org, yeoreum.yun@arm.com, miko.lenczewski@arm.com,
-	broonie@kernel.org, kevin.brodsky@arm.com, james.clark@linaro.org,
-	yangyicong@hisilicon.com, tabba@google.com, osandov@fb.com,
-	arnd@arndb.de, anshuman.khandual@arm.com, david@kernel.org,
-	akpm@linux-foundation.org, ljs@kernel.org, dev.jain@arm.com,
-	yang@os.amperecomputing.com, chaitanyas.prakash@arm.com,
-	kprateek.nayak@amd.com, chenl311@chinatelecom.cn,
-	sshegde@linux.ibm.com, thorsten.blum@linux.dev,
-	chang.seok.bae@intel.com, tim.c.chen@linux.intel.com,
-	x86@kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org
-Subject: Re: [PATCH v3 00/12] arm64: Add HOTPLUG_PARALLEL support for
- secondary CPUs
-Message-ID: <apaoHUrbY_1JFjfU@willie-the-truck>
-References: <20260624092537.2916971-1-ruanjinjie@huawei.com>
- <ajvKkLw5bL-FT5JC@willie-the-truck>
- <32d41a67-cf37-4079-8218-bed2b73bbf14@huawei.com>
- <akvoN5vvQaW3MdmI@willie-the-truck>
- <110d75e9-1580-42d3-b137-89bdad22b80a@huawei.com>
+	s=k20260515; t=1788258461;
+	bh=BxpNmtosXBLcejVvVlsO0MWlW4PxIZtHHw+hJL+JV3k=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=ZnLVANCZ8CZoCqBMfmsgwuXdtcB011s0hQrurqb+Ef81pWLP++1DIcwVCQLbZGsOo
+	 eWYSIgnGLejrN//AequtxdK7KhQ+Hll8osCsrZGGag/2l7LnC0HUm3VlC/JVAjM3Km
+	 sq3WCc5QWCPBARwbPh1uSmpu3Jm/AhDY4Vuj/r1xhNp6eMaAGEpKGpOgbhCY70jERK
+	 jDKISlZHgKBLOjYD62HFFHjW4mAo2KmzAuyldqCuoWHPIk7KNg23wsnZtM24eogw/p
+	 glSqqzId01li2r/SA2O0g6T6QsPwqX73S2KSCPgbuo36Cv70p/Xp/TP4eX6d5wJn5W
+	 AMJRRKPLs5ptw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <110d75e9-1580-42d3-b137-89bdad22b80a@huawei.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 12:27:36 +0200
+Message-Id: <DL3WPTVM033J.33RWYCZOC67Z1@kernel.org>
+Subject: Re: [PATCH v5 01/11] gpu: nova-core: Add public driver API to
+ nova-core
+Cc: "Alistair Popple" <apopple@nvidia.com>, "nova-gpu"
+ <nova-gpu@lists.linux.dev>, "M Henning" <mhenning@darkrefraction.com>,
+ "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Eliot Courtney" <ecourtney@nvidia.com>, "John
+ Hubbard" <jhubbard@nvidia.com>, <linux-kernel@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-2-apopple@nvidia.com>
+ <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
+ <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
+In-Reply-To: <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
 
-On Mon, Aug 31, 2026 at 11:18:47AM +0800, Jinjie Ruan wrote:
-> 在 2026/7/7 1:39, Will Deacon 写道:
-> > On Thu, Jun 25, 2026 at 09:34:36AM +0800, Jinjie Ruan wrote:
-> >> On 6/24/2026 8:16 PM, Will Deacon wrote:
-> >>> Please just give me the time I asked for. If you want to help out in the
-> >>> meantime, there are plenty of patches that need reviewing...
-> >>
-> >> It was a mistake on my part, and I sincerely apologize for wasting
-> >> community review resources and disrupting your schedule.
-> >>
-> >> I will absolutely back off now and wait for your official series. Lesson
-> >> learned. Thanks for your patience and for calling me out on this.
-> > 
-> > So I've mostly got the old series back on its feet:
-> > 
-> >   https://git.kernel.org/pub/scm/linux/kernel/git/will/linux.git/log/?h=cpu-hotplug
-> > 
-> > but there are still two issues left to resolve:
-> > 
-> >   1. The printing that can happen before RCU has started. Although I've
-> >      reduced this somewhat, there are still error paths in e.g.
-> >      verify_local_cpu_capabilities() that print a message before dying.
-> > 
-> >   2. check_local_cpu_capabilities() can mutate the system capability
-> >      state via update_cpu_capabilities(), so it's really dodgy running
-> >      that prior to synchronisation.
-> 
-> Just a gentle ping on this. I replied to the two remaining issues
-> earlier — any thoughts on my response? Happy to help test or rebase if
-> that helps.
+On Mon Aug 31, 2026 at 10:42 PM CEST, Gary Guo wrote:
+> I think if you change the signatue of `registration_data_with` slightly:
+>
+>     pub fn registration_data_with<'this, F: ForLt + 'static, R>(
+>         &'this self,
+>         f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
+>                                     ^ note this is changed from 'a to 'th=
+is
+>     ) -> Result<R>;
+>
+> then there will be an implied bound available inside the callback where '=
+a
+> outlives 'this, and thus the function callback is able to perform coercio=
+n of
+> any T<'a> to T<'this> provided that `T` is covariant over lifetime `'a`.
+>
+> [ The coercion won't work when doing abstract `F::Of` on the bus abstract=
+ion
+> side, but for any user it is dealing with concrete types so the compiler =
+sees
+> specific types and thus can check variance ]
+>
+> Then your projection can just be
+>
+>     aux.registration_data_project(|x| &x.field)
+>
+> I haven't tried it out but I think it should work.
 
-I've been preparing a series to post asap (I was waiting for the merge
-window to close), but I'm also looking at some of the id register issues
-that have been pointed out around rng, mpam and mte.
+I gave this a shot and it seems to work out, it's a good simplification. I =
+think
+we don't even need a dedicated project method in this case. We could add an
+alias for with() just to clarify the intent, but not sure that's worth.
 
-Will
+@Alistair: Here's the diff I tested this with:
+
+diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
+index 798b14f33e20..9babaa0b9a5f 100644
+--- a/drivers/gpu/drm/nova/file.rs
++++ b/drivers/gpu/drm/nova/file.rs
+@@ -13,6 +13,7 @@
+         gem::BaseObject,
+         Registered, //
+     },
++    num::Bounded,
+     prelude::*,
+     transmute::AsBytes,
+     uaccess::UserSlice,
+@@ -32,10 +33,12 @@
+
+ impl GpuInfo {
+     fn new(reg_data: &DrmRegData<'_>) -> Self {
++        let spec =3D reg_data.api.with(|api| api.get_ref().spec());
++
+         reg_data.api.with(|api| {
+             Self(uapi::drm_nova_gpu_info {
+-                architecture: api.architecture(),
+-                implementation: api.implementation(),
++                architecture: u32::from(Bounded::from(spec.chipset.arch())=
+),
++                implementation: spec.chipset.implementation(),
+                 vram_size: api.vram_size(),
+                 gpu_name: api.gpu_name(),
+                 gpu_short_name: api.gpu_short_name(),
+diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
+index c9ae48d278af..6825d3562d56 100644
+--- a/drivers/gpu/nova-core/api.rs
++++ b/drivers/gpu/nova-core/api.rs
+@@ -13,6 +13,8 @@
+     types::ForLt, //
+ };
+
++pub use crate::gpu::Spec;
++
+ use crate::gpu::{
+     Gpu, //
+ };
+@@ -44,14 +46,9 @@ pub fn handle(adev: &auxiliary::Device<Bound>) -> Result=
+<NovaCoreApiHandle<'_>>
+         NovaCoreApiHandle::of(adev)
+     }
+
+-    /// Returns the architecture identifier of this GPU.
+-    pub fn architecture(&self) -> u32 {
+-        self.gpu.spec.chipset.arch() as u32
+-    }
+-
+-    /// Returns the implementation identifier of this GPU.
+-    pub fn implementation(&self) -> u32 {
+-        self.gpu.spec.chipset.implementation()
++    /// Returns the GPU [`Spec`].
++    pub fn spec(&self) -> &Spec {
++        &self.gpu.spec
+     }
+
+     /// Returns the size of the PCIe BAR used for accessing VRAM, typicall=
+y
+@@ -78,7 +75,9 @@ fn of(adev: &'a auxiliary::Device<Bound>) -> Result<Self>=
+ {
+     }
+
+     /// Access the [`NovaCoreApi`] through a closure.
+-    pub fn with<R>(&self, f: impl for<'b> FnOnce(Pin<&'b NovaCoreApi<'b>>)=
+ -> R) -> R {
++    ///
++    /// References to covariant sub-fields can be returned from the closur=
+e directly.
++    pub fn with<R>(&self, f: impl for<'b> FnOnce(Pin<&'a NovaCoreApi<'b>>)=
+ -> R) -> R {
+         self.adev
+             .registration_data_with::<ForLt!(NovaCoreApi<'_>), R>(f)
+             .expect("TypeId was validated in NovaCoreApiHandle::of()")
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 166f4bb55752..04b97b0f89f4 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -42,7 +42,8 @@ macro_rules! define_chipset {
+         ::kernel::macros::paste!(
+         /// Enum representation of the GPU chipset.
+         #[derive(fmt::Debug, Copy, Clone, PartialOrd, Ord, PartialEq, Eq)]
+-        pub(crate) enum Chipset {
++        #[allow(missing_docs)]
++        pub enum Chipset {
+             $($variant =3D $value),*,
+         }
+
+@@ -119,7 +120,8 @@ fn try_from(value: u32) -> Result<Self, Self::Error> {
+ });
+
+ impl Chipset {
+-    pub(crate) const fn arch(self) -> Architecture {
++    /// Returns the [`Architecture`] generation of this chipset.
++    pub const fn arch(self) -> Architecture {
+         match self {
+             Self::TU102 | Self::TU104 | Self::TU106 | Self::TU117 | Self::=
+TU116 =3D> {
+                 Architecture::Turing
+@@ -138,8 +140,8 @@ pub(crate) const fn arch(self) -> Architecture {
+         }
+     }
+
+-    /// Returns the implementation identifier of this chipset.
+-    pub(crate) const fn implementation(self) -> u32 {
++    /// Returns the implementation identifier of this chipset within its a=
+rchitecture.
++    pub const fn implementation(self) -> u32 {
+         self as u32 & 0xf
+     }
+
+@@ -167,7 +169,8 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Resul=
+t {
+     /// Enum representation of the GPU generation.
+     #[derive(fmt::Debug, Copy, Clone)]
+     #[repr(u32)]
+-    pub(crate) enum Architecture with TryFrom<Bounded<u32, 6>> {
++    #[allow(missing_docs)]
++    pub enum Architecture with TryFrom<Bounded<u32, 6>> {
+         Turing =3D uapi::drm_nova_architecture_NOVA_DRM_ARCHITECTURE_TURIN=
+G,
+         Ampere =3D uapi::drm_nova_architecture_NOVA_DRM_ARCHITECTURE_AMPER=
+E,
+         Hopper =3D uapi::drm_nova_architecture_NOVA_DRM_ARCHITECTURE_HOPPE=
+R,
+@@ -202,8 +205,9 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Resul=
+t {
+
+ /// Structure holding a basic description of the GPU: `Chipset` and `Revis=
+ion`.
+ #[derive(Clone, Copy)]
+-pub(crate) struct Spec {
+-    pub(crate) chipset: Chipset,
++pub struct Spec {
++    /// The GPU chipset.
++    pub chipset: Chipset,
+     revision: Revision,
+ }
+
+diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
+index 60dfbec8f330..06f816420790 100644
+--- a/rust/kernel/auxiliary.rs
++++ b/rust/kernel/auxiliary.rs
+@@ -305,6 +305,10 @@ unsafe fn registration_data_pinned<F: ForLt + 'static>=
+(&self) -> Result<Pin<&F::
+     /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. The c=
+losure receives a pinned
+     /// reference to the registration data.
+     ///
++    /// The outer reference carries the `&self` lifetime while the inner t=
+ype carries the HRTB
++    /// lifetime `'a`, implying `'a` outlives `&self`. This allows the clo=
+sure to coerce covariant
++    /// sub-fields (e.g. `&'a T` to the caller's lifetime) and return them=
+ directly in `R`.
++    ///
+     /// For covariant types that implement [`trait@CovariantForLt`], prefe=
+r
+     /// [`registration_data`](Self::registration_data) which returns a dir=
+ect reference.
+     ///
+@@ -314,13 +318,14 @@ unsafe fn registration_data_pinned<F: ForLt + 'static=
+>(&self) -> Result<Pin<&F::
+     /// Returns [`ENOENT`] if no registration data has been set, e.g. when=
+ the device was
+     /// registered by a C driver.
+     #[inline]
+-    pub fn registration_data_with<F: ForLt + 'static, R>(
+-        &self,
+-        f: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> R,
++    pub fn registration_data_with<'this, F: ForLt + 'static, R>(
++        &'this self,
++        f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
+     ) -> Result<R> {
+-        // SAFETY: The HRTB closure prevents the caller from smuggling in =
+references with a
+-        // concrete short lifetime, making the round-trip from `'static` s=
+ound regardless of
+-        // variance.
++        // SAFETY: The HRTB on the inner type prevents the caller from exp=
+loiting a specific
++        // choice of `'a`. Covariant sub-fields can be safely coerced to `=
+'this`, while
++        // invariant fields cannot be coerced and thus cannot escape with =
+an incorrect
++        // lifetime.
+         let pinned =3D unsafe { self.registration_data_pinned::<F>()? };
+
+         Ok(f(pinned))
