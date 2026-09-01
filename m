@@ -1,168 +1,156 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D5747427E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:56:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252985; cv=pass; b=mJ/VGyy/kaozbuEJ7v+pYiCDbdxJMhaRQWlrFksqurLQpvuCSwzbVNU1QbMxD0u90eZOXB5Lc/fl9hBXDbM/5XHt7SxP5dp9PH/9tlNXVuu7lkzMUxHCUUoEtObgwghEN4sm1/1eFXlymOCOTzrrONhbzcoFTfEm4tAjmKuiva4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252985; c=relaxed/simple;
-	bh=LletibnuH2tAiJ9V8HhgrPH5FkIQeE7tJMeW2gZ4zSg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xq1zBEUbrLqR1osnh5zIoX3E7OBlG0F2BEQSvFubQ6ak3UQzvOUBwcpRMPbuNbES57ki63t0AQduBdmyl4fxpwP2fqLHQeCdw10C7OfX4fENBdAIWsrB/QEtwtA4y1M22evPQ75vAWXohjbXGnFx4lgCGfidQjDiLTncSmGr4HM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FPpbl+q4; arc=pass smtp.client-ip=74.125.224.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34FD033D4E9
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:57:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788253029; cv=none; b=Ieq1iT0r4/hqBgLDEmxbRSALmgcUswgzg3wf8LoqiBk3QTM38twK6YTsLQf47ZsYVB14VYvC+CLs8FK9+efZqgNm/JRai4gMN+pjd5sHZ6AFCUKH/KMY6nYQWVD+/AV0KOjCcUd5n7W41DigLOn7SBKgJtazWvFtn8k1gmBUR6I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788253029; c=relaxed/simple;
+	bh=qTcgY9EoeEHxVXgfiEWeuxCxjc4a584z0cwmku5Yd9g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VPVzsq+Jgn+0Gd0xBNOuSxbKnwHq5wBmllosSRubbSUIsylztfdtqQ8yF6rprNBgjMuSU6srX6F5TbkXZOzAy1sc4JEIHGjX7jmnE9+VMdQJ8rhCu4/1x8Q9ZT9+JaOIFWodshmzPslsIZ0asf/7lKRVTqI6wphomPCGXBPXTF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UdDu2vPL; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FPpbl+q4"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-66e5e33a9d0so964532d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:56:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788252982; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RgcP4BCUw9T8MBEmvRIIXyWa3hqkaQvPI4nq130ACjCSnLr9MTZErmZR3+msoNuhs/
-         gZ+fKdlnnbh1NXkjhKM89ciWnrX11pBDKx4dcDDfwsZH5KDMKWOaVsyivSRqsZJ7KpAW
-         eyEDnv+u/qk5Ufo2P6tBcRmrjOCcDvammrLoYzLzoNuGwJDxizQ1Q4aYkWxDOLq7nQ24
-         vPmSQ/8BNg+rMkKA5Lgn3J4HgfzoxixhZFuFpKytTKJmSK8t0BwqW44cbqbEvkqfEhcz
-         UVJioRZ212aFsYOfMTTd2OShoGJPzqq2MGntTGcZhwI9Eo1egizVv+kYgzhUr9LZ7M34
-         M9PQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=b0cVoKLvyKRi4arSpTI3Loc6vRV6gV/RZyzB2+ewkXs=;
-        fh=xdgCLmNTE4ONXZlln69Y8TqrY0tSBplD98nt+OPUHB4=;
-        b=bGfPkHjWRVaWbjCJ5zehPK6Ar/cVuPFVag0MffSt6lDO9la9lecuJpGMqxFfs03Ihh
-         5nntXmgMaYcziZOUhTduEtOhCB9nuDHEnpCqtOo7fh21j2NyTzNnZvYH4Tk0k/sMyARP
-         IDox6l1BXU/XwhPBlQaHcOt8eMP+lgVQyUMpmldYxHTaPyFbjo0ypmIASH0wsSC3QLzC
-         yR8qktyMHFlI9ee11I75yS21TE6jNehEZoEuTH9hQ7/6cAx/M90fKMwy7UPmeqD3PkLj
-         Q/kL/SOIR8MM5k9GuWsIHjLu3llj4GEbH0uNWG3b8wzhjcxAL4vWmnxItWYAtOh9z5Yb
-         h3sA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UdDu2vPL"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49cdc81f40eso8439225e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:57:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788252982; x=1788857782; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=suse.com; s=google; t=1788253026; x=1788857826; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=b0cVoKLvyKRi4arSpTI3Loc6vRV6gV/RZyzB2+ewkXs=;
-        b=FPpbl+q4x6/SIOBPYNFuv2Z3YRe+EwR3/LFV+mvFBaMSnB3CiMLbQUa0KuMcTBm8H0
-         l6XzsGWn0N+jwNm0PsmZ0U2YeWdhOb6DYmFVWYZvcU+NNUZrkfqi+97Y8ay/1aYLSFKf
-         rLgNF/v8VNc8IorSh66O7Mq4LPMETRnl/SGnmJiCMOtJ87NZOzrVcG1YnECfs0l1V+VO
-         cRt7RiI/YAn44U9hsNmNlkGQ5UtgVcZF78Wu3Pui0tl+i8eeBOAD4YE/svrqti5mx4IM
-         k3eWn+zCKXC0rJ9duqg7q4Eah+mdvn/3DW6MTyYzTFBn83A2vVYo1QuL2tmd84ZqJb/f
-         6uzg==
+        bh=Xrf2I5rwuZTtUj0/BgFzlW7VpIjkJf+F8+X2M3EKpgI=;
+        b=UdDu2vPL8ptLlQXDjEu0QIyl1qM2qWV8g6iTYXLlSAurDvDYxMEICyQcgoiTs3bBa+
+         Zpm6/ZVHsLl4IYeZpJE6fSCAx27965xo2PDKDW9Jp3JjzVCMYrVBa0kIPbg99RbZuAwV
+         FpFYmo5BcHUNwrtLcnoubFnpqinQ6vCgvCVhVomSnpjeaqjxBNNuK3rd1Gbde8ObP7sf
+         y/j6Ne8+4j7IqG4EiMsv1v/d+VuJXDDT8UGTic2AlVT+ZArXleYP/tG/8rQE10AU3K6e
+         tqxqhE5vOeUu3ZSI71cXaifgZgPxPqFJUWVU140301WhpbgqIIMfY3w2r22YsQciTWQR
+         p3sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788252982; x=1788857782;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788253026; x=1788857826;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=b0cVoKLvyKRi4arSpTI3Loc6vRV6gV/RZyzB2+ewkXs=;
-        b=N6B+qFANaBTQaabX2ugmQVTDu68kvqnzP9JZb3KwzJP3cvPYLA49ldLx7zadLSdWU+
-         wucD5fVd+QDtcWjpZiSdHKUEHzQurE5rWooGblZLkN3kt7dV1rdX+DmnIV5/jcjwRqTV
-         MYr2ZgR4cJPuFwkvu3i3X1gDbYofP9hI90Hk/tqe72ZD44qqrHV11Zq/ejwJeTgytVuN
-         /JBXaS7+nuoc7GeJlOcKkpGykpurkdrWaVMnjyM1anGV9hHPoDgfu3Xt7NXyI9iGvRmy
-         dekDsSOHse47u3bmoiiaiRDKEdF8vs9gIRndG504VRy8BGwWhQQIFaqgZByuSNB1qCoc
-         /R1w==
-X-Forwarded-Encrypted: i=1; AKwUvBwII1kzqGnHhlkomzsczhQ2RKanL1vqnjZfMJSMxD7Ymfs40OouRJJamq4MiiUFLni2vOQiotYA7mwYXxs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNFGhNzcvce8bS1Yf1VkeSpQw88z2isPtDLcwPWmh1Igjzr5T1
-	dGKtCXGTqVmxqN4Cgc+xQma7/l5Cus6rhKjszuHlVI3FXaPJSfJW+MCDd0j75JKrNwUNO4V6ghY
-	FE7PC2OZhF5bu/4bu3Bl0ZBw/IS2LLFo=
-X-Gm-Gg: AYBFou2w7taHlX6pmBhtjBd294WSKtH8KognUHYIha4hesWrXS+QsKNXwP2bmI6eX/i
-	EYhEW4XOO39LF6eldLlfFwPpWpIeozCBGvKN4gDPQ+ARBZtoGJNk22B5Bp75xb2WqrC/C31ghux
-	TGbJ1G+p+pJNmyvvoIz487+ART0jNyBxqQswIfw+k9SzHv+g9a/mrW9YCNqp+rV5vEW4XyLDerS
-	GfGGG6z1Fv9s8bVuuO4g35ujuD3ZqNf2g4pTnDTKGy8J85W6QUK7ClmXBYfRKfIPaV2Vcxvnr6q
-	G8QgaLL4oDs3O8luIw7682V8uMC1kUkdsRs0RsxHVd/FDu8CrQWUIZnlAsmjLN80VqaDB8x3xAc
-	yKwXgcGz6wdpeTg+fU/HSYDc=
-X-Received: by 2002:a53:d7c1:0:b0:66c:85e3:7f28 with SMTP id
- 956f58d0204a3-66e4c7cb058mr7321594d50.48.1788252982426; Tue, 01 Sep 2026
- 01:56:22 -0700 (PDT)
+        bh=Xrf2I5rwuZTtUj0/BgFzlW7VpIjkJf+F8+X2M3EKpgI=;
+        b=cyPk3yhu/gVWFryHvAl0uQeZVDXKnJSP5uOUacoGcsFwFQpJl2IQcAHT+5CZCgberb
+         4fxP0froasQkGoZzS5+wWUCX8wilNVQxLtKc7t07S2Ju8DCYrfI/scPjxx+ZM6groV9k
+         i+j97vlBbCGXmKoWwt2dUbFKt1l+R+TApOlnP7VHPooTeYLbLnMVwLlzjV2ayjJwSWL9
+         WeJGyDqdf+stZJ5CEw/hHJwDYGpMSiFj4fUHJ+5H2pEa7MCQk8mSa2mJTgqAlvujA3on
+         aicX5SDnp1JsBVq4jTDsbIk2My//ghtPCERAxCjOy1Voyb84RdV/Kf+2JIMmcnkT9Ym8
+         enNA==
+X-Forwarded-Encrypted: i=1; AHgh+RqPsMTHT7SCjYVlXJlYYpYOpObXhdpwMfO3mz6PIcQn/KkllXrWZGQ8ph2TMumEvLeTpGOo6Gsh1GAliUQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDyZaW0fiLf0+uRStNvwMMU8VTolEU1fA68cuGFLrH5PCB8hA9
+	7Wf/H9o7/Qw4VTyKjsVmCWlfQPbSeIn/HGGKX3mfrCwee9Q4ZR1oSyaIpCVg2OwMU9o=
+X-Gm-Gg: AR+sD12+ysS2QmvxB1S+f/p+e6A0e6kRQwiE45FaUGD3FqHksK4xwV/mYYFXVmMF7VR
+	nIRuuUY+Ir0jmQUYWNDtjaavvdOmWr/vVpCEn4OD75TWhdLnSfwMCBsu5FZXyUVFEybpF6EvmP7
+	XaAGx8Amor7oPZQXnHaTzzSG0Da2ou9OpQCJZbpn0iH16Z98BoekJabfMrfofjM/BEJUVa6L6SH
+	A9DTJj+/C8Q+YZUO5yQlVVpIktDck77FpuJbTIaZKo6KgoVQX/gJOKw+TYI7g6tFOVFGMEm2+0d
+	lNgbfZkHx6Bvmi5hap956x5+cMMigQxA97h0BqsfCvGc5SR5Dkm269T9wTiPq7lJdzV/RF4ETht
+	GEuIMjvZuCYyE9yMpw5Z/6FJWR/Eupy0Tm+pVkG6MT023FbP8BVp8q5JaRJO9p3RR0oEbv2tO/O
+	glm9o5gEjnvdmTJvRtNc02tpe17evpa4CRxsqOvpnoZX7KiY07TSaISqy9jZIiDOw=
+X-Received: by 2002:a05:600c:64c6:b0:495:52a5:8829 with SMTP id 5b1f17b1804b1-49cdc558470mr121172455e9.11.1788253026345;
+        Tue, 01 Sep 2026 01:57:06 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442c4259esm3313283f8f.7.2026.09.01.01.57.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 01:57:05 -0700 (PDT)
+Date: Tue, 1 Sep 2026 10:57:03 +0200
+From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+To: Wilson Felipe Pereira <wfelipe@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Tejun Heo <tj@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] selftests/cgroup: test_zswap: fix implicit
+ unsigned promotion bug in test_no_kmem_bypass
+Message-ID: <apaO1OHVQWJCuJDE@localhost.localdomain>
+References: <20260901052250.154532-1-wfelipe@google.com>
+ <20260901052250.154532-3-wfelipe@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831092305.42062-1-tasos.papagiannnis@gmail.com> <20260831092305.42062-4-tasos.papagiannnis@gmail.com>
-In-Reply-To: <20260831092305.42062-4-tasos.papagiannnis@gmail.com>
-From: sun jian <sun.jian.kdev@gmail.com>
-Date: Tue, 1 Sep 2026 16:56:17 +0800
-X-Gm-Features: AcwNN1XIzpApr53ZwDAkoriLyAfCiPBC9rJXu6HlLdHYqQbCNPiAd7kuMexr5Xk
-Message-ID: <CABFUUZHEJ0Bbu9QvT3AVkxAY=kgFzSA6fDj0hOwgQJ==bEaA=Q@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v3 3/7] exec: Clear bprm->mm before dropping its reference
-To: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, viro@zeniv.linux.org.uk, brauner@kernel.org, 
-	akpm@linux-foundation.org, david@kernel.org, ast@kernel.org, 
-	daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, 
-	kpsingh@kernel.org, matt@bobrowski.net, song@kernel.org, 
-	utilityemal77@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nuwu7tagmytj5izv"
+Content-Disposition: inline
+In-Reply-To: <20260901052250.154532-3-wfelipe@google.com>
+
+
+--nuwu7tagmytj5izv
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v5 2/2] selftests/cgroup: test_zswap: fix implicit
+ unsigned promotion bug in test_no_kmem_bypass
+MIME-Version: 1.0
 
-On Mon, Aug 31, 2026 at 5:52=E2=80=AFPM Anastasios Papagiannis
-<tasos.papagiannnis@gmail.com> wrote:
->
-> Once mmput() drops the final reference to bprm->mm, the pointer must no
-> longer remain accessible through struct linux_binprm.
->
-> The successful exec path and the bprm initialization error path already
-> clear bprm->mm when ownership is transferred or released. Do the same in
-> free_bprm() before calling mmput().
->
-> This is required for eBPF kfuncs where bprm->mm is either NULL or points
-> to a live mm_struct to ensure safe access.
->
-> Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-> ---
->  fs/exec.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/exec.c b/fs/exec.c
-> index a14f28b15607..4b4d8f0627a7 100644
-> --- a/fs/exec.c
-> +++ b/fs/exec.c
-> @@ -1453,9 +1453,12 @@ void bprm_drop_loader(struct linux_binprm *bprm)
->
->  static void free_bprm(struct linux_binprm *bprm)
->  {
-> -       if (bprm->mm) {
-> +       struct mm_struct *mm =3D bprm->mm;
-> +
-> +       if (mm) {
->                 acct_arg_size(bprm, 0);
-> -               mmput(bprm->mm);
-> +               bprm->mm =3D NULL;
-> +               mmput(mm);
->         }
->         if (bprm->user_ns)
->                 put_user_ns(bprm->user_ns);
-> --
-> 2.55.0
->
->
+On Tue, Sep 01, 2026 at 05:22:28AM +0000, Wilson Felipe Pereira <wfelipe@go=
+ogle.com> wrote:
+> In test_no_kmem_bypass(), delta (stored_pages * page_size - zswapped) is
+> checked against stored_pages * page_size / 4 to verify that the pages
+> pushed to zswap belong to the test memory cgroup.
+>=20
+> Due to slight stat update timing differences, delta can evaluate to a sma=
+ll
+> negative number (e.g. -5MB out of 1GB). Because delta is declared as a
+> signed int and stored_pages is an unsigned size_t, C's usual arithmetic
+> conversions implicitly promote a negative delta to a large unsigned 64-bit
+> integer, causing `delta < stored_pages * page_size / 4` to falsely evalua=
+te
+> to 0 and fail the test.
+>=20
+> Fix this by declaring zswapped and delta as signed long long and comparing
+> against a signed threshold, ensuring negative deltas correctly evaluate
+> to true.
+>=20
+> Fixes: a549f9f31561a ("selftests: cgroup: add test_zswap with no kmem byp=
+ass test")
+> Signed-off-by: Wilson Felipe Pereira <wfelipe@google.com>
+> Acked-by: Michal Koutn=FD <mkoutny@suse.com>
 
-An automated review by Sashiko [1] reported a potential UAF involving
-bprm->file. The report identifies a real but narrower lifetime issue.
+(The long long helper is a non-trivial change, so the ack should be
+stripped on this version (unless you can convince me ;-).)
 
-The specific PF_KTHREAD/delayed-fput scenario is not reachable through
-the current in-tree path: kernel_execve() rejects PF_KTHREAD before
-alloc_bprm(), and usermode helpers use user_mode_thread(). In
-addition, bpf_get_file_xattr() is not available to TRACING/fentry
-programs.
+I'm afraid this bitness propagated too broadly.
 
-However, free_bprm() still drops the reference held by bprm->file
-before calling bprm_drop_loader(), which is instrumentable.
-linux_binprm->file is marked BTF_TYPE_SAFE_TRUSTED, so a tracing
-program attached to bprm_drop_loader() can pass it to the common
-bpf_dynptr_from_file() kfunc. Once the reference has been dropped,
-bprm->file is an unowned raw pointer; the dynptr retains that pointer
-without acquiring a file reference, and later reads dereference
-file->f_mapping.
+The long vs long long difference is only relevant on 32b, right?
+And the bit-width issue only appears because of the product, not the
+values read from memory.stat [1].
 
-This is independent of the bprm->mm change in this patch. I plan to
-send a separate fs/exec patch against the current bpf-next tree for
-this issue.
+I'd consider three ways forward:
+a) Consolidate the helpers into one cg_read_key_s64() (same explicit size
+   regardless of arch),
+b) keep single arch-dependent helper and tackle product(s) only,
+c) do not bother with 32b in these selftests (I have a hunch that
+   they're not so relevant on such archs).
 
-[1] https://sashiko.dev/#/patchset/20260831092305.42062-1-tasos.papagiannni=
-s@gmail.com?part=3D3
+WDYT?
+
+Michal
+
+
+[1] At least the values derived from available memory, memory events
+    could grow indefinitely. It's true that kernel uses explicit u64 for
+    all of the entries.
+
+--nuwu7tagmytj5izv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCapaTXBsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+Ag6rAD9F+z0oXfuQAC+NJQ52/69
+Wy9h9jBokjfFxG+tYku4HusA/A3LjZsf4+90ciLSyVy6BFPvXQx3uN958bN5VesH
+mjUK
+=8Zx/
+-----END PGP SIGNATURE-----
+
+--nuwu7tagmytj5izv--
