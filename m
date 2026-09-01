@@ -1,228 +1,219 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3671D514E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F273189F43;
+	Tue,  1 Sep 2026 13:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270904; cv=none; b=BTtvccgqlpBeEy9TULZlt2XP4xGUflmL7YYMOldg4wuDCbvBECo6p3wXeT2ichKO9qAH9kw069AcBzU/aqbgz8XQ0FGUuCF+ZMLackMG6734ELwCIrupVf21wyeHEIXiPekusXlBlB68FC4Q79DV0roloPToT+swrJfAvT2+yqs=
+	t=1788270940; cv=none; b=P55HpyBm4cLXD7h667a2kUu9TNzARhkls/SvOX0TpwixmXkR2Z0sclp2htFF86pM1+yx6VEzjRwhp0Yi8yFqEqiCRN89Gzy4gbEUx/1iUTUhyAcuViY86WoW5SohBUK7WF4ot3XsqX4uehmKt29UIA3VtyIaG/RuJmAnrKDAxcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270904; c=relaxed/simple;
-	bh=E9iBDSd0F+VFOLfBAeE7XB7kTLFkpCL7XnKeEoR64/o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QV1Lu58/1QLEukOBjc6uQ4M3WL3c/cCsQaY4NKNYaKO74x04NIZ3e3u/GMkdadSH2gP2cFYCwFr7EYfrkTessT2RI02h2iXc4DoWl14HnUTERmtZN+0vejq3dlcBJOI6uucvPbBgSOnXbt9+3T+uHZebbDXfWzpQlsskAovsssc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=HhIk1rjZ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=p6jPemJy; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788270940; c=relaxed/simple;
+	bh=+lv3JU9YTFJRgUVSopnnbVbsgjFo1rzZBz1rfXXsuCY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dOR2uQELNJDCzb5p3ANu5eqopCjPY1Z5uxabJurbEyEGLgs5G87srxh8b+MfTQPX7frj2jGtMn8dkjwPWDSuUqd+n4vDAOncSY8g9o2OIC58vKZd6rH9S49E6ITCKADDDeYuzTMoQ0+ECe31NLOtz/O303PqYebDhFRrwhqNFW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=DG1vdoEv; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=bJPNBMR6; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=SsGE3c2V; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=4vjzU0at; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="HhIk1rjZ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="p6jPemJy"
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788270899;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="DG1vdoEv";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="bJPNBMR6";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="SsGE3c2V";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="4vjzU0at"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 021CD1F456;
+	Tue,  1 Sep 2026 13:55:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788270932; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jQWyz0zLAk1rifjb78xRUnQXRcjCfUEYgBKEXS8+YA4=;
-	b=HhIk1rjZKrQOaBkJ1qP6TkuyafKYgBHKwMabdkVxj1jdJHf13WoVLLixGFpXGxVzENmoVW
-	Y9iOcPsH8yKuMbeLHmlKH+vIOmV+F2h3QwVAXK5qI/h6zUMTMNOln+e93hoOAKRbiT7Kvd
-	phd+3T0C4u6b8ionzoLdp2SeEt/VHoxP/1DEZ5oI0LZJNWxOL2yhMb2WE8V6TPH2wvrzZU
-	vITYc/GMlDN6bKwXfzwk1CU3uGAJfJv9GjU44ZjPIz6o5nKRPp5yO+J/itMsJH192PRXUu
-	gO9m8etR1p1LMHZxXjLeaCwFaxyf3bUSMJfonRVOo1/HRsy4pesZHhzmpudXnw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788270899;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
+	bh=MjO7b8BiqciaFISpoTL+zOgGR0VbUuS8pqnqjH6vazg=;
+	b=DG1vdoEv/Qe0Ufw2JayuTZr02OWvgr7G423SHFU/Kairm9U5Z+f5HBz/mQId3jru3N7Lzf
+	37fkOReTNLktpXlWP9d+IUoGmWhi0q/k8aJWab0axtTF4wCtnFOHl6voPtK3taoodHnOMl
+	7R+rcwY014S+Yl23vWANLg3dztg0yN8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788270932;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jQWyz0zLAk1rifjb78xRUnQXRcjCfUEYgBKEXS8+YA4=;
-	b=p6jPemJy9RuyNqla2PFBCAYvIXumKOsNHG07QT0D63rpy1x7Vgnl6lOyc4SZBph9mhY023
-	Mv28KjuLrVsdh2DQ==
-To: linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
-	Darren Hart <dvhart@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Borislav Petkov <bp@alien8.de>,
-	Yao Kai <yaokai34@huawei.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: [PATCH v4 1/2] futex: Provide rt_mutex_.*_schedule() equivalents for futex scheduling
-Date: Tue,  1 Sep 2026 15:54:51 +0200
-Message-ID: <20260901135453.3121948-2-bigeasy@linutronix.de>
-In-Reply-To: <20260901135453.3121948-1-bigeasy@linutronix.de>
-References: <20260901135453.3121948-1-bigeasy@linutronix.de>
+	bh=MjO7b8BiqciaFISpoTL+zOgGR0VbUuS8pqnqjH6vazg=;
+	b=bJPNBMR6zsGmB2AdER/JH3+bPrI75g1+0FGhZCra2N06UiwchyGorohCU1VvB3bVyVuTDj
+	SOHi6E1tjNUAFeAQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=SsGE3c2V;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=4vjzU0at
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788270928; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MjO7b8BiqciaFISpoTL+zOgGR0VbUuS8pqnqjH6vazg=;
+	b=SsGE3c2VCZ1i7jOMs8iGzU1GV2o4dM408bGlh0CwvF3X2RHyIdUs77ToeVcMQhqUl2A38+
+	RNHiPLqRAh9x3sjmR1Ak7M0nfPe5cBM9Li2ctePCmhL3IeeeH78eQHoKnfhPRWZg1IGq9o
+	4BeOY6g/ttzlzRqdMLLYLVGeIS2aerM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788270928;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MjO7b8BiqciaFISpoTL+zOgGR0VbUuS8pqnqjH6vazg=;
+	b=4vjzU0atSAzEHkYExz/OGYJLWXLKKYe4QdD8eI9iaqYPpBam7W0AtCOiCgffvpR5P1zj7i
+	PnBnC53fXpDyUzAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D20FD136A2;
+	Tue,  1 Sep 2026 13:55:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id eYk7M0/ZlmoaUQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 01 Sep 2026 13:55:27 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 6AF7BA13B2; Tue, 01 Sep 2026 15:55:23 +0200 (CEST)
+Date: Tue, 1 Sep 2026 15:55:23 +0200
+From: Jan Kara <jack@suse.cz>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
+	bcrl@kvack.org, tytso@mit.edu, adilger.kernel@dilger.ca, 
+	libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, sforshee@kernel.org, pmladek@suse.com, rostedt@goodmis.org, 
+	andriy.shevchenko@linux.intel.com, linux@rasmusvillemoes.dk, senozhatsky@chromium.org, 
+	akpm@linux-foundation.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, kuniyu@google.com, willemb@google.com, 
+	jhs@mojatatu.com, jiri@resnulli.us, kees@kernel.org, cyphar@cyphar.com, 
+	tglx@kernel.org, sdf@fomichev.me, nb@tipi-net.de, liuhangbin@gmail.com, 
+	da-x@monatomic.org, jeff@garzik.org, linux-fsdevel@vger.kernel.org, 
+	linux-aio@kvack.org, linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org, 
+	netdev@vger.kernel.org
+Subject: Re: [PATCH v2 07/12] ext4: Fix out-of-bounds read in
+ ext4_get_group_info()
+Message-ID: <stftjabhlylnomnoc445lfa6cio4fdtdtjlo6awia4xczfpum6@vmnfqv3omqfc>
+References: <20260901024234.135119-1-ruanjinjie@huawei.com>
+ <20260901024234.135119-8-ruanjinjie@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901024234.135119-8-ruanjinjie@huawei.com>
+X-Spam-Score: -2.51
+X-Rspamd-Queue-Id: 021CD1F456
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[40];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[zeniv.linux.org.uk,kernel.org,suse.cz,kvack.org,mit.edu,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,huawei.com,suse.com,goodmis.org,linux.intel.com,rasmusvillemoes.dk,chromium.org,linux-foundation.org,davemloft.net,google.com,redhat.com,mojatatu.com,resnulli.us,cyphar.com,fomichev.me,tipi-net.de,monatomic.org,garzik.org,vger.kernel.org];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[alibaba.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RLa77mm4gi8mw7uppieotozii3)];
+	MISSING_XM_UA(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from]
+X-Spam-Flag: NO
 
-There is rt_mutex_{pre|post}_schedule() around
-rt_mutex_wait_proxy_lock() to ensure that sched_submit_work()/
-sched_update_worker() is invoked before we schedule out and block on
-rt_mutex while waiting for it become available.
+On Tue 01-09-26 10:42:29, Jinjie Ruan wrote:
+> A plain read of s_groups_count in ext4_get_group_info() allows CPU
+> load-load reordering. On weak memory models, speculative prefetch of
+> s_group_info prior to the boundary check could lead to an out-of-bounds
+> read if a concurrent online resize expands the array and increments
+> s_groups_count.
+> 
+> The data race occurs between the ioctl configuration path (holding the
+> resize lock via ext4_resize_begin) and the lockless metadata lookup path:
+> 
+>    CPU 0 (Writer, Resize Lock)                CPU 1 (Reader, Lockless)
+>    ---------------------------                ------------------------
+>    ext4_ioctl()
+>      [EXT4_IOC_GROUP_ADD]
+>      ext4_ioctl_group_add()
+>        ext4_resize_begin() // Takes lock
+>        ext4_group_add()
+>          ext4_mb_alloc_groupinfo()
+>            // Publishes expanded array via RCU
+>            rcu_assign_pointer(s_group_info, ...)
+> 
+>          ext4_flex_group_add()
+>            ext4_update_super()
+>                                               ext4_get_group_info()
+>                                                 // Speculative / out-of-order read
+>                                                 [Loads old/smaller s_group_info pointer]
+>              [Plain C store / smp_wmb()]
+>              sbi->s_groups_count += ...;
+>                                                 // Reads new s_groups_count,
+>                                                 // boundary check passes
+>                                                 if (group >= s_groups_count)
+> 
+>                                                 // Out-of-bounds array access!
+>                                                 sbi_array_rcu_deref(..., s_group_info)
+> 
+> Fix this by using ext4_get_groups_count() to enforce acquire semantics.
+> 
+> Cc: stable@vger.kernel.org
+> Cc: "Theodore Ts'o" <tytso@mit.edu>
+> Cc: Andreas Dilger <adilger.kernel@dilger.ca>
+> Cc: Baokun Li <libaokun@linux.alibaba.com>
+> Cc: Jan Kara <jack@suse.cz>
+> Cc: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+> Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+> Cc: Zhang Yi <yi.zhang@huawei.com>
+> Fixes: 5354b2af3406 ("ext4: allow ext4_get_group_info() to fail")
+> Link: https://sashiko.dev/#/patchset/20260825095422.3166067-1-ruanjinjie%40huawei.com
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-The reason is that blocking on rt_mutex assigns a pi_waiter for the PI
-chain and sched_submit_work() will also assign a pi_waiter if it blocks
-on lock but a this point we already have a waiter assigned.
-We can't skip sched_submit_work() entirely because I/O relies on the
-fact that I/O queue is flushed while it blocks on a sleeping lock.
-Therefore sched_submit_work() is moved before we block on the lock.
+Looks good. Feel free to add:
 
-Sleeping lock in this context means mutex or rw_semaphore not spinlock_t
-on PREEMPT_RT. Because the mutex abstraction on PREEMPT_RT uses the same
-abstraction as the futex proxy lock, the futex code ended up using
-rt_mutex_{pre|post}_schedule(), too.
-Using it is/ was just to keep the task_struct::sched_rt_mutex assertion
-happy. Futex proxy lock is used only in the syscall context of a task.
-At this point it never got any I/O that needs to be flushed and it can't
-be a workqueue that needs to notify that it will be scheduled out.
-Therefore sched_submit_work() does nothing here.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-By mistake futex_wait_requeue_pi() -> rt_mutex_wait_proxy_lock() did not
-get the rt_mutex_{pre|post}_schedule() annotation. This was not noticed
-because in this callchain the lock is (usually) not contended and so
-rt_mutex_slowlock_block() does not schedule, triggering the assert.
+								Honza
 
-Adding rt_mutex_pre_schedule() here looks wrong (as noted by PeterZ)
-because at this point there is a pi_waiter recorded and invoking
-sched_submit_work() with a possible lock contention would be wrong.
-
-Add rt_mutex_futex_{pre|post}_schedule() which toggles the
-sched_rt_mutex assert and does not involve sched_submit_work(). Add
-asserts here to ensure that sched_submit_work() would do nothing. Use it
-only in futex proxy lock case which is rt_mutex_wait_proxy_lock().
-Remove it from futex_lock_pi().
-
-Fixes: d14f9e930b90 ("locking/rtmutex: Use rt_mutex specific scheduler help=
-ers")
-Reported-by: Yao Kai <yaokai34@huawei.com>
-Closes: https://lore.kernel.org/all/20260717084922.4153317-2-yaokai34@huawe=
-i.com
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
----
- include/linux/sched/rt.h     |  2 ++
- kernel/futex/pi.c            | 16 +++-------------
- kernel/locking/rtmutex_api.c |  2 ++
- kernel/sched/core.c          | 16 ++++++++++++++++
- 4 files changed, 23 insertions(+), 13 deletions(-)
-
-diff --git a/include/linux/sched/rt.h b/include/linux/sched/rt.h
-index 4e3338103654c..922935cc33833 100644
---- a/include/linux/sched/rt.h
-+++ b/include/linux/sched/rt.h
-@@ -52,8 +52,10 @@ static inline bool rt_or_dl_task_policy(struct task_stru=
-ct *tsk)
-=20
- #ifdef CONFIG_RT_MUTEXES
- extern void rt_mutex_pre_schedule(void);
-+extern void rt_mutex_futex_pre_schedule(void);
- extern void rt_mutex_schedule(void);
- extern void rt_mutex_post_schedule(void);
-+extern void rt_mutex_futex_post_schedule(void);
-=20
- /*
-  * Must hold either p->pi_lock or task_rq(p)->lock.
-diff --git a/kernel/futex/pi.c b/kernel/futex/pi.c
-index 88788e584ec8a..98f1b962e59a0 100644
---- a/kernel/futex/pi.c
-+++ b/kernel/futex/pi.c
-@@ -1070,17 +1070,11 @@ int futex_lock_pi(u32 __user *uaddr, unsigned int f=
-lags, ktime_t *time, int tryl
- 		 * Caution; releasing @hb in-scope. The hb->lock is still locked
- 		 * while the reference is dropped. The reference can not be dropped
- 		 * after the unlock because if a user initiated resize is in progress
--		 * then we might need to wake him. This can not be done after the
--		 * rt_mutex_pre_schedule() invocation. The hb will remain valid because
--		 * the thread, performing resize, will block on hb->lock during
--		 * the requeue.
-+		 * then we might need to wake him. The hb will remain valid
-+		 * because the thread, performing resize, will block on
-+		 * hb->lock during the requeue.
- 		 */
- 		futex_private_hash_put(no_free_ptr(hbr.fph));
--		/*
--		 * Must be done before we enqueue the waiter, here is unfortunately
--		 * under the hb lock, but that *should* work because it does nothing.
--		 */
--		rt_mutex_pre_schedule();
-=20
- 		rt_mutex_init_waiter(&rt_waiter);
-=20
-@@ -1146,10 +1140,6 @@ int futex_lock_pi(u32 __user *uaddr, unsigned int fl=
-ags, ktime_t *time, int tryl
- 		 * the
- 		 */
- 		futex_q_lockptr_lock(&q);
--		/*
--		 * Waiter is unqueued.
--		 */
--		rt_mutex_post_schedule();
- no_block:
- 		/*
- 		 * Fixup the pi_state owner and possibly acquire the lock if we
-diff --git a/kernel/locking/rtmutex_api.c b/kernel/locking/rtmutex_api.c
-index 5d48d64725b12..eb18b094473c9 100644
---- a/kernel/locking/rtmutex_api.c
-+++ b/kernel/locking/rtmutex_api.c
-@@ -423,6 +423,7 @@ int __sched rt_mutex_wait_proxy_lock(struct rt_mutex_ba=
-se *lock,
- {
- 	int ret;
-=20
-+	rt_mutex_futex_pre_schedule();
- 	raw_spin_lock_irq(&lock->wait_lock);
- 	/* sleep on the mutex */
- 	set_current_state(TASK_INTERRUPTIBLE);
-@@ -433,6 +434,7 @@ int __sched rt_mutex_wait_proxy_lock(struct rt_mutex_ba=
-se *lock,
- 	 */
- 	fixup_rt_mutex_waiters(lock, true);
- 	raw_spin_unlock_irq(&lock->wait_lock);
-+	rt_mutex_futex_post_schedule();
-=20
- 	return ret;
- }
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index f78275192036b..449ccd871be81 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -7637,6 +7637,17 @@ void rt_mutex_pre_schedule(void)
- 	sched_submit_work(current);
- }
-=20
-+/*
-+ * Used within the futex syscall context, skips sched_submit_work() becaus=
-e none
-+ * its work will be done. Asserts ensure that it is indeed the case.
-+ */
-+void rt_mutex_futex_pre_schedule(void)
-+{
-+	lockdep_assert(!(current->flags & (PF_WQ_WORKER | PF_IO_WORKER)));
-+	lockdep_assert(!current->plug);
-+	lockdep_assert(!fetch_and_set(current->sched_rt_mutex, 1));
-+}
-+
- void rt_mutex_schedule(void)
- {
- 	lockdep_assert(current->sched_rt_mutex);
-@@ -7649,6 +7660,11 @@ void rt_mutex_post_schedule(void)
- 	lockdep_assert(fetch_and_set(current->sched_rt_mutex, 0));
- }
-=20
-+void rt_mutex_futex_post_schedule(void)
-+{
-+	lockdep_assert(fetch_and_set(current->sched_rt_mutex, 0));
-+}
-+
- /*
-  * rt_mutex_setprio - set the current priority of a task
-  * @p: task to boost
---=20
-2.55.0
-
+> ---
+>  fs/ext4/balloc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/balloc.c b/fs/ext4/balloc.c
+> index 52f4c5169f91..778fe8788f06 100644
+> --- a/fs/ext4/balloc.c
+> +++ b/fs/ext4/balloc.c
+> @@ -329,7 +329,7 @@ struct ext4_group_info *ext4_get_group_info(struct super_block *sb,
+>  	struct ext4_group_info **grp_info;
+>  	long indexv, indexh;
+>  
+> -	if (unlikely(group >= EXT4_SB(sb)->s_groups_count))
+> +	if (unlikely(group >= ext4_get_groups_count(sb)))
+>  		return NULL;
+>  	if (unlikely(!EXT4_SB(sb)->s_group_info))
+>  		return NULL;
+> -- 
+> 2.34.1
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
