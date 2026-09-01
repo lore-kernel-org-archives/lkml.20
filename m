@@ -1,72 +1,124 @@
-Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF53220687;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29512F3C3E;
 	Tue,  1 Sep 2026 11:56:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.254.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263766; cv=none; b=MywYIErYaFpnGK8fEbLryB5H2NledqDvlsdekrhW4qB/NIY8TMQRrUSUrpEOjRG4aRu8eOb8ACvr4PSF5to6cboZ7XDmlYGdjfktAvMIALn9BG6/79jLYInf0VhW70Wh7JNUsOmSTdYXGeWQdRbz5xLMRbbDlO2J4dSkVnze2mQ=
+	t=1788263768; cv=none; b=dLWRaKQgdxxJYZQzHNqKp0E0QvM0CAduOrZezgzlIyN8yGWVEHo+AwqqiYOD8Lrb+xAnM8Vf0Xwodyl+NsoDICESYZ5M0rpnFixrV3Y2KjRKTc5VovQq2ZdpvEXBl+ilX4SjjlVZLqyqSB8XmajiJTT6i4KExNeJ6u6y/iRxt40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263766; c=relaxed/simple;
-	bh=teH8A+bBnEF4sQeZAeIT9bias55KiKQJ84FqLPMuZs4=;
+	s=arc-20240116; t=1788263768; c=relaxed/simple;
+	bh=BXGA0AD21kQ+ZYWfNEdiKfsOL+vYN1BV28RWzR/TUOA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nqGp+j21I1bvroh50ga5xj6ohy1xSyk3GoANdBq3yej23An6+m8UOCXH1wLcvuxHz5UR5WEzovMh7YEhLsecjTAx+uZktKfWwCO7XGwUWklKIv/syImgdgFGXLLK9bhl0pUmfvMk+aKuyo067UNaZIKJ3vCuwLhKK0E7IS7ZJZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com; spf=pass smtp.mailfrom=ilvokhin.com; dkim=pass (1024-bit key) header.d=ilvokhin.com header.i=@ilvokhin.com header.b=3puqK9nR; arc=none smtp.client-ip=178.62.254.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ilvokhin.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=igAH6LLS8/F6uwmpz2EUgvwC4RbkVUg1PzS8Xg13bFZRSdxj0+VxZgYYvqlANLt9GoiXalHD54Fe+JhOS1sgqKhvIpRsvXahATFdPzD8L5NoK34KMjj92Qlv6R8PrBjLNZFb9JPgICSu0qlnhKLDU8RhmGRxdiVVTssHsNI3O7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=p9V96+aH; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ilvokhin.com header.i=@ilvokhin.com header.b="3puqK9nR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
-	s=mail; t=1788263387;
-	bh=rBjyiusYlHC8sriGlE2givbV5vglKvP1HjQwOtmJkQE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=3puqK9nRF/kD1Lr4BXRoYcalo2efKW79DisCn81azoN45h37Sh/tMi9d9BlpS1uNg
-	 3ptSdiqNQ6qxUDv2d6doWH6xvTley7Ah+ejvGv4reQ1n1NwGULwvo7NjsQp4DuS4W9
-	 fjL0HDTrZN4VoOgdjPDs7ADgHVm4pWwC75femYl8=
-Received: from shell.ilvokhin.com (shell.ilvokhin.com [138.68.190.75])
-	(Authenticated sender: d@ilvokhin.com)
-	by mail.ilvokhin.com (Postfix) with ESMTPSA id 139ACEBA71;
-	Tue, 01 Sep 2026 11:49:47 +0000 (UTC)
-Date: Tue, 1 Sep 2026 11:49:43 +0000
-From: Dmitry Ilvokhin <d@ilvokhin.com>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
-	Thomas Gleixner <tglx@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] rseq: defer time slice extension yield for sys_futex_wake
-Message-ID: <apa71yN7lYR3FKeI@shell.ilvokhin.com>
-References: <20260831-sys-futex-wake-time-slice-v1-1-814bb95cc339@google.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="p9V96+aH"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3343B163;
+	Tue,  1 Sep 2026 13:54:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788263673;
+	bh=BXGA0AD21kQ+ZYWfNEdiKfsOL+vYN1BV28RWzR/TUOA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=p9V96+aHTk6zTD4DMj0FQ7ihXgAzIhud0AH72Id6ZFFjVuvYK3gFw2HGoh77Twu6D
+	 +Ho7A0avbH3wzfIMJh5TR+XYa8G0jHhDXIrriAEBeSHLCm5Vjco5IJYlwzoslpIJVe
+	 CHZusvxJIQFFl2WzViQbHGR6/zpP50sjGCwUxr24=
+Date: Tue, 1 Sep 2026 14:56:02 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Rajesh Gugulothu <rajesh.gugulothu@amd.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Michal Simek <michal.simek@amd.com>, linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: Re: [PATCH] media: xilinx: vtc: Dynamically calculate pixel clock
+Message-ID: <20260901115602.GE19683@killaraus.ideasonboard.com>
+References: <20260729101808.3904212-1-rajesh.gugulothu@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260831-sys-futex-wake-time-slice-v1-1-814bb95cc339@google.com>
+In-Reply-To: <20260729101808.3904212-1-rajesh.gugulothu@amd.com>
 
-On Mon, Aug 31, 2026 at 12:57:26PM +0000, Alice Ryhl wrote:
-> When a task is granted an rseq scheduler time slice extension, it is
-> expected to finish its critical section and relinquish the CPU via
-> rseq_slice_yield(2). If the task issues any other system call while a
-> grant is active, rseq_syscall_enter_work() forces an immediate
-> reschedule on syscall entry via cond_resched(). This may cause
-> significant latency penalty for userspace lock implementations that use
-> rseq time slice extensions when unlocking the futex.
+CC'ing Tomi who is working on Xilinx V4L2 drivers.
+
+On Wed, Jul 29, 2026 at 03:48:08PM +0530, Rajesh Gugulothu wrote:
+> This update enables the vtc to set the pixel clock based on the
+> specified timing parameters. A new fps field is added to struct
+> xvtc_config and the pixel rate is computed as fps * hsize * vsize.
+> After setting the rate, the actual clock rate is read back and a
+> warning is emitted if it deviates beyond a small tolerance.
 > 
-> In a userspace mutex unlock sequence:
-> 1. The lock is released in userspace.
-> 2. If there are waiters, the unlocking thread calls sys_futex_wake()
->    to wake a sleeping waiter.
+> The pixel rate is computed in unsigned long arithmetic to avoid a 32-bit
+> overflow in the fps * hsize * vsize product.
+> 
+> Signed-off-by: Rajesh Gugulothu <rajesh.gugulothu@amd.com>
+> ---
+>  drivers/media/platform/xilinx/xilinx-vtc.c | 19 +++++++++++++++++++
+>  drivers/media/platform/xilinx/xilinx-vtc.h |  1 +
+>  2 files changed, 20 insertions(+)
+> 
+> diff --git a/drivers/media/platform/xilinx/xilinx-vtc.c b/drivers/media/platform/xilinx/xilinx-vtc.c
+> index 92fec7bb4..695eb2a46 100644
+> --- a/drivers/media/platform/xilinx/xilinx-vtc.c
+> +++ b/drivers/media/platform/xilinx/xilinx-vtc.c
+> @@ -141,6 +141,9 @@
+>  
+>  #define XVTC_GENERATOR_GLOBAL_DELAY		0x0104
+>  
+> +/* Value of 1 = .01% */
+> +#define XVTC_CLK_MAX_PCT_ERR			1
+> +
+>  /**
+>   * struct xvtc_device - Xilinx Video Timing Controller device structure
+>   * @xvip: Xilinx Video IP device
+> @@ -175,10 +178,26 @@ int xvtc_generator_start(struct xvtc_device *xvtc,
+>  			 const struct xvtc_config *config)
+>  {
+>  	int ret;
+> +	unsigned long s_rate;
+> +	unsigned long g_rate;
+> +	unsigned long clk_err;
+>  
+>  	if (!xvtc->has_generator)
+>  		return -ENXIO;
+>  
+> +	s_rate = (unsigned long)config->fps * config->hsize * config->vsize;
+> +	ret = clk_set_rate(xvtc->xvip.clk, s_rate);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/* Verify that the clock is within a reasonable tolerance. */
+> +	g_rate = clk_get_rate(xvtc->xvip.clk);
+> +	clk_err = (abs(g_rate - s_rate) * 10000) / (s_rate);
+> +	if (clk_err > XVTC_CLK_MAX_PCT_ERR)
+> +		dev_warn(xvtc->xvip.dev,
+> +			 "Failed to set clk rate: %lu, actual rate: %lu\n",
+> +			 s_rate, g_rate);
+> +
+>  	ret = clk_prepare_enable(xvtc->xvip.clk);
+>  	if (ret < 0)
+>  		return ret;
+> diff --git a/drivers/media/platform/xilinx/xilinx-vtc.h b/drivers/media/platform/xilinx/xilinx-vtc.h
+> index 855845911..0f360ed55 100644
+> --- a/drivers/media/platform/xilinx/xilinx-vtc.h
+> +++ b/drivers/media/platform/xilinx/xilinx-vtc.h
+> @@ -27,6 +27,7 @@ struct xvtc_config {
+>  	unsigned int vsync_start;
+>  	unsigned int vsync_end;
+>  	unsigned int vsize;
+> +	unsigned int fps;
+>  };
+>  
+>  struct xvtc_device *xvtc_of_get(struct device_node *np);
 
-Just out of curiosity, is there any publicly available implementation of
-a mutex that combines rseq time-slice extensions and futexes?
+-- 
+Regards,
 
-I'm interested in learning more about how these two mechanisms interact
-with each other.
+Laurent Pinchart
