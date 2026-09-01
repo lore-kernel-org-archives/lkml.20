@@ -1,75 +1,106 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99A1468C14
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5E4469857;
+	Tue,  1 Sep 2026 07:45:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248705; cv=none; b=SGG9L1mUSLbdbETD98ewdQiHR7KXo3OCAmcAx1ZqINTogy1kEfh9aROkxxaVSzj9F3sIkyRl0AbYUn+EI6a1S9T2c9b2rPem4mumVt8OmSDT1N1cHGoV10etNxHJs6BFg2voSDl0yAPJV81VvPncme1qA2aw3SGLHUayMPLzz2A=
+	t=1788248738; cv=none; b=O3S4YnjmnMqDSuOQqdHxXWyKNoGmvEBiTMA2K+AnVUSSx3R5WPhRIf4MPQKYhfUODBqzy26DR6LTc23ksHfuC+3z+A+/5JH4CBya3KEt9q+pvwqiFWuhsbPcAHywUYR2BJ1NW2+pJVF7ncstEm9rGizohozbBj33bJFDBzryJ30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248705; c=relaxed/simple;
-	bh=Kwzx/G2MVPM4TcAUQygKNWjW0BVdT70ygmW+MUFZRWo=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=k5eDHRKr6tPtYANVBOtP4HCna3Ti5mi9yG+LG8DDDQUDFrCYfZlZ6M8I29KEXBKnKUfq1lUvsk2mF+xqqkSMb4r4BUosLH/0RDW+7xUUeO0bznI0euLc4QU9d1hhTMiNgP6qbW2I1OqaDrbyAT3t7E1Bn/CSmUSnGR9GJhMPlrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-49d4cb3ca23so6952633b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:45:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788248702; x=1788853502;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=cO+IF/roQ735VVx8QXTPGBRUMv96ABeB97I7jAxa+8I=;
-        b=TbMIHKwq3UHggdzsdp4dPVjmcu3vzUMRQAeuTbnV6u2fcYxAuqfDZxPhaM2HJfUxlP
-         QKzb6aA8SHPCvheunSIvQB/jvaQbrGwddtrOkBJICYcjGKscmq20+/tXrOONrO7L/V6e
-         n/JtTihWmw/ZbidMTOKszJ+1PM0Qq1OEDERLqDLXrmC1vcnG1GdNvMaAo6t5tcPCf4/v
-         6EEJeXtZMpD2cJvLdWsakuJVWuqRb0/bl3s3/8ib+6IiK3DxSdkn+R9n3TvoA7h3M8yQ
-         cdSmfGi8i2/0HUonCtyivJiMl7mIXoS5iCf7cYdzcsxirqaUbWX3lC4oumnYqb2/v97x
-         Jwmg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq7JwvM7xBqfb+y+FHsTlPxq9kLn2iPGEKrCQlh1Ob8af3ekw9xm7JOA5Qbd3cXzfmiCaJYVYDTGNPAjI8=@vger.kernel.org
-X-Gm-Message-State: AFuF++knEPaT3rC2WKWiadwcmnFlce3UnWqVZ67mkdzNRlWJKEOsluS5
-	z13iQ61xSbJ6B+3Rei7OtD3IGaDd1VSlhvy/ZYScggpKVC+JJEomnGPAqkh09xvSOQjcWNVJ7aR
-	fNq/1+uETGTTF6SjwceBhp0LaUm+u/0t5XQ+ClIviSX7T5sUFmH+7m7d+yTk=
+	s=arc-20240116; t=1788248738; c=relaxed/simple;
+	bh=jquB26JrrJ8hUGbpCSn6Yk9JkmdyCiueqaVc4ATN7Ws=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OgyQ/MeNBBRysc6dJ6CLnKKRcKAeNlLrSm2PsE3aIgBYuV/MjIfOaNNAA6kmV9UNzdHFlrW/6DNHgLCE3cXdFUM5MyCciRbf2o/MYhGWYwIwjT9sW5QL55mY41T0JKTILsr3n3uf1k9p2kh2QsjPrRvrDClJJ2BRzMZD3gSAtDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FCfLgMic; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FCfLgMic"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788248736; x=1819784736;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jquB26JrrJ8hUGbpCSn6Yk9JkmdyCiueqaVc4ATN7Ws=;
+  b=FCfLgMicusgGaHli0IP9PaH730n1PPvpzFfE3lHwQVC+mR0EKaGay0B3
+   5v2UkGQNYVD82FtLYnsG3MkIwyBOFJ26Cc2LuTZMmaiiVLJHcvGT+XGfi
+   d26I82E+4kfn1A7Y9t6xqie/KyRV9k3vR5+uODm8LFaKRy2zOpuKgAvwn
+   EYzxUG+LVYZ2gT0F2e8CcSmJdzHdbHHFqw2TViSsC8FVpRYNXEbS6jh20
+   zvu0/pFWoP+9gho/dZC3OQeWrgghT4z+Bhn91MjjtqNuLA7wu0kuX4+Dk
+   vBg+iVNZKugL0Z9KQjyA+f87nADGVWEFP+eYPQWt7IoI2xOyzVbzi8Mcd
+   Q==;
+X-CSE-ConnectionGUID: 3HC6CxkjTKutB6sOWLTEng==
+X-CSE-MsgGUID: h31dLb9jS0GHGveHFI0Iqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88793228"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="88793228"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 00:45:27 -0700
+X-CSE-ConnectionGUID: xifc1aJpT5KW9oTKWk3ZHg==
+X-CSE-MsgGUID: QvUcQi6eQWSt2J3jxqpQyw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="292522600"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 00:45:25 -0700
+Date: Tue, 1 Sep 2026 10:45:23 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH v1] ACPI: bus: Drop two fields from struct acpi_device_pnp
+Message-ID: <apaCk3qmZ5hO_aNC@ashevche-desk.local>
+References: <6314925.lOV4Wx5bFT@rafael.j.wysocki>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1a11:b0:4b2:8d9e:de11 with SMTP id
- 5614622812f47-4b5b837c725mr6942194b6e.19.1788248702670; Tue, 01 Sep 2026
- 00:45:02 -0700 (PDT)
-Date: Tue, 01 Sep 2026 00:45:02 -0700
-In-Reply-To: <20260901014117.416981-1-junjie.cao@intel.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a96827e.04428c52.29b18.0003.GAE@google.com>
-Subject: Re: [syzbot] [kernfs?] INFO: rcu detected stall in kernfs_fop_open (7)
-From: syzbot <syzbot+19d01f6082ec61dd45b2@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, davem@davemloft.net, edumazet@google.com, 
-	gregkh@linuxfoundation.org, horms@kernel.org, jhs@mojatatu.com, 
-	jiri@resnulli.us, junjie.cao@intel.com, kuba@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, pabeni@redhat.com, 
-	syzkaller-bugs@googlegroups.com, tj@kernel.org, vinicius.gomes@intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6314925.lOV4Wx5bFT@rafael.j.wysocki>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hello,
+On Mon, Aug 31, 2026 at 10:07:10PM +0200, Rafael J. Wysocki wrote:
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+> There are two fields in struct acpi_device_pnp, device_name and
+> device_class, that were supposed to be populated and used by device
+> drivers, but they have never been used consistently and now they
+> are only set for the bus object in acpi_set_pnp_ids() (and never
+> read afterward).
+> 
+> Drop them along with all of the associated symbols except for
+> MAX_ACPI_CLASS_NAME_LEN and the acpi_device_class typedef that
+> are used by the ACPI netlink messaging code.  Move those two
+> definitions closer to the struct acpi_bus_event that refers to
+> the acpi_device_class type.
 
-Reported-by: syzbot+19d01f6082ec61dd45b2@syzkaller.appspotmail.com
-Tested-by: syzbot+19d01f6082ec61dd45b2@syzkaller.appspotmail.com
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Tested on:
+...
 
-commit:         abdf623d Merge tag 'wq-for-7.3-rc1-fixes' of git://git..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=12f51379580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d7588e5a39260ad2
-dashboard link: https://syzkaller.appspot.com/bug?extid=19d01f6082ec61dd45b2
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=14a46d9e580000
+> +#define MAX_ACPI_CLASS_NAME_LEN		20
+> +typedef char acpi_device_class[MAX_ACPI_CLASS_NAME_LEN];
 
-Note: testing is done by a robot and is best-effort only.
+Are you planning to use this in some future code?
+
+>  struct acpi_bus_event {
+>  	struct list_head node;
+>  	acpi_device_class device_class;
+
+Otherwise I would go with complete replacement of the above to simple
+
+	char acpi_device_class[20];
+
+here.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
