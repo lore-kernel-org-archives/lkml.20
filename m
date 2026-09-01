@@ -1,202 +1,111 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46D026ED37;
-	Tue,  1 Sep 2026 02:17:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7D33A8388
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:20:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788229067; cv=none; b=ZtWnjl5/HXfm8Z9UnRGendgVd+Pp4eYv8JFiw3ljHNobGJW61ZHR0xFfoOwfqwPoHp3atPxuXWyxETPiLcwtva1esZz7vpvAPWBIFB9oMTYr/SyVM5lSkuJ+lh7puDayUqOBZdigvcHVUoVhOfyyxRBqJCITxwIqHWUPcYnjGS8=
+	t=1788229212; cv=none; b=KRqnbbCom0vIr05tmLkrPyt10C0wdVZ58EOXjjv/4aQ6oJuvrhBKiGv/XPJW33vlm1Q0zI7h+MXUgk7AWaumjWa21NHCzjahktWf1KvioPAuiIEDV60kT7QqGkIFk7UVjzZlqw5U6srtK4YIMQumte37ob/uIXbs2zRJnb3zwLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788229067; c=relaxed/simple;
-	bh=g0ZOFn3ymyEN7Pkjwe19qwf1DGayRKUC94+C/ByW1gg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t1WF74uJwg0AFUCPSiuT8BhF/B+esJQAj+V80M6rgLByRaHh6md4dxLPbS2OXaqKugARWADrxoMsHkFnmUu4PchUfwd3CATCedsGFSuF+/bUuTYLyC+pcwpKxsqsjodNapqucGFnGNFFUGYlJKLC9AoaVEx9m0tWXY+/jZzMisQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RhBngR/a; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788229212; c=relaxed/simple;
+	bh=pReCZ/lZVigpmnECFh75mQTJm3paN7ZW20fAMM0zJUY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=M9eBNyg87nqryJ/JRNeKYKM7Qg0aSrYpP5PJfviemOX3VGwUz7yG6TY1hIuVUJfqVTSFSjNmr2McFUY4e4vtyjOb5RC2tGdDKFsesFwOb7gNA5wEn21A0PLO7IXGtqrV109sVdYm3O9KAzdeTJtlsUf3MUSESqUsqdNvDmMioAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XER1stx3; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RhBngR/a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788229065; x=1819765065;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=g0ZOFn3ymyEN7Pkjwe19qwf1DGayRKUC94+C/ByW1gg=;
-  b=RhBngR/a5sTDHZh2G48d5j76Nl0tsHmu9p7YD6epmhV4BQ+ixvk3ISGN
-   NySFW1IYgmQYOd2xQyoKJiqukgyC8C55kqM2Xc/6spCQi2SXb10zYCpDW
-   lQF9B01RDXcuyDAXoJnnsZuvuhGVykY87PLxbtnkvxEM5i1DdQ+mkh5Gp
-   A3gQqw8eqTXAW9eM6L3rejVewHLDiyY+tKiDC/DBJ5KwKoqm13aL4ZZzk
-   PxAhrmkLFEOSCTD6KNPEgn6xl1TELR1ZFDyZcdPseQLkGMD59NIoLArMa
-   pS7ndRCQvgDtqj/TyXnwwmOpSiq85Fx3f5unJuMbTJbOYIeOSDRHK6pUc
-   A==;
-X-CSE-ConnectionGUID: KFWtVPlpQ7mKrntj4pDOZQ==
-X-CSE-MsgGUID: INdXfhUWRH210a65gbz94w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88498774"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="88498774"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 19:17:43 -0700
-X-CSE-ConnectionGUID: alTf26w3TGa16UP5nVpEcA==
-X-CSE-MsgGUID: sS1pM9s1Sg+GDwcSG0U61A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="272464286"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 19:17:40 -0700
-Message-ID: <37a416c8-ccd9-4f57-a21f-1e663a8e9fca@linux.intel.com>
-Date: Tue, 1 Sep 2026 10:17:38 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XER1stx3"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-853e2610bb4so406104b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:20:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788229211; x=1788834011; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o7V9z4lGg2Zq3oLqNbA6E6uUJgmE6UGQOAlFEXJea6E=;
+        b=XER1stx3fCafUBo4mM/QtGMdgP10T03+snzfO//BxdOrNcMCkLwgK1HB7v7mYlfb8s
+         YYSJRDdPOgZHyxcqdpOK2f7GNSpRWiYfLN312JOs/ZHTqVdx3SGA2RdbJwwGUEeBtahM
+         c8pQbzDaX74XPKu3Vih8ABkuKu9KstJE8Q9RBHKH0QaWIW8ryQXS0X/NbqBJ9kzob/CS
+         xdefkutc2x7ZYK8tCQwX8q53lyaH+Ja7FfAPnaJ8ina17jCdhnm0X7PkY3KiT1fPgc3x
+         h577ljJXJ6gtjVB4Bn9HLUUCN862XmXjiNBlV1NdtthH/+OUcAU0GDwDhfBfZWlup6Nu
+         bjSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788229211; x=1788834011;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o7V9z4lGg2Zq3oLqNbA6E6uUJgmE6UGQOAlFEXJea6E=;
+        b=dvpUtdZoYeJEBUJEznDlU9ZLyYR283ydLjwEVxbJlvcXiiEovJtusxzuIgNmVeZwny
+         hwT9V0v3HLmY+WcuZmiAmmL45GzRGuyQGMTVIW3e1txAGoYgw4IYRroxgHQbfXA+F1tj
+         oqQeFmSycefnN3nhZSQnLXVKxlc+YnthM/d6GXsIgOPRRMKctjWdTLTix1vkCtOqtasX
+         XLbg4AmirLACdp7eAylfTs47nmFSmyj5kjf0hOrIt8B3oBxYKVa6qaDEi/daQ/Y9BnBk
+         JquEMtePNyXmF9l9D0RfJSXIdQeyOp569epOFfGUtT7y9mtmWFgfJwpxbvxbLIPVilvF
+         geYw==
+X-Forwarded-Encrypted: i=1; AHgh+RpN+KzqLnkzUpBw7nDnZcVqeSf2y9oC8NzmT1e2dBxrjglgHPhKYFZHZsmhCfiXbiWvrq47BQC7XgVRLqM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmRtvsP2JW4O8AYcVHGjRheLTkwjcxzIRW+vAm0+HjrNRZjhAi
+	m//xplM/i3Zpz1oHmfhdIAvqcQornVlUzMykdZb8p+jx3qkU5AII1ce25St5YA==
+X-Gm-Gg: AR+sD10iaey4I0xGkAkQMYdAm6NglVcrLRKoyc16pqsfDBnaXhqEh37sOIOv7LMCRcF
+	8UsakXqZqNq/3Sf3Zp9Gtab2i4jrNup/PrVnIU2uBc81uYXgg9eCpDKQR97xdzCp8dCWu6/D5NA
+	D2sxvWIvDaAX20Ehr+gJbLri7nYj+AcAL/++801+sW1Iq5/rrSVF3lPSVBR2at8uM/dFU2vBY3u
+	ZxnKc3Rje9+gLgpBfCXQAylA4Mp8b+hC/061doU/pNieknxabRM/pUjMsskJsMRNPRSAGJCwkTI
+	1KcZQDGtCPbNDH1F1EN46BuNLGXl/1Ml4772GGTzOUUJW9VmhEIL8gvc7nJav/Yvdp6m7xL+f3P
+	EMPHRXFJMi42n8DXDwAZ0AJ9vWH9nlSf16SuYBYcWKMZkwjoDHNqPnxYWdLtvDqrruOzJsIW2aT
+	y6mMkVkJDU9Ap5+kqKQXctUFKe6JzAaGK7g4trmRTLTy/g6PLWk5y3UpYUFlkCXvM5x1EfYML1
+X-Received: by 2002:a05:6a21:71ca:b0:3d3:aed2:6f20 with SMTP id adf61e73a8af0-3d8192ab0cfmr1860014637.20.1788229210603;
+        Mon, 31 Aug 2026 19:20:10 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f32f698bsm5063022a12.6.2026.08.31.19.20.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 19:20:10 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: fangqiurong@kylinos.cn
+Cc: tj@kernel.org,
+	void@manifault.com,
+	arighi@kernel.org,
+	changwoo@kernel.org,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: Re: [PATCH v2] sched_ext: Skip per-CPU data allocation for built-in DSQs
+Date: Tue,  1 Sep 2026 10:20:04 +0800
+Message-ID: <20260901022004.1824584-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901013258.1822890-1-fangqiurong@kylinos.cn>
+References: <20260901013258.1822890-1-fangqiurong@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/16] KVM: x86/pmu: Rename reserved_bits to
- eventsel_rsvd in kvm_pmu
-To: Zide Chen <zide.chen@intel.com>, Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
-Cc: kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
- Jim Mattson <jmattson@google.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Xudong Hao <xudong.hao@intel.com>
-References: <20260827223755.143247-1-zide.chen@intel.com>
- <20260827223755.143247-4-zide.chen@intel.com>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20260827223755.143247-4-zide.chen@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-
-On 8/28/2026 6:37 AM, Zide Chen wrote:
-> This field stores the bits that are reserved in guest IA32_PERFEVTSELx
-> MSRs. Rename it to eventsel_rsvd to better reflect its purpose and to
-> align with other field names in struct kvm_pmu.
->
-> Opportunistically, replace the magic number 0xffffffff00200000ull with
-> macros.
->
-> No functional change intended.
->
-> Suggested-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-> Signed-off-by: Zide Chen <zide.chen@intel.com>
-> ---
-> v2:
-> - Replace magic numbers in AMD pmu->eventsel_rsvd.
-> ---
->  arch/x86/include/asm/kvm_host.h |  2 +-
->  arch/x86/kvm/pmu.c              |  6 +++++-
->  arch/x86/kvm/svm/pmu.c          | 12 +++++++++---
->  arch/x86/kvm/vmx/pmu_intel.c    | 12 ++++++------
->  4 files changed, 21 insertions(+), 11 deletions(-)
->
-> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-> index e473796da7d9..90d80483df7f 100644
-> --- a/arch/x86/include/asm/kvm_host.h
-> +++ b/arch/x86/include/asm/kvm_host.h
-> @@ -580,7 +580,7 @@ struct kvm_pmu {
->  	u64 counter_bitmask[2];
->  	u64 global_ctrl_rsvd;
->  	u64 global_status_rsvd;
-> -	u64 reserved_bits;
-> +	u64 eventsel_rsvd;
->  	u64 raw_event_mask;
->  	struct kvm_pmc gp_counters[KVM_MAX_NR_GP_COUNTERS];
->  	struct kvm_pmc fixed_counters[KVM_MAX_NR_FIXED_COUNTERS];
-> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-> index 8f2effee3b7b..964e74bdaaa7 100644
-> --- a/arch/x86/kvm/pmu.c
-> +++ b/arch/x86/kvm/pmu.c
-> @@ -989,7 +989,11 @@ void kvm_pmu_refresh(struct kvm_vcpu *vcpu)
->  	pmu->nr_arch_fixed_counters = 0;
->  	pmu->counter_bitmask[KVM_PMC_GP] = 0;
->  	pmu->counter_bitmask[KVM_PMC_FIXED] = 0;
-> -	pmu->reserved_bits = 0xffffffff00200000ull;
-> +	/*
-> +	 * KVM is not able to emulate the AnyThread bit due to cross-VM
-> +	 * information leakage on SMT cores.
-> +	 */
-> +	pmu->eventsel_rsvd = GENMASK_ULL(63, 32) | ARCH_PERFMON_EVENTSEL_ANY;
->  	pmu->raw_event_mask = X86_RAW_EVENT_MASK;
->  	pmu->global_ctrl_rsvd = ~0ull;
->  	pmu->global_status_rsvd = ~0ull;
-> diff --git a/arch/x86/kvm/svm/pmu.c b/arch/x86/kvm/svm/pmu.c
-> index c18286545a7a..52224872e0d4 100644
-> --- a/arch/x86/kvm/svm/pmu.c
-> +++ b/arch/x86/kvm/svm/pmu.c
-> @@ -163,7 +163,7 @@ static int amd_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
->  	/* MSR_EVNTSELn */
->  	pmc = get_gp_pmc_amd(pmu, msr, PMU_TYPE_EVNTSEL);
->  	if (pmc) {
-> -		data &= ~pmu->reserved_bits;
-> +		data &= ~pmu->eventsel_rsvd;
->  		if (data != pmc->eventsel) {
->  			pmc->eventsel = data;
->  			pmc->eventsel_hw = (data & ~AMD64_EVENTSEL_HOSTONLY) |
-> @@ -214,9 +214,15 @@ static void amd_pmu_refresh(struct kvm_vcpu *vcpu)
->  
->  	pmu->counter_bitmask[KVM_PMC_GP] = BIT_ULL(48) - 1;
->  
-> -	pmu->reserved_bits = 0xfffffff000280000ull;
-> +	/*
-> +	 * AMD PerfEvtSeln registers do not support PinControl, and KVM does
-> +	 * not emulate AnyThread due to cross-VM information leakage on SMT
-> +	 * cores (as on the Intel side).
-> +	 */
-> +	pmu->eventsel_rsvd = GENMASK_ULL(63, 36) | ARCH_PERFMON_EVENTSEL_PIN_CONTROL |
-> +			     ARCH_PERFMON_EVENTSEL_ANY;
->  	if (guest_cpu_cap_has(vcpu, X86_FEATURE_SVM) && kvm_vcpu_has_mediated_pmu(vcpu))
-> -		pmu->reserved_bits &= ~AMD64_EVENTSEL_HOST_GUEST_MASK;
-> +		pmu->eventsel_rsvd &= ~AMD64_EVENTSEL_HOST_GUEST_MASK;
->  
->  	pmu->raw_event_mask = AMD64_RAW_EVENT_MASK;
->  	/* not applicable to AMD; but clean them to prevent any fall out */
-> diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-> index 322a3ad580dd..11c9161dc853 100644
-> --- a/arch/x86/kvm/vmx/pmu_intel.c
-> +++ b/arch/x86/kvm/vmx/pmu_intel.c
-> @@ -385,7 +385,7 @@ static int intel_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
->  	struct kvm_pmc *pmc;
->  	u32 msr = msr_info->index;
->  	u64 data = msr_info->data;
-> -	u64 reserved_bits, diff;
-> +	u64 eventsel_rsvd, diff;
->  
->  	switch (msr) {
->  	case MSR_CORE_PERF_FIXED_CTR_CTRL:
-> @@ -433,11 +433,11 @@ static int intel_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
->  			pmc_write_counter(pmc, data);
->  			break;
->  		} else if ((pmc = get_gp_pmc(pmu, msr, MSR_P6_EVNTSEL0))) {
-> -			reserved_bits = pmu->reserved_bits;
-> +			eventsel_rsvd = pmu->eventsel_rsvd;
->  			if ((pmc->idx == 2) &&
->  			    (pmu->raw_event_mask & HSW_IN_TX_CHECKPOINTED))
-> -				reserved_bits ^= HSW_IN_TX_CHECKPOINTED;
-> -			if (data & reserved_bits)
-> +				eventsel_rsvd ^= HSW_IN_TX_CHECKPOINTED;
-> +			if (data & eventsel_rsvd)
->  				return 1;
->  
->  			if (data != pmc->eventsel) {
-> @@ -545,7 +545,7 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->  	if (entry &&
->  	    (boot_cpu_has(X86_FEATURE_HLE) || boot_cpu_has(X86_FEATURE_RTM)) &&
->  	    (entry->ebx & (X86_FEATURE_HLE|X86_FEATURE_RTM))) {
-> -		pmu->reserved_bits ^= HSW_IN_TX;
-> +		pmu->eventsel_rsvd ^= HSW_IN_TX;
->  		pmu->raw_event_mask |= (HSW_IN_TX|HSW_IN_TX_CHECKPOINTED);
->  	}
->  
-> @@ -584,7 +584,7 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->  	if (perf_capabilities & PERF_CAP_PEBS_FORMAT) {
->  		if (perf_capabilities & PERF_CAP_PEBS_BASELINE) {
->  			pmu->pebs_enable_rsvd = counter_rsvd;
-> -			pmu->reserved_bits &= ~ICL_EVENTSEL_ADAPTIVE;
-> +			pmu->eventsel_rsvd &= ~ICL_EVENTSEL_ADAPTIVE;
->  			pmu->pebs_data_cfg_rsvd = ~0xff00000full;
->  			intel_pmu_enable_fixed_counter_bits(pmu, ICL_FIXED_0_ADAPTIVE);
->  		} else {
+The v2 note says the waste is described as quadratic, but the changelog=0D
+still gives it per DSQ:=0D
+=0D
+> Every DSQ still allocates nr_cpu_ids * sizeof(struct scx_dsq_pcpu)=0D
+> bytes of per-CPU memory for it.=0D
+=0D
+Four of the five built-in ids come one per CPU: SCX_DSQ_BYPASS in the=0D
+for_each_possible_cpu() at ext.c:7173, SCX_DSQ_LOCAL and SCX_DSQ_REJECT in=
+=0D
+the one at 8679, SCX_DSQ_RESCUE per rq in scx_rescue_init().  Only=0D
+SCX_DSQ_GLOBAL is per node.  So the total is nr_cpu_ids squared, and a=0D
+reader of the changelog as it stands will work out a factor of nr_cpu_ids.=
+=0D
+Worth spelling out, since that is where the saving is.=0D
+=0D
+The code is right.  scx_init_dsq() memsets the whole dsq first=0D
+(ext.c:5046) and sets lock, list, id and sched before the new early=0D
+return, so nothing a built-in id needs is skipped, and exit_dsq()'s=0D
+->pcpu_user test is the load-bearing kind: 7101, 5367 and 7334 all call it=
+=0D
+with built-in DSQs.  The only reader of the per-CPU data, ext.c:1130, was=0D
+already behind the !(dsq->id & SCX_DSQ_FLAG_BUILTIN) test above it.=0D
+=0D
+Reviewed-by: Zhan Xusheng <zhanxusheng@xiaomi.com>=0D
+=0D
+Thanks,=0D
+Zhan Xusheng=0D
