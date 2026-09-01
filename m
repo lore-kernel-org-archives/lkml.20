@@ -1,81 +1,182 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91491429825;
-	Tue,  1 Sep 2026 11:06:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F55318ED2;
+	Tue,  1 Sep 2026 11:06:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260791; cv=none; b=B0bmrInIBL72t/8nGoaRF5AvRBP6OjfSYQz3+09XNA2aIweP0hO9k8ZzIDa9olS1e/eKricuqvC3x6/rU9tBXHFYDqxf+43WfAcfbr02E/XEAroE9CHUv+kEdKcrK0DRPcZpkniDq8zDfTdNmKt/IWhWChnVr19V7MRdbZyvQ40=
+	t=1788260805; cv=none; b=dT5YQkeoI1I9ZNdLfPEF4JHglDrgWsVGI2QyhNws86cq+jrMPTNEF2EXGXxU+x5re/tlMdCXLugFGObbiRe57c5pW3Sn1pm5vgOF5ZYvASb1ZdfEtHtU8sXhWEebyCRdQq2dQ+XdlqTzPUqMpcjCAlDtT3Q8IRvb2+YsiV8yzoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260791; c=relaxed/simple;
-	bh=1mA1loi84tUCYW+QWzo5qosDRZU+EM7TBBzfJsGYrdo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qyZQi7F4eeYZYMamtj4QwR+/6zGfKK6mxzIJsuYg7UuN7Gh9Rok9XPilqymJtLuYqjy+Cc1UP8l9zpaEaCLbcpNTXp1wwbSkMjNZxqogMojcJAHI3bFAKv2kDf3Jw3lNIDBfNpzi3XkXCjFNAZW95I6B82/k0Jqj/TBEoFj4fNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=iLw2b+f2; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1788260805; c=relaxed/simple;
+	bh=+cl/mE+MMAULPxyBPFJXsNZLkn5nuULAZlZa1FGDhyY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TsvmhUNKkj9nAnqQ4O5K57aymB0o8GhfdGKQF6WeWHtQDTxKfF8dreBHksIZaLH7JoIufpv4vTX9RYASAsYMyC1U+RgL7gQ3AtJhokINhVa1Wq3RxU0LFu8UUwidhxzoLp7U+Jg31haM68goVdYPF1Y7y49v/7Ymsbcb2e3eXSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NwoKGGKC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="iLw2b+f2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788260423; bh=1mA1loi84tUCYW+QWzo5qosDRZU+EM7TBBzfJsGYrdo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iLw2b+f2ATdV05AVl2Jd9H61Ah8mDD25pe90bDL3wpy8neegRoFgSNirlS/vzvCsw
-	 jJbf6bZUXENUsdg0eEYR4w8GzdEHzKB6f0ALD3hz+s2GZFUZnTLETWFDWJDBXeMMu8
-	 E+/HP3R+xEaw3OHchcpjvNKTUEIjATh4OMEZxk9bFyc67uDhavhTj30dhAVT+4nGan
-	 OZgUnmgC3E+KXAPEkamx15ne6sdfKJwQ8oiY06pKndUC128aPvhoVVQi14ACQCB7VL
-	 Qj/UAY2cgCQgYiNif1fDOv+YYfqJkn4Z23HNyj+7jY5aOwTApqejgYxNpxSMG70D9v
-	 cukhi6ilKikzg==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id E084F41444; Tue, 01 Sep 2026 12:00:23 +0100 (BST)
-Date: Tue, 1 Sep 2026 12:00:23 +0100
-From: Sean Young <sean@mess.org>
-To: CJ Liu <firefly0158@163.com>
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [BUG] media: rc: redrat3: KASAN use-after-free in rc_dev_uevent
- after probe failure
-Message-ID: <apawR3dRUYSGrTqp@extorris.mess.org>
-References: <7dbdc4e8.8c60.1a05c579a17.Coremail.firefly0158@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NwoKGGKC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D00931F00A3E;
+	Tue,  1 Sep 2026 11:06:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788260803;
+	bh=2RQcemfGMYTiDH29zfMnTtdgj0bHtOblVlsFhLPlSxk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=NwoKGGKCOsRyUU+EwJ2no2OGs9bmyTM35H3K9gIGh3HV4K+WdFczJU/eOXXaqSq6H
+	 k3HqUQSyYtmLNyQcKklEF3jOnimT477uPD5bPUrY3vzsO0q5rhBaHKvEzLmmOUoTeV
+	 LS7qc1mFdDW4R+qFz8GqeMqUV2SRfwucYXHjjwfClPVzkfmWmA7H119MkFGrVSiy2M
+	 2i+O/pQmB8Q7TQ4gyhr2LkP3WlwncZC4EvmV+llTIKpVYZ5j7ph1KajtR0mHJjWcp3
+	 C3dGZ4dAndriF5N79xdeqD4sLGWw6jUMW2TMEdqkRBXSUrwPC8mBLnJDj1WCNUN1fk
+	 Lsp1rzKfB8Lug==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 01 Sep 2026 12:01:26 +0100
+Subject: [PATCH 06/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for sparc64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7dbdc4e8.8c60.1a05c579a17.Coremail.firefly0158@163.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-rcu-pagetable-freeing-v1-6-5456a81c8212@kernel.org>
+References: <20260901-rcu-pagetable-freeing-v1-0-5456a81c8212@kernel.org>
+In-Reply-To: <20260901-rcu-pagetable-freeing-v1-0-5456a81c8212@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ Jonas Bonn <jonas@southpole.se>, 
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+ Stafford Horne <shorne@gmail.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
+ Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+ Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+ WANG Xuerui <kernel@xen0n.name>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, 
+ linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
+ linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2421; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=+cl/mE+MMAULPxyBPFJXsNZLkn5nuULAZlZa1FGDhyY=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKmbfRoWHu8+2WMGXd53Frn2Q/TfRbbcH08FO0d/tq/O
+ 1w/w3BqRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACYiZcjIcH3mqoOd6vvZeHat
+ LZwryGV6VWy+UWngii1a17n6ItznP2H4Z1P/w3/OzVMba8P0LaVSbs6x8uGbP2Ph03esF2VqH2r
+ JMQMA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Tue, Sep 01, 2026 at 05:40:40PM +0800, CJ Liu wrote:
-> 
-> 
-> Hi,
-> 
-> I am reporting a KASAN slab-use-after-free triggered by a syzkaller USB
-> reproducer on Linux 7.2. The issue is reproducible with HEAD commit
-> 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229.
-> 
-> The reproducer connects a crafted USB device that is bound to the RedRat3
-> infrared receiver driver. During probe, the device reports invalid endpoint
-> properties and then fails several hardware communication steps. The driver
-> eventually fails probe with -EIO.
-> 
-> After the failed probe, systemd-journal reads the device uevent file. This
-> reaches rc_dev_uevent(), then add_uevent_var(), vsnprintf(), and string().
-> KASAN reports a slab-use-after-free while string() reads a pointer that was
-> allocated and freed in redrat3_dev_probe().
-> 
-> This looks like a lifetime issue in the RedRat3 probe failure path. The
-> driver appears to free an object or string while it can still be referenced
-> from the rc/input/device uevent path. A failed probe should make sure that
-> no sysfs/uevent-visible field points to memory that has already been freed.
+Commit 4a0100f7546f ("sparc64: use RCU page table freeing") enabled
+CONFIG_MMU_GATHER_RCU_TABLE_FREE for SMP sparc64 architectures, expressly
+for GUP-fast page table walkers.
 
-I am fairly sure this issue is fixed by this commit:
+Naturally, UP systems do not have to worry about concurrent GUP fast
+operations.
 
-https://gitlab.freedesktop.org/linux-media/media-committers/-/commit/af452b9e01331b5338a1e5141624f17607239207
+However, CONFIG_PREEMPT_RCU is also available even on a UP system, so a
+future pure-RCU page table walker requires MMU_GATHER_RCU_TABLE_FREE to be
+enabled on UP, even if concurrent GUP fast is not possible there.
 
-It was only merged a few hours ago.
+To enable future pure-RCU page table walkers, enable
+MMU_GATHER_RCU_TABLE_FREE unconditionally.
 
-Thank you for reporting.
+With this change, it is no longer necessary to have !CONFIG_SMP
+pgtable_free_tlb(), so also remove this now dead code.
 
-Sean
+This forms part of an overall effort to switch every architecture to this
+mode.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ arch/sparc/Kconfig                  | 4 ++--
+ arch/sparc/include/asm/pgalloc_64.h | 8 --------
+ 2 files changed, 2 insertions(+), 10 deletions(-)
+
+diff --git a/arch/sparc/Kconfig b/arch/sparc/Kconfig
+index ab77d3f2536e..8d42ebc6d302 100644
+--- a/arch/sparc/Kconfig
++++ b/arch/sparc/Kconfig
+@@ -75,8 +75,8 @@ config SPARC64
+ 	select HAVE_FUNCTION_GRAPH_TRACER
+ 	select HAVE_KRETPROBES
+ 	select HAVE_KPROBES
+-	select MMU_GATHER_RCU_TABLE_FREE if SMP
+-	select HAVE_ARCH_TLB_REMOVE_TABLE if SMP
++	select MMU_GATHER_RCU_TABLE_FREE
++	select HAVE_ARCH_TLB_REMOVE_TABLE
+ 	select MMU_GATHER_MERGE_VMAS
+ 	select MMU_GATHER_NO_FLUSH_CACHE
+ 	select HAVE_ARCH_TRANSPARENT_HUGEPAGE
+diff --git a/arch/sparc/include/asm/pgalloc_64.h b/arch/sparc/include/asm/pgalloc_64.h
+index caa7632be4c2..b5055d259b74 100644
+--- a/arch/sparc/include/asm/pgalloc_64.h
++++ b/arch/sparc/include/asm/pgalloc_64.h
+@@ -74,8 +74,6 @@ void pte_free_defer(struct mm_struct *mm, pgtable_t pgtable);
+ 
+ void pgtable_free(void *table, bool is_page);
+ 
+-#ifdef CONFIG_SMP
+-
+ struct mmu_gather;
+ void tlb_remove_table(struct mmu_gather *, void *);
+ 
+@@ -96,12 +94,6 @@ static inline void __tlb_remove_table(void *_table)
+ 		is_page = true;
+ 	pgtable_free(table, is_page);
+ }
+-#else /* CONFIG_SMP */
+-static inline void pgtable_free_tlb(struct mmu_gather *tlb, void *table, bool is_page)
+-{
+-	pgtable_free(table, is_page);
+-}
+-#endif /* !CONFIG_SMP */
+ 
+ static inline void __pte_free_tlb(struct mmu_gather *tlb, pte_t *pte,
+ 				  unsigned long address)
+
+-- 
+2.55.0
+
