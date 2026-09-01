@@ -1,287 +1,284 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF43D2EDD40;
-	Tue,  1 Sep 2026 10:44:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4974766AB
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:44:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788259479; cv=none; b=RAlT8yy3KMiR8uUYgFpHe/tL5NlZl9Jy7QXC5VQDgc3iljkSLu1mWgJVv0Vb4YvfxJXTbJco0BTlgs8dsBaOqEu26nCYpNlpkh6aKviqUeDo1VNKL52W7ZMPKK1gMQT54UnCUeyyz5YGV79wz19TPlFwrRDrIdwemfKPEE49MbE=
+	t=1788259480; cv=none; b=bkSgUDH3DvNxU4xEO6UxO0wcH2JXF7OSVbF1nlGhwZU8PVsdaG/1VVgr/oHlrnyWNwW7hVmjbvfNKOjYB3ib30CZf17mdbl7gWA1vf1dyFgSUoy/XRBBeG/h7HQd1nMz0fxlGE+r/CbauY/E5f42R3Rtf68Dfu04Y8UxFK62IZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788259479; c=relaxed/simple;
-	bh=TToxpCzl7WWa46GYEkimVN6X6tQAXZ77qq1GS7ZfEEA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ku9RRnrNjzdJtw5KdlCqlRiIl1CtE+HosutCjLKVZKhU8wnzJFXehHkey/UkXo9Z9RqdEx3rgWEkTe7HSfLEsajMabxyT01xaGIdfCiLmgZmyppUJNRNdpclrXG965dL/JB7p7WdlvW4qghexfuJw1XiMj6Y+PudyBXOKJgcLYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Tpnu6kfs; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788259480; c=relaxed/simple;
+	bh=yhImsaGycFcpt03nUpS+q6140gDwRTpwnZJCniBIO6A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KATN42PiEY2n2ec+FKGLgQyWCtiMo612rxTCBv3ehx3T+Z26Nn7Di0zAocHZekmMvVJ/a6cUSaANInd/LpM3nC+QHbQWgA3ApSA5LVs1wSK972hSbpIuVFjnZaVLexOcn7jxdfOXr5xq314iYnr6LimnrSfdvNSb8X59x/A/IsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i3dmU3LE; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Tpnu6kfs"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681AVbc2831324;
-	Tue, 1 Sep 2026 10:44:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=jisS/R
-	ElJi2t93Vy7gqR0ZR2Zd2JLMwyqL2Kyk4iD8A=; b=Tpnu6kfsyrUVkXRKblrJyz
-	EttYiM/REVewaKFmkKQIppmhOhyXieyxjhMU8XlZlSSzOMLmgLYse7AMTt+51BP3
-	0mstO9FJPCNovqyboW2Qj6VtG+X9imivQotce638qxxkXPYHar9wNYaZj6IHpDXa
-	mZC1ieMcVZKHqQN/j0k2NXLG5JIY9bRiED/CwSrxS94wCgqpGx67LrNO5ogInW1g
-	a7pa6UpFLEE+zWWSv4X+vV0pE+aafWThwwfj0ZGx6VHJH/HfgsjUz/uYN0FGHseA
-	0xU9qra3W6EmG9XQD1OL1JXvO6EVkJ7T99DKwpv8BNgjs2Xf+xXBdxKD7E9DbQOQ
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbmuhq84a-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 10:44:36 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 681AfKpP019737;
-	Tue, 1 Sep 2026 10:44:35 GMT
-Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcark36uk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 10:44:35 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 681AiYq921496556
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 1 Sep 2026 10:44:34 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E582E58050;
-	Tue,  1 Sep 2026 10:44:33 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EE02358045;
-	Tue,  1 Sep 2026 10:44:31 +0000 (GMT)
-Received: from [9.123.4.58] (unknown [9.123.4.58])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  1 Sep 2026 10:44:31 +0000 (GMT)
-Message-ID: <916bade1-37f1-4f04-ae4b-e64d711d8c9f@linux.ibm.com>
-Date: Tue, 1 Sep 2026 16:14:30 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i3dmU3LE"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38e041ea211so4359481a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 03:44:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788259478; x=1788864278; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jZloK1QMVfYTr7lw3fYmKao90elb4bik95MvHlyNxNk=;
+        b=i3dmU3LEMCas6PvduW7m8Imcpm9fC7DGAhShLteR+T7C3W+Y4+xxeb4+azbLnpYju6
+         xGpzKcoRxo/zHiDnQ5JiZJ2ZxHgTEXVx/ES0jpOH+OC8a+Vh19LHznEGdG7RQ4+PA7vg
+         z6uWC+ruwqC/PF/fRvBBH390PZ4oL7Z4oYqkNi5A7A2vv1WLLWroCR2mDVrbMQ4veER/
+         7rjL3rrRTFTmPgu3oPtnxdvNX2LWVKNnXGczka7vwaMVehUA+Iyx6sahmG0YQBl+ua8H
+         qTYsPQAWGI7oDEAZT9vcizUvAaK8L+gva5Sr8iMI+DQ48w2a/7vZPi0jxfeSgmmPKa61
+         0tiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788259478; x=1788864278;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jZloK1QMVfYTr7lw3fYmKao90elb4bik95MvHlyNxNk=;
+        b=rm37NB3zuxf6Iui2OuuPnOJDfqa+VGFgVNamrcSez8jzQA71QSLXddSfrUWfRDhZnj
+         yY6EfHqtjuXj3BdvX57TZG/OADrH3wlVxheP43OI1bUy6zaphhsj1pvdJS3C8szbEUiv
+         MnUQ25JKXxe7tYiekQn3eHzNI7GGUeBvwdUZhK701SFL/zBHnh6BHhJ1E9eFYORPXN+6
+         +6u2m42Gcx3aEB388SAg8w0d3nmATfypTgkPsqVvIRRt3NCisOuk2ZDLNsev+HXm85TW
+         4KPB/mDB3R05kMqqyaUH2+FkswZ+Yh3KRe3MB+Z13+wzzDP/9ECS+wKXgTi4vUC2OF2E
+         5RDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwG9lUKUZB8bvpVaQvYPdoOGoyMoYTJ8xrjtUb2SUrEeqO2cLuYryJ1qcgTLT/4GrOo3ccV9FYlDfx153M=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4SHZXnDX4pIFMsCixP3F2FEXWHsRnl2t79C4w+mmItsbtS0t1
+	JP3iYhGR50v4kSB/tUzpHHL02wkn5WDdW+prjcgkRKlOnLxvkU+/AcJD
+X-Gm-Gg: AYBFou2QgWJ8/xbcBB5tDKmXnnglAVr2u8FWgH1jE4cvlw+grh92DBwEnUMnmOcBlFB
+	QOO5xMDIdLG2oVOvhjuoLRCJRX9HgtpKY0fq9o/l+Te8tHEZnq4uxNwOCKN8hHAZL4DuxzBHe/k
+	fInJGEKsRbtyFh1QTMwAr3/8azQsmBEdq2eIp3XTquWMi+jK8Ph/HCEs57JE/i/yiP8Kksg6VnX
+	he5X8IwE1DYVCGQUwMn3mVeOMRe5LkwMbXRek5+SCJr8BT4z5n8xafVb1ZET4Jag71DOb4MTsGd
+	rmHYoDv6a9fJqKMFunKi2SCX3mIlt/1pYbmHcMv27FtaoZmHXfNNLNaB+NfOk8kumoW1/oMX9Kf
+	/boZUy3ccLsEne5vEYz7blOsx4kmjX4MXK99/+M+5Hhb52QdIY9FkhlkCDfVMcKjQSWxCoFtT5T
+	qU8k+lwZUYin9JAGVZqNSux0a2ISk/qHe9r6VJ4uSzhYfIY5N+s5k987oiZhKGRxwpK6UPF2eeP
+	yC4uRwIWKwp4zNbBUk=
+X-Received: by 2002:a17:90b:3ec5:b0:398:e6b6:acc1 with SMTP id 98e67ed59e1d1-39907d6563cmr10056321a91.15.1788259478120;
+        Tue, 01 Sep 2026 03:44:38 -0700 (PDT)
+Received: from v4bel ([58.123.110.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d471e75sm5591120a91.8.2026.09.01.03.44.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 03:44:37 -0700 (PDT)
+Date: Tue, 1 Sep 2026 19:44:31 +0900
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: Tim Chen <tim.c.chen@linux.intel.com>
+Cc: "Chen, Yu C" <yu.c.chen@intel.com>, Kees Cook <kees@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Qais Yousef <qyousef@layalina.io>,
+	Aaron Lu <ziqianlu@bytedance.com>,
+	Srikar Dronamraju <srikar@linux.ibm.com>,
+	Vineeth Remanan Pillai <vineethr@linux.ibm.com>,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"chen.yu@linux.dev" <chen.yu@linux.dev>, imv4bel@gmail.com
+Subject: Re: [PATCH] sched/cache: Fix use-after-free of the mm replaced by
+ exec
+Message-ID: <apasjygjnsg1n6em@v4bel>
+References: <apPb-Dr4nPYuHQOK@v4bel>
+ <825d9dcc-b052-4367-a9c7-15efc4b354f8@intel.com>
+ <apXV6t-7drLDf-lL@v4bel>
+ <a1a0bc24108e68656041dc17824d6b88b4120058.camel@linux.intel.com>
+ <apX1ufR1reYZ9LBc@v4bel>
+ <db2436d91e2e04a8a1063553ce64acc74b533f5c.camel@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] scsi: fc_transport: vport and rport cleanup
- synchronization
-To: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>, linux-scsi@vger.kernel.org,
-        linux-kernel@vger.kernel.org, paul.ely@broadcom.com
-Cc: thinhtr@linux.ibm.com
-References: <e16406ec-d4d6-4783-b79c-5c00263c133c@linux.ibm.com>
-Content-Language: en-US
-From: Maram Srimannarayana Murthy <msmurthy@linux.ibm.com>
-In-Reply-To: <e16406ec-d4d6-4783-b79c-5c00263c133c@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: -n4bG1YOAQCS5g2RVIGyjtKUE8J0KoFi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA5MyBTYWx0ZWRfXzVBcDCLiN9gj
- 12Zo+8XOobcG5Dp0kAGMZBgAlYJ/KHGx70HwGdo0Ht8yL5kVlvIYljSHmkQLHdCISVu/vTiPO4y
- xX1mrVNw6i0UWSw5HmLyrC4mg+8seVtgi8SlY+M9DAwYGO0AGKs/EdPmhUX6clpZh74EWxMsTNH
- nf0SWx+33auO0mQMadaIm800TTsj2zrfG59e57mLGRkO1kIxW+YNe/f/LKJF/0I0hjRZpOKL4OR
- Mt3HDIJ2reAges7idYlnAZzbneDFIiByCIKsn7H26EQj+cC4oN9/IGxThloXuhcmyx2/V17DU4W
- La04PUzd0L7/zlJ/Uba/jz/JhAS/R4yYyotG8uuFTEodNJo0Wk8yV9v+kGV84vNOsIrloIYF1J/
- X+W0svXohNCPaaAnUmaeVL1C6QqVZMhdoJWxmOri/0eB8F2d9C/4R1XUL4zkgBJq/2STMs3dpRl
- calYrwmnsioWoD0QLoQ==
-X-Authority-Analysis: v=2.4 cv=Osl/DS/t c=1 sm=1 tr=0 ts=6a96ac94 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
- a=hO5a31gzfTtka3imJY8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA5MyBTYWx0ZWRfX9p36Wzewfz1e
- 10BKyRVhZIfZ/TNk9IKGwY8+itlRDD8Rl47+EYc9D8jh/gGGd5YIl3YiEuJFpivZOwBTAVCVXNU
- BKYlvfqGibbdD0n3OEqD7o+jJEUwPJ0=
-X-Proofpoint-ORIG-GUID: -n4bG1YOAQCS5g2RVIGyjtKUE8J0KoFi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010093
+In-Reply-To: <db2436d91e2e04a8a1063553ce64acc74b533f5c.camel@linux.intel.com>
+
+On Mon, Aug 31, 2026 at 03:10:40PM -0700, Tim Chen wrote:
+> On Tue, 2026-09-01 at 06:44 +0900, Hyunwoo Kim wrote:
+> > On Mon, Aug 31, 2026 at 01:25:06PM -0700, Tim Chen wrote:
+> > > On Tue, 2026-09-01 at 04:28 +0900, Hyunwoo Kim wrote:
+> > > > On Mon, Aug 31, 2026 at 12:22:45PM +0800, Chen, Yu C wrote:
+> > > > > Hi Hyunwoo,
+> > > > > 
+> > > > > On 8/30/2026 3:30 PM, Hyunwoo Kim wrote:
+> > > > > > When the waker cannot use the wakelist, ttwu_queue() takes the target rq
+> > > > > > lock and goes down into update_curr(). If the target rq belongs to another
+> > > > > > CPU, the task handed to account_mm_sched() is the one running on that CPU,
+> > > > > > not the task being woken.
+> > > > > > 
+> > > > > > account_mm_sched() reads p->mm and updates mm->sc_stat. Nothing keeps that
+> > > > > > mm alive. The rq lock and rq->cpu_epoch_lock it holds have nothing to do
+> > > > > > with the lifetime of the mm.
+> > > > > > 
+> > > > > > If that task happens to be in execve(), exec_mmap() points tsk->mm and
+> > > > > > tsk->active_mm at the new mm, and exec_mm_put_old() from setup_new_exec()
+> > > > > > drops the old one. free_bprm() does the same when exec fails. On the way
+> > > > > > from mmput() down to __mmdrop(), mm_destroy_sched() calls free_percpu() on
+> > > > > > sc_stat.pcpu_sched and free_mm() returns the mm_struct.
+> > > > > > 
+> > > > > > Whoever already read the old pointer keeps using it. It adds to runtime in
+> > > > > > the freed per-cpu area and reads sc_stat in the freed mm_struct. Depending
+> > > > > > on the condition it also writes sc_stat.cpu. That is a use-after-free.
+> > > > > > 
+> > > > > > Commit 9f23469401b0 ("sched/cache: Fix potential NULL mm pointer access")
+> > > > > > changed the remaining p->mm dereference to the local variable, and said the
+> > > > > > active_mm reference keeps the structure allocated. That holds for the other
+> > > > > > paths that detach an mm, since they take an mmgrab_lazy_tlb() reference.
+> > > > > > exec reassigns active_mm to the new mm as well, so that reference is gone.
+> > > > > > What is left is the mm_users reference in bprm->old_mm, and dropping it is
+> > > > > > the free.
+> > > > > > 
+> > > > > >               CPU0                                CPU1
+> > > > > > 
+> > > > > >                                        write(pipe)
+> > > > > >                                        try_to_wake_up()
+> > > > > >                                          ttwu_queue()      // takes rq0 lock
+> > > > > >                                            enqueue_task_fair()
+> > > > > >                                              update_curr()
+> > > > > >                                                update_se()
+> > > > > >                                                  account_mm_sched()
+> > > > > >                                                    mm = rq0->curr->mm
+> > > > > >                                                          // old mm
+> > > > > >    execve()
+> > > > > >      exec_mmap()                       // tsk->mm = new mm
+> > > > > >      setup_new_exec()
+> > > > > >        exec_mm_put_old()
+> > > > > >          mmput() -> ... -> __mmdrop()
+> > > > > >            mm_destroy_sched()          // free_percpu()
+> > > > > >            free_mm()
+> > > > > >                                                    read mm->sc_stat.epoch
+> > > > > >                                                          // use-after-free
+> > > > > > 
+> > > > > 
+> > > > > Ah, thanks for catching this.
+> > > > > 
+> > > > > > ---
+> > > > > >   fs/exec.c             |  1 +
+> > > > > >   include/linux/sched.h |  4 ++++
+> > > > > >   kernel/events/core.c  |  2 ++
+> > > > > >   kernel/sched/fair.c   | 16 ++++++++++++++++
+> > > > > >   4 files changed, 23 insertions(+)
+> > > > > > 
+> > > > > > diff --git a/fs/exec.c b/fs/exec.c
+> > > > > > index 745f6eb5279e6..6194c38807980 100644
+> > > > > > --- a/fs/exec.c
+> > > > > > +++ b/fs/exec.c
+> > > > > > @@ -916,6 +916,7 @@ static void exec_mm_put_old(struct mm_struct *old_mm)
+> > > > > >   {
+> > > > > >   	setmax_mm_hiwater_rss(&current->signal->maxrss, old_mm);
+> > > > > >   	mm_update_next_owner(old_mm);
+> > > > > > +	sched_cache_exec_done();
+> > > > > >   	mmput(old_mm);
+> > > > > >   }
+> > > > > > diff --git a/include/linux/sched.h b/include/linux/sched.h
+> > > > > > index 8b3d47a325cca..6ae31bffe049e 100644
+> > > > > > --- a/include/linux/sched.h
+> > > > > > +++ b/include/linux/sched.h
+> > > > > > @@ -2415,10 +2415,14 @@ struct sched_cache_stat {
+> > > > > >   	int cpu;
+> > > > > >   } ____cacheline_aligned_in_smp;
+> > > > > > +void sched_cache_exec_done(void);
+> > > > > > +
+> > > > > >   #else
+> > > > > >   struct sched_cache_stat { };
+> > > > > > +static inline void sched_cache_exec_done(void) { }
+> > > > > > +
+> > > > > >   #endif
+> > > > > >   #ifndef MODULE
+> > > > > > diff --git a/kernel/events/core.c b/kernel/events/core.c
+> > > > > > index a6c8e38a31104..2f29cbccf03f1 100644
+> > > > > > --- a/kernel/events/core.c
+> > > > > > +++ b/kernel/events/core.c
+> > > > > > @@ -5427,6 +5427,8 @@ attach_task_ctx_data(struct task_struct *task, struct kmem_cache *ctx_cache,
+> > > > > >   	if (!cd)
+> > > > > >   		return -ENOMEM;
+> > > > > > +	/* @old, loaded by the try_cmpxchg() below, is only stable under RCU. */
+> > > > > > +	guard(rcu)();
+> > > > > 
+> > > > > Is this change related to this UAF issue?
+> > > > 
+> > > > Duh.. that one is unrelated. My mistake.
+> > > > 
+> > > > > 
+> > > > > > +/* exec() has switched to the new mm and is about to drop the old one. */
+> > > > > > +void sched_cache_exec_done(void)
+> > > > > > +{
+> > > > > > +	struct rq_flags rf;
+> > > > > > +	struct rq *rq;
+> > > > > > +
+> > > > > > +	/*
+> > > > > > +	 * account_mm_sched() dereferences rq->curr->mm under this rq's lock,
+> > > > > > +	 * so a remote CPU can still be using the old mm. The lock cycle waits
+> > > > > > +	 * for it, and the store to tsk->mm cannot be reordered past the
+> > > > > > +	 * release, so later acquirers see the new mm.
+> > > > > > +	 */
+> > > > > > +	rq = this_rq_lock_irq(&rf);
+> > > > > 
+> > > > > A smart fix, learnt! It behaves like a synchronize_rcu() to protect against
+> > > > > the read in account_mm_sched(). Small open: since the context of invoking
+> > > > > account_mm_sched() is preemption-disabled, I wonder if we can simply use
+> > > > > synchronize_rcu() directly instead of this_rq_lock_irq() - just to avoid
+> > > > > contention for rq-lock in heavy system?
+> > > 
+> > > Thanks to Kyunwoo to show this potential use-after-free problem.
+> > 
+> > It is a real, triggerable issue.
+> > 
+> 
+> Appreciate if you can check whether the first 2 patches in 
+> https://lore.kernel.org/lkml/cover.1787955777.git.tim.c.chen@linux.intel.com/
+> fixes this issue.
+> 
+> > > 
+> > > While synchronize_rcu() avoids rq lock, it could introduce a long delay
+> > > of a full grace period that will be undesirable.
+> > > 
+> > > 
+> > > I think a better fix is to decouple sc_stat from mm and make it its own structure.
+> > > Then we can do proper refcounting and rcu management on sc_stat itself.
+> > > We will let task points to sc_stat with proper ref count and change the access
+> > > as task->sc_stat directly nstead of via task->mm->sc_stat.
+> > > 
+> > > Then we will know sc_stat exists in account_mm_sched() execution
+> > > as long as a task points to it and do not have to worry that sc_stat is
+> > > released due to the mm life cycle.
+> > > 
+> > > In the first 2 patches of the prctl control series for cache aware scheduling
+> > > we posted, we introduced the change I described above and should�
+> > > fix this issue without additional rq locking or synchronize_rcu() overhead.
+> > >  https://lore.kernel.org/lkml/cover.1787955777.git.tim.c.chen@linux.intel.com/
+> > > 
+> > > We should probably prioritize to merge the first couple of patches from
+> > > that series now in light of this issue.  It will make maintenance and future
+> > > modification of the cache aware scheduling code easier.
+> > 
+> > That is a fairly large change. 
+> 
+> However adding rcu synchronization will slow down the launch of a new process
+> too much.  The rq lock solution has less latency in my opinion.  But I
+> think decoupling sc_stat is the best solution without adding latency in the
+> exec path.
+> 
+> Wonder what is Peter's opinion?
+> 
+> > 
+> > If you add a Reported-by: tag for this UAF to the patch, I am fine with 
+> > handling it that way.
+> 
+> I'll be happy to do that. If you let us know if those two patches from prctl series fixes
+> the bug you found in KASAN log, I can also add a Tested-by tag in addition to Reported-by.
+
+I confirmed that patches 1 and 2 of your series prevent this UAF.
 
 
-On 09/04/26 8:42 pm, Kyle Mahlkuch wrote:
-> Imporve synchronization and cleanup logic in the fc_remove_host() and
-> fc_rport_final_delete() to prevent use-after-free conditions during
-> host removal
->
-> Vport cleanup:
->   - Mark all vports with FC_VPORT_DELETING under lock
->   - Cancel all vport work synchronously before removing from the list
->   - Synchronous deletion with fc_vport_terminate()
->
-> Rport cleanup, applied to rports and rport_binding
->   - Mark all rport with FC_PORTSTATE_DELETED under lock
->   - Cancel all timers and work synchronously before removing from the 
-> list
->   - Call fc_rport_final_delete() synchronously instead of queuing
->
-> fc_rport_final_delete():
->   - Calling cancel_delayed_work_sync() for any outstanding delayed work
->   - Clear FC_RPORT_DEVLOSS_PENDING under lock
->   - Flushing all pending work completes before destruction
->
-> Signed-off-by: Thinh Tran <thinhtr@linux.ibm.com>
-> Signed-off-by: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>
-> ---
-
-
-Tested-by: Maram Srimannarayana Murthy <msmurthy@linux.ibm.com>
-
-Tested the complete 3-patch series on an IBM Power11 (ppc64le) server 
-equipped with an Emulex FC HBA.
-The patches applied cleanly, and FC driver parameter validation testing 
-was executed continuously for 36 hours.
-No crashes, hangs, or functional issues were observed during the test 
-period.
-
-Thanks,
-Maram Srimannarayana Murthy
-
-
->  drivers/scsi/scsi_transport_fc.c | 85 ++++++++++++++++++++++++--------
->  1 file changed, 64 insertions(+), 21 deletions(-)
->
-> diff --git a/drivers/scsi/scsi_transport_fc.c 
-> b/drivers/scsi/scsi_transport_fc.c
-> index 123b22b52640..0adb9330befc 100644
-> --- a/drivers/scsi/scsi_transport_fc.c
-> +++ b/drivers/scsi/scsi_transport_fc.c
-> @@ -39,6 +39,7 @@ static void fc_li_stats_update(u16 event_type,
->  static void fc_delivery_stats_update(u32 reason_code,
->                       struct fc_fpin_stats *stats);
->  static void fc_cn_stats_update(u16 event_type, struct fc_fpin_stats 
-> *stats);
-> +static void fc_rport_final_delete(struct work_struct *work);
->
->  /*
->   * Module Parameters
-> @@ -2883,31 +2884,71 @@ fc_remove_host(struct Scsi_Host *shost)
->      struct fc_host_attrs *fc_host = shost_to_fc_host(shost);
->      unsigned long flags;
->
-> -    spin_lock_irqsave(shost->host_lock, flags);
-> -
->      /* Remove any vports */
-> +    /* Mark FC_VPORT_DELETING for now */
-> +    spin_lock_irqsave(shost->host_lock, flags);
->      list_for_each_entry_safe(vport, next_vport, &fc_host->vports, 
-> peers) {
->          vport->flags |= FC_VPORT_DELETING;
-> -        fc_queue_work(shost, &vport->vport_delete_work);
-> +    }
-> +    spin_unlock_irqrestore(shost->host_lock, flags);
-> +
-> +    /*
-> +     * remove all vport works synchronously BEFORE removing from list.
-> +     * This prevents use-after-free when timers fire.
-> +     */
-> +    list_for_each_entry_safe(vport, next_vport, &fc_host->vports, 
-> peers) {
-> +        /* Cancel any pending work/timers */
-> +        cancel_work_sync(&vport->vport_delete_work);
-> +        /* Now safe to do synchronous deletion */
-> +        fc_vport_terminate(vport);
->      }
->
->      /* Remove any remote ports */
-> +    /* Mark rports and rport_bindings with FC_PORTSTATE_DELETED for 
-> now */
-> +    spin_lock_irqsave(shost->host_lock, flags);
->      list_for_each_entry_safe(rport, next_rport,
->              &fc_host->rports, peers) {
-> -        list_del(&rport->peers);
->          rport->port_state = FC_PORTSTATE_DELETED;
-> -        fc_queue_work(shost, &rport->rport_delete_work);
->      }
->
->      list_for_each_entry_safe(rport, next_rport,
->              &fc_host->rport_bindings, peers) {
-> -        list_del(&rport->peers);
->          rport->port_state = FC_PORTSTATE_DELETED;
-> -        fc_queue_work(shost, &rport->rport_delete_work);
->      }
-> -
->      spin_unlock_irqrestore(shost->host_lock, flags);
->
-> +    list_for_each_entry_safe(rport, next_rport,
-> +            &fc_host->rports, peers) {
-> +        /* Cancel ALL timers and work before removing from list */
-> +        cancel_delayed_work_sync(&rport->fail_io_work);
-> +        cancel_delayed_work_sync(&rport->dev_loss_work);
-> +        cancel_work_sync(&rport->scan_work);
-> +        cancel_work_sync(&rport->stgt_delete_work);
-> +
-> +        spin_lock_irqsave(shost->host_lock, flags);
-> +        list_del(&rport->peers);
-> +        spin_unlock_irqrestore(shost->host_lock, flags);
-> +
-> +        /* Now safe to do final deletion synchronously */
-> +        fc_rport_final_delete(&rport->rport_delete_work);
-> +    }
-> +
-> +    list_for_each_entry_safe(rport, next_rport,
-> +            &fc_host->rport_bindings, peers) {
-> +        /* Cancel ALL timers and work before removing from list */
-> +        cancel_delayed_work_sync(&rport->fail_io_work);
-> +        cancel_delayed_work_sync(&rport->dev_loss_work);
-> +        cancel_work_sync(&rport->scan_work);
-> +        cancel_work_sync(&rport->stgt_delete_work);
-> +
-> +        spin_lock_irqsave(shost->host_lock, flags);
-> +        list_del(&rport->peers);
-> +        spin_unlock_irqrestore(shost->host_lock, flags);
-> +
-> +        /* Now safe to do final deletion synchronously */
-> +        fc_rport_final_delete(&rport->rport_delete_work);
-> +    }
-> +
->      /* flush all scan work items */
->      scsi_flush_work(shost);
->
-> @@ -2983,21 +3024,22 @@ fc_rport_final_delete(struct work_struct *work)
->          scsi_flush_work(shost);
->
->      /*
-> -     * Cancel any outstanding timers. These should really exist
-> -     * only when rmmod'ing the LLDD and we're asking for
-> -     * immediate termination of the rports
-> +     * Cancel any outstanding delayed work synchronously.
-> +     * This must be done BEFORE taking spinlock and BEFORE
-> +     * any state changes, as cancel_delayed_work_sync() can sleep.
-> +     *
-> +     * These timers should only exist when rmmod'ing the LLDD
-> +     * and we're asking for immediate termination of rports.
-> +     */
-> +    cancel_delayed_work_sync(&rport->fail_io_work);
-> +    cancel_delayed_work_sync(&rport->dev_loss_work);
-> +    cancel_work_sync(&rport->scan_work);
-> +    /*
-> +     * Now safe to clear the flag under spinlock since all
-> +     * async work has been cancelled.
->       */
->      spin_lock_irqsave(shost->host_lock, flags);
-> -    if (rport->flags & FC_RPORT_DEVLOSS_PENDING) {
-> -        spin_unlock_irqrestore(shost->host_lock, flags);
-> -        if (!cancel_delayed_work(&rport->fail_io_work))
-> -            fc_flush_devloss(shost, rport);
-> -        if (!cancel_delayed_work(&rport->dev_loss_work))
-> -            fc_flush_devloss(shost, rport);
-> -        cancel_work_sync(&rport->scan_work);
-> -        spin_lock_irqsave(shost->host_lock, flags);
-> -        rport->flags &= ~FC_RPORT_DEVLOSS_PENDING;
-> -    }
-> +    rport->flags &= ~FC_RPORT_DEVLOSS_PENDING;
->      spin_unlock_irqrestore(shost->host_lock, flags);
->
->      /* Delete SCSI target and sdevs */
-> @@ -3027,6 +3069,7 @@ fc_rport_final_delete(struct work_struct *work)
->      if (rport->devloss_work_q) {
->          work_q = rport->devloss_work_q;
->          rport->devloss_work_q = NULL;
-> +        flush_workqueue(work_q);
->          destroy_workqueue(work_q);
->      }
->
+Best regards,
+Hyunwoo Kim
