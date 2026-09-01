@@ -1,547 +1,232 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012025.outbound.protection.outlook.com [52.101.48.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B8F38A72B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:47:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788230847; cv=none; b=d8oLU3hxGLOvepk+vjyJv17pXIPbsbdhxcVnuMAnPZLsakfmar3buDm8DikS8FmZQCaUTKq8Kk4jCml0l2b/IHsJUxPo3F7wftJ9aBpEyEMCC14FQOcWYlaIeEj6TPowZM1j/b4cV5mFrMZV8Gr8xGQJty+tt6fL2GIgYhiEJcg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788230847; c=relaxed/simple;
-	bh=ggL6n1EMEwkS4S6UQ7vxdErAuZYLohUFJ1cvZQ+rBe8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nlctEgSLji9mZ7nz4Z25tHmQIM8LNRchQZxXnpC8gMkeoJZzXkR0SOzaWmE1Bsigb+QvDobFLz1QiICaT0hOdBFUkvv/D0rpPlG+VBwHSM/UmaX5Fdv9U8HLxuuNyIGB+sbykuafzogCX1wicYX3M5Th69H/kD4nSKCFV7f1imE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=Ufs06VVy; arc=none smtp.client-ip=209.85.219.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836263B4EBF
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788230893; cv=fail; b=HO1Vc3WAR6xTszyqvI3hRcaKoAFe6nKj7hYJXUXucvtTk1bBQsLD9x7iTlwC/oBI62r9b95NrLm8paRheEu2MRXZt20/3wfDZnBPUNolQdFWqUmx9bXVFnKT7JOzuLtyPlgX+u6aIW3yBxvQ5M+/bAMZQLJ3gDh0Pkn7hL16/L8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788230893; c=relaxed/simple;
+	bh=STnyqQVQmgvQ01ZC2zbbZDkjklL5Oerwb4oABNxZeaY=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=csT47i0h8JLcn0tTZRKVPQrSzqwq/uiSAya7m3wxss8iPq12wbkQZ8VRXlAOj5+HdmdOp35WlSJxyBPBq5hvcd8lFwRGVEyKepWiEFDKOIXpFHMS+5Du9h1jcPAcuNWUwD7uuFaI0ZoUvHwrNArKH/TYoQ7PywZYb16MD08beTE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Rayd8+Lq; arc=fail smtp.client-ip=52.101.48.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="Ufs06VVy"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-90e7d9c747eso33132576d6.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:47:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1788230836; x=1788835636; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z7GmLMIVwpddaX67LhA6yl9QNGeMHtdqHkTaGH2+eF8=;
-        b=Ufs06VVyqR+ajz6QKsWHrYcDpTRLxxAxZjN9A4aebXmXfobQl0AzcDKD+Ik5nIqv4K
-         SRzJAh6RNYY0mzRxocS+hm0cB4mloMFfrQa/NRCkHrqcsfMQCO9mk5dVMqaIdPdKnedr
-         azZ8hX4wkFwmJPmi+HFF2pm58aZF+Lg/1PJdyLIMJ8n3CY8LlJ7lTvV1tYxqNCapJr0o
-         kjatAMOBd3xcKUrJWAWCGtzrjx8QXubTIVu6AoMvtfRIXpXknSbFa2dpnrt8/S4oqBs1
-         ZqEl3xqVdvOIJHtZQ+YvMITjsm3jjcjig6GVFFa9a9xMEEJqdEz3ldCGJhWr6G0y30wI
-         7MjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788230836; x=1788835636;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z7GmLMIVwpddaX67LhA6yl9QNGeMHtdqHkTaGH2+eF8=;
-        b=P9r4BKuQYrAPvfauqyCLg3HHu69JZC7tVV+8e1B5bgQz7vgsOXdGJIJAwq9Y4ploAz
-         Q61P1Q7S6XXA/zK5yGFZb6WMVyAPDS7cRxY4R/xgQZOemZEMPaiooEyiWuRlFZ1tk6qe
-         otoV4YgXcEygd+spgsQt+aYuLbFIPQ9AKyr33TVdPsmVBmZ7iGWljWtsVWcNkio4tp2A
-         rlGKxCFm7hU3w0BA0QFa+nFXnknyu7KW51XUO0oN3JQMVvvWjovSJ89FC/ujtvGplfoN
-         h27KNcu2Q1Q4m0RPr14Tra9xSDnD5UML0EgojZDy/7wt7uJnR2+FINt9PQG3wxZQZ9Ze
-         Rhfw==
-X-Forwarded-Encrypted: i=1; AKwUvBwdBzHMk/dNgGiDA51cIgSujoIF1xRDhWexx343d339TiygkK025BBVvvojKiqcPli6qweNZp7+pgiiEIY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwQVIN8cXuleof1Nmlmh4BBWLKgEglfjynETgJPyiPyU2f+Fqi
-	GFmdHZ/aX3twFDkKBD/es5DM3lIiLiOMNZ+LzLe0pO2rvhltx8LJVpMb4IXWt2wknA==
-X-Gm-Gg: AYBFou3GBeAOJGihoVDmsFyTOB3DF5RlVBT0Ikt0W8MDhOK9YCFAsrEbavh8B3a+hsB
-	uMIXlp1l/PJ3nkQFVdNNYUOgAmVVWmeEUg1zJqT32GF1dwTxgtpfxrSvzhVfE80juls9fzXF0Zh
-	tXk9BPWP2ajofE1Sdq17ZzRcxuDyXL1CiHTxweInlwG6049neioS6mylJwmA8zhWr/sg3wO/h97
-	qEoPog9/EXEFmX54K8/uj+jQCCTOrIw75DSwnLIv106tFaVCVIHOHsDnDap0gSezrRMGtY6RMrX
-	Fqo8XCJRXOgXxpy4IH3fDtHoLtZdhh8MhlnipHAEzvzsBJno2e8kUP7hrYWmnbJFfqeFStBrSPN
-	bs9he1s1mKXPPg3tYsT5csQ8ZL0DFb+r3oUWz3DGO/1QIsvMtj7DjFlFkzj6neHZMnz8WgBTPjH
-	wMJnBG+t/LGNGsmb1l9BoQX1pHm8w7IrR54jTzbiHGixT01SGm2fGYH8YTOHSywsuTz1M3IEV1
-X-Received: by 2002:a05:6214:1943:b0:90e:8465:36ac with SMTP id 6a1803df08f44-90e92983033mr72709886d6.25.1788230835692;
-        Mon, 31 Aug 2026 19:47:15 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce44f5ad4sm98151136d6.23.2026.08.31.19.47.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 19:47:14 -0700 (PDT)
-Date: Mon, 31 Aug 2026 22:47:12 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Minseo Kim <neck3922@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrey Konovalov <andreyknvl@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, syzkaller@googlegroups.com
-Subject: Re: [BUG] usb: gadgetfs: KASAN null-ptr-deref and intermittent UAF
- in ep_aio_cancel()
-Message-ID: <fb56064c-6481-44b3-88e5-8e5ff7b85703@rowland.harvard.edu>
-References: <15185c2d-4544-42cc-ba0a-79dd36e82a21@rowland.harvard.edu>
- <CAFmvuTU=t5TiZSpHmF1MXpVs+3K7G1VOTDeeazwGru4+1eozBg@mail.gmail.com>
- <cd57f283-71e6-4531-a311-1180ccc22ab8@rowland.harvard.edu>
- <CAFmvuTVH=mVMZNoYnU07_WA+cBc4m+UG2BBTLwF5KWhcj-z-KA@mail.gmail.com>
- <908a5b29-e6d8-4595-b451-6c328e25c60e@rowland.harvard.edu>
- <CAFmvuTU5HnBKbve=v_C7Mhw2586rR_8qsRNua2XPokgKy_o31w@mail.gmail.com>
- <0305182d-5914-4022-a0a6-1ab4221b0a6c@rowland.harvard.edu>
- <CAFmvuTULxq6O0t7FyhEwnGVdMMpbj1yZrPN6mVRDWTgF0ODJxg@mail.gmail.com>
- <1b92cd86-fe64-43eb-9539-53a559cd14e3@rowland.harvard.edu>
- <CAFmvuTWw90k+Fvs5Ve=1nxCDSQrzH7rytY-3vjGwv=edQOCBPw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Rayd8+Lq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=piFwv6l6GYC38FyY/iwUurzUmT1g4TUCBpXLLLlL5QB5Ix8zYLxwuy30nDqaZzNG6/QDzfiAzR7IaSiL/K12UWJ3+CFlWfiuyKiSLUaK8vksjSNf2N0eKuG1SeA6/Oxm3azPA70Nabt0WKkvdwuYPB/bUUmfV8pCKN/aU5g2bfS7koH4EiE+IAUQ5SV+AF2wUk+LnQDmacdoTE63Jkc5t+wl9ajcOq7bQ6L4k9AQpSZpIwDOukTEOQW/o3wTbu+K45HdbM4Bl4sVAKDuUWETP9abj5EQQWPIEQx78ktNNhTsVk9Iv1eus6ZFSVu57Q1D/zxvMXBYJkrJ1UDVeh/Jlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MOsvOtQ6syE9JzaIWjQv1n0XOB3s2aHDthskbiri1to=;
+ b=pZPUhiAewgxHO4RFHeJwObG88zlmsW0QVr24l6CcGBWIRoXujxctz1A+XXcJk+oXouSnolb5iN9/2k6GlA8jMcHvZqab1tweMovO1+PUPGhTMeHpI6MnA3Bt6s2Nv1Li+yTizFQmi4DN8bRmieJeDFLg8LoBMW2tqPawR6Rdr0dqhH0+V01c2Jj/+Bx9b4IAodtyFsRuGaUy+Q3LCrzV7nohfl8SsNveIvP/A7YxJJvH1YHrcNo0BFdOVzEcHigICu+ioDHrKrEI94qc7Lfx06P6YTe81TX/X54SlGpddeMU6vADPR2/kCP6LDyyx6sZB1MivzFuiVljZx/YJTCFog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MOsvOtQ6syE9JzaIWjQv1n0XOB3s2aHDthskbiri1to=;
+ b=Rayd8+LqKgRVqnpIA5SNO67B+aPGrUgBK8uHxtSmu4t92E8PiN10Qv0HB3i56EQO9CW7Jt6NDZc+WTD9PTgLNMjY63xDVaBcS9TiCQioc87UWqwk8bJegHLTPOmYp+vKTBSiDOoToauhIhRfQ7iipxLUfjz0xWz8AZUI26N/g3fpMJgiC2bkgptbZsjThEvchaDHWUAFdQUjJ52Xz4meTDj5isYsXENJ2pVg0v03t3js+wAFmL4QdLEZaFe+Y5GKU8FZkesX2cww3pyrkMOyVcABLVOKNjEd1i6LItysRJeCOWjWhAA8OIaBtuHqkNV6eevvPhmTdc6Hh8Bd4C6GXg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ CH3PR12MB8971.namprd12.prod.outlook.com (2603:10b6:610:177::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Tue, 1 Sep
+ 2026 02:48:00 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 02:47:59 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 11:47:53 +0900
+Message-Id: <DL3MXU3NQFLM.21AFT3KWNROVP@nvidia.com>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v3 1/2] gpu: nova-core: fix barrier usage in CPU->GSP
+ messaging path
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260819-rust-barrier-v3-0-d5b7bd7e6624@garyguo.net>
+ <20260819-rust-barrier-v3-1-d5b7bd7e6624@garyguo.net>
+ <DKX6R86RZJIW.2HMS6X0NUP15T@nvidia.com>
+ <DKX6VRIHFF71.1KWPD0ZQM2RAB@garyguo.net>
+ <DKX70RBRWHC2.3KXXJYL22T8K@nvidia.com>
+ <DKX7400TO0RK.1R05PZKS9Q33F@garyguo.net>
+ <DKXLSOCZBYYX.1OE2DF4LYRMV5@nvidia.com>
+ <DL3AYW5D121E.29D3XI699XMKN@garyguo.net>
+In-Reply-To: <DL3AYW5D121E.29D3XI699XMKN@garyguo.net>
+X-ClientProxiedBy: PAZP264CA0015.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:21::20) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAFmvuTWw90k+Fvs5Ve=1nxCDSQrzH7rytY-3vjGwv=edQOCBPw@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CH3PR12MB8971:EE_
+X-MS-Office365-Filtering-Correlation-Id: 82f0b6dc-8e80-41dd-782e-08df07d36edd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|10070799003|366016|376014|10067099003|6133799003|22082099003|18002099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	5/FttQpBGKMH7Pm9Vfr2+K9T4a31oKYSWmjygSXVF+v5ZZEEQlCUMSoIT0gB+ddcstHYhqXpWQACElWmE2GThsNHJT4i1LZBgafFmAnJb0ZKs2J6PVG7C/1Y2fbmJnK36NOewOlTzOGPpx7tKAuxYbdLYoCYKZ3mnIIXNq+hLQC4BfidyThZtz5XHkzVpPQWCwNnfHeFSQARj82btGO9V4xv4GHXnbp9DfCLyq2/Td912+EuAXmL3NE3kO8QY/cSDqP1lnSo2GPevALubJm4d6mjw2emdPqusmjhZLELDX+vVvtjAQjC59Eo5aU6GDtiGt6N7N9C7RaUeIm3fT7zZrLtJPdMOwPRe5ZjwRgYjKE1xE5vFW9y+4Vo9kGzz9J3tO+b+qRIJE0z1Nq72odRL/rYNPxmjvy4/kr/8DEuIr/UxUqLfDqhPPebthJYvczGDmzrJ/4gVrNnCavQt/lhMCaTfGmxWB960jwB+Q3odaOThdh1KJwS6nACEgIsncRmgczrk2jJrnbN1aChznN/ZZGLleDYJbUn7XskYpz69Wl9r1DNHGtcXKgs15yLvQLBghzwRtDM2T9an7MqK421+ho9IzZi+kwdHbTTKVis+vBqCNxEz9xbZHnX+c0hjFHm9+DOWy4tssYkj3IHkWyY5sse7h5dk1bGcPPJKD8Kn5Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(10070799003)(366016)(376014)(10067099003)(6133799003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U21XUVlMa0VxNnFGSGxUdlY4cXlNUTlIT3NLMHJzMjBMd0NCRE96TUx4YjJs?=
+ =?utf-8?B?Z0lGODUzaFlJUWRHODV5cWxnYWtWSGtUYm9HRmswNDdvWExHYXVPUThqQWZT?=
+ =?utf-8?B?ODQzckJ6ME54Tmt2QTBQNHIrQnhlQ3ErMVZlUnZUekdyNEdjQXBrdTBKQUoy?=
+ =?utf-8?B?SUhEcTExVkp2dTA3YVUreGZmcllsZWJud0VWRmN2bGM0RUNEUUxYZGk1eFhj?=
+ =?utf-8?B?ZXFaUzNhMFZvcGlxK3BIT0JoQWsxZHlNcEpnMyt6QVRNVk9aaGx5UURJWGZN?=
+ =?utf-8?B?WGxINGZ2SWlvQ3ZXeFAweW9KYkx0ajNaaUk3Sm9nNHNhWGxESHBFY09hY3lU?=
+ =?utf-8?B?UDdEQ2Q1cjJITy9aeXE5eTVLc1E1VzFJYXN5OVBrSm9qZzEzRXhEMHFLYjRE?=
+ =?utf-8?B?ekJXSXdKbnU0RWM2T1lnZEViSVJTc0RqcUZkczN2QnBmUGx1K0puZmtQUmVt?=
+ =?utf-8?B?TXhqbWx0VmlXdkU1TEFlWnV1NWpXT29DdG5DQTA5cWo0bUVEeHR2VzRJUmtG?=
+ =?utf-8?B?aHRBQVhmbzFuSFFhWnRVZWx5S1lHWVNNYU5VU2V0R0V3bEJkZ093RkZ6NW9U?=
+ =?utf-8?B?TnF5azk5N09KREFmOW1vTVNqMUVXZmI2aFBEQWdhZk4ra3NGVmQyZGd0R040?=
+ =?utf-8?B?UHRzQk5od0NLQW92VFNoWE9oKzNGS3lJOXA5ajUwSjNJL093T3ovYjAzNjZi?=
+ =?utf-8?B?bnF3c0dManU1eVNodG1xMTc0VU4yalJ3YlJSSkpvblZQcTlCTWJ4TWJIWGNE?=
+ =?utf-8?B?b3p1ME8rZkJoMVB3ZlE0TEtGQjBQcFErQktuNjV3ZWxUQzRIbUdXVFBDQzdN?=
+ =?utf-8?B?V2FNOFE5Ukt5cmhZZUc0Y3hRWjJ6U0x0MXQ3TE52bGJuQUhyZGlUV0diN0dr?=
+ =?utf-8?B?R1N3RVlDSnB1QXlVWU04ekppY2ZTSGRkK0ZpM3BYYk9QdTdqb2lUYjZzampJ?=
+ =?utf-8?B?VlQ4RCtQV1E4R3pjVGw1RkRzR29MTy9ibmVyMlJKakpyWEdpQkxNb1Rrc04y?=
+ =?utf-8?B?YjlzQkFNdVBnRm5FUE4yczhSNGhJTUNucnk4RDZCZXJGY0tIbHZTc1NPWlNH?=
+ =?utf-8?B?UnJGa3o5NE9pWmhENW5hRlgvVVIwbURJY3haR3B2L1VUK3RneGVsRlkwcDdr?=
+ =?utf-8?B?Z015UTB6RzRMWWczTDVSSGhCT0twekl2TzgyL3d4T3dEVHI3dms2SGZHZEdL?=
+ =?utf-8?B?b2VCRnJyVE9uSTZDSDJNL0hNbzlkYW03MWt0bXdVcUl5K3NvdVlkNHJzQzhj?=
+ =?utf-8?B?TFovcVNjRGk4dDErZDNvZWlRbnlVMVdWaERGc1hjdW4rQXJMMmdVWmw0MXFT?=
+ =?utf-8?B?KyszbG9SQkdaYmJYQVNTTWhRQnNNQzhRM1pyT2FYSEx2dXVvajNTWFJVUVBX?=
+ =?utf-8?B?enNtQzh0MUhIVEZaK20zbGtzcWtTSFNyeFN2cXNEOFdqYTliUklPQmVZcklk?=
+ =?utf-8?B?aWpVNFJ2SGptZkNmdXBMcUlldWlhL0Jtc05sL2N3U2ZJYlhzbE9OTlVPRkNT?=
+ =?utf-8?B?c0lzZCs3d0xTSWRHRzRZSGtYN2ZQczAvWk9VcDBpcWVZSzZHcVhodG0rNElX?=
+ =?utf-8?B?VFB0aTZYZG0xRFVENEJwVGI1NmtyS3lQdVBtcXVtSVdSYzB1MStLWkVHYnQv?=
+ =?utf-8?B?SlZrWmhZNWE1bTZhUjZEd0NMeVc4NEF4cFBaRGpCU2o0cUFLQjZNLzlqb2VH?=
+ =?utf-8?B?dXlzWU5zamE4RUVmN2dBUlhteEFad1l0MW56clZKY09ZaWFXb3hEdUFFSFBh?=
+ =?utf-8?B?TUdhZnJ6S2F6MWVKbzlFYjhqaXg0T3pEOE9TL1hIMFduVnNkeG91TUlxZ1Fs?=
+ =?utf-8?B?dE9xSEJvVnRYMWZwSW9TUy9Ia2ZrWml3Y3Fva0JqcXl6YmZVNDNaWXZiTmJ5?=
+ =?utf-8?B?clZkOTZHemxhaE02TDNFVlBLVUNZeDlmdWpGUklxMytkd3pPNWkyNW5nQ1Fa?=
+ =?utf-8?B?VC9LZkhZM3FTaWJUTzJ2a2k4cjA1UW1xT1ZYU2dJdjFaS25Jb2duamhaZW83?=
+ =?utf-8?B?ajExSXo3aUxpQzl5NURDbXpBNldyMkJoZzhjRm1Ma3Z4WXh2d1pNZEF6Q1Bw?=
+ =?utf-8?B?N2FQSXlSQUltZldlVkZwNFdMakNBQ2s4b2RwK2diaXh1ZmJNU3hwRXhFZTZK?=
+ =?utf-8?B?bm5hTzRJOSs4YnJidk10UVNEdmN0c0cwdTdrejkxMDlOZHZjR3lKTWp0UXB0?=
+ =?utf-8?B?dWVGQTNPSC8zYU9MOHVhbEVQTkxuZzRhYWQzclJYT2tMaFpMSHZRMmFxaHVH?=
+ =?utf-8?B?MDVlOGkxSnlzMWRWRDFhREhKQ1VjQXgvV3VEYmVRTXpoaWplUHZwMjc2NFJw?=
+ =?utf-8?B?aDYrL0t1THJjRGdQNXM1WjhrekdNZEJiQU5RV2tqZGZLZWlleW9NV1hnSXRt?=
+ =?utf-8?Q?VMX0UgXlDo1JOjna458AEz4NTuGpAB5hRArG4MFoCsvDb?=
+X-MS-Exchange-AntiSpam-MessageData-1: XBCNv6lZPPxiSQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82f0b6dc-8e80-41dd-782e-08df07d36edd
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 02:47:59.0864
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9jX8H3N+Yklt+EEnoQf45jfQ+VXGwP2v+Sy6I7nUhsrP0OE2BXa4+MDM0ecX+kS1JmftWI6Q0KMKxTSwpeXi0Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8971
 
-On Mon, Aug 31, 2026 at 10:30:08PM +0900, Minseo Kim wrote:
-> Hi Alan,
-> 
-> Thank you for the comments and for pointing out where my explanation was
-> unclear.
-> 
-> > Are you saying that this test in ep_read_iter():
-> >
-> >         if (!iter_is_ubuf(&priv->to) && !priv->to_free) {
-> >
-> > is wrong, for example, the && should be || ?
-> 
-> No. The && condition should remain as it is. dup_iter() copies the iterator
-> state into priv->to. In my tests, native PREAD and a one-segment PREADV used
-> ITER_UBUF. Since ITER_UBUF has no separate iovec array to duplicate,
-> dup_iter() returned NULL while the copied iterator remained valid. My
-> two-segment PREADV test used ITER_IOVEC; there, a NULL return would mean that
-> allocation of the duplicated iovec array failed. The iter_is_ubuf() check
-> therefore distinguishes the valid NULL return for ITER_UBUF from an allocation
-> failure in the ITER_IOVEC case. In a control build using ||, valid PREAD and
-> both one- and two-segment PREADV submissions failed with -ENOMEM.
-> 
-> The issue I observed was instead in the later completion test:
-> 
->         if (priv->to_free == NULL || unlikely(req->actual == 0)) {
-> 
-> As I understand it, this later test treats a NULL to_free pointer as meaning
-> that no userspace copy is needed. In this path, however, to_free stores the
-> pointer returned by dup_iter() and tracks separately allocated iterator
-> backing, rather than whether the saved iterator has a destination.
+On Tue Sep 1, 2026 at 2:25 AM JST, Gary Guo wrote:
+> On Tue Aug 25, 2026 at 1:38 AM BST, Eliot Courtney wrote:
+>> On Mon Aug 24, 2026 at 10:07 PM JST, Gary Guo wrote:
+>>> On Mon Aug 24, 2026 at 2:03 PM BST, Eliot Courtney wrote:
+>>>> On Mon Aug 24, 2026 at 9:56 PM JST, Gary Guo wrote:
+>>>>>>> @@ -683,6 +689,9 @@ fn send_single_command<M>(&mut self, bar: Bar0<=
+'_>, command: M) -> Result
+>>>>>>>              dst.header.length(),
+>>>>>>>          );
+>>>>>>> =20
+>>>>>>> +        // ORDERING: STORE->STORE ordering needed to order `cpu_wr=
+ite_ptr` write after data write.
+>>>>>>> +        dma_mb(Write);
+>>>>>>> +
+>>>>>>
+>>>>>> Is there a reason this can't go into `advance_cpu_write_ptr`?
+>>>>>
+>>>>> I think it's more clear to consider `advance_cpu_write_ptr` to just b=
+e the
+>>>>> pointer increment, and the ordering should be visible in code that pe=
+rforms both
+>>>>> memory ops.
+>>>>
+>>>> In the second patch, it looks like you're adding the memory barrier
+>>>> directly in `advance_cpu_read_ptr`. So we'd have one barrier directly =
+in
+>>>> the code advancing the pointer and one not, which seems asymmetric. I
+>>>> think it's less error prone to put the barrier in the function so it
+>>>> can't be misused (and we already have evidence the barriers are easy t=
+o
+>>>> get wrong, since this code was already broken).
+>>>
+>>> In the second one `message.header.length()` is read, so if I move the b=
+arrier to
+>>> before the advance it'll be incorrect.
+>>>
+>>> Best,
+>>> Gary
+>>
+>> Yerp I mean move the barrier into `advance_cpu_write_ptr` not move the
+>> barrier out of `advance_cpu_read_ptr` - I agree that'd be incorrect. On
+>> clearness, it feels very odd to me to have these two functions
+>> (advance_cpu_read_ptr, advance_cpu_write_ptr) where one controls the
+>> memory barrier and one doesn't, purely based off the structure of the
+>> callers. And I still think it's less error prone (for future changes) to
+>> do it this way too.
+>
+> Frankly I don't like the asymmetry that the advancing code does the barri=
+er,
+> while the pointer reading code doesn't have the barrier. However, if we m=
+ove the
+> barrier to the pointer read function, then the `driver_write_area_size` w=
+ould
+> gain a unnecessary barrier. (Actually, `driver_read_area` code have a sim=
+ilar
+> issue, a failed pool would execute an unnecessary barrier).
+>
+> As an alternative to move the barrier into the advancing code, alternativ=
+ely we
+> can pull the `message.header.length()` to a separate line instead.
+>
+> I think we should either always have barrier inside the pointer read/upda=
+te
+> code, or always on the user side. Given the former would mean unnecessary
+> barriers, I am erring on the latter.
+>
+> Best,
+> Gary
 
-Okay, I see.  I had assumed that the information about the userspace 
-buffer was contained in the region that to_free points to.
+I see - so you're saying that one side of the maximally consistent
+position is to put the memory barriers in additionally `gsp_read_ptr`
+and `gsp_write_ptr`, but those don't always need a barrier e.g.
+driver_write_area_size because they are not necessarily followed by an
+access that needs ordering, and the alternative is to have callers of
+those functions handle that responsibility.
 
-> For this issue, the relevant change was to base the later copy decision on
-> iov_iter_count(&priv->to); I did not change the ep_read_iter() condition. With
-> the original test, native PREAD reported res=511 while the destination buffer
-> remained unchanged. After this change, native PREAD and one-segment PREADV
-> copied the payload correctly, and two-segment PREADV continued to work.
+I think the differrence is that `advance_cpu_read_ptr` and
+`advance_cpu_write_ptr` definitely need barriers, so why push up that
+one level? Having barriers in `advance_cpu_read_ptr`,
+`advance_cpu_write_ptr`, `driver_read_area`, and `driver_write_area` is
+sufficiently consistent since it's the deepest set of functions that
+can't avoid memory barriers.
 
-While that's a valid solution, it would be more straightforward to add 
-an "is_read" flag to the priv structure.  If an aio operation isn't a 
-read then there certainly won't be anything to copy back to userspace 
-upon completion.  This doesn't require people reading the source to know 
-anything about the internal details of struct iov_iter.  And it is a 
-better match to the immediately preceding comment.
-
-> My previous description of to_free as a predicate was inaccurate. I was
-> referring to its later completion-side use as a copy/no-copy indicator.
-> 
-> > I understood that it was okay to call usb_ep_free_request() after
-> > usb_ep_disable(). Was that wrong? Did you see it create any problems?
-> 
-> Your understanding matches the behavior I observed under dummy_hcd. For both
-> PWRITE and PREAD, I kept a completed, unqueued request allocated until after
-> usb_ep_disable() returned, with no intervening usb_ep_dequeue(). In each case,
-> the request completed exactly once with the expected result; the subsequent
-> usb_ep_free_request() produced no KASAN report or Oops.
-> 
-> Separately, in an intermediate version I observed usb_ep_free_request()
-> running while usb_ep_disable() was still in progress. Because that version
-> moved normal request cleanup into a worker, I used the existing endpoint mutex
-> to prevent the worker's usb_ep_free_request() call from overlapping endpoint
-> disable while I investigated the ordering. The mutex eliminated the overlap,
-> but I did not reproduce a failure without it, so these tests did not establish
-> that the serialization was required.
-
-Good, so we don't need to worry about that.
-
-> The endpoint-use ordering I could reproduce in a directed dummy_hcd diagnostic
-> was different: without waiting for unlink work before endpoint disable,
-> ep_unlink_worker() could call usb_ep_dequeue() while usb_ep_disable() was in
-> progress. In matched PWRITE and PREAD tests, the variant without the
-> pre-disable unlink-work wait produced this overlap; with the wait retained,
-> usb_ep_dequeue() completed before usb_ep_disable() began.
-> 
-> I did not reproduce a KASAN report, Oops, or userspace failure from the
-> concurrent dequeue/disable overlap itself. I retained the pre-disable wait in
-> the narrower test version as a conservative interpretation of the
-> usb_ep_disable() requirement that no other task be using the endpoint when it
-> is called.
-
-We don't need to be that conservative here.  And in fact, I'm not 
-entirely sure what that comment in usb_ep_disable() was intended to 
-mean.  Since the function doesn't cause the UDC driver's endpoint data 
-structure to be deallocated, there isn't much to be careful of.
-
-> > This is probably because you were flushing the workqueues at the wrong
-> > time.
-> 
-> Yes. In the callback-gate test, the relevant workqueue flush returned
-> while the completion callback was stopped before queueing its follow-up work.
-> In the narrower test version, I incremented aio_producers before
-> usb_ep_queue() and decremented it only after the callback had either queued
-> the required follow-up work or completed the immediate AIO result without
-> leaving deferred work to publish. If usb_ep_queue() failed, the submission
-> path decremented it directly. With that change, gadgetfs_unbind() remained
-> blocked in the producer wait while the callback was gated. It proceeded to
-> flush the completion workqueue only after the callback queued the follow-up
-> work.
-> 
-> In the delayed-worker test, module unload completed before the running
-> unlink_work returned. This confirmed that module unload must not complete
-> while such work is still running.
-> 
-> > For the final submission, I think the workqueue management stuff should
-> > go into its own separate patch.
-> 
-> Separating the workqueue management changes from the AIO race fixes makes
-> sense. Thank you also for the reminder about -p.
-
-So let's worry about the workqueue stuff later and concentrate for now 
-just on fixing the AIO races.
-
-> > Second, why did you change ep_aio_complete() to make it queue up
-> > ep_user_copy_worker() even when nothing needed to be copied to
-> > userspace?
-> 
-> My reason for routing every completion through ep_user_copy_worker() was to
-> make a common deferred completion and request-cleanup stage visible to a
-> workqueue flush during teardown, not because every request needed a userspace
-> copy. In the normal non-unlink path of that cumulative design, the worker
-> released the USB request and epdata reference before calling ki_complete(),
-> and then published AIO_GIVEN_BACK. Since ki_complete() could drop the last AIO
-> file reference and allow ep_release() to begin, the intent was to prevent
-> teardown from passing the completion-work flush before that cleanup had
-> finished. A gate placed between cleanup and ki_complete() confirmed that the
-> flush covered this no-copy PWRITE cleanup: unbind reached
-> flush_workqueue(gadgetfs_copy_wq) but did not return until the worker was
-> released.
-> 
-> I agree that using the worker for every completion was broader than necessary
-> for copy handling. The narrower behavior I tested retains aio_producers but
-> queues copy work only when iov_iter_count(&priv->to) and req->actual are both
-> nonzero. Nonzero PREAD and the one- and two-segment PREADV cases invoked the
-> copy worker, while PWRITE, PWRITEV, and zero-length reads and writes did not.
-> This indicates that no-copy paths do not need ep_user_copy_worker() merely for
-> copy handling. Their cleanup ordering and the separate teardown lifetime
-> issue can be considered independently of that routing decision.
-
-And since your decision was based on handling the workqueue flushing, it 
-can be put off until later.
-
-If you trim your patch down to the parts that only target the AIO races, 
-do you get anything significantly different from my version?  I did see 
-that you added or changed a few comments, and I have updated my version 
-of the patch in a couple of respects, but overall yours must end up 
-being pretty similar to mine.  Please point out any differences you 
-believe are worth mentioning.  My current version is below.
-
-> Looking back, trying to address all of the observed issues in one cumulative
-> patch made it harder to separate and review the purpose of each change.
-> Considering the issues independently may also make it easier to identify a
-> simpler approach for some of them. I hope these clarifications and test
-> results are useful.
-
-I'm sure they will be.
-
-Alan Stern
-
-
-Index: usb-devel/drivers/usb/gadget/legacy/inode.c
-===================================================================
---- usb-devel.orig/drivers/usb/gadget/legacy/inode.c
-+++ usb-devel/drivers/usb/gadget/legacy/inode.c
-@@ -236,6 +236,8 @@ static void put_ep (struct ep_data *data
- static const char *CHIP;
- static DEFINE_MUTEX(sb_mutex);		/* Serialize superblock operations */
- 
-+static DEFINE_SPINLOCK(aio_lock);	/* Protect aio cancellation info */
-+
- /*----------------------------------------------------------------------*/
- 
- /* NOTE:  don't use dev_printk calls before binding to the gadget
-@@ -433,40 +435,105 @@ static long ep_ioctl(struct file *fd, un
- 
- /* ASYNCHRONOUS ENDPOINT I/O OPERATIONS (bulk/intr/iso) */
- 
-+enum aio_req_state {
-+	AIO_SUBMITTING,
-+	AIO_RUNNING,
-+	AIO_COMPLETED,
-+	AIO_GIVEN_BACK,
-+};
-+
-+enum aio_cancel_state {
-+	AIO_NOT_CANCELLED,
-+	AIO_UNLINKING,
-+	AIO_UNLINK_DONE,
-+};
-+
- struct kiocb_priv {
- 	struct usb_request	*req;
- 	struct ep_data		*epdata;
-+	struct usb_ep		*ep;
- 	struct kiocb		*iocb;
- 	struct mm_struct	*mm;
--	struct work_struct	work;
-+	struct work_struct	copy_work;
-+	struct work_struct	unlink_work;
- 	void			*buf;
- 	struct iov_iter		to;
- 	const void		*to_free;
- 	unsigned		actual;
-+	enum aio_req_state	req_state;
-+	enum aio_cancel_state	cancel_state;
-+	bool			is_read;
- };
- 
--static int ep_aio_cancel(struct kiocb *iocb)
-+static void ep_unlink_worker(struct work_struct *work)
- {
--	struct kiocb_priv	*priv = iocb->private;
-+	struct kiocb_priv	*priv;
-+	struct usb_request	*req;
- 	struct ep_data		*epdata;
--	int			value;
-+	struct usb_ep		*ep;
-+	enum aio_req_state	req_state;
- 
--	local_irq_disable();
-+	priv = container_of(work, struct kiocb_priv, unlink_work);
-+	req = priv->req;
- 	epdata = priv->epdata;
--	// spin_lock(&epdata->dev->lock);
--	if (likely(epdata && epdata->ep && priv->req))
--		value = usb_ep_dequeue (epdata->ep, priv->req);
--	else
--		value = -EINVAL;
--	// spin_unlock(&epdata->dev->lock);
--	local_irq_enable();
-+	ep = priv->ep;
- 
--	return value;
-+	usb_ep_dequeue(ep, req);
-+
-+	spin_lock_irq(&aio_lock);
-+	req_state = priv->req_state;
-+	priv->cancel_state = AIO_UNLINK_DONE;
-+	spin_unlock_irq(&aio_lock);
-+
-+	/*
-+	 * req and epdata are freed after unlinking and completion are both done.
-+	 * priv is freed after unlinking and giveback are both done.
-+	 */
-+	if (req_state >= AIO_COMPLETED) {
-+		/* priv may have been freed already */
-+		usb_ep_free_request(ep, req);
-+		put_ep(epdata);
-+		if (req_state == AIO_GIVEN_BACK)
-+			kfree(priv);
-+	}
-+}
-+
-+static int ep_aio_cancel(struct kiocb *iocb)
-+{
-+	struct kiocb_priv	*priv;
-+	unsigned long		flags;
-+
-+	spin_lock_irqsave(&aio_lock, flags);
-+	priv = iocb->private;
-+	if (!priv || priv->cancel_state != AIO_NOT_CANCELLED) {
-+		spin_unlock_irqrestore(&aio_lock, flags);
-+		return -EINVAL;		/* Already completed or cancelled */
-+	}
-+	if (priv->req_state == AIO_SUBMITTING) {
-+		priv->cancel_state = AIO_UNLINK_DONE;
-+		spin_unlock_irqrestore(&aio_lock, flags);
-+		return 0;	/* ep_aio() will call us again if needed */
-+	}
-+
-+	priv->cancel_state = AIO_UNLINKING;
-+	spin_unlock_irqrestore(&aio_lock, flags);
-+
-+	/*
-+	 * We are called with the aio core holding iocb's context lock.
-+	 * usb_ep_dequeue() is allowed to run synchronously, calling the
-+	 * completion handler ep_aio_complete() before it returns.
-+	 * But ep_aio_complete() may call iocb->kio_complete(), which
-+	 * tries to acquire the context lock, leading to deadlock.
-+	 * For this reason, do the dequeue operation in a work routine.
-+	 */
-+	INIT_WORK(&priv->unlink_work, ep_unlink_worker);
-+	schedule_work(&priv->unlink_work);
-+	return 0;
- }
- 
- static void ep_user_copy_worker(struct work_struct *work)
- {
--	struct kiocb_priv *priv = container_of(work, struct kiocb_priv, work);
-+	struct kiocb_priv *priv = container_of(work, struct kiocb_priv, copy_work);
- 	struct mm_struct *mm = priv->mm;
- 	struct kiocb *iocb = priv->iocb;
- 	size_t ret;
-@@ -482,46 +549,62 @@ static void ep_user_copy_worker(struct w
- 
- 	kfree(priv->buf);
- 	kfree(priv->to_free);
--	kfree(priv);
-+
-+	spin_lock_irq(&aio_lock);
-+	priv->req_state = AIO_GIVEN_BACK;
-+	if (priv->cancel_state != AIO_UNLINKING)
-+		kfree(priv);
-+	spin_unlock_irq(&aio_lock);
- }
- 
- static void ep_aio_complete(struct usb_ep *ep, struct usb_request *req)
- {
- 	struct kiocb		*iocb = req->context;
- 	struct kiocb_priv	*priv = iocb->private;
--	struct ep_data		*epdata = priv->epdata;
-+	enum aio_req_state	new_req_state;
-+	enum aio_cancel_state	cancel_state;
- 
--	/* lock against disconnect (and ideally, cancel) */
--	spin_lock(&epdata->dev->lock);
--	priv->req = NULL;
--	priv->epdata = NULL;
-+	/* Prevent future cancellation */
-+	spin_lock(&aio_lock);
-+	iocb->private = NULL;
-+	spin_unlock(&aio_lock);
- 
- 	/* if this was a write or a read returning no data then we
- 	 * don't need to copy anything to userspace, so we can
- 	 * complete the aio request immediately.
- 	 */
--	if (priv->to_free == NULL || unlikely(req->actual == 0)) {
-+	if (!priv->is_read || unlikely(req->actual == 0)) {
- 		kfree(req->buf);
- 		kfree(priv->to_free);
--		kfree(priv);
--		iocb->private = NULL;
- 		iocb->ki_complete(iocb,
- 				req->actual ? req->actual : (long)req->status);
-+		new_req_state = AIO_GIVEN_BACK;
- 	} else {
- 		/* ep_copy_to_user() won't report both; we hide some faults */
- 		if (unlikely(0 != req->status))
--			DBG(epdata->dev, "%s fault %d len %d\n",
-+			DBG(priv->epdata->dev, "%s fault %d len %d\n",
- 				ep->name, req->status, req->actual);
- 
- 		priv->buf = req->buf;
- 		priv->actual = req->actual;
--		INIT_WORK(&priv->work, ep_user_copy_worker);
--		schedule_work(&priv->work);
-+		new_req_state = AIO_COMPLETED;
- 	}
- 
--	usb_ep_free_request(ep, req);
--	spin_unlock(&epdata->dev->lock);
--	put_ep(epdata);
-+	spin_lock(&aio_lock);
-+	priv->req_state = new_req_state;
-+	cancel_state = priv->cancel_state;
-+	spin_unlock(&aio_lock);
-+
-+	if (new_req_state == AIO_COMPLETED) {
-+		INIT_WORK(&priv->copy_work, ep_user_copy_worker);
-+		schedule_work(&priv->copy_work);
-+	}
-+	if (cancel_state != AIO_UNLINKING) {
-+		usb_ep_free_request(ep, req);
-+		put_ep(priv->epdata);
-+		if (new_req_state == AIO_GIVEN_BACK)
-+			kfree(priv);
-+	}
- }
- 
- static ssize_t ep_aio(struct kiocb *iocb,
-@@ -532,11 +615,12 @@ static ssize_t ep_aio(struct kiocb *iocb
- {
- 	struct usb_request *req;
- 	ssize_t value;
-+	struct usb_ep *ep;
-+	bool need_unlink = false;
- 
- 	iocb->private = priv;
- 	priv->iocb = iocb;
- 
--	kiocb_set_cancel_fn(iocb, ep_aio_cancel);
- 	get_ep(epdata);
- 	priv->epdata = epdata;
- 	priv->actual = 0;
-@@ -547,10 +631,12 @@ static ssize_t ep_aio(struct kiocb *iocb
- 	 */
- 	spin_lock_irq(&epdata->dev->lock);
- 	value = -ENODEV;
--	if (unlikely(epdata->ep == NULL))
-+	ep = epdata->ep;
-+	if (unlikely(ep == NULL))
- 		goto fail;
-+	priv->ep = ep;
- 
--	req = usb_ep_alloc_request(epdata->ep, GFP_ATOMIC);
-+	req = usb_ep_alloc_request(ep, GFP_ATOMIC);
- 	value = -ENOMEM;
- 	if (unlikely(!req))
- 		goto fail;
-@@ -560,12 +646,45 @@ static ssize_t ep_aio(struct kiocb *iocb
- 	req->length = len;
- 	req->complete = ep_aio_complete;
- 	req->context = iocb;
--	value = usb_ep_queue(epdata->ep, req, GFP_ATOMIC);
-+
-+	priv->req_state = AIO_SUBMITTING;
-+	priv->cancel_state = AIO_NOT_CANCELLED;
-+
-+	/* Not allowed to manipulate the aio context while holding dev->lock */
-+	++epdata->dev->udc_usage;
-+	spin_unlock_irq(&epdata->dev->lock);
-+
-+	kiocb_set_cancel_fn(iocb, ep_aio_cancel);
-+	value = usb_ep_queue(ep, req, GFP_KERNEL);
-+
-+	spin_lock_irq(&epdata->dev->lock);
-+	--epdata->dev->udc_usage;
-+
- 	if (unlikely(0 != value)) {
--		usb_ep_free_request(epdata->ep, req);
-+		spin_lock(&aio_lock);
-+		iocb->private = NULL;
-+		spin_unlock(&aio_lock);
-+
-+		usb_ep_free_request(ep, req);
- 		goto fail;
- 	}
- 	spin_unlock_irq(&epdata->dev->lock);
-+
-+	spin_lock_irq(&aio_lock);
-+	if (iocb->private != NULL) {
-+		priv->req_state = AIO_RUNNING;
-+
-+		/* Cancelled before or just after submission? */
-+		if (priv->cancel_state == AIO_UNLINK_DONE) {
-+			priv->cancel_state = AIO_NOT_CANCELLED;
-+			need_unlink = true;
-+		}
-+	}			/* Otherwise already completed */
-+	spin_unlock_irq(&aio_lock);
-+
-+	if (need_unlink)	/* Redo cancel that was too early */
-+		ep_aio_cancel(iocb);
-+
- 	return -EIOCBQUEUED;
- 
- fail:
-@@ -618,6 +737,7 @@ ep_read_iter(struct kiocb *iocb, struct
- 		value = -ENOMEM;
- 		if (!priv)
- 			goto fail;
-+		priv->is_read = true;
- 		priv->to_free = dup_iter(&priv->to, to, GFP_KERNEL);
- 		if (!iter_is_ubuf(&priv->to) && !priv->to_free) {
- 			kfree(priv);
+If we want to remove unnecessary memory barriers on polling
+`driver_read_area`, we could add an analogous `driver_read_area_size` or
+move the memory barrier for driver_read_area up one level. The poll is
+only once every millisecond though, so I doubt it makes a difference for
+performance. But if we were to change it imo `driver_read_area_size` is
+most consistent.
