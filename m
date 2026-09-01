@@ -1,116 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439FA4119E5;
-	Tue,  1 Sep 2026 03:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB92F33AD85;
+	Tue,  1 Sep 2026 03:03:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788231722; cv=none; b=ptu5mby48ILChaRdWqfCcoqpksIOIj+OES+r717cbx9voB+/MDdL4ONyS4xg0n3jB0sGuzPvsnZ3fMzUUp33n4LC32y0eBeCQ28MeE8CLvlVWF0JMrce8XIIqBP/BknlwGE8VLLg56HyRRcOaqbU/cLPs4dmUylBWI876r61y6s=
+	t=1788231804; cv=none; b=KZv2ZPTFuXame0zxlqo/wBViHk47Pn/K79qjpIK4FLEMU+gH9pyvEBMat/BAW3MFVgWZvAbqNOeBzjyliFmTjGR4Z+WSSQd/hafhfyOS7jEqhIMpU5R3nAy31kviRTahk6a4AKleB/SIXS1g+C2Iv1hDrxlBzalKfqHvaLy183k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788231722; c=relaxed/simple;
-	bh=Sm4dyiUxS2inup09HhJdgSya9QU60DLWwOfASA9awpA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r820UakYb8efhxkLx2oOKfQRKGjpQfaEgTnNXq7N0aY/2NWVaAOlTF3YK1A1w0yI51LhX96MMgAUgs+m59j9oFHVQFbpw2fO8i2+8G4O+CeOiL5KW3hIz+EXEHo9nTk+HKO9pJq8TNYhP8x9GBPpmJzQqJErbIFEmBUULMoGTZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VgkVclOn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788231804; c=relaxed/simple;
+	bh=Vh9yn8AOoLZrw8IExJUFV06Tkc6vhee21CB9CIKV1XE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rPkrua8KmzhlV22T5nqPUSk4N5CMxsrlXKsF+yuoHa/R4cQoMeitWgpkRtxpY6tYCTPwYaX+GrV0tActRe9MYpcp5Tt3GmldhOYvp3pInhqHg8AA2soiFtbdZ+seWdh3UKSX3I4E/y1yseXz3Q5hyGccQNbWCResfmF0HAqKE1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MrHUfQJr; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VgkVclOn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 650A11F000E9;
-	Tue,  1 Sep 2026 03:01:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788231717;
-	bh=lGqX5A+ldPU+bBU/2ehh9RDbSoAXfA8C2PmzwkzeDVk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VgkVclOn3NYKxL/t48kWZaIiWJpug12HMYCvW6lzSeiUg31MhCZ9c8MLrj3ltFW2g
-	 eJ9tkviz1qnL3rIF3LS1FixjZ2BpUkrlQc6JZwsCTc/ngGNIi65tKxsCnjfbtgHmdh
-	 SvL5nMNmxbGAILOSV+gjz0x+8JF4JEnovM0CDYWkYKyj6nPaxyxvRXZqflI24WDOM4
-	 3Aw5uQulohaRCPY/gbQcm8IES3au6SQnJICgmQTjCq9W+L4l+iWTxpzCF27VyYsv+5
-	 nHZMlzOKefC0eI1KZgwELY8y7wkNVut2zjj3fz4wNO8cBbg4qndxmUSz4mIPxrhqLh
-	 NNK8bLJPEAtoQ==
-Date: Tue, 1 Sep 2026 04:01:51 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Kurt Borja <kuurtb@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 02/10] dt-bindings: iio: adc: support the TI ADS126x
- ADC family
-Message-ID: <20260901040151.67a3c90b@jic23-huawei>
-In-Reply-To: <20260831-elude-steadfast-b8017ee226d0@spud>
-References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
-	<20260828-ads126x-v4-2-1dc27e9c0260@gmail.com>
-	<20260828-cartel-willow-9592e4e8b912@spud>
-	<20260830025743.70dc65e4@jic23-huawei>
-	<20260831-elude-steadfast-b8017ee226d0@spud>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MrHUfQJr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788231802; x=1819767802;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Vh9yn8AOoLZrw8IExJUFV06Tkc6vhee21CB9CIKV1XE=;
+  b=MrHUfQJrsuvPNvacLVmDP/2+wbCiVpeRFHlBlQdkpjCIk8s226ORD6AO
+   oQHhuzTegi08E/nzfvhJFYABC/Vks/JYklSbYkD7NS5sbLBcnDt+dHBal
+   YWmSyzs6TUq4/mLMAVbMZI0R6pfRPZtSPoRBDaCopq+n27EsBHEJXQDwk
+   pJMy7/ah0DCU0YLXxNxf9uGZ/xL7uLMXxTAFKNoxZglFZxyHNrSiddMCZ
+   JB6yAod8cbZmKXGpUacX/yk8V3dV5dJ7z1tjut5IWoE5ZWGNsMuVSF/a7
+   zbYz2jFOlODLgmjLpJ3DtiE5DwLc4UUkAijeXmc0znor2TFIEde9UsVVA
+   w==;
+X-CSE-ConnectionGUID: 4swJl7Z4SqiRGHeavUAu/w==
+X-CSE-MsgGUID: 6BGUI/dgS2uQY9YEM9zZ0Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="87785633"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="87785633"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 20:03:21 -0700
+X-CSE-ConnectionGUID: ytU1b5bcT1OUUQyV9Qla5A==
+X-CSE-MsgGUID: qqTfeFnlQGWtpCnP62+IBQ==
+X-ExtLoop1: 1
+Received: from yungchua-desk.itwn.intel.com ([10.227.8.136])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 20:03:19 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: linux-sound@vger.kernel.org,
+	vkoul@kernel.org
+Cc: vinod.koul@linaro.org,
+	linux-kernel@vger.kernel.org,
+	pierre-louis.bossart@linux.dev,
+	peter.ujfalusi@linux.intel.com,
+	bard.liao@intel.com
+Subject: [PATCH v2 0/3] soundwire: bus: re-enable CLOCK_STOP_MODE1 support
+Date: Tue,  1 Sep 2026 11:03:08 +0800
+Message-ID: <20260901030311.232823-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 31 Aug 2026 17:24:08 +0100
-Conor Dooley <conor@kernel.org> wrote:
+Add CLOCK_STOP_MODE1 back to allow the peripheral to utilize it when
+the clock is stopped.
+This mode is designed for power-sensitive devices as it enables a deeper
+power-saving state, although it does not retain the peripheral's state
+during the clock stop.
 
-> On Sun, Aug 30, 2026 at 02:57:43AM +0100, Jonathan Cameron wrote:
-> > > > +
-> > > > +  clocks:
-> > > > +    maxItems: 1    
-> > > 
-> > > clock doesn't appear mandatory, what does it do?
-> > >   
-> > > > +
-> > > > +  '#io-channel-cells':
-> > > > +    minimum: 1
-> > > > +    maximum: 2    
-> > > 
-> > > What's the use case for actually setting this as a single cell? Kinda
-> > > confused by it.  
-> > 
-> > Part dependent, but I think we should just make them both take the two
-> > parameters and have the value of one of those fixed to 0 for some parts.
-> > Probably easier to understand that way at least.  
-> 
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ti,ads1263
-> +    then:
-> +      properties:
-> +        '#io-channel-cells':
-> +          minimum: 1
-> +          maximum: 2
-> 
-> This in particular is what I question. Two different devices having
-> different cells is fine, this one device allowing both? Nah. It should
-> be fixed to 2. The ads1262 should probably have it fixed to 1, as the
-> driver already does.
+v2:
+ - check slave->probed before looking at the driver to avoid NULL pointer
+   dereference.
+ - add wake_enable parameter to stop_bus ops to stop the clock but keep the
+   bus unwakeable during system suspend.
 
-Ah. I missed that chunk!  Thanks
+Bard Liao (3):
+  soundwire: bus: add CLOCK_STOP_MODE1 support back
+  soundwire: Intel: add wake_enable parameter to stop_bus ops
+  soundwire: Intel: stop sdw clock in system suspend
 
-J
-> 
-> >   
-> > > 
-> > > Otherwise, quite frankly, the binding is too complicated for me! I'll
-> > > have to leave it up to the IIO folks to cover whether what's being done
-> > > is sane.  
-> > 
-> > I'm rely on David to take a look :)
-> > 
-> > To me it looks mostly fine but a few odd corners where I'm not sure
-> > how things are supposed to work.
-> > 
-> > Jonathan
-> >   
-> > > 
-> > > Cheers,
-> > > Conor.
-> > >   
+ drivers/soundwire/bus.c              | 54 +++++++++++++++++-----------
+ drivers/soundwire/intel.h            |  6 ++--
+ drivers/soundwire/intel_auxdevice.c  |  7 ++--
+ drivers/soundwire/intel_bus_common.c |  8 ++---
+ include/linux/soundwire/sdw.h        |  4 +++
+ include/linux/soundwire/sdw_intel.h  |  2 +-
+ 6 files changed, 50 insertions(+), 31 deletions(-)
+
+-- 
+2.43.0
 
