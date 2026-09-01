@@ -1,60 +1,49 @@
-Received: from mta1.migadu.com (out-65.mta1.migadu.com [95.215.58.65])
+Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F16391825
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:03:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B777D38552C
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271429; cv=none; b=JdQpF4Z3lW2sYg55mH0r8dQ41yyRlLQLHe0jWzzwJcDTGV4hHRpLbe1NV6VeK4sg8eTq7dG25eeUbuF3le3Qh1GNg7Sj16Aygsz/0yHMZATFEsneD8lNvOOsRfabUgBl6021A2KXY+7srHSK7kIVCEmoZlbI/8kGzqJbK757n+w=
+	t=1788271439; cv=none; b=gJ3Sxumi8VKfcizGxDJTU6uZncR4odJF+NdDQ+W6U8RYKACV2kpKpcScEa8EQxFtJ8Uw0ilf6M57lARlxvMSgE3Iwuioc9ZN6xin5JWCclxc3uhyAmVlzQ2tOfdpPS8TS3xEGMjTATGGbt5d6m7kXMedS3PSaRgCW3CyEiKtb6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788271429; c=relaxed/simple;
-	bh=uDsuAnLNnU/9FbomYpxDpdOtNj5Fp6L1FTXJrLSwlZA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rGWSIH7lWPPqjIos57BFwwdxG2WL0KIKe2OIaTgOH1DXwJwe1oZ+bZvUvjyv41oJvoiMU6eIjLjvNJVtKkbV8vXK3cAHOMf9kOMr9EGyv7PZjwhEu+prEN0/dF1PCCR6FTsj5poMWcGomJMdz/SQZkbIH7WilNBoFeoMu2hpEOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=p1oz/paa; arc=none smtp.client-ip=95.215.58.65
+	s=arc-20240116; t=1788271439; c=relaxed/simple;
+	bh=nFoGK7xzSYqq0pGLmub7H78N8M/IUIz56nwCH/3Wu4M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tFyRd41UAJtLP1mBhznIDzvp5vJl7jy2YDMliscuE6E3rJbzctiMpDglmRiPtvzSx8pwPAR2/NXSJAQzlmOTev9GmJdfnRsBhjx448ehcgQDfHWum6J++N2qvFcSq7jBbVNav1xDSM15IvZq8Fw+/n1esnmLqJAfNa8ZgMtKi3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Dp0Xu22+; arc=none smtp.client-ip=91.218.175.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="p1oz/paa"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Dp0Xu22+"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uDsuAnLNnU/9FbomYpxDpdOtNj5Fp6L1FTXJrLSwlZA=;
+DKIM-Signature: a=rsa-sha256; bh=nFoGK7xzSYqq0pGLmub7H78N8M/IUIz56nwCH/3Wu4M=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788271426; v=1; x=1788876226;
- b=p1oz/paajAhGNzLBmF4XylwgnW/7Yu/qoh9wkZx1qEGK8OKOnrMUBfuUZPWqN+4fFUp4F55V
- UTGu9CPiL2phIMefKowiFzsvTyY5bzrFGehq5flVQR0+3FyhCzH6TWv7gn90rYdcVY2TtuGI63P
- Eow6vgi+R8KGo5xBY29hGi6M=
+ t=1788271435; v=1; x=1788876235;
+ b=Dp0Xu22+LnxfPFFIJzLD+j4wTKaDP/uXxGeCMQz0WEgPN7kV8jj7K80YPqdVSEl3si3MfXKL
+ nKAOSK463pyaKgF5txlo8MQwum52meBnNpMmfPb2phueQR08w7CUYzYOs1P8hOd/PPS/ihsCfvI
+ xYkol2AdIB/KsFeV2QuT0vX0=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 075fd54c7f0e61d6;
-	Tue, 01 Sep 2026 14:03:45 +0000
-X-Mizu-Trace-ID: 075fd54c7f0e61d6
+Received: by smtp.migadu.com with ESMTPS id 404391b07950eb01;
+	Tue, 01 Sep 2026 14:03:55 +0000
+X-Mizu-Trace-ID: 404391b07950eb01
 X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Quentin Perret <qperret@google.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org,
+	arighi@nvidia.com
+Cc: void@manifault.com,
+	changwoo@igalia.com,
+	michalblk@google.com,
+	liwanwu@kylinos.cn,
+	sched-ext@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Fuad Tabba <tabba@google.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>
-Subject: [PATCH v4 04/11] KVM: arm64: nVHE: Use NULL to reset the trace buffer backing pointer
-Date: Tue,  1 Sep 2026 15:03:19 +0100
-Message-Id: <20260901140326.3812068-5-fuad.tabba@linux.dev>
-In-Reply-To: <20260901140326.3812068-1-fuad.tabba@linux.dev>
-References: <20260901140326.3812068-1-fuad.tabba@linux.dev>
+	bpf@vger.kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH v2 0/2] sched_ext: document and enforce vtime ordering constraints
+Date: Tue,  1 Sep 2026 22:03:41 +0800
+Message-ID: <20260901140343.764080-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,31 +52,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bpages_backing_start is a pointer; resetting it to plain 0 triggers a
-sparse warning.
+From: Tao Cui <cuitao@kylinos.cn>
 
-No functional change intended.
+Patch 1 documents the rolling-cursor and half-range requirement for
+dsq_vtime ordering in scx_bpf_dsq_insert_vtime(). Patch 2 fixes
+scx_flatcg's comparator to use the cyclic comparison, which is
+correct there because cgrp_cap_budget() upholds that requirement.
 
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/kvm/hyp/nvhe/trace.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes since v1:
+- drop 1/2 (kernel priq comparator change): the cyclic ordering is
+  the documented contract; a plain comparison causes unbounded
+  starvation at the natural wrap (Andrea, Tejun)
+- new 1/2: document the rolling-cursor requirement instead (Tejun)
+- 2/2 (flatcg) unchanged
 
-diff --git a/arch/arm64/kvm/hyp/nvhe/trace.c b/arch/arm64/kvm/hyp/nvhe/trace.c
-index 65be6c9fb379d..5437ebb6dbd67 100644
---- a/arch/arm64/kvm/hyp/nvhe/trace.c
-+++ b/arch/arm64/kvm/hyp/nvhe/trace.c
-@@ -93,7 +93,7 @@ static void hyp_trace_buffer_unload_bpage_backing(struct hyp_trace_buffer *trace
- 
- 	__release_host_mem(start, size);
- 
--	trace_buffer->bpages_backing_start = 0;
-+	trace_buffer->bpages_backing_start = NULL;
- 	trace_buffer->bpages_backing_size = 0;
- }
- 
+Tao Cui (2):
+  sched_ext: document the rolling-cursor requirement for dsq_vtime
+  sched_ext/scx_flatcg: make cgv_node_less() wraparound-safe
+
+ kernel/sched/ext/ext.c           | 5 +++++
+ tools/sched_ext/scx_flatcg.bpf.c | 3 ++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
 -- 
-2.39.5
+2.43.0
 
