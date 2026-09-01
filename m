@@ -1,68 +1,69 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5AF432BF5
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:33:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6D8436BEA
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:33:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788276807; cv=none; b=JvHk5mc2BAdeNFCM+4xrOAiXL1SWTGsii2qLEW1X91ySfvBzdTbSYt8SD5pnkjbyInGxYZloej+HcdSA2qbMX3dEJasBd0GYPKYJNEbC0WMESUT8VOegHGsN0K9dvzGSPtEQXwLCrZTS6zNRDMe+PdoG5eoOHoKM1J0HuRBP+pM=
+	t=1788276811; cv=none; b=RqAqzIoO+JWmBqn8aPh6QujM4PPKgcSKAUpyN0UknN8TvbA5L08IwitNddLBeGu4btSbkWzu2/uylU2QkBhfsS/D3Rk5ch1qzTqnhN+bQIY9/dkou9klbsIuWqMm3eQ65KjdKYMKJLv+AAU6GFOvrw/kHRUys50m9LvsbIRbuZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788276807; c=relaxed/simple;
-	bh=265EXKY1LpSnh+xYZaVde+XE9Ub2EQ+extj0SjJz2p8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CBzUiXp1okpBSKplUYnAhL6dLFu+6Wn10UJXYds1m0b2fwjg6475CgKUIyiOgdk38A1mBFjNCDr5ElvXXAEJFq0cmBy0HWm0ZcWZOaKZDeYu39UUUzuf7kLLxn3LBV1eVoPP80xWv7O4mVZgjkRa0KCGF0r2cb1zdXJtjDvhw8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=LyOsI2RZ; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1788276811; c=relaxed/simple;
+	bh=gbqk612bcsgInYoFXSfKuUjKXJIWg/fCJSQ1WjRdZrs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=S2OLnBtzCpo8Va2HegHjsQdUpubtu8+uBtC5Bw7lyB+tMW70hoYkM7k4JlhFV0udNsY1tTDh/lM/2g4mAx+Wq3PdUTGsq7Jf7oZiJvAxC7ldAFp8wQZwvrRnVP0awi+uIEZYpHbpyz3ahnn65vPblu5Ci7QZL/5AmCkA6Jf5tjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=7JLCP6K+; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="LyOsI2RZ"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso11069185e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:33:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="7JLCP6K+"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso69923885e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:33:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1788276803; x=1788881603; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KFq2GkDfRXlsOR078AWttqIDotbtBYpQKPjXjcs2jO4=;
-        b=LyOsI2RZDXiDRwtRiRRUUjrEZxuzO8l+Klujx1y7iWjW7FSd+zSicoEFGLiRmuB7qg
-         9F1CE5opUA5O5aL4ukNBReiCx3dhTtEb13IQn+481gh6SOmDXy95o5SkIzXc8GiUnE/S
-         XjP9uvAN31jCRVdliuL+M/7jWohzG/ljAuUjKLaj79nIS85h+w2M0j2cu1I1Odhm+IjS
-         W4ZjGpDJG6Mepw/baA3+9Helpvr7wa61yGBg/GC2PQp1/La2biLgNAXxnEJcdl6BJHlc
-         6k/Np8CmsddhJ1Fz6354ulYP2apoO2ltR2V4pKz3q9eeEzeVQMIE9dDaGHfMg/iY7YOx
-         /F1w==
+        d=flipper.net; s=google; t=1788276808; x=1788881608; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y99lfkM4lfRyGnQf4vtEAa4xKTLI+p2p582CZw7DOpg=;
+        b=7JLCP6K+poeQj6VjerCNtkurAZ7gRlc6z2Gpk5F1YTmrmm8UyjlshY8284npZ1nvm/
+         tm00sfgUMnQ4j69vd00RBoSpqxmLv9DMrSFIjCBxig5MLp0JX9zQLS7XX7By9/2BZp52
+         DEszL552pOgraOvZIfimflYdcMJ9UZeB0MfddRAqSheq/1LIRpqJopnryWv36D/vhZjd
+         O/EN6Jm+ccrYkqledArNbF/9TUW4MzK6KFRV21Ccmf13RbGktOlPUqpdv3wpDjGjl9NP
+         NVQe8Jp4Dedj0gECrm+VSCwgh6iKcMCvTWuTxJ6pJSnRrQ5tLAeaKGEmawxijWyun8BM
+         9C6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788276803; x=1788881603;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KFq2GkDfRXlsOR078AWttqIDotbtBYpQKPjXjcs2jO4=;
-        b=JeEsvGTdQUU61wVMZa3wqjCdSs7qROPkqE+3iZInaUqts+XxOwh6Y9CSyXOzvkYSl2
-         sPChiknGPAo6gv6RpPNDcnRCvSlZb8JtyfaIx4Mt1kEqY3kYO/GhOLR+1j1olYPiN8Sq
-         pYj0ywEoVPmk2jh7aDmMt0RPbmx0NJsfhaLBLMC9O96gxNzkSUl7jJRHGrhaigxafcWm
-         FPN0P+uRVaIeo2NBvgsOkU/d4oicl7ShWx69Mp2uDldKSt5NS0cBmPMEh4HLJ2tjIQWC
-         qBcoHzSHABeRu58YKD1Af1m+GHQ+nWdjcSNWbgOJNITWFv0HCL+eqHTEX3Vsuf107NG3
-         bZzg==
-X-Forwarded-Encrypted: i=1; AHgh+RodmsZh5BJZ6IWSBQ5tGmkgPbYHpzkSwPirboqOhXcTqm2Lr5ukmh98kfpk+eOxfU6oUE+rrkn9kKSuyms=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbXzUEslpfnSn+g+VPYcOgkaSSctHg8X5MFDveyh8KeaNEkWZQ
-	dDJWRZeTaz+ufJNmQIl0NyNVkuAk41Yp2qwUYnwHpyjXdKoSxOfli7ppfPl7YPm9YmA=
-X-Gm-Gg: AR+sD12kPKjqxY3Wl1jdeEsm7PM64EsSN1q8zORdhylw9H5UXhtUOHCZRZ5tVc9vLPa
-	YK4/OM26qJeQIw0+bSihtLz/88E2Z+URhC1jPwhERjkYKp/MTzULPM8KsRxh0FXZK/gH6D9cg40
-	yDZTgW9Yp45rxdqgdsSauq7GgNOuYhrJXdadyeB+zBumHuwjWMRJuhi+/2zVYIpS40JlV9X9ScJ
-	8lNoINdPTH6UuOK9txXeh7TYeP6e8zkB4QrfPUZXv+Dsrpr/km5OvGtlG3yyavJ/6KdapbaNfeM
-	pJ6fnhi/pGAmZnTb4fdPwUwELf1gLh7QV4xPs8OiqSnBhGnYkIh1iP+xvsuRGOFK/1eW0+qXO9x
-	aczuCH1EpN6BiHeYTDuZu/81Vof6pA6FR1n/R5vGcsWc8wXcNEOCYfl4dLKZB3EvFncKsD8fEad
-	daqpugmBIM33Y4+viKCi8UE9PlgexXfTFhvwCAmOKvrAQw4PnKZerpY9dHA8nzJdga+YQIaF3Km
-	Khx74R792dGrFKEpn8fEzqAnIMuy2Z4NGOZ6zue
-X-Received: by 2002:a05:600c:4445:b0:499:900c:9c69 with SMTP id 5b1f17b1804b1-49b91c44fbfmr487364265e9.9.1788276801577;
-        Tue, 01 Sep 2026 08:33:21 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788276808; x=1788881608;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y99lfkM4lfRyGnQf4vtEAa4xKTLI+p2p582CZw7DOpg=;
+        b=OYb0oe13Hy65a2S5NCAfNRZpuWQjhgbKGqGqGjgz1mXWiFtw7vyWxFLlIuMLC6H5+J
+         P2ThgJII0ohMptNEelkLJFW3ZkMvxwxLFNaV1yEmmKZIC9ll0sRIOZQnLBgfj48puAor
+         zjvNX+zlNrdVuJolJTJHZofBlhBMg8zwRaAYnMPwEaX6iyBeW2C6EXX6Mp82BtOeEL/t
+         dc2tp2LGV1jCP7SJz8bDgZ5+/QrEFCGT8xxF/C7YJDjn0NMAenZ9mG8Bv/deO6fcBesp
+         Veu4zm3jE8FVLZRUhwLpaZfgHHxSOEgUm6dWEoC8yuxnInf6b3ypJq9DhE+Vbp4BkXtC
+         WWOw==
+X-Forwarded-Encrypted: i=1; AHgh+RqO0wgRlfRb/CFf/XgQb95SGPpyd/KVdiKV68rT1MxqtPkCtwmFmwYDhkOHSftFeOwv5TcSPRTIaoT5k5Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+gfFDuyTeb9xwhu6P4B8XKXQb6bXgXcnh18UWMrIGRvsLynDK
+	T4LH5GyPIAXb5o/R0/rgR9QYOPBpi0CI/Kb/MaUDsOry5LqD0XGJ8ce0i7xXhTqez9k=
+X-Gm-Gg: AR+sD13zqgUuEQk+u5GvfaEoX/G9KeCbv0o3LX5/6BkUYV28DMkzvRymHgbm+jUfHB4
+	6kjoeJs515RpK3+V4g93w74cYlc/tnzJpNz0qovOu5e51BCOp31+6Vav8rLnv+gthZZvIhlXrem
+	bpUaJv+M/pqaeHXCssDWUI/RqAsOX093ZTg93xxYuJS6YFRK8Qpv3Cx1cgm9snqBcOlD1jVloDE
+	UNsgwSsxsTj5XdYARpW37xuNT+EAGGzAROxb198yJXyAue58T5mJ29GTjAUcOAa5T4v7um88CzO
+	7pfVISPCcbsKLa6Cmqv3LNafhzNNuHp1XNH8Y7PjLqwvE22aCSijSDGkgzwDZtfzhtUjGtGy9Qa
+	5vlbq5CwdymGThZ2DuuBh5999Guh7GtRi9hXJQKIpDxUHbJcWIZhOAyIbyRz5T1ongxQYIk/q5E
+	DaWVsTv9CzGy80a7mmuUK/N7/2+cVlJbrAMm2wvwhNY5TE5OZ3EKrj+epDoAg9H94VEi/PHqlAv
+	q2GhVV0MT8CNG6dxzU55/JZnbHdyB9xqBGo5ozn
+X-Received: by 2002:a05:600c:4514:b0:499:900c:9c68 with SMTP id 5b1f17b1804b1-49b91c1f2a2mr561066925e9.6.1788276808041;
+        Tue, 01 Sep 2026 08:33:28 -0700 (PDT)
 Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c5790csm314541845e9.0.2026.09.01.08.33.18
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c5790csm314541845e9.0.2026.09.01.08.33.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:33:20 -0700 (PDT)
+        Tue, 01 Sep 2026 08:33:27 -0700 (PDT)
 From: Alexey Charkov <alchark@flipper.net>
-Subject: [PATCH 0/4] nvmem: Derive Rockchip MAC addresses from the OTP CPU
- ID
-Date: Tue, 01 Sep 2026 19:33:10 +0400
-Message-Id: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
+Date: Tue, 01 Sep 2026 19:33:12 +0400
+Subject: [PATCH 2/4] dt-bindings: nvmem: layouts: Add Rockchip OTP CPUID
+ layout
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,10 +72,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTvJ0CKCVyEscDrCaISmBWJCu
- DtFl2/x/wZRgkqEe7ZBkFWjTmNCfsmAh27sBdUlgyFTUk05hre93kqcZo/sF3X46Rgt12QK66i
- qCkipD/LU72/btH/H5fESns8X7PsBL2E1JXgAAAA=
-X-Change-ID: 20260901-rk3576-otp-cpuid-mac-3c90243d0884
+Message-Id: <20260901-rk3576-otp-cpuid-mac-v1-2-ea9135270fc2@flipper.net>
+References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
+In-Reply-To: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
@@ -83,69 +83,143 @@ To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- Alexey Charkov <alchark@flipper.net>, stable@vger.kernel.org
+ Alexey Charkov <alchark@flipper.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2718; i=alchark@flipper.net;
- h=from:subject:message-id; bh=265EXKY1LpSnh+xYZaVde+XE9Ub2EQ+extj0SjJz2p8=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWRN+2DnU7Gh6/4Mn5hdmn/laj6bZar7X7yrwmsYVtp9/
- JG/1cKujoksDGJcDJZiiixzvy2xnWrEN2uXh8dXmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
- 0EjHWMeIgYtTAKaaK5Lhf+m3u0Wrlz8oMrOT3VPHc+n2ojDpS7MyCstc1CsldpW2uzAy3A/u0Lg
- +/+CNNxViTpySi7QueS68sTeWTV8pb6vMZcYsNgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4722; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=gbqk612bcsgInYoFXSfKuUjKXJIWg/fCJSQ1WjRdZrs=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWRN+2D3v1K22fvkdJVbDxKZnF9mnVq/kkvolMicZTaX7
+ QIyz85f2TGRhUGMi8FSTJFl7rcltlON+Gbt8vD4CjOHlQlkiLRIAwMQsDDw5SbmlRrpGOmZahvq
+ GRrpGOsYMXBxCsBU33nJ8D989rzHab8Fn9z54BMt9Uc94njWGqs9CbaFRes+XlHyaUtk+F+2+1e
+ mt2/TpsJLnq5vdR7P/BB8z3CehuKO3MK4D/+aKhkA
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Rockchip SoCs are shipped with a unique CPU ID in their internal OTP
-memory, and Rockchip bootloaders use it to give boards which have no
-dedicated storage for a MAC address a stable one anyway: they hash the CPU
-ID and patch the resulting addresses into the device tree they hand over.
+Rockchip SoCs ship with a unique CPU ID programmed into their internal OTP
+memory, and Rockchip bootloaders derive Ethernet MAC addresses from it so
+that boards with no dedicated storage for one still get a stable address.
 
-Kernels started without that fixup, e.g. straight from the SPL in Falcon
-mode or by any other loader which does not implement Rockchip's derivation,
-fall back to random MAC addresses which change on every boot.
-
-Formalize the derivation in the DT binding and add a Linux kernel driver
-implementing it, so that a Linux image can use the same stable addresses
-regardless of the boot flow.
-
-Only RK3576 is wired up here, that being the SoC I can test on. Other
-Rockchip SoCs keep the same CPU ID at a different OTP offset - 0x7 rather
-than 0xa on RK3588, for instance - which makes supporting them a two-line
-addition to the driver's match table plus the layout node.
-
-Patch 1 is a prerequisite fix. The OTP hardware has its own internal state
-machine which only works correctly with serial access, but the current
-driver serializes nothing, which results in timeouts and/or corrupted
-reads (e.g. returning splicing a TSADC trim value into the buffer of a
-caller asking for the CPU ID, or mixing up trim values of different TSADC
-callers). Hence the Fixes: tag and Cc: stable.
-
-Cross-checked on an RK3576 board: the addresses fixed up into the FDT by
-U-Boot match the ones derived by the new driver, and the driver correctly
-assigns them to the network interfaces when the kernel is booted without
-U-Boot proper at all (via Falcon mode).
+Describe that derivation as an NVMEM layout, so that the resulting
+addresses become available through the standard nvmem "mac-address" cell
+whether or not the firmware got a chance to patch them into the device
+tree. Keep the compatible SoC specific, as the location of the CPU ID
+within the OTP memory differs between SoCs.
 
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
-Alexey Charkov (4):
-      nvmem: rockchip-otp: Serialize reads
-      dt-bindings: nvmem: layouts: Add Rockchip OTP CPUID layout
-      nvmem: layouts: Add Rockchip OTP CPUID layout driver
-      arm64: dts: rockchip: Derive GMAC MAC addresses from OTP on RK3576
+ .../bindings/nvmem/layouts/nvmem-layout.yaml       |  1 +
+ .../nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml   | 73 ++++++++++++++++++++++
+ MAINTAINERS                                        |  6 ++
+ 3 files changed, 80 insertions(+)
 
- .../bindings/nvmem/layouts/nvmem-layout.yaml       |   1 +
- .../nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml   |  73 +++++++++++++
- MAINTAINERS                                        |   7 ++
- arch/arm64/boot/dts/rockchip/rk3576.dtsi           |  12 +++
- drivers/nvmem/layouts/Kconfig                      |  13 +++
- drivers/nvmem/layouts/Makefile                     |   1 +
- drivers/nvmem/layouts/rockchip-otp-cpuid.c         | 119 +++++++++++++++++++++
- drivers/nvmem/rockchip-otp.c                       |  10 ++
- 8 files changed, 236 insertions(+)
----
-base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
-change-id: 20260901-rk3576-otp-cpuid-mac-3c90243d0884
+diff --git a/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml b/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
+index 382507060651..ab94dbb41aac 100644
+--- a/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
++++ b/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
+@@ -21,6 +21,7 @@ oneOf:
+   - $ref: fixed-layout.yaml
+   - $ref: kontron,sl28-vpd.yaml
+   - $ref: onie,tlv-layout.yaml
++  - $ref: rockchip,rk3576-otp-cpuid.yaml
+   - $ref: u-boot,env.yaml
+ 
+ properties:
+diff --git a/Documentation/devicetree/bindings/nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml b/Documentation/devicetree/bindings/nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml
+new file mode 100644
+index 000000000000..85153d480950
+--- /dev/null
++++ b/Documentation/devicetree/bindings/nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml
+@@ -0,0 +1,73 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NVMEM layout of the CPU ID in Rockchip OTP memory
++
++maintainers:
++  - Alexey Charkov <alchark@flipper.net>
++
++description: |
++  Rockchip SoCs are shipped with a unique CPU ID programmed into their
++  internal OTP memory. Rockchip bootloaders derive Ethernet MAC addresses
++  from it, so that boards which have no dedicated storage for a MAC address
++  still get a stable one. The addresses are computed by hashing the lowercase
++  hexadecimal representation of the CPU ID with SHA-256 and taking the first
++  six octets of the digest, with the multicast bit cleared and the locally
++  administered bit set.
++
++  The location of the CPU ID within the OTP memory differs between SoCs,
++  hence the SoC specific compatible.
++
++select: false
++
++properties:
++  compatible:
++    const: rockchip,rk3576-otp-cpuid
++
++  mac-address:
++    type: object
++    description:
++      MAC address derived from the CPU ID. The first argument of the phandle
++      selects one of the two addresses that can be derived (can be 0 or 1).
++
++    properties:
++      "#nvmem-cell-cells":
++        const: 1
++
++    additionalProperties: false
++
++required:
++  - compatible
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/rockchip,rk3576-cru.h>
++    #include <dt-bindings/reset/rockchip,rk3576-cru.h>
++
++    soc {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        otp@2a580000 {
++            compatible = "rockchip,rk3576-otp";
++            reg = <0x0 0x2a580000 0x0 0x400>;
++            clocks = <&cru CLK_OTPC_NS>, <&cru PCLK_OTPC_NS>,
++                     <&cru CLK_OTP_PHY_G>;
++            clock-names = "otp", "apb_pclk", "phy";
++            resets = <&cru SRST_OTPC_NS>, <&cru SRST_P_OTPC_NS>;
++            reset-names = "otp", "apb";
++
++            nvmem-layout {
++                compatible = "rockchip,rk3576-otp-cpuid";
++
++                otp_mac_address: mac-address {
++                    #nvmem-cell-cells = <1>;
++                };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b91655b34f0e..b35b3677bf0b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23713,6 +23713,12 @@ F:	Documentation/userspace-api/media/v4l/metafmt-rkisp1.rst
+ F:	drivers/media/platform/rockchip/rkisp1
+ F:	include/uapi/linux/rkisp1-config.h
+ 
++ROCKCHIP OTP CPUID NVMEM LAYOUT DRIVER
++M:	Alexey Charkov <alchark@flipper.net>
++L:	linux-rockchip@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml
++
+ ROCKCHIP RK3568 RANDOM NUMBER GENERATOR SUPPORT
+ M:	Daniel Golle <daniel@makrotopia.org>
+ M:	Aurelien Jarno <aurelien@aurel32.net>
 
-Best regards,
---  
-Alexey Charkov <alchark@flipper.net>
+-- 
+2.54.0
 
