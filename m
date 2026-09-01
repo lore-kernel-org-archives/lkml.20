@@ -1,73 +1,78 @@
-Received: from sg-3-27.ptr.tlmpb.com (sg-3-27.ptr.tlmpb.com [101.45.255.27])
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA22367F5E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:21:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4FC442392
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:22:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788250922; cv=none; b=GMB7u6ZMeDTSvunY633Qph3MKgUB2PYCFp233p3djjCuRt3m5I2vV/Ct5P4p/0Bx4lFWQaboJCxm6Fwi54rvXorD5VM6wSE4wOFvGgUSrZYTTrcFH6PLaAMHzY9FRbCK5pz+9roJvtE+7A+vrCqyr+x/IQrH8k4Td8qv8/CiVRk=
+	t=1788250925; cv=none; b=a+FdMtFw/L1rizNowZWgHqf3zYkmnSBeZI+F9AKD1tWEgNBAP40a7seu8YY+G2CrXqvJJeUCaaglCRXyOg1beANepig+Dq1e2MygYp+BTjvZrh0NGRTES5FwBJSgj3Iiq5zzBnYELtG2Xp8Wb0FSmNo+rGWCMQez2VZRxGR8iDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788250922; c=relaxed/simple;
-	bh=Tf++B65BqI9goJyWRFQD12XSAHLb8zatZrIZcNoy2zE=;
-	h=Subject:Date:References:Message-Id:Mime-Version:To:From:
-	 In-Reply-To:Content-Disposition:Cc:Content-Type; b=DJ8N/nseDuH4OUfps6trdUjXYvX59ywOh62Tcib7Hm2ciCdUJ6RIdT5m+82Hh3XmhAdc2A4C0RlZYUAHvfBfcDXmAPDaZ+oCQLJKRQCVkfD/i9TtK9eNsjNqquXCH+dvrIeK5djmZ2iadWaXcrtQ8SJ4KVVKiZ+UWZfRQ5Oz9E0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=RTgwB7yy; arc=none smtp.client-ip=101.45.255.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="RTgwB7yy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1788250868; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=3EU+WyNrIBc1ywamQPHDaiJRGwSjOx0FUX2meGEGOtI=;
- b=RTgwB7yy3RUB2V2Y0V/Ev+NQIiTFkN1gPRfmsFJ5Q7N/L8RhjAjZMz1EJWD3dELqz1cR75
- Cf1if9MVfxaoY9TOx8iVtvEwqI/hyIAPzLEEijPBmO+papDf+MNjRCUiCoYUEoIq/UFFP2
- gKM3R5pD3DOKDarzfQCQR7sI6YTB0hRASmY64DbsQjliethOZ1lh1v0X5kN33W+dvnOIsh
- LiUvySASzQKQzIzlzkT62CSGlAEgAYTS4y0ZZOdg2Z/doQGRvWvyS7zZGiwTel8x2PMrXf
- lEYv5C09wAeZJWDqqrK4crE9oTxSCVj0YkmgzcaBDSwfXrGUoEfv7cYJtfOTTQ==
-Subject: Re: [PATCH] iommu/sva: remove iommu_sva_present flag
-Date: Tue, 1 Sep 2026 16:21:02 +0800
-References: <aoq8VGFL/Mdjd/M5@hostpc> <20260827131025.GF1449020@ziepe.ca>
-X-Lms-Return-Path: <lba+26a968af2+bea163+vger.kernel.org+liuzhaoyu.zackary@picoheart.com>
-Message-Id: <apaK7okXkiSLwspN@hostpc>
+	s=arc-20240116; t=1788250925; c=relaxed/simple;
+	bh=q2ef4aVgRZ0IRRYARvgwN/BgJu11vID21E9V5Gms9O4=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Z3n5ZFbx/P9Sfop3cdGYcL8WQXpd0u5qJZeAtW9IsLAJBWcWGOopXOqXV5pH5I5HSyGuJZ309DSNhfs1hp+OIKEzv28qjA/K5Td9i+pm8Sgh1iOHeghP08DC117K4k5Orw4mu/cb4ARioXeXmgO11KPX2eamL9bwLy2tOPPVKAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b1478e3546so516860eaf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:22:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788250922; x=1788855722;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Fxsg3tyZFfDboYC1KLQNAGrb0RmxM442yXMbJyS8HSI=;
+        b=ISgQQ0vQy6zLzvK2M3/gxbL68oYYw2DKI7amRZvGNgKJSBxyz8UArPTOg2rvRWq3dk
+         rDJMQok9yQcoD6mrIOqTm0OxM8bDfBxm9cHt3a2scCSgAbNZxGnQ8mcZRLBr9FJ/qe5M
+         7CXfv+R2dL9YXbIq1V9hCc27YpGo19hAmU/2IGmPmKeb3fZAubIPDHTvOWbKOvOmEU82
+         4+0zHw5ARDAUJiMZ1ZF3Zz4E+Ar/EyUns3WzHU/2HKoJp5iYP6YoEW33J3FznGvs/wKs
+         eqQCwFAE0LHA2HfwkTgz1BQuXgB++dEv51GKBBp5rxrx649Nuza6G4oF9x8FRQSz47Hc
+         UK3g==
+X-Forwarded-Encrypted: i=1; AHgh+RqvJi2A5ORzDklvQXwbnwykuHNmEIK133Crri95C/RV+8nF0mnub791+hO9S5T9ttA9F77eF70gqdI7fMs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lj/EydEdLuCKMpIYXb+UkvIY3m5PBA263XyfjZS8jkE3fS0MvT
+	pTTKecBPoaywDBYJ6K7pX2qiEJ0lNaAptRB99Gs/LJQ0OTmVHmsnCZMTu/laXzhnE+pCANnXrVd
+	6a0TTTh+4SPQ7eTv6JW9tNngFwVxaV7pIzxBKQ6VyeD11jiW1zUANsogGxF4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
-To: "Jason Gunthorpe" <jgg@ziepe.ca>
-From: "Zhaoyu Liu" <liuzhaoyu.zackary@picoheart.com>
-In-Reply-To: <20260827131025.GF1449020@ziepe.ca>
-Content-Disposition: inline
-Cc: <joro@8bytes.org>, <will@kernel.org>, <robin.murphy@arm.com>, 
-	<baolu.lu@linux.intel.com>, <iommu@lists.linux.dev>, 
-	<linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Received: from hostpc ([183.129.139.234]) by smtp.feishu.cn with ESMTPS; Tue, 01 Sep 2026 16:21:04 +0800
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:7049:b0:6b1:a812:9871 with SMTP id
+ 006d021491bc7-6b1c66855d6mr31267352eaf.18.1788250922028; Tue, 01 Sep 2026
+ 01:22:02 -0700 (PDT)
+Date: Tue, 01 Sep 2026 01:22:02 -0700
+In-Reply-To: <20260901014303.417027-1-junjie.cao@intel.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a968b2a.08473e0e.15b4ac.0000.GAE@google.com>
+Subject: Re: [syzbot] [mm?] INFO: rcu detected stall in exit_to_user_mode_loop
+From: syzbot <syzbot+2642f347f7309b4880dc@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, cgroups@vger.kernel.org, davem@davemloft.net, 
+	edumazet@google.com, hannes@cmpxchg.org, hdanton@sina.com, horms@kernel.org, 
+	jackmanb@google.com, jhs@mojatatu.com, jiri@resnulli.us, junjie.cao@intel.com, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	mhocko@kernel.org, mhocko@suse.com, muchun.song@linux.dev, 
+	netdev@vger.kernel.org, pabeni@redhat.com, roman.gushchin@linux.dev, 
+	shakeel.butt@linux.dev, surenb@google.com, syzkaller-bugs@googlegroups.com, 
+	vbabka@suse.cz, vinicius.gomes@intel.com, ziy@nvidia.com
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you, Jason.
+Hello,
 
-Hi joro, will, robin, baolu,
-could you help merge this patch?
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Thanks,
-zackary
+Reported-by: syzbot+2642f347f7309b4880dc@syzkaller.appspotmail.com
+Tested-by: syzbot+2642f347f7309b4880dc@syzkaller.appspotmail.com
 
-On Thu, Aug 27, 2026 at 10:10:25AM -0300, Jason Gunthorpe wrote:
-> On Sun, Aug 23, 2026 at 05:24:36PM +0800, Zhaoyu Liu wrote:
-> > The global iommu_sva_present bool merely mirrors
-> > !list_empty(&iommu_sva_mms) under the same mutex. Remove it and rely
-> > on list_for_each_entry to handle the empty list case, which is a no-op.
-> > 
-> > Signed-off-by: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
-> > ---
-> >  drivers/iommu/iommu-sva.c | 14 +++-----------
-> >  1 file changed, 3 insertions(+), 11 deletions(-)
-> 
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> 
-> Jason
+Tested on:
+
+commit:         abdf623d Merge tag 'wq-for-7.3-rc1-fixes' of git://git..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=123d1379580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=9cc692b98d9b4fdb
+dashboard link: https://syzkaller.appspot.com/bug?extid=2642f347f7309b4880dc
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=16f7eb79580000
+
+Note: testing is done by a robot and is best-effort only.
