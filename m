@@ -1,74 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4EE4772AA;
-	Tue,  1 Sep 2026 09:21:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D29E479863;
+	Tue,  1 Sep 2026 09:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254496; cv=none; b=QtBHSqJUMAX0DwmfM2kJM4HoBPWtjLDNMtbe9Mwk5ghgTNEHhQk6hgQED99fjEsOVdE/x8lNHw5U1Tn2tQBDs6Vl1X2sm9+JGsUo5AuzQew2c9GaHVPBBddFPJDVBvlmKTAgPzp1gmryfsRJQ4L3gQwc5vD8s6yVMZI/P3/a3qE=
+	t=1788254500; cv=none; b=Aa15WgKGApR5/JQYXEUWEH/JjSUhgxUHBDn2KqMkJBC5P15gPGC0AoghuE0RgjDkunnpbtFnrXgsrtSugbXt6r5MJ6zTH9TQQza4ppD4/ceAZiHh9OheUWyQaF2D4wod4lXWkkT9cmectZQZ20/ApbNGNZrZX5MQ/dGsMxvdjW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788254496; c=relaxed/simple;
-	bh=/tZHkUlwdSISi5MyQBg0Km9NujEW/9lk5PJwr5sbh7E=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=sii8XYoiVYDXfj6KNOvxcqLX4Wmv4umsCXkRpJ79m+3bUtN21IlVQ34955yHoPCYsrkDWwxhk7f6kNdefXM3iw5rZx0kJ/kduSISziyFd/g1ppj2aVX7Kox4jMGQlgqgOZrQe62VFze3buHuuv0ffXW7HdfpXgxQF2TKeYRMrRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K/VCIBHW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788254500; c=relaxed/simple;
+	bh=d//sRRyeATR2XER8C63DKurn876rElyS0ew2RlJKmyk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ct3Rh5Whysog7ZxcnN8t/he3zFzChu6cYCJ6/xV4AgU+biPChzDtJuBjgBeF6iJv64FSInPFiG0hsYzawxfYs77M4G87QjvgdzRe0cJXVCbaLm1p6ue+zCq0+N2DrS0hENFeA6T2nNDqyqRdKaPOY7M7TG/J2mf96bsxnM8fVA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tFZaD8Oo; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K/VCIBHW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D638F1F000E9;
-	Tue,  1 Sep 2026 09:21:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788254494;
-	bh=/tZHkUlwdSISi5MyQBg0Km9NujEW/9lk5PJwr5sbh7E=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=K/VCIBHWA2t8P5IJ8hcGIYi4QmT6lkyrp9mDjv+1X48yoTIjv72N875msAHTJoGfp
-	 9PRP1ThkDcm1YAlsInZvU8RQJzSQ8Dq02LP5jFzkLfCHQ/3pQBhNSH9am6QxEa3E4N
-	 jHWu0b8HJ3jOFbkPUHxNpF5KVnizyOn5ytWmfUpLlVaJFV5CJ9YQPYfAowCL+tQ18o
-	 ShkZmozyvxCmtBAcztRF04+qCpHmp/hq1PWy7vEdYKpUPQPmg8wH7Q73LMvBZ8V+Mz
-	 Ydr7aKRW2rfdncJYxCi7Z39NcRpMOqXSqoUE7YJ9cuBngYjw0F9peQUBQYfhCmjkim
-	 ekxAwZXrN305Q==
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tFZaD8Oo"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A380C1692;
+	Tue,  1 Sep 2026 02:21:34 -0700 (PDT)
+Received: from [10.57.7.38] (unknown [10.57.7.38])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 461E13F882;
+	Tue,  1 Sep 2026 02:21:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788254498; bh=d//sRRyeATR2XER8C63DKurn876rElyS0ew2RlJKmyk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=tFZaD8OomT/iBVMAGMTFX2gOOiDx9+faBP6Bu9/PxfBU5aQdrs4A/uRdFNPjZYhGV
+	 lx2S3pjy1cYj8gr76k1bL3/U/0njq8fbKjy9pUshI1Xg4QqXwxOMUcFHXw3bRm7LQo
+	 opNf+lP+KnVLOvnObXaXf5iEz7AJm/P/2ZVDSkd0=
+Message-ID: <16f40b06-e871-4921-bbc6-42637c63e6bd@arm.com>
+Date: Tue, 1 Sep 2026 11:21:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 0/4] arm64: mm: Map fixmap page tables read-only
+To: Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, Ard Biesheuvel <ardb@kernel.org>,
+ Ryan Roberts <ryan.roberts@arm.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Liz Prucka <lizprucka@google.com>, Seth Jenkins <sethjenkins@google.com>,
+ Kees Cook <kees@kernel.org>, Jann Horn <jannh@google.com>,
+ linux-hardening@vger.kernel.org
+References: <20260827164409.3421848-6-ardb+git@google.com>
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260827164409.3421848-6-ardb+git@google.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 01 Sep 2026 11:21:30 +0200
-Message-Id: <DL3VB7MC42DA.1I87BPBGNIVR4@kernel.org>
-Subject: Re: [PATCH v5 01/11] gpu: nova-core: Add public driver API to
- nova-core
-Cc: "Gary Guo" <gary@garyguo.net>, "nova-gpu" <nova-gpu@lists.linux.dev>, "M
- Henning" <mhenning@darkrefraction.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Alexandre
- Courbot" <acourbot@nvidia.com>, "Benno Lossin" <lossin@kernel.org>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-To: "Alistair Popple" <apopple@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-2-apopple@nvidia.com>
- <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
- <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
- <apZ3_o8hxlMr6SoP@nvdebian.thelocal>
- <DL3SM4UA1QC5.3KA2M1DE6F0F7@kernel.org>
- <apaVyXAV7GvE6_ld@nvdebian.thelocal>
-In-Reply-To: <apaVyXAV7GvE6_ld@nvdebian.thelocal>
+Content-Transfer-Encoding: 7bit
 
-On Tue Sep 1, 2026 at 11:13 AM CEST, Alistair Popple wrote:
-> Reason it compiles is because the the Gsp has no lifetime parameter in th=
-e chain
-> to the mutex:
+On 27/08/2026 18:44, Ard Biesheuvel wrote:
+> From: Ard Biesheuvel <ardb@kernel.org>
 >
-> Gpu<'a> -> GspResources<'a> -> Gsp -> Cmdq -> Mutex<CmdqInner>
+> This v2 now covers intermediate level page tables as well as the PTE
+> level page table for the fixmap. The latter is a special case, as it
+>
+> a) is only accessed via the kernel image's mapping, and never via the
+>    linear map (except for ptdump etc)
+>
+> b) must be accessible via a read-write mapping, as all manipulation of
+>    read-only page table descriptors relies on the fixmap itself
+>
+> and so it is treated separately. The intermediate page tables may be
+> shared with other mappings in the upper kernel/vmalloc region, so they
+> must be updatable using the ordinary APIs.
+>
+> Build tested and boot tested on a Lenovo Yoga C630 using 16k pages.
+>
+> v1: https://lore.kernel.org/all/20260805104042.1107678-2-ardb+git@google.com/
+>
+> Cc: Ryan Roberts <ryan.roberts@arm.com>
+> Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+> Cc: Kevin Brodsky <kevin.brodsky@arm.com>
+> Cc: Liz Prucka <lizprucka@google.com>
+> Cc: Seth Jenkins <sethjenkins@google.com>
+> Cc: Kees Cook <kees@kernel.org>
+> Cc: Jann Horn <jannh@google.com>
+> Cc: linux-hardening@vger.kernel.org
 
-Ah, that's on me then, I applied [1] before your series.
+Looks like the Cc's didn't propagate to the actual patches, fortunately
+my lei filters did catch this series ;)
 
-In any case, I think we should not write all the code assuming covariance
-regardless. Once we do some more series stuff in nova-drm, we will need mor=
-e
-locks in nova-core around types that carry device resources.
+Either way I quite like this series, it's an elegant approach and it
+should increase security without overhead, what's not to like!
 
-[1] https://lore.kernel.org/driver-core/20260830193824.471089-1-dakr@kernel=
-.org/
+I also considered it from the perspective of kpkeys protection [1] and I
+think they should work together fine. The kpkeys series still allows
+page table setters to write to all page tables, so if we get a fault
+there it must be because the target is read only, and not because of a
+pkey fault.
+
+- Kevin
+
+[1] https://lore.kernel.org/all/20260818-kpkeys-v9-0-743ad31b2c8f@arm.com/
