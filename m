@@ -1,46 +1,46 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013003.outbound.protection.outlook.com [40.107.162.3])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010055.outbound.protection.outlook.com [52.101.84.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F7E3B14C3;
-	Tue,  1 Sep 2026 19:35:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D2B3BAD93;
+	Tue,  1 Sep 2026 19:35:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.55
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788291321; cv=fail; b=tpqBODoz05PmXD10ApXzbp1ZDiHLtYZeO5Xm7a7pXwPRHsGilgNmKoWgffvyykhtZ7OZNJxW19sFYbUKxWE88qbCddovq6mTYnZ7zF402try1NrFckxLih3lipL+IgwVKdwVkZQ0Dc9NqKX4naJDfiTQ9XUmNQuZWKt7pc6g6bE=
+	t=1788291322; cv=fail; b=UHDpVeE9HBO0DB28F0PxIgYpI3q/8BdwYOEnuUNH2Pp6fGHsM0CwUhHjR97BEq597ccXGDC+rrUQTMUm9SQeq+7Ob5eF+t92hhUAiCKeOsTqYlCA8JXRnQhV1vml9RpQXJeuTENZ6lU4nMSqlXbiUma3VoX/ATC0PkPBPLrioWo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788291321; c=relaxed/simple;
-	bh=d8UtFGhCKlrndjnEqLVIopAvyFoYXujS3Zju61xMwbY=;
+	s=arc-20240116; t=1788291322; c=relaxed/simple;
+	bh=6MVF0f+1FHPa5F7U4kW5QTIA8tYSuj/mGN6Mt8ccexw=;
 	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type; b=N/2aYoO5vXfM4VJnV65Wu7y56lK/W3CSlwuy5wzx0F8nedz8Fx75kLE1YKZ4/QgknHE8LPl1zNDSVNaGhh65S/IggorIVSzMGXFJzI1WhKZEPbrRcSFOUrNBnKA/8/nOtQLVOVYAJEV3E/RitXJ//rwJb/9IrpYSAO3AVsznu9c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=lndLRqb6; arc=fail smtp.client-ip=40.107.162.3
+	 MIME-Version:Content-Type; b=fXmf+AwSlg60y/+7TeH4Vfd0WLTwBPhJJAWIk2eUUgipp8fXfvMrFONzrcd3AJ0WPRSDO2RIx3K1zp22sUKxhjwZ7p2dxJ5XY4/B+i3IGHrlPMMCZNILf56VbGHMjcLCBPiR3raNcABpNZQJ60XZZlAEJRdytFnEQNGfDxcHavA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=DaO/ZQdO; arc=fail smtp.client-ip=52.101.84.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="lndLRqb6"
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="DaO/ZQdO"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z26xtEUpyzWT1Rhrpl8UsJBQ5BXawOqU0rHchpwAeAfE9+mKEpIX7XfrE/5RD3PCNaL1budEz5B5RZbpORys0jbPw7XYrGMtYXys+DXx3nqHoNlm8kfAFO57ZcECFJdjw66ksAmLwvjzTBw23zly2/Qtih5Mi/JoBEp5vbekoAdKubPxATZ3cPtRR9hLz2UJG6eMpB7gGhxAAIkEiHuhnpPs0kgWEaaZB1UYny117olLe2PQrQbhJEgR0Fd0OMTUjJcE9DkV5J72lgbqtVGxCRow7QDdd0dyxWx4dBe9e7KtQlX+VG90G5eR+E8GC8WvB4Dpl2Z8S7UnK4mTKA+TAw==
+ b=cynkDZwUau1cOMANlVzu9x/nmK69Fu87drJGCSCzYyLzcLX6ipl8QqG6iZN6l7/jd3Iki0e53yrBXowK+oHE/WjNOxHXgeoGvstKO0in5/RWwQ20j1XT/yONrK9zt3Lp6WKMOQJDV8JRYBlgEPlT2HaxI4YmMTTeS5KipYQOsIHYyU7NIpxdRcuXSTK5K1rEsdkHjPYsZUcn8LRIG+/R0KmK9qtvfQ0gp3+2hPPaa5ZK7RzYE2gn3Ki2of21b3j4egv3NywZtoB7LQMzRZ3R564M94FCwtqTp/z398fe0ymEPoMo/oWmBuTAtXBiw3UP8EntRjBtQEYiv+Qywh9EuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jzTUb9p1hZCrUESSAaiQiN8kC9H0miHDys9hPRIFl18=;
- b=dWsW4jxOSrjuHn94iLkWftJLn3KTc5NIk9zHoIMem7c57WDcCu2gIYKQwCVoWhpH45mtfADN97PmLN4kCGe+lBN5HHySD9c5tQid3CefFbt1FAB6562/wJuI3E8CcxQZKAwajqZ0IKncTYGn3MEQ+Scc0RsZXmJZTrZ3LpoTTfq36Awb59SF7tsrIbmIo9GxIo8AWxEqko2QkkvR6jCMCJE9w/SwPsSW9VR8AM6vCVxgjbsWywErZbtZXGUWbJai4n9H76m7NL63Bc1GQYZtPtwbvf1NKkLqqVqllcJBJujmpKO5LHTzvwIapV9uvb2Xw6fEcq+GQ2k9uTk1En3RSg==
+ bh=2C+XE3+qadrmpj2B/fnprpwPK1fOBtC/NyBYVWoJDvc=;
+ b=YNqG6nifkFilFQ22t1XimKXm85wVzbB+ESQFaXCIoq5gDhT1evQWzJoFbdi89MuPg1ulDxiylJ9pUzKXtXhjYb7woYXiE/qh+dt7rpYxUs+Cs37qRTbfBhoI47gMUqEaQ8EuJVX964g9NMa8hWuHsAfGvWK34oeVNFE6vXqW9AhytrYdXm3omoGSQb1xdVa53e/DycO8S9aGF5JYzf6lrqGyUZZfpC0ltJEjjrEvmwzpzIheNx1sHOW4R4DMAvgixZcMU6u7k/lpFdBnul4QQMp/orzHlY0FEhqjupSG5t0K4ZfjO80hkV+Stq+JTMyyZFoBECammt50PLNA2MubAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  195.60.68.100) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=axis.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jzTUb9p1hZCrUESSAaiQiN8kC9H0miHDys9hPRIFl18=;
- b=lndLRqb6bj83LaLjVN1wPejxygfg9ONVbtbUhD+USWG8X2mMFgWOCj6Hlwbc4UuSNfMJGFgzEFmDJBYEVZXRQ3jahdqQ0biaQjtCSRM6pX3+Uj3mfEy0+b5wL37UI5KhV8M+xlcoeUsZ5k4Zma2MU+WbdM55Yckq/BymXN1Pyx0=
-Received: from AM0P309CA0010.EURP309.PROD.OUTLOOK.COM (2603:10a6:20b:28f::17)
- by VI2PR02MB10950.eurprd02.prod.outlook.com (2603:10a6:800:27d::5) with
+ bh=2C+XE3+qadrmpj2B/fnprpwPK1fOBtC/NyBYVWoJDvc=;
+ b=DaO/ZQdOvcW17Y+fHIdppfxSMgZlUHgHDzPrhwSG7pfmZ/8zQYzcg9+mMyxCxK61R5aQIaSGoRZ2btEMpJp07rtaX2E8mt5oZxKlc5eBkIxDWyVHD/WC3yawY1ySQwc4zus8is/JwHqR9vwHLV1sFi05mD4U4sI74l8H+Rfd+B0=
+Received: from AM0P309CA0012.EURP309.PROD.OUTLOOK.COM (2603:10a6:20b:28f::19)
+ by DU0PR02MB8387.eurprd02.prod.outlook.com (2603:10a6:10:3b5::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 19:35:13 +0000
+ 2026 19:35:15 +0000
 Received: from AMS0EPF00000198.eurprd05.prod.outlook.com
- (2603:10a6:20b:28f:cafe::81) by AM0P309CA0010.outlook.office365.com
- (2603:10a6:20b:28f::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
- Sep 2026 19:35:13 +0000
+ (2603:10a6:20b:28f:cafe::26) by AM0P309CA0012.outlook.office365.com
+ (2603:10a6:20b:28f::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.1 via Frontend Transport; Tue, 1
+ Sep 2026 19:35:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 195.60.68.100)
  smtp.mailfrom=axis.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=axis.com;
@@ -50,22 +50,22 @@ Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
 Received: from mail.axis.com (195.60.68.100) by
  AMS0EPF00000198.mail.protection.outlook.com (10.167.16.244) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 19:35:13 +0000
+ 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 19:35:15 +0000
 Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Tue, 1 Sep
- 2026 21:35:09 +0200
+ 2026 21:35:10 +0200
 From: Waqar Hameed <waqar.hameed@axis.com>
 To: Sebastian Reichel <sre@kernel.org>
 CC: <kernel@axis.com>, <linux-pm@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 5/8] power: supply: rt9467: Use
+Subject: [PATCH v2 7/8] power: supply: bq24190: Use
  POWER_SUPPLY_PROP_LOAD_SWITCH
 In-Reply-To: <cover.1788290289.git.waqar.hameed@axis.com>
 References: <cover.1788290289.git.waqar.hameed@axis.com>
 User-Agent: a.out
-Message-ID: <11d5d3f03f34cdc47a9ec9f1ebec9e1d9457414f.1788290289.git.waqar.hameed@axis.com>
-Date: Tue, 1 Sep 2026 21:35:09 +0200
+Message-ID: <44792a20fb581cfd3587fd71147f29e22c7f3749.1788290289.git.waqar.hameed@axis.com>
+Date: Tue, 1 Sep 2026 21:35:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,174 +77,155 @@ X-ClientProxiedBy: se-mail11w.axis.com (10.20.40.11) To se-mail10w.axis.com
  (10.20.40.10)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF00000198:EE_|VI2PR02MB10950:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d8fd11d-fa45-4077-9684-08df086024df
+X-MS-TrafficTypeDiagnostic: AMS0EPF00000198:EE_|DU0PR02MB8387:EE_
+X-MS-Office365-Filtering-Correlation-Id: fced1f80-931d-406f-cc55-08df086025a2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|1800799024|6133799003|18002099003|22082099003|56012099006|11063799006|10067099003;
+	BCL:0;ARA:13230040|82310400026|23010399003|376014|36860700016|1800799024|6133799003|22082099003|18002099003|11063799006|56012099006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	P6N8HnjZWRoej5PcpUHmpo5uD5ymDlYyVbEL6IuVkXlBhUjBvmhXdoGHrhDooHAmHmYhwqGLkEqlfFjS0eS/wt36cGy3fvhQ6a1MKuNzhRWc3dggxjfPzQKft0/xHbgkB5w37GKQfhHFENktF6f81uZoxX55MN3GSJCf18DvWEGmOkcd3ZAIGNnX1GO5Of40+kcRNAu5wejeVp1yMjyqR8sWYPmN3LFvb/hrG9vLWxJAE55oUa1l4bE8Op0U6QUnIstbv47eAerlB1Md2sbDv6TjpgyV2IPMywYoWH9r58RJ1sRfo8oDqmKAmNrquON+FfSCaNdF8wdj7Mwn/B6sA3qhlvLJGgWZFhqfK9g81ZomYl070RLQJpThGM0g1irQBocN3Vv2xlPkmfR03Xic+50cVvwdcBm+kSGi56LFlWt7a96oqfgQ4hrkayAHDhYt19WOeX0AAiS3XO+lBrHZvq6EvalZ4yx40njAV8QXARFaXRUP3T0EgYDQ5r0mPESOlp0R0jHgOch2QZG/V4B8T1BSdX/YfGl0h3edRND4Q3AUjKnZCniUiInNrETsbqTR6kYbnlUptdfBdZb8pOSCxPJS/gBjGlXZP5HiJVBG7YVfC960lnMpYqyg7mM5RXfGcx2EtOi302vXkkANTb79M/AUL7oqLAXM5yU+HFJjH0qSmR+iTys4nBzXnQEMeAau
+	AvLOwjVZWdw2qSBiy9SFvz8baqATBZvedGQ4nkyppV4XTpZ4a1WBN159SWhEHE1UE1SQn9TR8MQg811hVBUEbRq1k9/D0Iojzva4M6/H0LPL3n1zrN61xBevMS9P5rQqqWUoaZDLAfdLGWJ1C/Zmo0LZI1/FxpYP0lTqJWQsD1MONDNd5Ne+QXnLwpT8B8FCsfIBhsNJ/uav3anHq2MJ96K/iyzZ7PSVfVaQ1Rmbu8snMpjhyhPyO47Q2voPEZbgKmNSkDl0vQNb1OwIolhDOKdvwf5LRzVfsYHO0GCRAf/aid3qhSR5eP3gP/HQAX7zKTf/23JnGAUWuo/RUjDtLHj5eUXsYt49maqsv+r4S/IKNtuz5DKeevbOT0OVswjY4zIAvW61Mv+GrpM5xSNgg9EJEEkS33FyjhkPCJg3UPfHHgvlRnuBlyMnoWoKjSvXnaA/C9DmRylMuKV0IQLeaP+Pv+XpSIbdPFXr1J9GdyXclaQiOwgrkC6FExCXt5fygyL/azROyBpV/mIKzcGDDtTqt7mtrl40CXvIUQFhZpUGDGrwin2ybGSQu4G1+8yBVJ6ZGQak80NukO/Jm9U/C6wh6W10GFRWHjL3S+bgSSxEy7xL8o24MlZt4iR+E4/ksplNI2pbFoTd1kXtaxuVoJnQvfJ5351UTDM9m5Xkyn/kvksus1hlA6L+tmuXiJzBOqXqiinfelnsq9rafPqtBA==
 X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(1800799024)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(376014)(36860700016)(1800799024)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	gqCHwcGYpkKhqxbOTyO2G6xWCB2YGL+E56IloqrMz1iW15hxfGvgSydUplm4zYeezC+Kg5LPGFnUc8t+kjaf150/zroK6q2qV6q5ylL3MQzyx0USLQ3L64oriv3CCEwa1O7bQfqC4te21mnxjSRClg2MNmHp9PsA3bdgf8dCj5WE1v6NRis2wfWBZ6E4r7oNbCRKVQcJtnvU+PU/zIrEJBtFzMS2vJqyHolAip+UBai6tUHeeII/+J1haWoaMKQUqZf8wDkxY2byjX7kpQ9oBJM9XBjzBOgehSOHvS/IKb+V2USELoMVaqD0nu1XrJiuk3klGNhNisEMxKQ6ziQ0Zlqep7NhyeNTrFn2EoCRWz2uNWELTdcXtag01cAorDGV74LU0b/VyOxwOhr2Mp6w/wiJ0hzAHdfDW8uyFpfoIcPVL0IYTM9bY1s0ttK/oYfZ
+	lufrKYicvkUYYdNKJ3h/1VGfq0CxNUjt5gEYBIHB04epGhf2NG+cV7IDiykh19DBXF1erWHxpTtgxanOtE+J0y1IsNYbtCXGUsw4YHRFQH46JJWL+xB1CD9zyk/bGIpr7nbeuA2w0sUO8PT5rCKB1rMavka2GfKZ+FUtbhZWIi/uwIy3az/iqyATkGwumN2NJOrMFrCbqbvopEnhOOi6hCzOUT3d3QWJM5kP96mJpFkBBmH7QX0G/0jgyQEdoQZxDNYQCCtzeWddIIJyV2L6dFkzfqe8BLykYt0nj1bRzLcogggUeQk+DYyGeR+FPNtW0xNdvHdcSMJ2AggSbWuMNO8uVeYZZKpq/+UUVPbzPvzUWXEsUbKPmcXjRcjfh9k8OTzNVyYtD+88QFnNuJNl0Fzwy/WzTvdRlCE01dcKMoCqUwubdRF6KjLI33u39hok
 X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 19:35:13.8034
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 19:35:15.0828
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d8fd11d-fa45-4077-9684-08df086024df
+X-MS-Exchange-CrossTenant-Network-Message-Id: fced1f80-931d-406f-cc55-08df086025a2
 X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	AMS0EPF00000198.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR02MB10950
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR02MB8387
 
-The framework supports controlling system load with
-`POWER_SUPPLY_PROP_LOAD_SWITCH`. Use this to control the BATFET, but
-keep old custom `sysfs` ABI for backward compatibility. However, add a
-note in ABI documentation that one should prefer the property
-`load_switch` instead.
+The `online`-property has historically been (ab)used for controlling the
+BATFET in this driver. The framework supports controlling system load
+with `POWER_SUPPLY_PROP_LOAD_SWITCH`. Use this to control the BATFET,
+but keep the support for `online` in order to have ABI backward
+compatibility.
+
+Moreover, don't bother with converting the `online`-functions to use the
+new `charger_get/set_batfet_ctrl()` to keep the code more readable. It's
+already quite messy, e.g. `charge_set_online()` calls
+`battery_set_online()`.
 
 Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
 ---
- .../ABI/testing/sysfs-class-power-rt9467      |  2 +
- drivers/power/supply/rt9467-charger.c         | 54 ++++++++++++++++---
- 2 files changed, 50 insertions(+), 6 deletions(-)
+ drivers/power/supply/bq24190_charger.c | 62 ++++++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
-diff --git a/Documentation/ABI/testing/sysfs-class-power-rt9467 b/Documentation/ABI/testing/sysfs-class-power-rt9467
-index 619b7c45d145d..bfbfd78ec1c19 100644
---- a/Documentation/ABI/testing/sysfs-class-power-rt9467
-+++ b/Documentation/ABI/testing/sysfs-class-power-rt9467
-@@ -13,6 +13,8 @@ Description:
- 		'Disable' also can help to leave it, but it's more like to
- 		abort the action before the device really enter shipping mode.
- 
-+		Note: use /sys/class/power_supply/rt9467-*/load_switch instead.
-+
- 		Access: Read, Write
- 		Valid values:
- 		- 1: enabled
-diff --git a/drivers/power/supply/rt9467-charger.c b/drivers/power/supply/rt9467-charger.c
-index a9a83b263e187..f0d10f44b1090 100644
---- a/drivers/power/supply/rt9467-charger.c
-+++ b/drivers/power/supply/rt9467-charger.c
-@@ -633,6 +633,39 @@ static int rt9467_psy_set_ieoc(struct rt9467_chg_data *data, int microamp)
- 	return ret;
+diff --git a/drivers/power/supply/bq24190_charger.c b/drivers/power/supply/bq24190_charger.c
+index 4bea6fd83c36f..d67bf25ec6ec1 100644
+--- a/drivers/power/supply/bq24190_charger.c
++++ b/drivers/power/supply/bq24190_charger.c
+@@ -1294,6 +1294,58 @@ static int bq24190_charger_set_iinlimit(struct bq24190_dev_info *bdi,
+ 			ARRAY_SIZE(bq24190_isc_iinlim_values), val->intval);
  }
  
-+static int rt9467_set_batfet(struct rt9467_chg_data *data, int val)
++static int bq24190_charger_get_batfet_ctrl(struct bq24190_dev_info *bdi,
++					   union power_supply_propval *val)
 +{
-+	unsigned int regval;
++	u8 regval;
++	int ret;
 +
-+	switch (val) {
++	ret = bq24190_read_mask(bdi, BQ24190_REG_MOC,
++				BQ24190_REG_MOC_BATFET_DISABLE_MASK,
++				BQ24190_REG_MOC_BATFET_DISABLE_SHIFT,
++				&regval);
++	if (ret < 0)
++		return ret;
++
++	/*
++	 * Datasheet defines shipping mode as BATFET off _and_ the watchdog
++	 * disabled. Since the watchdog is disabled during the whole lifetime
++	 * (from probe), shipping mode is the only "off" state that can be
++	 * achievable.
++	 */
++	val->intval = regval ? POWER_SUPPLY_LOAD_SWITCH_SHIP :
++			       POWER_SUPPLY_LOAD_SWITCH_ON;
++	return 0;
++}
++
++static int
++bq24190_charger_set_batfet_ctrl(struct bq24190_dev_info *bdi,
++				const union power_supply_propval *val)
++{
++	u8 regval;
++
++	/*
++	 * Datasheet defines shipping mode as BATFET off _and_ the watchdog
++	 * disabled. Since the watchdog is disabled during the whole lifetime
++	 * (from probe), shipping mode is the only "off" state that can be
++	 * achievable.
++	 */
++	switch (val->intval) {
 +	case POWER_SUPPLY_LOAD_SWITCH_ON:
 +		regval = 0;
 +		break;
-+	case POWER_SUPPLY_LOAD_SWITCH_OFF:
++	case POWER_SUPPLY_LOAD_SWITCH_SHIP:
 +		regval = 1;
 +		break;
 +	default:
 +		return -EINVAL;
 +	}
 +
-+	return regmap_field_write(data->rm_field[F_SHIP_MODE], regval);
++	return bq24190_write_mask(bdi, BQ24190_REG_MOC,
++				  BQ24190_REG_MOC_BATFET_DISABLE_MASK,
++				  BQ24190_REG_MOC_BATFET_DISABLE_SHIFT, regval);
 +}
 +
-+static int rt9467_get_batfet(struct rt9467_chg_data *data, int *val)
-+{
-+	unsigned int regval;
-+	int ret;
-+
-+	ret = regmap_field_read(data->rm_field[F_SHIP_MODE], &regval);
-+	if (ret < 0)
-+		return ret;
-+
-+	*val = regval ? POWER_SUPPLY_LOAD_SWITCH_OFF :
-+			POWER_SUPPLY_LOAD_SWITCH_ON;
-+
-+	return 0;
-+}
-+
- static const enum power_supply_property rt9467_chg_properties[] = {
- 	POWER_SUPPLY_PROP_STATUS,
- 	POWER_SUPPLY_PROP_ONLINE,
-@@ -648,6 +681,7 @@ static const enum power_supply_property rt9467_chg_properties[] = {
- 	POWER_SUPPLY_PROP_USB_TYPE,
- 	POWER_SUPPLY_PROP_PRECHARGE_CURRENT,
- 	POWER_SUPPLY_PROP_CHARGE_TERM_CURRENT,
-+	POWER_SUPPLY_PROP_LOAD_SWITCH,
- };
- 
- static int rt9467_psy_get_property(struct power_supply *psy,
-@@ -711,6 +745,8 @@ static int rt9467_psy_get_property(struct power_supply *psy,
- 		val->intval = data->ieoc_ua;
- 		mutex_unlock(&data->ichg_ieoc_lock);
- 		return 0;
+ static int bq24190_charger_get_property(struct power_supply *psy,
+ 		enum power_supply_property psp, union power_supply_propval *val)
+ {
+@@ -1350,6 +1402,9 @@ static int bq24190_charger_get_property(struct power_supply *psy,
+ 		val->intval = POWER_SUPPLY_SCOPE_SYSTEM;
+ 		ret = 0;
+ 		break;
 +	case POWER_SUPPLY_PROP_LOAD_SWITCH:
-+		return rt9467_get_batfet(data, &val->intval);
- 	default:
- 		return -ENODATA;
- 	}
-@@ -747,6 +783,8 @@ static int rt9467_psy_set_property(struct power_supply *psy,
- 						    RT9467_RANGE_IPREC, val->intval);
- 	case POWER_SUPPLY_PROP_CHARGE_TERM_CURRENT:
- 		return rt9467_psy_set_ieoc(data, val->intval);
++		ret = bq24190_charger_get_batfet_ctrl(bdi, val);
++		break;
+ 	case POWER_SUPPLY_PROP_MODEL_NAME:
+ 		val->strval = bdi->model_name;
+ 		ret = 0;
+@@ -1400,6 +1455,9 @@ static int bq24190_charger_set_property(struct power_supply *psy,
+ 	case POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT:
+ 		ret = bq24190_charger_set_iinlimit(bdi, val);
+ 		break;
 +	case POWER_SUPPLY_PROP_LOAD_SWITCH:
-+		return rt9467_set_batfet(data, val->intval);
++		ret = bq24190_charger_set_batfet_ctrl(bdi, val);
++		break;
  	default:
- 		return -EINVAL;
+ 		ret = -EINVAL;
  	}
-@@ -764,6 +802,7 @@ static int rt9467_chg_prop_is_writeable(struct power_supply *psy,
- 	case POWER_SUPPLY_PROP_INPUT_VOLTAGE_LIMIT:
- 	case POWER_SUPPLY_PROP_CHARGE_TERM_CURRENT:
- 	case POWER_SUPPLY_PROP_PRECHARGE_CURRENT:
+@@ -1420,6 +1478,7 @@ static int bq24190_charger_property_is_writeable(struct power_supply *psy,
+ 	case POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT:
+ 	case POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE:
+ 	case POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT:
 +	case POWER_SUPPLY_PROP_LOAD_SWITCH:
  		return 1;
  	default:
  		return 0;
-@@ -777,6 +816,8 @@ static const struct power_supply_desc rt9467_chg_psy_desc = {
- 		     BIT(POWER_SUPPLY_USB_TYPE_CDP) |
- 		     BIT(POWER_SUPPLY_USB_TYPE_DCP) |
- 		     BIT(POWER_SUPPLY_USB_TYPE_UNKNOWN),
-+	.load_switches = BIT(POWER_SUPPLY_LOAD_SWITCH_ON) |
-+			 BIT(POWER_SUPPLY_LOAD_SWITCH_OFF),
- 	.properties = rt9467_chg_properties,
- 	.num_properties = ARRAY_SIZE(rt9467_chg_properties),
- 	.property_is_writeable = rt9467_chg_prop_is_writeable,
-@@ -793,14 +834,14 @@ static ssize_t sysoff_enable_show(struct device *dev,
- 				  struct device_attribute *attr, char *buf)
- {
- 	struct rt9467_chg_data *data = psy_device_to_chip(dev);
--	unsigned int sysoff_enable;
-+	int val;
- 	int ret;
+@@ -1480,6 +1539,7 @@ static enum power_supply_property bq24190_charger_properties[] = {
+ 	POWER_SUPPLY_PROP_SCOPE,
+ 	POWER_SUPPLY_PROP_MODEL_NAME,
+ 	POWER_SUPPLY_PROP_MANUFACTURER,
++	POWER_SUPPLY_PROP_LOAD_SWITCH,
+ };
  
--	ret = regmap_field_read(data->rm_field[F_SHIP_MODE], &sysoff_enable);
--	if (ret)
-+	ret = rt9467_get_batfet(data, &val);
-+	if (ret < 0)
- 		return ret;
+ static char *bq24190_charger_supplied_to[] = {
+@@ -1498,6 +1558,8 @@ static const struct power_supply_desc bq24190_charger_desc = {
+ 	.charge_types		= BIT(POWER_SUPPLY_CHARGE_TYPE_NONE)    |
+ 				  BIT(POWER_SUPPLY_CHARGE_TYPE_TRICKLE) |
+ 				  BIT(POWER_SUPPLY_CHARGE_TYPE_FAST),
++	.load_switches		= BIT(POWER_SUPPLY_LOAD_SWITCH_ON) |
++				  BIT(POWER_SUPPLY_LOAD_SWITCH_SHIP),
+ };
  
--	return sysfs_emit(buf, "%d\n", sysoff_enable);
-+	return sysfs_emit(buf, "%d\n", val == POWER_SUPPLY_LOAD_SWITCH_OFF);
- }
- 
- static ssize_t sysoff_enable_store(struct device *dev,
-@@ -815,8 +856,9 @@ static ssize_t sysoff_enable_store(struct device *dev,
- 	if (ret)
- 		return ret;
- 
--	ret = regmap_field_write(data->rm_field[F_SHIP_MODE], !!tmp);
--	if (ret)
-+	ret = rt9467_set_batfet(data, tmp ? POWER_SUPPLY_LOAD_SWITCH_OFF :
-+					    POWER_SUPPLY_LOAD_SWITCH_ON);
-+	if (ret < 0)
- 		return ret;
- 
- 	return count;
+ /* Battery power supply property routines */
 -- 
 2.43.0
 
