@@ -1,89 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06ED46D577
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:59:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1500736EA88
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:59:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249565; cv=none; b=B4yXFLOMgMC8QLOC/5juZOEgE2RFjtLMw8kchmrHnbVwiQQHG2IzsIgpkKRc0az+v9MJcUcWuCmECoEPpe2KCu4YDxWg5WyCAihQmPGQujlYjILd96U2NJk3Jb4iGAm2+A7zzOEHJm5OcrMmedyf/+DQp+s1TiQ84ZYnSnnRUZk=
+	t=1788249591; cv=none; b=t5WmSj1cYB4YEiDNKIiNSNrqU7eSUpmBcLS9ieOIXKV0PLrYfwuQf3wdZxgNpJXB3bwUqsI+twFgGZTJDNUxI3iFx8cR3ltCnfa2J52QhGxBo90aEUDDpCxJen1NRDBOjTAnNIQWMCyg4NzkPbsPGf6kOBzYbY9yxm2txXM7qTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249565; c=relaxed/simple;
-	bh=BTdVJrhRUfZ8q3sxvPuXbbscjsPWWOT49+QShfRdWv0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OEx7bqnvnr2PFWioXFDB4o1zkO2FHwr90LBPldjLjWLXyLj0KKnp8R76HOR8CTG7BqtvZZ3RtCpe1mtGuYWK2NKFwXq/MdWeGbWjxOQ2oKywlLJnA3jPN/5zt0DvImpxcy7m3U3AIPGv52RP5tRk/RuiWcMCaAxjKZf22ZdskEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P7SEFFP8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788249591; c=relaxed/simple;
+	bh=4L0HiuUlsGrJN/A/CxrOcUFYYsjKsRJV2pTvUhGxf6Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OYJvl1iS8Ng7surykoX3Ruyv9teOcdwgfVbobJkTkG9jBnYFbyF2LxKIZJBA64uZXIoBiLqtKwUBLXlcwR27rSpJC7jnFj/ahDLM8wOyoMThduXU9wFlO9pcpijq6iTjRaN0H5ssvoKbECtHFChHtizwKEc4pnMCr1omSPUSDCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=VA5euC3p; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P7SEFFP8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 201A81F000E9;
-	Tue,  1 Sep 2026 07:59:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788249564;
-	bh=iJv/WiakOodAqFIubQ5HTmHL0TDtf9MpNqrzEXUw2fg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P7SEFFP8puwZXZp/YRq5bm12kLhga+lgh99B8rQeYLWPKvjGgDXAgg7amgbvop6gs
-	 KnFbcm9PWiLs6fpRX3X9ZFziRD/tbsK3eH/C4U9q+apMvreDXnEx9yuMWrWXaAlfn9
-	 RfE+EypR5zdZI4scQXJRBlRBhEahbdQVPKXgYGzRzl4sArWd1u++y7ARbEBAYmsoti
-	 qa/YYnJeh63FtQSZKwP6986LY6PCjMAcEQlpM6IXvbI4ROaA1SfUtvjcxi9CnB5UZH
-	 Nk9IDitG/j2LUr0suo0oUruy11Tq+byoKby/mpiq0sCo0dpWi4sYmz38BnnJLGVmE9
-	 9mRRThkgaqcJA==
-Date: Tue, 1 Sep 2026 10:59:16 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Eli Billauer <eli.billauer@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
-	Brad Warrum <bwarrum@linux.ibm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Ritu Agarwal <rituagar@linux.ibm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH 2/4] char: xillybus: replace __get_free_pages() with
- kmalloc()
-Message-ID: <apaF1HUtJnstuUN4@kernel.org>
-References: <20260830-char-misc-v1-0-05e2ce44f291@kernel.org>
- <20260830-char-misc-v1-2-05e2ce44f291@kernel.org>
- <f6001085-9234-4025-ff34-6cc4a66c293a@outbound.gmail.com>
- <20260831123937.32255a49@pumpkin>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="VA5euC3p"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788249586; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=l5Io5tBdjPe5sz7QW4brV92jKRETGgCK1EVRYlKXs20=;
+	b=VA5euC3pr4Q80q5+cbqhY+4XJQpje+pExcJIwsijsvPx/uzUB8enbkttuhuk5n0gZz6O5F8qJjQCEVAv14fuPQk2de8W7y4tDDweD4TGEQ6us2DKp0KpubCMP25F8Ry597r/2w7csGu8a4jkctt9hqiRO0oDj6LCklWN6FKbeAw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R311e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XA5ntIS_1788249571;
+Received: from 30.178.69.13(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XA5ntIS_1788249571 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 01 Sep 2026 15:59:45 +0800
+Message-ID: <3a29ca77-fe8e-4bbb-b4d7-49011981351a@linux.alibaba.com>
+Date: Tue, 1 Sep 2026 15:59:43 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831123937.32255a49@pumpkin>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] drm/ast: create blend mode property on cursor plane
+To: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Cc: airlied@redhat.com, jfalempe@redhat.com, kraxel@redhat.com,
+ dmitry.osipenko@collabora.com, hansg@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ leandro.ribeiro@collabora.com, daniels@collabora.com,
+ pekka.paalanen@collabora.com, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260901065045.1152136-1-qinyuntan@linux.alibaba.com>
+ <20260901065045.1152136-2-qinyuntan@linux.alibaba.com>
+ <3dcac5c3-cdb1-438b-9ba9-789ad9777ad4@suse.de>
+From: =?UTF-8?B?6ZKm5LqR6LCt?= <qinyuntan@linux.alibaba.com>
+In-Reply-To: <3dcac5c3-cdb1-438b-9ba9-789ad9777ad4@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 12:39:37PM +0100, David Laight wrote:
-> On Mon, 31 Aug 2026 12:13:08 +0200
-> Eli Billauer <eli.billauer@gmail.com> wrote:
+Hi Thomas,
+
+在 2026/9/1 15:03, Thomas Zimmermann 写道:
+> Hi
 > 
-> > On 30/08/2026 9:47, Mike Rapoport (Microsoft) wrote:
-> > > fifo_init() allocates the buffers backing the software FIFO and
-> > > endpoint_alloc() allocates the transfer buffers of a USB endpoint.
-> > > 
-> > > These buffers can be allocated with kmalloc() as there's nothing special
-> > > about them to go directly to the page allocator.  
-> > 
-> > Except that they are a bit large.
-> > 
-> > fifo_init() may be requested to allocate up to 256 MB of buffer memory. 
-> > This memory resource is split into an array of buffers (fifo->mem[i]), 
-> > each 64 kiB (or less, if there's trouble obtaining segments of this size).
->
-> Would it really make sense to allocate the four buffers separately?
-> And/or use vmalloc().
+> Am 01.09.26 um 08:50 schrieb Qinyun Tan:
+>> Since commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+>> format with alpha exposed"), drm_mode_config_validate() warns when a
+>> plane exposes an alpha pixel format but not the "pixel blend mode"
+>> property. The ast cursor plane (ARGB4444, ARGB8888) trips this on
+>> driver load:
+>>
+>>    [PLANE:37:plane-1] pixel format with alpha exposed but blend mode not setup
+>>    WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate+0x48f/0x510 [drm]
+>>    ...
+>>    Call Trace:
+>>     drm_dev_register+0x1ce/0x290 [drm]
+>>     ast_pci_probe+0x19d/0x3f0 [ast]
+>>     local_pci_probe+0x41/0x90
+>>
+>> The hardware cursor has always blended with pre-multiplied alpha and
+>> userspace assumes that blend mode when the property is not attached.
+>> Expose a "pixel blend mode" property advertising only
+>> DRM_MODE_BLEND_PREMULTI to make the existing semantics explicit and
+>> silence the warning. No functional change.
+>>
+>> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+>> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+>> ---
+>>   drivers/gpu/drm/ast/ast_cursor.c | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/ast/ast_cursor.c b/drivers/gpu/drm/ast/ast_cursor.c
+>> index fd19c45f2abe2..08d93ac7f7cb8 100644
+>> --- a/drivers/gpu/drm/ast/ast_cursor.c
+>> +++ b/drivers/gpu/drm/ast/ast_cursor.c
+>> @@ -25,6 +25,7 @@
+>>   #include <linux/sizes.h>
+>>     #include <drm/drm_atomic.h>
+>> +#include <drm/drm_blend.h>
+>>   #include <drm/drm_damage_helper.h>
+>>   #include <drm/drm_format_helper.h>
+>>   #include <drm/drm_gem_atomic_helper.h>
+>> @@ -355,6 +356,8 @@ int ast_cursor_plane_init(struct ast_device *ast)
+>>       }
+>>       drm_plane_helper_add(cursor_plane, &ast_cursor_plane_helper_funcs);
+>>       drm_plane_enable_fb_damage_clips(cursor_plane);
+>> +    drm_plane_create_blend_mode_property(cursor_plane,
+>> +                         BIT(DRM_MODE_BLEND_PREMULTI));
+> 
+> AFAIU the available documentation, AST hardware corresponds to DRM_MODE_BLEND_COVERAGE.
+> 
 
-My understanding is that the buffers don't need to be physically
-contiguous and vmalloc()ing the entire fifo->mem in one go should work.
+Thanks for the correction.
 
-Eli, what do you think?
- 
-> David
+I'll send a v2 that declares DRM_MODE_BLEND_COVERAGE for the ast
+cursor plane instead.
 
--- 
-Sincerely yours,
-Mike.
+> Best regards
+> Thomas
+> 
+>>         return 0;
+>>   }
+> 
+
