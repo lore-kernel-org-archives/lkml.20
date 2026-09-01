@@ -1,92 +1,214 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D227366048
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FB336A36B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:19:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272336; cv=none; b=HOEKjeLUk7/VMM+nOiSlnyV/ojjiN6Dd3Fk9+WK9AhvPCHYHkIEw7gpRgRaFhG/2v3fS2wqIQt2kP+5ZTAYA7UWqUJlJWKUApjlucM6wtjy2/9FQtDCpTp+WtoEDCwDrS18/19f1CpquMzkVhUM/Zli7a4G7THwcpmuGsyWSdc4=
+	t=1788272343; cv=none; b=urhOqq9IkWFLbiJwso0W2F6FhQAeb0nBCtTTyDTC3yiR34Wai5ZUxcLUahvNKfXxMWdBszeGtfTkhaui+pDRG1mpXQYacmbunIlcMa8Gd8zuhjXUw8uNMcdQV+jGfX4qGhISe4Ugr3uns1jujVLKt9U5lX2YuhmDpaLTXaLWrE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788272336; c=relaxed/simple;
-	bh=woJiB8K0LeShA9aB8DmGEak5D/ZNM5PjGjBLk3ZtCLo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TCO7SdWCQCvn8Ih8bDnCBgVp+XeNwB1/FWIIVMVaotsiB6aUi43/g37uqO+yhXi0uto4UsjtJWJKWrh8+PIiHdh4lLqaoNn5hbPv6X5tUtEhSC/hbTZvalGRnqRkylB49yHgLweAt4gNglbEcL4TCs96Gnu9ZG97f93oVXCUmKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tJp7rvKu; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788272343; c=relaxed/simple;
+	bh=NkKu/8w/1z6LkfAgeZyRMbEQJIQaUAmSCXu3cnPAVn4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QS19iIyb7lxwBjSFt9Pfd3V8lsOaCKVO+23u4XCyng8p1k6+dAKGguZdh/XHy2d+nZtWr5Hmlbz4vAHX8puEqEdcPfLOMhdTK8sJ0aDOt1F0s+G0TqVh7aGFb530WePkAJxNZTwp+/83eyqiQXXv11y78W3NgJyEwC2PU688Nk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=doWzLE0m; arc=none smtp.client-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tJp7rvKu"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so48191405e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:18:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788272333; x=1788877133; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=woJiB8K0LeShA9aB8DmGEak5D/ZNM5PjGjBLk3ZtCLo=;
-        b=tJp7rvKuNXudQnAen7LkRkbc6pu3WQiwbx+1IEE1DWHF85S2jAM/54ZDCnMKotfvRZ
-         VST47cq+FRJ/5/SkKo75iIfq6sioR1ijPRTtjjY1ueM2Wpalh0SBVYEgjxt8RJr4v8U1
-         xDX34UNmz9wjGVPSTf6hYpHTN4EmlYoNS75MfADFEItIL+CrUeTon/XObJfQ4H5+NyfJ
-         g91JWC9JOwPMnGi8HUVyFRWNb+VfoqFRP9QYAARt9pvJ+S8cyFTG8AzLs647wFflmDci
-         JMXRj36kU6ZQttyNXzbciTCKHPb1433cn/pZTokyZMPSG4p4jjce+l+CvAPsv+89fT7k
-         tCSQ==
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="doWzLE0m"
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id C8BEE3F846
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:18:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1788272338;
+	bh=rEDcPAogTZg6PX5XCNiS3w5Hhl82tH+An2kp4bmc7So=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:In-Reply-To;
+	b=doWzLE0mx26Ni5FeXoni/pIL6G4Lmm9b+8gRmirw0iZkcb61mv+ETjHzhU8pXhCzz
+	 /pslh5BMoffe7taubcGT76yv6iaMvrbzbt+YKunG/9r8Pp2enI2T/7KKyb4aE0rzn4
+	 7zw4X8jCfTMXf05IrVXF+6rY54LMIVG/I5PVpac0t0utqZZWBpBj578T/JOTG0hrEX
+	 GBzw+N/bSj4wme+NQHgPWBBhDwP++jFhCV8j5K7TtSDOw2RUAPm652lpXQmizYTRYR
+	 hRQqxpbYiQ4lESZZa/VxY5jWnmhrje7KHv6M5FB3IUYAT36TLMbYa+5soGn+QeBCW8
+	 hnoVrOQlu3vQmlbHT70GI1ABu9hKDA1Ln09Bbvwseto4aeKJypJmy/BC3hCVQJxyyz
+	 uu5dbY6bfCFtXrqbkX2g8LUlg0rZVjof/3lSrkEyuIqLVTcj4mzkxkNP+LCAyKJTLf
+	 vIvka4bJQTiL0aZiaxT1ZxYuO7mt02qVxvrtOlc64W/Uu5za3JPuoOjVsu/M27ovXg
+	 /lLxWRDTdviq3R2/42IHJq8WKePAlVFZk88eHeLOQ4C1I5M3Bl7Mn71jAMB504gKLP
+	 5ljuvpx681QdcKLpRGuJEfiiFNcveOjp+Q3cAKuomU2GOm5PKWYtosCv/GajT9Jh/e
+	 L3eUPagE9QyJpQSX8gO1h0tQ=
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-47f2de3ba47so692655f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:18:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788272333; x=1788877133;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1788272338; x=1788877138;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=woJiB8K0LeShA9aB8DmGEak5D/ZNM5PjGjBLk3ZtCLo=;
-        b=agYr3B3Qf5y7y9oltr0xsnCtwKcCUxGTgoee6OtxvC+U/D0Noi9I+WO2bQubyXNqah
-         QyrXVUzRNxlkW97YTpmh+EloZCK6OYWkPHyfzyWokiqFJdFSbU0hctYETZk6kQbcfLkZ
-         L2mWeQ25Jq0HNAh3Fo8xDivPP/2B8O0Jh4nOdbmUMcUEcOs1MSiJJgrVuvoTDKi381fj
-         +cD5JPnuteL6rQfoBomZtNnLt4wpwve3f9B39wGWn/yW78T9PGhjgEGOuXoMlKOeyw8y
-         zrAbTzRj77WeAoC8nhKKcTDoWKX0Lurdc6ega8Kr97I9cOpcy6j+7NWQGQq3tF/4mPcF
-         dT0A==
-X-Forwarded-Encrypted: i=1; AHgh+Rr3o+WL6teRI3jInqpsQkJqXSWroamyLwmj/tm4cKImMJzuOh93+Emp3GGe/10m7VnirOL53KugIwAjcrY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfLsza2/xVuRRH6ISTnzk6TFJdRv49WI7/WVV+8jqKN3lPXEKh
-	MIk2jQYKnza5zVoI8jAouAAVZysnuwN2uJrbxgIF618uHOFHJWOflMJO0w1GofVP
-X-Gm-Gg: AR+sD101EehYw6wUA1mKBGj1PnSCoTzxMJRh8GcZdqsEs2+W+9D159mMJTn00RDKVyg
-	Awg8UPzQL2PcUdYsq3X7oX5JGAkg1imljktD0GstYNWrBt9yR118QQVLZiTOcVDUBvgPSESRoDE
-	ZWyVlTxbgsaWI99ylPZfQRlZ53ozO5o/OB344WnyiRsLMVqFIExkJ6exwQ8mFplwI3jQf/GMJAb
-	jnVY0TRJTqe8yKZ0l/Y0vR1nznZ15pINgOs5U3Ix23O9Lhz9VamY4yk6S6EkKWFDJkuI1ypA5+2
-	NqJaaHt5K8jc3ahsUbA4XCZX8sUKpMhtcK1j/pAj3lsz3SZqVr19u/8GDa7QepJglXdqz60EZIq
-	h2ZLZMtBBE7rAzvJjeDr+sj0gSPkd5TExXSHMOEao8I03i37M9gOYMRrvq4mlWV0BgM+HgLtT2i
-	N4SRzy+0yZLcZvBnfiwuC6IlxIkKxRIqGhwZ0QBJOUgmsnHvlQpaNU9Mp6Jxg=
-X-Received: by 2002:a05:600c:81ca:b0:49b:47b3:d6d with SMTP id 5b1f17b1804b1-49b91c3b7c4mr600777375e9.10.1788272333267;
-        Tue, 01 Sep 2026 07:18:53 -0700 (PDT)
-Received: from fedora ([2a02:ff0:220:b213:dfd1:35e6:957c:b8c2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d781bcsm4831531f8f.26.2026.09.01.07.18.52
+        bh=rEDcPAogTZg6PX5XCNiS3w5Hhl82tH+An2kp4bmc7So=;
+        b=Yvext9XPyfhLSGzzmxXpabtgSSbx2C5I7VAv23n755Qi+OlJUb8yQZ9x7pD02ic+9e
+         AKxujkvISljg8qCx6nX/XJo8WUUjPhPAhlxLRjVmREH8WZiw/JGvPlfrbpGFTMFLDZwc
+         WaNevgm6mO+EUwXjHNctkXOgEWoUzEeApfsrUJwBn/vjywZu28apwO8dDqKWiGjSA3/o
+         BXfsw6LGIXPGzf1b1X090LcfiMOp0TWlXV9D6WY7kk6OHjMEI09SkGFyIXS7CaArkZ5h
+         en2khLzt1gR+ST1x37LtgDtC6Lb3Le8yfGTBzBOVNayzGJDIV9aSguRg/Poicy0C7pMx
+         p/pA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro/I2lDrxx0xovwjqsmpARZw5V6h3h4bt1R8i8eoaif3azbgrKy0o34p482uACY2PtGwzfKOfcv4DFcCVo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mllYuxkqheb1M2pmH20kt6d7hdxdLijEkTQEenJ75kh796Tqkp
+	NH0oSfQmvwuv1zmoHLshPpUteTa7VgJ6YBa0KZxYRjbk7tZYx5/yCxV9oiXdUgM8Jts+GgbrmrW
+	xeaXcN0H769uB8lKOHFcqiOnKrUpUbqr6u8QwZVAofglXCJFmg1dfAxES9Oe4Jr+t6iYWoNvnhU
+	h/m54QcA==
+X-Gm-Gg: AR+sD11PNZvMI/uMslrgVBFkeNLYVoncdu0xBCtJdfJvG3MEvZLhymwpjbp8G6quvd2
+	yVNarEQH+CFmRrnWHygUhSxASg/KaRQeGbm5lR5cWryTSbZOhW1ta5Cjqtll/qJc3XJfBu3UnoZ
+	Ew2eKHerxfDIEYYscH2ySIge0lt/RT+XVUxKXEjO28Nv/+heV18EOjNsihdqrelaNwahmh1EaUZ
+	QNR6KMECGVALkClE0gNADpKkkS7YyHNAwptLSdXwpfak8g4y+0KkzJWN2ZcUEGCW2kiBxL3KPd0
+	xVhW9TX8LEoiABzkQXOZ688ian49EBp29UJlTyZyPWTPfa23RFFMPOxgj64maIMMmPGkM9ICYHT
+	4aIZzDCK7ZOQmYTw2Zh3E2EGLZf1b9Z94Zl2p0pBFwi3xLy11JJ3rSDYza7QvMHc7aNPY9yeL
+X-Received: by 2002:a05:600c:4e01:b0:49c:cedc:768a with SMTP id 5b1f17b1804b1-49ccedc76a1mr483018585e9.16.1788272338228;
+        Tue, 01 Sep 2026 07:18:58 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e01:b0:49c:cedc:768a with SMTP id 5b1f17b1804b1-49ccedc76a1mr483017535e9.16.1788272337856;
+        Tue, 01 Sep 2026 07:18:57 -0700 (PDT)
+Received: from localhost (93-35-116-250.ip54.fastwebnet.it. [93.35.116.250])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce1025asm69057965e9.6.2026.09.01.07.18.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 07:18:52 -0700 (PDT)
-From: =?UTF-8?q?Ertu=C4=9Frul=20Top=C3=A7u?= <ertugtopcu0@gmail.com>
-To: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Ertu=C4=9Frul=20Top=C3=A7u?= <ertugtopcu0@gmail.com>
-Subject: Re: [PATCH v3] platform/x86: Add Goodix fingerprint EC mailbox transport
-Date: Tue,  1 Sep 2026 17:12:25 +0300
-Message-ID: <20260901141225.282753-1-ertugtopcu0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260816194955.468107-1-ertugtopcu0@gmail.com>
-References: <20260727205837.91413-1-ertugtopcu0@gmail.com> <20260803074454.49474-1-ertugtopcu0@gmail.com> <20260816194955.468107-1-ertugtopcu0@gmail.com>
+        Tue, 01 Sep 2026 07:18:57 -0700 (PDT)
+Date: Tue, 1 Sep 2026 16:18:56 +0200
+From: Alessio Faina <alessio.faina@canonical.com>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
+	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, hangbin.liu@linux.dev,
+	stefano.salsano@uniroma2.it
+Subject: Re: [PATCH net] selftest/net: skip srv6_end_d[t/x][4/6]_*_test.sh if
+ iproute2 too old
+Message-ID: <apbe0PAvaes977l-@cicciput>
+References: <20260824091537.2305107-1-alessio.faina@canonical.com>
+ <20260826000156.bdaa71db68dbdc9c13907205@uniroma2.it>
+ <ao7S04LkWVXAQpgq@cicciput>
+ <20260827030701.bfaf6eea6dea1aef24c353cf@uniroma2.it>
+ <apAJuZzDOvjkVx60@cicciput>
+ <20260828042357.1d6e802448752a8fdff5a485@uniroma2.it>
+ <apGxmfjQs247lHX-@cicciput>
+ <20260829231150.8180c09f6874606eb49d0243@uniroma2.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260829231150.8180c09f6874606eb49d0243@uniroma2.it>
 
-Hi,
+On Sat, Aug 29, 2026 at 11:11:50PM +0200, Andrea Mayer wrote:
+> On Fri, 28 Aug 2026 18:04:41 +0200
+> Alessio Faina <alessio.faina@canonical.com> wrote:
+> 
+> > [snip]
+> > 
+> 
+> Hi Alessio,
+> 
+> > I tried multiple methods:
+> > the first approach is yours, but I can see the following error with any iproute2 
+> > version I'm using (I tried 5.5 to 5.18): when running 
+> > "ip -netns ${rtdst_name}" command, it always returns 
+> > 
+> > RTNETLINK answers: File exists
+> > 2
+> 
+> EEXIST means that the object is already there, and says nothing about
+> vrftable. When ip does not know vrftable it refuses the command itself,
+> with the error you showed earlier: either "to" is duplicate,
+> or "vrftable" is a garbage.
+> 
+> In a netns created by the check there is nothing to collide with, so EEXIST
+> does not come from the way I suggested. The full command and output would
+> settle it.
+> 
+> > I tried the following approach as well,
+> > 
+> >  	# set the decap route for decapsulating packets which arrive from
+> >  	# the rtdst router and destined to the hsdst host.
+> > -	ip -netns ${rtdst_name} -6 route add ${vpn_sid}/128 table ${LOCALSID_TABLE_ID} \
+> > -		encap seg6local action End.DT4 vrftable ${tid} dev vrf-${tid}
+> > +	if ! ip -netns ${rtdst_name} -6 route add ${vpn_sid}/128 table ${LOCALSID_TABLE_ID} \
+> > +			encap seg6local action End.DT4 vrftable ${tid} dev vrf-${tid} 2>/dev/null; then
+> > +		echo "SKIP: SRv6 End.DT4 vrftable not supported in iproute2"
+> > +		cleanup
+> > +		exit "${ksft_skip}"
+> > +	fi
+> > 
+> > where the test is checked at vrftable creation time, and it would
+> > cleanup and exit as expected from standard tests.
+> > 
+> > But obviously this gets the same RTNETLINK answer as an error.
+> > 
+> 
+> This is a setup step, not a check. The skip decision is taken while the
+> topology is being built, because setup_vpn_config() is called several times
+> inside setup(). The check should run before setup(), once.
+> 
+> The way I suggested runs the route add with vrftable in a throwaway netns,
+> created and removed by the check itself.
+> test_encap_lookup_supp_or_ksft_skip() in srv6_encap_lookup_l3vpn_test.sh
+> has that shape: it creates the netns, adds the device it needs, tries its
+> route, and on failure cleans up and exits ksft_skip. For the dt4 and dt6
+> tests that device is a vrf bound to the table passed to vrftable, and the
+> netns also needs the strict mode.
+> 
+> > Then another approach came to my mind, and it seems to be quite reliable.
+> > Practically checking if the ip command contains the string "vrftable"
+> > using the "strings" command, and if not, skip the test.
+> > 
+> > Something like this:
+> > 
+> > +test_iproute2_vrftable_supp_or_ksft_skip()
+> > +{
+> > +	if ! strings $(command -v ip) | grep -q "vrftable"; then
+> > +		echo "SKIP: SRv6 End.DT4 vrftable not supported in iproute2"
+> > +		exit "${ksft_skip}"
+> > +	fi
+> > +}
+> > +
+> > 
+> > What do you think about it?
+> 
+> I would rather not add a new tool dependency to these two tests. The
+> route add uses ip, which the test needs anyway.
+> 
+> Ciao,
+> Andrea
 
-Gentle ping on this patch. v3 fixes the i386 build failure reported by
-the kernel test robot and has been verified with the reported i386 W=1
-configuration. The driver has also been tested on the target hardware.
+Hi Andrea,
 
-I would appreciate any review or feedback when convenient.
+I understand, what you say makes sense; in the end what you originally
+suggested seems to be the best approach.
 
-Thanks,
-Ertuğrul
+I tried this
+
++test_iproute2_vrftable_supp_or_ksft_skip()
++{
++	ip netns add __vrftable_test 2>/dev/null
++	ip netns exec __vrftable_test sh -c "echo 1 > /proc/sys/net/vrf/strict_mode"
++	ip -netns __vrftable_test link add vrf-100 type vrf table 100
++	ip -netns __vrftable_test link set vrf-100 up
++	if ! ip -netns __vrftable_test -6 route add fc00::1/128 \
++			encap seg6local action End.DT4 vrftable 100 dev vrf-100 2>/dev/null; then
++		ip netns del __vrftable_test 2>/dev/null
++		echo "SKIP: SRv6 vrftable not supported in iproute2"
++		exit "${ksft_skip}"
++	fi
++	ip netns del __vrftable_test 2>/dev/null
++}
++
++test_iproute2_vrftable_supp_or_ksft_skip
++
+
+and seems to be behaving as expected in my environment for multiple
+iproute2 versions. If you're happy with it I'll send a v2 to net-next.
+
+Kind regards,
+
+    -Alessio Faina
