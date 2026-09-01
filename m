@@ -1,174 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C1A35E95A;
-	Tue,  1 Sep 2026 10:17:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AB135E95A
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:17:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788257828; cv=none; b=mXxr2RbmA7HczrqXatNZm+4QmCyuZHOQmjWtwkpf7p6q3lo95+W/i7xH/c4XVpqyyJBPSgFACM893sdJeK5qUgz41nvCzun/YrQKiGMObCY1yiOG6qTtP95QmUJk2d3tJxjKMBxsMhLsiU6MwS22Fjjr8KA9Ek9tCKokj4tPXLk=
+	t=1788257857; cv=none; b=sPP5pTpeE4K+7hUWS3DEpU7LKg2RyAhUgudrXz9s9Xo/cnannl6jCbeaN9yxb9QTGttc1SwkYwQZnvsWHaIeXzjR1VOqlOqianHarCsRfe9vfBK93cpBK03zu9wWjB3Zu0TH//rGeZlKZPBU6K6guh7NRD/1XgC4qQDtMvkKfCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788257828; c=relaxed/simple;
-	bh=Px/cZtQ0dgA1GcFSiU1bDuQJgTszBg82P1RwlTxR8Go=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r+0Ej3hTnSmMmX/CdsQTZ5PIC13ybwjcjzJAFaz8vi45Qznf6FaSPIgnpVl1VyZ/Xw4z/b+gfxX3x3IdsDVuE9L+cwnvJyJVpo/fA3cSeB6JTSS9pMhWXcdHKadeUwAtnE8NGXKZttEweVHiYlTsthuS2ZXHEWInU5Qu55qgIbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDGR8P53; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDGR8P53"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190D81F000E9;
-	Tue,  1 Sep 2026 10:17:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788257826;
-	bh=PDWASibxaGJJhiXNV7zhT5m/05R5Tf7kS7Q31f7HJsM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kDGR8P53xawEBJdeOMODGSJcHWXW9PTRwe4zSvQErRx0xNSPPxmDixKdD7kQv64cf
-	 +SPu/Xh+GhaFnkV8gbTgIR+sQ0yl6gyMClPAcCGvkk8BP7vaZCTXTu4in3CN8iwiUI
-	 OcUAAlj5xchiqvlqiQ0erXY5DpTTSViTxWEuAAv4eDmcBjLZFC5/CU3KlriFWZH9jw
-	 9Eaa/DDy9jIkQ1Oa4HEP9AjMXXtBMv8WwOdn7PjkDafjRFKo7r8wHkFD7htgVnBq/t
-	 P4XKi3Q+YY+4+TS+pxW3+tqVHZNWeT0/Kt/ScgU0Ieg9QSUGncB41SjWa58oNc6zAJ
-	 Z9Nbl7tSBfWhw==
-Message-ID: <23db34a1-ba1b-495d-91ea-18419e0dc8df@kernel.org>
-Date: Tue, 1 Sep 2026 12:17:02 +0200
+	s=arc-20240116; t=1788257857; c=relaxed/simple;
+	bh=f3IaTrQW3PdwJG2CI8iddb29hq+NAzAZPlqiyZ/dPEc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=elxCcBuF3b0pfSh5i+oulK/G+9ZXa1OTzNOvVfcVe1tLOUzqJ9hbnAj/5MJ9vCpQPsZK+Jkh0jkdYmpUiDtE/qyR6gaTBAAgqKKcsf7lIUWVkHZ1LyuYlY3OTK0Osk1+lkJx39uxwrBhXpnyrHCyqUsiOhBNF3fY3i9G93PrgEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5c671456e25so818758e0c.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 03:17:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788257855; x=1788862655;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jjjR751nJX1Dlxj+MGQJnqs6zskSNN1F11sy8NVh7g0=;
+        b=aZ1Z17mbOIaGvEJJtDVsWt2TW9nabpNgvdxk1SPpTQADDT2/WfP4CG15rT9u722hqk
+         q61jZK1DRLeSIuWoWoVhFbRLR/IPGxN1RjyL+OalnaSH8EvdxuVljJMV1K39znSMWqa+
+         pxWC+YEcbnqBFmW8IKQ+tp5QVeTGVHan4DTz58Z68vmGrpPefdwtj0XC3+LyS9gM6YAO
+         AI6p3TzTXMksIF2a4xE49/BDbBrSiPtGvHyKsJ5kMFhIK0zzRpXzTdbDct1ZQYLgCX/A
+         REcVW5ppqX0WQrcvhb44Qd6jtrnLw0nhhNLR8vLTc49y8mqlJuo+g2vnAhJ3vm+0gJym
+         EcrA==
+X-Forwarded-Encrypted: i=1; AHgh+RobbtWZuZvknGmDS05HsxMXCF5w3vCXiTBnBvASJftastDrtQJcF0spj2f86qVMMCVy1TjSZRM8eW/8xeg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVZAC0gCzMnT70rNTM64CMHtlkagv0cIPIr9640IV7Ido9x8kT
+	IW/WRudPhm3VC6BIZeX47YN2pjj8/RSdcCuRtFnOl4lDhIix/lnnI+3Q1a/Xxgs9
+X-Gm-Gg: AR+sD13/WL7ikZJWa1PGB6OQ55iba8mVdTcGXgwaM8hsE5rGOiAWaD0wdw4qP7yhPSf
+	zQpS36ds9/mHQSW+IMYL5o+7Jz5P64dobN8VZMNGBfsVqbh2ta6YREmINS/xj0lY0oqAJJXKmL8
+	j+L+e7g7dgdtk4tYs9iKBlTzkxUYl1ZO1dT9IGAJ5STsIZPTw5aySMVwMkRSIs7I4EDJu+Fwa5O
+	SKy+c48Q3kGLClIE9/x3twXwAvh8VGjnX7n2ZyyTM+UTxXFROIosccrASNvAGsxDRd3al2Z81RQ
+	1CRVzV0epXZRvY9+Mkykv1lB/gEvdvCK2E/e7+syuoEjwKy4kda+5WHhe+6JHeugC32Y5Phqncr
+	EWJdwS8MLPV8l0617VmdiVi14ejUwu31sp1pUBKIJOM5NGr5LoSM6565vRV6NqwI5YJ7bdgZUJq
+	0tSAtq1WeQzSejOK8KiFeEp92QjXZjN/ttC8RZX6i7P7SfyxKsOSedI9EgDQuktFr8ENXs+w8XO
+	wVvvE/UP7TCWeAJRx/HXPKgrg==
+X-Received: by 2002:a05:6122:8718:b0:5c2:a30a:1a08 with SMTP id 71dfb90a1353d-5c7c1c274d7mr1278208e0c.2.1788257854933;
+        Tue, 01 Sep 2026 03:17:34 -0700 (PDT)
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com. [209.85.217.52])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7241e2270sm9869015e0c.11.2026.09.01.03.17.33
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 03:17:34 -0700 (PDT)
+Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7850c523f20so565994137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 03:17:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrO0qsqJnSdPWaLE8ajZMtM5eaxy+W6LSJuO7jwtPKLrby49RaWLmag/lmsI2pHR91JzF8O+cJPjCCE6Ys=@vger.kernel.org
+X-Received: by 2002:a05:6102:1a06:10b0:787:ebf8:77ad with SMTP id
+ ada2fe7eead31-78a02a6eb7fmr955834137.18.1788257853731; Tue, 01 Sep 2026
+ 03:17:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] docs/core-api: memory-allocation: add
- k[mz]alloc_obj() and clarify kmalloc
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Randy Dunlap <rdunlap@infradead.org>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Suren Baghdasaryan <surenb@google.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20260831-docs-memalloc-guide-v1-0-547718c274c1@kernel.org>
- <20260831-docs-memalloc-guide-v1-1-547718c274c1@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260831-docs-memalloc-guide-v1-1-547718c274c1@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260830221129.2668354-1-julianbraha@gmail.com> <CAMuHMdWkPtJinDa10S_r7Pj2DTgcKpwgxt7U3tqm7fnSwGxm-Q@mail.gmail.com>
+In-Reply-To: <CAMuHMdWkPtJinDa10S_r7Pj2DTgcKpwgxt7U3tqm7fnSwGxm-Q@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 1 Sep 2026 12:17:22 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUywobKkt5Zozh3GdOW57nF_XhydJh7PaqTBoGB-2XvTQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XlRAlFl-Ap4ZBsvizrQPe_wtXEO1vr6JdvvpwQv8gi-7uGjhpumvEIf0U
+Message-ID: <CAMuHMdUywobKkt5Zozh3GdOW57nF_XhydJh7PaqTBoGB-2XvTQ@mail.gmail.com>
+Subject: Re: [PATCH] kconfig: fix extra output from savedefconfig on
+ out-of-range defaults
+To: Julian Braha <julianbraha@gmail.com>
+Cc: nathan@kernel.org, nsc@kernel.org, xiang@kernel.org, chao@kernel.org, 
+	zbestahu@gmail.com, jefflexu@linux.alibaba.com, dhavale@google.com, 
+	hongbohbli@tencent.com, guochunhai@vivo.com, michael.bommarito@gmail.com, 
+	kees@kernel.org, vegard.nossum@oracle.com, sam@ravnborg.org, 
+	u.kleine-koenig@pengutronix.de, mmarek@suse.cz, linux-kernel@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, 
+	"open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/31/26 17:13, Mike Rapoport (Microsoft) wrote:
-> Since v7.0 the most used memory allocation function is kzalloc_obj().
-> 
-> Update hte memory-allocation guide to describe k[mz]alloc_obj() family
-> and make kzalloc_obj() the first answer to "How should I allocate
-> memory?" question.
-> 
-> While on it, clarify description of kmalloc() size limitations.
-> 
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+On Mon, 31 Aug 2026 at 14:36, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+> On Mon, 31 Aug 2026 at 00:12, Julian Braha <julianbraha@gmail.com> wrote:
+> > The Kconfig interpreter currently allows defaults that are outside of the
+> > range bounds.
+> >
+> > In these cases, the 'sym_validate_range' function will adjust the default
+> > value to the nearest range bound. For example, see this example:
+> >
+> >   config A
+> >     int
+> >     range 1 2
+> >     default 16
+> >
+> > Here, since the default value of 16 is greater than the bounds, the
+> > effective default value gets adjusted down to the upper bound, 2.
+> >
+> > However, 'savedefconfig' writes non-default values, and without being
+>
+> s/non-default/non-adjusted/?
+>
+> > aware of the automatic adjustment to the range bound, it would write: A=2
+> >
+> > This limitation is also documented in a comment: "The following fails to
+> > handle the situation where a default value is further limited by the valid
+> > range."
+> >
+> > To resolve this, let's factor out the default-range adjustment logic from
+> > the existing 'sym_validate_range' function into its own
+> > 'sym_get_near_range_bound' function for 'savedefconfig' to use too, so
+> > that it compares against the effective value.
+> >
+> > Adds tests, accordingly.
+> >
+> > Fixes: 7cf3d73b4360 ("kconfig: add savedefconfig")
+> > Assisted-by: Codex:gpt-5.6-sol
+> > Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > Closes: https://lore.kernel.org/lkml/CAMuHMdVyUAA3L4mUkSjmnuE3cvj-+N8z-Bhxsh1wa-FQWc=fjw@mail.gmail.com/
+> > Signed-off-by: Julian Braha <julianbraha@gmail.com>
+>
+> Thanks, this fixes the issue, and would let us revert commit
+> ab74edaeb1ae7c71 ("erofs: Fix EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS
+> default logic") in v7.3-rc1.
+>
+> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+FTR, this will impact all defconfigs that restrict SERIAL_8250_NR_UARTS
+to a value lower than 4:
 
-Suggestion below:
+    config SERIAL_8250_NR_UARTS
+            int "Maximum number of 8250/16550 serial ports"
+            depends on SERIAL_8250
+            default "4"
 
-> ---
->  Documentation/core-api/memory-allocation.rst | 30 +++++++++++++++++++++-------
->  1 file changed, 23 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/core-api/memory-allocation.rst b/Documentation/core-api/memory-allocation.rst
-> index 0f19dd5243239..8ecfa4d35f4f5 100644
-> --- a/Documentation/core-api/memory-allocation.rst
-> +++ b/Documentation/core-api/memory-allocation.rst
-> @@ -19,6 +19,12 @@ Diversity of the allocation APIs combined with the numerous GFP flags
->  makes the question "How should I allocate memory?" not that easy to
->  answer, although very likely you should use
->  
-> +::
-> +
-> +  kzalloc_obj(<VAR_OR_TYPE>);
-> +
-> +or
-> +
->  ::
->  
->    kzalloc(<size>, GFP_KERNEL);
-> @@ -139,10 +145,13 @@ allocate memory for an array, there are kmalloc_array() and kcalloc()
->  helpers. The helpers struct_size(), array_size() and array3_size() can
->  be used to safely calculate object sizes without overflowing.
->  
-> -The maximal size of a chunk that can be allocated with `kmalloc` is
-> -limited. The actual limit depends on the hardware and the kernel
-> -configuration, but it is a good practice to use `kmalloc` for objects
-> -smaller than page size.
-> +Since 7.0 there are type aware kmalloc-family helpers that let you safely and
-> +conveniently allocate a single object or arrays of objects with kzalloc_obj()
-> +and kmalloc_obj() and their array versions kzalloc_objs() and
-> +kmalloc_objs(). These helpers only need the type of the object that should be
-> +allocated and the count of elements in the array for the array versions.
-> +
-> +As of v7.2, vast majority of the memory allocations use kzalloc_obj().
->  
->  The address of a chunk allocated with `kmalloc` is aligned to at least
->  ARCH_KMALLOC_MINALIGN bytes. For sizes which are a power of two, the
-> @@ -154,9 +163,16 @@ Chunks allocated with kmalloc() can be resized with krealloc(). Similarly
->  to kmalloc_array(): a helper for resizing arrays is provided in the form of
->  krealloc_array().
->  
-> -For large allocations you can use vmalloc() and vzalloc(), or directly
-> -request pages from the page allocator. The memory allocated by `vmalloc`
-> -and related functions is not physically contiguous.
-> +`kmalloc` always allocates physically contiguous memory and the maximal size of
-> +a chunk that can be allocated with `kmalloc` is limited by `MAX_ORDER`, the
-> +same limit also applies to the page allocator.
+    config SERIAL_8250_RUNTIME_UARTS
+            int "Number of 8250/16550 serial ports to register at runtime"
+            depends on SERIAL_8250
+            range 0 SERIAL_8250_NR_UARTS
+            default "4"
 
-Would it be better to say the maximal size is KMALLOC_MAX_SIZE which is
-derived from page allocator's MAX_PAGE_ORDER? (Also `MAX_ORDER` doesn't
-exist anymore)
+Gr{oetje,eeting}s,
 
-> +Internally, slab allocator differentiates allocations of different orders and
-> +delegates larger allocations to the page allocator, but for the users of
-> +`kmalloc` family it is entirely transparent.
-> +
-> +For large allocations that do not require physically contiguous memory you can
-> +use vmalloc() and vzalloc() family.
->  
->  If you are not sure whether the allocation size is too large for
->  `kmalloc`, it is possible to use kvmalloc() and its derivatives. It will
-> 
+                        Geert
 
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
