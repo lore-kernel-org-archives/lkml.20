@@ -1,105 +1,160 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9D343CEED
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:50:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C8B43B3E5
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788277851; cv=none; b=Gv2xB52pBC2OTaBgWQdKXwRjcSh0bSbhQXoxzONDFAHM9LIDt8tbix0XM7vwb5ruxpmnMBhOsOS800nzS0kGIa0M3oiqvBVge2GLN5gN6IIpauaCizfWg1Pkx/QC4B0K8SHCNiNyHV3sGfY5ll82gYEjWG9QZi8H2FDftMpcEdA=
+	t=1788277851; cv=none; b=qz0aaOTQCCV918kyb0YCDOYRmYKlqBUA3pfWn1tGzsHeg1KiOEj9LDXtyJSgV999nkx0497t71RxVZ0H6VYeU7prJSMxEjmWWHUL9KjITINzj5SEo9Xztf3MXFkNB58Wlkil0c//OOz7IW0/8LiopAq9l+bLln5IB1EKNUsICSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788277851; c=relaxed/simple;
-	bh=xUCke3sjfloFXK5xgzPFJXFZoorDrkSXZ+p50ZKJuys=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qUWxYJ/ElGLOde5o0GTny50HAIWFwQQQATQDBLc9A/N9ykka2HLX6nDOGfEuGimoVZsZrMpDnqyyC3OTc2gy/f48ltMQQG0WfOBpT40vW5sZkI0iJTC65IU+XJd9Dgx341S+7s3Q2TiglZaz5oDmKJaxvb2AeETgO1BuNvjfuF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pJcg6OWs; arc=none smtp.client-ip=209.85.128.177
+	bh=sIycX/93dP8h/wj5U80nNU52ZrbLgXUgk65pU9prnfM=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=QBkTOE6PdUrtxAtxX/Uz1/n43CmVVkTtg++x0STFjONfWczsOrR1IDfSL7EMOB5WWyKH8q0wzQ58lRPcZNfQXGKPY0VSbQUsj5DenNcBNFMySOvV3Gr8Qob4bIdvIItaGJS2LdUysB2INavVf0V2Nl6Da6seA5rGGUBKZdqwmJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lzjziOOM; arc=none smtp.client-ip=209.85.208.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pJcg6OWs"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8549a96e93cso574277b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:50:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lzjziOOM"
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a1e9f55e03so8784781fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:50:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788277849; x=1788882649; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pg5APz92OrIInYvba8j1nyYuT4yBZOn6rThGWlzRCeM=;
-        b=pJcg6OWsrbwEIw9H73QtQuAX+4Rf+kU5bBp15O2Ou9P/OejHZPuUxs+u4UvS+qNjr8
-         FlCT7tuep0aatHlZCYw+9jQ9NHsgyEaoeKS/SoGyhnaf1dETtzNtdxfW2vGQPg7D/JF/
-         Qah3K6QGmTLXHFowKC121W72gMP5phhvsK34ejv5JkFMlSJs1PW9ktxRAJ8l3isXEAqg
-         kFzJ4u3/ijo2aMrtFuQdHpvY7KYbJbPBWG7QDRCDGiZ6FZl7IMmTiVDiGwZTrV8JvhTz
-         NX0mQRGyp8kVin1b1QCqEEUqz8+cFy/Qrpivleaqw/PwaAOmm2ePBt0llQFmV/AzEAZ5
-         ARTw==
+        d=gmail.com; s=20251104; t=1788277848; x=1788882648; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sIycX/93dP8h/wj5U80nNU52ZrbLgXUgk65pU9prnfM=;
+        b=lzjziOOM/JUAWWFNVGP2oDOmNl1YRC/Y3UNPV1AHvvXu0unuk+HkblyDqojoDEwxL3
+         8QLQuAm0fbyg37LKNKBrrmze6cLBP4VHDdWUR5SAN3ZQ816pwWp+NvRG4mfks2NnT4or
+         kUF1YKa9CamDmL85Fo2s7kTo8V+J/I+3QtIew7q+fFt+1+hIVJwZVTeQxMSEekrrNi2+
+         PqkNbwsCLE9h9qNt4zeZ+HGHMG2lk82sUVrTrbg/Mxx5cEiHWw4c1dGNblGDuTyMebIe
+         jpgBSYzi8Gg0xhxIiqv0weX0/aG7AjE0mpWBAath5DdTL/jAH/C0aV9whu86eI+1Ekpi
+         Swgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788277849; x=1788882649;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pg5APz92OrIInYvba8j1nyYuT4yBZOn6rThGWlzRCeM=;
-        b=XVxwD5ahLJOZ82GA6LeVqdUZIBCEqmKZXxAaxwiZh0SxrXoHcFuZajMPw7eoPVWZBg
-         +kAlzpPk1E6lHx8x9AeTVyRz18MDtjqZ17rv+ajLiGOcwpp/Jj1U59dy7o0lD54LYA5I
-         LkNJ+G0OBo/wKrdRnyh67v7vGcPIaJ66X4CJjtvss1R8OPhP6iiF/U1Bg9fHJH898L+/
-         BPaGqkgLQSjmbvr7i4smn7tW8jjc824Ctyb3u+T5gHhTLCf9ljrLiZm5joe2/4xCzKIM
-         OLE+0CzQkmsGr7s1P6PabO3uz3VAv+0oF4l0Z4tu+TeyXi10nPwlwWPeDvCrQM58pnIk
-         0EBg==
-X-Forwarded-Encrypted: i=1; AKwUvByiQeR2n2oKeL4qRBKUFSr0vPHuaO1Ri1/9G6eFXsgOEkcTqwSGAvMMzLHby8fq8IMGLXewLRyja5VlMRQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVV6fsblvu6yWo1z4rbF0AdPlWF+xoz7gFBqZm9CI+1qe+oodK
-	g7HdPJgZC1huE4FpllRmF1Jt02WmEKjOHlqbg7zqIFdCgWLPiQrFlq0t
-X-Gm-Gg: AYBFou19pVS5r1BlADlqUEnDb9vI23ybbGjYUdDU2FA56hPlMlaysB8Nt6QBRCtSjvI
-	uylxrNzEN+M4T7y5MEGhZda90+tTvps3lP/uguU7CEVRpudLdbCjFb5/jkovOkQeLn55NAxP5i/
-	y9XHQQ0rqwlYAPJk/S+TKg/VJZZnmL0vNW+3Sf9buRDGu5ftxAexal3WYUSgb1TEt+vigdHcqDd
-	LfS3uAXO7IhzdjFSy3d2utIBfNjA7BUlx6FLZlhU8RLN+iPe2foETULPxwrOnu7Za7wvTmvOKCp
-	QNR1W/74qbLmjV2D+Hg1ot7O6IIlcYtod/qc1kmy7trS2/KluELUB1bE9OYCNZ8Qins0Q0idaYs
-	yqrRTu3ZLrGQC/b1CIOfG/aPTogdziaUbACERv0vNm/Dv9eca+WjrVyUXEGqTHrblP+8njJIZe7
-	IqqPOg1r8KwyJY03HsRyh2VOS7p3QyqLyn5udRlmSAzA0MXgK3QwIry4UB3CZY3mNGshVvLDpkt
-	jUc1bJlaMin2lHIzYAp79KS9n5D/KHw9NnwpKWuYw==
-X-Received: by 2002:a05:690c:10:b0:81e:8d96:a64 with SMTP id 00721157ae682-85d675383admr140102337b3.13.1788277848841;
-        Tue, 01 Sep 2026 08:50:48 -0700 (PDT)
-Received: from localhost (107-220-129-194.lightspeed.chrlnc.sbcglobal.net. [107.220.129.194])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e66abb13asm76661837b3.36.2026.09.01.08.50.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:50:44 -0700 (PDT)
-From: Matt Turner <mattst88@gmail.com>
-To: linux-alpha@vger.kernel.org,
-	richard.henderson@linaro.org
-Cc: linmag7@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 03/24] alpha: select ARCH_HAS_UBSAN
-Date: Tue,  1 Sep 2026 11:50:16 -0400
-Message-ID: <61175f9015771b6a6d78624579ecc180f57d17e9.1788277742.git.mattst88@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1788277742.git.mattst88@gmail.com>
-References: <cover.1788277742.git.mattst88@gmail.com>
+        d=1e100.net; s=20251104; t=1788277848; x=1788882648;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sIycX/93dP8h/wj5U80nNU52ZrbLgXUgk65pU9prnfM=;
+        b=c85mpKRMBSlrlNPjGnap8OVH2CLljqCrzCOfEtE9oLbCqhKRS0KsbSlwnMYyVv4lCB
+         FmkhnC8zxLCfne6c/nYsoyQ68jyOyu1sesNGrKwJkrStqNV7ReOIsNfuLGqLyLw6I2lp
+         8yxaEOLcTbUuuLoiTQOb2mhaNR+cyWhPvRL+hAta6K1sq8bjgoWA16eePOEFQKkqoQRA
+         oce0q9Qk/2Ier5uGR0p7w84ZbEYoH3E7HwZBiZtSAJk2cvF6Po5QUjiDdVvANvfXg3kA
+         rxf2svPV1mHzV1YkAV0Ua6lOGSxg/Gb+hpv+d0w6bhyIY/R7hX1X7fnXFe2kEt1fKw4p
+         sztA==
+X-Forwarded-Encrypted: i=1; AKwUvBxbyjb7mOehJf46cUyrBgVLKElKcB0ZvCCnkBWn3aw4SRq5BVkI4ttA/R4S1BI7agkh5vMt5fntIsog9zc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mB9lXl/ean924eUFX59oBKK/0QmZYQrV6CegBRNFUQ8s3QZy4a
+	Wv4WgbQNVDR9wygQJXyjR9dm1c/imba8EtFppxEdOI8GlB3dGfU89u+4
+X-Gm-Gg: AYBFou0dsm774tfUB9Fi1T/0uLZAwJExxLTwuDjk5+SQ8wZCbuo1fq5VNqZsVpKr5Pc
+	vLNokohHA7vbuIW8gQ+mbWuEmny1gI2+RaGmq3yRxbuuN+f0lw5rJKVwUkVWNNPeIFpTMvW5AB/
+	jRHdo/Jo32Jqyjq6xTi9By34kwL5ZR7ixAgGoi32rkPJLUs8oUoKsUWOFGU0tHKEYNPe2oTJQOG
+	r9kVMUiilEbgSqSmVwId6rAzBZq9fFs4GiuYuCMBTbGuj9Sk8tfO3fOAszdVGn+gaJX7oz6UdD+
+	jaks3xiUuf/4HZ2YeX/Xgzb5xjl4kHkgOflONInL6wRQHWoCVWMWTnSk9nFs4zRHyFqLOMT+MYg
+	yFceRtXp1MK7Ho/lYP7k9Am7qnnKhqxKRMMdDHRGKusjml9Q2w/5FWPM+TJh6FSeetk8zbI8u5I
+	n2mfPFvstXdRsStG6Ba3siwiib5VQD1YAF491RZXRRpe7ha5dTM+aVNbmmbZLS4CeNOC+mPj/Ju
+	WD6d8nVh+PtH0sGWA==
+X-Received: by 2002:a05:651c:2117:b0:3a3:4526:e8f4 with SMTP id 38308e7fff4ca-3a345270387mr8689181fa.6.1788277847338;
+        Tue, 01 Sep 2026 08:50:47 -0700 (PDT)
+Received: from smtpclient.apple ([87.200.95.144])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a34ad010efsm326091fa.21.2026.09.01.08.50.42
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 01 Sep 2026 08:50:46 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Compute ACR CTS for unlisted TMDS
+ rates
+From: Christian Hewitt <christianshewitt@gmail.com>
+In-Reply-To: <apbgp2h_tSZQzbdV@venus>
+Date: Tue, 1 Sep 2026 19:50:28 +0400
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Detlev Casanova <detlev.casanova@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Sugar Zhang <sugar.zhang@rock-chips.com>,
+ Heiko Stuebner <heiko@sntech.de>,
+ dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1035B0DB-D4B0-4E24-A23B-48854B49A3FA@gmail.com>
+References: <20260901112541.84588-1-christianshewitt@gmail.com>
+ <apbgp2h_tSZQzbdV@venus>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
 
-GCC's undefined behavior sanitizer has no architecture-specific runtime
-requirements. Enable it for Alpha to allow UBSAN instrumentation of the
-kernel.
+> On 1 Sep 2026, at 6:28=E2=80=AFpm, Sebastian Reichel =
+<sebastian.reichel@collabora.com> wrote:
+>=20
+> Hi,
+>=20
+> On Tue, Sep 01, 2026 at 11:25:41AM +0000, Christian Hewitt wrote:
+>> common_tmds_cts_table[] holds only six TMDS character rates (25.175,
+>> 25.2, 27, 54, 74.25 and 148.5 MHz), so dw_hdmi_qp_find_cts() returns =
+0
+>> for everything else. dw_hdmi_qp_set_cts_n() then clears the CTS =
+override
+>> enable and programs a value of 0, leaving the sink with no CTS to
+>> regenerate the audio clock from.
+>>=20
+>> Any deep colour link falls into this gap: a 10 bpc RK3576 HDMI output
+>> runs at 185625000 Hz (148.5 MHz * 1.25), which is absent from both
+>> tables. N is computed dynamically and comes out correct at 6144, but
+>> AUDPKT_ACR_CONTROL1 reads back as 0.
+>>=20
+>> Give CTS the same dynamic fallback that N already has, using the =
+formula
+>> from the Audio chapter of the HDMI specification, and drop the =
+-ENOENT
+>> returned into an unsigned int for the unlisted sample rates.
+>>=20
+>> Fixes: fd0141d1a8a2a ("drm/bridge: synopsys: Add audio support for =
+dw-hdmi-qp")
+>> Assisted-by: Claude:claude-opus-5
+>> Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
+>> ---
+>> This was found after testing unrelated patches from DetlevC that =
+rename
+>> the RK audio cards to see the impact in Kodi. RK3588 had audio =
+output,
+>> while RK3576 did not. I'd not used an RK3576 board for a while so =
+tasked
+>> Claude to help triage the problem, and this was the finding. The =
+problem
+>> appears to have been exposed since Kodi reworked plane selection =
+logic
+>> and support for 10bpc planes; earlier Kodi/LibreELEC images were =
+using
+>> 8bpc planes thus avoiding the problem.
+>=20
+> You are looking for this series:
+>=20
+> =
+https://lore.kernel.org/linux-rockchip/86fcf349-0a7a-4618-9001-612371b0f71=
+b@symple.nz/
 
-Assisted-by: Claude:claude-opus-4-6
-Signed-off-by: Matt Turner <mattst88@gmail.com>
----
- arch/alpha/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+Ahh, I missed that. I have now tested that patch (and will reply
+to it with a TB) so please ignore this patch. Thanks!
 
-diff --git ./arch/alpha/Kconfig ./arch/alpha/Kconfig
-index e53ef2d88463..1aa76a2d9750 100644
---- ./arch/alpha/Kconfig
-+++ ./arch/alpha/Kconfig
-@@ -5,6 +5,7 @@ config ALPHA
- 	select ARCH_32BIT_USTAT_F_TINODE
- 	select ARCH_HAS_CURRENT_STACK_POINTER
- 	select ARCH_HAS_DMA_OPS if PCI
-+	select ARCH_HAS_UBSAN
- 	select ARCH_MIGHT_HAVE_PC_PARPORT
- 	select ARCH_MIGHT_HAVE_PC_SERIO
- 	select ARCH_MODULE_NEEDS_WEAK_PER_CPU if SMP
--- 
-2.54.0
+Christian
 
