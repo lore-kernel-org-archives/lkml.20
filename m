@@ -1,282 +1,190 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013027.outbound.protection.outlook.com [52.101.83.27])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F383A20DD51;
-	Tue,  1 Sep 2026 07:30:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247841; cv=fail; b=GDZCt0fUtM+9rkvX+7YWSKJqXWPsURk1wWTUvsWZb18xGZZTvD5prD+Z3sICMcgczzzkW6TwVbLkjtszul8rBpOQNbUgkQW0BouYAzot0+0it0GyQatJmBiga32VXh88pDviGh9Loz3VWzjdq65lWz7hJsaDzgybIT0IWIUIrgQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247841; c=relaxed/simple;
-	bh=a9FIGQjxljXpgSKB/hpUwu8cL57zl154ZDUF2jts3BQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=k/b+5cDnfKdr9ouRqvoISy8GoI5YVAqoAPA8F0EA0BU/WsnwW8eMjrhmx5OrWYm3mkpzo3W/xWrfOLTpSIRfYjnrzp5xBNygmN73gHbLPgohasKoJ11rfuGp9afBYDYWtujgXgEWYTXcwwm+kLnoSAttMAppwmnQJWBKJfdzCK4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=o8OS5Yf9; arc=fail smtp.client-ip=52.101.83.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D18469854
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788247888; cv=none; b=BCoorkHize6AnN6qx+EBRKhPkXusdeTkbe3h7y30iDwO1/r7DSTIzlhnTnAQRmHwjDdqyOp9ffuHFQf+WtpKLVf6RHyOfIsEg8pFKFsoZu8YFnyVHK1nPqzP5HqQcfxGu7fY1m1qvvM5z4a5Vtm6131nSJdybSlLUetYw++1JZ0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788247888; c=relaxed/simple;
+	bh=uBZdxUSbidPUR8s5YEFI7Jz6Erg/CEjfOa412pkfNDI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=t5CwUXNMbdNHYSdDKsKHRGO+Lp04Vb7wmyIN7xSoE2LSuzcFSQg/NROlxY8WDyR725WKf3rKd3RnqT0gkvdY2fO9LQO2B/Uebz7Q4h0CTXs7pa3/HEg3n9Yi42EFOyTS7gX5Hq55Ci3OCHwsuuPJjeyiiw8T9Z40YGz/CRcOb7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NdpSuVJ2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PpQnoJKH; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="o8OS5Yf9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dMufI3XdhRwwglY1M7FVmxXuZNUYVfIuqPkRRst00r957wx8ZG0puwJrzlacc2oAgKaB3GlOmo/NjzTSwyLOg7NyHNoqFFdrUXRpZ0t89NiMts4/U1mvDX8sEURaXgA/1r2jTnA9JoMU4qA4EJce5gXFlVl7AxtVNtP6Jwpc8ZoH3FFapgPgXWz79F75sGzikY+cFjBj3b4J5wOnYsOm9y3+mTNcMwKzG7MDPnKxbHU+37alKPYG5bj7tOdhK7EqhXlNfNXEUghcjVldfVihUtmNflwhDb1DBieUuIdtaV0kmALrtx4Ov/vb+Rswj6KHFim36KbxeCtUiL0/QIK48w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rBMiIV5LLYBQUX5h1N7iAs8P2UO30k5ckud1/y1WbCo=;
- b=D3WSIVTraOZdMY+1CPa3372rgQqzpnkapVwDLsyrLvS99PppKSIADCTQ0UHAn5n4bliDhkpBa9ATL7K351t4RoL2qvxKjglKBCIcLFZGiWDolmSsYkQtOTO79EJc+hmhB9ZKMKjZiOZA42j6A/hT2Gp8GqrxhJrvJk5LCG5EDMeKY+zQijRBltssqdDOBOJpFUw+aAtgYAeZi7SsEpGS92k6OHEXGbsf8iFzKSacBgUZpR9BNz9c+jRZeU9GlwFkIugV8qBlHgSNpiXYym0koC+zQsbdljUwGRefJn6h98ao897a4wuq4tio6jlH4tp+hbfGn6C29SCX7gww9qMtUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rBMiIV5LLYBQUX5h1N7iAs8P2UO30k5ckud1/y1WbCo=;
- b=o8OS5Yf9vQYGdcQS5HOR56Rx8uR1cqHQXFmw9fxvSIWmgZwxQT2KaFpTkV5xQtb7rzkF4RNj3MFESp7iJ6wAyNMDsCn8o0e3KLwhnLELj0lWyQTUq6tBXrIq0SeoELy3caRiarR5Ok4zKpC1rqV0vi3GGzwmZddanMUS57LsG2Xk4cIF2z1raFg6y1My045CCwLI6X+cBKZtVhxKvFO1c/gT1ahfvzJB+9SEZbrPl+e69wqKAYHO+eA9AepbhU4yx82yvLgdQwm9qODg4Ea7p9BV/bY9LPLC7upAsJv/NzqSGGHgTjVLUsakPmzLxGDMlockyKKzmD5CHCZOq7mTlQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM0PR04MB6802.eurprd04.prod.outlook.com (2603:10a6:208:184::17)
- by AS4PR04MB9364.eurprd04.prod.outlook.com (2603:10a6:20b:4e9::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 07:30:33 +0000
-Received: from AM0PR04MB6802.eurprd04.prod.outlook.com
- ([fe80::dc36:17b6:e5b1:fa51]) by AM0PR04MB6802.eurprd04.prod.outlook.com
- ([fe80::dc36:17b6:e5b1:fa51%3]) with mapi id 15.21.0382.007; Tue, 1 Sep 2026
- 07:30:33 +0000
-Message-ID: <301567b9-464a-45b4-9bf7-eac426b9aaf8@oss.nxp.com>
-Date: Tue, 1 Sep 2026 15:30:26 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] i2c: imx: honour I2C_M_IGNORE_NAK for write messages
-To: Haobin Jiang <lemonoutput@foxmail.com>, andi.shyti@kernel.org
-Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260829142148.10536-1-lemonoutput@foxmail.com>
- <tencent_0D2E46A782AC418BC52A1BBF04CA1AC98E09@qq.com>
-From: Carlos Song <carlos.song@oss.nxp.com>
-In-Reply-To: <tencent_0D2E46A782AC418BC52A1BBF04CA1AC98E09@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SG2P153CA0009.APCP153.PROD.OUTLOOK.COM (2603:1096::19) To
- AM0PR04MB6802.eurprd04.prod.outlook.com (2603:10a6:208:184::17)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NdpSuVJ2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PpQnoJKH"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681797gq1211403
+	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 07:31:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=+90YvACKrGhNGFC3jO9C3x
+	PTwtrUvuxLMFSNd/WpkuE=; b=NdpSuVJ2EiNSRzoZ1SCLzjYVDWdxG2epxubq0j
+	jP0FEfsGdv/2NilHpXcS/jVao88tLjKg+vNQj5nnVUrBNl0tELSxjv4xfag6qRQL
+	XR5mMmWC5vnsWxsq9zewPJbkm5bZu4HpnLOX8pCAMUFMK4lFqyln9rZ7FEgn30O7
+	TjBBssE/KkU+fwMmaXQA1sp/SzO5h88NVfaL2RyoBNExKrkz8wTm6bg8nWSOuePj
+	DBftsJwXcHRCcfLTTtKQLoc7aZty7T899G/yBm43UG3DjHONwyv4HbOWiDqfoUYh
+	7ufefRqDwLG4AdeaSGh3zkwbveQrqATGewKFNLtapX2aO6Cw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdnk8s8x9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:31:26 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e82060977so126721685a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:31:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788247885; x=1788852685; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+90YvACKrGhNGFC3jO9C3xPTwtrUvuxLMFSNd/WpkuE=;
+        b=PpQnoJKHSZEDbEfKDZrkTyPiXD/9GCq3L7jDbWl0zzfHMUKTNDCweazpsJ1JnaNrS6
+         qUR9qth9m7NYZVCz1GxoEkl1DIimvN7O3Fi2HOIAObyWskkFEWYI9VFaIubRrx7S0bM1
+         CdYyEHvYj1ocwqgT4FxK+jHu43qPWT8LuSMfnt4lpIaNEUOHoBctuDjqZdi7t0vzny71
+         SqqeBSFsX/n9LZXP6fM45fhYBoh+lVQLeiiQ3UO+JNe6s7BLMK3PkquHCdDFGqJSGH57
+         N+Vg13lg3LrHf0iMFBooS1MUFuP7fLfOnjfvvqBRQFD97MYV0FvS7hOXyzXK2cmWRBKk
+         Vabg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788247885; x=1788852685;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+90YvACKrGhNGFC3jO9C3xPTwtrUvuxLMFSNd/WpkuE=;
+        b=KSPeBXfakL3rcduRpkfC+iidDZwOXxDZtbwxJdNcW4K0IMntyTO3+oh0cgcX061dxC
+         Xr7ybKbyV46hZx7YqrxBbJmpbzY5xO7yevowujp4cKCOKWmAkw3gRgH14XIIA2zSG2ug
+         1qB47V9130e6q3qmqwmZvDIk3AOJNPG5TqESIG0gA6FMymaHsG6rfYv8YBIe9IqnLOB2
+         4uNF6ZmpHVSj4XLfOxD4shNp45nXDdZk/j9MZcNtMv0xlm38Cbflszam+AD6BDxdkzqI
+         WSGncsVg39RTC7Cp+NpSv+HKJG6JMkh7JGLrMU6QSg+UEozLulNOThFeVKZOoGN3ypvy
+         nQ0Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rok2s1HLT5fec8sV07/VQx652LP1oZjY/UBPXHMHzCkhKR02fuhh/P27UvPk9i6C3FmfXkUH5SXDD8GlL4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kp9vgYVkM83xODMxb0J4pDU5MRdAYm20PPM6XohEmX1SCvYc9S
+	MmGRY53JL4XDwXoSN5UEBXq08xLGIU6bjPcSpy4gErQLZG5LJNvY2/tjqS4ScS09e2AJMB8zpGt
+	Fgtpo++tH5zYsy+avHRj+PcHvOFnK5hIS8AU997GiqC4tXT677B2T+Y3k3toel5eMm2c=
+X-Gm-Gg: AR+sD11r2hWNbOFR7PAjKidTJOvGGp4os+dx9peFq66iKkQY9sb6da5q/zcMSagyXeB
+	/bnD7LlpAfe5EGS6BmoLTnfN6JGLze5nhpAWkmxpJa03eiHaRswv0+p83t1F8CNjLYdOjtIOGwG
+	YxZo+gkVLHai3QRqx2YnsWnAI4AMDirbfo6y4aq5fP1r33wORGejGPjR8BsRWZ/gcwvDozdvd9+
+	egqwvCITsQQKajuO+ppKdgV8aITX1xkLm/WpyJoXzgjnR+CU95JGrnycjYvfksRuTp0TX8WtEiv
+	pWfZMrl2D1PBryj4G3LPqcE0KRZBM7TY6QFHFPTN9VhKx8v9ixbLEquho8fBC9bioDccd6E3+KU
+	3iZSFYBO/aT945T3fEGplLbtlU3DMsdpmh7OCfpf1AVFrkgwhymU4IEQDgEUr0/Dzmkkw
+X-Received: by 2002:a05:620a:271c:b0:934:a1e4:cfee with SMTP id af79cd13be357-9394bc5bb71mr504583385a.11.1788247885388;
+        Tue, 01 Sep 2026 00:31:25 -0700 (PDT)
+X-Received: by 2002:a05:620a:271c:b0:934:a1e4:cfee with SMTP id af79cd13be357-9394bc5bb71mr504578085a.11.1788247884811;
+        Tue, 01 Sep 2026 00:31:24 -0700 (PDT)
+Received: from WENMLIU-LAB01.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93918b0f825sm946766785a.40.2026.09.01.00.31.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 00:31:24 -0700 (PDT)
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Subject: [PATCH RESEND v5 0/4] media: i2c: Add OmniVision OG0VA1B camera
+ sensor driver
+Date: Tue, 01 Sep 2026 15:31:03 +0800
+Message-Id: <20260901-og0va1b-v5-0-b0400a9bac01@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6802:EE_|AS4PR04MB9364:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd7484d8-d607-43b0-a062-08df07fae86f
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|19092799006|376014|56012099006|10067099003|11063799006|4143699003|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	zUmyX+ArUfIKL+DntYSzfQnUPo8q7iO6cCb0rGjpIkxeFLPLgPuiUf5kXJTulMqG70YzMqhPlhKEOluHh6/bIiUJB33vCFbgQlLJvS+yaCNr1Q2AncSUgJpVYR7obB6XXyb7Am5B1TtJqTo0T6Euo5ZsVfcNtXqc/1QTLENg0IAkpy/o1GlhRmIfkeu2J+Dh/mwGd+D5MylI6insZr4k9eV64QS5mI9uFP8wrNPLxoRJHmnSI37Do539jcnR55VuycUIQ3HD+MlekvPbeWMQEzFPwpIbvGjo7flfF/+RGK2duUTDB1ZtKa8hMlxD3eudgzg4MTVK/MTtF2m98Np2wbwd06nrWHFqFouINlWEDklFGBHtCTr0c27bUOUivKO1AyeoSxF6NrFPn9M7I4DRSct3vSJnbKA6edVxx+yuulgXes2edfjGJ8Dvt7cgS/8LmTaN+nPj4IOdOtI/S3hAWc61GZFNgfQFWV+T0txCda8zLlyB2lq7zz9bzGtXfkx8xQlnSuOpD1ONjHuFJ73WY96pt1aftAhqsp4iIlOBcDbwUl+NUdUUPxDcBr8aYejcDieuZs5DPLB7ex7GD/lVDyT3pB5bEVB1la7IWO3Tzls=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6802.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(19092799006)(376014)(56012099006)(10067099003)(11063799006)(4143699003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MWZ2d08xRExlRXFqWVl3K1MzbGp5c0hpQm9mZnVnQmJPWCtMajBtbHBHSXN6?=
- =?utf-8?B?YVVFRENiS3ZzSXl1bGxHWHlKQ3ZsWUtKZ3Zna2JVMWZHeGRLeWREazJJcVBN?=
- =?utf-8?B?aGVVZ3JPcG15Y2dMNVpLc09IZlQ0SUtoODlnZTk0UnQwZ2VoTTZIK3d5amg3?=
- =?utf-8?B?VUcxckxycklOMEtCWjZxNEkxSXBQU1NIbTdadHpXR1Mwd2RlUDcyOFY3Ui9p?=
- =?utf-8?B?Z1p4VUJFUHBmMmxXcUlBTmozdjNheEdYV2VuZW9Qc2d1cmN1c2NPaG0zTGhN?=
- =?utf-8?B?UGFtNTd5cjE5QmZJMExTaUV5Ky8zZ3RLeVNSMHYrZ2xDQkkvT1dCRmI0dExa?=
- =?utf-8?B?SEZaZ21RQStiT1Y3Q3JyNUlUcE1oSVBjWjlkTStZbEJ5Rm1KVjc4SnQ2R0R3?=
- =?utf-8?B?enpid0s1QnFJZWtqZEl1bUlONWpCY1FPV3Nsbk1naXJEckNuZ0JvZFVTSDRk?=
- =?utf-8?B?cjU3ZEE1Wm1kQVUrQjI1TEt4b25ZZTNrQWxUOUorUW4ydlRuUG5ITU1IaG93?=
- =?utf-8?B?Z2txK2xQNGxzbWlRekg4V3N5RW5CRlQ0Vkc4SGZPRjBrUnE0RlZ5TkNIRnFC?=
- =?utf-8?B?QmZPb1FVKzFMekJtM2lIL2lYS0IrQWZZeDVxME9MQ2RjMUF2Rk1YRStaZ0c0?=
- =?utf-8?B?dVc3bGpEMzl3amlNYzNlbG50RURORFNKYTY0VEU2SmxtaDNSMEFIbk9TZk5Y?=
- =?utf-8?B?L0FXcUk4NFVxLzVRZVF0TW9jNjN3SkhHOVpOMUk1ZEVTVEhOR0V4M0NTSHZD?=
- =?utf-8?B?eVpmSUZIRFdpOEdEWUJ0Zk11dGc5NnJMYXRGL25KbWxFOW9NMFlQdXJsbzBN?=
- =?utf-8?B?ZXRzRGZpVVFkeUpMc0xBQkdpdDlWTG5FSXRjRDc3MUErMUtQNWRxcWFGbE9a?=
- =?utf-8?B?OFIreU9XaENKNkI1WTV1K1djeHBLa2drK21JLzhFcVJuRjVJeTR0b1Npd0lI?=
- =?utf-8?B?K0pLUmJmVEJxd1p4bjZXeTM2SGROYmpTQkNZWWZvV281aHgyVEFwdXN4VjV0?=
- =?utf-8?B?S3Z6cUFobFJaSXl6TXRGeDdVOE9FRDNBMHpLcmJRVWkrdFVPNkpCa3NaN2JD?=
- =?utf-8?B?ZlQ1VnJQOGQxdXQxbE5pRzlJei9SdGR6MHN1bk9UMnlObVU5UTlZWG5rdHRw?=
- =?utf-8?B?WElsSkxidWpVeVVabGxYbFJoc0R3WUg3TWNyWDd1UU0zVmNEREpkYWJNVlhI?=
- =?utf-8?B?L3EwSmR4aGdsM2g2TzNyaXBIdGJ3N1MrYlA4YTBtOGtLQ1NoaVFUdDZ3M0lC?=
- =?utf-8?B?UTlUUHR2VzQzb1p4MHZ3NUtBTXpWSTRWRndEeWpQdHI0NXdGQ1l5NE9HTmJw?=
- =?utf-8?B?LzN4ZnZMTkNJdW9WcUpRNXJ6Y2ovUzJyU0tWUWs5S1QvOUErcGdNRFU3b0NQ?=
- =?utf-8?B?L0hWa2YwTklvTnNkWUZ4cDRnTzFpSzZSSXppamh1L1ZScnhaQ0s5Ly9hMGxR?=
- =?utf-8?B?N3dRVHRDNTUxOHE1U0VzaGJNb3hUeC9BQXFTd09SaHh1RndhQkRGdVNIS0lm?=
- =?utf-8?B?aFNyWFRPMmZFQ2cxdCtISzNiaDJYcUlEdjR3OXVsVWR5cW9Qd1ZJK2NleGhD?=
- =?utf-8?B?VlowamxKSGdPVWhsOXN1U2RTQ2MxbEhRZm1CM3luNExXOS8vL3VRNkZIa1Ni?=
- =?utf-8?B?a3BBK1BoczRkK2ZSSndJR2hvRlZaQWI2dmRJVlhMeUhXenR1cnpYTHFvTWRt?=
- =?utf-8?B?N2xVMmJzTDNvYUlHd1NCS0hneFJhSFBmZTBON1VkM1IxcEJGN3ZIdGJnd1Zy?=
- =?utf-8?B?SUcxWnRVaHB6cDBUcVNnQkE0V0R5dDhWNjhoQ0dtZmZCZGd3VjFZMnYwV292?=
- =?utf-8?B?NFRiaGIzTHdLVDNkZFdYaWhUbStTdy9KMVhMcGdnR0UvSkFjQ1lSN2U3N0Ur?=
- =?utf-8?B?amhXVkpobTN4TFJnZ1l6ek1IRndxaXpIVlpxSFRFQ2pGWW5DTVd4MWFCWVZx?=
- =?utf-8?B?YkpRSWdZOVptSDFSYkV6cE5ja2lrM2hpdkQxTGxOUlBBQW1wcWZyWmV1SUYz?=
- =?utf-8?B?QTl5eWtUbmF6NHpTTjFDN05yTGtwd3hFR0dRMGpZN1VvclN5alB5Rm1Va1NU?=
- =?utf-8?B?Y3VkNHpjMzRuMGdoK2tsWDIrWE1wc1ZDM09HVzBpbnhhL05pQWNUYmxKWWtX?=
- =?utf-8?B?Qnd4cy80Sy95eDVackU4ekdJdzdsWCtSNWdZZ3N1ZW0wYkNOVU1Ydk12NkZ4?=
- =?utf-8?B?YnVTYzNuaVppTVg5SENScWkxMzFXYWF0dTBrR0loN1JKNTlVUVhvYXBOOXFL?=
- =?utf-8?B?UUZ2bktWeDVpS3NiWE9ENm1JbUNCZXhuUlVScDI2Q05WdXVvMlEzWHp5bGJR?=
- =?utf-8?B?d3QrV3hnbm16VGZkOW1OZWYxV002UHFxNTU4UjJ0S3M4Q1QwVDY3QT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd7484d8-d607-43b0-a062-08df07fae86f
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6802.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 07:30:33.7745
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: m16eeNd0ma9eyANwhsuuE0zrvmgLJ/FCJEu20xFOvxiEu+0tXnUXHthMerGDG3v3MInDhQTLm5SEfRh+LvLGdw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9364
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+        Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788247879; l=2311;
+ i=wenmeng.liu@oss.qualcomm.com; s=20250925; h=from:subject:message-id;
+ bh=uBZdxUSbidPUR8s5YEFI7Jz6Erg/CEjfOa412pkfNDI=;
+ b=AI7/A32JN3z+3EknhLhlMjgy6xq8H3c1YDlpW3OSJz6woengqrE5NVzrUH667rNmiu2R+yth+
+ dE6RsoKI6ALDGPUDCDUem7rNjl8i5B6oiiyx6J826phjGFCCR/i0oED
+X-Developer-Key: i=wenmeng.liu@oss.qualcomm.com; a=ed25519;
+ pk=fQJjf9C3jGDjE1zj2kO3NQLTbQEaZObVcXAzx5WLPX0=
+X-Authority-Analysis: v=2.4 cv=f6p4wuyM c=1 sm=1 tr=0 ts=6a967f4e cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=jfyOTsDdjuaVfMw2EzIA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfX5gONW3i625uZ
+ Zi4Tug9xs7o+rRW/YXr0VDsh+46Bn3vxidMG40mmIh8r9z+lpfxvjKTW2nOH2oH1iGdd4VtI9SX
+ KOZdIt+Ltj7A5HPsiBTriNhPfoA17GlteYgyUcGik1Pd0lFc1kQocOS0S2McQHN5R3QdvQ4oVYT
+ htsoXjeMnmtnNttavOcpAivv7RnB668+V/oxIVmOqtUQDUOEzhIKMWp8eM0/b3l/3zkbjNZawfk
+ kgoGU8qtSMzTfo2/68QcKpu3Kg8yU+3cZufCaKyyvZZl1yGZsNQrz9OEgb+qldD9Gxvb2va4uhw
+ Z4/oZUhbth8I1n5lmK6RGCjqkVgRIPACv+7+A6B8WkSqTrQAV6Ylou0KSNqJMIr/FP94rWtqLmc
+ irTKx5vaK3ptmDoqVCo8c6ECPzqK8RrrihPJ/6llpUizmnOnu3brFhovXANw9KwEfvmoi9ENTvA
+ rA1qOIXlxH9fGgt8gpQ==
+X-Proofpoint-ORIG-GUID: 12FPCHhaiegfoAC63krZsWwUO9sReoZ2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfX3GZ+NMnMexTu
+ 2ATGafBe3M2WVnTz94NH+QObxd7iv8CU9hIXie4xAQjCdwCHwwifiXN+F8y3bJf2KSTSicuYpJP
+ TK65tisnSu1iJbmWj8Qy+zaF+Q0SxjQ=
+X-Proofpoint-GUID: 12FPCHhaiegfoAC63krZsWwUO9sReoZ2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 suspectscore=0
+ impostorscore=0 spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609010066
 
-Hi, Haobin
+Add OmniVision OG0VA1B driver support. The OmniVision OG0VA1B is a
+1/10-inch monochrome CMOS VGA image sensor. It outputs 10-bit raw (Y10)
+frames at up to 640x480 resolution over a single-lane MIPI CSI-2
+interface and is controlled via an I2C-compatible SCCB bus.
 
-Thank you for your fix.
+This driver has been verified(include tpg) on the Purwa EVK.
 
-1. Please use ./scripts/checkpatch.pl to get all maintrainer and 
-reviewer and send your patch to every one and cc all subsystem.
-2. Notice sashiko has reported some issue about this fix[1]. I reviewed 
-the comments, they looks real, so you can try to fix in V2.
+Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+---
+Changes in v5:
+- Use div_u64() for pixel rate calculation to avoid 64-bit division
+helpers on 32-bit architectures. -- sashiko-bot, kernel test robot
+- Link to v4: https://lore.kernel.org/r/20260729-og0va1b-v4-0-ec7e7ed87b2b@oss.qualcomm.com
 
-[1] 
-https://sashiko.dev/#/patchset/tencent_0D2E46A782AC418BC52A1BBF04CA1AC98E09%40qq.com
+Changes in v4:
+- Rename the OG0VA1B and OG0VE1B test pattern menu entries to make them
+more accurate. -- Vladimir
+- Link to v3: https://lore.kernel.org/r/20260708-og0va1b-v3-0-de8e44455a42@oss.qualcomm.com
 
-Best Regards,
-Carlos Song
-> The i.MX controller has no hardware "ignore NAK" enable bit and checks
-> each byte in software after transmitting it: i2c_imx_acked() on the
-> atomic and DMA paths, i2c_imx_isr_acked() on the non-DMA ISR path.  Any
-> NAK is treated as a fatal error and aborts the transfer with -ENXIO.
->
-> There are legitimate use cases where a target NAKs a write on purpose,
-> and when it does, the transfer needs to continue rather than abort.  The
-> standard way to express this is the I2C_M_IGNORE_NAK flag, which the
-> core honours through i2c_transfer_buffer_flags() only when the adapter
-> advertises I2C_FUNC_PROTOCOL_MANGLING.  The i.MX driver never advertised
-> it, so callers using the flag are rejected by the core before any byte
-> is sent.  One such caller is the in-tree crypto driver atmel-i2c.c,
-> whose wake sequence for the ATECC508A/608A requires exactly this: the
-> still-asleep device NAKs every byte of the wake token, and the write
-> must complete anyway.
->
-> Advertise I2C_FUNC_PROTOCOL_MANGLING and honour I2C_M_IGNORE_NAK on the
-> write path by passing it through to both ACK checks.  With the flag set a
-> NAK no longer aborts the transfer and the byte loop continues so the
-> remaining bytes are still transmitted.  The read path always passes
-> false, and every transfer without the flag keeps the previous behaviour
-> bit-for-bit unchanged.
->
-> No retry is introduced: the meaning of a NAK is device-specific [1], so
-> it stays a device-driver decision.  I2C_M_IGNORE_NAK is only honoured
-> when the device driver explicitly sets it, which is exactly how the flag
-> is meant to be used.
->
-> Link: https://patchwork.ozlabs.org/project/linux-i2c/patch/1467900229-5262-1-git-send-email-tharvey@gateworks.com/ # [1]
-> Link: https://lore.kernel.org/linux-i2c/4D46D571.5010907@armadeus.com/ # [2]
-> Link: https://patchwork.ozlabs.org/project/linux-i2c/patch/1378857490-30968-1-git-send-email-luka@openwrt.org/ # [3]
-> Signed-off-by: Haobin Jiang <lemonoutput@foxmail.com>
-> ---
->   drivers/i2c/busses/i2c-imx.c | 27 ++++++++++++++++++---------
->   1 file changed, 18 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-> index 28313d0fad37..737c19688ecc 100644
-> --- a/drivers/i2c/busses/i2c-imx.c
-> +++ b/drivers/i2c/busses/i2c-imx.c
-> @@ -612,9 +612,12 @@ static int i2c_imx_trx_complete(struct imx_i2c_struct *i2c_imx, bool atomic)
->          return 0;
->   }
->
-> -static int i2c_imx_acked(struct imx_i2c_struct *i2c_imx)
-> +static int i2c_imx_acked(struct imx_i2c_struct *i2c_imx, bool ignore_nak)
->   {
->          if (imx_i2c_read_reg(i2c_imx, IMX_I2C_I2SR) & I2SR_RXAK) {
-> +               if (ignore_nak)
-> +                       return 0;
-> +
->                  dev_dbg(&i2c_imx->adapter.dev, "<%s> No ACK\n", __func__);
->                  return -ENXIO;  /* No ACK */
->          }
-> @@ -968,11 +971,15 @@ static int i2c_imx_unreg_slave(struct i2c_client *client)
->          return ret;
->   }
->
-> -static inline int i2c_imx_isr_acked(struct imx_i2c_struct *i2c_imx)
-> +static inline int i2c_imx_isr_acked(struct imx_i2c_struct *i2c_imx,
-> +                                   bool ignore_nak)
->   {
->          i2c_imx->isr_result = 0;
->
->          if (imx_i2c_read_reg(i2c_imx, IMX_I2C_I2SR) & I2SR_RXAK) {
-> +               if (ignore_nak)
-> +                       return 0;
-> +
->                  i2c_imx->state = IMX_I2C_STATE_FAILED;
->                  i2c_imx->isr_result = -ENXIO;
->                  wake_up(&i2c_imx->queue);
-> @@ -985,7 +992,7 @@ static inline int i2c_imx_isr_write(struct imx_i2c_struct *i2c_imx)
->   {
->          int result;
->
-> -       result = i2c_imx_isr_acked(i2c_imx);
-> +       result = i2c_imx_isr_acked(i2c_imx, i2c_imx->msg->flags & I2C_M_IGNORE_NAK);
->          if (result)
->                  return result;
->
-> @@ -1002,7 +1009,8 @@ static inline int i2c_imx_isr_read(struct imx_i2c_struct *i2c_imx)
->          int result;
->          unsigned int temp;
->
-> -       result = i2c_imx_isr_acked(i2c_imx);
-> +       /* Read path always checks NAK; I2C_M_IGNORE_NAK is write-only. */
-> +       result = i2c_imx_isr_acked(i2c_imx, false);
->          if (result)
->                  return result;
->
-> @@ -1213,7 +1221,7 @@ static int i2c_imx_dma_write(struct imx_i2c_struct *i2c_imx,
->          if (result)
->                  return result;
->
-> -       return i2c_imx_acked(i2c_imx);
-> +       return i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
->   }
->
->   static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
-> @@ -1227,7 +1235,8 @@ static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
->          result = i2c_imx_trx_complete(i2c_imx, !use_dma);
->          if (result)
->                  return result;
-> -       result = i2c_imx_acked(i2c_imx);
-> +       /* Read address NAK must always be reported; I2C_M_IGNORE_NAK is write-only. */
-> +       result = i2c_imx_acked(i2c_imx, false);
->          if (result)
->                  return result;
->
-> @@ -1358,7 +1367,7 @@ static int i2c_imx_atomic_write(struct imx_i2c_struct *i2c_imx,
->          result = i2c_imx_trx_complete(i2c_imx, true);
->          if (result)
->                  return result;
-> -       result = i2c_imx_acked(i2c_imx);
-> +       result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
->          if (result)
->                  return result;
->          dev_dbg(&i2c_imx->adapter.dev, "<%s> write data\n", __func__);
-> @@ -1372,7 +1381,7 @@ static int i2c_imx_atomic_write(struct imx_i2c_struct *i2c_imx,
->                  result = i2c_imx_trx_complete(i2c_imx, true);
->                  if (result)
->                          return result;
-> -               result = i2c_imx_acked(i2c_imx);
-> +               result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
->                  if (result)
->                          return result;
->          }
-> @@ -1697,7 +1706,7 @@ static int i2c_imx_init_recovery_info(struct imx_i2c_struct *i2c_imx,
->   static u32 i2c_imx_func(struct i2c_adapter *adapter)
->   {
->          return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL
-> -               | I2C_FUNC_SMBUS_READ_BLOCK_DATA;
-> +               | I2C_FUNC_SMBUS_READ_BLOCK_DATA | I2C_FUNC_PROTOCOL_MANGLING;
->   }
->
->   static const struct i2c_algorithm i2c_imx_algo = {
-> --
-> 2.34.1
+Changes in v3:
+- Generalise the binding title and description for both sensors. -- Vladimir
+- Keep the cached pre_isp read so the OG0VE1B test pattern still works,
+select it via a per-sensor callback. -- Bryan, Vladimir
+- Rename the "sensor" field to "data", drop bpp (derive from code) and
+add og0ve1b_pixel_rate(). -- Vladimir
+- Sort defines, rename the shared CHIP_ID reg to OG0V_ and order
+og0va1b_data first. -- Vladimir
+- Expose all four OG0VA1B test patterns instead of one.
+- Link to v2: https://lore.kernel.org/r/20260702-og0va1b-v2-0-0071442caa2a@oss.qualcomm.com
+
+Changes in v2:
+- Integrate OG0VA1B into the existing og0ve1b driver and binding
+instead. -- Vladimir
+- Link to v1: https://lore.kernel.org/r/20260618-og0va1b-v1-0-dda71bb83009@oss.qualcomm.com
+
+---
+Wenmeng Liu (4):
+      dt-bindings: media: i2c: og0ve1b: Add OmniVision OG0VA1B camera sensor
+      media: i2c: og0ve1b: Use monochrome-appropriate test pattern name
+      media: i2c: og0ve1b: Introduce per-sensor data structure
+      media: i2c: og0ve1b: Add support for OmniVision OG0VA1B
+
+ .../bindings/media/i2c/ovti,og0ve1b.yaml           |  15 +-
+ drivers/media/i2c/og0ve1b.c                        | 378 ++++++++++++++++++---
+ 2 files changed, 346 insertions(+), 47 deletions(-)
+---
+base-commit: 95d6a9ccef99117115e41e9adb271243bd5e985b
+change-id: 20260618-og0va1b-55bbf3cabb0e
+
+Best regards,
+-- 
+Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+
