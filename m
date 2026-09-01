@@ -1,130 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F0733C192;
-	Tue,  1 Sep 2026 14:02:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C67367B6E;
+	Tue,  1 Sep 2026 14:03:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271379; cv=none; b=nX8eVYba4J+a+eVijXHTAoGEiApyrHmwTEoFhzQ049ouvUfgTRONFJw2Bpxmn3SefItsnc8ygXOAUBZb6O9n7d0a/gKcVTaIMff5d7blumG2PjN7+HjYzO2189m6+JBcMRn/yLb6JtA7fkRmcufzfiFSa2r1hSpaekcF7SEhjAk=
+	t=1788271381; cv=none; b=FfpINJ5XDXtOC3sg6JGCptMM/O7r8EekFNP2dIeB6TMNiYeYJMQgSx7FeplNg8rxhX6D0wXAWKvDgJQ0xopcpcjP+TiAaQJ+K0pAP4RTOuHO1mSD3B65Tq4ivRiNsbfAOdOXufzcaQJbk5ARjyiPPQjqIHjU+Ayl3Xxt1e+ngDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788271379; c=relaxed/simple;
-	bh=hWUJTaZkCXIjQprvWTtogTZt6wej3aAuj55Iw5RSm/c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lnuWbE4T43rm0b5ZQop7iLdTnRqdj8D0FWDWhVusNNWemZRu65Av7ml1eQICTb3YbCSrYO5xrTLFnlZOxk7I7u6VB8tSMXGMNXL//IpLQLRt9LZJc1ND/y2p+vevSD5oSJ2p7S9Ap/PpmVYsug/cEF3I36dBBHVxhPB77/EW5iA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EPtcXMbX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788271381; c=relaxed/simple;
+	bh=jPZ01+rb7mljLUxX40w8DG5H+CC+i3TzhhRaHa7YAWw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ERxXe1OXSbKLJFQixy2Rhb33Byp9CDf1+9NuZlC13kxpKrWielEcSzKugx8+tVFjXeDEVwOkiZu0LW0ZNcSHxXlg3XPzY2SZcOB0EgJDXYAcSIoz7I4r46uJ3W2XgXkenwtYt5/9dad1DKm9iCuZUIgo3RyzL9YHk2QLyOJvf40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ayeav+1c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EPtcXMbX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27D9E1F00A3D;
-	Tue,  1 Sep 2026 14:02:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ayeav+1c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 593511F000E9;
+	Tue,  1 Sep 2026 14:02:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788271378;
-	bh=lkZhtGJry6jaZ3PtQ5+ne71QEsfKiPG+5TwJ1CPt2WI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EPtcXMbXjNCGpT++gWFCoJVKRXqcm61WqqCTVEcJ9zQly3/OaAV9stMwAM/mMfKBV
-	 8rgOIQso64094Wp7W7aYTjJWnb2XaTWw1Um1441cJOcyHZdCG4+7uIifUAuMh3U7kv
-	 6Hqn2uIASlx5F/32e2Iesd76y2D56sfxYw5PJTWszZQYVdlBeQTVz7Q62SmFc/7o9f
-	 I6GLeC1igW80atW8n6CCXqGw2ViY9KQCjsQ4+NWFGUlvD7K/D+KXG16pEd1lZunGib
-	 jVDst3diXaUAgaeu9Y5Uhpfrc545X40/ilA9kv/7kLRivfBm7di4WMrZG83He3qxAl
-	 oOKL/jojRuAlQ==
-Date: Tue, 1 Sep 2026 16:02:53 +0200
-From: Benjamin Tissoires <bentiss@kernel.org>
-To: Michael Zaidman <michael.zaidman@gmail.com>
-Cc: lee@kernel.org, linusw@kernel.org, jikos@kernel.org, brgl@kernel.org, 
-	linux-input@vger.kernel.org, linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/13] HID: ft260: add UART and GPIO support, plus I2C
- fixes
-Message-ID: <apaLLD4ZXhNV-Dph@beelink>
-References: <20260827205116.GJ2943942@google.com>
- <20260827222550.24634-1-michael.zaidman@gmail.com>
+	s=k20260515; t=1788271380;
+	bh=MKemib+A90Yyi/0o2sYe3BoQDFeH6318s3f7nIMLnwQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ayeav+1cL3WlPsJuHOUBGxG5nG5lFl65dzKAELeDfJFeeVnMw+mFCAIIT46P5DNWn
+	 1O7kmI+NvRD1RycBh8k/GQEMCIwpLNL1XREsz6TWdahkcz0W5iDI6vPQMHftZoD+r0
+	 4UsOYwJb3kqiuD1bDFuUAc5ACTBuFuwtixsoFGDAE8wH4uTlfMItdl0Dmiqz7CKjYZ
+	 7S2PR3Xv0JLtZKzN1eDYoNqY9OpDUxO7Tn7+v4onW1f1ubZpQuLWBSxVkCl9fMQSUT
+	 /bQ95fvuEuy4SjrEDyZ3EDZq2gpFVT8xEJQmEwu7qzv4v6gLpckH1swQipb5OBuqux
+	 KRAoH3N+2lWfQ==
+Message-ID: <ff869d8a-85d1-4148-b19d-af3a70fcc904@kernel.org>
+Date: Tue, 1 Sep 2026 16:02:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827222550.24634-1-michael.zaidman@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 11/11] scsi: ufs: ufs-qcom: support ICE keyslot
+ partitioning for guest VMs
+To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>, ebiggers@kernel.org,
+ axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
+ James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Cc: neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
+ mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
+ stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
+ xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
+References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
+ <20260827160806.1295313-12-linlin.zhang@oss.qualcomm.com>
+ <046e4b62-6d25-40fc-baa3-2978eb96eb70@kernel.org>
+ <b571ea8a-4434-45e0-958f-20b2f83ced24@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <b571ea8a-4434-45e0-958f-20b2f83ced24@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Aug 28 2026, Michael Zaidman wrote:
-> On Thu, 27 Aug 2026 at 21:51 +0100, Lee Jones wrote:
-> > That's precisely what MFD is.  It's one chip, usually with a shared and
-> > overlapping register spaces, that conducts multiple functions.  This is
-> > no different to any other single-chip device or SoC.
-> >
-> > Shoving everything into a single driver isn't how things are done in
-> > Linux.  This should be divided up into the associated sub-systems where
-> > each part can be reviewed and looked after by the appropriate SMEs.
+On 01/09/2026 12:54, Linlin Zhang wrote:
+>>> +		u32 off, max;
+>>> +
+>>> +		if (of_property_read_u32(child, "qcom,ice-slot-offset", &off) ||
+>>> +		    of_property_read_u32(child, "qcom,max-ice-slots", &max))
+>>
+>> No, there is no such ABI.
+>>
 > 
-> Understood, and I am not going to argue MFD scope with you. But this
-> is not specific to my series, so I would rather not decide it here on
-> my own.
+> ACK
 > 
-> drivers/hid already registers other subsystems' devices from a
-> hid_driver: hid-cp2112 adds an i2c_adapter and a gpiochip, hid-mcp2221
-> adds an i2c_adapter, a gpiochip and an IIO device, and hid-ft260 has
-> hosted the I2C adapter since v5.13, commit 6a82582d9fa4 ("HID: ft260:
-> add usb hid to i2c host bridge driver").
-> 
-> So the split you are asking for is not a change to this series. It
-> means moving code that has been in drivers/hid since v5.13 into an MFD
-> parent with cells, and the same reasoning would apply to cp2112 and
-> mcp2221. I am willing to discuss that as its own conversion, but it
-> needs the HID maintainers to agree on the direction first, and I do
-> not think the UART and GPIO support should wait behind it.
+> This is submitted for visibility. It may be revised in a future version to use
+> a TZ SCM query interface if current out-of-band key operation in the guest is
+> approved.
 
-I don't think Lee or Linus ever asked you to do any conversion of
-existing drivers. Just show the example on how things should be done :)
+Don't submit downstream code for visibility. It just clutters review and
+wastes our time.
 
-If moving to MFD gives real benefits, these other drivers can be done
-later.
+Such code IS NOT ACCEPTED to upstream, thus posting it is absolutely
+pointless.
 
-> 
-> It would also spread the driver over four trees, so a fix touching the
-> shared chip state becomes a cross-tree series with coordinated merges
-> between four maintainers - a cost the single driver does not have.
-> 
-> Jiri, Benjamin - this is your call. Do you want FT260 functionality to
-> keep growing inside hid-ft260, as cp2112 and mcp2221 do today, or do
-> you want a drivers/hid to MFD conversion for this class of USB HID
-> bridge chips?
-
-TBH, I'm not a big fan of having multiple subsystems children into HID.
-Mostly because I can't review the best practive in each of them. However,
-for quite a long time, HID was mostly for input devices, and input is a
-different subsystem.
-
-That being said, there are 2 types of HID devices:
-- ones with defined standard usages (keyboards, mice, touchscreen,
-	battery, etc) and using MFD for those would certainly be overthinking
-- others use raw HID device with a custom protocol (cp2112, mcp2221,
-	ft260), these could be MFD candidates
-
-And of course, we have the exception with the standardly defined sensors
-through hid-sensor-hub.c which goes through MFD :)
-
-TL;DR: I'm not opposed to a MFD conversion of hid-ft260.c, nor I'm not
-formally pushing towards it. I think we need to take the pragmatic
-approach and see if the benefits for it are worth it.
-
-From the description on how the ft260 works and the intrications between
-all functions, this seems like a lot of pain to maintain a single core
-MFD chip, but not having to maintain I2C, UART, GPIO is appealing.
-
-The question about the cross tree merging is something that can't really
-be discussed without having seen the code. Assuming you can split all
-the drivers into their own subsystem + MFD HID parent, we could very
-well merge the newly additions independently, assuming the MFD HID
-parent API is stable enough. The only cross subsystem we need to take
-care of today is the existing functionality, but that can be sorted out
-by splitting the i2c_adapter part into its own file, and then let the
-I2C maintainer move the file into their tree later.
-
-It is maybe a lot to ask, but Michael, can you demo the MFD split on
-one/two functionality so we can check which approach is the best?
-Ideally 2 features that would be intricating well enough to demonstrate
-how hard/easy it would be.
-
-Cheers,
-Benjamin
+Best regards,
+Krzysztof
