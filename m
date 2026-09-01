@@ -1,72 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D788647D470;
-	Tue,  1 Sep 2026 11:09:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461863876CE
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260947; cv=none; b=KxznHjpOsZGIZiv5yvYZG3+U+cEQymqsD4iPVTHWEfH2uYtI/AiZ9+hNtnXksMERkAO4V/jrqikwbzqa764CwTQpv+bC+YdFCYHZBJelR97mK75hHcfCWDS5iK7O6XXEXzaDE8kFvKUabQ16VIp58lsZAcWC1ykjbN9V+xE9E/8=
+	t=1788260970; cv=none; b=REn1On1mHotp+pY8gzWrZ7x/YVTZbOth4NTXPbWJJIj5pOEcOZzX29dYcVkwhUSFPuhBrrqvyQdiOU+G8+nQhBvM8jTV4pSu/4bZOLXLS9VIAEuav6WymfnD2Lnd/NEl17Q/YehzyXwzGA22ozBdkhQkVS61q6A3we53EEoSuQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260947; c=relaxed/simple;
-	bh=VNLnXhLOt+MCY50q0Qc0CkTZqllQGQfSGlBtAl1Vr6U=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=BmVsQqTuReMH/mK3a/rjSkiMdejeZZZ/53ycmkXDkXBsCTmbghUe3P1rDh+jdlxKhRuo0XV4yqJrcFVlezDXFpdEOjNqXHMNTHvNCOflMpW3UhH4raG3i7gPsLnQxyBjZ7CyU/i+BlFRqEUfdIPYyB2YAuJezDAo+//hXrv5vc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CY2ihX9M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788260970; c=relaxed/simple;
+	bh=PT6U7N8m7Ox53yKiw8eE7Vpbd12EUaxfbGezLlwIumo=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=gem1unu9N/KtFbFZCWSJc+eSvSCvjfZ/9i6/gXjlJVOTzgdxCFLc2M6w+6LV3ZemxIKJ1hAccRBQfslfkLY1jk3StLzSUqCAWppq+n5kRQGQ6/e1+180PNnbKR7HoGWFXOuc2HcnHbT0m2ueA2Jev8VMpaA0JL51ERDBgmnLQHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I+HbyIL3; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CY2ihX9M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FCBF1F00A3F;
-	Tue,  1 Sep 2026 11:09:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788260945;
-	bh=VNLnXhLOt+MCY50q0Qc0CkTZqllQGQfSGlBtAl1Vr6U=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=CY2ihX9MxMDxMPHfljgNIH9Fa/9eCdXynGGOMRqQdV8NVhBeLgAO5Guk6tikCuhZW
-	 Z/7N7JLM82Nb3VbjIGxI5m7SGbMLGlujuWYDQuwQHDBOM5YRxMd6U4F2VnOmxrQkIm
-	 6bssvHCAp6oU9pGyCMY4/Z1L7A9K/EyqsYSNFnb9Bne/H3DPslCmVps8kgwTg5mf/F
-	 icJ8Z+PcyuezhGdgVfFyKxb/XmLxcggJ1p1s3ktwGstt0QzD2G0YrdqYoZh4Eypd58
-	 5OWJt1ArdpwsBtgySrotAM1hPBE5UfVUvLUZ/kqFrkwmzCguSKs97casKMLgsHpPtL
-	 YH4kSX5WuBDzQ==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I+HbyIL3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788260970; x=1819796970;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=PT6U7N8m7Ox53yKiw8eE7Vpbd12EUaxfbGezLlwIumo=;
+  b=I+HbyIL3OarREq+SQkdsvJ7gyPzWpzBgqYg8Zt3kNQX8QItmw8oAqm/v
+   VA7Y6x2C0taouIU3eNgia65Nk8oBJSp1Q0sKy7oQlJ/S3gBopd5W9d32t
+   /1AqRvHQ91NVGdJVuxjlzoVUjhREvVaNTTlA6xsUzEJAg93oSw7tWds42
+   GOnPjtjyrPkf/smeELyE/Os9xZKfnZqsf4P2EfyOcE0rQQGqhxKl0sDcP
+   1KBIgqO1M6coKKvCF9zEZ3SqjCvNTf3EiiLn3Y/S0Z+ioH81cHyZWZ8w1
+   u0PFHqQRvLdGW2dSLYqnBlSiJ3f1BtXU4L+25g4JrkK2EMnO4gg+NII4T
+   Q==;
+X-CSE-ConnectionGUID: ghklk6P8Q0aS5JgjzWX0JA==
+X-CSE-MsgGUID: 9y8x7mHDTI6UBw9m8A8lHg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="92381515"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="92381515"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:09:30 -0700
+X-CSE-ConnectionGUID: MZOOJboeQ+GgmiGLODi3hA==
+X-CSE-MsgGUID: DHcRUdbuT8m70L5cHql2cA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="266483210"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.37])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:09:24 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 1 Sep 2026 14:09:20 +0300 (EEST)
+To: Tony Luck <tony.luck@intel.com>
+cc: Fenghua Yu <fenghuay@nvidia.com>, 
+    Reinette Chatre <reinette.chatre@intel.com>, 
+    Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>, 
+    Peter Newman <peternewman@google.com>, James Morse <james.morse@arm.com>, 
+    Babu Moger <babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>, 
+    Dave Martin <Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, 
+    David E Box <david.e.box@intel.com>, x86@kernel.org, 
+    Christoph Hellwig <hch@infradead.org>, LKML <linux-kernel@vger.kernel.org>, 
+    patches@lists.linux.dev
+Subject: Re: [PATCH v11 20/23] platform/x86/intel/pmt: Inform resctrl when
+ MMIO maps are being removed
+In-Reply-To: <20260831174421.13921-21-tony.luck@intel.com>
+Message-ID: <e71b9661-0a38-0b61-6250-c0ec58a1979b@linux.intel.com>
+References: <20260831174421.13921-1-tony.luck@intel.com> <20260831174421.13921-21-tony.luck@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 01 Sep 2026 13:08:58 +0200
-Message-Id: <DL3XLHXS647M.1LMHQUVX5RTI@kernel.org>
-Subject: Re: [PATCH v4] rust: pci: reject IRQ vector indices that do not fit
- in u32
-Cc: "Sophon Zhang via B4 Relay" <devnull+aiqubits.hotmail.com@kernel.org>,
- <aiqubits@hotmail.com>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Miguel
- Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260901-fix-pci-irq-vector-index-truncation-v4-1-f94aa6932fd9@hotmail.com> <DL3XDBBHXKKV.G9P6KRSSX1DN@nvidia.com>
-In-Reply-To: <DL3XDBBHXKKV.G9P6KRSSX1DN@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue Sep 1, 2026 at 12:58 PM CEST, Alexandre Courbot wrote:
-> That makes me wonder, shouldn't we make `index` take a `u32` directly?
-> If that's what the C API expects, it does make sense to align to it
-> instead of forcing users to make a potential unneeded conversion if they
-> already have a u32.
+On Mon, 31 Aug 2026, Tony Luck wrote:
 
-I intentionally did not do this, as the common type for an index is usize. =
-Thus,
-I do not expect anyone to already have a u32, but to already have a usize, =
-e.g.
-from some iterator.
+> Before destroying devices, tell resctrl that the virtual addresses
+> supplied by an earlier call to intel_pmt_get_regions_by_feature()
+> are about to be invalidated and should not be used again.
+> 
+> Signed-off-by: Tony Luck <tony.luck@intel.com>
+> ---
+> v11:
+> 	Unbind/remove operations can't cross package boundaries.
+> 	Psss package_id instead of bitmap of package IDs.
+> 	Use dev_warn() to report failure to find package_id.
+> 
+>  drivers/platform/x86/intel/pmt/telemetry.c | 32 ++++++++++++++++++++++
+>  1 file changed, 32 insertions(+)
+> 
+> diff --git a/drivers/platform/x86/intel/pmt/telemetry.c b/drivers/platform/x86/intel/pmt/telemetry.c
+> index 2d2282c636b2..92871ce51c57 100644
+> --- a/drivers/platform/x86/intel/pmt/telemetry.c
+> +++ b/drivers/platform/x86/intel/pmt/telemetry.c
+> @@ -366,11 +366,43 @@ pmt_telem_find_and_register_endpoint(struct device *dev, u32 guid, u16 pos)
+>  }
+>  EXPORT_SYMBOL_NS_GPL(pmt_telem_find_and_register_endpoint, "INTEL_PMT_TELEMETRY");
+>  
+> +static int pmt_telem_get_package_id(struct pmt_telem_priv *priv)
+> +{
+> +	u32 ret = -1;
+> +	int i;
+> +
+> +	mutex_lock(&ep_lock);
+> +	for (i = 0; i < priv->num_entries; i++) {
+> +		struct intel_pmt_entry *entry = &priv->entry[i];
+> +		struct pci_dev *pdev = to_pci_dev(entry->ep->dev);
+> +		struct oobmsm_plat_info *plat_info;
+> +
+> +		plat_info = intel_vsec_get_mapping(pdev);
+> +		if (!IS_ERR(plat_info)) {
+> +			ret = plat_info->package_id;
 
-The fact that the C API did pick unsigned int as index type is an implement=
-ation
-detail the abstraction should bother with.
+Use guard() and a direct return, no need to complicate code flow anymore 
+just for handling unlocking.
+
+> +			break;
+> +		}
+> +	}
+> +	mutex_unlock(&ep_lock);
+> +
+> +	return ret;
+> +}
+
+> +
+>  static void pmt_telem_remove(struct auxiliary_device *auxdev)
+>  {
+>  	struct pmt_telem_priv *priv = auxiliary_get_drvdata(auxdev);
+> +	int package_id = pmt_telem_get_package_id(priv);
+>  	int i;
+>  
+> +	/*
+> +	 * Tell resctrl/AET that virtual mappings for MMIO space in a CPU
+> +	 * packages are about to be torn down.
+> +	 */
+> +	if (package_id != -1)
+> +		intel_aet_invalidate(package_id);
+> +	else
+> +		dev_warn(&auxdev->dev, "Unable to determine package ID for removed device\n");
+
+Why to print this? To me it looks like dev_dbg() material at most, if even 
+that.
+
+> +
+>  	mutex_lock(&ep_lock);
+>  	for (i = 0; i < priv->num_entries; i++) {
+>  		struct intel_pmt_entry *entry = &priv->entry[i];
+> 
+
+-- 
+ i.
+
