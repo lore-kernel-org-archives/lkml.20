@@ -1,36 +1,45 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-124.mta0.migadu.com [91.218.175.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE89470EA8;
-	Tue,  1 Sep 2026 09:46:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF404756A7
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:46:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788255988; cv=none; b=Sp+qteT3p56q9G+bHrBNxlpD1T+5qQTJSP3PrOkl5Zr0pGLig8SirwK+Ngl1QVDjVO81ucQb2H/2aA9lHltv7TDNNa/KLZSmaMy50ZLYgMr0sUSFXSTPmdvH14FVw0hjHhJpb6z0WJv4QXh6RqxrPWw1GUGgaNgWnStphjikFfw=
+	t=1788255989; cv=none; b=AiiCYySEYUTd5djlEj7ey/iAqYjMgoHK9hLydjVUKr3bBTvJ/j8AjqiCe3boSze5G4pDkRRBKZ18VIU5maxoME3cZ/+FsBXXgl+T1pzOyz83e4mqd9bYPYO1FG13409qSaucfj5PXB/xW/sC1pcUxafLQqqu+UWTT8mNcsrKskg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788255988; c=relaxed/simple;
-	bh=4C5RnHT6lscVJ9vJ4UbWcjYCO3BacG5iWgoyOwNaWCs=;
+	s=arc-20240116; t=1788255989; c=relaxed/simple;
+	bh=J56Av4c33bDOvLiAcmG++5W+dcoUgYpDSIJRZv0VUgM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hwe7fiWSXTS5bewx35lThSHNQhN/ChIg02u50DmE1m2I7pn+LLz3V+FkMMR4Gmsn50LzrdiMjqsJEVnzE/C0Jwdt914FjkGkymEYsTyEMH7akWbJOmvWBHCD1pYIIOpI9F0ALXeTOboakpH8RZ6GovWWj3f+1po2bxo73GgfIA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ybV6aofO; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=s1i5IiwVFipITBbjL4y7K4vcab2yhPTeRhHY/mCPWUuIOcANAfhFnnKQkFE260jkfAe3/QGKEoWy1b1jIIMkrhqEp28VvZc8038gdpwEV8kLGKVYZ1jfRnh2GbUO2ajFaOql/SITbJaRgw5EFeX7wrBntq9wHZ4vOgW85fp8SVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BDUUYBIa; arc=none smtp.client-ip=91.218.175.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ybV6aofO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85BA71F000E9;
-	Tue,  1 Sep 2026 09:46:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788255986;
-	bh=5ziELb1JX9+0BuCz0vMtvJY4vBcPqiv0MfkE4YLMxrU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ybV6aofO+6A2ukGzOhn23czb7tLd08UaLjcz7SnfyPRHPXA5tTF5CkiNkv9uQP3vF
-	 q72FokdEwfDhXlXduMh/6h1cIOkyrzuf97IwhKCcUunf3xoghb6CtrLe+KPeyhKhRg
-	 maWryBDei4kUvZ0KpwaG8s47J22gjPw5D+4R7RNw=
-Date: Tue, 1 Sep 2026 11:46:14 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Dalvin-Ehinoma Noah Aiguobas <fliegbert2@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-Subject: Re: [PATCH v3 0/2] staging: rtl8723bs: Changing two struct members
-Message-ID: <2026090103-spinal-revisable-990f@gregkh>
-References: <20260715171634.1550-1-fliegbert2@gmail.com>
- <20260731142004.15281-1-fliegbert2@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BDUUYBIa"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=J56Av4c33bDOvLiAcmG++5W+dcoUgYpDSIJRZv0VUgM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788255984; v=1; x=1788860784;
+ b=BDUUYBIa3Yeap2rbE3tE4r7jztdrtY0kuhaQW+1GXSQWvaSSPz2DPYKWt/khS4H+LIGrx2f9
+ ZvE2hcP6403Y87k3AfrR3UfSxzmQ+O7Mu2Xx6caK08nt496C1XjKrod+UJycllG1xU3ZPW15Dn2
+ CjxbirnOeNJD+N7b5UWHlBFU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2a80c8888dc7dbf4;
+	Tue, 01 Sep 2026 09:46:24 +0000
+X-Mizu-Trace-ID: 2a80c8888dc7dbf4
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 1 Sep 2026 17:46:14 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Qianheng Peng <pengqh1@chinatelecom.cn>
+Cc: shuah@kernel.org, broonie@kernel.org, jackmanb@google.com,
+	liuhangbin@gmail.com, rbm@suse.com, skhan@linuxfoundation.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests: runner.sh: avoid overriding
+ kselftest_cmd_args with empty variable
+Message-ID: <apae5q5R546M6283@fedora>
+References: <1784010883-25386-1-git-send-email-pengqh1@chinatelecom.cn>
+ <20260901024452.485159-1-pengqh1@chinatelecom.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,48 +48,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260731142004.15281-1-fliegbert2@gmail.com>
+In-Reply-To: <20260901024452.485159-1-pengqh1@chinatelecom.cn>
 
-On Fri, Jul 31, 2026 at 02:20:02PM +0000, Dalvin-Ehinoma Noah Aiguobas wrote:
-> This patch changes two members of the struct adapter.
-> Two additional patches ar made to fix some checkpatch warnings.
-> 
-> Changes in v3:
-> - Rebased against staging-testing
-> - Fixed building error
-> 
-> Changes in v2:
-> - Rebased against staging-testing
-> 
-> Dalvin-Ehinoma Noah Aiguobas (2):
->   staging: rtl8723bs: change struct member bSurpriseRemoved
->   staging: rtl8723bs: fix Alignment should match open parenthesis in
->     rtw_mlme_ext.c
-> 
->  drivers/staging/rtl8723bs/core/rtw_btcoex.c   |  2 +-
->  drivers/staging/rtl8723bs/core/rtw_cmd.c      |  8 +-
->  drivers/staging/rtl8723bs/core/rtw_mlme.c     |  8 +-
->  drivers/staging/rtl8723bs/core/rtw_mlme_ext.c | 80 +++++++++----------
->  drivers/staging/rtl8723bs/core/rtw_pwrctrl.c  | 12 +--
->  drivers/staging/rtl8723bs/core/rtw_recv.c     | 10 +--
->  drivers/staging/rtl8723bs/hal/rtl8723b_cmd.c  | 12 +--
->  .../staging/rtl8723bs/hal/rtl8723b_hal_init.c |  8 +-
->  .../staging/rtl8723bs/hal/rtl8723b_phycfg.c   |  4 +-
->  .../staging/rtl8723bs/hal/rtl8723bs_xmit.c    |  8 +-
->  drivers/staging/rtl8723bs/hal/sdio_ops.c      |  2 +-
->  drivers/staging/rtl8723bs/include/drv_types.h |  8 +-
->  drivers/staging/rtl8723bs/os_dep/os_intfs.c   | 10 +--
->  drivers/staging/rtl8723bs/os_dep/sdio_intf.c  |  4 +-
->  .../staging/rtl8723bs/os_dep/sdio_ops_linux.c | 32 ++++----
->  15 files changed, 104 insertions(+), 104 deletions(-)
-> 
-> -- 
-> 2.55.0
-> 
-> 
+Hi Qianheng
+On Tue, Sep 01, 2026 at 10:44:52AM +0800, Qianheng Peng wrote:
+> On Tue, 14 Jul 2026 14:34:43, Qianheng Peng wrote:
+> >Normally the value of kselftest_cmd_args can be read from settings file,
+> >but it will be overridden by KSELFTEST_TEST_KMOD_SH_ARGS which can be
+> >empty if user did not give it a real value.So it should be better to
+> >check if KSELFTEST_TEST_KMOD_SH_ARGS is emty before referring its
+> >value to kselftest_cmd_args.
 
-No longer applies, can you rebase again?
+Where does KSELFTEST_TEST_KMOD_SH_ARGS from? kmod testing? If yes,
+can we fix it there?
 
-thanks,
+Thanks
+Hangbin
 
-greg k-h
+> >
+> >Signed-off-by: QianhengPeng <pengqh1@chinatelecom.cn>
+> >---
+> > tools/testing/selftests/kselftest/runner.sh | 10 +++++++++-
+> > 1 file changed, 9 insertions(+), 1 deletion(-)
+> >
+> >diff --git a/tools/testing/selftests/kselftest/runner.sh b/tools/testing/selftests/kselftest/runner.sh
+> >index 311811d..a99147a 100644
+> >--- a/tools/testing/selftests/kselftest/runner.sh
+> >+++ b/tools/testing/selftests/kselftest/runner.sh
+> >@@ -103,6 +103,15 @@ run_one()
+> > 		ktap_print_msg "timeout set to $kselftest_timeout" >> "$logfile"
+> > 	fi
+> > 
+> >+	# Exported environment variable overrides the settings file
+> >+	eval kselftest_eval_cmd_args="\$${kselftest_cmd_args_ref:-}"
+> >+	if [ -n "$kselftest_eval_cmd_args" ]; then
+> >+		kselftest_cmd_args=$kselftest_eval_cmd_args
+> >+		ktap_print_msg "overriding cmd_args to $kselftest_cmd_args" >> "$logfile"
+> >+	elif [ -n "$kselftest_cmd_args" ]; then
+> >+		ktap_print_msg "cmd_args set to $kselftest_cmd_args" >> "$logfile"
+> >+	fi
+> >+
+> > 	TEST_HDR_MSG="selftests: $DIR: $BASENAME_TEST"
+> > 	echo "# $TEST_HDR_MSG"
+> > 	if [ ! -e "$TEST" ]; then
+> >@@ -113,7 +122,6 @@ run_one()
+> > 		if [ -x /usr/bin/stdbuf ]; then
+> > 			stdbuf="/usr/bin/stdbuf --output=L "
+> > 		fi
+> >-		eval kselftest_cmd_args="\$${kselftest_cmd_args_ref:-}"
+> > 		if [ -x "$TEST" ]; then
+> > 			cmd="$stdbuf ./$BASENAME_TEST $kselftest_cmd_args"
+> > 		elif [ -x "./ksft_runner.sh" ]; then
+> >-- 
+> >1.8.3.1
+> >
+> 
+> Gentle ping. This patch has been sent on July and has not got response since then.
+> The patch still applies cleanly to current mainline.Glad to resend if it's preferable.
+> 
+> Thanks and Regards,
+> Qianheng
