@@ -1,301 +1,178 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012000.outbound.protection.outlook.com [52.101.43.0])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F037349F128
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:47:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288460; cv=none; b=ZH1pt0rOWJljfu1mWWmEkk3ZsOh4DPkDgISzxOIJNyNNeOptxj4BTvrCn/0HavciQTuIZXG7qHS3rVM8JLyHz0sQg8DVhtkMbow8Q0+PLnBvcFvexw+Sf8WiO9azTq4YlTsiASRK1CSqnV2C4CNA1HqlS4fM4PkWjgVayrUgzzs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788288460; c=relaxed/simple;
-	bh=37Jyf2Og03HL2RNpJK6fCzQGF/A6jmxwa298hL04IW4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=raWyx7sqVszBwSp4F3dUrHwxh1W/H3LWAEPiwiNSfDH2iyuV1ljF8LeplY3gDLyZH1QunSWg7eWaF19OxAOVhqZf6YlVb26pVKIzmIxiC5QjUM3DdVpSo32RDzEm6U3L5cg7r2ywH+T9mHPPVmrKipbjTKwjqA1ACpjwYDBrmLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DMavSJuN; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C47310779;
+	Tue,  1 Sep 2026 18:49:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788288549; cv=fail; b=GLy6ys8vnUxBnA+jBKQ1lnmoSdxcm5+n0yclX539zzZhk3OyK79MybogvyZCeRuZ2iOWLtM7Jei9lOHt/yS8EGCfrLJvKd0eD0vvh89Lx6rk4LxU2ah3gv3ynHi1XRDnMQgeWKEotaYy6g3CIZHFnl64bgiX/NiSVktI/C8o7OE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788288549; c=relaxed/simple;
+	bh=E0FzgtGWd5tqJ07B2qpPBjSc574Ekjb5dHSZqo4BhnQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aFzdDVTCnmfkUO/8h8K8G4WAAn/UeZ/JgK/ZlzR4ktYXrU6sYYYAysMEkQpa1P6e7IgUs2IkYbXA8SWQloXWYa083pYiuBVZTGGinaWdDyErc3KIjilIfX9oQzJWRRNyGjtOY/pQmGTtm1u3CiSwJJql0rSQ7H2Gs3+DuQWQhYM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=vt2rNVS+; arc=fail smtp.client-ip=52.101.43.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DMavSJuN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788288456;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h4yzqurxJCh3TbmATixRFTedMTmqRz4G3gTD9h2e+jg=;
-	b=DMavSJuNKlu4XelZLbhIUOexi2A/sWBiKwMih5vP2RDySa4jxKs7mXLQxum4uNAKGkjb3Q
-	9Yk4rry7hdZkCRv7FNjuqEcWr40Ik30kF6dZDsAQ/hWCzo3HSJt2e5tRf5CrkWn4wRCaqN
-	ficJ013TghjSn+/K68xSNKCU2Rl/4r8=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-28-sVJaRTP2MUSGMiEowFh_EA-1; Tue,
- 01 Sept 2026 14:47:33 -0400
-X-MC-Unique: sVJaRTP2MUSGMiEowFh_EA-1
-X-Mimecast-MFC-AGG-ID: sVJaRTP2MUSGMiEowFh_EA_1788288449
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 185B7180133D;
-	Tue,  1 Sep 2026 18:47:28 +0000 (UTC)
-Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E83B21955F09;
-	Tue,  1 Sep 2026 18:47:25 +0000 (UTC)
-Date: Tue, 1 Sep 2026 14:47:24 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
-Cc: Eric Biggers <ebiggers@kernel.org>, axboe@kernel.dk, mst@redhat.com,
-	jasowangio@gmail.com, James.Bottomley@hansenpartnership.com,
-	martin.petersen@oracle.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-block@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-scsi@vger.kernel.org,
-	virtualization@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, neeraj.soni@oss.qualcomm.com,
-	gaurav.kashyap@oss.qualcomm.com, mani@kernel.org,
-	andersson@kernel.org, konradybcio@kernel.org, bvanassche@acm.org,
-	alim.akhtar@samsung.com, avri.altman@sandisk.com,
-	pbonzini@redhat.com, eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 00/11] FBE virtualization: inline encryption for
- virtio-blk guests
-Message-ID: <20260901184724.GD527638@fedora>
-References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
- <20260827184219.GB2137493@google.com>
- <d81e347e-8ca7-40a1-a428-5bce6f0d4b02@oss.qualcomm.com>
- <20260831204122.GC527638@fedora>
- <71fcde90-3d26-4f34-8908-7a0947d8ceb9@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="vt2rNVS+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c55UDB4LCOV+Phqyd9KSZUhN3l6dYon/olAg1gSGa6j59cwNuCJi+wNxV4zHsY3FekNm/eemvJyMpVndNeT/IlJ6tSp8ZrAXjvtZZu6hu3/9D2ZuNP23IzXTfziKvjK9BTpmzBIsIkqdPr7m4soBUV1YdVnrbAiWasQFwHWBojd6++4K/ky2BgcIEYVEWb4no/hC5bwGGu4LO3rLj/X6rwTUp56LBKcGWfb5hU80NnfhWgh2Ohn6dOq25vDwOAxwrtmwLbWafnuksoUAcxYjoEECItdDvCD4FnTrU8+Ltx9ZwJG0jdZ/UhpLPrybFctS6E88AjT5//nbutCCdA+NTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/0DxzHQ0eX/j84gUO1QQCVL/RZCXXZOP4Il96dYseZQ=;
+ b=qNdvJQa9Zd1O+glI6YKN7VjEDtExLnRtthN5I4IHgdz41STlgrD3mRE8f07zhZ76EdTrmLneXF98U0ZMGh/j5P/Qb39KOZU1NhglFm+TczDA4LkmQDr0NG8Or02ZKoCM2vAoaKyRCVvk+tk1NhrZhayrIo3EQd4tloNAA03g4imIfGkD/wvx3R2RxBc2Eu2Klu064n714Mme3cXgLMKfOTZhptvwVfzS+cxifYtvUFiMKErR2n4Ouym6RK9rp4KFDpy5PCu0vFxk78YxiTTiyRTHBqGeFVyoT+ORXIB1lcRzk7Qc7qfIBN//F4LCLCq9sNZamGhjMQrfajgvHIE1+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/0DxzHQ0eX/j84gUO1QQCVL/RZCXXZOP4Il96dYseZQ=;
+ b=vt2rNVS+ucJ8CRQygERRI+dk0JRE6Cm9qCL1LhnT+4TF0fSFJ8e+/i9gY1IR2o28iiSvErSt6NaDZbIFq9g8+BiQkp1jkIVcXJaSfb0ho3MOrD+ya45Yre7IK36xwtyGDmX1uk6ceSlhRx2Z1/rtmL2N5pieXwoqMy7//TFQ8YNhXIEXn/gwgwIuzJmAsS/g+ezBSmKb8hzHSPpGd6DV8t+0IjKsKPNe3/efYgdZa7IyFbiijvsE6FQprUj5Y1TxSUa81Qr5KZsPFPvDPEFpMcweEoQx5gAhpCTp1pImIsnCxR4KBCwPDRZic6Dc8T2sNFDAlC5XrEjXX3/9W6B/SA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com (2603:10b6:5:39c::19)
+ by PH7PR03MB7338.namprd03.prod.outlook.com (2603:10b6:510:2f7::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 18:49:02 +0000
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04]) by DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04%3]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 18:49:02 +0000
+From: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+To: linux-mmc@vger.kernel.org
+Cc: ulfh@kernel.org,
+	adrian.hunter@intel.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	dinguyen@kernel.org,
+	p.zabel@pengutronix.de,
+	devicetree@vger.kernel.org,
+	Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7 2/9] arm64: dts: agilex5: add SD/eMMC host controller
+Date: Tue,  1 Sep 2026 11:48:11 -0700
+Message-Id: <20260901184828.15653-3-tanmay.kathpalia@altera.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20260901184828.15653-1-tanmay.kathpalia@altera.com>
+References: <20260901184828.15653-1-tanmay.kathpalia@altera.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR05CA0005.namprd05.prod.outlook.com
+ (2603:10b6:a03:33b::10) To DM4PR03MB6208.namprd03.prod.outlook.com
+ (2603:10b6:5:39c::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="le1+zzq4kRSwMP92"
-Content-Disposition: inline
-In-Reply-To: <71fcde90-3d26-4f34-8908-7a0947d8ceb9@oss.qualcomm.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR03MB6208:EE_|PH7PR03MB7338:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9769b70-393a-4fa3-5994-08df0859b127
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|56012099006|10067099003|11063799006|18002099003|22082099003|55112099003;
+X-Microsoft-Antispam-Message-Info:
+	zTbQ1ZHoZETi8NyxdeVU0Seg72KfYzO8quUHLIeSc4neDtBtMg3C7k8F89ZdiPZSfrr8lkhCMTYFJYAh0SkK692YqnO16wYvKYLAUPM3boV74GFjbAaePtpNWXAMUu6noy/x7YczZCNmSmfJOQigL0uXfHnTvZWat9WgFzVz5P2CrD5jOJfJRXkJ+KAALDSiZsnO+Q/BXFHnnYQAfYLJqNc6BZAkDBLc58w7iv2z91w1LJu+T6N2iLmQxEVLmurR3glyeM1lzgGTHVT57RheNfOui33iio/vpy/zUiSJ0OK1yzisQjta7tlt2xtDDizWPo4NkfIuigqGfd4kIyeK9cg4GiDOFD2OnocERlNK+nakUr7g5xkWNtedjJ1BD76uMzDpTPC/rF+YPXrp3iJhNb2QSyCJkA+Ela7e0SA0hv/QqefDkrFvAji5GCgvxTExhPmb6NYV3bzMAacLqKk99xoeDRfzrL/tBX5H8EHu7+s7eVHQtmb2reFHC7GNcLcZeFpohxXbFuZiblaPkWT8PuDsC3MJwP4Tr9j/NN3LJ8+ZYCt+8fo0+s746yIpNiPzCKnOKQznvG3xi4BToi6UKuBfSWL7lao5q1L/gPBbAiRNUniBO6yFE98Eusf0W1blPmLr9feC5MlbTcsBPEaOF8GMGE3SmxJATS3lfPh77lk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003)(55112099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?pCAMeIDwwHHKxQs+mS8/LjlNyGPsMBD12aw8i1efQQZefv8E/+NNsgH5TWnA?=
+ =?us-ascii?Q?QFVDMKy2KsUpvInaQUVtqpKrvYtjrl66QQknuPw1hwR4OvIaKP9mBzhvVjmA?=
+ =?us-ascii?Q?kuWg5vc7Utue6QBc1zL+OEZCQRTYTfoaflgkUvJFdlGOneBnPuK7+qmOKJGg?=
+ =?us-ascii?Q?+ZGxrSE2EE9VBP78i1Sjl8fbYp83mf0QRHTn/2z3FTsf4tG0Jp1iP+eiOfz/?=
+ =?us-ascii?Q?gSt2AxOScotMXKOTh8nekl5SKm/CVgTQsp/Vz9frhYsqdP7W7ncbIkfdsFo5?=
+ =?us-ascii?Q?OzMMSwUCQUB5O3HdVe1U9gLHrwmAu2gCCosm1kCnE2ZF/NNGLHwwcHHkRkTT?=
+ =?us-ascii?Q?3D3gOrb95jDn/bau2cxIdQcHRixEu2wjPwz8w8BXUUIAA5QsUGR24r7Lmmft?=
+ =?us-ascii?Q?TJR2SPlZMnNSqmjM6k+/9NSjJehJSIf/hDwBwUY1q0vn2Ugh+S/fSWbzFkEl?=
+ =?us-ascii?Q?EwTjsjCW2TLXlji5MtFusikv0xPEZYFJtRncEHHRMXnDHH2sFJ2ZtENr6JF7?=
+ =?us-ascii?Q?iCbIvaEoA79+mNh66kVaeVsVueq1xRxyFnML8r7MUscoE7sYHDSXeGMzC+Wv?=
+ =?us-ascii?Q?7ZFBtORP8sOxWePhyzC8vbVYZjCmwRftACpj4yrLiN5KTxX2vVFX/q6OhyLZ?=
+ =?us-ascii?Q?SmxezBez/GlsTVyzcwFVokqaVr64YcBylAdaCzUOQptLadz8K8lfOIaRPcJe?=
+ =?us-ascii?Q?2/60rwvjPi/TECY+86HVZXJAbeWNWm92eQhoziiRy3QzyLT8Wd2RzweGwB08?=
+ =?us-ascii?Q?J+YNZip3kFycpAjYNy8iNPNbLejs0p0s3a8ncJ1FSAGC4McHFEdMvDfZ4b+8?=
+ =?us-ascii?Q?gfpuHgLSww6CObizsCcMc2ACDOmJS4ZCbKabqhV5H6JaNS2JBenYxa6nMAYW?=
+ =?us-ascii?Q?0rBi+SQFLb+7lof2RWy9X95p+smeuVUUvhzuhWz+WQxzOzb+GeturpJu79Bj?=
+ =?us-ascii?Q?RcsW8hAhQOpVfeygOz1JpdSa3hTX6hRHSTZ3IPXtZInNI/WAZBQlTHBPqbtt?=
+ =?us-ascii?Q?d43gRD20gwcGFqj/0fbJ+J9i29sKb1KDUk+jIQDkpt+e6RImZrCTo+6Mu4iF?=
+ =?us-ascii?Q?KQ0X03mMHGOvmEd1e1lZohm6l9YR35OeIYG0L6G+by5tj00qaX8Y1FcIanfG?=
+ =?us-ascii?Q?KVomv3FgPgzPwHzVdva54o1MpV/VNqyxRind/Z7k5dgyhAewhYTB6xQiljul?=
+ =?us-ascii?Q?mVN7KHkg7Zb0Wb0fukFIeFANSBwncBcVX4SNXjSY8gIcnUNA27BDYIrplQNm?=
+ =?us-ascii?Q?SxnoerOcohl6F3e8SOAJfvKe+0ySdNxPv39FgHS/+5KOqzXFVlfU0uugy4CZ?=
+ =?us-ascii?Q?FWr9be/mVQrXRDu5JFZiJDJe48wMUpaq+y2jTOW0K/z6DP6GNOgpe/P+JEN6?=
+ =?us-ascii?Q?AMpCaLA03T/+9nlt45mXMIBbsGNYVaaMIIcXVuPu/tqDn8z5JYbJvEWjnD0m?=
+ =?us-ascii?Q?u/oHfuNlJ5P76KV1sK8AnFGtj8rD8F/tG2X2H475hy69MM48PdOKbH3XhjYB?=
+ =?us-ascii?Q?Y72O41tLYTE3cQWkydUR7tO0AFmD3rm+wc7tLkiow1ou4VvdmofRVetaLHsb?=
+ =?us-ascii?Q?tq0n0fmivCBTdg5M/pecuLpGeclxXw1XyP0RoA1yQ54UIbjrGPkYEOa5zxMm?=
+ =?us-ascii?Q?QUPt5/F1lAbze9GB9u+GYQjU26urxno1fZ7AWvYvWVieyP2G8x1t7q6jHODf?=
+ =?us-ascii?Q?3EJujotiL4QrjG3hAoOVhw8mN0QhhCxmJ/t4Bg5ZJkpJi/USisbLzFg20wQP?=
+ =?us-ascii?Q?gapfpx4+tsbgN4k9GtfwDBcrNDeR0x8=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9769b70-393a-4fa3-5994-08df0859b127
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 18:49:02.8347
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rSRg6II2szJGjmZKInoWvZ4XpRQVlIlSluYCmt25qndYFQj3k9wVgPbtwqqo8LMOiGxEA9evdvCspBLhOsn1b5hUEiEo7lBialtS6ccELPM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7338
 
---le1+zzq4kRSwMP92
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The Agilex5 HPS includes a Cadence SD6HC that can drive either an SD
+card or eMMC. It uses separate SDMCLK (CIU) and L4_MP (BIU) clocks, and
+has three resets for the host controller, Combo PHY, and SDMMC OCP
+bridge.
 
-On Tue, Sep 01, 2026 at 05:21:53PM +0800, Linlin Zhang wrote:
->=20
->=20
-> On 9/1/2026 4:41 AM, Stefan Hajnoczi wrote:
-> > On Fri, Aug 28, 2026 at 11:37:57PM +0800, Linlin Zhang wrote:
-> >>
-> >>
-> >> On 8/28/2026 2:42 AM, Eric Biggers wrote:
-> >>> On Thu, Aug 27, 2026 at 09:07:09AM -0700, Linlin Zhang wrote:
-> >>>> From: linlzhan <linlin.zhang@oss.qualcomm.com>
-> >>>>
-> >>>> Current virtio-blk does not provide a mechanism for a guest to
-> >>>> program hardware keys or submit encrypted I/O using pre-programmed
-> >>>> keyslots.  It drops the crypto context when issuing a bio request
-> >>>> to the virtio-blk queue, preventing inline-encryption-based FBE
-> >>>> on virtio block devices.
-> >>>>
-> >>>> This series enables File-Based Encryption in guest VMs on Qualcomm
-> >>>> GVM platforms where the ICE inline encryption hardware is shared
-> >>>> between the host and guests.  In this environment the guest kernel
-> >>>> has no access to the ICE hardware directly; it supplies a virtual
-> >>>> keyslot index and data unit number with each encrypted I/O request
-> >>>> via VIRTIO_BLK_F_INLINE_ENCRYPTION, and the host must translate the
-> >>>> virtual slot to a physical ICE keyslot and submit the bio =E2=80=94 =
-without
-> >>>> transferring raw key material across the VM boundary.
-> >>>
-> >>> This seems to be designed incorrectly by not making virtio-blk itself
-> >>> support key programming and eviction.  That complicates things
-> >>> significantly by then having to handle the key programming and evicti=
-on
-> >>> out-of-band using Qualcomm-specific SCM calls.  It also means that
-> >>> adding other implementations of this would be very difficult.
-> >>>
-> >>> There are some claims that not transmitting keys across the VM bounda=
-ry
-> >>> is desirable.  But that doesn't seem meaningful, given that all the I=
-/O
-> >>> is transmitted across that boundary in plaintext anyway, and also it
-> >>> seems that hardware-wrapped keys will be supported too.
-> >>>
-> >>> Please make virtio-blk support the key programming, eviction, and
-> >>> HW-wrapped key management operations that are needed for this to work.
-> >>>
-> >>> - Eric
-> >>
-> >> Thanks for your comments!
-> >>
-> >> Not making virtio-blk itself support key programming and eviction is
-> >> something done deliberately. Based on that HW-wrapped key management
-> >> operations are also handled in the out-of-band path.
-> >>
-> >> There are bellow 2 approaches I investigated to let virtio-blk program=
-ming
-> >> the key.
-> >>
-> >>   1. virtio_blk implements blk_crypto_ll_ops interfaces, including pro=
-gram
-> >>      key and evict key interfaces.(Same to 'the virtio-blk interface s=
-tandardized
-> >>      blk_crypto_ll_ops requests' mentioned by Stefan in the virtio SPE=
-C thread)
-> >>
-> >>      The guest's block crypto profile manages the keyslot in virtual s=
-lot
-> >>      format in this scenario.
-> >>
-> >>       - block crypto key and virt_slot index it passed to the hypervis=
-or's
-> >>        (EL2) device emulation (QEMU, using QEMU in the following) which
-> >>        runs in userspace of the host. Besides of transferring the virt=
-ual
-> >>        slot to the physical slot, a programming block crypto key UAPI =
-need
-> >>        be added. Follow current blk-crypto design, it may be like
-> >>        BLKCRYPTOGENERATEKEY. I thought this results in a security risk=
- that
-> >>        allows userspace process a key into a key slot.
-> >>
-> >>      - For key eviction, it's similar to above key programming handlin=
-g, also
-> >>        need a key eviction in blk IOCTLs, but leads to the security ri=
-sk
-> >>        that allow userspace client to evict a key in a key slot.
-> >=20
-> > Yes, userspace shouldn't have access to the entire physical key slot
-> > range. The host kernel or other VMs may need key slots and an untrusted
-> > QEMU process must not be able to modify those key slots or use them for
-> > I/O.
-> >=20
-> > The uapi design should include a solution for this. For example, there
-> > could be an ioctl like BLKCRYPTOSEALKEYS that permanently restricts the
-> > key range on this block device file descriptor and cannot be undone.
-> > Libvirt or other management tooling would call this ioctl with
-> > CAP_SYS_ADMIN before passing the file descriptor when launching QEMU
-> > without CAP_SYS_ADMIN. This prevents QEMU from ever having access to the
-> > full physical key range.
-> >=20
-> > Just an idea. Those familiar with blk-crypto may have a better one. It
-> > seems likely that we can find a design that matches the level of
-> > security of the out-of-band approach.
->=20
-> Thanks for your comment!
->=20
-> Eric mentioned a proposal that each virtio block device has its own *virt=
-ual*
-> keyslots in the host, which is not static partitioning of the physical ke=
-yslots.
-> I have concerns about the new key programing UAPI and 2 VM exits per encr=
-ypted
-> I/O. I'll confirm with Eric if that needs be considered and if we need pa=
-ss
-> through the crypto to the host blk-crypto-profile (which means the max sl=
-ots
-> of blk-crypto-profile in the guest is 0, and virtio block driver only doe=
-sn't
-> implement the key program interface in blk_crypto_ll_ops).
->=20
-> >=20
-> >>
-> >>     virt_slot, DUN and DUSize is appended to virtblk request during cr=
-ypto
-> >>     I/O.
-> >>
-> >>   2. virtio_blk implements blk_crypto_ll_ops interfaces, excluding pro=
-gram
-> >>      key and evict key interfaces.
-> >>
-> >>      The guest's block crypto profile doesn't manage keyslot for the g=
-uest,
-> >>      the host's block crypto profile manages keyslot for both the gues=
-t and
-> >>      the host. The trigger of key programming operation is moved from =
-the
-> >>      guest to the host.
-> >>
-> >>        - The whole block crypto key (key size, key bytes, blk_crypto_c=
-onfig)
-> >>          and DUN are appended to the virtblk request during IO, a litt=
-le
-> >>          high payload.
-> >>
-> >>          The backend parses the crypto message in the virtio queue and
-> >>          construct a block crypto key and DUN for the bio_crypto_ctx
-> >>          set to the BIO. So that the IO flow in the host can program
-> >>          the key.=20
-> >>
-> >>          The question is that the blk-crypto-profile distinguishs the
-> >>          block crypto key via the key's address. But the host has
-> >>          different key addresses for the programming and eviction key
-> >>          operations of the same block crypto key from GVM, because the
-> >>          key is re-constructed in the host for the key program and
-> >>          eviction operations.=20
-> >>
-> >>          To fix it, the approach I thought is maintaining a new key
-> >>          hash table in the backend, and comparing the block crypto key
-> >>          content and DUN parsed from virtio queue with that in the key
-> >>          hash table.=20
-> >>          My major concern is that this need keep the keys synchronizat=
-ion
-> >>          b/w this new hash table and the blk-crypto-profile's hash tab=
-le
-> >>          carefully, avoiding that key is still present in the
-> >>          blk-crypto-profile's hash table, but removed in backend hash
-> >>          table. Another point is that the whole block crypto key and
-> >>          DUN are appended into virtio block request per crypto I/O.
-> >=20
-> > This sounds like an approach that skips key programming and instead
-> > sends the keys along with each I/O request. The device implementation is
-> > responsible for managing key slots on the physical ICE. My main concern
-> > with this would be whether the blk_crypto_ll_ops semantics can be
-> > faithfully replicated (e.g. error reporting) without explicit key
-> > programming operations.
-> >=20
-> > Stefan
->=20
-> You're right. When the virtio-blk device processes encrypted I/O, it
-> would be responsible for extracting the blk_crypto_key and DUN from the
-> virtqueue and attaching them to the bio (via bio_crypt_set_ctx()). The
-> existing keyslot management logic in the block layer would then handle
-> physical keyslot allocation and waiting as needed, so the rest of the
-> blk-crypto infrastructure should continue to work unchanged.
->=20
-> Regarding your concern, there is already a somewhat similar
-> implementation in the device-mapper layer (
-> dm_table_construct_crypto_profile() implements a passthrough
-> blk_crypto_ll_ops profile. See
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/d=
-rivers/md/dm-table.c?h=3Dv7.3-rc1
-> ).
->=20
-> Based on my current understanding, I don't see any obvious
-> architectural issues with this approach. However, I may be missing
-> something, so I'd appreciate any feedback if you see flaws in the
-> design or potential problems that should be taken into account.
+Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+---
+Depends on commit ab45ecfab540 ("dt-bindings: reset: altr: add
+COMBOPHY_RESET for Agilex5"), which is already in mainline via the
+reset tree. It is not yet in mmc/next; apply or merge that commit when
+building/testing this patch on top of mmc/next.
 
-I don't have enough blk-crypto knowledge to give good feedback on the
-details of this approach, but Eric and others could help with that.
+Depends on commit 10cf797f3f8a ("arm64: dts: socfpga: agilex5: Enable
+the SMMU"), which is already in the SoC DT tree. It is not yet in
+mmc/next; apply or merge that commit when building/testing this patch
+on top of mmc/next, otherwise the SMMU remains disabled.
 
-Stefan
+ arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
---le1+zzq4kRSwMP92
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmqXHbwACgkQnKSrs4Gr
-c8gZXAgAyk+ykFlJgnNUvYAfetdqn3qvfOcLaR2xVwjxEk0NzBDFP/HZW/wgWzwe
-ugHuAyKQ44stXShQ8DVuF5yalv17oZSE2LgxtKfIH/eHUSzCA7S08xRAXbZci9cn
-0ZcZ0WfXv6EroR6pGugfa5A4NjLHAONVYl9/z8jr1nStq8CqzDui1K5SLQjzr5Ou
-vVPsa26fU5+2U944ctg1Fw+3cjIndA5krRUN4DvNlmY3qseFoves6mlc271wzus7
-RpN1+wGrBVa6nb5WMF31dgoAm5TcFOXAX98RnjnyOzZgD5gwlG28LH6qM/POvCbC
-HwYdUNvLgBP2bm9xfMTBPXTXnK+Ryw==
-=1s2S
------END PGP SIGNATURE-----
-
---le1+zzq4kRSwMP92--
+diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+index b06c6d5d60ee..6de5a470d423 100644
+--- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
++++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+@@ -300,6 +300,21 @@ portb: gpio-controller@0 {
+ 			};
+ 		};
+ 
++		sdmmc: mmc@10808000 {
++			compatible = "altr,agilex5-sd6hc", "cdns,sd6hc";
++			reg = <0x10808000 0x1000>;
++			clocks = <&clkmgr AGILEX5_SDMCLK>, <&clkmgr AGILEX5_L4_MP_CLK>;
++			clock-names = "ciu", "biu";
++			dma-coherent;
++			interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>;
++			iommus = <&smmu 5>;
++			resets = <&rst SDMMC_RESET>, <&rst COMBOPHY_RESET>,
++				 <&rst SDMMC_OCP_RESET>;
++			reset-names = "sdhc-reset", "combophy", "sdmmc-ocp";
++
++			status = "disabled";
++		};
++
+ 		nand: nand-controller@10b80000 {
+ 			compatible = "cdns,hp-nfc";
+ 			reg = <0x10b80000 0x10000>,
+-- 
+2.43.7
 
