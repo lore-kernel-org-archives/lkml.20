@@ -1,106 +1,95 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326204908C5;
-	Tue,  1 Sep 2026 17:56:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F9EE4908DA;
+	Tue,  1 Sep 2026 17:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788285387; cv=none; b=XVshRhs9Ev7qWpC5tcJ4S/t/LgVdUFlPVl8k44WcEWWkIHKjCMFNMTu6WTP5tHeHExsKCfUdAwHikKNNPYmjSsJ6CKBfb//7V26gZNduDS5ODHWpgGE2YaCe7fkAAPBxy8/4VtZ45ulGuKv2QBWB2ylPh8s1GpcG68xhCGOPkeI=
+	t=1788285534; cv=none; b=lLbeLG1F85I4B4AWJA+3NCHscKKbMwulYMA2U8gzZMrJYcag4laQiw9eEAhPTiPZy1eXSVzpVyVogldCQPH5r8nYS7P69elaVpuC9ZyJx+ud2Ps5tcUA/dvI3H0e6rVnFRFRE0iQ19CjDpAgOgw6cASb9vluVZ26RjunTsz5eu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788285387; c=relaxed/simple;
-	bh=NXB828F0BgwZ92XkDH9xZRFbfVEHyziPgYk/0bHDQgk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sZFxoiuN7Yc7c/nvo+OOp46keEE3LjxpVrPuBFvB+CCovkUEo+12VNXuqGxCtUvCdukel5+vk7yvhq5gSk4ED3vZA9vgZkLZY3SI6bdNdEnrxtxM1Di50rjOwilg5cyhTV1ZKcC8yiChD6/ahkPFT9P1eZBrfQOzwO5oNbT0hws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=Dc2Opkm8; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788285534; c=relaxed/simple;
+	bh=2W8npXJoJZbijCjhRseirFQjDutKhflMtpGqwMrfhl4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IcRNe7y1YLv4LTjrOsLz5AEOxQkxkiFuWQaYlLxjwLyZSeBVzP1dku7qA4OhuV4munr5zm7YdI5t8O9AIOY+O0uk3tHTpaOslV9nA89XI7jMIon5vFVcNCsoteLHoeG/6IyKTj2tQt7e8SR0l8Moukrv4/l4If4EmmMPwEQ87rY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=rfUKe7To; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="Dc2Opkm8"
-Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 276F2A4339;
-	Tue,  1 Sep 2026 17:56:18 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id 4D51A30;
-	Tue,  1 Sep 2026 17:56:16 +0000 (UTC)
-Date: Tue, 1 Sep 2026 13:57:15 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Donglin Peng <dolinux.peng@gmail.com>
-Cc: mhiramat@kernel.org, dolinux.peng@gmai.com,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- pengdonglin <pengdonglin@xiaomi.com>
-Subject: Re: [PATCH v5 0/3] Use BTF to trim return values
-Message-ID: <20260901135715.4812fde9@gandalf.local.home>
-In-Reply-To: <20260901134604.4052265-1-dolinux.peng@gmail.com>
-References: <20260901134604.4052265-1-dolinux.peng@gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="rfUKe7To"
+Received: from localhost.localdomain (unknown [4.194.122.144])
+	by linux.microsoft.com (Postfix) with ESMTPSA id AA6AB20B7166;
+	Tue,  1 Sep 2026 10:58:10 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com AA6AB20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788285495;
+	bh=3ihD57aXs5CmbpTZxGzE5aopK/AIL3W0/70G+AGNwtg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=rfUKe7ToVhjNyWs7b7op8+XYIsBIjE7C5kGJnArHPITfS6/3olQ6AVflkbaDXNRjj
+	 9P7yh5LTa6dpGdTSp/lGGjnsgq9P9ptHM+nYOR+zr8QnjZnHtbCzJDbi5pmOSjebQu
+	 R0iHrqZ3BTQ6EiDxLWMPsSiMGcI+qN8Hi4NV8dTY=
+From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+To: almaz.alexandrovich@paragon-software.com
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	xmei5@asu.edu,
+	tgopinath@linux.microsoft.com,
+	kys@microsoft.com,
+	"Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+Subject: [PATCH] fs/ntfs3: fix slab-out-of-bounds write in ntfs_create_inode
+Date: Tue,  1 Sep 2026 13:58:34 -0400
+Message-ID: <20260901175834.8557-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: 4D51A30
-X-Stat-Signature: pu4igh9jgu75cw8y8jnk397nm6wo6ekg
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18iuEvvyqdqLWYPqNrtu2UsEDi8D/6Ywvc=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=b4sFRfNQ0tyv8pW4Ve/mW5zG6sCiOyA38H38CK7BhmE=; b=Dc2Opkm80SuQE2M1MjVYNLYUUoUdxAB9LzGzgZzqzCmraTo1YZa9xfZJoZ/e5vwEtGxdiI6Vf7zyD5ep/2cdRbtstI+9g5V1zeNGLQaENKZyf74BVBYisu3xuoNhaxXkh1CPne/ZXWW/G8/KgtOWjM2ys4caP51VWtaobe0p8U4=
-X-HE-Tag: 1788285376-230469
-X-HE-Meta: U2FsdGVkX19HCQSdVjaPdJKBJJI5BjU/6roxVsAWeJfnYCyZE3JmtO39r6YvWAMc1NBZKNAnMGqyY+cnRcgHPLnHIs6ZEx2ceAGWZNyeXhD5FXqKm9cowUoHilYmsHyWcnPIr7h4IScfNNZWWdiIylM122vIyXKmNomT0xDwJicYMNHNwemD7H8ES0dW7Gq59EL2sQmlkyt38/Vz0T782jsGDo0Qygnc+kL6oiewultudZgIsi11vAiU5iyIc32DMGb3B7wx1GUD1MAXaurmWRBwz1L3bMVcKQILitFMBHYhu7uhKqekasdRwEAXenjVqFj7TYQICbqfEK18U5dywJcs7/0ol2I85KZ++1aNSMbDpVuHnNrtvw==
+Content-Transfer-Encoding: 8bit
 
-On Tue,  1 Sep 2026 21:46:01 +0800
-Donglin Peng <dolinux.peng@gmail.com> wrote:
+ntfs_create_inode() sizes the non-resident reparse run list as
+record_size - offset - SIZEOF_NONRESIDENT, then sets the attribute size
+to SIZEOF_NONRESIDENT + ALIGN(run_pack(), 8). It does not reserve space
+for the trailing ATTR_END, so a maximally packed run list places that
+4-byte sentinel just past the allocated MFT record.
 
-> From: pengdonglin <pengdonglin@xiaomi.com>
-> 
-> The funcgraph-retval option currently records one machine-word return
-> value without considering the function's declared return type. As a
-> result, void-returning functions can produce meaningless output, and
-> return values narrower than a general-purpose register can include
-> undefined high bits.
-> 
-> This series uses kernel BTF to identify the return type of traced
-> functions and to improve funcgraph-retval output:
-> 
->   - Do not print a return value for functions with a void return type.
->   - Trim integer, enum, struct, and union values to the available return
->     value width when the BTF type provides suitable size information.
->   - Format integer, enum, and boolean values according to their BTF
->     encoding.
->   - Mark values as "(trunc)" when the return type is wider than the
->     value captured by the function graph tracer.
+BUG: KASAN: slab-out-of-bounds in ntfs_create_inode+0x4390/0x5220
+  ntfs_create_inode+0x4390/0x5220 fs/ntfs3/inode.c:1796
+  ntfs_symlink+0x108/0x170 fs/ntfs3/namei.c:224
+  vfs_symlink+0x137/0x420
+  filename_symlinkat+0x326/0x460
+  __x64_sys_symlink+0x79/0xb0
 
-Hmm, I really don't like the "(trunc)" If it's the real return type, then
-it should just print what the real size is. No need to state it was truncated.
+After packing the run list, check that the 8-byte ATTR_END slot still
+fits in the MFT record. Return -EINVAL if the aligned run list would
+place it past the buffer.
 
--- Steve
+Fixes: 82cae269cfa9 ("fs/ntfs3: Add initialization of super block")
+Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+Cc: AutonomousCodeSecurity@microsoft.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
+---
+ fs/ntfs3/inode.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> 
-> Here is an output comparison:
-> 
-> Before:
->  # perf ftrace -G vfs_read --graph-opts retval
->  ...
->  1)               |   touch_atime() {
->  1)               |     atime_needs_update() {
->  1)   0.069 us    |       make_vfsuid(); /* ret=0x0 */
->  1)   0.067 us    |       make_vfsgid(); /* ret=0x0 */
->  1)               |       current_time() {
->  1)   0.197 us    |         ktime_get_coarse_real_ts64_mg(); /* ret=0x187f886aec3ed6f5 */
->  1)   0.352 us    |       } /* current_time ret=0x69380753 */
->  1)   0.792 us    |     } /* atime_needs_update ret=0x0 */
->  1)   0.937 us    |   } /* touch_atime ret=0x0 */
-> 
-> After:
->  # perf ftrace -G vfs_read --graph-opts retval
->  ...
->  2)               |   touch_atime() {
->  2)               |     atime_needs_update() {
->  2)   0.070 us    |       make_vfsuid(); /* ret=0x0 */
->  2)   0.070 us    |       make_vfsgid(); /* ret=0x0 */
->  2)               |       current_time() {
->  2)   0.162 us    |         ktime_get_coarse_real_ts64_mg();
->  2)   0.312 us    |       } /* current_time ret=0x69380649(trunc) */
->  2)   0.753 us    |     } /* atime_needs_update ret=false */
->  2)   0.899 us    |   } /* touch_atime */
+diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+index 56b4f6469a28..d6e4b4b3154d 100644
+--- a/fs/ntfs3/inode.c
++++ b/fs/ntfs3/inode.c
+@@ -1769,6 +1769,11 @@ int ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
+ 			}
+ 
+ 			asize = SIZEOF_NONRESIDENT + ALIGN(err, 8);
++			if (asize + PtrOffset(rec, attr) + 8 >
++			    sbi->record_size) {
++				err = -EINVAL;
++				goto out5;
++			}
+ 			/* Write non resident data. */
+ 			err = ntfs_sb_write_run(sbi, &ni->file.run, 0, rp,
+ 						nsize, 0);
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.55.0
+
