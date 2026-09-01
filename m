@@ -1,76 +1,62 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054BC383306;
-	Tue,  1 Sep 2026 23:19:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1635D3845DC;
+	Tue,  1 Sep 2026 23:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788304779; cv=none; b=NMbAT+iR2vEYwHJBIYU8dxB0+9VlqZeEfjX/3+Ci6trwxYFqeYwjdGm2D8i85kPL4oDV7kGOBdchGNCZ/TrXauX0AXKrVwFxpMWC2HLs8z4fME3pHd6xvs0pNcAkJ4ECJYfnRci2pQQJd8W332+RPCmXj5AG0OAIAPlOhkBh61I=
+	t=1788304815; cv=none; b=k07xr//wP2eLRiKrrWg5q6STJeHGNsuNtAgIErK0y/YUwcTWN4h/1GdjVZLkagVKX2BAXG0sylaTrKgjkeXTgX3H4bXCSMZ5tFM2APp+Sg9mC1NpM1pv3SzOthBGyTztKgrym5jX7qBtUs+33PuQohQjB7dnVJbpDx8qkHaJmkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788304779; c=relaxed/simple;
-	bh=Lze/+TCUstK3y+dtKoHqgs5paw4KD+vu7hVBpTs8qgw=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=YnFYJjrvIgIOKUJ+nf2MHAz7RWpyod/itRN+LNTXozz12brcObms2lssB3kA0AIs1cNWblxNBNz5tKkrcTcyRoXFlX0Fwp0tMcO+raj0h0BCC5gdHHOX+zV9HdebROI3ERPhXu5lvGwZxy9xmZ0GOyr7+bw3QBa34oswhKzc6wM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=1Z6yT3Qy; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1788304815; c=relaxed/simple;
+	bh=1ZTLqh/CEL/oQco0CSscxMobUaxOmcQZMh5FFzy6QR8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EVaKcQt4Ob+27PSlcrTUe7TeCQsGRNAau7hJUJ5IjujMMyhzKfF6KIMKzPY3XvjVrLglXwYaezOK3TdXOYRPflGenTgwDIIm3w4KwFw1OM1GQvsYC7Q/yQTppQ7edOxFTilyaRCCwnCsmOrXhdOegApy8+x4M2Twi5iGNpJ1fRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2EY6tWO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="1Z6yT3Qy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=qKjdx9HaXUprHp4cBWsJINyVzLHc1vdbhmDiVrRhpAk=; b=1Z6yT3QyHBzOZ6/8SrfWQtO1XB
-	YbQ8QS6gc13actNBe6nFCTsU3/NAn6TPeCkk1ZXDX9IkoKexu5sbj3WuTdIq45maxGjuhf79OZK6n
-	mVtgxKgL93Byy5NdWewaaPyhCEmIHOjYmCenC9gcBHbCMUixJilN8LUaQRmU5MQodbT5XR0bJUysx
-	ACRAKh/rdHA8nWeOx/TFlPMM5Bz+VS2xGMeRibO1TXAyNvQU4Rw1PuSeDekSBovMbkY4696bkr3Do
-	1Zn4+oQ/VlxH8u4EjKN8r+KjwmspbIoWL0irA+d5n+OXYwFX94CBYCwXdOCIflXp24Op0T0Slupox
-	dh2YbrMw==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x1XlI-00000000Sld-1OG4;
-	Tue, 01 Sep 2026 20:19:28 -0300
-Message-ID: <0e8961201179ba88038de511c587ddc7@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Erhard Furtner <erhard_f@mailbox.org>, linux-kernel@vger.kernel.org
-Cc: linux-cifs@vger.kernel.org, David Howells <dhowells@redhat.com>,
- netfs@lists.linux.dev
-Subject: Re: client side "current->alloc_tag not set WARNING:
- ./include/linux/alloc_tag.h:161" at accessing CIFS share
-In-Reply-To: <0b004319-9ef7-437c-a4dd-174d6a9a83db@mailbox.org>
-References: <0b004319-9ef7-437c-a4dd-174d6a9a83db@mailbox.org>
-Date: Tue, 01 Sep 2026 20:19:27 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2EY6tWO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 339391F000E9;
+	Tue,  1 Sep 2026 23:20:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788304813;
+	bh=1ZTLqh/CEL/oQco0CSscxMobUaxOmcQZMh5FFzy6QR8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=j2EY6tWO452AphVxxCj4hyI3ZBCUVYA8kdb+RxLcYgsX5Xa2nNEEZKc3Qb5KVcki1
+	 kV2GLPX5Usx225Naha7IdGIKJ9bQvIYinOmq99O+63CsS4HOcNE1giDY/XHcxs0dME
+	 +z2zV0wCf4S/TN4E648Xk9eu5wmuqYYnbgyE79u1u9oaED3+Ps4EpyOvpG3AQPMUii
+	 ZpVhmlg6obKHNfCzWSucwnpUemqjTtEN87DF72LUnM92qWAIHAJ9QYWdRxG7Jkw5P2
+	 l/ouZH0nVOUcncsAw3E93njoqR/NTD7cNL/0mOeft3UpraxBAclkELHW3mlmBTC6pk
+	 CH+0h+C/QNzSQ==
+Date: Tue, 1 Sep 2026 16:20:12 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Cc: hexlabsecurity@proton.me, Sidraya Jayagond <sidraya@linux.ibm.com>, "D.
+ Wythe" <alibuda@linux.alibaba.com>, "David S. Miller"
+ <davem@davemloft.net>, Wen Gu <guwen@linux.alibaba.com>, Wenjia Zhang
+ <wenjia@linux.ibm.com>, Eric Dumazet <edumazet@google.com>, Tony Lu
+ <tonylu@linux.alibaba.com>, Dust Li <dust.li@linux.alibaba.com>, Paolo
+ Abeni <pabeni@redhat.com>, linux-s390@vger.kernel.org,
+ linux-rdma@vger.kernel.org, Ursula Braun <ubraun@linux.ibm.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Stefan Raspl
+ <raspl@linux.ibm.com>, Simon Horman <horms@kernel.org>
+Subject: Re: [PATCH net v5 0/3] net/smc: bound wire-controlled CDC cursors
+ against the local buffers
+Message-ID: <20260901162012.602cc62e@kernel.org>
+In-Reply-To: <db896915-5858-4fc3-a56c-77b626980284@linux.ibm.com>
+References: <20260723-b4-disp-0d07164f-v5-0-6a9e235dbc4e@proton.me>
+	<db896915-5858-4fc3-a56c-77b626980284@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Erhard Furtner <erhard_f@mailbox.org> writes:
+On Tue, 1 Sep 2026 12:10:35 +0530 Mahanta Jambigi wrote:
+> I noticed that this series has *not* yet been merged into the net tree.
+> Is there anything still pending or any outstanding concerns that need to
+> be addressed before it can be merged?
 
-> Getting this "current->alloc_tag not set WARNING:" every time on my 
-> client PC when I open files on the CIFS share (exported via KSMBD) from 
-> my host PC:
-
-The warning is triggered by running the following in
-netfs_alloc_request() with CONFIG_MEM_ALLOC_PROFILING_DEBUG=y kernels:
-
-        rreq = mempool->alloc(gfp, mempool->pool_data);
-
-for the non-writeback path.
-
-@mempool->alloc is set to mempool_alloc_slab(), which calls
-kmem_cache_alloc_noprof() directly and expects the caller to have
-already set current->alloc_tag.
-
-It doesn't occur in the writeback path, however, because we call
-mempool_alloc() macro that wraps to
-
-        alloc_hooks(mempool_alloc_noprof(...))
-
-and it sets current->alloc_tag before the allocation.
-
-I'll look for a possible solution and then let you know.
-
-Thanks for the report.
+FWIW it needs to be reposted to be considered for merging since it's
+over a month old at this point.
