@@ -1,113 +1,220 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9584344D8C;
-	Tue,  1 Sep 2026 07:35:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C8A46AEFC
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:37:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248144; cv=none; b=ay4y9BDt6c1bvBdIFFdMnff03HslfyUxlJqQ30NPpVCeby7NiQAETLkjnPMhAzUjYq6gJciNmFR8Xhoumg1iBslj7OYPeHm/qCnWjmNRyQH/LXbOI7M+176ZrfDWzPcNQANli+d0D4Llql8dgDlNZ/cbvEgMKHDnPoRbSU0RLWU=
+	t=1788248231; cv=none; b=SyKpZCSjZWFaq6nzfsqugbxvNgJOLGrtkrlIV9ovJ391xJ+9zSd2EYsaFFVjQk4yV4kKsTF1GL3kqTg4gLEg6HABrlc3luJKaqaVLCmTMxDjJa1B3UKdgMewESaSlxA8xPwQSBP/4AIb5xyNz0YCmNEA7eOfg5shmwecJijCgD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248144; c=relaxed/simple;
-	bh=M/KE5rcbD85EtiQ7TZsfyWN8T5K1p+1XQNTInOeNLL8=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=AH5JQ29pV3Bp5PulunW/rluK1k1RQISeO/kCJbN5Cvt0u8fu7R+aQoFbhTIPmdTttCxuuiFIkFy+lpVCwkjrYz35wPsvSLjK/jARDmm7LeyR7ZSSqR2t3XIfOg7xAvTO2CRfFSJIMLcC4fKnmHn7Ny23AODJktb1nloQn3oVHwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=kI65ibvX; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1788248231; c=relaxed/simple;
+	bh=FJwryxdj6SeAfeatAboNCbJuNSz4L2laoNofSSSnyxI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TLFOy2p+WuR7o2b4dTLNAoVaV4tWVnEx100GehH+ZLbDfU5lOvZRM/doS6158Ac3eZk2nSl+/E4U+QV3rqAJwhLcrxsdbn9wZp4PrfaywjtD502+WQOZE98wrR+6TEDajgVp8zKqLVlrSipTamfsqz1wbrgaq7F/L7MyQ5OTpi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fZxogu5o; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jgMLF2p8; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="kI65ibvX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=kGm16IxYb54a3zID3qH4N1aAfIiUxF4X75orXCP9VY0=; b=kI65ibvXCfjK0FNjyf6jQrJqqn
-	eRQUiDDQnP2gdjPRDtj76NLWV+lj+cL4n3p33kUIAVKQTbxA+42cv+qXUVcPjnSwcXGE8zbqAEspO
-	hkXC5VubnoKiWdfsd7A5Cr4jdFHcMcIhqIhTl3rx5sufwVdrVekesdqWImbjYfwI13YaEO4/5Hqm8
-	ShLSHjzwd0auIFSi2Ve1kzO3NFazCqh0Qvtrw9AYyF2L12QlM06V5HjfqxpUkTPf7+/8b9vCzmqVT
-	jJOH22538wydH2Pmy1PC9poWQHgc/C2yBpmHpXkozNEGlQoupZJua6wPCpB0GdViWZnrHmcAxFdSe
-	oqC3veMg==;
-Received: from [::1] (port=51530 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.99.5)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1x1IeI-0000000CHJP-0UkU;
-	Tue, 01 Sep 2026 09:11:13 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fZxogu5o";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jgMLF2p8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788248228;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sJI7b9uIFuaHf590ZX0b+HvWZoEv+dLMUmfbEqRC6AY=;
+	b=fZxogu5oE2aq5NYYULtqjbn72COhduwYhUY50e9I7c9eIvnr/bRH3gEGJEa/TVLnSHpwJU
+	3lkwSoGyrOiMRbHMW4CDoWx04uuN6W6BoC98hfmOJxyaz5h4XOcTC3CUD1MsT6dYVuHk6g
+	xomXJANBsZvt03BKSTwUtjy8t/RbRlE=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-226-nwdXXLgyNIK3KWsvOQbVyw-1; Tue, 01 Sept 2026 03:37:07 -0400
+X-MC-Unique: nwdXXLgyNIK3KWsvOQbVyw-1
+X-Mimecast-MFC-AGG-ID: nwdXXLgyNIK3KWsvOQbVyw_1788248226
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4994aebe932so43218415e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:37:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788248226; x=1788853026; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sJI7b9uIFuaHf590ZX0b+HvWZoEv+dLMUmfbEqRC6AY=;
+        b=jgMLF2p8tcprFdbhmlgojh0EQNBDWMNznDDz8+99YsWvXdrtErW74P2hBbLABW41pU
+         PECHfXmROOT3grXgMTnKCSKzM+7fdCszb9j9SudKt3zIBns1Qr59RHP7dpYvoHMOZ/UL
+         L4ORzNkfaNZ1MajOYOy2UVmC2s1lRGyT8g5wyTHNqvRx310sh8A+/zsJ4OUH9+MdfisI
+         ULJEnS1h9Kf8fA3qK8Dzkr/rVApUfyv3z0xrH3Hu0h2VkJhmve07V853Gh+VZjRVeQs1
+         nvrYKDjBWyVAvsusO/hE0asq/Bg30xwsr91BEFaaGbEYr57xCQz5qasD8YDVL/VJhM9v
+         iHtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788248226; x=1788853026;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sJI7b9uIFuaHf590ZX0b+HvWZoEv+dLMUmfbEqRC6AY=;
+        b=PNLvqDWU8Mm5kUr2qZYsV6dHuoskNz1+cYDT7nhntVq8pI3omdh2t55JfHAC8Z3L19
+         bVd7arkRoQ4qVig+POvW7qBIgOmf8jtIq9nHFVemjfvMVBUoCw233buw1jvfKg31RCb9
+         UqqdUBGJf96THwuYMPfUXX9ZRY98fcL4ivgnDl/5y9bZ12YY52t81zxYg7Xzrt9NfvGC
+         4h9gCWe2ZpFrZ4g8p70MC6CX0+3uBP8C+saOUI6Qrz+QcShcHAaiPV+tmV2f6SN6xGCm
+         SqIGUTYZZrm99xexYvCBZIuJXIgfiNko7ehuh+UbKyTlQPgOMkrcP/j4WaBmjvK/wsHx
+         LoOA==
+X-Forwarded-Encrypted: i=1; AHgh+RoM89UHXiTXUfokwyWzeoHqZe43VAYDnEEOptx+aI5A/CQknkWt1KXs0agPuIt64n+B+4l0ZIhbXF6KD5o=@vger.kernel.org
+X-Gm-Message-State: AFuF++m25it+0jgfTj/z9ub5EMFm8i+upqcXERdQAG5A+J/Xx5pyZmzc
+	d2wFH7ANnsIfwuOZwOTkoxW3m/GF2l1R6PctRl5N5ActhABe08ATQ4ceifMMmnnKqN+48ff7uT1
+	rhqzPIliOyq4D3Uv84BM7KTCIVBN6Hg+0LTLbZ//8AG4gL8AijLISU9sC99dgi9ifZA==
+X-Gm-Gg: AR+sD13JsxAnQe+NoL070rttK5cGeAYf48P5w1zzEPZsUI9puotNDfBaYfsPBKdaklb
+	jYOZCxZ8IphO8OUnVsGgZgFELgJPr2uvJB6l3XtYByVTO82Z4wpdluN/t36vfWR/Ol0dH9W3l6e
+	YGJb4IsUYVsBTBqndm7N47z3/Kn97rmgYT0hyXNkeoy/sOkqSEVVEKOMMtPYoWbtkxt1IcjtxV/
+	GlKWXwZlVGu1EU3mxPqT/E364+J8be3Q2PWFfuy3Sx44hT3EmAN6VMvNHxDVVzsNtDpxqAfIs/F
+	50u8H89alwvHKqtpaDt7VjaVlGaET/kJ3x+WNukeP45SIBYtYCwkdF9x/o3nrRmVCKYPfwTCz41
+	cYQj/ymvnWbW9VBSaPAQoleomyAvBO3vCMZCprR3JcWpWddHju054vL5Ke04CdP05c78vTC6pEQ
+	==
+X-Received: by 2002:a05:600c:3b2a:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49cdc57d1d1mr95574055e9.16.1788248226219;
+        Tue, 01 Sep 2026 00:37:06 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b2a:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49cdc57d1d1mr95573025e9.16.1788248225616;
+        Tue, 01 Sep 2026 00:37:05 -0700 (PDT)
+Received: from [192.168.188.103] (ip245-45-231-195.pool-bba.aruba.it. [195.231.45.245])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce3e4e7sm45045755e9.9.2026.09.01.00.37.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 00:37:04 -0700 (PDT)
+Message-ID: <3e84c09f-d760-41e9-a99f-0d86239b5ebd@redhat.com>
+Date: Tue, 1 Sep 2026 09:37:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 01 Sep 2026 09:11:13 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, bpf@vger.kernel.org,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- linux-kernel@vger.kernel.org, rlmenge@gmail.com, hargar@microsoft.com,
- apais@microsoft.com
-Subject: Re: [BUG] bpf: x86 timed may_goto corrupts private-stack JIT state
-In-Reply-To: <CAE5sdEiGA+chRkkNGOWL89AFDNXor1RKHMEmouCNoCXVd4fc-g@mail.gmail.com>
-References: <20260824213158.3755932-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <DKYH3KM93BDY.1MR4WLZSWGEU8@gmail.com>
- <CAE5sdEiGA+chRkkNGOWL89AFDNXor1RKHMEmouCNoCXVd4fc-g@mail.gmail.com>
-User-Agent: Roundcube Webmail/1.6.18
-Message-ID: <d4e2ae332a9505cc2cee5a236ff86efb@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 5/5] tcp: Remove mmap_lock fallback path
+To: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org,
+ Eric Dumazet <edumazet@google.com>
+Cc: dave.hansen@linux.intel.com, Liam.Howlett@oracle.com, ljs@kernel.org,
+ david@redhat.com, willy@infradead.org, shakeel.butt@linux.dev,
+ vbabka@kernel.org, jannh@google.com, aliceryhl@google.com, arve@android.com,
+ cmllamas@google.com, christian@brauner.io, tkjos@android.com,
+ dsahern@kernel.org, davem@davemloft.net, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, netdev@vger.kernel.org,
+ syzbot@syzkaller.appspotmail.com
+References: <20260831203056.838265-1-surenb@google.com>
+ <20260831203056.838265-6-surenb@google.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260831203056.838265-6-surenb@google.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-On 2026-09-01 00:57, Siddharth Chintamaneni wrote:
-> On Tue, 25 Aug 2026 at 18:10, Alexei Starovoitov
-> <alexei.starovoitov@gmail.com> wrote:
->> 
->> On Mon Aug 24, 2026 at 2:31 PM PDT, Jérémy Jean wrote:
->> > Hello,
->> >
->> > With the help of AI models, I found a bug in the x86 timed may_goto path that
->> > leads to a verifier/JIT state mismatch on private-stack programs.
->> >
->> > The root cause is that timed may_goto fixups pass a stack offset in BPF_REG_AX
->> > and the x86 trampoline reconstructs the counter pointer from native %rbp. That
->> > is incorrect once private-stack JIT mode is enabled: ordinary BPF frame pointer
->> > accesses are remapped from %rbp to %r9, but arch_bpf_timed_may_goto() still
->> > uses %rbp and ends up reading and writing the native JIT frame instead of the
->> > private BPF stack.
->> >
->> > The bug was introduced by 2fb761823ead ("bpf, x86: Add x86 JIT support for timed
->> > may_goto"). I reproduced it on a KASAN-enabled x86_64 kernel based on v7.2,
->> > however KASAN does not trigger because the bad write stays inside the native
->> > JIT frame. Yet, the saved-register corruption is observable.
->> >
->> > I have not included a patch here because the fix seems subtle to me and would
->> > likely touch many files for different arch.
->> >
->> > I can share the minimal reproducer and other details privately with maintainers
->> > if useful.
->> 
->> Just send a fix and a selftest to the list.
->> 
+adding Eric.
+
+Full series at:
+
+https://lore.kernel.org/netdev/20260831203056.838265-1-surenb@google.com/
+
+On 8/31/26 10:30 PM, Suren Baghdasaryan wrote:
+> From: Dave Hansen <dave.hansen@linux.intel.com>
 > 
-> Jeremy,
+> Previously, the per-VMA locking could fail in the face of writers
+> which necessitates a fallback to mmap_lock. The new
+> vma_start_read_unlocked() will wait for writers instead of failing.
 > 
-> I just wanted to check whether you're working on a patch for this. if
-> not, I'd be happy to take a look.
+> Use the new helper. Wait for writers. Remove the fallback to mmap_lock.
+> The fallback removal does not affect NOMMU case because TCP_ZEROCOPY
+> is gated on CONFIG_MMU.
+> 
+> This really is a nice cleanup. It removes the need to pass the lock
+> state back and forth to find_tcp_vma().
+> 
+> Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+> Acked-by: Lorenzo Stoakes <ljs@kernel.org>
+> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> Tested-by: syzbot@syzkaller.appspotmail.com
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Liam R. Howlett <Liam.Howlett@oracle.com>
+> Cc: Vlastimil Babka <vbabka@kernel.org>
+> Cc: Shakeel Butt <shakeel.butt@linux.dev>
+> Cc: linux-mm@kvack.org
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Arve Hjønnevåg <arve@android.com>
+> Cc: Todd Kjos <tkjos@android.com>
+> Cc: Christian Brauner <christian@brauner.io>
+> Cc: Carlos Llamas <cmllamas@google.com>
+> Cc: Alice Ryhl <aliceryhl@google.com>
+> Cc: David S. Miller <davem@davemloft.net>
+> Cc: David Ahern <dsahern@kernel.org>
+> Cc: netdev@vger.kernel.org
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> ---
+>  net/ipv4/tcp.c | 31 +++++++++----------------------
+>  1 file changed, 9 insertions(+), 22 deletions(-)
+> 
+> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+> index 455441f1b694..62defe70f3ce 100644
+> --- a/net/ipv4/tcp.c
+> +++ b/net/ipv4/tcp.c
+> @@ -2167,27 +2167,18 @@ static void tcp_zc_finalize_rx_tstamp(struct sock *sk,
+>  }
+>  
+>  static struct vm_area_struct *find_tcp_vma(struct mm_struct *mm,
+> -					   unsigned long address,
+> -					   bool *mmap_locked)
+> +					   unsigned long address)
+>  {
+> -	struct vm_area_struct *vma = lock_vma_under_rcu(mm, address);
+> +	struct vm_area_struct *vma = vma_start_read_unlocked(mm, address);
+>  
+> -	if (vma) {
+> -		if (vma->vm_ops != &tcp_vm_ops) {
+> -			vma_end_read(vma);
+> -			return NULL;
+> -		}
+> -		*mmap_locked = false;
+> -		return vma;
+> -	}
+> +	if (!vma)
+> +		return NULL;
+>  
+> -	mmap_read_lock(mm);
+> -	vma = vma_lookup(mm, address);
+> -	if (!vma || vma->vm_ops != &tcp_vm_ops) {
+> -		mmap_read_unlock(mm);
+> +	if (vma->vm_ops != &tcp_vm_ops) {
+> +		vma_end_read(vma);
+>  		return NULL;
+>  	}
+> -	*mmap_locked = true;
+> +
+>  	return vma;
+>  }
+>  
+> @@ -2208,7 +2199,6 @@ static int tcp_zerocopy_receive(struct sock *sk,
+>  	u32 seq = tp->copied_seq;
+>  	u32 total_bytes_to_map;
+>  	int inq = tcp_inq(sk);
+> -	bool mmap_locked;
+>  	int ret;
+>  
+>  	zc->copybuf_len = 0;
+> @@ -2233,7 +2223,7 @@ static int tcp_zerocopy_receive(struct sock *sk,
+>  		return 0;
+>  	}
+>  
+> -	vma = find_tcp_vma(current->mm, address, &mmap_locked);
+> +	vma = find_tcp_vma(current->mm, address);
+>  	if (!vma)
+>  		return -EINVAL;
+>  
+> @@ -2315,10 +2305,7 @@ static int tcp_zerocopy_receive(struct sock *sk,
+>  						   zc, total_bytes_to_map);
+>  	}
+>  out:
+> -	if (mmap_locked)
+> -		mmap_read_unlock(current->mm);
+> -	else
+> -		vma_end_read(vma);
+> +	vma_end_read(vma);
+>  	/* Try to copy straggler data. */
+>  	if (!ret)
+>  		copylen = tcp_zc_handle_leftover(zc, sk, skb, &seq, copybuf_len, tss);
 
-Hello,
-
-No, not at the moment.
-Feel free to ask if I can be of some help
-
-Regards,
-Jérémy
