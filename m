@@ -1,279 +1,111 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3814CCDE5
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:49:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F8537E2E5;
+	Tue,  1 Sep 2026 11:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263399; cv=none; b=kXqFRtZF5KIafaTBmFCNAVLjyxkYmEbFOA+ACQ+ww4KOT/orTQUxt7mjVM0QPEgohzkg2SP09ZkVOaHZAOsfCLSlIC24cCKLNoFzB1VOGo/oME8jHh9JPdZmWILkvzEvMKlKemeV3vqJuH898qGSf5eeCTv3jCAWgkv5jal40QY=
+	t=1788263419; cv=none; b=nyvcb+sZVA8S/FKpzhNZ3ZyZTq+n40MOXW30Ht1I7dXdjm/xx34WRbuWSDrON8oUuQeyJbMRClh0vTuZKDl4zc8eZ3rN9i7SXvolpd2TF2GXuRCRnYfAEp2eh/t6EjyulhSPv46A5KTkt2G1+EG9yIgxEDUw/nPUr6TnAMcbGoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263399; c=relaxed/simple;
-	bh=oUnrp8ysBuwENujtdD7jLGfLIH0ghO1LVYxn7MRpQIk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gbHoopmswYLB5QjvS2clRZ0XOyQiwNuPn9RhR5ipVG4WY1S7RdjnFOs8NzHHo0Hvn6SdYMPHyrXJhzK7geWg8nXCHbhkooEdz0FW2OqtykOUrLxQJ+NTRZu5tSfSOCRnI0rERO8fdgaj55s3BfvdWyAWL8H/SA6vQPJ1cSV/ONg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ZK598TJX; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788263419; c=relaxed/simple;
+	bh=0cX+SUVEv82lqdnL2PEHhEZ9iSnjtOEad/m3Tmpa8ew=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W79oq2TvL3ebyPVBAIAjlC63manqkjUjbUeEs/iGFlGF/y8Nqhr2G1rf8oinbGrQBL5WmwoZtfe9romVuQHwPnJR0gH6FBUjjEYR8NEfFfgbCfDh3KS8kypKR+DTGn7YVDQ5YFHY5QPP8BSdyCn6G0OsercJF3qDs+Rjf9Zuxeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ia3/pj6T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ZK598TJX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788263396;
-	bh=oUnrp8ysBuwENujtdD7jLGfLIH0ghO1LVYxn7MRpQIk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=ZK598TJXSPGNs3w7kwg2h7coXz1WX3VkO4rpseemoX7K3ZYmd+xdVDq/7Z21nDNho
-	 Wh4UZo69Tatfulhw661tni36g78yHZvN7YivzgIa8WlV6r3ZIMXb6296sjDITdLNAE
-	 2FJplwVTqz3CeeCKD4iwk0C8y0Lo2fDReSK5dF+tAy8kA+pAEiym4fZZiLdRbeJviu
-	 DQM3AaK7Hec3aRG1McrWsSQ06B+UbGDmVrOMh5XrFpgErgiqRB+puNsXYMJhhAICoH
-	 9lHD9aVDmk5l2H41WKrWNLz7xGFe5YUiFsJeakdHpmAWxFfaZw8gI2AOGcp5kSFPnn
-	 0/76hqXGVcgbA==
-Received: from fedora-21.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6AA3317E006A;
-	Tue, 01 Sep 2026 13:49:55 +0200 (CEST)
-Date: Tue, 1 Sep 2026 13:49:51 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 02/17] drm/panfrost: Move all DRM device
- initialisation into device_init()
-Message-ID: <20260901134951.1e1d7fda@fedora-21.home>
-In-Reply-To: <20260828-claude-fixes-v7-2-72a13b2c125d@collabora.com>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
-	<20260828-claude-fixes-v7-2-72a13b2c125d@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ia3/pj6T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963091F000E9;
+	Tue,  1 Sep 2026 11:50:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788263418;
+	bh=s1Sw3sV6LFWv+rxNtNuZ5K4jc587FYAGi1dw55VmK6o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ia3/pj6TKB3oddODZ5p7Tl8MzjUh3BZb87OU/zVoDiqib0cC+6H0lqNXyHsUjWssW
+	 kxk1yYQ137v63PjzOLbLXgdDmYTyLrZtJIeFH/hYuFb2E4yFyJdgiaSehqRKoIe8Dv
+	 kn79XWrHc/etMMrUMmZ5n3HNnJe7fvXTPhKgkDWDwh3c30OSWsxSIQkHZUT7xIOq53
+	 InLa9jIJLmqxiS4M5d1xD8LrwDDjHlKvyh4yeesKc7P27vCeksyZ1uUhLUDBmgYCLT
+	 8gAg1F4SGmnsL2TWNxuQyVe3DWd1fcUjUlNlikTvDC7TRVGFxztG0UaQBZs6mta9Vx
+	 UUHB+dYV6Sl2g==
+Message-ID: <06e15a0c-d87c-4e0d-8f04-9e25dfc5021a@kernel.org>
+Date: Tue, 1 Sep 2026 13:50:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: defconfig: Enable PMIC5 Gen3 ADC thermal
+ monitor
+To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260830-hamoa-sys-therm-v1-0-27108c40fba5@oss.qualcomm.com>
+ <20260830-hamoa-sys-therm-v1-3-27108c40fba5@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260830-hamoa-sys-therm-v1-3-27108c40fba5@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Fri, 28 Aug 2026 21:56:42 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+On 30/08/2026 23:02, Bjorn Andersson wrote:
+> All Hamoa-based devices uses PMIC5 Gen3 ADC connected to thermistors for
 
-> Ideally the probe() function will do as little as possible, and all device
-> initialisation and registration should happen inside the panfrost device
-> subsystem, just like it's done in Panthor. This also simplifies resource
-> unwinding in the error path.
->=20
-> Do the same thing for DRM driver remove, as in, sweep most of the action
-> into panfrost_device_fini(), just like we did for device probe.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c | 33 ++++++++++++++++++++++
->  drivers/gpu/drm/panfrost/panfrost_drv.c    | 44 +-----------------------=
-------
->  2 files changed, 34 insertions(+), 43 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 05c40d5a20b5..d2d2830f11a7 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -8,6 +8,7 @@
->  #include <linux/pm_domain.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/regulator/consumer.h>
-> +#include <drm/drm_drv.h>
-> =20
->  #include "panfrost_device.h"
->  #include "panfrost_devfreq.h"
-> @@ -216,6 +217,15 @@ int panfrost_device_init(struct panfrost_device *pfd=
-ev)
->  {
->  	int err;
-> =20
-> +	pfdev->comp =3D of_device_get_match_data(pfdev->base.dev);
-> +	if (!pfdev->comp)
-> +		return -ENODEV;
-> +
-> +	pfdev->coherent =3D device_get_dma_attr(pfdev->base.dev) =3D=3D DEV_DMA=
-_COHERENT;
-> +
-> +	mutex_init(&pfdev->shrinker_lock);
-> +	INIT_LIST_HEAD(&pfdev->shrinker_list);
-> +
->  	mutex_init(&pfdev->sched_lock);
->  	INIT_LIST_HEAD(&pfdev->as_lru_list);
-> =20
-> @@ -284,8 +294,25 @@ int panfrost_device_init(struct panfrost_device *pfd=
-ev)
->  	if (err)
->  		goto out_perfcnt;
-> =20
-> +	pm_runtime_set_active(pfdev->base.dev);
-> +	pm_runtime_mark_last_busy(pfdev->base.dev);
-> +	pm_runtime_enable(pfdev->base.dev);
-> +	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> +	pm_runtime_use_autosuspend(pfdev->base.dev);
-> +
-> +	/*
-> +	 * Register the DRM device with the core and the connectors with
-> +	 * sysfs
-> +	 */
-> +	err =3D drm_dev_register(&pfdev->base, 0);
-> +	if (err < 0)
-> +		goto out_devreg;
-> +
->  	return 0;
-> =20
-> +out_devreg:
+"All Qualcomm Hamoa-based devices use Qualcomm PMIC5 ..."
 
-Not a huge fan of labels that describe where this is jumped from instead
-of what is done under the label (that gets particularly confusing when
-you start multiple locations jumping to the same label). So I'd suggest
-renaming that one err_disable_rpm.
+> measuring temperature across the system.
+> 
+> Enable the Gen3 ADC, and it's associated ADC_TM auxiliary, drivers to
 
-> +	pm_runtime_disable(pfdev->base.dev);
+s/Gen3 ADC/Qualcomm PMIC Gen3 ADC/ or something similar
 
-I think you need a pm_runtime_dont_use_autosuspend() call before
-pm_runtime_disable().
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> +	panfrost_gem_fini(pfdev);
->  out_perfcnt:
->  	panfrost_perfcnt_fini(pfdev);
->  out_job:
-> @@ -304,11 +331,15 @@ int panfrost_device_init(struct panfrost_device *pf=
-dev)
->  	panfrost_reset_fini(pfdev);
->  out_pm_domain:
->  	panfrost_pm_domain_fini(pfdev);
-> +	pm_runtime_set_suspended(pfdev->base.dev);
-
-Do we have a good reason for not flagging the device suspended just
-after the pm_runtime_disable() call in the error path? I mean, sure
-it's not truly suspended until the clks/regulators have been turned
-off, but it also wasn't suspended the before the initial
-pm_runtime_set_active() call, and I like the idea of undoing things in
-reverse init order.
-
->  	return err;
->  }
-> =20
->  void panfrost_device_fini(struct panfrost_device *pfdev)
->  {
-> +	pm_runtime_get_sync(pfdev->base.dev);
-
-	pm_runtime_dont_use_autosuspend();
-
-I see it fixed in patch 9, just like a few other issues that are made
-more apparent by this code motion change. I guess it's fine but it
-confused me, so it might be worth mentioning in the commit message.
-
-
-> +	pm_runtime_disable(pfdev->base.dev);
-> +
->  	panfrost_gem_fini(pfdev);
->  	panfrost_perfcnt_fini(pfdev);
->  	panfrost_jm_fini(pfdev);
-> @@ -319,6 +350,8 @@ void panfrost_device_fini(struct panfrost_device *pfd=
-ev)
->  	panfrost_clk_fini(pfdev);
->  	panfrost_reset_fini(pfdev);
->  	panfrost_pm_domain_fini(pfdev);
-> +
-> +	pm_runtime_set_suspended(pfdev->base.dev);
-
-Fixed in patch 9, but the RPM ref you acquire at the beginning of the
-function is never returned, so you end up with an unbalanced get/put.
-This is a pre-existing issue, I know, this catches the eye of the
-reviewer so we better mention that existing issues around PM are
-preserved and will be fixed later.
-
->  }
-> =20
->  #define PANFROST_EXCEPTION(id) \
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> index 9882a3ede75f..80996e311a9d 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -964,7 +964,6 @@ MODULE_PARM_DESC(transparent_hugepage, "Use a dedicat=
-ed tmpfs mount point with T
->  static int panfrost_probe(struct platform_device *pdev)
->  {
->  	struct panfrost_device *pfdev;
-> -	int err;
-> =20
->  	pfdev =3D devm_drm_dev_alloc(&pdev->dev, &panfrost_drm_driver,
->  				   struct panfrost_device, base);
-> @@ -973,45 +972,7 @@ static int panfrost_probe(struct platform_device *pd=
-ev)
-> =20
->  	platform_set_drvdata(pdev, pfdev);
-> =20
-> -	pfdev->comp =3D of_device_get_match_data(&pdev->dev);
-> -	if (!pfdev->comp)
-> -		return -ENODEV;
-> -
-> -	pfdev->coherent =3D device_get_dma_attr(&pdev->dev) =3D=3D DEV_DMA_COHE=
-RENT;
-> -
-> -	mutex_init(&pfdev->shrinker_lock);
-> -	INIT_LIST_HEAD(&pfdev->shrinker_list);
-> -
-> -	err =3D panfrost_device_init(pfdev);
-> -	if (err) {
-> -		if (err !=3D -EPROBE_DEFER)
-> -			dev_err(&pdev->dev, "Fatal error during GPU init\n");
-> -		goto err_out0;
-> -	}
-> -
-> -	pm_runtime_set_active(pfdev->base.dev);
-> -	pm_runtime_mark_last_busy(pfdev->base.dev);
-> -	pm_runtime_enable(pfdev->base.dev);
-> -	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> -	pm_runtime_use_autosuspend(pfdev->base.dev);
-> -
-> -	/*
-> -	 * Register the DRM device with the core and the connectors with
-> -	 * sysfs
-> -	 */
-> -	err =3D drm_dev_register(&pfdev->base, 0);
-> -	if (err < 0)
-> -		goto err_out1;
-> -
-> -
-> -	return 0;
-> -
-> -err_out1:
-> -	pm_runtime_disable(pfdev->base.dev);
-> -	panfrost_device_fini(pfdev);
-> -	pm_runtime_set_suspended(pfdev->base.dev);
-> -err_out0:
-> -	return err;
-> +	return panfrost_device_init(pfdev);
->  }
-> =20
->  static void panfrost_remove(struct platform_device *pdev)
-> @@ -1020,10 +981,7 @@ static void panfrost_remove(struct platform_device =
-*pdev)
-> =20
->  	drm_dev_unregister(&pfdev->base);
-> =20
-> -	pm_runtime_get_sync(pfdev->base.dev);
-> -	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
-> -	pm_runtime_set_suspended(pfdev->base.dev);
->  }
-> =20
->  static ssize_t profiling_show(struct device *dev,
->=20
-
+Best regards,
+Krzysztof
