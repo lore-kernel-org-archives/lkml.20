@@ -1,188 +1,133 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E8E44A400
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:57:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E9D44A418;
+	Tue,  1 Sep 2026 19:57:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.252.153.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292648; cv=none; b=YplRW3Y77qPw81bS7QGA82LMqjir5nSN3ww9NKPdBH897uGNeCKcONelOQeYueBdegEKh5/h7Cr1H2QW/JTdt8EOObpJLbC+v/hULSgF3aOpQ1iEbZUJaBJVoMFC7mXusY9S8Kn4xr6aloTNK0VvzRrKGZZy1E2j4j+qMbAKtvc=
+	t=1788292661; cv=none; b=cxAIvUugAFcynTKrlNeqmbgosYlmbKeld9Ojv/TgKWYCH3kkkGbjJArfPXDiE/tmV4/zXx6+w1o+kSzOmqL2vHKlxTyEiwzrNRfJu0fg38ac/nOxDxLN4LReF+lc+OiD+Wpo0AFSwmnMP2wbh6sIgy1ooGw5cNGEcwQlhVQXt4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292648; c=relaxed/simple;
-	bh=5+//jJMis2DTE/0hiz65W/T5XYb9Lv/1gpdVa6A5mio=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tp8cmBLLdvYJ1tL7+ghlOqj+HkyxWd0X4PIxEizk4PdvqVxb5mUPIedLEZNpaXbs2Aw91em37l3AzxZw8sGbn+xzRIiVEaJuMqr8ejjOFCQi9/ZXmWKMDEpEeLC7Bp+3qyie4bnOa3mUSQJLEyciLI4FlSiJ93hlaPFEjxpr5rE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=GFvon9g7; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788292661; c=relaxed/simple;
+	bh=5w6WK6ckMcNcdsPN84mqG9HbEEH2Klk7PGq7GyeYxtM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rz6W7ui3NanDqOjJ25cIBqr/1eVPSGzVirJWUKc9Gc0k1begOqUhag27f9dwJyuYQOmZwGvCFLX5FtgKIQTadePKWs/g9Uq022I3phqNYDS1PKhoebJm/DNVNl0o6hXrgdvhb868nNL3rA7idcgpjjM2OFDoFLAwlGxfbQpHTVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riseup.net; spf=pass smtp.mailfrom=riseup.net; dkim=pass (1024-bit key) header.d=riseup.net header.i=@riseup.net header.b=RrU2ym6W; arc=none smtp.client-ip=198.252.153.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riseup.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riseup.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="GFvon9g7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788292645;
-	bh=5+//jJMis2DTE/0hiz65W/T5XYb9Lv/1gpdVa6A5mio=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=GFvon9g7x4fUT1VdcNt3Q86mI6IjNsKMXP9weCH+QkYRnbOfgR9P/udvfiMcn5iG7
-	 vIMq3SXs6B9rOHW2gVUHmbEEOwOaE13lMhsemKCjfhXlsDCIMRlm6pAODM0fel4l/b
-	 Z7etHCzlPiAWpiCZko5cGLSNz/KNIuFxC3MMZ9U25qflATwbHueNh7YbL+JCW8FAc/
-	 XLHR7QKJbTrxKwVoCNo7iPvtLrm9VhOIuZ04BFdJK4g8gUg6TGlTVvws9TrVMBRSbn
-	 +4o60HMDJRgUPhZD4QQWUMtVBMvX2P1KaOsS91J3q8o7QiFE4xzxSNy5AgPZyGGpXq
-	 V9XzkX+/b45cQ==
-Received: from localhost (unknown [100.64.0.241])
+	dkim=pass (1024-bit key) header.d=riseup.net header.i=@riseup.net header.b="RrU2ym6W"
+Received: from fews03-sea.riseup.net (fews03-sea-pn.riseup.net [10.0.1.153])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5D14917E0CAB;
-	Tue, 01 Sep 2026 21:57:25 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 22:55:15 +0300
-Subject: [PATCH v2 3/3] phy: rockchip: samsung-hdptx: Add support for FRL
- TxFFE level control
+	by mx1.riseup.net (Postfix) with ESMTPS id 4hZGqR27jPzDqZr;
+	Tue,  1 Sep 2026 19:57:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=riseup.net; s=squak;
+	t=1788292659; bh=gCrZ2kSnGtpRxBPsoU7WbHukzNsvY2+Zqypb5Ip0FNc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=RrU2ym6Wn1z+ntQU1+HfgMQWjJ6YeR4UEG6YfoHeKRnNDljr8ui27LiLSi9rj+Wsl
+	 +A3A1pEg3u4IUMg55ktYUjs56z2xMF+v/CR8tve808meyUMdGav/fR36vSffs5iNzN
+	 efaydnjq0c9xyOD+duz/jn0PfR1Jypwg20YsdIRE=
+X-Riseup-User-ID: 898E2F13D4BC060C95F747CF15E55FF0C098F2357342D492BF37A15503CF2D9E
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	 by fews03-sea.riseup.net (Postfix) with ESMTPSA id 4hZGqP1vTtz1xp8;
+	Tue,  1 Sep 2026 19:57:37 +0000 (UTC)
+From: Kiara Grouwstra <cinereal@riseup.net>
+To: Dan Williams <djbw@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Alistair Popple <apopple@nvidia.com>,
+	David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jan Kara <jack@suse.cz>,
+	Matthew Wilcox <willy@infradead.org>,
+	linux-fsdevel@vger.kernel.org,
+	nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Kiara Grouwstra <cinereal@riseup.net>
+Subject: [PATCH] fs/dax: get the folio of an entry only after the entry has one
+Date: Tue,  1 Sep 2026 21:56:58 +0200
+Message-ID: <20260901195658.4027962-1-cinereal@riseup.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-hdptx-ffe-v2-3-3a5922c76fc5@collabora.com>
-References: <20260901-hdptx-ffe-v2-0-3a5922c76fc5@collabora.com>
-In-Reply-To: <20260901-hdptx-ffe-v2-0-3a5922c76fc5@collabora.com>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>
-Cc: kernel@collabora.com, linux-phy@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-During HDMI 2.1 FRL link training, the source may need to incrementally
-raise the TxFFE level in response to persistent link failures reported
-by the sink during LTS3.  The phy_configure_opts_hdmi struct now carries
-ffe_level and set_ffe_level fields to convey such an update
-independently of a full rate reconfiguration.
+dax_associate_entry(), dax_disassociate_entry() and dax_busy_page() each
+compute dax_to_folio(entry) in the declaration, one statement before the
+test that returns early when the entry is a zero entry or an empty entry.
+An empty entry holds no pfn, so dax_to_folio() reads vmemmap[0].
 
-Wire up the optional TxFFE control in the Samsung HDPTX PHY driver.
+Where the memory map starts at pfn 0 this reads a struct page that exists,
+the value is discarded, and nothing shows. Where the lowest present section
+is above pfn 0 there is no struct page for pfn 0 and the read faults.
+grab_mapping_entry() gives the first fault on a file an empty entry, so on
+such a machine every first DAX fault on a file ends in:
 
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+  BUG: unable to handle page fault for address: ffffea0000000008
+  RIP: 0010:dax_to_folio+0x14/0x60
+   dax_insert_entry+0xb2/0x3c0
+   dax_fault_iter+0x200/0x600
+   dax_iomap_pte_fault+0x193/0x3d0
+
+Found on a kernel that boots on one high region of system RAM, which has
+no struct page for the memory below it.
+
+Move each call after the early return. The other callers of dax_to_folio()
+in this file already only run for an entry that holds a pfn.
+
+Fixes: 38607c62b34b ("fs/dax: properly refcount fs dax pages")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Kiara Grouwstra <cinereal@riseup.net>
 ---
- drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c | 72 +++++++++++++++++++++--
- 1 file changed, 68 insertions(+), 4 deletions(-)
+ fs/dax.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c b/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
-index b03042ec9a84..6879eecc5a9f 100644
---- a/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
-+++ b/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
-@@ -333,6 +333,7 @@
- #define FRL_3G3L_RATE			900000000
- #define FRL_6G3L_RATE			1800000000
- #define FRL_8G4L_RATE			3200000000
-+#define FRL_FFE_MAX_LEVEL		3
+diff --git a/fs/dax.c b/fs/dax.c
+index 6ba50142eeb2..90305996b106 100644
+--- a/fs/dax.c
++++ b/fs/dax.c
+@@ -480,11 +480,12 @@ static void dax_associate_entry(void *entry, struct address_space *mapping,
+ 				unsigned long address, bool shared)
+ {
+ 	unsigned long size = dax_entry_size(entry), index;
+-	struct folio *folio = dax_to_folio(entry);
++	struct folio *folio;
  
- enum dp_link_rate {
- 	DP_BW_RBR,
-@@ -466,6 +467,16 @@ static const struct ropll_config rk_hdptx_tmds_ropll_cfg[] = {
- 	{  25175000ULL,   84,    84,    1,    1,   15,  1,  168,    1,  16,  4,   1,    1, },
- };
+ 	if (dax_is_zero_entry(entry) || dax_is_empty_entry(entry))
+ 		return;
  
-+static const struct ffe_config {
-+	u8 pre_shoot;
-+	u8 de_emphasis;
-+} rk_hdptx_frl_ffe_cfg[FRL_FFE_MAX_LEVEL + 1] = {
-+	{ 0x3, 0x4 },
-+	{ 0x3, 0x6 },
-+	{ 0x3, 0x8 },
-+	{ 0x3, 0x9 },
-+};
-+
- static const struct reg_sequence rk_hdptx_common_cmn_init_seq[] = {
- 	REG_SEQ0(CMN_REG(0009), 0x0c),
- 	REG_SEQ0(CMN_REG(000a), 0x83),
-@@ -1321,6 +1332,45 @@ static int rk_hdptx_tmds_ropll_mode_config(struct rk_hdptx_phy *hdptx)
- 	return rk_hdptx_post_enable_lane(hdptx);
++	folio = dax_to_folio(entry);
+ 	index = linear_page_index(vma, address & ~(size - 1));
+ 	if (shared && (folio->mapping || dax_folio_is_shared(folio))) {
+ 		if (folio->mapping)
+@@ -505,21 +506,20 @@ static void dax_associate_entry(void *entry, struct address_space *mapping,
+ static void dax_disassociate_entry(void *entry, struct address_space *mapping,
+ 				bool trunc)
+ {
+-	struct folio *folio = dax_to_folio(entry);
+-
+ 	if (dax_is_zero_entry(entry) || dax_is_empty_entry(entry))
+ 		return;
+ 
+-	dax_folio_put(folio);
++	dax_folio_put(dax_to_folio(entry));
  }
  
-+static int rk_hdptx_frl_ffe_config(struct rk_hdptx_phy *hdptx, u8 ffe_level)
-+{
-+	u8 val;
-+
-+	if (ffe_level > FRL_FFE_MAX_LEVEL)
-+		return -EINVAL;
-+
-+	val = rk_hdptx_frl_ffe_cfg[ffe_level].pre_shoot;
-+
-+	regmap_update_bits(hdptx->regmap, LANE_REG(0305),
-+			   LN_TX_DRV_PRE_LVL_CTRL_MASK,
-+			   FIELD_PREP(LN_TX_DRV_PRE_LVL_CTRL_MASK, val));
-+	regmap_update_bits(hdptx->regmap, LANE_REG(0405),
-+			   LN_TX_DRV_PRE_LVL_CTRL_MASK,
-+			   FIELD_PREP(LN_TX_DRV_PRE_LVL_CTRL_MASK, val));
-+	regmap_update_bits(hdptx->regmap, LANE_REG(0505),
-+			   LN_TX_DRV_PRE_LVL_CTRL_MASK,
-+			   FIELD_PREP(LN_TX_DRV_PRE_LVL_CTRL_MASK, val));
-+	regmap_update_bits(hdptx->regmap, LANE_REG(0605),
-+			   LN_TX_DRV_PRE_LVL_CTRL_MASK,
-+			   FIELD_PREP(LN_TX_DRV_PRE_LVL_CTRL_MASK, val));
-+
-+	val = rk_hdptx_frl_ffe_cfg[ffe_level].de_emphasis;
-+
-+	regmap_update_bits(hdptx->regmap, LANE_REG(0304),
-+			   LN_TX_DRV_POST_LVL_CTRL_MASK,
-+			   FIELD_PREP(LN_TX_DRV_POST_LVL_CTRL_MASK, val));
-+	regmap_update_bits(hdptx->regmap, LANE_REG(0404),
-+			   LN_TX_DRV_POST_LVL_CTRL_MASK,
-+			   FIELD_PREP(LN_TX_DRV_POST_LVL_CTRL_MASK, val));
-+	regmap_update_bits(hdptx->regmap, LANE_REG(0504),
-+			   LN_TX_DRV_POST_LVL_CTRL_MASK,
-+			   FIELD_PREP(LN_TX_DRV_POST_LVL_CTRL_MASK, val));
-+	regmap_update_bits(hdptx->regmap, LANE_REG(0604),
-+			   LN_TX_DRV_POST_LVL_CTRL_MASK,
-+			   FIELD_PREP(LN_TX_DRV_POST_LVL_CTRL_MASK, val));
-+	return 0;
-+}
-+
- static void rk_hdptx_dp_reset(struct rk_hdptx_phy *hdptx)
+ static struct page *dax_busy_page(void *entry)
  {
- 	reset_control_assert(hdptx->rsts[RST_LANE].rstc);
-@@ -1735,6 +1785,13 @@ static int rk_hdptx_phy_verify_hdmi_config(struct rk_hdptx_phy *hdptx,
- 		unsigned long long frl_rate = 100000000ULL * hdmi_in->frl.lanes *
- 					      hdmi_in->frl.rate_per_lane;
+-	struct folio *folio = dax_to_folio(entry);
++	struct folio *folio;
  
-+		if (hdmi_in->frl.set_ffe_level) {
-+			if (hdmi_in->frl.ffe_level > FRL_FFE_MAX_LEVEL)
-+				return -EINVAL;
-+
-+			return 0;
-+		}
-+
- 		switch (hdmi_in->frl.rate_per_lane) {
- 		case 3:
- 		case 6:
-@@ -2081,11 +2138,18 @@ static int rk_hdptx_phy_configure(struct phy *phy, union phy_configure_opts *opt
- 		if (ret) {
- 			dev_err(hdptx->dev, "invalid hdmi params for phy configure\n");
- 		} else {
--			hdptx->pll_config_dirty = true;
-+			if (hdptx->hdmi_cfg.mode == PHY_HDMI_MODE_FRL &&
-+			    opts->hdmi.frl.set_ffe_level) {
-+				dev_dbg(hdptx->dev, "%s ffe_level=%u\n", __func__,
-+					opts->hdmi.frl.ffe_level);
-+				ret = rk_hdptx_frl_ffe_config(hdptx, opts->hdmi.frl.ffe_level);
-+			} else {
-+				hdptx->pll_config_dirty = true;
+ 	if (dax_is_zero_entry(entry) || dax_is_empty_entry(entry))
+ 		return NULL;
  
--			dev_dbg(hdptx->dev, "%s %s rate=%llu bpc=%u\n", __func__,
--				hdptx->hdmi_cfg.mode ? "FRL" : "TMDS",
--				hdptx->hdmi_cfg.rate, hdptx->hdmi_cfg.bpc);
-+				dev_dbg(hdptx->dev, "%s %s rate=%llu bpc=%u\n", __func__,
-+					hdptx->hdmi_cfg.mode ? "FRL" : "TMDS",
-+					hdptx->hdmi_cfg.rate, hdptx->hdmi_cfg.bpc);
-+			}
- 		}
- 
- 		return ret;
-
++	folio = dax_to_folio(entry);
+ 	if (folio_ref_count(folio) - folio_mapcount(folio))
+ 		return &folio->page;
+ 	else
 -- 
 2.55.0
 
