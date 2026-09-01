@@ -1,76 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849E7471279;
-	Tue,  1 Sep 2026 10:06:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4855471279;
+	Tue,  1 Sep 2026 10:06:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788257189; cv=none; b=YLwAq/l5xXHpTN5Yl2cUkf1uenZZrKMSvt0hHIl70mSWPDWrSEyksd6SIXsMNLUZcNLYebOUMP3mnnJhM5icnj/9G051fFGIcTZH0RVMGhFDMrEaNXTYnjcguYQbjgIgmh3edoNC3KIwQ/qHn/m2U2xb0tTwh7TTuHkdq24PDw4=
+	t=1788257198; cv=none; b=KXq361RHoc6a7AvuhRWR9tWNYGHgUjYeCoZuNx7kqrxP/16r6oxr00bhKjfqorViQCvfBhB/mU8wfkTO3poqmaa4PX96SY3ebEx0xBn8UJCKceo3oXywSPPGEtpZZ9jZNlUw6aLsZPOUtq1iofj3/vYGfBpVheuUy5sDeE3q+w8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788257189; c=relaxed/simple;
-	bh=Q3ZCEwMr1dEmLD1Z0zHurk9SDakZFZ4ayQKgmSqlCTM=;
+	s=arc-20240116; t=1788257198; c=relaxed/simple;
+	bh=N6vsrlm2hMd38203aM1W4fiuSrY4VcnvkKHxIfAHuGY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KduhTQGTiRlIgjSCmG/42m355xy6X0zaqfkurEEzi4i8l9b6KE2iSwD/OBC/DPD8LoGVMz3bFpD7DmrYteFedqGVexEsQ1Ts2ETS0/o9FM2J9VJ/akijpmoR7mX+Kxz8rp3hQIrNql+VrbrDcYjIInXFK/GjMWZRIGAClTZpLeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ljIZ//55; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=sZR152sFyp7eL17TglIJ1KpvINvq2qxLLIWrKO4oD2SQs8siwH2NbkdLHjhmyrr5AZLHpeuZbQJekjtT439UxvOxI1ahOnpUfiwcMbhJaL/JLPOTygD2K+lCabzUrbViHz60q1MGPEP273FuouJrYdCd+5LraOWu3bZKymLQoOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iegxtGDk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ljIZ//55"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCF8A1F000E9;
-	Tue,  1 Sep 2026 10:06:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788257188;
-	bh=l+V8ErxdIklyMFU5MbT0B2m95erwa8dF5k0IfBQxeZQ=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iegxtGDk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 926F01F000E9;
+	Tue,  1 Sep 2026 10:06:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788257197;
+	bh=N6vsrlm2hMd38203aM1W4fiuSrY4VcnvkKHxIfAHuGY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ljIZ//55T/3AVzB3RhNS2UgKKYZSd7WWusn3AdLEDMJtdA3XzKtR6svhPcXy5FeTH
-	 86Gc+/FxZide4PAZ/8cFrObR4zhFeWit/WpOf4jTvLhF1Mpm31ntJJMogEilYiOzOz
-	 BuQpAQXOS8un0kEqChHjrvpHhvu9Q9tnelmIxgrY=
-Date: Tue, 1 Sep 2026 12:06:24 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Tomasz Unger <tomasz.unger@yahoo.pl>
-Cc: Rui Miguel Silva <rmfrfs@gmail.com>, Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: greybus: use sysfs_emit instead of sprintf in
- light.c
-Message-ID: <2026090110-storewide-briar-b062@gregkh>
-References: <20260819-greybus-light-sysfs-emit-v1-1-43c4b680de6a.ref@yahoo.pl>
- <20260819-greybus-light-sysfs-emit-v1-1-43c4b680de6a@yahoo.pl>
+	b=iegxtGDkMCtYK+3NeX3SQQ8VBgA+JKB6ME8iqXiHmwoXULu+5vMFYUxzR8J+uFUsL
+	 CNVJisI/VvwBuIHu3w4qPHfHy6fwWoywU4UNM5ngqHZu1/DGjM8+6Hetiwb1+vpAB+
+	 e3ZfrVcJo06bBwIUx+9o7Dd4B3FvgPJELQqTTF9uqKfMlJtnKOqYYfiA42G2Wzz7mE
+	 06mnl90V2inBYORlS/etIKXfQGX35qCsAr726exxEQDFL1WYdSmnJsdPJ524EJrNsW
+	 VxAWo/KZPzwpRgLRRl5NyuEjymwTT4ScjmNm4nF4sZzn1fz+4ta/PjABXiptx3zDKs
+	 OWv/kxo0SJ/4g==
+Date: Tue, 1 Sep 2026 12:06:34 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wayne Chang <waynec@nvidia.com>
+Cc: mathias.nyman@intel.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	gregkh@linuxfoundation.org, thierry.reding@gmail.com, jonathanh@nvidia.com, 
+	linux-usb@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH V2 1/8] dt-bindings: phy: tegra-xusb: Add support for
+ Tegra264
+Message-ID: <20260901-heavy-sweet-pillbug-366318@quoll>
+References: <20260831185835.3732707-1-waynec@nvidia.com>
+ <20260831185835.3732707-2-waynec@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260819-greybus-light-sysfs-emit-v1-1-43c4b680de6a@yahoo.pl>
+In-Reply-To: <20260831185835.3732707-2-waynec@nvidia.com>
 
-On Wed, Aug 19, 2026 at 05:44:55PM +0200, Tomasz Unger wrote:
-> Per Documentation/filesystems/sysfs.rst, new implementations of
-> show() methods should only use sysfs_emit() or sysfs_emit_at()
-> when formatting the value to be returned to user space, since it
-> is aware of the sysfs PAGE_SIZE buffer and includes sanity checks
-> that sprintf() lacks.
-> 
-> This fixes fade_in_show() and fade_out_show() (both generated by
-> the gb_lights_fade_attr() macro) and color_show().
-> 
-> Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
-> ---
-> Verified with checkpatch.pl - no errors or warnings.
-> Compiled the gb-light module successfully with CONFIG_GREYBUS_LIGHT=m
-> and CONFIG_LEDS_CLASS_FLASH=m (both previously disabled).
-> greybus.ko, led-class-flash.ko and gb-light.ko all load without
-> errors in a QEMU environment (verified via insmod and lsmod, dmesg
-> shows no errors). This confirms the modules load cleanly but does
-> not exercise the changed sysfs show() code paths, which would
-> require an actual Greybus light device bound to the driver.
-> ---
->  drivers/staging/greybus/light.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+On Tue, Sep 01, 2026 at 02:58:28AM +0800, Wayne Chang wrote:
+> Add the compatible string for the Tegra264 XUSB PHY.
 
-Please see the archives for why this patch has been rejected in the
-past.
+Same questions as v1. You will get exactly the same one at v3 if it is
+not unaswered here.
 
-sorry,
+Best regards,
+Krzysztof
 
-greg k-h
