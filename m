@@ -1,186 +1,150 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011012.outbound.protection.outlook.com [52.101.62.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEAB4854E9
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:13:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788282837; cv=fail; b=HqLo4gtQSJvcv9xF2LlpkoyBXoWaTNyxjLOIBfaprOhnEQhUSiSnrlCKtPzWBgDrDJInUFEvDUtdqdmwYPuIxoE9BHE8r+ow1rQKoIX4b/qy2Hhfa7+aMdbTtSZXTN7TYlOb03QSMmyvqa+8z1PtuTTH8NZatZjoySZ2WaXIvLw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788282837; c=relaxed/simple;
-	bh=b2jM+Jj01irI1QATB6FjO/FOAWVyyGz0X5HOoP9kWJw=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=an2nA7yMo3N+yXwpv8i87EjTgOwcL7AShOlzil14f8BMI7cFkT8TX5g/+5v+/6p5tHs+9lqYQwLzT62ucYBNZbq1lbctYXSttb0CVuYkSCPYq8ZUVX9XxajhE6dWODTslrsIIELpLmfGAUtTcszTgZQ8KVpQPnCJwxGxihzWpOM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=irl1Dqnz; arc=fail smtp.client-ip=52.101.62.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758114854E7;
+	Tue,  1 Sep 2026 17:14:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788282842; cv=none; b=MD/gTKXaUggs31uH91zyAwyf7UJMZXqpI8/TWdHj/xb2OvZCznPeHbb9u+uMPC8ZuDSlo5QWA21GinP5Yhhta4ejj2YouXkGs9/R1udKxLj89UDV6CPqck5iVb4NpCH/WAoJcyJZ7C3akiAM2d6y6BdylQ1g5y8rlv2uHj8pqKs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788282842; c=relaxed/simple;
+	bh=f4JLnZ5ow1BPC0oxjbrrnwXBcPTZtqNifoYVSxvFuAw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WhYu7J16VdkLvKeiw5AqUX4Fm2hjVM7keNgkERNu1Rq9ypM6msdXJkqXkRu1iB9+dnsXcppA0hwnwjKTFPd6TDOzAzarSWlpB5lTdYrZ5PI8438ZRciiXu7DNWvDZkp6ezyOb7p25hkUNtHN1XxFKmP2SEvEmhGLEbJ40YtlKkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bbYz89cH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="irl1Dqnz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jxdePTz0uwF+cVxC3ljfvb3P99pwCiyT9YBUW9vfPLadCZQIQ4CDnIPyLpuUmGbo1U69gnj5tkJf4oh8t+IoX+/2Zh63GPtbdErZOPJbn5Xdw4Q1SyWZDafEUhvptqpElzQfsdMzHEdf3pGjdNdV2737wmu6ol1kXUU3A9mBW3MEtqj2/wkNYicsHmdvb0TjqtyRehx7eozKePUkBtGtfi19cLecX0JZNcAPmUsWL4V21NdZ0buP+MYBp0goC9QjU6IYtoAbAdXE6cwV+LZLxxZmZYCLCKF0RhUR7FLShFS9U0FwVb5EtC1ef1Nhtcc4BwDP2g/pWjXXVCpTRqv+eA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uG7i5QwUOaLOklcylctfw26uRdi4EgStfwzNBzXlZAM=;
- b=UgZM+5luTGrf+4MV24Ui4BxlCHzrntlr6SDoyWB4uWFaxDfI7Mp0FlUwbm6OsvdDHX9tRl+vB8t3zMhUCLvXB2W4Bo/u2jkCA0L0KqO6gb8lezZfTaF8D3vNtyxkq5qcYrv9HgYni7yq3hu4BDgjw48NT95dXqV/lTByOzTmw6hSu4/Z/TXHnIMjfVcIEq1O51fhTMaWfxIz87j6Oexk0RKuSYxgeR6ouS+1dT3xtL+1S/rhSOpLWYw/0MRshPk9EaRwpkuie1aCRoC+4zuUU86Dvh3Csxen5QXjZkv+pKYSZvncPtlbQqJ3pPr7tbpkZuHhVV1Wte7FkDj1gUWl2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=ziepe.ca smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uG7i5QwUOaLOklcylctfw26uRdi4EgStfwzNBzXlZAM=;
- b=irl1DqnzuNT5Wdas9ENwewR6RPMyp7TYrkcACMN7ajwjjgRCqPM9+8xXNWDU1v+2X2pza7pCCJJDpsARXHvxfkaW27N9oo5lAx5fGHuMsj9TRchPyTQj0oN2iDF78mWCWhqV5xhPdHyhopY7mogvn6yeN6xQfIduAhfokA5Qe76ggOc40q4CxqyXBOMFTVMwZGm78/yKMZEanVn0VTBjhSsDc7+ZOKDH/Ny0RHjCjx9Xlo4HlodBBUHwotSzxYcG57jpxsNjAZJgGawnt1EgAxv0ukwpoHOLLzVg0gNH0hxCOyVI6PH2VG6GhZc6nY4oLofK/7xwbCn5LfsBaRyhFw==
-Received: from CH0PR08CA0017.namprd08.prod.outlook.com (2603:10b6:610:33::22)
- by IA1PR12MB7517.namprd12.prod.outlook.com (2603:10b6:208:41a::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.9; Tue, 1 Sep 2026
- 17:13:47 +0000
-Received: from LV8PEPF0000005C.namprd02.prod.outlook.com
- (2603:10b6:610:33:cafe::29) by CH0PR08CA0017.outlook.office365.com
- (2603:10b6:610:33::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
- Sep 2026 17:13:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- LV8PEPF0000005C.mail.protection.outlook.com (10.167.245.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 17:13:47 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
- 2026 10:13:07 -0700
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
- 2026 10:13:07 -0700
-Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
- Transport; Tue, 1 Sep 2026 10:13:05 -0700
-Date: Tue, 1 Sep 2026 10:13:04 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-CC: Aneesh Kumar K.V <aneesh.kumar@kernel.org>, <linux-coco@lists.linux.dev>,
-	<kvmarm@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, Alexey Kardashevskiy <aik@amd.com>, "Catalin
- Marinas" <catalin.marinas@arm.com>, Dan Williams <dan.j.williams@intel.com>,
-	Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>, "Marc
- Zyngier" <maz@kernel.org>, Pranjal Shrivastava <praan@google.com>, "Robin
- Murphy" <robin.murphy@arm.com>, Samuel Ortiz <sameo@rivosinc.com>, "Steven
- Price" <steven.price@arm.com>, Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	"Will Deacon" <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
- viommu plumbing
-Message-ID: <apcHoHKGoI7WNFXp@nvidia.com>
-References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
- <20260427085344.941627-4-aneesh.kumar@kernel.org>
- <apM6dOHcEI2ztWS0@nvidia.com>
- <yq5a8q5lz5yn.fsf@kernel.org>
- <yq5aecfdnv4i.fsf@kernel.org>
- <20260901143445.GC56830@ziepe.ca>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bbYz89cH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 589FF1F00A3D;
+	Tue,  1 Sep 2026 17:13:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788282841;
+	bh=rxSJ6upXAwrCdlBg+zPXUt0hwX65jWSdNQ6WR7zOubA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bbYz89cH6x21BWeJo0EoNiV5CO/mmEhDQeG8fKSGfNw/0OKcsb2v5SzBvd5oreK3r
+	 xHLPN9IOaGzd4MIo0pXrZxLaUWPQ0KdBhowgr0Q3/jNSgW4J5EwLYeQT9yPZUFmwcF
+	 2PCmZJiRWDXMZM1jFI13EFHvpAQL+Beb9gU2XqwaC5A43raFitnaChlwyJIA0tSC+k
+	 9QQc3M4ji4T8Tu2aHBBgInAKiHGUmZ8eWLrX+4kryEgOoA1Pmckss38OOE7E1d+dAm
+	 +J9P7HIIfxmObRhNHORbUbV5/n0+MdczaYHjRtEPIsTtBlY+23isyNNQQVOx6dI/HS
+	 SUXxJWQc9yyZQ==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 67D9E1980083;
+	Tue,  1 Sep 2026 13:13:42 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Tue, 01 Sep 2026 13:13:57 -0400
+X-ME-Sender: <xms:xQeXaqV8loEGFnZexkyJCxP3rg-N4QYIToRp3rKjkDTxrnVQL1gS6A>
+    <xme:xQeXag4Lh3DDrks_RrbzG2k8C8awQN9zc8XObGUj7pHz_2iNwoMm0pTbNT7CTAPNk
+    vp0PQjkhXlbHPIb4iLRJEEruCXo0FxnN_E9iJQQljRa1p3y5LRtH20>
+X-ME-Received: <xmr:xQeXaqU1oLe_Okvv0a9Qy1njv_x3ymejuVS52bmcLF3DCgzxB4uHGniaR1M>
+X-ME-Proxy-Cause: dmFkZTFsVsS9QxzfNE8Zc/xkNjZIEuir/bwAcyK8hIwM2NebUd4sQatdwIPqNsbpB1XVse
+    5uZUzDbqWNwZ48AG7ZVwmjvFiAKn4L3IYAvaFn4DQPDJPouw0ut3ChVPjAmMCRYrpQks/f
+    1IjUjSdR6rGJ8PH/8ZN/bq9aaNcIwsIHJ+W10sXj73V3Ek8Vpnv1A6OHP+E9dr0YtgEEKV
+    ds5NeYj4TkdU/h2OzTs/e9I3HeHw006SE6KQ22XcXsVtQ5Ridmg+p2UCCPMnSsCFJwXq+o
+    NfKF1bGQIi/LvtSee1L5bRM3w76AYvrF/BqhfAU9qLCyleEU1XUiaHShW9MyXHSbVgJaOX
+    hMwdwR4eftF02GCubB+SFa7Q4QpoVzw7JM1DRHGNHXFwhmRbAVug7W/IdOcLb/nrDMWef0
+    KkUiA7nHVPxKD4AT8RxS/44MjP9xZYwD5jxu4rR1zHMmEvxhsrMZa1SDysOwuA7RUs7KJN
+    4ytLSGjlddPPqpyqvZaXgCDNd6mWeyIrBhFBlxdH7EUzrGV3F7qSsiNCyyHYUX1Cb4RUj4
+    hSni8vyJoXkGiivg9CkTIGCtDY2O1wlpN5xSB3Yzxu8Cf7vy8qmTAqMxZaY3f8YuCqBoRV
+    m1CTaBp39x6fO7SaPEpIs4UyFfLgZpIfwcnGb6I9WUGCyXkqsD4X84Y2L0cQ
+X-ME-Proxy: <xmx:xQeXau5SDPm8X9ZPVmC3nkfvnblsrbXXAB3UELP8S46KGzzjm75ZIw>
+    <xmx:xQeXapmTRhWrJa2dimFLN6HQHdphUKlZ5N9N_s7BRhRL5RYJv6aymA>
+    <xmx:xQeXaoZRRZdtTpR_oYP130ILceFgEOa8W9-fNA_pOWU-V2bjGgKeDQ>
+    <xmx:xQeXalF_s7CzAQ-VbOU7soyFklnjyuRKWmz2tNRVxZ-CNHXwYzKvAg>
+    <xmx:xQeXatt95GT14XoEAnDFWPH6gQb2fRXK3au_NtwTvG7r-BtoMwwQDwVx>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 1 Sep 2026 13:13:39 -0400 (EDT)
+Date: Tue, 1 Sep 2026 18:13:38 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "Liam R. Howlett" <liam@infradead.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ 	Jason Gunthorpe <jgg@ziepe.ca>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ 	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ 	Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, 	Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ 	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Guo Ren <guoren@kernel.org>, 	Brian Cain <bcain@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ 	Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>,
+ 	Jonas Bonn <jonas@southpole.se>,
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+ 	Stafford Horne <shorne@gmail.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ 	Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ 	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ 	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ 	Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>,
+ 	Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>,
+ 	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>,
+ 	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, 	Peter Zijlstra <peterz@infradead.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ 	Andreas Larsson <andreas@gaisler.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ 	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>,
+ 	Catalin Marinas <catalin.marinas@arm.com>,
+ Mark Rutland <mark.rutland@arm.com>,
+ 	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ 	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ 	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ 	Michael Ellerman <mpe@ellerman.id.au>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ 	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ 	Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ 	Sven Schnelle <svens@linux.ibm.com>,
+ Richard Weinberger <richard@nod.at>,
+ 	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ 	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, 	Arnd Bergmann <arnd@arndb.de>,
+ Vlastimil Babka <vbabka@kernel.org>, 	Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, 	Michal Hocko <mhocko@suse.com>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ 	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-csky@vger.kernel.org, 	linux-hexagon@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org,
+ 	linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org,
+ 	linux-arm-kernel@lists.infradead.org,
+ linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org,
+ 	sparclinux@vger.kernel.org, linux-alpha@vger.kernel.org,
+ loongarch@lists.linux.dev, 	linux-mips@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ 	linux-s390@vger.kernel.org, linux-um@lists.infradead.org,
+ Hugh Dickins <hughd@google.com>, 	Qi Zheng <qi.zheng@linux.dev>
+Subject: Re: [PATCH 01/12] mm/huge_memory: zap deposited page tables after an
+ RCU grace period
+Message-ID: <apcHiE7jDQaFYXOM@thinkstation>
+References: <20260901-rcu-pagetable-freeing-v1-0-5456a81c8212@kernel.org>
+ <20260901-rcu-pagetable-freeing-v1-1-5456a81c8212@kernel.org>
+ <apbOlyF77yDCV4cF@thinkstation>
+ <apbcoMTVlL42G5tg@gremlin>
+ <20260901142408.GA56830@ziepe.ca>
+ <apbiB51hjm-9pRzf@gremlin>
+ <apbuO_QveZNAz3ns@thinkstation>
+ <kasi4mkjkt56wxsrmphm5o2qfg2lwsdxf3tlmzx5tq6t7uez74@kozleoavd6r2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260901143445.GC56830@ziepe.ca>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000005C:EE_|IA1PR12MB7517:EE_
-X-MS-Office365-Filtering-Correlation-Id: f86e19ae-e8e1-44c4-7390-08df084c62a7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|376014|7416014|36860700016|10067099003|56012099006|3023799007|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	JNq6FSEmbckf4pSDNVxWSsxrnGh7VHtXT7HJf8ujQAZJIukaYGEYzpIM/0IfhFD3mXH9JeJ4njyNtDmv9euMCCROnUyb+C27DTQGSWB7JsH4j2rULDOSplJeOQAATmnk9m/WgWMCztVLMGNYkn+QNjFW9CJgBD07SYwY0ilbJ9o8ei99Kd6N+rFeK9G8StJymYroaqNjeE8OlgQnspnwPTYHbabImhZE1UiSnVf99mXQXqEXjy4tGHD+HCJe0+NvM3Di/0OoXLBz3FonapSOFg2knW1naHfBeCmz5czU1ZMnnGrRR5/s9lGRgLef9y8eOXzTB1Ex8rLglymh/QPTIs8o8GN7ZSigKGwq6vE22MhTJOhD5CyIVyo/IWWiWR38Q5ocj1FyH63+PYY3vBuTlkH0miyZ+tEGZb38/YW4gKA8+PeOuIep6CYjCe5Jf7g5rdSi1sjwAAckS85G9nw1Vn4gFq8Mrm85OOz9i9Ge2XmWgolVdINfvNf1TijX8QJx10OYHuzmAnVXQ7eBYnoJgw7Fz4RBeRi58/VGX2wURNiOq6RY+RFzZjWco1Yisb/LvlUY1daPQQfoo+xwB6H/p5eXmRar6VR2zT6zMc8NI3AG7cxq8NDD51mxdrRfUbVCp0BpvEP8dwR4XYebRhDjKzPBoseCsR7RPLaxLsuqI7qFWA9IgAszbwKkcpE4zZRhL1TFB0+ZGDHn2cSmhYKJHA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(7416014)(36860700016)(10067099003)(56012099006)(3023799007)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	NaZGZeMGM4XaM6BzKPntuEnRGqY4BbbN0ArU0LWOJYjxvKRiXoCu8J4bMou75knRJKwn7wYuR0mWFo0BFqQAYsRiOxUS+qlmThlZQsfrg+sEh5Ba0goWh/i8AnU5vLKb3WhqQ7t98XwfhDBb7NobUx3BdL7YyJ2daNSphLOhm67Z+urioJKV7cir5HRMsu/u4iQrI1uLz5Eo1Bhr0Xb7XxxRGD8sNf4Ipt8WLVzOKgZBF7mGYGvO+lxS8on+D9OXJ86m1ldRdS6HloyFwTVoYVbMnu6GFun5PrJngSvQQ7rettlQaGtDyos0wk0gLmeYGxBhJKW4q26ozysvqhOgxDqHypIOBfhIEdSp/Gj8N2U+V4L1qartLgyufyZvAqkBuAoVVAhgXFHeLPzVRMTRE31GHTxhHRu3rmY1OBjxwzMf/3NRs/UcVIGftkZYNX2j
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 17:13:47.3739
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f86e19ae-e8e1-44c4-7390-08df084c62a7
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF0000005C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7517
+In-Reply-To: <kasi4mkjkt56wxsrmphm5o2qfg2lwsdxf3tlmzx5tq6t7uez74@kozleoavd6r2>
 
-On Tue, Sep 01, 2026 at 11:34:45AM -0300, Jason Gunthorpe wrote:
-> On Tue, Sep 01, 2026 at 03:36:37PM +0530, Aneesh Kumar K.V wrote:
-> 
-> > @@ -463,14 +460,13 @@
-> >  	vsmmu->vmid = s2_parent->s2_cfg.vmid;
-> >  
-> >  	if (viommu->type == IOMMU_VIOMMU_TYPE_ARM_SMMUV3) {
-> > +		if (arm_smmu_is_realm_viommu(viommu))
-> > +			return arm_realm_smmu_v3_init(viommu, user_data);
-> > +
-> 
-> I think the realm vsmmu is going to require a different info struct
-> than the normal psmmu case, isn't it?
-> 
-> If so it needs its own enum value.
-> 
-> It would be nice to see a draft patch showing how the real vsmmu works
-> on top of the RMM spec for it. If we are using a viommu object then
-> non-vsmmu case should be identical just with an option in the info
-> struct to not create the vsmmu object.
+On Tue, Sep 01, 2026 at 11:54:47AM -0400, Liam R. Howlett wrote:
+> Do you have munmap() performance dependent workload that you are
+> concerned about regressing?
 
-Actually, the PSMMU-only viommu object in this series only adds a
-type with no viommu data structure.
+exit(2) path is performance critical for many workloads. Like, if you
+need to restart VM.
 
-I've drafted the vsmmu case on top of the series, so it would add
-a structure reusing the same IOMMU_VIOMMU_TYPE_ARM_SMMUV3 with a
-flag:
-
-+/**
-+ * enum iommu_viommu_arm_realm_vsmmuv3_flags - Flags for ARM SMMUv3 Realm
-+ * @IOMMU_VIOMMU_ARM_REALM_SMMUV3_FLAGS_VSMMU: Indicates whether the Realm has
-+ *                                             a guest-visible VSMMU instance
-+ */
-+enum iommu_viommu_arm_realm_vsmmuv3_flags {
-+	IOMMU_VIOMMU_ARM_REALM_SMMUV3_FLAGS_VSMMU = 1 << 0,
-+};
-+
-+/**
-+ * struct iommu_viommu_arm_realm_vsmmuv3 - ARM Realm VSMMUv3 parameters
-+ *                                         (IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3)
-+ * @flags: Combination of enum iommu_viommu_arm_realm_vsmmuv3_flags
-+ * @reg_base: MMIO base address of the VSMMU in the guest VM
-+ * @reg_top: MMIO top address of the VSMMU in the guest VM
-+ * @aidr: AIDR register value of the VSMMU in the guest VM
-+ * @idr: IDR register values of the VSMMU in the guest VM
-+ */
-+struct iommu_viommu_arm_realm_vsmmuv3 {
-+	__aligned_u64 flags;
-+	__aligned_le64 reg_base;
-+	__aligned_le64 reg_top;
-+	__aligned_le64 aidr;
-+	__aligned_le64 idr[7];
-+};
-
-I think this should work. But I still feel awkward that a non-vsmmu
-case has to allocate a viommu object for a set of RMI commands that
-don't need an Realm Descriptor. Things could be cleaner if we allow
-RMI_PSMMU_ACTIVATE and RMI_PSMMU_ST_L2_CREATE to be independent on
-a viommu; then leave IOMMU_VIOMMU_TYPE_ARM_SMMUV3 to vsmmu-visiable
-case.
-
-Nicolin
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
