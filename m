@@ -1,100 +1,121 @@
-Received: from mta1.migadu.com (out-102.mta1.migadu.com [95.215.58.102])
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CC747CC61
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:49:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0320D3033E6
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:50:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270577; cv=none; b=UssdooDAU1dMVuWnYpO1GtD5ImXTT61Ndmbjh09cyWmHE/LK9q2qJWQ1MyGmmWgx7/+f75BI1YDQcPNMCXME5XZN7/VRVKPMjdiXXyu3DKqJb57xCVOyHuMm7NtWAHmxN4kPEL2MDJyab5wICCfITsYofSdo/+VaKFANoKTciGs=
+	t=1788270623; cv=none; b=dKhclUvmEFepXaUu16W/KSF7JBmM1BO2ig21XWP9CGysBtP4/o8VFafQOPIpCrErJfzfh4nqexS4tMoEnLsBrfis1bxk2X2hE7/GUmT+G5dKrTFPjgVqWtmHCROcxqm6sAN/U8i5EsRH98LPHDXGVGcghTxsgd+eCigV8HYVvfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270577; c=relaxed/simple;
-	bh=8QFSnlpySFykmoc6yP1oqqE80w3/ep3oZQ4c2DH1o2c=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=kUX6/ygklfMgDfAVUxf166nG5cltF910zPOfarkL3yp+Eb6+EHjjoFyu4ME5pwB5ArqUm8JQ+dTcYkhASse0vSxuSpOuVDCCVPuoSmtRGu7OfoXz8eu8IG08J0aujwI/yuq+d9z3L+LXnLN+kb0eNhBj4I1Qmf5eGAg4GFd7rRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=J2nMIk0u; arc=none smtp.client-ip=95.215.58.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788270623; c=relaxed/simple;
+	bh=WynuTooh3d2w4bp9yyON0x52RjuGtTuYYXM1KX5OJEE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CzYRiYRVaeJ0exavkKjsyA8+xXapabJV/5z5zkGW4wShuUCzRmWTjAWoIKAu9Sklky9ZvGW9hz1jeUeaMPR0XWeIMeT0htS0bs1BeWk9KsMbtf+Y7FAMdCq0nHbjsJ2y/ptFeQZ6UwJryOu40A61SxpWDeJPWWHZmli5fVqSOpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gg22Jx5Q; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="J2nMIk0u"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8QFSnlpySFykmoc6yP1oqqE80w3/ep3oZQ4c2DH1o2c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788270569; v=1; x=1788875369;
- b=J2nMIk0uDH6PGukag9s3rj8JytwxaY2785gBuaNtbmxpWbkp4tMAzlSjfhC+CRpqtmwKqOVT
- 85SvJZudDRyANBEsb+771w0LfDTk6dqHiRfXFMQTgaesDkGUI0T0BaX8wrVRaQP0Xwafzl88R43
- A/sHm3MW/X5wcVSII1etqm/I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7ef7f32c45b88611;
-	Tue, 01 Sep 2026 13:49:19 +0000
-X-Mizu-Trace-ID: 7ef7f32c45b88611
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 01 Sep 2026 15:49:13 +0200
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Ping-Ke Shih <pkshih@realtek.com>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Michael Straube <straube.linux@gmail.com>,
- Bitterblue Smith <rtl8821cerfe2@gmail.com>,
- Peter Robinson <pbrobinson@gmail.com>,
- Hans de Goede <johannes.goede@oss.qualcomm.com>, luka.gejak@linux.dev
-Subject: RE: [PATCH v8 0/6] wifi: rtw88: preparations for RTL8723B/RTL8723BS
-User-Agent: Thunderbird for Android
-In-Reply-To: <f1454e9c2add47b2b01a0adb8233455f@realtek.com>
-References: <20260825163314.1590-1-luka.gejak@linux.dev> <4866D935-FCC8-4F24-9C05-8678DCB22533@linux.dev> <f1454e9c2add47b2b01a0adb8233455f@realtek.com>
-Message-ID: <B2A0C047-C517-4AB4-BD6E-3EC6E9DA23EB@linux.dev>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gg22Jx5Q"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c207cb16cf5so793667466b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:50:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788270620; x=1788875420; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=F8+SZOE2xWNs6AbBanAPIBFLsvkxmbh30lToZDOa/Pk=;
+        b=gg22Jx5Qw01lioC0iaWB8DT6B8dQEafNNz5j4qYEcayCJlyo4TAkRZnuItB6qkWeTM
+         uO8TmfOeN9gDYbwXvEXgrNiuXsmI9yE/DCm9o2KXxGJ0crj0WmHy/WXdCwaW+iikD2Bd
+         P9OVKmecUTFoQ8qwOYniOhCIaNgKGRkBDdfHtt1lFZs9h6GJ+Acf7GfJGp0obAQK/ffP
+         22z4KWM551+UG1e/J/bTnzoYulxOhiR3YmwDJrK0KFej9dZ4tmIDctCw0tH6lf0eo/Is
+         MYy/qsueTmttzEQOJskT3SB3Jy1jeSZvV7oXAp6iI4htszKNsbtSWFfcrdkOw1s4GZqc
+         jvEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788270620; x=1788875420;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F8+SZOE2xWNs6AbBanAPIBFLsvkxmbh30lToZDOa/Pk=;
+        b=Vrm1XV36wPBMHc2CIzdeRWzHOCYwT9LK9hctjbYFHEMabmKdI9d4jGuKqYtAKKZdNp
+         DO7+ISKBr3f1AvHN0Gysljt8PQsuBUz7CDQUybs3f3sEg4IVrHzGfW8DyozXxchBlmBy
+         zwWtcT+fKm9dNr41fwaShnCsUED1HQOeyQughphLSmfva9/LsyRxFBI4nUmp8v7Vgvlx
+         fuzzd5ufOJ0I3ytsDENxqksiFbjG6fcPqqs0WKLaklVX76Wa4eii8KhxY27wypuDzgbN
+         SS+Ruef1KytGtKhq3HuncJWoBsUFjQa9lCqFtrARjurV01TnlVcGsI6Xo62H6l9xX/Rq
+         LWVg==
+X-Forwarded-Encrypted: i=1; AKwUvBzQ9FWMpYvBO0rQT9488poGDRrA7QyeO01x+n9iTKujg44Rc4eDdWDHK+8uQj2lBQLvqUmd52B6FjXIaVs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwhcUFEP7+jBLVhS6HtDdW2FzImEbFsI2apUyZlY3WiE4DBgh5
+	xN+cFGyUN9s5BwsoECjIM11UmMrJG5/k3P8HZnar5qe/iQ02+bWIuGGqTAjTzfHEUg==
+X-Gm-Gg: AR+sD12vSd8Zp5zWQNwL1atlCodn6gjd5wh/O8w516Tt6kLHMh0GA+HkLGBHUaAwoJ0
+	q3GrcL/FUMPO4PiOLSqIR5CR9sSFWrdzdkl0MhBBUIA3xvKu4IpVZxSRpdh1oFIGIHVwirXjDOz
+	bumbBRVwgv0FtXlvPgf3C1ob0BDFxAZWaAxEhBW0JavL8xyJDtf9q+UY4JF4hwNju/pNsl5RLvO
+	7ZdUR4dOtpTH0HFl6kbgy4EI2mRqE5euFx1xt3TBKtM31dvHr5Q/CvpzSEaAtFKooBW/BpnzOMt
+	XugK39KOB4GNhWYTXMmrL5lpQlf9S0KIHBT89EgBP5hO6nEh8ygOHmMcjQYcNyZLX1CCB06OTJg
+	yvOfmpOkmG/FCVL2OwZlGn9BEWqXj699I1fkNn0GgxPd1+P+iWazdL6oKEAPweruSeFdQJwAVGz
+	mqiI7ju6FYi4b6DKJQwJZBe9VqE/vtGEVGVUxGXUZr0as18T5h5Az8UU+/eGdWnZfEUHRhEcvES
+	xtGjVwCegf0RGBcLcxb6gSbstXC1QST
+X-Received: by 2002:a05:6938:a08e:20b0:c25:62db:772b with SMTP id a640c23a62f3a-c25b3bb8c0emr448253566b.7.1788270619586;
+        Tue, 01 Sep 2026 06:50:19 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f1b1443sm588471166b.41.2026.09.01.06.50.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 06:50:18 -0700 (PDT)
+Date: Tue, 1 Sep 2026 14:50:15 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Lee Jones <lee@kernel.org>
+Cc: stable@vger.kernel.org, rostedt@goodmis.org, mhiramat@kernel.org,
+	linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
+	kernel-team@android.com, linux-kernel@vger.kernel.org
+Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
+ with trace_pipe_raw readers
+Message-ID: <apbYF8rGD5EKG-oq@google.com>
+References: <20260813131152.3589632-1-vdonnefort@google.com>
+ <20260813131152.3589632-7-vdonnefort@google.com>
+ <20260901123444.GA1350131@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901123444.GA1350131@google.com>
 
-Hi Ping-Ke,
-On August 31, 2026 4:23:48 AM GMT+02:00, Ping-Ke Shih <pkshih@realtek=2Eco=
-m> wrote:
+On Tue, Sep 01, 2026 at 01:34:44PM +0100, Lee Jones wrote:
+> Dear Stable,
+> 
+> > Concurrent subbuffer resizes may crash trace_pipe_raw readers or leak
+> > uninitialized memory to userspace due to stale size values.
+> > 
+> > Modify ring_buffer_alloc_read_page() to let it handle the resizing of
+> > a previous buffer_data_read_page if necessary and add a new
+> > ring_buffer_read_page_size() which enable ring-buffer users to not use
+> > the racy ring_buffer_subbuf_size_get(). This makes the spare_size member
+> > of ftrace_buffer_info redundant.
+> > 
+> > Use those functions in trace_pipe_raw readers and handle in both the
+> > case where the subbuf order is modified in the middle of the read.
+> > 
+> > Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
+> > Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+> 
+> Not sure if this is the latest version or not?
+> 
+> I see review comments, but no v6.  Anyway, no matter, it'll do.
+> 
+> Could we have this applied to Stable please:
+> 
+> 8a5f63637890 ("ring-buffer: Fix subbuf resize race with ring buffer readers")
+> 
+> -- 
+> Lee Jones
 
-The probe_wait_ms test you suggested has run, nine hours in the tester's
-poor signal environment=2E At 2000 ms he saw one "Failed to send nullfunc
-=2E=2E=2E disconnecting"=2E At 500 ms it was one every twenty to forty sec=
-onds=2E
-Same environment, same driver=2E
+Steven hasn't taken all the patches from v5, a few of them were not ready yet.
 
-The reports are late rather than missing:
+The latest version is v8 [1]... and I am about to send a v9.
 
-  txrpt: nullfunc sn=3Df0 queued
-  wlan0: Failed to send nullfunc to AP after 500ms, disconnecting
-  txrpt: nullfunc sn=3Df0 acked after 810ms
+[1] https://lore.kernel.org/all/20260826094528.3738023-1-vdonnefort@google.com/ 
 
-The frame was acknowledged and the link was alive=2E Nullfunc reports run
-400 to 1000 ms on this chip when the link is poor, against 0 to 20 ms
-for management frames on the same hardware, so it is firmware retry
-time=2E
-
-That also rules out the timeout path as the mechanism=2E It fires 2500 ms
-after the last enqueue, well after mac80211 has given up, and a build
-that handed the frames back as not acked instead of dropping them made
-no difference=2E The sequence number aliasing I raised does not show up
-either: every instance had one frame in the queue=2E
-
-So there is nothing here for the driver to fix, and probe_wait_ms is not
-something a driver can set=2E I am not proposing anything for it=2E
-
-> But I feel this case, using ieee80211_purge_tx_queue() is equivalent?
-
-Not equivalent=2E ieee80211_purge_tx_queue() calls ieee80211_free_txskb(),
-which calls ieee80211_report_used_skb() with dropped =3D true: that
-settles the airtime accounting and frees the skb properly, but never
-reaches ieee80211_sta_tx_notify()=2E Only ieee80211_tx_status_*() does=2E =
-It
-fixes the ownership bug and tells the connection poll nothing, which
-given the above does not matter=2E
-
-Still worth doing on its own=2E I will send it separately, no chip
-condition=2E
-
-Best regards,
-Luka Gejak
+-- 
+Vincent
