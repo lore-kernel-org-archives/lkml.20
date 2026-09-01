@@ -1,168 +1,141 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF953321DE;
-	Tue,  1 Sep 2026 06:57:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27D436EAB1
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:58:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245863; cv=none; b=tVOL6L8BDMwAhYZwIzA5Qcu+6uzPjfSsHtX3PfuEMwlOeuxhJ+vA+UTmQ5kks/PMfd8Bu5jDw5oDBbujzx4AFkG1F9/heU09zwKD4vjsGXd0wHhNEeHD1DyvuOAO8nhEfSEicP5dOfUlVXMaWY2h7jxHNx4jSpiFD1HMdsnLPvU=
+	t=1788245883; cv=none; b=eOTmh+xkHz/ghnjEpSyMAxrF7oUCnGyl2ys4FXvNlbhqwGVdOrBaUBtwoHp6/r4pw3Fizslz7jXVW8v1iyGxHAfxlXkyrW4O2Ia+HKRnS+Nbr2Z6uVPOh76JLmK7BQd6I1/lPvpal6evdBT/yneL4BGHOd4GNYU9H3EA1PuyYYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788245863; c=relaxed/simple;
-	bh=WuEehMtA+IxOr6i6fMyrgbqu1/2+jUZ4vb3wTYi47a0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DQjG1I+/ubTNWZWpoOxz7ll8oubhPerYFVRBMoMxoxmWPSsnqm85WX+nCecetwi8AbFU2gjcbGm5+2YbWBduhDgbjJ4ri2jg0JZKaSSaoIs2VA7ILLiDp+gy0Vfh1/N/GI5PxZC/g32E8G38BBjWqNXPLfZZF9gjE5d80Bs3WEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W1U6OCrD; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788245883; c=relaxed/simple;
+	bh=JWHArNMHZa3syaxkWQOyplqPmFE/oqiYh+nkNJ3SSbU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=cR1WO5ErBWXLhaobrv3IDmAlH6WgnkW+h+wJa8BMhOy2K7LBBrRT1U11rQB3qUVIHT3DJGBBiUPumVfnnrXGRlUTpooxlM6ZVpBybuVh0hgJDLBNF/KDRImwxhzwTThjreiI9khWRWYfc5QLhcWcqlA+2ZLAusBXxTr3cqEs/R0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=dQ1xvGid; arc=none smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W1U6OCrD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788245861; x=1819781861;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=WuEehMtA+IxOr6i6fMyrgbqu1/2+jUZ4vb3wTYi47a0=;
-  b=W1U6OCrDYXETIskDwl1H3g8Dids+WYbf9bXxcW/kiy4uQDpyHP4ojflZ
-   8jXoSmljdA01izX0yLaBVmMGwmIlyRn3Qa5rNRxii+YvTd7EMXysUravC
-   ORYFrUI4UjXMZ6X5O4qjVFSamz7FfWWvao8KFV/3mMvRIxnjs9tKkSfmD
-   qWdEumDuOsJdgB3XAUfM0RmSF+kqBVevIQG0I7x0hlpuyxycDfggkopu1
-   Mvs9SP5Lj6KVv0sHg6DA4TDRzEYSTdNH/wFvimJ3Jbhm1FiGsjvOt0DeH
-   yErq5PDYcWbc4Y+LKMUaLx3bkQVLE4Bx56legIINz4t+kh9TQBkN/Dz/T
-   Q==;
-X-CSE-ConnectionGUID: K6zbf8Z9Svmddakxi9f94A==
-X-CSE-MsgGUID: TvuKCzdmRGiLddiDfBHnrg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="92478635"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="92478635"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 23:57:41 -0700
-X-CSE-ConnectionGUID: yz/vJrMBQGCnikgHJg6cFw==
-X-CSE-MsgGUID: xKD0Q0N2TC6Z5ccIo5lu/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="298899397"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 23:57:36 -0700
-Message-ID: <1bc5d41b-103f-46ba-bcb6-bac930014030@linux.intel.com>
-Date: Tue, 1 Sep 2026 14:57:35 +0800
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="dQ1xvGid"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-69c108fee7fso5695548a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:58:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1788245879; x=1788850679; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JWHArNMHZa3syaxkWQOyplqPmFE/oqiYh+nkNJ3SSbU=;
+        b=dQ1xvGidr2Ndl4JReANdtfQ7QsGO5mChStGwnGs2P5Z4qyeaAvL0TFXJAjOie97WFM
+         tUoGp6bzuWMZxYcqLhUkZM3wdlqD0aacg5nWW8EmRZLZgBLHzwypqe1jM43FhkUvUmVs
+         PTXAvz20yARdbjD2XYZSKvPkKmBodO9Oc2oDyiXILRaj7o9kzD6MWvLVfyZU8DAcFSVK
+         /myVzytlZ+sBWduJ+WGSmafXiziDZRTKC9eUDJgbAi3yh9HEHm5Y5fQW+g0+gGWfHlQl
+         A5iYOwTsxnKo+8USszuzeFrs6gUbPOyMfIR5NMYiNo5lOzmThoSZCjqYFA6Upc3CnXos
+         hn9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788245879; x=1788850679;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JWHArNMHZa3syaxkWQOyplqPmFE/oqiYh+nkNJ3SSbU=;
+        b=jMJSFVbh9t4xP2JMkzDwIjt+jBTATxVEN+OyErLzK6MISrltbyvj6UJx4Us0IMJjpK
+         5sWNNL3kqnkXlGtUQL7Ny7h+F3m+6/WY765bClAXd6IA7EEmfDyp32JKvl52u3KY/gAV
+         O3GaV4nMqtpZ2rBZDtaJ8kxrnhm0NCI23Nqpa1hHUGSzQp7OMApt6th8bYeHWTSD/oH7
+         7/cr2aArJl33jXF6Rj7VWQRXHDOihhJixY6zItrs4X6mBRSPZ2CiJklYgAd0oHwjG2r+
+         YAADQsqE6TLE20JezaUKJB/7Eklc3NC/sH3ylOFz/ncApup8EjkAyQrJMZtfJLFnlbHj
+         Kz4g==
+X-Forwarded-Encrypted: i=1; AKwUvBzun1B0DslSgl4STZClahfRvblycsnZLmurM6OG6mh7JKb4ibagvRi5QtvfXWhVgP4tpzuBhZmdyfUMK/8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nac9iZHlMN4cA5Y7F2mdcwbkV0NpKY+k7tch5rr2Uz6wU9DYoi
+	xVZY34doCl8Bd+/t7vZlAVkloOPm7sPZWzpxR+BIvEmE2P0ZIKviSQd+h8p4II/TKjfyR2N+L60
+	WMVIucd4=
+X-Gm-Gg: AYBFou1dm+4DNyHc5U+qaSvxtifQcI/EPZjhKlSBMLR5UFK9jsOc1YDgj9C43/IH7hT
+	QkdVvMtRKHhfmHSy/1h7Vy/cr9g8hEBgt2w+hQ59sH9+9D7wmKigeEPxXNGJbG9epQU0d9WuV56
+	E7NAixHbh6AjelrxOsZWrSOn2qrJI6kcnrmJcsCjLVXx2TOFdOqDF+2tSvz5ETG1paIle+PJXbM
+	/0/3qZdelK+1wLYuUu0gV17GNTrdPEfAKr7PCzOUoQrdAFYctzLgeTC0734dvlnnTZuMuAPjr4g
+	t2obktf7MpFSotdzG2G/j6AmgOOMkNm+rV80+IeA/q9i+ecj6tZekDCIMrCvtYXtPPQ/8foFtaF
+	R4MnTUJ6qltCWjwoqDADe2iNs1fQA6NQlcHxaxZkpEzi5WbknakzRqlbyIfkaORWGaRMaMng3Yx
+	f5SNhJUuxlYqpjwHZKR27yl4dnTzvUCXAS4S2CQD+TYk4wu1NqG3mJTXoX6O615qPBPaZWM0PSa
+	hNoiEgMwpIumO89R2GvsLHWzFXcWjUCOg==
+X-Received: by 2002:a05:6402:a0cb:b0:6a6:32f9:d7cf with SMTP id 4fb4d7f45d1cf-6a632f9d94emr10639538a12.20.1788245879073;
+        Mon, 31 Aug 2026 23:57:59 -0700 (PDT)
+Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a66ed20d3fsm252725a12.24.2026.08.31.23.57.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 23:57:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/16] KVM: x86/pmu: Factor out fixed counter control
- bit calculation
-To: Zide Chen <zide.chen@intel.com>, Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
-Cc: kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
- Jim Mattson <jmattson@google.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Xudong Hao <xudong.hao@intel.com>
-References: <20260827223755.143247-1-zide.chen@intel.com>
- <20260827223755.143247-14-zide.chen@intel.com>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20260827223755.143247-14-zide.chen@intel.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Tue, 01 Sep 2026 08:57:58 +0200
+Message-Id: <DL3S9BFOU95Q.1LPBODV43OMZA@fairphone.com>
+Subject: Re: [PATCH v2 5/5] iio: light: stk3310: support the Sensortek
+ STK36C61
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>, "Marcelo Schmitt"
+ <marcelo.schmitt1@gmail.com>, "Luca Weiss" <luca.weiss@fairphone.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>, <linux-iio@vger.kernel.org>,
+ "David Lechner" <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, "Andy
+ Shevchenko" <andriy.shevchenko@intel.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, <devicetree@vger.kernel.org>, "Kees Cook"
+ <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ <linux-hardening@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
+ <20260826175409.326131-6-jorijnvdgraaf@catcrafts.net>
+ <apEMCqQXyj1tAMoP@debian-BULLSEYE-live-builder-AMD64>
+ <20260828154705.11962-1-jorijnvdgraaf@catcrafts.net>
+ <apRGQVfPKWHvE2Ct@debian-BULLSEYE-live-builder-AMD64>
+ <20260830201950.63838-1-jorijnvdgraaf@catcrafts.net>
+ <DL2YT4S4U7C4.2CPGBR94G01FD@fairphone.com>
+ <apYiYnlM-agfG9he@debian-BULLSEYE-live-builder-AMD64>
+ <apYqUv_uuqZlhtOh@debian-BULLSEYE-live-builder-AMD64>
+ <20260901025502.231703-1-jorijnvdgraaf@catcrafts.net>
+In-Reply-To: <20260901025502.231703-1-jorijnvdgraaf@catcrafts.net>
 
-Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Hi Jorijn,
 
+On Tue Sep 1, 2026 at 4:55 AM CEST, Jorijn van der Graaf wrote:
+> On Mon, Aug 31, 2026 at 10:28:50PM -0300, Marcelo Schmitt wrote:
+>> Never mind, I completely missed the point of it having a preliminary dat=
+asheet.
+>> It might be sensible to try to estimate if the final version will keep t=
+he same
+>> name and PDT_ID.
+>
+> On the name: the Fairphone 6 repair document's block diagram labels
+> the part "3IN1 ALPS/RGB sensor/STK36C61", without the A ([1], page
+> 107), while the LCSC and JLCPCB listings carry the -A name. The
+> diagram is provenance rather than proof because the same page
+> misrenders two other part names and I have not read the package
+> marking itself.
+>
+> The driver name would follow the existing family convention either
+> way: this driver already binds the four STK3311 variants (STK3311,
+> -A, -S34, -X), each with its own chip ID in stk3310_chip_ids, under
+> the single name "stk3311".
+>
+> On the ID: the published sheet says 0x93, Luca's 0.9.2 revision says
+> 0x95, and the part in the phone reads 0x95. stk3310_chip_ids is a
+> flat accept-list, so if a final sheet moved the ID again it would be
+> added alongside, not swapped.
+>
+> Luca, can you confirm which part is actually in the device, the
+> STK36C61 or the STK36C61-A?
 
-On 8/28/2026 6:37 AM, Zide Chen wrote:
-> Rename intel_pmu_enable_fixed_counter_bits() to
-> intel_pmu_fixed_ctrl_bits() and have it return the computed fixed
-> counter control mask instead of updating fixed_ctr_ctrl_rsvd directly.
+The BOM I'm viewing clearly states "STK36C61-A".
+
+Regards
+Luca
+
 >
-> Accumulate the desired fixed counter control bits during PMU setup and
-> apply them once in intel_pmu_refresh().
+> [1] https://www.fairphone.com/wp-content/uploads/2025/08/Fairphone-Gen.-6=
+_-Information-on-how-to-repair-dispose-of-and-recycle-EN-NL-FR-DE.pdf
 >
-> Move the helper next to intel_pmu_set_msr() so it can also be reused
-> there, which will be needed for upcoming ANYTHREAD_DEPRECATION
-> emulation.
->
-> No functional change intended.
->
-> Signed-off-by: Zide Chen <zide.chen@intel.com>
-> ---
-> v2: New patch
-> ---
->  arch/x86/kvm/vmx/pmu_intel.c | 32 +++++++++++++++++++-------------
->  1 file changed, 19 insertions(+), 13 deletions(-)
->
-> diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-> index 1ce69e764ae1..c7472778137a 100644
-> --- a/arch/x86/kvm/vmx/pmu_intel.c
-> +++ b/arch/x86/kvm/vmx/pmu_intel.c
-> @@ -421,6 +421,18 @@ static int intel_pmu_get_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
->  	return 0;
->  }
->  
-> +static u64 intel_pmu_fixed_ctrl_bits(struct kvm_pmu *pmu, u64 bits)
-> +{
-> +	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
-> +	u64 fixed_ctrl_bits = 0;
-> +	int i;
-> +
-> +	kvm_for_each_fixed_counter(i, fixed_mask)
-> +		fixed_ctrl_bits |= intel_fixed_bits_by_idx(i, bits);
-> +
-> +	return fixed_ctrl_bits;
-> +}
-> +
->  static int intel_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
->  {
->  	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
-> @@ -533,20 +545,12 @@ static __always_inline u64 intel_get_fixed_pmc_eventsel(unsigned int index)
->  	return eventsel;
->  }
->  
-> -static void intel_pmu_enable_fixed_counter_bits(struct kvm_pmu *pmu, u64 bits)
-> -{
-> -	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
-> -	int i;
-> -
-> -	kvm_for_each_fixed_counter(i, fixed_mask)
-> -		pmu->fixed_ctr_ctrl_rsvd &= ~intel_fixed_bits_by_idx(i, bits);
-> -}
-> -
->  static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->  {
->  	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
->  	struct lbr_desc *lbr_desc = vcpu_to_lbr_desc(vcpu);
->  	struct kvm_cpuid_entry2 *entry;
-> +	u64 fixed_enable_bits = 0;
->  	union cpuid10_eax eax;
->  	union cpuid10_edx edx;
->  	u64 perf_capabilities;
-> @@ -625,9 +629,8 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->  					  kvm_pmu_cap.bit_width_fixed);
->  	pmu->counter_bitmask[KVM_PMC_FIXED] = BIT_ULL(edx.split.bit_width_fixed) - 1;
->  
-> -	intel_pmu_enable_fixed_counter_bits(pmu, INTEL_FIXED_0_KERNEL |
-> -						 INTEL_FIXED_0_USER |
-> -						 INTEL_FIXED_0_ENABLE_PMI);
-> +	fixed_enable_bits |= INTEL_FIXED_0_KERNEL | INTEL_FIXED_0_USER |
-> +			     INTEL_FIXED_0_ENABLE_PMI;
->  
->  	counter_rsvd = ~(kvm_gp_pmc_mask(pmu) |
->  			((u64)kvm_fixed_pmc_mask(pmu) << KVM_FIXED_PMC_BASE_IDX));
-> @@ -651,11 +654,14 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->  			pmu->pebs_enable_rsvd = counter_rsvd;
->  			pmu->eventsel_rsvd &= ~ICL_EVENTSEL_ADAPTIVE;
->  			pmu->pebs_data_cfg_rsvd = ~0xff00000full;
-> -			intel_pmu_enable_fixed_counter_bits(pmu, ICL_FIXED_0_ADAPTIVE);
-> +			fixed_enable_bits |= ICL_FIXED_0_ADAPTIVE;
->  		} else {
->  			pmu->pebs_enable_rsvd = ~kvm_gp_pmc_mask(pmu);
->  		}
->  	}
-> +
-> +	pmu->fixed_ctr_ctrl_rsvd &=
-> +		~intel_pmu_fixed_ctrl_bits(pmu, fixed_enable_bits);
->  }
->  
->  static void intel_pmu_init(struct kvm_vcpu *vcpu)
+> Thanks,
+> Jorijn
+
