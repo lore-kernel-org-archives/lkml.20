@@ -1,317 +1,140 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C082931DC
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:44:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D1C36A364;
+	Tue,  1 Sep 2026 06:44:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245096; cv=none; b=qBTgV2NQy/y6cZpz7KDdlhpkkBsBe/grc5wuQYZPs7d/xcTAcf3Qh21HbrRTmOK8xQqzi7xpEEml/fcqC4JWzaark+EGx296X7ttBnWLFJuDijQYTEP/fUxOs6As2nTFPEvRKl2/ZztJcRnBA+yyMMdZtDZa+tEfXHYwE8t9tHk=
+	t=1788245096; cv=none; b=l3PgskVSFibA/lPHWQ9SU+nqhqIaRlOgoAJVBR+tpHH6DpRYHAd1AK6736XOB76k2nfjEmHLOm0d9VFFRJSGYHRHRu97EruZcstr0RT44CUWW5dJZ9VToQuI01pd8mRnuwsBetdwn7tz2trhbBz9I2plEGxiyXHfSj4QwRtyWwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788245096; c=relaxed/simple;
-	bh=+SRLt3HYlvvYRgpdyr/Rqik6NySdz791+vN1hoopd/s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T1rwNyghneJVs2UJaqWbzkFWE+eted2A+hgqq2bq/+0NMcOcRyPbtZDsV3q92gu63nvvdPcQMJVX5FLT0nH2M9Z8EoeMQ9Kr8Q3Qu7sHDwzKi08j1ea3AN91r2vEtHx7JS8C5jjNSuu6NqqxbOjnpyUvh1UAyubQ4Bkb5AtJKOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dDgX8GzG; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=U8vUq2DpjqqWmIlTz2QJ9BYO790IlZXenRz93ip+T/k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pfrEvajG6ezq3ZN/rirs8fIvTeE//w5SpkMXor/MTjUXm7+d+um8VCVNZz+vRdD8SpVl+XTrORKOHs76EqMZqLVgRifBGVQ1g9udmQJBY7nnIBaJhvwhvkoo3IAg0SJ3f+SvqtoqJLuQb39xT3dc3QVf2xkV3jnWXQJUDIu6/Z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cnj1ER1C; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dDgX8GzG"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d8fd3b729dso23604605ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:44:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788245094; x=1788849894; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZdXzNqVb9nLG/Ti14lXPVJS+ut/jd2m3fC3YDrCMMDE=;
-        b=dDgX8GzGc69r3Aymr4cIxE+olAIM6t1id7AEQUy79uHNVmsNT2o+dVp3cZKXlMuQ7C
-         FgDKRzlZHUYBXyj54WM8R1mFgdG70mj5SE0GT8aH/sdwF2MdCJXLtMjVUgp1LlH4Lxhn
-         AjH1jC5k91lk736vr3nsMVip8nmHfQID3yEYHy8i8zw9k4BMi9YcRCmCuLWSeCvBnGSl
-         o8suOgne9CbOQnlygL7r8+YVdCbqfdRY3JGYsxQwKAME/BzrY6Exyqu2HJJ7FsUZm2+L
-         BSHnecpHkyYw2owRVWBi4DwDNFzP/4wPZPSu8DbtrJp/KyJqw1NTSsuI2gEYiot0paM1
-         wTJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788245094; x=1788849894;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZdXzNqVb9nLG/Ti14lXPVJS+ut/jd2m3fC3YDrCMMDE=;
-        b=SHUBlfj5ISul1yTmsXexL0tUWf7dJD6qzy/Saqa+LJzzFtQjGoqWVmEEv5c4oQzgwq
-         BCFynewJuwT1UCGvvBDKpY5687/fC8+AzoU111fWrRSf/xVsYw6u9snBKofRVVDHYVUE
-         fSx1p3eBXDvSxa92FuAgp6p7lt9YetmePXmAzLAuXeikxux3Nogs8GPxAqeqe0SV1VDb
-         XDOpyZAooW+fx60ieV78khjIqALkyTqZYH/CI0HM0oK/pRlAw4xGzLXcgpExYf31bBYS
-         ACTgBWC028UzcGhHJjdcyawsNJEZIVLzhZLyQC1kBOk65b+OkjqoIwUB3OydUZtvx2Nm
-         fcBQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoHFuX91ah23FFtd3RxZlAzWl+ziAIqD6ni53xVJA53CAxj3t9rSvL6pqgulSnepzFAZbVNQD7bGaei+og=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGkH7Kf1fmekUr//xEQu+Lf13CkncprPCtIVGjJt5G79MzLYi8
-	j2gmYhpaAzgYkFI8YVK0B9Zv6vcGrFOJQdVO5JFBxBjeLa8f93bpBMA3
-X-Gm-Gg: AYBFou28rWr+g8gVF8mhaWp+GU9z+JVblhIbaTz/fr3QsqKzbrsWeQG056Zu0G9m1UW
-	h30nCGY85EtxLJHSyqgzZJs2BfuPTEgBsoR7yfvxvun65b13pdN/qUpIlZ85F7teknth+4x4QqF
-	UC/rwQCMxSNcrnNa9Ntf5G3OaGP/p6QlH1Qph7RFhZpPDcXkSwQHdkcPkR9k3k6+WMQwJbdcToS
-	+gz4v6aRimMt9YTvqYT+DvhnPJ9O7XX9GPzpX5tHNzRQ9sBUxz8lxYBeJgjlrNJAd2uk7p96pE9
-	UB/52GHd+yi9Mcx7uXOo0x3onFwTmdyhVZMLgFnjre7rk2JaccarvWoPZgP2ph3wQxyE3AcrSNG
-	MQBt2PSBhHDmgwHfMb6PBEyuwlLPqoh6dViwGjk+7H8T62pYQTWoKygTnyN7EoCUJCgy6drAa0V
-	9VYK3wfRzjF51ZLfSQAklwVuuM6jacZttmfBpo2R3ychKuetbibz706iHm4HHzexDvqDbGzfT0/
-	++4rrYOLEOP
-X-Received: by 2002:a17:903:350c:b0:2d8:d4d3:da4d with SMTP id d9443c01a7336-2d94a90e6e6mr84124095ad.17.1788245094245;
-        Mon, 31 Aug 2026 23:44:54 -0700 (PDT)
-Received: from localhost.localdomain ([157.51.207.128])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328713b944bsm37019784eec.27.2026.08.31.23.44.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 23:44:53 -0700 (PDT)
-From: Sreeshankar K <sreeshankar0910@gmail.com>
-To: andersson@kernel.org,
-	sboyd@kernel.org,
-	bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	rafael@kernel.org,
-	viresh.kumar@linaro.org,
-	konradybcio@kernel.org,
-	tglx@kernel.org,
-	ulfh@kernel.org
-Cc: radu@rendec.net,
-	abel.vesa@oss.qualcomm.com,
-	taniya.das@oss.qualcomm.com,
-	danila@mainlining.org,
-	davidwronek@gmail.com,
-	mani@kernel.org,
-	robimarko@gmail.com,
-	linux@gurudas.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Sreeshankar K <sreeshankar0910@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v7 03/12] dt-bindings: clock: Add SM7250 global clock controller
-Date: Tue,  1 Sep 2026 06:43:48 +0000
-Message-ID: <20260901064357.20055-4-sreeshankar0910@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901064357.20055-1-sreeshankar0910@gmail.com>
-References: <20260901064357.20055-1-sreeshankar0910@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cnj1ER1C"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788245094; x=1819781094;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=U8vUq2DpjqqWmIlTz2QJ9BYO790IlZXenRz93ip+T/k=;
+  b=cnj1ER1CDDvOmtdmDnbNYGxPUfZA5QSBEHO1RkkHnhCtri0/D3P++f8w
+   o1ZCxSppiNZ1YCJlmS5Uc2tcdZP+4LWM2FNkggIbP81XzurBap2uHEaC2
+   GmmKySW4hKPIOEvVTdTEY++AREnVR89K5HeWAHCv8FffH0kdIchJGyfB3
+   1YgMLaAVsFm/RRYoKvBnVTy7n9GhtGIzTEC0CFpw5ao0ByFpQ+uEk0sn5
+   prqFsSUG6Sjl9MNTZWvSbdo83vtRU5cn/VPKHjVJlO3DCi1fG4dieGP8S
+   o2y75owqn4qq+Z0hSEVh/04NtOtfmu1/3Br4iWzBO5V95bY2vpnXDYzDN
+   g==;
+X-CSE-ConnectionGUID: nHzUvP3nQvalTIlLymBmFw==
+X-CSE-MsgGUID: zQB8HpKMT3iC1VHrxAjcKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="106184655"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="106184655"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 23:44:53 -0700
+X-CSE-ConnectionGUID: EFAsMcPARg+CvkwVhzGcYw==
+X-CSE-MsgGUID: wVXZeex5QAqx2e1buA7i+Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="265762163"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.192])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 23:44:50 -0700
+Date: Tue, 1 Sep 2026 09:44:47 +0300
+From: Tony Lindgren <tony.lindgren@linux.intel.com>
+To: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, seanjc@google.com,
+	pbonzini@redhat.com, dave.hansen@linux.intel.com,
+	andrew.cooper3@citrix.com, nik.borisov@suse.com, kas@kernel.org,
+	rick.p.edgecombe@intel.com, xiaoyao.li@intel.com,
+	chao.gao@intel.com
+Subject: Re: [PATCH v3 3/4] KVM: TDX: Filter configurable CPUID bits
+Message-ID: <apZ0X8J31bVCoc9E@tlindgre-MOBL1>
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <20260827031837.2863609-4-binbin.wu@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827031837.2863609-4-binbin.wu@linux.intel.com>
 
-Add device tree bindings for global clock controller on SM7250 SoC.
+On Thu, Aug 27, 2026 at 11:18:36AM +0800, Binbin Wu wrote:
+> --- a/arch/x86/kvm/vmx/tdx.c
+> +++ b/arch/x86/kvm/vmx/tdx.c
+...
+> +static u32 tdx_cfg_non_feature_mask(u32 function, u32 index, int reg)
+>  {
+> -	if (has_tsx(entry))
+> -		clear_tsx(entry);
+> +	/*
+> +	 * For a leaf/subleaf/register that will never be repurposed to hold
+> +	 * feature bits, it's safe to return TDX_CPUID_ALL_ALLOWED_MASK, i.e.
+> +	 * leave the TDX module's CPUID config mask intact.
+> +	 */
+> +	switch (function) {
+> +	case 1:
+> +		if (reg == CPUID_EAX || reg == CPUID_EBX)
+> +			return TDX_CPUID_ALL_ALLOWED_MASK;
+> +		return 0;
+> +	case 4:
+> +	case 0x18:
+> +	case 0x1f:
+> +		return TDX_CPUID_ALL_ALLOWED_MASK;
+> +	case 0x24:
+> +		if (index == 0 && reg == CPUID_EBX)
+> +			return GENMASK_U32(7, 0);
+> +		return 0;
+> +	case 0x80000008:
+> +		if (reg == CPUID_EAX)
+> +			return TDX_CPUID_ALL_ALLOWED_MASK;
+> +		return 0;
+> +	default:
+> +		return 0;
+> +	}
+> +}
 
-Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
-Dependencies:
-This patch depends on the following patch:
-> [PATCH] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
-Link: https://lore.kernel.org/linux-arm-msm/20260817082457.64797-2-krzysztof.kozlowski@oss.qualcomm.com/T/#t
- .../bindings/clock/qcom,sm6375-gcc.yaml       |   4 +-
- include/dt-bindings/clock/qcom,sm7250-gcc.h   | 163 ++++++++++++++++++
- 2 files changed, 166 insertions(+), 1 deletion(-)
- create mode 100644 include/dt-bindings/clock/qcom,sm7250-gcc.h
+How about rename the above to something simpler like tdx_get_cpuid_bits()?
+Sorry I don't have anything better to suggest for naming.
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,sm6375-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,sm6375-gcc.yaml
-index b4ad2ad14..39a2d2839 100644
---- a/Documentation/devicetree/bindings/clock/qcom,sm6375-gcc.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,sm6375-gcc.yaml
-@@ -4,13 +4,14 @@
- $id: http://devicetree.org/schemas/clock/qcom,sm6375-gcc.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Qualcomm Global Clock & Reset Controller on SM6375 and SM7150
-+title: Qualcomm Global Clock & Reset Controller on SM6375, SM7150 and SM7250
- 
- maintainers:
-   - Konrad Dybcio <konradybcio@kernel.org>
-   - Bjorn Andersson <andersson@kernel.org>
-   - Danila Tikhonov <danila@jiaxyga.com>
-   - David Wronek <davidwronek@gmail.com>
-+  - Sreeshankar K <sreeshankar0910@gmail.com>
- 
- description: |
-   Qualcomm global clock control module provides the clocks, resets and power
-@@ -26,6 +27,7 @@ properties:
-     enum:
-       - qcom,sm6375-gcc
-       - qcom,sm7150-gcc
-+      - qcom,sm7250-gcc
- 
-   clocks:
-     items:
-diff --git a/include/dt-bindings/clock/qcom,sm7250-gcc.h b/include/dt-bindings/clock/qcom,sm7250-gcc.h
-new file mode 100644
-index 000000000..765fdc38f
---- /dev/null
-+++ b/include/dt-bindings/clock/qcom,sm7250-gcc.h
-@@ -0,0 +1,163 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.
-+ * Copyright (c) 2026, Sreeshankar K <sreeshankar0910@gmail.com>
-+ */
-+
-+#ifndef _DT_BINDINGS_CLK_QCOM_GCC_SM7250_H
-+#define _DT_BINDINGS_CLK_QCOM_GCC_SM7250_H
-+
-+/* GCC clocks */
-+#define GPLL0							0
-+#define GPLL0_OUT_EVEN						1
-+#define GPLL6							2
-+#define GPLL9							3
-+#define GCC_AGGRE_UFS_PHY_AXI_CLK				4
-+#define GCC_AGGRE_USB3_PRIM_AXI_CLK				5
-+#define GCC_BOOT_ROM_AHB_CLK					6
-+#define GCC_CAMERA_AHB_CLK					7
-+#define GCC_CAMERA_HF_AXI_CLK					8
-+#define GCC_CAMERA_SF_AXI_CLK					9
-+#define GCC_CAMERA_XO_CLK					10
-+#define GCC_CFG_NOC_USB3_PRIM_AXI_CLK				11
-+#define GCC_CPUSS_AHB_CLK					12
-+#define GCC_CPUSS_AHB_CLK_SRC					13
-+#define GCC_CPUSS_GNOC_CLK					14
-+#define GCC_CPUSS_RBCPR_CLK					15
-+#define GCC_DDRSS_GPU_AXI_CLK					16
-+#define GCC_DISP_GPLL0_CLK_SRC					17
-+#define GCC_DISP_AHB_CLK					18
-+#define GCC_DISP_HF_AXI_CLK					19
-+#define GCC_DISP_SF_AXI_CLK					20
-+#define GCC_DISP_XO_CLK						21
-+#define GCC_GP1_CLK						22
-+#define GCC_GP1_CLK_SRC						23
-+#define GCC_GP2_CLK						24
-+#define GCC_GP2_CLK_SRC						25
-+#define GCC_GP3_CLK						26
-+#define GCC_GP3_CLK_SRC						27
-+#define GCC_GPU_CFG_AHB_CLK					28
-+#define GCC_GPU_GPLL0_CLK_SRC					29
-+#define GCC_GPU_GPLL0_DIV_CLK_SRC				30
-+#define GCC_GPU_IREF_CLK					31
-+#define GCC_GPU_MEMNOC_GFX_CLK					32
-+#define GCC_GPU_SNOC_DVM_GFX_CLK				33
-+#define GCC_NPU_AXI_CLK						34
-+#define GCC_NPU_BWMON2_AXI_CLK					35
-+#define GCC_NPU_BWMON_AXI_CLK					36
-+#define GCC_NPU_BWMON_CFG_AHB_CLK				37
-+#define GCC_NPU_CFG_AHB_CLK					38
-+#define GCC_NPU_DMA_CLK						39
-+#define GCC_NPU_GPLL0_CLK_SRC					40
-+#define GCC_NPU_GPLL0_DIV_CLK_SRC				41
-+#define GCC_PDM2_CLK						42
-+#define GCC_PDM2_CLK_SRC					43
-+#define GCC_PDM_AHB_CLK						44
-+#define GCC_PDM_XO4_CLK						45
-+#define GCC_PRNG_AHB_CLK					46
-+#define GCC_QMIP_CAMERA_NRT_AHB_CLK				47
-+#define GCC_QMIP_CAMERA_RT_AHB_CLK				48
-+#define GCC_QMIP_DISP_AHB_CLK					49
-+#define GCC_QMIP_RT_DISP_AHB_CLK				50
-+#define GCC_QMIP_VIDEO_CVP_AHB_CLK				51
-+#define GCC_QMIP_VIDEO_VCODEC_AHB_CLK				52
-+#define GCC_QUPV3_WRAP0_CORE_2X_CLK				53
-+#define GCC_QUPV3_WRAP0_CORE_CLK				54
-+#define GCC_QUPV3_WRAP0_S0_CLK					55
-+#define GCC_QUPV3_WRAP0_S0_CLK_SRC				56
-+#define GCC_QUPV3_WRAP0_S1_CLK					57
-+#define GCC_QUPV3_WRAP0_S1_CLK_SRC				58
-+#define GCC_QUPV3_WRAP0_S2_CLK					59
-+#define GCC_QUPV3_WRAP0_S2_CLK_SRC				60
-+#define GCC_QUPV3_WRAP0_S3_CLK					61
-+#define GCC_QUPV3_WRAP0_S3_CLK_SRC				62
-+#define GCC_QUPV3_WRAP0_S4_CLK					63
-+#define GCC_QUPV3_WRAP0_S4_CLK_SRC				64
-+#define GCC_QUPV3_WRAP0_S5_CLK					65
-+#define GCC_QUPV3_WRAP0_S5_CLK_SRC				66
-+#define GCC_QUPV3_WRAP1_CORE_2X_CLK				67
-+#define GCC_QUPV3_WRAP1_CORE_CLK				68
-+#define GCC_QUPV3_WRAP1_S0_CLK					69
-+#define GCC_QUPV3_WRAP1_S0_CLK_SRC				70
-+#define GCC_QUPV3_WRAP1_S1_CLK					71
-+#define GCC_QUPV3_WRAP1_S1_CLK_SRC				72
-+#define GCC_QUPV3_WRAP1_S2_CLK					73
-+#define GCC_QUPV3_WRAP1_S2_CLK_SRC				74
-+#define GCC_QUPV3_WRAP1_S3_CLK					75
-+#define GCC_QUPV3_WRAP1_S3_CLK_SRC				76
-+#define GCC_QUPV3_WRAP1_S4_CLK					77
-+#define GCC_QUPV3_WRAP1_S4_CLK_SRC				78
-+#define GCC_QUPV3_WRAP1_S5_CLK					79
-+#define GCC_QUPV3_WRAP1_S5_CLK_SRC				80
-+#define GCC_QUPV3_WRAP_0_M_AHB_CLK				81
-+#define GCC_QUPV3_WRAP_0_S_AHB_CLK				82
-+#define GCC_QUPV3_WRAP_1_M_AHB_CLK				83
-+#define GCC_QUPV3_WRAP_1_S_AHB_CLK				84
-+#define GCC_SDCC1_AHB_CLK					85
-+#define GCC_SDCC1_APPS_CLK					86
-+#define GCC_SDCC1_APPS_CLK_SRC					87
-+#define GCC_SDCC1_ICE_CORE_CLK					88
-+#define GCC_SDCC1_ICE_CORE_CLK_SRC				89
-+#define GCC_SDCC2_AHB_CLK					90
-+#define GCC_SDCC2_APPS_CLK					91
-+#define GCC_SDCC2_APPS_CLK_SRC					92
-+#define GCC_SDCC4_AHB_CLK					93
-+#define GCC_SDCC4_APPS_CLK					94
-+#define GCC_SDCC4_APPS_CLK_SRC					95
-+#define GCC_SYS_NOC_CPUSS_AHB_CLK				96
-+#define GCC_UFS_1X_CLKREF_CLK					97
-+#define GCC_UFS_PHY_AHB_CLK					98
-+#define GCC_UFS_PHY_AXI_CLK					99
-+#define GCC_UFS_PHY_AXI_CLK_SRC					100
-+#define GCC_UFS_PHY_ICE_CORE_CLK				101
-+#define GCC_UFS_PHY_ICE_CORE_CLK_SRC				102
-+#define GCC_UFS_PHY_PHY_AUX_CLK					103
-+#define GCC_UFS_PHY_PHY_AUX_CLK_SRC				104
-+#define GCC_UFS_PHY_RX_SYMBOL_0_CLK				105
-+#define GCC_UFS_PHY_RX_SYMBOL_1_CLK				106
-+#define GCC_UFS_PHY_TX_SYMBOL_0_CLK				107
-+#define GCC_UFS_PHY_UNIPRO_CORE_CLK				108
-+#define GCC_UFS_PHY_UNIPRO_CORE_CLK_SRC				109
-+#define GCC_USB30_PRIM_MASTER_CLK				110
-+#define GCC_USB30_PRIM_MASTER_CLK_SRC				111
-+#define GCC_USB30_PRIM_MOCK_UTMI_CLK				112
-+#define GCC_USB30_PRIM_MOCK_UTMI_CLK_SRC			113
-+#define GCC_USB30_PRIM_SLEEP_CLK				114
-+#define GCC_USB3_PRIM_CLKREF_CLK				115
-+#define GCC_USB3_PRIM_PHY_AUX_CLK				116
-+#define GCC_USB3_PRIM_PHY_AUX_CLK_SRC				117
-+#define GCC_USB3_PRIM_PHY_COM_AUX_CLK				118
-+#define GCC_USB3_PRIM_PHY_PIPE_CLK				119
-+#define GCC_VIDEO_AHB_CLK					120
-+#define GCC_VIDEO_AXI_CLK					121
-+#define GCC_VIDEO_XO_CLK					122
-+
-+/* GCC resets */
-+#define GCC_DPM_BCR						0
-+#define GCC_GPU_BCR						1
-+#define GCC_MMSS_BCR						2
-+#define GCC_NPU_BWMON_BCR					3
-+#define GCC_NPU_BCR						4
-+#define GCC_PDM_BCR						5
-+#define GCC_PRNG_BCR						6
-+#define GCC_QUPV3_WRAPPER_0_BCR					7
-+#define GCC_QUPV3_WRAPPER_1_BCR					8
-+#define GCC_QUSB2PHY_PRIM_BCR					9
-+#define GCC_SDCC1_BCR						10
-+#define GCC_SDCC2_BCR						11
-+#define GCC_SDCC4_BCR						12
-+#define GCC_UFS_PHY_BCR						13
-+#define GCC_USB30_PRIM_BCR					14
-+#define GCC_USB3_DP_PHY_PRIM_BCR				15
-+#define GCC_USB3_PHY_PRIM_BCR					16
-+#define GCC_USB3PHY_PHY_PRIM_BCR				17
-+#define GCC_USB_PHY_CFG_AHB2PHY_BCR				18
-+
-+/* GCC power domains */
-+#define UFS_PHY_GDSC						0
-+#define USB30_PRIM_GDSC						1
-+#define HLOS1_VOTE_MMNOC_MMU_TBU_HF0_GDSC			2
-+#define HLOS1_VOTE_MMNOC_MMU_TBU_HF1_GDSC			3
-+#define HLOS1_VOTE_MMNOC_MMU_TBU_SF0_GDSC			4
-+
-+#endif
--- 
-2.43.0
+> +static u32 tdx_cfg_feature_mask(u32 function, u32 index, int reg)
+> +{
+> +	for (int i = 0; i < NR_KVM_CPU_CAPS; i++) {
+> +		const struct cpuid_reg *cpuid = &reverse_cpuid[i];
+> +
+> +		if (!cpuid->function)
+> +			continue;
+> +
+> +		if (cpuid->function == function && cpuid->index == index &&
+> +		    cpuid->reg == reg)
+> +			return tdx_cpu_cfg_caps[i];
+> +	}
+> +
+> +	return 0;
+>  }
 
+And then the above to tdx_get_cpuid_feature_bits()?
+  
+> -static bool tdx_unsupported_cpuid(const struct kvm_cpuid_entry2 *entry)
+> +static u32 tdx_get_allowed_cfg_cpuid_mask(u32 function, u32 index, int reg)
+>  {
+> -	return has_tsx(entry) || has_waitpkg(entry);
+> +	u32 non_feature_mask = tdx_cfg_non_feature_mask(function, index, reg);
+> +
+> +	if (non_feature_mask == TDX_CPUID_ALL_ALLOWED_MASK)
+> +		return TDX_CPUID_ALL_ALLOWED_MASK;
+> +
+> +	/*
+> +	 * It's possible that a CPUID register contains both feature and
+> +	 * non-feature bits.
+> +	 */
+> +	return non_feature_mask | tdx_cfg_feature_mask(function, index, reg);
+>  }
+
+And then tdx_get_cpuid_mask()?
