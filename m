@@ -1,30 +1,30 @@
 Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0157F399372
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3196396585
 	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:59:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245946; cv=none; b=g3PriHrnAYH6hQnpySmLWnEnTlryVCrqwGMJaq8lqxyQaTbX5qcEeYAiIT4UC8LNYsBzjZ0hUf5JghvazhOBEVZdneV7CzhG/hzFBxMdwur3bA4jwx6sHrb5ROjZyf39H/IvXetnW0RlWLw7QSjCPzk18ytMOKMw6QGOTyh2l4w=
+	t=1788245946; cv=none; b=ugrHhI9enLQSmy+w0uSdOkNXu56j0ljKWBBVJ4S0otgNSfZNWsSt+6S/e2u3GIEFIPc3EhCyaohjUuiX3qpY4/FHHImnRGVKA8J4RQ0MkY5HgWW6GaDs9tnkcWYqDAaqLdC54XnAh7xlf23cI+2BJAhZIJcWjkjynivnYpSbrc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788245946; c=relaxed/simple;
-	bh=eEVjBTDGcUqOSoW7qxv3YzMVl7VsyN7YGKisMqsnOuc=;
+	bh=3t+MtCAfVpQXcSeX3z4rRQhTgH7K8MTTiQmLOB6AIr0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kL1XxjQ49aif4sSkMul3w7bFswMIzOCogVgBunK86Qd6mOdpB/0pifqQ19/JZu0A9ALtbQbtfyhgHqhEurHxQPD69+E8D06ybN4lfhkJimPqQlM8NDenTKCELQukj167IjwQaFuJPW6D3XMCwrPCum9uaT2HC1u8NW3EZRyYvBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arkamondal.net; spf=pass smtp.mailfrom=arkamondal.net; dkim=pass (2048-bit key) header.d=arkamondal.net header.i=@arkamondal.net header.b=UUo3ffy2; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=dWNwo0HM; arc=none smtp.client-ip=34.202.193.197
+	 MIME-Version:Content-Type; b=hMmfrACGrhKL1wLuG9xfAJxSMOi6ffSw4qv59sA8a9c9h7g55a9P4nuIOB14zA9aO+Fab59JUvOeZGg0s5+Yi4A8r85ZEinO+cP9CXES5mRDVSYkZlOx5jA9WOebGzNfKfcGjyHaPserTdB6u9FNtGyGJis63hnX/LVsuw16HsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arkamondal.net; spf=pass smtp.mailfrom=arkamondal.net; dkim=pass (2048-bit key) header.d=arkamondal.net header.i=@arkamondal.net header.b=Ibg8Jevv; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=ebg3Jy21; arc=none smtp.client-ip=34.202.193.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arkamondal.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamondal.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arkamondal.net header.i=@arkamondal.net header.b="UUo3ffy2";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="dWNwo0HM"
+	dkim=pass (2048-bit key) header.d=arkamondal.net header.i=@arkamondal.net header.b="Ibg8Jevv";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="ebg3Jy21"
 Authentication-Results: purelymail.com; auth=pass
-DKIM-Signature: a=rsa-sha256; b=UUo3ffy2Gjq70HVHshDzrrS3mpjTm1siq+Bu8caeukLvRxwBigR3TmLXhzFsXPWgScHEFcxb7KRVqwOGQtUndxYUg6PVdIVDi7r25jHCnuK13kUc37BnMVWr/T0FhCMLgpGSl4P8p8hbXfm1RsGy1bh4NurWcfmiWoaabQHqgrsTJ2/d9PuVmIxrb/CSQZjbCeAvBN/9VAot6pqX2Mm/Lwg5rXbmaWjfx3oTQ8hqlyH3mpg8XPYU4e/XhhnAloz8tjlHktZOd/gxgYJe30KhdWQymcOU1Ccv6/zTWO7oJNowO51gFBIDhGb7/Y93nMX3bBc5x8et/xJ03ANdr9zsGw==; s=purelymail2; d=arkamondal.net; v=1; bh=eEVjBTDGcUqOSoW7qxv3YzMVl7VsyN7YGKisMqsnOuc=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=dWNwo0HM8zapEvDDZMrR5G+235gSTOXxqYwjOf/8zN//6DoOwkg4X1lSrkCLv3y+Afia3UG01IdD/GEGh0Hrj3SVEUgqRgmft/ypilH+9irHcMwm+V6TUE0QOymJfsOqoNBEJIuP3Z1ITXP4fg1ZJDCQ675U8u7iqdHtYD/eImG0ZxxYOTMLFJQXZ7sZbpWjd8e01jLaxzBvKr84cajVDzu+KttHaB1zU0/V7P3ZQP7FT6VHfaRzFQaCKGJmjh7PfSI52pBp/cUswv/Bwn1jrMCrczoUqEE5E6DTcbMe6cF1qa7S6O+om4maLoeHvHsMXozIWjobNjHuryns7fuPqA==; s=purelymail2; d=purelymail.com; v=1; bh=eEVjBTDGcUqOSoW7qxv3YzMVl7VsyN7YGKisMqsnOuc=; h=Feedback-ID:Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=Ibg8JevvFVejrp1C4qOK6J8CXtrrK4ntaNNrPIBdaPC0v/2RM5uqV+RLWUC/omFli7jeiufkdzytR+VyKpLZIP1nczfq05IRXXnEo8vzujd8XELx3Rg4xEL+Gu9EcvF2RvfWuUVjKRN6R8n+MJFdM3xLQDrm9OSoedHYEVTdGdK0AZs98x/LH8n8hAFLe4vTsbeMPiL5SNRgXE2AqnShMUV17Rzj17Zl+ozcb1OVj9Xo7r9vwRrOtdCUP6AfUxPU9D7EtKAFJUNLqmHOIIgREJfWBRKL80As7+ppMJtbATHCuGcQXEbpsSN8dMEb6kLM8UOMt4dal1G7jRCHDQOlmw==; s=purelymail2; d=arkamondal.net; v=1; bh=3t+MtCAfVpQXcSeX3z4rRQhTgH7K8MTTiQmLOB6AIr0=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=ebg3Jy21Bv6VcVhMPBGezUXwjqH/A5R7k5ZPHYvQ4bnna7xziRrd25YInMVlQxJf6G3hUmljI91AePve8VIte50w/hIVo5V2U1mFJrq9FJ63Qc764SidF27eOeWgA3I2Q/3KtqnDheu0fCRVN1gIhK8Q6FcvUb6dL6xdLz6aotrRtNMRjOEHNnVDBDUC1YaOMaOSVCmyXSjOH/3P7S+brQcTQqK8NeI5evtFcvwo23tueEwUOq2mPMveJ7dBtNe8GhH2M/XjyQIk+K+XzFziZYyHoX1q9MuTg2OD7A0tVEJn2oEKmSNje3AfTjFaBoQRyCg+u0Ri+1YHAsmPmNv7Bg==; s=purelymail2; d=purelymail.com; v=1; bh=3t+MtCAfVpQXcSeX3z4rRQhTgH7K8MTTiQmLOB6AIr0=; h=Feedback-ID:Received:From:To:Subject:Date;
 Feedback-ID: 1246644:48769:null:purelymail
 X-Pm-Original-To: linux-kernel@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1191725007;
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -91630660;
           (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Tue, 01 Sep 2026 06:58:55 +0000 (UTC)
+          Tue, 01 Sep 2026 06:58:50 +0000 (UTC)
 From: Arka Mondal <arka@arkamondal.net>
 To: Alan Stern <stern@rowland.harvard.edu>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -35,9 +35,9 @@ Cc: Matthew Dharm <mdharm-usb@one-eyed-alien.net>,
 	linux-kernel@vger.kernel.org,
 	arkamondalofficial@gmail.com,
 	Arka Mondal <arka@arkamondal.net>
-Subject: [PATCH 3/3] usb-storage: alauda: fix out-of-bounds zone index
-Date: Tue,  1 Sep 2026 15:58:31 +0900
-Message-ID: <20260901065831.43567-4-arka@arkamondal.net>
+Subject: [PATCH 1/3] usb-storage: alauda: do not do DMA from the stack
+Date: Tue,  1 Sep 2026 15:58:29 +0900
+Message-ID: <20260901065831.43567-2-arka@arkamondal.net>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260901065831.43567-1-arka@arkamondal.net>
 References: <20260901065831.43567-1-arka@arkamondal.net>
@@ -51,108 +51,152 @@ Content-Transfer-Encoding: quoted-printable
 X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 Content-Type: text/plain; charset=UTF-8
 
-MEDIA_INFO(us).lba_to_pba and .pba_to_lba are arrays of num_zones
-pointers, allocated by kcalloc() in alauda_init_media().
-alauda_ensure_map_for_zone() reads lba_to_pba[zone] and
-pba_to_lba[zone], and when either is NULL alauda_read_map() writes a
-pointer back to both. Two separate errors let zone reach num_zones, one
-element past the end.
+alauda_check_status2(), alauda_get_redu_data(), alauda_erase_block(),
+alauda_read_block_raw() and alauda_write_block() build their commands in
+stack arrays and pass them to usb_stor_bulk_transfer_buf().
+alauda_check_status2() and alauda_erase_block() also read the reply back
+into a stack array.
 
-max_lba is capacity >> (blockshift + pageshift), which counts physical
-blocks, but zone is lba / uzonesize and uzonesize is 125/128 of
-zonesize. On a 16 MB card (alauda_card_ids id 0x73) num_zones is 1 and
-uzonesize is 1000, so lba 1000 to 1023 pass the bounds check and index
-element 1 of a one-element array.
+usb_stor_msg_common() sets URB_NO_TRANSFER_DMA_MAP only when the buffer
+is us->iobuf. Every other buffer reaches usb_hcd_map_urb_for_dma(),
+which has warned and returned -EAGAIN for a buffer on the stack since
+commit 4568136620c6 ("usb: core: Check URB setup_packet and
+transfer_buffer sanity"). On a host controller that uses DMA, all of
+these commands fail.
 
-alauda_read_data() also calls alauda_ensure_map_for_zone() before it
-compares lba against max_lba, so any larger lba is used as an index
-before the check rejects it. alauda_write_data() already checks first.
-
-Bound lba by num_zones * uzonesize on both paths and move the read
-side's call below the check. alauda_transport() reports
-num_zones * uzonesize * blocksize for READ_CAPACITY, so the new bound is
-exactly the range the device advertises and no block becomes
-unreachable.
-
-sd never issues an lba past the reported capacity; an SG_IO READ_10 can.
+Use us->iobuf, as alauda_reset_media() in this driver and the other
+usb-storage subdrivers already do. The command is sent before the reply
+is read, so both can use it; sddr09_read_status() does the same.
 
 Fixes: e80b0fade09e ("[PATCH] USB Storage: add alauda support")
-Suggested-by: Alan Stern <stern@rowland.harvard.edu>
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D217862
 Signed-off-by: Arka Mondal <arka@arkamondal.net>
 ---
- drivers/usb/storage/alauda.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/usb/storage/alauda.c | 70 ++++++++++++++++++++++++------------
+ 1 file changed, 48 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/usb/storage/alauda.c b/drivers/usb/storage/alauda.c
-index d47ce01d519a..5e7f99ba8ac0 100644
+index 691fe47009cf..878c404106c5 100644
 --- a/drivers/usb/storage/alauda.c
 +++ b/drivers/usb/storage/alauda.c
-@@ -949,6 +949,7 @@ static int alauda_read_data(struct us_data *us, unsigne=
-d long address,
- =09unsigned char *buffer;
- =09u16 lba, max_lba;
- =09unsigned int page, len, offset;
-+=09unsigned int num_zones;
- =09unsigned int blockshift =3D MEDIA_INFO(us).blockshift;
- =09unsigned int pageshift =3D MEDIA_INFO(us).pageshift;
- =09unsigned int blocksize =3D MEDIA_INFO(us).blocksize;
-@@ -973,7 +974,9 @@ static int alauda_read_data(struct us_data *us, unsigne=
-d long address,
- =09/* Figure out the initial LBA and page */
- =09lba =3D address >> blockshift;
- =09page =3D (address & MEDIA_INFO(us).blockmask);
--=09max_lba =3D MEDIA_INFO(us).capacity >> (blockshift + pageshift);
-+=09num_zones =3D MEDIA_INFO(us).capacity >> (MEDIA_INFO(us).zoneshift
-+=09=09+ blockshift + pageshift);
-+=09max_lba =3D num_zones * uzonesize;
-=20
- =09result =3D USB_STOR_TRANSPORT_GOOD;
- =09offset =3D 0;
-@@ -985,10 +988,6 @@ static int alauda_read_data(struct us_data *us, unsign=
-ed long address,
- =09=09unsigned int pages;
- =09=09u16 pba;
-=20
--=09=09result =3D alauda_ensure_map_for_zone(us, zone);
--=09=09if (result !=3D USB_STOR_TRANSPORT_GOOD)
--=09=09=09break;
--
- =09=09/* Not overflowing capacity? */
- =09=09if (lba >=3D max_lba) {
- =09=09=09usb_stor_dbg(us, "Error: Requested lba %u exceeds maximum %u\n",
-@@ -997,6 +996,10 @@ static int alauda_read_data(struct us_data *us, unsign=
-ed long address,
- =09=09=09break;
- =09=09}
-=20
-+=09=09result =3D alauda_ensure_map_for_zone(us, zone);
-+=09=09if (result !=3D USB_STOR_TRANSPORT_GOOD)
-+=09=09=09break;
+@@ -500,11 +500,14 @@ static int alauda_check_media(struct us_data *us)
+ static int alauda_check_status2(struct us_data *us)
+ {
+ =09int rc;
+-=09unsigned char command[] =3D {
+-=09=09ALAUDA_BULK_CMD, ALAUDA_BULK_GET_STATUS2,
+-=09=090, 0, 0, 0, 3, 0, MEDIA_PORT(us)
+-=09};
+-=09unsigned char data[3];
++=09unsigned char *command =3D us->iobuf;
++=09unsigned char *data =3D us->iobuf;
 +
- =09=09/* Find number of pages we can read in this block */
- =09=09pages =3D min(sectors, blocksize - page);
- =09=09len =3D pages << pageshift;
-@@ -1052,6 +1055,7 @@ static int alauda_write_data(struct us_data *us, unsi=
-gned long address,
- =09unsigned int pagesize =3D MEDIA_INFO(us).pagesize;
- =09struct scatterlist *sg;
- =09u16 lba, max_lba;
-+=09unsigned int num_zones;
- =09int result;
++=09memset(command, 0, 9);
++=09command[0] =3D ALAUDA_BULK_CMD;
++=09command[1] =3D ALAUDA_BULK_GET_STATUS2;
++=09command[6] =3D 3;
++=09command[8] =3D MEDIA_PORT(us);
 =20
- =09/*
-@@ -1078,7 +1082,9 @@ static int alauda_write_data(struct us_data *us, unsi=
-gned long address,
- =09/* Figure out the initial LBA and page */
- =09lba =3D address >> blockshift;
- =09page =3D (address & MEDIA_INFO(us).blockmask);
--=09max_lba =3D MEDIA_INFO(us).capacity >> (pageshift + blockshift);
-+=09num_zones =3D MEDIA_INFO(us).capacity >> (MEDIA_INFO(us).zoneshift
-+=09=09+ blockshift + pageshift);
-+=09max_lba =3D num_zones * MEDIA_INFO(us).uzonesize;
+ =09rc =3D usb_stor_bulk_transfer_buf(us, us->send_bulk_pipe,
+ =09=09command, 9, NULL);
+@@ -530,10 +533,15 @@ static int alauda_check_status2(struct us_data *us)
+ static int alauda_get_redu_data(struct us_data *us, u16 pba, unsigned char=
+ *data)
+ {
+ =09int rc;
+-=09unsigned char command[] =3D {
+-=09=09ALAUDA_BULK_CMD, ALAUDA_BULK_GET_REDU_DATA,
+-=09=09PBA_HI(pba), PBA_ZONE(pba), 0, PBA_LO(pba), 0, 0, MEDIA_PORT(us)
+-=09};
++=09unsigned char *command =3D us->iobuf;
++
++=09memset(command, 0, 9);
++=09command[0] =3D ALAUDA_BULK_CMD;
++=09command[1] =3D ALAUDA_BULK_GET_REDU_DATA;
++=09command[2] =3D PBA_HI(pba);
++=09command[3] =3D PBA_ZONE(pba);
++=09command[5] =3D PBA_LO(pba);
++=09command[8] =3D MEDIA_PORT(us);
 =20
- =09result =3D USB_STOR_TRANSPORT_GOOD;
- =09offset =3D 0;
+ =09rc =3D usb_stor_bulk_transfer_buf(us, us->send_bulk_pipe,
+ =09=09command, 9, NULL);
+@@ -702,14 +710,20 @@ static void alauda_ensure_map_for_zone(struct us_data=
+ *us, unsigned int zone)
+ static int alauda_erase_block(struct us_data *us, u16 pba)
+ {
+ =09int rc;
+-=09unsigned char command[] =3D {
+-=09=09ALAUDA_BULK_CMD, ALAUDA_BULK_ERASE_BLOCK, PBA_HI(pba),
+-=09=09PBA_ZONE(pba), 0, PBA_LO(pba), 0x02, 0, MEDIA_PORT(us)
+-=09};
+-=09unsigned char buf[2];
++=09unsigned char *command =3D us->iobuf;
++=09unsigned char *buf =3D us->iobuf;
+=20
+ =09usb_stor_dbg(us, "Erasing PBA %d\n", pba);
+=20
++=09memset(command, 0, 9);
++=09command[0] =3D ALAUDA_BULK_CMD;
++=09command[1] =3D ALAUDA_BULK_ERASE_BLOCK;
++=09command[2] =3D PBA_HI(pba);
++=09command[3] =3D PBA_ZONE(pba);
++=09command[5] =3D PBA_LO(pba);
++=09command[6] =3D 0x02;
++=09command[8] =3D MEDIA_PORT(us);
++
+ =09rc =3D usb_stor_bulk_transfer_buf(us, us->send_bulk_pipe,
+ =09=09command, 9, NULL);
+ =09if (rc !=3D USB_STOR_XFER_GOOD)
+@@ -732,13 +746,19 @@ static int alauda_read_block_raw(struct us_data *us, =
+u16 pba,
+ =09=09unsigned int page, unsigned int pages, unsigned char *data)
+ {
+ =09int rc;
+-=09unsigned char command[] =3D {
+-=09=09ALAUDA_BULK_CMD, ALAUDA_BULK_READ_BLOCK, PBA_HI(pba),
+-=09=09PBA_ZONE(pba), 0, PBA_LO(pba) + page, pages, 0, MEDIA_PORT(us)
+-=09};
++=09unsigned char *command =3D us->iobuf;
+=20
+ =09usb_stor_dbg(us, "pba %d page %d count %d\n", pba, page, pages);
+=20
++=09memset(command, 0, 9);
++=09command[0] =3D ALAUDA_BULK_CMD;
++=09command[1] =3D ALAUDA_BULK_READ_BLOCK;
++=09command[2] =3D PBA_HI(pba);
++=09command[3] =3D PBA_ZONE(pba);
++=09command[5] =3D PBA_LO(pba) + page;
++=09command[6] =3D pages;
++=09command[8] =3D MEDIA_PORT(us);
++
+ =09rc =3D usb_stor_bulk_transfer_buf(us, us->send_bulk_pipe,
+ =09=09command, 9, NULL);
+ =09if (rc !=3D USB_STOR_XFER_GOOD)
+@@ -783,13 +803,19 @@ static int alauda_write_block(struct us_data *us, u16=
+ pba, unsigned char *data)
+ {
+ =09int rc;
+ =09struct alauda_info *info =3D (struct alauda_info *) us->extra;
+-=09unsigned char command[] =3D {
+-=09=09ALAUDA_BULK_CMD, ALAUDA_BULK_WRITE_BLOCK, PBA_HI(pba),
+-=09=09PBA_ZONE(pba), 0, PBA_LO(pba), 32, 0, MEDIA_PORT(us)
+-=09};
++=09unsigned char *command =3D us->iobuf;
+=20
+ =09usb_stor_dbg(us, "pba %d\n", pba);
+=20
++=09memset(command, 0, 9);
++=09command[0] =3D ALAUDA_BULK_CMD;
++=09command[1] =3D ALAUDA_BULK_WRITE_BLOCK;
++=09command[2] =3D PBA_HI(pba);
++=09command[3] =3D PBA_ZONE(pba);
++=09command[5] =3D PBA_LO(pba);
++=09command[6] =3D 32;
++=09command[8] =3D MEDIA_PORT(us);
++
+ =09rc =3D usb_stor_bulk_transfer_buf(us, us->send_bulk_pipe,
+ =09=09command, 9, NULL);
+ =09if (rc !=3D USB_STOR_XFER_GOOD)
 --=20
 2.55.0
 
