@@ -1,178 +1,160 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012011.outbound.protection.outlook.com [52.101.66.11])
+Received: from r3-24.sinamail.sina.com.cn (r3-24.sinamail.sina.com.cn [202.108.3.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD28143846E;
-	Tue,  1 Sep 2026 07:33:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248023; cv=fail; b=Yi2YcGuq5zeCopNIvBPt04tMatMZC7EhpFXmJhFiXoLBhJdGtNJ0RHhedAMlPA6+6M80zP3xJM4jh7/URlHtdCtsnRiZ9r9Mc3QwczqXIWfdh31klmiaRMglj12XlNhJbcptYG9CQjya+9QELjB26OWf3lkb8YoqnoirqKgkDrI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248023; c=relaxed/simple;
-	bh=ewuZGCzM8B3C0daPN9oyAEDZBkgtTR8Uv6CIX+0mbfE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=l+fWttZ+EutU5eIyujlv9ZEi8YH6m916S9I0aoM2DXF4BIx1FbZS8ZUXCc/0pzcuxsvTR53u49frnOVf9YDnkMqLlp3YO0kL9b5OO8woyLYPqTVyhbF3URSKsuKNzMihsixLFMgImLVQVYLCRC5TR/dE0d5v+8WjRd02EzGGLIY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Jy/x9OO2; arc=fail smtp.client-ip=52.101.66.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BAB845D5D9
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:34:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.24
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788248054; cv=none; b=FJiEoJRR8qxJcsQC5MSBywbK5l8hqmfbGdEnoAwmnzfcYgJ3jFysgLKjs3zAYyXDhK0VF1FGGzh2gKP7pkHcsij+eEU6yASXc4ejx8FDbjmItzkG+0xmTanKs1HM/mTVnFSlv+7JBSM1CyzhKdHfopRaneOXQefgt4DxZmD+VEE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788248054; c=relaxed/simple;
+	bh=AVk2jaYAaxPHdURwWUpd81WgqmUDxFKM81FZdEzAmMY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eo3N/OkwqrzJgeE+emsPO+N4yupSWKUzlkzqei955KkXoF19JUR1VOmYpjXiZOUDhoTU+Q06Hqa1cSGvEOiT9OXVrAzphO5bT8hNYXuG45pdTQegLZYutzD3HwUC/23X8tcQzUpbFvv8srWkDR8bZhiIuC4D7OwMrq7fiRFl2E0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=qk0JFR2E; arc=none smtp.client-ip=202.108.3.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Jy/x9OO2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fh4P82hZ9ufqgQa7OHtSFMnbcDQ2EK+8RFEir8SkYyfBE25N0g1Mx7DLsqYmLE6cKUUQLES8ckHIQLoclSRjrrHfUOGAUOihLxcRA1/ypfRZ0a/FDBKrfUP1dv2Vzl8/dz3t7SIuBXy9b6OJm0AophaSMYZZml4Io/kZcc/QZ4sHmSfls6E9vZzhb0fjoBeXCE7XjgX8M3SirVbScrwOFkT8RI7ZGRTvv+mgx6H+4An1JrRBgjszfNyc8PnIyTJYq7aSCmyoyCALin3gasJDsN5oDPrNhvnXDJgUCFRoDsIbzqRa62HYedB7gTkIdvvHT6bsvJIgGWj5b3s061gKIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GPgVgyUxOXuHj9KnGx3BV8CxHTqn5InN3T6v8yMqnhA=;
- b=y7LI6ukY8vu2NOV4v47+RTMbjjJfHM9RTIF8Ad99d9xr6D/2LGJG/sFPBpzKItbZZcjG6Or2oCtBQk/m0l2TYd+YjrabtQrRQc1nZtc03DGZmrKEsvMfQ189W4EmBPT4ApqLiopyXxwjLYnu8J8gS4NJOiJi/wA0aCwkBsfVr54Pjrg3bksAaxDaglayGnMOOS+T4G0I6aMQ1g1hGKaUrREXdX0Cxn7YRAiA9ufOgFPLFIdbtoS7TvAycAmly9Lr8AW5cUuQOpQgRF+tsF3rFj74Uv49KaoNSXmRC4pNJ/Qge/W8A0KYOxAa7B4PyoKm708FWbDibodl3AEYcPtKfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.88) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GPgVgyUxOXuHj9KnGx3BV8CxHTqn5InN3T6v8yMqnhA=;
- b=Jy/x9OO2LVRmEkVQk4NJXvKQYJ5ugp0o9+oDIdxbXcUsq2wmNDg/zDGEyetPTpkzk/cutGJIB92pA0bInAJn6Gkw5Cn2OO+KBZLNhRcOby6NbDoVIesMoU2G8/GRVImEpk05vyfUogm6mTqqRtjWjKmX7GxuinMpxFpONRbR9SVlqSm8tUX92TjrMylltlViKx87KU1TCtsEmNyrzrULIm1PGv+Dan37808E/0VbIcZV5wHs+8mZ9IUMb33eRNWAvUfDD4Ggk4sT0mS7O4o7Y/67UDrk7gYOT0XJrC5t9W5fbcOTaNQqlZzjcVPNrQI59K2LJt4snvlTm4fkOFGQxA==
-Received: from AS4P191CA0012.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:5d5::11)
- by DB4PR10MB6920.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:3fc::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 07:33:36 +0000
-Received: from AM4PEPF00027A6C.eurprd04.prod.outlook.com
- (2603:10a6:20b:5d5:cafe::31) by AS4P191CA0012.outlook.office365.com
- (2603:10a6:20b:5d5::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
- Sep 2026 07:33:36 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.88)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.88 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.88; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.88) by
- AM4PEPF00027A6C.mail.protection.outlook.com (10.167.16.90) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 07:33:36 +0000
-Received: from ENXDAG1NODE4.st.com (10.75.129.197) by smtpo365.st.com
- (10.250.44.75) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 1 Sep
- 2026 09:30:54 +0200
-Received: from [10.48.87.85] (10.48.87.85) by ENXDAG1NODE4.st.com
- (10.75.129.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 1 Sep
- 2026 09:33:34 +0200
-Message-ID: <3326ff38-75c3-4218-b537-17077f3faa4e@foss.st.com>
-Date: Tue, 1 Sep 2026 09:33:33 +0200
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="qk0JFR2E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1788248050;
+	bh=idCKI41xL6eW0IArlfOceSxUfotk8ao1yFL3ygF/FOQ=;
+	h=From:Subject:Date:Message-ID;
+	b=qk0JFR2EGJdApt6xB5tYoQAx2Er5oazEiIVhtsegiFdqdGDCB8fPojos6m6Ckrd8C
+	 W4QasPcKAm5pkrtpeC3d8W/hD9eM+Fsi++CZmrSmWFTQhOQQL92BIeolJHJKIu2jWn
+	 wbGIrl08LvNNfuJsRYEI//hDIUjhpAKkQtbUyIAQ=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
+	by sina.com (10.54.253.31) with ESMTP
+	id 6A967FE100004F60; Tue, 1 Sep 2026 15:33:59 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 5567576815996
+X-SMAIL-UIID: ACF6028F0FBE404389B51991927F13F0-20260901-153359-1
+From: Hillf Danton <hdanton@sina.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: syzbot <syzbot+6895ff73d58c59e653ba@syzkaller.appspotmail.com>,
+	david@kernel.org,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	pbonzini@redhat.com,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [kvm?] INFO: task hung in kvm_gmem_release
+Date: Tue,  1 Sep 2026 15:33:42 +0800
+Message-ID: <20260901073343.2002-1-hdanton@sina.com>
+In-Reply-To: <apWaoAxpE-fbHG0W@google.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [net-next,PATCH v2 1/5] dt-bindings: net: add phy-supply property
- for stm32
-To: Rob Herring <robh@kernel.org>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	<linusw@kernel.org>, Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>, <netdev@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20260812091122.566439-1-christophe.roullier@foss.st.com>
- <20260812091122.566439-2-christophe.roullier@foss.st.com>
- <20260812195828.GA724768-robh@kernel.org>
-Content-Language: fr
-From: Christophe ROULLIER <christophe.roullier@foss.st.com>
-In-Reply-To: <20260812195828.GA724768-robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To ENXDAG1NODE4.st.com
- (10.75.129.197)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM4PEPF00027A6C:EE_|DB4PR10MB6920:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb82eb40-2125-446c-c93a-08df07fb5576
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|7416014|22082099003|18002099003|56012099006|11063799006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	ia9RuAsjnKd+F7/pwoGdZmzqJIYzluSdPV68mho0wlAE/OLnV2UJQtWHHCXr5G1dIH/NgXgVebW6FdgdSNiGhvsU43xiPR/u0LgR8WAJDwwI40UxwKP3k6kfgYqNuut7UGtAj/+7i+TwChGW6t9HPpaCXT4aZD64JCkYRcczcp5T5HlyUyNjdtrsJ6XkoxOL56wXLVGle5+smbCWLbZEbjTwXFrpyL+5wHviUQh7XLx+nxlMrnObk9oKPVJVeVsEf3hJLjqSOA6fOK9zQGKoSUmD0C4lfouDdZS01Q8LjBxUBK0m8keRLoFYCwkd2uJwEA9D7IgbfruORfTGN5EwRDXxmy/9eKNwkWMkcFSz1O1x7AuNLwhlyixIBTVGX83wl2TC2cVnsasD4UVzdMipaNBgMVJo3ccQr2TQnFMLq6s3Xo8zMm6HasTvzD5x6iNjY4/cCd54d+LvDjliZoJPnR1MVKmhztSPnnvO9W0OUqNlVFd2syegY5v8G1UvG6OWjmb3mU+FtoWquZaR5HWr8pcvSp7guI61gPCU3V45Hl2ZMd+2Mvt/j/4vk89f7Mk66aVVvpp8fthRNadBSfUFpxjtVwDfhrv/9nLAMyy5WVjD2eJg31N4umZ4JC2t0OpJ8X9uTI24crk9mF1leQjQ8WdZpg2/LU3Z5gZ+3MHOI5X72xEfKT1Crf+UiYNURE0S
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.88;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(7416014)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	mXu6N9bKxnX9QAMh6vGLaLCEOvVcLv9kFFtI04S5GZoFkyTykcbVkVx2kkA+MbxQQIBT6ZCxoy+bOORxO1j9poFTTdRN3Vn/uDNf5OrHuAyq0kChE+w/r/aSS/DcDG/+gx9LZRDgBbHF0eQQCpYjP/+IGodD6AxdcFC25ipTwxp4wOSaCswjhsXiAzE+2p169DW+9aGRo6x8wq0zH7kM0J119U7wbDB7cb66qZJLpGvvq1EQrqWLSAmLmAZvMvkDaNX+uIuxScUIplaH40DkOMIcmaMBPcfiJcu0dtO8Xft49ZfOgNTSWQ7VN40ZSx9Fshz5lRunPRoAVKygNrP7yp7m3HvGcAx4qkneLEPPLbimf09JJNfOudb1YQgRehu4cbMHPNse2o5/IIBkiUd5ohYwEKYBEUcQLTggO6FXP3I+E9kM5L/nHI6cYcAXqVue
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 07:33:36.1128
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb82eb40-2125-446c-c93a-08df07fb5576
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.88];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM4PEPF00027A6C.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR10MB6920
 
-
-Le 12/08/2026 à 21:58, Rob Herring a écrit :
-> On Wed, Aug 12, 2026 at 11:11:18AM +0200, Christophe Roullier wrote:
->> Phandle to a regulator that provides power to the PHY. This
->> regulator will be managed during the PHY power on/off sequence.
->>
->> Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
->> ---
->>   Documentation/devicetree/bindings/net/stm32-dwmac.yaml | 3 +++
->>   1 file changed, 3 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
->> index 987254900d0da..0c7eb1ccadd47 100644
->> --- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
->> +++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
->> @@ -99,6 +99,9 @@ properties:
->>         encompases the glue register, the offset of the control register and
->>         the mask to set bitfield in control register
->>   
->> +  phy-supply:
->> +    description: PHY regulator
-> Which phy? There can be multiple for ethernet. In any case, doesn't
-> really matter because either is wrong. The supply(ies) for a device go
-> in that device's DT node. This node is not a PHY.
+On Mon, 31 Aug 2026 08:15:44 -0700 Sean Christopherson wrote:
+>On Mon, Aug 31, 2026, syzbot wrote:
+>> Hello,
+>> 
+>> syzbot found the following issue on:
+>> 
+>> HEAD commit:    08dbfad3f504 Merge tag 'for-linus' of git://git.kernel.org..
+>> git tree:       upstream
+>> console+strace: https://syzkaller.appspot.com/x/log.txt?x=12ee0349580000
+>> kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+>> dashboard link: https://syzkaller.appspot.com/bug?extid=6895ff73d58c59e653ba
+>> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+>> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1153ee25580000
+>> 
+>> Downloadable assets:
+>> disk image: https://storage.googleapis.com/syzbot-assets/ddff5719ec3b/disk-08dbfad3.raw.xz
+>> vmlinux: https://storage.googleapis.com/syzbot-assets/4b5e39b20fa5/vmlinux-08dbfad3.xz
+>> kernel image: https://storage.googleapis.com/syzbot-assets/eb1f70eed57f/bzImage-08dbfad3.xz
+>> 
+>> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+>> Reported-by: syzbot+6895ff73d58c59e653ba@syzkaller.appspotmail.com
+>> 
+>> INFO: task syz.0.17:6104 blocked for more than 143 seconds.
+>>       Not tainted syzkaller #0
+>> "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+>> task:syz.0.17        state:D stack:25544 pid:6104  tgid:6104  ppid:5900   task_flags:0x400040 flags:0x00080003
+>> Call Trace:
+>>  <TASK>
+>>  context_switch kernel/sched/core.c:5520 [inline]
+>>  __schedule+0x17d4/0x5820 kernel/sched/core.c:7270
+>>  __schedule_loop kernel/sched/core.c:7347 [inline]
+>>  schedule+0x164/0x2b0 kernel/sched/core.c:7362
+>>  schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7419
+>>  __mutex_lock+0
+>>  __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+>>  __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
+>>  kvm_gmem_release+0xdf/0x3e0 virt/kvm/guest_memfd.c:310
+>>  __fput+0x418/0xa50 fs/file_table.c:512
+>>  task_work_run+0x1d9/0x270 kernel/task_work.c:233
+>>  ptrace_notify+0x27c/0x2b0 kernel/signal.c:2524
+>>  ptrace_report_syscall include/linux/ptrace.h:416 [inline]
+>>  ptrace_report_syscall_exit+0x2d/0x50 include/linux/ptrace.h:477
+>>  arch_ptrace_report_syscall_exit include/linux/entry-common.h:233 [inline]
+>>  syscall_exit_work include/linux/entry-common.h:266 [inline]
+>>  syscall_exit_to_user_mode_work include/linux/entry-common.h:297 [inline]
+>>  syscall_exit_to_user_mode include/linux/entry-common.h:334 [inline]
+>>  do_syscall_64+0x4a0/0x520 arch/x86/entry/syscall_64.c:89
+>>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
 >
-> Rob
+>...
+>
+>> CPU: 1 UID: 0 PID: 16 Comm: pr/ttyS0 Not tainted syzkaller #0 PREEMPT(full) 
+>> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+>> RIP: 0010:io_serial_in+0x77/0xc0 drivers/tty/serial/8250/8250_port.c:409
+>> Code: e8 4e e8 55 fc 44 89 f9 d3 e3 49 83 c6 40 4c 89 f0 48 c1 e8 03 42 80 3c 20 00 74 08 4c 89 f7 e8 1f b0 c5 fc 41 03 1e 89 da ec <0f> b6 c0 5b 41 5c 41 5e 41 5f e9 5a cc 74 06 cc 44 89 f9 80 e1 07
+>> RSP: 0018:ffffc900001578b8 EFLAGS: 00000002
+>> RAX: 1ffffffff35a5e00 RBX: 00000000000003fd RCX: 0000000000000000
+>> RDX: 00000000000003fd RSI: 0000000000000000 RDI: 0000000000000020
+>> RBP: dffffc0000000000 R08: 0000000000000003 R09: 0000000000000004
+>> R10: dffffc0000000000 R11: ffffffff8571cb00 R12: dffffc0000000000
+>> R13: 0000000000000000 R14: ffffffff9ad2f0c0 R15: 0000000000000000
+>> FS:  0000000000000000(0000) GS:ffff888124ddc000(0000) knlGS:0000000000000000
+>> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>> CR2: 0000557adc994a38 CR3: 00000000772ec000 CR4: 00000000003526f0
+>> Call Trace:
+>>  <TASK>
+>>  serial_in drivers/tty/serial/8250/8250.h:128 [inline]
+>>  serial_lsr_in drivers/tty/serial/8250/8250.h:150 [inline]
+>>  wait_for_lsr+0x184/0x2f0 drivers/tty/serial/8250/8250_port.c:2013
+>>  serial8250_fifo_wait_for_lsr_thre drivers/tty/serial/8250/8250_port.c:3270 [inline]
+>>  __serial8250_console_fifo_write+0xcd/0x3e0 drivers/tty/serial/8250/8250_port.c:3345
+>>  serial8250_console_fifo_write drivers/tty/serial/8250/8250_port.c:3378 [inline]
+>>  __serial8250_console_write drivers/tty/serial/8250/8250_port.c:3429 [inline]
+>>  serial8250_console_write+0xaa1/0x1200 drivers/tty/serial/8250/8250_port.c:3493
+>>  nbcon_emit_next_record+0xef5/0x1a90 kernel/printk/nbcon.c:-1
+>>  nbcon_emit_one kernel/printk/nbcon.c:1157 [inline]
+>>  nbcon_kthread_func+0x679/0x880 kernel/printk/nbcon.c:1271
+>>  kthread+0x38b/0x480 kernel/kthread.c:436
+>>  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+>>  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+>>  </TASK>
+>
+> Marking this invalid, as I'm 99.9% certain guest_memfd is an innocent bystander.
+> CPU1 is stuck on an IN instruction (the actual port I/O), and there are a handful
+> of identical failures in random subsystems that pop up a few times a month[*].
+> My guess is the host side of the serial port is going out to lunch intermittently.
+> 
+> [*] https://lore.kernel.org/all/?q=%22io_serial_in%22%20syzkaller
+> 
+> #syz invalid
+>
+The 0.1% uncertainty hints this invalid mark is NOT true or at least earlier
+than thought, because a) the IN instruction is not kvm specific [11] and b) the
+i2c hang [11] is i2c specific [12].
 
-Hi Rob,
+[11] Subject: [syzbot] [i2c?] [usb?] INFO: task hung in em28xx_i2c_unregister
+https://lore.kernel.org/lkml/6a95ef74.764875ec.b345.0003.GAE@google.com/
 
-Ok I will update my description with :   "Regulator that powers the 
-Ethernet PHY."
+[12] Subject: [syzbot] [i2c?] [usb?] INFO: task hung in em28xx_i2c_unregister
+https://lore.kernel.org/lkml/6a9676c7.764875ec.b345.0007.GAE@google.com/
 
-To manage this regulator on Ethernet glue, I based my work on the 
-examples of :
-
-   - allwinner,sun4i,
-
-   - allwinner,sun7i
-
-   - allwinner,sun8i
-
-   - fsl,fec
-
-   - rockchip-dwmac
-
-   - rockchip,emac
-
-For me it is normal that PHY Ethernet regulator is managed by MAC glue 
-because it is mandatory to power ON Ethernet PHY chip BEFORE MDIO scan.
-
-Let me know if that works for you
-
-Regards,
-
-Christophe.
-
-
-
+That said, extra evidence is needed to prove that the serial port is going out
+to lunch on the host side.
