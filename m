@@ -1,81 +1,73 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C2D48989B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:21:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86378488228
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:21:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788283269; cv=none; b=Z9OOuVRN5Ok9+pZ/2+YhOS5FKlkdRwGgPpx05mW7Qxqe1sUzwQ168n5EY50DfBrIcOhe8WbP8LkICiWe5FVITl5tc9k2W5SfSVqLAixJuPz2I8Ij+bvDTczs7V4ZXn96faX50UZa7pBQ8NPtM6tTS6v3wcCRbgQcxo7YBpTUS0w=
+	t=1788283291; cv=none; b=OGnAndA/cjATvq2tvwcS5HWKdmGtm6OM0KBuIOIvPnxKPVcrpJggYTEujNnXvuBY3DjZysykGNj2gWQ6ybE4W7stsEBoGSnXbkp79akFAqdG1JKQbS82A82F8znU5bEIeXvGqtlRO3sL/WxHv0FHcI5F0cgPzgUbw0AA3C0xSI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788283269; c=relaxed/simple;
-	bh=00fk2d4bFTlZ83rXDe3waL00PuwEXFQI8b8viicDX8U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rFrYVEW1bLavqRvyqQ7fdb+alPU1tsdi1ZmRRMwtQRQKwg3RPMPb2XueUikwHxb6//gsW3JwGjBptY+wP+I8T+ZOsvxHlJLqQQTUk6cxQNe9whn7mGqZxU5KHMpC363l5xH7ngMcTHkubC1Kd1pbSNOfBj7QUX+04E8iH3U0lGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=T34yi+8L; arc=none smtp.client-ip=209.85.160.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1788283291; c=relaxed/simple;
+	bh=LeGDvC3l27Wo7zRvl7F/A9X2MyhBj7RXCYXvGI4LZpM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JL2ixj8OGDHME/EmM7JvBpkRD8WQaid7nyYV/d5JjUTYjbtYbOZ/fXhOJIiOhfRrCpUtQTDKhZLKZyT1gnBoPOcODw/DA4uHFpLcqzqtiJ1thzgVtFV/q5DAjtQylBpW3jTgQzyGX/QSj5MWbJpuEEsdVrVNSZlBqtavtcTS/Lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BXudvyTt; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="T34yi+8L"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-51c0006ea8eso359601cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:21:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BXudvyTt"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49cd9add88aso90885e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:21:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788283267; x=1788888067; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wPkZSzl2Bkcvu9UW0A3Dp3FDmK7DknZNc63zeKT5t/s=;
-        b=T34yi+8LdpSmXJY4+o/sAXpnvV+fwXSpm2PCmZcLD72LaqVt6dIAAQIUC6/HEMyX25
-         UPFAwkcLxL0HeToMmArCs1EOSEowOPZpfwgWhZhNG3OY15B+EPOK/aNZhZCAr6YElz/F
-         pBV2kG3/Qyv+Pjd5RYZrHuK4/ugrA6wpS6zC9h5Gu+SBnMFFtTxsSb5u3fdQ2/VOxyAT
-         zsYUuIzJ/X59hTkuo7oBI7ZXB+6AT09X5ESfFOp6yBqZYz93JhHuMCLUMWGJYOOIAqop
-         4PNvJiVcBVXaRvTLBO6keA7A7CSqj9RLQ4F1VkcQMgsOb73n9cw9Kg28UzcDy7QnUMW4
-         9BIQ==
+        d=gmail.com; s=20251104; t=1788283289; x=1788888089; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yxn9qM2Ppo5iTTsOVfzJ7uBe3gU3KpqKhhkdUu2Nv7M=;
+        b=BXudvyTtpXxhtGPQoB8C1zIpokgHsWg/+L+eMhWipeTbqcIHkUsalzxF+WVnAVe03f
+         JuWzH5kUyLi0C4b9A+F/fRyYwt/bOldpwE/5LNwJ8JM2c/U2Lot6GsjcE51bzG91QIYg
+         MNc4nxIlaiGsh675ehRTqdedmQfYSkOu0c2nHpAeyngLM1WxqaYZeOl5PfS/LSX2J1zE
+         v9nvZ3tLs7tgP5Uvbgwvs3dwqSgsOU3QUadK1ghM7ZQofHAlie3VUwha9vgdKuOxX5kn
+         tshbO2jrtS/iQMgTiuI4bug49y0aT8eeXxHOmbNF4qWDW/0SFPA9Kr7zZacjaG513oXq
+         rlyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788283267; x=1788888067;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wPkZSzl2Bkcvu9UW0A3Dp3FDmK7DknZNc63zeKT5t/s=;
-        b=C/gujNAqeL+BS44msOfGahGmFW8O4i/zI3gHskPGjoKE0RZ7DXUduLGcrIQA4W6QuQ
-         DFFyxYNhb0q+HyRwSnFjAzLOjIyP0C8VFDxlwxfBCCl5CjOcCn0x02SieyvQTGVcpAFN
-         Kh9v9idYRXEYpzn/wJtKovQ5EkizJ+9Od6sA6l9NGmMh46q8RA0/dPj5ZfXMpgJdVsPD
-         TpMKzDmI12EMhVLI4StwG8CCVSTtqKrCjVP9WZpDcjS7wz9p2drV3v7gCVxiPLRfut9K
-         Bq+8V/3OSm+b0Q1p8s2qqJtAaRDPEWqu2yeWH7ioUTi7SP+ljI2snKg7JF+fN4QQ/MLz
-         h+Zg==
-X-Forwarded-Encrypted: i=1; AHgh+RodpopYFW9vnPi6fzX5+CYWtfN4xlhbeTnJV1P93l4POtRHrgUWSHTdihToI9eoknE1KNlQWpyYSpt2/qE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzqVxOXUQLqkKeC2VCalYX8gAS/7UxW3DdlZje6s3Td6GGMWQ6
-	9UN1KSEJzMufY4wEVZVxnV8Z0m8oEcuIFqWJcsJGoHYvT5PMKW/TubBWZV/R0MTIqns=
-X-Gm-Gg: AR+sD1326T41EYWvzz7DBC64sQf3EnIJvGZoA7Cj7iy9xAV82PqVHyV/eXs1dW39grF
-	bawneNuFXuTRZIo0WY0tb/F/QdAOlsrgxV00fuRP/X6v7tt3AjhM5IJzL5RAPa+AtVYrTfwQpZ+
-	MbkDKrX8QibwPkC8cus4NYG8jWq78QLAOpOw5xAtcT3+/jK7SjHIGl9do1rkB4I88r7J2D/c2OX
-	73Y0xDr9VcrqIYk0VZHms1asfCp+bdXnrFjfrx3Xu8bE9aQzzOa27/ovuu/bJpY9YGfVWZf3mDe
-	ygPRexdk2Ow+Q9oZVOhBbny7fy8FMCVW14v3qo3SDoljIQemV8abpVZd7BckVqA03Ho4YNDKAHT
-	PrZztCwvE0RdRCO4Y98RnvhIcKJ0IoUEBE0qMT1cwCjqWK1JqfnEOpbmMIWpR7WRWm7mx/771DI
-	rmycp/Gm4aGQpfSndDW5Y33/ypyeU0AMVX96PJx8XlcwLdOPQz0Ux6QvodVFDNRiWf
-X-Received: by 2002:a05:622a:c8c:b0:52f:a319:da85 with SMTP id d75a77b69052e-52fb96af1b0mr463638811cf.39.1788283266590;
-        Tue, 01 Sep 2026 10:21:06 -0700 (PDT)
-Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530331d9cbcsm1423661cf.16.2026.09.01.10.21.05
+        d=1e100.net; s=20251104; t=1788283289; x=1788888089;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yxn9qM2Ppo5iTTsOVfzJ7uBe3gU3KpqKhhkdUu2Nv7M=;
+        b=rRGTj8JO0OPMt+kcs3PCVa2VQX4FQTYO+sYfJq+8Ht9YJQ02rGfSwccEUdFG6HXVtY
+         c3amgDaTVQ/Ze0SV9SUfyzX1zFoU+mVKbSNvP2igB0vrtVjZNU/JEe5GdvIQW5fKMGY6
+         fpkfGPtenjB3N1EOHbu5fsenfGC5VYA2VvchFJHxQAfaBv7aTb52P1RsC5OZoUGJkwH0
+         KjWe1GvuP+dfdiu7VpqRsWSUZtVYbsJGw9EI9VSfO3sxrBglNPQRBAACV5PeS/gHKAAJ
+         2apzf5k1UbL3GWOYQ07Fdlsb2uBD8ffUB9BqgIil87Demg6HgFX3jit8A7mReYlvFRGh
+         EYhA==
+X-Forwarded-Encrypted: i=1; AHgh+RradowoGZbrJW6VzsW0vmtPT7+xA/atv3jK4V15xBTGHJk62mnm3huDpieb3pm8u9ILAQY8yfbyEChTZKo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8y8TYnwlqi5nFxWwk08Vlhe73G7nFROGjKESXWqZdHYxx+Loj
+	MH0Zhrv5fdkUgZDdY9gtv4UeEoajpFYcD7cUxq+MRH1uQ9qfP8BgQny+yWlmzw/dRGjPtA==
+X-Gm-Gg: AR+sD12gzfxn8cwfSFNGhQJRk9+V945JZyyMCeLSbhNgZYqKnEMZl1aOYL6E5+ZS3C1
+	MtM5o//JGC9+MXhV8my7WBr9opwuD9GJ4sIPUL4zVeS8GbgO41HS4QjGgmRwYQNGUPBNXRwfu4Y
+	e5aQXUv1zuIDWb7UZvO9T/hPAg+y4zZ7hrsZPxgDUxnisoeQhDaDlTSvlwLNBXnB/Ez0SBLwjEp
+	A2z4l1aXwLhpUt3c3LIlV7RH4VKF+Kc//S5CMEUFO5khPqAqcdQ5HXYhFEVxOXBrdpdPQZtz9Il
+	uh67Lc3Jzwuo4rtZI52jBTTlMoaQvHGNu5L0dKyg3moraXD62vWshdnKHswd87/QYq43vytj4Sv
+	hNE8pR03M6v4qWCqA06s/6nojl3pVRTMK0mQC4SVNp+XhAamgp5PXFopdLGMOIIajXmCodMN+u+
+	2yPhSY9mHDuUG42VIdXd75+TKrl+yjxw9KRyIRc3nzSyvHenVx6EFq2oNOPHMv3lNXhuYmMDDQ8
+	vP88qxKsFPHydpGSSeiwS2jkyCzm1UmGRKpCwoXHo8=
+X-Received: by 2002:a05:600c:4704:b0:493:cefc:d113 with SMTP id 5b1f17b1804b1-49b91c2d8femr548275525e9.5.1788283288657;
+        Tue, 01 Sep 2026 10:21:28 -0700 (PDT)
+Received: from DESKTOP-EHH7ATM.localdomain ([102.209.109.149])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72c28sm508846f8f.6.2026.09.01.10.21.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 10:21:06 -0700 (PDT)
-From: Alex Elder <elder@riscstar.com>
-To: andersson@kernel.org,
-	konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 4/5] arm64: dts: qcom: monaco-evk-ifp-mezzanine: use dev for device nodes
-Date: Tue,  1 Sep 2026 12:20:56 -0500
-Message-ID: <20260901172058.1512508-5-elder@riscstar.com>
+        Tue, 01 Sep 2026 10:21:28 -0700 (PDT)
+From: Godana Emiru <godanaemiru@gmail.com>
+To: parthiban.veerasooran@microchip.com,
+	christian.gromm@microchip.com,
+	gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Godana Emiru <godanaemiru@gmail.com>
+Subject: [PATCH] staging: most: video: document the locks in struct most_video_dev
+Date: Tue,  1 Sep 2026 20:20:55 +0300
+Message-ID: <20260901172055.53889-1-godanaemiru@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901172058.1512508-1-elder@riscstar.com>
-References: <20260901172058.1512508-1-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,56 +76,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A recent change caused the embedded PCIe endpoints on TC9564 SoCs to
-be treated by the devicetree code as PCI buses, which is incorrect.
+Neither lock in struct most_video_dev carries a comment describing what
+it protects.
 
-The Monaco EVK IFP mezzanine has a TC9564 SoC, which includes a
-PCIe switch with one upstream port and two downstream (external)
-ports, plus a third downstream port.  The third port has an embedded
-PCIe endpoint with two functions, each providing access to a 10 Gbps
-capable Ethernet interface.
+list_lock protects the pending_mbos list. Buffers are added by the
+component's rx_completion callback, comp_rx_data(), which is invoked
+from the interface driver's completion path (a URB completion handler
+in the case of the USB HDM), and are removed from process context by
+comp_vdev_read() and comp_vdev_close(). Note that in the comment, since
+it is what makes the irq-safe spinlock variants necessary here.
 
-The devicetree nodes representing these functions were previously
-named "pci@" but were renamed in the interest of consistency in
-commit e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@").
+lock is never acquired by this driver directly. comp_register_videodev()
+installs it as struct video_device::lock, where v4l2_ioctl_get_lock()
+returns it and video_ioctl2() holds it across ioctl dispatch.
 
-Unfortunately, of_node_is_pcie() causes nodes named "pcie@" to be
-treated as PCI bridges, which PCI endpoints are not.  The previous
-name "pci" matched such nodes as "default-flags" bus type, defined
-in the of_busses[] array.
+No functional change.
 
-Rename the PCIe endpoint nodes "pci@" so they are not mistaken for
-bridge nodes by the devicetree parsing code.  This restores the
-previous behavior, and allows them to be used for PCI endpoint bus.
-
-Fixes: e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@")
-Signed-off-by: Alex Elder <elder@riscstar.com>
+Signed-off-by: Godana Emiru <godanaemiru@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/monaco-evk-ifp-mezzanine.dtso | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/staging/most/video/video.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-ifp-mezzanine.dtso b/arch/arm64/boot/dts/qcom/monaco-evk-ifp-mezzanine.dtso
-index ca5bf0fe5ec6e..a6e57ec8a1e14 100644
---- a/arch/arm64/boot/dts/qcom/monaco-evk-ifp-mezzanine.dtso
-+++ b/arch/arm64/boot/dts/qcom/monaco-evk-ifp-mezzanine.dtso
-@@ -117,7 +117,7 @@ pcie@3,0 {
- 			ranges;
- 			bus-range = <0x5 0xff>;
+diff --git a/drivers/staging/most/video/video.c b/drivers/staging/most/video/video.c
+index 88892b5db..c354d1820 100644
+--- a/drivers/staging/most/video/video.c
++++ b/drivers/staging/most/video/video.c
+@@ -33,6 +33,7 @@ struct most_video_dev {
+ 	bool mute;
  
--			pcie@0,0 {
-+			pci@0,0 {
- 				reg = <0x50000 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
-@@ -125,7 +125,7 @@ pcie@0,0 {
- 				ranges;
- 			};
+ 	struct list_head pending_mbos;
++	/* protects pending_mbos; taken from rx completion (softirq) */
+ 	spinlock_t list_lock;
  
--			pcie@0,1 {
-+			pci@0,1 {
- 				reg = <0x50100 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
+ 	struct v4l2_device v4l2_dev;
+@@ -40,6 +41,7 @@ struct most_video_dev {
+ 	struct video_device *vdev;
+ 	unsigned int ctrl_input;
+ 
++	/* serializes V4L2 ioctls; used as struct video_device::lock */
+ 	struct mutex lock;
+ 
+ 	wait_queue_head_t wait_data;
 -- 
 2.53.0
 
