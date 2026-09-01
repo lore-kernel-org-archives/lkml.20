@@ -1,93 +1,293 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26166339389;
-	Tue,  1 Sep 2026 11:28:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D602BD59C
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788262084; cv=none; b=SjFWfAHHbHJNTF2zNmyPjXiqqlrxbHWHGMqBj5Sp+7qLjjtKV1Ap/tdUbkGg5ds7nULMJOwxUr6K00vbRgw3d/6cNFjCOC+31aUAYYGNcBOtnqjVvR4yOGGRIGoMmKLcqrSqP2AXGBdYou83kIXssWb+U5XkbAIk+ZLACxMj/ZM=
+	t=1788262091; cv=none; b=gc5qSX4jlaEmRWJIjLNv1OXVg8FXB3jmIkAJAFNuTUAOw0SLyIyHXtnI/c+flwDwtvo255Px0pacaaygIsqVDiHWvhesRxJyC6ED90Pl0Tce8bz33COfx/dNnIjj1WI2LdZ36HX95f8GrLLwa3sKS2++h8IcyRp6CPfkLEr34IM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788262084; c=relaxed/simple;
-	bh=M0VIYhY4v71qK78dcX2sgWOX03MZcR+ZEXyFCsO8ab0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ngTAYp/la7Ucim/TLOGBss6hV92824NOB5qYdFWmaX7GY5/1YKAJaVyA0KTIFQoOma/qFrKVsM3VouALxtX6V+IM51S04G7PL8Fz/Iv6VOmXz13GvYnJB+GlQOjJgbD8C8fQifD9TGcR7rkJ1bubbb7Np/EFdQf8MoH2jbdK4Uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Yonm8uO/; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788262091; c=relaxed/simple;
+	bh=CxjG8Mr1uPjbBLqqRSGoy0wOuSXMIYfixEvQi/UrWq4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZXzq0albAXifnjFmydd9FkyRX9LqjFDiQMO56hbaCI6akYlhcjH9S5N4se13gRMaWqbZnHZo3fEsynBYtvivCwqfXYzt8sV2hmOGwCXiKYWlvwFLsSaFiUbepXdZyrmmsWVah0VhA37+M5BDw/oQMmaHd08CZ0YVy/I587Zxj9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=kOQO7lGL; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Yonm8uO/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788262082; x=1819798082;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=M0VIYhY4v71qK78dcX2sgWOX03MZcR+ZEXyFCsO8ab0=;
-  b=Yonm8uO/Q87VFGtHPfdQjtusNRa5fpl1VQTPoNKV4XvM7nBL+V/6bYCz
-   8XzdEKWYCrQnY5j6n3Vh3IilRZBkBP+mDeSEKd+0i5jIb2t4WzibXDsSk
-   frjYkbPDFZ5mLNhLQMLhdKCe3rqS6splR8J8WOthvoFe8xpb3Xt3j4e9n
-   4L2RqM5sj7dvnyfg6cHNfX7XW8S8neKinhjFhKSh75604JdsK368q3/mk
-   YHJnfOVu2XuDbzN0shbcCiz2rdvCBSHYeVlAfV2vnj0msWWnFaHkkGqGo
-   LYtSo7HOFMJl8B/JTjwe822WJGGvwzAaV8FOSTNy2bYdoyL1BrbbfWADj
-   Q==;
-X-CSE-ConnectionGUID: EB5r2wWfS5m6TOzmDmLUaA==
-X-CSE-MsgGUID: 4BHswR1MT7OQl7ge4ZvHlg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="92382753"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="92382753"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:28:01 -0700
-X-CSE-ConnectionGUID: KrDafq3TT3iSW4ucJaV8ww==
-X-CSE-MsgGUID: Grifb/l3Tja+LLwKTRlOtA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="265830234"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:27:58 -0700
-Date: Tue, 1 Sep 2026 14:27:55 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	Uwe Kleine-Koenig <ukleinek@kernel.org>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 09/16] media: intel: ipu-bridge: allow sensor-specific
- link frequencies
-Message-ID: <apa2u8qJm6IZ5N4X@ashevche-desk.local>
-References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
- <20260831180101.3109854-1-mauriziocasciano7@gmail.com>
- <20260831180101.3109854-10-mauriziocasciano7@gmail.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="kOQO7lGL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1788262087;
+	bh=CxjG8Mr1uPjbBLqqRSGoy0wOuSXMIYfixEvQi/UrWq4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=kOQO7lGL4Q7njVR7vhMQwU0sLDMN/kYheh1QHPEbowCgtgFnArxGaWp5h8e7O3Ctv
+	 S3cb3BCSo6iqlo7akcfnyGOwHmWd0C5yP3W2cLOgy2CbvJMYxFA8/i42YcNi34+AQv
+	 EbLHZHLx0P1xR/98+qelUn2WVDxVB00D5kVh6NSIMAHuFjmlaQu/MpOW/2VHgMuO/3
+	 5rI9E0fmS1h8EISdxS8pWu6d4U9ehTe7wEl5iskYnSICI+RQriGCx7YZRmVluaubOA
+	 xRjBR3uXX+fhiHgI22WDtB84uzHhiTY7BTKf1OMbq6ozPZLPPXjhh1g02/wILoBtGe
+	 JQ6zoMfIRGMPw==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E99CF17E07EF;
+	Tue, 01 Sep 2026 13:28:06 +0200 (CEST)
+Date: Tue, 1 Sep 2026 13:28:02 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 01/17] drm/panfrost: Move shrinker initialization and
+ unplug one level down
+Message-ID: <20260901132802.66d9aba6@fedora-21.home>
+In-Reply-To: <20260828-claude-fixes-v7-1-72a13b2c125d@collabora.com>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+	<20260828-claude-fixes-v7-1-72a13b2c125d@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831180101.3109854-10-mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 08:00:54PM +0200, Maurizio Casciano wrote:
-> A bridge-specific firmware parser may have more accurate link-frequency
-> information than the generic ACPI hardware-ID table. Let it store link
-> frequencies in the per-sensor bridge data and prefer those values when
-> constructing the endpoint software node.
-> 
-> Existing bridges continue to use the hardware-ID table when no
-> sensor-specific frequencies are supplied.
+On Fri, 28 Aug 2026 21:56:41 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-with the same caveat: assuming this approach is confirmed to be the right one.
+> Since the moment we call drm_dev_register() the device should be in a
+> position to accept jobs, so it's best if the shrinker is already
+> initialized by then.
+>=20
+> On top of that, make shrinker functions take an panfrost_device pointer
+> like other functions in the same sequence and rename them accordingly.
+>=20
+> Essentially mimic the init/fini behaviour in Panthor.
+>=20
+> On top of that, remove the config feature check, because it's unnecessary.
 
--- 
-With Best Regards,
-Andy Shevchenko
+I don't think that's accurate anymore (we still have a config check,
+except it's encoded directly in the panfrost_transparent_hugepage definitio=
+n),
+and I think I'd prefer if this change was done in a separate commit.
 
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
+>  drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
+>  drivers/gpu/drm/panfrost/panfrost_drv.h          |  4 ++++
+>  drivers/gpu/drm/panfrost/panfrost_gem.c          | 25 ++++++++++++++----=
+------
+>  drivers/gpu/drm/panfrost/panfrost_gem.h          |  7 ++++---
+>  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
+>  6 files changed, 32 insertions(+), 26 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index 485349faf251..05c40d5a20b5 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -280,9 +280,14 @@ int panfrost_device_init(struct panfrost_device *pfd=
+ev)
+>  	if (err)
+>  		goto out_job;
+> =20
+> -	panfrost_gem_init(pfdev);
+> +	err =3D panfrost_gem_init(pfdev);
+> +	if (err)
+> +		goto out_perfcnt;
+> =20
+>  	return 0;
+> +
+> +out_perfcnt:
+> +	panfrost_perfcnt_fini(pfdev);
+>  out_job:
+>  	panfrost_jm_fini(pfdev);
+>  out_mmu:
+> @@ -304,6 +309,7 @@ int panfrost_device_init(struct panfrost_device *pfde=
+v)
+> =20
+>  void panfrost_device_fini(struct panfrost_device *pfdev)
+>  {
+> +	panfrost_gem_fini(pfdev);
+>  	panfrost_perfcnt_fini(pfdev);
+>  	panfrost_jm_fini(pfdev);
+>  	panfrost_mmu_fini(pfdev);
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index 96a66d673ba6..9882a3ede75f 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -1003,14 +1003,9 @@ static int panfrost_probe(struct platform_device *=
+pdev)
+>  	if (err < 0)
+>  		goto err_out1;
+> =20
+> -	err =3D panfrost_gem_shrinker_init(&pfdev->base);
+> -	if (err)
+> -		goto err_out2;
+> =20
+>  	return 0;
+> =20
+> -err_out2:
+> -	drm_dev_unregister(&pfdev->base);
+>  err_out1:
+>  	pm_runtime_disable(pfdev->base.dev);
+>  	panfrost_device_fini(pfdev);
+> @@ -1024,7 +1019,6 @@ static void panfrost_remove(struct platform_device =
+*pdev)
+>  	struct panfrost_device *pfdev =3D platform_get_drvdata(pdev);
+> =20
+>  	drm_dev_unregister(&pfdev->base);
+> -	panfrost_gem_shrinker_cleanup(&pfdev->base);
+> =20
+>  	pm_runtime_get_sync(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.h
+> index a2277ec61aab..bac0c415d4da 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.h
+> @@ -4,6 +4,10 @@
+>  #ifndef __PANFROST_DRV_H__
+>  #define __PANFROST_DRV_H__
+> =20
+> +#if IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
+>  extern bool panfrost_transparent_hugepage;
+> +#else
+> +#define panfrost_transparent_hugepage false
+> +#endif
+> =20
+>  #endif
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_gem.c
+> index 3a7fce428898..7b993a089af2 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+> @@ -15,20 +15,25 @@
+>  #include "panfrost_gem.h"
+>  #include "panfrost_mmu.h"
+> =20
+> -void panfrost_gem_init(struct panfrost_device *pfdev)
+> +int panfrost_gem_init(struct panfrost_device *pfdev)
+>  {
+>  	int err;
+> =20
+> -	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
+> -	    !panfrost_transparent_hugepage)
+> -		return;
+> +	if (panfrost_transparent_hugepage) {
+> +		err =3D drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+> +		if (drm_gem_get_huge_mnt(&pfdev->base))
+> +			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> +		else if (err)
+> +			drm_warn(&pfdev->base,
+> +				 "Can't use Transparent Hugepage (%d)\n", err);
+
+This can probably be turned into:
+
+		if (err)
+			drm_warn(&pfdev->base,
+				 "Can't use Transparent Hugepage (%d)\n", err);
+		else
+			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+
+since there's no world where drm_gem_get_huge_mnt() would return NULL if
+drm_gem_huge_mnt_create() returns 0 when CONFIG_TRANSPARENT_HUGEPAGE=3Dy.
+The pre-existing checks where there to cover CONFIG_TRANSPARENT_HUGEPAGE=3Dn
+which you already cover by not entering this branch.
+
+> +	}
+> =20
+> -	err =3D drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+> -	if (drm_gem_get_huge_mnt(&pfdev->base))
+> -		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> -	else if (err)
+> -		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
+> -			 err);
+> +	return panfrost_gem_shrinker_init(pfdev);
+> +}
+> +
+> +void panfrost_gem_fini(struct panfrost_device *pfdev)
+> +{
+> +	panfrost_gem_shrinker_fini(pfdev);
+>  }
+> =20
+>  #ifdef CONFIG_DEBUG_FS
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/pa=
+nfrost/panfrost_gem.h
+> index 79d4377019e9..5c823cdbd980 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+> @@ -129,7 +129,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *n=
+ode)
+>  	return container_of(node, struct panfrost_gem_mapping, mmnode);
+>  }
+> =20
+> -void panfrost_gem_init(struct panfrost_device *pfdev);
+> +int panfrost_gem_init(struct panfrost_device *pfdev);
+> +void panfrost_gem_fini(struct panfrost_device *pfdev);
+> =20
+>  struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev=
+, size_t size);
+> =20
+> @@ -154,8 +155,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *=
+bo,
+>  void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
+>  void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *b=
+o);
+> =20
+> -int panfrost_gem_shrinker_init(struct drm_device *dev);
+> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
+> +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
+> +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
+> =20
+>  void panfrost_gem_set_label(struct drm_gem_object *obj, const char *labe=
+l);
+>  int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/g=
+pu/drm/panfrost/panfrost_gem_shrinker.c
+> index 2fe967a90bcb..fefae87535d6 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> @@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, =
+struct shrink_control *sc)
+>   *
+>   * This function registers and sets up the panfrost shrinker.
+>   */
+> -int panfrost_gem_shrinker_init(struct drm_device *dev)
+> +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
+>  {
+> -	struct panfrost_device *pfdev =3D to_panfrost_device(dev);
+> -
+>  	pfdev->shrinker =3D shrinker_alloc(0, "drm-panfrost");
+>  	if (!pfdev->shrinker)
+>  		return -ENOMEM;
+> @@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *de=
+v)
+>   *
+>   * This function unregisters the panfrost shrinker.
+>   */
+> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
+> +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
+>  {
+> -	struct panfrost_device *pfdev =3D to_panfrost_device(dev);
+> -
+>  	if (pfdev->shrinker)
+>  		shrinker_free(pfdev->shrinker);
+>  }
+>=20
 
