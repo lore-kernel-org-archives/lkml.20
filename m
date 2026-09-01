@@ -1,65 +1,65 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E8C38A72B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:04:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CDC38A72B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:04:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788224677; cv=none; b=nhr6lDRTETrkA9CRyFvdYowOFpGUg88cZncf56FLFQQvSJ6RLUEgjVKGVwVfx3sO9oPS9tA1YchoxxaYrAKE6AMdtmGYFfWIQ3R7r4YmypYf4sYnueaSFI4F/J+jitNTlwLZHEQ1W+CniUq8mmhtk2D3k6XiHIpgfQcxsPlH2mM=
+	t=1788224686; cv=none; b=O2/jOltqFcMMX/Hth5Fo/7u4tzrt+ZrqMqMAOydc9Iy+MGBljiSgVucjBLtOQ08iXZ/vr3/LaCuR7pHlj9e7es5ymmkfofAbUlMvg6bjPuU08Q8Xz2roOMszhozIATUYXxDaT7ZVQwpcIqBEtPwCH9180O6bJPYsh1m/p8qQvdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788224677; c=relaxed/simple;
-	bh=CQFEUDdrBOr25kMcKMXOfOQ/OinpeF576SKItpXVsJg=;
+	s=arc-20240116; t=1788224686; c=relaxed/simple;
+	bh=0JGUpE4k1PmLAxdyW1CDm+kOaSuNwlxy5EWP/0iy7YA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dJIHEjoPFGWxlkf4CRQl98EKHGFJqNSTpx5p4z4LHkUJYqT4/AHEhUd+sBi/xfQjsDRMVNIlp5oheYs5UCn3gVygBDK3eg2QF4M+9pr5DRb28s/Ed8iQ8T317vLdD2ILe9Sinf2k1Xj9sUhfufQq+U90+HVTbOXyJKG5c95I+ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZsBDaC0/; arc=none smtp.client-ip=209.85.216.42
+	 MIME-Version:Content-Type; b=KxEe1p7UVqn0q8PtldHSRh7qv3gYAoknWofuf6XMGJ2fs4lc3NCfy9X0OcReSxG2fCbbLc5cG1dUCgVsVfIiUo3v8N0WTf6vqXFKIuhI+OlCyerj/TBhO4mQwlwuPG2LSjmBUw/ifzg9fwxlIzFA7oEMZy27FNUeNpv4LPAjLCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZH/KDUO1; arc=none smtp.client-ip=209.85.215.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZsBDaC0/"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38e58034d05so3507366a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:04:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZH/KDUO1"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c9e607d81fcso271905a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:04:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788224675; x=1788829475; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788224685; x=1788829485; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UyJ6OADjMeEJ9CwYlU3XCJzTi4L5CBgkg5gwk3kMxf4=;
-        b=ZsBDaC0/+fQmyD8tSNma39eqdyThM8INc0UOACy2Uaxa6xkRXPoltbKVX9msgUyY4j
-         HDRReL3Hu9mqFn0Lj7970n4SznkLZri3iVOHP9GPmteNf73PClvaBg61H2fabq4dyoOh
-         cYPi10HRGV+j6vTQ7rWmH2UHTqmloTehgFJKpe6PB6tv8FJMQdvC77/IK/BCRxL2Sl2t
-         3A/puScoxik8/IcLJKrXhZ9TikflCIgYwSe6qu73WcYbLMCspK75Ai4l2aiQkQz26Fvs
-         6PDEbZjmMUOTG5oSZnWWwvYkyA535ABSgC0DEdMnaTdtOiMJ69mCj2T3m0CItNZdQnR5
-         LT5g==
+        bh=jIcsSTZcRttPSVFsvlIP8uLVExwGwURdPEd6Mb7+UkA=;
+        b=ZH/KDUO1OJqNyRRHjzC3y73qmUoR1g2KaffL5ytGdfTG1zYhN6QbNTJaivUMq/fIPM
+         dV3KeYx2AzQ8DSmt+WOy0VzUMTv4VLQz6PqN9S74fROy6FYg0oIOyLA+YzYVASRKWjAZ
+         LHuFbnYDNVf0tHJfIwTp/Ro0c8LQMXo6p2wojDvEx0nniofuD3TXYO48CgwHbhR62VJq
+         QJoKoDckeLshKSmuD9hXLcKfCh3fguWu/h6v+vU2qSAVHxRYC1x7JP7z0i0vipxcWCf5
+         Wfp0Df0fnEekfKgCIGZN8VNGMW3pwLXfNnPMvllz/NlGymilnXXl2QCyJPvC9IVpzSCb
+         HMQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788224675; x=1788829475;
+        d=1e100.net; s=20251104; t=1788224685; x=1788829485;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UyJ6OADjMeEJ9CwYlU3XCJzTi4L5CBgkg5gwk3kMxf4=;
-        b=cPwQD3ab2zKNyykxzn0MCUtdQsUC7VEXWEakDPxHLV9vs1Qg40cUpMaDh09GdPiJu1
-         TU7IhXWwQP6ukp0kP6DH3XgA5Vm5Rk3WrysCeYoc4lMSH/YMP0a2bHI8Z+FCOrZAbN1W
-         VOfgPbHZuc+YoaqWZblFq3d7Fl9oFqDE7a9yALUhRwxtrIEZbvJJ2jGT6TL/4gexiLU5
-         M9+rjPphNS6D7fbTdZfLisyaL8zHQAnMw1JoRy5c7FO1Uf3qjpMXwiGvkgJFrGS/Xpsk
-         E6Ji8lcanoF/U1NzQYPz7V2IqWVzgCLP8eBgUGTZV+5aXp/MbVBWGS2ORS8WfKsA62Ur
-         ZADw==
-X-Forwarded-Encrypted: i=1; AKwUvBzlKrr584xFPh4f1LooymDwUdI2hPsVWvVgt76FLVm3m5uEcIbJJMbxD1JHyu8oqW7ao6HwPena+BkD5Yc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnFUN3MDK75MQRwJ8G6/sT9C5e0UUCTp1ubR1/Tgy+ijz4dhoG
-	YmvbtmscwI5omsk6AL1v+Hl3CKSQ8GCd0PRzFIM78KqldsxJM8Rs+wiz
-X-Gm-Gg: AYBFou0ZHUeIQeFXtLTM0FJjyTh2/9ETLSOhvWCbepSqodCP5YVYh7FJzBtoa82dBeX
-	AbAKJDhztVxBtcsAB1Ld64jP6H1fzR2/HfkxFDP9tpsMANfY4zqNOLSkj2HceMG744Kz92g3TOu
-	ECps1zelPSDIVf2+fP8O5NCXNH6wF6acGAZa12NZGZFaB2xa5sBQE/Au/ocZ7fisGjL/iM3aU6E
-	3rYzJcz2l+O9PyQyEoSIxpa1KEuib/mKUQC8A+ozjVTvz1uJS9/18p1ycuru6QURso6FzOuTZn/
-	jIccAyMJGJ1DgkNkjWi2O/Dld3bKmIohD5YB5C4rYDB2+5j23/lS+opZLTvh+d12/+4YNHdHeGd
-	Myy164KrdDU2aJahAXEHlWjBmWhcWqwFOIXJV+DckQ2zsnmO5AGvhXsqae1CIyqb70OpRDZ/pZ2
-	ih2WhD4lOTg0+xMkFGIfib1Q5+xmRp82Vtpai8xXgwm16K1gGzWRbxaH1NG/c68UGKEws+eEPjg
-	4k/OQ==
-X-Received: by 2002:a17:90b:54d0:b0:398:d93a:b343 with SMTP id 98e67ed59e1d1-39907ab0ec5mr6643406a91.3.1788224675395;
-        Mon, 31 Aug 2026 18:04:35 -0700 (PDT)
+        bh=jIcsSTZcRttPSVFsvlIP8uLVExwGwURdPEd6Mb7+UkA=;
+        b=Veapv1S2rAnaeVIXQ0+51nVim6+Twx0oekYf0uNSsGiurj28uFAo3u36FiNGBNnSMC
+         HWw0QShVxi9t9DDJsRT6Bl2AcPjsKjng6UlIZvm8+ZRW5UAKz4DRX16OUKj83A8B6BNK
+         5Zv6S9VAGCvciKrqD2DzNQQYHe85NalDvM7pvKg3rj3VYuBCNfzBa1QW534CLhRKlC/r
+         hkmu/MwGQWN6Hn4p/kHjDHc9rRf8ZgxueYZ3rSC1TUj5XW1ICfT7icK2JdQ7jTDeuNJI
+         ughdINqtAW9LJaGfQ6EFj/fFHICoSVAOLHSY1mg3cIe4CCv9WnnpKgDQLL+V/8IyjKfR
+         bZWA==
+X-Forwarded-Encrypted: i=1; AKwUvBwl7wmVI3eXg8dEVkU7ZzDL+oOAz+9yHlnLdsrVOJ+5grwQHcWRwztkmeQfrlbuN46SfSZgI5Ux3+t5PFs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYpp6wTEgO03UGBGvVAgY9+J19cDH3Sr5glB5yMuOhXSh7EZLQ
+	U4zTVerS1DJLU1RGbTZRoEqHERk4sF5Kzt2k1TYxwea2anq/frUFdA+h
+X-Gm-Gg: AYBFou36vecLagGaDat8V3PqPeOODuv3JkJ9xDjcYnRNZzpHTP9E6TumeKSwQ96UdX2
+	IH8QB4QRzzUkKCg3igWcPvTTNxOTvts/G+jf/JTGNjHjaB7rEGpfzg6HUd/pHKcfHvph4bKMGlJ
+	H5l2k7/urGLV3b7cxoTNfNw+zNnluoEkI/jX0d2MuiMwS2RCMW64xMk+Wd35Fm3/6K7AJNItpQw
+	nXy/fmI6WrOBEo+2YhMXYYmHMDhf2GyA6HZeTUJGQWYJLJZ50Mie5rOIRAxCtzoj+1Z6od6yZVy
+	fbwpm3ibFPJcBHWVTMO2PqZUBnvxrl3FSFCDGyoxi1HpUhQmz8MF2k1yKKUK1j1B+2YopkbYqa+
+	9I1Wgen82X6vKz3eiI/P0ph/haTXFRfXiAx+Q93AcsbPbxtt6Rt9ZeNuQSCuxDSITaIH4hL3kdR
+	//rexOxvtVo9wVLkOQ2K+aGdtxDmwrVHoB1bcLT49LeuDLGTVeIjw0rh2IwlBgOP4I1tfc6u/ZB
+	04zeg==
+X-Received: by 2002:a17:90b:4a81:b0:399:1f8b:d255 with SMTP id 98e67ed59e1d1-3991f8bd96bmr528414a91.5.1788224684691;
+        Mon, 31 Aug 2026 18:04:44 -0700 (PDT)
 Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d49e9e0sm2372024a91.11.2026.08.31.18.04.26
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d49e9e0sm2372024a91.11.2026.08.31.18.04.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 18:04:34 -0700 (PDT)
+        Mon, 31 Aug 2026 18:04:44 -0700 (PDT)
 From: alistair23@gmail.com
 X-Google-Original-From: alistair.francis@wdc.com
 To: linux-pci@vger.kernel.org,
@@ -84,12 +84,12 @@ Cc: gary@garyguo.net,
 	bjorn3_gh@protonmail.com,
 	alex.gaynor@gmail.com,
 	aliceryhl@google.com,
-	Dan Williams <dan.j.williams@intel.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v3 04/21] X.509: Make certificate parser public
-Date: Tue,  1 Sep 2026 11:03:30 +1000
-Message-ID: <20260901010347.2614656-5-alistair.francis@wdc.com>
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Dan Williams <dan.j.williams@intel.com>
+Subject: [PATCH v3 05/21] X.509: Parse Subject Alternative Name in certificates
+Date: Tue,  1 Sep 2026 11:03:31 +1000
+Message-ID: <20260901010347.2614656-6-alistair.francis@wdc.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260901010347.2614656-1-alistair.francis@wdc.com>
 References: <20260901010347.2614656-1-alistair.francis@wdc.com>
@@ -108,147 +108,53 @@ The upcoming support for PCI device authentication with CMA-SPDM
 (PCIe r6.1 sec 6.31) requires validating the Subject Alternative Name
 in X.509 certificates.
 
-High-level functions for X.509 parsing such as key_create_or_update()
-throw away the internal, low-level struct x509_certificate after
-extracting the struct public_key and public_key_signature from it.
-The Subject Alternative Name is thus inaccessible when using those
-functions.
-
-Afford CMA-SPDM access to the Subject Alternative Name by making struct
-x509_certificate public, together with the functions for parsing an
-X.509 certificate into such a struct and freeing such a struct.
-
-No functional change intended.
+Store a pointer to the Subject Alternative Name upon parsing for
+consumption by CMA-SPDM.
 
 Signed-off-by: Lukas Wunner <lukas@wunner.de>
-Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+Reviewed-by: Wilfred Mallawa <wilfred.mallawa@wdc.com>
 Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Acked-by: Dan Williams <dan.j.williams@intel.com>
 ---
- crypto/asymmetric_keys/x509_parser.h | 42 +--------------------
- include/keys/x509-parser.h           | 55 ++++++++++++++++++++++++++++
- 2 files changed, 56 insertions(+), 41 deletions(-)
- create mode 100644 include/keys/x509-parser.h
+ crypto/asymmetric_keys/x509_cert_parser.c | 9 +++++++++
+ include/keys/x509-parser.h                | 2 ++
+ 2 files changed, 11 insertions(+)
 
-diff --git a/crypto/asymmetric_keys/x509_parser.h b/crypto/asymmetric_keys/x509_parser.h
-index b7aeebdddb36..39f1521b773d 100644
---- a/crypto/asymmetric_keys/x509_parser.h
-+++ b/crypto/asymmetric_keys/x509_parser.h
-@@ -5,51 +5,11 @@
-  * Written by David Howells (dhowells@redhat.com)
-  */
+diff --git a/crypto/asymmetric_keys/x509_cert_parser.c b/crypto/asymmetric_keys/x509_cert_parser.c
+index bfd10f0195e0..c3ec2846695a 100644
+--- a/crypto/asymmetric_keys/x509_cert_parser.c
++++ b/crypto/asymmetric_keys/x509_cert_parser.c
+@@ -596,6 +596,15 @@ int x509_process_extension(void *context, size_t hdrlen,
+ 		return 0;
+ 	}
  
--#include <linux/cleanup.h>
--#include <linux/time.h>
--#include <crypto/public_key.h>
--#include <keys/asymmetric-type.h>
--#include <crypto/sha2.h>
--
--struct x509_certificate {
--	struct x509_certificate *next;
--	struct x509_certificate *signer;	/* Certificate that signed this one */
--	struct public_key *pub;			/* Public key details */
--	struct public_key_signature *sig;	/* Signature parameters */
--	u8		sha256[SHA256_DIGEST_SIZE]; /* Hash for blacklist purposes */
--	char		*issuer;		/* Name of certificate issuer */
--	char		*subject;		/* Name of certificate subject */
--	struct asymmetric_key_id *id;		/* Issuer + Serial number */
--	struct asymmetric_key_id *skid;		/* Subject + subjectKeyId (optional) */
--	time64_t	valid_from;
--	time64_t	valid_to;
--	const void	*tbs;			/* Signed data */
--	unsigned	tbs_size;		/* Size of signed data */
--	unsigned	raw_sig_size;		/* Size of signature */
--	const void	*raw_sig;		/* Signature data */
--	const void	*raw_serial;		/* Raw serial number in ASN.1 */
--	unsigned	raw_serial_size;
--	unsigned	raw_issuer_size;
--	const void	*raw_issuer;		/* Raw issuer name in ASN.1 */
--	const void	*raw_subject;		/* Raw subject name in ASN.1 */
--	unsigned	raw_subject_size;
--	unsigned	raw_skid_size;
--	const void	*raw_skid;		/* Raw subjectKeyId in ASN.1 */
--	unsigned	index;
--	bool		seen;			/* Infinite recursion prevention */
--	bool		verified;
--	bool		self_signed;		/* T if self-signed (check unsupported_sig too) */
--	bool		unsupported_sig;	/* T if signature uses unsupported crypto */
--	bool		blacklisted;
--};
-+#include <keys/x509-parser.h>
- 
- /*
-  * x509_cert_parser.c
-  */
--extern void x509_free_certificate(struct x509_certificate *cert);
--DEFINE_FREE(x509_free_certificate, struct x509_certificate *,
--	    if (!IS_ERR(_T)) x509_free_certificate(_T))
--extern struct x509_certificate *x509_cert_parse(const void *data, size_t datalen);
- extern int x509_decode_time(time64_t *_t,  size_t hdrlen,
- 			    unsigned char tag,
- 			    const unsigned char *value, size_t vlen);
++	if (ctx->last_oid == OID_subjectAltName) {
++		if (ctx->cert->raw_san)
++			return -EBADMSG;
++
++		ctx->cert->raw_san = v;
++		ctx->cert->raw_san_size = vlen;
++		return 0;
++	}
++
+ 	if (ctx->last_oid == OID_keyUsage) {
+ 		/*
+ 		 * Get hold of the keyUsage bit string
 diff --git a/include/keys/x509-parser.h b/include/keys/x509-parser.h
-new file mode 100644
-index 000000000000..8b68e720693a
---- /dev/null
+index 8b68e720693a..4e6a05a8c7a6 100644
+--- a/include/keys/x509-parser.h
 +++ b/include/keys/x509-parser.h
-@@ -0,0 +1,55 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/* X.509 certificate parser
-+ *
-+ * Copyright (C) 2012 Red Hat, Inc. All Rights Reserved.
-+ * Written by David Howells (dhowells@redhat.com)
-+ */
-+
-+#ifndef _KEYS_X509_PARSER_H
-+#define _KEYS_X509_PARSER_H
-+
-+#include <linux/cleanup.h>
-+#include <linux/time.h>
-+#include <crypto/public_key.h>
-+#include <keys/asymmetric-type.h>
-+#include <crypto/sha2.h>
-+
-+struct x509_certificate {
-+	struct x509_certificate *next;
-+	struct x509_certificate *signer;	/* Certificate that signed this one */
-+	struct public_key *pub;			/* Public key details */
-+	struct public_key_signature *sig;	/* Signature parameters */
-+	u8		sha256[SHA256_DIGEST_SIZE]; /* Hash for blacklist purposes */
-+	char		*issuer;		/* Name of certificate issuer */
-+	char		*subject;		/* Name of certificate subject */
-+	struct asymmetric_key_id *id;		/* Issuer + Serial number */
-+	struct asymmetric_key_id *skid;		/* Subject + subjectKeyId (optional) */
-+	time64_t	valid_from;
-+	time64_t	valid_to;
-+	const void	*tbs;			/* Signed data */
-+	unsigned	tbs_size;		/* Size of signed data */
-+	unsigned	raw_sig_size;		/* Size of signature */
-+	const void	*raw_sig;		/* Signature data */
-+	const void	*raw_serial;		/* Raw serial number in ASN.1 */
-+	unsigned	raw_serial_size;
-+	unsigned	raw_issuer_size;
-+	const void	*raw_issuer;		/* Raw issuer name in ASN.1 */
-+	const void	*raw_subject;		/* Raw subject name in ASN.1 */
-+	unsigned	raw_subject_size;
-+	unsigned	raw_skid_size;
-+	const void	*raw_skid;		/* Raw subjectKeyId in ASN.1 */
-+	unsigned	index;
-+	bool		seen;			/* Infinite recursion prevention */
-+	bool		verified;
-+	bool		self_signed;		/* T if self-signed (check unsupported_sig too) */
-+	bool		unsupported_sig;	/* T if signature uses unsupported crypto */
-+	bool		blacklisted;
-+};
-+
-+struct x509_certificate *x509_cert_parse(const void *data, size_t datalen);
-+void x509_free_certificate(struct x509_certificate *cert);
-+
-+DEFINE_FREE(x509_free_certificate, struct x509_certificate *,
-+	    if (!IS_ERR(_T)) x509_free_certificate(_T))
-+
-+#endif /* _KEYS_X509_PARSER_H */
+@@ -38,6 +38,8 @@ struct x509_certificate {
+ 	unsigned	raw_subject_size;
+ 	unsigned	raw_skid_size;
+ 	const void	*raw_skid;		/* Raw subjectKeyId in ASN.1 */
++	const void	*raw_san;		/* Raw subjectAltName in ASN.1 */
++	unsigned	raw_san_size;
+ 	unsigned	index;
+ 	bool		seen;			/* Infinite recursion prevention */
+ 	bool		verified;
 -- 
 2.55.0
 
