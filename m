@@ -1,133 +1,178 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030D92EEE88
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB8D3D6CB0
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:03:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788228160; cv=none; b=lfaNqtgKcGhWZP0ggoeN/cBgRPDFhhXpN0vKp6bIR10M0m9ARJlA7ISTvUYRtqSd/ZSqEHwXK1iKXJBF4H1jvw5Beb/SdU4vwEuFOR4ycrKFEU6RNIpni2yyx7z1RP8GSqJRbelKBELUUTcwy5XMv37ZJNF819P0/Nl03WF/GBo=
+	t=1788228214; cv=none; b=eK/S9q+P6mgGxR7NOfqrwOVjJm3O3gdwZKoedmfoctOw/Pzc5IYlf/rQRqcy73KBDGG9/Z9uQ9xXLTyJicpraghBFoCIl+sgBcu4oc7BKTcTla1qnTlYY1aNCvYjwOyY+aaHHg5sbEIYcF4LkNZRGfvWehcycCLKnz8y7kdx15w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788228160; c=relaxed/simple;
-	bh=DKAZQ4HB8RVRyPINtHAlvihaYgNW2N0m1l6ppV9ct0c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QqeXQcnC0ug+uZu+8bPdaAtMLTd/unLRAl//EFvhnY9CBMOPEbysH3q2F+f6uP97l/m5/JfCCG9Pj2tY9OKvydSQLrXskxTHH6Cvew+BdQDEinkSGxZtUxbs9sYwKqSr6gS8p2dbngQK8usTv239UlDAMiHGfj7Grg2+un7VJ3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m3ypPjrY; arc=none smtp.client-ip=209.85.210.173
+	s=arc-20240116; t=1788228214; c=relaxed/simple;
+	bh=hJ24dHwYNskkMzJQOdxprEVRtyGXL1/rtztojA+8fug=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lWQOeiHXfaKpKcyJqD2pJ7T01CdaE/Koab/hoGUxIuyWzeriNBIykyD3xF6lwKEjKA39j2ynW1CrGrhDghr204HafIoVT1BM0IbgTF5llQyfWfGAZFWllfHinNnZ0XAKgkIbeXEV1QHIcKZ5HxiAcG4yAu8Ld1M1GSy6RjDLzLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FxHAfTgF; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m3ypPjrY"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8485b358552so4274412b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:02:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FxHAfTgF"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso665652a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:03:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788228148; x=1788832948; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xndijz6hV8q9in3RSA1ablFs8VlKyT94mnXwH4oGlXE=;
-        b=m3ypPjrYii6n/6JqvApbVSBQwf8fPWfJqr5KrTxkCaHfpDrNumXOJkTKe87EZmT5u9
-         IFVhRFkYDnKN58EWJ8zfCc+GHPPiNXfFWEinFk3sIYoCK/C1eoKS0FNX8qGIw0Z5bDd5
-         ivUOg7CqLSC03SLe53kynnVI8AilnfyBraZBwMkxVCFFUpHLFHyefp9qfRqAG6A/jb2g
-         k5Sv0eg5pZsZivr+0WDiBHbZnC304OTSOwa5WHh38xNyRSAFrrPWSzqysoqJ8EEedmRM
-         6gEJigwdlumWYiEmU2qGy244xRLLir7TrHpd+BjZ7coUA+BbvZeB4N+GGRDQcbhq6wOK
-         1mZw==
+        d=gmail.com; s=20251104; t=1788228205; x=1788833005; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rCEYFhj1mjK96Rv2xJZjQiJk6x21bXoFnt8xqzOlIK8=;
+        b=FxHAfTgFZzStqeO89WOootF++2mlHttZwYi0q5auVr6udbya6PA5IT+rs/vUyKIVq8
+         B/twtY63Gg68FEGBwolZn7yOmhsKtB7faeHoyKTp4PQvehpl3HK6Px80UhbYDgvJM3Sm
+         XloDkmKX6Uoy34+HtfrpQ4xnkr3/mdTwyT0k8emNcYaTiJ91iuh6M7F4luiJmVoANGij
+         ixLoJ0sBKAwGE9JNzV93tLQsrq1+ufvCAbkIlnnG84fEOjg/5lSbl8O8dzPzl8Hw99hO
+         YcCsd1FSOkpQvhXBeMugOZ6RPJ0rGzD8DZFXrhX1MSOXzZ6XL7HNQz6+q6Vo4A5Sz/Q+
+         7AwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788228148; x=1788832948;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xndijz6hV8q9in3RSA1ablFs8VlKyT94mnXwH4oGlXE=;
-        b=DO1QJOpLl45Sy/WdafC1R1Lflz5gsjG0GmgyYzSJ+ptycVJUcikqhAkAFIQk9Z8Agm
-         tWDNqQZFbXGqia0vwhTcn/yvlURTCdGookNKwkZxy0SvIHi2yncu2YQ/Q0SiKAyc77eG
-         8X71LLY9LaApgTtKNuUHvmle1iwPBr9R9FvtwpTD6ltDR+ehqYMih+4g6HdiBBl9wGRv
-         kWvUCG0/kHW37WMM3YI9KREtyMUw2c+wbKtFmR7SdkGmhq88X6OMb3cxajStb98dsPWP
-         dj7ygCPL+RIU5ah9cJMk+U4/gahPy+ErgYc99wZpQ+XRxYm/vAgAgSw51j7aoQCeGrBU
-         FJ+w==
-X-Forwarded-Encrypted: i=1; AHgh+RoefD7+QI09ZwnEbOoI6uoSjNZ0zDjb2Lq06SiSXXPmr+BfzPyXvPq4Q/1hHm8cuPQLpBrbglfcYqIbRA0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEs2tfL0oDzeBDsslWjlKaTz/uFzvMzy3pjKKFvcHZO7sUu+wp
-	2bpzvndoPXCWOrw8TrmBxePI+8JZu1jKkliC0yTx78dLzgxmbceOx4IN3jO7yg==
-X-Gm-Gg: AR+sD11n4HW8GWOpQQ3CYH1Iv0lbaSAD2qsGb5pcM5+js/UV3xdCdE2auwf3nRZTa0b
-	zGMEarG/eI9p3eeBICUc58TnAQUrWIPN9/Mc70D6hL6ndVNgIyP2vZCOtyZ1y6oqVMuU9TQfxxk
-	HnWAXdttCEXeLouBALIiC3IQEfXptE+WmNzDn8Z/b68JycW7YXc93uEpu655vVL6GOFDRyQ3ovE
-	VoFlAysu2xnDvTdYNqopCBBDSoYmIKmPwo9l83+F7LfxpZPna7WFMdkjIn9huaxypWYYW1piMfk
-	g5C6/ZfYyX0UXNdXwVR5L4Ks/1NZk5P8DNVYJP2ph3MUzQygjnA42u8JkvXJiA/XuBVW7DBh5PD
-	oy1BFZbPjtYbczDRT4g6MDlBQJzyDZEbLXN1Xu6a2XdIZmjVler8nBFOeYFqQjEO1KEMgrTv5v2
-	164K4Uq0t/c4iOwaXqUcQHg2xxXMrtGniEfTwSGXJ6vWhhCc9RjLjVncQ8+tdtFBLU9ajHhFr9I
-	B9i7bUl
-X-Received: by 2002:a05:6a20:d502:b0:3d3:aec2:4dc8 with SMTP id adf61e73a8af0-3d7b0548a7cmr8045683637.20.1788228148286;
-        Mon, 31 Aug 2026 19:02:28 -0700 (PDT)
-Received: from [10.240.116.157] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f36e8ee6sm5115496a12.26.2026.08.31.19.02.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 19:02:27 -0700 (PDT)
-Message-ID: <7b007eef-2f6d-c86a-065b-85eb85b5ee0f@gmail.com>
-Date: Tue, 1 Sep 2026 10:02:20 +0800
+        d=1e100.net; s=20251104; t=1788228205; x=1788833005;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rCEYFhj1mjK96Rv2xJZjQiJk6x21bXoFnt8xqzOlIK8=;
+        b=Z8cK2nwEUBayCe59+2iNkjYrnYfUZrhvPAvwfSRZSyeK3SG75MBOuAtUGnnLvwYgQp
+         k5xm1fpKqZyxpoE3sU489hhVknlzTY+aw1vSpiwhHeZLCyAUyKo6QYmdd9a5WxASXXIh
+         XHic06HtvvfcyJREczbn104zIhKgqJv4o9OKLwpryeRySqBl56256KujL1QLsDJiXBJq
+         OjCV2ii10fA8xBoM4IZv5DUnfmosNHBNJOfSJOxbLp2erj52sTZVAXVxg57WEsm06vdN
+         C/AurFbvRo1SdOvpn9m2bM/NxWhRu4s7Mq/oftb5Y0vvUp/e7w0s1Jz5RacRjzS1KhIO
+         QA2g==
+X-Forwarded-Encrypted: i=1; AKwUvByKFMqsS1S83xzZ9Mgl1F2HZKwPeT2/IGvWoElp5JNVRzwnp+UeW7HnQX7e5ccYnjKqQHOOXNc2ZLH15W8=@vger.kernel.org
+X-Gm-Message-State: AFuF++km7CHxXS7SOv8fqfqo//BF9lrKL4zBIIS9uzVU3aNs1fTuTo/d
+	AFD8IPTJPMKIGcwgRP62iLMog3/3MifdT3Rb+8H4dSYucIPkcgJ0q767
+X-Gm-Gg: AYBFou1l+dZtaOzNVgvY5+hnGaLGtgSJ+lPHZQMEmX+KCbz/QBM3W4cIrvikvtvZIpM
+	EaCH/CNAfnSWjKP+g/xgBDj7qLgvHyhsHulqCQV34pkq0byQ/HyvdKc2XGvBTHp4IOPbpsKDnOz
+	7PU7hBfMbEicYDl6yv9ZET+vM/V2KcHhpgG7yp6AUookKvvZSdx/YAB5jWHsTeL+usScP4677Dw
+	Pl8mtgeDKgHDfhGIvsKCMMt5EWLQRC9zxevbSevolYQQEs76yWCkLkiOChg51tkJo3UtMA21zED
+	K+8ueNB6OIqfdOjSLNSJ4HfKnM+8WMFLGljlz02nUylyQiDj3ieS1Z66nUrgwszjxV94e2kSdCq
+	ArlIELHoo3MZiA57sGL1EoV4D1Jd4mqoWXDhzBnUWQIRN0EwCEC/rNdRedAFYrQAurZ7XACMUS0
+	ieGlg9PSs51B43sEXIvhzRQaGBB8or6kGYF1xZBqI3egDaRkzymGAKqPw+WUYGHZfDmSgpSZU=
+X-Received: by 2002:a17:90b:17cc:b0:398:d8eb:cb2a with SMTP id 98e67ed59e1d1-398d8ebcd21mr13893358a91.23.1788228203814;
+        Mon, 31 Aug 2026 19:03:23 -0700 (PDT)
+Received: from [163.43.103.131] ([163.43.103.131])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bd46185sm3020899a91.5.2026.08.31.19.03.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 19:03:22 -0700 (PDT)
+From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Subject: [PATCH RFC net-next v2 0/2] seg6: add support for the SRv6 End.MAP
+ behavior
+Date: Tue, 01 Sep 2026 11:03:17 +0900
+Message-Id: <20260901-seg6-mobile-end-map-v2-0-1629bfc166eb@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.15.0
-Subject: Re: [PATCH v2] zram: fix idle age_sec underflow in idle_store()
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, minchan@kernel.org,
- axboe@kernel.dk, bgeffon@google.com, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, stable@vger.kernel.org
-References: <20260828083149.45760-1-jiahao.kernel@gmail.com>
- <20260828102446.3eb7f3dc779753b831e33fe6@linux-foundation.org>
- <apT-ocFYDmU6iC-j@google.com>
- <c961850c-09d0-3366-73e0-1932c1dc00e5@gmail.com>
- <apVK4g2ikVJe_Hcg@google.com>
-From: Hao Jia <jiahao.kernel@gmail.com>
-In-Reply-To: <apVK4g2ikVJe_Hcg@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGUylmoC/21OSw6CMBC9Cpm1Y9qCfFyZmHgAt4YFlBHG0JZQJ
+ BjC3QXcunz/N4OnnsnDOZihp5E9O7sCdQhAN4WtCblaMSihYnFSIXqqYzSu5JaQbIWm6DDTpFU
+ kM5nKBNZk19OTp731AffbdeMsDWhpGiD/Gfy7fJEetu5NbtgPrv/sP0a5B/fJRIq/k6NEgVlWk
+ lBVnMoovNSm4PaonYF8WZYvj/FCYdkAAAA=
+X-Change-ID: 20260523-seg6-mobile-end-map-9cec24191817
+To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
+ Andrea Mayer <andrea@common-net.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>, 
+ Ido Schimmel <idosch@nvidia.com>, Shuah Khan <shuah@kernel.org>
+Cc: Justin Iurman <justin.iurman@gmail.com>, linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Yuya Kusakabe <yuya.kusakabe@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3407;
+ i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
+ bh=hJ24dHwYNskkMzJQOdxprEVRtyGXL1/rtztojA+8fug=;
+ b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBqljJnrqPYNPJVnghNuErK3bsL7HSG2Fh371Tz5
+ WwFYlvsRpuJAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCapYyZwAKCRAq19F1Kl0b
+ TScrEADWSUE0T5JaaKxPdV7j4zjWEsUKkbwaWxAa8bOdnw8SqTH0e0p6P3III9H17W+VnDNe9JB
+ r32rGiRZXhBm/p0BtjGyPMq4/dPqRRpbsuqWpix+7JgFWzIkFFBejXJTfB67bRPXYRwaEWNFQdQ
+ ZIuMjtdcamvYalhKkeigGu1x8Jcz5EejrHn8QgL90YmUDmcr+uPT8U2mSXCJl9dMLFjz8ZMq09D
+ CUeha4moj5pN/1qx6bADSVIQVNE9AdYickPZ1zKLzwMM3D2gSLKL0v3DbIikG14fPMXkez+jjVU
+ k+E8cQ0Kb4vJtDZ3Fk9msZQQO99cWPIBN4zkt1JAfRbsBmXx4ROXSJmJjYPCEJLoD5KRaGAiKEL
+ sr5Puki9Ho7Rnh8UAaJeyfCPgzT8h8KGyHXC6zrJxTZJjb2hUhi/zEgTVL40RWdAamHuYV+F7n/
+ g4foQ9+s6hnRsl1Qe3gRwy6s9Woe+5EhvDMDoaZsEd4b1dFrbOD4Vl58zViJv3tA7/iV8h/zXF1
+ A+eHjXfafh9+YT4gn/Lb2Nw41UyYVqkBwyz3scPOAsJi8YlV7UnGn8Ay2w19CXLLPBXlgS0so2F
+ V+5bLrRy+o/APUS6SfVZNTeXfVE1O5ag1ZqRDAqnA6MJyxcduGECkczB7Y6fwcZGMr0Eb3Agj4o
+ YHQ6/FoeUqMbjmw==
+X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
+ fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
 
+End.MAP is the simplest of the SRv6 Mobile User Plane (RFC 9433)
+behaviors: it replaces the IPv6 destination address with the
+configured mapped SID and forwards via the IPv6 FIB without consuming
+the SRH.  This series is the first per-behavior rebuild of the SRv6
+Mobile User Plane v2 submission [1], split one series per behavior
+following upstream review.
 
+Because End.MAP is the first behavior to land, this series also
+introduces the SRv6 Mobile User Plane lwtunnel framework that the
+subsequent per-behavior series plug into:
 
-On 2026/8/31 17:38, Sergey Senozhatsky wrote:
-> On (26/08/31 16:37), Hao Jia wrote:
->> On 2026/8/31 12:15, Sergey Senozhatsky wrote:
->>> On (26/08/28 10:24), Andrew Morton wrote:
->>>> On Fri, 28 Aug 2026 16:31:49 +0800 Hao Jia <jiahao.kernel@gmail.com> wrote:
->>> [..]
->>>>
->>>> Thanks.  Sashiko asked a couple of questions about this change:
->>>> 	https://sashiko.dev/#/patchset/20260828083149.45760-1-jiahao.kernel@gmail.com
->>>
->>>
->>>> Does this early return prevent marking valid boot-time pages as idle?
->>>> When a page is accessed during the first second of system boot, its ac_time
->>>> would be 0.
->>>
->>> There is no possibility for zram to hold pages during first second of
->>> system boot, regardless of whether zram was configured as a swap device
->>> or as a block device (mount-ed with real filesystem).
->>>
->>>
->>>> Can the early return above bypass this zram device initialization check?
->>>
->>> We already do that, e.g. when kstrtouint(buf, 0, &age_sec) fails.  Apart
->>> from that, that's not how one checks if device was initialized.  We may
->>> want to consolidate those checks, just for symmetry.
->>
->> Agreed on both points -- the early return is not a new "bypass", and
->> the write() return value was never a way to probe init state.
->>
->> How about moving the init_done() check to the top, so all the early
->> returns sit behind the same device-state check?
-> 
-> Yeah, I don't know...  Moving it under device lock doesn't buy us
-> anything.  We don't need device lock to validate integer rangers,
-> etc.  There are validations that we need to do under device lock
-> because those require a consistent device state.  But things like
-> "is system uptime less than supplied sysfs data" don't logically
-> require a device lock.
+  * a new LWTUNNEL_ENCAP_SEG6_MOBILE encap type with a
+    CONFIG_IPV6_SEG6_MOBILE build option,
+  * net/ipv6/seg6_mobile.c, which hosts the action dispatch table,
+  * include/uapi/linux/seg6_mobile.h, a dedicated SEG6_MOBILE_*
+    attribute namespace, so that attributes whose semantics differ
+    between the mobility behaviors and the RFC 8986 behaviors do
+    not overload the SEG6_LOCAL_* table.
 
-Thanks for the clarification. The current patch is enough, so no change 
-is needed.
+This layout follows the discussion on the v2 thread; feedback on it
+from the lwtunnel maintainers is particularly welcome.  Per the same
+discussion, netfilter hook integration, VRF support and SRv6-specific
+drop reasons are left out of this initial series and will be
+revisited separately.
 
-Thanks,
-Hao
+A matching iproute2 series adding the "seg6mobile" encap keyword
+follows shortly after this posting, since the selftest needs it to
+run.
+
+[1] https://lore.kernel.org/netdev/20260505-seg6-mobile-v2-0-9e8022bdfdb6@gmail.com/
+
+Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+---
+Changes in v2:
+- End.MAP: patch the L4 checksum also for an SRH with no segments
+  left and for first fragments; selftest cases added for both.
+- Use nla_parse_nested() for the nested attributes.
+- Rework the selftest helper and cases; wait for counters instead of
+  sampling them; add CONFIG_IPV6_SEG6_MOBILE to the selftests config.
+- Rename the SEG6_MOBILE_NH6 attribute and the nh6 keyword to
+  SEG6_MOBILE_MAPPED_SID/mapped_sid to match the RFC 9433 "mapped
+  SID" wording and avoid clashing with the SEG6_LOCAL_NH6 nexthop
+  semantics.
+- Trim the Kconfig help; add Assisted-by tags.
+- Link to v1: https://patch.msgid.link/20260710-seg6-mobile-end-map-v1-0-99be02d68143@gmail.com
+
+---
+Yuya Kusakabe (2):
+      seg6: add support for the SRv6 End.MAP behavior
+      selftests: seg6: add selftest for End.MAP behavior
+
+ include/net/seg6.h                               |   8 +
+ include/uapi/linux/lwtunnel.h                    |   1 +
+ include/uapi/linux/seg6_mobile.h                 |  61 ++
+ net/core/lwtunnel.c                              |   2 +
+ net/ipv6/Kconfig                                 |  10 +
+ net/ipv6/Makefile                                |   1 +
+ net/ipv6/seg6.c                                  |   7 +
+ net/ipv6/seg6_mobile.c                           | 700 +++++++++++++++++++++++
+ tools/testing/selftests/net/.gitignore           |   1 +
+ tools/testing/selftests/net/Makefile             |   2 +
+ tools/testing/selftests/net/config               |   1 +
+ tools/testing/selftests/net/srv6_end_map_test.sh | 399 +++++++++++++
+ tools/testing/selftests/net/srv6_mobile_send.c   | 262 +++++++++
+ 13 files changed, 1455 insertions(+)
+---
+base-commit: 1bb784eb6e38fd73143f021608e4ef3095d0c0d7
+change-id: 20260523-seg6-mobile-end-map-9cec24191817
+
+Best regards,
+--  
+Yuya Kusakabe <yuya.kusakabe@gmail.com>
+
