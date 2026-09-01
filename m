@@ -1,287 +1,226 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEB4376A19;
-	Tue,  1 Sep 2026 11:04:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCCC47CC69
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:04:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260645; cv=none; b=HgLS+d95e6dhdgg1jhTkK66bgWQgqOISEbINakIZpyu7lzTu4vQyzzsQ86SvklQsoV3mRqnJ0Dd+TI92FT3RnirMYrNpGpZ5Vr+JvdUHP+zv5shEfKS87xtBl01ImhH5aO3rVQODKeXKhf1MzmRBgDjlwM86D6XgZjZS9eg0pPo=
+	t=1788260672; cv=none; b=FxxsTGni1kmElyIuFXxdT4TW+mZeqCArlTSSoCulP0bHGOk39RQerXyrtCu1rzzEczx5pUX/kdBqrwMQWm0XVYU71UcD/Bto6TqJ1jpEIlBvZYkjB/8nj5Y4Mum71rg963fPy7LfL6BugHHOcBp6IJbVGPb3BydC7bqwgwMM+wA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260645; c=relaxed/simple;
-	bh=KPKGnDWeJWK45N5vGphm4dVDrmdjPRAG24QHvtUj+II=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=lzht9nqO9ZWaP9xsYkJ5xHG14OQHQEGHgozG/9RcBvIbKILqLJ1CCe4l+xHLrDI5AZ245R/ilOoPBB3bKDr6SbnYiXFkfGSZ1tm6/crZzp8//TdDV1QoPBkAtoBqYgL53XwaBT1DTAkOi/nyvrLh/K0HlOWci5XC94SS/jVNrMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Wl+vadAG; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788260672; c=relaxed/simple;
+	bh=kLCPJHfnPYk6jxIxd56fZeydQCtMBIcUA041uVwy4s8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=muvKaOCQLK4MfeWGabQnPco+p/tdMjPL4K4FQW80Vfjt7fHrmtYtNeGw5b60w3pzWTvUZ5g9b8lXtwB/co+HZmj73AbL72nHbaFpzJxvTQMQxfe/nKsmKTCKHGpADyVL16E2S6ltueg8bDrFM0xjyvkNPMKLmvJ/QSiVvb/fHyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JbN2o7/4; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Wl+vadAG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788260643; x=1819796643;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=KPKGnDWeJWK45N5vGphm4dVDrmdjPRAG24QHvtUj+II=;
-  b=Wl+vadAG/dy+Yjvhqtm1bJOnAHxPMW/4e0lnjTI7QvUEtjO3UKpmwWMQ
-   Ht8rMwS6tOmk5WPh3da7MRnugoo7+KLP6jI3A1M2AA9m27cnYDpzq261o
-   iIyg4Zt9Ed4bANXMsJ2phsFOUMNvsow+zxg+SAr26QXGWyNhketS3gCjF
-   fvT8r90+X+UZrrkIl35pMHtCM4YrXO8bGiwKHNiyYwSAdzXMKbSRxygMw
-   Z+OKtBZ40UHO7nZlFjRehJ/Vn/XJ5/PH56euVTVg+oqZIS0WbIT3Xeniq
-   V0ah2LdoK2dm8tWrCPbMmTl1HyMlCOYBebRAma8tB+zNTRk0JgZTdGbwB
-   Q==;
-X-CSE-ConnectionGUID: oCChpg38Q1WkFgBnO89Qkg==
-X-CSE-MsgGUID: aAy6pGXVT0ePz+rla3EXKw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88562302"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="88562302"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:04:01 -0700
-X-CSE-ConnectionGUID: ZjjNe1FCTsqMNz0iugM4eA==
-X-CSE-MsgGUID: uTdc6moQTImyh1qzhhcIDA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="269112183"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.37])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:04:00 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 1 Sep 2026 14:03:56 +0300 (EEST)
-To: Priyank Rathod <rathodpriyank@google.com>
-cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] PCI: Add pcie_get_link_endpoints() helper
-In-Reply-To: <20260831-pcie-link-endpoints-v1-1-32c2fd893e9e@google.com>
-Message-ID: <03f0fedb-beeb-369a-47dc-e7ddc3b27aef@linux.intel.com>
-References: <20260831-pcie-link-endpoints-v1-1-32c2fd893e9e@google.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JbN2o7/4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788260667;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XRv81smlVWxNb1A0Cr9qAtGJQ8qZ9KnUs2NstCo31Yc=;
+	b=JbN2o7/4atHHvwd6IafHyJyyLN6OLLtmO2ONmJLw8QQHALCLHC7UJroLPK8/cg4+LtKFgx
+	tPa+jIZWHrtkiOXm9/ZawmXV5hU/H/2eNO/RLTDvqrafMffaCpgljSksEBRLjNeqPS/hiI
+	/20TPP+tYkaDZ2+Yt8rEQTkMyLwUx7k=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-452-plUwejrXP9aoqQnNbURvgw-1; Tue,
+ 01 Sept 2026 07:04:18 -0400
+X-MC-Unique: plUwejrXP9aoqQnNbURvgw-1
+X-Mimecast-MFC-AGG-ID: plUwejrXP9aoqQnNbURvgw_1788260650
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 122801845530;
+	Tue,  1 Sep 2026 11:04:10 +0000 (UTC)
+Received: from gerbillo.redhat.com (unknown [10.44.49.14])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 40A8E423;
+	Tue,  1 Sep 2026 11:04:06 +0000 (UTC)
+From: Paolo Abeni <pabeni@redhat.com>
+To: johnathan.browall@topgolf.com
+Cc: michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com,
+	netdev@vger.kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	pontus.hallstedt@topgolf.com
+Subject: Re: [PATCH net v2] bnxt_en: avoid redundant RX mask updates in UC overflow state
+Date: Tue,  1 Sep 2026 13:04:01 +0200
+Message-ID: <20260901110401.153294-1-pabeni@redhat.com>
+In-Reply-To: <20260828-bnxt-uc-overflow-v2-1-faddc16b0ea0@topgolf.com>
+References: <20260828-bnxt-uc-overflow-v2-1-faddc16b0ea0@topgolf.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-698854999-1788260636=:1170"
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/
+---
+bnxt_en: avoid redundant RX mask updates in UC overflow state
 
---8323328-698854999-1788260636=:1170
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+The patch records the unicast filter overflow condition in a new vnic flag
+so that bnxt_uc_list_updated() stops reporting the UC list as changed while
+the list is too long for the available L2 filters, and so that
+bnxt_set_rx_mode() keeps the promiscuous bit in the mask it computes.  The
+goal is to stop resending an identical HWRM_CFA_L2_SET_RX_MASK on every
+rx-mode callback.
 
-On Mon, 31 Aug 2026, Priyank Rathod wrote:
+Link: https://patch.msgid.link/20260827-bnxt-uc-overflow-v1-1-f20d48864fe9@topgolf.com
 
-> In PCIe topologies, physical links are point-to-point connections
-> between an Upstream Component (Downstream Port, such as a Root Port
-> or Switch Downstream Port) and a Downstream Component (Upstream Port,
-> such as an Endpoint or Switch Upstream Port), per PCIe Base Specification
-> r7.0/r6.0 sec 1.3.1.
->=20
-> Currently, various drivers across drivers/pci/ independently infer the
-> two ends of a PCIe link using varied ad-hoc methods:
->   - ASPM (drivers/pci/pcie/aspm.c): pcie_aspm_get_link(),
->     alloc_pcie_link_state(), and pci_configure_ltr() resolve parent
->     bridges and subordinate function 0.
-
-This is not the full picture. The aspm driver has to write the same config=
-=20
-to all functions (except L1SS that is only in func 0).
-
->   - Precision Time Measurement (drivers/pci/pcie/ptm.c):
->     pci_upstream_ptm() traverses pci_upstream_bridge() to validate
->     upstream link partner capabilities.
-
-This looks something entirely different, and it's pure get (a certain)=20
-device upstream, not the get-my-link-partner query.
-
->   - PCIe Link Retrain (drivers/pci/pci.c): pcie_retrain_link() and
->     pcie_update_link_speed() coordinate link retraining from the
->     Downstream Port across the subordinate bus.
-
-I don't entirely agree with this assessment. pcie_retrain_link() is given=
-=20
-a downstream port, mere looking into ->subordinate doesn't constitute as a=
-=20
-need for having access to the struct of the other end of the link.
-
->   - AER/DPC Recovery (drivers/pci/pcie/err.c): pcie_do_recovery()
->     identifies the parent bridge via pci_upstream_bridge() to trigger
->     secondary bus reset and broadcast driver recovery callbacks.
-
-This seems to have some validity, though it must cover RCiEPs.
-
->   - Lane Margining at Receiver (LMR): margin_enable_write() requires
->     both link endpoints to establish hierarchical locking and runtime PM
->     pinning.
->=20
-> Ad-hoc subordinate bus iteration risks races with concurrent device
-> removal or hotplug if pci_bus_sem is omitted.
->=20
-> Introduce pcie_get_link_endpoints() and pcie_put_link_endpoints() in the
-> PCI core to provide a standardized, symmetric, and race-safe helper:
->   - For Endpoints: resolves the parent Downstream Port via
->     pci_upstream_bridge(pdev).
->   - For Downstream Ports: safely inspects the subordinate bus under
->     down_read(&pci_bus_sem) and acquires a reference via pci_dev_get()
->     on the child device.
->=20
-> Callers release the acquired reference using pcie_put_link_endpoints().
->=20
-> Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
-> ---
-> Hi Bjorn, Ilpo, and PCI maintainers,
->=20
-> During the review of the PCIe Lane Margining at Receiver (LMR) patch seri=
-es
-> (v7: https://lore.kernel.org/linux-pci/20260828-pcie-lmt-v7-1-6012e9e0940=
-a@google.com/),
-> Ilpo J=C3=A4rvinen pointed out that feature drivers (such as LMR) resolvi=
-ng link
-> partners duplicate link traversal logic that is already present in driver=
-s such
-> as ASPM:
->=20
->   "This feels like duplicating similar functionality with the aspm driver
->    that also wants to infer ends of the link when giving a pci_dev in.
->    The aspm driver currently does that within, but it kind of duplicating
->    pci_bus. It would be nice to avoid the duplication and have something
->    similar for this in PCI core."
->=20
-> In PCIe topologies, physical links are point-to-point interconnects
-> between an Upstream Component (Downstream Port, such as a Root Port or Sw=
-itch
-> Downstream Port) and a Downstream Component (Upstream Port, such as an En=
-dpoint
-> or Switch Upstream Port), per PCIe Base Specification Revision 7.0 / 6.0
-> Section 1.3.1.
->=20
-> Several subsystems across drivers/pci/ independently infer and coordinate=
- both
-> ends of a PCIe link:
->   1. ASPM (drivers/pci/pcie/aspm.c): pcie_aspm_get_link(),
->      alloc_pcie_link_state(), and pci_configure_ltr() resolve parent brid=
-ges
->      and subordinate function 0 to configure ASPMC and L1SS.
->   2. Precision Time Measurement (drivers/pci/pcie/ptm.c): pci_upstream_pt=
-m()
->      traverses pci_upstream_bridge() to validate upstream link partner
->      capabilities.
->   3. PCIe Link Retrain (drivers/pci/pci.c): pcie_retrain_link() and
->      pcie_update_link_speed() coordinate link retraining from the Downstr=
-eam
->      Port across the subordinate bus.
->   4. AER & DPC Recovery (drivers/pci/pcie/err.c): pcie_do_recovery() iden=
-tifies
->      the parent bridge via pci_upstream_bridge() to trigger secondary bus
->      resets and broadcast driver error callbacks.
->   5. Lane Margining at Receiver (LMR): margin_enable_write() requires bot=
-h
->      link endpoints to establish hierarchical locking (pci_dev_lock) and
->      runtime PM pinning.
->=20
-> Currently, these drivers independently implement ad-hoc traversals via
-> pci_upstream_bridge() or subordinate bus device iteration. Ad-hoc subordi=
-nate
-> bus iteration is error-prone and risks races with concurrent hot-unplug o=
-r
-> device removal if pci_bus_sem is omitted.
->=20
-> This patch introduces pcie_get_link_endpoints() and pcie_put_link_endpoin=
-ts()
-> in the PCI core (drivers/pci/pci.c and include/linux/pci.h) as a standalo=
-ne
-> helper:
->   - For Endpoints: resolves the parent Downstream Port via
->     pci_upstream_bridge(pdev).
->   - For Downstream Ports: safely inspects the subordinate bus under
->     down_read(&pci_bus_sem) and acquires a reference via pci_dev_get() on=
- the
->     child device.
->=20
-> Callers release the acquired reference with pcie_put_link_endpoints().
->=20
-> Validation:
->   - Compiled clean on x86_64 defconfig (0 warnings, 0 errors).
->   - Multi-architecture build validated for ARM64 and x86_64 targets.
->   - Passed checkpatch.pl (0 warnings, 0 errors).
->   - Passed Sashiko pre-commit test runner (ID: 46b5f8a3da1ca0056407b3db6c=
-82b001264f86b7).
-> ---
->  drivers/pci/pci.c   | 50 +++++++++++++++++++++++++++++++++++++++++++++++=
-+++
->  include/linux/pci.h |  6 ++++++
->  2 files changed, 56 insertions(+)
->=20
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index 77b17b13ee61..7bdfe7e5ab3a 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -4618,6 +4618,56 @@ int pcie_retrain_link(struct pci_dev *pdev, bool u=
-se_lt)
->  =09return rc;
->  }
-> =20
-> +/**
-> + * pcie_get_link_endpoints - Identify Upstream and Downstream ends of a =
-PCIe link
-> + * @pdev: Any PCIe device on the link (Downstream Port or Endpoint)
-> + * @downstream_port: Output pointer to Downstream Port (Upstream Compone=
-nt)
-> + * @upstream_port: Output pointer to Upstream Port (Downstream Component=
-)
-> + *
-> + * Identifies both ends of a point-to-point PCIe link. Increments refere=
-nce count
-> + * on @upstream_port if dynamically discovered on a downstream port. Cal=
-lers must
-> + * release with pcie_put_link_endpoints().
-> + *
-> + * Return: 0 on success, or -EINVAL if @pdev is NULL or not PCIe.
-> + */
-> +int pcie_get_link_endpoints(struct pci_dev *pdev,
-> +=09=09=09    struct pci_dev **downstream_port,
-> +=09=09=09    struct pci_dev **upstream_port)
-> +{
-> +=09if (!pdev || !pci_is_pcie(pdev))
-> +=09=09return -EINVAL;
+> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> index 9c2cc50276a59..d960cf942e99e 100644
+> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> @@ -13791,6 +13791,16 @@ static bool bnxt_uc_list_updated(struct bnxt *bp,
+>  	struct netdev_hw_addr *ha;
+>  	int off = 0;
+>  
+> +	/* In the overflow state all unicast is accepted through the
+> +	 * promiscuous RX mask and no secondary L2 filters are in use,
+> +	 * so the list only needs reprogramming once it fits the
+> +	 * available filters again.  Reporting an update here would
+> +	 * resend an identical SET_RX_MASK on every callback, which
+> +	 * causes brief RX packet loss on some chips.
+> +	 */
+> +	if (vnic->flags & BNXT_VNIC_UC_PROMISC_FLAG)
+> +		return netdev_hw_addr_list_count(uc) <= (BNXT_MAX_UC_ADDRS - 1);
 > +
-> +=09if (pcie_downstream_port(pdev)) {
-> +=09=09*downstream_port =3D pdev;
-> +=09=09down_read(&pci_bus_sem);
-> +=09=09*upstream_port =3D pdev->subordinate ?
-> +=09=09=09pci_dev_get(list_first_entry_or_null(&pdev->subordinate->device=
-s,
-> +=09=09=09=09=09=09=09     struct pci_dev, bus_list)) : NULL;
 
-Too much is crammed into one statement.
+[Severity: High]
 
-> +=09=09up_read(&pci_bus_sem);
-> +=09} else {
-> +=09=09*downstream_port =3D pci_upstream_bridge(pdev);
-> +=09=09*upstream_port =3D pdev;
+Can this early return defeat the rx-mode retry after a failed
+SET_RX_MASK?
 
-Why complicate things with the unbalance?
+In bnxt_cfg_rx_mode() the overflow branch now latches both the flag and the
+cached promiscuous bit before bnxt_hwrm_cfa_l2_set_rx_mask() has installed
+anything, and after the secondary L2 filters have already been freed:
 
-> +=09}
+	for (i = 1; i < vnic->uc_filter_count; i++) {
+		struct bnxt_l2_filter *fltr = vnic->l2_filters[i];
+
+		bnxt_hwrm_l2_filter_free(bp, fltr);
+		bnxt_del_l2_filter(bp, fltr);
+	}
+
+	vnic->uc_filter_count = 1;
+	...
+	if (netdev_hw_addr_list_count(uc) > (BNXT_MAX_UC_ADDRS - 1)) {
+		vnic->rx_mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
+		vnic->flags |= BNXT_VNIC_UC_PROMISC_FLAG;
+
+If the subsequent HWRM fails, the only reaction is the MCAST fallback plus a
+log message, and nothing clears the flag or the cached bit:
+
+	rc = bnxt_hwrm_cfa_l2_set_rx_mask(bp, 0);
+	if (rc && (vnic->rx_mask & CFA_L2_SET_RX_MASK_REQ_MASK_MCAST)) {
+		...
+	}
+	if (rc)
+		netdev_err(bp->dev, "HWRM cfa l2 rx mask failure rc: %d\n",
+			   rc);
+
+	return rc;
+
+The MCAST fallback does not fire when MASK_MCAST is absent, i.e. with
+IFF_ALLMULTI, with an MC list above BNXT_MAX_MC_ADDRS, or with no MC
+addresses at all.
+
+On the retry, bnxt_set_rx_mode() strips PROMISC and immediately re-adds it
+from the new flag, so mask equals the already-committed vnic->rx_mask, and
+bnxt_uc_list_updated() now returns false through the hunk above, so the
+guard is skipped entirely:
+
+	if (mask != vnic->rx_mask || uc_update || mc_update) {
+		vnic->rx_mask = mask;
+
+		return bnxt_cfg_rx_mode(bp, uc, uc_update);
+	}
+
+	return 0;
+
+netif_rx_mode_run() in net/core/dev_addr_lists.c treats that zero return as
+success and drops the retry state:
+
+		if (err)
+			netif_rx_mode_schedule_retry(dev);
+		else
+			dev->rx_mode_retry_count = 0;
+
+At that point the hardware has neither the secondary L2 filters (freed) nor
+the promiscuous bit (never installed), so traffic for the secondary unicast
+addresses is dropped until the UC list shrinks below the filter limit, the
+rx flags or the MC list change, or the interface is brought down and up.
+
+bnxt_init_chip() depends on the same retry:
+
+	rc = bnxt_cfg_rx_mode(bp, &bp->dev->uc, true);
+	if (rc == -EAGAIN) {
+		netif_rx_mode_schedule_retry(bp->dev);
+		rc = 0;
+	} else if (rc) {
+		goto err_out;
+	}
+
+so a transient -EAGAIN or -ENODEV on open with more than
+BNXT_MAX_UC_ADDRS - 1 unicast addresses would leave the interface up with
+no unicast filtering path at all.
+
+Before this patch, the overflow state left vnic->uc_filter_count == 1 with a
+non-empty UC list, so bnxt_uc_list_updated() returned true on every callback
+and the mask was re-sent until it succeeded.  Would it work to latch the
+flag and the cached promiscuous bit only after bnxt_hwrm_cfa_l2_set_rx_mask()
+returns success, or to clear them again on failure so the retry still
+programs the mask?
+
+>  	if (netdev_hw_addr_list_count(uc) != (vnic->uc_filter_count - 1))
+>  		return true;
+>  
+> @@ -13826,6 +13836,13 @@ static int bnxt_set_rx_mode(struct net_device *dev,
+>  	if (dev->flags & IFF_PROMISC)
+>  		mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
+>  
+> +	/* Keep the promiscuous bit while the UC list is longer than the
+> +	 * available L2 filters, so that an unchanged rx mode is not
+> +	 * treated as a mask change.
+> +	 */
+> +	if ((vnic->flags & BNXT_VNIC_UC_PROMISC_FLAG) && bnxt_promisc_ok(bp))
+> +		mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
 > +
-> +=09return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(pcie_get_link_endpoints);
-> +
-> +/**
-> + * pcie_put_link_endpoints - Release references acquired by pcie_get_lin=
-k_endpoints
-> + * @pdev: Device passed to pcie_get_link_endpoints()
-> + * @downstream_port: Downstream Port pointer
-> + * @upstream_port: Upstream Port pointer
-> + */
-> +void pcie_put_link_endpoints(struct pci_dev *pdev,
-> +=09=09=09     struct pci_dev *downstream_port,
-> +=09=09=09     struct pci_dev *upstream_port)
-> +{
-> +=09if (pdev && pcie_downstream_port(pdev) && upstream_port)
-> +=09=09pci_dev_put(upstream_port);
-> +}
-> +EXPORT_SYMBOL_GPL(pcie_put_link_endpoints);
+>  	uc_update = bnxt_uc_list_updated(bp, uc);
+>  
+>  	if (dev->flags & IFF_BROADCAST)
+> @@ -13869,7 +13886,12 @@ static int bnxt_cfg_rx_mode(struct bnxt *bp, struct netdev_hw_addr_list *uc,
+>  	netif_addr_lock_bh(dev);
+>  	if (netdev_hw_addr_list_count(uc) > (BNXT_MAX_UC_ADDRS - 1)) {
+>  		vnic->rx_mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
+> +		vnic->flags |= BNXT_VNIC_UC_PROMISC_FLAG;
+>  	} else {
+> +		vnic->flags &= ~BNXT_VNIC_UC_PROMISC_FLAG;
+> +		if (!(dev->flags & IFF_PROMISC))
+> +			vnic->rx_mask &=
+> +				~CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
+>  		netdev_hw_addr_list_for_each(ha, uc) {
+>  			memcpy(vnic->uc_list + off, ha->addr, ETH_ALEN);
+>  			off += ETH_ALEN;
 
---
- i.
---8323328-698854999-1788260636=:1170--
+[ ... ]
+-- 
+This is an AI-generated review.
+
