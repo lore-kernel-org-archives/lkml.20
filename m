@@ -1,68 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0CC43A6EEC;
-	Tue,  1 Sep 2026 01:22:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B8338B7B0;
+	Tue,  1 Sep 2026 01:22:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788225723; cv=none; b=Ac0rp0r8MxfMwJKduHsGEWSVZeOt7Uyr7bcxnkHr4TbHnX5HrdGj8FYCb7W133HjxNaDEkvPLCbW0IFXwI+2e4UecAtae340tPW0ZCrvqgAmNs+g0+1zTLR+kRUphGWocnanwdbb01fdhkvQEuP3Jv+r7eHsY0Fw3+UDOJeum1g=
+	t=1788225769; cv=none; b=lctX4eMn/woNofN7lpSt6LZSuJ50vENaKraChxqh+yYPQHN9227sJk0tOcjyfvId1Mo82yf0C219dSOQL6/Ww7JilGNU7qaMugRT0P15Ui8qTcR3vRgRXqyJi37FmMcpZP0LwpGkWfzlwukwB1TeFa1JTKNBT9d87e4i+XUps9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788225723; c=relaxed/simple;
-	bh=5F5Lv0TJQzMDZu4hPAbKwOP5LWp9cVx2JNBofpxx96M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uK2HJmLZaCg4KvVsYqGnvKZzc1v53GdKaxOxvY2t7NO4U2JqKqSAWq+l7SDlirfLG0lgH/YaR8HqhS1Z/NZJcuCoHbgAOHh9zbz0eAl6rbipDwV99jEfxRqwh98bGK7mZbr7ME0jQUpNP4P8yF3c2OolWryD73sUyt5aPlUyoQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UhkSoav/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788225769; c=relaxed/simple;
+	bh=tF6XOUtrejWT8EVMO6Zhhxe2yMTRVHw+PEJ14jV4VTk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WMbS+wu7sbscO7Qc5qH7xzfQ0s3v9b/o8CgOrJtj1ILVxNi/ANnyFJ3llm/AlxdXeAx8vlS6fN5cEC+bjuiTVMDdO9YjwK2/nPTq+fIdA4c5DL3jmPUgQakrTvVM08d2DPK+F5q5UIKCPrd47nc22lDseXBg+p53RTwzx11UvkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q1Wi6buP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UhkSoav/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C3741F00A3F;
-	Tue,  1 Sep 2026 01:21:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q1Wi6buP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51FB41F000E9;
+	Tue,  1 Sep 2026 01:22:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788225720;
-	bh=THd9JWzjC7dmzYda60P56EbIAEkHHD9Vt0zj28Sgg80=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UhkSoav/sRFjejUeKEwC2WkAdBBdmF4vFlDqNXy9X7NPH8Kq6X7izMkZ9OfVi6tlO
-	 yyDOE9I5Ges59fhwT5/iI1qNjsYgCpXQKF/CobnkFRMruxtlGw+Xwdsn9gDA4cv5ap
-	 p3HhArTAGe/XbDBtX2olEcUw/aM/jDTzW2wwGXECmshdFmwUuh+jV+gYhhyWmsDGQs
-	 bHkQcWVUfMW7kBNd+IdBWWFpt0Gb0oMqPF6aE36kG65AQiaLmKIjWvKbYtk+26inza
-	 iE1Q8xLjQX37MKHHCeQ3vuP/mpJs07fpybUuNC2VBIWcfwxL7VujGgUffynTVTknOj
-	 Lq3l8tr3BQbnw==
-From: Sasha Levin <sashal@kernel.org>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hans Verkuil <hverkuil@kernel.org>,
-	ye xingchen <ye.xingchen@zte.com.cn>,
-	Alessandro Menezes <alessandroasm@gmail.com>
-Subject: Re: [PATCH] Revert "media: siano: Convert to use sysfs_emit_at() API"
-Date: Mon, 31 Aug 2026 21:21:48 -0400
-Message-ID: <20260831-daily-reply-0004-siano-revert@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260830172330.3395671-1-alessandroasm@gmail.com>
-References: <20260830172330.3395671-1-alessandroasm@gmail.com>
+	s=k20260515; t=1788225767;
+	bh=Kuh0diH350mmX0hoYzwyiO/Y2NDLAM9orSUchM0wV3M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Q1Wi6buPedWm8HByLDmLbcu4csEQvPZMqp5ucvJrDGM3AMJxzthOIIXR6rNngB6vE
+	 D0v0SXyi+yVCW5nMVbFX+E8NOh14uZ1LaxjmaKLht3q8PyYCLzuw9JMj7whXzvLQJD
+	 L4xyl+miV7XIpkCEssbxPMasHDagfPlJsvy6moXO4lX8jDWFmMm3qDf/l+LEYn0Ja8
+	 U+CdxPW9Ovgz8opakfAtrbPxtyh+tOa9hELGx7RveHHU0k/RL/yc8HUA7klmmbBLht
+	 nRftAa1MpV+g2U8uHythJVlFSzJ00m2QBS3PAoMnY42/zkIV5Z4DHHBCRRxgXuUcAf
+	 jqC0bouXZljBQ==
+Date: Tue, 1 Sep 2026 02:22:43 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Linmao Li <lilinmao@kylinos.cn>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Chris Morgan
+ <macromorgan@hotmail.com>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH togreg v4 0/2] iio: imu: inv_icm42607: fix PM error
+ handling
+Message-ID: <20260901022243.740760aa@jic23-huawei>
+In-Reply-To: <20260824035531.141429-1-lilinmao@kylinos.cn>
+References: <20260824035531.141429-1-lilinmao@kylinos.cn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-> This reverts commit 2f7d0c94396e ("media: siano: Convert to use
-> sysfs_emit_at() API").
->
-> sysfs_emit_at() may only be used from sysfs show() methods, where the
-> destination is the page-sized, page-aligned buffer that sysfs passes to
-> the callback.
+On Mon, 24 Aug 2026 11:55:29 +0800
+Linmao Li <lilinmao@kylinos.cn> wrote:
 
-This looks right, but 2f7d0c94396e ("media: siano: Convert to
-use sysfs_emit_at() API") is still unfixed in mainline so taking a
-revert into stable now would leave us permanently diverged from
-upstream.
+> The recently queued ICM-42607 PM support has two error paths that can leave
+> the PM core's state inconsistent with the device.
+> 
+> Patch 1 propagates sensor shutdown failures from runtime suspend.  Patch 2
+> ensures that system resume restores runtime PM management on both of its
+> error paths, so that a failed resume does not leave runtime PM disabled for
+> good.
 
-So please have it fixed upstream first.
+These look fine to me, but I want input from Chris (and ideally some sanity
+check testing) before picking them up.  The dead chicken test that they
+don't active break operation when we don't see errors is probably enough
+given the analysis seems fine to me for what happens on error.
 
--- 
 Thanks,
-Sasha
+
+Jonathan
+
+> 
+> Changes since v3:
+> - Patch 1: commit message expanded with the practical effect of the current
+>   behaviour, the cost of propagating the error, and a description of the
+>   recovery path that does not assume a particular regmap bus
+>   implementation.  No code change.
+> - Patch 2: unchanged.
+> 
+> Neither patch was reproduced on hardware; both were found by code
+> inspection.  They were compile-tested with W=1 and checked with smatch.
+> 
+> Whether patch 1 is worth making is still a fair question - it trades a
+> possible idle power leak that may be cleared by a later successful access
+> for a runtime PM error state that needs an explicit reset.  The commit
+> message spells that out; happy to drop it if you would rather not take
+> that trade.
+> 
+> Linmao Li (2):
+>   iio: imu: inv_icm42607: propagate runtime suspend errors
+>   iio: imu: inv_icm42607: restore runtime PM on system resume errors
+> 
+>  .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 38 ++++++++++++++-----
+>  1 file changed, 29 insertions(+), 9 deletions(-)
+> 
+> 
+> base-commit: 350d1fb9204b13c5f95e511e98b8bcb47574d425
+
