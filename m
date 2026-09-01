@@ -1,66 +1,213 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9910D382365;
-	Tue,  1 Sep 2026 08:11:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1818E35E92B;
+	Tue,  1 Sep 2026 08:11:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788250265; cv=none; b=CM+x/GIZfwz9dSCPNp8IH37lgOqdxNFF6B05NOz9sibfvTvnxdA7EM0LRXI643A39XWTq16QeqBP68vojkTWiosRuNnYwENvCD3dQPgcktxArCKS7PXn1U1UfQ7xwQo0hxz1eP345ZEzcZl010nhwGInrF83aOc5R2QUiqJzcB4=
+	t=1788250288; cv=none; b=oejYKuixL61/fmKz21xftJUpKVuzIxN5DqwdtaFt6lcmmMQXohPdkS5Sc5uuDbPd1RGAWRX23YZw3YpelTIBAtmC4NCLrj8jMRs1W94GyRSU3TyJ+yhCP5p+mkqZmxTyB3x9tLYN4HquIt1H881F8HNg4gL5yZCFvluFqL4Qaoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788250265; c=relaxed/simple;
-	bh=kllU/PO5yd0KqldHx3vW8lUAcutARjldoDUZTZSnZQY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MNn4iQvsPkjTfvNyfyvmjohRbG3qkaQgD+O8u/oUeEb2mtgsW9eimoqksf2loZBBQjZyNKyT/7UiQhP8YbCxSfL+wpOZNhJvWq5Y+fDg1OQjjDvITDvhsj7xXuEIDtVPuCytl935hHgNhf2rICPjvmROLW54Hm2COLOj5pvml3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfFwFoUb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788250288; c=relaxed/simple;
+	bh=G8hLI7gbSXa7//WMLcSR43Vk6mpoTvFK7obJmBM7HvU=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=d7iWRBqIdG/VnIa6skWyECPGQna5BnFvQttRVNMzGb9C8nbTzskU23+tT0/E+kIhLfd/bIa06kcljRodPRnWvz/aqPT0boLj7I8MrR0f4ZIKsD6xouXjUAYVZ22G1ZKAcPZSqSabs18W8/qqw5BhjsVs05MX9A6hc8E75Q73GSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqlwvypW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfFwFoUb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79B801F000E9;
-	Tue,  1 Sep 2026 08:11:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqlwvypW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6FC71F000E9;
+	Tue,  1 Sep 2026 08:11:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788250264;
-	bh=Qux0O5lOdRD2FoGhvNi5u1GHbOw47xkF7AihaOn/S1M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CfFwFoUbV8B+mBMMbmS/jKgcaJFJ08JzsD6z5vecV/3h2DAL0hCBIgauu3LkuaAe0
-	 8ppyd81SV8toVbIsE//tS1UOeKnFRvrl4E/g+hS3XQvzJFspkRkb87y8Y3OuIM1j5l
-	 uSNY1MqmFAYNHz2l91u6fIKGZwhCVKw2qzf/pOxtQu02xkMJvgqNR4EDv8iIP2P+ah
-	 yVBayKkxshAkY/pOrhEEx8e6/BDEKAh4a6IrbjWIeb72x37r1lRDrf4wgIOxJWbO7l
-	 eVx0wqTyt6ATgAybNlLlNhFaqzKdrWbDZTQGquIcWlTDZBCfmhx0aIK8aneJrzS5UQ
-	 uJgWloEA15Hew==
-Date: Tue, 1 Sep 2026 10:11:00 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
-Cc: David Rhodes <david.rhodes@cirrus.com>, 
-	Richard Fitzgerald <rf@opensource.cirrus.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
-	patches@opensource.cirrus.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/2] ASoC: dt-bindings: cs35l45: Adds SYNC properties
-Message-ID: <20260901-infallible-silver-chameleon-86866a@quoll>
-References: <20260828-sound-for-next-cs35l45-sync-v4-v5-0-fe3feba709ff@opensource.cirrus.com>
- <20260828-sound-for-next-cs35l45-sync-v4-v5-1-fe3feba709ff@opensource.cirrus.com>
+	s=k20260515; t=1788250286;
+	bh=Mffh+xsJ2ZCU31yMautmtE9YEjEsip5NwA60eZbTZ/M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XqlwvypWheYSFoa4uTcqlrpd0ImB0sJMQAEPOLerzwmH6wHmvRrzg41eM8cyc8tyg
+	 mko/ggm7eN88UclRZVlY4XIzcApIWbXmC10fW7MTdMwlOU6pe81WSGZ0IcTB9tDVeD
+	 xfFXM3flFzX5qfk3wSTgCUk02rxNjj7tGwxreFEtqWWvkyte0r//saL2H7yI3SZPhK
+	 PjvzCng6d6+EQikN7N+EHskMyi9bT8SPmjVtUMBJDt/bbFqLGU26NlBTD7dDNb+rvR
+	 1tqHpvWBkPaG4fohiDusTOLAGwWxjxLw12436HRhzJKSuD/YT+3fS/AnwENHLXW7qi
+	 swEIhya6rzBwA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x1JaW-00000003CEo-19GZ;
+	Tue, 01 Sep 2026 08:11:24 +0000
+Date: Tue, 01 Sep 2026 09:13:56 +0100
+Message-ID: <87se3tmlrv.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andreas Grapentin <gra@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Friedrich Welter <fritz@linux.ibm.com>,
+	Fuad Tabba <tabba@google.com>,
+	Gautam Gala <ggala@linux.ibm.com>,
+	Hariharan Mari <hari55@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Hendrik Brueckner <brueckner@linux.ibm.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Nico Boehr <nrb@linux.ibm.com>,
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+	Oliver Upton <oupton@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Will Deacon <will@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v7 11/23] KVM: arm64: Share arm64 code with s390
+In-Reply-To: <20260831144802.834315-12-seiden@linux.ibm.com>
+References: <20260831144802.834315-1-seiden@linux.ibm.com>
+	<20260831144802.834315-12-seiden@linux.ibm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260828-sound-for-next-cs35l45-sync-v4-v5-1-fe3feba709ff@opensource.cirrus.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, gra@linux.ibm.com, arnd@arndb.de, catalin.marinas@arm.com, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, seanjc@google.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Fri, Aug 28, 2026 at 10:46:26AM -0500, Ricardo Rivera-Matos wrote:
-> Introduces support for the multidevice synchronization (SYNC)
-> bus. The properties introduced allow for the configuration
-> of the device's transmitter IDs.
+On Mon, 31 Aug 2026 15:47:48 +0100,
+Steffen Eiden <seiden@linux.ibm.com> wrote:
 > 
-> Signed-off-by: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+> Mark functions that s390 can use to implement arm on s390 as shared
+> functions.
+> 
+> No functional change.
+> 
+> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
 > ---
->  .../devicetree/bindings/sound/cirrus,cs35l45.yaml    | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
+>  arch/arm64/kvm/arm.c         | 3 +++
+>  arch/arm64/kvm/guest.c       | 6 ++++++
+>  arch/arm64/kvm/handle_exit.c | 6 ++++++
+>  arch/arm64/kvm/mmio.c        | 2 ++
+>  4 files changed, 17 insertions(+)
+> 
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 8b080804bc90..6b92a3c1d490 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -1603,6 +1603,7 @@ static unsigned long system_supported_vcpu_features(void)
+>  	return features;
+>  }
+>  
+> +#ifdef ARM64_S390_COMMON
+>  static int kvm_vcpu_init_check_features(struct kvm_vcpu *vcpu,
+>  					const struct kvm_vcpu_init *init)
+>  {
+> @@ -1656,6 +1657,8 @@ static bool kvm_vcpu_init_changed(struct kvm_vcpu *vcpu,
+>  			     KVM_VCPU_MAX_FEATURES);
+>  }
+>  
+> +#endif /* ARM64_S390_COMMON */
+> +
+>  static int kvm_setup_vcpu(struct kvm_vcpu *vcpu)
+>  {
+>  	struct kvm *kvm = vcpu->kvm;
+> diff --git a/arch/arm64/kvm/guest.c b/arch/arm64/kvm/guest.c
+> index 773f6c8e5026..6ca5a9f357cd 100644
+> --- a/arch/arm64/kvm/guest.c
+> +++ b/arch/arm64/kvm/guest.c
+> @@ -62,6 +62,7 @@ const struct kvm_stats_header kvm_vcpu_stats_header = {
+>  		       sizeof(kvm_vcpu_stats_desc),
+>  };
+>  
+> +#ifdef ARM64_S390_COMMON
+>  static bool core_reg_offset_is_vreg(u64 off)
+>  {
+>  	return off >= KVM_REG_ARM_CORE_REG(fp_regs.vregs) &&
+> @@ -306,6 +307,8 @@ static int set_core_reg(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg)
+>  	return err;
+>  }
+>  
+> +#endif /* ARM64_S390_COMMON */
+> +
+>  #define vq_word(vq) (((vq) - SVE_VQ_MIN) / 64)
+>  #define vq_mask(vq) ((u64)1 << ((vq) - SVE_VQ_MIN) % 64)
+>  #define vq_present(vqs, vq) (!!((vqs)[vq_word(vq)] & vq_mask(vq)))
+> @@ -543,6 +546,7 @@ int kvm_arch_vcpu_ioctl_set_regs(struct kvm_vcpu *vcpu, struct kvm_regs *regs)
+>  	return -EINVAL;
+>  }
+>  
+> +#ifdef ARM64_S390_COMMON
+>  static int copy_core_reg_indices(const struct kvm_vcpu *vcpu,
+>  				 u64 __user *uindices)
+>  {
+> @@ -591,6 +595,8 @@ static unsigned long num_core_regs(const struct kvm_vcpu *vcpu)
+>  	return copy_core_reg_indices(vcpu, NULL);
+>  }
+>  
+> +#endif /* ARM64_S390_COMMON */
+> +
+>  static unsigned long num_sve_regs(const struct kvm_vcpu *vcpu)
+>  {
+>  	const unsigned int slices = vcpu_sve_slices(vcpu);
+> diff --git a/arch/arm64/kvm/handle_exit.c b/arch/arm64/kvm/handle_exit.c
+> index db37678dcb05..6e59a7b12d40 100644
+> --- a/arch/arm64/kvm/handle_exit.c
+> +++ b/arch/arm64/kvm/handle_exit.c
+> @@ -213,6 +213,7 @@ static int kvm_handle_guest_debug(struct kvm_vcpu *vcpu)
+>  	return 0;
+>  }
+>  
+> +#ifdef ARM64_S390_COMMON
+>  static int kvm_handle_unknown_ec(struct kvm_vcpu *vcpu)
+>  {
+>  	u64 esr = kvm_vcpu_get_esr(vcpu);
+> @@ -224,6 +225,8 @@ static int kvm_handle_unknown_ec(struct kvm_vcpu *vcpu)
+>  	return 1;
+>  }
+>  
+> +#endif /* ARM64_S390_COMMON */
+> +
+>  /*
+>   * Guest access to SVE registers should be routed to this handler only
+>   * when the system doesn't support SVE.
+> @@ -404,6 +407,7 @@ static exit_handle_fn arm_exit_handlers[] = {
+>  	[ESR_ELx_EC_GCS]	= kvm_handle_gcs,
+>  };
+>  
+> +#ifdef ARM64_S390_COMMON
+>  static exit_handle_fn kvm_get_exit_handler(struct kvm_vcpu *vcpu)
+>  {
+>  	u64 esr = kvm_vcpu_get_esr(vcpu);
+> @@ -439,6 +443,8 @@ static int handle_trap_exceptions(struct kvm_vcpu *vcpu)
+>  	return handled;
+>  }
+>  
+> +#endif /* ARM64_S390_COMMON */
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Why the exit handler, and not the EC handlers aside from the UNKNOWN
+one? Yes, you probably aren't there yet in this series, but I can tell
+you are going to add more and more of these.
 
-Best regards,
-Krzysztof
+But the EC array is absolutely architectural, and there is no good
+reason to maintain your own.
 
+So instead of this, why not keep the EC array altogether, and
+implement stubs for the ECs you don't support?
+
+	M.
+
+-- 
+Jazz isn't dead. It just smells funny.
