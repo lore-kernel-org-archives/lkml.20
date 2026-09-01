@@ -1,148 +1,152 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F05FB81AA8;
-	Tue,  1 Sep 2026 01:32:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E2B35CBD7
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:33:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226324; cv=none; b=sDjOfqyD6zMaFC13YHdVNpCIXAOemSin4KeIa582WzNpW3lgdBltA1hQQyhGyDp6Hcf0USC7xwWQ+xfjjzkE0zh5Q06Aivn3EP9TDtVyhnPI9OEUiradLRWjgihrMQhMDQW71lhsSIRq4O7d/gZWClGg81aUkSYT+xjQUbz/IvU=
+	t=1788226413; cv=none; b=BCnW4poNDciuqk3O0rXLPZ3aq+hAzRWv0/sMca/J7Nj//yUXcXr2/OVEVIJUB0xQ7GqM2wpUR7Z2tkU5zb9DFN0OL/EaDQbMx8JfGeNPRZgEvq/FS9r/+A8Wl5JlXz++k9TdMaH95SMYLY85Z6LfbaZfB3OBpPFFli/rJYFTpYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226324; c=relaxed/simple;
-	bh=SReFs3wf1VhykduuIf4GG9P8IgQwlFLj17mCrBt8usc=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=pELM8SUhRTnWQyQWFOg5v33DNHFbAgdoXopfYGnhzMeNzzOvG9NgwBY2FJbSa83YBKiWIgWxHWLrPP3qwpz1FU+S5CfVQe+Zt7e0locNJaPE1edSpC+cwcpmcvne2agy2lWWtwJ8wIliELUYSWiS3FOgUZl/EeywDMwLYxQGwvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8Bxb9MQK5ZqEDgHAA--.20308S3;
-	Tue, 01 Sep 2026 09:32:00 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJAx2c0OK5ZqwpUYAA--.51990S2;
-	Tue, 01 Sep 2026 09:31:58 +0800 (CST)
-Subject: Re: [PATCH v3] LoongArch: KVM: Fix TOCTOU race on pv_features
-To: Huacai Chen <chenhuacai@kernel.org>, Tao Cui <cui.tao@linux.dev>
-Cc: zhaotianrui@loongson.cn, kvm@vger.kernel.org, loongarch@lists.linux.dev,
- linux-kernel@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
-References: <20260814094738.2552440-1-cui.tao@linux.dev>
- <CAAhV-H73i_hH75rNL_eKQWrxu3HTWhMgJpbkYqueoc4qb97TXQ@mail.gmail.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <5a94c1f2-899a-f7b4-1757-615acfc40db0@loongson.cn>
-Date: Tue, 1 Sep 2026 09:31:43 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1788226413; c=relaxed/simple;
+	bh=MVe3fhosTbGp/4ts06944KfXYDttY1ikDT2o/bZl/MI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=spPoNgrsEn/TBnI7o29mSlylrpagFlGoUkpf7nfl703zNhdkkeGL3icXefgMDO/Kk/v0X8w0ohxdAUy/RNBHScrSzQkH7RZxTVUnNntAq56vfA6ZZeKU6sDgvWhQMqne0W6Z6dI9+v8w+heRXxDxKaz/ouvrMdsgU/o+yK3IRGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 1da4fcd0a5a511f19a56ed5b684f684d-20260901
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:169f227e-99b4-4206-80db-e0307f73e229,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:a55854cb5697e8fc70b46ab33d5bccf8,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50,EDM:5
+	,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
+	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 1da4fcd0a5a511f19a56ed5b684f684d-20260901
+X-User: fangqiurong@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <fangqiurong@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1414786781; Tue, 01 Sep 2026 09:33:21 +0800
+From: Qiurong Fang <fangqiurong@kylinos.cn>
+To: tj@kernel.org
+Cc: fangqiurong <fangqiurong@kylinos.cn>,
+	void@manifault.com,
+	arighi@kernel.org,
+	changwoo@kernel.org,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: [PATCH v2] sched_ext: Skip per-CPU data allocation for built-in DSQs
+Date: Tue,  1 Sep 2026 09:32:58 +0800
+Message-Id: <20260901013258.1822890-1-fangqiurong@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260827082329.3368255-1-fangqiurong@kylinos.cn>
+References: <20260827082329.3368255-1-fangqiurong@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <CAAhV-H73i_hH75rNL_eKQWrxu3HTWhMgJpbkYqueoc4qb97TXQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx2c0OK5ZqwpUYAA--.51990S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXw1kAFWxXFy5Aw1kWFWUZFc_yoW5CF45pr
-	9ruFn5Gr4rKr1IyFyqqwnF9rWjvw48Gr12vF9Iqa4UAF1Y9r9xXr10krZruFyqqw4rWa1v
-	qF1fJas0vF15tacCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUB0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
-	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
-	k0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
-	Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
-	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
-	cVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI
-	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v2
-	6r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4AhLUUUUU
 
+From: fangqiurong <fangqiurong@kylinos.cn>
 
+Deferred reenqueue tracking is only supported for user DSQs:
+schedule_dsq_reenq() serves the local DSQ through
+sch->pcpu->deferred_reenq_local and rejects all other built-in DSQ
+ids. Every DSQ still allocates nr_cpu_ids * sizeof(struct scx_dsq_pcpu)
+bytes of per-CPU memory for it.
 
-On 2026/8/31 下午10:07, Huacai Chen wrote:
-> Hi, Bibo,
-> 
-> What do you think about this?
-Thanks for your reminder, I forget this in flooding mailing list :(
-It looks good to me.
+Skip the allocation for built-in DSQ ids. While at it, rename ->pcpu to
+->pcpu_user so that the per-CPU data reads as user-DSQ only.
 
-Reviewed-by: Bibo Mao <maobibo@loongson.cn>
-> 
-> 
-> Huacai
-> 
-> On Fri, Aug 14, 2026 at 5:47 PM Tao Cui <cui.tao@linux.dev> wrote:
->>
->> From: Tao Cui <cuitao@kylinos.cn>
->>
->> The check-then-set on kvm->arch.pv_features in
->> kvm_loongarch_cpucfg_set_attr() is lockless, so two vCPUs can race
->> past the validation and set different values.  Add a spinlock to
->> serialize it.
->>
->> Reviewed-by: Bibo Mao <maobibo@loongson.cn>
->> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
->> ---
->>
->> Changes in v2: use a spinlock instead of a cmpxchg loop (Bibo Mao).
->> Changes in v3: rename the lock to pv_setting_lock and place it next to
->> phyid_map_lock (Huacai Chen).
->>
->> v1: https://lore.kernel.org/all/20260810081321.157258-1-cui.tao@linux.dev/
->> v2: https://lore.kernel.org/all/20260813232542.2098930-1-cui.tao@linux.dev/
->>
->>   arch/loongarch/include/asm/kvm_host.h | 1 +
->>   arch/loongarch/kvm/vcpu.c             | 6 +++++-
->>   arch/loongarch/kvm/vm.c               | 1 +
->>   3 files changed, 7 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/loongarch/include/asm/kvm_host.h b/arch/loongarch/include/asm/kvm_host.h
->> index 23cfbecebbd7..3538a199aac6 100644
->> --- a/arch/loongarch/include/asm/kvm_host.h
->> +++ b/arch/loongarch/include/asm/kvm_host.h
->> @@ -125,6 +125,7 @@ struct kvm_arch {
->>          unsigned int  pte_shifts[MAX_PGTABLE_LEVELS];
->>          unsigned int  root_level;
->>          spinlock_t    phyid_map_lock;
->> +       spinlock_t    pv_setting_lock;
->>          struct kvm_phyid_map  *phyid_map;
->>          /* Enabled PV features */
->>          unsigned long pv_features;
->> diff --git a/arch/loongarch/kvm/vcpu.c b/arch/loongarch/kvm/vcpu.c
->> index 20c207d80e31..e47fa463a8be 100644
->> --- a/arch/loongarch/kvm/vcpu.c
->> +++ b/arch/loongarch/kvm/vcpu.c
->> @@ -1165,10 +1165,14 @@ static int kvm_loongarch_cpucfg_set_attr(struct kvm_vcpu *vcpu,
->>                          return -EINVAL;
->>
->>                  /* All vCPUs need set the same PV features */
->> +               spin_lock(&kvm->arch.pv_setting_lock);
->>                  if ((kvm->arch.pv_features & LOONGARCH_PV_FEAT_UPDATED)
->> -                               && ((kvm->arch.pv_features & valid) != val))
->> +                               && ((kvm->arch.pv_features & valid) != val)) {
->> +                       spin_unlock(&kvm->arch.pv_setting_lock);
->>                          return -EINVAL;
->> +               }
->>                  kvm->arch.pv_features = val | LOONGARCH_PV_FEAT_UPDATED;
->> +               spin_unlock(&kvm->arch.pv_setting_lock);
->>                  return 0;
->>          default:
->>                  return -ENXIO;
->> diff --git a/arch/loongarch/kvm/vm.c b/arch/loongarch/kvm/vm.c
->> index 1317c718f896..86ba7d54e81f 100644
->> --- a/arch/loongarch/kvm/vm.c
->> +++ b/arch/loongarch/kvm/vm.c
->> @@ -76,6 +76,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
->>                  return -ENOMEM;
->>          }
->>          spin_lock_init(&kvm->arch.phyid_map_lock);
->> +       spin_lock_init(&kvm->arch.pv_setting_lock);
->>
->>          kvm_init_vmcs(kvm);
->>          kvm_vm_init_features(kvm);
->> --
->> 2.43.0
->>
+Signed-off-by: fangqiurong <fangqiurong@kylinos.cn>
+---
+v2: Rename ->pcpu to ->pcpu_user as suggested by Tejun. Describe the
+    memory waste as quadratic as pointed out by Zhan Xusheng. Drop the
+    Fixes: tag as this is a plain memory saving with no correctness
+    impact.
+---
+ include/linux/sched/ext.h |  2 +-
+ kernel/sched/ext/ext.c    | 20 ++++++++++++++------
+ 2 files changed, 15 insertions(+), 7 deletions(-)
+
+diff --git a/include/linux/sched/ext.h b/include/linux/sched/ext.h
+index 582d7cd4a983..3c793d51c000 100644
+--- a/include/linux/sched/ext.h
++++ b/include/linux/sched/ext.h
+@@ -91,7 +91,7 @@ struct scx_dispatch_q {
+ 	struct rhash_head	hash_node;
+ 	struct llist_node	free_node;
+ 	struct scx_sched	*sched;
+-	struct scx_dsq_pcpu __percpu *pcpu;
++	struct scx_dsq_pcpu __percpu *pcpu_user;
+ 	struct rcu_head		rcu;
+ };
+ 
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index c539d15cda63..efb492876cd6 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -1127,7 +1127,8 @@ void schedule_dsq_reenq(struct scx_sched *sch, struct scx_dispatch_q *dsq,
+ 	} else if (!(dsq->id & SCX_DSQ_FLAG_BUILTIN)) {
+ 		rq = this_rq();
+ 
+-		struct scx_dsq_pcpu *dsq_pcpu = per_cpu_ptr(dsq->pcpu, cpu_of(rq));
++		struct scx_dsq_pcpu *dsq_pcpu =
++			per_cpu_ptr(dsq->pcpu_user, cpu_of(rq));
+ 		struct scx_deferred_reenq_user *dru = &dsq_pcpu->deferred_reenq_user;
+ 
+ 		/*
+@@ -5048,12 +5049,16 @@ s32 scx_init_dsq(struct scx_dispatch_q *dsq, u64 dsq_id, struct scx_sched *sch)
+ 	dsq->id = dsq_id;
+ 	dsq->sched = sch;
+ 
+-	dsq->pcpu = alloc_percpu(struct scx_dsq_pcpu);
+-	if (!dsq->pcpu)
++	/* Deferred reenqueue tracking is only supported for user DSQs */
++	if (dsq_id & SCX_DSQ_FLAG_BUILTIN)
++		return 0;
++
++	dsq->pcpu_user = alloc_percpu(struct scx_dsq_pcpu);
++	if (!dsq->pcpu_user)
+ 		return -ENOMEM;
+ 
+ 	for_each_possible_cpu(cpu) {
+-		struct scx_dsq_pcpu *pcpu = per_cpu_ptr(dsq->pcpu, cpu);
++		struct scx_dsq_pcpu *pcpu = per_cpu_ptr(dsq->pcpu_user, cpu);
+ 
+ 		pcpu->dsq = dsq;
+ 		INIT_LIST_HEAD(&pcpu->deferred_reenq_user.node);
+@@ -5066,8 +5071,11 @@ static void exit_dsq(struct scx_dispatch_q *dsq)
+ {
+ 	s32 cpu;
+ 
++	if (!dsq->pcpu_user)
++		return;
++
+ 	for_each_possible_cpu(cpu) {
+-		struct scx_dsq_pcpu *pcpu = per_cpu_ptr(dsq->pcpu, cpu);
++		struct scx_dsq_pcpu *pcpu = per_cpu_ptr(dsq->pcpu_user, cpu);
+ 		struct scx_deferred_reenq_user *dru = &pcpu->deferred_reenq_user;
+ 		struct rq *rq = cpu_rq(cpu);
+ 
+@@ -5081,7 +5089,7 @@ static void exit_dsq(struct scx_dispatch_q *dsq)
+ 		}
+ 	}
+ 
+-	free_percpu(dsq->pcpu);
++	free_percpu(dsq->pcpu_user);
+ }
+ 
+ static void free_dsq_rcufn(struct rcu_head *rcu)
+-- 
+2.43.0
 
