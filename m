@@ -1,166 +1,122 @@
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4FD15E5DC
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 22:51:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AB52F49F6;
+	Tue,  1 Sep 2026 22:52:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788303068; cv=none; b=uTIeNMg2sELLHkyedGODjtC3h4u/4end5agRTo8kOQgyjLVgrLFULI7ZeqAyGCBPHj8u09fcflXNSNgwD+6pmelj2c5sqvhDlDJ4irLHyO5HpfPdO0GA0hgddH3e/3dA1vdubF0AvSkAteTMFjFduR8u/rznj8YcGd3XXJS8Xew=
+	t=1788303179; cv=none; b=TOf4slaGIc61gOQR5G4OxIYZY8FD7hbiSPkQVN9d86S72nB76Ktn+684S5UjHIMzWOsDenm7DgxDdYn9xKVSVUn8msIfIQlzPEyMkrSDeP3abFluVWy62oJvzRPh+E4Xrod6shQe0fXklzVph6iaeAS8VG+zhhm9v0n3wK0aYgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788303068; c=relaxed/simple;
-	bh=pOEYibe3mwsw1wifNGruL3Eh+txznin4GWEktrs9o/4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=UtYfq5PPixtoLf/EFcwMU+r3o1+5hltYOsOKXd3tY1AHKmLLeuWoP1+GW/cquuCDaMpNwz3PT8j5Je0Ky/WSzwqpoz4o7PFf6nTnevL6cbH3i5jo2n4h3DTUlU5faiY5c6CUQ8wl1jz16+lbz3ilTeaIgabDVVioYHDbzFKJdnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JIBdycxg; arc=none smtp.client-ip=209.85.210.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788303179; c=relaxed/simple;
+	bh=cNKvgu/lmPJM4ixOs3dCfcoZ+BDVYU8oSxgE0VQtWtI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=eIEm/kPAI9bwF0uS99vs1y6DGRSHKK1PdwVjrWMCcXQfsnPd7Ow0FULuVJYvGdahhhCr8zDjyHbnecbjTbUF3nI1koMtwMvCUmAMr6by3Ozor3hXpxfERlIQtN9vaWGjPZn2Bht5QAS2HN4EkF/hObFdLq0y8miJ8qrsdIel8f0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dBNxHBty; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JIBdycxg"
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-85722fc5a21so537754b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 15:51:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788303066; x=1788907866; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CyjsuaiM3cxUtm6fL7D4dZzUePgQ+dg4iTlfcvKm+Nk=;
-        b=JIBdycxgix4BMVzpVhZQ/jgMUg5Fkqv8Neawq5Kt9csrXnrD++rQJOJ0sOa/gZGisF
-         Tt8KQl+S0Y4bhaOnl7j5uek+1Y6Rhre67yL30/7OLac5CSAdB49x+l8Cea8XgtDU0v/i
-         7GiTM9IUZ3B12viNs6FOOQFnoYsF0srT8HcFdPCwGfrtxQY0t+ZG1ooRXr9RQPcVth+6
-         xf79wJ9N181jFoUumUjHG7alRPG1YMlm8XX4Xu6KHEgijbQ6Z804huy/ucFvCL8qwUr5
-         deGE4pKpCAFuQZFhPl0dmWJ8QEssVKosGK0fBSlrqMwtEJJ/X5hGF/kqocEG4YN0jfWF
-         Spxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788303066; x=1788907866;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CyjsuaiM3cxUtm6fL7D4dZzUePgQ+dg4iTlfcvKm+Nk=;
-        b=VkX00bAykcXCeJo3e6y7TFWIUYDRlZXJbcHfFreE49+FZ/E8/XZS08adMspuSJq9Jb
-         6pR8ascmEWnb8DEXBylCkhwcW62pU+OpjAF7AcmCpg0tPtYHO0izy0Apg34RDq8VpAWO
-         LoeBxQr+7iTzmXo7T74CxPYcJKA43OyaAWnAfiHM4yP+XkLG7mSmGCW4BzUJBGm6yVJg
-         19oSQYJQv0Ldk4nUosFDHz2bW9M8Q2YsFfxF405f+xeOOVB59NUt0wvE+7q14TklSH6l
-         LkyjKgPOefSEXstGN2OJMP+1JMLhv2sPBVZswPZDwP6lcglpXwRKu5IRtBWkYMizvRgX
-         R+MA==
-X-Forwarded-Encrypted: i=1; AKwUvBw8kxwm6qdYW39mq4lr9hUxndTgvGNBO9WJM2zMx9Kq8rQ4yZ6A05aOS5iy6ImJpb6ZojEC/4sReqqeUp4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcN2Ou5AqqVd5LYQPuC1TzFT0DVSZ7RMbku/wPgpxTlOmzslwk
-	uos2s5v8rE28MyT+5RpuPi9u1RkBzcA2Mhv+f38FOnQZ0o/tMjZdQjXi4m53/+ek7Sd6D0n+mGa
-	Xm3M9hw==
-X-Received: from plhd17.prod.google.com ([2002:a17:903:2311:b0:2d6:f308:c74a])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:b87:b0:2d8:d4d0:792f
- with SMTP id d9443c01a7336-2daec7571c1mr7978855ad.19.1788303065982; Tue, 01
- Sep 2026 15:51:05 -0700 (PDT)
-Date: Tue, 1 Sep 2026 15:51:05 -0700
-In-Reply-To: <e3197a0a-e167-4ea1-bbde-9c7f11f42198@paulmck-laptop>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dBNxHBty"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F01A1F000E9;
+	Tue,  1 Sep 2026 22:52:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788303178;
+	bh=n1f4BxpHK9hO8LsGzvklPkEOi5mpKEL+L5A62czqZC8=;
+	h=From:Date:Subject:To:Cc;
+	b=dBNxHBtyC8FXbk5bdS4scnWqIqvU3rH1brbEggvfXVQjguplRGErGGmtbia1ijSH1
+	 CC2yDdI4U31xJk3RnlYB/zKxNZh2N/SJg1HhMlyBoBe6K1n2bnzZTrED1B7E1kh7m/
+	 rziZq9WwL4u6tFrDcNuvfFfNHVFspuLV6VdKgG2OovgpI+UHd+DCwguOajUAglogrK
+	 33+xKwLgOadzPe5auAwmHPxPP7VxP1HKy1adsv1aca083ZLObHwz5UlZDYRwVxmZ/w
+	 R/Uh2/HyCa8POncYmwxXpbR4+VLXbfmrbgceKDZLtSWbr/hySDKL97ANqrT4FiNasI
+	 64Ap9hLbXEyWA==
+From: Mark Brown <broonie@kernel.org>
+Date: Tue, 01 Sep 2026 23:50:02 +0100
+Subject: [PATCH v4] hardening: Default randstruct off with rust for better
+ allmodconfig support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <69567965-48fd-48c5-abb6-0699d7f5bd16@paulmck-laptop>
- <124af87fb49c267eeb26b8b4d952b9b1a5b3fb68.camel@infradead.org>
- <9427a8e0-3ba6-4f31-a35d-54429bd7e071@paulmck-laptop> <3d0463b6099d4fcde9a025a2f9e231d75303b61c.camel@infradead.org>
- <b0be19e9-b0ae-48de-bef6-d905ee007c8a@paulmck-laptop> <c39bda52f4c1573193aed39246f0d705755143fe.camel@infradead.org>
- <90d91673-a912-439f-98ee-e43285294486@paulmck-laptop> <8cd4aa65b1b499d4c614aa4cba445b6aeb89acf7.camel@infradead.org>
- <apcjs83XSU4Eb9hm@google.com> <e3197a0a-e167-4ea1-bbde-9c7f11f42198@paulmck-laptop>
-Message-ID: <apdW2edsT_ZKfuUR@google.com>
-Subject: Re: [PATCH] mm/mmu_notifier: Remove non_block_start/end() from
- notifier invocation
-From: Sean Christopherson <seanjc@google.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: David Woodhouse <dwmw2@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Michal Hocko <mhocko@suse.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-	Clark Williams <clrkwllms@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>, 
-	Jerome Glisse <jglisse@redhat.com>, Christian Koenig <christian.koenig@amd.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, linux-mm@kvack.org, kvm@vger.kernel.org, 
-	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-rust-reverse-randstruct-dep-v4-1-3bfa19efe1fa@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAJlWl2oC/5XNzYrCMBiF4VuRrI18+autK+9jmEVNjpoZaeVLW
+ maQ3rupLmQYEF0eeHnORSRwRBKbxUUwxphi35Vhlwvhj213gIyhbKFJV1SRkzykLEsJTpDcdiF
+ lHnyWAWfpWkfW15VSuhZFODP28eemf3zedxp2X/B5JufiGFPu+fd2P6q5e+1pVFJJ6zwaoA4U1
+ PYb3OG06vkg5qtRv4HpgjUmmJq02VX75h9mHtia9HPMFAwW1HhHpCz+YNM0XQHZlDl+cwEAAA=
+ =
+X-Change-ID: 20260605-rust-reverse-randstruct-dep-5a504c861128
+To: Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>
+Cc: linux-hardening@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ Mark Brown <broonie@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2049; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=cNKvgu/lmPJM4ixOs3dCfcoZ+BDVYU8oSxgE0VQtWtI=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBql1dEHtkcOC51RXS3uYuMlpw2VR3oIF7e1EDUo
+ kUgO/ITRt+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapdXRAAKCRAk1otyXVSH
+ 0GqhB/wNn5D/C/CUmPqq9FSJB8FholgaXbDnJs5MCTln44kXBBE8NqRYEORVFZg3P/M6g3rzgaO
+ LpNJqWidG3PavKfP5DUi2idhbPak2JpYhYtEcpaZ4UJl/eOdo6k0qMYJkhPKQA6ndLNQLaVKExA
+ eyoVIrNYF8D4PT/nu+SU0H6Ox6S0PIQ5ckQcYrrgqAEKxMa4fy67wGoYtV/Mj9mM0QfbBm60rou
+ tNGG2cNCJRG3JEDsQXv/gMB8HFKGKIbr5NkC/z/aX2vtG1qmSMw8pbgIBpJEwMP8fH8muJRv1cH
+ q6tStLFg3K6E/Ho4cIVLMb42/lhpCwfEQvNVRRIrdxX5CbUq
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, Sep 01, 2026, Paul E. McKenney wrote:
-> On Tue, Sep 01, 2026 at 12:12:51PM -0700, Sean Christopherson wrote:
-> > On Tue, Sep 01, 2026, David Woodhouse wrote:
-> > > On Mon, 2026-08-31 at 17:58 -0700, Paul E. McKenney wrote:
-> > > > On Fri, Aug 28, 2026 at 12:25:01AM +0100, David Woodhouse wrote:
-> > > >=20
-> > > >=20
-> > > > > =C2=A0 * 23f10e07aba3 srcu: Add try_synchronize_srcu() for caller=
-s which can prove readers absent
-> > > >=20
-> > > > I do not intend to provide a separate API for this given the possib=
-ility
-> > > > of indefinite postponement.
-> > >=20
-> > > Makes sense. In that case, calling it internally from the 'right'
-> > > places becomes important, as the callers who care can't do so for
-> > > themselves.
-> > >=20
-> > > We discussed the fact that synchronize_srcu_expedited() will also wan=
-t
-> > > to use the same fast path.
-> > >=20
-> > > I'm also looking back to Sean's call_srcu_expedited() patch from Marc=
-h:
-> > > https://lore.kernel.org/all/20260309193059.2244645-1-seanjc@google.co=
-m/
-> > >=20
-> > >=20
-> > > | Due to differences in how VMMs manage guest devices, and in the
-> > > | architecture being emulated by userspace, some updates trigger call=
-_srcu()
-> > > | with concurrent readers (i.e. while the VM is active), while others=
- occur
-> > > | without readers, e.g. when configuring devices during a pre-boot se=
-tup.
-> > > | For the later case (no concurrent readers), using the vanilla call_=
-srcu()
-> > > | is problematic, as it can kick off a normal grace period (totally f=
-ine for
-> > > | freeing the object) and effectively transfer the non-expedited grac=
-e period
-> > > | to the upcoming synchronize_srcu_expedited().
-> > >=20
-> > > So the offending path uses call_srcu() and triggers a normal GP, whil=
-e
-> > > the victim calls synchronize_srcu_expedited() and gets stuck behind
-> > > that non-expedited GP.
-> > >=20
-> > > Sean, if the victim is the "no concurrent readers" code path, as you
-> > > said above, do you think the fast path in the victim should suffice,
-> > > without the cost of an expedited GP for every bus registration?
-> >=20
-> > IIUC, you're asking if being able to use try_synchronize_srcu() for the=
- fast/happy
-> > of synchronize_srcu_expedited() (i.e. for kvm_swap_active_memslots()())=
-, even if
-> > there's an in-flight GP, would suffice for a fix of the regression intr=
-oduced by
-> > commit 7d9a0273c459 ("KVM: Avoid synchronize_srcu() in kvm_io_bus_regis=
-ter_dev()").
-> >=20
-> > If my understanding is correct, then yes, that should work, and presuma=
-bly would
-> > be a notable improvement overall.
->=20
-> Then we could abandon synchronize_rcu_atomic()?  That would not be a
-> bad thing from my perspective.
->=20
-> Just to be sure, please note that synchronize_rcu_expedited() can and
-> sometimes does sleep in order to avoid odd corner cases that could
-> otherwise pointlessly monopolize a CPU.
+Currently randstruct does not support rust so we have Kconfig dependencies
+which prevent rust being enabled when randstruct is. Unfortunately this
+prevents rust being enabled in allmodconfig, our standard coverage build.
+randstruct gets turned on by default, then the dependency on !RANDSTRUCT
+causes rust to get disabled.
 
-I think one (or both) of us is confused.  I thought David was asking if we =
-could
-avoiding adding call_srcu_expedited(), because the proposed try_synchronize=
-_srcu()
-would fix a regression related to KVM's use of synchronize_srcu_expedited()=
-.
+Work around this by disabling randstruct by default if we have a usable
+rust toolchain and rust support for the architecture, circular
+dependencies prevent us directly depending on !RUST. This means we might
+end up with a configuration that disables both rust and randstruct but
+hopefully it's more likely go give the expected result.
 
-I don't think that has anything to do with non-sleepable RCU?  Or is there =
-a
-separate discussion and/or implicitations I don't understand?
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+Changes in v4:
+- Rebase onto v7.3-rc1.
+- Link to v3: https://patch.msgid.link/20260702-rust-reverse-randstruct-dep-v3-1-e4e09c50014e@kernel.org
+
+Changes in v3:
+- Rebase onto v7.2-rc1.
+- Link to v2: https://patch.msgid.link/20260605-rust-reverse-randstruct-dep-v2-1-93d38023b6f9@kernel.org
+
+Changes in v2:
+- Add a HAVE_RUST in there too.
+- Link to v1: https://patch.msgid.link/20260605-rust-reverse-randstruct-dep-v1-1-45ce9ee8d0d1@kernel.org
+---
+ security/Kconfig.hardening | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/security/Kconfig.hardening b/security/Kconfig.hardening
+index 6923036e1a2f..81c81ad983ad 100644
+--- a/security/Kconfig.hardening
++++ b/security/Kconfig.hardening
+@@ -278,7 +278,7 @@ config CC_HAS_RANDSTRUCT
+ 
+ choice
+ 	prompt "Randomize layout of sensitive kernel structures"
+-	default RANDSTRUCT_FULL if COMPILE_TEST && (GCC_PLUGINS || CC_HAS_RANDSTRUCT)
++	default RANDSTRUCT_FULL if !(RUST_IS_AVAILABLE && HAVE_RUST) && COMPILE_TEST && (GCC_PLUGINS || CC_HAS_RANDSTRUCT)
+ 	default RANDSTRUCT_NONE
+ 	help
+ 	  If you enable this, the layouts of structures that are entirely
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260605-rust-reverse-randstruct-dep-5a504c861128
+
+Best regards,
+--  
+Mark Brown <broonie@kernel.org>
+
