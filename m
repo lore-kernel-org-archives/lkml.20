@@ -1,392 +1,206 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4EB4968E0
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:53:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788296016; cv=none; b=BbwUykJVh5sxnVQJXXUI0Uo5fTje+CPaHsSVBMjeQra5KbJqzSb58S0yaDHoVAMBP3iidlPHesGl+U0AzAhxoY1jjrqm3xVH1BCc+k9fKYkyY6snL3PXJuyNdg/92JDCXjsvGlvhayBtYqT/wPFAk2a9yQIcvE8Vbowzcrhu/n4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788296016; c=relaxed/simple;
-	bh=aKpvjxQE2cxbYVwFCB9w3ipI1Mgcj0HFiHSiP5oXTgc=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=LLZIn8yq4+MvYDx/iMbmekExaWjk8O2X9PnCszd2VaSGe/2V43uDRK8oqadgu/cn08yFAyT6ZqZn20pvbkBBdJp7FadbZBJxrmsq1A/fHHyU/W6JkIJMqunVIcCLe4zrasrckFP3ohORbSSC9Jg6bOYt06/hSiPFYGTIVFw+1og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bNpwQQJe; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67DC2931FB
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788296152; cv=pass; b=j5rtCpL7zpn+/ToqHJK5RRqjsFpaKyNRX200qq7aSk3+ywfMYiA43EMuSvHkYi6oZwHP4wjy3J4o6eydr9p50G6mYuUM3JhHZr+mo4p3XcaXWtTbuxLfz+hQuI4W4sADKEHFZnWr6K4V8q9Wmge0zltvBYVdESSVOJM7UBnJrHM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788296152; c=relaxed/simple;
+	bh=ds0R7RSWqyOotBdAMyqdu/tBAQwZG7fw93dEWKgQL/U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cwcA+6O3t4QiGZsO4WUmRfKh6l6xoXcl+UMAm4I8fX03wCNfa0a7ySYUqYydvylWGEeZ4ztcfc10naQZM0QL8fYjVVANxCH2P5I2YKeDNOArCG3HvP2tkE0CG+BNaUD2P/87xMWYMEyPLnuP8urggKxGcR6J0QR7y3hqjHkgpCI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=FcBGHHlR; arc=pass smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bNpwQQJe"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso281790b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:53:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="FcBGHHlR"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d5335cf904so2321415ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:55:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788296150; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iSTtRk0NHO/V58RvvJSXA1Eg+226ItXodCTOlx9bidnGNUjuTqz50kEA4rHB5VBBIt
+         FG2Ts2L60d5CqfZaEUAuQmQvUTTAEmpKj1VpsGD0zTKarfwkcF8XEojwT9QDpCXZkfy0
+         3quR3vWjz8wuyOa7NhtNkHLh5PAQWbtno8lAdqNYlrXDBcsemtIfqt9h6htASFB0fZJD
+         LlvHVISsnomRoxBhh9nxti9nqqFlwWEPhoRUfJyqxnkZMACMcSwQczSOML0p0c06ZssE
+         1nN7hsaaQ1R3pUencUv5ZCUfg2x2oREG+Q/3kQMH62zT32Ex+FF1mRm1ZuSKy4OwNneT
+         VDJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ds0R7RSWqyOotBdAMyqdu/tBAQwZG7fw93dEWKgQL/U=;
+        fh=TlF9UboqwLHYWulj4cbosJoRnurxq6eqU05QrRHNEGg=;
+        b=XplBTMGEnbDLBuSniXto4+zPQ0m+imcAqNb/wmtGE0x9F6/UWZgRjHuGfQK9DZV2ac
+         A+q3S9jmstVE9ei5cngS789q9JXTgb9TDH3gRa+KgEDSPKt/eaBq36XJLaEn40npLSX7
+         Y824Vh+vgV0HKfebz9UgH8ARiEm9dXKn1y+AQ6i/kYTEsC1VAGjfHvaS8NHLa3r0OIzg
+         FVbQfU2h/tMHgG7mAKPdKAWM9TChQ96kVkhg2TkZKmnDWR1pkqmRlrDGLJC0bdMo38V0
+         UFuUFhGTAIPY6f7wvJUK7YooNr+m9vJM/p/pPSMdzPgFFlbRim20T2ehzeqZCuHNPY61
+         eBxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788296014; x=1788900814; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z2yY3VWtNVXknR2xq/RckxnGM2GupuGqlN2wgAte6Tc=;
-        b=bNpwQQJe2CY3xRKkhcLk7TKaZ8hT0zQqT0YwXGdZvSd7PtRpP7GJlfNDZ6zkPH7e6c
-         kIhmats3vCfafJaViDU83PadNylsANB3snWeLkK212UT8n4QnVrBUh1C1Thw2lqgn4aw
-         HkpqsT096owDSW3eQjibC6AYEJ3TbrRnLk+ihzzLkqF5jpkePjYuR6mmi2whjg62D5jo
-         wsMhQe66MbIwyVoXjX7kJKatWjdwav8nkwKTwGG/oap/6Zl2Ceq5ARggdBxh1n3b1Fdz
-         ML1j0VO4DXjz9ebJYB6Qo93kwRkSeyfZUBCjpSDIuk6X94KW3hbHWLlZM2976fbmUIU4
-         brzA==
+        d=berkeley.edu; s=google; t=1788296150; x=1788900950; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ds0R7RSWqyOotBdAMyqdu/tBAQwZG7fw93dEWKgQL/U=;
+        b=FcBGHHlRa4KyK6GLEYePiV1yMfHY9X4tCxvXfbyyon/t4mMQ77vFLr3Efx2H4xoojX
+         K5SAoChJLrfCBfofVkHLb5sE2bERbvgJYYddVya8hqWqdSuWaFGOyg9tIdxTI0qaFZpC
+         47nCqGNHUg3csj6vtTSPbDwJ2zSKc/zSacqGjov8DXjDMpHZ7MeFO9JbSTPn6Uk6uSMI
+         TSgnAXMVXQ09ZvX4z8RMrg8nwu6l4GY1UxI2q7tp5pYzwhhfAeaGXKTHKmuXLmC4GrLu
+         0gqGrkEsSyv1x1om4rvM3kVHMnONK+hCLFGcmgksArwZQLerVSqrAloo3ZVLobxU89/L
+         sC/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788296014; x=1788900814;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z2yY3VWtNVXknR2xq/RckxnGM2GupuGqlN2wgAte6Tc=;
-        b=gOuHtdWpHX+0voWML7XRq4KKzu+Ob4GDWAWZsctDhOjho6xKNXd/kUkwaBhv2e2/Ko
-         BitWGjwtnwjFD+S73lHtFZd+PHuEfI6E9cN/rzfWq6mSVk83j1VblwU93Yj2+yV1WYqv
-         ew/Sh+ob6ugKIQbiTboXUo8IsVZc2FwtfChOnQf07xBUKN84xxosM9xtoWDG1a8QNEln
-         oQ/MZ8aW60PBI2udTOzg5gy5jU78NEsb7CLxpgTHGBqYZ8bliYhMp2y9xo8gMF2PdV1O
-         JWDZHw9Gee99rPPpOmhizE+fJT1Ifk6UPAlEb9NgxqXsbvxo+/YHzEKzpUElRHcBhX0X
-         W52w==
-X-Forwarded-Encrypted: i=1; AHgh+RqObi7WPRujIwZFJ0qwvVE4dmG2Fx03nzQ1HgBZyjqPICqZgXhDdFX49WZlrFOn3r+ErDubV60DmeMpNNg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuDWpK1t/5G2g2cIeBh0dt3TS/gBM79RSwBfzAG16c5XM/HhoY
-	czLS5DCn3dpFOJwQ/qwSeiggCSMKEVniW3LtyxWbda1s7Thr/0uPYxEG
-X-Gm-Gg: AR+sD13Ev76it9H1cvZrRFaNvIw5rdD8o6f89nSdwNMPkZ01714i9AoTK81gS8CXDvU
-	dQoP3jmJow4LazsvfnRNnzswhhLIJgH4LOu8+OJRMGFZFvuMU4GkcSHdvSnMmM5PhXPISDwa37m
-	VUTyzF2j7Yi9mEYeeKZ8DiebHrklOauAJgMntPe5omIElz6zAm6U1rWiPD1QJxb/x2TZ/SqQ6yr
-	SnqFkfirTL4XXHvmSYpCpg6jTd35kpRRQA5WzFJYkEDH/XCaSvuDbyL3TiXJMEBtph6LV6ryr7o
-	M2zOL8jJwWcQY3lqRVmg5YybBoKqjYKvd2z3LsFhZI5xdtwVxUhgzJa/cEwg7F2o85kyPX5ybpk
-	qsSdzozBo4dK6jK9Rh+5O6m1XEA/Jt80wWDomMjq6DCcAdSA4DipAA+OcGWo0rCLhbqPbP1CmPn
-	PUQs8dqRLuyHc6KcHg4pIDBYstK+SnifJfAk9/RXpOhMxaVoxX0TTaJEUamYPOFt9xDAkrpRSC6
-	rLFEisLInwx4dxSbH7zzf75jL+ACKNeO8QtkvzoR5MQahrCoMi2KHASY+Ew
-X-Received: by 2002:a05:6a00:1827:b0:857:72f8:dca6 with SMTP id d2e1a72fcca58-85bcacec80cmr6616693b3a.12.1788296013640;
-        Tue, 01 Sep 2026 13:53:33 -0700 (PDT)
-Received: from [10.21.0.95] (wnpgmb0592w-ds02-161-177-131.dynamic.bellmts.net. [207.161.177.131])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db30c5097sm375860b3a.26.2026.09.01.13.53.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 13:53:33 -0700 (PDT)
-Message-ID: <d80cf68e-a6cb-4b0b-807e-313be29ca8ae@gmail.com>
-Date: Tue, 1 Sep 2026 15:53:31 -0500
+        d=1e100.net; s=20251104; t=1788296150; x=1788900950;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ds0R7RSWqyOotBdAMyqdu/tBAQwZG7fw93dEWKgQL/U=;
+        b=OBs5BzBxax5D0fBozbxr2/UfxWhCuPwdeJ4X07kMVbefZpUTZh2WCb4rBUyJ87eP9G
+         2zWSEImFebYN4+meIL8za1vr3e52hFTtin97LECIC3MqxrjgApCF2ctC9ASmDC5rzda9
+         tBTcQgn4XsV9V/cWf8JdxPI57s7ISEBMX4ND9pL0jfBA6TmljEE4OrdCb0I256ZZMZL9
+         fFT2RVQRHa/GmPJ9oFKtK2Jj6TU3dtIOEl3tb15B/FcPpnIihEbVx0uHyu/6WAfEOM0m
+         oDFvaa4i+ZwB5jR4EjeYm/WNNnZ8rk+dbJVv2ujCu0XuQ7PP5GzXtLXDcHzI0Cz0mtiW
+         EuGA==
+X-Forwarded-Encrypted: i=1; AKwUvBwQoiuF/3PBzutBVv7D4VcV/feSzOqzl1uoKsv9LmLl6G/FWJ6uMx/4xJZnw6jSRRBBQXc+DrKzYE17crM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kl7UWhD0I3Z3zQqYFVf9y/+MChNS9YCrro1tRwBfklt0+TU354
+	j3ykyKuBGog46OKkWygU7DpNGaFALDlMzP97i1pWkO+APMIKPgKMpFFBUUyh5gqyIWdQDrTf3BR
+	eag9ReTon4q9Q5kLVmXvPeFR4ydd9/HR/hWhYds4w
+X-Gm-Gg: AYBFou26qmTL2QnMhWFH9zpJ4Y5Vkcb83WLMJKZhszi3em6PPNHJFsFYBmJa+Q25X3H
+	aDtzohpSSaF3P5EuzppldWr0RYLiUNS/7VvQ3kFpsSb8zYJZkJx3+kkQI1z+nTmGqIl+aMxWYHQ
+	5qkirOwFqVaY5gKvy0Vs/1hi3Yl2XS62idNyqMrs8KqhbgJbn8yUCorpIaiHr2Ce5oV9+i9f+tw
+	1gg98EHG+KWnWBYuBFtdDDeh53GBajV4JwNZ8ZBKD1KdUnHKfkw+hRFpRYZmE1/WQf8TPGRjHVZ
+	bMF7zEhlUMNiMgvKHFcI6UOr1QCc/gN8eJl1ru0Xf+scgorr0AieBDv5gYVJ+TDKVopGgd+QA4T
+	aS0K33/Cm5ZhiTFHlAADgI+UDzcOc5A==
+X-Received: by 2002:a17:90b:3b41:b0:381:6c5:3f63 with SMTP id
+ 98e67ed59e1d1-39907cd4e1dmr14923888a91.6.1788296149094; Tue, 01 Sep 2026
+ 13:55:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-From: Matthew Bettencourt <matthew.bettencourt@gmail.com>
-Subject: Re: [BUG] SPD5118 Intermittent MR11 Corruption During Suspend/Resume
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <1a8ea9da-1ac1-4312-a8ca-ea4a9f35093f@gmail.com>
- <ee284272-0da0-45b6-a3be-c76822e5d54f@roeck-us.net>
- <014b9438-e9b7-4be1-b816-002e83a068a0@roeck-us.net>
- <37132c40-aa82-4df1-b5ce-337601f3c085@gmail.com>
- <3c4e9f59-5272-48cf-a4a0-eeefcba955a9@roeck-us.net>
- <763a8b30-8548-4ff0-a1e9-8e74bbfe9b02@gmail.com>
- <6e8761aa-67ef-4624-834d-4b9d0ce729d6@roeck-us.net>
- <9753ed80-5666-42a6-b04c-99b9ef9326fe@gmail.com>
- <5c17ea39-c479-4f88-adc6-9a86f3dfb96a@roeck-us.net>
-Content-Language: en-US
-In-Reply-To: <5c17ea39-c479-4f88-adc6-9a86f3dfb96a@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260828180322.730419-1-longman@redhat.com> <ba138f23-6972-44c8-8ce5-80de1f50891c@linux.dev>
+ <85411b3f-bcbd-4a7e-99a5-49a465ca2df8@redhat.com>
+In-Reply-To: <85411b3f-bcbd-4a7e-99a5-49a465ca2df8@redhat.com>
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+Date: Tue, 1 Sep 2026 13:55:36 -0700
+X-Gm-Features: AcwNN1VD3djn7rU681MM0gPsbT7bDdd9EX-NdctA3Cep3e36lV4eXPZoh5Q-0g0
+Message-ID: <CA+0ovCg3BcogTUuqZwboEaZW41dkcsAV3nWjENOHc5ZFGaEarA@mail.gmail.com>
+Subject: Re: [PATCH] cgroup/cpuset: Handle cpu hotplug race in guarantee_active_cpus()
+To: Waiman Long <longman@redhat.com>
+Cc: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="000000000000b98a53065a72242b"
 
-Hello Guenter,
+--000000000000b98a53065a72242b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I updated the piix4_transaction() (code below) to only print when there 
-are failures. I then left the computer idle (~30 mins) while reading i2c 
-info and SPD temps and I never saw any failures.
+Apologies for the delay in response. Upon our run, the patched kernel
+388b607d107c07aaade04c7f22f344cab6bdccd3 no longer panics when facing
+the attached reproducer.
 
-I then did some sleep and resume with cycles with spd5118 driver enabled 
-and that is when I started to see the error messages again in dmesg.It 
-appears like there is always a failure but not every failure causes 
-corruption in MR11. From what I observed it seems like any `CMD=1a` 
-cause failures but no corruption while whenever there is a `CMD=0b` 
-there is failure and corruption. Not sure what that might mean be but it 
-is something I observed.
+Thanks!
 
-I then ran sleep and resume cycles with spd5118 disabled but still 
-polling i2c devices and could not produce any errors, however this was 
-just done via my desktop gui console so the script might be getting 
-suspended before whatever it is in the sleep cycle that is causing this 
-issue to occur.
+On Mon, Aug 31, 2026 at 5:09=E2=80=AFPM Waiman Long <longman@redhat.com> wr=
+ote:
+>
+> On 8/30/26 9:50 PM, Ridong Chen wrote:
+> >
+> >
+> > On 8/29/2026 2:03 AM, Waiman Long wrote:
+> >> With commit 2125c0034c5d ("cgroup/cpuset: Make cpuset hotplug
+> >> processing synchronous"), the cpuset hotplug operation becomes
+> >> synchronous. That commit also removes the code that handles the race
+> >> between cpuset_hotplug_work and cpu hotplug notifier with the assumpti=
+on
+> >> that race is now gone. Later commit 7a0aabd9ce69 ("cgroup/cpuset:
+> >> Always use cpu_active_mask") updates the cpuset code to always use
+> >> cpu_active_mask instead of cpu_ohline_mask in various places including
+> >> guarantee_online_cpus() which is also renamed to guarantee_active_cpus=
+()
+> >> in that commit.
+> >>
+> >> In the case of CPU offline operation, cpuset_active_mask is updated
+> >> first in sched_cpu_deactivate() to remove the offline CPU before
+> >> cpuset_handle_hotplug() is called to update the effective_cpus of the
+> >> affected cpusets. The cpu_online_mask is updated after that near the e=
+nd
+> >> of the offline operation to remove the offline CPU. As a result, the
+> >> race
+> >> comes back and the top cpuset may not have any active CPU leading to
+> >> NULL
+> >> pointer dereference during the race window when guarantee_active_cpus(=
+)
+> >> is called after cpu_active_mask is updated to remove the CPU to be tor=
+n
+> >> down but before cpuset_handle_hotplug() is able to properly update the
+> >> effective_cpus of the top cpuset.
+> >>
+> >
+> > Hi Longman,
+> >
+> > Thank you for the patch. I believe it should resolve the issue.
+> > Could Farhad please verify whether it works as expected?
+> >
+> >> Fix this by adding back the NULL cs check to avoid this problem.
+> >> However,
+> >> the output of guarantee_active_cpus() will be unreliable during that
+> >> race window.
+> >>
+> >
+> > If guarantee_active_cpus() can return unreliable results during that
+> > race window, should it instead return an error when it cannot
+> > guarantee that the active CPUs are usable? Otherwise, callers might
+> > use an incorrect 'pmask', which could lead to other issues downstream.
+>
+> I am thinking about that too. However, the change will be more extensive
+> and it is that easy to figure out if we are the in the race window. So
+> more thought will be needed before we can make that change. In the mean
+> time, we have to fix the NULL pointer dereference and it has behaved
+> like that before.
+>
+> Cheers,
+> Longman
+>
 
+--000000000000b98a53065a72242b
+Content-Type: application/octet-stream; name="reproducer.c"
+Content-Disposition: attachment; filename="reproducer.c"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mtj4rdg80>
+X-Attachment-Id: f_mtj4rdg80
 
---- sleep/resume #1 ---
-[  179.066004] [   T3736] spd5118 12-0053: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  179.066616] [   T3713] spd5118 12-0051: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  179.068576] [   T3736] i2c i2c-12: [PIIX4 ERROR TRACE TRIGGERED] result=0
-             STEP 1 (PRE-START)    : CNT=08, CMD=1a, ADD=a7, DAT0=00, 
-DAT1=18
-             STEP 2 (START BIT SET): CNT=08, CMD=1a, ADD=a7, DAT0=00, 
-DAT1=18
-             STEP 3 (POST-WAIT)    : STS=00, CNT=08, CMD=1a, ADD=a7, 
-DAT0=00, DAT1=18
-             STEP 4 (POST-CLEANUP) : CNT=08, CMD=01, ADD=45, DAT0=00, 
-DAT1=18
-[  179.068814] [   T3713] spd5118 12-0051: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  179.068888] [   T3736] spd5118 12-0053: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-
---- sleep/resume #2 ---
-[  235.947153] [   T3700] spd5118 12-0053: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  235.947827] [   T3699] spd5118 12-0051: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  235.951600] [   T3700] i2c i2c-12: [PIIX4 ERROR TRACE TRIGGERED] result=0
-             STEP 1 (PRE-START)    : CNT=08, CMD=0b, ADD=a7, DAT0=00, 
-DAT1=00
-             STEP 2 (START BIT SET): CNT=08, CMD=0b, ADD=a7, DAT0=00, 
-DAT1=00
-             STEP 3 (POST-WAIT)    : STS=00, CNT=08, CMD=01, ADD=45, 
-DAT0=ff, DAT1=00
-             STEP 4 (POST-CLEANUP) : CNT=08, CMD=01, ADD=45, DAT0=ff, 
-DAT1=00
-[  235.955119] [   T3699] spd5118 12-0051: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  235.955778] [   T3700] spd5118 12-0053: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x08
-
---- sleep/resume #3 ---
-[  298.628115] [   T3703] spd5118 12-0053: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  298.629121] [   T3730] spd5118 12-0051: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  298.631589] [   T3730] i2c i2c-12: [PIIX4 ERROR TRACE TRIGGERED] result=0
-             STEP 1 (PRE-START)    : CNT=08, CMD=0b, ADD=a3, DAT0=00, 
-DAT1=18
-             STEP 2 (START BIT SET): CNT=08, CMD=0b, ADD=a3, DAT0=00, 
-DAT1=18
-             STEP 3 (POST-WAIT)    : STS=00, CNT=08, CMD=01, ADD=45, 
-DAT0=ff, DAT1=18
-             STEP 4 (POST-CLEANUP) : CNT=08, CMD=01, ADD=45, DAT0=ff, 
-DAT1=18
-[  298.636234] [   T3703] spd5118 12-0053: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  298.637812] [   T3730] spd5118 12-0051: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x08
-
---- sleep/resume #4 ---
-[  631.979533] [   T3021] spd5118 12-0053: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  631.980193] [   T3017] spd5118 12-0051: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  631.983008] [   T3021] i2c i2c-12: [PIIX4 ERROR TRACE TRIGGERED] result=0
-             STEP 1 (PRE-START)    : CNT=08, CMD=1a, ADD=a7, DAT0=00, 
-DAT1=18
-             STEP 2 (START BIT SET): CNT=08, CMD=1a, ADD=a7, DAT0=00, 
-DAT1=18
-             STEP 3 (POST-WAIT)    : STS=00, CNT=08, CMD=01, ADD=45, 
-DAT0=ff, DAT1=18
-             STEP 4 (POST-CLEANUP) : CNT=08, CMD=01, ADD=45, DAT0=ff, 
-DAT1=18
-[  631.985028] [   T3021] spd5118 12-0053: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[  631.987201] [   T3017] spd5118 12-0051: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-
---- sleep/resume #5 ---
-[ 1288.503455] [  T10850] spd5118 12-0053: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[ 1288.504462] [  T10813] spd5118 12-0051: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[ 1288.505927] [  T10850] i2c i2c-12: [PIIX4 ERROR TRACE TRIGGERED] result=0
-             STEP 1 (PRE-START)    : CNT=08, CMD=0b, ADD=a7, DAT0=00, 
-DAT1=18
-             STEP 2 (START BIT SET): CNT=08, CMD=0b, ADD=a7, DAT0=00, 
-DAT1=18
-             STEP 3 (POST-WAIT)    : STS=00, CNT=08, CMD=01, ADD=45, 
-DAT0=ff, DAT1=18
-             STEP 4 (POST-CLEANUP) : CNT=08, CMD=01, ADD=45, DAT0=ff, 
-DAT1=18
-[ 1288.511883] [  T10813] spd5118 12-0051: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[ 1288.512541] [  T10850] spd5118 12-0053: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x08
-
-
---- sleep/resume #6 ---
-[ 1339.566042] [  T10863] spd5118 12-0053: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[ 1339.566679] [  T10887] spd5118 12-0051: PRE BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[ 1339.570157] [  T10887] i2c i2c-12: [PIIX4 ERROR TRACE TRIGGERED] result=0
-             STEP 1 (PRE-START)    : CNT=08, CMD=1a, ADD=a3, DAT0=00, 
-DAT1=18
-             STEP 2 (START BIT SET): CNT=08, CMD=1a, ADD=a3, DAT0=00, 
-DAT1=18
-             STEP 3 (POST-WAIT)    : STS=00, CNT=08, CMD=01, ADD=45, 
-DAT0=ff, DAT1=18
-             STEP 4 (POST-CLEANUP) : CNT=08, CMD=01, ADD=45, DAT0=ff, 
-DAT1=18
-[ 1339.572182] [  T10887] spd5118 12-0051: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-[ 1339.573363] [  T10863] spd5118 12-0053: POST BIT UPDATE: SUSPEND MR11 
-(0x0B) -> Cache: 0x00 | Bus: 0x00
-
---- piix4 transaction function ---
-int piix4_transaction(struct i2c_adapter *piix4_adapter, unsigned short 
-piix4_smba)
-{
-     int temp;
-     int result = 0;
-     int timeout = 0;
-
-     dev_dbg(&piix4_adapter->dev, "Transaction (pre): CNT=%02x, CMD=%02x, "
-     "ADD=%02x, DAT0=%02x, DAT1=%02x\n", inb_p(SMBHSTCNT),
-             inb_p(SMBHSTCMD), inb_p(SMBHSTADD), inb_p(SMBHSTDAT0),
-             inb_p(SMBHSTDAT1));
-
-     /* Register snapshot variables */
-     u8 pre_cnt, pre_cmd, pre_add, pre_dat0, pre_dat1;
-     u8 start_cnt, start_cmd, start_add, start_dat0, start_dat1;
-     u8 postwait_sts, postwait_cnt, postwait_cmd, postwait_add, 
-postwait_dat0, postwait_dat1;
-     u8 post_cnt, post_cmd, post_add, post_dat0, post_dat1;
-
-     /* Step 1: Read initial register state before starting */
-     pre_cnt  = inb_p(SMBHSTCNT);
-     pre_cmd  = inb_p(SMBHSTCMD);
-     pre_add  = inb_p(SMBHSTADD);
-     pre_dat0 = inb_p(SMBHSTDAT0);
-     pre_dat1 = inb_p(SMBHSTDAT1);
-
-     /* Make sure the SMBus host is ready to start transmitting */
-     if ((temp = inb_p(SMBHSTSTS)) != 0x00) {
-         dev_dbg(&piix4_adapter->dev, "SMBus busy (%02x). 
-Resetting...\n", temp);
-         outb_p(temp, SMBHSTSTS);
-         if ((temp = inb_p(SMBHSTSTS)) != 0x00) {
-             dev_err(&piix4_adapter->dev, "Failed! (%02x)\n", temp);
-             return -EBUSY;
-         }
-     }
-
-     /* Start the transaction by setting bit 6 */
-     outb_p(inb(SMBHSTCNT) | 0x040, SMBHSTCNT);
-
-     /* Step 2: Snapshot immediately after set start bit */
-     start_cnt  = inb_p(SMBHSTCNT);
-     start_cmd  = inb_p(SMBHSTCMD);
-     start_add  = inb_p(SMBHSTADD);
-     start_dat0 = inb_p(SMBHSTDAT0);
-     start_dat1 = inb_p(SMBHSTDAT1);
-
-     /* Wait for transaction completion */
-     if (srvrworks_csb5_delay)
-         usleep_range(2000, 2100);
-     else
-         usleep_range(250, 500);
-
-     while ((++timeout < MAX_TIMEOUT) &&
-         ((temp = inb_p(SMBHSTSTS)) & 0x01))
-         usleep_range(250, 500);
-
-     /* Step 3: Snapshot right after wait loop */
-     postwait_sts  = temp;
-     postwait_cnt  = inb_p(SMBHSTCNT);
-     postwait_cmd  = inb_p(SMBHSTCMD);
-     postwait_add  = inb_p(SMBHSTADD);
-     postwait_dat0 = inb_p(SMBHSTDAT0);
-     postwait_dat1 = inb_p(SMBHSTDAT1);
-
-     if (timeout == MAX_TIMEOUT)
-         result = -ETIMEDOUT;
-     if (temp & 0x10)
-         result = -EIO;
-     if (temp & 0x08)
-         result = -EIO;
-     if (temp & 0x04)
-         result = -ENXIO;
-
-     if (inb_p(SMBHSTSTS) != 0x00)
-         outb_p(inb(SMBHSTSTS), SMBHSTSTS);
-
-     /* Step 4: Final snapshot */
-     post_cnt  = inb_p(SMBHSTCNT);
-     post_cmd  = inb_p(SMBHSTCMD);
-     post_add  = inb_p(SMBHSTADD);
-     post_dat0 = inb_p(SMBHSTDAT0);
-     post_dat1 = inb_p(SMBHSTDAT1);
-
-     /*
-      * Dump full diagnostic trace ONLY if:
-      * 1. Hardware registers were mutated (pre vs post mismatch on CMD 
-or ADD)
-      * 2. The bus operation returned an error code
-      */
-     if (pre_cmd != post_cmd || pre_add != post_add || result != 0) {
-         dev_err(&piix4_adapter->dev,
-                 "[PIIX4 ERROR TRACE TRIGGERED] result=%d\n"
-                 "  STEP 1 (PRE-START)    : CNT=%02x, CMD=%02x, 
-ADD=%02x, DAT0=%02x, DAT1=%02x\n"
-                 "  STEP 2 (START BIT SET): CNT=%02x, CMD=%02x, 
-ADD=%02x, DAT0=%02x, DAT1=%02x\n"
-                 "  STEP 3 (POST-WAIT)    : STS=%02x, CNT=%02x, 
-CMD=%02x, ADD=%02x, DAT0=%02x, DAT1=%02x\n"
-                 "  STEP 4 (POST-CLEANUP) : CNT=%02x, CMD=%02x, 
-ADD=%02x, DAT0=%02x, DAT1=%02x\n",
-                 result,
-                 pre_cnt, pre_cmd, pre_add, pre_dat0, pre_dat1,
-                 start_cnt, start_cmd, start_add, start_dat0, start_dat1,
-                 postwait_sts, postwait_cnt, postwait_cmd, postwait_add, 
-postwait_dat0, postwait_dat1,
-                 post_cnt, post_cmd, post_add, post_dat0, post_dat1);
-     }
-
-     if ((temp = inb_p(SMBHSTSTS)) != 0x00) {
-         dev_err(&piix4_adapter->dev, "Failed reset at end of "
-         "transaction (%02x)\n", temp);
-     }
-     dev_dbg(&piix4_adapter->dev, "Transaction (post): CNT=%02x, CMD=%02x, "
-     "ADD=%02x, DAT0=%02x, DAT1=%02x\n", inb_p(SMBHSTCNT),
-             inb_p(SMBHSTCMD), inb_p(SMBHSTADD), inb_p(SMBHSTDAT0),
-             inb_p(SMBHSTDAT1));
-
-     return result;
-}
-
-
-Thanks,
-Matthew
-
-On 9/1/26 12:04 PM, Guenter Roeck wrote:
-> Hi Matthew,
-> 
-> On 9/1/26 09:31, Matthew Bettencourt wrote:
->> Hello Guenter,
->>
->> I added additional logging into the piix4_transaction(). I will put 
->> the function call on the bottom. But as you guessed we are seeing not 
->> just MR11 corruption but also can trigger on other addresses as well. 
->> I was running the suspend/resume cycle and caught on both MR11 issue 
->> and else where. Here is the dmesg log output.
->>
->> --- Other PIIX4 transation ---
-> ...
->> [29287.881787] [ T204580] i2c i2c-12: [PIIX4 REGISTER MUTATION 
->> DETECTED] Pre: (CMD=0x1a, ADD=0xa3) -> Post: (CMD=0x01, ADD=0x45) | 
->> DAT0=0xff
-> ...
->> [29312.945873] [ T204570] i2c i2c-12: [PIIX4 REGISTER MUTATION 
->> DETECTED] Pre: (CMD=0x0b, ADD=0xa7) -> Post: (CMD=0x01, ADD=0x45) | 
->> DAT0=0xff
-> 
-> It may be a coincidence, but the two failed accesses are exactly 25 
-> seconds apart.
-> 
-> Would it be possible to drop the messages except for the failures and 
-> run long-term
-> accesses (for example by reading the temperatures and/or the nvmem 
-> continuously) ?
-> You should find the nvmem at /sys/bus/nvmem/devices/0-005[13]/nvmem.
-> 
-> It might be useful to know if this only happens during suspend/resume 
-> cycles
-> or if it happens all the time, if it happens randomly or in specific 
-> intervals,
-> and if the failure pattern is always the same.
-> 
-> Thanks,
-> Guenter
-> 
-
+LyoKICogUmVwcm9kdWNlciBmb3IgMTY2LWdlbmVyYWwtcHJvdGVjdGlvbi1mYXVsdC1pbi1jcHVz
+ZXQtY3B1cy1hbGxvd2VkLgogKgogKiBCdWlsZDogZ2NjIC1wdGhyZWFkIC1zdGF0aWMgLU8wIC13
+IC1vIHJlcHJvIHJlcHJvZHVjZXIuYwogKiBSdW46ICAgYXMgcm9vdCBpbiBhIGRpc3Bvc2FibGUg
+Vk0uCiAqLwojZGVmaW5lIF9HTlVfU09VUkNFCiNpbmNsdWRlIDxmY250bC5oPgojaW5jbHVkZSA8
+cHRocmVhZC5oPgojaW5jbHVkZSA8c2NoZWQuaD4KI2luY2x1ZGUgPHN0ZGlvLmg+CiNpbmNsdWRl
+IDxzdHJpbmcuaD4KI2luY2x1ZGUgPHN5cy9zdGF0Lmg+CiNpbmNsdWRlIDx1bmlzdGQuaD4KCiNk
+ZWZpbmUgQ0cgIi9zeXMvZnMvY2dyb3VwIgoKc3RhdGljIHBpZF90IHZpY3RpbTsKCnN0YXRpYyB2
+b2lkIHdyKGNvbnN0IGNoYXIgKnBhdGgsIGNvbnN0IGNoYXIgKnZhbCkKewoJaW50IGZkID0gb3Bl
+bihwYXRoLCBPX1dST05MWSk7CgoJaWYgKGZkIDwgMCkKCQlyZXR1cm47Cgl3cml0ZShmZCwgdmFs
+LCBzdHJsZW4odmFsKSk7CgljbG9zZShmZCk7Cn0KCnN0YXRpYyB2b2lkIGNnX3dyKGNvbnN0IGNo
+YXIgKmdycCwgY29uc3QgY2hhciAqZmlsZSwgY29uc3QgY2hhciAqdmFsKQp7CgljaGFyIHBhdGhb
+MTI4XTsKCglzbnByaW50ZihwYXRoLCBzaXplb2YocGF0aCksIENHICIvJXMvJXMiLCBncnAsIGZp
+bGUpOwoJd3IocGF0aCwgdmFsKTsKfQoKc3RhdGljIHZvaWQgKmNwdTFfZmxhcCh2b2lkICp1bnVz
+ZWQpCnsKCWZvciAoOzspIHsKCQl3cigiL3N5cy9kZXZpY2VzL3N5c3RlbS9jcHUvY3B1MS9vbmxp
+bmUiLCAiMCIpOwoJCXdyKCIvc3lzL2RldmljZXMvc3lzdGVtL2NwdS9jcHUxL29ubGluZSIsICIx
+Iik7CgkJY2dfd3IoImhvbGRlciIsICJjcHVzZXQuY3B1cy5wYXJ0aXRpb24iLCAicm9vdCIpOwoJ
+fQoJcmV0dXJuIE5VTEw7Cn0KCmludCBtYWluKHZvaWQpCnsKCWNoYXIgcGlkWzMyXTsKCWNwdV9z
+ZXRfdCBjcHUwX29ubHk7CglwdGhyZWFkX3QgZmxhcHBlcjsKCgl3cihDRyAiL2Nncm91cC5zdWJ0
+cmVlX2NvbnRyb2wiLCAiK2NwdXNldCIpOwoJbWtkaXIoQ0cgIi9ob2xkZXIiLCAwNzU1KTsKCgl2
+aWN0aW0gPSBmb3JrKCk7CglpZiAoIXZpY3RpbSkgewoJCXBhdXNlKCk7CgkJX2V4aXQoMCk7Cgl9
+CgoJY2dfd3IoImhvbGRlciIsICJjcHVzZXQuY3B1cyIsICIwIik7CgljZ193cigiaG9sZGVyIiwg
+ImNwdXNldC5jcHVzLmV4Y2x1c2l2ZSIsICIwIik7CgljZ193cigiaG9sZGVyIiwgImNwdXNldC5j
+cHVzLnBhcnRpdGlvbiIsICJyb290Iik7CgoJc25wcmludGYocGlkLCBzaXplb2YocGlkKSwgIiVk
+IiwgZ2V0cGlkKCkpOwoJY2dfd3IoImhvbGRlciIsICJjZ3JvdXAucHJvY3MiLCBwaWQpOwoKCXB0
+aHJlYWRfY3JlYXRlKCZmbGFwcGVyLCBOVUxMLCBjcHUxX2ZsYXAsIE5VTEwpOwoKCUNQVV9aRVJP
+KCZjcHUwX29ubHkpOwoJQ1BVX1NFVCgwLCAmY3B1MF9vbmx5KTsKCWZvciAoOzspCgkJc2NoZWRf
+c2V0YWZmaW5pdHkodmljdGltLCBzaXplb2YoY3B1MF9vbmx5KSwgJmNwdTBfb25seSk7CglyZXR1
+cm4gMDsKfQo=
+--000000000000b98a53065a72242b--
