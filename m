@@ -1,115 +1,116 @@
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D4949E5CB;
-	Tue,  1 Sep 2026 18:33:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A120E490C11;
+	Tue,  1 Sep 2026 18:34:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788287630; cv=none; b=KN05jLNju+NowUZBNsrjYPwUEPGX21/DCj6NbSWMEDjZyUThmxMW+RX9ObfFLVU1/rnS0rrbJvSnezCn3iRLDHQzZRIM+VtmW6LlbIxT8gd5PqYivrKbIoxpgJ1nn6lKonLT9tlc45sp1+wv+QUEicBeEz81Pis07XBYoR4uHKA=
+	t=1788287672; cv=none; b=QwKh2OZqLfscHyQBoY2mfu03lsLrIYJAv+x6Wn9hDIZ0kBPzRvJCIUa+bI1ewfU4kz1ObdSShRu3v6tjTZBmUBN+xPud0SGBcbbome1lkeD/HmmMOI6z+APG9/Y7PIKJ88YLU7AJOfBF8SkQTpTG8ResqlJujlq2NmkXAoPFZXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788287630; c=relaxed/simple;
-	bh=gyHmnvEnpDzLxIA9secLY/W9xDC3IeZgi6WRNA5ZYps=;
+	s=arc-20240116; t=1788287672; c=relaxed/simple;
+	bh=6A7lRGd1Nf8Eah3+weAvl77S4z3C4FqpM3ANeMmkBsg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q3wwd1CA2kGtgc4ULrsYwTb6G0Y4frxprW6syysjO2gwaPZsl8r29831vmuF4Wm2uj93Zr5mR/ShuXpFM7cTxqKtRK/I+SarXQaOsyPiuUZxFG0sfUUGI/1ZESorJTx8YoYjnIHWSIIfmjFNEBINxJmd2d7hNrFImXHQH2eISbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=A0yb3DaC; arc=none smtp.client-ip=159.69.126.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=qfWd1Luw7A84++GGIUBLWlntYLFdmqV2SExYUbHgk5cn9OH+X1X2CXFTL6aerYrzuWLJRoYXovnEm4Ux2QmKEcprPZQjsMtis31UeebmojsZpCM5NZk7ZHfP7Jfu4/dY0hCu8ExncGBULjO0/HQkpehSjhNPZW4EkeSGgnT6Nu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/ixn95t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="A0yb3DaC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
-	s=mail; t=1788287619;
-	bh=gyHmnvEnpDzLxIA9secLY/W9xDC3IeZgi6WRNA5ZYps=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=A0yb3DaChar/alzw1Grjv30Hy+sNhyJoL4FD3Y9s8cg+JFOV2NG+v4O95KtpVkc2y
-	 +OjF77XNKQqFGungkclgVtdGRFKabbQL7vwz6IX0Q52TiczwZTBEeVqJBmV7T1tifz
-	 L9hNli9JB/VWbfbaoQUOiFvbKQ+kdhbtTf5nJFGM=
-Date: Tue, 1 Sep 2026 20:33:39 +0200
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
-To: Michal Simek <michal.simek@amd.com>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>, 
-	David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com
-Subject: Re: [PATCH 4/4] kunit: qemu_configs: Add microblaze configuration
-Message-ID: <b48fee3e-d113-4551-aed4-100a089e33b5@t-8ch.de>
-References: <20260804-kunit-microblaze-v1-0-6dcdfe12eb40@weissschuh.net>
- <20260804-kunit-microblaze-v1-4-6dcdfe12eb40@weissschuh.net>
- <5cd8df03-ad51-460c-9b20-3bf288831b5a@amd.com>
- <60d4618b-3620-4ecc-a2c6-2b382de68724@t-8ch.de>
- <40f679a2-fb5d-4d69-96dd-ab6c6718ac07@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/ixn95t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55EDF1F000E9;
+	Tue,  1 Sep 2026 18:34:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788287671;
+	bh=5NXgbY7RzU8g0Kf53Luap+wGnaz+b4K8573/iOsTQ/s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I/ixn95taCRJGX4PAMNj/C2sqsS1ahSoeW9hr3nqYKv27L2TmqCZFfi1XeScTVlf+
+	 cbstwnjn2a3/FJPdPre8LRomsAIgGvRkr30ufESK8Ikz1ihAT1e4EFZlbXk2zU8HLl
+	 ICHHFQtXJZxvByz5b71CGGjk2IP+1XjSgOlMXEDq0LNZLLkh8BQHNzaOGHep5rMr7n
+	 9ox1IiG5y5PYzg0A1y8r0QUfK0PPZkloaruwpOABRYG2htBc6Pz48lBnz1ZlV+utDZ
+	 Iq+UfKLLwTr8PX+yV+aVmPr3HM7CzjtIchVC9ohRkL51kOj3+kssxJRDWicb2pXwkp
+	 blNMtbtGrXCJQ==
+Date: Tue, 1 Sep 2026 11:34:31 -0700
+From: Kees Cook <kees@kernel.org>
+To: Michal Suchanek <msuchanek@suse.de>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	Andy Lutomirski <luto@amacapital.net>,
+	Will Drewry <wad@chromium.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org, Thomas Gleixner <tglx@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	linuxppc-dev@lists.ozlabs.org, Huacai Chen <chenhuacai@kernel.org>,
+	loongarch@lists.linux.dev, Sven Schnelle <svens@linux.ibm.com>,
+	linux-s390@vger.kernel.org, x86@kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Jinjie Ruan <ruanjinjie@huawei.com>,
+	Magnus Lindholm <linmag7@gmail.com>,
+	"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>, Radu Rendec <radu@rendec.net>,
+	Renzo Davoli <renzo@cs.unibo.it>, Oleg Nesterov <oleg@redhat.com>
+Subject: Re: [PATCH] seccomp: Fix syscall skip logic on ptrace
+Message-ID: <202609011132.F4A3EB7103@keescook>
+References: <20260707181957.433213175@kernel.org>
+ <al9NlZi20xHMvla2@kunlun.suse.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <40f679a2-fb5d-4d69-96dd-ab6c6718ac07@amd.com>
+In-Reply-To: <al9NlZi20xHMvla2@kunlun.suse.cz>
 
-On 2026-09-01 15:33:11+0200, Michal Simek wrote:
-> On 8/31/26 17:43, Thomas Weißschuh wrote:
-> > On 2026-08-31 12:48:08+0200, Michal Simek wrote:
-
-(...)
-
-> > > If there is an issue with memmove implementation I can't see any issue to
-> > > disable that options to let it pass from the beginning and solve it
-> > > separately.
-> > 
-> > Ack. Could you take care of this? I have next to no idea about microblaze.
+On Tue, Jul 21, 2026 at 12:44:37PM +0200, Michal Suchanek wrote:
+> seccomp takes a shortcut here. When the syscall number is re-read after
+> ptrace and the sign bit is set in the syscall number the syscall is
+> skipped right away.
 > 
-> On little endian this is passing. I can add it to my todo list but big
-> endian is very very old and likely none is using it anymore.
-
-If it is not supposed to work maybe mark it as BROKEN or disable the
-custom memmove() implementation there and instead rely on the generic
-one from lib/string.c?
-
-> > 
-> > > This should be fragment for Little endian.
-> > 
-> > Thanks, unfortunately this hangs for me with my distros QEMU 11.1.0.
-> > No output, 100% CPU usage during boot. I am using qemu-system-microblaze
-> > instead of qemu-system-microblazel, as the latter is not available
-> > anymore, but the former is documented to also handle little endian
-> > automatically.
-> > 
+> This works fairly well on x86 where the return value of the syscall is
+> preset before seccomp is processed.
 > 
-> I built the latest qemu like this
+> However, on some architectures the syscall return value overlaps with
+> the syscall number or syscall arguments, and as a result the return
+> value cannot be preset in advance.
 > 
-> ../qemu/configure --target-list=microblaze-softmmu,microblaze-linux-user,microblazeel-linux-user
-> --enable-gcrypt --disable-docs
+> For these architectures seccomp needs to exit without flagging the
+> syscall as skipped. Then processing of invalid syscall number in the
+> architecture code should set the return value to -ENOSYS and skip the
+> syscall.
 > 
-> /mnt/projects/xilinx-new-git/qemu.org/build-microblaze/qemu-system-microblaze
-> --version
-> QEMU emulator version 11.1.50 (v11.1.0-779-gd2e570cc0f97)
+> This introduces a change: If the syscall number has the sign bit
+> set, such as -1, previously the filter re-check would not be done, not
+> applying the filter after trace. Now the re-check is done both for
+> syscall nubers with and without sign bit set. This would only make a
+> difference if the syscall number or the filter was changed by the
+> tracer. Otherwise the filter would be resolved the first time around.
+> 
+> Signed-off-by: Michal Suchanek <msuchanek@suse.de>
+> ---
+>  kernel/seccomp.c | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
+> 
+> diff --git a/kernel/seccomp.c b/kernel/seccomp.c
+> index 066909393c38..9e40a38aaedf 100644
+> --- a/kernel/seccomp.c
+> +++ b/kernel/seccomp.c
+> @@ -1318,11 +1318,8 @@ static int __seccomp_filter(int this_syscall, const bool recheck_after_trace)
+>  		 */
+>  		if (fatal_signal_pending(current))
+>  			goto skip;
+> -		/* Check if the tracer forced the syscall to be skipped. */
+> -		this_syscall = syscall_get_nr(current, current_pt_regs());
+> -		if (this_syscall < 0)
+> -			goto skip;
+>  
+> +		this_syscall = syscall_get_nr(current, current_pt_regs());
+>  		/*
+>  		 * Recheck the syscall, since it may have changed. This
+>  		 * intentionally uses a NULL struct seccomp_data to force
 
-For me it still doesn't work. I am using the same build of QEMU and GCC
-13.4.0 (or 16.2.0) from crosstools.kernel.org.
+Does the seccomp selftest still pass with this change? I _think_ it's
+fine; this just induces more work on a tracer-induced skip path, which,
+in theory, shouldn't be fast-path: kicking out to the tracer is going to
+be the slowest part.
 
-> And can't see any issue.
-
-(...)
-
-> /mnt/projects/xilinx-new-git/qemu.org/build-microblaze/qemu-system-microblaze
-> -nodefaults -m 1024 -kernel .kunit/arch/microblaze/boot/linux.bin -append
-> 'kunit.enable=1 kunit_shutdown=poweroff' -no-reboot -nographic -accel kvm
-> -accel hvf -accel tcg -serial stdio -M petalogix-ml605
-> qemu-system-microblaze: -accel kvm: invalid accelerator kvm
-> qemu-system-microblaze: -accel hvf: invalid accelerator hvf
-> qemu-system-microblaze: falling back to tcg
-> qemu-system-microblaze: warning: nic xlnx.axi-ethernet.0 has no peer
-> random: crng init done
-> Ramdisk addr 0x00000000,
-> FDT at 0x5058e528
-> Linux version 7.3.0-rc1-00023-g5a713478d535 (monstr@monstr-desktop3)
-> (microblazeel-amd-linux-gcc.real (GCC) 13.4.0, GNU ld (GNU Binutils)
-
-I guess this is a special GCC variant. Could you try with one from
-https://mirrors.edge.kernel.org/pub/tools/crosstool/ ?
-
-(...)
-
-
-Thomas
+-- 
+Kees Cook
