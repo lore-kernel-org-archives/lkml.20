@@ -1,96 +1,229 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mta0.migadu.com (out-113.mta0.migadu.com [91.218.175.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2686040D578;
-	Tue,  1 Sep 2026 02:23:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD6F1DF980
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788229439; cv=none; b=OTCMtGhBOte8eBCAAd2fv1+4FKE+oSIxIvn/VhwquHzEhESLy4T3WeRVhlo30NVYqPikZW9xu4crlZ9u3zXmUjGVLrlNazIVZAnncSX3Ad/aYDnqSimVx03r76GhsKqtP6awvku4bNPT53GwZmKOm1rMwuqnc6r5kE1h7g7P84I=
+	t=1788229568; cv=none; b=Ih+TcWlESEqvh5ZzPW22amuHPBDY0xeriT0czFxzY++Lybf9iOJos8NGsEH9nCDlfoBsOrKgW+4ia5UqUgUZihrYDHM/okjo4YUOyuvDnPE+VJd31hNjtOYOHSollTPS6v2AwZqTbVNXWRBG0fKN8Qp956Lh0/csgsWxybza1DM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788229439; c=relaxed/simple;
-	bh=oluzvyed/sHOVrhtCcGIOiW63Ie6M2mEovSeqwdyhqQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=puDTBIncDGDpFPvd9fxRR+uNM7ETJ9PuBwUFD3tLlHyzJ+/doVCgxlZSw/saV81Ij94XGnW1Fg7CjCI5mwfsV00GAqCvVoPSSI6GJsYxgX9MMuDlGeGLkGGAFs8wj0CaZ12ka7PrZ7/5++kBAmgIcvMTfLLPvGZRdCK6iDQDWyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from DESKTOP-L0HPE2S.localdomain (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowABnO+8wN5ZqiVr6Bg--.26992S2;
-	Tue, 01 Sep 2026 10:23:44 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: mchehab@kernel.org,
-	nicolas@ndufresne.ca
-Cc: boris.brezillon@collabora.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haotian Zhang <vulab@iscas.ac.cn>
-Subject: [PATCH v3] media: v4l2-h264: Fix memcmp() size in B1 reference list comparison
-Date: Tue,  1 Sep 2026 10:23:09 +0800
-Message-ID: <20260901022310.12184-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1788229568; c=relaxed/simple;
+	bh=vM4ijJrAqrKJgp4ES8M9TJJbW0Vk7gw6kwz+ZDDvvJk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F7ZzFYvHji6ine0GNMhBA0em8Iv2nRYlPoTIfrGlF0oOFccF1uAs2T+MoUX0YDXUKZcFDL89pfxPwAGYs38wb1RStQPqn11sNjoaLbdkXidCfHrpewa0O78n9DUoJOP+4TK63UzjL1oNYgRNLspPK+7UIMZkiJbsaCK3gVdZqc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eK2bNcqD; arc=none smtp.client-ip=91.218.175.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eK2bNcqD"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=vM4ijJrAqrKJgp4ES8M9TJJbW0Vk7gw6kwz+ZDDvvJk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788229564; v=1; x=1788834364;
+ b=eK2bNcqDHpvc1Nu+jZjxFLplZmuBMkyksPobxop+IfEAY5idHgRx/hvuJU+OgKsg544n+9cl
+ ZM3winv0F9Xu2zejXJYR2T8U/C9kMvBOO9/riYsrUVl066XYxTXST3nKzQefsRw8c78g1IX+q94
+ 3ciZouNw5ce3aHpL5hodeIEY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ffc1d7bc8b38b6b0;
+	Tue, 01 Sep 2026 02:26:04 +0000
+X-Mizu-Trace-ID: ffc1d7bc8b38b6b0
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <6aea8093-54ee-49f2-916c-09b2c6587f20@linux.dev>
+Date: Tue, 1 Sep 2026 10:25:57 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/4] fs: fix missed removal of
+ super_fs_objects_eligible()
+To: Andrew Morton <akpm@linux-foundation.org>, usama.arif@linux.dev
+Cc: hughd@google.com, baolin.wang@linux.alibaba.com, brauner@kernel.org,
+ david@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>
+References: <cover.1786955972.git.zhengqi.arch@bytedance.com>
+ <3b038d373c70ebac7cdabfb0035bb91d1d6e6cfe.1786955972.git.zhengqi.arch@bytedance.com>
+ <20260828114129.909edbfb7e42b36af2da6a98@linux-foundation.org>
+ <eeae0d48-4d50-4dd4-9e16-b4f9902d84f4@linux.dev>
+ <20260829162350.1ee9e17d71a297b06b171941@linux-foundation.org>
+ <c1ad6e39-3b21-413c-ad02-f90cfc4102f9@linux.dev>
+ <20260831192143.84da447c4fa2afb60757afa4@linux-foundation.org>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20260831192143.84da447c4fa2afb60757afa4@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowABnO+8wN5ZqiVr6Bg--.26992S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar1UKFW8JF47WF13Cry7GFg_yoW8WFW3p3
-	yrGrZxKrWUArZ5Zr48JayDGFn0yay8JFWI93ySk342q34qqFs3tw4vyFyUXF4Yk397u3yj
-	9rWqkrZ5tF43Zw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
-	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
-	wI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
-	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
-	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
-	0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
-	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x0JUxcT
-	PUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwAQA2qVjVT3dwABsz
 
-In v4l2_h264_build_b_ref_lists(), the B0/B1 list equality
-check passes the entry count builder->num_valid to memcmp()
-instead of a byte size. Since struct v4l2_h264_reference is
-two bytes (fields and index), only half of each list is
-compared, so distinct lists can be wrongly treated as equal
-and trigger an incorrect swap(b1_reflist[0], b1_reflist[1]).
 
-Change the memcmp() size argument to sizeof(b1_reflist[0]) *
-builder->num_valid so that the full byte length of both
-reference lists is compared.
 
-Fixes: 624922a2739b ("media: v4l2-core: Add helpers to build the H264 P/B0/B1 reflists")
-Suggested-by: Nicolas Dufresne <nicolas@ndufresne.ca>
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
----
-Changes in v2:
-  - Use sizeof(b1_reflist[0]) * builder->num_valid for the memcmp() size to
-    match the style of the memcpy() calls in the same function.
-Changes in v3:
-  - Fix an extra closing parenthesis.
----
- drivers/media/v4l2-core/v4l2-h264.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 9/1/26 10:21 AM, Andrew Morton wrote:
+> On Mon, 31 Aug 2026 10:28:00 +0800 Qi Zheng <qi.zheng@linux.dev> wrote:
+> 
+>>> OK, please add this info to this patch's changelog.  Please also decide
+>>> whether a cc:stable should be added and if so, ensure the changelog
+>>> makes clear why we're recommending a backport.
+>>>
+>>> As part of this, let's expand on "XFS will also run into issues".
+>>
+>> How about this instead:
+>>
+>> ---
+>> Commit 0ef8faff490be ("fs: push nr_cached_objects memcg gating into
+>> individual filesystems") was meant to drop the blanket memcg gate in
+>> fs/super.c and let each ->nr_cached_objects() implementation decide
+>> for itself whether it is meaningful in per-memcg reclaim. However,
+>> when that patch was applied the removal of super_fs_objects_eligible()
+>> and its two call sites in super_cache_scan() / super_cache_count() was
+>> lost, so the helper is still gating every ->nr_cached_objects() hook
+>> and 0ef8faff490be is effectively a no-op.
+>>
+>> Consequences of the leftover gate:
+>>
+>>     - XFS's inode-reclaim hook, which is intentionally driven from
+>>       per-memcg contexts to free memcg-charged slab, is still
+>>       short-circuited in fs/super.c — exactly the regression from
+>>       commit 0baad6f9b997 ("fs/super: skip non-memcg-aware
+>>       nr_cached_objects in memcg slab shrink") that 0ef8faff490be was
+>>       written to undo. Memcg-charged XFS inode slab therefore keeps
+>>       piling up under per-memcg pressure until global reclaim kicks in.
+>>
+>>     - Any future ->nr_cached_objects()/->free_cached_objects() that
+>>       grows memcg awareness is likewise blocked before it can run, so
+>>       filesystems cannot opt in to per-memcg reclaim on their own —
+>>       defeating the whole point of pushing the gating decision down
+>>       into the callbacks.
+>>
+>> Drop the leftover helper and its call sites so the intent of
+>> 0ef8faff490be actually takes effect.
+>>
+>> Fixes: 0ef8faff490be ("fs: push nr_cached_objects memcg gating into
+>> individual filesystems")
+>> Cc: stable@vger.kernel.org
+>> ---
+>>
+>> Can you fix up the commit message directly on your end? Let me know if
+>> you prefer me to spin a v5 instead.
+> 
+> Thanks.  I pasted this in and turned your [1/4] into a standalone patch
+> for mm-hotfixes, with a cc:stable.
 
-diff --git a/drivers/media/v4l2-core/v4l2-h264.c b/drivers/media/v4l2-core/v4l2-h264.c
-index c00197d095e7..2323f559c6a3 100644
---- a/drivers/media/v4l2-core/v4l2-h264.c
-+++ b/drivers/media/v4l2-core/v4l2-h264.c
-@@ -440,7 +440,8 @@ v4l2_h264_build_b_ref_lists(const struct v4l2_h264_reflist_builder *builder,
- 	}
- 
- 	if (builder->num_valid > 1 &&
--	    !memcmp(b1_reflist, b0_reflist, builder->num_valid))
-+	    !memcmp(b1_reflist, b0_reflist,
-+			sizeof(b1_reflist[0]) * builder->num_valid))
- 		swap(b1_reflist[0], b1_reflist[1]);
- 
- 	print_ref_list_b(builder, b0_reflist, 0);
--- 
-2.43.0
+Thanks!
+
+> 
+> The remaining three patches I turned into a separate series for the
+> next merge window.
+
+OK.
+
+> 
+> This particular patch has no evidence of reviewer input yet?
+
+Hi Usama, could you please help review this patch?
+
+Thanks,
+Qi
+
+> 
+> 
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
+> Subject: fs: fix missed removal of super_fs_objects_eligible()
+> Date: Mon, 17 Aug 2026 17:03:25 +0800
+> 
+> Commit 0ef8faff490be ("fs: push nr_cached_objects memcg gating into
+> individual filesystems") was meant to drop the blanket memcg gate in
+> fs/super.c and let each ->nr_cached_objects() implementation decide for
+> itself whether it is meaningful in per-memcg reclaim.  However, when
+> that patch was applied the removal of super_fs_objects_eligible() and
+> its two call sites in super_cache_scan() / super_cache_count() was
+> lost, so the helper is still gating every ->nr_cached_objects() hook
+> and 0ef8faff490be is effectively a no-op.
+> 
+> Consequences of the leftover gate:
+> 
+>     - XFS's inode-reclaim hook, which is intentionally driven from
+>       per-memcg contexts to free memcg-charged slab, is still
+>       short-circuited in fs/super.c  exactly the regression from
+>       commit 0baad6f9b997 ("fs/super: skip non-memcg-aware
+>       nr_cached_objects in memcg slab shrink") that 0ef8faff490be was
+>       written to undo. Memcg-charged XFS inode slab therefore keeps
+>       piling up under per-memcg pressure until global reclaim kicks in.
+> 
+>     - Any future ->nr_cached_objects()/->free_cached_objects() that
+>       grows memcg awareness is likewise blocked before it can run, so
+>       filesystems cannot opt in to per-memcg reclaim on their own
+>       defeating the whole point of pushing the gating decision down
+>       into the callbacks.
+> 
+> Drop the leftover helper and its call sites so the intent of
+> 0ef8faff490be actually takes effect.
+> 
+> Link: https://lore.kernel.org/cover.1786955972.git.zhengqi.arch@bytedance.com
+> Link: https://lore.kernel.org/3b038d373c70ebac7cdabfb0035bb91d1d6e6cfe.1786955972.git.zhengqi.arch@bytedance.com
+> Link: https://lore.kernel.org/all/20260715103516.2410175-1-usama.arif@linux.dev/ [0]
+> Fixes: 0ef8faff490b ("fs: push nr_cached_objects memcg gating into individual filesystems")
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Cc: Christian Brauner <brauner@kernel.org>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Hugh Dickins <hughd@google.com>
+> Cc: Christian Brauner <brauner@kernel.org>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Hugh Dickins <hughd@google.com>
+> Cc: Johannes Weiner <hannes@cmpxchg.org>
+> Cc: Michal Hocko <mhocko@kernel.org>
+> Cc: Muchun Song <muchun.song@linux.dev>
+> Cc: Roman Gushchin <roman.gushchin@linux.dev>
+> Cc: Shakeel Butt <shakeel.butt@linux.dev>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> ---
+> 
+>   fs/super.c |   18 ++----------------
+>   1 file changed, 2 insertions(+), 16 deletions(-)
+> 
+> --- a/fs/super.c~fs-fix-missed-removal-of-super_fs_objects_eligible
+> +++ a/fs/super.c
+> @@ -172,19 +172,6 @@ static void super_wake(struct super_bloc
+>   }
+>   
+>   /*
+> - * The s_op->nr_cached_objects hooks (used for example by btrfs and xfs)
+> - * operate on filesystem-global state and ignore sc->memcg. Driving them
+> - * from per-memcg shrink_slab_memcg() invocations only burns CPU walking
+> - * per-cpu counters and queueing duplicate work: the actual reclaim happens on
+> - * the global path (kswapd or root direct reclaim) regardless. Restrict them
+> - * to that path.
+> - */
+> -static inline bool super_fs_objects_eligible(struct shrink_control *sc)
+> -{
+> -	return !sc->memcg || mem_cgroup_is_root(sc->memcg);
+> -}
+> -
+> -/*
+>    * One thing we have to be careful of with a per-sb shrinker is that we don't
+>    * drop the last active reference to the superblock from within the shrinker.
+>    * If that happens we could trigger unregistering the shrinker from within the
+> @@ -213,7 +200,7 @@ static unsigned long super_cache_scan(st
+>   	if (!super_trylock_shared(sb))
+>   		return SHRINK_STOP;
+>   
+> -	if (sb->s_op->nr_cached_objects && super_fs_objects_eligible(sc))
+> +	if (sb->s_op->nr_cached_objects)
+>   		fs_objects = sb->s_op->nr_cached_objects(sb, sc);
+>   
+>   	inodes = list_lru_shrink_count(&sb->s_inode_lru, sc);
+> @@ -274,8 +261,7 @@ static unsigned long super_cache_count(s
+>   		return 0;
+>   	smp_rmb();
+>   
+> -	if (sb->s_op && sb->s_op->nr_cached_objects &&
+> -	    super_fs_objects_eligible(sc))
+> +	if (sb->s_op && sb->s_op->nr_cached_objects)
+>   		total_objects = sb->s_op->nr_cached_objects(sb, sc);
+>   
+>   	total_objects += list_lru_shrink_count(&sb->s_dentry_lru, sc);
+> _
+> 
 
