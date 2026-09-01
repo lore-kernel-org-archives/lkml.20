@@ -1,58 +1,58 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0AF47B439
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95903A6B7F
 	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260214; cv=none; b=GbzG/9dTMHyuhIUf5CJQ9jUf3MKiqhzKNOjXQRrutGT8H/dlaog17b0uRCiaf5k88KeNzpPQJiUct1GpYWfeK87f54bf3ZtuIjKIxLTAyCElSzMW2m0U5K2sxJ17UgeqedbAbuyXwOWwcM5pZHrDi/R3LGx1zqhfn1u5ob2PqKc=
+	t=1788260215; cv=none; b=ZWI+1/+pPrNb0FsWL01SdBo+B4FOIJQcYypg5sV2OUOHG9hJHbLD1CGB8ztl0vxfim0vFS+rqB9GYlu79jxA8z9SOt2SQOb3YiiXjf/OCJePtM4FYmFj830L11BodM3y1tI0MGD8kxCwpnaHW+DSpsvZTVq98NKLKpftspCzkm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260214; c=relaxed/simple;
-	bh=f3wAQpmY2yF/PVGt7SV44lLnL3WpuJjNaHlOr7AfVlo=;
+	s=arc-20240116; t=1788260215; c=relaxed/simple;
+	bh=2dkcy9q8aUxhvulCMv23lkdDYUK+aaqyQ8PDyVFMtCs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G+APb9Q+nlvzsOS83WDB/sx8gCVXhGIhnCS+h/oIlmf8OeuhvAjzYwDONASCoyKhaHvbZSoa0AL/ufH+STJwJygJi2+wSsPZv4AwENGnMRFE3YrYEnrkZohKQeoIueBncI5vw4XZHNFw67wqEsQcMmWnrwYZdsn0Waq0YeHQzbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=A6izO27D; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=kuc+Hz9q; arc=none smtp.client-ip=195.135.223.130
+	 MIME-Version; b=IOQVhwXf4edCq7GlO9rYjdJEPUJLbH8NakPGJ/nO6Z9hayFqdI+wxqEs63Q96FhMXw5g5LnKKvgrKMHG7LRAUEcdPauA8Rb4eaJslotiMjEH3oCNVlu11i6HfT/FtYQoz9OkEe6SJH/kgPB+Er/ImVKRxEOF+6hL3gEehcQ0Tl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=X7ltb4nr; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=b1WZieW0; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="A6izO27D";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="kuc+Hz9q"
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="X7ltb4nr";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="b1WZieW0"
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8A67621CB8;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 44D161FB3B;
 	Tue,  1 Sep 2026 10:56:46 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
 	t=1788260206; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bTGPq561EINv0mMTaBbg0oLGrrPZ46VSW6hycYBsFUU=;
-	b=A6izO27DNJGsO68WvAOO7MmylZq5XtQiKw3UHAMdjRQ9upS7o3/tlYniJ9PCsMR0gATUQs
-	EvTDGIALpDHG5KKn7+2257x1FNTRL9EdLBftw3IIgdTSQk+ULWbOu4wkA+Px3AFgvJQ6qY
-	JO+58vm1mw89SLqzrvLWck+dfVYAeiE=
+	bh=6YrnX0TiZfKkzbR6al953cuN6ojb584mWviRS5jyvxI=;
+	b=X7ltb4nrjCfm5vaQM34poLnn8sBHFrtkc2FhutzniWUhXcmIiL0Dayi664Xd91u1z7Mx7b
+	0+skxNyhq40Mbj1NjxuQ0dTIWdKT6FvRH7pQBvvOli+bKhbmOvCsi1C7JnmZ/7hxGEUVO4
+	aKbOxeC87d8U4g/mxxCFz9gpIBfDgDM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
 	s=susede2_ed25519; t=1788260206;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bTGPq561EINv0mMTaBbg0oLGrrPZ46VSW6hycYBsFUU=;
-	b=kuc+Hz9qKOAOCnw5lvIMirKNmBZSPfsCCdp5bMEaf61QCeeWe0PtJ1dZ2yeehri7cNJp7d
-	9Ndkte3ihPt9IICA==
+	bh=6YrnX0TiZfKkzbR6al953cuN6ojb584mWviRS5jyvxI=;
+	b=b1WZieW0NysnXBqCbGR5QjWEGAi+D02JC8CHIX4RfgiwM2khr3j60UFHp6tsody9IXL35B
+	FsJcZLg5MCKm/UCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 12129136CB;
-	Tue,  1 Sep 2026 10:56:46 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C45F0136C7;
+	Tue,  1 Sep 2026 10:56:45 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id KIswA26vlmrRGwAAD6G6ig
-	(envelope-from <pvorel@suse.cz>); Tue, 01 Sep 2026 10:56:46 +0000
+	id wEE+Lm2vlmrRGwAAD6G6ig
+	(envelope-from <pvorel@suse.cz>); Tue, 01 Sep 2026 10:56:45 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: linux-kernel@vger.kernel.org
 Cc: Petr Vorel <pvorel@suse.cz>,
@@ -62,9 +62,9 @@ Cc: Petr Vorel <pvorel@suse.cz>,
 	Dwaipayan Ray <dwaipayanray1@gmail.com>,
 	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
 	Cryolitia PukNgae <cryolitia@uniontech.com>
-Subject: [PATCH v5 4/5] checkpatch: Factor out the check for UAPI files
-Date: Tue,  1 Sep 2026 12:56:41 +0200
-Message-ID: <20260901105642.851234-5-pvorel@suse.cz>
+Subject: [PATCH v5 3/5] checkpatch: Add --userspace to force userspace rules
+Date: Tue,  1 Sep 2026 12:56:40 +0200
+Message-ID: <20260901105642.851234-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260901105642.851234-1-pvorel@suse.cz>
 References: <20260901105642.851234-1-pvorel@suse.cz>
@@ -75,98 +75,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 8A67621CB8
+X-Rspamd-Queue-Id: 44D161FB3B
 X-Rspamd-Pre-Result: action=no action;
 	module=replies;
 	Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[];
-	TAGGED_RCPT(0.00)[]
 X-Rspamd-Action: no action
 X-Spam-Flag: NO
 X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[];
+	TAGGED_RCPT(0.00)[]
 
-DRY.
+Also allow to use --no-userspace for userspace projects which vendored
+checkpatch.pl and use --userspace globally to be able switch it off for
+files with kernel code.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-New in v5.
+Changes v4->v5 (all by sashiko):
+* Allow --no-userspace to override setup in the config (using undef
+  instead of 0, separate checks in is_userspace())
 
- scripts/checkpatch.pl | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ scripts/checkpatch.pl | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index ead35e6abba7..97bf952b0fbc 100755
+index b458c7f22684..ead35e6abba7 100755
 --- a/scripts/checkpatch.pl
 +++ b/scripts/checkpatch.pl
-@@ -2678,6 +2678,11 @@ sub is_userspace {
- 		$realfile =~ m@^arch/.*/tools/@);
- }
+@@ -63,6 +63,7 @@ my $env_config_dir = 'CHECKPATCH_CONFIG_DIR';
+ my $max_line_length = 100;
+ my $ignore_perl_version = 0;
+ my $spdx_cxx_comments = 0;
++my $userspace;
+ my $minimum_perl_version = 5.10.0;
+ my $min_conf_desc_length = 4;
+ my $spelling_file = "$D/spelling.txt";
+@@ -143,6 +144,7 @@ Options:
+                              (required by old toolchains), allow also C++
+                              comments (//).
+                              NOTE: it should *not* be used for Linux mainline.
++  --userspace                Force rules specific for userspace.
+   --codespell                Use the codespell dictionary for spelling/typos
+                              (default:$codespellfile)
+   --codespellfile            Use this codespell dictionary
+@@ -358,6 +360,7 @@ GetOptions(
+ 	'codespell!'	=> \$codespell,
+ 	'codespellfile=s'	=> \$user_codespellfile,
+ 	'typedefsfile=s'	=> \$typedefsfile,
++	'userspace!'	=> \$userspace,
+ 	'color=s'	=> \$color,
+ 	'no-color'	=> \$color,	#keep old behaviors of -nocolor
+ 	'nocolor'	=> \$color,	#keep old behaviors of -nocolor
+@@ -2667,6 +2670,9 @@ sub exclude_global_initialisers {
  
-+sub is_uapi {
-+    my ($realfile) = @_;
-+    return $realfile =~ m@^include/uapi/@;
-+}
+ sub is_userspace {
+     my ($realfile) = @_;
 +
- sub process {
- 	my $filename = shift;
- 
-@@ -4673,7 +4678,7 @@ sub process {
- 				ERROR("MALFORMED_INCLUDE",
- 				      "malformed #include filename\n" . $herecurr);
- 			}
--			if ($path =~ "^uapi/" && $realfile =~ m@\binclude/uapi/@) {
-+			if ($path =~ "^uapi/" && is_uapi($realfile)) {
- 				ERROR("UAPI_INCLUDE",
- 				      "No #include in ...include/uapi/... should use a uapi/ path prefix\n" . $herecurr);
- 			}
-@@ -6683,7 +6688,7 @@ sub process {
- 		}
- 
- # don't use __constant_<foo> functions outside of include/uapi/
--		if ($realfile !~ m@^include/uapi/@ &&
-+		if (!is_uapi($realfile) &&
- 		    $line =~ /(__constant_(?:htons|ntohs|[bl]e(?:16|32|64)_to_cpu|cpu_to_[bl]e(?:16|32|64)))\s*\(/) {
- 			my $constant_func = $1;
- 			my $func = $constant_func;
-@@ -6846,7 +6851,7 @@ sub process {
- 		}
- 
- # Check for __inline__ and __inline, prefer inline
--		if ($realfile !~ m@\binclude/uapi/@ &&
-+		if (!is_uapi($realfile) &&
- 		    $line =~ /\b(__inline__|__inline)\b/) {
- 			if (WARN("INLINE",
- 				 "plain inline is preferred over $1\n" . $herecurr) &&
-@@ -6857,7 +6862,7 @@ sub process {
- 		}
- 
- # Check for compiler attributes
--		if ($realfile !~ m@\binclude/uapi/@ &&
-+		if (!is_uapi($realfile) &&
- 		    $rawline =~ /\b__attribute__\s*\(\s*($balanced_parens)\s*\)/) {
- 			my $attr = $1;
- 			$attr =~ s/\s*\(\s*(.*)\)\s*/$1/;
-@@ -6931,7 +6936,7 @@ sub process {
- 		}
- 
- # check for c99 types like uint8_t used outside of uapi/ and tools/
--		if ($realfile !~ m@\binclude/uapi/@ &&
-+		if (!is_uapi($realfile) &&
- 		    $realfile !~ m@\btools/@ &&
- 		    $line =~ /\b($Declare)\s*$Ident\s*[=;,\[]/) {
- 			my $type = $1;
-@@ -7424,7 +7429,7 @@ sub process {
- 		}
- 
- # check for #defines like: 1 << <digit> that could be BIT(digit), it is not exported to uapi
--		if ($realfile !~ m@^include/uapi/@ &&
-+		if (!is_uapi($realfile) &&
- 		    $line =~ /#\s*define\s+\w+\s+\(?\s*1\s*([ulUL]*)\s*\<\<\s*(?:\d+|$Ident)\s*\)?/) {
- 			my $ull = "";
- 			$ull = "_ULL" if (defined($1) && $1 =~ /ll/i);
++    return $userspace if (defined $userspace);
++
+     return ($realfile =~ m@^tools/@ ||
+ 		$realfile =~ m@^scripts/@ ||
+ 		$realfile =~ m@^arch/.*/tools/@);
 -- 
 2.55.0
 
