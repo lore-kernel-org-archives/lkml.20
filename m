@@ -1,233 +1,153 @@
-Received: from sonic307-15.consmr.mail.ne1.yahoo.com (sonic307-15.consmr.mail.ne1.yahoo.com [66.163.190.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CF443CE70
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:04:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.190.38
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2299043B4BD
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278643; cv=none; b=cNSTlquS7rH9WSBb/0Qc2cbeU1Jtnu2NXeyC9v16XiWIW++jI074xJgBbhoDqfvBPrOJ3AIjOPl2p2uaZNaNBaI/JQPh1GAIQWDVUMLyWxV5H4OwDlh3SQt4ryM5vqCcBrWpam3d3+4xgjd3oTiUK39ZDIuPSAU5FVVPlGbp7yQ=
+	t=1788278691; cv=none; b=Q5F7i+FiDy1CoRbjK4jLl+1cIOvCJ0zq3yZ6OV8VBoLVkWfcduQYHNBzfG1FC61YFfPcZau5qgEF/gLmVqyy+1CLw4RKgGSBDgXQ1IeHQ7oHnvtlAqT2QFGbamowZyRwuesWnmwQgbI0a2ZUtsGBa7CPSUyK/NPWrAu7urbM4Rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278643; c=relaxed/simple;
-	bh=EIjyPnqw8QTTn+ydcMEjt0qRWEFtEg0Ql8NGv6CxEVA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YK+YEevX38KCXtjb6UVsINp0mdv+pHXY7D+lfMEyc/sTyeTOUHjMKJScFpPS6by6inBtr7qv9lcxzJVV9hOfuZX+HXB0K7/UcIiP+FJ8eFVl2htA6iaW9sPpvzBwKhp5OGOcoHknTDRorGH8IuLyZgu87ajjkE4GSgU+EJg3iBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=schaufler-ca.com; spf=none smtp.mailfrom=schaufler-ca.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=HAv4y6Nr; arc=none smtp.client-ip=66.163.190.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=schaufler-ca.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=schaufler-ca.com
+	s=arc-20240116; t=1788278691; c=relaxed/simple;
+	bh=V7V4Z0XgmjsuqvE2KaM+pbGjdr/a1+AAjTI+Z66WgUU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R0ubP2XyBnFSGxVFt4wAaHNHYdrezukAYrWdIv33Oc0Lu2Wuw+KY9vzxsLPYjqr1TTHT/6/phQHOGGYzhLL2MCoqs2ILRcc9y72tl+PrZZ20+jPLSumq0XY2jMPWkz3DR3qG+3weA+3gn1Q4zcPVkzwV9+CHjnO0R63dTiBfzqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ShMS54iM; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="HAv4y6Nr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788278641; bh=gPh+X/iBiqRKhw1S4WGz1YTRGse+nCFpHEMx4R0LHRw=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=HAv4y6NrO49IyeCK8ZkLhfUqS3eLzWFDijFgd78h34+VEQMBxbHOTw4wYbM+n2iXkcnGmHTqypE3Z3w6bH4BXn10NPTA/NNlTmlMMZ+UxOi3yruY/DPYAIQyLGC/uXhydAK/tjmiqQm0PZWpo1XZxmVyHatm1r7KOqXXuwU+s4DhwOUwX5MN2KQIHqMVGU5l40dILhB5rJUpuDq8gLGgugv8kqF1Pm/MPD0NgdHhFdoJBYS6MPRV2R5NGqN4rSQoJSa2a7QCVXKSfV/urjknglW+Ox3GYIus0zUQA4j+L5GhRkDs147mshDbl4j8ZHvmavNdlXTshjQd+Oeg+9ty/w==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788278641; bh=OQvUqQi4fhpuoFznA8v7sfr6WxUBta2K5UuCF4Gzp0Q=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=hWNbdcXzT1oTKMxF/3raRJ4FBDdZCNSDTKpyph4469hdAKOU3E92trhLb15LUUjNeC33v7X0hZ/9olMp+BfIu7vZjSNJJigsBm/L7PZ3qrACvWwiUyyX7GmHb7XBuROMBqVMkLa8dQFDZEJd5EH8oxrVFBYV2AFW7ABR+riy+lCYxP8zKbpGYALrqrQvEC7+A59z/kZzhh8sbjUlLJtsYEaSn5IRNF+mytHQcqu4caRoKeBFYt5TAoeXC/6ycKSxmt5KDN6+Rk91GAaUdqhhA6PcTdOl8Bf/27nXmUy9DQ/QmN23jUG3i3Gr9GHyCri5eodJQSKNHYy49oUyLEWjVg==
-X-YMail-OSG: BnRSzUsVM1l6DMJ0RcDbVkj8OA4EnfP5.zaF5Sy_6KG2J6a5XNB2nRUsOjT3ART
- x5kLRUjxN7qI.IXN_GOJxUAxbDm4WQ1qWxDFpikbntvRnmDeeModNmJvEuDFj70nMxMVDCfR7i08
- TLoHA1R6hIZ1LhwgEBJz6BXTQpcu137HEdLRqbU3iAMWdmdCgHN.jybBtQrF.C89oj3iXdcwq83U
- kyDrUGwY2QAD56uB_yS9.v1b6lpsfgvy_wVq5Xl.XMcya.NblpqHct.74b_WgBLRj.n2g260Ze_5
- MC6oHD9kLsWBzV7oNxexUIrvLvA2NSEWiiQVAEF5Dyw0J_p2gi34blnPWV1ffY2fr2.2ndZK5mCw
- q8JZUkPybYawiAqbZMETn62xgxSJxqPLZriKVsh.Yur2GcbnN9rZY_BrvztvDaILL1w.poZ6QlwF
- HHWdMVYN65I.NYExwdSzLBLVE_XCTXiFgVwWkHjUWiRUX1WAttlhY7x7O4pRzoFf7rDr5KUvjq5T
- QFYbawEwONrjsddJQcutigmcwqUqQcYbsFsMPcGrG7uqKjThJvkpiyR9ZVvBcSQW7i.VmngJ09L3
- zNPMqOW23l3jYUmLNJA9tdLGcCRY8qixdtT_dA_LF6khvJdag3IzZ0iJXOPiBVwoPqOpVzmSDK0K
- rYXwTp56ucWKOEXaUx9qB5fKNpyhTVno69lmXRn586srKGKH9bcyQNuag15gmd4cQ_bwLRJpsebv
- hrH9oshCVWTElz0zb3kh5ZTnkTH3F540Joo96iqkl4GF1jBVeoHTGqM93jXemH20j.XQzu7F1kjv
- silAPMLu3nlfcOUZEuG6P6yeunGiFF8wT88ZXiNAvrO_eCWdV.BKTTl_GDY8Ki1_nhXYmMPNWTWL
- L4WVgb9bg2GzAGgwe7O_YWw1lUPljGE_7kizgV86h5n6.AeO1GAta2FijW7JtM4CIp94IlvVt3_X
- n2JoT.pEZXBK5T0805WWPzRfy0KT0RDYN2uYFdzPP3vo1mIWkiWPjfBSfdpa0P6T2p84k6QfmCkz
- HPyi8EzuxmPrb0oXLYeiYnj9Wv99M29bnqSOdD_91vneq9YVbWF7Q6Ob8VIQf6f_em9BBLlclDi4
- EXEc8pebwZ6v3bSF9hJIvWVd_1nwlDXudPKpTYbDy01lfwwMPxHqX4U7yo7jMXECMbWjiPC_EIei
- 1rwJ6gZqwT_kXId0dQZTUuj7.NHXwISkRI5c77y.JwwNOrTopnjvAO50EPbmSmBYZ.Wm9.zbd7zz
- 8mffN78xMRX437TWJmZsia5XHlwnD__SwtGTCFgLLDLqG0waLpdI5Gnjsk7PEsRhAB7b3weR_G4t
- mFhIaY7iOjLIM44a1g_LCMSSyJWLGhnL1u9Qf2jhZLL5gJ_6IYVXHVRVfV9ziNetQXEm_8WaIrTT
- tlixevJkEx6Dz..j6uh5NXC35zBpJbSM7StGjzdCZ6VVY86xr1QYX9Xm8BJhSQ7pkqx89uwC3CP0
- .p1kR0Plgh_Gdiw1C.9uSEEfWllyoBISuzXgpocW6t8tN5S53NAmNWF18cQm.SZHhO3Ncak.CkAx
- lo6eXKa52FjEofHF7ZRseScCLRHlnMH854MvxW05_v4OQqzn_dKcr.1mdNt1FlZvmNwoNCvKEhTr
- GBc11oR5WIkXvaO1zclx6FmXGgDjPc.Ie266nDgGo_72clnHYHYUKf875KOPIW1AzvxAW7oCLKHe
- 2ahfFP1DPqv5akZ1S14Gks6tf1x27QnHtgR7mdotq8XOFuwAZe7DpFOphuTtnOuu3rwpY5WAFfoO
- 8trFKjtEC7u.3PTb_9.FyXwuzAcJdZp6xU1DxO1LCDc9QG1ccOvBHiFjpwSgUkohS1J3Mu_vnr1p
- d5Wxy21YJJhYtS21aiCcV50vmBxj0jgvFg59llCpT3vN1pMaxf14PawfRh5PKiqRWhpad2vNXT4f
- FKtJWRdyhVAaFVTSBsbPot7S9XzzRgEInkTcl.vBKUhn9jtA8ADT7YWT9zvV1foYbKik0_X_dnYJ
- 7ckBVPo6fIx2.7eqgJZ8JOsUBOfYNp5C6Cd2io8btrpEiGP8XXEIXv8lNiMIuiZrcm841JUkmksG
- DyK0xgr3MeyHSybaP_Fys7Nltg.EIr4Q0v4309l60Yib91EEQ7awW7xjVpdcnBZw1bekGO9PBACm
- HJtn0fGSUS3U9JB.nlXkq9a.8PxosWl9UkcaGzsm98E_rYsjhEt3dLJIH0eSlHBj8M9ednNL0JvJ
- WkoKD3FJpOYf25tly81HBtlpU0e0sVW1fbNJ3xF70RJgzlCrypYY0bHfiaif786dAoWYR1oDy_Pd
- SPBHQbxcB6yTNOQ--
-X-Sonic-MF: <casey@schaufler-ca.com>
-X-Sonic-ID: ae5512ae-c89c-4588-a92d-d5c736d4192f
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.ne1.yahoo.com with HTTP; Tue, 1 Sep 2026 16:04:01 +0000
-Received: by hermes--production-gq1-678d9dd684-mxdfs (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 7bb86a24437c43194baefa3abed212e3;
-          Tue, 01 Sep 2026 15:53:44 +0000 (UTC)
-Message-ID: <d3656927-c39d-421f-8baa-f04c8d4eeff3@schaufler-ca.com>
-Date: Tue, 1 Sep 2026 08:53:42 -0700
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ShMS54iM"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 929271756;
+	Tue,  1 Sep 2026 09:04:45 -0700 (PDT)
+Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 717CA3F85F;
+	Tue,  1 Sep 2026 09:04:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788278689; bh=V7V4Z0XgmjsuqvE2KaM+pbGjdr/a1+AAjTI+Z66WgUU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ShMS54iM5M18ZHyNF1VoQWoLveiZeYU5AUcg1COKoa0ykCqnWM5YhkCm8LTOHMw3Y
+	 /6AZOMP9Ez7x6BYcLGQZW/IopdG+XQz0AafCysUqFpT8InyKdbEIb9isAvu/cQXBKX
+	 8emlw21brJefBooBx1j35fC20R0yzQ48NdiWRvIc=
+Date: Tue, 1 Sep 2026 17:04:45 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: linux-kernel@vger.kernel.org, frederic@kernel.org, jstultz@google.com,
+	juri.lelli@redhat.com, meted@linux.ibm.com, mingo@redhat.com,
+	peterz@infradead.org, sshegde@linux.ibm.com, tglx@linutronix.de,
+	vincent.guittot@linaro.org, vschneid@redhat.com
+Subject: Re: [PATCH v2 0/6] sched: dynamic: Simplify PREEMPT_DYNAMIC
+Message-ID: <apb3naadvUkEJxGM@J2N7QTR9R3.cambridge.arm.com>
+References: <20260803191731.3244294-1-mark.rutland@arm.com>
+ <3f3191c6-d41f-4c4c-82df-7ed2cb8cbd84@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 24/27] fs: port ->setattr() to pass const mnt_idmap
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
- Christoph Hellwig <hch@lst.de>, Seth Forshee <sforshee@kernel.org>,
- Paul Moore <paul@paul-moore.com>, linux-security-module@vger.kernel.org,
- Mimi Zohar <zohar@linux.ibm.com>, linux-integrity@vger.kernel.org,
- Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org,
- Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
- Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>,
- linux-unionfs@vger.kernel.org, Namjae Jeon <linkinjeon@kernel.org>,
- linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org,
- Casey Schaufler <casey@schaufler-ca.com>
-References: <20260901-work-idmap-const-v1-0-54ccd48e100b@kernel.org>
- <20260901-work-idmap-const-v1-24-54ccd48e100b@kernel.org>
-Content-Language: en-US
-From: Casey Schaufler <casey@schaufler-ca.com>
-In-Reply-To: <20260901-work-idmap-const-v1-24-54ccd48e100b@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26380 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3f3191c6-d41f-4c4c-82df-7ed2cb8cbd84@huawei.com>
 
-On 9/1/2026 5:14 AM, Christian Brauner wrote:
-> Convert to const struct mnt_idmap.
->
-> A mount's idmapping is immutable. The only thing that is allowed to be
-> modified afterwards is the reference count and that is hidden behind
-> mnt_idmap_get() and mnt_idmap_put(). Everything else only ever reads
-> from the idmapping. This is the same model that struct cred uses and the
-> idmapping is also rather sensitive.
->
-> So make the idmap argument const wherever we can. The conversion is done
-> from the bottom up so callers can continue to pass a non-const pointer
-> to a const parameter until the conversion is finished.
->
-> No functional changes.
->
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> ---
->  Documentation/filesystems/locking.rst     | 2 +-
->  Documentation/filesystems/vfs.rst         | 2 +-
->  arch/powerpc/platforms/cell/spufs/inode.c | 2 +-
->  fs/9p/v9fs_vfs.h                          | 2 +-
->  fs/9p/vfs_inode.c                         | 2 +-
->  fs/9p/vfs_inode_dotl.c                    | 2 +-
->  fs/adfs/adfs.h                            | 2 +-
->  fs/adfs/inode.c                           | 2 +-
->  fs/affs/affs.h                            | 2 +-
->  fs/affs/inode.c                           | 2 +-
->  fs/afs/inode.c                            | 2 +-
->  fs/afs/internal.h                         | 2 +-
->  fs/anon_inodes.c                          | 2 +-
->  fs/attr.c                                 | 2 +-
->  fs/bad_inode.c                            | 2 +-
->  fs/btrfs/inode.c                          | 2 +-
->  fs/ceph/inode.c                           | 2 +-
->  fs/ceph/super.h                           | 2 +-
->  fs/coda/coda_linux.h                      | 2 +-
->  fs/coda/inode.c                           | 2 +-
->  fs/configfs/configfs_internal.h           | 2 +-
->  fs/configfs/inode.c                       | 2 +-
->  fs/debugfs/inode.c                        | 2 +-
->  fs/ecryptfs/inode.c                       | 2 +-
->  fs/efivarfs/inode.c                       | 2 +-
->  fs/exfat/exfat_fs.h                       | 2 +-
->  fs/exfat/file.c                           | 2 +-
->  fs/ext2/ext2.h                            | 2 +-
->  fs/ext2/inode.c                           | 2 +-
->  fs/ext4/ext4.h                            | 2 +-
->  fs/ext4/inode.c                           | 2 +-
->  fs/f2fs/f2fs.h                            | 2 +-
->  fs/f2fs/file.c                            | 2 +-
->  fs/fat/fat.h                              | 2 +-
->  fs/fat/file.c                             | 2 +-
->  fs/fuse/dir.c                             | 2 +-
->  fs/gfs2/inode.c                           | 2 +-
->  fs/hfs/hfs_fs.h                           | 2 +-
->  fs/hfs/inode.c                            | 2 +-
->  fs/hfsplus/inode.c                        | 2 +-
->  fs/hostfs/hostfs_kern.c                   | 2 +-
->  fs/hpfs/hpfs_fn.h                         | 2 +-
->  fs/hpfs/inode.c                           | 2 +-
->  fs/hugetlbfs/inode.c                      | 2 +-
->  fs/inode.c                                | 2 +-
->  fs/internal.h                             | 2 +-
->  fs/jffs2/fs.c                             | 2 +-
->  fs/jffs2/os-linux.h                       | 2 +-
->  fs/jfs/file.c                             | 2 +-
->  fs/jfs/jfs_inode.h                        | 2 +-
->  fs/kernfs/inode.c                         | 2 +-
->  fs/kernfs/kernfs-internal.h               | 2 +-
->  fs/libfs.c                                | 4 ++--
->  fs/minix/file.c                           | 2 +-
->  fs/nfs/inode.c                            | 2 +-
->  fs/nfs/namespace.c                        | 2 +-
->  fs/nilfs2/inode.c                         | 2 +-
->  fs/nilfs2/nilfs.h                         | 2 +-
->  fs/ntfs/file.c                            | 2 +-
->  fs/ntfs/inode.h                           | 2 +-
->  fs/ntfs3/file.c                           | 2 +-
->  fs/ntfs3/ntfs_fs.h                        | 2 +-
->  fs/ocfs2/dlmfs/dlmfs.c                    | 2 +-
->  fs/ocfs2/file.c                           | 2 +-
->  fs/ocfs2/file.h                           | 2 +-
->  fs/omfs/file.c                            | 2 +-
->  fs/orangefs/inode.c                       | 2 +-
->  fs/orangefs/orangefs-kernel.h             | 2 +-
->  fs/overlayfs/inode.c                      | 2 +-
->  fs/overlayfs/overlayfs.h                  | 2 +-
->  fs/pidfs.c                                | 2 +-
->  fs/proc/base.c                            | 2 +-
->  fs/proc/generic.c                         | 2 +-
->  fs/proc/internal.h                        | 2 +-
->  fs/proc/proc_sysctl.c                     | 2 +-
->  fs/ramfs/file-nommu.c                     | 4 ++--
->  fs/smb/client/cifsfs.h                    | 2 +-
->  fs/smb/client/inode.c                     | 2 +-
->  fs/tracefs/event_inode.c                  | 2 +-
->  fs/tracefs/inode.c                        | 2 +-
->  fs/ubifs/file.c                           | 2 +-
->  fs/ubifs/ubifs.h                          | 2 +-
->  fs/udf/file.c                             | 2 +-
->  fs/ufs/inode.c                            | 2 +-
->  fs/ufs/ufs.h                              | 2 +-
->  fs/vboxsf/utils.c                         | 2 +-
->  fs/vboxsf/vfsmod.h                        | 2 +-
->  fs/xfs/xfs_iops.c                         | 2 +-
->  fs/zonefs/super.c                         | 2 +-
->  include/linux/fs.h                        | 6 +++---
->  include/linux/lsm_hook_defs.h             | 4 ++--
->  include/linux/nfs_fs.h                    | 2 +-
->  include/linux/security.h                  | 8 ++++----
->  mm/secretmem.c                            | 2 +-
->  mm/shmem.c                                | 2 +-
->  net/socket.c                              | 2 +-
->  security/integrity/evm/evm_main.c         | 4 ++--
->  security/integrity/ima/ima_appraise.c     | 2 +-
->  security/security.c                       | 4 ++--
->  security/selinux/hooks.c                  | 2 +-
->  security/smack/smack_lsm.c                | 2 +-
->  virt/kvm/guest_memfd.c                    | 2 +-
->  102 files changed, 112 insertions(+), 112 deletions(-)
+On Fri, Aug 07, 2026 at 11:33:05AM +0800, Jinjie Ruan wrote:
+> 
+> 
+> 在 2026/8/4 3:17, Mark Rutland 写道:
+> > All architectures which currently suppoort PREEMPT_DYNAMIC select
+> > ARCH_HAS_PREEMPT_LAZY.  On architectures which select
+> > ARCH_HAS_PREEMPT_LAZY, it has not been possible to select the NONE and
+> > VOLUNTARY preemption models since v7.0 due to commit:
+> > 
+> >   7dadeaa6e851 ("sched: Further restrict the preemption modes")
+> > 
+> > Hence in practice PREEMPT_DYNAMIC no longer supports the NONE or
+> > VOLUNTARY preemption models.
+> > 
+> > This series makes the de-facto situation official by making
+> > PREEMPT_DYNAMIC depend on ARCH_HAS_PREEMPT_LAZY, and removing redundant
+> > code.
+> > 
+> > Since v1, I've had to rebase atop v7.2-rc4 to avoid a conflict with
+> > commit:
+> > 
+> >   a2c02aa0c6ca ("powerpc: Remove dead non-preemption code")
+> > 
+> > Given this is now late in the cycle, and given the tip:sched/core branch
+> > is based on v7.2-rc1, I suspect tip folk might not want to queue this
+> > now. Please let me know what you'd prefer; I'm happy to rebase and
+> > resend after v7.3-rc1.
+> > 
+> > Since v1:
+> > * Rebase to v7.2-rc4
+> > * Apply Revied-by tags.
+> > * Fix typos in commit messages.
+> > * Add patch to cleanup accessors (per Shrikanth's comment)
+> 
+> Hi Mark,
+> 
+> I did a test on v7.2-rc6 for arm64.
+> 
+> # ls -la Image_base  Image_patch
+> -rw-r--r-- 1 root root 63158784 Aug  7 10:37 Image_base
+> -rw-r--r-- 1 root root 63093248 Aug  7 10:31 Image_patch
+> # ls -la vmlinux_base vmlinux_patch
+> -rwxr-xr-x 1 root root 206396648 Aug  7 10:37 vmlinux_base
+> -rwxr-xr-x 1 root root 206266232 Aug  7 10:31 vmlinux_patch
+> 
+> So the overall vmlinux file size reduced by ~127 KB and the Image
+> size reduced by ~64 KB.
+> 
+> Boot tested successfully with preempt=lazy and preempt=full on Qemu and
+> Kunpeng HIP09 server.
+> 
+> Boot with preempt=none and preempt=voluntary on Qemu.
+> 
+>     Dynamic Preempt: unsupported mode: none
+>     Dynamic Preempt: unsupported mode: voluntary
+> 
+> But runtime switching via /sys/kernel/debug/sched/preempt works not
+> right as below.
+> 
+> # echo full > preempt
+> # cat preempt
+> full lazy
+> # echo lazy > preempt
+> # cat preempt
+> full lazy
+> 
+> We should also update the "preempt_modes" array, after the below fix, it
+> shows ok;
+> 
+> # echo lazy > preempt
+> [   37.407616] Dynamic Preempt: lazy
+> # cat preempt
+> full (lazy)
+> # echo full > preempt
+> [   52.067001] Dynamic Preempt: full
+> # cat preempt
+> (full) lazy
+> 
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -7899,7 +7899,7 @@ static inline void preempt_dynamic_init(void) { }
+>  #endif /* CONFIG_PREEMPT_DYNAMIC */
+> 
+>  const char *preempt_modes[] = {
+> -       "none", "voluntary", "full", "lazy", NULL,
+> +       "full", "lazy", NULL,
+>  };
 
-...
+Ugh, yes.
 
+We'll also need to fix up sched_dynamic_show(), since it has logic to
+conditionally skip "none" and "voluntary".
 
-> diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-> index df4fc6ff26aa..bb78569b3d5b 100644
-> --- a/security/smack/smack_lsm.c
-> +++ b/security/smack/smack_lsm.c
-> @@ -1270,7 +1270,7 @@ static int smack_inode_permission(struct inode *inode, int mask)
->   *
->   * Returns 0 if access is permitted, an error code otherwise
->   */
-> -static int smack_inode_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
-> +static int smack_inode_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
->  			       struct iattr *iattr)
+This is all a bit messy, given the enum value isn't used to define the
+string array. I'll see if I can figure a way to make that consistent by
+construction, but that probably needs a bit more rework...
 
-Please keep to 80 columns.
+> Otherwise
+> Tested-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-+static int smack_inode_setattr(const struct mnt_idmap *idmap,
-+				struct dentry *dentry, struct iattr *iattr)
+Thanks!
 
-Note that the above may get whitespace mangled.
-
->  {
->  	struct smk_audit_info ad;
->
+Mark.
