@@ -1,100 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A0E437455
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:20:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B8C3AB286
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:21:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788283243; cv=none; b=hLSyOSbiqgDulV/ZNjsJN+XfwVKHEL1gnEGyt/hLtY2qNIk380Rrv4mlOuUzMqXemjJ5FuzRmYxIa2WAZAcZ4izgNogokmX++UZXVu8zMf2gM0HXb8Rgh4WA+zg31MLsw3wGl1gzQjnuOemKl9ipNfHA9pqPuVNKBFQM0vd4fjQ=
+	t=1788283266; cv=none; b=iqGqk3ebF9OfVMe+UB+AG7shY173FYxLhRhOcrTtO3/koasEQ3StO+TAJsvCRosVZETbCxd+GjVJrhyR2u5CnAX26bfbQFFKZQZMAHd8PO5ubmCUsK48HHyDaL8KZC8/c9Bp0au80OCxrlmnmDxa8N8lr19VGPa+7IfsRYaPChQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788283243; c=relaxed/simple;
-	bh=UllhrlLmOAfFzPyIojyQGGCMu83Ko6IwJv3zmf06mWE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r9eai6qUhsutqUbikg9KLyj60uRz85qDjEdR7srUKNViRMzSKGoLDBvNkS5d3uvq5NTXgKCXu6TugSp8LpOVcFcbTMaMST1/wa31q45tzj+YDE2yEGaQAKmaQakv6G9kLj0qnrXm8W9K6KXxCxfN35gk2MLqcTukenpUL7cPnno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PA6xlTOD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788283266; c=relaxed/simple;
+	bh=ZQZ1l5fYm5WuqOkU5KgBnUMdFxCFcIY2eQfRbuZVmis=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iCMQqFkWokcDqg+GCh7OgxS9GH10eu36mFESMuvAsx6KDW5Ms8RlMgJRfkd6cd497vWfmH7W5/ku096M/tmEP3f02PmebM8XrMCcqZ+wXdUM2Udh1YJGPXVD0iPAwWwVfXGoN4H/ionLE7x8xDOS2YlszM/CWZ+RZ1dMx4cmDJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=0Vc2V+eU; arc=none smtp.client-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PA6xlTOD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD931F00ADB
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:20:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788283242;
-	bh=UllhrlLmOAfFzPyIojyQGGCMu83Ko6IwJv3zmf06mWE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PA6xlTOD4sb1TE+o03p94DXGN7bS3pmjOyR/wTCkvrwe4upm85CJS/8J2JmOUCqU4
-	 xo+mnCT8Shn+SnVIvf9izZS1YUaMEVL7lWTcQqOveby8vn9wveRkcZWn8e81NPjbB/
-	 BBtRHLfbkT13/E1H1ObV5EVKmV9AQ7JJwlfABsmTo5cp0qCcJhQ4rc6PL3SrOusA+T
-	 GV31k5TjGaOE8sYdQ2IS30a6V/aQb4pJjiIbesXY8NPd56/jHubg+lP5bBXm78BXkP
-	 cPPGzR/V0b4K3604afbpK5i+1Mf/CGK4vxAd3zYiWC8nZOIP4rH1pcTaYGXwmj+6eq
-	 4cBJvxyJF0zNQ==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b4adcce4b1so5562911e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:20:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz3JoXjUTR3TwIGKBAkQ/NroXEVRL6W/M5ds+pvZD3/Gkr15DaAWB7swwLQyTsV0Micz+pr2KbWqbKWu90=@vger.kernel.org
-X-Gm-Message-State: AFuF++lBgNkSLWm975Kl+AwbMwYsqCJfVXVLz7Hje9y3pNjdR1KEE9n8
-	8A027/TVWH+jH66CwMiEMlFJgRVbO4Tjyxlfsd7ACq5AOY/FoKhUt1VoZaD35FFgi9H7+Vs1V4N
-	4kDkFjpZdtSnminId3UFe84tXnlvxIrA=
-X-Received: by 2002:a05:6512:3416:b0:5b4:86ab:5236 with SMTP id
- 2adb3069b0e04-5b6041fd0femr1465397e87.19.1788283240807; Tue, 01 Sep 2026
- 10:20:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="0Vc2V+eU"
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5300bdf61d9so139451cf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:21:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788283263; x=1788888063; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Uv2BJxLvaZZpFr8An2zfM95tRAb7/Mj4O3Urh0xixiw=;
+        b=0Vc2V+eUC9r7b8AcTlg0ogxQpAf/XF4GU5tIF4024uTSWNM997dEZS+EgpGgRDbU2+
+         mujZr7SfIX5cQKWNjCsBkNN3P75naIZsNlggTrR34XYTFXqHjgfizKL2xQFZDvbVF+Vy
+         UYVfg76+a+UK2UytIioxjuwcMRBymeeQVzAbm/t2+kLW8WVnM1ECmQSHlLIaMxlFt2DX
+         hG9BgCWoHnGIRMm0FapQkuN4g6Nvy5B/ZEi4PhY31dUQUJEY7PQqYTRNzmMON7K3DXaq
+         0yLHHy1YeXe5+1fS0uOw6tTPxJaINtRPMteUKmroi1LHXFUkZdTQV80HM1O23acvwoCn
+         Vtww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788283263; x=1788888063;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uv2BJxLvaZZpFr8An2zfM95tRAb7/Mj4O3Urh0xixiw=;
+        b=AbL4hyJfcLPT0xS8CivFUFPLErF9+Le/l/xN2cL5C0R81mED47Sk7wvXrz5268UytL
+         Zvs69H/P5NOxkd7245DIJBsu/pNQy4RBmXBVsKBJVRZ6acL4MeLhbiX+Bfl+Qdf79j3C
+         Q9I/45TB0wFdcdsgpj0ypmP+D8L8s9n2/V0iJX4OfwsPpBGGWgp4UA0IU6oPRIo6KdZY
+         6mFHdFO4IBji/DHARVLfB7Th9lFEaiRnQolnhALUpKv5l7Q12BqNbUwAIA7UzAwuyDsr
+         IHW4H7SIKcnztmtXSJrauSCBwypJCOgPCZieG1nl6tKZRL50ShDieUiwXvhMda2t3VWD
+         Qy3g==
+X-Forwarded-Encrypted: i=1; AHgh+RqjbnjnoD+HG8ER1wkc2W2jqlQpaJBU9ndvwzrk83tGTP7MKQ/3DZyMHW2RBMyshOKqeCG+xHH4sjjgSRM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwjmtFqwBLKMxPC8AdYkMKKdcg0JM+d5Ovj6r/1XFo257S79F0
+	sDyWAcRcOxTyiA4FExpJZGkwJyH/fao+pCeQjgf9+MgEJhHMkEn54z83LP0xKBjfqdU=
+X-Gm-Gg: AR+sD12hVwnPer3u/Xd1uAXbRkhK/znVtWuRQ/sd4mj7Nobigv7Bb27sWKrGhJrbPNS
+	7jN7DUTc0jmdfFl4LOnnXS5m2X1Yf5VEsP4ItgW6THQ+CjTZn5yg1xjHIUv1l7Ug1HGgZm96BkT
+	9BqFHJXYgyjqCaICn9KLLtIYGTEuOmFeTkpNRj6EzwpnDYIrIpB8ETdESKMjq4pN4hRA4VAatJN
+	1+EGgwYxPpqeIoM1cBKxOiSVYMHTQBI0OBKYsok0vJMU2vAudz+Fv1oAciuLPOaRwzo4Fe1ZEJr
+	83VzZrT+woj9JFuZkn6mHBcNzTHJpzmFkr5622jO/JpwGd+kIyhXcZjFeDLkNZImBDCly/x0Xj2
+	Mc/4TRNc8S3os5StU8ZMCLjc5741/tEX7d6hIP8oRpsOTjHkalMB49bO7zUvYg3df3G6jGLVCoq
+	FemlcAcoySn5wOt3mZy8ZQzByu0cAD+B/ktO9IAq2l/Z1sQPUP1lMQqVaXdtf6SthycQ==
+X-Received: by 2002:a05:622a:116:b0:530:d3a:26d9 with SMTP id d75a77b69052e-5300d3a40d6mr195978991cf.29.1788283263394;
+        Tue, 01 Sep 2026 10:21:03 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530331d9cbcsm1423661cf.16.2026.09.01.10.21.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 10:21:03 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: andersson@kernel.org,
+	konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: daniel@riscstar.com,
+	mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/5] arm64: dts: qcom: qcs6490-rb3gen2: use pci for device nodes
+Date: Tue,  1 Sep 2026 12:20:53 -0500
+Message-ID: <20260901172058.1512508-2-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260901172058.1512508-1-elder@riscstar.com>
+References: <20260901172058.1512508-1-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1787931313.git.naseefkm@gmail.com>
-In-Reply-To: <cover.1787931313.git.naseefkm@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 1 Sep 2026 19:20:26 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnhyfzwGzBfBhvcC-O_h=3_PMXjjW8n7SgGJkd13Fpr0Q@mail.gmail.com>
-X-Gm-Features: AcwNN1VqFbxXyBOJuD2XIsoLQW-odLvTK5ffKBS21jFx1QEHMohAQQcQssx2viI
-Message-ID: <CAD++jLnhyfzwGzBfBhvcC-O_h=3_PMXjjW8n7SgGJkd13Fpr0Q@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] pinctrl: airoha: add EcoNet EN7528 pin controller support
-To: Ahmed Naseef <naseefkm@gmail.com>
-Cc: linux-gpio@vger.kernel.org, Benjamin Larsson <benjamin.larsson@genexis.eu>, 
-	Christian Marangi <ansuelsmth@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>, 
-	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>, Rob Herring <robh@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 5:35=E2=80=AFPM Ahmed Naseef <naseefkm@gmail.com> w=
-rote:
+A recent change caused the embedded PCIe endpoints on TC9564 SoCs to
+be treated by the devicetree code as PCI buses, which is incorrect.
 
-> The EcoNet EN7528 is a MIPS SoC that uses the same pin controller and GPI=
-O
-> IP as the Airoha SoCs, so it reuses the shared driver code introduced by
-> the split into per-SoC drivers. Its register layout differs from every
-> existing variant though: all IOMUX mode bits live in a single CHIP SCU
-> register plus a few spill-over bits in IOMUX Control 3, EJTAG has its own
-> enable register, and every pin configuration register is at a different
-> offset than on EN7523.
->
-> It also differs in a way the shared code did not model: only GPIO0-GPIO15
-> are wired to the interrupt controller, while the driver assumed all
-> AIROHA_NUM_PINS GPIOs could raise an interrupt. Patch 1 adds a
-> num_irq_pins field to the per-SoC match data to describe that, bounds the
-> interrupt callbacks and handler with it, and feeds it to gpiolib through
-> gpio_irq_chip::init_valid_mask so gpiod_to_irq() fails up front for a pin
-> that can never be an interrupt source. All existing SoCs pass
-> AIROHA_NUM_PINS and are unaffected.
->
-> Patch 2 documents the binding, patch 3 adds the driver.
->
-> The series is based on linux-pinctrl/for-next, as it depends on the
-> per-SoC driver split and on the CHIP SCU lookup by "airoha,chip-scu"
-> phandle that landed there.
->
-> Tested on a DASAN H660GM-A (EN7528, Airtel), booting OpenWrt.
+An RB3gen2 system has an "interposer board" that contains a TC9564
+SoC.  The TC9564 includes a PCIe switch with one upstream port and
+two downstream (external) ports, plus a third downstream port.  The
+third port has an embedded PCIe endpoint with two functions, each
+providing access to a 10 Gbps capable Ethernet interface.
 
-Patches applied.
+The devicetree nodes representing these functions were previously
+named "pci@" but were renamed in the interest of consistency in
+commit e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@").
 
-Ahmed, Benjamin: if you think there is something to Sashikos
-hopless ramblings please simply follow up with fixes.
+Unfortunately, of_node_is_pcie() causes nodes named "pcie@" to be
+treated as PCI bridges, which PCI endpoints are not.  The previous
+name "pci" matched such nodes as "default-flags" bus type, defined
+in the of_busses[] array.
 
-This is one of those cases where I definitely prefer to fix things
-in-tree, Sashiko is hampering development with all it's comments.
+Rename the PCIe endpoint nodes "pci@" so they are not mistaken for
+bridge nodes by the devicetree parsing code.  This restores the
+previous behavior, and allows them to be used for PCI endpoint bus.
 
-Yours,
-Linus Walleij
+Fixes: e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@")
+Signed-off-by: Alex Elder <elder@riscstar.com>
+---
+ arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+index a13315bf0fb07..99a985a177a61 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
++++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+@@ -954,7 +954,7 @@ pcie@3,0 {
+ 			ranges;
+ 			bus-range = <0x5 0xff>;
+ 
+-			pcie@0,0 {
++			pci@0,0 {
+ 				reg = <0x50000 0x0 0x0 0x0 0x0>;
+ 				#address-cells = <3>;
+ 				#size-cells = <2>;
+@@ -962,7 +962,7 @@ pcie@0,0 {
+ 				ranges;
+ 			};
+ 
+-			pcie@0,1 {
++			pci@0,1 {
+ 				reg = <0x50100 0x0 0x0 0x0 0x0>;
+ 				#address-cells = <3>;
+ 				#size-cells = <2>;
+-- 
+2.53.0
+
