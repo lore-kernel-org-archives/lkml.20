@@ -1,358 +1,92 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C832F3C18;
-	Tue,  1 Sep 2026 12:32:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBFF2F3C18
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:33:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788265979; cv=none; b=bkRDjyYMtr4ZQqC4D5hJgJ3BMNM/fnUSjEJb5Wf3FRiwb6l+Jdolt0aNY1qZ6clq3xpLefpwiWhfX75DL64TXN2PKcya4n5AeSFR9jBUiVK1jV3yVHOAFSoyL0NdwQ7qoK2py/gKlxUuORXYRNdozNuiLv2fwNuuEieA6GDzSGM=
+	t=1788266015; cv=none; b=d8qO/jwf2YbmtcxXBxvbYhPs3J831j7J3AJHFTd+TyzBpsjFsyzx0QZK8NqYofT5qCcZQExCfpIsx/STyS23BWMslD0wL1DIb+pRnGfP6SvfdP57ninoCk8CoFD3nK9bYWVWw0xe4GyX/YunD1V3baSkbM9t1s76+3Y6VpJocAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788265979; c=relaxed/simple;
-	bh=sarvfpcmUBkbQ1pk9o9l5AkUN8fqXZ4qhuVeVsElDGM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uILWksxLrz9dRVR45TLZrlz7LlNUuUJ8nNe18fvR/Q5awNSRMOA7AzjPAoylFHD8OZJg8FV2IIzz3HEMZ/ZDbn1jElt5fduyr+KsUHg/g7PuhAnbxzqBPBX3FlHRDzvvz/IZjRJXS1z1uTb+X/90yImIgvAvhqsThhbp2Zq7EZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=m3LPIu+F; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="m3LPIu+F"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=11FIk8dcywNJhU7vX3fMrD3GTQv+b8U3zFVsgXjY8xM=; b=m3LPIu+FoN9GPmQNL+JAbX4umA
-	RCUc+55B7wNBeD3QfRf+OKff006wPY1a+T19QUXMcQ8KZEi3a5TwgbOb6786lS+bW2TFXIYPIRHhE
-	qRIvsbkExCXz+DP7wtsi0aHN56mVl5brXaG+jkal7C/7mYPaczD+Rl6dK7M5b3vqIeRtlPfX4Hfl/
-	1LH04kzs9EHRGu7/dwrbDFrW48rrY6d1lX5LWfchOSIbd0HdayxTR9wg4Sf2mizckZ+LOabpUVMgo
-	wtG/mnhCfGBbWaYhgPcFuc5AAYBFFlZ38IjafUCrsAko73fIWQLqur2GNEBKog4d2Smxl6v7uXoAA
-	lF7siVdQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x1NfK-0000000AwqP-2nSA;
-	Tue, 01 Sep 2026 12:32:38 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 7FE65300578; Tue, 01 Sep 2026 14:32:36 +0200 (CEST)
-Date: Tue, 1 Sep 2026 14:32:36 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	David Stevens <stevensd@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
-Message-ID: <20260901123236.GA687043@noisy.programming.kicks-ass.net>
-References: <20260827232948.2520558-1-stevensd@google.com>
- <20260827232948.2520558-7-stevensd@google.com>
- <20260828133620._x2XfJR_@linutronix.de>
- <20260828135947.GU776954@noisy.programming.kicks-ass.net>
- <20260828151018.HnR9xV1N@linutronix.de>
- <20260828150836.2d5b378c@gandalf.local.home>
- <20260828151313.5c4a5e4b@gandalf.local.home>
- <20260828151747.20035d50@gandalf.local.home>
+	s=arc-20240116; t=1788266015; c=relaxed/simple;
+	bh=OR/+6+mxgLMiTnv/t3JzJQRK+sE11J2XzfsLt5mkz54=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=cnNSlYDs1b079y4EuIAoQgfIxPfCFsBzDPmyQ6rmsvIIrHRg3pPzTpOvEdnYnIYOCMm9jiX3QwL79oNI8/d9TMElUPs0mLuEvmbQa3+8TWjIF8uyJquT5JH7KKpHMJpK8J63gawUKBm81coZuyGT9FCfa02pEvcsxoEIn/aAB24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b1bc2e44e0so7358912b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:33:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788266012; x=1788870812;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O31KF1bx9pdjUZkEEGUWR4q75msQ5Y234D7nSHmhi/0=;
+        b=hQfrVpFewhSV4Rpo7E1YsFYr6ZejihKnVgwriLLd+gAttGejNKVobSoVjp8dvaJagz
+         3uzUE17MrLZdcJQEAXts9N3NzUpE3ZLKGaBBkh9iBahHd2R5XKkqpA6dPTxB003GBf//
+         ZfzrIGJZnsBuqxCNTi5uymbexIlFwz0cbKGgyjjNjkSLDct82v88UKLWstc+KTS+p4tG
+         7O5m6B0A97oZkVwi8+FmTIaH9FB3c1GXeHMn4WCdYNZve67ZkRqUml+eYPSJNl2kWPIu
+         vphHTRCXmDfHYGehOM0/iWeKW6NTkZ7EbFpwVoB1TJkXapSBbR9+D0BbESbhYfi5wbe5
+         kBbA==
+X-Forwarded-Encrypted: i=1; AHgh+RoFleTHPMvpUDa/22YWidlVQAPrBoAYcBZoy90WuYMKn+52uTtY8Zt6aJa0WlQmyC1G2PVKAl7iirpLgkI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvjHLDZNKetmItk/Etbkhr7RyLJrAiDLblNpoVo9EPsAYL5wRT
+	3+4NLGjfG5vg+PrXlnd38c5wRjG95kI4FSoisxfR7Bq7vJ3iBzN56+MUUstIA+ub9pR/NP/7rrV
+	K2eLZLGj7bz6k5zdP/vbptlzuMFYZEoo2d052KI8bb6P+wkTwxinBa1EllwU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828151747.20035d50@gandalf.local.home>
+X-Received: by 2002:a05:6808:4fe9:b0:4b3:8ae8:7a47 with SMTP id
+ 5614622812f47-4b5b82d6323mr8554597b6e.16.1788266012510; Tue, 01 Sep 2026
+ 05:33:32 -0700 (PDT)
+Date: Tue, 01 Sep 2026 05:33:32 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a96c61c.04428c52.29b18.0004.GAE@google.com>
+Subject: [syzbot] Monthly dri report (Sep 2026)
+From: syzbot <syzbot+listd3be96098b5843b34a80@syzkaller.appspotmail.com>
+To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Aug 28, 2026 at 03:17:47PM -0400, Steven Rostedt wrote:
+Hello dri maintainers/developers,
 
->   1)     8072     104   update_group_capacity+0x94/0x960
->   2)     7968     528   update_sd_lb_stats.constprop.0+0x426/0x39b0
->   3)     7440     424   sched_balance_find_src_group+0x8f/0x1150
->   4)     7016     552   sched_balance_rq+0x934/0x4130
+This is a 31-day syzbot report for the dri subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/dri
 
-Bah, yeah, those on-stack statistics just keep growing.
+During the period, 3 new issues were detected and 0 were fixed.
+In total, 11 issues are still open and 38 have already been fixed.
+There are also 9 low-priority issues.
 
-This should probably help. Very lightly tested. Also we can probably
-relax the assertion to bh-disabled and avoid the extra irq-disable
-around sched_balance_rq().
+Some of the still happening issues:
 
-Anybody got time to play around with this?
+Ref Crashes Repro Title
+<1> 2279    Yes   WARNING in drm_mm_takedown
+                  https://syzkaller.appspot.com/bug?extid=d93b9064fe5f74af3aa3
+<2> 167     Yes   WARNING in virtio_gpu_alloc_vbufs
+                  https://syzkaller.appspot.com/bug?extid=1b129b44597a126d2d79
+<3> 65      Yes   KASAN: slab-use-after-free Read in drm_atomic_helper_wait_for_vblanks (2)
+                  https://syzkaller.appspot.com/bug?extid=0f999d26a4fd79c3a23b
+<4> 60      No    upstream test error: WARNING in drm_mode_config_validate
+                  https://syzkaller.appspot.com/bug?extid=5caf8faef4fa32603577
+<5> 3       Yes   memory leak in drm_mode_atomic_ioctl
+                  https://syzkaller.appspot.com/bug?extid=3fc9eecaf97147282c87
+<6> 29      Yes   general protection fault in drm_object_attach_property
+                  https://syzkaller.appspot.com/bug?extid=1944765c3659f63d3777
+<7> 7       Yes   WARNING in __drm_atomic_helper_set_config
+                  https://syzkaller.appspot.com/bug?extid=ca23c8570669ead78867
 
 ---
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 8dff37059faf..0c83b0856a95 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -11418,6 +11418,39 @@ struct sd_lb_stats {
- 	struct sg_lb_stats local_stat;		/* Statistics of the local group */
- };
- 
-+struct pcpu_lb_stats {
-+	struct sd_lb_stats sds;
-+	struct sg_lb_stats sgs;
-+	struct sg_lb_stats local_sgs;
-+	struct sg_lb_stats idlest_sgs;
-+};
-+
-+static DEFINE_PER_CPU(struct pcpu_lb_stats, pcpu_lb_stats);
-+
-+static inline struct sd_lb_stats *this_sds(void)
-+{
-+	lockdep_assert_irqs_disabled();
-+	return this_cpu_ptr(&pcpu_lb_stats.sds);
-+}
-+
-+static inline struct sg_lb_stats *this_sgs(void)
-+{
-+	lockdep_assert_irqs_disabled();
-+	return this_cpu_ptr(&pcpu_lb_stats.sgs);
-+}
-+
-+static inline struct sg_lb_stats *this_local_sgs(void)
-+{
-+	lockdep_assert_irqs_disabled();
-+	return this_cpu_ptr(&pcpu_lb_stats.local_sgs);
-+}
-+
-+static inline struct sg_lb_stats *this_idlest_sgs(void)
-+{
-+	lockdep_assert_irqs_disabled();
-+	return this_cpu_ptr(&pcpu_lb_stats.idlest_sgs);
-+}
-+
- static inline void init_sd_lb_stats(struct sd_lb_stats *sds)
- {
- 	/*
-@@ -12406,12 +12439,13 @@ static struct sched_group *
- sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int this_cpu)
- {
- 	struct sched_group *idlest = NULL, *local = NULL, *group = sd->groups;
--	struct sg_lb_stats local_sgs, tmp_sgs;
-+	struct sg_lb_stats *local_sgs = this_local_sgs();
- 	struct sg_lb_stats *sgs;
- 	unsigned long imbalance;
--	struct sg_lb_stats idlest_sgs = {
--			.avg_load = UINT_MAX,
--			.group_type = group_overloaded,
-+	struct sg_lb_stats *idlest_sgs = this_idlest_sgs();
-+	*idlest_sgs = (struct sg_lb_stats){
-+		.avg_load = UINT_MAX,
-+		.group_type = group_overloaded,
- 	};
- 
- 	do {
-@@ -12430,17 +12464,17 @@ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int
- 					       sched_group_span(group));
- 
- 		if (local_group) {
--			sgs = &local_sgs;
-+			sgs = local_sgs;
- 			local = group;
- 		} else {
--			sgs = &tmp_sgs;
-+			sgs = this_sgs();
- 		}
- 
- 		update_sg_wakeup_stats(sd, group, sgs, p);
- 
--		if (!local_group && update_pick_idlest(idlest, &idlest_sgs, group, sgs)) {
-+		if (!local_group && update_pick_idlest(idlest, idlest_sgs, group, sgs)) {
- 			idlest = group;
--			idlest_sgs = *sgs;
-+			*idlest_sgs = *sgs;
- 		}
- 
- 	} while (group = group->next, group != sd->groups);
-@@ -12458,17 +12492,17 @@ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int
- 	 * If the local group is idler than the selected idlest group
- 	 * don't try and push the task.
- 	 */
--	if (local_sgs.group_type < idlest_sgs.group_type)
-+	if (local_sgs->group_type < idlest_sgs->group_type)
- 		return NULL;
- 
- 	/*
- 	 * If the local group is busier than the selected idlest group
- 	 * try and push the task.
- 	 */
--	if (local_sgs.group_type > idlest_sgs.group_type)
-+	if (local_sgs->group_type > idlest_sgs->group_type)
- 		return idlest;
- 
--	switch (local_sgs.group_type) {
-+	switch (local_sgs->group_type) {
- 	case group_overloaded:
- 	case group_fully_busy:
- 
-@@ -12486,17 +12520,17 @@ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int
- 		 */
- 
- 		if ((sd->flags & SD_NUMA) &&
--		    ((idlest_sgs.avg_load + imbalance) >= local_sgs.avg_load))
-+		    ((idlest_sgs->avg_load + imbalance) >= local_sgs->avg_load))
- 			return NULL;
- 
- 		/*
- 		 * If the local group is less loaded than the selected
- 		 * idlest group don't try and push any tasks.
- 		 */
--		if (idlest_sgs.avg_load >= (local_sgs.avg_load + imbalance))
-+		if (idlest_sgs->avg_load >= (local_sgs->avg_load + imbalance))
- 			return NULL;
- 
--		if (100 * local_sgs.avg_load <= sd->imbalance_pct * idlest_sgs.avg_load)
-+		if (100 * local_sgs->avg_load <= sd->imbalance_pct * idlest_sgs->avg_load)
- 			return NULL;
- 		break;
- 
-@@ -12545,9 +12579,9 @@ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int
- 				imb_numa_nr = min(w, sd->imb_numa_nr);
- 			}
- 
--			imbalance = abs(local_sgs.idle_cpus - idlest_sgs.idle_cpus);
-+			imbalance = abs(local_sgs->idle_cpus - idlest_sgs->idle_cpus);
- 			if (!adjust_numa_imbalance(imbalance,
--						   local_sgs.sum_nr_running + 1,
-+						   local_sgs->sum_nr_running + 1,
- 						   imb_numa_nr)) {
- 				return NULL;
- 			}
-@@ -12560,7 +12594,7 @@ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int
- 		 * up that the group has less spare capacity but finally more
- 		 * idle CPUs which means more opportunity to run task.
- 		 */
--		if (local_sgs.idle_cpus >= idlest_sgs.idle_cpus)
-+		if (local_sgs->idle_cpus >= idlest_sgs->idle_cpus)
- 			return NULL;
- 		break;
- 	}
-@@ -12647,14 +12681,13 @@ static inline void update_sd_lb_stats(struct lb_env *env, struct sd_lb_stats *sd
- {
- 	struct sched_group *sg = env->sd->groups;
- 	struct sg_lb_stats *local = &sds->local_stat;
--	struct sg_lb_stats tmp_sgs;
- 	unsigned long sum_util = 0;
- 	bool sg_overloaded = 0, sg_overutilized = 0;
- 
- 	env->dst_core_idle = !sched_smt_active() || is_core_idle(env->dst_cpu);
- 
- 	do {
--		struct sg_lb_stats *sgs = &tmp_sgs;
-+		struct sg_lb_stats *sgs = this_sgs();
- 		int local_group;
- 
- 		local_group = cpumask_test_cpu(env->dst_cpu, sched_group_span(sg));
-@@ -12929,21 +12962,21 @@ static inline void calculate_imbalance(struct lb_env *env, struct sd_lb_stats *s
- static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
- {
- 	struct sg_lb_stats *local, *busiest;
--	struct sd_lb_stats sds;
-+	struct sd_lb_stats *sds = this_sds();
- 
--	init_sd_lb_stats(&sds);
-+	init_sd_lb_stats(sds);
- 
- 	/*
- 	 * Compute the various statistics relevant for load balancing at
- 	 * this level.
- 	 */
--	update_sd_lb_stats(env, &sds);
-+	update_sd_lb_stats(env, sds);
- 
- 	/* There is no busy sibling group to pull tasks from */
--	if (!sds.busiest)
-+	if (!sds->busiest)
- 		goto out_balanced;
- 
--	busiest = &sds.busiest_stat;
-+	busiest = &sds->busiest_stat;
- 
- 	/* Misfit tasks should be dealt with regardless of the avg load */
- 	if (busiest->group_type == group_misfit_task)
-@@ -12965,7 +12998,7 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
- 	if (busiest->group_type == group_imbalanced)
- 		goto force_balance;
- 
--	local = &sds.local_stat;
-+	local = &sds->local_stat;
- 	/*
- 	 * If the local group is busier than the selected busiest group
- 	 * don't try and pull any tasks.
-@@ -12986,14 +13019,14 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
- 			goto out_balanced;
- 
- 		/* XXX broken for overlapping NUMA groups */
--		sds.avg_load = (sds.total_load * SCHED_CAPACITY_SCALE) /
--				sds.total_capacity;
-+		sds->avg_load = (sds->total_load * SCHED_CAPACITY_SCALE) /
-+				sds->total_capacity;
- 
- 		/*
- 		 * Don't pull any tasks if this group is already above the
- 		 * domain average load.
- 		 */
--		if (local->avg_load >= sds.avg_load)
-+		if (local->avg_load >= sds->avg_load)
- 			goto out_balanced;
- 
- 		/*
-@@ -13009,9 +13042,9 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
- 	 * Try to move all excess tasks to a sibling domain of the busiest
- 	 * group's child domain.
- 	 */
--	if (sds.prefer_sibling && local->group_type == group_has_spare &&
-+	if (sds->prefer_sibling && local->group_type == group_has_spare &&
- 	    (busiest->group_type == group_llc_balance ||
--	    sibling_imbalance(env, &sds, busiest, local) > 1))
-+	    sibling_imbalance(env, sds, busiest, local) > 1))
- 		goto force_balance;
- 
- 	if (busiest->group_type != group_overloaded) {
-@@ -13025,7 +13058,7 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
- 		}
- 
- 		if (busiest->group_type == group_smt_balance &&
--		    smt_vs_nonsmt_groups(sds.local, sds.busiest)) {
-+		    smt_vs_nonsmt_groups(sds->local, sds->busiest)) {
- 			/* Let non SMT CPU pull from SMT CPU sharing with sibling */
- 			goto force_balance;
- 		}
-@@ -13054,8 +13087,8 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
- 
- force_balance:
- 	/* Looks like there is an imbalance. Compute it */
--	calculate_imbalance(env, &sds);
--	return env->imbalance ? sds.busiest : NULL;
-+	calculate_imbalance(env, sds);
-+	return env->imbalance ? sds->busiest : NULL;
- 
- out_balanced:
- 	env->imbalance = 0;
-@@ -13958,6 +13991,7 @@ static void sched_balance_domains(struct rq *rq, enum cpu_idle_type idle)
- 
- 		interval = get_sd_balance_interval(sd, busy);
- 		if (time_after_eq(jiffies, sd->last_balance + interval)) {
-+			guard(irqsave)();
- 			if (sched_balance_rq(cpu, rq, sd, idle, &continue_balancing)) {
- 				/*
- 				 * The LBF_DST_PINNED logic could have changed
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
