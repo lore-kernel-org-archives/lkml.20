@@ -1,85 +1,85 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E77483BF4
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1865148423F
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:38:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788280702; cv=pass; b=Px1l+Th8jb4EwQdWplA0oT74zFxCV5gmyfGnovN/6pbUb6Uu186iZYU8iJuT1t06QeSod5RnYYedClKn70SdPceqk7WqVm8bSBbLhAGjfsiSoh+V9obN1FH0a+aHUxlJpi4jNXhOm8M2jVUOnBmDhxUEnS6D7aisAeQ1kfv089I=
+	t=1788280705; cv=pass; b=B8YIcXrtttiHcqR8jzURaPpgsYreya6/0SMXULI8BqIOtgCBtE8dy03VMUeA7AN8EIIsFR2HLAPboRHe94fEpIRETHftwj60BoKqxnTS/wcPBTYUa9oJuqkBy7AMdEPRa9vP71wRu/wHvlVkK9lFxjre+KxhPPmFmQRUQSvHg9g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788280702; c=relaxed/simple;
-	bh=TWVBhHy0WPw0GotWHFiTstZdugISF/16D3zScGhJWms=;
+	s=arc-20240116; t=1788280705; c=relaxed/simple;
+	bh=u0EQz9qaj+AKu3AT8419jngzyzUGX7Hmro0f+xTswWY=;
 	h=From:MIME-Version:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aZ5JwOSX6YZLplBVIvOxsBWDrE2NbUF0wALgWYrrY5xpxY4LZDkpg6U+PyNpwGXDI3FCoJW3JgfDehtBhEQCXolJNoHbfVZG+WnjsoN+vrrZ0NSxjfjP90ttuOxu9B9SzGn2dM8qQpFJaYJ/OzlAOxzeT2kF8TdEEYHI489tNAU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d5sK726A; arc=pass smtp.client-ip=209.85.208.41
+	 To:Cc:Content-Type; b=L107Hax2GTQsx2iEGtECpYruOK8xPaHuKUzuDdaG4eQx28o9LZqXOVt3BULQlq7Db92qXNlZf5sTQ0xvp3Wq7+P/yDAtVZcmt7z86fAVnC7l1n1KhBxYY0lIQ5nz2WM/QVFKj0SyLT1MBpjlfJw2MDG3rfZMxQuzdqBfhSh+HOc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CmmDP9xR; arc=pass smtp.client-ip=209.85.208.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d5sK726A"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a60d406a5cso65225a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:38:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788280699; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CmmDP9xR"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a082b3671fso8444a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:38:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788280702; cv=none;
         d=google.com; s=arc-20260327;
-        b=aP1PtuBupBMWsJ3XpzCeypSlL8Hke0qPR9zynzBJ4FUFt718X0VDMrbq2cHTS7C/Yo
-         sHtgdnx/KBv1QzkY6Tk0kxbL0Rk8J+PV6mSIkyQPd5F7XBjMIRHsl31iPIfVZ++7rf6/
-         2RIOTGuwcbParOwqubgMe7VIIyJWsN9ZQgXOZmE916YJkFH3gu8LZdSzkWaa6PBpQHKm
-         cW/XrpluQnKObajpRAIBBm8oU93Oj9b8jaIc36xg3HGPkDqAn3sO1bnPA6Av73S6Wq1A
-         s6i8q9S8aUqyqDhGp3lDfhBLcsXFtkNuruodTksmnCMyFivuLOt1hkvzWdn2nFn435VC
-         RZAQ==
+        b=DjhEob5oRRwHfWAJ8j/Iev8hYSAooO2iObdZrCNZSz6OUycMe0CwlbYLoh4bqBnp/f
+         vS1J4VndPksptaV/nJAipdiJ45qu2ikulDyAphk1kHJEHDY7WxJ5Ng9I6hR1YG73e3MU
+         +xRh0BTazvkCCaJKslO2yytEQcjhytX+QK3Gof+p14bY4VdiC2NZmCib9sRNT8hBT5fD
+         WjbI+KVonAen4UDr7muFcR3Q7rhrcuskBmCaHxtkRk6e8PCppoTCHuBdNG0awRg3webf
+         DIluRXAk686gkGCMaRvkGFKHLv/swWAb0RplscVCrC2wlhJu20/NDLkXwOPOKP8xdZ5n
+         /ikw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:references:in-reply-to:mime-version
          :from:dkim-signature;
-        bh=TWVBhHy0WPw0GotWHFiTstZdugISF/16D3zScGhJWms=;
-        fh=CMawcC7aW8fXKFDsOeDl1xmoqvhFaAlnhWzccJdfFDw=;
-        b=NfMlGkNY+DDfNiB+A+7XHRooeAzLlBeaFTV8BedUSs7D2ERa8pUHEnqhgcF2PpNXUx
-         q8Dph4SbxE7mCnU3LLJUvULcqkNENTXAxIX14ZJQu3ydERt7mwPta8NpTb62M8X4jc3H
-         YonthZ8Y6XEO18ve2TuL6l/4tsaey3dLIQo6ANBTHg+biLRj4l9Ur1uNVcZs7OG4Wu6f
-         r/0hO7xo4bLwItIul5EgDAJ67lc0HhM//U0FWrsp6xnsVafPE11M4acTwL6sVu+DKcQh
-         8fFtYOGlmN7BTdsdlLsBpa9X+J9B8vde/iZHVXe803DKp/LzSlvDGDo6Dz7QzWqooTrN
-         6h4Q==;
+        bh=u0EQz9qaj+AKu3AT8419jngzyzUGX7Hmro0f+xTswWY=;
+        fh=jtrYwDj7dijkXJCEErrHc4A5U1bk7yIlzKcusrM7ZAI=;
+        b=PIsx9DRC3Gjej88Mcuds8cQ4l6jqbpLNmGhATdJWWPIukM4CfcP1MNkScgH3pYkWE7
+         bfsP4U2szoTzS9jHjdW1iunrxxIn8ZLLmHduvxz4pigRkK3nfaxGFWn/5xHrguX/6C7B
+         lgsEABEW2Tuha8z7BANMIrfAp+nyCWMYYo3YTbuROb06mm2bIe3knLspBl0c+dEjPZPL
+         B8WFioR4jJNAFidupSLhfa2iofJpKmUZW/UAG91Fqie1G6e+gqgmEI+LyNBX/ONQ1gTM
+         LjeeyPAIxos9DWnNnySQn1AoGmZLXV0e4xcu9+bC0X2Lk1GLZI0QupSTuh5w7ZteyqnW
+         G/cg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788280699; x=1788885499; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788280702; x=1788885502; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :mime-version:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TWVBhHy0WPw0GotWHFiTstZdugISF/16D3zScGhJWms=;
-        b=d5sK726AF7UPLg5vK7Ia7KVmkbBVcTNGNI3H8yS7hXHnf2Zm1EVL6WS3jJ2ISC7Btv
-         uzZF9a67OaF8XDnpL6BtZQWZG0XkYJW4I4D97SX8VCruJTQeKbXrdxGGCNMUJy7xg/bI
-         sd1aKAnf+SVe5E+i4YiTu5Sz8mKqd66uYXRuAsyTd9g8Sj1fv4wfztS2a5SCq5cXqy4n
-         Jr4q3rC2n5dLxET3ZvWY45udBcpJYIx+KfdcFNCFbJIHUdYd9/o3cJw8D/QEAj+xaRp+
-         XYJhNfyj9E/ymY+vIzwKM2ttXqSvNFkMBHy0zodYH0V4uc/wKulDt+SLcAQs4+I48O4H
-         VQvg==
+        bh=u0EQz9qaj+AKu3AT8419jngzyzUGX7Hmro0f+xTswWY=;
+        b=CmmDP9xR8klsFH47ZmzuYX9igPgoQ0wuVjCEePC6bMdWcCEp3ebb8xjXohtYkNWDWa
+         pR4eOOCYjEBDbf77Kg0zYs0U3W770/mhmHh7Qk14y+fQ25W4Pgi41QhDSEylXlNhq8u/
+         LYB8WlPokrjFdoPMzMl8GuoLHbsnCUpvz0FDXATk5njvucN+94J40gbYvod/p81udl2B
+         OwJmIUYGx5Q4h7R3U6nhfBB9vVwvNFyPr9B+Y+sbThYcp2xVxOBpvd/QvYVwOqrALlu8
+         k3d4XHiGkuyexMIEMA0O3qw6CpNqIFXs9bY15frqPyy7ZJzLfabwyME79qo4dTNgjl+O
+         H2yQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788280699; x=1788885499;
+        d=1e100.net; s=20251104; t=1788280702; x=1788885502;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :mime-version:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=TWVBhHy0WPw0GotWHFiTstZdugISF/16D3zScGhJWms=;
-        b=cbfaM4pElyvmdZE+rB42TScbPDZG4k8yF7D/uAoE+dfdP6Y4JWpGw0EJ7rcyh0LHog
-         2lUlibUNrZNuCInsWyDj0UzajSsA0grJESl9sGUbUa0ZjSDSlHrVX7DLWfbNAGOOgMDS
-         Zb6THXzW5FHmgmy3HVyxefb7Uh5dGGltih24L4Lei1noaeF7+P2yYct1Z/OI7KpcWwlL
-         TkTSWJmvMGNsMsJwxm0ULdWL+LK5W64SxyO1nwLslnLrQRmhUGcq9ZVHhadFIim8YfHD
-         eOyHp4syGCibr8UqJDEwvOkW0MRdW/I70614XnezNfCe+W0Hxc7vRucjhGrhrxmTHH1P
-         u1kQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwKWXETNGVJ0JBkazeFbV6HHu5VXyz0raK6OVCTP7JblgO9F9tPZapWyYmHoAPoJD5Mw405cwy1EV7SUHg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNs5/gdo5MlP7GILP7ABkGTPms+R1kIZ8uQSK3kYwxaRbvQ4GT
-	w0Y4hREmE4a7qEvajHEocQcAP2NUN0KgLv9me4o1w3s3GQjrQb/2AEvvOU12aRWpRRsSjCw3Wqf
-	yEB5/fFJllSTegjT9hwGR3dYanw4vIPQ=
-X-Gm-Gg: AYBFou1jAhlKus9x46b1ksW1LZ+uJFTDOStoONR6OILgyLNh1LaQtLaFkDICUb/g/Gp
-	o0RU4MuTkx4eTWDOQwYZVl6LY8GS+0z+knXUAEb6Egp3msK8GXx2tSqtOzaJy+IUowbJz7zWiXi
-	LGbmKTHthKnzuUFBl5nBTUe409hTcNR6NdpZk3cf8vjCU/S6+dJOplIZnlDFKFTuu9vgTQPmQR/
-	k6ixDGNXF/rzh04lzzsprj6klXG4n2S9UM81Y8X0hfo6CUPKsUYQuB6i2G9cOY2yJzE3R4BnIHy
-	wcDwEHQFJgnHI2SDplwM9pyUJREqfczOVK8pdsWm3YoWmfeyqI6PdyF4op9JeRfA00xe8wMM6c3
-	dYQ==
-X-Received: by 2002:a05:6402:21ce:b0:698:c13e:179a with SMTP id
- 4fb4d7f45d1cf-6a663ab81fcmr7846829a12.10.1788280699162; Tue, 01 Sep 2026
- 09:38:19 -0700 (PDT)
+        bh=u0EQz9qaj+AKu3AT8419jngzyzUGX7Hmro0f+xTswWY=;
+        b=UiKGzkvxiZnazs/Iz5ueQmpyVRvL9MrIybcFT5WaFIsVFOIlA57E+fnAEVAYtstKPQ
+         galVXuCT2wMYbHZfsPK3I6Dr6CqlJZH0QZ+MnE2hhz/cDFcv5LrPC8l5dDDo3lyscfEx
+         Qo14bMK8ca5YAqNGkwiSgIwZndyaKup+tisG+/uUxY8wwXPB3gjJ2bs7fyWiHXSo8hdC
+         QKo/HyFwMmsCw53CHdX6oUGWxjcOEw/+G2lY5JiZitX/g7eETRJXEHZ0QQg9vRsKqwsf
+         uOwssW5TzOvzNuDhwjFT752Wm1OSmXDhVWCNiq6q6IQq3u3LhL6ktfM3O2MgoyN5AZAO
+         gqzA==
+X-Forwarded-Encrypted: i=1; AKwUvBydZO/2p0R9vkBEBN8CFwR5T3F7sjQ/y+dJ9tm9oOh/3UjNmI6usr3REgr2jNP7MSB/99LAkIt/GdcjDb0=@vger.kernel.org
+X-Gm-Message-State: AFuF++not8JWJJT0f0TKPkEq3YUKAHQjTkRwuTRzU4kDm6Zgz6Y2nXxe
+	ZnRCjuh2DBV9aTcZncJ4gPRth9HoM0SNnvXYqsP1tENivTR0cJhSgc5XnXfsYM/jW/BWXyyTGSR
+	bEK72ZmWXvIIBzTuLIbk65UGQly0D0LM=
+X-Gm-Gg: AYBFou0EDmhlqh2PtSysu/qlbC42XvUYcUtmEZk3w+T65BS3h0E49/XjODX3V61Cr+Z
+	7+Mlxazk9lcGqZdUZmj/pn/+NvEup3VJ0BIcFZwNVqOJpA2LoJkGgq1QrxxWhZW38V8/wkeHEyr
+	BX+7m038EpKYr6fI06LeNppl4BSF6eSvxHsKsg7C+foE0Yp4Q7dRjuKVOQnEcTj16EmNDrhLzQB
+	N9AvN3HrHkXosgCSLdiGMl2GY1FNuggW8mL9bIr1BZLdmfS6/dfARGtUGaBAHzbnPxDmvLKJqfd
+	3lgQ6C403CBD/ZGUOYZWeZbEvdXrI2457bWLc4JJRDwscP0/SLRX5fy/AJdMO+AlYdH/30kKiB1
+	BYA==
+X-Received: by 2002:a05:6402:1d49:b0:6a6:4783:b6ff with SMTP id
+ 4fb4d7f45d1cf-6a663a0c7cfmr6781899a12.4.1788280702075; Tue, 01 Sep 2026
+ 09:38:22 -0700 (PDT)
 Received: from 637551599889 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 11:38:18 -0500
+ HTTPREST; Tue, 1 Sep 2026 09:38:21 -0700
 Received: from 637551599889 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 11:38:18 -0500
+ HTTPREST; Tue, 1 Sep 2026 09:38:21 -0700
 From: Xinping Zhang <zhangxp1998@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -87,22 +87,26 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <CACOAw_zvoYvdLWjUYpj1ambnjzPpzTOzTp7zGWA-aF=JqNPUNg@mail.gmail.com>
-References: <cover.1788213716.git.zhangxp1998@gmail.com> <bb5a74df5ba223cd33b4b7111e725e5aa315f79d.1788213716.git.zhangxp1998@gmail.com>
- <CACOAw_zvoYvdLWjUYpj1ambnjzPpzTOzTp7zGWA-aF=JqNPUNg@mail.gmail.com>
-Date: Tue, 1 Sep 2026 11:38:18 -0500
-X-Gm-Features: AcwNN1U6jROIjyCl3ulm0qgtURd8CUn-gJJEkY64oOjY0QTlY8-WRb1jNn0TGgI
-Message-ID: <CAH=xXfGOQ4zF+4=i5o0drHHFmMFaY-mrgTCp473BB5O66fEgug@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH v7 09/11] f2fs: parameterize byte and block
- conversion macros
-To: Daeho Jeong <daeho43@gmail.com>
-Cc: linux-f2fs-devel@lists.sourceforge.net, jaegeuk@kernel.org, 
-	linux-kernel@vger.kernel.org
+In-Reply-To: <87c8adb7-17ff-4bd5-98f5-9628c2e344b1@kernel.org>
+References: <cover.1788213716.git.zhangxp1998@gmail.com> <c570b8ce22c1e2732b3319a4ca9c2642aa5f523f.1788213716.git.zhangxp1998@gmail.com>
+ <87c8adb7-17ff-4bd5-98f5-9628c2e344b1@kernel.org>
+Date: Tue, 1 Sep 2026 09:38:21 -0700
+X-Gm-Features: AcwNN1V1w7TeJTUNgS89fh7liMFDjMccSCxQKWpVFv6_5xgSAnxJyqX9ZyBC_rY
+Message-ID: <CAH=xXfF1iiu3t4ug6EgAWp9svPYX2o3GxTf8mDMHCvhWFjotQg@mail.gmail.com>
+Subject: Re: [PATCH v7 10/11] f2fs: parameterize block size and mask macros
+To: Chao Yu <chao@kernel.org>, linux-f2fs-devel@lists.sourceforge.net
+Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Thanks. I have restored the shift-based definition using
-F2FS_BYTES_TO_BLK() as suggested, avoiding the
-DIV_ROUND_UP_ULL()/do_div() path.
+Thanks for the detailed review. I have reworded the truncated-looking
+source comment, dropped the unrelated const change to F2FS_I_SB(),
+removed the unused F2FS_P_SB(), and reverted the whitespace-only
+changes.
+
+For the temporary PAGE_SIZE substitutions, I reordered the final two
+patches so node-tree geometry is parameterized before the no-argument
+F2FS_BLKSIZE macro is removed. This avoids those intermediate
+PAGE_SIZE changes entirely.
 
 Thanks,
 Kelvin
