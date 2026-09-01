@@ -1,110 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-204.mta0.migadu.com [91.218.175.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0899542E43D;
-	Tue,  1 Sep 2026 15:49:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D149C3B47E3
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:49:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788277759; cv=none; b=eo4XWSAqr/Gb6IVZwYK4wqr5/J3LaZ252TgOApCKP8DqG7xfD0DEuZtkg9P006iaaHOCPA/t5nOSPWsAypMHVFDmtiDKDOuexNCTIG2o07d8IicLARCkLNRpHwmaE3Y2f3OhNB/DeyoFonBHlWwdXW6ABi+pmERPZ1YbyY2hA1o=
+	t=1788277772; cv=none; b=Tsp3OOi7g7P6mIwSzHigm96VU3SDutIBQ6y8qAstFJKcx8mxQOmRjdZPhhn9Ovam5nVKbEa44evdr7UMY/EF0R24ssJ1NYKnnlqAhddqkrLJBkPSoclKrFPF+91Th4aU5J/9EK46G8k/HI0/lEPd7uvmCPylwivUpSwpeoPCGLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788277759; c=relaxed/simple;
-	bh=XhIjhamkijR2PD5jHvV3jKVT5r7XmUNMRRriO9sA0sA=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Co16jqeJ707LrN2KXpB/+6OQ5ctXGZRbFFfHz+v1qapd3fFvIDQM6tQYMSvf8Vaw6t7pSAW+5rxHWAavvYP6GVsilQwZOr1CluDslUopmUNQEwpNquxGlMUX6osJFDrMpUM84DY5hkV7R/9FSoDusriTto0cMl/1dEKJxrkMdZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EItBevDv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788277772; c=relaxed/simple;
+	bh=7tAbQ3FNXQwdtFApJLSmfPJ1AsLIn5kjlzDFefq/f9U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bBXWyKZ1ol4USo+fmGagLDlbtLIQcMd+cFw9r7X7cbYDgP5z+eA7lUqB9m0EAq2mX0MFumnOk4QDLaLXknmq1iWuD+Gr6SLKQqCy1gHgyPKHypTrvNG7D6gl9uVRax0H/GlAIWs9We//gWZEPutEvKm6PgZD433rsG6HzMH1bqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oqPvH9G0; arc=none smtp.client-ip=91.218.175.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EItBevDv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC16C1F000E9;
-	Tue,  1 Sep 2026 15:49:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788277757;
-	bh=cA7ztTHD3EQlSiqacQoMqHGvMZYXbpSIQv5ESYtREBk=;
-	h=Date:From:To:Cc:Subject;
-	b=EItBevDvOG07sDlEd4G64XbAazHVlchNyE8IJkW4yBgMjYb9j99/WGWpXjxZHe3Vv
-	 pW+bluT3q/v0Lk2Xy4//6xVw2X1AS0wJTfFvY3isG91R81ZanCKpaEcILh+SMGcowp
-	 LUijB1fScs6BuiW2SmNiJ1S1pweaSvDXX3CYhWuq82o8BQ0tLFLPY/i2r3p5J+s0Bx
-	 qIBGzQ9rkWMoy49tpR4o1NGwEVEsVbBqQ6PZJ1BqDjpDCigSyJ8z39BwXYEDJnKHRF
-	 SlSxvIh8a1TqymUnvqPJVFr6FpwrPDAgP4ggiNVJjVg43QRXzGx7v5aTCa2AY9pl2i
-	 dnmbKIpjbssGA==
-Date: Tue, 1 Sep 2026 16:49:14 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Sep 1
-Message-ID: <apbz-ho4cBMFmxBl@sirena.org.uk>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oqPvH9G0"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7tAbQ3FNXQwdtFApJLSmfPJ1AsLIn5kjlzDFefq/f9U=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788277767; v=1; x=1788882567;
+ b=oqPvH9G0IQCIELA8f3NPRCikXTuSJBmmty31hKFio7mhRBJvrxyXenO9359O2Fz3XDj7ZeQ4
+ KX7OyGpnk4oNAsv/J51zXfE74a1vC5phnLsqPTq9cEXPHPX3Tp4/s4FczpopfsKzTNkFSfqBh9L
+ zm3pmXbl6ErLnzva2CagwOPg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 36ff23f91a58beb3;
+	Tue, 01 Sep 2026 15:49:27 +0000
+X-Mizu-Trace-ID: 36ff23f91a58beb3
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH net-next v1 0/2] netdevsim: add TLS device offload emulation and test
+Date: Tue,  1 Sep 2026 23:48:55 +0800
+Message-ID: <20260901154914.11637-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zyJp2heo+GAwo6lA"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
 
---zyJp2heo+GAwo6lA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+It helped me find
+commit b17cf742eaad ("tls: device: fix out-of-bounds write in tls_append_frag()").
 
-Hi all,
+So I think it is worth sending a formal patchset.
 
-Changes since 20260831:
+The kTLS device offload path in net/tls/tls_device.c has no test
+coverage upstream -- selftests/net/tls.c is software only, and the
+offload code needs a driver that implements it.
 
-The hwmon-staging tree lost it's build failure.
+So teach netdevsim to fake it.  Patch 1 implements tlsdev_ops and
+advertises the TLS features, patch 2 adds a selftest.
 
-The security tree acquired a conflict with the vfs-brauner-fixes tree.
+No crypto is done: TX puts the plaintext record on the wire, RX just
+sets skb->decrypted.  That only works netdevsim to netdevsim, but it
+covers record assembly and the offload lifecycle.  Real ciphertext, and
+more on top of it, can come later.
 
-The drm-misc tree acquired a build failure, I used the version from
-next-20260831 instead.
+Jiayuan Chen (2):
+  netdevsim: add TLS device offload emulation
+  selftests: netdevsim: add a kTLS device offload test
 
-Non-merge commits (relative to Linus' tree): 1776
- 2023 files changed, 55964 insertions(+), 16527 deletions(-)
+ drivers/net/Kconfig                           |   1 +
+ drivers/net/netdevsim/Makefile                |   4 +
+ drivers/net/netdevsim/netdev.c                |   5 +
+ drivers/net/netdevsim/netdevsim.h             |  35 ++
+ drivers/net/netdevsim/tls.c                   | 482 +++++++++++++++++
+ .../drivers/net/netdevsim/.gitignore          |   2 +
+ .../selftests/drivers/net/netdevsim/Makefile  |   7 +
+ .../selftests/drivers/net/netdevsim/config    |   2 +
+ .../selftests/drivers/net/netdevsim/tls.sh    | 334 ++++++++++++
+ .../drivers/net/netdevsim/tls_offload.c       | 505 ++++++++++++++++++
+ 10 files changed, 1377 insertions(+)
+ create mode 100644 drivers/net/netdevsim/tls.c
+ create mode 100644 tools/testing/selftests/drivers/net/netdevsim/.gitignore
+ create mode 100755 tools/testing/selftests/drivers/net/netdevsim/tls.sh
+ create mode 100644 tools/testing/selftests/drivers/net/netdevsim/tls_offload.c
 
-----------------------------------------------------------------------------
+-- 
+2.43.0
 
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
-
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
-
-Below is a summary of the state of the merge.
-
-I am currently merging 426 trees (counting Linus' and 132 trees of bug
-fix patches pending for the current release).
-
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---zyJp2heo+GAwo6lA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqW8/kACgkQJNaLcl1U
-h9DxOwf/aM9AJNIGegdeoS89EQKP6z0x+G7+dFugiUng+hchwi2vbK0qTr54U6Xa
-8DTtPhQbfFFfl4wQ/oNTqBqtgQoSFTCp2YYevXjBy/x1dt672VOAn9vTSyRDah52
-rvc2Zsp9qRy8GR7RGyasiSDAQdNjqTxX5eSVzhUOZCKhF+SisG8OGiN9sNlvxhB3
-9S4cZt3VeFomef+zQEDZU+ZJMGAPYiCV/26Lwq5biJlcw4JcRNa5LUwxQO1eBnq2
-01qZ9uEXhmVLsUosRGugYqQAzyAGzTTm3bBlQiz13tcut/I91KYpq6Uh8+2Z+eaA
-HiIo+dhNH280emfbLb9w2ICIOk9Jkw==
-=hi0r
------END PGP SIGNATURE-----
-
---zyJp2heo+GAwo6lA--
