@@ -1,150 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1BD44457A4;
-	Tue,  1 Sep 2026 07:22:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3340A36B936
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:22:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247335; cv=none; b=ZelYVtA0gQGcITE2D4uAtmW3xzycj5LXM5YO8Es++alt7tbCXSEw+vgMEv85qStJQ9EiS60QSc8ypP/MaYTYr3crupfBjybHGskLY0pXq5CAJNHYFiz5NzStVZ1v8a1+pprig60Fi2pMQoORYN7g2BF/E0INpecbi1DdOF11IZs=
+	t=1788247374; cv=none; b=pCW4ZPtOrCvGIeHIB11TlsNO8WNdx6RQCszenmgfMLs1Qbpao/mCLTE/emK7CRCEq0Xe89wcRHF/QVpB60irKSFTj47QZzazIM49lRC5EmZwF68Z9rGsmp0ATVjhO3b+SpMumJ0/jzdrXUr1rwv4CWQBG1gU0CrYML2vuLWfnE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247335; c=relaxed/simple;
-	bh=ZyOG/BII3RA1IUKMYFm+LzIpwhwdrG9Nqt5WaqkO4yE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XsHgeap4RVPq2Oxs8An69iGcENE1xC/KVFLzQHeTgMwP4ihzIfTN5Xlt9KixPDbKon5r9GikKAPzMRKoLSMe/stODE/WbtvVARu/ZOWJ3sVZ6YJ5aehfV925PjjAC9Py/Tbq4RvewIFufUf6zxIBEBkFI27eUeyOrKN8LgppNDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LmnFPZa3; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LmnFPZa3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07BB21F000E9;
-	Tue,  1 Sep 2026 07:22:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788247333;
-	bh=AqO8A5cXsqIPIy+AgwxG/HumRP7s6/uiG2nuRBBsAeU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LmnFPZa3NfELUlN45TfAIRETmArwpc8ONbotfiCvP5E6Gs0SFx3MAWAnQdwFSeehb
-	 76ftp/cLY58bJU0B0/3JgFNpuNWUh6Syz2VGzZCFCLeh4hze+iziJPaqAWcuhqAKTA
-	 p17KPNlw4OXkelArOW3Pf500Tb4arFXpu8SP9RJVJCq8Fnlidr3Bpsgwyj8BRB0z15
-	 xQybCg8R6pH3WERGuPXAIkDsr46Rt0STiXI62shwl6/NBUULzX6L0qLHY4exn7Ccjj
-	 T5lXbT8JeMkY5mgCNRMDlUklO59gyc+8KXHxtgq30VmAfn/BAv+eTpAkP1+utomO97
-	 GFq5mA3sOwJvA==
-Message-ID: <386cbf7e-1734-4b56-ab7c-711d4f8ca48e@kernel.org>
-Date: Tue, 1 Sep 2026 09:22:09 +0200
+	s=arc-20240116; t=1788247374; c=relaxed/simple;
+	bh=TJW+ZiT5oYVtElCrK2VJYF5Z8RxcnedgcUFRUh6BMIM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=haS8LLdtjKGuuY9Rtnqwc/A1va84rzp1TR9p71rNTdIDPidm7xHf5w32q0nYhVmg/KiOMmlBXOsYq7DDtkOBZta8Hi+lkAB6vGM7jpWaiN6VFDGp4pQrm9i7vRXFR3Qd82MNqGwmKU22zd4kFNT10LsgatYV0kjTR8zGxmWPhtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-52f9e79ed93so43459911cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:22:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788247372; x=1788852172;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jx+XoqcBBsA+m2qrM8HxfQHaaz8x8crvSJWq14ITrJ0=;
+        b=EpBEpnqjJB/kqzrGPJJ+iMDmt5DzHqEIXCHReaMArSUoyBIpBp9w4KdjSkCLYWD+Fc
+         IqrYHva/x2vT59NHSXf0tqnRlN1qrnEHWNeMmSpo6eONZTR/mNUYGLPRJJlcXij52pQD
+         fRoQIW4fKu7DI9QgPGOsfcimU3WMSpQGBm3Vu8Qhq2uazR94+GEmRYd6rcxPUNJxfmbF
+         qUI3RYndBMGWOA/ivQB59fGdcdbg4CbU2qdl6JiyFPa+lMsrxrILfn+9u93DKelMYV9P
+         5y9h2/NeCGJiC9Lj2T3kL+2GYR4E4xOXtMX6JdjUXG7z3Q8W1HnOSylX4489X1+87NRu
+         HL4Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoPO0F4vVKETd58KHRB9GrTTqpDm+0md5vXLwFUNj6aNid5TIpiSRmNh2Oi1hQbRQIb3poSIDMZ2RGv6vQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kc6Zogdi906AXa9+/YUgC+fSIbKBT833D4SxrwN9uXGrkTh/GO
+	SJYS5Oi0Jvwy4io9j7zAQ1ed7dXWfWAmGg9qjUIfMXnhbbSnXLuNxC+8l7eIDA3S
+X-Gm-Gg: AR+sD13yJHcRYWY/R2ngr5CkYNDdAdOqw/e0fi2rewb8Ff1LTMkegTEvAI4yxCNtcJS
+	U/LhiLan2FX1C31fgpBXUhZhf+xX18sMZtygILBK84kgMWDvFBQRx4cMQHg1sAvFGpY9Iv9W5YV
+	qgDZ+RTxc2/f1tHOhHp2IAM9+mnk7ovBUCLPHnDhrNCLeerpShTVyK5psBFdxxPZasUhBNODpFV
+	7i32NbCeJPQmjdL/NLV/NayAS7uCzzpSZJbiaGzXFIAQhltuuLBR5pCBdsWDZLremCMZvL5Z2Y5
+	V34h8KArKSLM83fjOf+sA9LmxoyFVsY/O/NQkpcwmdC6+mYCfQ4aulvyETLrhlMFSQAYmVoJfKl
+	PBjVTqTcoDddd47Fx/8ZWURe26FOhaTptEtyD1ZWfFQY64Gn/FuQQGfzYLhuALVKxul+6bZOHZC
+	AXVJC5eTgVYnUG/g67MZRXdpinlG47ekyfhjDIXQSzu/9u8bl7lzQ/SdI3UWmLfhrPmJqlnAI7Q
+	JENePlUr94zngmdBdEtI6SncEtMy7gbY0/d8gik
+X-Received: by 2002:ac8:7f44:0:b0:530:2718:8d44 with SMTP id d75a77b69052e-53027189168mr35374761cf.23.1788247372063;
+        Tue, 01 Sep 2026 00:22:52 -0700 (PDT)
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com. [209.85.222.179])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52fbe5495dfsm89085961cf.6.2026.09.01.00.22.51
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 00:22:51 -0700 (PDT)
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93906e8a5feso451781285a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:22:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Roi6hIT79mA/lr/FrvAmA1bN0jQXG4hC2Zq/A589BMXOZUuN/Rtc5VllSAXe6Hxlnpk6vpNJnoO1EFiLEs=@vger.kernel.org
+X-Received: by 2002:a05:6102:a50:b0:77e:6f90:4aad with SMTP id
+ ada2fe7eead31-785962b2f0fmr9912673137.2.1788246874251; Tue, 01 Sep 2026
+ 00:14:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [tip: x86/urgent] x86/alternative: Exclude text poking against
- change_page_attr()
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-tip-commits@vger.kernel.org,
- Steffen Dirkwinkel <lists@steffen.cc>, Pedro Falcato <pfalcato@suse.de>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Atish Patra <atishp@meta.com>,
- Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org
-References: <20260813-cpa-fixes-v2-3-39b4ff90f91d@kernel.org>
- <178821524520.3717435.12731475498671524229.tip-bot2@tip-bot2>
- <4201eac9-297b-4672-8e7f-62e99dd13eb8@kernel.org> <apZ8AXqJBeI2BztN@gremlin>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <apZ8AXqJBeI2BztN@gremlin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <cover.1787239813.git.geert+renesas@glider.be> <apWfW5ahiYagw0OR@redhat.com>
+In-Reply-To: <apWfW5ahiYagw0OR@redhat.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 1 Sep 2026 09:14:23 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdX8YidsoHudY54RQW4J=G446WNgRG6Q-P5f1YEHd3sHkg@mail.gmail.com>
+X-Gm-Features: AcwNN1V5M0ZQ_v_xaH6RI1jedVGh-HNyKWbpGWR_Rc-YS9IPBF0NOfuHqPh0NM0
+Message-ID: <CAMuHMdX8YidsoHudY54RQW4J=G446WNgRG6Q-P5f1YEHd3sHkg@mail.gmail.com>
+Subject: Re: [PATCH 00/45] clk: Make sure clk_init_data is fully initialized
+ (part two)
+To: Brian Masney <bmasney@redhat.com>
+Cc: Ryan Chen <ryan_chen@aspeedtech.com>, Joel Stanley <joel@jms.id.au>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+	Billy Tsai <billy_tsai@aspeedtech.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	Taichi Sugaya <sugaya.taichi@socionext.com>, Takao Orito <orito.takao@socionext.com>, 
+	Linus Walleij <linusw@kernel.org>, Avi Fishman <avifishman70@gmail.com>, 
+	Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>, 
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
+	Benjamin Fair <benjaminfair@google.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Cristian Marussi <cristian.marussi@arm.com>, David Lechner <david@lechnology.com>, 
+	Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
+	Santosh Shilimkar <ssantosh@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Gregory Clement <gregory.clement@bootlin.com>, 
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, 
+	Heiko Stuebner <heiko@sntech.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Sylwester Nawrocki <s.nawrocki@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
+	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Dinh Nguyen <dinguyen@kernel.org>, Viresh Kumar <vireshk@kernel.org>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	=?UTF-8?Q?Emilio_L=C3=B3pez?= <emilio@elopez.com.ar>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Prashant Gaikwad <pgaikwad@nvidia.com>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Ulf Hansson <ulfh@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, linux-clk@vger.kernel.org, 
+	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, 
+	arm-scmi@vger.kernel.org, imx@lists.linux.dev, linux-mips@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
+	linux-tegra@vger.kernel.org, linux-mediatek@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 01. 09. 26, 9:18, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Sep 01, 2026 at 08:16:28AM +0200, Jiri Slaby wrote:
->> On 01. 09. 26, 0:27, tip-bot2 for Pedro Falcato wrote:
->>> The following commit has been merged into the x86/urgent branch of tip:
->>>
->>> Commit-ID:     1c4d1c070d734b241728378c0f79950c23a10883
->>> Gitweb:        https://git.kernel.org/tip/1c4d1c070d734b241728378c0f79950c23a10883
->>
->> Was it dropped in the meantime? Gitweb says:
->> Object 1c4d1c070d734b241728378c0f79950c23a10883 is not reachable from any
->> reference in this repository
->>
->> $ git rev-parse tip/x86/urgent
->> 477cf5cd1f698053df7426b7b8d9339e85e00946
->> $ git branch -r --contains 1c4d1c070d734b241728378c0f79950c23a10883
->> $
->>
->> Despite I managed to download it at some point though:
->> $ git show --oneline -s 1c4d1c070d734b241728378c0f79950c23a10883
->> 1c4d1c070d73 x86/alternative: Exclude text poking against change_page_attr()
->>
->> What's going on with tip today?
-> 
-> Yup, I can't see this commit _at all_ in x86/urgent. Something's very
-> broken here.
+Hi Brian,
 
-FTR, I dug out the logs:
-  + 096edb090797...4a0e6473921a master     -> tip/master  (forced update)
-  + 096edb090797...4a0e6473921a tip/urgent -> tip/tip/urgent  (forced 
-update)
-  + 34cd1c931a36...477cf5cd1f69 x86/urgent -> tip/x86/urgent  (forced 
-update)
+On Mon, 31 Aug 2026 at 17:36, Brian Masney <bmasney@redhat.com> wrote:
+> On Fri, Aug 21, 2026 at 10:53:10AM +0200, Geert Uytterhoeven wrote:
+> > The clk_init_data structure contains several mutually-exclusive members
+> > for different methods to specify the possible parents of a clock,
+> > prompting drivers to initialize only the members they need.  However,
+> > not initializing all members may cause subtle issues, which are only
+> > exposed when CONFIG_INIT_STACK_ALL_PATTERN or CONFIG_INIT_STACK_NONE is
+> > enabled.
+> >
+> > Hence this series aims to make sure all members are fully initialized,
+> > to avoid such bugs, and to prevent future breakage when converting
+> > drivers to a different method for specifying the parents.
+> >
+> > Part One[1] fixed all cases that I identified to be real bugs, in
+> > response to a crash I saw on BeagleBone Black.
+> >
+> > This series is the clock subpart of Part Two, which fixes remaining
+> > cases that are currently harmless.  These are still fragile, and may
+> > cause future breakage when converting drivers to a different method for
+> > specifying the parents.
 
-The original x86/urgent's HEAD (34cd1c931a36) indeed contains the commit 
-(1c4d1c070d7).
+[...]
 
->>> Author:        Pedro Falcato <pfalcato@suse.de>
->>> AuthorDate:    Thu, 13 Aug 2026 12:01:26 +03:00
->>> Committer:     Dave Hansen <dave.hansen@linux.intel.com>
->>> CommitterDate: Mon, 31 Aug 2026 15:17:35 -07:00
->>>
->>> x86/alternative: Exclude text poking against change_page_attr()
->> thanks,
->> --
->> js
->> suse labs
-> 
-> --
-> Cheers, Lorenzo
+> 44 / 45 patches have been added to clk-next. I took it all for simplicity
+> rather than everyone trying to cherry pick just their parts.
 
+Thanks!
+
+> Geert: The only patch that didn't apply was:
+>
+>   [PATCH 27/45] clk: renesas: Make sure clk_init_data is fully initialized
+>
+> I didn't look into it too much.
+
+No worries, I have queued it in renesas-clk for v7.4.
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-js
-suse labs
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
