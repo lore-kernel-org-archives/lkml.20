@@ -1,111 +1,90 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C32B43CEC8
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:58:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F6343CEC8
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:59:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278340; cv=none; b=s7D97aGMCDwa8nlTPPHZXujQuBaCus9uf0AD53xKSuHJ/FYslecH2lmAklZDbc+mDA5wj4iSuQUMqKO8gE75dOx2nrhb5gz4ot+U1rX1VGhRTWbqx4eY2q0xFOQTMramyCesl61o9AxzGzCmiLVyrDXZw8XBnLMxOktDMuVJX5Y=
+	t=1788278345; cv=none; b=dwZi81j+US+7ntyWIxAtCGNNGXqtb7ZWVotP7RnZJhb9YN4ZuzGibEv1ghUY19eVvvmEmTTv+GySdRfNCL9T1mHOshr6N4hCH9CU515CxDKsiiHw38GsfLlP+3dTFrSHLoJbznj9FHwBdT0ao0RzCCNarR7gInODDgWQJCsQaCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278340; c=relaxed/simple;
-	bh=Y25ZfFIxBhDOGUWVEJAecNuMSUqszdMQjw2VjAfHskk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RIfdP2XqJPo0MXiFmJOaeosFTXSXKJDMImS2ZPXuToguq0FO4TQ5JMPfBUrU/a0R4gtJ5JGVeqSE5cvuv+1sY0RNSsPKb7vMnv2d9kwhUao3EGukbv67FhADYCA29P1pf3E99PVMyIQzybDqpHtgztHRq4vOdwcO9G5c8KC7YIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H2PoN62R; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788278345; c=relaxed/simple;
+	bh=Oq7ZplkLYZ17Jd6jgncCN0Tnzdy5Yo0wIVW/z/36jGQ=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LAVr+WQXIL8utU4Yi86pr7NvVsMBIAQ0GO3/BdeMSexn8TAYopP2KrjfAFRTuH8PVjcimpQdbVoAfF5DDZ3X6S1PM2WXpW8EUU0q4gaYJ7/TrPG1cJydWUtX54hYjf9lc5En6YbcYdC1lreWtuasyWAUhqTwzg8nP4p0IgolbQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dWcZvkqB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H2PoN62R"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so3922871a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:58:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788278338; x=1788883138; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nHlmQPyMxuK2/4fncYc9lzGccBisveBJQIOdVcUgRoU=;
-        b=H2PoN62R2yug/HNhKMEtqinJsy2Uf1TrQFk9+xY2QXYmXGUmtR/KQ4xSyLmQbqmfQl
-         SmoaCtns2UTrkhzVeCrQzn0NejaaZmMabkAeg3+1lblZBZZal6TvyCorZqWZ/ePoNigS
-         mTDiZ1bY238ioCNfyKksERioTDgafJdXQdTIXw9EvIbcu4DbXU0aIEJnfOS3cnnWEhf3
-         Gv2Ea5JJPM+ef9+SI7VHdAPXgyVqcOyfGA/qPFmzj0JevjqXA4iOT4Y601zB6Yac33xF
-         iL8viIecvWRgwKlPfZwcqo0sfEPojI/KmeGCBILpfTOOYgDV5MvcHukgIqxHXB50J25U
-         ZOTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788278338; x=1788883138;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nHlmQPyMxuK2/4fncYc9lzGccBisveBJQIOdVcUgRoU=;
-        b=Xd8bHFFiQwmrfthh3EOSmUS1IyUBlDI6DTt4BzDRtSxYrzXaA96WUGig1IBoLT1na8
-         95Lcjzl6snmIso934yqyyXKCmOGtiO8QAPHtfHM216x0CCDqSmaMcD/ctwKB66jcORiD
-         3b9KKRuvPFth03hoa0UQMBeVl6dyppaLqJ8THkLqruqgh0LCzn7HCIKL8LlgdhyeCBSr
-         6TNH80CKxc045G24kcND1nwzb1Jx/ClAn04hEltcaHenL0qcArRLjhqGd4/29Mwh0GLb
-         7/t8dXspVhYnwpPY2dpKLq/GY2ijZWvG3OgnMwaGF/Lu4WIFO2SZJUejM/3pBzw7gPqp
-         KhAg==
-X-Forwarded-Encrypted: i=1; AKwUvBxRC+tj3EfESR7Ldt/s8vlowVTAoOwMJNTcthW+a8NJBSnfSNjodDJyphlll2mjaBAAA4nyC37LAKG1qLg=@vger.kernel.org
-X-Gm-Message-State: AFuF++moCWxFpUtQOPL/kagcduI7oqXaBfFxfyr+2woYg5yEr5zlNcxU
-	mTadiES9qYPbzExsPAT0+3/pjEYWamjNAAJ6XFx9c0QXk/mdAGvAwkon
-X-Gm-Gg: AYBFou3Gtl6wygi6ARzyIPQ3XH+wjDtrb/s7ho+ydLjCwrUWxKKxeuwIxJx6z5TBBtk
-	cuKjCbhMlZ3wynFJY+fVWmIDwCXs/KSF8prJTQyink95DETEVnanepORaBuf0D7MwooHiYGlcdi
-	dkmEtUCOcLtYKNCJbmNs8t0sOl5wjJvi6o50CTnKEEWpTyTFPCphnqb7zDr9jt/RJCVugYl7YHv
-	7HT7X/T3bLaMV+ITJEz6QkolB6IGKEMI7j3X8spVI4Z9e74n4JG0hbQRR9JKPKSi3fSGXIvfGGC
-	O02LQg15MQaCmhzhv0fd6JWnPDYhRnrj/hwfibmw13ed7H68uxo+kuhCDjKaTQsxiuM6aOPBk+S
-	RQdSCAxMLSUVL5hZ388pJH3e510Fc1LdaPA5NVneNHbGsl+lPUpIVpt3W3CValNdKfqlcrkaBIF
-	UMgZI02b7AhnfZsyaO2tsYmQ3/03ezve9PTYmlp3UM5fWSYhAhLdPBhWV0CwWkPq5GrAW9ddSUn
-	f/5jPdnuEXZ5g==
-X-Received: by 2002:a17:90b:5544:b0:398:bd37:6a49 with SMTP id 98e67ed59e1d1-398bd376c65mr31470657a91.12.1788278338408;
-        Tue, 01 Sep 2026 08:58:58 -0700 (PDT)
-Received: from SGN-LDSENG.tasernet.com ([42.116.29.172])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1430c7a173asm1741874c88.10.2026.09.01.08.58.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:58:58 -0700 (PDT)
-From: Cong Nguyen <congnt264@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>,
-	Simon Guinot <sguinot@lacie.com>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Cong Nguyen <congnt264@gmail.com>,
-	Sashiko AI review <sashiko-bot@kernel.org>
-Subject: [PATCH] hwmon: (gpio-fan) return IRQ_HANDLED from the shared alarm IRQ handler
-Date: Tue,  1 Sep 2026 22:56:48 +0700
-Message-Id: <20260901155648.1538876-1-congnt264@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dWcZvkqB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5778F1F00ACA
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:59:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788278343;
+	bh=Oq7ZplkLYZ17Jd6jgncCN0Tnzdy5Yo0wIVW/z/36jGQ=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=dWcZvkqBZ0RelBOMhEWfPRzEqzpyr2Uaok0CnBqE+cCRXhOM6FI4iVuVriNOxGryp
+	 W3liV9wKkydPRopz4NATBAYCeIboTKrk/rdxo8wfCcmqkVGmZpUQCn6HnwkMASPnuu
+	 R2jy2OhcK2WfvoSnsROGj7OIApJfSEjW1SCZed6kSunfZwLH3V64bFZRBuAjpLuMGQ
+	 SBBa7qhcP6ui0j2I4lqDtGTybfsZrPfReU7IcGvL2vzayc+y0hT6+To7N0+dfntSl2
+	 hD4yJeI52yIKnuruDiC6Ly0mNquK4XtyuW+H3lkJJ0IAbH1TtyfvkTRiyc7e03fMgU
+	 S7mpFpjb/7X6A==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b4af4be667so4462773e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:59:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz8yqhZa1+D1c9EMaBY9tB1zzA1d5F0zd8WfO3FOfAY4Xi9+JuX4c/yZXJsAXH7y4ur2FYX9vdh7if/QN4=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3NDmPPTI0tEONe5EB9PsolKrHNpjX66EYNnkzgrDut8rAR1nG
+	50rnykYcROdCYJaba3GOLlpSDqqATyNlEMCh50IR9W23CipKr++QuNneNhF2APykH1Has9Ib/Xu
+	5GcLc40ckM8NrqxZ8X8IEzFMXgXXZtMy9Kh/lju7hEQ==
+X-Received: by 2002:a05:6512:318d:b0:5b1:589b:3579 with SMTP id
+ 2adb3069b0e04-5b5e68b268emr9763174e87.4.1788278341806; Tue, 01 Sep 2026
+ 08:59:01 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 1 Sep 2026 08:59:00 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 1 Sep 2026 08:59:00 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <CAD++jLnGGonfOxLHhM-uXAzP10J9o5=0e_cV9JM5r7SJawChnA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260820-msm8952-pinctrl-v2-0-bf2b8b7b379b@mainlining.org> <CAD++jLnGGonfOxLHhM-uXAzP10J9o5=0e_cV9JM5r7SJawChnA@mail.gmail.com>
+Date: Tue, 1 Sep 2026 08:59:00 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MdKT4RAWdtZf87k5-VbXAZePT2yttf2QPWgRJaowKuDTA@mail.gmail.com>
+X-Gm-Features: AcwNN1UfNyHlYiZf5Y-cZ-ZfikuCsNoWOHA6SA5CDbMjoE3viBQPShEGvuq9myc
+Message-ID: <CAMRc=MdKT4RAWdtZf87k5-VbXAZePT2yttf2QPWgRJaowKuDTA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] Add pinctrl support for MSM8952
+To: Linus Walleij <linusw@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, muzafferkadir@mainlining.org, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-fan_alarm_irq_handler() is IRQF_SHARED but unconditionally returns
-IRQ_NONE, even though it always schedules work in response. Enough
-"unhandled" reports on a shared line trips the kernel's spurious-
-interrupt detection and disables it, taking every device sharing it
-down too.
+On Thu, 20 Aug 2026 18:37:50 +0200, Linus Walleij <linusw@kernel.org> said:
+> On Thu, Aug 20, 2026 at 1:17=E2=80=AFPM Muzaffer Kadir via B4 Relay
+> <devnull+muzafferkadir.mainlining.org@kernel.org> wrote:
+>
+>> MSM8952 has pinctrl system that is similar to MSM8917 pinctrl, but it
+>> has some differences in some of the pins and their functions.
+>> This driver was tested on General Mobile GM 5 Plus
+>> (shamrock) using my own kernel fork [1].
+>> I'm holding off on sending the GCC (Global Clock
+>> Controller) driver and initial device tree until I've resolved some
+>> outstanding bugs in the GCC driver.
+>>
+>> [1] https://github.com/kadir1243/linux
+>>
+>> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+>
+> Bartosz needs to look at this series, he'll review and merge
+> it.
+>
 
-Return IRQ_HANDLED, matching what the handler actually does.
+And to that end please use scripts/get_maintainer.pl to get the current lis=
+t
+of maintainers for your patches.
 
-Fixes: d6fe1360f42e ("hwmon: add generic GPIO fan driver")
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/r/20260830152150.27F5F1F000E9@smtp.kernel.org
-Assisted-by: Claude:claude-opus-4
-Signed-off-by: Cong Nguyen <congnt264@gmail.com>
----
- drivers/hwmon/gpio-fan.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/hwmon/gpio-fan.c b/drivers/hwmon/gpio-fan.c
-index 084828e1e281..a55a7ea07fc0 100644
---- a/drivers/hwmon/gpio-fan.c
-+++ b/drivers/hwmon/gpio-fan.c
-@@ -67,7 +67,7 @@ static irqreturn_t fan_alarm_irq_handler(int irq, void *dev_id)
- 
- 	schedule_work(&fan_data->alarm_work);
- 
--	return IRQ_NONE;
-+	return IRQ_HANDLED;
- }
- 
- static ssize_t fan1_alarm_show(struct device *dev,
--- 
-2.25.1
-
+Bart
