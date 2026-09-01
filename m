@@ -1,128 +1,114 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA70365A02
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:29:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788244171; cv=pass; b=Fi5RsFHGFLTaC8u7r63hIGIoTVmG4YqtAD+uCsU0+IhSYhzfHN+em5np1eCqOwFclEYQEszY3o+zAaN3Wi+nEZDLrROUytVG77TGCdtKBTrZYXKOGvXk5yVEJ3jSKT4aBxSuUmO3nOj7g3l9CI9JGFiDiL5OKW0nLh8jismS7Xw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788244171; c=relaxed/simple;
-	bh=K4gZl2mOhHoZykPR7kAcqsDmqgMqQEWtRL2LJIdoA/Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qJ0ES1Vnx46C1fD8EhpTYW//4NLXkTxI+o/Dd0zGgqhdHW8wDGSYW3z+xeqBp2nHLBWqpYEckD7kQ9GgCTzCTwaNUnxKFJCxiKII+1Umbe2r175u/c2FwO94O6ntEIrgJYo2zOGEuYG2i5GymXfVp5ME/dZauXm7rswCyXCvcGw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fo2YkDhp; arc=pass smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12EC377EB2;
+	Tue,  1 Sep 2026 06:29:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788244199; cv=none; b=mYCe8hHIp4KJ/yGYmcN3Zjqedn3R/Rngvq1PWxZTCtmu1YaOJvkeFP8KTDFJttXf72zFpD42/pgANRktKa/wBy3Xc9AtApsGKm0jlwYq/iFdyL7eXcpes9qDxcaeF/WSNIOk4+H5hktTg/9lq3UZ8A7NpOBRRxB3bpbo53Z5R7Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788244199; c=relaxed/simple;
+	bh=I85zzhv8ES8KmFM9m5iBsjP7IQ6Oqm69Rq/End2sPks=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g5IKAemDyBjcR0lrepwEtb8nlCcreNMOjAviNzxLRo9u39+DkRhZ6T/x1kTwOep676tON6mKq6Z3jHLs8dJ0Kv5ejhj8ImUn4Mzl93TvfjJp0/VOtiCZZeDTfzPHeTL5HjJCeOXqAqZWLq4oWnoMvZw7ihPh6NhWZrAVSxtPy0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fHV7Wt8L; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fo2YkDhp"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c15e592da74so524769466b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:29:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788244168; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OFfdyXuHDxQUNT3vhbpHDAT9kBlcDpkKi3f4gGZIJSINEIJKrClQw+0sHrmkcAmhHW
-         0HsR22v9sloC9vYdY+kWDmRG6jXYR0fd3ilUukR77WdkolDwIMPkgq+A3cbrePJwgpyh
-         6CYUCggMxfcMPyVa+TP4BZ48P2uKkz1UeO/wFa4/oLgUtForJmv8oEl2FUMsQLHile5m
-         Vedr38c3hLtP6N1UY2W5t8vSOmih/2Vm7SOc9QeIFoeLKUiAyP8dnzI9V7Cu6XDFMiRj
-         y/8n18JUfsaGgRJwfEUxw6fxH+6z6BqY4NwU55TOgWYtme8kFQqNKMHChWRj/rRQrUF0
-         mpBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=bEEZ7fL9N/fBrtWdluD5mbU6vgaXF6Tfc86ggJbNVK8=;
-        fh=zAQCh43xog/oYtkOSHHq+J4eJTUVZ1Ki6YEGp1lNBIw=;
-        b=ExzF85ySqPCrb29ZFzLBxQ1vtJXs04B+xEwaHiLnB/eXxhWfRpXa4Zas3iRkLlbHCs
-         KhjPpJ0wmz1QWsY1sACN9+Oz4PazwaLvaYm9xjb16S1uIfkwiAnzH7fe1ajBbo9P52PU
-         RXGbfl8HJvUwBeYBe+TPTztx2+Vjw8/NKmtTeg/qgLHU/dsG+tOzocWVd3dreQcMi6Kj
-         kNwNriV6846YhQoZ7IGSQfLAxsiT4n37vI8Rg+upxUQVRmPcxoAmY5jhJnVGgm9LIYp5
-         eJjCthy/iAWTorc7gEbnxlR17ro8uIXWhmhsflKNC5ZggwfZtaBAHh6/IBzGGtxHt/eM
-         jrmg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788244168; x=1788848968; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bEEZ7fL9N/fBrtWdluD5mbU6vgaXF6Tfc86ggJbNVK8=;
-        b=fo2YkDhpZfxnKAqDT/bIy7kMg93snOkQDUV43O92bP0KQucf0Osu7oMJS8xxDHP0po
-         l8n8P2OyJog9TnxTt81NEDyUHmfJNfcliJBUagjOMFxSzHS3ThrxqxkwvtQ0TnNrAgnK
-         jggJtVqkFrof6Xxl7LcbB+3MTbyUUS+MvE/9L7xCgHNzENOW8FXaiQ8ZNwoIW1Xif7IR
-         3kPnIImwhJ/gHGDpA4Zqess+K0herU91/6dvhXk/OY23YasMNDhMTcxgjMZUoX8J5nY2
-         C+j05AhCZlMRPXoSS8kJTXsPrZKcKRw3WVRFRCvJIigMc6G1p0LMLFegwLrQPkaHlXrY
-         ewgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788244168; x=1788848968;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bEEZ7fL9N/fBrtWdluD5mbU6vgaXF6Tfc86ggJbNVK8=;
-        b=FJuv/iGiTw47rvjwKfShXijsM4ZnNMWXTNsgiuzF/884r8woMt6ROgybWuxRwXuC8b
-         agkFYknhqPdCgb4hTl51k6b26rezLSTvaw7wiod9YSnklZvDoilhFJB+c49umKrLjOWT
-         sdURzAmvyvzF3ltGAa2lrfKrXqVK7JezWQNZ2vhmOZPZsst7F1BWyc4AO1h3OvrveOUv
-         S1BrS2bWXkR/o9n/cUVzbCBzRwad9pN153pak9dwcZg3HwM26iMJF6e+KVrJyKjdc5XV
-         PBCcwW7ISysQPyi0myvag0OBPb4zVQPNihYHD9lHS9EONn9kKTdq+95GVOTMzR/zO4E5
-         nwiw==
-X-Forwarded-Encrypted: i=1; AHgh+RowS5d7wb+WVAlXW7Qj46mYK9U+VLxXwp8iI4dtQHdmeuRJcpVAXpJYgdhSlTTeXDVFt+R7RIw6lVT3ReA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+KaakGc475GYdku9EO+MkC7JN3rM8P429MQ4ljnM2ExfaMxQp
-	ZYibVMjEJiQ4qB+0cj9TKDnKadRL4vMAoqvJ0J3ohhOswXe2CgEUYMYT2RsO+2BZzECi3BHPaR2
-	MIxu8ZDlSP5p1hOzoVlxNZLWOQ5ni+40=
-X-Gm-Gg: AR+sD10QO6BpvcT97W5HXT4rntelByjiADd9edsXCFoe5hxH1CG3PF8VUo5qScXXVr3
-	LUaDUG0w3EtYLsGuLdEZ+1C3G7TSb+Vt8YPvCHFnb0lKYFUHNYOfAIiO2sVMyv9XyV+7KN/Goer
-	0CGQdEM9bjJhseFJ7KNDI1AQrn425czxdMYMKqJHXpC92hnoZGlwXqlLx2zsDsjzqY+G0NNoDDt
-	2YFnE0Mb7wa8Rm79zLAeLE4lHaGMGX57mGOHF2TLSq7cBcBQxMoRIm5IP1A/eJgFowA6mihK7ld
-	3KzveeqrkkSN6bNtZ0gUxs4K/1tYdyGaN/jBCbWrU8bjrdnyYijbCzNKU5tDRSRaf1E4DLaa4Zw
-	+wg==
-X-Received: by 2002:a17:907:7b84:b0:c21:72b:dec0 with SMTP id
- a640c23a62f3a-c2556c61d62mr1936956666b.5.1788244168036; Mon, 31 Aug 2026
- 23:29:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fHV7Wt8L"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788244197; x=1819780197;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=I85zzhv8ES8KmFM9m5iBsjP7IQ6Oqm69Rq/End2sPks=;
+  b=fHV7Wt8LnTkV0Egn4xNm9c/72q4qZk8RdH8eoCZRZaETxDjllYTTq8u9
+   tZO7vTPnMzdMc8ZBccgQhmcuXWs3/z/yVAYTrNeSUwdbh2pzK8ryR/uWu
+   e4aLLTJUoV+N3ECzTZaziBX15F9RQhge7Ti8uDVjpLy51fPG5BsdYxvrS
+   fVwfPQO1nlvRxx1s8o0MfB06dezB9tBEXg2Maa+90EyJ4E/vTPmzo1yY3
+   fPbrSynb8kg6UwiO4Xx44LXM19ge7p3r79lTUCyqfqRHNejCDfY1/GTWp
+   4FNpMZnpm8V8dwMG/8tMR4gqqCQcJqmQQT/uqBMdjmvrJH/iwTKlb5Rbk
+   w==;
+X-CSE-ConnectionGUID: GG+RbqKfQiaGnDVN48wXTg==
+X-CSE-MsgGUID: Vmwn6BBXTvOHa8UuuO8BeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="99261191"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="99261191"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 23:29:56 -0700
+X-CSE-ConnectionGUID: PS8fOcA0RTWSvHPvyL2RPQ==
+X-CSE-MsgGUID: WSGY10jrTla2gg5y0cCAAQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="274265661"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.192])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 23:29:52 -0700
+Date: Tue, 1 Sep 2026 09:29:48 +0300
+From: Tony Lindgren <tony.lindgren@linux.intel.com>
+To: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, seanjc@google.com,
+	pbonzini@redhat.com, dave.hansen@linux.intel.com,
+	andrew.cooper3@citrix.com, nik.borisov@suse.com, kas@kernel.org,
+	rick.p.edgecombe@intel.com, xiaoyao.li@intel.com,
+	chao.gao@intel.com
+Subject: Re: [PATCH v3 1/4] KVM: TDX: Track configurable CPUID bits allowed
+ by KVM
+Message-ID: <apZw3G2volNpLiBD@tlindgre-MOBL1>
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <20260827031837.2863609-2-binbin.wu@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824150156.1310-1-sreeshankar0910@gmail.com> <178822856275.1835959.3848131517961346933.b4-ty@kernel.org>
-In-Reply-To: <178822856275.1835959.3848131517961346933.b4-ty@kernel.org>
-From: Sreeshankar K <sreeshankar0910@gmail.com>
-Date: Tue, 1 Sep 2026 11:59:21 +0530
-X-Gm-Features: AcwNN1UlOPMwx9DB7E6Z2-eTZ4gj_ZRRlYulJwE9lf5s7b-4tAwIra4YOS7pijs
-Message-ID: <CAA-+ukLy9CoENCEnQ0hHGzzHTw3d-aZZfT3H2o7x8_cmo9dkJA@mail.gmail.com>
-Subject: Re: (subset) [PATCH v6 00/13] Add initial support for Qualcomm SM7250 SoC
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	mturquette@baylibre.com, sboyd@kernel.org, rafael@kernel.org, 
-	viresh.kumar@linaro.org, konradybcio@kernel.org, tglx@kernel.org, 
-	ulfh@kernel.org, bmasney@redhat.com, radu@rendec.net, 
-	abel.vesa@oss.qualcomm.com, lpieralisi@kernel.org, 
-	taniya.das@oss.qualcomm.com, danila@mainlining.org, davidwronek@gmail.com, 
-	mani@kernel.org, robimarko@gmail.com, linux@gurudas.dev, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827031837.2863609-2-binbin.wu@linux.intel.com>
 
-On Tue, 1 Sept 2026 at 07:39, Bjorn Andersson <andersson@kernel.org> wrote:
->
->
-> On Mon, 24 Aug 2026 15:01:43 +0000, Sreeshankar K wrote:
-> > This patchset introduces foundational upstream support for the Qualcomm SM7250
-> > SoC (internally codenamed Lito).
-> >
-> > SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring an
-> > octa-core Kryo 475 CPU configuration (1x Prime Cortex-A76, 1x Gold Cortex-A76,
-> > and 6x Silver Cortex-A55) and Adreno 620 GPU.
-> >
-> > [...]
->
-> Applied, thanks!
->
-> [09/13] dt-bindings: arm: cpus: Document Kryo 475 CPUs
->         commit: 1c8fe8863780705aba77893fade65f728e82b67a
->
-> Best regards,
-> --
-> Bjorn Andersson <andersson@kernel.org>
+On Thu, Aug 27, 2026 at 11:18:34AM +0800, Binbin Wu wrote:
+> --- a/arch/x86/kvm/vmx/tdx.c
+> +++ b/arch/x86/kvm/vmx/tdx.c
+> @@ -52,6 +52,149 @@
+>  	__TDX_BUG_ON(__err, #__fn, __kvm, ", " #a1 " 0x%llx, " #a2 ", 0x%llx, " #a3 " 0x%llx", \
+>  		     a1, a2, a3)
+>  
+> +static u32 tdx_cpu_cfg_caps[NR_KVM_CPU_CAPS] __ro_after_init;
+> +static_assert(ARRAY_SIZE(tdx_cpu_cfg_caps) == ARRAY_SIZE(kvm_cpu_caps));
+> +
+> +#define TDX_VALIDATE_CPU_CAP_USAGE(name)			\
+> +	BUILD_BUG_ON(__feature_leaf(X86_FEATURE_##name) !=	\
+> +		     tdx_cpu_cap_init_in_progress)
+> +
+> +/* For feature bit that KVM advertised through kvm_cpu_caps[]. */
+> +#define TDX_CFG_F(name)					\
+> +({							\
+> +	TDX_VALIDATE_CPU_CAP_USAGE(name);		\
+> +	tdx_cfg_caps |= feature_bit(name);		\
+> +})
+> +
+> +/*
+> + * For feature bit KVM allows for TDX guests even though it is not advertised
+> + * through kvm_cpu_caps[], e.g. MWAIT.
+> + */
+> +#define TDX_CFG_EXTRA_F(name)				\
+> +({							\
+> +	TDX_VALIDATE_CPU_CAP_USAGE(name);		\
+> +	tdx_cfg_extra_caps |= feature_bit(name);	\
+> +})
+> +
+> +#define tdx_cpu_cfg_cap_init(leaf, feature_initializers...)		\
+> +do {									\
+> +	const u32 __maybe_unused tdx_cpu_cap_init_in_progress = leaf;	\
+> +	u32 tdx_cfg_extra_caps = 0;					\
+> +	u32 tdx_cfg_caps = 0;						\
+> +									\
+> +	feature_initializers						\
+> +	tdx_cpu_cfg_caps[leaf] = (tdx_cfg_caps & kvm_cpu_caps[leaf]) |	\
+> +				 tdx_cfg_extra_caps;			\
+> +} while (0)
 
-Thanks,
-Sreeshankar K
+How about make some of the above into just static functions for easier
+readabilyt?
+
+And then drop the __maybe_unused for tdx_cpu_cap_init_in_progress?
