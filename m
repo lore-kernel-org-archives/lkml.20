@@ -1,228 +1,216 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD093D6CC4
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:53:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292419; cv=none; b=Y6j4QcxTkVSK23f9TH/KDc3ba7mrLJpB9M1idVDnzrS9fttCVPT69z+TCiev1J8pbBfK8/xUrCoeeW7ZvT3gBzXaJGlqEeyMhJBEm1Na7tjccEbRsFL4HI3chjZGEgFX/nnJ9bCSYLJUzVvHn3Et8AZV6cSKixT5ZDLJh3BNJsM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292419; c=relaxed/simple;
-	bh=EmQC+HAtvL68p3YIjMO0wuH//FKGtvsUEkjl67ykW+k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LZRj2D4nugYfMh9WDnzkFkge6r/R8SlMxZCFQopr/lxSkmwfPpDL54SLPsv2byOw9F3jFrjd8iHn2bG9RLq5gjL6jFr4oCPdOe31nibp59n65lVVb1fgGqobVhnANT2aPwI/eIpWA8vlk6+iNA1qmGlP1qh1fDL/xTmhxn89XQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Xb/tPboS; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F64448BB6
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:53:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788292436; cv=fail; b=kZwDgLTZLfBBwB0MEeEFoupsJu1OXJnCkJ/5Di9SbgCS+aLec45givYaF0LjRsQyUaXUF9qjA9moICj83/H2LVrPFVnMkAqnEUsCR7a+5hhbFSEhesydvWwfvomAlHksBCuSNl3gW+WRt2oGaUke9ADCvImZ1vdXQvL0iClTeA8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788292436; c=relaxed/simple;
+	bh=hB7I6Ul/zhKA1gWxtZU44SW8DVIy1kbewuNIcAO4y34=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=h6J4rQ1wH7AHOA8ztepJ/5VaqhNRz1LLJmmljX9in9nFouBzfRn9HPVcpeGZqJeuoWQYKZlZjRTXMF00vj57JBA1Kl1O+8AJ9VKEVSfJtMq+mzYQTq7+YlRHuaUI+AHdAxoQqKHkan4Td5w2sVf1fH45h5M8ftNcgczVMq9PpKI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kwxslat+; arc=fail smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Xb/tPboS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788292417;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=reG9gp6F6Sc44ynjc987c7Nir1HVN+IgKVtXu+sNVIw=;
-	b=Xb/tPboSri371ft0XHYjjnY7nRqLe9t5nZrz85ERq5azUmV+N539mIBAvOwFZMXpkU8ngN
-	YUDhHfZuLGUNeOKpAX0OdunXMgr7nxLb2hvSncKEHIT8uc7NFzt8hQoi83J/CZW9Nj6KmI
-	zc/oVnPDL9M3AF55N3+CjA9Ly7rBdOc=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-298-u9DQn7sbOI2pYhR5jiSN3Q-1; Tue, 01 Sept 2026 15:53:36 -0400
-X-MC-Unique: u9DQn7sbOI2pYhR5jiSN3Q-1
-X-Mimecast-MFC-AGG-ID: u9DQn7sbOI2pYhR5jiSN3Q_1788292415
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e5e38fbc5so58209885a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:53:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788292415; x=1788897215;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=reG9gp6F6Sc44ynjc987c7Nir1HVN+IgKVtXu+sNVIw=;
-        b=q5wikjGb40tmeBhRhgAAFVP85TPPr7sswDyZAnGuv1WArq5cwpYfygJIF9d6m3Xg40
-         F/bYq0fQMDfkAKJfFHJ068i5kMJGq1zx4UCVB8yqvXqxMO1NMa3oNiekM5t/YsuEShWY
-         gzox5V5LN7VjoqDj4vLd3U2bG3bKOhRwS3IW6qz47j62xgpxSK5KtTu1DuSRybN5DnBL
-         8ndV4VTkqEo5K1wLXjYm9m9g7o9HzZ4wKu2M6YvmWLSqT39f2YhZvxHVFGqDdiHQogeI
-         PRblTSuYVo6W5SzIbi7m1osYVSMYZ1eJy4/P4xC+VoxcL3Lgi39u3M47aXdsY4oUoH28
-         Q7JQ==
-X-Forwarded-Encrypted: i=1; AHgh+RocdD+nB1l3wjTRFbTYXMOqEZQVhTtxq0BBPKFRJ/zkV/CXl08yS6xFL9o6tygCHyJk5bACTC/Jw/mlc2E=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtXgo6g6ihDT/znOFTZAOUgWbv+rF3O3rXVxcKR4UcgWZf743u
-	lyVyOTY01iByE+vx72R8Gg8ClLNGGV5fFNnJWrkpohRt1CRpnNMRSQEHot8J0gc4ueVLoZiy8ON
-	6JIeQHl9EXFJhSzG2Q17dsNXXk9xM1V2VHSx3ASZzDG6ORaoEr+yvEprcP4i03lwBpQ==
-X-Gm-Gg: AR+sD12QFZP5lljgP0iH9Vn7g7XTPR9f/aIhlnkI3aMZFvyUe7iXRWyncexJmEk1+ct
-	YLTQctTXvwFFF2fisToaeowDpDdaC9ku66ggR3YEmExwx64IGMlxFUQe83V9iTQ1vqBmdGnf2JQ
-	pz4BuM2g7eXl8aXTF/3UnpIWOJzOFG4uIBp1jXhvSUjc92h4AZfJlwfSM5JrI8DlrGrA1vICgfy
-	mEJwDaW1k747eMmLUgweL2O5j3sGMi1vxAxiPL2QYDN2WN/RdSjmoX9WqZYdYQr9qZGsDRFt0kV
-	Cv5AriV4LpoCrH+xV5NL0kQj7erEKqx8qDzF3HYyAo88VcEo7UOrFLZEjJ+DYGRQNOBkMnUQJn4
-	+WQ==
-X-Received: by 2002:a05:620a:439e:b0:936:883d:89c6 with SMTP id af79cd13be357-939480def48mr1638125385a.28.1788292415331;
-        Tue, 01 Sep 2026 12:53:35 -0700 (PDT)
-X-Received: by 2002:a05:620a:439e:b0:936:883d:89c6 with SMTP id af79cd13be357-939480def48mr1638064385a.28.1788292409955;
-        Tue, 01 Sep 2026 12:53:29 -0700 (PDT)
-Received: from [192.168.2.110] ([76.65.104.212])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9395f1aba80sm20825085a.20.2026.09.01.12.53.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 12:53:29 -0700 (PDT)
-Message-ID: <00eb76eb-c330-4662-9ca9-1e89fbc1e4ce@redhat.com>
-Date: Tue, 1 Sep 2026 15:53:18 -0400
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kwxslat+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788292435; x=1819828435;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=hB7I6Ul/zhKA1gWxtZU44SW8DVIy1kbewuNIcAO4y34=;
+  b=kwxslat+4OgPgU5hVibsWOIb/2BNdDubFZnKPF1+GlDoqJPNyYtr5479
+   4xlbgNFsxhWGxdZY+yPuIW1CPux9xG/oHbNOtGfziCH+ZpMtMLQcTmA5u
+   TE0IhY7VI1XXUHCDSunRFWH30x5SQDHcomEwxAgRRzB67V1crXDF1GXo6
+   MMJc9Mt4aHtmiFyWLl3vC3MeY3a3tbJ/hUw/iqjyJohCds1Sc9w2xsXIp
+   s8UOuhlGGWTMltHNIKATbyF6HLHERM/MwH/wnjGz3p+LDrdxuETwfptQ6
+   /OVan+5WrZAqe4SZJt66bpibBu2+BlI7io5ZqU+KM12CLAarXKGijoAmv
+   A==;
+X-CSE-ConnectionGUID: W/Js5oluS3eOttixcenLhw==
+X-CSE-MsgGUID: nd0lz2IDRV6zimBk4sTzOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="92434254"
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="92434254"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 12:53:54 -0700
+X-CSE-ConnectionGUID: V9J423BOQJ6cQ3vOtlrdtQ==
+X-CSE-MsgGUID: AlE1rFJfTja4u3MXa42TEA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="273377566"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 12:53:54 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 1 Sep 2026 12:53:53 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 1 Sep 2026 12:53:53 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.6) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 1 Sep 2026 12:53:52 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i52M8badtHmqlse5oO9UWLBwK4tkJ+I/IdbAlyUP0ZLZeWRvCz07WoZVIgr0PpkMktJOhb9wGpTEgj/oKl19yBf7P2QnYY4eVsDXrE8CN9gW/kCyGAIbQpAFTdU/fJwSGNQXFETWvAOCcHCvy7jmVdOMJus1Z0nE0Z7A8MPqgimTeaaq2RGd87v/emV6FOJ0rIbTfGmGURwm84s1CYXNwaivGX6WH1FMlIeGgnVstHiFozguwnjqmjix3jyPUB/adDIup4mdSK+/KKc+8YPz3lZPJFmvKgvDAbju6nSS7ZKnwnTFFtn7uoa8u0SIQpDTG7HBuXjlyBw4iPDVIy+ZgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dtsq2opq+MJhS1AC9NwLwoT3NQWEMKv2nz4Hy7NafWk=;
+ b=nHuQ/9RP+2+SIBxumcx0q4wf5nqk2vM28/cVaNdC8J7UnD+Ds24FrnDKd3D+xfcdLUd8Xa9AyCuxEatpxQzmqZvyrA0HpWnWlqor9ybPtortHbBJaDEKNKm9gF8EqGTMs7D6VgvSWDAyZ3IxSxuSzh5o9/y8YF5Z5cbUp2hsnNbB7L2XU5sgHvon7DumS8nEKKNGpzW1HXil5bUOG+bI0vQ0rIra39PSzxq5Usw6jWreBP/sh1XGX9ND9CWNWRuNQ3MZR7FBT0kbd8OgN53U1Cwo8lq4KOMyFB/pua57gndF9QcGk6o+mlu/Xpb+x0hz92bPW7Mbi/vtMc5f397zfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6083.namprd11.prod.outlook.com (2603:10b6:a03:48a::9)
+ by PH7PR11MB6977.namprd11.prod.outlook.com (2603:10b6:510:205::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 19:53:48 +0000
+Received: from SJ1PR11MB6083.namprd11.prod.outlook.com
+ ([fe80::3454:2577:75f2:60a6]) by SJ1PR11MB6083.namprd11.prod.outlook.com
+ ([fe80::3454:2577:75f2:60a6%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 19:53:48 +0000
+Date: Tue, 1 Sep 2026 12:53:46 -0700
+From: "Luck, Tony" <tony.luck@intel.com>
+To: Fenghua Yu <fenghuay@nvidia.com>, Reinette Chatre
+	<reinette.chatre@intel.com>, Maciej Wieczor-Retman
+	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
+	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, "Drew
+ Fustini" <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>, Chen Yu
+	<yu.c.chen@intel.com>, David E Box <david.e.box@intel.com>, <x86@kernel.org>
+CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>
+Subject: Re: [PATCH v11 00/23] Allow AET to use PMT as loadable module
+Message-ID: <apctSv5HELB0wJZ1@agluck-desk3>
+References: <20260831174421.13921-1-tony.luck@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260831174421.13921-1-tony.luck@intel.com>
+X-ClientProxiedBy: SJ0PR05CA0196.namprd05.prod.outlook.com
+ (2603:10b6:a03:330::21) To SJ1PR11MB6083.namprd11.prod.outlook.com
+ (2603:10b6:a03:48a::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 10/14] mips: move has_transparent_hugepage() out of THP
- guard
-To: Lance Yang <lance.yang@linux.dev>
-Cc: corbet@lwn.net, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- tsbogend@alpha.franken.de, maddy@linux.ibm.com, mpe@ellerman.id.au,
- agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com, david@kernel.org,
- hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, hughd@google.com,
- linux-kernel@vger.kernel.org, dave.hansen@linux.intel.com, djbw@kernel.org,
- vishal.l.verma@intel.com, dave.jiang@intel.com, akpm@linux-foundation.org,
- yintirui@huawei.com, dev.jain@arm.com, usama.arif@linux.dev,
- linux-mm@kvack.org
-References: <cover.1788232334.git.luizcap@redhat.com>
- <371e2d3a7bcac265ac748ad3c67b74abfa238422.1788232334.git.luizcap@redhat.com>
- <f4c568ad-a17a-4982-b8d2-d5852a789a4d@linux.dev>
-Content-Language: en-US, en-CA
-From: Luiz Capitulino <luizcap@redhat.com>
-In-Reply-To: <f4c568ad-a17a-4982-b8d2-d5852a789a4d@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6083:EE_|PH7PR11MB6977:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ec83984-5b5b-4e58-c5f2-08df0862bd02
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|921020|11063799006|5023799004|10067099003|56012099006|6133799003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: vv4jUxIdaA6xHuKGfA17yPTVZ6r00+9UuqOsNLgEkWCldvzjLVtCrNBLuZ/te/JSM+mAFB9dZSb7DQMuGkjqlTzxLuOI5ZWiTrwv19CO9pI5RzflaJbP4ihpAKRa95ymTlFFWs8emMCK5lsYT6JcZioH3W4DhAS3WM7B8tue4BgYH/oCBXtOiDxzIN5J5fj/Bf+SkKDp91LFRS/+VDBPMXq2c+lpLUD7eMJ5EVffQYPwQY7MseGyHn9Vspk6XbuFfEfpMZK6JGCkTJDHWek4NcLbvuR86Nj8QzD0kE3dQk4cJfqF9/LLc/7OhW0TiTfcgQumeZwXI67FFgI94sFIV0VRBPoeBS/QuAaueDz5YBBzTpE4+2X+xeZ6r/5Hi5XvdRbcm1Xlo07sGc7qnrStLjEHpeQVEddRSgrDhN8cg1eg1kuw8Mo/C6t7osv5r+zR0Lz7tcxB2HocIS3zu4aVXDOEvWPcWC/sVSVazS/u2nuOa4bULoSOuBLulilBSSwbqeUOclGCWY07Vx7+Hs5i1F7qb8KRIIWoFDcTOFa6U7lVJJVRvWd17WQSwb9Q8rPydwWGWleyq7oL/BdtQyAxAE0CDbpwOVu3uR9aKQ5L3wmCRoCyUOZ5SK+6eVJKtrW4wqSIz0mijoiIjh1BeRuAfg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6083.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(921020)(11063799006)(5023799004)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?bMo3DxcLkoN2X8ccTpdYEPJ7iHZYKLDplsC/XzMtDxt4SRJT8M/I4cvhiquS?=
+ =?us-ascii?Q?NWSWwhHMfWF+1OevDkWEmYB1GJtC8y7PjJz1bmZBzK5t27IN5UBYa6w9/IBn?=
+ =?us-ascii?Q?oo5XmQp44BBVLQhSdBGrVPP4+ul7bVB/iKtDDRuvwLZQSVFyCqupQS3A4W9W?=
+ =?us-ascii?Q?SU9T2IFpAhBQOkv/79K9LkYEAq5Yll08vAjSAYvo44KP0hl/4xPtx5DEDB6V?=
+ =?us-ascii?Q?4Gi4UP/Df3wOfChlGeM0kndNC3cx+3qQ09sSYmgJ9Q757QyVADXamCEl3q/V?=
+ =?us-ascii?Q?Zg9FR9XNIS0hdY4IGKNRtLFtcOF6eAxbpFo7ojr5Zok5wiLnvXroU+qb7WTe?=
+ =?us-ascii?Q?2Lqrd8wnJ1QWsXogSylYIdBPTAG+YnqfzgTRORwkS7mdZfMP6zf5OKjbze59?=
+ =?us-ascii?Q?GMA18NZBzfeYV2Quw+1+nOqduPR1cWkQwg6qqau//me/p763h9Z+P3atsBKD?=
+ =?us-ascii?Q?0Y3Qms9pBrfTHyPvmiYxuR6jeqTQlDq7I4+6Ldre5/bsXACtGFkGNljgqixA?=
+ =?us-ascii?Q?DapzgwUblW2QmSAsedRCFX/fVLmHtT9hVLCPRau0+IB9gu8eCrdzzpYcxyzI?=
+ =?us-ascii?Q?ypsJB9Ktgr7aTeyFk1mhnRmRwUyFA1IzpB3K3X3zHJxyYqSTHUzvPgj4L6ZL?=
+ =?us-ascii?Q?MD2/ahDPHrCPWfrE3PdqkQQ0epySNJzlGXE8gSofqSSw0zWNkYCUK7DEqnhp?=
+ =?us-ascii?Q?3nZFd2w89iBEPVtZE6AU/nXn0DD499FKu5apD3vXXzDAL2idn1j7nGOK3uDR?=
+ =?us-ascii?Q?rSBHg/D0amBApr36jBc1Kq6U7OT95RKOut5whwZ9CLof95MwKOzHjsMO5vgO?=
+ =?us-ascii?Q?wgiXizYA8TWfQ/R4Zus7XkYxgQTpcdiRGYbu2tUFfJ99spS85TWkgrvykhEL?=
+ =?us-ascii?Q?rtNT4pq4zfVrYYMQbvzJRofZweYO6DJ3Ot2sVwfaIpmOOBqOmf4MM2w/O4S1?=
+ =?us-ascii?Q?QSb13wHKd0qLf/dUx1P3CjSdKad6SASemNx1Z94ReecU0Q9l5DOnLe2oRgVS?=
+ =?us-ascii?Q?fEWVfkMbxVndUyxFQj+tqm+roiIKqLlWd8GX2SZOPa4xkofFIhAC3GRsBcWy?=
+ =?us-ascii?Q?LCOia3v/srOKwGw1/129kCm//arje6+ZVTwDKbhKr4FsA44+IDFo73Zs/OO8?=
+ =?us-ascii?Q?vydhA67gzAdXwYRENQQPg4Fl9hiidk1ZyyFvWGiseULyNnlUPzJUJ1mSeVKs?=
+ =?us-ascii?Q?NmM3XTk6ek2bqK8jHc2wFlqVFiM03QGF/5D6gRbKDF9uKtZqjTzI1zfPMCnn?=
+ =?us-ascii?Q?9B/Ie0I6dFX9SwTj1d3rCcV8urR0XI01xwzjbPFLM1l5pbHba2QX8n/+wo6j?=
+ =?us-ascii?Q?6hPlEOcBfc5e+AimAUTEec1J4bjBkG5oM/MKVOahMUYaDBF3yXxfIZZ2mzHD?=
+ =?us-ascii?Q?RRO+rJ/HVExBCQ8gUPF9dfHMB20h4nsahtWxlgsOBX7NGGwqLd3FgdkfzxvI?=
+ =?us-ascii?Q?s6DHfnzE+PkSpaMr8tgzw+qPSFznGK43WqMfbxNKSPqytsPEpWxOf/cc8Ore?=
+ =?us-ascii?Q?JUq6THVxzJvCGVGQf3PiRtONg8NNyZX5hXvp2nguJ7IgnY27FabswRCQGd+9?=
+ =?us-ascii?Q?ltZHvVSbeA1/DKndMauTVOtPogLouvM1suBvHikcMsEfGkURWdplWdldteU7?=
+ =?us-ascii?Q?ZX0d+78Zp3XwotL5Cd+KQg08JqM5gne0YXYx55tOAGY7JGLcO4XbDcm78zb4?=
+ =?us-ascii?Q?WMTeQ7P+5Adhfftm/h+IrV/dBo8EE7xwl6+8yT1zFeQ7QaflG7AXNcZTH9FK?=
+ =?us-ascii?Q?SGXcOg8g4A=3D=3D?=
+X-Exchange-RoutingPolicyChecked: 2wFbF3Ccqhrvn3FpvCK4EIyvnzDlLmfFStVBlFFb6rpDFJ2QSj39mFaMD3U/d83DP9OMyz2XYKuMMWesfyKRBmcyk9XEMHEolJ9bVBe6wDTUx1SEcDpryWUYqjlO2UzjXFxfz6VEtlulmaYPB6U8ABNlMoWhuWbQ2bfW9wFjq1YA0/Tit9znJ2pp1Q6xdrflxklwfFcDPXcF32FJsd0MCjjsJkxsSTqQNNX+KhUdt0xB/sBk0GIiYObjmwGkvawlHDB3YHuPyegXgQWaoHNnFjFlRfRyWZhZ0oC1vyJ3q+FgCQu2QoN4cFWHrn4XtdaCnGVINeyt5ge+FuquZEbSyQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ec83984-5b5b-4e58-c5f2-08df0862bd02
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6083.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 19:53:48.3694
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mwhzpVIFHx+xCx7DB5seOQG+g9BHC58NXQhaGvA1t+miMr2W/c5PN4bWcW0Ttxh5JjPjWXmWIHcTjIy9+wfuGg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6977
+X-OriginatorOrg: intel.com
 
-On 2026-09-01 07:42, Lance Yang wrote:
+On Mon, Aug 31, 2026 at 10:43:58AM -0700, Tony Luck wrote:
+> Requiring INTEL_PMT_TELEMETRY=y to enable AET is a functional workaround
+> to enable enumeration of Application Energy Telemetry (AET) events, but
+> unacceptable to many users. It results in increased configuration complexity,
+> increased kernel memory footprint and inability to patch problems by unloading
+> a module and loading an updated version.
 > 
+> Add a registration function to the AET code that can be used by
+> INTEL_PMT_TELEMETRY to provide the enumeration functions.
 > 
-> On 2026/9/1 11:12, Luiz Capitulino wrote:
->> A future commit will introduce a kernel API to allow for checking if the
->> CPU supports PMD-sized pages. This API will be based on the
->> has_transparent_hugepage() implementation but will be orthogonal to THP
->> and therefore must work when CONFIG_TRANSPARENT_HUGEPAGE=n.
->>
->> Move its definition out of the THP guard.
->>
->> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
->> ---
->>   arch/mips/include/asm/pgtable.h | 6 +++---
->>   arch/mips/mm/tlb-r4k.c          | 4 ----
->>   2 files changed, 3 insertions(+), 7 deletions(-)
->>
->> diff --git a/arch/mips/include/asm/pgtable.h b/arch/mips/include/asm/pgtable.h
->> index fa7b935f947c..b038da872ec6 100644
->> --- a/arch/mips/include/asm/pgtable.h
->> +++ b/arch/mips/include/asm/pgtable.h
->> @@ -615,9 +615,6 @@ unsigned long io_remap_pfn_range_pfn(unsigned long pfn, unsigned long size);
->>   /* We don't have hardware dirty/accessed bits, generic_pmdp_establish is fine.*/
->>   #define pmdp_establish generic_pmdp_establish
->> -#define has_transparent_hugepage has_transparent_hugepage
->> -extern int has_transparent_hugepage(void);
-> 
-> Assume a decstation_defconfig build. CPU_R3000 selects CPU_R3K_TLB, so the
-> Makefile builds tlb-r3k.o but not tlb-r4k.o IIUC ...
-> 
-> The only MIPS definition is in tlb-r4k.c, so R3000 would fail to link with
-> an undefined reference ... no?
+> INTEL_PMT_TELEMETRY can be loaded/unloaded independently of
+> resctrl file system mount/unmount. Perform enumeration on
+> every mount and cleanup on every unmount.
 
-Yes, you're right. I can reproduce this. Would the solution below be
-acceptable?
+Summary of Sashiko findings:
+https://sashiko.dev/#/patchset/20260831174421.13921-1-tony.luck%40intel.com
 
-diff --git a/arch/mips/include/asm/pgtable.h b/arch/mips/include/asm/pgtable.h
-index fa7b935f947c..b038da872ec6 100644
---- a/arch/mips/include/asm/pgtable.h
-+++ b/arch/mips/include/asm/pgtable.h
-@@ -615,9 +615,6 @@ unsigned long io_remap_pfn_range_pfn(unsigned long pfn, unsigned long size);
-  /* We don't have hardware dirty/accessed bits, generic_pmdp_establish is fine.*/
-  #define pmdp_establish generic_pmdp_establish
-  
--#define has_transparent_hugepage has_transparent_hugepage
--extern int has_transparent_hugepage(void);
--
-  static inline int pmd_trans_huge(pmd_t pmd)
-  {
-  	return !!(pmd_val(pmd) & _PAGE_HUGE);
-@@ -743,6 +740,9 @@ static inline pmd_t pmdp_huge_get_and_clear(struct mm_struct *mm,
-  
-  #endif /* CONFIG_TRANSPARENT_HUGEPAGE */
-  
-+#define has_transparent_hugepage has_transparent_hugepage
-+extern int has_transparent_hugepage(void);
-+
-  #ifdef _PAGE_HUGE
-  #define pmd_leaf(pmd)	((pmd_val(pmd) & _PAGE_HUGE) != 0)
-  #define pud_leaf(pud)	((pud_val(pud) & _PAGE_HUGE) != 0)
-diff --git a/arch/mips/mm/pgtable.c b/arch/mips/mm/pgtable.c
-index 10835414819f..3a5b411493d9 100644
---- a/arch/mips/mm/pgtable.c
-+++ b/arch/mips/mm/pgtable.c
-@@ -23,3 +23,30 @@ pgd_t *pgd_alloc(struct mm_struct *mm)
-  	return ret;
-  }
-  EXPORT_SYMBOL_GPL(pgd_alloc);
-+
-+#if defined(CONFIG_CPU_R4K_CACHE_TLB) || \
-+    defined(CONFIG_CPU_SB1) || \
-+    defined(CONFIG_CPU_CAVIUM_OCTEON)
-+int has_transparent_hugepage(void)
-+{
-+	static unsigned int mask = -1;
-+
-+	if (mask == -1) {	/* first call comes during __init */
-+		unsigned long flags;
-+
-+		local_irq_save(flags);
-+		write_c0_pagemask(PM_HUGE_MASK);
-+		back_to_back_c0_hazard();
-+		mask = read_c0_pagemask();
-+		write_c0_pagemask(PM_DEFAULT_MASK);
-+		local_irq_restore(flags);
-+	}
-+	return mask == PM_HUGE_MASK;
-+}
-+#else
-+int has_transparent_hugepage(void)
-+{
-+	return 0;
-+}
-+#endif
-+EXPORT_SYMBOL(has_transparent_hugepage);
-diff --git a/arch/mips/mm/tlb-r4k.c b/arch/mips/mm/tlb-r4k.c
-index 24fe85fa169d..625f1c0dd71e 100644
---- a/arch/mips/mm/tlb-r4k.c
-+++ b/arch/mips/mm/tlb-r4k.c
-@@ -432,28 +432,6 @@ void add_wired_entry(unsigned long entrylo0, unsigned long entrylo1,
-  #endif
-  }
-  
--#ifdef CONFIG_TRANSPARENT_HUGEPAGE
--
--int has_transparent_hugepage(void)
--{
--	static unsigned int mask = -1;
--
--	if (mask == -1) {	/* first call comes during __init */
--		unsigned long flags;
--
--		local_irq_save(flags);
--		write_c0_pagemask(PM_HUGE_MASK);
--		back_to_back_c0_hazard();
--		mask = read_c0_pagemask();
--		write_c0_pagemask(PM_DEFAULT_MASK);
--		local_irq_restore(flags);
--	}
--	return mask == PM_HUGE_MASK;
--}
--EXPORT_SYMBOL(has_transparent_hugepage);
--
--#endif /* CONFIG_TRANSPARENT_HUGEPAGE  */
--
-  /*
-   * Used for loading TLB entries before trap_init() has started, when we
-   * don't actually want to add a wired entry which remains throughout the
--- 
-2.55.0
+ [PATCH v11 09/23] fs/resctrl: Remove redundant calls to resctrl_mon_capable()
 
+Pre-existing issue that systems supporting only monitoring will not
+report any tasks in the default group. Issue is real. Sashiko suggests
+removing the check for resctrl_alloc_capable(). I should have done this
+anyway for the same optimization reasons that I removed resctrl_mon_capable()
+from is_rmid_match().
+
+
+ [PATCH v11 16/23] platform/x86/intel/pmt: Register enumeration functions with resctrl
+
+Pre-existing potential race. Sashiko suggests calling intel_pmt_get_features()
+under ep_lock.
+
+
+ [PATCH v11 18/23] fs/resctrl: Call arch code for every mount
+
+Two broken bits, both with easy (I hope) fixes:
+
+1) rdt_get_tree() should "return ret;" not "return 0;" 
+2) resctrl_arch_unmount() called in error path before cpus_read_unlock()
+   could deadlock. Move the resctrl_arch_unmount() after the unlock.
+
+
+ [PATCH v11 20/23] platform/x86/intel/pmt: Inform resctrl when MMIO maps are being removed
+
+Sashiko is concerned about non-PCI telemetry end points. Not a real
+issue. Endpoints are enumerated using PCIe DVSEC - so they have to be
+PCIe devices.
+
+Pollution of kernel log with dev_warn(). Ilpo also flagged this. It's a
+"can't happen" test. I will downgrade severity to dev_dbg()
+
+Pre-existing issue in telemetry driver that other places need to handle
+unbind/remove of devices and unmap of MMIO.
+
+ [PATCH v11 23/23] x86/resctrl: Document telemetry mount timing caveat
+
+I'm still struggling to come up with a systemd/udev way to delay
+mounting the resctrl file system until after telemetry enumeration
+is complete. Sashiko says there are gaps in the example I provide.
+The whole namespace issue is a mystery to me :-(
+
+-Tony
