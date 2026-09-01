@@ -1,100 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F74A2E2DD2;
-	Tue,  1 Sep 2026 08:42:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1DE8737AA7A
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:42:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252139; cv=none; b=gRYnSx/UEdUP1uOdutojZOj4V6Ndg+10HaGOKRV0EVWNw5JPHrNw4XHV/9VX17zestlG7Gw13KfoXMriMtHl9EmhFxD1rLJwVcu0hpSzRszUNJevr79hAL6/R6OtSMsvzKuSDSWZ9aYd3sg34xJ0qZ1ExaVjVD14zOeM0Fr3SdU=
+	t=1788252140; cv=none; b=g/lVS/+0ndWhl20qfEfc06z+IHIaECYG0sjT2ePojbyIJu56XB7N10Odgt028geSuTumhL7LbADBXUKtCAbj/oLveNDLXB9GpYe7MclOBAjJk3akHLAFUTYcNQovz+7mjjBj5PB1hzoIFIoWv4UHCP8XisAQzsdVijCbZyqLfFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252139; c=relaxed/simple;
-	bh=suI7VOOUJ+S8ZmFBV8++cFxT4yO04pkfs1fAeeNMO1E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nJe1xrtdJ8ZaHcSZ9nAfRjnLKlfqKO+wJ7hnXcEwpZo2QOcmPl4EjfQDhOLlXVy4scqpl5Oryzt7SzEnM3OZZMJP+16r5iSQx3WfaeVtTxrkbHBkp21B0S8PhMy/bknD5yrzZp04/7huQWCnH19pHhf534nVRz9cS+aCyycj5Gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o3fC9SEb; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o3fC9SEb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8B41F000E9;
-	Tue,  1 Sep 2026 08:42:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788252138;
-	bh=R7W+a2UbB22q8xIFgqQ71VC8d3erwcb0D9ctEbZEfvI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=o3fC9SEb1fgtnpV8N6JwNhkg505uC9y5v+JTfWLjYtch0TFlv/6D1sbp/5jujKDWv
-	 b9PerdM0AV9IdN/aX4l+gj7XO8aAi+teDUY3Jk2vw2X3Lh8w/qeOpn5FmXmsYSgali
-	 EIHkROwuCmpyrXnrMnOWt3//4U7RgzaHtDj6Q/HxHC8iwTJAlUfCO6qKfYVs5chr/6
-	 K/Qe0fkZQq3UfI1iyPar111jKsEh0go7c2COtcIlhFSGF8olqon+Z9EDj1LF19qtlv
-	 rXZiQBt8TlQa9drttHDSSaQVLBe1LBFNUJqL/QK1veEPIpdmaqDXt2/nNhgbNiBlII
-	 uqkfU41pHlEUw==
-Date: Tue, 1 Sep 2026 10:42:14 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] dt-bindings: PCI: qcom,shikra-pcie: Document the
- Shikra PCIe Controller
-Message-ID: <20260901-silent-pearl-shrew-c63a16@quoll>
-References: <20260831-shikra-upstream-v2-0-406661d75afa@oss.qualcomm.com>
- <20260831-shikra-upstream-v2-2-406661d75afa@oss.qualcomm.com>
+	s=arc-20240116; t=1788252140; c=relaxed/simple;
+	bh=KNgv1Uu7jpoFtkLPKa1otCXispNoaKRAhLQuUIgljV4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=nt3p2BT/8YZKJkfxFcEEEmwEHmmKlFmjvBH2vzKHIkaZDxODuaLgR173nrOpdzpIcHShBYQz9hY6erkI2s4a/uFiQGRy5thfK9ftDtJFFCYvggYEQsdLWuZX0U0sFIA/7X0avpVXDZx3Klf8xu2QRDg/KncgZHPkT65w+j2duw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hYzqq0w4zz1PvqW;
+	Tue,  1 Sep 2026 16:41:59 +0800 (CST)
+Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hYzqp5ztfz1PGCm;
+	Tue,  1 Sep 2026 16:41:58 +0800 (CST)
+Received: from cncheex03.Hygon.cn (unknown [172.23.18.113])
+	by maildlp1.hygon.cn (Postfix) with ESMTPS id 9620391CD;
+	Tue,  1 Sep 2026 16:41:53 +0800 (CST)
+Received: from cncheex04.Hygon.cn (172.23.18.114) by cncheex03.Hygon.cn
+ (172.23.18.113) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Tue, 1 Sep
+ 2026 16:41:58 +0800
+Received: from cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d]) by
+ cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d%10]) with mapi id
+ 15.02.1544.036; Tue, 1 Sep 2026 16:41:58 +0800
+From: Jianyong Wu <wujianyong@hygon.cn>
+To: Peter Zijlstra <peterz@infradead.org>
+CC: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>, Dietmar Eggemann
+	<dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben Segall
+	<bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
+	<vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, "Shrikanth
+ Hegde" <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>, Andrew Morton
+	<akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>, "jianyong.wu@outlook.com"
+	<jianyong.wu@outlook.com>, Yuan Zhong <zhongyuan@hygon.cn>, Huangsj
+	<huangsj@hygon.cn>, Fengyu Wang <wangfengyu@hygon.cn>, Zhiwei Ying
+	<yingzhiwei@hygon.cn>, "justin.he@arm.com" <justin.he@arm.com>
+Subject: RE: [RFC PATCH v2 09/23] sched/cache: Account percpu sd task NUMA
+ preference
+Thread-Topic: [RFC PATCH v2 09/23] sched/cache: Account percpu sd task NUMA
+ preference
+Thread-Index: AQHdNiBCJVRJ7kz1s0edST4cJKOnbra43ACAgACSGvA=
+Date: Tue, 1 Sep 2026 08:41:58 +0000
+Message-ID: <5098b37beecd4249b49eb0942fc5058b@hygon.cn>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
+ <20260827122816.756234-10-wujianyong@hygon.cn>
+ <20260901075457.GO4120091@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260901075457.GO4120091@noisy.programming.kicks-ass.net>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260831-shikra-upstream-v2-2-406661d75afa@oss.qualcomm.com>
 
-On Mon, Aug 31, 2026 at 12:56:02PM +0530, Sushrut Shree Trivedi wrote:
-> Add a dedicated schema for the PCIe controller found on the Shikra
-> platform.
-> 
-> Shikra controller supports upto PCIe Gen3 but the PHY is
-> only capable of Gen2, hence the max link speed  is limited
-> to Gen2 to avoid link-up failures.
-> 
-> Signed-off-by: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/pci/qcom,shikra-pcie.yaml  | 218 +++++++++++++++++++++
->  1 file changed, 218 insertions(+)
-> 
+Hi Peter,
 
-What is the difference in the binding against Eliza? IOW, why does this
-need a separate file unlike Eliza?
+> -----Original Message-----
+> From: Peter Zijlstra <peterz@infradead.org>
+> Sent: Tuesday, September 1, 2026 3:55 PM
+> To: Jianyong Wu <wujianyong@hygon.cn>
+> Cc: Ingo Molnar <mingo@redhat.com>; Juri Lelli <juri.lelli@redhat.com>;
+> Vincent Guittot <vincent.guittot@linaro.org>; Chen Yu
+> <yu.c.chen@intel.com>; Tim Chen <tim.c.chen@linux.intel.com>; Dietmar
+> Eggemann <dietmar.eggemann@arm.com>; Steven Rostedt
+> <rostedt@goodmis.org>; Ben Segall <bsegall@google.com>; Mel Gorman
+> <mgorman@suse.de>; Valentin Schneider <vschneid@redhat.com>; K
+> Prateek Nayak <kprateek.nayak@amd.com>; Shrikanth Hegde
+> <sshegde@linux.ibm.com>; Phil Auld <pauld@redhat.com>; Andrew
+> Morton <akpm@linux-foundation.org>; David Hildenbrand
+> <david@kernel.org>; linux-kernel@vger.kernel.org; linux-mm@kvack.org;
+> jianyong.wu@outlook.com; Yuan Zhong <zhongyuan@hygon.cn>; Huangsj
+> <huangsj@hygon.cn>; Fengyu Wang <wangfengyu@hygon.cn>; Zhiwei Ying
+> <yingzhiwei@hygon.cn>; justin.he@arm.com
+> Subject: Re: [RFC PATCH v2 09/23] sched/cache: Account percpu sd task
+> NUMA preference
+>=20
+> On Thu, Aug 27, 2026 at 08:28:02PM +0800, Jianyong Wu wrote:
+> > Account for per-NUMA task count preferences within per-CPU sched
+> domains,
+> > mirroring the existing implementation of LLC task preference logic.
+>=20
+> So in general I would really appreciate a few words on *why* you're
+> doing things. I mean, I can read the patch and see what it does, but I
+> cannot divinate (esp. not without yet having read the rest of the
+> patches) why you're doing things.
+>=20
 
-...
+Fair point. This patch lays the groundwork for patch 12's NUMA-level
+affinity score: that score weights each NUMA node by how many tasks on
+the rq prefer it (numa_counts[node] * distance_delta), so we need a
+per-node task count alongside the existing per-LLC count.=20
 
-> +            reset-names = "pci";
-> +
-> +            power-domains = <&gcc GCC_PCIE_GDSC>;
-> +
-> +            max-link-speed = <2>;
-> +
-> +            operating-points-v2 = <&pcie_opp_table>;
-> +
-> +            pcie_opp_table: opp-table {
-> +                    compatible = "operating-points-v2";
+> This is esp. important for large series -- or series that do complicated
+> things -- or like this case: both!
 
-Are you sure dt-check-style does not complain?
+I'll document this motivation in the commit message.
 
-> +
-> +                    /* GEN 1 x1 */
-> +                    opp-2500000 {
-> +                            opp-hz = /bits/ 64 <2500000>;
-> +                            required-opps = <&rpmpd_opp_low_svs>;
-> +                            opp-peak-kBps = <250000 1>;
-> +                            opp-level = <1>;
-> +                    };
-> +
+Thanks
+Jianyong
+>=20
+>=20
 
-Best regards,
-Krzysztof
 
