@@ -1,110 +1,118 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4514B431E47
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:27:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788276465; cv=pass; b=L/ToHLku2WD2lZ5gIZZKMWB/Yl9Hc5SH6WggHT3YKR5keJsR/U/MKMv1CtoyPFanHxcWEa5n+eZThqtEQr6UeXuq4P96gS3E0PlWPfmuIfkAkb05682pUhVcLjDoPgXp8Q6/6l9K9g35YpviMWSOgP5gcR+Fd7AK8M636B/RPOo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788276465; c=relaxed/simple;
-	bh=4lqu9gWlS0n7RIQuOa0OikwNpJC9qcg8pW3SWLxdotE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=k4pt0VrIxvsntBIic+yVwo9nMuBAVlMQUu4YNh/koZqkmN1vvyIpXyZzXno/gClXyl5LTnjQyy713mZRKjRG4BFo0tlpuERxEisJGJ1p9FNN7OZt9HRFeFwXlVwyQZ0yW2MMJuotuI3VFHl8QAdzS9M2Dc0SyVZ7+EUlvVNkyFE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=JBvqoVPt; arc=pass smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA55B43A808;
+	Tue,  1 Sep 2026 15:27:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788276467; cv=none; b=c53RqHyZDW4cP4fgBVfuXRAL1xYlKfVeawjkHVPu5/3x1H5DgPRm/ob/h/d/j8D5ixD6+TrnawYMslQYlFLYgVZb7XdVVn1fXMRcJzLvkiSPMZcmDNYBb1RC64k6Kq60q0SrZGXsWZjOjcNenQvo8mDSvTudk4OxL/RJjbiyk5A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788276467; c=relaxed/simple;
+	bh=NpJ68cAdxRTul9v+KRzPMyOhGoHG7IvwOK7cj3TZ7Fk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=AzIlAWJwz6ELrXGm2Fi2mALtBE3e/i5QnFlwJyt4o3+NbX20NH8WrXfPtNjILLtRwdTEGeJ9tH9rtuSgwz7NC+qq+42+HerWm2zimSvfyx5b/++hgQQ8DlwvYjfdYxEsU70r56wsvTWl6hnAHHIeuRfw0r/QX7xPRWrhWb9of00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J/GI7Gg6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="JBvqoVPt"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so1448164a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:27:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788276463; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fevszcTrAOGt/r27jQaR4CSXcWXGaZ4pZDUnabBjYoi1txBk5zv6J4/btxeR19x1ZW
-         hf6ch6m4rZyKiu/OuOIp6nJQ5xrW20CjiMvSoORw3YRwjWxdLBUGPJtJLN24N71mkjVX
-         LEsj0F4oJh4pM5tgjuW3vWfAOQWmGkgP1XazZLFFOyUyo2sTLya+0Wg3z62YQH2HUIMx
-         1PyA0ftTFXcuHXez6HT2Xh2eL1+G5itVLZEqKJ1e1QhcWOmNUdlEVVDU8bHWqTOEfj/9
-         KGcAK0JEszr0AA6r1Mju6+CdpBNMyQjM6484GnayrHp55YWxnJBe/+kKM/k8FoZQMp99
-         N+sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=H2oOeplF/9Pvz963Pn9pPnOoBzf1I6bdaQ4cw9nB6sQ=;
-        fh=WM+94fFarLl2UOel5aXO0bYnjbA1NJap588sBrP46QY=;
-        b=kCJiv7gbyoyFXJsDuyMiqbAWfm5KngTqAatmz7HsWM7IuhrPvDVDCvrXsZVSXQdmFK
-         BCgtmRDdMzQctsXglaKkXOJdCh2zV+ohXvls7/kT+Z5NuAFIVQlIafI152cnhkSGtw3C
-         Kq3Sy3pgYmEB/zFcaV+R6bCwhjyJrp3YBrQf2a1V6KdiCagCbfQ+ND8KDBA+o1KR0pNJ
-         essVwDhS7FgVdWjEOptC9HEgwZ5slcDEmBth5wP56csK1s2F5mIYTUrWhf1vqYFoivzR
-         IBEvsac0MU3sjvjB09AMNSoR4zjp8di83mOqdqZlaOaSx230butj/DKPU2sMMQr5pVM5
-         8Gng==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1788276463; x=1788881263; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=H2oOeplF/9Pvz963Pn9pPnOoBzf1I6bdaQ4cw9nB6sQ=;
-        b=JBvqoVPtP8JZaSLZkPqvggmaVtKs1wDnOMuETZBC1BmqIh1dCLz74GV6AzyiR06ZeU
-         MzqFr8CF+7DmWTMmIkvAXwDTwDHpEA32w7Za+n8y4st6GdvAMz6uTpOnjWTK6kVuV+zT
-         6heItjDyuBpFv0zSGUIwMQR6VZRkqJiTkz4EMDaxM9U9w036XSJvT3p2rdEF0tBi4x+G
-         fyJsGIEx4W6PFUKG1RNg8vQIIu9tSBKD7mgiJ5T0eJwU4zYnm52qsD4G8M1qIN5RLAN6
-         skUDu3HHz5iAIGsfdhxk0zhlOkhJtAXGGaGBebhB0QghIk492GaOsmaJOUZTTK0tkLuQ
-         skUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788276463; x=1788881263;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H2oOeplF/9Pvz963Pn9pPnOoBzf1I6bdaQ4cw9nB6sQ=;
-        b=dLYsNvA6XqqPFzWR3xe08QQ++Aj4xO74kmKy+IyFMw3vf/85eqfPXK3d40H5KZjmk7
-         zG9+mNP2kPkWtLK3UQ6JWuOMiiMTpbT25PqcB82BkswQzG4an9GufKCAz0wi3TOnRsX2
-         P0BcpvP+f0idu4qpuLJX4U9+rXr502gmp1EF/mAf/zqleGazbrSuJf3oBqIk7JEddzoN
-         9F97fW0/9IifuS9ZGwQh31PmMomdLp7iO4o7LiYKPZIi1qZCdI5mwwkOlR8ybU6UMuha
-         NOW0PcGsQ3Q+UWxFixyZLAreke0M25N6Dv3QoCY9w0xIqCSS/iHhwXZoogB0VzYpdWgN
-         9j6A==
-X-Gm-Message-State: AFuF++lrzGOqab7tKHfa1QLqb8hUJnxzlq8dOwUSYf2TgET1ieqV8jYN
-	ngXfqSQbzBuAxIPmJdAaE0xFrB9jaf2MKthaZgv+rCjq5mbNwy3zQE0e9O/WYXQEuNRXtwZH/+A
-	7PkrDOtgA0zAgpIvKKyuebq/R3ySfOBeC9NLQf0S8/6n/ULYtjnSyXw==
-X-Gm-Gg: AYBFou1AoECBKSkpXB50+epNFFVpnHA5btLW3HWUlNkoCA8p7nrkUDYNSiPX0dmCgkK
-	J+9stSHDkdJFjWKemcDBP2idwQS8binKQSG2Ubhn8IT1uvawKjzQsDQ7Zkaga4jJb+qwu6ufo/z
-	N6lqb6cboi/2RAutY9q8jJ4zuOzxN8uU3STLv/6L7Yg3eRQMXBiHj8EWSmph5eEX41/BKZkqKAo
-	RFFvFkbjFEDTpBNYjKwM1I1jxrJJTbBF2/QzypzNz2DyBgsPeagSbWVitoawv2L1gl2v1zB2AYT
-	bW2S8uv9gWGJrBoY2J7gcIdcGltFfyaM2u3hUdRUb6/FMA==
-X-Received: by 2002:a17:90b:2dcd:b0:398:9bd3:d6d2 with SMTP id
- 98e67ed59e1d1-3990f85e07fmr5272363a91.12.1788276463399; Tue, 01 Sep 2026
- 08:27:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J/GI7Gg6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 927F4C2BCFC;
+	Tue,  1 Sep 2026 15:27:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788276466;
+	bh=NpJ68cAdxRTul9v+KRzPMyOhGoHG7IvwOK7cj3TZ7Fk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=J/GI7Gg6N3UrOXIuonjkoT042Z+OEbLS5iYUsNrW4suZQDlvL4WbUeHlUVrG2PrcO
+	 UvqX+47tGZz2WPkZyqXWVkrwgaIIlaRnVEvm1vM+AWcrJmjRwvo0EKB/DoD2bWuRvD
+	 Nw6WCyMKZSR192MXFiCzGwWApsJibnHJUu6dfpDzqif9y+FRsnGsARiSMIZn2vWips
+	 W8uLzsyU4B+nfXtWbo1ZElBrI9ymvAR0gsUPpXF49T2cronN00L/K6q7pkwYflyDLq
+	 YCYXks41M/pnKc6by9LrAVJ12WloVg7PdAJtpG41mJUsvDiYpIgFVqau+RWvuj/Vrp
+	 WrE81QUFy8kLg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72347C61DD6;
+	Tue,  1 Sep 2026 15:27:46 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Tue, 01 Sep 2026 17:25:53 +0200
+Subject: [PATCH v10 2/6] mfd: khadas-mcu: Use MFD_CELL_* macros for cell
+ declarations
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <apa4DlzuPqZi72gp@sirena.org.uk>
-In-Reply-To: <apa4DlzuPqZi72gp@sirena.org.uk>
-From: Paul Moore <paul@paul-moore.com>
-Date: Tue, 1 Sep 2026 11:27:31 -0400
-X-Gm-Features: AcwNN1XnoIQhddvDbZmKovnMpLgo1ZPfjGgnaFz791sMCGU_Z8cHC_adkH7DUCc
-Message-ID: <CAHC9VhSQYmtS69OuVpA53q7x0PgTACG5YvdQ-mqj821Bjdp-eA@mail.gmail.com>
-Subject: Re: Missing signoff in the security tree
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-add-mcu-fan-khadas-vim4-v10-2-aecdb9955a30@aliel.fr>
+References: <20260901-add-mcu-fan-khadas-vim4-v10-0-aecdb9955a30@aliel.fr>
+In-Reply-To: <20260901-add-mcu-fan-khadas-vim4-v10-0-aecdb9955a30@aliel.fr>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Beniamino Galvani <b.galvani@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
+ mfd@lists.linux.dev, Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1351;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=EC3QR4h1VRMR/TQsGWmFoDDKLNA1VXSGTQljiGJtTRI=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9a0d69FKn349lQz/bn81phL9F3j/wlHN1R09ciuz7bOk
+ X7mXJXaUcrCIMbFICumyNI/1/LEu8tHz3zdo54CM4eVCWQIAxenAEyEV47hD4+NbNTazXp7lj1b
+ IVbpYPlAdYtSrP7THHUzV07j+tPqMxn+WTOr8xt5v/Q6m3rA9ETKExHxrV8SlvO8rCnT0f365kQ
+ +LwA=
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
 
-On Tue, Sep 1, 2026 at 7:33=E2=80=AFAM Mark Brown <broonie@kernel.org> wrot=
-e:
->
-> Commit
->
->   5598cab53f535 ("lsm: don't call security_backing_file_free() multiple t=
-imes")
->
-> is missing a Signed-off-by from its committer
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-My apologies, this is now fixed in the LSM tree.  Thanks for the heads up M=
-ark.
+Convert khadas_mcu_fan_cells[] and khadas_mcu_cells[] to use the
+MFD_CELL_NAME() helper macro instead of open-coding the struct
+mfd_cell initialisers. While at it, make both arrays const since
+they are never modified after initialisation.
 
---=20
-paul-moore.com
+This is a pure cleanup with no functional change, done in
+preparation for a subsequent patch which will need to attach
+platform_data to the fan cell.
+
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+ drivers/mfd/khadas-mcu.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/mfd/khadas-mcu.c b/drivers/mfd/khadas-mcu.c
+index ba981a7886921..0e74efe14f367 100644
+--- a/drivers/mfd/khadas-mcu.c
++++ b/drivers/mfd/khadas-mcu.c
+@@ -75,13 +75,13 @@ static const struct regmap_config khadas_mcu_regmap_config = {
+ 	.cache_type	= REGCACHE_MAPLE,
+ };
+ 
+-static struct mfd_cell khadas_mcu_fan_cells[] = {
++static const struct mfd_cell khadas_mcu_fan_cells[] = {
+ 	/* VIM1/2 Rev13+ and VIM3 only */
+-	{ .name = "khadas-mcu-fan-ctrl", },
++	MFD_CELL_NAME("khadas-mcu-fan-ctrl"),
+ };
+ 
+-static struct mfd_cell khadas_mcu_cells[] = {
+-	{ .name = "khadas-mcu-user-mem", },
++static const struct mfd_cell khadas_mcu_cells[] = {
++	MFD_CELL_NAME("khadas-mcu-user-mem"),
+ };
+ 
+ static int khadas_mcu_probe(struct i2c_client *client)
+
+-- 
+2.49.0
+
+
