@@ -1,177 +1,281 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294E3446820
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:14:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151BC381E82;
+	Tue,  1 Sep 2026 08:15:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788250491; cv=none; b=OEBOFTGO4oS62i9CYjVUGZXVuS9hcrrG0yStoWLK5MVlXT9RMm7dyixhS4RYHLKb3XWKP3Xd23XfxhxuGwoIponwKLMoNq/2yNMLYXOcCXnRfCMZUp4HGrZrhp23cyO1JQvbT7ClCP3thdZgO9ALqQjNLlrn+oNOGlo2hs2gxlw=
+	t=1788250511; cv=none; b=S/IeWH3hYRXHJ5LEjPAkv2cpzO9hkP1wZZF0Bb44vwazaPAZUvbGtG0xtAjMiD/dg7h0q5swpeEER1x/f2ghU7WzQ93kdP552+xZvHtumQaiE/TaWHcsp7HmbOiZKCtO2S/XzeoERnp0zk0CKgD3AJcwPihEfnw1oSeViOoSeKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788250491; c=relaxed/simple;
-	bh=hbydSP65WtHqP4eOKMyby1FqEmByMIfk6XKz9NEIeXM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C7I9XP6M7Z8pWSFLnzQIzYitDujtlIiCgahNmBtF0SqdWvSnuS0rmLToEkhuNGOiqeChBAsLYQM71ltH3JcuRv6+qDm3j4DzTB05Oc+xmM/A5xFAyoK3+7fhmzMcbc8U3ev/yX49NX2EB5/S8Ff2LIBxoa58uK0aefOnJKi7WtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AcRyselv; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788250511; c=relaxed/simple;
+	bh=STBvtDN7yMgntfEDSmdAGiB1Lo86GJRJ68hoouetrkE=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bxIEcKDCPGQM6JweS/V8tDRu0rVHbsBnCC4i6HbPt0fTYiNe9To6U5/1Mu8sFbTVFW0epqWnojtPcDWbWydhL1C5k8HqSWnS25fWLRJYuwnCuh4zllf2GA5y0+YVO83FmT+2B2KP3RazE5XaOb6YETA6Up6ECFp0xsufvqva/cQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f+04YShf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AcRyselv"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49b965570d7so6725075e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:14:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788250486; x=1788855286; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wOcY9/1/vy5nZUTSXmW4rjU1UUb5AfBngzqbqLKER/E=;
-        b=AcRyselvsX0r49TWCz/lmmgoOm0YRgwBEb4VFl5wzf84mqG2krXRtsCrDlXzpnctca
-         0CBfZccsDF/+GiS/Z//ipWBL+SNHDL75Go7TR5Yha1GEfkXxXxOF3WtR4+/hHubu7vZP
-         wY+4i+9RleOW0V6YGcQEkF4VwGIwBEc2CfysQI0B1/6v6Oum7/+mqHDcoa6HcHh2RRFT
-         duNcaYAWem0Qwq54HTTD19N9UYQbNVroWE0JaSh5NCeFRx+ZbylZ4p9kbJArI1q3Nplz
-         MR4cjJorCIZyLHNKRYBPrLfUh4oGelWR44Jcsfcjn1z/y9wrLxwGx9mwK05BsFApCASP
-         0+kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788250486; x=1788855286;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wOcY9/1/vy5nZUTSXmW4rjU1UUb5AfBngzqbqLKER/E=;
-        b=LWkR/NaaML4Um5jAvqqgZtYdoif4P/R0HdRej1zwqoK/HEGKg/5aD6az5v5Z/+/g9j
-         8OBS5kKBXl+w5XMB7gfcyLd3FJqag48dABRt6wU/36JlhZ4JB7pqNAUT2KIQI8fIME0W
-         OjIyUEgn1KXQcpe3ka759id3q/+pbyDyG4Iz6fysDSzdWdcHtkZ2gH8H20+F6Md70V2X
-         b2mArNp+UJEyI5kQ41/+HEEshHFEwPh939aB7qzfaeqFQ0gm/I258tI4PUodkSu4xM4D
-         JtImcby+KY8AxnSi55ZykqSStZmN0h+afzn/IhfB+iq91gwB17/iJfs1H4dQgxgO3B79
-         gWTA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3Mu2xnT5w3/i1b17NGILeq29o+o+Fhmr4VcsNpeRl0J0aR45dJukJMggYFc3y2EVE+KCTwz0MDen9SRU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsB1UxkQMKGTukKPi0YB9Um/Mhtx8HywZDwqRlHoc+vltByLcA
-	A0X9p8h3eFvPwWPv+Jb7r8gObAw90o9nlC4Fk5L/seQ4qpstD1sSGARC
-X-Gm-Gg: AR+sD1163RuNGQXxqeBusXbiOi9bfHyuuxQ+I7DKik3f/3MWfQ6Em+jmMbOVHj8NSRO
-	4AJ9TtfyxV8CJKSWU2owhPcKoOVzjBy0f7vbqFeQudVbDeHYZlsvNfW00Un3E/WyC1Tme6JrWIz
-	wdkNtMKp8sf07R4tEMFatI7JFJUOeDjbr07W0CZc/iv4JaLCCkzuQSHasbFlP6kw0dQjucdSDz+
-	d8i/OIoZlJux3OhyDYQwySyYyZX65owFdoSZwQtWlHUsApxoeVxQjiUK/twm2CxI/UNxQHobv+h
-	ps+pC5K2YJn7fRpOZyRhPmPRLua682uLJyfLb4NTbmxQfs50dIY99r9oQWxi6TvUG/AQGLNpoyt
-	WolNOv5UeNjXvCSBGPRw79wiQidVCN+T1AZsSMXJXfhUCVcf8nN8PALcgg6NBqcJ261zuQa2nV4
-	fIb+CES8ED2wSVCG3XSCmPzk0cJT1PXi/PVT5PlyjbxH6MzKHMaXDgEhMGnPVx1AzXvVLGa8mah
-	gjgja5f
-X-Received: by 2002:a05:600c:4704:b0:493:cefc:d113 with SMTP id 5b1f17b1804b1-49b91c2d8femr486502995e9.5.1788250485957;
-        Tue, 01 Sep 2026 01:14:45 -0700 (PDT)
-Received: from SurHub.localdomain ([196.188.113.250])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9266be71sm722413855e9.2.2026.09.01.01.14.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 01:14:45 -0700 (PDT)
-From: Abdifatah Suruur <suruurism@gmail.com>
-To: subash.a.kasiviswanathan@oss.qualcomm.com
-Cc: netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f+04YShf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B8591F00A3D;
+	Tue,  1 Sep 2026 08:15:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788250509;
+	bh=5bF2Zr22zF1ExN0EBKh2uA/sdQi5I3Kk26013OME4S8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=f+04YShfVti8/cuhke4D7kJFqxFJsy/0WRmPZoRm44J/TpyaVrsuMUilYuEv57qF7
+	 BxRAuZFlcvpDPWvntn24KOWxVebGYNMdSnDwR1mkGXmS9wNdP9O+EdoBAdCI31jrDj
+	 +9xLtopMsYpAgaj5iVi2ZxnpUShZGJM9qRmAcipKVozKCN9W2nyaKbwVWjPeWj/1c1
+	 bPlME1pRoOkF63nMYGjx+W16Cvduj0k5orLtVRXRVQXaTiqDMxsyPdZvrsk07BSz5/
+	 GPYhd2lRaYFEnfbM3yHn3HiGYVu/rgEcfzYtg3XB6EgNc5cHxfqGnVaLylF3antfL+
+	 e/4CrboZha/Fg==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x1Je7-00000003CMj-1bxe;
+	Tue, 01 Sep 2026 08:15:07 +0000
+Date: Tue, 01 Sep 2026 09:17:39 +0100
+Message-ID: <87pkyxmllo.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	sean.tranchetti@oss.qualcomm.com,
-	horms@kernel.org,
-	Abdifatah Suruur <suruurism@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v4] net: qualcomm: rmnet: require CAP_NET_ADMIN in the real device netns for config ops
-Date: Tue,  1 Sep 2026 11:14:41 +0300
-Message-ID: <20260901081441.632-1-suruurism@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	linux-s390@vger.kernel.org,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andreas Grapentin <gra@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Friedrich Welter <fritz@linux.ibm.com>,
+	Fuad Tabba <tabba@google.com>,
+	Gautam Gala <ggala@linux.ibm.com>,
+	Hariharan Mari <hari55@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Hendrik Brueckner <brueckner@linux.ibm.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Nico Boehr <nrb@linux.ibm.com>,
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+	Oliver Upton <oupton@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Will Deacon <will@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v2 06/20] KVM: arm64: Prepare sys_regs.c for sharing with s390
+In-Reply-To: <20260831145536.913567-7-seiden@linux.ibm.com>
+References: <20260831145536.913567-1-seiden@linux.ibm.com>
+	<20260831145536.913567-7-seiden@linux.ibm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, gra@linux.ibm.com, arnd@arndb.de, catalin.marinas@arm.com, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-An rmnet device may be created with its real device in a different
-netns than the rmnet device itself (rmnet_newlink() resolves it in
-link_net), and the rtnl config paths below only check CAP_NET_ADMIN
-against dev_net(dev), while mutating rmnet port state attached to the
-real device:
+On Mon, 31 Aug 2026 15:55:21 +0100,
+Steffen Eiden <seiden@linux.ibm.com> wrote:
+> 
+> Prepare sharing of sys_regs.c with s390 by moving functions to another
+> location inside sys_regs.c. This reduces the number of shared regions.
+> 
+> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+> ---
+>  arch/arm64/kvm/sys_regs.c | 100 +++++++++++++++++++-------------------
+>  arch/s390/kvm/arm64/arm.c |   2 +
+>  2 files changed, 52 insertions(+), 50 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+> index 7d0047b542f4..53d096803d9d 100644
+> --- a/arch/arm64/kvm/sys_regs.c
+> +++ b/arch/arm64/kvm/sys_regs.c
+> @@ -2043,13 +2043,6 @@ static inline bool is_vcpu_ftr_id_reg(u32 id)
+>  	return is_feature_id_reg(id) && !is_vm_ftr_id_reg(id);
+>  }
+>  
+> -static inline bool is_aa32_id_reg(u32 id)
+> -{
+> -	return (sys_reg_Op0(id) == 3 && sys_reg_Op1(id) == 0 &&
+> -		sys_reg_CRn(id) == 0 && sys_reg_CRm(id) >= 1 &&
+> -		sys_reg_CRm(id) <= 3);
+> -}
+> -
+>  static unsigned int id_visibility(const struct kvm_vcpu *vcpu,
+>  				  const struct sys_reg_desc *r)
+>  {
+> @@ -2065,20 +2058,6 @@ static unsigned int id_visibility(const struct kvm_vcpu *vcpu,
+>  	return 0;
+>  }
+>  
+> -static unsigned int aa32_id_visibility(const struct kvm_vcpu *vcpu,
+> -				       const struct sys_reg_desc *r)
+> -{
+> -	/*
+> -	 * AArch32 ID registers are UNKNOWN if AArch32 isn't implemented at any
+> -	 * EL. Promote to RAZ/WI in order to guarantee consistency between
+> -	 * systems.
+> -	 */
+> -	if (!kvm_supports_32bit_el0())
+> -		return REG_RAZ | REG_USER_WI;
+> -
+> -	return id_visibility(vcpu, r);
+> -}
+> -
+>  static unsigned int raz_visibility(const struct kvm_vcpu *vcpu,
+>  				   const struct sys_reg_desc *r)
+>  {
+> @@ -2099,6 +2078,27 @@ static bool access_id_reg(struct kvm_vcpu *vcpu,
+>  	return true;
+>  }
+>  
+> +static unsigned int aa32_id_visibility(const struct kvm_vcpu *vcpu,
+> +				       const struct sys_reg_desc *r)
+> +{
+> +	/*
+> +	 * AArch32 ID registers are UNKNOWN if AArch32 isn't implemented at any
+> +	 * EL. Promote to RAZ/WI in order to guarantee consistency between
+> +	 * systems.
+> +	 */
+> +	if (!kvm_supports_32bit_el0())
+> +		return REG_RAZ | REG_USER_WI;
+> +
+> +	return id_visibility(vcpu, r);
+> +}
+> +
+> +static inline bool is_aa32_id_reg(u32 id)
+> +{
+> +	return (sys_reg_Op0(id) == 3 && sys_reg_Op1(id) == 0 &&
+> +		sys_reg_CRn(id) == 0 && sys_reg_CRm(id) >= 1 &&
+> +		sys_reg_CRm(id) <= 3);
+> +}
+> +
+>  /* Visibility overrides for SVE-specific control registers */
+>  static unsigned int sve_visibility(const struct kvm_vcpu *vcpu,
+>  				   const struct sys_reg_desc *rd)
+> @@ -2553,29 +2553,6 @@ void kvm_set_vm_id_reg(struct kvm *kvm, u32 reg, u64 val)
+>  	*p = val;
+>  }
+>  
+> -static int get_raz_reg(struct kvm_vcpu *vcpu, const struct sys_reg_desc *rd,
+> -		       u64 *val)
+> -{
+> -	*val = 0;
+> -	return 0;
+> -}
+> -
+> -static int set_wi_reg(struct kvm_vcpu *vcpu, const struct sys_reg_desc *rd,
+> -		      u64 val)
+> -{
+> -	return 0;
+> -}
+> -
+> -static bool access_ctr(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+> -		       const struct sys_reg_desc *r)
+> -{
+> -	if (p->is_write)
+> -		return write_to_read_only(vcpu, p, r);
+> -
+> -	p->regval = kvm_read_vm_id_reg(vcpu->kvm, SYS_CTR_EL0);
+> -	return true;
+> -}
+> -
+>  static bool access_clidr(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+>  			 const struct sys_reg_desc *r)
+>  {
+> @@ -2684,6 +2661,29 @@ static bool access_ccsidr(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+>  	return true;
+>  }
+>  
+> +static int get_raz_reg(struct kvm_vcpu *vcpu, const struct sys_reg_desc *rd,
+> +		       u64 *val)
+> +{
+> +	*val = 0;
+> +	return 0;
+> +}
+> +
+> +static int set_wi_reg(struct kvm_vcpu *vcpu, const struct sys_reg_desc *rd,
+> +		      u64 val)
+> +{
+> +	return 0;
+> +}
+> +
+> +static bool access_ctr(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+> +		       const struct sys_reg_desc *r)
+> +{
+> +	if (p->is_write)
+> +		return write_to_read_only(vcpu, p, r);
+> +
+> +	p->regval = kvm_read_vm_id_reg(vcpu->kvm, SYS_CTR_EL0);
+> +	return true;
+> +}
+> +
+>  static unsigned int mte_visibility(const struct kvm_vcpu *vcpu,
+>  				   const struct sys_reg_desc *rd)
+>  {
+> @@ -4855,12 +4855,6 @@ static bool check_sysreg_table(const struct sys_reg_desc *table, unsigned int n,
+>  	return true;
+>  }
+>  
+> -int kvm_handle_cp14_load_store(struct kvm_vcpu *vcpu)
+> -{
+> -	kvm_inject_undefined(vcpu);
+> -	return 1;
+> -}
+> -
+>  static void perform_access(struct kvm_vcpu *vcpu,
+>  			   struct sys_reg_params *params,
+>  			   const struct sys_reg_desc *r)
+> @@ -4944,6 +4938,12 @@ static void unhandled_cp_access(struct kvm_vcpu *vcpu,
+>  	kvm_inject_undefined(vcpu);
+>  }
+>  
+> +int kvm_handle_cp14_load_store(struct kvm_vcpu *vcpu)
+> +{
+> +	kvm_inject_undefined(vcpu);
+> +	return 1;
+> +}
+> +
+>  /**
+>   * kvm_handle_cp_64 -- handles a mrrc/mcrr trap on a guest CP14/CP15 access
+>   * @vcpu: The VCPU pointer
+> diff --git a/arch/s390/kvm/arm64/arm.c b/arch/s390/kvm/arm64/arm.c
+> index 3caa72f780a5..2740ee3b703e 100644
+> --- a/arch/s390/kvm/arm64/arm.c
+> +++ b/arch/s390/kvm/arm64/arm.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/kvm_host.h>
+>  #include <linux/cleanup.h>
+>  #include <linux/fpu.h>
+> +#include <linux/bitfield.h>
+>  
+>  #include <asm/access-regs.h>
+>  
+> @@ -25,6 +26,7 @@
+>  #include "trace.h"
+>  
+>  static unsigned long system_supported_vcpu_features(void);
+> +#define read_sanitised_ftr_reg(_id) 0
+>  
+>  #define __INCL_GEN_ARM_FILE
+>  #include "generated/arm.inc"
 
-- rmnet_changelink() rewrites the endpoint mux table and
-  port->data_format and, via rmnet_vnd_update_dev_mtu(), can shrink the
-  MTU of the rmnet endpoint netdevs.
-- rmnet_add_bridge() and rmnet_del_bridge(), reachable via
-  ndo_add_slave/ndo_del_slave through RTM_SETLINK IFLA_MASTER, flip
-  port->rmnet_mode and port->bridge_ep on the real device's port; with
-  bridge_ep pointing at a caller-owned device, rmnet_rx_handler() then
-  forwards real-device ingress frames to it.
+Please split this. arm64 refactor and S390 changes should not be part
+of the same patch.
 
-A caller privileged only in the rmnet device's netns can therefore
-rewrite the shared cellular data-path state owned by another netns, and
-steer its ingress traffic.
+	M.
 
-Gate all three with rtnl_dev_link_net_capable(), matching the "require
-CAP_NET_ADMIN in the device netns for changelink" series (vxlan/geneve,
-CVE-2026-68432).
-
-Fixes: 2abb5792387e ("net: qualcomm: rmnet: Allow configuration updates to existing devices")
-Fixes: 60d58f971c1077 ("net: qualcomm: rmnet: Implement bridge mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
----
-v4:
-- use the netdev comment style, per Subash Abhinav Kasiviswanathan
-v3:
-- cover rmnet_add_bridge() and rmnet_del_bridge() with the same gate;
-  they mutate the same real-device port state via ndo_add_slave/
-  ndo_del_slave and have no capability check of their own
-- correct the impact wording: rmnet_vnd_update_dev_mtu() only reads
-  real_dev->mtu; the MTU store lands on the rmnet endpoint netdevs via
-  rmnet_vnd_change_mtu(), not on the real device
-v2:
-- drop Reported-by: (implied for the author), per Jakub Kicinski
----
- .../ethernet/qualcomm/rmnet/rmnet_config.c    | 27 ++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-index 78d4df55740a1..73bd5419cb136 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-@@ -312,6 +312,13 @@ static int rmnet_changelink(struct net_device *dev, struct nlattr *tb[],
- 	if (!rmnet_is_real_dev_registered(real_dev))
- 		return -ENODEV;
- 
-+	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
-+	 * but the port state mutated below is attached to real_dev, which
-+	 * may live in a different netns.
-+	 */
-+	if (!rtnl_dev_link_net_capable(dev, dev_net(real_dev)))
-+		return -EPERM;
-+
- 	port = rmnet_get_port_rtnl(real_dev);
- 
- 	if (data[IFLA_RMNET_MUX_ID]) {
-@@ -440,6 +447,13 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
- 	struct rmnet_port *port, *slave_port;
- 	int err;
- 
-+	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
-+	 * but the port state mutated below is attached to real_dev, which
-+	 * may live in a different netns.
-+	 */
-+	if (!rtnl_dev_link_net_capable(rmnet_dev, dev_net(real_dev)))
-+		return -EPERM;
-+
- 	port = rmnet_get_port_rtnl(real_dev);
- 
- 	/* If there is more than one rmnet dev attached, its probably being
-@@ -488,7 +502,18 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
- int rmnet_del_bridge(struct net_device *rmnet_dev,
- 		     struct net_device *slave_dev)
- {
--	struct rmnet_port *port = rmnet_get_port_rtnl(slave_dev);
-+	struct rmnet_priv *priv = netdev_priv(rmnet_dev);
-+	struct net_device *real_dev = priv->real_dev;
-+	struct rmnet_port *port;
-+
-+	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
-+	 * but rmnet_unregister_bridge() below clears the bridge state of
-+	 * the real device's port, which may live in a different netns.
-+	 */
-+	if (!rtnl_dev_link_net_capable(rmnet_dev, dev_net(real_dev)))
-+		return -EPERM;
-+
-+	port = rmnet_get_port_rtnl(slave_dev);
- 
- 	rmnet_unregister_bridge(port);
- 
 -- 
-2.53.0
-
+Jazz isn't dead. It just smells funny.
