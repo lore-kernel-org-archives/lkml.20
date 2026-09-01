@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692C646D541
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:24:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF11646D541
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:24:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788305073; cv=none; b=Me5JiufaqS7sJAASOm/JozsgOPkLyI+3s27TqxAiENhcM/toIr+QPj6ybvA/bw7aCc7TYvL5hod0PZsuDlFUMnjln/vYDO44eK3QC2VlW0Y0dqUd39Z4nmWwpr6x5LofD7Kh3+v/PBOSx5v1OtRH5tLeUr6p6O3BB5slMUWNEzo=
+	t=1788305078; cv=none; b=iFObfUKkliovtnf1RdK3Vz+3VvNaDlB3vanlNenUzeVvMyVinWPYdH4RknPHU8nAPEA17nWkgA8MRhIo9OqvHgVGsnr4TTbHm9UhHoceWnE3+d8QqGVZ3/mLgeqeu4eKP56koxItSKXoBv0ZZK+EnM1O0Nqjc6sCzWF0tXbrCJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788305073; c=relaxed/simple;
-	bh=pBddXw9kLtL3WD5gu4P1b2Rk7upxu2Ms30pxfE4ZHgE=;
+	s=arc-20240116; t=1788305078; c=relaxed/simple;
+	bh=NP8ebDdt8O3z8l/Sq5Z2hu6aATnHI2jjkvuT1DrtszY=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=aCsYs1zQ7ec6YcMemxA2Y3pHCd5wdQSuuL/zPXw8Cc40D+80FBj1Zo11CgcnhSr8AsbUkX1M7LX6aUzs3Mu0JLj2zDifAVRSKxcHNn2z+ZunSfwkr3QMM51s+F7wKBG173JXSb+o94mT5DKlIkg1Hh3G8vrug+PenKtghOz6/1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ONNpfGFz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SV+rQwFaGlUY0lN1XkZb5rtPNdr+j0kjLk13z6qS+vC95mfRND0xMXAau4j+BPhewQ8+WWBtj2YK3sq6eYRJLvt3LMC6IeDS7DwSqbYxitnIVS8uMEEbgf0zNhKC+drJDv9X949FEzPPgNRLQoOekQnFptozoY+J0+9ScllBbhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TXAQ3QSm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ONNpfGFz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44C771F00A3A;
-	Tue,  1 Sep 2026 23:24:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TXAQ3QSm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A611F000E9;
+	Tue,  1 Sep 2026 23:24:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788305072;
-	bh=Z0X7OvF6yz6PTqxJmY35ICxOJAuUHhLkK951+WZcIng=;
+	s=k20260515; t=1788305076;
+	bh=3mrvoCwf3JhHo6/B0HvRbUVwX76oJvSOJSq8DmmzItY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ONNpfGFzn7/T6wh+dIHvukw5pagye5MuBBVr0HN8zSArlZBW3NpZi89/Q2VTjz1Xu
-	 efTyofK06CMYGUYqzgpM0x/rEsRcvbNkiUNW/IQNcP+0c/Orb1+sTq2p/df5AntkE6
-	 YLaw1PIsQYaYlRqL0xHMxajJPelQ+WPNigtM/EEqAxb2iI108K6c+IJYbjJQy1pE1B
-	 QvdoXEq62EqTOXIcMaXdBX0stgWpI5ayA8z2IVg0feyRkgpzHWk1mTSYjgKILTg0HR
-	 B/TxgSKyq9pF7pZN2PM77xw3kMhEkbK2BHHpNw+Phfd9xafJWR70FE47gVJhALnIMb
-	 Dn1MS+JSVqdbQ==
+	b=TXAQ3QSmW1kL0/7w7FaPW8RnsDkCuqPXbtBoqB0y2WXus7vg1zrqEl/L0Q9l4bFNl
+	 ri6q7uhCpuIhvRBdIjis6rb2sE9cN1rdK//O9NnxouQgBFBkHYVcliV0NisEKwbKed
+	 O6H0SpjWaCY9ptsqg0RI9Hgkpm3K0n/9OjVK7PigCLKdp0HbR3EtbEjHziSrN9wFqb
+	 YahoOIrYqne51/guURoNXtmcDMcZ/7j++r1/CM3q8wHS+CU9JTsWkCrbH69xgLaWVq
+	 v5TROxmYjEv9+W9pIxioG92t0dslVeEDrNNUXZ4ibzKWFR2n1zTLfcWd3SUJpMVblx
+	 C25N/pdk72h3g==
 From: "Barry Song (Xiaomi)" <baohua@kernel.org>
 To: akpm@linux-foundation.org,
 	linux-mm@kvack.org
@@ -49,10 +49,11 @@ Cc: axelrasmussen@google.com,
 	yuanchu@google.com,
 	zhangbo56@xiaomi.com,
 	"Barry Song (Xiaomi)" <baohua@kernel.org>,
-	Xueyuan Chen <xueyuan.chen21@gmail.com>
-Subject: [PATCH v3 1/7] mm/mglru: separate folio generation update from LRU accounting
-Date: Wed,  2 Sep 2026 07:24:15 +0800
-Message-Id: <20260901232421.40157-2-baohua@kernel.org>
+	Xueyuan Chen <xueyuan.chen21@gmail.com>,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH v3 2/7] mm/mglru: batch update lrugen->nr_pages in inc_min_seq()
+Date: Wed,  2 Sep 2026 07:24:16 +0800
+Message-Id: <20260901232421.40157-3-baohua@kernel.org>
 X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 In-Reply-To: <20260901232421.40157-1-baohua@kernel.org>
 References: <20260901232421.40157-1-baohua@kernel.org>
@@ -64,81 +65,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-folio_inc_gen() currently updates both the folio's generation and the
-LRU size accounting. This makes it difficult to batch the LRU size updates
-when moving multiple folios.
+Currently, folio_inc_gen() updates lrugen->nr_pages for every folio
+as it advances generations. Instead, accumulate the size changes
+and update lrugen->nr_pages in a batch after scanning the entire
+oldest generation, or when the scan stops because remaining reaches
+zero.
 
-Extract the generation update into __folio_inc_gen(), which only updates
-the folio's generation and reports whether the generation was actually
-increased. Keep folio_inc_gen() as the wrapper that performs the LRU size
-accounting when needed.
-
-This separates the per-folio generation update from LRU accounting and
-allows the latter to be batched by subsequent changes.
+Since we only move folios from the oldest generation to the second
+oldest generation, the active/inactive state cannot change. We can
+therefore skip __lru_update_size().
 
 Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
 Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
 Reviewed-by: Lian Wang <lianux.mm@gmail.com>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- mm/vmscan.c | 28 +++++++++++++++++++++-------
- 1 file changed, 21 insertions(+), 7 deletions(-)
+ mm/vmscan.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
 
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index f11491ee9ed5..54bce2f608ef 100644
+index 54bce2f608ef..27494505cecc 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -3295,21 +3295,21 @@ static int folio_update_gen(struct folio *folio, int gen, const vma_flags_t *vma
- 	return ((old_flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
- }
+@@ -3918,6 +3918,7 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+ 	int hist = lru_hist_from_seq(lrugen->min_seq[type]);
+ 	int new_gen, old_gen = lru_gen_from_seq(lrugen->min_seq[type]);
++	int target_gen = (old_gen + 1) % MAX_NR_GENS;
  
--/* protect pages accessed multiple times through file descriptors */
--static int folio_inc_gen(struct lruvec *lruvec, struct folio *folio)
-+static int __folio_inc_gen(struct folio *folio, int old_gen, bool *increased)
- {
--	int type = folio_is_file_lru(folio);
--	struct lru_gen_folio *lrugen = &lruvec->lrugen;
--	int new_gen, old_gen = lru_gen_from_seq(lrugen->min_seq[type]);
- 	unsigned long new_flags, old_flags = READ_ONCE(folio->flags.f);
-+	int new_gen;
+ 	/* For file type, skip the check if swappiness is anon only */
+ 	if (type && (swappiness == SWAPPINESS_ANON_ONLY))
+@@ -3927,35 +3928,47 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+ 	if (!type && !swappiness)
+ 		goto done;
  
- 	VM_WARN_ON_ONCE_FOLIO(!(old_flags & LRU_GEN_MASK), folio);
++	VM_WARN_ON_ONCE(get_nr_gens(lruvec, type) != MAX_NR_GENS);
++	VM_WARN_ON_ONCE(lru_gen_is_active(lruvec, old_gen) !=
++			lru_gen_is_active(lruvec, target_gen));
+ 	/* prevent cold/hot inversion if the type is evictable */
+ 	for (zone = 0; zone < MAX_NR_ZONES; zone++) {
+ 		struct list_head *head = &lrugen->folios[old_gen][type][zone];
++		long delta = 0;
  
- 	do {
- 		new_gen = ((old_flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
- 		/* folio_update_gen() has promoted this page? */
--		if (new_gen >= 0 && new_gen != old_gen)
-+		if (new_gen >= 0 && new_gen != old_gen) {
-+			if (increased)
-+				*increased = false;
- 			return new_gen;
-+		}
+ 		while (!list_empty(head)) {
+ 			struct folio *folio = lru_to_folio(head);
++			long nr_pages = folio_nr_pages(folio);
+ 			int refs = folio_lru_refs(folio);
+ 			bool workingset = folio_test_workingset(folio);
++			bool gen_increased;
  
- 		new_gen = (old_gen + 1) % MAX_NR_GENS;
+ 			VM_WARN_ON_ONCE_FOLIO(folio_test_unevictable(folio), folio);
+ 			VM_WARN_ON_ONCE_FOLIO(folio_test_active(folio), folio);
+ 			VM_WARN_ON_ONCE_FOLIO(folio_is_file_lru(folio) != type, folio);
+ 			VM_WARN_ON_ONCE_FOLIO(folio_zonenum(folio) != zone, folio);
  
-@@ -3317,8 +3317,22 @@ static int folio_inc_gen(struct lruvec *lruvec, struct folio *folio)
- 		new_flags |= (new_gen + 1UL) << LRU_GEN_PGOFF;
- 	} while (!try_cmpxchg(&folio->flags.f, &old_flags, new_flags));
+-			new_gen = folio_inc_gen(lruvec, folio);
++			new_gen = __folio_inc_gen(folio, old_gen, &gen_increased);
+ 			list_move_tail(&folio->lru, &lrugen->folios[new_gen][type][zone]);
+-
++			if (gen_increased)
++				delta += nr_pages;
+ 			/* don't count the workingset being lazily promoted */
+ 			if (refs + workingset != BIT(LRU_REFS_WIDTH) + 1) {
+ 				int tier = lru_tier_from_refs(refs, workingset);
+-				int delta = folio_nr_pages(folio);
  
--	lru_gen_update_size(lruvec, folio, old_gen, new_gen);
-+	if (increased)
-+		*increased = true;
-+	return new_gen;
-+}
-+
-+/* protect pages accessed multiple times through file descriptors */
-+static int folio_inc_gen(struct lruvec *lruvec, struct folio *folio)
-+{
-+	int type = folio_is_file_lru(folio);
-+	struct lru_gen_folio *lrugen = &lruvec->lrugen;
-+	int new_gen, old_gen = lru_gen_from_seq(lrugen->min_seq[type]);
-+	bool gen_increased;
+ 				WRITE_ONCE(lrugen->protected[hist][type][tier],
+-					   lrugen->protected[hist][type][tier] + delta);
++					   lrugen->protected[hist][type][tier] + nr_pages);
+ 			}
  
-+	new_gen = __folio_inc_gen(folio, old_gen, &gen_increased);
-+	if (gen_increased)
-+		lru_gen_update_size(lruvec, folio, old_gen, new_gen);
- 	return new_gen;
- }
- 
+ 			if (!--remaining)
+-				return false;
++				break;
+ 		}
++		WRITE_ONCE(lrugen->nr_pages[old_gen][type][zone],
++			   lrugen->nr_pages[old_gen][type][zone] - delta);
++		WRITE_ONCE(lrugen->nr_pages[target_gen][type][zone],
++			   lrugen->nr_pages[target_gen][type][zone] + delta);
++		if (!remaining)
++			return false;
+ 	}
+ done:
+ 	reset_ctrl_pos(lruvec, type, true);
 -- 
 2.34.1
 
