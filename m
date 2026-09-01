@@ -1,109 +1,116 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C63288505
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:52:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788295923; cv=pass; b=N9FzzCKqo4QweUPtP60fC/Xct5DPKhiSmHdTkNow9c6RvnnNtbA7zb+g2vq17EXpOxcWmcIQpEX0uXlCBYgNwvpWFxAxDTzDnSIdOOaOKLSgTO+iGnWGmHHgJ7lP0NkYV27xxDuBP5bWVqJ1qHalthYwANx+kDkn8H5+45iiO1g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788295923; c=relaxed/simple;
-	bh=bATD+9vMV4i+DVgqapoexuJGpF5giIt/ENW58o2X+38=;
-	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jewqNdCSDMk7qL5XQY7POdhumu5yxKZngHwr5OMS59rrDDuLD/SkJTWnuV8RO5F2ky/rMZFqXAQv+O7nhiSBpsCtUzIMb5XRDzkUfIbQgx48W+ZoboR9S71zQ4PoTYDIG7pjx0V6wl9P7g5Onpkv2JeHElM3+o0SbRy7+VrKERw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RVEMNf/Y; arc=pass smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76D0466B44
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:52:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788295977; cv=none; b=iY4bv4bwZ4V1Xq2VMeVomJaEiU3Hk6mSqIRaXIRefhDHzoDWCP+enxug9nJGEdbC7Mi+HAEzJwO8wFDxoWT1bavGTk3zY9X2ybSWXCajlTDbwTN8BNF7UpQlgDoi6h+JOEAwP5PFY6+Ca8QShNZiW8jKdYB65+hTtlfAOjpBVQY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788295977; c=relaxed/simple;
+	bh=GalQVnETsOUCH18MBLfCytWSrmZAkH25hzBlWdJxBZE=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=iFpSjAQfpxo5ffCN9y8LskIACTKomFHz3V7+4R/Pw09jg+rmmlPJYio+MVAYy13MlNvilDSg8xHXd165/hhSQGia0XivmVWQacXtmY4fObttinZKqYl4mp4QSyeS4v+6zb0g0mJ9p81NImvEAAc+Z2+NnehLm3qGK6cJYPCI0qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VncqEckO; arc=none smtp.client-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RVEMNf/Y"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c207cb16cf5so32666966b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:52:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788295920; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f2dKYub4E31+tgYyvIqZN4Y9bXnl+O6OLODYEcMiPX5vxozOIWwZmsZDxLioKHXJJC
-         LxP516fz7YB6LbyDlPNJ9EMMAyzQlpzVq0zwsDLnP4rOa9+K6Tc1qOdQVk23+MAx91FK
-         gPAr9tYCXf+C/G9Yp0eeAVjnYHhU8mYV3ZmbiMIVNt2BnRJE1zAADMKikzrOaRfo7G5U
-         /2k5y1zRrVBF9530gP4SuriwXIGCQ2xgjjDhMAXAtDtO96CPtp50QWddKxr92ge7ImVK
-         l3K6bw0oKrPpokQwCLuFRTXcYA5k5ZEnao2yej6w+aQ86gD1KQOfqGBz3zC7S70y7Eut
-         AY6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=bATD+9vMV4i+DVgqapoexuJGpF5giIt/ENW58o2X+38=;
-        fh=uxz/YlPeat6A9ew8qpoCdQy/Dod5a7S4f49Cc6HWpIA=;
-        b=Y8ANg/erxJBMPCyxa/w/hE8J8mfn3vCm6rNWPjwb3PnGjfYncYsilFPWtfSYNtetZj
-         w2jzlx3IsW1kQvUEbPKBp/lXNRf68ySIpu72PwG7EtDV2o1HYfHGXDoEC76xd+chkOG8
-         RabhnOXga/qk1bJdh0zzSrftydkLc7zTI2cedHgnTV587VhHiFO6gX4gr6PTt3ZrogcU
-         0oVsGVNb9yn1tFcTi3fes3ECm7Sc38Rc8Jw2IoXWp9SiIsO3TfLgbBa8jtsVoQvG/w1D
-         qYAdcfeZrDBZPPfD+gTuZJh1rpzeph+G3uBsPaBxwxgTCzRvzhofPBvRifejlIJ2S4Kg
-         RPBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VncqEckO"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84e048a801dso374830b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:52:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788295920; x=1788900720; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=bATD+9vMV4i+DVgqapoexuJGpF5giIt/ENW58o2X+38=;
-        b=RVEMNf/YUuy4lbNYju7Hirs/vvWWLHjupriPAbhvWSA6m7Lt4yO+Z96J6s6ajTbhFt
-         uz3CCmbQjHTn4JZUvKALazd9935hUSpJ0z9fWTEMAL4piUGBQoa5tj5G0gOAVJueBKGo
-         SpvvLjtaOCJzXbDuces+5Ewku01s2w5d2rwZLp2qU4HHSfsybRYMqoe3UA7bve9n5WCw
-         bpliofH0sL3IuV3Vco+8ideVqfK+pGF36uy387riVAWf1qtQ8ogO9ocimAjF5mgBWTGL
-         wYunikBtRnRZwvgU5JbS6+mKBz1wJABVHs9Ra+7iJ4Ot9HV+rRFeiMRl2xpQdkcB3p1M
-         UxKw==
+        d=google.com; s=20251104; t=1788295975; x=1788900775; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wmod3MZvKZiKOSiWTYgLk07xjBocBxff8A2+1S6J5fk=;
+        b=VncqEckO/lVz8Ese9shZK8SVAIwE32rOtvk9Wnr/M4OCZ2G6mFkhg3vwN1AMTC/pM0
+         ozgWM4G2KZBzi8xNK9cSvhUt6V1rKB4UMexU7D+ibrB2rRzoQEdIIRhOtzpcKvZcAgyS
+         5bswk7V9vLrTA0bsTJtCjv/v24N2FEtDANTvzJPumNwFLl6Xgbkvf99ZrazYWUpfA7O9
+         LKPvxr0OjHGwXit0bn6D4SrsYDIt7sdIA50Xrx9tOBzmE/gmgPcy63CnCQfiWvgElHdY
+         IbnJxhfmwhpkbv1s8qz4qnDb7R7vt4mubrpx2bYCQWXrPsblPe7ikLgbvSrgLEcFwala
+         VxGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788295920; x=1788900720;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bATD+9vMV4i+DVgqapoexuJGpF5giIt/ENW58o2X+38=;
-        b=ETt5dSEM8eEWa4eY2+LzAul1pKqwDPWJ+ffuvmWJZxrnQEiKiBDByUXEU6/T+MgjXU
-         ukQq744qjYVF18G4aow9u5YQGV4HbH5JNKoUqTpSB/JATLr2nWDACWZ5c2iPbol8rGaa
-         5A5vJgKOM1ag2MHIEXpyEU6w1BWh8965aYrt+MU0LEmV+xcheKPet3qOBq01cRcq8o2J
-         eeJXdUYOLrHJGCXtC85flyU7Nhyjxo7o6yvA3uPSV+f/nLqHAaSijXaXl4B0KcBh8weT
-         ZRzB6NZJnmHRNkICVQB6VttFdt/sCK5jPYbdiVwOF0f7WRazocsLbq9QidsqXteimbL6
-         2XUg==
-X-Gm-Message-State: AFuF++kikoPSiZ8IMkH0yjtGRmHNbEWxP8zB4WGmHez+SBfxsVfB3ZP2
-	J5Yon5HjI134FS3Aw8nMA/PNbVFJz7KXDiFLkFVfXS7uC7i+iFjEm3W3nIYzb3kZRz5Fcu6t8M+
-	KHT3cZV0KabbzEnn0lh4YujPa+HUE7Ew=
-X-Gm-Gg: AR+sD12rKtzKbwxTm5NqeLJS8O+ZSpbDoKDXiz0qGw8pDQMVSAyBBpJ3yFPwmxWB8BR
-	CaKrWsaFoBtn/6G5wGqTEJf4Xj5CHa9S4n+95kHPeCmtUTRIy90osaZL5tY2InbVndpbSrBGD5W
-	85dtkvZqHWHie8gCzrVsgzkJJOgvg+s0DgNXmawum7b4u3jWbXfGHZC8tlhq4lq48FLg4DeB39w
-	lNnT1FS0y3AiZsa6miyjlzhJqjvRcOaiD6Kmzz+gR91jYx7KpMFDIeyTtGgnN1DF7ZiG3B1jeCP
-	aTv6BZAbaeopcILhprelpFNcKWaygq8NgGutHwfkLg==
+        d=1e100.net; s=20251104; t=1788295975; x=1788900775;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wmod3MZvKZiKOSiWTYgLk07xjBocBxff8A2+1S6J5fk=;
+        b=HxZFmYK1uSZHjIChfly6yGNxaJV3uDw4UlqM6irgYvBTzMAJur/Ehyq9HxyL8HndgS
+         cf0OTqRa4eo3ZDnZ442t6peVGyqQ58Ui88dcFH8hoJhOhjgkrk2Ml0WxcqwgJek4kuUZ
+         taXjQqm9p9S7YP4dXb9UWUxud6cfiYEINxXU+JGZUOuSg6WGvXPt3DPBxFslD1VmBPXx
+         P7FvUghADRn+pGn4tMS231P9foy8k9AG8jYiFmJi3x3eNu+eKUanFqnjZ1OqHJSTM3Qv
+         tOpQ24xjo+76lM60iIRqUp28ns9t171bizxDH2Qouheldf1B9sGVrJt/Vt2d8h/TBhmr
+         kVRg==
+X-Forwarded-Encrypted: i=1; AHgh+RpYgPrXlxf44JgP4my0/hKwIaQDPAxyYYUnpTaDxWs/V9UXP/ZD4M4htpgpNq2pN+UFfL188vlmLwRz8gY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAn9DApBscttc8ISxCTrHQYEiEnnrhMGSpQodmNxzVCWb9HNLn
+	/e/ftOfnARhWX3Kf3ylBXfxcU3D3RjBc4ZrB1rSf08uULFM9bgoNvu2KOlE6LMWE7u1DRxr9lSY
+	NsDslDGFeiksLRg==
+X-Received: from dycnt1.prod.google.com ([2002:a05:7301:1701:b0:327:c2ac:2d82])
+ (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a20:3ca8:b0:3c4:4272:b400 with SMTP id adf61e73a8af0-3d984562d03mr1240828637.18.1788295974871;
+ Tue, 01 Sep 2026 13:52:54 -0700 (PDT)
+Date: Tue,  1 Sep 2026 20:52:40 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a17:907:d01:b0:c25:9195:6ece with SMTP id
- a640c23a62f3a-c25d5597b78mr2028666b.23.1788295920040; Tue, 01 Sep 2026
- 13:52:00 -0700 (PDT)
-Received: from 292895732794 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 13:51:59 -0700
-Received: from 292895732794 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 13:51:59 -0700
-In-Reply-To: <w7vte4itudtkw2yf4vbmuofiumfffmp2y52dpu2bqvqtdgjvpd@5femyiozss3e>
-References: <20260725182628.221603-1-nsd.project.dev@gmail.com>
- <CAFLp9PEQQVuDpJPwrNvLN1-u3w3TMwZPUUrf0+rOBrvDjBBf1A@mail.gmail.com>
- <anlByPDZmvEhWeXI@casper.infradead.org> <w7vte4itudtkw2yf4vbmuofiumfffmp2y52dpu2bqvqtdgjvpd@5femyiozss3e>
-From: =?UTF-8?B?YXloYW4gYXlkxLFu?= <nsd.project.dev@gmail.com>
-Date: Tue, 1 Sep 2026 13:51:59 -0700
-X-Gm-Features: AcwNN1W6fGPmdWB07o81OMVzEMGuQq_mleLKK15ow4KEIPxh6simphC5SxUnMtw
-Message-ID: <CAFLp9PFH350y1OYpDOAuTETMqGf_akeWBMbgoBh-A0R7gYP0Sg@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/3] Neural Storage Driver - learning page cache prefetcher
-To: Jan Kara <jack@suse.cz>, Matthew Wilcox <willy@infradead.org>
-Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
+Message-ID: <20260901205250.1638304-1-cmllamas@google.com>
+Subject: [PATCH v4 0/7] binder: fix issues with mremap()
+From: Carlos Llamas <cmllamas@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, 
+	Suren Baghdasaryan <surenb@google.com>, Carlos Llamas <cmllamas@google.com>, Todd Kjos <tkjos@android.com>, 
+	Alice Ryhl <aliceryhl@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Honza, Hi Willy,
+This is a follow up series fixing some pre-existing issues found by
+sashiko during a review of an unrelated patchset here:
+https://sashiko.dev/#/patchset/20260813193433.3318288-1-surenb@google.com
 
-Just bumping this up, curious if you had a chance to look at the
-window-size matrix from the 19th, and what you think about the three
-questions at the end.
+The goal is to safely reject mremap() requests on binder's vma to
+prevent pages from temporary leaking and accidental IPC tear-down.
 
-Happy to run more numbers if that helps.
+Cc: Todd Kjos <tkjos@android.com>
+Cc: Alice Ryhl <aliceryhl@google.com>
+Cc: Suren Baghdasaryan <surenb@google.com> 
 
-Best,
-Ayhan
+--
+v4:
+ - Also reject vma splitting. This closes loopholes wrt to partial
+   range munmap() that Sashiko pointed out.
+ - With splitting denied, we can go back to the simpler ->vm_start
+   check in op->close().
+
+v3:
+ - Switch to a range-check in vm_ops->close() and protect against
+   partial munmap() as Sashiko points out.
+https://lore.kernel.org/all/20260901163521.1355535-1-cmllamas@google.com/
+
+v2:
+ - Set VM_DONTEXPAND in [1/5] and [2/5] per Sashiko's feedback.
+ - Check vma->vm_start to prevent incorrect ->close() in [3/5] per
+   Sashiko's feedback.
+https://lore.kernel.org/all/20260901030419.470246-1-cmllamas@google.com/
+
+v1:
+https://lore.kernel.org/all/20260831224145.169403-1-cmllamas@google.com/
+
+Carlos Llamas (7):
+  binder: set VM_DONTEXPAND
+  rust_binder: set VM_DONTEXPAND
+  binder: forbid vma splitting
+  rust_binder: forbid vma splitting
+  binder: check vma->vm_start in binder_vma_close()
+  binder: reject mremap()
+  rust_binder: reject mremap()
+
+ drivers/android/binder.c             | 18 +++++++++++++++++-
+ drivers/android/binder/page_range.rs | 20 +++++++++++++++++---
+ drivers/android/binder/process.rs    |  1 +
+ 3 files changed, 35 insertions(+), 4 deletions(-)
+
+-- 
+2.55.0.966.g6673acef38-goog
+
