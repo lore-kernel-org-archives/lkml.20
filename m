@@ -1,184 +1,139 @@
-Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B6E336886
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:58:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA03F33938C;
+	Tue,  1 Sep 2026 13:59:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271112; cv=none; b=eNxQBvCczPtc5HXejCZOpk9Ah4J3RkFJP1H4gZg7ieEI0YDm5HoSNC27jM2drWNKBHoKcCBos1AR714/5ugq4iRId6NbI5p9zG0dVsIRWt9GnbZiAmo/zZ5XxC4J2TjrRyxnqLGyCdlB1VMlcThc+FwR9UJ4EqZtfhQ5tZO1n/w=
+	t=1788271156; cv=none; b=K6MYaFHtc0Zoa3LyGVMNMnLrTtuffM9+TVnmSNeGniyjwfkTaZUzLaq3fED39TBvUFHf/UxN6BSkfeR3P2R070ElhfBZERgqOLL7MCE+0E1fcN7Fvu2bxKSoZX7rzzY/iG9ewoa0e/gn6mGS1tQRoq3SNIo8uV/vlAOWy2wb180=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788271112; c=relaxed/simple;
-	bh=ENIdvHRw1IiFMIzhFtYNWAzVUTCe7z0d5NvRi0XN0lQ=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ImXuV55fGhs9X/qdRxscfGwHWkGcT1AizGkJj+aK/PD2oWWZvgxJjDrDOvsbMrMfiIquRVwurE9X1can26gBsjPvm/Rzqp397WjPmXqlC0d8lGhs4zlsOcq3RqQ/zkC9sB/5vfe0toUJzSqtU8wJf95EyXF9nercnEFF5pZNTV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f5.google.com with SMTP id 46e09a7af769-7f66624aa21so426775a34.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:58:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788271109; x=1788875909;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oSScl9b39LFhA6dCrI2VzC9NEUldGRGWmrst0p3B1xs=;
-        b=HE0XLbwWMf+upKXw0c3JHy47zqswh1mu+tXhP6ElmpyIU4iYukD8F+czFVjXJOd5c6
-         rRzWoLzcmAGRIYbuwnf+QFcVgqR9A3NsPeLT6bpMIuE/EKe9lxSxUky1QIU5SxGEdX1/
-         plgh4nxXkZxxvfFxm2j9UXLs9t82Id5xBlE7mpyyeGJSV+WjLWh6BPLB8yVTVGycio8v
-         xhM9sl7/yxNdQnDe8UfaPQC3lYBC6udx+dAp3Gpvl+INuDMQX3uZROeEyKgYczQtKbEN
-         LvfNvrDa3NYlQ09ArRLNFMiQTEqlQI1EunC146t4nZnYu7XjUNIPZdklOU03HkvboMKh
-         IFXg==
-X-Forwarded-Encrypted: i=1; AHgh+RqYGUG8sbm9+RwxtMoLuwGnhoaBUhG8E7vDnrvoPns5PLhUWsWkrUFHkgIzrq03+soPgFuCQsEp/tAUDt8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjcsIcYlkGmrlHmFNbaAWO6XWn0HiiVjOJO2kKQ5mwTlKmhof6
-	nHPTXXEDoDoCso0olbTYvSlVn5DoipJu5cMf90XwP6vb3wOCo+l+lNFOezP90BIsqEzob5IC6MH
-	ABkEMUawhqoEvotEXSriIpy9IUO6yyk+vU3mGp6Pyd7lnAgMrlIn1gqk59Ug=
+	s=arc-20240116; t=1788271156; c=relaxed/simple;
+	bh=L2aleJxRKrFW1w7IsLbcpUAM9hzfRgXDejME8sOErVY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uREWL1vq5bGVleqoKhas9v0fS91K9rBOszWfQCS/Bk7zcukKBxeEAd6/IIS4Vf22S4AECLR2yqUWEGjdhGHratnSiEnGB7S1SDRiLoNKAI06u2HwkvF9vYV3/zxfbm+qEQpMP/eUgVvbby1S8SVWATm7L9EOKStwdL/WC80N1WM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ug+tFPfl; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ug+tFPfl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41B001F000E9;
+	Tue,  1 Sep 2026 13:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788271154;
+	bh=e4NZGL9sW0yTZysi364rSyA0YFBhdTM0YG9uCeDwPSE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ug+tFPfl+VDaefaVU/4BHgnPy4Ce554caP+BlVg3VmC2CafOtgwHuapsFUIbT00AM
+	 JhBz78XPBoE1K7hRx8/zC063NUrEq5FGMqx6wpPftXQthG2CT9G0g3URZMrE4U0TIY
+	 e3zCkZDksY2EmW26k9Gyy6Z5pr54TGS3qGDEduTJMHYJF/pL4zzJX8h82ZWL7H2SYd
+	 zj0S2+Rm1ob2cjq2uV3T3jXfn+GY2AORNNkiA/y9hy2O4Bu7U0lfSAYSM8FapRpaHM
+	 BKqjJ4dChKTHB63GV2bJjWfzK31GlWjYVs3pb8wPL2DheszV97Ty3+skGtidZzaHYM
+	 J5jlsijPojrWw==
+Message-ID: <47aa459f-27d5-4b2f-9eb9-36ebca63d890@kernel.org>
+Date: Tue, 1 Sep 2026 15:59:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:60b:b0:6b3:bb82:2736 with SMTP id
- 006d021491bc7-6b3bb82372amr1185072eaf.17.1788271109452; Tue, 01 Sep 2026
- 06:58:29 -0700 (PDT)
-Date: Tue, 01 Sep 2026 06:58:29 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a96da05.08473e0e.15b4ac.0001.GAE@google.com>
-Subject: [syzbot] [sctp?] WARNING: refcount bug in sctp_generate_timeout_event (4)
-From: syzbot <syzbot+f5baf1a1df3261c2ad8d@syzkaller.appspotmail.com>
-To: davem@davemloft.net, edumazet@google.com, horms@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-sctp@vger.kernel.org, 
-	lucien.xin@gmail.com, marcelo.leitner@gmail.com, netdev@vger.kernel.org, 
-	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/slab: disallow kfree_rcu_sheaf() on PREEMPT_RT again
+Content-Language: en-US
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Harry Yoo <harry@kernel.org>, Clark Williams <clrkwllms@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Peter Zijlstra <peterz@infradead.org>, Alexei Starovoitov <ast@kernel.org>,
+ Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ syzbot+acf142088e0182172e58@syzkaller.appspotmail.com,
+ ThangNN99 <ngocthang2710.1999@gmail.com>
+References: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
+ <20260901073339.uyKHXWCX@linutronix.de>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260901073339.uyKHXWCX@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello,
+On 9/1/26 09:33, Sebastian Andrzej Siewior wrote:
+> On 2026-08-31 18:02:38 [+0200], Vlastimil Babka (SUSE) wrote:
+>> This partially reverts commit 2a8bb29ec9b2 ("mm/slab: allow
+>> kfree_rcu_sheaf() on PREEMPT_RT"). It was based on an assumption that
+>> local_trylock() is safe on PREEMPT_RT from any context.
+> …
+>> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> 
+>> ---
+>> Incidentally I have posted a RFC [1] that leads to replacing that
+>> kfree_rcu() from set_cpus_allowed_force() but now after back from
+>> vacation I need to check the feedback and based on this bug report I can
+>> already see it makes the same bad assumption that trylock is fine.
+> 
+> free_to_pcs() has still this trylock.
+> 
+> What I am not so sure how good is that kfree_rcu_nolock() may allocate
+> memory for the sheaf if there is none around.
 
-syzbot found the following issue on:
+Per sashiko review it's actually bad too under the pi_lock, because
+GFP_NOWAIT means __GFP_KSWAPD_RECLAIM which can mean wakeup_kswapd() and
+thus also need scheduler locks. And it's not a PREEMPT_RT-only issue...
 
-HEAD commit:    bf1079577a11 Merge tag 'sched_ext-for-7.3-rc1-fixes' of gi..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17d06d9e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=f5baf1a1df3261c2ad8d
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> It could have a pool of X
+> and if it runs out, it runs out and waits until the clean up process
+> feeds the used sheafs back. There is fallback and the run out is not the
+> usual case.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+I'd rather not invent new pools, since there's fallback and the sheaf+barn
+is already a pool. Could be enough to make sure the allocation attempt is
+safe, i.e. use only __GFP_NOWARN.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/c52dc60311d3/disk-bf107957.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/37591d96a65b/vmlinux-bf107957.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/729e80af6e39/bzImage-bf107957.xz
+> I do remember RCU tried the same thing but then it got to the case where
+> HEAD had to be supplied or it had to be preemptible so could wait for
+> grace period and free it. I just don't remember if it had a pool pages
+> to fill pointers to or allocated pages if it run out. And I am too lazy
+> to look atm.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f5baf1a1df3261c2ad8d@syzkaller.appspotmail.com
+Yeah.
 
-------------[ cut here ]------------
-refcount_t: addition on 0; use-after-free.
-WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x9f/0x110 lib/refcount.c:25, CPU#1: syz.0.2220/13955
-Modules linked in:
-CPU: 1 UID: 0 PID: 13955 Comm: syz.0.2220 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-RIP: 0010:refcount_warn_saturate+0x9f/0x110 lib/refcount.c:25
-Code: eb 66 85 db 74 3e 83 fb 01 75 4c e8 6b d2 e9 fc 48 8d 3d f4 46 a7 0b 67 48 0f b9 3a eb 4a e8 58 d2 e9 fc 48 8d 3d f1 46 a7 0b <67> 48 0f b9 3a eb 37 e8 45 d2 e9 fc 48 8d 3d ee 46 a7 0b 67 48 0f
-RSP: 0018:ffffc90000a18c28 EFLAGS: 00010246
-RAX: ffffffff84dde548 RBX: 0000000000000002 RCX: ffff88807715be80
-RDX: 0000000000000100 RSI: 0000000000000100 RDI: ffffffff90852c40
-RBP: 0000000000000000 R08: ffff88807715be80 R09: 0000000000000005
-R10: 0000000000000004 R11: 0000000000000100 R12: dffffc0000000000
-R13: 0000000000000001 R14: ffff888020fde004 R15: ffff888020fde640
-FS:  00007f4a87be06c0(0000) GS:ffff888124dda000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ff55dd92eb8 CR3: 000000005800b000 CR4: 0000000000350ef0
-Call Trace:
- <IRQ>
- sctp_generate_timeout_event+0x1c8/0x390 net/sctp/sm_sideeffect.c:284
- call_timer_fn+0x18d/0x5f0 kernel/time/timer.c:1748
- expire_timers kernel/time/timer.c:1799 [inline]
- __run_timers kernel/time/timer.c:2374 [inline]
- __run_timer_base+0x652/0x8b0 kernel/time/timer.c:2386
- run_timer_base kernel/time/timer.c:2395 [inline]
- run_timer_softirq+0xb7/0x170 kernel/time/timer.c:2405
- handle_softirqs+0x226/0x860 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0xcb/0x220 kernel/softirq.c:767
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0xa6/0xc0 arch/x86/kernel/apic/apic.c:1062
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:lock_acquire+0x232/0x350 kernel/locking/lockdep.c:5913
-Code: ff ff ff e8 a0 a9 40 0a f7 44 24 10 00 02 00 00 0f 84 38 ff ff ff 65 48 8b 05 f2 44 f1 11 48 3b 44 24 50 75 33 fb 48 83 c4 58 <5b> 41 5c 41 5d 41 5e 41 5f 5d e9 ba 25 6d ff cc 48 8d 3d 77 31 da
-RSP: 0018:ffffc9000dabfac8 EFLAGS: 00000282
-RAX: b29753db72d85c00 RBX: 0000000000000001 RCX: 8000000000000001
-RDX: 00000000b866b3b2 RSI: ffffffff8e6fc28f RDI: ffffffff8c6d9380
-RBP: ffff88807715be80 R08: 8c00000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: ffff888066f6e418 R12: ffff888066f6e418
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000246
- __raw_spin_lock include/linux/spinlock_api_smp.h:190 [inline]
- _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:173
- spin_lock include/linux/spinlock.h:347 [inline]
- __io_cq_lock io_uring/io_uring.c:484 [inline]
- __io_submit_flush_completions+0x85/0x10d0 io_uring/io_uring.c:1133
- io_submit_flush_completions io_uring/io_uring.h:253 [inline]
- io_submit_state_end io_uring/io_uring.c:1939 [inline]
- io_submit_sqes+0x1cec/0x2310 io_uring/io_uring.c:2063
- __do_sys_io_uring_enter io_uring/io_uring.c:2637 [inline]
- __se_sys_io_uring_enter+0x35b/0x1bb0 io_uring/io_uring.c:2586
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f4a86d9e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f4a87bdff38 EFLAGS: 00000246 ORIG_RAX: 00000000000001aa
-RAX: ffffffffffffffda RBX: 0000200000000340 RCX: 00007f4a86d9e159
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000009
-RBP: 0000000000000a12 R08: 0000000000000000 R09: 0000000000000008
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000200000000940
-R13: 0000200000000948 R14: 0000000000000e26 R15: 0000000000000002
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	eb 66                	jmp    0x68
-   2:	85 db                	test   %ebx,%ebx
-   4:	74 3e                	je     0x44
-   6:	83 fb 01             	cmp    $0x1,%ebx
-   9:	75 4c                	jne    0x57
-   b:	e8 6b d2 e9 fc       	call   0xfce9d27b
-  10:	48 8d 3d f4 46 a7 0b 	lea    0xba746f4(%rip),%rdi        # 0xba7470b
-  17:	67 48 0f b9 3a       	ud1    (%edx),%rdi
-  1c:	eb 4a                	jmp    0x68
-  1e:	e8 58 d2 e9 fc       	call   0xfce9d27b
-  23:	48 8d 3d f1 46 a7 0b 	lea    0xba746f1(%rip),%rdi        # 0xba7471b
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	eb 37                	jmp    0x68
-  31:	e8 45 d2 e9 fc       	call   0xfce9d27b
-  36:	48 8d 3d ee 46 a7 0b 	lea    0xba746ee(%rip),%rdi        # 0xba7472b
-  3d:	67                   	addr32
-  3e:	48                   	rex.W
-  3f:	0f                   	.byte 0xf
+> Sebastian
 
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
