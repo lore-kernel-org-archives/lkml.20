@@ -1,77 +1,93 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-ua1-f98.google.com (mail-ua1-f98.google.com [209.85.222.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C81547255C
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:17:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774BE43E08F
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:18:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788290276; cv=none; b=gl1X8gGuEiIwaWaCwKFRR662riDx6mnhY2qZ7hWMyX+Z1Y/wpul9lKpYlEkvIGBePA75hRbyOUS/zql+cnO1HSMfXP9svJleiD18cJArHTTTzj7XSku+1smfA97Se9CtE1kQzYPBa5YdDzThUMavEaT8NKZf61dAfhW9KIQx1RY=
+	t=1788290289; cv=none; b=Sel1CGPZXZj9PuiVeDYX6qJRhoLEoCGTOzMANRmcnFjORYqPGx20jwIsl/DDgoGTebeHA4+dHU8+zB3RbP2FvopHatx71mE3rkCg66FY9USy0IZprlleOYwrvISYJHa9bAYmSh3kiz1NSoI+UEnFh901zIczl45Wr6ZyNvvJlKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788290276; c=relaxed/simple;
-	bh=0jwdXdfk3syk+XHr1u1Yc/KPjSCjcGtTUI06brHURIg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MQnnBvAX77yc5TbmJAYhq865ch4HGgIAlvp0Ca6RUg8vvGVnxHiAbUc2Zxvmpg73508RuC/oOMLGn14TG2HjXGcSYHaINCF9EPbyjy0o4ktmTu3f1dfU1NSyHrhsEGg8gw7SSMSir1cdXie3vistw17j0BauXKo96YsRTgjmr4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kPoWDFHl; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788290289; c=relaxed/simple;
+	bh=+UFpASiuqIKcMdnDWDzTtA4Cae69jKZXqzdxrdR7kpg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iEOd9ZdyeFqJcJ9bvYoo8taKULHQiBpkUvHTeb1n3cxIXbw/0IZ4GeYV6SVdBn1xP15bKn39ZC3h4V3RcGPc2OF1MJYsm/n+2vfYR1vfI1p89CmBWqmiMKHBz9HgWEMXvih3PVSPneG6w/lRmWCzcVGE2WSv9d+KZwCW89osy58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=HNrdFwvV; arc=none smtp.client-ip=209.85.222.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kPoWDFHl"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b96837ca3so1017395e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:17:54 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="HNrdFwvV"
+Received: by mail-ua1-f98.google.com with SMTP id a1e0cc1a2514c-97ca72f2cd9so91966241.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:18:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788290287; x=1788895087;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=h1fswLlcr3+9E5T/YNE7zD1XKjJ+1SuKp8Rk5qajcJg=;
+        b=CW/WJibB8vcip18KxAJB9w2SYpvFQstrSfkfhdWpwJtcZrU9NXt4DTBaderFdVnW5+
+         6JYju70VELTUeFe4dXt7WLeASzmkQ5qQPDOsA09uXBId0CBU4Qs9/110iA/Dm0IVBb81
+         owfPoxMRZu2XH2sVehllMk1ejdAS0jVmRAHCY92gvywe+J7/0fyEpspihSxA/+EMxbem
+         zK3rj3Q+37Yrn6DV4amVBcykQGb6nZdKta8XrkxAV9RIKOZP1GCrov6srov/KrtK06nI
+         E0HUNYIdO//J5PwkXfZJ1Ik6MXR255JYaWcm6aJlJFIxSc9hOAgLktExz3TxmbhsxoeL
+         IaVw==
+X-Forwarded-Encrypted: i=1; AKwUvBwzvy9ci1/LfFS1pqUNDnELvmHpRxJLjprgD4dUOVsqGL7/brBEXxwxfl2yT01rV/ejFW2ktjH9eLVLwTI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAXxNrz7ogJob969KZ0cNjDEelqrh7Xo0NO3SLNMJd6b/J1XWV
+	FyAOw16EaALoUlVzX55c0v3FBeDwTrNaAfUTPxd5zNkRNfk9I2mFs7W4iNAFc8MURADiCIASuMx
+	1HibQPRn91MMKxAsVHF6bSfyOwGj7qYlmTtqB8tdcyY0uPfnxYWEMRQFzfQs/QFnmn6aXGDuyBd
+	ShH9ZfBG7vLUaFP66yJaqBmXD0CohLnhH0hWJ5FACWI5ks18QnNjkS11OcpZp9VRxG72L4wyDb8
+	HYM6Cbf3O/rT6LUpiLFLtRs5A==
+X-Gm-Gg: AYBFou1PPE9V6D+z/H50Vy6cIWFtRkqbaoByQQ875Db1ECaJ8X2t4L3yRvt7UutW+M1
+	SZp/U0qSg0k5eksgoiDCDjjBZAUvAdabNjRwWBGm7z05eq64MSCErOPl5dX8gsqpQ8/G+DSQyMq
+	y6GnxkpyafusfMJaNKLeJKFjqWVRIBsgFbmiOxoTbUl8YpWcDG89EyvO8CAYAL82UW0XbYeYW5S
+	qKNC5yA5nqC6bn9wf4dnK6FSL9jdjBggCrMd5JuN3aEMz5qG68rtkFxUlFKevNlpMOVaodLtXy+
+	HXRJNFIxsGN3K8ja33OxMiDFaQ/O7PZPSRQZ6znPWN7YHchPOSEZ9f79YU6aYDfQ+aBjC4faSYq
+	PSEESIx8kOjUKYNTAModp6FUMA1un3LfdfwPsbPbJqU+M8xCUOxogLfb3igM1JYDgXiZuxAH3rf
+	7Mbby07CLcMiZKp9WN6AgzZY4LnwQ+ZXsTjCxZEobZqA==
+X-Received: by 2002:a05:6102:3e01:b0:781:3b9e:2f06 with SMTP id ada2fe7eead31-789fc38beedmr4762690137.12.1788290286866;
+        Tue, 01 Sep 2026 12:18:06 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-16.dlp.protect.broadcom.com. [144.49.247.16])
+        by smtp-relay.gmail.com with ESMTPS id 71dfb90a1353d-5c7cd72acddsm136093e0c.2.2026.09.01.12.18.06
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 01 Sep 2026 12:18:06 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cec4226c70so1934775ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:18:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788290273; x=1788895073; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1788290286; x=1788895086; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eg0ua7x7JoyJExrPZs1KOT80PnYes7wKoAQi5Fj6K9s=;
-        b=kPoWDFHl0ZjIYcHyQbonMk1eAe9CAtG/v5+n6xWeCgRP79zBgxkMJWxIgeWte1XyFd
-         ETQWqGWOb0o74JlPAXlADznAy0b4MZZYkktcho5U02igkpg+9nqcZ8gXmatLfK6B6TdB
-         dR6ukOaxj+3ClDj80o7RNSPmgt9sly5bsDww8Ne5y32ch+j2TAxnczKBolNxMToii/wn
-         2J3QDo6a5rseAIbflEmOxbkCpD7LYXQphExm60B2ITuh8swzTMyK4/D1z1RfXojop+28
-         SuyJvAAN+FpCmmjYm0+5yvPu/lQ/r+OjpbsxAEjQfWG1guHQv0uWc2p/VZW32GW5K9RA
-         TYuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788290273; x=1788895073;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eg0ua7x7JoyJExrPZs1KOT80PnYes7wKoAQi5Fj6K9s=;
-        b=k8DsFABA6NxT0ihS/IY00kPpPj14SZB0DsYTNJ8+aX3iyjkNuGbC5AFD0swY69ocB9
-         SO3QqJdmQ+w4cMtxrl+2mPHVupUEqtYRjKB6Rr7aY5dTzFd6OMff0ts3qYYslHqDg1sv
-         ym6G/n2c0T1WV1MhrbZO5hezpwC5fEjgznCKg/2FZRznA0Jw/NZcY0wieWoNI1qfxSfF
-         g9+rKUpSfqpFcTKXjuIJr5MyBVbkAwrV0M22u8mvzVPxBeYma82FNtjGbFcRAw7Akmhg
-         9EgCJSsOaY/nRkUQG6bQmW5H+lP/j40/r0paVYeezFEssW8coVrYUn/ln69S5VXpD8G6
-         eEOQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqLCiHUGrZ6h7DXYgqzG/o/9RVoJkjSlVVQRjXSiDA30yKLTnIwCVy/jA2iAAfzsYhNJcwqwBvU/PnKTcU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mzt+BbybxVvKevDS95rl4cdJUzg14/ZeIs+AZPxzt9rSAnb3m3
-	eCWb+CwxMWnU3PJnTSrF1TgU0phkgAF+zJTHVboC0nvztt9u9ejnwUgk
-X-Gm-Gg: AR+sD11KpXiuo9iu5Fcn2PlSdeo4Vqwr1Duvqh+1H6Rz4Hz42UqbIn3KN27EFXthJ9b
-	AyHXDPfu+ladWALY0Z0RXIdnJb43swooMBQ27bcInqfPu3PAASc6DEItR/h1lHuoIdvp4CjI0pT
-	rWSGTmPGFDGPVqiZdixUzJIQ6uWFjUBtwDQfEtPwp+n53tgH5pqhluZrFjtwSDgo/yh0x3yF9oD
-	AyMQSCAt5fDdJX+KsodF3q83fvjzBCm0zvKLcSLFMMW/pTiAQGCVKiJjJN1CPEbxsYTVRsv7Qa/
-	QnAC5r19YGlfAFCsZ7BaGiQgxKMkYKqu108GsA/1cnwN/m63U+bQ9mXxhQG6524LBgeYg8RmSie
-	OEdOic5lPqE1fQdA/lOZdndTU7W6sF+NG+zm8dlnaBNrjXMdoKEeO9+AZGV2q/8Rr58IesrnkLV
-	oXEUakEBKgbnpOpR5WtKLc68ya1OQ++KrdwwfXLTUV81/v+p4T8qlfK61o8USZZLrlTOhyjIyPJ
-	5bi4g59ETbcau+qAdlZGFoPG4V5Gr/lbWUyavhNkDKa3Y8UeqSWtbXHp3TNH1OIfmnPfG9fPZCL
-	0wxZ6sSbm5Ayd4DB0aq8Sbs93d99uQyWpZwYMv8NDMYtjIG/ZiFPtvZImRE3WBrDtbU=
-X-Received: by 2002:a05:600c:1389:b0:499:49f3:77b1 with SMTP id 5b1f17b1804b1-49b91c1713emr527192075e9.3.1788290272273;
-        Tue, 01 Sep 2026 12:17:52 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a16a-7801-fd8c-4b37-36b4-e53a.310.pool.telefonica.de. [2a02:3100:a16a:7801:fd8c:4b37:36b4:e53a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce47885b1sm7189615e9.14.2026.09.01.12.17.50
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 01 Sep 2026 12:17:51 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: David Howells <dhowells@redhat.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] keys: finalize persistent keyring timeout after link attempt
-Date: Tue,  1 Sep 2026 21:17:43 +0200
-Message-Id: <20260901191743.39210-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        bh=h1fswLlcr3+9E5T/YNE7zD1XKjJ+1SuKp8Rk5qajcJg=;
+        b=HNrdFwvVfOIVWfRepMIYF4wSBz+sg70WCDdyfLvn5AIuvCQQVghTC5G1arA3h04ehH
+         N7bvmP/j/SUA2j2ONEdiTQnKjrQLB3Zj7XXwVcNSqay1OcPaiLlYU6QJbDFOP38PZRgp
+         7gEeuesNJmpsVnjKO0ziUNOT1hK4NezaL26Ng=
+X-Forwarded-Encrypted: i=1; AKwUvBxp9LoDn/x92yYSIzoEqLmWZdFa0W0imJ6Yy1cNvisiH0AENVIcAfp5RseJZ6fmRzM6dzwCd7nVTwrWaNw=@vger.kernel.org
+X-Received: by 2002:a17:902:fc84:b0:2d8:d4d3:da4c with SMTP id d9443c01a7336-2d94a90e1d2mr152890305ad.16.1788290285785;
+        Tue, 01 Sep 2026 12:18:05 -0700 (PDT)
+X-Received: by 2002:a17:902:fc84:b0:2d8:d4d3:da4c with SMTP id d9443c01a7336-2d94a90e1d2mr152889605ad.16.1788290285320;
+        Tue, 01 Sep 2026 12:18:05 -0700 (PDT)
+Received: from localhost.localdomain ([192.19.203.250])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07b79cf9sm186440eec.18.2026.09.01.12.18.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 12:18:04 -0700 (PDT)
+From: Bhargava Marreddy <bhargava.marreddy@broadcom.com>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com,
+	vsrama-krishna.nemani@broadcom.com,
+	vikas.gupta@broadcom.com,
+	Bhargava Marreddy <bhargava.marreddy@broadcom.com>
+Subject: [PATCH net-next 0/7] bnge: Support async events while down 
+Date: Wed,  2 Sep 2026 00:47:21 +0530
+Message-ID: <20260901191728.643212-1-bhargava.marreddy@broadcom.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,168 +95,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-When no keyring exists for the requested UID, KEYCTL_GET_PERSISTENT
-creates and registers one before linking it to the requested destination.
-The configured timeout is set only after the destination link succeeds.
+Hi,
 
-A destination restricted with KEYCTL_RESTRICT_KEYRING makes that link fail
-with -EPERM. With persistent_keyring_expiry set to 60 seconds, /proc/keys
-still reports the registered keyring's expiry as "perm".
-The failed call therefore leaves a quota-exempt keyring in the namespace's
-hidden register, where it may remain until namespace teardown.
+This series lets the bnge driver keep processing firmware async events
+while the interface is administratively down, by keeping one notification
+queue (NQ0) active across close/open instead of tearing it down and
+rebuilding it every time the interface is brought down and up.
 
-Rename the write-locked helper to key_get_or_create_persistent() and return
-the key reference through a result parameter. Return 0 when it creates a
-keyring and 1 when the retry finds an existing one. Return a negative error
-on failure. Another caller may create the keyring between the initial
-read-locked lookup and the retry under the write lock.
+This persistent NQ0 setup lays the groundwork for additional async events
+in future patches.
 
-Set the timeout after permission checking and linking. Do this on success,
-or on failure if the call allocated the keyring. This leaves a new keyring
-collectible after failure without starting its timeout while linking is
-still in progress.
+Bhargava Marreddy (7):
+  bnge: Extract bnapi allocation and cleanup into helpers
+  bnge: Extract per-NQ ring allocation and init helpers
+  bnge: Move bnapi and ring_grp allocation to probe/remove
+  bnge: Drop obsolete bn->bnapi NULL checks in open/close paths
+  bnge: Quiesce NQ0 around ring teardown in bnge_free_core()
+  bnge: Create NQ0 during probe and keep active across open/close
+  bnge: Process async events while administratively down
 
-Fixes: f36f8c75ae2e ("KEYS: Add per-user_namespace registers for persistent per-UID kerberos caches")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Changes in v3:
-- Return the persistent key reference through a result parameter (Jarkko).
-- Keep lookup-or-create atomic inside the helper and use 0 for creation, 1
-  for an existing keyring, and negative values only for errors.
+ .../net/ethernet/broadcom/bnge/bnge_ethtool.c |   2 +-
+ .../net/ethernet/broadcom/bnge/bnge_link.c    |   3 +
+ .../net/ethernet/broadcom/bnge/bnge_netdev.c  | 483 ++++++++++++++----
+ .../net/ethernet/broadcom/bnge/bnge_netdev.h  |  11 +
+ .../net/ethernet/broadcom/bnge/bnge_rmem.c    |  26 +-
+ .../net/ethernet/broadcom/bnge/bnge_rmem.h    |   4 +-
+ .../net/ethernet/broadcom/bnge/bnge_txrx.c    |  15 +
+ 7 files changed, 440 insertions(+), 104 deletions(-)
 
-v2: https://lore.kernel.org/r/20260901164323.35785-1-kmehltretter@gmail.com/
-
-Changes in v2:
-- Rewrite the commit message around the restricted-destination reproducer
-  and trim the explanation (Jarkko).
-- Track whether the persistent keyring was newly allocated and finalize its
-  timeout after the permission and link checks. This preserves an existing
-  keyring's timeout on failure and avoids expiry during linking.
-
-Tested with QEMU 10.2.1 TCG on i386 and x86_64. With
-persistent_keyring_expiry set to 60 seconds, KEYCTL_GET_PERSISTENT returned
--EPERM and /proc/keys reported "perm" before the fix and "1m" after it on
-both architectures.
-
-Also tested on x86_64 with persistent_keyring_expiry set to 1 second and
-gc_delay set to 0. Successful calls reused the same serial, a newly created
-keyring from a failed call expired, and a failed call using an existing
-keyring left its timeout unchanged. A test-only two-second delay before
-timeout finalization did not allow the keyring to be collected before link.
-
-Two concurrent callers returned the same serial. A test-only 100 ms delay
-after the read-locked miss forced both callers into the write-locked retry
-and confirmed that the second caller took the 1 (existing) return path.
-
- security/keys/persistent.c | 55 ++++++++++++++++++++++----------------
- 1 file changed, 32 insertions(+), 23 deletions(-)
-
-diff --git a/security/keys/persistent.c b/security/keys/persistent.c
-index 97af230aa4b22..e99929b81a1a2 100644
---- a/security/keys/persistent.c
-+++ b/security/keys/persistent.c
-@@ -33,25 +33,31 @@ static int key_create_persistent_register(struct user_namespace *ns)
- }
- 
- /*
-- * Create the persistent keyring for the specified user.
-+ * Get or create the persistent keyring for the specified user.
-  *
-  * Called with the namespace's sem locked for writing.
-+ *
-+ * Return 0 if a keyring was created, 1 if an existing keyring was found, or a
-+ * negative error.  On a nonnegative return, persistent_ref holds a reference
-+ * to the keyring.
-  */
--static key_ref_t key_create_persistent(struct user_namespace *ns, kuid_t uid,
--				       struct keyring_index_key *index_key)
-+static int key_get_or_create_persistent(struct user_namespace *ns, kuid_t uid,
-+					struct keyring_index_key *index_key,
-+					key_ref_t *persistent_ref)
- {
- 	struct key *persistent;
--	key_ref_t reg_ref, persistent_ref;
-+	key_ref_t reg_ref;
- 
- 	if (!ns->persistent_keyring_register) {
--		long err = key_create_persistent_register(ns);
-+		int err = key_create_persistent_register(ns);
-+
- 		if (err < 0)
--			return ERR_PTR(err);
-+			return err;
- 	} else {
- 		reg_ref = make_key_ref(ns->persistent_keyring_register, true);
--		persistent_ref = find_key_to_update(reg_ref, index_key);
--		if (persistent_ref)
--			return persistent_ref;
-+		*persistent_ref = find_key_to_update(reg_ref, index_key);
-+		if (*persistent_ref)
-+			return 1;
- 	}
- 
- 	persistent = keyring_alloc(index_key->description,
-@@ -61,9 +67,10 @@ static key_ref_t key_create_persistent(struct user_namespace *ns, kuid_t uid,
- 				   KEY_ALLOC_NOT_IN_QUOTA, NULL,
- 				   ns->persistent_keyring_register);
- 	if (IS_ERR(persistent))
--		return ERR_CAST(persistent);
-+		return PTR_ERR(persistent);
- 
--	return make_key_ref(persistent, true);
-+	*persistent_ref = make_key_ref(persistent, true);
-+	return 0;
- }
- 
- /*
-@@ -78,6 +85,7 @@ static long key_get_persistent(struct user_namespace *ns, kuid_t uid,
- 	key_ref_t reg_ref, persistent_ref;
- 	char buf[32];
- 	long ret;
-+	bool created = false;
- 
- 	/* Look in the register if it exists */
- 	memset(&index_key, 0, sizeof(index_key));
-@@ -100,23 +108,24 @@ static long key_get_persistent(struct user_namespace *ns, kuid_t uid,
- 	 * also need to create the register.
- 	 */
- 	down_write(&ns->keyring_sem);
--	persistent_ref = key_create_persistent(ns, uid, &index_key);
-+	ret = key_get_or_create_persistent(ns, uid, &index_key,
-+					   &persistent_ref);
- 	up_write(&ns->keyring_sem);
--	if (!IS_ERR(persistent_ref))
--		goto found;
--
--	return PTR_ERR(persistent_ref);
-+	if (ret < 0)
-+		return ret;
-+	created = ret == 0;
- 
- found:
-+	persistent = key_ref_to_ptr(persistent_ref);
- 	ret = key_task_permission(persistent_ref, current_cred(), KEY_NEED_LINK);
--	if (ret == 0) {
--		persistent = key_ref_to_ptr(persistent_ref);
-+	if (ret == 0)
- 		ret = key_link(key_ref_to_ptr(dest_ref), persistent);
--		if (ret == 0) {
--			key_set_timeout(persistent, persistent_keyring_expiry);
--			ret = persistent->serial;
--		}
--	}
-+
-+	if (ret == 0 || created)
-+		key_set_timeout(persistent, persistent_keyring_expiry);
-+
-+	if (ret == 0)
-+		ret = persistent->serial;
- 
- 	key_ref_put(persistent_ref);
- 	return ret;
-
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
 -- 
-2.53.0
+2.47.3
+
