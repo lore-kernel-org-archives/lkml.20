@@ -1,109 +1,116 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA03A322A1C
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:01:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439FA4119E5;
+	Tue,  1 Sep 2026 03:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788231706; cv=none; b=T4JNbl5XCs6HGBd2N5/x1PMD15SlIVMwD1UCyqXReykmiL1++iiuwZJduDOMlWA+8YoukymQ9StYP6S7yCWFPFqzw2isa8M+6FDM7uCwGemVp3v+qD2sjpx2bSA96+s73JcCeWPN8WDltOJ1fMzTxCX2A4/MCifNyBf3DIX+PVg=
+	t=1788231722; cv=none; b=ptu5mby48ILChaRdWqfCcoqpksIOIj+OES+r717cbx9voB+/MDdL4ONyS4xg0n3jB0sGuzPvsnZ3fMzUUp33n4LC32y0eBeCQ28MeE8CLvlVWF0JMrce8XIIqBP/BknlwGE8VLLg56HyRRcOaqbU/cLPs4dmUylBWI876r61y6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788231706; c=relaxed/simple;
-	bh=Hkef5vm62/D8cTKYlAkrlWuX7kZwXD/Ej6YpAUBO93g=;
-	h=Message-ID:MIME-Version:From:To:Cc:Date:Subject:Content-Type; b=HbkycB54DGHPgFVjywNjj86rVbGNJqo6fk7cdTDv63kwMz6V8HuqYIAxcXsKveU5i9gsL7+V9z3xfaybjHboJQj5Z0wLKexzso2cCPHN3eijB3ojwpdWXYvEo6UJI5m9IVxZ0hFut9f+PtDRr4h1HlU/dkoXYXffED9o4a0voLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=grZeX0Eh; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788231722; c=relaxed/simple;
+	bh=Sm4dyiUxS2inup09HhJdgSya9QU60DLWwOfASA9awpA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=r820UakYb8efhxkLx2oOKfQRKGjpQfaEgTnNXq7N0aY/2NWVaAOlTF3YK1A1w0yI51LhX96MMgAUgs+m59j9oFHVQFbpw2fO8i2+8G4O+CeOiL5KW3hIz+EXEHo9nTk+HKO9pJq8TNYhP8x9GBPpmJzQqJErbIFEmBUULMoGTZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VgkVclOn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="grZeX0Eh"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1c8d4a959so389977a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:01:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788231702; x=1788836502; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tyGWHCwFIJqwX2o4/R+Ah8t50K3KPyd4i+kW0IOiB4I=;
-        b=grZeX0EhriUXhsJvTSLd1vhJ60qqtXImT1L0OGWt3npLHVJcnIf03Y3Pr8sBRFsgih
-         SAyLeD8mBZaift6H9nKVmbNMRN/HX2R2wGEWLQnF0bL68HblJ7EUemWE392o6EF9OY5L
-         tziLqRIQI0oJ0Rk1yaHx/vX/whI1f2UCHLaAwiq3HCt42YPUnp/l9ush4XHnpgtF5/+P
-         0Zw8PPPhcQ1qMZnbzBbuRQtdm6Jnowg8zpCN879k3PTuGrI1VIctwWfe7y4SidgOXZz1
-         As+ABFHec0FCsW38uxJ1GH4afXCxf63jaj9tqe/TRtVYvspsK46JEz5TeXGHKnSqjBD/
-         PYmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788231702; x=1788836502;
-        h=content-transfer-encoding:content-type:subject:date:cc:to:from
-         :mime-version:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tyGWHCwFIJqwX2o4/R+Ah8t50K3KPyd4i+kW0IOiB4I=;
-        b=kEk2P56GCOT3+5nFnh9sw6eJu1NxOt8M70LMs7dfoZ7kua68zlBGahECb8bad5CFuM
-         Ws7vwM2fZLS8nywOw1LYM3svw7g0UxA75hRvt+7WC8Ag+64DLEOSOX/4abRLFvT9+iEW
-         5q4fCexhl/QaUkqYgkkNLuxS5k9PTCvtbCX+dfVQ1FJ4KZ3h34oPzNM5c8+yZyopHH7R
-         Te+GGChVpfCwMr+6AJbetTfLdRd7L8b7DO+wXtaydMy9gS+fo+p/BXwnspHj3Z854RBR
-         gwA+CD9M743lvj1f/z+ffo3Juv5MuymZfzisxTc+QNOK+PUCNqa2HlLlU0+0BaWBQHAq
-         vZtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx+f42+trP4NTxYBdHp8o4zKuBrHoc6TsSP2avv50YQg5MgsZ2/rZKHmBeROgKos1yry9Cyk5T5yYmxKfU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSUA0/5vsmcUs+XmakvRdn2BfUQpyNs3xsl5Z7FYydNVm4zz0s
-	Dskdec4xTOpScufCUi4Dgbg45FbwOvFuGRsbM8aw4Szwhir3arRwTrSg9q4xJA==
-X-Gm-Gg: AYBFou0LHCB4ZMaZYbI4loNWygjafB816xmElVnn1AD0D/XNIcGBfqUY416GCW+G200
-	kPHUxdoPkuGAEwG5Pm/UpajZ9ufYtbpcjrIa8WD4BUeCFARpjO9KFI/U7U4jfIUyvw8Utdfri+C
-	nHLBt/skgJXE0u/66BNeO3iAZ5KARXYVeEPEF2paAw9vTGh1asC/RgU81o8TgahD1QGcVTeT5sc
-	5ToscFq2IxfKPFcyZPbRLTPmRUmFXSb1xDaRgeLiESVa4LV7EJrp8Ma9p8CwXYCJ8NPwuWBUzQw
-	Ffg48eZlk2XZNjr9piHUfDifb/St73sfHJM0M90ZCKQSS3gOru5N13OieAFtQKbKbM4olhEfe0C
-	KKpFEfB5ehved1eHiI4mg2MvC186APAptcMKyeaHGmLZxdW2up3070Xc1p1/hJzYBFeZz1Kwl+B
-	ebMlcl44IhANybSXXPohCcBrcUyVEyw2n2vN+dYU+5yheQ5ShYJP41p6WMi8hFx8JREbX1u7M/C
-	6I2UoI1TvHLLaPOIxJbf2iE5gJ1qCIF+B/zNUaABL6HaFWPLKp61JcNsw==
-X-Received: by 2002:a17:90b:3c07:b0:398:c0ad:711c with SMTP id 98e67ed59e1d1-398c0ad98afmr24074334a91.15.1788231701893;
-        Mon, 31 Aug 2026 20:01:41 -0700 (PDT)
-Received: from manush ([2406:7400:94:7a79:f149:be84:942d:9300])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0e0e67dsm30150628c88.15.2026.08.31.20.01.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 20:01:41 -0700 (PDT)
-Message-ID: <6a964015.7d702ed2.1273e8.5ac0@mx.google.com>
-X-Mailer: git-send-email 2.46.2.windows.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VgkVclOn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 650A11F000E9;
+	Tue,  1 Sep 2026 03:01:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788231717;
+	bh=lGqX5A+ldPU+bBU/2ehh9RDbSoAXfA8C2PmzwkzeDVk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VgkVclOn3NYKxL/t48kWZaIiWJpug12HMYCvW6lzSeiUg31MhCZ9c8MLrj3ltFW2g
+	 eJ9tkviz1qnL3rIF3LS1FixjZ2BpUkrlQc6JZwsCTc/ngGNIi65tKxsCnjfbtgHmdh
+	 SvL5nMNmxbGAILOSV+gjz0x+8JF4JEnovM0CDYWkYKyj6nPaxyxvRXZqflI24WDOM4
+	 3Aw5uQulohaRCPY/gbQcm8IES3au6SQnJICgmQTjCq9W+L4l+iWTxpzCF27VyYsv+5
+	 nHZMlzOKefC0eI1KZgwELY8y7wkNVut2zjj3fz4wNO8cBbg4qndxmUSz4mIPxrhqLh
+	 NNK8bLJPEAtoQ==
+Date: Tue, 1 Sep 2026 04:01:51 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Kurt Borja <kuurtb@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 02/10] dt-bindings: iio: adc: support the TI ADS126x
+ ADC family
+Message-ID: <20260901040151.67a3c90b@jic23-huawei>
+In-Reply-To: <20260831-elude-steadfast-b8017ee226d0@spud>
+References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
+	<20260828-ads126x-v4-2-1dc27e9c0260@gmail.com>
+	<20260828-cartel-willow-9592e4e8b912@spud>
+	<20260830025743.70dc65e4@jic23-huawei>
+	<20260831-elude-steadfast-b8017ee226d0@spud>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Manush Prajwal" <manushprajwal555@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Date: 1 Sep 2026 08:31:41 +0530
-Subject: [PATCH] staging: axis-fifo: fix underflow of tx_fifo_depth in size
- check
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-axis_fifo_write() bounds a transmit by checking:=0D=0A=0D=0A    w=
-ords_to_write > (fifo->tx_fifo_depth - 4)=0D=0A=0D=0Afifo->tx_fif=
-o_depth is an unsigned int populated directly from the=0D=0Adevic=
-etree property "xlnx,tx-fifo-depth" in axis_fifo_parse_dt(),=0D=0A=
-with no lower-bound validation. If a devicetree ever supplies a=0D=0A=
-tx-fifo-depth smaller than 4 (e.g. a malformed or misconfigured D=
-T),=0D=0A"tx_fifo_depth - 4" underflows, wrapping to a huge value=
-. The size=0D=0Acheck above then never triggers, silently defeati=
-ng the exact=0D=0Aoverrun protection the surrounding comment desc=
-ribes: writes far=0D=0Alarger than the FIFO's real capacity get a=
-ccepted and passed to the=0D=0Ahardware, driving it into the "Tra=
-nsmit Packet Overrun Error"=0D=0Acondition the check exists to pr=
-event.=0D=0A=0D=0AValidate tx_fifo_depth against the minimum the =
-driver requires at=0D=0Adevicetree-parse time, matching the exist=
-ing validation style already=0D=0Aused in axis_fifo_parse_dt() fo=
-r the other DT properties.=0D=0A=0D=0ASigned-off-by: Manush Prajw=
-al <manushprajwal555@gmail.com>=0D=0A---=0D=0A drivers/staging/ax=
-is-fifo/axis-fifo.c | 7 +++++++=0D=0A 1 file changed, 7 insertion=
-s(+)=0D=0A=0D=0Adiff --git a/drivers/staging/axis-fifo/axis-fifo.=
-c b/drivers/staging/axis-fifo/axis-fifo.c=0D=0Aindex 3d358f919352=
-3c..dba76fbf5d685a 100644=0D=0A--- a/drivers/staging/axis-fifo/ax=
-is-fifo.c=0D=0A+++ b/drivers/staging/axis-fifo/axis-fifo.c=0D=0A@=
-@ -412,6 +412,13 @@ static int axis_fifo_parse_dt(struct axis_fif=
-o *fifo)=0D=0A 				   &fifo->tx_fifo_depth);=0D=0A 	if (ret)=0D=0A=
- 		return ret;=0D=0A+	/*=0D=0A+	 * axis_fifo_write() computes 'tx=
-_fifo_depth - 4' to bound the size of=0D=0A+	 * a transmit; a dep=
-th smaller than that underflows the unsigned=0D=0A+	 * subtractio=
-n and silently disables the overrun check.=0D=0A+	 */=0D=0A+	if (=
-fifo->tx_fifo_depth < 4)=0D=0A+		return -EINVAL;=0D=0A =0D=0A 	re=
-t =3D of_property_read_u32(node, "xlnx,use-rx-data",=0D=0A 				  =
- &fifo->has_rx_fifo);=0D=0A--=0D=0A2.43.0
+On Mon, 31 Aug 2026 17:24:08 +0100
+Conor Dooley <conor@kernel.org> wrote:
+
+> On Sun, Aug 30, 2026 at 02:57:43AM +0100, Jonathan Cameron wrote:
+> > > > +
+> > > > +  clocks:
+> > > > +    maxItems: 1    
+> > > 
+> > > clock doesn't appear mandatory, what does it do?
+> > >   
+> > > > +
+> > > > +  '#io-channel-cells':
+> > > > +    minimum: 1
+> > > > +    maximum: 2    
+> > > 
+> > > What's the use case for actually setting this as a single cell? Kinda
+> > > confused by it.  
+> > 
+> > Part dependent, but I think we should just make them both take the two
+> > parameters and have the value of one of those fixed to 0 for some parts.
+> > Probably easier to understand that way at least.  
+> 
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: ti,ads1263
+> +    then:
+> +      properties:
+> +        '#io-channel-cells':
+> +          minimum: 1
+> +          maximum: 2
+> 
+> This in particular is what I question. Two different devices having
+> different cells is fine, this one device allowing both? Nah. It should
+> be fixed to 2. The ads1262 should probably have it fixed to 1, as the
+> driver already does.
+
+Ah. I missed that chunk!  Thanks
+
+J
+> 
+> >   
+> > > 
+> > > Otherwise, quite frankly, the binding is too complicated for me! I'll
+> > > have to leave it up to the IIO folks to cover whether what's being done
+> > > is sane.  
+> > 
+> > I'm rely on David to take a look :)
+> > 
+> > To me it looks mostly fine but a few odd corners where I'm not sure
+> > how things are supposed to work.
+> > 
+> > Jonathan
+> >   
+> > > 
+> > > Cheers,
+> > > Conor.
+> > >   
 
