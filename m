@@ -1,44 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2766B4582DF;
-	Tue,  1 Sep 2026 07:21:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2C94582C6
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:21:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247263; cv=none; b=B4xD/rUpeXQ/IOVAf/fteWe3V6WhASDhHkm1ktTbAyYZgWKSmc9iG1k8UTYmQkUbD6xqEij7sGGSGdssRisOypLu613u6iaiqpIrs7w4Lwp2nY7UvZMf+QttMwOT7Gt1BAJlREq8UlY1ZDlvXuAgqj8tJvHzoyMp/HaSAMg83ug=
+	t=1788247284; cv=none; b=GaN4fPZTKr2aNNZz69Yh0pFZAOlCArwE9x1wYucN5YYVFlx6bsUmjjWYW1haBoEPVgrOoGcfP3lIfargpqrg/BhFFBP1mUDhkQcdychjZlmOKt6lH2vU6GWJYHJHC/lsUDB1FwDx1jMgVMaxRDNHoUYLBI9VqZfxaWv9EMe3Llw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247263; c=relaxed/simple;
-	bh=QVi5Z29odO8aCMhE41jy434rZJxB+EKgOCwHGGDdP0E=;
+	s=arc-20240116; t=1788247284; c=relaxed/simple;
+	bh=QU0jsatRvUpSD2qAXK7xjuUZ4fa1ontKoCWpNceBOX4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ph7BUv226C8QcSPObr6kCf+7vvm0Bqkxxuy4Eq3h823/aiRXsR9pwQb8osE/Qqp87nYAuAOhxLDRkDXuVajOI50+X3AxuZ8rmd9xHPsJWherJV5qX3TTgcLt2y++erACr7MuKYE7w9gl6QcZaEKmSRL9+1weQ9spGVz2F2KUePo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iuRxpt3m; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=eyV96fqPrroU7N8/5Uh8OPBuXJvCn6icbEtyGkXHO4jTYMy05mAld3CosvDpExsGKZkHqTVL+yOxBb4kQpmmUXJIhFvMY2SKa/vTAtN0MKLPuldKZoweGG/xk9dgfsik3G8RAFcKMmRXG3fzEXmPsz9KdKKWciIf9rqC5+gm4hY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KNEIrAKm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UmYC/o3n; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iuRxpt3m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC021F000E9;
-	Tue,  1 Sep 2026 07:20:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788247261;
-	bh=0F8/0aZYXOMLcGOV+5hsNUMjgV4FOpBKEncbAuq19HE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iuRxpt3mnUwa5xv1ss6ybX7Q7HrL3frGaku71Pi05c1SNGDc7uaB2Vtg/TMEP+DQj
-	 NYjH2LvzwY6fpBB4Yli7XvLpZE+kn701IHEO9T9OBPeu5coPofJuIwAiR4HQm4IW5Q
-	 JKFe8mN7JjB16dc09rMEQrNCpGW9VQXnrsEsKLwytT5hKcZkGyHUE9IEWPypakksdd
-	 /HL5KCITRww1fBYLt4WOZJN+Ki0+JxjyThlcss8G+UcgOI36P3TYiFcPhshnyHt2Vg
-	 XBwqOWXwiyQ8ypgT5NB9v0a7C3YklgNlg+JNfVbWMg9+lILnWGPF4N40DtkxOndXZM
-	 IlEexZfVZCi7Q==
-Date: Tue, 1 Sep 2026 08:20:55 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-tip-commits@vger.kernel.org, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Atish Patra <atishp@meta.com>, 
-	Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org, 
-	Jiri Slaby <jirislaby@kernel.org>
-Subject: Re: [tip: x86/urgent] x86/mm/pat: Acquire init_mm read lock on
- attribute change to avoid UAF
-Message-ID: <apZ8Uh7ej4a9WkIq@gremlin>
-References: <20260813-cpa-fixes-v2-2-39b4ff90f91d@kernel.org>
- <178821524648.3717435.13938325908577682845.tip-bot2@tip-bot2>
- <ea12e0a4-36b3-4c71-8930-72fc4eaf369f@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KNEIrAKm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UmYC/o3n"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68179Qp61811491
+	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 07:21:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=qbzlp9SMSko7PidhSJnkg6//
+	wcnQvTw7pNx2Odv6V3k=; b=KNEIrAKmiYBgGr52uNJLFUYWgWwqDlXRi24zChWI
+	EBvzX+j8awoDxJws0XU1e2ZcxXa+uXMSin3fJ1w0voMmz+z3Nku7k5kGhthXcxbJ
+	gda+vuP9SH5W007u5Yrj0ETj8af/9F24S0d53Phy29v73UyZFFgGEq5f/3tFH+gd
+	cJO28OIQJhEBVYSLasGWTHIApcAjiZpmRv06S2ouJUDdY1xUeTR0bgBx4R4odf4s
+	DM8nYLKfFLHTNCM/btvuOakR47DM7CTV9gpshjaiAgJMBL6dVBJNg2/ZyRx656kS
+	YmF3e24k3lz1OZ649olRmQnFG2cjH027ojQRiIsdIz4VYA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdd4duhd7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:21:19 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-930b571432fso118546785a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:21:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788247279; x=1788852079; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qbzlp9SMSko7PidhSJnkg6//wcnQvTw7pNx2Odv6V3k=;
+        b=UmYC/o3n8XaUH0Dl1vLVctNECkgmsLCWeMAW6UX/KffwXyePs2jsWDfb2+WHjvnsF7
+         J4+/lckuf+w3W9FVsjcv0NmUocZLjQukwGhGSHHQpRyQCbrHSdoT1fUn7FInLkExIO8z
+         PPCjQ3qKhnlz/tV2okufmlQMHtbgxGUzd9jfHvbsKjSRX/vWQIY5RSuAuGNBGSopTR9E
+         NnKNc97MUxRnVODjkal8z3K9fCbQbD/ssxx690AVrFmhZmNBTX1PgvLPOWMYQsMNb7ZR
+         eXATFr5+34sjP7FHJA7tdL+cjB5LF7m/dvuVr14MxZ5jz1y4PzFLHiXRNsgOkTdDPkzL
+         Z93g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788247279; x=1788852079;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qbzlp9SMSko7PidhSJnkg6//wcnQvTw7pNx2Odv6V3k=;
+        b=cjwvB3JT0H0D+DcuEV5fAVEo2HLD7ScR1LUDg4F1wWIy9Ne0U7XyxeTcjFzZ1Oe2MO
+         otZBnP61kXWyAh5uO26pNvw3mCRZ8zKzyOiQOOeyYHHnYd1nQHb6WYibQXeg75FveAMi
+         xr8HnOwpodjT39zzu0NUSkCvAEik4vRsm3GsTFd+SC/0uFdLBo4FVopFSFeSYwLlL+eN
+         xfKvU5KRnOFfo66Rmsg9lmnnWpQCcblExKvYdkW0shvfEI5/GxkRJhRj/wBw4p1g36Wb
+         wgp2F8vVQ+TWzm3IMBmjphC+vJEte4KO1O/mhTjy2aDkYE1DHcul+i7ABWNdKIBB831X
+         P6aA==
+X-Forwarded-Encrypted: i=1; AHgh+RpfjXKN0529at6ywdXNoXi4yOBXY2l4pBNbrmt3j4d66RjwrLwvEfV8hYwFGlS6hvA9595sghiRO+AaXbc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOtuhlEKTEtmdciS7Jb72RxwjfAAXURxWn12FuPVGqo8VSR57x
+	pPKKwEf5PXHtIphdyS7juB+cyFqod2QH/Uetm6g4naUivvp6DqWYf/QykJCdl4m2WYljdyeeqHW
+	K0akxSwEbKbF7uQaoiwblvIpOL+siP3qSX1olXV+OZYl72ZDNADX31cEfOZ8AKR/325w=
+X-Gm-Gg: AR+sD107me6Nmi+IVmp+VyLbuyLD/ZnZMB6pKLlyKskfNY2dRlOmhxBw0e7mw2Psfca
+	Zp7hyO6vRflwIxK002ffGCoOCt+5XLYsB3vgn9vkP+LSROv/G8Qx94IF/ifxH1fWYIrtqsKB4SW
+	lqvFLU9aqeLlLDy3WJeZ47BDnabVf66afXzPHWqTp/iwGoYPE6YMgsq6sCFu1C5vqG49lA2Qdzy
+	OJ3V9iNiv7YBrmdbAdvt2AAXP5adFglPaAw7wWue8SFP9N6bCCZNXmjn5TsQg1hL1C1iMUYNrkp
+	3Iu2urs0CIo5wC2kKjaU/yEKdSEk+p4IsIsoB+CqH/37dBBglhfiqYENG24X6H3JuVpTzzwb4YP
+	OFtdw9vauOXlS9LI=
+X-Received: by 2002:a05:620a:84c7:b0:939:4bee:f84b with SMTP id af79cd13be357-9394beeff4dmr445368685a.9.1788247279220;
+        Tue, 01 Sep 2026 00:21:19 -0700 (PDT)
+X-Received: by 2002:a05:620a:84c7:b0:939:4bee:f84b with SMTP id af79cd13be357-9394beeff4dmr445361285a.9.1788247278504;
+        Tue, 01 Sep 2026 00:21:18 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.178])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce0b401sm45924505e9.3.2026.09.01.00.21.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 00:21:17 -0700 (PDT)
+Date: Tue, 1 Sep 2026 10:21:14 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Sreeshankar K <sreeshankar0910@gmail.com>
+Cc: andersson@kernel.org, sboyd@kernel.org, bmasney+clk@redhat.com,
+        jbrunet+clk@baylibre.com, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, rafael@kernel.org, viresh.kumar@linaro.org,
+        konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org,
+        radu@rendec.net, taniya.das@oss.qualcomm.com, danila@mainlining.org,
+        davidwronek@gmail.com, mani@kernel.org, robimarko@gmail.com,
+        linux@gurudas.dev, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH v8 04/12] clk: qcom: Add Global Clock Controller (GCC)
+ driver for SM7250
+Message-ID: <fyzo7furxfsreajgefuimfdpkkulxvwxf76plc5o6kjv7bgdym@2pah3t7yfiw7>
+References: <20260901070717.20513-1-sreeshankar0910@gmail.com>
+ <20260901070717.20513-5-sreeshankar0910@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,169 +103,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ea12e0a4-36b3-4c71-8930-72fc4eaf369f@kernel.org>
+In-Reply-To: <20260901070717.20513-5-sreeshankar0910@gmail.com>
+X-Authority-Analysis: v=2.4 cv=b9qCJNGx c=1 sm=1 tr=0 ts=6a967cef cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=G5ilVN+faPP2Ze1SHB4iFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=pGLkceISAAAA:8 a=7xdfmJvTUVrkudBNT9YA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA2NCBTYWx0ZWRfX1REAhPgWY0ZU
+ eWWQYWlGm2acWzaa++4OG9KjrlvlD1wWJaSEap3OkGwN/ETB61RBjFe4qRWtzA04RW/pfURL5v7
+ b4Lw/b2a4ZF9xz6vUx76MMZW8DR4TmnnguMFahUZYsAt9vBtraaMDkKiEyDS9OvY8rO9vyxuZvD
+ isMyYPAR0JavC0KHoOHMoj5ADyTi5C547S1OYp2+UfeC37d0I5NPDjT86mzUhji6wp59fGt33FF
+ 8QOC2d72AicjG+utzHOgDj1fEiLm6IuStHnaLGT93LxFvfdh7hl7pUxz71SaqVzb748TyfZI6PG
+ W1hRBKHduLdcObEZzXnB1AA71OwcE9p+MSb3+sSxESbhiwiaudsZfl4U2rY1UqqZOvh5MX16k3E
+ vZ0jLPOSeF6Iw0nDiZY9kzLCK1C92MI3BPvyu121//n2O71+QCFno6Jahe0y1tkbtWqj1KWj725
+ pOGpiyIr66qblG1ry5Q==
+X-Proofpoint-GUID: lAiZcQ9owhrAs5-TyCsxKiDXRfR-9Ene
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA2NCBTYWx0ZWRfX4fdtswUP1hDG
+ Z3ZHzHvSFetlFP0aUCWwgpcPzZH0aULtraDLImo5vGkLp54hrmZsn1sbqm0YxF95VGcOEz8Onsa
+ LfGUP8Mtae7Awjm3gt/tjYjmmldSQ/c=
+X-Proofpoint-ORIG-GUID: lAiZcQ9owhrAs5-TyCsxKiDXRfR-9Ene
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 clxscore=1015 impostorscore=0
+ spamscore=0 priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010064
 
-Dave - Again this patch has been modified vs. what was submitted and the commit
-message, tags, etc. are now completely incorrect.
+On 26-09-01 07:07:09, Sreeshankar K wrote:
+> Add support for the global clock controller found on SM7250
+> based devices.
+> 
+> Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+> ---
+>  drivers/clk/qcom/Kconfig      |    9 +
+>  drivers/clk/qcom/Makefile     |    1 +
+>  drivers/clk/qcom/gcc-sm7250.c | 2275 +++++++++++++++++++++++++++++++++
+>  3 files changed, 2285 insertions(+)
+>  create mode 100644 drivers/clk/qcom/gcc-sm7250.c
+> 
 
-I'm not happy with this going to Linus as-is, is there a way for you to correct
-these please?
+[...]
 
-On Tue, Sep 01, 2026 at 08:05:07AM +0200, Jiri Slaby wrote:
-> On 01. 09. 26, 0:27, tip-bot2 for Lorenzo Stoakes (ARM) wrote:
-> > The following commit has been merged into the x86/urgent branch of tip:
-> >
-> > Commit-ID:     477cf5cd1f698053df7426b7b8d9339e85e00946
-> > Gitweb:        https://git.kernel.org/tip/477cf5cd1f698053df7426b7b8d9339e85e00946
-> > Author:        Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > AuthorDate:    Thu, 13 Aug 2026 12:01:25 +03:00
-> > Committer:     Dave Hansen <dave.hansen@linux.intel.com>
-> > CommitterDate: Mon, 31 Aug 2026 15:15:42 -07:00
-> >
-> > x86/mm/pat: Acquire init_mm read lock on attribute change to avoid UAF
-> >
-> > A previous commit protected against races between ptdump and CPA collapse,
-> > however one still exists between attribute changes and collapse as reported
-> > by Denis V. Lunev (linked).
-> >
-> > When an attribute change arises, a lockless page table walker obtains a PTE
-> > entry, which is later written to via set_pte_atomic():
-> >
-> > ...
-> > -> change_page_attr_set_clr()
-> > -> __change_page_attr_set_clr()
-> > -> __change_page_attr()
-> > 	-> _lookup_address_cpa()
-> > 	-> lookup_address_in_pgd_attr()
-> > 	-> [ lockless page table walker ]
-> > -> set_pte_atomic()
-> >
-> > There is nothing preventing a concurrent CPA collapse which can free the
-> > PTE that was retrieved here, resulting in a use-after-free.
-> >
-> > With the mmap write lock taken on init_mm over CPA collapse, resolve this
-> > race by acquiring an mmap read lock on init_mm over
-> > __change_page_attr_set_clr().
-> >
-> > This locks across the whole operation over which the walk and the PTE entry
-> > write occurs, solving the race.
-> >
-> > It is safe to do this here, as no spinlocks are held upon entry to
-> > __change_page_attr_set_clr().
-> >
-> > However, the lock must not be held over an allocation, as allocation can
-> > trigger reclaim and shrinkers may call into CPA recursively, making
-> > deadlocks possible (init_mm -> ... -> fs_reclaim -> init_mm).
-> >
-> > A page table is allocated when a huge page needs to be split:
-> >
-> > -> change_page_attr_set_clr()
-> > -> __change_page_attr_set_clr()
-> > -> __change_page_attr()
-> > -> split_large_page()
-> > [ pagetable_alloc() ]
-> > -> __split_large_page()
-> >
-> > Avoid deadlocks by dropping the mmap lock across pagetable_alloc() in
-> > split_large_page() and track whether this is needed by adding a new
-> > 'init_mm_read_locked' flag to struct cpa_data.
-> >
-> > This is safe as __split_large_page() (called with locks re-established)
-> > revalidates that the page table entry is the same as it was prior to the
-> > locks being dropped and __change_page_attr() repeats the entire page table
-> > walk whenever a split occurs, so concurrent split and collapse are
-> > accounted for.
-> >
-> > Concurrent ptdump is also safe as the lock is only dropped over page table
-> > allocation during which time the page table has not yet been modified.
-> >
-> > The CPA_COLLAPSE flag is only set by set_memory_rox(), which exclusively
-> > operates upon vmalloc ranges, and on x86 only within the module mapping
-> > space.
-> >
-> > This is important, because some callers directly invoke
-> > __change_page_attr_set_clr(), bypassing this lock. However, none of these
-> > operate within the module mapping space.
-> >
-> > * cpa_process_alias() - a recursive helper called by
-> >    __change_page_attr_set_clr().
-> > * __set_memory_enc_pgtable() - operates on the direct mapping and (via
-> >    __vmbus_establish_gpadl()) the vmalloc mapping space.
-> > * __set_pages_[n]p() - called by set_direct_map_[invalid, default,
-> >    valid]_noflush(), __kernel_map_pages() - operates on the direct map.
-> > * kernel_[un]map_pages_in_pgd() - operates on EFI ranges.
-> >
-> > This work is based upon Denis V. Lunev's excellent analysis of the bug with
-> > gratitude.
-> >
-> > Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-> > Tested-by: Atish Patra <atishp@meta.com>
-> > Tested-by: Nikunj A Dadhania <nikunj@amd.com>
-> > Link: https://lore.kernel.org/all/20260626163213.2284080-1-den@openvz.org/
-> > Cc:stable@vger.kernel.org
-> > Link: https://patch.msgid.link/20260813-cpa-fixes-v2-2-39b4ff90f91d@kernel.org
-> > ---
-> >   arch/x86/mm/pat/set_memory.c | 28 +++++++++++++++++++++++++---
-> >   1 file changed, 25 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-> > index c38faf3..cb5d6d6 100644
-> > --- a/arch/x86/mm/pat/set_memory.c
-> > +++ b/arch/x86/mm/pat/set_memory.c
-> > @@ -22,6 +22,7 @@
-> >   #include <linux/cc_platform.h>
-> >   #include <linux/set_memory.h>
-> >   #include <linux/memregion.h>
-> > +#include <linux/cleanup.h>
-> >   #include <asm/e820/api.h>
-> >   #include <asm/processor.h>
-> > @@ -49,7 +50,8 @@ struct cpa_data {
-> >   	unsigned int	flags;
-> >   	unsigned int	force_split		: 1,
-> >   			force_static_prot	: 1,
-> > -			force_flush_all		: 1;
-> > +			force_flush_all		: 1,
-> > +			init_mm_read_locked	: 1;
-> >   	struct page	**pages;
-> >   };
-> > @@ -409,7 +411,7 @@ static void __cpa_flush_tlb(void *data)
-> >   static int collapse_large_pages(unsigned long addr, struct list_head *pgtables);
-> > -static void cpa_collapse_large_pages(struct cpa_data *cpa)
-> > +static void __cpa_collapse_large_pages(struct cpa_data *cpa)
-> >   {
-> >   	unsigned long start, addr, end;
-> >   	struct ptdesc *ptdesc, *tmp;
-> > @@ -443,6 +445,18 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
-> >   	}
-> >   }
-> > +static void cpa_collapse_large_pages(struct cpa_data *cpa)
-> > +{
-> > +	/*
-> > +	 * Take the mmap write lock on init_mm to:
-> > +	 * - Avoid a use-after-free if raced by ptdump (which takes its own
-> > +	 *   write lock on init_mm).
-> > +	 * - Serialise concurrent CPA walkers.
-> > +	 */
-> > +	scoped_guard(mmap_write_lock, &init_mm)
-> > +		__cpa_collapse_large_pages(cpa);
-> > +}
-> > +
->
-> Ah, this belongs to the "Acquire init_mm *write* lock" counterpart. Not sure
-> how you managed to split/combine these two 8-).
+> diff --git a/drivers/clk/qcom/gcc-sm7250.c b/drivers/clk/qcom/gcc-sm7250.c
+> new file mode 100644
+> index 000000000..0d548fe4a
+> --- /dev/null
+> +++ b/drivers/clk/qcom/gcc-sm7250.c
+> @@ -0,0 +1,2275 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2026, Sreeshankar K <sreeshankar0910@gmail.com>
+> + */
 
-Yeah this is completely incorrect, now the commit message, tags, etc. are all
-wrong.
+[...]
 
->
-> thanks,
-> --
-> js
-> suse labs
->
+> +
+> +static struct clk_alpha_pll gpll0 = {
+> +	.offset = 0x0,
+> +	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID],
+> +	.clkr = {
+> +		.enable_reg = 0x52010,
+> +		.enable_mask = BIT(0),
+> +		.hw.init = &(struct clk_init_data){
 
---
-Cheers, Lorenzo
+const
+
+I think I already mentioned this for v4.
+
+> +			.name = "gpll0",
+> +			.parent_data = &(const struct clk_parent_data){
+> +				.index = DT_BI_TCXO,
+> +			},
+> +			.num_parents = 1,
+> +			.ops = &clk_alpha_pll_fixed_lucid_ops,
+> +		},
+> +	},
+> +};
+> +
+> +static const struct clk_div_table post_div_table_gpll0_out_even[] = {
+> +	{ 0x1, 2 },
+> +	{ }
+> +};
+> +
+> +static struct clk_alpha_pll_postdiv gpll0_out_even = {
+> +	.offset = 0x0,
+> +	.post_div_shift = 8,
+> +	.post_div_table = post_div_table_gpll0_out_even,
+> +	.num_post_div = ARRAY_SIZE(post_div_table_gpll0_out_even),
+> +	.width = 4,
+> +	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID],
+> +	.clkr.hw.init = &(struct clk_init_data){
+
+Same here and everywhere else.
+
+> +		.name = "gpll0_out_even",
+> +		.parent_hws = (const struct clk_hw*[]){
+> +			&gpll0.clkr.hw,
+> +		},
+> +		.num_parents = 1,
+> +		.ops = &clk_alpha_pll_postdiv_lucid_ops,
+> +	},
+> +};
+
+[...]
