@@ -1,90 +1,48 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D3839A4A4
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 22:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CCF32E128;
+	Tue,  1 Sep 2026 22:13:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788300566; cv=none; b=HuFzTLArvDpxx9V3Azk3qqEpnfnprzB++OiLOggZdQLXe+hQ8qCY1DZjrGvq5nxOk0zY5hCbxrCByCc3mbzlvMCVIyOvk/hHkwPa1ynXsN4w5OOtoEbsFRC9xCa7067RJ8vGFaduZ9sVFklKTkV2bLiLLi7g+6qNrqvfsY7uoEI=
+	t=1788300797; cv=none; b=VkhQeUTfy9DlT5KxIX/Pr4hwtfD2G2vQpC3zAYlBL2+AM+PqPTM/rIdRVo3SPQjde3VqHxGH6AqYzSef3zV0nqtyqufE6y7/OWk4l1UUQmdM7Fa0eaAuB9driiog28M1WlHIF+9pKXbPq9aA+1ifPzj5BYmC5l7wweAP5T06Low=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788300566; c=relaxed/simple;
-	bh=7RBFT/jzVt2TZvCkr50FJgetNEOcyAfjPOyqUNOAWgU=;
+	s=arc-20240116; t=1788300797; c=relaxed/simple;
+	bh=wyXXjidBpbCToh1vj3vUV1OCYL4JeiwUQh6d/BndrRg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T6ypdGSblw3i6PKmXXMOuFZYkcc77kczr1G4ypCAbc4Oq8ZbM7NU9MKN++6kqUO1U90kmWc+Ej4EwOUJYStRatf1rHB3NnyPX+Wa/Ulu/IOmU7qq/7EG9Rf8nYuHJZ4SAtwxPLQ3unjwDwzL7Pwo3bzyjJwQzM8BgLFOW2GXP7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=dhBHukGY; arc=none smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=JrpvUnHgfNCg8fJdxIcYondnDkZU1YQnbegHfNv7cIVSUQlHxpUym84keDtirJXlXW3qhcqsvmZ5u9OiRN5U3LnD0Iez6cMQqCAROEcKrF93994i/pVHVOfSwSJOZdkLdzu/EZzvuLVtUqsWiDwdv/6HF8XlNtsiKpd39V1GgpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A088eo3p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="dhBHukGY"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-836c8bdac50so6805307b3.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 15:09:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1788300562; x=1788905362; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=M4+niubgl505BkFKhEwPKEaItzjdUcc0IlA8qi6slv4=;
-        b=dhBHukGYt8PioOMSWQxAkbpTHT/tAmPd7qGywIMH0OfDlfaHoF+79qqIGrAGzDLh3k
-         cKI1FX+pEoOZ9hND3R3nrokKDYOBLcCtvEcLxIjpdd0fGfjv6xn2EBl9gaTLE1+5nST/
-         SrOvzuiPCjJRfKOI6bbwGVuIyM+Av5i3QfM6t3cOKvsDPqf0eO1LAtSvbzN3lQLFVt38
-         S7yYnvsIM8HvWPtqJag80flY/u8hR+WJ4fGuxiEXyOjdLBmoxSjXYskwgMbruASvIhDE
-         wk7PHcdRsbGcFzf3tSAaQFu+hjxfzBsjTjTjz9UlK5q5ICbtPmfvVd/68BMH6KuQgqO8
-         +dpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788300562; x=1788905362;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M4+niubgl505BkFKhEwPKEaItzjdUcc0IlA8qi6slv4=;
-        b=iei5Tdm+c9gzrw+s7oxC5UYwoLdLV0ySTtP3WdiKHzr2fOFYU06tm75FO1ZCIvVIOc
-         p5o3MSPIOfLqmrVkiB+Q60Soo8nlvfCAJyX5893vYafNA0c48bVz3eWCC5Lt2/dvuHkf
-         KSYYEK2ivpRRalNY9HcHBs2/apwmWI7Vpc+dT1uA8dDwFFm1q0gid+6KEgeFAySLdD60
-         ZYKra/PksZCK4xXd1n8r0B6uAeyv5+52DvE5GF/+nN1C0NBVNS16yenVFrr5D/iSf4Ug
-         RM/pna2qR52kcpunNw08q42xmPkzPxtpo6emFNxwK7U9Ajdvq2iiz1ud5/x2RVscmrLS
-         MGQw==
-X-Forwarded-Encrypted: i=1; AKwUvBwXMFc0HvH/ycgoRA7o7Fs9RkTGIn9/bTNG7ytr7BKAS/jvWm1hhmkuiHTj6ARsUclLD9CBaUWJpszZ19I=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYzaNR0KCO05a58EzSpSlThm9MV4ZeupDi+qJPChp+E3OVij+v
-	qJQzhBTrVjbHQa4TTIG3lNOxDybXs97bvxCN/wrRHZhiAMGwvn73fhFQ3BbHKelf2pM=
-X-Gm-Gg: AYBFou04iQS7B+ZDKA7sG9xNRvnBJeln4WrOq6Zy4d2hnzt3xe1EZCzsiMwnmDHWUWi
-	dkzHGV6d7B3aycRP4LBSnruXrw2fdU6Bs6GcoiBNxWXxHnla07JqZCAtxxFYf9++TOZjRXjLl+2
-	TWn+d9LVQbvY9KyoXe8vjoT9JTteH+FWS/2O9ZyJ3/aw6fqVelWjzuK2Yn6aYVoJkAKuB+zrJR+
-	eS2Zadd6We57JL+Ra2A8E8wdBhaVKFkKt7mdwozf4WXccMGo/YpR/AVfFMfYP17NEM7KRza8BQB
-	p0cwPA+jGNzs87JWsiv5JWrkm+vdDQggDoRo3hn2bT1njsdnDJnUVPIRb0O57ak1DpdoC0UQ6nl
-	wIAvToZfVNnq/NZkkBJcxaPnjfiu/1QG0AwodYhSwj0fiPweQSSj5Ky0Di/Xj07JsDX1ikaJjaD
-	1F7P48uib/pLNwX+AZ54ULVWt46pU6lTTtizA+a+9PsItxleONQ8kAhgyEYzNHQJLfIOq+JV8=
-X-Received: by 2002:a05:690c:d8a:b0:81d:6af3:b9b5 with SMTP id 00721157ae682-86c4e7d322dmr2445717b3.9.1788300561871;
-        Tue, 01 Sep 2026 15:09:21 -0700 (PDT)
-Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c10c93fa5sm4188977b3.3.2026.09.01.15.09.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 15:09:21 -0700 (PDT)
-Date: Tue, 1 Sep 2026 18:09:17 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Nimrod Oren <noren@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Hugh Dickins <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>,
-	Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
-Message-ID: <20260901220917.GM3004@cmpxchg.org>
-References: <20260901190123.3511535-1-noren@nvidia.com>
- <20260901204449.GK3004@cmpxchg.org>
- <C8541A2F-D6A9-41B0-A3FE-52339A6601F0@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A088eo3p"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A27B91F000E9;
+	Tue,  1 Sep 2026 22:13:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788300795;
+	bh=AQBcIR2ffmfFVLvGyllQQ9KmFHBHxEIx3hFxl+CoYuo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A088eo3pP49T2X27tmBKhvpOBWTP9kCzVjlc8FCH2mlNSSKyrRgx3OZjDtpuSarjS
+	 ZhvLlgZGTAdrWbv/7BHpqoQvO1zyQjli3lkIGO94Xey6pZ/Tu9VIUpFBWqy16/ja7C
+	 km8rdxm0idzF89NcV8ITKDOl8fmwfgXF9WWNGBLjfqwP7vf/OkNypYHqvGiMpk1tmJ
+	 n3zJUDoVaZ+h7N8XQ8HIU20DwSCxgoWMjEeflAwkbxnPQzuVRMElbF7hP8z2yQNlDF
+	 vlToULdM/CirGy8ww1B6sL8BUmiKO7MqOrGlWalG8I8z8o7lQ4Ve2b9180vc8RG74E
+	 MVgOS0Db3Ed+w==
+Date: Tue, 1 Sep 2026 15:13:14 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Christoph Hellwig <hch@lst.de>,
+	Jens Axboe <axboe@kernel.dk>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, Carlos Maiolino <cem@kernel.org>,
+	linux-xfs@vger.kernel.org, Chris Mason <clm@fb.com>,
+	David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org,
+	Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org,
+	Gao Xiang <xiang@kernel.org>, linux-erofs@lists.ozlabs.org
+Subject: Re: [PATCH RFC v2 08/18] fs: add dedicated block device open helpers
+ for filesystems
+Message-ID: <20260901221314.GC6038@frogsfrogsfrogs>
+References: <20260616-work-super-bdev_holder_global-v2-0-7df6b864028e@kernel.org>
+ <20260616-work-super-bdev_holder_global-v2-8-7df6b864028e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,85 +51,321 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <C8541A2F-D6A9-41B0-A3FE-52339A6601F0@nvidia.com>
+In-Reply-To: <20260616-work-super-bdev_holder_global-v2-8-7df6b864028e@kernel.org>
 
-On Tue, Sep 01, 2026 at 05:09:52PM -0400, Zi Yan wrote:
-> On 1 Sep 2026, at 16:44, Johannes Weiner wrote:
+On Tue, Jun 16, 2026 at 04:08:24PM +0200, Christian Brauner wrote:
+> Add fs_bdev_file_open_by_{dev,path}() and fs_bdev_file_release(). They
+> open the device with fs_holder_ops and register a claim in the
+> device-to-superblock table. Claims on the same (device, superblock)
+> pair share one entry, so when a filesystem claims a device it already
+> uses (xfs with its log on the data device), no second entry is added
+> and each superblock will be acted on once.
 > 
-> > On Tue, Sep 01, 2026 at 10:01:23PM +0300, Nimrod Oren wrote:
-> >> When THP is enabled, set_recommended_min_free_kbytes() may raise
-> >> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
-> >> Commit f000565adb77 ("thp: set recommended min free kbytes") added this
-> >> heuristic to help keep pageblocks free and reduce fragmentation for THP
-> >> allocations.
-> >
-> > We've had problems with compaction before when min_free_kbytes was too
-> > small on large machines. Competing free space scanners do a lot of
-> > work only to fight over a very small set of possible target pages.
-> >
-> > So I'm a bit uneasy that you didn't include any benchmark numbers with
-> > this that prove basic functionality on larger hosts isn't regressed.
-> >
-> >> The recommendation scales poorly with larger base page sizes. With the
-> >> default arm64 pageblock sizes, the contribution per eligible zone
-> >> before applying the existing cap of 5% of low memory is:
-> >>
-> >>   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
-> >>  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
-> >>  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
-> >
-> > I question whether pageblocks need to be 512M on those machines to
-> > begin with. After this patch, you're still asking the page allocator
-> > to optimize grouping such that 512M pages can be allocated at
-> > runtime. Only now you took away part of the mechanism to do so.
-> >
-> > If you're using 512M THPs, I would kind of assume it's on machines
-> > with a memory size where 5.5G for defrag purposes isn't devastating.
-> >
-> > And if you're not, it would make more sense to lower the pageblock
-> > size to the mTHP size you're actually using. And that would fix the
-> > "excessive" min_free_kbytes issue as well.
+> The holder argument remains purely the block layer's exclusivity token:
+> a superblock, or a file_system_type for a device shared by several
+> superblocks of that type. The shared case only becomes usable once the
+> fs_holder_ops callbacks resolve superblocks through the table instead
+> of bdev->bd_holder.
 > 
-> But lowering pageblock size requires a kernel compilation. That means
-> maintaining two sets of kernels for different needs.
-
-That depends on whether anyone actually wants 512M pageblocks...
-
-> The ultimate solution is to enable better compaction to generate
-> THPs bigger than a pageblock size, like Rik's super-pageblock
-> proposal.
-
-...or whether we can say, at that point, use gigablocks/cma+hugetlb.
-
-And then the static pageblock size for the fallback logic etc. can be
-a smaller, saner default for everybody.
-
-Because the point you didn't address: it doesn't make really sense to
-have 512M pageblocks on smaller machines, beyond the min_free_kbytes
-issue: Fragmentation events will poison half a gig at once,
-should_try_claim_block() becomes harder which results in less
-conversions and more allocations falling through to stealing, page
-isolation is more likely to fail, compaction locks and operates on
-oversized chunks which is bad for latency and concurrency...
-
-Seems to me the excessive min_free_kbytes is just a symptom of a
-deeper problem.
-
-> After removing automatic min_free_kbytes boosting, user can still
-> increase it via sysctl to restore the old free memory head room.
-> It is much easier, right?
+> Convert the main device, setup_bdev_super() and kill_block_super(),
+> over: the open finds the entry registered by sget_fc() and claims it
+> again. cramfs and romfs bypass kill_block_super() so they can handle
+> MTD mounts and release the main device with a plain bdev_fput(), which
+> would leave the claim behind: the (dev, sb) entry would never be
+> unregistered and the passive reference it holds would keep the
+> superblock alive forever. Convert their release paths in the same
+> step.
 > 
-> >
-> >> The automatic min_free_kbytes increase predates proactive compaction
-> >> and many subsequent changes to compaction. Given those changes,
-> >> increasing min_free_kbytes for THP by default is no longer clearly
-> >> justified.
-> >
-> > That's pretty handwavy. How would these changes specifically eliminate
-> > the need for compaction scratch space and allocator fallback options
-> > to stave off fragmentation during placement?
+> The frozen-device check stays in setup_bdev_super() for the primary
+> device and is added to fs_bdev_register() for new claims, i.e. every
+> additional device a filesystem opens through the helpers. Only a
+> (device, superblock) pair the superblock claimed earlier may be
+> reopened while frozen (xfs with its log on the data device): the freeze
+> already covers that superblock through the existing claim, so nothing
+> escapes it. Without the setup_bdev_super() check a device frozen before
+> the mount even started (dm lock_fs, loop) could be mounted and written
+> to (journal replay) under an active freeze, because the primary open
+> reuses the entry registered by sget_fc() and never takes the new-claim
+> path.
 > 
-> Extra free memory is still necessary. min_free_kbytes can be adjusted
-> at machine boot time to achieve it, right?
+> Both checks read bd_fsfreeze_count only after the entry is published
+> (by sget_fc() for the primary, by fs_bdev_register() for new claims)
+> and pair with bdev_freeze() incrementing the count before walking the
+> table: either the mount sees the elevated freeze count and fails with
+> EBUSY, or the freeze finds the published entry and converges once
+> SB_BORN is set.
 
-That argument cuts both ways, no? ;)
+Hmm.  I /think/ this might be causing regressions in xfs/006,
+generic/311, and xfs/264 on XFS realtime filesystems.  Each test fails
+with a mount failure due to a busy device:
+
+ --- /run/fstests/bin/tests/xfs/006.out	2025-07-15 14:41:40.170403463 -0700
+ +++ /run/fstests/logs/xfs/006.out.bad	2026-08-31 12:25:01.790239078 -0700
+ @@ -6,3 +6,7 @@ error/metadata/EIO/max_retries=-1
+  error/metadata/EIO/retry_timeout_seconds=-1
+  error/metadata/ENOSPC/max_retries=-1
+  error/metadata/ENOSPC/retry_timeout_seconds=-1
+ +mount: /mnt/s: /dev/mapper/error-test.006 already mounted or mount point busy.
+ +       dmesg(1) may have more information after failed mount system call.
+ +umount.nfs: remote share not in 'host:dir' format
+ +umount.nfs: /mnt/s: not mounted
+
+I'm not sure what's going on here, but dmesg has this to say:
+
+XFS (dm-0): Invalid device [/dev/mapper/error-rttest.006], error=-16
+
+So my guess is that the SCRATCH_RT volume isn't getting unfrozen
+properly?
+
+--D
+
+> 
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> ---
+>  fs/cramfs/inode.c        |   2 +-
+>  fs/romfs/super.c         |   2 +-
+>  fs/super.c               | 154 ++++++++++++++++++++++++++++++++++++++++++++---
+>  include/linux/fs/super.h |   7 +++
+>  4 files changed, 155 insertions(+), 10 deletions(-)
+> 
+> diff --git a/fs/cramfs/inode.c b/fs/cramfs/inode.c
+> index 4edbfccd0bbe..d4cd03f4f60d 100644
+> --- a/fs/cramfs/inode.c
+> +++ b/fs/cramfs/inode.c
+> @@ -504,7 +504,7 @@ static void cramfs_kill_sb(struct super_block *sb)
+>  		sb->s_mtd = NULL;
+>  	} else if (IS_ENABLED(CONFIG_CRAMFS_BLOCKDEV) && sb->s_bdev) {
+>  		sync_blockdev(sb->s_bdev);
+> -		bdev_fput(sb->s_bdev_file);
+> +		fs_bdev_file_release(sb->s_bdev_file, sb);
+>  	}
+>  	kfree(sbi);
+>  }
+> diff --git a/fs/romfs/super.c b/fs/romfs/super.c
+> index ac55193bf398..43eb897197c0 100644
+> --- a/fs/romfs/super.c
+> +++ b/fs/romfs/super.c
+> @@ -587,7 +587,7 @@ static void romfs_kill_sb(struct super_block *sb)
+>  #ifdef CONFIG_ROMFS_ON_BLOCK
+>  	if (sb->s_bdev) {
+>  		sync_blockdev(sb->s_bdev);
+> -		bdev_fput(sb->s_bdev_file);
+> +		fs_bdev_file_release(sb->s_bdev_file, sb);
+>  	}
+>  #endif
+>  }
+> diff --git a/fs/super.c b/fs/super.c
+> index ff5e305d0ab4..3d166c7f578a 100644
+> --- a/fs/super.c
+> +++ b/fs/super.c
+> @@ -1633,6 +1633,145 @@ const struct blk_holder_ops fs_holder_ops = {
+>  };
+>  EXPORT_SYMBOL_GPL(fs_holder_ops);
+>  
+> +static struct super_dev *super_dev_lookup(dev_t dev, struct super_block *sb)
+> +{
+> +	struct super_dev *it;
+> +	struct rhlist_head *list, *pos;
+> +
+> +	RCU_LOCKDEP_WARN(!rcu_read_lock_held(), "suspicious super_dev_lookup() usage");
+> +	VFS_WARN_ON_ONCE(!dev);
+> +	VFS_WARN_ON_ONCE(!sb);
+> +
+> +	list = rhltable_lookup(&super_dev_table, &dev, super_dev_params);
+> +	rhl_for_each_entry_rcu(it, pos, list, sd_node) {
+> +		if (it->sd_sb == sb)
+> +			return it;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +static int fs_bdev_register(struct file *bdev_file, struct super_block *sb)
+> +{
+> +	struct super_dev *sb_dev __free(kfree) = NULL;
+> +	dev_t dev = file_bdev(bdev_file)->bd_dev;
+> +	int err;
+> +
+> +	scoped_guard(rcu) {
+> +		sb_dev = super_dev_lookup(dev, sb);
+> +		if (sb_dev && refcount_inc_not_zero(&sb_dev->sd_ref)) {
+> +			retain_and_null_ptr(sb_dev);
+> +			return 0;
+> +		}
+> +	}
+> +
+> +	sb_dev = super_dev_alloc(dev, sb);
+> +	if (!sb_dev)
+> +		return -ENOMEM;
+> +
+> +	err = super_dev_insert(sb_dev);
+> +	if (err)
+> +		return err;
+> +
+> +	/* Publish the entry before reading the count; pairs with bdev_freeze(). */
+> +	smp_mb();
+> +	if (atomic_read(&file_bdev(bdev_file)->bd_fsfreeze_count) > 0) {
+> +		err = -EBUSY;
+> +		super_dev_put(sb_dev);
+> +	}
+> +
+> +	retain_and_null_ptr(sb_dev);
+> +	return err;
+> +}
+> +
+> +/**
+> + * fs_bdev_file_open_by_dev - claim a block device on behalf of a superblock
+> + * @dev: block device number
+> + * @mode: open mode
+> + * @holder: block-layer exclusivity token (a superblock, or the file_system_type
+> + *          when the device may be shared by several superblocks of that type)
+> + * @sb: superblock to drive fs_holder_ops events for
+> + *
+> + * Open @dev with &fs_holder_ops and register that @sb uses it, so device
+> + * removal/sync/freeze/thaw are propagated to @sb (and any other superblock
+> + * sharing @dev).  Must be paired with fs_bdev_file_release().
+> + *
+> + * Return: an opened block-device file or an ERR_PTR().
+> + */
+> +struct file *fs_bdev_file_open_by_dev(dev_t dev, blk_mode_t mode, void *holder,
+> +				      struct super_block *sb)
+> +{
+> +	struct file *bdev_file;
+> +	int err;
+> +
+> +	bdev_file = bdev_file_open_by_dev(dev, mode, holder, &fs_holder_ops);
+> +	if (IS_ERR(bdev_file))
+> +		return bdev_file;
+> +
+> +	err = fs_bdev_register(bdev_file, sb);
+> +	if (err) {
+> +		bdev_fput(bdev_file);
+> +		return ERR_PTR(err);
+> +	}
+> +	return bdev_file;
+> +}
+> +EXPORT_SYMBOL_GPL(fs_bdev_file_open_by_dev);
+> +
+> +/**
+> + * fs_bdev_file_open_by_path - claim a block device on behalf of a superblock
+> + * @path: path to the block device
+> + * @mode: open mode
+> + * @holder: block-layer exclusivity token (a superblock, or the file_system_type
+> + *          when the device may be shared by several superblocks of that type)
+> + * @sb: superblock to drive fs_holder_ops events for
+> + *
+> + * Open the block device at @path with &fs_holder_ops and register that @sb
+> + * uses it, so device removal/sync/freeze/thaw are propagated to @sb (and any
+> + * other superblock sharing the device).  Must be paired with
+> + * fs_bdev_file_release().
+> + *
+> + * Return: an opened block-device file or an ERR_PTR().
+> + */
+> +struct file *fs_bdev_file_open_by_path(const char *path, blk_mode_t mode,
+> +				       void *holder, struct super_block *sb)
+> +{
+> +	struct file *bdev_file;
+> +	int err;
+> +
+> +	bdev_file = bdev_file_open_by_path(path, mode, holder, &fs_holder_ops);
+> +	if (IS_ERR(bdev_file))
+> +		return bdev_file;
+> +
+> +	err = fs_bdev_register(bdev_file, sb);
+> +	if (err) {
+> +		bdev_fput(bdev_file);
+> +		return ERR_PTR(err);
+> +	}
+> +	return bdev_file;
+> +}
+> +EXPORT_SYMBOL_GPL(fs_bdev_file_open_by_path);
+> +
+> +/**
+> + * fs_bdev_file_release - release a block device claimed for a superblock
+> + * @bdev_file: file returned by fs_bdev_file_open_by_{dev,path}()
+> + * @sb: superblock the device was claimed for
+> + *
+> + * Drop one claim on the {dev, @sb} entry; the last claim unregisters it (a
+> + * pinning cursor defers the actual unlink).  Then close the block device.
+> + */
+> +void fs_bdev_file_release(struct file *bdev_file, struct super_block *sb)
+> +{
+> +	dev_t dev = file_bdev(bdev_file)->bd_dev;
+> +	struct super_dev *sb_dev;
+> +
+> +	rcu_read_lock();
+> +	sb_dev = super_dev_lookup(dev, sb);
+> +	rcu_read_unlock();
+> +	super_dev_put(sb_dev);
+> +	bdev_fput(bdev_file);
+> +}
+> +EXPORT_SYMBOL_GPL(fs_bdev_file_release);
+> +
+>  int setup_bdev_super(struct super_block *sb, int sb_flags,
+>  		struct fs_context *fc)
+>  {
+> @@ -1640,7 +1779,7 @@ int setup_bdev_super(struct super_block *sb, int sb_flags,
+>  	struct file *bdev_file;
+>  	struct block_device *bdev;
+>  
+> -	bdev_file = bdev_file_open_by_dev(sb->s_dev, mode, sb, &fs_holder_ops);
+> +	bdev_file = fs_bdev_file_open_by_dev(sb->s_dev, mode, sb, sb);
+>  	if (IS_ERR(bdev_file)) {
+>  		if (fc)
+>  			errorf(fc, "%s: Can't open blockdev", fc->source);
+> @@ -1654,20 +1793,19 @@ int setup_bdev_super(struct super_block *sb, int sb_flags,
+>  	 * writable from userspace even for a read-only block device.
+>  	 */
+>  	if ((mode & BLK_OPEN_WRITE) && bdev_read_only(bdev)) {
+> -		bdev_fput(bdev_file);
+> +		fs_bdev_file_release(bdev_file, sb);
+>  		return -EACCES;
+>  	}
+>  
+> -	/*
+> -	 * It is enough to check bdev was not frozen before we set
+> -	 * s_bdev as freezing will wait until SB_BORN is set.
+> -	 */
+> +	/* The sget_fc() entry is already published; pairs with bdev_freeze(). */
+> +	smp_mb();
+>  	if (atomic_read(&bdev->bd_fsfreeze_count) > 0) {
+>  		if (fc)
+>  			warnf(fc, "%pg: Can't mount, blockdev is frozen", bdev);
+> -		bdev_fput(bdev_file);
+> +		fs_bdev_file_release(bdev_file, sb);
+>  		return -EBUSY;
+>  	}
+> +
+>  	spin_lock(&sb_lock);
+>  	sb->s_bdev_file = bdev_file;
+>  	sb->s_bdev = bdev;
+> @@ -1756,7 +1894,7 @@ void kill_block_super(struct super_block *sb)
+>  	generic_shutdown_super(sb);
+>  	if (bdev) {
+>  		sync_blockdev(bdev);
+> -		bdev_fput(sb->s_bdev_file);
+> +		fs_bdev_file_release(sb->s_bdev_file, sb);
+>  	}
+>  }
+>  
+> diff --git a/include/linux/fs/super.h b/include/linux/fs/super.h
+> index f21ffbb6dea5..721d842e3b24 100644
+> --- a/include/linux/fs/super.h
+> +++ b/include/linux/fs/super.h
+> @@ -235,4 +235,11 @@ int freeze_super(struct super_block *super, enum freeze_holder who,
+>  int thaw_super(struct super_block *super, enum freeze_holder who,
+>  	       const void *freeze_owner);
+>  
+> +struct file;
+> +struct file *fs_bdev_file_open_by_dev(dev_t dev, blk_mode_t mode, void *holder,
+> +				      struct super_block *sb);
+> +struct file *fs_bdev_file_open_by_path(const char *path, blk_mode_t mode,
+> +				       void *holder, struct super_block *sb);
+> +void fs_bdev_file_release(struct file *bdev_file, struct super_block *sb);
+> +
+>  #endif /* _LINUX_FS_SUPER_H */
+> 
+> -- 
+> 2.47.3
+> 
+> 
