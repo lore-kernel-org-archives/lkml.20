@@ -1,95 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0647F3A16A1;
-	Tue,  1 Sep 2026 04:33:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1945035B63D;
+	Tue,  1 Sep 2026 04:34:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788237202; cv=none; b=Ym5Oy+K38gV3QZHZrp4NAuoaVtiT6rJpGjSkvAzquj5XBYDj8plAIkKWiWH1I57hPDS+1OB/CXklKAkiK+4F8ghbSaMCjaR1JazjZDzsvyD//7kvAGHfCkTJGAgdpvrrlvUIDW10LUtWGNgsOmhyx9C0e9RmbgKVYaEFjDgIS08=
+	t=1788237267; cv=none; b=Vvn8J5vCoFksHdJTHFzvQpoRN1F1DWyyq+TWGkim2QS4tlLi7ILWJ0SZDcqrI0kFhh+yUyKbe4mqxA/hLedqmRiyFSUR+F9O6mDdor0ocZppR95vyv/xmBllij9lrTGnGW7D3tWz+QuJ1p2goRyXudr98T/izKKhIhOR6VqYP7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788237202; c=relaxed/simple;
-	bh=JqGiFpCstWSg2rot+jsJQ6OBJWXftWxJLBFxSB8150w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LFWwNkP3ouaG42RVE6UTZsh5WmuvWqvGPUqqIC5snrXKYgE1caFp1TgkD44BCBSECjNR7hsEZM928d0jnjmsIIQEW5BvD7qkJE/4LA6VaxeOQOQBNw2oIxCXj/22zH+KAVtujXUsusVLXit+uuZVz3MNMdKSvRO2ByXGpgWTjEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JR5zirKO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788237267; c=relaxed/simple;
+	bh=5eiAy3QIbJG0jFQflcMO3WVJL5e78NjuZ+mSKp0XpBg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cDoa5Adtlp3FFlVuUDtQ/md9pRx9A//Y4Qyowi9RbYxPvR2LevoJv27loCFPWBdg3dqCJsllBM7WsoVo96Js3rHwE1k6eVDthBH089J6rktXcSGX0jgG3cDaODRmIWYoxZM2LAA7QimwAbeiznRiRFXDw5IJCdWO73Nop8MdCPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GjwMQpj3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JR5zirKO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B03531F000E9;
-	Tue,  1 Sep 2026 04:33:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788237199;
-	bh=kgwJ+Fc0UWOd2U7A/1P9FjxeMymAFkdTbMeLkORaG50=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JR5zirKOWHcpRHOXs9Fr7UMyS6cwZxugzsUf3h27MzIl5XphnFkBcPxsZ+VyK1FTR
-	 a2GxGiCG01Ogw75MLQS29UHswdQnzW2MXwPIlcYNfHu6smOw+uHH3ckq1QlI7CwrEf
-	 bikpJOT1LxgaEQG4IOq936S++tV/hRY3+zlXnOvU=
-Date: Tue, 1 Sep 2026 06:33:15 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Julian Oes <julian@oes.ch>
-Cc: Johan Hovold <johan@kernel.org>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] USB: serial: generic: recover from a stalled bulk-in
- endpoint
-Message-ID: <2026090142-walrus-zipfile-70d1@gregkh>
-References: <20260901034949.118739-1-julian@oes.ch>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GjwMQpj3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923571F00A3D;
+	Tue,  1 Sep 2026 04:34:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788237265;
+	bh=U+5n2m69nUp/8eBxRsZKrpQRqRxmZwpAKuJfK8YQaNw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GjwMQpj3Wrb/6erZFWASypzljTlgEQ+oER1CXJfcnVo3griBMbAIy4bpGwhfkiVtc
+	 mQg0Mc48Ji/5Y/+VaSBbR395CYi0YLrtjEZLRwPF2bUPIwoQz8qsHOXbIZNWEy6Nbn
+	 MdUzuH/aeom/r7+4r5mN5r7xRGRcqLboHE+OSJOdmSVFUEt9W3mjil1gqP7jU7XlmI
+	 hvE3ckZMTIIOj3n2UE+YxTPQZtnZ5KOwizXfBGPUQ26uWqjhtZzie78GPMcNqgj/Ra
+	 MvKYybYiR/SrnZDAKmt12QGmtHgPK0ZqWS8zM4+WkloDq/4fTojMoP9gwa4uXncHmc
+	 vfJZSWNm0NUZw==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH 01/17] mm/damon/core: introduce DAMON_FILTER_TYPE_PGIDLE_UNSET
+Date: Mon, 31 Aug 2026 21:33:57 -0700
+Message-ID: <20260901043417.2165-2-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260901043417.2165-1-sj@kernel.org>
+References: <20260901043417.2165-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901034949.118739-1-julian@oes.ch>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 03:49:49PM +1200, Julian Oes wrote:
-> A USB serial port can go permanently silent when its bulk-in endpoint is
-> halted: the read URBs complete with -EPIPE, which the generic read
-> callback has always treated as fatal, and no further data arrives until
-> user space closes and reopens the tty.
+Introduce a new DAMON filter type, pgidle_unset.  It will match pages
+that have their PG_Idle flag unset, or the page table accessed bit set.
+In other words, it says if the page is accessed.
 
-Which is good, as the device is obviously broken at that point in time :)
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ include/linux/damon.h | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-> Recovery from a halted bulk endpoint is CLEAR_FEATURE(ENDPOINT_HALT)
-> followed by resubmission of the reads. That needs a control transfer, so
-> defer it to a work item as cdc-acm already does.
-> 
-> Use a dedicated work item rather than the existing per-port work.
-
-Ok, this is just llm-generated text.  Please rewrite this in your own
-words.
-
-> The
-> latter is scheduled from every write completion and must not be
-> cancelled on close, as the line discipline depends on it. Stall
-> recovery resubmits the read URBs and must therefore be cancelled
-> wherever the reads are stopped, that is, on close, suspend and
-> disconnect.
-> 
-> Schedule the recovery with a short cooldown. The stall can persist for a
-> few milliseconds, during which the resubmitted URBs stall again as soon
-> as they are queued; without a delay the recovery becomes a busy loop of
-> control transfers. Rate-limit the stall message for the same reason, as
-> a stall is now a recurring condition rather than a terminal one.
-> 
-> I ran into this with an FTDI FT231X behind a hub that halts the
-> adapter's bulk-in endpoint whenever an unrelated CDC ACM device on a
-> sibling port is disconnected. With this change the FTDI port keeps
-> receiving data across such an event.
-
-This sounds like a broken hub, why not just replace that?  It shouldn't
-be causing transactions on a different port to stop.
-
-> +/*
-> + * Cooldown between attempts to recover a stalled bulk-in endpoint. A stall
-> + * caused by a transient fault can persist for a few milliseconds, during which
-> + * the resubmitted URBs stall again immediately. Back off a little so that a
-> + * persistently halted endpoint is not hammered with control transfers.
-> + */
-> +#define USB_SERIAL_STALL_COOLDOWN	msecs_to_jiffies(10)
-
-control or bulk?  This comment does not make much sense.
-
-thanks,
-
-greg k-h
+diff --git a/include/linux/damon.h b/include/linux/damon.h
+index 7b1b6050a8286..7a42cbe791845 100644
+--- a/include/linux/damon.h
++++ b/include/linux/damon.h
+@@ -745,12 +745,14 @@ struct damon_intervals_goal {
+ /**
+  * enum damon_filter_type - Type of &struct damon_filter
+  *
+- * @DAMON_FILTER_TYPE_ANON:	Anonymous pages.
+- * @DAMON_FILTER_TYPE_MEMCG:	Specific memcg's pages.
++ * @DAMON_FILTER_TYPE_ANON:		Anonymous pages.
++ * @DAMON_FILTER_TYPE_MEMCG:		Specific memcg's pages.
++ * @DAMON_FILTER_TYPE_PGIDLE_UNSET:	Pgidle is unset.
+  */
+ enum damon_filter_type {
+ 	DAMON_FILTER_TYPE_ANON,
+ 	DAMON_FILTER_TYPE_MEMCG,
++	DAMON_FILTER_TYPE_PGIDLE_UNSET,
+ };
+ 
+ /**
+-- 
+2.47.3
