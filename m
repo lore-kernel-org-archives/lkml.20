@@ -1,191 +1,169 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BE841CB2E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:10:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B7D392807;
+	Tue,  1 Sep 2026 03:10:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788232209; cv=none; b=M/UZ0j7W8uKEaRMkz0vcJU9Hs282aHoX29jZKIPACkB5CkOKR4ywiX6o+wVDxQy0PtRD4tFyIYGHotTHn3uS8NyiZEh4JPxGYW61S5SFndrzGthBHWOxcNboTGrP9XeJNT09qGAbvAhE0gTU2uDSrD1+GnCpOGvPcTiMR+2glU0=
+	t=1788232219; cv=none; b=H1hrIVJCpqbp68wExnmvI2B7cj887khGa/ZlhRCKtuVYgU5JLPlrKcsJHqD3z2QoYOZahzj/077aDRQfDTQmDu15U96P4CKTfTNqqHzYDEQTZ8511U0mQaetbx69t+u+RbJeEobnXL2W7kbpkpzAlWELjJ1UzoPk6BtgKyASQx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788232209; c=relaxed/simple;
-	bh=qy5FZin1DQnIKkAgcLzW0Ff2Z/55M3DZWx56LqvQYuQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PMIu+Uc4Sj+U2Xs2BACcv1SHlCtkaDr2czsdJFdZuSqWCXqFaAA87o6UN8M/z2KTdw/S3uE+k1frGEkBxrFHploq1sjZyPlXnaSMN4ggqRd1NMc1QwkOuO3GSOU9INT6QARr74voIepbpRgyo9y/c3G7sGCuR1cQeo8nPsmMxrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TvoqvNRQ; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788232219; c=relaxed/simple;
+	bh=Qqr/cqvz7esR3oRutG3uVaAbwv2QbUPLSf3EGeKHWWc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FaO7/ro4Jx3JVllDBVxMz2Mt+mRmtO+sLFLpIP/vCnyxuV1KlfXHMl3SEfPHMSgQ3kgCZcsxwk26FLRuHA4DZNIeCUOll08tEl09fxetPQchfVmvToIE9t5KA16ZoEzXIYz5LHvsWu2waHbYUhSW7hGxyHVU7SRJntHIpUrcUOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=imWetiqs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TvoqvNRQ"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3964e76d0f4so4555691a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:10:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788232205; x=1788837005; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S2rSlvlJ6/XqKt2WEd0a/Wwq0kiDGRS7GpjIC1W/pmU=;
-        b=TvoqvNRQkXqNmm5PLQr6PsnabbdfRcJINuiEFZc4X2ft/d6eWGWvTAeknLOJ5yjjlM
-         aFJ+Ry2EMUmiOikva2+McyXghbhY9cRfhjqGPOU9hukOHk86AC4hMPQJGSx3J0ZEeaCe
-         0DYNh/AU2byTBuHdZ+Rkf+4YsMLSGExidqgcJ6kfg5x8W6dUy/U+oGC4L4scjtrUJZfT
-         DOug+hmokvxFEIqHXYEYyBC+oeV102lGTBrRvl6AlsTytapdr+wri0qKBXzdkBF19x/Y
-         HkWvZpZwVIt+aeyi8WX6pnEVdt0qqLyILgEk3oEXzmDAS5OiVqibaT6M+q+VlWfZ5KJf
-         YMqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788232205; x=1788837005;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S2rSlvlJ6/XqKt2WEd0a/Wwq0kiDGRS7GpjIC1W/pmU=;
-        b=pQ7u3DR4BmaT1obuwo60Gngg8oTVasxC/+tIy+URNc4zlw0SeY1eKR6sBAGYloPkyK
-         ZxBaYCnCuurq1wmHob897gqjCuIfV1yYEWvtTWqymxEG18GF1xzdv3+/b2CBfvQuTzKu
-         JzugLzo0NF5JaU6Potp75ipCtOfmNRaKNMo5/RWVvN/BqM3DYCdVvqEfuKIs5am9vNMp
-         0FbLNlWXKLooMzpGCQgKh0+WWmDONv+tGrgiKswrCfiCdAyaL50qMU6npN0hRl3JDcuh
-         hZOyZIbx1M+3+LF67WJMxugAvqLF1izUYKpSjflWNMUQOv+i78TC0gIEqXRmL33WpM8w
-         En9A==
-X-Gm-Message-State: AFuF++lVcrJTzmaIUF/uBe7fUB+lS6OaKlbpRzVoiUzYcV0t/UfvLkIK
-	5WIR47o5TuIfJvrotJVHfhH1W94EwDnbr8miwsuq8Gw0ejszyc8OAjrxBwCOO7RC
-X-Gm-Gg: AYBFou0c/jXncco5sw/b9PWQqsMvLIQAErqAYV0TZh2qJt0Qhy30CGqz3TaKXTR4k8y
-	suKz5D7P5BfgrYZ2UlibMt8+a88QKKkQOfjfGURpwT4797we4g0CBzbFiNdMaeGVw56K2P9cLnu
-	NC32dzDtt4s09m/Pnpn2P9vS8zPt/+2acMmz+dU0OHoK24l6YEMImVaksC+GODE6vJKmhyd5L+r
-	RnSWgPS6p+aYHyV2KbK8a2iWw3SjQr+iXijq85TWhXflXwv/uJB9OscAbb+ObbL0Un2wOMJu3w0
-	zy2p0P2ZIspI8DxwbMuHomvBAihWwjDfT3vH/jFPMXHT0nqEmKos1KIyxAeFveQX0NMiaoMyi5v
-	4TcvPmcnaIYFKRmRNYg1QjHOp3+Xm309z2RCS2VUWUVo26PJRygNfQUWdRx/s3gox/i3nWer5+K
-	T5BE1D7vjCPmNlmMnea4Vp5IOdFwUpKxQfBSoNTv06J1hu2mJQSOGEOcKftjaoLQwFCpMOfg94V
-	IWqI5i9k68G8eGQR655iJlsBhR/JDP5pwZrCGrL/WOjI0l25CVISztBthRJ/tXTszgUhGED7jcM
-	w08t54cM+7ft
-X-Received: by 2002:a17:90b:1d05:b0:396:65dd:4093 with SMTP id 98e67ed59e1d1-396d0ff519cmr47226275a91.14.1788232205233;
-        Mon, 31 Aug 2026 20:10:05 -0700 (PDT)
-Received: from daehojeong-desktop.mtv.corp.google.com ([2a00:79e0:2e7c:8:94f2:e160:f659:7f83])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0df264csm55297430c88.14.2026.08.31.20.10.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 20:10:04 -0700 (PDT)
-From: Daeho Jeong <daeho43@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>,
-	Wenjie Qi <qiwenjie@xiaomi.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] f2fs: drop pending discard commands before reserving device alias
-Date: Mon, 31 Aug 2026 20:10:00 -0700
-Message-ID: <20260901031000.786214-1-daeho43@gmail.com>
-X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="imWetiqs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052C11F000E9;
+	Tue,  1 Sep 2026 03:10:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788232216;
+	bh=YLKBrTqOTNNklJANAjH/POw5+7rG2PRW69UPtKdnoo0=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=imWetiqscS/clmFmln41qV1JWXBdbwRWK7uiwP8viDdz6zj53x4uQ13NJDd7OSx70
+	 CaJahMoF4soesOxbK9ncoTq6ERAIDsQqVnlJvsMx7UDpgE3v1RkZ3tuWZhmLrsUJuW
+	 cqnRzFoU8/Wb52UP1tlCAror6CP/VJ1fY2VHoxRsftKba9+uhTRAUf0WzMzJZdDduA
+	 VOxcynz5YrSTsq8w+4/SC8NHXlkWNR0vsHmZNqC6tdEVjlVoIJz4hZLrt6mnFhwavG
+	 7VgbRPr0mTtK3VfPqjfmY2eHanB/IV2qo54j1T9hUy+OSReTo2qEVhZMV2kW9u7Udk
+	 HC6HSLyG/+97w==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 803F2CE0B65; Mon, 31 Aug 2026 20:10:15 -0700 (PDT)
+Date: Mon, 31 Aug 2026 20:10:15 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: KunWu Chan <kunwu.chan@gmail.com>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] srcutiny: Add atomic SRCU operation checks and state
+Message-ID: <ce1789d4-7a78-456c-9e6e-e9af824e5285@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260831074937.2380914-1-kunwu.chan@linux.dev>
+ <0eac36c5-acd2-4d8d-a498-f56a57cc3d6a@paulmck-laptop>
+ <CAN_Opa_z4e8fLM0=+QV82r4oveKKUWitvNrBnsfJhXd+2-QQLQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAN_Opa_z4e8fLM0=+QV82r4oveKKUWitvNrBnsfJhXd+2-QQLQ@mail.gmail.com>
 
-From: Daeho Jeong <daehojeong@google.com>
+On Tue, Sep 01, 2026 at 10:00:24AM +0800, KunWu Chan wrote:
+> On Tue, Sep 1, 2026 at 9:04 AM Paul E. McKenney <paulmck@kernel.org> wrote:
+> >
+> > On Mon, Aug 31, 2026 at 03:49:37PM +0800, Kunwu Chan wrote:
+> > > From: Kunwu Chan <kunwu.chan@gmail.com>
+> > >
+> > > Add atomic SRCU operation checks and the associated state to Tiny
+> > > SRCU.
+> > >
+> > > An atomic SRCU domain does not use the normal SRCU callback and
+> > > grace-period machinery.  In particular, a callback queued with
+> > > call_srcu() would never be processed.  Use WARN_ON_ONCE() to reject
+> > > call_srcu() and srcu_barrier() on atomic SRCU domains.
+> > >
+> > > For synchronize_srcu(), redirect atomic SRCU domains to
+> > > synchronize_srcu_atomic().
+> > >
+> > > Add srcu_reader_flavor to the Tiny SRCU state for these checks.
+> > > Tiny SRCU does not currently set the flavor for atomic SRCU domains,
+> > > but keeping the flavor in the common state allows the operation
+> > > checks to enforce the restriction once atomic flavor tracking is
+> > > enabled.
+> > >
+> > > Also initialize srcu_atomic_gp_flag, which was previously left
+> > > uninitialized.
+> > >
+> > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > > ---
+> > >  include/linux/srcutiny.h |  1 +
+> > >  kernel/rcu/srcutiny.c    | 12 ++++++++++++
+> > >  2 files changed, 13 insertions(+)
+> > >
+> > > diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
+> > > index 47a368f945e3..2b293336525a 100644
+> > > --- a/include/linux/srcutiny.h
+> > > +++ b/include/linux/srcutiny.h
+> > > @@ -20,6 +20,7 @@ struct srcu_struct {
+> > >       u8 srcu_gp_running;             /* GP workqueue running? */
+> > >       u8 srcu_gp_waiting;             /* GP waiting for readers? */
+> > >       u8 srcu_atomic_gp_flag;         /* Serialize atomic GP work.*/
+> > > +     u8 srcu_reader_flavor;          /* Values: SRCU_READ_FLAVOR_.*  */
+> > >       unsigned long srcu_idx;         /* Current reader array element in bit 0x2. */
+> > >       unsigned long srcu_idx_max;     /* Furthest future srcu_idx request. */
+> > >       struct swait_queue_head srcu_wq;
+> > > diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
+> > > index 26ea4bfbeaf2..22f7716cbb0e 100644
+> > > --- a/kernel/rcu/srcutiny.c
+> > > +++ b/kernel/rcu/srcutiny.c
+> > > @@ -41,6 +41,7 @@ static int init_srcu_struct_fields(struct srcu_struct *ssp)
+> > >       ssp->srcu_cb_tail = &ssp->srcu_cb_head;
+> > >       ssp->srcu_gp_running = false;
+> > >       ssp->srcu_gp_waiting = false;
+> > > +     ssp->srcu_atomic_gp_flag = 0;
+> >
+> > Good catch!  I will be folding this into the base commit with attribution
+> > on my next rebase:
+> >
+> > 9a2e9996ccec ("srcutiny: Add an atomic Tiny SRCU")
+> >
+> > >       ssp->srcu_idx = 0;
+> > >       ssp->srcu_idx_max = 0;
+> > >       INIT_WORK(&ssp->srcu_work, srcu_drive_gp);
+> > > @@ -289,6 +290,9 @@ EXPORT_SYMBOL_GPL(srcu_defer_drain);
+> > >  void call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
+> > >              rcu_callback_t func)
+> > >  {
+> > > +     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
+> > > +             return;
+> > > +
+> > >       if (should_rcu_defer()) {
+> > >               /* A re-entrant call_srcu() during the drain would livelock it. */
+> > >               if (READ_ONCE(srcu_defer_draining) && !in_nmi()) {
+> > > @@ -319,6 +323,11 @@ void synchronize_srcu(struct srcu_struct *ssp)
+> > >  {
+> > >       struct rcu_synchronize rs;
+> > >
+> > > +     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC)) {
+> > > +             synchronize_srcu_atomic(ssp);
+> > > +             return;
+> > > +     }
+> > > +
+> > >       srcu_lock_sync(&ssp->dep_map);
+> > >
+> > >       RCU_LOCKDEP_WARN(lockdep_is_held(ssp) ||
+> > > @@ -415,6 +424,9 @@ EXPORT_SYMBOL_GPL(synchronize_srcu_atomic);
+> > >  /* Register any deferred callbacks, then wait for all in-flight ones. */
+> > >  void srcu_barrier(struct srcu_struct *ssp)
+> > >  {
+> > > +     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
+> > > +             return;
+> > > +
+> > >       __srcu_defer_drain(ssp);
+> > >       synchronize_srcu(ssp);
+> > >  }
+> >
+> > The rest is good as far as it goes, but don't we need to set the value
+> > of ssp->srcu_reader_flavor somewhere for atomic srcu_struct structures?
+> >
+> 
+> Hi Paul,
+> 
+> Yes, agreed. I have the flavor tracking changes implemented locally
+> and am testing them now.
+> I’ll send the updated patch shortly.
+> 
+> I also have draft patches for the documentation and the fast path, as
+> well as rcutorture testing for
+> tiny atomic srcu , which I’ll send separately.
 
-When reserving a device alias via f2fs_ioc_reserve_dev_alias(),
-f2fs_reserve_device_alias() bulk-marks all blocks in the target device
-range as valid in SIT.
+Sounds good, and I am looking forward to seeing them.
 
-However, if the device was previously in the released state, stale
-pending discard commands covering that range may still exist in dcc->root.
-When f2fs_issue_discard_thread later processes those commands,
-__check_sit_bitmap() detects valid blocks in the discard range and
-triggers a kernel BUG().
+I will admit that I am curious as to why Tiny Atomic SRCU needs different
+rcutorture testing than does Tree Atomic SRCU, but I will ask myself
+that question again when I see your patches.  ;-)
 
-To fix this:
-1. Introduce f2fs_drop_discard_cmd_range() to traverse the discard rbtree,
-   drop all pending D_PREP discard commands in the range,
-   and wait for any in-flight discard bios under dcc->cmd_lock.
-2. Call f2fs_drop_discard_cmd_range() in f2fs_ioc_reserve_dev_alias()
-   before f2fs_reserve_device_alias().
-
-Reported-by: Wenjie Qi <qiwenjie@xiaomi.com>
-Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
----
- fs/f2fs/f2fs.h    |  2 ++
- fs/f2fs/file.c    |  1 +
- fs/f2fs/segment.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 48 insertions(+)
-
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 511286432483..ae109d3ae571 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -4122,6 +4122,8 @@ void f2fs_reserve_device_alias(struct f2fs_sb_info *sbi, block_t addr,
- bool f2fs_is_checkpointed_data(struct f2fs_sb_info *sbi, block_t blkaddr);
- int f2fs_start_discard_thread(struct f2fs_sb_info *sbi);
- void f2fs_drop_discard_cmd(struct f2fs_sb_info *sbi);
-+void f2fs_drop_discard_cmd_range(struct f2fs_sb_info *sbi,
-+					block_t start, block_t len);
- void f2fs_stop_discard_thread(struct f2fs_sb_info *sbi);
- bool f2fs_issue_discard_timeout(struct f2fs_sb_info *sbi, bool need_check);
- void f2fs_clear_prefree_segments(struct f2fs_sb_info *sbi,
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 29cf82d02c77..0b2d173d9597 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -3855,6 +3855,7 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
- 	write_unlock(&et->lock);
- 	clear_inode_flag(inode, FI_NO_EXTENT);
- 
-+	f2fs_drop_discard_cmd_range(sbi, ei.blk, ei.len);
- 	f2fs_reserve_device_alias(sbi, ei.blk, ei.len);
- 
- 	i_size_write(inode, (loff_t)ei.len << sbi->log_blocksize);
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index ac0ed8609c1f..bc36af1a4247 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -1873,6 +1873,51 @@ static unsigned int __wait_all_discard_cmd(struct f2fs_sb_info *sbi,
- 	return discard_blks;
- }
- 
-+void f2fs_drop_discard_cmd_range(struct f2fs_sb_info *sbi,
-+					block_t start, block_t len)
-+{
-+	struct discard_cmd_control *dcc = SM_I(sbi)->dcc_info;
-+	struct discard_cmd *prev_dc = NULL, *next_dc = NULL;
-+	struct rb_node **insert_p = NULL, *insert_parent = NULL;
-+	struct discard_cmd *dc;
-+	block_t end = start + len;
-+
-+	if (!f2fs_realtime_discard_enable(sbi))
-+		return;
-+
-+next:
-+	dc = NULL;
-+
-+	mutex_lock(&dcc->cmd_lock);
-+	while (start < end) {
-+		dc = __lookup_discard_cmd_ret(&dcc->root, start,
-+				&prev_dc, &next_dc, &insert_p, &insert_parent);
-+		if (!dc)
-+			dc = next_dc;
-+
-+		if (!dc || dc->di.lstart >= end) {
-+			dc = NULL;
-+			break;
-+		}
-+
-+		if (dc->state == D_PREP) {
-+			start = dc->di.lstart + dc->di.len;
-+			__remove_discard_cmd(sbi, dc);
-+			continue;
-+		}
-+
-+		dc->ref++;
-+		start = dc->di.lstart + dc->di.len;
-+		break;
-+	}
-+	mutex_unlock(&dcc->cmd_lock);
-+
-+	if (dc) {
-+		__wait_one_discard_bio(sbi, dc);
-+		goto next;
-+	}
-+}
-+
- /* This should be covered by global mutex, &sit_i->sentry_lock */
- static void f2fs_wait_discard_bio(struct f2fs_sb_info *sbi, block_t blkaddr)
- {
--- 
-2.55.0.897.gb25b4bd76c-goog
-
+							Thanx, Paul
