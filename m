@@ -1,84 +1,95 @@
-Received: from hqu.edu.cn (hqu.edu.cn [210.34.240.11])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A15493A6B8D;
-	Tue,  1 Sep 2026 12:47:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.34.240.11
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D7DB30F7FA
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:47:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266843; cv=none; b=Yt66ekYl+bAp8DO8Yr7dqWEFF85I2Ea+3zxd6FubVH7OeUFoVKMMRHxZL7iOdxc7f/7oGeDndQm2B+SL/wREl631JfCkjw+jQv+7TmU0H+fafJ8yGKyi1fCi+6KnTokOL0TYKqUQbrgHYSX1gwdjz5rtqYUou8NLDcr+x6SxzkA=
+	t=1788266878; cv=none; b=n1r2odtbmYkRZnvdTxt2+sx3p2+OnCHNJphQnRodgwoiu5xu35B27UoyJe1Ze/zhOeo/C0ANbmYJhAErPZUw32TNtrEK6xATXd8wt2ycDS6anybnAlJkvtU1lpq6pbPp+bEehdeM9s5IhHS69lredTCAlX2vHk05eejsVaHpHpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788266843; c=relaxed/simple;
-	bh=pLnwTvDRjVvusLgNDGg0U0/KU2wvU+6ZSTzyly2JB5o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pkO0NLbKiEcGlo4UVNY36aMO24eHBz9VJR7fmIVLQW1QTnNT8HnCYWdMffjsfLzQfqm5Haj90KCWHqR7JkDD3kctkgDecqBYZLvBqeTk3V9xE/HSePLOGjxDvmYdImxJ7Jz4P1k5kk6syNvwBrJwxzmVjzGXehZmY8iLIPxp/as=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn; spf=pass smtp.mailfrom=stu.hqu.edu.cn; arc=none smtp.client-ip=210.34.240.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.hqu.edu.cn
-Received: from raspberry-nas (unknown [58.253.174.36])
-	by cmweb (Coremail) with SMTP id C_Ai0gAXetkByZZqhVcEAA--.8887S2;
-	Tue, 01 Sep 2026 20:45:54 +0800 (CST)
-From: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
-To: linux-wireless@vger.kernel.org
-Cc: pkshih@realtek.com,
-	linux-kernel@vger.kernel.org,
-	YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
-Subject: [PATCH] wifi: rtw88: use firmware MAC address as fallback
-Date: Tue,  1 Sep 2026 20:45:51 +0800
-Message-ID: <20260901124551.3921506-1-raspberrykan@stu.hqu.edu.cn>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1788266878; c=relaxed/simple;
+	bh=ZMkVQoLwFSjQFh71mnpOjYBkEbZBfqefoZXd/fVVZXg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A9zViA7ciKLnMwuNH+Iv7rgqVq8b6MHMTMNfX121io5SAFQPytPJQJSF2WvPBxkM+Nisi1+kguE+7RvxBIIykpvWqf8ygbe2TXxROaVGgWgYamz7hM870vhHjD7mO63FWIPHO6ogyf1I9rN14XcJDYe3AOhaR7J2W8hJyaPwWMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=LRH/L1Jd; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="LRH/L1Jd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=sCcI1xDRgy13rJLNRCaipdSq/zHJb80XoO4QrN/D7d4=; b=LRH/L1JdeSKQMpoPSr2wSN7WmB
+	fzfB+ZCm1SNnodEdvJo3EBXK75+WWQQafDgDQ8yfgf3JgaoNkOEXqPTlUgtMO0HGNWxmYaC9Ku8gf
+	aosrdu0gtHg4dwmYEVeALhBdXOWm4Mi/QMQIWtCpcOT1CSMix16u5+Z9SPT8DCXSaLfhcwf3Z0Dpf
+	DvLZKPjEnPkW7Nf0rSlqZtcfAVLB2ogBxaNR03gnTSNH/eENs3gRA6EYLzKplJT4DC19r0+zy5oEU
+	4wtVD4h0wBReSJV9HSeB68YseXCQPWG2faqwhXNgRU5Rr7KnaPz3lYsfgvcK0Rlz4GYCpMvqOoRIa
+	NMFfFyVg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x1Ntp-000000057uY-2PPd;
+	Tue, 01 Sep 2026 12:47:37 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 5EF67300578; Tue, 01 Sep 2026 14:47:36 +0200 (CEST)
+Date: Tue, 1 Sep 2026 14:47:36 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Jianyong Wu <wujianyong@hygon.cn>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Phil Auld <pauld@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, jianyong.wu@outlook.com, zhongyuan@hygon.cn,
+	huangsj@hygon.cn, wangfengyu@hygon.cn, yingzhiwei@hygon.cn,
+	justin.he@arm.com
+Subject: Re: [RFC PATCH v2 17/23] sched/fair: Fine-granularity NUMA balancing
+Message-ID: <20260901124736.GI776954@noisy.programming.kicks-ass.net>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
+ <20260828020731.785556-1-wujianyong@hygon.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:C_Ai0gAXetkByZZqhVcEAA--.8887S2
-X-Coremail-Antispam: 1UD129KBjvdXoWruw13tFW3GryDJF17tFW8Zwb_yoWktrgE9F
-	1jkF93AFyUGw1SkrWYkFZ3ArWFkayjvrn7W39Fq393J3y5XFZxZr1rZ3ZxJrn5ZrsrCr1D
-	JryDX3W8Z398AjkaLaAFLSUrUUUUbb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbsAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr
-	0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxkIecxEwVAFwVW5JwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
-	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
-	1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
-	IIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
-	x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnU
-	UI43ZEXa7VUjjNt3UUUUU==
-X-CM-SenderInfo: ysvskiyqsqlko6vw3hxktxhvlgxou0/1tbiAQAEBGqGKVQBbAAEs5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828020731.785556-1-wujianyong@hygon.cn>
 
-Some devices provide the Wi-Fi MAC address through firmware instead of
-storing a valid address in the chip efuse.
+On Fri, Aug 28, 2026 at 10:07:31AM +0800, Jianyong Wu wrote:
+> NUMA balancing currently consists of two coupled components:
+> task migration and page migration. These two mechanisms work in tandem.
+> However, task migration may conflict with other subsystems such as CAS,
+> which aggregates tasks solely via task migration. Conflicts arise when
+> both CAS and NUMA balancing are enabled simultaneously.
+> 
+> This patch addresses the problem by introducing a fine-grained NUMA
+> balancing mechanism, allowing task migration and page migration to
+> be enabled or disabled independently.
 
-Try to read the MAC address from firmware before falling back to a
-randomly generated address.
+Sorry, but this doesn't make sense.
 
-Signed-off-by: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
----
- drivers/net/wireless/realtek/rtw88/main.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+At every point NUMA migration should take precedence over LLC. The
+remote node penalty is much greater than the 'other' llc penalty.
 
-diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-index cd9254370fcc..b9d8e0f5d15e 100644
---- a/drivers/net/wireless/realtek/rtw88/main.c
-+++ b/drivers/net/wireless/realtek/rtw88/main.c
-@@ -2060,8 +2060,12 @@ static int rtw_chip_efuse_info_setup(struct rtw_dev *rtwdev)
- 	efuse->ext_lna_5g = efuse->lna_type_5g & BIT(3) ? 1 : 0;
- 
- 	if (!is_valid_ether_addr(efuse->addr)) {
--		eth_random_addr(efuse->addr);
--		dev_warn(rtwdev->dev, "efuse MAC invalid, using random\n");
-+		mac_ret = device_get_mac_address(rtwdev->dev, efuse->addr);
-+		if (mac_ret) {
-+			eth_random_addr(efuse->addr);
-+			dev_warn(rtwdev->dev,
-+				 "failed to get valid MAC address, using random\n");
-+		}
- 	}
- 
- out_disable:
--- 
-2.53.0
+It is always beneficial to get tasks placed near the memory, and if
+tasks cannot be so moved, to move memory near to where the tasks are.
 
+As a secondary concern, it is beneficial to keep tasks constrained to a
+minimal set of LLCs inside this node.
+
+Disabling page-migration or numa task-migration separately completely
+wrecks things and you might as well just disable NUMA balancing. 
+
+Now, if the process spans multiple nodes we should go do the same again
+as this patch set does for llc, spread/interleave over the minimal set
+of nodes that do fit.
