@@ -1,60 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F307338A70B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:51:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2FE137C906;
+	Tue,  1 Sep 2026 20:51:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788295876; cv=none; b=EnTSOFQaSJSeZTFv2q44cBrlewcU1AzQfhk+UpU160vpSqUqQhc9vvxHVY1nFFnEtxp3VoN9a37bjhJfULBMxJxhpXIoqdpk7c1+VSUqC5Yk4FwAIZ1jTTURpivq4ujgKMa+Ew1VYRJGJEeHZFLedfWIaqbihD68gw689k3we9k=
+	t=1788295876; cv=none; b=aTU7phQhHcmlIMeAW5ldDqxF9FmxJjvKK9pzhAiRYL9vQ1roADRJ5FTE4dHkAq2RRM2Q38RFTmahk+Y3AvjKsmPZUWgKaMJoGPCWmxLuEk+nAdjZkac0DZrqYCWZbmGvmQVA+TJlsPjkmSHi2vMEzY0CW8/MwG3IoRma1hvlF1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788295876; c=relaxed/simple;
-	bh=SElzPYmaym6iUMbfPKR2vUbdARiV5kR8/8RAHtmDMpQ=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=oLFUbJXm/x43LQ1Tra6C9Wwz7JNyCcXkDDglBiowlA8bpEK5T1qkwdAqMawfMdRPeLuARPaXJQs1y8getdU9z+YLrGNxqUAYotdTIfDykayWS1e39jqNZj5fQyEzscm7BZqAvf0I09rFkDYPUib6nEcMJ+UNtSX/Kjvt+j7HRso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KhpnC2nD; arc=none smtp.client-ip=100.103.45.18
+	bh=zft0BQUTHFGoj8tWkGL1ZlNmDyiynalwQ6IC3Gu7yfY=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=czm64F1bpTyjqiPJGkKcVslZ57KhcoSy++1X6inkjqbnHghDQXQOLFZlcLTdC07xtzLoVWzqDycY6jGkN42t8DTMUBayEYwARJXARgMPQikDosv6c/p0brWGE1VU9r4rP5IKOt+916k84PPAFaJFHp78nwLlj5AuJrvZxTgReEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dc60qxEk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KhpnC2nD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B56191F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dc60qxEk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3061F00A3A;
 	Tue,  1 Sep 2026 20:51:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788295874;
-	bh=ny7uePr8tXxubp05K5KTUeAAvHwNywwpzMt3vtYvyHU=;
+	bh=ijVjrJDoe0odP4aLLF2grpVT+8YBxdlbm81hi0D8WfI=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=KhpnC2nD3Ipb5g8puS0tl4LJBaiy3Bqxaobcg7Tl4pZE8W6/J3K/jtzvTELjiWkDM
-	 kG4+bjhPa4nyCeUK6Tyty86BsHBLG9XJ+B7ak5JmmaOLINC6+yBMSLiCKnKubocPW8
-	 qLGxyXqsAz/dNXmnGDOZF5IUqfk90fc5E8Tk60He8EHNPitXKgjbMebX037tPTlecT
-	 nBiV+X++TnSy67abF6rxCGGRo30CgoUTNOZxm3KnYvIHSrfjp49ALST/efpkJmC2w7
-	 E6WfNJwBkP8IldvrMmWo8xV57y5jNNE/R0+WCTzXGouq/BH1c70WHeqCCP9266nfdl
-	 In3cGxZs1Dr9w==
+	b=Dc60qxEkSk1ukevfr2CZpsAQbSW1s1YszshBVXJvZXVIaeRMmnBIefUvzOdJZZAhK
+	 NtiZ5fTOFm3OGbxTMA+NjxYWIWZlkRK02CzEfxb61w7l7FNLjmFumH6z0+HdDrfEcg
+	 lf4N9GahiCAMLDC6ZcLYDzGPgAxnvIVcRJKf6Ot1JiB6f6f4Xw4qbn5s7RtObLqCn7
+	 Fj1O5JxG8HKHubyn4c2c38VVNRvZ6jn8fNbZH5v0Z/SlCXQ6qw4UZPpKlTDxmxo7mU
+	 LYfAtFh05B/F/aiwnfqfZVVOYdOhyt4DTh0s3/IdDJlPhE6Lz7rJqeTN7YrrTNoXh+
+	 tN9rIcVdQxrTw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56A1F39253F9;
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 57E2339253FA;
 	Tue,  1 Sep 2026 20:50:18 +0000 (UTC)
-Subject: Re: [GIT PULL] ksmbd server fixes for 7.3-rc2
+Subject: Re: [GIT PULL] smb client fixes for 7.3-rc2
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAKYAXd9MMkW5hUCBz0_xBTLxsxeifmnKmp5jF0daMK=3R1adLg@mail.gmail.com>
-References: <CAKYAXd9MMkW5hUCBz0_xBTLxsxeifmnKmp5jF0daMK=3R1adLg@mail.gmail.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <CAKYAXd9MMkW5hUCBz0_xBTLxsxeifmnKmp5jF0daMK=3R1adLg@mail.gmail.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/smb.git tags/ksmbd-for-7.3-rc2
-X-PR-Tracked-Commit-Id: ba9572bc43d04d71ba52ae7f20645f1eafe86875
+In-Reply-To: <9b4b26eaff2ed89ee2da77e8d32881fb@manguebit.org>
+References: <9b4b26eaff2ed89ee2da77e8d32881fb@manguebit.org>
+X-PR-Tracked-List-Id: <linux-cifs.vger.kernel.org>
+X-PR-Tracked-Message-Id: <9b4b26eaff2ed89ee2da77e8d32881fb@manguebit.org>
+X-PR-Tracked-Remote: https://git.manguebit.org/linux.git tags/cifs-fixes-7.3-rc2
+X-PR-Tracked-Commit-Id: 4aa2c106aef4bf3dfd97c30842db0767b26e8428
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 9a58da80053f992b285b6b7bebc694b0f284c443
-Message-Id: <178829581684.1843886.17107273411800115181.pr-tracker-bot@kernel.org>
-Date: Tue, 01 Sep 2026 20:50:16 +0000
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+X-PR-Merge-Commit-Id: 89a312991dc6e638a36adc43ccb91dbc25504c04
+Message-Id: <178829581768.1844278.17524989319092874931.pr-tracker-bot@kernel.org>
+Date: Tue, 01 Sep 2026 20:50:17 +0000
+To: Paulo Alcantara <pc@manguebit.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, linux-cifs@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-The pull request you sent on Tue, 1 Sep 2026 19:03:14 +0900:
+The pull request you sent on Tue, 01 Sep 2026 17:14:45 -0300:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/smb.git tags/ksmbd-for-7.3-rc2
+> https://git.manguebit.org/linux.git tags/cifs-fixes-7.3-rc2
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/9a58da80053f992b285b6b7bebc694b0f284c443
+https://git.kernel.org/torvalds/c/89a312991dc6e638a36adc43ccb91dbc25504c04
 
 Thank you!
 
