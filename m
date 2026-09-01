@@ -1,91 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from embla.dev.snart.me (embla.dev.snart.me [54.252.183.203])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1949B456DF3;
-	Tue,  1 Sep 2026 07:18:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CBBE42DA5B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:18:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.252.183.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247110; cv=none; b=VhwH4pP1bMYeast4+kqD1v+F5gWCkO+8wVXObC1JDXT/n22Rx/w+l11ZB2ggnG3LzM2TfBACeh859YWy0JQXne1VMpwbtRGWcZ38ya7c7uv73V5rkCSZt7D7CF+k3Egyb7x0F0GoSt6dCBvVl7psnHAAFY/kYr7X5YO3SQE/rO8=
+	t=1788247127; cv=none; b=gkp7GLi5cRBKd3/VSwQEYkDd7LoTmyIps2CE5q85XoGzMFZm9J7u25fayOlnTtdVv25Eg+JKXjbKSp6nQeRNcawUg8zXt9SriO4PDQw9ZMsGeMk0XouLVly4mg6R8yd6LooxVMOrp7ZGsZLTyyDUswkc54DCEWKCP/xFpnBL+Gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247110; c=relaxed/simple;
-	bh=D5X5hp0rLD200qNbvd/0WTpE/bHAqMjL1dE7N4Uad30=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bFn6nP810jJjRh0TWmBztAv7R+5Yvg/CinYSfdNO9gqgOEcMb/+c+MwtR0kOVRAVzHmmSpLK8j0s4T8FXc7dV5Wp9BVBx6jODOU7ncDr94oG+2iV/7a1p+FIY/GK2YDJWMJvt3X06L86BHTI4XRRxeNPBcRp6VtEQKYOpqSIMqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CvoXErb2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788247127; c=relaxed/simple;
+	bh=qpGMO2t0h1dOFGcdYDNbkNH0if99gh3rC5Jb5Je4C3M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EKK6ARhDc3PnaHA1/3D4Qbb9zz1eFvrLWRfKkXJVbXNEvXhlM+NFSXEMULtkQ2UvvYT+zPqvh8NqbDBVSl7iWmIpEzl4v/6SknL8TO1r2NTJtnMIJfcPdZ3Wa85Lbbbeiw4AGbk4OS1MnK0LzEJqEN7HuprMIhnIU9WBy+ZqmZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.snart.me; spf=pass smtp.mailfrom=dev.snart.me; dkim=pass (1024-bit key) header.d=dev.snart.me header.i=@dev.snart.me header.b=iL54+WX3; arc=none smtp.client-ip=54.252.183.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.snart.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dev.snart.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CvoXErb2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9692C1F00A3D;
-	Tue,  1 Sep 2026 07:18:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788247108;
-	bh=BliBlBY/rE2XXAfiz114Pf5LOVvfEPyRfjJ0ncDHxzU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CvoXErb2sAbM5eo5Z8hj41LsJXMSJ3CqDv9mbfoKuBKkC9Yiqxk0zhn0sOE2VHMx1
-	 +huckBkdkUb+v8BvRj2x6LSaexGExbNZXJQ387B/KCcLUPvI4rsPl1JwrLMe3+g72i
-	 bzGN6XjaNRoTT5SgvmllYakS2peRE6aocqfD1jHEKxpaWrSC9sv9B/a0hp9QoN1WfZ
-	 oBuibsVlhSIeJCSUk5lccBQcQ+QnIiT4n2DFPqG1YTfO1/CABLx4tG8JjBoXyqExbZ
-	 xT3uUaDK2BXqfMV1USdT9voFU1Q61JPRETne9TrLoNxHeNCtH5vLZZ7P2USZ/20Ff8
-	 I1eSZk8uLR++Q==
-Date: Tue, 1 Sep 2026 08:18:22 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-tip-commits@vger.kernel.org, 
-	Steffen Dirkwinkel <lists@steffen.cc>, Pedro Falcato <pfalcato@suse.de>, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Atish Patra <atishp@meta.com>, Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, 
-	x86@kernel.org
-Subject: Re: [tip: x86/urgent] x86/alternative: Exclude text poking against
- change_page_attr()
-Message-ID: <apZ8AXqJBeI2BztN@gremlin>
-References: <20260813-cpa-fixes-v2-3-39b4ff90f91d@kernel.org>
- <178821524520.3717435.12731475498671524229.tip-bot2@tip-bot2>
- <4201eac9-297b-4672-8e7f-62e99dd13eb8@kernel.org>
+	dkim=pass (1024-bit key) header.d=dev.snart.me header.i=@dev.snart.me header.b="iL54+WX3"
+Received: from embla.dev.snart.me (localhost [IPv6:::1])
+	by embla.dev.snart.me (Postfix) with ESMTP id 65D831D452;
+	Tue,  1 Sep 2026 07:18:43 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 embla.dev.snart.me 65D831D452
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=dev.snart.me; s=00;
+	t=1788247124; bh=qpGMO2t0h1dOFGcdYDNbkNH0if99gh3rC5Jb5Je4C3M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=iL54+WX357cj7J+8aUX9WVhiDexivK+Ti0RatSFuM/Gollud8MDZBaumkaDbDVW/J
+	 Blk+K8YcB6tKiQB3534HTbXXFUoXTTLavoEdACS+zi3vokoALorKZSX5wtOF6hAgsD
+	 36VP0udAtH3OC8RtdTqXTNEn2DHB+eKvSv0pghpA=
+Received: from [192.168.1.18] ([182.226.25.243])
+	by embla.dev.snart.me with ESMTPSA
+	id RIAGBlN8lmrS8wMA8KYfjw
+	(envelope-from <dxdt@dev.snart.me>); Tue, 01 Sep 2026 07:18:43 +0000
+Message-ID: <154d417a-65d7-42ba-84d1-ea7834e11c8d@dev.snart.me>
+Date: Tue, 1 Sep 2026 07:18:41 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4201eac9-297b-4672-8e7f-62e99dd13eb8@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] exfat: doc: add documentation
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>, linkinjeon@kernel.org
+Cc: sj1557.seo@samsung.com, yuezhang.mo@sony.com, exfat@lists.linux.dev,
+ anmuxixixi@gmail.com, chizhiling@kylinos.cn, linux-kernel@vger.kernel.org,
+ zhanxusheng@xiaomi.com
+References: <20260831105330.10449-1-linkinjeon@kernel.org>
+ <20260831144929.1597433-1-zhanxusheng@xiaomi.com>
+From: David Timber <dxdt@dev.snart.me>
+Content-Language: en-US, ko
+Autocrypt: addr=dxdt@dev.snart.me; keydata=
+ xjMEYmJg1hYJKwYBBAHaRw8BAQdAf5E+ri1XLtjqYbZdHOyc8oS+1/XJ5bSlbx5WHXmVBZzN
+ IERhdmlkIFRpbWJlciA8ZHhkdEBkZXYuc25hcnQubWU+wpQEExYKADwWIQQn/Jn96EMUaIoF
+ X+T/ldyyrZpWaAUCYmJg1gIbAwULCQgHAgMiAgEGFQoJCAsCBBYCAwECHgcCF4AACgkQ/5Xc
+ sq2aVmjJZwD8COjPlUwccrlRvbNQ6f87DWchtYO0o8W2DNRM3RLps0EA/jEhIbRV6AsyC8jr
+ 30Ut3aJ3/mO/6G4sLj7OvkEEBH0MzjgEYmJg1hIKKwYBBAGXVQEFAQEHQFpgtIgaByv9lIEY
+ EmpavMO0pYjtu7TMJynwdnGYkN9LAwEIB8J4BBgWCgAgFiEEJ/yZ/ehDFGiKBV/k/5Xcsq2a
+ VmgFAmJiYNYCGwwACgkQ/5Xcsq2aVmhFCwEA0kM9VyYB4bLCM7+SuXUUH+5Ec99Nj4RXxFad
+ Key9GuwA/2BZK6bNyrLSfEk2JDRoskqf7OIL0wa6JOD5SrBnMe8E
+In-Reply-To: <20260831144929.1597433-1-zhanxusheng@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 08:16:28AM +0200, Jiri Slaby wrote:
-> On 01. 09. 26, 0:27, tip-bot2 for Pedro Falcato wrote:
-> > The following commit has been merged into the x86/urgent branch of tip:
-> >
-> > Commit-ID:     1c4d1c070d734b241728378c0f79950c23a10883
-> > Gitweb:        https://git.kernel.org/tip/1c4d1c070d734b241728378c0f79950c23a10883
+On 8/31/26 14:49, Zhan Xusheng wrote:
+> The option list and the defaults match fs/exfat/, including the allow_utime
+> derivation and the time_offset range.  Three things the table leaves out or
+> implies.
 >
-> Was it dropped in the meantime? Gitweb says:
-> Object 1c4d1c070d734b241728378c0f79950c23a10883 is not reachable from any
-> reference in this repository
+> Most of the options cannot be changed on remount.  exfat_reconfigure()
+> fails with -EINVAL if iocharset, keep_last_dots, sys_tz, time_offset, uid,
+> gid, fmask, dmask or allow_utime differ from the current values
+> (super.c:789), leaving only errors, discard and zero_size_dir.  Nothing is
+> logged on that path, so "mount -o remount,uid=1000" returns a bare EINVAL.
+> The reason sits in the code right above the test: the old values are cached
+> in inodes and dentries.
 >
-> $ git rev-parse tip/x86/urgent
-> 477cf5cd1f698053df7426b7b8d9339e85e00946
-> $ git branch -r --contains 1c4d1c070d734b241728378c0f79950c23a10883
-> $
+> umask= sets both masks, and the options take effect in the order they are
+> written.  Opt_umask assigns fs_fmask and fs_dmask (super.c:289), so
+> "-o umask=0022,dmask=0077" ends up with dmask 0077, while
+> "-o dmask=0077,umask=0022" silently puts dmask back to 0022.  The dmask=
+> and fmask= entries also do not give their default, which is the same
+> current umask that umask= defaults to.
 >
-> Despite I managed to download it at some point though:
-> $ git show --oneline -s 1c4d1c070d734b241728378c0f79950c23a10883
-> 1c4d1c070d73 x86/alternative: Exclude text poking against change_page_attr()
+> utf8 is ignored rather than an old spelling of iocharset=utf8.  It shares a
+> fallthrough with debug, namecase= and codepage= (super.c:331), so
+> "mount -o utf8" selects nothing.  exfat_show_options() prints
+> iocharset=utf8 only when opts->utf8 is set (super.c:132), and nothing sets
+> that but iocharset=utf8.  Listing utf8 apart from the group described as
+> "Deprecated and ignored" reads as if it still has an effect.
 >
-> What's going on with tip today?
+> Thanks,
+> Zhan Xusheng
+idk.. The proposed documentation says nothing about the remount option
+as of yet. Reconfiguartion of the most of mount options FAT isn't
+supported either, but the documentation doesn't really specifically
+mention that fact because there's little to no actual use case other
+than remounting ro or rw.
 
-Yup, I can't see this commit _at all_ in x86/urgent. Something's very
-broken here.
+Other than the last paragraph, these are separate issues not really
+pertaininig to the proposed documentation, if they're valid. I suggest
+that you submit patches fixing the issues if you'd like to contribute.
 
->
-> > Author:        Pedro Falcato <pfalcato@suse.de>
-> > AuthorDate:    Thu, 13 Aug 2026 12:01:26 +03:00
-> > Committer:     Dave Hansen <dave.hansen@linux.intel.com>
-> > CommitterDate: Mon, 31 Aug 2026 15:17:35 -07:00
-> >
-> > x86/alternative: Exclude text poking against change_page_attr()
-> thanks,
-> --
-> js
-> suse labs
+The valid point on "utf8", though. Opt_utf8 is ignored. I think this is
+actually a bug in the implementation rather than a factual error in the
+doc. "Deprecated" shouldn't mean "it's a no-op". They're totally
+different things. fs/fat still honors it, so I think fs/exfat should do
+the same.
 
---
-Cheers, Lorenzo
+Davo
