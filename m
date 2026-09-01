@@ -1,187 +1,163 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021137.outbound.protection.outlook.com [52.101.95.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501BD3B5306
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:51:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263502; cv=none; b=faOaWo/HAJCAh4tb1rw4qb6/0YZM6E1kZI8Vtg/PHFLof+uSUbQEcKYVI1WqeJQA/gBAU/TK8JFihdOhUW2ivYWdvBf88rweBlaPmFeTaz4MUfWd3FxYLD3WLJBKNmMjrfbRvB0Ub4y8AVHkP3xR6FSyqAkBr8LJDZsWUCsjMSk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263502; c=relaxed/simple;
-	bh=KUoF0djquNJoX9WdZcqAnWNO7Ly+uh4J2nhw9kk/jmM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tmf1XdGv7VJ9uDYUqjbNMXYdxzTX/oBw+DXFa0pj07VPhbQc/Y6x8+0UYOCi88W2eT8OoDrGVHc6dNr8l8oigIVhmy7baoYuFuJrEPgo1zlOkg5i6lYTtfczD4BJMxb8aRZV6buxzxjj7QnO1MT3SQEp8mypHRJM+xgdoPOXiC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu; spf=none smtp.mailfrom=monstr.eu; dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b=n2iX5pTt; arc=none smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=monstr.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13C137E2E5;
+	Tue,  1 Sep 2026 11:52:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.137
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788263528; cv=fail; b=OGeoZp4c86mm0cc4gHewmd7UXFx55INkWeW/GUJmn6mFILjy8iMm04D9GNHSgFxsukio97MxwliyzAa2o9eEQLIemHLB/2b2IsUTvp+qniFACfGK+8qbp6EsA2mzGsSV7Wwrij3Gqc3/NhBEwXLanK1D9F8ErBiwheHKLC0Qs9k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788263528; c=relaxed/simple;
+	bh=QOzBcAuAy4nhjXkvk47OJrOXdwNoth41+iMLLlY6jE8=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=B+Q0xzP5ks1Emf8T4LmaqcvR6gy1TsMmzGvjAbcCsx9yRWo9dNz7PELOZ9F3c8xqHMOQRhl0Cfu9VvyL4hqMdsLJsRTvpIZ2RtGcriakmlzfEC2veOyYtV0MieluLuyn9Y+a0QicsdVnPL2ACWdkW4YantXgL567sexJMTuIlyE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=TVSavzNg; arc=fail smtp.client-ip=52.101.95.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b="n2iX5pTt"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a20319d030so1066289a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:51:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=monstr-eu.20251104.gappssmtp.com; s=20251104; t=1788263496; x=1788868296; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Cugye/pfcKYPPCeGDa7Vo+9AJhMGlAjboRgfu611ryw=;
-        b=n2iX5pTtLdvDT/88+fmZ3Lm6E1zHG4i0V9yl7EPXcszRHj4xnvxblbgS9t/9SW782u
-         YyYVqQUqYcqEQpZBVqyTn/18R0ZASa9tG1oywL3e1DST4DTrnlWvGPgtxg1g7h6XJ7Lr
-         LVrj/DG8LsQZXPTXSkxREtcNnTQqouhHXbVV5LL0qODLFzJS3OufIbBonPpOuEF0uYsu
-         qq9fjbbFEblju8HtUR06FB89tTHIMVmPoZvzthU/fY7nXTfvZpcD59E0k1xAGlIWLHKx
-         JdqPWJUCG6Zf+RmxdjUADxLVSwVUFnm3bSatsFuSc0HvoGFFkOlFBnEDWbKc5aRKV3dr
-         0Rnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788263496; x=1788868296;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Cugye/pfcKYPPCeGDa7Vo+9AJhMGlAjboRgfu611ryw=;
-        b=cTS4p5LYYQInKgkwOKxtBV3T0aNs188Zb9/h+fnjWbu6OFATT0ZOlpDLiY6qdOINfO
-         3pFV/nH0FjevXyK42K+//DW50l91vW4Dpl9FsK0OlkT3i+YAK2CNny/rawg0HxLLZJMW
-         bUwef9Paq7uqkxrfoKtqvhglWAoOBHFMBTI+PjiI/5Eji6SMtlv1oHyl6yOkM7zafCG0
-         UhpcUUL2YIpg7ZUq1Kz/0mFIle8JmhpeMsTBHKnDlevVYb9zQj3PVe+/eoZHxepGm8ze
-         ZWZCqYS0IMMltYPJIWxOo3CQj9xPfkmv0DOkFSkcki0JeDLbAkPV3JkgTavWInZ6BIFH
-         gAnQ==
-X-Gm-Message-State: AFuF++mdAuexpFHTMpcwDJeK0e7goahOCBGH0+Pgsx2hytZNOYrt22/b
-	zNdgXEmiMSXVESpdexZSamE3XG0YuQR/ba4F5Ilv15Jg3DkQqELlovpmTQohCe9NKw==
-X-Gm-Gg: AYBFou2blEUhPu8eT1bUnH0tXzb/24ZHwmaPa2Rsj3Q+ZK0VAEP8lBV7XgnfCyokUTU
-	cIST0p8o7qcBXauVrwTCCDKgM2fJWCsF61MgsEpjL/0o6kgyLKnWtGVsqtP7NPe0e+aLjBYa2lk
-	TrTewwRuvM4+GkjqdqMICnuXb9GtOv3HYyi0BrWmj4MUsJG4a5bVVS/VpOKkl302lvni2RrLpPG
-	v3ZkvaEJCVfoeAGn7pUzDChdGaZuh5fTYcwoUBeZj359gmA7qWNXtBMCU+lZJJcdfh1EdJ4oTwb
-	hC8xsIULcNBB6bzY1pUU21vYkatVMZ5dFQFXzdElO0JNAmNAB67NE5SToDANuKs672QuC1DGdFU
-	enWuog2lfxWgesYU1qKOfoxd7YhXuFakT9PgCehdQ08LxROKOFhAWXIAVrJy7OAJ7jfxTBu4Zu+
-	vbwYfy5rNgVhHZAY13cB4dJkvKV+gyfdOC8LAaNek5HMA+UWypq8PsQ1s9g9ESNqq3umKAagCF+
-	s+Sp2tqEsfxS0ZafKZu8gIQlKhMgIbgJbsg
-X-Received: by 2002:a05:6402:44d7:b0:6a3:87b7:b5a9 with SMTP id 4fb4d7f45d1cf-6a60d3b4e36mr16170100a12.12.1788263495726;
-        Tue, 01 Sep 2026 04:51:35 -0700 (PDT)
-Received: from [192.168.0.105] (nat-108f.starnet.cz. [109.164.53.108])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a66d16362fsm718430a12.29.2026.09.01.04.51.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 04:51:35 -0700 (PDT)
-Message-ID: <1bea6e00-1917-4544-b8ea-f28415e21db7@monstr.eu>
-Date: Tue, 1 Sep 2026 13:51:33 +0200
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="TVSavzNg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n4LVjXZyxeITpLXbJvsPh141fee/gJUdEKATT5ErybnTUi9zJTjNj+v+BCQHr4kO7mDv8F3DY+XIBzZsE+aL6KR654vdvlQXQ5XFd8tkEUEHHA9pHFDNZElz5vZI3/WkBPOe2edl3Z5tYzEUo1Bv1SdLPFe63/3NgHB7LGaFws5341NKhzm84blRPP0uWnu4SnO3EAnQKNOoy/bWy0zV7NSi+2EkGjSt/PnYATBzkXfE1TAtiextbnR+xx5QluS467VUo1WO7t4ZxyKeeHo/WLPIyfJi438MvxEIENSbcLpPTuqCXWx393SAtJRFPO3FRE0fQ0rJWpcM9bZrTm6Pcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5ztF0zSa9dC2UqKQZa8N5PpBHZRq+EwRSNRpRXqbdTg=;
+ b=Zsl3AIBmO4VcTOdv+U2AyuPnRl4qMnkuXpMAZ0VDYLaNrmtpeFtVVGdxVvLBf36Y8LcHEpyFYKAnjGAhP40ijqXzFtdA+9v8wC4JFBjcGYwnaDpe78iplADBo8yjChY3+Fe3YSoS5/wh98nYGHQUTUrOvV7KV+CyQYLmDJTrUK1G3Q/exeD8p59r3oDUOahMkMDud2T7vjIQN8SZvrtF3U7b2vmljM+8DJkfIGDb/JoVsVKsqiscljbAzUJ4iyeCwJdBjBZX3g2OqIZj+qi2uEbD1QClh3rmC9FaNGeCZ2Us9MKWRgriJ51vc25O3DLYc8/nMc5Xo52LszeHdiBecg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5ztF0zSa9dC2UqKQZa8N5PpBHZRq+EwRSNRpRXqbdTg=;
+ b=TVSavzNgKU54yKtbrD5JA9uvfuZzbWoLQysxfmustv6x2ZRmfA6AhOKZla0oNoLixS+xHFdvANFtJEBAswbNW00hqvcq1XFQfoLMRC85uYeOr/ZxnkFDYLSJbdxeOfrDBmcsLbRLLhpvd88iVsmOHVoAyR8HpVFlwVuCPOBXzm4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO4P265MB6296.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:27d::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 11:52:01 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 11:52:01 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 12:52:00 +0100
+Message-Id: <DL3YIG34IP1Y.1G32YQU0JYUTE@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v2 3/3] gpu: nova-core: use cv! for constant casts
+X-Mailer: aerc 0.22.0
+References: <20260901-cv-v2-0-446bc69d2ade@nvidia.com>
+ <20260901-cv-v2-3-446bc69d2ade@nvidia.com>
+In-Reply-To: <20260901-cv-v2-3-446bc69d2ade@nvidia.com>
+X-ClientProxiedBy: LO4P265CA0216.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:33a::8) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/5] microblaze: fix signal handling and the ABI
- argument home area
-To: Ramin Moussavi <ramin.moussavi@yacoub.de>,
- Michal Simek <michal.simek@amd.com>
-Cc: linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- linux-arch@vger.kernel.org, Sam Price <thesamprice@gmail.com>,
- Neal Frager <neal.frager@amd.com>, Waldemar Brodkorb <wbx@openadk.org>,
- Michael Eager <eager@eagercon.com>
-References: <20260821151809.1233057-1-ramin.moussavi@yacoub.de>
-Content-Language: en-US
-From: Michal Simek <monstr@monstr.eu>
-In-Reply-To: <20260821151809.1233057-1-ramin.moussavi@yacoub.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO4P265MB6296:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0bdbcf90-5648-4331-e6a1-08df081f6f11
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|10070799003|7416014|376014|10067099003|3023799007|22082099003|18002099003|4143699003|56012099006|921020;
+X-Microsoft-Antispam-Message-Info:
+	xlkYg6xQ0bBft8u/cntKZOL0Sq9wRsaozyq740dnXWFeKENJkz7oqowffemjg6vrGg38+eH/qdsnBvN/zywmuyu9fronNzYkfOkYk3T9GBBu4PValFpKT9axwh+MpHKLJftrgw6B0POfJ9535eYyP4OsIZkH/5qIwTLKm79sXRbXKZWJgEoTd7s9wtkdfybPgxaSvol3Z8un9uO4inH2IWgSk/5LNpqCoQzAXvL+HG1hIjL0dM5jMEODrxsE5+E3nNrDYXYLHqHIqox9mY5zdxXtCerKFZY8Jv5TtE5+8dRX2yvEOwSdFnLIZHbeo2rp0PHY29XmC08uUIQ7sSl0k3mdtwzvUvX/fBiCkjQTk2Cu0gzHUsDAkQDpjCQFLokwyfaiT5CuDfGcvANsmlTFQ+RuIkpy6sikfMDE2C+4x0mYaMCDDVmAx399rdEKSxHA9JuBppndmtIq8yJK1qfOGv00sLfRLjb/bxYDBLLdK/BtxHG4D3zOl/DQ4z3xIKBUW7FTkl6uazxSX34xHDpChiz7DQsveN3BfUUh7hmAW7CSDc4/Y2A3i4Jhp2jM3WYcaNsg7f0yRhy/pOf41owKhePk3yopGYCYWCzm/Nef5eA6qEWtjeDhs8IaTV0LaJYVc5GMzFKm7WWtCNSiDpceK+f9krgXWO3peXYvjXKD5YpuWh8iDBZ9sh+EcgmXVKbog+DsRa9wjnQgcWuhl1ggLA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(7416014)(376014)(10067099003)(3023799007)(22082099003)(18002099003)(4143699003)(56012099006)(921020);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Smc0WWYrdDhqMktqbFNYNWp6MEdEL01SQVE0TFl3LzR1MmdsV0pHUXBPY2gz?=
+ =?utf-8?B?QW1tdTlDZStibUxML3NFYXNybjRXdFo4Rjk4VUllOU1WelJ4NGRkajBOWE1U?=
+ =?utf-8?B?cEl5WXRUSENqOWhrV0hTdkxpcU1sNnp4WGdiZy9KdlpncmlZTG1IendkY1BT?=
+ =?utf-8?B?T0l5eFozWXhKV2UyOUJQZVd1THFkdjl6S3BYS3lzME0rSzNoK2VpNkpJUXRK?=
+ =?utf-8?B?TVV1b2YyRzdobUFycDRDWnpQa1pJeXFZY1BUNXJXbUlUQjdDR3BYYlZqZUhY?=
+ =?utf-8?B?YjFHSEJGSjhVbCtEbXhEdEUxeTIybFpRcXBSbDBGeWRYWVgycFJSbEU3R2pr?=
+ =?utf-8?B?TnExdVNPZzNuUlIrRDBUemliT0hJUnJaOHN0K2phVnc4TlJWYjU5amJ3dmFk?=
+ =?utf-8?B?dElCWGk1bVBWaTVpdzl0SGRBRGJOU1BaaFNHdmZVUlJkUklQQlBTUmNxTFY5?=
+ =?utf-8?B?NFdhWFYxUmhDQlFXZ21IYjVQK2IvT2NiUkJ3NzVzWFdmK1E1RlZtcGs4c3ZR?=
+ =?utf-8?B?VmZGL2txcnMvUC9lUmlLaHVQWWYwbHczdFhYVkJWNWdkT2ZqaCtKaGd4ZlZr?=
+ =?utf-8?B?WVJpekRYSTVsdkJNUVFuek81bzFydm1uRXRmdkJiK0x3ZG00NFptNm5DY0w2?=
+ =?utf-8?B?LzNOZ2NtZXB6U05FcGJudE03cFhBYlBZb2RDNENFS0xiUDJyUWZJOGdKK1V3?=
+ =?utf-8?B?cjE3WGZzd2lUWjNSaU9JTW1hU3dQNTJ1QlVERzg0Z2MzRkdxNlNQMllkME9V?=
+ =?utf-8?B?eXRSZFNWUEE4Q285RWFTZXJZNWNKNkNTU3FPM1RqUHF4NDA2Mko3bUhCRzRt?=
+ =?utf-8?B?SUtweTRLSi8wVGtqRUZCQ0w4MFA4eWJES0RwRXB1S3FrcVo2RDZlcXlLMEZW?=
+ =?utf-8?B?dXF2MmZhTFRUS09BWnUvV3hFckpTNU1pdkZDZ2FSUkJiQURNMldHT3B0dXBi?=
+ =?utf-8?B?VHB3YVFzbkc1SitXTnoyRTJhYnBReENBQlJKUG5IcHE3VUVFT3RNTVZ5VWpC?=
+ =?utf-8?B?YzlWckFYeEJuNnpuUXhPWHNhSE90WHJOY2J1TmdvYkN4d01Yd3RVZlY5SUZ2?=
+ =?utf-8?B?aEpGM2ZIWGFzOEhPSXNxWC9rdVZPTGplcVAvZHJNNWxXelpPYzgxMU81N3VL?=
+ =?utf-8?B?QllCNGZlU01HYm44WVhRalhUeWJGcWxPN2FZdnhBY2sxcWk2eUVYSkhEU0Zn?=
+ =?utf-8?B?ZnRMSUNnWXFVZVRsZGYydU9FS3k4QkJMaWtoazg3a3pQRVBDRlMvRk5WRVNt?=
+ =?utf-8?B?OThLRUlTL2s1VXZ6TDg3VW1oQUh5ZEZUSXZKVk51SVpPL3hLMFR3SGpQVGE3?=
+ =?utf-8?B?L3pDZFVJdEpUOWdNc0s1dExIVm1XVHRJYTJXRzF4L3FLMmw2REVxKzZqN1hC?=
+ =?utf-8?B?QWZjVU9SQlZ2TWp6dW8yNGp2eEVmSFduV2tnNURPbFhFZVo2ZkxRRXhrTU9D?=
+ =?utf-8?B?WTI2YWtpRWRrWENnY2U2U1JmeUo5SHFxbXFFbnk2b0ZrL0Q5aTlteUphVUlI?=
+ =?utf-8?B?a1BKeG80Q1BDVFJIVGEzRXBGUG1KK3duWVJWSEd4c29qYWNDcmVFNlhCV0I4?=
+ =?utf-8?B?RzhVNUhTTWhVSDFIMHcxd0lHOUV2aHFWeHpKNU1VOFR0N1EvNXZYWFR4eWoz?=
+ =?utf-8?B?TVZBcERXSHJJc2c3b3pKTjJFb3NPeGRONDBFUSs4eDRQc0kzUVZTQm92YThn?=
+ =?utf-8?B?YXJvT01yWmt0cWZEMTh0YWpPeFVMYmlRODlFNDhzYnNnaHpqMFNOTnhJYzla?=
+ =?utf-8?B?VmhaTTNpREtXaTRjaGgrSlNWN242bTc3T2N0S21aS3JKeXNGdDRseFd3UDg2?=
+ =?utf-8?B?WER2M0NkcDlmYU9jakJyOGkyT3Vzb0NwMDRTcUZKUm0rK1lVd3AyRExXVWYz?=
+ =?utf-8?B?RFA2ejNQUmlUbCtDeGUzbkw1UUpTeGRLeEIvR3ZleWNpcDBhWXlsTjdhaEtC?=
+ =?utf-8?B?Y1Q3T2RkNVVkZEF0UlhHN0RRa2lQSWZEUFRqYWJyVFFLRGNOYWZ2cEM1aVAr?=
+ =?utf-8?B?bFNTbE1zRFBqd0lyaEREb1FFT2poa1F1R0FNOC9mV3pFRXJwS3JXQXNXSkEx?=
+ =?utf-8?B?clBMLzRibmN0b1YrUXhmOTBRQ2puUFpRb0l6RUVBYXB2NDZCcUZ1TGNNakcy?=
+ =?utf-8?B?TnROY1IrSE9BK0dGdzlDOHgrWEZCbUNOSituMWxXL25qS0tkZGV4U0RDeEl6?=
+ =?utf-8?B?aVNkNU85MjZVekpEY3QzckIxdFYvL2l3WmovQm9RdnB5eHR4K2NKVVVzYWlZ?=
+ =?utf-8?B?Y1JpazZ4YjVXQ0dDWkM0bFlVRDBsMG0yT01keXFORlBYT1l6RnJVTVcwQ05i?=
+ =?utf-8?B?TW9JNTUyeVRvMkUvak5ZN0pGZVg2OEFYWFRGZ1A0N3FMZ0k4cFFKUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bdbcf90-5648-4331-e6a1-08df081f6f11
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 11:52:01.1455
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9W8UHsD7Q6dQ8zqWiSN/DgYcLANQgTjA/HhsSQnU74PnCEl0hlSEb50KlKL6U+8L52uzuRIF2WAYNg2qkVnOdg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6296
 
+On Tue Sep 1, 2026 at 6:06 AM BST, Eliot Courtney wrote:
+> The new `cv!` macro allows safe casting of constant expressions in a
+> const context. Update code in nova-core to use it.
+>=20
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
+I like the ergnomics improvement :)
 
-On 8/21/26 17:18, Ramin Moussavi wrote:
-> Five fixes to the microblaze signal-delivery path, found while bringing the
-> uClibc-ng NPTL test suite up on microblazeel under qemu-system
-> (petalogix-s3adsp1800).
-> 
-> Patch 1 wires up sigaltstack(), which is routed to sys_ni_syscall even
-> though the signal code fully supports an alternate stack; microblaze is the
-> only architecture leaving it unimplemented.
-> 
-> Patch 2 reserves the ABI argument home area at the top of the signal frame.
-> A handler may store its incoming arguments r5..r10 into [r1+4]..[r1+24], and
-> r1 points at struct rt_sigframe on entry, so those stores land in
-> siginfo/ucontext and corrupt the signal state.
-> 
-> Patch 3 stops ret_from_trap from writing r3/r4 back into the saved pt_regs
-> after sys_rt_sigreturn() has restored the full register set.  Only r4 is
-> actually lost -- the usual *rval_p = regs->r3 idiom carries r3, but a C
-> function has no second return value for r4 -- which corrupts any register
-> live across a signal, e.g. the address held in an lwx/swx CAS loop.
-> 
-> Patch 4 restores the same reservation in the kernel's own frames.  The ABI
-> rule applies to the kernel's asm-to-C calls too: with r1 at the frame base a
-> callee may spill over the saved registers, and PT_R1 is the first slot it
-> hits.  This was latent until GCC 15 changed register allocation
-> (3b9b8d6cfdf5, "ira: Scale save/restore costs of callee save registers with
-> block frequency"); a kernel built with gcc >= 15 without the
-> TARGET_CALLEE_SAVE_COST workaround dies on init's first syscall.  The kernel
-> had this reservation until 2011, when commit 6e83557c38b4 removed it as
-> suspected v850 leftovers -- this brings it back, with 28 bytes rather than
-> the historic 24, which was one word short.
-> 
-> Patch 5 is Sam Price's: MSR is not round-tripped through the signal frame,
-> so the interrupted carry flag is lost across signal delivery -- the same
-> failure class as patch 3, through a different register.
-> 
-> Testing: v7.2 built with gcc 16.2.0, which carries no
-> TARGET_CALLEE_SAVE_COST workaround and so reproduces the allocator change,
-> userspace built with the same compiler.  The uClibc-ng test suite reports
-> 759 passed, 0 failed, 7 skipped, unchanged from a known-good reference
-> kernel; without patch 4 the same kernel panics on init's first syscall.
-> checkpatch --strict is clean on all five.
-> 
-> Tooling, per Documentation/process/generated-content.rst: patches 1-4 were
-> written with the help of an AI coding assistant (Claude, claude-opus-5) over
-> several sessions and carry an Assisted-by tag; patch 5 is Sam's, included
-> unchanged apart from a blank line checkpatch wanted.  The assistant was used
-> throughout -- reading the microblaze ABI out of the gcc backend, finding the
-> gcc change that made the bug visible, drafting the patches and changelogs,
-> and driving the qemu test runs.  Everything was reviewed and tested before
-> sending, and the numbers above come from real runs.  Two mistakes it made
-> were caught that way and are worth naming: patch 4 first used 32 bytes with
-> an alignment argument that does not hold (STACK_BOUNDARY is 32 bits, so 28
-> needs no rounding), and an early version of patch 2 was folded into patch 4,
-> which made the test suite blame the wrong change.
-> 
-> Changes since v2 [1]:
->    - From: now matches Signed-off-by, and the series is sent standalone
->      rather than as a reply to the previous version (both requested by
->      Michal).
->    - Rebased onto v7.2.
->    - Added patches 3, 4 and 5.  Patch 3 was previously sent standalone on
->      27 July 2026.
->    - Patches 1 and 2 are unchanged.
-> 
-> [1] https://lore.kernel.org/all/cover.1780647609.git.lordrasmus@gmail.com/
-> 
-> Ramin Moussavi (4):
->    microblaze: wire up sigaltstack
->    microblaze: reserve the ABI argument-home area in the signal frame
->    microblaze: don't clobber r3/r4 restored by rt_sigreturn
->    microblaze: restore the ABI argument home area below pt_regs (PTO)
-> 
-> Sam Price (1):
->    microblaze: preserve the MSR carry flags across signals
-> 
->   arch/microblaze/include/asm/entry.h           |  13 +
->   arch/microblaze/include/asm/processor.h       |   2 +-
->   arch/microblaze/kernel/entry.S                | 346 +++++++++---------
->   arch/microblaze/kernel/hw_exception_handler.S |   5 +
->   arch/microblaze/kernel/process.c              |   5 +-
->   arch/microblaze/kernel/signal.c               |  26 ++
->   arch/microblaze/kernel/syscalls/syscall.tbl   |   2 +-
->   7 files changed, 232 insertions(+), 167 deletions(-)
-> 
-> 
-> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+Reviewed-by: Gary Guo <gary@garyguo.net>
 
-Applied.
-M
-
--- 
-Michal Simek, Ing. (M.Eng), OpenPGP -> KeyID: FE3D1F91
-w: www.monstr.eu p: +42-0-721842854
-Maintainer of Linux kernel - Xilinx Microblaze
-Maintainer of Linux kernel - Xilinx Zynq ARM and ZynqMP/Versal ARM64 SoCs
-U-Boot custodian - Xilinx Microblaze/Zynq/ZynqMP/Versal/Versal NET SoCs
-TF-A maintainer - Xilinx ZynqMP/Versal/Versal NET SoCs
-
+> ---
+>  drivers/gpu/nova-core/falcon.rs                    |  9 ++--
+>  drivers/gpu/nova-core/fb/hal/gb100.rs              |  4 +-
+>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  7 +--
+>  drivers/gpu/nova-core/fsp.rs                       |  3 +-
+>  drivers/gpu/nova-core/gsp/cmdq.rs                  |  6 +--
+>  drivers/gpu/nova-core/gsp/fw.rs                    | 38 +++++++--------
+>  drivers/gpu/nova-core/gsp/fw/commands.rs           |  2 +-
+>  drivers/gpu/nova-core/num.rs                       | 55 +---------------=
+------
+>  8 files changed, 28 insertions(+), 96 deletions(-)
 
