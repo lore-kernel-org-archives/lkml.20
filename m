@@ -1,93 +1,113 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9469E483811;
-	Tue,  1 Sep 2026 16:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A85242980B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:36:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788280595; cv=none; b=tba2FLOHegdckxrJvLugDzz8DgPwzndwFCbw+r0m/OZaMvdbbeYzOBlMPEn/D+NnD4NQRIHmdwkEC6sqyPcETJ9dybEgZAWentHhzMoxs0zU1nn9M7yP3qftvlbnuLWoB9VtnwXHIxw+sO7ZFcYHf1oeGEAelnGQfqyMmc52EKo=
+	t=1788280608; cv=none; b=J0Gj9VjiEo+4YvOhYmLzII4/llTng+m6PObq7/xJqCD5sbvtik6iJfJti1PYr+h0z4SXxjbncdrYEXd2ithf2ROaFgE8rk5tw0ylV/CwmdfpnFkjP2iM06MQCvU0z/IfqBXNg1DSl7VCiBNm8MRainm7BBeeELS+7NFLRqqEofA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788280595; c=relaxed/simple;
-	bh=plbS3HrWoctD/KTUTIyQWYwlq1nvdgjH+NpGvIk01I0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dOp5ePJMKsFgn/nG3M8OHuK+x/6cV59bbnhl1+8wjstVKNDKB8xojVqf6Oc566hsFPPO7lcxgbwfQRA7YgH7fXb1ESzCJWAKwIODm5edSUI5z3Tp1XYh+1V04K3/zuimiEQBZ11DqYQzYbT15Hxa6IzRZwI5QmpxmvvaUG9QkSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Rvw1F4Jq; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788280608; c=relaxed/simple;
+	bh=OChYYTzzpvg53eOhMd9lkGbef4e16zmx4kNsXWHY+3k=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lZlE7glflHXAOvt3CKgUoWuUt5/5DxTL3QUs/gk/jSKTeiikcYTgLXULqZqvHslV5enc3vcHjUaA4dT1anYb3Q98pNGogcuL13pTRGq9ofIFoB5dAd+ZWmt0AqUuhJVFmf33qYwAgVoKRdqch/tweJY3CSyEEzOyxJxl8IyaiP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j0I5QH4b; arc=none smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Rvw1F4Jq"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 479931756;
-	Tue,  1 Sep 2026 09:36:29 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 436883F85F;
-	Tue,  1 Sep 2026 09:36:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788280593; bh=plbS3HrWoctD/KTUTIyQWYwlq1nvdgjH+NpGvIk01I0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Rvw1F4JqFT9cmvfKZRxPyC/CyJi67KrhZbPdsaRElG7OG4W1iSsG6YHGXDbveaNBr
-	 GXDQuv2tEcSYrw0/EVsUH2EGMXpkB1+PETo0WQuEVIL1zRNhrics/94/sKwvuHtGPC
-	 taC87RhVxDsDn+VLt0PZrzeKrPkXQAa7JTnRYDP8=
-From: Leo Yan <leo.yan@arm.com>
-Date: Tue, 01 Sep 2026 17:36:17 +0100
-Subject: [PATCH 3/3] coresight: perf: Suppress ITRACE start records
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j0I5QH4b"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-69c108fee7fso308a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:36:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788280605; x=1788885405; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EaYIWIHvKvoOBpgj/nu30SFwaFUp3YGpCnKBsBQBa0c=;
+        b=j0I5QH4bm/1R4GTRWAoOnPkLlA7VvdYhdWGDYmGWLaca4bzRr54i5tc3hEVa8t11go
+         Z81C63hoZreQbNeZ6BT2vaYYYdBmOWHJnYYnWkfTaGyTNzB7fCB/BDFDQ+rCgpBdoyIV
+         Uo4N+C0xyIKl/GmwNmRIst8g9ztcjxJGHMhRtOMEaRojEklrYHrRtad+qEhBaJAwXSVo
+         f7iTxqlVnFcZItNiEyJn+AJXQsQl/tYv/0y28Jm8khUqoMkSL409Es2OLtdDW3u4LS7u
+         3xzIJKlFFYF0bt5CVGnIswh3opsxQYT6kaxDM68KsXCxkE/1ckdUHdhhAhLC5kNWdsXV
+         o7ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788280605; x=1788885405;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EaYIWIHvKvoOBpgj/nu30SFwaFUp3YGpCnKBsBQBa0c=;
+        b=PU9Y1WrBde2lj45qVKO8PtfsrGmGS+ABTsRWdoUYpaX2wwPccfy7M2i+2jnqDQXUfc
+         PiFNP/EVxrZaOiyQrfDYvSp8rx0edljZIeh0y47jVwOejJzvRVA7wM52NFLnhBfzOqpf
+         GpnsisAT2t233wueve2RWan2wiQFjSEDujs7ESvkWswR7IxmCKL5+Ju26zzF4BA/A+7r
+         MBHJ4XykQhqQg++2VxLMtaZy9pwPzF6NCvovFXnNK1AfEpupVjUOWahKNTEVGkenpi3R
+         tyZqydU/8AAa4lCyrqPpzHJyZ/obhGA+BOQ+O6w+K5v2Xf0Olq8QepSzWvQ9Uc3K3H97
+         R1aA==
+X-Forwarded-Encrypted: i=1; AKwUvBxqQ8FcevYKaOyDQwxth2zAMwmCORkHEPKhU042FMheG1EfDk4WcwCraziHyG8ZfnsrgR9q4jPP6vWZRKk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nK+00nAA1MKqRZxiBYVilLXk3soFHoQbEeIZW4RQdFqMoLWkM5
+	gsaTKoQeFQA0WxWKtm4YcTLylBjysK/m9co3tauXFW5PDAQlOR9wv0A5
+X-Gm-Gg: AYBFou2ErbzODCgCVJSw9z2fzkhedTlEpq/b9LrgC/P1QKO50kwrDb+DIb9umBbn9zh
+	iPyvTXS3s6JnHwu0gVQy+0FauvRVL4hJyY+9BhNuDH0QQUVdr1CF5NH0EAdNteWX6puMWhM3jNB
+	yzmsI45xbMhwrCQe538P9l/UBsX/NGf/fsOZfGSR19rB7oFw44MCa/0B5aF7Fb4SyyEvQrpaccp
+	rplsZjUIncARv+8mjTNl+a5P3Xe8kNSjJOg2i447mlP5Tenw0xVTwMMBBmWtqpexRCLgoUgOx7y
+	vuie/tlLzkKQATYS9GNk7W38cV1AtJaUhD1thO9w6a0NrI67vL1s3flBe9gUY88Hyuv7V19zehR
+	TKOM1u94o8GnhPawkmBg/+WY8PPdIdZluUgM3HrVE6zyn2Xo+F3p6DvU7Xt5PzsgYsVbj+G+ed2
+	atKKy7iBo/qc2P6ia44eW0Vq/f9w==
+X-Received: by 2002:a05:6402:24c1:b0:6a6:2419:8539 with SMTP id 4fb4d7f45d1cf-6a624198577mr14712381a12.16.1788280604911;
+        Tue, 01 Sep 2026 09:36:44 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f8b47f7sm24513a12.9.2026.09.01.09.36.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 09:36:44 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Tue, 1 Sep 2026 18:36:42 +0200
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>,
+	Ye Liu <ye.liu@linux.dev>, Ye Liu <liuye@kylinos.cn>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] mm: vmalloc: fix vmap_purge_lock livelock under
+ memory pressure
+Message-ID: <apb_Grl4I5o2dxKY@milan>
+References: <20260828091753.299295-1-ye.liu@linux.dev>
+ <20260828110503.e1eff32a9b7df9a8b2ddd4d6@linux-foundation.org>
+ <bec5eaef-d084-467f-9bfd-43f7dedc1aa7@arm.com>
+ <apVPTt9Xw8kSgmTU@milan>
+ <20260831184252.15b978678820a94b106640ac@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-perf_suppress_itrace_start_records-v1-3-c4fbc6860859@arm.com>
-References: <20260901-perf_suppress_itrace_start_records-v1-0-c4fbc6860859@arm.com>
-In-Reply-To: <20260901-perf_suppress_itrace_start_records-v1-0-c4fbc6860859@arm.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Will Deacon <will@kernel.org>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Mark Rutland <mark.rutland@arm.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Mike Leach <mike.leach@arm.com>, 
- Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org, 
- Leo Yan <leo.yan@arm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788280584; l=1225;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=plbS3HrWoctD/KTUTIyQWYwlq1nvdgjH+NpGvIk01I0=;
- b=M2xhsj9QnStXjg3/CiMvt7fs5r0R/XWoUkx20EZFiAisrr2dCZzjJbYY5Mj6SIxtIj7qKyvHO
- VipAxQad+BbDz1TkoYFA1EA67dG2VjzHfDd/uuk+eI5PPdPX1L9B0jf
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831184252.15b978678820a94b106640ac@linux-foundation.org>
 
-PERF_RECORD_ITRACE_START establishes the initial thread context at the
-beginning of a trace. Afterwards, decoders track the thread context using
-context packets.
+On Mon, Aug 31, 2026 at 06:42:52PM -0700, Andrew Morton wrote:
+> On Mon, 31 Aug 2026 11:54:22 +0200 Uladzislau Rezki <urezki@gmail.com> wrote:
+> 
+> > But, i think we can overt mutex_lock() into mutex_trylock() just only
+> > in the:
+> > 
+> > static unsigned long
+> > vmap_node_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
+> > {
+> > 	struct vmap_node *vn;
+> > 
+> > 	guard(mutex)(&vmap_purge_lock);
+> > 	for_each_vmap_node(vn)
+> > 		decay_va_pool_node(vn, true);
+> > 
+> > 	return SHRINK_STOP;
+> > }
+> 
+> I *think* that means we can expect a v3.
+> 
+> Ho hum.  I guess I'll queue v2, under the assumption that my
+> assumptions are usually wrong.
+>
+Yep :) 
 
-Call perf_event_itrace_started() after successfully starting the event
-to prevent perf core from emitting redundant PERF_RECORD_ITRACE_START
-records when the event is scheduled in again.
-
-When per-thread mode traces multiple child threads, tooling should
-enable context ID tracing instead to identify each thread.
-
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
- drivers/hwtracing/coresight/coresight-etm-perf.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
-index 09b21a711a8764ea429d712890265c84648e889e..80502e8b084074980000a039e73e1a164940011d 100644
---- a/drivers/hwtracing/coresight/coresight-etm-perf.c
-+++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
-@@ -613,6 +613,8 @@ static void etm_event_start(struct perf_event *event, int flags)
- 		perf_report_aux_output_id(event, hw_id);
- 	}
- 
-+	perf_event_itrace_started(event);
-+
- out:
- 	/* Tell the perf core the event is alive */
- 	event->hw.state = 0;
-
--- 
-2.34.1
-
+--
+Uladzislau Rezki
