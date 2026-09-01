@@ -1,138 +1,177 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2772C38D3E4
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:50:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788231006; cv=pass; b=HCqj5ZZHF5L5IfX4dlD9K3RxJSAn2R+RzJbIs2b9B4K+NcfGA7VsMHcYL6F2p+A9ez1+b97xnlhz8DssUQ21I1G4L2mtrNrvjAvH0r2936k82eTKasFvOWstcfQBzHI9SMeN2WJ+78PPixL1KaJBzqt2/9b7p8DZ2Aw90a1V+u8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788231006; c=relaxed/simple;
-	bh=d+5sNu6yCImmExOIG0N8b7ccM60ZupY+qjLmAb2IucU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LVn+MMDnLWAndIrwacPWf8d3BOF8JlzqLVX1EsvTo6+fNZwP4gW675CAmrRZlzvR9dMvGH0M9eQdUwac5X5I1twsaP9lyUB3MQy2kRhO8SHPOwKBGtila+j8urMBdxFv/05NB1yamiW9iFmN4fvW8y86ALlypzaQbFsCriXCpEA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c6LR3cfI; arc=pass smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462C93AC0CB;
+	Tue,  1 Sep 2026 02:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788231048; cv=none; b=u9KI+ACL4DwP8YkYtNJCA9adbWVBcbnLZYdOHeZDTTje565Hra+lFMSQ+P9L85FMJg7rS+arM6PZJYBqnQCW8q6N2QLLK1x1c1rBgKLsuyRR/HQJopNxE4WM2zGspPeJY+uiDZEIIxW4mumO1nP+K9iynTHstbAv7wk5VGxcBe8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788231048; c=relaxed/simple;
+	bh=0oTlVcg/slOeyxwlhmb2CPyyqZc8h0C/OfXA/4iz7A8=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=aN/qIqfxfoPXm0DsBBg2b38Uv6k/4WIZ2Xt4ly08BZUTuDMxetzO41gcb7sVpDhIBJbS7iHZ3OgMhmZzEJ0zvb+xKGIbmutBv4CYPteSL4q07Fih+wbnI9OpmknlAcxen22q4EkJCN595L8TgGXg4KMrgVwGYdFWzy7A0lyGGn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g3sqZ5wm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c6LR3cfI"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c247f6687dcso693226566b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:50:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788230999; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XPdx73dAPv6PIPnI/5aHDjR7+1xAhoOtlPDoMetraC7zwo/ygyXZkH420RpNNainyS
-         hNMR3Nb/BZYlaUS69IDevI5+qyFrcKT9nngWOLp1XzJ9Q6WIsMM9y3W0wKf/irCEWrO9
-         eVryrrYxnptTChcdaMfByR3je8Ew2/qXra9mrlfPCgFismY/PksnslHQ4OzMrJUs9jiN
-         HBNjMy3QqoVStmFxbQjPX+YRvgVZ/QjkkKOCEJ/D/nZ5V205Rc13Ojady5v8BOofyaPW
-         vJAk1y+qchiPO4L2DEjvpP3QwNgnK5/Yb6M41yK/rjm8IWuzHuL7417mqm9wB59wkAp4
-         XJqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FE0XcRGmiiYWJ9U7pQXykX2gv5/KOpFiI3Aylrs/Qqo=;
-        fh=DdxjxZTA2zYpN4SYNun+27qCI2aSnwNPFt/D1ex76bI=;
-        b=fFQkbEcbYBx9hvBMQCQSP+ow/j/EgUg1O9Irpqzkw/UozhDE0yTLH9d80ODHRn8FKq
-         eFZOAsbnnzg2dCWfWnSPi9s9lqe+KLd/my4WlKiZT2uQ8EluU2GLLIO5bRPvzv0DoBpl
-         k/LLirXcUOQbTpskIohyxB2//2eGUuKGz5tcof+i0LImdDjJKBRGs1JYMv7kACViZ4ZJ
-         ULna1nbZln+Vw0rm816HyGFgp0+uib4UVyC3TicLh9gc3HnPBiqQlZPRAIQDuq760fWJ
-         jc6qZkRwX0GXcFt0HpzZ2iGIdrb5nD8eGovekXjCgxnep6K6vaa5nM2o/DQnkBNrqIrg
-         RXWg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788230999; x=1788835799; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FE0XcRGmiiYWJ9U7pQXykX2gv5/KOpFiI3Aylrs/Qqo=;
-        b=c6LR3cfI+ZqH6iXHEZX3EmzvUVPFYc3RQgs8t/1X7FtFLto/TZxs6wVV6Lgn3DIp/h
-         jkIdFDloc/lB+sHFCSC6RBtNNIuvgv5FMsqvqptV5QFjFTQLHR5I4kRuAfFAxB3PuWCG
-         8GJv7DHkZHji3Q8lb7vZnQJLKOA2KkNHAsnyFbwabCQGw66R+Pm3Sqkrsux2f1xc75Fm
-         jyVtNAQVpx/kY74ue+J7FPvcNJeQ53sQ2vK6fJ3CSTMuWl06aXHzKKVoRoHry9ZU4XNH
-         G5D3aDHIb3sCeaXyDRSDO2rogkcnzFVVo19oPjSLkb/fqtqJPb5eeJGOrPHCFYjOdE/s
-         VPdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788230999; x=1788835799;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FE0XcRGmiiYWJ9U7pQXykX2gv5/KOpFiI3Aylrs/Qqo=;
-        b=QagPtqvC/duE3u1AjMfKHQsDVx46h8fHwuv2hKwATPhrzMCCpguKt6+6EXU1y56NlH
-         go01j5IDDlKS5vWAPOgtBGItFHnMGtWKet0OSjYsc0rHicqH268zYb9DXJuUhl1cQtWy
-         yDExrLkaAOQhaENDQ5Afv0OnurVT2iLlmazQXvp6bLakhtRe62jM/lmGTUwZy6GJ8F1l
-         VFEn3M4LuVaec+doQW7gV5NF/jEG6737Zk/dKd/LfxLDHfenhl0e4E4Q1e7D58htubIQ
-         YfY4FSV8xxlxd5xG91Gtl1yBnk0xXyE/indtFDUDQb5dA+wbS922kb8Mq7NIcCO6PAZD
-         k74Q==
-X-Forwarded-Encrypted: i=1; AKwUvByaV2hgI32gKQzWHOwOt5LLEkLMgGdfvWaQ165/vMRwS9huzsvqcXSEH6O889sxfMgt04q1fwTNA/4D42U=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOPg33CLexbWvl5aJBN6N7gcvHbHPk50EfzU4JXaYNHVivOkrS
-	sWbRp3eR7pNSagv8+sBLbryUDAlzSLqV5hUaEm97Hj5rJjylUCSrtjYaqcdKKwtl0Oqb13SEkFK
-	THb1IZ6m/EW7ANeWq8kTtWM5mD1+WI0U=
-X-Gm-Gg: AYBFou2JoeV9A92ucef6thUj0c/08tOyFiboB/TU3F8YOyXswy3sxaJHtEq9FfGcBqx
-	SoPmeYjc+pMCTrwWRshRoeGnao24yorw3N65YkVINajQN36ZzJ3+ZJ3Viss8E5fAye+5t+c3+HW
-	wYB/SjylOZBGgcfY3FbxIlN45Wd+5KzRT8KQt3ho+TqW3GzsHlCr+fG7TBHj2lFkVFVZzz61yLk
-	UzRaMRt5WPqS3EBpFnL7wqoQ27qnxPpGv0AETXZ4cxqASsJxNfEsvm/SepRSQl9Uwkm0RGhUc9j
-	ClUuMTsAeFH2tM4DQdSVUmGE+0llsfCcyagYBYHZvjYua1Lw1BgHCwyvEM/zgld9+Myv2GMSM0n
-	MBC63qcJUkbWg/gZ18kKAGRWCqXc8B9YhxRnzaSlaFJFywYfC9xZ5vwJ2xMnLS83SA9oOUdQWRY
-	D9PcJaqBbnkC7LQEEeV4XbdHW6SHUHm5mHjtvj+i6uDCddRTMzjVIx3JPvV8l9F9P4xA==
-X-Received: by 2002:a05:6402:1ecb:b0:6a6:32fa:cac with SMTP id
- 4fb4d7f45d1cf-6a663b43846mr2830056a12.17.1788230998708; Mon, 31 Aug 2026
- 19:49:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g3sqZ5wm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7BE31F000E9;
+	Tue,  1 Sep 2026 02:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788231045;
+	bh=B31WDxXmWvC78nyAEw77XkUldK8/MmelFrCkkwtq8rI=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=g3sqZ5wm8g/fvbN6uAhsgnXNhMVdmrI+blpZJVmntANy60KKpozLY8YraHztL9/0M
+	 zAl9IZtBzpzGTtrfBVWP64hVmKFloLr/luHeh6AhtDuWIoqVwlFFHffY6Yz7jCrhyJ
+	 30OCooU6CLwiatLoTiO6gOBd2BRzm+dzt6yw+oK3DOXWjYfZTPXnyfWqawNhVzlt5X
+	 eRQv0HMUauyAs0St/ZLjwXZKDnh3BN5tEuy2YJ04MLPtsMctb7q4tu50z0iCGeo27v
+	 rhQMtujth3MM3rGQ6nPsTehXceFGxitmOeWh8eeYwqdmiwqcCXyCkjp/8oTTy70EAG
+	 1WLC6M1ht1t0A==
+Content-Type: multipart/mixed; boundary="===============8556434494740287810=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831233653.14232-1-rosenp@gmail.com>
-In-Reply-To: <20260831233653.14232-1-rosenp@gmail.com>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Mon, 31 Aug 2026 19:49:47 -0700
-X-Gm-Features: AcwNN1WtBJgmoVyxxnr1GxEJ1-2nuIjkP_fAURpv3voSdGn5BCgrhOsGs_1n4Pw
-Message-ID: <CAKxU2N-qwFSPzLT1j1Bmo3-S8m+H5xaxGH5iHiACqHbj1+fiBQ@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: helios4: drop unused phy0 pin group
-To: devicetree@vger.kernel.org
-Cc: Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,..." <linux-arm-kernel@lists.infradead.org>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Message-Id: <114d1ed8b1f7d95d56efdf5fa8ee09eee9ef8ced7d27c123b00479f163dbef00@mail.kernel.org>
+In-Reply-To: <20260901014713.3502900-4-sanghyun.park.cnu@gmail.com>
+References: <20260901014713.3502900-4-sanghyun.park.cnu@gmail.com>
+Subject: Re: [PATCH bpf-next v5 2/2] selftests/bpf: Cover attach type checks in link update
+From: bot+bpf-ci@kernel.org
+To: sanghyun.park.cnu@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,bpf@vger.kernel.org
+Cc: sanghyun.park.cnu@gmail.com,leon.hwang@linux.dev,john.fastabend@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,sdf@fomichev.me,pulehui@huawei.com,suchitkarunakaran@gmail.com,xukuohai@huawei.com,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue,  1 Sep 2026 02:50:43 +0000 (UTC)
 
-On Mon, Aug 31, 2026 at 4:36=E2=80=AFPM Rosen Penev <rosenp@gmail.com> wrot=
-e:
+--===============8556434494740287810==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+> diff --git a/tools/testing/selftests/bpf/prog_tests/cgroup_link.c b/tools/testing/selftests/bpf/prog_tests/cgroup_link.c
+> index 15093a69510eb..3b43c34917ccc 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/cgroup_link.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/cgroup_link.c
+> @@ -1,6 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0
 >
-> The microsom_phy0_int_pins group muxes mpp18 to gpio, but nothing
-> references it: no PHY interrupt, GPIO user or consumer pins it in,
-> and the sibling ClearFog board does not define it either. It has
-> been dead config since the board file was first added, so drop it.
-This is wrong. I have a separate patch that uses it.
+>  #include <test_progs.h>
+> +#include "cap_helpers.h"
+>  #include "cgroup_helpers.h"
+>  #include "testing_helpers.h"
+>  #include "test_cgroup_link.skel.h"
+
+[ ... ]
+
+> +static void test_cgroup_link_update(void)
+> +{
+> +	const __u64 caps = (1ULL << CAP_NET_ADMIN) | (1ULL << CAP_SYS_ADMIN);
+> +	struct bpf_link *link = NULL;
+> +	__u64 saved_caps = 0;
+> +	int cg_fd = -1, err;
+> +
+> +	skel = test_cgroup_link__open_and_load();
+> +	if (!ASSERT_OK_PTR(skel, "skel_open_load"))
+> +		return;
+
+This isn't a bug, but since this subtest never goes through
+ping_and_check(), would a local `struct test_cgroup_link *skel` work
+here instead of the file-scope global (which would also make the
+trailing `skel = NULL;` unnecessary)?
+
+> +
+> +	err = setup_cgroup_environment();
+> +	if (!ASSERT_OK(err, "cg_init"))
+> +		goto cleanup;
+> +
+> +	cg_fd = create_and_get_cgroup("/cgroup_link_update");
+> +	if (!ASSERT_GE(cg_fd, 0, "cg_create"))
+> +		goto cleanup;
+> +
+> +	err = join_cgroup("/cgroup_link_update");
+> +	if (!ASSERT_OK(err, "cg_join"))
+> +		goto cleanup;
+
+A subsystem pattern flags this as potentially concerning: the three-call
+sequence setup_cgroup_environment() + create_and_get_cgroup(path) +
+join_cgroup(path) is exactly what test__join_cgroup(path) provides in
+test_progs.c. Using the shared helper would collapse these three blocks
+(and their three separate ASSERT/goto arms) into one call plus one
+ASSERT_GE(cg_fd, 0, ...). The harness also sets env.test->
+need_cgroup_cleanup so teardown happens even if the subtest exits early.
+
+The hand-rolled sequence is functionally equivalent - the three calls
+are in the same order, all return values are checked, and the single
+cleanup label reaches cleanup_cgroup_environment() on every failure
+path. There's also a consistency argument for writing it out:
+test_cgroup_link_attach() in this file hand-rolls the same sequence
+because it needs four cgroups and cannot use a single-cgroup helper.
+Does the test__join_cgroup() approach make sense for this subtest, or is
+the hand-rolled version preferred for consistency with the sibling test?
+
+> +
+> +	link = bpf_program__attach_cgroup(skel->progs.sendmsg4, cg_fd);
+> +	if (!ASSERT_OK_PTR(link, "attach_sendmsg4"))
+> +		goto cleanup;
+> +
+> +	err = bpf_link__update_program(link, skel->progs.sendmsg6);
+> +	ASSERT_EQ(err, -EINVAL, "reject_sendmsg6_update");
+
+[ ... ]
+
+> diff --git a/tools/testing/selftests/bpf/progs/lsm_cgroup.c b/tools/testing/selftests/bpf/progs/lsm_cgroup.c
+> index 3bfa479104be8..30727945cecc3 100644
+> --- a/tools/testing/selftests/bpf/progs/lsm_cgroup.c
+> +++ b/tools/testing/selftests/bpf/progs/lsm_cgroup.c
+> @@ -213,6 +213,12 @@ int BPF_PROG(socket_first, int family, int type, int protocol, int kern)
+>  	return 0;
+>  }
 >
-> Assisted-by: opencode:big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  arch/arm/boot/dts/marvell/armada-388-helios4.dts | 4 ----
->  1 file changed, 4 deletions(-)
+> +SEC("lsm/socket_create")
+> +int BPF_PROG(socket_create_lsm, int family, int type, int protocol, int kern)
+> +{
+> +	return 0;
+> +}
+> +
+>  SEC("lsm_cgroup/socket_create")
+>  int BPF_PROG(socket_second, int family, int type, int protocol, int kern)
+>  {
+
+[ ... ]
+
+> diff --git a/tools/testing/selftests/bpf/progs/test_cgroup_link.c b/tools/testing/selftests/bpf/progs/test_cgroup_link.c
+> index 4faba88e45a5a..a987744d129cd 100644
+> --- a/tools/testing/selftests/bpf/progs/test_cgroup_link.c
+> +++ b/tools/testing/selftests/bpf/progs/test_cgroup_link.c
+> @@ -20,5 +20,17 @@ int egress_alt(struct __sk_buff *skb)
+>  	return 1;
+>  }
 >
-> diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/=
-boot/dts/marvell/armada-388-helios4.dts
-> index ae03d42f92a0..e63b8b5e632d 100644
-> --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-> +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-> @@ -284,10 +284,6 @@ pca0_pins: pca0-pins {
->                                         marvell,pins =3D "mpp23";
->                                         marvell,function =3D "gpio";
->                                 };
-> -                               microsom_phy0_int_pins: microsom-phy0-int=
--pins {
-> -                                       marvell,pins =3D "mpp18";
-> -                                       marvell,function =3D "gpio";
-> -                               };
->                                 helios_i2c1_pins: i2c1-pins {
->                                         marvell,pins =3D "mpp26", "mpp27"=
-;
->                                         marvell,function =3D "i2c1";
-> --
-> 2.55.0
+> -char _license[] SEC("license") = "GPL";
+> +SEC("cgroup/sendmsg4")
+> +int sendmsg4(struct bpf_sock_addr *ctx)
+> +{
+> +	return 1;
+> +}
 >
+> +SEC("cgroup/sendmsg6")
+> +int sendmsg6(struct bpf_sock_addr *ctx)
+> +{
+> +	ctx->msg_src_ip6[2] = 0;
+> +	return 1;
+> +}
+
+This isn't a bug, but is the ctx->msg_src_ip6[2] store here load-bearing
+for the -EINVAL assertion, or is it standing in for the out-of-bounds
+write the companion patch prevents? A short comment (or making sendmsg6
+as minimal as sendmsg4) would make the asymmetry between the two new
+programs clearer.
+
+> +
+> +char _license[] SEC("license") = "GPL";
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33461362664
+--===============8556434494740287810==--
