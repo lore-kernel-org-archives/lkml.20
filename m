@@ -1,76 +1,98 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012051.outbound.protection.outlook.com [52.101.53.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5625D369D59;
-	Tue,  1 Sep 2026 07:08:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788246525; cv=fail; b=H9JStikvpN+8YdWuRN4in651K8ghYqDrpiZfICasvfgpkRHuhcTsrcj8wCaHpfvyTxYwJb6sAK6L55hnCyj3mVwvrNTrEa7F75Nd+Qtb54em8ZTXw024a6bflAGhE36DsizTgZDvMPxg6Tm9OtyEJ5O74ViNloKoaPgM1eiWhXg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788246525; c=relaxed/simple;
-	bh=QVm9KhCY5j9oLd+JM8fuUkIih9v2oT0mn6fn2HAtLz0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Nj+/le6Tg31rxO+2axe8S2u+sxXNpJ5VwRKQFLEXn3YbQYi5Y+8FOQ2ZC6UikdGx+bQJ8Kft6VaIFUQPxWBEzaehCC66o/QazusAGYIcE2ewRkYU2FLp3q9tzR8qWLfmM+Enfd+sl9HdU1HuCxqZFq6W0Z+0Ukr9r4Ire7CpVtw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=OqdYeeLZ; arc=fail smtp.client-ip=52.101.53.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB8E416CFA
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:08:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788246527; cv=none; b=VNpsXURQx0kJ8kdlcagzksR62GWG1a8NMa1fFLobyE7XpNcO7RjBlE60O37W4VB9fBHYcZ3mbmGH+Mfb8WONKnk9+zKsPZMh67TTkCUozUtURp/TIany/WMZIrPU1owyuJA2TicGNLePE3zZ9YcUDEQP1rtR9kJCygOwEQ8AgyA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788246527; c=relaxed/simple;
+	bh=SL1wdM6vp1VIszL+xuNFr+53xhHZT8pJnJOiXD1KxBA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=G+eRMbZ6vVGs/d8nzWAmmtU5BcdpRSBX/MaIvTkFCty4dtGBmI58O2kKT1/0UvMnRmha6Eym4/8Kngqxpb3bDXnleQRsVhhOP8higcql1FfaIdrwj0lbhZMIPfzFxNCLvFCKssgB0O5DfeMkCl41y8mRlxv2Ix+pehY1HZ5x/gU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vx/tFVbV; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="OqdYeeLZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vTVCpbs0YCvJ1sy3byQQcB+RTC5/a3h55lbTIn+IfuNJtyiwfi2eDp+OwhoWK/jDnODS/Ssz9wGGZyR20TbHlFDLqYVIFkgb23Q35W4lap1Ed+l/SNAgflsWV3aZLfz/14G1/inLLg3zgKB73lrgLJSpBsXqyitE+cOB/h8u2YpX99ZkREWY1XxDMJ3v/eFiBYnU1fwNETKfV3oLymD7NYQfRQ+RrJ9bYTUMow1cDE+mOlsCW90C9Ia3cWlyIMpBhmW4z7Dfd18yaAfExN3aaMY6P0/869OHe86NSfI+Jc+PTkMW4lqx3wyyURioQFEu4FyEt7ijJGLJXSGQLvsi3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s188PMhWfRoR23ZbdD0FLyTnc7RoFaHvQ5IhETadVds=;
- b=nBZUKviKbGFSIoBefWesugUysjuC264SmohPpBtsQd27wNVqeKBjvZFOGyzwkpbuf9Zsy0mYUn9erSbtaReMbUDZ2ymNbOIoVU2Nn6EXqZL3OESXJLMyweIGUp8vcZ5ZDdWANTzTmHd53lTOPiQyuy2yc8jasNFxwSopROeRonf8FnUQT//h2IhTEhE2P0MlBcOMHMxvW2dTmuaIhUrFMpvT5q5krk+H4/CiufHCrHHALK6oGffMu40HoYbYM7bFuq50ES5Dr7NQWPG2ZqN8Ua+G6FKqyCiqu0/WerfA7FD9gZovmP7sHbnCy8fna/JHdRC8gpFfQ+gqYAcjbWWemg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s188PMhWfRoR23ZbdD0FLyTnc7RoFaHvQ5IhETadVds=;
- b=OqdYeeLZtviB7PcX/DXC9/KB6MmNNFr6+buELXt/0u2y+sSkSB8QiTLwNfH8OvtNWug6X4KtUrhowE1pO9/0NX9s6W8zYBXaWfe5SX2Nt5Q0ry0U+AVE5faMpkRO8JXu2zhCWCEe+gV6dMFwMRMUUndQwngT18miQx1A94g/ZYw=
-Received: from DS3P221CA0007.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:45e::10) by
- SN7PR12MB7251.namprd12.prod.outlook.com (2603:10b6:806:2ab::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 07:08:33 +0000
-Received: from CY4PEPF0000FCBE.namprd03.prod.outlook.com
- (2603:10b6:8:45e:cafe::5b) by DS3P221CA0007.outlook.office365.com
- (2603:10b6:8:45e::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
- Sep 2026 07:08:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000FCBE.mail.protection.outlook.com (10.167.242.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 07:08:32 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
- 2026 02:08:32 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
- 2026 02:08:31 -0500
-Received: from xhdharinit40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 1 Sep 2026 02:08:29 -0500
-From: Vasantha Likitha T <vasanthalikitha.tandra@amd.com>
-To: <linux-i2c@vger.kernel.org>
-CC: <michal.simek@amd.com>, <andi.shyti@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <git@amd.com>, Shubhrajyoti Datta
-	<shubhrajyoti.datta@amd.com>, Vasantha Likitha T
-	<vasanthalikitha.tandra@amd.com>
-Subject: [PATCH] i2c: xiic: Rework dynamic-mode RX FIFO drain in xiic_read_rx
-Date: Tue, 1 Sep 2026 12:38:26 +0530
-Message-ID: <20260901070826.1755154-1-vasanthalikitha.tandra@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vx/tFVbV"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3964dfb5a69so5252310a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:08:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788246523; x=1788851323; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RKT3VAzrTBQCbJUoz7WVF1Zm7cw9xcizV7Y1JN603Bc=;
+        b=Vx/tFVbVtyQTXX4xTjkq6HUapejWaPA7Ja/er7YiR6H7amuVUE/iEWmiOqKQKm07r/
+         +srD2+jyYToMxjz+mhvtgve9ocOPf//4yJuxghpoBwNMff6Cn+6jsieNJy7hSwAUM+l8
+         VkiOvi14mmQHSXyUi+ftQY/8qZybDNa5iWXbxHkFh/vZ5C1kyFKgmqC3RsNvh9m/tr7m
+         mRodkE6KKXMd7UhiSZxxXa0TlEJ6tSdWkBLXWdl0x7a57eUfUkc6HUJ5/e6S31Ba8hf3
+         11/YJzRn6V494AlHKYJclLDRYp2a+XXPbSFGFc5A6HNqjASdTff9JGq6eCDDfzfjjFJ3
+         KO/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788246523; x=1788851323;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RKT3VAzrTBQCbJUoz7WVF1Zm7cw9xcizV7Y1JN603Bc=;
+        b=GwOCh3Juhgn6460UCS/f19F1JDvyBRCshRlps4j0dgGABSJqXZrmBFza+QfD9SrT90
+         +ZBg83U7zbTzWVoQSpGyPgQtgdMPP8IbrqHN1CEC3VvWXOqSLZTPEzpt0iFXvZiGbWZc
+         gvboEwTUz6+th7Kbl/CetC3OQnKNP1jr7rLsQmpzijq8GDLk+5eXwRydFaRHE9+8jtFA
+         E4hjYUAn4Soyh7w4yICBuKeyZbLhXaa0D2TWcrfrdvQyFfhNO8EThWMimsHx+EuFmzZr
+         tEmCVBo+AoGBzJnqaatADNG2kP5fKuGcDyQJnxf9BxtLWIupZqTJplxTcxx7BiALEMab
+         Exqw==
+X-Forwarded-Encrypted: i=1; AKwUvByLMLQQehNAW7fzTwcTR+qyw7zTTWGrlcaSqGlkjJ3J8gOw3mbVlvHY/Ih5pEj+YRtv8WyehidL/yseJ5g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZk1O61QlhqJ8+x1Ssyz/CswHR3LWbjX0epoVBDKrODKEdsNLb
+	wviMBimTLjXtNuzeYiYl5CeFZJQZpoTt1c+5wfSusOUlCUpSQAiKyYri
+X-Gm-Gg: AYBFou21+v8iTiQsZ4Oc+vktYstxOQsCr2ndg4hLz+ezUlkgsjMX17m7tFAlQj6HfJz
+	gDGC5fsZidWyUQehCE5zuhpAPeJ7DgspUKMYtuRNmc+NdvHW24JHpbKUXXGBcyzMKAln/KZ2TOf
+	QfbxUXtR1eeEXU4Hu4HoJTJjMVuyU/8rlmqhJ5k2h3MvoKdMZ1uWsVWe1+c+O6n7FqbeNclGUIc
+	vQ0pui2oKeJ9GKa7AaSlbVtxAE/BeJS/9CSvWlwSxzeqZU8AyYhUNaX3u6KoEK0xQAfLOdiFkbZ
+	tzQMzBWssThRXEVMb5tfsO7iKbyY4378MDq8mO6MjYIZm5Uh5RH4UlSHrwN8A7vZKxW8ZvU59we
+	WD81+JIv8pHQjfjqn3Fw4Jl67bOwtKVx0816GSdg9gT8mPM07xV5W+Y+F9xH19cFZRuGaJIbXZO
+	OlizBGX96lLPLb4nC6mtvwXR1xAcAQhRQ01Gl/K5di8/bY44GMHoOGm80sUTxMxQSFuQVFCZDqn
+	R27kcEWqL1Z
+X-Received: by 2002:a17:90b:3b41:b0:381:6c5:3f63 with SMTP id 98e67ed59e1d1-39907cd4e1dmr7683960a91.6.1788246522641;
+        Tue, 01 Sep 2026 00:08:42 -0700 (PDT)
+Received: from localhost.localdomain ([157.51.207.128])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32bdfd03e71sm18274680eec.1.2026.09.01.00.08.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 00:08:41 -0700 (PDT)
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+To: andersson@kernel.org,
+	sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	konradybcio@kernel.org,
+	tglx@kernel.org,
+	ulfh@kernel.org
+Cc: radu@rendec.net,
+	abel.vesa@oss.qualcomm.com,
+	taniya.das@oss.qualcomm.com,
+	danila@mainlining.org,
+	davidwronek@gmail.com,
+	mani@kernel.org,
+	robimarko@gmail.com,
+	linux@gurudas.dev,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Sreeshankar K <sreeshankar0910@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v8 07/12] dt-bindings: power: qcom,rpmhpd: Document RPMh power domain for SM7250
+Date: Tue,  1 Sep 2026 07:07:12 +0000
+Message-ID: <20260901070717.20513-8-sreeshankar0910@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901070717.20513-1-sreeshankar0910@gmail.com>
+References: <20260901070717.20513-1-sreeshankar0910@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,142 +100,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBE:EE_|SN7PR12MB7251:EE_
-X-MS-Office365-Filtering-Correlation-Id: 261ca125-b324-445e-5acd-08df07f7d56a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|18002099003|56012099006|6133799003|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	NwDvcTRwPCOG36TGlw0SXojRk+j79kgbqWVTUeuNBiIzoQIJUsnWbXPYmguyR4mMCfGeVo63WArFC539+Xz2BJHrNSGU/AxeFH4YvqoploYLQ5PT3IX11owFZXltzp5X62X7K/mkq6EIJW2RphF4iHDn+fAQ/wJZQmcDFTlm56n44b1A9lATyRVK+rymOkVMCUIdu6hzXPz+LxDrPi7wzAr/jUhIEVRfZG46usHDk/t5JTKgm6TdP7XkUubsRPIKNl4ehyJaQUlNYcp8W3+DRfuamT+Ne6/paTkgE1lcUMcQ5hgaxmEtBj13GaeIC2nc2T/xF2PQG9Wi1p9ywFud7EXTOGWGn6wNrBN7B1wAjN2EyXLFbDk3cUYRxUCSHoIrfgC2orkH636vS+WmrobO+k0/H7/xjQcsYXrGuED5X/1phU18Ibvs3f5qMZMq1qROmXEWpDO06XgaCOuzwhZ6VwAcr1t7HfSVfAT/IJWFEb/+nYanPHgiEV2ZQpiFeo7Xu8Ael54B8pwtrO9iO5tkvLDxANae87jzzPkTPKOmhFGmDcFYQDGgi91fRtxySc9+KFns2fI7X/RmqAgnyh3FmB5Oyzg6ZrrrgrLRGC9TWzjHTddAlbeXJD7JVoGygWjYe1mc8yE2KqHvDzYdtas/gBRvABKQEPCmKeQq1nLvQIx39PUwldPQE8J3MaEyySJS4y/OHkd/86nt9+lMxsGvvw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(18002099003)(56012099006)(6133799003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	fNM2l8vHu5M/gqwmzQgqJfu6L66dSoWgrZbrt7V0TOLK2koKPkRSwuPW4iCkctmdVCxUNqAFD5Z10iLJHccrvFAk8vkgRGwq8S3aUexyWzHfIokebw+cDi1PDLZ7gdAMsRWv6FEPE7ICocuCMtYP3mUE3E9ENZRdtBpJFs5HxjL8tImfQvqt3PwCvVOVeZX0Cyoz44CBFapxXiwKSDNp350gDuFZlkKru0T5d7rTeGxFG8I5d4EkWsKR7bNbMPnbhFY1ZMqgY0uBP4V5yi6MHcMXyUeNT/HadFQG8YEEevCcXKsfQVdRd4sIwfiNB+sq/GL+lNMJU3Cw0PNb5TuDZt1P6qCQxTRpAmsU1CNcOKIfBJIagxI60cAGe+E84XiEUF68uWdFXSDmW8hb4XX2d38I091/lL5SjE4AN6MsH9sW3Pyt6+5qdHhfOhlWQ6XW
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 07:08:32.7850
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 261ca125-b324-445e-5acd-08df07f7d56a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000FCBE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7251
 
-From: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+Document the RPMh power domain for SM7250 SoC.
 
-Programming the RFD (RX FIFO depth) threshold at runtime causes a
-spurious SCL clock pulse which results in the STOP condition being
-missed.
-
-Fix this by programming RFD once, when the receive transfer starts, and
-handling the final-byte sequencing in software: select how many bytes to
-drain from the RX FIFO on each RX_FULL interrupt instead of
-reprogramming RFD after every read.
-
-RX_FULL is then always raised at the same threshold.  When fewer bytes
-remain outstanding than the FIFO holds, drain only those and leave the
-rest behind, so the retained bytes plus those still to arrive restore
-occupancy to the threshold; otherwise drain the FIFO completely.  This
-relies on RFO accounting for every byte received, or the threshold is
-never reached again and the transfer stalls until the xiic_xfer()
-timeout.
-
-Fixes: acea4e4458b4 ("i2c: xiic: Add standard mode support for > 255 byte")
-Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-Co-developed-by: Vasantha Likitha T <vasanthalikitha.tandra@amd.com>
-Signed-off-by: Vasantha Likitha T <vasanthalikitha.tandra@amd.com>
+Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- drivers/i2c/busses/i2c-xiic.c | 53 +++++++++++++++++++++++++++--------
- 1 file changed, 41 insertions(+), 12 deletions(-)
+ Documentation/devicetree/bindings/power/qcom,rpmpd.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.c
-index 28015d77599d..81b163152953 100644
---- a/drivers/i2c/busses/i2c-xiic.c
-+++ b/drivers/i2c/busses/i2c-xiic.c
-@@ -580,6 +580,7 @@ static void xiic_read_rx(struct xiic_i2c *i2c)
- {
- 	u8 bytes_in_fifo, cr = 0, bytes_to_read = 0;
- 	u32 bytes_rem = 0;
-+	u32 rx_space;
- 	int i;
- 
- 	bytes_in_fifo = xiic_getreg8(i2c, XIIC_RFO_REG_OFFSET) + 1;
-@@ -591,12 +592,49 @@ static void xiic_read_rx(struct xiic_i2c *i2c)
- 			xiic_getreg8(i2c, XIIC_SR_REG_OFFSET),
- 			xiic_getreg8(i2c, XIIC_CR_REG_OFFSET));
- 
--	if (bytes_in_fifo > xiic_rx_space(i2c))
--		bytes_in_fifo = xiic_rx_space(i2c);
-+	rx_space = xiic_rx_space(i2c);
-+
-+	/* Do not read more bytes than are still expected for this message */
-+	if (bytes_in_fifo > rx_space)
-+		bytes_in_fifo = rx_space;
- 
- 	bytes_to_read = bytes_in_fifo;
- 
--	if (!i2c->dynamic) {
-+	if (i2c->dynamic) {
-+		/*
-+		 * RFD is programmed by xiic_start_recv() and left untouched
-+		 * here: reprogramming it mid-transfer emits a spurious SCL
-+		 * pulse, causing the STOP condition to be missed.
-+		 *
-+		 * RX_FULL is therefore always raised at the same threshold.
-+		 * When fewer bytes remain outstanding than are held in the
-+		 * FIFO, drain only those; the retained bytes plus the final
-+		 * incoming bytes restore occupancy to the threshold and raise
-+		 * RX_FULL once more. This relies on RFO accounting for every
-+		 * byte the controller has received; otherwise the threshold is
-+		 * never reached again and the transfer stalls until the
-+		 * xiic_xfer() timeout.
-+		 */
-+		bytes_rem = rx_space - bytes_in_fifo;
-+
-+		if (!bytes_rem) {
-+			/* Every remaining byte is already in the FIFO */
-+			bytes_to_read = bytes_in_fifo;
-+		} else if (bytes_rem < bytes_in_fifo) {
-+			/*
-+			 * Drain only the outstanding bytes and leave the
-+			 * rest behind, so that they and the bytes still to
-+			 * arrive restore occupancy to the threshold.
-+			 */
-+			bytes_to_read = bytes_rem;
-+		} else {
-+			/*
-+			 * At least as many bytes outstanding as are in the
-+			 * FIFO, so it can be drained completely.
-+			 */
-+			bytes_to_read = bytes_in_fifo;
-+		}
-+	} else {
- 		bytes_rem = xiic_rx_space(i2c) - bytes_in_fifo;
- 
- 		/* Set msg length if smbus_block_read */
-@@ -637,15 +675,6 @@ static void xiic_read_rx(struct xiic_i2c *i2c)
- 		i2c->rx_msg->buf[i2c->rx_pos++] =
- 			xiic_getreg8(i2c, XIIC_DRR_REG_OFFSET);
- 	}
--
--	if (i2c->dynamic) {
--		u8 bytes;
--
--		/* Receive remaining bytes if less than fifo depth */
--		bytes = min_t(u8, xiic_rx_space(i2c), IIC_RX_FIFO_DEPTH);
--		bytes--;
--		xiic_setreg8(i2c, XIIC_RFD_REG_OFFSET, bytes);
--	}
- }
- 
- static bool xiic_error_check(struct xiic_i2c *i2c)
+diff --git a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+index 0a45e1f55..e08441915 100644
+--- a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
++++ b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+@@ -63,6 +63,7 @@ properties:
+           - qcom,sm6350-rpmhpd
+           - qcom,sm6375-rpmpd
+           - qcom,sm7150-rpmhpd
++          - qcom,sm7250-rpmhpd
+           - qcom,sm8150-rpmhpd
+           - qcom,sm8250-rpmhpd
+           - qcom,sm8350-rpmhpd
 -- 
 2.43.0
 
