@@ -1,147 +1,148 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-214.mta0.migadu.com [91.218.175.214])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC7947D47C
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:50:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A3847DD74
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:50:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.214
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788259822; cv=none; b=btLG23h4oCDYIC+/Fo5cSknhxv0a4powXcp0JYR0OYLhNASUoPfnbQvsGrTLdYvLdxgOmxyFEDfdMJvFAGEPjGxa5CLe9YhXe633IcMt3V8dETnaHCo98OhHPCiIawBFkyUP5tiyEoJolDQzGeD/yOQXVj4ISvEVSaEyXpF1axU=
+	t=1788259828; cv=none; b=hW4EWeGhyl4GkfcUI3FpoFn6NGYMv0rdb8hmEhx9Uy6V625STG6wekM2RO+dNlf9jLQDgjscBKX/392r7VL68W40mkLlwjNWcsmKPN7IzDfkniKnn+oME/27T6Yjn16eFst+8iVsF7DBExIAiuRLeBtbnQEFguh8z4mAh0Kt/jU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788259822; c=relaxed/simple;
-	bh=c/3LzFOXnOp4uaMM07Dh0Np9ElxE0mAnasoTJXwGAd8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q1yNaYD2syOuHW3stLh4nZt+ZdwMqPTWCnSMtvE/wHRtzPr54/lJrJYu/dL1mI0rxVrIi1jvgD8S9nUnYkLsobxkcIVFwJGyQL4023bBMHdpiB3zpds0cpmpq8DyZ1T+Xnlc1fja+5B5lWXuBBxBYtwHDLvz34TKdviGeAVMiBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NzuP6YxJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DlMxcLxP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788259828; c=relaxed/simple;
+	bh=C1F/at+ZpcyorQfJWG9U8cQlYWLtImAZlUOYJDjZBzI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Iti0nIfn9VFCRwtp9rrHKwEhYo1jCR2ialOjNSCdN7OrRA0TOBBjU8oixMmfIpEUmKrM8rrdwbbjWhNOuCSl8M3vl5wLdItx1SoMzPXGAZ/4I1zEL9DegR5cGZ0zBvBHw32bF+2rzIpucYYX1QBxdixU4MfpY0pMG6JcNwDe6Jc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HHuF9GYy; arc=none smtp.client-ip=91.218.175.214
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NzuP6YxJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DlMxcLxP"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681AJUgp1641773
-	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 10:50:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	c/3LzFOXnOp4uaMM07Dh0Np9ElxE0mAnasoTJXwGAd8=; b=NzuP6YxJu9HCQXoE
-	wCUBCXCQtR0RWVjIYR1In0MR2weC0zUZHs1l1O3JdvPiKuOPLQDCid/G9bmYrltb
-	F5YRE0BoCceJ5rIcS8NHIbEk/zxtUWpsxd5d436gSKLCVTuv7pzCIX6Oijn7pM0k
-	WciQW0CAjTDCflUEGWFl+nECwyYd6OdC0ZuM3xLRcuhgKgxyG0TSzyAOPAJcRnOx
-	mRPxoBN1+t167BsloMlQ9qAAFo0Kbryqe2ftOEhlwBA392S9RKgqvBwWAz7XjOuy
-	Mo4b84PErRs6PGkcmS5T4pgb6tChqUOp7GG5PT+HQVHTjtudtLs8Y4C4/bZ5doT1
-	HEM7JQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdnk8t6t4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:50:20 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398dcfabbf8so2124024a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 03:50:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788259820; x=1788864620; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c/3LzFOXnOp4uaMM07Dh0Np9ElxE0mAnasoTJXwGAd8=;
-        b=DlMxcLxP+GpvOCSpqhFNzqMA+kTR4i7qRM1IPKWiGNfjab5af1SWKaBvLhbNTPgFmh
-         To8KfgLrNIrHmrNCXptn918pzCDf64fedmL89AeS/durebHJZ4W2gtV+ECPq4ZxPr71F
-         CNgO+JUZmVCjd5Vz0+tge2gjaqRa/FK8honVAHl/zRjpVZtl49jrKfTY3XYqGqemMdiQ
-         gojXTmKK6iYNzlmRkSycraZzPdXo2PtvdMjvaoNdYNenma5bXBTOLc6cSnChCMtWIt6m
-         YzLx9dGZ5zlkwoXBJhGRpdbWNtMoWLlvd/2xapMJjBbBMdfhEL+wQeKiiUAKR/A4OQTI
-         pxJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788259820; x=1788864620;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c/3LzFOXnOp4uaMM07Dh0Np9ElxE0mAnasoTJXwGAd8=;
-        b=Yo5+yxxnm64IFHuGZG7mfOvkFY2yCoBHghjz2VUb1ToiM0gArxAOLdqae2rkN8t5Vs
-         UD0xlt0Y4KMcr5sr58xvOfXmnPuF4gjNX1rsdMJ6vjQcgsm1k4wBtRcSfhO67tGX+46x
-         FDN+90b+Vx5BEy6hTIy0kLI4iSlIXz9zEsQXHBZXjFIVi8ktQElEc2QU8PlLpigRrYbA
-         X3jDESLxOOXo0L8Yupwuo1LKKICP3T9Trw+psJZx6nnUlgngGX3OCj+SfZ6eib6u6/nF
-         73+iBSsn3SuitKBvfp989y9wdm2ti4xcKfUqID+A/kuNG6trdzwOWtFadwGxBUBOq9VB
-         Dtrg==
-X-Forwarded-Encrypted: i=1; AKwUvBwdBFyemDEGL3TDem8NVBsN9ZMyOXVm7QRFwuhsgM58tugAE/aBxfA9J5gnJELxiv/EPu59cQju7BImoM4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAX5iIegb9/um6EnJX7W7DFlLGtfPsni+y8nIW7c/9CN87NnlB
-	U+YMTuJDvcLU333lXKMX6RyU0L00chf4yhXjxLKAsVNwxpycfIN26D8NYT5P2BYO080cjjOBWIQ
-	hCikp/ZGH67mjSrRr5ik0LtndGC6lsoQ+vDhgbz+pzAaNdE3B3ExqJ6dqKSS+k5k1MNI=
-X-Gm-Gg: AYBFou3hcl/OkKvO3tJy4ERCPEuCTb36YHeEYlkC10g9qZMGUInm22uabfQV6CnmGLp
-	YkXIkvF8YU1tiw4Turzlqg/ThT+IzRebcqNQuqON2gQr+ej+TeN7e3xb6/smZ11+3o33JkuUzKm
-	A8guD8Z8QwwlEXOj8urZyrk9FJG0jGmnE6rSSYcBFm27Gs/zTvCMpjNgEhdjGNLMaiXj6ShmBX3
-	icIUxRgqaxc2Tu6pjpp3rfzcTU2wHDckCGbRvIMun+Xc07e5GKdn25HI4naSmG6QjIalQJ2M4Xg
-	SYeSMyisufWFNgoAXb8cQQa22iCv5F8bsr/6BNZCmHxgDr9j8Er9fgHneNP6ebPAXubb7ILya+Q
-	X9V8bXS7Jzr9rJur10G9jArYhdUF2dNczmg==
-X-Received: by 2002:a17:90a:114f:b0:398:9be5:b41e with SMTP id 98e67ed59e1d1-3989be5b50emr23508921a91.25.1788259820085;
-        Tue, 01 Sep 2026 03:50:20 -0700 (PDT)
-X-Received: by 2002:a17:90a:114f:b0:398:9be5:b41e with SMTP id 98e67ed59e1d1-3989be5b50emr23508860a91.25.1788259819580;
-        Tue, 01 Sep 2026 03:50:19 -0700 (PDT)
-Received: from [10.219.49.187] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0de4d92sm32534466c88.13.2026.09.01.03.50.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 03:50:19 -0700 (PDT)
-Message-ID: <36b9f3b5-8c20-48f0-96d0-92cd13761ab4@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 16:20:14 +0530
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HHuF9GYy"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=C1F/at+ZpcyorQfJWG9U8cQlYWLtImAZlUOYJDjZBzI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788259825; v=1; x=1788864625;
+ b=HHuF9GYyS4WSoVgIehCZYROVFwhQ0t5ZviCBNC6SjLVpoJfKPwlmsoa3eY+ivE//k8ZwUkXR
+ t5/n6LO92oK1/zR1h9BuNCGJnXpbcnrtbx3cR+BBWRXaKrVh/8s09EUFHrBQQIOjmDkDqlux7pX
+ GEHDKn61y1HH6QfnrbLWIHRc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d642d75bbf501021;
+	Tue, 01 Sep 2026 10:50:24 +0000
+X-Mizu-Trace-ID: d642d75bbf501021
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Mykyta Yatsenko <yatsenko@meta.com>,
+	Alan Maguire <alan.maguire@oracle.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf v4 1/5] bpf: Reject key-less BTF for hash maps
+Date: Tue,  1 Sep 2026 18:47:35 +0800
+Message-ID: <20260901104924.346187-2-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901104924.346187-1-jiayuan.chen@linux.dev>
+References: <20260901104924.346187-1-jiayuan.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: wcd-mbhc-v2: Fix incorrect properties names and
- typos
-To: david@ixit.cz, Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260823-wcd-dt-typo-fix-v1-1-a71b458e0d31@ixit.cz>
-Content-Language: en-US
-From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-In-Reply-To: <20260823-wcd-dt-typo-fix-v1-1-a71b458e0d31@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=f6p4wuyM c=1 sm=1 tr=0 ts=6a96aded cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=JTjWdI1eHk-BqoT7USUA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA5NSBTYWx0ZWRfXzkQJYJVbb5Ki
- BviVnktwrzl5bdUP+nLoyBEkOmp2gspggm008+RbKwaCzqmK/RUWXUdJXqcugdaDM3exQGetH7o
- /UANKRUxNU8tmJ3Q7c850Wo+Eox++95BaRbZ9gmMdG3pYn1JFVkgW7OkxidEOUPJimQpa6akYJu
- W3X9uIyQaalwkHvkQZFZYnSt3ddq4Z3/3X7OztLDISdbMeZPhxHs8J5E0Hu8Rtu2PjSNh5cA/aU
- wD7mupU9UMkHIM4Fbo1krYZBTpu0y6yxqO+QBVH3xwYmuhPvd9zR2R+WBRYWEwt8EJQJ4wGSxDF
- AzobDw4ePCqfiLjTPb8j3CPv51uNMhveumpxAmFMtliYc8g3YnHqzqJp5QHLAaGoLcOnWRuicaB
- fsPf0Kr9/P8DN51dab2+0m7uwX/JhaFtmFjsNTwyDqFyusKXswymZpfyp/lCz02hufPn0YkkcYC
- ZSpCYb5o4YSS83JNWvg==
-X-Proofpoint-ORIG-GUID: BUylWIwcv1v2TFfWY2YRGbUOVLfZw_Uq
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA5NSBTYWx0ZWRfX/xSV/wtSURfl
- SXMS7JOySGtuMX3fM33fOdHHWop4CYvwbvSbByK8aCKhCcxHl4pA6pQQktDQlq6DbeV4SymZoAi
- Q3bFB7DTjMKmXEojwnmF81TyurlmPrQ=
-X-Proofpoint-GUID: BUylWIwcv1v2TFfWY2YRGbUOVLfZw_Uq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 priorityscore=1501 suspectscore=0
- impostorscore=0 spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609010095
+Content-Transfer-Encoding: 8bit
 
+map_check_btf() allows a key-less BTF (btf_key_type_id == 0) only for
+maps that have a ->map_check_btf callback, and leaves the actual
+decision to that callback. Hash maps used to have no ->map_check_btf,
+so a key-less BTF was rejected outright.
 
-On 8/23/2026 2:39 PM, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
->
-> Improves debugging experience.
->
-> Fixes: 0e5c9e7ff899 ("ASoC: codecs: wcd: add multi button Headset detection support")
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+That changed when htab and rhtab gained a ->map_check_btf to register a
+dtor - htab in commit 1df97a7453ee ("bpf: Register dtor for freeing
+special fields") and rhtab in commit 6905f8601298 ("bpf: Allow special
+fields in resizable hashtab"). Neither looks at the key, so a key-less
+hash map now passes map_check_btf() and gets created. Reading it back
+through bpffs feeds the key type_id 0 into btf_type_seq_show();
+btf_type_by_id() returns the void type, kind_ops[BTF_KIND_UNKN] is NULL,
+and btf_type_show() dereferences it:
 
-Reviewed-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+RIP: 0010:btf_type_show+0x223/0x2e0 kernel/bpf/btf.c:8232
+RSP: 0018:ffffc9000399f868 EFLAGS: 00010206
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000000
+RDX: 0000000000000005 RSI: 0000000000000000 RDI: 0000000000000028
+RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000000000
+R10: ffffc9000399f970 R11: 0000000000000001 R12: ffffffff9b96b140
+R13: ffffc9000399f8e0 R14: ffff88803d393c00 R15: 0000000000000003
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000000000 CR3: 000000003d213000 CR4: 0000000000352ef0
+DR0: 0000000039ae8f55 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
+Call Trace:
+ <TASK>
+ btf_type_seq_show_flags+0xca/0x120 kernel/bpf/btf.c:8250
+ htab_map_seq_show_elem+0x12e/0x350 kernel/bpf/hashtab.c:1669
+ map_seq_show+0x13d/0x1e0 kernel/bpf/inode.c:293
+ traverse.part.0.constprop.0+0x107/0x650 fs/seq_file.c:112
+ traverse fs/seq_file.c:99 [inline]
+ seq_read_iter+0x93f/0x1270 fs/seq_file.c:196
+ seq_read+0x344/0x4d0 fs/seq_file.c:163
+ vfs_read+0x1e4/0xb40 fs/read_write.c:572
+ ksys_pread64 fs/read_write.c:764 [inline]
+ __do_sys_pread64 fs/read_write.c:772 [inline]
+ __se_sys_pread64 fs/read_write.c:769 [inline]
+ __x64_sys_pread64+0x1eb/0x250 fs/read_write.c:769
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Thanks,
-Prasad
+Reject a key-less BTF in htab_map_check_btf() and rhtab_map_check_btf(),
+restoring the previous behavior.
+
+Fixes: 1df97a7453ee ("bpf: Register dtor for freeing special fields")
+Fixes: 6905f8601298 ("bpf: Allow special fields in resizable hashtab")
+Reported-by: syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6a8f4e88.27659fcc.2ceef7.0008.GAE@google.com/T/
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Acked-by: Ihor Solodrai <ihor.solodrai@linux.dev>
+---
+ kernel/bpf/hashtab.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
+index d40cb5dd446c..7f55d6421e72 100644
+--- a/kernel/bpf/hashtab.c
++++ b/kernel/bpf/hashtab.c
+@@ -530,6 +530,9 @@ static int htab_map_check_btf(struct bpf_map *map, const struct btf *btf,
+ {
+ 	struct bpf_htab *htab = container_of(map, struct bpf_htab, map);
+ 
++	if (btf_type_is_void(key_type))
++		return -EINVAL;
++
+ 	if (htab_is_prealloc(htab))
+ 		return 0;
+ 	/*
+@@ -3110,6 +3113,9 @@ static int rhtab_map_check_btf(struct bpf_map *map, const struct btf *btf,
+ {
+ 	struct bpf_rhtab *rhtab = container_of(map, struct bpf_rhtab, map);
+ 
++	if (btf_type_is_void(key_type))
++		return -EINVAL;
++
+ 	return bpf_ma_set_dtor(map, &rhtab->ma, rhtab_mem_dtor);
+ }
+ 
+-- 
+2.43.0
 
