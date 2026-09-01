@@ -1,152 +1,254 @@
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011054.outbound.protection.outlook.com [40.107.74.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD06F361651
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:11:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271901; cv=none; b=Ik9hPFx8hCIOjcnxQN+U5tib9Q6ah1pcJxE/Z2oMoSTePl3ySuUysnjqiUcAKcRx/z1N+AgpuL2qUs9YztFH6Oj02o7d1M9hIdbNw2WvvPhUb8AMBSZzH5++4IVG5kjK7hsyoXyh0hmCSO1IGFVxOpSuXuhxT/v5xs8w7RmY4bI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788271901; c=relaxed/simple;
-	bh=8+R/OeIp1ZVk/DP75Xjsd85p+yJ8w89tCQWny8G0Cs4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ot1TkTu/Namv19/pdbH6pfoAtBRATFAY01sOvWesEHqMe+5vsAhsiPeWmOpigN7XG5QYyHnqn7Owrj8jlWFfJQEW2QB6geYoeWNUsLYvUtbvK9yuVBpRLEB/+bn5H7XEVPTiJGjAYFlrX+nhmwqbxM1r5bGlrojccnrELnKffb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QhozI6lU; arc=none smtp.client-ip=209.85.210.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FB4306764;
+	Tue,  1 Sep 2026 14:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788271900; cv=fail; b=Uwct0g6AuW6anECmmt6rEZc5YTR5tuDW4ESSvFxxUVLLwFzarWxoVDjPcN9sGSKZE0xvt2hC3LuPMv/FDFKdXN/t1uClDyxup852iAeuPPR4Gn9UB/qqVvM65i6qiETPlSFsQA40LG0JVsbwwWakxZciXtHXsHujbXg5jTTnQJ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788271900; c=relaxed/simple;
+	bh=q3BVu1POFwS6/Do2W4uqaywOhLEkYlmvZ8ZZi+xlhtQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=jZYbRojkkj5m/JX9TliZz7wfGI79BF+RPdcddq0ZQY1Fy20zW5p/tUHnqzeZxtbtDRn2lpnHR2LQN4FzsD1mAmQIbtqK4xsrpG9c4EGIDp4BEI9XDFD4ApFyIfhtBl0PgP6x35EYIV8JmPk/NRmFSAokzOqvg4tYxkbmLQNVvPs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=RzA1LAbh; arc=fail smtp.client-ip=40.107.74.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QhozI6lU"
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7f0167e59a3so2723089a34.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:11:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788271899; x=1788876699; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LHkkshZ3PVxOZzqbwKcqNzDLof8u7Tm/vxYAm4UhRQc=;
-        b=QhozI6lU2wAuesiwcxU/pDALzIzwY3lMI/ofJQn2yS16RlXDXJkKUyWeKGG/E2+DUf
-         FA2qR1SdT33hmBHvUgwmuCj2ZNtfAOVPSRM2H4eoKGBDg23wM7K1d6s5XIzykSSc8ihx
-         YaaeMLZuudD7WZ2drZeNp2ZzwLxkejLFDRPeikOTXw7f1HYgSPVQgEqKW1MzuNWFxomV
-         jEWJqw5WpToc0C4GKqm9cUyo9gIuPNYCAhxrSmCjEPUd1Lf9+YjU4U57tkRfo9Q89Ymj
-         FG+1eaQ5w/WQoh43d+54kwiBPCevmoYG/j/U64htniHa6IxYjSHhnMIOhDjHam8yMldy
-         IMrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788271899; x=1788876699;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LHkkshZ3PVxOZzqbwKcqNzDLof8u7Tm/vxYAm4UhRQc=;
-        b=BDmhnCfr7EdFvYs08WzydU/tuJQyyJQnfaaudmEbx1cnhvrxAOPVFSPMwZS/V16SGr
-         ZOFPW/nV8v8A3T2KnMPs+9QleonxO3PIKBQvEl7nNXe8EwIpyMWQrU9lBe7kCcXJuWPG
-         UHCbuN+0wC15LSQkywndg2/PXEwOYscYjtdHjtNVz7lus4iLFM2s1aScDteHAj9ZOsWd
-         rk44ehryxsgACvBZBMcqzep2srHH1IIlrpftTHnqb9v63pvxDCytlcudG9LH3K/ThC9V
-         R5nCsBATkfRKrMt9HCJCFOuke39He7nhkizbihQXaH9eqbinAOtY+J7KWZX+sDdoqGxn
-         ki7Q==
-X-Forwarded-Encrypted: i=1; AHgh+Ro9sYVOrb2vJ3j4Bftgl4JFpzuwF1mmt/LWIXw+Ou3pGb8OdZAbRQ/o8yTpFgE8G2spL/a4kCA44IIj/SU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWHb4ABlsTGVgBdfQkWAPxobVPol3O/93Ofr3GpL7LsNZh0t1D
-	SsEazq4pQiwGeJ/YEw9c01xjmKng8pL+phT/mWA78V7u8gwgX+SEXv2V
-X-Gm-Gg: AR+sD11CCM9eiLdsLwFgHb7W0sO3yhPwcDX9PKLOvbE95ZKfCrExIOU3e95JHOjI1px
-	ibqat3wBvcpK5qo7x82PhA87azeoCga2tE2aQwXFeIKXupp4RVzOC4htmX7FE6rVTWEn5mMNPZQ
-	3KBoPwR5zY7EfesM6LwHrKNyQs9mwZq1go4X8Lg+V++ZqbkeRyuo+UzcTBCX8TjpZAeACkWLcZk
-	+eTmvFJjT+BGBOMdmhyMW/xpmXwNowMxh0RpNdsUOywBybNDlJQB397Koj4veyQ5Z5s5wKAOUE+
-	mj17Xh0vZTNFuu8NCkeYjELTIhUldgjgH5lCQMZI7Hs7VRNE9KdqMK37CA2MWYVgAW3Z2eRp4jC
-	aeuO6pHaierexjsNIMXZVpfOfiLD6e2JEM4jU7AdnRONSRLyYkphh+w/ZqWYXqJTZECCmIlz972
-	vImclafaunRbel3qys3jRZFh6JlJgwTbwreHhkW5wRRXv/X5+z5iKgjspgI9xldmtJSTQY+s5yM
-	5n0gyGVK5KOLw3c1GM=
-X-Received: by 2002:a05:6820:160e:b0:6b1:464d:4d1d with SMTP id 006d021491bc7-6b1c65bfcd0mr34936183eaf.11.1788271898644;
-        Tue, 01 Sep 2026 07:11:38 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:49::])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b1ce359f82sm13402124eaf.14.2026.09.01.07.11.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 07:11:38 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: hannes@cmpxchg.org,
-	shakeel.butt@linux.dev,
-	mhocko@kernel.org,
-	roman.gushchin@linux.dev,
-	muchun.song@linux.dev,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	dev@lankhorst.se,
-	mripard@kernel.org,
-	nat@pixelcluster.dev,
-	tj@kernel.org,
-	osalvador@suse.de,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH v5 7/7] mm/memcontrol: add stock to the memsw page_counter
-Date: Tue,  1 Sep 2026 07:11:35 -0700
-Message-ID: <20260901141136.1871423-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <apaZdbM_l3kJIiyK@localhost.localdomain>
-References: 
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="RzA1LAbh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gocgRzgoenNt3i6T5SxNwmpD/GyzVzHK0EKjDutGfbo6Rjk5xX9+hNzH0woyeuoU84AKgJAv20B3On0IN6GpyvuzaFGSL1Qu2PyFnSMLBRanAOCWp+POC6LQ9Q3n0uihrSJt9Ud3vEhKhO5/rgUQTbZi5rQYI3IQ0F9rwvxJsZuWOT382oqyTmYhwr/1rsEZhYWHT2pXUdYzpQ1Nb8XZFiyN1PzsJt/WhH4hGyh1yhuLRHaOQFp+KzVMTz915uLjrC+GmKvg/y80Bakd3zmWPcjRTFmHJxEvUEf7VOMrWZeNIrf4vwU2JUnftcoi4c8rGckqZaE4jgjre6Plrxiuaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eENDf7LxN5BaT6FIkC/FoWCiYXcU/4rmPUxe0cNlQgc=;
+ b=oEIJhs+tTLnQwKGxd7QCkvdw4YJEKdUY/AjzkR6GqR1QKeIqFFjo02JW9dvwzZLnA2BpZIv8oT6KaXtwQNjJQDSlFyBPtuK78Hi/bonLeSWvp0zlYfsSiseO9zkifcnZ8eQ4KRdjYiLyuaE6qMe+le12OT+jOm1fLmK5ASdr987xPWmppPNXFXPKmiQtJgw8nhRKyF6ovoiST61t9RuatqezVnHtJzjjfMNwhHTi+KdJ8+nAaU3vvHfPzEmMIi9Ex2/ZSySAPHv1ORrymYWmK+2sNVb8pwe9o7b7kuFm1Nf6MA3Vem9J299p4CXmZ0i2tBVwvZ5pvfpXTqVl7lndTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eENDf7LxN5BaT6FIkC/FoWCiYXcU/4rmPUxe0cNlQgc=;
+ b=RzA1LAbhV7ZYhzH+zt+Q78kcZyXMsjftd2axJXudtg7Hh4pzok5tAB81GIbkYtcS6E0qHv8BkK7zlDAwiMbnZl0iiQgVinWdhmk2VkHlQq4P38lPD5qoj4+JAmF62+zG30kujGTQlfSSVMpUxYTij11Xlzn8bWvO2aIljQSmCIM=
+Received: from TYCPR01MB11865.jpnprd01.prod.outlook.com (2603:1096:400:38c::6)
+ by OSCPR01MB14950.jpnprd01.prod.outlook.com (2603:1096:604:3ac::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 14:11:35 +0000
+Received: from TYCPR01MB11865.jpnprd01.prod.outlook.com
+ ([fe80::981:1b9:f809:a0c3]) by TYCPR01MB11865.jpnprd01.prod.outlook.com
+ ([fe80::981:1b9:f809:a0c3%5]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 14:11:35 +0000
+From: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Geert Uytterhoeven
+	<geert+renesas@glider.be>, "magnus.damm" <magnus.damm@gmail.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
+	<bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf
+ Hansson <ulfh@kernel.org>
+CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, Chris Paterson
+	<Chris.Paterson2@renesas.com>, Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH 02/10] dt-bindings: power: Add r8a774a3 SYSC power domain
+ definitions
+Thread-Topic: [PATCH 02/10] dt-bindings: power: Add r8a774a3 SYSC power domain
+ definitions
+Thread-Index: AQHdMX5892WN4kO9QE20wnaOSC1ofraprQeAgBAdPGA=
+Date: Tue, 1 Sep 2026 14:11:35 +0000
+Message-ID:
+ <TYCPR01MB11865BD2FC199EFC6BE613A5DA2A82@TYCPR01MB11865.jpnprd01.prod.outlook.com>
+References: <20260821150408.73829-1-ayman.chaudhry.kc@renesas.com>
+ <20260821150408.73829-3-ayman.chaudhry.kc@renesas.com>
+ <b2f486b8-a391-41bc-8a7f-dc81c6752205@kernel.org>
+In-Reply-To: <b2f486b8-a391-41bc-8a7f-dc81c6752205@kernel.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYCPR01MB11865:EE_|OSCPR01MB14950:EE_
+x-ms-office365-filtering-correlation-id: 485ca316-a500-4b14-9a77-08df0832ee77
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|921020|38070700021|11063799006|4143699003|10067099003|56012099006|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ 9yi/KQ0MbtTdex9Dmlo7o07zSEA12RmNM6o4XWu20yzSafXHQvPfNzTn2RMtb+OZkchTlMd0Me8Dbz8VBMCB8CZgEPFR5dZTyrDv7fRURL4CwGIruR20pfl4eUMYVbR5yO7M6Jo9YrQsKg3DLbLbp/97bk+TuUM92TA5d9kB/RS2vqcA/gVGHJs95SF8xRSVqQ9wPeBkU5jNq1qNjRjd1j2jHfjXabWGAoeANpydmvuToScmr9jZmbTa4g7qLWMyS4bFqQze08cB0DjjXApK6cMdbR7XiqLmuvstDlmJaHF472LScxvpMjLG9NoOAw6rMXVVb0Ob8Ym4gSWqn8mrWmsaVfyHuqHxT/CI6t/ysePV40KrTegeX4YjypFmefJRxJbPb09rJ9S9Unjs4qFQPDvBjHxNY7mrvc46wFerSBjCj663YMDDmH3J+hYXMRN7zck7MeE8jFCjIACsGJQm4/ASsxaAsTKdUTJccz9tgxahC17h9par9Ns3qw1ty2mHSiEPK0JMifCx02M3l1qTumOHtU8kVQI+THA/Ms4voIG24pxiCidJ8bhC9EJP7UrUCvg4Tzr0RCnZoZZDbU69i2XJPdCq0b1M6+Q5a1E0ft0KgL9ce6nMc3mGh9kVB7mU8C4N+2yqlXnZAV9prQh2GWHZTuT7TePxJoAkHGynKfei7dcKP9njbe1cQf4tSirF
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11865.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(921020)(38070700021)(11063799006)(4143699003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?qtfDzwHkieUKaMdU4+d89XWWMuuSB+DoBi5RymB67LrlElyuU2pRduKBhsik?=
+ =?us-ascii?Q?dxpmNGE6cG8f8m8o6hIlZ8HkQBDKrSS3lCHbV4nR1yIaHvSEvHHklW4Aclr0?=
+ =?us-ascii?Q?ncJsyRJQyiR+xxR5WJit+pmPgLxgL1hEzSY3Ci5BwG79batoLv7YFR2/mePA?=
+ =?us-ascii?Q?7oUA6ymIQPgI/3SaJnLZCkRNquBhgwLscEBLvAKVj4AHPd0zQpO/K/mdLWpi?=
+ =?us-ascii?Q?YHFoDVhCrQK3sGfTyZskCFZvDIlKMRGoRBrG4g3MGiInkpVu2916/0G5lpbY?=
+ =?us-ascii?Q?Zx6rmdYmYYCMbCGm1cPiiqwJHppvWaHfOgBi86O0ebWQa1XF8Bu1/d7S8/bT?=
+ =?us-ascii?Q?Y5tCOLGdHlBmZAxEwYfD7fV1ahOXpSc94aTBVlHM/nCkA+txfTJjiER9Pdb/?=
+ =?us-ascii?Q?gnEsbrMMpfaIWZ4NEqOpu4GqrkHQE+v4BQ9O6tkP8t4Gt6XSdmkNEwNooR0I?=
+ =?us-ascii?Q?pxI+2Lw1Czw9gNtxH3jHudTg9Ccqgzu/ik2DGcxk1viDEj6Bqd3HZ7Fzptdh?=
+ =?us-ascii?Q?mM5cdglCFiTRr+TpyVOtL//EweyQPsfHvlHe5AqXpBOoFSDAI5sUR5ecIU1u?=
+ =?us-ascii?Q?mdBQBPYXRkftuekgM0lNlrY09F8VgmgNwzf7KH+poeehhziIglUN7hJcCWNl?=
+ =?us-ascii?Q?Ran1+MJ143cXWWwINu0+qiBcrd88AfpcWJpD7IfO8G2ISYA7Iaj4SxzjBIFM?=
+ =?us-ascii?Q?p2ZQEHL25PToSK7lNu1iR6D8XoWtDqNTPqCu6aLZmdItLd/917EWnLyrvTmw?=
+ =?us-ascii?Q?nyKBqMIjYku4ETuuSs/W1RKV7ddaEuuJbmHBYaqErsGNEFkVfTRL/g0go6ZF?=
+ =?us-ascii?Q?4GXrtoiRz9RiQBrQoOblC8embPKP0bf+Zm5YoxJbpTKVddZfkYUL2YvxIqeX?=
+ =?us-ascii?Q?zC4tERvQsYHNVOkd+A2Rh4nhJRjF1EZE/8L33fAyFQzWfSw0wSSTXbemb8ug?=
+ =?us-ascii?Q?8S4XSucsW2L7qqw2KJ+oxZxIEdBPK1b136qhAbPWLGlKrcU3JeATz934/xgM?=
+ =?us-ascii?Q?ewTvRgLdxtD01Ax7tV/y65qUCFp2fR2+6kLyBP2PO0aH2je7CBfISKcqfGjz?=
+ =?us-ascii?Q?iX9o1wOiUM4/NABLdF3BQYIxUMnS6TOU2qAr3x2sHKspY4Os3/kwJi4bGqOI?=
+ =?us-ascii?Q?Y9eN/8R/NJsNfZi16S+Lb6VbeqCAwMryYQV8BA0Lb0js1/r8LOK3rfB/jvZv?=
+ =?us-ascii?Q?cI3aJCvvpgVkW5TQVs+Y6Ojx1x2l4sSL3Ly+a0/+Lvuji4Tj1/NODtj+ioMn?=
+ =?us-ascii?Q?Vw3xrlwlhbkuS3BWN/xMku/o9u8cdZ5dELNWNvsqcLOzcw61A9Dbw04uoU9t?=
+ =?us-ascii?Q?tnxse5rv3HZowbrV0WnrEYE4Ar7qH52HLC/amPHarXmE+w5MDhbwfmOe1MSz?=
+ =?us-ascii?Q?70Vs8SWpN8A0Q0UEsiKeFra30fCy9SzBYIPoZ7ZKZSDlyDXGY3icsHPIK5eO?=
+ =?us-ascii?Q?QwUWU01s/Bhx3+FJekDaH9CXRb7Uk35A+YiTdvBmr69tdwCicVmrpO0KGtE6?=
+ =?us-ascii?Q?ylUMyjwEAwaLOlySFoBjOZko8FAFSSIS/aSrq/iVEO4Uuj3iHNTML/yT8V4B?=
+ =?us-ascii?Q?I2l/ve1wPLU3qy2zspWF8U08LKz0//Z5p0vjE8Ou6jTrmtL0SmAUV72WnTP5?=
+ =?us-ascii?Q?nGpnz6/BZR/0JRSjfGx4kUZgRyMozhru4CHHF52ZYS9gouXmbkH1EcMdAKi5?=
+ =?us-ascii?Q?R1VDLdYITwn5Iq/haEu6FRGPpBT+bs8KCXAKHsPjhrv/96Ii0KzJIZ7zb/+l?=
+ =?us-ascii?Q?LusIN8tc9+fnP/hnBZlpI1Ce2oNUSoQ=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11865.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 485ca316-a500-4b14-9a77-08df0832ee77
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Sep 2026 14:11:35.1620
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZsJMsuHt+42BQNNhqEvvYSitgmPE7ohF7jqJDd7nhGO6P7CigW96sOE4sY6aET1llVYxDLRBVudDEOMWPd+sYy42qNpcKc2Vv0wT8/I5Ls0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB14950
 
-On Tue, 1 Sep 2026 11:40:31 +0200 Michal Koutný <mkoutny@suse.com> wrote:
+Hi Krzysztof,
 
-> Hello Joshua.
-> 
-> On Mon, Aug 31, 2026 at 09:37:51AM -0700, Joshua Hahn <joshua.hahnjy@gmail.com> wrote:
-> > Before this series, each memcg had one stock shared by all its
-> > page_counters (memory + memsw). Now that the memcg stock was folded
-> > into the page_counter level, give memsw its own page_counter_stock
-> > so that it can benefit from caching charges as well.
-> > 
-> > Note that while the allocation is conditional on do_memsw_account(),
-> > the freeing is not; the freer will only free non-NULL stocks. This
-> > matters because do_memsw_account() could have changed in between the
-> > allocation and the free.
-> 
-> (Just a passerby comment, I have no remarks to the overhaul.)
+Thanks for the review.
 
-Hi Michal! Thanks for taking a look at the series.
+> From: Krzysztof Kozlowski <krzk@kernel.org>
+> Sent: Saturday, August 22, 2026 8:30 AM
+> To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>; Geert
+> Uytterhoeven <geert+renesas@glider.be>; magnus.damm
+> <magnus.damm@gmail.com>; Rob Herring <robh@kernel.org>; Krzysztof
+> Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>;
+> Stephen Boyd <sboyd@kernel.org>; Brian Masney
+> <bmasney+clk@redhat.com>; Jerome Brunet <jbrunet+clk@baylibre.com>;
+> Ulf Hansson <ulfh@kernel.org>
+> Cc: linux-renesas-soc@vger.kernel.org; devicetree@vger.kernel.org; linux-
+> kernel@vger.kernel.org; linux-clk@vger.kernel.org; linux-pm@vger.kernel.o=
+rg;
+> Chris Paterson <Chris.Paterson2@renesas.com>; Biju Das
+> <biju.das.jz@bp.renesas.com>; Fabrizio Castro
+> <fabrizio.castro.jz@renesas.com>; Prabhakar Mahadev Lad
+> <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Subject: Re: [PATCH 02/10] dt-bindings: power: Add r8a774a3 SYSC power
+> domain definitions
+>=20
+> On 21/08/2026 17:03, Ayman Chaudhry wrote:
+> > This patch adds power domain indices for the Renesas RZ/G2M v3.0
+>=20
+>=20
+> Please do not use "This commit/patch/change", but imperative mood. See
+> longer explanation here:
+> https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submi
+> tting-patches.rst#L94
+>=20
 
-> The change of do_memsw_account() is because of re-attaching the memory
-> controller between v1 and v2 trees. That's not so common operation (but
-> not ruled out), pre-condition for that is that there's only a single
-> online memcg, namely the root memcg. So it needs treatment especially at
-> memcg offlining (which is what drain_all_stock() (also) does).
+Agreed, I will update the commit message.
 
-Wow, that's good to know. To be completely honest I dont have much
-experience with cgroup v1. I didn't realize it wasn't a "switch whenever
-you want" type of operation. Good to know that there is some more
-guarding there.
+> > (a.k.a. R8A774A3) SoC.
+> >
+> > Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+> > ---
+> >  include/dt-bindings/power/r8a774a3-sysc.h | 30
+> > +++++++++++++++++++++++
+>=20
+> Filename must match compatible.
+>=20
 
-> I don't know how expensive page_counter_drain_stock_async() is going to
-> be [1] but the v1 parts here could could be guarded with
-> !cgroup_on_dfl(memcg->css.cgroup).
+Agreed, I will rename the file.
 
-The function itself should be pretty quick. It just frees one CPU's
-stock, but the rest is just scheduling a job item.
+The bindings specify the filename, should I add an exception for this platf=
+orm?
 
-> Regards,
-> Michal
-> 
-> [1] Now, I see in 5/7 that there's the counter->stock check which should
->     be quick bailout on v2 (maybe quicker than the cgroup_on_dfl()
->     I proposed above).
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
+id=3D981a340540381532652731a500ba9df768bcef7d
 
-I'm not entirely sure, it's probably similar : -)
-I think they should achieve the same goal, and hopefully it wasn't too
-difficult to understand why we don't have the cgroup_on_dfl() there.
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
+id=3D61cada8da2f4c67026e41915f91673f045d4b18c
 
-Hopefully the rest of the code looks good to you too. Thanks again for
-taking a look Michal, I hope you have a great day!
-Joshua
+>=20
+> >  1 file changed, 30 insertions(+)
+> >  create mode 100644 include/dt-bindings/power/r8a774a3-sysc.h
+> >
+> > diff --git a/include/dt-bindings/power/r8a774a3-sysc.h
+> > b/include/dt-bindings/power/r8a774a3-sysc.h
+> > new file mode 100644
+> > index 000000000000..5694a422b771
+> > --- /dev/null
+> > +++ b/include/dt-bindings/power/r8a774a3-sysc.h
+> > @@ -0,0 +1,30 @@
+> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> > +/*
+> > + * Copyright (C) 2026 Renesas Electronics Corp.
+> > + */
+> > +#ifndef __DT_BINDINGS_POWER_R8A774A3_SYSC_H__
+> > +#define __DT_BINDINGS_POWER_R8A774A3_SYSC_H__
+> > +
+> > +/*
+> > + * These power domain indices match the numbers of the interrupt bits
+>=20
+> No, that's not a binding then.
+>=20
+> Also, why is this sent separately from the binding?
+
+The binding is already present in the kernel:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
+id=3D3eb434de00b39c843249e89cf151757410e8a6ad
+
+>=20
+> > + * representing the power areas in the various Interrupt Registers
+> > + * (e.g. SYSCISR, Interrupt Status Register) */
+> > +
+> > +#define R8A774A3_PD_CA57_CPU0		 0
+> > +#define R8A774A3_PD_CA57_CPU1		 1
+> > +#define R8A774A3_PD_CA53_CPU0		 5
+>=20
+> No, value is 2. Or not a binding.
+
+The values are pulled directly from the R8A774A3 hardware manual and
+as a result are not sequential.
+
+This is compliant with header files for similar devices, so if we were to c=
+hange
+the approach now it would probably make things more confusing for the
+user and it would also require some special handling. Given that this is
+compliant with the style for similar devices adopting the same bindings,
+it's easy to understand as the numbers come straight from the HW manual,
+I would actually prefer if we could stick with this numbering scheme if
+possible.
+
+Thank you again.
+
+Kind Regards,
+Ayman
+
+>=20
+> Best regards,
+> Krzysztof
