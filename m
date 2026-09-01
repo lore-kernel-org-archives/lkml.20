@@ -1,98 +1,181 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD9238A70A;
-	Tue,  1 Sep 2026 07:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5A5CD46C85E
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:37:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248257; cv=none; b=ewNzXmhNQr6GpaaD7UwY8XCXZK582jf9l4OdRqJ9uy5h3+kC5JMCPZxTbuHXCZkEDTnDKemUhWWE1BxoDTOZPqyxDkI1QI5Ts7clCzr2odoJ272RsdUNe6dFmYV8fGlaLeetdhDLezo8XUiK7igfCl/bpS7g/er/YExD07c75BE=
+	t=1788248270; cv=none; b=jcGeYA7Pjd0UVk9qseGx1GySiCE1DJR3lwY9VgvsO+ooYu2tYCYKHIJ0JGUi9TJwcv4JE8QYc76WTk4JajuhIrgDF9wQ/mN5bALphFbv926coac4HXBDn02lpYnwne+X2PQDmyXsp+4zo1d84iNulEsPz4mni5rKRsNFZGLV+d8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248257; c=relaxed/simple;
-	bh=jqZ8xQH1dVMJFgjon3C/M51RNgYl4ya4gn+q45vKXT4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Kr15uZ8E2IXr8qbk8i2t4UZU1/V38MUPPE6Zj819iMPSH6FkJb0J/3R3FlsaJV5BxBsfOvcUrUyQrHBdeaWDCF4sMuIZrtFVpDuvAugWml2FmU5qWTALVC4uJU8r5gjOOi8Sheo+UlXgGGXJ6cTgC/mb3GtTOv9oJHkj8c4xzKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=pnEgrGql; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="pnEgrGql"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1788248190;
-	bh=FMXo3bO0qzDar0vxsQSKX+ThzBkt5waPMvBBuUNS/kU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=pnEgrGqlEvF+6V+Pd7dtaSDoI3ZJne8wtxaoL3eCRF+dzFyymiMUTVyNi8TYOIRj0
-	 LeAa9o5krlaa0Lqm0H212kurLx6IrRF0WQ9cl4ipJZwiDk1voeQruDDFZi5wPBfs6o
-	 wQWvuk7aVo8m7reJTC/3y2Mx7k3KlwizY7ZT/mB8=
-X-QQ-mid: esmtpgz10t1788248185t673dc2ed
-X-QQ-Originating-IP: qDq27hcP+Rp8Psic93OtsDSkMg4ZsjrcuvjY1CFJKmY=
-Received: from [127.0.0.1] ( [180.98.43.87])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 01 Sep 2026 15:36:23 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 11605117471512466628
-Message-ID: <92098CDF3B76D648+da81354b-56cd-4b07-9e5a-acdf4d730478@smail.nju.edu.cn>
-Date: Tue, 1 Sep 2026 15:36:23 +0800
+	s=arc-20240116; t=1788248270; c=relaxed/simple;
+	bh=idrQ73kwv4S5/0jMgAlSIU6uQg9mX3ir4nWJY+LoBS4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=pA+gCKnYi9SJnbioGGl96K7gCQ98AVaq7rhmHv3BQ1jCp2/+fKZ3aBzQaGICN7tiHXWtWk4U19ewLZ6UPRL3q6FWQXl41w25Df8JQqi0OPuweMeUCUp75q2xMPM2zeOf2Vtj7WZLEmKKwyTZF08eYprT0J2JGWQPHPeKBVTzZ0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hYyPM5ShSz1PvqX;
+	Tue,  1 Sep 2026 15:37:27 +0800 (CST)
+Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hYyPM24Chz1PGD2;
+	Tue,  1 Sep 2026 15:37:27 +0800 (CST)
+Received: from cncheex05.Hygon.cn (unknown [172.23.18.115])
+	by maildlp2.hygon.cn (Postfix) with ESMTPS id 7F17E31F55DC;
+	Tue,  1 Sep 2026 15:33:36 +0800 (CST)
+Received: from cncheex04.Hygon.cn (172.23.18.114) by cncheex05.Hygon.cn
+ (172.23.18.115) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Tue, 1 Sep
+ 2026 15:37:28 +0800
+Received: from cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d]) by
+ cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d%10]) with mapi id
+ 15.02.1544.036; Tue, 1 Sep 2026 15:37:28 +0800
+From: Jianyong Wu <wujianyong@hygon.cn>
+To: Peter Zijlstra <peterz@infradead.org>
+CC: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>, Dietmar Eggemann
+	<dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben Segall
+	<bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
+	<vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, "Shrikanth
+ Hegde" <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>, Andrew Morton
+	<akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>, "jianyong.wu@outlook.com"
+	<jianyong.wu@outlook.com>, Yuan Zhong <zhongyuan@hygon.cn>, Huangsj
+	<huangsj@hygon.cn>, Fengyu Wang <wangfengyu@hygon.cn>, Zhiwei Ying
+	<yingzhiwei@hygon.cn>, "justin.he@arm.com" <justin.he@arm.com>
+Subject: RE: [RFC PATCH v2 02/23] sched/topology: Introduce a NUMA distance
+ matrix with unique distance values
+Thread-Topic: [RFC PATCH v2 02/23] sched/topology: Introduce a NUMA distance
+ matrix with unique distance values
+Thread-Index: AQHdNiA3jheQVPdvikWpN4gB9aTKG7a3i1wAgACO1RCAALYwAIAAigwQ
+Date: Tue, 1 Sep 2026 07:37:27 +0000
+Message-ID: <c1c4cf3afa434a3e90768444e57703d9@hygon.cn>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
+ <20260827122816.756234-3-wujianyong@hygon.cn>
+ <20260831115004.GF776954@noisy.programming.kicks-ass.net>
+ <ee97dce1db374f50b8e87e51ad133d96@hygon.cn>
+ <20260901071322.GX687043@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260901071322.GX687043@noisy.programming.kicks-ass.net>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/nouveau/uvmm: fix UAF in bind job cleanup
-To: lyude@redhat.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <7F26D29D0BD60619+20260901063255.661503-1-peiyang_he@smail.nju.edu.cn>
-Content-Language: en-US
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-In-Reply-To: <7F26D29D0BD60619+20260901063255.661503-1-peiyang_he@smail.nju.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NEAuM+RWOyST1V/S32fS9NZTyEBnm2dFxf60mAYkg9tztHHA6rfqPR5d
-	DmS3sAsae7BU2M1HnwAJpZFOPyyMZOF6lEykgqelaygwYkHLwT0c1LnY3f3to7tA7Stg58h
-	DyLubNofuXveNHWr0BV0hRd1Cvsvu5Hfpmro6wsN0CFVOLss0ZPqwClXgrjaF/KP7Rog9FQ
-	KoXPYejwKD7mEgV9b4ryTyneS5qDJUF19DYjCNLycjjjLdphzUuSo47zeHqVJ7fyjjK17vJ
-	EJA6i4AAjSc/lRLCn4/t76t66yVIK2ARvw4+RslIPlAobTkbMwGA9/RQQ03kXeDdXmUds+1
-	bdYyHpSx6oefZuiR/Oglbh5FYQvN9k3Hfb9ojpyhyKb1BFqJfXMnCWKt1qyR30iV/QNoc9z
-	nEqp2P5mt9EaS40dJy9HaAPcQSFG4cNHe0KBmd6fKFcOP/ucWnk5em+vRbDfNxRvMd2Tzn6
-	1mF/uz3TGSvo3MjprhHLmsW52Y+TOrL3MHaebJ1z2ilfrppgsZ4FDEO4vjWYFr8ieskF2yJ
-	paMKBPV66seh3JqXQeca3ZIbr8XsWuo2/KnYj/u4D+95ukH4qQy9X+2RE7zYZi21jxIjXtJ
-	cyd2Ht/STszp/tQer6ZC1v4RaTERYR0JQcaehdOk+elJvLolLtm41NBztdfK34eFyJesB1u
-	/dJSv+XZk7Yh+Roz5URcwlCy+QEmM5lLOtQXzIaoMaLzlEiqai0NFsAp4HNxv6G7oqwlv6S
-	AGWAeCa3B5hF2OrDjDM9tpdbwZqE4lc3gdLuPicZYuNLob7N14BU1oo9KyvBpzaRTuuww4x
-	gL7B2YjKWnj5hI7zDq0Bn0Z227nNc/xBX1o6MycgRiWp/Yco0dDpO7C37oOgijEE6K4RjXH
-	uBTKwoeZTHQd7n5xeTXYU+Jx+yLzOXTuEmMntQoDU/pIhG4OwN7GkUT301M8URV3skFEm/a
-	OVvQRrL/ZATH+9qwBTesd4p8e6iDWpry7OV7rAV+sA6I/vxlbcz66vWwgZN/zE6+37TUCoX
-	/JrDnmwl0XaDPE1dXNUq347EMX28UuD7MIRZythR3/hzASHtGl
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
 
-On 2026/9/1 14:32, Peiyang He wrote:
->  drivers/gpu/drm/nouveau/nouveau_uvmm.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> index f5e4756b4de4..aad14316cbef 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> @@ -1318,6 +1318,7 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *job,
->  			op->reg = nouveau_uvma_region_find(uvmm, op->va.addr,
->  							   op->va.range);
->  			if (!op->reg || op->reg->dirty) {
-> +				op->reg = NULL;
->  				ret = -ENOENT;
->  				goto unwind_continue;
->  			}
-> @@ -1327,6 +1328,7 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *job,
->  								op->va.range);
->  			if (IS_ERR(op->ops)) {
->  				ret = PTR_ERR(op->ops);
-> +				op->reg = NULL;
->  				goto unwind_continue;
->  			}
 
-None of the two issues pointed by Sashiko AI are introduced by this patch.
+
+> -----Original Message-----
+> From: Peter Zijlstra <peterz@infradead.org>
+> Sent: Tuesday, September 1, 2026 3:13 PM
+> To: Jianyong Wu <wujianyong@hygon.cn>
+> Cc: Ingo Molnar <mingo@redhat.com>; Juri Lelli <juri.lelli@redhat.com>;
+> Vincent Guittot <vincent.guittot@linaro.org>; Chen Yu
+> <yu.c.chen@intel.com>; Tim Chen <tim.c.chen@linux.intel.com>; Dietmar
+> Eggemann <dietmar.eggemann@arm.com>; Steven Rostedt
+> <rostedt@goodmis.org>; Ben Segall <bsegall@google.com>; Mel Gorman
+> <mgorman@suse.de>; Valentin Schneider <vschneid@redhat.com>; K
+> Prateek Nayak <kprateek.nayak@amd.com>; Shrikanth Hegde
+> <sshegde@linux.ibm.com>; Phil Auld <pauld@redhat.com>; Andrew
+> Morton <akpm@linux-foundation.org>; David Hildenbrand
+> <david@kernel.org>; linux-kernel@vger.kernel.org; linux-mm@kvack.org;
+> jianyong.wu@outlook.com; Yuan Zhong <zhongyuan@hygon.cn>; Huangsj
+> <huangsj@hygon.cn>; Fengyu Wang <wangfengyu@hygon.cn>; Zhiwei Ying
+> <yingzhiwei@hygon.cn>; justin.he@arm.com
+> Subject: Re: [RFC PATCH v2 02/23] sched/topology: Introduce a NUMA
+> distance matrix with unique distance values
+>=20
+> On Tue, Sep 01, 2026 at 06:57:43AM +0000, Jianyong Wu wrote:
+>=20
+> > > This example uses Node only, but the code in question is specifically
+> > > aimed at Cache granularity; might it be better to use a cache example=
+?
+> > >
+> > > A little something like so (I got tired of prompting Gemini to genera=
+te
+> > > more complicates / less broken examples)...
+>=20
+> > Originally I tried to use a single big LLC distance matrix. But once I
+> > realized how much memory and computation time it would cost, e.g.
+> when
+> > calculating affinity scores in later patches. I dropped it in favor of
+> > a two-level scheme: the first is a NUMA node distance matrix, and the
+> > second is an intra-node LLC matrix that only encodes the LLC distances
+> > inside a single node, so it is very small. This way, both memory and
+> > time are greatly reduced.
+>=20
+> See, that would've made good Changelog material :-) But yeah, fair
+> enough, the matrix will get rather big I suppose. And going to
+> triangular matrix storage will only save half, while you still scale by
+> n^2, so that's not going to help.
+
+Right, I'll fold this into the commit message. And agreed on the triangular=
+ layout - it halves
+the storage but stays O(n^2), so it doesn't really change the picture.
+
+>=20
+> > > > Each row of this refined NUMA distance matrix is sorted in ascendin=
+g
+> > > order to
+> > > > generate a unique per-node affinity sequence. This sequence will
+> guide
+> > > > thread migration logic introduced in subsequent patches.
+> > >
+> > > IIRC greedy has significant worse bounds than many other schemes.
+> This
+> > > would result in more unique distances than strictly needed here, righ=
+t?
+> > >
+> > Yes, Greedy edge-coloring is simple but can't guarantee to get the
+> > optimal result in theory.
+>=20
+> Right, so the theoretical count is :delta: or :delta:+1, but the greedy
+> bound is 2:delta:+1. But IIRC (and I really am not well versed in this
+> particular area) there are algorithms that are still relatively easy to
+> implement and get better bounds.
+>=20
+> I just asked Gemini (so take with a big pinch of salt and consult your
+> algorithm book) there are simple algorithms such as Eulerian paths, that
+> exploit topological constraints, such as hypercubes or 2d meshes, to
+> still reach :delta:.
+>=20
+Thanks for the pointer. I'll look into Eulerian path based coloring and che=
+ck
+whether the per-tier subgraphs in our topology are regular enough (hypercub=
+e/mesh-like)
+for it to reach delta. If so, that should let me tighten the bound without =
+much extra complexity.
+
+> > > Since this is all on slow paths anyway, does it make sense to pick a
+> > > slightly better algorithm in order to reduce this bound and get bette=
+r
+> > > results?
+> > >
+> > This matrix currently has two consumers:
+> > 1. it is sorted to build a unique per-node affinity sequence;
+> > 2. its values are used to calculate the affinity gain in patch 12.
+> >
+> > Therefore, when changing the de-duplication algorithm, I need to
+> > consider the requirements of both Consumers, For the first use, any
+> > symmetric matrix with no duplicate entries in a row is sufficient. For
+> > the second use, however, the actual values and their differences may
+> > affect the affinity score.
+> >
+> > It is not yet clear whether using a more optimal algorithm would
+> > provide any real benefit for these consumers. I will investigate
+> > whether a tighter matrix can be generated without introducing too much
+> > complexity, and then decide which algorithm is more appropriate.
+>=20
+> Right, fair enough. I'll continue trying to digest the series.
+
+Thanks, appreciate the thorough review.
+
+Thanks
+Jianyong
+
