@@ -1,108 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D9549F13E;
-	Tue,  1 Sep 2026 19:11:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DBD4A013B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:12:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788289868; cv=none; b=IJFd+hUYD4hjaPCS61KjvavKzLta6NISF9tjBWtzrX4KGpMWOgtda70eMpDwvSu7BlaZnFi2N7zF1/lYcRFMK3CJwk4qK+gLAxPxsdkLcCWAdhMuSpiOtAh4psZw7FYSsX3VmtsoCDtqouUsv9Xk8n+DYzaGpDLGdKfJVO1Of0c=
+	t=1788289948; cv=none; b=PcN+TSMbyG/aDvx77R2uyvZWVhiTBtR5NKQmj4VJGpCMLJ1rzqr3QwwlXUGg8j7d6yFYMQI7BAjBopRpTbvXtCLAKMS9L5ASlSq1LkdxGYIN4DU+ZNQmpc3sLEnyYfgo3ssfD3iBu2YbuAPK7UXUDMdDZCoUNwDx+cI+mW1j7GU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788289868; c=relaxed/simple;
-	bh=rs0jCfJXyjnPvhTklQ/4yWYYNyY4EwZ8N29mEDVsO5I=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=DpKnlwwEr0XluB0xLzo6aUrAY1lp7IaRVM3uzs81uPogUdTIqEOhJabu+VHRq+vP7F2OOrRrYDAUa3Mp+SdC2O1jqFou+Njan9hInvcSUnLcuPAf9NQCiiuVwKveMg8+RCyMJdVoVy4uNwpGjAqggTeJ4YuHknS9Poueb4uJf0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e6NpF66X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788289948; c=relaxed/simple;
+	bh=nhisCh+ihwHTyvRNLjNIpcqJgcEdj09IgLhKNEbJRh8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nTJOaWtrCHbFuY1DJGhxZT/xP4qUEvkYUyuEx14wqpc2MOJ4+cx4TQ9Gn6rQqideZGdZ4kMiCI2fNEth0ZB/gjTuSD0LOsPfvvsmMKZV6BVluTcyogKZnSi/fxLOPxsBQQhMBt2cdhmOkNZLJxYR9HMJqPj06d9loCt0coxWy5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BBOu/Gqx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e6NpF66X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5B7C1F000E9;
-	Tue,  1 Sep 2026 19:11:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BBOu/Gqx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870DF1F00ACF
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:12:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788289866;
-	bh=VaVNWr+zO2+Vhz9h17a5NMUgtZKXJ7bOKDal6FUnz1k=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=e6NpF66Xr2BqZK/XcDuxd327L0dDvovUhBtJ1rqLfXVOJmXPhHoIr7DnYPQ5qA34y
-	 KsRhvaF416qKBQG8AXCtGjZiRi+P4iaKe32al5LAbDfRCeNm8YscZZhhfg0bknTM+b
-	 Mmhbz/dM+vgQ6qkhv9Z0GytCJ5qFt5d2APqHdbx/EHSCVMSE05pPsaGNxblpjYQDY/
-	 fxSO5+y/+MybsYl9ykoPta8FKtnNS1XxP8+rcn5FE++yPz1EDSndBNXkA7OTESFosW
-	 U0K7dveg782aaPt+ZFy72y1fHRXNwwEbN3GJHYmjIJ6wZA7Ec9GwlzdqAgIJzsj4Dl
-	 7NgdxM3wDfKuA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9392B39253E6;
-	Tue,  1 Sep 2026 19:10:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1788289944;
+	bh=TG3sfq3Q9eRabuWHt0uykLCNRXVg7IkhmV7MJfFm0Zg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=BBOu/GqxmIEJHpaefNA2RSeSoJSFt4IBxBtIdo2YvAJ80OYU3QYgX1ublVdTORbew
+	 K52Z4J+rKcsK4xUJmqi7p+cy2xvm/6+10KUKlXVpAPmiQ/adh8Zih1Zc1vBRKb6GOw
+	 5s/zFWeplHRqr5TCfHYuLF1PGXHVwyb/guFF4dhooUsOrpzr0sY7+oMQGxdGU5CzCF
+	 ufTb8+CmnP1rFMKWnYPf9S5Xr/aOHfug1rF8DMANDWfC/nZMrM7LtO8LMWwduEJkNf
+	 ipJlImYX1BT6RFGdsAo44xAEptoXY+vrCIAKZ6Nj494JfSNMF1WoQD0pDovtPwixRe
+	 05kmKwx8Clv6g==
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-39ca300db70so1537181fa.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:12:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwXIrkYo4Gmk/qvTtJbyJTH2Fes/FEtRLx0zf3ZURU6FSMXUZxk6zaxzYxorOHI4s6RfHxPyTLQx7Yn7do=@vger.kernel.org
+X-Gm-Message-State: AFuF++lldCkX5ArohOCEATk/dB4NbXULNXS7Iq0xK7+H+aT/DUPnEtbA
+	8uU022B1fIVio+1A7sCy1PK5a8QbxFCuoFIYdzzN9xVz/vqKSogEThfiNU4wY9JQ80BoNXAqGum
+	6B26CiDADjkwbxtJcfIsSnLXPJu93BmM=
+X-Received: by 2002:a05:651c:25c3:10b0:3a1:7f10:912b with SMTP id
+ 38308e7fff4ca-3a301ae9c8amr61000231fa.12.1788289942740; Tue, 01 Sep 2026
+ 12:12:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 00/16] Bluetooth: L2CAP: fix and annotate
- l2cap_conn::chan_l
- locking
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <178828980914.1804078.16309494402667039315.git-patchwork-notify@kernel.org>
-Date: Tue, 01 Sep 2026 19:10:09 +0000
-References: <cover.1788013041.git.pav@iki.fi>
-In-Reply-To: <cover.1788013041.git.pav@iki.fi>
-To: Pauli Virtanen <pav@iki.fi>
-Cc: linux-bluetooth@vger.kernel.org, marcel@holtmann.org,
- luiz.dentz@gmail.com, oss@fourdim.xyz, error27@gmail.com, elver@google.com,
- linux-kernel@vger.kernel.org
+References: <3435655.aeNJFYEL58@rafael.j.wysocki> <2021470.taCxCBeP46@rafael.j.wysocki>
+ <apaPjaBH48O4V03m@ashevche-desk.local>
+In-Reply-To: <apaPjaBH48O4V03m@ashevche-desk.local>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 1 Sep 2026 21:11:26 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0h7BHATHmLNftYHqdy-Ab-Dpq0PySV9q8BONc7KO30JqQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WG8gPxeTQ2F4zR4GcATKypWSZjtI14jt-NrdwQ4_9NpORm45pqC9DZBuE
+Message-ID: <CAJZ5v0h7BHATHmLNftYHqdy-Ab-Dpq0PySV9q8BONc7KO30JqQ@mail.gmail.com>
+Subject: Re: [PATCH v1 4/7] ACPI: scan: Combine two conditionals in acpi_bus_attach()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
+	Linux PM <linux-pm@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+	Mika Westerberg <mika.westerberg@linux.intel.com>, 
+	Peixin Xie <peixin.xie@linux.spacemit.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Lukas Wunner <lukas@wunner.de>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Linux PCI <linux-pci@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>, 
+	Hans de Goede <hansg@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello:
+On Tue, Sep 1, 2026 at 10:40=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Mon, Aug 31, 2026 at 07:59:32PM +0200, Rafael J. Wysocki wrote:
+>
+> > There are two conditionals in acpi_bus_attach() that can be combined,
+> > which slightly reduces the overhead and makes the code a bit easier
+> > to follow, so do that.
+> >
+> > No intentional functional impact.
+>
+> ...
+>
+> > -     if (ret > 0 && !device->flags.enumeration_by_parent) {
+> > +     if (!device->flags.enumeration_by_parent && (ret > 0 ||
+> > +         (!device->pnp.type.platform_id && !device->pnp.type.backlight=
+)))
+> >               acpi_device_set_enumerated(device);
+> > -             goto ok;
+> > -     }
+> > -
+> > -     if (device->pnp.type.platform_id || device->pnp.type.backlight ||
+> > -         device->flags.enumeration_by_parent)
+> > -             acpi_default_enumeration(device);
+> >       else
+> > -             acpi_device_set_enumerated(device);
+> > +             acpi_default_enumeration(device);
+>
+> I would leave a longer line (having logical split)
+>
+>         if (!device->flags.enumeration_by_parent &&
+>             (ret > 0 || (!device->pnp.type.platform_id && !device->pnp.ty=
+pe.backlight)))
+>                 acpi_device_set_enumerated(device);
+>         else
+>                 acpi_default_enumeration(device);
+>
+> Or even going further and cleaning too many negations (if I'm not mistake=
+n in
+> the logic)
+>
+>         if (device->flags.enumeration_by_parent ||
+> // not sure what the expected ret values here, maybe < 0 or =3D=3D 0 part=
+ is not needed
 
-This series was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+!ret should be fine.
 
-On Sat, 29 Aug 2026 17:19:55 +0300 you wrote:
-> The intent in current code is that:
-> 
-> - l2cap_conn::chan_l read/write is guarded by l2cap_conn::lock
-> 
-> - l2cap_chan_del called with held l2cap_chan::lock (l2cap_sock.c uses
->   this)
-> 
-> [...]
+>             (ret <=3D 0 && (device->pnp.type.platform_id || device->pnp.t=
+ype.backlight)))
+>                 acpi_default_enumeration(device);
+>         else
+>                 acpi_device_set_enumerated(device);
 
-Here is the summary with links:
-  - [01/16] Bluetooth: L2CAP: take chan->lock for l2cap_chan_add/ready/del
-    https://git.kernel.org/bluetooth/bluetooth-next/c/ca52f4764c87
-  - [02/16] Bluetooth: L2CAP: add l2cap_chan_close_unlocked() and locking helpers
-    https://git.kernel.org/bluetooth/bluetooth-next/c/368dc7fcaced
-  - [03/16] Bluetooth: L2CAP: fix race condition in l2cap_sock_shutdown()
-    https://git.kernel.org/bluetooth/bluetooth-next/c/86b377359826
-  - [04/16] Bluetooth: 6lowpan: use l2cap_chan_close_unlocked()
-    https://git.kernel.org/bluetooth/bluetooth-next/c/4e64bd587b64
-  - [05/16] Bluetooth: L2CAP: remove unused l2cap_chan_close()
-    https://git.kernel.org/bluetooth/bluetooth-next/c/c5123fddfef1
-  - [06/16] Bluetooth: 6lowpan: avoid concurrent peer_del() in bt_6lowpan_disconnect
-    https://git.kernel.org/bluetooth/bluetooth-next/c/02122fd80029
-  - [07/16] Bluetooth: L2CAP: hold conn->lock for __l2cap_ecred_conn_rsp_defer
-    https://git.kernel.org/bluetooth/bluetooth-next/c/62df59925278
-  - [08/16] Bluetooth: L2CAP: hold l2cap_conn::lock in l2cap_connect_cfm()
-    https://git.kernel.org/bluetooth/bluetooth-next/c/604e2f6d1e95
-  - [09/16] Bluetooth: L2CAP: add annotations for l2cap_chan list locking
-    https://git.kernel.org/bluetooth/bluetooth-next/c/886931f0c7e6
-  - [10/16] Bluetooth: L2CAP: take lock for l2cap_chan_del in l2cap_ecred_rsp_defer
-    (no matching commit)
-  - [11/16] Bluetooth: L2CAP: hold chan in l2cap_ecred_conn_rsp()
-    https://git.kernel.org/bluetooth/bluetooth-next/c/26836086682a
-  - [12/16] Bluetooth: L2CAP: annotate locking for l2cap_chan_del()
-    (no matching commit)
-  - [13/16] Bluetooth: L2CAP: annotate locking for l2cap_ops callbacks
-    (no matching commit)
-  - [14/16] Bluetooth: L2CAP: make concurrent l2cap_set_timer() refcounting safe
-    https://git.kernel.org/bluetooth/bluetooth-next/c/761224d13f8a
-  - [15/16] Bluetooth: L2CAP: remove conditional locking from l2cap_connect()
-    https://git.kernel.org/bluetooth/bluetooth-next/c/2c127ee79a0b
-  - [16/16] Bluetooth: L2CAP: refuse __l2cap_chan_add if chan already has conn
-    (no matching commit)
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Yes, it looks better this way.
