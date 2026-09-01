@@ -1,33 +1,33 @@
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236594756D8
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:29:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E576949CF2B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:29:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788287362; cv=none; b=GAyhtoP9ewZgPxn4A1DTuO4AmH98UDJhenriQO9AX7PZn9LUhI4lGgnuK1Nqy6h23hDrhJWXGoFdJB17o+rQnd50IRTaRi+j68xJNFGXK6OazKscxl1sp8EEkojxVqEov94X784yNuH+4F6xLOP+5l7W5Nhict2BB3+/WXqR+f0=
+	t=1788287366; cv=none; b=uxxUkrk8tW8kWxy5VKYuhB01RU6470NYvFL2vleG0cN0Hia3l9omV1PlNsEbjlVnwfOz3xfBuvMwX+fCuVlMQnsOEjtWl+fSNgprzhlpIBRVfEyg0Uwr7uVbrCL3GqG0SnIJ7ReHhXNtcXWGKZQDdbPwSsaEEbw7h0cRS6ljlmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788287362; c=relaxed/simple;
-	bh=NnjPSnVYedhRhWI76knfpDgI5uJSnTKtJUZv2sO1wRo=;
+	s=arc-20240116; t=1788287366; c=relaxed/simple;
+	bh=FRBzQuF9NKvbTxzaWx4pzpaKcPAZeQr1CV0FO/0Fhpg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oT31eC29mFPKY+VZofGMR/91LcwI7dr7ZhJuAZ0K4XB/dFSZO/80w+YHCMDqsAILwikNuqoFTD8fy1iBxSaDh4Diiar4Ynyf6J4U59c5rluKTbQbDTF//Q6f76mVl3uA+gyNerLE7G222eZrxj9XxaKHSJ4F+eQunAcRyWtOakQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=EF/1MVtg; arc=none smtp.client-ip=158.69.130.18
+	 MIME-Version; b=YBFG78+HpSz28TUq2+sjOZs2MV7NHj8cO72wjU+eUtNyRw2e+0TppARXQqevgv0MdIddMH7roYg4JWr7HeaMOxqFS4jho5NVM7uKaHgU6hpKYFwNRk0fIus92VzTv6pyREpVky7re44lfzz4e8MA6q2kUXt9RmRqdLa6SWS7a7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=qggSTP/b; arc=none smtp.client-ip=158.69.130.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="EF/1MVtg"
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="qggSTP/b"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1788287350;
-	bh=tL1cmKSs0ZNOuF7NNYcj/4wBqlHVdgHSzS/qIxPqsfg=;
+	s=smtpout1; t=1788287351;
+	bh=Tup5QvhrUxBuHbOp/mUBjVWrl1apXEgoVpX9q/lsPY8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=EF/1MVtgNb45SIdMte/QMHqupfoCcqLF7n06F2d20MphR4BEWK3YdEglUED64xjo8
-	 7wUlfAuuUiqxbLxxqCUdrgHQPCJkV9VGDsp3eabRZZqLY2To/6xb2yLsxxqKsrlQ+H
-	 BNByTDfDX0RYSkdVGTx3k1bA3lWlAcyg00usN3iBuOFk/Mz8OLrArUTil0WT5j9tfW
-	 ZSIGebSclzrVF2RNTK2X8k4BZb5ZjEY2J4VglWW+XI4ktPbdXNEinhMe8EiEGUcpJe
-	 Q1vbXzA2x31MhPnW1WIy5+K3qahZsfl2ldAud4cAiPc73zWk4AHSG4zVgB1xO8g1c+
-	 WcXgTGPAPohgw==
+	b=qggSTP/bMcWpRasG0WnaP9ws1YJFtVdzjObT99OSRwUR65maTBgJBaqTOQbc0wDeL
+	 25QqSwuqF/o9a+SL8TEJBKSUiAxdk+MbcNlDACdQ+9N6JHsHeDThh8N/Wp/FmRu2sY
+	 1Qwi/Bh+MvObtuU9Xt7CHHgq5+e4MGXlVSRPAQR2KE66n8bnwbXbG5lz5aq/fF71LQ
+	 GaLUslwndIoe4WqGLpRYkP//V8t6vrVPKiocXYPyq1xESgzxyGl7wNA23o6WCons/D
+	 9lIZ6nPcfP8LZl7OYaG8cLoQVBn9IN5QmlDsFxZwiOkO4QY4X9vx7tnkR4HROZwP6l
+	 cscrNHFYhbIrA==
 Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hZDsL2f5LzVRK;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hZDsM00XdzW6M;
 	Tue, 01 Sep 2026 14:29:10 -0400 (EDT)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: Andrew Morton <akpm@linux-foundation.org>
@@ -66,9 +66,9 @@ Cc: linux-kernel@vger.kernel.org,
 	David Carlier <devnexen@gmail.com>,
 	Josh Law <objecting@objecting.org>,
 	linux-mm@kvack.org
-Subject: [PATCH v21 2/6] lib: test hierarchical per-cpu counters
-Date: Tue,  1 Sep 2026 14:28:47 -0400
-Message-ID: <20260901182857.26690-3-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v21 6/6] lib: inline percpu_counter_tree_items_size with boot-safety sentinel
+Date: Tue,  1 Sep 2026 14:28:51 -0400
+Message-ID: <20260901182857.26690-7-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260901182857.26690-1-mathieu.desnoyers@efficios.com>
 References: <20260901182857.26690-1-mathieu.desnoyers@efficios.com>
@@ -80,43 +80,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce Kunit tests for hierarchical per-cpu counters.
+Replace the out-of-line percpu_counter_tree_items_size() function with a
+static inline that loads the __ro_after_init variable
+__percpu_counter_tree_items_size directly. This eliminates a function
+call on paths that compute mm_struct flexible array layout offsets.
 
-Keep track of two sets of hierarchical counters, each meant to have the
-same precise sum at any time, but distributed differently across the
-topology.
+Initialize the variable to SIZE_MAX as a sentinel value, and add a
+WARN_ON_ONCE check in the inline accessor to catch any accidental use
+before percpu_counter_tree_subsystem_init() sets the real value based on
+nr_cpu_ids. An early misuse would produce an absurd offset that triggers
+the warning with a stack trace pointing at the offending caller, rather
+than silently computing wrong memory offsets.
 
-Keep track of an atomic counter along with each hierarchical counter, for
-sum validation.
+percpu_counter_tree_subsystem_init() sets the variable to the runtime
+value immediately after deriving counter_config from nr_cpu_ids,
+before calculate_accuracy_topology(). After boot, __ro_after_init moves
+the variable into read-only memory.
 
-Those tests cover:
+On !CONFIG_SMP, the existing inline returning 0 is unchanged and
+requires no sentinel.
 
-- Single-threaded (no concurrency) updates.
-- Concurrent updates of counters from various CPUs.
-
-Perform the following validations:
-
-- Compare the precise sum of counters with the sum tracked by
-  an atomic counter.
-- Compare the precise sum of two sets of hierarchical counters.
-- Approximated comparison of hierarchical counter with atomic counter.
-- Approximated comparison of two sets of hierarchical counters.
-- Validate the bounds of approximation ranges.
-
-Run with the following .kunit/.kunitconfig:
-
-CONFIG_KUNIT=y
-CONFIG_SMP=y
-CONFIG_PREEMPT=y
-CONFIG_NR_CPUS=32
-CONFIG_HOTPLUG_CPU=y
-CONFIG_PERCPU_COUNTER_TREE_KUNIT_TEST=y
-
-With the following execution (to use SMP):
-
-./tools/testing/kunit/kunit.py run --arch=x86_64 --qemu_args="-smp 12"
-
-Link: https://lkml.kernel.org/r/20260227153730.1556542-3-mathieu.desnoyers@efficios.com
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Cc: "Paul E. McKenney" <paulmck@kernel.org>
 Cc: Steven Rostedt <rostedt@goodmis.org>
@@ -153,454 +136,82 @@ Cc: Josh Law <objecting@objecting.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>
 Cc: linux-mm@kvack.org
 ---
-Changes since v19:
-- Rename config option to PERCPU_COUNTER_TREE_KUNIT_TEST.
----
- lib/Kconfig                           |  12 +
- lib/tests/Makefile                    |   2 +
- lib/tests/percpu_counter_tree_kunit.c | 399 ++++++++++++++++++++++++++
- 3 files changed, 413 insertions(+)
- create mode 100644 lib/tests/percpu_counter_tree_kunit.c
+ include/linux/percpu_counter_tree.h | 19 ++++++++++++++++++-
+ lib/percpu_counter_tree.c           | 24 ++++++++----------------
+ 2 files changed, 26 insertions(+), 17 deletions(-)
 
-diff --git a/lib/Kconfig b/lib/Kconfig
-index 4e6b34c3346d..c0524258b205 100644
---- a/lib/Kconfig
-+++ b/lib/Kconfig
-@@ -41,6 +41,18 @@ config PACKING_KUNIT_TEST
+diff --git a/include/linux/percpu_counter_tree.h b/include/linux/percpu_counter_tree.h
+index 3e8a820e2d1d..4095acdc879b 100644
+--- a/include/linux/percpu_counter_tree.h
++++ b/include/linux/percpu_counter_tree.h
+@@ -101,7 +101,24 @@ struct percpu_counter_tree {
+ 	} approx_accuracy_range;
+ };
  
- 	  When in doubt, say N.
- 
-+config PERCPU_COUNTER_TREE_KUNIT_TEST
-+	tristate "KUnit tests for hierarchical per-cpu counters" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This builds Kunit tests for the hierarchical per-cpu counters.
-+
-+	  For more information on KUnit and unit tests in general,
-+	  please refer to the KUnit documentation in Documentation/dev-tools/kunit/.
-+
-+	  When in doubt, say N.
-+
- config BITREVERSE
- 	tristate
- 	select GENERIC_BITREVERSE if !HAVE_ARCH_BITREVERSE
-diff --git a/lib/tests/Makefile b/lib/tests/Makefile
-index 3cac3b63a752..051e73705977 100644
---- a/lib/tests/Makefile
-+++ b/lib/tests/Makefile
-@@ -58,4 +58,6 @@ obj-$(CONFIG_UTIL_MACROS_KUNIT) += util_macros_kunit.o
- obj-$(CONFIG_RATELIMIT_KUNIT_TEST) += test_ratelimit.o
- obj-$(CONFIG_UUID_KUNIT_TEST) += uuid_kunit.o
- 
-+obj-$(CONFIG_PERCPU_COUNTER_TREE_KUNIT_TEST) += percpu_counter_tree_kunit.o
-+
- obj-$(CONFIG_TEST_RUNTIME_MODULE)		+= module/
-diff --git a/lib/tests/percpu_counter_tree_kunit.c b/lib/tests/percpu_counter_tree_kunit.c
-new file mode 100644
-index 000000000000..a79176655c4b
---- /dev/null
-+++ b/lib/tests/percpu_counter_tree_kunit.c
-@@ -0,0 +1,399 @@
-+// SPDX-License-Identifier: GPL-2.0+ OR MIT
-+// SPDX-FileCopyrightText: 2026 Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-+
-+#include <kunit/test.h>
-+#include <linux/percpu_counter_tree.h>
-+#include <linux/kthread.h>
-+#include <linux/wait.h>
-+#include <linux/random.h>
-+
-+struct multi_thread_test_data {
-+	long increment;
-+	int nr_inc;
-+	int counter_index;
-+};
-+
-+#define NR_COUNTERS	2
-+
-+/* Hierarchical per-CPU counter instances. */
-+static struct percpu_counter_tree counter[NR_COUNTERS];
-+static struct percpu_counter_tree_level_item *items;
-+
-+/* Global atomic counters for validation. */
-+static atomic_long_t global_counter[NR_COUNTERS];
-+
-+static DECLARE_WAIT_QUEUE_HEAD(kernel_threads_wq);
-+static atomic_t kernel_threads_to_run;
-+
-+static void complete_work(void)
-+{
-+	if (atomic_dec_and_test(&kernel_threads_to_run))
-+		wake_up(&kernel_threads_wq);
-+}
-+
-+static void hpcc_print_info(struct kunit *test)
-+{
-+	kunit_info(test, "Running test with %d CPUs\n", num_online_cpus());
-+}
-+
-+static void add_to_counter(int counter_index, unsigned int nr_inc, long increment)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < nr_inc; i++) {
-+		percpu_counter_tree_add(&counter[counter_index], increment);
-+		atomic_long_add(increment, &global_counter[counter_index]);
-+	}
-+}
-+
-+static void check_counters(struct kunit *test)
-+{
-+	int counter_index;
-+
-+	/* Compare each counter with its global counter. */
-+	for (counter_index = 0; counter_index < NR_COUNTERS; counter_index++) {
-+		long v = atomic_long_read(&global_counter[counter_index]);
-+		long approx_sum = percpu_counter_tree_approximate_sum(&counter[counter_index]);
-+		unsigned long under_accuracy = 0, over_accuracy = 0;
-+		long precise_min, precise_max;
-+
-+		/* Precise comparison. */
-+		KUNIT_EXPECT_EQ(test, percpu_counter_tree_precise_sum(&counter[counter_index]), v);
-+		KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_precise_compare_value(&counter[counter_index], v));
-+
-+		/* Approximate comparison. */
-+		KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_approximate_compare_value(&counter[counter_index], v));
-+
-+		/* Accuracy limits checks. */
-+		percpu_counter_tree_approximate_accuracy_range(&counter[counter_index], &under_accuracy, &over_accuracy);
-+
-+		KUNIT_EXPECT_GE(test, (long)(approx_sum - (v - under_accuracy)), 0);
-+		KUNIT_EXPECT_LE(test, (long)(approx_sum - (v + over_accuracy)), 0);
-+		KUNIT_EXPECT_GT(test, (long)(approx_sum - (v - under_accuracy - 1)), 0);
-+		KUNIT_EXPECT_LT(test, (long)(approx_sum - (v + over_accuracy + 1)), 0);
-+
-+		/* Precise min/max range check. */
-+		percpu_counter_tree_approximate_min_max_range(approx_sum, under_accuracy, over_accuracy, &precise_min, &precise_max);
-+
-+		KUNIT_EXPECT_GE(test, v - precise_min, 0);
-+		KUNIT_EXPECT_LE(test, v - precise_max, 0);
-+		KUNIT_EXPECT_GT(test, v - (precise_min - 1), 0);
-+		KUNIT_EXPECT_LT(test, v - (precise_max + 1), 0);
-+	}
-+	/* Compare each counter with the second counter. */
-+	KUNIT_EXPECT_EQ(test, percpu_counter_tree_precise_sum(&counter[0]), percpu_counter_tree_precise_sum(&counter[1]));
-+	KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_precise_compare(&counter[0], &counter[1]));
-+	KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_approximate_compare(&counter[0], &counter[1]));
-+}
-+
-+static int multi_thread_worker_fn(void *data)
-+{
-+	struct multi_thread_test_data *td = data;
-+
-+	add_to_counter(td->counter_index, td->nr_inc, td->increment);
-+	complete_work();
-+	kfree(td);
-+	return 0;
-+}
-+
-+static void test_run_on_specific_cpu(struct kunit *test, int target_cpu, int counter_index, unsigned int nr_inc, long increment)
-+{
-+	struct task_struct *task;
-+	struct multi_thread_test_data *td = kzalloc(sizeof(struct multi_thread_test_data), GFP_KERNEL);
-+
-+	KUNIT_EXPECT_PTR_NE(test, td, NULL);
-+	td->increment = increment;
-+	td->nr_inc = nr_inc;
-+	td->counter_index = counter_index;
-+	atomic_inc(&kernel_threads_to_run);
-+	task = kthread_run_on_cpu(multi_thread_worker_fn, td, target_cpu, "kunit_multi_thread_worker");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, task);
-+}
-+
-+static void init_kthreads(void)
-+{
-+	atomic_set(&kernel_threads_to_run, 1);
-+}
-+
-+static void fini_kthreads(void)
-+{
-+	/* Release our own reference. */
-+	complete_work();
-+	/* Wait for all others threads to run. */
-+	wait_event(kernel_threads_wq, (atomic_read(&kernel_threads_to_run) == 0));
-+}
-+
-+static void test_sync_kthreads(void)
-+{
-+	fini_kthreads();
-+	init_kthreads();
-+}
-+
-+static void init_counters(struct kunit *test, unsigned long batch_size)
-+{
-+	int i, ret;
-+
-+	items = kzalloc(percpu_counter_tree_items_size() * NR_COUNTERS, GFP_KERNEL);
-+	KUNIT_EXPECT_PTR_NE(test, items, NULL);
-+	ret = percpu_counter_tree_init_many(counter, items, NR_COUNTERS, batch_size, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	for (i = 0; i < NR_COUNTERS; i++)
-+		atomic_long_set(&global_counter[i], 0);
-+}
-+
-+static void fini_counters(void)
-+{
-+	percpu_counter_tree_destroy_many(counter, NR_COUNTERS);
-+	kfree(items);
-+}
-+
-+enum up_test_inc_type {
-+	INC_ONE,
-+	INC_MINUS_ONE,
-+	INC_RANDOM,
-+};
+-size_t percpu_counter_tree_items_size(void);
++extern size_t __percpu_counter_tree_items_size __ro_after_init;
 +
 +/*
-+ * Single-threaded tests. Those use many threads to run on various CPUs,
-+ * but synchronize for completion of each thread before running the
-+ * next, effectively making sure there are no concurrent updates.
++ * percpu_counter_tree_items_size - Query the size required for counter tree items.
++ *
++ * Query the size of the memory area required to hold the counter tree
++ * items. This depends on the hardware topology and is invariant after
++ * boot.
++ *
++ * Return: Size required to hold tree items.
 + */
-+static void do_hpcc_test_single_thread(struct kunit *test, int _cpu0, int _cpu1, enum up_test_inc_type type)
++static inline
++size_t percpu_counter_tree_items_size(void)
 +{
-+	unsigned long batch_size_order = 5;
-+	int cpu0 = _cpu0;
-+	int cpu1 = _cpu1;
-+	int i;
-+
-+	init_counters(test, 1UL << batch_size_order);
-+	init_kthreads();
-+	for (i = 0; i < 10000; i++) {
-+		long increment;
-+
-+		switch (type) {
-+		case INC_ONE:
-+			increment = 1;
-+			break;
-+		case INC_MINUS_ONE:
-+			increment = -1;
-+			break;
-+		case INC_RANDOM:
-+			increment = (long) get_random_long() % 50000;
-+			break;
-+		}
-+		if (_cpu0 < 0)
-+			cpu0 = cpumask_any_distribute(cpu_online_mask);
-+		if (_cpu1 < 0)
-+			cpu1 = cpumask_any_distribute(cpu_online_mask);
-+		test_run_on_specific_cpu(test, cpu0, 0, 1, increment);
-+		test_sync_kthreads();
-+		test_run_on_specific_cpu(test, cpu1, 1, 1, increment);
-+		test_sync_kthreads();
-+		check_counters(test);
-+	}
-+	fini_kthreads();
-+	fini_counters();
++	WARN_ON_ONCE(__percpu_counter_tree_items_size == SIZE_MAX);
++	return __percpu_counter_tree_items_size;
 +}
 +
-+static void hpcc_test_single_thread_first(struct kunit *test)
-+{
-+	int cpu = cpumask_first(cpu_online_mask);
-+
-+	do_hpcc_test_single_thread(test, cpu, cpu, INC_ONE);
-+	do_hpcc_test_single_thread(test, cpu, cpu, INC_MINUS_ONE);
-+	do_hpcc_test_single_thread(test, cpu, cpu, INC_RANDOM);
-+}
-+
-+static void hpcc_test_single_thread_first_random(struct kunit *test)
-+{
-+	int cpu = cpumask_first(cpu_online_mask);
-+
-+	do_hpcc_test_single_thread(test, cpu, -1, INC_ONE);
-+	do_hpcc_test_single_thread(test, cpu, -1, INC_MINUS_ONE);
-+	do_hpcc_test_single_thread(test, cpu, -1, INC_RANDOM);
-+}
-+
-+static void hpcc_test_single_thread_random(struct kunit *test)
-+{
-+	do_hpcc_test_single_thread(test, -1, -1, INC_ONE);
-+	do_hpcc_test_single_thread(test, -1, -1, INC_MINUS_ONE);
-+	do_hpcc_test_single_thread(test, -1, -1, INC_RANDOM);
-+}
-+
-+/* Multi-threaded SMP tests. */
-+
-+static void do_hpcc_multi_thread_increment_each_cpu(struct kunit *test, unsigned long batch_size, unsigned int nr_inc, long increment)
-+{
-+	int cpu;
-+
-+	init_counters(test, batch_size);
-+	init_kthreads();
-+	for_each_online_cpu(cpu) {
-+		test_run_on_specific_cpu(test, cpu, 0, nr_inc, increment);
-+		test_run_on_specific_cpu(test, cpu, 1, nr_inc, increment);
-+	}
-+	fini_kthreads();
-+	check_counters(test);
-+	fini_counters();
-+}
-+
-+static void do_hpcc_multi_thread_increment_even_cpus(struct kunit *test, unsigned long batch_size, unsigned int nr_inc, long increment)
-+{
-+	int cpu;
-+
-+	init_counters(test, batch_size);
-+	init_kthreads();
-+	for_each_online_cpu(cpu) {
-+		test_run_on_specific_cpu(test, cpu, 0, nr_inc, increment);
-+		test_run_on_specific_cpu(test, cpu & ~1, 1, nr_inc, increment); /* even cpus. */
-+	}
-+	fini_kthreads();
-+	check_counters(test);
-+	fini_counters();
-+}
-+
-+static void do_hpcc_multi_thread_increment_single_cpu(struct kunit *test, unsigned long batch_size, unsigned int nr_inc, long increment)
-+{
-+	int cpu;
-+
-+	init_counters(test, batch_size);
-+	init_kthreads();
-+	for_each_online_cpu(cpu) {
-+		test_run_on_specific_cpu(test, cpu, 0, nr_inc, increment);
-+		test_run_on_specific_cpu(test, cpumask_first(cpu_online_mask), 1, nr_inc, increment);
-+	}
-+	fini_kthreads();
-+	check_counters(test);
-+	fini_counters();
-+}
-+
-+static void do_hpcc_multi_thread_increment_random_cpu(struct kunit *test, unsigned long batch_size, unsigned int nr_inc, long increment)
-+{
-+	int cpu;
-+
-+	init_counters(test, batch_size);
-+	init_kthreads();
-+	for_each_online_cpu(cpu) {
-+		test_run_on_specific_cpu(test, cpu, 0, nr_inc, increment);
-+		test_run_on_specific_cpu(test, cpumask_any_distribute(cpu_online_mask), 1, nr_inc, increment);
-+	}
-+	fini_kthreads();
-+	check_counters(test);
-+	fini_counters();
-+}
-+
-+static void hpcc_test_multi_thread_batch_increment(struct kunit *test)
-+{
-+	unsigned long batch_size_order;
-+
-+	for (batch_size_order = 2; batch_size_order < 10; batch_size_order++) {
-+		unsigned int nr_inc;
-+
-+		for (nr_inc = 1; nr_inc < 1024; nr_inc *= 2) {
-+			long increment;
-+
-+			for (increment = 1; increment < 100000; increment *= 10) {
-+				do_hpcc_multi_thread_increment_each_cpu(test, 1UL << batch_size_order, nr_inc, increment);
-+				do_hpcc_multi_thread_increment_even_cpus(test, 1UL << batch_size_order, nr_inc, increment);
-+				do_hpcc_multi_thread_increment_single_cpu(test, 1UL << batch_size_order, nr_inc, increment);
-+				do_hpcc_multi_thread_increment_random_cpu(test, 1UL << batch_size_order, nr_inc, increment);
-+			}
-+		}
-+	}
-+}
-+
-+static void hpcc_test_multi_thread_random_walk(struct kunit *test)
-+{
-+	unsigned long batch_size_order = 5;
-+	int loop;
-+
-+	for (loop = 0; loop < 100; loop++) {
-+		int i;
-+
-+		init_counters(test, 1UL << batch_size_order);
-+		init_kthreads();
-+		for (i = 0; i < 1000; i++) {
-+			long increment = (long) get_random_long() % 512;
-+			unsigned int nr_inc = ((unsigned long) get_random_long()) % 1024;
-+
-+			test_run_on_specific_cpu(test, cpumask_any_distribute(cpu_online_mask), 0, nr_inc, increment);
-+			test_run_on_specific_cpu(test, cpumask_any_distribute(cpu_online_mask), 1, nr_inc, increment);
-+		}
-+		fini_kthreads();
-+		check_counters(test);
-+		fini_counters();
-+	}
-+}
-+
-+static void hpcc_test_init_one(struct kunit *test)
-+{
-+	struct percpu_counter_tree pct;
-+	struct percpu_counter_tree_level_item *counter_items;
-+	int ret;
-+
-+	counter_items = kzalloc(percpu_counter_tree_items_size(), GFP_KERNEL);
-+	KUNIT_EXPECT_PTR_NE(test, counter_items, NULL);
-+	ret = percpu_counter_tree_init(&pct, counter_items, 32, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	percpu_counter_tree_destroy(&pct);
-+	kfree(counter_items);
-+}
-+
-+static void hpcc_test_set(struct kunit *test)
-+{
-+	static long values[] = {
-+		5, 100, 127, 128, 255, 256, 4095, 4096, 500000, 0,
-+		-5, -100, -127, -128, -255, -256, -4095, -4096, -500000,
-+	};
-+	struct percpu_counter_tree pct;
-+	struct percpu_counter_tree_level_item *counter_items;
-+	int i, ret;
-+
-+	counter_items = kzalloc(percpu_counter_tree_items_size(), GFP_KERNEL);
-+	KUNIT_EXPECT_PTR_NE(test, counter_items, NULL);
-+	ret = percpu_counter_tree_init(&pct, counter_items, 32, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	for (i = 0; i < ARRAY_SIZE(values); i++) {
-+		long v = values[i];
-+
-+		percpu_counter_tree_set(&pct, v);
-+		KUNIT_EXPECT_EQ(test, percpu_counter_tree_precise_sum(&pct), v);
-+		KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_approximate_compare_value(&pct, v));
-+
-+		percpu_counter_tree_add(&pct, v);
-+		KUNIT_EXPECT_EQ(test, percpu_counter_tree_precise_sum(&pct), 2 * v);
-+		KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_approximate_compare_value(&pct, 2 * v));
-+
-+		percpu_counter_tree_add(&pct, -2 * v);
-+		KUNIT_EXPECT_EQ(test, percpu_counter_tree_precise_sum(&pct), 0);
-+		KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_approximate_compare_value(&pct, 0));
-+	}
-+
-+	percpu_counter_tree_destroy(&pct);
-+	kfree(counter_items);
-+}
-+
-+static struct kunit_case hpcc_test_cases[] = {
-+	KUNIT_CASE(hpcc_print_info),
-+	KUNIT_CASE(hpcc_test_single_thread_first),
-+	KUNIT_CASE(hpcc_test_single_thread_first_random),
-+	KUNIT_CASE(hpcc_test_single_thread_random),
-+	KUNIT_CASE(hpcc_test_multi_thread_batch_increment),
-+	KUNIT_CASE(hpcc_test_multi_thread_random_walk),
-+	KUNIT_CASE(hpcc_test_init_one),
-+	KUNIT_CASE(hpcc_test_set),
-+	{}
-+};
-+
-+static struct kunit_suite hpcc_test_suite = {
-+	.name = "percpu_counter_tree",
-+	.test_cases = hpcc_test_cases,
-+};
-+
-+kunit_test_suite(hpcc_test_suite);
-+
-+MODULE_DESCRIPTION("Test cases for hierarchical per-CPU counters");
-+MODULE_LICENSE("Dual MIT/GPL");
+ int percpu_counter_tree_init_many(struct percpu_counter_tree *counters, struct percpu_counter_tree_level_item *items,
+ 				  unsigned int nr_counters, unsigned long batch_size, gfp_t gfp_flags);
+ int percpu_counter_tree_init(struct percpu_counter_tree *counter, struct percpu_counter_tree_level_item *items,
+diff --git a/lib/percpu_counter_tree.c b/lib/percpu_counter_tree.c
+index 5c8fc2dcdc16..cfa5b04e05d7 100644
+--- a/lib/percpu_counter_tree.c
++++ b/lib/percpu_counter_tree.c
+@@ -653,22 +653,9 @@ void percpu_counter_tree_set(struct percpu_counter_tree *counter, long v)
+ }
+ EXPORT_SYMBOL_GPL(percpu_counter_tree_set);
+ 
+-/*
+- * percpu_counter_tree_items_size - Query the size required for counter tree items.
+- *
+- * Query the size of the memory area required to hold the counter tree
+- * items. This depends on the hardware topology and is invariant after
+- * boot.
+- *
+- * Return: Size required to hold tree items.
+- */
+-size_t percpu_counter_tree_items_size(void)
+-{
+-	if (!nr_cpus_order)
+-		return 0;
+-	return counter_config->nr_items * sizeof(struct percpu_counter_tree_level_item);
+-}
+-EXPORT_SYMBOL_GPL(percpu_counter_tree_items_size);
++/* Initialize to SIZE_MAX to catch early boot misuses. */
++size_t __percpu_counter_tree_items_size __ro_after_init = SIZE_MAX;
++EXPORT_SYMBOL_GPL(__percpu_counter_tree_items_size);
+ 
+ static void __init calculate_accuracy_topology(void)
+ {
+@@ -697,6 +684,11 @@ int __init percpu_counter_tree_subsystem_init(void)
+ 		return -1;
+ 	}
+ 	counter_config = &per_nr_cpu_order_config[nr_cpus_order];
++	if (!nr_cpus_order)
++		__percpu_counter_tree_items_size = 0;
++	else
++		__percpu_counter_tree_items_size = counter_config->nr_items *
++			sizeof(struct percpu_counter_tree_level_item);
+ 	calculate_accuracy_topology();
+ 	return 0;
+ }
 -- 
 2.43.0
 
