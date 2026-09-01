@@ -1,94 +1,159 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FEEA49B210
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:24:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD1B49B1FE;
+	Tue,  1 Sep 2026 18:24:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788287050; cv=none; b=OS0vEo8cdWbBtdwdMP0yoaPRtaZLQBiAvEBety52vTMPZPoJ2wYTbBpgi6O0vU6I1/TFTallQI5oqPPiyFq5MQrCXD2YOrhKQh4W7p73UwcpEaq+McYB1mf7gTQ9do3mEni5u9ZI1/xVNX+QPDFxuwo9PfUG9WjZsCzN1D50ZgA=
+	t=1788287058; cv=none; b=HcXk49o50fevnYhsHl65xhgMmYaYBCJ+5yY3iK+6XnCRsufaBWxiJJzvKguwZt0iKkwSBX0ej7LerfU5N6vgF3AnTGMuU0l9RCt6NQLWarOj6cjQcIUpMJ7f+EoBb8MorNfrL6pf6ZY8tmHLe/QhxKBxPAvGjsFLcm/yJcp+TDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788287050; c=relaxed/simple;
-	bh=gTUWiR5VTJ8w/OOAFnC6tiKQEwNgsZyGLwtJMFQxMkg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DnFPSuJuiUwmIr1556O8h73+HBCVl75hFjXNs4WtoiXrZ0+DoESNWQRA+66PdtsTHgck7G4BewvkoqGEIP9CSz3WAfA22EkeqbEVkVIMG87VbM33NurBz7bLYgsiAqAOXRcVX3EVyyQH2xE8ApPNYQcXlhioG9CWzRREnEbwMZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N2E/3p8J; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788287058; c=relaxed/simple;
+	bh=raMtJFV9r1wpJ/ssJ/bywt4l9/jc3Smdoe/AlbFwX90=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aOF1ZMXqKi8eMlQz7BTZVqq6dzJt2qP1ZN6WvPjf0lWbWCJzGpLMEtI5kzjjxdQZJj+MEKPrjxWofjXCN6uH5/iL644b4QGaaYAALwkBukKs1GJAeOXTm3TPbWwAg8SBbYKVkyaFf7L3NC/I54V8hDGy70Rkd5q8tZWaxHeXFu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uRE2UZwf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N2E/3p8J"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3969e82ff8fso187551a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:24:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788287049; x=1788891849; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vi3RXIQaIvC+Ri0ofJm7If1tHUYP3Tau+8yQZvuwIZY=;
-        b=N2E/3p8JtYK83hi+GTRhJH+rKUUIkOPJoy1U5oHLZIBaUF1B6ZEiu49bu5W0XF04Kp
-         ylDfAC1PTAUEbuBRsbgXM0zyeLIWaJ3s7ARxYMtRJM2K7vTnz1+EkqBdizqFeOg4gxOA
-         Xh8gRsUJOI5l82nVJybJ9YclNJBlgO4VKjT/LBIfrB0I+jFekK+xmxgUh1cCaanqppO7
-         BBLiM0iRZQ3Tl480xq1moTOeAnQmnlZO4kHQiP+IgXGI8r9HwcC8vpzOS9ObxxIzTswm
-         0JK9Z0DoR+0u7FNaugf1RN6IcNXeIPJ0ia7LDJNmb3+oShfq4k63rEVQnJfv9KJRBFmG
-         QVxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788287049; x=1788891849;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vi3RXIQaIvC+Ri0ofJm7If1tHUYP3Tau+8yQZvuwIZY=;
-        b=S29H1QgDkvKNmxTAQbtDXJ94Ylt9S7lQdjneg5Pxk4ZkoPW901Zv/Zn8s+va19vxj/
-         R2SWuLRFDL7qFOBjmOfJxPdZpHXz5G7SZT/HZbeqNpm7Yj4qk/2+Gg8dHghtj91TXKix
-         ctjdTKrRFTyLCK6kwgXxoWl2VIPdZmj7aTdk4qk9kFdAgAtmh/0XcT5kWa8+pi1Q8nKc
-         AtQ04PUy6Y8cFTKGmE136oINHw1/C6vli67x7X5N+AHj3aYLL9xJnfGGVKEIO1anVgXr
-         WzAcKoLT15yarNbX+viELfjG5WC61FQqNIdnaJyUYIs+TZtX1hYsTpOxE1FmeEWKiqcU
-         hu4w==
-X-Forwarded-Encrypted: i=1; AKwUvByIrct8cUHBo/90qGXWzQpIU3neAz9eQZd6MyecESiD/y2TxTLIcGu0uKGoX9l37vzpcrzTaJo7cO4NqHE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nibFcs8Vb5Dsjz5mpAQVVgHQUewxg+3cEaEIwE4RzyUGFubry5
-	4T9MvuPjR6YVeXWCMeVXvuRhfL6mvu4PL/JlCnhQHVsCdn6n+oFpfVyDf3KOpA==
-X-Gm-Gg: AYBFou2uCwcj6vlrUiXwKUQCWFjlcWaHyB6db9V39AAv+YX/22CNTRGwaX1eUDPXQhQ
-	zzw2MPSellkEctIgupUQzgBWxSFrVFfO1kb6Qq2Torm6Q8NRgzN7aPBMVXQYMUSCR14Q4bYF85g
-	LtqBuZerCOilUIxCkjIJd2zK2c3p2DBPk9F6sxOrtLaeSEkG8bksZtwc1bfNuq2FMyiTEVy+M2V
-	ckXuxinj3ACU468WpGF1SnKZR/n1wgaMeM9n+SJcC/yN1aJG5L/JSPTmgwJ4pmTHliaUyKvE0iy
-	KnleAal6iy0x8Af+SXs5kS0siVj0vPRMongTiMp0JhqfYXnWIRIIpeU24LIm0E7fQF9/hwNrdNE
-	+jKA2wQjtYAR3dmRFOz4le0rD5RmMYRIOS6XyocGdAG0rvsYnW3VruKeEcAaU+8Xwuwam3yhUCi
-	c+rCStSGyKGKo8nmGtlufARCIbHglXKKGFvdc00nGV4AdXHvmTtIZaOBw+SRpV9H06XtgtoXcQt
-	g==
-X-Received: by 2002:a17:90b:4a8a:b0:399:e97:8d5a with SMTP id 98e67ed59e1d1-3990e97a0a4mr11272779a91.25.1788287048611;
-        Tue, 01 Sep 2026 11:24:08 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae0dfcd65sm864498a91.3.2026.09.01.11.24.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 11:24:08 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 1 Sep 2026 11:24:07 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: pali@kernel.org, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, pp12313124124@gmail.com
-Subject: Re: [PATCH 1/2] hwmon: (dell-smm) Add Dell OptiPlex 7090 to fan
- control whitelist
-Message-ID: <1a0d87b1-0606-4bfd-983c-94be05cc8141@roeck-us.net>
-References: <20260901181849.241776-1-W_Armin@gmx.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uRE2UZwf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 28CA0C2BCF5;
+	Tue,  1 Sep 2026 18:24:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788287058;
+	bh=raMtJFV9r1wpJ/ssJ/bywt4l9/jc3Smdoe/AlbFwX90=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=uRE2UZwf6MEnYslBZ6vDbmYU/N7+JMtaiY7gCpP12t/kX8dl7Q1eAz0uDQ4R1JFHR
+	 Gl8DOnqJlX9KgEZRfUFNglkbswgm7Npv4ZKBrbKrSJ17Doc9xBMOkaIgEER1g+Jd9j
+	 0YaMLGilC/T+N3LIevdyeAgtx0ZgxBDWjO6/20YuAE1ECSNC0MeTWEUBIahGyvRB/Y
+	 UU7Uk3DBVj8nVB6OM/rvKSCDgkHXCLs0iNAU9uscpZ0Ab5Cm1DISignNIqjnC2VxU5
+	 bUP+qEsnvlD6zGAZKi8rKCeuuhAyDtHhqG9hqxDAqllUb7Z+ddEKDyne56Nh5Q1faH
+	 QOZisH5KGQHvQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DA0EC61DD3;
+	Tue,  1 Sep 2026 18:24:18 +0000 (UTC)
+From: George Kokolakis via B4 Relay <devnull+george.kokolakis.ece.gmail.com@kernel.org>
+Date: Tue, 01 Sep 2026 21:24:14 +0300
+Subject: [PATCH] ACPI: PM: Use EFI power off on Lenovo ThinkPad T14 Gen 5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901181849.241776-1-W_Armin@gmx.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-fix-thinkpad-t14-gen5-efi-poweroff-v1-1-7f766dc13ee9@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAE0Yl2oC/x2NywqEMAwAf0VyNtC61tevLHsINtUgtKUVVxD/3
+ eJxGJi5IHMSzjBVFyQ+JEvwBXRdwbySXxjFFoZGNZ0alUYnJ+6r+C2SxV23uLA3yE4whj+n4Bw
+ O/UCfubVkyEAJxVT0+U6+v/t+AEHMSI90AAAA
+To: rafael@kernel.org
+Cc: lenb@kernel.org, linux-acpi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788287057; l=3071;
+ i=george.kokolakis.ece@gmail.com; s=kernel-20260901;
+ h=from:subject:message-id;
+ bh=eB+R26itJ2JkTVFa+VyNE4Mw+wr0JpISWwRbkykFcQw=;
+ b=aSci7cGWGfRq3MarVunw1Msq3HGDWZbbRiXQRA3urKl1v3DbiAHzC4FBhgvUbWczAKlBytAdU
+ Lz8Shk+Jny/Ax6FZsxQ/UjkLuAKUTR/95kAdax752IRfkyvJn34lvEc
+X-Developer-Key: i=george.kokolakis.ece@gmail.com; a=ed25519;
+ pk=vZ27t8agUnF5GcuvLoIUzClMG59D0bvQE7GXXdwXJ9I=
+X-Endpoint-Received: by B4 Relay for
+ george.kokolakis.ece@gmail.com/kernel-20260901 with auth_id=995
+X-Original-From: George Kokolakis <george.kokolakis.ece@gmail.com>
+Reply-To: george.kokolakis.ece@gmail.com
 
-On Tue, Sep 01, 2026 at 08:18:48PM +0200, Armin Wolf wrote:
-> A user reported that the Dell OptiPlex 7090 needs to be whitelisted
-> for the special SMM calls necessary for globally enabling/disabling
-> BIOS fan control.
-> 
-> Closes: https://github.com/Wer-Wolf/i8kutils/issues/18
-> Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+From: George Kokolakis <george.kokolakis.ece@gmail.com>
 
-Applied.
+A Lenovo ThinkPad T14 Gen 5 (type 21ML) powers back on immediately
+after an orderly ACPI S5 shutdown.  This was reproduced with BIOS
+N47ET29W 1.18 and Ubuntu kernel 7.0.0-30-generic.
 
-Thanks,
-Guenter
+A standalone UEFI application invoking ResetSystem(EfiResetShutdown)
+leaves the same machine powered off.  A DMI-scoped test module that
+skips the ACPI S5 power-off preparation handler and invokes ResetSystem
+at the final sys-off stage also leaves it off during an ordinary
+userspace shutdown.
+
+Mark ACPI S5 unusable for power-off on this model.  This makes the
+existing x86 EFI code register its higher-priority EFI shutdown handler.
+Do not register the two ACPI power-off handlers when the quirk is active,
+but retain ACPI S5 preparation for restart.
+
+Link: https://bugs.launchpad.net/bugs/2162837
+Cc: stable@vger.kernel.org
+Signed-off-by: George Kokolakis <george.kokolakis.ece@gmail.com>
+---
+ drivers/acpi/sleep.c | 30 +++++++++++++++++++++++-------
+ 1 file changed, 23 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
+index 132a9df984..d14833eb59 100644
+--- a/drivers/acpi/sleep.c
++++ b/drivers/acpi/sleep.c
+@@ -27,7 +27,7 @@
+ #include "sleep.h"
+ 
+ /*
+- * Some HW-full platforms do not have _S5, so they may need
++ * Some HW-full platforms do not have a usable _S5, so they may need
+  * to leverage efi power off for a shutdown.
+  */
+ bool acpi_no_s5;
+@@ -173,6 +173,12 @@ static int __init init_default_s3(const struct dmi_system_id *d)
+ 	return 0;
+ }
+ 
++static int __init init_no_s5(const struct dmi_system_id *d)
++{
++	acpi_no_s5 = true;
++	return 0;
++}
++
+ static const struct dmi_system_id acpisleep_dmi_table[] __initconst = {
+ 	{
+ 	.callback = init_old_suspend_ordering,
+@@ -407,6 +413,14 @@ static const struct dmi_system_id acpisleep_dmi_table[] __initconst = {
+ 		DMI_MATCH(DMI_PRODUCT_NAME, "20GGA00L00"),
+ 		},
+ 	},
++	{
++	.callback = init_no_s5,
++	.ident = "Lenovo ThinkPad T14 Gen 5 (21ML)",
++	.matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++		DMI_MATCH(DMI_PRODUCT_NAME, "21ML"),
++		},
++	},
+ 	{},
+ };
+ 
+@@ -1117,13 +1131,15 @@ int __init acpi_sleep_init(void)
+ 	if (acpi_sleep_state_supported(ACPI_STATE_S5)) {
+ 		sleep_states[ACPI_STATE_S5] = 1;
+ 
+-		register_sys_off_handler(SYS_OFF_MODE_POWER_OFF_PREPARE,
+-					 SYS_OFF_PRIO_FIRMWARE,
+-					 acpi_power_off_prepare, NULL);
++		if (!acpi_no_s5) {
++			register_sys_off_handler(SYS_OFF_MODE_POWER_OFF_PREPARE,
++						 SYS_OFF_PRIO_FIRMWARE,
++						 acpi_power_off_prepare, NULL);
+ 
+-		register_sys_off_handler(SYS_OFF_MODE_POWER_OFF,
+-					 SYS_OFF_PRIO_FIRMWARE,
+-					 acpi_power_off, NULL);
++			register_sys_off_handler(SYS_OFF_MODE_POWER_OFF,
++						 SYS_OFF_PRIO_FIRMWARE,
++						 acpi_power_off, NULL);
++		}
+ 
+ 		/*
+ 		 * Windows uses S5 for reboot, so some BIOSes depend on it to
+
+---
+base-commit: 786262be6048deab760f68c8acc2c85607165894
+change-id: 20260901-fix-thinkpad-t14-gen5-efi-poweroff-878a3c4da5a5
+
+Best regards,
+-- 
+George Kokolakis <george.kokolakis.ece@gmail.com>
+
+
