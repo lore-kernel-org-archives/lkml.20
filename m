@@ -1,63 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.auroraos.dev (unknown [95.181.193.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A1248A2B6
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:44:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FDB48B36A
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.181.193.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284646; cv=none; b=Gr3rNK7L5hmqQtiuDepF5PUuGFpUPh4IiwLMLZuBMGKxEg9yHffzK6eNR64DL1WLPGQ1mT3MPNPlPi5EfaFXuDUvsaZeBw68hXN7cwnBpCURocSlSRLItw9UcsQ3VkLCooxxP0g4Ac73QyU2r1ZETALNDTW2pEsT0UJUoM86nJY=
+	t=1788284653; cv=none; b=RjRc2JGZ6EqJywi8z8NI0NZmh6fpheTqED2yHTUc0TdnHQz6GEzQxpE8DuGgA7tFXD4uDEsUnmwXu1Rg0suIFjjZOsHwln9ZOmIGevEt3Kqf9HlqfjyygmCZtrS/Gzd0+nWjCXTZ99hRO+0wGPPOKsoHv+d7gYUYXEG4Wi1BWUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284646; c=relaxed/simple;
-	bh=x9leVTYT5tWP6Hyjbj/iH49zRXPHhtRR4RG3tglAeCY=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=k7aiLt+Y5bq/Bv0PXKHdDqnJmO5sZ9hb5tTMr0SeviyGeDCHjKGZ3lbT3vknBptkJkAAvT2QPz6s9eU8vEvbo1INkq98eSA08ep+X3Qe/p5CJdpozx3RqiKYKP82f2KQdpcKK8PN3D5beVPRZh+sG8bnpcRotCV/clErQnNwssY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=zHMg8t1q; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="zHMg8t1q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF0201F000E9;
-	Tue,  1 Sep 2026 17:44:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788284644;
-	bh=/wsf9BZQhYqZ8L0Z3IIQZrh7LfWMUHhWunluyqO61Cc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=zHMg8t1q1eqDsMIcwfM2YY7Ja4ftyya2BUBhGG6pvRCPNCcZ9Ktv8DVCFUvclrqRE
-	 r01hHGT50+C4vQEy+bQvUVsWkI0WAtk6TjYhGAIw5meBui4IzPR/Hi7YP8Pg1vdss6
-	 PfIqOke4ytcYo8gLmYFKgRuiU3pR4NjnNtURnqCs=
-Date: Tue, 1 Sep 2026 10:44:04 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Petr Vorel <pvorel@suse.cz>
-Cc: linux-kernel@vger.kernel.org, Andy Whitcroft <apw@canonical.com>, Joe
- Perches <joe@perches.com>, Dwaipayan Ray <dwaipayanray1@gmail.com>, Lukas
- Bulwahn <lukas.bulwahn@gmail.com>, Cryolitia PukNgae
- <cryolitia@uniontech.com>
-Subject: Re: [PATCH v5 0/5] checkpatch: userspace improvements
-Message-Id: <20260901104404.55d26e883e9917548025d3a9@linux-foundation.org>
-In-Reply-To: <20260901105642.851234-1-pvorel@suse.cz>
-References: <20260901105642.851234-1-pvorel@suse.cz>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1788284653; c=relaxed/simple;
+	bh=zWhKltTf6EJyA4Ei9FYuuMx0dry+wiokO67ynFf0IbA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ZleSbZNZiYuwNPBe060gauI9cqMX/I5AYfd8dCYmPokhbq6x5pVJAQ4ikEzkctIQQ6DOXvvdYCI7gZrMQh5TNIE0d/0q9kFp4yfDJIoHEc2EZrbyy7vo5iyZyjnyEz/81uEcS/WR/jU2f6RrSmAtWFHOoELHi8K7Pprr8FWSDU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev; spf=pass smtp.mailfrom=auroraos.dev; arc=none smtp.client-ip=95.181.193.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
+Received: from [192.168.2.104] (91.78.29.96) by exch16.corp.auroraos.dev
+ (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Tue, 1 Sep 2026
+ 20:43:58 +0300
+Message-ID: <8c4f2857-e7bc-4880-8ed9-8815d7f7e57f@auroraos.dev>
+Date: Tue, 1 Sep 2026 20:43:56 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tick/sched: check skew_tick kernel parameter's validity
+To: Frederic Weisbecker <frederic@kernel.org>
+CC: Anna-Maria Behnsen <anna-maria@linutronix.de>, Ingo Molnar
+	<mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260829202535.46470-1-s.shtylyov@auroraos.dev>
+ <apbLW_Y1CScaZoR7@localhost.localdomain>
+Content-Language: en-US
+From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+In-Reply-To: <apbLW_Y1CScaZoR7@localhost.localdomain>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
+ exch16.corp.auroraos.dev (10.189.209.38)
 
-On Tue,  1 Sep 2026 12:56:37 +0200 Petr Vorel <pvorel@suse.cz> wrote:
+On 9/1/26 3:55 PM, Frederic Weisbecker wrote:
+[...]
 
-> Changes v4->v5 (all by sashiko):
-> * Explicitly match the directory separator in new entries for
->   is_userspace()
-> * Allow --no-userspace to override setup in the config (using undef
->   instead of 0, separate checks in is_userspace())
-> * 2 new commits:
->   - checkpatch: Factor out the check for UAPI files
->   - checkpatch: Skip kernel specific checks for userspace
+>> In skew_tick(), the result of get_option() call is ignored, so even if a
+>> value of the skew_tick kernel parameter was not specified (or specified
+>> as a list or range), the kernel won't complain. Add the missing check...
+>>
+>> Found by Linux Verification Center (linuxtesting.org) with the Svace static
+>> analysis tool.
+>>
+>> Signed-off-by: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+>>
+>> ---
+>> The patch is against the timers/nohz branch of the tip.git repo...
+>>
+>>  kernel/time/tick-sched.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+>> index c1ee0b256445..34ceccdd49b5 100644
+>> --- a/kernel/time/tick-sched.c
+>> +++ b/kernel/time/tick-sched.c
+>> @@ -1483,7 +1483,8 @@ static int sched_skew_tick;
+>>
+>>  static int __init skew_tick(char *str)
+>>  {
+>> -     get_option(&str, &sched_skew_tick);
+>> +     if (get_option(&str, &sched_skew_tick) != 1)
+>> +             return -EINVAL;
+>>
+>>       return 0;
+> 
+> I'm not sure that matters. Initcall return values seem to be ignored on boot.
 
-Please prepare a proper [0/N] overview for the series.
+   But that's not an initcall, IIUC.
+   Looking at do_early_param(), the kernel would call pr_warn() if the setup
+fucntion fails...
 
-Sashiko still has much to say:
-	https://lore.kernel.org/lkml/20260810164552.1049483-1-pvorel@suse.cz/
+> Looks like only modules do care.
 
-In [4/5] changelog.  What does "DRY" mean?
+[...]
+
+MBR, Sergey
+
