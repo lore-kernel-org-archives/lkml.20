@@ -1,167 +1,98 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7A0B3B52EE;
-	Tue,  1 Sep 2026 11:14:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail.muc.de (mail.muc.de [193.149.48.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EDA33987E
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:14:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.149.48.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788261266; cv=none; b=BUc8mxmYZafl2CJkYbFK6bJPgLaXYch994orUcAKK3MG3RFXVti3lGfQ0C30YAlBdv43Tr+J82bhiLk1w/LhgU5l8OmeqeqoQQDO5rV+oBNQG/FDt+sO9wfufo+Xf2kYgIPMrVODTjyNmaz5XiS7QorAUM9MfX24TWjfnVe9OhM=
+	t=1788261290; cv=none; b=tYTF1C54Dz0lrFATSZ68LuwOqHzTmrcQ+hEqwGKD+H30r7kD0icoypvfG0JfFJb1LWsGDQuy40bZgLkY0hcdAsQ+7aSToVYhMiT6khtF+bjg93+joqUJ2gI3iSEeW/MMU0kilBMHtrAGU4JGXqlYiDqVIpFJfg5l4sgtegQFzYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788261266; c=relaxed/simple;
-	bh=daF9HesEza6SWtOhkfKbGfBWgHHoBdo2R/qUMpIeFV0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jjaxtMgVrbMj1lrlk26ky+T5Rg9zoYr54B8M5Nxkd742+FdCkpvOMAuxQledZgzQAwYXjd6j5u/ENRYvubrBSg1cS+vZtGOWAmejmkZt5ks2yhyADbXwFNp7CSN8aSd5g8eNP4gW1sIvZVENEwQzUotAgP/cLpgGpGJYKJCzDnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=mLIHkO2t; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="mLIHkO2t"
-Received: from [10.26.7.43] (unknown [4.213.232.20])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 6DE5520B7166;
-	Tue,  1 Sep 2026 04:13:38 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6DE5520B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788261222;
-	bh=QqqOU0jY9csntePR9q0ubjJbXt4KO8x1A3BS7Bvcyeo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mLIHkO2tcjv6Htlrs6ZB0dY4dv8tx6hCsACqBVcpciOB+2qqE+gmq89hiN2fD69oq
-	 oy1528fY8KTmAnGKihSxZT7oOsHONC5IO3ebTDr/a04be4DnI40PaiHfuY+ebdWqFW
-	 ijBavg4KTitkAg6mbUxFnxCmdk8bUY58148znJHo=
-Message-ID: <b66a428d-b6c0-4ec1-8644-504749be308c@linux.microsoft.com>
-Date: Tue, 1 Sep 2026 16:44:11 +0530
+	s=arc-20240116; t=1788261290; c=relaxed/simple;
+	bh=MFnA0HVS04xJQTa/xvZgCrUb3vCVJC4U3BZpZ+TL+Og=;
+	h=Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:From; b=RhMP2Fu0Nu+S21SPtRFEqMLqD2/QC/8x5gHC7YiKCcieKOKI0Fr9ptybalrfp63rJDLKjb4BVmOiBcIib3foWqTt4iXFNqnM5Nm1l8Sdx7A6WzrEkKJ+N7AMP45wIXvmjphdzmVlfNug2VkWTMw0/ZpHSeMJOe5X0l+kIvKGc8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de; spf=pass smtp.mailfrom=muc.de; arc=none smtp.client-ip=193.149.48.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=muc.de
+Received: (qmail 81107 invoked by uid 3782); 1 Sep 2026 13:14:45 +0200
+Received: from muc.de (p4fe15c70.dip0.t-ipconnect.de [79.225.92.112]) (using
+ STARTTLS) by colin.muc.de (tmda-ofmipd) with ESMTP;
+ Tue, 01 Sep 2026 13:14:44 +0200
+Received: (qmail 6890 invoked by uid 1000); 1 Sep 2026 11:14:43 -0000
+Date: Tue, 1 Sep 2026 11:14:43 +0000
+To: Helge Deller <deller@gmx.de>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+  Jiri Slaby <jirislaby@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+  linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+  linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: vt: Enlarge the framebuffer glyph size from 16 to 32 bits
+Message-ID: <apazo2RIHiEAtpNN@MAC.fritz.box>
+References: <apCEDM2sWv_M354-@MAC.fritz.box>
+ <145be2e3-a8c0-4f4f-a701-af2696cec461@suse.de>
+ <apGc4y8ApYWh4Yr4@MAC.fritz.box>
+ <2026082938-spray-shimmer-9389@gregkh>
+ <apLvO-8YJmQG7T0Z@MAC.fritz.box>
+ <7c199c7f-d89b-48ca-a777-85585d2eb624@suse.de>
+ <apWTg6mNZrdBm2-D@MAC.fritz.box>
+ <ae1ae01a-677e-4c51-bf9a-ebe7b2e91e4f@gmx.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PCI: hv: Warn when wait_for_response() waits indefinitely
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
- Naman Jain <namjain@linux.microsoft.com>
-Cc: Saurabh Singh Sengar <ssengar@linux.microsoft.com>,
- Michael Kelley <mhklinux@outlook.com>, Long Li <longli@microsoft.com>,
- KY Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
- "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <DECUI@microsoft.com>,
- "lpieralisi@kernel.org" <lpieralisi@kernel.org>,
- "kwilczynski@kernel.org" <kwilczynski@kernel.org>,
- "mani@kernel.org" <mani@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
- "bhelgaas@google.com" <bhelgaas@google.com>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260825051850.2438816-1-sahilchandna@linux.microsoft.com>
- <736091cf-8d00-415e-a890-e2dfa6739325@linux.microsoft.com>
- <SA1PR21MB66836C32FD0FABD94B45D7F6CEAF2@SA1PR21MB6683.namprd21.prod.outlook.com>
- <SN6PR02MB41578D73327A61FD3D7412C2D4AD2@SN6PR02MB4157.namprd02.prod.outlook.com>
- <apB1HytkO5xu7jP6@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <27277d1e-fd41-4dc9-aea2-eae3773ba322@linux.microsoft.com>
- <apGiT0ZKIetmsbn8@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-Content-Language: en-US
-From: Sahil Chandna <sahilchandna@linux.microsoft.com>
-In-Reply-To: <apGiT0ZKIetmsbn8@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ae1ae01a-677e-4c51-bf9a-ebe7b2e91e4f@gmx.de>
+X-Submission-Agent: TMDA/1.3.x (Ph3nix)
+From: Alan Mackenzie <acm@muc.de>
+X-Primary-Address: acm@muc.de
 
-On 28-08-2026 20:29, Hamza Mahfooz wrote:
-> On Fri, Aug 28, 2026 at 11:10:22AM +0530, Naman Jain wrote:
->>
->>
->> On 8/27/2026 11:04 PM, Saurabh Singh Sengar wrote:
->>> On Thu, Aug 27, 2026 at 04:07:06PM +0000, Michael Kelley wrote:
->>>> From: Long Li <longli@microsoft.com> Sent: Tuesday, August 25, 2026 10:01 AM
->>>>
->>>> [snip]
->>>>
->>>>>>
->>>>>> Basically something like this:
->>>>>>
->>>>>> #define PCI_RESPONSE_WARN_TIMEOUT_SEC 300
->>>>>>
->>>>>> static int wait_for_response(struct hv_device *hdev,
->>>>>>                    struct completion *comp) {
->>>>>>       unsigned long warn_at =
->>>>>>           jiffies + secs_to_jiffies(PCI_RESPONSE_WARN_TIMEOUT_SEC);
->>>>>>       bool warned = false;
->>>>>>
->>>>>>       while (true) {
->>>>>>           if (hdev->channel->rescind) {
->>>>>>               dev_warn_once(&hdev->device, "The device is gone.\n");
->>>>>>               return -ENODEV;
->>>>>>           }
->>>>>>
->>>>>>           if (wait_for_completion_timeout(comp, HZ / 10)) {
->>>>>>               if (warned || time_after_eq(jiffies, warn_at))
->>>>>>                   dev_warn(&hdev->device,
->>>>>>                        "PCI response received after prolonged wait.\n");
->>>>>>               return 0;
->>>>>>           }
->>>>>>
->>>>>>           if (!warned && time_after_eq(jiffies, warn_at)) {
->>>>>>               dev_warn(&hdev->device,
->>>>>>                    "PCI still waiting for response.\n");
->>>>>>               warned = true;
->>>>>>           }
->>>>>>       }
->>>>>> }
->>>>>>
->>>>>> Regards,
->>>>>> Naman
->>>>>
->>>>> This looks better.
->>>>>
->>>>
->>>> I like getting the "response received" message if the response
->>>> eventually does come in. It's a judgment call, but I would be OK
->>>> with outputting the "still waiting" message after each wait interval
->>>> rather than doing it only once. And I would make the interval smaller
->>>> than 300 seconds. Five minutes is a long time to wait and wonder
->>>> what's going on when things are hung. 60 or 120 seconds would
->>>> be OK -- a line in dmesg every 1 or 2 minutes doesn't seem like
->>>> spamming to me when something is fundamentally broken.
->>>> And probably don't expect a VM in this broken state to keep running
->>>> for hours -- the sysadmin or automatic monitoring software will
->>>> reboot it to get it working again.
->>
->> I think this is a main point of this discussion. FWIK, this is not
->> automatically recovered as of now, ever. With these changes, we could get
->> dmesg logs completely filled with this same log, which does not add any
->> value. On the other hand, I was suggesting Sahil if this problem is not
->> recoverable by Azure fabric layer or other monitoring services, and is
->> extremely rare and the VM is unusable, perhaps we should consider adding a
->> bug/timeout in this path instead of just logging about it.
->>
->> Regards,
->> Naman
-> 
-Thanks everyone for review, based on dmesg logs recovered from affected
-VMs this does introduce non-recoverable hang for hours, I am going to
-work on this in a patch along with fixing sashiko warnings.
+On Mon, Aug 31, 2026 at 19:21:30 +0200, Helge Deller wrote:
+> On 8/31/26 16:45, Alan Mackenzie wrote:
+> > On Mon, Aug 31, 2026 at 08:20:10 +0200, Thomas Zimmermann wrote:
+> >> Am 29.08.26 um 16:39 schrieb Alan Mackenzie:
 
-> Along with what everyone else has suggested I would suggest printing out the
-> state of the device's VMBus channel (i.e. the child_relid and inbound and
-> outbound status in particular). Since, that information is useful to the hv
-> guys and should help disambiguate between "host never picked it up" vs. 
-> "host picked it up but never replied."
-> 
-> Hamza
-> 
-Ack.
->>
->>>
->>> I will also vote for repeated message as long as interval between two
->>> messages is greater than 60 seconds.
->>>
->>> - Saurabh
->>>
->>>>
->>>> Just my $.02. Outputting the "still waiting" message only once is
->>>> also OK. Your call.
->>>>
->>>> Michael
->>
->>
+[ .... ]
 
-I am going to send next version to log "stuck waiting for response"
-warning only once at 2 mins boundary and will also log late completion
-as per feedback.
-Regards,
-Sahil
+> > I've been using the console for around 28 years, now.  I don't recall it
+> > crashing at all.  My current font and keyboard files are in exactly the
+> > same form as they were 28 years ago.  These formats are stable and
+> > dependable.
+
+> >> I've spend the last years working on related code (fbcon) and it
+> >> mostly feels dated and unmaintained. Our prime implementation (again
+> >> fbcon) has been de-facto unmaintained for years.  We recently had
+> >> contributors who are pushing the ioctls semantics and found bugs in
+> >> fbcon for a number of corner cases.
+
+[ .... ]
+
+> >> FTR I'm not at all interested in eliminating the kernel's console.
+
+> > Other people, in particular Greg KH, have said this is the current aim.
+> > I'm worried for myself.  It is far from clear that there is a suitable
+> > replacement for the kernel's console, and its elimination could easily
+> > happen without that replacement.  I suppose I could always (laboriously)
+> > maintain the console for myself personally.  Or there's always the BSDs.
+> > I just don't know what I'd do.
+
+> Alan, I really appreciate your efforts to enhance the kernel console code!
+> And I'm not interested to eliminate the kernel console either.
+
+> >> But there are must-have features and nice-to-have features. IMHO for
+> >> the kernel console i18n really belongs in the later category.
+
+> > It's 2026, four decades after VGA was the latest thing, and Unicode
+> > support is merely a nice-to-have?
+
+> No. IMHO Unicode support would be great.
+
+Thank you, indeed!  That's cheering to hear.
+
+> Thanks!
+> Helge
+
+-- 
+Alan Mackenzie (Nuremberg, Germany).
