@@ -1,186 +1,277 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012055.outbound.protection.outlook.com [52.101.48.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C6737F315;
-	Tue,  1 Sep 2026 09:20:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5CD470E99
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:20:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254402; cv=fail; b=q3XDq40KzUPOKghDJgUHoLUonEfE4zpytOVV5+TcHTozINYaVMRWcJaerctBiihwjU6HZajmqQtDaxs4EYmIgbqDJaxjCtyxIBAHNNmYyR86Hy0WImHOBCebWEQj3YIAxWwXaxrGAWaLf0H1KasQ4Z+PZXRZ9Yb9xAtFyUjXeAQ=
+	t=1788254408; cv=pass; b=d64HCDOsZAN3eMii/oBth4MFUQlsQ5OXXBai9aLn+IWvzTDiMUnPd9bqDFhdHB9xoBARdNmsAspEzXR7tzeJnoj6PpiihwztwBrgraf0aEs7B2kHIwuCvxBDey2LyNcB5reJSBpV2fD5jLroAAREWqCbje11AdkaR5dobyOKdp8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788254402; c=relaxed/simple;
-	bh=hNuO82ZwxpLj611Rz72wRi/PkEBU3FkhHPOMl4huRuc=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=aVvzuDbuB322WdPP1VAVNOb4nEKy/7oPgAOEBhnBuX06Z2dzdtAG/WuCeEQph0asuhXiGIH5QsecTbNjjZuYpSpxjMlp943Pg2QUmEMVyViDe0YOfQGPTxdHqg3X/rRWcYyloEX+ujUGBNtVWmu8Zl9yXM/jlTQo1AhRH6AOzlE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sRmFmMHr; arc=fail smtp.client-ip=52.101.48.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1788254408; c=relaxed/simple;
+	bh=nmI/77SFGyfm3GM8Abio9q9oeCxIRFo7FM6gskJPvDU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=a1Nr1k+fXesKAIAQcaYTnv+q1mR1s3njlVRS41mOUn9CbF1dOfte/nLudca4QBwDsUCWWUWnYvNSoqAqrclK+2l50nDYPpzAvNtI/ElrvVFq5ElkWYfvsjnsr+Zeck16OFTw1HNYXbdKqn++HH2e1zumEXfoRBIgajmx5N/JZtA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=raNGEHtc; arc=pass smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sRmFmMHr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x6M3WmJFiz+VoMCZiChff9gOlLgCic9u8MOmX2yVP0Ybe/iAgbADvXEu/GogyBgWAauGmW2HG4Q9q+IJBXfAoxZoDXYTVhf9+08jX/tduxQoCyuB3a1J4KoJejdSFfaiYurgI0Grl3M7RKrtghYZp5Yf41BmMP7lI1hXOm1/tFQVTubxTDfBxVHGIeWSpedNHCb1Oi4Ea3A8nrYAiPI4xpOXF46mPpW4OmUD995bfIYCvCSs+guXSHUb1gh6Sut1g7jd1oY5Aik2XWDwacM3GhEUW4DluoMUbDZ59pyDAqrR/cVh/UcW9PiCRDTgNW4863MCGDNix7IqSH8dKw3Z2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w0KbYwektKee8UeOVsvHKt2RWqocXfJSHo2zxflHtPU=;
- b=jT/Yf6B65CcGYD/0Uvtd2BPknB6QgANfE0Gb5jGG8LuuycBP1/M7qRQYmfpb0ILuek+LjcbGCitXM4yeyEBElg9njoygmZbRzQTn58lJJOQ2aw5lsnCEpepJvv2dujfRZLAyyePZOf5wfoHYQOAI9Syr2Sh66lZ0bRaQ/adQXWahQ3K3j9bLCWmVT/z6kGuMg6lKNpkn6n3q1k9OdUP6AoIpZNdthwJ8qO4MMs7jrAyL0Ft3Z0Uz7soP0YVZzwcxvDavH/gB5yKI6WcQ5kXjVe78jkHOrWBqLejgOrH/sTHGSdThiCtgtPhBEa4fyWOf+ieAiUMn32PWKeO5gtOhVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w0KbYwektKee8UeOVsvHKt2RWqocXfJSHo2zxflHtPU=;
- b=sRmFmMHrjJ9HQ3GxfP8bRjc7UzwdIkDcNMlcBRJc6Qp4zfOBNlN17YvepjlAwp/9Jfzi289kRdRglZLgED8onl1vS1TupsKCKDmQQ+9RSp9QPAYmGbhiZ67cYU5gIybghtuUyhD9XVEXCpblB4WQcmsmXMBxLiKauuW1JuLaw0c=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from LV3PR12MB9409.namprd12.prod.outlook.com (2603:10b6:408:21d::16)
- by CY8PR12MB8195.namprd12.prod.outlook.com (2603:10b6:930:77::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 09:19:57 +0000
-Received: from LV3PR12MB9409.namprd12.prod.outlook.com
- ([fe80::f1ab:939b:242:d9ae]) by LV3PR12MB9409.namprd12.prod.outlook.com
- ([fe80::f1ab:939b:242:d9ae%3]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 09:19:57 +0000
-From: Ke Chen <Ke.Chen@amd.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Ke Chen <Ke.Chen@amd.com>,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/gem-atomic-helper: Fix fence reference leaks in prepare_fb
-Date: Tue,  1 Sep 2026 17:19:30 +0800
-Message-Id: <20260901091930.2796079-1-Ke.Chen@amd.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: JH0PR01CA0045.apcprd01.prod.exchangelabs.com
- (2603:1096:990:5c::19) To LV3PR12MB9409.namprd12.prod.outlook.com
- (2603:10b6:408:21d::16)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="raNGEHtc"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d560775ca2so32907745ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:20:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788254406; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CdcGzgGhnphzBxIcy+eKV1mHzmnkYkq+4lCOCzVBfX72R/HMAax9EGlMaMyxFLRPdE
+         rYF6WhmhMJd0JzCc02yKJagC00HjPRoVfPW49eRjHGrGrEOYprXJV05iwJ0KcHu00lJq
+         Ks0U/uTtJti5j/Y+YpMOsy8y0AcwQwZcaGkjM7qLZNSRmZ7do6XL20MrQOW3KiRNs4I2
+         TmLJbG0NwK1HQ4scbaXj+BwFMvjZjrH31OluRPPeXGhd6h+XYSoT5eH5gXEhF/O4yB73
+         GKjRb8d+CVeK2LJuFTWCY1KCtMelYs4u5ulWH6QGFGpdJIrDpQY2FcZ7+apoMEmPeJ7Z
+         17jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sI/CANl7QmNb+mh7kgzc5dRDC2wdwbiqEX9BJ0kTKjU=;
+        fh=6K97epGYhhn2LW8SdJwqQ7xUaZiHC1CqsfmN6QQw1eM=;
+        b=QYidHO+6vn4kRKwcXpqcTmp9UPDerfgTEQN6h1AuJVeMWMNJN/0vNweECw7gQVaf0a
+         SJ5eYEqlWV0TYVRJq7oqTevjL1ycU9DDaoMA5iUd6RxiwbNzxuN5uW9XVHrquMx37h6E
+         11uFLEkUlWIMcjZTf556CV8nwX3DTeLdzwIXelS0gv9D5B+p/49G7nRD0xnjk6Wt8MP8
+         RU9oU/qNjGTN0nUpLFvYaX+iiuD5m1IBX1JFpnb22niOZVDuf+V4ixOU0D+m7C2xYhpJ
+         rBSfzSsbLYSv2ESdID/KegSAt7QuksiYBLYhjdPx0Wwb3pzykjEqPdUFhMgng2+U9Pz/
+         LX3g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788254406; x=1788859206; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sI/CANl7QmNb+mh7kgzc5dRDC2wdwbiqEX9BJ0kTKjU=;
+        b=raNGEHtc4OK8rLVj2nauR8CaJlg7fymTBjga2Iko9M+qZFlAF+IV2cJjJTBBu3JzLV
+         i3i+L47BSReFwneXdfzkJ2o0P50WTeTj4yy+fVRxEg71xQG5nCvzqzo3tZ+Z8bHxMYHQ
+         u9F16gFhxj1aN4VgGtRChoMEo+d+dA5zleUZzD5agyfrIZgMhSqPRLBLMQbkznYz0Fi+
+         sMt/cQrGQaHG4Rv33c0tsVYmbC2WIEYpBH2Dtv2RAF1QXZQH7XQWTCBwYcLIVzVPEzv1
+         SqbrpN28RR4saSzcM4c6rRVE7DZ02dhfhrLG3Hg+4o8CB8oqINbKM1+R51+pbV0l1Jro
+         QQ7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788254406; x=1788859206;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sI/CANl7QmNb+mh7kgzc5dRDC2wdwbiqEX9BJ0kTKjU=;
+        b=XcuGOP1acimLdT3fUadMtshNKTy16ytpk/V7WbedAztCqKgQLaUZVODnPP9pyJ5dB2
+         LqG7RAqnizw+DOn2EhjjINmvPXRU/45MzNucoLDnbpKV5sSvz1PTECS1Akc2cWfOskU1
+         GhFKa8+DZTBv8nVFzyyYTiLtxVTpeKS9Sf4Hk4W2aREElHEx61QTTJw62IytWj3TT+6d
+         vpwCubvZsyn2shK0aTNu6dV6SEkMPhPqxK9zfiOEuyDoQ94NXzNiJg75drgQNa+DkpJM
+         ZZ8/c6pSsVBwwbpQSmDlX9YXMROwqG2pUD8fMAtcBtCcb5O21u12txn0BgxNOlmAdIpD
+         49kw==
+X-Forwarded-Encrypted: i=1; AKwUvBxLxnokMrrIhgTqGoa6q+o7KGq6yT5vCvbtVvgnF7fp/cffMeTszLMSpp7QAdqe2bK2so7OJ5wxI+fdsMU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kupJQu+CK6vjgzm4eDAEr1BmDR1Wo/U3qLpDo0CpFHUnvGCXRF
+	4LYR28jx4ALjqnsq+T2VLRcp2RcZ6UHqftXOqPPk8j+aVJyhE2JAaRzhj6lDB69S2BXSoTnJoXa
+	eFL3DV/mJxHN7tHjdxXaqyauDmGPBe4g=
+X-Gm-Gg: AYBFou0cmUzM2wtORi2sJ+ORQZJ/Zig0j0FAdDzF9G1+lR8OOHBPq1ai3Miv56fmzgQ
+	3HfFq8ht+jShg8N/J/oeDFsXu2ZB6X/x4ysXnUWBuuqTx9wjLthE3v4TK9lYF9PHF1Zgdf2iLgu
+	e3Dt5UgVxat8nzgfHfxT93q/rK0PaVwCwCak9dmJaHgglI6TiKR/PiQn6ytUm4ow6135DdGtpO1
+	yRKDKrnNBJp7PRTozyug8nRwZxxLan8LaQK6gh+ItWEDMsyHXCopc1i3uX89l5izDKAxLslvkhK
+	Zv0BzDub5ys8CHeA5AdqHc+it/cY9bU0REdEZWE8op8Y+66tYYiqA2E/qf3lgq748hxDgn5x33/
+	5L/Y=
+X-Received: by 2002:a17:903:1590:b0:2d8:d4dd:24c1 with SMTP id
+ d9443c01a7336-2d8d4dd25e1mr339218155ad.22.1788254406482; Tue, 01 Sep 2026
+ 02:20:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9409:EE_|CY8PR12MB8195:EE_
-X-MS-Office365-Filtering-Correlation-Id: 865eb0ce-95f7-4525-a8d5-08df080a30f8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	QWh/AqmqYoHuuo+1p2gcxXgbb6y6YIImI3l8tTvJJpltk2PAldXaEKSIgi72yXrdUo0uJp1LbHOn0raaxHU+YnCYamJf3GCqV0xwHVS7+VVUHQgk03NJbIcquFwxaUr8EONpwlUjUJsLMwg1YmXDorBgrkUyv2MSKxpr2AihWexH0Q/y+h+PJBK59xR282DAEVPExvjJs5HVTVf4ngg3Jb2m1+J4GfA8+427Ry6+PcMxJZMLkmSF/aHrpdH590fnk+kh1emNSkljd42hs0MMcTPjHBeoNnjDaFXrFnmsrBZafsjjn4GzKFhLHN/P3bAfH3OROZHfEcp9PnZfs2I05VYJDb/psHa/NxjB9cIALKUu3BliIDRz5n4RnK0zJet4/CW8GfqeiiGNLZA3ERY7sTniCGtQD3uVDsj2x+BgCRVnqJvtZjFn7/NZaGIteAXakmNc5BEp6lv4bea/coMuLoaoeqMUiDh7T23dcvEvqRV044DBkOVwS+WS9VoppdK1ZeXeYEPFbNiPg5vwKIAN55V1wcU6UpmfESFi/Y/2fgkEoEYPwn9vfNGLpGfjMbIAw9PL14nGI2krDY8Oxcypflv0DfIdCqS19pTqJCjuhqjG2PKo7CNdLZcoi2fZ4Pl1ql9g14lEBUi0I1cIEQXRxeqo05qj5enm+34GOtWWOKs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9409.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7JnVzjdFV8YwrFXr8wjRufpSw968WCnQdu3C0mlQU/as5BW8biNUzOq3M/3b?=
- =?us-ascii?Q?AsY4qPgtGzNx0ZUJ+SCRMmnuv8uCHrbKbADzMGmxSgTwUcviv5wMMmOeYcUh?=
- =?us-ascii?Q?iM3r4ZjqEuomNhoCpn029fElyIGYvUema0CDrxOoh0Ha0a4jfkhdkit9YBJh?=
- =?us-ascii?Q?nfCyuMWjleT6pYrsLcu3ekf7joe9v3NIc9imSDR7I+0xTI0/N8ecwsOGm+OF?=
- =?us-ascii?Q?1u/ad3JaaMx9I/hKciDbg80Ib1z4j6U9zeVgO8EjI8sZ7JvOJd+eFYYOOIou?=
- =?us-ascii?Q?Lc7eSHWmpROGuI9/NfToSE2/8gzmTd700RiS/Wk/oSdFE2Lqpn5foweWhnER?=
- =?us-ascii?Q?G7CKVllDJiAJtC+M0w6RUqNtPygnYeeFCIHCJ1EbT2O6/BU73sAJeWJCljjU?=
- =?us-ascii?Q?r/4isx2U+hFp4dmU9usAzUHgoIIiFr55W8nbcRpj9GGk0J77lXJI6tNRHk3+?=
- =?us-ascii?Q?my4sU4wegOhlO2WBn+NQl5MrpOELwI1ifC00fcuJ+TOzwKvqDuODme6Mmzrg?=
- =?us-ascii?Q?7S5UarHuCnaqITgJ18GnZbQcXsnaabtXecZEPwj7+f/u+lODxaefTCGTmG8T?=
- =?us-ascii?Q?mMIe49/829KRnlcY47+38J/4lzO0Npf3TJEplamDqlrrGWl0+y1KMl5D1yb8?=
- =?us-ascii?Q?+a6jg71EOHQhP0c8oyvcMGOBxhLn1P6RnU8zXBy3aMI9M+cLvR5Vb/u+088k?=
- =?us-ascii?Q?1h+PYRqMs11JXhRoHvpBi3sf6lbjFLpmDRzlXiORN9qQI2aR9NkuSON602I2?=
- =?us-ascii?Q?5I2Fpms9lR6Xibh4FZbBpzP9F2+7QKa5tbwCVu12md+WVxK1BtSJBj9nTZI2?=
- =?us-ascii?Q?h223lmYzSodeRiBHC5bnJwLg9tbVv+ixj/MM3jMxWcJF4gHMzh8NfMfQnqZW?=
- =?us-ascii?Q?tEHcancRlpTzZD9007L9EnGQjpo/2fEhRycBzBd1i7URE7raTolDDjM1e/cX?=
- =?us-ascii?Q?STqCxsecmf/6AKD/53MTtiQEiJiy4Z0XbGwXfyOch4YZ5Hd3SkswNRKFnlm4?=
- =?us-ascii?Q?ucQg5vMOfm6EUcN42N3bCQqRCxPMf5gOLHCVMZFa+uld65vXHcAxeTT2BeGn?=
- =?us-ascii?Q?hNQtPUbWbZVKrEoVovnbwWXhU+YGGJRK07HdoHE7tuZflIHktpxsztGpFBRX?=
- =?us-ascii?Q?pPyNZNzX5NCs9EfQZ5yQOBwOCRBuxCu+95CZ2Lcb9VSogHWAEz+PasGQgop6?=
- =?us-ascii?Q?+k0dJHtmvccGCesmH9rxLtnmZmCzeAYcG65lnWyUh2TFF8crlGdyRyfk+kP3?=
- =?us-ascii?Q?12TGAYYOy5SNDjEUFup1A8q9fmWa2IY/rNgI6V2oRbE6aOT7LggxUCEFi1zs?=
- =?us-ascii?Q?+TIdSl9Bn2BvUsGzkdRt2wIeDv/AKzwPzCiNx5mimr0bMt2jaqXl7rZWrkGb?=
- =?us-ascii?Q?wucjQlyPLiuriiJCConLS/7PFfu2cyt7Uxf1uP+PmMxoGG9jffDfpSJL7YM9?=
- =?us-ascii?Q?2ZDFEFJRr55FhJ9krf9uTPNaH7k0Hny9zHUywISwumtQnARUogfMsY0s8YHA?=
- =?us-ascii?Q?4hwpihMUqr0jUy4tR33qKuqpZVo0oohdv1Tl9NVFO+IohW6TIEcehnxFMsc+?=
- =?us-ascii?Q?gdrYsHUsquAw0ZCpROQq9+3RAFRM6DoNzp+vVbhkiqeBmNipf3AjwDtyif4B?=
- =?us-ascii?Q?RxnOHplKxihjWigAtOmISYexzap/R0VYGQPXphNh7Ky5AmSTcjbeTLmz+5EB?=
- =?us-ascii?Q?g0pO6FR3xg98uTcR2+vqwPne6hKK8F/Rr7vdLpwNO0ssA+Fz?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 865eb0ce-95f7-4525-a8d5-08df080a30f8
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9409.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 09:19:57.6192
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A+GMo85dXfCscZxG6bEjtHT7NqN6bHiXPbLfDrlNd88fp0kQpq5lbcXgZLR67HqMlLBGs9tpo+MeoujC+GMQoA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8195
+References: <20260824-lockdep-kunit-v2-0-36a6fec9f72e@gmail.com>
+ <20260824-lockdep-kunit-v2-1-36a6fec9f72e@gmail.com> <6fd0143c-4afb-4de8-b65e-3ab9a8042f1a@davidgow.net>
+In-Reply-To: <6fd0143c-4afb-4de8-b65e-3ab9a8042f1a@davidgow.net>
+From: Malte Wechter <maltewechter@gmail.com>
+Date: Tue, 1 Sep 2026 11:19:55 +0200
+X-Gm-Features: AcwNN1WZNqnOudoYVq_CHOmMGoqbPS_Z0rdDZaQuD7N8OP5JO0tNvYMsFDnvdrQ
+Message-ID: <CAPB1Bzc4Pf4jp27=JzfWquEVbTxK9Cv+31-rfkwtHHBDQ4Ymzw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] kunit: add extra assertions to KUnit test cases
+To: David Gow <david@davidgow.net>
+Cc: Brendan Higgins <brendan.higgins@linux.dev>, Rae Moar <raemoar63@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-An atomic commit can set IN_FENCE_FD while disabling a plane, leaving
-the new plane state with a fence but no framebuffer. In this case,
-drm_gem_plane_helper_prepare_fb() takes an extra reference to
-state->fence before checking state->fb and returns without dropping it.
-Repeated commits therefore leak one fence reference each and keep the
-affected fence objects alive.
-
-dma_resv_get_singleton() also returns a referenced fence through new.
-If dma_fence_chain_alloc() fails, ownership of new has not been
-transferred to a chain, while the common error path only drops fence.
-
-Take the explicit fence reference after the framebuffer check and drop
-new explicitly if allocating the fence chain fails.
-
-Fixes: 1ea28bc5542d ("drm: handle kernel fences in drm_gem_plane_helper_prepare_fb v2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ke Chen <Ke.Chen@amd.com>
----
-Tested with x86_64, arm64, and arm target-object builds using W=1.
-Also checked the x86_64 target object with sparse C=1 and
-CF=-D__CHECK_ENDIAN__. Runtime and allocation-failure fault-injection
-testing were not performed.
-
- drivers/gpu/drm/drm_gem_atomic_helper.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c b/drivers/gpu/drm/drm_gem_atomic_helper.c
-index abef865c5f2c9..4c0a23f4b2970 100644
---- a/drivers/gpu/drm/drm_gem_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
-@@ -114,7 +114,7 @@
- int drm_gem_plane_helper_prepare_fb(struct drm_plane *plane,
- 				    struct drm_plane_state *state)
- {
--	struct dma_fence *fence = dma_fence_get(state->fence);
-+	struct dma_fence *fence;
- 	enum dma_resv_usage usage;
- 	size_t i;
- 	int ret;
-@@ -122,6 +122,8 @@ int drm_gem_plane_helper_prepare_fb(struct drm_plane *plane,
- 	if (!state->fb)
- 		return 0;
- 
-+	fence = dma_fence_get(state->fence);
-+
- 	/*
- 	 * Only add the kernel fences here if there is already a fence set via
- 	 * explicit fencing interfaces on the atomic ioctl.
-@@ -154,6 +156,7 @@ int drm_gem_plane_helper_prepare_fb(struct drm_plane *plane,
- 			struct dma_fence_chain *chain = dma_fence_chain_alloc();
- 
- 			if (!chain) {
-+				dma_fence_put(new);
- 				ret = -ENOMEM;
- 				goto error;
- 			}
-
-base-commit: 20839d02c0cf7437bc508d4c5430538d9dc4f428
--- 
-2.34.1
-
+Den tirs. 25. aug. 2026 kl. 13.00 skrev David Gow <david@davidgow.net>:
+>
+> Le 24/08/2026 =C3=A0 21:32, Malte Wechter a =C3=A9crit :
+> > add extra assertions for each individual test case, that checks that
+> > both `debug_locks` and `TAINT_WARN` are intact after the test is run.
+> > The assertions are optional behind CONFIG_KUNIT_EXTRA_ASSERTS.
+> >
+> > Signed-off-by: Malte Wechter <maltewechter@gmail.com>
+> > ---
+>
+> Thanks for this.
+>
+> I'd prefer to split this up into two separate changes, one to check for
+> warnings, and one for lockdep issues.
+I agree that this would be better.
+>
+> There's already a patch series to handle lockdep failures here:
+> https://lore.kernel.org/all/20200814205527.1833459-1-urielguajardojr@gmai=
+l.com/
+>
+> It's pretty similar to this, but may have some good ideas in it.
+>
+> As for WARN, we have a new feature which allows individual WARN calls to
+> be expected and ignored. This works by having the WARN() macro directly
+> check if a test is failing. The difference there is that the code only
+> runs if the current thread is part of the test (so it wouldn't be
+> affected by a WARN() in another, non-test thread). There are advantages
+> and disadvantages to this, but it's probably sensible to be consistent he=
+re.
+>
+> Take a look at this for more details on how it works:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
+/?id=3D85347718ab0dd7ede9c3e1dcff2d604c7073df05
+>
+> (That being said, the current implementation does seem to work pretty
+> well even with the backtrace suppression, so continuing to use this
+> implementation is not necessarily a dealbreaker.)
+>
+> Finally, I'd appreciate there being some more documentation of this, if
+> possible. In particular, it'd be nice to extend the KUnit documentation
+> in Documentation/dev-tools/kunit to mention this and provide some
+> examples of how to enable it. In particular, it'd be good to have an
+> example kunit.py invocation which enables lockdep, e.g.
+> ./tools/testing/kunit/kunit.py run --kconfig_add
+> CONFIG_KUNIT_EXTRA_ASSERTS=3Dy --kconfig_add CONFIG_PROVE_LOCKING=3Dy
+> --kconfig_add CONFIG_DEBUG_KERNEL=3Dy
+Will do!
+>
+> Thanks again for looking into this!
+>
+> Cheers,
+> -- David
+>
+>
+> >   lib/kunit/Kconfig     | 12 ++++++++++++
+> >   lib/kunit/try-catch.c | 23 ++++++++++++++++++++++-
+> >   2 files changed, 34 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/lib/kunit/Kconfig b/lib/kunit/Kconfig
+> > index 94ff8e4089bfb..38801f7493669 100644
+> > --- a/lib/kunit/Kconfig
+> > +++ b/lib/kunit/Kconfig
+> > @@ -142,4 +142,16 @@ config KUNIT_UML_PCI
+> >
+> >         If unsure, say N.
+> >
+> > +config KUNIT_EXTRA_ASSERTS
+> > +     bool "Enable extra assertions in KUnit tests"
+> > +     depends on LOCKDEP
+> > +     default n
+> > +     help
+> > +             Enables all extra assertions for KUnit which includes ass=
+erting `TAINT_WARN` and
+> > +             `debug_locks` from lockdep. A KUnit test suite (and test =
+case) is inserted
+> > +             at the start of all KUnit test suites. This makes asserti=
+ons prior to running any
+> > +             tests, as a pre-test integrity check. Assertions are made=
+ after each test case which
+> > +             asserts that each test case did not trigger either `TAINT=
+_WARN` or `debug_locks`.
+> > +
+> > +             If unsure, say N.
+>
+> A few notes here:
+> - I'd rather have the taint/warn and lockdep assertions separate here.
+> - A more descriptive name than "EXTRA_ASSERTS" would be nice. Perhaps
+> something like KUNIT_FAIL_TEST_ON_WARN / KUNIT_FAIL_ON_LOCKDEP or similar=
+?
+>
+> >   endif # KUNIT
+> > diff --git a/lib/kunit/try-catch.c b/lib/kunit/try-catch.c
+> > index d84a879f0a789..7eea3af4c9671 100644
+> > --- a/lib/kunit/try-catch.c
+> > +++ b/lib/kunit/try-catch.c
+> > @@ -41,6 +41,11 @@ void kunit_try_catch_run(struct kunit_try_catch *try=
+_catch, void *context)
+> >       struct completion *task_done;
+> >       int exit_code, time_remaining;
+> >
+> > +     #ifdef CONFIG_KUNIT_EXTRA_ASSERTS
+> > +     int debug_locks_snapshot =3D debug_locks;
+> > +     int tainted_warn_snapshot =3D test_taint(TAINT_WARN);
+> > +     #endif
+>
+> Nit: Let's keep the preprocessor #ifdef/#endif lines un-indented here.
+>
+> > +
+> >       try_catch->context =3D context;
+> >       try_catch->try_result =3D 0;
+> >       task_struct =3D kthread_create(kunit_generic_run_threadfn_adapter=
+,
+> > @@ -70,7 +75,23 @@ void kunit_try_catch_run(struct kunit_try_catch *try=
+_catch, void *context)
+> >       put_task_struct(task_struct);
+> >       exit_code =3D try_catch->try_result;
+> >
+> > -     if (!exit_code)
+> > +     #ifdef CONFIG_KUNIT_EXTRA_ASSERTS
+> > +     bool extra_assert =3D false;
+>
+> Please define all variables at the top of the function / scope.
+>
+> That being said, we don't need this extra_assert variable at all if you
+> move the setting of try_result above moving it to exit_code above?
+>
+> > +
+> > +     if (debug_locks_snapshot !=3D debug_locks && !exit_code) {
+> > +             extra_assert =3D true;
+> > +             try_catch->try_result =3D -EDEADLK;
+>
+> Why are we setting this, and then never handling it?
+>
+> > +             kunit_err(test, "Test triggered lockdep\n");
+> > +     } else if (tainted_warn_snapshot !=3D test_taint(TAINT_WARN) && !=
+exit_code) {
+> > +             extra_assert =3D true;
+> > +             try_catch->try_result =3D -EDEADLK;
+>
+> -EDEADLK made sense for the lockdep implementation, but makes less sense
+> for WARN(). If you really want to keep it, please document it.
+>
+> That being said, it should be possible to do this outside of the
+> try/catch scope, as both lockdep and taints are global. And if you fail
+> the test using the hook mechanism (like the warning suppression does),
+> you won't need a separate check afterwards.
+I believe that installing two additional hooks (one for lockdep and
+one for warn, possibly a third for the initial suite check) is a
+cleaner approach. I
+will move the assertion logic into KUnit hooks instead of having it
+inside of the try_catch_run.
+>
+> > +             kunit_err(test, "Test tainted kernel with TAINT_WARN\n");
+> > +     }
+> > +     #else
+> > +     bool extra_assert =3D false;
+>
+> If we declare this unconditionally at the top of the function, there's
+> no need to have it in an #ifdef.
+>
+> > +     #endif
+> > +
+> > +     if (!exit_code && !extra_assert)
+> >               return;
+> >
+> >       if (exit_code =3D=3D -EFAULT)
+> >
+>
+Best regards,
+Malte :)
