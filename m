@@ -1,218 +1,740 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE1543C4B91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432F33D1CAF
 	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:54:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788267254; cv=pass; b=RUHGrfaJRY9Svx3oxVNVBRPdyT5y6nbYqgRLWhGk7X8KYWsBqIByhH8M/y98R0lh/aPv8wp9xKZ3SAyGe6LbCzsnoKTCNcZti4C+DxBNJsFYtMfCLo5oCUvfZii7bGy5lXag9KrT1lsNurneBnGT1wFdxbvgQ2oyIhuaZLtzfkU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788267254; cv=none; b=aqc2jIpKs92QjxZZ6LQ9JQ3r6e5zL7qg1INXhywfrdFGQuDb8W6pF/Rxs9DHJBEFKmUXDyuoGFbk20XDJwBtp5PIlQYAkk36HLTzyBGfoLgxgo1Q+9BR8YapeGVD6hJxsTsck+XQ5yCU+7Hh4TPGq/hqXV2hvzxjT6e/UHWC7jw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788267254; c=relaxed/simple;
-	bh=5ox2ct2yboHyEver6vM5hxy9diHibI+8bx6OOjEZObc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hA7GRWhicKCnF//x2C29B7pKQQt9Pvf2cS4IZCdDA2K5Yu1FCVBc1zplcHnIGZJwkCIPWGg9e1sKhUqc+ot9R2R9kTwCxjw7//Tj1mH1dMwVjRHAN5u9BSwneV3IgYYK5nwYveYA9/4aiORYfHxaUsy9OIgpLbUllcvneXNwvvA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bD9TCcJ3; arc=pass smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=uxW5j4A6X52FZbh8lJl8gie5IiK5qhRUh36oA7KEFoU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=O0CHNW6pvmOc5gqEgopBN8In55+Tc0AG36ytkIGap4Ed2XxH9dR728yXmS70O82mpgd5WkVbVYtDla17rt5JWTOUDUEM/DTsIp2Ie532YHcTk1Q9C9hvz0tiQ8POkUTC1Y42WhymDLTZlMygYHgW4s3r7+DwD1tiHFnzgWAW6/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=nm8Ts0le; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bD9TCcJ3"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a051b737d8so949213a12.1
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="nm8Ts0le"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d5cad1a6baso45159035ad.3
         for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:54:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788267249; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eN6EHMG31Ok8y5ATUxbhSB5EYhYG8TPU1pDzCw1cQeC5MNeO8NEwoxbdfnB75Bj/9m
-         suZ1iv/YEyW9jUZS/jzPfxX3muxPKXllrrg5/GMv6Un3Bxybpuntg7qAFF8Nz+0lvPPQ
-         dWbkWcmTeyyfUf12Xb5XVBxa/XxOvo0qnfH5v1LBjbPekk8CejCy72iLVKxVJbX8NXAb
-         U595ikM4dtt76WnaWUVJsRUbc6sfCQEh7C7s885t4yKKleYjrSTg9QL9KDPpzd8dFIct
-         kdmpaQ0YvOluEVgWiQT+kHrJKe5ApRCjlLjaFDyk+k5HYJj7XfGHtUzPncsqAOMiriIc
-         qzNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RPgzm55fAw2ptYf8Sl/ajhFPBiEwWjWRkzAJIcml568=;
-        fh=XH96SMq23FPctBfih2a+qcECTuEP2CEttSjpc8R1EkA=;
-        b=msdmCWgN2jbCIYVITbLMVTfq+t6aK68Ydgshl8Kdq+mnwocm8NhDit+/fifETHYeLB
-         YluF+givVn4yZqe0RbscG6wg6fCjLkaA5jwt8gnAYsc0BK6neYt6gl2MLf4w1T1lo4gg
-         /VqUr9zjwWx8ZMLzFSiW6WQBiTlOkEVnm2ai4GIoP6JqijPi2yE0PgUHKV9/Ik8tgwnl
-         5xI+Wecyu0UzaU27Ha6ui8+9Y8SziyIpDDA31msQgtsYqHjjg4y5q3/VlcUmFKv00gYj
-         TYY7sKK78VhMo1tiZZKF5o3j9KPr4RDYETsZ6JG9Oyh4yDjOr9pNNr2S5adlrVIfMhUL
-         Uh1w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788267249; x=1788872049; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RPgzm55fAw2ptYf8Sl/ajhFPBiEwWjWRkzAJIcml568=;
-        b=bD9TCcJ3u7W6mCldzDKZcLCPvFTU0KwDPGVEPf1wzQJk++ZXgiqU16pHHRKJabWjNc
-         9Ka6pQDiMUGr6ZIPVk053313qdsDEplJsSaOXK+18ZAiIs+CgqclhNdkZdZ1/uewtkyo
-         ndteRQ3hRLj8B0f+X8Wxqiu4mLxyW1BRYOtDonGy9umHn6uKyYFJz+BVjVVJRHkPB9Xt
-         xOVHe+SVEzhfn0XLIl/eTMyRGTp6KK7RVdoKUZKizv75+s3qca0Zm7Me2xWo7bZrX4NE
-         nuST78PLWVAfl08ICYd1KT2KbBJa84jufAleuMzPZBiuQ/BKvhm73HJz/UqXOJu3LZ/m
-         MqyA==
+        d=nebusec.ai; s=google; t=1788267250; x=1788872050; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7mMZ1zbpoXdqJJAf+iyw7TfdMbYoOVSHzzCFK3nTdQs=;
+        b=nm8Ts0lefFlv+99h2jheV7ZjB2ZtHg3LM0w1R+sY8tPB/cQiFMK1imLo+REbt//h80
+         0aleCpfCRZMmhx9JuPZyeRhHBFvLTrK8QcguBSgW1ZuLPEwXT9J1CIzyYocZXVv8DTo6
+         NR60Lru0tRQKb7fvMJibw2FzFn6EwveF4pXp1Wfip4huPxLN1+1bDg9RxbghreOPRqh9
+         BcfCZ02BUhu/gW7vfD1yscyuq8GSIcy8lG0BsE8pfeLn6nobW77bScwf2CUjeV0wmVi8
+         2+spNnDyjbSGl4ptZneRL62BwrfhktRHZaiUFh6d5fQW1+0M75jUeFsa9lXmgo+1nwii
+         srZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788267249; x=1788872049;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RPgzm55fAw2ptYf8Sl/ajhFPBiEwWjWRkzAJIcml568=;
-        b=HDPt9xlZ+2MeAGqlyQQmFHmLebNKZZycM2iv4cIKgsagXSLn3mxr40CVokjKJRqf+d
-         bMUDdi/Mtwc2jlPJMZ/uNtM5AA1yOLb/E3iC8ZlQG9BiMCCgzxrtdYmRBeVtY0HmLgX5
-         Ody0DcvcsVQm3vCtFAQmaZpXhZesJSIQ0s1n6dtieuGQQEOpNwwJ765RYFTlgKsseWco
-         ko9LJc939vEK2JE9+WDiWZaMN832oiyo9zAYMdLII/f98Wr+jHkgq7BSdLvdbeNaV9N8
-         Rob/NnMcZhKxp8m4WE08gRLQP5JHv1BwKQYoar93rmtLwcNxTU94nz8r7i8ycjflxakr
-         UdQA==
-X-Forwarded-Encrypted: i=1; AKwUvBzO0qGsC469zqJIoPC0ebZJu6HXSS+Pe9fzkJeO9vg8lVF2p6yKZbsrML+PCNL7l4twdq810PiDWASeVx8=@vger.kernel.org
-X-Gm-Message-State: AFuF++loSZ4LOfm1ips3gKO/Nc0dSRjxX4DbKcQNVkIyPHGHNgitTjdd
-	EmawKysqMJ/DMSeGBaCdVoVaRbjlZRfufV7WltWofC1w5kvpEwgwYCF9kDprwmAUHsrMG1k/K1J
-	fnHmezwy+Qc8954/ztVLjuDWnsCVXZBY=
-X-Gm-Gg: AYBFou3w+7XR8uBYSg0yTLQEJCi6cyymbLaIu42k77pRm3TF/5zbTjjsoexcAeBIHDx
-	eyB0DzxGcXNWqM6UJGvZJ3mK1DfnrtOgSOwAG3qQq8aEalN9DvnyUi9bMp37oMm2sFE4PEvbEWM
-	qtypKp04dTPqWpPrGUoskgFD8pBQloo5+52z+y2V3kPZ67cC8DcEuDrLA6O6DkLNFwHfF4VI4YO
-	RPtn7loXL86VRCzA1hgZiUHAp6yEPqSl/Zo/4CfIU41bRP1a8k4aaIjPmvB3yd46S25nmx4qdnq
-	4MJN0hRMweMW/JXIhafei9ZbbDVcPjFGGHQ4eNE0yye/USgcPhf3kAj1n8E=
-X-Received: by 2002:a05:6402:24d9:b0:6a5:f9ab:bdfd with SMTP id
- 4fb4d7f45d1cf-6a60d15f4c5mr16070508a12.0.1788267248852; Tue, 01 Sep 2026
- 05:54:08 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788267250; x=1788872050;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7mMZ1zbpoXdqJJAf+iyw7TfdMbYoOVSHzzCFK3nTdQs=;
+        b=flMUET77pwvN6z+sfi4mhvrz+EX0BLc2fPa1MqJ8Dg6aRx4dH5iiPQmolaZSwat/uy
+         fVfkN6P0kVHj511jGJ7VyLeWT79RNymV8pb+LMA0KAnfKVQkStfP66T87bi+6J+Ryv6i
+         OXi5Gbv6VcYzmNhTjGgWJwHcBDSz6pzdDEwJzjCzoF00foGc2+uzBI1p4ldcwM7euAaJ
+         IeFXada58Sr3jGwMEtIUDA3WIPSr1pM30n9q/EY0hToyQZ9GvbqeGH5Kt+WXlsxPzPdg
+         34vCQIMvGdFw+y2Y/I5glCzjoNEt2F+8WgE4Mr61okg7PEc5j31oeDWUlql3vtgiQLgr
+         zIMw==
+X-Forwarded-Encrypted: i=1; AKwUvBxdIYJtV/+wxL6ZASecMTHVSH6X5XCQyXxsAPNVA/L2BcwKT37VOOACHa7JFCh6l2CFTgMMATCPlejXO14=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxe4YtfCxg4TLql3bbqPt1UPFA6gk6GTot/0u3tszlZAjCGIux
+	IAKoypcGWirk2nkmJl1vvMHuzEpfVISD9U8s/+sKh45zpyxm/ApNyC8oFQAfanWRZkPl
+X-Gm-Gg: AYBFou12NK9kcuhdZ8QZjGVa0RNMEjDb6Pq/8ZUzUXbRAfxukmfNG7ZeYhJKwt4+wvz
+	kT7cJR8OJ5AhNKxI28P++82bJARwB2jF3eWlWzozgI/YQN64WuFEoCyJKmH9Gt/Ioipu995GpPk
+	9mYai+IPv0jYHv8P+cTz152E8eK+or9IbvWujggaglOk/F9rUwhigE3bpFolAPxKMlZNsPH2pOM
+	SkQEFWSOfP1uzTBC7bh1ySflOHEgioNkSXQyifVmXt+6E/0Mx3WRgWKQA0Yj2XT2BojTHvBBKsD
+	m+6m9RQGTFPISh8qLwTI1SSVJfJBJvCTGqEg6g4SpXM2liTsHi66HB+foV1ykOgxTmIKrEFXEwj
+	xuxWcs+RSjWjXiVS6KIFbMH3ekNOF5Lm6K9pCQYVwFopod92Q8HALklgQM0Yb4Xg0EMkHrf8czw
+	1S7ozIGXO9KQs9aEu6dQ91cssZ4XcqvZXurcz5d60M+dAxPvPC2DTlUqHuXbVBfMOOY+Aa9f/0D
+	ge1bEWqUDV00db0MFs=
+X-Received: by 2002:a17:902:d98c:b0:2d9:3083:a3ac with SMTP id d9443c01a7336-2d94a8fb674mr113217995ad.15.1788267250206;
+        Tue, 01 Sep 2026 05:54:10 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d759869c96sm51184175ad.40.2026.09.01.05.54.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 05:54:09 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netdev@vger.kernel.org
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	linux-kernel@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Guillaume Nault <gnault@redhat.com>,
+	Florian Westphal <fw@strlen.de>,
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>
+Subject: [PATCH net v2 1/2] tcp: diag: bound bucket lock hold in tcp_diag_dump()
+Date: Tue,  1 Sep 2026 12:53:46 +0000
+Message-ID: <cdc628415cf10721480a51ce14837f846ec778c2.1788248601.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1788248601.git.zihanx@nebusec.ai>
+References: <cover.1788248601.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260810122758.183765-1-puranjay@kernel.org> <20260810122758.183765-2-puranjay@kernel.org>
- <20260826144636.3IRUXeFV@linutronix.de>
-In-Reply-To: <20260826144636.3IRUXeFV@linutronix.de>
-From: Puranjay Mohan <puranjay12@gmail.com>
-Date: Tue, 1 Sep 2026 14:53:56 +0200
-X-Gm-Features: AcwNN1VMVsqA5TbOoGtCimTix5w0rFzm4VjPnSAE7cacecLqde7MaGCaDPITNHM
-Message-ID: <CANk7y0hbwXL7nBDgjTgrneBejEgGrsZnc02RztG-aSBEEvAcwQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/6] rcu: Make call_rcu() safe to call from any context
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
-	Josh Triplett <josh@joshtriplett.org>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Frederic Weisbecker <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
-	Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, Davidlohr Bueso <dave@stgolabs.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Zqiang <qiang.zhang@linux.dev>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Matt Fleming <mfleming@cloudflare.com>, 
-	"Harry Yoo (Oracle)" <harry@kernel.org>, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 3:46=E2=80=AFPM Sebastian Andrzej Siewior
-<bigeasy@linutronix.de> wrote:
->
-> On 2026-08-10 05:27:50 [-0700], Puranjay Mohan wrote:
-> > --- a/kernel/rcu/rcu.h
-> > +++ b/kernel/rcu/rcu.h
-> > @@ -572,6 +572,17 @@ static inline void tasks_cblist_init_generic(void)=
- { }
-> >  #define RCU_SCHEDULER_INIT   1
-> >  #define RCU_SCHEDULER_RUNNING        2
-> >
-> > +/*
-> > + * Defer whenever interrupts are disabled, since a callback-list opera=
-tion may
-> > + * be in flight on this CPU.  Not before the scheduler is up: irq_work=
- is not
-> > + * usable that early, and rcu_init() itself calls call_rcu().
-> > + */
-> > +static inline bool should_rcu_defer(void)
-> > +{
-> > +     return IS_ENABLED(CONFIG_RCU_DEFER) && irqs_disabled() &&
-> > +            rcu_scheduler_active !=3D RCU_SCHEDULER_INACTIVE;
-> > +}
->
-> Why does the description say that the defer part is for usage from NMI
-> and the test here has irqs_disabled() instead of in_nmi()?
+inet_diag dumps run request-supplied bytecode through inet_diag_bc_sk().
+tcp_diag_dump() currently evaluates socket filters and fills replies while
+holding the listener, bind, and ehash bucket locks.
 
-We defer for both irq disabled sections, hard irq, and in_nmi() and
-checking for irqs_disabled() covers all three.
+The time spent under a bucket lock can therefore grow with the number of
+sockets visited and with per-socket dump work. This defeats the intended
+bounded nature of the bucket walk and can cause excessive lock hold times.
 
->
-> > +
-> >  enum rcutorture_type {
-> >       RCU_FLAVOR,
-> >       RCU_TASKS_FLAVOR,
-> > diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
-> > index 21b6ce1dffb63..3bf3a250f9de8 100644
-> > --- a/kernel/rcu/tree.c
-> > +++ b/kernel/rcu/tree.c
-> > @@ -3206,6 +3204,103 @@ __call_rcu_common(struct rcu_head *head, rcu_ca=
-llback_t func, bool lazy_in)
-> >       local_irq_restore(flags);
-> >  }
-> >
-> > +/*
-> > + * Re-issue deferred callbacks straight to the enqueue so they cannot =
-defer
-> > + * again.  ->defer_lock serializes the drainers: this CPU's irq_work,
-> > + * rcu_defer_flush() and rcutree_migrate_callbacks().
-> > + */
-> > +static void __rcu_defer_drain(struct rcu_data *rdp)
-> > +{
-> > +     struct llist_node *node, *next;
-> > +     unsigned long flags;
-> > +
-> > +     if (!IS_ENABLED(CONFIG_RCU_DEFER))
-> > +             return;
-> > +
-> > +     raw_spin_lock_irqsave(&rdp->defer_lock, flags);
-> > +     llist_for_each_safe(node, next, llist_del_all(&rdp->defer_head)) =
-{
-> > +             struct rcu_head *head =3D (struct rcu_head *)node;
->
-> Why do you need the lock. This is still not clear to me despite the
-> comment. You can do llist_del_all() towards another list and then feed
-> it into rcu_do_enqueue() one by one. And you use the LAZY part.
+Fix this by collecting only referenced sockets while holding each bucket
+lock. Move the filtering, bytecode evaluation, and fill work out of the
+critical section, and keep a referenced dump cursor so each subsequent
+batch resumes after the previous socket instead of rescanning the bucket
+head. Validate a cursor against the current listener, bind, or ehash
+bucket, and against the table implied by sk_state, before resuming from
+it. Bind collection counts TIME_WAIT nodes toward the batch limit and
+resumes them via tw_tb2.
 
-Because rcu_barrier() can call this for each cpu and at the same time
-rcu_defer_drain() can call it too, so this would cause a race where
-the irq work can remove the callbacks (llist_del_all) and before it
-can enqueue them, rcu_barrier will see that the list is already empty
-and will not wait for these callbacks. We want the llist_del_all() and
-rcu_do_enqueue() to happen atomically so rcu_barrier() can work
-correctly.
+Fixes: 5caea4ea7088 ("net: listening_hash get a spinlock per bucket")
+Fixes: 91051f003948 ("tcp: Dump bound-only sockets in inet_diag.")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: Codex:gpt-5.4
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+---
+changes in v2:
+  - Rebased onto net commit e2a6641e3bfd (2026-08-27).
+  - Added current-bucket cursor validation for listener, bind, and ehash
+    paths, with safe restart on mismatch.
+  - Reject listen/ehash cursors unless sk_state still matches the table
+    being walked, so a reused sk_nulls_node cannot continue under the
+    wrong bucket lock.
+  - Count TIME_WAIT bind nodes toward SKARR_SZ and resume them via tw_tb2
+    instead of skipping them under the bind lock.
+  - Kept listener and bound-only Fixes tags; dropped 7e3aab4a9cd7 because
+    that commit only converted the existing ehash dump lock type.
+  - Sorted new listen/bind/ehash local declarations reverse xmas tree.
+  - Left INET_DIAG_DUMP_CURSOR_MPTCP_LISTEN to the MPTCP patch.
+  - Moved SKARR_SZ comment off "bh disabled" and aligned the ehash cursor
+    continuation indent.
+  - Refreshed the reviewed PoC and decoded crash-log artifacts.
+  - v1 Link: https://lore.kernel.org/all/cover.1785307984.git.zihanx@nebusec.ai/
 
->
-> > +
-> > +             /* Bounds a node self-linked by a double call_rcu(). */
-> > +             head->next =3D NULL;
-> > +             rcu_do_enqueue(head, head->func, false);
-> > +     }
-> > +     raw_spin_unlock_irqrestore(&rdp->defer_lock, flags);
-> > +}
-> =E2=80=A6
-> > @@ -4231,6 +4330,9 @@ rcu_boot_init_percpu_data(int cpu)
-> >       rdp->rcu_onl_gp_state =3D RCU_GP_CLEANED;
-> >       rdp->last_sched_clock =3D jiffies;
-> >       rdp->cpu =3D cpu;
-> > +     init_llist_head(&rdp->defer_head);
-> > +     raw_spin_lock_init(&rdp->defer_lock);
-> > +     rdp->defer_work =3D IRQ_WORK_INIT_HARD(rcu_defer_drain);
->
-> Why is this IRQ_WORK_INIT_HARD() instead, say, IRQ_WORK_INIT_LAZY()? Is
-> there a requirement that the RCU callback needs to complete asap and not
-> be delayed to the next tick? This would give kind of the LAZY part.
->
+ include/linux/inet_diag.h     |  14 ++
+ include/net/inet_hashtables.h |  18 ++
+ net/ipv4/inet_diag.c          |  13 ++
+ net/ipv4/inet_hashtables.c    |  18 --
+ net/ipv4/tcp_diag.c           | 338 +++++++++++++++++++++++++---------
+ 5 files changed, 294 insertions(+), 107 deletions(-)
 
-In discussions with Paul, we concluded that we need HARD because in
-low memory situations delaying rcu callbacks can be problematic. Given
-that we are already deferring the callbacks, it would be nice to have
-them enqueued asap. But if there are downsides to this we may change
-it later.
+diff --git a/include/linux/inet_diag.h b/include/linux/inet_diag.h
+index 704fd415c2b4..6ccd32bc48f9 100644
+--- a/include/linux/inet_diag.h
++++ b/include/linux/inet_diag.h
+@@ -6,6 +6,7 @@
+ #include <uapi/linux/inet_diag.h>
+ 
+ struct inet_hashinfo;
++struct sock;
+ 
+ struct inet_diag_handler {
+ 	struct module	*owner;
+@@ -32,12 +33,23 @@ struct inet_diag_handler {
+ };
+ 
+ struct bpf_sk_storage_diag;
++
++enum inet_diag_dump_cursor_type {
++	INET_DIAG_DUMP_CURSOR_NONE,
++	INET_DIAG_DUMP_CURSOR_TCP_LISTEN,
++	INET_DIAG_DUMP_CURSOR_TCP_BIND,
++	INET_DIAG_DUMP_CURSOR_TCP_EHASH,
++};
++
+ struct inet_diag_dump_data {
+ 	struct nlattr *req_nlas[__INET_DIAG_REQ_MAX];
+ #define inet_diag_nla_bc req_nlas[INET_DIAG_REQ_BYTECODE]
+ #define inet_diag_nla_bpf_stgs req_nlas[INET_DIAG_REQ_SK_BPF_STORAGES]
+ 
+ 	struct bpf_sk_storage_diag *bpf_stg_diag;
++	struct sock *dump_cursor;
++	unsigned int dump_cursor_slot;
++	u8 dump_cursor_type;
+ 	bool mark_needed;	/* INET_DIAG_BC_MARK_COND present. */
+ #ifdef CONFIG_SOCK_CGROUP_DATA
+ 	bool cgroup_needed;	/* INET_DIAG_BC_CGROUP_COND present. */
+@@ -53,6 +65,8 @@ int inet_sk_diag_fill(struct sock *sk, struct inet_connection_sock *icsk,
+ 
+ int inet_diag_bc_sk(const struct inet_diag_dump_data *cb_data, struct sock *sk);
+ 
++void inet_diag_dump_clear_cursor(struct inet_diag_dump_data *cb_data);
++
+ void inet_diag_msg_common_fill(struct inet_diag_msg *r, struct sock *sk);
+ 
+ static inline size_t inet_diag_msg_attrs_size(void)
+diff --git a/include/net/inet_hashtables.h b/include/net/inet_hashtables.h
+index 6e2fe186d0dc..d95639ac70c6 100644
+--- a/include/net/inet_hashtables.h
++++ b/include/net/inet_hashtables.h
+@@ -188,6 +188,24 @@ inet_lhash2_bucket(struct inet_hashinfo *h, u32 hash)
+ 	return &h->lhash2[hash & h->lhash2_mask];
+ }
+ 
++static inline struct inet_listen_hashbucket *
++inet_lhash2_bucket_sk(struct inet_hashinfo *h, struct sock *sk)
++{
++	u32 hash;
++
++#if IS_ENABLED(CONFIG_IPV6)
++	if (sk->sk_family == AF_INET6)
++		hash = ipv6_portaddr_hash(sock_net(sk),
++					  &sk->sk_v6_rcv_saddr,
++					  inet_sk(sk)->inet_num);
++	else
++#endif
++		hash = ipv4_portaddr_hash(sock_net(sk),
++					  inet_sk(sk)->inet_rcv_saddr,
++					  inet_sk(sk)->inet_num);
++	return inet_lhash2_bucket(h, hash);
++}
++
+ static inline struct inet_ehash_bucket *inet_ehash_bucket(
+ 	struct inet_hashinfo *hashinfo,
+ 	unsigned int hash)
+diff --git a/net/ipv4/inet_diag.c b/net/ipv4/inet_diag.c
+index 34b77aa87d0a..41148e880054 100644
+--- a/net/ipv4/inet_diag.c
++++ b/net/ipv4/inet_diag.c
+@@ -891,10 +891,23 @@ static int inet_diag_dump_start_compat(struct netlink_callback *cb)
+ 	return __inet_diag_dump_start(cb, sizeof(struct inet_diag_req));
+ }
+ 
++void inet_diag_dump_clear_cursor(struct inet_diag_dump_data *cb_data)
++{
++	if (!cb_data->dump_cursor)
++		return;
++
++	sock_gen_put(cb_data->dump_cursor);
++	cb_data->dump_cursor = NULL;
++	cb_data->dump_cursor_slot = 0;
++	cb_data->dump_cursor_type = INET_DIAG_DUMP_CURSOR_NONE;
++}
++EXPORT_SYMBOL_GPL(inet_diag_dump_clear_cursor);
++
+ static int inet_diag_dump_done(struct netlink_callback *cb)
+ {
+ 	struct inet_diag_dump_data *cb_data = cb->data;
+ 
++	inet_diag_dump_clear_cursor(cb_data);
+ 	bpf_sk_storage_diag_free(cb_data->bpf_stg_diag);
+ 	kfree(cb->data);
+ 
+diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
+index ba0faa9ae2bb..1c839fe3d7e0 100644
+--- a/net/ipv4/inet_hashtables.c
++++ b/net/ipv4/inet_hashtables.c
+@@ -331,24 +331,6 @@ int __inet_inherit_port(const struct sock *sk, struct sock *child)
+ 	return -ENOMEM;
+ }
+ 
+-static struct inet_listen_hashbucket *
+-inet_lhash2_bucket_sk(struct inet_hashinfo *h, struct sock *sk)
+-{
+-	u32 hash;
+-
+-#if IS_ENABLED(CONFIG_IPV6)
+-	if (sk->sk_family == AF_INET6)
+-		hash = ipv6_portaddr_hash(sock_net(sk),
+-					  &sk->sk_v6_rcv_saddr,
+-					  inet_sk(sk)->inet_num);
+-	else
+-#endif
+-		hash = ipv4_portaddr_hash(sock_net(sk),
+-					  inet_sk(sk)->inet_rcv_saddr,
+-					  inet_sk(sk)->inet_num);
+-	return inet_lhash2_bucket(h, hash);
+-}
+-
+ static inline int compute_score(struct sock *sk, const struct net *net,
+ 				const unsigned short hnum, const __be32 daddr,
+ 				const int dif, const int sdif)
+diff --git a/net/ipv4/tcp_diag.c b/net/ipv4/tcp_diag.c
+index ba1fdbe9807f..842e13ee79e5 100644
+--- a/net/ipv4/tcp_diag.c
++++ b/net/ipv4/tcp_diag.c
+@@ -285,6 +285,73 @@ static int sk_diag_fill(struct sock *sk, struct sk_buff *skb,
+ 				 net_admin);
+ }
+ 
++/* Process a maximum of SKARR_SZ sockets at a time when walking hash buckets
++ * while holding a bucket lock.
++ */
++#define SKARR_SZ 16
++
++static void tcp_diag_save_cursor(struct inet_diag_dump_data *cb_data, int type,
++				 unsigned int slot, struct sock *sk)
++{
++	sock_hold(sk);
++	inet_diag_dump_clear_cursor(cb_data);
++	cb_data->dump_cursor = sk;
++	cb_data->dump_cursor_slot = slot;
++	cb_data->dump_cursor_type = type;
++}
++
++static struct inet_bind2_bucket *tcp_diag_sk_bind2(const struct sock *sk)
++{
++	if (sk->sk_state == TCP_TIME_WAIT)
++		return inet_twsk(sk)->tw_tb2;
++
++	return inet_csk(sk)->icsk_bind2_hash;
++}
++
++static bool tcp_diag_bind_collect_sock(struct sock *sk, struct sock **sk_arr,
++				       int *num_arr, int *accum, int num)
++{
++	sock_hold(sk);
++	num_arr[*accum] = num;
++	sk_arr[*accum] = sk;
++
++	return ++*accum == SKARR_SZ;
++}
++
++static bool tcp_diag_bind_collect_owners(struct hlist_head *owners,
++					 struct sock **sk_arr, int *num_arr,
++					 int *accum, int *num, int s_num)
++{
++	struct sock *sk;
++
++	sk_for_each_bound(sk, owners) {
++		if (*num < s_num) {
++			(*num)++;
++			continue;
++		}
++
++		if (tcp_diag_bind_collect_sock(sk, sk_arr, num_arr, accum, *num))
++			return true;
++		(*num)++;
++	}
++
++	return false;
++}
++
++static bool tcp_diag_bind_collect_owners_continue(struct sock *sk,
++						  struct sock **sk_arr,
++						  int *num_arr, int *accum,
++						  int *num)
++{
++	hlist_for_each_entry_continue(sk, sk_bind_node) {
++		if (tcp_diag_bind_collect_sock(sk, sk_arr, num_arr, accum, *num))
++			return true;
++		(*num)++;
++	}
++
++	return false;
++}
++
+ static void twsk_build_assert(void)
+ {
+ 	BUILD_BUG_ON(offsetof(struct inet_timewait_sock, tw_family) !=
+@@ -335,8 +402,15 @@ static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
+ 		for (i = s_i; i <= hashinfo->lhash2_mask; i++) {
+ 			struct inet_listen_hashbucket *ilb;
+ 			struct hlist_nulls_node *node;
++			struct sock *sk_arr[SKARR_SZ];
++			int num_arr[SKARR_SZ];
++			struct sock *cursor;
++			int idx, accum, res;
++			bool use_cursor;
+ 
++resume_listen_walk:
+ 			num = 0;
++			accum = 0;
+ 			ilb = &hashinfo->lhash2[i];
+ 
+ 			if (hlist_nulls_empty(&ilb->nulls_head)) {
+@@ -344,52 +418,81 @@ static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
+ 				continue;
+ 			}
+ 			spin_lock(&ilb->lock);
+-			sk_nulls_for_each(sk, node, &ilb->nulls_head) {
+-				struct inet_sock *inet = inet_sk(sk);
++			cursor = cb_data->dump_cursor;
++			use_cursor = cursor &&
++				     cb_data->dump_cursor_type ==
++				     INET_DIAG_DUMP_CURSOR_TCP_LISTEN &&
++				     cb_data->dump_cursor_slot == i &&
++				     inet_sk_state_load(cursor) == TCP_LISTEN &&
++				     !hlist_nulls_unhashed(&cursor->sk_nulls_node) &&
++				     cursor->sk_nulls_node.pprev != LIST_POISON2 &&
++				     inet_lhash2_bucket_sk(hashinfo, cursor) == ilb;
++			node = use_cursor ? cursor->sk_nulls_node.next :
++					    ilb->nulls_head.first;
++			if (!use_cursor)
++				s_num = 0;
++			hlist_nulls_for_each_entry_from(sk, node, sk_nulls_node) {
+ 
+-				if (!net_eq(sock_net(sk), net))
+-					continue;
++				sock_hold(sk);
++				num_arr[accum] = num;
++				sk_arr[accum] = sk;
++				if (++accum == SKARR_SZ)
++					break;
+ 
+-				if (num < s_num) {
+-					num++;
+-					continue;
+-				}
++				++num;
++			}
++			spin_unlock(&ilb->lock);
++
++			res = 0;
++			for (idx = 0; idx < accum; idx++) {
++				struct inet_sock *inet;
++
++				sk = sk_arr[idx];
++				if (!net_eq(sock_net(sk), net))
++					goto processed_listen_sk;
+ 
++				inet = inet_sk(sk);
+ 				if (r->sdiag_family != AF_UNSPEC &&
+ 				    sk->sk_family != r->sdiag_family)
+-					goto next_listen;
++					goto processed_listen_sk;
+ 
+ 				if (r->id.idiag_sport != inet->inet_sport &&
+ 				    r->id.idiag_sport)
+-					goto next_listen;
+-
+-				if (!inet_diag_bc_sk(cb_data, sk))
+-					goto next_listen;
++					goto processed_listen_sk;
+ 
+-				if (inet_sk_diag_fill(sk, inet_csk(sk), skb,
+-						      cb, r, NLM_F_MULTI,
+-						      net_admin) < 0) {
+-					spin_unlock(&ilb->lock);
+-					goto done;
++				if (res >= 0 && inet_diag_bc_sk(cb_data, sk)) {
++					res = inet_sk_diag_fill(sk, inet_csk(sk),
++								skb, cb, r, NLM_F_MULTI,
++								net_admin);
++					if (res < 0)
++						num = num_arr[idx];
+ 				}
++processed_listen_sk:
++				if (res >= 0)
++					tcp_diag_save_cursor(cb_data,
++							     INET_DIAG_DUMP_CURSOR_TCP_LISTEN,
++							     i, sk);
++				sock_put(sk);
++			}
++			if (res < 0)
++				goto done;
+ 
+-next_listen:
+-				++num;
++			cond_resched();
++
++			if (accum == SKARR_SZ) {
++				s_num = 0;
++				goto resume_listen_walk;
+ 			}
+-			spin_unlock(&ilb->lock);
+ 
++			inet_diag_dump_clear_cursor(cb_data);
+ 			s_num = 0;
+ 		}
+ skip_listen_ht:
++		inet_diag_dump_clear_cursor(cb_data);
+ 		cb->args[0] = 1;
+ 		s_i = num = s_num = 0;
+ 	}
+ 
+-/* Process a maximum of SKARR_SZ sockets at a time when walking hash buckets
+- * with bh disabled.
+- */
+-#define SKARR_SZ 16
+-
+ 	/* Dump bound but inactive (not listening, connecting, etc.) sockets */
+ 	if (cb->args[0] == 1) {
+ 		if (!(idiag_states & TCPF_BOUND_INACTIVE))
+@@ -400,7 +503,9 @@ static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
+ 			struct inet_bind2_bucket *tb2;
+ 			struct sock *sk_arr[SKARR_SZ];
+ 			int num_arr[SKARR_SZ];
++			struct sock *cursor;
+ 			int idx, accum, res;
++			bool use_cursor;
+ 
+ resume_bind_walk:
+ 			num = 0;
+@@ -412,34 +517,46 @@ static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
+ 				continue;
+ 			}
+ 			spin_lock_bh(&ibb->lock);
+-			inet_bind_bucket_for_each(tb2, &ibb->chain) {
+-				if (!net_eq(ib2_net(tb2), net))
+-					continue;
+-
+-				sk_for_each_bound(sk, &tb2->owners) {
+-					struct inet_sock *inet = inet_sk(sk);
+-
+-					if (num < s_num)
+-						goto next_bind;
+-
+-					if (sk->sk_state != TCP_CLOSE ||
+-					    !inet->inet_num)
+-						goto next_bind;
+-
+-					if (r->sdiag_family != AF_UNSPEC &&
+-					    r->sdiag_family != sk->sk_family)
+-						goto next_bind;
+-
+-					if (!inet_diag_bc_sk(cb_data, sk))
+-						goto next_bind;
+-
+-					sock_hold(sk);
+-					num_arr[accum] = num;
+-					sk_arr[accum] = sk;
+-					if (++accum == SKARR_SZ)
++			cursor = cb_data->dump_cursor;
++			use_cursor = cursor &&
++				     cb_data->dump_cursor_type ==
++				     INET_DIAG_DUMP_CURSOR_TCP_BIND &&
++				     cb_data->dump_cursor_slot == i &&
++				     !hlist_unhashed(&cursor->sk_bind_node) &&
++				     cursor->sk_bind_node.pprev != LIST_POISON2;
++			if (use_cursor) {
++				tb2 = tcp_diag_sk_bind2(cursor);
++				use_cursor = tb2 &&
++					     inet_bhashfn_portaddr(hashinfo, cursor,
++								   sock_net(cursor),
++								   inet_sk(cursor)->inet_num) ==
++					     ibb;
++			}
++			if (!use_cursor)
++				s_num = 0;
++			if (use_cursor) {
++				sk = cursor;
++				if (tcp_diag_bind_collect_owners_continue(sk, sk_arr,
++									  num_arr,
++									  &accum,
++									  &num))
++					goto pause_bind_walk;
++				hlist_for_each_entry_continue(tb2, node) {
++					if (tcp_diag_bind_collect_owners(&tb2->owners,
++									 sk_arr,
++									 num_arr,
++									 &accum,
++									 &num, 0))
++						goto pause_bind_walk;
++				}
++			} else {
++				inet_bind_bucket_for_each(tb2, &ibb->chain) {
++					if (tcp_diag_bind_collect_owners(&tb2->owners,
++									 sk_arr,
++									 num_arr,
++									 &accum,
++									 &num, s_num))
+ 						goto pause_bind_walk;
+-next_bind:
+-					num++;
+ 				}
+ 			}
+ pause_bind_walk:
+@@ -447,15 +564,33 @@ static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
+ 
+ 			res = 0;
+ 			for (idx = 0; idx < accum; idx++) {
+-				if (res >= 0) {
+-					res = inet_sk_diag_fill(sk_arr[idx],
+-								NULL, skb, cb,
++				struct inet_sock *inet;
++
++				sk = sk_arr[idx];
++				if (!net_eq(sock_net(sk), net))
++					goto put_bind_sk;
++
++				inet = inet_sk(sk);
++				if (sk->sk_state != TCP_CLOSE || !inet->inet_num)
++					goto put_bind_sk;
++
++				if (r->sdiag_family != AF_UNSPEC &&
++				    r->sdiag_family != sk->sk_family)
++					goto put_bind_sk;
++
++				if (res >= 0 && inet_diag_bc_sk(cb_data, sk)) {
++					res = inet_sk_diag_fill(sk, NULL, skb, cb,
+ 								r, NLM_F_MULTI,
+ 								net_admin);
+ 					if (res < 0)
+ 						num = num_arr[idx];
+ 				}
+-				sock_put(sk_arr[idx]);
++put_bind_sk:
++				if (res >= 0)
++					tcp_diag_save_cursor(cb_data,
++							     INET_DIAG_DUMP_CURSOR_TCP_BIND,
++							     i, sk);
++				sock_gen_put(sk);
+ 			}
+ 			if (res < 0)
+ 				goto done;
+@@ -463,13 +598,15 @@ static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
+ 			cond_resched();
+ 
+ 			if (accum == SKARR_SZ) {
+-				s_num = num + 1;
++				s_num = 0;
+ 				goto resume_bind_walk;
+ 			}
+ 
++			inet_diag_dump_clear_cursor(cb_data);
+ 			s_num = 0;
+ 		}
+ skip_bind_ht:
++		inet_diag_dump_clear_cursor(cb_data);
+ 		cb->args[0] = 2;
+ 		s_i = num = s_num = 0;
+ 	}
+@@ -483,43 +620,35 @@ static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
+ 		struct hlist_nulls_node *node;
+ 		struct sock *sk_arr[SKARR_SZ];
+ 		int num_arr[SKARR_SZ];
++		struct sock *cursor;
+ 		int idx, accum, res;
++		bool use_cursor;
+ 
+ 		if (hlist_nulls_empty(&head->chain))
+ 			continue;
+ 
+-		if (i > s_i)
++		if (i > s_i) {
++			inet_diag_dump_clear_cursor(cb_data);
+ 			s_num = 0;
++		}
+ 
+ next_chunk:
+ 		num = 0;
+ 		accum = 0;
+ 		spin_lock_bh(lock);
+-		sk_nulls_for_each(sk, node, &head->chain) {
+-			int state;
+-
+-			if (!net_eq(sock_net(sk), net))
+-				continue;
+-			if (num < s_num)
+-				goto next_normal;
+-			state = (sk->sk_state == TCP_TIME_WAIT) ?
+-				READ_ONCE(inet_twsk(sk)->tw_substate) : sk->sk_state;
+-			if (!(idiag_states & (1 << state)))
+-				goto next_normal;
+-			if (r->sdiag_family != AF_UNSPEC &&
+-			    sk->sk_family != r->sdiag_family)
+-				goto next_normal;
+-			if (r->id.idiag_sport != htons(READ_ONCE(sk->sk_num)) &&
+-			    r->id.idiag_sport)
+-				goto next_normal;
+-			if (r->id.idiag_dport != sk->sk_dport &&
+-			    r->id.idiag_dport)
+-				goto next_normal;
+-			twsk_build_assert();
+-
+-			if (!inet_diag_bc_sk(cb_data, sk))
+-				goto next_normal;
+-
++		cursor = cb_data->dump_cursor;
++		use_cursor = cursor &&
++			     cb_data->dump_cursor_type ==
++			     INET_DIAG_DUMP_CURSOR_TCP_EHASH &&
++			     cb_data->dump_cursor_slot == i &&
++			     inet_sk_state_load(cursor) != TCP_LISTEN &&
++			     !hlist_nulls_unhashed(&cursor->sk_nulls_node) &&
++			     cursor->sk_nulls_node.pprev != LIST_POISON2 &&
++			     inet_ehash_bucket(hashinfo, cursor->sk_hash) == head;
++		node = use_cursor ? cursor->sk_nulls_node.next : head->chain.first;
++		if (!use_cursor)
++			s_num = 0;
++		hlist_nulls_for_each_entry_from(sk, node, sk_nulls_node) {
+ 			if (!refcount_inc_not_zero(&sk->sk_refcnt))
+ 				goto next_normal;
+ 
+@@ -534,13 +663,42 @@ static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
+ 
+ 		res = 0;
+ 		for (idx = 0; idx < accum; idx++) {
+-			if (res >= 0) {
+-				res = sk_diag_fill(sk_arr[idx], skb, cb, r,
+-						   NLM_F_MULTI, net_admin);
++			int state;
++
++			sk = sk_arr[idx];
++			if (!net_eq(sock_net(sk), net))
++				goto put_estab_sk;
++
++			state = (sk->sk_state == TCP_TIME_WAIT) ?
++				READ_ONCE(inet_twsk(sk)->tw_substate) : sk->sk_state;
++			if (!(idiag_states & (1 << state)))
++				goto put_estab_sk;
++
++			if (r->sdiag_family != AF_UNSPEC &&
++			    sk->sk_family != r->sdiag_family)
++				goto put_estab_sk;
++
++			if (r->id.idiag_sport != htons(READ_ONCE(sk->sk_num)) &&
++			    r->id.idiag_sport)
++				goto put_estab_sk;
++
++			if (r->id.idiag_dport != sk->sk_dport &&
++			    r->id.idiag_dport)
++				goto put_estab_sk;
++
++			twsk_build_assert();
++			if (res >= 0 && inet_diag_bc_sk(cb_data, sk)) {
++				res = sk_diag_fill(sk, skb, cb, r, NLM_F_MULTI,
++						   net_admin);
+ 				if (res < 0)
+ 					num = num_arr[idx];
+ 			}
+-			sock_gen_put(sk_arr[idx]);
++put_estab_sk:
++			if (res >= 0)
++				tcp_diag_save_cursor(cb_data,
++						     INET_DIAG_DUMP_CURSOR_TCP_EHASH,
++						     i, sk);
++			sock_gen_put(sk);
+ 		}
+ 		if (res < 0)
+ 			break;
+@@ -548,9 +706,11 @@ static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
+ 		cond_resched();
+ 
+ 		if (accum == SKARR_SZ) {
+-			s_num = num + 1;
++			s_num = 0;
+ 			goto next_chunk;
+ 		}
++
++		inet_diag_dump_clear_cursor(cb_data);
+ 	}
+ 
+ done:
+-- 
+2.43.0
 
-> >       rcu_boot_init_nocb_percpu_data(rdp);
-> >  }
-> >
->
-> Sebastian
