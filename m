@@ -1,214 +1,196 @@
-Received: from mta-64-227.siemens.flowmailer.net (mta-64-227.siemens.flowmailer.net [185.136.64.227])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0881748380B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:50:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4A2431A5C;
+	Tue,  1 Sep 2026 16:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788281464; cv=none; b=jxvmENcnJdaFk1kn2qOSX4QQLuEoM/zlo6XFqJjjpmI7fWI5ZgiSBaPtTZ5e6xAu0ms059o90uimThRGWtGZPh3tVitvMKSFU6wY51WH9YN0pA3yEnyt+f3GqgQVZiTAMmMYDL/ohOTUyBFvTcSIc3lbe9E8GcIwF2sTkj/iHqA=
+	t=1788281534; cv=none; b=M24wioMrj3rx1uq422trQS4c+waEC3jEYYlXW9IEG5kgbSxjSAKWDIltEEUqHrgW8pfhDGk9PZ5nNBwqAFC7H7HmU/KFUkXfpCeTos0iJBI+uxUW3stt4R14cKlgFiFMwgKRw5blpIhs3Xshvr0wJAVxduYscwrHu1kOqD6pOgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788281464; c=relaxed/simple;
-	bh=Ktoniz3KaUpJGaYPHbUdLkx/OpMpAg8WFjtQZ0YKu8M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IoHll35zro/xoKd8UPWTXbe4+wSds3ye3VbgOS2A8xawoKhOc+vUjSulhUHgZN4BEqthNak7Vx/zrqH4RGHpJUyPwmsJJJTF8ihKBhIZ/OStBdkol+BUD8TWjkfq1szjaVBvnsQ7uDkVXiDE9hCm+kRSt5um3k9FgkdLN2SqBrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=PWol28LP; arc=none smtp.client-ip=185.136.64.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	s=arc-20240116; t=1788281534; c=relaxed/simple;
+	bh=e0iOtQ+/oqvJpZxEdGjGR0FqEUTzGZftU37uLCnf7pE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PPflnNDNGrauuWBTrknjyIgYm9DMhLAOwKjG9/yCrlz+kHFa8m5gV6tx2/lbet1ufgqpySgadKzDmo4JrqZLfd5Q1wJ1fBnA9LhgqiQV/LjH2W7YE5qrilFkuKejnJCZpF98sHBPW6/yM+nSb1DVirF62Z7A3kUc2wPZFgOaQ4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9gmyMqV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="PWol28LP"
-Received: by mta-64-227.siemens.flowmailer.net with ESMTPSA id 202609011650520e6826d3b50002077a
-        for <linux-kernel@vger.kernel.org>;
-        Tue, 01 Sep 2026 18:50:52 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=S1OujqtbTSD7Jd1sRNsbECS+JnzF9Yt5HTTfig8ekrY=;
- b=PWol28LPTODO38aNnBolD4QWY9B+3ZGSh7qcpzCQQTgQvz7HsByaHPOjgrmaA6Lxzb2YBv
- PmSSV8N4S639RpAlNZgrozYHjBuyQky+iHeBReRJq7LU5u9hYUa1zNN4++4GFSqXQh9RVhw4
- HhXuJF2CMWzneTrQz4Y2sPSb/rAOZ0ZkyAoj0zbnRrZWWVogu9XV0SJGdo9n4BbtrUSCItPk
- N/OYQTq7CXr9F/iGOByikCdx2GurrlsFstIFsYuzYJoKhAzUQl9Mr5UEcV2St7UmyuM/74qb
- WzJUeXi5BpNBLUdAp5ueOyoSYw3DbOWoC9Y1bY1cJYCL0DfCuhx7y2lg==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: netdev@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9gmyMqV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4994F1F000E9;
+	Tue,  1 Sep 2026 16:52:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788281533;
+	bh=0zEVzRhIJXMNQ2RRpE2WIb8rAbA3Zr/vj9+lnBtzPL8=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=J9gmyMqV/G5teKKN2aPRIUutUm54xTGXMJJXamPLi+0B1u/aItJRrzvJQGqxmGomT
+	 HizaPBA4eJ/cjG1y//ZoGvE77uuThQRijSULIAJNEbBQPT0j8Cyg7t5RTMstSxjj7S
+	 ZaqHP+y3pdVrkhkL9pjB+fZ2yXd81QcjRNsw0by+KKfbyEredgRwTB0RGQ2Y0WXDrZ
+	 5M/lMGN3528sVvQofIXnCJZbCM82PvQNdiN7Ro0YwBXKruQmBD9qdYhFlV3Wz1v7zm
+	 iOsO27UI3e0hpLTUkGdnGVWoZL2XWtcIGKXBy2fAGsSjI0YvBIt7bqOns61yyh7OBC
+	 aoMfQyiSFEyyw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 0EE04CE09F8; Tue,  1 Sep 2026 09:52:13 -0700 (PDT)
+Date: Tue, 1 Sep 2026 09:52:13 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: KunWu Chan <kunwu.chan@gmail.com>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: dsa: mxl-gsw1xx: deassert internal PHY resets before MDIO registration
-Date: Tue,  1 Sep 2026 18:50:48 +0200
-Message-ID: <20260901165049.672446-1-alexander.sverdlin@siemens.com>
+Subject: Re: [PATCH] srcutiny: Add atomic SRCU operation checks and state
+Message-ID: <e521bee4-e8ab-40a2-b22f-325d37fbcd63@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260831074937.2380914-1-kunwu.chan@linux.dev>
+ <0eac36c5-acd2-4d8d-a498-f56a57cc3d6a@paulmck-laptop>
+ <CAN_Opa_z4e8fLM0=+QV82r4oveKKUWitvNrBnsfJhXd+2-QQLQ@mail.gmail.com>
+ <ce1789d4-7a78-456c-9e6e-e9af824e5285@paulmck-laptop>
+ <CAN_Opa_AYw-KSA-u5=fjGLOP9z-Cf1Dk2Fba==MSLAX7TZSYWQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
+In-Reply-To: <CAN_Opa_AYw-KSA-u5=fjGLOP9z-Cf1Dk2Fba==MSLAX7TZSYWQ@mail.gmail.com>
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+On Tue, Sep 01, 2026 at 04:29:05PM +0800, KunWu Chan wrote:
+> On Tue, Sep 1, 2026 at 11:10 AM Paul E. McKenney <paulmck@kernel.org> wrote:
+> >
+> > On Tue, Sep 01, 2026 at 10:00:24AM +0800, KunWu Chan wrote:
+> > > On Tue, Sep 1, 2026 at 9:04 AM Paul E. McKenney <paulmck@kernel.org> wrote:
+> > > >
+> > > > On Mon, Aug 31, 2026 at 03:49:37PM +0800, Kunwu Chan wrote:
+> > > > > From: Kunwu Chan <kunwu.chan@gmail.com>
+> > > > >
+> > > > > Add atomic SRCU operation checks and the associated state to Tiny
+> > > > > SRCU.
+> > > > >
+> > > > > An atomic SRCU domain does not use the normal SRCU callback and
+> > > > > grace-period machinery.  In particular, a callback queued with
+> > > > > call_srcu() would never be processed.  Use WARN_ON_ONCE() to reject
+> > > > > call_srcu() and srcu_barrier() on atomic SRCU domains.
+> > > > >
+> > > > > For synchronize_srcu(), redirect atomic SRCU domains to
+> > > > > synchronize_srcu_atomic().
+> > > > >
+> > > > > Add srcu_reader_flavor to the Tiny SRCU state for these checks.
+> > > > > Tiny SRCU does not currently set the flavor for atomic SRCU domains,
+> > > > > but keeping the flavor in the common state allows the operation
+> > > > > checks to enforce the restriction once atomic flavor tracking is
+> > > > > enabled.
+> > > > >
+> > > > > Also initialize srcu_atomic_gp_flag, which was previously left
+> > > > > uninitialized.
+> > > > >
+> > > > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > > > > ---
+> > > > >  include/linux/srcutiny.h |  1 +
+> > > > >  kernel/rcu/srcutiny.c    | 12 ++++++++++++
+> > > > >  2 files changed, 13 insertions(+)
+> > > > >
+> > > > > diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
+> > > > > index 47a368f945e3..2b293336525a 100644
+> > > > > --- a/include/linux/srcutiny.h
+> > > > > +++ b/include/linux/srcutiny.h
+> > > > > @@ -20,6 +20,7 @@ struct srcu_struct {
+> > > > >       u8 srcu_gp_running;             /* GP workqueue running? */
+> > > > >       u8 srcu_gp_waiting;             /* GP waiting for readers? */
+> > > > >       u8 srcu_atomic_gp_flag;         /* Serialize atomic GP work.*/
+> > > > > +     u8 srcu_reader_flavor;          /* Values: SRCU_READ_FLAVOR_.*  */
+> > > > >       unsigned long srcu_idx;         /* Current reader array element in bit 0x2. */
+> > > > >       unsigned long srcu_idx_max;     /* Furthest future srcu_idx request. */
+> > > > >       struct swait_queue_head srcu_wq;
+> > > > > diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
+> > > > > index 26ea4bfbeaf2..22f7716cbb0e 100644
+> > > > > --- a/kernel/rcu/srcutiny.c
+> > > > > +++ b/kernel/rcu/srcutiny.c
+> > > > > @@ -41,6 +41,7 @@ static int init_srcu_struct_fields(struct srcu_struct *ssp)
+> > > > >       ssp->srcu_cb_tail = &ssp->srcu_cb_head;
+> > > > >       ssp->srcu_gp_running = false;
+> > > > >       ssp->srcu_gp_waiting = false;
+> > > > > +     ssp->srcu_atomic_gp_flag = 0;
+> > > >
+> > > > Good catch!  I will be folding this into the base commit with attribution
+> > > > on my next rebase:
+> > > >
+> > > > 9a2e9996ccec ("srcutiny: Add an atomic Tiny SRCU")
+> > > >
+> > > > >       ssp->srcu_idx = 0;
+> > > > >       ssp->srcu_idx_max = 0;
+> > > > >       INIT_WORK(&ssp->srcu_work, srcu_drive_gp);
+> > > > > @@ -289,6 +290,9 @@ EXPORT_SYMBOL_GPL(srcu_defer_drain);
+> > > > >  void call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
+> > > > >              rcu_callback_t func)
+> > > > >  {
+> > > > > +     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
+> > > > > +             return;
+> > > > > +
+> > > > >       if (should_rcu_defer()) {
+> > > > >               /* A re-entrant call_srcu() during the drain would livelock it. */
+> > > > >               if (READ_ONCE(srcu_defer_draining) && !in_nmi()) {
+> > > > > @@ -319,6 +323,11 @@ void synchronize_srcu(struct srcu_struct *ssp)
+> > > > >  {
+> > > > >       struct rcu_synchronize rs;
+> > > > >
+> > > > > +     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC)) {
+> > > > > +             synchronize_srcu_atomic(ssp);
+> > > > > +             return;
+> > > > > +     }
+> > > > > +
+> > > > >       srcu_lock_sync(&ssp->dep_map);
+> > > > >
+> > > > >       RCU_LOCKDEP_WARN(lockdep_is_held(ssp) ||
+> > > > > @@ -415,6 +424,9 @@ EXPORT_SYMBOL_GPL(synchronize_srcu_atomic);
+> > > > >  /* Register any deferred callbacks, then wait for all in-flight ones. */
+> > > > >  void srcu_barrier(struct srcu_struct *ssp)
+> > > > >  {
+> > > > > +     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
+> > > > > +             return;
+> > > > > +
+> > > > >       __srcu_defer_drain(ssp);
+> > > > >       synchronize_srcu(ssp);
+> > > > >  }
+> > > >
+> > > > The rest is good as far as it goes, but don't we need to set the value
+> > > > of ssp->srcu_reader_flavor somewhere for atomic srcu_struct structures?
+> > > >
+> > >
+> > > Hi Paul,
+> > >
+> > > Yes, agreed. I have the flavor tracking changes implemented locally
+> > > and am testing them now.
+> > > I’ll send the updated patch shortly.
+> > >
+> > > I also have draft patches for the documentation and the fast path, as
+> > > well as rcutorture testing for
+> > > tiny atomic srcu , which I’ll send separately.
+> >
+> > Sounds good, and I am looking forward to seeing them.
+> 
+> Hi Paul,
+> I’ve sent the flavor tracking changes as [1].
+> [1] https://lore.kernel.org/all/20260901074815.3145037-1-kunwu.chan@linux.dev/
+> 
+> >
+> > I will admit that I am curious as to why Tiny Atomic SRCU needs different
+> > rcutorture testing than does Tree Atomic SRCU, but I will ask myself
+> > that question again when I see your patches.  ;-)
+> 
+> You’re right that the existing SRCU torture configuration can exercise
+> the atomic path with rcutorture.reader_flavor=0x10. I had prepared
+> the Tiny atomic torture test as a separate draft, mainly adding local
+> configurations for convenience while validating the Tiny and Tree
+> atomic paths. There is no Tiny-specific torture model here.
+> 
+> I can adjust the final rcutorture configuration and naming based on your
+> preference.
 
-When the switch is bootstrapped with PS_NOWAIT = 0, the internal PHYs
-default to a held-in-reset state. The driver previously only worked with
-PS_NOWAIT = 1 where PHYs are released from reset automatically.
+The best approach is to add a section to this script:
 
-Deassert the PHY reset lines via the RST_REQ register before the MDIO bus
-is registered, so that PHY IDs can be read during bus scan. Only release
-PHYs for ports that have a phy-handle in the device tree, so unused ports
-do not consume power. A single 300ms delay after deasserting all needed
-resets ensures the PHYs are ready for MDIO communication (refer to Intel
-XWAY, Maxlinear GPY111 datasheets or the Lantiq counterpart of the driver).
+tools/testing/selftests/rcutorture/bin/torture.sh
 
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
----
- drivers/net/dsa/lantiq/lantiq_gswip.h        |  2 +
- drivers/net/dsa/lantiq/lantiq_gswip_common.c | 10 +++++
- drivers/net/dsa/lantiq/mxl-gsw1xx.c          | 43 ++++++++++++++++++++
- drivers/net/dsa/lantiq/mxl-gsw1xx.h          |  1 +
- 4 files changed, 56 insertions(+)
+This would require adding a command-line parameter such as
+--do-atomic-srcu and friends.  The effect would be that people like
+me would run short tests of atomic SRCU frequently.
 
-diff --git a/drivers/net/dsa/lantiq/lantiq_gswip.h b/drivers/net/dsa/lantiq/lantiq_gswip.h
-index bc3686faad0d6..7af828577c27d 100644
---- a/drivers/net/dsa/lantiq/lantiq_gswip.h
-+++ b/drivers/net/dsa/lantiq/lantiq_gswip.h
-@@ -261,6 +261,8 @@ struct gswip_hw_info {
- 	const struct gswip_pce_microcode (*pce_microcode)[];
- 	size_t pce_microcode_size;
- 	enum dsa_tag_protocol tag_protocol;
-+
-+	int (*setup)(struct dsa_switch *ds);
- 	void (*phylink_get_caps)(struct dsa_switch *ds, int port,
- 				 struct phylink_config *config);
- 	struct phylink_pcs *(*mac_select_pcs)(struct phylink_config *config,
-diff --git a/drivers/net/dsa/lantiq/lantiq_gswip_common.c b/drivers/net/dsa/lantiq/lantiq_gswip_common.c
-index 0e8eedf64d3a3..61624f251aeb3 100644
---- a/drivers/net/dsa/lantiq/lantiq_gswip_common.c
-+++ b/drivers/net/dsa/lantiq/lantiq_gswip_common.c
-@@ -689,6 +689,16 @@ static int gswip_setup(struct dsa_switch *ds)
- 	 */
- 	regmap_write(priv->mdio, GSWIP_MDIO_MDC_CFG0, 0x0);
- 
-+	/* GSW1xx will wake up the PHYs here, so it makes sense that it happens
-+	 * after the auto-polling deactivation above, but before the MDIO bus
-+	 * registration below
-+	 */
-+	if (priv->hw_info->setup) {
-+		err = priv->hw_info->setup(ds);
-+		if (err)
-+			return err;
-+	}
-+
- 	/* Configure the MDIO Clock 2.5 MHz */
- 	regmap_write_bits(priv->mdio, GSWIP_MDIO_MDC_CFG1, 0xff, 0x09);
- 
-diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.c b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-index a1104b2f92a92..2b5a0b41b473c 100644
---- a/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-+++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-@@ -13,6 +13,7 @@
- #include <linux/delay.h>
- #include <linux/jiffies.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/of_device.h>
- #include <linux/of_mdio.h>
- #include <linux/phy/phy-common-props.h>
-@@ -588,6 +589,44 @@ static void gsw150_phylink_get_caps(struct dsa_switch *ds, int port,
- 	gsw1xx_phylink_get_lpi_caps(config);
- }
- 
-+static int gsw1xx_setup(struct dsa_switch *ds)
-+{
-+	struct gswip_priv *gswip_priv = ds->priv;
-+	struct gsw1xx_priv *priv = container_of(gswip_priv, struct gsw1xx_priv, gswip);
-+	struct device_node *phy_np;
-+	struct dsa_port *dp;
-+	u32 phy_reset_mask = 0;
-+	int ret;
-+
-+	dsa_switch_for_each_user_port(dp, ds) {
-+		struct phylink_config cfg = {};
-+
-+		/* Is there an internal PHY on this port? */
-+		gswip_priv->hw_info->phylink_get_caps(ds, dp->index, &cfg);
-+		if (!test_bit(PHY_INTERFACE_MODE_INTERNAL, cfg.supported_interfaces))
-+			continue;
-+
-+		/* Will the PHY be really used? */
-+		phy_np = of_parse_phandle(dp->dn, "phy-handle", 0);
-+		if (!phy_np)
-+			continue;
-+
-+		of_node_put(phy_np);
-+		phy_reset_mask |= GSW1XX_RST_REQ_PHY(dp->index);
-+	}
-+
-+	if (!phy_reset_mask)
-+		return 0;
-+
-+	/* Deassert resets only for PHYs referenced by active ports */
-+	ret = regmap_clear_bits(priv->shell, GSW1XX_SHELL_RST_REQ, phy_reset_mask);
-+	if (ret)
-+		return ret;
-+	msleep(300);
-+
-+	return 0;
-+}
-+
- static struct phylink_pcs *gsw1xx_phylink_mac_select_pcs(struct phylink_config *config,
- 							 phy_interface_t interface)
- {
-@@ -829,6 +868,7 @@ static const struct gswip_hw_info gsw12x_data = {
- 		[GSW1XX_MII_PORT] = GSWIP_MII_PCDU0,
- 		[GSW1XX_MII_PORT + 1 ... GSWIP_MAX_PORTS - 1] = -1,
- 	},
-+	.setup			= gsw1xx_setup,
- 	.mac_select_pcs		= gsw1xx_phylink_mac_select_pcs,
- 	.phylink_get_caps	= &gsw1xx_phylink_get_caps,
- 	.supports_2500m		= true,
-@@ -851,6 +891,7 @@ static const struct gswip_hw_info gsw140_data = {
- 		[GSW1XX_MII_PORT] = GSWIP_MII_PCDU0,
- 		[GSW1XX_MII_PORT + 1 ... GSWIP_MAX_PORTS - 1] = -1,
- 	},
-+	.setup			= gsw1xx_setup,
- 	.mac_select_pcs		= gsw1xx_phylink_mac_select_pcs,
- 	.phylink_get_caps	= &gsw1xx_phylink_get_caps,
- 	.supports_2500m		= true,
-@@ -873,6 +914,7 @@ static const struct gswip_hw_info gsw141_data = {
- 		[GSW1XX_MII_PORT] = GSWIP_MII_PCDU0,
- 		[GSW1XX_MII_PORT + 1 ... GSWIP_MAX_PORTS - 1] = -1,
- 	},
-+	.setup			= gsw1xx_setup,
- 	.mac_select_pcs		= gsw1xx_phylink_mac_select_pcs,
- 	.phylink_get_caps	= gsw1xx_phylink_get_caps,
- 	.port_setup		= gsw1xx_port_setup,
-@@ -894,6 +936,7 @@ static const struct gswip_hw_info gsw150_data = {
- 		[5] = 1,
- 		[6] = 11,
- 	},
-+	.setup			= gsw1xx_setup,
- 	.phylink_get_caps	= gsw150_phylink_get_caps,
- 	/* There is only a single RGMII_SLEW_CFG register in GSW150 and it is
- 	 * unknown if RGMII slew configuration affects both RGMII ports
-diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.h b/drivers/net/dsa/lantiq/mxl-gsw1xx.h
-index caa8f1008587a..a7976a5988bd8 100644
---- a/drivers/net/dsa/lantiq/mxl-gsw1xx.h
-+++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.h
-@@ -110,6 +110,7 @@
- #define GSW1XX_SHELL_BASE			0xfa00
- #define  GSW1XX_SHELL_RST_REQ			0x01
- #define   GSW1XX_RST_REQ_SGMII_SHELL		BIT(5)
-+#define   GSW1XX_RST_REQ_PHY(p)			BIT(p)
- #define  GSW1XX_SHELL_MANU_ID			0x10
- #define   GSW1XX_SHELL_MANU_ID_PNUML		GENMASK(15, 12)
- #define   GSW1XX_SHELL_MANU_ID_MANID		GENMASK(11, 1)
--- 
-2.55.0
-
+							Thanx, Paul
