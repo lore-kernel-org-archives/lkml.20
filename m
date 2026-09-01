@@ -1,83 +1,116 @@
-Received: from arkamax.eu (128-116-240-228.dyn.eolo.it [128.116.240.228])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7032540DFDE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:06:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.116.240.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFF237C11B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:06:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271575; cv=none; b=iGrhLRGq+W6+EhJFlP4DMNg3lmuuL01Ms+I4FfLiR/rQWO1PiNlQpKVVJkdJwXHDz3H7gnc0GnmeZg4KUOiTmpUR/ety6uCid/49LpeW5dQbzuu8E6OofOBJGt6GyjhF3vgj2X8L2jUkDBB4zpgPyF2HJCHVQdVXRUvrpoyQDa8=
+	t=1788271616; cv=none; b=LgbQ1oB1o1JSVriTghsUnB216ViZeRc1S4ZwtYWK21S4m9sNcqh/WEHAszWMzY3TWo+Qk9Qu6vFZqGt34npVBPWX5bexgk/2qxy0ilu0HpGavHymKj0aXKdc+LJbQjaMG++WjumEfHm509m/mho1Tj5rPF+4IqvynACZ74aXNrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788271575; c=relaxed/simple;
-	bh=FNAWafCY3dOFrahjM8Pl2Iw/GIp0doPYp+ItWu+gbXE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=QVIARBxmEeFvVnMvPtJrGhZ5S1Drv86wJ4IEEqqwnU4XKi+alwiYmBmrh9D1mu5ovKOTZ5ya61XQ2sq1VUbci8v0DGwFoANTUS9n2eToPlF0i8GKPJyBlyp3mYwapt7hJuPvarMC8KB0HSnPKU2/kjUcWsI5fSBr+jGHlPMf1rA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu; spf=pass smtp.mailfrom=arkamax.eu; dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b=KVJGccIR; arc=none smtp.client-ip=128.116.240.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamax.eu
+	s=arc-20240116; t=1788271616; c=relaxed/simple;
+	bh=CpaMJadh+y3WV+yZtrg9bgGu7OB8ouIcG0ku6hqwNaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wa4WclAvUsVtJwY6P56SPI6tblYMQp2i2JYOmST5wtWuYY0/f0q7AhZ7ETigcqhxE5seFJJylUrhVbtDWZd9N+PjiA/pjak5aOTGMkjZHfAVDCWU7ZVWVT6YHgM20RfeNM7fuw5yGXQjSnVjaN7SxwsLyh/DN1/zqmX3GpuxyTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MUuSakfW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b="KVJGccIR"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=mail1; bh=FNAWafCY3dOFra
-	hjM8Pl2Iw/GIp0doPYp+ItWu+gbXE=; h=in-reply-to:references:subject:cc:
-	to:from:date; d=arkamax.eu; b=KVJGccIRMy1ikmV86deRGvy1slgxAwTq0o0RJjIw
-	ijmgyNY68xSAP2iWRyFMyTYE2mqgoqNkvqWPQdpAXRjPzoZtlzvlr0chD66huFsjikTkI+
-	TfPx0Uy9bpAybWUFK9Rwcy/0si2w5PuptltN0dbzaP8GRzDZ20L0IKbpyzIFTeNVDjxUAs
-	2pwSfU/zQyOJIM7Uy5f9kztOA5UfF1aGut8SG/ZIBPjG30/+QDpiF9cp0xpxp/0fKfDPQO
-	T25Cw40SNEgdq9eGisAak44HgRBKxgZhk5DiYXKyZDqPgFwPO3HAfFKIoHU1M/nPl2P6uY
-	HlPJtaZBWfi/4Z/nuLK7Jw==
-Received: from localhost (128-116-240-228.dyn.eolo.it [128.116.240.228])
-	by arkamax.eu (OpenSMTPD) with ESMTPSA id 814b2cdb (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Tue, 1 Sep 2026 16:06:02 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MUuSakfW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2FB11F00A3D;
+	Tue,  1 Sep 2026 14:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788271614;
+	bh=8R8Mq4W5uSVojTlAGsYpBZV1tLFFuWWE6THlPNrD8F0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MUuSakfW5TRi67sburbFPhGSxmfbVMjrwbZQ/Gyc5Ewt/mgO1V2Cz0zElDXUFtlm5
+	 +0mrt4/ct+tgEqnlBwG97a3PMF8TIPnYa4TX2XiMJEhIVyML9IT/Wl/3dKYgwbQEL+
+	 x15e09WKdS65y2i3WNkz3BeFoOEtYgPREHaZmix9RncMCQ4XYQK2NxWQeUkGfgzzFB
+	 4KCOv2lwobGodLhcQEoztSTvNloPfLeN72shmRbwyYZ5M+w7uyB3iLlXwUjuBIT4CR
+	 u8quUdn5V8F0N66LtR7rl5GyeGbxa+YPyiWGliZSGR0wtC7avESWu1mfVW1Q1etwCE
+	 V+r0BfxYTYK+w==
+Date: Tue, 1 Sep 2026 16:06:51 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Bradley Morgan <include@grrlz.net>, Tejun Heo <tj@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kthread: remove worker->task self-assignment
+Message-ID: <apbb--idnSZMNLPU@localhost.localdomain>
+References: <20260829161150.16301-1-include@grrlz.net>
+ <20260829161848.20635-1-include@grrlz.net>
+ <apbI91PzT2BaRazM@localhost.localdomain>
+ <20260901124900.GB687043@noisy.programming.kicks-ass.net>
+ <CE1F7435-D872-4A3F-BC7A-50443BBE2904@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 01 Sep 2026 16:06:02 +0200
-Message-Id: <DL41D2NGEUHW.2UUHTZ6LLM9X7@arkamax.eu>
-From: "Maurizio Lombardi" <mlombard@arkamax.eu>
-To: "Alfonso Kuen" <gerencia@idkmanager.com>, <hch@lst.de>,
- <sagi@grimberg.me>, <kch@nvidia.com>
-Cc: <linux-nvme@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3] nvmet-tcp: report a bounded MDTS instead of "no
- limit"
-X-Mailer: aerc 0.22.0
-References: <20260829013900.10392-1-gerencia@idkmanager.com>
- <20260831005117.142713-1-gerencia@idkmanager.com>
-In-Reply-To: <20260831005117.142713-1-gerencia@idkmanager.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CE1F7435-D872-4A3F-BC7A-50443BBE2904@mainlining.org>
 
-On Mon Aug 31, 2026 at 2:51 AM CEST, Alfonso Kuen wrote:
-> nvmet-tcp does not implement .get_mdts, so nvmet_ctrl_mdts() falls back
-> to the port value (0 by default) and identify-controller advertises "no
-> maximum data transfer size". The initiator believes it:
-> nvme_init_ctrl_finish() sets max_hw_sectors to UINT_MAX.
->
-> What the initiator then issues is decided by the block layer. The
-> generic cap is 4 MiB (BLK_DEF_MAX_SECTORS_CAP), but a namespace that
-> advertises a large NOWS raises it: blk_validate_limits() takes
-> max_sectors from io_opt once io_opt exceeds that cap. On the array we
-> measured, NOWS is 65535, so io_opt is 32 MiB and the initiator emitted
-> 32 MiB commands -- from a controller that advertised no MDTS at all.
->
-> The target cannot serve those, in one of two ways depending on the
-> kernel.
->
-> Since commit 4a3f00262a04 ("nvmet-tcp: bound SGL data length before
-> allocating command buffers"), nvmet_tcp_map_data() rejects any len above
-> NVMET_TCP_MAXH2CDATA (4 MiB) with NVME_SC_SGL_INVALID_DATA | DNR, so the
-> command fails hard and deterministically. That is the right response to
-> an oversized command, but the initiator had no way to avoid sending it:
-> nothing advertised the limit it was exceeding.
+Le Tue, Sep 01, 2026 at 02:57:38PM +0100, Bradley Morgan a écrit :
+> On 1 September 2026 13:49:00 BST, Peter Zijlstra <peterz@infradead.org>
+> wrote:
+> >On Tue, Sep 01, 2026 at 02:45:43PM +0200, Frederic Weisbecker wrote:
+> >> Hi,
+> >> 
+> >> Le Sat, Aug 29, 2026 at 04:18:48PM +0000, Bradley Morgan a écrit :
+> >> > From: Bradley Morgan <brads@mainlining.org>
+> >> > 
+> >> > All kthread worker users now create their workers with
+> >> > kthread_create_worker*(), which sets worker->task before the worker
+> >> > starts. The self-assignment in kthread_worker_fn() is dead code now.
+> >> 
+> >> How could it be created before?
+> >> 
+> >> > 
+> >> > Remove it.
+> >> > 
+> >> > Signed-off-by: Bradley Morgan <brads@mainlining.org>
+> >> > ---
+> >> >  kernel/kthread.c | 7 -------
+> >> >  1 file changed, 7 deletions(-)
+> >> > 
+> >> > diff --git a/kernel/kthread.c b/kernel/kthread.c
+> >> > index 63beb59b7a3d..18bc702e8d2d 100644
+> >> > --- a/kernel/kthread.c
+> >> > +++ b/kernel/kthread.c
+> >> > @@ -987,13 +987,6 @@ int kthread_worker_fn(void *worker_ptr)
+> >> >  	struct kthread_worker *worker = worker_ptr;
+> >> >  	struct kthread_work *work;
+> >> >  
+> >> > -	/*
+> >> > -	 * FIXME: Update the check and remove the assignment when all kthread
+> >> > -	 * worker users are created using kthread_create_worker*() functions.
+> >> > -	 */
+> >> > -	WARN_ON(worker->task && worker->task != current);
+> >> 
+> >> Should we keep a WARN_ON(worker->task != current) here?
+> >
+> >I vote yes! Paranoia is good :-)
+> >
+> 
+> 
+> Yeah, but it *should* be useless.
 
-#define NVMET_TCP_MAXH2CDATA  0x400000 /* 16M arbitrary limit */
+Famous last words :-)
 
-So the comment should be fixed, it says NVMET_TCP_MAXH2CDATA is 16M.
+> Do you really want me to readd the warn
+> statement? Maybe add some text, like
+> 
+> "worker->task is deprecated"?
 
-Also, it's not entirely clear to me how the target enforces this. Suppose a=
-n
-host sends a 2 MiB command, violating the MDTS setting, what happens?
+Is it deprecated? We still need that field for wakeup on queue at least.
+Don't bother with a message, it's only a sanity check.
 
-Maurizio
+Thanks.
 
+> 
+> --- Thanks!
+> https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+
+-- 
+Frederic Weisbecker
+SUSE Labs
