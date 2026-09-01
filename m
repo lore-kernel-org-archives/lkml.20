@@ -1,211 +1,213 @@
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com [205.220.166.238])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0304642DA36
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:12:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788246723; cv=none; b=mq4SXgzjNY6lojN3SrCVkqGQPxioBPONjw8YOckgGs8XHsTVEFz3CpU2z46q19+sv8F8COqHvvYiqnavaJLJ0CcrmvySmreMk0LYKVp5p1b5+38VuYWqj4RSEQ3v3IMSx7+FcC2eizok1U0vj/vJxtVdcYvXD6Km+Yxuxy8085k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788246723; c=relaxed/simple;
-	bh=IJV+cJcfZdPXEq3nWzfJc7AtEYY8y/J55FvImPI05W8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EhMl4sCCtOvohGrnMpUOmiZHcogCW976455liMy2Kf3voHK9gSZ2Cx0PrX2Z5hI5kUBCtK1xc8JfNjBx5zbpXZHIUejZLTvHGqOABkyiIey556ceX5e7Ik4u2gGpFwPtEioafZ1B6FlQzLYuhOVsZQEigrqu8SHPhIQjNh9rdmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i2wyTHf9; arc=none smtp.client-ip=209.85.208.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF72537A49D
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:12:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.166.238
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788246744; cv=fail; b=XJqEppnSRfsP0fInaUGWkTKNspd4/KtWDB5n143+lWy48fILdzWhNNIjRY9K+CyB1lMvCjWSKSoWneqJ7x1tdwrm/blUCSZbt/oxsjnmliGk/Vvc8YciqdszeJ8/6Sb8xSyYpxgF+NIE3iroG1UXMaIdOFuiZ38PLmdnSvYsVt0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788246744; c=relaxed/simple;
+	bh=nLQttMQVryGLLasosP0ifSx9uQ4BA8ZoqTIb5yZU4fA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=eQShWltxE+YTIiJPOtx7WxuudRsOaRh2XG8OeUtnIy6bS/CXzlCecaQCTboseu/gNGe8mi6c0F52WXXEF4G6ZBRYV6n30GfUNLaFaqAPWD0qnYkBQsoLhIZ1yqxPSv8vIAmaqcnPlx0UaT1KvUl0U9/TSgkeCkWPjIVRJVdHT/0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=fail smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=a2iofWah; arc=fail smtp.client-ip=205.220.166.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=windriver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i2wyTHf9"
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a12ffc112cso6433901fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:12:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788246720; x=1788851520; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=D+CSScneE3PY8jH7ppTyN3wkhx3v10vl4wTiv7mZ0VM=;
-        b=i2wyTHf9Ug1aLOmqRa8KJKDwM8X2VIit8xPzj7+OSiYuEsBhQXRWF9a4PzzQR79dXH
-         5AXePglGLVB5sKTm+kBtYlGXelJLfHVmrr4eC1mecpfJJXDZ127i5vODOKpZ5qrwUg7c
-         6qar0jg9KInXX3AKcGJNy0c++Cj7xyMBdIZBNisU/Ja4Ht2MCRzyOEAKaZzkn/krbjKA
-         O//0a/f1n+cz1DTxPVv/5O/PUXzV7CJ2u8FJ+CJcuyMLeW/0eIsXpkt7OILDqURmpnUv
-         JE1Pu1DVuQpGwT5+bGy9CDUcoNy1QVjpBuJ33xCXsyAyeS4peJCFIukmtrAjIKlnd4xp
-         KaOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788246720; x=1788851520;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D+CSScneE3PY8jH7ppTyN3wkhx3v10vl4wTiv7mZ0VM=;
-        b=Ec4CyEFTVdPsCRG4FKaqsY2zQlzwdwAG6dEyIXyY2S6yj0eKSmUQIbmebhn2ALD4XC
-         6B1Fb+nLDOlZ/igOPFXAPYsuaZ6E41ftMyZnxyxy/OIrN5E8kjdzBDTi7hrsYRkD1VWT
-         ONOE5hK8/C4jt8UsSk35M6XnR+wHYkIuqUCykKdyfkA0rIWMCp22wY+SMsNBpsb4/vg0
-         vHIx5ef1PE4my/hQg5IBMvAAzochFsP8d9DyYEhW4fKiNEC/8LDdB/dOD+6a0bEEyNAI
-         Bp0aQL71jC7wPEUjlzK2YiHCIsIibbaxOFRn2o0sGc/1coe/dP/UxclCItWtq3G8HCjh
-         S2OA==
-X-Forwarded-Encrypted: i=1; AKwUvByNCQIKeh84tTax9UtpfkApy1xAByHQazlB/mX+tHN8+96wLBmpLj8lJ7PbNrlvQVE8oF9VKCKRI2pZahs=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0V7eJUeqLTp8s3S8Fxt359e2TpjfLm57p9iJcE2LAPOqiSa+Q
-	asKCYP0gfbVjqF4DNkQei3ToF6mB5mabU7Gd5m/LmmVqw0HOue5KbtMp
-X-Gm-Gg: AYBFou0gww1vBmMQo+4/F6YS6XiDl3A3kZ2bJU1aW619h09eVACU+jWn1iCbK00JJeb
-	EmaDqgN7r3NvzPwnseeEQDN4lA0jrxQ4ZTeQMuH4OndJWG3H0lRVXNcA/nEsc6Ipw8a/3y7vhOZ
-	1ACH7rye6JHylm6rqwvfbXPoeXrrlkO5+l7gDsXlGv4Tqxvicdnk+ZCFQH8/BpurzxhxISmPAvx
-	P/EBTLr09+2cAb1bmmMU6XQpNZpNbmtwPTadJa0/JhVa7v0wQdVmQ09HfEy/+MfjGD5ebQGUomt
-	JozwpIcOEnfKp19YdXPEYUdrpzO46frYM0kCIFFqwyoIu40UoHgzPyyWvB6pug01vZg3fX7ecxz
-	cV4Sgj57AtypcQc0hMQXhuQMJXnHQQXwVtmp+QOnvl/1oaqblpdKpIZ3zFpqQSn3x8mvYD5xNQa
-	L2+e5+Zr+9Ycn/kdkNwayV9LW2rzT/x2nu+gZBJcj8rg6f0mEI6AlcVBSTA7tWb5g=
-X-Received: by 2002:a05:651c:a201:10b0:3a3:3fa3:25a6 with SMTP id 38308e7fff4ca-3a33fa3324cmr3629011fa.3.1788246717606;
-        Tue, 01 Sep 2026 00:11:57 -0700 (PDT)
-Received: from [192.168.1.161] ([81.200.11.252])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e89c5c9asm2754562e87.11.2026.09.01.00.11.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:11:57 -0700 (PDT)
-Message-ID: <5951b1195537558a5e93cfd44bd24fe56d446f81.camel@gmail.com>
-Subject: Re: [PATCH v2] iio: proximity: vcnl3020: fix ISR bitmask check in
- IRQ handler
-From: Ivan Mikhaylov <fr0st61te@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, Salah Triki <salah.triki@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
-	 <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, 
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 01 Sep 2026 10:11:56 +0300
-In-Reply-To: <20260901022731.10771244@jic23-huawei>
-References: <20260824042908.8887-1-salah.triki@gmail.com>
-	 <20260901022731.10771244@jic23-huawei>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.0 
+	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="a2iofWah"
+Received: from pps.filterd (m0250809.ppops.net [127.0.0.1])
+	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68178NHk1563154;
+	Tue, 1 Sep 2026 00:11:40 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	PPS06212021; bh=2wbMc/zI13jW+FneKTyhqqMck0xlNBC64iaADhleB8g=; b=
+	a2iofWah62qXqjvEB2QlyZuM2/XZkoPgZp4pMKF2SBoklhxS1eb4YaBNKr8jsh+M
+	5EJYwezFiRMbxEJ1sqvAkK7/UeX85wcZinVZLoD0UeCxVWUV1gSjpEinoOC+lTO+
+	UMm3IFUULz7stuRUJlOoc6dH+nGOoT3w/hsxn/AI6DGiN9lf8JA9xbW2thrA2PWC
+	+JC29eZeRRcdxUNaJkzJae7cxHY+/FQ0w9jmVKZR6H5juDR+YODzxEn+d6HhimZI
+	AoLfln/rhHeBroQlmU0qcz7cjRJrtKbWEDX01qdQKX46vQPL/lHQ9ib4bdqaXCfz
+	U3BiKzoDzX+WQMLME8Wcig==
+Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11022073.outbound.protection.outlook.com [40.107.209.73])
+	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4gbxxebp38-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 01 Sep 2026 00:11:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lgvYlZzGvc4dskUzan+gzYUyMwUgYjoLskRx7Ls6qNfd/gthZ7BOks3z1+SRtrdDnEfHH+JWg9RIr5Tqq2DJK1EQ9R1QhqrXf7qGphkQwpbu6f3R74A/L1FKDeR/3nOmLw9E3YomQN5O+YP/CmsqrccsGawatMmMAoCmyMMYw49DPvBmDkC051seI3xUr9lNbS63zImLi3dce/wbkK86nI3rTmus5yPanlMX/s6Pg3hLc8owg8hOOfXOrksGD6aZYKEVcEChyUmBB+fk7oMsI1UF2zTUjB2tJUtVdx/cwd08OCOr5bcBAOzBMlFx1EX37h7O4eAzVS/X6o6vR8o0OA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2wbMc/zI13jW+FneKTyhqqMck0xlNBC64iaADhleB8g=;
+ b=eI+W7XtTIwsMVWDvtFrv6BxSeu+3WRGMW8LPPjn2BJNkP1trd8x1+NQVhbkkTnEeBMpiL0FoCYYxWDRpxP4psjOifQqvSPM8iE36/UQKm0+XPsZtnCXczGtBtQNv7udT3ec+6LSXlbbfmvUhQDoxtSX2FLikZqgcYIPTxOdRgR6yp8KAvtuDk8TV3EMtRmpa+80FkkpWbaGZUF73t0NhxzxFMpjizup8HvcCYM/TrmOSgmpuaZKsomiMWE1ihdZKVCeQ+vdE1vKKbl1aYe1QkcVWnl6fB6CNRkMY0T0U1GVbH8OuI8FI89XbRHkOya/F/LIieddSSKrRq0Nk860J2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+Received: from SJ2PR11MB7546.namprd11.prod.outlook.com (2603:10b6:a03:4cc::8)
+ by CO1PR11MB4961.namprd11.prod.outlook.com (2603:10b6:303:93::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 07:11:25 +0000
+Received: from SJ2PR11MB7546.namprd11.prod.outlook.com
+ ([fe80::ca9b:dcf:8881:bced]) by SJ2PR11MB7546.namprd11.prod.outlook.com
+ ([fe80::ca9b:dcf:8881:bced%3]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 07:11:25 +0000
+From: "Ionut Nechita (Wind River)" <ionut.nechita@windriver.com>
+To: x86@kernel.org, kexec@lists.infradead.org
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, hpa@zytor.com, akpm@linux-foundation.org,
+        baoquan.he@linux.dev, rppt@kernel.org, pasha.tatashin@soleen.com,
+        pratyush@kernel.org, ruirui.yang@linux.dev, eric.devolder@oracle.com,
+        hbathini@linux.ibm.com, sourabhjain@linux.ibm.com,
+        ruanjinjie@huawei.com, brads@mainlining.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH v5 2/2] crash: update stale NR_CPUS_DEFAULT references in elfcorehdr sizing docs
+Date: Tue,  1 Sep 2026 10:10:41 +0300
+Message-ID: <20260901071041.16311-3-ionut.nechita@windriver.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260901071041.16311-1-ionut.nechita@windriver.com>
+References: <20260901071041.16311-1-ionut.nechita@windriver.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VIUP296CA0079.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:349::15) To SJ2PR11MB7546.namprd11.prod.outlook.com
+ (2603:10b6:a03:4cc::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB7546:EE_|CO1PR11MB4961:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6115d74a-ca99-4a1e-eef2-08df07f83bed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|10070799003|23010399003|52116014|1800799024|376014|7416014|10067099003|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	2lzdCvitdaAxlUGHYIvlTk3jKwyoaJ0KN6wah+DWwR9snaIQZlQgIe1dhcV+J9m6m9s92SQ5RqmvXvm2p9CuI3moVd0VCGtlWVrAKbLcdzwR8o+cAwBRZ835m5mB2/WQRRwoSdSY1p2HjCyhT875/XE7I0WJ0AkyD60txfbtuFvFonsMcdKR8mxFUUbu8zHOA1pAli1a4Zk+ggi11Ui8626IqtPgByph3YJLYWK+CzgTo28MP0df+Csi0kmfcg/+TC1PaEcwlLuWEeaM9KJ0OG00yOQDdvXX04Ys3pYUzFbnD1SiCkEGRxZQd8LgvO6BwJtfY8d5Fwz0bC/bsu9lws9dcbmC32Oo3eW69qBNVJuePwRMxGND9Y7A4xioBiL3hWIVHwsd+wkzIy7tX0tdcBJEv8szKV6yJ8yco9tQfiygASU33A86PMMG4yxc/RcSQ3v4ACagLedsz0JQ+qyYSQitsbttKK9P8fG8x7l9966kTcAi4ob6YefN+OZo+kCRkwmmwecNIwxz9Fi+5l6ySjDRSWQA9w0i1sYaSPcKxchQpIzN227ovriJf3o0T5lyPS3ZUyGUF2zWfyfpdhDO2AwarSukDR3tCu84dgY5ffWfRXaBSLfiarl4Juelhfl3LFaP7eep75bqK1+35f8HfeGv26ImSUf6awc7Q1Y6caw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB7546.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(23010399003)(52116014)(1800799024)(376014)(7416014)(10067099003)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?wuTPhAL7uWsN2ZfNOl2sX8P8QrphLiHIqf/9zPjtGSLCIElDasfEsy6vC99l?=
+ =?us-ascii?Q?+Tb5pYSLtgOWFAuGoV2TczUJ31Db6gIWYvidd792kDg2d6FsH5Wl2o1/MmiO?=
+ =?us-ascii?Q?XBAn2QdIjuBJWBI6xSBIr4OllA/0thJCMeJYAHzTUmo0sOeOUnHOC3nxjnjy?=
+ =?us-ascii?Q?2ObQgHL6Bd51PeTBluIUlbgpypNjQBcUC2iEoSRmBUdzvnWYGm/4QzeVxFSf?=
+ =?us-ascii?Q?7SnAWw8U+hDlTqTT9KyRzSBhiWFYhX59tPaj6FYOUxY0obWEcaT2kRcgX+fL?=
+ =?us-ascii?Q?uV+mBPC2VnbjJRAYXjT54SgVl98FuFQAefTwdCCTshdYb33VDn2y7Xcewm1L?=
+ =?us-ascii?Q?ZGojZWgFH/2EvQo64hemI4sKgz/uRwJnJNfi8RE7ufqm5Q5Xi0DqVWDiFQKG?=
+ =?us-ascii?Q?Lp3Y3RyV+IUrXVICBmlitD1y48ANaNUDmkc9GVb16Dl3+R28GdpWidsGxPhG?=
+ =?us-ascii?Q?0Fs4JcH8oADmEuUKCRV6NZuv23tjpjO8y1zTHAb+m6p38/n/n5ETyt5O4uhl?=
+ =?us-ascii?Q?CpJiKW4rcTPnPbIIOSW3DGawb1T7+rD+tBUoRZAfy8WVluGi1pMU7Gqy5d/f?=
+ =?us-ascii?Q?ud73QuCmnkO20L0FUTPlO/0bZ+0Dk8Rj9bv21ipGSywJa0Bfs41ywY4PPKZv?=
+ =?us-ascii?Q?24UTXfAfzlBhuITnuZBUU6BCJKKFadzCkoQ+G+afBVsXXe/xZkKei3oV51T3?=
+ =?us-ascii?Q?yEr01VG6nzoMqRO5WBRfvBhRus3jJW9tuBkBLn3sJWo2ExR2I1MkrnzOIaxv?=
+ =?us-ascii?Q?TEOop6xCmS/p8rU6oB01QF0uAFLvZzWCFcbfk67PYYrGP3geDYmmxPjKhb1K?=
+ =?us-ascii?Q?EnG/mVFa8rANuMWW4SK8y20Uhv1ZOkbSKaJm9vdH1EfYKz/NxdJ+1gwMJMJS?=
+ =?us-ascii?Q?vWr6N0p0VOOCLA1CXdW6Cq//ixHLJzYmMdkHhezymeoWcxLdH+xaTqZpQ+ft?=
+ =?us-ascii?Q?WYCd1+Yq+cIUC7sQ6YWTRte2UtaEM4G8aawf3ljFE8ytNRixkFXiNAqShr49?=
+ =?us-ascii?Q?N4ytHfx+GnNA8s59LzOHddoNtde1GkVf76XkQQ2C5zYLj96XsnAl3Y4ZH171?=
+ =?us-ascii?Q?DUmvyU7IWfzqgI0w5nB0rF76YHBhEy57phnkSml8gxRfFyY3OSztSV9ZtIAt?=
+ =?us-ascii?Q?z2cxpTT7f2rECfVn9OjKl4sKW9aFkLVDHRh0E+xILcgJUE/Cas50VWonzFTT?=
+ =?us-ascii?Q?FRYh175sW4aU10s5xT7UOuYGP+XSWK9ATwrAb2XMcP9jkmHL4y357BlWQZqA?=
+ =?us-ascii?Q?aoek4NCKoKyUJb7UglzfnqNE7c12b0Hk/h0HrTA21jK3DxYciN2GKgrlyANZ?=
+ =?us-ascii?Q?e8Q0SPQT7WxfILythLuMhzcXefrKIz5BeCPZT5oIGWuNHKbGoHCuFxI4e88v?=
+ =?us-ascii?Q?q3suxPjfDOR+4odVVHs2bqKCNDSsWG34CNR/5cuNog+j6wK/nwFkz0+XP4IG?=
+ =?us-ascii?Q?uXgUNy/CrQB/vbMk3Eti0TrQLp1HraL9yYvIjs8sSEMNofz4o0CDcUQQlEiQ?=
+ =?us-ascii?Q?obIy6LurQyH9KOr4+0Djo1tzNk/q+xjyXZF8mmMi4lNjnflWNKABKbweF9cb?=
+ =?us-ascii?Q?iLdWimC6tcQNyMSV2oopHIPQTXIrAYdqD/zXMnqZyYqVy0KnrVbqZluzvfnC?=
+ =?us-ascii?Q?uqAA3zOFyE+bqNjhiBdN7sQMfCsQ5xgKgdIeRF2bqewSM0RUo+2YPi2I1Zy0?=
+ =?us-ascii?Q?3i8eTXWVlE916gOeLj+9Xpw1Dff+M0FjASSImYI24Ba20jfllFAnq/e5JoT8?=
+ =?us-ascii?Q?oqIYGlJSKDj1wGqIaJNPb8jbA/7xzvntcEP+GE5W0woIV3QAp/X4ti3OtLk8?=
+X-MS-Exchange-AntiSpam-MessageData-1: 8WJm3++c1ajJ+eqYW6yDmOUrzVqyF6Agbus=
+X-Exchange-RoutingPolicyChecked:
+	uIA+lAD2MTg2Mo+LlHkzuPQWm4XtPoj2PeESf5I+v8FWG6eDe8360wdHK7BjN7Ts5iB0hU2Llpeo5r9BbKA6fQ30X4/5jKk16ux3JxL1LEy9v2tCvgI1lYKu1PVxN5aUfGXHTEp1mBxpmdExMeWDdQmWVBvdOdKOdbDLsSLo7RXV7C7zQhb1S3zp+GmVh42asASm8lgdMtS9ysEYFRxwF2M/3X2h6uHChs87n/A6tDSM6ghSekc/OXUTE+vVpNDyR6+kLrSqiLQW/9qGmqo7PR4+E8V+ah6g5bupVB4WVN/Sug0P3zyRLlVzBLGtTvPKRUcXfQjKMhc3N6zyIPnzOA==
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6115d74a-ca99-4a1e-eef2-08df07f83bed
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB7546.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 07:11:25.2737
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xghlkGCYJ2Vrcfctc4BnPJKHjKU56gvW4y6+SZUv2I+Xr+2ht0AxMVZPujXte210Bh39lyklXVjqWEaoUtmYAU3rO9LceOOcomKThJHdamk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB4961
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA2MyBTYWx0ZWRfX09WCWwmhchks
+ kb96YqhMCUjsqP/cJQFZdNChW5HND2edTbmjCGsGM3qMlVhySggy2WfTNR7rHKY3DMoC3kb/xbK
+ lJW2dbtADWuZrbYRD+ayL98W48JBQbf9FdfaSIHoPX65KZenp3SlplGGqVAOH5qskS1JMdfTEv6
+ YFxjoHbqWzc0eIpbsDhC3/Xm/5uKYHNI5Eh0y+EV9BY6Z6lN15+5E1mjk40LHJsUyobZaX0stGS
+ k2EhkVsrrQM6oNAGHXD0c2tZvg1lA5iUohpsQV9N4eJvorS7DBZ6tocgyAspDZF/ZmFR6yOHyTD
+ xLEDdl0REeT5aegmaYHtroe66r7O3QCMxAvyUENNnEkK3wXqChgi0hNTyPPf2y//baXNHoaD3Iz
+ sbD7fue4m/2mYdEYWD+s9nIJO+NTj/CvIGk4vzvurls0fIkpbH8kCOT53eslNAS6m00hPM77guz
+ kACWOFieYHbxDWYze1Q==
+X-Authority-Analysis: v=2.4 cv=BJaDalQG c=1 sm=1 tr=0 ts=6a967aac cx=c_pps
+ a=nTv9GYKPVLLC6uM4GBPpxQ==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=bi6dqmuHe4P4UrxVR6um:22 a=iKiJcTA2PjBS6x5JeXcw:22 a=t7CeM3EgAAAA:8
+ a=i0EeH86SAAAA:8 a=OuZLqq7tAAAA:8 a=RxAQHiabxDEV-jkcklAA:9
+ a=FdTzh2GWekK77mhwV6Dw:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA2MyBTYWx0ZWRfXwtGncIyo0QZ5
+ FOWB508AZgK0lTdB2ofl8uFRmw2JXF5tLSMJto5B7aJTR3lKHCs8ek0MBlRpxfCdqX8kJmts+Ja
+ lmnJeRkfAivscq9d5ikDOy44Bg2o9vSGOksjy7+UzUX4+YhpMn3b
+X-Proofpoint-ORIG-GUID: qE5mbBtvxl-yUxyQtRuw75yimndemixA
+X-Proofpoint-GUID: qE5mbBtvxl-yUxyQtRuw75yimndemixA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1011
+ impostorscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010063
 
-On Tue, 2026-09-01 at 02:27 +0100, Jonathan Cameron wrote:
-> On Mon, 24 Aug 2026 05:29:07 +0100
-> Salah Triki <salah.triki@gmail.com> wrote:
->=20
-> > The threaded IRQ handler contained multiple issues in handling
-> > interrupt
-> > events and clearing status flags:
-> >=20
-> > 1. ISR bit check: The handler incorrectly checked the Interrupt
-> > Status
-> > =C2=A0=C2=A0 Register (VCNL_ISR) against VCNL_ICR_THRES_EN (BIT(1)), wh=
-ich is
-> > a
-> > =C2=A0=C2=A0 bitmask meant for the Control Register (VCNL_PS_ICR). In
-> > VCNL_ISR,
-> > =C2=A0=C2=A0 BIT(1) corresponds only to low-threshold interrupts. A hig=
-h-
-> > threshold
-> > =C2=A0=C2=A0 interrupt (VCNL_INT_TH_HI, BIT(0)) on its own was complete=
-ly
-> > ignored and
-> > =C2=A0=C2=A0 returned IRQ_NONE.
-> >=20
-> > 2. Event direction & channel index: The handler unconditionally
-> > pushed a
-> > =C2=A0=C2=A0 RISING event code on channel index 1. The driver only regi=
-sters
-> > a single
-> > =C2=A0=C2=A0 proximity channel (index 0), and low-threshold interrupts =
-should
-> > be
-> > =C2=A0=C2=A0 reported with IIO_EV_DIR_FALLING.
-> >=20
-> > 3. ISR clearing: The write-back to acknowledge the interrupt only
-> > preserved
-> > =C2=A0=C2=A0 BIT(1) instead of masking against both valid status bits.
-> >=20
-> > Fix this by checking both VCNL_INT_TH_HI and VCNL_INT_TH_LOW bits
-> > in
-> > VCNL_ISR, pushing separate IIO events with the correct direction
-> > and
-> > channel index (0), and properly clearing handled status bits.
-> >=20
-> > Fixes: 3363fbbe19e5 ("iio: proximity: vcnl3020: add periodic mode")
-> > Signed-off-by: Salah Triki <salah.triki@gmail.com>
->=20
-> Trying an active address that is hopefully the same Ivan!
->=20
-> This looks fine to me, but I'd ideally like input from Ivan.
->=20
-> Jonathan
->=20
-> > ---
-> > Changes since v1:
-> > =C2=A0 - Extended the patch to fix additional bugs found in
-> > vcnl3020_handle_irq_thread():
-> > =C2=A0=C2=A0=C2=A0 - Corrected event directions (RISING for high thresh=
-old,
-> > FALLING for low threshold).
-> > =C2=A0=C2=A0=C2=A0 - Fixed channel index from 1 to 0 (matching single p=
-roximity
-> > channel).
-> > =C2=A0=C2=A0=C2=A0 - Corrected ISR W1C clear logic for both HI and LOW =
-bits.
-> > =C2=A0 - Updated commit message to detail all IRQ handler fixes.
-> >=20
-> > =C2=A0drivers/iio/proximity/vcnl3020.c | 24 +++++++++++++++++-------
-> > =C2=A01 file changed, 17 insertions(+), 7 deletions(-)
-> >=20
-> > diff --git a/drivers/iio/proximity/vcnl3020.c
-> > b/drivers/iio/proximity/vcnl3020.c
-> > index 7f417372566a..d0b8f429999f 100644
-> > --- a/drivers/iio/proximity/vcnl3020.c
-> > +++ b/drivers/iio/proximity/vcnl3020.c
-> > @@ -584,16 +584,26 @@ static irqreturn_t
-> > vcnl3020_handle_irq_thread(int irq, void *p)
-> > =C2=A0		return IRQ_HANDLED;
-> > =C2=A0	}
-> > =C2=A0
-> > -	if (!(isr & VCNL_ICR_THRES_EN))
-> > +	if (!(isr & (VCNL_INT_TH_HI | VCNL_INT_TH_LOW)))
-> > =C2=A0		return IRQ_NONE;
-> > =C2=A0
-> > -	iio_push_event(indio_dev,
-> > -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 IIO_UNMOD_EVENT_CODE(IIO_PROXIM=
-ITY, 1,
-> > -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- IIO_EV_TYPE_THRESH,
-> > -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- IIO_EV_DIR_RISING),
-> > -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iio_get_time_ns(indio_dev));
-> > +	if (isr & VCNL_INT_TH_HI) {
-> > +		iio_push_event(indio_dev,
-> > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 IIO_UNMOD_EVENT_CODE(IIO_PROXI=
-MITY,
-> > 0,
-> > +						=C2=A0=C2=A0=C2=A0
-> > IIO_EV_TYPE_THRESH,
-> > +						=C2=A0=C2=A0=C2=A0
-> > IIO_EV_DIR_RISING),
-> > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iio_get_time_ns(indio_dev));
-> > +	}
-> > +
-> > +	if (isr & VCNL_INT_TH_LOW) {
-> > +		iio_push_event(indio_dev,
-> > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 IIO_UNMOD_EVENT_CODE(IIO_PROXI=
-MITY,
-> > 0,
-> > +						=C2=A0=C2=A0=C2=A0
-> > IIO_EV_TYPE_THRESH,
-> > +						=C2=A0=C2=A0=C2=A0
-> > IIO_EV_DIR_FALLING),
-> > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iio_get_time_ns(indio_dev));
-> > +	}
-> > =C2=A0
-> > -	rc =3D regmap_write(data->regmap, VCNL_ISR, isr &
-> > VCNL_ICR_THRES_EN);
-> > +	rc =3D regmap_write(data->regmap, VCNL_ISR, isr &
-> > (VCNL_INT_TH_HI | VCNL_INT_TH_LOW));
-> > =C2=A0	if (rc)
-> > =C2=A0		dev_err(data->dev, "Error (%d) writing in reg
-> > (0x%x)\n",
-> > =C2=A0			rc, VCNL_ISR);
+From: Ionut Nechita <ionut.nechita@windriver.com>
 
-Jonathan, thanks for pinging me, yes, address still same, I'll check
-patch until end of the week.
+The elfcorehdr reservation is now sized with NR_CPUS, but two comments
+still name NR_CPUS_DEFAULT: the one above crash_handle_hotplug_event()
+and the CRASH_MAX_MEMORY_RANGES help text.
 
-Thanks.
+Update both.  Documentation only, no functional change.
+
+Suggested-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Suggested-by: Bradley Morgan <brads@mainlining.org>
+Assisted-by: LLM
+Signed-off-by: Ionut Nechita <ionut.nechita@windriver.com>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+---
+ kernel/Kconfig.kexec | 2 +-
+ kernel/crash_core.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/Kconfig.kexec b/kernel/Kconfig.kexec
+index 15632358bcf7..a97ed9605602 100644
+--- a/kernel/Kconfig.kexec
++++ b/kernel/Kconfig.kexec
+@@ -167,7 +167,7 @@ config CRASH_MAX_MEMORY_RANGES
+ 	  memory regions that the elfcorehdr buffer/segment can accommodate.
+ 	  These regions are obtained via walk_system_ram_res(); eg. the
+ 	  'System RAM' entries in /proc/iomem.
+-	  This value is combined with NR_CPUS_DEFAULT and multiplied by
++	  This value is combined with NR_CPUS and multiplied by
+ 	  sizeof(Elf64_Phdr) to determine the final elfcorehdr memory buffer/
+ 	  segment size.
+ 	  The value 8192, for example, covers a (sparsely populated) 1TiB system
+diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+index 2b36aa9fade0..d0bd2d0cf899 100644
+--- a/kernel/crash_core.c
++++ b/kernel/crash_core.c
+@@ -648,7 +648,7 @@ int crash_check_hotplug_support(void)
+  * new list of CPUs and memory. To make changes to the elfcorehdr, it
+  * should be large enough to permit a growing number of CPU and Memory
+  * resources. One can estimate the elfcorehdr memory size based on
+- * NR_CPUS_DEFAULT and CRASH_MAX_MEMORY_RANGES. The elfcorehdr is
++ * NR_CPUS and CRASH_MAX_MEMORY_RANGES. The elfcorehdr is
+  * excluded from SHA verification by default if the architecture
+  * supports crash hotplug.
+  */
+-- 
+2.55.0
+
