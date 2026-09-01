@@ -1,56 +1,56 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49F849483C
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5337449502C
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:07:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788286048; cv=none; b=KDl2t2tp1z3UrZsBxIIyCJE21STJmTCR81CpDbiFeGHkL4WPYa7nMK4C/f/o/m9Dni6T3Y/q1bdbXxlnkys5WG2hfX6qwqkz5iE8zG2I0wGqioxzr+gshcRuLE52+Ha25rPHRE5yV3wvBk8IKcjTZcPZosTvV0wUqR8LoZyUdAQ=
+	t=1788286049; cv=none; b=g/sECd/zug12jvMOLUaXOoKGR+PTAPMckkuAdnyldtj9LWPtCQWnKYoyLKFshirDYROP9GpXWNjss6Cq8zP/wgzEbtvVV59dpPzO0rfSh34bW/OK+6DFiJ50LGvQEe/X0dZVH/3WZ96IkrDP/OFOocXt0QXAs6K3ivjLHVCwK8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788286048; c=relaxed/simple;
-	bh=vtYIoVwj2gUjnAUPtl0S6WmTLHlYLBq4sxXTimWNe+0=;
+	s=arc-20240116; t=1788286049; c=relaxed/simple;
+	bh=uFV6QdZgs53Cc//57Ww0okrOM7FWgj7HZIJ7HnfB/tI=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=sL88aypW6sIEib3dDfg1VAlY9pxj/NobUneCsWHLThmv+RjtOCl6yJZynIBfCt3bQ/yAx6HTSh5RGLsklyeh9A+dmZSAcQmaPp0WFm43PTVslWkJcxKcDTG6AVhprIojMbONZ3yFxh7ZrnepClwNHWslJ5ip55Hb3Xh6MKcLJhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tc8EYzPv; arc=none smtp.client-ip=209.85.214.197
+	 To:Cc:Content-Type; b=lAnbFTISpsbf//serh7etn5KKc/4+1lTw+dWcQMmGA6J7ELHzEDAPyjTaHz/utoU+f+T4M1py8BgAEJzM1WFSpd5t5Smr3vCWdb9S1mkJa9I6XTK/66Mlm0T/5QnmQsGVxkBIa+vE1BsvB77xyFpW9I6R3Ffct/4+DEh8xZPhjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NdxWsNN7; arc=none smtp.client-ip=209.85.215.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tc8EYzPv"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d9336581a2so1228485ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:07:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NdxWsNN7"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1b6f65dacso207136a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:07:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788286046; x=1788890846; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788286048; x=1788890848; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=falXxVt1CqmyncILPaUG22UQuDMsfEGdQdvwDGt8XFI=;
-        b=tc8EYzPvzjJJOK667C6ZooyWzoXbtgyGaxZzxGmF3XcuQevItsEkT4BZe1CF7BiAO3
-         P9RMCqO5ua4LnpSZ4Ie3rcXwhMzd/7C5HiHNg6Z/BRefmz/zS2Rsk+WV7CwdhacYw3ZE
-         FY1UZcHuQ6w6r5KaCoziSBTQEb0lUtUSL3tkdGIgjPqF+CpwIwd0KHwc4X3Y9hjkozJ1
-         D23a8DfHHQzQnOZWXXVemCVp6r+eNduOgvkR/Jaq1xYA3sD4mimmhWzXEaZYi4LEaKNO
-         h6fEiRS9IQRMuSRIBwVmPGNooi6XDl6eoJQCBJ1BHwb9alFpQ6BVW2CCJmEPFsKwneIq
-         mgxA==
+        bh=abQNPJxLdJSbNwggArhdklh2mCXd2+hz+eKc3bSV4GE=;
+        b=NdxWsNN7eDscQRVtniyJcrdp3jT5UfT7moWS2ymVPhgLtkt5eDAiZwvyFI7X1kIB07
+         au1hOVocwh0+C94HUCEkNg3zr75dDzIGNRFLpAnCz4WmKQbl3LPtpKlw07zEfJAnirfi
+         E0QP//ZsgNjeeIfNl3rt7oy/cCNGOwnACnPJINML5TtSMSj/lOZjnnYd13ota7eeMT6y
+         rcLuLkNKQtE7D5V4qX1PmwflX8EpPZjYEvZs7mPmfRMb3cw8pykWgk/HNUwCMCkbjbuJ
+         i22VbET8c7juTwyad7JDy+c3HyNUj8rYieEhEdsYUr8eg84G9MReAUUXWn90khRpw2ZW
+         vnKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788286046; x=1788890846;
+        d=1e100.net; s=20251104; t=1788286048; x=1788890848;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=falXxVt1CqmyncILPaUG22UQuDMsfEGdQdvwDGt8XFI=;
-        b=GwbDqpFKsoWi5uHAC/TmeySLF1nFv7QAol8QOf1+xrpKK+aynt2PwWMHmhpYhFEk1b
-         hL3byPMiH8uwQ8bIwEpu004+kCoDt7ybUffXwNqK0RApCsRa85/DnHQimXxbd/PgSdf3
-         U9R4N3PaqCzuLfipUiKL7rru6yA1kC/6UN8aDf5UyaurEYEtZUmpoM6Cu09vkizqvumJ
-         MgnJkYvE2/W9anwX/7FmjvQ7kNeDwfvrnhMp0dbaWyYaqRRi4Tj/4h1ygCKZhKmqCaOs
-         fwJ0jczpN4zZH/Zu+B3RdGggAm4oPrkBby/PbzNMc2Z8jKcoVaHGRa9h6VOn9u5NBWn7
-         JRLA==
-X-Forwarded-Encrypted: i=1; AKwUvBz5Ecr6l0lU6AH/37vDeiEMjvobfOGv336SqMXz5hjH3KMtg3YYCg3epBLVMX+Otnf73h4Dr/m9/1aUbR8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9te2PMZCHLf9+G988SS2Bnyvy4zWt85OQiS5JxsfQz+zJr1mG
-	FxjVX8phMyxJNISvKeiD7Ix6olraZDOaDihmf/81VADAJuiHexpYdrCLSBlGwV+nDmn9iXGfxkT
-	SBPKmER2kH25FWA==
-X-Received: from pjyv9.prod.google.com ([2002:a17:90a:e989:b0:396:5ba1:a6dc])
+        bh=abQNPJxLdJSbNwggArhdklh2mCXd2+hz+eKc3bSV4GE=;
+        b=Btupn41MJC9r0O3ZcRowMfuXbY2MsVIEEjEz2cVLZBXmpeKR2LhK+7l74BfC/WLWOl
+         oLIF0lOjg+0mDGKs85IO6j+vNmGsxUBZvhrHUSuLo6A4ny5Dxjh2FT37ZBJZ9Dk7+D48
+         jNMGLecxGVDNXtSDp39UsDVx0rCGpF5uCEqJ2AOarxlHjjFxZetiqOwlb0amAYlPDdgC
+         wp5vyULogwTud59fH642ropff6L4UZgula2f61WE1EAX3+uRv+j0SB71q1d56hc+q7EO
+         l2DT8yCHHw65OzwOyANMzQEi1ONFh/CIBPlosqxexktfXYVgd6nW++qENKigGWHlyu/c
+         hQ3g==
+X-Forwarded-Encrypted: i=1; AHgh+RpIqqVvWAeTQZlw2JZN+ieStAjaq1lDXcquamR4Jc+Y0nN+eQGFU+fy8wL0HLWs5yc/j95RVilFg/X0Jho=@vger.kernel.org
+X-Gm-Message-State: AFuF++mF4murL+Fwp+EGoDyxrRsYrl0Z+iHBtCnSz1dQ8Nh/q1Anyfxi
+	ygX7eMcJsFvXni31KgrhU+YkiwBqCiApkH/tMcfZRVuNmz11BPMEGB+UTNICWuj6a4rp7xkdZR9
+	m7KCtjL5+76grbQ==
+X-Received: from pfux35.prod.google.com ([2002:a05:6a00:be3:b0:848:7bbd:284b])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3c44:b0:398:dcef:c040 with SMTP id 98e67ed59e1d1-398dcefc24amr26801689a91.19.1788286045592;
- Tue, 01 Sep 2026 11:07:25 -0700 (PDT)
-Date: Tue,  1 Sep 2026 18:07:10 +0000
+ 2002:a05:6a00:3309:b0:835:6388:655d with SMTP id d2e1a72fcca58-8562ba7dae0mr58420543b3a.14.1788286047461;
+ Tue, 01 Sep 2026 11:07:27 -0700 (PDT)
+Date: Tue,  1 Sep 2026 18:07:12 +0000
 In-Reply-To: <20260901180713.4185641-1-dmatlack@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260901180713.4185641-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
-Message-ID: <20260901180713.4185641-3-dmatlack@google.com>
-Subject: [RFC PATCH 2/5] liveupdate: Introduce SESSION_RETRIEVE_INTO_FD API
- and core support
+Message-ID: <20260901180713.4185641-5-dmatlack@google.com>
+Subject: [RFC PATCH 4/5] mm/memfd_luo: Expand support beyond memfd to all
+ generic shmem inodes
 From: David Matlack <dmatlack@google.com>
 To: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
 	linux-kselftest@vger.kernel.org, linux-mm@kvack.org
@@ -72,184 +72,75 @@ Cc: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
 	David Matlack <dmatlack@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Define the LIVEUPDATE_CMD_SESSION_RETRIEVE_INTO_FD ioctl in the UAPI and
-implement the core support into LUO sessions. Add a new .retrieve_into()
-callback definition to struct liveupdate_file_handler but do not yet
-implement it for any file types.
+Relax the early validation checks in the Live Update preservation path
+to allow general shmem-backed files, completely dropping the requirement
+that the file be unlinked (!inode->i_nlink).
 
-Delegating VFS topology recreation to userspace across Live Updates
-requires an interface where userspace can provide an empty target file
-descriptor, and the kernel can inject preserved memory into it. This API
-supplies that missing routing. It uses the new luo_retrieve_into_file()
-helper to safely look up tracking structures without duplicating backend
-locks.
+This officially enables userspace to push standard, path-backed tmpfs
+file descriptors through the LUO session ioctl instead of being
+artificially restricted strictly to anonymous memfd pseudofiles.
 
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- include/linux/liveupdate.h       |  1 +
- include/uapi/linux/liveupdate.h  | 21 +++++++++++++++++++
- kernel/liveupdate/luo_file.c     | 36 ++++++++++++++++++++++++++++++++
- kernel/liveupdate/luo_internal.h |  2 ++
- kernel/liveupdate/luo_session.c  | 30 ++++++++++++++++++++++++++
- 5 files changed, 90 insertions(+)
+ mm/memfd_luo.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/liveupdate.h b/include/linux/liveupdate.h
-index 63ea5417de84..7b595e0f53bc 100644
---- a/include/linux/liveupdate.h
-+++ b/include/linux/liveupdate.h
-@@ -79,6 +79,7 @@ struct liveupdate_file_ops {
- 	int (*freeze)(struct liveupdate_file_op_args *args);
- 	void (*unfreeze)(struct liveupdate_file_op_args *args);
- 	int (*retrieve)(struct liveupdate_file_op_args *args);
-+	int (*retrieve_into)(struct liveupdate_file_op_args *args, struct file *target_file);
- 	bool (*can_finish)(struct liveupdate_file_op_args *args);
- 	void (*finish)(struct liveupdate_file_op_args *args);
- 	unsigned long (*get_id)(struct file *file);
-diff --git a/include/uapi/linux/liveupdate.h b/include/uapi/linux/liveupdate.h
-index 4043d4038712..ed2049529cc0 100644
---- a/include/uapi/linux/liveupdate.h
-+++ b/include/uapi/linux/liveupdate.h
-@@ -59,7 +59,11 @@ enum {
- 	LIVEUPDATE_CMD_SESSION_PRESERVE_FD = LIVEUPDATE_CMD_SESSION_BASE,
- 	LIVEUPDATE_CMD_SESSION_RETRIEVE_FD = 0x41,
- 	LIVEUPDATE_CMD_SESSION_FINISH = 0x42,
-+
- 	LIVEUPDATE_CMD_SESSION_GET_NAME = 0x43,
-+
-+	LIVEUPDATE_CMD_SESSION_RETRIEVE_INTO_FD = 0x44,
-+
- };
+diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
+index dcda5bf98646..107115c97bd8 100644
+--- a/mm/memfd_luo.c
++++ b/mm/memfd_luo.c
+@@ -9,14 +9,15 @@
+  */
  
  /**
-@@ -184,6 +188,23 @@ struct liveupdate_session_retrieve_fd {
- #define LIVEUPDATE_SESSION_RETRIEVE_FD					\
- 	_IO(LIVEUPDATE_IOCTL_TYPE, LIVEUPDATE_CMD_SESSION_RETRIEVE_FD)
- 
-+/**
-+ * struct liveupdate_session_retrieve_into_fd - ioctl(LIVEUPDATE_SESSION_RETRIEVE_INTO_FD)
-+ * @size:  Input; sizeof(struct liveupdate_session_retrieve_into_fd)
-+ * @fd:    Input; The open file descriptor (e.g. empty tmpfs file) to inject the resource into.
-+ * @token: Input; An opaque, token that was used to preserve the resource.
-+ *
-+ * Retrieve a previously preserved file descriptor into an existing file descriptor.
-+ */
-+struct liveupdate_session_retrieve_into_fd {
-+	__u32		size;
-+	__s32		fd;
-+	__aligned_u64	token;
-+};
-+
-+#define LIVEUPDATE_SESSION_RETRIEVE_INTO_FD					\
-+	_IO(LIVEUPDATE_IOCTL_TYPE, LIVEUPDATE_CMD_SESSION_RETRIEVE_INTO_FD)
-+
- /**
-  * struct liveupdate_session_finish - ioctl(LIVEUPDATE_SESSION_FINISH)
-  * @size:     Input; sizeof(struct liveupdate_session_finish)
-diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
-index 5e160836a165..c4abfd25e149 100644
---- a/kernel/liveupdate/luo_file.c
-+++ b/kernel/liveupdate/luo_file.c
-@@ -932,3 +932,39 @@ void liveupdate_unregister_file_handler(struct liveupdate_file_handler *fh)
- 	luo_flb_unregister_all(fh);
- 	list_del(&ACCESS_PRIVATE(fh, list));
- }
-+
-+int luo_retrieve_into_file(struct luo_file_set *file_set, u64 token,
-+			   struct file *target_file)
-+{
-+	struct liveupdate_file_op_args args = {0};
-+	struct luo_file *luo_file;
-+	int err;
-+
-+	luo_file = luo_find_file_by_token(file_set, token);
-+	if (IS_ERR(luo_file))
-+		return PTR_ERR(luo_file);
-+
-+	guard(mutex)(&luo_file->mutex);
-+	if (luo_file->retrieve_status < 0)
-+		return luo_file->retrieve_status;
-+
-+	if (luo_file->retrieve_status > 0)
-+		return -EBUSY; /* Already retrieved */
-+
-+	if (!luo_file->fh->ops->retrieve_into)
-+		return -EOPNOTSUPP;
-+
-+	args.handler = luo_file->fh;
-+	args.serialized_data = luo_file->serialized_data;
-+	err = luo_file->fh->ops->retrieve_into(&args, target_file);
-+	if (err) {
-+		luo_file->retrieve_status = err;
-+		return err;
-+	}
-+
-+	luo_file->file = target_file;
-+	get_file(luo_file->file);
-+	luo_file->retrieve_status = 1;
-+
-+	return 0;
-+}
-diff --git a/kernel/liveupdate/luo_internal.h b/kernel/liveupdate/luo_internal.h
-index 64879ffe7378..1af9aebe6623 100644
---- a/kernel/liveupdate/luo_internal.h
-+++ b/kernel/liveupdate/luo_internal.h
-@@ -92,6 +92,8 @@ void luo_file_unfreeze(struct luo_file_set *file_set,
- 		       struct luo_file_set_ser *file_set_ser);
- int luo_retrieve_file(struct luo_file_set *file_set, u64 token,
- 		      struct file **filep);
-+int luo_retrieve_into_file(struct luo_file_set *file_set, u64 token,
-+			   struct file *target_file);
- int luo_file_finish(struct luo_file_set *file_set);
- int luo_file_deserialize(struct luo_file_set *file_set,
- 			 struct luo_file_set_ser *file_set_ser);
-diff --git a/kernel/liveupdate/luo_session.c b/kernel/liveupdate/luo_session.c
-index f48e9a4185f9..2b967f720ef5 100644
---- a/kernel/liveupdate/luo_session.c
-+++ b/kernel/liveupdate/luo_session.c
-@@ -278,6 +278,34 @@ static int luo_session_preserve_fd(struct luo_session *session,
- 	return err;
- }
- 
-+static int luo_session_retrieve_into_fd(struct luo_session *session,
-+					 struct luo_ucmd *ucmd)
-+{
-+	struct liveupdate_session_retrieve_into_fd *argp = ucmd->cmd;
-+	struct fd target_fd;
-+	int err;
-+
-+	target_fd = fdget(argp->fd);
-+	if (fd_empty(target_fd))
-+		return -EBADF;
-+
-+	guard(mutex)(&session->mutex);
-+	err = luo_retrieve_into_file(&session->file_set, argp->token, fd_file(target_fd));
-+	if (err < 0)
-+		goto err_put_fd;
-+
-+	err = luo_ucmd_respond(ucmd, sizeof(*argp));
-+	/*
-+	 * If we fail to respond, we cannot easily undo the retrieval. Let the
-+	 * normal session cleanup logic handle the file reference eventually.
-+	 */
-+
-+err_put_fd:
-+	fdput(target_fd);
-+
-+	return err;
-+}
-+
- static int luo_session_retrieve_fd(struct luo_session *session,
- 				   struct luo_ucmd *ucmd)
+- * DOC: Memfd Preservation via LUO
++ * DOC: Memfd and Tmpfs Preservation via LUO
+  *
+  * Overview
+  * ========
+  *
+- * Memory file descriptors (memfd) can be preserved over a kexec using the Live
+- * Update Orchestrator (LUO) file preservation. This allows userspace to
+- * transfer its memory contents to the next kernel after a kexec.
++ * Memory file descriptors (memfd) and generic tmpfs files can be preserved
++ * over a kexec using the Live Update Orchestrator (LUO) file preservation.
++ * This allows userspace to transfer its memory contents to the next kernel
++ * after a kexec.
+  *
+  * The preservation is not intended to be transparent. Only select properties of
+  * the file are preserved. All others are reset to default. The preserved
+@@ -24,16 +25,17 @@
+  *
+  * .. note::
+  *    The LUO API is not stabilized yet, so the preserved properties of a memfd
+- *    are also not stable and are subject to backwards incompatible changes.
++ *    or tmpfs file are also not stable and are subject to backwards
++ *    incompatible changes.
+  *
+  * .. note::
+- *    Currently a memfd backed by Hugetlb is not supported. Memfds created
++ *    Currently a file backed by Hugetlb is not supported. Memfds created
+  *    with ``MFD_HUGETLB`` will be rejected.
+  *
+  * Preserved Properties
+  * ====================
+  *
+- * The following properties of the memfd are preserved across kexec:
++ * The following properties of the memfd/tmpfs file are preserved across kexec:
+  *
+  * File Contents
+  *   All data stored in the file is preserved.
+@@ -580,9 +582,7 @@ static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
+ static bool memfd_luo_can_preserve(struct liveupdate_file_handler *handler,
+ 				   struct file *file)
  {
-@@ -382,6 +410,8 @@ static const struct luo_ioctl_op luo_session_ioctl_ops[] = {
- 		 struct liveupdate_session_retrieve_fd, token, LUO_IOCTL_INCOMING),
- 	IOCTL_OP(LIVEUPDATE_SESSION_GET_NAME, luo_session_get_name,
- 		 struct liveupdate_session_get_name, name, LUO_IOCTL_ALL),
-+	IOCTL_OP(LIVEUPDATE_SESSION_RETRIEVE_INTO_FD, luo_session_retrieve_into_fd,
-+		 struct liveupdate_session_retrieve_into_fd, token, LUO_IOCTL_INCOMING),
- };
+-	struct inode *inode = file_inode(file);
+-
+-	return shmem_file(file) && !inode->i_nlink;
++	return shmem_file(file) || shmem_mapping(file->f_mapping);
+ }
  
- static bool luo_ioctl_type_valid(struct luo_session *session,
+ static unsigned long memfd_luo_get_id(struct file *file)
 -- 
 2.55.0.966.g6673acef38-goog
 
