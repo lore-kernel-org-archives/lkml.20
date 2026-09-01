@@ -1,338 +1,99 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 269E148097B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F07A4252B7
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788280323; cv=none; b=bsYzLydNLeop+VG5xKEjvLJ3+QTHawMhfjjKN/SapD7RrNpiUCF0TSgttJC4S8LrdoKh0lta5Zs8dQ2mBz3HM8JqR0JiT90QpYH7lnO7G6B5oDg++eF5otpxNPGPRwGfVqbTJ0UfwjoG1Dq/Hp0XOhbAQYROMFtI2Wham38rrpI=
+	t=1788280335; cv=none; b=D9Q9/5hQEcmUbJEOn8RQw1cVgjwNGWVrcqLtDF6JZlCPyivm/kpeLjkg4Ocj7YJLfeJwvR0z4Y8xvrIZC9p8DPpavDFEK/HmUiY8PjeuoEFOvamK+MivJNeNEFNCg3jCVp0VOrTRdISKiS+GMg2A12LYDetkeKILcREqFHYFDl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788280323; c=relaxed/simple;
-	bh=hLe45cnDUnZxwdK4p4TDAGy82nU9hy3GkuXKLYRaHoU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cW0XEfvQb19Mbj8z+ew2k/fiz6WaPlh9EtCvyhbI52I1j+4le6vYiOjuFQArvwix8190NmststT0H40VkzTbn2lmFDUiy0HHWEXa4rHceHKZxcUXKO1qXvsR8RstSRMd7UbElv6pMmA8r6lYr1Zxu1/KFwxEKbbdCkPyS8VUIlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KzWXJo9B; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788280335; c=relaxed/simple;
+	bh=p4GObHGaJ5CEWbDCuhA6lpqninXfQCRLaBbM7efY+I8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=V7rXr2+odY2U43jsGSbEZkfFIelnBZFOAxHlX9jGix6floXueUA6Ed7zK96zbVyVv8w5i0dlzj/JcjqCKVznQZhlCdASxKZaXMVgwZVWCsO/8dAm/iPf/Oh6qE+37QHU0ADmdgwXfv6QqJqwGc9U7V9UFsCwsK6hr3oV7nHqeW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=en/DMJ+B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KzWXJo9B"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 97A9C1756
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:31:56 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1E6463F85F
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:31:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788280320; bh=hLe45cnDUnZxwdK4p4TDAGy82nU9hy3GkuXKLYRaHoU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KzWXJo9BT0rlkBdT5OtfVB9D8yLP1gNTG6EhVmT8+vjsnW5EPe04axmphAaeUPzRX
-	 WvLXH60G08JC+ZSCg7H+wTiLtlQmni3rVeAOcEf3cCawFGahdpNgLkn50hhd37CypA
-	 63nP4u6u6oG/GQdKVlJS/gmDIY0ByP0rPXbUOV9w=
-Date: Tue, 1 Sep 2026 17:31:43 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:DRM DRIVER for Qualcomm display hardware" <linux-arm-msm@vger.kernel.org>,
-	"open list:DRM DRIVER for Qualcomm display hardware" <freedreno@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/gem: Drop ticket arg to lru_scan()
-Message-ID: <apb970Ep6EHHKpAq@e142607>
-References: <20260831174409.465181-1-robin.clark@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="en/DMJ+B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E88C1F00A3A
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:32:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788280334;
+	bh=n7PsGS51DMFD9X2awrSyQeuUAIWY2ojuh4Ip9J/3AzY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=en/DMJ+B4O0/lZDAjP2LwhNUDO6ZaRsmMhWKlLtrQpNY8IJwbMlZm5nFRJAB5C92w
+	 J64nx6gY8vnF+TtbL5dqkhKPe2TXGAPq2gJJR3jDr3vJce7fG+n9YLUlal20vUV0TE
+	 CtekgujcmEInVMOKHq2qcDSHIc2rOebUafVxl2KjmRMtyzeNp0MbYQ2FGbubJC75w2
+	 e7kKBZuUUCqnuJYXXS0IhU/uBaekk3XLIEsSN2CC5oGuahjravyQwQIoaVfUoBz6xk
+	 wpqmEqWZLqrM4ZT08V1v5EE8XAiRVcalzWYiZ7K1inhoQ+sEUk2onTRHBoTSourZYb
+	 ODcsJihWcBH2A==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a305310ddaso251681fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:32:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBytoyf//HZOuCf2Xa9fSv8qsWzw5UlrkiBhWcA/MkP/yHF1gOLvCwhLje0yRAhgIvqI1d1DbMThadmJlOg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kR9mbM6dUzm3pICoa3rD+PjCo2oJY0tDP0XsxGIZ+mq3WTkvN6
+	MTVmWBbuVNhqQzBzp7wQDHiMKSTS0vNGQJq57HhoiPqRxgWH3Rk8esXtitM7qrwjb4b4A91Z0N0
+	nKpgaQUuvolxr2haez5Jb4D1JJGfRM+M=
+X-Received: by 2002:a2e:a9a1:0:b0:3a2:72c:cde9 with SMTP id
+ 38308e7fff4ca-3a339661bb1mr22065241fa.4.1788280332554; Tue, 01 Sep 2026
+ 09:32:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260831174409.465181-1-robin.clark@oss.qualcomm.com>
+References: <6314925.lOV4Wx5bFT@rafael.j.wysocki> <apaCk3qmZ5hO_aNC@ashevche-desk.local>
+In-Reply-To: <apaCk3qmZ5hO_aNC@ashevche-desk.local>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 1 Sep 2026 18:31:17 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jKCLBuSQX0EnzEftQZaq4ZSCpTFOGP5u4cx2gxieJpLQ@mail.gmail.com>
+X-Gm-Features: AcwNN1Wzb093icNUrYCJFMRArZKM-wbAwOubP5kdL57VnOA0hhP0Kg3PeTHwRNw
+Message-ID: <CAJZ5v0jKCLBuSQX0EnzEftQZaq4ZSCpTFOGP5u4cx2gxieJpLQ@mail.gmail.com>
+Subject: Re: [PATCH v1] ACPI: bus: Drop two fields from struct acpi_device_pnp
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
+	LKML <linux-kernel@vger.kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 10:44:08AM -0700, Rob Clark wrote:
-> Commit 3392291fc509 ("drm/msm: Fix shrinker deadlock") dropped the only
-> use of the ticket arg, but at the time left drm_gem_lru_scan() unchanged
-> to avoid conflicts with in-flight pathor shrinker support.  This commit
-> is the followup to remove the unused arg.
-> 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+On Tue, Sep 1, 2026 at 9:45=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Mon, Aug 31, 2026 at 10:07:10PM +0200, Rafael J. Wysocki wrote:
+>
+> > There are two fields in struct acpi_device_pnp, device_name and
+> > device_class, that were supposed to be populated and used by device
+> > drivers, but they have never been used consistently and now they
+> > are only set for the bus object in acpi_set_pnp_ids() (and never
+> > read afterward).
+> >
+> > Drop them along with all of the associated symbols except for
+> > MAX_ACPI_CLASS_NAME_LEN and the acpi_device_class typedef that
+> > are used by the ACPI netlink messaging code.  Move those two
+> > definitions closer to the struct acpi_bus_event that refers to
+> > the acpi_device_class type.
+>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+>
+> ...
+>
+> > +#define MAX_ACPI_CLASS_NAME_LEN              20
+> > +typedef char acpi_device_class[MAX_ACPI_CLASS_NAME_LEN];
+>
+> Are you planning to use this in some future code?
+>
+> >  struct acpi_bus_event {
+> >       struct list_head node;
+> >       acpi_device_class device_class;
+>
+> Otherwise I would go with complete replacement of the above to simple
+>
+>         char acpi_device_class[20];
+>
+> here.
 
-With the panthor spelling fixed:
+This is in use in the Thinkpad driver.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-Best regards,
-Liviu
-
-> ---
->  drivers/gpu/drm/drm_gem.c              | 13 +++----------
->  drivers/gpu/drm/msm/msm_gem_shrinker.c | 22 ++++++++++------------
->  drivers/gpu/drm/panthor/panthor_gem.c  | 14 ++++++--------
->  drivers/gpu/drm/panthor/panthor_mmu.c  |  5 ++---
->  drivers/gpu/drm/panthor/panthor_mmu.h  |  3 +--
->  include/drm/drm_gem.h                  |  3 +--
->  6 files changed, 23 insertions(+), 37 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index e3ed684ddcf2..15acb958ecd5 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -1656,8 +1656,7 @@ drm_gem_lru_scan(struct drm_device *dev,
->  		 struct drm_gem_lru *lru,
->  		 unsigned int nr_to_scan,
->  		 unsigned long *remaining,
-> -		 bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket),
-> -		 struct ww_acquire_ctx *ticket)
-> +		 bool (*shrink)(struct drm_gem_object *obj))
->  {
->  	struct drm_gem_lru still_in_lru;
->  	struct drm_gem_object *obj;
-> @@ -1690,20 +1689,17 @@ drm_gem_lru_scan(struct drm_device *dev,
->  		 */
->  		mutex_unlock(&dev->gem_lru_mutex);
->  
-> -		if (ticket)
-> -			ww_acquire_init(ticket, &reservation_ww_class);
-> -
->  		/*
->  		 * Note that this still needs to be trylock, since we can
->  		 * hit shrinker in response to trying to get backing pages
->  		 * for this obj (ie. while it's lock is already held)
->  		 */
-> -		if (!ww_mutex_trylock(&obj->resv->lock, ticket)) {
-> +		if (!ww_mutex_trylock(&obj->resv->lock, NULL)) {
->  			*remaining += obj->size >> PAGE_SHIFT;
->  			goto tail;
->  		}
->  
-> -		if (shrink(obj, ticket)) {
-> +		if (shrink(obj)) {
->  			freed += obj->size >> PAGE_SHIFT;
->  
->  			/*
-> @@ -1727,9 +1723,6 @@ drm_gem_lru_scan(struct drm_device *dev,
->  
->  		dma_resv_unlock(obj->resv);
->  
-> -		if (ticket)
-> -			ww_acquire_fini(ticket);
-> -
->  tail:
->  		drm_gem_object_put(obj);
->  		mutex_lock(&dev->gem_lru_mutex);
-> diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> index 9d2788f79ace..3514d5c84989 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> @@ -102,7 +102,7 @@ with_vm_locks(void (*fn)(struct drm_gem_object *obj),
->  }
->  
->  static bool
-> -purge(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
-> +purge(struct drm_gem_object *obj)
->  {
->  	if (!is_purgeable(to_msm_bo(obj)))
->  		return false;
-> @@ -114,7 +114,7 @@ purge(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
->  }
->  
->  static bool
-> -evict(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
-> +evict(struct drm_gem_object *obj)
->  {
->  	if (is_unevictable(to_msm_bo(obj)))
->  		return false;
-> @@ -133,21 +133,21 @@ wait_for_idle(struct drm_gem_object *obj)
->  }
->  
->  static bool
-> -active_purge(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
-> +active_purge(struct drm_gem_object *obj)
->  {
->  	if (!wait_for_idle(obj))
->  		return false;
->  
-> -	return purge(obj, ticket);
-> +	return purge(obj);
->  }
->  
->  static bool
-> -active_evict(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
-> +active_evict(struct drm_gem_object *obj)
->  {
->  	if (!wait_for_idle(obj))
->  		return false;
->  
-> -	return evict(obj, ticket);
-> +	return evict(obj);
->  }
->  
->  static unsigned long
-> @@ -156,7 +156,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->  	struct msm_drm_private *priv = shrinker->private_data;
->  	struct {
->  		struct drm_gem_lru *lru;
-> -		bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket);
-> +		bool (*shrink)(struct drm_gem_object *obj);
->  		bool cond;
->  		unsigned long freed;
->  		unsigned long remaining;
-> @@ -180,8 +180,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->  		stages[i].freed =
->  			drm_gem_lru_scan(priv->dev, stages[i].lru, nr,
->  					 &stages[i].remaining,
-> -					 stages[i].shrink,
-> -					 NULL);
-> +					 stages[i].shrink);
->  		nr -= stages[i].freed;
->  		freed += stages[i].freed;
->  		remaining += stages[i].remaining;
-> @@ -222,7 +221,7 @@ msm_gem_shrinker_shrink(struct drm_device *dev, unsigned long nr_to_scan)
->  static const int vmap_shrink_limit = 15;
->  
->  static bool
-> -vmap_shrink(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
-> +vmap_shrink(struct drm_gem_object *obj)
->  {
->  	if (!is_vunmapable(to_msm_bo(obj)))
->  		return false;
-> @@ -250,8 +249,7 @@ msm_gem_shrinker_vmap(struct notifier_block *nb, unsigned long event, void *ptr)
->  		unmapped += drm_gem_lru_scan(priv->dev, lrus[idx],
->  					     vmap_shrink_limit - unmapped,
->  					     &remaining,
-> -					     vmap_shrink,
-> -					     NULL);
-> +					     vmap_shrink);
->  	}
->  
->  	*(unsigned long *)ptr += unmapped;
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-> index 54535bae2b0c..17408f832af3 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-> @@ -1392,8 +1392,7 @@ panthor_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
->  	return count ? count : SHRINK_EMPTY;
->  }
->  
-> -static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj,
-> -					       struct ww_acquire_ctx *ticket)
-> +static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj)
->  {
->  	/*
->  	 * Track last locked entry for unwinding locks in error and
-> @@ -1479,8 +1478,7 @@ static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj,
->  	return ret == 0;
->  }
->  
-> -static bool panthor_gem_try_evict(struct drm_gem_object *obj,
-> -				  struct ww_acquire_ctx *ticket)
-> +static bool panthor_gem_try_evict(struct drm_gem_object *obj)
->  {
->  	struct panthor_gem_object *bo = to_panthor_bo(obj);
->  
-> @@ -1488,7 +1486,7 @@ static bool panthor_gem_try_evict(struct drm_gem_object *obj,
->  	if (dma_resv_wait_timeout(obj->resv, DMA_RESV_USAGE_BOOKKEEP, false, 10) <= 0)
->  		return false;
->  
-> -	return panthor_gem_try_evict_no_resv_wait(&bo->base, ticket);
-> +	return panthor_gem_try_evict_no_resv_wait(&bo->base);
->  }
->  
->  static unsigned long
-> @@ -1503,13 +1501,13 @@ panthor_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->  
->  	freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.unused,
->  				  sc->nr_to_scan - freed, &remaining,
-> -				  panthor_gem_try_evict_no_resv_wait, NULL);
-> +				  panthor_gem_try_evict_no_resv_wait);
->  	if (freed >= sc->nr_to_scan)
->  		goto out;
->  
->  	freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.mmapped,
->  				  sc->nr_to_scan - freed, &remaining,
-> -				  panthor_gem_try_evict_no_resv_wait, NULL);
-> +				  panthor_gem_try_evict_no_resv_wait);
->  	if (freed >= sc->nr_to_scan)
->  		goto out;
->  
-> @@ -1523,7 +1521,7 @@ panthor_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
->  
->  	freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.gpu_mapped_shared,
->  				  sc->nr_to_scan - freed, &remaining,
-> -				  panthor_gem_try_evict, NULL);
-> +				  panthor_gem_try_evict);
->  
->  out:
->  #ifdef CONFIG_DEBUG_FS
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index e10dbd18d8cf..ab070bc74857 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -3133,8 +3133,7 @@ int panthor_vm_prepare_mapped_bos_resvs(struct drm_exec *exec, struct panthor_vm
->  unsigned long
->  panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
->  			     unsigned int nr_to_scan, unsigned long *remaining,
-> -			     bool (*shrink)(struct drm_gem_object *,
-> -					    struct ww_acquire_ctx *))
-> +			     bool (*shrink)(struct drm_gem_object *))
->  {
->  	unsigned long freed = 0;
->  	LIST_HEAD(remaining_vms);
-> @@ -3160,7 +3159,7 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
->  
->  		freed += drm_gem_lru_scan(&ptdev->base, &vm->reclaim.lru,
->  					  nr_to_scan - freed,
-> -					  remaining, shrink, NULL);
-> +					  remaining, shrink);
->  
->  		mutex_lock(&ptdev->base.gem_lru_mutex);
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
-> index 3522fbbce369..abc36e7204be 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.h
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.h
-> @@ -52,8 +52,7 @@ int panthor_vm_evict_bo_mappings_locked(struct panthor_gem_object *bo);
->  unsigned long
->  panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
->  			     unsigned int nr_to_scan, unsigned long *remaining,
-> -			     bool (*shrink)(struct drm_gem_object *,
-> -					    struct ww_acquire_ctx *));
-> +			     bool (*shrink)(struct drm_gem_object *));
->  int panthor_vm_prepare_mapped_bos_resvs(struct drm_exec *exec,
->  					struct panthor_vm *vm,
->  					u32 slot_count);
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 8a704f6a65c1..ffa607c91aa2 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -616,8 +616,7 @@ drm_gem_lru_scan(struct drm_device *dev,
->  		 struct drm_gem_lru *lru,
->  		 unsigned int nr_to_scan,
->  		 unsigned long *remaining,
-> -		 bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket),
-> -		 struct ww_acquire_ctx *ticket);
-> +		 bool (*shrink)(struct drm_gem_object *obj));
->  
->  int drm_gem_evict_locked(struct drm_gem_object *obj);
->  
-> -- 
-> 2.55.0
-> 
-
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+It might be replaced with something else, but that would be a separate patc=
+h.
