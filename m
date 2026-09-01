@@ -1,263 +1,203 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012036.outbound.protection.outlook.com [52.101.48.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FDFB389105;
-	Tue,  1 Sep 2026 20:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292915; cv=none; b=tHWvQ3NoZDD6Socu6UjXzd/OqkmIm+1GT59DN/TCmdvRn6dpwNXHwnnAIqj+qXhaPufMV7LDoCyVYVlJSDlf/PnulhfyyEDal/Mf/DAiwBIzwocoyFfqIgJPZWn8dx6mwlIAroBuukQlB9Smnzqjbfrp5yU2gUPEDL/MjK73nuk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292915; c=relaxed/simple;
-	bh=IrNTVuc3Xwm73ye9AbwQZcUHIOjUve/Z0ZXt13ujt/w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=i2krkOnO986P5Zvcg3Sc0MK9v9NWIZzGwMFMNc8Ynej2j0GXooj2KgsbTpXhoP5kEvQR1BDkaEnR/y1dBtu9JtnrKZWDkpr9xsPpgkU841YFn8wmatSzuEQ1N7VLLVYWemRjlpMB+cFXSEyIkA2EQKqvvTKiU8FOq3qj0gyclUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=kLz32B+q; arc=none smtp.client-ip=212.227.15.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4A245563E
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:02:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788292932; cv=fail; b=rF9SVfCtH3xTVuS6zlCxjFH4bPamgelVWDQn6TvDbwr7h1Ifwh8pfqUfY7nLrU/LNCuKzpn5tr+oVaFwcj7YhQ+45Lclb5biZ38PHMKY48HyeC66vQAsg2YsV/dIPFDiQAnHmYwwlsWkcoKTtbUMm7rWVzp+KZuNvsjF9xxsaAU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788292932; c=relaxed/simple;
+	bh=191NRWU31zMO2NvPwNjoDF0mGZ0GShq+42E0+9MD27M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RxUbw2rTlda8Gwmu2tu4eTl9LOaOUdgFG07ZFVvDOB6R+4OYjvAp+sVoUw4td07XalR5aAoDxD/bbeuMiFE+458HVWWz1/Ejwj9X1ACwh9VM+o2ZU89ExVN0DB7HER8e1eTltbLf8+p89JEnSMF1tH1ZUSU5wwlYmBTtOr19ESk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=HwFRAdtj; arc=fail smtp.client-ip=52.101.48.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="kLz32B+q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1788292906; x=1788897706; i=w_armin@gmx.de;
-	bh=rcfoyWYocKrcnC2FVy3PXmN3moyhfnZ2G/YluKgc7zc=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:
-	 MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=kLz32B+qAGZwvofgkQva1iOFQ15wXQjge5Vl8tIgOU6b6K/qMwGdBxTBFxoBec1X
-	 GIXCU3fp8bZOn+0YL59H4h+Zfq1q4mGy3F+UCVshD/ckbjoovyu+Vod11DPXOWg2f
-	 bED4XPbvaJNcTdt/5GFKzamhyJKipRae1eqEgXJCWfXb4uHpknxBJh0nTEnEMrAqM
-	 9ntuIelCgF44u1upkhBF7A8Q+UfVuENHyA3/5XUYrlEIeLaxtJ7j731lbrfJtPV+9
-	 FUTzgbc73q9SlSQN9Wzrb0TYXwEQxZqimJiGDisJZYlstzEoaVbTbgQP8HqwCiYFv
-	 bitoz2lSfMOFgcPJ5g==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1N95e9-1wmYHt2Z1z-012qIP; Tue, 01
- Sep 2026 22:01:46 +0200
-From: Armin Wolf <W_Armin@gmx.de>
-To: linux@roeck-us.net
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ggirouard@bungeetaco.com
-Subject: [PATCH v4 1/2] hwmon: (spd5118) Select page 0 unconditionally during probe
-Date: Tue,  1 Sep 2026 22:01:41 +0200
-Message-Id: <20260901200142.495319-1-W_Armin@gmx.de>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="HwFRAdtj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dGmkAqlLTXtj+0r/Dmn13+xXDDQO3W03Kb7EzNQoN+jsypIDclgQT6oPDLVNNodQHrxSC6YbfrFeS+er2liHAV/Ug60dWh8RTfQ+/NtVNWfJw+TBA0Np2ykEFr6BkbX5M5d/dBADZTnG2v66vqyJ3oKIYTNb6Gi80ufw3cDHYblyus7JIU074jDFejz9dLl7Dd3f8/N4J7RVKQ7p+hBPnUdngq6K9FY8ze5pqyE4S4KKfHk1x0YnEdwMs39s0JD+unZJCsToHfQ2P5tsT0fPPbfu+LK0iPgNHprqUVeWEHk7gaRryyBYEDZjqWZjckeRl0FL+URFx5bM8ynJO5pnXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7LUPwFus1GvRDU1+nlO5bBaF9pkltj4MUgQS9rq/O1s=;
+ b=Hc1GyZGyaHQ/CdjM1d/ol46IkTEM5Nr1EoiX+9JJo40psXWl8imDJLB6FqtDeUTriVo/T8LIYOTCAq9xgrGmZJALO8adX3pl5mwj6n1TdDSUFPVuJCUaHrq0b84fY1BivcOYD9PdT41/qx2rDPR0z+GZX+hxiv8SJlHLvqG5AEvrnHII8CVFNI8iG7vSnQbw1RIog3bpBGc2CX3HDBALvimKlHak64NilcZtirOXibwDBYd05oeYgmTwlVII+73Ec84otcPPZuDaoIFckUATs84C5ZgWNUCtwxoZ6Q+5+3lzkR2y2CC8RQvg1EzTuohKvdJVgwk/a7PQ/nNyonudIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7LUPwFus1GvRDU1+nlO5bBaF9pkltj4MUgQS9rq/O1s=;
+ b=HwFRAdtjljbfc/uFKGh1Wz5Fb3ueGSY/H/ZRnVkEyQMjvlJS6v+JuBMXgkm7CR8YL+dHUiiSm0DZC22+WPHedC7276i/ejUky9bMVXyisxo/qBn62VY+MbYQqiyWqLylpMbb9G2DqKxbT9y8Cnv1adQa0IDKI4w6H8NQn4UMiHy8CxXG7NvACy7IjHofAuUaUcwDIVI66Vq1gHX06ySmZDzZqFGKgCj3NsFRo/dWO8n+wC2ve5YSJCmPmFX1eun6LwghRNjkeWC6yROFBCWV5QiNGnv/3/YYLjOAGbhI2k6wCkI2UoGylhkeW6xKQbyUaeITg93vY5ibsH9HLtZaSw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CH3PR12MB7692.namprd12.prod.outlook.com (2603:10b6:610:145::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 20:02:02 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 20:02:02 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Nimrod Oren <noren@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Hugh Dickins <hughd@google.com>,
+ Nirmoy Das <nirmoyd@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
+Date: Tue, 01 Sep 2026 16:01:59 -0400
+X-Mailer: MailMate (3.0r7024)
+Message-ID: <F67B6AED-04CF-4A55-AE31-D09039A1D106@nvidia.com>
+In-Reply-To: <20260901190123.3511535-1-noren@nvidia.com>
+References: <20260901190123.3511535-1-noren@nvidia.com>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: CH3P220CA0019.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:610:1e8::18) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:o7rsZvIKAf1+eufZbEoRvtvjvHKe5XcxHcYOiB5qKQQeNlE0AzA
- 0EozdW9Xmm2NgJhxdeXro2IBGqFPTVWmEJJFfAQCzXhLJM3F26TMGQVqQZKjEuRqqe9Wzzq
- Nu9kvXItwGYFIFlKr2EaPYmSy4LtmKLeCICh0feU0FsPC85HO9xpP49NDyGVdWZn0ZAP4+c
- 1DnHslK82ZZyUbQYh83Cg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:3dkni/BFhUc=;6hqR47N93/JpdrQSqQXLaGYPclc
- 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
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH3PR12MB7692:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0ece55b-550e-40a3-6e01-08df0863e375
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|10067099003|11063799006|56012099006|13003099007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	+KWmxR1z4LcDoLC/wH6VDAkacT0ycoz30mhIqsorrhIGbn6foU3DQugKWzJyTWbPaPCd7M/+YiByViEtMXga+5nyNZ17rw3UizTlYQWVdLlIYp7bhY9pM2b7iNai3mYzXc6m0z3MVrWZfrnkc0caOTI95BP/zrSa08QvdF72zR5u9GuAqBawsTXHcfRXP8j4x6qt05jKaXZhyuFdYhRIg4aSPkUmJyYg+DaeZYSAnAfVWPjZ90m5+Ew9QAgkLb51o0LJNPpgX9np2ZLF559ex8YOaLeMETEMKB6Gw+eHXpE3BJR0yFDJeUPQCwlnGO3pam1T+u9K09qvrz6vvUOR5H9gj/pyQyNYSeBQQD4R+M9nSbsSbNTb+EifgnJ6AStZSmGqGR4VJB9dLeQu3nYywnNsFLyG07YUBqdg9Jilq8ZYGtLQgLRs4z6sj6/Yu8RgO+vUP6FWE7B5QAxWrZvmYimoxZ9F52Yp8NdB4Tqmxl8uTISaKNbPbjgYYhSWrGYl5yEY4+n6xhJLRMiYHuIfZH25SFB+FXpikcx5ckDoek4fYOxhCCbf6fSfbFJVGP8B5rSqaXz5EEHk3an8P3z6V3twPdHxLpKI8DLL5UPuJWw+Kof91C9uUOzYr8EIsZMUNnFFrvDA2ib0dZu0jfKhifOH746RzUNECV9sNylAbu8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(10067099003)(11063799006)(56012099006)(13003099007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?rPK5/PgL02uvRKgnA6xFxB5dY4HN/AH27d48fmK4zUMd+THMRgOfc72H/+aG?=
+ =?us-ascii?Q?gWpLWmmtBcppnV8ymh5Zn36bAtAtR2HjPXdrXJoYdxQEtSxZXIVpixaubtB8?=
+ =?us-ascii?Q?E8MG4g3CnNBDyCayl1oOEabbJJxr4QLxBZOgOUF7wzn1m2BZ5ZzC0ehILKd/?=
+ =?us-ascii?Q?xi/rY4j+DRYPzmMAI6jh/g6M3jI6m1E9cqPNAPdG5ENY7PSEw8o6S9zNEX4y?=
+ =?us-ascii?Q?UrIN+H2uvW3nR1RS7Ft8iyldXDkGpmBRougpbD6pAnUi11HvQWtGlUUBZ1t2?=
+ =?us-ascii?Q?H/OF0Zzn9pgOL1A4wswKBiUTUrBxBy9zzLP6rraPk5vgq0BCguJpNa5TEd4H?=
+ =?us-ascii?Q?0w0zfsIs2nWS6uOx2B9DlCh81RBQn3TPq/wT8kdCTO/IaKxwuDcL6YH3VU+3?=
+ =?us-ascii?Q?wUK1HhcTMMIIE4QT9bxW4+fnlYnxxJGwpLDBFIpBRuknM3iVOsYpLfKY2AsH?=
+ =?us-ascii?Q?vZyqmXbvk9xxNXCuRoqWmMPUvbwaNlX/3KUSXHZavU6Wu2SVno2Nh1Uvxe6M?=
+ =?us-ascii?Q?c5hXOzDOKwNx1e3RLxdf+D1DsPI2HRHunLbQCglWlqgsQHfSEhwc5WtL0zzL?=
+ =?us-ascii?Q?YW8r8pDZ38X2pG9L5fo9IjEm3g9Nz/NhZUW6vEOQo2QMjvRchjqJL6H0THn/?=
+ =?us-ascii?Q?0CmuqXbfjl4B8G0z649jY22b/kLXP0jxK0C22X4UL7wdo9mDnIl35XkI13lc?=
+ =?us-ascii?Q?uOASNTrJ4mSlcr3/xiAhuITTYa4AoINfpulN4Gz4Rwx4/EWViOd+uu4B67Kq?=
+ =?us-ascii?Q?ViGSXPoZftQidhq886ecuM45FXpXTcIBBusVp2WMt1CfQ7v49wGZpqxs8CNw?=
+ =?us-ascii?Q?0AA+zX81Fx2BRwVjDXp5UcMEt8/NB8hMkxaMo2GARMWkVke1YCfOHsP/FisF?=
+ =?us-ascii?Q?eNpDIeccuPcBHF2SbNknjZZCXrYOqqJHtLxfRNFqChiONHML//IcrO2GxUDl?=
+ =?us-ascii?Q?ZPr4FqE8LByqqcw7cljh1bXtISNMlMQH7fUhbFOnngYMII4k4EGmXuXZV6EM?=
+ =?us-ascii?Q?vkNblarlkSYjFmh5w4HN08uHI0zy+wpefA9QsjqM9/beOu6+RousVZWQB+gF?=
+ =?us-ascii?Q?Jf0VXLSzMnOwgD0GTVhFYzL4OMmo+7M7dDjDZyYNd8fl4dye1K48rWK9VjAm?=
+ =?us-ascii?Q?PC7K9C3t5G8D4Xa4oaCEj7T2Hoo8LTdZKfDPGXXAhzb/YzG2xaDyJT4dEWte?=
+ =?us-ascii?Q?2j/blOO69dR5RXX9EjwVCxaHnoWMPQ74TstnZrf0ztB+12l7/aSzxzGAbJ6m?=
+ =?us-ascii?Q?UR0BSD1/Zg9XlmlEW7Ms/HdrJlkwMJfD6LNCRdfyPoyIBKeBE283L9E4NkqK?=
+ =?us-ascii?Q?qJtDMoG2bb3vDHk1P6EvStyJi4QXDKNe6qvrj3jB6D4bbqbEmUbS2/EfIj+n?=
+ =?us-ascii?Q?uhXx4pr7AkbCKwHu+yb7Oq48CkjqppndcDqcFPI+UsTtyruiVqgHOYDzba0N?=
+ =?us-ascii?Q?vLEvAT6gctinQZWhNQLgLNe/qVKkfW81HE1Fvz56JgDvhJ6r0J9lYfR3xXux?=
+ =?us-ascii?Q?Ojfb1/+YI7ItI1STqhk9cE9S2+bPUP1V5Ake3R/+w3WjRLVAxFUJ1Rq5eRh3?=
+ =?us-ascii?Q?K8LroN2gPyqb6oXyNWIw/MLiy2guhHzsHCZwq6/PHHgSPYDPzGvyO4s13+NC?=
+ =?us-ascii?Q?Zq8121wiYwwhcB8r1yUc71xSlSMwKJ1bPm/J319+sqch0PyMVhSm4yzK5wz4?=
+ =?us-ascii?Q?h6Z8XSJuG05qxHwpyJAFxGCwfq+nj/K6Euua/WfquXirPFRN+y+2gNBKpPNA?=
+ =?us-ascii?Q?kv77HWXlXg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0ece55b-550e-40a3-6e01-08df0863e375
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 20:02:02.3899
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UzQi4YI3MMP50RXAMeVivKqDbOjEnoFuko5QayCbCLndmfCVDZd02zfcif4PH3UH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7692
 
-Some Intel i2c controllers can be configured by the BIOS to reject
-writes to the SPD device. This often causes problems when the register
-page needs to be changed, usually during resume.
+On 1 Sep 2026, at 15:01, Nimrod Oren wrote:
 
-Avoid probing on affected devices by unconditionally selecting page 0
-by writing the SPD5118_REG_I2C_LEGACY_MODE register during probe.
-This will fail on affected controllers and thus prevent the driver
-from probing.
+> When THP is enabled, set_recommended_min_free_kbytes() may raise
+> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
+> Commit f000565adb77 ("thp: set recommended min free kbytes") added this
+> heuristic to help keep pageblocks free and reduce fragmentation for THP
+> allocations.
+>
+> The recommendation scales poorly with larger base page sizes. With the
+> default arm64 pageblock sizes, the contribution per eligible zone
+> before applying the existing cap of 5% of low memory is:
+>
+>   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
+>  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
+>  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
+>
+> Even with that cap, min_free_kbytes can reach excessive levels.
+>
+> The automatic min_free_kbytes increase predates proactive compaction
+> and many subsequent changes to compaction. Given those changes,
+> increasing min_free_kbytes for THP by default is no longer clearly
+> justified.
+>
+> Remove set_recommended_min_free_kbytes() and all associated
+> recalculation paths. With this policy gone, min_free_kbytes is
+> controlled only by the page allocator's default calculation and the
+> vm.min_free_kbytes sysctl. Users who want additional headroom may set a
+> higher value via that sysctl.
+>
+> Link: https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
+> Suggested-by: Michal Hocko <mhocko@suse.com>
+> Signed-off-by: Nimrod Oren <noren@nvidia.com>
+> ---
+> v3:
+> * Replace the 1 GiB cap with removal of the THP-driven min_free_kbytes
+>   increase as suggested by Michal.
+> * Remove all associated recalculation paths.
+> * Make min_free_kbytes, user_min_free_kbytes,
+>   calculate_min_free_kbytes(), and setup_per_zone_wmarks() static.
+> * Drop the now-unused declarations and khugepaged's page_alloc.h include.
+> * Drop the obsolete v2 documentation addition.
+>
+> v2:
+> * Use a named constant for the cap.
+> * Drop explicit linux/sizes.h include.
+> * Update min_free_kbytes documentation.
+> https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
+>
+> v1:
+> * Cap the final recommendation at 1 GiB as suggested by Lorenzo.
+> https://lore.kernel.org/r/20260728202014.2517142-1-noren@nvidia.com/
+>
+> RFC v1:
+> https://lore.kernel.org/r/20260716173504.760369-1-noren@nvidia.com/
+> ---
+>  include/linux/khugepaged.h |  5 ----
+>  mm/huge_memory.c           | 14 ---------
+>  mm/internal.h              |  8 -----
+>  mm/khugepaged.c            | 60 --------------------------------------
+>  mm/page_alloc.c            | 11 +++----
+>  mm/page_alloc.h            |  2 --
+>  mm/shmem.c                 |  7 -----
+>  7 files changed, 4 insertions(+), 103 deletions(-)
+>
 
-Signed-off-by: Armin Wolf <W_Armin@gmx.de>
-=2D--
-Changes since v3:
-- return early on obviously unsupported devices
+The stats look nice. Like you said in the commit message, user can still
+have the old behavior by increasing vm.min_free_kbytes. Thanks.
 
-Changes since v2:
-- restore original register content if i2c init fails
+Acked-by: Zi Yan <ziy@nvidia.com>
 
-Changes since v1:
-- Avoid zeroing reserved bits inside SPD5118_REG_I2C_LEGACY_MODE
-=2D--
- drivers/hwmon/spd5118.c | 65 +++++++++++++++++++++--------------------
- 1 file changed, 34 insertions(+), 31 deletions(-)
-
-diff --git a/drivers/hwmon/spd5118.c b/drivers/hwmon/spd5118.c
-index 9724cf70b61d..f79b46085ecc 100644
-=2D-- a/drivers/hwmon/spd5118.c
-+++ b/drivers/hwmon/spd5118.c
-@@ -637,44 +637,47 @@ static int spd5118_i2c_init(struct i2c_client *clien=
-t)
- 				     I2C_FUNC_SMBUS_WORD_DATA))
- 		return -ENODEV;
-=20
-+	/* Early check to avoid obviously unsupported I2C devices */
- 	regval =3D i2c_smbus_read_word_swapped(client, SPD5118_REG_TYPE);
--	if (regval < 0 || (regval && regval !=3D 0x5118))
-+	if (regval < 0)
-+		return regval;
-+
-+	/*
-+	 * Some SPD5118 devices report 0x0 when page 0 is not selected,
-+	 * so we only fail here if the register value is not 0x0 or 0x5118.
-+	 */
-+	if (regval && regval !=3D 0x5118)
- 		return -ENODEV;
-=20
- 	/*
--	 * If the device type registers return 0, it is possible that the chip
--	 * has a non-zero page selected and takes the specification literally,
-+	 * We must select page 0 to ensure that we can reliably read the volatil=
-e
-+	 * registers on chips that take the specification literally,
- 	 * i.e. disables access to volatile registers besides the page register
- 	 * if the page is not 0. The Renesas/ITD SPD5118 Hub Controller is known
--	 * to show this behavior. Try to identify such chips.
-+	 * to show this behavior.
-+	 *
-+	 * We must also perform an unconditional register write to detect if
-+	 * the i2c controller blocks write accesses to the SPD device. Some Inte=
-l
-+	 * controllers might be configured by the BIOS to do this.
- 	 */
--	if (!regval) {
--		/* Vendor ID registers must also be 0 */
--		regval =3D i2c_smbus_read_word_data(client, SPD5118_REG_VENDOR);
--		if (regval)
--			return -ENODEV;
--
--		/* The selected page in MR11 must not be 0 */
--		mode =3D i2c_smbus_read_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE);
--		if (mode < 0 || (mode & ~SPD5118_LEGACY_MODE_MASK) ||
--		    !(mode & SPD5118_LEGACY_PAGE_MASK))
--			return -ENODEV;
--
--		err =3D i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE,
--						mode & SPD5118_LEGACY_MODE_ADDR);
--		if (err)
--			return -ENODEV;
--
--		/*
--		 * If the device type registers are still bad after selecting
--		 * page 0, this is not a SPD5118 device. Restore original
--		 * legacy mode register value and abort.
--		 */
--		regval =3D i2c_smbus_read_word_swapped(client, SPD5118_REG_TYPE);
--		if (regval !=3D 0x5118) {
--			i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE, mode);
--			return -ENODEV;
--		}
-+	mode =3D i2c_smbus_read_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE);
-+	if (mode < 0)
-+		return mode;
-+
-+	err =3D i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE,
-+					mode & ~SPD5118_LEGACY_PAGE_MASK);
-+	if (err < 0)
-+		return err;
-+
-+	/* We only need to access SPD5118_REG_TYPE again if regval was 0x0 */
-+	if (regval =3D=3D 0x5118)
-+		return 0;
-+
-+	regval =3D i2c_smbus_read_word_swapped(client, SPD5118_REG_TYPE);
-+	if (regval !=3D 0x5118) {
-+		/* Restore original register content */
-+		i2c_smbus_write_byte_data(client, SPD5118_REG_I2C_LEGACY_MODE, mode);
-+		return -ENODEV;
- 	}
-=20
- 	/* We are reasonably sure that this is really a SPD5118 hub controller *=
-/
-=2D-=20
-2.39.5
-
+Best Regards,
+Yan, Zi
