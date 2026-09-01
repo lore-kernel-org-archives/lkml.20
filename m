@@ -1,165 +1,116 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mta1.migadu.com (out-235.mta1.migadu.com [95.215.58.235])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130A036828B;
-	Tue,  1 Sep 2026 10:49:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0CB3921E7
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788259795; cv=none; b=IsgOTYJpOvqaP7QY7KD6RPs36omh5BjTsruynwBbPnHUO87pNO3rwhHHrV1b6SUJi7OCae2HJK27AVn0E7JFtXvpyt/xOpNhTfNHKd6RUcIx3BYRzOVQ1GD02o4sVpD8fNWdS0BtzdpFqw/BTBNCQ9SpZMFNjc8WuNMdQcSh5DU=
+	t=1788259814; cv=none; b=iNsrjAtxngRMBv8VuuifFxhb9dGVfmq+eitU233pc9DZAuc733AweIafRahnBEb7nDlBySIW5tfdLJf1nWZlCs269M/RNw2oloWovHQATapZKd0oD8dPMVVAXHq59MBCO3lymkc838WHNAdf9Hmi51olkDAmg65A5k456R3Nn98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788259795; c=relaxed/simple;
-	bh=YeVJsNaBp59YuSNagcYOf5UFq6xKwgUehwBueSKheS0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kvqQGUaGxcRJEI8YGi+qgX6beOxANrSZiuqk5Y1TwkZLDWJXEs6C8FSS2mle+DWYQkYoPPmnZHQFHR2M/iXNHrc7WQceFsTH4u908mkCKlZyOGqM/rkt+DCAn2ePJneqtELVTNwS7UL+B34gTzkkju2QRjQagYzO9Ha+VXw+wrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Qw1LGMyJ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HO3npIxG; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=byfeYksQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=f6WWl/Ce; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788259814; c=relaxed/simple;
+	bh=e4A14JjhkHMHsrE/lM9IyERxAQ8ySs6n2okyUEeUz/A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W2fEWC8UXb8us05BKm9kXb/1aUMG8CN3aFsGtjx8VuIIBy+l3zGq7/hN/0k8om60bDuDG1a+6EDnBsIQm1GT5EBWGJ/8y40Wn/JWZOTnxCBM/LDBpl1D/XwNfHECQXehWRNEpPpAGBc8P6ssO6ropPvZOFg2OEny4nO+NdM9Sg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Y9OM1QOT; arc=none smtp.client-ip=95.215.58.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Qw1LGMyJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HO3npIxG";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="byfeYksQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="f6WWl/Ce"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C807A220D0;
-	Tue,  1 Sep 2026 10:49:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788259788; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b8KsX0IAcDXFit1zTk+JLbUG2Ft4eL+daDZS7kOView=;
-	b=Qw1LGMyJEEWpXpn3VF2YRQb6Dg0ISwdJqlrIQ/IFb2nsiQn7HMAt5l5gLUhTRGQuKkHzgg
-	JvXVTjyubYiTaFWr/dNI9bV7aRDZ6Yn/6z4B1Cfuttki3sW584w6dfwT2w+Dkm2yVMtvkg
-	2aU2a3MfqlJQCy1r0btzlVqSgIxYpMM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788259788;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b8KsX0IAcDXFit1zTk+JLbUG2Ft4eL+daDZS7kOView=;
-	b=HO3npIxGjBJCTIihCbiVJCZ2t29737L9ifwi1scelu2ZPXg/uKCBqOFIcaOg4y4Yu0vCAT
-	GdiWkp/0eYn7g0BQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788259783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b8KsX0IAcDXFit1zTk+JLbUG2Ft4eL+daDZS7kOView=;
-	b=byfeYksQKkId/amdIiwVqFnzdsE9TmNBVjH5Ff9DhVPMe062ENPBRyIMRYGceV9I3cWpa5
-	jsfV6yEUeWw52ZfNhFz+frA2JMjw4fcgEWquICP0ECPkIK/vUh0wsFgmvU6IdY8gpw/pLh
-	mpkVdcxLC+BrkP/XXk0b99Z/PkYcAJs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788259783;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b8KsX0IAcDXFit1zTk+JLbUG2Ft4eL+daDZS7kOView=;
-	b=f6WWl/CeyLynsJ5YpG2zLRrRZNHGL7+rxVOJqB+ZCHCaezyHimXuTbYaFg6tYkphhbZKqy
-	GDiFho1uSAxXCwBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 93C7D13515;
-	Tue,  1 Sep 2026 10:49:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id IkhkI8etlmrcFAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 01 Sep 2026 10:49:43 +0000
-Date: Tue, 01 Sep 2026 12:49:43 +0200
-Message-ID: <871pbddz5k.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Junjie Cao <junjie.cao@intel.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	John Keeping <jkeeping@inmusicbrands.com>,
-	linux-sound@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Y9OM1QOT"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=e4A14JjhkHMHsrE/lM9IyERxAQ8ySs6n2okyUEeUz/A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788259809; v=1; x=1788864609;
+ b=Y9OM1QOTQPydItFRAdfczxgxG8mtzkuzzp8OihqTXr5Bex7XG1nYS/6TNrXgWzia2wZwXMZd
+ ZwpSLRNGslNjeb64rks5ltO5ix/gISIj0M8c4XyB3cMI5FJfNMVX7fnKaXJap989sMuCL5Mea0F
+ w6sTOSkk3GmBXxGxELd7Il8k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4b111e7144bc5b32;
+	Tue, 01 Sep 2026 10:49:59 +0000
+X-Mizu-Trace-ID: 4b111e7144bc5b32
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	Mykyta Yatsenko <yatsenko@meta.com>,
+	Alan Maguire <alan.maguire@oracle.com>,
 	linux-kernel@vger.kernel.org,
-	Ruslan <ruslan.panasiuk@gmail.com>
-Subject: Re: [PATCH] ALSA: seq: midi: wait for output buffer space on non-atomic delivery
-In-Reply-To: <20260831143200.412572-1-junjie.cao@intel.com>
-References: <20260831143200.412572-1-junjie.cao@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf v4 0/5] bpf: Fix NULL-ptr-derefs when showing a void BTF type
+Date: Tue,  1 Sep 2026 18:47:34 +0800
+Message-ID: <20260901104924.346187-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -1.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[suse.com,perex.cz,inmusicbrands.com,vger.kernel.org,gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo,intel.com:email]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 31 Aug 2026 16:32:00 +0200,
-Junjie Cao wrote:
-> 
-> dump_midi() drops a chunk with -ENOMEM as soon as it does not fit in the
-> rawmidi output buffer, whatever context it runs in.  When a client
-> write(2)s one large SysEx event, the event is dispatched directly with
-> atomic == 0 and the payload is copied from user memory chunk by chunk
-> (snd_seq_deliver_event() rejects USRPTR events with atomic set), so the
-> caller can sleep, yet the transfer still dies as soon as it gets ahead
-> of the device by output_buffer_size bytes:
-> 
->   ALSA: seq_midi: MIDI output buffer overrun
-> 
-> The report is a sample upload to a Novation Circuit Tracks over Web
-> MIDI, failing after about a second with the default 4096-byte buffer.
-> Raising output_buffer_size only moves the limit.
-> 
-> When atomic is clear, wait for the device to drain instead, the way
-> snd_rawmidi_write() does for a userspace writer: sleep on
-> runtime->sleep with the same 30-second no-progress timeout and feed the
-> buffer in pieces.  Atomic delivery keeps the fail-fast path.
-> 
-> A writer sleeping here still holds the source port's subscriber list
-> read-side, so unsubscribing that connection waits for the transfer to
-> finish or the timeout to fire.  midisynth_unuse() wakes a sleeping
-> writer after clearing output_substream, so once teardown gets there it
-> does not sit in snd_use_lock_sync() waiting out a stalled device.
-> 
-> Compile-tested only; no device with a large SysEx sink here.
-> 
-> Reported-by: Ruslan <ruslan.panasiuk@gmail.com>
-> Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2517136
-> Signed-off-by: Junjie Cao <junjie.cao@intel.com>
+This series fixes three NULL-ptr-derefs in BTF handling.
 
-A large SYSEX is a long-standing PITA, and I appreciate your attempt
-to fix it.  But, the problem is that you can't take long time in
-dump_midi() which is called from the sequencer event handler, per
-design; the atomic=false there doesn't mean that you are allowed to
-block for a too long time like 30 seconds.
+Patch 1 handles the syzbot report. A key-less BTF (btf_key_type_id == 0) used
+to be rejected for hash maps, until htab and rhtab gained a ->map_check_btf
+(to register a dtor) that does not look at the key, so a key-less hash map is
+now accepted. Dumping it through bpffs feeds the key type_id 0 into
+btf_type_seq_show() and NULL-derefs in btf_type_show(). Reject it again.
 
-For working around this problem, we need a basic design change in ALSA
-sequencer core, I'm afraid.
+Patches 2 and 3 fix two related, pre-existing crashes reachable via
+bpf_snprintf_btf(), which renders a type_id taken straight from the BPF
+program against the vmlinux BTF. A "const void" (a modifier resolving to
+void) NULL-derefs in btf_modifier_show() - void has no ->show op; a
+BTF_KIND_VAR NULL-derefs in btf_var_show() - the vmlinux base BTF has no
+resolved_ids. Patch 2 falls back to btf_df_show(), the "<unsupported kind:N>"
+placeholder already used for FWD/FUNC/FLOAT/DECL_TAG; patch 3 resolves the
+var's type directly, mirroring the existing guard in btf_modifier_show().
 
+Patches 4 and 5 add selftests. Patch 4 checks a key-less hash and rhash map is
+rejected at creation. Patch 5 extends the snprintf_btf test to render a
+"const void" and a BTF_KIND_VAR from the vmlinux BTF and checks they resolve
+without crashing.
 
-thanks,
+v3 -> v4: Drop the pin-and-read reproducer from the key-less map test, fold
+the void/VAR test into the existing snprintf_btf test, and simplify patch 2's
+wording (review comments).
 
-Takashi
+v2 -> v3: Fold in a third fix for the same class of bug, btf_var_show(),
+reported while reviewing v2. Address review comments (Fixes attribution,
+verbatim syzbot trace, skip instead of fail).
+
+v1 -> v2: AI reported a pre-exist issue. Let's fold it in this series.
+
+v3: https://lore.kernel.org/bpf/20260831110314.150870-1-jiayuan.chen@linux.dev/
+v2: https://lore.kernel.org/bpf/20260830073242.148092-1-jiayuan.chen@linux.dev/
+v1: https://lore.kernel.org/bpf/20260828093142.179856-1-jiayuan.chen@linux.dev/
+
+Jiayuan Chen (5):
+  bpf: Reject key-less BTF for hash maps
+  bpf: Fix NULL-ptr-deref when showing a void BTF type
+  bpf: Fix NULL-ptr-deref in btf_var_show()
+  selftests/bpf: Add test for key-less BTF hash map
+  selftests/bpf: Add test for showing a void BTF type
+
+ kernel/bpf/btf.c                              | 19 ++++-
+ kernel/bpf/hashtab.c                          |  6 ++
+ .../bpf/prog_tests/btf_map_keyless.c          | 59 ++++++++++++++
+ .../selftests/bpf/prog_tests/snprintf_btf.c   | 79 +++++++++++++++++++
+ .../selftests/bpf/progs/snprintf_btf_void.c   | 24 ++++++
+ 5 files changed, 185 insertions(+), 2 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/btf_map_keyless.c
+ create mode 100644 tools/testing/selftests/bpf/progs/snprintf_btf_void.c
+
+-- 
+2.43.0
+
