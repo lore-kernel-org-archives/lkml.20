@@ -1,83 +1,77 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9CB47607E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:57:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC0747254E
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:57:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253051; cv=none; b=BaSuvUi7vLGtMc/hUKceQdBqyfTT2nA9xPawzT7Edue6Nn0eAtiMpPrwC8VDLsIrkcnQMNIcqzFt29ovW73kXH2aLtLUVJwGnD+b3wtP9Cl70O9F87OGJhyNPMOmC7vCNonNPMSVVVRgWtBL+mjEHdzpCFhq4eOuJmuYZw59N3s=
+	t=1788253068; cv=none; b=pzXILtPhCKI/5KviVGvU6az4D2P48bYzzocGnAm30YzRfMdjR2Mcm0IrL3DprJoCKDTJWkrUkKCv5P2QAT1DB/k1f7KOECr0eQbl7dqOVvvA+mlHiI/y5oTtzfJDoMR5DUFY2Fuk+tjhm1Z9gBu9f3JvourV3H3jCvJ3B0iF/FY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253051; c=relaxed/simple;
-	bh=8urEIkOEgNg/W0WfryJCD+eWZUJUCTF8wpI/6h2nZwI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=d31u4McHz7M99Trr3G+kUz4i2rhhFAStb9dxuRck2vlGzoWJ2qEkB8KRAMfYAdVzkXiAvObNJKvDp0Jl6sNNSxZHKvj9UZzx/MmrgmDFnzk7VPbRV9GGbKWjWxayCwANJJneZE1++CqZ0yWuleqLqziy+FVz3nRKdRImpYxlhVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com; dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b=f4zT8ZWN; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com
+	s=arc-20240116; t=1788253068; c=relaxed/simple;
+	bh=JO8G9CpZ5mFnr5uu8P/fwBgO7hqk1L/vH8rl1o2iSZ8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZFGSH44vYXlK6NYXI3GGoZicuZ86Ngx0L6gvPr+iwP+kzRYGvAWgL95dGQMHlTGV/exE+ufWc4ZQfzZb/EcTSj0w55RM0qcofX1saPBqNGyl93bFGIYgQrJkmwuWlWfmCkLvG4cxmktm6PDH0vjMoKHEQkIfKSuRx8r0Aw/Q68g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ES6mO+6K; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b="f4zT8ZWN"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-398a5aad413so668116a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:57:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ES6mO+6K"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48441a2ba14so856902f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:57:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=synaptics-corp-partner-google-com.20251104.gappssmtp.com; s=20251104; t=1788253048; x=1788857848; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fj+fXTtu50ERwc8Uhij96oNyWIgOxu7AHbjsaE81Xyc=;
-        b=f4zT8ZWNXTek/sbE/ZdVrZusr+BjcJ1JTBbqKvqpbvzVkbgFkXh5+X8nYPkIB128vx
-         mftJ1+2TEL86o86E6Bn8m6hzTmZoCyN838tmT8aqP+SerkXPw7DerhTRIbl+OqB9ZzbN
-         o9azDRFDATbsPwuaBXsooLw6HxNJp2peB1bw0aGOnsxQ6OOCUGuPxaTyk+C4fw9bCGBT
-         q+0t/yx3dBzuo/0CvyxnQYmsYhWi1DGJWWuwyE1WqJiwNF2TiUYoXw0Ka7FGNZN4KhjM
-         DUByC0i9oYiGuW3rnQq95Kg12AxzDSHyFxG8qhP2SFgm+oF5wQJMLVWAfz3HWdmz6IiH
-         qP3w==
+        d=gmail.com; s=20251104; t=1788253065; x=1788857865; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g6gNF1L2W2DbFnprEAmekbeKiRyxpCj5ws+3FN1RDWk=;
+        b=ES6mO+6KtGXdpOMc4Jctqxrcrj9So1EhfoAtJSeMKJ4/HoIyhWXdDHgZYRIB/di34t
+         /GgUmk4h8P81Um/mnBnrGaHowx3KcjryzXYY45VbsaGUqLMF6vaKnSo1VZFWm/3Ad+lt
+         vkZVGT8trXjeJe84KUvnsEtsQWFi87bZmYj9d13fbmyWd92N15xS+p3b0KMkUIVhJgCi
+         F+2qPNtn4bLaaiHTYMzfOkrNBM/IlpVSyACBHOpgJNyRuETqCQTzAqkQIllhmWvYMnWF
+         AJ28Tm4ss3DIwZW/2WVKO/39y6hUY3txUqvC61O3rmTuL2jjsqgFejYWfrqBV0VLliOs
+         UbjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788253048; x=1788857848;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fj+fXTtu50ERwc8Uhij96oNyWIgOxu7AHbjsaE81Xyc=;
-        b=bp5VtULG6jk1at7AnKZwLbR/hyYWszyRxrPsJDjmeGws5M5N4viORhK44wJ5DKgqb7
-         eWMSA/KRnIgx8xsac12MfenTttbCSfmDWZ2Rd7IVFkUS05JZ/icmZk9RT3LCIAtdkrGr
-         0Th1mdHGkx0WT5C4XypTRAYeX7naekYTnBZvz+KAXkWq/Bn6evODbMPaKzgkDOhkfpAp
-         AvPGCDV1jxRBxNWEU3QdosHK6BAQTKcjuVI2k9I5mxvqVQTgmPzqfVrpo7LlrKot8m3k
-         KV3x6bd1CDTfnfqFpovTiYm9POWeexNyc3Rw9bxoQld5D2GNKNFSe/grJUVxqL/OdUrM
-         +zoA==
-X-Forwarded-Encrypted: i=1; AKwUvBx7NuFa5/A8RYxsYLyD5bSj9UvuMV54ZT7YZe0t9zX19sTZVbDhG4za7pDT3lu2i8TkhgJQ6pqkpgX0Upg=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+IHfRUBSMEf360qMUFqOyY7dwxwjbIqFxzjQhbX5l9sJWSQ9q
-	VrOFKgmFGGB/g5RF7xQzHlsDLRpK1y3extyPgcr4HymdErJ8WYcxEzH+vRhTu2ILNgo=
-X-Gm-Gg: AYBFou1pQv0deOw/BOsBPuSA8K5Eu3l3v7eWbt6eplqopPmHSi+sZZ+nXabgmJ8ehZL
-	l1QPNEFn4spmq29uPCs1uVbUTip2ixVNPEsfKF6BvsEoGXw3B1lqj6rvbHed0BpYYiUxTjAGu6m
-	D92FJvo//r+gjtZzz40bLXdBWUPAWibN4CFAcISFNyrifDZqhULJ29xuxPkczViaC/BS3gQKUcX
-	2EQROGBrFK9yswHmnX1vqaNeH0j2mpwqhN6vvFNCHyKPj9Ce/x07IfhwPyKj5Am2Eg/YMk4pg6h
-	ouch47Zgzu49DIbK2k7t4Qwvs7K143bv9RQtGOpBoufuR6i3ofZyQCSvbtqddiTTvky+IuDiGgs
-	YC37vIK11cUoBZoFEW/PFbYTcvu0g8Hwj29GgPVbl4ZA5zsFuEv0PlH2/kc4nlK0O/AgqaMhaMi
-	BFR3SipfsoAIxd7Kin7KRf+PzwmkWbw9nhs+cXBShqSOMI1h9xfbD5nIPlL/O4k9uNKHULhcuOw
-	/zs1WbIFVdPf8fEYm5QPjohfrW+BVdISLyUnM5D7264ep3xdLncpDSZF/1H0gGEwVOMKr82M4ai
-	+fUwiAk=
-X-Received: by 2002:a17:90b:37cc:b0:366:10f1:3d91 with SMTP id 98e67ed59e1d1-396d0d92d0amr52298580a91.1.1788253047628;
-        Tue, 01 Sep 2026 01:57:27 -0700 (PDT)
-Received: from bt-tpe-server.synaptics-inc.local (59-124-75-166.hinet-ip.hinet.net. [59.124.75.166])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bcf6800sm5934432a91.3.2026.09.01.01.57.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 01:57:26 -0700 (PDT)
-From: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-To: linux-bluetooth@vger.kernel.org,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-Subject: [PATCH v3 2/2] Bluetooth: btbcm: Add Synaptics 4384 chip support
-Date: Tue,  1 Sep 2026 16:57:02 +0800
-Message-Id: <20260901085702.1515378-3-andy.chang@synaptics.corp-partner.google.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260901085702.1515378-1-andy.chang@synaptics.corp-partner.google.com>
-References: <20260901023300.1382808-2-andy.chang@synaptics.corp-partner.google.com>
- <20260901085702.1515378-1-andy.chang@synaptics.corp-partner.google.com>
+        d=1e100.net; s=20251104; t=1788253065; x=1788857865;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g6gNF1L2W2DbFnprEAmekbeKiRyxpCj5ws+3FN1RDWk=;
+        b=ZSzutQZZe6dq6zdHBgwLlOU8W0bxVc+4YMN5TcTS2j3GDIOqmPqRaHxZwM0EThAfbx
+         bHqGPvbN48dbu2RYT/1PMEPsRqu+5A7X4QzRyEk6h5wKNbCDTjEgF7Dc2NgqULkAlBxw
+         saTBQD/JXdF9GEkiBFGL/xPvnPhcSOuAazIE9MFNObd3bSsHnfXbh3HUfI+bSq83904K
+         eO7Cex2z7ndD8WQ7A9e4cZHc8O2bdii2ZqhjzwSdi7CZhKJcUC/Efpqdxe2o4zNyhEdR
+         7GoH4w2GSsE8C7C4fv/IL92RCg//AqnvGTwdYDqIO9LX7fi9DJe7F1lESgGaOidUh6+7
+         6INA==
+X-Forwarded-Encrypted: i=1; AHgh+RqmSM7KpPaxh9x5TKRl8yCrI8OT7OAhzCF54BfBQifHYdMSOWThf2tvTZq5HCWWHc3awXRb8xunzNu7Bu8=@vger.kernel.org
+X-Gm-Message-State: AFuF++khbAJXHa/VJsmnXm6vxAqUqnT3rPfUcio+sZLZrDKooE7BTuWN
+	u31PxU1taGWir91L6ehoI+5EWgOa8HI/TINlL0ocW4Qr3IZY0TRuse6P3O/jTj9/
+X-Gm-Gg: AR+sD11e4ZGL1N4wVbrwcZhS3820IWLtGbK4IjdcBvs8qUMdKS3FjbBT4ZSyPyT3bHs
+	ixCLKPGMj2BcO7IS3Yoj8BsE0iwFn9+JUf4/9ln8Vk35zwIy6jcmeAhBrY7mI/f0AvfaqIV76P5
+	4YUtnQ9HEQzzvkJloUEGXugE1y0dJRC0VBwexzJl6Hrm+z1UZFVDCuctEtnpf1Bse1PNMp9fFLY
+	mkUir8MG9MxibJakQ9cLWIyQEc7+aWep9XrYcNMBGpMIfeEGbA8j5chwadIOC0XPW9dYdcbtZhW
+	BjR4ju2rVeV6E8Gb/w0FNPlSfcATMI+RkoO9EnOako+VLGAC+1EY3813yoTxjUfVg1sXUGEVdE7
+	GQkJoelJBnB+Sk/zOWcaJCJ3GN+qJogWOXA8h3mYiCp3JHHtfBCRbSTq1ygbKnsH5ZVkJYhYhqj
+	xyeY7DgXry/4n/AQdTqmqt7aVkM7jlGrwZTdontkafVOl+8lwBpgHESsSJOATriFE6uu1/cIPCR
+	9S+22xYt8V0HlvJ8LSlYxIK+QGxO35zKBTGhlHaNTiOQDvn6vaf5Y9ChpItlTbUKTNDlj78ONaI
+	w/I0jhrjgPU6oE5j2sN0V+4OZSN8r5/sG055FPYlCpgsQ7CFnqtHFu0gkBmTeKST1mg=
+X-Received: by 2002:a05:600c:4f8b:b0:49a:2c4b:403f with SMTP id 5b1f17b1804b1-49b91c46494mr428394385e9.13.1788253065376;
+        Tue, 01 Sep 2026 01:57:45 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a16a-7801-fd8c-4b37-36b4-e53a.310.pool.telefonica.de. [2a02:3100:a16a:7801:fd8c:4b37:36b4:e53a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdd73f7a4sm45023365e9.12.2026.09.01.01.57.44
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 01 Sep 2026 01:57:44 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Russell King <linux@armlinux.org.uk>,
+	linux-arm-kernel@lists.infradead.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ARM: mm: align hugetlb mappings to the huge page size
+Date: Tue,  1 Sep 2026 10:57:40 +0200
+Message-Id: <20260901085740.66283-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,65 +80,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the Synaptics 4384 Bluetooth controller
-by adding the corresponding chip IDs.
+mmap(MAP_HUGETLB) on 32-bit Arm can return an address which is not
+aligned to the huge page size. In a QEMU virt guest, unmapping the VMA
+then hits the alignment check in __unmap_hugepage_range():
 
-Tested on the VIM3 platform. Verified that the controller initializes
-successfully and that firmware loading and basic Bluetooth operation
-work as expected.
+  kernel BUG at mm/hugetlb.c:5213!
+  Internal error: Oops - BUG: 0 [#1] SMP ARM
+  PC is at __unmap_hugepage_range+0x540/0x584
+  LR is at __zap_vma_range+0x13a0/0x1410
 
-The VIM3 is a Khadas single-board computer that I used as the host
-platform for testing the BCM4384 Bluetooth controller.
+Commit 7bd3f1e1a9ae ("mm: make hugetlb mappings go through
+mm_get_unmapped_area_vmflags") made hugetlb mappings use the
+architecture's arch_get_unmapped_area(). The generic implementations
+handle hugetlb alignment, but the Arm implementations only account for
+the optional SHMLBA cache-colouring constraint. A 4 KiB-page kernel can
+therefore align the mapping to 4 KiB or 16 KiB instead of the required
+2 MiB.
 
-Signed-off-by: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
+Set the alignment mask from the file's hstate for hugetlb mappings in
+both Arm implementations. Huge-page alignment also satisfies the
+SHMLBA constraint.
+
+Fixes: 7bd3f1e1a9ae ("mm: make hugetlb mappings go through mm_get_unmapped_area_vmflags")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/bluetooth/btbcm.c   | 6 +++++-
- drivers/bluetooth/hci_bcm.c | 1 +
- 2 files changed, 6 insertions(+), 1 deletion(-)
+Tested an LPAE multi_v7_defconfig kernel on QEMU virt with
+-cpu max,aarch64=off and -cpu cortex-a15, using both the default and
+legacy VA layouts. The LTP hugemmap01/04/05/06, hugefork01/02,
+hugeshmat01, hugeshmget01, and hugefallocate01 tests gave 16 TPASS and
+no failures on either CPU model.
 
-diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
-index 463d59890bef..63c4c788d9c4 100644
---- a/drivers/bluetooth/btbcm.c
-+++ b/drivers/bluetooth/btbcm.c
-@@ -31,6 +31,7 @@
- #define BDADDR_BCM4334B0 (&(bdaddr_t) {{0x00, 0x00, 0x00, 0xb0, 0x34, 0x43}})
- #define BDADDR_BCM4345C5 (&(bdaddr_t) {{0xac, 0x1f, 0x00, 0xc5, 0x45, 0x43}})
- #define BDADDR_BCM43341B (&(bdaddr_t) {{0xac, 0x1f, 0x00, 0x1b, 0x34, 0x43}})
-+#define BDADDR_BCM4384B0 (&(bdaddr_t) {{0x93, 0x76, 0x00, 0xb0, 0x84, 0x43}})
+Also tested on a Raspberry Pi 400. The unpatched kernel returned a
+misaligned address and became unresponsive while touching the mapping.
+The patched kernel returned an aligned address, touched the full mapping,
+and unmapped it cleanly.
+
+ arch/arm/mm/mmap.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/mm/mmap.c b/arch/arm/mm/mmap.c
+index 3dbb383c26d54..dbb3f07a77852 100644
+--- a/arch/arm/mm/mmap.c
++++ b/arch/arm/mm/mmap.c
+@@ -11,6 +11,7 @@
+ #include <linux/io.h>
+ #include <linux/personality.h>
+ #include <linux/random.h>
++#include <linux/hugetlb.h>
+ #include <asm/cachetype.h>
  
- #define BCM_FW_NAME_LEN			64
- #define BCM_FW_NAME_COUNT_MAX		4
-@@ -130,7 +131,8 @@ int btbcm_check_bdaddr(struct hci_dev *hdev)
- 	    !bacmp(&bda->bdaddr, BDADDR_BCM4345C5) ||
- 	    !bacmp(&bda->bdaddr, BDADDR_BCM43430A0) ||
- 	    !bacmp(&bda->bdaddr, BDADDR_BCM43430A1) ||
--	    !bacmp(&bda->bdaddr, BDADDR_BCM43341B)) {
-+	    !bacmp(&bda->bdaddr, BDADDR_BCM43341B) ||
-+	    !bacmp(&bda->bdaddr, BDADDR_BCM4384B0)) {
- 		/* Try falling back to BDADDR EFI variable */
- 		if (btbcm_set_bdaddr_from_efi(hdev) != 0) {
- 			bt_dev_info(hdev, "BCM: Using default device address (%pMR)",
-@@ -514,6 +516,8 @@ static const struct bcm_subver_table bcm_uart_subver_table[] = {
- 	{ 0x4106, "BCM4335A0"	},	/* 002.001.006 */
- 	{ 0x410c, "BCM43430B0"	},	/* 002.001.012 */
- 	{ 0x2119, "BCM4373A0"	},	/* 001.001.025 */
-+	{ 0x2128, "BCM4384A0"	},	/* 001.001.040 */
-+	{ 0x4119, "BCM4384B0"	},	/* 002.001.025 */
- 	{ }
- };
+ #define COLOUR_ALIGN(addr,pgoff)		\
+@@ -72,7 +73,10 @@ arch_get_unmapped_area(struct file *filp, unsigned long addr,
+ 	info.length = len;
+ 	info.low_limit = mm->mmap_base;
+ 	info.high_limit = TASK_SIZE;
+-	info.align_mask = do_align ? (PAGE_MASK & (SHMLBA - 1)) : 0;
++	if (filp && is_file_hugepages(filp))
++		info.align_mask = huge_page_mask_align(filp);
++	else
++		info.align_mask = do_align ? (PAGE_MASK & (SHMLBA - 1)) : 0;
+ 	info.align_offset = pgoff << PAGE_SHIFT;
+ 	return vm_unmapped_area(&info);
+ }
+@@ -123,7 +127,10 @@ arch_get_unmapped_area_topdown(struct file *filp, const unsigned long addr0,
+ 	info.length = len;
+ 	info.low_limit = FIRST_USER_ADDRESS;
+ 	info.high_limit = mm->mmap_base;
+-	info.align_mask = do_align ? (PAGE_MASK & (SHMLBA - 1)) : 0;
++	if (filp && is_file_hugepages(filp))
++		info.align_mask = huge_page_mask_align(filp);
++	else
++		info.align_mask = do_align ? (PAGE_MASK & (SHMLBA - 1)) : 0;
+ 	info.align_offset = pgoff << PAGE_SHIFT;
+ 	addr = vm_unmapped_area(&info);
  
-diff --git a/drivers/bluetooth/hci_bcm.c b/drivers/bluetooth/hci_bcm.c
-index 9a103db7e355..e70b9f3fd968 100644
---- a/drivers/bluetooth/hci_bcm.c
-+++ b/drivers/bluetooth/hci_bcm.c
-@@ -1593,6 +1593,7 @@ static const struct of_device_id bcm_bluetooth_of_match[] = {
- 	{ .compatible = "brcm,bcm4349-bt", .data = &bcm43438_device_data },
- 	{ .compatible = "brcm,bcm43540-bt", .data = &bcm4354_device_data },
- 	{ .compatible = "brcm,bcm4335a0" },
-+	{ .compatible = "brcm,bcm4384-bt" },
- 	{ .compatible = "cypress,cyw4373a0-bt", .data = &cyw4373a0_device_data },
- 	{ .compatible = "infineon,cyw55572-bt", .data = &cyw55572_device_data },
- 	{ },
+base-commit: abdf623ddb75b24659018d3952d8f61937306ae5
 -- 
-2.25.1
-
+2.53.0
