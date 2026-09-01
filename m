@@ -1,269 +1,317 @@
-Received: from mta1.migadu.com (out-159.mta1.migadu.com [95.215.58.159])
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6AB47799D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A33476CC1
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:08:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253669; cv=none; b=oT6kOor2q4+O+iMeeGJXtUPTXQaX7RF07jVhc5ks3Xshv1VhSSf8hqfYMxsSE6Q3QvKTNh6LO4NBAmWcliB0aif0li0QN3H9bntXrABD49gknD27PzaUL5xWWgP8XsCUTgIde9JO3dtglNov2CFuuPpwZ/wvZSTNK5u0lmIeprg=
+	t=1788253720; cv=none; b=b7IUXWYfCNIe+5ADMgWiwTURzPG+4YAIciU4fsRh8UFoaRjlKc9UOvgWFXy3709coW+atQcp2YoZbS9GF9Adn0SrX30Q2AAPbmIrJAb97hPBjzhT/JXuNXz4pwX+xTBTT1b21gNFKCyQaDRsez3033hjtD8zKja11UmP1wvysOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253669; c=relaxed/simple;
-	bh=d6xqbnoen6SvyYfnbagxCWFD259lAJ/gIVTGxLdhCwQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WAthDsVnOG40czSqccrVuD2v1kdiq2OFf9qvqJJRywo6FCoqeG/4tTUJ8AwMvYZIH6vbgVB4oEvd1wf+SpCUjdyLc91Z2k9nf1DU+jeFlBRIldPcIPeEtH57saayMwDiKUkdSETbigxFZaP7RZh8kAAfESvkryF4HLQzszt8Wak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SWLO1v5Y; arc=none smtp.client-ip=95.215.58.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SWLO1v5Y"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=d6xqbnoen6SvyYfnbagxCWFD259lAJ/gIVTGxLdhCwQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788253660; v=1; x=1788858460;
- b=SWLO1v5YPKnd7cLz0t88OTXQZHeVySGhdSn/ujnPf0N3qzay+JP5R2iiCxo+v91NdE3iRfVY
- pN6dfbZ+0YvB6hhFJB5UvfAMWXJf8NtlODtrKiL3BDcnIuSo7HKV1vSo4mpha3bx3LUb6Qc9+U5
- QHahn1z+Kw+E/d50tmqC3Zw4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 58ea57c259d2ccfb;
-	Tue, 01 Sep 2026 09:07:40 +0000
-X-Mizu-Trace-ID: 58ea57c259d2ccfb
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <2e9488bb-feb6-4994-92e3-e5ef0c1ff5ec@linux.dev>
-Date: Tue, 1 Sep 2026 17:07:30 +0800
+	s=arc-20240116; t=1788253720; c=relaxed/simple;
+	bh=ziV6zZDIVwlemG2i9XVT7SSlBQP8GSHoNQO1U8EYE5g=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=k4gIMUbnv3L7KhGupjAuJFelgIsCtupLDSDxTbjhXj0yKvE63v0Skm+YylEdK5YldpN15rHxlCgNTi4Najc4kcX2YJBdENIsBgzSrJ5R1Ah05iaNd4DWSF0veOTkeKmIKpG9aYIsf4vjCPMPqzGTWDaPtpClwpeW9q4DJGEkYQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-4511f6a63edso494114fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:08:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788253715; x=1788858515;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UTsqTVxmZyzoBZYaOw1oAyhSxxGK3l/uI0RdubcdI+Q=;
+        b=dnQx8jMdI6RdBg+274JtztjWhQTTMpt3XHbO485q+EMa0hzP6EjgXVPiAJJ2nRwMeZ
+         Z0ul1nhZ/7VNy1mofu+kht7Ev7f6+KAkRsu1K2k5dcCqmAuC2I6AkA366H1Tm4hCrg+x
+         3hTLZQVa7FnwL/N1yophdnVivPNoM/rlhH4ouWvmGPjlqkff7t0sq+bI9Bu4wXqxgFum
+         M4aMUYnJke+SK8G/CEqLy+KF6ihUx1obzsFBA+yO6vDub6wBeC5W3Zh69vJVLze3qek5
+         BB5AIBSxDmVxf35WNaKmlnQ7R8L7k8Z/KpZAtWWNpuAFtRCsvV2kvhKQ21qYoDoXjk77
+         J2Jg==
+X-Gm-Message-State: AFuF++mxwbC7przLZbEw/8PmA/CdmylEf5s9tD+3OwUsxTJDmeIn4hOQ
+	ws8GY91LjGuQKcyccL9VClX89Sdnis0FhAV2BuH8u4U5MyMQsjTtQR6JG7nJzB7hPIZTuDSo+mt
+	zBM0KexE0WzDV8oLIDqznAyoB+uPNYrH7dhJrYuJSivnXNVVxFc8vYtBOIK2Lgw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm: vmalloc: fix vmap_purge_lock livelock under memory
- pressure
-To: Dev Jain <dev.jain@arm.com>, Uladzislau Rezki <urezki@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Ye Liu <liuye@kylinos.cn>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260828091753.299295-1-ye.liu@linux.dev>
- <20260828110503.e1eff32a9b7df9a8b2ddd4d6@linux-foundation.org>
- <bec5eaef-d084-467f-9bfd-43f7dedc1aa7@arm.com> <apVPTt9Xw8kSgmTU@milan>
- <54bd749f-04f5-4665-bd5f-d485e7197132@arm.com>
-Content-Language: en-US
-From: Ye Liu <ye.liu@linux.dev>
-In-Reply-To: <54bd749f-04f5-4665-bd5f-d485e7197132@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:178e:b0:4b2:b653:87ff with SMTP id
+ 5614622812f47-4b39803b2ffmr38342393b6e.7.1788253715199; Tue, 01 Sep 2026
+ 02:08:35 -0700 (PDT)
+Date: Tue, 01 Sep 2026 02:08:35 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a969613.a8e469d2.cbf3.5624.GAE@google.com>
+Subject: [syzbot] [kernel?] INFO: task hung in mmc_go_idle
+From: syzbot <syzbot+bb55e8118af00556efa2@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, ulfh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    cf72cbb39da8 Merge tag 'io_uring-7.3-20260828' of git://gi..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1235cc15580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=bb55e8118af00556efa2
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/76d43caf1866/disk-cf72cbb3.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/1821781c5c85/vmlinux-cf72cbb3.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/31abf6144cf2/bzImage-cf72cbb3.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+bb55e8118af00556efa2@syzkaller.appspotmail.com
+
+INFO: task kworker/1:6:5756 blocked for more than 143 seconds.
+      Tainted: G             L      syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/1:6     state:D stack:20984 pid:5756  tgid:5756  ppid:2      task_flags:0x4208160 flags:0x00080000
+Workqueue: events_freezable mmc_rescan
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5520 [inline]
+ __schedule+0x17d4/0x5820 kernel/sched/core.c:7270
+ __schedule_loop kernel/sched/core.c:7347 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7362
+ schedule_timeout+0xc0/0x2c0 kernel/time/sleep_timeout.c:75
+ do_wait_for_common kernel/sched/completion.c:100 [inline]
+ __wait_for_common kernel/sched/completion.c:121 [inline]
+ wait_for_common kernel/sched/completion.c:132 [inline]
+ wait_for_completion+0x2ca/0x5e0 kernel/sched/completion.c:153
+ mmc_wait_for_req_done+0x37/0x490 drivers/mmc/core/core.c:408
+ mmc_wait_for_cmd+0x183/0x2a0 drivers/mmc/core/core.c:645
+ __mmc_go_idle drivers/mmc/core/mmc_ops.c:156 [inline]
+ mmc_go_idle+0x12c/0x2a0 drivers/mmc/core/mmc_ops.c:180
+ mmc_rescan_try_freq drivers/mmc/core/core.c:2123 [inline]
+ mmc_rescan+0x6fe/0x1040 drivers/mmc/core/core.c:2316
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+INFO: task kworker/1:4:14234 blocked for more than 143 seconds.
+      Tainted: G             L      syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/1:4     state:D stack:22528 pid:14234 tgid:14234 ppid:2      task_flags:0x4288060 flags:0x00080000
+Workqueue: usb_hub_wq hub_event
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5520 [inline]
+ __schedule+0x17d4/0x5820 kernel/sched/core.c:7270
+ __schedule_loop kernel/sched/core.c:7347 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7362
+ schedule_timeout+0xc0/0x2c0 kernel/time/sleep_timeout.c:75
+ do_wait_for_common kernel/sched/completion.c:100 [inline]
+ __wait_for_common kernel/sched/completion.c:121 [inline]
+ wait_for_common kernel/sched/completion.c:132 [inline]
+ wait_for_completion+0x2ca/0x5e0 kernel/sched/completion.c:153
+ __flush_work+0xa63/0xca0 kernel/workqueue.c:4439
+ __cancel_work_sync+0xbf/0x110 kernel/workqueue.c:4559
+ __mmc_stop_host drivers/mmc/core/core.c:2368 [inline]
+ mmc_stop_host+0xd9/0x460 drivers/mmc/core/core.c:2373
+ mmc_remove_host+0x15/0x60 drivers/mmc/core/host.c:681
+ vub300_disconnect+0x154/0x2f0 drivers/mmc/host/vub300.c:2387
+ usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
+ device_remove drivers/base/dd.c:618 [inline]
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
+ bus_remove_device+0x444/0x560 drivers/base/bus.c:664
+ device_del+0x524/0x8f0 drivers/base/core.c:3965
+ usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1478
+ usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2350
+ hub_port_connect drivers/usb/core/hub.c:5420 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
+ port_event drivers/usb/core/hub.c:5884 [inline]
+ hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5966
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Showing all locks held in the system:
+locks held by pr/ttyS0/16: 2, last CPU#1:
+ #0: ffffffff8ec362b8 (console_srcu){....}-{0:0}, at: rcu_try_lock_acquire include/linux/rcupdate.h:314 [inline]
+ #0: ffffffff8ec362b8 (console_srcu){....}-{0:0}, at: srcu_read_lock_nmisafe include/linux/srcu.h:439 [inline]
+ #0: ffffffff8ec362b8 (console_srcu){....}-{0:0}, at: console_srcu_read_lock+0x30/0x60 kernel/printk/printk.c:291
+ #1: ffffffff9ad2f098 (&port_lock_key){-.-.}-{3:3}, at: __uart_port_lock_irqsave include/linux/serial_core.h:613 [inline]
+ #1: ffffffff9ad2f098 (&port_lock_key){-.-.}-{3:3}, at: univ8250_console_device_lock+0x67/0xc0 drivers/tty/serial/8250/8250_core.c:413
+locks held by khungtaskd/32: 1, last CPU#0:
+ #0: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x2e/0x180 kernel/locking/lockdep.c:6837
+locks held by kworker/u8:6/142: 3, last CPU#1:
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+ #1: ffffc90002de7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90002de7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90002de7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #1: ffffc90002de7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+ #2: ffff888052a47258 (&devlink->lock_key#14){+.+.}-{4:4}, at: nsim_dev_trap_report_work+0x57/0xb40 drivers/net/netdevsim/dev.c:834
+locks held by udevd/4986: 4, last CPU#0:
+ #0: ffffffff8ee35b90 (dup_mmap_sem){.+.+}-{0:0}, at: dup_mm kernel/fork.c:1542 [inline]
+ #0: ffffffff8ee35b90 (dup_mmap_sem){.+.+}-{0:0}, at: copy_mm+0x10f/0x480 kernel/fork.c:1595
+ #1: ffff8880212cb6b8 (&mm->mmap_lock){++++}-{4:4}, at: mmap_write_lock_killable include/linux/mmap_lock.h:562 [inline]
+ #1: ffff8880212cb6b8 (&mm->mmap_lock){++++}-{4:4}, at: dup_mmap+0x195/0x1dc0 mm/mmap.c:1716
+ #2: ffff888028481078 (&mm->mmap_lock/1){+.+.}-{4:4}, at: mmap_write_lock_nested include/linux/mmap_lock.h:552 [inline]
+ #2: ffff888028481078 (&mm->mmap_lock/1){+.+.}-{4:4}, at: dup_mmap+0x221/0x1dc0 mm/mmap.c:1723
+ #3: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #3: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #3: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: __pte_offset_map+0x29/0x240 mm/pgtable-generic.c:290
+locks held by getty/5376: 2, on CPU#1:
+ #0: ffff8880339940a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x25/0x70 drivers/tty/tty_ldisc.c:243
+ #1: ffffc9000322b2e8 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x45a/0x1360 drivers/tty/n_tty.c:2211
+locks held by kworker/1:6/5756: 2, on CPU#1:
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #0: ffff88801b06a140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+ #1: ffffc9000487fc40 ((work_completion)(&(&host->detect)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc9000487fc40 ((work_completion)(&(&host->detect)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc9000487fc40 ((work_completion)(&(&host->detect)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #1: ffffc9000487fc40 ((work_completion)(&(&host->detect)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+locks held by kworker/1:4/14234: 5, on CPU#1:
+ #0: ffff8880202d1540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880202d1540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880202d1540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #0: ffff8880202d1540 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+ #1: ffffc90003327c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003327c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003327c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #1: ffffc90003327c40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+ #2: ffff8880295bf1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff8880295bf1d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5912
+ #3: ffff8880797a71d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff8880797a71d8 (&dev->mutex){....}-{4:4}, at: usb_disconnect+0xfc/0x9a0 drivers/usb/core/hub.c:2341
+ #4: ffff88807c93d1a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff88807c93d1a0 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1171 [inline]
+ #4: ffff88807c93d1a0 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xb9/0x880 drivers/base/dd.c:1369
+locks held by syz-executor/14286: 3, last CPU#0:
+ #0: ffff888032188ce0 (&xt[i].mutex){+.+.}-{4:4}, at: xt_find_table_lock+0x55/0x400 net/netfilter/x_tables.c:1336
+ #1: ffffffff8ee8f900 (fs_reclaim){+.+.}-{0:0}, at: might_alloc include/linux/sched/mm.h:316 [inline]
+ #1: ffffffff8ee8f900 (fs_reclaim){+.+.}-{0:0}, at: prepare_alloc_pages+0x149/0x600 mm/page_alloc.c:5113
+ #2: ffffffff8eea5560 (mmu_notifier_invalidate_range_start){+.+.}-{0:0}, at: fs_reclaim_acquire+0x7c/0x100 mm/page_alloc.c:4392
+locks held by kworker/1:18/18251: 2, on CPU#1:
+ #0: ffff88801b06b140 ((wq_completion)events){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b06b140 ((wq_completion)events){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b06b140 ((wq_completion)events){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #0: ffff88801b06b140 ((wq_completion)events){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+ #1: ffffc90003997c40 ((work_completion)(&m->mpeg_thread)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90003997c40 ((work_completion)(&m->mpeg_thread)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90003997c40 ((work_completion)(&m->mpeg_thread)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3352 [inline]
+ #1: ffffc90003997c40 ((work_completion)(&m->mpeg_thread)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3470
+locks held by syz.0.3395/20127: 2, last CPU#0:
+ #0: ffff88801b091078 (&mm->mmap_lock){++++}-{4:4}, at: mmap_read_lock include/linux/mmap_lock.h:600 [inline]
+ #0: ffff88801b091078 (&mm->mmap_lock){++++}-{4:4}, at: exit_mmap+0x1a4/0x9f0 mm/mmap.c:1299
+ #1: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: __pte_offset_map+0x29/0x240 mm/pgtable-generic.c:290
+locks held by udevd/20130: 1, on CPU#0:
+ #0: ffff88801c2d4980 (&root->kernfs_rwsem){++++}-{4:4}, at: kernfs_dop_revalidate+0x9e/0x650 fs/kernfs/dir.c:1217
+locks held by syz.5.3396/20134: 1, last CPU#1:
+ #0: ffff88802527a0a0 (&ctx->uring_lock){+.+.}-{4:4}, at: tctx_task_work_run+0x2d3/0xa80 io_uring/tw.c:92
+locks held by syz.4.3397/20144: 2, last CPU#1:
+ #0: ffff88807a4f7678 (&mm->mmap_lock){++++}-{4:4}, at: mmap_write_lock include/linux/mmap_lock.h:544 [inline]
+ #0: ffff88807a4f7678 (&mm->mmap_lock){++++}-{4:4}, at: exit_mmap+0x2d8/0x9f0 mm/mmap.c:1323
+ #1: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: class_rcu_constructor include/linux/rcupdate.h:1216 [inline]
+ #1: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: unwind_next_frame+0x8f/0x2550 arch/x86/kernel/unwind_orc.c:495
+locks held by syz.2.3398/20146: 2, last CPU#0:
+ #0: ffffffff90250c40 (rtnl_mutex){+.+.}-{4:4}, at: __tun_chr_ioctl+0x3da/0x1e70 drivers/net/tun.c:3229
+ #1: ffff88801c2d4980 (&root->kernfs_rwsem){++++}-{4:4}, at: kernfs_add_one+0x41/0x6f0 fs/kernfs/dir.c:825
+locks held by udevd/20147: 1, last CPU#0:
+ #0: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: class_rcu_constructor include/linux/rcupdate.h:1216 [inline]
+ #0: ffffffff8ed5c6e0 (rcu_read_lock){....}-{1:3}, at: unwind_next_frame+0x8f/0x2550 arch/x86/kernel/unwind_orc.c:495
+
+=============================================
+
+NMI backtrace for cpu 0
+CPU: 0 UID: 0 PID: 32 Comm: khungtaskd Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ nmi_cpu_backtrace+0x274/0x2d0 lib/nmi_backtrace.c:123
+ nmi_trigger_cpumask_backtrace+0x17d/0x390 lib/nmi_backtrace.c:66
+ trigger_all_cpu_backtrace include/linux/nmi.h:164 [inline]
+ __sys_info lib/sys_info.c:157 [inline]
+ sys_info+0x135/0x170 lib/sys_info.c:165
+ check_hung_uninterruptible_tasks kernel/hung_task.c:353 [inline]
+ watchdog+0xfd7/0x1030 kernel/hung_task.c:561
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Sending NMI from CPU 0 to CPUs 1:
+NMI backtrace for cpu 1
+CPU: 1 UID: 0 PID: 16 Comm: pr/ttyS0 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:io_serial_in+0x77/0xc0 drivers/tty/serial/8250/8250_port.c:409
+Code: e8 4e e8 55 fc 44 89 f9 d3 e3 49 83 c6 40 4c 89 f0 48 c1 e8 03 42 80 3c 20 00 74 08 4c 89 f7 e8 1f b0 c5 fc 41 03 1e 89 da ec <0f> b6 c0 5b 41 5c 41 5e 41 5f e9 5a cc 74 06 cc 44 89 f9 80 e1 07
+RSP: 0018:ffffc900001578b8 EFLAGS: 00000002
+RAX: 1ffffffff35a5e00 RBX: 00000000000003fd RCX: 0000000000000000
+RDX: 00000000000003fd RSI: 0000000000000000 RDI: 0000000000000020
+RBP: dffffc0000000000 R08: 0000000000000003 R09: 0000000000000004
+R10: dffffc0000000000 R11: ffffffff8571cb00 R12: dffffc0000000000
+R13: 0000000000000000 R14: ffffffff9ad2f0c0 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888124ddc000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2f023ffc CR3: 000000005d670000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ serial_in drivers/tty/serial/8250/8250.h:128 [inline]
+ serial_lsr_in drivers/tty/serial/8250/8250.h:150 [inline]
+ wait_for_lsr+0x184/0x2f0 drivers/tty/serial/8250/8250_port.c:2013
+ serial8250_fifo_wait_for_lsr_thre drivers/tty/serial/8250/8250_port.c:3270 [inline]
+ __serial8250_console_fifo_write+0x346/0x3e0 drivers/tty/serial/8250/8250_port.c:3372
+ serial8250_console_fifo_write drivers/tty/serial/8250/8250_port.c:3378 [inline]
+ __serial8250_console_write drivers/tty/serial/8250/8250_port.c:3429 [inline]
+ serial8250_console_write+0xaa1/0x1200 drivers/tty/serial/8250/8250_port.c:3493
+ nbcon_emit_next_record+0xef5/0x1a90 kernel/printk/nbcon.c:-1
+ nbcon_emit_one kernel/printk/nbcon.c:1157 [inline]
+ nbcon_kthread_func+0x679/0x880 kernel/printk/nbcon.c:1271
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-在 2026/9/1 14:22, Dev Jain 写道:
-> 
-> 
-> On 31/08/26 3:24 pm, Uladzislau Rezki wrote:
->> On Mon, Aug 31, 2026 at 11:39:14AM +0530, Dev Jain wrote:
->>>
->>>
->>> On 28/08/26 11:35 pm, Andrew Morton wrote:
->>>> On Fri, 28 Aug 2026 17:17:53 +0800 Ye Liu <ye.liu@linux.dev> wrote:
->>>>
->>>>> From: Ye Liu <liuye@kylinos.cn>
->>>>>
->>>>> The vmap_purge_lock mutex can be held for an extended period by
->>>>> __purge_vmap_area_lazy() which calls flush_work() to wait for
->>>>> purge_vmap_node workers while holding the lock.  Under memory
->>>>> pressure, those workers may themselves be blocked in direct
->>>>> reclaim trying to acquire the same lock via the
->>>>> vmap_node_shrink_scan() shrinker callback, creating a circular
->>>>> dependency that deadlocks the entire system.
->>>>>
->>>>> Two places acquire vmap_purge_lock from paths that can be reached
->>>>> during direct reclaim:
->>>>>
->>>>> 1. vmap_node_shrink_scan(): replace blocking guard(mutex) with
->>>>>    mutex_trylock().  This is a shrinker that only decays the vmap
->>>>>    pool and returns SHRINK_STOP without freeing memory; skipping a
->>>>>    decay cycle when the lock is contended is harmless and prevents
->>>>>    tasks from piling up on the mutex in the direct reclaim path.
->>>>>
->>>>> 2. reclaim_and_purge_vmap_areas(): replace mutex_lock() with
->>>>>    mutex_trylock().  This is called from the vmalloc allocation
->>>>>    overflow path; if trylock fails, another thread is already
->>>>>    purging and the allocator's retry will find freed space.  The
->>>>>    notifier chain provides a fallback if the retry still fails.
->>>>>
->>>>> Both trylock failures break the circular dependency: the lock
->>>>> holder's flush_work() can complete because workers are no longer
->>>>> blocked on vmap_purge_lock in the direct reclaim path.
->>>>
->>>> Thanks.  AI review expressed a couple of concerns:
->>>> 	https://sashiko.dev/#/patchset/20260828091753.299295-1-ye.liu@linux.dev
->>>
->>>
->>> Sounds legit to me. Now there is no guarantee of purge being successful, and we
->>> can get a spurious failure.
->>>
->>> How about using a WQ_RECLAIM workqueue:
->>>
->>> vmap_purge_wq = alloc_workqueue("vmap_purge",
->>> 				WQ_MEM_RECLAIM | WQ_PERCPU, 0);
->>>
->>> I see the same pattern in __lru_add_drain_all() and kmem_cache_init_late().
->>>
->> WQ_MEM_RECLAIM makes sense but this is another patch.
->>
->> I copied here AI comment:
->>>
->>> Does replacing this blocking lock with a trylock break synchronization for
->>> the callers?
->>>
->> No it does not. If someone is doing reclaim we do not wait and do not try
->> to do it again thus fail allocation.
->>
->>> When vmalloc space is exhausted, alloc_vmap_area() calls
->>> reclaim_and_purge_vmap_areas() and relies on its blocking behavior to ensure
->>> that free space has actually been reclaimed before looping back to retry:
->>> mm/vmalloc.c:alloc_vmap_area() {
->>>    ...
->>> overflow:
->>> 	if (!purged) {
->>> 		reclaim_and_purge_vmap_areas();
->>> 		purged = 1;
->>> 		goto retry;
->>> 	}
->>>    ...
->>> }
->>> With this patch, if another thread holds vmap_purge_lock, mutex_trylock()
->>> fails and the function returns immediately.
->>>
->> If reclaim is in progress and trylock fails a caller repeats only one
->> time to retry an allocation. There is no any infinite loop.
->>
->>>
->>> The allocator then retries
->>> instantly without waiting for the concurrent purge to complete.
->>> Because the retry fails and purged is already 1, could this cause the
->>> allocation to abort and return a spurious vmalloc allocation failure
->>> (-EBUSY or -ENOMEM)?
->>>
->> vmap space can be fragmented and not avail for 32-bit systems. For
->> 64-bit system it is likely impossible.
->>
->> But, i think we can overt mutex_lock() into mutex_trylock() just only
->> in the:
->>
->> static unsigned long
->> vmap_node_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
->> {
->> 	struct vmap_node *vn;
->>
->> 	guard(mutex)(&vmap_purge_lock);
->> 	for_each_vmap_node(vn)
->> 		decay_va_pool_node(vn, true);
->>
->> 	return SHRINK_STOP;
->> }
->>
->> so the reclaim path is not blocked. It should also address an issue
->> reported by the Ye Liu <ye.liu@linux.dev>.
-> 
-> IIUC you are suggesting mutex_trylock() only in the shrinker path. But
-> then, the following is possible no: take purge lock, try to get a
-> worker thread, worker thread is stuck in vmalloc -> alloc_vmap_area
-> -> reclaim_and_purge_vmap_areas -> take purge lock?
-> 
-> 
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-Personally, I lean toward the WQ_MEM_RECLAIM workqueue solution. 
-After taking a closer look at the code, I noticed a subtle but 
-potentially problematic scenario:
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-When drain_vmap_area_work acquires vmap_purge_lock and calls into 
-__purge_vmap_area_lazy, it may subsequently invoke queue_work/queue_work_on 
-on the same CPU's system_wq. If the newly queued work ends up waiting 
-for an available worker on that same CPU, while the current worker is
-blocked waiting for that very work to complete (via flush_work), 
-we could end up with a self-deadlock on a single CPU.
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-Theoretically, this seems possible. I suspect the reason we don't 
-see widespread reports of such deadlocks is that the nr_purge_helpers 
-logic limits the number of asynchronous workers; when resources are tight, 
-it falls back to synchronous execution (purge_vmap_node directly), 
-which avoids queuing additional work. 
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-Using a dedicated workqueue with WQ_MEM_RECLAIM would provide a clean, 
-explicit isolation—ensuring forward progress under memory pressure and 
-eliminating the risk of interfering with other subsystems' workqueues. 
-I believe this approach is more robust in the long run.
-
-Perhaps like the code below：
-the dedicated queue eliminates the self‑deadlock risk, and the trylock 
-in the shrinker prevents recursive lock attempts from reclaim contexts.
-
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index bea9f76ed7e7..68fc1f5acb2f 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -2218,6 +2218,9 @@ static unsigned long lazy_max_pages(void)
-  */
- static DEFINE_MUTEX(vmap_purge_lock);
- 
-+/* Workqueue for lazy vmap purging; WQ_MEM_RECLAIM guarantees progress. */
-+static struct workqueue_struct *vmap_purge_wq;
-+
- /* for per-CPU blocks */
- static void purge_fragmented_blocks_allcpus(void);
- 
-@@ -2408,9 +2411,9 @@ static bool __purge_vmap_area_lazy(unsigned long start, unsigned long end,
-                                INIT_WORK(&vn->purge_work, purge_vmap_node);
- 
-                                if (cpumask_test_cpu(i, cpu_online_mask))
--                                       schedule_work_on(i, &vn->purge_work);
-+                                       queue_work_on(i, vmap_purge_wq, &vn->purge_work);
-                                else
--                                       schedule_work(&vn->purge_work);
-+                                       queue_work(vmap_purge_wq, &vn->purge_work);
- 
-                                nr_purge_helpers--;
-                        } else {
-@@ -5519,10 +5522,14 @@ vmap_node_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
- {
-        struct vmap_node *vn;
- 
--       guard(mutex)(&vmap_purge_lock);
-+       if (!mutex_trylock(&vmap_purge_lock))
-+               return SHRINK_STOP;
-+
-        for_each_vmap_node(vn)
-                decay_va_pool_node(vn, true);
- 
-+       mutex_unlock(&vmap_purge_lock);
-+
-        return SHRINK_STOP;
- }
- 
-@@ -5575,6 +5582,17 @@ void __init vmalloc_init(void)
-         * Now we can initialize a free vmap space.
-         */
-        vmap_init_free_space();
-+
-+       /*
-+        * A dedicated workqueue for lazy vmap purging.  WQ_MEM_RECLAIM
-+        * reserves a rescue worker so queued purge work items are executed
-+        * even under memory pressure, when workers of the system workqueue
-+        * may be stuck in direct reclaim.
-+        */
-+       vmap_purge_wq = alloc_workqueue("vmap_purge",
-+                                       WQ_MEM_RECLAIM | WQ_PERCPU, 0);
-+       WARN_ON(!vmap_purge_wq);
-+
-        vmap_initialized = true;
-
-
->>
->> --
->> Uladzislau Rezki
-> 
-
--- 
-Thanks,
-Ye Liu
-
+If you want to undo deduplication, reply with:
+#syz undup
