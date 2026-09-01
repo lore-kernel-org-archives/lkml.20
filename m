@@ -1,81 +1,81 @@
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8C73B9DAB
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:45:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FCC415B6B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270357; cv=none; b=KbWIO+NbwBFGOPNK3w5wfqEVa9n9jnmIPjifqabXUA6ho8B93aeiN8kstILx4984mvRqvp+oUw7berd9cM68adge6o4kaioYjbBDlkJYR8AnxitwQGvkuHdpIxraWRtTLpReBd/8S0bq8jDyXVl6szMZrcM6gFSKnbu81Hn4R/E=
+	t=1788270358; cv=none; b=ZSo1iak5tDOENgCy2C1x6djKo8HCVGca2R3FCdXhqMEEh7xHdzKnWsGkTCEtj2+w0GaeK3Up7lRM5XTk1uKOmVS8fsBzIixppz3lv2ty4eziVz2fruu9BCNwos5FopT4euFyom6eBQBbFpSuo+JYVW7z7bSo0BfuWAx6r+fcaO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270357; c=relaxed/simple;
-	bh=DCh9JZBJCtXXPBu0v4ebMln/jxXGau8osWVZJniwXUI=;
+	s=arc-20240116; t=1788270358; c=relaxed/simple;
+	bh=CJeBaLICVOmyWZjtAYTQq3uao6YN/erJngwTBInYak0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SIkAtlwVFcIQemVnjZdwjqrramJYHbYa4U5CHcZNNDj/PQQvOfuqZVTVPZ8YbrpN+4FNHyYuseQ20+pnAk5EK1oLMzchM6PyPKZy0hVy1yeHFSytFkp5BgFG8apWVnHXmWE6TbrwyqSukqNdLi23WlHVmrIePudgxRtLH7VX8jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=ck4TJfHA; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=idp+8CY2; arc=none smtp.client-ip=103.168.172.150
+	 MIME-Version; b=ajLub9HzlGeUo6HgYoRccuRHO9OggNRBxVux2CqXhE3YjE30gweiLNwufF8BRuIiUc/L7O/iNr9WuIPZXj8LsajizLvz5+WZOJyCejxoGxaVl/mh/+k90A4bmY4r3O0SRSOxbXwa8h5llFVN6JNEmxG7hZyAaVFQ07NR+WxXVtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=SH9wEZvu; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=lDOe2B+U; arc=none smtp.client-ip=103.168.172.156
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="ck4TJfHA";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="idp+8CY2"
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfout.phl.internal (Postfix) with ESMTP id 683DDEC011F;
-	Tue,  1 Sep 2026 09:45:54 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="SH9wEZvu";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="lDOe2B+U"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id F3FCF140006D;
+	Tue,  1 Sep 2026 09:45:55 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-07.internal (MEProxy); Tue, 01 Sep 2026 09:45:54 -0400
+  by phl-compute-04.internal (MEProxy); Tue, 01 Sep 2026 09:45:55 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1788270354; x=
-	1788356754; bh=h6V02rYyGQ8IATTwuJsoBnvhP7/OR7wgUI3SO299PIY=; b=c
-	k4TJfHAk6JI4gLlJBJvS12dokPY1KDZHgAQR1RUx5bMZFNc7RCcaGV9rcFN9LawR
-	BcXnyPl/ySo7tLKamJSad6GlIKUxauOzdiFIUbkShLU6RQLJ7aLMK12uRVF0ZFm6
-	7XNa8Jlu8eoJ36uYsOJMWhtFoKBHkCTRNrZlGsonfOfqJS+OpYmKaR/7ZZ8z49bO
-	U+QEIb77/x2CwGThz8sU1JWcW65/dsUGtnpsgiDRrYuQPsZeq6fOUh5qa4AC52Nf
-	OxgQVn5CCAQLvBhYxTOwecDFA6VUvyXnXzA5w8BvrsV/gILhsI+424hFwxy7lkUA
-	Y9wwRs0ZBgD/tNuU6h0Sg==
+	:reply-to:subject:subject:to:to; s=fm3; t=1788270355; x=
+	1788356755; bh=TIZ29zTt9hWLX5Ra3muzPURNiJ2s9IdGBtnDopyV00E=; b=S
+	H9wEZvuPQJuLouZS1jLhHs2QgtI7imbFbx3k9ENA6VjPmI7b16qgk4EwdoSom7HY
+	C0MndCpQsvCM9EXqMEoxpzSjOSTCRygtYcYz7UNwa09RuglOmuzUhx4NBbo8VIQX
+	Q0+GHcZr7DyVYbAtkZNz7gsE/BEKP8K2cawkjVGV0RnPNq/ZxyR07n9CELbIb5IW
+	u8NF09JBGHYdVWJf+oda5o8d+VHpybj81c+1B4HyGBoT8a2WjUNsZoC+W5smJyJh
+	TKJk2i69t1ec+l82RzgrgWPYHGPl7NIDPRtBGAbdtESAo+uEDHxcda5uxDykVWL0
+	3olRBNL387PPCazAQsbBw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1788270354; x=1788356754; bh=h
-	6V02rYyGQ8IATTwuJsoBnvhP7/OR7wgUI3SO299PIY=; b=idp+8CY2NXuZ+LU7C
-	FMmkqA3iXW61Na1/N8RLKaG4MS3uGTyKu+G4qn73e5znLkCZnEyU1KehddGyOWln
-	zeIo6vluaWLGwMdL4ufWc0p/HCqW0UhXxIFUwXCVDRysPtqbrxWJl2F+eXsY3KqU
-	q4XSP9NDQXMA2bBqFLd6zddXlEU5881w1hPr09CGRo/Bc6DW55qlXl20Fneos/YK
-	IIFDtace6rwQZdpgfCDRrZWhsYv/H1llREND+TCxxs6Z+9IePK0lf8PwqjTX33LX
-	lVQSjYZM0BqdirZSgEDQhf6fcfR6ENkwQEMYss7kfiqrMGcHXn/DOyFDUOTQKc6l
-	jraMw==
-X-ME-Sender: <xms:EteWaopx5t0C7MZumD-H5tV9BXmSCcrGt3_5qAiXF3A_m4YOQZA4Ow>
-    <xme:EteWasdheLWv6X517zmuhHD7R1DvGST5IEQ2eLUHBKYvy8eQo-PCnztcrGaW8nxVP
-    MSrpMWwBjquzlzx92A4tM-nYuWsujoxYGaFQmc0eKEmUnSB67sOKw9a>
-X-ME-Received: <xmr:EteWanqhz86XRPGBPFLsiKTPODVyVs1xgkrQiYmrcWxGNS6C31Q0xttB3ySViangYr2WVEAEKSRHs-5YhZFCAiRQ-09L7Y1XXewNrv-dRRM>
-X-ME-Proxy-Cause: dmFkZTFREBd8oipOne+whwDSMInIixSeI1lCerfHK3L4pOWL9djsbhxQ7B5sFcMPFC5ZHA
-    MH3VvkrRHMa+iQQcOqPxGnC2IQB9D4JAe/3AuK6tpWR4HiWaEkwDxUpMyHYHygDA3Xsa7z
-    dC7C0+FP7eobx+zdZ2fLBWL2c9uouHcGbMZUsAXCwMf3uBDxHXV7xmoI0Av4z39bFhb2B8
-    YcfxD8xc6QTRsePpNGxtpnkCfZc7Htd0IhA8vCGr6kTiSDRJR7oERY3rZMKJZA/+6wVpa6
-    Z1u1B5dF5XZ+J25H3NG+Ru4gEcIfhwPmzy/W/Pn8uVcz3UV6PD8S5w/Rz98MJxrXVdwZLa
-    M31YyvG8yA+70av8a0cJnnPm6Is7s6esxrSElfalXZtsUCmWd471GgxqDhi7IaZ7R69f0G
-    f27zcqijKzpctY+ggj3f5eueM7s2iodQhW2diWFNVoEFbMVOXLyDmlj+LLVx7euwHEIhaf
-    tJVq2SfVLCL/Iv1ypcSZEWMXmWv96JefkhUUbS8DgFOyvM3QPQtj8OrgONYqUR4CnfkcER
-    05WX+FsfOi6s/dxrdo/fS2TlO+tO3LM+NJT+Tl6ic+xSBfZ83jJJBgt9FhMqUpTMdtClwJ
-    EXB0uUXPdxda1KMfLD1OlXJqibuU+nJEilBjq1ZUru72VitprYth3pWEXYrg
-X-ME-Proxy: <xmx:EteWatGqiZAVtQi7wmwXmNyI86HXIphnHDd1Z-HC0Dr3SwBiG5TDFA>
-    <xmx:EteWanuUrHgriGhxtjCPMKf60ZpSIn23krlxr2gik5KG3ATFO-k1-w>
-    <xmx:EteWavWgchXRMG5wKz4GZlUdqhvelQjmIERuYEmxeLypV7NoFG4ONg>
-    <xmx:EteWajE5WZmvg3dp1J_ouADkzyOq9m57jNGHQvcuyuL13qZXYaEFUg>
-    <xmx:EteWarvNgSqOcy4-Q0VGVSn3SyD6nfoAIHIYSUvq8qEOTngeHA8YQeQ9>
+	:x-me-sender:x-sasl-enc; s=fm3; t=1788270355; x=1788356755; bh=T
+	IZ29zTt9hWLX5Ra3muzPURNiJ2s9IdGBtnDopyV00E=; b=lDOe2B+UqrI+9rCMe
+	WsJwetRPdyt/Y0jeFf7hit8hwfvIhPqqKoMycIc4LEnKeVzSfizSW5BgnXE7kD90
+	Zu2cRXl3Lb3t1//km7CmBmX5cVf1t1fhdva6WB3cQROFkLZPA9RZYl85WJbfs1pO
+	gOO0BPx6L4u3Mxf9BDyl6SxE0fnCkuL9vW3n/F6LMmHo8qPy+GlAUapaw2cVVJHS
+	Bcb1FJgxTwkkGqbtmao+Vwe9D0YEGUpcVRCTn7yvk1V1yivzB9Fl35xteMrn2m/f
+	UkuIVIk7dJ3S4TzJCW3C0kdlkWHXDEHt4ZRVGqhElAsSVc4hSEfygn14SrXrThfM
+	+E1pQ==
+X-ME-Sender: <xms:E9eWajQvqGaRGV-Z6lANP-H-Q9PjnaNirec4iisPb9VUAVuE0Xb7qA>
+    <xme:E9eWainfFEW4uoq8h_R3JKqxkRxzU-pksWRPuBXmpLsuDora3iMdB4h-1mOuWm3R-
+    p5ks_LUyLMLyHrjCTvSlcGmHfwuNkDmOiMi0JSDT0R7ncT298dAm8C0>
+X-ME-Received: <xmr:E9eWajQQbx-6UiqyG2CGs9J4MCuovJgku9t8xNtaz-M4smeMGY70cEFKjbVoSQlh3Z2hc41Eh016rRXdKHL6ysZlhk3x3ZliyowuzPqQ_r0>
+X-ME-Proxy-Cause: dmFkZTFXtr6RCy/pKgLWPJSPBvXFm3znTxzXGxpPXDkaTlm4R2+4gVUR3kwIGcuZcfyzFI
+    mpA4qcBzK+fVPECyFm7OelLWJtGrs9mbkwGUlRcdKEEiZnwYGMKFcyR4Lx0nWJEP53tHrp
+    INpVKbiZ0MYz+E8QUhStfmq+hzC5ZUT09/4EEktKhZJR2UFAYiRFcGT4eRnAplGYtcc0m4
+    kBT9SKdHIAUPI8Vy/KZ2jkA5cHjiwUJ3cAiwR9JLlHkGd1gZLzXEUZwjj+Cs5XElfa9bu9
+    n3BhyK/tNfiAgYbIxs/G3L1e09P0C/HIg5r6g0F82tt8zxJVAwrnANwBwWnLSoYkVP19el
+    vzMQRZeMpvvPsQ3h5L+ktaSURVbv7bUFiGiMvJee6XE24iMPmJlsgK4FDFiRpp7owOWdXb
+    3zzULLYywfvkfAhjbYyfRl/0SYiwxtZ7uLzVBiQfBp44dFQP/+rC5nbWkJd68eJ72TAqpX
+    xDrgqP9F5o1c477Xjjq0R9wTw/jdao2WV5LyYohTUswFIsOuYPQu/nl+plMTBiYC0WXVPX
+    tStu0TbMb/r2knWBQKIWBAmDcWuKXJJhN55fg+CwMBE8XbPlsbhXRWqgbAs0JN/3FOGWJa
+    JPEWuQSvlUkPAFO4xhoB42h3+alqA5h0vAzOKKOt+gFizoisMIy1qcvyodtw
+X-ME-Proxy: <xmx:E9eWagPsXoEdWCaM4-xmjqWG5mlBIaihHCqmNu0KWaRVHo-bnb9dgw>
+    <xmx:E9eWasVCJBJb1u7txOtYEHjBT5ePgt_Bm_J6PjtUeQbDh8XZInZ31A>
+    <xmx:E9eWandSNszSUHokX2pr7I8PAP4cR36pi50KPjxeDNavAB5EZKTqYg>
+    <xmx:E9eWaouZ_ptKpmYAnuY0-t3q2QUJ1C5GTwOwo0PlxMdbU04LEX74Rg>
+    <xmx:E9eWakXVuvRUc6VJj4FfQLDNirv0UosN7UckpxegQOtpE6u8NaOsHaQZ>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 1 Sep 2026 09:45:53 -0400 (EDT)
+ 1 Sep 2026 09:45:54 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: linux1394-devel@lists.sourceforge.net
 Cc: linux-kernel@vger.kernel.org,
 	mistermidi@gmail.com,
 	sreekuttan2156239@gmail.com
-Subject: [PATCH 10/13] firewire: core: add test to generate with both AV/C and IIDC units in config ROM generator
-Date: Tue,  1 Sep 2026 22:45:31 +0900
-Message-ID: <20260901134534.2386577-11-o-takashi@sakamocchi.jp>
+Subject: [PATCH 11/13] firewire: core: add test for invalid length in config ROM generator
+Date: Tue,  1 Sep 2026 22:45:32 +0900
+Message-ID: <20260901134534.2386577-12-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260901134534.2386577-1-o-takashi@sakamocchi.jp>
 References: <20260901134534.2386577-1-o-takashi@sakamocchi.jp>
@@ -87,123 +87,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a KUnit test to verify that the generator produces the expected
-configuration ROM when both AV/C and IIDC units are registered.
+Although the unit drivers and the userspace applications are allowed to
+extend the system configuration ROM, they could provide invalid extension
+data.
+
+Add a KUnit test to verify that the generator handles an extension with
+an invalid length.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- drivers/firewire/config-rom-generator-test.c | 74 ++++++++++++++++++--
- 1 file changed, 70 insertions(+), 4 deletions(-)
+ drivers/firewire/config-rom-generator-test.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/drivers/firewire/config-rom-generator-test.c b/drivers/firewire/config-rom-generator-test.c
-index 6ca5c16b4f0f..7d76580c2004 100644
+index 7d76580c2004..260b3d6e9a27 100644
 --- a/drivers/firewire/config-rom-generator-test.c
 +++ b/drivers/firewire/config-rom-generator-test.c
-@@ -162,6 +162,62 @@ static const u32 config_rom_with_iidc_unit[] = {
- 	cpu_to_be32(0x20436174), // v
- };
- 
-+static const u32 config_rom_with_avc_and_iidc_units[] = {
-+	cpu_to_be32(0x040439c0), // bus info
-+	cpu_to_be32(0x31333934), // |
-+	cpu_to_be32(0xf000b253), // |
-+	cpu_to_be32(0x01234567), // |
-+	cpu_to_be32(0x89abcdef), // v
-+	cpu_to_be32(0x0007073e), // root directory
-+	cpu_to_be32(0x0c0083c0), // |
-+	cpu_to_be32(0x03001f11), // |
-+	cpu_to_be32(0x81000005), // |
-+	cpu_to_be32(0x17023901), // |
-+	cpu_to_be32(0x8100000a), // |
-+	cpu_to_be32(0xd100000d), // |
-+	cpu_to_be32(0xd1000015), // v
-+	cpu_to_be32(0x00064cb7), // text descriptor leaf (from root)
-+	cpu_to_be32(0x00000000), // |
-+	cpu_to_be32(0x00000000), // |
-+	cpu_to_be32(0x4c696e75), // |
-+	cpu_to_be32(0x78204669), // |
-+	cpu_to_be32(0x72657769), // |
-+	cpu_to_be32(0x72650000), // v
-+	cpu_to_be32(0x0003ff1c), // text descriptor leaf (from root)
-+	cpu_to_be32(0x00000000), // |
-+	cpu_to_be32(0x00000000), // |
-+	cpu_to_be32(0x4a756a75), // v
-+	cpu_to_be32(0x0004227b), // unit directory (from root)
-+	cpu_to_be32(0x1200a02d), // |
-+	cpu_to_be32(0x13010001), // |
-+	cpu_to_be32(0x17260827), // |
-+	cpu_to_be32(0x81000001), // v
-+	cpu_to_be32(0x0003f771), // text descriptor leaf (from unit)
-+	cpu_to_be32(0x00000000), // |
-+	cpu_to_be32(0x00000000), // |
-+	cpu_to_be32(0x50756900), // v
-+	cpu_to_be32(0x0003d7fe), // unit directory (from root)
-+	cpu_to_be32(0x1200a02d), // |
-+	cpu_to_be32(0x13000100), // |
-+	cpu_to_be32(0xd4000001), // v
-+	cpu_to_be32(0x0003ea57), // dependent directory (from unit directory)
-+	cpu_to_be32(0x40012345), // |
-+	cpu_to_be32(0x81000002), // |
-+	cpu_to_be32(0x82000008), // v
-+	cpu_to_be32(0x00064cb7), // text descriptor leaf (from dependent directory)
-+	cpu_to_be32(0x00000000), // |
-+	cpu_to_be32(0x00000000), // |
-+	cpu_to_be32(0x4c696e75), // |
-+	cpu_to_be32(0x78204669), // |
-+	cpu_to_be32(0x72657769), // |
-+	cpu_to_be32(0x72650000), // v
-+	cpu_to_be32(0x0004a3e9), // text descriptor leaf (from dependent directory)
-+	cpu_to_be32(0x00000000), // |
-+	cpu_to_be32(0x00000000), // |
-+	cpu_to_be32(0x43686566), // |
-+	cpu_to_be32(0x20436174), // v
-+};
-+
- static const struct generator_test_case {
- 	const char *const name;
- 	int config_rom_generation;
-@@ -186,6 +242,12 @@ static const struct generator_test_case {
- 		.expected = config_rom_with_iidc_unit,
- 		.quadlet_length = ARRAY_SIZE(config_rom_with_iidc_unit),
- 	},
-+	{
-+		.name = "with_avc_and_iidc_unit",
-+		.config_rom_generation = 3,
-+		.expected = config_rom_with_avc_and_iidc_units,
-+		.quadlet_length = ARRAY_SIZE(config_rom_with_avc_and_iidc_units),
-+	},
- };
- 
- // Define generator_test_gen_params.
-@@ -219,10 +281,12 @@ static void test_config_rom_generator(struct kunit *test)
- 	card->max_receive = 11;
- 	card->guid = 0x0123456789abcdefULL;
- 
--	if (test_case->expected == config_rom_with_avc_unit)
-+	if (test_case->expected == config_rom_with_avc_unit ||
-+	    test_case->expected == config_rom_with_avc_and_iidc_units)
- 		KUNIT_EXPECT_EQ(test, fw_core_add_descriptor(&avc_unit_entry), 0);
- 
--	if (test_case->expected == config_rom_with_iidc_unit)
-+	if (test_case->expected == config_rom_with_iidc_unit ||
-+	    test_case->expected == config_rom_with_avc_and_iidc_units)
- 		KUNIT_EXPECT_EQ(test, fw_core_add_descriptor(&iidc_unit_entry), 0);
- 
- 	scoped_guard(mutex, &card_mutex) {
-@@ -233,10 +297,12 @@ static void test_config_rom_generator(struct kunit *test)
- 	KUNIT_EXPECT_MEMEQ(test, config_rom, test_case->expected,
- 			   sizeof(*test_case->expected) * test_case->quadlet_length);
- 
--	if (test_case->expected == config_rom_with_iidc_unit)
-+	if (test_case->expected == config_rom_with_iidc_unit ||
-+	    test_case->expected == config_rom_with_avc_and_iidc_units)
- 		fw_core_remove_descriptor(&iidc_unit_entry);
- 
--	if (test_case->expected == config_rom_with_avc_unit)
-+	if (test_case->expected == config_rom_with_avc_unit ||
-+	    test_case->expected == config_rom_with_avc_and_iidc_units)
+@@ -306,6 +306,16 @@ static void test_config_rom_generator(struct kunit *test)
  		fw_core_remove_descriptor(&avc_unit_entry);
  }
+ 
++static void add_descriptor_with_invalid_length(struct kunit *test)
++{
++	// Use kernel stack since they should be mutable for doubly linked-list.
++	struct fw_descriptor entry_with_invalid_length = {
++		.length = 257,
++	};
++
++	KUNIT_EXPECT_EQ(test, fw_core_add_descriptor(&entry_with_invalid_length), -EINVAL);
++}
++
+ static const struct fw_card_driver dummy_card_driver;
+ 
+ static int config_rom_generator_test_init(struct kunit *test)
+@@ -336,6 +346,7 @@ static void config_rom_generator_test_exit(struct kunit *test)
+ 
+ static struct kunit_case config_rom_generator_test_cases[] = {
+ 	KUNIT_CASE_PARAM(test_config_rom_generator, generator_test_gen_params),
++	KUNIT_CASE(add_descriptor_with_invalid_length),
+ 	{}
+ };
  
 -- 
 2.53.0
