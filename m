@@ -1,148 +1,89 @@
-Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A36546D577;
-	Tue,  1 Sep 2026 07:58:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06ED46D577
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:59:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249486; cv=none; b=QhAczmVpnWUsk1WUeBjKzUjyg/dtR98H0lmWsN0xsbjgKq/bpogCIZyA/3h7K08EiiZlbhDPb0eS1Cui6Mz2uT8oLaYYqXh4BM3vX+r6bmhHz6Xr0ltrsaKZzagxdZ6iOz/IpilPYyjlzEB3KG1xIQmd+YITDhBb4CbOys3MEQQ=
+	t=1788249565; cv=none; b=B4yXFLOMgMC8QLOC/5juZOEgE2RFjtLMw8kchmrHnbVwiQQHG2IzsIgpkKRc0az+v9MJcUcWuCmECoEPpe2KCu4YDxWg5WyCAihQmPGQujlYjILd96U2NJk3Jb4iGAm2+A7zzOEHJm5OcrMmedyf/+DQp+s1TiQ84ZYnSnnRUZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249486; c=relaxed/simple;
-	bh=OF4PmkLvY5GSsd7Src3ioGuPiipTbXPvzKRpbMVQZ/g=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=msAxfRKJFnYyEm3A2wRbq7OG4wwF3OdMjVrHdRWtX6v7CVMLmC7JqJn/y18uHYFKIejSqjxi3QIjMlTqtdZl2pFHwAnEgHhgeCN4pPFX6Id6Cufa5rbiXQ1AR36zeyQxzfzMb4/ldanRhC8Hj4/95ZWryaUl2CMEy34YZAJwhik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=ehLYtvLC; arc=none smtp.client-ip=62.96.220.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
+	s=arc-20240116; t=1788249565; c=relaxed/simple;
+	bh=BTdVJrhRUfZ8q3sxvPuXbbscjsPWWOT49+QShfRdWv0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OEx7bqnvnr2PFWioXFDB4o1zkO2FHwr90LBPldjLjWLXyLj0KKnp8R76HOR8CTG7BqtvZZ3RtCpe1mtGuYWK2NKFwXq/MdWeGbWjxOQ2oKywlLJnA3jPN/5zt0DvImpxcy7m3U3AIPGv52RP5tRk/RuiWcMCaAxjKZf22ZdskEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P7SEFFP8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="ehLYtvLC"
-Received: from localhost (localhost [127.0.0.1])
-	by mx1.secunet.com (Postfix) with ESMTP id C2D3F206E9;
-	Tue,  1 Sep 2026 09:50:37 +0200 (CEST)
-X-Virus-Scanned: by secunet
-Received: from mx1.secunet.com ([127.0.0.1])
- by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id A28iTAiBBD1T; Tue,  1 Sep 2026 09:50:37 +0200 (CEST)
-Received: from EXCH-02.secunet.de (rl2.secunet.de [10.32.0.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.secunet.com (Postfix) with ESMTPS id 214A7205CF;
-	Tue,  1 Sep 2026 09:50:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 214A7205CF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
-	s=202301; t=1788249037;
-	bh=fuzmQA8uJ6nVSzIQSJCnaHiz/M3SxDKCF5x/oJzAl/Y=;
-	h=Date:From:To:CC:Subject:Reply-To:References:In-Reply-To:From;
-	b=ehLYtvLChJQjKw2Egvoir8hyDbwWL5u+t0s4EsvEXHBHStzYqyBVFLawC2wxQhJht
-	 Gzcv0b0tUO09tN3g+FNTSc29zgeoI+cnyr9TI6VZvaSgYbk9tJHfWOxMg26Ur+JlI8
-	 6nn1Dh7YqnxKJoqPmeXIbPPGbSkM76jEQmUAQy7iZplfBZp63USyzc3ieVHsPFfJUR
-	 JVZLP8SwlJeKtu/LTExmvt1UqCmwOkhlt0Cr6rFs1j/Go5VaIlZ0OgQEFgnvOH9D4H
-	 xLGxw8EfxsUkAMeMqscspRjKV600v3AXuVLWGOkvATVaiXuwqtrORIRWURFvxj8r6l
-	 GN72blANBmE8w==
-Received: from moon.secunet.de (172.18.149.1) by EXCH-02.secunet.de
- (10.32.0.172) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 1 Sep
- 2026 09:50:35 +0200
-Date: Tue, 1 Sep 2026 09:50:28 +0200
-From: Antony Antony <antony.antony@secunet.com>
-To: Sasha Levin <sashal@kernel.org>, Steffen Klassert
-	<steffen.klassert@secunet.com>
-CC: <patches@lists.linux.dev>, <stable@vger.kernel.org>, Antony Antony
-	<antony.antony@secunet.com>, Yan Yan <evitayan@google.com>, Sabrina Dubroca
-	<sd@queasysnail.net>, Steffen Klassert <steffen.klassert@secunet.com>,
-	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH AUTOSEL 6.18-5.10] xfrm: allow migration from UDP
- encapsulated to non-encapsulated ESP
-Message-ID: <apaDxC5gBw7G2zMc@moon.secunet.de>
-Reply-To: <antony.antony@secunet.com>
-References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-428-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P7SEFFP8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 201A81F000E9;
+	Tue,  1 Sep 2026 07:59:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788249564;
+	bh=iJv/WiakOodAqFIubQ5HTmHL0TDtf9MpNqrzEXUw2fg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P7SEFFP8puwZXZp/YRq5bm12kLhga+lgh99B8rQeYLWPKvjGgDXAgg7amgbvop6gs
+	 KnFbcm9PWiLs6fpRX3X9ZFziRD/tbsK3eH/C4U9q+apMvreDXnEx9yuMWrWXaAlfn9
+	 RfE+EypR5zdZI4scQXJRBlRBhEahbdQVPKXgYGzRzl4sArWd1u++y7ARbEBAYmsoti
+	 qa/YYnJeh63FtQSZKwP6986LY6PCjMAcEQlpM6IXvbI4ROaA1SfUtvjcxi9CnB5UZH
+	 Nk9IDitG/j2LUr0suo0oUruy11Tq+byoKby/mpiq0sCo0dpWi4sYmz38BnnJLGVmE9
+	 9mRRThkgaqcJA==
+Date: Tue, 1 Sep 2026 10:59:16 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Eli Billauer <eli.billauer@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+	Brad Warrum <bwarrum@linux.ibm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Ritu Agarwal <rituagar@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH 2/4] char: xillybus: replace __get_free_pages() with
+ kmalloc()
+Message-ID: <apaF1HUtJnstuUN4@kernel.org>
+References: <20260830-char-misc-v1-0-05e2ce44f291@kernel.org>
+ <20260830-char-misc-v1-2-05e2ce44f291@kernel.org>
+ <f6001085-9234-4025-ff34-6cc4a66c293a@outbound.gmail.com>
+ <20260831123937.32255a49@pumpkin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260831133314.4125787-428-sashal@kernel.org>
-Precedence: first-class
-Priority: normal
-Organization: secunet
-X-ClientProxiedBy: EXCH-04.secunet.de (10.32.0.184) To EXCH-02.secunet.de
- (10.32.0.172)
+In-Reply-To: <20260831123937.32255a49@pumpkin>
 
-Hi,
+On Mon, Aug 31, 2026 at 12:39:37PM +0100, David Laight wrote:
+> On Mon, 31 Aug 2026 12:13:08 +0200
+> Eli Billauer <eli.billauer@gmail.com> wrote:
+> 
+> > On 30/08/2026 9:47, Mike Rapoport (Microsoft) wrote:
+> > > fifo_init() allocates the buffers backing the software FIFO and
+> > > endpoint_alloc() allocates the transfer buffers of a USB endpoint.
+> > > 
+> > > These buffers can be allocated with kmalloc() as there's nothing special
+> > > about them to go directly to the page allocator.  
+> > 
+> > Except that they are a bit large.
+> > 
+> > fifo_init() may be requested to allocate up to 256 MB of buffer memory. 
+> > This memory resource is split into an array of buffers (fifo->mem[i]), 
+> > each 64 kiB (or less, if there's trouble obtaining segments of this size).
+>
+> Would it really make sense to allocate the four buffers separately?
+> And/or use vmalloc().
 
-I am thinking of not to back port this patch.
-As it may become a surprise behavior change on older kernels.
+My understanding is that the buffers don't need to be physically
+contiguous and vmalloc()ing the entire fifo->mem in one go should work.
 
-I vote not to backport!  Anyone vote to be back port it?
+Eli, what do you think?
+ 
+> David
 
--antony
-
-On Mon, Aug 31, 2026 at 09:27:36 -0400, Sasha Levin wrote:
-> From: Antony Antony <antony.antony@secunet.com>
-> 
-> [ Upstream commit b8addb8884f2dc1b13cf3e4fa0265ecd0bc58b69 ]
-> 
-> The current code prevents migrating an SA from UDP encapsulation to
-> plain ESP. This is needed when moving from a NATed path to a non-NATed
-> one, for example when switching from IPv4+NAT to IPv6.
-> 
-> Only copy the existing encapsulation during migration if the encap
-> attribute is explicitly provided.
-> 
-> Note: PF_KEY's SADB_X_MIGRATE always passes encap=NULL and never
-> supported encapsulation in migration. PF_KEY is deprecated and was
-> in feature freeze when UDP encapsulation was added to xfrm.
-> 
-> Tested-by: Yan Yan <evitayan@google.com>
-> Reviewed-by: Sabrina Dubroca <sd@queasysnail.net>
-> Signed-off-by: Antony Antony <antony.antony@secunet.com>
-> Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
-> 
-> LLM Generated explanations, may be completely bogus:
-> 
-> The branch check finished. Commit `b8addb8884f2d` is in mainline and
-> several `-next` trees (via the `ipsec-next-2026-06-12` merge), but not
-> in `stable/linux-6.18.y` — which matches the earlier analysis.
-> 
-> **Summary:** Backport to 6.18.y is warranted. The buggy encap-
-> inheritance code is still present, the adapted patch applies cleanly on
-> top of the already-backported `b64120d`, and this completes the MOBIKE
-> NAT→non-NAT migration fix that partial stable work started.
-> 
-> **YES**
-> 
->  net/xfrm/xfrm_state.c | 10 ++--------
->  1 file changed, 2 insertions(+), 8 deletions(-)
-> 
-> diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
-> index b9049c2297bd5..0a629fce0a00f 100644
-> --- a/net/xfrm/xfrm_state.c
-> +++ b/net/xfrm/xfrm_state.c
-> @@ -2017,14 +2017,8 @@ static struct xfrm_state *xfrm_state_clone_and_setup(struct xfrm_state *orig,
->  	}
->  	x->props.calgo = orig->props.calgo;
->  
-> -	if (encap || orig->encap) {
-> -		if (encap)
-> -			x->encap = kmemdup(encap, sizeof(*x->encap),
-> -					GFP_KERNEL);
-> -		else
-> -			x->encap = kmemdup(orig->encap, sizeof(*x->encap),
-> -					GFP_KERNEL);
-> -
-> +	if (encap) {
-> +		x->encap = kmemdup(encap, sizeof(*x->encap), GFP_KERNEL);
->  		if (!x->encap)
->  			goto error;
->  		x->mapping_maxage = orig->mapping_maxage;
-> -- 
-> 2.53.0
-> 
+-- 
+Sincerely yours,
+Mike.
