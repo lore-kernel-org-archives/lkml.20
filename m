@@ -1,147 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0413921D6;
-	Tue,  1 Sep 2026 13:33:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6F8367B63;
+	Tue,  1 Sep 2026 13:35:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788269620; cv=none; b=i+dKOy/g+Q08m6q1NTBOUrVxGR1ooEU5GjbH80utPmfD4ZFg8GC39avaYFBsmmlyZ2EeOqzuIo/64TYs4e834lZ0YmjY/P6JMNftRucmEaGO4L5SZw+uB8zLzIwSCmAMyXInRV1my6yph9QL0ond4KAQTvodgfCV5O+C+/4E63w=
+	t=1788269740; cv=none; b=MBSwOhnI9CZ1HTiOl83IbHx8TPKIYIazv7Mrt39sYBKBEvjvDkQipzycXmeO/a8YXdmNLTYTgOgLfvU+d0wO4h4eYRQLxqdoUlIytTWf7G7UCrEe2K4YpoKrhz/uCFyLrPtYPr0JFkOVN2yGNoD+TuIqxVgb/vUdQLDjuPEKYCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788269620; c=relaxed/simple;
-	bh=L8mffahwowpqu6th6laYccc721TU8H9CSNOMIhSy280=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FcAB4+cnEBbj0sspr64CU7s5kdYcGx3uubQiXWH8/AkAmXJTFwwKJT/FndjE6Z/t4KlCRHeafAx/qwBUX6X/BE6+4jxBA691C/8kSKmPTVaPvrOKQbCzetdv6cBdgdDv2Z4n+lo6WQdi+IiXgyfokYovBfpyHhV0laAB85AiKPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ndLlqhHl; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ndLlqhHl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C1B1F000E9;
-	Tue,  1 Sep 2026 13:33:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788269618;
-	bh=jcbNqyZ4CJOFUcx+fZWWPKksNhyQwz/xPjmgvkWytSE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ndLlqhHlVeL1h7g7ph+Wt2NFtmrZ4rOV34TH/BkR1LV3hXV72TFKXBa6SSiWah+YS
-	 osor63kOccehDjmVkh3sQpwcQSMSNYVcFsZhRDfV0BOZWC20X/uzVpPoz11vEPx72u
-	 kLe6Dj8pgXjqMdQBlQ+iOksFRpcAk/cRL2f/1AsjTtd62N9p9KMdTkAyeamslLimmh
-	 rePS6mrE/57HAXFkLSbWMR+W5a6VAq9eNnH/iI1RsHXSsazC5suOIyBDNrTwwP628+
-	 9FLGn6PmlvlXDRo7ABVcbcGo7/AsOm/eX+GOgiWGn/e+QIZmVf+XE4geioRTZyxcRH
-	 0zLk/FGxJh8gA==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 57E291980064;
-	Tue,  1 Sep 2026 09:33:18 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Tue, 01 Sep 2026 09:33:33 -0400
-X-ME-Sender: <xms:HdSWar0zDxM1rzMXPVKSiiHY4KJJXKW9_dKFmXqdbTa_fmaDqPnrAQ>
-    <xme:HdSWasJnHNfyfuCbnPXJ41QnOfMcQ3IsJbdR3mnGKXr-4wj9FELqFm8ZdfeRPj7fy
-    bnm6jh3UIcKaloZqTodN2-BguOMyRSr9poABUPkwGcmSl04lFepx8g>
-X-ME-Received: <xmr:HdSWamc0hBDzYeZ6meHT1N8NrjNwQDlG7ndA51A5p6yJYm1erjaIFQqZ_aA>
-X-ME-Proxy-Cause: dmFkZTE7XYI88DUY2gRkJOK6+ZyCIFoNn8bzP7pT6CkwBKHBvKWUe6kvcLZyJKqoR/mFua
-    tnuce/0i36y0TC7Im4WvZyoy/crD2rPu16GAU43MkToFESYNa+q/dgDmYeFoLAKy++6ZgW
-    8jn2vUxLTK4d+JU7NpIMhvmFWN+lBL6CrhfWBNMDXcQ2eFN5VMfwvgG7wpe8357MD3J5gK
-    7xFBRFrqPTsz4yMLY+EEChvmjl1qNNrFzTmc4wdkVOaUc1KRt3nz4X6b9lgB4AP7QFsDWQ
-    tYyrUQvI3wO8SrGFb+1aGvYLJgVsklk3Kc0+LAmLAEM6pSFrAQvRZGfFtBIFEXt5smoDZ8
-    0sIIODp3p+XbaMM1IQmfCvE2+2bbjw/rRlbPqyxvx3AWjW0wx69YF5Ocr+JktO0nTZOok2
-    HEw0ft0H3myd2V1s6FmW7lpkinX5D+jdOQrkC/osJIL3mBMTcjL7XfwqTbI8tt3mank0qt
-    BcT630GiS2PTitGfmJ6/iVLTorQObFhmiWUpu/4o8m4w+lLom0XGtnouU3SvS4FcugWWNZ
-    7nEECz0GGK+6YbBSmEMxBhw/vyLb4HqtpoQS+cM14FfTsm1gjY737Jmi4qjcP7ghw4NaMo
-    mSjmk0LJqLELQl49SSqDTw86/FRQj/i6o2/Z7vFbf6wnUbIU1mKMMzFy+Xyw
-X-ME-Proxy: <xmx:HdSWaorGnJV8X3w6RQ6-yTLBHwkt_MBfkV8RsDaiRQlkH0hCDXuTig>
-    <xmx:HdSWam_C35Dm2JBzL0A5fzPuG5ZvMut58CN7trPjhfIb_5hDuszCGQ>
-    <xmx:HdSWaobzZlmDe5Y-27Rtv7XIlXhpki_IJYzJN_lp2MB6mY3t1TeGow>
-    <xmx:HdSWam8XuaM7yobHeA1s3aD4FW-Jnsz8789jiGSamkl6EtIN7IErBA>
-    <xmx:HdSWaoYZmoLC2txSUqseUpEqs0XigJd8k-YHiiGmmzkLSGyss1bakguf>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 1 Sep 2026 09:33:15 -0400 (EDT)
-Date: Tue, 1 Sep 2026 14:33:14 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- 	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- 	Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>,
- 	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, 	Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, 	Usama Arif <usama.arif@linux.dev>,
- Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>,
- 	Geert Uytterhoeven <geert@linux-m68k.org>,
- Dinh Nguyen <dinguyen@kernel.org>,
- 	Simon Schuster <schuster.simon@siemens-energy.com>,
- Jonas Bonn <jonas@southpole.se>,
- 	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
- Stafford Horne <shorne@gmail.com>,
- 	Yoshinori Sato <ysato@users.sourceforge.jp>,
- Rich Felker <dalias@libc.org>,
- 	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Paul Walmsley <pjw@kernel.org>, 	Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, 	Alexandre Ghiti <alex@ghiti.fr>,
- Russell King <linux@armlinux.org.uk>, 	Vineet Gupta <vgupta@kernel.org>,
- Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>,
- 	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>,
- 	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, 	Peter Zijlstra <peterz@infradead.org>,
- "David S. Miller" <davem@davemloft.net>,
- 	Andreas Larsson <andreas@gaisler.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- 	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>,
- 	Catalin Marinas <catalin.marinas@arm.com>,
- Mark Rutland <mark.rutland@arm.com>,
- 	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- 	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- 	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- 	Michael Ellerman <mpe@ellerman.id.au>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- 	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- 	Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- 	Sven Schnelle <svens@linux.ibm.com>,
- Richard Weinberger <richard@nod.at>,
- 	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- 	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, 	Arnd Bergmann <arnd@arndb.de>,
- Vlastimil Babka <vbabka@kernel.org>, 	Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, 	Michal Hocko <mhocko@suse.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, 	John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
- 	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org,
- linux-hexagon@vger.kernel.org, 	linux-m68k@lists.linux-m68k.org,
- linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org,
- 	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- 	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org,
- sparclinux@vger.kernel.org, 	linux-alpha@vger.kernel.org,
- loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
- 	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, 	linux-um@lists.infradead.org,
- Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>
-Subject: Re: [PATCH 11/12] mm: make userland page table freeing RCU-safe
-Message-ID: <apbSaL0YaQqtO9XB@thinkstation>
-References: <20260901-rcu-pagetable-freeing-v1-0-5456a81c8212@kernel.org>
- <20260901-rcu-pagetable-freeing-v1-11-5456a81c8212@kernel.org>
+	s=arc-20240116; t=1788269740; c=relaxed/simple;
+	bh=iwatsgcy2L3871hC0b2pUHzMd4A4No0ajGTFKxwg6s8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=loZH9qkTFwZmw+2yTwuGjAcUTiM9jL4ikWPQ+VT4zz7GxWCCNg9PBTnuO2gHqBOVBiIot5rkeIx5/2sW2hBcDt3TfrPWvwcJD9Ku8wiCYORpDmqZAg7gehLwkE92QG/1HK9ypnnREi8oOeX2CMDBS5dfhkoOYagVNzwQp8BsadU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388B31F000E9;
+	Tue,  1 Sep 2026 13:35:33 +0000 (UTC)
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: linux-pci@vger.kernel.org, 
+ Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: stable@vger.kernel.org, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Koichiro Den <den@valinux.co.jp>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+In-Reply-To: <20260821020636.111719-1-marek.vasut+renesas@mailbox.org>
+References: <20260821020636.111719-1-marek.vasut+renesas@mailbox.org>
+Subject: Re: [PATCH v3] PCI: rcar-gen4: Limit Max_Read_Request_Size and
+ Max_Payload_Size to 256 Bytes
+Message-Id: <178826973380.60509.4783762290802893861.b4-ty@b4>
+Date: Tue, 01 Sep 2026 15:35:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-rcu-pagetable-freeing-v1-11-5456a81c8212@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.15.2
 
-On Tue, Sep 01, 2026 at 12:01:31PM +0100, Lorenzo Stoakes (ARM) wrote:
-> With this change in place the kernel policy is now that all page tables are
 
-s/all/userspace/ as subject implies?
+On Fri, 21 Aug 2026 04:05:51 +0200, Marek Vasut wrote:
+> R-Car Gen4 PCIe controller has a hardware limitation of 256 Bytes
+> Max_Payload_Size (MPS). PCIe specification indicates that the MPS
+> must not exceed minimum MPS of any element along the packet path.
+> Force limit Max_Payload_Size to at most 256 Bytes for each device
+> connected to this PCIe controller.
+> 
+> R-Car Gen4 Reference Manual, chapter 104.4.8 Usage notes for
+> MRRS (Max Read Request Size) states:
+>   Please set "Max Read Request Size" to 128 bytes or 256 bytes.
+>   If "Max Read Request Size" is set to anything other than the
+>   above, the transferred data will not match the expected value.
+> This limitation also seems the apply to devices issuing MRd TLP.
+> This limitation can be triggered by using non-HMB NVMe SSD with
+> Max_Read_Request_Size 512 Bytes, for example Crucial P5 Plus.
+> Any write into the SSD (MRd TLP issued by the SSD) longer than
+> 256 Bytes wraps around at 256 Byte boundary, and the same data
+> are written into the SSD starting at offset 0 and at 256 Bytes.
+> Force limit Max_Read_Request_Size to at most 256 Bytes for each
+> device connected to this PCIe controller to avoid this behavior.
+> 
+> [...]
 
-BTW, what is your take on kernel page tables? Do we want the same policy
-there. pagetable_free_kernel() is not RCU-safe as it is.
+Applied, thanks!
 
-> freed after an RCU grace period, and thus it is now safe to unconditionally
-> perform page table walks under RCU, safe in the knowledge that page tables
-> will not be freed underneath the walker.
+[1/1] PCI: rcar-gen4: Limit Max_Read_Request_Size and Max_Payload_Size to 256 Bytes
+      commit: d1f8ada0815e247b52e5f9d4ff3a8bc9e4080bb9
 
+Best regards,
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+மணிவண்ணன் சதாசிவம்
+
+
