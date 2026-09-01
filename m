@@ -1,256 +1,103 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA822931D9
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:46:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248816; cv=pass; b=ZyCMt0sMrWfNi8i6MRl59OxHIAAecvI0cbpXVFg8G6dSEXsCwUe70w2sF8mLV1IlQ9lIJuIV9FUm6kEk6R9dNi2N1/8iu9N4r8Ov9P948TosqfroUMiHbdE0J8mImrP8VGrFAQpyvMNWKWy4tNUoCKyl+EOc97XAhFdalhMXjOM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248816; c=relaxed/simple;
-	bh=bChhXzbeBhbes45FfJAK24AsjmJ3Xgjhk77rbUpZzcY=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=BR/xBxm8de7LxT34FJLjHBxNbrR0drf8cwhjdleDSwdXwiUdPSepga9BpHsxrAeXlbSPYos+LyjFaGfPVkkqWKT8Flzfct7SvmmkuJ8W/E8iKF8JodxoeVX/ATyHJxOVupPZiiqOXFOXfmG+18WRvnVvid6nkJXcvTBGv939Acw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FYyIxIhp; arc=pass smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 227D83B6370
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:47:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788248829; cv=none; b=CJyeuQf5JYzBTC2Tw3RMprshCRPZErfR/Nqbx9cX/qsFLB3Yq2f+S8BAvMft2stOh/KBrjAHNSQu08jI9CNZ6dFq00WuEHn6n6/qQyjJcE3Y2zlsfwlRTbbsnYaQEft1cS3oUc8b6Y2ouovZGdVfwRW6SyCfc3VwQAIA/44nBsw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788248829; c=relaxed/simple;
+	bh=A9qVgctfJKa3lOPN/djwn5FdaMAcXZJbQwr/BkRW6fU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ckaV5K0j3MvpzbEU6ik45c7LUnf114ZbEhkdDIhO369Qyt1OWoiy71EkVKIWINVX04dWXSPYvTwjNwyAP4JVEtplNHYNzLuz1bONjOLZzsEdu74Uhuw+IDN/60l9hTEjdHKzJ3AUxx9a7si72MWL6ROhV1Yb1WhZYueB+8Apaso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TkFYGgII; arc=none smtp.client-ip=74.125.224.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FYyIxIhp"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2020421077so666003166b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:46:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788248813; cv=none;
-        d=google.com; s=arc-20260327;
-        b=d04Fps1sWis6ztkiSA3PmHOGNsu23SaeREihi60PfnKret47pfeTFetpLndzdadIeV
-         USpVyCidusTboIw53EOQUiCFdDpPn97o+VBzSfNMPoiCsUHru0Z3PKUMGIX+dm8HWeSb
-         KAVDXu7QgMN2zXHEflap0hWHVHr22jJFBsPtc/UWk0ea8s7L+LitpPAmyEQedXDKg+my
-         1E9f39zTp39bYPHe6PZZDAebcLOHI18E2b4/8wpbTKOlskSaf1zmWp5Lfb+2gm/a0bhi
-         sJCkifAq8xgKv9CzYlD7u1R3pnaE117S37ujjxKJIJE740J+gLGvoSnWQYVKi3muZeTm
-         NgJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=Ybk8qkBYVz+BvgMpglKGnqinvR4EkYYn1m3f60jBa+0=;
-        fh=iHoaNqi4Sq8aiRAoZZi5bP3FkzYPu7z5+kRQmpat3o0=;
-        b=iCDvU/YcsKu+H77YoGf1qOUtWBKcZl8sRbv7xrHl2QZSoPPFwGYAE8LHOgrFZSEG6H
-         tV7aWwAixCgF229ewJmQitHGrwiRWcj5m6y1FY3GZ7WWkyZ39zRtAItM5FSPEyUj57Qn
-         SrDAq+Tc6JNBdqywlybr3VeDqPSEXJByE4+dsawUiyOMQqzrMX3weYZRxQoWa1wucNNP
-         G0fNKy5R50tM2LhZNjVyK9I23wIwTZ8ZWpfx7w+kMi2I0ROk/UzpRdoINowlBrZAGmcV
-         UB3/ioSaqY9U9fjCvdCG+oEJU11yM0HQgaH7ErkS33IKKdL3jBVisaSOV3RRbenkIvNG
-         YEow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TkFYGgII"
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66d23c88af0so2173075d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:47:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788248813; x=1788853613; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ybk8qkBYVz+BvgMpglKGnqinvR4EkYYn1m3f60jBa+0=;
-        b=FYyIxIhpDxqHK2HiTRRK6+XjMjiOCWXeWzvKllXwKbBOozBuhoESX1FTiz9kdSke/U
-         d3l60tF0sct9xBfa0nK1Y0SA9cJKR7UI675WNLzgjwehasDeI/dFkghIxJCbd3haXdK0
-         alCfZSkOvvuQqbI83MBaAED0rxl4hNZAitdRhp9nWZtDgtUiC5PPdVsO5cC7DyMDwjvA
-         XHY1bZ8aUjLdR6K/Neb18cVp8dPzvDvX36BklSCPuNTjRFUjvc2/f4Q/tYNO2+nuurcz
-         d20B3JuCHVNab+pBoNad4mfnxbjqkvxy+OTrFxulvcIzZzbSe6oKCKtiz4fhAlAFjQm2
-         5SIg==
+        d=gmail.com; s=20251104; t=1788248827; x=1788853627; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ypWFkePANEp5wn6tG7VIKIBXZfw/6XX/4Y0Ddb9zlHA=;
+        b=TkFYGgIIOuQ+ncJ36gqZNhdePJAl74b4c8epXXQMRj5dNHCV0ntsvvPY5dG4E14H93
+         ZJdiJUX/In4gUpSaiyUu9R+rM6QZtM7i/u1gOefywwvl8743M4w/afTz6KP4oCnmiRBW
+         zJD4KMZhTFXGlvq69bOxblzpYLdWNsFJuqMbiWOoU+9wDX4WtwLrPPLIIagvTayoYNkD
+         WIK0QYVRO6lkNPJoRWxW7R7crnNNK02neAqeaZBDlwTiB3BgB7Xn0BCqgbAS4NhFUGfv
+         hQA5EbVE3YPTypiBsvH88gfwpx6HFUFqDSC761ZLr1xGwo2rz6UeTfAAAwyHs4YJUC9V
+         pEVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788248813; x=1788853613;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ybk8qkBYVz+BvgMpglKGnqinvR4EkYYn1m3f60jBa+0=;
-        b=pZ5hyqkTyEIrI35Jjytrj/mhcJ3ZvjBLkHKBYyQl7fNW3SAWEFKmXuoS3Z0uV71QxZ
-         zmLOAQFrYDZMtWbu1OgHU3iRuyhdagh6whvAH6AYzylmBc4yh3x8QQoWApbCLMiKxVP+
-         Lscr14XcT84c9XwY0OFIIiib+k75LeQFrwSdAKq+zcO2YBzO7Q/rdgwOzv03jHMao9Qr
-         bUUjobdE7isG0dTwhWo7/mVxlAnn9SjDR+Ecs/IrAHDfYwBs9eTAJRkiV6uSavds3JpQ
-         uljZeAgvk8yOpoS0BCAYXhL0Hg8uprTWAo6d2KxNT7KTP2EWWHkVcY6WAehjtgk9b9Uf
-         Z68A==
-X-Gm-Message-State: AFuF++mSPwABRwdhOss8/I8s7BSj57M0HKXCKnhsFMnW5FegFd6DpHlk
-	8XhAMJ21I7/ShJM6pwGfvFwJ8ZVjxnCX85FyoUcG2hey29y/DaziD3NHcbrXoIcaH5+wcfCTA0g
-	Yq+bf/4L/pioNRJt+k1CQEQLlIG8ouEE=
-X-Gm-Gg: AR+sD13Qk7xsga5T25/roSAmstmXpZL5b/eh4l6sfFR+k30HXW/YZrzJ4Xzi2+mVys6
-	vX5cWw1aNs7pipXx/Ko/Q9gWhdooUJE6tHcERHKgSjjKNDX1F5Vu6+9ZgSIxjJ78JpwGTS74p2c
-	xv3lb4gZ8QHhaePXHDOvrPpqeXdfGijuJfg5mQADMezk0i8j/DJn9YPs5Ptn6s0daY6yCyDCkEQ
-	bnEmzrc8j4H/b2Nq01eFdq5hHACVt8B+tySs+s9TTxqrtCAWISi09Ql4HRrQAZHkBvI2ryEUMss
-	lKeKg7CqjySSdpKRLgdgaQ6cdDfLwHtcuGr0YugBAPzgdg==
-X-Received: by 2002:a17:907:6d15:b0:c19:45e3:2f57 with SMTP id
- a640c23a62f3a-c2556dab2c3mr2085222466b.9.1788248812456; Tue, 01 Sep 2026
- 00:46:52 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788248827; x=1788853627;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ypWFkePANEp5wn6tG7VIKIBXZfw/6XX/4Y0Ddb9zlHA=;
+        b=SQVrNAwOXxCPsfXTXSdXXku6jOtm5/bOFcZwufnY/oWhd+8tx3Lor7QDDh6wO3FEDl
+         5Kl2oKLxMCsAPBa6kIv2xmU7+zT6eJvPS7UDq0VVhV750Yh/oNdRbrGNdfUPJUw9TBUQ
+         CjuB1s4uVbra7rdVsS0krh9imuIEkMEHziqe/LYhvdrrPLgrFTpTv30+stl4SL8XJpJn
+         ral4j8rUxmHtzzfScNKkzYZIkoYSGv1SHRbv/9+x2wvWXbyjWI9hEv0kMvyU7jHEn9KJ
+         ljE1tkmZrihltDl47xav/dA936B+829fSYuWUFBwaliDnxi9XokRUrNKLmP4UOn3+XNr
+         WD9w==
+X-Forwarded-Encrypted: i=1; AKwUvBznK32BjD/SRV/hau/6ugeRHU3iRE0Z7KCl5AkvPJxZcLoHuQjIigXFnWlbnJUoCslFYx25Exu7zYNunig=@vger.kernel.org
+X-Gm-Message-State: AFuF++muJlfzvWw6VmZLxwdpGW9dMb8e4vAy6FncECzh86IWnKitMXfi
+	cImPx5RBsaRLOr7WRcDtYnupgQj+rOtDV+P2hncjhQHf5UA39et6RpH1KKx/7q+5plg=
+X-Gm-Gg: AYBFou1UoeK1wn+5nn/GserjlwXXnm2NtzrsIqmRKn4HDGXzJuJo5B2lzt6VFqMql7S
+	XXRq+cPItu4Oxxa9/lK28moD9dye7NO71IZKDGB6sIASlmPAEYBvhRN/MmUIt0DYJdiFkDsiybF
+	d7P40ZQkVnnyhjJN3BFiNds+bhOjP/cteSnLZAOAtSwjDCsnFEmlpWZjp9JOSbaQu3gYehiREIr
+	1EnONI80mT4qbN+VXS7+COpHjJtagPrZNdRKTwwv6+HzlBuXIvArHHSBfiRv1DjCb/fsrd79JVg
+	+FYonKg32orfJcW+iifYB4wDpxgGPFSfeVuvnsE8Y11EbVy234fiP0qXE8ck6Dnf3hOJSjhzssB
+	YkGs/KEdLGxlJqwHlhbrMAF7gk3W8u2IFfSs/aheQIoBHqVFjQujTEAaefnzOinN66yGG5hxQlG
+	lwCIzowUjvUa7NzcetSfnVqlybtw8ULd/jU5dK4DzVCCNf1AZNg/xCykUP+Tq9g5FikQ9b
+X-Received: by 2002:a53:ebcd:0:b0:667:cbb1:5f1b with SMTP id 956f58d0204a3-66f8745bd95mr1811244d50.6.1788248826877;
+        Tue, 01 Sep 2026 00:47:06 -0700 (PDT)
+Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ed2c78esm7782602d50.19.2026.09.01.00.47.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 00:47:06 -0700 (PDT)
+From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+To: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Subject: [PATCH] media: staging: ipu3: use vcalloc() instead of vzalloc() with multiply
+Date: Tue,  1 Sep 2026 13:16:57 +0530
+Message-ID: <20260901074657.536299-1-hrushirajg23@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Jiaming Zhang <r772577952@gmail.com>
-Date: Tue, 1 Sep 2026 15:46:11 +0800
-X-Gm-Features: AcwNN1W-XgI-hDA_lO_Ex1bXkithzpHNQMY79nABhi6TQB1qx3O7SU0pWG_pBhc
-Message-ID: <CANypQFa8u5Netk3O2-sb4fm3Mq8W7N292y8ZCP_YuZnrGtULiQ@mail.gmail.com>
-Subject: [Linux Kernel Bug] KASAN: use-after-free Read in gfs2_rgrp_go_instantiate
-To: agruenba@redhat.com, gfs2@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, syzkaller@googlegroups.com, 
-	r772577952@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Dear Linux kernel developers and maintainers,
+mmu->l2pts is sized as IPU3_PT_PTES * sizeof(*mmu->l2pts) by hand.
+Use vcalloc() instead, which computes the size via the overflow-checked
+size_mul() so a large enough count fails the allocation cleanly
+instead of silently wrapping size_t into a too-small buffer.
 
-We are writing to report an issue discovered in the GFS2 subsystem.  The
-issue is reproducible on the latest version of linux (v7.3-rc1, commit
-cee9395acd8043be0644b25c34bfa86623f2b935).  Below is the kernel report:
+No functional change.
 
-gfs2: fsid=syz:syz.0: Corruption found in quota_change0file: duplicate
-identifier in slot 224440
-gfs2: fsid=syz:syz.0: found 1 quota changes
-==================================================================
-BUG: KASAN: use-after-free in gfs2_bit_search fs/gfs2/rgrp.c:188 [inline]
-BUG: KASAN: use-after-free in gfs2_bitfit fs/gfs2/rgrp.c:249 [inline]
-BUG: KASAN: use-after-free in count_unlinked fs/gfs2/rgrp.c:1159 [inline]
-BUG: KASAN: use-after-free in gfs2_rgrp_go_instantiate+0xb0d/0x1340
-fs/gfs2/rgrp.c:1238
-Read of size 8 at addr ffff888027516000 by task syz-executor199/9470
+Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+---
+ drivers/staging/media/ipu3/ipu3-mmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-CPU: 0 UID: 0 PID: 9470 Comm: syz-executor199 Not tainted 7.3.0-rc1
-#35 PREEMPT(full)
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
-1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x10e/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x153/0x7e0 mm/kasan/report.c:482
- kasan_report+0x147/0x180 mm/kasan/report.c:595
- gfs2_bit_search fs/gfs2/rgrp.c:188 [inline]
- gfs2_bitfit fs/gfs2/rgrp.c:249 [inline]
- count_unlinked fs/gfs2/rgrp.c:1159 [inline]
- gfs2_rgrp_go_instantiate+0xb0d/0x1340 fs/gfs2/rgrp.c:1238
- gfs2_instantiate+0x168/0x220 fs/gfs2/glock.c:415
- gfs2_glock_holder_ready fs/gfs2/glock.c:1226 [inline]
- gfs2_glock_wait+0x1d4/0x2a0 fs/gfs2/glock.c:1246
- gfs2_glock_nq_init fs/gfs2/glock.h:253 [inline]
- gfs2_inplace_reserve+0xc41/0x3330 fs/gfs2/rgrp.c:2093
- do_sync+0x616/0xc60 fs/gfs2/quota.c:962
- gfs2_quota_sync+0x359/0x460 fs/gfs2/quota.c:1372
- gfs2_sync_fs+0x4c/0xb0 fs/gfs2/super.c:662
- sync_filesystem+0xf1/0x240 fs/sync.c:56
- generic_shutdown_super+0x77/0x2d0 fs/super.c:748
- kill_block_super+0x44/0xa0 fs/super.c:1918
- deactivate_locked_super+0xbc/0x110 fs/super.c:603
- cleanup_mnt+0x425/0x4c0 fs/namespace.c:1317
- task_work_run+0x1d4/0x260 kernel/task_work.c:233
- exit_task_work include/linux/task_work.h:40 [inline]
- do_exit+0x708/0x22a0 kernel/exit.c:1008
- do_group_exit+0x21c/0x2d0 kernel/exit.c:1151
- __do_sys_exit_group kernel/exit.c:1162 [inline]
- __se_sys_exit_group kernel/exit.c:1160 [inline]
- __x64_sys_exit_group+0x3f/0x40 kernel/exit.c:1160
- x64_sys_call+0x18c6/0x18d0 arch/x86/include/generated/asm/syscalls_64.h:232
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x170/0x540 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f5c39c96f2d
-Code: Unable to access opcode bytes at 0x7f5c39c96f03.
-RSP: 002b:00007ffc5256c978 EFLAGS: 00000206 ORIG_RAX: 00000000000000e7
-RAX: ffffffffffffffda RBX: 0000000000000001 RCX: 00007f5c39c96f2d
-RDX: 00000000000000e7 RSI: ffffffffffffffc0 RDI: 0000000000000001
-RBP: 00007ffc5256c9d0 R08: 0000000000000000 R09: 000000000003b2e1
-R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
-R13: 0000000000000001 R14: 0000000000000001 R15: 00007f5c39d6a600
- </TASK>
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x7effc363f
-pfn:0x27516
-flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
-raw: 00fff00000000000 ffffea00009d6108 ffffea00009d86c8 0000000000000000
-raw: 00000007effc363f 0000000000000000 00000000ffffffff 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as freed
-page last allocated via order 0, migratetype Movable, gfp_mask
-0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), pid 9361, tgid 9361
-((udev-worker)), ts 96351902392
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x205/0x260 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x235b/0x23e0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x209/0x5a0 mm/page_alloc.c:5436
- alloc_pages_mpol+0x241/0x4a0 mm/mempolicy.c:2486
- folio_alloc_mpol_noprof+0x39/0x160 mm/mempolicy.c:2505
- vma_alloc_folio_noprof+0xdb/0x1e0 mm/mempolicy.c:2540
- folio_prealloc+0x30/0x180 mm/memory.c:-1
- wp_page_copy mm/memory.c:4007 [inline]
- do_wp_page+0x119f/0x4b00 mm/memory.c:4472
- handle_pte_fault mm/memory.c:6582 [inline]
- __handle_mm_fault mm/memory.c:6707 [inline]
- handle_mm_fault+0x15a7/0x36d0 mm/memory.c:6876
- do_user_addr_fault+0xa7e/0x1360 arch/x86/mm/fault.c:1343
- handle_page_fault arch/x86/mm/fault.c:1483 [inline]
- exc_page_fault+0x71/0xd0 arch/x86/mm/fault.c:1536
- asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:595
-page last free pid 9361 tgid 9361 ts 103418286503 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- free_unref_folios+0xd80/0x14c0 mm/page_alloc.c:3022
- folios_put_refs+0x7b4/0x8a0 mm/folio.c:1034
- free_pages_and_swap_cache+0x25e/0x440 mm/swap_state.c:592
- __tlb_batch_free_encoded_pages mm/mmu_gather.c:138 [inline]
- tlb_batch_pages_flush mm/mmu_gather.c:151 [inline]
- tlb_flush_mmu_free mm/mmu_gather.c:417 [inline]
- tlb_flush_mmu+0x3a2/0x680 mm/mmu_gather.c:424
- tlb_finish_mmu+0xf9/0x230 mm/mmu_gather.c:549
- exit_mmap+0x473/0x9c0 mm/mmap.c:1328
- __mmput+0x118/0x430 kernel/fork.c:1193
- exit_mm+0x214/0x2e0 kernel/exit.c:614
- do_exit+0x69b/0x22a0 kernel/exit.c:996
- do_group_exit+0x21c/0x2d0 kernel/exit.c:1151
- __do_sys_exit_group kernel/exit.c:1162 [inline]
- __se_sys_exit_group kernel/exit.c:1160 [inline]
- __x64_sys_exit_group+0x3f/0x40 kernel/exit.c:1160
- x64_sys_call+0x18c6/0x18d0 arch/x86/include/generated/asm/syscalls_64.h:232
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x170/0x540 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff888027515f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
- ffff888027515f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->ffff888027516000: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-                   ^
- ffff888027516080: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff888027516100: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-==================================================================
-
-Following is the root cause analysis for this issue, note that the
-analysis is performed with the assistance of LLM, but we try our best to
-ensure the accuracy.
-
-A rindex entry's ri_bitbytes is not checked against sb_bsize.
-compute_bitstructs() splits ri_bitbytes across the blocks of the resource
-group and gives the remainder to the last bitmap, whose length bi_bytes can
-then exceed the size of the block that stores it. gfs2_bitfit() scans past
-the end of that buffer, which KASAN reports as a use-after-free.
-
-To fix this issue, a bitmap that does not fit in the block that holds it
-should be rejected:
-
-diff --git a/fs/gfs2/rgrp.c b/fs/gfs2/rgrp.c
-index 5988a165a830..689ff5a4e0df 100644
---- a/fs/gfs2/rgrp.c
-+++ b/fs/gfs2/rgrp.c
-@@ -804,6 +804,12 @@ static int compute_bitstructs(struct gfs2_rgrpd *rgd)
-  bi->bi_blocks = bytes * GFS2_NBBY;
-  }
-
-+ /* A bitmap must fit in the block that holds it */
-+ if (bytes > sdp->sd_sb.sb_bsize - bi->bi_offset) {
-+ gfs2_consist_rgrpd(rgd);
-+ return -EIO;
-+ }
-+
-  bytes_left -= bytes;
-  }
-
-
-The kernel console output, kernel config, syzkaller reproducer, and C
-reproducer are available at google drive:
-https://drive.google.com/drive/folders/11t4bHrvlPdnH0bQi0R1QTc6btCaoTZQE?usp=sharing
-
-Please let us know if any further information is required.
-
-Best Regards,
-Jiaming Zhang
+diff --git a/drivers/staging/media/ipu3/ipu3-mmu.c b/drivers/staging/media/ipu3/ipu3-mmu.c
+index b196a5815903..ab40502c06b8 100644
+--- a/drivers/staging/media/ipu3/ipu3-mmu.c
++++ b/drivers/staging/media/ipu3/ipu3-mmu.c
+@@ -464,7 +464,7 @@ struct imgu_mmu_info *imgu_mmu_init(struct device *parent, void __iomem *base)
+ 	 * Allocate the array of L2PT CPU pointers, initialized to zero,
+ 	 * which means the dummy L2PT allocated above.
+ 	 */
+-	mmu->l2pts = vzalloc(IPU3_PT_PTES * sizeof(*mmu->l2pts));
++	mmu->l2pts = vcalloc(IPU3_PT_PTES, sizeof(*mmu->l2pts));
+ 	if (!mmu->l2pts)
+ 		goto fail_l2pt;
+ 
