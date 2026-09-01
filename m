@@ -1,90 +1,224 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E24471D1A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 22:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B862C47208F
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 22:04:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788300124; cv=none; b=GU9l89qmNlPnS7FrySRtieE6l0jf8WwQrBJmiZ/oZ6vu2hYg4dGLwqqvjTitYld8NOzj1nUhSuI2H7W9v8e7G1PvMF7HwghPRR1eGY3hhLw5qeTPneDqgDpg8BJztavBjYOn41h1AcQnnezcSHfT/cS3eUCyoXTXVxYkMMMguYU=
+	t=1788300278; cv=none; b=QAbBisFZyeBILB8DZlgatIfL0njhIdUTcBVU26g5oyCw/8K87kvlGzIttHbt9hQPESJ0lVJWpP3ubFjQVQdRTQwdZzsKmF9aL3YZp7qtyKUGSpG7mMlgJQUXMzBSokTznRcyvjrHrX8JqwWZnGIbliMiWbDp0TVetn8x+ToXMW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788300124; c=relaxed/simple;
-	bh=0fyh7yBfduzNVfBZYqVniVlwywuNqEUlzXmAIh2kRug=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hdhziz9LoGVOmwRf59/oPV2ZXc4O09NeZzk7IOMyTq/ngSDAgBGaedcbSYMuUWYx0fwk1dwIor5D7aJOC0AtlrY8p3cGb/DwkYMGtiwSEV6eclJUcAxzFciItSsmCZ9RUjaqgxXu0MCaKQhZdjpJHiffnaJS9LWAuV1X+8d0G5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=1r8//dDq; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788300278; c=relaxed/simple;
+	bh=P4m0ZBNeU9VLXcvAtpE/vfabDepzn/1eCD+Sjghk7rU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OFNXqAT2N0VPdSTZ9Nt96CgxKmB6eoO+QrLjm/OvI5H9MN6G8PiMMdVrpy8J0QTlIbROidyhUGc/3GTtoUIf5q+gvshXr4SsIitMQBO49oEBZty5V1A48L4y1Ye9lYPVB6fS4sfznQ9jfWIkS+/5XMGU3W2+w2Bt/LQKvzen8+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F3gy1o3/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="1r8//dDq"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 9EE831A193D;
-	Tue,  1 Sep 2026 22:01:56 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 68A9E6053C;
-	Tue,  1 Sep 2026 22:01:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5ECD711C792A8;
-	Wed,  2 Sep 2026 00:01:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788300111; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=4fB9v4VKpH4wMxrUa4I5QQUpNx8xBBoJdlftbjrWSbY=;
-	b=1r8//dDq4raqvJx7uqyJfRX3ho1PuwlKIS8ip/w/3pHEXBGdhlQCMjdegmz6PiIUCuIHhQ
-	eC0O3A3i2ZvMKvkUdU53aRprIv6E8pl95nq+kvRkICG32eMHQLLvo0Tm2mfY52zdpMYmd3
-	Aj6ZLd2nPcAvb2xzpLz8w0pqIdTO8jueR/HqhGhIEKSRsLclIx3Bt+XrVx2Ke33lEuNrIM
-	gBgDH/T2+OKRoQsu5J4MbqKW/pbFQFYD/FjLif66fanXUT0IfHBEPU542wUQvxFEqUgZgi
-	aEHMF50rLb7iBaxHIQtybwAqMJJr43OW8XoHIpuPGO2149lOh5j0YeW7kKaZ6A==
-Message-ID: <0b4ebf62-868d-4a43-8f20-790157bedfd5@bootlin.com>
-Date: Wed, 2 Sep 2026 00:01:38 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F3gy1o3/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC0F71F000E9;
+	Tue,  1 Sep 2026 22:04:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788300275;
+	bh=Dg7/of7miGca+ll6oxzY618HVXmMqM3sY+D0h0edBJ4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=F3gy1o3/cFWrfD+9K/D7IPHj3VpxhwGJXIV8zmLNSnFFRu3RUUSdzcMPTrA2fy0My
+	 TjZer9gWanz8wijtc4uEikcLLucirkmpF15DfN9MxEFd6uEtoPnw47KlJDOVEpP538
+	 vVOlyhH0xUqWDzTAPHAOcGTMrFFwQ427xkhCn398v8F2BC4MNoIyGeiQt+dv4xAF3x
+	 X7DLkSt9DFOIPJm+YNs+pPgdf20xASR150o13Nfl8BEcPXXfPiWIB1JxsFQuuBXa31
+	 aywyTM3Wi7I/Jt5OL1/XWXO80FesDtUM6qdSm4/20T43CEZB6q1C8BEM97/wgw0i1C
+	 6EjKQ53zHBY3Q==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: ryncsn@gmail.com,
+	ehab.ababneh@intel.com
+Cc: akpm@linux-foundation.org,
+	axelrasmussen@google.com,
+	baohua@kernel.org,
+	kasong@tencent.com,
+	lance.yang@linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	weixugc@google.com,
+	yuanchu@google.com,
+	yuzhao@google.com
+Subject: Re: [RFC PATCH] mm/mglru: dynamically protect readahead fault folios under refault pressure
+Date: Wed,  2 Sep 2026 06:04:30 +0800
+Message-Id: <20260901220430.79810-1-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <apcVhWzEwkwHYjB1@KASONG-MC4>
+References: <apcVhWzEwkwHYjB1@KASONG-MC4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2] net: pcs: lynx: add support for 25GBASE-R
-To: vjardin@free.fr, Ioana Ciornei <ioana.ciornei@nxp.com>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260922-for-upstream-lynx-25gbaser-v1-v2-1-1e6cf79c7b52@free.fr>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260922-for-upstream-lynx-25gbaser-v1-v2-1-1e6cf79c7b52@free.fr>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi Vincent,
+On Wed, Sep 2, 2026 at 2:21 AM Kairui Song <ryncsn@gmail.com> wrote:
+>
+> On Tue, Sep 01, 2026 at 11:06:43AM +0800, Ehab Ababneh wrote:
+> > Commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace
+> > folio_set_active") introduced a regression for workloads that rely on
+> > readahead to keep sequential file access efficient.
+> >
+> > The problem is that MGLRU can place fault-path file folios in older
+> > generations, so memory pressure can reclaim readahead folios before the
+> > workload touches them. In our Cassandra read benchmark, this raised p99
+> > latency to about 9.2-9.5 ms and cut throughput to roughly 41.8k-43.6k
+> > op/s; the revert restored the workload to about 5.5-5.6 ms and
+> > 51.9k-53.1k op/s.
+> >
+> > Readahead is important for sequential I/O and mmap scans, but it should
+> > not be retained when the workload does not benefit from it. The goal is
+> > to keep the optimization without keeping readahead pages alive forever.
+> >
+> > This patch provides a middle ground: keep the original behavior by
+> > default, but temporarily protect fault-path file folios when repeated
+> > file refaults show that readahead is actually helping.
+> >
+> > The mechanism is dynamic and self-tuning:
+> >
+> > - add a per-lruvec readahead/refault credit
+> > - accumulate credit on file refaults in the MGLRU refault path
+> > - consume credit in folio_add_lru() for fault-path file folios
+> > - keep the folio active while credit is available, and otherwise let the
+> >   original behavior stand
+> > - decay/reset the credit as generations advance and when an lruvec is
+> >   initialized
+> >
+> > This means we only protect fault-path file folios when refault pressure
+> > shows that the workload is actively benefiting from readahead. If the
+> > workload does not need that protection, the original optimization
+> > remains intact and we do not keep readahead pages around unnecessarily.
+> >
+> > Benchmark results for the Cassandra read workload
+> > (4 nodes, 720s, 100 readers):
+> >
+> > - with commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to
+> >   replace folio_set_active"):
+> >   p99 ~9.2-9.5 ms, throughput ~41.8k-43.6k op/s
+> > - with revert of commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to
+> >   replace folio_set_active"):
+> >   p99 ~5.5-5.6 ms, throughput ~51.9k-53.1k op/s
+> > - with this fix: p99 ~5.8 ms, throughput ~51.9k-52.7k op/s
+>
+[...]
+>
+> Just an idea. For an short term and easy fix, what if we simply revert
+> than, then only protect in_fault && folio_test_swapbacked folios with
+> PG_active?
 
-On 9/22/26 21:40, Vincent Jardin via B4 Relay wrote:
-> From: Vincent Jardin <vjardin@free.fr>
-> 
-> The Lynx PCS never supported 25GBASE-R. Add it, so that a 25G DPMAC on
-> LX2160A can be driven by phylink.
-> 
-> The SerDes side had the mode since the commit
->   1cab8fba5073 ("phy: lynx-28g: add support for 25GBASER")
-> and dpaa2-mac maps DPMAC_ETH_IF_CAUI to PHY_INTERFACE_MODE_25GBASER,
-> but the PCS never handled it, so phylink_validate() failed with the
-> interface.
-> 
-> 25GBASE-R is a serial mode without clause-37 in-band autonegotiation,
-> exactly like 10GBASE-R: it does not needs any configuration, its state
-> is read with phylink_mii_c45_pcs_get_state(), and it reports
-> LINK_INBAND_DISABLE.
-> 
-> phylink_mii_c45_pcs_get_state() is extended in the same patch because
-> without it the link comes up reporting Unknown/Unknown.
-> 
-> Suggested-by: Ioana Ciornei <ioana.ciornei@nxp.com>
-> Co-developed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
-> Signed-off-by: Ioana Ciornei <ioana.ciornei@nxp.com>
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+Hi Ehab and Kairui,
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Thanks very much for your reports and discussion.
 
-Maxime
+I'm not quite sure we want to revert it entirely, as that would
+immediately regress the workloads improved by the commit, such as the
+kernel build.
+Also, for example, Kairui's cover letter mentioned the LevelDB benchmark:
+ "I also retested the LevelDB benchmark from the cache_ext paper [5].
+Interestingly, mainline MGLRU already beats CLRU on this one after a
+recent change in lru_gen_folio_seq that bumps new folios with refs == 1
+to the second-oldest generation."
 
+I guess we could instead try to mitigate the cases where some workloads
+are negatively affected while preserving the original intention. Does the
+fix below address both of your cases, or is Ehab's case actually different
+from Kairui's?
+(The kernel-build test on my machine looks quite positive. It not only
+preserves the original optimization, but even provides further gains.)
+
+diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+index 621c8653d8f7..91396c796a34 100644
+--- a/include/linux/mm_inline.h
++++ b/include/linux/mm_inline.h
+@@ -239,7 +239,8 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
+ 	 * |<---------------------------- MAX_NR_GENS ---------------------------->|
+ 	 */
+ 	if (folio_test_active(folio))
+-		gen = MIN_NR_GENS - folio_test_workingset(folio);
++		gen = MIN_NR_GENS - folio_test_workingset(folio) +
++		      (type ? !folio_test_workingset(folio) : 0);
+ 	else if (reclaiming)
+ 		gen = MAX_NR_GENS;
+ 	else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(folio)) ||
+@@ -247,7 +248,7 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
+ 		  (folio_test_dirty(folio) || folio_test_writeback(folio))))
+ 		gen = MIN_NR_GENS;
+ 	else
+-		gen = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
++		gen = MAX_NR_GENS - folio_test_workingset(folio);
+ 
+ 	return max(READ_ONCE(lrugen->max_seq) - gen + 1, READ_ONCE(lrugen->min_seq[type]));
+ }
+diff --git a/mm/folio.c b/mm/folio.c
+index c02dcea9c03c..2fd835b3b50c 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -470,20 +470,10 @@ void folio_add_lru(struct folio *folio)
+ 			folio_test_unevictable(folio), folio);
+ 	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
+ 
+-	/*
+-	 * For refaulted workingset folios, set PG_active so they
+-	 * can be added to active generations.
+-	 * For prefaulted file folios, folio_mark_accessed() sets
+-	 * PG_referenced so lru_gen_folio_seq() places them into
+-	 * the second oldest generation.
+-	 */
++	/* see the comment in lru_gen_folio_seq() */
+ 	if (lru_gen_enabled() && !folio_test_unevictable(folio) &&
+-	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC)) {
+-		if (folio_test_workingset(folio))
+-			folio_set_active(folio);
+-		else if (!folio_test_referenced(folio))
+-			folio_mark_accessed(folio);
+-	}
++	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC))
++		folio_set_active(folio);
+ 
+ 	folio_batch_add_and_move(folio, lru_add);
+ }
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index f11491ee9ed5..aa500ae9371a 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -851,11 +851,7 @@ static bool lru_gen_set_refs(struct folio *folio, const vma_flags_t *vma_flags)
+ 		return false;
+ 	}
+ 
+-	/* Promote on second access */
+-	if (folio_lru_refs(folio) > 1)
+-		set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS, BIT(PG_workingset));
+-	else
+-		folio_mark_accessed(folio);
++	set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS, BIT(PG_workingset));
+ 	return true;
+ }
+ #else
+diff --git a/mm/workingset.c b/mm/workingset.c
+index 7ac2b88c80ae..a79b73ee9762 100644
+--- a/mm/workingset.c
++++ b/mm/workingset.c
+@@ -319,13 +319,11 @@ static void lru_gen_refault(struct folio *folio, void *shadow)
+ 
+ 	atomic_long_add(delta, &lrugen->refaulted[hist][type][tier]);
+ 
++	/* see folio_add_lru() where folio_set_active() will be called */
++	if (lru_gen_in_fault())
++		mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
++
+ 	if (workingset) {
+-		/*
+-		 * see folio_add_lru(), where folio_set_active() is
+-		 * called for workingset folios
+-		 */
+-		if (lru_gen_in_fault())
+-			mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
+ 		folio_set_workingset(folio);
+ 		mod_lruvec_state(lruvec, WORKINGSET_RESTORE_BASE + type, delta);
+ 	} else
+-- 
+2.34.1
