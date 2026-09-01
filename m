@@ -1,98 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 265C6EECB;
-	Tue,  1 Sep 2026 11:39:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BBA39022A
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:40:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788262755; cv=none; b=F8aGKOYRq/6HGV5RAgKLtVA93aJlFT8EDlcXLgGEm6dqf0c3YxWzSkcEH5qhDvgsj8ADaw4cgECMJsevINGoWLw/XM9lTHWVZaVN6DtuEydC9+mv9otJBmZCYD+/RChBLfyYr7UT2NoytCDKTKYKavPO9Cgz0HdGWFCuLktJhYY=
+	t=1788262840; cv=none; b=TLQZa/wI6XKCEls3ErdPkNhhDtn4hxnO4IaoU/Z8Aai+NYigO4hs3GJ3p5ri6+25Pm5KcLoBlGaBkMRft231M1s2Mkgzv8wJBw9+WPvqgX3lqmrxATAnwE2cHZz6F9/h8jhiAEblJKIX372gdcc3BL/s82Ko9j8mxt2Je66N5z0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788262755; c=relaxed/simple;
-	bh=snWgoOTiHg05wk/9uc4m9iV2V1XK3aAcA58da+a8E4o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b6Tsg8+IDQls83iHXBrvDdqyz8ArFdVtEODeWkBj2QTws7o45S30+qO8E5bGie12sjngnwm8vKCLQXSKbI8UWDnlqvQLAM+KGGTj4+zgw1mykpOX2hqnvyhdP6BAxtH+d3re0zxwRunQFWtIktNmRzgLYlMZE39acYqGxJzIXtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ic5F4IlO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788262840; c=relaxed/simple;
+	bh=P3hdtakuwRs8sGgX8SbTRg535OO9QDcChPnINsMgxSI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N+8nRLhQOUHY6VuiTHbxDQXfmpgdh0m5KqaI1moARm3TikDq/Z+JnbC6aoNMHbeZ60rgvF3XnbTVc4jXSEN8xpF/AA3P+jaOe7zqysmVtVaYKaNQov8wVQYXcDCuKDmhqwPMoVGGEiL+7TJ+gpeq7xd3+zjAZaUYxqxNU9XA2SA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q7t5Zjwn; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ic5F4IlO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BDD61F000E9;
-	Tue,  1 Sep 2026 11:39:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788262753;
-	bh=DgUoPRtJ/GnOdQTDh4HR7dWVyv6xZBoAKQyqX3/YoXA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ic5F4IlOodp9XGGhQMY63n539ibLVwUp+J71eqsn8VwLLgx5xjAUonxC35L1omDY3
-	 bEwPKN0WkWUrOVM6mkBXqyk5LWeu4rnREdCR1HK5xvBXZh+xPQ1yle2RjpS0z0QWFL
-	 QcBumLcPRZa/FD9f/ZNh4w4hZu9Lm9Qhav1ykBU59RpB5qw+9L9XQ2lo19nUWAgNHZ
-	 j6ZPkJY1K38H4zXW5LCN0BOju7qy/m4mcgtjtJOAlnS0TWgRQcmzvuH+WNKaDaeg51
-	 GV1rqE+ghGt7QYFrKD0JVjPSI88KigEx+8jH3jfFZXfD+XWule6VJsOJe3r9xokVqm
-	 Aci4DdmgVi2PQ==
-Date: Tue, 1 Sep 2026 14:39:08 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Ratheesh Kannoth <rkannoth@marvell.com>
-Cc: davem@davemloft.net, gakula@marvell.com, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, sgoutham@marvell.com, andrew+netdev@lunn.ch,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
-Subject: Re: [PATCH v5 net] octeontx2-af: switch qmem from coherent DMA alloc
- to streaming DMA mapping
-Message-ID: <20260901113908.GK24140@unreal>
-References: <20260901015621.2708182-1-rkannoth@marvell.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q7t5Zjwn"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d91ded8174so6519215ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:40:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788262839; x=1788867639; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NbJYqMSdfBVb+Q8QcPC8voCv5rVOzcHLGQSLMYKXoJs=;
+        b=Q7t5ZjwnMTl4U8MTQFe9FeEEbQfxsNXumEVXieQjXQVV+LMhjiPc8ZgZu4iqx1EzQ0
+         QqSaEB884GtaVuF/QAwB7qA4SjV+qRR6/mhP5DAUeU+WSN08HV8tPf+CAu9K1CWGNNh6
+         7qEGAxECy/VV1SFXATiCL5BB/6JR95IcOc8L3HeVzQt1DAdTcrHMP5i4mksng1rN75pw
+         2/lKQAFdVH8bC9PlooAFIOVDKp9IjU+zEIkNclJJR1FCGewyI88To4fEr3nV/dyH9AvD
+         KpxI0PiZECpY+3q2JLMi6mTJ4FHTHYwpb3PbcUPS9G4thtIiGpYKJt6eEN7go0yepQzL
+         WuDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788262839; x=1788867639;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NbJYqMSdfBVb+Q8QcPC8voCv5rVOzcHLGQSLMYKXoJs=;
+        b=M/Hjcm+xBCiLU4qOPmJRzVox+UGnD/cvxf5FWBVey6gK5uEqqJl8S2ZRyYbycP82xM
+         gnC1ngGouVP7B8TJDQBzbfnVeJng2fkLweoyXrgQytEphM4IqtwxfCyy6sR012L4y1P2
+         N3bB1CzRJ4JpTpGEdI+dLxmtpNvvHYq1Z7Qb7XMZYS0EQtfyRCtzTSKwvQOKNtmxr56d
+         uN4P4A3LsbtL/iAuPW9qaDBAZCI3DycGHNJt3zYB3ySUgIADGb3kKUBoEx0BfZUsTSAn
+         7SYDno12JHq3+XMHpLH/C6HhF1SbJfUYf0aGK0knUpmdS9m7sQwfiKejyQGhlcG8rb1E
+         zUsg==
+X-Forwarded-Encrypted: i=1; AHgh+RrUN2dX8nqxn+UKFiYdEVeqhrkmFvDbIB59miBMAC9GZd50/j2CmcdZO4uChLx36HMZ46Wt5Z+90RiCX+8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUK33nZT1boKpghUGJoV0lLTE39ur5pn+uwoW+5wAZXLrv0rGm
+	j/4+gdRGarSA4xW3e1dWGi5Cc7sq3F6J25qfKurqMRl4qSRvhztNAERq
+X-Gm-Gg: AYBFou18gEhq1EVlv8j1lM+4byqjYJhqYZ86GOWcvhBcIqkwE5pjODdliBiNyHbzR0T
+	KAi5ccCfI8bm3sx1mhpAb+goI0EeqWAEuF/SgYhzC9loIbEeH6GCHJC7YBcnErH+zEyGTe5RYDM
+	8/3UfG+kptAQwGfwJeRWDYCQPrUuGWeDqYyXYKJyzAgLvsauNuGnhzE54YmrXzLMWBylh/0iPXA
+	ww11W9rh1zJCmfEKtR+8hIAsfqiXHnsp2IuTYxzQwIBCemWzMc5R9Xf57+HtUJnVDWPGdMTHn6X
+	unqgUiG8oaqKC8m39a6HODGE+ne+aOTF1xwbNXyt1CPgo/AHK3OL3YrgNRqFGJcEmRn4VsGhNrI
+	7kyUdSnZuiRXElxE/A69xsQS2c0DNRTTGVJCWimMQi/Jc6+sZMkE55dij+OE2F2FWnZBntEwGkN
+	T2NDyqga0Cq7DabOj3NQqAGPWb8WQCTqLUdT8QdOAQtayCYP+N5MQqUZKLfH96ldqDSIl2lNM90
+	0QcT6GIMmNqNjcY0IoFohjnUEItNJ6bHRedYukPzJuN
+X-Received: by 2002:a17:903:42cc:b0:2bf:27b2:4b80 with SMTP id d9443c01a7336-2d74e1386bcmr327790875ad.14.1788262838570;
+        Tue, 01 Sep 2026 04:40:38 -0700 (PDT)
+Received: from localhost.localdomain ([2a12:a304:100:1e0::500e])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988b6c7sm49316075ad.60.2026.09.01.04.40.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 04:40:38 -0700 (PDT)
+From: Sun Jian <sun.jian.kdev@gmail.com>
+To: kees@kernel.org,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org
+Cc: jack@suse.cz,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	tasos.papagiannnis@gmail.com,
+	Sun Jian <sun.jian.kdev@gmail.com>
+Subject: [PATCH bpf-next] exec: Drop bprm loader before closing bprm->file
+Date: Tue,  1 Sep 2026 04:40:11 -0700
+Message-ID: <20260901114011.112375-1-sun.jian.kdev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901015621.2708182-1-rkannoth@marvell.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 07:26:21AM +0530, Ratheesh Kannoth wrote:
-> qmem_alloc() uses dma_alloc_attrs() with DMA_ATTR_FORCE_CONTIGUOUS, which
-> allocates CPU-cache-coherent DMA memory and, with CMA enabled, draws from
-> the CMA pool. qmem backs NIX/NPA queue contexts, admin queues, and LMTST
-> regions (including CN10K LMTST areas that span page boundaries), so
-> consumption grows with enabled interfaces and is hard to provision in CMA.
-> 
-> Switch qmem to a streaming-DMA-style path: allocate physically contiguous
-> compound pages from the buddy allocator via __get_free_pages(), then map
-> them for device access with dma_map_phys() and dma_unmap_phys() using
-> DMA_ATTR_REQUIRE_COHERENT. Add otx2_dma_alloc_coherent() and
-> otx2_dma_free_coherent() helpers that enforce dev_is_dma_coherent(),
-> retry with GFP_DMA32 when the physical range is outside the device DMA
-> mask, and wire qmem_alloc()/qmem_free() through them instead of
-> dma_alloc_attrs()/dma_free_attrs().
-> 
-> This works on Octeon because the octeontx2 driver is written for
-> DMA-coherent devices: Octeon platforms provide IO coherency (via SMMU), so
-> the driver already uses streaming DMA APIs for packet data while
-> deliberately skipping explicit CPU cache sync (DMA_ATTR_SKIP_CPU_SYNC).
-> The same IO coherency lets qmem use a streaming map of buddy-allocated
-> pages instead of a dedicated coherent allocator or CMA reservation. That
-> is valid because the platform is DMA-coherent, not because omitting
-> dma_sync_* magically makes memory coherent.
-> 
-> Allocations requiring more than MAX_PAGE_ORDER pages are still rejected,
-> since the buddy allocator cannot serve them without CMA.
-> 
-> cc: Geetha sowjanya <gakula@marvell.com>
-> Fixes: 73d33dbc0723 ("octeontx2-af: Use DMA_ATTR_FORCE_CONTIGUOUS attribute in DMA alloc")
-> Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
-> 
-> ---
+free_bprm() currently drops what may be the final reference to
+bprm->file before calling bprm_drop_loader(). Since
+bprm_drop_loader() is attachable via BPF fentry and bprm->file is
+exposed as a BTF_TYPE_SAFE_TRUSTED pointer, the file can be observed
+after its reference has been released.
 
-<...>
+Move bprm_drop_loader() before do_close_execat(bprm->file), keeping
+the file reference held while the hook runs. This preserves the
+existing trusted BTF contract without changing verifier behavior.
 
-> +	paddr = page_to_phys(virt_to_page(vaddr));
-> +	dma_addr = dma_map_phys(dev, paddr, size, DMA_BIDIRECTIONAL,
-> +				OTX2_DMA_COHERENT_ATTRS);
+The loader file and bprm->file have independent references, so this
+reordering does not change their required teardown ordering.
 
-1. Don't redefine existing DMA attribute, e.g, use DMA_COHERENT_ATTRS
-directly.
-2. According to the Documentation/core-api/dma-attributes.rst, most likely
-you don't need DMA_COHERENT_ATTRS too.
-3. There is no need to use dma_map_phys() in your case as you are
-supplying struct page backed memory and don't provide DMA_ATTR_MMIO,
-use dma_map_page_attrs() instead.
-4. Commit message is AI slop.
+Link: https://sashiko.dev/#/patchset/20260831092305.42062-1-tasos.papagiannnis@gmail.com?part=3
+Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
+---
+ fs/exec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks
+diff --git a/fs/exec.c b/fs/exec.c
+index a14f28b15607..263b1f67f1f8 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -1469,9 +1469,9 @@ static void free_bprm(struct linux_binprm *bprm)
+ 	/* exec swapped the mm but failed before setup_new_exec() freed it */
+ 	if (bprm->old_mm)
+ 		exec_mm_put_old(bprm->old_mm);
+-	do_close_execat(bprm->file);
+ 	/* An unconsumed PT_INTERP substitute from a binfmt_misc loader entry. */
+ 	bprm_drop_loader(bprm);
++	do_close_execat(bprm->file);
+ 	do_close_execat(bprm->executable);
+ 	/* If a binfmt changed the interp, free it. */
+ 	if (bprm->interp != bprm->filename)
+
+base-commit: d761934c9483ecde93fe99d8705282f716dfee50
+-- 
+2.43.0
+
