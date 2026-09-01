@@ -1,63 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F4381D5CC9;
-	Tue,  1 Sep 2026 00:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798EA25776
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 00:03:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788220956; cv=none; b=scHXACeu7/9cQFWxpXP3pWJSvdQWCXE9hDdOdU1gVjjOJ5892tcm2COtElHOeTvYT6CRWGO8NM+xFAylot7HrmqljP8id+XMW6jIzPMye6sqCPyqhqyTc1x2YlSK980kCrtAQZHf0FneHMJu8VSD3NO+ccyMhvBZidBO32T6CiM=
+	t=1788221028; cv=none; b=UmG5Gy+gozgs6pMHKGoODCL+tiRAZxynD81OmPnbCJOaHKbcm6vqGpIw1ZvgWtddtPVIiDdVf7K9K1u4qyftbCSkgH8CLcW5007NPe53wEVUPZflQbW1hndM/jaTx1X3AcQriOPBgjHysVl8wHQt6tz3eYvo+zGmOiGULhC75NA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788220956; c=relaxed/simple;
-	bh=TAl7fifn7t1bB9NM0Vk9R+qbwb4+eK9QhlzL2dXyQY8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=GPvbLN4bCFrCKH8TBoCQCOTn7stS+t/qe4Mz9dYsj+XSsqa/CXbAi/Yzl0Rt/QzCkjgZKU9Oo9eF8N0bUd7T4nDr9GzN30wI8b3Zlbl5ppQFhoccZWRYNQfjbSsdj/7fHUjdN0rhh63kgibkHENTLFdv7x1x0g7CorHoE8av/SE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ZKaH01if; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788221028; c=relaxed/simple;
+	bh=+u+paPEl69EI8EJgLp/S44yzlA16FXZ/5JKDKEIBKDk=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=ui2kTnTaV/urF3JfAir4IiRHLMq2lPlZBENw4Dzd40JsLa2PySmIETyGKxUwuXe+s8P8ovaBWbu8f4X1DCHrSE6LxI5cYmEwH1lvjSBiiPGpExgnEU8yM5gIvcTRB4PNlQlRwmkWZTZq8ueuDSqknstBpyxVZTVCtrh9LhQm55s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AHjEQhnz; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ZKaH01if"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CF9C1F000E9;
-	Tue,  1 Sep 2026 00:02:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788220954;
-	bh=eTlrpQWzxbwCPPSf4vM9BxkALA4WAiGAhLpXzsRVP00=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZKaH01ifMY4i78+8eAJ7lZTV+LQIL/XWqKn44DS2+UVEgj25WFu316wKVzIXqwzp+
-	 ERdY7Kwmp8rOrSujjnTZMfaihqx/JI14pn3lMBoRB2mUgcJiPAz5BbHJZh57N1phlh
-	 hKjaODtluC+q6YbbehddLGUqISmTYpG4v33r1L4E=
-Date: Mon, 31 Aug 2026 17:02:33 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: David Stevens <stevensd@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
- <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] memcg: Don't call schedule_work when no spinning is
- allowed
-Message-Id: <20260831170233.e3deb2a546722a3c664bcd98@linux-foundation.org>
-In-Reply-To: <20260831234339.280376-1-stevensd@google.com>
-References: <20260831234339.280376-1-stevensd@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AHjEQhnz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788221025; x=1819757025;
+  h=date:from:to:cc:subject:message-id;
+  bh=+u+paPEl69EI8EJgLp/S44yzlA16FXZ/5JKDKEIBKDk=;
+  b=AHjEQhnzd/k49CrQUqwVlpPxnMyRVn+L0snt30zoxcw0D7TtyC54cKDS
+   KnSttrYUddm5vReCA1xnh7qhX8GbWmeQk4g3y0sC/pSYKhHDfHlXKw9l3
+   fofYsflQ4fDU98cSI/sWVrDa4u6C5CZUNBqWwVnQgfZ2GmtKIIyI0e2pX
+   FdH+xR8idnQrF3eVNAKBqRyI+yodRIkcC+M1VNriPZ1iLKfoh+Jp7z0O7
+   66/jZZB+qoHzRL9+vHFSgP1SyMgERyVUfUT1KyqehWUJtG8SIlEvcriC2
+   Ecwb5r9YRH6pfGB8S+je5xaEzPOkj68YELEDb1/ug91VtMkgPg3x3MPhj
+   A==;
+X-CSE-ConnectionGUID: u3tOZtJ1RA+5Vq/jNP9msg==
+X-CSE-MsgGUID: DiOrZyGQSt6lgMR7gKvbng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="114175915"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="114175915"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 17:03:44 -0700
+X-CSE-ConnectionGUID: kROgGcWsT2uMI3nzaAVQgw==
+X-CSE-MsgGUID: S26Q+SOWSpCg9MtIq3WUGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="273120702"
+Received: from lkp-server01.sh.intel.com (HELO 793b8a0addc2) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 31 Aug 2026 17:03:43 -0700
+Received: from kbuild by 793b8a0addc2 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x1ByW-0000000008W-2TFX;
+	Tue, 01 Sep 2026 00:03:40 +0000
+Date: Tue, 01 Sep 2026 08:02:58 +0800
+From: kernel test robot <lkp@intel.com>
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Huacai Chen <chenhuacai@kernel.org>
+Subject: vmlinux.o: warning: objtool: kernel_entry+0x118:
+ start_kernel() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+Message-ID: <202609010734.HlRB5VXA-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 31 Aug 2026 16:43:39 -0700 David Stevens <stevensd@google.com> wrote:
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   cee9395acd8043be0644b25c34bfa86623f2b935
+commit: 1b2f4706c6a20ab6ac41533dd8032d54322076e3 LoongArch: Use UNWIND_HINT_END_OF_STACK for entry points
+date:   8 months ago
+config: loongarch-randconfig-002-20260829 (https://download.01.org/0day-ci/archive/20260901/202609010734.HlRB5VXA-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 52774473867e49b5891ab9381accf4e5a3ce0024)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260901/202609010734.HlRB5VXA-lkp@intel.com/reproduce)
 
-> Memcg charging can be done from any context, but calling schedule_work()
-> isn't safe from an NMI.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 1b2f4706c6a2 ("LoongArch: Use UNWIND_HINT_END_OF_STACK for entry points")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609010734.HlRB5VXA-lkp@intel.com/
 
-Who does that.  bpf, IIRC?
+All warnings (new ones prefixed by >>):
 
-> If memory.high is breached from a context where
-> spinning isn't allowed, use irq_work to schedule the reclaim work.
-> 
-> Fixes: 3ac4638a734a ("memcg: make memcg_rstat_updated nmi safe")
+>> vmlinux.o: warning: objtool: kernel_entry+0x118: start_kernel() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: smpboot_entry+0xa4: start_secondary() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: kernel_kexec+0xb8: machine_kexec() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: wdt_interrupt+0x48: machine_restart() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: sama5d4_wdt_irq_handler+0x88: machine_restart() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: rzn1_wdt_irq+0x34: machine_restart() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: eurwdt_interrupt+0x40: machine_restart() missing __noreturn in .c/.h or NORETURN() in noreturns.h
 
-Can anything actually hit this?  IOW, should we backport it?
-
-> Signed-off-by: David Stevens <stevensd@google.com>
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
