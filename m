@@ -1,42 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A669B2F3C3E;
-	Tue,  1 Sep 2026 13:18:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBDD383333;
+	Tue,  1 Sep 2026 13:18:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268740; cv=none; b=D562Vat9Ke46L4Ep78u9CraDtz/CU1cVS+Ch5B0NZ+2JuWoEcCEW53AvQIo6fKh8aff0a83TAtZKD82kPw/n7HuAFLSQ4BdsKmtfNHg0NNpMHaMPy7cxKqIKDwfoDiE6apBGl2XAmaHhLiT5kOpalQ3PAQGpHueyJF2LZbKRbNA=
+	t=1788268741; cv=none; b=rAL13M/b/fiovYTFCn96nS2yMEKozF8NT3q8OsSz0W9w/HOMoqXvtJAK+AV3L3cw/hWRSNn27u7axfB9hWGG2u2gJ4mOcCjoZMFq4MKKoNmD0ayxPFsH0gnH2mb7lcDLosKYD9QFJUp+0QeAHhi/khZjkHumfrspR0Qg688OPWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268740; c=relaxed/simple;
-	bh=35/yin/QF8t3Kqfg+UAOrsmVX85pqU2Iyl2wuXO5t+0=;
+	s=arc-20240116; t=1788268741; c=relaxed/simple;
+	bh=N1KBGs6KkVkV/x2mLI1/4fnLqUNGtZ17HUviv2uk9kc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bPC9fUrj2s2tWTxBx1RfG1GsljjCemYPNpgEOA0X7hBmeMu6CGkH12f7/4azetGNNXVDoi6caIP6vZcBC56PERQ/4XYaTmlIiO6Fn00+HYedH9OPKp/Dfs47xY6SCpHjca3wtpLEWly5wm7eY0CN/fXLlQ791M9MTu8AQ8S+kCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wwzgo9sU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MKoppCvR4apAAFd2O3NmnNqxtpSqDCt9Y0kD1BemJsOn+FGjyArdPO4sERvbLmb/CFoou4fEZwQphnYE6sZY3XBX9uKGzdWb0ZtIn6eRhVrDbrqYJcADNEqmdnHW/312mn5PVugyareE7ok4Pu1HpPNa5A5dLRaSRMbp2uXnd70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ImCXP+vL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wwzgo9sU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEA971F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ImCXP+vL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97BB21F00A3E;
 	Tue,  1 Sep 2026 13:18:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788268739;
-	bh=7ZB1yfEGzN5K33ID0e3bcOFkHhvifJ8hhhrNtAvrugg=;
+	s=k20260515; t=1788268738;
+	bh=GOwz6J3a1XnteJ/KkvbDIvrqBi7xM/5c9ntF246FqLk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wwzgo9sUB5TGy5zNJC4yHnKl5PtqWaoL8Dz9GwQCTVx+obhlYqR1i0dXlvtkkUxsH
-	 d+W+CRtkgAwmR64rN/I4NsWsEeAvHdwvnu4Vyozpe6/CE/q0+kr6mHKbH0iEm4/4Jm
-	 FJYIaONRuASM+kaXuNw2QgWGSuP929VGyraDfmNW86cRwkx5yeM7103V36kmVm4szn
-	 bx6KyNXzylnXnBWUo3/kFBeCT6ycgOkaxm3HK56Di10oFNNBgRUz7AZm9oAxaCElpM
-	 kHbjXf9YQkEdZIG8KxU7SY9fRBE7hp39GHgeYEPLuM+IgfzjovwWd0RP6pk/iArJRp
-	 pbVx5n3G7spjQ==
+	b=ImCXP+vLdIt+iBu9YhsGSFkDJzHMPqdAqvr1BGs2r9lzIHNWddp/ldzgzxqepVC7A
+	 2LsHoK3DeY3UZppt+5reS8KRckSjTSfrSFZsl3+z3oVIU6HmQfUsERKoNVn00SSqQS
+	 thSg0yttFoUN9fDERmEMcsZoKyK8+rTI/JDQ+lCcZc3qL0APgOeBGri9kdng0STkdT
+	 e78a61s2obsl2fuCLIfFgHWvU9OhmKQo5k9wK1A4WVn1gPMRhv9upfk+kBSYH3U/ZO
+	 3CVedT1y6R8cchECkrprWBo6Tm/MA4EkIbREbDyAoW1JqD3ZBZ6wCEoBwELIcob3Nw
+	 IVChnrKHCBBzQ==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
-	Usama Arif <usamaarif642@gmail.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 2/8] mm/damon/paddr: respect folio end for DAMOS_STAT
-Date: Tue,  1 Sep 2026 06:18:43 -0700
-Message-ID: <20260901131850.98037-3-sj@kernel.org>
+Subject: [PATCH 1/8] mm/damon/core: skip applying scheme if region split for quota fails
+Date: Tue,  1 Sep 2026 06:18:42 -0700
+Message-ID: <20260901131850.98037-2-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260901131850.98037-1-sj@kernel.org>
 References: <20260901131850.98037-1-sj@kernel.org>
@@ -48,41 +47,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The function for applying DAMOS_STAT in DAMON physical address space
-operation set (paddr), namely damon_pa_stat(), applies DAMOS filters to
-folios of the given region.  For that, it gets folios of addresses in
-the region.  It starts from the region start address and advances the
-address by the size of the folio of the address until it goes out of the
-region.  If the start address is in the middle of a large folio, and if
-the next folios are small, some of the next folios could be skipped. Fix
-the issue by advancing the address to exactly the start address of the
-next folio.
+damos_apply_scheme() splits a region and apply the action to the
+subregion if it is needed for not violating the quota.  The split
+operation (damon_split_region_at()) could fail for allocation failure.
+In the case, the quota could be violated.  From the user's perspective,
+DAMOS becomes more aggressive than expected under the extreme situation.
+Handle the failure.
 
-The user impact is that the DAMOS_STAT-based page level monitoring
-results become inaccurate.  Since the page level monitoring is supposed
-to provide relatively high precision, this is definitely a problem.  It
-is arguably not critical since it is only monitoring quality
-degradation.
+The user impact is not critical.  The failure of damon_split_region_at()
+is unlikely since it is arguably too small to fail.  Also DAMOS being
+aggressive is limited to the single region.  Users can set
+min_nr_regions to set the maximum size of each region.  If it is
+reasonably set, the transient overhead shouldn't be critical.
 
-Fixes: bdbe1d7bc325 ("mm/damon/paddr: increment pa_stat damon address range by folio size")
-Cc: <stable@vger.kernel.org> # 6.14.x
+The issue was discovered [1] by Sashiko.
+
+[1] https://lore.kernel.org/20260718171523.87547-1-sj@kernel.org
+
+Fixes: 2b8a248d5873 ("mm/damon/schemes: implement size quota for schemes application speed control")
+Cc: <stable@vger.kernel.org> # 5.16.x
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/paddr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/damon/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index 5c6c3a597fd0b..2ab7b3842701e 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -379,7 +379,7 @@ static unsigned long damon_pa_stat(struct damon_region *r,
- 
- 		if (!damos_pa_filter_out(s, folio))
- 			*sz_filter_passed += folio_size(folio) / addr_unit;
--		addr += folio_size(folio);
-+		addr = PFN_PHYS(folio_pfn(folio)) + folio_size(folio);
- 		folio_put(folio);
- 	}
- 	s->last_applied = folio;
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 3f89cfdf5f022..a6fdb3068262d 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2604,7 +2604,8 @@ static void damos_apply_scheme(struct damon_ctx *c, struct damon_target *t,
+ 					c->min_region_sz);
+ 			if (!sz)
+ 				goto update_stat;
+-			damon_split_region_at(t, r, sz);
++			if (damon_split_region_at(t, r, sz))
++				goto update_stat;
+ 		}
+ 		if (damos_core_filter_out(c, t, r, s))
+ 			return;
 -- 
 2.47.3
