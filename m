@@ -1,839 +1,306 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010062.outbound.protection.outlook.com [40.93.198.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93EE6388885
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:14:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C845D2D876A
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.62
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788225288; cv=pass; b=V38B7KqorOK9ZKXlijxForwhGUVr0CVNRy7y+hAsAHjybHUabG7Mur/jftD5J9TzDl8XVB5QmQ+S+KMIgbbRU8n/2xcwIK3ROS3dgB2vjs1AuxKVIUJTaAZjQEWoh1OB69H6mHeuNoPD4LJrjXW4IyXdc5QuAqfGv+mtSUrzoxY=
+	t=1788225335; cv=fail; b=BKpXucCwovXVO3C5w04xSpjId2r78bTeSQpryRgn5mpEU0wOScoHevcr+GbrOb60pU35neRupcvNhqy5vkGgOizXBVhN1cvR6IRfnQtBqBC1n1HNxbdO1rrQfPkcXk0sPa14VcpULBy7r1pa1+QEcZp7+g+8lFhtZImGLwCI9Ds=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788225288; c=relaxed/simple;
-	bh=2AkY88WBahQNvHZf1/VJmh8rbOM9oEHcdKWxvjdCILU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G1BDmODXBdCQ0IyIO/V+m8W8/xY93wZgGSqTN39c5YGJw1VS9yFEsPcOTV06sPHH6qfmRRsw3bwCPF2Or3+K7F6AgyS+Wb+cjU8rgCjrjPPHLHaDtThZYfA5FL/scH9fycdUlKnjlp2P9YgEPOQthn5wpcGNR7Lrb9dgOdMNEW0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rtNzJJTV; arc=pass smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788225335; c=relaxed/simple;
+	bh=SR2rUkBHYIrl2gzUQlZnw/XMDfYRAOjpNFSACVfRY5o=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=lxCEbOYNsGzf1uV6jjLsM1CgHX43swp4CAZDzEJFqmYMGOFRVvkU1dIwEp1j6MhCnp7efApdB03NLMwW6FOooGzwJmeFdYTuABnQP5cd1t2w+L8ELPwdYfIZ5VBmCEb9lqe8gToUsV9kGKoRABHgJx7bSk/M9yVJEXF52s8V2/w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=bakaqo3S; arc=fail smtp.client-ip=40.93.198.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rtNzJJTV"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d5335cf904so39999345ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:14:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788225285; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HxcF+QrIPn9Kh3nLzT+UYvnZEMfVNyxGgNhDhdsS5rDqDGrnmiV8CEMHr7777ix0u6
-         ZPgaMuBKaE8CyGM6rmUAniKSFK5GYy8kOTTm23iuqQMDQkJb9c3HGdfU9Yf/O9S8zjr6
-         MkO81PDY+7F456SB6jtuQA0Ytv5O3uPL+vP7L3bCqLMifqFwd4EIHDgd+ASKInrldakN
-         WpRgfzYBN6+UqRTOy7Ql9LFw1utn6luaoGPj2ME+YPPfjdUhYWA6xruw+KEROTy5++dZ
-         Xac7mYRl7S1HXq6l/Q8I7MxFiPOhjblfexDtxES4okWLEYtEGOz+FfzE3lUd09BVlgoD
-         8K2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vRsO0/ecqsUH3oZx7IbZhQ7HKyWmX57cPuisnfqfibU=;
-        fh=lWMWkiop0kZAft9rR16Rhxan+5gRZgoamCHENhu+l5M=;
-        b=Ck66gliunYIIY1jDpjpxl0rhSC5mEdwkUFSxBb7W1WEb9fhqNyhjZ5VI1UEsdSIuXs
-         foFCcgJQhyStaxlq3pWdgGz2KKM4NqIJlv+TuyLTN1UV7+02pjmYviVYnMCjpp7VQCTW
-         9ytMasrdGXU8AxsqEtCC3xTv/LIPMd8g7p0lGriJh6VEU15AZ/YNSL733gtTLgMTqK23
-         IKlGt33FS+T0BLsR3wcMcIT2D5rxREVSjsz4F0kSQqdoaWDfzEMIPzDyRsoiu6egJ3rL
-         hNAHNY00hTXXeLJOZQe4RGW1EMUlAv0ne9lAGs3K/0LZy2O2fTEO6CceydlLRgPjlDgo
-         qwPQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788225285; x=1788830085; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vRsO0/ecqsUH3oZx7IbZhQ7HKyWmX57cPuisnfqfibU=;
-        b=rtNzJJTVa8YL+bL5SPB7DW/bX31If+hz+cvEWJlBjnITUOAqOIV4rawrxoaTGb0yhM
-         DrUULgUtlYaX6Xl1uBVe3yRmzO2bDwvquYBsH6ODUIK7F7vFe1Z5w75M9hV41OZqDZm7
-         Gf6A+N59HqfSWl49dVPz+X/XRwOcjHDII/ldKUomZXNmPGW+Z2Bd4mJ/W4IPCNrQ+dpD
-         urBGjTxobxf20IhoXYKRYPbZdtkyRVoSVvTDhTYczDEZrkI6kjKtkiTHEkB9meT5glze
-         Jfx5Jf8gJvJZKN1vOFqNLhYj8hbyQsFJr/4YxZHZ0ode+Q/f3/I0RehGT++qtiawTmb7
-         ICcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788225285; x=1788830085;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vRsO0/ecqsUH3oZx7IbZhQ7HKyWmX57cPuisnfqfibU=;
-        b=MY/5J1dCi6MBbTzzNWQVOxcdNtAqdky2f+y3a5COKBUZRCcDFQuGL4oHrR8EGyRoTW
-         Y39YUsOJfqvsNkYT0uAYnS82wJvP489+VD/0/oR8CUykyx7nzQbmUI+vuBIx9p6UhxZ2
-         /+HT/lqr0lY11hEPaiPhj00d2aBTXrWnKSdHYCnTBfaNB6SQM/diP7cal9yZTtcFG23S
-         oElMwkRQFCGkh4H11mFUhSroPbf97K2H8yl16Ed1xAFAhSm506nar/ea3oR9cip2NJDB
-         tFrUDvY3kKvZJjiL6ieu1U3csNWmuSx9D3KHfwx3PGnFjxDIl9mZ1hvYevi/a+Lrb+Ng
-         ZIMg==
-X-Forwarded-Encrypted: i=1; AKwUvBwul+i6Z+FjusEdEwe098bXRcH7XyIGUnjULV0bJ4JfwkNRaOTuJ4NVVDL0jErn3jeJ0f0Hxkkd4sGgbKs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUO/FNTOqTye5LuBvabezVmcPN1yK9xzU80qzrtKp5S0AEfUMC
-	nnwyvt2vlITNZnqLJh3OahmQprpOG6aZ3uQxtoUQcQtLJ+13SDet7d75F+2DarDD6Ud0CvjY3t9
-	Bpj/kkKApNN3X/hijPIT3eB4zP2IZ/UMMLoZW
-X-Gm-Gg: AYBFou1xZn8Ovl6SqlDrjkbv+fyTqzjgwM89vZ9O+2LZrnwckuI43fsCoqj0f6CvRf2
-	aczEOuGLriiUkNY3HpovIH5OykyVAsxwvbIxr1uuUNtJtbWwT2vM3ei+bzaw8vueAmEG5HGnVKv
-	QY17nl13MTB1LZQM2ARxmgJjIMDXRaf7A37Ivo22LB2JptGKBcOYhNrpiTGfnaEHKNS8TR4VWeH
-	IZBOvQ0U9PFKPzJs45pz4WQTcfj4D0xhBR0KG8B1b3X9lmOXomEDe/Mae+uIFnlDQ9BicK+0W6N
-	gYqifCTuKDtM1zCTTP9ZnDHZhEeiRTSQEJf5f7ujQvWzmNAqOPSY1DqGyTXfJq6Qof/PiLDa470
-	IeubGv44rAmjcbRYMp90FnxXQKTXSNwnpyKgaIA8PfQMzBQ==
-X-Received: by 2002:a17:903:987:b0:2d8:d4cc:be62 with SMTP id
- d9443c01a7336-2d94a8eee8cmr65033355ad.15.1788225284456; Mon, 31 Aug 2026
- 18:14:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="bakaqo3S"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YMuCPGgzARMF0vPNssztNUnbOsNIXFMaUEcEgZG8q5LbHdZXMZmapAx1Qe6SojvpIE4U4iNALMGN9l1dYOJhWD9sIvsCckjc/7vE+rk+Qe0tKL5FEQDHBVbrYec3GtpZkEYbFO//Q6m6N1vEdzciyn1S9OFHl/uhafKIlwFW53XGju9IHnNt10M2B1LOMsHYjaEgUodmVO9KOr0c8LevfTeUCl5RSINSrcasHdKwcN1Dt3/WA3h6fymSndwjwCfHOiiPWJjD2o+XXL5Bp85iHf9hQv79hBsnDfcBdoTIChx5TwCM1V30eRddTZlvuS6d5aRwOF+F2hwNDLCmoCbDAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7qiOXn6u+CuH6Vxh9Ltx/42rrZoOGBf8VGO0EykKzHE=;
+ b=FCriqZbb4ZMVtvZrnx1V1hKajMlbtBErf0RJV9VjN+79iggiKxKgJ3RaYX2KpGHKduv125elDwa8qAfBW7pXom3v6lL6O//fXqmQ5/DkdWeRIPFiw7Wge1ClQEuNiCUkrTa4dBjwwRHQBqsmRs+RgblRJKaEnGgae2NqtW/6jQ8A8dnoFTQtBA55bIKdpxXsb8ZsDqx8BUDAAgJkTCQV1E1Rt5DCqn1Wv7n2/QtR5jrXV2rWXQ8uAN1AHSdIJ3+B9avFNXJIGq7zxgkofmczUKqqL5lUsSftLR6bYx0pi2dhaE/Z1ysPMzyKHvB5NxzTPxNPZQF5Zp3cv1DIoCP+fA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7qiOXn6u+CuH6Vxh9Ltx/42rrZoOGBf8VGO0EykKzHE=;
+ b=bakaqo3SuhPr6n1FWXVR38EyCdzw2242v0R0b1Fh638IjZ+ppPurZMxVk4XwqaV8keBivrpl5JD5GpzqlXRkzf8ToILjjaZr2GMbsgY87Cn3rG0MG46dalzY+6XkiKKHk3g7SDONDzfcLVkaThOBtiChpO7fAI5H3fXNzzCh7HHTvYotx4wKTNmEbvuCAcr58SC7syJtYLq2IFbeUzgPHroFEbGIWIDvI0E1wFD+2Aye7wPtYWHs5k6fWxRafcc6FWl4m1Gzo1svRLy5RavZZCP4Hh2gKNCi7Vf2E8qTcUhWuCRgkZDC/ltENckFdmaLcSVfmkJdZ9vraoSezeQkbg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH7PR12MB6858.namprd12.prod.outlook.com (2603:10b6:510:1b4::20)
+ by SA1PR12MB7224.namprd12.prod.outlook.com (2603:10b6:806:2bb::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 01:15:24 +0000
+Received: from PH7PR12MB6858.namprd12.prod.outlook.com
+ ([fe80::a550:dbcf:2fcf:463d]) by PH7PR12MB6858.namprd12.prod.outlook.com
+ ([fe80::a550:dbcf:2fcf:463d%6]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 01:15:24 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 10:15:20 +0900
+Message-Id: <DL3KYZGCCPTV.17HP77N1O650J@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
+ <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>, "Will Pierce" <wpierce@nvidia.com>
+Subject: Re: [PATCH v2 05/15] gpu: nova-core: add the per-architecture GIN
+ CPU interrupt HAL
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260829012243.496697-1-jhubbard@nvidia.com>
+ <20260829012243.496697-6-jhubbard@nvidia.com>
+In-Reply-To: <20260829012243.496697-6-jhubbard@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0062.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:31a::7) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788213716.git.zhangxp1998@gmail.com> <bb5a74df5ba223cd33b4b7111e725e5aa315f79d.1788213716.git.zhangxp1998@gmail.com>
-In-Reply-To: <bb5a74df5ba223cd33b4b7111e725e5aa315f79d.1788213716.git.zhangxp1998@gmail.com>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Mon, 31 Aug 2026 18:14:28 -0700
-X-Gm-Features: AcwNN1XWhxUdDiU4KvT0Q79YUPhSWj9o2sNKfREDq6xGMSYU_9crA4_7nLvyuCE
-Message-ID: <CACOAw_zvoYvdLWjUYpj1ambnjzPpzTOzTp7zGWA-aF=JqNPUNg@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH v7 09/11] f2fs: parameterize byte and block
- conversion macros
-To: Kelvin Zhang <zhangxp1998@gmail.com>
-Cc: linux-f2fs-devel@lists.sourceforge.net, jaegeuk@kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB6858:EE_|SA1PR12MB7224:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75443ce1-0e01-4e6b-82e0-08df07c67f7e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|23010399003|366016|7416014|376014|1800799024|6133799003|56012099006|10067099003|4143699003|11063799006|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	3PO3/EBjrqFm2xG8zCbsmMHxwAQdfNsdI2sDUtxG7Z8KzICuoNL5+Oyx19iUAJ5XB85m+stls6iiTk6Ac4hGkGTbomGEVc3hEwtOy3eNe9fjjBDfKlZXO+Z8IkFv/wIHHH2V0RMgbjSdAyz6cW7vPI805O+wuT+vuR7EofhxqxwtnIpqsuqalBdCSWuGWwgmTUeDXNvtNYK6sDe47Zn3oSTruIE6+E05bzytzDl6Kl5EB2dj9fS/Qa4tcTUloIQnGIYVrMui4Tf/oygqcvPkO4ZR3YyxRzkR4zvLETZgSingwl5o5r54y3Qv15flR+wwcEw7I/2AYEWzvrk1gQUrsnEjg4443BbnqSzP4VKFo6ly1Ps6m5udu67jieYO2Fttb/dymDdyjgG8cRiuKuVRL+5/FsoximTnmdxGFptPOlHu/d8D0rTjafxjgkOrScTqVB5YfNoUKP/2eOwrtlCF87yqEnNglad2qCUALOnwGCVfMHGqb9MKKmguVb9GsRcxcKyWID1H87n/yuAHnWVMwafq2fhpcWQkGBzTDTnWfgZsZCsudyqD5p3mi77sackoAbs625KjtZaqk500XR4kuUQJ9DLNndq6SF6GWuh8p8I8atupeqXQ017kEdJFS52BZONqWAUKxVv9JppuonSyS9QaLEAsZcArYLLbwYtavWs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB6858.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(366016)(7416014)(376014)(1800799024)(6133799003)(56012099006)(10067099003)(4143699003)(11063799006)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OC95eUo3eGJuWGZIQnZxb3dwVE02NmIvL0hwQ1NVTzRZQ3RGdkJLTmh3RGhr?=
+ =?utf-8?B?aDFUSXRubmJ6STVWRkg0QWMvVFhkOU1TdnJFZXFuTU5jSTFBdkZ3cWZyWmNO?=
+ =?utf-8?B?TnVhRTRFdXVLcS83eXpUN1NXV0lTbTA4NTZ6aWIzcU1iaWhDdmV3d01tV0lB?=
+ =?utf-8?B?MGNkN3hmWHI0SGpKTy9jRzRPYmdxek5FendXRXp5NGIzSEp2WEFSWENkSDI4?=
+ =?utf-8?B?OE1QV1FQQXMrV2hleThlblN6Sy9kL1BLVHM3V0NDQkNxVTAxd044Wmx6Y2cz?=
+ =?utf-8?B?cEhhMllhcnlLNFJ4SytjVlVwakxYOExoZ3J0MEJaSEJBa0w4cGRKUkVRbC9D?=
+ =?utf-8?B?eWFhOGM3U0NFVWxNOEY1WnZnbHA2dkNXeWVoemhTZEVwbElrd1ZQbmUxZzg2?=
+ =?utf-8?B?VGFtS0Z4azVqUUxXcmJhRXRDcFBYVE9YV0ZwNnYzSWJKZDNHSWU5b3pydDM1?=
+ =?utf-8?B?VE41Rk9MMUx6WER1RnZreDFxYzhUUk9ibEppc3kzbVVvR0JnNllFcDQ0QXFQ?=
+ =?utf-8?B?cUtXZ1kvUVh1WTZnUTJPSCsvL0RIT3VWdTZLdTJ3d1p3Y0VncXpDNXVNVFhs?=
+ =?utf-8?B?ZlVMenVYK1ArdVp0ZFBkL0FnbEVRWUN2SUw5dElrek1OKzNRRTN3RWhqbzFz?=
+ =?utf-8?B?dDFKU2xlalE0QlFFYUNvdzNRZUxhdVpHZ3YrUGtUL1lpOVdyMGIrVWY3WlBi?=
+ =?utf-8?B?T01EVWs1Ynl6MnBmZDBINnU1bElSclBrU01haHdybGMvcHdwN21RK05Ed3Vq?=
+ =?utf-8?B?Q2QxTVN4cHhka1JWVS92am54L2JuTnF3eUxkeGpqeHkycHM1RTRyYVZzRlVk?=
+ =?utf-8?B?UERsVmJCR1lYdVFwYmxmNzVhVVBFTHBac1VLdGhOYmZmT1lhMmVDTC9LZlB1?=
+ =?utf-8?B?enJyRy9keEdWVmpDQVV5U003NXBqY1gzZ2N0c1JtQ1dPaXdCSHZsRmFZTVE3?=
+ =?utf-8?B?OURTb20rK1hIYVd0Y1ZhUWJ3ZHJEZEJ0dzM2L0Q2bk8rY1Y3VWRjbk1wbEZE?=
+ =?utf-8?B?b1RRbHEyYUR3dnZjdmZjRUh1eVByc3E2dVUybW53WUFvSDI4UGVlMEcrbWph?=
+ =?utf-8?B?U285SDVWNThlaHA1RVNmamZJajUwanp5QmgvaGVoaTNhbkhFZHlrMU5VL091?=
+ =?utf-8?B?UW0wRWdJTk9WeVlzbVJwWU5NamFSQlRnRlc2KzFINkt1eUswRWJLTjQ1SGtS?=
+ =?utf-8?B?S1JmR2FCNWlkK3lmbEMya0V1eUlqWm5CRHIyRll0cUR3a1dvd0xIVnZHR1FW?=
+ =?utf-8?B?YStQSzBOV0xpKzY0OEVoS21JRDBLYzVQQkVscGV4dEN5ckRNZXlDSFFhMmFZ?=
+ =?utf-8?B?aEp0cyt0SE1Mb2dJcnlJcDlFeURYby96MHYyWHUvV2JLNTJVMFdJTFNNS29R?=
+ =?utf-8?B?Q1Frb0NJWEw3TlRjT2UvRVc0dGo3WmwvdHZOK1hUZnczUVcwN1BwVks0UEZu?=
+ =?utf-8?B?cW1Nb2MyenAzZndyaTl1bkRDUm13N0UvL2J1LzdiZ0ZjS2tPcGNHMmVrK2Iy?=
+ =?utf-8?B?OE1VN0phT0VzYkxZOEpQd0lOb0FsQUtIQzdkVm1wS2RaYmhoSWtzUkdlRjh6?=
+ =?utf-8?B?eUlRaEVSZFhFU2ZpWm1ZRDJ3eHp2UTB2MHBhY1VQUWRuZThHYVBOd0R2WFlC?=
+ =?utf-8?B?MjcrOGduQ0t0Rnp3cU91bk5YUkUxQ2lEWjVqNlVpaGVaZHpxZ3I1MWNQamIr?=
+ =?utf-8?B?elh6cHdsdXpieXJJbFlEWHNHekhOV2F3bEpOWFN5amNVbkJCM1NsVDMzMXMz?=
+ =?utf-8?B?dnliMlEvcDFaaktvV1hyaTRDeFBKcXV1N3lacFlhY2FjTzVhRTJrZjZpelcy?=
+ =?utf-8?B?VTBtaCszUkFNVCtSejg2MjQ4Rk1SaFUvOUh5dXhpZXlWNi8zMEF3UFgwSFdj?=
+ =?utf-8?B?QTJvWGdZUHZxQXhRZ2FmK3dWSkpCUVZqN3puSGNLQVNRNXBiaWZkQVI1N1N5?=
+ =?utf-8?B?UEp3ZkxVKzhaU0NHdzhjLzNSZk1xdlRSdlJkS1JwZmovZ1F3N0dzOFBuL0dP?=
+ =?utf-8?B?UUdYaWxXMmgxYzBhK1k0TDhlWmxwNG95YnJERDliMHZsZG1JQ25YeXA0YTQ5?=
+ =?utf-8?B?Rm93V0VZWUU4cHFYU0RJemxlNEVmSVZ5NkFjSmdBVXV3c3VReXN5M1p4NkhZ?=
+ =?utf-8?B?V3BBWHJwTzNaTExwVWNFcFVES2JqVW5Ia25VTkRoSzliQk5pa3I5U25CdFpj?=
+ =?utf-8?B?ZVFCdmxZa1c1dmpBamlFQXM1U3h1VEhnYjB3QWtjamRTVXkxTlhMbXBFdjFT?=
+ =?utf-8?B?RnV4TjBsSk5wVlk1Zm02SVNSZU5QRkNTR1daeTNOZ2FhVXU4UHFYTFVCbXd1?=
+ =?utf-8?B?L25ZWkhqSnpGR1M2NFNxS0VNMnVKaE9iTGkvbDE5amhidnZjdzJGVkJSditu?=
+ =?utf-8?Q?mb0OOIUog34FQ4scsz+5ano9BipU0vMUXFOVtyeegGhK3?=
+X-MS-Exchange-AntiSpam-MessageData-1: L1AGa3VDFA7KHg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75443ce1-0e01-4e6b-82e0-08df07c67f7e
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 01:15:24.6570
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QorucoAKffZXSbk8U+wtz4KfZp0zza8FGy745x3cGadY/HPVqXhANbgW+ZZb0PPaF+avCgKB7lIVzT89MAgBsA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7224
 
-On Mon, Aug 31, 2026 at 3:09=E2=80=AFPM Kelvin Zhang <zhangxp1998@gmail.com=
-> wrote:
+On Sat Aug 29, 2026 at 10:22 AM JST, John Hubbard wrote:
+> GIN, the GPU Interrupt and Notification unit, is the GPU's interrupt
+> controller. Each PCIe function has its own tree, whose leaf count
+> depends on the GPU family.
 >
-> Byte-to-block and block-to-byte conversion helpers previously relied on
-> global PAGE_SIZE, PAGE_SHIFT, or F2FS_BLKSIZE_BITS.
+> Message-signaled delivery stops after each edge until the CPU rearms it,
+> and the rearm write differs by family and interrupt type:
 >
-> Parameterize F2FS_BYTES_TO_BLK, F2FS_BLK_TO_BYTES, F2FS_BLK_END_BYTES,
-> F2FS_BLK_ALIGN, and max_file_blocks with struct f2fs_sb_info *sbi using
-> sbi->log_blocksize.
+>     * Pre-Hopper MSI writes an EOI through the BAR0 PCI configuration
+>     space mirror.
 >
-> Update all call sites across data mapping, file operations, fiemap querie=
-s,
-> fsverity checks, NAT bitmap allocations, and truncate paths.
+>     * MSI for Hopper and later cycles the TOP enable bits of every
+>     serviced subtree.
 >
-> Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
-> ---
->  fs/f2fs/checkpoint.c    |  2 +-
->  fs/f2fs/data.c          | 58 +++++++++++++++++++++++------------------
->  fs/f2fs/debug.c         |  2 +-
->  fs/f2fs/f2fs.h          |  7 ++---
->  fs/f2fs/file.c          | 54 +++++++++++++++++++++-----------------
->  fs/f2fs/node.c          |  7 ++---
->  fs/f2fs/recovery.c      |  4 +--
->  fs/f2fs/segment.c       |  9 ++++---
->  fs/f2fs/super.c         |  9 ++++---
->  fs/f2fs/verity.c        |  6 +++--
->  include/linux/f2fs_fs.h | 12 ++++++---
->  11 files changed, 96 insertions(+), 74 deletions(-)
->
-> diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-> index 37a72b693545..d0dcc918422e 100644
-> --- a/fs/f2fs/checkpoint.c
-> +++ b/fs/f2fs/checkpoint.c
-> @@ -1866,7 +1866,7 @@ static int do_checkpoint(struct f2fs_sb_info *sbi, =
-struct cp_control *cpc)
->                 blk =3D start_blk + BLKS_PER_SEG(sbi) - nm_i->nat_bits_bl=
-ocks;
->                 for (i =3D 0; i < nm_i->nat_bits_blocks; i++)
->                         f2fs_update_meta_page(sbi, nm_i->nat_bits +
-> -                                       F2FS_BLK_TO_BYTES(i), blk + i);
-> +                                       F2FS_BLK_TO_BYTES(sbi, i), blk + =
-i);
->         }
->
->         /* write out checkpoint buffer at block 0 */
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index 44e1ae43565e..6ee4440c17dd 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -1977,12 +1977,12 @@ static bool __f2fs_overwrite_io(struct inode *ino=
-de, loff_t pos, size_t len,
->         if (pos + len > i_size_read(inode))
->                 return false;
->
-> -       map.m_lblk =3D F2FS_BYTES_TO_BLK(pos);
-> +       map.m_lblk =3D F2FS_BYTES_TO_BLK(F2FS_I_SB(inode), pos);
->         map.m_next_pgofs =3D NULL;
->         map.m_next_extent =3D NULL;
->         map.m_seg_type =3D NO_CHECK_TYPE;
->         map.m_may_create =3D false;
-> -       last_lblk =3D F2FS_BLK_ALIGN(pos + len);
-> +       last_lblk =3D F2FS_BLK_ALIGN(F2FS_I_SB(inode), pos + len);
->
->         while (map.m_lblk < last_lblk) {
->                 map.m_len =3D last_lblk - map.m_lblk;
-> @@ -2025,7 +2025,7 @@ static int f2fs_xattr_fiemap(struct inode *inode,
->                         return err;
->                 }
->
-> -               phys =3D F2FS_BLK_TO_BYTES(ni.blk_addr);
-> +               phys =3D F2FS_BLK_TO_BYTES(sbi, ni.blk_addr);
->                 offset =3D offsetof(struct f2fs_inode, i_addr) +
->                                         sizeof(__le32) * (DEF_ADDRS_PER_I=
-NODE_SBI(sbi) -
->                                         get_inline_xattr_addrs(inode));
-> @@ -2059,7 +2059,7 @@ static int f2fs_xattr_fiemap(struct inode *inode,
->                         return err;
->                 }
->
-> -               phys =3D F2FS_BLK_TO_BYTES(ni.blk_addr);
-> +               phys =3D F2FS_BLK_TO_BYTES(sbi, ni.blk_addr);
->                 len =3D inode->i_sb->s_blocksize;
->
->                 f2fs_folio_put(folio, true);
-> @@ -2078,6 +2078,7 @@ static int f2fs_xattr_fiemap(struct inode *inode,
->  int f2fs_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
->                 u64 start, u64 len)
->  {
-> +       struct f2fs_sb_info *sbi =3D F2FS_I_SB(inode);
->         struct f2fs_map_blocks map;
->         sector_t start_blk, last_blk, blk_len, max_len;
->         pgoff_t next_pgofs;
-> @@ -2101,7 +2102,7 @@ int f2fs_fiemap(struct inode *inode, struct fiemap_=
-extent_info *fieinfo,
->
->         inode_lock_shared(inode);
->
-> -       maxbytes =3D F2FS_BLK_TO_BYTES(max_file_blocks(inode));
-> +       maxbytes =3D F2FS_BLK_TO_BYTES(sbi, max_file_blocks(sbi, inode));
->         if (start > maxbytes) {
->                 ret =3D -EFBIG;
->                 goto out;
-> @@ -2121,10 +2122,10 @@ int f2fs_fiemap(struct inode *inode, struct fiema=
-p_extent_info *fieinfo,
->                         goto out;
->         }
->
-> -       start_blk =3D F2FS_BYTES_TO_BLK(start);
-> -       last_blk =3D F2FS_BYTES_TO_BLK(start + len - 1);
-> +       start_blk =3D F2FS_BYTES_TO_BLK(sbi, start);
-> +       last_blk =3D F2FS_BYTES_TO_BLK(sbi, start + len - 1);
->         blk_len =3D last_blk - start_blk + 1;
-> -       max_len =3D F2FS_BYTES_TO_BLK(maxbytes) - start_blk;
-> +       max_len =3D F2FS_BYTES_TO_BLK(sbi, maxbytes) - start_blk;
->
->  next:
->         memset(&map, 0, sizeof(map));
-> @@ -2146,7 +2147,7 @@ int f2fs_fiemap(struct inode *inode, struct fiemap_=
-extent_info *fieinfo,
->         if (!compr_cluster && !(map.m_flags & F2FS_MAP_FLAGS)) {
->                 start_blk =3D next_pgofs;
->
-> -               if (F2FS_BLK_TO_BYTES(start_blk) < maxbytes)
-> +               if (F2FS_BLK_TO_BYTES(sbi, start_blk) < maxbytes)
->                         goto prep_next;
->
->                 flags |=3D FIEMAP_EXTENT_LAST;
-> @@ -2194,14 +2195,14 @@ int f2fs_fiemap(struct inode *inode, struct fiema=
-p_extent_info *fieinfo,
->         } else if (compr_appended) {
->                 unsigned int appended_blks =3D cluster_size -
->                                                 count_in_cluster + 1;
-> -               size +=3D F2FS_BLK_TO_BYTES(appended_blks);
-> +               size +=3D F2FS_BLK_TO_BYTES(sbi, appended_blks);
->                 start_blk +=3D appended_blks;
->                 compr_cluster =3D false;
->         } else {
-> -               logical =3D F2FS_BLK_TO_BYTES(start_blk);
-> +               logical =3D F2FS_BLK_TO_BYTES(sbi, start_blk);
->                 phys =3D __is_valid_data_blkaddr(map.m_pblk) ?
-> -                       F2FS_BLK_TO_BYTES(map.m_pblk) : 0;
-> -               size =3D F2FS_BLK_TO_BYTES(map.m_len);
-> +                       F2FS_BLK_TO_BYTES(sbi, map.m_pblk) : 0;
-> +               size =3D F2FS_BLK_TO_BYTES(sbi, map.m_len);
->                 flags =3D 0;
->
->                 if (compr_cluster) {
-> @@ -2215,7 +2216,7 @@ int f2fs_fiemap(struct inode *inode, struct fiemap_=
-extent_info *fieinfo,
->                         flags =3D FIEMAP_EXTENT_UNWRITTEN;
->                 }
->
-> -               start_blk +=3D F2FS_BYTES_TO_BLK(size);
-> +               start_blk +=3D F2FS_BYTES_TO_BLK(sbi, size);
->         }
->
->  prep_next:
-> @@ -2235,7 +2236,8 @@ int f2fs_fiemap(struct inode *inode, struct fiemap_=
-extent_info *fieinfo,
->  static inline loff_t f2fs_readpage_limit(struct inode *inode)
->  {
->         if (IS_ENABLED(CONFIG_FS_VERITY) && IS_VERITY(inode))
-> -               return F2FS_BLK_TO_BYTES(max_file_blocks(inode));
-> +               return F2FS_BLK_TO_BYTES(F2FS_I_SB(inode),
-> +                               max_file_blocks(F2FS_I_SB(inode), inode))=
-;
->
->         return i_size_read(inode);
->  }
-> @@ -2263,7 +2265,8 @@ static int f2fs_read_single_page(struct inode *inod=
-e, struct fsverity_info *vi,
->
->         block_in_file =3D (sector_t)index;
->         last_block =3D block_in_file + nr_pages;
-> -       last_block_in_file =3D F2FS_BYTES_TO_BLK(f2fs_readpage_limit(inod=
-e) +
-> +       last_block_in_file =3D F2FS_BYTES_TO_BLK(F2FS_I_SB(inode),
-> +                               f2fs_readpage_limit(inode) +
->                                                         blocksize - 1);
->         if (last_block > last_block_in_file)
->                 last_block =3D last_block_in_file;
-> @@ -2374,7 +2377,8 @@ int f2fs_read_multi_pages(struct compress_ctx *cc, =
-struct bio **bio_ret,
->
->         f2fs_bug_on(sbi, f2fs_cluster_is_empty(cc));
->
-> -       last_block_in_file =3D F2FS_BYTES_TO_BLK(f2fs_readpage_limit(inod=
-e) +
-> +       last_block_in_file =3D F2FS_BYTES_TO_BLK(sbi,
-> +                               f2fs_readpage_limit(inode) +
->                                                         blocksize - 1);
->
->         /* get rid of pages beyond EOF */
-> @@ -4236,7 +4240,7 @@ static sector_t f2fs_bmap(struct address_space *map=
-ping, sector_t block)
->                 filemap_write_and_wait(mapping);
->
->         /* Block number less than F2FS MAX BLOCKS */
-> -       if (unlikely(block >=3D max_file_blocks(inode)))
-> +       if (unlikely(block >=3D max_file_blocks(F2FS_I_SB(inode), inode))=
-)
->                 goto out;
->
->         if (f2fs_compressed_file(inode)) {
-> @@ -4352,7 +4356,7 @@ static int check_swap_activate(struct swap_info_str=
-uct *sis,
->          * to be very smart.
->          */
->         cur_lblock =3D 0;
-> -       last_lblock =3D F2FS_BYTES_TO_BLK(i_size_read(inode));
-> +       last_lblock =3D F2FS_BYTES_TO_BLK(sbi, i_size_read(inode));
->
->         while (cur_lblock < last_lblock && cur_lblock < sis->max) {
->                 struct f2fs_map_blocks map;
-> @@ -4607,12 +4611,14 @@ static int f2fs_iomap_begin(struct inode *inode, =
-loff_t offset, loff_t length,
->                             unsigned int flags, struct iomap *iomap,
->                             struct iomap *srcmap)
->  {
-> +       struct f2fs_sb_info *sbi =3D F2FS_I_SB(inode);
->         struct f2fs_map_blocks map =3D { NULL, };
->         pgoff_t next_pgofs =3D 0;
->         int err;
->
-> -       map.m_lblk =3D F2FS_BYTES_TO_BLK(offset);
-> -       map.m_len =3D F2FS_BYTES_TO_BLK(offset + length - 1) - map.m_lblk=
- + 1;
-> +       map.m_lblk =3D F2FS_BYTES_TO_BLK(sbi, offset);
-> +       map.m_len =3D F2FS_BYTES_TO_BLK(sbi, offset + length - 1) -
-> +                                                       map.m_lblk + 1;
->         map.m_next_pgofs =3D &next_pgofs;
->         map.m_seg_type =3D f2fs_rw_hint_to_seg_type(F2FS_I_SB(inode),
->                                                 inode->i_write_hint);
-> @@ -4633,7 +4639,7 @@ static int f2fs_iomap_begin(struct inode *inode, lo=
-ff_t offset, loff_t length,
->         if (err)
->                 return err;
->
-> -       iomap->offset =3D F2FS_BLK_TO_BYTES(map.m_lblk);
-> +       iomap->offset =3D F2FS_BLK_TO_BYTES(sbi, map.m_lblk);
->
->         /*
->          * When inline encryption is enabled, sometimes I/O to an encrypt=
-ed file
-> @@ -4653,11 +4659,11 @@ static int f2fs_iomap_begin(struct inode *inode, =
-loff_t offset, loff_t length,
->                 if (WARN_ON_ONCE(map.m_pblk =3D=3D NEW_ADDR))
->                         return -EINVAL;
->
-> -               iomap->length =3D F2FS_BLK_TO_BYTES(map.m_len);
-> +               iomap->length =3D F2FS_BLK_TO_BYTES(sbi, map.m_len);
->                 iomap->type =3D IOMAP_MAPPED;
->                 iomap->flags |=3D IOMAP_F_MERGED;
->                 iomap->bdev =3D map.m_bdev;
-> -               iomap->addr =3D F2FS_BLK_TO_BYTES(map.m_pblk);
-> +               iomap->addr =3D F2FS_BLK_TO_BYTES(sbi, map.m_pblk);
->
->                 if (flags & IOMAP_WRITE && map.m_last_pblk)
->                         iomap->private =3D (void *)map.m_last_pblk;
-> @@ -4666,11 +4672,11 @@ static int f2fs_iomap_begin(struct inode *inode, =
-loff_t offset, loff_t length,
->                         return -ENOTBLK;
->
->                 if (map.m_pblk =3D=3D NULL_ADDR) {
-> -                       iomap->length =3D F2FS_BLK_TO_BYTES(next_pgofs) -
-> +                       iomap->length =3D F2FS_BLK_TO_BYTES(sbi, next_pgo=
-fs) -
->                                                         iomap->offset;
->                         iomap->type =3D IOMAP_HOLE;
->                 } else if (map.m_pblk =3D=3D NEW_ADDR) {
-> -                       iomap->length =3D F2FS_BLK_TO_BYTES(map.m_len);
-> +                       iomap->length =3D F2FS_BLK_TO_BYTES(sbi, map.m_le=
-n);
->                         iomap->type =3D IOMAP_UNWRITTEN;
->                 } else {
->                         f2fs_bug_on(F2FS_I_SB(inode), 1);
-> diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
-> index 5980b9d79afb..a6cfceafe2fe 100644
-> --- a/fs/f2fs/debug.c
-> +++ b/fs/f2fs/debug.c
-> @@ -343,7 +343,7 @@ static void update_mem_info(struct f2fs_sb_info *sbi)
->         /* build nm */
->         si->base_mem +=3D sizeof(struct f2fs_nm_info);
->         si->base_mem +=3D __bitmap_size(sbi, NAT_BITMAP);
-> -       si->base_mem +=3D F2FS_BLK_TO_BYTES(NM_I(sbi)->nat_bits_blocks);
-> +       si->base_mem +=3D F2FS_BLK_TO_BYTES(sbi, NM_I(sbi)->nat_bits_bloc=
-ks);
->         si->base_mem +=3D NM_I(sbi)->nat_blocks *
->                                 f2fs_bitmap_size(NAT_ENTRY_PER_BLOCK(sbi)=
-);
->         si->base_mem +=3D NM_I(sbi)->nat_blocks / 8;
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index b90c5a42703f..c625a2572841 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -4016,7 +4016,7 @@ void f2fs_inode_synced(struct inode *inode);
->  int f2fs_dquot_initialize(struct inode *inode);
->  int f2fs_enable_quota_files(struct f2fs_sb_info *sbi, bool rdonly);
->  int f2fs_do_quota_sync(struct super_block *sb, int type);
-> -loff_t max_file_blocks(struct inode *inode);
-> +loff_t max_file_blocks(struct f2fs_sb_info *sbi, struct inode *inode);
->  void f2fs_quota_off_umount(struct super_block *sb);
->  void f2fs_save_errors(struct f2fs_sb_info *sbi, unsigned char flag);
->  void f2fs_handle_error(struct f2fs_sb_info *sbi, unsigned char error);
-> @@ -5263,8 +5263,9 @@ static inline void f2fs_truncate_meta_inode_pages(s=
-truct f2fs_sb_info *sbi,
->                                                         NULL, 0, DATA);
->
->         truncate_inode_pages_range(META_MAPPING(sbi),
-> -                       F2FS_BLK_TO_BYTES((loff_t)blkaddr),
-> -                       F2FS_BLK_END_BYTES((loff_t)(blkaddr + cnt - 1)));
-> +                       F2FS_BLK_TO_BYTES(sbi, (loff_t)blkaddr),
-> +                       F2FS_BLK_END_BYTES(sbi,
-> +                                           (loff_t)(blkaddr + cnt - 1)))=
-;
->  }
->
->  static inline void f2fs_invalidate_internal_cache(struct f2fs_sb_info *s=
-bi,
-> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-> index 2c72e028cec2..6fafb32bc5f2 100644
-> --- a/fs/f2fs/file.c
-> +++ b/fs/f2fs/file.c
-> @@ -513,7 +513,8 @@ static bool __found_offset(struct address_space *mapp=
-ing,
->  static loff_t f2fs_seek_block(struct file *file, loff_t offset, int when=
-ce)
->  {
->         struct inode *inode =3D file->f_mapping->host;
-> -       loff_t maxbytes =3D F2FS_BLK_TO_BYTES(max_file_blocks(inode));
-> +       loff_t maxbytes =3D F2FS_BLK_TO_BYTES(F2FS_I_SB(inode),
-> +                       max_file_blocks(F2FS_I_SB(inode), inode));
->         struct dnode_of_data dn;
->         pgoff_t pgofs, end_offset;
->         loff_t data_ofs =3D offset;
-> @@ -537,9 +538,10 @@ static loff_t f2fs_seek_block(struct file *file, lof=
-f_t offset, int whence)
->                 }
->         }
->
-> -       pgofs =3D (pgoff_t)(offset >> PAGE_SHIFT);
-> +       pgofs =3D F2FS_BYTES_TO_BLK(F2FS_I_SB(inode), offset);
->
-> -       for (; data_ofs < isize; data_ofs =3D (loff_t)pgofs << PAGE_SHIFT=
-) {
-> +       for (; data_ofs < isize;
-> +                       data_ofs =3D F2FS_BLK_TO_BYTES(F2FS_I_SB(inode), =
-pgofs)) {
->                 set_new_dnode(&dn, inode, NULL, NULL, 0);
->                 err =3D f2fs_get_dnode_of_data(&dn, pgofs, LOOKUP_NODE);
->                 if (err && err !=3D -ENOENT) {
-> @@ -559,7 +561,7 @@ static loff_t f2fs_seek_block(struct file *file, loff=
-_t offset, int whence)
->                 /* find data/hole in dnode block */
->                 for (; dn.ofs_in_node < end_offset;
->                                 dn.ofs_in_node++, pgofs++,
-> -                               data_ofs =3D (loff_t)pgofs << PAGE_SHIFT)=
- {
-> +                               data_ofs =3D F2FS_BLK_TO_BYTES(F2FS_I_SB(=
-inode), pgofs)) {
->                         block_t blkaddr;
->
->                         blkaddr =3D f2fs_data_blkaddr(&dn);
-> @@ -595,7 +597,8 @@ static loff_t f2fs_seek_block(struct file *file, loff=
-_t offset, int whence)
->  static loff_t f2fs_llseek(struct file *file, loff_t offset, int whence)
->  {
->         struct inode *inode =3D file->f_mapping->host;
-> -       loff_t maxbytes =3D F2FS_BLK_TO_BYTES(max_file_blocks(inode));
-> +       loff_t maxbytes =3D F2FS_BLK_TO_BYTES(F2FS_I_SB(inode),
-> +                       max_file_blocks(F2FS_I_SB(inode), inode));
->
->         switch (whence) {
->         case SEEK_SET:
-> @@ -846,9 +849,9 @@ int f2fs_do_truncate_blocks(struct inode *inode, u64 =
-from, bool lock)
->                 goto out_err;
->         }
->
-> -       free_from =3D (pgoff_t)F2FS_BLK_ALIGN(from);
-> +       free_from =3D (pgoff_t)F2FS_BLK_ALIGN(sbi, from);
->
-> -       if (free_from >=3D max_file_blocks(inode))
-> +       if (free_from >=3D max_file_blocks(sbi, inode))
->                 goto free_partial;
->
->         if (lock)
-> @@ -959,9 +962,10 @@ int f2fs_truncate_blocks(struct inode *inode, u64 fr=
-om, bool lock)
->
->  int f2fs_truncate(struct inode *inode)
->  {
-> +       struct f2fs_sb_info *sbi =3D F2FS_I_SB(inode);
->         int err;
->
-> -       if (unlikely(f2fs_cp_error(F2FS_I_SB(inode))))
-> +       if (unlikely(f2fs_cp_error(sbi)))
->                 return -EIO;
->
->         if (!(S_ISREG(inode->i_mode) || S_ISDIR(inode->i_mode) ||
-> @@ -970,7 +974,7 @@ int f2fs_truncate(struct inode *inode)
->
->         trace_f2fs_truncate(inode);
->
-> -       if (time_to_inject(F2FS_I_SB(inode), FAULT_TRUNCATE))
-> +       if (time_to_inject(sbi, FAULT_TRUNCATE))
->                 return -EIO;
->
->         err =3D f2fs_dquot_initialize(inode);
-> @@ -986,8 +990,8 @@ int f2fs_truncate(struct inode *inode)
->                          * leak in evict() path.
->                          */
->                         truncate_inode_pages_range(inode->i_mapping,
-> -                                       F2FS_BLK_TO_BYTES(0),
-> -                                       F2FS_BLK_END_BYTES(0));
-> +                                       F2FS_BLK_TO_BYTES(sbi, 0),
-> +                                       F2FS_BLK_END_BYTES(sbi, 0));
->                         return err;
->                 }
->         }
-> @@ -1161,7 +1165,7 @@ int f2fs_setattr(struct mnt_idmap *idmap, struct de=
-ntry *dentry,
->                         return -EOPNOTSUPP;
->                 if (is_inode_flag_set(inode, FI_COMPRESS_RELEASED) &&
->                         !IS_ALIGNED(attr->ia_size,
-> -                       F2FS_BLK_TO_BYTES(fi->i_cluster_size)))
-> +                       F2FS_BLK_TO_BYTES(sbi, fi->i_cluster_size)))
->                         return -EINVAL;
->
->                 if (f2fs_is_pinned_file(inode)) {
-> @@ -1177,7 +1181,7 @@ int f2fs_setattr(struct mnt_idmap *idmap, struct de=
-ntry *dentry,
->                          * pinned file.
->                          */
->                         else if (!IS_ALIGNED(attr->ia_size,
-> -                               F2FS_BLK_TO_BYTES(CAP_BLKS_PER_SEC(sbi)))=
-)
-> +                               F2FS_BLK_TO_BYTES(sbi, CAP_BLKS_PER_SEC(s=
-bi))))
->                                 return -EINVAL;
->                 }
->         }
-> @@ -2648,7 +2652,8 @@ static int f2fs_keep_noreuse_range(struct inode *in=
-ode,
->                                 loff_t offset, loff_t len)
->  {
->         struct f2fs_sb_info *sbi =3D F2FS_I_SB(inode);
-> -       u64 max_bytes =3D F2FS_BLK_TO_BYTES(max_file_blocks(inode));
-> +       u64 max_bytes =3D F2FS_BLK_TO_BYTES(sbi,
-> +                                       max_file_blocks(sbi, inode));
->         u64 start, end;
->         int ret =3D 0;
->
-> @@ -3191,8 +3196,8 @@ static int f2fs_ioc_defragment(struct file *filp, u=
-nsigned long arg)
->         if (range.start & (F2FS_BLKSIZE - 1) || range.len & (F2FS_BLKSIZE=
- - 1))
->                 return -EINVAL;
->
-> -       if (unlikely((range.start + range.len) >> PAGE_SHIFT >
-> -                                       max_file_blocks(inode)))
-> +       if (unlikely(F2FS_BYTES_TO_BLK(sbi, range.start + range.len) >
-> +                                       max_file_blocks(sbi, inode)))
->                 return -EINVAL;
->
->         err =3D mnt_want_write_file(filp);
-> @@ -3326,9 +3331,9 @@ static int f2fs_move_file_range(struct file *file_i=
-n, loff_t pos_in,
->         }
->
->         f2fs_lock_op(sbi, &lc);
-> -       ret =3D __exchange_data_block(src, dst, F2FS_BYTES_TO_BLK(pos_in)=
-,
-> -                               F2FS_BYTES_TO_BLK(pos_out),
-> -                               F2FS_BYTES_TO_BLK(len), false);
-> +       ret =3D __exchange_data_block(src, dst, F2FS_BYTES_TO_BLK(sbi, po=
-s_in),
-> +                               F2FS_BYTES_TO_BLK(sbi, pos_out),
-> +                               F2FS_BYTES_TO_BLK(sbi, len), false);
->
->         if (!ret) {
->                 if (dst_max_i_size)
-> @@ -3994,7 +3999,7 @@ int f2fs_precache_extents(struct inode *inode)
->         map.m_next_extent =3D &m_next_extent;
->         map.m_seg_type =3D NO_CHECK_TYPE;
->         map.m_may_create =3D false;
-> -       end =3D F2FS_BLK_ALIGN(i_size_read(inode));
-> +       end =3D F2FS_BLK_ALIGN(F2FS_I_SB(inode), i_size_read(inode));
->
->         while (map.m_lblk < end) {
->                 map.m_len =3D end - map.m_lblk;
-> @@ -4594,7 +4599,7 @@ static int f2fs_sec_trim_file(struct file *filp, un=
-signed long arg)
->                 goto err;
->         }
->
-> -       index =3D F2FS_BYTES_TO_BLK(range.start);
-> +       index =3D F2FS_BYTES_TO_BLK(sbi, range.start);
->         pg_end =3D DIV_ROUND_UP(end_addr, F2FS_BLKSIZE);
->
->         ret =3D f2fs_convert_inline_inode(inode);
-> @@ -5385,7 +5390,8 @@ static int f2fs_preallocate_blocks(struct kiocb *io=
-cb, struct iov_iter *iter,
->          * buffered IO, if DIO meets any holes.
->          */
->         if (dio && i_size_read(inode) &&
-> -               (F2FS_BYTES_TO_BLK(pos) < F2FS_BLK_ALIGN(i_size_read(inod=
-e))))
-> +               (F2FS_BYTES_TO_BLK(sbi, pos) <
-> +                F2FS_BLK_ALIGN(sbi, i_size_read(inode))))
->                 return 0;
->
->         /* No-wait I/O can't allocate blocks. */
-> @@ -5406,8 +5412,8 @@ static int f2fs_preallocate_blocks(struct kiocb *io=
-cb, struct iov_iter *iter,
->         }
->
->         /* Do not preallocate blocks that will be written partially in 4K=
-B. */
-> -       map.m_lblk =3D F2FS_BLK_ALIGN(pos);
-> -       map.m_len =3D F2FS_BYTES_TO_BLK(pos + count);
-> +       map.m_lblk =3D F2FS_BLK_ALIGN(sbi, pos);
-> +       map.m_len =3D F2FS_BYTES_TO_BLK(sbi, pos + count);
->         if (map.m_len > map.m_lblk)
->                 map.m_len -=3D map.m_lblk;
->         else
-> diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-> index 7dabfada1b54..e7aa3b790214 100644
-> --- a/fs/f2fs/node.c
-> +++ b/fs/f2fs/node.c
-> @@ -3294,9 +3294,10 @@ static int __get_nat_bitmaps(struct f2fs_sb_info *=
-sbi)
->         if (!enabled_nat_bits(sbi, NULL))
->                 return 0;
->
-> -       nm_i->nat_bits_blocks =3D F2FS_BLK_ALIGN((nat_bits_bytes << 1) + =
-8);
-> +       nm_i->nat_bits_blocks =3D F2FS_BLK_ALIGN(sbi,
-> +                                              (nat_bits_bytes << 1) + 8)=
-;
->         nm_i->nat_bits =3D f2fs_kvzalloc(sbi,
-> -                       F2FS_BLK_TO_BYTES(nm_i->nat_bits_blocks), GFP_KER=
-NEL);
-> +                       F2FS_BLK_TO_BYTES(sbi, nm_i->nat_bits_blocks), GF=
-P_KERNEL);
->         if (!nm_i->nat_bits)
->                 return -ENOMEM;
->
-> @@ -3309,7 +3310,7 @@ static int __get_nat_bitmaps(struct f2fs_sb_info *s=
-bi)
->                 if (IS_ERR(folio))
->                         return PTR_ERR(folio);
->
-> -               memcpy(nm_i->nat_bits + F2FS_BLK_TO_BYTES(i),
-> +               memcpy(nm_i->nat_bits + F2FS_BLK_TO_BYTES(sbi, i),
->                                         folio_address(folio), F2FS_BLKSIZ=
-E);
->                 f2fs_folio_put(folio, true);
->         }
-> diff --git a/fs/f2fs/recovery.c b/fs/f2fs/recovery.c
-> index aaa5227739c8..b52718741ddc 100644
-> --- a/fs/f2fs/recovery.c
-> +++ b/fs/f2fs/recovery.c
-> @@ -734,9 +734,9 @@ static int do_recover_data(struct f2fs_sb_info *sbi, =
-struct inode *inode,
->                 }
->
->                 if (!file_keep_isize(inode) &&
-> -                       (i_size_read(inode) <=3D ((loff_t)index << PAGE_S=
-HIFT)))
-> +                       (i_size_read(inode) <=3D F2FS_BLK_TO_BYTES(sbi, i=
-ndex)))
->                         f2fs_i_size_write(inode,
-> -                               (loff_t)(index + 1) << PAGE_SHIFT);
-> +                               F2FS_BLK_TO_BYTES(sbi, index + 1));
->
->                 /*
->                  * dest is reserved block, invalidate src block
-> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-> index f565b6873832..f58b26c84b3a 100644
-> --- a/fs/f2fs/segment.c
-> +++ b/fs/f2fs/segment.c
-> @@ -3592,8 +3592,8 @@ static unsigned int __issue_discard_cmd_range(struc=
-t f2fs_sb_info *sbi,
->
->  int f2fs_trim_fs(struct f2fs_sb_info *sbi, struct fstrim_range *range)
->  {
-> -       __u64 start =3D F2FS_BYTES_TO_BLK(range->start);
-> -       __u64 end =3D start + F2FS_BYTES_TO_BLK(range->len) - 1;
-> +       __u64 start =3D F2FS_BYTES_TO_BLK(sbi, range->start);
-> +       __u64 end =3D start + F2FS_BYTES_TO_BLK(sbi, range->len) - 1;
->         unsigned int start_segno, end_segno;
->         block_t start_block, end_block;
->         struct cp_control cpc;
-> @@ -3624,7 +3624,8 @@ int f2fs_trim_fs(struct f2fs_sb_info *sbi, struct f=
-strim_range *range)
->         }
->
->         cpc.reason =3D CP_DISCARD;
-> -       cpc.trim_minlen =3D max_t(__u64, 1, F2FS_BYTES_TO_BLK(range->minl=
-en));
-> +       cpc.trim_minlen =3D max_t(__u64, 1,
-> +                               F2FS_BYTES_TO_BLK(sbi, range->minlen));
->         cpc.trim_start =3D start_segno;
->         cpc.trim_end =3D end_segno;
->
-> @@ -3658,7 +3659,7 @@ int f2fs_trim_fs(struct f2fs_sb_info *sbi, struct f=
-strim_range *range)
->                                         start_block, end_block);
->  out:
->         if (!err)
-> -               range->len =3D F2FS_BLK_TO_BYTES(trimmed);
-> +               range->len =3D F2FS_BLK_TO_BYTES(sbi, trimmed);
->         return err;
->  }
->
-> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-> index 46973207cd7b..b962c14cbcc1 100644
-> --- a/fs/f2fs/super.c
-> +++ b/fs/f2fs/super.c
-> @@ -3884,7 +3884,7 @@ static const struct export_operations f2fs_export_o=
-ps =3D {
->         .get_parent =3D f2fs_get_parent,
->  };
->
-> -loff_t max_file_blocks(struct inode *inode)
-> +loff_t max_file_blocks(struct f2fs_sb_info *sbi, struct inode *inode)
->  {
->         loff_t result =3D 0;
->         loff_t leaf_count;
-> @@ -3918,7 +3918,8 @@ loff_t max_file_blocks(struct inode *inode)
->          * fit within U32_MAX + 1 data units.
->          */
->
-> -       result =3D umin(result, F2FS_BYTES_TO_BLK(((loff_t)U32_MAX + 1) *=
- 4096));
-> +       result =3D umin(result, F2FS_BYTES_TO_BLK(sbi,
-> +                                               ((loff_t)U32_MAX + 1) * 4=
-096));
->
->         return result;
->  }
-> @@ -4370,7 +4371,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi=
-)
->
->         nat_blocks =3D nat_segs << log_blocks_per_seg;
->         nat_bits_bytes =3D nat_blocks / BITS_PER_BYTE;
-> -       nat_bits_blocks =3D F2FS_BLK_ALIGN((nat_bits_bytes << 1) + 8);
-> +       nat_bits_blocks =3D F2FS_BLK_ALIGN(sbi, (nat_bits_bytes << 1) + 8=
-);
->         if (__is_set_ckpt_flags(ckpt, CP_NAT_BITS_FLAG) &&
->                 (cp_payload + F2FS_CP_PACKS +
->                 NR_CURSEG_PERSIST_TYPE + nat_bits_blocks >=3D blocks_per_=
-seg)) {
-> @@ -5193,7 +5194,7 @@ static int f2fs_fill_super(struct super_block *sb, =
-struct fs_context *fc)
->         if (err)
->                 goto free_options;
->
-> -       sb->s_maxbytes =3D max_file_blocks(NULL) <<
-> +       sb->s_maxbytes =3D max_file_blocks(sbi, NULL) <<
->                                 le32_to_cpu(raw_super->log_blocksize);
->         sb->s_max_links =3D F2FS_LINK_MAX;
->
-> diff --git a/fs/f2fs/verity.c b/fs/f2fs/verity.c
-> index 39f482515445..ee838f880c4a 100644
-> --- a/fs/f2fs/verity.c
-> +++ b/fs/f2fs/verity.c
-> @@ -75,7 +75,8 @@ static int pagecache_write(struct inode *inode, const v=
-oid *buf, size_t count,
->         struct address_space *mapping =3D inode->i_mapping;
->         const struct address_space_operations *aops =3D mapping->a_ops;
->
-> -       if (pos + count > F2FS_BLK_TO_BYTES(max_file_blocks(inode)))
-> +       if (pos + count > F2FS_BLK_TO_BYTES(F2FS_I_SB(inode),
-> +                       max_file_blocks(F2FS_I_SB(inode), inode)))
->                 return -EFBIG;
->
->         while (count) {
-> @@ -239,7 +240,8 @@ static int f2fs_get_verity_descriptor(struct inode *i=
-node, void *buf,
->
->         /* Get the descriptor */
->         if (pos + size < pos ||
-> -           pos + size > F2FS_BLK_TO_BYTES(max_file_blocks(inode)) ||
-> +           pos + size > F2FS_BLK_TO_BYTES(F2FS_I_SB(inode),
-> +                       max_file_blocks(F2FS_I_SB(inode), inode)) ||
->             pos < f2fs_verity_metadata_pos(inode) || size > INT_MAX) {
->                 f2fs_warn(F2FS_I_SB(inode), "invalid verity xattr");
->                 f2fs_handle_error(F2FS_I_SB(inode),
-> diff --git a/include/linux/f2fs_fs.h b/include/linux/f2fs_fs.h
-> index f89609356be8..f622d26f37a7 100644
-> --- a/include/linux/f2fs_fs.h
-> +++ b/include/linux/f2fs_fs.h
-> @@ -28,10 +28,14 @@
->  #define COMPRESS_ADDR          ((block_t)-2)   /* used as compressed dat=
-a flag */
->
->  #define F2FS_BLKSIZE_MASK              (F2FS_BLKSIZE - 1)
-> -#define F2FS_BYTES_TO_BLK(bytes)       ((unsigned long long)(bytes) >> F=
-2FS_BLKSIZE_BITS)
-> -#define F2FS_BLK_TO_BYTES(blk)         ((unsigned long long)(blk) << F2F=
-S_BLKSIZE_BITS)
-> -#define F2FS_BLK_END_BYTES(blk)                (F2FS_BLK_TO_BYTES(blk + =
-1) - 1)
-> -#define F2FS_BLK_ALIGN(x)              (F2FS_BYTES_TO_BLK((x) + F2FS_BLK=
-SIZE - 1))
-> +#define F2FS_BYTES_TO_BLK(sbi, bytes)                                  \
-> +       ((unsigned long long)(bytes) >> (sbi)->log_blocksize)
-> +#define F2FS_BLK_TO_BYTES(sbi, blk)                                    \
-> +       ((unsigned long long)(blk) << (sbi)->log_blocksize)
-> +#define F2FS_BLK_END_BYTES(sbi, blk)                                   \
-> +       (F2FS_BLK_TO_BYTES(sbi, (blk) + 1) - 1)
-> +#define F2FS_BLK_ALIGN(sbi, x)                                         \
-> +       DIV_ROUND_UP_ULL((x), (sbi)->blocksize)
+>     * MSI-X on any family cycles the bits of the handler's own subtree.
 
-DIV_ROUND_UP_ULL() expands internally to do_div().
+The indentation of this bullet list is a bit unconventional for a kernel
+git log (`*` typically starts at column 1).
 
-Please restore the original bit-shifting style using F2FS_BYTES_TO_BLK:
-    #define F2FS_BLK_ALIGN(sbi, bytes) \
-        F2FS_BYTES_TO_BLK(sbi, (unsigned long long)(bytes) +
-F2FS_BLKSIZE(sbi) - 1)
+<...>
+> +impl PciIrqRearmMethod {
+> +    /// Performs this method's register write.
+> +    ///
+> +    /// `serviced` holds every subtree the driver services, and `subtree=
+` is the one subtree the
+> +    /// calling handler serves. Each method uses whichever of the two it=
+s interrupt type delivers
+> +    /// on, so both are required.
+> +    pub(super) fn rearm(self, bar: Bar0<'_>, serviced: SubtreeSet, subtr=
+ee: Subtree) {
+> +        let subtrees =3D match self {
+> +            // The written value is ignored, so any write rearms deliver=
+y.
+> +            Self::ConfigMirrorEoi =3D> {
+> +                bar.write(regs::NV_XVE_CYA_2, 0u32.into());
+> +                return;
+> +            }
+> +            Self::TopEnableCycleServiced =3D> serviced,
+> +            Self::TopEnableCycleSubtree =3D> SubtreeSet::from(subtree),
+> +        };
+> +
+> +        bar.write(
+> +            regs::NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_CLEAR,
+> +            subtrees.into_raw().into(),
+> +        );
+> +        bar.write(
+> +            regs::NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_SET,
+> +            subtrees.into_raw().into(),
+> +        );
 
-This avoids unnecessary 64-bit division overhead on hot I/O and block
-calculation paths.
+With the typed register fields in patch 3, these can become:
 
-Thanks,
+    bar.write_reg(
+        regs::NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_CLEAR::zeroed().with=
+_subtrees(subtrees),
+    );
+    bar.write_reg(
+        regs::NV_VIRTUAL_FUNCTION_PRIV_CPU_INTR_TOP_EN_SET::zeroed().with_s=
+ubtrees(subtrees),
+    );
 
->
->  /* 0, 1(node nid), 2(meta nid) are reserved node id */
->  #define F2FS_RESERVED_NODE_NUM         3
-> --
-> 2.53.0
->
->
->
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+> +    }
+> +}
+> +
+> +/// Per-architecture properties of the GIN CPU interrupt tree.
+> +///
+> +/// The tree size and the method that rearms PCI interrupt delivery diff=
+er by family. The tree
+> +/// walk, the vector encoding, and the read-and-clear sequence do not, a=
+nd are in generic code.
+
+The last sentence sounds a bit self-evident and unneeded.
+
+> +///
+> +/// See `Documentation/gpu/nova/core/interrupts.rst`.
+> +pub(super) trait CpuInterruptHal {
+> +    /// Returns the number of leaves the CPU tree implements.
+> +    ///
+> +    /// [`LeafCount::subtree_set`] gives the subtrees behind them, and
+> +    /// [`LeafCount::vector_count`] the vectors they carry.
+> +    fn leaf_count(&self) -> LeafCount;
+> +
+> +    /// Returns the method that rearms PCI interrupt delivery for `irq_t=
+ype`.
+> +    ///
+> +    /// `None` means that `irq_type` needs no rearm write. That is the c=
+ase for `INTx`, which is
+> +    /// level-triggered, and which nova-core does not allocate.
+> +    fn pci_irq_rearm_method(&self, irq_type: IrqType) -> Option<PciIrqRe=
+armMethod>;
+> +}
+> +
+> +/// Returns the [`CpuInterruptHal`] for `chipset`.
+> +pub(super) fn cpu_interrupt_hal(chipset: Chipset) -> &'static dyn CpuInt=
+erruptHal {
+> +    match chipset.arch() {
+> +        Architecture::Turing | Architecture::Ampere | Architecture::Ada =
+=3D> tu102::TU102_HAL,
+> +        Architecture::Hopper | Architecture::BlackwellGB10x | Architectu=
+re::BlackwellGB20x =3D> {
+> +            gh100::GH100_HAL
+> +        }
+> +    }
+> +}
+> diff --git a/drivers/gpu/nova-core/irq/hal/gh100.rs b/drivers/gpu/nova-co=
+re/irq/hal/gh100.rs
+> new file mode 100644
+> index 000000000000..32b9b4a01adb
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/irq/hal/gh100.rs
+> @@ -0,0 +1,31 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFIL=
+IATES. All rights reserved.
+> +
+> +use kernel::pci::IrqType;
+> +
+> +use super::{
+> +    CpuInterruptHal,
+> +    LeafCount,
+> +    PciIrqRearmMethod, //
+> +};
+> +
+> +/// GIN parameters for Hopper and Blackwell, which implement a 16-leaf C=
+PU tree. Only 12 leaves
+> +/// carry sources.
+> +struct Gh100;
+> +
+> +impl CpuInterruptHal for Gh100 {
+> +    fn leaf_count(&self) -> LeafCount {
+> +        LeafCount::Sixteen
+> +    }
+> +
+> +    fn pci_irq_rearm_method(&self, irq_type: IrqType) -> Option<PciIrqRe=
+armMethod> {
+> +        match irq_type {
+> +            IrqType::Intx =3D> None,
+> +            IrqType::Msi =3D> Some(PciIrqRearmMethod::TopEnableCycleServ=
+iced),
+> +            IrqType::MsiX =3D> Some(PciIrqRearmMethod::TopEnableCycleSub=
+tree),
+> +        }
+> +    }
+
+AFAIU we do not support INTx at all, right? In this case it just
+shouldn't be handled here, and we could simplify this method to just
+return `PciIrqRearmMethod`.
+
+I suspect we are considering INTx because we work with the kernel's
+`IrqType`, which includes it, and must make our match arms exhaustive.
+Let's just use our own IRQ type for Nova:
+
+    pub(crate) enum MsiType {
+        Msi,
+        MsiX,
+    }
+
+Then every instance of `IrqType` in the `irq` module can be replaced by
+this one, and we don't need to care about INTx anymore. This method can
+also just return a `PciIrqRearmMethod`.
+
+You will probably need to include a `MsiType` into `SubtreeVectors` to
+make its `irq_type` method work, but that's still better than having
+code for managing an INTx variant that is dead code since it would have
+failed at probe time anyway.
