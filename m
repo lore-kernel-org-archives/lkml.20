@@ -1,189 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F51E3B7772;
-	Tue,  1 Sep 2026 13:09:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9BD3D9DB9;
+	Tue,  1 Sep 2026 13:09:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268198; cv=none; b=l5U50EINrm+k7snhkyIsQKEpKarJtz3lYHWHjzHJZnEeyYB+HM0/u6+Yvj9aJ3fKvxw78GHX9vB/LXNjv3W3rKCpxxnuRTL6/KYC+chz4phMKHMORteoUfiekrg84TnfbjyNQ9hCh6ioCMxnibtH3LZXkJgXYlcnOMP6edyax1o=
+	t=1788268200; cv=none; b=E2pg0AgoYFMg6aS4ZvfFQWUrVSemMFZLW8LHyNc9vy8rO/U0D45vhvsxJW9cCedX7RNWMP6xqD20zbZklKKgC7bzS6O6prasW9c8Q3GtqdrO1VDGZYCDmPnI5QDHhNN/e9lwP1u4mVzn2twOBCVMxmgkpGqfBTNO727M75PcRKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268198; c=relaxed/simple;
-	bh=X3/9YKE3xBinmEV1GhMgbWWOEofArSRsmpCB4eh3SG0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nNCh2yE92MsKU+CEJcSdTVLWW/A5+WM653ZC7XgsHRJ6UqJ3vRjq0tSRkwztFUizIOiM7xsE6bvg0KKMy5477HAVcpewnwST6sGXtwCSxlNqFg5zj3/45WKLXQkseB1y/2s/U+khtBAB9k6igwASBKMGKEkGqshV8m9ozoeb/6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2LKEPcr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788268200; c=relaxed/simple;
+	bh=kWWO27Pns60GObQqlh2jat7QxMdSKA4vb7oS3HvmB4g=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nRXQkWMCpZNi/ezcmhsvQD1aWYyX+dR+x3WS8Xa1DVuIWXJcuUefwtxqsI/XrZucnkYntf+DZRvpAbe6R3TMCW56EQ5fR8PSQJkQm2onYlYf+AxHzO32D7ge3mfp0r8cd3v0lvuy/HYxv73hgQCl2GAOWpcpOqfcet0sa7qpIpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=e5LWIhsD; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2LKEPcr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C9481F000E9;
-	Tue,  1 Sep 2026 13:09:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788268197;
-	bh=fcZJwXoy1vxhyp3/EHTEhV3TKVx2/a3XYBdOKnUnH00=;
-	h=From:Date:Subject:To:Cc;
-	b=l2LKEPcrRxFxtVBkhim/FhfqcPE7cNryj8kQ7GW4c2No39IrHb73JE52nveGMruPs
-	 4Sg7E7nB7xegDtf3Lgk2PuDrcv8ANDyQXUq91yT6HODZGlCA/UEQlmAjP0NwZ5bKt1
-	 0VPAMUpkuM6M+dUHYytwbyIcd5BFx+6HbuQhgws1Yyko/KJbN/M2azPCOk1JgXg0SH
-	 PaQn+Eo/ant6HfPlaE3xDLmJFedPVqHVFqgCEKud0l4+q/rmJedhN7kXUIg8YH4c9z
-	 gSSX9B5mEDDyNo8wHGYwYDQe7lN2W+KkZPlDRxLN2/ZrORtvHDctIwgeid9hSa/+XA
-	 cL/qZ2JADlvhw==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Tue, 01 Sep 2026 09:09:43 -0400
-Subject: [PATCH] nfsd: accept a backdated timestamp from a delegation
- holder
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="e5LWIhsD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1788268198; x=1819804198;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=kWWO27Pns60GObQqlh2jat7QxMdSKA4vb7oS3HvmB4g=;
+  b=e5LWIhsD9nYCZN8VlQyH6kaD8ny3dn3dGpbHx3WqXJgK7TJtQ/hhwdkE
+   b2nwdsfKDHyr1sVznd5ckr0HD68MeLt1YC4lbvproLCaQQ0q38rKcdK+7
+   XkBsXsrs9PQ0vJTjwb7g0rbXRbRIf/ajPgO5EjYLsGVINXkzMT4+o1/DV
+   qRK6jnfy2T9wlZzBEUIL+KgINdiWrP2DmlWR9YXV2RnlJBzYNfu3hi1FT
+   6GHf+x9yhyN9Jjm/VU3OTBHU+g3jNNvheXKN7VmeEYl91k9hBIpUkQxVp
+   R+o3CPMbHE8VPAYM50dN2khXAZsGIFTxxtWfhNEO7PM4MH4SKFosXakVI
+   g==;
+X-CSE-ConnectionGUID: FwMyWhUIRZOmo6UMPAMrig==
+X-CSE-MsgGUID: pW86tuHgRhCySdwiZ0sZKQ==
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="230109327"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 06:09:57 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Tue, 1 Sep 2026 06:09:56 -0700
+Received: from che-ll-i17164.microchip.com (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 1 Sep 2026 06:09:52 -0700
+From: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+To: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <hkallweit1@gmail.com>,
+	<linux@armlinux.org.uk>
+CC: <netdev@vger.kernel.org>, <UNGLinuxDriver@microchip.com>,
+	<linux-kernel@vger.kernel.org>, Parthiban Veerasooran
+	<parthiban.veerasooran@microchip.com>
+Subject: [PATCH net-next 0/3] net: microchip_t1s: fix collision detection on PLCA status change
+Date: Tue, 1 Sep 2026 18:39:45 +0530
+Message-ID: <20260901130948.212914-1-parthiban.veerasooran@microchip.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-delegts-v1-1-9937f7ee4370@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSwND3ZTUnNT0kmLdVEvDRDMTizRDEyNzJaDqgqLUtMwKsEnRsbW1AGk
- LXr9ZAAAA
-X-Change-ID: 20260901-delegts-e91a648f1427
-To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
- Tom Talpey <tom@talpey.com>
-Cc: Thomas Haynes <loghyr@gmail.com>, linux-nfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5040; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=X3/9YKE3xBinmEV1GhMgbWWOEofArSRsmpCB4eh3SG0=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBqls6fHAJqUA/5PG2cikuzcfp2wcvblXuXbCWgn
- jqoe5l+L1mJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCapbOnwAKCRAADmhBGVaC
- FRsfD/0U0PVqe3WFr9WPr3/pqSi5Kl5X1kimR43J5yBB/vaMJMUw8GN2F80u4zkQP+MAIvEUahc
- 0Rf/rXsshM2OzQH7ZICc+BCrbpOuL+WoGnOyxl32J5wf8p0F2Hb4yWnRdbs6GkZ1NUqeb8F2joF
- +1noiUMqUCW48ddlS7M/uv3GAkrkzHxDaz/hDB4QC3WtLo3tGY68GETTRNrdC+vYhIhIrTl7stb
- k6AZTUZEy+WaU3Nkjx1MSLClkuUVpzLSnN8AyT75QDZss2EzpwDMQc8yqZ7Rd4BPtxvqcJSag5J
- KFeL7Ju1UHtcRJbNRea68cohxNvaDTVE3pT4QyFj0vul5bVhb0oxkKpWxE/QDy4kFivENZtynts
- DIMnhdxfZPHNmF2i3bWvMDqfABoSPM1F21ShtF19UCrx0+zCOQgyZUSMXwqBWcR5DfgRDhma5dQ
- /KxY8efMuYENFYPl6iRBwGDgmJX+vuSulxG3flglQN+QwWwkLkp1Y/eEN/lIbVVaPvdQOzfwH81
- 9esU+S594TLjlS0UkzcG8a7/LUWJjBvxIdTvpTPo3rWCqoz1rR574bgPBwcqlw9ZYO/5uKa+xdK
- U+X7pftEqzUA2h8kW0fkIVVNbzmyoCa01yZwCL/rnzYRCaqSMUiyhtUmwj1dStwJS9UOC6PW7Ni
- WH0TurdRSr2voKA==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-A client with an attribute delegation reports the file times in a
-SETATTR at DELEGRETURN. nfsd ignores a time that moves backwards. It
-then stamps the c/mtime with the current time, so the file keeps the
-DELEGRETURN time. cp -p, rsync -t and tar -x lose timestamps.
+In a 10BASE-T1S multidrop network, when PLCA mode is configured, the PHY
+autonomously transitions between PLCA mode and CSMA/CD mode based on
+BEACON availability, without any further user action. The existing
+collision detection logic only adjusted on explicit ethtool PLCA
+configuration changes, leaving it in the wrong state across these
+autonomous mode transitions.
 
-The client applies an explicit utimensat() to its own inode. It sends no
-SETATTR while it holds the delegation, so the backdated value reaches
-nfsd only as TIME_DELEG_MODIFY. The client can send an RPC for each time
-change instead. That also works, but it loses the caching that the
-delegation allows.
+This series fixes that gap, wires up the complete interrupt path, and
+improves collision detection handling for LAN867X Rev.D0.
 
-The delegation makes the client the authority for these times, so treat
-its SETATTR as a statement of fact. The client can set the same value
-with an ordinary SETATTR, which nfsd applies without a check.
+Patch 1 fixes the collision detection handling in the PHY driver. It adds
+the PLCA Status Changed (PSTC) interrupt handler for LAN86XX PHYs. On
+each PSTC interrupt, the PLCA operational status is checked and collision
+detection is adjusted accordingly: disabled when PLCA is online,
+re-enabled when PLCA goes offline to restore correct CSMA/CD operation.
+The interrupt handler uses a conditional assignment pattern without early
+returns for better extensibility. The existing static CDEN write in
+lan86xx_plca_set_cfg() is retained as a baseline for PHYs running with
+phydev->irq == PHY_POLL on boards where the PHY interrupt is not routed
+to the host. PHYs with routed interrupts (including LAN865X and LAN867X
+with interrupt support) skip the static write since the interrupt handler
+handles CDEN dynamically.
 
-- nfsd accepts a backwards atime or mtime.
-- An mtime that moves backwards sets the ctime to the current time.
-  The ctime never moves backwards.
-- nfsd still clamps a future time.
-- The CB_GETATTR path keeps the old rule. A backwards time there shows
-  a stale report.
+Patch 2 delivers the in-band PHY interrupt to phylib from the 10BASE-T1S
+MAC-PHY SPI driver. The integrated PHY has no dedicated interrupt line;
+its interrupt arrives as the PHYINT bit in the MAC-PHY STATUS0 register.
+A nested virtual IRQ is created and assigned to phydev->irq so phylib
+enters interrupt mode and drives the PHY driver's
+config_intr/handle_interrupt callbacks.
 
-RFC 9754 says that the server ignores a time before the original time.
-This patch does not follow that sentence. The same section also says
-that the server MUST accept the change or MUST reject it with
-NFS4ERR_DELAY. A silent discard does neither. A retry after
-NFS4ERR_DELAY carries the same backdated value, so that option cannot
-succeed.
+Patch 3 fixes collision detection for LAN867X Rev.D0 by configuring the
+hardware Collision Counting and MAC Forwarding Control field (CCMFC) in
+the Collision Detector Control 0 register to the OA default value. The
+hardware automatically gates collision forwarding to the MAC based on the
+live PLCA_Status: collisions are neither counted nor forwarded when
+PLCA_Status is OK, and are counted and forwarded when PLCA_Status is not
+OK. This eliminates the inherent delay between a PLCA status change and
+the software interrupt handler toggling CDEN, which was a limitation on
+older revisions that had no hardware alternative. A dedicated
+lan867x_revd0_handle_interrupt() is added to handle two separate interrupt
+events: link status change events trigger the phylib state machine for
+link re-evaluation; PLCA status change events update the link status
+selection. The handler uses the same conditional assignment pattern for
+extensibility. Collision detection gating is handled autonomously by
+CCMFC in hardware. The .config_intr/.handle_interrupt handlers are wired
+up for Rev.D0 using the shared lan86xx_config_intr() and the new handler
+to unmask both link status change and PLCA status change interrupts.
 
-There is still one gap: nfsd cannot tell an explicit utimensat() from a
-report of a write. An mtime after the delegation and before the current
-time therefore sets the ctime to that mtime, instead of to "now". RFC
-9754 requires this. Fixing that would require the client to issue an RPC
-for the mtime.
+Note: Patch 1 carries a Fixes: tag but requires patch 2 to be applied
+together -- the interrupt handler in patch 1 cannot fire without the
+virtual IRQ wiring in patch 2. This dependency applies to 10BASE-T1S
+MAC-PHYs (e.g. LAN8650/1) where the PHY has no dedicated interrupt line
+and relies on the MAC-PHY SPI driver to deliver the interrupt.
 
-Fixes: 3952f1cbcbc4 ("nfsd: fix SETATTR updates for delegated timestamps")
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Assisted-by: Claude:claude-opus-5
----
-We could fix this more correctly on the client by making it always issue
-an RPC for a utimensat(), but I think that would hurt untar-type
-workloads (which often backdate timestamps).
----
- fs/nfsd/nfs4proc.c | 47 +++++++++++++++++++++++++++++++----------------
- 1 file changed, 31 insertions(+), 16 deletions(-)
+Parthiban Veerasooran (3):
+  net: phy: microchip_t1s: fix collision detection on PLCA status change
+  net: ethernet: oa_tc6: deliver the PHY interrupt to phylib
+  net: phy: microchip_t1s: fix collision detection for LAN867X Rev.D0
 
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index bb74eef43938..fa3a43c20e95 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -1292,9 +1292,22 @@ nfsd4_secinfo_no_name_release(union nfsd4_op_u *u)
- }
- 
- /*
-- * Validate that the requested timestamps are within the acceptable range. If
-- * timestamp appears to be in the future, then it will be clamped to
-- * current_time().
-+ * A client holding a delegation with delegated timestamps is the authority for
-+ * the file's timestamps, so a SETATTR from it asserts what they are rather than
-+ * reporting that they have advanced. Honor a value that moves a timestamp
-+ * backwards: the client could set the same value with an ordinary SETATTR, so
-+ * refusing it here only loses data. Clamp a value in the future to the current
-+ * time, as RFC 9754 permits.
-+ */
-+static void
-+clamp_deleg_time(struct timespec64 *req, const struct timespec64 *now)
-+{
-+	if (timespec64_compare(req, now) > 0)
-+		*req = *now;
-+}
-+
-+/*
-+ * Apply the timestamps that a delegation holder supplied in a SETATTR.
-  */
- static void
- vet_deleg_attrs(struct nfsd4_setattr *setattr, struct nfs4_delegation *dp)
-@@ -1302,21 +1315,23 @@ vet_deleg_attrs(struct nfsd4_setattr *setattr, struct nfs4_delegation *dp)
- 	struct timespec64 now = current_time(dp->dl_stid.sc_file->fi_inode);
- 	struct iattr *iattr = &setattr->sa_iattr;
- 
--	if ((setattr->sa_bmval[2] & FATTR4_WORD2_TIME_DELEG_ACCESS) &&
--	    !nfsd4_vet_deleg_time(&iattr->ia_atime, &dp->dl_atime, &now))
--		iattr->ia_valid &= ~(ATTR_ATIME | ATTR_ATIME_SET);
-+	if (setattr->sa_bmval[2] & FATTR4_WORD2_TIME_DELEG_ACCESS)
-+		clamp_deleg_time(&iattr->ia_atime, &now);
- 
- 	if (setattr->sa_bmval[2] & FATTR4_WORD2_TIME_DELEG_MODIFY) {
--		if (nfsd4_vet_deleg_time(&iattr->ia_mtime, &dp->dl_mtime, &now)) {
--			iattr->ia_ctime = iattr->ia_mtime;
--			if (nfsd4_vet_deleg_time(&iattr->ia_ctime, &dp->dl_ctime, &now))
--				dp->dl_setattr = true;
--			else
--				iattr->ia_valid &= ~(ATTR_CTIME | ATTR_CTIME_SET);
--		} else {
--			iattr->ia_valid &= ~(ATTR_CTIME | ATTR_CTIME_SET |
--					     ATTR_MTIME | ATTR_MTIME_SET);
--		}
-+		clamp_deleg_time(&iattr->ia_mtime, &now);
-+
-+		/*
-+		 * The ctime must not move backwards. Carry the mtime into it
-+		 * only when that advances it; otherwise clear ATTR_CTIME_SET so
-+		 * that notify_change() stamps the ctime with the current time,
-+		 * which is what a local utimensat() would do.
-+		 */
-+		iattr->ia_ctime = iattr->ia_mtime;
-+		if (!nfsd4_vet_deleg_time(&iattr->ia_ctime, &dp->dl_ctime, &now))
-+			iattr->ia_valid &= ~ATTR_CTIME_SET;
-+
-+		dp->dl_setattr = true;
- 	}
- }
- 
+ drivers/net/ethernet/oa_tc6.c   |  69 +++++++++++++-
+ drivers/net/phy/microchip_t1s.c | 159 ++++++++++++++++++++++++++++++++
+ include/linux/oa_tc6.h          |   2 +
+ 3 files changed, 227 insertions(+), 3 deletions(-)
 
----
-base-commit: cfebfd3db73d82143ac54b1b6c6dad1d13952d59
-change-id: 20260901-delegts-e91a648f1427
 
-Best regards,
+base-commit: 25c1f6111034aef7fc06cfbdcf1e4f0d6e5ee74b
 -- 
-Jeff Layton <jlayton@kernel.org>
+2.43.0
 
