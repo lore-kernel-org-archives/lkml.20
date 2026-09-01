@@ -1,69 +1,89 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891FA367B73;
-	Tue,  1 Sep 2026 17:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC0837883E;
+	Tue,  1 Sep 2026 17:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788282157; cv=none; b=faIfLOsSmewQl0w5Jh5tvOQJvll9M/sts7UC3brAacQ7jWowxzzK88yZDW6+cJQjdrk5YVloW3zvg6FQMzNIo5iwOUT+y64e1sq/UdQeiixNUwDVcEhXP9y6Q+QHG0DgwNOC5C/RMyMpeoKD2cmKf/fm4EV6UxEeWCdbHax6t3c=
+	t=1788282211; cv=none; b=BNIeyr5kebg+svO/JcstcbZ51EBmCvDq4woyiO8d1JamLBHdQNZ2eC54tOuGS84HieyXglz7P5V86ABuSv4j4lGWGZxT5VvJEzkLPX8o7EwUu4eVK7UlPuPcUiXmUN1Y2ZroWe+EREQxYUObIs6CXaXPYJbVO6hs0TCI2nZd/dE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788282157; c=relaxed/simple;
-	bh=WAtH8ikAflpYjt6Ojkz8d4vYS3kGjxF4Ei9VLEAaMFQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=I/aK8trB4k5ghKk1/1ZyGDWTkIJOpOzI5M2u0hbpaSH/UeLu/5ENo81D2ZaGM/QiCiru7+bfPMlnXCkhHILqQAbICPGVrzij7+OSBnca8KnPGcxBZuzjFgmioAFdk8BVCZL/3DUiVTz8rys0FuxaXhNM6URMLowtfQ94miualiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=I0d9iY/m; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1788282211; c=relaxed/simple;
+	bh=clyhNJ5ys6AGj4exC8GBbbxbr4oPTQNSXXoSwrBy9B8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z3Tr97xY0ISAzSj1TQNc/bUxLa9Pi6+PQoaQZQ8cnpTTsYkVYjLRW6Lw/kgjrRIQZO29su45Vt//DT8M7lezUwFCrnyXg/Z92JTWJ9rkC4M934t78m0Vju+0Pl04MEpgY3p3EyFXSyi98z7wffPwjrZQj00c7Io0WeDQ0kzzdm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZ/QG4fd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="I0d9iY/m"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=zq3ZKa/atxerNogsCL/cSK/bDB3oFWO3gxOmGl3q37M=;
-	t=1788282155; x=1789491755; b=I0d9iY/m/4pJYfXFqP/k3Cj1K5bO9tmKhaNQ7z2BpvF2gyZ
-	XU4dVOQLvB2uBUAqtPurTOASU8MImQe+ZZLILN/OZHl9T1BL4cJQGcB75hVBiXEuW5sSy0PJcG2W4
-	4MUBSWnLhW1EqNRrNk0qSOsW71kHnDatWfgUhLxlxlnkbJrOt8Ex2up8FzVwYSNqF4w9kUbf3A6Ca
-	glfC4+ergwf0vvQmZ7mWYwqmHKqyxhoOhVlVrv4PPw9ZqBFJ3V7ah7QXWingm7VQ6Zk0Ou1Ln1kBO
-	A8323ERTPgSVPpWc6hbPe6wooOcbU0F5p/IQwiBvUwtb6jcShP3OV8xETYI2AxFA==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x1RsR-00000008bCc-2iQN;
-	Tue, 01 Sep 2026 19:02:28 +0200
-Message-ID: <1a2c11d47b27dfd8a246300ac158d25cef5abf35.camel@sipsolutions.net>
-Subject: Re: [PATCH wireless v2 1/3] wifi: iwlwifi: pcie: don't infer CSME
- presence from a failed read
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Bjorn Helgaas <helgaas@kernel.org>, Navon John Lukose
-	 <navonjohnlukose@gmail.com>
-Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
-	linux-wireless@vger.kernel.org, Emmanuel Grumbach
- <emmanuel.grumbach@intel.com>,  Nika Krasnova <nika@nikableh.moe>, Mark
- Pearson <mpearson-lenovo@squebb.ca>, Mark Pearson	
- <markpearson@lenovo.com>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 01 Sep 2026 19:02:25 +0200
-In-Reply-To: <20260901161736.GA1883420@bhelgaas>
-References: <20260901161736.GA1883420@bhelgaas>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZ/QG4fd"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 891D61F000E9;
+	Tue,  1 Sep 2026 17:03:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788282210;
+	bh=mMBaEIM6VBR1QxnR1jC0Z0I7a31saztKbmWgDYCjBXQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UZ/QG4fdx23ThIjvvURi9Mo2O4Itohh9pwIk94N7kjjdnXI2v+nT4Z23Ps2dyR50A
+	 6F+UeS8x7X0026Hrvm4bU9LMUeeKve5/XaGeAvhgWjT3P/NtETCiERH//e10FyDSLW
+	 J+3qFDKYxD9eCqh4fFLLKK8H4pbWvMfYCMxwmDxP0xWeXA2Mh3NLbjWVKBIOB2BPS8
+	 fTiXwNey8KHN5uZZmcTGaxRN8uWFb83arqhu0mdS/MEaLiqHgf8zmLEySZJMIzxrIf
+	 8klCDMCZAGxhi0d2Rp0SQkpwzagbTlXho/90N4ZITsBU/yPNnKKBsAkCiVwtE7KRz0
+	 b81Ur+LZ2D3Dw==
+Date: Tue, 1 Sep 2026 20:03:26 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] keys: set persistent keyring timeout before destination
+ linking
+Message-ID: <apcFXsSiZ9WA8E67@kernel.org>
+References: <bb0370340c671.1788111790.git.kmehltretter@gmail.com>
+ <apbTc9BisLTqBaE_@kernel.org>
+ <apb5_kMgDxSIviWb@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apb5_kMgDxSIviWb@gmail.com>
 
-On Tue, 2026-09-01 at 11:17 -0500, Bjorn Helgaas wrote:
->=20
-> iwlwifi has a mix of checking for 0xffffffff and ~0.  I don't know if
-> it can use non-PCI transports, but some of those places look like they
-> could use PCI_POSSIBLE_ERROR().
+On Tue, Sep 01, 2026 at 06:16:12PM +0200, Karl Mehltretter wrote:
+> On Tue, Sep 01, 2026 at 04:30:27PM +0100, Jarkko Sakkinen wrote:
+> > > Tested with QEMU 10.2.1 TCG. The reproducer set
+> > > /proc/sys/kernel/keys/persistent_keyring_expiry to 60 seconds, restricted
+> > > the destination with KEYCTL_RESTRICT_KEYRING, and then called
+> > > KEYCTL_GET_PERSISTENT. No LSM policy was loaded.
+> > > 
+> > >                       syscall result  /proc/keys expiry
+> > >   i386 baseline       -EPERM          perm
+> > >   i386 patched        -EPERM          1m
+> > >   x86_64 patched      -EPERM          1m
+> > > 
+> > > Full kernel builds completed for i386 and ARM926, and for x86_64 with
+> > > CONFIG_PROVE_LOCKING=y. The x86_64 reproducer completed without lockdep
+> > > reports, warnings, or bugs.
+> > 
+> > Please describe this in the commit message and delete most of
+> > the text it has. This is the motivation part.
+> 
+> Got it, thanks. I'll shorten commit message.
+> 
+> I also found a narrow race if linking is delayed past expiry and GC runs.
+> It is unlikely in practice, but reproducible with an injected delay, so
+> I'll address it in v2.
+> 
 
-I believe the hardware itself never generates ~0, so yes, it probably
-should use that.
+Yeah, I mean what say there is not secret as it is here already.
 
-johannes
+So better to document the relevant data to commit message. That is
+what is useful for me as a maintainer fast-forward to the future.
+
+While writing a commit message think more what makes sense to backtrack
+in the future rather than writing a tutorial ;-)
+
+> Thanks,
+> Karl
+
+BR, Jarkko
