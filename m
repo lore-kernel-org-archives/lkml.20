@@ -1,153 +1,173 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010020.outbound.protection.outlook.com [52.101.46.20])
+Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA6242C4F0
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:56:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249393; cv=fail; b=QJs3CiAb5i2WWoDkr2a1EIKQALsFpS3IvNlyMYqB+5ULZX3Mr9o/jLX9fF6basf+iT3XTRdwaRwPmPZqy2OWTSVqCysnNN8NbOa8Qthfm2dRkmx74eKrmR/sVNV2or5yAS3FRpkEzAlOGYQ9xVhc26VYN+mN0zJLF/k/Zp/d2eg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249393; c=relaxed/simple;
-	bh=qs+Cu+uYZOpcbOQq8mRXC2wgQQ6VrWj4yAu/qd083jE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=T4Be4LONUhc7QoGv4Xud7fBIfUkn5E3QMdI0yScgz9nd+8ubTkw5XSjdoepVrWMDkJ+AjLkkqqoWYaOoy4S20lZDmBQ7W8CapkXUm8eA2cnNrQ0Imk+K3aZst2MiEeHHf8+BCGlCK7rVvXa8NiMoegwvvfdTHMsEcB3muGJpaRc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=k3rvX6js; arc=fail smtp.client-ip=52.101.46.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5593E46E01F;
+	Tue,  1 Sep 2026 07:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788249396; cv=none; b=PrJDUjFwDqJDKw2yAidVPwyBSUWD+e9IK7/cvPFg+Hre5hCGa41RdAUR7FxMylvOMm+HvcDAaA0aXZ0gumFla/BvSh9likhlLg1Nxq2F0zsTO1ZPlBrwFnZnj4tb4QWHlZEyQ2kHSdYd5jcrGvOhsXthFrQIyrOUgzi1pYc8We0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788249396; c=relaxed/simple;
+	bh=nnqLushIJ9FXM4IqlhQfEoJBRo1HzMg1fpdsB2/rllk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=EyujxxsLahtjZ6TsAGnIXM4oSBHogTDN/hI7+nkcWZXsh419VcYG24QqxIfmBeO3+zbSMhAj0BCkXGyqaYR2k7j02p+qHR6pkV07SlHPFXErBi2yeLEVD1q3Ai9i/Y+XgmaAA64OypcF1GJQUocrRTCu5VC7SHdYZyIw1U+yNMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=none smtp.mailfrom=linux-m68k.org; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ov+QlCwT; arc=none smtp.client-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="k3rvX6js"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UDpZoGpJkKVKQvZHf1IRJBYBhpLtq/Sudu+D2zizlrOAtvQFrAtJQFbSAxPj/tJVYW/fT6rKCouqywIc96GFL1n2HW8wxD+xPeFRXcyKeyJ/ZiqCtQX2xfXVjoQOYz638ZvHoUnJTcicdoKnPVJphIHeYRF15ZLPG1uVaxvFw76QqeHdIZ16sy53xrWk4/DMUtuoyHrSS1dvzi5nLXxPkotgTa5lpjP9Yg0frj+1WNs9dIMaxlNotHncJWtK21lb2l+JenVQLlIhDVwfaQfxa/Rpf7VfcdXtu3a4xyET5yTsf1DdQKg1qaPEDz4a0gT5SeTQIIec/avlsDCwnxpAdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z4iyUqK94g23NZLvg0LGVQVFP42usBrQbtnnuW64sIk=;
- b=pntY84sPpa8qjmQd/zIsfHfTGPZBYOdJ2YCN3TpcD6Ls1Ub63dHzi+hoRKSTDihV0QZPjwgmC1kD0GZ1KEK65Rp29oSktRhoNORp2Ngo3IxlplrC1ZCD3z74oD2S/xT4F0MAwbTGRo0E0GvNHqG92ot4aocQaB6dIg7pv8wR5cTovxi16hUhkc+r5zieDSQQqwJWUwAfmPuy1wV0/mCpCnKrqD0BTX7riJOsGz+zVhTChsV5b40iNkI2ZuSN5FC+Atbd8xDzWmi53Aa1CV7mpedjXyWVck/clLrodNSSsKxutZO03d+2UJAQTx7p3X9skmH6q3zxO+TDHwz/8nT47w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z4iyUqK94g23NZLvg0LGVQVFP42usBrQbtnnuW64sIk=;
- b=k3rvX6jsa0Wti48IYtaKYmC6jDuPWCNPKaiGQQ85/XyiBGdxlvEn4YQEPaZ8YDzV1pJFHK5rb4+zKQvbjpNRLH8yZOsc9JRgNnCzRtx2YiZXDbP9DnHHL4vFw8vrjVmZdYDVZ/H0jAdsrtqqRT1vcvR17Z00OADImpcHaTNYgSM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
- by CH1PR12MB9719.namprd12.prod.outlook.com (2603:10b6:610:2b2::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 07:56:29 +0000
-Received: from DSVPR12MB999171.namprd12.prod.outlook.com
- ([fe80::b7ec:f444:4560:9f19]) by DSVPR12MB999171.namprd12.prod.outlook.com
- ([fe80::b7ec:f444:4560:9f19%4]) with mapi id 15.21.0382.007; Tue, 1 Sep 2026
- 07:56:29 +0000
-Message-ID: <1659245c-cebf-483b-8aaf-fb277f65f1c3@amd.com>
-Date: Tue, 1 Sep 2026 14:56:19 +0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/24] iommu/amd: Make amd_iommu_completion_wait()
- non-static
-To: Vasant Hegde <vasant.hegde@amd.com>, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, joro@8bytes.org, jgg@nvidia.com
-Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
- jon.grimm@amd.com, santosh.shukla@amd.com, Sairaj.K@amd.com,
- jay.chen@amd.com, wvw@google.com, wnliu@google.com, dantuluris@google.com,
- chriscli@google.com, kpsingh@google.com, alejandro.j.jimenez@oracle.com,
- joao.m.martins@oracle.com
-References: <20260727132913.22475-1-suravee.suthikulpanit@amd.com>
- <20260727132913.22475-2-suravee.suthikulpanit@amd.com>
- <be2f6b1d-69cc-4a5c-9de4-f3fab9a5ad1a@amd.com>
-Content-Language: en-US
-From: "Suthikulpanit, Suravee" <suravee.suthikulpanit@amd.com>
-In-Reply-To: <be2f6b1d-69cc-4a5c-9de4-f3fab9a5ad1a@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: KU2P306CA0051.MYSP306.PROD.OUTLOOK.COM
- (2603:1096:d10:3d::12) To DSVPR12MB999171.namprd12.prod.outlook.com
- (2603:10b6:8:388::22)
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ov+QlCwT"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 6362014000F5;
+	Tue,  1 Sep 2026 03:56:33 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Tue, 01 Sep 2026 03:56:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1788249393; x=1788335793; bh=5DLQz4D4XG1gMTW77CwaiVr/i7cTEkZOBTB
+	A8kcXN0E=; b=Ov+QlCwTbSdEqNzkn5ya9/tyEVlQKvIzWd7Qcpx1ia5DK9oa5Io
+	MPJLLukvvFoDJiG1d3v3q5hKt/16QjnOq9ORTPjj3Q7wtKlJNVOWfyyv3x3HV5pq
+	dZ522h51HPxaCrT1mO2RDfLwy/cCUp2CV6is46VSsqUB70tO2r0emoc+RkE1VqxX
+	BRG+VKQ4IGLL5XSTEOCll8cNeynXxLCo2tjqq+5xWvQKX3oTKxn+UGbNV1Hf7wXR
+	1wpL8F76aBExo4QVwAsUhaunkspM7SVcmwWoPkQlTUxRVHk9ptalNX+780L8IURp
+	bGPEi7MPgh7O0YnH0GtTSsxcu/U85Q35TbA==
+X-ME-Sender: <xms:MIWWak8epuKgSxM6YjeSJO4Vd-FIytSon8rmOvjxYiH0IRXhmGiWdw>
+    <xme:MIWWamxBF4U8i12hFyY5ARd8ParGNmNkO8Qhxr1VseGBG03z67peXDgwfhtTtTaMl
+    JeYE95O2WLve1iIoTRKxha_wttvKfNa2YIRt7jeRFEGaXqz8QRwA9Oi>
+X-ME-Received: <xmr:MIWWap4-GPszMmU-Z6T91mrWQ73OODbHky4A0_ImQCCOtC8qY60KG-M3R6Z8ZR_zVmvPQqe64oZyXYsMrs100RSOicLPn-5CJGU>
+X-ME-Proxy-Cause: dmFkZTFnHdl46V9iY7mt7ZU14BLrD9dGCxF5Iuya6z2uOhMxwB3MoPfi3YTm050+ngLUP6
+    BCml/R3fYt1/eoRGwE5ZHXZ/79FnBk3P5UbU7qx1MhZhsvxctXFz3WF+Vzfomppa4Mjd+q
+    VaIa/sNNOj0yDqWSo4BaM74QVhq4HEeNIF9j6sLhNc8W/28PnOFUHetkopaeOX/UNLpWEM
+    58+DSSQDGH5qQYW5diunS6aSNjTv1ma5aoJPfbAx9k1L7GmcEzI1g5xp+ohwgD60mzweGW
+    8Y+nDI8DWviG7Nuq0uuW+YrWztnnBszqcMLs8hDfe3SICXV8/bj0TzWZ+IaYwQWsHeXxh4
+    baMcWyD98PDx7MQxBz3nS/meMRKQjJU79AhF92jPg0X7xColoqxpVKF+gfTya1DyUFxo0b
+    5xh9WmaH3P1flpXEpTjOPMMHV30YF5LDUEOYl1zIQsNSOC+ra8evJNhrcrQgJxuxhZEBad
+    Cddf+8u3hZq0hEvqg37ArAe1Wwe5TGOa0zf6hNIyo8NLa1OUK+UdNj53NgxevMggBt0U47
+    cJcrUEDpRQQvo1Lz5nPgkYkP4XgppG7zP1TTPaiIUMRAq4O2Yp/oy0b7xKtvqYc7WWG4dc
+    oHvxLpSzLc0gf3jRKFbDnpn/HgktJnu4FoLStWGZAL2uKwPG+8UyYpLvlCTg
+X-ME-Proxy: <xmx:MIWWal-Ypf1GNruhgG4x7vln1933lPr4vzFjeQWxxhE6qJ0kMyUvtQ>
+    <xmx:MIWWamr4hzOgwhfuh7xBtzpVZD200i7JF7Wmp6RKmln6Y__VfCUvHw>
+    <xmx:MIWWauoetXxIq_c70ANdceJRHvDuBsw0MKuIjU9d6RHO2QGxHjPIlA>
+    <xmx:MIWWah302mbwG5G4OSWcigSuct-wM_Cy8RNZNq0DGGkdvO_JHmnytw>
+    <xmx:MYWWajup1qBfVR8Uv2pbFUIfSO9oMOzTyhouYSXxBgV1_PA9Knm_Nci9>
+Feedback-ID: i58a146ae:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 1 Sep 2026 03:56:29 -0400 (EDT)
+Date: Tue, 1 Sep 2026 17:56:52 +1000 (AEST)
+From: Finn Thain <fthain@linux-m68k.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+cc: Jens Axboe <axboe@kernel.dk>, Laurent Vivier <laurent@vivier.eu>, 
+    Joshua Thompson <funaho@jurai.org>, linux-block@vger.kernel.org, 
+    linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 07/32] swim: Enable clock divider only where
+ appropriate
+In-Reply-To: <CAMuHMdXgtstGtcbRkrtKtQ+d1c=mCe5zgYZCx4dyUQ_YnVhbbw@mail.gmail.com>
+Message-ID: <b0f20a10-78d4-e8e6-4001-99f076b99a8a@linux-m68k.org>
+References: <cover.1786929430.git.fthain@linux-m68k.org> <1e349506a7cc6aa574aacbd4c69c240b5a1e3eb8.1786929430.git.fthain@linux-m68k.org> <CAMuHMdXgtstGtcbRkrtKtQ+d1c=mCe5zgYZCx4dyUQ_YnVhbbw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSVPR12MB999171:EE_|CH1PR12MB9719:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64503f56-f846-4088-4555-08df07fe878d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|4143699003|56012099006|10067099003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	iosKZpnvf5lCZ5S5al/KKWlUdKvthRx2mEwpg6lTQ8r8jBNJK5DYNJg7D12pTkHvqrphhX6+ST0z1WdXsKwxqsH7LA8os2Ur0AXSpUdeykyBmBkdZfFa/Ig2+0pedOezeLrWDu58dKlPZ0MxFLV3uCnP3OxprgTtBUzs1fy0Bkih7CkgDhQQrgY3XKC3xuIRal73CAUYHZNW1ZYsRRuE+y8wvTt0hoNo+4TzkDnG+n0STERan4USwa17J0I0ddRoh/6iHsdIb4ETmP8lBreXeSwts5zta65Bk/tptm5bPcsmz3hwDRYfmgFJ6yhOFLf5OsPhuw3dfUJW7MKrtK+1sjdLNcWeGC/Q/2VvYtGJxWzVJmucsNQPfi42wkYx0AqwCEv+hC3p8/kT/2tb/XDxdz+naPL9fPukqreTC0Qy+AvfztfqmM4RlsZjdt5r2BN3FZ6sJ/MwrO/sZ9FtIDsmRw18wtgKG1jpcJn/wFVil02xo9is5mPSGS9FaZodVQvRdF96STpGN1ymlXRykEf+hjd2BWAvAWXi910J9gYDrjov9r2bdN96t662aLofXV6YhzxVFMI2F4my2eC0PIRFxKtaCHqmUwSEVbIfgoZmoRdJsYF+Dq0tVLfLidrQ0TfLscAVJekSrM7A0q9voLNUcVCpexjbvEtfJR7qWxVAeeM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR12MB999171.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(4143699003)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eStzdVh4SW1zZy9IRWYwcHdWdU4ra0RzRGZCVGFwbmxhK05NUkErdHlxOUR2?=
- =?utf-8?B?cmpZNDR5d00rQlg0NktQZzJCdUVsSngwNmxyQUhRZFIrYkd3dEtnMEQ4djcr?=
- =?utf-8?B?VHFKRGZnMGFjVHlJczhmWEpzNDVISWRaUVNoc2NIUkNGaXB6alZxYVRTVVp6?=
- =?utf-8?B?SEIyT0lsbFNtUEI1SnFPdWRGVllTUDArVTR0R2h5SURybHF2dEFOLzd0K1hO?=
- =?utf-8?B?MXJ0TzJZSkdDdlY2NEloSW9wdTNEVXBJZUt3VXJKdmdTc0tPU2laYnpQOWZl?=
- =?utf-8?B?ZTFxc2ozQ1lPODM4WWk1aG4weWhXRkNZY2FNeXRQa3JzUWg0aHdjUXdYWTBv?=
- =?utf-8?B?S21taUsxZVMwS0cyNE16dmtWbkJHR0JjNlN2TTVTN0lJZzdkcEZzRUlBZmNV?=
- =?utf-8?B?cEVBQTJ2SFZoTHowZ3NCUFVqeU9JUXEwbll2SHdrUWllTzlEUVBkL2t1SHRD?=
- =?utf-8?B?T3JOVFE1eUJENnVKTEhFQjFCaGtpSURnL2YweG1oK0tlVlZqOXBaRTIxNHVT?=
- =?utf-8?B?VE1MaWVkWUl2TTFXS1pBNVZHSEc4Yzk0RHMxUUlNdmNDelFyZnd5eDVmYVhx?=
- =?utf-8?B?Y2I5TkRNQ29jRmRxZ3lUenJwRmowd1ZnbzhWYy8yKzVreGYxN2ErZTBmZitB?=
- =?utf-8?B?SWptNllnaWhDdlRxU1o5RU1ySUJ5akRYT0ZlUVpOSTV5NTZldDA3cXd2ZVJR?=
- =?utf-8?B?bC90Q2g2OHkyZHRaUWNLQVlubDF5bXl0WlJKRGRzZjBYYnl5aGNwdFIyTlV2?=
- =?utf-8?B?Mmk0Y0xYOHdNWkxZTFpRMEcvYzY1SVZJRmRwNUhTOUFwa0VZQ0wybVRhekhN?=
- =?utf-8?B?SnNUSjJRTXVSTEg0NFZYcGJSMHdaMmNMYm1OaWdzekxqQkkwOUxOODVlWWRO?=
- =?utf-8?B?dkpQNjhINWVZdjZyTWFwTlZuUXJEdjBVRmxvUE1LdmRHZWlqeWl4LzBSZFlO?=
- =?utf-8?B?TTBCV0REeWNHQUxITHVic0xuOExXbmwyNCthSjNaRHQ2T3d3NmZTMVg2dk44?=
- =?utf-8?B?OE94WmVYSzB6aHZpZ3VxbGtmayswM29SMG81bzRiU3ZndThKVzZMaFdkWitq?=
- =?utf-8?B?QVBGWTQwdzZKcDR4SlJoekZPSHhFMEpLUXdvRTJYbDQ0Y3BlUlk5Tks4STlm?=
- =?utf-8?B?M2lXMVl1VWJMeXNQRGE4bWo3bWNnbm0xWW1vR3BYNlhJSS9iYlpEd05RNWgr?=
- =?utf-8?B?d2NnQTl5M3VMUW96V1grQUdhVVRiakIzMWtrZ1N1d2JUVHdjYk4ra2FJQmVv?=
- =?utf-8?B?NjA5MFRNNUVUa1JHMmplT2NDSDdyZWpERlE0eExUQzZyQnFCNmZyUXg2WnEx?=
- =?utf-8?B?NmpTN1RYcHpNd1lhazg1c3N0NVdYNmxPOWxnaUtSaVRUSzlYaUhrL01CZGQ3?=
- =?utf-8?B?ZzQvTkM2eTE2R3cxYjJ3QjlCNGs5dk5ObjBpM0RFMkhFS1I4OCs5QlhicG9x?=
- =?utf-8?B?Z2E1dytyVVpTKzJpaHNhUUVPa20rYXJ2MmhiYlJzWVduTXdTNFFDV0l0dHJE?=
- =?utf-8?B?aFk5TU5YanVOQXZvblFHTTdLenRPQWV2ang4cGJ2MTZKeWVNWUg0dUlLTm91?=
- =?utf-8?B?SHRRTnBpYWp3eUtlRld1UFRXeUNzdFJkVmxHZm1HelFERjVNbGJQWkt1Z24r?=
- =?utf-8?B?a2RRVW41YmVUcEkzWjg5WllXT09zU09nV1lVKzVwNVJmMU50RmxSanFtdjdU?=
- =?utf-8?B?OWpkdG9QOXQ0QUNFdFkzOGk5V0tZcUt0NmNtUHBRMW5VU01VVUlQdVAyamY5?=
- =?utf-8?B?REJ5TjNRaFhDTUs0UnZISCtETHFVL0hHaWlCeDRLS3FxS1hielFFOTh0cDJp?=
- =?utf-8?B?VU5YYlYxT2NlL1JaUXNaSDdRTExhNmdoRDhkY043QW9vWVcrWU9EYTQ5RU00?=
- =?utf-8?B?bzRYS1NYMUVGcjk3T0VKQjl3bWJONW5aS3BETWRhOEliWTY3Sk1rMzJXNXQ1?=
- =?utf-8?B?Nk1IWU11ZURPOTZLK2NiU2RVWEtaSWU2UDFqTTZBQVdlOGU1NHZiU05jRXVl?=
- =?utf-8?B?WXJpUi9tRCtyRTI1WVZhNk85eGtuVVBybTh3SFovZ2IwMXZ6ZEp6cW80dEVI?=
- =?utf-8?B?QjNCN1d1RkV2NDlMSE40T0YraXZGbXVhdFIrVCtydEdJdVpsTjE1cjgyQUk2?=
- =?utf-8?B?V3RwdkZDdWRhazAyQXhXaDYrKzQybE9PODFpcEd1Zk1BVStQRVhHTWRYa05y?=
- =?utf-8?B?ckQvWkNGZjhpZHRXUnpiNWRrczhCYTQxY21obGMwbjdvWHJPVW5tOG5pSHU4?=
- =?utf-8?B?ZUxpYlQraTR6TWl4OTFCa29FOVlETE9Hdi9NR093ZnVOVnNWMjB2KzVhVHdX?=
- =?utf-8?B?WStCNEd2TGlVQ0ErVGlTanlxUnRUVlY1TjZuakx1ellaVjlKZzFoZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64503f56-f846-4088-4555-08df07fe878d
-X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB999171.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 07:56:29.0480
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hpl17AKR1QD0QLX92u8DRyfxhxyxBnvXv+ZUb41fL4xR1+FPDjBtmiyXUAdGjmsqmNviuqNCf83TlvkIRxxqYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9719
+Content-Type: text/plain; charset=us-ascii
 
 
+On Mon, 31 Aug 2026, Geert Uytterhoeven wrote:
 
-On 8/6/2026 12:01 AM, Vasant Hegde wrote:
+> On Mon, 17 Aug 2026 at 03:55, Finn Thain <fthain@linux-m68k.org> wrote:
+> > Some models have a 16 MHz FCLK oscillator and others 32 MHz. Put this
+> > information into the swim device platform_data so that the driver can
+> > correctly enable the clock divider. When this is enabled incorrectly,
+> > nothing can be read and failures from the Error Correction Machine are
+> > flagged in the error register.
+> >
+> > This is chip initialization, so do this in swim_floppy_init() rather
+> > than floppy_open(). Drop the udelay() which was apparently copied and
+> > pasted from swim3.c, where it relates to interrupts (of which this chip
+> > has none).
 > 
-> 
-> On 7/27/2026 6:58 PM, Suravee Suthikulpanit wrote:
->> This will be reused in a new iommufd.c file for nested translation.
-> 
-> With all the changes, looks like amd_iommu_completion_wait() is not used outside
-> iommu.c. May be drop this patch?
-> 
-> -Vasant
+> This move should be a separate patch.
 > 
 
-Good call. I'll remove this patch in V5.
+OK.
 
-Suravee
+> > Cc: Joshua Thompson <funaho@jurai.org>
+> > Reviewed-by: Laurent Vivier <laurent@vivier.eu>
+> > Fixes: 8852ecd97488 ("m68k: mac - Add SWIM floppy support")
+> > Signed-off-by: Finn Thain <fthain@linux-m68k.org>
+> > ---
+> >  arch/m68k/mac/config.c | 31 ++++++++++++++++++++++++++++++-
+> 
+> For the m68k part:
+> Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> 
+> > --- a/arch/m68k/mac/config.c
+> > +++ b/arch/m68k/mac/config.c
+> > @@ -984,8 +984,37 @@ static int __init mac_platform_init(void)
+> >                         .start = swim_base,
+> >                         .end   = swim_base + 0x1FFF,
+> >                 };
+> > +               unsigned int data = 0;
+> 
+> Nit: in the absence of a real platform_data structure, please use a
+> more explanatory name.
+> 
+> Perhaps s/data/s_fclk/, and store S_FCLK_DIV2 or zero?
+> Or s/data/setup/, and store the full register value?
+> 
+
+I looked again at this but I still can't see any uses for the other bits. 
+So perhaps I should change it to:
+
++		bool fast_fclk = false;
+
+> > --- a/drivers/block/swim.c
+> > +++ b/drivers/block/swim.c
+> 
+> > @@ -807,8 +806,10 @@ static void swim_set_parameters(struct swim __iomem *base)
+> >                 swim_write(base, parameter, mem[i]);
+> >  }
+> >
+> > -static int swim_floppy_init(struct swim_priv *swd)
+> > +static int swim_floppy_init(struct platform_device *pdev)
+> >  {
+> > +       struct swim_priv *swd = platform_get_drvdata(pdev);
+> > +       unsigned int *data = pdev->dev.platform_data;
+> 
+> Likewise.
+> 
+
+... and change that to:
+
+	bool *data = pdev->dev.platform_data;
+	bool fast_fclk = data && *data;
+
+I am unsure whether a NULL check is desirable here (?)
+
+Interestingly, that NULL check itself is sufficient and so we don't really 
+need the flag at all. Allocating memory for this bool is a completely 
+pointless kmalloc.
+
+> >         struct queue_limits lim = {
+> >                 .features               = BLK_FEAT_ROTATIONAL,
+> >         };
+> > @@ -816,6 +817,8 @@ static int swim_floppy_init(struct swim_priv *swd)
+> >         int drive;
+> >         struct swim __iomem *base = swd->base;
+> >
+> > +       swim_write(base, setup, S_IBM_DRIVE | (*data ? S_FCLK_DIV2 : 0));
+> > +
+
+	swim_write(base, setup, S_IBM_DRIVE | (fast_fclk ? S_FCLK_DIV2 : 0));
+
+Would the bool be more acceptable? TBH, I'm not sure it's an improvement.
+
+Thanks for your review.
+
+> >         swim_set_parameters(base);
+> >
+> >         /* scan floppy drives */
+> 
