@@ -1,155 +1,113 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77DE3E9C12;
-	Tue,  1 Sep 2026 03:05:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9623CC7DF;
+	Tue,  1 Sep 2026 03:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788231941; cv=none; b=WmkBnuHS2AQFfyeDMEWPvFDjEREY436IOAdSFGLwBtGAcwa0y+lbzQaHcwLF3cze6cReb3pPW9mSIt1UBQDoFemMMxBVT+6/wSF0j8KrO0F1CMZRasFlViLlQEQEvc2iLdU9ZFGtiTKdqmAyxPBDyZTM78j8uK/E6x74FN//y6o=
+	t=1788231962; cv=none; b=HdkJ3a7QxXxZ+4ewIFmNmHwDB+DwqwAjXRDm1qO4iuOG3hh1Tu0pYYYEI4GkMSpBb9xRMbCnPEQVq2Ky23jN0am3/H6okc6C3ejVtrayYt0LboBtaVldT4+7t2j7BuER4Fnq1yFCSk5Zai1lQT1xFPhkX7bQpi84IWu3VkG5F2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788231941; c=relaxed/simple;
-	bh=crkNKkAq6lFaFrbVuZAzWxLk+LB99Hc5JC+Tf9wsUZI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YesYd4YkQTBGuIiuY21hpau4J54QY6aHAS3jlVyLb18IIxGg101Otxp1qiev7ebA51MW9BEPD7qORFy/92bzGlhnkY5Qft37yKkYBrAVhbVcBHm1gNlgTP8hmhF0RLhMfRJdYcIKBm4ociP55DjY1lHhVSGwe5/65hhhm6yuyNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: ff836752a5b111f19a56ed5b684f684d-20260901
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:adbb6eb5-a264-405b-9644-c2bf53560f3c,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:6796e62fe7f3916561be09d4b799dc50,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|136|865|898,TC:nil,Content:0|15|52
-	,EDM:-3|-100,IP:nil,URL:1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
-	I:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ff836752a5b111f19a56ed5b684f684d-20260901
-X-User: lilinmao@kylinos.cn
-Received: from [10.0.2.15] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lilinmao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 297330884; Tue, 01 Sep 2026 11:05:33 +0800
-Message-ID: <649d8c23-4af8-4e50-90be-0bdd83f373f1@kylinos.cn>
-Date: Tue, 1 Sep 2026 11:05:30 +0800
+	s=arc-20240116; t=1788231962; c=relaxed/simple;
+	bh=ABZFUwYhFhIoHEraEjchVne7McbVBhnaI/sZtZckc70=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e0j7GrYUZ5nAnr3bZTfx7ulYVW/2k2sf/Qlo7W96PcHWqhs9H+l9q6JXSj3cHO8YK55763r33hwKrb8P4GxxETtULN/cuXWhXWc2qjiokapNWfkKlKaXz+ZngkFxS7DFA/2O3wuOUmfSYefCTsaULlTY/qgoecQX5njxWofQZbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=jMI6fJ/S; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="jMI6fJ/S"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=k84NDGMsq/Kto9RzKtWIVCVX3P/YTWj6KJ7tWB1oRjo=; b=jMI6fJ/SkQfRbUomapZSzpP1h9
+	n4ujLooQNjPdcWzpKNHt17/fz3ChFKXlHlp3w+3z6H5nIPUIOMqFot6u8fiwJBfYRVbtQeLtyONcI
+	0PGbPDTRnWzdDs3ekl+VMBwsVHBv3IDHOZ56D7MXywj7z5NuVVkQpehYXqCFfBpaG1WQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x1Eon-002IGK-9E; Tue, 01 Sep 2026 05:05:49 +0200
+Date: Tue, 1 Sep 2026 05:05:49 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Wei Fang <wei.fang@nxp.com>
+Cc: "Wei Fang (OSS)" <wei.fang@oss.nxp.com>,
+	Claudiu Manoil <claudiu.manoil@nxp.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Clark Wang <xiaoning.wang@nxp.com>,
+	"olteanv@gmail.com" <olteanv@gmail.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>,
+	"linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 net-next 03/15] net: enetc: add link status message
+ support to PF driver
+Message-ID: <123a8343-9912-4b57-a402-08bc18748ff7@lunn.ch>
+References: <20260831025441.635045-1-wei.fang@oss.nxp.com>
+ <20260831025441.635045-4-wei.fang@oss.nxp.com>
+ <bd07a661-857f-421a-9ff0-e807aade9543@lunn.ch>
+ <GV2PR04MB117396D2988C68C961868A8F388A82@GV2PR04MB11739.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] crypto: mxs-dcp: handle zero-length skcipher requests
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Leonard Crestez <cdleonard@gmail.com>,
- Radu Solea <radu.solea@nxp.com>, Franck LENORMAND
- <franck.lenormand@nxp.com>, linux-crypto@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260828093209.3179074-1-lilinmao@kylinos.cn>
- <apHgn8-IcTshYnfv@SMW015318>
- <6416cbee-35c7-4fc8-9a80-a25403eb1e6f@kylinos.cn>
- <apWXYPYyPktawUru@SMW015318>
-From: Linmao Li <lilinmao@kylinos.cn>
-In-Reply-To: <apWXYPYyPktawUru@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <GV2PR04MB117396D2988C68C961868A8F388A82@GV2PR04MB11739.eurprd04.prod.outlook.com>
+
+On Tue, Sep 01, 2026 at 02:31:21AM +0000, Wei Fang wrote:
+> > > Add link status message support to the PF driver using three command IDs
+> > > under message class 0x80 (ENETC_MSG_CLASS_ID_LINK_STATUS):
+> > >
+> > > 1. ENETC_MSG_GET_CURRENT_LINK_STATUS (cmd_id 0)
+> > > The VF queries the current PF link status synchronously. This command is
+> > > not used by the Linux VF driver but is intended for DPDK-owned VFs.
+> > >
+> > > 2. ENETC_MSG_REGISTER_LINK_CHANGE_NOTIFIER (cmd_id 1)
+> > > The VF registers for link change notification. Upon registration, the PF
+> > > immediately notifies the VF of the current link status via a PSI-to-VSI
+> > > message, and continues to do so on every subsequent link state change.
+> > >
+> > > 3. ENETC_MSG_UNREGISTER_LINK_CHANGE_NOTIFIER (cmd_id 2)
+> > > The VF unregisters from link change notification.
+> > >
+> > > For link status message, the PSI-to-VSI message is 16 bits wide: the
+> > > upper 8 bits carry the message class ID, and the lower 8 bits carry the
+> > > class code. Bit 0 of the class code indicates the link state (1 = link
+> > > down, 0 = link up), and bit 1 indicates whether TX PAUSE is enabled on
+> > > the PF (1 = enabled, 0 = disabled).
+> > >
+> > > The TX PAUSE state is included because VF RX BD rings support congestion
+> > > mode, but whether the hardware can actually send PAUSE frames depends on
+> > > whether TX PAUSE is enabled on the PF. By conveying the PF TX PAUSE state
+> > > in the link status message, the VF can determine whether to enable
+> > > congestion mode on its RX BD rings.
+> > 
+> > I see you have hit the 15 patch limit. Do you have a patch in the next
+> > series implementing ethtool get and set pause?
+> > 
+> 
+> No, we do not have the patch to support ethtool get and set pause for VF.
+> The link is controlled by the PF, including TX PAUSE-related configurations
+> (ON/OFF/refresh threshold and PAUSE Quanta). The VF can only passively
+> decide whether to enable congestion mode based on the actual link status.
+> Adding an ethtool set pause interface to the VF is meaningless because it
+> cannot control the link or configure TX PAUSE, , or rather, it shouldn't control
+> these.
+
+Well, get will return what is actually happening. That could be
+useful.
+
+And from what you described, it sounds like the VF has the option to
+not enable congestion mode, i.e. not send pause frames. So you can
+implement a limited set, returning -EOPNOTSUPP under many conditions,
+but still allow some control. But it might not be worth it.
 
 
-在 2026/8/31 23:01, Frank Li 写道:
-> On Mon, Aug 31, 2026 at 08:42:20PM +0800, Linmao Li wrote:
->> [You don't often get email from lilinmao@kylinos.cn. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->>
->> 在 2026/8/29 3:25, Frank Li 写道:
->>> On Fri, Aug 28, 2026 at 05:32:09PM +0800, Linmao Li wrote:
->>>> [You don't often get email from lilinmao@kylinos.cn. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->>>>
->>>> Zero-length skcipher requests are valid no-ops, but MXS-DCP queues them.
->>> Any document show it? if return 0 when cryptelen, it is async, no
->>> call crypto_request_complete.
->>    Yes. CRYPTO_ALG_ASYNC means that the implementation may complete a
->>    request asynchronously, not that every request must do so.
->>
->>    A return value of 0 indicates synchronous completion.  Only
->>    -EINPROGRESS and -EBUSY cause crypto_wait_req() to wait for the
->>    completion callback.  The existing fallback path relies on the same
->>    semantics.
->>
->>    There is also a direct precedent in commit 8a4e047c6cc0
->>    ("crypto: marvell/cesa - Handle zero-length skcipher requests").
->>    Marvell CESA registers asynchronous skcipher algorithms but handles a
->>    zero-length request with:
->>
->>            if (!req->cryptlen)
->>                    return 0;
-> Thanks, but still not answer my question,
->
-> Any document show "Zero-length skcipher requests are valid no-ops", why
-> not API direct return 0, instead of pass to every driver to check it.
->
-> I suppose it should be checked before call driver's callback.
-   You are right; I could not find an explicit Crypto API document defining
-   the zero-length behavior, so the wording "valid no-ops" was too broad.
-
-   With the current API, simply returning 0 in the core for every
-   zero-length request would change XTS semantics, since the generic XTS
-   implementation returns -EINVAL.  MXS-DCP only implements ECB and CBC
-   here, whose generic implementations currently return 0.  Handling it in
-   the driver therefore matches existing behavior; centralizing this would
-   require algorithm-specific length information.
-
-   I agree that the commit message should describe this as existing ECB/CBC
-   behavior rather than a general skcipher API rule.
-
-   Thanks,
-   Linmao
->
-> Frank
->
->>
->> Thanks,
->> Linmao
->>
->>> Frank
->>>
->>>> When such a request reaches the worker, last_out_len remains zero. The
->>>> CBC completion path then subtracts AES_BLOCK_SIZE from this unsigned
->>>> value when updating the IV, causing the offset to underflow. On
->>>> decryption, the resulting source address precedes aes_in_buf.
->>>>
->>>> Return success before enqueueing zero-length requests. This avoids the
->>>> invalid source access and leaves the IV unchanged for a no-op.
->>>>
->>>> Fixes: fadd7a6e616b ("crypto: mxs-dcp - Fix AES issues")
->>>> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
->>>> ---
->>>>    drivers/crypto/mxs-dcp.c | 3 +++
->>>>    1 file changed, 3 insertions(+)
->>>>
->>>> diff --git a/drivers/crypto/mxs-dcp.c b/drivers/crypto/mxs-dcp.c
->>>> index 133ebc998236..60794b4d49fa 100644
->>>> --- a/drivers/crypto/mxs-dcp.c
->>>> +++ b/drivers/crypto/mxs-dcp.c
->>>> @@ -473,6 +473,9 @@ static int mxs_dcp_aes_enqueue(struct skcipher_request *req, int enc, int ecb)
->>>>           struct dcp_aes_req_ctx *rctx = skcipher_request_ctx(req);
->>>>           int ret;
->>>>
->>>> +       if (!req->cryptlen)
->>>> +               return 0;
->>>> +
->>>>           if (unlikely(actx->key_len != AES_KEYSIZE_128 && !actx->key_referenced))
->>>>                   return mxs_dcp_block_fallback(req, enc);
->>>>
->>>>
->>>> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
->>>> --
->>>> 2.25.1
->>>>
->>>>
+      Andrew
