@@ -1,53 +1,45 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D71C441037;
-	Tue,  1 Sep 2026 03:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDAE441037;
+	Tue,  1 Sep 2026 03:39:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788233992; cv=none; b=phZTDmNmxzwkIv4a7I6pxBQ7dsNeF+7GaGRnyHm5FpT01G+aNBwakhO1KN4XloRKdPPsGJqtrXLnLUxViczgxG7m4YiglW9VFeCP4gMMqD+klRtQ3Cav3rtzzO/tO3fb8d6p7Y9MKxThRlutAQ57CsVRJ2vUcpB6yMpVvfeLQlQ=
+	t=1788234002; cv=none; b=aE0Z070NtK62ObV7z661sM67Jzfd3MqEvC1r6pQbqTnBYWEhzJGwTilx5A23V3O0GrWh8hrTgL4FmfOM58PtsxxEy0PVfAM4xNy/y/IFhjnj+rmEKYw+Cpu4hUleH/YSM8a1ZzxQxszIfnJ/5pvQiMm2R0QW20hKFmTjhI0c3QY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788233992; c=relaxed/simple;
-	bh=lVzE/Y5Ujhm7lVCVr+8GgXLRwqIy8bFz+sP5/64/TbY=;
+	s=arc-20240116; t=1788234002; c=relaxed/simple;
+	bh=FBOtULf8CFZAYjOEQAV7Wvs/y0/TtvPhPtil2Ikh2io=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LUZhNsc1rft8sgo7NCZrzKVivMTgPFhXQeliz83KxNuw4ZFwNjWdnGadNAFwgRhXmaNtqxzcOP3y0oH8Ui9aDhZyCqeMprEf55bolzkaxpUlO6MwTF0s58a3FvWJaB9zUxPMMKPE/Sl96eAZaEEIY/5MfyHjFaJWj8qhTX31rvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F1ZOcW+G; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KIC1F8Zv1nHR9dG6gbFD8B/+GSO5V+PDKUQhSTCB9N+YqCAozN2MfNthLTKtXrSnCHnJtUlVlgy2sCKhlwMVyW0Vr0Cq2C7fnredX6wYwsa4xWj8yMyxx/E7Zr7s9MpssOe6ujee92eqZMiaeMIOw3QD2H0NzAOxTEOue0dfoII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=P7wgZ+wL; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F1ZOcW+G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAB231F000E9;
-	Tue,  1 Sep 2026 03:39:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788233991;
-	bh=AndJ4eRb4pdKGxDByf2P4c70B3XEzx3uFUPqOt3vFjY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F1ZOcW+GX/q3zz3IfTc1ajde78AEI40EmdOEmSdDC8yoYz/3WIP7LXMYbvKXXG71H
-	 V2ViaAn4YiOy2C2I4uuzOH3fQVI0ZzXdvQw9CAmoBVj46MN42yA/8OCJx5zHKMHKCh
-	 0cgRHfOrzwC4kfbiFM4lkkalBIV6otkOGyhuQPIEtiYJz81oMdOWl1hxkfBYDlT5qk
-	 49Icz/S6RNGEzEH7gr0W/ooStQAxRQhmwKNW79a94HulwkGzgXvZkI81HoLZZh5qEm
-	 mDN0pu79DUTzFgPSIlYyVs0kLyJM+xt5W4cAvvBDT7RGjzz4K/PLbRwAIa4RjOKdNg
-	 /jAdNNYGvcyHg==
-From: SJ Park <sj@kernel.org>
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: SJ Park <sj@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	linux-doc@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="P7wgZ+wL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Po
+	P8bWYIQUl0297J3WZJS5T0aRa8xkK9bNJ6Q0/k/TA=; b=P7wgZ+wLBFZOZ1anOn
+	pmOeqfAOaoBBoRqE1WRO1/s+ao9hveHht6AU1EhxH15/j9AHBIUur9dJnLyrBTNG
+	WpI3qFI6EgF/zE5AlY2jTqMg3bL7S5AhBCRLP6rLT0LezpoZx6uAiXKcaWfZB03V
+	Au97Htf3C0m3unmrVdciwGUBY=
+Received: from sky.localdomain (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgCnpR3sSJZq6TvgPA--.45208S2;
+	Tue, 01 Sep 2026 11:39:24 +0800 (CST)
+From: Junnan Zhang <zhangjn_dev@163.com>
+To: mkoutny@suse.com
+Cc: cgroups@vger.kernel.org,
+	hannes@cmpxchg.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 1/2] docs/core-api: memory-allocation: add k[mz]alloc_obj() and clarify kmalloc
-Date: Mon, 31 Aug 2026 20:39:38 -0700
-Message-ID: <20260901033938.91859-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260831-docs-memalloc-guide-v1-1-547718c274c1@kernel.org>
-References: 
+	sunshx@chinatelecom.cn,
+	tj@kernel.org,
+	zhangjn11@chinatelecom.cn,
+	zhangjn_dev@163.com
+Subject: Re: [PATCH v3] cgroup: avoid flushing global workqueue in cgroup1_pidlist_destroy_all
+Date: Tue,  1 Sep 2026 11:39:23 +0800
+Message-ID: <20260901033923.40420-1-zhangjn_dev@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <FIXME-fill-in-Michals-message-id>
+References: <apU1sXYP_QhsQFcB@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,103 +47,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgCnpR3sSJZq6TvgPA--.45208S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWr45Jry5KFWrtF15Jr47urg_yoWrWry7pa
+	yYyw4Fywn5Wry09ayIy3yIgF1rAa1rGayDJr1rGrW0yw15WrnYgryI9ayUWa4UAFZ5Jr1q
+	vrZ8WFs8ur4qqFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUeVbkUUUUU=
+X-CM-SenderInfo: x2kd0wxmqbvvry6rljoofrz/xtbCxQyNI2qWSOy36wAA3j
 
-On Mon, 31 Aug 2026 18:13:01 +0300 "Mike Rapoport (Microsoft)" <rppt@kernel.org> wrote:
+Hi Michal,
 
-> Since v7.0 the most used memory allocation function is kzalloc_obj().
-> 
-> Update hte memory-allocation guide to describe k[mz]alloc_obj() family
+Thanks for the review.
 
-s/hte/the/
+> a) a single reader taking more than hung_task_timeout_secs (that'd be
+>    a softlockup earlier),
+> b) starvation of cgroup1_pidlist_destroy_all() by many (queued)
+>    cgroup_pidlist_start() callers which goes against the second-long
+>    caching of pidlists,
+> c) there is large number of nr_cgroups * nr_pidnses which makes the
+>    caching ineffective
 
-> and make kzalloc_obj() the first answer to "How should I allocate
-> memory?" question.
-> 
-> While on it, clarify description of kmalloc() size limitations.
+An honest caveat first: this was reported by a customer on a production
+Kubernetes node. A guest memory dump was taken at the time, but it
+couldn't be analyzed with crash, so I can't give you the exact
+nr_cgroups/nr_pidnses.
 
-Looks good improvements to me.
+That said, I believe c) alone is sufficient, and neither a) nor b) is
+needed to explain the 120s stall, because the flush latency is
+backlog x per-work latency rather than the latency of any single work:
 
-> 
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+- backlog: flush_workqueue() waits for all works already queued on the
+  shared wq, which drains serially (WQ_PERCPU, max_active=1). Container
+  churn constantly runs cgroup destruction, and each destroyed cgroup
+  queues one work per cached (type, ns) pidlist, so the queue ahead of
+  the flusher grows with churn rate x nr_cgroups.
 
-Acked-by: SJ Park <sj@kernel.org>
+- per-work latency: each destroy work must acquire the owner's
+  pidlist_mutex, contending with readers (kubelet/cadvisor/runtime
+  scraping cgroup.procs). pidlist_array_load() runs entirely under
+  that mutex (css_set walk, kvmalloc, sort), so on a node with frequent
+  scraping each work can sit tens of ms behind a reader.
 
-> ---
->  Documentation/core-api/memory-allocation.rst | 30 +++++++++++++++++++++-------
->  1 file changed, 23 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/core-api/memory-allocation.rst b/Documentation/core-api/memory-allocation.rst
-> index 0f19dd5243239..8ecfa4d35f4f5 100644
-> --- a/Documentation/core-api/memory-allocation.rst
-> +++ b/Documentation/core-api/memory-allocation.rst
-> @@ -19,6 +19,12 @@ Diversity of the allocation APIs combined with the numerous GFP flags
->  makes the question "How should I allocate memory?" not that easy to
->  answer, although very likely you should use
->  
-> +::
-> +
-> +  kzalloc_obj(<VAR_OR_TYPE>);
-> +
-> +or
-> +
->  ::
->  
->    kzalloc(<size>, GFP_KERNEL);
-> @@ -139,10 +145,13 @@ allocate memory for an array, there are kmalloc_array() and kcalloc()
->  helpers. The helpers struct_size(), array_size() and array3_size() can
->  be used to safely calculate object sizes without overflowing.
->  
-> -The maximal size of a chunk that can be allocated with `kmalloc` is
-> -limited. The actual limit depends on the hardware and the kernel
-> -configuration, but it is a good practice to use `kmalloc` for objects
-> -smaller than page size.
-> +Since 7.0 there are type aware kmalloc-family helpers that let you safely and
-> +conveniently allocate a single object or arrays of objects with kzalloc_obj()
-> +and kmalloc_obj() and their array versions kzalloc_objs() and
-> +kmalloc_objs(). These helpers only need the type of the object that should be
-> +allocated and the count of elements in the array for the array versions.
-> +
-> +As of v7.2, vast majority of the memory allocations use kzalloc_obj().
+A few thousand queued works each delayed by tens of ms already exceed
+hung_task_timeout_secs -- no single reader needs to hold the mutex for
+that long (so a) doesn't apply), and each individual work does get the
+mutex eventually, so it's not sustained starvation either (so b)
+doesn't apply).
 
-As the commit message says "Since v7.0 the most used memory allocation function
-is kzalloc_obj()", should we s/7.2/7.0/ ?
+More on b): the second-long caching only helps readers that re-read
+within that 1s window (e.g. a single `cat` doing several seq_file
+iterations). Periodic scrapers like kubelet/cadvisor, with typical
+intervals of 10-30s, never hit the cache at all: every scrape round
+rebuilds the pidlist under the mutex and queues an expiry work 1s
+later. So heavy reader traffic and the existence of the cache are not
+in conflict -- the cache is simply ineffective for this access
+pattern. It also means the wq steadily carries ~nr_cgroups expiry
+works per scrape round, on top of the works queued by churn, which is
+what the flusher ends up waiting behind.
 
-I also feel like the above sentence might not really needed, or can be
-version-neutral, e.g., Since its introduction, vast majoritiy of ... switched
-to use ... ?  No strong opinion.
+On nr_pidnses specifically: containers typically share the pod/host
+pid namespace, so in the common case the multiplier is really
+nr_cgroups x scraping frequency rather than nr_pidnses. I can't confirm
+the customer's pidns usage for the same reason as above.
 
->  
->  The address of a chunk allocated with `kmalloc` is aligned to at least
->  ARCH_KMALLOC_MINALIGN bytes. For sizes which are a power of two, the
-> @@ -154,9 +163,16 @@ Chunks allocated with kmalloc() can be resized with krealloc(). Similarly
->  to kmalloc_array(): a helper for resizing arrays is provided in the form of
->  krealloc_array().
->  
-> -For large allocations you can use vmalloc() and vzalloc(), or directly
-> -request pages from the page allocator. The memory allocated by `vmalloc`
-> -and related functions is not physically contiguous.
-> +`kmalloc` always allocates physically contiguous memory and the maximal size of
-> +a chunk that can be allocated with `kmalloc` is limited by `MAX_ORDER`, the
-> +same limit also applies to the page allocator.
+> OTOH, I'm surprised this v1-issue popped up only now
 
-I initially thought if it makes look more consistent by using kmalloc() instead
-of `kmalloc`.  But seems anyway we are mixing those here and there.  So I have
-no opinion.
+cgroup v1 is legacy but still the default on widely deployed enterprise
+distros, and per-node cgroup density plus metrics scraping frequency
+have grown a lot in recent years, so the backlog needed to trip this
+only became common recently. Triggering it also requires all three
+conditions at once -- many cgroups, frequent full-sweep scraping, and
+sustained create/destroy churn -- which is presumably why it isn't
+seen more often: missing any one of them, the queue never builds up.
+That's my best explanation -- admittedly not provable without an
+analyzable dump.
 
-> +
-> +Internally, slab allocator differentiates allocations of different orders and
-> +delegates larger allocations to the page allocator, but for the users of
-> +`kmalloc` family it is entirely transparent.
-> +
-> +For large allocations that do not require physically contiguous memory you can
-> +use vmalloc() and vzalloc() family.
->  
->  If you are not sure whether the allocation size is too large for
->  `kmalloc`, it is possible to use kvmalloc() and its derivatives. It will
-> 
-> -- 
-> 2.53.0
+> What's the point of the workqueue after this change? (Mainly the
+> expiration + having process context for the handler.)
 
+It still serves the normal path: the deferred expiry that makes the
+pidlist cache work, and process context for freeing. The patch only
+removes the flush from the cgroup-removal path where, as you noted,
+the orphan list guarantees the pidlists head won't be used after cgrp
+removal.
+
+If the lack of exact field numbers is a blocker, I can put together a
+synthetic reproducer (N cgroups with concurrent cgroup.procs readers
+plus destroy churn) and report measured flush_workqueue() latency with
+and without the patch. Would that address your concern?
 
 Thanks,
-SJ
+Junnan
+
