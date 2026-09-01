@@ -1,162 +1,137 @@
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A389637E2E5;
-	Tue,  1 Sep 2026 12:40:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746FA371053;
+	Tue,  1 Sep 2026 12:41:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266441; cv=none; b=b2HZ7ZNABhO1ucHFZ8p0BQ3wtLSxGZsbi7JlNuwkPBpS7rs/37b0lszNSQ7F6cXozfIzq2EH0DXmqVd7exqby7vOYJoIvhfMvSrclZ0fYsY7DfxrtAGefLnzcv2Tsx+MPx15/aXLD9qyb1T4XfcbGLUFxB/zpflthMCVcSA6C9Q=
+	t=1788266469; cv=none; b=LDwSDUp2ifi30rDiLEH9sTIph2FlIHVqmMEOHe8x/TR1wmAcd5o0p3Jssi54C6iZInhrB9jWsp72O6voZJverulkBu7WzuY3DcP0IVoeUOgdhB5r1ODu2rB9oTN5fyEaIK1B0VKr3B5i5kzT4bXmmaNfil4Mj4JfP/p40xCpD+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788266441; c=relaxed/simple;
-	bh=yMyZgZUL0YYG2IWxV3xUszXbUrJJCZG/+6OEM1uDTro=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nEY0a3F9z6zo3FeZJ3lVxLTqSCDKmIR//jAknJ7PkBdiVB1McWRBUqKNoFVtCct4qkxf4D3fsY8o6y/errqEahH8DHU+G29D/4A1Uq/sOo/BV059f/gJ79kcPSqeoSz5dlHVHEj5a5VorAk4XcEVPmsXre+v7xvhuOhTleKIfkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=GjOdSDNv; arc=none smtp.client-ip=115.124.30.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788266469; c=relaxed/simple;
+	bh=mJo4l/y4MxbMvXcw1tprHy5vAB2h6U3R8qtue/noZ9Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q4pKvcqV1sDYF1RJM/Yo7v+IQsmPMR+5wphhC8jeY3M6J4meV6ijCdaCswW/jAXteXe0elQEAgQ1ULZDVFlEyGJX1ijhh3Kc0rPqscXy+uSvZSc59YAmovNCITxLBAiODpzoY1Ewz7iR+4UptDCt1b59h2Yqn9J3tW/FnVsU2U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QF3m0Q1F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="GjOdSDNv"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788266432; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=z9QPVwHndHlBSqUmecBJIZzxHjCGmQ/Teg06KwoLW1E=;
-	b=GjOdSDNvlTTTgpo1LHOSByyFj/Vi5ELdoyooODWLhDoqEyoH4KPv85ifRKUIbcrlCnps0WSnOPI4BUuvpjO7O6Dl9CMMNVUkhnNhgFVhFhh0vuaqwHUEG+vfSbKSCFlmJcX6CBiuGR3OKNOWT+3ER356dtmdosOX2JEySkbNiYo=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R451e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XA8SZw4_1788266429;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XA8SZw4_1788266429 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 01 Sep 2026 20:40:30 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-To: tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org
-Cc: hpa@zytor.com,
-	xin@zytor.com,
-	luto@kernel.org,
-	jpoimboe@kernel.org,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	akpm@linux-foundation.org,
-	rdunlap@infradead.org,
-	elver@google.com,
-	andreyknvl@gmail.com,
-	glider@google.com,
-	gor@linux.ibm.com,
-	brads@mainlining.org,
-	kasan-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org,
-	Yuanhe Shu <xiangzao@linux.alibaba.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] stacktrace: Provide arch_in_event_entry_text() hook
-Date: Tue,  1 Sep 2026 20:40:12 +0800
-Message-ID: <20260901124013.1098560-2-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260901124013.1098560-1-xiangzao@linux.alibaba.com>
-References: <20260901124013.1098560-1-xiangzao@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QF3m0Q1F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E5021F000E9;
+	Tue,  1 Sep 2026 12:41:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788266468;
+	bh=8E/4HEhZ+01WRW16r1kh+DTxQ/1UAOLeU+xLOlmoQrA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QF3m0Q1FNTtxaECBq2LCYXalGE6aM1//FUA1jWjZwrYLMTd0dklCHmF+54khHi923
+	 k3Z4F1sqcdQRrgJ66QqjtMfAUZ8Ijv84XvJDPfK4nynCoMlh9DElVKpMPq0Mz6hZFC
+	 J/EKXuVwVgjD/uunoVMrZkjDGl89L1NLd+oq+R3Nx5XeFuhDaIJkD4dt1jWibGPAbm
+	 4lfWzYHq7OwpDj1M8KnOCcEAXs0VkgrmqzWrIbrGbq0s3UE8RuSEttTUhbe4JDuN+c
+	 vNsiky0jcDl80mZhYjrGiIF9NKqSZBM08MAOjTqiHh6NbME65+kozouZB1aC6P4fBk
+	 13MGrFDmwqGdw==
+Date: Tue, 1 Sep 2026 15:41:03 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Yunseong Kim <yunseong.kim@est.tech>,
+	Stefan Metzmacher <metze@samba.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Jacob Moroni <jmoroni@google.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Steve French <smfrench@gmail.com>,
+	Namjae Jeon <linkinjeon@kernel.org>, Tom Talpey <tom@talpey.com>,
+	Yunseong Kim <yunseong.kim@ericsson.com>,
+	linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
+	linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org
+Subject: Re: [RFC PATCH] RDMA/iwcm: allow aborting an active connect awaiting
+ CONNECT_REPLY
+Message-ID: <20260901124103.GL24140@unreal>
+References: <20260805000159.321645-2-yunseong.kim@est.tech>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260805000159.321645-2-yunseong.kim@est.tech>
 
-in_irqentry_text() decides whether a stack address belongs to interrupt
-entry code by checking the .irqentry.text and .softirqentry.text section
-ranges.  filter_irq_stacks() uses it to truncate interrupt stacks at the
-entry point, which stack depot depends on to deduplicate them: traces
-that continue past the interrupt entry lead to unbounded depot growth,
-see commit e94006608949 ("lib/stackdepot: always do filter_irq_stacks()
-in stack_depot_save()").
+On Wed, Aug 05, 2026 at 02:02:00AM +0200, Yunseong Kim wrote:
+> After a successful connect downcall, iw_cm_connect() returns with
+> IWCM_F_CONNECT_WAIT still set and the cm_id in IW_CM_STATE_CONN_SENT.
+> The only thing that clears the flag is the provider delivering
+> IW_CM_EVENT_CONNECT_REPLY (cm_conn_rep_handler()).  Until that event
+> arrives, iw_cm_disconnect() and destroy_cm_id() sleep uninterruptibly
+> in
+> 
+> 	wait_event(cm_id_priv->connect_wait,
+> 		   !test_bit(IWCM_F_CONNECT_WAIT, &cm_id_priv->flags));
+> 
+> and both state machines treat IW_CM_STATE_CONN_SENT as BUG(), so the
+> API has no way to cancel a pending active connect.  If the provider
+> never generates the reply, because the peer died in the middle of
+> connection setup or because of a provider bug, every teardown path
+> (rdma_disconnect(), rdma_destroy_id()) blocks in D state forever and
+> the ULP cannot recover: there is no way to disconnect after
+> rdma_connect() was called without risking an unbounded hang.
+> 
+> This class of problem is not theoretical.  The pending smbdirect
+> change "smb: smbdirect: bound the disconnect wait in destroy_sync" [1]
+> had to work around it on the ULP side:
+> smbdirect_socket_destroy_sync() waited unbounded for the socket to
+> reach SMBDIRECT_SOCKET_DISCONNECTED, a transition that depends on an
+> asynchronous RDMA CM disconnect event, and when the peer died abruptly
+> (a killed client, or Soft-RoCE/RXE where no graceful disconnect
+> completes) that event never arrived.  The destroy ran on the single
+> ksmbd-conn-release workqueue, every later connection release queued
+> behind it in D state, and the whole server wedged until hung_task
+> fired.  That change bounded the wait and drove the socket state
+> machine to DISCONNECTED locally on timeout; ULPs should not have to
+> resort to that, the CM should offer a teardown they can rely on.
+> 
+> IWCM_F_CONNECT_WAIT currently guards two different windows:
+> 
+>  * the connect/accept downcall into the provider being in progress;
+>    teardown must keep waiting for that, it is short and bounded;
+> 
+>  * an issued active connect waiting for CONNECT_REPLY, which is
+>    potentially unbounded.
+> 
+> Mark the second window with a new flag, IWCM_F_CONNECT_SENT: set by
+> iw_cm_connect() once the downcall has returned successfully, cleared
+> by cm_conn_rep_handler().  The teardown waits now complete when either
+> the downcall has finished (!IWCM_F_CONNECT_WAIT, as before) or the
+> pending-reply window has been entered (IWCM_F_CONNECT_SENT), and the
+> previously BUG() CONN_SENT cases become:
+> 
+>  * iw_cm_disconnect(): return -ENOTCONN; there is no established
+>    connection to disconnect, aborting is the destroy path's job;
+> 
+>  * destroy_cm_id(): abort the pending connect locally by moving to
+>    DESTROYING and putting the QP into error so the provider tears the
+>    connection attempt down.
+> 
+> A CONNECT_REPLY that arrives after the abort is dropped: either
+> cm_work_handler() sees IWCM_F_DROP_EVENTS, or cm_conn_rep_handler()
+> now recognizes IW_CM_STATE_DESTROYING (the abort and the reply
+> serialize on cm_id_priv->lock) and frees the event without touching
+> the QP that destroy_cm_id() already released.  The cm_id memory stays
+> valid for such a late reply because the provider holds its own
+> reference (cm_id->add_ref) for as long as it can deliver events.
+> 
+> The passive side has a sibling gap, where after a successful accept
+> downcall the flag stays set until the provider's ESTABLISHED event
+> arrives, which this patch deliberately does not change.
+> 
+> [1] https://github.com/smfrench/smb3-kernel/commit/26d0f82a02c8a9c9c8cdfc138acb7ed0bf8e01a9
+> 
+> Suggested-by: Stefan Metzmacher <metze@samba.org>
+> Signed-off-by: Yunseong Kim <yunseong.kim@est.tech>
+> ---
+>  drivers/infiniband/core/iwcm.c | 76 +++++++++++++++++++++++++++++-----
+>  drivers/infiniband/core/iwcm.h |  1 +
+>  2 files changed, 67 insertions(+), 10 deletions(-)
 
-An architecture may deliver interrupts through entry code that cannot be
-placed in .irqentry.text.  in_irqentry_text() then never recognizes the
-entry point and the truncation silently stops happening.  The markers are
-meant to cover all interrupt entry functions; when they do not, the depot
-fills with unfiltered stacks:
+I'm not sure what to do with this patch, as the iWARP folks have
+remained silent.
 
-  https://lore.kernel.org/all/CACT4Y+aReMGLYua2rCLHgFpS9io5cZC04Q8GLs-uNmrn1ezxYQ@mail.gmail.com/
+Stefan,
 
-Add an optional arch_in_event_entry_text() hook, consulted in addition to
-the section range checks.  An architecture overrides it by defining a
-macro of the same name in <asm/sections.h>, next to the section markers
-it tests; the default here is a static inline returning false, which
-folds away entirely on every architecture that does not opt in.  This
-mirrors the existing arch hook pattern of arch_nmi_enter() in
-<linux/hardirq.h>.  The fallback sits next to the hook's only user, so
-no generic header gains a new dependency.
+Do you still need this patch? Have you tested it?
 
-Rename in_irqentry_text() to in_event_entry_text() at the same time and
-name the hook after it: the ranges it tests are not necessarily irq-only -
-on x86 they also cover the exception entry stubs - and what
-filter_irq_stacks() asks of them is where a trace entered the kernel.
-The helper is file local with a single caller, so the rename stays inside
-kernel/stacktrace.c; filter_irq_stacks() keeps its name as it is exported
-and used treewide.
-
-No functional change on its own.
-
-The first user is the FRED fix in the follow-up patch.  Both carry the
-same Fixes: tag and are Cc'ed to stable so that they are picked up as a
-pair.
-
-Fixes: 14619d912b65 ("x86/fred: FRED entry/exit and dispatch code")
-Cc: stable@vger.kernel.org # v6.9+
-Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
----
- kernel/stacktrace.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/stacktrace.c b/kernel/stacktrace.c
-index afb3c116da91..62b84998b13e 100644
---- a/kernel/stacktrace.c
-+++ b/kernel/stacktrace.c
-@@ -14,6 +14,7 @@
- #include <linux/kallsyms.h>
- #include <linux/stacktrace.h>
- #include <linux/interrupt.h>
-+#include <asm/sections.h>
- 
- /**
-  * stack_trace_print - Print the entries in the stack trace
-@@ -374,12 +375,24 @@ unsigned int stack_trace_save_user(unsigned long *store, unsigned int size)
- 
- #endif /* !CONFIG_ARCH_STACKWALK */
- 
--static inline bool in_irqentry_text(unsigned long ptr)
-+/*
-+ * Used to help find where a trace entered the kernel.
-+ *
-+ * Architectures use this when event entry text cannot be placed in
-+ * .irqentry.text alone.  Architectures should define a macro of the
-+ * same name in <asm/sections.h>.
-+ */
-+#ifndef arch_in_event_entry_text
-+static inline bool arch_in_event_entry_text(unsigned long addr) { return false; }
-+#endif
-+
-+static inline bool in_event_entry_text(unsigned long ptr)
- {
- 	return (ptr >= (unsigned long)&__irqentry_text_start &&
- 		ptr < (unsigned long)&__irqentry_text_end) ||
- 		(ptr >= (unsigned long)&__softirqentry_text_start &&
--		 ptr < (unsigned long)&__softirqentry_text_end);
-+		 ptr < (unsigned long)&__softirqentry_text_end) ||
-+		arch_in_event_entry_text(ptr);
- }
- 
- /**
-@@ -394,7 +407,7 @@ unsigned int filter_irq_stacks(unsigned long *entries, unsigned int nr_entries)
- 	unsigned int i;
- 
- 	for (i = 0; i < nr_entries; i++) {
--		if (in_irqentry_text(entries[i])) {
-+		if (in_event_entry_text(entries[i])) {
- 			/* Include the irqentry function into the stack. */
- 			return i + 1;
- 		}
--- 
-2.43.7
-
+Thanks,
