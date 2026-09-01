@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3FB46E01F;
-	Tue,  1 Sep 2026 07:50:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2094582C3;
+	Tue,  1 Sep 2026 07:51:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249036; cv=none; b=H3iznkLOH6006n6L9Mt/1uQQNbkc1HN62V6N7u8HoIw3hvoFG7p/IgJlLepitAV9++P+P8YNktjgWHtO0kGDB43ahtT4+Jidljx1jDxpOacTXyVRWXcueCqXa17b85QOaAUMr4dRViI5zt3K7JvOFG3GRdXf1fdxJkYlDmrSolI=
+	t=1788249066; cv=none; b=sPJpq2pB/9V1IA92YpSkWsejNCG1vOw4U0BmHEGFdSp/+XmW0EeTe49Lhg1Tue3EWo2q8npl60zKUvNwSzcArTvPUp6fam94AK7vldaPQ5tJxcvhf7YkMKjmP7mfItGJ9+nqcMuhstGUnM4fkt1XPQpBSKrYBRV+/DDYotlLYkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249036; c=relaxed/simple;
-	bh=kqWV7eewRd1Mp6Q79yDxU92tWRnsRsSA9cz0QMHLvck=;
+	s=arc-20240116; t=1788249066; c=relaxed/simple;
+	bh=ejdbywNqTpmJB18yhFS7CkuAyrwxUlI4tPYkwzvRFao=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rAWj9UVYsv8RU9t3ZvRl+7eYlMDEBonz7WlALT76LT3sTYfzHCSp8nmS5GuK3iUDvpXf5qogErMn9IbSheH0p8aYFZmK2LaT7TyZ6U2sdwszS/qX+ubDad2MAazoJXKx49RCv1+b/nbUW5zqqUb2rcBWrbAmh/mOO89aHr2sxew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lmzf1UMb; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=NoIp7wpzyoKz5o8jBbaJm4qwkNL58cvxCKv9EFrCkMHYBZ1UqkNSBbahlG5mDc8gM+cFtHgeEkPhyp0x9IETMaD2eDAcIXRNZPFLUMHJ5Z+/nvr2tKMFvh4eAU5Nb6EK/MkzK8wk/xsNB8p3joLX2trbS/YrEXVa0gpywwsDDKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jkihtO5j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lmzf1UMb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 978FB1F00A3E;
-	Tue,  1 Sep 2026 07:50:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jkihtO5j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 824C91F00A3D;
+	Tue,  1 Sep 2026 07:51:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788249035;
-	bh=x1XZqBPHN0ntygf3/sUmkFR/mSTqD3HugbTSHCQc+5A=;
+	s=k20260515; t=1788249063;
+	bh=XnIWq2e8Znfy7Of2/y6rseFC9fMg0/n8amTNj5fGoOg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Lmzf1UMbiB39d1gc12cr4PVgNp41UnVkAi4mZKGEy4OqkYosoNwTR2BRsXte2Is3I
-	 d2vSAXjExa6n5mANF3a/0flakPB2Y7973LmP3bCiZoYlST3a9Nq82NXz/gVae0/Rmm
-	 nZKxEuItT/UTr8/EO/1MX3qgiIBGWeXwZzoorELlCZIsT4s3IHHfHxY9Y/lCtBgWT/
-	 6xaf6manuipM75QWrRlmpNwxurmMi0hppVKkB0oz3/MbOaxPD2TI1xOkVmooPyQuma
-	 sjXfT3BdbvTQQc5c41DRETIZJ7PXxlI/YotQQzOi+xT6sxCHLnVe0wuxamvW3Z9VKx
-	 4PeY2RWDLmcRw==
-Date: Tue, 1 Sep 2026 09:50:15 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Jingoo Han <jingoohan1@gmail.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Jeff Johnson <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, mhi@lists.linux.dev, linux-wireless@vger.kernel.org, 
-	ath11k@lists.infradead.org, qiang.yu@oss.qualcomm.com
-Subject: Re: [PATCH v5 3/6] PCI: Add pci_lnkctl2_bus_speed() to convert
- lnkctl2speed to pci_bus_speed
-Message-ID: <lcljoi3djqgtxuqqtvb43n6z6ns3kzmjwcceqhvovmiqe4eqhs@chgulo7facny>
-References: <20260819-bwscale-v5-0-6dea79786b37@oss.qualcomm.com>
- <20260819-bwscale-v5-3-6dea79786b37@oss.qualcomm.com>
+	b=jkihtO5jkCjaYeG5V9HgdRRfgKIQQB85IejzP0wXYoMGfjQsIU1lPAq64I+MKS7UH
+	 wBDQnWiM4ghKIDTLGokbnEcrK00GJ1IsZ/Vd23zBVl8T8HBbkHI7HwqhbSWhptBmyZ
+	 MJ8jHNntvp0qOpMlMSajbpcWOwvJwSo3C3oDbB63n7yjAY8hwN7B+HwPYxp/YFkHWE
+	 ct6m0AP8ZMOPhYPuV5UNaC2H8DIQxfW7+gvse9vq6xyBmNse1eNDCdJLFypHjy+orj
+	 9wQbchDW9U5+TJIh8E555XnO2zprnU+zhZJ5Fy92UmIRraHAl1VsUu4x47sQaPsv8F
+	 9rakAKqAO1RwQ==
+Date: Tue, 1 Sep 2026 09:50:59 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Michael Zavertkin <misha.zavertkin@mail.ru>
+Cc: linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sander Vanheule <sander@svanheule.net>, Bert Vermeulen <bert@biot.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: gpio: otto-gpio: Add gpio-ranges
+Message-ID: <20260901-upbeat-lemon-griffin-d7bcaa@quoll>
+References: <cover.1787830440.git.misha.zavertkin@mail.ru>
+ <bd1fd3ab47001c303e62d331486779c2be6d6eb3.1787830440.git.misha.zavertkin@mail.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,34 +46,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260819-bwscale-v5-3-6dea79786b37@oss.qualcomm.com>
+In-Reply-To: <bd1fd3ab47001c303e62d331486779c2be6d6eb3.1787830440.git.misha.zavertkin@mail.ru>
 
-On Wed, Aug 19, 2026 at 06:55:54PM +0530, Krishna Chaitanya Chundru wrote:
-> Add a exported function to convert lnkctl2speed to enum pci_bus_speed,
-> so that other kernel drivers can use it.
+On Thu, Aug 27, 2026 at 09:29:30PM +0700, Michael Zavertkin wrote:
+> Add 'gpio-ranges' optional property to reflect driver changes.
 > 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
 > ---
->  drivers/pci/pci.c   | 15 +++++++++++++++
->  include/linux/pci.h |  1 +
->  2 files changed, 16 insertions(+)
-> 
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index 77b17b13ee61..cda7d210ddbf 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -5939,6 +5939,21 @@ int pcie_link_speed_mbps(struct pci_dev *pdev)
->  }
->  EXPORT_SYMBOL(pcie_link_speed_mbps);
->  
-> +/**
-> + * pci_lnkctl2_bus_speed - convert Link Control 2 Target Link Speed to pci_bus_speed
-> + * @speed: Target Link Speed (TLS) value from Link Control 2 register (0-4 for Gen1-Gen5)
+>  Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-Use GT/S instead of Gen.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-- Mani
+Best regards,
+Krzysztof
 
--- 
-மணிவண்ணன் சதாசிவம்
