@@ -1,111 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF29456297
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A3343BDBE
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:06:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788293127; cv=none; b=InrwG1PwYlHTXF37PktFZPlMVndLjlUmmPOrE0cj3Zc0Yazm4wXCyVdm6aTrZn/yse2CjM3orEdEYPcgAfDrEhARJcCEv7/RURhZaURBMJD50UgdW9sIKQMvn2T++lvr3jyhCSn3RXqKUYdyPrRTjJ4+NQxvHvRHEyHtPotiMT8=
+	t=1788293193; cv=none; b=sdDJE7/rGUjbOztVcw1YbDJj69EaBS56+uXTyzBobZLI6mBAJ4USkIeTybnffDBGwOV+8CxN2q9ESUi0jOHMH/1/w2Hnr58zXI3z38TOfL8ONicU59/2NrvWgeDJjlk9X6xvhzqwIoGxj50P6byvQOuVLxHdvDaFvgwdKUffeoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788293127; c=relaxed/simple;
-	bh=6xHhXi6J06QWcYHT4XAH9JrkYOlqS9Ep7EIrsnfpVm4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AlMqV4xfln0kBfD4bzOjyfdTjw1zaibqpZUh/f8xuvJwpE/k757Z3xs1NUJI+8JYUqoeCQQtJmm+dwdEbTmWc6kltz+IJRWt0sC1DWnxc7fL4HgO+NKtoJXPjbt0OY4/seyhX3O8r8PFt39dlB3BB/bWAaR7dIt0bEpySfGShuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESp3xSXn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788293193; c=relaxed/simple;
+	bh=dvK/7qq0PvbUm5G0leIqI66lYNJgk8r5vzSh6nhg8EA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DpjNU5r21/+NW3lfdim9SIs3Hi7pdn4CwrR7ebIUB+K/AGhfNXVUTtJrdaXzVJ4IdapB2YNLzxEnlml1rtaC0wUTsS8NqNIWzWlzLPz4i9NvSTRuWArPMHp137KBnV3XmJNguw/sbFqz5auoj4vhTgttDUv1vzySWgdAiH/ydww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=zosOt4gv; arc=none smtp.client-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESp3xSXn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16B7A1F000E9
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:05:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788293125;
-	bh=D/+4brkDHmZ+QnmE/zqdwooG9iS3MJ/5To5lInwHY/A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ESp3xSXnO+Ir6sdOu/zjUPGpWtdAlT818jn8nHWQ+HWNEESDwyGm3RqSjsDhw9LC/
-	 pZAfl48pGsx4V0ChSuJdrE//GadW1nvNDNg7UEcD/LdTGG2W49nk408heGghwWAq4v
-	 3PfNZ+4RRzIng7/ISIeYa0ueGN73DjjDqlxugJdOAz6DvD7Wz3gZPhJF6IFqDpZWev
-	 aI6jlaXqcfUP3EKd03SRFGNHPW6C8TrqYt0D6eRXYsW4ftYg/7AYm4HNmwee1pcU3o
-	 xJeQ67Bo4mCRp49YswndXFFy9N1HUC87z3GSkpmpmA4ohYYnc4DTP8Al/qGYxP0G4l
-	 EZLTvYn2yBcdQ==
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a374bea882so442836a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:05:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwkp3b08x0YyEo3mWEeJ3iTy5Cl2hSyvnkTLplq8i3DAeEEDNGdXKJHJ6rFQY8Jg3LjNHgdYGfAZ7e6OiA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mr6iMSsMOJ63YqhuvlH8jtabG7/vHJwx++tyCXrxiPPD8slM2P
-	j+axnqWOsVnq5lpf7znkHU9jVzr79gHChemmIbLHQz/eAPRGoNSm0FVSzHevSYCTqVFs0JmiRKA
-	J0SgiQWbFkxSkM4V9INzaavucJKQqoA==
-X-Received: by 2002:a05:6402:388d:b0:6a6:32f5:90b4 with SMTP id
- 4fb4d7f45d1cf-6a682af9bf3mr137153a12.22.1788293123755; Tue, 01 Sep 2026
- 13:05:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="zosOt4gv"
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hZH1g0MPBzlfpMJ;
+	Tue,  1 Sep 2026 20:06:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1788293186; x=1790885187; bh=dvK/7qq0PvbUm5G0leIqI66l
+	YNJgk8r5vzSh6nhg8EA=; b=zosOt4gvTN/UNm+TZCYETpwqDiNxEnQegmXsvif3
+	9JMaarc+x+ragDV/w6Cnnp/gALpDayn/jqIQD461v8OI2gV7DlrLypnBIwxinKy5
+	Ruqg872eJYKfv1QvlALxrw7V3ulbDkL2WOg9d0qh+dX1PLvygtj0gx9zf/Vl3Ip8
+	RkgGJ/O/J8A84CGy+68dO1VWGGdXBejP/sXfp9g7O3lcjwxSjZxnjOQiFVzokHjf
+	FwYfm8IQQ88stNaW536krKJ66e37foRmAOBj/oALu+0YmJca0xdIyNhAWkPUUdLO
+	wqUcgAc9bQrWn4+qi1yUBFCas+buNFNB99OBysNmGgFGUw==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id ChZehgKpDaEm; Tue,  1 Sep 2026 20:06:26 +0000 (UTC)
+Received: from [100.80.227.50] (unknown [104.135.182.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hZH1W6st7zlfqB3;
+	Tue,  1 Sep 2026 20:06:23 +0000 (UTC)
+Message-ID: <07dcd177-bc20-416e-accc-9c137d70a5d6@acm.org>
+Date: Tue, 1 Sep 2026 13:06:22 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901172058.1512508-1-elder@riscstar.com> <20260901172058.1512508-2-elder@riscstar.com>
-In-Reply-To: <20260901172058.1512508-2-elder@riscstar.com>
-From: Rob Herring <robh@kernel.org>
-Date: Tue, 1 Sep 2026 15:05:12 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJJPdrYArNhbRPTM=scDghLAWe5=0a2+ACNaHe07h6-tw@mail.gmail.com>
-X-Gm-Features: AcwNN1UgpW6Z9ydTggKrR6I_Vdbck50n7YuEwMJyuJwLKyVB0nahVAUkaTN_zr8
-Message-ID: <CAL_JsqJJPdrYArNhbRPTM=scDghLAWe5=0a2+ACNaHe07h6-tw@mail.gmail.com>
-Subject: Re: [PATCH 1/5] arm64: dts: qcom: qcs6490-rb3gen2: use pci for device nodes
-To: Alex Elder <elder@riscstar.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, 
-	lorenzo.bianconi@oss.qualcomm.com, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with sparse
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: David Laight <david.laight.linux@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+ Chris Li <sparse@chrisli.org>
+References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
+ <20260831214437.15d6ad34@pumpkin>
+ <a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
+ <20260901092043.7feaf5d7@pumpkin>
+ <dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
+ <CAHk-=wgFEG7ZVaFAbo=bWWfsSh_weA4cOh6BV-xHWNSn6SwNBQ@mail.gmail.com>
+ <737a4f62-f50a-40bd-a94a-1f42e9f3f54a@acm.org>
+ <CAHk-=wiZog53-M8--_2m7HRk4XOQ+_jkh1XVuyQXXJgSwooQng@mail.gmail.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <CAHk-=wiZog53-M8--_2m7HRk4XOQ+_jkh1XVuyQXXJgSwooQng@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 1, 2026 at 12:21=E2=80=AFPM Alex Elder <elder@riscstar.com> wro=
-te:
->
-> A recent change caused the embedded PCIe endpoints on TC9564 SoCs to
-> be treated by the devicetree code as PCI buses, which is incorrect.
->
-> An RB3gen2 system has an "interposer board" that contains a TC9564
-> SoC.  The TC9564 includes a PCIe switch with one upstream port and
-> two downstream (external) ports, plus a third downstream port.  The
-> third port has an embedded PCIe endpoint with two functions, each
-> providing access to a 10 Gbps capable Ethernet interface.
->
-> The devicetree nodes representing these functions were previously
-> named "pci@" but were renamed in the interest of consistency in
-> commit e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@").
->
-> Unfortunately, of_node_is_pcie() causes nodes named "pcie@" to be
-> treated as PCI bridges, which PCI endpoints are not.  The previous
-> name "pci" matched such nodes as "default-flags" bus type, defined
-> in the of_busses[] array.
->
-> Rename the PCIe endpoint nodes "pci@" so they are not mistaken for
-> bridge nodes by the devicetree parsing code.  This restores the
-> previous behavior, and allows them to be used for PCI endpoint bus.
->
-> Fixes: e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@")
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
->  arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/bo=
-ot/dts/qcom/qcs6490-rb3gen2.dts
-> index a13315bf0fb07..99a985a177a61 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> @@ -954,7 +954,7 @@ pcie@3,0 {
->                         ranges;
->                         bus-range =3D <0x5 0xff>;
->
-> -                       pcie@0,0 {
-> +                       pci@0,0 {
+On 9/1/26 12:35 PM, Linus Torvalds wrote:
+> Does that tree at least work for you? Maybe we can convince somebody
+> who is a better maintainer than I clearly have ever been to make my
+> messy branch be something actually palatable...
 
-The kernel should treat either name the same. There may have been some
-reason 'pci' was not included in checks. It could have been that only
-old things are (parallel, plain) 'pci' and anything new is 'pcie'.
+Hi Linus,
 
-These are ethernet devices, right? Then the right name is
-'ethernet@0,0'. If not, then pick something that matches what the node
-is. Both pci and pcie mean the node implements a PCI bus.
+With the master branch of your sparse tree
+(https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/sparse.git/)
+sparse does not complain about the is_signed_type() implementation.
+Please note that I have not tried to verify whether any false negatives
+have been introduced by sparse commit 32eb1e2c4fa0 ("Allow both regular
+casts and forced casts for restricted values").
 
-Rob
+This makes me wonder whether I should switch from the official sparse
+tree (git clone git://git.kernel.org/pub/scm/devel/sparse/sparse.git) to
+your tree?
+
+Thanks,
+
+Bart.
