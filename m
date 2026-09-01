@@ -1,115 +1,127 @@
-Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B883955C3;
-	Tue,  1 Sep 2026 09:05:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6FA47669D
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253553; cv=none; b=X0JhHVKulEJMrnuZRAZEdQFDco4yjsMW74VZ0Yw065f70RdkcsHb/ky9kuAQxI1DBwreM5Z+Fi19Z7oy2qSnkvzFGkz1oSUmw+7SWBULWQpM6sew9/0EvnpJLGcitopi973/NMKjOGjHmmpa/h4GzBIqyr/g9ZIBAVsJSPl/JOM=
+	t=1788253580; cv=none; b=j1YUp4tpOFvBmALaun0PEyVXqsoIgU5uFS5s47C/LcdAddij3Xd6CGOk2rVMW4eCxQ3D3XqYTd53q2XakqXvoiHQAlDdWnBYWixixyMWItUkK78lf+1G4ALg5PBbo1fZlgQbLyqBI/CXE+mSDeKaNkSYpi0TCzH0g8eBVrBPMwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253553; c=relaxed/simple;
-	bh=tx+BXv8FdJTOqroRusEgS7WxHl7Hlq864y2qJKfbL2A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eEusSfbgZBNItLEUbbpRfunUxxQLFkfhUsgXKzuxXh+gX1WvRnl2Zxa4ou/mlyd/yAV7tH0EMH+nCvXGsZ0oBW92X08nxWBMiQFr70kjRrmTSMxWe9nEnKkqL+WB2sTWj+cUKo2NNdha2RKrHQoQMhAPEn9UlJteoYlK66S6/uI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=JL9zg82M; arc=none smtp.client-ip=95.143.211.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
+	s=arc-20240116; t=1788253580; c=relaxed/simple;
+	bh=VLMCTblWAmcjvlydjiDQOaM9EY30ui47eVm7HFZNWD0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sM9yt9p31AHZ/Ay1ulb4kXOnOc3Nohm4WvF12X3njQgTpK+hWxQGqyRK5vxySfu9Y+aDOoufhmCQpXchEdsi5c4Pn6wv0htEBqOhFt5u+ASEXzWMHXQeVFAguHKIKlIsBOI5nrMUKcXDzeWiStN0DCSHmJqCqc8HBZz8pSLk+28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=zwdczwa3; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="JL9zg82M"
-From: Denis Arefev <arefev@swemel.ru>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
-	t=1788253545;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=bEnHDKcXLyTKDgscSQ2cRAL+7EnQmBfBqSJoXXxrq7k=;
-	b=JL9zg82MHRd7pK9alIJ8BKW0UoCzNQGeWxrWNBThDPzERk0V38yvjJNLiHtLTTbydPacVa
-	CHHVwxaOl0lzJUSSfXovZUoFvGd2y4skGGCsS0UhgbOOJ/YNjNYykH9MfHqwMFokH4nb7C
-	08V/FHs8sXir2kdJ7SmGgPqksuKqV8E=
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Karsten Graul <kgraul@linux.ibm.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Ursula Braun <ubraun@linux.ibm.com>,
-	linux-s390@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"D . Wythe" <alibuda@linux.alibaba.com>,
-	Larysa Zaremba <larysa.zaremba@intel.com>,
-	Wenjia Zhang <wenjia@linux.ibm.com>
-Subject: [PATCH 5.10] net/smc: fix potential panic dues to unprotected smc_llc_srv_add_link()
-Date: Tue,  1 Sep 2026 12:05:43 +0300
-Message-ID: <20260901090545.10419-1-arefev@swemel.ru>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="zwdczwa3"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c169ae1cb26so127736466b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:06:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1788253575; x=1788858375; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4RZfyoM5tD0q7WqcULgsURT8LaR6zOJsyJgPkVRkoT8=;
+        b=zwdczwa3iQSrZKHoSS7DDDQ7f3Stbep0b0Wfmlg1EcCRX6SxYF/9MoNo2WEoq/01zy
+         /PXQNiP2zkkWrAiEovCOABUVNTGVStO7sYtNrDIyWSa4R4UdMvM+0g6LCnriq1vW6PeB
+         NUGGb4hwo72xPuhxuZ66Ni3bPLOeERjb8E9WCr1NBSl/x6a6LF0RR+huuBDHTOiDIDeN
+         +kyHp8LgENnkYZkCXv7OxWlF1z7gzHmPkSYLajmA7T4dI+OMsMdguff9bvHItgxUwjiz
+         5EeBUrRo/EiIvw2yTfB/mo0c5WoB1EBNk3zes/W9Rma5KmPZxvbkfuE2IN/bMN7VA1Qj
+         4/fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788253575; x=1788858375;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=4RZfyoM5tD0q7WqcULgsURT8LaR6zOJsyJgPkVRkoT8=;
+        b=LPYnfhwS8oQ4RCvj+dSqd01C/h0gGuFb9O1PZuCE3fRANHKs4T6buXwx5o4Z7zxlFI
+         X+Har+ifO18tsqy0+Ph0F1OOOXy9U4asKb+sHNEP3spDRFMeTmKVyNwH7mXD7QxxJluk
+         OqjtmWmNVdtxn9uiTCUeFhRPFuMo13RZKRPx1+greep3q5OSrxNKHKrl6EgLh4xI5uM3
+         KZJUfw9vB5Oy7SNq+FIQs4oP87/2QpLcdUj5IUVUGfRZFhwV9pfWa3DArA7gkA8cWGft
+         alfUsKvkNKad4+FjbQW4T2Di/M5rYGFWyYOfWtyp8s7P8lHXW1mCilwCIannSui7aSaY
+         nDGA==
+X-Forwarded-Encrypted: i=1; AHgh+RoDsNcip9vPgZXSReImU/PcCaQ3gdmNAyelNQ62q3tXHV33xQ1BsFVNkZ2zdvnphGlLQPL4sddzR0lSufg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lklVep7RJVHNLDv6UrS/F62l6NDZNatuyyxE8hE58L/OZkYJSc
+	IU1XB5OBXHHlNGU7UaHUH4/c6ptGt/hiH8liF3wxuuBS2HK5FUAKyheFMVLeCsNMBbM=
+X-Gm-Gg: AR+sD10tXJl0UaGaGZU9uWfdft2ijpkvrZUUtNmIlkWxPr4IPNXqUyzRY9IwBwZZXjx
+	QSyGWTG/YLbehAK0de5L1/QZMOX7Fzoyl1u5hkwh6mmbyv8lhv4wzZK9+1XFNPFvHrJYd0xFSf5
+	kOdEs5iCTXvjeYBZmMWiSHpEQHR8VRuaOeI6LNS1zY6ZD3x4hTDSGuXPM1xEoUTGlRGMdvvWz6C
+	lUALTtB/xciG14W4xmkBNzKAXyWyFVndg9FIJvKmJVESviW+QQPy/W8GttqpUAoR6Umbs18yLD/
+	FUw/DfhmBSRf3zUsuuyR984pf1KZnNbTJQZH942SXJVm/NM+wlqs/MpiCrIpsl8Asabtw5a/HMd
+	BxfPNg2QRQn9efbm6SagiuCBsf03P5zQpGYlUnMxj/+9t89LRD01XrkqykvvdtIsgs9DwsxAQ8o
+	gYv40uGpyiVZN9ceRD6tGp7g0ruYfoyVLicDuke3hsuUZR9CThE5xI4i6b617qt+/YaGAKCt+zA
+	SiPMR8dgYo7jzSEcWmSjH+gkOR0iX67eyzjs93a0GQ=
+X-Received: by 2002:a17:907:80a:b0:c15:a7b9:2ae1 with SMTP id a640c23a62f3a-c25b917f381mr253265866b.6.1788253574737;
+        Tue, 01 Sep 2026 02:06:14 -0700 (PDT)
+Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee7335asm525484866b.27.2026.09.01.02.06.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 02:06:14 -0700 (PDT)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Tue, 01 Sep 2026 11:06:13 +0200
+Subject: [PATCH] arm64: dts: qcom: sm7225-fairphone-fp4: Disable PMK8350
+ PON
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-fp4-pmk8350-pon-v1-1-e05937e9c860@fairphone.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB2Ixkj1KuKixpl2FGNIrAji3
+ U3b5Vv8f0KkIBShzU4ItEuU1SUUeQb2/XQvQhmToVRlrRpVIPsK/TI/tFHoV4fGjGybWjMPBlL
+ lA7Ecv2PX/x0/w0R2+27gum5fOokCcwAAAA==
+X-Change-ID: 20260901-fp4-pmk8350-pon-55dfc963ffb5
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788253574; l=982;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=VLMCTblWAmcjvlydjiDQOaM9EY30ui47eVm7HFZNWD0=;
+ b=OLfQFq5Si7pDMICrd4APmwBWRMw+HenJSjX4WknR1Em3H7jb/DuDAJluqkvwR6PHLVY2xqAh3
+ MwA6BCej4YeCiTxRg8BftPuiK9yE6nY0uI3LT7wbnq1CtTKNsD0eubw
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-From: "D. Wythe" <alibuda@linux.alibaba.com>
+Two PMICs on this phone have a PON block, the PM6350 and PMK8350. Only
+one should be enabled at one time, so disable PMK8350 PON and keep the
+PM6350 PON.
 
-commit e40b801b3603a8f90b46acbacdea3505c27f01c0 upstream.
-
-There is a certain chance to trigger the following panic:
-
-PID: 5900   TASK: ffff88c1c8af4100  CPU: 1   COMMAND: "kworker/1:48"
- #0 [ffff9456c1cc79a0] machine_kexec at ffffffff870665b7
- #1 [ffff9456c1cc79f0] __crash_kexec at ffffffff871b4c7a
- #2 [ffff9456c1cc7ab0] crash_kexec at ffffffff871b5b60
- #3 [ffff9456c1cc7ac0] oops_end at ffffffff87026ce7
- #4 [ffff9456c1cc7ae0] page_fault_oops at ffffffff87075715
- #5 [ffff9456c1cc7b58] exc_page_fault at ffffffff87ad0654
- #6 [ffff9456c1cc7b80] asm_exc_page_fault at ffffffff87c00b62
-    [exception RIP: ib_alloc_mr+19]
-    RIP: ffffffffc0c9cce3  RSP: ffff9456c1cc7c38  RFLAGS: 00010202
-    RAX: 0000000000000000  RBX: 0000000000000002  RCX: 0000000000000004
-    RDX: 0000000000000010  RSI: 0000000000000000  RDI: 0000000000000000
-    RBP: ffff88c1ea281d00   R8: 000000020a34ffff   R9: ffff88c1350bbb20
-    R10: 0000000000000000  R11: 0000000000000001  R12: 0000000000000000
-    R13: 0000000000000010  R14: ffff88c1ab040a50  R15: ffff88c1ea281d00
-    ORIG_RAX: ffffffffffffffff  CS: 0010  SS: 0018
- #7 [ffff9456c1cc7c60] smc_ib_get_memory_region at ffffffffc0aff6df [smc]
- #8 [ffff9456c1cc7c88] smcr_buf_map_link at ffffffffc0b0278c [smc]
- #9 [ffff9456c1cc7ce0] __smc_buf_create at ffffffffc0b03586 [smc]
-
-The reason here is that when the server tries to create a second link,
-smc_llc_srv_add_link() has no protection and may add a new link to
-link group. This breaks the security environment protected by
-llc_conf_mutex.
-
-Fixes: 2d2209f20189 ("net/smc: first part of add link processing as SMC server")
-Signed-off-by: D. Wythe <alibuda@linux.alibaba.com>
-Reviewed-by: Larysa Zaremba <larysa.zaremba@intel.com>
-Reviewed-by: Wenjia Zhang <wenjia@linux.ibm.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-[Denis Arefev: adapted for 5.10: smc_llc_srv_add_link() has no 
-req_qentry argument here, as SMC-Rv2 REQ_ADD_LINK support is
-not present in 5.10]
-Signed-off-by: Denis Arefev <arefev@swemel.ru>
+Fixes: 582e7c1026fa ("arm64: dts: qcom: sm7225-fairphone-fp4: Add pmk8350 PMIC")
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
-Backport fix for CVE-2023-54237
-Link: https://nvd.nist.gov/vuln/detail/CVE-2023-54237
----
- net/smc/af_smc.c | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-index e9dabe758a31..e76e71417a2c 100644
---- a/net/smc/af_smc.c
-+++ b/net/smc/af_smc.c
-@@ -1303,8 +1303,10 @@ static int smcr_serv_conf_first_link(struct smc_sock *smc)
- 	smc_llc_link_active(link);
- 	smcr_lgr_set_type(link->lgr, SMC_LGR_SINGLE);
+diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+index 5d20ad93b0c5..773304b4759e 100644
+--- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
++++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+@@ -992,6 +992,10 @@ xo-therm@0 {
+ 	};
+ };
  
-+	mutex_lock(&link->lgr->llc_conf_mutex);
- 	/* initial contact - try to establish second link */
- 	smc_llc_srv_add_link(link);
-+	mutex_unlock(&link->lgr->llc_conf_mutex);
- 	return 0;
- }
- 
--- 
-2.43.0
++&pmk8350_pon {
++	status = "disabled";
++};
++
+ &pmk8350_rtc {
+ 	status = "okay";
+ };
+
+---
+base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
+change-id: 20260901-fp4-pmk8350-pon-55dfc963ffb5
+
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
 
