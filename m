@@ -1,49 +1,71 @@
-Received: from mta1.migadu.com (out-180.mta1.migadu.com [95.215.58.180])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FA3353A95
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:29:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C8C45A285
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:30:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247786; cv=none; b=vE7t3l+dhdwybMc3Qa6gxEnTVXgPfS2G9z0DzaDyX3IadV/Wc1dLmWmZc2Iuh1Jg+SXZXKThId07pTJslUTJIxbfv727r9zOAIQb/ZEAg6FS6+BNeAsSkSrqblTJKMlaaUrcirQYktywEp+MVHA1fZOOv9LVGTdwCQFD0dSjdJg=
+	t=1788247802; cv=none; b=OyEGKmKy70/qtQtn0Ja03aPW3JwNyWrx0ohsXc0QQP8NQynLIHhepZm8E3sh8h/Sogz1k9/ObOHW4PLNnA8f7sMzOvRINHr1lxm/DbxNMzzuTNOiCt1LIO/8gNC1I5SwelpZtszGJvR+LvSj8tvVVpAkaW1CZ7F1GzXSHyWkq/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247786; c=relaxed/simple;
-	bh=i1xoBqdCaWtGTV0cIIyem6V7efWtFcemLh92s2fwpYM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UK/PbXVU1GjVcNQJBMt1TstGwjBZGuTOV6I1r0VYHfwgLCQpsCqBzsJryXxQOaj7AFyscAYYnq+iK0XvAEmXu8hl+U0PBQAjzA+F4EwBL+GLDtpRqLJ74VyxTrE/Dm19LtnLgUjYsGZQJM1fa6IvsgURkXflmlCt+AnDrTV4hg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jS4/WqQ4; arc=none smtp.client-ip=95.215.58.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788247802; c=relaxed/simple;
+	bh=uf5Q4tVIO2l5Mn1F6h8itqY+9CISwYR9KzVRBogY1DM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nFeQYXJswarsVTwmX2tabeepqB7KxosIAa7gHuwLSkOot+AtcOEiOHAI6I94MhluOk6F+5j7bWC8JrL3XXRUw9W9vRmVcxzr44YOW6ajzT2KW6SSy9UnNu6zV3nZR+7Nth4BFKG47QzzHgjOAbAzWcxYFSSMyaWCATMN252zn80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J+vx2H64; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jS4/WqQ4"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=i1xoBqdCaWtGTV0cIIyem6V7efWtFcemLh92s2fwpYM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788247780; v=1; x=1788852580;
- b=jS4/WqQ46DDYmrAfFjt4XJZtjnEzC0xMRXlAAm/3KjjzKawCHuzE34de3GyYM5r92TFxe9H8
- 69L+15URtp76AXpucnHarSHcHj1eY/9ADKXUDaiQUlO0KBWuBaZLYrBWVCA7Z972+noypfMkqBc
- aoxkDJCKgUCSnvybBd1Q6MsE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c873ab9b9223b804;
-	Tue, 01 Sep 2026 07:29:40 +0000
-X-Mizu-Trace-ID: c873ab9b9223b804
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Wilfred Mallawa <wilfred.mallawa@wdc.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2] tls: fix the open record check in the max payload size setsockopt
-Date: Tue,  1 Sep 2026 15:29:26 +0800
-Message-ID: <20260901072927.128688-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J+vx2H64"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-39675172593so3930524a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:30:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788247800; x=1788852600; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g+8A2LQ5vM3BigI+WhOB8dsA95qvFXB16HXhk64vkm4=;
+        b=J+vx2H64AudZnoD+QI7/zXtlCSm9fzDIiecx0yZv6yKCBih+KZzoK8iDiHzbDN1tBg
+         8b2OBlg87wQHVV8asbp5nzMysy9qbXwPoxBmudVTrklxvk2mjI55faOtx4cs5VZcvZp0
+         ctyxeUgjUi+DZUJY3nD44cZAnxw3+bXu5TgtTh/YUf5UDfF5Ng1Iy6QQznkDXtbo4r1s
+         NDt7fqzqQO2iNC3Ls86VGh5ux90XRHYk+00PeQ11pmihuZUhBYIxe4b8lCMjCaYeJLlQ
+         xaQeNDH7bp8nDMrNT4pVV67f3MSi7QFqVEztFu9RX2tsaoJkT8muPHFV+VXLlXRh0Vl4
+         0XgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788247800; x=1788852600;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g+8A2LQ5vM3BigI+WhOB8dsA95qvFXB16HXhk64vkm4=;
+        b=e4UfzJKfeMRZmw3bi6hAiDnebAcgQ3Iz92LBShsKRFgCKGxi94iKrB/Yvcm89OA7WF
+         VBTdY1I4fQdRL4yyNkw4AREd3sjFDZT1++5lvKsWYZW0XNydOXK8GlXwsIs0JBBy1mfa
+         Wv/YnX6HKiWcLO69/JanLYnM2IQHGAIacd7vrshXVMBtUxjG+6Cv90FErhN7CtFAnv4N
+         yCXB5kBTIWkQ55ZNwhrAevx5Ntm+lwuGpO/WljAgRHcoR0ayZOb/TtKu3j5apwMcl0kn
+         YPZjXFzaNykyXsRe33oK8k6vJkblM0HWuNpjQLnrESSg3U763UOThgltAkYPkgmB+Gxc
+         txJg==
+X-Forwarded-Encrypted: i=1; AKwUvBwWwAjOtKev2NCZiUblB4udX3grpc/389jT7BNKTaxyqSkJ0qG7OcRoBcW6kWHc7MufSpeXxgJGI0Aontk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpRPgZiayrF+ThVTs7uf6y+fsjv7sidgJltlBCExE7oADW39Bx
+	I4rgHo7M+NJX0Qw254i2F0YPYQEIIZxT+F0JWhqm38tbmRySXtlkIqd+
+X-Gm-Gg: AYBFou0KZvuACQg2BwZ4fkVtS4DQPvHESzCsm8oEx/rhRyoAuOpC6pKCCOi4RniPBtX
+	m0A3ynXXa3fGWCH6UOSU2mz8tkJ1XHMzAwlXxwkHV/AWaFW5zV4WNKdFMTGhQnytkfzmtcyraXx
+	zssxJnJF2DBSjoDIbqS0GHIpbATNi4O1qmphn4swAcCHu6oqu4jSB3mUkGDT2uZmMQN28j/P9nR
+	0TQH87EFvePcUhDneYXuiWGFpYBwdh1ZTEOPWU/Wkq5K/+vV0yuVFYuhAtxX4JDOlJUWSiYpWUE
+	pyyRZUH2bz/0G8Zm1np9Nlm/C2w6IsskQRTKI9rLGGerXaraB+YpMSrG1HgqTA8Xy46vOKRn8xu
+	uk5i/nJPPCPth3YyYdPJLc0OfadsDvf6okDycCvm648zvGVfg749Blb7Lyx4FigYIEqylKacOYS
+	yxkLWolAnj795kKCwlyTmGi+h0i5j4+Nh6cs6xUGuxqqDuFkiBTb/ZJ5wBywsh+58mBPik
+X-Received: by 2002:a17:90b:5284:b0:38e:bfe:81e9 with SMTP id 98e67ed59e1d1-396d0e5f5ffmr50882573a91.1.1788247800366;
+        Tue, 01 Sep 2026 00:30:00 -0700 (PDT)
+Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b49c867f5sm22117403eec.2.2026.09.01.00.29.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 00:29:59 -0700 (PDT)
+From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+To: conor.dooley@microchip.com,
+	daire.mcnamara@microchip.com
+Cc: linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Subject: [PATCH] firmware: microchip: use kzalloc_objs() instead of kzalloc() with multiply
+Date: Tue,  1 Sep 2026 12:59:50 +0530
+Message-ID: <20260901072951.525569-1-hrushirajg23@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,105 +74,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-do_tls_setsockopt_tx_payload_len() refuses to resize records while one is
-open, but the check is broken in two ways.
+response_msg is sized as
+AUTO_UPDATE_FEATURE_RESP_SIZE * sizeof(*response_msg) by hand in both
+call sites. Use kzalloc_objs() instead, matching the kzalloc_obj()
+already used elsewhere in this same file for the other allocations in
+these functions, and getting the same overflow-checked size
+computation kzalloc_obj() already benefits from.
 
-It reaches for the open record through tls_sw_ctx_tx(), an unchecked cast
-of ctx->priv_ctx_tx.  Under device offload that pointer is a
-tls_offload_context_tx, so the check reads a field of the wrong struct: it
-returns EBUSY on whatever happens to be there, and never sees the record
-that really is open.  Dispatch on tx_conf.
+No functional change.
 
-The socket lock alone is also not enough to tell no sender is in flight.
-The device tx path drops it in sk_stream_wait_memory() after
-tls_push_record() cleared open_record, so setsockopt can slip in
-mid-sendmsg and shrink the limit.  tls_push_data() latches the limit once
-per call, and a record left open by MSG_MORE can then be bigger than the
-new limit, making the u32 subtraction in the copy clamp wrap around and
-build an oversized record.  Take tx_lock like the sendmsg paths do so
-setsockopt waits for in-flight senders.  Re-reading the limit inside the
-tls_push_data() loop could close the wrap too, but a parked sender would
-still finish with the old limit, so serializing on tx_lock is simpler.
-
-Fixes: 82cb5be6ad64 ("net/tls: support setting the maximum payload size")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
 ---
-v1 -> v2:
-  - also take tx_lock in setsockopt, the socket lock alone can't stop a
-    device sender parked in sk_stream_wait_memory() (AI review on v1)
-v1: https://lore.kernel.org/netdev/20260831025607.62927-1-jiayuan.chen@linux.dev/
+ drivers/firmware/microchip/mpfs-auto-update.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-base on my netdevsim + tls (in progress)
-https://lore.kernel.org/netdev/20260728125658.390500-1-jiayuan.chen@linux.dev/
-
-Previous finding:
-b17cf742eaad ("tls: device: fix out-of-bounds write in tls_append_frag()")
----
- net/tls/tls_main.c | 27 +++++++++++++++++++++++++--
- 1 file changed, 25 insertions(+), 2 deletions(-)
-
-diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
-index fbb274287aa5..114e5113bafd 100644
---- a/net/tls/tls_main.c
-+++ b/net/tls/tls_main.c
-@@ -833,15 +833,29 @@ static int do_tls_setsockopt_no_pad(struct sock *sk, sockptr_t optval,
- 	return rc;
- }
- 
-+/* priv_ctx_tx holds a different structure on each TX path, so tx_conf has to
-+ * say which open record to look at.
-+ */
-+static bool tls_tx_record_is_open(struct tls_context *ctx)
-+{
-+	switch (ctx->tx_conf) {
-+	case TLS_SW:
-+		return !!tls_sw_ctx_tx(ctx)->open_rec;
-+	case TLS_HW:
-+		return !!tls_offload_ctx_tx(ctx)->open_record;
-+	default:
-+		return false;
-+	}
-+}
-+
- static int do_tls_setsockopt_tx_payload_len(struct sock *sk, sockptr_t optval,
- 					    unsigned int optlen)
+diff --git a/drivers/firmware/microchip/mpfs-auto-update.c b/drivers/firmware/microchip/mpfs-auto-update.c
+index 1211fd8d0463..b97d34bd2354 100644
+--- a/drivers/firmware/microchip/mpfs-auto-update.c
++++ b/drivers/firmware/microchip/mpfs-auto-update.c
+@@ -156,7 +156,7 @@ static int mpfs_auto_update_verify_image(struct fw_upload *fw_uploader)
  {
- 	struct tls_context *ctx = tls_get_ctx(sk);
--	struct tls_sw_context_tx *sw_ctx = tls_sw_ctx_tx(ctx);
- 	u16 value;
- 	bool tls_13 = ctx->prot_info.version == TLS_1_3_VERSION;
- 
--	if (sw_ctx && sw_ctx->open_rec)
-+	if (tls_tx_record_is_open(ctx))
- 		return -EBUSY;
- 
- 	if (sockptr_is_null(optval) || optlen != sizeof(value))
-@@ -862,6 +876,7 @@ static int do_tls_setsockopt_tx_payload_len(struct sock *sk, sockptr_t optval,
- static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
- 			     unsigned int optlen)
+ 	struct mpfs_auto_update_priv *priv = fw_uploader->dd_handle;
+ 	u32 *response_msg __free(kfree) =
+-		kzalloc(AUTO_UPDATE_FEATURE_RESP_SIZE * sizeof(*response_msg), GFP_KERNEL);
++		kzalloc_objs(*response_msg, AUTO_UPDATE_FEATURE_RESP_SIZE);
+ 	struct mpfs_mss_response *response __free(kfree) =
+ 		kzalloc_obj(struct mpfs_mss_response);
+ 	struct mpfs_mss_msg *message __free(kfree) =
+@@ -358,7 +358,7 @@ static const struct fw_upload_ops mpfs_auto_update_ops = {
+ static int mpfs_auto_update_available(struct mpfs_auto_update_priv *priv)
  {
-+	struct tls_context *ctx;
- 	int rc = 0;
- 
- 	switch (optname) {
-@@ -881,9 +896,17 @@ static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
- 		rc = do_tls_setsockopt_no_pad(sk, optval, optlen);
- 		break;
- 	case TLS_TX_MAX_PAYLOAD_LEN:
-+		/* Take tx_lock like the sendmsg paths do, the socket lock is
-+		 * dropped while a sender waits for memory, with no record open.
-+		 */
-+		ctx = tls_get_ctx(sk);
-+		rc = mutex_lock_interruptible(&ctx->tx_lock);
-+		if (rc)
-+			break;
- 		lock_sock(sk);
- 		rc = do_tls_setsockopt_tx_payload_len(sk, optval, optlen);
- 		release_sock(sk);
-+		mutex_unlock(&ctx->tx_lock);
- 		break;
- 	default:
- 		rc = -ENOPROTOOPT;
--- 
-2.43.0
-
+ 	u32 *response_msg __free(kfree) =
+-		kzalloc(AUTO_UPDATE_FEATURE_RESP_SIZE * sizeof(*response_msg), GFP_KERNEL);
++		kzalloc_objs(*response_msg, AUTO_UPDATE_FEATURE_RESP_SIZE);
+ 	struct mpfs_mss_response *response __free(kfree) =
+ 		kzalloc_obj(struct mpfs_mss_response);
+ 	struct mpfs_mss_msg *message __free(kfree) =
