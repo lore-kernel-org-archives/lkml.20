@@ -1,187 +1,455 @@
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3E9374A1D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:07:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271636; cv=pass; b=CRMVVQiZuSq4v+xW8akWjycZHTfg6GxINVKXMVwKKgAqumJ2O3YTuCMYGIMZQ8SWEckpPtQk4ntg4lKGG/UPutShnzdGV5ZiM+yV6EkepZEDXpv/deCqmOr8GSPQrIbqMcww3vrtsfuyPlqKucvqLVXTaZO8zGPYh4hdAk6RRU4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788271636; c=relaxed/simple;
-	bh=RIGcl+U27GyVraDoyCCr0BIrhXcX5R2Yw6dtHQoJARg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lp5SUSHLUuhERXx7NXsqqaFCtsMeWJOo/AG3TAXexyQqfle4ko+6GG3vBop7/w/HQ9OhEKPIpAERkDMabMOjGADNrx0DqAOw63WDeNfvzCnQTKPpo2l1Ql8WIZ8DTO7M0Xa3XrQS5pEpm3R3HEIzFRkfOqwZR4yPM9bQzn6i35c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Aw65zoUQ; arc=pass smtp.client-ip=209.85.167.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Aw65zoUQ"
-Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-495c49f8eccso640686b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:07:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788271634; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V0Zra6QEzR1gzQbRUKIxIwp7Uqusfp9nAO/wMYusqgUdI6zbOpNhIwyV/PhI+pxIjA
-         w4MbcJkrikAtIMuTDjQv+lM42V3eJ3gc/UJMt2r/oR1rtKwkdbxZcZVScVVAdrz2Ez9j
-         ZtBlgRkRdn1InnO92F1IzUMlzil5PZlZ3i81+X0vMKBWBNF+dqFnIzQJ1NzD5Qel8Z5Z
-         C7a4eP82EE8q4mT0POLjH/b5v9VHrAk46g193NnJzbddrrbgeRBpTsPaORLNb3LTzfIg
-         sdGcbBQXdRkUbnWE12Yim7aCAagE7CoxzX1ZycHUFapFs56tf573lA6M3DfQUP528esv
-         O3Ug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RIGcl+U27GyVraDoyCCr0BIrhXcX5R2Yw6dtHQoJARg=;
-        fh=BwlLZRfnY9tkGEK4bDYb0e5c83Hfu/ZaDWqagWmESb0=;
-        b=pq3cfdXyx2h3i4lhRMBsYIX1O3ruxb/KDwKB2GgIDfVXcBpgY+Ug0nBPjWeWawiaQG
-         lz4zUJjGSRKf2iDIBUOi4wDX7DT0EdRoblAECrgMo1OuJHzkeynGG4a2YmqkF6KlpbkT
-         6IuWe4r3nNvz7FOmAvJnQ2VneApbUgFj/r6lAW1D74R9ulWp7mwQuMfDsD30uNkMm6Ri
-         3pn/dirq2Q1JI//uRPpen/HuQXqEMvX2CfDIjXo/Za8Zyj+3vNriEP6L0s4JYVruge5I
-         im9CwJMq2SqQR9mcVo1C5ZJiWL6l16kXbq78rsuCg75k0Qsm9JWuhCAbl4Np+DtCtE1c
-         686w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788271634; x=1788876434; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RIGcl+U27GyVraDoyCCr0BIrhXcX5R2Yw6dtHQoJARg=;
-        b=Aw65zoUQYY6RTtWHCPN2jcJNt9npP4+qS+qwCdWFSx5p47ATYVA+YPVKxOYnEc852s
-         w37X3+ct7Dt2resncpT+QQgtIgwz5iFa8tn0zW+F6Itqu1M6ZGcVmd5xaRzVVzzvACOu
-         ayiB6ePvEav9kWL7aIw9BnB7NLfGMqfxW7GJnfLYqEaMdBesd2982xi6tpxt7kblTea+
-         Rkkyul0W65sqqoDSgfrrvM9dlHJxFB5TNjNd4b22f3hhboXr/ltM6EIarNKAh9dKTk2w
-         SQFje0tff9A3A7eF1O+b9NFfHd8EYUJiqQOAgIgogjeqJYhUfkkzpVPNJtxAbvISnf1F
-         29mQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788271634; x=1788876434;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RIGcl+U27GyVraDoyCCr0BIrhXcX5R2Yw6dtHQoJARg=;
-        b=J4ToDZ7rHKonzPi14XkIqalSaujPxov9CisR1rmHy5TQ7r4vOlFouHIXrKUcD9CqfU
-         c+8GlxCUC39pClFQWZz2ZEBFLDabi+hZaj+yZyJvT5+fPLnOtygXh3Ymllczm2h1AlwC
-         jzG0WwsWgv1pMaxuYBfvaNGX4AE4MVUpB0MQLShBveISunlkOKcGMKOs9nlhEj4cydHp
-         dhN04bJWW4CxGKMmGVRG7oDYpBjGTqPO92COL3FEhEsRcnVuR0rGF6cUU73IMKQ1Fuy3
-         1/3W5v2Wl2dcO9h8R1f2ysn12Xwa+0oKnoiP1GpfxitvqIWXhwX81wj++xQy2Fd6G+CQ
-         7L6Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rq1S5OYO5L9li/E0YF+YigvtiolilSDrNHIbDCbWZOvchSa7tDzb+mnU5vaJCzMWOFwoafrVrltkaEVspE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPvLGuiiSnfbS4ZlUKgIryB8/ZCyuGDXeEuRK1ArQHbVA/HBVi
-	rvNsOPbz6V4RL2U2FC8ZQwdhk8dOcFLd4qAhcbBSvixEgtp9t3hiWL0pcFgqyavTeWdMRppUo6D
-	WkJXh/NUKtwQcEr9r6+5Ieyk4yk8SUgQ=
-X-Gm-Gg: AR+sD13OxMxtfo+sVuJJSb8OH//h4UAiI6hTbXzOXqeXjC3z36SmTa1RFxqqJdLw1t/
-	q+g4MFN1zNqGe0HKPzSBS/XCv49XqF5qUynGHoE8HYwIKidQjTb/ezA1z8uFPIPX6ref+L57ZZn
-	ggCREoxIyB/So79UYsJWaWZ+asRC4aTA0wdGQszZ1cMCcA4Y4nLEZo44MtxkkbV1iRPZZ9kyEd3
-	O2TIe262nW5KWnIblw7l8u0x2zQ7BlA3kDLsRvRBffc7WAqGNEOrR6TFJWNpdm5lNWnN73uy9hV
-	sOAXdq41vJ84//qpTAWxTfI2hJ8dXmkGo2beCcMIdbMt1V+doiGk4TzLu3vrrXJVeCDmbfm8qA=
-	=
-X-Received: by 2002:a05:6808:23c2:b0:4ab:230c:5faa with SMTP id
- 5614622812f47-4b39835276cmr36421107b6e.18.1788271633600; Tue, 01 Sep 2026
- 07:07:13 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0962D37F01D;
+	Tue,  1 Sep 2026 14:07:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788271640; cv=none; b=ZflnE6H5WOR3ODjSF2ZS9wNZwHlc7ASyy1YxHRp6KNIchho1khkKTwWGqAMOnTP73x6MypZa4Oq4Mq4IaNv3UfybJCTQSoG5CEo4njhqUMqOILnU8xDPRTB0dt+ZkMS0p7CjDrL5VG8p1SVQCIVJeGbI39YYW9y6EwUx3yL9D2Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788271640; c=relaxed/simple;
+	bh=4VcZPKmz1oAZNJJhoHnFS5mzLuuV7Cs4X2mBLwBYpNA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pAWPL2VGt2xqhlV7puWhlrS2UyWDzDY8ICt62cw7ySMP03qONUtfUf8VTWJaEQ0TlgGZd5EHS1L2k1+/j0Bdg8HsPJqEdi8RYNQVgpwOfuH9HjaQ1fvfTK7XwMmeUtZL7gnf5wzBm57l9nlzA8c75MFFQVKbKqYBrGgVWg2VkGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpip3t1788271589t8ffbd6d7
+X-QQ-Originating-IP: as5/W2TwXLPeesVJWweakHYEW5xtScaU6gDGlsSEegg=
+Received: from [127.0.0.1] ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 01 Sep 2026 22:06:27 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13051283628957585510
+Message-ID: <04AA86372CF743AE+883f17f9-79f7-4542-ba07-67a1dc965ecd@radxa.com>
+Date: Tue, 1 Sep 2026 22:06:26 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260815-shrink_zswap_entry_0815_v2-v3-0-0171bd86a667@gmail.com>
- <20260815-shrink_zswap_entry_0815_v2-v3-2-0171bd86a667@gmail.com>
- <CAO9r8zNFYM1bry0DwDRNtpnEL9yyXQ3h=1wcLbGsO1sFtGgvjg@mail.gmail.com>
- <CAJxJ_jgihBLy2mbPAN-uqup2mGq+hurKkH=W4RGo4Ad0Eki5sQ@mail.gmail.com>
- <CAO9r8zP6+6jZ7qOxOy1fyd=UgR3yYP20Db9KghW1zJ3bNqoREg@mail.gmail.com>
- <CAJxJ_jh6J5N0vbFfi2139vnTVZEECJoq-AV4VVNew6a0Bkwk_w@mail.gmail.com> <CAO9r8zMr4bnWHzO97R5ZaxALDf_5688DXv_LS3KZ5rz2Noe_bQ@mail.gmail.com>
-In-Reply-To: <CAO9r8zMr4bnWHzO97R5ZaxALDf_5688DXv_LS3KZ5rz2Noe_bQ@mail.gmail.com>
-From: Jianyue Wu <wujianyue000@gmail.com>
-Date: Tue, 1 Sep 2026 22:06:57 +0800
-X-Gm-Features: AcwNN1WbX1D1KzKB3UZxSV6NDo0XCn9KAgMzYBsnhCsTgidhCzJl4alvK9vC8g8
-Message-ID: <CAJxJ_jjmODTs9fQCbaHKGFm_4LoRV0OiE_Hdg8N2+tmNugK2xQ@mail.gmail.com>
-Subject: Re: [PATCH RFC v3 2/3] mm/zswap: replace the zswap_pools list with a
- fixed pools array
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Chris Li <chrisl@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] PCI: qcom: Block accesses to downstream devices on
+ link down
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: linux-pci@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260819-ecam_blocker-v2-1-e7a8fdc1c5cb@oss.qualcomm.com>
+ <178826612782.58092.15490835074765422013.b4-ty@b4>
+ <74c0fc35-a56d-4297-9fcb-23e2df8646c3@oss.qualcomm.com>
+Content-Language: en-US
+From: Xilin Wu <sophon@radxa.com>
+In-Reply-To: <74c0fc35-a56d-4297-9fcb-23e2df8646c3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: MwdFfpcIwul6Sh7bCWWTjr6uC6H7Anr7uj7A/xgy55TPEaB1clBgsPrO
+	lvS0brUKtKGW1uMTyKp7xoKN0m+BDvtB/AynDnYMWKXnWS0e1xtobB4h40gZbcxPXnk31x5
+	bBjyE1rG4xgzlGLG01SkGm44lgTpbb1VNsnxRnDxK1xQQkJI3YV3nru4jSpxBwIa4u+lmK3
+	DkktGE+z2YiC5Gud6scc7jwORRNz7VkLgUHLt+q7w7fvUdOM9QWiWijqIbljLrF+THVkrQU
+	qAJmxzlVRsPQhAIkbgX3wxMjIBmpej442eGkyB1nzSmtkX5vSVy2pLtKFWpY44unBGMp46c
+	YIvMC5gtOq5EEBJZDQFZQ9QYcmGunRwTpDXTtNLecq7Sp7j0JN9DMcDabDUcm0ydGw3szZ+
+	fdhCLV8o4GPrMAiXwf/2lc0gKTUeRUJLpl8a7wZKy8w/98G0Gcz/OvbXZX660AbyS5ISOCB
+	tAmSP2cgriPT7wp3mkOkHhrQJjRsyMuIiGA/osEJ86M+UJ7AqzElmHBGX/P+CCa3q7mJf2k
+	Ww31B1ZYqtb0L2iuw0NP1PfML5Gp7IjcFC98fpZiQzrFg2kUYmFjIRNHxC5WJSn+p9sCxrG
+	a2LbaQJnHn7l6blKtJSo1aIjxSDxDzjQhRpoZb6KpEcKfMrEFXC51crX2YcIIaJ2PgLxOtt
+	9gzi+yJNvcKlKoa6NX6B9TxhKL1eB8eSGCjcFmn+Idq4LEB3aWn9Q3muSWBSvGTkaje1IRF
+	DvmX9P+RrPXDmg+RJdLdPsNe3UbJlBwG0Csw41vtkOHnXBUuDEarCfmw9DVoagr8n0MuPv0
+	kLGX/ylMPi6NZrWirwGFllHEYNddqN8BxmkXN42pcSyyC+0qWksrvv83hXGuLY6CLogqp/R
+	dFq2fu/9gZ2eMiNrhbv81g8VmTb7mtVN3Mle0HgZltS6msIMOSf3bMXW9szdaMisx5pet3c
+	LfiOVp3gkLr6MIL6O35I1dDc7iUjgOkULevuDWTnGnMI9oCqvLNzxAyEI3V7AoW6IMw5CCh
+	/a5P+d0eiqTxV4Y3vuW/fFL+vrYsDRvE2S/QI6UmC2rDpV5OSV6xL2558fkjCcZsWpPl5K4
+	jdgwr0CxF70tPWEmfBLtlHfAPqYJ3nOijcsDGEOXnA4
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-On Mon, Aug 31, 2026 at 11:18=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wro=
-te:
->
-> On Sat, Aug 29, 2026 at 5:10=E2=80=AFAM Jianyue Wu <wujianyue000@gmail.co=
-m> wrote:
-> >
-> > On Thu, Aug 27, 2026 at 12:56 AM Yosry Ahmed <yosry@kernel.org> wrote:
-> > >
-> > > Makes sense.
-> > >
-> > > Actually, this led me to rethink the slots reservation mechanism we
-> > > came up with and the issue that Sashiko brought up initially. I
-> > > initially thought it still existed, as two racing threads setting the
-> > > compressor could try to resurrect a newly created pool. However, I
-> > > realized that's not possible because a module-wide mutex is held whil=
-e
-> > > any module param is set. This also covers zswap_enabled_param_set().
-> > >
-> > > So IIUC, we cannot really have any concurrency here. Pool creation
-> > > either happens through params setting (protected by a module-wide
-> > > mutex) or during initialization. Does this mean that Sashiko's review
-> > > was a false positive and we can go back to directly assigning array
-> > > slots at pool creation? If that's the case I am happy we can avoid th=
-e
-> > > complexity (but sorry I led you astray).
-> >
-> > Thanks for the patience here. I wanted to check the details before repl=
-ying.
-> >
-> > Agreed, and I confirmed it. param_attr_store() takes
-> > kernel_param_lock(mk->mod) around ->set, and for a built-in module
-> > (zswap) that resolves to the single global param_lock
-> > (KPARAM_MUTEX(mod) -> &param_lock, "Protects all built-in parameters"
-> > in kernel/params.c). So zswap_compressor_param_set() and
-> > zswap_enabled_param_set() are mutually serialized, and the only other
-> > pool-creation path is single-threaded init. There is no window for two
-> > threads to resurrect or create the same pool concurrently. Sashiko's
-> > concern was a false positive.
-> >
-> > I also tried dropping the slot reserve and went back to assigning
-> > the real pointer directly at creation. The only invariant that matters
-> > is that the slot store happens after the pool is fully constructed,
-> > it's the last step of zswap_pool_create(). So array walkers only ever
-> > see a NULL slot or a ready pool. zswap_pools_lock
-> > still serializes that store against a retiring pool clearing its slot
-> > in __zswap_pool_empty().
-> >
-> > I tested with LOCKDEP + PROVE_RCU + DEBUG_ATOMIC_SLEEP: an e2e
-> > store/load workload + compressor switch (lzo -> zstd -> lzo) that
-> > exercises both the pool-retire and the pool-reuse/resurrect paths. All
-> > passed, no lockdep splats and no suspicious-RCU or sleeping-in-atomic
-> > warnings. These are functional tests only, 2 writer races can't be trig=
-gered,
-> > since param_lock already serializes concurrent param writes.
-> >
-> > No problem, the discussion made the concurrency model clearer, and we
-> > can drop the complexity. I'll refactor the code and send out the patch
-> > in the next version.
-> >
-> > > It also makes me wonder if we can just drop zswap_init_lock, but
-> > > that's a separate project. Most of the zswap init code needs to be
-> > > reworked imo.
-> >
-> > Agreed it's separate. zswap_init_lock guards the zswap_init_state
-> > machine and coordinates the two zswap_setup() entry points (the
-> > late_initcall vs. zswap_enabled_param_set()); the param lock doesn't
-> > cover the initcall path, so it can't just be dropped. I'll leave that
-> > out of this series.
->
-> Agreed on leaving it out anyway, but doesn't zswap_init_lock guard the
-> same paths we just convinced ourselves are already mutually exclusive
-> for the purposes of pool reservation?
+On 9/1/2026 8:39 PM, Konrad Dybcio wrote:
+> On 9/1/26 2:35 PM, Manivannan Sadhasivam wrote:
+>>
+>> On Wed, 19 Aug 2026 23:36:54 -0700, Qiang Yu wrote:
+>>> After a PCIe link goes down, software may still access the BAR (MMIO)
+>>> space or configuration space of devices behind that link before recovery
+>>> has run. As the link is down, these accesses never complete, resulting in
+>>> a storm of Completion Timeout AERs.
+>>>
+>>> Use the controller's ECAM blocker to drop these accesses to the PCIe
+>>> address space as soon as the link-down interrupt fires, so that Completion
+>>> Timeout AERs are reduced. The blocked range covers the entire address
+>>> space (base 0x0, all-ones limit), since the Root Port's own DBI/iATU
+>>> register space remains accessible regardless.
+>>>
+>>> [...]
+>>
+>> Applied, thanks!
+>>
+>> [1/1] PCI: qcom: Block accesses to downstream devices on link down
+>>        commit: 86624b718f94517b26f96c1d7beb7632e5562afd
+> 
+> Could this be a fix for
+> 
+> https://lore.kernel.org/linux-arm-msm/b461c125-947b-4e06-b502-abb354e0cba6@oss.qualcomm.com/
+> 
+> ?
+> 
+> (+Xilin)
 
-Ah, yes, exactly, param_lock already covered param writers, and mutually
-exclusive. initcall also precedes userspace sysfs write, so:
-1. zswap_init_state: initcall has resolved the state, reader is fine unlock=
-ed.
-2. zswap_has_pool: param_lock covered. Writer also holds zswap_pools_lock.
-3. *(char **)kp->arg: param_lock covered. Write by param_set_charp().
+I'm not sure. Actually, we still have PCIe-related issues during reboot 
+after reverting the flattened USB patch, though at a much lower 
+occurrence rate.
 
+I hope this series fixes it, but I haven't tested it yet.
+
+https://patchwork.kernel.org/project/linux-arm-msm/list/?series=1151871&state=%2A&archive=both
+
+Case 1 log:
+
+Reboot count: 97
+Reboot in 10 seconds, press any key to abort... [   12.260389] qcom-apm 
+gprsvc:service:2:1: CMD timeout for [1001021] opcode
+[   12.615536] qcom-soundwire 3210000.soundwire: din-ports (0) mismatch 
+with controller (1)
+[   12.626249] qcom-soundwire 3210000.soundwire: dout-ports (5) mismatch 
+with controller (6)
+[   39.120833] systemd-shutdown[1]: Failed to set watchdog hardware 
+timeout to 10min: Invalid argument
+[   40.341886] ------------[ cut here ]------------
+[   40.346737] phy_check_link_status+0x0/0x118: returned: -16
+[   40.352528] WARNING: drivers/net/phy/phy.c:1352 at 
+_phy_state_machine+0x190/0x330, CPU#1: kworker/u32:2/72
+[   40.362549] Modules linked in: q6prm_clocks q6apm_lpass_dais 
+snd_q6dsp_common q6apm_dai q6prm joydev mousedev algif_hash 
+algif_skcipher af_alg bnep rtw89_8852be rtw89_8852b rtw89_8852b_common 
+rtw89_pci rtw89_core mac80211 qcom_iris cfg80211 videobuf2_dma_contig 
+btusb v4l2_mem2mem btmtk videobuf2_memops btrtl btbcm videobuf2_v4l2 
+libarc4 btintel videodev snd_soc_wcd938x bluetooth snd_soc_wcd938x_sdw 
+snd_soc_wcd_classh videobuf2_common snd_soc_wcd_common snd_soc_sc8280xp 
+rfkill mc snd_soc_qcom_common snd_soc_wcd_mbhc qcom_spmi_adc_tm5 
+qcom_spmi_adc5 snd_soc_qcom_sdw soundwire_qcom qcom_vadc_common 
+regmap_sdw snd_soc_lpass_tx_macro soundwire_bus snd_soc_lpass_rx_macro 
+qcom_spmi_temp_alarm snd_q6apm snd_soc_lpass_va_macro radxa_svc_glink 
+qcomtee snd_soc_lpass_macro_common slimbus sg fastrpc qcom_scm_storage 
+platform_profile qcom_rng libcomposite uinput pmic_pdcharger_ulog 
+nfnetlink dwmac_tc956x stmmac gpio_tc956x pcs_xpcs phylink rtc_ds1307 
+at24 rpmsg_ctrl tc956x_pci qrtr_smd rpmsg_char qcom_pd_mapper uas qcom_pon
+[   40.362750]  i2c_qcom_geni videocc_sm8350 camcc_sc8280xp 
+qcom_q6v5_pas qcom_pil_info qcom_common qcom_refgen_regulator 
+pinctrl_sc8280xp_lpass_lpi ucsi_glink qcom_glink_smem pinctrl_lpass_lpi 
+qcom_q6v5 lpasscc_sc8280xp typec_ucsi qcom_sysmon qcom_wdt [last 
+unloaded: 842_decompress]
+[   40.480794] CPU: 1 UID: 0 PID: 72 Comm: kworker/u32:2 Not tainted 
+7.0.11+ #38 PREEMPT(lazy)  a69a8d0b840e8538e5b93598a4d4312fb8da4861
+[   40.493213] Hardware name: Radxa Computer Co., Ltd. Radxa Dragon 
+Q8B/RS782-D16S32W0, BIOS 6.0.260812.BOOT.MXF.1.1.c1-00167-MAKENA-1 
+08/12/2026
+[   40.506435] Workqueue: events_power_efficient phy_state_machine
+[   40.512577] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS 
+BTYPE=--)
+[   40.519788] pc : _phy_state_machine+0x190/0x330
+[   40.524500] lr : _phy_state_machine+0x190/0x330
+[   40.529209] sp : ffff800080a6bd20
+[   40.532663] x29: ffff800080a6bd40 x28: 0000000000000000 x27: 
+0000000000000000
+[   40.540058] x26: ffff000080041028 x25: 0000000000000000 x24: 
+ffff0000800c1605
+[   40.547453] x23: ffff0000855b9cf8 x22: ffff000080041000 x21: 
+0000000000000000
+[   40.554845] x20: 0000000000000006 x19: ffff0000855b9800 x18: 
+ffff3b3b60d68000
+[   40.562236] x17: 000000040044ffff x16: ffffc4cc93b2a028 x15: 
+ffffc4cc950c3c70
+[   40.569632] x14: ffffc4cc94f8b480 x13: 0000000000000180 x12: 
+ffff0007f5cf3480
+[   40.577025] x11: 00000000000000c0 x10: 7ca63edf1413fc9b x9 : 
+ffffc4cc92dc2df4
+[   40.584427] x8 : ffff000080c9eba8 x7 : 0000000000000004 x6 : 
+0000000000000000
+[   40.591829] x5 : ffff3b3b60d68000 x4 : ffff000080c9da00 x3 : 
+ffff00008e41da00
+[   40.599223] x2 : 0000000000000000 x1 : 0000000000000000 x0 : 
+ffff000080c9da00
+[   40.606625] Call trace:
+[   40.609174]  _phy_state_machine+0x190/0x330 (P)
+[   40.613878]  phy_state_machine+0x34/0xc0
+[   40.617953]  process_one_work+0x194/0x570
+[   40.622129]  worker_thread+0x18c/0x320
+[   40.626033]  kthread+0x134/0x148
+[   40.629399]  ret_from_fork+0x10/0x20
+[   40.633127] ---[ end trace 0000000000000000 ]---
+[   40.946101] SError Interrupt on CPU5, code 0x00000000be000011 -- SError
+[   40.946109] CPU: 5 UID: 0 PID: 335 Comm: irq/277-aerdrv Tainted: G 
+M    W           7.0.11+ #38 PREEMPT(lazy) 
+a69a8d0b840e8538e5b93598a4d4312fb8da4861
+[   40.946115] Tainted: [M]=MACHINE_CHECK, [W]=WARN
+[   40.946116] Hardware name: Radxa Computer Co., Ltd. Radxa Dragon 
+Q8B/RS782-D16S32W0, BIOS 6.0.260812.BOOT.MXF.1.1.c1-00167-MAKENA-1 
+08/12/2026
+[   40.946119] pstate: 204000c5 (nzCv daIF +PAN -UAO -TCO -DIT -SSBS 
+BTYPE=--)
+[   40.946121] pc : pci_generic_config_read+0x48/0xd0
+[   40.946128] lr : pci_generic_config_read+0x2c/0xd0
+[   40.946130] sp : ffff80008002bbb0
+[   40.946132] x29: ffff80008002bbb0 x28: ffff000088fd9200 x27: 
+ffffc4cc9599029f
+[   40.946136] x26: ffffc4cc959902a0 x25: ffff000085a6b000 x24: 
+ffffc4cc950bfd68
+[   40.946138] x23: 0000000000000115 x22: 0000000000000100 x21: 
+0000000000000000
+[   40.946140] x20: 0000000000000004 x19: ffff80008002bbf4 x18: 
+ffff3b3b60df4000
+[   40.946142] x17: ffff3b3b60df4000 x16: ffff800080028000 x15: 
+0000000000001900
+[   40.946143] x14: 00000f423fffe700 x13: 0000000000000000 x12: 
+000000000000af3b
+[   40.946145] x11: 000000000000b67e x10: 00000000010b218c x9 : 
+ffffc4cc937b28c4
+[   40.946147] x8 : ffffc4cc937b2898 x7 : ffff00008b4a8800 x6 : 
+ffffc4cc95ed5000
+[   40.946148] x5 : ffff80008002bc30 x4 : ffff80008002bbf4 x3 : 
+0000000000000000
+[   40.946150] x2 : 0000000000000130 x1 : 0000000000000000 x0 : 
+0000000000000000
+[   40.946153] Kernel panic - not syncing: Asynchronous SError Interrupt
+[   40.946156] CPU: 5 UID: 0 PID: 335 Comm: irq/277-aerdrv Tainted: G 
+M    W           7.0.11+ #38 PREEMPT(lazy) 
+a69a8d0b840e8538e5b93598a4d4312fb8da4861
+[   40.946158] Tainted: [M]=MACHINE_CHECK, [W]=WARN
+[   40.946159] Hardware name: Radxa Computer Co., Ltd. Radxa Dragon 
+Q8B/RS782-D16S32W0, BIOS 6.0.260812.BOOT.MXF.1.1.c1-00167-MAKENA-1 
+08/12/2026
+[   40.946161] Call trace:
+[   40.946162]  show_stack+0x20/0x38 (C)
+[   40.946171]  dump_stack_lvl+0x7c/0xa0
+[   40.946176]  dump_stack+0x18/0x2c
+[   40.946178]  vpanic+0x2a8/0x4b8
+[   40.946181]  panic+0x68/0x70
+[   40.946182]  nmi_panic+0x74/0x80
+[   40.946185]  arm64_serror_panic+0x78/0x90
+[   40.946187]  arm64_is_fatal_ras_serror+0x90/0x98
+[   40.946189]  do_serror+0x38/0x60
+[   40.946191]  el1h_64_error_handler+0x40/0x70
+[   40.946196]  el1h_64_error+0x84/0x88
+[   40.946197]  pci_generic_config_read+0x48/0xd0 (P)
+[   40.946198]  pci_bus_read_config_dword+0x80/0xf0
+[   40.946199]  pci_read_config_dword+0x34/0x60
+[   40.946201]  aer_irq+0x50/0xf8
+[   40.946204]  __handle_irq_event_percpu+0x74/0x3d0
+[   40.946208]  handle_irq_event+0x4c/0x120
+[   40.946210]  handle_fasteoi_irq+0xfc/0x1b0
+[   40.946213]  handle_irq_desc+0x3c/0x68
+[   40.946215]  generic_handle_domain_irq+0x20/0x40
+[   40.946217]  gic_handle_irq+0x168/0x300
+[   40.946218]  do_interrupt_handler+0x58/0xa0
+[   40.946219]  el1_interrupt+0x48/0xb0
+[   40.946222]  el1h_64_irq_handler+0x18/0x28
+[   40.946223]  el1h_64_irq+0x84/0x88
+[   40.946225]  handle_softirqs+0xb0/0x4b0 (P)
+[   40.946228]  __do_softirq+0x1c/0x28
+[   40.946229]  ____do_softirq+0x18/0x30
+[   40.946231]  call_on_irq_stack+0x30/0x48
+[   40.946234]  do_softirq_own_stack+0x24/0x50
+[   40.946236]  __irq_exit_rcu+0x13c/0x168
+[   40.946238]  irq_exit_rcu+0x18/0x30
+[   40.946240]  el1_interrupt+0x4c/0xb0
+[   40.946242]  el1h_64_irq_handler+0x18/0x28
+[   40.946244]  el1h_64_irq+0x84/0x88
+[   40.946245]  _raw_spin_unlock_irqrestore+0x14/0x70 (P)
+[   40.946248]  pci_read_config_dword+0x34/0x60
+[   40.946249]  find_device_iter+0xbc/0x1e8
+[   40.946251]  __pci_walk_bus+0x68/0xa0
+[   40.946253]  __pci_walk_bus+0x4c/0xa0
+[   40.946254]  __pci_walk_bus+0x4c/0xa0
+[   40.946255]  pci_walk_bus+0x38/0x60
+[   40.946257]  aer_isr_one_error_type+0x54/0x338
+[   40.946259]  aer_isr_one_error+0x104/0x180
+[   40.946261]  aer_isr+0x78/0x120
+[   40.946263]  irq_thread_fn+0x30/0xb8
+[   40.946264]  irq_thread+0x1a8/0x400
+[   40.946265]  kthread+0x134/0x148
+[   40.946268]  ret_from_fork+0x10/0x20
+[   41.146728] Kernel Offset: 0x44cc12c80000 from 0xffff800080000000
+[   41.146730] PHYS_OFFSET: 0xfff1000080000000
+[   41.146731] CPU features: 0x2000000,002e0005,00230501,540172ab
+[   41.146732] Memory Limit: none
+[   41.565732] ---[ end Kernel panic - not syncing: Asynchronous SError 
+Interrupt ]---
+
+Case 2 log:
+
+Reboot count: 65
+Reboot in 10 seconds, press any key to abort... [   13.281893] qcom-apm 
+gprsvc:service:2:1: CMD timeout for [1001021] opcode
+[   13.340861] qcom-soundwire 3210000.soundwire: din-ports (0) mismatch 
+with controller (1)
+[   13.351390] qcom-soundwire 3210000.soundwire: dout-ports (5) mismatch 
+with controller (6)
+[   41.120391] systemd-shutdown[1]: Failed to set watchdog hardware 
+timeout to 10min: Invalid argument
+[   42.128807] pcieport 0004:00:00.0: PCIe Bus Error: 
+severity=Uncorrectable (Non-Fatal), type=Transaction Layer, (Requester ID)
+[   42.140459] pcieport 0004:00:00.0:   device [17cb:010e] error 
+status/mask=00004000/00400000
+[   42.149053] pcieport 0004:00:00.0:    [14] CmpltTO                (First)
+[   42.302328] ------------[ cut here ]------------
+[   42.307148] phy_check_link_status+0x0/0x118: returned: -16
+[   42.312945] WARNING: drivers/net/phy/phy.c:1352 at 
+_phy_state_machine+0x190/0x330, CPU#3: kworker/u32:0/12
+[   42.322951] Modules linked in: q6prm_clocks q6apm_lpass_dais 
+snd_q6dsp_common q6prm q6apm_dai joydev mousedev algif_hash 
+algif_skcipher af_alg bnep zram 842_decompress 842_compress 
+lz4hc_compress lz4_compress rtw89_8852be rtw89_8852b rtw89_8852b_common 
+rtw89_pci rtw89_core btusb mac80211 btmtk qcom_iris btrtl btbcm cfg80211 
+videobuf2_dma_contig btintel v4l2_mem2mem videobuf2_memops libarc4 
+videobuf2_v4l2 snd_soc_wcd938x bluetooth snd_soc_wcd938x_sdw videodev 
+snd_soc_wcd_classh rfkill snd_soc_wcd_common snd_soc_wcd_mbhc regmap_sdw 
+snd_soc_sc8280xp videobuf2_common qcom_spmi_adc_tm5 snd_soc_qcom_common 
+qcom_spmi_adc5 snd_soc_lpass_tx_macro snd_soc_qcom_sdw 
+snd_soc_lpass_va_macro snd_soc_lpass_rx_macro mc qcom_vadc_common 
+snd_q6apm soundwire_qcom snd_soc_lpass_macro_common soundwire_bus 
+qcom_spmi_temp_alarm radxa_svc_glink fastrpc qcom_scm_storage slimbus sg 
+platform_profile qcomtee qcom_rng libcomposite uinput 
+pmic_pdcharger_ulog nfnetlink rpmsg_ctrl rpmsg_char qrtr_smd 
+dwmac_tc956x stmmac qcom_pd_mapper pcs_xpcs
+[   42.323138]  phylink
+[   42.415567]  gpio_tc956x qcom_q6v5_pas qcom_pil_info rtc_ds1307 at24 
+qcom_common qcom_glink_smem tc956x_pci uas qcom_pon camcc_sc8280xp 
+pinctrl_sc8280xp_lpass_lpi videocc_sm8350 i2c_qcom_geni 
+qcom_refgen_regulator pinctrl_lpass_lpi ucsi_glink lpasscc_sc8280xp 
+qcom_q6v5 qcom_wdt qcom_sysmon typec_ucsi
+[   42.445394] CPU: 3 UID: 0 PID: 12 Comm: kworker/u32:0 Not tainted 
+7.0.11+ #37 PREEMPT(lazy)  452f60429f6b383145c5e2c98b90ac68d2bd4e3a
+[   42.457814] Hardware name: Radxa Computer Co., Ltd. Radxa Dragon 
+Q8B/RS782-D16S32W0, BIOS 6.0.260812.BOOT.MXF.1.1.c1-00167-MAKENA-1 
+08/12/2026
+[   42.471031] Workqueue: events_power_efficient phy_state_machine
+[   42.477171] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS 
+BTYPE=--)
+[   42.484381] pc : _phy_state_machine+0x190/0x330
+[   42.489080] lr : _phy_state_machine+0x190/0x330
+[   42.493790] sp : ffff8000800e3d20
+[   42.497233] x29: ffff8000800e3d40 x28: 0000000000000000 x27: 
+0000000000000000
+[   42.504629] x26: ffff000080041028 x25: 0000000000000000 x24: 
+ffff0000800c2a05
+[   42.512024] x23: ffff000085e524f8 x22: ffff000080041000 x21: 
+0000000000000000
+[   42.519419] x20: 0000000000000006 x19: ffff000085e52000 x18: 
+ffff59480c02f000
+[   42.526813] x17: ffff59480c02f000 x16: ffffa6bfe88a8cc8 x15: 
+ffffa6bfe9e43c70
+[   42.534206] x14: ffffa6bfe9d0b480 x13: 0000000000000180 x12: 
+ffff0007f5d3a480
+[   42.541598] x11: 00000000000000c0 x10: 71e4c81c85622a03 x9 : 
+ffffa6bfe7b42df4
+[   42.548992] x8 : ffff0000808d47a8 x7 : 0000000000000004 x6 : 
+0000000000000000
+[   42.556387] x5 : ffff59480c02f000 x4 : ffff0000808d3600 x3 : 
+ffff000081c9b600
+[   42.563777] x2 : 0000000000000000 x1 : 0000000000000000 x0 : 
+ffff0000808d3600
+[   42.571174] Call trace:
+[   42.573724]  _phy_state_machine+0x190/0x330 (P)
+[   42.578438]  phy_state_machine+0x34/0xc0
+[   42.582513]  process_one_work+0x194/0x570
+[   42.586688]  worker_thread+0x18c/0x320
+[   42.590592]  kthread+0x134/0x148
+[   42.593953]  ret_from_fork+0x10/0x20
+[   42.597680] ---[ end trace 0000000000000000 ]---
+[   43.035576] SError Interrupt on CPU5, code 0x00000000be000011 -- SError
+[   43.035582] CPU: 5 UID: 0 PID: 0 Comm: swapper/5 Tainted: G   M    W 
+          7.0.11+ #37 PREEMPT(lazy) 
+452f60429f6b383145c5e2c98b90ac68d2bd4e3a
+[   43.035586] Tainted: [M]=MACHINE_CHECK, [W]=WARN
+[   43.035587] Hardware name: Radxa Computer Co., Ltd. Radxa Dragon 
+Q8B/RS782-D16S32W0, BIOS 6.0.260812.BOOT.MXF.1.1.c1-00167-MAKENA-1 
+08/12/2026
+[   43.035588] pstate: 204000c5 (nzCv daIF +PAN -UAO -TCO -DIT -SSBS 
+BTYPE=--)
+[   43.035590] pc : pci_generic_config_read+0x48/0xd0
+[   43.035595] lr : pci_generic_config_read+0x2c/0xd0
+[   43.035596] sp : ffff80008002be00
+[   43.035597] x29: ffff80008002be00 x28: ffff0000808f4800 x27: 
+ffffa6bfea71029f
+[   43.035600] x26: ffffa6bfea7102a0 x25: ffff000085926e00 x24: 
+ffffa6bfe9e3fd68
+[   43.035601] x23: 0000000000000105 x22: 0000000000000020 x21: 
+0000000000000000
+[   43.035603] x20: 0000000000000004 x19: ffff80008002be44 x18: 
+ffff59480c075000
+[   43.035604] x17: ffff59480c075000 x16: ffff800080028000 x15: 
+0000000000000000
+[   43.035606] x14: ffff0000808f4800 x13: ffff59480c075000 x12: 
+00000000b474d91d
+[   43.035607] x11: 0000000000000000 x10: 0000000000001000 x9 : 
+ffffa6bfe85328c4
+[   43.035609] x8 : ffffa6bfe8532898 x7 : ffff0007f7eb4800 x6 : 
+ffffa6bfeac55000
+[   43.035610] x5 : ffff80008002bea4 x4 : ffff80008002be44 x3 : 
+0000000000000000
+[   43.035612] x2 : 0000000000000090 x1 : 0000000000000000 x0 : 
+0000000000000000
+[   43.035614] Kernel panic - not syncing: Asynchronous SError Interrupt
+[   43.035615] CPU: 5 UID: 0 PID: 0 Comm: swapper/5 Tainted: G   M    W 
+          7.0.11+ #37 PREEMPT(lazy) 
+452f60429f6b383145c5e2c98b90ac68d2bd4e3a
+[   43.035617] Tainted: [M]=MACHINE_CHECK, [W]=WARN
+[   43.035618] Hardware name: Radxa Computer Co., Ltd. Radxa Dragon 
+Q8B/RS782-D16S32W0, BIOS 6.0.260812.BOOT.MXF.1.1.c1-00167-MAKENA-1 
+08/12/2026
+[   43.035619] Call trace:
+[   43.035621]  show_stack+0x20/0x38 (C)
+[   43.035629]  dump_stack_lvl+0x7c/0xa0
+[   43.035633]  dump_stack+0x18/0x2c
+[   43.035635]  vpanic+0x2a8/0x4b8
+[   43.035637]  panic+0x68/0x70
+[   43.035639]  nmi_panic+0x74/0x80
+[   43.035641]  arm64_serror_panic+0x78/0x90
+[   43.035644]  arm64_is_fatal_ras_serror+0x90/0x98
+[   43.035646]  do_serror+0x38/0x60
+[   43.035648]  el1h_64_error_handler+0x40/0x70
+[   43.035651]  el1h_64_error+0x84/0x88
+[   43.035652]  pci_generic_config_read+0x48/0xd0 (P)
+[   43.035653]  pci_bus_read_config_dword+0x80/0xf0
+[   43.035656]  pcie_capability_read_dword+0x90/0xc0
+[   43.035657]  pcie_pme_irq+0x58/0xf0
+[   43.035660]  __handle_irq_event_percpu+0x74/0x3d0
+[   43.035664]  handle_irq_event+0x4c/0x120
+[   43.035666]  handle_fasteoi_irq+0xfc/0x1b0
+[   43.035668]  handle_irq_desc+0x3c/0x68
+[   43.035670]  generic_handle_domain_irq+0x20/0x40
+[   43.035672]  gic_handle_irq+0x168/0x300
+[   43.035673]  call_on_irq_stack+0x30/0x48
+[   43.035675]  do_interrupt_handler+0x88/0xa0
+[   43.035676]  el1_interrupt+0x48/0xb0
+[   43.035679]  el1h_64_irq_handler+0x18/0x28
+[   43.035680]  el1h_64_irq+0x84/0x88
+[   43.035681]  cpuidle_enter_state+0xc4/0x7c0 (P)
+[   43.035682]  cpuidle_enter+0x3c/0x60
+[   43.035686]  do_idle+0x168/0x320
+[   43.035688]  cpu_startup_entry+0x3c/0x50
+[   43.035689]  secondary_start_kernel+0x13c/0x180
+[   43.035691]  __secondary_switched+0xc0/0xc8
+[   43.036060] SError Interrupt on CPU4, code 0x00000000be000411 -- SError
+[   43.237107] Kernel Offset: 0x26bf67a00000 from 0xffff800080000000
+[   43.237109] PHYS_OFFSET: 0xfff1000080000000
+[   43.237109] CPU features: 0x2000000,002e0005,00230501,540172ab
+[   43.237111] Memory Limit: none
+[   43.595524] ---[ end Kernel panic - not syncing: Asynchronous SError 
+Interrupt ]---
+
+> 
+> Konrad
+> 
+
+
+-- 
 Best regards,
-Jianyue
+Xilin Wu <sophon@radxa.com>
