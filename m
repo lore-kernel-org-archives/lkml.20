@@ -1,206 +1,129 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67DC2931FB
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788296152; cv=pass; b=j5rtCpL7zpn+/ToqHJK5RRqjsFpaKyNRX200qq7aSk3+ywfMYiA43EMuSvHkYi6oZwHP4wjy3J4o6eydr9p50G6mYuUM3JhHZr+mo4p3XcaXWtTbuxLfz+hQuI4W4sADKEHFZnWr6K4V8q9Wmge0zltvBYVdESSVOJM7UBnJrHM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788296152; c=relaxed/simple;
-	bh=ds0R7RSWqyOotBdAMyqdu/tBAQwZG7fw93dEWKgQL/U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cwcA+6O3t4QiGZsO4WUmRfKh6l6xoXcl+UMAm4I8fX03wCNfa0a7ySYUqYydvylWGEeZ4ztcfc10naQZM0QL8fYjVVANxCH2P5I2YKeDNOArCG3HvP2tkE0CG+BNaUD2P/87xMWYMEyPLnuP8urggKxGcR6J0QR7y3hqjHkgpCI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=FcBGHHlR; arc=pass smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE6D1383994;
+	Tue,  1 Sep 2026 20:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788296298; cv=none; b=N907j3oCOOgiifVnrtfo9jLM989fapsYm9iZrPMEOBKJwvM6y2xlBs6qtl7XSfMsG2zjoVYi9/CM2qG39IHaZPlYlzVD9U9XxFrcX02v4qPysnp89HDENdfXI0JTW5OKkuH7lRWbsuvxQbuBPFOWSzruCG7bbF/I7yb25yAujlk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788296298; c=relaxed/simple;
+	bh=XwRCKHVp10ID8xYE1dVM9CVX5ALnXbCrJAcU78wXc5s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fdATYwCg4A6k+UecQtjWp5hj5BBwXpWWvxZcx8K86c5ryyo2Mqp74TdpArqej25yJfaLfsK2AkeNL/rHmFOEM09tRx95b3V+XFZrXsIDXLngJ9Eq69ek4htBllyCZnVLnnipMRZAFmdM4JZP5mKRZQRz6IN/QnhprDdla8Mncn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aHQghr8h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="FcBGHHlR"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d5335cf904so2321415ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:55:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788296150; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iSTtRk0NHO/V58RvvJSXA1Eg+226ItXodCTOlx9bidnGNUjuTqz50kEA4rHB5VBBIt
-         FG2Ts2L60d5CqfZaEUAuQmQvUTTAEmpKj1VpsGD0zTKarfwkcF8XEojwT9QDpCXZkfy0
-         3quR3vWjz8wuyOa7NhtNkHLh5PAQWbtno8lAdqNYlrXDBcsemtIfqt9h6htASFB0fZJD
-         LlvHVISsnomRoxBhh9nxti9nqqFlwWEPhoRUfJyqxnkZMACMcSwQczSOML0p0c06ZssE
-         1nN7hsaaQ1R3pUencUv5ZCUfg2x2oREG+Q/3kQMH62zT32Ex+FF1mRm1ZuSKy4OwNneT
-         VDJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ds0R7RSWqyOotBdAMyqdu/tBAQwZG7fw93dEWKgQL/U=;
-        fh=TlF9UboqwLHYWulj4cbosJoRnurxq6eqU05QrRHNEGg=;
-        b=XplBTMGEnbDLBuSniXto4+zPQ0m+imcAqNb/wmtGE0x9F6/UWZgRjHuGfQK9DZV2ac
-         A+q3S9jmstVE9ei5cngS789q9JXTgb9TDH3gRa+KgEDSPKt/eaBq36XJLaEn40npLSX7
-         Y824Vh+vgV0HKfebz9UgH8ARiEm9dXKn1y+AQ6i/kYTEsC1VAGjfHvaS8NHLa3r0OIzg
-         FVbQfU2h/tMHgG7mAKPdKAWM9TChQ96kVkhg2TkZKmnDWR1pkqmRlrDGLJC0bdMo38V0
-         UFuUFhGTAIPY6f7wvJUK7YooNr+m9vJM/p/pPSMdzPgFFlbRim20T2ehzeqZCuHNPY61
-         eBxA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1788296150; x=1788900950; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ds0R7RSWqyOotBdAMyqdu/tBAQwZG7fw93dEWKgQL/U=;
-        b=FcBGHHlRa4KyK6GLEYePiV1yMfHY9X4tCxvXfbyyon/t4mMQ77vFLr3Efx2H4xoojX
-         K5SAoChJLrfCBfofVkHLb5sE2bERbvgJYYddVya8hqWqdSuWaFGOyg9tIdxTI0qaFZpC
-         47nCqGNHUg3csj6vtTSPbDwJ2zSKc/zSacqGjov8DXjDMpHZ7MeFO9JbSTPn6Uk6uSMI
-         TSgnAXMVXQ09ZvX4z8RMrg8nwu6l4GY1UxI2q7tp5pYzwhhfAeaGXKTHKmuXLmC4GrLu
-         0gqGrkEsSyv1x1om4rvM3kVHMnONK+hCLFGcmgksArwZQLerVSqrAloo3ZVLobxU89/L
-         sC/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788296150; x=1788900950;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ds0R7RSWqyOotBdAMyqdu/tBAQwZG7fw93dEWKgQL/U=;
-        b=OBs5BzBxax5D0fBozbxr2/UfxWhCuPwdeJ4X07kMVbefZpUTZh2WCb4rBUyJ87eP9G
-         2zWSEImFebYN4+meIL8za1vr3e52hFTtin97LECIC3MqxrjgApCF2ctC9ASmDC5rzda9
-         tBTcQgn4XsV9V/cWf8JdxPI57s7ISEBMX4ND9pL0jfBA6TmljEE4OrdCb0I256ZZMZL9
-         fFT2RVQRHa/GmPJ9oFKtK2Jj6TU3dtIOEl3tb15B/FcPpnIihEbVx0uHyu/6WAfEOM0m
-         oDFvaa4i+ZwB5jR4EjeYm/WNNnZ8rk+dbJVv2ujCu0XuQ7PP5GzXtLXDcHzI0Cz0mtiW
-         EuGA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQoiuF/3PBzutBVv7D4VcV/feSzOqzl1uoKsv9LmLl6G/FWJ6uMx/4xJZnw6jSRRBBQXc+DrKzYE17crM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kl7UWhD0I3Z3zQqYFVf9y/+MChNS9YCrro1tRwBfklt0+TU354
-	j3ykyKuBGog46OKkWygU7DpNGaFALDlMzP97i1pWkO+APMIKPgKMpFFBUUyh5gqyIWdQDrTf3BR
-	eag9ReTon4q9Q5kLVmXvPeFR4ydd9/HR/hWhYds4w
-X-Gm-Gg: AYBFou26qmTL2QnMhWFH9zpJ4Y5Vkcb83WLMJKZhszi3em6PPNHJFsFYBmJa+Q25X3H
-	aDtzohpSSaF3P5EuzppldWr0RYLiUNS/7VvQ3kFpsSb8zYJZkJx3+kkQI1z+nTmGqIl+aMxWYHQ
-	5qkirOwFqVaY5gKvy0Vs/1hi3Yl2XS62idNyqMrs8KqhbgJbn8yUCorpIaiHr2Ce5oV9+i9f+tw
-	1gg98EHG+KWnWBYuBFtdDDeh53GBajV4JwNZ8ZBKD1KdUnHKfkw+hRFpRYZmE1/WQf8TPGRjHVZ
-	bMF7zEhlUMNiMgvKHFcI6UOr1QCc/gN8eJl1ru0Xf+scgorr0AieBDv5gYVJ+TDKVopGgd+QA4T
-	aS0K33/Cm5ZhiTFHlAADgI+UDzcOc5A==
-X-Received: by 2002:a17:90b:3b41:b0:381:6c5:3f63 with SMTP id
- 98e67ed59e1d1-39907cd4e1dmr14923888a91.6.1788296149094; Tue, 01 Sep 2026
- 13:55:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aHQghr8h"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A8B0E1F000E9;
+	Tue,  1 Sep 2026 20:58:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788296296;
+	bh=wlJPEe39WmavK2sNL398qv9Unw3EKaaOF3Vm6DfuKzY=;
+	h=From:To:Cc:Subject:Date;
+	b=aHQghr8hAhKm+FsutTE59BANpL9L04FsiuLncO3XHYw9TWEZF0KR6lJVEDxLHkdDY
+	 ZY8zELS0XulYmxsYz9IVyAtXEODLzjj1RHaqbYXScjsxKgQutkWrBSH8a3ypresa0e
+	 DYie0H8c5ZbhWnCt92TC+G17r8MkqJYeF21pjbZlQRPxwBGMxX8aHIB5CzJVyFFKGJ
+	 JAnsHclXO2uVmHt/Pc0F+b636MEYA4TjQeVZHFnU2Ums13qHlewrSYfyB7Gl52yTXt
+	 u975ryVkpNhKgg8+4xGGyKl3cI0r0nb+dYHslBbNCHn1OOQKgptBd2EO9eVcjaH5aZ
+	 SlTLwIbZO9J2w==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: linux-integrity@vger.kernel.org
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	stable@vger.kernel.org,
+	co+6a581c4284f721d4@bugs.sh,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	David Howells <dhowells@redhat.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Jonathan McDowell <noodles@meta.com>,
+	Ross Philipson <ross.philipson@gmail.com>,
+	Stefan Berger <stefanb@linux.ibm.com>,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	Srish Srinivasan <ssrish@linux.ibm.com>,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] KEYS: trusted: Fix tpm2_load_cmd() boundary check
+Date: Tue,  1 Sep 2026 23:58:06 +0300
+Message-ID: <20260901205809.2028454-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828180322.730419-1-longman@redhat.com> <ba138f23-6972-44c8-8ce5-80de1f50891c@linux.dev>
- <85411b3f-bcbd-4a7e-99a5-49a465ca2df8@redhat.com>
-In-Reply-To: <85411b3f-bcbd-4a7e-99a5-49a465ca2df8@redhat.com>
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-Date: Tue, 1 Sep 2026 13:55:36 -0700
-X-Gm-Features: AcwNN1VD3djn7rU681MM0gPsbT7bDdd9EX-NdctA3Cep3e36lV4eXPZoh5Q-0g0
-Message-ID: <CA+0ovCg3BcogTUuqZwboEaZW41dkcsAV3nWjENOHc5ZFGaEarA@mail.gmail.com>
-Subject: Re: [PATCH] cgroup/cpuset: Handle cpu hotplug race in guarantee_active_cpus()
-To: Waiman Long <longman@redhat.com>
-Cc: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000b98a53065a72242b"
+Content-Transfer-Encoding: 8bit
 
---000000000000b98a53065a72242b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+tpm2_load_cmd() does boundary checks against the ASN.1 size i.e.,
+payload->blob_len. Address this by passing the decoded blob size to
+tpm2_load_cmd(), and use it for the boundary checks.
 
-Apologies for the delay in response. Upon our run, the patched kernel
-388b607d107c07aaade04c7f22f344cab6bdccd3 no longer panics when facing
-the attached reproducer.
+Cc: stable@vger.kernel.org # v5.13+
+Fixes: f2219745250f ("security: keys: trusted: use ASN.1 TPM2 key format for the blobs")
+Reported-by: co+6a581c4284f721d4@bugs.sh
+Closes: https://bugs.sh/b/6a581c4284f721d4/
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ security/keys/trusted-keys/trusted_tpm2.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-Thanks!
+diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
+index 67225dd562a9..01f18bb37047 100644
+--- a/security/keys/trusted-keys/trusted_tpm2.c
++++ b/security/keys/trusted-keys/trusted_tpm2.c
+@@ -99,7 +99,7 @@ struct tpm2_key_context {
+ 
+ static int tpm2_key_decode(struct trusted_key_payload *payload,
+ 			   struct trusted_key_options *options,
+-			   u8 **buf)
++			   u8 **buf, unsigned int *blob_len)
+ {
+ 	int ret;
+ 	struct tpm2_key_context ctx;
+@@ -120,6 +120,7 @@ static int tpm2_key_decode(struct trusted_key_payload *payload,
+ 		return -ENOMEM;
+ 
+ 	*buf = blob;
++	*blob_len = ctx.priv_len + ctx.pub_len;
+ 	options->keyhandle = ctx.parent;
+ 
+ 	memcpy(blob, ctx.priv, ctx.priv_len);
+@@ -384,10 +385,11 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
+ 	int rc;
+ 	u32 attrs;
+ 
+-	rc = tpm2_key_decode(payload, options, &blob);
++	rc = tpm2_key_decode(payload, options, &blob, &blob_len);
+ 	if (rc) {
+ 		/* old form */
+ 		blob = payload->blob;
++		blob_len = payload->blob_len;
+ 		payload->old_format = 1;
+ 	} else {
+ 		/* Bind for cleanup: */
+@@ -399,17 +401,17 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
+ 		return -EINVAL;
+ 
+ 	/* must be big enough for at least the two be16 size counts */
+-	if (payload->blob_len < 4)
++	if (blob_len < 4)
+ 		return -EINVAL;
+ 
+ 	private_len = get_unaligned_be16(blob);
+ 
+ 	/* must be big enough for following public_len */
+-	if (private_len + 2 + 2 > (payload->blob_len))
++	if (private_len + 2 + 2 > blob_len)
+ 		return -E2BIG;
+ 
+ 	public_len = get_unaligned_be16(blob + 2 + private_len);
+-	if (private_len + 2 + public_len + 2 > payload->blob_len)
++	if (private_len + 2 + public_len + 2 > blob_len)
+ 		return -E2BIG;
+ 
+ 	pub = blob + 2 + private_len + 2;
+-- 
+2.47.3
 
-On Mon, Aug 31, 2026 at 5:09=E2=80=AFPM Waiman Long <longman@redhat.com> wr=
-ote:
->
-> On 8/30/26 9:50 PM, Ridong Chen wrote:
-> >
-> >
-> > On 8/29/2026 2:03 AM, Waiman Long wrote:
-> >> With commit 2125c0034c5d ("cgroup/cpuset: Make cpuset hotplug
-> >> processing synchronous"), the cpuset hotplug operation becomes
-> >> synchronous. That commit also removes the code that handles the race
-> >> between cpuset_hotplug_work and cpu hotplug notifier with the assumpti=
-on
-> >> that race is now gone. Later commit 7a0aabd9ce69 ("cgroup/cpuset:
-> >> Always use cpu_active_mask") updates the cpuset code to always use
-> >> cpu_active_mask instead of cpu_ohline_mask in various places including
-> >> guarantee_online_cpus() which is also renamed to guarantee_active_cpus=
-()
-> >> in that commit.
-> >>
-> >> In the case of CPU offline operation, cpuset_active_mask is updated
-> >> first in sched_cpu_deactivate() to remove the offline CPU before
-> >> cpuset_handle_hotplug() is called to update the effective_cpus of the
-> >> affected cpusets. The cpu_online_mask is updated after that near the e=
-nd
-> >> of the offline operation to remove the offline CPU. As a result, the
-> >> race
-> >> comes back and the top cpuset may not have any active CPU leading to
-> >> NULL
-> >> pointer dereference during the race window when guarantee_active_cpus(=
-)
-> >> is called after cpu_active_mask is updated to remove the CPU to be tor=
-n
-> >> down but before cpuset_handle_hotplug() is able to properly update the
-> >> effective_cpus of the top cpuset.
-> >>
-> >
-> > Hi Longman,
-> >
-> > Thank you for the patch. I believe it should resolve the issue.
-> > Could Farhad please verify whether it works as expected?
-> >
-> >> Fix this by adding back the NULL cs check to avoid this problem.
-> >> However,
-> >> the output of guarantee_active_cpus() will be unreliable during that
-> >> race window.
-> >>
-> >
-> > If guarantee_active_cpus() can return unreliable results during that
-> > race window, should it instead return an error when it cannot
-> > guarantee that the active CPUs are usable? Otherwise, callers might
-> > use an incorrect 'pmask', which could lead to other issues downstream.
->
-> I am thinking about that too. However, the change will be more extensive
-> and it is that easy to figure out if we are the in the race window. So
-> more thought will be needed before we can make that change. In the mean
-> time, we have to fix the NULL pointer dereference and it has behaved
-> like that before.
->
-> Cheers,
-> Longman
->
-
---000000000000b98a53065a72242b
-Content-Type: application/octet-stream; name="reproducer.c"
-Content-Disposition: attachment; filename="reproducer.c"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mtj4rdg80>
-X-Attachment-Id: f_mtj4rdg80
-
-LyoKICogUmVwcm9kdWNlciBmb3IgMTY2LWdlbmVyYWwtcHJvdGVjdGlvbi1mYXVsdC1pbi1jcHVz
-ZXQtY3B1cy1hbGxvd2VkLgogKgogKiBCdWlsZDogZ2NjIC1wdGhyZWFkIC1zdGF0aWMgLU8wIC13
-IC1vIHJlcHJvIHJlcHJvZHVjZXIuYwogKiBSdW46ICAgYXMgcm9vdCBpbiBhIGRpc3Bvc2FibGUg
-Vk0uCiAqLwojZGVmaW5lIF9HTlVfU09VUkNFCiNpbmNsdWRlIDxmY250bC5oPgojaW5jbHVkZSA8
-cHRocmVhZC5oPgojaW5jbHVkZSA8c2NoZWQuaD4KI2luY2x1ZGUgPHN0ZGlvLmg+CiNpbmNsdWRl
-IDxzdHJpbmcuaD4KI2luY2x1ZGUgPHN5cy9zdGF0Lmg+CiNpbmNsdWRlIDx1bmlzdGQuaD4KCiNk
-ZWZpbmUgQ0cgIi9zeXMvZnMvY2dyb3VwIgoKc3RhdGljIHBpZF90IHZpY3RpbTsKCnN0YXRpYyB2
-b2lkIHdyKGNvbnN0IGNoYXIgKnBhdGgsIGNvbnN0IGNoYXIgKnZhbCkKewoJaW50IGZkID0gb3Bl
-bihwYXRoLCBPX1dST05MWSk7CgoJaWYgKGZkIDwgMCkKCQlyZXR1cm47Cgl3cml0ZShmZCwgdmFs
-LCBzdHJsZW4odmFsKSk7CgljbG9zZShmZCk7Cn0KCnN0YXRpYyB2b2lkIGNnX3dyKGNvbnN0IGNo
-YXIgKmdycCwgY29uc3QgY2hhciAqZmlsZSwgY29uc3QgY2hhciAqdmFsKQp7CgljaGFyIHBhdGhb
-MTI4XTsKCglzbnByaW50ZihwYXRoLCBzaXplb2YocGF0aCksIENHICIvJXMvJXMiLCBncnAsIGZp
-bGUpOwoJd3IocGF0aCwgdmFsKTsKfQoKc3RhdGljIHZvaWQgKmNwdTFfZmxhcCh2b2lkICp1bnVz
-ZWQpCnsKCWZvciAoOzspIHsKCQl3cigiL3N5cy9kZXZpY2VzL3N5c3RlbS9jcHUvY3B1MS9vbmxp
-bmUiLCAiMCIpOwoJCXdyKCIvc3lzL2RldmljZXMvc3lzdGVtL2NwdS9jcHUxL29ubGluZSIsICIx
-Iik7CgkJY2dfd3IoImhvbGRlciIsICJjcHVzZXQuY3B1cy5wYXJ0aXRpb24iLCAicm9vdCIpOwoJ
-fQoJcmV0dXJuIE5VTEw7Cn0KCmludCBtYWluKHZvaWQpCnsKCWNoYXIgcGlkWzMyXTsKCWNwdV9z
-ZXRfdCBjcHUwX29ubHk7CglwdGhyZWFkX3QgZmxhcHBlcjsKCgl3cihDRyAiL2Nncm91cC5zdWJ0
-cmVlX2NvbnRyb2wiLCAiK2NwdXNldCIpOwoJbWtkaXIoQ0cgIi9ob2xkZXIiLCAwNzU1KTsKCgl2
-aWN0aW0gPSBmb3JrKCk7CglpZiAoIXZpY3RpbSkgewoJCXBhdXNlKCk7CgkJX2V4aXQoMCk7Cgl9
-CgoJY2dfd3IoImhvbGRlciIsICJjcHVzZXQuY3B1cyIsICIwIik7CgljZ193cigiaG9sZGVyIiwg
-ImNwdXNldC5jcHVzLmV4Y2x1c2l2ZSIsICIwIik7CgljZ193cigiaG9sZGVyIiwgImNwdXNldC5j
-cHVzLnBhcnRpdGlvbiIsICJyb290Iik7CgoJc25wcmludGYocGlkLCBzaXplb2YocGlkKSwgIiVk
-IiwgZ2V0cGlkKCkpOwoJY2dfd3IoImhvbGRlciIsICJjZ3JvdXAucHJvY3MiLCBwaWQpOwoKCXB0
-aHJlYWRfY3JlYXRlKCZmbGFwcGVyLCBOVUxMLCBjcHUxX2ZsYXAsIE5VTEwpOwoKCUNQVV9aRVJP
-KCZjcHUwX29ubHkpOwoJQ1BVX1NFVCgwLCAmY3B1MF9vbmx5KTsKCWZvciAoOzspCgkJc2NoZWRf
-c2V0YWZmaW5pdHkodmljdGltLCBzaXplb2YoY3B1MF9vbmx5KSwgJmNwdTBfb25seSk7CglyZXR1
-cm4gMDsKfQo=
---000000000000b98a53065a72242b--
