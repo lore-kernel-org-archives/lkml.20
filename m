@@ -1,94 +1,185 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A3343BDBE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85411469851
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:10:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=50.112.246.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788293193; cv=none; b=sdDJE7/rGUjbOztVcw1YbDJj69EaBS56+uXTyzBobZLI6mBAJ4USkIeTybnffDBGwOV+8CxN2q9ESUi0jOHMH/1/w2Hnr58zXI3z38TOfL8ONicU59/2NrvWgeDJjlk9X6xvhzqwIoGxj50P6byvQOuVLxHdvDaFvgwdKUffeoE=
+	t=1788293415; cv=none; b=CchRc2IQrycDIqJcdX2rHdcUOyirsyuYkmwdC71VeYxeENLPeFve4lOpV/H02u5LTvPUNPE7b1LQXrYWYXdmTsmDZfWy++GH0QvAhj5QaBsz+IompBAYT/VEeQWVYP2LHQTX3PW4F4tv9ppLaOMW8sCjh17cf7mXEBcd3VjOnx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788293193; c=relaxed/simple;
-	bh=dvK/7qq0PvbUm5G0leIqI66lYNJgk8r5vzSh6nhg8EA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DpjNU5r21/+NW3lfdim9SIs3Hi7pdn4CwrR7ebIUB+K/AGhfNXVUTtJrdaXzVJ4IdapB2YNLzxEnlml1rtaC0wUTsS8NqNIWzWlzLPz4i9NvSTRuWArPMHp137KBnV3XmJNguw/sbFqz5auoj4vhTgttDUv1vzySWgdAiH/ydww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=zosOt4gv; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1788293415; c=relaxed/simple;
+	bh=5P21+q5PBGAcRirJ6xuT5j8UraQntWi9aVHbu2lT1Zc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=CpQA8oKS/8nfzAshfSAaA/rH10t8dAl6ssTF9MyZ2r/0DIQcaA898ygjcaXNmYGAwxlKhqJlIs+RTjUANSGYPa3J7cZRSKSR+iRn97l4FB88GfeUQYQXQw8VwwhKGhcTv4DpHzLKtPIBACWvTHy3oAgMZMUA9j3JLLqBApgrH8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=kBrajpUV; arc=none smtp.client-ip=50.112.246.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="zosOt4gv"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hZH1g0MPBzlfpMJ;
-	Tue,  1 Sep 2026 20:06:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1788293186; x=1790885187; bh=dvK/7qq0PvbUm5G0leIqI66l
-	YNJgk8r5vzSh6nhg8EA=; b=zosOt4gvTN/UNm+TZCYETpwqDiNxEnQegmXsvif3
-	9JMaarc+x+ragDV/w6Cnnp/gALpDayn/jqIQD461v8OI2gV7DlrLypnBIwxinKy5
-	Ruqg872eJYKfv1QvlALxrw7V3ulbDkL2WOg9d0qh+dX1PLvygtj0gx9zf/Vl3Ip8
-	RkgGJ/O/J8A84CGy+68dO1VWGGdXBejP/sXfp9g7O3lcjwxSjZxnjOQiFVzokHjf
-	FwYfm8IQQ88stNaW536krKJ66e37foRmAOBj/oALu+0YmJca0xdIyNhAWkPUUdLO
-	wqUcgAc9bQrWn4+qi1yUBFCas+buNFNB99OBysNmGgFGUw==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id ChZehgKpDaEm; Tue,  1 Sep 2026 20:06:26 +0000 (UTC)
-Received: from [100.80.227.50] (unknown [104.135.182.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hZH1W6st7zlfqB3;
-	Tue,  1 Sep 2026 20:06:23 +0000 (UTC)
-Message-ID: <07dcd177-bc20-416e-accc-9c137d70a5d6@acm.org>
-Date: Tue, 1 Sep 2026 13:06:22 -0700
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="kBrajpUV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1788293410; x=1819829410;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=VMfxCWDvZUXyWirDiYxrNIEcjCW+/otHqEMZLJ61jvw=;
+  b=kBrajpUVvSsx2h4Fcf6Gtzu3tRBmpTD3hOBgK+AeCuRTSW/CIi4wxSMg
+   R75P7ejRJUubQmFFtStsSt9Gd4QBOn4K0cFODeqhpMLiIn/ZddnL7+WiM
+   qXhIyC/UcK63rBlirgGwbiJE91JFfXLq/t6et3lYqT+5gu9fFMT/kHWIZ
+   od+CKJ88cGeAJqxIEvsEyiTW2ecLdCbH48j+l2eoFeVEMn0xsdY3Pr6Er
+   4wKNILrclinL+q5+f+x2hgoA6CT99We1r2VC2qRd662MWEQJCY22rmOVL
+   7AmkNxy6VN3+NOm/V7zVgGbThlCk8XiYKqdHZ8HWBKRBS55Q6TRZkXq/D
+   w==;
+X-CSE-ConnectionGUID: beGJdFdaS2KdmjdOvu7Tmg==
+X-CSE-MsgGUID: A0hYJfScQiuZ8z7QG74jLw==
+X-IronPort-AV: E=Sophos;i="6.25,256,1779148800"; 
+   d="scan'208";a="27326812"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 20:10:08 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.234:18292]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.234:2525] with esmtp (Farcaster)
+ id 3a513eab-567e-4f41-a68c-77fdee66390a; Tue, 1 Sep 2026 20:10:08 +0000 (UTC)
+X-Farcaster-Flow-ID: 3a513eab-567e-4f41-a68c-77fdee66390a
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Tue, 1 Sep 2026 20:10:07 +0000
+Received: from 6c7e67c92ceb.amazon.com (10.187.170.39) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Tue, 1 Sep 2026 20:10:07 +0000
+From: Nathan Gao <zcgao@amazon.com>
+To: <sj@kernel.org>, <akpm@linux-foundation.org>
+CC: <damon@lists.linux.dev>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <baolin.wang@linux.alibaba.com>,
+	<david@kernel.org>, <ryan.roberts@arm.com>
+Subject: [PATCH v3] mm/damon/ops-common: use a page-aligned address in damon_ptep_mkold()
+Date: Tue, 1 Sep 2026 13:10:01 -0700
+Message-ID: <20260901201001.33271-1-zcgao@amazon.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with sparse
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: David Laight <david.laight.linux@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
- Chris Li <sparse@chrisli.org>
-References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
- <20260831214437.15d6ad34@pumpkin>
- <a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
- <20260901092043.7feaf5d7@pumpkin>
- <dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
- <CAHk-=wgFEG7ZVaFAbo=bWWfsSh_weA4cOh6BV-xHWNSn6SwNBQ@mail.gmail.com>
- <737a4f62-f50a-40bd-a94a-1f42e9f3f54a@acm.org>
- <CAHk-=wiZog53-M8--_2m7HRk4XOQ+_jkh1XVuyQXXJgSwooQng@mail.gmail.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <CAHk-=wiZog53-M8--_2m7HRk4XOQ+_jkh1XVuyQXXJgSwooQng@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D035UWA001.ant.amazon.com (10.13.139.101) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On 9/1/26 12:35 PM, Linus Torvalds wrote:
-> Does that tree at least work for you? Maybe we can convince somebody
-> who is a better maintainer than I clearly have ever been to make my
-> messy branch be something actually palatable...
+__damon_va_prepare_access_check() picks a random byte address within the
+region and stores it in r->sampling_addr. damon_va_mkold() passes it into
+a page table walk, which hands it to damon_ptep_mkold() as the address of
+the page to sample:
 
-Hi Linus,
+  damon_va_mkold(mm, r->sampling_addr)
+    damon_va_walk_page_range(mm, addr, addr + 1)
+      damon_mkold_pmd_entry()
+        damon_ptep_mkold(pte, vma, addr)
+          ptep_test_and_clear_young(vma, addr, pte)
+          mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
 
-With the master branch of your sparse tree
-(https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/sparse.git/)
-sparse does not complain about the is_signed_type() implementation.
-Please note that I have not tried to verify whether any false negatives
-have been introduced by sparse commit 32eb1e2c4fa0 ("Allow both regular
-casts and forced casts for restricted values").
+For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
+clearing of the young flag for large folios"), the contpte helper walked
+exactly CONT_PTES entries from the aligned-down page table pointer and
+used @addr only to pass down to each entry, so an unaligned value was
+harmless:
 
-This makes me wonder whether I should switch from the official sparse
-tree (git clone git://git.kernel.org/pub/scm/devel/sparse/sparse.git) to
-your tree?
+        ptep = contpte_align_down(ptep);
+        addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+        for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
 
-Thanks,
+Now the range to walk is derived from @addr instead: end = addr +
+nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
+page of a contpte block, the sub-page offset puts end just past the
+block boundary, so the round-up lands a whole block further and the
+walk clears PTE_AF in CONT_PTES entries beyond the sampled block. For
+the last block in a page table page, those entries are past the end of
+that page, so the walk writes into the page that follows.
 
-Bart.
+Triggered by the full 7.1/7.2 kernel selftest suite on arm64 (EC2
+c/m6g.4xlarge). The kernel sometimes crashes at or shortly after the
+DAMON test.
+
+What the overrun does depends on the page that happens to follow the
+page table, so there is no single signature. If that page is read-only,
+the write faults in the sampling path itself:
+
+  Unable to handle kernel write to read-only memory at virtual address ffff0003c5d2d000
+    FSC = 0x0f: level 3 permission fault
+    CM = 0, WnR = 1, TnD = 0, TagAccess = 0
+  CPU: 10 UID: 0 PID: 3487 Comm: kdamond.2
+  pc : contpte_test_and_clear_young_ptes+0x70/0xc0
+  lr : damon_ptep_mkold+0x1e8/0x1f8
+  Call trace:
+   contpte_test_and_clear_young_ptes+0x70/0xc0 (P)
+   damon_mkold_pmd_entry+0x150/0x170
+   walk_pmd_range+0x110/0x2b0
+   walk_pud_range+0x10c/0x208
+   walk_pgd_range+0x134/0x258
+   __walk_page_range+0x98/0x1b0
+   walk_page_range_vma_unsafe+0x90/0x148
+   walk_page_range_vma+0x28/0x40
+   damon_va_walk_page_range+0x114/0x2b8
+   damon_va_prepare_access_checks+0xec/0x1a8
+   kdamond_fn+0x534/0x770
+   kthread+0x128/0x138
+   ret_from_fork+0x10/0x20
+
+Otherwise the page is writable, the PTE_AF clearing succeeds silently
+and the damage only surfaces later, in whatever happened to own the
+page, so the backtrace is unrelated to DAMON and differs between runs.
+
+Align the address down to a page boundary in damon_ptep_mkold(). Its
+ptep_test_and_clear_young() call is the only place DAMON can reach
+contpte_test_and_clear_young_ptes() from. r->sampling_addr itself is left
+as is, so the sampling and region bookkeeping semantics are unchanged.
+
+Fixes: 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for large folios")
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Nathan Gao <zcgao@amazon.com>
+---
+V2 -> V3:
+- Move the alignment into damon_ptep_mkold(), instead of aligning in
+  damon_va_mkold() and damon_va_young().  The ptep_test_and_clear_young()
+  call in damon_ptep_mkold() is DAMON's only path to
+  contpte_test_and_clear_young_ptes(), so damon_ptep_mkold() is the
+  closest place in DAMON to the function that requires an aligned
+  address (SJ)
+
+V1 -> V2:
+- Align inside damon_va_mkold() and damon_va_young() rather than aligning
+  r->sampling_addr itself, so that sub-page sampling addresses remain
+  possible for future non-PTE access check primitives (SJ)
+- Point Fixes: at 6f0e1142173a instead of 3f49584b262c, since the
+  unaligned address was harmless before that commit (SJ)
+- Describe how the issue was noticed and what it does to the kernel (SJ)
+
+v2: https://lore.kernel.org/all/20260831221151.50561-1-zcgao@amazon.com/
+v1: https://lore.kernel.org/all/20260827193821.46115-1-zcgao@amazon.com/
+
+ mm/damon/ops-common.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
+index 0bcad6b1e5b9e..cd8aa08233e54 100644
+--- a/mm/damon/ops-common.c
++++ b/mm/damon/ops-common.c
+@@ -46,6 +46,12 @@ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr
+ 	bool young = false;
+ 	unsigned long pfn;
+ 
++	/*
++	 * Arch implementation of ptep_test_and_clear_young() may require
++	 * aligned @addr
++	 */
++	addr = PAGE_ALIGN_DOWN(addr);
++
+ 	if (likely(pte_present(pteval)))
+ 		pfn = pte_pfn(pteval);
+ 	else
+-- 
+2.50.1
+
