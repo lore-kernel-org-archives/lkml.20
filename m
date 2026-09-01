@@ -1,47 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF2319C54E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:43:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2353D567F;
+	Tue,  1 Sep 2026 23:43:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788306196; cv=none; b=PBdxOAGq/vwZZoUGQKJorfOiu7MHyJFsMN/xO1Ham2hdOG18rHINU/WkdRc7O+FdHt4SSF6CqN/feIrfzqYuR0rAxC0c6n/fQ5p2AFvOnAbmev3Ulb4+d5WlPiPFNeqAfs32Zrx7E/jhL6bLGnSQQ3NBuF7H/259LQ97sf/WZAU=
+	t=1788306199; cv=none; b=Q4+VAT0WrTQEZz25nQx66KVY9BVPrl4oKt47a3qJ/iCr2vfYypDw8nGZyU3ewiNFLfl5bYkqjl5OWfBYuU1Tej037LjtjThKcpOxSlNMmGyzEEyBCOX2Op4f55ALiiRIJ3TTXI8Fo+UQyWcyjEgr7yf4a1sq0ehDd2EacTGNpTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788306196; c=relaxed/simple;
-	bh=hi0m6YLIQCYVgMeaQ0dok0IwboXRHu9ThpRpMuaw4ZU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eDlNCi5aP057D4ynai7hizGxvXdrONibIkzdxU9CgKQHTHRFjEQfv+5JIl3rf+lvXhALJk1xU7wSC+tVHckI7QQWc/9wbvl5Bsm87hUt0enDiJUs0P9SrDbdbE0JOHb0ZIQa8TBgGN1sKSow/tjXffEVUvyuxWRc359geeLmc68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cf4nbkIp; arc=none smtp.client-ip=192.198.163.18
+	s=arc-20240116; t=1788306199; c=relaxed/simple;
+	bh=aNne2qQnrJg4PvKvtwhkwuzAaor7MUDU122PMGNWSP4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=vDTUjkJnUoYNcwgZoiWGMXCJL61/PHwf7zXwunYA1hPO6vOWrjyFHBffNkybi7C2IKtEOaByllaAHPFScHqdX0KwYAlk5Y7PjL5bIRyU4IrsSoO6MzZEKLQ9mbu/5CSOYY4Ds3+EpMY/zAm1XfY0ZXJx+HiAZD9C7Csmo9S0cdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HZxQSoI0; arc=none smtp.client-ip=192.198.163.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cf4nbkIp"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HZxQSoI0"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788306194; x=1819842194;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=hi0m6YLIQCYVgMeaQ0dok0IwboXRHu9ThpRpMuaw4ZU=;
-  b=cf4nbkIpuunRFwSM1k8I34Q6zaADFTq1cI3PcO5KhsFOH8+a64+0lizw
-   PEaoDor2xJ/uj/hz/3VPG9MpbpAftXrFDR4sjjUUsji0TUnfQcTziyJb8
-   Z9RJFhBlhx/QFxdNAJJN0SlLmn5gCWp0IWijX0NmxZsxGA5JZvpwSgcIh
-   PTtNFvO5YRMI/xrGvYPHNE8zw7iil3w/SzqhbljOoSMV0MnK/UX5Fm/2h
-   Ce9TueS52/O15acYsyhdFPGZxM+ejrCxTKAaGxbl67gXj+XiUDvFJar4V
-   D6IxG+z3rgYIfylnqshCSxg16JG3I1u5OEiq3uqfiZSb/YdwTdcrt134g
-   g==;
-X-CSE-ConnectionGUID: 69zppg5nTRW03NlNy+fj9w==
-X-CSE-MsgGUID: i/4RnYw9TAqRH0RugncrLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="87891858"
+  t=1788306197; x=1819842197;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=aNne2qQnrJg4PvKvtwhkwuzAaor7MUDU122PMGNWSP4=;
+  b=HZxQSoI0Nj1EO9mJe1U+qeRy+3NL51alEObu3XQcBSaI+9TR8bmM+u5d
+   jug1A0YuPptljhunvB3gHl+vymLv2p5zm5+UYS/twczi14YiTXUyMVUbE
+   eTcM0IA1PjvhrtOpODhF0ybF1ekWDiUZIJZH1eIpe1/UUDNLiFmFtjmfr
+   oeytsuGJrQ+nOCIB5V59MxH0lkjJXAf7yxvACcGWVRE02w6GUvl6OH8bd
+   XVoc4uYUCWtkQZAq0uSdoafr0UcJ49HNYe5KqBKGSOIGhjBgan9jvM2OY
+   SjMRuvoi5iohhj//AWd5eJAlB/JZDbzRqgpxRJri+Y9ujncxpH0Md234j
+   w==;
+X-CSE-ConnectionGUID: Yajtoyy3QymM/kEOpXEFkg==
+X-CSE-MsgGUID: DblhapU/Ri68kdgCC/2Y1g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="87891863"
 X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
-   d="scan'208";a="87891858"
+   d="scan'208";a="87891863"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 16:43:13 -0700
-X-CSE-ConnectionGUID: 1apJfABRRAG8wcB+ptLMRg==
-X-CSE-MsgGUID: BihLDKjeQeexS5T4GUexaw==
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 16:43:16 -0700
+X-CSE-ConnectionGUID: LVt2cL9dRb2r7JB353YNPQ==
+X-CSE-MsgGUID: WGI/GBHvR8O2CWQwPQ1WJA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
-   d="scan'208";a="267469869"
+   d="scan'208";a="267469876"
 Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
-  by orviesa006.jf.intel.com with ESMTP; 01 Sep 2026 16:43:13 -0700
+  by orviesa006.jf.intel.com with ESMTP; 01 Sep 2026 16:43:16 -0700
 From: "Chang S. Bae" <chang.seok.bae@intel.com>
 To: linux-kernel@vger.kernel.org
 Cc: x86@kernel.org,
@@ -52,11 +53,14 @@ Cc: x86@kernel.org,
 	hpa@zytor.com,
 	andrew.cooper3@citrix.com,
 	arjan.van.de.ven@intel.com,
-	chang.seok.bae@intel.com
-Subject: [PATCH 0/8] x86/microcode: Address GNR errata and follow-up
-Date: Tue,  1 Sep 2026 23:16:25 +0000
-Message-ID: <20260901231634.714144-1-chang.seok.bae@intel.com>
+	chang.seok.bae@intel.com,
+	stable@vger.kernel.org
+Subject: [PATCH 1/8] x86/microcode/intel: Reject problematic loading on GNR systems
+Date: Tue,  1 Sep 2026 23:16:26 +0000
+Message-ID: <20260901231634.714144-2-chang.seok.bae@intel.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260901231634.714144-1-chang.seok.bae@intel.com>
+References: <20260901231634.714144-1-chang.seok.bae@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,146 +69,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Dear x86 maintainers,
+Revision 0x1000405 contains internal microcode changes that are required
+by subsequent revisions to avoid #MC during loading. This dependency
+logically fits the minimum revision requirement.
 
-We recently found a couple of microcode loading issues [1]. This series
-addresses them from both short-term and long-term perspectives.
+The minimum revision check, however, currently applies only to the late
+loading path, since the dependency was primarily intended for OS-visible
+changes. The early loading path is therefore still vulnerable to this
+issue.
 
-It would be much appreciated if the short-term, one-off fix (patch1)
-could be sorted out first to allow backporting.
+Furthermore, one of the subsequent revisions does not correctly specify
+the minimum revision, so unfortunately the late loading cannot rely on
+that check either in this case.
 
-== Issue Summary ==
+Prevent loading 0x1000405 or later when the system has not yet been
+updated to 0x1000405 or later. Apply this blocking to both early- and
+late-loading paths.
 
-As background, the minimum revision check was introduced by commit
-cf5ab01c8703 ("x86/microcode/intel: Add a minimum required revision for
-late loading"). It was originally intended to address changes visible to
-software at runtime, and has therefore been limited to the late loading
-path.
+Rename is_blacklisted() to is_late_loading_denied() so the new function
+that covers both loading paths is not confused with the late-load only
+one.
 
-The two errata are essentially about dependencies between microcode
-revisions:
+Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+Cc: <stable@vger.kernel.org>
+---
+The GNR errata page:
+https://edc.intel.com/content/www/jp/ja/design/products-and-solutions/processors-and-chipsets/birch-stream/xeon-6900-6700-6500-series-processors-with-p-cores-specification-update/016US/errata-summary-table/
 
- 1 GNR98 involves a dependency on an older revision 0x1000405, which
-   contains internal changes required by subsequent revisions. Since this
-   is not an OS-visible change, the dependency applies to both early and
-   late loading. The minimum revision check only applies to late loading.
+Thanks to Sohil, I noticed the naming guideline in
+Documentation/process/coding-style.rst:
+    For symbol names and documentation, avoid introducing new usage of
+    'master / slave' (or 'slave' independent of 'master') and 'blacklist /
+    whitelist'.
+---
+ arch/x86/kernel/cpu/microcode/intel.c | 42 +++++++++++++++++++++++++--
+ 1 file changed, 40 insertions(+), 2 deletions(-)
 
- 2 GNR101 describes an incorrect minimum revision value in revision
-   0x1000423, in spite of the same dependency on 0x1000405. The
-   late-loading minimum revision check does not prevent 0x1000423 from
-   being loaded directly on an older revision.
-
-== Short-term Remedy ==
-
-There are therefore gaps in both boot-time and runtime loading. The
-one-off short-term fix is to reject the problematic loading cases on both
-paths.
-
-With this change, systems running an older revision need to update
-firmware. See `FIT Microcode Update` in [2]. There may be other ways to
-deploy the required update more efficiently, but those are outside the
-scope of this kernel patch series.
-
-== Long-term Direction ==
-
-The issues above also raise a couple of questions for the longer term.
-
- 1 How can we address microcode dependencies during early loading?
-
-   The minimum revision information can serve as a more general revision
-   dependency check, rather than being limited to runtime changes. The
-   series applies the minimum revision checker for early loading
-   (patch5-6).
-
- 2 Can we do better for late loading?
-
-   Looking at Intel microcode releases [3], the repository traditionally
-   provides the latest blob. When updating from an older revision, admins
-   may need to retrieve prerequisite older revisions from the git
-   history. This can be inefficient and error-prone.
-
-   Intel will now concatenate prerequisite older blobs with the latest
-   blob together into a multi-blob image. The kernel, however, currently
-   selects the highest loadable revision, or at best one prerequisite
-   when the minimum revision check is enforced. Admins may need to
-   trigger multiple loads manually.
-
-   Instead the kernel loader can facilitate iterative loading to apply
-   the available blobs incrementally. There are some possible ways to
-   implement this.
-
-   One is to rely on the minimum revision check and select the highest
-   revision whose prerequisite has been loaded already. Another is to
-   load the blobs sequentially according to the order in the image.
-
-   Both approaches have drawbacks: the former depends on the minimum
-   revision information being correct, while the latter is sensitive to
-   blob ordering.
-
-   The approach here selects the lowest loadable revision on each
-   iteration, so that the blobs to be applied incrementally (patch7-8).
-
-== Patch Set ==
-
-The series started as a single patch to block the problematic loading
-cases. It was then expanded to address the underlying gaps in early and
-late loading, with some fixes along the way.
-
-  Part1, patch1: One-off fix to reject the errata loading cases
-  Part2, patch2-4: Preparatory fixes
-  Part3, patch5-6: Early loading: apply minimum revision check
-  Part4, patch7-8: Late loading: support iterative loading
-
-== Tests ==
-
-Andrew helped providing useful scripts to concatenate blobs from the
-repository [3] into a test image. Thanks! I could grab one production
-system and test changed paths with the concatenated test image.
-
-The patch set is available in this repository:
- git://github.com/intel-staging/microcode.git gnr-errata-followup-v1
-
-Thanks,
-Chang
-
-[1] https://edc.intel.com/content/www/jp/ja/design/products-and-solutions/processors-and-chipsets/birch-stream/xeon-6900-6700-6500-series-processors-with-p-cores-specification-update/016US/errata-summary-table/
-
-   GNR98. MCE When Early OS Microcode Update to MCU 0x1000405 Release or Later
-   Problem: The 0x1000405 microcode release introduced changes to the
-   inter-microcode communication interface that are incompatible with
-   prior versions.
-
-   GNR101. Incorrect Minimum Runtime Microcode Update Revision in 0x1000423 Release
-   Problem: The 0x1000423 microcode release does not correctly set the
-   Minimum Runtime Microcode Update Revision, document number 783834, ID
-   in the microcode header to reference the 0x1000405 release.
-
-[2] Microcode Update Guidance
-    https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/best-practices/microcode-update-guidance.html
-
-[3] https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files.git
-
-Chang S. Bae (8):
-  x86/microcode/intel: Reject problematic loading on GNR systems
-  x86/microcode: Solidify base_rev= option parsing
-  x86/microcode: Accept a boolean for force_minrev parameter
-  x86/microcode: Mark early_data __initdata
-  x86/microcode: Decouple minimum revision check from late loading
-  x86/microcode/intel: Apply minimum revision check to early loading
-  x86/microcode: Introduce iterative late loading
-  x86/microcode/intel: Select the lowest loadable revision for iterative
-    loading
-
- .../admin-guide/kernel-parameters.txt         |  11 +-
- arch/x86/Kconfig                              |  31 +++--
- arch/x86/kernel/cpu/microcode/amd.c           |  11 +-
- arch/x86/kernel/cpu/microcode/core.c          |  86 ++++++++++++--
- arch/x86/kernel/cpu/microcode/intel.c         | 110 ++++++++++++++----
- arch/x86/kernel/cpu/microcode/internal.h      |   2 +
- 6 files changed, 202 insertions(+), 49 deletions(-)
-
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+diff --git a/arch/x86/kernel/cpu/microcode/intel.c b/arch/x86/kernel/cpu/microcode/intel.c
+index 1142183c950c..c502138fd8e9 100644
+--- a/arch/x86/kernel/cpu/microcode/intel.c
++++ b/arch/x86/kernel/cpu/microcode/intel.c
+@@ -309,6 +309,38 @@ static void save_microcode_patch(struct microcode_intel *patch)
+ 		pr_err("Unable to allocate microcode memory size: %u\n", size);
+ }
+ 
++static bool is_loading_denied(struct cpu_signature *sig, u32 rev)
++{
++	u32 vfm = IFM(x86_family(sig->sig), x86_model(sig->sig));
++
++	/*
++	 * Revision 0x1000405 contains prerequisite changes for subsequent
++	 * microcode updates on Granite Rapids systems. Updates directly from
++	 * an older revision to this or a newer one can result in #MC (GNR98).
++	 *
++	 * This dependency can be indicated from the minimum revision field.
++	 * However, revision 0x1000423 has an incorrect minimum revision in its
++	 * header (GNR101).
++	 *
++	 * Prevent loading 0x1000405 or later unless the CPU has already been
++	 * updated to 0x1000405 or later.
++	 */
++	if (vfm == INTEL_GRANITERAPIDS_X &&
++	    x86_stepping(sig->sig) == 1 &&
++	    sig->pf & 0x95 &&
++	    sig->rev < 0x1000405 &&
++	    rev >= 0x1000405) {
++		if (rev == 0x1000405)
++			pr_err_once("Erratum GNR98: 0x1000405 is not loadable.\n");
++		else
++			pr_err_once("Erratum GNR98: 0x1000405 is required before 0x%x.\n", rev);
++		pr_err_once("Please update the system BIOS or firmware.\n");
++		return true;
++	}
++
++	return false;
++}
++
+ /* Scan blob for microcode matching the boot CPUs family, model, stepping */
+ static __init struct microcode_intel *scan_microcode(void *data, size_t size,
+ 						     struct ucode_cpu_info *uci,
+@@ -330,6 +362,9 @@ static __init struct microcode_intel *scan_microcode(void *data, size_t size,
+ 		if (!intel_find_matching_signature(data, &uci->cpu_sig))
+ 			continue;
+ 
++		if (is_loading_denied(&uci->cpu_sig, mc_header->rev))
++			continue;
++
+ 		/*
+ 		 * For saving the early microcode, find the matching revision which
+ 		 * was loaded on the BSP.
+@@ -878,6 +913,9 @@ static enum ucode_state parse_microcode_blobs(int cpu, struct iov_iter *iter)
+ 		if (!intel_find_matching_signature(mc, &uci->cpu_sig))
+ 			continue;
+ 
++		if (is_loading_denied(&uci->cpu_sig, mc_header.rev))
++			continue;
++
+ 		is_safe = ucode_validate_minrev(&mc_header);
+ 		if (force_minrev && !is_safe)
+ 			continue;
+@@ -905,7 +943,7 @@ static enum ucode_state parse_microcode_blobs(int cpu, struct iov_iter *iter)
+ 	return UCODE_ERROR;
+ }
+ 
+-static bool is_blacklisted(unsigned int cpu)
++static bool is_late_loading_denied(unsigned int cpu)
+ {
+ 	struct cpuinfo_x86 *c = &cpu_data(cpu);
+ 
+@@ -936,7 +974,7 @@ static enum ucode_state request_microcode_fw(int cpu, struct device *device)
+ 	struct kvec kvec;
+ 	char name[30];
+ 
+-	if (is_blacklisted(cpu))
++	if (is_late_loading_denied(cpu))
+ 		return UCODE_NFOUND;
+ 
+ 	sprintf(name, "intel-ucode/%02x-%02x-%02x",
 -- 
 2.53.0
 
