@@ -1,147 +1,212 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010067.outbound.protection.outlook.com [52.101.201.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4108640A924;
-	Tue,  1 Sep 2026 14:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788274529; cv=none; b=Vw53I28WQVlTrn2ksZO7KuwLLtdC+cvQq87rWyyTbbS1X20cXLWWctricyqxMcaxq0CeTxlowgPE13AGMLcI5mUlN4sJjShU1Zy/kelddmWkwtjZ8HRVCIFbW5RjfnYHAddv71TS+ltbDO2yVbuhZ1kSQVyht8jhBR6ifHffOIU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788274529; c=relaxed/simple;
-	bh=UZcL5xCFT2VzPmjPj64F1fB5jIqvmQNMw+Syr7UvUwA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fnoFizXWZQte5WoLrznGKrMlHCiT/a1voMWCil0yAv6/qw6lRA1A6yOqQXezjEO/mIbmue8cIdFeN3L3WEjlrmY3BjpzrhsRdxJZPkh/jDMZXIZxnqkiQ3Y/Hc0Ihd/ipDbdnOhGtstNAZRiZ9KyZdidl1wN3AhyGKs1fc3NeUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=2LqY0csf; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Q2TaIMwV; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qOFnijFy; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=upS+lYof; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C16D40EB9C;
+	Tue,  1 Sep 2026 14:56:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788274572; cv=fail; b=bllKbY0uTyDtFHB/4URO6JtdpefkimzhtAWGEiVrXp8u/HylXY7W38hTGiLwAOFVHfpj5YDJvM2/wYEzEnDYbbvkjsbxnBNmueFgpKgZX1uCatNTuTnalZi8dZ8dVaIpAGrWKZVHYZGlDJFv6BTy1EeVhNJExTdoYgSSOUW2Pk4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788274572; c=relaxed/simple;
+	bh=LKBq36/+PDCWvMe6IT0BzdnMsK3Hw0gCaDr+Fjqvrmk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=f3MJJ7PaPl2IVBhmmqbuVfFxhlx0Z5B4qg1+Sbzmvz/iU6ahwjqSlXTHaunML7I6HUa7J1Is2AhnXDLGD3A7SNSqbttpY8zOP7dA09aALgEeQNOGWUIVGUe8e6bZiUeLcsQ5BcV2z283zKUmPoFT3p0cMnCRYumkZ9BMeomELdU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=OeqSg6IA; arc=fail smtp.client-ip=52.101.201.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="2LqY0csf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q2TaIMwV";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qOFnijFy";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="upS+lYof"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0BF201F399;
-	Tue,  1 Sep 2026 14:55:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788274522; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=usj2g0t4xwIGOyAseUkM+POeJ2pw3ILZIkI3bovALxE=;
-	b=2LqY0csfgmVyPu9G5G0JCUPOk5Nx0WDRHbZPOB0TLPuDELBXF7SbTb4Esjf1g7K1g1Obse
-	zXAD+3jXZ7cMyld64amyO1TjPn2UG6lb1sykdWGsXqmGv5tCTzxSXNqp+KU5t71cGrUynl
-	NGKbmzYInGjKKAtqwXUVt47AoYkYp8Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788274522;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=usj2g0t4xwIGOyAseUkM+POeJ2pw3ILZIkI3bovALxE=;
-	b=Q2TaIMwV8bgLLB2+p/nsepL4GVtwfCzDaIj8uyoSkQbtD1D7LbNbNgp6zUrP7dqmDXNtAR
-	qeUG1AdMtMq77kDw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788274518; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=usj2g0t4xwIGOyAseUkM+POeJ2pw3ILZIkI3bovALxE=;
-	b=qOFnijFyXSO82FdQQCIoloTgyHNwVwIhu43kC+lcyDpo+zZcabPYbdxngzXDC9Ay7pPrg9
-	mgA9yfPk4uixZvy64j7HIF9iiLGn1LUYAVx5vJHknF4MEMVqgTcyLLmz2PGgQrVKLuFRfR
-	LM63Yy0SlVk2h8Qclz9midhHu6pBwXU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788274518;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=usj2g0t4xwIGOyAseUkM+POeJ2pw3ILZIkI3bovALxE=;
-	b=upS+lYofVF40bp3Mm+EiMrEAkJhCOsZdIyb/7dgtVQ3hz78xpcKbkZHLar0qxVIUucP6CG
-	sphz/vuV6sVEOrDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D4FA71369E;
-	Tue,  1 Sep 2026 14:55:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id z1FjM1XnlmpDDgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 01 Sep 2026 14:55:17 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Edward Adam Davis <eadavis@sina.com>
-Subject: [PATCH] usb: gadget: midi2: Fix the jack descriptor array sizes
-Date: Tue,  1 Sep 2026 16:52:46 +0200
-Message-ID: <20260901145512.785142-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="OeqSg6IA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cztlE7uIoqwib8ltO8tr8ukeCKnlDEc9NFbJiyABINDsIs+UxbBTBIUh6pVYkF2eP7kTyvcvFV6c1Rmc32FP12p+94E9lHU2hE0/3cnVNXqEn3WWqmS2iDmC6r42lYMdWGt1MnIwiSBw/u4T2jcbJjx8HAPIIDCoOuHamPhBdwno0tZjakOV/0VhpWAi5o28+4ZNNVO0JQRsmSdLQLUQkmxNgBi26NkvH5BGMuQQ5KraQ0hbBRVHDsEjmByp4eOEKo24VtWIeULISIzFMb4oVuy8mKZQuSqL3woWigBCgYKm0NQgnf3SaiLR4Fii91cCaDZWWaCKyPkAY9FX5pU0bQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7WLiL3L/uAHwPeceLyatZkiCozgXr4TnmOu0zgR0uE4=;
+ b=E297rl8obO+EYd8gZ/4E7Y2ILZS6YiKxVsWgrbU7+EUFi31b96ErS78WY5UfVvNpcbUCtHOOSi6tzNsPCU5d9Z1JNSEaPbvVgrlph+ai9ZHJY3RKQFcElqIsH+67oIjG9pnlA4T8D4zuMKcFjgnAZ5MQoKt3xoruGxfabn4VPeT5UpvWYJIh/xt4q9lR52JPoorVH39sOAAfb9l+mrCTMxoVEpYc6YMlyScaIGFZULALTu6DxBWFSJSxzJyIacN9wJTAKU9OwXP2t/hPpkNcILSZBKKHjfqyx5H6CNcrIxnPXlYAyKe1AzoNx2WqZinufdBFRvAfDOo08M5TpRmFgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7WLiL3L/uAHwPeceLyatZkiCozgXr4TnmOu0zgR0uE4=;
+ b=OeqSg6IAJsccbULYFdxUqazEAIAVTPyQj2QlqjhJRLGvx/1ASJP10I39V5lMMyv33lTd7UvYf/uBkwZFTxOLbM9QErDtzop46m3vx9h/h6/Bc8ldMeNGK7TjHiM9zGZ4Ad/v2DZbb1p/Kswtt6tw3+YULzocN6radWOZJtyjHMGLGy2vwlOLl+hFYgFFNZrSszmg/7bwDYcKFIadXi0csFNotx/X9xaF9t5B0LXQSlCsQ7+0o952ZU3+nv8CBXdFPwSEnJdLqyljyUvO5avvA+Emaix9kp6JdFlnYGO0eV2cZo3H7ytLJuQIEy+Ehoc5i0O4xzHAzCtW3QehmWd5Jg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by DM4PR12MB6400.namprd12.prod.outlook.com (2603:10b6:8:b9::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.13; Tue, 1 Sep 2026 14:56:06 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 14:56:06 +0000
+Date: Tue, 1 Sep 2026 17:55:55 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: qotmddnjs <qotmddnjs@ajou.ac.kr>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, dsahern@kernel.org,
+	shuah@kernel.org, horms@kernel.org, netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] vxlan: reject dynamic fdb entries that reference
+ a nexthop id
+Message-ID: <20260901145555.GA3547795@shredder>
+References: <20260901120740.105374-1-qotmddnjs@ajou.ac.kr>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260901120740.105374-1-qotmddnjs@ajou.ac.kr>
+X-ClientProxiedBy: FR2P281CA0182.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::10) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,sina.com];
-	RCPT_COUNT_THREE(0.00)[4];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,sina.com:email,syzkaller.appspot.com:url,appspotmail.com:email,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_TWO(0.00)[2];
-	FREEMAIL_ENVRCPT(0.00)[sina.com]
-X-Spam-Flag: NO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|DM4PR12MB6400:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0503b0c-3816-42d8-22be-08df08392660
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|10067099003|6133799003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	QzIdTkYyaj5K4qN8/5+pLNo51Sh3kSCStitkDTYhrftB6nHM5CB9/1sPNOGX6EvFuG56VX6wf3190BNjNThUq5bHfQZc4fOKgEbzkzXhGDIVrS23bFQshwM76tNh/bOTM+u0iFfkzSTsoOpcAHJuHKFztPhAxBk84dOg47vA/iyXi8Ob3eEShwiv+jxKIoD9BRpMHXbN1YIwMH7JOBTcIdkEP2HXwimPoiRas81Dhd3IWZXlPnNRTJAdSJ4ZFAaYh3/MQKuB4lJiL8EfkRezeiHBRLJ0+QEplSqzPeNH7+aY1Hz3u0rIGzLKVR8V05tQMByScr4cgqOQQKA9UiKGVwiaZLMkE3wlA/TUEWMtYQbQTdtnIsO+PqAN8wgHiSbBpNn7XKu6b63LK8vpH2bQot5XTuzqqF28fJiDbN8vbf99VmLyaV1EA7Vtfrd2ZYp+oMh4NKhUtHOIe+UlbPIpqMGmTQ4khFHkd6px84+L35a7ZWyjcvSZ7kGhGywi9yrGhnZeDgQrlWLqYVfNLNNjco91/M3FyCIMYrI8SwBCkWRXcLPe3sjjHQqrRhbHEn6SwcdmWpTU8oW7+3CkC40sGMGiTByGDIgGIw6VHpMkYPNEgAe2rRePP3hMzLRCBc30rVvjtQKRyG+rB/10Ckumc4D+9Tn0cn08PZ/Je+Tggzc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(10067099003)(6133799003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SjYvYXNRK1JwWjRZckhlczNweVFJem9IT211NUZ4KzRKL3pNRThIQ2xUOGV6?=
+ =?utf-8?B?SlF3YnpxYlhtbng4VkRhcXo3Q3VPeDBzenI3N3BlMkk2TWluMW96Wm5iak9U?=
+ =?utf-8?B?eklkUlI4aUtiaE9scjhHUWp4Q0hOZ085NXhxZ25sMGkxU2E5U1o4alZmaDJF?=
+ =?utf-8?B?WHVtbUVIeFpMNlpMQWd0QkR1aUVVUzFNRkg2M2JmU1ZxZTdwOWhaMHNRTnhQ?=
+ =?utf-8?B?cUU4aFp1ZUZnUk1DdnF1ODNYWDVkVVFJR3pid0R0aXVuSHJsZXBob0hqK2Fz?=
+ =?utf-8?B?bjRMZjJPTHRVQlN3TUIveVhSMUkvckRVQ3JDM1J1Q1V3RjdZUjJBQnBTQ0RG?=
+ =?utf-8?B?eWRWRnJ4MUNZS2h6ZkNJaUFaSmV2Q2lIcTJ5dGNFbEs1YVBxMDdnZG1OVEtS?=
+ =?utf-8?B?eXN2WXkzWXRvdWo5SEtlelNUQ2hvRmxwaEdMVXBPYnp2R0JZOWlhM3JGNmo3?=
+ =?utf-8?B?emVibnZxVzBKOWZXQ09YMElsU2ZhYzFuL2ROVjJuN0o4YkRyTWhIbTNzS0d5?=
+ =?utf-8?B?OFltT3l2ZjFOVVBHUUZWdmQ4WXpkSkVnQXdhWmlLZG83WE8rUDhNSGJQM2lM?=
+ =?utf-8?B?dkVhZVJvMzVWQ0F0TGVNaXg5OTBHVVFRK2hXYXZlaktJSUJlTXpPa2hYZjYw?=
+ =?utf-8?B?MzZqVnI3SzVKdDI0ZWQ1cTJsYVhHNUJ1RGRjdDdDUlhsVmNzcnZTMnNLZXRQ?=
+ =?utf-8?B?a0hDY29tVnVYblN2c3lmWHMrY2VqSXpvcWszWjl3SUpEK3AwSU12SWdaMHhQ?=
+ =?utf-8?B?eTJ2bTh1K2IwaVplWmRheHFDcnFmdittUlMvRXJtZ0tpeWNDWTFvckkzSjJl?=
+ =?utf-8?B?M0dpWXVNemlmTUhHamhJNytHejgxVjNzK3lmN0t0STkwQUJQRmVZa25SVERu?=
+ =?utf-8?B?WVRmcVc0TTdqeUJ1WS96bVF0TGFBRzhiYkI1NGdJNGlmTisybEMycWxqZmZu?=
+ =?utf-8?B?bjdVNzcvZjd0UExVSDlsS2w3TEtCSXByNElzNDhRenQyOW1FRWh4VTlqbWJZ?=
+ =?utf-8?B?d3ZmZzFZeVFDZWFFMFdNanFWRGlnOXRNbkRvT3lXbmd0ZHlTWVN1Z1BiR0gv?=
+ =?utf-8?B?OTFwTXFKYkorRzdEV3FCNnFqQ3JRTHJnUmNLWms2SHpxYjJuaXQxY2xuTzJB?=
+ =?utf-8?B?NmNEaE4zaUF3cVVDZ0QwU3hpb2hpeWM5a2Q3d1dIWm1WbW1HVG9NY01iN0xa?=
+ =?utf-8?B?eWJXdVZIN2lTdExOREc4M3dIZERwSUF1RlczYUpkNEY0UmErVW1hOEx6SGNY?=
+ =?utf-8?B?R1FKNUF0aHFMTkd2MmhJVWhaRURoN3FSYkljaXFYRTdhcDBZVG85R2VpYUtt?=
+ =?utf-8?B?MStrVDBjNStGT1o5c0srcjFKK3NucDIyUG1lS1NXdHZ3c0Z3S3djOWs4a0E1?=
+ =?utf-8?B?YVR1Z3lwV0phNnpoSkNLZDRld0hTd1ZKQ0JtcU02eWJMR2JTMklPd2tKR3Nz?=
+ =?utf-8?B?SG1ROE8vYWJMOWhrVnlvYnAveGdqYXQzaFFibFgvOGk1cFloTFZKVmtmaWtv?=
+ =?utf-8?B?ZXVPcGJ1Um1wcHdYWGxBeGc2MDRLSzlRMDFQY2ZGVE5tYjRTWjRpYklvc0tE?=
+ =?utf-8?B?T0YyVE9NOURZN2ZpVUZ1bXlPOTFzZjcyL1F0V3RQQURJRmk3UHpneHhEb1U1?=
+ =?utf-8?B?MHVpMFc1NEtvcVZ2SDdGdStvTXNaamw4OXFTbW9CU211WThzQzNhcFJlMGdE?=
+ =?utf-8?B?ZUFCNEd3TlI4L1BtUTA3cDFYV1N6QUJHdXkrZnVhMDk0aktqaE9zR09IY2FJ?=
+ =?utf-8?B?eXEyTUFDSTNoaHhsMk9TNEdwUGI3dkFrdGpuWWgzcEs3K0JKMStnL0tzOFZo?=
+ =?utf-8?B?dTdZY0taQ3JPLzdQbUdvdm9WclB0diszeDBVOW1qMzhxTjdydVlXMmdKNU5T?=
+ =?utf-8?B?dUVKdmJTaW4rTTJybksrenh0Tnh3Vi81dFluM05icFBvcUhnTnpnTGVOSXBk?=
+ =?utf-8?B?TDkweFhLQzRjNnJ5Sm5tTzZ3dmtaYTBOVXZrTWNSU0ZGc1RNYjRwbkhyZzJW?=
+ =?utf-8?B?ZmNPMlQyVFB2RzVMOTJnTlRNMmFGSW1RNUVoYjc0YWhNWkFNcHJYZDBiWnh5?=
+ =?utf-8?B?blVjczJ3M0wwZVlnbHFTMlJIUjN3T05lTmQyd2trdENtZGlzbzlzVDR4MHZl?=
+ =?utf-8?B?eWlSTWhSRlVaUS92R1FucGMxWWtBZUZUdFVYQytsK3dxUnJiQzhSZjc4QW5P?=
+ =?utf-8?B?VmhFenBFU0h5VDdiakdEYzRWUEhBbTFtNCtkYlhGa0FqQ0d5aStDOW45VkRu?=
+ =?utf-8?B?RHdZR3hoYTJBbHgxc0VvV01vUk1Ha1hmOFNCTWF1bWVGVlNVa1BJbDZXQnZh?=
+ =?utf-8?B?Um1tNVBzaXF3cFdQVFhTTUZYbnc2MHNkeU9lWU1XRkk5bCtDOXY5dz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0503b0c-3816-42d8-22be-08df08392660
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 14:56:06.1991
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uSbDz8z5DmWJIUAkusgneyY0S0neMSKYWfanaXKAhErGKBG/ETs+14ZJrMNc31l8r+cXa97JCw1yM2c5ePvjXg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6400
 
-The jack in/out descriptor arrays in struct f_midi2_usb_config have
-the size of MAX_CABLES, which look reasonable -- but it turned out to
-be incorrect.  Namely, the entries for those arrays are added from
-both inputs and outputs, hence for each loop cycle, it adds two, ended
-up with as twice as the expected size.  This inconsistency may result
-in potential OOB when a large number of jacks are set up via configfs,
-although the max number of cables (the loop count) is limited to
-MAX_CABLES.
+I don't understand.
 
-For addressing it, correct the jack_ins & jack_outs array sizes to
-twice, MAX_CABLES * 2.
+v1 was submitted at 5:02 UTC. I replied at 11:36 UTC asking:
 
-Fixes: 856fa444b098 ("usb: gadget: midi2: Dynamically create MIDI 1.0 altset descriptors")
-Reported-by: syzbot+c35f34092a4bc9855be6@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c35f34092a4bc9855be6
-Link: https://lore.kernel.org/20260826134606.127250-1-eadavis@sina.com
-Cc: Edward Adam Davis <eadavis@sina.com>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- drivers/usb/gadget/function/f_midi2.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+"Please read [2] and run [3] and [4] on v2 and future submissions"
 
-diff --git a/drivers/usb/gadget/function/f_midi2.c b/drivers/usb/gadget/function/f_midi2.c
-index a4b72a6fad8a..091e9220fcbb 100644
---- a/drivers/usb/gadget/function/f_midi2.c
-+++ b/drivers/usb/gadget/function/f_midi2.c
-@@ -1634,8 +1634,8 @@ struct f_midi2_usb_config {
- 
- 	/* MIDI 1.0 jacks */
- 	unsigned char jack_in, jack_out, jack_id;
--	struct usb_midi_in_jack_descriptor jack_ins[MAX_CABLES];
--	struct usb_midi_out_jack_descriptor_1 jack_outs[MAX_CABLES];
-+	struct usb_midi_in_jack_descriptor jack_ins[MAX_CABLES * 2];
-+	struct usb_midi_out_jack_descriptor_1 jack_outs[MAX_CABLES * 2];
- };
- 
- static int append_config(struct f_midi2_usb_config *config, void *d)
--- 
-2.55.0
+Where the fourth line in [2] is "don’t repost your patches within one
+24h period".
 
+31 minutes after my reply you posted v2. So, did you ignore everything I
+wrote and just took the diff?
+
+[2] https://docs.kernel.org/next/process/maintainer-netdev.html
+
+On Tue, Sep 01, 2026 at 09:07:40PM +0900, qotmddnjs wrote:
+> From: Seungwon Bae <qotmddnjs@ajou.ac.kr>
+> 
+> An fdb entry that references a nexthop id cannot roam and therefore has no
+> reason to be aged out, even though vxlan_snoop() keeps refreshing its
+> timestamp.  Nevertheless, such an entry can currently be created (or an
+> existing nexthop entry updated) with a dynamic state, which places it on
+> the aging list.
+> 
+> struct nexthop.fdb_list is a per-nexthop global list of the vxlan fdb
+> entries that reference an fdb-nexthop.  It is manipulated by vxlan under
+> the per-device vxlan->hash_lock only.  When two vxlan devices reference the
+> same fdb-nexthop, their entries share one nh->fdb_list, but each device
+> takes only its own hash_lock.  vxlan_cleanup() - the aging timer - then
+> runs in softirq with only its device's hash_lock and calls
+> vxlan_fdb_destroy() -> list_del_rcu(&f->nh_list), racing a concurrent
+> list_add_tail_rcu()/list_del_rcu() driven from the other device.  The
+> shared list is corrupted and a freed struct vxlan_fdb is left linked on
+> nh->fdb_list, a use-after-free later consumed by vxlan_fdb_nh_flush().
+> 
+> On CONFIG_DEBUG_LIST/KASAN this reproduces as:
+> 
+>   list_del corruption. next->prev should be ..., but was dead000000000122.
+>   __list_del_entry_valid_or_report <- vxlan_fdb_destroy <- vxlan_cleanup
+>   <- run_timer_softirq
+>   BUG: KASAN: slab-use-after-free in vxlan_fdb_destroy
+> 
+> Since a nexthop fdb entry must not be aged out in the first place, reject
+> making it dynamic, both when it is created and when an existing entry is
+> updated.  vxlan_cleanup() skips NUD_PERMANENT/NUD_NOARP entries, so this
+> guarantees nexthop fdb entries are never touched by the softirq aging
+> path, and nh->fdb_list ends up manipulated under RTNL only, removing the
+> race entirely.
+> 
+> Extend the vxlan fdb-nexthop selftests to cover the rejection on add,
+> replace and append.
+> 
+> Verified with a KASAN + CONFIG_DEBUG_LIST kernel and an unprivileged
+> (userns+netns) reproducer that previously ran two vxlan devices churning
+> dynamic add + aging-delete on a shared fdb-nexthop: before the change the
+> dynamic nexthop adds succeed and produce hundreds of list_del corruptions
+> plus a slab-use-after-free; after the change the adds are rejected with
+> -EINVAL and the run is clean (0 corruptions, 0 KASAN reports).
+
+The commit message needs to better explain why it's safe to prevent
+dynamic FDB entries from pointing to FDB nexthops. Something like:
+
+"Cited commit in the Fixes tag allowed VXLAN FDB entries to point to FDB
+nexthops so that overlay traffic could be load balanced across multiple
+VTEPs. Such entries can only be configured from user space, cannot be
+learned and cannot roam. They only make sense with a user space control
+plane such as E-VPN where data plane learning is disabled.
+
+Despite that, the VXLAN driver does not currently prevent such entries
+from being configured with the "dynamic" flag. The per-nexthop FDB list
+is only protected by the per-device hash lock, which is not sufficient
+when two VXLAN devices point to the same FDB nexthop and therefore share
+the list. Aging runs in softirq context without RTNL, so an entry
+deleted by one device can race with an addition or deletion from the
+other, leading to list corruption:
+
+<put the trace here>
+
+Fix this by rejecting the bogus configuration of dynamic FDB entries
+that point to FDB nexthops. As such, the per-nexthop FDB list is only
+ever mutated under the RTNL lock. Add test cases to make sure that this
+does not regress in the future."
