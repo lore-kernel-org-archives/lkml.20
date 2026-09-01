@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CF23A16A1
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:04:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A613BFAE8
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:04:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788246296; cv=none; b=Xs7mIaqTVUk9xKxMdfzE8gsrNJYh9jwlfOAjL0nO/kAQZKPwo8BsSCkYy9XvnhUvHv6RESvkuxBJIvjt1sZt4j5zHUfDokPDjKIHoz8nkgBzMAPhdM2vT6vcHJpp9kSqlGR7BkYdwSD2Mr0OKKJCxROejZ1b57kvoE2cBRK5LwQ=
+	t=1788246298; cv=none; b=cgt/rlHbLxdRdvjccw8JEuEzTRCFKp8oEfD63ctX/gKQRazejtP5hneZtivRoz71Y+4aWwJXWDIEGhNpfSQjvIgqrXEMTSVEPwUvu7v0Sp3LuohC89xehWtUR6OO0pkOdlS8yxknNOT3WfrASIjZAqDcYTo4+V9T2PqX8f3iiwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788246296; c=relaxed/simple;
+	s=arc-20240116; t=1788246298; c=relaxed/simple;
 	bh=ey0G1X9tOwJNDFI9ncTYyCaKALRWJF8gnxAlcVfAHdg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hOqVI88QSXsUau1NNuOVn8/7K7Uj/hvzTEuyvo0Bc1AYtCLEsV15S1F0Kc8SNnv9/OkL9H7tDQMc8PMklI5J8nw+jRaBeZhkSXH6a/KgHKFBhvRgxsrVEv/Fcbk6WiKxkubOjJdri3+otbdvavA1E69VUAe7s1caIzOC9vIXSf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rc2nZPcA; arc=none smtp.client-ip=100.103.45.18
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ge/HL4kvA+CtHZlQBb9EL2UW8QP1Oj/Hos73a4gTh3QulTaggnvLPMLMDocjw/U6qfybj9j6T7FpazuOUqwhqRu8/X2X5lITXZEDIwNNq1cZ0cFwv01TWIq8xJZdXcL+a/SeGjfdkUIkz5CKiRY3BWbA/1mbM2uKKFHHPAafCQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RzGNEPB4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rc2nZPcA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C4D1F000E9;
-	Tue,  1 Sep 2026 07:04:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RzGNEPB4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0323E1F00A3D;
+	Tue,  1 Sep 2026 07:04:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788246294;
+	s=k20260515; t=1788246296;
 	bh=Dj9L8nra2wlXiqh+4Le5gpOg2EgGvJF4Ts7nBLLHjvM=;
-	h=From:To:Cc:Subject:Date;
-	b=Rc2nZPcAEViCXpdiXCBowQypECYNb4aXEaDy35QUPp2hGTk02Xlay2koaJwvXYxfc
-	 l8+SYtuuAkYUci57onVoJdnplxe7Ng+2sQKre/QZIDXHPepH7DrPnuqyBqEjA57dKj
-	 vyLkdYydfC+Q04Jdam2gRg3JHl6mzAH7L3XwG74SRxdYjpgqtL8DkFKomMWfPbEvCJ
-	 zMfPCngK5GM8Sv5klgYmyXvEtPCjUSOjbWII18yRYL/QxII8yaC3DnnY2Lr78Fcefy
-	 oN0VU8YOJ0ODABkCRCs6mgRUbi055h3ty52hX6KNIgt17ljkVOSfUf8gkpcNVJi2IY
-	 E5qt3OsuTDvGA==
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RzGNEPB4pP0EKZmD0drW5mgrIG/D83RTmKmnW7abrKOOkNA0HAPbZAp0oK5q7d3u8
+	 qBn6b3cCWh0zs3ap0kccknBt5rBZDRS1PlgtxROsl7ht2QOe+Euv+QKtnkFutpF434
+	 I+a250fm6VhA0IBDuPBjznx53sug1KnAjvY9tCYWJpaiB1Fe9qQgEwtH0VB1/93LDo
+	 7zFxHxdLC/G0skcZNoPjXBFMwJTVxr77j1V7ZBXx7JPbXW4kl3TTNazUtKaqev9qDl
+	 EmbfsmOZ3Gv8ctU5r+e/oAEgJfoXPgQIXonw1qkMfXlhw6MqJCk3rgTko6lVlgGy9y
+	 rf3AzE/+1Fd0w==
 From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
 To: tglx@kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -33,10 +34,12 @@ Cc: linux-kernel@vger.kernel.org,
 	Alex Shi <alexs@kernel.org>,
 	Yanteng Si <si.yanteng@linux.dev>,
 	Dongliang Mu <dzm91@hust.edu.cn>
-Subject: [PATCH v2] irqdomain: Delete irq_domain_add_linear()
-Date: Tue,  1 Sep 2026 09:04:48 +0200
-Message-ID: <20260901070450.255507-1-jirislaby@kernel.org>
+Subject: [PATCH] irqdomain: Delete irq_domain_add_linear()
+Date: Tue,  1 Sep 2026 09:04:49 +0200
+Message-ID: <20260901070450.255507-2-jirislaby@kernel.org>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260901070450.255507-1-jirislaby@kernel.org>
+References: <20260901070450.255507-1-jirislaby@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
