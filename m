@@ -1,177 +1,125 @@
-Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD6947A89E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:35:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C70C4756AE
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:35:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788258905; cv=none; b=FrJeTICBydVgEdcyVDbRrvj+50yYXteILCgCH43btuDyBWEj8XqIVKJ4OVd9zukRbu4eLEA177PqO+J4jvq7zd6cOwRxlEaa86HAiY9YoKb4mOETie5IkXmR22sL6wDw9N9OlceVfJxhuWF9bLFvnNqS3wGcrIek7Y+0JG4st40=
+	t=1788258925; cv=none; b=eEc16kiePe64zyJQ5uGBuZr+IwaB1awszjb8+Q9VxvM9nwn3eK8hrQqyIz9umiZxQjxVRZNZzSPx27SSI0efk8q6wkih7dOaWfjsNRGjEukhbQ7KihcjIy6TDEpVD3CG+LzaZ80rxpxMNHtqtD0V4gwMyk3Uasv8DqlyGotGu7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788258905; c=relaxed/simple;
-	bh=hGwrqJibjsI979lLLZMh7q1FzrzRBk6jSe5g0u5F2Qc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bzo5TGOrciQmk7rCLYeRwwn00QrXsA630Qgq2vsybqLermo0cN/NFo0PGQKoLs4Bh/HfI+JzSF00O2+6tCtDD1qS18nEB+dVDwMo5F35uN4JVTp7OtFcKyXOxtJRsukqx4cXVMhQUXrL48DMzcVcNhfHpQL1VEj8p6v8bEcqsLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DJeyrI6T; arc=none smtp.client-ip=91.218.175.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788258925; c=relaxed/simple;
+	bh=aw9k60djUqep7PosMklBHBSSfddhEhOp83WNis3Iua0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aTCPNP8B7ipfv4DbYR+JvNTLH1eEvoOtKedy2pEoCBCUVV7x3hi/F4I18TWpbFM9ace5mF1StYEDE2iTx7fQWtHtKRunkR6Hy4N4OkVB2Cv+BGIz+84J9kX1GlvCom3To9L+nJotVV725OXmEscnFvlQxoLk20JgBbD8gMa549g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oXuSImGD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DJeyrI6T"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hGwrqJibjsI979lLLZMh7q1FzrzRBk6jSe5g0u5F2Qc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788258901; v=1; x=1788863701;
- b=DJeyrI6ToUeD+bp7pHh7omNcbGQChzTVw+f8zKYnU+pHNm7wLg+k845R7bmGIg6wItepiaAY
- V4Dt/35b6i0Vc7pAeTjHeqe4AQOU55ZhRt9V9i2vfzY0tkq502nczrT25Ak2YN6dEjuidywUJxg
- geUPXQBMNAM6C6i8Ggb02e4k=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c9b09ab85d072c50;
-	Tue, 01 Sep 2026 10:34:51 +0000
-X-Mizu-Trace-ID: c9b09ab85d072c50
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b5e5aaf7deso7036e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 03:34:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwFSM7LxMGv7O5Nw9FSNObiuRQ51Wih8HEKA826i+ybi9Eowfxiha+rkF4sq8hqrLbXIbh9yp44A3PL6CQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFAIOy0btx5xBDPnWibey8BEKELrVBMeKx1a13BDCkCU9Hq06B
-	skDq73W+Pe5lXKPJuBySaJ2NEzjgFcNZX6vpEZ6ojqAaJy1ZADSZv6a/5HxgK2+NfS21IdnfhE3
-	sl2jpUtJ0ABDrxX/WuqOPs4iJMP9CgBfEcYaOrSDN
-X-Received: by 2002:a05:6512:ac4:b0:5a8:6646:d7b4 with SMTP id
- 2adb3069b0e04-5b600a0b6f4mr114181e87.1.1788258889928; Tue, 01 Sep 2026
- 03:34:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oXuSImGD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 539491F00A3E;
+	Tue,  1 Sep 2026 10:35:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788258924;
+	bh=vcCpSEftgA430RoM1FBDWtUuyGK8FaBAzL5tRn5s8zM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oXuSImGDshsC4cMw06Og+zCSkRUrxIotWKrIurPV2r5a//sQklqZqXJ2pQnRp/NGJ
+	 eHpbL9vnBaHsA+RUhHdpCWd6M8gZJdYoSKuoco+SwglBa32xOOPPXWMOP48TsaBOql
+	 3rLj2othD9ZBlqSH0QGklrOg3xCfjm/pE6hw52OPHWQpTjGXCbtxORz6TuuUj/1eRw
+	 5eQX2nuIcnUF5oTCEOPUPf5pnnpXamchYWVRyryc/i1OccBRTask/gkmpD2KqsPaQj
+	 +t2hE/0gwVxIPo/ifZCo1td+HYFneUJyROwonZEblR3RkcroOr9riQoERgEU13vAo0
+	 F2kU2R3ymXfkQ==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfauth.ams.internal (Postfix) with ESMTP id A5ACC1980070;
+	Tue,  1 Sep 2026 06:35:20 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Tue, 01 Sep 2026 06:35:21 -0400
+X-ME-Sender: <xms:aKqWagsNt5TTV4gNgXZv315Lf8cdhJW2t8g3ySjbdpuhAarRq_jl6Q>
+    <xme:aKqWalA_Xq7_s3fbgnGzaZWx-otnKzHgXcPY1as0MbtgFyqa35LmwaEfrtGBb4Hbh
+    OupnuQVrPdKjdQy5QGcEWiGgbnPSb34i4pXkjnw6poAYqrEFRBROLGW>
+X-ME-Received: <xmr:aKqWarbfbcPjzbzfKU3pkfrtXQfEiRUzWDmJ1hxPJ0os5et-UQQn2RUlvZc>
+X-ME-Proxy-Cause: dmFkZTFiNb433Q2Ib/Q2x5Tb/4fJV8R4aY9r3SmdNboMtRz6Yw9Dgi3VJue9v5So8a+3MX
+    c8D5JOWRer9UtNw34dj/pFkuNTqEx574YOQuIJnWF1VTpPE1UxviOWyB/6xe9WD02Vwldw
+    JlDOX17LoDRvA8e2NUMfZpnZMzDayPynx8l8SHwrlGTrs4F0UwLCyL9ROUV9+XC3gpMpMf
+    /yFsNvsuUyH1amP65pfRfAGTMrIcTnRl8ZGqeI38P4WJ14uOAMw1z8CCC+CEk0eInXqQsC
+    OdH8W6nIHpsooSUt7rkU6agVnxag7Ep7LfdC9ruY0VEnlLLkrKHevYBMy7v0U422JUJkr6
+    ga7jPiK3xF2RTpK0L5Wp6bZN/7855JjuBlsxScXRS66u8fe0eSaw+Fs0dwqtQv1PY+2DaW
+    Kh32s9Ae+8h4FerOMfa31kCiJT9bGNunOe8k6onHLb9vCWueohqLVm0dqGxa/wmqw1ZmCt
+    gfXVfB8UmAh1iP5Q3JKn7YBFWGMczIi7l/6rEa6tDxQymL/IJwRLysGrn7Gs266djH4NaH
+    rCOaPVYQ26pwBxQ31eB2DWmhTVnyj/DYVcMNCet/D8mtOaHcEJJ1uwzMeOKRcjToBWjOZK
+    OJ9P52T/v+4Ml2vpzQ6FX1Iss19dPN7mKpHXv7uSue01Xm2m3Dlky+YB906Q
+X-ME-Proxy: <xmx:aKqWav8jQbCBf0d0UbO-aeNLn7jzbvgdFa0O-lizsk8U2TkuGzjtMQ>
+    <xmx:aKqWanj1ePc6ksqrncvGqdGffNYL0t-qljzEnBot__oZhMnP8JFBZg>
+    <xmx:aKqWaiiSMEXjcRacLgnTDvj_3pWhpdSFxRh_9k22qkxdBaZ5nvm2BQ>
+    <xmx:aKqWat5G2vtz8fwGPazKHNlBrNvQiPmivEKQCTs-_WcBJXUQT4sUjA>
+    <xmx:aKqWakTsqQHhDVe1-YddCq2AA021DMF7cbP5ZdE14e9nKjgS7ImAxnP->
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 1 Sep 2026 06:35:19 -0400 (EDT)
+Date: Tue, 1 Sep 2026 11:35:18 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Sarthak Sharma <sarthak.sharma@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] mm/gup_test: prevent overflow in GUP batch
+ calculation
+Message-ID: <apaqJk91uAN-zD66@thinkstation>
+References: <20260901083452.115365-1-sarthak.sharma@arm.com>
+ <20260901083452.115365-2-sarthak.sharma@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com> <20260830-gmem-inplace-conversion-v12-13-85e5fd25252a@google.com>
-In-Reply-To: <20260830-gmem-inplace-conversion-v12-13-85e5fd25252a@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 1 Sep 2026 11:33:00 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTxdJmjBu8vJqbZks3ANP7QFZzGvp4J7kqxvTNR-fKMmJA@mail.gmail.com>
-X-Gm-Features: AcwNN1W_H4CnVusKniYHLtrTvE9k4_Zq5YT-PzaJWqqbnOmAYps19c1F8GBPWTQ
-Message-ID: <CA+EHjTxdJmjBu8vJqbZks3ANP7QFZzGvp4J7kqxvTNR-fKMmJA@mail.gmail.com>
-Subject: Re: [PATCH v12 13/45] KVM: guest_memfd: Pass mapping type filter to
- invalidation helper
-To: ackerleytng@google.com
-Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
-	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
-	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
-	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
-	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
-	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
-	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
-	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
-	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-mm@kvack.org, linux-coco@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901083452.115365-2-sarthak.sharma@arm.com>
 
-On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
-<devnull+ackerleytng.google.com@kernel.org> wrote:
->
-> From: Ackerley Tng <ackerleytng@google.com>
->
-> Accept the mapping type filter as a parameter in the invalidation start
-> helper instead of querying it internally. This allows callers to specify
-> which mappings (shared, private, or both) should be invalidated.
->
-> In the next patch, the conversion process will use this new parameter to
-> invalidate mappings only when they're different from the target state of
-> the conversion, i.e. invalidate only shared mappings on a shared to private
-> conversion and not both.
->
-> No functional change intended.
->
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-
-Cheers,
-/fuad
-
-
+On Tue, Sep 01, 2026 at 02:04:51PM +0530, Sarthak Sharma wrote:
+> __gup_test_ioctl() calculates the end of a GUP batch using:
+> 
+> next = addr + nr * PAGE_SIZE;
+> 
+> If nr is too large, it can cause the next to overflow and wrap around.
+> If it wraps, the next > end check is bypassed and a large value
+> of nr is passed to the gup call, even though the pages array was
+> allocated according to gup->size. This can lead to out of bounds writes.
+> 
+> Compare nr with the number of pages remaining before performing
+> the multiplication. Clamp it to remaining range so that next does
+> not overflow or exceed end.
+> 
+> Fixes: 64c349f4ae78 ("mm: add infrastructure for get_user_pages_fast() benchmarking")
+> Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
 > ---
->  virt/kvm/guest_memfd.c | 14 +++++++++-----
->  1 file changed, 9 insertions(+), 5 deletions(-)
->
-> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> index e41802944756b..e19de803149c2 100644
-> --- a/virt/kvm/guest_memfd.c
-> +++ b/virt/kvm/guest_memfd.c
-> @@ -192,13 +192,13 @@ static void __kvm_gmem_invalidate_start(struct gmem_file *f, pgoff_t start,
->  }
->
->  static void kvm_gmem_invalidate_start(struct inode *inode, pgoff_t start,
-> -                                     pgoff_t end)
-> +                                     pgoff_t end,
-> +                                     enum kvm_gfn_range_filter filter)
->  {
-> -       enum kvm_gfn_range_filter attr_filter = kvm_gmem_get_all_gfns_filter(inode);
->         struct gmem_file *f;
->
->         kvm_gmem_for_each_file(f, inode)
-> -               __kvm_gmem_invalidate_start(f, start, end, attr_filter);
-> +               __kvm_gmem_invalidate_start(f, start, end, filter);
->  }
->
->  static void __kvm_gmem_invalidate_end(struct gmem_file *f, pgoff_t start,
-> @@ -224,6 +224,7 @@ static void kvm_gmem_invalidate_end(struct inode *inode, pgoff_t start,
->
->  static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
->  {
-> +       enum kvm_gfn_range_filter filter = kvm_gmem_get_all_gfns_filter(inode);
->         pgoff_t start = offset >> PAGE_SHIFT;
->         pgoff_t end = (offset + len) >> PAGE_SHIFT;
->
-> @@ -233,7 +234,7 @@ static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
->          */
->         filemap_invalidate_lock(inode->i_mapping);
->
-> -       kvm_gmem_invalidate_start(inode, start, end);
-> +       kvm_gmem_invalidate_start(inode, start, end, filter);
->
->         truncate_inode_pages_range(inode->i_mapping, offset, offset + len - 1);
->
-> @@ -522,6 +523,8 @@ static int kvm_gmem_migrate_folio(struct address_space *mapping,
->
->  static int kvm_gmem_error_folio(struct address_space *mapping, struct folio *folio)
->  {
-> +       struct inode *inode = mapping->host;
-> +       enum kvm_gfn_range_filter filter;
->         pgoff_t start, end;
->
->         filemap_invalidate_lock_shared(mapping);
-> @@ -529,7 +532,8 @@ static int kvm_gmem_error_folio(struct address_space *mapping, struct folio *fol
->         start = folio->index;
->         end = start + folio_nr_pages(folio);
->
-> -       kvm_gmem_invalidate_start(mapping->host, start, end);
-> +       filter = kvm_gmem_get_all_gfns_filter(inode);
-> +       kvm_gmem_invalidate_start(inode, start, end, filter);
->
->         /*
->          * Do not truncate the range, what action is taken in response to the
->
-> --
-> 2.55.0.897.gb25b4bd76c-goog
->
->
+>  mm/gup_test.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/gup_test.c b/mm/gup_test.c
+> index 44c1cdfb9c37..910cbef709b4 100644
+> --- a/mm/gup_test.c
+> +++ b/mm/gup_test.c
+> @@ -139,10 +139,11 @@ static int __gup_test_ioctl(unsigned int cmd,
+>  		if (nr != gup->nr_pages_per_call)
+>  			break;
+>  
+> -		next = addr + nr * PAGE_SIZE;
+> -		if (next > end) {
+> +		if (nr > (end - addr) / PAGE_SIZE) {
+>  			next = end;
+>  			nr = (next - addr) / PAGE_SIZE;
+> +		} else {
+> +			next = addr + nr * PAGE_SIZE;
+>  		}
+>  
+>  		switch (cmd) {
+
+What about this:
+
+              nr = min(nr, (end - addr) / PAGE_SIZE);
+              next = addr + nr * PAGE_SIZE;
+
+Seems to be easier to follow, no?
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
