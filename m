@@ -1,238 +1,106 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726EF46AEFC
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:37:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3429F46C4C5;
+	Tue,  1 Sep 2026 07:37:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248250; cv=none; b=UQPzJLZr9aoQ4RaWLT38isz4QM3rn2L1Np/3s5cOnbnHrewfrKTMa1p95urbJVAVup6lWTVpMgf+5c32avTJYGyW6kjxCP1PhB6Ho+0nn59QREK1oeuJ6FkcZqYdx2fajOskOQ+FqkJAOK8tsJRxL2Bx8WHBwI+yVxiD0+Yj8y0=
+	t=1788248255; cv=none; b=T/OVfLklOWqkAMHyaPO76DjbA8iM0+VO1wNxQvAOLvO9O6LiQjzKHEOjG3eLel2MCHHzSyr4kYBzclSXzyBCFrRqKS/WjP+LkMHITqwP0ZYyrm3zMSavEHYIXfhlxsgq8bzTUncN99O7NvVMEYyacjTf91+3I/IGoxYbWBVJW3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248250; c=relaxed/simple;
-	bh=pYS/GFrUanOhlcC/NmixNJR7ATn1F3+XrW8M7qWpBNQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FdsfG8/AM70o1MrDQDhZ14IEu04qTUGPvH6gH8wqyGgBE+kFAlTOpND6QjTkG1Om54icVmQQpgdBjB+Da627o9gs/mty/Vqa6AxAZTWVU0CyWQDC2Aia0lckyd0N3JbrfDpD4uisp0PqsXMixJ740KTpqGrDtyCJehmQXQn/n3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EpThNfJs; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788248255; c=relaxed/simple;
+	bh=cD71fSU8oxhllEAjJzUHfMcjj0HRDjwY/mokw3TJ5hQ=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=SkRzpp2NOFYD8HuOcwMdvdoZEgHOUDQxe9X2xeCenMtE6gz5G9xA6X4I1Z5ph8AmyWHrxnTUpcnmsR48GAVJ9PTqbaimSvKfh+48PjZFRYVjs5wc2/9c4Twmdv9UhIPGXFkV9ChXONarzwCjvJ0z76SVyqMs/7s5XvzW4T7xOVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HuADwWQg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EpThNfJs"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-39266382df6so3771906a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:37:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788248249; x=1788853049; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rxm6irMUrWNwyv0K7EvAQpfSMPkiF7ptXJMabfvOf8g=;
-        b=EpThNfJsQ9AomChPdkMhC+ueUfmuhcnHCj4LepdRK4IArvzFdfELpSPntEyyRt2Cfp
-         DqVs/NN3eSXkF92ZXPLTLCswhB8ioJNF2lbekX4NmLTZqjKD5y4zcNd511t/AbB199sc
-         vLTksHuaI1C+AGw5NIrffhR2AvMtdHLb9odAvEnllfL+HxW4EITCTXsJgiQqPQE6z73Z
-         Q4Dt28GZUMpgDIPzepD7THKCdBO4R4b88QsOss5eT4KmLl1NzIbyTj+5YT3qCilL/KoF
-         I9V/TvMpzmEH5buvK5+aDuDUAp6ET6mJazF5H47HTswCb40LAD1n47GSPTQmhDLgkO8n
-         VVcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788248249; x=1788853049;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rxm6irMUrWNwyv0K7EvAQpfSMPkiF7ptXJMabfvOf8g=;
-        b=GbO5OSClwCaxKuJRQXutqpUYAKOjSWfJqLy5bmEyXtaGON/MAjd9kmXISA1ZS21bR+
-         /KTZJia8rJGmVB4r3wgfIV4NEKMyTgA1Vtz75q3sIZoQJiQF2U6Fwa81vx5yv47OsDd9
-         8Jw1C1GHguPmX+8/IGiduKnvlZp7UU0YWs/w86zfZsSilVs3am4U+qInAEDSX0pxQ0H4
-         2A4lV5Q1ChKMYlt10+hR6jjcCDi4VfRad5hO31+Ex53qIxVkdo8sE/1Lam0OiRf7U0H2
-         weRufEA+SusLLPwNqjwVtrvoSYz2+8Xp3IoTDeA4OfC4pvf/1mIddZ8qyn2oyiC1ikvm
-         Texw==
-X-Forwarded-Encrypted: i=1; AKwUvByZxxNOUeaVutLH8Ta3iyjI8R6Si+CDM//VzLC6PEtyAEbziMScnlvg+qK2dgY1kY7Br1BBwZ17RiSmaEc=@vger.kernel.org
-X-Gm-Message-State: AFuF++meJqDYb6vjP4jKwn8xL2aeVRG8+ridflTtCfsaUkyi1G0nzUjT
-	aZhm1TfoFTQg7WsK8mdi+GZTVOvoyY9bfO9xv/4fSUH8uqMhoH0ZpOkr
-X-Gm-Gg: AYBFou0/28EjkmmmnpBai4Ie0//OzZpBflepT+EEAkthTlXW6ltHXqf3HfV2WHY5TlU
-	eE1/dFPJXSymYjD+WMFCSnZdYzLy2JsanbtrNYVHdFATtgn7vamOEpObJJt3iWBofmTmKNc2uGW
-	bRyx368MEmuDxtPPCtJ+vv7ASMuh3N7NagOfTUlh94j3zmAiUxkjNQOS480F1K/3JEP7iThCfpf
-	AgFOebTGNDNI7XeF6L2b5+XBZll7rBS2uo+4hY1xb9Drx+OEp55+2jd8FTAFC3c/2CwHNFsSdWg
-	y+m8H2FY7yBwh5A1YRRJkHaXpIO/KABIesQP0KwPcaPQJBrE5r/uq6ZVMnEXzKIs4ZzEtmn75rm
-	f3d8wZSOXnaxCX9tv5nzTGS3296CMcrxwKCjHRCzqwLzNfeYb2U4eKIspf7KlrlX7lR64w01S6A
-	NhGl9j3uyxkQ/Q3bAnRvErcCoJ36YS6TOdHXr+vSWrvk8QP7w9P1WJYV7zFcKL+ixuagdK0epBJ
-	28IgOI=
-X-Received: by 2002:a17:90b:528b:b0:398:c16e:69d3 with SMTP id 98e67ed59e1d1-39907ab521fmr9594085a91.1.1788248248379;
-        Tue, 01 Sep 2026 00:37:28 -0700 (PDT)
-Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990c40d0c9sm4465448a91.7.2026.09.01.00.37.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:37:27 -0700 (PDT)
-Date: Tue, 1 Sep 2026 16:37:22 +0900
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, ncardwell@google.com, dsahern@kernel.org,
-	idosch@nvidia.com, kuniyu@google.com, horms@kernel.org,
-	willemb@google.com, andrew+netdev@lunn.ch, kees@kernel.org,
-	jiayuan.chen@linux.dev
-Cc: kerneljasonxing@gmail.com, ij@kernel.org, martin.lau@kernel.org,
-	shakeel.butt@linux.dev, matttbe@kernel.org, martineau@kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, imv4bel@gmail.com
-Subject: Re: [PATCH net v2 6/8] tcp: fix use-after-free in the lockless
- listener path
-Message-ID: <apaAskNL-IvdcR7h@v4bel>
-References: <20260824033331.1084971-1-imv4bel@gmail.com>
- <20260824033331.1084971-7-imv4bel@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HuADwWQg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C5311F00A3E;
+	Tue,  1 Sep 2026 07:37:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788248253;
+	bh=cD71fSU8oxhllEAjJzUHfMcjj0HRDjwY/mokw3TJ5hQ=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=HuADwWQgYH/3fzLXVihpBW5NgPVaKpQd6SpUz7IqGBdJL14sHe5eJ/vjvTAlENmnL
+	 cweALiRXSegl7ThVsJiceYf2kFkO2RfS6K3x8U2Mq8P08kn9jbvdsZLsoi1k2A9eUn
+	 ECfMduzf64WQXSNtHDRFogH1T7gmvvgHUl/yeDvGdnw8x01AwZFmigj/3qN3XIWt4c
+	 764+W4LevwsYABRaRFJVBO3tOZo/xMzvkozab1eB19QDNBWOMOxIsgVKTIQ3jt7bPR
+	 XfzWOaIPW4BKw7zEIgtmb2gKsYVQ+7JRS5n2IliNUu542bnGitXVLOgaXoyhC2TLYU
+	 YKrTd0B4kgD5Q==
+Content-Type: multipart/mixed; boundary="===============3706888861537028182=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260824033331.1084971-7-imv4bel@gmail.com>
+Message-Id: <06a2dd01e897308215bde044bd80409b99491e61a646671383c8301738caac22@mail.kernel.org>
+In-Reply-To: <20260901062845.1379760-4-chenyuan_fl@163.com>
+References: <20260901062845.1379760-4-chenyuan_fl@163.com>
+Subject: Re: [PATCH bpf-next v3 3/4] selftests/bpf: Test rhtab kptr recycle from NMI context
+From: bot+bpf-ci@kernel.org
+To: chenyuan_fl@163.com,bpf@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,mykyta.yatsenko5@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,gnq25@mails.tsinghua.edu.cn,chenyuan@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue,  1 Sep 2026 07:37:32 +0000 (UTC)
 
-On Mon, Aug 24, 2026 at 12:32:50PM +0900, Hyunwoo Kim wrote:
-> tcp_v{4,6}_rcv() calls tcp_v{4,6}_do_rcv() without holding the socket
-> lock when sk->sk_state is TCP_LISTEN. Every other path into
-> tcp_v{4,6}_do_rcv() holds it.
-> 
-> tcp_v{4,6}_do_rcv() and tcp_rcv_state_process() below it read
-> sk->sk_state again. A listener can leave TCP_LISTEN through
-> connect(AF_UNSPEC), and if that happens in between, the second read
-> returns a different state.
-> 
-> tcp_rcv_established() or tcp_rcv_state_process() then runs without the
-> lock. If the second read returns TCP_SYN_SENT, the incoming SYN is
-> treated as a crossed SYN and reaches tcp_send_synack(). When the SYN skb
-> at the head of the retransmit queue is skb_cloned(), that function
-> replaces it with a copy and releases the original with
-> tcp_rtx_queue_unlink_and_free().
-> 
-> The original is the skb that a thread on another CPU is transmitting
-> right now in __tcp_transmit_skb(). skb_cloned() is true because the
-> clone made for that transmit is still alive. Once the transmit returns,
-> tcp_update_skb_after_send() calls list_move_tail() on the skb's
-> tcp_tsorted_anchor.
-> 
-> In short:
-> 
->   socket(AF_INET) -> bind() -> listen()   // the socket that changes state
->   socket(AF_INET) -> bind() -> listen()   // the peer
-> 
->   Several threads keep opening new sockets and connecting to the first
->   socket's address.
-> 
->   Another thread repeats this on the first socket:
->     connect(AF_UNSPEC)      // TCP_LISTEN -> TCP_CLOSE
->     connect(peer address)   // TCP_CLOSE -> TCP_SYN_SENT
->                             // another CPU still sees a listener, handles
->                             // one of those SYNs without the lock and
->                             // releases the SYN skb that this connect()
->                             // is transmitting
->                             // -> use-after-free
->     connect(AF_UNSPEC)
->     listen()                // TCP_LISTEN again
-> 
-> KASAN log:
-> 
->   BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x14/0x140
->   Read of size 8 at addr ffff88800a5d1460 by task poc/125
->   ...
->   Call Trace:
->    __list_del_entry_valid_or_report+0x14/0x140
->    tcp_update_skb_after_send+0x62/0x170
->    __tcp_transmit_skb+0xe33/0x1e40
->    tcp_connect+0x1b67/0x2490
->    tcp_v4_connect+0x998/0xab0
->    __inet_stream_connect+0x22c/0x700
->    inet_stream_connect+0x48/0x70
->    __sys_connect+0x101/0x130
->   ...
->   Allocated by task 125:
->    __alloc_skb+0xd1/0x370
->    tcp_stream_alloc_skb+0x2d/0x2b0
->    tcp_connect+0x72d/0x2490
->    tcp_v4_connect+0x998/0xab0
->    __inet_stream_connect+0x22c/0x700
->    inet_stream_connect+0x48/0x70
->    __sys_connect+0x101/0x130
->   ...
->   The buggy address belongs to the object at ffff88800a5d1400
->    which belongs to the cache skbuff_fclone_cache of size 472
-> 
-> Instead of taking the lock, keep the lockless path from reading
-> sk->sk_state again to decide how to process the packet. Move the
-> TCP_LISTEN handling out of tcp_rcv_state_process() into
-> tcp_rcv_listen_state_process(), and let the TCP_LISTEN branch of
-> tcp_v{4,6}_rcv() call a new tcp_v{4,6}_rcv_listen(). Listener processing
-> does not change. The TCP_LISTEN arm of tcp_v{4,6}_do_rcv() is left
-> alone, because a socket can finish listen() after the state check and a
-> backlogged skb is then processed there.
-> 
-> Fixes: e994b2f0fb92 ("tcp: do not lock listener to process SYN packets")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+--===============3706888861537028182==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Looking at this further, unhashing the listener and then calling
-synchronize_net() lets the disconnect path handle it. MPTCP needs a fix
-too, though, because it closes and reuses the first subflow directly
-without going through tcp_disconnect().
+> diff --git a/tools/testing/selftests/bpf/progs/rhtab_kptr.c b/tools/testing/selftests/bpf/progs/rhtab_kptr.c
+> new file mode 100644
+> index 0000000000000..c96cf7f2d799b
+> --- /dev/null
+> +++ b/tools/testing/selftests/bpf/progs/rhtab_kptr.c
+> @@ -0,0 +1,146 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/* Copyright (c) 2026 KylinSoft Co., Ltd. */
+> +
+> +/*
+> + * Verify that the rhtab update/delete recycle paths do not eagerly destroy
+> + * referenced kptrs. rhtab must match the hash map semantics introduced by
+> + * commit a3a81d247651 ("bpf: Cancel special fields on map value recycle"):
+> + * only NMI-safe fields (timer, workqueue, task_work) are cancelled on
+> + * update/delete, while kptrs stay attached to the recycled element until it
+> + * is eventually freed.
 
-This also closes the trigger path for patches 4, 5 and 8. I would still
-keep those, since they add no work to the fast path and they remove the
-root cause itself. Their changelogs would have to change though.
+[ ... ]
+
+> +#include <vmlinux.h>
+> +#include <bpf/bpf_helpers.h>
+> +#include "rhtab_kptr_common.h"
+
+[ ... ]
+
+> diff --git a/tools/testing/selftests/bpf/rhtab_kptr_common.h b/tools/testing/selftests/bpf/rhtab_kptr_common.h
+> new file mode 100644
+> index 0000000000000..1b629fcb6742d
+> --- /dev/null
+> +++ b/tools/testing/selftests/bpf/rhtab_kptr_common.h
+> @@ -0,0 +1,6 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/* Copyright (c) 2026 KylinSoft Co., Ltd. */
+> +#pragma once
+> +
+> +/* Magic value stored in the plain bytes of rhtab values ("RHAS"). */
+> +#define RHTAB_MAGIC 0x52484153
+
+This isn't a bug, but since only progs/rhtab_kptr.c uses RHTAB_MAGIC,
+could the define live in that file instead of a separate _common.h
+header?
+
+The *_common.h idiom at the selftests root is for constants that
+genuinely have to be identical on both the BPF and the userspace side.
+Here the userspace side never includes the header and never uses
+RHTAB_MAGIC. Moving the define into progs/rhtab_kptr.c next to struct
+val_t would avoid relying on the root directory being on the include
+path for .bpf.o builds, and root-level headers are not listed in the
+.bpf.o prerequisites, so edits to the header do not trigger a rebuild.
 
 
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index b4237d0e994d6f..ae6ab3b22beb53 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -3373,6 +3373,8 @@ int tcp_disconnect(struct sock *sk, int flags)
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
- 	/* ABORT function of RFC793 */
- 	if (old_state == TCP_LISTEN) {
-+		/* Wait for lockless listener receive paths to finish. */
-+		synchronize_net();
- 		inet_csk_listen_stop(sk);
- 	} else if (unlikely(tp->repair)) {
- 		WRITE_ONCE(sk->sk_err, ECONNABORTED);
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index b474d03620a75d..e41a5e1bf8dbf3 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -3432,7 +3432,7 @@ static __poll_t mptcp_check_readable(struct sock *sk)
- 	return mptcp_epollin_ready(sk) ? EPOLLIN | EPOLLRDNORM : 0;
- }
-
--static void mptcp_check_listen_stop(struct sock *sk)
-+static void mptcp_check_listen_stop(struct sock *sk, bool sync_net)
- {
- 	struct sock *ssk;
-
-@@ -3446,6 +3446,9 @@ static void mptcp_check_listen_stop(struct sock *sk)
-
- 	lock_sock_nested(ssk, SINGLE_DEPTH_NESTING);
- 	tcp_set_state(ssk, TCP_CLOSE);
-+	if (sync_net)
-+		/* Wait for lockless listener receive paths to finish. */
-+		synchronize_net();
- 	mptcp_subflow_queue_clean(sk, ssk);
- 	inet_csk_listen_stop(ssk);
- 	mptcp_event_pm_listener(ssk, MPTCP_EVENT_LISTENER_CLOSED);
-@@ -3462,7 +3465,7 @@ bool __mptcp_close(struct sock *sk, long timeout)
- 	WRITE_ONCE(sk->sk_shutdown, SHUTDOWN_MASK);
-
- 	if ((1 << sk->sk_state) & (TCPF_LISTEN | TCPF_CLOSE)) {
--		mptcp_check_listen_stop(sk);
-+		mptcp_check_listen_stop(sk, false);
- 		mptcp_set_state(sk, TCP_CLOSE);
- 		goto cleanup;
- 	}
-@@ -3593,7 +3596,7 @@ static int mptcp_disconnect(struct sock *sk, int flags)
- 	if (msk->fastopening)
- 		return -EBUSY;
-
--	mptcp_check_listen_stop(sk);
-+	mptcp_check_listen_stop(sk, true);
- 	mptcp_set_state(sk, TCP_CLOSE);
-
- 	mptcp_stop_rtx_timer(sk);
-
-
-Best regards,
-Hyunwoo Kim
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33478386254
+--===============3706888861537028182==--
