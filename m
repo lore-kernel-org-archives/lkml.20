@@ -1,103 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52EA33D6E6;
-	Tue,  1 Sep 2026 01:34:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226462; cv=none; b=pUCKq/sIK7twEGhKz7RMgdlzaGr7jdfdmXciubJNEb4SZS+SWaVQhvvfpGIeM1317prxsN+mTX+VvCAkX7oHO45sgt3bU/GyRn1YFY1glM4HELw1sNZhLiv9Z+KhY78OvTKN+4/EaFNZtdVRRfy4fEImgP0N/e7nL4cT1uH83EY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226462; c=relaxed/simple;
-	bh=TyUb1xplzKZ1FsznpNG5r+dh/9iRZphbLsRiYVYuWYk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FFinZgCTMpT0KUc2ALLRyfs8tJEy44m5B5jo0XZtLHFLwyym8qlYDGf/WnvMdhhySJ0MbzFq/x+xvmOxSGdWxsQ4Jc7kvsxg7NXi6Mb18Qy6aamGvcFW/v1JIoUNLHVKN//mibwB/jRSoeLo+YwG/+ESS9hr5/stx4LylBuboZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jd1cZBsa; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4BB3AFAE0
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788226467; cv=pass; b=RGI1SYmbKX2NqbdRrboBcjc1fxoZEl+9bBv53n2MIYYfw6eAJ1U0ZNYZVOn4ZZLRjKNvMy0uG5FWmnAyYidKUJhQzA3X2AQQ2YcDKkXZXghDsKH4lqqOSO842uqRuR6Kr7F6rW+6dqEyCw073PbSuT/1CypqjKzt0+o1OvSJS5E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788226467; c=relaxed/simple;
+	bh=aUEs5vxH9jF9nJCwZv5RTXkU9Sge3nUc5EckvCSY/FI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=s3HiLS2mDRVCt97qj/u8xx5lwrCd+CabDcxLk6MryGAl8svIXydCv4YznZNmw/wXRGsPdQ+F5klOhy2O984vNO/CHSk6gKZ6/iKC6wn4EW7pAixPRFERXetCjbqVQVLFbZ1KqG3lkzqPsvuwZkXoIsbXsFAKNhG9ID0nZm2shzw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=d5qUVcIC; arc=pass smtp.client-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jd1cZBsa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 595901F000E9;
-	Tue,  1 Sep 2026 01:34:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788226461;
-	bh=5JKEK5EpIQizghAvKS5qgGz6n+MO//7iusj6VmUcQkU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jd1cZBsa4k5mswUKBXW21LSxVBAzDVTwp+hZHTo8HXXQihveBBG3hqSZpzT4MDr4r
-	 ss34ELUE6yraCWQIY87rqf8V12+BvYo8BZI3ItvFCHqz3lc7PEH0SsG4Oea+A/LGPo
-	 sNE0Vvjkawaj6tnb+K0tYJ6SrGgyoz/XCZqo7moAxR7aTP2RGg/B+CkEb6jBmn+wWC
-	 MjHNF1Wu+eo52BirVXTQ7OyJryRdgKXv2Lvrb4QbYKAxx6YAN2gVRitf1+UAXcibPG
-	 9nKc9Ga6g3r04uyi3h4JsToECHBN5XovHyejErk3+VGU59lAPLxeBot6KwjF+wxsoJ
-	 MkY3W1ds2+bYQ==
-Date: Tue, 1 Sep 2026 02:34:16 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Yash Suthar <yashsuthar983@gmail.com>, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, grondon@gmail.com, linusw@kernel.org,
- hexlabsecurity@proton.me, sakari.ailus@linux.intel.com,
- srinivas.pandruvada@linux.intel.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] iio: accel: bmc150: use
- iio_push_to_buffers_with_ts()
-Message-ID: <20260901023353.1761d741@jic23-huawei>
-In-Reply-To: <apUmn2WKlqO1mZXO@ashevche-desk.local>
-References: <20260825085156.212042-1-yashsuthar983@gmail.com>
-	<20260825085156.212042-4-yashsuthar983@gmail.com>
-	<ao_iV2xg-1Oc5Ttb@ashevche-desk.local>
-	<20260831012728.0261184b@jic23-huawei>
-	<apUmn2WKlqO1mZXO@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="d5qUVcIC"
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-51c10e86e52so78131cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:34:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788226465; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Rv+IvFPScL19eSmKb5hc7lZTOJsA5xsYJoac+XuRzFtBHEdD3XDS7k5ZIbHkwW2iQ/
+         ZVgGqvfr/cfqolhdRVY/aMxEN25C2LUkTX4bJQiiHgVP1K30fBNGlHMyIg0lEnSRjgSu
+         Jg3EQyODLBYSEiZHQlcLE0hWx8UPoyp+mEtF43YEbo5JjOd+VH1/JA2nDE0VWMoToYic
+         icyCgvb7SjRU9tsl11LaexN9+0sX14MoUqdweSw5MIe/UmpX1mQeExspvxEnw/BawBUP
+         pPcLoLO3U26ffzauQdP4OiddNyCMQFUFdjh37V9Rey/tYm78oheUhTEUlvQdfaeiSWCH
+         2LpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=VounH2TLCX+icK8ohtB74w58kkdgdhvjkS5XdKNJR7k=;
+        fh=Tlb7WlFg2ubHDcWx46V0euZ5HKCn9PwHoIFej3sO8Z8=;
+        b=llTtMq8jP4cqdWCRHjt/krU/NySM8GFp36Yuo74pLkO/NGa9aNXuh0O9WbNEb2IL44
+         8WhyibS7WZQ8Kks2qnBca5LE+gncmKY5+seYbxZqjOt28+r1Wj/GBkOCuQHL/aaDm7GV
+         lkSA3vRC1LVuZqXgeHhuc58NIGyvbSgkfW17BqC4uhIuk/YsSh4kLMMReao0lu1mc0nW
+         uQmlpJETqsjKXvJQdZNSt2wSGjJAyVWMjS6Qz8c54B4hDQvo6vVK3XDIP6iIQ2aT6Vh+
+         OtUpj1rAuSXdRQ2YOLJSYL4pUjYyaloVOJ2yKpwLNGOdyZccRAz9+CeGQ4viLvSqHsUb
+         ZE1Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788226465; x=1788831265; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VounH2TLCX+icK8ohtB74w58kkdgdhvjkS5XdKNJR7k=;
+        b=d5qUVcICWnFtxMFQtrpeF5zHkErGJIKPjeIs3PU7Uzti1/fUQWWZxTiuOM6KfvOCEt
+         ymf7tMqdg4ZMhZ98hqUJtnpnsLYxwnEe11rHW7WGUWO0zNH1nWyhelbFZFkCnDXkp16y
+         RkhaGlGCqnemDbzc/scNrxHRyeKBPhZL5AN7YvQD3nLJ+inVtqRYiyOutVRiUJ5nFGtA
+         nUWb9eg84wCm3q6PmL+QrKoA92I4AROyKtrSOK8BiE64u78tWHmffUKUxnnZ4Ya6c53v
+         jzRhDhjWIyTyljXz2iMT/mDQUvYUPPMDCUtQ0gohhbvW/8j/PS+uZIqzSR4lCnd53o6/
+         fe1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788226465; x=1788831265;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VounH2TLCX+icK8ohtB74w58kkdgdhvjkS5XdKNJR7k=;
+        b=oZKqkZ4hBPtLsNTKq1LpuNTrLO1pj+aehnHlKVPDvSYn54HNdJZQd/xPdd5gj+gfxj
+         709dPHW05rzcZFqWjEl1KyHhLWdn0oxeuadwcrgEKAyqiOegVTM1Dzv4Qj1Owy2s71Rd
+         5d98B9woaxPgRFkLAw2byalXsnKcDwhtLzpGe+l+omXvqWXfp3fU0FkXs0pLjgPg5x4J
+         zIn8pau6cm73GCBUDOFx4ZhelDZ6rAzdjrKRsbEUatMi4vABe0Sxs/BNBuOOBMSb35ki
+         8TKUOLkn+3jxIspo/Ld8k5XxFcTBQrcX7bR/n8TPoTtKf57hGIVoJpcWhft0Br0McgyZ
+         MPOg==
+X-Forwarded-Encrypted: i=1; AHgh+RohmPByknQ6H+cmKlNpv7BG1SFfPedjYiP/3JL3i+WRCkx9lMogCo2+8opGBk4Ni9dQ/9fEooIAm+zkf1k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtwaY5YZEPN/DOyDMOTeYTRfGGOavOB59K/o9yS/xJVHEeY2el
+	7YI7dI4peXQzyLApGXiYT/Q2jJgxpoLor0+NUsag47hNWE1ZlWq41bAJmYkM4AKamyYqFYge0FG
+	Ka5111KsFDzpsBO9Srekx0lEX3Kc79xOEONkEYA0x
+X-Gm-Gg: AR+sD13aaYsSy1zly+u5bmCXpffsl2sOEsI4kuHveHYXmDW81Sy4+FOwHM8mEHkSJ4B
+	zASXtJG96tOTxIu2TGxr6t4j3Xb9kKFRX00PmH2q0lG8NHnOjf214lILCgDhssKWEpzc4elYTYV
+	N57g8imfupPI+E6q7dAf0iXy+hK4MJH83zrqZf8K8GrtR6a+7+Od+6oPrlBGr7Lq0ggMSUNiWbf
+	JNtSULxBsoTVMhMo9bOY9BBOSbqN9FMHQmTpJxlQ2V0qr4UWPwLMbHcQHspWnL5go26HHdumeb1
+	n8jXEeZuWslYbM1bVPPv6cLhndmCtTJIP7QYKONplgapEr7Eg4P/GaXl8hmZwE1s6kMDYUIHCEA
+	dYe4r3fKqmA==
+X-Received: by 2002:a05:622a:2593:b0:50f:af60:3496 with SMTP id
+ d75a77b69052e-530274756b0mr5249191cf.1.1788226464562; Mon, 31 Aug 2026
+ 18:34:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260831130129.3979454-1-beanhuo@iokpp.de> <20260831130129.3979454-4-beanhuo@iokpp.de>
+In-Reply-To: <20260831130129.3979454-4-beanhuo@iokpp.de>
+From: Stanley Jhu <stanleyjhu@google.com>
+Date: Tue, 1 Sep 2026 09:33:47 +0800
+X-Gm-Features: AcwNN1UR0AZpDFzuH5KotfUNB6xie5KyQVQlfhTBFVnUWK0vU3xxZdDP2DIKgiM
+Message-ID: <CAE14pddCf1VhLVC_H-Nv30C4BzK_UO4Eknd27g72d1nAjdBdpA@mail.gmail.com>
+Subject: Re: [PATCH 3/3] scsi: ufs: core: Report the current clock frequency
+ to devfreq
+To: Bean Huo <beanhuo@iokpp.de>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
+	Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
+	"Martin K . Petersen" <mkp@kernel.org>, 
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Jie Zhan <zhanjie9@hisilicon.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bean Huo <beanhuo@micron.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 31 Aug 2026 10:00:47 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+On Mon, 31 Aug 2026 15:01:29 +0200, Bean Huo wrote:
+> +     /*
+> +      * target_freq stays 0 until something scales the controller for the
+> +      * first time. Report nothing rather than 0 so devfreq falls back to
+> +      * the frequency it last set.
+> +      */
+> +     if (!cur_freq)
+> +             return -EINVAL;
 
-> On Mon, Aug 31, 2026 at 01:27:28AM +0100, Jonathan Cameron wrote:
-> > On Thu, 27 Aug 2026 10:08:07 +0300
-> > Andy Shevchenko <andriy.shevchenko@intel.com> wrote:  
-> > > On Tue, Aug 25, 2026 at 02:21:56PM +0530, Yash Suthar wrote:  
-> > > > Replace deprecated iio_push_to_buffers_with_timestamp() with
-> > > > iio_push_to_buffers_with_ts() to allow source size runtime checks.    
-> > > 
-> > > With this you might want to use IIO_DECLARE_DMA_BUFFER_WITH_TS() in the  
-> 
-> (For the record, I put it as "might".)
-> 
-> > > definition of the scan buffer.
-> > >   
-> > Why?  The structure used is: 
-> > 	struct {
-> >  		__le16 channels[3];
-> >  		aligned_s64 ts;
-> >  	} scan __aligned(IIO_DMA_MINALIGN);
-> > 
-> > So given we never let things get enabled with just timestamp, the timestamp
-> > and channels always end up in the places the structure describes.  
-> 
-> OK! I personally consider the macro a bit more robust in the cases when
-> we _might_ have new HW to support where it will be the case.
+If ufshcd_devfreq_get_cur_freq() returns -EINVAL here, devfreq falls back
+to devfreq->previous_freq. However, because UFS does not set
+devfreq_profile.initial_freq, previous_freq is also 0 at boot. On platforms
+with use_pm_opp=true, the initial sysfs read or the first transition before
+scaling still ends up seeing 0 Hz.
 
-Ah, I kind of get that but doesn't worry me too much.
+Would it be cleaner to initialize hba->clk_scaling.target_freq and
+devfreq_profile.initial_freq to the max frequency in ufshcd_devfreq_init()?
+That way, cur_freq is valid from the start and we wouldn't need to handle
+the !cur_freq case here.
 
-They will need to modify the structure and then we'll spot it.
-It isn't a source of bugs if it does go wrong, just inelegant
-as the structure kind of implies the timestamp is in a different
-place from where ends up.
-
-Maybe this is one for a maintainers profile that hopefully the
-AI bots will then use to monitor this for us ;)
-
-Jonathan
-
-
-> 
-> > Where that is the case, I much prefer this to the magic buffer with enough
-> > elements of the channel type on the end.  
-> 
-> No objections.
-> 
-
+Thanks,
+Stanley Jhu
