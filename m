@@ -1,126 +1,154 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB8E416CFA
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:08:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF5E42E42F
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:08:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788246527; cv=none; b=VNpsXURQx0kJ8kdlcagzksR62GWG1a8NMa1fFLobyE7XpNcO7RjBlE60O37W4VB9fBHYcZ3mbmGH+Mfb8WONKnk9+zKsPZMh67TTkCUozUtURp/TIany/WMZIrPU1owyuJA2TicGNLePE3zZ9YcUDEQP1rtR9kJCygOwEQ8AgyA=
+	t=1788246534; cv=none; b=J6TUfduwOqnRD+pNwXjOO4xMZVUoih2w6ZLgJsPPzjZeSY5WTv4Jz0Zvw3gNDZTt/Q+YLqVcwUBiyHhFbOaOUZuN3VZ0nlGqE1Gg6QX9LeWoO1i08iK6zDvOKOB0Xyqywxg1ND/1Ou2J/OcqRwdo6b+SSs+O8tIwZXhkFQDD1Ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788246527; c=relaxed/simple;
-	bh=SL1wdM6vp1VIszL+xuNFr+53xhHZT8pJnJOiXD1KxBA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G+eRMbZ6vVGs/d8nzWAmmtU5BcdpRSBX/MaIvTkFCty4dtGBmI58O2kKT1/0UvMnRmha6Eym4/8Kngqxpb3bDXnleQRsVhhOP8higcql1FfaIdrwj0lbhZMIPfzFxNCLvFCKssgB0O5DfeMkCl41y8mRlxv2Ix+pehY1HZ5x/gU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vx/tFVbV; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788246534; c=relaxed/simple;
+	bh=cXOOdu5gyc3GvyUZ6WV3Y4FynavNF/PeQCi+e0HTUhA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ppJLkEzYJgHPkHTjyGazHg2r2rgX0aeEShcRRUt53mDKYX3yXnXeEzXCSQqKRsi/ZQTRqHeMpMVPgAN1Rpult4FGYnATzjMk7KUfA3+PagBja8sKbDOKUBY6lSOqRPFq0uhe6fw6vqrmIummFfg7Qs5uQbxnZX0vBvs+b+BrGRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BIfSUuJz; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vx/tFVbV"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3964dfb5a69so5252310a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:08:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788246523; x=1788851323; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RKT3VAzrTBQCbJUoz7WVF1Zm7cw9xcizV7Y1JN603Bc=;
-        b=Vx/tFVbVtyQTXX4xTjkq6HUapejWaPA7Ja/er7YiR6H7amuVUE/iEWmiOqKQKm07r/
-         +srD2+jyYToMxjz+mhvtgve9ocOPf//4yJuxghpoBwNMff6Cn+6jsieNJy7hSwAUM+l8
-         VkiOvi14mmQHSXyUi+ftQY/8qZybDNa5iWXbxHkFh/vZ5C1kyFKgmqC3RsNvh9m/tr7m
-         mRodkE6KKXMd7UhiSZxxXa0TlEJ6tSdWkBLXWdl0x7a57eUfUkc6HUJ5/e6S31Ba8hf3
-         11/YJzRn6V494AlHKYJclLDRYp2a+XXPbSFGFc5A6HNqjASdTff9JGq6eCDDfzfjjFJ3
-         KO/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788246523; x=1788851323;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RKT3VAzrTBQCbJUoz7WVF1Zm7cw9xcizV7Y1JN603Bc=;
-        b=GwOCh3Juhgn6460UCS/f19F1JDvyBRCshRlps4j0dgGABSJqXZrmBFza+QfD9SrT90
-         +ZBg83U7zbTzWVoQSpGyPgQtgdMPP8IbrqHN1CEC3VvWXOqSLZTPEzpt0iFXvZiGbWZc
-         gvboEwTUz6+th7Kbl/CetC3OQnKNP1jr7rLsQmpzijq8GDLk+5eXwRydFaRHE9+8jtFA
-         E4hjYUAn4Soyh7w4yICBuKeyZbLhXaa0D2TWcrfrdvQyFfhNO8EThWMimsHx+EuFmzZr
-         tEmCVBo+AoGBzJnqaatADNG2kP5fKuGcDyQJnxf9BxtLWIupZqTJplxTcxx7BiALEMab
-         Exqw==
-X-Forwarded-Encrypted: i=1; AKwUvByLMLQQehNAW7fzTwcTR+qyw7zTTWGrlcaSqGlkjJ3J8gOw3mbVlvHY/Ih5pEj+YRtv8WyehidL/yseJ5g=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZk1O61QlhqJ8+x1Ssyz/CswHR3LWbjX0epoVBDKrODKEdsNLb
-	wviMBimTLjXtNuzeYiYl5CeFZJQZpoTt1c+5wfSusOUlCUpSQAiKyYri
-X-Gm-Gg: AYBFou21+v8iTiQsZ4Oc+vktYstxOQsCr2ndg4hLz+ezUlkgsjMX17m7tFAlQj6HfJz
-	gDGC5fsZidWyUQehCE5zuhpAPeJ7DgspUKMYtuRNmc+NdvHW24JHpbKUXXGBcyzMKAln/KZ2TOf
-	QfbxUXtR1eeEXU4Hu4HoJTJjMVuyU/8rlmqhJ5k2h3MvoKdMZ1uWsVWe1+c+O6n7FqbeNclGUIc
-	vQ0pui2oKeJ9GKa7AaSlbVtxAE/BeJS/9CSvWlwSxzeqZU8AyYhUNaX3u6KoEK0xQAfLOdiFkbZ
-	tzQMzBWssThRXEVMb5tfsO7iKbyY4378MDq8mO6MjYIZm5Uh5RH4UlSHrwN8A7vZKxW8ZvU59we
-	WD81+JIv8pHQjfjqn3Fw4Jl67bOwtKVx0816GSdg9gT8mPM07xV5W+Y+F9xH19cFZRuGaJIbXZO
-	OlizBGX96lLPLb4nC6mtvwXR1xAcAQhRQ01Gl/K5di8/bY44GMHoOGm80sUTxMxQSFuQVFCZDqn
-	R27kcEWqL1Z
-X-Received: by 2002:a17:90b:3b41:b0:381:6c5:3f63 with SMTP id 98e67ed59e1d1-39907cd4e1dmr7683960a91.6.1788246522641;
-        Tue, 01 Sep 2026 00:08:42 -0700 (PDT)
-Received: from localhost.localdomain ([157.51.207.128])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32bdfd03e71sm18274680eec.1.2026.09.01.00.08.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:08:41 -0700 (PDT)
-From: Sreeshankar K <sreeshankar0910@gmail.com>
-To: andersson@kernel.org,
-	sboyd@kernel.org,
-	bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	rafael@kernel.org,
-	viresh.kumar@linaro.org,
-	konradybcio@kernel.org,
-	tglx@kernel.org,
-	ulfh@kernel.org
-Cc: radu@rendec.net,
-	abel.vesa@oss.qualcomm.com,
-	taniya.das@oss.qualcomm.com,
-	danila@mainlining.org,
-	davidwronek@gmail.com,
-	mani@kernel.org,
-	robimarko@gmail.com,
-	linux@gurudas.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Sreeshankar K <sreeshankar0910@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v8 07/12] dt-bindings: power: qcom,rpmhpd: Document RPMh power domain for SM7250
-Date: Tue,  1 Sep 2026 07:07:12 +0000
-Message-ID: <20260901070717.20513-8-sreeshankar0910@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901070717.20513-1-sreeshankar0910@gmail.com>
-References: <20260901070717.20513-1-sreeshankar0910@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BIfSUuJz"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 2DEE11A192B;
+	Tue,  1 Sep 2026 07:08:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 015EC6053C;
+	Tue,  1 Sep 2026 07:08:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 407B511C78A73;
+	Tue,  1 Sep 2026 09:08:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788246522; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=q9fGXpZ9LF56jBhwOwvOI4LVfnaQEfa6lGW0ji++kNY=;
+	b=BIfSUuJztHjVFi3sSWYu8XLIB6EszsN8BHv4rXOpS5qv474oVCjpFiykzNkWnshFqGoChM
+	/+fv7z6cqiEYfdFYHImf4lOrj8jO8cDL40b6bhedr31TqgkihR9bTNwLt4pyOarE5tsKWw
+	6jGCti+rzHg6rdOgWOyts0sg9ZQGUFQ9pT1Tpy93lE9xUU/8ldtUnWy50cQ7IlUh0BoQXx
+	qyAY6U2tcLucr/reFqvfmkDy75BGlaNSTVg+kHiGBz/KHW9TTfwQXuGXphafW8vuheXMgt
+	XMNvtLMXIMpeQpASwkBQoJRdVZtIxUDKyAEC/SmbEMRmzYy0s33NySHo2Lg+tw==
+Message-ID: <d4f9378d-36a1-4669-b0b3-9dcb9e3d980a@bootlin.com>
+Date: Tue, 1 Sep 2026 09:08:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 1/2] net: stmmac: dwmac4: Read the UC filter size
+ from hardware capabilities
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
+ davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>, thomas.petazzoni@bootlin.com,
+ =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20260831070121.349778-1-maxime.chevallier@bootlin.com>
+ <20260831070121.349778-2-maxime.chevallier@bootlin.com>
+ <2631c832d5aebc56e152628132494545@tipi-net.de>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <2631c832d5aebc56e152628132494545@tipi-net.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Document the RPMh power domain for SM7250 SoC.
+Hi again Nicolai,
 
-Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/power/qcom,rpmpd.yaml | 1 +
- 1 file changed, 1 insertion(+)
+On 8/31/26 14:04, Nicolai Buchwitz wrote:
+> Hi Maxime
+> 
+> On 31.8.2026 09:01, Maxime Chevallier wrote:
+>> dwmac4 has multiple banks of perfect filter entries, independently
+>> configurable during IP integration.
+>>
+>> The multi_addr bank reports a number between 0 and 31 corresponding to
+>> the actual number of entries in that bank, while the 32 and 64 banks
+>> are all-or-nothing.
+>>
+>> Expose these caps over debugfs as well.
+>>
+>> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+>> ---
+> 
+>> [...]
+> 
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+>> index 6382836828ba..89368e34a388 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+>> @@ -176,7 +176,9 @@ enum power_event {
+>>
+>>  /* MAC HW features0 bitmap */
+>>  #define GMAC_HW_FEAT_SAVLANINS        BIT(27)
+>> -#define GMAC_HW_FEAT_ADDMAC        BIT(18)
+>> +#define GMAC_HW_FEAT_MACADR64SEL    BIT(24)
+>> +#define GMAC_HW_FEAT_MACADR32SEL    BIT(23)
+>> +#define GMAC_HW_FEAT_ADDMAC        GENMASK(22, 18)
+>>  #define GMAC_HW_FEAT_RXCOESEL        BIT(16)
+>>  #define GMAC_HW_FEAT_TXCOSEL        BIT(14)
+>>  #define GMAC_HW_FEAT_EEESEL        BIT(13)
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+>> index 23ffe1adcd0d..14ac3f0e51f7 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+>> @@ -388,6 +388,8 @@ static int dwmac4_get_hw_feature(void __iomem *ioaddr,
+>>      dma_cap->half_duplex = (hw_cap & GMAC_HW_FEAT_HDSEL) >> 2;
+>>      dma_cap->vlhash = (hw_cap & GMAC_HW_FEAT_VLHASH) >> 4;
+>>      dma_cap->multi_addr = (hw_cap & GMAC_HW_FEAT_ADDMAC) >> 18;
+> 
+> Now that ADDMAC has grown from single bit to a mask, the hardcoded 18 has to match
+> dwmac4.h. So IMHO it would make sense to use FIELD_GET() here (like actphyif)?
+> 
+>> +    dma_cap->additional_32_addr = (hw_cap & GMAC_HW_FEAT_MACADR32SEL) >> 23;
+>> +    dma_cap->additional_64_addr = (hw_cap & GMAC_HW_FEAT_MACADR64SEL) >> 24;
+>>      dma_cap->pcs = (hw_cap & GMAC_HW_FEAT_PCSSEL) >> 3;
+>>      dma_cap->sma_mdio = (hw_cap & GMAC_HW_FEAT_SMASEL) >> 5;
+>>      dma_cap->pmt_remote_wake_up = (hw_cap & GMAC_HW_FEAT_RWKSEL) >> 6;
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> index f2fc89176654..a885f8cfef21 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> @@ -6580,6 +6580,18 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
+>>          seq_printf(seq,
+>>                 "\tNumber of Additional MAC address registers: %d\n",
+>>                 priv->dma_cap.multi_addr);
+>> +    } else if (priv->plat->core_type == DWMAC_CORE_GMAC4) {
+>> +        seq_printf(seq,
+>> +               "\tNumber of MAC address registers (1-31): %d\n",
+>> +               priv->dma_cap.multi_addr);
+>> +        seq_printf(seq,
+>> +               "\tAdditional 32 MAC address registers (32-63): %s\n",
+>> +               priv->dma_cap.additional_32_addr ? "Y" : "N");
+>> +        seq_printf(seq,
+>> +               "\tAdditional 64 MAC address registers (64-127): %s\n",
+>> +               priv->dma_cap.additional_64_addr ? "Y" : "N");
+>> +        seq_printf(seq, "\tHash Filter: %s\n",
+>> +               (priv->dma_cap.hash_filter) ? "Y" : "N");
+> 
+> hash_filter seems to be only set in dwmac1000_dma.c? So on dwmac4 it would always print N?
 
-diff --git a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
-index 0a45e1f55..e08441915 100644
---- a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
-+++ b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
-@@ -63,6 +63,7 @@ properties:
-           - qcom,sm6350-rpmhpd
-           - qcom,sm6375-rpmpd
-           - qcom,sm7150-rpmhpd
-+          - qcom,sm7250-rpmhpd
-           - qcom,sm8150-rpmhpd
-           - qcom,sm8250-rpmhpd
-           - qcom,sm8350-rpmhpd
--- 
-2.43.0
+I stand corrected actually, after looking deeper, you're right :)
+
+On dwmac1000, the feature bit 4 is HASHSEL, whereas on dwmac4, bit4 of HW_Features0 is
+VLHASH, 2 different Hash tables :)
+
+dwmac4 doesn't seem to have a bit just to say "there's a hash table", but instead directly
+reports the sizeof of the hash table.
+
+So I'll ditch that as you recommend, maybe in its own patch.
+
+Maxime
 
