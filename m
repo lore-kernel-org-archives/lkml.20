@@ -1,96 +1,118 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F094749CA;
-	Tue,  1 Sep 2026 13:29:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79862383C93;
+	Tue,  1 Sep 2026 13:30:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788269401; cv=none; b=GN/KwCM/ulC7QE/mqJVFuPU5UTdqSuBXETrbr4S6my8pf6EtKc34XM6zRCllKFPe/pwH97VDx9K/bThlZVNy12YuRigkpJb1Aj+4T8SSNVTEPcDJDFuHJODoDKQ5UN5jZEUa4/vm8WYBIj4QNKD7Bc1Z/f96Bk734E7MEFQ5cH4=
+	t=1788269433; cv=none; b=FnZgSaXg9eNDQZcDz3j7dc1S0kDe8Z2tKV/gqqCMfhmFjkRD6cTP4jz0+soophGwx3YYG/qxOUhEVnwstoY1tZ3ejqMOY9GD+gSLVsGk4eGibXqsbmbC1JdW/lggkm5Qk7LH1BLsa2ir8h6veQcSHjVvxhixVFfrO9yJmUgAzeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788269401; c=relaxed/simple;
-	bh=usUjDosYvvSUEZPW3UYd2xxo/lHyzE5qHlinKDgdaUA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Rg+YDIDcL9uFtn6tEQ8K4ggVbQHi6nlSxlpg/deukMUdRCZd6XMGbfE8WRBKD02giBSFX+cUqM9vaXOfttZBh3TolMt655A2waLcC+FuWirO3HT9bM1SJo/CNdWCCN820I9kSkQDNj5gl4LZYVTQwkqQDn7jF0a8Trv1AAAxveM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=V5iJIVH0; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788269433; c=relaxed/simple;
+	bh=O9WHREr9BPWQkUYzuzB9Vacqtpd2xznMaYHzQNKjSx4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j75ZHWNL5pGYrKhqwEkXcuXgdt7+zHUsOQFGr9O1Jw/NeAJ93qy/hg5Ex1DYGMjQUIqzh+edCq6fQA6kQTQiGex5JORFFfo2+zPw08TR2y7OuQQMabu+OUXcxfkHAfwwJuND2rWzeegLTq7w9zZlAwM8KUzqEF4Tb6bGrC06z1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BBfk8E0/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="V5iJIVH0"
-Received: from omf20.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id D2A7C80403;
-	Tue,  1 Sep 2026 13:29:55 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf20.hostedemail.com (Postfix) with ESMTPA id 2C25B20025;
-	Tue,  1 Sep 2026 13:29:53 +0000 (UTC)
-Date: Tue, 1 Sep 2026 09:30:51 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Petr Mladek <pmladek@suse.com>, Thomas Gleixner <tglx@kernel.org>, Peter
- Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Kees Cook
- <kees@kernel.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey
- Senozhatsky <senozhatsky@chromium.org>, Tycho Andersen <tycho@tycho.pizza>,
- Linus Torvalds <torvalds@linuxfoundation.org>
-Subject: Re: [PATCH v2 2/2] kallsyms: Document why unresolved symbols are
- revealed
-Message-ID: <20260901093051.51d23697@gandalf.local.home>
-In-Reply-To: <20260901080142.CMTCw6vE@linutronix.de>
-References: <20260821152614.2202196-1-bigeasy@linutronix.de>
-	<20260821152614.2202196-3-bigeasy@linutronix.de>
-	<ao8SeCCG65uwH-Tk@pathway.suse.cz>
-	<20260827102411.NsziRXyJ@linutronix.de>
-	<20260831133729.p5ylO7O6@linutronix.de>
-	<20260831124928.22e163ab@gandalf.local.home>
-	<apZ9ea1on8A7o6kk@pathway.suse.cz>
-	<20260901080142.CMTCw6vE@linutronix.de>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BBfk8E0/"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id CEB031F000E9;
+	Tue,  1 Sep 2026 13:30:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788269431;
+	bh=YbJKsihIEL3iTlpT0PPP0qrj+KIlUNzWEvcENpLfI7M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BBfk8E0/QAGRWE1agjQVpoFkg6Z3SrRc4rdi12/+YH9u6prI2qocDME2IhTBsz/2W
+	 TEWBe11fYXVTqQ2kkDRUJCVJhjysut07rtr6SMyoIJPHKYFQVX63QMR0wIYaMbfXji
+	 NmP0Vb/d6PgTsdQmOV6xMXJJTk1Qz4Hk4n8uVmhZdt88yrg4I9DHVPju7y1J03K2Yg
+	 89/5ZZD3xnc3A06XfKjq4nfU+/IKKMGPwWVYl0F+CrGufdivse7DHCmHS1gXrrRgQf
+	 aecp+bPCOWHmI5ej/WhVhc/kk8Oe3P3cfzir+eBwIvEmEYUSsVscF7Zz7EJ8zv2NuF
+	 9fJDaNXasIzDg==
+Date: Tue, 1 Sep 2026 16:30:27 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] keys: set persistent keyring timeout before destination
+ linking
+Message-ID: <apbTc9BisLTqBaE_@kernel.org>
+References: <bb0370340c671.1788111790.git.kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: jum7gf11hbcim1eebyd8qqtt97xecbpm
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 2C25B20025
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19P8OiZjvSjTxJbF2y/AZkQEsJDoSOsk4k=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=dcB7zO5lZNNyXZ+fOv0aRdNG78sajV/ilKg2jlXvRzg=; b=V5iJIVH0OWToxJTf3x4oAww5E2BQ39Silo2wt7W1TDtoyXQr25M5LsxnQQO9qm1P9Wlo4vyBqZZ0lJht/9SWEWVdUS/BKKr/Inx+LvEI0kbNDlwh3MKqi4fxZ1wKy0O+zrllG2Fwgiid3AncgcVdYyIdhXZLu39myRxA0T+KUmY=
-X-HE-Tag: 1788269393-235803
-X-HE-Meta: U2FsdGVkX1/3FYWLsjV6G+uwVcd5ovLTgMEUh86EsoKHj9SCx/Lg/RLOuaiz7Vat1p+r5sJ0Bq1jdjPxW6kL0Q7JAovISWeMsXqiaN1HiBEixEKoiNJ96mRiYeH9lKu7ExOy3GcliW3ex6JeycQuUFYu/e+YfkRGChwUN8wCV8dnnFLD5GSk5MH+9LFsn+Z1dUiEbbkKnIEd/AWs2wlc8WI/CQi2w2Yl/K1Oz3MGix1xPPwfryzjPhGk6TesGnVgt3wrF+jfjqFJTUk1xdFYZdN2IzqqLihh9R+RqRMfxRuZrpZoPCFIpkapNajdP3Cj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bb0370340c671.1788111790.git.kmehltretter@gmail.com>
 
-On Tue, 1 Sep 2026 10:01:42 +0200
-Sebastian Andrzej Siewior <bigeasy@linutronix.de> wrote:
-
-> >  [    1.498171]  <TASK>
-> >  [    1.498172]  h0000000cb9bc262
-> >  [    1.498174]  ? h0000000eb5021dd
-> >  [    1.498176]  h0000000ed1a9938
-> >  [    1.498178]  </TASK>
-> > 
-> > But 'h' is not a valid number number so it might confuse parsers as
-> > well. And it is not that user friedly either.
-> > 
-> > So, I still like more Steven's variant with [hash].  
+On Sun, Aug 30, 2026 at 08:20:26PM +0200, Karl Mehltretter wrote:
+> keyring_alloc() links a newly created persistent keyring into the
+> namespace's hidden register with TIME64_MAX expiry.
+> key_get_persistent() sets the configured timeout only after linking the
+> keyring into the caller's destination.
 > 
-> While it does make sense to add [hash] to make it obvious it breaks
-> formatting for some of the %p users where %p is expected to have a fixed
-> length depending on 32/64 bit. Here, it is a %pS so adding extra it
-> wouldn't break anything but I don't think it should be different between
-> %p and %pS assuming we do print the hash instead 'unknown'.
+> If the destination rejects the link, the registered keyring retains
+> infinite expiry. It is exempt from key quota and can remain until namespace
+> teardown or reboot even though the syscall returned an error. At most one
+> such keyring exists per UID per namespace. Repeated failures for the same
+> UID therefore strand only one small allocation.
+> 
+> This is reachable from unprivileged userspace: KEYCTL_RESTRICT_KEYRING on
+> the destination makes key_link() return -EPERM via restrict_link_reject(),
+> after key_create_persistent() has already registered the keyring.
+> 
+> Set the timeout immediately after creating and registering the keyring. A
+> later permission or destination-link failure then leaves a collectible
+> persistent keyring. The successful path may refresh the same timeout again
+> without changing its semantics.
+> 
+> Fixes: f36f8c75ae2e ("KEYS: Add per-user_namespace registers for persistent per-UID kerberos caches")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> Tested with QEMU 10.2.1 TCG. The reproducer set
+> /proc/sys/kernel/keys/persistent_keyring_expiry to 60 seconds, restricted
+> the destination with KEYCTL_RESTRICT_KEYRING, and then called
+> KEYCTL_GET_PERSISTENT. No LSM policy was loaded.
+> 
+>                       syscall result  /proc/keys expiry
+>   i386 baseline       -EPERM          perm
+>   i386 patched        -EPERM          1m
+>   x86_64 patched      -EPERM          1m
+> 
+> Full kernel builds completed for i386 and ARM926, and for x86_64 with
+> CONFIG_PROVE_LOCKING=y. The x86_64 reproducer completed without lockdep
+> reports, warnings, or bugs.
 
-Since the hash value is usually less than a normal pointer length, we could
-have it be:
+Please describe this in the commit message and delete most of
+the text it has. This is the motivation part.
 
-  h:XXXXXX on 32bit and h:XXXXXXXXXXXXXX on 64 bit, where it will not take
-  up more than the size expected.
+> 
+>  security/keys/persistent.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/security/keys/persistent.c b/security/keys/persistent.c
+> index 97af230aa4b22..0eca8c5758434 100644
+> --- a/security/keys/persistent.c
+> +++ b/security/keys/persistent.c
+> @@ -63,6 +63,12 @@ static key_ref_t key_create_persistent(struct user_namespace *ns, kuid_t uid,
+>  	if (IS_ERR(persistent))
+>  		return ERR_CAST(persistent);
+>  
+> +	/* Set the expiry now: if the caller then fails to link the keyring to
+> +	 * its destination, the register is left holding a collectible key
+> +	 * rather than a permanent, quota-exempt one.
+> +	 */
+> +	key_set_timeout(persistent, persistent_keyring_expiry);
+> +
+>  	return make_key_ref(persistent, true);
+>  }
+>  
+> 
+> base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+> -- 
+> 2.53.0
 
- [    1.498171]  <TASK>
- [    1.498172]  h:000000cb9bc262
- [    1.498174]  ? h:000000eb5021dd
- [    1.498176]  h:000000ed1a9938
- [    1.498178]  </TASK>
-
--- Steve
+BR, Jarkko
