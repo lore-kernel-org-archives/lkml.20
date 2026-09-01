@@ -1,86 +1,49 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCE147126E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:01:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0FB47141D;
+	Tue,  1 Sep 2026 08:01:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249685; cv=none; b=lSOqDGcW0nIIcUfNKZqXyIK+yNXfjNu9I1mv01RdG0U5HzmMjZDJSGe470sugn2R4krqEHyFaIcaxTByDKN2HvKyz/CyXedEjbLZ7UP5vCSWgH0HRmX0tw1Gjxc1rSir4oUzjSj1q+iuCoBTPuLO2usuNRvV/C05dB6l3RqEUp8=
+	t=1788249686; cv=none; b=Jpg+bO6lUv1rhKA9IYVMaHcJIHjlEUIhCdC23SfFzPxcDfIuOTPFx1dU4+G2XYfDqqn8PFFMs+yTHH8M2+Yd6jHjaRHNP+p+D6J4Yjqrca6jW3eSifNsnXGH0RFJUOtWRHmspkjYy0GSN02x/1sbsKfnjCOuGSUOSJ47WIljn2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249685; c=relaxed/simple;
-	bh=M+2oV4T/QFC+qsE8RIB5fpV4NNChtc2m5Fpd4TUP2F0=;
+	s=arc-20240116; t=1788249686; c=relaxed/simple;
+	bh=tuVbGajlreknBFVL7UGn9g2l7D9HvA/787rtr9Q5rL0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kL70aXFor7J/hnRJ1E8ehT4VjYIyXxrtaab4IpbHxhVIV4kn/xxANYIC7gChkjs8jQ43gAllEw7H0h3N37ox5PO27a//FlvTTnJI28KtcnPILvhMclKNnnIJZU6ZU/WMhXliJh/M1AhGPqoiWq18UfCTwIwvXwRn6JvoMFwS+PM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kGMAljy7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OmBPDHb+; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=crePANi7TUybUzAO850LqQD8/4VNTLhp7puNu27qTBiYysG42aAt6CfSIK5lr8KM2sbX4V5RgutV+5pMFcwyKFmuGL0SPlwh4kEJESpHAC3Hl0CfR3YluTsSood78avZSMFOYhpOwiRChFreQ8gf20Dc76ebkNjlwk/Bf0N7NzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SSCXyaDB; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kGMAljy7";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OmBPDHb+"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68179Dvn1892397
-	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 08:01:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lp12tstqgfKi05BKhpwsu3Up0U+NU0gCKl7bp55AqZ8=; b=kGMAljy7C2zdsObZ
-	iLyGfRf+pkVnlSHRJn7BLfLTcOKGRo3tS2iDFDbe3YrSJtSaDaYP1/yQgmgpa2u+
-	s+NGN12ckCafS6mEBcEBLMaAsKScq3Ym5tJNkCGAbK28ONnKjmDN+2d0SK7C1zGq
-	NKP77QJtjlr//AHh42XeERcA/NRENMwnZp8ARSNAtmTdiu/pSuNB4FTyD7kZaWtj
-	YFg7spjNXvk91gCD1WQlgS57ifocanY9FUawwBAeroTVkRhad1IZFUhB/+6KcfXM
-	sdjkZ1bnO+uxOisvrybzD2BB/f6m8SRbS1OHrkOLSHBhgfEeEXpHH+vRfp1oUu/n
-	A4nKyA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdp7c97jt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:01:19 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-396638f9a18so7615034a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:01:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788249678; x=1788854478; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lp12tstqgfKi05BKhpwsu3Up0U+NU0gCKl7bp55AqZ8=;
-        b=OmBPDHb+lI5u4eWUgKPwEpCDpv+V0adfhkpV2+rJkPBsq/hPOqg8e01iZgLDfaSrhF
-         D1wCS9jC6PF/tzp5x0HBql7fCD9Rc3PVkP0TxSyhKrq80tJ7egNkIXAmh6LxujL1fLqT
-         6C0xdqjq+7c6yDwTt87jKih0EEyyxpfjA6dUVKCph6FcjU88Wg3zaEuuUCcXX39aEg2a
-         i+k9TBXrsjIacX5UJL+Gv0lq91m6geDTgEMqbC3d2av0oeyq/VKS/Hf1FMZ8bGnR4fgn
-         Wfq5vEt9tPFAqppwJN7bM5vcUWIZRXJJ171rm/vrjBZ0gIVKZGjFJPKpQR6sZf06FAR6
-         YLIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788249678; x=1788854478;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lp12tstqgfKi05BKhpwsu3Up0U+NU0gCKl7bp55AqZ8=;
-        b=CJSX4gf7GQgs+31cvkaG0o4VE+PW+DF+/XhQ0wQK/oTwChE26/uf5cfs5snkhzi0/L
-         qrFlr0FmeR7QuLrK8K97KB4iT16AlWxf/XX04pQX+f7iuoBR3dEXgywo/1SAWNjV3kQ4
-         AknbFZfIQsI0Te3YbizsvE7ZLUqZQkZKmnwS3MWRjnn4HTlrcqyBd3HwUXafdLbZ5MFC
-         4b9SrpWd+MSoZU888LdSZSe985f2oyPPD3K4iL4BTrL0KrY+wnyf81MDaFuUreUe6j22
-         pDM+50aqY/oIIv7XSKbI1SZVN1db3Y4CAdab+vScZN3PFdC85y8b1HCBhQrgNOmv6JaJ
-         BYpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzBfH9Tpme7gntjmtX7+x3av94icDdspyIrSHoqhYsiG59ERew0slB2Giz556Xm8IQtT298XyhoSiE+1ZA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTozN+SCJU1fPrXfPkXl5LGznZUSaFMHRCQdwvHO4CknhISjgr
-	PxGzPTK0a/tz4kzPfVNvmkvX4250b/Q+jyprFT4+EpBv7nT983HjmCqc5DXYRVcKE5dqZyjsNkO
-	pmG7FKq0f2GDksSI2ETXeAZ8T1H9CQ5EVtQP+cwrL7U77Fi37Rm+w1t+v3MoNmJY3I8o=
-X-Gm-Gg: AYBFou1SUbYI86hy1BGAp/1udNupOdPrwwYnrPJKLmzL/XTRdP2TxKEnGUX9auK2Yiz
-	honapraZB8lJes87tc05tKo2o+47cR99vy+7csBiIXHPeVOPwZX7KsmiCtr+1FhsfHYD6r3ufk+
-	egnhCZPYuTlnVDyX36XWY4CbMKrSv+lsSUE2twcKkohGsdE8b+BW6Ij3wN4NJpMYEmkDfOrGJeI
-	zL09+Fd9KiHWAlfSUPzLp1/zoj1jDidqGyblknafUoEIoSdluOHRLoEA5M8uMAFPvip21A8dkfI
-	bHOSekob1yRGgUW5FpA+35kNZJqsd9DdtsVlAWNxcAy+a2dyvx0j+5FfZ0XkcIYAFuESjzu5xei
-	vHqOtt1kxf3ujJj+qwM4n4X4Shxc/tnHbe9uX5rCh3vcTiiRe9nUE0JZsuEeeh5kTYkBddUVK
-X-Received: by 2002:a17:90b:1d05:b0:396:65dd:4093 with SMTP id 98e67ed59e1d1-396d0ff519cmr49442368a91.14.1788249678055;
-        Tue, 01 Sep 2026 01:01:18 -0700 (PDT)
-X-Received: by 2002:a17:90b:1d05:b0:396:65dd:4093 with SMTP id 98e67ed59e1d1-396d0ff519cmr49442130a91.14.1788249677126;
-        Tue, 01 Sep 2026 01:01:17 -0700 (PDT)
-Received: from [10.133.33.141] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d75b540sm4550049a91.10.2026.09.01.01.01.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 01:01:15 -0700 (PDT)
-Message-ID: <4db03770-b410-4298-9e32-d497278e9cfa@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SSCXyaDB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788249681; x=1819785681;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=tuVbGajlreknBFVL7UGn9g2l7D9HvA/787rtr9Q5rL0=;
+  b=SSCXyaDBSJLEFGv37rX/kmLWcAVXDkyrk9So92KZ5jhBeNkzVkMOcGv5
+   gmiMZJSoP1efcd1SiijsgvG5oBUb9KVTDh6QjJllEKEtT5viV7pP6DUFm
+   i+pFBveQhbnMUEEqBC/UMsU5gfWvXcp/diBq78DCqRW9LZ7TkxXA29Qqr
+   x4yNfoiPwcFaxkbMldAPqSB0VGX24mMoak2TwrCkgC0PAdwPM4S+6TV0B
+   JYS0Zy18nbo6SKJTWwg25yLXzSU5ckbZspBSxQCPctbpPHcuQmzl6voW2
+   7VWANH7XW2tPOit1kVdpX99I01EnjLXkJfwP1HpQNsLOQ2qsEPjg9ju1F
+   w==;
+X-CSE-ConnectionGUID: g6wOMeGWQ+elNiqZQTCuvg==
+X-CSE-MsgGUID: 2gclyMgIQt+F8+iqpMbQ0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="99004738"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="99004738"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:01:18 -0700
+X-CSE-ConnectionGUID: 4nmwm1jBQwqqUMX06brDtw==
+X-CSE-MsgGUID: lkbGMcl4RueLpSZS83oPyw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="265777298"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:01:14 -0700
+Message-ID: <89e1cb41-81b6-4f20-9fc2-d436dd77d988@linux.intel.com>
 Date: Tue, 1 Sep 2026 16:01:11 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -89,89 +52,107 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 0/5] cpufreq: loongson3: Fix wrong behaviors on
- multi-node servers
-To: Huacai Chen <chenhuacai@loongson.cn>,
-        "Rafael J . Wysocki" <rafael@kernel.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>,
-        Huacai Chen <chenhuacai@kernel.org>
-Cc: loongarch@lists.linux.dev, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Xuerui Wang <kernel@xen0n.name>,
-        Jiaxun Yang <jiaxun.yang@flygoat.com>,
-        Hongliang Wang <wanghongliang@loongson.cn>,
-        zhongqiu.han@oss.qualcomm.com
-References: <20260828031201.1500767-1-chenhuacai@loongson.cn>
+Subject: Re: [PATCH v2 14/16] KVM: x86/pmu: Ignore AnyThread bit if
+ CPUID.0AH:EDX[15] is set
+To: Zide Chen <zide.chen@intel.com>, Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
+Cc: kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
+ Jim Mattson <jmattson@google.com>, Stephane Eranian <eranian@google.com>,
+ linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
+ Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
+ Xudong Hao <xudong.hao@intel.com>
+References: <20260827223755.143247-1-zide.chen@intel.com>
+ <20260827223755.143247-15-zide.chen@intel.com>
 Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20260828031201.1500767-1-chenhuacai@loongson.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20260827223755.143247-15-zide.chen@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=OcyoyBTY c=1 sm=1 tr=0 ts=6a96864f cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=mbPrJoAuDWtQQzFn8WUA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: Xy0S8OWbsIjKs9XAiouVdl_PpZMlRFo0
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA3MCBTYWx0ZWRfX2VjYY54jBKmm
- OzW4l4Z+MONYBV8ats3mBeJ9491/m4VGoxQVw7RMkhn13etpbOH5b1FLi+5YJAA0MpSDU4Z7Aft
- BYdnaLiV0HMXSqBUxXZ/Bx08VgZwlq8=
-X-Proofpoint-GUID: Xy0S8OWbsIjKs9XAiouVdl_PpZMlRFo0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA3MCBTYWx0ZWRfXysNAYvR9DpJX
- UDmPnWCuAaJrYrXw/cAQvMjXW/3QT+LEiW3WRpGjVKJOzvkGkChoiYI72xmjEd9GkpT3/g+webf
- Nhc/AMQ+oIXUXoDcbGV3wkYuRIS0jhgUso+PF6rdGiyxQBTSNnj0KWSCkB9WenYK1od2bwRy0Vt
- nskAsT8xKXPcz5p7tFbCxvEwGJPzNB5/IXU3kj+/2lYxr7YUWE4OqeMnJxMFXkQ8+WP7Lxpc+os
- 8ttOePyzTAUoXagx61Ob928Mc3Vl0KPBSIV3+vg+HZdrGMz3EZ+ztGzD09PU7YMbys9zKTDBx8Q
- eVUWM8tlvbnpYFKZykblJytq2hrEq4ivMBsp7RtV/0T74AdzqZr8jaNOpsFflS2czagsboUb9gH
- eB5T+tG0v+2Nqm/tB8rrbhzKSCClFA/Ovl+Mu7q7mWDPUZZDfBdbHNjbuJ+HhkJQ4OKnELRqom1
- LFRibiWG6czhd7P7Smg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
- impostorscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010070
 
-On 8/28/2026 11:11 AM, Huacai Chen wrote:
-> Our server productions (e.g. Loongson-3D6000/3E6000) can have multiple
-> nodes in one package and SMC mailboxes are also per-node. However, the
-> current driver has wrong behaviors on multi-node servers, including: id
-> field in smc_message is too narrow, mutex is not per-node, IOCSR read/
-> write can only perform on the current node, etc. This series fix all the
-> above problems.
-> 
-> V1 -> V2:
-> 1. Fix typos and add Fixes tags.
-> 2. Fix loongson3_cpufreq_get() return values.
-> 3. Use nid_to_addrbase() rather than hard code.
-> 4. Guard some code with CONFIG_SMP to avoid build errors.
-> 
-> Hongliang Wang & Huacai Chen (5):
->    cpufreq: loongson3: Make this drvier depend on MACH_LOONGSON64
->    cpufreq: loongson3: Adjust the width of id and val in smc_message
->    cpufreq: loongson3: Replace per-package mutex with per-node
->    cpufreq: loongson3: Use global physical CPU ID in get/target callbacks
->    cpufreq: loongson3: Replace IOCSR read/write with MMIO ones
-> 
-> Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
-> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+
+
+On 8/28/2026 6:37 AM, Zide Chen wrote:
+> Intel PerfMon v5 introduces the ANYTHREAD_DEPRECATION capability
+> (CPUID.0AH:EDX[15]) to indicate that AnyThread counting is deprecated
+> and that writes to the AnyThread bit in IA32_PERFEVTSELx are ignored.
+>
+> When ANYTHREAD_DEPRECATION is present in the guest CPUID, emulate the
+> architectural behavior and silently ignore writes to the AnyThread bit
+> instead of injecting #GP.
+>
+> Continue to inject #GP when ANYTHREAD_DEPRECATION is not present in the
+> guest CPUID, e.g. for PerfMon v3/v4 guests or when the capability is
+> not configured for a PerfMon v5+ guest.
+>
+> Advertise CPUID.0AH:EDX[15] only for PMU version 5+ guests, since the
+> bit doesn't exist below version 5.
+>
+> Signed-off-by: Zide Chen <zide.chen@intel.com>
 > ---
->   drivers/cpufreq/Kconfig             |  1 +
->   drivers/cpufreq/loongson3_cpufreq.c | 72 ++++++++++++++++++++++++-------------
->   2 files changed, 48 insertions(+), 25 deletions(-)
-
-The whole series looks good to me.
-
-Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-
+> v2:
+> - Advertise anythread_deprecated only if kvm_pmu_cap.version >= 5.
+> - Add the missing AnyThr bit handling for IA32_FIXED_CTR_CTRL.
+> - Update the comments to be clearer.
 > ---
-> 2.27.0
-> 
-> 
-
-
--- 
-Thx and BRs,
-Zhongqiu Han
+>  arch/x86/kvm/cpuid.c         |  2 +-
+>  arch/x86/kvm/vmx/pmu_intel.c | 19 +++++++++++++++++++
+>  2 files changed, 20 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
+> index 63201d4ea4a1..ef208906b3ee 100644
+> --- a/arch/x86/kvm/cpuid.c
+> +++ b/arch/x86/kvm/cpuid.c
+> @@ -1542,7 +1542,7 @@ static inline int __do_cpuid_func(struct kvm_cpuid_array *array, u32 function)
+>  					    KVM_MAX_NR_FIXED_COUNTERS);
+>  		edx.split.bit_width_fixed = kvm_pmu_cap.bit_width_fixed;
+>  
+> -		if (kvm_pmu_cap.version)
+> +		if (kvm_pmu_cap.version >= 5)
+>  			edx.split.anythread_deprecated = 1;
+>  
+>  		entry->eax = eax.full;
+> diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
+> index c7472778137a..599c69dfa6e3 100644
+> --- a/arch/x86/kvm/vmx/pmu_intel.c
+> +++ b/arch/x86/kvm/vmx/pmu_intel.c
+> @@ -446,6 +446,12 @@ static int intel_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+>  		if (data & pmu->fixed_ctr_ctrl_rsvd)
+>  			return 1;
+>  
+> +		/*
+> +		 * This is to emulate ANYTHREAD_DEPRECATION. Guests without
+> +		 * support for it would have had the write rejected by
+> +		 * pmu->fixed_ctr_ctrl_rsvd above.
+> +		 */
+> +		data &= ~intel_pmu_fixed_ctrl_bits(pmu, INTEL_FIXED_0_ANYTHREAD);
+>  		if (pmu->fixed_ctr_ctrl != data)
+>  			reprogram_fixed_counters(pmu, data);
+>  		break;
+> @@ -494,6 +500,8 @@ static int intel_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+>  			if (data & eventsel_rsvd)
+>  				return 1;
+>  
+> +			/* See above comments for MSR_CORE_PERF_FIXED_CTR_CTRL. */
+> +			data &= ~ARCH_PERFMON_EVENTSEL_ANY;
+>  			if (data != pmc->eventsel) {
+>  				pmc->eventsel = data;
+>  				pmc->eventsel_hw = data;
+> @@ -603,6 +611,17 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+>  	pmu->pmc_exists64 = (BIT_ULL(nr_gp_counters) - 1) &
+>  			    kvm_pmu_cap.cntr_mask64;
+>  
+> +	/*
+> +	 * AnyThread counting is not supported by KVM due to cross-VM
+> +	 * information leakage concerns on SMT cores. Therefore, AnyThread
+> +	 * remains unavailable for PerfMon v3/v4 guests, where AnyThread
+> +	 * deprecation is not enumerated.
+> +	 */
+> +	if (pmu->version >= 5 && edx.split.anythread_deprecated) {
+> +		pmu->eventsel_rsvd &= ~ARCH_PERFMON_EVENTSEL_ANY;
+> +		fixed_enable_bits |= INTEL_FIXED_0_ANYTHREAD;
+> +	}
+> +
+>  	entry = kvm_find_cpuid_entry_index(vcpu, 7, 0);
+>  	if (entry &&
+>  	    (boot_cpu_has(X86_FEATURE_HLE) || boot_cpu_has(X86_FEATURE_RTM)) &&
