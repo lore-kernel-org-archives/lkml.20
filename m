@@ -1,131 +1,124 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D233485516;
-	Tue,  1 Sep 2026 20:14:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A31948AE1B;
+	Tue,  1 Sep 2026 20:14:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788293690; cv=none; b=M8rp3zgl93Q18c8GHMDbGbeqghaYp0lOHrA/Wc7fvQWzNB30QHefkZ4qkViD2Sv+u0dPN8jVb0l9rRaoUoED/o4x2typ5LsqBbQtIkWv3VRX5TKsZ2TL3OZTVcyuwJCSArAMY+dwQkGdrqfLlhwR97fIApd1+zjzo0ASvCgQM/4=
+	t=1788293698; cv=none; b=d+22sV81w4VYwGqWU+CVBD/xQ1yc+Mg635ExLYgi0PKZPl/X1fgAz69Cw1jimoYWCMy73D/yjn/5oLKRuzDALtc2Gb+5iRvFI/T0nPoKYerFl6olDMnV6k6dUBIN0yTT4zuw0rxQwFi0kUVoT58YlPKDhpxbIznG4lNPZ5guGvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788293690; c=relaxed/simple;
-	bh=cONvZ9VMq397XbxuAVnhR5tBd6PC1wL0EzVZTTnTiCw=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=Zc9iI3olr1kveuWdWUTDVUaeLyCa0nr9LhwGMMzSTgAieRB8wbBMhi8YrUhrYhqbKiJScEOE76pVOTdmFdRsd9UkNyvwpGMPtUlks5AL39RzpMFbqFC1JPqbl5G3FTHLwilz8TKY/ceGtOJPmgurArvkKf9Pek8EuJBXnYpJ2QI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=9acK4i5K; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1788293698; c=relaxed/simple;
+	bh=VvsRXM0Yj78QB3+u/yAsxN4LdE3PS+yyr3oa6EcQpkI=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=YnIbA0Yy553ZDEjN3OCecVwDS/HjjdinyrIQr63nJGkuXGgdPq+rHjT/h2OBeAXyYaZ3kt28bYRyJ7ISPDvStoRKP1UrDDTWzIkM9HY4wDjnXtM/zvA3hfoQGYOyntCRaE1HobyKzu8gtxCZ9wHDmGgk/9zTvi8pTMYqw2kE/8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bur9NIA5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="9acK4i5K"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Date:Subject:Cc:To:From:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=gVULXO/0fQg84dpKqhqqkw+U2olTmmNeBB81/cbxFgw=; b=9acK4i5KKRpgynOEoP2Xc5f7o2
-	7G3zmCmRWfNzKPNYCk3rfB0GKBPpk3tC4+/sxS/TUPHWQVaLYpgTIBqubaffIrnim2OMapB3KIML0
-	ZMxiKy0qJeEL2a8blI19ImH+Xm5Mn0rmADf4q6hK5IeS/zRs5dLScPg3RHeynDElZDKrRikbhtBsU
-	n55++tCSHV6ibt9mQc5yyB6FpCnZ8pDbMYcVeJ9zPA861z290VRst9mNZJUBbZMC8O/KSz2qa3PbH
-	8N8so+/w8KOlabJJGJKmjLYUyCLRfOsbo21YnSL1GmQqZRIZJIAcx+ahWG7sSzLN3DHlFHZtjm1Yi
-	pCBjwQDQ==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x1UsX-00000000SFa-2Ptg;
-	Tue, 01 Sep 2026 17:14:45 -0300
-Message-ID: <9b4b26eaff2ed89ee2da77e8d32881fb@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-cifs@vger.kernel.org
-Subject: [GIT PULL] smb client fixes for 7.3-rc2
-Date: Tue, 01 Sep 2026 17:14:45 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bur9NIA5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C7A1F00A3A;
+	Tue,  1 Sep 2026 20:14:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788293696;
+	bh=f1/Jwq5+t6tQe5v6CVe+ERoBwhfQo9XFyVXChFbscQ0=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=bur9NIA5VjZqJ3jA9kvUAsKCinpmhYAyRbr8Hb1A0OQctcuO7N9DscX1sNVWHL1V7
+	 T80F+vdakutewH2IMUKIulhBeYbTt74ZvhHoMosmzBE80N+qc3JJtFqfa+UOgi4b5H
+	 nhJt07pq+F5fJOJSXkLDfT4qSN/I+piV60qOEI6PAZyKdu1ycpYXmW4JdbL3YGBRSO
+	 QhxKekth0A8llYBOSGx9oqJNnoi3gtqRLBPJlVRvjImiywEubcsr5hoj1xB8ayZBwy
+	 q8rGlbxN+AW6qnyVN4sOrSL4v4mH+oG0IpyaHj57TG+k/Vbf4tA5+oKuV69TJt709Q
+	 ed/bhiUFFcOQA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 15/17] crash: Simplify CRASH_MAX_MEMORY_RANGES
+ handling
+From: Mike Rapoport <rppt@kernel.org>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
+ chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com, 
+ mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, tglx@kernel.org, 
+ mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
+ akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org, 
+ pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev, 
+ kees@kernel.org, thuth@redhat.com, gshan@redhat.com, jic23@kernel.org, 
+ james.morse@arm.com, ardb@kernel.org, leitao@debian.org, 
+ yeoreum.yun@arm.com, sourabhjain@linux.ibm.com, coxu@redhat.com, 
+ tangyouling@kylinos.cn, hbathini@linux.ibm.com, adityag@linux.ibm.com, 
+ ionut.nechita@windriver.com, liaoyuanhong@vivo.com, seanjc@google.com, 
+ fuqiang.wang@easystack.cn, makb@juniper.net, piliu@redhat.com, 
+ ebiggers@kernel.org, jbouron@amazon.com, mclapinski@google.com, 
+ me@linux.beauty, graf@amazon.com, bgwin@google.com, robh@kernel.org, 
+ takahiro.akashi@linaro.org, palmer@rivosinc.com, x86@kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+ linux-mm@kvack.org
+In-Reply-To: <20260826092541.3905933-16-ruanjinjie@huawei.com>
+References: <20260826092541.3905933-1-ruanjinjie@huawei.com>
+ <20260826092541.3905933-16-ruanjinjie@huawei.com>
+Date: Tue, 01 Sep 2026 23:14:00 +0300
+Message-Id: <178829364021.3691424.12328056849597833403.b4-review@b4>
+X-Mailer: b4 0.17-dev
 
-Linus,
+Hi,
 
-Please consider pulling these SMB client fixes for v7.3-rc2. They
-address data corruption in fallocate range operations and O_TRUNC with
-concurrent writes, heap overflows in SMB1 extended attribute and ACL
-handling, a krb5 multiuser mount regression and a minor debug print
-fix.  All fixes are for stable.
+> Set CRASH_MAX_MEMORY_RANGES to 0 when MEMORY_HOTPLUG is disabled, then
+> remove the now unnecessary IS_ENABLED(CONFIG_MEMORY_HOTPLUG) checks in
+> powerpc and x86 arch_crash_get_elfcorehdr_size().
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>
+> diff --git a/arch/powerpc/kexec/crash.c b/arch/powerpc/kexec/crash.c
+> index fc0105c7af4c3..c47e3f867ea1f 100644
+> --- a/arch/powerpc/kexec/crash.c
+> +++ b/arch/powerpc/kexec/crash.c
+> @@ -474,9 +474,7 @@ unsigned int arch_crash_get_elfcorehdr_size(void)
+>  	unsigned long phdr_cnt;
+>  
+>  	/* A program header for possible CPUs + vmcoreinfo */
+> -	phdr_cnt = num_possible_cpus() + 1;
+> -	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+> -		phdr_cnt += CONFIG_CRASH_MAX_MEMORY_RANGES;
+> +	phdr_cnt = num_possible_cpus() + 1 + CONFIG_CRASH_MAX_MEMORY_RANGES;
+>  
+>  	return elf64_phdr_size(phdr_cnt);
+>  }
+> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
+> index 99eb8583d9321..116410ac90fb4 100644
+> --- a/arch/x86/kernel/crash.c
+> +++ b/arch/x86/kernel/crash.c
+> @@ -407,9 +407,7 @@ unsigned int arch_crash_get_elfcorehdr_size(void)
+>  	unsigned int sz;
+>  
+>  	/* kernel_map, VMCOREINFO and maximum CPUs */
+> -	sz = 2 + num_possible_cpus();
+> -	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+> -		sz += CONFIG_CRASH_MAX_MEMORY_RANGES;
+> +	sz = 2 + num_possible_cpus() + CONFIG_CRASH_MAX_MEMORY_RANGES;
+>  	sz *= sizeof(Elf64_Phdr);
+>  	return sz;
+>  }
+> diff --git a/kernel/Kconfig.kexec b/kernel/Kconfig.kexec
+> index a97ed9605602f..e6251dfe451a8 100644
+> --- a/kernel/Kconfig.kexec
+> +++ b/kernel/Kconfig.kexec
+> @@ -160,7 +160,8 @@ config CRASH_HOTPLUG
+>  
+>  config CRASH_MAX_MEMORY_RANGES
+>  	int "Specify the maximum number of memory regions for the elfcorehdr"
+> -	default 8192
+> +	default 8192 if MEMORY_HOTPLUG
+> +	default 0 if !MEMORY_HOTPLUG
 
-Thanks,
-Paulo
+This only sets the default, but a user can change the value explicitly.
 
-----------------------------------------------------------------
-The following changes since commit 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229:
+-- 
+Sincerely yours,
+Mike.
 
-  Merge tag 'hwlock-v7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/=
-remoteproc/linux (2026-08-25 14:21:47 -0700)
-
-are available in the Git repository at:
-
-  https://git.manguebit.org/linux.git tags/cifs-fixes-7.3-rc2
-
-for you to fetch changes up to 4aa2c106aef4bf3dfd97c30842db0767b26e8428:
-
-  smb: client: reject SetEA requests that do not fit the request buffer (20=
-26-08-31 12:01:07 -0300)
-
-----------------------------------------------------------------
-SMB client fixes for v7.3-rc2
-
-A batch of bug fixes for the SMB client:
-
- - Fixes for fallocate range operations (insert, collapse, zero, punch
-   hole): the insert range implementation copied overlapping chunks in
-   the wrong direction, corrupting file data on every server except
-   Windows.  Several related issues in the same area are also
-   addressed =E2=80=94 stale page cache and FS-Cache readback, an integer
-   truncation on large files, missing RLIMIT_FSIZE validation and
-   missing sparse file marking.
-
- - Data corruption fixes in the O_TRUNC open path: one where i_size
-   was zeroed before the server confirmed the truncate and another
-   where the lack of locking allowed concurrent buffered writes to be
-   silently discarded.
-
- - Heap overflow fixes in legacy SMB1 paths: one in extended attribute
-   writes and one in POSIX ACL handling, both exploitable via
-   unprivileged setxattr(2).
-
- - Fix for multiuser mount with krb5 failing because the username
-   option was not propagated to new per-user connections.
-
- - Fix for split debug message in __release_mid() after a printk
-   conversion.
-
-----------------------------------------------------------------
-Andy Shevchenko (1):
-      smb: client: transport: Fix debug printing in __release_mid()
-
-Frank Sorenson (3):
-      cifs: add revalidation on FSCTL failure in smb2_duplicate_extents()
-      smb: client: fix heap overflow in cifs_do_set_acl()
-      cifs: don't update i_size in cifs_do_truncate without a cached handle
-
-Huiwen He (7):
-      smb/client: validate new EOF for insert range
-      smb/client: validate new EOF for zero range
-      smb/client: mark file sparse before emulating insert range
-      smb/client: fix data corruption in emulated insert range
-      smb/client: fix integer truncation in collapse range
-      smb/client: fix stale page cache in insert/collapse range
-      smb/client: invalidate fscache for fallocate range operations
-
-Paulo Alcantara (2):
-      smb: client: fix multiuser mount with krb5
-      smb: client: fix data corruption with concurrent writes and O_TRUNC
-
-Yunpeng Tian (1):
-      smb: client: reject SetEA requests that do not fit the request buffer
-
- fs/smb/client/cifssmb.c   |  24 +++++-
- fs/smb/client/connect.c   |  21 +++--
- fs/smb/client/file.c      |  36 +++++++--
- fs/smb/client/smb2ops.c   | 195 +++++++++++++++++++++++++++++++++++++-----=
-----
- fs/smb/client/transport.c |  11 ++-
- 5 files changed, 231 insertions(+), 56 deletions(-)
