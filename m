@@ -1,115 +1,153 @@
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84DDF3DAAAE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBF73E16A5;
+	Tue,  1 Sep 2026 23:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788303925; cv=none; b=eGIby6EeVUn0h3PCndWCWHWaiLHFyBNQ5w61lNEioaxZyZViMBHkFXlA3SYwBaBYMc7ZxomqJDLP8jBOnnwPwQkKL797wY52u/BJJ0QrJSKJy1mUBbSCyrFdmxFI8eeiLi0Tta2TiSRjctDTML/g9Fbqw+NUraSPy5QkUWawj4E=
+	t=1788303933; cv=none; b=jpUox8hlfoNvFELqtda9afgzHREKdAxn2juoRcd6JH5PGcwLHZiTn7JMmEnb+aWVpusx/CFrKF4Gm8lnUNjRIlJYE1znNV2CdfX9nUWjvlXInYee4xhbeA2YoXtVaczQ6LyoPoM/E1RdmQgQ12ciPg+KcMpFGDbzd5oWoWdyPPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788303925; c=relaxed/simple;
-	bh=6NXnX2IrD7bpMZuaPt9/a2lirU66cCGgxnPhonn42EM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uIUZlwUVQ7D3oNJOx8wAAKjh121XEJ0PzARfxOyKVIzLat4m3UO6fLZZfN3E6hF64ZGtrpF4lTdWaIe1UyZ4ZTe9DuVkY2kGfRWtn5CF/7a1G2LEk2+Z9Hpdmc1W7USCWGxxIw0dgidPPoYLYYfoor70W+MOs/7Y0kZTF1wJdN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=FO7KTp5Q; arc=none smtp.client-ip=35.89.44.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1788303933; c=relaxed/simple;
+	bh=HB8OXMI/qKkxfyXqsL/wC71Nav5Hz12TvZWbjZ/91j8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O+9aakIOvjTdvDGUatHZLNYtYmZ0VLgIhesVLoEPR+XT1rpcbnVeew76ZEzdWDffgqQPPXuibwNJkZFu7GPtkUybEPD3UOmI7A1GcX5YiWdwuGHJX7sPQuiZ3tQj1l/LLQQwjqjvJu23lWptCYqB0ANXLWZ0CtR/yiyLe1NgHyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IA59QNDE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="FO7KTp5Q"
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id 1Rq7xATsUv0nd1XXax2Tim; Tue, 01 Sep 2026 23:05:18 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id 1XXZxTD8grpsL1XXZxo5Xp; Tue, 01 Sep 2026 23:05:17 +0000
-X-Authority-Analysis: v=2.4 cv=WJZ/XmsR c=1 sm=1 tr=0 ts=6a975a2d
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=y2ERv7ko0hlTFnYyMTsA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=m/8HHcfW/ezO3N2QXJFHhl7sKGkvq9UMy8GIvPEuUZY=; b=FO7KTp5Q5TiA2uyn5uJcdS2hO+
-	1GsuePAoMzQpg1808Lr2XbC82w0W0vLb3TRPzkXRDSY1D2IChjaXep5hgMOI8+ZAWEc0NnAAtPbZk
-	1Gi9JRUcg82zLdCHs/ZWzwQgZdDhOIFTX2vBW7xRrOViH0LY+mqw8GbBXlVgtDjSBkCsUlGSnGL9R
-	5ikzTrnU3Y6EUNJm0rqig0Om3Bxz0ebWCmdoNwdglsqYnqGMwFdM18MolDUJCWPOQbpcWCTBamQNJ
-	9evy3XvdvMJithg4lbLzCwdMUB7ANYWlbrLwK9OrJ4QdmiKrVQamIzGZks7bfEOenuAPTzXAyJbLe
-	ieHJMDlQ==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:36190 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.5)
-	(envelope-from <re@w6rz.net>)
-	id 1x1XXY-00000002HO5-3FLH;
-	Tue, 01 Sep 2026 17:05:16 -0600
-Message-ID: <1965058f-ea07-4154-8b7b-feb72b40b4ca@w6rz.net>
-Date: Tue, 1 Sep 2026 16:05:15 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IA59QNDE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 612EB1F000E9;
+	Tue,  1 Sep 2026 23:05:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788303931;
+	bh=0htWeaKeIqw48Ih+M0qU/N2hCQgDCF5iuzUPSnGY/sQ=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=IA59QNDEFlOCImNWFQJPZbXiWFaq1xTWw9bnb5X7bxpsdSW/X/3c8p5mts3Azgq2Z
+	 7lSsnOCFsOI961FM9HrSshMg4uDVR8LTudC00ThQ0Qxw+JDDWkdPun8xOEzEwOIzSA
+	 GDjCtziFxJxsMY2H/R0LkW5yYqsO39ugtiXXsvTErPrCgGmG99stE720A6j7F5G6mp
+	 6NozGNcA8AvzBb4uQAFzbSTZdymAO3Zq2xOrRgyVs6HoOJ/lXO7siUu8wZBGIK5Km+
+	 9FYxC24GXaOySPLTlqpxuM+3GR+iSooMmgT10XvJb//kdQOuZ7qlCFYrh83pQ/c4N+
+	 IHIPejGZ6H/+w==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 24F23CE09F8; Tue,  1 Sep 2026 16:05:31 -0700 (PDT)
+Date: Tue, 1 Sep 2026 16:05:31 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: Sean Christopherson <seanjc@google.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Michal Hocko <mhocko@suse.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Jerome Glisse <jglisse@redhat.com>,
+	Christian Koenig <christian.koenig@amd.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, linux-mm@kvack.org,
+	kvm@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/mmu_notifier: Remove non_block_start/end() from
+ notifier invocation
+Message-ID: <20bc5559-a1b9-4ff3-badd-1166eca60b57@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <9427a8e0-3ba6-4f31-a35d-54429bd7e071@paulmck-laptop>
+ <3d0463b6099d4fcde9a025a2f9e231d75303b61c.camel@infradead.org>
+ <b0be19e9-b0ae-48de-bef6-d905ee007c8a@paulmck-laptop>
+ <c39bda52f4c1573193aed39246f0d705755143fe.camel@infradead.org>
+ <90d91673-a912-439f-98ee-e43285294486@paulmck-laptop>
+ <8cd4aa65b1b499d4c614aa4cba445b6aeb89acf7.camel@infradead.org>
+ <apcjs83XSU4Eb9hm@google.com>
+ <e3197a0a-e167-4ea1-bbde-9c7f11f42198@paulmck-laptop>
+ <apdW2edsT_ZKfuUR@google.com>
+ <19e2a25c50a551398dec060fe0e5d3720b027ad2.camel@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 00/83] 6.18.49-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260831133359.207714926@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260831133359.207714926@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1x1XXY-00000002HO5-3FLH
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:36190
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 17
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfPbUgoja4mi7EekTMfO0B2N3905uP8dOeGA6PJpRRl2TV+6X7qxu/KsLEpb/7h/heywU31eHTlT6KF27flhH6F+lN0f6QA4n7uWTI72lBAxdYVV37j25
- aPpJrV6d4Sd68H25C/Zt3VEZuZ1jDv/Jem5nOiC3HUS5EHefUbw4Ph/1bJb13KkMYm/CfKhoMdHnw2PXozKRfUthjlSHoNcALQo=
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <19e2a25c50a551398dec060fe0e5d3720b027ad2.camel@infradead.org>
 
-On 8/31/26 06:33, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.49 release.
-> There are 83 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.49-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+On Tue, Sep 01, 2026 at 11:53:26PM +0100, David Woodhouse wrote:
+> On Tue, 2026-09-01 at 15:51 -0700, Sean Christopherson wrote:
+> > On Tue, Sep 01, 2026, Paul E. McKenney wrote:
+> > > On Tue, Sep 01, 2026 at 12:12:51PM -0700, Sean Christopherson wrote:
+> > > > On Tue, Sep 01, 2026, David Woodhouse wrote:
+> > > > > On Mon, 2026-08-31 at 17:58 -0700, Paul E. McKenney wrote:
+> > > > > > On Fri, Aug 28, 2026 at 12:25:01AM +0100, David Woodhouse wrote:
+> > > > > > 
+> > > > > > 
+> > > > > > >   * 23f10e07aba3 srcu: Add try_synchronize_srcu() for callers which can prove readers absent
+> > > > > > 
+> > > > > > I do not intend to provide a separate API for this given the possibility
+> > > > > > of indefinite postponement.
+> > > > > 
+> > > > > Makes sense. In that case, calling it internally from the 'right'
+> > > > > places becomes important, as the callers who care can't do so for
+> > > > > themselves.
+> > > > > 
+> > > > > We discussed the fact that synchronize_srcu_expedited() will also want
+> > > > > to use the same fast path.
+> > > > > 
+> > > > > I'm also looking back to Sean's call_srcu_expedited() patch from March:
+> > > > > https://lore.kernel.org/all/20260309193059.2244645-1-seanjc@google.com/
+> > > > > 
+> > > > > 
+> > > > > > Due to differences in how VMMs manage guest devices, and in the
+> > > > > > architecture being emulated by userspace, some updates trigger call_srcu()
+> > > > > > with concurrent readers (i.e. while the VM is active), while others occur
+> > > > > > without readers, e.g. when configuring devices during a pre-boot setup.
+> > > > > > For the later case (no concurrent readers), using the vanilla call_srcu()
+> > > > > > is problematic, as it can kick off a normal grace period (totally fine for
+> > > > > > freeing the object) and effectively transfer the non-expedited grace period
+> > > > > > to the upcoming synchronize_srcu_expedited().
+> > > > > 
+> > > > > So the offending path uses call_srcu() and triggers a normal GP, while
+> > > > > the victim calls synchronize_srcu_expedited() and gets stuck behind
+> > > > > that non-expedited GP.
+> > > > > 
+> > > > > Sean, if the victim is the "no concurrent readers" code path, as you
+> > > > > said above, do you think the fast path in the victim should suffice,
+> > > > > without the cost of an expedited GP for every bus registration?
+> > > > 
+> > > > IIUC, you're asking if being able to use try_synchronize_srcu() for the fast/happy
+> > > > of synchronize_srcu_expedited() (i.e. for kvm_swap_active_memslots()()), even if
+> > > > there's an in-flight GP, would suffice for a fix of the regression introduced by
+> > > > commit 7d9a0273c459 ("KVM: Avoid synchronize_srcu() in kvm_io_bus_register_dev()").
+> > > > 
+> > > > If my understanding is correct, then yes, that should work, and presumably would
+> > > > be a notable improvement overall.
+> > > 
+> > > Then we could abandon synchronize_rcu_atomic()?  That would not be a
+> > > bad thing from my perspective.
+> > > 
+> > > Just to be sure, please note that synchronize_rcu_expedited() can and
+> > > sometimes does sleep in order to avoid odd corner cases that could
+> > > otherwise pointlessly monopolize a CPU.
+> > 
+> > I think one (or both) of us is confused.  I thought David was asking if we could
+> > avoiding adding call_srcu_expedited(), because the proposed try_synchronize_srcu()
+> > would fix a regression related to KVM's use of synchronize_srcu_expedited().
+> 
+> Indeed. This is a *separate* problem, for which you had previously
+> proposed adding call_srcu_expedited(), but it looks like having
+> try_synchronize_scru() as a fast path of synchronize_srcu_expedited()
+> would suffice.
+> 
+> We do still need synchronize_srcu_atomic() for the MM notifier case for
+> which we originally built it.
+> 
+> > I don't think that has anything to do with non-sleepable RCU?  Or is there a
+> > separate discussion and/or implicitations I don't understand?
+> 
+> I think the lack of 's' there was just a typo. This is synchronize_srcu_atomic().
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+Right you are, and apologies for the confusion!
 
-Tested-by: Ron Economos <re@w6rz.net>
-
+							Thanx, Paul
