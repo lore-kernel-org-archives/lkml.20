@@ -1,116 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA5835F182;
-	Tue,  1 Sep 2026 07:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE9A3A168C
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:49:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248915; cv=none; b=BYbTNjk/T4iPJmMuGjjz4fENCi8MOmODqoNQjNycuKICwNncbX6XNvIeiqfW++Lg7p4fdSVwOuUxNtetcKEtz95HWaNb3B0vZUxf+oWFTyoatfwpmp4eZSh04Jf1pV6cbSNW7pmzPw4kRQtFP9aKfuW6ZWK8r8b6OByIRn7BnWU=
+	t=1788248943; cv=none; b=NSSZTqOQf9t3QoqnB2nvklNhMU82Aft8+13/KzPRZblMXkkC3csESb5AXFFw+joZUaSJqggYV9KTozKtxBcicivKb9pWpB8OdotRR0fIJ6Sa2pIA1ijDN6c8eOFUkSWY1i5LeGRxGpw6G38ViLJ/2DpSoCspzW4DlQNe66yqWec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248915; c=relaxed/simple;
-	bh=KPd50IAnmwgANUxRuXWXFO4sxkhqAQMPAoJdkTX6r7k=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SUNVvDHMZ5PwwbolngtE7hhLsTxf0ViPn3UUDfDyH1MKSgXU1DV6+Mp5qpfL+QHqgqBu3XA+43PbhrZ+z408SyGKtuV043fUV1xHzSyIANrSUxz4opT1E/B+BDKwJrRayBdckwfQclwGPaPN3Q0Wc6ZyonCOyxqMGXNwxBPlGec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bTKw+OT/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788248943; c=relaxed/simple;
+	bh=6XI3eg8IaD/wYB87LRoiYG7IH7ZCCHeePKHRPOP75Dw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dexoOUy5zNWL9L1XEHF9ZgQWOvHkofF438zEBH84Cwn8MmR+VrIWNfArwAe2r4LkZI1fM4bIudxANMnhvcl+hnh/dacJ6lYSxvVfG5T1X0Xk/vsxFyxngbWxdWPL1szaCakJIpGKNOV1WP4VQ0QWFKK9GlJ/ePKvNP6aC8/En/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WXzQc/Cm; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bTKw+OT/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA9311F000E9;
-	Tue,  1 Sep 2026 07:48:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788248913;
-	bh=UZB1OLP7prA7rwlGLIa5XRKyBZ1d7kf5fm2V6ZP76JY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bTKw+OT/UwTVuABIiuKZ7SaC+N5dRiEp901CPG1h28Un6ph5XDeSJrrqZexbEoyWj
-	 90e61JGRfKsjntjQTGfLb9PR/jv5MKl8yTjXcS0cL39Dd/yAREBnTvqp4a6BVYhEXw
-	 XmlferqV+KPuveBHwgmdzWcMRNcyUhW/angxzNOFzAuIC4EDJEummrPZAl4QhYYIuX
-	 /M19kvrhdwA/aNR6//g/+g2mEagXzkR6szUgjwldGHyesUdoLHyxpBnxaHmr5LumvQ
-	 Y8vqCT2XdMhpAPvnYnLZc1SphxJQXWGXlS93oP3xxA6Lmf/psUZGmD/v4mC+CdrZrN
-	 ibng9DxMTFC0g==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x1JEN-00000003BRD-3HQ7;
-	Tue, 01 Sep 2026 07:48:31 +0000
-Date: Tue, 01 Sep 2026 08:51:04 +0100
-Message-ID: <87v78pmmtz.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WXzQc/Cm"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d6f9e2f681so42953875ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:49:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788248941; x=1788853741; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OhH+6P1yI44nri9QpXqL2U01mVLBeU0+majSA9ZCwVI=;
+        b=WXzQc/Cmcw7mlCQtIHv8pmi8agtx7EAfNy2Nvr1lD/CJVGfC8wvBAzBzzjq7TLAs/R
+         KbL9c1EMPLIYKLwRRtOUz3s/ko5meJmYnzawn/JVYfv9VOHz9rKpSsgva4uTm1XUQ2uG
+         Ejxs7r6zfMQReMXxn3nB9RQHHOD9mlj8rtaoszgSm1WYnoJ16jVcHQa2vhcaEiKK3Jhc
+         +ZiogzVvcM5spCnVLBAEIhK6xZcwLQPVaTGkzlNmdHcVGaljDTd0nXec7toMLXBCX7VC
+         X+RJNAXyHye+H9sIxj8HeUgW/zQ7ZYbNyG4scfqZ2kFqYEgBq6o8V6wXk7cw6v48Jfjh
+         rgAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788248941; x=1788853741;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OhH+6P1yI44nri9QpXqL2U01mVLBeU0+majSA9ZCwVI=;
+        b=p7PXG1QWgan1mOq9JaRsrA0gL3CCph+qRtp0EX9q7VaLcLCS3fFEsR6MrjbvYD/koG
+         8GswGp+TGiG3KSsMod/nOHL3N9qu4s4aBUpXoqfxBGS8qsiv/fIJIf8/OsX2M+tiE8/m
+         XNvDl9rDUT/H2XFbxsIZQcOJw+Wt4QrC2LCjLR8Htsq5x3Q5G96nNsFFLpsukzopzIwe
+         ikrQIK6qBK+mmXKjsh5fmZulC9xsawz+axJQEYPn5fsclnb/UO6Arevp0H+jGT72OL2I
+         SjtXyo4Ef7OOh76nmY8XSJoswkXZuYtM+6KULXo0/mu1xxZQ/SA9XO7yJnwQMNUy1lbq
+         vb4A==
+X-Forwarded-Encrypted: i=1; AKwUvBzyB5f18+th9RCtr7XtfGsMrAemRnvuq4CYsehvTl1dWlMHXF2VcJXwZSmifYaDrSr8i/Aoq8klZXh+RJs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwScV3ZAPbTLMZCJ9PQTf0+Zi2h3EnLe5seDoZxkGIJF1C2gPa
+	ouQq/2omeuQ+SVk+G4bgKkt1t5MkxwIKtH1JZLPXTNDg1zmJQhnSSOV0TEG0aUNC
+X-Gm-Gg: AYBFou23JhW/9DYxDBB41KDWQyx4PhNDfBJ1kEK1uzbnhi6hpPSR15XBqEbnd5EFuhr
+	5ExaMWjuphpXIG855lbnFL81pcGa/y+hIz9DVK2/74R+M96ZiJcY4OC1jStHstDYUMw/Sqcx04v
+	XBIQ0EX+smqpIBq5xs91Ch0q1+nWyHlNT6ykWOzBGcO4bAR762UDoGiLSyno6tho6fA7CiM7CmT
+	wzO2v+RU8M0nRCpOxYRqIvx+eWWGME6Y+0tu1fjK8O6h+qlwLAUiJC8ci4uYfBg6Zj9TKoOMh41
+	I1GmOUqPvARfdI0REdq+G75oIiP1XtSnXvFfo/IUpr9IJ2zBjf8s69pSN2OtKbpfEQk7JUQcvk0
+	kEJBRLLjLSb99TpzUOnsLy2go7lUb1uz7TMPxj+HI1biKoOxbCYQhUA7FodRy4DZuC9TUZYqs5q
+	6jrqM+11TMNWN7mgNqutzNDBuDxhBoavXIsf8GpSMSIqETP3VqVvj6NxZMMhMjBL7xnRrfqLsNh
+	IavhPY=
+X-Received: by 2002:a17:90b:2552:b0:38e:9045:babe with SMTP id 98e67ed59e1d1-396d0f02a58mr48677714a91.7.1788248940660;
+        Tue, 01 Sep 2026 00:49:00 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990c40d0c9sm4535507a91.7.2026.09.01.00.48.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 00:49:00 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
+To: jiangshanlai@gmail.com,
+	paulmck@kernel.org,
+	josh@joshtriplett.org,
+	rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com
+Cc: rcu@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Andreas Grapentin <gra@linux.ibm.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Friedrich Welter <fritz@linux.ibm.com>,
-	Fuad Tabba <tabba@google.com>,
-	Gautam Gala <ggala@linux.ibm.com>,
-	Hariharan Mari <hari55@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Hendrik Brueckner <brueckner@linux.ibm.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Nico Boehr <nrb@linux.ibm.com>,
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-	Oliver Upton <oupton@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Will Deacon <will@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v2 03/20] arm64: sysreg: Define OSLSR_EL1_OSLK_MASK
-In-Reply-To: <20260831145536.913567-4-seiden@linux.ibm.com>
-References: <20260831145536.913567-1-seiden@linux.ibm.com>
-	<20260831145536.913567-4-seiden@linux.ibm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH] srcutiny: Enable atomic SRCU flavor tracking
+Date: Tue,  1 Sep 2026 15:48:15 +0800
+Message-ID: <20260901074815.3145037-1-kunwu.chan@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, gra@linux.ibm.com, arnd@arndb.de, catalin.marinas@arm.com, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 31 Aug 2026 15:55:18 +0100,
-Steffen Eiden <seiden@linux.ibm.com> wrote:
-> 
-> Define the missing mask for the OLSK field of OSLSR_EL1 which is
-> required to safely write a value to that field.
-> 
-> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
-> ---
->  arch/arm64/include/asm/sysreg.h | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/arch/arm64/include/asm/sysreg.h b/arch/arm64/include/asm/sysreg.h
-> index 1c5c4df260be..5a439853b721 100644
-> --- a/arch/arm64/include/asm/sysreg.h
-> +++ b/arch/arm64/include/asm/sysreg.h
-> @@ -200,6 +200,7 @@
->  #define OSLSR_EL1_OSLM_NI		0
->  #define OSLSR_EL1_OSLM_IMPLEMENTED	BIT(3)
->  #define OSLSR_EL1_OSLK			BIT(1)
-> +#define OSLSR_EL1_OSLK_MASK		BIT(1)
+From: Kunwu Chan <kunwu.chan@gmail.com>
 
-Just move the required sysregs to the sysreg file, with the full bit
-description. This will sort this once and for all.
+Set srcu_reader_flavor to SRCU_READ_FLAVOR_ATOMIC in the Tiny SRCU
+atomic initialization paths, so that the entry-point checks added by
+the previous commit can identify atomic SRCU domains.
 
-	M.
+For static initialization, add a flavor parameter to
+__SRCU_STRUCT_INIT() and pass SRCU_READ_FLAVOR_ATOMIC through
+DEFINE_SRCU_ATOMIC() and DEFINE_STATIC_SRCU_ATOMIC().
 
+For dynamic initialization, initialize srcu_reader_flavor to zero in
+init_srcu_struct_fields() for the generic initialization path, and
+set it to SRCU_READ_FLAVOR_ATOMIC in init_srcu_struct_atomic().
+Handle both CONFIG_DEBUG_LOCK_ALLOC and non-debug initialization paths.
+
+Enable srcu_check_read_flavor() for Tiny SRCU, matching the Tree SRCU
+behavior, so that readers can verify that the requested flavor matches
+the SRCU domain.
+
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+---
+ include/linux/srcutiny.h | 39 +++++++++++++++++++++++++++++----------
+ kernel/rcu/srcutiny.c    |  1 +
+ 2 files changed, 30 insertions(+), 10 deletions(-)
+
+diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
+index 2b293336525a..9dce4b5aa084 100644
+--- a/include/linux/srcutiny.h
++++ b/include/linux/srcutiny.h
+@@ -40,7 +40,7 @@ void srcu_drive_gp(struct work_struct *wp);
+ void srcu_tiny_irq_work(struct irq_work *irq_work);
+ void srcu_defer_drain(struct irq_work *irq_work);
+ 
+-#define __SRCU_STRUCT_INIT(name, __ignored, ___ignored, ____ignored)	\
++#define __SRCU_STRUCT_INIT(name, __ignored, ___ignored, flavor)		\
+ {									\
+ 	.srcu_wq = __SWAIT_QUEUE_HEAD_INITIALIZER(name.srcu_wq),	\
+ 	.srcu_cb_tail = &name.srcu_cb_head,				\
+@@ -49,6 +49,7 @@ void srcu_defer_drain(struct irq_work *irq_work);
+ 	.defer_cbs = LLIST_HEAD_INIT(name.defer_cbs),			\
+ 	.defer_iw = { .node = { .u_flags = IRQ_WORK_HARD_IRQ },		\
+ 		      .func = srcu_defer_drain },			\
++	.srcu_reader_flavor = flavor,					\
+ 	__SRCU_DEP_MAP_INIT(name)					\
+ }
+ 
+@@ -57,29 +58,43 @@ void srcu_defer_drain(struct irq_work *irq_work);
+  * Tree SRCU, which needs some per-CPU data.
+  */
+ #define DEFINE_SRCU(name) \
+-	struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
++	struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, 0)
+ #define DEFINE_STATIC_SRCU(name) \
+-	static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
++	static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, 0)
+ #define DEFINE_SRCU_FAST(name) DEFINE_SRCU(name)
+ #define DEFINE_STATIC_SRCU_FAST(name) \
+-	static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
++	static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, 0)
+ #define DEFINE_SRCU_FAST_UPDOWN(name) DEFINE_SRCU(name)
+ #define DEFINE_STATIC_SRCU_FAST_UPDOWN(name) \
+-	static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
+-#define DEFINE_SRCU_ATOMIC(name) DEFINE_SRCU(name)
++	static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, 0)
++#define DEFINE_SRCU_ATOMIC(name) \
++	struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, SRCU_READ_FLAVOR_ATOMIC)
+ #define DEFINE_STATIC_SRCU_ATOMIC(name) \
+-	static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
++	static struct srcu_struct name = \
++		__SRCU_STRUCT_INIT(name, name, name, SRCU_READ_FLAVOR_ATOMIC)
+ 
+ // Dummy structure for srcu_notifier_head.
+ struct srcu_usage { };
+ #define __SRCU_USAGE_INIT(name) { }
+ #define __init_srcu_struct_fast __init_srcu_struct
+ #define __init_srcu_struct_fast_updown __init_srcu_struct
+-#define __init_srcu_struct_atomic __init_srcu_struct
++#define __init_srcu_struct_atomic(ssp, name, key) \
++({ \
++	int __ret = __init_srcu_struct(ssp, name, key); \
++	if (!__ret) \
++		(ssp)->srcu_reader_flavor = SRCU_READ_FLAVOR_ATOMIC; \
++	__ret; \
++})
+ #ifndef CONFIG_DEBUG_LOCK_ALLOC
+ #define init_srcu_struct_fast init_srcu_struct
+ #define init_srcu_struct_fast_updown init_srcu_struct
+-#define init_srcu_struct_atomic init_srcu_struct
++#define init_srcu_struct_atomic(ssp)					\
++	({								\
++		int __ret = init_srcu_struct(ssp);			\
++		if (!__ret)						\
++			(ssp)->srcu_reader_flavor = SRCU_READ_FLAVOR_ATOMIC;\
++		__ret;							\
++	})
+ #endif // #ifndef CONFIG_DEBUG_LOCK_ALLOC
+ 
+ void synchronize_srcu(struct srcu_struct *ssp);
+@@ -148,7 +163,11 @@ static inline void synchronize_srcu_expedited(struct srcu_struct *ssp)
+ void srcu_barrier(struct srcu_struct *ssp);
+ 
+ static inline void srcu_expedite_current(struct srcu_struct *ssp) { }
+-#define srcu_check_read_flavor(ssp, read_flavor) do { } while (0)
++#define srcu_check_read_flavor(ssp, read_flavor) \
++	({ \
++		u8 __f = (ssp)->srcu_reader_flavor; \
++		WARN_ON_ONCE(__f && !(__f & (read_flavor))); \
++	})
+ 
+ /* Defined here to avoid size increase for non-torture kernels. */
+ static inline void srcu_torture_stats_print(struct srcu_struct *ssp,
+diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
+index 22f7716cbb0e..873b30ccf563 100644
+--- a/kernel/rcu/srcutiny.c
++++ b/kernel/rcu/srcutiny.c
+@@ -42,6 +42,7 @@ static int init_srcu_struct_fields(struct srcu_struct *ssp)
+ 	ssp->srcu_gp_running = false;
+ 	ssp->srcu_gp_waiting = false;
+ 	ssp->srcu_atomic_gp_flag = 0;
++	ssp->srcu_reader_flavor = 0;
+ 	ssp->srcu_idx = 0;
+ 	ssp->srcu_idx_max = 0;
+ 	INIT_WORK(&ssp->srcu_work, srcu_drive_gp);
 -- 
-Jazz isn't dead. It just smells funny.
+2.43.0
+
