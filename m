@@ -1,92 +1,165 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C1B3C5546;
-	Tue,  1 Sep 2026 14:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59A83CEBA6
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:36:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788273395; cv=none; b=JZ+LuqzkvYUNwXQL8+YSX2kqkWfhUOCBKH6EqL7zBcxrhVAV9yuuvmmcLP2FrgKiI8ryhARZ91lrF+kjduoN0/AlvnThdn7p/rxKFoYO5HsCGKPnIN3onyO2Cl9j55V1MkWEoXUaYodp8R3sPm6anHjTmZQnaU4QDpPytKss3P8=
+	t=1788273405; cv=none; b=evY49BKOS+WB73oNDB7IpOTCLO7cGwabEMx6h8riU2IorL0ZWwJTt7GxX1/txFzjVKljNR7dCpvifEn38ymw0gjiwjNr1j+kCNsxdTb8iDSq/l44fr+d1LzJkNqhB4JFpGFZYbKpPxH1DAXT/9ygDrmIDN98WsESGqFPbUbiq4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788273395; c=relaxed/simple;
-	bh=3YLanuTVpasdBZJapHZStMzSmW4L3lHdk4tSlXuXC00=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=T12dk4zwSwpCG1gvzJPU5XqWvrFN8jlQRvAB8RDVh0NoEbPw8Qhw8cbb/3dgTAkr+W4cnwd+37QkgGhC74XBZGSG5bNRH67KQzeC2IX9vIVN2QSvmMXqzGx4TyK4+/07XCZfUJo/2cp6jPvnlFPtGDAFSICQnz4+z/tBYEKO/TU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=jj6kQnu2; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788273405; c=relaxed/simple;
+	bh=8Yq6wA6m597vsL2jPetlIgaUwdUajeAMwBBwubaUTuE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aL9lu7risKq3EI3cMYdbdUDe2t6nobo4uFB1rNTOHy48/TPMNVeIUBXmiVP+KE/cMMFjK5vLb0affFW3LppTSrbdJ7PE1rdpfnAliRagHguyu3TP3dXBCVju9u0GBtqjS11monu69BipVifkF8Umqm5QskEWZGERQLJfnhE/J0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k2d2pV/l; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AJeQHHyf; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="jj6kQnu2"
-Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 6F319A422E;
-	Tue,  1 Sep 2026 14:36:30 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf19.hostedemail.com (Postfix) with ESMTPA id 2773520026;
-	Tue,  1 Sep 2026 14:36:27 +0000 (UTC)
-Date: Tue, 1 Sep 2026 10:37:25 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>,
- x86@kernel.org, Jinchao Wang <wangjinchao600@gmail.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@linutronix.de>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Ian Rogers <irogers@google.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] tracing/probes: Fix BTF kflag check for
- anonymous struct member access
-Message-ID: <20260901103725.7ca9629f@gandalf.local.home>
-In-Reply-To: <178827250904.123716.17452648791331881284.stgit@devnote2>
-References: <178827248631.123716.2627172171811720261.stgit@devnote2>
-	<178827250904.123716.17452648791331881284.stgit@devnote2>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k2d2pV/l";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AJeQHHyf"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681E8coE3913699
+	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 14:36:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Vts8c29USZkd3oUusvtXRpscx8Ph+Zcc0s/
+	0yEsYKiE=; b=k2d2pV/lvVru5YRizmlLEw0a1C+uvOmyxT1MG+VnhwgvW+Y1fDH
+	OBfEYk/cJnWOAYzr9INzjY4Wqgfus4hfK1gHvaLyjms45WhlbqbzEKYU2Zy5j1aa
+	C/MKzWtf6sQCSsTrL/yZ7U5m1V/eV7vi2/A53iMHMlhQgiOOqoBL3WAZgtWQnXv+
+	sR2OuGiZsyGTPfCJ3qoO5c8OIXlZN3mk9A3EHg//OihlA/69lEBduzxvLTIYAaUi
+	QXbv/y+O21MIlxdUkx1aIHfOvg28DufWGCXcy8w+3OHYA9JPneNJSYxRLVjIntRw
+	AJSMowMHJdNR2OZEYoH91qkmfq6upF9udZA==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdsnu24kk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 14:36:42 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8485d853b08so7669755b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:36:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788273402; x=1788878202; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vts8c29USZkd3oUusvtXRpscx8Ph+Zcc0s/0yEsYKiE=;
+        b=AJeQHHyfL4vBzMVEMTClqST9lfv0onhx31qx6qf6PXX1EZt73RH1Uk+ZG9O+Wyulgl
+         W1FLqtdoXx4PjWlIBGBVja5yK4m/wu6YzyuLg4rarDaJe3UdNhEBfDmGruHqLyDAaL/J
+         Q52OPRrwG5sCsbY6Naot32Ccb6KPzyFaiuQwgTf518H5oqHWFFAzAoeEwiHnwdCu0+kl
+         8SBq4tBFuxh9Thcx+RN2tXXAxN2DRPEPIvH/xvSDBxEw7FHmEOQzRh8mow1hGRGxBk3F
+         1aWXpSgThPPaIyKO6BczZu9RgAwz1fMmw2HgUwn2i0rDwFxQXH+JIEmahaXRiOrTRhMj
+         capA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788273402; x=1788878202;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vts8c29USZkd3oUusvtXRpscx8Ph+Zcc0s/0yEsYKiE=;
+        b=qWqXtNFEOf7137ZvFVMN1m0cIjsHlKPuMWbX8h5H56kjF4rrH6w7uYR29N1qwzncjG
+         rT8sUdYyZI7hyTY9S83oL6BT7tw6ZZNugc9nQBi82oPe2v9fiZ+EtbYopoVjWVfleO/j
+         bL1X/IdvwAXKecd6wnk+AuXjgbPrb0GOfktt/ISaUFR061PqV1KLz2kwVuhbmj7Ly76J
+         klEEs36KKrzDxCb+mZKg+5x5iAkdW2psfMwSWlYok/ey2HlQMlg0ndVbvfyY7Nv4mFdB
+         e5ZIrc6MXQYxvhopzjs3CgUtFpjZxCn0eRendp+8Rs7osCX9uAr9NYvnnnz12vhmqDcg
+         Fv6g==
+X-Forwarded-Encrypted: i=1; AHgh+Rq6fcFp0IrdP7/MJwK0WEcSIuWdMRsLQD2n4TE70VDRJ3xZucUbGHSzTBJhRqbX/bgl88zD1z1ZeMSlm3E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHVG3MTCyKtnRQ+0Qlz6pJFwDm0E1DEbXbR/Pmj16ueExrV9Of
+	sveDB72fEwg247kNGcmp0lprGwnzWSHjaFbwP+8j5srJaquKbEo1rhwvXcs1e+x6zNhr8RbGRnJ
+	7EttnbcyNrCMolv6pfGAfn27l/OdFWMb9iXyKZDO2DhPufGV0t2SpG7DMKNRP+BRMALY=
+X-Gm-Gg: AR+sD13N1DsX83j5RPkH+/F3c26Xty2X/jGnyKK3AcDw6KVA6zw7v/pp47lCtZlX+du
+	m4nhnOVoVP/s1sE3xQLUkk/nwKZvA7kH+u48q14uwVRDRCArlUfYMcKb7zU8jmLyRHtt6WL+Ide
+	hP+YIIpSnRXd06e7UQ5b5yBLeoKw0BZsH+e9MGOuMscw6e2JswcdfdFCn35mTjFMvzSfwB65UyJ
+	63ruO0RRyH0+YVftpb/3A+5UywYbBIr2Xz/2+/xsNkg2mkROpw9XR5qISzaHXncI5dKQXwzePcG
+	6ydrZ11OH/UnZAH0QFN+4zCoPyAB878OK/is28AbH1SVu3hOjNQK9DVex8DN5OYhfhoiWud0x8X
+	W8ZrpSb9Xk/ZBl9qrJNVeEb6VtWbATW2HpxFkMnBs2W9YuaBwkdooGoNoMReAZXtLzXE=
+X-Received: by 2002:a05:6a00:a220:b0:84f:a82e:d32f with SMTP id d2e1a72fcca58-85b5968a145mr11062781b3a.3.1788273402130;
+        Tue, 01 Sep 2026 07:36:42 -0700 (PDT)
+X-Received: by 2002:a05:6a00:a220:b0:84f:a82e:d32f with SMTP id d2e1a72fcca58-85b5968a145mr11062694b3a.3.1788273401603;
+        Tue, 01 Sep 2026 07:36:41 -0700 (PDT)
+Received: from zhonhan-gv.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85be99255a5sm1259669b3a.61.2026.09.01.07.36.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 07:36:41 -0700 (PDT)
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+To: rafael@kernel.org, viresh.kumar@linaro.org
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        zhongqiu.han@oss.qualcomm.com, stable@vger.kernel.org
+Subject: [PATCH] cpufreq: zero-initialize policy cpumask before sysfs publication
+Date: Tue,  1 Sep 2026 22:36:35 +0800
+Message-ID: <20260901143635.4106960-1-zhongqiu.han@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 5h7qh9r56n8eesbf3unousyhyumu7fk1
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: 2773520026
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+xyj3NDZi5Ps/mYgvqFL5h8LUgXI/BQXs=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=4JOrdTUbbbWijROTSSn5DPN83zN0OvI1ubKRqA68cUw=; b=jj6kQnu2FWanu+ov9aor7AMBKulAKsSqhmOAXCq151bntGYhxUR7Hzjpe8RBXmVQsY8uB0uYqzBQQ8rucMD1qFZrXqzGGUVZ0UHsDa8UXor7ULRTqPjXIwJ1ODUvjfPhpOAjweRMRPaeBhPOVhWZ4q6mut6WdFt364gFY/fxx04=
-X-HE-Tag: 1788273387-243918
-X-HE-Meta: U2FsdGVkX18SxC4yxLQ0LdRuJcw/9q4dtnSQZ0yIBLBfXaQJHia09tmSRbz5rrfeAxNFe34G9ysMDpRMtlOLtWt4Auxw9Mtz1nQIDKS7p+2x0acLhES0Rfql4OLZGoGRhQgyyVq6p97/TuVyWK5qH2FaN9MDdKN2xIpNLDMPDA0BoWHLq3hOKtv16m8I2UhLWYTITJWRpWfHdZUFlfuvJxRDmICv3RDncpi98E30gXvbKw9j9IZe50NUJGmL/iw9kfBT/tmUcotZmOihzmqGCruxRmdtMHBKN/xbsqUp8Scu7dfOuNH2rxU3kzr4yYtUcXKrzoyouwyqis+gMXywAIMr0lkg+lNa7XngUUktCzc3fvRUVsZu9NNMFW9lC9oTp3w1RxQeu3ZSHfwrV1viyA==
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDEzMCBTYWx0ZWRfX8k4LacgJ3oZ6
+ cGfNIjN9mDzAls0WSEPI5yhCXgZOZI8NVM20tKz8y7872mionV84Me3DgfmJuTU9AMLsNNKN62x
+ LpjHPL15R/RLy6a/0it5cZFDdoRLs51zXvCsDUu0z0kZGmZZaNUUml8ZqVthDYUVtmPqP5hU4lm
+ 6m+hCUKZZgEfiBhtCH/l2cpbUkOd2PHNp3KBxRztMAM9B8r025o9jZiDrYvvxf5msm4eOxDMNJu
+ c4mq0H2qfat/xq0qEZnse81IQTjeKTO5GYU0yhWQr1nXmMckc8DsIyHG9T4hxrCoOLLvHpBErPz
+ B/K4vgt3D6QjxtFYP4tkwY54z//pOiS+/P4lcnmILvRHKO8McQO12AZvftjVqwRYOWtLy7F2rW3
+ +Vr4Icc5jgfZetx2fUWBJfxKOySCvR8SaejoNoiWhCDcjnbOw+EuqNTQOpFOfEIbaaoZBd1QGtO
+ wZtl/SIjbbEQp3mfJvg==
+X-Authority-Analysis: v=2.4 cv=L6ItheT8 c=1 sm=1 tr=0 ts=6a96e2fa cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=hVcsQZ9HNR-0QQQrEgAA:9 a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDEzMCBTYWx0ZWRfX/PqkKwbUJ9SP
+ v4dLFBfRTbWdbZsKVRbkR9krZX8IO4mdQhFfbtGo8yKW9O9KKAqstlVjjLRUt2F6PURe4Ul0X7P
+ Kr9ovU6sSmcjcXsi1V4OEeDLqFAXGcM=
+X-Proofpoint-ORIG-GUID: R64w-W63kg6bc-zaUkPB0MEFKxLxVpIv
+X-Proofpoint-GUID: R64w-W63kg6bc-zaUkPB0MEFKxLxVpIv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_04,2026-09-01_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 phishscore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010130
 
-On Tue,  1 Sep 2026 23:21:49 +0900
-"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
+cpufreq_policy_alloc() allocates policy->cpus with alloc_cpumask_var(),
+i.e. without __GFP_ZERO, unlike the sibling related_cpus and real_cpus
+masks. With CONFIG_CPUMASK_OFFSTACK=y the mask is a separate
+kmalloc_node() allocation, so its bitmap holds whatever the slab allocator
+left behind:
 
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> 
-> btf_find_struct_member() traverses into nested anonymous structures and
-> unions to find a struct member. However, get_bitoffset_of_field() in
-> trace_probe.c checked btf_type_kflag(type) using the outer parent type
-> instead of the actual anonymous structure/union that directly contains
-> the found member.
-> 
-> If the parent structure and anonymous structure have mismatched kflags
-> (e.g., the parent has kflag=0 while the anonymous structure has kflag=1
-> because it contains bitfields), the bitfield size encoded in the upper
-> 8 bits of member->offset is erroneously treated as part of the byte/bit
-> offset, corrupting the resolved offset and failing to set last_bitsize.
-> Similarly, btf_find_struct_member() pushed anonymous member offsets
-> onto anon_stack without masking BTF_MEMBER_BIT_OFFSET() when kflag is set.
-> 
-> To fix this problem, update btf_find_struct_member() to return actual
-> containing structure/union type via member_type, use appropriate
-> __btf_member_bit_offset() to get bit offset, and use member_type for
-> btf_type_kflag() in get_bitoffset_of_field().
-> 
-> Fixes: c440adfbe302 ("tracing/probes: Support BTF based data structure field access")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260822095110.0772E1F000E9@smtp.kernel.org/
-> Assisted-by: Antigravity:gemini-3.7-flash
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+  cpufreq_online()
+    cpufreq_policy_alloc()
+      alloc_cpumask_var(&policy->cpus)    /* bitmap is uninitialized */
+      kobject_init_and_add()              /* policy%u/ appears in sysfs */
+    cpufreq_policy_online()
+      cpumask_copy(policy->cpus, cpumask_of(cpu))  /* first valid value */
 
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+This leaves a window in which the sysfs attributes are already reachable
+while policy->cpus is still garbage. show()/store() gate on
+policy_is_inactive(), i.e. cpumask_empty(policy->cpus), so a non-zero
+bitmap makes them run the attribute callbacks on a policy that is not
+initialized yet.
 
--- Steve
+Fix this by using zalloc_cpumask_var() for policy->cpus.
+
+Fixes: 2fc3384dc75b ("cpufreq: Initialize policy->kobj while allocating policy")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+---
+This patch is based on https://lore.kernel.org/all/83f87db8-fa13-41d0-ae52-544d22e228e6@oss.qualcomm.com/
+
+ drivers/cpufreq/cpufreq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+index 0d0df986fa3d..3b1b2ed86cc3 100644
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -1249,7 +1249,7 @@ static struct cpufreq_policy *cpufreq_policy_alloc(unsigned int cpu)
+ 	if (!policy)
+ 		return NULL;
+ 
+-	if (!alloc_cpumask_var(&policy->cpus, GFP_KERNEL))
++	if (!zalloc_cpumask_var(&policy->cpus, GFP_KERNEL))
+ 		goto err_free_policy;
+ 
+ 	if (!zalloc_cpumask_var(&policy->related_cpus, GFP_KERNEL))
+-- 
+2.43.0
+
