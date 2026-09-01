@@ -1,145 +1,156 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57173476044;
-	Tue,  1 Sep 2026 09:27:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254854; cv=pass; b=bCelpd/Zmy+gO2w6ew06/l8kPuZ+fJoUXjfg971SP0uejdwajZ6ns6r+tk6f8dAn9cJ9+4is8kRIcg6x+GSBD8c/LGmjknqjPJhD8kHHFlEEzEWtfDEpsx9gIZhCl81wVQow5FsVgNgq4Rfm828R/DzX2r3jwD/0navUed9CKRk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788254854; c=relaxed/simple;
-	bh=WBNE7bb+LspvvsDuZbtWPwLg8gdow8Zcr50MxcZHNoo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eQePeAUag4TjqkStc4oHlROEUOIPxeRuoakwWUZNsScypTu8eDdzhjx5ObNo5hGq4WUV7X0QGDBaQFdTQ9jum7xt5MjNATWyC8BtLkK+58OfI8GHOJAlQ2TiUxLhawD+Ty2VYk8r2X5wtnhSGEx1rrrh5ErfJ2rw3B33Sb0LIu4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=bW1ntzi3; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCF747CA8B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:27:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.69
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788254857; cv=none; b=Qt8obmJFbE71+aT10usEmdmeGca0/N7jV95wZBJlvXmpnpGdAJ0W7CiJ/z0GVlLGH3jyMnrT2UMZqjyXN4nuf6YAFueirDMelnWcSOBt9huCKcxJb+vvsNzv2PFCaZQSNsqbiYE7ze34Y6jExdGZnApORUgUJtUjpQq8RuLv1kc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788254857; c=relaxed/simple;
+	bh=nPpXfR6NAp88fxH/7MU90CJYM/Ds+nZslD3wQ7OxXNc=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=naR5+SjnZ97w8eCtsIH+jexYSamCeXmExC9avHErli8LfeR6gA5swOD4oj9bQfJuoOrf1TYo04kr/Rz5PMMEN5ZtZlCyBIy1+qRvEqn56IY2y2nC8HDH1HcZqAWF3zW3hnHQNpx/vLYSI68JST+eegC62yj0Wue8HwaSPwFOJEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vu8Yww7d; arc=none smtp.client-ip=209.85.218.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="bW1ntzi3"
-ARC-Seal: i=1; a=rsa-sha256; t=1788254814; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=cELpdRA5MqYthZUDYMBNVCiJz6LkZkvB2kG9NiSJa1/+bujCGJWnrClWtlzf2Mx/feTAY4P3q9hmxhAt+4tTjBNFbeIoNk/5Q9DduNlypASdeuYc8986Y54lcjEYhrRuFqRe5djlb8JvKxWRxuCRyRQtc/nuVrAzZKRar6oPe1I=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788254814; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=WBNE7bb+LspvvsDuZbtWPwLg8gdow8Zcr50MxcZHNoo=; 
-	b=nfGhH4fpIuLXqaDlBAf9j92SMOt5yrZTlmhpfg7RxRrdZfJxGR9BA31OfVN6XX5ItynFFjuRBwTgiI4UN0rb7eLW9y/KiH3hcu1snIcx4CYVmTw4hNoClODKpPpFqWsGVZzsC88rNfU/7YFEp1FE3tcR62ve/FbLyqBi01v9rhM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788254814;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=WBNE7bb+LspvvsDuZbtWPwLg8gdow8Zcr50MxcZHNoo=;
-	b=bW1ntzi3KdmC1QB0gXmsJjQwoQBvg7S5/aL7aa//AhJQaMGzSz/babx98M37ylhg
-	c0IVKi2zGuw7mpm8YJEwrjMb/HyQqoqKTu9QjGHGeCD6V/re0uuvSUIDiLQ4q5jzwau
-	Vew7VZKFqnJGt88JVzrCu7U/SHqglQ1xSVNRBlD0=
-Received: by mx.zohomail.com with SMTPS id 1788254812080376.5012000638063;
-	Tue, 1 Sep 2026 02:26:52 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 37336181B0C; Tue, 01 Sep 2026 11:26:36 +0200 (CEST)
-Date: Tue, 1 Sep 2026 11:26:36 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Frank Wang <frank.wang@rock-chips.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Andy Yan <andy.yan@rock-chips.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Yubing Zhang <yubing.zhang@rock-chips.com>, 
-	Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
-	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
-	devicetree@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v14 28/38] phy: core: add notifier infrastructure
-Message-ID: <apaVTYiKviNsydUG@venus>
-References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
- <20260813-rockchip-usbdp-cleanup-v14-28-b5ad9c68fa11@collabora.com>
- <apBi5sGBpPfwTW4G@vaman>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vu8Yww7d"
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c20e5890680so366192166b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:27:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788254853; x=1788859653; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KdC630qSepMOzA2lVAlUNAGtTB350vu7dUwfU0LuExI=;
+        b=vu8Yww7d3DEjv0fdQ5NyyhRj++SNy2VMV1C/TysSajyAniRBae7wHefo5hpNFK6S8r
+         33YINs/+jtbBJXielBNV3GFk7xq4T8MJs3EUhAdWgZ4JHfFo1rIZxp3cd3dkDqSiavay
+         LOMrRX8t8yWFTcCSj408kf1TTo7XTjSth7lsYZIgSbNIeDXmp61rAya9WigGgIumSzP3
+         72HNha7zQW/nwztEcsbBTpTOfr7qq8HNa5Jx/3WM+/RdOaH3NZ1WVRaHwU7P3ZMiaSuS
+         vk6+k8PdRmBLPWLXlk08Z7fY0LYA2QzYuIFpKrp4wkLD8lMlyK4nNgOFLrVu029ZyjGl
+         Vhwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788254853; x=1788859653;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KdC630qSepMOzA2lVAlUNAGtTB350vu7dUwfU0LuExI=;
+        b=muOUfphYkrqdxcwEDtqcavm05nn4LcyEoz17+/IrDQo5UBS4APBCLa/SIExmC6HMc2
+         Q+2VWwzO/vBOuQykGRcnlGEi9VXNVwMvsqmST4DY+ymx8Ln4legpBC6MMhuBBAfmFPjB
+         H0UFKYKCqO6r8FByO/HhSdQg//qrXg43oY97FyIJcRHyPfkt1hwpe61DHpYukuorFRT/
+         1T1sCVl1067EXFyQeEQOm0xYvuwXT/zYhng4Bu7YwbeEYkWrX3Xe/C0g7c48dmVi46Ic
+         goUfp4N9Px0p35dJIPng1TT/W4kabJSoaGBXdF9LmnKQsBdI4T5BOjY+GF6CKCs4jgf6
+         5oYg==
+X-Forwarded-Encrypted: i=1; AKwUvBwK6lCiudilTwxqCrR9GW6tfM5Gr7U5Ys9KAZWHcirHwFTyxAOqznzfswlu2kZYsTEb4C4w3jp32Wc6f88=@vger.kernel.org
+X-Gm-Message-State: AFuF++nfaFNVp96Lx0i4CtNHydUD1FNAdnuiqzY9EFJ+dwjIYp6Ulj/3
+	PZrQ/RPhyLFrpqLZZ1l6gD9F/C5d8de+p+r6DfwJxiDyACldOt4OCXs5TxAsqPi5ssVwBTTKI7a
+	aVYfSagghZWb6JDbwAA==
+X-Received: from ejblv5.prod.google.com ([2002:a17:906:bc85:b0:c20:221c:9ee2])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:18cb:b0:c25:848a:4a8d with SMTP id a640c23a62f3a-c25848a4edamr1140296766b.5.1788254852741;
+ Tue, 01 Sep 2026 02:27:32 -0700 (PDT)
+Date: Tue, 1 Sep 2026 09:27:31 +0000
+In-Reply-To: <20260827232948.2520558-9-stevensd@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3dlaegreqn3h62kc"
-Content-Disposition: inline
-In-Reply-To: <apBi5sGBpPfwTW4G@vaman>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.233.38
-X-ZohoMailClient: External
+Mime-Version: 1.0
+References: <20260827232948.2520558-1-stevensd@google.com> <20260827232948.2520558-9-stevensd@google.com>
+Message-ID: <apaagy0KJRPVtwHM@google.com>
+Subject: Re: [RFC 08/10] Set PF_RECLAIMABLE_STACK in various places
+From: Alice Ryhl <aliceryhl@google.com>
+To: David Stevens <stevensd@google.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H . Peter Anvin" <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, suleiman@google.com, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
+Content-Type: text/plain; charset="utf-8"
 
+On Thu, Aug 27, 2026 at 04:29:46PM -0700, David Stevens wrote:
+> Annotate various blocking locations with the PF_RECLAIMABLE_STACK.
+> 
+> Signed-off-by: David Stevens <stevensd@google.com>
+> ---
+>  drivers/android/binder/thread.rs | 14 +++++++++++++
+>  fs/eventpoll.c                   |  3 +++
+>  fs/pipe.c                        | 28 ++++++++++++++++---------
+>  fs/select.c                      |  3 +++
+>  kernel/futex/waitwake.c          |  3 +++
+>  kernel/signal.c                  | 36 +++++++++++++++++++-------------
+>  kernel/time/hrtimer.c            |  3 +++
+>  rust/kernel/task.rs              | 16 ++++++++++++++
+>  8 files changed, 82 insertions(+), 24 deletions(-)
+> 
+> diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+> index bc0ef8927905..be62f7fd43ca 100644
+> --- a/drivers/android/binder/thread.rs
+> +++ b/drivers/android/binder/thread.rs
+> @@ -538,13 +538,21 @@ fn get_work_local(self: &Arc<Self>, wait: bool) -> Result<Option<DLArc<dyn Deliv
+>  
+>          // Loop waiting only on the local queue (i.e., not registering with the process queue).
+>          let mut inner = self.inner.lock();
+> +        // SAFETY: Only accessed locally in this function
+> +        let current = unsafe { Task::current() };
 
---3dlaegreqn3h62kc
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v14 28/38] phy: core: add notifier infrastructure
-MIME-Version: 1.0
+You can invoke kernel::current!() instead to avoid unsafe here.
 
-Hello Vinod,
+>          loop {
+>              if let Some(work) = inner.pop_work() {
+>                  return Ok(Some(work));
+>              }
+>  
+>              inner.looper_flags |= LOOPER_WAITING;
+> +
+> +            current.set_flag_bits(bindings::PF_RECLAIMABLE_STACK);
+> +
+>              let signal_pending = self.work_condvar.wait_interruptible_freezable(&mut inner);
+> +
+> +            current.clear_flag_bits(bindings::PF_RECLAIMABLE_STACK);
 
-On Thu, Aug 27, 2026 at 09:46:38PM +0530, Vinod Koul wrote:
-> On 13-08-26, 22:52, Sebastian Reichel wrote:
-> > Some PHY devices with multiple ports (e.g. USB3 and DP) require a reset
-> > if the configuration changes or cable orientation changes. This is a
-> > problem, as the consumer device will run into undefined behavior.
-> >=20
-> > With the new PHY notifier API introduced in this patch, the consumer
-> > driver can hook into reset events coming from a PHY device to handle the
-> > PHY going down gracefully.
->=20
-> Hmmm how will phy get notified for these events. Typically there is a
-> separate hotplug mechanism to take care of cable changes.
->=20
-> Looking at implementation of this, It seems to me there is checked on
-> power-on, so maybe notifier maynot be right one... ?
+It would be nicer to define a guard type like you did in C so that this
+is less "manual".
 
-With USB-C you have the TCPM (Type-C Port Manager), which will send
-notifications when the plug orientation changed or a different mux
-configuration is needed (both information are sourced from USB PD).
-You can see typec_switch_register() and typec_mux_register()
-registering handlers for these events.
+> diff --git a/rust/kernel/task.rs b/rust/kernel/task.rs
+> index 38273f4eedb5..6168f058343a 100644
+> --- a/rust/kernel/task.rs
+> +++ b/rust/kernel/task.rs
+> @@ -344,6 +344,22 @@ pub fn group_leader(&self) -> &Task {
+>          // only be used while `current` is still valid, thus still running.
+>          unsafe { &*ptr.cast() }
+>      }
+> +
+> +    /// Sets the given task flag bits on the current task.
+> +    #[inline]
+> +    pub fn set_flag_bits(&self, set: u32) {
+> +            // SAFETY: The `flags` field of `current` is not modified from other threads, so
+> +	    // the non-atomic update isn't a race.
+> +	    unsafe { (*self.as_ptr()).flags |= set }
+> +    }
+> +
+> +    /// Clears the given task flag bits on the current task.
+> +    #[inline]
+> +    pub fn clear_flag_bits(&self, clear: u32) {
+> +            // SAFETY: The `flags` field of `current` is not modified from other threads, so
+> +	    // the non-atomic update isn't a race.
+> +	    unsafe { (*self.as_ptr()).flags &= !clear }
+> +    }
 
-Effectively there is:
+It looks like the indentation here is a bit off. Please try invoking
+'make rustfmt' to reformat this code.
 
-1. TCPM providing information about the hardware configuration
-2. USB controller driver requesting the USB side (software request)
-3. DP controller driver requesting the DP side (software request)
-
-These are combined into the desired PHY state.
-
-If the USB controller driver requested the PHY (happens during
-normal driver probe of dwc3) and then you plug a device into the
-USB-C port, which changes the mux configuration, the PHY needs to
-be restarted/reset. Accessing the USB controller while the PHY is
-restarted results in an SError. This part of the series will
-mitigate the problem.
-
-Greetings,
-
--- Sebastian
-
---3dlaegreqn3h62kc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqWmkgACgkQ2O7X88g7
-+pq2yw/9FIRH2tguovlpTzibRD3SnDZDhFzWm7UzNHTuOCL8oXbNeEyCytCKUI64
-s1YUTzTNFPRNWl1Zg7KPKNa1RPieRjbqRfgeSLm5DscxeNojst6q4pEwZR21LpLn
-+esC2NWPx4Sdx8l7+idIZEQTOiRJgvOOrmvaOdWPCj9j+FprkM1l4SkUt9ZKt3Uy
-9T0Ud2hZwSD/hsoT9t2DTzINRv/LIPjBCuaNIglzAgRZYlFjIZQYH0n/ag0XAqat
-gXNN2GwPTAZBdLn4SUXmrfFOzPedCQeJA35eGg6MCNsfeSJOAL+X2LCWMs6aYsJL
-iJPz2eITM/0o8fP8Fo+7b8ELqaEYiEDpbpbgLxtE97dwlHu3T+6j5+u+MfNqX5J/
-gQ8OcmjnlLQOejlJyQlS4c4cKboUE7VRCVNJ8J5K6N7OiqiVPMvgb+wRdFEcoara
-zllZekiW1kzY9JfYHDTA2n42E7X6uKl0+/VkhD/jnMlqoRXbRUK/GWXyaaOnDruY
-Reyi2fv12V94rAQXIL6DqZeHClUpaPBRgplQZarklVpnONpfUAla/UR9Enf7bul0
-qJQyJsUys8hjwKQy+VKtqdt+ac9y2/T7MISxuhtpKVkJWh+5IaLaVsveIbdxFjnK
-QJ343srZH6CrqqJ3ZznRZUrddocBc8LTEEAQkXOnMDTGdlP2WZI=
-=nOU6
------END PGP SIGNATURE-----
-
---3dlaegreqn3h62kc--
+Alice
