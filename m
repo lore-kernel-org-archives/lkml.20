@@ -1,152 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851B23A3E97;
-	Tue,  1 Sep 2026 07:02:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE943AFCFF;
+	Tue,  1 Sep 2026 07:02:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788246136; cv=none; b=M+qtsn2DT5b354p12zCAetpmMD73TStEyzVpi4jeF/yfGV2Cih7mlCZbOxn7YQ0ijwaBQdY7O43gG0lXIYUwfxFVvSkmrm7Fwu0FEzQvEVLm1yX2ZOfjpEBxmga+a9pb452mDSXpiO8VFR75c/NgxzKDIEdzTmHXiVSRyLgWEXU=
+	t=1788246165; cv=none; b=bppFkW/1Mz/SD91fxJk8t6u18MLWUeOM0cizHaehuxL+KnbrIm0PXpyzs4VuyxKx9pWHtjcZ81DCNecM2RUZtg3Efc1Rbjz/UK/DnePo+mPtTrw/txTLZC0t5sH3Tm2YhqhEi5PjNC7FBoYlx6ZCfoFhGaVoN9gIr5ZTHbdM/oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788246136; c=relaxed/simple;
-	bh=8NfANyTxN0qCY8pJXcvVvItKtncE2L/XnfaVfiWLtY0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L9bDF7djjnz38E6lsDblC7vi4fzgSW6sh3YGJQOsE6EJlbkg0AbPVeoKH2MGB42s9d3rdGK8Hmw6ZpGPHwPWS/I95iv5sYzx7jkUTC56ybur6N4IDmwX8isQGOB8CBacJmRFW0wPYC92+gi+Wr0UeDc0IAH/DvYyx+vNvNUw1yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Nyf6Y7q5; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788246165; c=relaxed/simple;
+	bh=qJJBDCacdUAZFU2Dcce9ybJITAteO7mvwnJeT8NKy/o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=uhXUm2Xgkcowlpdp3iBuFJmGpiUK64g4NpDNNsADyjoLkMM28O6pgtVuFbhPB70z/jGrLr5IAEuWGa4eqN3iltmsJyFv7ABRgE1cD2fA35Y436/NFEHIepwDyaFm144Ms/2cGPPWV6jS3DFIK+hB5aCMk64h6T+ptbATHygOOEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=MzwJhCAX; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Nyf6Y7q5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788246135; x=1819782135;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=8NfANyTxN0qCY8pJXcvVvItKtncE2L/XnfaVfiWLtY0=;
-  b=Nyf6Y7q59o2hd+mtXzt7MU7u8DUu1cvBAPD5icPke4yEbx9VNxP/eyH1
-   ctscnopKKOJxGSrsj0AbD90OPeV4Lx6lx9OfjQFVJbW/UQBOQoUheACdO
-   azDXb8ii2q66Ez8RTb1DhjvqXeWFuxdkQcAIs7TkPlazuh6PMuwNgg6yf
-   IzUMJx3d5TpMnmJixVv5UTe1VFUN0tB1w/+ShQYTHbzWyxI/jEUqLFGRr
-   5vwJvgpWqalChG8ppmUzyrftIb04cgjIKfqbnixuq4m6X0crn5HyBQMtn
-   G45sAdT5uV2s06O08dGmCXjPaYRwarfIn9VkhONiPZmXtQfYqDU5UoBNQ
-   w==;
-X-CSE-ConnectionGUID: vnMS5AspS4CWmL+bFaEl3g==
-X-CSE-MsgGUID: icpozkzZSqav67qjMsdX0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88591753"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="88591753"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 00:02:14 -0700
-X-CSE-ConnectionGUID: 8h1Dogs5TeWOtcOF/vj75g==
-X-CSE-MsgGUID: RCy8PT+NRRKz5S8J5E1DMg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="265765738"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 00:02:12 -0700
-Date: Tue, 1 Sep 2026 10:02:09 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Pandith N <pandith.n@intel.com>,
-	Sia Jee Heng <jee.heng.sia@intel.com>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v2 4/4] dmaengine: dw-axi-dmac: Use bitfield helpers for
- registers
-Message-ID: <apZ4cTZUHWruo828@ashevche-desk.local>
-References: <20260901-dma-fix-v2-0-d7f0459ebb14@ultrarisc.com>
- <20260901-dma-fix-v2-4-d7f0459ebb14@ultrarisc.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="MzwJhCAX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=qJJBDCacdUAZFU2Dcce9ybJITAteO7mvwnJeT8NKy/o=; b=M
+	zwJhCAXjpGUn4yzBlkBP36h9xzkyNU/RyD66czEZfjwdEKgCE0BWYXKcVjjw/y/W
+	senlcza3CREUuSvol4rUlN3R1sv0w1rHJxt/MImk29QD4wwuxG99+iueAAbfMaYi
+	OVqohofuCmTLU6LcI51mqmh1gAenLh8wqX/jA0hlH8=
+Received: from chenyuan_fl$163.com ( [116.128.244.171] ) by
+ ajax-webmail-wmsvr-40-109 (Coremail) ; Tue, 1 Sep 2026 15:01:39 +0800 (CST)
+Date: Tue, 1 Sep 2026 15:01:39 +0800 (CST)
+From: chenyuan  <chenyuan_fl@163.com>
+To: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+Cc: bpf <bpf@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+	"Alexei Starovoitov" <ast@kernel.org>,
+	"Daniel Borkmann" <daniel@iogearbox.net>,
+	"Andrii Nakryiko" <andrii@kernel.org>,
+	"Eduard Zingerman" <eddyz87@gmail.com>,
+	"Kumar Kartikeya Dwivedi" <memxor@gmail.com>,
+	"Martin KaFai Lau" <martin.lau@linux.dev>,
+	"Song Liu" <song@kernel.org>,
+	"Yonghong Song" <yonghong.song@linux.dev>,
+	"Jiri Olsa" <jolsa@kernel.org>,
+	"Emil Tsalapatis" <emil@etsalapatis.com>,
+	"Ihor Solodrai" <ihor.solodrai@linux.dev>,
+	"Yuan Chen" <chenyuan@kylinos.cn>
+Subject: Re:Re: [PATCH bpf-next v4 2/3] bpf, arena: fix range_tree_set
+ inconsistency on kmalloc_nolock failure
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <CAADnVQKPSWBzaEc7QBT39C_N_32Gu5_P5Cob9G0rxcDgiSQg6g@mail.gmail.com>
+References: <20260824134016.2006188-1-chenyuan_fl@163.com>
+ <20260824134016.2006188-3-chenyuan_fl@163.com>
+ <CAADnVQKPSWBzaEc7QBT39C_N_32Gu5_P5Cob9G0rxcDgiSQg6g@mail.gmail.com>
+X-NTES-SC: AL_Qu2TCv6fuUgi7yKQZOkcnEsah+8/XMC0vvsm1YdRc+IEgR/pyjw7Xn19IXTk2eWJMAOIsAiJUBZp6MlkZK9Z5KQ90QDX0kXcxaO5edhMFw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-dma-fix-v2-4-d7f0459ebb14@ultrarisc.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Message-ID: <704850b0.58d3.1a05bc6055a.Coremail.chenyuan_fl@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:bSgvCgD3_0tUeJZq2Ps8AA--.7543W
+X-CM-SenderInfo: xfkh05pxdqswro6rljoofrz/xtbC5hRzMWqWeFT+fQAA3j
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Tue, Sep 01, 2026 at 02:16:07PM +0800, Jia Wang wrote:
-> The driver open-codes several channel configuration and descriptor
-> control bitfield writes with left shifts. Define masks for those fields
-> and use FIELD_PREP() when programming the registers.
-> 
-> Valid field values keep the same encoding. FIELD_PREP() confines values
-> to their respective fields, but does not validate handshake numbers
-> supplied through DMA specifiers.
-
-...
-
->  {
->  	u32 cfg_lo, cfg_hi;
->  
-> -	cfg_lo = (config->dst_multblk_type << CH_CFG_L_DST_MULTBLK_TYPE_POS |
-> -		  config->src_multblk_type << CH_CFG_L_SRC_MULTBLK_TYPE_POS);
-> +	cfg_lo = FIELD_PREP(CH_CFG_L_DST_MULTBLK_TYPE, config->dst_multblk_type) |
-> +		 FIELD_PREP(CH_CFG_L_SRC_MULTBLK_TYPE, config->src_multblk_type);
-
-Personally I would duplicate this to make each branch self-contained.
-
->  	if (chan->chip->dw->hdata->reg_map_8_channels &&
->  	    !chan->chip->dw->hdata->use_cfg2) {
-> -		cfg_hi = config->tt_fc << CH_CFG_H_TT_FC_POS |
-> -			 config->hs_sel_src << CH_CFG_H_HS_SEL_SRC_POS |
-> -			 config->hs_sel_dst << CH_CFG_H_HS_SEL_DST_POS |
-> -			 config->src_per << CH_CFG_H_SRC_PER_POS |
-> -			 config->dst_per << CH_CFG_H_DST_PER_POS |
-> -			 config->prior << CH_CFG_H_PRIORITY_POS;
-
-		cfg_lo = FIELD_PREP(CH_CFG_L_DST_MULTBLK_TYPE, config->dst_multblk_type) |
-			 FIELD_PREP(CH_CFG_L_SRC_MULTBLK_TYPE, config->src_multblk_type);
-
-> +		cfg_hi = FIELD_PREP(CH_CFG_H_TT_FC, config->tt_fc) |
-> +			 FIELD_PREP(CH_CFG_H_HS_SEL_SRC, config->hs_sel_src) |
-> +			 FIELD_PREP(CH_CFG_H_HS_SEL_DST, config->hs_sel_dst) |
-> +			 FIELD_PREP(CH_CFG_H_SRC_PER, config->src_per) |
-> +			 FIELD_PREP(CH_CFG_H_DST_PER, config->dst_per) |
-> +			 FIELD_PREP(CH_CFG_H_PRIORITY, config->prior);
->  	} else {
-> -		cfg_lo |= config->src_per << CH_CFG2_L_SRC_PER_POS |
-> -			  config->dst_per << CH_CFG2_L_DST_PER_POS;
-> -		cfg_hi = config->tt_fc << CH_CFG2_H_TT_FC_POS |
-> -			 config->hs_sel_src << CH_CFG2_H_HS_SEL_SRC_POS |
-> -			 config->hs_sel_dst << CH_CFG2_H_HS_SEL_DST_POS |
-> -			 config->prior << CH_CFG2_H_PRIORITY_POS;
-> +		cfg_lo |= FIELD_PREP(CH_CFG2_L_SRC_PER, config->src_per) |
-> +			  FIELD_PREP(CH_CFG2_L_DST_PER, config->dst_per);
-
-		cfg_lo = FIELD_PREP(CH_CFG_L_DST_MULTBLK_TYPE, config->dst_multblk_type) |
-			 FIELD_PREP(CH_CFG_L_SRC_MULTBLK_TYPE, config->src_multblk_type) |
-			 FIELD_PREP(CH_CFG2_L_SRC_PER, config->src_per) |
-			 FIELD_PREP(CH_CFG2_L_DST_PER, config->dst_per);
-
-> +		cfg_hi = FIELD_PREP(CH_CFG2_H_TT_FC, config->tt_fc) |
-> +			 FIELD_PREP(CH_CFG2_H_HS_SEL_SRC, config->hs_sel_src) |
-> +			 FIELD_PREP(CH_CFG2_H_HS_SEL_DST, config->hs_sel_dst) |
-> +			 FIELD_PREP(CH_CFG2_H_PRIORITY, config->prior);
->  	}
-
-...
-
-> -		reg = (DWAXIDMAC_BURST_TRANS_LEN_4 << CH_CTL_L_DST_MSIZE_POS |
-> -		       DWAXIDMAC_BURST_TRANS_LEN_4 << CH_CTL_L_SRC_MSIZE_POS |
-> -		       xfer_width << CH_CTL_L_DST_WIDTH_POS |
-> -		       xfer_width << CH_CTL_L_SRC_WIDTH_POS |
-> -		       DWAXIDMAC_CH_CTL_L_INC << CH_CTL_L_DST_INC_POS |
-> -		       DWAXIDMAC_CH_CTL_L_INC << CH_CTL_L_SRC_INC_POS);
-> +		reg = (FIELD_PREP(CH_CTL_L_DST_MSIZE, DWAXIDMAC_BURST_TRANS_LEN_4) |
-> +		       FIELD_PREP(CH_CTL_L_SRC_MSIZE, DWAXIDMAC_BURST_TRANS_LEN_4) |
-> +		       FIELD_PREP(CH_CTL_L_DST_WIDTH, xfer_width) |
-> +		       FIELD_PREP(CH_CTL_L_SRC_WIDTH, xfer_width) |
-> +		       FIELD_PREP(CH_CTL_L_DST_INC, DWAXIDMAC_CH_CTL_L_INC) |
-> +		       FIELD_PREP(CH_CTL_L_SRC_INC, DWAXIDMAC_CH_CTL_L_INC));
-
-Unneeded parentheses.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+ClRoZSB0d28gbG9va3VwcyBhbnN3ZXIgZGlmZmVyZW50IHF1ZXN0aW9ucywgc28gdGhlIHNlY29u
+ZCBvbmUgaXMKbm90IHJlZHVuZGFudDoKCi0gVGhlIHByZS1jbGVhciBsb29rdXAgb25seSBjb25z
+dW1lcyB0aGUgYm9vbGVhbiByZXN1bHQuICBOb2RlcyBhcmUKICBkaXNqb2ludCwgYW5kIGEgbm9k
+ZSBjb3ZlcmluZyBib3RoIHN0YXJ0IC0gMSBhbmQgbGFzdCArIDEgd291bGQKICBmdWxseSBjb3Zl
+ciBbc3RhcnQsIGxhc3RdLCB3aGljaCBpcyByZWplY3RlZCBieSB0aGUgZWFybHkgcmV0dXJuCiAg
+YWJvdmUuICBIZW5jZSByYW5nZV90cmVlX2NsZWFyKCkgY2FuIG9ubHkgcmVtb3ZlIG9yIHRydW5j
+YXRlIG5vZGVzCiAgb3ZlcmxhcHBpbmcgW3N0YXJ0LCBsYXN0XTogYSBub2RlIGNvdmVyaW5nIHN0
+YXJ0IC0gMSBlaXRoZXIgZW5kcwogIHRoZXJlICh1bnRvdWNoZWQpIG9yIHN0cmFkZGxlcyBzdGFy
+dCBhbmQgaXMgdHJ1bmNhdGVkIHRvCiAgW3JuX3N0YXJ0LCBzdGFydCAtIDFdLiAgQWRqYWNlbmN5
+IG9uIGVpdGhlciBzaWRlIGlzIHRoZXJlZm9yZQogIGludmFyaWFudCBhY3Jvc3MgdGhlIGNsZWFy
+LCBhbmQgIm5vIGFkamFjZW50IG5vZGUgb24gZWl0aGVyIHNpZGUiCiAgYmVmb3JlIHRoZSBjbGVh
+ciBpcyBleGFjdGx5IHRoZSBjb25kaXRpb24gZm9yIHRoZSBlbHNlLWJyYW5jaCAtLQogIHRoZSBv
+bmx5IGNhc2UgbmVlZGluZyBhIGZyZXNoIG5vZGUuICBJdCBtdXN0IGJlIGV2YWx1YXRlZCBiZWZv
+cmUKICBhbnkgdHJlZSBtb2RpZmljYXRpb24gdG8ga2VlcCB0aGUgLUVOT01FTSBwYXRoIHNpZGUt
+ZWZmZWN0IGZyZWUuCgotIFRoZSBwb3N0LWNsZWFyIGxvb2t1cCBmZXRjaGVzIHRoZSBub2RlIGhh
+bmRsZXMgdXNlZCBieSB0aGUKICBtZXJnZS9leHRlbmQgYnJhbmNoZXMuICBUaGUgcHJlLWNsZWFy
+IGhhbmRsZXMgY2Fubm90IGJlIHJldXNlZDoKICBhbiBhZGphY2VudCBub2RlIG1heSBzdHJhZGRs
+ZSB0aGUgcmFuZ2UgYW5kIGdldCB0cnVuY2F0ZWQgKGUuZy4KICBbc3RhcnQgLSAxLCBzdGFydCAr
+IDNdIGJlY29tZXMgW3N0YXJ0IC0gMSwgc3RhcnQgLSAxXSksIHNvIGJvdGgKICBpdHMgYm91bmRz
+IGFuZCBpdHMgcG9zaXRpb24gaW4gdGhlIHRyZWUgY2hhbmdlLiAgUmUtbG9va2luZyBpdCB1cAog
+IGtlZXBzIHJhbmdlX3RyZWVfc2V0KCkgaW5kZXBlbmRlbnQgb2YgaG93IHJhbmdlX3RyZWVfY2xl
+YXIoKQogIGltcGxlbWVudHMgdHJ1bmNhdGlvbiwgYW5kIGxlYXZlcyB0aGUgLUVGQVVMVCBjaGVj
+a3MgYmVsb3cgYXMgYQogIHNhbml0eSBjaGVjayBvZiB0aGUgY2xlYXIgaXRzZWxmLgogClRoZSBj
+b21tZW50IGluZGVlZCBmYWlscyB0byBzcGVsbCB0aGlzIG91dCAoYW5kICJhZGphY2VudCBmcmVl
+CnJhbmdlIiBpcyBiYWNrd2FyZHMpOyBJJ2xsIHJld29yZCBpdCBpbiB2NS4KCgpBdCAyMDI2LTA4
+LTI3IDEwOjU2OjA0LCAiQWxleGVpIFN0YXJvdm9pdG92IiA8YWxleGVpLnN0YXJvdm9pdG92QGdt
+YWlsLmNvbT4gd3JvdGU6Cj5PbiBNb24sIEF1ZyAyNCwgMjAyNiBhdCA2OjQw4oCvQU0gPGNoZW55
+dWFuX2ZsQDE2My5jb20+IHdyb3RlOgo+Pgo+PiBGcm9tOiBZdWFuIENoZW4gPGNoZW55dWFuQGt5
+bGlub3MuY24+Cj4+Cj4+IHJhbmdlX3RyZWVfc2V0KCkgcHJlLWFsbG9jYXRlcyB0aGUgbm9kZSBu
+ZWVkZWQgZm9yIGEgYnJhbmQtbmV3IHJhbmdlCj4+IGJlZm9yZSBjYWxsaW5nIHJhbmdlX3RyZWVf
+Y2xlYXIoKSwgc28gYW4gYWxsb2NhdGlvbiBmYWlsdXJlIHJldHVybnMKPj4gLUVOT01FTSB3aXRo
+b3V0IGhhdmluZyBtb2RpZmllZCB0aGUgdHJlZSAocHJldmlvdXNseSB0aGUgb3ZlcmxhcHBpbmcK
+Pj4gbm9kZXMgd2VyZSBhbHJlYWR5IHJlbW92ZWQgYnkgcmFuZ2VfdHJlZV9jbGVhcigpIGJlZm9y
+ZSB0aGUgYWxsb2NhdGlvbgo+PiB3YXMgYXR0ZW1wdGVkLCBwZXJtYW5lbnRseSBsb3NpbmcgdGhl
+IGNsZWFyZWQgc3ViLXJhbmdlcykuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IFl1YW4gQ2hlbiA8Y2hl
+bnl1YW5Aa3lsaW5vcy5jbj4KPj4gLS0tCj4+ICBrZXJuZWwvYnBmL3JhbmdlX3RyZWUuYyB8IDQ1
+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tCj4+ICAxIGZpbGUgY2hh
+bmdlZCwgMzQgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQg
+YS9rZXJuZWwvYnBmL3JhbmdlX3RyZWUuYyBiL2tlcm5lbC9icGYvcmFuZ2VfdHJlZS5jCj4+IGlu
+ZGV4IDE1YjU4ODM3N2E3Ni4uNTQwNTViMWZlNTQxIDEwMDY0NAo+PiAtLS0gYS9rZXJuZWwvYnBm
+L3JhbmdlX3RyZWUuYwo+PiArKysgYi9rZXJuZWwvYnBmL3JhbmdlX3RyZWUuYwo+PiBAQCAtMTk5
+LDYgKzE5OSw3IEBAIGludCBpc19yYW5nZV90cmVlX3NldChzdHJ1Y3QgcmFuZ2VfdHJlZSAqcnQs
+IHUzMiBzdGFydCwgdTMyIGxlbikKPj4gIGludCByYW5nZV90cmVlX3NldChzdHJ1Y3QgcmFuZ2Vf
+dHJlZSAqcnQsIHUzMiBzdGFydCwgdTMyIGxlbikKPj4gIHsKPj4gICAgICAgICB1MzIgbGFzdCA9
+IHN0YXJ0ICsgbGVuIC0gMTsKPj4gKyAgICAgICBzdHJ1Y3QgcmFuZ2Vfbm9kZSAqbmV3X3JuID0g
+TlVMTDsKPj4gICAgICAgICBzdHJ1Y3QgcmFuZ2Vfbm9kZSAqcmlnaHQ7Cj4+ICAgICAgICAgc3Ry
+dWN0IHJhbmdlX25vZGUgKmxlZnQ7Cj4+ICAgICAgICAgaW50IGVycjsKPj4gQEAgLTIwOCwyMCAr
+MjA5LDQwIEBAIGludCByYW5nZV90cmVlX3NldChzdHJ1Y3QgcmFuZ2VfdHJlZSAqcnQsIHUzMiBz
+dGFydCwgdTMyIGxlbikKPj4gICAgICAgICBpZiAobGVmdCAmJiBsZWZ0LT5ybl9zdGFydCA8PSBz
+dGFydCAmJiBsZWZ0LT5ybl9sYXN0ID49IGxhc3QpCj4+ICAgICAgICAgICAgICAgICByZXR1cm4g
+MDsKPj4KPj4gKyAgICAgICAvKgo+PiArICAgICAgICAqIEEgbmV3IG5vZGUgaXMgbmVlZGVkIG9u
+bHkgd2hlbiB0aGUgcmFuZ2UgaGFzIG5vIGFkamFjZW50IGZyZWUKPj4gKyAgICAgICAgKiByYW5n
+ZSBvbiBlaXRoZXIgc2lkZS4gIFRoaXMgaXMga25vd24gYmVmb3JlIGNsZWFyaW5nOiBhbnkgcmFu
+Z2UKPj4gKyAgICAgICAgKiBjb3ZlcmluZyBzdGFydCAtIDEgb3IgbGFzdCArIDEgc3Vydml2ZXMg
+dGhlIGNsZWFyIGFzIGFuIGFkamFjZW50Cj4+ICsgICAgICAgICogcGllY2UuCj4KPklmIHRoaXMg
+aXMgdHJ1ZSwgd2h5IGRvIGEgMm5kIGNhbGwgdG8gbGVmdCA9IHJhbmdlX2l0X2l0ZXJfZmlyc3Qo
+KSA/Cj4KPgo+PiAgQWxsb2NhdGUgb25seSBpbiB0aGF0IGNhc2UsIGJlZm9yZSBtb2RpZnlpbmcg
+dGhlIHRyZWUsIHNvCj4+ICsgICAgICAgICogYSBmYWlsdXJlIGxlYXZlcyB0aGUgcmFuZ2UgdHJl
+ZSB1bm1vZGlmaWVkCj4+ICsgICAgICAgICovCj4+ICsgICAgICAgbGVmdCA9IHJhbmdlX2l0X2l0
+ZXJfZmlyc3QocnQsIHN0YXJ0IC0gMSwgc3RhcnQgLSAxKTsKPj4gKyAgICAgICByaWdodCA9IHJh
+bmdlX2l0X2l0ZXJfZmlyc3QocnQsIGxhc3QgKyAxLCBsYXN0ICsgMSk7Cj4+ICsgICAgICAgaWYg
+KCFsZWZ0ICYmICFyaWdodCkgewo+PiArICAgICAgICAgICAgICAgbmV3X3JuID0ga21hbGxvY19u
+b2xvY2soc2l6ZW9mKHN0cnVjdCByYW5nZV9ub2RlKSwKPj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIF9fR0ZQX0FDQ09VTlQsIE5VTUFfTk9fTk9ERSk7Cj4+ICsgICAg
+ICAgICAgICAgICBpZiAoIW5ld19ybikKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
+IC1FTk9NRU07Cj4+ICsgICAgICAgfQo+PiArCj4+ICAgICAgICAgLyogQ2xlYXIgb3V0IGV2ZXJ5
+dGhpbmcgaW4gdGhlIHJhbmdlIHdlIHdhbnQgdG8gc2V0LiAqLwo+PiAgICAgICAgIGVyciA9IHJh
+bmdlX3RyZWVfY2xlYXIocnQsIHN0YXJ0LCBsZW4pOwo+PiAgICAgICAgIGlmIChlcnIpCj4+IC0g
+ICAgICAgICAgICAgICByZXR1cm4gZXJyOwo+PiArICAgICAgICAgICAgICAgZ290byBvdXRfZnJl
+ZV9uZXc7Cj4+Cj4+ICAgICAgICAgLyogRG8gd2UgaGF2ZSBhIGxlZnQtYWRqYWNlbnQgcmFuZ2Ug
+PyAqLwo+PiAgICAgICAgIGxlZnQgPSByYW5nZV9pdF9pdGVyX2ZpcnN0KHJ0LCBzdGFydCAtIDEs
+IHN0YXJ0IC0gMSk7Cj4KPnB3LWJvdDogY3IK
