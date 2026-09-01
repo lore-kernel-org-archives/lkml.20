@@ -1,220 +1,113 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C8A46AEFC
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:37:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE90409613;
+	Tue,  1 Sep 2026 07:37:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248231; cv=none; b=SyKpZCSjZWFaq6nzfsqugbxvNgJOLGrtkrlIV9ovJ391xJ+9zSd2EYsaFFVjQk4yV4kKsTF1GL3kqTg4gLEg6HABrlc3luJKaqaVLCmTMxDjJa1B3UKdgMewESaSlxA8xPwQSBP/4AIb5xyNz0YCmNEA7eOfg5shmwecJijCgD8=
+	t=1788248250; cv=none; b=GvYmgCDfkH35x8G1e8SGvSopkTRijRDUvLcZWLhexKp+U8V/dkiJDr7dJ9KN4Df5UeSrCucdiXyT5PUvbuyIHFpzyMwdtUc3NbZ2sHICWadD2uwXovy7UlmNYqhpqxyGivALNILAK+zHRNGIv8yZistc6MZNsAJ2QWlXJFyOqYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248231; c=relaxed/simple;
-	bh=FJwryxdj6SeAfeatAboNCbJuNSz4L2laoNofSSSnyxI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TLFOy2p+WuR7o2b4dTLNAoVaV4tWVnEx100GehH+ZLbDfU5lOvZRM/doS6158Ac3eZk2nSl+/E4U+QV3rqAJwhLcrxsdbn9wZp4PrfaywjtD502+WQOZE98wrR+6TEDajgVp8zKqLVlrSipTamfsqz1wbrgaq7F/L7MyQ5OTpi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fZxogu5o; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jgMLF2p8; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788248250; c=relaxed/simple;
+	bh=YWhrTAzO18o0k0suaGfyHOgQG9gE9tNjI+kecFq43Y0=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=ooGf7fZXSDIgff01LivnF8Qua3atPZtEA3VoVGO8LHg41GcdVAuUgKv74xjosIo3J6tY+KvpKrLmTTLgGPcZuzKugy4z29O3fYOI/cWDgpNfp39ynDUl/XK94Xn9XHvE8xX8YIKjrJZXbDVLGfje8o+fuddEvQ9NFbL/IfHS/sY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bQtHKsnh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fZxogu5o";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jgMLF2p8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788248228;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sJI7b9uIFuaHf590ZX0b+HvWZoEv+dLMUmfbEqRC6AY=;
-	b=fZxogu5oE2aq5NYYULtqjbn72COhduwYhUY50e9I7c9eIvnr/bRH3gEGJEa/TVLnSHpwJU
-	3lkwSoGyrOiMRbHMW4CDoWx04uuN6W6BoC98hfmOJxyaz5h4XOcTC3CUD1MsT6dYVuHk6g
-	xomXJANBsZvt03BKSTwUtjy8t/RbRlE=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-226-nwdXXLgyNIK3KWsvOQbVyw-1; Tue, 01 Sept 2026 03:37:07 -0400
-X-MC-Unique: nwdXXLgyNIK3KWsvOQbVyw-1
-X-Mimecast-MFC-AGG-ID: nwdXXLgyNIK3KWsvOQbVyw_1788248226
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4994aebe932so43218415e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:37:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788248226; x=1788853026; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sJI7b9uIFuaHf590ZX0b+HvWZoEv+dLMUmfbEqRC6AY=;
-        b=jgMLF2p8tcprFdbhmlgojh0EQNBDWMNznDDz8+99YsWvXdrtErW74P2hBbLABW41pU
-         PECHfXmROOT3grXgMTnKCSKzM+7fdCszb9j9SudKt3zIBns1Qr59RHP7dpYvoHMOZ/UL
-         L4ORzNkfaNZ1MajOYOy2UVmC2s1lRGyT8g5wyTHNqvRx310sh8A+/zsJ4OUH9+MdfisI
-         ULJEnS1h9Kf8fA3qK8Dzkr/rVApUfyv3z0xrH3Hu0h2VkJhmve07V853Gh+VZjRVeQs1
-         nvrYKDjBWyVAvsusO/hE0asq/Bg30xwsr91BEFaaGbEYr57xCQz5qasD8YDVL/VJhM9v
-         iHtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788248226; x=1788853026;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sJI7b9uIFuaHf590ZX0b+HvWZoEv+dLMUmfbEqRC6AY=;
-        b=PNLvqDWU8Mm5kUr2qZYsV6dHuoskNz1+cYDT7nhntVq8pI3omdh2t55JfHAC8Z3L19
-         bVd7arkRoQ4qVig+POvW7qBIgOmf8jtIq9nHFVemjfvMVBUoCw233buw1jvfKg31RCb9
-         UqqdUBGJf96THwuYMPfUXX9ZRY98fcL4ivgnDl/5y9bZ12YY52t81zxYg7Xzrt9NfvGC
-         4h9gCWe2ZpFrZ4g8p70MC6CX0+3uBP8C+saOUI6Qrz+QcShcHAaiPV+tmV2f6SN6xGCm
-         SqIGUTYZZrm99xexYvCBZIuJXIgfiNko7ehuh+UbKyTlQPgOMkrcP/j4WaBmjvK/wsHx
-         LoOA==
-X-Forwarded-Encrypted: i=1; AHgh+RoM89UHXiTXUfokwyWzeoHqZe43VAYDnEEOptx+aI5A/CQknkWt1KXs0agPuIt64n+B+4l0ZIhbXF6KD5o=@vger.kernel.org
-X-Gm-Message-State: AFuF++m25it+0jgfTj/z9ub5EMFm8i+upqcXERdQAG5A+J/Xx5pyZmzc
-	d2wFH7ANnsIfwuOZwOTkoxW3m/GF2l1R6PctRl5N5ActhABe08ATQ4ceifMMmnnKqN+48ff7uT1
-	rhqzPIliOyq4D3Uv84BM7KTCIVBN6Hg+0LTLbZ//8AG4gL8AijLISU9sC99dgi9ifZA==
-X-Gm-Gg: AR+sD13JsxAnQe+NoL070rttK5cGeAYf48P5w1zzEPZsUI9puotNDfBaYfsPBKdaklb
-	jYOZCxZ8IphO8OUnVsGgZgFELgJPr2uvJB6l3XtYByVTO82Z4wpdluN/t36vfWR/Ol0dH9W3l6e
-	YGJb4IsUYVsBTBqndm7N47z3/Kn97rmgYT0hyXNkeoy/sOkqSEVVEKOMMtPYoWbtkxt1IcjtxV/
-	GlKWXwZlVGu1EU3mxPqT/E364+J8be3Q2PWFfuy3Sx44hT3EmAN6VMvNHxDVVzsNtDpxqAfIs/F
-	50u8H89alwvHKqtpaDt7VjaVlGaET/kJ3x+WNukeP45SIBYtYCwkdF9x/o3nrRmVCKYPfwTCz41
-	cYQj/ymvnWbW9VBSaPAQoleomyAvBO3vCMZCprR3JcWpWddHju054vL5Ke04CdP05c78vTC6pEQ
-	==
-X-Received: by 2002:a05:600c:3b2a:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49cdc57d1d1mr95574055e9.16.1788248226219;
-        Tue, 01 Sep 2026 00:37:06 -0700 (PDT)
-X-Received: by 2002:a05:600c:3b2a:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49cdc57d1d1mr95573025e9.16.1788248225616;
-        Tue, 01 Sep 2026 00:37:05 -0700 (PDT)
-Received: from [192.168.188.103] (ip245-45-231-195.pool-bba.aruba.it. [195.231.45.245])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce3e4e7sm45045755e9.9.2026.09.01.00.37.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 00:37:04 -0700 (PDT)
-Message-ID: <3e84c09f-d760-41e9-a99f-0d86239b5ebd@redhat.com>
-Date: Tue, 1 Sep 2026 09:37:02 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bQtHKsnh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0531E1F00A3E;
+	Tue,  1 Sep 2026 07:37:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788248248;
+	bh=5InVR3DIcYRXXZ5wturlq13dwqbAyrV8dms03I7kggk=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=bQtHKsnhXfXDB1Vba6gPfI/Pz2xAt8l+9kRaRNZrwV/wiMpx6Vi2KnPDSmV+E4qCd
+	 jdewStYfoy25+JLY8tyYpxEw6blWALivvbwkMv3FLO6zHQeUbOHALYs3ZSwVimAPt5
+	 2s6P795aL2zay9ALXYSvzipOkPmldElQQzXiLlVPwuQNiMo4k8p8LMJWwarpWFbsDw
+	 O9Jkc+ZPpvQy6UXbxaFTuET6NO039dvKkW/ClUhSkrDG2Cb0bO0hGevWxQIm3G4/eX
+	 s7yiKXYSBJVvG87PGS6jzEkoztCBavJJV5AQI/hhohHmGVNb0FHeXpO1yu4Q6Zf2QV
+	 +MlizTOrNP9Rw==
+Content-Type: multipart/mixed; boundary="===============6084755435345711036=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 5/5] tcp: Remove mmap_lock fallback path
-To: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org,
- Eric Dumazet <edumazet@google.com>
-Cc: dave.hansen@linux.intel.com, Liam.Howlett@oracle.com, ljs@kernel.org,
- david@redhat.com, willy@infradead.org, shakeel.butt@linux.dev,
- vbabka@kernel.org, jannh@google.com, aliceryhl@google.com, arve@android.com,
- cmllamas@google.com, christian@brauner.io, tkjos@android.com,
- dsahern@kernel.org, davem@davemloft.net, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, netdev@vger.kernel.org,
- syzbot@syzkaller.appspotmail.com
-References: <20260831203056.838265-1-surenb@google.com>
- <20260831203056.838265-6-surenb@google.com>
-From: Paolo Abeni <pabeni@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20260831203056.838265-6-surenb@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Message-Id: <b691397e6e629330bea6bbb1f83af78a68e2a39a54af48f401f3f24f3078d879@mail.kernel.org>
+In-Reply-To: <20260901062845.1379760-2-chenyuan_fl@163.com>
+References: <20260901062845.1379760-2-chenyuan_fl@163.com>
+Subject: Re: [PATCH bpf-next v3 1/4] bpf: Cancel special fields in resizable hashtab on recycle
+From: bot+bpf-ci@kernel.org
+To: chenyuan_fl@163.com,bpf@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,mykyta.yatsenko5@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,gnq25@mails.tsinghua.edu.cn,chenyuan@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue,  1 Sep 2026 07:37:27 +0000 (UTC)
 
-adding Eric.
+--===============6084755435345711036==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Full series at:
+> diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
+> index d40cb5dd446ca..aaedda3730f37 100644
+> --- a/kernel/bpf/hashtab.c
+> +++ b/kernel/bpf/hashtab.c
 
-https://lore.kernel.org/netdev/20260831203056.838265-1-surenb@google.com/
+[ ... ]
 
-On 8/31/26 10:30 PM, Suren Baghdasaryan wrote:
-> From: Dave Hansen <dave.hansen@linux.intel.com>
-> 
-> Previously, the per-VMA locking could fail in the face of writers
-> which necessitates a fallback to mmap_lock. The new
-> vma_start_read_unlocked() will wait for writers instead of failing.
-> 
-> Use the new helper. Wait for writers. Remove the fallback to mmap_lock.
-> The fallback removal does not affect NOMMU case because TCP_ZEROCOPY
-> is gated on CONFIG_MMU.
-> 
-> This really is a nice cleanup. It removes the need to pass the lock
-> state back and forth to find_tcp_vma().
-> 
-> Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-> Acked-by: Lorenzo Stoakes <ljs@kernel.org>
-> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> Tested-by: syzbot@syzkaller.appspotmail.com
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Liam R. Howlett <Liam.Howlett@oracle.com>
-> Cc: Vlastimil Babka <vbabka@kernel.org>
-> Cc: Shakeel Butt <shakeel.butt@linux.dev>
-> Cc: linux-mm@kvack.org
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Arve Hjønnevåg <arve@android.com>
-> Cc: Todd Kjos <tkjos@android.com>
-> Cc: Christian Brauner <christian@brauner.io>
-> Cc: Carlos Llamas <cmllamas@google.com>
-> Cc: Alice Ryhl <aliceryhl@google.com>
-> Cc: David S. Miller <davem@davemloft.net>
-> Cc: David Ahern <dsahern@kernel.org>
-> Cc: netdev@vger.kernel.org
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> ---
->  net/ipv4/tcp.c | 31 +++++++++----------------------
->  1 file changed, 9 insertions(+), 22 deletions(-)
-> 
-> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-> index 455441f1b694..62defe70f3ce 100644
-> --- a/net/ipv4/tcp.c
-> +++ b/net/ipv4/tcp.c
-> @@ -2167,27 +2167,18 @@ static void tcp_zc_finalize_rx_tstamp(struct sock *sk,
->  }
->  
->  static struct vm_area_struct *find_tcp_vma(struct mm_struct *mm,
-> -					   unsigned long address,
-> -					   bool *mmap_locked)
-> +					   unsigned long address)
->  {
-> -	struct vm_area_struct *vma = lock_vma_under_rcu(mm, address);
-> +	struct vm_area_struct *vma = vma_start_read_unlocked(mm, address);
->  
-> -	if (vma) {
-> -		if (vma->vm_ops != &tcp_vm_ops) {
-> -			vma_end_read(vma);
-> -			return NULL;
-> -		}
-> -		*mmap_locked = false;
-> -		return vma;
-> -	}
-> +	if (!vma)
-> +		return NULL;
->  
-> -	mmap_read_lock(mm);
-> -	vma = vma_lookup(mm, address);
-> -	if (!vma || vma->vm_ops != &tcp_vm_ops) {
-> -		mmap_read_unlock(mm);
-> +	if (vma->vm_ops != &tcp_vm_ops) {
-> +		vma_end_read(vma);
->  		return NULL;
->  	}
-> -	*mmap_locked = true;
-> +
->  	return vma;
->  }
->  
-> @@ -2208,7 +2199,6 @@ static int tcp_zerocopy_receive(struct sock *sk,
->  	u32 seq = tp->copied_seq;
->  	u32 total_bytes_to_map;
->  	int inq = tcp_inq(sk);
-> -	bool mmap_locked;
->  	int ret;
->  
->  	zc->copybuf_len = 0;
-> @@ -2233,7 +2223,7 @@ static int tcp_zerocopy_receive(struct sock *sk,
->  		return 0;
->  	}
->  
-> -	vma = find_tcp_vma(current->mm, address, &mmap_locked);
-> +	vma = find_tcp_vma(current->mm, address);
->  	if (!vma)
->  		return -EINVAL;
->  
-> @@ -2315,10 +2305,7 @@ static int tcp_zerocopy_receive(struct sock *sk,
->  						   zc, total_bytes_to_map);
->  	}
->  out:
-> -	if (mmap_locked)
-> -		mmap_read_unlock(current->mm);
-> -	else
-> -		vma_end_read(vma);
-> +	vma_end_read(vma);
->  	/* Try to copy straggler data. */
->  	if (!ret)
->  		copylen = tcp_zc_handle_leftover(zc, sk, skb, &seq, copybuf_len, tss);
+> @@ -3022,10 +3013,12 @@ static long rhtab_map_update_existing(struct bpf_map *map, struct rhtab_elem *el
+>  	 * BPF_F_LOCK, matching arraymap semantics.
+>  	 *
+>  	 * copy_map_value() skips special-field offsets, so old timers/
+> -	 * kptrs/etc. still sit in the slot. Cancel them after the copy
+> -	 * to match arraymap's update semantics.
+> +	 * kptrs/etc. still sit in the slot. Cancel the NMI-safe ones after
+> +	 * the copy to match arraymap's update semantics; referenced kptrs
+> +	 * stay attached and are destroyed by rhtab_mem_dtor().
+>  	 */
+> -	rhtab_check_and_free_fields(rhtab, elem);
+> +	bpf_obj_cancel_fields(&rhtab->map,
+> +			      rhtab_elem_value(elem, rhtab->map.key_size));
 
+This isn't a bug, but could the second argument use old_val here? It
+already holds rhtab_elem_value(elem, map->key_size) from the top of the
+function and is used by copy_map_value_locked() two lines above.
+
+> @@ -3066,7 +3059,14 @@ static long rhtab_map_update_elem(struct bpf_map *map, void *key, void *value, u
+>
+>  	memcpy(elem->data, key, map->key_size);
+>  	copy_map_value(map, rhtab_elem_value(elem, map->key_size), value);
+> -	check_and_init_map_value(map, rhtab_elem_value(elem, map->key_size));
+> +	/*
+> +	 * No explicit special-field initialization, matching the hash map's
+> +	 * non-prealloc path: fresh elements come zeroed from the bpf mem
+> +	 * allocator, and recycled elements had their timer/workqueue/task_work
+> +	 * slots reset by bpf_obj_cancel_fields() on delete. kptr slots are
+> +	 * left untouched so a recycled element keeps owning its reference
+> +	 * until rhtab_mem_dtor() releases it.
+> +	 */
+
+A subsystem pattern flags this as potentially concerning: the
+copy_map_value() call on a field-capable map type is no longer followed
+by check_and_init_map_value().
+
+Looking at the non-prealloc hash map path in alloc_htab_elem(), it
+appears this pattern has never called check_and_init_map_value() for
+fresh elements, and the bpf mem allocator does return zeroed memory. For
+recycled elements, the kptr slot staying intact is the intended behavior
+since rhtab_mem_dtor() handles final cleanup.
+
+Could you confirm this removal is safe for all special field types that
+BPF_MAP_TYPE_RHASH supports?
+
+This isn't a bug, but does the seven-line comment block add clarity over
+the briefer explanations already present in rhtab_delete_elem() and
+rhtab_map_update_existing()? The same rationale appears three times
+within about 110 lines.
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33478386254
+--===============6084755435345711036==--
