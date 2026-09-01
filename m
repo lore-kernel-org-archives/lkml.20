@@ -1,61 +1,63 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7329C4A2049
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A92F4A2052
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788290796; cv=none; b=tHgGAzf0+ax3D2gQO3YtPd+ioA2za7dTJh5W8DjIP+EAllG9b1gm3ZiGEEUlJH+ILWshPjVgF9XpmGDvI3UWeU1oeeg2pTZXL8pC5sc9cPF+NG40W5ARNQ5oyH/HKMq6EfXrZXL3W2QHZDxMSLJbyzx0s8LHRDU10VniprzM+FQ=
+	t=1788290797; cv=none; b=hhUOIYY5y7UZ0xkDQ78zvR7j52qtm3KFpemhhY42WzdjiELY/UHl966rDnoETQinWwtz1Rz5uedKm7AO7EsKepyv4LNRR0bvn98C/wNzqsfDkhedoqi2PHWxFaNFZIe5BWwBizEGaINrqeq2zrkFFH6jV8/BPPEubDFCUZzh4Wg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788290796; c=relaxed/simple;
-	bh=8IldVcKFWxRF8a6xnc4EgOvN6n/T6fyKnTnlCA44KsM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jhmkYOisqM8ewlCdtVWLUjFkprEre3qIFbTV7VFfczviDINHGUoDjHl465nNKuk02rorMCui9P3PO83X3M6itg+48EG3HHvZxWZo0ohNlGeUX3ipKUfcfqPO+47P6w0jpwSHir08h8r40RRUoIWvvcE4OOUyhmi7TZdxH4AK7IE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ocFyX2/p; arc=none smtp.client-ip=209.85.208.52
+	s=arc-20240116; t=1788290797; c=relaxed/simple;
+	bh=Phr/lyT83N6DYL7BdtQd1/VdiLOr4iWUkwC8JFgGLyw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NHMTr6lAOba3flG3dGYXjHl9p5wRurQxi2u1RnbGVTof2JQ3ZErdYirrfePJ7Jr5+AkJVHMqtDO7aCTvFLg5DzrxjS6iOCS2Dyfi3nafNUMZfWTi/u9psUsmC3cFjqFsXpKQuZ4vEd9aYmq6jUVYzbPCWepXZiAdHIDlm3xiJjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nb0qJvel; arc=none smtp.client-ip=209.85.208.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ocFyX2/p"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a68279dd86so13124a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:26:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nb0qJvel"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a61910369bso288627a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:26:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1788290793; x=1788895593; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R+dXlhW9X6Vrf/RHdUTXz/EyouRxzz9SL0VdPXRzdMM=;
-        b=ocFyX2/pyQNio0CRrsg2Rx8OvZTrONbRU0wGmi3iA5xKSDvKSL2a3iyY8cyCfwfWex
-         ar7+ldz4uhJ+RTQcj9FOv5OZFufVo/eclXExogi3+PmXsDIuYVQYRQEwf/9m3xPv5XYf
-         o1vY0QaMjvM90vOIamed9iqGLbgSyiGpy1LdgT1fG0Ul/KH9EXtEiqQ3OrNNSgiv0RUp
-         K354k3ikbAyfm/0Ur85LF+KTqvqb1kxRnfAEVMpVeksKq5o23SBRkQwRfFX0oz2SK2DF
-         KyYWmcz2htoQfQkw1x47CcJBv/d6w6rOW3z2m8p4zc6YMn1xxaZ8POogSo3iT/vpn2EO
-         U+tQ==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+jZowfmyKxOguFaJuZq/Bm4rZ+Os6TFRN1DcxWsiy2Q=;
+        b=nb0qJvelweh72Eh8xFecIIJGexpOlBTjJnA+Vd56Q5a+sPXa+vgsPG+IWtqei3h9S8
+         mI2vZAcPE7GDz07cpSYuIK0BkuNduXvajSkpiEvZRJpepGwsDkM5PwQyzGjwrtjKFSSA
+         8h+Hz6JX1sZOlk3hHQO4oFgKu/I7+E+IuCzWhEDGHA5ILfhmtNEBGH0jQIClV/IoYj1p
+         Ocy6MwJFaIRrm4CRpFt7eVZyGhNGvAomWh0jiatmVP9vlBjoJLyj4cBtfb0gW8CjtB2a
+         CgorVoJsVasH/F/3oCZjmRkbIEAHr1iBICVhTGW3ibHXs6PoUiLytY1SE5srW+rKvtic
+         HWFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788290793; x=1788895593;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R+dXlhW9X6Vrf/RHdUTXz/EyouRxzz9SL0VdPXRzdMM=;
-        b=AI2VBdMF2bJ3geHOCcUAgVr73uOd5ffZ55xbWAMHsLbWwfVdBoQmtllT+Bhxb2G02e
-         S9vmqOs2F8GckopPatzlUP3oBkNdzkNKnolx2skkuVcOnVwJiWehNmSR3sOQgEnYqX1W
-         Qwb+EoIKtodamlevYaOfJzOxT8/UDzgSZHcFSwrlUdhkiwUDPKrV6xL8ZcfvGeFCJUXX
-         492U1HawDwQYoYYS2gKnZihMQ0279ns8M6zPl65ZnkSCcLkI3NEBTKWkqbPKKmvuspjI
-         ldf6VJeEz61gGwTuCetFK+Xy5NIuIqitJ7LLhGPJFDzi6iucr3zVfCJm5+Zk8gpvoBNc
-         mEdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxkWyhzIYAQCO0CV+rbI+5/+qPPMWLWawYWh+qFhu3V/nA02oK+jpOhU1KNn0ppS4NISyPgT5gL9X5Rdw8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIE1m/1VjpZbzdbKg0vf8NB9pogAfCcv65IYQeW5RDXH8kHoQm
-	ZEOzrlIm/xJcFTJx99cbmXglUNWuyyuwiIuMxjRJpqUU5RzcBK3D0tfv
-X-Gm-Gg: AYBFou15mEtNBLu3uBx93c1WUJUHlYa8LJh6ZQCJejwmrcnq3Ec5EEC96dIbUPDJJDF
-	eEqEvogZsbOwUDJspKN1oOecmU6puh9+mIiNcRELTtiHT/8nkeb0FmeaH9SRG8WiA4LnVwb6zJx
-	mjg/FfZkPVNhRqeGuLSW63EstDIucvDdSZC9ZwcuF0uTv+AIvY4djbtlaXb+jfxgSR3bFv+8wUx
-	fsTYDv5wgKwfckeI/9KblqAfQt+M2YyYwzq61NmAr53MDIKPFSydZboVxhmXmU2cyQY+afvgIG0
-	UoXCBHgsPBziBel9Wl8qIrss4x6kbndrQHVckpRC4b64hmtrWt4kNt1VzpLH1m6t5O/7La1mxPs
-	QAYn+gD4HnX/fkmcdR2dH0CgqmAidhmZDn/j9vOn5mMy4gMP921EQP40vW8dbL088rJuTME6MbR
-	6npt2lI5huM/GOOwOv+9sqRjyAfDF0yiifhITgsKwWtacKWcVOv5YvfyGbRU9AEQ==
-X-Received: by 2002:a05:6402:388b:b0:6a3:f4fe:9d5f with SMTP id 4fb4d7f45d1cf-6a6829af072mr27436a12.11.1788290792518;
-        Tue, 01 Sep 2026 12:26:32 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+jZowfmyKxOguFaJuZq/Bm4rZ+Os6TFRN1DcxWsiy2Q=;
+        b=JsOtEvH2vkkquFzRMByENj1KnylyMSUGfal/VJJ9aWvpK69twmjeRK9Ng8CHBjyl+N
+         ozwihV+KAef+u/ahEkI0oF/slozRxrhFKBfe77/ZMXYPz1Wb+I0JRr2KsnHaSjrU2nZk
+         pIgRah0wq3n/wPc1P7kkWvGlx+ZtEE9dHSotV49BBlqWVLVbf0bEsjzIFRMfkAX1atIG
+         onx47rAXtJOrRlsd2ghpnd0v4r2C2g7Fvxll8PO1tDT/OQxoTUEFpl9q9VLO6A+XzUCL
+         rX34mdHG0NH1IWsZWP/kq+HakcfEQxuQpuwTBtc6wehzeNTsIr2JgPePxhHrDfy3VsvQ
+         E1zA==
+X-Forwarded-Encrypted: i=1; AKwUvBxBAMJbV0+jiGZlRhP+F84u/Zy9oTKttVxHHNuKR/s4tVRrashFTrZzxJOOZY3Zyk4loXeolGI0UJwqlHo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCa5M66Y0ZpvJ19SP1WfmqIlC0+DrBYbGCLLezW6QuU1bdVSEI
+	lmvvD5nOAQjicJkW8SGC0Ydl/ou3euOd3+pgi7Zscxedf3AmXwWKMHWs
+X-Gm-Gg: AYBFou3xHpl2ciQ3E3NIbEeU2VWl7SyWZuiaMHGIawFwh0o9yqiBiRylIQQlfJWjOtC
+	sLev5YTLalZEoCgZYmc3v/mRJNaxWhU7ZZHidmD/QQj+TM74SHIuzsapwbCv27LG63+vyWwsV9p
+	j59rTQfGrEZoDAqeAjLa3R2GELxzk0WOZXy/cZ4q0/5XOI32GyhpczcU8q5mrOEuIO6rV74PM3u
+	lUzoZ8ByfUDuoG75opB2BGhOxUQXiFVK9RrT206FOEJuP6UeDBezF91owxcLEiM/E+VS94QzeSA
+	9ngA9dioRqQU+XYpWkSZKRYSBDkqzkQF7ifyz5h3u4W760WlKke1kGdajaYoLcVlU5drQuJfT11
+	ZyyXVIQOZ93X97TldS1XQUenXuK+TzRCVBipZTb6PeQHH+0nxa0OwEqjCDdo8bg++cIzBk+Wjtg
+	XW8VWvLzmLrSvS8SmBkOG7vp/EfXI4jqK78FNzTWSruILd1UfV8DwaA0D6f0e4Ww==
+X-Received: by 2002:a05:6402:5305:b0:6a6:757d:6311 with SMTP id 4fb4d7f45d1cf-6a68257c1eemr63061a12.9.1788290793582;
+        Tue, 01 Sep 2026 12:26:33 -0700 (PDT)
 Received: from khalil-hp.home ([62.250.116.161])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f94242csm146373a12.21.2026.09.01.12.26.31
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f94242csm146373a12.21.2026.09.01.12.26.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 12:26:32 -0700 (PDT)
+        Tue, 01 Sep 2026 12:26:33 -0700 (PDT)
 From: Khalil <khalilst@gmail.com>
 X-Google-Original-From: Khalil <khalil@rentman.nl>
 To: Mark Brown <broonie@kernel.org>,
@@ -70,11 +72,14 @@ Cc: Richard Fitzgerald <rf@opensource.cirrus.com>,
 	platform-driver-x86@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Khalil <khalil@rentman.nl>
-Subject: [PATCH v3 0/3] Fix CS35L56 amplifier on Intel LPSS SPI with broken ACPI cs-gpios
-Date: Tue,  1 Sep 2026 21:26:22 +0200
-Message-ID: <20260901192625.1497791-1-khalil@rentman.nl>
+	Khalil <khalil@rentman.nl>,
+	Khalil <khalilst@gmail.com>
+Subject: [PATCH v3 1/3] spi: Preserve preset cs_gpiod in __spi_add_device()
+Date: Tue,  1 Sep 2026 21:26:23 +0200
+Message-ID: <20260901192625.1497791-2-khalil@rentman.nl>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901192625.1497791-1-khalil@rentman.nl>
+References: <20260901192625.1497791-1-khalil@rentman.nl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,49 +88,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-v3 of the patch series fixing dual CS35L56 amplifiers on HP laptops
-with Intel Lunar Lake and broken ACPI cs-gpios.
+__spi_add_device() unconditionally overwrites spi->cs_gpiod[] from
+ctlr->cs_gpiods[cs], even if the caller has already set a GPIO
+descriptor on the device. This prevents drivers like
+serial-multi-instantiate from pre-configuring a GPIO chip select
+acquired from ACPI before adding the device.
 
-Changes since v2:
-- Rebased onto broonie/spi for-next (commit b00c00f7dc)
-- No code changes
+Skip the overwrite when the device already has a cs_gpiod set for
+the given index, allowing callers to preset GPIO chip selects that
+aren't described in the controller's cs-gpios property.
 
-Changes since RFC v1 (addressing feedback from Richard Fitzgerald):
-- Added DMI quirk table: GPIO CS fixup is now only applied on known
-  affected platforms (HP EliteBook 8 G1i, board 8D8A), not generically
-  for all devices with CS > 0.
-- Fixed chip select range check: only chip selects outside the
-  controller's num_chipselect range are fixed up. A NULL cs_gpiods[cs]
-  within range means "native chip select", not broken.
-- Removed ASUS reference (GU605C was fixed by BIOS update).
-- Added Patch 1/3 (spi core): __spi_add_device() now preserves preset
-  cs_gpiod on the device instead of unconditionally overwriting from
-  ctlr->cs_gpiods. Suggested by Richard Fitzgerald.
-- Patch 2/3 (serial-multi-instantiate): Extracted GPIO fixup into a
-  dedicated helper function with DMI-based quirk table.
-- Patch 3/3 (spi-pxa2xx): Handles clock gating on Intel LPSS
-  controllers when GPIO chip select is active.
+This is useful on platforms where the ACPI _DSD cs-gpios property
+on the SPI controller is incomplete, but the peripheral's ACPI node
+does contain the correct GpioIo resource for its chip select.
 
-Tested on HP EliteBook 8 G1i 16 inch (Intel Core Ultra 7 258V,
-Lunar Lake-M) with 2x CS35L56 Rev B0. Both amplifiers probe
-successfully, load calibration and tuning, and produce audio.
+Suggested-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Signed-off-by: Khalil <khalilst@gmail.com>
+---
+ drivers/spi/spi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Related bug reports:
-- https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/2131138
-- https://bugzilla.kernel.org/show_bug.cgi?id=221064
-- https://github.com/thesofproject/linux/issues/5621
-
-Khalil (3):
-  spi: Preserve preset cs_gpiod in __spi_add_device()
-  platform/x86: serial-multi-instantiate: Fix SPI chip select on
-    platforms with incomplete ACPI cs-gpios
-  spi: pxa2xx: Handle clock gating for GPIO chip select devices
-
- .../platform/x86/serial-multi-instantiate.c   | 168 ++++++++++++++++++
- drivers/spi/spi-pxa2xx.c                      |  45 ++++-
- drivers/spi/spi.c                             |   3 +-
- 3 files changed, 211 insertions(+), 5 deletions(-)
-
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index 07c572e1df..fbfb9a1aa2 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -924,7 +924,8 @@ static int __spi_add_device(struct spi_device *spi, struct spi_device *parent)
+ 	if (ctlr->cs_gpiods) {
+ 		for (idx = 0; idx < spi->num_chipselect; idx++) {
+ 			cs = spi_get_chipselect(spi, idx);
+-			spi_set_csgpiod(spi, idx, ctlr->cs_gpiods[cs]);
++			if (!spi_get_csgpiod(spi, idx))
++				spi_set_csgpiod(spi, idx, ctlr->cs_gpiods[cs]);
+ 		}
+ 	}
+ 
 -- 
 2.43.0
 
