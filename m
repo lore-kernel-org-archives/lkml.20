@@ -1,127 +1,92 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6FA47669D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:06:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802D94756D7
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:06:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253580; cv=none; b=j1YUp4tpOFvBmALaun0PEyVXqsoIgU5uFS5s47C/LcdAddij3Xd6CGOk2rVMW4eCxQ3D3XqYTd53q2XakqXvoiHQAlDdWnBYWixixyMWItUkK78lf+1G4ALg5PBbo1fZlgQbLyqBI/CXE+mSDeKaNkSYpi0TCzH0g8eBVrBPMwg=
+	t=1788253595; cv=none; b=IqcfDKa+6fvEKfSzm8vSrK+vgZR47qPYQvhD71fsflUvXvaX60nZtd2RsNYdvQZuw+bFwaK2p5h+UaO0PWx8QFNqPh36kICEk685ldaPmwtB/sW/GMpOsaWzuCag1LlYMfKjN/3zDJVnduhB2ZKwbCooRwiA6hY2HHuN68tp2Rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253580; c=relaxed/simple;
-	bh=VLMCTblWAmcjvlydjiDQOaM9EY30ui47eVm7HFZNWD0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sM9yt9p31AHZ/Ay1ulb4kXOnOc3Nohm4WvF12X3njQgTpK+hWxQGqyRK5vxySfu9Y+aDOoufhmCQpXchEdsi5c4Pn6wv0htEBqOhFt5u+ASEXzWMHXQeVFAguHKIKlIsBOI5nrMUKcXDzeWiStN0DCSHmJqCqc8HBZz8pSLk+28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=zwdczwa3; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1788253595; c=relaxed/simple;
+	bh=ejGrntjtGvfPfkyT6W0q5VpJtyXA1/IlHLn9s8K3B00=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J/8/+xtjlKxUvhBUK4yB6cWxwxzahY8fEKl/Bb5NtNKfGUvoerw5l3yt3vZdzFAgS7tRvP699GcE2+LmsERWY4S6nEFTgl6fzQGAORIzN1wNAid+Mxz7+e59srtjblRY9xAoXg915Atcj1leUBpS6nz6/RQv7LCp4XQSnUWHfPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=RvcTM5fE; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=og318Sfw; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="zwdczwa3"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c169ae1cb26so127736466b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:06:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1788253575; x=1788858375; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4RZfyoM5tD0q7WqcULgsURT8LaR6zOJsyJgPkVRkoT8=;
-        b=zwdczwa3iQSrZKHoSS7DDDQ7f3Stbep0b0Wfmlg1EcCRX6SxYF/9MoNo2WEoq/01zy
-         /PXQNiP2zkkWrAiEovCOABUVNTGVStO7sYtNrDIyWSa4R4UdMvM+0g6LCnriq1vW6PeB
-         NUGGb4hwo72xPuhxuZ66Ni3bPLOeERjb8E9WCr1NBSl/x6a6LF0RR+huuBDHTOiDIDeN
-         +kyHp8LgENnkYZkCXv7OxWlF1z7gzHmPkSYLajmA7T4dI+OMsMdguff9bvHItgxUwjiz
-         5EeBUrRo/EiIvw2yTfB/mo0c5WoB1EBNk3zes/W9Rma5KmPZxvbkfuE2IN/bMN7VA1Qj
-         4/fQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788253575; x=1788858375;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=4RZfyoM5tD0q7WqcULgsURT8LaR6zOJsyJgPkVRkoT8=;
-        b=LPYnfhwS8oQ4RCvj+dSqd01C/h0gGuFb9O1PZuCE3fRANHKs4T6buXwx5o4Z7zxlFI
-         X+Har+ifO18tsqy0+Ph0F1OOOXy9U4asKb+sHNEP3spDRFMeTmKVyNwH7mXD7QxxJluk
-         OqjtmWmNVdtxn9uiTCUeFhRPFuMo13RZKRPx1+greep3q5OSrxNKHKrl6EgLh4xI5uM3
-         KZJUfw9vB5Oy7SNq+FIQs4oP87/2QpLcdUj5IUVUGfRZFhwV9pfWa3DArA7gkA8cWGft
-         alfUsKvkNKad4+FjbQW4T2Di/M5rYGFWyYOfWtyp8s7P8lHXW1mCilwCIannSui7aSaY
-         nDGA==
-X-Forwarded-Encrypted: i=1; AHgh+RoDsNcip9vPgZXSReImU/PcCaQ3gdmNAyelNQ62q3tXHV33xQ1BsFVNkZ2zdvnphGlLQPL4sddzR0lSufg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lklVep7RJVHNLDv6UrS/F62l6NDZNatuyyxE8hE58L/OZkYJSc
-	IU1XB5OBXHHlNGU7UaHUH4/c6ptGt/hiH8liF3wxuuBS2HK5FUAKyheFMVLeCsNMBbM=
-X-Gm-Gg: AR+sD10tXJl0UaGaGZU9uWfdft2ijpkvrZUUtNmIlkWxPr4IPNXqUyzRY9IwBwZZXjx
-	QSyGWTG/YLbehAK0de5L1/QZMOX7Fzoyl1u5hkwh6mmbyv8lhv4wzZK9+1XFNPFvHrJYd0xFSf5
-	kOdEs5iCTXvjeYBZmMWiSHpEQHR8VRuaOeI6LNS1zY6ZD3x4hTDSGuXPM1xEoUTGlRGMdvvWz6C
-	lUALTtB/xciG14W4xmkBNzKAXyWyFVndg9FIJvKmJVESviW+QQPy/W8GttqpUAoR6Umbs18yLD/
-	FUw/DfhmBSRf3zUsuuyR984pf1KZnNbTJQZH942SXJVm/NM+wlqs/MpiCrIpsl8Asabtw5a/HMd
-	BxfPNg2QRQn9efbm6SagiuCBsf03P5zQpGYlUnMxj/+9t89LRD01XrkqykvvdtIsgs9DwsxAQ8o
-	gYv40uGpyiVZN9ceRD6tGp7g0ruYfoyVLicDuke3hsuUZR9CThE5xI4i6b617qt+/YaGAKCt+zA
-	SiPMR8dgYo7jzSEcWmSjH+gkOR0iX67eyzjs93a0GQ=
-X-Received: by 2002:a17:907:80a:b0:c15:a7b9:2ae1 with SMTP id a640c23a62f3a-c25b917f381mr253265866b.6.1788253574737;
-        Tue, 01 Sep 2026 02:06:14 -0700 (PDT)
-Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee7335asm525484866b.27.2026.09.01.02.06.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 02:06:14 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Tue, 01 Sep 2026 11:06:13 +0200
-Subject: [PATCH] arm64: dts: qcom: sm7225-fairphone-fp4: Disable PMK8350
- PON
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="RvcTM5fE";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="og318Sfw"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1788253582; bh=L0Ljl9cP23EG5pxUfXYPjDe
+	OjwgQ7CzTtFWKPjvH1ig=; b=RvcTM5fE9hTj5eqTI87/g5mNt2XL9u0rqiA9dbBzk3aWW9JPDC
+	iUDiCPAJy17X0CgkkQEt66uk6HU7pgMYGs7ckr5SBkbNKbDgZsfoETuf7Y0LmSRX3jpqpqdrOaT
+	478kp4WAWsl9if7VHzlMl592o/42829M95pbrGQ4l9PgLoYlt/wb0g5Y8NESYBYnklYteA8NZ+y
+	vXTYEpm42DBn09t4I5MD4RUhUiP0BXpmMBdZ8HkUfUS9latH2nsO/5KyPa5lRg4I+WnCkFDAN0u
+	XtYLPmfNmgYrDRN9+Fc6fTufyo3NQljA1N29KDeiH6Kf2zjTPGv2yHj8c9LZ71ZqDaA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1788253582; bh=L0Ljl9cP23EG5pxUfXYPjDe
+	OjwgQ7CzTtFWKPjvH1ig=; b=og318SfwfaQLjUgerUSGHL1PFFjEkbpzkLLG8cbD6oq/bD39oj
+	0hw4kGQFjCrIeqUwXQRVMYpPLi9ZRdrkV1DQ==;
+From: Bradley Morgan <include@grrlz.net>
+To: Peter Oberparleiter <oberpar@linux.ibm.com>
+Cc: akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] gcov: use memcpy for counter value dump in convert_to_gcda
+Date: Tue,  1 Sep 2026 09:06:22 +0000
+Message-ID: <20260901090622.18431-1-include@grrlz.net>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-fp4-pmk8350-pon-v1-1-e05937e9c860@fairphone.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB2Ixkj1KuKixpl2FGNIrAji3
- U3b5Vv8f0KkIBShzU4ItEuU1SUUeQb2/XQvQhmToVRlrRpVIPsK/TI/tFHoV4fGjGybWjMPBlL
- lA7Ecv2PX/x0/w0R2+27gum5fOokCcwAAAA==
-X-Change-ID: 20260901-fp4-pmk8350-pon-55dfc963ffb5
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788253574; l=982;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=VLMCTblWAmcjvlydjiDQOaM9EY30ui47eVm7HFZNWD0=;
- b=OLfQFq5Si7pDMICrd4APmwBWRMw+HenJSjX4WknR1Em3H7jb/DuDAJluqkvwR6PHLVY2xqAh3
- MwA6BCej4YeCiTxRg8BftPuiK9yE6nY0uI3LT7wbnq1CtTKNsD0eubw
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+Content-Transfer-Encoding: 8bit
 
-Two PMICs on this phone have a PON block, the PM6350 and PMK8350. Only
-one should be enabled at one time, so disable PMK8350 PON and keep the
-PM6350 PON.
+From: Bradley Morgan <brads@mainlining.org>
 
-Fixes: 582e7c1026fa ("arm64: dts: qcom: sm7225-fairphone-fp4: Add pmk8350 PMIC")
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+The loop writing gcov_type values one by one is slow and ugly. The
+values are already in memory, just copy them.
+
+store_gcov_u64 splits each value into two words with the low part
+first, which matches the gcov format on little endian. On big endian
+the split is still needed, so keep the loop for BE and use memcpy for
+LE.
+
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
 ---
- arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+ kernel/gcov/gcc_4_7.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-index 5d20ad93b0c5..773304b4759e 100644
---- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-+++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-@@ -992,6 +992,10 @@ xo-therm@0 {
- 	};
- };
+diff --git a/kernel/gcov/gcc_4_7.c b/kernel/gcov/gcc_4_7.c
+index 8fa22ababd94..94c240180906 100644
+--- a/kernel/gcov/gcc_4_7.c
++++ b/kernel/gcov/gcc_4_7.c
+@@ -422,11 +422,23 @@ size_t convert_to_gcda(char *buffer, struct gcov_info *info)
+ 			pos += store_gcov_u32(buffer, pos,
+ 				ci_ptr->num * 2 * GCOV_UNIT_SIZE);
  
-+&pmk8350_pon {
-+	status = "disabled";
-+};
-+
- &pmk8350_rtc {
- 	status = "okay";
- };
-
----
-base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
-change-id: 20260901-fp4-pmk8350-pon-55dfc963ffb5
-
-Best regards,
---  
-Luca Weiss <luca.weiss@fairphone.com>
++#ifdef __LITTLE_ENDIAN
++			/*
++			 * The values are already in memory, just copy them.
++			 * store_gcov_u64 splits each value into two words
++			 * which matches the gcov format on LE. On BE the
++			 * split is still needed so keep the loop there.
++			 */
++			if (buffer)
++				memcpy(buffer + pos, ci_ptr->values,
++				       ci_ptr->num * sizeof(gcov_type));
++			pos += ci_ptr->num * sizeof(gcov_type);
++#else
+ 			for (cv_idx = 0; cv_idx < ci_ptr->num; cv_idx++) {
+ 				pos += store_gcov_u64(buffer, pos,
+ 						      ci_ptr->values[cv_idx]);
+ 			}
+-
++#endif
+ 			ci_ptr++;
+ 		}
+ 	}
+-- 
+2.47.3
 
