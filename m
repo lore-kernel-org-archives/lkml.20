@@ -1,163 +1,244 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965A0480359
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:21:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268903; cv=none; b=fwSgU2FS0jsfMGN3AfzYLHabo0ky4vpEbsWjNwWuAwcZByNGU6Mtw7KyPymoE1fNadTGvsyMBACeYrqhTNTSpd0im8KRTiyqVPkr+k6ksYUPlDRXGOU3WZuWpLLliNIONg2/nPOh6d0NRxNhbcexInKX3nPxPlA0JHD6lgMVowg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268903; c=relaxed/simple;
-	bh=qJfVo8NaWUV3he8g/jBVBQ24fD8jjxPCQ2QJcjp93xs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bi/rKULHTEdvU+ej1dtncfRYIPrLp3xZCmwrtGsuRTzZoL232Pp3GijUR8nTFZkI6UvTg25rrbNvtIrxLgkL0aCHbsiOj29lw/kuyjoL7rZ+Uw3lwPSbhdNkATBgIgJA/BzHivXSYvI8dprnuYDrog66sHhKr9sVICooZlO8y38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HC5Iec2w; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fqeRDBqG; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FFA247ACEB;
+	Tue,  1 Sep 2026 13:21:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788268905; cv=pass; b=oCnDZzg+s95OCAsbLgxNTq2MiSe+qz0ufFqtB2bg6+msytZYc27UVDbF2JTdhGsVMlaCxC3OfExi3Ob+QOGhp1ze53V5YXqJM57CjpeAOoz7VdQF/cW70259FBZtW6vkhhyssiyGrQS7ATI3Dpl65ffKme120+MJFqg7/PeqUa8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788268905; c=relaxed/simple;
+	bh=tKWTf1cazHWaXntnYsiXxrJYnrU+iW5fvyj/sDkCDtc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Hy4hm/1fMk/HL76m2TpYo3i4HqpiCRVfypp270BNqWfbkxdg9KoQIc5DEkK3I9v8pUGrkjmsU2pBL2Crp3VqRpc63CB/13M2+qr8v4PAPqnYcdsf7IbBvaY0F7BfDXX2xvWr0N8vyBlTT2CtVtCrjMJSxQJA3Qz+0IUMqd/Y5EA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=RgFq6W1E; arc=pass smtp.client-ip=185.185.170.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HC5Iec2w";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fqeRDBqG"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681AJcSI2141615
-	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 13:21:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jSiZjk2rYPgMxkc/Mk6oF6H/vSiu5oWVsT6MYw51UtA=; b=HC5Iec2w8Q0r8o2A
-	gfZcfMA9VCQ25Uo/i7Hq+YU/CARRMRIHDaWAE6sGzILPk0zqOr2cDoUK9dMVF1eB
-	/YbwY02vuOH3zSeyfuarRA8HACvFGdQ9ZinhFNLZ/BnPkjA0jk3IHlmdOo5DYMnL
-	DrljuhRUt8Dsd+0H9kIflADs+CrOjees55BopLaJLEJyMlJT6ok//edN4L3224L5
-	VFXNeaEmRI29Oh3LsyJW99LNoep1dIr6NyOVrgx7rpOBhXXd5OcukWY5soXnbyr+
-	Q3NPRYh3A22ah6fqKIYFDV6sDKImu0VZiXh2uetRTv9gYY3b0qM6ryopeTCXFMc0
-	DMap9Q==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdp8ftea9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:21:41 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5c39b4f3229so121091e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:21:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788268901; x=1788873701; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jSiZjk2rYPgMxkc/Mk6oF6H/vSiu5oWVsT6MYw51UtA=;
-        b=fqeRDBqGCgzZFU800J+yoe9S/QQGT1rq+KFBxAbJJp0VPDCVBGj95WdH+UQD3Abwv0
-         1aa2Jh9pIJD4bI6JEHveMCQ7wqA5AoBet9QUFpgIsl9gZS/cXqvwTqA+fw7tOIyt5aHs
-         +Pnb9UVw/dh1E3IbztyUbmqCmpI4vw3Kt1+qs6gL4u7ORCBGbbzB1UgWHnCUDvpomN42
-         KZHVOfHIy8M4cxwqwqRqT4BR4cgfbk4G6uVlJkKZ6HgG0VDhpBfkMg0AhJRrsobw6DhR
-         ccJUMal0eH8MI3KkH1YUpmZl7jlakU24CMY2htIbGCwgAn2SC8YJpKb2NDctF920FFUj
-         Kynw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788268901; x=1788873701;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jSiZjk2rYPgMxkc/Mk6oF6H/vSiu5oWVsT6MYw51UtA=;
-        b=L6IJsAb1uJJMOy1pMh8pPS9Lf58Ce+9Bi+mcP75BX7RhalLhVhbeu984Ll2J0Vc574
-         oe1tz4Dukjav4EXqKSDwRQqb5qgCZwbtEyG/Y6yneAIiBQwBnSmEXNZkGIPH4IvSoQRW
-         e4Aa5w5kvjWmZ2ZXTYIvSvp1/kSfGxVmmA54ERUV1h21GFbO0t9TxbmlvZSqaqTU3umU
-         ytCLxZx4sBItuzF2QMrfcobzs4wWESaLsCH6KS+DZgMXFHGAXlIWnOtLbDTwjEjjeO3b
-         ArB185SIJTdKb9W38762iznFgyxiqPnbuRoRcPlBxc4nP5EyeLonRNs7oDVTF5o3/Gjn
-         UDyw==
-X-Forwarded-Encrypted: i=1; AHgh+RqC6BgQ4e2c/NYBOK62R7DZB6K36JRy7fftiEZIVuxWnqJ+k/a2my9NUOdPYUaLqo0m4xPN4ApOeo/d+04=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAFtvAXvWgidWE6f4MLvOF7ecigv/+TK152L4uwn8H+tNUUvEE
-	fKmXinvS+D6BFZjbC/f0Fq4EzzIpZ3afQyN2D8wuo4z0A9aAPZRmKVlld3lq3MPXcAM0lbVdx50
-	fdW1kIwI4cpmNpjQmBm1yVsmSU4OUdA+lNJDTxfBIul1dpY2gnKlA8ZgsGI0R7j53tF0=
-X-Gm-Gg: AR+sD128D39CK9Ivv06Ws4j1PU1BwdWl7n4mlGLB5OfcJ5CAXpbwQQmRZ4Sro3nL820
-	fmurDSJBb4yxUKsmampDWdYRjHy1JB9/F+GjkriXkb5eNCEvBJyjww5VeuoVS1uBTRC3LGo2WLe
-	355t0TCN+QmCiW1ZQNCNxdAHqzFXl8La3PfWB/dekxQeYqmPIeriVWC09+VmXQI9P0GJaPhq58u
-	SkcrQZGZZgew4oJi2iY/GVfmEjkeYgIaPN/GE/FJ3UlG8t5VBEIP2f3nZVimyjNYg1n/bFk+twq
-	wh4RaUCXVvTNPW2tiOBFU7FSZql4lx+uk6ctYWZkXQUIML+H4ef6dsZMg5N00jwfhiaBa2Buuzo
-	I6E6yPRVaz5rVO+SMyJxyGA==
-X-Received: by 2002:a05:6102:6a84:b0:786:8d84:5aca with SMTP id ada2fe7eead31-7868d845f20mr2441016137.2.1788268900712;
-        Tue, 01 Sep 2026 06:21:40 -0700 (PDT)
-X-Received: by 2002:a05:6102:6a84:b0:786:8d84:5aca with SMTP id ada2fe7eead31-7868d845f20mr2440992137.2.1788268900215;
-        Tue, 01 Sep 2026 06:21:40 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b605b17582sm57141e87.69.2026.09.01.06.21.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 06:21:39 -0700 (PDT)
-Message-ID: <773d4d11-dedb-4630-bdaf-ed9bf5dedc5d@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 15:21:36 +0200
+	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="RgFq6W1E"
+Received: from mandelbrot.. (xdsl-83-150-90-33.nebulazone.fi [83.150.90.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: jmtilli)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hZ62V0lG1z49QNp;
+	Tue, 01 Sep 2026 16:21:38 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1788268898;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+1zGVynj9H5SONi5WNNQRZuKnULVYkGJU/Lsk8iTgW0=;
+	b=RgFq6W1EfHAeDT9HqtDjC82r1ZHuxvqQmLJTQ3kU4Uhk4gLOujgMpbf4zRDCEA6zJkJS/p
+	VwrjenzmZoGbU8sEOeUW4BugUBoBGDcXrAXhrHkQTPIPVAV6PJuykns1D0kSqXIskDv6S1
+	IdyuXTNSPi3/pwR0lneJlaQf5YRbT2+S/fU7YyVIfYOYdnteeeK+o/TzzPkW+mmA6mAET/
+	RvV8fWc+7KmZRIODIF0tCOVvv+pjzpAYyu8eTFANkwyoUhpwbJ4yMpKdQ3WvzHGoOrWW7T
+	0ibDpC6MOyE/y86+YV3Ht7z4d7iwr4Q8pK7OZqX7p9Khzy1yVCQ+tC+dDsHbTQ==
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1788268898;
+	b=K1xB4FoD+661Ioa4HZ4tX3wRK9++BYIClgyXRKo0OuMtRN1L842IsB1tyWtcR0QfyASAAq
+	wnHj/Xw33817rXH7EwCO3z+mEnt0rzzaDyKUPV97xw1a9PUG2keKP0ZlDAoto50MgZMxMd
+	X3JsNPdHbcV1j3tEhJyOWzw8rLWzllcSia340cgKparfSz1bIDA80uN901t9QCM08i903X
+	EOg2gBQsBe11ynw6T9OjQfo2FTyl+5kzK3CHnjwbrfv/ga0Exq4IkUguuHattZUtNBQ3cY
+	fg9B/I3PVvDgJr1w17ZfyqxUvE6lNnebgixFPHzfhFL9/B+kaixMmky8naLy8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1788268898;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+1zGVynj9H5SONi5WNNQRZuKnULVYkGJU/Lsk8iTgW0=;
+	b=Nxu7K3lAPpg1lB8EJxLsyMAu6QiY4tobSGKZAyHXCNRZZAZPuUX/kMHn25kAp3W2q1LEom
+	Mglkqr7+1JT9Omuo8ZasSOrXBp9J1uKvtu6Ky7CHyQZFG0+rPGCUBJLD1nSkIYRChmX5n1
+	8y7YYRemuOWtWb0gyMgbHKN+D/MsSfZ4e+/n3eQi84x2XEALNwfoqzsc1Te1MOCtWXCw4e
+	g3z+enJLv2HbRfUnjquQpiKzQV2WqmxkfQcY03Ug4yXDzLGKNkl2EjrAoggQXKlenP3j4N
+	kDdqeMtpSKjvRWchRWfqff7n8BaYefEgiQ/NB0JMnPHgaZmSmm2sj+JOh407jA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
+From: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+To: linux-arm-msm@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: Eric Dumazet <edumazet@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Andy Gross <agross@kernel.org>,
+	Mihai Moldovan <ionic@ionic.de>,
+	Denis Kenzior <denkenz@gmail.com>,
+	Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH v6 09/15] net: qrtr: allow socket endpoint binding
+Date: Tue,  1 Sep 2026 16:19:28 +0300
+Message-Id: <20260901131934.225991-10-juha-matti.tilli@iki.fi>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260901131934.225991-1-juha-matti.tilli@iki.fi>
+References: <20260901131934.225991-1-juha-matti.tilli@iki.fi>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/12] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp: Add
- support for USB3 PHY on IPQ5018
-To: george.moussalem@outlook.com, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Praveenkumar I <praveenkumar.i@oss.qualcomm.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-        Nitheesh Sekar <quic_nsekar@quicinc.com>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-usb@vger.kernel.org
-References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
- <20260825-ipq5018-usb3-v3-7-39be0955a6aa@outlook.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260825-ipq5018-usb3-v3-7-39be0955a6aa@outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: CeUL9zyyBdsnh8HELIbe7ts2h6-1Kkzz
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDExNyBTYWx0ZWRfXyY/DgwRMwd/m
- 3jkHXwkMc0QtbsEHH6RMxlJZ3Aq37YOXVZT00fzmTGp8JdMCM0qHqSRxaVItZmc4DgQmtzPmJUt
- WmUFFJE20mtexZ8TXjpz/AuncLpRH3g=
-X-Proofpoint-ORIG-GUID: CeUL9zyyBdsnh8HELIbe7ts2h6-1Kkzz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDExNyBTYWx0ZWRfXx0cYpSj9J/mf
- igOoCjgO8ZSB7TQsG1Yhuw+Rv8EUv/PvubGCCRETy5FUOdVHLEUy0CmO4PopibHNi9wZskDd4KO
- xppM/dLNRlSJCPrUFHWRRGgIx12LNejXmJHk92QIgwg/wdUpoTFPQRU/zp/1nCUz2jMtue9Cg2y
- LkdMeX52pdTSpBzETFfI8fXN6X//yWTAzzywOXSSPYItM2z6zEnKmMYAems+KMxwSs30OICgCo2
- NuyAP5wdOprQPlj9b7/8O3SQkAaj4fwC8T/h8xy2DU+N9tr3i6eQeI0DhUXgLvQ8ZVB3fuBA/dg
- 25ZpIjQx3cDXUXX54WJHUDbrEDaMnCWl/m9O2vkeYDmU9DvYzlouDh24468SkAaOnWWdyqsJNK0
- vfVHgp5EP6y8yMn5CFctcUXciILMYxrFZCh+BnjmdTU1M6e8J3uFDa0cWezSvocRUYYXkFmvlBj
- ym21nMjLJYukIWQHmhQ==
-X-Authority-Analysis: v=2.4 cv=BPWDalQG c=1 sm=1 tr=0 ts=6a96d165 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=UqCG9HQmAAAA:8 a=xr6W56IWL_GKtPyFExwA:9 a=QEXdDO2ut3YA:10
- a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 phishscore=0 adultscore=0 spamscore=0
- lowpriorityscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609010117
+Content-Transfer-Encoding: 8bit
 
-On 8/25/26 2:37 PM, George Moussalem via B4 Relay wrote:
-> From: George Moussalem <george.moussalem@outlook.com>
-> 
-> Add support for the USB3 PHY on IPQ5018 chipsets.
+From: Denis Kenzior <denkenz@gmail.com>
 
-[...]
+Introduce the ability to bind a QIPCRTR family socket to a specific
+endpoint.  When a socket is bound, only messages from the bound
+endpoint can be received, and any messages sent from the socket are
+by default directed to the bound endpoint.  Clients can bind a socket
+by using the setsockopt system call with the QRTR_BIND_ENDPOINT option
+set to the desired endpoint binding.
 
-> +static int qcom_uniphy_usb_mux_select(struct qcom_uniphy *phy, bool enable)
-> +{
-> +	return regmap_update_bits(phy->tcsr, phy->mux_offset,
-> +				  TCSR_USB_MUX_SEL,
-> +				  enable ? TCSR_USB_MUX_SEL : 0);
+A previously set binding can be reset by setting QRTR_BIND_ENDPOINT
+option to zero.  This behavior matches that of SO_BINDTOIFINDEX.
 
-regmap_assign_bits()
+This functionality is useful for clients that need to communicate
+with a specific device (i.e. endpoint), such as a PCIe-based 5G modem,
+and are not interested in messages from other endpoints / nodes.
 
-Konrad
+Signed-off-by: Denis Kenzior <denkenz@gmail.com>
+Reviewed-by: Marcel Holtmann <marcel@holtmann.org>
+Reviewed-by: Andy Gross <agross@kernel.org>
+Signed-off-by: Mihai Moldovan <ionic@ionic.de>
+Signed-off-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+---
+ include/uapi/linux/qrtr.h |  1 +
+ net/qrtr/af_qrtr.c        | 56 ++++++++++++++++++++++++++++-----------
+ 2 files changed, 41 insertions(+), 16 deletions(-)
+
+diff --git a/include/uapi/linux/qrtr.h b/include/uapi/linux/qrtr.h
+index 6d0911984a050..0a8667b049c3d 100644
+--- a/include/uapi/linux/qrtr.h
++++ b/include/uapi/linux/qrtr.h
+@@ -48,6 +48,7 @@ struct qrtr_ctrl_pkt {
+ 
+ /* setsockopt / getsockopt */
+ #define QRTR_REPORT_ENDPOINT 1
++#define QRTR_BIND_ENDPOINT 2
+ 
+ /* CMSG */
+ #define QRTR_ENDPOINT 1
+diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
+index d4a472f0ac4d1..ccfa3ed33a996 100644
+--- a/net/qrtr/af_qrtr.c
++++ b/net/qrtr/af_qrtr.c
+@@ -98,6 +98,7 @@ struct qrtr_sock {
+ 	struct sockaddr_qrtr us;
+ 	struct sockaddr_qrtr peer;
+ 	unsigned long flags;
++	u32 bound_endpoint;
+ };
+ 
+ static inline struct qrtr_sock *qrtr_sk(struct sock *sk)
+@@ -656,10 +657,14 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
+ 			goto err;
+ 		}
+ 
+-		ret = sock_queue_rcv_skb(&ipc->sk, skb);
+-		if (ret) {
+-			qrtr_port_put(ipc);
+-			goto err;
++		/* Sockets bound to an endpoint only rx from that endpoint */
++		if (!ipc->bound_endpoint ||
++		    ipc->bound_endpoint == cb->endpoint_id) {
++			ret = sock_queue_rcv_skb(&ipc->sk, skb);
++			if (ret) {
++				qrtr_port_put(ipc);
++				goto err;
++			}
+ 		}
+ 
+ 		qrtr_port_put(ipc);
+@@ -999,29 +1004,41 @@ static int qrtr_local_enqueue(struct qrtr_node *node, struct sk_buff *skb,
+ {
+ 	struct qrtr_sock *ipc;
+ 	struct qrtr_cb *cb;
++	int ret = -ENODEV;
+ 
+ 	ipc = qrtr_port_lookup(to->sq_port);
+-	if (!ipc || &ipc->sk == skb->sk) { /* do not send to self */
+-		if (ipc)
+-			qrtr_port_put(ipc);
+-		kfree_skb(skb);
+-		return -ENODEV;
+-	}
++	if (!ipc)
++		goto done;
++
++	if (&ipc->sk == skb->sk) /* do not send to self */
++		goto done;
++
++	/*
++	 * Filter out unwanted packets that are not on behalf of the bound
++	 * endpoint.  Certain special packets (such as an empty NEW_SERVER
++	 * packet that serves as a sentinel value) always go through.
++	 */
++	if (endpoint_id && ipc->bound_endpoint &&
++	    ipc->bound_endpoint != endpoint_id)
++		goto done;
+ 
+ 	cb = (struct qrtr_cb *)skb->cb;
+ 	cb->src_node = from->sq_node;
+ 	cb->src_port = from->sq_port;
+ 	cb->endpoint_id = endpoint_id;
+ 
+-	if (sock_queue_rcv_skb(&ipc->sk, skb)) {
+-		qrtr_port_put(ipc);
+-		kfree_skb(skb);
+-		return -ENOSPC;
+-	}
++	ret = -ENOSPC;
++	if (sock_queue_rcv_skb(&ipc->sk, skb))
++		goto done;
+ 
+ 	qrtr_port_put(ipc);
+ 
+ 	return 0;
++done:
++	if (ipc)
++		qrtr_port_put(ipc);
++	kfree_skb(skb);
++	return ret;
+ }
+ 
+ /* Queue packet for broadcast. */
+@@ -1107,7 +1124,8 @@ static int qrtr_sendmsg(struct socket *sock, struct msghdr *msg, size_t len)
+ 	} else if (addr->sq_node == ipc->us.sq_node) {
+ 		enqueue_fn = qrtr_local_enqueue;
+ 	} else {
+-		endpoint_id = msg_endpoint_id;
++		endpoint_id = msg_endpoint_id ?
++			      msg_endpoint_id : ipc->bound_endpoint;
+ 
+ 		node = qrtr_node_lookup(endpoint_id, addr->sq_node);
+ 		if (!node) {
+@@ -1385,6 +1403,9 @@ static int qrtr_setsockopt(struct socket *sock, int level, int optname,
+ 	case QRTR_REPORT_ENDPOINT:
+ 		assign_bit(QRTR_F_REPORT_ENDPOINT, &ipc->flags, val);
+ 		break;
++	case QRTR_BIND_ENDPOINT:
++		WRITE_ONCE(ipc->bound_endpoint, val);
++		break;
+ 	default:
+ 		rc = -ENOPROTOOPT;
+ 	}
+@@ -1413,6 +1434,9 @@ static int qrtr_getsockopt(struct socket *sock, int level, int optname,
+ 	case QRTR_REPORT_ENDPOINT:
+ 		val = test_bit(QRTR_F_REPORT_ENDPOINT, &ipc->flags);
+ 		break;
++	case QRTR_BIND_ENDPOINT:
++		val = READ_ONCE(ipc->bound_endpoint);
++		break;
+ 	default:
+ 		rc = -ENOPROTOOPT;
+ 	}
+-- 
+2.34.1
+
