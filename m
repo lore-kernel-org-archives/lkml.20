@@ -1,137 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746FA371053;
-	Tue,  1 Sep 2026 12:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266469; cv=none; b=LDwSDUp2ifi30rDiLEH9sTIph2FlIHVqmMEOHe8x/TR1wmAcd5o0p3Jssi54C6iZInhrB9jWsp72O6voZJverulkBu7WzuY3DcP0IVoeUOgdhB5r1ODu2rB9oTN5fyEaIK1B0VKr3B5i5kzT4bXmmaNfil4Mj4JfP/p40xCpD+M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788266469; c=relaxed/simple;
-	bh=mJo4l/y4MxbMvXcw1tprHy5vAB2h6U3R8qtue/noZ9Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q4pKvcqV1sDYF1RJM/Yo7v+IQsmPMR+5wphhC8jeY3M6J4meV6ijCdaCswW/jAXteXe0elQEAgQ1ULZDVFlEyGJX1ijhh3Kc0rPqscXy+uSvZSc59YAmovNCITxLBAiODpzoY1Ewz7iR+4UptDCt1b59h2Yqn9J3tW/FnVsU2U0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QF3m0Q1F; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCAC371053
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:42:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788266550; cv=pass; b=lEhWxSeb8kpIEm6x5bTYnfkZPPyvj3LL9ch8WpLSUqJ2FWhpCI2qCWlof6LwtsRHRCuGi/1V6Seq5v+PTZ8UpAHZWROYCp3/VTE6akoAlcnzH9l8NR28IAOV6Cnp/OFnl9gBnYmTSeMiq3KaorUHND4pb1i2TsL/zzgz6l0oR8U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788266550; c=relaxed/simple;
+	bh=ZreO0EubD/Cpg2PFlTmnjBPWguJk/VPiiKkxH3gIp4M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QDwH+R9yCcMjhpIg9Wy6WKLz/6WkMDXL+9+SkrVjt/m3tDW8kBjpYkG9UT8d4n5Uguk19SyzDcfMquMDcjsgMWr2yAjIfPFZU1V6pw6AWrS2BN6X0r8I3R8UDHvbDupUQWnu2eVe6au/sCK7Vhr0jOM2fAddSQ6UQnO26FHst3Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WP8yHs1Z; arc=pass smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QF3m0Q1F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E5021F000E9;
-	Tue,  1 Sep 2026 12:41:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788266468;
-	bh=8E/4HEhZ+01WRW16r1kh+DTxQ/1UAOLeU+xLOlmoQrA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QF3m0Q1FNTtxaECBq2LCYXalGE6aM1//FUA1jWjZwrYLMTd0dklCHmF+54khHi923
-	 k3Z4F1sqcdQRrgJ66QqjtMfAUZ8Ijv84XvJDPfK4nynCoMlh9DElVKpMPq0Mz6hZFC
-	 J/EKXuVwVgjD/uunoVMrZkjDGl89L1NLd+oq+R3Nx5XeFuhDaIJkD4dt1jWibGPAbm
-	 4lfWzYHq7OwpDj1M8KnOCcEAXs0VkgrmqzWrIbrGbq0s3UE8RuSEttTUhbe4JDuN+c
-	 vNsiky0jcDl80mZhYjrGiIF9NKqSZBM08MAOjTqiHh6NbME65+kozouZB1aC6P4fBk
-	 13MGrFDmwqGdw==
-Date: Tue, 1 Sep 2026 15:41:03 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Yunseong Kim <yunseong.kim@est.tech>,
-	Stefan Metzmacher <metze@samba.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Jacob Moroni <jmoroni@google.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Steve French <smfrench@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>, Tom Talpey <tom@talpey.com>,
-	Yunseong Kim <yunseong.kim@ericsson.com>,
-	linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
-	linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org
-Subject: Re: [RFC PATCH] RDMA/iwcm: allow aborting an active connect awaiting
- CONNECT_REPLY
-Message-ID: <20260901124103.GL24140@unreal>
-References: <20260805000159.321645-2-yunseong.kim@est.tech>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WP8yHs1Z"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d30c22b1eeso4915555ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:42:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788266548; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aElsNZghRRB8YOfwwzdQe6V+ifSvIH5s5Yo3cdnK5v8/hajE/HBP6UbOntCUlo4qTu
+         4KSVs+APv4RzfqkispCZxm7gMxu4QwjI7s15TP7EOaKDp6b/PCVjw4HZiKxb1YctXc6h
+         GY6UwSaE0kWN0Eca0/hjfl5E5+XXBH7PjVckW7FRGUdya1Kp0M6A7qt/i8B+8At5a8NW
+         CnsvWQRACkACra/pOT51KVsLkdtSstr9eZacNYvqoAwhv60pbPd2gMFxx07ERfwKzMLt
+         +IQIfTBFki/2Vhi8mTypBVq02PziKzkfu2CkCwk+zGX2Y3qOBgxIeaIrS+CLBZrmNUXI
+         DEeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZreO0EubD/Cpg2PFlTmnjBPWguJk/VPiiKkxH3gIp4M=;
+        fh=UxCkpsG6nYhQE/o1sGcRFYjRryelWO5TRkpUAhaKQMc=;
+        b=K48expPtKQqxKP1zHeXvJsyzniYjWcYzhPINBdx7GBOzngT5g4/8mE7tfTMeU9pLE9
+         c5w8Ct8iy8OO+Lao/tkbXCOOLkAf8yEpI08+FCjskak80Wl6bHzCuWa2WysCHvNtdcr7
+         5zC4Ss9a0X3syfx2WT7UqKlvd8BqxxfGuFKMX4fjCxt40bEVuiJ4rr+b1YX56QU49YWs
+         mTA1e+nSKBKfMZ9WFaSICBHRyPToxV2JhF5ygtNBGfdqTGkUexzpvKVCWiAq4Nz54QQB
+         L3MO0oEaouwpBcuhNap0dAP7eZT1uGsXhoK4RUpUCI6qamgsfWUmYBnBcrjwEb9+ZUxO
+         J5OQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788266548; x=1788871348; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZreO0EubD/Cpg2PFlTmnjBPWguJk/VPiiKkxH3gIp4M=;
+        b=WP8yHs1ZJ6F3DqOFSZF7f5mLDLSaOZgOXE1egF2FqkzaHXQWbk0x5q2SYHqCjQ53c4
+         sZfNN7Iq9M2UDDG94HJCHH22rF9OBz0U4PC13mEp9EBtu/VsDvq5t6jS4AW0Za4wn1N8
+         PoafNmo+faCsCuTFMQlzyJI9uOC25vedAPHEXNM6bjXI380dDGMlFTxZkTj1H3Kh5p+s
+         SiWYDT7q8gv2thXxpbcD89oA5ZC0fE3cTflvR90/MgxpUfgf0C82053cZGzrdl/0+zqm
+         s1N5qxTYTptMCUI8n+dQTnV5pY7l+mObYIVlCwa+nXENPuA9N5cGeT3+eMAle0dBzwnr
+         eBQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788266548; x=1788871348;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZreO0EubD/Cpg2PFlTmnjBPWguJk/VPiiKkxH3gIp4M=;
+        b=iiYdAST2h+eCHOdZyQKkE00yOFTo66vwP1oGJxDuKcQUHJ+TPOx/i/qtysxpQHbsHy
+         5wVNfYNK5akwcdAYo5UjtSYV78xLhl8orM1vrXeHclN5AIOWJ/SCgkixPfRvGUVN8E/x
+         qhGqAP0PKTfedy4NvkKnOQ2MQyTB6kQwiZPIp0GrZEpEeglnVK3/z7/LsnXZ4TltYyzV
+         ge7EdfmBLYqxTqH+qinMMzqhtPRQo9i0QhznZNPef+zT2e4fVO8gp8PndweCmHSA0OX8
+         f9c1rTb+noUSjRrErSlNWXhwOYRWELzBWs9YtEqhapzO5t07dRPDw+hNlR+TEe5hwQ99
+         iWXg==
+X-Forwarded-Encrypted: i=1; AKwUvBx5xK6efuzjilGLNs5U9t/bSta27iPI/e8tYJag/V0APuurb9vv7GQNg9otCUlILtwTdaso711gV9Tef4U=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVvapRX999gS0tQOoFaOK7cLWd7T5OfXRzrBjceJLkmL3BJFmu
+	TObYzTqiEHBRgrm7dUIDJxPq2+6QePFSfcby+5wq5D/qbthcYi5o0qespPrY0QES1a9EF6lP8MZ
+	BYSrzLLKInmhyKRDc3swUONxoloX7fSc=
+X-Gm-Gg: AYBFou3MzbnqnQau/M9taNlhhO8l/UuweZi1jbDv7SJr8HcmhtnlO+diKU7XwvP7Rjv
+	taRQnFSxp83awVkDb2GVi2sgw5jjCG5y4yqxuBM0lYWExPTgGL3jvHwM5MIXYQ2h2nCqPGVMb4K
+	nKswRY1gIqXCkbNBLO/6GCG/OrkS+FiRl3IBZZloCQMw3+CbfS5oBAWrQmyinTDEPqdAarSDQb9
+	nDd15v09qL6xhMBMUy7YLNp3vI4SvA0Rbnk+sjfoMDa6weX7pyhLyt2TAxQykAEQ0e3COTXLdEH
+	AkaUVYq6IqFSEvBNJCy+PZOXj27qP+BLiuDqbicZelSla8YQOAV+VjcNm6kGIuKaX00l2edNf6d
+	chNsk17FO7ZTKfToEsPNUNrLxlAAR/vCu2LmtkaJv3/7jusq0wb/3oXuogUOu
+X-Received: by 2002:a17:902:d2d0:b0:2c7:ef84:c58e with SMTP id
+ d9443c01a7336-2d74dc08a13mr304207985ad.1.1788266547835; Tue, 01 Sep 2026
+ 05:42:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260805000159.321645-2-yunseong.kim@est.tech>
+References: <20260901-fix-pci-irq-vector-index-truncation-v4-1-f94aa6932fd9@hotmail.com>
+ <DL3XDBBHXKKV.G9P6KRSSX1DN@nvidia.com>
+In-Reply-To: <DL3XDBBHXKKV.G9P6KRSSX1DN@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 1 Sep 2026 14:42:14 +0200
+X-Gm-Features: AcwNN1VnWRWOYROIxu4T-i2jI1d1fjW-RoGFUjjuLdYxZ3xRyTDBVBEFMSpQ8Bo
+Message-ID: <CANiq72=GvH3KwsdTMtRq8jJcTWAh83uj5L3qD8vHbyntgCgoNg@mail.gmail.com>
+Subject: Re: [PATCH v4] rust: pci: reject IRQ vector indices that do not fit
+ in u32
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Sophon Zhang via B4 Relay <devnull+aiqubits.hotmail.com@kernel.org>, aiqubits@hotmail.com, 
+	Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, linux-pci@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 05, 2026 at 02:02:00AM +0200, Yunseong Kim wrote:
-> After a successful connect downcall, iw_cm_connect() returns with
-> IWCM_F_CONNECT_WAIT still set and the cm_id in IW_CM_STATE_CONN_SENT.
-> The only thing that clears the flag is the provider delivering
-> IW_CM_EVENT_CONNECT_REPLY (cm_conn_rep_handler()).  Until that event
-> arrives, iw_cm_disconnect() and destroy_cm_id() sleep uninterruptibly
-> in
-> 
-> 	wait_event(cm_id_priv->connect_wait,
-> 		   !test_bit(IWCM_F_CONNECT_WAIT, &cm_id_priv->flags));
-> 
-> and both state machines treat IW_CM_STATE_CONN_SENT as BUG(), so the
-> API has no way to cancel a pending active connect.  If the provider
-> never generates the reply, because the peer died in the middle of
-> connection setup or because of a provider bug, every teardown path
-> (rdma_disconnect(), rdma_destroy_id()) blocks in D state forever and
-> the ULP cannot recover: there is no way to disconnect after
-> rdma_connect() was called without risking an unbounded hang.
-> 
-> This class of problem is not theoretical.  The pending smbdirect
-> change "smb: smbdirect: bound the disconnect wait in destroy_sync" [1]
-> had to work around it on the ULP side:
-> smbdirect_socket_destroy_sync() waited unbounded for the socket to
-> reach SMBDIRECT_SOCKET_DISCONNECTED, a transition that depends on an
-> asynchronous RDMA CM disconnect event, and when the peer died abruptly
-> (a killed client, or Soft-RoCE/RXE where no graceful disconnect
-> completes) that event never arrived.  The destroy ran on the single
-> ksmbd-conn-release workqueue, every later connection release queued
-> behind it in D state, and the whole server wedged until hung_task
-> fired.  That change bounded the wait and drove the socket state
-> machine to DISCONNECTED locally on timeout; ULPs should not have to
-> resort to that, the CM should offer a teardown they can rely on.
-> 
-> IWCM_F_CONNECT_WAIT currently guards two different windows:
-> 
->  * the connect/accept downcall into the provider being in progress;
->    teardown must keep waiting for that, it is short and bounded;
-> 
->  * an issued active connect waiting for CONNECT_REPLY, which is
->    potentially unbounded.
-> 
-> Mark the second window with a new flag, IWCM_F_CONNECT_SENT: set by
-> iw_cm_connect() once the downcall has returned successfully, cleared
-> by cm_conn_rep_handler().  The teardown waits now complete when either
-> the downcall has finished (!IWCM_F_CONNECT_WAIT, as before) or the
-> pending-reply window has been entered (IWCM_F_CONNECT_SENT), and the
-> previously BUG() CONN_SENT cases become:
-> 
->  * iw_cm_disconnect(): return -ENOTCONN; there is no established
->    connection to disconnect, aborting is the destroy path's job;
-> 
->  * destroy_cm_id(): abort the pending connect locally by moving to
->    DESTROYING and putting the QP into error so the provider tears the
->    connection attempt down.
-> 
-> A CONNECT_REPLY that arrives after the abort is dropped: either
-> cm_work_handler() sees IWCM_F_DROP_EVENTS, or cm_conn_rep_handler()
-> now recognizes IW_CM_STATE_DESTROYING (the abort and the reply
-> serialize on cm_id_priv->lock) and frees the event without touching
-> the QP that destroy_cm_id() already released.  The cm_id memory stays
-> valid for such a late reply because the provider holds its own
-> reference (cm_id->add_ref) for as long as it can deliver events.
-> 
-> The passive side has a sibling gap, where after a successful accept
-> downcall the flag stays set until the provider's ESTABLISHED event
-> arrives, which this patch deliberately does not change.
-> 
-> [1] https://github.com/smfrench/smb3-kernel/commit/26d0f82a02c8a9c9c8cdfc138acb7ed0bf8e01a9
-> 
-> Suggested-by: Stefan Metzmacher <metze@samba.org>
-> Signed-off-by: Yunseong Kim <yunseong.kim@est.tech>
-> ---
->  drivers/infiniband/core/iwcm.c | 76 +++++++++++++++++++++++++++++-----
->  drivers/infiniband/core/iwcm.h |  1 +
->  2 files changed, 67 insertions(+), 10 deletions(-)
+On Tue, Sep 1, 2026 at 12:58=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.=
+com> wrote:
+>
+> That makes me wonder, shouldn't we make `index` take a `u32` directly?
+> If that's what the C API expects, it does make sense to align to it
+> instead of forcing users to make a potential unneeded conversion if they
+> already have a u32.
 
-I'm not sure what to do with this patch, as the iWARP folks have
-remained silent.
+In general, Rust users shouldn't be dealing with C APIs, so if they
+have a `u32` then it usually is because we exposed it from somewhere
+else (e.g. we returned it to them) or because that is generally the
+right underlying type, in which case it may make sense to align
+everything.
 
-Stefan,
+But even in those cases, it may have made sense to define a Rust
+newtype or similar instead.
 
-Do you still need this patch? Have you tested it?
+So other than exceptional cases, the types that C APIs use shouldn't
+drive the decisions on the Rust signatures, since they shouldn't be
+seen by the Rust users to begin with.
 
-Thanks,
+That definitely introduces some friction on our side, but it does give
+us a lot of freedom defining APIs the best way we can, which is a
+major advantage, i.e. since we have to provide these abstractions, it
+is a good time to be able to clean old decisions and improve on them
+using whatever tools Rust give us.
+
+Otherwise, one could also argue we should be passing the underlying
+types in general, e.g. even pointers.
+
+(Of course, you know this, I am just elaborating; and obviously there
+may be cases it may make sense to just use the underlying type since
+it is something that has never changed or is fixed due to some
+"standard" etc.).
+
+Cheers,
+Miguel
