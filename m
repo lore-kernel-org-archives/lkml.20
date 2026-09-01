@@ -1,196 +1,158 @@
-Received: from mta0.migadu.com (out-237.mta0.migadu.com [91.218.175.237])
+Received: from mail-oi2-f3.google.com (mail-oi2-f3.google.com [74.125.231.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8209A37266D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:50:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C8742A176
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:50:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788234626; cv=none; b=het+AfRXEhReIWCVwzbw7K9KxHh/4aYmmLGNnWfAw3b08iUxG8N4d1cBJQE3y5Ch76XrJj4nQbe/B7hLxHM+m1IiJZGh10G6RjNx4lHHctwy37vOCs6cvpu6+7SGU5Woz6wWGls7f27oE543pdh0uEEOLiL/a07fLkoO9tsgshg=
+	t=1788234630; cv=none; b=n5EFi1FeDNk9P5BzneJC0LoP26VutfdlCG9SR0p7ZYrEScA4W0KmG//khPPZZi3q+QEYUdxkJqc0WHO7S9Reqqk6t0ZR9sBe39p+aBmsq4favz5J+lso5DDhMJYBNZ0asvJXFyfJTPSgISWNTx3CUs4UH9T+5txNgL7dEsLuBmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788234626; c=relaxed/simple;
-	bh=Igt94N9mHc9AM+xVGYbOdd5entWuLAAmHL+i+Nc8zOU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CxfKpW9rZQfNfvqiYMWP+n/5jIYD8q+yMO9i4toQsISgBEG9x9D+yWfPNWv2KYGHo6BAfNxv6mklT12vNn9sZidvsBOUGjEh0nKkDmYRs5Q23BrG0jAUwkv5O1ReFuOYLHxBL+NRRQDAXYMsGdwJ4kGk76K4kyb3HVhIrDmEdQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sCRA5s3j; arc=none smtp.client-ip=91.218.175.237
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sCRA5s3j"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Igt94N9mHc9AM+xVGYbOdd5entWuLAAmHL+i+Nc8zOU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788234620; v=1; x=1788839420;
- b=sCRA5s3j/dRyMszHGA6yqlWaO5/kuANZOgHuQDnUucI6wNNi2yPw6EMeDi2OSwnX+D6Ga5Lb
- A274Hm99f9L9aM1m2XmKa9Mnu/IUs1oBMsfVjH5gEeIgexA+EQFqwVvGBGgaSz2txw9QcRLx0MV
- aN1rmbRQDHJ57+t2Fn5ZFKv8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8c089a648f6b2069;
-	Tue, 01 Sep 2026 03:50:09 +0000
-X-Mizu-Trace-ID: 8c089a648f6b2069
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <710b8c70-a7fb-484a-957f-ec230952739b@linux.dev>
-Date: Tue, 1 Sep 2026 11:50:01 +0800
+	s=arc-20240116; t=1788234630; c=relaxed/simple;
+	bh=UhhBBmsYaCyIEIJzLDRWRyvemnCGZ0bEXPo8Dqo/4Yw=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=quvEh/T/3g7K8b9snJ/xxjXCtD6v8mV1ChqUWzGF8dNHhgo8O340rzlOBX4MKfivm2zGGDoUFICZzFz7wJlZ1VFUOycKiYXhBVgz5lGEaX9MoTDlK0a0E2AB4KTOZonhtd534QVCP46+lxtp5Hn1XD8ni9vUg1+tH9iJsipKOPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f3.google.com with SMTP id 5614622812f47-4b38a6e8c79so118859b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:50:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788234627; x=1788839427;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c8uO371wBdFvG6jzSTVZVnGOXKAom2HgHpJv36cFlMY=;
+        b=EQhGKtoSnCPd7eyOmcOOnTXa8NuTYEPGq62ccZjXfVRKabS6+82BJYomGQp1F25E9s
+         Ncq8SIbTUOt68vElYZ3HEwbqI1vfqKZSNAq/Y49CfHaZWug2gUDZ6QPkfxdlQBR4Uyfs
+         ANekjIsH4anY4meWkAc+f5Fx9oxi+QL1MiaSyheaOQDA5buN8BFAk7wmTeEOX7T5UVle
+         ycO7SO6kD7am4Q2a/gelGdPw7nwzmjB+/S+eCA3UffLlWmlIKR3uIqxFsiesmayFon6V
+         fED68/rcB41Qq6fr66eq1xcwbjrOhU5xI5XdmB1KJo5ew2znEy3fYsTZUQoyUm4A3pE/
+         nL7g==
+X-Forwarded-Encrypted: i=1; AHgh+RrFZz1sX1iCNwhLOYwUAPqmsGVpkKYzOTGwWIUYIxdmDGYyRL13yOSxPafyuHlOCCzhjFIpgOFe0BVaYj0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgBWRr0GedVFKVcRIWFQG8k6jlB3z6rtflBAIpb3evbstWaEHP
+	S2DHJMGlJm94dJzdkmXc2AYjAWHYkgL0re4MZQAMlhRmiAaw2F1Qw3ya4I0GrHvTa2BW8oNUk/b
+	4VEaBb6suyxSzlJmWJD70eZXEHYnkIagxCOtueCel0GI+zZpe7yJgPv06pfY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 net] octeontx2-af: switch qmem from coherent DMA alloc
- to streaming DMA mapping
-To: Ratheesh Kannoth <rkannoth@marvell.com>, davem@davemloft.net,
- gakula@marvell.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- sgoutham@marvell.com
-Cc: andrew+netdev@lunn.ch, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com
-References: <20260901015621.2708182-1-rkannoth@marvell.com>
-From: Qingfang Deng <qingfang.deng@linux.dev>
-In-Reply-To: <20260901015621.2708182-1-rkannoth@marvell.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:220b:b0:4b3:63a7:b955 with SMTP id
+ 5614622812f47-4b397fa2c8dmr37057114b6e.7.1788234627728; Mon, 31 Aug 2026
+ 20:50:27 -0700 (PDT)
+Date: Mon, 31 Aug 2026 20:50:27 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a964b83.99c12218.408a8.0001.GAE@google.com>
+Subject: [syzbot] [ext4?] general protection fault in __bh_submit
+From: syzbot <syzbot+41453ea05ab61c075f1f@syzkaller.appspotmail.com>
+To: jack@suse.com, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, tytso@mit.edu
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+Hello,
 
-On 2026/9/1 9:56, Ratheesh Kannoth wrote:
-> qmem_alloc() uses dma_alloc_attrs() with DMA_ATTR_FORCE_CONTIGUOUS, which
-> allocates CPU-cache-coherent DMA memory and, with CMA enabled, draws from
-> the CMA pool. qmem backs NIX/NPA queue contexts, admin queues, and LMTST
-> regions (including CN10K LMTST areas that span page boundaries), so
-> consumption grows with enabled interfaces and is hard to provision in CMA.
->
-> Switch qmem to a streaming-DMA-style path: allocate physically contiguous
-> compound pages from the buddy allocator via __get_free_pages(), then map
-> them for device access with dma_map_phys() and dma_unmap_phys() using
-> DMA_ATTR_REQUIRE_COHERENT. Add otx2_dma_alloc_coherent() and
-> otx2_dma_free_coherent() helpers that enforce dev_is_dma_coherent(),
-> retry with GFP_DMA32 when the physical range is outside the device DMA
-> mask, and wire qmem_alloc()/qmem_free() through them instead of
-> dma_alloc_attrs()/dma_free_attrs().
+syzbot found the following issue on:
 
-__get_free_pages() can only allocate memory in power-of-two pages. You 
-can use alloc_pages_exact() and free_pages_exact() to save memory.
+HEAD commit:    89c07d98716a Add linux-next specific files for 20260831
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=1540fe25580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=32e7f0dfdb3435a4
+dashboard link: https://syzkaller.appspot.com/bug?extid=41453ea05ab61c075f1f
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13c81b79580000
 
-> This works on Octeon because the octeontx2 driver is written for
-> DMA-coherent devices: Octeon platforms provide IO coherency (via SMMU), so
-> the driver already uses streaming DMA APIs for packet data while
-> deliberately skipping explicit CPU cache sync (DMA_ATTR_SKIP_CPU_SYNC).
-> The same IO coherency lets qmem use a streaming map of buddy-allocated
-> pages instead of a dedicated coherent allocator or CMA reservation. That
-> is valid because the platform is DMA-coherent, not because omitting
-> dma_sync_* magically makes memory coherent.
->
-> Allocations requiring more than MAX_PAGE_ORDER pages are still rejected,
-> since the buddy allocator cannot serve them without CMA.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/43759091bf91/disk-89c07d98.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/7c556aacad9a/vmlinux-89c07d98.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/fa1ff3f317d0/bzImage-89c07d98.xz
 
-Can you confirm that no existing allocations exceeds MAX_PAGE_ORDER?
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+41453ea05ab61c075f1f@syzkaller.appspotmail.com
 
-> cc: Geetha sowjanya <gakula@marvell.com>
-> Fixes: 73d33dbc0723 ("octeontx2-af: Use DMA_ATTR_FORCE_CONTIGUOUS attribute in DMA alloc")
-> Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
->
-> ---
->
-> v4 -> v5: Fixed compilation issues.
-> 	https://lore.kernel.org/netdev/20260831024210.208447-1-rkannoth@marvell.com/
->
-> v3 -> v4: Fixed compilation issues.
-> 	https://lore.kernel.org/netdev/apTpKcN_S1xIwRbZ@rkannoth-OptiPlex-7090/
->
-> v2 -> v3: Addressed sashiko comments
-> 	https://sashiko.dev/#/patchset/20260825045616.3723078-1-rkannoth%40marvell.com
->
-> v1 -> v2: Rewrote patch as per sashiko comment
-> ---
->   .../ethernet/marvell/octeontx2/af/common.h    | 93 +++++++++++++++++--
->   1 file changed, 87 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/common.h b/drivers/net/ethernet/marvell/octeontx2/af/common.h
-> index 779413a383b7..061dd907f7fa 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/af/common.h
-> +++ b/drivers/net/ethernet/marvell/octeontx2/af/common.h
-> @@ -7,6 +7,11 @@
->   #ifndef COMMON_H
->   #define COMMON_H
->   
-> +#include <linux/dma-mapping.h>
-> +#include <linux/dma-map-ops.h>
-> +#include <linux/gfp.h>
-> +#include <linux/mm.h>
-> +
->   #include "rvu_struct.h"
->   
->   #define OTX2_ALIGN			128  /* Align to cacheline */
-> @@ -44,6 +49,83 @@ struct qmem {
->   	u32		qsize;
->   };
->   
-> +/* Buddy-backed coherent DMA alloc (Option 3): pages from __get_free_pages(),
-> + * DMA-reachable RAM via dma_coherent_ok(), and bus/SMMU mappings via
-> + * dma_map_phys() -> iommu_dma_map_phys() -> iommu_map() on SMMU systems.
-> + */
-> +#define OTX2_DMA_COHERENT_ATTRS	DMA_ATTR_REQUIRE_COHERENT
-> +
-> +static inline bool otx2_dma_phys_in_mask(struct device *dev, phys_addr_t paddr,
-> +					 size_t size)
-> +{
-> +	u64 mask = dma_get_mask(dev);
-> +
-> +	return paddr + size - 1 <= mask;
-> +}
-> +
-> +static inline void *otx2_dma_alloc_coherent(struct device *dev, size_t size,
-> +					    dma_addr_t *dma_handle, gfp_t gfp)
-> +{
-> +	dma_addr_t dma_addr;
-> +	unsigned int order;
-> +	phys_addr_t paddr;
-> +	void *vaddr;
-> +	gfp_t alloc_gfp;
-> +
-> +	if (!dev || !dma_handle || !size)
-> +		return NULL;
-> +
-> +	if (!dev_is_dma_coherent(dev))
-> +		return NULL;
-> +
-> +	size = PAGE_ALIGN(size);
-> +	order = get_order(size);
-> +	if (order > MAX_PAGE_ORDER)
-> +		return NULL;
-> +
-> +	alloc_gfp = (gfp & ~(__GFP_DMA | __GFP_DMA32 | __GFP_HIGHMEM)) |
-> +		__GFP_ZERO | __GFP_COMP | __GFP_RECLAIM;
-> +
-> +	vaddr = (void *)__get_free_pages(alloc_gfp, order);
-> +	while (vaddr &&
-> +	       !otx2_dma_phys_in_mask(dev, page_to_phys(virt_to_page(vaddr)), size)) {
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+CPU: 0 UID: 0 PID: 4943 Comm: jbd2/sda1-8 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:const_folio_flags include/linux/page-flags.h:345 [inline]
+RIP: 0010:folio_test_dropbehind include/linux/page-flags.h:601 [inline]
+RIP: 0010:__bh_submit+0x22d/0x8d0 fs/buffer.c:1109
+Code: c1 e8 03 48 89 44 24 18 42 80 3c 20 00 74 08 48 89 df e8 56 d6 d7 ff 48 89 5c 24 28 48 8b 1b 4c 8d 7b 08 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 34 d6 d7 ff 4d 8b 3f 4c 89 fe 48
+RSP: 0018:ffffc9000e64f868 EFLAGS: 00010202
+RAX: 0000000000000001 RBX: 0000000000000000 RCX: ffffffff84b9a0d9
+RDX: 0000000000000001 RSI: 0000000000000004 RDI: ffff888075d24660
+RBP: 0000000000009801 R08: ffff888075d246bf R09: 1ffff1100eba48d7
+R10: dffffc0000000000 R11: ffffed100eba48d8 R12: dffffc0000000000
+R13: ffff888075d24640 R14: ffff88807045fc40 R15: 0000000000000008
+FS:  0000000000000000(0000) GS:ffff888124866000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f10e87e8008 CR3: 00000000603f2000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ jbd2_journal_commit_transaction+0x22a9/0x5cd0 fs/jbd2/commit.c:751
+ kjournald2+0x3bc/0x750 fs/jbd2/journal.c:200
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:const_folio_flags include/linux/page-flags.h:345 [inline]
+RIP: 0010:folio_test_dropbehind include/linux/page-flags.h:601 [inline]
+RIP: 0010:__bh_submit+0x22d/0x8d0 fs/buffer.c:1109
+Code: c1 e8 03 48 89 44 24 18 42 80 3c 20 00 74 08 48 89 df e8 56 d6 d7 ff 48 89 5c 24 28 48 8b 1b 4c 8d 7b 08 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 34 d6 d7 ff 4d 8b 3f 4c 89 fe 48
+RSP: 0018:ffffc9000e64f868 EFLAGS: 00010202
+RAX: 0000000000000001 RBX: 0000000000000000 RCX: ffffffff84b9a0d9
+RDX: 0000000000000001 RSI: 0000000000000004 RDI: ffff888075d24660
+RBP: 0000000000009801 R08: ffff888075d246bf R09: 1ffff1100eba48d7
+R10: dffffc0000000000 R11: ffffed100eba48d8 R12: dffffc0000000000
+R13: ffff888075d24640 R14: ffff88807045fc40 R15: 0000000000000008
+FS:  0000000000000000(0000) GS:ffff888124866000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f10e952312d CR3: 000000007ff14000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess):
+   0:	c1 e8 03             	shr    $0x3,%eax
+   3:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+   8:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1)
+   d:	74 08                	je     0x17
+   f:	48 89 df             	mov    %rbx,%rdi
+  12:	e8 56 d6 d7 ff       	call   0xffd7d66d
+  17:	48 89 5c 24 28       	mov    %rbx,0x28(%rsp)
+  1c:	48 8b 1b             	mov    (%rbx),%rbx
+  1f:	4c 8d 7b 08          	lea    0x8(%rbx),%r15
+  23:	4c 89 f8             	mov    %r15,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
+  2f:	74 08                	je     0x39
+  31:	4c 89 ff             	mov    %r15,%rdi
+  34:	e8 34 d6 d7 ff       	call   0xffd7d66d
+  39:	4d 8b 3f             	mov    (%r15),%r15
+  3c:	4c 89 fe             	mov    %r15,%rsi
+  3f:	48                   	rex.W
 
-page_to_phys(virt_to_page(vaddr)) can be simplifed to virt_to_phys(vaddr).
 
-> +		free_pages((unsigned long)vaddr, order);
-> +		if (alloc_gfp & GFP_DMA32)
-> +			return NULL;
-> +		alloc_gfp |= GFP_DMA32;
-> +		vaddr = (void *)__get_free_pages(alloc_gfp, order);
-> +	}
-> +	if (!vaddr)
-> +		return NULL;
-> +
-> +	paddr = page_to_phys(virt_to_page(vaddr));
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Same here.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-> +	dma_addr = dma_map_phys(dev, paddr, size, DMA_BIDIRECTIONAL,
-> +				OTX2_DMA_COHERENT_ATTRS);
-> +	if (dma_mapping_error(dev, dma_addr)) {
-> +		free_pages((unsigned long)vaddr, order);
-> +		return NULL;
-> +	}
-> +
-> +	*dma_handle = dma_addr;
-> +	return vaddr;
-> +}
-Kind regards,
-Qingfang
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
