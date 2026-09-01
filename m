@@ -1,44 +1,44 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2142E23BCF7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3671D514E
 	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:55:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270904; cv=none; b=qvXOPHgtnUuAERr41x76YAWROzh3BpMtwFAvG+owPXC3Xu3IbXNWaRDi1Ml4FbS/VXeoxtnSDmwq1CxCGTrXzUAT+sry5mJYm6CsyJnrUW1ZzjOpFPMslx120LS/QFg9i2cvlaSVIZSxBThLgF0t2p20dbpWGv1kVXDMkdW6Fy0=
+	t=1788270904; cv=none; b=BTtvccgqlpBeEy9TULZlt2XP4xGUflmL7YYMOldg4wuDCbvBECo6p3wXeT2ichKO9qAH9kw069AcBzU/aqbgz8XQ0FGUuCF+ZMLackMG6734ELwCIrupVf21wyeHEIXiPekusXlBlB68FC4Q79DV0roloPToT+swrJfAvT2+yqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788270904; c=relaxed/simple;
-	bh=j4+PtI9N/R2jRNsJWHXVxsv7DivcZFQ/KWA44rI8BfY=;
+	bh=E9iBDSd0F+VFOLfBAeE7XB7kTLFkpCL7XnKeEoR64/o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SJnVUCIbkU7Tb9727WEcjFO6ZDiUa2sQzTvS0GXt85Wy2eS4lTD3lHpSLew8zBXmOLMz+6XuADGLXhzoy6RDXJQ2kOMj/0NR+7lhpLGWuDD/v3TIgHUv4lpBWiEbIIBfi0GrfDXa5uPG/N7uYj2nt1qDpWWPo+NpsT/l8fi5IB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=zXwrdLHK; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=oLIlpaxH; arc=none smtp.client-ip=193.142.43.55
+	 MIME-Version; b=QV1Lu58/1QLEukOBjc6uQ4M3WL3c/cCsQaY4NKNYaKO74x04NIZ3e3u/GMkdadSH2gP2cFYCwFr7EYfrkTessT2RI02h2iXc4DoWl14HnUTERmtZN+0vejq3dlcBJOI6uucvPbBgSOnXbt9+3T+uHZebbDXfWzpQlsskAovsssc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=HhIk1rjZ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=p6jPemJy; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="zXwrdLHK";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="oLIlpaxH"
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="HhIk1rjZ";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="p6jPemJy"
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788270901;
+	s=2020; t=1788270899;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=i+JQ21gRjnOvRW7EQD2bTY4sf0RSX0VwaabZKMNpgH0=;
-	b=zXwrdLHKfBcyaequjOfWJidicsaCX3fZOj/ddL0qj+QgNaZF5VokAaTvVB1Uy6iT6a1ixn
-	dazHt/OVF5/Ps9ILHZ2LwZg7/9o+J85pstl3zO+opMPzOEzSHDZCM7CfQowjL3et/kXF8h
-	9iMNLNOFygK9ulnNWTIuvRzkXNmtD7Xw+5BaWU38oTaxWq3lxaz9y+qOruK8fSWXLo7KFQ
-	OvytiV33Bt2RPofm7rmk24lQsPNvbwNzYZWFKYDaxN+G0s0t9lLGgK4IeFIxijr+NuBzAe
-	JfreggKuuuiFD9r1zb82x2qQAOkFvya97ca/3JFMS/baSpDy7H1QtR9wmH91NA==
+	bh=jQWyz0zLAk1rifjb78xRUnQXRcjCfUEYgBKEXS8+YA4=;
+	b=HhIk1rjZKrQOaBkJ1qP6TkuyafKYgBHKwMabdkVxj1jdJHf13WoVLLixGFpXGxVzENmoVW
+	Y9iOcPsH8yKuMbeLHmlKH+vIOmV+F2h3QwVAXK5qI/h6zUMTMNOln+e93hoOAKRbiT7Kvd
+	phd+3T0C4u6b8ionzoLdp2SeEt/VHoxP/1DEZ5oI0LZJNWxOL2yhMb2WE8V6TPH2wvrzZU
+	vITYc/GMlDN6bKwXfzwk1CU3uGAJfJv9GjU44ZjPIz6o5nKRPp5yO+J/itMsJH192PRXUu
+	gO9m8etR1p1LMHZxXjLeaCwFaxyf3bUSMJfonRVOo1/HRsy4pesZHhzmpudXnw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788270901;
+	s=2020e; t=1788270899;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=i+JQ21gRjnOvRW7EQD2bTY4sf0RSX0VwaabZKMNpgH0=;
-	b=oLIlpaxHIDEVJlUsQmEVzWNFUrU0cJJmGEeViazBRUCjoTgsoP6m9ol7lBIoZg2LNQzDLu
-	nuvufE0OJisVPnAw==
+	bh=jQWyz0zLAk1rifjb78xRUnQXRcjCfUEYgBKEXS8+YA4=;
+	b=p6jPemJy9RuyNqla2PFBCAYvIXumKOsNHG07QT0D63rpy1x7Vgnl6lOyc4SZBph9mhY023
+	Mv28KjuLrVsdh2DQ==
 To: linux-kernel@vger.kernel.org
 Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
 	Darren Hart <dvhart@infradead.org>,
@@ -49,9 +49,9 @@ Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
 	Borislav Petkov <bp@alien8.de>,
 	Yao Kai <yaokai34@huawei.com>,
 	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: [PATCH v4 2/2] futex: Prevent rcuwait use-after-free during requeue PI
-Date: Tue,  1 Sep 2026 15:54:52 +0200
-Message-ID: <20260901135453.3121948-3-bigeasy@linutronix.de>
+Subject: [PATCH v4 1/2] futex: Provide rt_mutex_.*_schedule() equivalents for futex scheduling
+Date: Tue,  1 Sep 2026 15:54:51 +0200
+Message-ID: <20260901135453.3121948-2-bigeasy@linutronix.de>
 In-Reply-To: <20260901135453.3121948-1-bigeasy@linutronix.de>
 References: <20260901135453.3121948-1-bigeasy@linutronix.de>
 Precedence: bulk
@@ -62,104 +62,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-From: Yao Kai <yaokai34@huawei.com>
+There is rt_mutex_{pre|post}_schedule() around
+rt_mutex_wait_proxy_lock() to ensure that sched_submit_work()/
+sched_update_worker() is invoked before we schedule out and block on
+rt_mutex while waiting for it become available.
 
-On PREEMPT_RT, FUTEX_CMP_REQUEUE_PI can trigger a KASAN report
-(slab-out-of-bounds) in futex_requeue_pi_complete() invocation of
-rcuwait_wake_up().
+The reason is that blocking on rt_mutex assigns a pi_waiter for the PI
+chain and sched_submit_work() will also assign a pi_waiter if it blocks
+on lock but a this point we already have a waiter assigned.
+We can't skip sched_submit_work() entirely because I/O relies on the
+fact that I/O queue is flushed while it blocks on a sleeping lock.
+Therefore sched_submit_work() is moved before we block on the lock.
 
-The futex_q used by futex_wait_requeue_pi() is allocated on the waiter's
-stack. An early wakeup can race with a PI requeue as follows:
+Sleeping lock in this context means mutex or rw_semaphore not spinlock_t
+on PREEMPT_RT. Because the mutex abstraction on PREEMPT_RT uses the same
+abstraction as the futex proxy lock, the futex code ended up using
+rt_mutex_{pre|post}_schedule(), too.
+Using it is/ was just to keep the task_struct::sched_rt_mutex assertion
+happy. Futex proxy lock is used only in the syscall context of a task.
+At this point it never got any I/O that needs to be flushed and it can't
+be a workqueue that needs to notify that it will be scheduled out.
+Therefore sched_submit_work() does nothing here.
 
-        waiter                          requeue task
-        ------                          ------------
-futex_wait_requeue_pi()
-  futex_do_wait()
-    schedule()
-                                       futex_requeue
-                                         futex_proxy_trylock_atomic()
-                                           futex_requeue_pi_prepare()
-                                            Q_REQUEUE_PI_NONE -> Q_REQUEUE_=
-PI_IN_PROGRESS
-* timeout/ signal wakes waiter *
-  futex_requeue_pi_wakeup_sync()
-   Q_REQUEUE_PI_IN_PROGRESS -> Q_REQUEUE_PI_WAIT
-                                           requeue_pi_wake_futex
-                                             futex_requeue_pi_complete()
-                                               cmpxchg Q_REQUEUE_PI_WAIT ->=
- Q_REQUEUE_PI_LOCKED
-    rcuwait_wait_event()
-      if (atomic_read(&q->requeue_state) !=3D Q_REQUEUE_PI_WAIT)
-       break /* no schedule() */
+By mistake futex_wait_requeue_pi() -> rt_mutex_wait_proxy_lock() did not
+get the rt_mutex_{pre|post}_schedule() annotation. This was not noticed
+because in this callchain the lock is (usually) not contended and so
+rt_mutex_slowlock_block() does not schedule, triggering the assert.
 
- /* q.pi_state->owner =3D=3D current */
- futex_private_hash_put()
- /* return from syscall */
-                                              rcuwait_wake_up(&q->requeue_w=
-ait)
-                                                /* q is gone */
+Adding rt_mutex_pre_schedule() here looks wrong (as noted by PeterZ)
+because at this point there is a pi_waiter recorded and invoking
+sched_submit_work() with a possible lock contention would be wrong.
 
-futex_requeue_pi_complete() publishes Q_REQUEUE_PI_LOCKED before
-calling rcuwait_wake_up(). The waiter observes this state in
-rcuwait_wait_event() before invoking schedule() in rcuwait_wait_event().
-Here, the waiter is free leave the syscall before requeue task can
-complete the wake.
+Add rt_mutex_futex_{pre|post}_schedule() which toggles the
+sched_rt_mutex assert and does not involve sched_submit_work(). Add
+asserts here to ensure that sched_submit_work() would do nothing. Use it
+only in futex proxy lock case which is rt_mutex_wait_proxy_lock().
+Remove it from futex_lock_pi().
 
-To address this race skip rcuwait_wake_up() in the Q_REQUEUE_PI_LOCKED
-case.
-This state is only published by requeue_pi_wake_futex(), which saves
-q->task before futex_requeue_pi_complete() and wakes the waiter via
-wake_up_state().
-
-This wake is intended to wake the waiter from its futex_do_wait() sleep.
-If the waiter is still sleeping there, it can not get into the
-Q_REQUEUE_PI_WAIT state (and require this removed wake).
-Should the waiter be woken up from futex_do_wait() by other means (as in
-this example) and sleep in futex_requeue_pi_wakeup_sync() then the
-wake_up_state() from requeue_pi_wake_futex() will wake it, too.
-Should the waiter task terminate before wake_up_state() had a chance to
-wake the task then the task pointer does not become invalid because the
-futex_hash_bucket::lock is held and the task pointer is RCU protected.
-
-[bigeasy: Updated comment and commit message]
-
-Fixes: 07d91ef510fb1 ("futex: Prevent requeue_pi() lock nesting issue on RT=
-")
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
+Fixes: d14f9e930b90 ("locking/rtmutex: Use rt_mutex specific scheduler help=
+ers")
+Reported-by: Yao Kai <yaokai34@huawei.com>
+Closes: https://lore.kernel.org/all/20260717084922.4153317-2-yaokai34@huawe=
+i.com
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- kernel/futex/requeue.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ include/linux/sched/rt.h     |  2 ++
+ kernel/futex/pi.c            | 16 +++-------------
+ kernel/locking/rtmutex_api.c |  2 ++
+ kernel/sched/core.c          | 16 ++++++++++++++++
+ 4 files changed, 23 insertions(+), 13 deletions(-)
 
-diff --git a/kernel/futex/requeue.c b/kernel/futex/requeue.c
-index 79823ad136830..b3f4a4bccb126 100644
---- a/kernel/futex/requeue.c
-+++ b/kernel/futex/requeue.c
-@@ -154,8 +154,16 @@ static inline void futex_requeue_pi_complete(struct fu=
-tex_q *q, int locked)
- 	} while (!atomic_try_cmpxchg(&q->requeue_state, &old, new));
+diff --git a/include/linux/sched/rt.h b/include/linux/sched/rt.h
+index 4e3338103654c..922935cc33833 100644
+--- a/include/linux/sched/rt.h
++++ b/include/linux/sched/rt.h
+@@ -52,8 +52,10 @@ static inline bool rt_or_dl_task_policy(struct task_stru=
+ct *tsk)
 =20
- #ifdef CONFIG_PREEMPT_RT
--	/* If the waiter interleaved with the requeue let it know */
--	if (unlikely(old =3D=3D Q_REQUEUE_PI_WAIT))
-+	/*
-+	 * The waiter in futex_requeue_pi_wakeup_sync() can interleave with the
-+	 * wake below: It will assign Q_REQUEUE_PI_IN_PROGRESS and here it will
-+	 * be updated to Q_REQUEUE_PI_LOCKED (locked =3D 1). The rcuwait_wait_eve=
-nt()
-+	 * will already read Q_REQUEUE_PI_LOCKED and skip the schedule() invocati=
-on,
-+	 * leading to an access of futex_q::requeue_wait after the waiter returne=
-d.
-+	 * In this case only we skip the wake here and rely on following wake in
-+	 * requeue_pi_wake_futex() to perform the wake if needed.
-+	 */
-+	if (unlikely(old =3D=3D Q_REQUEUE_PI_WAIT) && new !=3D Q_REQUEUE_PI_LOCKE=
-D)
- 		rcuwait_wake_up(&q->requeue_wait);
- #endif
+ #ifdef CONFIG_RT_MUTEXES
+ extern void rt_mutex_pre_schedule(void);
++extern void rt_mutex_futex_pre_schedule(void);
+ extern void rt_mutex_schedule(void);
+ extern void rt_mutex_post_schedule(void);
++extern void rt_mutex_futex_post_schedule(void);
+=20
+ /*
+  * Must hold either p->pi_lock or task_rq(p)->lock.
+diff --git a/kernel/futex/pi.c b/kernel/futex/pi.c
+index 88788e584ec8a..98f1b962e59a0 100644
+--- a/kernel/futex/pi.c
++++ b/kernel/futex/pi.c
+@@ -1070,17 +1070,11 @@ int futex_lock_pi(u32 __user *uaddr, unsigned int f=
+lags, ktime_t *time, int tryl
+ 		 * Caution; releasing @hb in-scope. The hb->lock is still locked
+ 		 * while the reference is dropped. The reference can not be dropped
+ 		 * after the unlock because if a user initiated resize is in progress
+-		 * then we might need to wake him. This can not be done after the
+-		 * rt_mutex_pre_schedule() invocation. The hb will remain valid because
+-		 * the thread, performing resize, will block on hb->lock during
+-		 * the requeue.
++		 * then we might need to wake him. The hb will remain valid
++		 * because the thread, performing resize, will block on
++		 * hb->lock during the requeue.
+ 		 */
+ 		futex_private_hash_put(no_free_ptr(hbr.fph));
+-		/*
+-		 * Must be done before we enqueue the waiter, here is unfortunately
+-		 * under the hb lock, but that *should* work because it does nothing.
+-		 */
+-		rt_mutex_pre_schedule();
+=20
+ 		rt_mutex_init_waiter(&rt_waiter);
+=20
+@@ -1146,10 +1140,6 @@ int futex_lock_pi(u32 __user *uaddr, unsigned int fl=
+ags, ktime_t *time, int tryl
+ 		 * the
+ 		 */
+ 		futex_q_lockptr_lock(&q);
+-		/*
+-		 * Waiter is unqueued.
+-		 */
+-		rt_mutex_post_schedule();
+ no_block:
+ 		/*
+ 		 * Fixup the pi_state owner and possibly acquire the lock if we
+diff --git a/kernel/locking/rtmutex_api.c b/kernel/locking/rtmutex_api.c
+index 5d48d64725b12..eb18b094473c9 100644
+--- a/kernel/locking/rtmutex_api.c
++++ b/kernel/locking/rtmutex_api.c
+@@ -423,6 +423,7 @@ int __sched rt_mutex_wait_proxy_lock(struct rt_mutex_ba=
+se *lock,
+ {
+ 	int ret;
+=20
++	rt_mutex_futex_pre_schedule();
+ 	raw_spin_lock_irq(&lock->wait_lock);
+ 	/* sleep on the mutex */
+ 	set_current_state(TASK_INTERRUPTIBLE);
+@@ -433,6 +434,7 @@ int __sched rt_mutex_wait_proxy_lock(struct rt_mutex_ba=
+se *lock,
+ 	 */
+ 	fixup_rt_mutex_waiters(lock, true);
+ 	raw_spin_unlock_irq(&lock->wait_lock);
++	rt_mutex_futex_post_schedule();
+=20
+ 	return ret;
  }
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index f78275192036b..449ccd871be81 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -7637,6 +7637,17 @@ void rt_mutex_pre_schedule(void)
+ 	sched_submit_work(current);
+ }
+=20
++/*
++ * Used within the futex syscall context, skips sched_submit_work() becaus=
+e none
++ * its work will be done. Asserts ensure that it is indeed the case.
++ */
++void rt_mutex_futex_pre_schedule(void)
++{
++	lockdep_assert(!(current->flags & (PF_WQ_WORKER | PF_IO_WORKER)));
++	lockdep_assert(!current->plug);
++	lockdep_assert(!fetch_and_set(current->sched_rt_mutex, 1));
++}
++
+ void rt_mutex_schedule(void)
+ {
+ 	lockdep_assert(current->sched_rt_mutex);
+@@ -7649,6 +7660,11 @@ void rt_mutex_post_schedule(void)
+ 	lockdep_assert(fetch_and_set(current->sched_rt_mutex, 0));
+ }
+=20
++void rt_mutex_futex_post_schedule(void)
++{
++	lockdep_assert(fetch_and_set(current->sched_rt_mutex, 0));
++}
++
+ /*
+  * rt_mutex_setprio - set the current priority of a task
+  * @p: task to boost
 --=20
 2.55.0
 
