@@ -1,203 +1,144 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020134.outbound.protection.outlook.com [52.101.84.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8945C44A3FA;
-	Tue,  1 Sep 2026 19:58:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.134
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292692; cv=fail; b=Y2KzIS85Yqbk+lnKbKWqxAia2/pG5IxrwQpiEI+T/3nBUfBbkVp3pRBi8hsO+SUUJUy/OqaGhmJfgg32VugU2CLGSawVbVNEBiUkc6t3e8PtdO2fntMLsSwWZJVl2mfgC+v4gpKmU6q38rJRHTrF4QO6XrH2/+ycDRZ0dJuUstY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292692; c=relaxed/simple;
-	bh=Qpwpo/M/nI401WnFDQIAAQueWPjTEmI/v1IL2cQ8F1s=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=oti6+k0MZ4eSrhXGYi+HOkh1icXzQNsx7kKE/rhAD18uZYr3CrMNtKMbuBXZ/VXhe8on++mqa34rr9kJEoTkCa+/e7R1ONvrGNgmLokscBAh2JQ5jos4gLjjf8k1oTAaJGtVeKgT/y7w8ytMqpnPjDObIFhfuIRAFoAP2Z02J6Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=b6X1BY06; arc=fail smtp.client-ip=52.101.84.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="b6X1BY06"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qb5S/eB9didNVzLUAw6Goxkt80VgvWlnHw880NlOX6eUrHn6Ry+cwjDYCGyZnZJW6wQ+tckrvs49XKXNtncMRJr8OBFNs6/zXLGbfLa6bPXmZEoD9wZlAN18NQ7RBQYVhxzH7QpRItBZRcZTHdwmRJQ4IAedKWXHd4oaoCBB5zjFsZXocidUTv0iTw8fNP7+t1LTAY8dq3u50JVjs+JI1cpWqjZXzZ+8GEzV8x1+yIvc2B5sxYamcq8UPXpH6e/tbnSPs0dJk8lYQ5nfGiwlN/ioLLUvNyq59yiSdcCeQiL7EGJkb1OsdNYa1OnQvsd79vI9KFH8hND37wmcT5JiMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=syYDpEtN7EAO6lblmvzHeMqrKwUyzQ5H18oxIziJShA=;
- b=xFyYHbiHwI+DEqJe+gsv6q0UNWNgc5AivxU9jm/Y+MFPYBrrnoueasTejTS38AwKnLCx6Stit8CSgqK83Hbi/7VXip0ggznSQasxxjRFkTVBQRI5gb6XKB4lD8YgtzS28TL2a7xmNW6LLVrdV+2ZtJCH14jaL5X8KAk1ZH7hwN+OGQ0UDV/U9e0j/soxbPWtU/J2q0bUh4FrFyHNYFMITyXA5WcUs5dIX4H2S09UtS6R1edaw3WyztjnxcI062/z/oKxzj+kyLpAenUlGezrLRA6ZzTLM5b4Hh9dAvergSLnau0w431wBX12/rOZSGxwosqvzuAnal8jk27LmYysHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
- header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=syYDpEtN7EAO6lblmvzHeMqrKwUyzQ5H18oxIziJShA=;
- b=b6X1BY063M1XvqOx/tkBaSrLvVhCX5gH6d7uS4I6/S4Hcxvj+LYiuzi2q9DUDPboNT2t1qIJtOjabPANyyIdPtTGToTTpVfoMoaqJ8napjFnIjiujwwbh0wMrQvhhdNeF4mPNmdiDCGPQYHJ3l9kervt2NqKwML7CRHRCBrGojIiJpk3YqTGEwjCOr6u3xnJheHmetMi2NHORTMpYm84psgAvmJ73VAyDnA3fKXpW058K37bh0Tw7Hpa9rDHFGrmnza6DprFStR97OjVzu/E6SQLV2cK+rkH7i5tQLLFVKN01CQLloxpWM2mr/Jbjk9XLd/FQdRh7/6RHZdojGftRQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=virtuozzo.com;
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20) by DB8PR08MB5308.eurprd08.prod.outlook.com
- (2603:10a6:10:f9::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Tue, 1 Sep
- 2026 19:58:07 +0000
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a]) by PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a%4]) with mapi id 15.21.0382.007; Tue, 1 Sep 2026
- 19:58:06 +0000
-Message-ID: <136d2036-2bd9-4ee3-9b7a-2001147be09a@virtuozzo.com>
-Date: Tue, 1 Sep 2026 21:58:04 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/core: fix unshare_test with large fs.nr_open
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Shuah Khan <shuah@kernel.org>, Wei Yang <richard.weiyang@gmail.com>,
- Bala-Vignesh-Reddy <reddybalavignesh9979@gmail.com>,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-References: <20260814165709.513263-1-khorenko@virtuozzo.com>
- <20260829182622.401275404893ef640e8c81e1@linux-foundation.org>
-Content-Language: en-US, ru, sr
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-In-Reply-To: <20260829182622.401275404893ef640e8c81e1@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: VI1PR04CA0094.eurprd04.prod.outlook.com
- (2603:10a6:803:64::29) To PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FD544A3FD
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:58:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788292710; cv=none; b=nRYg5gmS0wP/4GkY8HI0HFODMZ9tT1Nc2d+VYtA5JoqYCAU5bKub8QtnBJBGjUIDBgybx0msxt8OR17pxqUC/Lqouz/ucXWQZFovGZqqFjB0ULJFeAOWAo0ZmTY096zxRGre5Rf8Q0vPszA2B/k9Wjno5pak9XqcS2b4IDgd2Yc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788292710; c=relaxed/simple;
+	bh=8YkzD8ARuX0vYO1367jGODTXnnUTuCYssGwFJZqv9wM=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Ou+NjCbVM+SiVBujeyFfP1uCNMzE41x0o0+rxziYxkRUycktny7yUAuiLUqE3IF5OwGIrLhIuNXWEkDfK1pUVlY+NRxQIO2E7oHMYlsyV6EXZXug4pqjjKY/+mXcEpI0K8bPzasA95+8wXktT6x/s2YV1GiYgSC1mtIzgckfpBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b39374fab5so59992b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:58:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788292707; x=1788897507;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c7h/zJKghNpqnowb2E2GhH8KGrsNsXaWvN5Fli5UPXU=;
+        b=WIWZFbEb9KjePr2FhjXrL6RP70RMTBgYSG0cXK0HL7cLjgjn8wl7pA4wL//w4wK4hT
+         2BO5jaF2dhQJtfat0ZhACrZitG4wV/1aygj1qOTUZljH5O8t6X/jLHP0pWwebRPrAAe5
+         RrJigRTSYvBec3FeuMLFp9C+uvkl/tmdBvmr5Stz5rDqXX0a3ZOTAcImtxGMUHdGuFRR
+         g4Ms/jykAvGkaqcYty+6ofFWdGBB4HxyV2KnixMIZ8xVLfNgZ8ilw6VpRtziflDmsPX+
+         VU5c+gGqDR0qJ726i0aKKDcYduRE0tIfH6aNi/OSuoq2hGI1PcddRVx1Ds5nKsvdUQbZ
+         ChRg==
+X-Gm-Message-State: AFuF++n0ztQ+W31Bz2AA0JD5qXvEaCRM63Y2vbG6LAC680ophdkeNz5U
+	hYkAOWyng+wRY9AZEGjZeockR7qwoojtQaNHahA6bJpHUOj91eIFv4zryzgepEH0FDTDUSSrhiX
+	IDSc3CaHoXKY5PDuS77XHKJuQHznupBsvxRRcjfa3VL6o/bG8Atpa6fsJinfhQw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA6PR08MB10708:EE_|DB8PR08MB5308:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e6d198a-d838-496f-bd62-08df08635726
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|6133799003|10067099003|5023799004|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Wwhr2stkKR1xq+ARXTmK4FieWSqrgocV91QtKbY4rdMlDnA7WqxI0OZwFaPzb0Ai4Ju0KXQ7cfgzXkwJAgDOXtwwF8vBsBumueKC0e4fsS2cG1H9hX6pLhpvjBM85i4x4F0PXL/00tyvs6eyCWFTC/jtvwgLqERBN6904uyZXKZNeXOtQ0cEQS+40nNtNu0Y9HRJJ/p8+H35ut74kpIKtcJIXlYRBJztD5A+FJQWLqGw8YsOtqyl3bAZRZuTWjLhDsf/triIri+433mQSI+MU0g+6WFTVM6Qop2hyN/VOtyETKwbUMHqfiOtCV71bv9cbtzgrP0fqovs0Okf8He1ty1SDvTO8CXleIt0i0RGoOgAL5wfGaoOI1jjhFSojTAPxrfrmDgp4+QiRTviguzC9/2y8+9vDiVD3rX7kJrDVQCFoqnQ7tLvU6RjsHg70XzvhggIMTeim3vZGvTxqLo7bBnaej4H+WNFFkbKl9jkP9j+ZirQZurfLzbw/GN1P3tuNUHg8kEYFz02nIkBoXvQSlTlMfPjfd79zxgKlK5sXK2E4qxMaOouDSTiPslOuffFEfphzNhbpb8a04V1ljfvPPr7wEOwMGHJdgkSbXnAIzBQKCo2KKFjt3NiH2Dsmi8Y0gKTfTaVoOCgP2Hu5VdvV96126WfhMmpcu9ZfUp7T9U=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR08MB10708.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(5023799004)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NEZER0Z2NEpPaXlTRmNkUmNCME10bzJDZThYcWREcWlNUW1MajRzTm03TFNy?=
- =?utf-8?B?VkZKQWdQY0tCWUFVMjBsYmtPRlFWYnlWazNlamlSRmg0ak5CK0lFdWhSTFpq?=
- =?utf-8?B?OGdaYjU5VldmVlMzb0xZWkRWVEVkL1dXa3pITGtOUXZ3Q05iTWxVd09DTnhn?=
- =?utf-8?B?amJUdmZiZ2FzbGFsVnRBTnZZWDE5TTYvZGxEbzlsbzRwdWpXQkFFc05mdjZ4?=
- =?utf-8?B?MGVjTXlqWHI2Yy9PWTEvVUZudXVUcVdzM21vVVRRR0xKVWdTMlpRbFh2cnY3?=
- =?utf-8?B?cXVWQ1AvakRqZkJrbXc0dnNCbGVvbWQ1WnAzbmsxQWdtTTMwZkFPUmtIRnFI?=
- =?utf-8?B?ZERoMjBDV0dwVXkzakFtTUJ5bGtrR1hYejRuQ3VxZWpjNzRRL0svYmtrV2RR?=
- =?utf-8?B?VkhkNDhyZEY5cEZQd2ZPMWM3aTVHMWJONy9RSTdrVVFhelZsL1djSUh6Q2tQ?=
- =?utf-8?B?UWxuQVQ4SzEyU1N2LytGbm5nVTJjWUQ0NlZ3bEdITmR6R1NOZkdhdmFIZzAz?=
- =?utf-8?B?QVFjSElPU1VhbDlySG5OazdlMkx2aTBtbldNd25SRG8rNjA0Um5ERnRleG9j?=
- =?utf-8?B?amprWHZ3VGdEeDFBbWIxWHJ0T1ROVTNORHJMSExDc2dCaVJpMUdYL2lSSnhj?=
- =?utf-8?B?dTl4SVJ0Y3RVczNRMy9FNVhRRVp1aUhjNHdSZklHMUYzMzU0Ymw4c0kzL1VB?=
- =?utf-8?B?b3BhRXBSN2pKd1NuRHhKa2I2VjJsWjRaRGI4aEszeW81eXlSVEpqOFN5QkhN?=
- =?utf-8?B?eUlabDU3M3lNTkxYOWpMdmZndUFkODRLU1dQdko4aHUvWTJUM1ZkYkF3MUVO?=
- =?utf-8?B?NEpVek02TGIwSkg4bUhnaHR6YS8xWG90MGwyd3JQSzB4OEFYNkVZdjdBUFJj?=
- =?utf-8?B?VHRYengzeVQ0NUM0Z1BFU3gyMU1zK0RGOS9yOHc1bVdKRUNHeXR0eDh2U2tD?=
- =?utf-8?B?aUl4cXVPZjcxWVpwenJ4am1uaFVVZzBiWE54WFNKbnlyTFdlMGlURDRwcmNq?=
- =?utf-8?B?YmRmWklaaEViRnNxejh5c0ovWmpVcHh1SlZqa2dsK1dpYTRid2MzbDk3U3kx?=
- =?utf-8?B?RFNXN3AzNUR6S0J3TGlGVnA2RG9WY2hBRGJEbDg2c0Zyd2UzTHpLTEFzb1pJ?=
- =?utf-8?B?cjdpckRsTmx3a09tRFJCSGNYSU5OR3c2VWlQbk1XK25FbEJHQTdDY3dYcXJo?=
- =?utf-8?B?aGl2aTU3V2pDeVlJemp6dWlCRU1pY00rUnNUMlFNYm1tbHFNUTVzT0FhczFw?=
- =?utf-8?B?QlNSRmEwUEhQQXFoRWt1bjhOUHdBcHFLS0ttMlBLTWREbUFXQ3BsdmNEOXEz?=
- =?utf-8?B?Zzk0d01tMjdnSWRHaWdxVGdXN2I0UTlORVZmb1IrZ25PTjVmeDlJZTVWQzFw?=
- =?utf-8?B?V2dYWVNRbm11TlQyQXFHaHo1Ykl0R1RNY0o4dDN6M3lFbGxWSjR2Mmt1cnA3?=
- =?utf-8?B?WEljbE9PNnFXVlJYOW9pbnREYnJEWWNHU2crNlZpZ29iVGRnUmR5dmhPRUJU?=
- =?utf-8?B?L1hqVDRwb0FWMjdEUUFCc0c5R2k0WmUwVS9zYVFjN0t5RGRveERZaDAwUXJw?=
- =?utf-8?B?WDI2Y2N3bWhRTXo3VERnSmxwbUdGWUhTZDlONjZIYXNlRmxtMTN2MXBwSnd1?=
- =?utf-8?B?Z2h1WFdKSUhERGhha21iaURXRUdoVmZZU2t0bEE3SHNxV05lZ0N0VDMyRXFS?=
- =?utf-8?B?b3Y2TU9ua003Z1hlKzZsOGxOTXdtejhaR1NiWnpKM0hINHR4bitaL3BOUksy?=
- =?utf-8?B?a3VGcHBEZ201TTZ6QlpZanpPbmVYeHdjRGZjSGFxTjlOR1pDb0xzdExrKzht?=
- =?utf-8?B?ckJwTjBvMnhJcVNwRFVIMmxiU1dGZkhHeHhYcXV1K1FNWXdST1NDRVJ5RFpY?=
- =?utf-8?B?VjhhdWhKNm9GQTJZeTZUbU9EVTNHYjdyR1ZpWk5oRjlLaUFvZldrZlRGa01C?=
- =?utf-8?B?MW9FK2ZPQUcwZFdRRlRiSzNBeWhyQnZuZzBMOGMrWU5FSzVGNXpJNkVxU2FJ?=
- =?utf-8?B?cWtvKy9BWGhBbTlyRmtZM0pVRTdKVDMwSTZiRUFIVEFxT1RDbk91aVF5Uzlm?=
- =?utf-8?B?WGlBQmpicGhtaXJJMzVVYVpZbFp6QzBRdjhVNTFsTVhBMkV1TXV6RFZ3RGZ6?=
- =?utf-8?B?NDZmQUo0SEF4YWo1UVVheWFhY3UyZVJSZFFtemxEbzVYNUJkUnVXbDlLRXdr?=
- =?utf-8?B?OHNjOENsbW0xMFJUK1poVUdvWjlyM0E3YUVyNmdPRTZZV2RmbTZBOEd2NFFT?=
- =?utf-8?B?ZHVsS0RvMmk2bzVUU0xOK0tNdFF4V2ZxU3M0bVhvU3hydzNBVi9iTW5FTzZu?=
- =?utf-8?B?WUZHUC9mTGk1Z1NWMkdoejg4OWNGM1VqZWRZZU02MkQzeUZnYWRsdz09?=
-X-OriginatorOrg: virtuozzo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e6d198a-d838-496f-bd62-08df08635726
-X-MS-Exchange-CrossTenant-AuthSource: PA6PR08MB10708.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 19:58:06.8707
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2IaKBLg4jd7QRCoTwJaeOJ9lj6RBqOifiVvZVRa5bF+2Lr5JTBhnXeM8D1YdarDGfkRQItg9gsS3Al8Pj33Z9Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5308
+X-Received: by 2002:a05:6808:30a6:b0:48a:ddd4:d36f with SMTP id
+ 5614622812f47-4b5b8064ab9mr10831910b6e.8.1788292707462; Tue, 01 Sep 2026
+ 12:58:27 -0700 (PDT)
+Date: Tue, 01 Sep 2026 12:58:27 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a972e63.610165a0.2b3dfd.0001.GAE@google.com>
+Subject: [syzbot] [raid?] WARNING in create_strip_zones (2)
+From: syzbot <syzbot+a32ff75e417c0f49a8e9@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
+	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
+	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/30/26 03:26, Andrew Morton wrote:
-> On Fri, 14 Aug 2026 18:57:09 +0200 Konstantin Khorenko <khorenko@virtuozzo.com> wrote:
-> 
->> The test assumes fs.nr_open is close to the default 1048576, but some
->> systems set it much higher (e.g. 1073741816). This is systemd's doing:
->> since systemd v240 (2018), PID 1 bumps fs.nr_open and fs.file-max to
->> their largest possible values on boot, as file descriptors are already
->> accounted for by memcg [1].
->>
->> In that case, dup2() to nr_open + 64 requires the kernel to allocate a
->> file descriptor table with ~1 billion entries, which fails with ENOMEM.
-> 
-> 2018.  Can you suggest why we (or I) haven't heard about this?
+Hello,
 
-The 2018 date only says when systemd started doing this, not when it began
-to matter. Laid out as a timeline:
+syzbot found the following issue on:
 
-  Oct 2018   systemd a8b627aaed409 ("main: bump fs.nr_open + fs.max-file
-             to their largest possible values"), released in v240. From
-             here on PID 1 raises fs.nr_open to 1073741816 on boot.
-             Harmless in itself: nothing was asking for an fd table
-             anywhere near that size.
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13cb6d79580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3c35c7e43de75adb
+dashboard link: https://syzkaller.appspot.com/bug?extid=a32ff75e417c0f49a8e9
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-  Aug 2024   611fbeb44a777 ("selftests:core: test coverage for dup_fd()
-             failure handling in unshare_fd()"), v6.12-rc1. The test is
-             added, and it is the first thing in tree to deliberately
-             dup2() to a descriptor just past fs.nr_open. This is the
-             point where the two meet, so the exposure window is about
-             two years, not eight.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-  Jun 2025   04a2c4b4511d1 ("fs: Prevent file descriptor table
-             allocations exceeding INT_MAX"), v6.17-rc1, cc:stable.
-             Somebody did hit it and did fix it - but on the kernel
-             side. Its changelog explicitly names
-             tools/testing/selftests/core/unshare_test.c as a way to
-             reach the WARNING.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-818bebeb.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/9adea981957f/vmlinux-818bebeb.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/6676075cd03e/bzImage-818bebeb.xz
 
-So the report exists and the kernel half is fixed; what nobody did was go
-back and fix the test that provoked it, which is what this patch is for.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+a32ff75e417c0f49a8e9@syzkaller.appspotmail.com
 
-As for why it is not seen more widely, distributions differ on whether the
-bump happens at all. The systemd option is 'bump-proc-sys-fs-nr-open',
-declared as a boolean with no explicit value in meson_options.txt, so it
-defaults to true.
-i know for sure Ubuntu passes -Dbump-proc-sys-fs-nr-open=false in rules,
-so on Ubuntu nr_open stays at the kernel default of 1048576 and the test
-passes.
-
-On the other hand i tried Almalinux 10 (fs.nr_open = 1073741816) + latest
-mainstream kernel and the testcase still fails there.
-
-One correction to my own changelog while we are here: on a kernel that
-already carries 04a2c4b4511d1, dup2() no longer fails with ENOMEM. The
-allocation is now rejected up front and the caller gets EMFILE instead,
-without the WARNING, but the test still fails.
+loop0: detected capacity change from 0 to 32768
+xfs: Deprecated parameter 'noattr2'
+XFS: noattr2 mount option is deprecated.
+XFS (loop0): Mounting V5 Filesystem bfdc47fc-10d8-4eed-a562-11a831b3f791
+XFS (loop0): Ending clean mount
+XFS (loop0): Quotacheck needed: Please wait.
+XFS (loop0): Quotacheck: Done.
+md: async del_gendisk mode will be removed in future, please upgrade to mdadm-4.5+
+md0: Warning: Device ram1 is misaligned
+------------[ cut here ]------------
+!(flags & __GFP_NOWARN)
+WARNING: mm/slub.c:6908 at __kvmalloc_node_noprof+0x7de/0x870 mm/slub.c:6908, CPU#0: syz.0.0/5312
+Modules linked in:
+CPU: 0 UID: 0 PID: 5312 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:__kvmalloc_node_noprof+0x7de/0x870 mm/slub.c:6908
+Code: ff 48 c7 c7 b0 5c e9 8e 48 89 de e8 5c eb ea 02 e9 fd fb ff ff 48 c7 c7 f0 5c e9 8e 48 89 de e8 48 eb ea 02 e9 32 fc ff ff 90 <0f> 0b 90 45 31 f6 e9 ef fd ff ff 90 0f 0b 90 e9 46 ff ff ff 49 83
+RSP: 0018:ffffc9000ee9f550 EFLAGS: 00010246
+RAX: 00000001ffffffff RBX: 00000000000029c0 RCX: 8000000000000001
+RDX: ffffffffffffffff RSI: ffffffff8c6d1560 RDI: ffffffff8c6d1520
+RBP: ffffffffffffffff R08: 00000000000029c0 R09: 00000000ffffffff
+R10: 0000000000000006 R11: 0000000000000002 R12: 00000000ffffffff
+R13: ffffffff887a930f R14: 0000000000000000 R15: 0000000000000200
+FS:  00007f8f049f86c0(0000) GS:ffff88808c30a000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f70c37ede9c CR3: 0000000042c8f000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ create_strip_zones+0xb6f/0x2170 drivers/md/raid0.c:150
+ raid0_run+0x3de/0xed0 drivers/md/raid0.c:424
+ md_run+0xc3d/0x1cd0 drivers/md/md.c:6779
+ do_md_run+0x35/0x720 drivers/md/md.c:6880
+ md_ioctl+0x1e2b/0x2610 drivers/md/md.c:8515
+ blkdev_ioctl+0x5e3/0x740 block/ioctl.c:798
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f8f03b9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f8f049f7fe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007f8f03e25fa0 RCX: 00007f8f03b9e159
+RDX: 0000000000000000 RSI: 00000000400c0930 RDI: 000000000000000a
+RBP: 00007f8f03c35024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f8f03e26038 R14: 00007f8f03e25fa0 R15: 00007ffdcdc958c8
+ </TASK>
 
 
->> Cap the nr_open value used for the test's own arithmetic to a known
->> reasonable base value (1048576) and restore the true original value
->> once the test has completed.
->>
->> [1] https://github.com/systemd/systemd/commit/a8b627aaed409a15260c25988970c795bf963812
->>     ("main: bump fs.nr_open + fs.max-file to their largest possible values")
-> 
-> Well, we do want selftests to run well on the kernel with which they
-> are shipped, so I'm thinking we should backport this into -stable
-> kernels.  We can probably skip the Fixes:, but a cc:stable should be
-> added to capture this.
-> 
-> Thoughts?
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
