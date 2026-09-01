@@ -1,143 +1,128 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9403B391E7A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:13:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91DB3246E8;
+	Tue,  1 Sep 2026 01:14:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788225232; cv=none; b=Nz0q2FmdDwAbP22ydKHZxFiVpyEivGmur4Qi87z3DlTwQcIu6EPVB+rL1cP6cYeqGWp13OCLyOvKYvpb/3mZfQ9Yi2HqY0G7ZPKLBMqo5jF+ad6pS1WBBTv+KQ6buw4eoPzLCTcQMmbq0Kyud/12gF+25tVJWWTAplSJVW/PMw4=
+	t=1788225269; cv=none; b=MlloYTz3d2nrSgUOLQiG8cia8P9sBmOipxina1wiMKhvPzkzBoHNOB/lonyVrW3/RSxbhzZ7OFIHGcE2Z0wgbJrTQjg6KYFZQTpAWPRoBzIM4k3ftQWUco0VRT6PBAGsqjbs9PlgJj9X+XG1kAiGFzoSVDABeztuL/IR3aZE1ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788225232; c=relaxed/simple;
-	bh=WKNiEu5bb54kPNb9BHttsHup3tUYWbXtGShP7J3NSTI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DI42OHEYxaHPwYz0oO7ikkrTxka+iki8wIp5j3pd0PTuj5OHPT+ThEksvjdoYx8kP2HirY1t66ZeQWoilJBR6yAVZ/SLldWxpz4oUq5yslSCzJO1bm7nb/Wqbsoe3fmDMI32+T97Pz44MB3fsVLYUWMO2cG34CFgeQ/6TmIEyA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=LUkh9QB1; arc=none smtp.client-ip=209.85.222.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1788225269; c=relaxed/simple;
+	bh=/4ZrUkLqJAvESICKjzIdoCM6XgatbEzSBP25ZzLHJTE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hqeu4q50WbMDO/lbCPG5CD5j12E/9lHRLak+Xp9e5FoOwpIPy7AzWUi6xgzu+kgrPPqCJWQfYQDQ7kUyCgQlHWqJzBN8D+j2C1Z+h0WBUC5MkyT4K1gigX87SFyAuCElIqZt9mjh1txYEXEozVjQU15oxZ3a0956P1GyDUsqZJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hkgZ4AZR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="LUkh9QB1"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-9371bcf1f8fso293936885a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:13:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788225228; x=1788830028; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3KMFnK7MaewcQgkI6RfHvTFLlVRVgXCbhr3VFJt6MAI=;
-        b=LUkh9QB1qbS5Ebdef1hnPz1YpFe912bhC/nANz2FQNEbW36eEEKyImMKVyf15go/IE
-         LR0EO+1Dxf1/Bu+UIoyXk77Dp0aNsi40PHAbMC7uIM+bV5K1fjvAGCGGrDY2WSiwb2Cz
-         t44RfbAk9QrwviAtzEmLVXJ7+bt+lGOuyleDY5asm4B+iW31N+3YlQ+nKLCKRYecCMJL
-         yAC6jl/qCqenleubmFXnTXipi8J/QKLDcckwyC/eO9YxRMiSyec6JZxThWa9guzJYdzn
-         Q4yjj3Y4HMX0HF5kC8JAAtB7gEN1/b6+cjjTlrZkHOlS+yfTXDMMp+o2S8EPA5go4gNL
-         fAGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788225228; x=1788830028;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3KMFnK7MaewcQgkI6RfHvTFLlVRVgXCbhr3VFJt6MAI=;
-        b=KFhQd6c1X3xVxBHdBmu+6pZ99ptmKo9EmjntGvozeNRzbT2bYr50Sg4MDwwxm/si6g
-         DSSjlJfQqsZOtsp+/W++1rTcsYqbXl2C6m11qyO3tOWmJM/bQ47x7dNqHUdk5DyfCyvb
-         PNATcG1muzZyKQZdxUTMBeyDV4ZwFA1T/F4w8zsJlCXfXZA1xKeGmV9yDSsSC5b6UV1a
-         KGW+A227at6I0m+1asDYoqgwO2Z1FzLIU4POk9PPORAq/cwzjOu9HJnyFb4diO/VY6ai
-         av2ygOdEhjaDelgd3QYLIBbtxRmdZRYUDDLl05zKf8UnlN9MlovvQrdQfa1ORpM5ApEZ
-         Y8Sw==
-X-Forwarded-Encrypted: i=1; AHgh+RqbrlYXeI7bpM0OFIi7RjrwbVHa+5BNvD7j7jX4VENO9psIONNmG7SJLMsu5+xshT+cSRzUzvLYH6+IVoc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkXFPp4FY21U5i38w9lL5Z/l0MzcSaSeAyEKve8qo8F1aFYSaF
-	VuXuLn5M4lvEM7kqdJAkksBPUjK0NUNFTvyfwD5ED8Qpmv+Qz4bLEgNm9jMMShPcxTg=
-X-Gm-Gg: AR+sD10hiIDql3RZmzMadI/ydq8j04wUp30GKIG+yUZcJHsf8TCmBaKQG5uIbc/qe3Y
-	U2fVukKwd8wxFBQn7v5DupYQz1SARXtUb0Q+T0/r4srZAUGyhnj/AgDX6PcPY31HnqejgOG58eu
-	BQcN1Gs3zq6YkbqPeVKDCaN1XNB/D+fap27DhP54XZ9rn+2tOm3zDY1fLzG18CJsR5rIoIcTHOC
-	l3NSTb0yY1taictcjwj50KJrmaHAKYfq3OmgsHga4lrZDKsopV2Ec2TTuy1FcQVc08gUPkWSsHO
-	meR7JcW7uECMuemVfUxhWQztdsN3ve5ZgVLB0DyIAtao5Km1IwF2ytlQq7+EqovjQAuzMUypzQH
-	IwP3ULahdcTpPkhc02vKeGfwy/c17aEhVUeU+kYTUInUeuoZesyVzr/3w2D4oGgcARqjy/9i6Yp
-	LcugVQIvVtZOvrJXpO0ked5uIg1isxpRVCtXdrss7v25INqk1GqQCsARJaCUZ/oUJtUG8PTVJvU
-	VE=
-X-Received: by 2002:a05:620a:40cb:b0:930:b4f9:f327 with SMTP id af79cd13be357-939138df3d1mr3066774785a.33.1788225228344;
-        Mon, 31 Aug 2026 18:13:48 -0700 (PDT)
-Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9391740a307sm581347285a.42.2026.08.31.18.13.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 18:13:47 -0700 (PDT)
-From: Alex Elder <elder@riscstar.com>
-To: bhelgaas@google.com,
-	robh@kernel.org,
-	saravanak@kernel.org
-Cc: herve.codina@bootlin.com,
-	daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com,
-	linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/4] of: address: kill of_node_is_pcie()
-Date: Mon, 31 Aug 2026 20:13:37 -0500
-Message-ID: <20260901011338.1323243-5-elder@riscstar.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901011338.1323243-1-elder@riscstar.com>
-References: <20260901011338.1323243-1-elder@riscstar.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hkgZ4AZR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EB7C1F000E9;
+	Tue,  1 Sep 2026 01:14:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788225266;
+	bh=zotEN213Rc8xR+NuDKzpDkGMQKwazNvNPLziMG6ggbo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hkgZ4AZRBqBlv63hN21mgfLdqvV+3wLTA13XRbKGJQskycp7yQC+GhdXe7NNTX1Nv
+	 1sfJGhxI+g5/ocMLPewgvEOzUrajd2YHRqJKnqZhcqY9RGekHGIefCjDCijwkDTVAp
+	 U46RhUo5uNIdGDcDrONeIt5XFIFHst3a4olNUnvj2YQ378xw7XwhsI5BqrQ8bJbG2f
+	 VNiMcchnD3hsrHAJo0ODR5/bQ6qeQh5UxAvlglXm7asNYta/lCzDfHIzTUUyqfqiZO
+	 ChaT7OOVUrZHmE6D+WgHSTfzPPbLvia2pDXcodwm/TTUkyZ035v/BWOmmNFVMMbh7j
+	 TEQFvKZFBz3Vw==
+Date: Tue, 1 Sep 2026 02:14:20 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
+Cc: lars@metafoo.de, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, andi.shyti@kernel.org,
+ wsa+renesas@sang-engineering.com, ojeda@kernel.org, dakr@kernel.org,
+ igor.korotin@linux.dev, branstj@gmail.com, brucer42@gmail.com
+Subject: Re: [RFC PATCH v5 2/3] rust: add minimal IIO subsystem abstractions
+Message-ID: <20260901021420.144a64d3@jic23-huawei>
+In-Reply-To: <CAO26r3RLnX4HXrKDF6akmG722Q2CvDU-uJ40Yfuu_wwJdGgA9g@mail.gmail.com>
+References: <20260822062725.60519-1-muchamadcoirulanwar@gmail.com>
+	<20260822062725.60519-3-muchamadcoirulanwar@gmail.com>
+	<20260824010726.2849f3d8@jic23-huawei>
+	<CAO26r3RLnX4HXrKDF6akmG722Q2CvDU-uJ40Yfuu_wwJdGgA9g@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The of_bus->match function for the "PCI" bus type is fairly liberal
-in what it accepts as a PCI bus devicetree node.  If a node has no
-device_type property, it even allows a node named "pcie@" to be
-accepted as represnting a devicetree bus, though it issues a warning
-in that case.
+On Fri, 28 Aug 2026 13:53:11 +0700
+Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com> wrote:
 
-A recent PCI commit introduced of_pci_verify_node().  When a PCI
-device is added, if it has a devicetree node, that function checks
-its device_type property.  For PCI bridge devices, if there is no
-device_type property (value "pci"), a warning is issued.
+> Hi Jonathan,
+> 
+> On Mon, 24 Aug 2026 at 07:07, Jonathan Cameron <jic23@kernel.org> wrote:
+> > This looks fine to me subject to a few little things - see inline.
+> >
+> > However I didn't take the time to decode every line of rust today so there were bits
+> > I simply didn't understand yet.  So for this to be able to move forward I'm going
+> > to need reviews from rust experts!  
+> 
+> Thanks for the review. I'll add an explicit review request to Danilo
+> and Igor in the v6 cover
+> letter.
+> 
+> Brandon Saint-John has been CC'd since v2 and reviewed the series at
+> v3. If he has time to look at it again, a Reviewed-by from him on the
+> Rust abstractions would be welcome.
 
-That warning duplicates the warning made by of_node_is_pcie(), and
-there's no point in that.  Avoid the second (OF) warning by just
-checking the node name directly in of_bus_pci_match().
+Sounds good.
 
-That leaves of_node_is_pcie() unused, so get rid of it.
+> > > +
+> > > +/// C-compatible trampoline for the `iio_info.read_raw` callback.
+> > > +///
+> > > +/// # Safety
+> > > +///
+> > > +/// This function is only called by the IIO core via the `read_raw` function
+> > > +/// pointer in `iio_info`. The IIO core guarantees:
+> > > +/// - `indio_dev` is a valid `iio_dev` allocated by `iio_device_alloc`.
+> > > +/// - `chan` points to a valid channel spec from the device's channel array.
+> > > +/// - `val` is a valid non-null pointer to a writable `int`.
+> > > +/// - `val2` is a valid non-null pointer to a writable `int`. The IIO core
+> > > +///   always passes stack-allocated storage for both, regardless of whether
+> > > +///   the driver uses `val2` (e.g. `IIO_VAL_INT` only writes `val`; `val2`  
+> >
+> > That val2 is always a valid pointer smells a bit like the c interface leaking
+> > into the rust.  I'm not necessarily against that being a constraint we take
+> > on but I'm not sure how we document that. Probably add something to the C docs.
+> > Any C driver relying on this today is probably buggy for other reasons.  
+> 
+> As you suggested, I'll add a note to the C-side iio_info.read_raw
+> documentation in include/linux/iio/iio.h. The IIO core always passes
+> stack-allocated storage for both val and val2 regardless of which
+> IIO_VAL_* type the driver returns, so the assumption holds, it just
+> isn't written down anywhere. I'll also note it in the SAFETY block of
+> read_raw_callback.
 
-Signed-off-by: Alex Elder <elder@riscstar.com>
----
-v3: - Added (new) in this version of the series
+Perfect. Thanks.  There are a lot of little things like this that we
+don't document well on the C side of things.  Big advantage of your
+work is it'll help us clean some of that up.
 
- drivers/of/address.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+> 
+> 
+> > > +        Ok(IioVal::Fractional(v, v2)) => {
+> > > +            // SAFETY: both `val` and `val2` are valid per the Safety contract.
+> > > +            unsafe {
+> > > +                *val = v;
+> > > +                *val2 = v2.get();  
+> >
+> > Why get in some places and not others?  May well be a gap in my really limited
+> > rust knowledge.  
+> 
+> This came up in v3 and I answered it then but forgot to add the comment
+> as I said I would. IioVal::Fractional holds a NonZeroI32 denominator to
+> prevent division-by-zero in iio_format_value(). NonZeroI32 is a newtype
+> wrapper over i32, so .get() is needed to extract the inner i32. The
+> other variants hold plain i32 and don't need it. I'll add an inline
+> comment in v6.
 
-diff --git a/drivers/of/address.c b/drivers/of/address.c
-index 499d37ceae210..ee2eb44884d85 100644
---- a/drivers/of/address.c
-+++ b/drivers/of/address.c
-@@ -134,16 +134,6 @@ static unsigned int of_bus_pci_get_flags(const __be32 *addr)
-  * PCI bus specific translator
-  */
- 
--static bool of_node_is_pcie(const struct device_node *np)
--{
--	bool is_pcie = of_node_name_eq(np, "pcie");
--
--	if (is_pcie)
--		pr_warn_once("%pOF: Missing device_type\n", np);
--
--	return is_pcie;
--}
--
- static int of_bus_pci_match(struct device_node *np)
- {
- 	/*
-@@ -156,7 +146,7 @@ static int of_bus_pci_match(struct device_node *np)
- 	 */
- 	return of_node_is_type(np, "pci") || of_node_is_type(np, "pciex") ||
- 		of_node_is_type(np, "vci") || of_node_is_type(np, "ht") ||
--		of_node_is_pcie(np);
-+		of_node_name_eq(np, "pcie");
- }
- 
- static void of_bus_pci_count_cells(struct device_node *np,
--- 
-2.53.0
+Ah.  This is my lack of rust knowledge (and forgetfulness).  I'd avoid
+putting too many comments in for the benefit of folk like me who are
+still failing to find the time to learn rust :(  
 
+Jonathan
