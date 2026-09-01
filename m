@@ -1,46 +1,47 @@
 Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012007.outbound.protection.outlook.com [40.93.195.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C383477981;
-	Tue,  1 Sep 2026 18:49:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C03449F129;
+	Tue,  1 Sep 2026 18:49:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.7
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288548; cv=fail; b=Jv8msXS8KAkGl2gUxAfOhr/8bN7chtBeO4ojHgAYxVAnUuQMIzaWQypQvz+Q+zXC8sK4vGeJm6eGtGQJ2fuatsiOCiigmyIRnFdqCNo+ZfXMfMwM5MNFh6YAQ/uekSU5BO9wTAJL3rwm9YBT8eBUryMnbX4gHZByGkvpiGrgiaY=
+	t=1788288550; cv=fail; b=X/++WFQ3InkGnrrm33ywWHgGSFHAbrJHtOEYCzxefj3k9aNbVSiy7kMwlnZfSN8kB80I34P39VDoo+5/4aQd5T/WsSJBWMzstviwkYcR/G67fFUsdmIoL/TpmN1Jwdn7VDCjwZ4IG6TXnB97epC5L6YAMgCCMbbnGzVhfedHA3A=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788288548; c=relaxed/simple;
-	bh=iKa3ZUzKk4jmTmo4PCPglIgeJUTLAbFzkrQcamwjYUg=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=A0Pyroi1QnmVdk0fGZd18fmtJXoxnj8fDc6Sc5ZrWfG+ootpacrbJokSnvUkxnVTlG8L58+VWJBK52iStA/c9mDmHg+sMvNrHH3ekrocv1Fm+flRzPDnKMpdhRmPV/uc4lwvLeYtkk8F4xnvyD9k1ADcG/p0BgGPbJpIi1LvsNM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=Wlv/LG2X; arc=fail smtp.client-ip=40.93.195.7
+	s=arc-20240116; t=1788288550; c=relaxed/simple;
+	bh=jkcntfpeK261uYcfHbwBzdB5klx5SPZdLBUgWvkrooM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=oTgaTyqWxPAVV4g+xveJ81eAYXnn3i148jey1KW28WCBw9wrXoxUQNmJPXnwkqu8bJbSj9QMW/KmqUlv6vjlsnMgHCQP60397zz+xvysMxL8osSwzmyhvKjLGdJG9nDoMXtbFU0vBb2ftQ0bWncr7lkwrA89O3XCdHnqHxBHxg4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=Z+7aXNJw; arc=fail smtp.client-ip=40.93.195.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="Wlv/LG2X"
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="Z+7aXNJw"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UOL2lP0EgQuc16fqWAUeibNxWczUhVGvYk4D8RrfyyzQL+fUku2Ky0Px0FcpNhVx0u20JVe/uPw7vvPuOovicc+J0V437PM9YSgx3yh4UEPEs+7G3FyuE0/Z+Xp2X1x8fRu9GTdp7qA7n93ohV9Hi5YLWsy4OVGNLeCSYd5igxlBFtIvvPIrSieF1jzumrNX9BFBTpA3+fZnUClL5SGHoz9gG9Dl7e94Ok35M+/XrtggCsTuTCUKyed+XKrBDqSO+2B2SXBLmdkQew+5O2zgyzYD28ZgprWTciSnQrZN4tXSyRwO9IV8THhLygD+vSFdVT01srW2ik9/cmQHINVxyA==
+ b=A5x3Hbw9yL4oQ8bVT6/g4nPC+Hnmm7liX9Z73TBljQO7NORQ5zrkAAyPXNJjONqy0XF99wrics9bdi3SeH3iNvhlW817vj9UnM2Yray1CkR5XoKgi2Dm/0fU1/GUyGWCxWGXQ+Mdf+KuDkm8SCNpLNxZQBQ4OgqosgrgzcIUwMGdJIAHTXTVYim3OPpWfNzT3lSC7Rel/Ux5TEbL8ECvA7N0LZgn8LNGmAUTM1Ybuu5ZTJbwSGRUxyE53DRZntYSyPxv+cZrfKPAz0ZFrXrEYZEUVYgcN7c4kugJzCApSezkD0QJl+q20/Pnm/DGfBJs2ouXLiCgDDFtHchPsyFx1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=srujOndOa3llnf8lqkdzYUWD3gtVnQ92GeP1BeW//Vw=;
- b=rAOHw1CylLRMydt0+xVvsGkp6LSAIejXBcs9XFpLb5vpRrlC/In+lR/A87kultT+a7qfHS0TJJbcJOapqMdHKEUoKUx50qYX3kqCnDOn04vb6E7ibnVYpDwWEjzR7jHS8PPiCHw08KPmnTmtKKNQ0VcQCfqR0tU4zb+JuKrN0nIKhOtGB8fo5vSxHcIoULprEeJWlzRME1lhZ+NDuQQEVcWOuNxWR1bVaB6BK48k4k1vUYYzTet33DYL5tUf94Yj3oKm2JrB52VbN49f1O6TW/izzxA/K3Csh0sDKoC/0T+/xsOiN6PJ3ZArqr5N71T7JRaAfyoWl8YrC1kRT9kcIA==
+ bh=7KO7y/XrdZQTI51QsrqEArA24Q94iqn6O/idem2SA7w=;
+ b=J6FfLJl1nZSgPQ8DKUV0CNcvKm1sSMDD/OwiEhRyFZ6Hvfini9wVpd3VZl9GRNMABOyODo61U3wWqBnw0+/wzs9rrUcnQGOyKYFi1MqheUCtL156jfhzD1LnveUS8xa4Of/7dVMz0eOarbykNEqw3EYk3vuTR5OTg7iGRi4T/nJsCbqy+033Ni//TvuTo2uqqKSw9Dbr9ZZ3nLP3Abj0Wq0sVXmaRI2iUaKTFLqgUEk3HrpJ11CfHTJcFQhKoBCAKvsczCcayqeYy19IWY1/hEMIvpYWLZteuvyTcJmjSlvtjUrpkif+YE5dd6G7lEanOwgaw3hsCfMtOCbTReEOGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
  dkim=pass header.d=altera.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=srujOndOa3llnf8lqkdzYUWD3gtVnQ92GeP1BeW//Vw=;
- b=Wlv/LG2XPriIvlDfZQe8SWiMiV26RMN6+GyA2t3H8/wTtOkwpOM2PUMF3TLi0a2ghWtTqQpZ0LfU/MsMj9IwKI14rAr1N5MgmKEEOkozDrB8PLHcdug7LKsNPjf5+XGaN72hH8fUaarJijjbsiURYBekaYUCpwcyzn7adhkeReT4HN4fGGHWIdzFe1cXNcCVj6GHPC3E2mekZO9hwAbpVjSZV6IMQAAWuBCCjqkr+dL0paibcZ1cRNVkqIq4BsIYrETvgoEyMs0QtogO4d1re9UFR4PbANtxpAWoTU/c+IIJrtfFQjtXWXrRAEHdAf6+4KWIfpFoEG8Z3J3b9QTOTw==
+ bh=7KO7y/XrdZQTI51QsrqEArA24Q94iqn6O/idem2SA7w=;
+ b=Z+7aXNJwzVU2ocGXycyHm08WvkLT3SRSFG8n3WM17ENrzzwU7N1LptvOJEY7xoIG0I/8oDpglCSIgZBwyuhw5j4eSXmrxX2YAck72NFpo+KWsoQv5Om4J2PN/WGbyohyCxFizro4zp1iOEWJ6QOurvejxFubM7rp5orylq0PoWRuiIfXM4Fkm9QOM1ZA1vZWBQe9Jfqy+kpZBU7ZvSvAEL6wdvyZyz1cISgSoRxI39mjL6VOgd2IAURr1I+PJwnK5bGVV8g0eZ1IaX5V7eahwT05AK6KaTMd7sQxOx8ty32lzhB4Iqf46zX9Fc22htEy6OCys8wAmzu1isQkumS0mA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=altera.com;
 Received: from DM4PR03MB6208.namprd03.prod.outlook.com (2603:10b6:5:39c::19)
  by SA2PR03MB5866.namprd03.prod.outlook.com (2603:10b6:806:111::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 18:49:00 +0000
+ 2026 18:49:01 +0000
 Received: from DM4PR03MB6208.namprd03.prod.outlook.com
  ([fe80::2216:93ef:67b:9e04]) by DM4PR03MB6208.namprd03.prod.outlook.com
  ([fe80::2216:93ef:67b:9e04%3]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 18:49:00 +0000
+ 18:49:01 +0000
 From: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
 To: linux-mmc@vger.kernel.org
 Cc: ulfh@kernel.org,
@@ -52,11 +53,14 @@ Cc: ulfh@kernel.org,
 	p.zabel@pengutronix.de,
 	devicetree@vger.kernel.org,
 	Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 0/9] mmc: sdhci-cadence: add SD6HC support and Agilex5 enablement
-Date: Tue,  1 Sep 2026 11:48:09 -0700
-Message-Id: <20260901184828.15653-1-tanmay.kathpalia@altera.com>
+Subject: [PATCH v7 1/9] dt-bindings: mmc: add Cadence SD6HC binding
+Date: Tue,  1 Sep 2026 11:48:10 -0700
+Message-Id: <20260901184828.15653-2-tanmay.kathpalia@altera.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20260901184828.15653-1-tanmay.kathpalia@altera.com>
+References: <20260901184828.15653-1-tanmay.kathpalia@altera.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: SJ0PR05CA0005.namprd05.prod.outlook.com
@@ -70,228 +74,186 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM4PR03MB6208:EE_|SA2PR03MB5866:EE_
-X-MS-Office365-Filtering-Correlation-Id: 26e45a4c-0b10-4101-8649-08df0859afa1
+X-MS-Office365-Filtering-Correlation-Id: 3c073577-b321-46d2-86f3-08df0859b06b
 X-MS-Exchange-AtpMessageProperties: SA
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|10067099003|11063799006|56012099006|6133799003|3023799007|55112099003|18002099003;
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|10067099003|11063799006|56012099006|22082099003|3023799007|55112099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	1IjRkSNLCtm354jPrWgI+ilVlRNYkoDNF+zkmSpoqMzJTxPBBIhdTWzeXXZd6HH8qwp81I0JAHTehlX2w6FBuINhnWQ/5zLeycRZIIr7YU8CYRt+BRdiGUoFbUCKp2dl4DpMDihTlF2+aPGvGsINHNtJtalOSiYTjndhox/hV2ENJzKOE3rlX5pdDkw0CGfk+vTXL7pnXjhoW+1QFjhUk9pDpv2akN/PyIALVqRwQIk6rpiwTIMFLL8KJCgJNJKj8BOFkMYtjdPvPZ2ZkYMOucdKZbqS9ALKjWtpWhUNkju+MzJcWtahgztVkpdi6SjzjY0ae96C4oqZwtFC6gJkVE1G/QmRSutBqf0J9LBhUvDOoFNaNedCmPHhoAo8J4uIirjYXBykI/ZQsLYTCl5LS2n8sxyjZQs1iJJEPsnfUov5l3Y0XAbpRVjxJOeK4fQce9qnwP5oaMmoRe0iYydX+Y6ANvhjSgzf5t2LpMEdBfQFKpDw9zsN1TzBmYbZK22BduLLY/nJurroTtwfwV6lKB84zEqxBD7+pOfagUp9AOhr59+iXarzd3auvqqj/pIpN4tKcukKIKouVzryoRj94ZzRnn7e/9L116JB+tQqtIDLP2nO5Vqf4lUkX1/oDKcVBjSLjWZSJeGPHzQUT8ToewgJeioiUp+o9v2lTdbAOlM=
+	1IVAT37K69NIrT4hXa+gE1hXdbY1iYnWBV8U2OX0B35/4kNskJaXdmiBv5/b9NEsYp0S3YJD1dynIR8UuQeE085Ia5mlj9gsADTENowVKflejF73PIEPTuAxvIBksxYxxI0StnAAXVfxmW3kSTRatyB7hMaUppN5rXdH00Bkxn3zD+TJG0Jpos+zUL5dA3S7q3wknQxInzlXvWd9V4zIk4pK4KQvxMEGlG5ggLiP2HXhMFRnjP2k97RknWfJ8DLS+f3yE3mOGwuqbS3xGCT4+csleyfKyHKWDt4d1V3sQfbngw21krHwP/W24b+7QRZOoK/qtyKLQS8lc4ZiXg2KC0E85w0MxUWTGn9CnB/sJ0H2pFNl/Z0Mp7ohGg+NiTcv/EG5r6kS4PSqeRG4z1V8XTXiu5V2LMaI7rYvQAThkdFRA9ufDhMK/wV5AhRGcOKjGrKEX7yWMEHekHO0UhYzf9Hzg81C2h/EsEzvhtyGSofgFvKi6XhtFNGdsllM17nJPv4YMR6E4/c28mCKP0LJqa1jk4sbgOmRQlWmS1xnWQyA/NB13jwn8kiv9AH4Qch26zQRaf5BQSF01q4e3/KvBnj/5oXh1r+Nfwc86chFm4n5cFenzfnPGaQ9HJIbRwlt
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(6133799003)(3023799007)(55112099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(22082099003)(3023799007)(55112099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?65I4w7CiCBcsTTR4zG530tufC/XoqkXSmb9e00Pr8YFA8vqhUH//b6gt8JWB?=
- =?us-ascii?Q?XBp9QpCQiWGGgz63qiFdhPtHB7fpBA2aR5O//bUIgwJqnkdNBryNgbuWPZbL?=
- =?us-ascii?Q?PAJsvNmHHArEL0xQlXv8mURj7uWKDuRUu9GvAZaIM7pN6ha8xXOsQlogK5Fe?=
- =?us-ascii?Q?yE6/As7WT29WDPcMUp+u7oPW2kzyI+mvdrGMsd9GqBGWJNJM57X/jfGArG+7?=
- =?us-ascii?Q?Ox13MDGdTkUpwKWmDnuajDVasg7FDhFa6f9Skg0H6GM5yb6nrEqP6/iWcqfa?=
- =?us-ascii?Q?JYp1TA/q7T2H7HQ402NS4dUw4eqgem+2/IfRURAanPyX4p+wTAtbZXuM2yWj?=
- =?us-ascii?Q?6EowLvsCy+NBaVDCjZ0jQPDONn2LnYmPw0VEZIASeVUkwQ3sJzQttSeFTTP+?=
- =?us-ascii?Q?icRET0cA4sgIL1wGZA78BFfHadf/4ovllEa6b2+BwAb3O1PpnB2a7KZHQCgu?=
- =?us-ascii?Q?0vlpMp1vNSrSrq26qkprFVZlhXFbHH6uGysc3MKxG/sxi0AUKSmDl44DKzve?=
- =?us-ascii?Q?gB0pZYIhZPji3ikqunh+JAkWFVFk641cCir4r5O5Rq3OK+BDyn55IDOERT/p?=
- =?us-ascii?Q?9ozEteEBSx9oX7A2rMpzjBcUSytA2hxOingebvBXMz+9L0RS2b2mVLtt76Y1?=
- =?us-ascii?Q?7cOJ1rGpEI/cJblFM85l0lzNREQUjzZBhzaFSgENXfXActhnaut2v/mvp1KO?=
- =?us-ascii?Q?/+qOwNsh0chYk7cZKrnEp32RdiCil0iLT+NYUwpG/jrYnnJbWKzzcnxlnLEW?=
- =?us-ascii?Q?eRKCwz8Ta0hSPvvYiqrqxLGmEKfFBEAsLcm9g/3OQmKdGMMKpaj9zSUfPBNr?=
- =?us-ascii?Q?/JmpJiHUKNx0M9amUCj3+ciCtRYCstWnPxfxe4HgaXN5p+mTB1r0JU41fNHC?=
- =?us-ascii?Q?dLht6ao1WioqZNIRJDlIajwAhPyoUeLaecFE695MbDMEczVMVlJjfZez016F?=
- =?us-ascii?Q?pWUPP/Kyu3FM1PGkGoL+WELQLb3u+DNWhXvWZyOALU863imPZ309K05NWo5q?=
- =?us-ascii?Q?gU29l+DMln/4RDszgJsk1sQ6MqQUrXwiD/mN4q7k0MM8zp36ifvokTw1+8E+?=
- =?us-ascii?Q?5DWVwlqqSmwjR5TWC81NuraJyYGvtt9+zYhN7VZHSVsipgZvG7gPkfwjYimC?=
- =?us-ascii?Q?a2y+6/akVkWSJdTm52r6y9KGk28oZ+yssz9c2w3VeLbL6yLOs43SGbu5nhnl?=
- =?us-ascii?Q?5Jk/q7R0yqmgH+hdDY0svJJ5izbV7YQ3u83uZ+aic/OsnRwD6cnzevjOiYqB?=
- =?us-ascii?Q?Ro2M2ZdJwmbqd9wuCivvQtQo6O0CyhmJlZt/Cty1v6WinSzuKiilbHH4ezai?=
- =?us-ascii?Q?07Xop6cjZ3vfjc/UVYpAV3s+ge4njiSs3N9IWs/u3ML8SXlWrUXGxVOukeWo?=
- =?us-ascii?Q?WcwgKfAnlEAtpJw7YgYYBvo0emoZ9x6q3sQAL9P8jLdipVR+RdH7K96asI5Y?=
- =?us-ascii?Q?AnUm+DuCHNd3JcMJ3SLecYEpPgoGjtYBoJmBu7LTil3PUWCj6aSWgNE7bogJ?=
- =?us-ascii?Q?MKxCHWwkt/jkDRf8BBt0+f1gm5S7i8Qi4F1973J/mzETBzMjJsROo5s4Cjpf?=
- =?us-ascii?Q?eI7ircJIYOMjxiqc696GUdoMeLDNipNwXBK/O1ToJYkIDYyoKh9WREE8V820?=
- =?us-ascii?Q?sNVj0YMOCzx8OIGh2BqyOsjGNAjAbjo43H0zdr8DlL+d2D5UYA98o2eyjwry?=
- =?us-ascii?Q?ydvzCl4jdo4nV2sVpahx/xlPg5bIS4okG9YryQOuZm8m2r1tJI5oCpPlZf12?=
- =?us-ascii?Q?PzvKPl/pD+9DPdidAkXYDaXcei1TfUc=3D?=
+	=?us-ascii?Q?gl/dvcIQUUPTTT81cLqxtuOVSrUIThN0IysVTA2LPRY+a+Shio20riEdUKkk?=
+ =?us-ascii?Q?oh53ewrdSBvY6F2Xjc3Cy4o+1NgdtM/WO4xPr3Qm1mf64+Y1bEGK8LMxfdpt?=
+ =?us-ascii?Q?6v1KT2/98Ka68MeuZ4qcruKG301Qzs/pSPNfS+ChXhwAFDVaU6uRsyNz5+mH?=
+ =?us-ascii?Q?LT8byucuyxPB85W7bPiZve7yYMVu3OFMImFAluVw+0cnWfLXEdOYS6u+GJ5z?=
+ =?us-ascii?Q?kGj+cpoWSq+jGBetdSXxNjXnZ2GCQ/rmhZBzOAN0q+oqNQVmCARUaxhoQQu9?=
+ =?us-ascii?Q?wsmEOspwCDCpNV/r1p/W+K1A3/cBTut4B8FFNrDfqyOs+R42lzFaBJFBOPFL?=
+ =?us-ascii?Q?NaLY2EHdOP3kEJNmXONvb54e4r65TIKxTiZ6mycKrvWZqiEGJRaUcO0FWUSx?=
+ =?us-ascii?Q?qJPKXClAnlBNyccQ2LoU1L/7LXNpz5nhIeL9CRXi9NaRlGibjR3p43X78IGs?=
+ =?us-ascii?Q?lS2lLKQr71ilVYC3WQ20wghgl1e44Q/KPwpCYSr72a9e90FDc22uEgAU+WKb?=
+ =?us-ascii?Q?PjYzPilk9pQX4nYYhE87WEuTW6k1Q4yo+cecS1x4h5lg0dx4wKDiH4iWJ+PB?=
+ =?us-ascii?Q?TvQ2Y2GDKLdru076x9wkHK/SuRcAs/Nk86txgzSA9b/jrMGCc20vh0LcyZij?=
+ =?us-ascii?Q?VFpravbGIzuDeDaSN5Px31tEkgiXAo07uY4+jucha9f6r6tkj4PJRTRnlxZ4?=
+ =?us-ascii?Q?fJjnZFwZRVAJoXBTx5sXM3MTAgJv+LuhY8bFcVUwHzErJsZalAPc/GwOudz8?=
+ =?us-ascii?Q?J5OwLuzGThtUFPbbW2UJ0D8UbLVqGhCFLpn8Bjl/fLP9CILKo36NhEr2c9fk?=
+ =?us-ascii?Q?rx2IIpLjXiV6+tJDqzeHc/GSE26jUBO8o4WuKvbltR/IhkBu3tyKDl7jNHKV?=
+ =?us-ascii?Q?5bDGZ9cqfVPSO98c/XwSGnu93zvgj5US7Je03IF7PgtKkJRUBMdsDutUo0uU?=
+ =?us-ascii?Q?Br9EhmkDCs79uANVAM6RAg21uR4O4+T5LdeTPrXVcGT/KDsLYc7tinr2WuWK?=
+ =?us-ascii?Q?7Ibn4oGseYdKke11brHmTSCrc3avYj1mbVXZSrFTBC+uKoZs35pAghfmr4A6?=
+ =?us-ascii?Q?rQvRXPj7S3HeSzSUqaiZlZtBLKDjx2Odtorus6ui7k1H88nUTP6Ee281U4+J?=
+ =?us-ascii?Q?hhmzzaXpomGwSNUEODd8CBQGyiQ6qH+NNy6u3yO3YPgvIP+D5VaMwhQGir3K?=
+ =?us-ascii?Q?rUbTJaDN7i6oaDiK+QwPp60yjTi0Eyp7T8yoKIzQv29UxbOo+yG/zWGjpqbF?=
+ =?us-ascii?Q?Pn9DUWRTnf12XML9GBLxNjQIOAqfO04e+5TZEluwCaPgMAznAdqXUonu8cNg?=
+ =?us-ascii?Q?hg1XHH1E2vQhZH1VFyJ+qUtETb6GvF82aI5S7kdAjWUeoQoOk5DyiMxfBPB/?=
+ =?us-ascii?Q?BPI/HFumbC+kyBxSpFfpGLuNT3PdUB0Pz9goFvXd5EM6+osjx4H+K542wdmW?=
+ =?us-ascii?Q?eRPwZj00slq8Y1LWuh/EfVNOzXrT91+eyVSmKUJ0Zgz4WsxuiuLMiS3MZ661?=
+ =?us-ascii?Q?zQpHIAzExaoNZ9GSckA5zuupfReESKp42x3YSAe91P3kxQUl9MRuGaSBxX8s?=
+ =?us-ascii?Q?Qel3tlFw0ewZX/LQlmwBbdOKoV8D+zR0hEwH2kFteaVCvXzaaTtMDCNw5nVn?=
+ =?us-ascii?Q?nvQgqAdyUpA7txxvW33wnxgsc70VR8avyIQeCnIRyqKZhLUv57poi+QxhRmz?=
+ =?us-ascii?Q?Je8TJEEnl3d4idpJIxVyUb5n+aI1Vp5qDiL2Azn5qHMXR3/6XYxkpm6KL1PS?=
+ =?us-ascii?Q?Yp7ED6xpm26a/S/evRXZpY5u9ZQfZP4=3D?=
 X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26e45a4c-0b10-4101-8649-08df0859afa1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c073577-b321-46d2-86f3-08df0859b06b
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 18:49:00.2647
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 18:49:01.6120
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b/8HRHhm2rNQ/4PKkV6zNQg5OwtiTV9LL0cCrBjJB46pIzkfB/v8Yx0jan80iE3KM0jbLPKLZO6WZWbelDLNZwkwH/CkLx5CHnCOTXpePmk=
+X-MS-Exchange-CrossTenant-UserPrincipalName: 02L+wpdjzilQ5DCHsVDibcYhytbW2tKMFKeSiZ9Xwf29elaEDjMaGi3L1pDbU5ovrizctMBbZWYZ2suoim2nnQOTPe8WjSkPCZDYkhodm14=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5866
 
-This series adds support for the Cadence SD6HC (sixth-generation) SDHCI
-controller and enables it on Altera Agilex5 SoCs.
+Cadence SD6HC is a sixth-generation SD/SDIO/eMMC host controller with a
+dedicated Cadence Combo PHY interface. It uses separate card-interface
+(CIU/SDMCLK) and bus-interface (BIU) clock domains.
 
-The SD6HC PHY architecture differs substantially from the SD4HC: it
-requires dedicated per-speed-mode IO cell timing parameters and a
-DLL-based delay line to achieve correct signal margins across all speed
-grades from Default Speed through HS400. These are programmed through a
-new sdhci-cadence-phy-v6.c file; shared driver infrastructure lives in
-sdhci-cadence-core.c.
-
-Note: this series depends on commit ab45ecfab540 ("dt-bindings: reset:
-altr: add COMBOPHY_RESET for Agilex5"), which is already in mainline via
-the reset tree. It is not yet in mmc/next; apply or merge that commit
-when building/testing this series on top of mmc/next. The previous v1/v2
-reset binding patch is therefore omitted from this series.
-
-Board DTS files do not enable the SMMU; that is provided by commit
-10cf797f3f8a ("arm64: dts: socfpga: agilex5: Enable the SMMU") in the
-SoC DT tree. It is not yet in mmc/next. Apply or merge that commit when
-building/testing this series on top of mmc/next, otherwise the SMMU
-stays disabled in socfpga_agilex5.dtsi.
-
-Patch 1: DT binding
-  Adds a dedicated cdns,sd6hc.yaml binding with SD6HC compatible strings,
-  clock/reset/IOMMU constraints, and PHY timing properties.
-
-Patches 2-5: Device tree
-  Patch 2 adds the SD6HC controller node to the Agilex5 SoC DTSI as
-  sdmmc, left disabled.
-  Patch 3 enables SD card operation (4-bit, SDR104, 200 MHz) on the
-  SOCDK OOBE board with GPIO-switched IO-voltage regulation.
-  Patch 4 registers the intel,socfpga-agilex5-socdk-emmc board variant
-  in the arm/altera binding.
-  Patch 5 adds socfpga_agilex5_socdk_emmc.dts for eMMC-only operation
-  (8-bit, HS200/HS400, 1.8 V IO, 200 MHz).
-
-Patches 6-9: Driver
-  Patch 6 renames SD4HC-specific functions and structures with a "cdns4"
-  prefix to separate them from shared driver paths.
-  Patch 7 encapsulates SD4HC PHY probing in sdhci_cdns4_phy_probe() and
-  makes every of_device_id entry carry explicit platform data, removing
-  the silent fallback.
-  Patch 8 introduces the SD6HC PHY driver (sdhci-cadence-phy-v6.c): DLL
-  lock/bypass, per-speed-mode IO cell timing, tuning, and HW reset. The
-  common driver core selects between v4 and v6 PHY operations based on
-  the SDHCI specification version reported by the controller, and
-  reprograms the PHY from set_clock and set_uhs_signaling. SD6HC clocks
-  are requested by name ("ciu" and "biu").
-  Patch 9 adds the Agilex5 platform overlay under altr,agilex5-sd6hc:
-  40-bit DMA mask for the SMMU address space, quirks for
-  CAP_CLOCK_BASE_BROKEN, PRESET_VALUE_BROKEN, ACMD23_BROKEN and
-  MULTIBLOCK_READ_ACMD12, .get_max_clock set to
-  sdhci_pltfm_clk_get_max_clock, and an init hook that asserts and
-  deasserts the three named resets together, keeping exclusive ownership
-  via devm so they stay deasserted for the life of the device.
-
-Tested on Agilex5 SOCDK:
-  - SD card: Default Speed, High Speed, SDR25, SDR50, SDR104
-  - eMMC daughter board: HS200, HS400
+PHY timing depends on board IO-cell input/output delays and the DLL
+delay-element size. On Altera Agilex5, the SDHC, Combo PHY, and SDMMC
+OCP bridge are each reset independently through the HPS Reset Manager.
 
 Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
-Changes in v7:
-
-  [dts]
-  - Drop the daughter-card comment from the SoC DTSI (Michael)
-    (patch 2).
-  - Rename the controller label from emmc to sdmmc to match the HPS
-    register map (Michael) (patches 2/3/5).
-  - Split SoC node addition from SOCDK SD enablement (Michael)
-    (patches 2/3).
-  - Drop the DTS comment about SDHCI platform clock order (Michael)
-    (patch 2).
-
-  [drivers]
-  - Request the SD6HC CIU clock by name ("ciu") instead of relying on
-    clocks index 0 (Michael) (patch 8).
-
-Link V6: https://lore.kernel.org/all/20260829184008.10006-1-tanmay.kathpalia@altera.com/
-Link V5: https://lore.kernel.org/all/20260820185021.18199-1-tanmay.kathpalia@altera.com/
-Link V4: https://lore.kernel.org/all/20260810190025.25045-1-tanmay.kathpalia@altera.com/
-Link V3: https://lore.kernel.org/linux-mmc/20260724145009.7456-1-tanmay.kathpalia@altera.com/
-Link V2: https://lore.kernel.org/linux-mmc/20260627201457.12318-1-tanmay.kathpalia@altera.com/
-Link V1: https://lore.kernel.org/linux-mmc/20260511202132.5597-1-tanmay.kathpalia@altera.com/
-
-Changes in v6:
-
-  [drivers]
-  - Use devm_reset_control_bulk_get_exclusive() and keep the exclusive
-    reset controls for the lifetime of the device instead of putting
-    them after deassert (Philipp) (patch 8).
-
-Changes in v5:
-
-  [bindings]
-  - Document driver defaults for cdns,iocell-input-delay-ps (2500),
-    cdns,iocell-output-delay-ps (2500), and cdns,delay-element-ps (24)
-    (Krzysztof) (patch 1).
-  - Collect Reviewed-by from Krzysztof Kozlowski (patch 1).
-
-  [dts]
-  - Drop redundant &smmu enablement from the SOCDK and eMMC board DTS
-    files. SMMU is enabled by 10cf797f3f8a ("arm64: dts: socfpga:
-    agilex5: Enable the SMMU") (Dinh) (patches 2/4).
-
-Changes in v4:
-
-  [bindings]
-  - Require the three named resets (sdhc-reset, combophy, sdmmc-ocp) for
-    SD6HC nodes. Agilex5 is the first platform using this binding, so the
-    Agilex5-only if/then is dropped; a later SoC with different reset
-    requirements can reintroduce a compatible-based constraint (patch 1).
-
-  [dts]
-  - Note in the commit message that DMA for this controller needs the
-    SMMU (stream ID 5) (patch 2).
-
-  [drivers]
-  - Add sdhci_cdns6_set_clock() so PHY timings are programmed on clock
-    changes (including initial 400 kHz discovery), preferring
-    mmc->actual_clock over ios.clock; share the path with
-    set_uhs_signaling via sdhci_cdns6_phy_reconfigure() (patches 7/8).
-  - Skip redundant PHY reprogramming when mode, rate, and enhanced
-    strobe are unchanged; invalidate cached t_sdclk on failure or
-    clock-disable (patch 7).
-  - Use ios->timing in hs400_enhanced_strobe instead of hardcoding
-    MMC_TIMING_MMC_HS400 (patch 7).
-  - Program tuning delays with a DLL reset cycle instead of calling
-    full phy_init() (patch 7).
-  - Cap dll_max_value at 255 in DLL bypass mode so the delay cannot
-    wrap when stored in an 8-bit field (patch 7).
-  - Reject cdns,delay-element-ps = 0 and fall back to the default with
-    a warning (patch 7).
-  - Pulse Agilex5 resets with reset_control_bulk_* instead of three
-    separate reset_control handles (patch 8).
-  - Collect Acked-by tags from Adrian Hunter (patches 5-8) and Conor
-    Dooley (patch 3).
-
-Tanmay Kathpalia (9):
-  dt-bindings: mmc: add Cadence SD6HC binding
-  arm64: dts: agilex5: add SD/eMMC host controller
-  arm64: dts: agilex5: enable SD card on SOCDK OOBE card
-  dt-bindings: arm: altera: add Agilex5 SOCDK eMMC board variant
-  arm64: dts: agilex5: add SOCDK eMMC daughter board
-  mmc: sdhci-cadence: rename SD4HC symbols for SD6HC groundwork
-  mmc: sdhci-cadence: refactor driver structure for V6 controller
-    support
-  mmc: sdhci-cadence: add Cadence SD6HC support
-  mmc: sdhci-cadence: add Altera Agilex5 SD6HC support
-
- .../devicetree/bindings/arm/altera.yaml       |   1 +
- .../devicetree/bindings/mmc/cdns,sd6hc.yaml   | 105 ++
- MAINTAINERS                                   |   7 +
- arch/arm64/boot/dts/intel/Makefile            |   1 +
- .../arm64/boot/dts/intel/socfpga_agilex5.dtsi |  15 +
- .../boot/dts/intel/socfpga_agilex5_socdk.dts  |  34 +-
- .../dts/intel/socfpga_agilex5_socdk_emmc.dts  | 123 +++
- drivers/mmc/host/Makefile                     |   1 +
- .../{sdhci-cadence.c => sdhci-cadence-core.c} | 303 ++++--
- drivers/mmc/host/sdhci-cadence-phy-v6.c       | 975 ++++++++++++++++++
- drivers/mmc/host/sdhci-cadence.h              | 118 +++
- 11 files changed, 1608 insertions(+), 75 deletions(-)
+ .../devicetree/bindings/mmc/cdns,sd6hc.yaml   | 105 ++++++++++++++++++
+ 1 file changed, 105 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
- create mode 100644 arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_emmc.dts
- rename drivers/mmc/host/{sdhci-cadence.c => sdhci-cadence-core.c} (67%)
- create mode 100644 drivers/mmc/host/sdhci-cadence-phy-v6.c
- create mode 100644 drivers/mmc/host/sdhci-cadence.h
 
+diff --git a/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml b/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+new file mode 100644
+index 000000000000..d5ea2717904b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mmc/cdns,sd6hc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Cadence SD6HC SD/SDIO/eMMC Host Controller
++
++maintainers:
++  - Tanmay Kathpalia <tanmay.kathpalia@altera.com>
++
++description:
++  Cadence SD6HC is a sixth-generation SD/SDIO/eMMC host controller with an
++  interface to a Cadence Combo PHY. The controller has separate card interface
++  and bus interface clock domains.
++
++properties:
++  compatible:
++    items:
++      - const: altr,agilex5-sd6hc
++      - const: cdns,sd6hc
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: card interface unit (CIU / SDMCLK) clock
++      - description: bus interface unit (BIU) clock
++
++  clock-names:
++    items:
++      - const: ciu
++      - const: biu
++
++  resets:
++    items:
++      - description: SDHC controller reset
++      - description: Combo PHY reset
++      - description: SDMMC OCP/AXI reset
++
++  reset-names:
++    items:
++      - const: sdhc-reset
++      - const: combophy
++      - const: sdmmc-ocp
++
++  iommus:
++    maxItems: 1
++
++  dma-coherent: true
++
++  cdns,iocell-input-delay-ps:
++    description:
++      Input delay across the IO cells, used for SD6HC PHY timing calculations.
++    minimum: 0
++    maximum: 20000
++    default: 2500
++
++  cdns,iocell-output-delay-ps:
++    description:
++      Output delay across the IO cells, used for SD6HC PHY timing calculations.
++    minimum: 0
++    maximum: 20000
++    default: 2500
++
++  cdns,delay-element-ps:
++    description:
++      DLL delay element size, used for SD6HC PHY timing calculations.
++    minimum: 1
++    maximum: 1000
++    default: 24
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++
++allOf:
++  - $ref: sdhci-common.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    mmc@10808000 {
++        compatible = "altr,agilex5-sd6hc", "cdns,sd6hc";
++        reg = <0x10808000 0x1000>;
++        interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&clkmgr 0>, <&clkmgr 1>;
++        clock-names = "ciu", "biu";
++        resets = <&rst 0>, <&rst 1>, <&rst 2>;
++        reset-names = "sdhc-reset", "combophy", "sdmmc-ocp";
++        iommus = <&smmu 5>;
++        dma-coherent;
++    };
 -- 
 2.43.7
+
