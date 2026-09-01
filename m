@@ -1,173 +1,176 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010065.outbound.protection.outlook.com [52.101.69.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-185.mta1.migadu.com [95.215.58.185])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25543A75A3;
-	Tue,  1 Sep 2026 08:39:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788251980; cv=fail; b=HkFFDUtufF8NgQhkcNq5ZgiGxP5CwUj4/6iS8BKEz1rOjIssHFrGZprQZ72XpqRQAJHwrBILZklawrTpfH60hOanT3lMH8f8OYUvDXplw4fABUKvhwbpw2J0wcExItYTxtIaL/pCARlLrWLMIvAmmotSRSxZDpUQ56Quh1EAHl4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788251980; c=relaxed/simple;
-	bh=iLDfGoddpJyBQHphQL5DQ2jE1kJqML3XPUOw6SV9U2w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iKnAutjYznFD1gXzi80oMBiZVlukmHhIk3gRdCTX4ds0gb8ZIKBhw4f0ymdWqLfn595fBC6DQyRaeqpwpkG3eZjEtD4lEbZrX3LdGRWCNd1rCfstg3zhblplyIKxlAB8uDMXTVMmc8JiagoE7ae5SkyZKhEHqayi0hvYHDvQJAs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ArNvaS57; arc=fail smtp.client-ip=52.101.69.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2051813FEE
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.185
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788251990; cv=none; b=Ms6MNrqzh4nxRCOjoTF59//xPgMpjgL0iApVIgTxTs52+UJ2zxJZahTCLBDP0HW0SOlE8L0yVCoGvRC+tvmOyWIO0MG8OH0HcmeQHvzkuknGC0NhghfZ8sjCc4YRXDAFr6DIocKR+h4EGWWuSH3tIOdkLElaC/3TRNmhkKP3nOg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788251990; c=relaxed/simple;
+	bh=MFd6QQcIiVNo4d+5OnfkjHu0LYEIxCoAHDswhin9sq8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ReUFPSRvO28GeNIzlHh14w+CuhalM7ZRb0NDfY0wkMvDCL1XLq6euN5zLKRgGkaq/kGOG/0KBwp4b2SIxZTAZhS/z11hwtn5et0diZrkDoHS4qVI6f00/qEaYu/nBJNelXrlQFvqx4xL/EmsY6Fb9KHt2MSL6oz91+GErovtwNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mINlTCzk; arc=none smtp.client-ip=95.215.58.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ArNvaS57"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cn4EhNRITipD2GPVTQ2QhK/0Dz0KCKxZuz47or9VAE4r/UAP8WJBlleWroyp4wz2h3AfYKmma3dOmHfN4yn6c9+6NnyOqDHpC2cuKI70DIWO94nLaWYQKi7AB6R518lr5R/8dq7C9Dqs0SyiiEdammh2JuTAzxDig6HbTawIpXnAv4X0gfZHmIzI2egBJfCYoVQbiwVKFicmzWsbc9CxZMWi4lOheN8gpmwAhE17VwHpYazt1+rT45L1ivp2di9yFe4JqsEA1BbqxLVilBlu3GOiS4PuqO/IRuXVFZ5DsfattRD03uLWXN69XQUTSY3Cp8qeWDHJvDn6yuqiZGFssA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HU9teH0VE5kNE+CbJyqYzLnyCb9XShZFOySfCc81VD4=;
- b=dZlSbnysOTyQnlmNirEC6y6qLob3JH2iXFN83mPvF25kO1aNcDw3NhGeyKNI/RLMNqZgncK9H6+RVX04GNAKOdIYCxRksAafyLBJza/R/fTOVNV5h31pBSZ2Oa+cSYA+AtW8+YfhKNYDikP4l583a2wf7kB5nCRArJF1X+z4RevXGqLl2D1gozWWQcHVkj3umbjs2JxCIH3t9xc2VMhJab7HGDL0xMlYCP3ygsHYxT2HUGm+GALK3b4ugz94t2Uxj7f+Zzd+HzlPKa7QISmtVxCtM93SSiv62atuXvv8S4n01snMLzxpmMqyWaXhG7gSG/YgosOcHGYBaCLUpi3Uwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HU9teH0VE5kNE+CbJyqYzLnyCb9XShZFOySfCc81VD4=;
- b=ArNvaS57/UBK3coylUl8ZCloATjP2fIdp74V+k70vypBIZFg0H1Aq5WtsLL/+M5lIqVR3an8Qs7X2PlHZuiIz/hj7bg2viIhqWig7YjmHBTd0m1UHhsxpGWKvErvzY1vdohYPqfSICnO03mo8sK5vd1uUbnaokrfFz768SrnUMPWi+zEWYdzwzt3OGZNcrpjQnAEvHxLO0htEgWdM+bflJRwg5tcto5BsUjsjrE44KFiXloLlqM4ZNyZO+B8Yb9ZN4qB8AOwL406rrGrnMZ6s4eUj/jHAE2tE2S82C3PLA1J7VK2bVwvA7OxhFeIKYYkT/kbNaZabeQvomWV6JV+JA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com (2603:10a6:208:132::23)
- by AS8PR04MB9077.eurprd04.prod.outlook.com (2603:10a6:20b:444::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 08:39:33 +0000
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6]) by AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6%3]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 08:39:32 +0000
-From: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Kurt Van Dijck <dev.kurt@vandijck-laurijssen.be>
-Cc: linux-can@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	s32@nxp.com,
-	Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-Subject: [PATCH v2 2/2] can: at91_can: add missing can_rx_offload_del() in at91_can_remove()
-Date: Tue,  1 Sep 2026 10:39:27 +0200
-Message-ID: <20260901083927.316283-3-ciprianmarian.costea@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901083927.316283-1-ciprianmarian.costea@oss.nxp.com>
-References: <20260901083927.316283-1-ciprianmarian.costea@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS9PR06CA0326.eurprd06.prod.outlook.com
- (2603:10a6:20b:45b::34) To AM0PR04MB5858.eurprd04.prod.outlook.com
- (2603:10a6:208:132::23)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mINlTCzk"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=MFd6QQcIiVNo4d+5OnfkjHu0LYEIxCoAHDswhin9sq8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788251987; v=1; x=1788856787;
+ b=mINlTCzkzRJE09TeorJ64wWbNWvqxkLNNDvyUWUPBtC+x/LkmeHqHdExRzLIRphopLpjnDlo
+ QhffBAche/rfJ9yyBqCsIeysSVAgsa/Pixwdg7p+wBY2ee7ouEhwV3ch+t8KKkcOoi2cTck71D3
+ 3tpg0pQFgHmx6InF1T5SIfv0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d464daeebdd3514e;
+	Tue, 01 Sep 2026 08:39:47 +0000
+X-Mizu-Trace-ID: d464daeebdd3514e
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5aeb688ae83so3722e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:39:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxXyDCEXAq1s7+4Q1ZhYNerTmbudjDXL6aqYg33zJ4xZn1lRjjW9jtKH1J9JHeIkaus/oUyuTq6/h9HhBo=@vger.kernel.org
+X-Gm-Message-State: AFuF++n58Vmi5lYcXJj0+25sM7Q3ZhSAx7Br5Ws7NgRd1gUCsxEo7B4v
+	wLlVNbQhVCyGSR6+AxU7IOJczm7yqeUztwbzvQMjICbErv7oxOoGO3QGyTfEF1kgDjwmLlzKLYs
+	g4ECZp4Nr64ICvmFpEhbhkzlym8YY/XARXIoAkuR3
+X-Received: by 2002:ac2:5689:0:b0:5b4:4c8a:abef with SMTP id
+ 2adb3069b0e04-5b5ff29d7ccmr116639e87.10.1788251981891; Tue, 01 Sep 2026
+ 01:39:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB5858:EE_|AS8PR04MB9077:EE_
-X-MS-Office365-Filtering-Correlation-Id: a010e66f-14fc-4412-cd6f-08df08048bc2
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|19092799006|376014|1800799024|23010399003|18002099003|22082099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	BGaQ8Jths3rR/GmFGv6yZvl2I/kSzT996GjWtLT9yKEX2RuPd864P3k3mvDa8PkkcFukRZZCCfA6+Gx5R59cxo8fByvqPtTFLlWSjqJpUPzLe2T9MkeKU1HmlW6mUkBD3C7YhmuAbfXmcd/6qx+9KI//mR3NiGZR7A7itp6PshdkVnvqBi7DVsFSQxNUY5eWCvgksl7XEdCPiSKGJ2nqHOwrTrdSTkkUNycGki4svlUavmEfl5Kg50FJ4w6U9LAjo2cTm+sJFvsHKgU1bath5ySM17VuyATyo4o4P6sef0jVdVo8VIvp+ORxEn2jHDMj54LxXoUNPUwPuB8Kh1vud7+2LQaJAxGFacUi+Mb5cpWQC3Qfkso+tAsMKklZRqZCdLZMhcsvoqtISVR+vvY4f2i2w8k0Ttb7xEC6OrV03UFkWtQ3jW6oYVNs4QhAROKWT7uHiPJfz+dEV4/svkkZPZTLZxB99WyNBtJ+6w41AdW7D9qTgS/f9wnpGm8zLSCr+BYm2rsICd64oGJIpVz72SqaurZPsZwjvFlAeh42QNmjy4jtWqmN0ujdp7YdgWbrODf6WVopBnRfWmtrsniCCRqhimUr4Fm1sR7lsAKTkzh2EHsGV3GE0aDX/AtUeOPzSLLiat5eFfJqXzRUWkXCs1qa/Wh0npzKnxlFsqi+Qog=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5858.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(19092799006)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cmJ0Wm1EdG9zL0xvZjkxRzlkVkhZSHoyV000ZnUraCsxRjVpTktSQ053Slpj?=
- =?utf-8?B?aG5NUWQ1SCt3U0lYd2swWHBjQjByaHJzQzQ3RGo0VnNaSXVJV01VdDFnY082?=
- =?utf-8?B?TmRVUTRzOGp0amRQcDNVaTFjaldTQW5wcVpYdk9JVjBWT0dxZUxuNEo2V2x6?=
- =?utf-8?B?VkNMQ2pJMjlhMzNoNkNNVGh5b2NLcHFYSVV6bUVoMmxxWmNPOVV1NDE1dTlK?=
- =?utf-8?B?dFl3aWpzL3lxNVhGQnI1dS9USmlvN0pvb01Caks5anp5VmFKOVhCbTVzQWNZ?=
- =?utf-8?B?YUtYKzdrd2FzWGNOKzhJZFhCZjlLSGN1NUQ0OWtuT1F1NWRreU9ucGFRTVhy?=
- =?utf-8?B?ZHpVVnZtUzRpaHRXbCtKbkwzQm1mK3E4R1JMTjcyZ1pSTWFxSno1R2pEdkg5?=
- =?utf-8?B?MTZ6WHROV1R4MUl2YU9ReTk2QU1LUjFiSUtYRURZZCtWYUtTK0srWXF1Qk1N?=
- =?utf-8?B?UGZpaC9kaDlDSEt0eTc1MnowbWZDQzFaZzVVc3FPd2lYSno1RitpMnQ2NVRp?=
- =?utf-8?B?OENBOU92N29kekdvM0Fsb0lRVDdoZjNSWE1rUW85dHhpenZuRmhoTnE0Vndx?=
- =?utf-8?B?aWVTbGVpNXR6ME1JZzJkRC8zdWs4Kytucms1MmR3MTArei9Cc2w5ZUpJUEJr?=
- =?utf-8?B?cmxtekg1NUtUcXNRRzJmRldFM0JxaXR1M2J4R0pPN2hVbnBIWkQ3d2JWbnpj?=
- =?utf-8?B?SCswRDErV3plajhIZzRkSXZmVzB4ckZqRm52NVlNWFBCcGdnaGJUWmgraDc2?=
- =?utf-8?B?eHI4NmFoUkdVV2t6L2VHZVRyWWFPRFhuNzU1TVJ6SkxSUnNHU3JUdWhtTUJO?=
- =?utf-8?B?a3hFdlFsYmV1L2dueFNSVDJRRFpvOFJ4NjUvRVVnMmV0dzVnelZNVGVQcFhk?=
- =?utf-8?B?UVp2SithcWIwc1kya0VIbW9IQ3RUZk5JSS90dGtKdnJkTkM5bUl6d0h1amd5?=
- =?utf-8?B?eHBLRlZlMnJTWXhmWGErenhGRURTQW1uWDhwa2ZFUkF6alVrTHpRV0J3bVR6?=
- =?utf-8?B?ZW5DOTcvbjkzYjc4bS9OdTJNOWN2N2Z5bmFQVEJrMnJ0NHhsVklYZnJvaEho?=
- =?utf-8?B?L1ZVdVRCSmZ1NjRkcUgxT3cvNWZkSjErR3hCOUtERk5adEk5dGFXTitwYVJC?=
- =?utf-8?B?SU9COGZ4WVR2Q2h4NXZ0WUM5Y3kwMzhqakNWVTVzM0NjRGp2ZjQzY0E0VlQ3?=
- =?utf-8?B?WVBjTW1yOHpPc1hNaERjWnUrWTUyWnRxTjdzakZxNngwdEFWaDZTem9YUDJD?=
- =?utf-8?B?L2JySS94ZXRZd1ZwRTFLWHBOZy9SejR0QzhUWVVuZTkwVnp2eFV3eEhXWlds?=
- =?utf-8?B?eUdvenUyWldEeVZQS3lybFkwczZ4MFJLamtNbTQ5OFlTbURQZXphbjBKdG5N?=
- =?utf-8?B?SWJ3dlRiSE5rYm8wNXQyQ1dVWG5RVFlTYWM2akRnR05XQm5kYnJaRW1Hc25F?=
- =?utf-8?B?RzR3SDZPa3VvTjJlSGdoVmxyYzZHeTVqMmdhMlB4L1VhV2U4QzJZb0hDajc5?=
- =?utf-8?B?UG1IcTlPbk5JTkhiY1dOa1I3S0FzZk4vVlZZaVd5VThtaW5vZEUzc1VjejFJ?=
- =?utf-8?B?L1VXMFlBSEhkSHFRUEdOQzNDejJuSVpuOHJJYm56T01NWmN5d2RNb3pnRzhh?=
- =?utf-8?B?MUJMVG1XNUhlRHEvRndxdUFVSDhmdHR0ZDZIZG1YVTgrbzQxcWZEWHVxc3BH?=
- =?utf-8?B?bGVCSmJQZ1dYdTBnMHJyYWVrRFNybTd0bWtCaGx6YktJWXRBMEFzWFZlNTFw?=
- =?utf-8?B?QjcyaWhmcHRTanJZZmlKazJCSVhnaFFtRCtKS29VZG9XSHBocU5MMWtKcS9w?=
- =?utf-8?B?L0NvZHpBd1hwdlBzd3c2Ri9BTXRNRFU2K0JscFZqVUd1S2dURjF3STBGRXQx?=
- =?utf-8?B?bVhwSnFoQkgyZ2h5TmZBeG5FeTcxVVFTNG1qdFdJNmYvMzJiUGZ1LzBON3pt?=
- =?utf-8?B?VGlvZXdCOGQrN1pEMzV1bDhqNFYvT25iWG55clNHSmVFQkExMGE4OGZpcFp4?=
- =?utf-8?B?RVZySVF4REN1MmdEN2F1YVAwQ2VTKzNHRm5jK09rSFNjUFlEK1BQcFUxQmhF?=
- =?utf-8?B?ZEdlVG8xeWJCU2Z3WU5QUWFSbmxJSmIzTFQ2REFOV3NZaEp3eUZZTEJSUDJJ?=
- =?utf-8?B?VWNNVG9lcXBOUVBRcGFadjFQSllOWTdaR1lmc0djMWJIcEJqOE1HOWhrUCs0?=
- =?utf-8?B?MlUrSnlRZEpEUTZVV21QMm80UlIxQXRlMzgxMWIzVWlpQ3YvT1QxQ0RHbHRB?=
- =?utf-8?B?R25BMVFnVHpEQ2NtTTNqdy9ockJHOXpWdlZITWxqUG1PYUNHTXVaU1JRWEpL?=
- =?utf-8?B?am1YWm9xL090NFh2L3JlRVJsRkdFSVFPTGxOL0t1TG9CUGJtRU91blJMejBS?=
- =?utf-8?Q?++Y/MLT9GSWsYcBA=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a010e66f-14fc-4412-cd6f-08df08048bc2
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5858.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 08:39:32.8612
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zjWvwP5bBCyO9eqFpNXqCHcJwd8D+Y9TP9PgaBsz2F85YxztByjF8Fx/eHXgfy1BKil32DO9iF4QlgHdsaK2XsOtl0jgUhciK0SnRm6w3Bo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9077
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com> <20260830-gmem-inplace-conversion-v12-1-85e5fd25252a@google.com>
+In-Reply-To: <20260830-gmem-inplace-conversion-v12-1-85e5fd25252a@google.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 1 Sep 2026 09:39:05 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTytLWsa9-boURuumSFC8yNWDwvz_+WNN-aEz_cA9OkcdA@mail.gmail.com>
+X-Gm-Features: AcwNN1XCAyPPlQdujvTs-aL1UBkQHfHgNLA1ozg5F-aaAoV8bE_sbTlT0O7ALBU
+Message-ID: <CA+EHjTytLWsa9-boURuumSFC8yNWDwvz_+WNN-aEz_cA9OkcdA@mail.gmail.com>
+Subject: Re: [PATCH v12 01/45] KVM: guest_memfd: Optimize away conversion
+ overheads via dead-code elimination
+To: ackerleytng@google.com
+Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
+	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
+	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
+	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
+	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
+	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
+	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
+	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
+<devnull+ackerleytng.google.com@kernel.org> wrote:
+>
+> From: Sean Christopherson <seanjc@google.com>
+>
+> Add and use kvm_arch_has_gmem_convert() to guard guest_memfd's invocation
+> of arch hooks related to converting memory between private and shared, as
+> only one half of the x86 CoCo duo needs the runtime hooks (any pre-work is
+> pure overhead for TDX).  At this exact moment, the overhead is negligible,
+> but that will change when in-place conversion comes along, at which point
+> to-shared conversions will "need" to find all affected folios prior to
+> calling into arch code.  In quotes because very technically that work could
+> be pushed to arch code, but that would bleed guest_memfd details into arch
+> code and would be far worse than adding yet another kvm_arch_has... hook.
+>
+> Opportunistically provide the kvm_arch_gmem_make_private() declaration, and
+> rely on dead-code elimination to eliminate the call to non-existent code
+> when CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT=n.
+>
+> Reported-by: Binbin Wu <binbin.wu@linux.intel.com>
+> Closes: https://lore.kernel.org/all/1ec08cd8-3072-4753-ad5e-cd34956647f8@linux.intel.com
+> Suggested-by: Ackerley Tng <ackerleytng@google.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 
-at91_can_probe() sets up rx-offload via can_rx_offload_add_timestamp(),
-but at91_can_remove() never calls can_rx_offload_del(). The NAPI
-instance added by can_rx_offload_add_timestamp() is therefore never
-removed on unbind.
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-This was benign while the offload's IRQ queue was embedded in struct
-can_rx_offload, but it now leaks the per-CPU skb_irq_queue allocation.
-Add the missing can_rx_offload_del() after unregister_netdev().
+Cheers,
+/fuad
 
-Signed-off-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
----
- drivers/net/can/at91_can.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/net/can/at91_can.c b/drivers/net/can/at91_can.c
-index 58da323f14d7..3ee908817add 100644
---- a/drivers/net/can/at91_can.c
-+++ b/drivers/net/can/at91_can.c
-@@ -1165,6 +1165,8 @@ static void at91_can_remove(struct platform_device *pdev)
- 
- 	unregister_netdev(dev);
- 
-+	can_rx_offload_del(&priv->offload);
-+
- 	iounmap(priv->reg_base);
- 
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--- 
-2.43.0
-
+> ---
+>  arch/x86/include/asm/kvm_host.h | 3 +++
+>  include/linux/kvm_host.h        | 3 ++-
+>  virt/kvm/guest_memfd.c          | 5 ++---
+>  3 files changed, 7 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+> index 683bb8bf43a94..6beddd8a0c749 100644
+> --- a/arch/x86/include/asm/kvm_host.h
+> +++ b/arch/x86/include/asm/kvm_host.h
+> @@ -1854,6 +1854,9 @@ enum kvm_intr_type {
+>  #ifdef CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES
+>  #define kvm_arch_has_private_mem(kvm) ((kvm)->arch.has_private_mem)
+>  #endif
+> +#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
+> +#define kvm_arch_has_gmem_convert() (!!kvm_x86_ops.gmem_make_private)
+> +#endif
+>
+>  #define kvm_arch_has_readonly_mem(kvm) (!(kvm)->arch.has_protected_state)
+>
+> diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+> index 502465119ca0c..b7516e19ef419 100644
+> --- a/include/linux/kvm_host.h
+> +++ b/include/linux/kvm_host.h
+> @@ -2597,9 +2597,10 @@ static inline int kvm_gmem_get_pfn(struct kvm *kvm,
+>  }
+>  #endif /* CONFIG_KVM_GUEST_MEMFD */
+>
+> -#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
+>  int kvm_arch_gmem_make_private(struct kvm *kvm, gfn_t gfn, kvm_pfn_t pfn,
+>                                kvm_pfn_t nr_pages);
+> +#ifndef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
+> +#define kvm_arch_has_gmem_convert() false
+>  #endif
+>
+>  #ifdef CONFIG_HAVE_KVM_ARCH_GMEM_POPULATE
+> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+> index 798d91df69537..2190e4d6b6bea 100644
+> --- a/virt/kvm/guest_memfd.c
+> +++ b/virt/kvm/guest_memfd.c
+> @@ -772,11 +772,10 @@ int kvm_gmem_get_pfn(struct kvm *kvm, struct kvm_memory_slot *slot,
+>                 folio_mark_uptodate(folio);
+>         }
+>
+> -#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
+> -       if (kvm_gmem_is_private_mem(file_inode(file), index))
+> +       if (kvm_arch_has_gmem_convert() &&
+> +           kvm_gmem_is_private_mem(file_inode(file), index))
+>                 r = kvm_arch_gmem_make_private(kvm, gfn, *pfn,
+>                                                (kvm_pfn_t)1 << *max_order);
+> -#endif
+>
+>         folio_unlock(folio);
+>         folio_put(folio);
+>
+> --
+> 2.55.0.897.gb25b4bd76c-goog
+>
+>
