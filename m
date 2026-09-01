@@ -1,124 +1,245 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57C036F419
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4903636680E
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:59:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245948; cv=none; b=RccZPKqpUgPBJngl/qyD2GrkATT8XrBWbVop445yBQVXpC6tC7ctspxZUPo2mClDmDVcsOnr8tyOlp5y3kEUirCB13ffsWWJRAxj3sEKhQiNlJvacheo3t/9ALzVVJegZTi7oPiL0Do1z2LTK0n5uIOj5TXiPDlHt9Ki7sVxxdI=
+	t=1788245978; cv=none; b=Xuao4NkRr8vfTwvcLsYAMy5uTRgkzlqMbP2P7s3B2QEatRx3jOnrPIBOwcbKyeFeMvv0mJqe8ZBO3s4e8R3bGonm0T10IfOl/MxPJBylqMtGqWcd/SuDq9rSgaFkcUHBjg6bfP88Q7zXboKSxrMoYAz3WVS3rXp2zFLknH1C5ak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788245948; c=relaxed/simple;
-	bh=auD0LBcyaasBTyONLGH17EGXcimgnRbD7L0mkVqBfhk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jb3pp2pmGCbfvlYt0npvlS/K/YKX8aJ/KQg7ybDhMTucODj43kKYG4PQdXBw/0gUQB8sxpz6lNrPfJzh310CIIJUoAFTw3S12w745QbybbhRIgaJLgOyzH2nnOAkx1ILLsggJT56/i5dMLltQzH663vmQmsIRtXLgo+n93LEwIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arkamondal.net; spf=pass smtp.mailfrom=arkamondal.net; dkim=pass (2048-bit key) header.d=arkamondal.net header.i=@arkamondal.net header.b=HmsSuxY6; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=Lthut8zt; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arkamondal.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamondal.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arkamondal.net header.i=@arkamondal.net header.b="HmsSuxY6";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="Lthut8zt"
-Authentication-Results: purelymail.com; auth=pass
-DKIM-Signature: a=rsa-sha256; b=HmsSuxY6pJFa3Yu7S4e9ZtDrAo1lBEjP72Az/0FaFzpGxPX5q7o3/jnIseIYlJHwfIPx2X3nIaQvKnWO8ycrpaN0PNa1m5LwkY4vTivZz+Kij3qssxtZ8rY8i/kK6kqysIl9zvKG/VnZtxCXAnazI9fPb1eztW9LeoDS4EZgarafm3JJFrJxAhSfX533X5fmfIollBHU772jxMFvqx1Uav/UqVf+bLrRzFWPA2KZ0YZWtWbO3NbobwQEPa1AdGGNowsVrD34VKr+xDXKUs0Uati824DlcUdPKrMENn8x7dzdw7TrEGQX/XLw4gwz6JyCU4ZdE6JRK5+xMc2ciK/XOQ==; s=purelymail2; d=arkamondal.net; v=1; bh=auD0LBcyaasBTyONLGH17EGXcimgnRbD7L0mkVqBfhk=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=Lthut8zt00DIcSg2xGa1PPIa5fmmpzflHELXhKuxvuRqMy7BcQF4MpZbC6YX6ISwJZccLPbNe5ZONeu+9UCOitrZQR+7UgzTwbECznmcs7YEZziEqYlj0DkyVi9v3hv8iR3sY9Kcpa9DQIu/lDDgW2DMdYTrB2Tyf2vuZmlVSJaUTnZLakMLshuIeHaZ1ES6GhOkx4tH6BOidO0yBP0zWonAFk652ZCeaz5/h6AnkYWPTFBLMNBZeYq8eERgQWofpZDsgnGjp65JYAvThJUiAXJb3IZcpnvl6UpuI8D+dIegZfx+IVKoGbS8HeOnO5YEdx23qF90cK201J6NvKogWg==; s=purelymail2; d=purelymail.com; v=1; bh=auD0LBcyaasBTyONLGH17EGXcimgnRbD7L0mkVqBfhk=; h=Feedback-ID:Received:From:To:Subject:Date;
-Feedback-ID: 1246644:48769:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -668540338;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Tue, 01 Sep 2026 06:58:52 +0000 (UTC)
-From: Arka Mondal <arka@arkamondal.net>
-To: Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Matthew Dharm <mdharm-usb@one-eyed-alien.net>,
-	Daniel Drake <dsd@gentoo.org>,
-	linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net,
-	linux-kernel@vger.kernel.org,
-	arkamondalofficial@gmail.com,
-	Arka Mondal <arka@arkamondal.net>
-Subject: [PATCH 2/3] usb-storage: alauda: check the return value of alauda_read_map()
-Date: Tue,  1 Sep 2026 15:58:30 +0900
-Message-ID: <20260901065831.43567-3-arka@arkamondal.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260901065831.43567-1-arka@arkamondal.net>
-References: <20260901065831.43567-1-arka@arkamondal.net>
+	s=arc-20240116; t=1788245978; c=relaxed/simple;
+	bh=bybDq+Dgk+bd3pbHkkH+vj+kmBGHB1tiLHdPmcf3tRo=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=npBK8/RaOcbFQjHCq9ljAPqkA2CWYkCbQCsmMhgbhrVVLv9I95blmBJHiBZ9H9lthI3dEcPmmvON9KGO5AoYEAipMdiKy8REVB1l0DdosU4p9CR7T1HSmgEYZLFqEhVIDGlAoF9u560sJt+mU0spP2VCDYX9kl/LLCtQ6Hkjzpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b352d9062fso759638eaf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:59:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788245974; x=1788850774;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=63L/bxFUv722Vl7mOzFbgh0sRzdogZ3j1mEhDHkXGRo=;
+        b=Yhce3fsCdLIzaiyPiHClZy9PJXIv40JXemASFEP+0ndRBFobKB7TaNEXdlHJodWN5z
+         q+GU3g8+qgL+RPxUY07JTGtPhvOo9sUh175CzL06BMgbgXdnZk2wq9ZExU6pa7WbUq+O
+         cXf0HxWnFq6t+EhVF4rL/T6i1YxK0EnibFN1Oeo66wy5m9Fy8bH+Bs/bYEQU4mkGCfg5
+         f+wVMBwa+VdxMEtqIsG8PPArqkwMuoNqxsLXKYE0ehTG8IJKahy4BEBspBIKBO/t9Zjq
+         vLo/ZW9KpNAlWYQRN3ANmdSfwdyXc6+v54oB78f0PYCzvEdVEOF3/viBg8TA6mMbv3TA
+         25zA==
+X-Forwarded-Encrypted: i=1; AHgh+RpesSfM9vCZB7SWRmXU0Ao4gQ8hNzMyzqnyU/lhx2TgVAmpXr2txufEDiHN37BiNnJhyqlq3XPx8MHfGL0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nW1kthgCHcYzBVk4aGaVuzTopbH2UACiw6g/bebVeNU45hm9r6
+	h37m0OSpNW8xba7IOZsUQo28nxX+ANZ3c/b+Uhtxe92w5FlcfoQUM83vwr7BI7+oWhUKvHqWdon
+	n8SGSAbUxHD+ZFVQG7KGUzvp/kR00MnX5IdfXfEE8sGDLTmhs64DsTdh+3YE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
-Content-Type: text/plain; charset=UTF-8
+X-Received: by 2002:a05:6820:824:b0:6b3:6d00:263b with SMTP id
+ 006d021491bc7-6b36d00398emr7086198eaf.19.1788245974251; Mon, 31 Aug 2026
+ 23:59:34 -0700 (PDT)
+Date: Mon, 31 Aug 2026 23:59:34 -0700
+In-Reply-To: <20260831152044.166353-1-ivanrwcm25@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9677d6.04428c52.29b18.0002.GAE@google.com>
+Subject: [syzbot ci] Re: block: brd/loop error-path cleanup
+From: syzbot ci <syzbot+ci7c1a0fc0cefeacdb@syzkaller.appspotmail.com>
+To: axboe@kernel.dk, ivanrwcm25@gmail.com, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-alauda_ensure_map_for_zone() ignores the value alauda_read_map()
-returns. On failure lba_to_pba[zone] and pba_to_lba[zone] are left NULL,
-and both callers dereference them immediately:
+syzbot ci has tested the following series
 
-  pba =3D MEDIA_INFO(us).lba_to_pba[zone][lba_offset];
+[v1] block: brd/loop error-path cleanup
+https://lore.kernel.org/all/20260831152044.166353-1-ivanrwcm25@gmail.com
+* [PATCH v1 1/2] block: brd: destroy xa on allocation failure
+* [PATCH v1 2/2] block: loop: restore state on loop_configure() error
 
-alauda_read_map() returns USB_STOR_TRANSPORT_ERROR when either kcalloc()
-fails or an alauda_get_redu_data() transfer fails, so one failed bulk
-transfer is enough to reach the NULL dereference.
+and found the following issues:
+* general protection fault in lo_release
+* general protection fault in lo_rw_aio
 
-Return that value from alauda_ensure_map_for_zone() and check it in
-alauda_read_data() and alauda_write_lba().
+Full report is available here:
+https://ci.syzbot.org/series/9ab490fc-567e-414a-9754-890ca131012d
 
-Fixes: e80b0fade09e ("[PATCH] USB Storage: add alauda support")
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D217862
-Signed-off-by: Arka Mondal <arka@arkamondal.net>
+***
+
+general protection fault in lo_release
+
+tree:      axboe
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/axboe/linux.git
+base:      44e96e364b04163ddddc8a24289cef4982b7e36e
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/f5d23472-69ec-45bc-b33a-b59f7c0e7493/config
+syz repro: https://ci.syzbot.org/findings/a48673c0-89de-4ffc-b71c-3aa9e5313ec8/syz_repro
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc000000000a: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x0000000000000050-0x0000000000000057]
+CPU: 0 UID: 0 PID: 5946 Comm: syz.0.87 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:__loop_clr_fd drivers/block/loop.c:1177 [inline]
+RIP: 0010:lo_release+0x47c/0x7e0 drivers/block/loop.c:1780
+Code: 89 e7 e8 77 60 fc fb bf e0 01 00 00 49 03 3c 24 be 02 00 00 00 e8 84 c6 9c 05 48 8b 44 24 30 4c 8d 70 50 4c 89 f0 48 c1 e8 03 <42> 80 3c 28 00 74 08 4c 89 f7 e8 45 60 fc fb 41 bc e8 00 00 00 4d
+RSP: 0018:ffffc90003787b60 EFLAGS: 00010206
+RAX: 000000000000000a RBX: ffff8881063f93c8 RCX: 0000000000000046
+RDX: 0000000000000006 RSI: ffffffff8e46de57 RDI: ffffffff8c6d5780
+RBP: ffffc90003787d08 R08: ffffffff9079c73f R09: 1ffffffff20f38e7
+R10: dffffc0000000000 R11: fffffbfff20f38e8 R12: ffff8881063f8080
+R13: dffffc0000000000 R14: 0000000000000050 R15: 1ffff920006f0f74
+FS:  00007fae103d46c0(0000) GS:ffff88818d6f1000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fae0f5eb840 CR3: 000000010c31a000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ bdev_release+0x571/0x690 block/bdev.c:-1
+ blkdev_release+0x15/0x20 block/fops.c:682
+ __fput+0x418/0xa50 fs/file_table.c:512
+ fput_close_sync+0x11f/0x240 fs/file_table.c:617
+ __do_sys_close fs/open.c:1560 [inline]
+ __se_sys_close fs/open.c:1545 [inline]
+ __x64_sys_close+0x7e/0x110 fs/open.c:1545
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fae0f55e98e
+Code: 08 0f 85 a5 a8 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 80 00 00 00 00 48 83 ec 08
+RSP: 002b:00007fae103d3da8 EFLAGS: 00000246 ORIG_RAX: 0000000000000003
+RAX: ffffffffffffffda RBX: 00007fae103d46c0 RCX: 00007fae0f55e98e
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000004
+RBP: 0000000000000010 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000003
+R13: 00007fae103d3ee0 R14: 00007fae103d46a8 R15: 00007fae06600000
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:__loop_clr_fd drivers/block/loop.c:1177 [inline]
+RIP: 0010:lo_release+0x47c/0x7e0 drivers/block/loop.c:1780
+Code: 89 e7 e8 77 60 fc fb bf e0 01 00 00 49 03 3c 24 be 02 00 00 00 e8 84 c6 9c 05 48 8b 44 24 30 4c 8d 70 50 4c 89 f0 48 c1 e8 03 <42> 80 3c 28 00 74 08 4c 89 f7 e8 45 60 fc fb 41 bc e8 00 00 00 4d
+RSP: 0018:ffffc90003787b60 EFLAGS: 00010206
+RAX: 000000000000000a RBX: ffff8881063f93c8 RCX: 0000000000000046
+RDX: 0000000000000006 RSI: ffffffff8e46de57 RDI: ffffffff8c6d5780
+RBP: ffffc90003787d08 R08: ffffffff9079c73f R09: 1ffffffff20f38e7
+R10: dffffc0000000000 R11: fffffbfff20f38e8 R12: ffff8881063f8080
+R13: dffffc0000000000 R14: 0000000000000050 R15: 1ffff920006f0f74
+FS:  00007fae103d46c0(0000) GS:ffff8882a8cf1000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffd52a75ff8 CR3: 000000010c31a000 CR4: 00000000000006f0
+----------------
+Code disassembly (best guess):
+   0:	89 e7                	mov    %esp,%edi
+   2:	e8 77 60 fc fb       	call   0xfbfc607e
+   7:	bf e0 01 00 00       	mov    $0x1e0,%edi
+   c:	49 03 3c 24          	add    (%r12),%rdi
+  10:	be 02 00 00 00       	mov    $0x2,%esi
+  15:	e8 84 c6 9c 05       	call   0x59cc69e
+  1a:	48 8b 44 24 30       	mov    0x30(%rsp),%rax
+  1f:	4c 8d 70 50          	lea    0x50(%rax),%r14
+  23:	4c 89 f0             	mov    %r14,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	42 80 3c 28 00       	cmpb   $0x0,(%rax,%r13,1) <-- trapping instruction
+  2f:	74 08                	je     0x39
+  31:	4c 89 f7             	mov    %r14,%rdi
+  34:	e8 45 60 fc fb       	call   0xfbfc607e
+  39:	41 bc e8 00 00 00    	mov    $0xe8,%r12d
+  3f:	4d                   	rex.WRB
+
+
+***
+
+general protection fault in lo_rw_aio
+
+tree:      axboe
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/axboe/linux.git
+base:      44e96e364b04163ddddc8a24289cef4982b7e36e
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/f5d23472-69ec-45bc-b33a-b59f7c0e7493/config
+syz repro: https://ci.syzbot.org/findings/556532c0-64a7-4471-9558-ea3a7a213af7/syz_repro
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000009: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x0000000000000048-0x000000000000004f]
+CPU: 0 UID: 0 PID: 83 Comm: kworker/u9:3 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Workqueue: loop0 loop_rootcg_workfn
+RIP: 0010:lo_rw_aio+0xc36/0xf20 include/linux/percpu-rwsem.h:-1
+Code: fb 48 8d 35 00 00 00 00 bf 60 04 00 00 48 03 3b e8 9f 51 68 fb bb 30 00 00 00 4c 8b 74 24 58 49 83 c6 48 4c 89 f0 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 f7 e8 8b 6c fc fb 49 03 1e 48 89 d8 48
+RSP: 0018:ffffc9000277f620 EFLAGS: 00010206
+RAX: 0000000000000009 RBX: 0000000000000028 RCX: ffff888102725a00
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: ffffc9000277f790 R08: ffff88810aa529a7 R09: 1ffff1102154a534
+R10: dffffc0000000000 R11: ffffed102154a535 R12: dffffc0000000000
+R13: 0000000000000000 R14: 0000000000000048 R15: ffff88810aa529b0
+FS:  0000000000000000(0000) GS:ffff88818d6f1000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000558fd5b46210 CR3: 00000001bb152000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ do_req_filebacked drivers/block/loop.c:432 [inline]
+ loop_handle_cmd drivers/block/loop.c:1954 [inline]
+ loop_process_work+0x960/0x11c0 drivers/block/loop.c:1989
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:lo_rw_aio+0xc36/0xf20 include/linux/percpu-rwsem.h:-1
+Code: fb 48 8d 35 00 00 00 00 bf 60 04 00 00 48 03 3b e8 9f 51 68 fb bb 30 00 00 00 4c 8b 74 24 58 49 83 c6 48 4c 89 f0 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 f7 e8 8b 6c fc fb 49 03 1e 48 89 d8 48
+RSP: 0018:ffffc9000277f620 EFLAGS: 00010206
+RAX: 0000000000000009 RBX: 0000000000000028 RCX: ffff888102725a00
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: ffffc9000277f790 R08: ffff88810aa529a7 R09: 1ffff1102154a534
+R10: dffffc0000000000 R11: ffffed102154a535 R12: dffffc0000000000
+R13: 0000000000000000 R14: 0000000000000048 R15: ffff88810aa529b0
+FS:  0000000000000000(0000) GS:ffff88818d6f1000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000558fd5b46210 CR3: 0000000169ee2000 CR4: 00000000000006f0
+----------------
+Code disassembly (best guess):
+   0:	fb                   	sti
+   1:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 0x8
+   8:	bf 60 04 00 00       	mov    $0x460,%edi
+   d:	48 03 3b             	add    (%rbx),%rdi
+  10:	e8 9f 51 68 fb       	call   0xfb6851b4
+  15:	bb 30 00 00 00       	mov    $0x30,%ebx
+  1a:	4c 8b 74 24 58       	mov    0x58(%rsp),%r14
+  1f:	49 83 c6 48          	add    $0x48,%r14
+  23:	4c 89 f0             	mov    %r14,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
+  2f:	74 08                	je     0x39
+  31:	4c 89 f7             	mov    %r14,%rdi
+  34:	e8 8b 6c fc fb       	call   0xfbfc6cc4
+  39:	49 03 1e             	add    (%r14),%rbx
+  3c:	48 89 d8             	mov    %rbx,%rax
+  3f:	48                   	rex.W
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
 ---
- drivers/usb/storage/alauda.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/usb/storage/alauda.c b/drivers/usb/storage/alauda.c
-index 878c404106c5..d47ce01d519a 100644
---- a/drivers/usb/storage/alauda.c
-+++ b/drivers/usb/storage/alauda.c
-@@ -697,11 +697,13 @@ static int alauda_read_map(struct us_data *us, unsign=
-ed int zone)
-  * Checks to see whether we have already mapped a certain zone
-  * If we haven't, the map is generated
-  */
--static void alauda_ensure_map_for_zone(struct us_data *us, unsigned int zo=
-ne)
-+static int alauda_ensure_map_for_zone(struct us_data *us, unsigned int zon=
-e)
- {
- =09if (MEDIA_INFO(us).lba_to_pba[zone] =3D=3D NULL
- =09=09|| MEDIA_INFO(us).pba_to_lba[zone] =3D=3D NULL)
--=09=09alauda_read_map(us, zone);
-+=09=09return alauda_read_map(us, zone);
-+
-+=09return 0;
- }
-=20
- /*
-@@ -849,7 +851,9 @@ static int alauda_write_lba(struct us_data *us, u16 lba=
-,
- =09unsigned int new_pba_offset;
- =09unsigned int zone =3D lba / uzonesize;
-=20
--=09alauda_ensure_map_for_zone(us, zone);
-+=09result =3D alauda_ensure_map_for_zone(us, zone);
-+=09if (result !=3D USB_STOR_TRANSPORT_GOOD)
-+=09=09return result;
-=20
- =09pba =3D MEDIA_INFO(us).lba_to_pba[zone][lba_offset];
- =09if (pba =3D=3D 1) {
-@@ -980,7 +984,10 @@ static int alauda_read_data(struct us_data *us, unsign=
-ed long address,
- =09=09unsigned int lba_offset =3D lba - (zone * uzonesize);
- =09=09unsigned int pages;
- =09=09u16 pba;
--=09=09alauda_ensure_map_for_zone(us, zone);
-+
-+=09=09result =3D alauda_ensure_map_for_zone(us, zone);
-+=09=09if (result !=3D USB_STOR_TRANSPORT_GOOD)
-+=09=09=09break;
-=20
- =09=09/* Not overflowing capacity? */
- =09=09if (lba >=3D max_lba) {
---=20
-2.55.0
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
 
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
