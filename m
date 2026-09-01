@@ -1,186 +1,133 @@
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C468E47424E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7BE476071
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:10:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253836; cv=none; b=psFo7OlnCwmC399LsxScE0YAXah2pzIIAAHFcvTYYpxdClOyHyupdTlZd6DYAedhZDDL6asMMW3svgCnbroR9JHbSipqoaqJbURzDi8OCHYawEzHCA8H1S9iJRrtgAmPH7WAxlqF+HnMWPqLo0sBnSvWNA1uT540D5P/l/KSQJQ=
+	t=1788253840; cv=none; b=h1/8mPV9rQhW2M2E84ueO6Knq3xBTMue2nkyrtSM83gJPZ13lXKpJ6bZVV7u0LbVu3tYVnj/jdJ8Wtvzd1Ns2NWIG9GIumyyEEYO/xetmdSyy74BbUKliyztIAqOSQlFM7IJB1I+bjK4hYm9EmzxEbmm5CRg+lVo0PyetB7Sj/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253836; c=relaxed/simple;
-	bh=MbIyWVV1fDEvUhmmiJrRl8bgUScodrVy2todr24b9xg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bQLGiJqf//I4GsUu0ZWXhEjU9dSz5mQ5lY6YejBNUj7bR+FAGA5FUtlt3sQueCpq8DDziGX7CpfN2tFQd4bGfJmfyzZNJGDO8581ZWTeXjotPoyQ3TCMHklYMkv3lwBHozZLmhfyAsPlf8ZnWvYKmtMwaV4trjXUL/QDn/jBgjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-77bf3334d14so2932111137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:10:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788253825; x=1788858625;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FAHBVIqCMd7JP6CfhiZjkc1474N3IhXqUrk37KgzKlc=;
-        b=Lv/SXgzVLjq+eCH4osyrcPLPrye2oCTjzRiOxkE1rJQvbFNQeGjadgq/l3ZrW/+6Wt
-         Fl/SVKja2sEoN3M5yElKW6a8SjYp759CdhBRofET4MyQyshczs8iwG25Bm7sXQJEzr5D
-         Su0lpnwMjvsAHXGlABnYxnG+YlL6PgHcpoKkcq3EM4+HIYnSBUoeGF2wKtCm8Wp1fsCf
-         wUDMRy5BpvbrwDyKOwZJuhSJ7f1jbVHjDlGhbB2tlUZWRIBi7uZMZs/YocSX/cq0nxNe
-         OdkkJ6niXXQf6AETGrRlmX9xsAMc/iqDnMBYgXxaIJwUd3XuoOr2m3veaQZjUhyMK/Kq
-         ThIQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrr65pp9NjjmT+nNqKIsLSoSrlzDfc2KxfQ0aRmhnPAEmq/qGmyJ30oEACDF1u4LXWLDuDnBh7cXbhrbjI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kd4cfQ7MFS7OjyAZ61FRo/ZMZmaPQ+KYaAS1UVbaXu/oCIsx1q
-	LroPLeRzoDKmI0GPXz2MUiCj7v5rIn8oQpnUQT0XCv04NPXMVjJWOo1Hidk1RRaX
-X-Gm-Gg: AR+sD13PZgFXeU+cDOke8X9imkpSqc6CblmrJgjr1ftUHyLZIenc4JXDxJ+2f1FXrG1
-	jnETHHewedNRLOF94jkPQUd3kz9L2Lec660hagBLuwJMR0sbtA9l2Xd11f5sjCLPcGFnauXcrIi
-	lO4cdY0brnrpfHP92/GeaoblxqEB8LgD4gvsmXIccmjRip+1yZOSlqf6SXvKxsL4ukuKa5vA/TE
-	dd9c9IiHhdGzuffednxgU8B6QBjMBTuKZLuFbHYGdIepDN3sCqnW/1C/yU/ckI6aj204KYIWrgN
-	gSY34kFU+7NrnZzti0HsRSG7Ti+wy6+OnZMztF2hA47xDBsC72PNI/M3ae0TgdMNybQDxs0Vfrj
-	meAfw/0RnUmTNzXGQH54BFT71O8N0pnMKl1SKyIWk2aGFJRR4es/tPaePfek/trmi/KUfEMkmxJ
-	xSraFMgBWC24770Y/bx90ChIYpyebIjcjwEKqVTNjE5LKA5bsbLDtDxmm9n9pQbWarVPZ/ca7BA
-	neROiHqTZIlXHtQ50Z7NGE2Tw==
-X-Received: by 2002:a05:6102:5489:b0:784:ed9:1a1c with SMTP id ada2fe7eead31-78599e8b224mr11668179137.12.1788253825446;
-        Tue, 01 Sep 2026 02:10:25 -0700 (PDT)
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com. [209.85.222.51])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-785f532aafcsm8400591137.1.2026.09.01.02.10.25
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 02:10:25 -0700 (PDT)
-Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-977258a75d9so2734835241.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:10:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqzXjLuh+Qw4uXaHTdhigZjGPlEiC6w5fOee+u4CWM+Fd83K1TytwiXjENvggBqAIe0nOyWWd2g5xhX/Qc=@vger.kernel.org
-X-Received: by 2002:a05:6102:3e83:b0:779:c38e:de53 with SMTP id
- ada2fe7eead31-7859956a1cdmr13463869137.10.1788253824841; Tue, 01 Sep 2026
- 02:10:24 -0700 (PDT)
+	s=arc-20240116; t=1788253840; c=relaxed/simple;
+	bh=r43ercH8hh7m4a7NMFw494Tp8qt25nxfbWpSPXZRdMg=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:In-Reply-To:
+	 References:MIME-Version; b=OHDS+pbZGxgl6UrkKTx5iUax7BaF8xK73+ZCXRzOmnex7CtAo/8pZeG7ktL7U/Op1vAKjTDW+m1d453dMWFUqrsIO/gS3q2vg0M9XwVL2eUxvjXpKRjrjRFOopR4NncXELw02chr1rlyeYqODd4drcoI8mZTCpCO/gXOkQLPgVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=mxcC5TSJ; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="mxcC5TSJ"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 4F5A31A18FF;
+	Tue,  1 Sep 2026 09:10:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 210A56053C;
+	Tue,  1 Sep 2026 09:10:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6DC5111C78AAE;
+	Tue,  1 Sep 2026 11:10:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788253828; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=O6M7R6qeKpGv7hKN92NZpeG9scGOhJTRlBjUTgzzTrg=;
+	b=mxcC5TSJB+emTkc08IySeI8kzDDA7EH7tsdzHd2PwXYRd04nb+gNTqxc63NoueCDms4t18
+	B9Ci6mAQ3myMC7nJve7IsyB9LbEHilce1RMJToTyK+WnYo5BCtZV7VPUt6xluJrZMuqvfz
+	PcpfVlC35QyX5tu6TZYVFd63YQcEXEZtu2PNTMozouUPjITWnhKindYylD9sOmkXnpai/T
+	jRtQ4n2YfHyWJABrWmItLZeG4Me+0lLODwEXi0BMkU2tkTSH+w8Gr9BOdgpuRPphtHw2Ax
+	iliEtn7TlsqMiI14y7QvpkzGRP8e777HXYjemkOtmdeqHhfUB1PDox8+mBoZYA==
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 11:10:22 +0200
+Message-Id: <DL3V2OWS1QQK.3LSPJWT56YK43@bootlin.com>
+Subject: Re: [PATCH net-next v9 05/17] net: macb: enforce reverse christmas
+ tree (RCT) convention
+Cc: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Nicolas
+ Ferre" <nicolas.ferre@microchip.com>, "Claudiu Beznea"
+ <claudiu.beznea@tuxon.dev>, "Paolo Valerio" <pvalerio@redhat.com>, "Nicolai
+ Buchwitz" <nb@tipi-net.de>, "Vladimir Kondratiev"
+ <vladimir.kondratiev@mobileye.com>, "Gregory CLEMENT"
+ <gregory.clement@bootlin.com>, =?utf-8?q?Beno=C3=AEt_Monin?=
+ <benoit.monin@bootlin.com>, "Tawfik Bayouk" <tawfik.bayouk@mobileye.com>,
+ "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, "Maxime Chevallier"
+ <maxime.chevallier@bootlin.com>
+To: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, "Conor Dooley"
+ <conor.dooley@microchip.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>,
+ "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
+ "Richard Cochran" <richardcochran@gmail.com>, "Russell King"
+ <linux@armlinux.org.uk>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260812-macb-context-v9-5-7ddbf5f715e0@bootlin.com>
+References: <20260812-macb-context-v9-5-7ddbf5f715e0@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1786929430.git.fthain@linux-m68k.org> <1e349506a7cc6aa574aacbd4c69c240b5a1e3eb8.1786929430.git.fthain@linux-m68k.org>
- <CAMuHMdXgtstGtcbRkrtKtQ+d1c=mCe5zgYZCx4dyUQ_YnVhbbw@mail.gmail.com> <b0f20a10-78d4-e8e6-4001-99f076b99a8a@linux-m68k.org>
-In-Reply-To: <b0f20a10-78d4-e8e6-4001-99f076b99a8a@linux-m68k.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 1 Sep 2026 11:10:12 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXGBT+Xbm+zftBzQEaCgAY2CNUxqE9Swz03se4tVisENg@mail.gmail.com>
-X-Gm-Features: AcwNN1Vv8ix3n1nJubUXaePLSvTFNecD0g75FaaL-e1OfJQWQPFwaJuEm50wUr4
-Message-ID: <CAMuHMdXGBT+Xbm+zftBzQEaCgAY2CNUxqE9Swz03se4tVisENg@mail.gmail.com>
-Subject: Re: [PATCH v2 07/32] swim: Enable clock divider only where appropriate
-To: Finn Thain <fthain@linux-m68k.org>
-Cc: Jens Axboe <axboe@kernel.dk>, Laurent Vivier <laurent@vivier.eu>, 
-	Joshua Thompson <funaho@jurai.org>, linux-block@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-TUID: DAMUKiy6g+Ou
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Finn,
+Replying to non-net sashiko
+https://sashiko.dev/#/patchset/20260812-macb-context-v9-0-7ddbf5f715e0%40bo=
+otlin.com
 
-On Tue, 1 Sept 2026 at 09:56, Finn Thain <fthain@linux-m68k.org> wrote:
-> On Mon, 31 Aug 2026, Geert Uytterhoeven wrote:
-> > On Mon, 17 Aug 2026 at 03:55, Finn Thain <fthain@linux-m68k.org> wrote:
-> > > Some models have a 16 MHz FCLK oscillator and others 32 MHz. Put this
-> > > information into the swim device platform_data so that the driver can
-> > > correctly enable the clock divider. When this is enabled incorrectly,
-> > > nothing can be read and failures from the Error Correction Machine are
-> > > flagged in the error register.
-> > >
-> > > This is chip initialization, so do this in swim_floppy_init() rather
-> > > than floppy_open(). Drop the udelay() which was apparently copied and
-> > > pasted from swim3.c, where it relates to interrupts (of which this chip
-> > > has none).
-> >
-> > > Cc: Joshua Thompson <funaho@jurai.org>
-> > > Reviewed-by: Laurent Vivier <laurent@vivier.eu>
-> > > Fixes: 8852ecd97488 ("m68k: mac - Add SWIM floppy support")
-> > > Signed-off-by: Finn Thain <fthain@linux-m68k.org>
-
-> > > --- a/arch/m68k/mac/config.c
-> > > +++ b/arch/m68k/mac/config.c
-> > > @@ -984,8 +984,37 @@ static int __init mac_platform_init(void)
-> > >                         .start = swim_base,
-> > >                         .end   = swim_base + 0x1FFF,
-> > >                 };
-> > > +               unsigned int data = 0;
-> >
-> > Nit: in the absence of a real platform_data structure, please use a
-> > more explanatory name.
-> >
-> > Perhaps s/data/s_fclk/, and store S_FCLK_DIV2 or zero?
-> > Or s/data/setup/, and store the full register value?
+> commit da95f184645150278bd5328618e0592f867e39bb
+> Author: Th=C3=A9o Lebrun <theo.lebrun@bootlin.com>
 >
-> I looked again at this but I still can't see any uses for the other bits.
-> So perhaps I should change it to:
+> net: macb: enforce reverse christmas tree (RCT) convention
 >
-> +               bool fast_fclk = false;
-
-That's another option.
-
-> > > --- a/drivers/block/swim.c
-> > > +++ b/drivers/block/swim.c
-> >
-> > > @@ -807,8 +806,10 @@ static void swim_set_parameters(struct swim __iomem *base)
-> > >                 swim_write(base, parameter, mem[i]);
-> > >  }
-> > >
-> > > -static int swim_floppy_init(struct swim_priv *swd)
-> > > +static int swim_floppy_init(struct platform_device *pdev)
-> > >  {
-> > > +       struct swim_priv *swd = platform_get_drvdata(pdev);
-> > > +       unsigned int *data = pdev->dev.platform_data;
-> >
-> > Likewise.
-> >
+> This patch enforces the reverse christmas tree convention for variable
+> declarations in several macb functions. The goal is to minimize unrelated
+> diffs in future patches.
 >
-> ... and change that to:
+> > diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/eth=
+ernet/cadence/macb_main.c
+> > index 77053cb9d8f7b..b138b94ea0d89 100644
+> > --- a/drivers/net/ethernet/cadence/macb_main.c
+> > +++ b/drivers/net/ethernet/cadence/macb_main.c
 >
->         bool *data = pdev->dev.platform_data;
->         bool fast_fclk = data && *data;
+> [ ... ]
 >
-> I am unsure whether a NULL check is desirable here (?)
-
-In theory it cannot happen on a sane system. But recently people started
-hardening drivers against misuse through sysfs' driver_override and
-bind attributes, in which case the pointer would be NULL.
-
-> Interestingly, that NULL check itself is sufficient and so we don't really
-> need the flag at all. Allocating memory for this bool is a completely
-> pointless kmalloc.
-
-Sure, but readability and maintainability also matter.  In the absence
-of a proper driver-specific platform data structure, having a boolean
-variable with an explanatory name is better than an obscure NULL
-pointer check.
-And what if you need to add more data later? At least the bool can be
-safely replaced by a larger structure with a bool as its first member,
-without the need for a single atomic patch.
-
-> > >         struct queue_limits lim = {
-> > >                 .features               = BLK_FEAT_ROTATIONAL,
-> > >         };
-> > > @@ -816,6 +817,8 @@ static int swim_floppy_init(struct swim_priv *swd)
-> > >         int drive;
-> > >         struct swim __iomem *base = swd->base;
-> > >
-> > > +       swim_write(base, setup, S_IBM_DRIVE | (*data ? S_FCLK_DIV2 : 0));
-> > > +
+> > @@ -2476,10 +2475,10 @@ static netdev_tx_t macb_start_xmit(struct sk_bu=
+ff *skb,
+> >  	unsigned int q =3D skb_get_queue_mapping(skb);
+> >  	unsigned int desc_cnt, nr_frags, frag_size, f;
+> >  	struct macb_queue *queue =3D &bp->queues[q];
+> > +	netdev_tx_t ret =3D NETDEV_TX_OK;
+> >  	unsigned int hdrlen;
+> >  	unsigned long flags;
+> >  	bool is_lso;
+> > -	netdev_tx_t ret =3D NETDEV_TX_OK;
 >
->         swim_write(base, setup, S_IBM_DRIVE | (fast_fclk ? S_FCLK_DIV2 : 0));
+> [Severity: Low]
+> This isn't a bug, but it looks like the first few variable declarations i=
+n
+> macb_start_xmit() are still not in reverse christmas tree order.
 >
-> Would the bool be more acceptable? TBH, I'm not sure it's an improvement.
+> With this patch applied, the top declarations in macb_start_xmit() are:
 >
-> Thanks for your review.
+> 	struct macb *bp =3D netdev_priv(dev);
+> 	unsigned int q =3D skb_get_queue_mapping(skb);
+> 	unsigned int desc_cnt, nr_frags, frag_size, f;
+> 	struct macb_queue *queue =3D &bp->queues[q];
+> 	netdev_tx_t ret =3D NETDEV_TX_OK;
 >
-> > >         swim_set_parameters(base);
-> > >
-> > >         /* scan floppy drives */
+> Is it intended that these first few variables remain in their original or=
+der
+> due to initialization dependencies?=20
+>
+> The commit message mentions enforcing RCT here, but to fully sort them, t=
+he
+> initializations might need to be split from the declarations similar to w=
+hat
+> was done in macb_tx_error_task().
 
-Gr{oetje,eeting}s,
+It sounds like Sashiko doesn't visualise the tree trunk.
+I'll ignore this review!
 
-                        Geert
+Thanks,
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+--=20
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
