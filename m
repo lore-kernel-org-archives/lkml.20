@@ -1,82 +1,199 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9233438A9;
-	Tue,  1 Sep 2026 01:35:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74533438A9;
+	Tue,  1 Sep 2026 01:35:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226552; cv=none; b=WiBxnJNsu+U0+77mUNce8uppig0spmOn4dvwHO2uFEGVyBPdCE0WB6fsHHNSNViLTBEQx/FZDsxLLdjxQlqDfpWonIslYdBTf9QJ/nm+fV8qv0JpcpLtoVx9UMfYsP1/Pfp2lQw1SD5s/nqfauz2Lapy8opGcBgl2oeYkjyXIz4=
+	t=1788226560; cv=none; b=PDkgBYxFnRMLjLAhhP+B6eJon38ipSIzmAutVdcuWbeDtRDOd11PwlSASyq8r+Zv+I6CRp1eHk03Zpfmq048tGrdrbaEHsMeILe4hXrtsi26oufx0liFeeeSHF+pEMVP/tMBYfdnz4W/p1F+8rQazyS0M9NDS9KzQ/Ped8ob/fQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226552; c=relaxed/simple;
-	bh=Qz9aU64NIbcl63hFQCFb8MwUfaG/2rRncUJ3TcC0zso=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SKMeZFRnCYMbOv7CZoF7x0Ha1+z3z7I55pG4qXdPl9BIMNVhez1LP38JKOZKniNqzLYMQSeMenZRMHQb+2w0k1geoZQhXacJBNzLQGbMfNcaOblp7s/UXOyVxlIUQVqxw89Oa2mGU2VuRo/ogEY4/V9cDrTx2OxC6kSmL+Ii7so=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eBjbQZps; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788226560; c=relaxed/simple;
+	bh=KcvGC+aQjE+LrOWnCN5fDaaDw4k71YT14EBb0fnoSLQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YKRyY9SYLs+BbT2B1CD9CLd68KS4kAaqvipXbHhEixkfVZGsxlzp7lFTzbR6hg7lhtYx2QdcVbqwtdnTL3NJcCSIugkMCgtQbW8/PJOhVGJr2RPwpvnPUDHUu/nR4iScfvtN+fsFoARPRWUO8cqLnkiroHa8cT2eIOd3nvCZq30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UPKr34kg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eBjbQZps"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 614F51F000E9;
-	Tue,  1 Sep 2026 01:35:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UPKr34kg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D5221F000E9;
+	Tue,  1 Sep 2026 01:35:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788226551;
-	bh=cThL493FiP9aKgSZCya8BR1UaBMAKEInJ3wHPpoqMa8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=eBjbQZps24CwUws2qO/5VymHVlsF6hJXG1x5RGjG3MZ0Aaaa40QvJOLxbP9//P2Ui
-	 +OIcLUlyJ2aU0BjQo9RZnNeRr2ZCYLyK8LbGsd1VZQiqRDFGFgZmKnYNEihK63RSq+
-	 KeVlV8EfzKaoTgBTJ0voWa5THqHtQsWuEGhFoMExpQRhvqI0nEU3eZNcaA0t+TerBm
-	 RvA1SBPPKK04Liu5lxPs3q74qLXPbjYcfSxBQTub6/jm6QmIhId7hHxELOfQJjOTUW
-	 SYKjxjVUi2OgGVrPohBFQW2RYhcLcgtKx00audvm78iWlo1G3lVoPsiN3cng3PY3wc
-	 xhl6wGhw6l80A==
-Date: Tue, 1 Sep 2026 02:35:44 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Yang Zi <2959243019@qq.com>, lorenzo@kernel.org,
- linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: humidity: hts221: fix division by zero in
- calibration data parsing
-Message-ID: <20260901023544.0f65a55d@jic23-huawei>
-In-Reply-To: <apUnohaFf1HaqWN9@ashevche-desk.local>
-References: <tencent_0F43B1BC41CE4066DA52B7B25FBC04C41A09@qq.com>
-	<ao7zrbXG6f-pPxIB@ashevche-desk.local>
-	<20260831010021.67cbf4c1@jic23-huawei>
-	<apUnohaFf1HaqWN9@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1788226558;
+	bh=r7mzqnDdkY1VrDdE5e4/l6tKv9BXqjTgShVJWiRcVpo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UPKr34kg1t2Oqiy1DnXeEZdVBklcuQHtos0Dd5GLPFlpdoyeOaYqlAlai13P4/L+B
+	 Hn6x7OxvtmUVrXLZNpOPFhRNRC4AXzdrRDTxm66FIx4MwpKSbeEHfRt9kbSLuc7BmI
+	 N2zdPGQddOjdhEDzMCIG9KcWFLmSrYI3v8H1FlqrVWrm+z+btXzwaOMbSk3jhl1yeh
+	 TR/sQbOowwA3Ofk7MGhZpw3oRfNs39np09iJm4GcwJpDpo9idm+HCzwf8Nn61H9MHU
+	 NpPT/zE7KbgityUhGvJfbu3DaI+etC8/QxUximg/seRg1c0UWMURDXX6TEhJciZbTm
+	 5PdtU0e3ijdng==
+From: SJ Park <sj@kernel.org>
+To: Nathan Gao <zcgao@amazon.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	baolin.wang@linux.alibaba.com,
+	david@kernel.org,
+	ryan.roberts@arm.com
+Subject: Re: [PATCH v2] mm/damon/vaddr: use a page-aligned address for the sampling walks
+Date: Mon, 31 Aug 2026 18:35:50 -0700
+Message-ID: <20260901013551.91246-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260831221151.50561-1-zcgao@amazon.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 31 Aug 2026 10:05:06 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+On Mon, 31 Aug 2026 15:11:51 -0700 Nathan Gao <zcgao@amazon.com> wrote:
 
-> On Mon, Aug 31, 2026 at 01:00:21AM +0100, Jonathan Cameron wrote:
-> > On Wed, 26 Aug 2026 17:09:49 +0300
-> > Andy Shevchenko <andriy.shevchenko@intel.com> wrote:  
-> > > On Tue, Aug 25, 2026 at 05:21:10PM +0800, Yang Zi wrote:  
+> __damon_va_prepare_access_check() picks a random byte address within the
+> region and stores it in r->sampling_addr. There are two users of
+> r->sampling_addr in vaddr.c that pass it into a page table walk, and
+> both use it as the address of a page.
 > 
-> ...
+>   damon_va_mkold(mm, r->sampling_addr)
+>     damon_va_walk_page_range(mm, addr, addr + 1)
+>       damon_mkold_pmd_entry()
+>         damon_ptep_mkold(pte, vma, addr)
+>           ptep_test_and_clear_young(vma, addr, pte)
+>           mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
 > 
-> > > Do you have HW to test? Any fault injection perhaps?
-> > > The problem with div-by-0 is that it's implementation defined, meaning
-> > > that it's how compiler decides. Now, the question is, what will compiler
-> > > do in the current code (no patch applied)?
-> > >   
-> > Whilst all this is true, the code shouldn't be relying on any particular
-> > behavior.  So do we need to know?  
+>   damon_va_young(mm, r->sampling_addr, &folio_sz)
+>     damon_va_walk_page_range(mm, addr, addr + 1)
+>       damon_young_pmd_entry()
+>         ptep_get(pte)
+>         mmu_notifier_test_young(walk->mm, addr)
 > 
-> That's my point. If code relies on that, it should be spelled clearly in
-> the commit message. Then we will deliberately break that (nasty and wrong)
-> behaviour.
+> For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
+> clearing of the young flag for large folios"), the contpte helper walked
+> exactly CONT_PTES entries from the aligned-down page table pointer and
+> used @addr only to pass down to each entry, so an unaligned value was
+> harmless:
+> 
+>         ptep = contpte_align_down(ptep);
+>         addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+>         for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+> 
+> Now the range to walk is derived from @addr instead: end = addr +
+> nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
+> page of a contpte block, the sub-page offset puts end just past the
+> block boundary, so the round-up lands a whole block further and the
+> walk clears PTE_AF in CONT_PTES entries beyond the sampled block. For
+> the last block in a page table page, those entries are past the end of
+> that page, so the walk writes into the page that follows.
+> 
+> Triggered by the full 7.1/7.2 kernel selftest suite on arm64 (EC2
+> c/m6g.4xlarge). The kernel sometimes crashes at or shortly after the
+> DAMON test.
+> 
+> What the overrun does depends on the page that happens to follow the
+> page table, so there is no single signature. If that page is read-only,
+> the write faults in the sampling path itself:
+> 
+>   Unable to handle kernel write to read-only memory at virtual address ffff0003c5d2d000
+>     FSC = 0x0f: level 3 permission fault
+>     CM = 0, WnR = 1, TnD = 0, TagAccess = 0
+>   CPU: 10 UID: 0 PID: 3487 Comm: kdamond.2
+>   pc : contpte_test_and_clear_young_ptes+0x70/0xc0
+>   lr : damon_ptep_mkold+0x1e8/0x1f8
+>   Call trace:
+>    contpte_test_and_clear_young_ptes+0x70/0xc0 (P)
+>    damon_mkold_pmd_entry+0x150/0x170
+>    walk_pmd_range+0x110/0x2b0
+>    walk_pud_range+0x10c/0x208
+>    walk_pgd_range+0x134/0x258
+>    __walk_page_range+0x98/0x1b0
+>    walk_page_range_vma_unsafe+0x90/0x148
+>    walk_page_range_vma+0x28/0x40
+>    damon_va_walk_page_range+0x114/0x2b8
+>    damon_va_prepare_access_checks+0xec/0x1a8
+>    kdamond_fn+0x534/0x770
+>    kthread+0x128/0x138
+>    ret_from_fork+0x10/0x20
+> 
+> Otherwise the page is writable, the PTE_AF clearing succeeds silently
+> and the damage only surfaces later, in whatever happened to own the
+> page, so the backtrace is unrelated to DAMON and differs between runs.
+
+Urgh, this must have been a painful debugging.  Sorry about that, and
+appreciate your great work on this!
+
+> 
+> Align the address down to a page boundary in damon_va_mkold() and
+> damon_va_young(), the two users that pass it into a page table walk. It
+> is the address of the page to sample, so this matches its intended
+> meaning. r->sampling_addr itself is left as is, so the sampling and
+> region bookkeeping semantics are unchanged.
+
+I'm still wondering if it makes sense to restore unaligned address support in
+contpte_test_and_clear_young_ptes() as a long term fix.
+
+> 
+> Fixes: 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for large folios")
+> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Cc: David Hildenbrand (Arm) <david@kernel.org>
+> Cc: Ryan Roberts <ryan.roberts@arm.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Nathan Gao <zcgao@amazon.com>
+> ---
+> V1 -> V2:
+> - Align inside damon_va_mkold() and damon_va_young(), the two users that
+>   pass the address into a page table walk, rather than aligning
+>   r->sampling_addr itself, so that sub-page sampling addresses remain
+>   possible for future non-PTE access check primitives (SJ)
+> - Point Fixes: at 6f0e1142173a instead of 3f49584b262c, since the
+>   unaligned address was harmless before that commit (SJ)
+> - Describe how the issue was noticed and what it does to the kernel (SJ)
+> - Reword the subject to match the narrower change
+> 
+> v1: https://lore.kernel.org/all/20260827193821.46115-1-zcgao@amazon.com/
+> 
+>  mm/damon/vaddr.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+> index 2c1c1952c008d..e7aa18200088f 100644
+> --- a/mm/damon/vaddr.c
+> +++ b/mm/damon/vaddr.c
+> @@ -349,6 +349,9 @@ static void damon_va_mkold(struct mm_struct *mm, unsigned long addr)
+>  		.hugetlb_entry = damon_mkold_hugetlb_entry,
+>  	};
+>  
+> +	/* Arch helpers can derive a page range from @addr; align it down. */
+> +	addr = PAGE_ALIGN_DOWN(addr);
+> +
+>  	damon_va_walk_page_range(mm, addr, addr + 1, &damon_mkold_ops, NULL);
+
+Could we do the alignment just before passing the addr to
+contpte_test_and_clear_young_ptes(), which is the exact function that disallows
+the unaligned address?
+
+>  }
+>  
+> @@ -482,6 +485,9 @@ static bool damon_va_young(struct mm_struct *mm, unsigned long addr,
+>  		.hugetlb_entry = damon_young_hugetlb_entry,
+>  	};
+>  
+> +	/* Arch helpers can derive a page range from @addr; align it down. */
+> +	addr = PAGE_ALIGN_DOWN(addr);
+> +
+>  	damon_va_walk_page_range(mm, addr, addr + 1, &damon_young_ops, &arg);
+
+Ditto.
+
+>  	return arg.young;
+>  }
+> -- 
+> 2.50.1
+> 
 > 
 
-Ah. Got you. So a statement that the condition (probably) never occurs in practice
-should do the job here by side stepping that question.
 
-> > Reality is the hardware is almost certainly never returning values where this
-> > is true.  
-> 
-
+Thanks,
+SJ
