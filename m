@@ -1,155 +1,201 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E850E43CE56
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB41A43CE56;
+	Tue,  1 Sep 2026 15:55:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278134; cv=none; b=Iggrs0T0LKqzibAw4mU3B9BnmQDDr0/0KobNJbGqsmALooBNbQ9qaWReuyVz9C6D2hE40OS4JyPCFyCZ3vhyu3jfAl5PI0rNbGo2Em1uUX4JfiyHOGQ8CGApLuvy5+39wgIToR/bbaa48vbgtL1+KsoduGD1U0UROa69mc7e2p0=
+	t=1788278149; cv=none; b=byEnhNbaesqahDogHNHELOSYJ6H6ePIzi9cioZNUuqrZlgOWUcthRsRVnS5cfA4j1CYaBoAO/srkN36K+wSgt+mhodny4z+jZRaWu0pjoC/yFE/9s4SpU3jyZUInJv1R+i/l5PBuN0izoOSS/RDbds8DPzqqWapSqqoHxI+O+5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278134; c=relaxed/simple;
-	bh=Hjr6pu/eagjal8jxOhPKaNfXz/MD9nUNeSAS7UrU0Qo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Qwo5pT+WZF/9vtKq0MYewUUJPPh/dB3E6vi1rYZXK9+yuqhFf7j83MvsbINwoNUUADvsnCUv1e9rFu4Gw+z9WyW4cJsalumpvpgC1uxN/roO/yznYdLMKCebMv6iQq9C9xxvqkEDwWGCA6tJDlFpBW5OLvDMFM3S06XKHY0ltNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aJw2hfcD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gm9o9tgO; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788278149; c=relaxed/simple;
+	bh=qqNtHA4CTMpPgpg0tTomw2NNo+hq2OSef3C+KNnMj9Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UHUgSS+toLt1PlP/BX0xG1nWn7hWhwa8GUBPOA9xWc5kMKjtlAERahgr4yuAYi5UJgL5JmBfZuZ0Ln6Qthz5Kk/fyxaqT8uXims26T6MXqF5h6FIWk7slstF061ottvckkgiqXknd22Uobktofh0puduYflpkMj2GX6vtvWoUFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=VuetgL2D; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aJw2hfcD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gm9o9tgO"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681E8aAx3495583
-	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 15:55:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	S1LD9xwtAYsfVMIBHE/konIrPFCY3x9B/N2DZeQ9+OY=; b=aJw2hfcD0xE6Y2JE
-	RO6PCw0OKWHhRnvXyTWO+QC2yvb0+Shi0Ly0vnjiJ+7mKm3NZmNf19tc+MtVRr/g
-	QazNQoPOR+QdBI/i7t/GwZSBUWUhpbRW10BhMDUyoKcR1CUHfgvvCvgSi1D6lgpb
-	7tw/5dnUoi0PuCjWSBKk+dfOgYsYcz9H+VTU60n4wRQvuaQ0yLiWHGaJbdVJ1dKp
-	B6LhVxtRpn3RNmdlhpnGU3CvKkN3K8UZ3Jc05KJPYC8YoJD4Dug34rsBw4LMjmeN
-	N+O8TaWQMPeGWJ+oVDYww50Wd39SVQZ3RL2m7g+V9+0QbxxwijAOyIWtgQ8xhDJI
-	eUwgwQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdy9ngutg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 15:55:31 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e82060977so210841985a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:55:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788278131; x=1788882931; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S1LD9xwtAYsfVMIBHE/konIrPFCY3x9B/N2DZeQ9+OY=;
-        b=gm9o9tgO9+Lac6dh9vc23l7qJeUx6R31lehhmLEPjQXtQOsbGRRjJ24TK4s4hy7XSn
-         DJMT9WbwTKmRzH2vKgv9zaOQnEhciuJZG77G0Q9zLrEluCjM5XSbKLOL5F+gvcIKW35q
-         lMCMJL6thjuePp2CVchI6y+DFzgQktbZOiQUwGC8417/UcpCJiPAQg12BdTSf8lF5xH+
-         m3O9QCO9l3Bc1oYiUByGjcDVD8Gd6lttWbETu9+NsAPN5Vvvj1MX2QbwUCpwX+BJ+IE/
-         Gfgb4PYeJEV0AgMy2yUbOj/uh1kRdcA+PUhGZtPwQBRJi4nkGw/Dbzf9ir4DaH3O7Qff
-         H+Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788278131; x=1788882931;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S1LD9xwtAYsfVMIBHE/konIrPFCY3x9B/N2DZeQ9+OY=;
-        b=ol3LeEIN/BLKPgKMOWmXwGakjX775WCC551Wld+u1gQvEI/kcIkpuj6Ey2u3IYXb31
-         CKaCBmJ5Bf1oxBWid9/fdegmUIqO185MZJZhVO4GP0E2zdaa7lWaFs/3pdEiIQeUvZg1
-         Ze24DZ28ieLTXk7i+MaKJ5y8jSSNJl2OAzepatgrIf5tpTpjYnesghpvJPMSk+xUnzTT
-         Pk2ulhNngvH81YOEBy1oPF89CN7fQnH2QYJw4m3X6o3OqIzcCs2QEm/3d1sqQ0FpSeHK
-         fSCb/7ZFne9nGkYPl3uuwTVNQB+g9AVBwDRYf6a2fGRYleyx16KXrOM23rXHY3mj2Rwu
-         O5Rw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro8X5C63iy0ILWq2xiXbizIZEbI7Lsvq10zTHic20IqVR5CmMpeNzkCmNC+AtfBmjeFO514B+lfM/fN7mo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lH6mnTeZUNlfn31UJq0I+P2ri0EtiJzzDQYDjenuAqpNioLLjd
-	ksoIvMbJoHtx4RNsR6X0pOJM70fUZmVp8CJoh72U39F4SqkfnoAvpptxhOciJoP6kGtaG7M/pXe
-	HtqJxamyiCl2vhkfBUnMib1lvFyDGNwBBD1hwBUYeDKDii0vyliKbdZYsKg2FICArxLI=
-X-Gm-Gg: AR+sD13SB8kfPHQiQTDYFKXpSC2Gsi4huP4I5MYAVQhOBH1SG9XPjN3jTkFbLJ2Edhw
-	0r52dGjHHS69hHAz/k1wImWlcoHcxCCS5JW935TiV5WVR4GRIWffcy1E0uNyVuRv6enWSD27MbG
-	T5NM3blKw0IUDbCqlxCuPD9+dK8VLLKv+fa1hk6FSgd8IqLhskwbTWWiTcc94c1qbEJITOc1lnS
-	9fVzc+FzGD4uqY2uKL35Zpi/fdR8bsXOreOzt9JOws55D59n8hjlN5tGjZbcKOAOorDQ0HI0E/9
-	bji+m8EBSgwTZTjO1qX6v/XpiuZooUz+TLqPdrCo3KSu8RyPGmEvdsgqQ9bA8TqVQhE8gukUrQQ
-	rQoibqsdUwT8/0B8ogPYYzBC0RQ==
-X-Received: by 2002:a05:620a:371b:b0:937:17f9:da2 with SMTP id af79cd13be357-9394bbf52a7mr824122185a.6.1788278130634;
-        Tue, 01 Sep 2026 08:55:30 -0700 (PDT)
-X-Received: by 2002:a05:620a:371b:b0:937:17f9:da2 with SMTP id af79cd13be357-9394bbf52a7mr824111685a.6.1788278130012;
-        Tue, 01 Sep 2026 08:55:30 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:fd4:cb20:f8d2:dc94])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d3c94bsm5165318f8f.12.2026.09.01.08.55.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:55:29 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Adrian Ng <adrianhoyin.ng@altera.com>, Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org, phucduc.bui@gmail.com
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH 1/4] gpio: realtek-otto: Handle errors from optional IRQ lookup
-Date: Tue,  1 Sep 2026 17:55:22 +0200
-Message-ID: <178827811897.38653.11753666556124365890.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260814043028.12548-1-phucduc.bui@gmail.com>
-References: <20260814043028.12548-1-phucduc.bui@gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="VuetgL2D"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=QVII+cUuHDdwf9Z3P2TCkoJU717I3TDa444aSejj2Fk=; b=VuetgL2DlX2s22gGISfExiPA9t
+	9DR1WYg6YZMiQdCRfQ+bclFFmqJlamray7mTao+UhH5uHuDqMjg0If3EcpdK8CT6uAbV8Evx6e3qN
+	9LKEiBOSP64GFOxx0Cep1mNRyBIuVmmcKSTv8HQZQ9qWi8T/h/J5gA+nhMhRR79oe1SuMqDRuJhz9
+	pRpKL7TL03xwEzunbCrbhKOYuAtJaLW6NfzQtbWbRGbuZxvcEga7a6JSS4BRz+hheJF51YvaJp+Zr
+	D/J641qvz7Z+tlxTfhJCmdiErtoEU9UpGW4Y1LUR3UybIWIjAgSbUj4dMePbLb0JYsVZUKGih4aiC
+	1qamG5Tw==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x1Qp4-0000000CazZ-3xgl;
+	Tue, 01 Sep 2026 15:54:55 +0000
+Date: Tue, 1 Sep 2026 11:54:47 -0400
+From: "Liam R. Howlett" <liam@infradead.org>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Guo Ren <guoren@kernel.org>, 
+	Brian Cain <bcain@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Dinh Nguyen <dinguyen@kernel.org>, Simon Schuster <schuster.simon@siemens-energy.com>, 
+	Jonas Bonn <jonas@southpole.se>, Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+	Stafford Horne <shorne@gmail.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
+	Rich Felker <dalias@libc.org>, John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
+	Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Richard Henderson <richard.henderson@linaro.org>, 
+	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, 
+	linux-hexagon@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
+	linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sparclinux@vger.kernel.org, linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-s390@vger.kernel.org, linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>
+Subject: Re: [PATCH 01/12] mm/huge_memory: zap deposited page tables after an
+ RCU grace period
+Message-ID: <kasi4mkjkt56wxsrmphm5o2qfg2lwsdxf3tlmzx5tq6t7uez74@kozleoavd6r2>
+References: <20260901-rcu-pagetable-freeing-v1-0-5456a81c8212@kernel.org>
+ <20260901-rcu-pagetable-freeing-v1-1-5456a81c8212@kernel.org>
+ <apbOlyF77yDCV4cF@thinkstation>
+ <apbcoMTVlL42G5tg@gremlin>
+ <20260901142408.GA56830@ziepe.ca>
+ <apbiB51hjm-9pRzf@gremlin>
+ <apbuO_QveZNAz3ns@thinkstation>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDE0MCBTYWx0ZWRfX0HmpfgF0v/K7
- aCXZNXrOxoE5aW0IDOFtRLJdOSIA0T8g6kewFY6dSNwvzztUEzzvevm6tqD98AGCPvbPWsDS3Xi
- 7WTiXDsmLup6vutG2mpYDPdqj2GdwwE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDE0MCBTYWx0ZWRfX4Ze5mj9O2rsp
- gswLQqHlIaxgceNEDnP9BhwxDqZCqlUiGn72KyLJGCk3M7Q+VahnRdrwArdM3qzg1aA8SQkpydu
- pjeHqVwhWF9ufQV23SM7b49qFeTaBobugeYceln03Dnk8AgO5vX09vRHx85DOiJiX1jDackDVJa
- lhITDIDlh0exyCvpH7MhYZekYWWGvTcHEKOIwyvziBOh/uAlUidJlRhQjlSwfNThXRuUayRz5ov
- nbufpuUU9KJ1IffFyHuX4+vk7qbiRezlep4y60RPY46dnBBGdN2vL6HhPC2sDjHmh2RaP0J7pxT
- oPdYTO4yi1AZ9YmAkxJuSQ5zLNa+ypQFkGTALhFlQzhxoajYOhM3A94JzRoXtYjP9yMimO7fsMf
- 0lvSqlFhA5FbCjvrl/JwesFdcyjWbYry/NbgnzRa+1Gs0/szjmBnTHiN8CfsTybrycCC19ILbiX
- S/HccVosSidsfA+kjaw==
-X-Authority-Analysis: v=2.4 cv=e/02j6p/ c=1 sm=1 tr=0 ts=6a96f573 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=YjrwkAG9RECl0-CX3-0A:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: EaB8qbpQIbWRQ48HkanPNPLaIYns8jxu
-X-Proofpoint-GUID: EaB8qbpQIbWRQ48HkanPNPLaIYns8jxu
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_04,2026-09-01_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 suspectscore=0 priorityscore=1501
- impostorscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609010140
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apbuO_QveZNAz3ns@thinkstation>
 
+On 26/09/01 04:28PM, Kiryl Shutsemau wrote:
+> On Tue, Sep 01, 2026 at 03:41:17PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > On Tue, Sep 01, 2026 at 11:24:08AM -0300, Jason Gunthorpe wrote:
+> > > On Tue, Sep 01, 2026 at 03:12:45PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > >
+> > > > It won't be costly at the time of the calls obviously as its deferred. Maybe
+> > > > increase some time spent in softirq but again is 512x that big of a deal?
+> > > >
+> > > > I'm not sure how you'd both defer the free and somehow utilise mmu_gather here
+> > > > either really, certainly not without it becoming extremely messy.
+> > >
+> > > The less costly version is to thread the page to be freed onto the
+> > > mmu_gather through a linked list in the struct page memory. This is
+> > > super cheap since it is just a singly linked list operation.
+> > >
+> > > Then when the mmu_gather is flushed it does a single call_rcu using
+> > > the rcu head of the struct page of the head of the list. The callback
+> > > clears the entire linked list of pages.
 
-On Fri, 14 Aug 2026 11:30:25 +0700, phucduc.bui@gmail.com wrote:
-> platform_get_irq_optional() returns a positive IRQ number on success or
-> a negative error code on failure. For an optional IRQ, -ENXIO indicates
-> that no optional IRQ is available. Other errors, such as -EPROBE_DEFER
-> and -EINVAL, should be propagated so that the caller can handle them
-> appropriately.
+If you are going through the trouble of doing this on your side with a
+custom rcu callback, it might be better to pack the pointers in a way
+that does not need to pointer chase through a linked list.
+
+> > >
+> > > Since you have to tlb flush anyhow, it makes sense to always use the
+> > > mmu_gather. For example the design I ended up with for iommupt
+> > > accumulates all the invalidations and all the free-able memory into a
+> > > gather then invalidates and frees.
+> > >
+> > > This allows maximizing the tlbi efficiency too. You can't do call_srcu
+> > > until you flush the tlb and if you call once per table then you are
+> > > also tlb flushing once per table too.
+> > >
+> > > So if the kernel really does want to clear out 512 leaf tables the
+> > > optimal implementation is one range tlbi for 512 entries followed by
+> > > one call_rcu to free the memory. Hence the gather..
+> > 
+> > I think there's some confusion here.
+> > 
+> > This isn't the path in which a page table is being freed, the _deposited_
+> > table is zapped, in zap_deposited_table().
+> > 
+> > That is, the page table kept in reserve for THP split, that is not
+> > currently mapped.
+> > 
+> > It amounts to a __free_pages() call.
+> > 
+> > The TLB operations are in e.g. zap_huge_pmd() etc. and nobody has
+> > complained about inefficiencies there.
+> > 
+> > So, unless I'm missing something here, TLB flushes play no role in this
+> > whatsoever.
+> > 
+> > The issue Kiryl raised was that instead of immediately freeing page tables,
+> > they are now batched up individually by call_rcu().
+> > 
+> > I personally find it difficult to imagine the numbers here would be
+> > problematic or certainly cause anything observable beyond what is
+> > observable now.
+> > 
+> > So I'm going to have to say, unless it can be clearly demonstrated this is
+> > problematic, I don't think there's any reason to add additional complexity
+> > here.
 > 
-> Propagate negative errors other than -ENXIO.
+> It would be nice to measure munmap() overhead here.
 > 
-> [...]
+> I am worried about hitting DEFAULT_MAX_RCU_BLIMIT and trigger
+> rcu_force_quiescent_state() which can be disruptive to the system.
+> 
+> DEFAULT_MAX_RCU_BLIMIT is 10K, so it is ~20G of THP unmapped on x86.
+> 
+> munmap() of 64G worth of THP should be enough to demonstrate the
+> problem.
 
-Applied, thanks!
+I'm not sure what that would prove besides checking if your number is
+correct?  You'll see a slow down once you hit 10K of objects in the rcu
+linked list.  And that will depend on what the system is doing as well,
+so there will be a slow down since other things are happening on the
+system before 20GB of THP is unleashed towards munmap().
 
-[1/4] gpio: realtek-otto: Handle errors from optional IRQ lookup
-      https://git.kernel.org/brgl/c/ef0d275786a3c98d1e52f1d4d89183c802af58db
-[2/4] gpio: mlxbf3: Handle errors from optional IRQ lookup
-      https://git.kernel.org/brgl/c/53ffd779a094d5752551dea2ba7bc787aab29229
-[3/4] gpio: mlxbf2: Handle errors from optional IRQ lookup
-      https://git.kernel.org/brgl/c/d8aaf6b0fdc835d10c7def7775803b28ebfd4d81
-[4/4] gpio: altera: Handle errors from optional IRQ lookup
-      https://git.kernel.org/brgl/c/6e6e585b603e4f679c2a33c8f0954ec88b52fd7a
+One of these does use 5.12% of the RCU items that need to wait for a
+grace period to be released, but testing it would be rather tricky and
+the numbers won't really show much..?
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Form my understanding and experience with rcu and freeing massive
+numbers of objects, you gain more from the lower lock contention than
+you lose when you hit 10K objects.
+
+The trade off is in the Android setup, where they have restricted RCU to
+a slower core.  Combined with another RCU setting, it was causing slow
+down when we overwhelmed the queue multiple times.
+
+So this should actually be faster unless you are doing 20GB of THP
+unmapping on Android or a device configured the same way.  Considering
+the cost of RAM, we should be okay for a few phone iterations.
+
+Do you have munmap() performance dependent workload that you are
+concerned about regressing?
+
+Thanks,
+Liam
+
+
+
