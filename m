@@ -1,42 +1,44 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C405E485CEC;
-	Tue,  1 Sep 2026 15:39:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9ECF43E484;
+	Tue,  1 Sep 2026 15:39:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788277192; cv=none; b=epDaYOTYfEaK/Gp0QQEnMxzAdwk5Py+qGOHkki2IMUWQJU4lRbuMTUjSmtFK27zwCxanlYCKM9f3VIA3pKwBD7U1ky9T3S2XwC1kQwpXdVz3u7wPTxBW8NTr3ALDhMnkjATRNnDwwOtHqHd1IM4PAhp2GQqFje3x28xPgmuKXCs=
+	t=1788277193; cv=none; b=ggYYSxEmjPAZJFmBZE5afUZhlE+EZssXFJ1Re90Uan7X5TVMY1VO6mYSqiJZ1H2ej+rXMxIvqF4UNnKQ0ID2PLeP6OtEkZdQQ2/Mzqud0nqszhd/hedXk53ifAHqBBxfHp8qfVT2cmUiBeqSUUuabNWCEf1TwbX1jBn++MrXz2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788277192; c=relaxed/simple;
-	bh=yHYnZo9thDOybBolptJrfbVmNYQ8QaDOG2QmCxd3Q+g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iUZQOUpBWXv7XfSdkjjS8CALwSIV+phwigDSzoGkNpXtvrzxg8ky1qwkPoE6WtywCBuFVnuSnZ1uuFbNzfrkLHFyxian2cs2ZisjMtjrEQ6gf8GaBDF6iwSP1QsvuwDhMkUqnuuG/Ls7MehQXYSVW4ZMcIaqbnvhAogEBALgFiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=GU2fCD9R; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788277193; c=relaxed/simple;
+	bh=lrWmZL72GmvhugOO8uGv0mnxTxG6g5Zg0BQEkuwNBPA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Oxktx1vRhW9tZXaR7YiNqY2yYZhjRJIBjX5RaK+3O4KVP0WTXN/DuNj2jC/hyQ8NzUaXhCgWvuVOGG+Cr4UCL8heAGRhnhSdkQ7YdIFaOsx60xH5gNNyAjdjuqKymMKq4KA8wrMQhk4o4Vl+obqmw4RGqpSMAEUKwJksLi0f914=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhqy86fz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="GU2fCD9R"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788277188;
-	bh=yHYnZo9thDOybBolptJrfbVmNYQ8QaDOG2QmCxd3Q+g=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=GU2fCD9RsYiU9hZMCjolF+iwNaEFIv5Rnh52DgFrsTaFprci5nYgwkH9xA8PgF7U/
-	 u4gI3+9jHclDh5URPhaw3morFXY75GYBCzfNnsV2j0Au3DdV+G37E6A0xxinKpc5NE
-	 BnhpwigKD1VCytAT0gZDTOhEV1OM5bRDbe+kugL6gAQAogoiBd4cccYaP7VW3ucX6D
-	 9hFnpoMGa8BNm3ayviNGA/eizKBVvTd2GZmLkz0tpTGpKw07rjqSFYCFDGYPySUenb
-	 3UXKyFfdGZBMz0Iwb+bwCooWV2XT53i4ooUsQ4RpZzwwoyqUknaj2w0t3LtQYX1jZ3
-	 ag1baM/+ZU+XQ==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 035E117E10BE;
-	Tue, 01 Sep 2026 17:39:47 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Tue, 01 Sep 2026 17:39:10 +0200
-Subject: [PATCH v11 22/24] scsi: ufs: mediatek: Remove ret local from
- link_startup_notify
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhqy86fz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 914561F00A3F;
+	Tue,  1 Sep 2026 15:39:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788277189;
+	bh=Vkzm23XZb1nm7zaiPRh9JCxjCTM2MUDJBKmDJ0Mc5xo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=bhqy86fzWfDYcMCVeGO5yhtcoE7oryg23Pz3D4hVNBuOWVZW0XPMeXid2E9gqEeAX
+	 vp4mTiD0s5pFT1WlFw5x64WfYjMNeJIsN5rtYySvQtuG+Q77c3eBQpTKmqKGBsyhKv
+	 IKbSyinH7z5YCvcervA/VxYqjsxEjQw9Rr3JafVbxN7bQkk4qXFwxdKd4ssHXbp9ue
+	 4RqCwCFCnxg5EGmkl4UmevAscYbN2HbBLDVvyDqS/uXMT1HL79TiLMGs5uUdlltDBW
+	 wjkdSbQknyE+Zw+gId5wDkTG4XENjkRxjlYeNQ5jaQOA4iBV+4p1CFYNoeh1P1vGrW
+	 t+RmARIvDSysg==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+ Biju Das <biju.das.jz@bp.renesas.com>, 
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260727103449.3188105-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260727103449.3188105-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v2 0/6] memory: renesas-rpc-if: Optimize transfer
+ overhead and implement runtime PM autosuspend
+Message-Id: <178827718732.210805.10365332138527413363.b4-ty@b4>
+Date: Tue, 01 Sep 2026 17:39:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,87 +47,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-mt8196-ufs-v11-22-dbd007704490@collabora.com>
-References: <20260901-mt8196-ufs-v11-0-dbd007704490@collabora.com>
-In-Reply-To: <20260901-mt8196-ufs-v11-0-dbd007704490@collabora.com>
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Peter Wang <peter.wang@mediatek.com>, 
- Chaotian Jing <chaotian.jing@mediatek.com>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
- Stanley Jhu <chu.stanley@gmail.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- "Martin K. Petersen" <mkp@kernel.org>, 
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-scsi@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788277164; l=1411;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=zpGKpq9Sjjpc/u30yTDEw/7TjoEnEL+HJGQ6bVDYcwU=;
- b=iWlT9fFLfgFjDWoVdKpsrOoZzhy2kdDfUlHuJ7CF7YbKJKp3HKMkyJT5/DvvzNm9ZhMP/pwoj
- IRHrCcPkD/LB5pgzzGcwJDeITYvcvZXTJLWYoss0LU3d/+aOYBIeiOC
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+X-Mailer: b4 0.16.0
 
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-Remove the "ret" local variable from ufs_mtk_link_startup_notify, as
-it's pointless; in all cases it is assigned, it is returned right after
-without being read first.
+On Mon, 27 Jul 2026 11:34:43 +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> Hi all,
+> 
+> This patch series optimizes the Renesas RPC-IF driver by significantly
+> reducing software overhead in both the direct memory-mapped (dirmap) and
+> manual transfer paths, maximizing transaction throughput, and introducing
+> runtime PM autosuspend to prevent aggressive power gating during
+> consecutive flash operations.
+> 
+> [...]
 
-Rework the code to just return directly, and get rid of the default
-branch while at it.
+Applied, thanks!
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- drivers/ufs/host/ufs-mediatek.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+[1/6] memory: renesas-rpc-if: Mark XSPI_CDD1BUF0 as volatile
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/3db1fb5e1bb4c9eefc554f985f6f3316fa1292e5
+[2/6] memory: renesas-rpc-if: Move static bridge configurations out of dirmap hot paths
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/12e44bfc2a0e97f139c37b33925cd49d1621fa91
+[3/6] memory: renesas-rpc-if: Consolidate XSPI_CDTBUF0 updates in write path
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/008a7b9631864b708ffc06d42264aeef09f09800
+[4/6] memory: renesas-rpc-if: Consolidate XSPI_CDTBUF0 updates in read path
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/26883f764dd66d0c82f258a12a2f0f769e6fc68e
+[5/6] memory: renesas-rpc-if: Consolidate command setup register programming
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/0c49783b0ed5c3d27efb2d0d91a3272db154458d
+[6/6] memory: renesas-rpc-if: Use runtime PM autosuspend after transfers
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/c8d0e87bc2413c6a3f92c7130a4cbad51f8703da
 
-diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-mediatek.c
-index 4782fdf54866..bcde58e3aee8 100644
---- a/drivers/ufs/host/ufs-mediatek.c
-+++ b/drivers/ufs/host/ufs-mediatek.c
-@@ -1543,21 +1543,15 @@ static void ufs_mtk_post_link(struct ufs_hba *hba)
- static int ufs_mtk_link_startup_notify(struct ufs_hba *hba,
- 				       enum ufs_notify_change_status stage)
- {
--	int ret = 0;
--
- 	switch (stage) {
- 	case PRE_CHANGE:
--		ret = ufs_mtk_pre_link(hba);
--		break;
-+		return ufs_mtk_pre_link(hba);
- 	case POST_CHANGE:
- 		ufs_mtk_post_link(hba);
--		break;
--	default:
--		ret = -EINVAL;
--		break;
-+		return 0;
- 	}
- 
--	return ret;
-+	return -EINVAL;
- }
- 
- static int ufs_mtk_device_reset(struct ufs_hba *hba)
-
+Best regards,
 -- 
-2.55.0
+Krzysztof Kozlowski <krzk@kernel.org>
 
