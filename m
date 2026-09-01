@@ -1,41 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96ACB44A3E6
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:57:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879B644A3F4
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:57:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292647; cv=none; b=S4FDtqAcp7ERroQ5SZOnVS3iETwceebe/hI946SwBqPGWzxadEmUGUQM3DhhtdOxKEaB3w7SEZZtiS4E9IWIwX2YwU6940XDW5QJfhAPn45dcCAtE+tR6Qh+H5EKyVMUdKD1HLskHGrTLv33b07NVOsCIDfkEsHdJFlgviIKy+E=
+	t=1788292648; cv=none; b=HdOevfwOO6hD3oiTb/qwCQ1ZNe0N09eUMtwSoIf+e+R2VkLQAAbjFPy/KkvVPRYAg78GDmWvVitIzG1XnvhMRrdd/IO8IAJxoZ/e59G6TnB1hVZ4x0jvtxtUWYj6+ESr0u24SQ0K5jZheuClBcY31aHpDMxz6INyp7Jj2JH4sug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292647; c=relaxed/simple;
-	bh=rCvlPknLGM17Xc/ny1wY7xGWECwsix65LrYdnOlW7MI=;
+	s=arc-20240116; t=1788292648; c=relaxed/simple;
+	bh=4lP0oLI8PNKCXZUuWv4Wfm8oJux9jtJXdUCFqHxCj9c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fg8yL7XqftYa6A2VRIqAb9Z6F90N1QvZo4ckdD6jnQ1NbBWG9HI8+B/t2gszcTG7mVwCv9+9O99FqAUB5UJoHG520Yu9oj83baSkJyRn4/mcVaKCq9zRw13xHa5nO0tupv3rLodKG49IrufAkMF2wPMrkgj2qkhRxGxyMeSIvww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=AwQldk14; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=cAlCRt7A9xF4G4sTaen5cfoNXYQu+fPEtiPxLrEdPpKfsjmfqekAQR+vP3aGVw3HVLWKeuIeFzp1T1oJdta6umeWk3DBCz8XK0rfe+PAiFs07BhNGCdcPBnVENHVmbzz13LfP9sV5LzkUFGnE9AT/GC78Ue+oDKUtnYruk0HGT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=VD77AgkL; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="AwQldk14"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="VD77AgkL"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1788292644;
-	bh=rCvlPknLGM17Xc/ny1wY7xGWECwsix65LrYdnOlW7MI=;
+	bh=4lP0oLI8PNKCXZUuWv4Wfm8oJux9jtJXdUCFqHxCj9c=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=AwQldk14HlTia8gWljufFe9X4XuwnSW57CSg9aaW+5JdeAR+5+ozFGd0heCPgzSo2
-	 RxZGkaf9GGbshx0tdL3CgIVLSgj30Olup4PdpJV+KgMlNZAyB35Rj8vZm/HI27nLDr
-	 OVA1rbLs0N9hU3Jdy/lyWlZe7RnMlGXdG2jL79pql5qhP81yXd0nYsUqIhx9AQ05qR
-	 JDftH1nkqLACGA1lPBz/zAKFPoyOHHS6HUcr1oa+UMgmIK0JBHN8QGLTpViIOcFlH3
-	 JERZWsJjC7jiuwLCehnbJSXM+B4VRWq7Emhk6dCeSo2IxV6mcSAeghJRpznwNHWTEI
-	 YRtvE3auxXyHA==
+	b=VD77AgkLO3N+rBCDKILwJT5zdr3N8Kx5DlgfAo7s3wk6Xms4WM1LhZGcHKaOfVpJ4
+	 tejKkjfkD7zMWNSC97ZIQIUuaL1+ka3VAKhtKmSfy8oVnzpqIG91KAy0SwyBpWnKqI
+	 doEmiDBUYUPObmPTSOgPDx0N+phyX6BXPXpwXaFJRiEyxQRbjwUo1eLEJHakZu0+pi
+	 WleV4dBV3lZP+2u59VpYuIR+AoMcbDsecRvUDflIFZEYjcX8wwM6Qw/GlP/sQEzorU
+	 ZkuZev4lxYmYNaABksOkPao2M/FHrQ10JvDlxJqQsrkFB6k/sHgVHQAvAkH6suCW3z
+	 ki+k26F+s0T3g==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D24E517E057E;
-	Tue, 01 Sep 2026 21:57:23 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 98ACD17E0934;
+	Tue, 01 Sep 2026 21:57:24 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 22:55:13 +0300
-Subject: [PATCH v2 1/3] phy: hdmi: Add optional FRL TxFFE config options
+Date: Tue, 01 Sep 2026 22:55:14 +0300
+Subject: [PATCH v2 2/3] phy: rockchip: samsung-hdptx: Handle PHY config
+ after module reload
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-hdptx-ffe-v2-1-3a5922c76fc5@collabora.com>
+Message-Id: <20260901-hdptx-ffe-v2-2-3a5922c76fc5@collabora.com>
 References: <20260901-hdptx-ffe-v2-0-3a5922c76fc5@collabora.com>
 In-Reply-To: <20260901-hdptx-ffe-v2-0-3a5922c76fc5@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -56,59 +57,52 @@ Cc: kernel@collabora.com, linux-phy@lists.infradead.org,
  linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.15.2
 
-During HDMI 2.1 FRL link training, the source and sink can negotiate a
-Transmitter Feed-Forward Equalization (TxFFE) level to improve the
-signal quality.  Starting from zero, the source may increment the TxFFE
-level up to a maximum agreed during the LTS3 stage if the sink keeps
-reporting FLT failures.  TxFFE adjustment is optional and only attempted
-when both the source and the connected sink support it.
+The pll_config_dirty mechanism introduced in commit aec3e4ce25da ("phy:
+rockchip: samsung-hdptx: Handle uncommitted PHY config changes")
+invalidates the clock rate in determine_rate() by resetting req->rate to
+zero, ensuring CCF will invoke set_rate() to program pending PLL
+configuration changes into hardware.
 
-Since the existing HDMI PHY configuration API covers the FRL rate/lane
-selection only, provide the following fields to the frl sub-struct of
-phy_configure_opts_hdmi:
+However, after a module reload cycle the PHY PLL clock gets
+re-registered with CCF, which causes the framework's cached rate to also
+be zero.  Setting req->rate to zero then has no effect, since CCF sees
+no difference between the requested and current rates and skips calling
+set_rate(), leaving the PLL unconfigured.
 
-* ffe_level: the TxFFE level to apply, only meaningful when
-  set_ffe_level is set.
+Address this by first computing the actual target rate from the HDMI
+link configuration, and only then invalidating it when it matches the
+CCF cached rate.
 
-* set_ffe_level: a 1-bit flag that changes the semantics of the
-  phy_configure() call, i.e. when set, the PHY driver must apply the new
-  ffe_level and ignore the other frl related fields.
-
-The flag-based approach reflects an important invariant in the link
-training process: whenever the FRL rate or lane count changes, the TxFFE
-level must be reset to zero.  A separate phy_configure() call with
-set_ffe_level can only follow after the rate has been established,
-making the two operations deliberately distinct.
-
+Fixes: aec3e4ce25da ("phy: rockchip: samsung-hdptx: Handle uncommitted PHY config changes")
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- include/linux/phy/phy-hdmi.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/phy/phy-hdmi.h b/include/linux/phy/phy-hdmi.h
-index d4cf4430ee8f..1d4b62475079 100644
---- a/include/linux/phy/phy-hdmi.h
-+++ b/include/linux/phy/phy-hdmi.h
-@@ -19,6 +19,10 @@ enum phy_hdmi_mode {
-  * @tmds_char_rate: HDMI TMDS Character Rate in Hertz.
-  * @frl.rate_per_lane: HDMI FRL Rate per Lane in Gbps.
-  * @frl.lanes: HDMI FRL lanes count.
-+ * @frl.ffe_level: Transmitter Feed Forward Equalizer Level.
-+ *	Optional, only meaningful when set_ffe_level flag is on.
-+ * @frl.set_ffe_level: Flag indicating whether or not to reconfigure ffe_level.
-+ *	All the other struct fields must be ignored when this is used.
-  *
-  * This structure is used to represent the configuration state of a HDMI phy.
-  */
-@@ -29,6 +33,8 @@ struct phy_configure_opts_hdmi {
- 		struct {
- 			u8 rate_per_lane;
- 			u8 lanes;
-+			u8 ffe_level;
-+			u8 set_ffe_level : 1;
- 		} frl;
- 	};
- };
+diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c b/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
+index 24ed0d7eb6f8..b03042ec9a84 100644
+--- a/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
++++ b/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
+@@ -2346,14 +2346,16 @@ static int rk_hdptx_phy_clk_determine_rate(struct clk_hw *hw,
+ 	 * to ensure rk_hdptx_phy_clk_set_rate() will be always invoked.
+ 	 * Otherwise, restrict the rate according to the PHY link setup.
+ 	 */
+-	if (hdptx->pll_config_dirty)
+-		req->rate = 0;
+-	else if (hdptx->hdmi_cfg.mode == PHY_HDMI_MODE_FRL)
++
++	if (hdptx->hdmi_cfg.mode == PHY_HDMI_MODE_FRL)
+ 		req->rate = hdptx->hdmi_cfg.rate;
+ 	else
+ 		req->rate = DIV_ROUND_CLOSEST_ULL(hdptx->hdmi_cfg.rate * 8,
+ 						  hdptx->hdmi_cfg.bpc);
+ 
++	if (hdptx->pll_config_dirty && req->rate == clk_hw_get_rate(hw))
++		req->rate = 0;
++
+ 	return 0;
+ }
+ 
 
 -- 
 2.55.0
