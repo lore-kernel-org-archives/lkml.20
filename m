@@ -1,47 +1,47 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4641143CE6D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:13:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF09843E078
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:13:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788232407; cv=none; b=h/GCH0yna41wbOuAyN3qyL1p5SI4cGZoYioFaFUFi0l+JjEYfrgW6l9+sVNAg99lL92TdMmbnTyOVgU+TnWIBGSPggkVEN765vaOo135SMTAgT44ImrzRTiCPGhjo9/ekNod84W4IocG5qzB4vnyE9Zq6B4DlSTNDg3Lx/3Yeno=
+	t=1788232413; cv=none; b=oQf97BXlUnl9Zd0kmTduu5emo+2lNLICovJD4NSgdh2bzEpPBp7PeE49Ra715iVYnbaSINQLsoUn4hgKgM7f7SNkf7gUjhFOKVLgRCaHpsXntlYx++/nEjL0eBF2L5TKsOe4X/kTXMeA/wwE7wfbmQRsVrUHdY/YIekFqGwWBfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788232407; c=relaxed/simple;
-	bh=wt4KdYQ3pnl9rIoySNMwB93le9mpGPwkuH4rMhWXFUs=;
+	s=arc-20240116; t=1788232413; c=relaxed/simple;
+	bh=fllwW39kdUIFiI8dLb1EwgHE5lb7la7tdBmXdWvCsU8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ae+FQSbebnJz06GhCTESaMuQOpOl82BaPHNGTyBas5XP37rZuJKEkRmpdkhENyQoHYIGTFKdglxCpo9QW+wtaHp4ofMqcYFG1/KtxPPJ1gR1zvZGhh5uJy9EWRe6ZIn36Z2c+YcB97DqF5pq+snZweYKF7pH8cDmLLqqnU+7rP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fdmCOYhl; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=fzH3FbCRR3mHbgJYyD1srHi5xA4+5emqqkCQI7rt6KIyZjJBq0VDmwAvSqcRbTSYdRn4gjw5qAIoyO7JTQJOH5IamiBSbGlqybsf5+3MCFYikmRAA87IjVw8dj8A7mgZxaxZUKPgYSS8btxWDx4Fq2rwtVd9BU2rZXCKP4GHsoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=A89+cN3Z; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fdmCOYhl"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="A89+cN3Z"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788232405;
+	s=mimecast20190719; t=1788232410;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=crl0HXre1NIi+8woj4LEpZq1+eUcVCGkBif2epTDMXU=;
-	b=fdmCOYhlzIGXELOK4pkZYdHOeLJqjDLWK0bbCK9PV0CwdHD3/oa774spAxd9Fpu7Yxs1io
-	Zisccj2+MS9VleD01Uxr++iJzk/uf9c+VHtBCq1IFlquz3SnBtJftQ8Ewe4B5eYR9zznZs
-	f5mtUUNWOvsJIvqiDengmvUSYHrQwfA=
+	bh=kTRmmRqhPEEdzIyvqBzqpo/dsWefXC0sTAvXgcanp6w=;
+	b=A89+cN3ZJVVXLjzZ1l6S6/IKk7+BYdmrafYM6hDazL+S1faji6FpZ4ieCSP4QouC28BaVB
+	1M0kaX4Q7lVn5jYU5NsO1XF0tXxjSgCxNoBvFaswemvh5hFtMGUXE0/U7d9MTCILCgt4Pe
+	uha7cdQzYgYx3MizDkuCWn84pHgXYT8=
 Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-352-prBHtdLwO_yvVuQfw_suXg-1; Mon,
- 31 Aug 2026 23:13:20 -0400
-X-MC-Unique: prBHtdLwO_yvVuQfw_suXg-1
-X-Mimecast-MFC-AGG-ID: prBHtdLwO_yvVuQfw_suXg_1788232397
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-62-4vqw-M50OOqPm7vL5KfHpA-1; Mon,
+ 31 Aug 2026 23:13:24 -0400
+X-MC-Unique: 4vqw-M50OOqPm7vL5KfHpA-1
+X-Mimecast-MFC-AGG-ID: 4vqw-M50OOqPm7vL5KfHpA_1788232401
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id ACEE81860975;
-	Tue,  1 Sep 2026 03:13:17 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 62DD1185FBE9;
+	Tue,  1 Sep 2026 03:13:21 +0000 (UTC)
 Received: from fedora.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 40F5A18005BD;
-	Tue,  1 Sep 2026 03:13:14 +0000 (UTC)
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E45CF18005B8;
+	Tue,  1 Sep 2026 03:13:17 +0000 (UTC)
 From: Luiz Capitulino <luizcap@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
@@ -70,9 +70,9 @@ Cc: corbet@lwn.net,
 	yintirui@huawei.com,
 	dev.jain@arm.com,
 	usama.arif@linux.dev
-Subject: [PATCH v7 09/14] powerpc: move has_transparent_hugepage() out of THP guard
-Date: Mon, 31 Aug 2026 23:12:13 -0400
-Message-ID: <5d7ed96fc5c9ffe357eca9cb48bd679d658dd8e0.1788232334.git.luizcap@redhat.com>
+Subject: [PATCH v7 10/14] mips: move has_transparent_hugepage() out of THP guard
+Date: Mon, 31 Aug 2026 23:12:14 -0400
+Message-ID: <371e2d3a7bcac265ac748ad3c67b74abfa238422.1788232334.git.luizcap@redhat.com>
 In-Reply-To: <cover.1788232334.git.luizcap@redhat.com>
 References: <cover.1788232334.git.luizcap@redhat.com>
 Precedence: bulk
@@ -93,135 +93,56 @@ Move its definition out of the THP guard.
 
 Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
 ---
- arch/powerpc/include/asm/book3s/64/hash-4k.h  |  2 +-
- arch/powerpc/include/asm/book3s/64/hash-64k.h |  2 +-
- arch/powerpc/include/asm/book3s/64/pgtable.h  | 18 +++++++++---------
- arch/powerpc/include/asm/book3s/64/radix.h    | 14 +++++++-------
- arch/powerpc/mm/book3s64/hash_pgtable.c       |  4 ++--
- 5 files changed, 20 insertions(+), 20 deletions(-)
+ arch/mips/include/asm/pgtable.h | 6 +++---
+ arch/mips/mm/tlb-r4k.c          | 4 ----
+ 2 files changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/arch/powerpc/include/asm/book3s/64/hash-4k.h b/arch/powerpc/include/asm/book3s/64/hash-4k.h
-index 8e5bd9902bed..79511e6abfca 100644
---- a/arch/powerpc/include/asm/book3s/64/hash-4k.h
-+++ b/arch/powerpc/include/asm/book3s/64/hash-4k.h
-@@ -165,9 +165,9 @@ extern void hash__pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
- extern pgtable_t hash__pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp);
- extern pmd_t hash__pmdp_huge_get_and_clear(struct mm_struct *mm,
- 				       unsigned long addr, pmd_t *pmdp);
--extern int hash__has_transparent_hugepage(void);
- #endif
+diff --git a/arch/mips/include/asm/pgtable.h b/arch/mips/include/asm/pgtable.h
+index fa7b935f947c..b038da872ec6 100644
+--- a/arch/mips/include/asm/pgtable.h
++++ b/arch/mips/include/asm/pgtable.h
+@@ -615,9 +615,6 @@ unsigned long io_remap_pfn_range_pfn(unsigned long pfn, unsigned long size);
+ /* We don't have hardware dirty/accessed bits, generic_pmdp_establish is fine.*/
+ #define pmdp_establish generic_pmdp_establish
  
-+extern int hash__has_transparent_hugepage(void);
- #endif /* !__ASSEMBLER__ */
- 
- #endif /* _ASM_POWERPC_BOOK3S_64_HASH_4K_H */
-diff --git a/arch/powerpc/include/asm/book3s/64/hash-64k.h b/arch/powerpc/include/asm/book3s/64/hash-64k.h
-index 7deb3a66890b..a4a44a112ff9 100644
---- a/arch/powerpc/include/asm/book3s/64/hash-64k.h
-+++ b/arch/powerpc/include/asm/book3s/64/hash-64k.h
-@@ -278,9 +278,9 @@ extern void hash__pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
- extern pgtable_t hash__pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp);
- extern pmd_t hash__pmdp_huge_get_and_clear(struct mm_struct *mm,
- 				       unsigned long addr, pmd_t *pmdp);
--extern int hash__has_transparent_hugepage(void);
- #endif /*  CONFIG_TRANSPARENT_HUGEPAGE */
- 
-+extern int hash__has_transparent_hugepage(void);
- #endif	/* __ASSEMBLER__ */
- 
- #endif /* _ASM_POWERPC_BOOK3S_64_HASH_64K_H */
-diff --git a/arch/powerpc/include/asm/book3s/64/pgtable.h b/arch/powerpc/include/asm/book3s/64/pgtable.h
-index f4db7d7fbd5c..2a795f6d9263 100644
---- a/arch/powerpc/include/asm/book3s/64/pgtable.h
-+++ b/arch/powerpc/include/asm/book3s/64/pgtable.h
-@@ -1121,15 +1121,6 @@ static inline void update_mmu_cache_pud(struct vm_area_struct *vma,
- {
- }
- 
--extern int hash__has_transparent_hugepage(void);
--static inline int has_transparent_hugepage(void)
--{
--	if (radix_enabled())
--		return radix__has_transparent_hugepage();
--	return hash__has_transparent_hugepage();
--}
 -#define has_transparent_hugepage has_transparent_hugepage
+-extern int has_transparent_hugepage(void);
 -
- static inline int has_transparent_pud_hugepage(void)
+ static inline int pmd_trans_huge(pmd_t pmd)
  {
- 	if (radix_enabled())
-@@ -1441,6 +1432,15 @@ static inline bool arch_needs_pgtable_deposit(void)
+ 	return !!(pmd_val(pmd) & _PAGE_HUGE);
+@@ -743,6 +740,9 @@ static inline pmd_t pmdp_huge_get_and_clear(struct mm_struct *mm,
  
  #endif /* CONFIG_TRANSPARENT_HUGEPAGE */
  
-+extern int hash__has_transparent_hugepage(void);
-+static inline int has_transparent_hugepage(void)
-+{
-+	if (radix_enabled())
-+		return radix__has_transparent_hugepage();
-+	return hash__has_transparent_hugepage();
-+}
 +#define has_transparent_hugepage has_transparent_hugepage
++extern int has_transparent_hugepage(void);
 +
- #define __HAVE_ARCH_PTEP_MODIFY_PROT_TRANSACTION
- pte_t ptep_modify_prot_start(struct vm_area_struct *, unsigned long, pte_t *);
- void ptep_modify_prot_commit(struct vm_area_struct *, unsigned long,
-diff --git a/arch/powerpc/include/asm/book3s/64/radix.h b/arch/powerpc/include/asm/book3s/64/radix.h
-index da954e779744..50545cf519bd 100644
---- a/arch/powerpc/include/asm/book3s/64/radix.h
-+++ b/arch/powerpc/include/asm/book3s/64/radix.h
-@@ -298,22 +298,22 @@ extern pmd_t radix__pmdp_huge_get_and_clear(struct mm_struct *mm,
- pud_t radix__pudp_huge_get_and_clear(struct mm_struct *mm,
- 				     unsigned long addr, pud_t *pudp);
- 
--static inline int radix__has_transparent_hugepage(void)
-+static inline int radix__has_transparent_pud_hugepage(void)
- {
--	/* For radix 2M at PMD level means thp */
--	if (mmu_psize_defs[MMU_PAGE_2M].shift == PMD_SHIFT)
-+	/* For radix 1G at PUD level means pud hugepage support */
-+	if (mmu_psize_defs[MMU_PAGE_1G].shift == PUD_SHIFT)
- 		return 1;
- 	return 0;
- }
-+#endif
- 
--static inline int radix__has_transparent_pud_hugepage(void)
-+static inline int radix__has_transparent_hugepage(void)
- {
--	/* For radix 1G at PUD level means pud hugepage support */
--	if (mmu_psize_defs[MMU_PAGE_1G].shift == PUD_SHIFT)
-+	/* For radix 2M at PMD level means thp */
-+	if (mmu_psize_defs[MMU_PAGE_2M].shift == PMD_SHIFT)
- 		return 1;
- 	return 0;
- }
--#endif
- 
- struct vmem_altmap;
- struct dev_pagemap;
-diff --git a/arch/powerpc/mm/book3s64/hash_pgtable.c b/arch/powerpc/mm/book3s64/hash_pgtable.c
-index d9b5b751d7b7..50316f3fc5d3 100644
---- a/arch/powerpc/mm/book3s64/hash_pgtable.c
-+++ b/arch/powerpc/mm/book3s64/hash_pgtable.c
-@@ -391,6 +391,8 @@ pmd_t hash__pmdp_huge_get_and_clear(struct mm_struct *mm,
- 	return old_pmd;
+ #ifdef _PAGE_HUGE
+ #define pmd_leaf(pmd)	((pmd_val(pmd) & _PAGE_HUGE) != 0)
+ #define pud_leaf(pud)	((pud_val(pud) & _PAGE_HUGE) != 0)
+diff --git a/arch/mips/mm/tlb-r4k.c b/arch/mips/mm/tlb-r4k.c
+index 24fe85fa169d..f4e369342a56 100644
+--- a/arch/mips/mm/tlb-r4k.c
++++ b/arch/mips/mm/tlb-r4k.c
+@@ -432,8 +432,6 @@ void add_wired_entry(unsigned long entrylo0, unsigned long entrylo1,
+ #endif
  }
  
-+#endif /* CONFIG_TRANSPARENT_HUGEPAGE */
-+
- int hash__has_transparent_hugepage(void)
- {
- 
-@@ -422,8 +424,6 @@ int hash__has_transparent_hugepage(void)
- }
- EXPORT_SYMBOL_GPL(hash__has_transparent_hugepage);
- 
--#endif /* CONFIG_TRANSPARENT_HUGEPAGE */
+-#ifdef CONFIG_TRANSPARENT_HUGEPAGE
 -
- #ifdef CONFIG_STRICT_KERNEL_RWX
+ int has_transparent_hugepage(void)
+ {
+ 	static unsigned int mask = -1;
+@@ -452,8 +450,6 @@ int has_transparent_hugepage(void)
+ }
+ EXPORT_SYMBOL(has_transparent_hugepage);
  
- struct change_memory_parms {
+-#endif /* CONFIG_TRANSPARENT_HUGEPAGE  */
+-
+ /*
+  * Used for loading TLB entries before trap_init() has started, when we
+  * don't actually want to add a wired entry which remains throughout the
 -- 
 2.55.0
 
