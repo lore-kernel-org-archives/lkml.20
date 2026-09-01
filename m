@@ -1,69 +1,77 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CABEC3AE195;
-	Tue,  1 Sep 2026 11:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0035437F327
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:48:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263307; cv=none; b=sznfQd/ZsZYCFO5kYLb8TZmHjZj7RBtdJHd7S+l0l1Z3w75U8q3qayfWpvxgKPjwH2gm03FMdlLAizc9xqlq/uZj7Dp03og+zlUzpVkBwCa6OsmrnBRXoWyyvjLZ2+QZH4nRtL52LYndkr7UpbGb+wuKzHfFMDfGhOddJfAVMzQ=
+	t=1788263313; cv=none; b=fTBpiVLenHToqIoLlQ/h7/+MEUPYk/SQeOIJXoBwNDZH5/3cMzpLhKg0DzsJrdleV1PHP04h89kxKxTd8N2Gtr4s2B/4yOTMvmxKW9D1DJYwL4q28FGFYvV8sP2CKIs/Sa97B/16Qje/xefkejRKt6liXjUaNHW7RDOk3EP9vlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263307; c=relaxed/simple;
-	bh=S/SRet3qeBwN+oQWR3doE93E6/qESJhQ4jEYrrLt4D4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fYKYSkqd9TXZLNbtsQokPU7kyH/6heZBP5yg0S1Rbw4Y4qHJs5gYkQdiSbY1TG/lHIKERvnWrXnBxo0LqTxpXu1oQnWDxcGoXJbPUmrJrpNIW9wKp1lvnxkOS0Gfb8esBsVlGYamE1M3Exac1nnGXqRTUMSBCvg28+7Ya9vuFJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=Pqgi8KVu; arc=none smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1788263313; c=relaxed/simple;
+	bh=EmcvMgWnU+eynTHcQrpUKhBCbJysQIL0DcglZ59zZZc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FBLsbfubnx49qVYSSx0na88jPSMG8NuECbicBCVALGsMi1ZDkgFvh+NXrglOiDWyt9aeyc6viWiaDM9GSwvpuiJCkCY8rrZrooF1LjVMWzPKcIPlZ18pUzxmVdH5qXsnShGR3Gg3GYD4qG8iESAAB8xnTYvRfVlrSnPawl/FANA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m9nxtXlG; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="Pqgi8KVu"
-Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681AL0fq3167664;
-	Tue, 1 Sep 2026 04:48:17 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=9Uibh/DA52PFA/piBtPl0uK
-	X8OgmgMslK1Dh1GZW2I0=; b=Pqgi8KVup1jawP4X0VVxbpsr9Acb1eTSzEZN8fB
-	7bBAFHQ1FvC54K9c1dLuRL7i0sw4fg+ZcGKDGSOaCanAsQWNpkw68OHjJmITeDjH
-	0iJSpLM5VILRC+oor1eB6adJz76jJv44uQm0O2hsc1FMTZfAX9JWwjerj+UEZjSq
-	csQcDqYwQRMU359UqcYsZCG4AWi4Ytm1/9rR/8ri1GS6y+NTB5tBKJ47Jw9z7qFN
-	JHiJMHSWJdZJaTTr+D/Wq6RfnSGQ8STiBzoWswUDkqHm+wSdJQud0PLkyIL1ohGn
-	yKyfJtIS8Oj/0+zXL7j+tEk26Lb0qY3A0mKVV/jzHOgBMbw==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gdmvqsjfm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 04:48:17 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Tue, 1 Sep 2026 04:48:15 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Tue, 1 Sep 2026 04:48:15 -0700
-Received: from kernel-ep2.caveonetworks.com (unknown [10.29.36.53])
-	by maili.marvell.com (Postfix) with ESMTP id 144265B6928;
-	Tue,  1 Sep 2026 04:48:10 -0700 (PDT)
-From: <nshettyj@marvell.com>
-To: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Roy Franz <rfranz@marvell.com>, Nitin Shetty J <nshettyj@marvell.com>,
-        Sunil Goutham <sgoutham@marvell.com>,
-        Geetha sowjanya <gakula@marvell.com>,
-        Ratheesh Kannoth <rkannoth@marvell.com>,
-        Subbaraya Sundeep
-	<sbhatta@marvell.com>,
-        Bharat Bhushan <bbhushan2@marvell.com>,
-        Andrew Lunn
-	<andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        "Eric
- Dumazet" <edumazet@google.com>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Simon Horman
-	<horms@kernel.org>
-Subject: [PATCH net v2] octeontx2-pf: Fix ethtool timestamping capabilities for SDP representors
-Date: Tue, 1 Sep 2026 17:18:07 +0530
-Message-ID: <20260901114808.1701352-1-nshettyj@marvell.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m9nxtXlG"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-853c07a76adso4856451b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:48:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788263311; x=1788868111; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/lc63gXB6sWM/VXbWlt8W410Sjt0Osog05aJqYWSF9g=;
+        b=m9nxtXlGQt1JJtyJxV0lPd3kpo0oNfFXPTf+5+n2KIj/z0CTogp6aI5BSr7ZUk0sZQ
+         Rrsj+nHwPrdt7XnIV4goWnmkuL0D7W4O554RWyChElP+n2mGyKdJyX1kdFZUjmQJKWcS
+         1ydwKFApR2GNqrrW+JjPOb9dZ7PmDcmhAZ2d9mr4Yl2IW8q5FEFvUIk5VC2AQZCTMyJW
+         gGj7yOIUH8CTvXnD+pLL87/dXHYt4DXaKZnu9Qtlmq3Fe7pipyj4iIhYJPA2rX5FPQku
+         uJeZ6hgypMPz15OfiM3hGZb9f/QnUfmDlA99E4TMwUL4LwLyjJ2XsmINEynuesU0T3Gs
+         Nimg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788263311; x=1788868111;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/lc63gXB6sWM/VXbWlt8W410Sjt0Osog05aJqYWSF9g=;
+        b=AF+l2Vv9qKkNP+6YzvH7w81gyjj0cIEm2k9dgrlaEUeO3zgfbL5HlwxgGFOn5yl2Wm
+         /fmq/BdUUc4FUSUbK3q0dEWGD1YV4HOPjec0cuTNGAnFp6HTiBUmQHN+SjWrW6z9ay/v
+         AFKhzYm7BWKfkBAzSjnYy/hhfWPVZReXBKMD5/QAAzIscPc0O058UcJ4mp4eB+wqqeie
+         3FVE26wEZSex9vgf9e3qRo71Mj+MkaOe5eEZY/d5v2pXfs757bG0NH4z4bCMuhRR60MZ
+         IeyQeSeoXEmJ4dbKnaG16jeEJ99ZY7BO/HkjtHtsG+pMEfeB5ASyMG6AUqvpaJoeLNN8
+         8r6w==
+X-Forwarded-Encrypted: i=1; AHgh+Rqrb9+LhzfTeJMqxCOo+PfG/sCEjlDkYIbqSKyJ28mt+Xwdw/QGrQCus2BYiHsKEiDoobfr1ej4YxcA0oA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2Wt2nHMWmZG+Sq36eZdD8aWhDqktXxrhNon+8hQy5fQDxSmhH
+	nTGHhS4ZDMgQN6/B/EK50FL38rj+kOhnt+0O5cEW5mipQ6Boxy09Oxrx
+X-Gm-Gg: AR+sD12JYjSiXkitVwFnmJdr1RenIptX27JskzyWQDUVssedkhSePo9qfEMP/PJYMtr
+	j78iG82wJq9hdaR/c4WQo4N2LJ3RbIqCZ+E32kqhiicnSuBP0jei3jxxuhzVWLq7TWlsDm4IxY+
+	lj7o2B08h4A6WisW6tt0JbYCqMTojaqljwqa+GJxj8UfwV3pp9iuAemBef9zYPxDZA1E4rPCgZS
+	uHnbt/PVz3KSaknQGNsS3r+BbC3AT6zycakXageMxYaXGhKA+9ri5hhzbv9pWok/+kkPhHhSF45
+	5sNMp89edZ5nUgHbeC1tRmGYiNVZg52g+vyJyemIrQwM+XieYcz8Cf15OUVtjKG2bJtxEMdYLX2
+	JsXszw4qhOkoqzwOVBOe+yjTUdZWFwYNLcNW2Cjxf3iY07D0HdP3KPbT8xqCy5ltrVXQUMY0rGk
+	K/9HKviuHnFuH00sdpEtrQsbalAvPhDjoYZaHymbKRkil/AwVfz9Wouy0beFo4miRvTCIudVNIz
+	AxmjkHa0klDehkESyn3A4xi5hkm+R75sWRD
+X-Received: by 2002:a05:6a00:368b:b0:84f:5cd7:e3c6 with SMTP id d2e1a72fcca58-85628f66831mr53111920b3a.5.1788263311225;
+        Tue, 01 Sep 2026 04:48:31 -0700 (PDT)
+Received: from localhost.localdomain ([117.88.121.70])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85be8d68565sm964610b3a.38.2026.09.01.04.48.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 04:48:30 -0700 (PDT)
+From: Aohan Mei <ljp1205831794@gmail.com>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Aohan Mei <henrymei@tencent.com>,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	stable@vger.kernel.org
+Subject: [PATCH bpf] bpf: Hash lock addresses in rqspinlock violation reports
+Date: Tue,  1 Sep 2026 19:47:49 +0800
+Message-ID: <20260901114755.1165703-1-ljp1205831794@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,63 +79,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDEwNCBTYWx0ZWRfX48WomyWztRvF
- jAosileGDxcjivMwcJ78BzsnmAsf7V/pQYi3JWdJcY5kIcKSgnQDT2FVZmZHkwXMNEWQLM7qqHq
- xs/hO5E1bzUPiVX49R9iQGHANX5nyB3pyxipZUH+DzwdbeSZ11G8t1LjN8hMtNc9QmZ6zW7XCAB
- n616Kl28xmMAheEqtcrbbjYU/sC1FAyWrPts3MvloSgiPKb3OABOyMq7IU3Misbrot9SEQ7XZ80
- QRnv8U13ABwOE2uq7yl8hARzk78/d87ASCQgofhiwA1hbF2lzBAiPtRD3thG3ngvpzxF0FEYoKo
- V8ZCqrZr9MnPs5JzRMq1m3rUAAldCnQISpWsRkC12919VzPbeJlOtrZWBhwZqYPW282MviIBhrA
- xNrhtzewbMlMtVZnnm6Pi38//0JOiUKIFbUXw3phJ3XrfbeQ1j5JzZRSKB10NMhGdF566CT7JHc
- U6YGeEC5kEQ3J6o2YYw==
-X-Authority-Analysis: v=2.4 cv=HYQkiCE8 c=1 sm=1 tr=0 ts=6a96bb81 cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=qit2iCtTFQkLgVSMPQTB:22 a=M5GUcnROAAAA:8 a=ylu_Mql_jpgZ7cmvgmoA:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-ORIG-GUID: o0jraw87Xo5DHm2Uc_7ZB2T330rrqY9D
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDEwNCBTYWx0ZWRfXzdvu2PtCBWz3
- XtZjBpk7sloiF+6yVmZKsC0CHJFUoKU0n8IjSx27IZRKcFVHP3G+iyIkr+lvVOSvBNz/pV+NRKB
- bWeWyrw3rQsTJz4c806WwKd1ODrCQqw=
-X-Proofpoint-GUID: o0jraw87Xo5DHm2Uc_7ZB2T330rrqY9D
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
 
-From: Roy Franz <rfranz@marvell.com>
+From: Aohan Mei <henrymei@tencent.com>
 
-SDP representors do not support hardware timestamping. The current
-implementation of otx2_get_ts_info incorrectly advertises hardware
-timestamping capabilities and a PHC index to userspace for these
-interfaces.
+bpf_prog_report_rqspinlock_violation() prints the attempted lock and
+every held lock with %px, which expands to the raw pointer value.
+The report lands in the program's BPF_STDERR stream, and that stream
+is readable through BPF_PROG_STREAM_READ_BY_FD with no privilege
+check on the read side: prog_stream_read() only validates the fd
+with bpf_prog_get().
 
-Fix this by checking if the device is an SDP representor and returning
-the default software timestamping capabilities instead.
+Any user with read access to the program fd (a shared fd, a BPF
+token delegation, or an unprivileged child) can therefore read back
+the raw kernel addresses of the rqspinlock objects, which are
+dynamic allocations whose placement depends on KASLR and the slab
+layout.  The verifier-facing log path gates pointer printing on
+allow_ptr_leaks; the stream path has no equivalent gate.
 
-Fixes: 2f7f33a09516 ("octeontx2-pf: Add representors for sdp MAC")
-Signed-off-by: Nitin Shetty J <nshettyj@marvell.com>
-Signed-off-by: Roy Franz <rfranz@marvell.com>
+Print the ptr_to_hashval() hash of each address instead, so the
+report still allows correlating the attempted lock with the held
+locks within a boot, without exposing the raw addresses.  Fall back
+to printing 0 if hashing fails.
+
+Fixes: ecec5b5743bf ("bpf: Report rqspinlock deadlocks/timeout to BPF stderr")
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Cc: stable@vger.kernel.org
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
 ---
-v2:
-- Disable PTP initialization for SDP representors to cover both
-  ethtool capabilities and hwtstamp ioctl handling.
----
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_ptp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/bpf/rqspinlock.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ptp.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ptp.c
-index 95b0a1e7c936..7b0a51f453ce 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ptp.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ptp.c
-@@ -386,7 +386,7 @@ int otx2_ptp_init(struct otx2_nic *pfvf)
- 	struct ptp_req *req;
- 	int err;
+diff --git a/kernel/bpf/rqspinlock.c b/kernel/bpf/rqspinlock.c
+index 111ec80ea958..5721dc1a9577 100644
+--- a/kernel/bpf/rqspinlock.c
++++ b/kernel/bpf/rqspinlock.c
+@@ -16,6 +16,7 @@
+ #include <linux/smp.h>
+ #include <linux/bug.h>
+ #include <linux/bpf.h>
++#include <linux/string.h>
+ #include <linux/err.h>
+ #include <linux/cpumask.h>
+ #include <linux/percpu.h>
+@@ -673,6 +674,7 @@ __bpf_kfunc_start_defs();
+ static void bpf_prog_report_rqspinlock_violation(const char *str, void *lock, bool irqsave)
+ {
+ 	struct rqspinlock_held *rqh = this_cpu_ptr(&rqspinlock_held_locks);
++	unsigned long hashval;
+ 	struct bpf_stream_stage ss;
+ 	struct bpf_prog *prog;
  
--	if (is_otx2_lbkvf(pfvf->pdev)) {
-+	if (is_otx2_lbkvf(pfvf->pdev) || is_otx2_sdp_rep(pfvf->pdev)) {
- 		pfvf->ptp = NULL;
- 		return 0;
- 	}
+@@ -681,10 +683,15 @@ static void bpf_prog_report_rqspinlock_violation(const char *str, void *lock, bo
+ 		return;
+ 	bpf_stream_stage(ss, prog, BPF_STDERR, ({
+ 		bpf_stream_printk(ss, "ERROR: %s for bpf_res_spin_lock%s\n", str, irqsave ? "_irqsave" : "");
+-		bpf_stream_printk(ss, "Attempted lock   = 0x%px\n", lock);
++		if (ptr_to_hashval(lock, &hashval))
++			hashval = 0;
++		bpf_stream_printk(ss, "Attempted lock   = 0x%08lx\n", hashval);
+ 		bpf_stream_printk(ss, "Total held locks = %d\n", rqh->cnt);
+-		for (int i = 0; i < min(RES_NR_HELD, rqh->cnt); i++)
+-			bpf_stream_printk(ss, "Held lock[%2d] = 0x%px\n", i, rqh->locks[i]);
++		for (int i = 0; i < min(RES_NR_HELD, rqh->cnt); i++) {
++			if (ptr_to_hashval(rqh->locks[i], &hashval))
++				hashval = 0;
++			bpf_stream_printk(ss, "Held lock[%2d] = 0x%08lx\n", i, hashval);
++		}
+ 		bpf_stream_dump_stack(ss);
+ 	}));
+ }
 -- 
-2.48.1
+2.43.7
 
