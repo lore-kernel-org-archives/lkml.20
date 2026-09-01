@@ -1,81 +1,158 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC8B47CA6D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C734E493648
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:13:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788290036; cv=none; b=km6aFJWeXLWTrqQ7WqTS3BYw/DpbFhV2VZqkUFHWuyXjOQosbbbsogU4g7NXCwP3Y+c1zasFF//fj8SZB/wOxW/eKA9fmsWMf9Nx2K7eM1xz3wObXCgD3r2JS/tXRyEh7SWQs4/5AsPbE1VtSm7rKEgTelbf3ujBR75KrB1AKko=
+	t=1788290042; cv=none; b=JgJvVVpspFcv+7Y4xVGxP4oECPMaUP0MpN/B8F6LdruBdsfKGMc7Ic4z366DzeN8OooXCvIxRFDkpziNaJuEP9cUkKgIs5pPIXKTR656IimwOtZXhkERBd8NPLjKzjjLF3SaAR0IYZY+/u06tF1pcRv7GTKUJDnTuYuIYILq8lA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788290036; c=relaxed/simple;
-	bh=6h5m8oBLmcsaN8EsPH+tpcDxvt17SGebO468AlTg5Us=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=mKZzzGvXyrD9HhFP9mBHGKpeQLJkS4lNUlcDkfu4eYJUEULB3g2wS4vZvQS4OzAO/4DMQUty3MlwNcwtHnzIK63J7VNNoPy1BcHBHedM6GEYHIim2Eh52BNYjFH62qPQ7Zk5CBrlwbHcyqW3DQCwRKgYqhwLJ2X2c6ICC59nmBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NpPV1p7F; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788290042; c=relaxed/simple;
+	bh=rlnEpoQqZM0q1JKCIvkU4Yzcc1HivHI0aGOTf4jB2Lo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AY7xQR5GO1u2V0GWQZ5E12s0oPCmhHUI5gQqKXVIbOat3ivYn3ihN7wzoWUN1EanmOKJhFUX2y5QOrVBD+262XbpFhCBsKd9Kv/AisNZrq7/q30N8WNBzpdHsAjj5ksSJi+ws8Pt4bTqxki50G1uNfrBAyBPwG0gnuuPZ/SnLLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FNRtiHak; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NpPV1p7F"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1c62f0d60so360195a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:13:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788290032; x=1788894832; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cC/v4tGqIHa7qRI7tcSqJWeetrZS27j4AD0COX7TVh8=;
-        b=NpPV1p7F/V0mz7x5SRug0O0TpoI41viG7ONLH6akUQMu+kiHqphEbd3Z4M9HnDnloi
-         eKka8m+hyJm6PmCEN118707TbcHyWKT0JP3QnEkIptiVjbGzX1XbzwdXqd0Ska+Q0CWw
-         TTvIRwGSDuQ7DAt6W8URxcM4T7PJe08wJekXp2xK4R+OC9GsWAmMWcDNWCLKDQnP/MPV
-         sYp1a+SxQtTG/T3EmQSAuVoH7DC3wGWSryEOT7rrAsKInqeRdZTjGeIyV2jq/1Wc8b0b
-         FybPJA6FpC/fh362SWNmF7TrbYxddsTqxUBSIqQ6tbARZa2xlr3EwZZRQ1wK8H9ZWN2T
-         Aa4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788290032; x=1788894832;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cC/v4tGqIHa7qRI7tcSqJWeetrZS27j4AD0COX7TVh8=;
-        b=njIypyMn11YfsyxsnF6QAn/J+NqVZSgRh6EFZVIivqlBdAshh1KXWNpkElVCZdTTt4
-         O/VSMVrVXvxRodXMXaTyMV1GOSuNg3FbDdVBn1hi3QwK3x7BIGzPt6MS9C1gYlkpXJ7a
-         5+h1TA1uGX0/6qbW8E8E0WQLajCZS44XPxO7Rcf/UzqCP3lA5uttye6RSX/jNgb8YVJx
-         0jWpO9lojmtvwGZ6SpWbY0w44zweswOmDFaGfvkuZ/VLpiDT9GqDIle5SWldrP4jNSoS
-         9eNPYgfazzR7mp3fusY/tXSJhqmTQfcKoavJ7tEHZZI4Hny1ISgrOGvohWeNyZ/5H9Q+
-         gBvA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0QVIRJLE0wPIsoIUtamLeCUUnuHc+nfcVeFm4GTLhbdKEmi5J5Y5PLXmwgtRnHuAQk+HCFnpSn44feE0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQnd4Iib7h4EkXn5TmSbRWf8hDgBJsUDMd1wBwSdA/WaKTvN3d
-	WIFXGc3jYfoGzuNCXqCK4InSeccEHhMQ5o6kQ83XhTo9u3kkk7wIVGIfmBW6vkZAr6UJV43at68
-	vMR9KEg==
-X-Received: from pgcv12.prod.google.com ([2002:a05:6a02:530c:b0:c8e:c0e0:e670])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:1611:b0:3d0:8abe:9e08
- with SMTP id adf61e73a8af0-3d7ad780037mr15285138637.3.1788290031806; Tue, 01
- Sep 2026 12:13:51 -0700 (PDT)
-Date: Tue, 1 Sep 2026 12:13:51 -0700
-In-Reply-To: <CAH+3ta7b7MudRedhFG4xQH6-3ZK9gfkcEPy_aHsAHBwjyK81+w@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FNRtiHak"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788290036;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2Gc0ait3L/IgveRSbsQEV85pq6/ltievYnmCwsbLN8s=;
+	b=FNRtiHaktY9cNcUCRAon12P/08IkBdyktZ9YJduwBSpxi05v2CydHv+1ALufH9IHIPC0se
+	Q+BzXUj23HBT3OVVRrOpXx4i2iwSERZ13PwaFs36uQsQ8mPSTV7Iry2IQscYZkolDt45wR
+	6VbbB8wF051nNkLDVNNj0fskgyOv2Mc=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-634-k8giU1h9OVCJTn1H8fntNg-1; Tue,
+ 01 Sept 2026 15:13:49 -0400
+X-MC-Unique: k8giU1h9OVCJTn1H8fntNg-1
+X-Mimecast-MFC-AGG-ID: k8giU1h9OVCJTn1H8fntNg_1788290026
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A6D0B195411F;
+	Tue,  1 Sep 2026 19:13:45 +0000 (UTC)
+Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 000DC30001A2;
+	Tue,  1 Sep 2026 19:13:43 +0000 (UTC)
+Date: Tue, 1 Sep 2026 15:13:42 -0400
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+Cc: ebiggers@kernel.org, axboe@kernel.dk, mst@redhat.com,
+	jasowangio@gmail.com, James.Bottomley@hansenpartnership.com,
+	martin.petersen@oracle.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-block@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-scsi@vger.kernel.org,
+	virtualization@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, neeraj.soni@oss.qualcomm.com,
+	gaurav.kashyap@oss.qualcomm.com, mani@kernel.org,
+	andersson@kernel.org, konradybcio@kernel.org, bvanassche@acm.org,
+	alim.akhtar@samsung.com, avri.altman@sandisk.com,
+	pbonzini@redhat.com, eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 07/11] blk-crypto: move bio_crypt_dun_increment() to
+ the public header
+Message-ID: <20260901191342.GC729142@fedora>
+References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
+ <20260827160806.1295313-8-linlin.zhang@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260807112818.958190-1-kimjw04271234@gmail.com> <CAH+3ta7b7MudRedhFG4xQH6-3ZK9gfkcEPy_aHsAHBwjyK81+w@mail.gmail.com>
-Message-ID: <apcj7xrcIhEw7lCl@google.com>
-Subject: Re: [PATCH] KVM: x86: Use active memslots for the per-vCPU MMIO cache
-From: Sean Christopherson <seanjc@google.com>
-To: Jinu Kim <kimjw04271234@gmail.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, security@kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="PEA6fpBf2bNc3JFu"
+Content-Disposition: inline
+In-Reply-To: <20260827160806.1295313-8-linlin.zhang@oss.qualcomm.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Tue, Sep 01, 2026, Jinu Kim wrote:
-> Hi Sean, Paolo,
-> 
-> A friendly ping on this patch.
-> I originally sent this on August 7, which was fairly late in the 7.2
-> release cycle, so I held off on pinging during the remainder of the
-> cycle and the 7.3 merge window.
-> Now that 7.3-rc1 is out, could you please take a look when you get a chance?
-> Please let me know if you'd prefer that I resend or rebase the patch.
+--PEA6fpBf2bNc3JFu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-No RESEND is necessary, this is already on my list of things to grab (or to make
-sure Paolo grabs).
+On Thu, Aug 27, 2026 at 09:07:16AM -0700, Linlin Zhang wrote:
+> From: linlzhan <linlin.zhang@oss.qualcomm.com>
+>=20
+> bio_crypt_dun_increment() is currently declared only in
+> block/blk-crypto-internal.h, which is not accessible to code
+> outside of block/.  Drivers that manage inline-encrypted I/O
+> directly need to advance the DUN across bio_vecs within a bio,
+> or across multiple bios in a request, and have no other way
+> to call this function.
+>=20
+> Move the declaration from block/blk-crypto-internal.h to
+> include/linux/blk-crypto.h alongside the existing
+> bio_crypt_dun_is_contiguous() and blk_crypto_init_key()
+> declarations. The implementation in block/blk-crypto.c is
+> unchanged.
+>=20
+> Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
+> ---
+>  block/blk-crypto-internal.h | 3 ---
+>  include/linux/blk-crypto.h  | 3 +++
+>  2 files changed, 3 insertions(+), 3 deletions(-)
+
+Other include/linux/blk-crypto.h functions export their symbols. Does
+bio_crypt_dun_increment() need EXPORT_SYMBOL_GPL() like
+bio_crypt_set_ctx() and friends?
+
+>=20
+> diff --git a/block/blk-crypto-internal.h b/block/blk-crypto-internal.h
+> index 04035d237f03..32c720aabba7 100644
+> --- a/block/blk-crypto-internal.h
+> +++ b/block/blk-crypto-internal.h
+> @@ -26,9 +26,6 @@ int blk_crypto_sysfs_register(struct gendisk *disk);
+> =20
+>  void blk_crypto_sysfs_unregister(struct gendisk *disk);
+> =20
+> -void bio_crypt_dun_increment(u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE],
+> -			     unsigned int inc);
+> -
+>  bool bio_crypt_rq_ctx_compatible(struct request *rq, struct bio *bio);
+> =20
+>  bool bio_crypt_ctx_mergeable(struct bio_crypt_ctx *bc1, unsigned int bc1=
+_bytes,
+> diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
+> index 33ae52b77522..c9f436b6b2ef 100644
+> --- a/include/linux/blk-crypto.h
+> +++ b/include/linux/blk-crypto.h
+> @@ -181,6 +181,9 @@ bool bio_crypt_dun_is_contiguous(const struct bio_cry=
+pt_ctx *bc,
+>  				 unsigned int bytes,
+>  				 const u64 next_dun[BLK_CRYPTO_DUN_ARRAY_SIZE]);
+> =20
+> +void bio_crypt_dun_increment(u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE],
+> +			     unsigned int inc);
+> +
+>  int blk_crypto_init_key(struct blk_crypto_key *blk_key,
+>  			const u8 *key_bytes, size_t key_size,
+>  			enum blk_crypto_key_type key_type,
+> --=20
+> 2.34.1
+>=20
+
+--PEA6fpBf2bNc3JFu
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmqXI+YACgkQnKSrs4Gr
+c8iM3Qf/XFmILiCbeSjbXunU0k6T8u+dWvrzWNhq4pxK9Sj3ejQwcBFSp0YgWTeP
+huZvq2kGaf90TF7mw48y1hF3UnUHN9YCdADHFCePBQjaUsXeCtVguebgzFhhqvCe
+govoIFLmGhVjuU08W4/32X2McSZm/RU7nEaXkwX8baWQGmT6OJeteJsng7GyyCWW
+FHCOoHLTI3UKR40LJrijN1S/cnP/vZvYMs9X2LCwGmHua5uaTdoI0APEWwH34397
+u7yXS7G74oYNxIFC3zuqZ2ikoZQ7LDpNqrlTb4WttYP1sOhForEze0lQO6gFt/s/
+8Iyi2gjGMdOLc56RWntVSrqktDwQYA==
+=lhw/
+-----END PGP SIGNATURE-----
+
+--PEA6fpBf2bNc3JFu--
+
