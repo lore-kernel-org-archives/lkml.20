@@ -1,65 +1,102 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD10E426408;
-	Tue,  1 Sep 2026 16:02:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F19D3EEACB
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:03:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278578; cv=none; b=jEaHneDDPJrHFZBfGXs8WSK8F5ReAFrQgzteAPDgwM0UAGGlqvbxso1GeNwBetKxy6DjR05EU/YAO5Ugc9k2reZXZUYFzb/5cJ/KPF46W8b7U84TFddh03tl2PnmrjyIVD3RflT8cAmGmkKYSqqey19WV2d717q/hvMtmnVOEt8=
+	t=1788278630; cv=none; b=nY89t8B+RjNOqxGehp9anyW9mHAJSJZvFxw1TcRWlxlH2xmvP57Al13q5vlGPW/+gYpPAFUdPN3A/Ei61mxOyId69VnxSVgtx5LM/AMBkvkaiZQKQrQEL/3SwB88A0GWf35+Viasqyiv6twMpRb8Whk6Upi8V4qdcbHrMyB+5Fs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278578; c=relaxed/simple;
-	bh=n7PcZtnAIhoDLcRBOJLdU1Xqtxkmqe6yDdLKxA6l8XI=;
+	s=arc-20240116; t=1788278630; c=relaxed/simple;
+	bh=e7KqR0cXv3zi2ctFk7HYcHk4godYoNTXTC7ZdWo8Jww=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LPykOXFGoyAaNLnzez62iXO4opWI07zoA2Jhjz5ixLP2DXn5XHOsuxrF3dTZ+gcFc4zHQ512hOMwClLiYqBMAppEyuHASija6FD7GDiMDERkOn0N85LW2gw/kIDn9VBcEeTSx4LOJ9qQRHGLzJ33fTCpjx580KKhXne5zSF1fyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ldiDGEM0; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=E7b8xzeW1NoWexo539LJ+pQaPYsyh3QE7vutvshKSuJsZmpo3ibiYx95fKlHO6huZIBr7iAizfMFyFJFPvndk8G+AHnZKibSHY9Lo5GXgxt9kc+c2VPMAR/j0xsLrqnVyusZqa72pPpZLl3lqv8/zBGu1fPI+j2WqCalmV190CQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=rh7UB1se; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ldiDGEM0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=eMtktqeeVL5VzhmP9fhR09ZZUGJKhcG515js72rP3tE=; b=ldiDGEM0x35iM4j2KLCdxxVD2j
-	urbcs6Dtbvrfmd4LwW7kabk1KJwspiEganHPCv+kHu6+5TN2xURGUyfghK+JNfs9EURvVKy495kA/
-	goCFoqj/Zr7l+yfTlX1g4N+3rL8dFv+W8hT0ZO7q1EeFK79iy5dMcKfEQ7NgVhJEe7ck=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x1Qwh-002NyJ-Ra; Tue, 01 Sep 2026 18:02:47 +0200
-Date: Tue, 1 Sep 2026 18:02:47 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: khendry@reliablecontrols.com
-Cc: =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] net: pcs: rzn1-miic: Fix config array
- initialization
-Message-ID: <343012c6-c3cb-467c-b2fa-285dc6ba8b83@lunn.ch>
-References: <20260901-rzn1-miic-fix-array-v2-0-3e907049e770@reliablecontrols.com>
- <20260901-rzn1-miic-fix-array-v2-1-3e907049e770@reliablecontrols.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="rh7UB1se"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 203C21756;
+	Tue,  1 Sep 2026 09:03:43 -0700 (PDT)
+Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 41B2E3F85F;
+	Tue,  1 Sep 2026 09:03:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788278626; bh=e7KqR0cXv3zi2ctFk7HYcHk4godYoNTXTC7ZdWo8Jww=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rh7UB1se5I5Lg2542CkkOBB8wD97b8a9XqZOM1LIjABTpODaZCqiGEeOgA3k7IBgR
+	 4oJ6rWybfTn94MUVgjPL7NYeiG9en7Gpyyl47FhoH/NzaCwMIYiXSjtJFWqwT4ldUo
+	 NZgUN+JTiqxRPX2Oj78THPSM2r1L0INVPYkSljyQ=
+Date: Tue, 1 Sep 2026 17:03:43 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: linux-kernel@vger.kernel.org, frederic@kernel.org, jstultz@google.com,
+	juri.lelli@redhat.com, meted@linux.ibm.com, mingo@redhat.com,
+	peterz@infradead.org, sshegde@linux.ibm.com, tglx@linutronix.de,
+	vincent.guittot@linaro.org, vschneid@redhat.com
+Subject: Re: [PATCH v2 6/6] sched: dynamic: Simplify preempt model accessors
+Message-ID: <apb3XyPKQVTVJqQx@J2N7QTR9R3.cambridge.arm.com>
+References: <20260803191731.3244294-1-mark.rutland@arm.com>
+ <20260803191731.3244294-7-mark.rutland@arm.com>
+ <ab5ebc63-0361-4aef-aba6-f567655279f4@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260901-rzn1-miic-fix-array-v2-1-3e907049e770@reliablecontrols.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ab5ebc63-0361-4aef-aba6-f567655279f4@huawei.com>
 
-On Tue, Sep 01, 2026 at 08:25:13AM -0700, Kyle Hendry via B4 Relay wrote:
-> From: Kyle Hendry <khendry@reliablecontrols.com>
+On Fri, Aug 07, 2026 at 10:00:44AM +0800, Jinjie Ruan wrote:
+> 在 2026/8/4 3:17, Mark Rutland 写道:
+> >  enum {
+> >  	preempt_dynamic_undefined = -1,
+> > -	preempt_dynamic_none,
+> > -	preempt_dynamic_voluntary,
+> >  	preempt_dynamic_full,
+> >  	preempt_dynamic_lazy,
 > 
-> Fix memset parameters to initialize the entire DT value array
+> Hi Mark,
 > 
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+> Should the annotations for NONE and VOLUNTARY be removed simultaneously?
+> 
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -7788,12 +7788,6 @@ EXPORT_SYMBOL(__cond_resched_rwlock_write);
+>  # endif
+> 
+>  /*
+> - * NONE:
+> - *   (unselectable)
+> - *
+> - * VOLUNTARY:
+> - *   (unselectable)
+> - *
+>   * FULL:
+>   *   dynamic_preempt_lazy       <- false
+>   *
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+I had left those lines to indicate that those modes were deliberately not
+selectable with preempt_dynamic. Evidently keeping them was confusing,
+so I'll delete them.
 
-    Andrew
+> Otherwise, LGTM
+> Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+Thanks!
+
+Mark.
+
+> >  };
+> > @@ -7889,8 +7887,6 @@ static void __init preempt_dynamic_init(void)
+> >  	}								\
+> >  	EXPORT_SYMBOL_GPL(preempt_model_##mode)
+> >  
+> > -PREEMPT_MODEL_ACCESSOR(none);
+> > -PREEMPT_MODEL_ACCESSOR(voluntary);
+> >  PREEMPT_MODEL_ACCESSOR(full);
+> >  PREEMPT_MODEL_ACCESSOR(lazy);
+> >  
+> 
