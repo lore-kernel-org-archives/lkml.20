@@ -1,137 +1,98 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+Received: from mail-m19731101.qiye.163.com (mail-m19731101.qiye.163.com [220.197.31.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DAFD476CC6;
-	Tue,  1 Sep 2026 09:29:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09396477E38;
+	Tue,  1 Sep 2026 09:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254947; cv=none; b=Vd8dAvqNooURmpn2JxwwGmnKujc85sXM/kuhLhMCnqvKMCm9sBrO+Uk07rDEuXBOwa1ZT6nf1CN49liNxYRLNMbP5LTJskEmx3IY/Hg5Ds4VYytey7wFY36w6OTbgGe/G75hHDDhjQc9MWfqbzdBtckS5MREKutRQZ0NVmoOIPQ=
+	t=1788255001; cv=none; b=EP1iY761tIrDIn/xiC5upe9dhGygXf+3lMKBcW8eOAbbFpC6Qlc8L9VKwNShpNiUBCh1CPhDWcsVz1CneRKNDTL13xjaEhifWavPuAA0U22HZGbr5L59rL0/A5/hez4evXv5LsJ0xWC0uoVRtqQNECVRdEHCpjIvE7DvGymFSeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788254947; c=relaxed/simple;
-	bh=Dfys3I4aIMPKtf0lDoOBlnhZJxVXG3dQk+fTqsF80D0=;
-	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=P9CsmTa4C6X/28aQz9AroS61LqxupPUA+DXdbqP18AwuBNM49zyvBd0J3ChqiNX2kzho3zeE8D8WAs9U+mEbp1+MM0Vf0Ah+1iR5q8OstPxsQQCHlcXVl+aMdgwzeAZOXZ95ytSsJpkbwJWMPwohuOqXCYiHdEQL/0637OWDOkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hZ0t62ftBz4yjjP;
-	Tue, 01 Sep 2026 17:29:02 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 6819Sm7I087688;
-	Tue, 1 Sep 2026 17:28:48 +0800 (+08)
-	(envelope-from he.peilin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid31;
-	Tue, 1 Sep 2026 17:28:51 +0800 (CST)
-X-Zmail-TransId: 2af96a969ad3c03-70ef9
-X-Mailer: Zmail v1.0
-Message-ID: <20260901172851033O5o7viiEDPAm8g6Mkqe-G@zte.com.cn>
-Date: Tue, 1 Sep 2026 17:28:51 +0800 (CST)
+	s=arc-20240116; t=1788255001; c=relaxed/simple;
+	bh=RuvC0Mb1hXzGNEj1wXe9mxQRq4jRaB97EUM+Kmujsa8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i3BNM3q96zSNUNETKUGSYfcPhSWs+33RPDaK8sKqjB/hYzW/x/ND+cmNNTChSDL02SS10kRdv372o7A2Vvp7f0hYyOkNFu3zXnJmN7xmq/vFR/APgQIuCGx7rbUvr0y639ULXrCpYV5o1rBkBkW/748NNc/pUKk1Q6bS884/aKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=220.197.31.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
+Received: from [192.168.0.59] (unknown [218.94.118.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 1e8f18a64;
+	Tue, 1 Sep 2026 17:29:44 +0800 (GMT+08:00)
+Message-ID: <53e17480-31bd-4c90-aac3-6542b88ffb95@easystack.cn>
+Date: Tue, 1 Sep 2026 17:29:44 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <he.peilin@zte.com.cn>
-To: <maxime.chevallier@bootlin.com>, <andrew+netdev@lunn.ch>,
-        <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-        <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>,
-        <alexandre.torgue@foss.st.com>, <vbridgers2013@gmail.com>,
-        <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Cc: <jiang.kun2@zte.com.cn>, <xu.xin16@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIIGxpbnV4IG5leHQgdjNdIG5ldDogc3RtbWFjOiByZW1vdmUgc29mdHdhcmUgVkxBTiB0YWcgc3RyaXBwaW5n?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6819Sm7I087688
-X-TLS: YES
-X-ENVELOPE-SENDER: he.peilin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Tue, 01 Sep 2026 17:29:02 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6A969ADE.001/4hZ0t62ftBz4yjjP
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/8] mm/page_owner: Add PID/TGID/COMM and cgroup filtering
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260828031339.1270699-1-zhen.ni@easystack.cn>
+ <apEx0wT_hWs1Q5Wp@gremlin>
+ <20260828113654.d01abd8baed3f73e87506eb3@linux-foundation.org>
+ <9fce3210-3548-4df3-ae00-730b666f5d57@easystack.cn>
+ <apZ99NHTmNI_nIwz@gremlin>
+ <ff7d838c-8ea7-4a91-86bc-f6899970cdcf@easystack.cn>
+ <apaG83-HCFTuASQ_@lucifer>
+From: "zhen.ni" <zhen.ni@easystack.cn>
+In-Reply-To: <apaG83-HCFTuASQ_@lucifer>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa05c4d99040229kunm324655a22845c4
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHU9IVksZGhhPQktNGktITFYVFA
+	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVCQk
+	lOS1VKS0tVSkJLQlkG
 
-The software VLAN stripping logic in stmmac_rx_vlan() was originally
-introduced in 2014 by commit b93819854d6e ("stmmac: Add vlan rx for
-better GRO performance.") as a workaround to improve GRO performance,
-since at that time GRO could not handle frames with VLAN tags. However,
-this limitation was resolved in 2015 by commit 66e5133f19e9 ("vlan: Add
-GRO support for non hardware accelerated vlan"), which added GRO support
-for non-hardware-accelerated VLAN frames. Keeping a software fallback
-path for VLAN stripping is no longer necessary and only adds complexity.
 
-Fixes: b93819854d6e ("stmmac: Add vlan rx for better GRO performance.")
-Signed-off-by: Peilin He <he.peilin@zte.com.cn>
-Reviewed-by: xu xin <xu.xin16@zte.com.cn>
-Reviewed-by: Jiang Kun <jiang.kun2@zte.com.cn>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 28 ++-----------------
- 1 file changed, 2 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index b2b7d0242dd3..2e3b0cf10d66 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -5021,24 +5021,6 @@ static netdev_features_t stmmac_features_check(struct sk_buff *skb,
- 	return vlan_features_check(skb, features);
- }
+在 2026/9/1 16:10, Lorenzo Stoakes (ARM) 写道:
+> Again you're failing to reply to kernel email in the usual style, and it's
+> on you to figure out how to do that, not me.
+> 
+> Reply, inline, to what people have said to you.
+> 
 
--static void stmmac_rx_vlan(struct net_device *dev, struct sk_buff *skb)
--{
--	struct vlan_ethhdr *veth = skb_vlan_eth_hdr(skb);
--	__be16 vlan_proto = veth->h_vlan_proto;
--	u16 vlanid;
--
--	if ((vlan_proto == htons(ETH_P_8021Q) &&
--	     dev->features & NETIF_F_HW_VLAN_CTAG_RX) ||
--	    (vlan_proto == htons(ETH_P_8021AD) &&
--	     dev->features & NETIF_F_HW_VLAN_STAG_RX)) {
--		/* pop the vlan tag */
--		vlanid = ntohs(veth->h_vlan_TCI);
--		memmove(skb->data + VLAN_HLEN, veth, ETH_ALEN * 2);
--		skb_pull(skb, VLAN_HLEN);
--		__vlan_hwaccel_put_tag(skb, vlan_proto, vlanid);
--	}
--}
--
- /**
-  * stmmac_rx_refill - refill used skb preallocated buffers
-  * @priv: driver private structure
-@@ -5407,9 +5389,7 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
- 	if (priv->hw->hw_vlan_en)
- 		/* MAC level stripping. */
- 		stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
--	else
--		/* Driver level stripping. */
--		stmmac_rx_vlan(priv->dev, skb);
-+
- 	skb->protocol = eth_type_trans(skb, priv->dev);
+Understood - my previous mail was indeed a plan document rather than
+inline replies.
 
- 	if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb))
-@@ -5901,9 +5881,6 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 		if (priv->hw->hw_vlan_en)
- 			/* MAC level stripping. */
- 			stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
--		else
--			/* Driver level stripping. */
--			stmmac_rx_vlan(priv->dev, skb);
+Sorry for the noise.
 
- 		skb->protocol = eth_type_trans(skb, priv->dev);
+> Do NOT ask them to read through your 'plan' document and give yet more of
+> their time to compensate for you not following basic kernel procedure.
+> 
+> I have done hundreds (>1,000?) hrs of review upstream and I have only seen
+> these kinds of 'summary - plan' emails since 2026.
+> 
 
-@@ -7964,9 +7941,8 @@ static int __stmmac_dvr_probe(struct device *device,
- 	ndev->features |= ndev->hw_features | NETIF_F_HIGHDMA;
- 	ndev->watchdog_timeo = msecs_to_jiffies(watchdog);
- #ifdef STMMAC_VLAN_TAG_USED
--	/* Both mac100 and gmac support receive VLAN tag detection */
--	ndev->features |= NETIF_F_HW_VLAN_CTAG_RX | NETIF_F_HW_VLAN_STAG_RX;
- 	if (dwmac_is_xmac(priv->plat->core_type)) {
-+		ndev->features |= NETIF_F_HW_VLAN_CTAG_RX;
- 		ndev->hw_features |= NETIF_F_HW_VLAN_CTAG_RX;
- 		priv->hw->hw_vlan_en = true;
- 	}
--- 
-2.27.0
+The timing has a simpler cause: Sashiko itself only started reviewing
+patches in 2026.
+
+I would normally prefer inline replies to review, but Sashiko did not
+send any mail into this thread, so there is nothing to reply to
+directly. Its findings are also heavily duplicated across patches, so
+a grouped summary is the more appropriate form here.
+
+> I am only asking you to engage upstream as everybody else does.
+> 
+> Since you ignored it, I ask you again - have you used an LLM here? If so
+> follow kernel procedure as per the documentation I linked.
+
+No. Every patch hunk and every fix/no-fix decision is my own.
+
+> --
+> Cheers, Lorenzo
+
+Thanks,
+Zhen
