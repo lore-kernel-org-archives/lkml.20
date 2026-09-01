@@ -1,87 +1,67 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A57742C4F0
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:23:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7813AD538
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:23:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247427; cv=none; b=ZBk6fQBeDUAG2LVcEKPRxkWVEo0NhDTBkps68L/ZQX3C3iwMaVIRoc/Q0TaNVe54vZMkMogE45TnH3+VrbsEKbAL6Tyi+4fXoJsaXDj6PTlWssL9IZWNNyIkbwVckUfQkSMp4Oi+1Jm2B/ZtTCy0RIbelxqLK/Srfr/w9xY8XnI=
+	t=1788247437; cv=none; b=GSkIkrl8crW3J3NRrobplc06iqSsOq7Xrid3M7zBLyYFVG07IRMMEeZKCFeK0cHtcul/cVwwdAFJI3KQnvIKp6xjbr74B765+tAVbLw0k4trY3DntnkCbcujWD7aL4q53FYU3sRMdqQw+3LPKy4bKY4bNNwTTxm2Io7h9vPqwxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247427; c=relaxed/simple;
-	bh=mp7eLHaZfmsO81+U9L/zIi9lOQ3CvFosn62SO4Eqx6I=;
+	s=arc-20240116; t=1788247437; c=relaxed/simple;
+	bh=Y5Ex12WIV9wQdBaA9857SL1DSzmnTAW0iQ+jfJYGOGY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TFNrHURabP9IdEkAGC7uOYEGzBVhvt5up5G16T6067BmxSiYhsePr7q2651Ki6XOfFWZlfvxmY1LenIccv447eXHhVQs5V9UxB8SlMh2RkX4iKfxmEnNZeSoSNzokdVSu2uZAQ3ykEUP0MjrRq28hYbc6AzLle5PO72JLcTiHJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=BV0YDgs7; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Arj8kqypb+lEEjuyVWBS2pt+SNauBG+sv664DA5D1oO+oeDw0jlk3uG3aAksEZUxs6vud8ZfMtOd5ArM6/0u5TvvJqQoWapzIEIUR8DM3tPOCo0xNqc/n69wPjVwMG9WaLpM6AswYbO6tp9pz4Dw4x4vGTFHJdGccSQjbENkz4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=U0fkqFji; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="BV0YDgs7"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so44049055e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:23:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788247424; x=1788852224; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0niSXQECJMFZw0+rxqv4zMkA2WGEXmXqxfDeDBlDBZ4=;
-        b=BV0YDgs7HFXKsJNwwfMWLV0KQDEQ+fQz8xt9/chXybd87/a9nclqSH1Rb7yhF6tKYu
-         +QVuU/UzTo1UzvNXYkvtzUgkMelOnCa3NXBNR43UhgiLdBHW+rrbqp+RnsoSq1/2E+mi
-         0pLhwhm64rmHFvR+zyZFflrEjqm/uSWeDF2rwPptj53rJFbDLXRsXWfY8YrAGDnvH/dI
-         1cdSHoxMmupaz8I9Pd/RzxF3b2vXmu89XY4NYDD63PQHQnu7i3rH6U6a+0gue5/bCyj3
-         0ow4YUvyri+4k1w4JXBzpPJxF64xhN6pxuQ/EvuGhqUXzDLHeCsf5L0RkfFYDw+OKwxr
-         xdZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788247424; x=1788852224;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0niSXQECJMFZw0+rxqv4zMkA2WGEXmXqxfDeDBlDBZ4=;
-        b=LOgrSBotP8kCIm3+LkiAP7p2MnjbV/KYWz0HA5htle8AvAkL4pllRqJXGvfArCUDzr
-         rhWFeOKX7TAqMwbqkU2l5BMoOuchU10+IGmDXomnHRlzQedHLkKl+MTcKCYLkoBYiXwH
-         WrbE70jvNMMr9u+o4fPAjn//yz/lFbh8bUEQlSAhx7YIA2dyY4VqNUFIvWaL4n1H3740
-         Qjm1loe3A8le5GU+yOogFi44MhcZ+QG7a/U7Wnw+RMZvm58dsvwgRuaWhmhcnrzal1GF
-         T3JlEl00rTHUYeg6EOcmFp627jTdM0NQPKCq3e5FKsqT4ikv+0gFZyrABG2byTM5PDGO
-         JE5Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rrbr7OMSVY6kxhwhTRAvRBM0SeNcTPLAOcSj5XKv8cxQ7MMg5OPAuhlOvu1E9VnQJfsZwVLHJgbBsu2BOs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmzOFXp3zElAjQnlHTPnXpTzBcLEXVv67k3G6DDi9ItV8WR004
-	BGBIA6PoH1YXBjQqwU9OfXBrzXNMu/NmxLPPa0TsFy55epYL1d7vpJpXxLdCIHTzc9w=
-X-Gm-Gg: AR+sD12fxHJZ2I6Q/vDP2/2I4/kA7a34mOaGh4uN3dj4T46plH637+YvHt1ZiAYPH0i
-	UZk0X/e5kh5h+hg39HubDdYolF+zVdxMfWecO0RWY05xR/zvrr2XIGUW98BB6ns+wRJwT99uPuM
-	NM2bcriyWnAr9G4tgY34lx1fy9qGHFuy7GoQIXKVwLbpTjobLjm3hkbbSzwwHzAWHTb5Y8SAlDR
-	/n1w7qlCxkWWFRj2VGfVNvQbYl15evaANjJ6sX8LnJ8qiXfJWgMDZVTFfbxtL0DYUCg/IL/QodC
-	Kn5TeZfYE7AUXxwZ22uhPeuxSPPiGnyYVKkRgYsom6LAZjfpsXysIMJkblpfPvQOVsviI3NQ8kt
-	7q9es82uGT0Or3HXgv49FhgJYC+HacGNfpiGmWS/gm1YdUmUA+XMAvrlY+uMbTObVh6J7fq1ZJH
-	c/YnDPvT03ezfGo+ZVk0ug961yRnitzP9mk4DeCzWvfxf9jTB4e0gE5vVkhEypUw==
-X-Received: by 2002:a05:600c:45d4:b0:499:7219:122f with SMTP id 5b1f17b1804b1-49b91c1ebd7mr438451325e9.4.1788247423615;
-        Tue, 01 Sep 2026 00:23:43 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c52fdbsm254947765e9.0.2026.09.01.00.23.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:23:41 -0700 (PDT)
-Date: Tue, 1 Sep 2026 09:23:37 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="U0fkqFji"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=iWhfzyQgaYUJtonCqs7Hc3xCwG5I/OFdVxQZLlY0m4E=; b=U0fkqFjibEL2Au50BwXhiEMpAJ
+	FHdHxlsHRfE9ddPoa8rf7lCgMRKv8R0QHofEwjFYQmJBCmC+Tolg8GG1fPwUsxRuvRa+YJ74Ppfo6
+	QcV27MIXjoNFh35D0OeU3+S4DrKRdwj2JfZRsncSeUjbFH1zsZyH3a50+FYXplGfj/KaPDwlmz7ke
+	7heeXq4AYy4kz0AegnczpiqBVkKaneioL+asAzJKQQlIcOlgvmcsrbnaMS6b4wL68taHvyHYZgElp
+	ye/iitKbCj9JSY5/4mMsC/2tH32SNuwcadBDQEO/hQiKw363WcDtQyH/9kDltW3nWQo+QPXyFxTgo
+	uqa2PJKA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x1IgP-0000000AgGO-1l2R;
+	Tue, 01 Sep 2026 07:13:25 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id E32853002ED; Tue, 01 Sep 2026 09:13:22 +0200 (CEST)
+Date: Tue, 1 Sep 2026 09:13:22 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Jianyong Wu <wujianyong@hygon.cn>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Phil Auld <pauld@redhat.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Kees Cook <kees@kernel.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tycho Andersen <tycho@tycho.pizza>,
-	Linus Torvalds <torvalds@linuxfoundation.org>
-Subject: Re: [PATCH v2 2/2] kallsyms: Document why unresolved symbols are
- revealed
-Message-ID: <apZ9ea1on8A7o6kk@pathway.suse.cz>
-References: <20260821152614.2202196-1-bigeasy@linutronix.de>
- <20260821152614.2202196-3-bigeasy@linutronix.de>
- <ao8SeCCG65uwH-Tk@pathway.suse.cz>
- <20260827102411.NsziRXyJ@linutronix.de>
- <20260831133729.p5ylO7O6@linutronix.de>
- <20260831124928.22e163ab@gandalf.local.home>
+	David Hildenbrand <david@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"jianyong.wu@outlook.com" <jianyong.wu@outlook.com>,
+	Yuan Zhong <zhongyuan@hygon.cn>, Huangsj <huangsj@hygon.cn>,
+	Fengyu Wang <wangfengyu@hygon.cn>,
+	Zhiwei Ying <yingzhiwei@hygon.cn>,
+	"justin.he@arm.com" <justin.he@arm.com>
+Subject: Re: [RFC PATCH v2 02/23] sched/topology: Introduce a NUMA distance
+ matrix with unique distance values
+Message-ID: <20260901071322.GX687043@noisy.programming.kicks-ass.net>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
+ <20260827122816.756234-3-wujianyong@hygon.cn>
+ <20260831115004.GF776954@noisy.programming.kicks-ass.net>
+ <ee97dce1db374f50b8e87e51ad133d96@hygon.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,55 +70,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831124928.22e163ab@gandalf.local.home>
+In-Reply-To: <ee97dce1db374f50b8e87e51ad133d96@hygon.cn>
 
-On Mon 2026-08-31 12:49:28, Steven Rostedt wrote:
-> On Mon, 31 Aug 2026 15:37:29 +0200
-> Sebastian Andrzej Siewior <bigeasy@linutronix.de> wrote:
-> 
-> > Could someone yell here, please? I convinced myself that hiding
-> > unresolved pointers is the good thing to do here since a "wrong" pointer
-> > would be seen in backtrace anyway.
+On Tue, Sep 01, 2026 at 06:57:43AM +0000, Jianyong Wu wrote:
+
+> > This example uses Node only, but the code in question is specifically
+> > aimed at Cache granularity; might it be better to use a cache example?
 > > 
-> > Thread starts at
-> > 	https://lore.kernel.org/all/20260821152614.2202196-1-bigeasy@linutronix.de/
+> > A little something like so (I got tired of prompting Gemini to generate
+> > more complicates / less broken examples)...
+
+> Originally I tried to use a single big LLC distance matrix. But once I
+> realized how much memory and computation time it would cost, e.g. when
+> calculating affinity scores in later patches. I dropped it in favor of
+> a two-level scheme: the first is a NUMA node distance matrix, and the
+> second is an intra-node LLC matrix that only encodes the LLC distances
+> inside a single node, so it is very small. This way, both memory and
+> time are greatly reduced.
+
+See, that would've made good Changelog material :-) But yeah, fair
+enough, the matrix will get rather big I suppose. And going to
+triangular matrix storage will only save half, while you still scale by
+n^2, so that's not going to help.
+
+> > > Each row of this refined NUMA distance matrix is sorted in ascending
+> > order to
+> > > generate a unique per-node affinity sequence. This sequence will guide
+> > > thread migration logic introduced in subsequent patches.
+> > 
+> > IIRC greedy has significant worse bounds than many other schemes. This
+> > would result in more unique distances than strictly needed here, right?
+> > 
+> Yes, Greedy edge-coloring is simple but can't guarantee to get the
+> optimal result in theory.
+
+Right, so the theoretical count is :delta: or :delta:+1, but the greedy
+bound is 2:delta:+1. But IIRC (and I really am not well versed in this
+particular area) there are algorithms that are still relatively easy to
+implement and get better bounds.
+
+I just asked Gemini (so take with a big pinch of salt and consult your
+algorithm book) there are simple algorithms such as Eulerian paths, that
+exploit topological constraints, such as hypercubes or 2d meshes, to
+still reach :delta:.
+
+> > Since this is all on slow paths anyway, does it make sense to pick a
+> > slightly better algorithm in order to reduce this bound and get better
+> > results?
+> > 
+> This matrix currently has two consumers:
+> 1. it is sorted to build a unique per-node affinity sequence;
+> 2. its values are used to calculate the affinity gain in patch 12.
 > 
-> I wonder if we should just tagged hash values as such:
+> Therefore, when changing the de-duplication algorithm, I need to
+> consider the requirements of both Consumers, For the first use, any
+> symmetric matrix with no duplicate entries in a row is sufficient. For
+> the second use, however, the actual values and their differences may
+> affect the affinity score.
 > 
-> | [    1.498171]  <TASK>
-> | [    1.498172]  00000000cb9bc262 [hash]
-> | [    1.498174]  ? 00000000eb5021dd [hash]
-> | [    1.498176]  00000000ed1a9938 [hash]
-> | [    1.498178]  </TASK>
-> 
-> So that people will know that the value is just some random hash value and
-> not a real address.
-> 
-> Although rather useless in call stacks, I like hash values because the same
-> address will show up the same.
-> 
-> Having '[unknown]' may also be confusing because it doesn't really say
-> "why" it was unknown. But having a number goes back to what it always did.
-> Hashing it with a "[hash]" marker will also let people know the value was
-> hashed.
+> It is not yet clear whether using a more optimal algorithm would
+> provide any real benefit for these consumers. I will investigate
+> whether a tighter matrix can be generated without introducing too much
+> complexity, and then decide which algorithm is more appropriate.
 
-I like this idea. I just wonder whether it might confuse some parsers
-who expect that symbol name is one string. %ps, %pS, %pB are used
-in various context.
-
-I think about adding the hint into the hashed value, e.g. by using
-'h' instead of the highest number, something like:
-
- [    1.498171]  <TASK>
- [    1.498172]  h0000000cb9bc262
- [    1.498174]  ? h0000000eb5021dd
- [    1.498176]  h0000000ed1a9938
- [    1.498178]  </TASK>
-
-But 'h' is not a valid number number so it might confuse parsers as
-well. And it is not that user friedly either.
-
-So, I still like more Steven's variant with [hash].
-
-Best Regards,
-Petr
+Right, fair enough. I'll continue trying to digest the series.
