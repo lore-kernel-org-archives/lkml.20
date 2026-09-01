@@ -1,43 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D876547DFA0;
-	Tue,  1 Sep 2026 13:25:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4645B31C567;
+	Tue,  1 Sep 2026 13:25:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788269118; cv=none; b=LttJXFCEnff3NdrUBOBOJIAW2HtgNgybr5W8dkM/ltwWa9S7/t9AGqJSlA+35vrXMcbIl7P6h1h5gHIOGFvrHwPEiqVeuIl0dKb/AfdTNFyviWTbaGGbmtUbIceDm2QPjdfBNn9SyrmHbsQyspt9eaNOY47lJkZDC3fHnHxEpro=
+	t=1788269116; cv=none; b=s+ETYHKBe+yll+0b5/Klu3Z42XXee7PI5kNI9up/3GVrqbjSbw4pl0TzZemW9ap2AsQ+KOpvRh8EVwIM4jxMLXjvcVMY8p9ycKZDN0uZ4Bg7WYeHGOxq2VqqUfK4Wwv3QoeI2QaqM8vZEDsi/nnQQMltkuK6ogUYpUbzVJt2RtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788269118; c=relaxed/simple;
-	bh=//uK5VLSyeG2PpmSTHj372R5hdfNw2eAp/n+fs5INA0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eIfaqnrMF8p2TML6ItenxkzMbqmnEZyBzi4/wPH9Psxtq44wR0CWALJE32DnBtujtYchItNHP0D19E55ajhx86YnOuRiFxZj7MSNTHdC94eVlev5/YNzX5lYkPO1mnUjiCkZQO8hi+VU1F7BJ8bnTBF1tIBM3aQPOiTInFMDJGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iwbcseoD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788269116; c=relaxed/simple;
+	bh=/nvOk/OOVwDs1lC7AigaYY+YmZG1/pUFHVoMGcN1GGI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y2WoLGE3oNAmB9YPdCBxqLiC442KK4MsBH9FnAlP5urS07GHAphn5LsI2gReH1bqlx56nBHblun3CPP5fFpQVABVnVfigeVGiet/Kd4ikkZbupFPtGMVjXYfv2KFWguDYx3Xy88KErQ3zG+t/GJAj4/lr3XEi7xzFuX4xBgwoj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y259m33w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iwbcseoD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9778E1F00A3D;
-	Tue,  1 Sep 2026 13:25:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y259m33w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 356391F00ACF;
+	Tue,  1 Sep 2026 13:25:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788269116;
-	bh=xDsh4DffQRbrA3+l3qVbLOikgSrH6WeYk4b6TXVz7Rk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iwbcseoDJE9H3uSY+YRyMW7BS4wilTfsicxoDqMtvzgbNs1WrnDjPeb/uNQ9QIAbI
-	 rBVT/tHBYRJsbW9ZaoKO7sq9pZ+mr6w/iVc0iKd/XzqUPvB8L+EcYNFb2N4Ajt7QdA
-	 bWxqXngUIahnfDqddNcsiExDU3ovU1FXhiBKKHL/8gIpCsgri3NMdTjd7aJDy79fzQ
-	 +NhX3fC6BcqePDgv10CXiTIz+sZxywXoQk79xhQpDRPoGGw/tX2kWhbWLcfTonCL7+
-	 OX4K3Y3oj2u3DJWzbCki7n3s9CpcWc0OwNK7AVod54fzWLI2ZgA9w0il1fxbC4GYbw
-	 vkFxHdU4y8vTQ==
+	s=k20260515; t=1788269114;
+	bh=iKaykvSVFIelvzxrD/j+8wQNprXmphpbUgzmXQCwYfg=;
+	h=From:To:Cc:Subject:Date;
+	b=Y259m33wZ0SkNhjJHqIdHrS3Nqg0mb23/qke/Cba9sSb+hfSzNVKR2g4FF0bJc5s1
+	 LHrkeYApIvmhxmymyVYAmnTGsttd6xfgZTlpU/2zvB7oNgz3+stfd04PDhFYai84S0
+	 fXFdfyMGQeLMQhukodYaEVn7BPz45bvzLt3F7Z90Q+kUzq7p5i0OTHf5CsJR+81yh4
+	 hnLbE3g3F4kLxcOr+E85BOIshEw/0Qzt+OnHLOCXry+ERY4GsO6c9eAmRz6J727+/W
+	 Lb2Qgcf+LMVFaVbjMTm5VSB8PgbwMWvKRHiVhGO8mReL2OjWtQbpO+NckOtaYFLOtm
+	 xks0qJNQeu+OA==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
 	damon@lists.linux.dev,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH v1.1 05/17] mm/damon/core: introduce damon_prep struct
-Date: Tue,  1 Sep 2026 06:24:52 -0700
-Message-ID: <20260901132506.99243-6-sj@kernel.org>
+Subject: [PATCH v1.1 00/17] mm/damon: introduce data access-as-a-data attribute
+Date: Tue,  1 Sep 2026 06:24:47 -0700
+Message-ID: <20260901132506.99243-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260901132506.99243-1-sj@kernel.org>
-References: <20260901132506.99243-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,141 +56,235 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some DAMON probe filter types require preparatory actions.  For example,
-pgilde_unset probe filter can say if the page was accessed but when.  To
-answer the second question, the PG_Idle flag should be set at a specific
-time.  It can make life much easier if DAMON can do such preparatory
-actions.  Introduce a new data type called damon_prep.  It specifies
-each of the preparation actions for each probe.  DAMON will execute the
-action for each region per sampling interval, like it clears page table
-accessed bits and unsets PG_Idle flag for access monitoring.
+TL;DR: extend DAMON's data attributes monitoring system to support page
+table accessed bit and PG_idle based access monitoring.
 
-Also introduce DAMON_PREP_SET_PGIDLE as the initial prep action.  As the
-name says, it will do exactly what DAMON was doing as the preparation
-action for the access monitoring.
+DAMON was initially introduced as a data access monitor.  Users found
+data access pattern becomes more useful when it is combined with other
+data attributes such as belonging cgroups and backing page types.  For
+such cases, DAMON has extended to support such data attributes
+monitoring in addition to the original data access monitoring.  The
+DAMON probes system was introduced for this purpose.  Users set probes
+for filtering data attributes of their interest.  For use cases where
+the primary interests are the attributes but the access pattern, probe
+weights system has been introduced.  When it is used, DAMON applies its
+adaptive regions adjustment based on the monitored data attributes.
 
-Signed-off-by: SJ Park <sj@kernel.org>
----
- include/linux/damon.h | 32 ++++++++++++++++++++++++++++++++
- mm/damon/core.c       | 26 ++++++++++++++++++++++++++
- 2 files changed, 58 insertions(+)
+However, DAMON stops access monitoring when the probe weights are used.
+DAMON cannot optimally help users who have interests in both data
+attributes and access patterns.  Data access can also be thought of as
+another data attribute, though.  Extend the probe system to support data
+access as a data attribute.
 
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 7a42cbe791845..1780c14942e63 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -742,6 +742,27 @@ struct damon_intervals_goal {
- 	unsigned long max_sample_us;
- };
- 
-+/**
-+ * enum damon_prep_action - DAMON probing preparation action.
-+ *
-+ * @DAMON_PREP_SET_PGIDLE:	Set the probing memory as idle page.
-+ */
-+enum damon_prep_action {
-+	DAMON_PREP_SET_PGIDLE,
-+};
-+
-+/**
-+ * struct damon_prep - DAMON probing preparation request.
-+ *
-+ * @action:	Action to do to the probing memory for the preparation.
-+ */
-+struct damon_prep {
-+	enum damon_prep_action action;
-+/* private: */
-+	/* siblings list. */
-+	struct list_head list;
-+};
-+
- /**
-  * enum damon_filter_type - Type of &struct damon_filter
-  *
-@@ -783,6 +804,8 @@ struct damon_filter {
- struct damon_probe {
- 	unsigned int weight;
- /* private: */
-+	/* Preparation actions to apply to each probing memory. */
-+	struct list_head preps;
- 	/* Filters for assessing if a given region is for this probe. */
- 	struct list_head filters;
- 	/* Siblings list. */
-@@ -962,6 +985,12 @@ static inline unsigned long damon_sz_region(struct damon_region *r)
- 	return r->ar.end - r->ar.start;
- }
- 
-+#define damon_for_each_prep(p, probe) \
-+	list_for_each_entry(p, &(probe)->preps, list)
-+
-+#define damon_for_each_prep_safe(p, next, probe) \
-+	list_for_each_entry_safe(p, next, &(probe)->preps, list)
-+
- #define damon_for_each_filter(f, p) \
- 	list_for_each_entry(f, &(p)->filters, list)
- 
-@@ -1015,6 +1044,9 @@ static inline unsigned long damon_sz_region(struct damon_region *r)
- 
- #ifdef CONFIG_DAMON
- 
-+struct damon_prep *damon_new_prep(enum damon_prep_action action);
-+void damon_add_prep(struct damon_probe *p, struct damon_prep *prep);
-+
- struct damon_filter *damon_new_filter(enum damon_filter_type type,
- 		bool matching, bool allow);
- void damon_add_filter(struct damon_probe *probe, struct damon_filter *f);
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 53c3f97e3f126..85774dbca64b8 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -112,6 +112,28 @@ int damon_select_ops(struct damon_ctx *ctx, enum damon_ops_id id)
- 	return err;
- }
- 
-+struct damon_prep *damon_new_prep(enum damon_prep_action action)
-+{
-+	struct damon_prep *prep;
-+
-+	prep = kmalloc_obj(*prep);
-+	if (!prep)
-+		return NULL;
-+	prep->action = action;
-+	INIT_LIST_HEAD(&prep->list);
-+	return prep;
-+}
-+
-+void damon_add_prep(struct damon_probe *p, struct damon_prep *prep)
-+{
-+	list_add_tail(&prep->list, &p->preps);
-+}
-+
-+static void damon_free_prep(struct damon_prep *p)
-+{
-+	kfree(p);
-+}
-+
- struct damon_filter *damon_new_filter(enum damon_filter_type type,
- 		bool matching, bool allow)
- {
-@@ -168,6 +190,7 @@ struct damon_probe *damon_new_probe(void)
- 	if (!p)
- 		return NULL;
- 	p->weight = 0;
-+	INIT_LIST_HEAD(&p->preps);
- 	INIT_LIST_HEAD(&p->filters);
- 	INIT_LIST_HEAD(&p->list);
- 	return p;
-@@ -185,8 +208,11 @@ static void damon_del_probe(struct damon_probe *p)
- 
- static void damon_free_probe(struct damon_probe *p)
- {
-+	struct damon_prep *prep, *prep_next;
- 	struct damon_filter *f, *next;
- 
-+	damon_for_each_prep_safe(prep, prep_next, p)
-+		damon_free_prep(prep);
- 	damon_for_each_filter_safe(f, next, p)
- 		damon_free_filter(f);
- 	kfree(p);
+Introduce a new probe filter type, pgidle_unset.  It shows if the page
+is not set as idle.  Specifically, it shows the page table accessed bit
+and the PG_idle flag.  It can inform if the region is ever accessed. But
+it cannot say when it is accessed.  To answer the second question,
+introduce a new probe feature, prep actions.  Using the features, Users
+can specify what preparation actions should be made to each region for
+each probe.  DAMON executes the preparation actions for each sampling
+interval, like it is doing the preparation for access check in the
+access monitoring mode.  To help 'pgidle_unset' probe action use case,
+'set_pgidle' preparation action is introduced together.  The action does
+exactly what the access monitoring was doing: clearing the page table
+accessed bits and setting the PG_idle flags.
+
+Tests
+=====
+
+I compared the access pattern monitoring results from the classic way
+and the probe based way.  As expected, the probe based way shows the
+results similar to that of the classic way.  More detailed test methods
+and results are below.
+
+First, do the access monitoring using the DAMON user-space tool [1] in
+the classic way.  The system is idle.  It shows no access as expected.
+
+    $ sudo ./damo/damo start
+    $ sudo ./damo/damo report access
+    heatmap:
+    00000000000000000000000000000000000000008999999811111110000000000000000000000000
+    # min/max temperatures: -640,000,000, -100,000,000, column size: 99.800
+    MiB
+    intervals: sample 5 ms aggr 100 ms (max access hz 200)
+    0   addr 4.000 KiB    size 3.898 GiB   access 0 hz   age 6.400 s
+    1   addr 3.898 GiB    size 787.301 MiB access 0 hz   age 1 s
+    2   addr 4.667 GiB    size 773.457 MiB access 0 hz   age 5.800 s
+    3   addr 5.423 GiB    size 2.374 GiB   access 0 hz   age 6.400 s
+    memory bw estimate: 0 B per second
+    total size: 7.797 GiB
+    record DAMON intervals: sample 5 ms, aggr 100 ms
+
+Start an artificial memory access generator (masim) [2] in another window.
+
+    $ ./masim/masim.py run --config_file ./masim/configs/zigzag.cfg
+
+Show the monitoring results.  As expected, it captures accesses.
+
+    $ sudo ./damo/damo report access
+    heatmap:
+    00000000000000000000000000000000000000011111111111111118888888833378988888888888
+    # min/max temperatures: -1,470,000,000, -12,482,536, column size: 99.800
+    MiB
+    intervals: sample 5 ms aggr 100 ms (max access hz 200)
+    0   addr 4.000 KiB    size 1.542 GiB   access 0 hz   age 14.700 s
+    1   addr 1.542 GiB    size 788.324 MiB access 0 hz   age 14.600 s
+    2   addr 2.311 GiB    size 772.844 MiB access 0 hz   age 14.200 s
+    [...]
+    50  addr 6.839 GiB    size 1.742 MiB   access 0 hz   age 1.300 s
+    51  addr 6.840 GiB    size 8.000 KiB   access 100 hz age 0 ns
+    52  addr 6.840 GiB    size 1.496 MiB   access 160 hz age 0 ns
+    [...]
+    97  addr 7.162 GiB    size 1.199 MiB   access 40 hz  age 400 ms
+    98  addr 7.163 GiB    size 1.199 MiB   access 20 hz  age 400 ms
+    99  addr 7.164 GiB    size 2.004 MiB   access 160 hz age 0 ns
+    100 addr 7.166 GiB    size 646.004 MiB access 0 hz   age 400 ms
+    memory bw estimate: 26.148 GiB per second
+    total size: 7.797 GiB
+    record DAMON intervals: sample 5 ms, aggr 100 ms
+
+After the artificial memory access generator (masim) is terminated,
+restart DAMON with the probe-based access monitoring.  As expected, it
+shows no access since the system is idle again.
+
+    $ sudo ./damo/damo stop
+    $ sudo ./damo/damo start --probe_prep set_pgidle \
+            --probe_filter allow pgidle_unset --probe_weight 1
+    $ sudo ./damo/damo report attrs
+    heatmap:
+    00000000000000000000000000000000000000008999999711111100000000000000000000000000
+    # min/max temperatures: -600,000,000, -430,000,000, column size: 99.800
+    MiB
+    probe prep: set_pgidle, filter: allow pgidle_unset (weight: 1)
+    intervals: sample 5 ms aggr 100 ms (max probe hits 20)
+    #   addr         size         age           probe_hits
+    0   4.000 KiB    3.898 GiB    6 s           0
+    1   5.285 GiB    2.512 GiB    6 s           0
+    2   4.659 GiB    641.816 MiB  5.700 s       0
+    3   3.898 GiB    778.375 MiB  4.300 s       0
+    memory bw estimate: 0 B per second
+    total size: 7.797 GiB
+    record DAMON intervals: sample 5 ms, aggr 100 ms
+
+Start the artificial memory access generator [2] again.
+
+    $ ./masim/masim.py run --config_file ./masim/configs/zigzag.cfg
+
+Show the monitoring results.  As expected, it captures accesses similar
+to the classic monitoring mode.
+
+    $ sudo ./damo/damo report attrs
+    heatmap:
+    00000000000000000000000000000000000000011111110000000177777777777777878798887777
+    # min/max temperatures: -1,330,000,000, 84,847,514, column size: 99.800
+    MiB
+    probe prep: set_pgidle, filter: allow pgidle_unset (weight: 1)
+    intervals: sample 5 ms aggr 100 ms (max probe hits 20)
+    #   addr         size         age           probe_hits
+    0   4.000 KiB    1.508 GiB    13.300 s      0
+    1   1.508 GiB    794.684 MiB  13.200 s      0
+    2   2.284 GiB    764.555 MiB  13 s          0
+    [...]
+    50  6.711 GiB    4.625 MiB    0 ns          17
+    51  6.716 GiB    2.504 MiB    0 ns          17
+    52  6.732 GiB    796.000 KiB  0 ns          17
+    [...]
+    90  7.162 GiB    512.000 KiB  2.200 s       2
+    91  7.061 GiB    700.000 KiB  2.300 s       1
+    92  6.935 GiB    316.000 KiB  2.300 s       4
+    memory bw estimate: 0 B per second
+    total size: 7.797 GiB
+    record DAMON intervals: sample 5 ms, aggr 100 ms
+
+Patches Sequence
+================
+
+First four patches (patches 1-4) introduce the new probe filter type for
+knowing if a region is accessed.  Patch 1 defines the new type in the
+core.  Patch 2 implements the execution of the new filter in the
+physical address space DAMON operation set.  Patch 3 implements a user
+interface on DAMON sysfs interface.  Patch 4 updates the documentation
+for the new filter type.
+
+Following 13 patches (patches 5-17) introduce the probe preparation
+actions feature.  Patch 5 defines the data structure for specifying the
+preparation actions.  Patch 6 completes setup of the API parameter for
+the prep.  Patch 7 extends the DAMON operation set callback list to
+connect the parameter with the underlying operation set.  Patch 8
+implements the execution of the prep in the physical address space DAMON
+operation set.
+
+Following five patches (patches 9-13) extends DAMON sysfs interface for
+the new prep feature.  Patch 14 adds simple selftest for basic file
+operations of the new sysfs files.  Final three patches (patches 15-17)
+respectively update design, usage and ABI documents for the new feature
+and its interface.
+
+[1] https://github.com/damonitor/damo
+[2] https://github.com/sjp38/masim
+
+Changelog
+=========
+
+Changes from v1
+- v1: https://lore.kernel.org/20260901043417.2165-1-sj@kernel.org
+- Fix the race between the prep action sysfs write and the context build.
+Changes from RFC v2.2
+- RFC v2.2: https://lore.kernel.org/20260728041242.187380-1-sj@kernel.org
+- Update test results with latest version of damo and masim.
+- Drop RFC tag.
+- Rebase to latest mm-new.
+Changes from RFC v2.1
+- RFC v2.1: https://lore.kernel.org/20260727143829.86236-1-sj@kernel.org
+- Evaluate ops.prep_probes first for do_prep.
+- Rebase to the latest mm-new.
+Changes from RFC v2
+- RFC v2: https://lore.kernel.org/20260726173935.94046-1-sj@kernel.org
+- Rename prep iterator macro param names to make more sense.
+- Document set_samples param of prep_probes().
+- Set do_prep after kdamond_wait_activation().
+- Use const keyword for sysfs prep action-name structure fields.
+- Fix typos in documents.
+- Restructure sysfs interface patches for no build warning.
+- Rebase to the latest mm-new.
+Changes from RFC v1
+- RFC v1: https://lore.kernel.org/20260725210225.129944-1-sj@kernel.org
+- Fix wrong sample_addr setup condition.
+- Fix build warnings from sysfs part.
+- Fix typos.
+- Rebase to latest mm-new.
+- Add the tests section to the cover letter.
+
+SJ Park (17):
+  mm/damon/core: introduce DAMON_FILTER_TYPE_PGIDLE_UNSET
+  mm/damon/paddr: support PGIDLE_UNSET probe filter type
+  mm/damon/sysfs: support pgidle_unset probe filter type
+  Docs/mm/damon/design: document pgidle_unset probe filter type
+  mm/damon/core: introduce damon_prep struct
+  mm/damon/core: commit preps
+  mm/damon/core: introduce damon_operations->prep_probes()
+  mm/damon/paddr: support damon_prep
+  mm/damon/sysfs: implement preps directory
+  mm/damon/sysfs: implement preps/nr_preps file
+  mm/damon/sysfs: create directories for nr_preps writes
+  mm/damon/sysfs: implement prep_action file
+  mm/damon/sysfs: pass preps to DAMON core
+  selftests/damon/sysfs.sh: test probe prep sysfs files
+  Docs/mm/damon/design: document probe preps
+  Docs/admin-guide/mm/damon/usage: document probe preps sysfs files
+  Docs/ABI/damon: document probe prep sysfs files
+
+ .../ABI/testing/sysfs-kernel-mm-damon         |  13 +
+ Documentation/admin-guide/mm/damon/usage.rst  |  18 +-
+ Documentation/mm/damon/design.rst             |  15 +-
+ include/linux/damon.h                         |  43 ++-
+ mm/damon/core.c                               | 105 ++++++-
+ mm/damon/paddr.c                              |  41 +++
+ mm/damon/sysfs.c                              | 283 +++++++++++++++++-
+ tools/testing/selftests/damon/sysfs.sh        |  27 ++
+ 8 files changed, 531 insertions(+), 14 deletions(-)
+
+
+base-commit: d153c4c92de32f97b155e3b6418c29094f81b99f
 -- 
 2.47.3
