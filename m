@@ -1,63 +1,64 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050A74483A4
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F88448BA8
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:51:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292281; cv=none; b=XA3kYPsycbV4Y+CHxpHgbFWwP9UnPTm81yX51hWuf9YayIbygU9NbSFOwW3cWpvnsRD4466a4eLq0lLqspl6Lnffrs3rcfcJFfzrPwVscY1pFyr6wMeYXjdiU0n6dipZEc0DYLZUVM7IKX3fH10QcekEfe2oy8WhP/x7LnS2z8k=
+	t=1788292283; cv=none; b=n2fQ7PZ1BGGDKjqgXkYi3aj7SbXm1a+uzGpMA657AgRTMuUR1Jm3IkcHZcYEE+4Nq8+yN9xWLX+N7gAdrCcbt0HxP8gXUe/BWZK5EaPD9ZwrA20skvVKXnhztzNKzbKbQhZaAk1W0at8h3+ok2lyAPkPqFJpbCyBjXskQxz2pOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292281; c=relaxed/simple;
-	bh=BwLey5dTW4uM292A2Vd7bSxkboLRHGDZjGIzXx+42J8=;
+	s=arc-20240116; t=1788292283; c=relaxed/simple;
+	bh=Xrxj50UPOiAaVvLDQBKaDhxwCp4EpiwnDcNCbB25YKw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OeyTndH4AxOVvSCtK+fpUD9/KWxUytaq7qd8ILe9V1fO07BmrVpNgfvL81Sjjuoix3vo366m0Jdqbk+M7D6nmShFvENcIUCMh6X2dxHcvOlFkovCQsdeAeucbXElNBRTvy90EpKFxpojSCG6O8BKilAJiKVG7D/kXI64h5UTEik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=ITG5IN46; arc=none smtp.client-ip=209.85.221.51
+	 MIME-Version; b=u2A1+4j+DRLhk0dIFUQ1gIiUtmqaUqGkBPQjfggtJJY9WJA2YX4etUhPn6718rOjYeGiqgJ4/jgDmTEM0s2XpALdgMehcSBzPZVYnsaecChRLULvyV79Ps/iNCfDqhSZOol1rdpmQt7o/LiNs41ilARwemhquLsMaKT8QHYAoW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=TlFPzJPP; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="ITG5IN46"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47de0093c42so326089f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:51:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="TlFPzJPP"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49b0dd3c9a0so1208095e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:51:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1788292278; x=1788897078; darn=vger.kernel.org;
+        d=lex.la; s=google; t=1788292280; x=1788897080; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BwLey5dTW4uM292A2Vd7bSxkboLRHGDZjGIzXx+42J8=;
-        b=ITG5IN46vGcwvMKwBFWO2A2I4biFNMH5plPiYYnUi99kTt9ug7TJsZ+OjrRkJP1CtD
-         4QzTASJ244haASscNMebdaW/qh4UZpcFnerkaVFy69wpBnYutrc9DxKlhT1vU95OMmx9
-         xi6igBx8aoBG8OfgM/QbLOwdRErxuq6878+/L9Nm/ktpQ5hC4Jpd7R6inINqoFz/rLzb
-         5yUl7jUXXDsM4Z426JilCySPd3Ae50esTRxex2b3iaumu5zuZIHrz4P7SwsVjwo6N4ag
-         cp8oP7OoHA6S7Js8Brio8WESvaMULs0CPEB3pel7kQDeXFhqAjS8L1qm7iQco8DyyIIo
-         WM+g==
+        bh=Xrxj50UPOiAaVvLDQBKaDhxwCp4EpiwnDcNCbB25YKw=;
+        b=TlFPzJPPPsoqQrbDtcQVS5fU8GssvaBMDHLW2KY9t1t8pAhNWTGUICAt191Q/ipR53
+         jcb0yTiP1n494OXNRodTyThIBs3N4HOUUKTHgxt3abLMC/wyOJpajGI2EmVyHKiMQjhw
+         osJeUhJ+9ypoi/JQftrrexjqoEI8wBwg8+DQboJmVPyATtycUAA2P+ARE4QOcP6II3Tt
+         DUnT2jPZzDQjDQQ5LwmdIVhBk170e9i3eryeWwvJ9D166zhmvONsajjOXFtXQZvOHxkH
+         fb0dtLzJbFgkmH14ee9e+nxscS8ISCr5IxxpMP2D/gXqcPhgPMrcgHVootIM8vH2eTrr
+         Tmgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788292278; x=1788897078;
+        d=1e100.net; s=20251104; t=1788292280; x=1788897080;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BwLey5dTW4uM292A2Vd7bSxkboLRHGDZjGIzXx+42J8=;
-        b=XSHwJbByEMoPX2f50OPcdJTuzgMo5hRXhua8nfhvHkNvpCwyx7qOILTZwDo8yBo0aI
-         RwzjzATWn3tdzJAYS0CsFY56lcDeBI1qBRCG3wRK7q9ISnSjIVWWwEc9q2FAl1tQJyi3
-         1IDAx7N4aqSmWPFI0RuptB5PdM0rYn1/+TZTbQTO3g6Y+4m5oopUc6/YIYI+1p42Ko7h
-         R4pyeh50t7hs210P0HuZygl4dUhizng596j7MqKTtT1a6rEkyo+BT1VVO3ch3D8XZgmS
-         8Tgs+xTY53QCLkAbYy5KATSDk1+p3kiAy08WuaQa8jGKFY4E8j7js/4YRGC7Y+Rz9h/K
-         9q9A==
-X-Forwarded-Encrypted: i=1; AKwUvBwZ6WS4MNtc4cqR9SeGwCaOkGg7lim/yFeVTUNPvZGtgNP5wKySCyJUvFPcLXOM4B3MaMgda6qdV4zChMk=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4t82jYlTBUfYOQ43+I/oPsc5SI9k+aT5GCiKVBs6vI1Ai1kyt
-	SHc1JI0kqTMBta35LpUc2FSUlkByvVxze2i53/sa/TZspVZj9O6OZaAXdSWXG1vYXXQ=
-X-Gm-Gg: AYBFou0ReEbAlaxdAYvYkWUUaneT0OA10a09t4wrfkCEV2QkGAeG2A0TTsR0saaV40r
-	a3BTeg+nidUH2SKcaQaiSaMYNjw6p95pKWxGS0awqg9qQ+e6dM735rviLLKQsDtxTO81DV2rAyZ
-	OSM8POv6R0mQtDz16B8WmNqUFYx2H/ztAfCdAq9HL1OdxlSD6MYZyeBFdeOYCsaUNA6Cv98FWtB
-	KYQqpX7oyfwY+YW5hhMiTSoUWGi29gMqm6N7b2ENijWW1Z/n7RYCmyJJ0MxbMBaL2VcPu2iv7gm
-	pOfjGXIZ1Ec4CAf2AcoxAq5eEN28y1tqPsaPUQyNGjBKtDlwIiZWiLJoChWvBWpsKQdZP4JWdkO
-	vr+8bmRHLVGRWyLEEtAilsdJULHTLeE2AczcYLPg2qqVVQ/go+T8NGsnZ5collPUzbDs/RsolQ0
-	/kCawbpbhno4j2O5AtCVNOhjtIp+cZjE4NvkfWLQlwRuYMRp9Gcg==
-X-Received: by 2002:a05:6000:648:b0:484:4189:6b09 with SMTP id ffacd0b85a97d-48441896b75mr15334529f8f.17.1788292278109;
-        Tue, 01 Sep 2026 12:51:18 -0700 (PDT)
+        bh=Xrxj50UPOiAaVvLDQBKaDhxwCp4EpiwnDcNCbB25YKw=;
+        b=RnhVRVTgSV2PvPTdM6HwHMLbFaTcEjxLUU4FqmKONKIdfomvxlCPRdkBdPZi4Dr3Pd
+         1m1gH1Rl+PyZP6S/HTKdEIMvlwKKmVBwvFRvJW9w4ZpfoWwnVSy7xrArJ9zCcWETK5tg
+         ZvUuGLotcH8ZqvRHR+eeP70pGYraTD8Qs7LIem9zkp70S/b97qZGPhDIurFEsH9SJXkz
+         dyv9sZZce8q9Fq8pt7S77BYa+KXmhd/oxbYX/xT4gKq8P0CSNONMjinuQgjLmp8SZEff
+         5RgGO1d89vmHDSJdpHmoRx1SzlE2ebKuIWzDqdlwO0N3QQHkMZPoxBn2rtyfuzu5hcEU
+         t7xg==
+X-Forwarded-Encrypted: i=1; AHgh+RpIkHyit5DzCS2ziXg5dxpxo2OZCMrriLZCNtp/j3zUT2DbRFzZFlj30xChBsyIV09J63e9ubXKIEy4bSs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHzk4vDo3DKycSTPttwqeqJNDb4omAZkVSf4EqxJKad/wDLSg8
+	rX2pyX+jTVuWS10FmBkupF9A9B7yX3ZjQ1SrBIl6/UYRUlDEhueBhAdAzSm15d5ohIQsULL71c2
+	thbTera3LSQ==
+X-Gm-Gg: AR+sD136YmMQkukJZUU+nVinIXh42z9XXb/ppHtZSfmhUmMYqwCwTkZoB8Y++o7/8rI
+	CZUInguYt3btHfEzCBd4LBuDlEnXq5UyH/x+6sQuEyKZutnjAP6SRrCkWgUav/TWzRqc6Y4SvJp
+	yyPQbfxilZmCnchwuIySzq9gvpM59qJ/m5ORoQvRargihk1xEkkffvE6gMJsjQl102i5n7/ZpyW
+	2T9nTdL5356wemf9BNso6/oOwKHpxuX0FinVIGVSLT0NqpXwpl/7FNSYKvedL2NND0Qu8XdHmbd
+	+17IY/h1aBoPclQBKFtbDR0ShpB6Xv1wVlUTZc2y9jiEuDtw0Yk3/TF++6H546UL6uLfoHJygnq
+	IWIP+jEcLjlTWSuI3Sdh+7RvQ90VLQzGAEvX9nf03HWqKE2u3ZKABouq+h8uEGck6+/qqvQ2B4O
+	AnxWDFrDmb6oOdfoMlBJ+Qzg6+bO0z/vof5m5M9Ck=
+X-Received: by 2002:a05:600c:4eca:b0:49c:e1f1:3dd5 with SMTP id 5b1f17b1804b1-49ce5816892mr62765e9.4.1788292280497;
+        Tue, 01 Sep 2026 12:51:20 -0700 (PDT)
 Received: from remote-01 ([84.17.55.226])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-484492ce236sm1316681f8f.35.2026.09.01.12.51.16
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce3e04csm82484315e9.10.2026.09.01.12.51.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 12:51:17 -0700 (PDT)
+        Tue, 01 Sep 2026 12:51:20 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: Paolo Abeni <pabeni@redhat.com>
 Cc: "Chester A . Unal" <chester.a.unal@arinc9.com>,
@@ -77,12 +78,12 @@ Cc: "Chester A . Unal" <chester.a.unal@arinc9.com>,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH net v3 2/2] net: ethernet: mtk_eth_soc: populate lpi_interfaces to fix EEE support
-Date: Tue,  1 Sep 2026 19:51:12 +0000
-Message-ID: <20260901195112.37184-1-f@lex.la>
+Subject: Re: [PATCH net v3 1/2] net: dsa: mt7530: populate lpi_interfaces to fix EEE support
+Date: Tue,  1 Sep 2026 19:51:18 +0000
+Message-ID: <20260901195118.37238-1-f@lex.la>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <68c51086-eb10-4074-8495-b31c8e8a21e0@redhat.com>
-References: <20260827211652.63504-1-f@lex.la> <20260827211652.63504-3-f@lex.la> <68c51086-eb10-4074-8495-b31c8e8a21e0@redhat.com>
+In-Reply-To: <d0e8bd80-1798-4840-b388-05206bb72fc6@redhat.com>
+References: <20260827211652.63504-1-f@lex.la> <20260827211652.63504-2-f@lex.la> <d0e8bd80-1798-4840-b388-05206bb72fc6@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,16 +92,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> For a 'net' patch, I think it makes more sense to restrict the lpi
-> interface to the chip revisions with support confirmed.
+> Clashiko complains about the above:
+>
+> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260827211652.63504-1-f%40lex.la
+>
+> @Andrew: WDYT?
 
-v4 will gate lpi_interfaces on a per-SoC capability bit, so only chips
-with a confirmed LPI exit get it and the rest keep the current
-behaviour.
-
-MT7981 is confirmed on my bench: with tx-lpi armed the PHY's MMD 3.1
-shows Tx LPI asserted by the MAC, and thousands of LPI exits at 1G and
-100M against a BCM5720 lost nothing. Details in the v4 cover.
-
-Qingfang, which SoC did you validate the wake-up values on when adding
-EEE? That would be the second entry.
+The raw LPI_THRESH plumbing predates the phylink conversion: before
+9cf21773f535, mt753x_set_mac_eee() wrote tx_lpi_timer straight into the
+field with the same 0xFFF bound, so what ethtool showed and set on these
+ports was always the register unit. This patch brings that path back and
+does not change the unit. Settling it needs the MT7531 manual, and the
+EINVAL-vs-clamp mismatch came with the conversion too. Both look like a
+follow-up once someone can confirm the unit.
