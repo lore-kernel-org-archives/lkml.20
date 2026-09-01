@@ -1,281 +1,440 @@
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3869532C8B;
-	Tue,  1 Sep 2026 06:31:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7032DB789
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:31:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788244291; cv=none; b=sQK0MiPt1kxNNDTEowvaIIIu4jlI84QumKFLj31hh8cJj0YtGyUwVnv2KqOkA8EIWZzHPu30IN1Y4cI+YMEtoHHY2tPtlTtRNxOudg/8MV1xSSBjyqvX02zoxKT7wH/aO1UQnaZURdPORgdimg5EPIWb/MxOTds8cadA/YsvVd4=
+	t=1788244301; cv=none; b=QjGEzbOdv2v16LbpYtn7mr2SW73/+ggh4g+lZmW0qs6dvUra/sBDXrPr7e5ImJkHB5UWbsFg41EszWzdg3Dk+/QwPawtkr4NR/evvqIl8DFgfzm+U3fepM7ajR4EbvRRlAuAUNK91whSKERmv85XJyejWNoUiKoC3y3GA7zjSTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788244291; c=relaxed/simple;
-	bh=MbCpqrAz9XVHws8GZnwRcGYkEdaC4NWF2HPckEU1dzU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=W3ib5/usgwImInSvde34XMzg90VdeqNPlx3cwrwvKkpARWSpDmVaikSRc7IQz04Wq/bgyrC7NVOptqvUDWCgk+T1oVWTtWIIG9MiT4Mjhm88BaP93WZWyc0I6MeXK/SC24EDDpaMG5B/tTphgQ2XBp7DDXj9iMLZKQhgiRGVJhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=pIQ1j/EY; arc=none smtp.client-ip=113.46.200.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788244301; c=relaxed/simple;
+	bh=LQ3BSCSIRHPUsUlvPK6jyH+yUL8VHldljnNrkMuWqy0=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ENCdlv07nmxQdsHIzbMnEb64aI4IWhRp1LAv9YlHXuKb9O6V6DWvslTMwx45q+sV1xc/k2KpGZZx81ZWt0lDlfrv+dbX1sGYv5EszdFefk9s9TSfNZKO050p5PbG/NsU8OZfiPNPI3Kin+q+AvTE8DBqpn2EB+tEWQe8jXezOCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YCBpFOQI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cRZ4MjnG; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="pIQ1j/EY"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=c2wrXt1wZ0+107C+PGgbRwAJCxhyuAZsKjw2kaA5z2w=;
-	b=pIQ1j/EY+Wu41N+Hx0MDqfATI7sgaoJBin8TrS3SPQSBB5H6bkBYkMnPz1xm0miF0xifMUfXh
-	MlzcbPvuLCUOJdy5RGOiwgcOJYWu22qmIdPAVlIKY14Rtsu4jtw+t8JtrpmNvqhUjQfucZEmsZ4
-	/6vV/xuqkxzxZ7qGmsyXdOQ=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hYwhT1KqdzKm5m;
-	Tue,  1 Sep 2026 14:20:25 +0800 (CST)
-Received: from kwepemo100017.china.huawei.com (unknown [7.202.195.215])
-	by mail.maildlp.com (Postfix) with ESMTPS id 28646402AB;
-	Tue,  1 Sep 2026 14:31:18 +0800 (CST)
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemo100017.china.huawei.com (7.202.195.215) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.36; Tue, 1 Sep 2026 14:31:17 +0800
-From: Bowen Yu <yubowen8@huawei.com>
-To: <linuxarm@huawei.com>, <liudingyuan@h-partners.com>,
-	<andi.shyti@kernel.org>, <linux-i2c@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <zhanjie9@hisilicon.com>, <prime.zeng@hisilicon.com>,
-	<wanghuiqiang@huawei.com>, <xuwei5@huawei.com>, <yubowen8@huawei.com>,
-	<zhangpengjie2@huawei.com>
-Subject: [PATCH v2] i2c: hisi: Add I2C bus recovery support
-Date: Tue, 1 Sep 2026 14:31:16 +0800
-Message-ID: <20260901063116.3438094-1-yubowen8@huawei.com>
-X-Mailer: git-send-email 2.33.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YCBpFOQI";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cRZ4MjnG"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6810p0QG1487674
+	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 06:31:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LVxLmfU/AGh7oRf3ENjjPTZVAsrw2+1VZEQGXlekbXg=; b=YCBpFOQIJl+PtwVW
+	DqEPwxxActOiHj2AOYdcPr5hF+DBntuoCsXyTN3X9RyCuCb3HwxsZxgHXsFJ2MVs
+	ZxWC3ViVhPvuVx6MTlxLOTmU1qtvWlA7QdopSZF27Vu++Nd7camiPSVuLeB02SGG
+	VURW8l54rPKIYwvTnVuKtaEnXcIBeuU5dX7Dw2yCDrR/VZsYLmSmplsWzLKNyI1O
+	LQrDTGULrtMENb0h1RJFDS7+e0r4NqG9WoZib3ZfB/ahQjsQHu8w+Stg56EOsWwi
+	Zi8CWuZX+1xFAE/+fVcVnO16lplRIYZVZu9GyxyUnGDq6U85JEzKLJoCFYI+v1I7
+	iOqAhA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdfchadnx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:31:37 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so894201a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:31:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788244297; x=1788849097; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LVxLmfU/AGh7oRf3ENjjPTZVAsrw2+1VZEQGXlekbXg=;
+        b=cRZ4MjnGnuS1doU+0eRupn0VTY6GWKyRxzL43ES0tOn066HzggZd2/QBTNazEwtpQH
+         AO/cawHmtaDiAevKYFS4bt4S3ed2ovh0nqMs4y5lXy4ZcHJ60eqGcBCy2RyFiDElZXVV
+         KwSDblgVr5RB3+t9vVFAaDAeLbY7xywHF6DheO+zyjdaXH7opzjreJNgiBn30Ph5pVnw
+         M6UDLGnde9ww4aZI45CRgXwjGPwbwk/wUV6JZ+dhdjsVV/F1KByaVh3WkW3TgKmMX2i3
+         IkVqbp3JJA5NBXeG+ABuqmskd7JqoDC5y6IHzTPcTS06D71pbg+Zo9TIl64+MZhjQT4H
+         FRrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788244297; x=1788849097;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LVxLmfU/AGh7oRf3ENjjPTZVAsrw2+1VZEQGXlekbXg=;
+        b=WKiNkW8kT+3+aK2JezokyDpkzklkmNVrXNdFF6vAuZh4jfnwbCisJbWGmM8y7+jhYW
+         JRh4/M7GPmOKzUshnH2eZzeN4h1ZE0TBf+B0Tsu2c/eqpe7faRAYD2YcNnb7x5iU7i26
+         2oDRvoOtw2m+ofcD4eq/XtiRPrwMc89C3lzczIGrjL5B3i/74lW2ONnn1RLGS65l2Jxp
+         7m3SDVNupbO1GHP1+deWpQM19yAqROTTlfY18p5y8+QGNsiivWQho7nJDjbi3+sI4+eD
+         q3/91LlT+sW9RDXPdDUYMrwko+mXwRaDvQvcq/B5LFh0RjlqpVCVC+/zZZ+FNPJjr31b
+         GwjQ==
+X-Forwarded-Encrypted: i=1; AKwUvByxOHAFUE3wqus9aci0vGfKZ7qLba7sVZpKP55D/Tqfg4Fyq7LbodA+0mjPx/fnqn28NED8dvuZJb1ef08=@vger.kernel.org
+X-Gm-Message-State: AFuF++kg2xLKVNX1+B0D9MAZWWs9FjSjmukB51nz4pFFUEpTWmekQc7w
+	e3ktvUXEolNLUL53TVgel7JeSU6rcbmWDy9qKh/Wu+acEvfl0yOTfkLH0eT+0aEKuPuDvye/Qbr
+	LAbAOnqr3mrApZ6M4TUyQOF8Q8ZpNN5Ebiibly0QaOi+I4bAaPoF42cQxzd2vld7skQU=
+X-Gm-Gg: AYBFou1rzmkCa2CZ6FCW4cnTL9XbZXc2O8QpAJ64d+2q0OtMGZVYePtiZJq594WB/Nj
+	JdoSCIA8ESLurQOOEs28ARg6jx/uxLjKLJ3opxy+tT/Etkm44UwFVZM92DkSqnPvuwFOzm2bz7k
+	PxxTfof0yl9x0LmBkhga6rz5qdLaxla8gFhxPi7ZOmpLhGhYkLS82efItW//VGEhMjGOT6jO3Yr
+	M6kV1CdhEm4GHJvDW/jMwTOkjP6nTk9rQKNEZT1brBY+xY2h+vI14IvRXL8uNLTSRhwv9DMV+ND
+	78pjLUEcd5nkd5KPzyI+e51DKwYTU4vLo4zh9QaTlw5PTEAlkQacGGUn6UosFGrLGbXoVZLGb8G
+	k9kl0157l7NKCLPAsTiyqnPyNANj2
+X-Received: by 2002:a17:90b:1c05:b0:398:9bd1:3215 with SMTP id 98e67ed59e1d1-3989bd135b5mr26939845a91.22.1788244296663;
+        Mon, 31 Aug 2026 23:31:36 -0700 (PDT)
+X-Received: by 2002:a17:90b:1c05:b0:398:9bd1:3215 with SMTP id 98e67ed59e1d1-3989bd135b5mr26939759a91.22.1788244296111;
+        Mon, 31 Aug 2026 23:31:36 -0700 (PDT)
+Received: from [10.217.216.70] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bd1b395sm4453130a91.1.2026.08.31.23.31.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 23:31:35 -0700 (PDT)
+Message-ID: <640acacb-1704-4ee6-aa34-d6be3b30b44b@oss.qualcomm.com>
+Date: Tue, 1 Sep 2026 12:01:27 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemo100017.china.huawei.com (7.202.195.215)
+User-Agent: Mozilla Thunderbird
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Subject: Re: [PATCH 1/6] dt-bindings: ptp: Document the TSCSS on Qualcomm
+ Lemans and Monaco SoCs
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller"
+ <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20260727-tscss-v1-0-beed14e72510@oss.qualcomm.com>
+ <20260727-tscss-v1-1-beed14e72510@oss.qualcomm.com>
+ <02792987-7ad8-4a6b-81ad-559c63174bb0@kernel.org>
+Content-Language: en-US
+In-Reply-To: <02792987-7ad8-4a6b-81ad-559c63174bb0@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: j8YUro98uA08gU0pyiojtJHMNrLYpI14
+X-Authority-Analysis: v=2.4 cv=G9Ms1dk5 c=1 sm=1 tr=0 ts=6a967149 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=gEfo2CItAAAA:8 a=UXIAUNObAAAA:8 a=EUspDBNiAAAA:8 a=b3ntf1tsAT8mX5NXGroA:9
+ a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22 a=sptkURWiP4Gy88Gu7hUp:22
+ a=a1s67YnXd6TbAZZNj1wK:22
+X-Proofpoint-GUID: j8YUro98uA08gU0pyiojtJHMNrLYpI14
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA1NyBTYWx0ZWRfX2xkzzrGDgNk2
+ 6+/Y9mMAWlhZQgAp5BPLNBE2VUFgt0S0/EJaaip8jShIitfW8wNvdf4msMsadycXh2o+IV2ZiEr
+ LPI4qZbDmQgL67XVbU6uNePurNe7Jew=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA1NyBTYWx0ZWRfX4c9HXamJ21SH
+ 32nXOsK1pOzbVglYQHW8x4icptTnj52+6Ee2aYJz+hS6au6ij0730g60SM+TyXNDc712I67uBvl
+ wLO4F9xDTeQhb9A5CBI24dI1vOJHsmNaPaE9/4rHYIQBID8K5XY7R2E7sAJ2UYcs01BSNlRxzfJ
+ KJxWNeMj5CxgMEWH8Wqh6pYQ+Zzt4fowQtzUaKcqd5IPZKl2nc+loNy/RT+cTmw/O1jvPfriNB4
+ 4zTo8lHxtqLZ3HME0ND0ouvFIx7oSDYkJ9IIxhD60N/656eRPuaa5WfR1SAUKR5kfLNjeC/XxeA
+ yj7X7sWus9S16oRExf5s0Oc+Y7fJ3kWG0GAruNhVz+5et4G4zBxQcIJwYWKVehpPIR3ZMthIn/a
+ 8zSM/+PFuz8sMshciQIiFPmw8PfRxd8OWvdc12hDsYDcRm+zLbvFlF+BW2Eav24038xO3aclouM
+ G9sdKj0MyjuDajcpd3w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_01,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
+ impostorscore=0 spamscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010057
 
-When the I2C bus is stuck due to a slave device holding SDA low
-(e.g. during an incomplete transfer), the master has no way to recover
-the bus through normal operation. Add bus recovery support using the
-subctrl register to manually toggle SCL and generate clock pulses to
-release the bus.
 
-The recovery is performed via a second register resource (sctrl_base)
-that provides direct control over SCL/SDA lines through mux and
-output-enable bits. After recovery, the I2C controller is reset through
-the ACPI _RST method and reconfigured.
 
-Recovery is only registered when the subctrl resource is provided in
-the firmware description, keeping backward compatibility with existing
-platforms.
+On 27-07-2026 09:20 pm, Krzysztof Kozlowski wrote:
+> On 27/07/2026 16:10, Imran Shaik wrote:
+>> Add Devicetree bindings for the Timestamp Counter Subsystem (TSCSS) found
+>> on Qualcomm Lemans and Monaco SoCs.
+>>
+>> TSCSS is a time synchronization subsystem composed of two main blocks:
+>> Timestamp Counter (TSC) and Event Timestamp Unit (ETU). The TSC block
+>> provides a continuously running counter used for timekeeping, while the
+>> ETU captures timestamps for external hardware event triggers.
+>>
+>> Co-developed-by: Taniya Das <taniya.das@oss.qualcomm.com>
+>> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+>> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+>> ---
+>>   .../devicetree/bindings/ptp/qcom,lemans-tscss.yaml | 198 +++++++++++++++++++++
+>>   1 file changed, 198 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/ptp/qcom,lemans-tscss.yaml b/Documentation/devicetree/bindings/ptp/qcom,lemans-tscss.yaml
+>> new file mode 100644
+>> index 0000000000000000000000000000000000000000..4cbe4b00ff7dcacbd8cc111e2b4b61ebce7104aa
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/ptp/qcom,lemans-tscss.yaml
+>> @@ -0,0 +1,198 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/ptp/qcom,lemans-tscss.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Timestamp Counter Subsystem (TSCSS) on Qualcomm Lemans and Monaco SoCs
+>> +
+>> +maintainers:
+>> +  - Imran Shaik <imran.shaik@oss.qualcomm.com>
+>> +  - Taniya Das <taniya.das@oss.qualcomm.com>
+>> +
+>> +description: |
+>> +  Qualcomm TSCSS is a time synchronization subsystem composed of two main
+>> +  blocks - the Time Stamp Counter (TSC) and the Event Timestamp Unit (ETU).
+>> +
+>> +  The TSC block is a timestamp generator that maintains a running counter used
+>> +  for system timekeeping, and is functional with just the AHB and counter
+>> +  clocks.
+>> +  The ETU block is optional and captures TSC timestamps for external
+>> +  hardware events, each ETU slice binding a slice identifier to an external
+>> +  event selector. Support for the ETU block requires the additional ETU
+>> +  clock along with the summary interrupt and slice subnodes.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    oneOf:
+>> +      - const: qcom,lemans-tscss
+> 
+> There is no such SoC upstream.
+> 
+> 
+>> +      - items:
+>> +          - const: qcom,monaco-tscss
+> 
+> Neither this one.
+> 
 
-Signed-off-by: Bowen Yu <yubowen8@huawei.com>
----
-v1 -> v2:
-	-Guard all ACPI-specific calls and the recovery_init body with
-	#ifdef CONFIG_ACPI.
----
- drivers/i2c/busses/i2c-hisi.c | 147 ++++++++++++++++++++++++++++++++++
- 1 file changed, 147 insertions(+)
+Apologies for the late response.
 
-diff --git a/drivers/i2c/busses/i2c-hisi.c b/drivers/i2c/busses/i2c-hisi.c
-index ba5c9579ae19..ac69a2645d0b 100644
---- a/drivers/i2c/busses/i2c-hisi.c
-+++ b/drivers/i2c/busses/i2c-hisi.c
-@@ -5,6 +5,7 @@
-  * Copyright (c) 2021 HiSilicon Technologies Co., Ltd.
-  */
- 
-+#include <linux/acpi.h>
- #include <linux/bits.h>
- #include <linux/bitfield.h>
- #include <linux/clk.h>
-@@ -62,6 +63,8 @@
- #define HISI_I2C_INT_CLR		0x0048
- #define HISI_I2C_INT_MASK		0x004C
- #define HISI_I2C_TRANS_STATE		0x0050
-+#define   HISI_I2C_TRANS_STATE_SDA_LEVEL	BIT(5)
-+#define   HISI_I2C_TRANS_STATE_SCL_LEVEL	BIT(6)
- #define HISI_I2C_TRANS_ERR		0x0054
- #define HISI_I2C_VERSION		0x0058
- 
-@@ -86,9 +89,26 @@
- #define NSEC_TO_CYCLES(ns, clk_rate_khz) \
- 	DIV_ROUND_UP_ULL((clk_rate_khz) * (ns), NSEC_PER_MSEC)
- 
-+/*
-+ * SUBCTRL SC_I2C_CTRL register
-+ * Set HISI_I2C_CTRL_DAT_CFG_EN and HISI_I2C_CTRL_SCL_CFG_EN to control
-+ * I2C pin behavior by subctrl controller; use HISI_I2C_CTRL_DAT_OE and
-+ * HISI_I2C_CTRL_CLK_OE to control input or output; use HISI_I2C_CTRL_SDA_OUT
-+ * and HISI_I2C_CTRL_SCL_OUT to control output value.
-+ */
-+#define HISI_I2C_CTRL_DAT_CFG_EN BIT(5)
-+#define HISI_I2C_CTRL_SCL_CFG_EN BIT(4)
-+#define HISI_I2C_CTRL_DAT_OE BIT(3)
-+#define HISI_I2C_CTRL_CLK_OE BIT(2)
-+#define HISI_I2C_CTRL_SDA_OUT BIT(1)
-+#define HISI_I2C_CTRL_SCL_OUT BIT(0)
-+
-+#define HISI_I2C_RECOVERY_REG_SIZE 4
-+
- struct hisi_i2c_controller {
- 	struct i2c_adapter adapter;
- 	void __iomem *iobase;
-+	void __iomem *sctrl_addr;
- 	struct device *dev;
- 	struct clk *clk;
- 	int irq;
-@@ -108,8 +128,14 @@ struct hisi_i2c_controller {
- 	struct i2c_timings t;
- 	u32 clk_rate_khz;
- 	u32 spk_len;
-+
-+	/* Bus recovery */
-+	struct i2c_bus_recovery_info rinfo;
-+	acpi_handle acpi_handle;
- };
- 
-+static void hisi_i2c_configure_bus(struct hisi_i2c_controller *ctlr);
-+
- static void hisi_i2c_enable_int(struct hisi_i2c_controller *ctlr, u32 mask)
- {
- 	writel_relaxed(mask, ctlr->iobase + HISI_I2C_INT_MASK);
-@@ -151,6 +177,123 @@ static void hisi_i2c_handle_errors(struct hisi_i2c_controller *ctlr)
- 	}
- }
- 
-+static int hisi_i2c_recovery_get_scl(struct i2c_adapter *adap)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg = readl(ctlr->iobase + HISI_I2C_TRANS_STATE);
-+
-+	return !!(reg & HISI_I2C_TRANS_STATE_SCL_LEVEL);
-+}
-+
-+static int hisi_i2c_recovery_get_sda(struct i2c_adapter *adap)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg = readl(ctlr->iobase + HISI_I2C_TRANS_STATE);
-+
-+	return !!(reg & HISI_I2C_TRANS_STATE_SDA_LEVEL);
-+}
-+
-+static void hisi_i2c_recovery_set_scl(struct i2c_adapter *adap, int val)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg;
-+
-+	reg = readl(ctlr->sctrl_addr);
-+	if (val)
-+		reg |= HISI_I2C_CTRL_SCL_OUT;
-+	else
-+		reg &= ~HISI_I2C_CTRL_SCL_OUT;
-+	writel(reg, ctlr->sctrl_addr);
-+}
-+
-+static void hisi_i2c_prepare_recovery(struct i2c_adapter *adap)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg;
-+
-+	reg = readl(ctlr->sctrl_addr);
-+	reg |= HISI_I2C_CTRL_SCL_CFG_EN | HISI_I2C_CTRL_DAT_CFG_EN |
-+		   HISI_I2C_CTRL_CLK_OE | HISI_I2C_CTRL_SCL_OUT;
-+	reg &= ~HISI_I2C_CTRL_DAT_OE;
-+	writel(reg, ctlr->sctrl_addr);
-+}
-+
-+static void hisi_i2c_unprepare_recovery(struct i2c_adapter *adap)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg;
-+
-+	reg = readl(ctlr->sctrl_addr);
-+	reg &= ~(HISI_I2C_CTRL_SCL_CFG_EN | HISI_I2C_CTRL_DAT_CFG_EN);
-+	writel(reg, ctlr->sctrl_addr);
-+
-+	/*
-+	 * Invokes the specific ACPI method "_RST" to trigger a soft reset
-+	 * of the I2C controller to help the I2C controller recover from
-+	 * the abnormal state after the bus recovery process.
-+	 */
-+#ifdef CONFIG_ACPI
-+	if (ctlr->acpi_handle && acpi_has_method(ctlr->acpi_handle, "_RST")) {
-+		acpi_status status;
-+
-+		status = acpi_evaluate_object(ctlr->acpi_handle, "_RST", NULL, NULL);
-+		if (ACPI_FAILURE(status))
-+			dev_err(ctlr->dev, "_RST method failed: %s\n",
-+				acpi_format_exception(status));
-+	}
-+#endif
-+	hisi_i2c_configure_bus(ctlr);
-+}
-+
-+static int hisi_i2c_get_bus_recovery_res(struct hisi_i2c_controller *ctlr,
-+					 struct platform_device *pdev)
-+{
-+	struct resource *res0;
-+
-+	res0 = platform_get_resource(pdev, IORESOURCE_MEM, 1);
-+
-+	if (!res0 || resource_size(res0) != HISI_I2C_RECOVERY_REG_SIZE)
-+		return -ENODEV;
-+
-+	ctlr->sctrl_addr = devm_ioremap_resource(&pdev->dev, res0);
-+	if (IS_ERR(ctlr->sctrl_addr)) {
-+		ctlr->sctrl_addr = NULL;
-+		return -ENOMEM;
-+	}
-+
-+	return 0;
-+}
-+
-+#ifdef CONFIG_ACPI
-+static int hisi_i2c_recovery_init(struct hisi_i2c_controller *ctlr)
-+{
-+	struct platform_device *pdev = to_platform_device(ctlr->dev);
-+	struct i2c_adapter *adapter = &ctlr->adapter;
-+	int ret;
-+
-+	if (acpi_disabled)
-+		return -ENODEV;
-+
-+	ret = hisi_i2c_get_bus_recovery_res(ctlr, pdev);
-+	if (ret)
-+		return ret;
-+
-+	ctlr->rinfo = (struct i2c_bus_recovery_info){
-+		.get_scl = hisi_i2c_recovery_get_scl,
-+		.get_sda = hisi_i2c_recovery_get_sda,
-+		.set_scl = hisi_i2c_recovery_set_scl,
-+		.prepare_recovery = hisi_i2c_prepare_recovery,
-+		.unprepare_recovery = hisi_i2c_unprepare_recovery,
-+		.recover_bus = i2c_generic_scl_recovery,
-+	};
-+	adapter->bus_recovery_info = &ctlr->rinfo;
-+	ctlr->acpi_handle = ACPI_HANDLE(ctlr->dev);
-+	return 0;
-+}
-+#else
-+static int hisi_i2c_recovery_init(struct hisi_i2c_controller *ctlr) { return -ENODEV; }
-+#endif /* CONFIG_ACPI */
-+
- static int hisi_i2c_start_xfer(struct hisi_i2c_controller *ctlr)
- {
- 	struct i2c_msg *msg = ctlr->msgs;
-@@ -504,6 +647,10 @@ static int hisi_i2c_probe(struct platform_device *pdev)
- 	adapter->dev.parent = dev;
- 	i2c_set_adapdata(adapter, ctlr);
- 
-+	ret = hisi_i2c_recovery_init(ctlr);
-+	if (ret)
-+		dev_info(ctlr->dev, "I2C bus recovery not available\n");
-+
- 	ret = devm_i2c_add_adapter(dev, adapter);
- 	if (ret)
- 		return ret;
--- 
-2.33.0
+Sure, will update the SoC names to sa8775p and qcs8300 respectively.
 
+> 
+>> +          - const: qcom,lemans-tscss
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  reg-names:
+>> +    items:
+>> +      - const: tsc
+> 
+> Drop names, not really useful.
+> 
+
+Sure, will drop in the next version.
+
+>> +
+> 
+>> +  clocks:
+>> +    minItems: 2
+>> +    items:
+>> +      - description: TSC AHB configuration clock.
+>> +      - description: TSC global counter clock.
+>> +      - description: TSC ETU clock.
+>> +
+>> +  clock-names:
+>> +    minItems: 2
+> 
+> Why is this flexible?
+> 
+
+Actually, the TSC block can standalone work without the ETU support as
+well. This ETU clock is require only when we add the ETU slice sub
+nodes. Hence, keeping the minItems to 2, excluding the ETU clock.
+
+>> +    items:
+>> +      - const: ahb
+>> +      - const: cntr
+>> +      - const: etu
+>> +
+>> +  interrupts:
+>> +    description: Summary interrupt raised based on external event for any of the ETU slices.
+> 
+> Please follow Linux coding style.
+> 
+
+Sure, will update.
+
+>> +    maxItems: 1
+>> +
+>> +  interrupt-names:
+>> +    items:
+>> +      - const: etu_summary
+>> +
+>> +  assigned-clocks: true
+>> +  assigned-clock-rates: true
+> 
+> Drop. From where did you take it?
+> 
+
+Actually, we need these properties to be present in the DTS to take care
+of the clock rate requirements.
+
+Please suggest on how to handle such requirements.
+
+>> +
+>> +  "#address-cells":
+>> +    const: 2
+>> +
+>> +  "#size-cells":
+>> +    const: 2
+>> +
+>> +  ranges: true
+>> +
+>> +patternProperties:
+>> +  "^etu-slice@[0-9a-f]+$":
+>> +    type: object
+>> +    description: ETU slice configuration
+>> +    properties:
+>> +      reg:
+>> +        maxItems: 1
+>> +
+>> +      pinctrl-0: true
+>> +
+>> +      pinctrl-names:
+>> +        items:
+>> +          - const: default
+> 
+> Heh? Which code do you copy?
+> 
+
+Each ETU slice has its own external event pin config, so kept pinctrl-0
+and pinctrl-names on the slice subnode. Please suggest if you prefer
+otherwise.
+
+>> +
+>> +      qcom,etu-event-sel:
+>> +        description: Event selection value for this slice.
+>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>> +
+>> +      qcom,etu-slice:
+>> +        description: ETU slice identifier.
+> 
+> You do not get identifiers. Please read writing bindings.
+> 
+
+In general, any ETU slice can function with any ETU event sel, and this
+might not be 1-1 always. Also, these ETU slices can be configured by the
+vendors based on the requirements of the GPIOs on the board. Hence, this
+etu-slice identifier will provide the flexibility to configure
+accordingly.
+
+>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>> +
+>> +    required:
+>> +      - reg
+>> +      - qcom,etu-event-sel
+>> +      - qcom,etu-slice
+>> +      - pinctrl-0
+>> +      - pinctrl-names
+>> +    unevaluatedProperties: false
+> 
+> Please read writing bindings.
+> 
+
+Sure, will drop this and use additionalProperties.
+
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - reg-names
+>> +  - clocks
+>> +  - clock-names
+>> +
+>> +allOf:
+>> +  - if:
+>> +      properties:
+>> +        clock-names:
+>> +          contains:
+>> +            const: etu
+> 
+> etu is third clock, what is the point of it?
+> 
+
+As mentioned above the TSC clock can be functional individually. If we
+need the ETU sub block to be functional, then we need the ETU clock. To
+make the sub node properties mandatory, we are using the ETU clock to
+distinguish.
+
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          minItems: 3
+>> +        clock-names:
+>> +          minItems: 3
+>> +      required:
+>> +        - interrupts
+>> +        - interrupt-names
+>> +        - "#address-cells"
+>> +        - "#size-cells"
+>> +        - ranges
+>> +
+>> +unevaluatedProperties: false
+> 
+> Please read writing bindings.
+
+Sure, will drop this and use additionalProperties.
+
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/clock/qcom,sa8775p-gcc.h>
+>> +
+>> +    soc {
+>> +      #address-cells = <2>;
+>> +      #size-cells = <2>;
+>> +
+>> +      tscss@1c80000 {
+>> +        compatible = "qcom,lemans-tscss";
+>> +        reg = <0x0 0x01c80000 0x0 0x2000>;
+>> +        reg-names = "tsc";
+>> +
+>> +        clocks = <&gcc GCC_TSCSS_AHB_CLK>,
+>> +                 <&gcc GCC_TSCSS_GLOBAL_CNTR_CLK>;
+>> +        clock-names = "ahb", "cntr";
+>> +
+>> +        assigned-clocks = <&gcc GCC_TSCSS_GLOBAL_CNTR_CLK>;
+>> +        assigned-clock-rates = <15625000>;
+>> +      };
+>> +    };
+>> +
+>> +  - |
+>> +    #include <dt-bindings/clock/qcom,sa8775p-gcc.h>
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +
+>> +    soc {
+>> +      #address-cells = <2>;
+>> +      #size-cells = <2>;
+>> +
+>> +      tscss@1c80000 {
+> 
+> This is the same node as previous.
+> 
+> I don't understand this DTS.
+> 
+
+I kept two different examples with and without ETU slice sub nodes, as
+TSC standalone block can be functional.
+
+> 
+> Node names should be generic. See also an explanation and list of
+> examples (not exhaustive) in DT specification:
+> https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+> If you cannot find a name matching your device, please check in kernel
+> sources for similar cases or you can grow the spec (via pull request to
+> DT spec repo).
+> 
+
+The recommended DT generic names, doesn't have the node names related to
+PTP/PHC. I found that other existing DTS nodes has the ptp/ptp-timer/phc
+naming convention used.
+
+Please confirm if we can use the "ptp" name. Accordingly, I can raise
+the PR to DT spec repo as well.
+
+Thanks,
+Imran
