@@ -1,91 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1234A204C
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:15:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A4B49DBA1
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:17:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788290125; cv=none; b=dzpXwcNsOwXkFXRPQgyQbhUdrG3YQsxUkl74tUNTVx4l32AinKjR01z8QR65TE1dWioO1+nzOGGbQdz7zpBI+JVf4S9uTQ/8tPl0u1D32TgKeZ51erIiLGxxeRh26kw0gicbumG4lk1acMxD2gXtj3isS41tjJIQnI3i4B91nhI=
+	t=1788290236; cv=none; b=FUtZOsFLBJJK9zekztcM0VhLqOV2M5WsDGM2aeVenV3vsx3mYK8OyD37+jiqEZhXcNqgNXK8CuUkzp7Fts/LddHQ079w8oa8G/Mc0Yz6VNjSygSmxigw68h5SC5e91dqn4plkpsxS/BsreIH1WFyMyjLhBAu2QXiExjaORhPlU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788290125; c=relaxed/simple;
-	bh=zFgPNUcADR/j94/tcNEBzI9E7MRbrav5+S3mPcZYaCo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cZEnN3WQxgGBPm8OpnwS5DJbppA4h45EIVI+DWZDqKiDi5VvCTDC9sptHBI9VXbnKxacOlPWXh/IojYw32EPPk4n+IPTRmpQu2d2isZBen/OMsQAG3JO0yaaFsnfBm6OzXVE+gJda26H9GoXQRMh/6hS/hwlBU8LdZkAkdhzJIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lXDvCl9j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788290236; c=relaxed/simple;
+	bh=ok65wtnLh4/jf/TJcVJdkooFgQY/8blBctwC4Sx2UJY=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Content-Type; b=RYn5htGZuJbhl4Pbhbmm1X++7jOt0If29Ir9aHb1qgY55RhtklMq8DI/4Cz6EioDzZJMO9EZ1Jnsf4oVhADGaqCTkXPRtkZWDJbkt+zNjiUyTgXyq7q7YxmlPqqk9x7ML35OQQ1UNiwltmcX7ZiaFpH+OC7TjgC1qQUkSTzRNOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kB9CuOo5; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lXDvCl9j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C70A1F00A3F
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:15:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788290124;
-	bh=WGHZuGxkBMEGcBScQhd+KOYO8aGNNbmgGdXxIib6dAg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lXDvCl9j8wTk7PGbeP5MFub94EwfxHnwUmEn9Lacv6ocTmJNbab/BpYMfOLo7yYpk
-	 apwS4jpRfXmg4BqaIZFRSD6DKIi7OofrORRwIlYfGMPmSOv0zcZ6jymuKXuunvCy48
-	 6wv795n1x1tge/vTmvh9i8YqgLFFtzPC3rCLjjGYjEOcqol7WVAbrI7J+dkhvwgf7/
-	 CWrTXd1bnRVXGWI7BH+d/tRxXmA/0VqYX8pAssv4Jnib7ImZOwQD9xFKPMrItqnt9I
-	 jMfLvTwX4jeYh0CthdOAKqbiN3AEtezueClffX8Xr8gk3I+ghFIuAcruXL8SahMpWp
-	 NJboT2vkEktfQ==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b4ab4b4179so139138e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:15:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwvlcfkKQ8fB6D2/xPJ2DNF8cZMhYYbqMUNHSCNJMOR0gZCZZFfuyvYH55P4Rnz1j87P9OBDe8Zv1K0j88=@vger.kernel.org
-X-Gm-Message-State: AFuF++njmz1mwX4IXJp3ZinMXLZuGVa213odlWRQJs9C7vitGEzvZb9m
-	pM0OtiY0XtbxirURX6wU2SuInmYYZorFHsE7CZ4yr3htxVvagRwiJ01/bPN0zx+HHI5S6Fzh6Lr
-	urLX484rXiuERYQbGF8P7hb7s5F/0KJY=
-X-Received: by 2002:a05:6512:2311:b0:5b0:113d:8ae5 with SMTP id
- 2adb3069b0e04-5b60853aefdmr5483e87.10.1788290122246; Tue, 01 Sep 2026
- 12:15:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kB9CuOo5"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cfa4e4684bso3180145ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:17:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788290233; x=1788895033; darn=vger.kernel.org;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PmO9NVIPso6yFfzV773x3a73vitmuuvzVf1ZmBlYCbI=;
+        b=kB9CuOo5ecJ7P7jbeF1t0zxSZcnFX0i7x1X4KVDa5oNrJJUhEO5A9/IYoVqVQXCXsn
+         loVXAI1c3XFVPvvNo8YfIQJj8J3XvIMgv3U/YxDeQgJGI60tlaRLKPSXZKbKEWwcIyrt
+         iBHgXaGiaCbAkRqcDoPwLvRKqPO1pK8nvNDRxBAri818qTvW9qWs49MoV6OUu2Kdhfg7
+         daqCs8Rn02GDWURytXzDinEUZnDrgDDaiYrnrP/4jGdcRZw0YCOxBgyxgA/M3y4cG8r6
+         AihA3Rxj/SCK2iYFSMYzVqrZxLyy4perVceOcYanMzX8dNrK/JmiIeUUN0xCj0h7PzDa
+         9jxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788290233; x=1788895033;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PmO9NVIPso6yFfzV773x3a73vitmuuvzVf1ZmBlYCbI=;
+        b=De6KY12FxS9hayVAzQ6NTmwxJfYLbvteLM0FfSXMsUFNbbbj0HJz9TDJK0x0c8vRbW
+         c9veihXuXb6j24tZhVCdXa74mBchgUP/4W41dcLnVmyvyDoRWyKO8NciyUeXvoItlQ1e
+         pKH1SZ2kzLqytXPUqQxTFV0n3Q9SHWSiWSXT1PiLH/JUs6W3jl5nOotsAZw8L+J8V4rX
+         9PA0rOATtWRiJ5K4ozRm/65TffDJgIeQ+zNrMohH81BGKA1ggRJKkABzfIll3kZWHy7v
+         z4V5PKjVGW7AkV16mhHiQRng82xrWUEcHMHuLGEWr9/hB8JxKNLoy0RhALqkc0vi/RXX
+         P6eQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxENKRV9CIx2WyHSKChyQGerP4EL4Sho+dLz0VRSnxNx+Prj5UIxaYoSYulOLyTwuvyjsaQWFBdF4zqEr0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUV1dd5xr7Ac/s1ukumMw/xTxnM0hkyl9ocD8Rgfufd5LAVFby
+	d5joGAmv7MgG4PZMDnLu7VTxtmqXZyoaB1YqVsOksZ2emzxBQNJuiK4AX+8YbDniOItVMmu/lFD
+	v+8uTNQ==
+X-Received: from plpo1.prod.google.com ([2002:a17:903:3e01:b0:2d9:17d4:914d])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ffce:b0:2d8:d4d2:dc9a
+ with SMTP id d9443c01a7336-2d8d4d2dfadmr412111075ad.22.1788290232898; Tue, 01
+ Sep 2026 12:17:12 -0700 (PDT)
+Date: Tue, 1 Sep 2026 12:17:12 -0700
+In-Reply-To: <20260826213303.914988-22-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <3435655.aeNJFYEL58@rafael.j.wysocki> <2497062.NG923GbCHz@rafael.j.wysocki>
- <apaQZr71mBe0_3fU@ashevche-desk.local>
-In-Reply-To: <apaQZr71mBe0_3fU@ashevche-desk.local>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 1 Sep 2026 21:14:26 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0g+N--XQFuD=ZD9tmevU6dQ32-VHJhbVVsDwqR9wM5BkA@mail.gmail.com>
-X-Gm-Features: AcwNN1XyDF_pJJDrGrFfnXssS0wiNeSsDyVEpRrO1PBBZ79tCWrSAeBzZgk0EBA
-Message-ID: <CAJZ5v0g+N--XQFuD=ZD9tmevU6dQ32-VHJhbVVsDwqR9wM5BkA@mail.gmail.com>
-Subject: Re: [PATCH v1 7/7] ACPI: scan: Take PCI device enumeration into
- account directly
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
-	Linux PM <linux-pm@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
-	Mika Westerberg <mika.westerberg@linux.intel.com>, 
-	Peixin Xie <peixin.xie@linux.spacemit.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Lukas Wunner <lukas@wunner.de>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Linux PCI <linux-pci@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>, 
-	Hans de Goede <hansg@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+References: <20260826213303.914988-1-seanjc@google.com> <20260826213303.914988-22-seanjc@google.com>
+Message-ID: <apckuCeNCfLoYe9R@google.com>
+Subject: Re: [PATCH v10 21/21] KVM: x86: Use kernel timekeeping snapshot to
+ get walltime+TSC
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Paul Durrant <paul@xen.org>, David Woodhouse <dwmw@amazon.co.uk>, Dongli Zhang <dongli.zhang@oracle.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On Tue, Sep 1, 2026 at 10:44=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Mon, Aug 31, 2026 at 07:59:48PM +0200, Rafael J. Wysocki wrote:
->
-> > The ACPI companions of PCI devices are associated with the correspondin=
-g
-> > PCI devices before being processed by acpi_scan_attach() and by the tim=
-e
-> > they are passed to attach_subtree(), the PCI devices associated with
-> > them have been already enumerated and initialized (including power
-> > management initialization).
-> >
-> > Accordingly, it is not necessary or even useful to check their status i=
-n
-> > attach_subtree(), so do not do that.
->
-> ...
->
-> > +     if (pci) {
-> > +             acpi_handle_debug(device->handle, "PCI companion %s found=
-\n",
-> > +                               dev_name(&pci->dev));
->
-> We have pci_name().
+On Wed, Aug 26, 2026, Sean Christopherson wrote:
+> Replace the KVM-private vgettsc()+/do_do_realtime() timekeeping
+> reimplementation with calls to the recently crafted, generic
+> ktime_get_snapshot_id() interface.  As noted previously, the snapshot
+> provides both the system time and the raw_cycles (TSC), atomically paired
+> using a sequence counter.
+> 
+> With great pleasure, delete the now unused read_tsc() and vgettsc()
+> 
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> [sean: separate from other conversions, express joy at vgettsc()'s demise]
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-Ah, OK
+Note to self, this needs to be fixed up so that David is the Author.  I'll check
+the other patches too, I suspect I forgot to specify --author when splitting the
+original patch into 3.
