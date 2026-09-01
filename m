@@ -1,140 +1,82 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A8247DFA8;
-	Tue,  1 Sep 2026 16:26:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B906E47ECF2;
+	Tue,  1 Sep 2026 16:29:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788280005; cv=none; b=V4Xo6fTUSu7Q0eGOLo5LEs3r/VEUPW32SPFGakdzVmmfDwGitsYppVb/E/WEL/UehnlmARDjPtkHkXiLZWf+wPwcpg9fuphD9gT0TxgfpY1BUevfcCjfQXKdJYEdvrelxnEXnN2fdBPieKH9iEplmtBYN0dOJWLa95vNha//KIs=
+	t=1788280166; cv=none; b=MIGAcJSaJArg/rPJNSjnVrh8IICKWUg4CBOgW5lyXM2jCZ2w1EZuPNSKD10YTB9B3f5NI9iIQ6sHgsE0EqSQ6OCZaMQuaGpc7cG2T4TAgKsyTIh/VTa8EPAc9LVTHMUSfSGJ2UP/mYiCAi3+qk0SIhpgtPY7vbabNi+chXYFN3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788280005; c=relaxed/simple;
-	bh=BPCKR5mN+62ZnHVk1LreiCTsOx+lGiOOggh5AhLzZfE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k7jivbe/ysuGn3XjCMvuCZkM9PZ/g9X1iRsQAOTaeZvpw1jgJvdl6Lb3ANPI2HrJ6Fbt0hZm3PbZ+sSwAbceG7ijhZr2soRWTRa3A60ebvXUi2JNK3y5cJIluGjYACj/gxAiigu/SpcWR34yduuGTDOoEavEIrbVylpkL2kL8H0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=UNz7/4ef; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=lzbvpF7O; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jq5Nwayx; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=bsdnaNOj; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788280166; c=relaxed/simple;
+	bh=th4ubNF8dBGbLsDXD6EYwk0jOfUaxe8JIQ8RaSUqxww=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qBaHecFFK1wI8bM81n+qGwo/Fym0GfVJz/EsJvZsTVZKrL2wDsmeG+qBdB/d5ijXn+Cm0s5Eqh3vVtm3Owy2QdodEq8Rl78cyNLpplkECw6lhCl1XZk25Fpyba9//agotJ8tEzrhh6r7GyODoeN7CPh48QxkrXlFg079CtX4NBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZH69xuDE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UNz7/4ef";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lzbvpF7O";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jq5Nwayx";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bsdnaNOj"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9567E2255A;
-	Tue,  1 Sep 2026 16:26:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788279996; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mxm9av0PXPgxx6UA+iIsv4ebYcGBHIjzx2qzcq9BcqI=;
-	b=UNz7/4efzrTKXnrGyLpUE0jEL+T1qBpMgy9ZkOD18fokOum3W5FOUEp1K+PajST2Q8zRle
-	EugT5cIc1WziqGXAMrnnwxfSL5CT3cDziA/8uFGaAxBcEK2bUnl5Rrw1kPFeikN+deodv+
-	lw5/cVWYa9b+7vXJh56d8Q8Yf/t8+ek=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788279996;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mxm9av0PXPgxx6UA+iIsv4ebYcGBHIjzx2qzcq9BcqI=;
-	b=lzbvpF7O0GRRH8REfdIYuDjXOHNws5/b+/yW2au6HDcJsUkTI00B4fVHAIV65oRpNBmZmy
-	vp8xvnYzQ2i1phAg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788279992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mxm9av0PXPgxx6UA+iIsv4ebYcGBHIjzx2qzcq9BcqI=;
-	b=jq5NwayxeR1/CaP1yRnmmHdbF6vaY5/lqRaoLB57nYgVVTBNNulvG/OKJJWDrLsjaEM0xz
-	mLW4vcv0DGCN8w/mXKbftOk7AUOcEgLCzirS+v4b3RAKdF9CMdgs2lA8JM9GrHh44iwbnb
-	+JjNUpvxQh8ck7RQgm4RK0M9PzjrZaY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788279992;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mxm9av0PXPgxx6UA+iIsv4ebYcGBHIjzx2qzcq9BcqI=;
-	b=bsdnaNOjZI12Q8fjpYC5pAjkBB/lW4G+OA86qmzWb/GoX3MM9Wkzddn/H54ML/g4WBmt61
-	18yCz/iHsQVZnzCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 536451369E;
-	Tue,  1 Sep 2026 16:26:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id b7/8Erj8lmpVaAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 01 Sep 2026 16:26:32 +0000
-Date: Tue, 01 Sep 2026 18:26:31 +0200
-Message-ID: <87tso9aqfc.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: HyeongJun An <sammiee5311@gmail.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: dummy: Report a change when one capture switch channel moves
-In-Reply-To: <20260901153921.3971-1-sammiee5311@gmail.com>
-References: <20260901153921.3971-1-sammiee5311@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZH69xuDE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E67541F000E9;
+	Tue,  1 Sep 2026 16:29:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788280165;
+	bh=tI6rVXujdWCxuL6bz98vqTArf9TgDE5iPNcNe4oZjdU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZH69xuDEu9qMTb7wZRAoizE/yzVDfWfHRcIpDG7EGeH6oYao+6RTn4k8gv5c2cn7Z
+	 QYL08MopEfIbEFdhwkDMBnAaOjHwdOql1FQShfRyWQCbYfuo7pekZ+WVZipHU3qa0A
+	 Qbc8se//N3LFA0NhgAqEg4+f79BU7xefEUNb84o8fk1ay7diSLqbDi9nANJauoSlUM
+	 pi3iyFa9guZUPtb3b9rNWcPmEPVzAwo0VNP+59qb1a9cunV5A+Dq1WbS6+zLGqwM3L
+	 DBYdtsFBAM3PFIj30EXdXqso+arCiA7uESctM66loOPRZmh+X+U8TiXwH/IjbbDn6K
+	 PvYnBqeE5pogw==
+Date: Tue, 1 Sep 2026 11:28:45 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] remoteproc: qcom_q6v5_pas: Add per-PD proxy
+ performance states for Hawi CDSP
+Message-ID: <apb86I2HGXcUAoG9@baldur>
+References: <20260828181311.4038346-1-mukesh.ojha@oss.qualcomm.com>
+ <20260828181311.4038346-3-mukesh.ojha@oss.qualcomm.com>
+ <apWhseqV8vdufajf@baldur>
+ <20260831191621.ogqnsmvzv3o5mlbq@hu-mojha-hyd.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Spam-Score: -3.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831191621.ogqnsmvzv3o5mlbq@hu-mojha-hyd.qualcomm.com>
 
-On Tue, 01 Sep 2026 17:39:21 +0200,
-HyeongJun An wrote:
+On Tue, Sep 01, 2026 at 12:46:21AM +0530, Mukesh Ojha wrote:
+> On Mon, Aug 31, 2026 at 10:56:55AM -0500, Bjorn Andersson wrote:
+> > On Fri, Aug 28, 2026 at 11:43:11PM +0530, Mukesh Ojha wrote:
+> > > The proxy power domain enable path currently requests INT_MAX performance
+> > > state for every proxy PD.  While this serves as a "take highest available"
+> > > hint, some SoCs require specific per-domain RPMH levels for correct
+> > > operation during firmware load rather than a blanket maximum.
+> > > 
+> > > Introduce a proxy_pd_performance_states array in qcom_pas_data to allow
+> > > each proxy PD to declare its required RPMH performance level explicitly.
+> > > Platforms that do not populate this field retain the existing INT_MAX
+> > > behaviour.
+> > > 
+> > 
+> > Is it possible to encode this using an optional opp-table instead of
+> > filling the driver with such details? (This is a question, not a direct
+> > suggestion)
 > 
-> The snd_dummy_capsrc_put() builds its change flag with &&, so it reports
-> a change only when both channels move at once.  Writing a single channel
-> stores the new value and returns 0, the control core then sends no
-> SNDRV_CTL_EVENT_MASK_VALUE, and a second reader keeps showing the old
-> setting until it polls again.
+> Technically yes, via required-opps, each proxy PD would need its own
+> opp-table and the remoteproc node would reference specific OPP entries via
+> phandles. That is heavyweight machinery for three scalar values used only
+> during the transient firmware-load window. But let me know if you see the
+> benefit.
 > 
-> The volume put a few lines above compares the same pair of channels with
-> ||.
-> 
-> The mixer selftest already reports this.  With snd-dummy loaded it fails
-> event_missing on all five capture switches:
-> 
->   # CD Capture Switch.1 orig 0 read 1, is_volatile 0
->   not ok 13 event_missing.Dummy.9
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
 
-Applied now.  Thanks.
+I don't like sprinkling these details throughout drivers, but if that's
+the alternative I guess your proposed solution is the lesser of two
+evils.
 
-
-Takashi
+Thank you,
+Bjorn
