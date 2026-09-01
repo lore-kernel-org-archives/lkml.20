@@ -1,116 +1,118 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0995372B2B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 05:28:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788240509; cv=none; b=jysE55j/FBIXPE1MH3axAps5t5qTsAw4v48LgWJg5Sm5Z9ri/SZud/kkXBhPpagNzJwyqPh2Qq35B9P18T10qU9mFawBBwSMLBmQWDZL4Rt7p2cDYMmcNAVsFF2EaR0QxsJovrYfCDhZyfz+hxg/Ix/timoe5MuUrl6Pmo5eyEw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788240509; c=relaxed/simple;
-	bh=W7Q8xg8BSAYA2tpHUW+AynBJ9lC5DWh80C8PRS4kSR0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a0QFBz7o07X6TH+yBC0xSOf/DgBmZOVBdEWfgqBS+v3Faw7rUxbD/T+9d3ZxSguH1htaGtOdHKRdj0xf6wSUM6DttgtyVEdxqfUgtf+B91ZpsF9DXx+d9magcpZ80iR8nJ5HZRqebzkFOI8F5/Tr9i/1E2wg61HvWZCAmMS04Zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mw/5LzLC; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7CF372B2B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 05:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788240558; cv=pass; b=g/B/WfwXE1ReGL2BzLInsYVUhWLcJCsCIBMzG32nG5fL21vuN+WUN4U3+3xSjlfPSF5eMXVcDd1up0sp/aao2yoDV/i7rtXlIcHvTuStazJ/XMXPPLEki/NEGZYEt742mPKms8ztVnydhRs3Qc3ZH/mGZlTQw6M2iP9T2+t8vKg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788240558; c=relaxed/simple;
+	bh=GwctvFwVAkHjOBx4vb1TrJmuUy6f2b/bl2DeLQJ1Qkg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CtKAu8nXvW2BGMwo3flbmzSVGMH1HpDE9ysi+qu9TIsKx0MTE0tn04LuoeZAhDR74hU79UpoPgm+L4qOPedZXd2BWkjTcXI40J2l1UW6bT0tAJMbLeIXZBTulNqhYYyxMePUCtrGsOAp2u8JwUSTCVebLOqVsJHDb8Nod5g0TDw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YLum7CxT; arc=pass smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mw/5LzLC"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso60903845e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:28:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YLum7CxT"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38759bcd877so4281499a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:29:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788240556; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lJxE0tXHn9Hz6R8evzHPZzFr4H7c4Um9a9M65zqhFwV5QXHtC/nW/uiJiEjiFUH2Uo
+         XRYbernqnBzo8IGznwX9DnZd31t0vn6tqiXJHo+4aAdeQIL9o+/q/TLfauln5IXDFsho
+         29dxE75YjF6PW/L+cNr2xwxZdyYBlsmED+cUEXMFpavKY8bhBTeC60HAYaIFOXWCtK0+
+         DFj2hqHWh6ZxCXWH0hu+O6t4vPi36FisHn7D1a6EX9wscmWT1xhqX8kx6C/UpL+vNiQv
+         k2ELg8AuN1sTyEGeVUKkYiY41j+npa6kjJZ2YviR5xEDVkDhzvvEOZSLJtyBqPYje3HW
+         7/zA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=GwctvFwVAkHjOBx4vb1TrJmuUy6f2b/bl2DeLQJ1Qkg=;
+        fh=BAq6lrP/MDJo/dCtc72VQwA1PMz8nGaQf/+Q2f0cyyA=;
+        b=O3igwSNDYxgKi4vEqzs9BtgdCfK4RIOomwuihF+Yj5zqKfO9VApzufVl1a5Jobcv9N
+         rCxsnh2o7XuGBtlFpI8fhx+WE1TUbJ0WLjVti4SuXvt1vh33oBSdqrB6CpkgtHfd6zJC
+         QC1GWrqFzdBR/r96wcK1sgkGLafR4Nb+bqOcAUDUOrPCixIjr9KakmSieC064tn6mPao
+         I1QHtal4MGgdEbwHBQJZKC4w7NQkSlBKnQU2lnjTJrs7VS5KGKMIijsWdXMWkvz0miDu
+         7QSNIvzKnaRE/AbMJUanJy4jrqVxceTMA+YmKOsfWAoQoF+jSJl2apHdu04g5KgNL3B2
+         zt+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788240506; x=1788845306; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W7Q8xg8BSAYA2tpHUW+AynBJ9lC5DWh80C8PRS4kSR0=;
-        b=Mw/5LzLCzbYfkO9cFPvCiEqpRFxM9o0QArFK+sAPSbBonMM4mGhvT5+QrE4N5GerAZ
-         5mkg/qPAl6C5gYKmIrYFV4eKFr+7aJYMy6Eh+X+8/ma/G+4GbKKfWDy6HCJGLeF4aO+M
-         5VCbtcope+RPL4XfvwZ9xeCdDkyakwIKzTWF7v6EUanez8v6YKt9PJ+dikMHU6z5e92O
-         AVPh671sq+hYHpK474d2daYWRMcEaohSquAQTsmJ/G7aQwhCwp1K0/SdE6w1SQXWsI6G
-         yT8l4k69nLhJ3TBK+Sj1AN/+3d3Dzg7Y3zzsLwR5JNHb5RYVzLmpD7QeCLNP+lxSzAWI
-         vXBw==
+        d=gmail.com; s=20251104; t=1788240556; x=1788845356; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GwctvFwVAkHjOBx4vb1TrJmuUy6f2b/bl2DeLQJ1Qkg=;
+        b=YLum7CxTRINirvmrxLuNbnKa8zV1npR9BdkWNXS8DGFuJfD188YQ6MagcUydcr2Bql
+         CtKdEr595+Zyj5uZUC+Wy1s12/X0k3ri6b5J5FoumC4OxtkyME5H0v1orex6bmrx47vV
+         JhUQye88UnH6yHtIgKWt+xWpZfet+EBP25fCcUj6uHqNEemLARKUJqc5LcQhfoEYvSQY
+         4ozWsC0SjtcqpXffQ3lk6srV5XD7SdiKfrvdQNfrZlK9If+9kZA6wQSXIBq0Me8blu6D
+         2RBNRuDbGnC8xMjYuB9tyVMgzvOeyfQWXiTB6jw7f6vuiBdhdWyrEUUNk4Fm5RYG0RA4
+         yOow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788240506; x=1788845306;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W7Q8xg8BSAYA2tpHUW+AynBJ9lC5DWh80C8PRS4kSR0=;
-        b=rbAkqn+v2txuL0uLzvN9DPJz8GpDPgsTg+8bKkFUHGMEkNN2H0j4x5rlqnfmpWROUl
-         gR1FwdNmdAs2Hid8+4PKXckO6Oyri8+YPdgnLYnLZ519Td714zVXxRbGqE00US1kO5RA
-         J0LBp9II/0eA1BZB6zvFcMp+lR5XS3SjOv8X2LeIh9nK/sLSxRZzfADQ+kv37mueFi4T
-         0gfBL+NTC4Wsyfnq2qVCcC3q9NMTHTDKZ1qtzy1sQ8r/rnQEtPUnpNMGJh5iwlPpR9w/
-         CR5xiLV8tVZgulAMIUzQoTwUmFJf/IYaEVld7j+hoDK83RmKO/90sHDNgIiCKriOZMIY
-         +NIQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq6n04sbFNIkY9UEgtskmR/WIJOh1uII2i0Obn0oPyZTx22O6oGsotSq8Qo1OHdW9k80mPa183ESYwUmzA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nejiWMZvmq6SnPwmMgwL6D41W/GYDASV6KzVHhuiKvBxT85TSE
-	xRPn2vFkCFR7Cqd5udtq7ICg3UgfS4tj0RAW8axJS05yjJ5Avze6H/hU
-X-Gm-Gg: AR+sD10IhFCG06KtyitV+IwbgDSvi9MaN0aYu1mOoforRTqUyZ+LSKhfglisSHRNPye
-	mw8GdORHjnvPodLV7LlOwJ1r9DvUUQQmSCeAzO4pEWdd1mCPAmYcpCHiaZ5+mMH4SMtEvB4EF6l
-	3JlcSSDjlzt5pYlYvdFgQ4NfvN05rbqJpn6BB9pAU9eYIsLk/CqpC1wBLQbvn6hnstzmzP1C/sx
-	mobYROLQm5gY3JdC7Nh7x733bjJTi0EitVBbWvEj9lkka9F782L3OZYhy56MNWrKWf9wnu8y843
-	GrJwqCgN3W+TLBjzHIBuO2zGLky4ZPWy9TrHJF+e/Qn5xP+0A+/f6JTwiBvo/JvlqVc8cRrqcWR
-	qNTIz+8B/QDjmLDExZC7sRg6hToC894AiEUvYgjKT8qVjJ75RDTXYS/StLV822OGzJULdvZTHgf
-	U2/dv0gMAXsfwXg7VtvUmm/yJKMael/41hXcUHHnTk15pCIzLpOKxKdBCOOdYt8roPIrykHb1ut
-	7BUCTEAkuIzyDHj5bV81VHvucdkpnfMzeEuMbv4QW5JnGi2h2tMiC6WqZ3KitnL
-X-Received: by 2002:a05:600c:3e18:b0:49a:77c1:d246 with SMTP id 5b1f17b1804b1-49b91c4e073mr525091595e9.15.1788240505850;
-        Mon, 31 Aug 2026 22:28:25 -0700 (PDT)
-Received: from localhost.localdomain (ip-89-176-136-191.bb.vodafone.cz. [89.176.136.191])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd8b9a2efsm140752035e9.3.2026.08.31.22.28.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 22:28:24 -0700 (PDT)
-From: Petr Wozniak <petr.wozniak@gmail.com>
-To: sashal@kernel.org
-Cc: patches@lists.linux.dev,
-	stable@vger.kernel.org,
-	maxime.chevallier@bootlin.com,
-	kuba@kernel.org,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	linux@armlinux.org.uk,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Petr Wozniak <petr.wozniak@gmail.com>
-Subject: Re: [PATCH AUTOSEL 6.18-6.1] net: phy: sfp: probe for RollBall I2C-to-MDIO bridge in mdio-i2c
-Date: Tue,  1 Sep 2026 07:28:16 +0200
-Message-ID: <20260901052816.3815-1-petr.wozniak@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260831133314.4125787-466-sashal@kernel.org>
-References: <20260831133314.4125787-466-sashal@kernel.org>
+        d=1e100.net; s=20251104; t=1788240556; x=1788845356;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GwctvFwVAkHjOBx4vb1TrJmuUy6f2b/bl2DeLQJ1Qkg=;
+        b=ENWy+mVvSFq8x5ow1pjb+z2gHwcY1xJ+z6UTX6JljtEM7/rUsLq+ND2Lzs65q0AaZU
+         Swmi1TAkGgCaYI131PSAtkPiBknfPjVux8ge+ZJu50ulCw7Po1uGg/2g0WuGC7PbPjdz
+         mUqrlN+64PKskIq9Sjurui+YoSOAq2nAu8Hmu10lZiorYH0kHu+gqUDrBLDLglo+nxOm
+         I/ssJt6ygv1Z5O18VI/fY+WTzY8dKlFo8olAR7tExA0wDMf05SS39ivPk2KcBB251iBR
+         T1I+VOgrqcWiz5Z0TD2k0JA03Kjd1fuXE6T5h0X0xzM7DsO4TnDVbS0OzTWpLlwPstPF
+         Cb+w==
+X-Forwarded-Encrypted: i=1; AKwUvBycfr/QK+mWu5BA9pZeQzxX7IkGNa3a0mTKrW6y6kXvVE1Q0U5hkFYnHt6lEkvsD18gzmV3KmiOCaJ8SJk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSH+HAOj80vjqUTIo56Dd2UlKBde7yYNXDf+P+LuSasMprcxnB
+	x08jJDrfmgfAF1NLtDpLsUMjEzGy9/h9XsMEy7Zm2ms6aGygRGpzmr7tUjyzYCjGEDfm6mM52hH
+	1zzFQD1/M89eC3Amlt2KpQEplQ8P40FI=
+X-Gm-Gg: AYBFou3KjKsjodmNBDXW1ZXzt2oEJHTdmZAUk1S9SjfqMbunfpcSnSPTmBQtLWUL6ht
+	Y/UHyVddReFfaIiwEH835AndcFLOgR+JC9eZQdQTpz+LPBB0pwEQ+gIT/qKmnNn5mi5Xn4MWqN2
+	khvqz+Y98puWP/5mUY311ooL80qQ5bXGfar0vmf/eo7tx6VyF7XxAQguYxelqujXExhVdYo8xjE
+	xEIBil+MWZvJigojdI2JAZvUIKe0GknSPGtk0VnnKzkF44MzeRffov5Vy0NTnmSdblb2uU8tf4h
+	rYCRgGZraTXFZ2KKaQjEcHf456Tev43dzi99KSdCGIEjKcBWx7xZi6jae/RCExXRMFjZQHkoA4g
+	xqUVYkFVo5XGSgu68nNOP1NI4YEY=
+X-Received: by 2002:a17:90b:3910:b0:398:9beb:5c17 with SMTP id
+ 98e67ed59e1d1-3989beb6373mr29600132a91.18.1788240556415; Mon, 31 Aug 2026
+ 22:29:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260831085217.391-1-strst.gs@gmail.com> <CAOiHx=md28_BmsDOsNDp0XbUpfih=P+-+aDYb6tiWPJTCu1drg@mail.gmail.com>
+ <CAAsRjRktqEx+-CLDO_q6rLUBe1dtRQPH1NkX4xy7ichx79yGPQ@mail.gmail.com> <739079cd-dc83-4b53-a3a9-a7e610379d19@broadcom.com>
+In-Reply-To: <739079cd-dc83-4b53-a3a9-a7e610379d19@broadcom.com>
+From: Semih Baskan <strst.gs@gmail.com>
+Date: Tue, 1 Sep 2026 08:29:05 +0300
+X-Gm-Features: AcwNN1UEeHd9ZRjJ0HoaeursBIRKyHkxNHGprx228jpqMq4BYYExnIVM06ec9EU
+Message-ID: <CAAsRjRn8AFBN7k3i4TMLpLsyFQc5DSL-a9u+OieFyVtYgD6x4w@mail.gmail.com>
+Subject: Re: [PATCH net v3 0/2] net: dsa: b53: fix 8021q uppers on standalone ports
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Jonas Gorski <jonas.gorski@gmail.com>, andrew@lunn.ch, olteanv@gmail.com, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	vladimir.oltean@nxp.com, horms@kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Please drop this one from AUTOSEL.
+Hi Florian,
 
-8fe125892f40 was reverted upstream on 2026-06-29 in b521003c27eb
-("Revert "net: phy: sfp: probe for RollBall I2C-to-MDIO bridge in
-mdio-i2c""), so it is no longer in mainline.
+On Tue, Sep 1, 2026 at 3:24 AM Florian Fainelli
+<florian.fainelli@broadcom.com> wrote:
+> But you control exact how the DTS gets distributed in OpenWrt, why not
+> just fix all of the DTSes there and have the users confirm that using
+> port 8 as the IMP works?
+>
+> Don't get me wrong, I am very appreciative that you spent a decent
+> amount of time trying to come up with some sort of solution.
 
-The probe it added runs in SFP_S_INIT, before genuine RollBall modules
-have finished initialising their bridge, so the bridge does not answer
-CMD_READ/CMD_DONE within the 200 ms window. mdio_protocol is then set
-to MDIO_I2C_NONE and PHY detection is skipped for modules that worked
-before the commit. Maxime Chevallier and Aleksander Bajkowski both
-confirmed that on hardware.
+Thank you. Yes, that is what I am planning to do. Port 8 as the IMP
+is already confirmed on my board, tagged RX and PPPoE come back with
+no driver changes. Next week I will start with my own board in
+OpenWrt and hope owners of the other bcm53xx devices can confirm
+theirs.
 
-The timing is per-module rather than per-PHY: the FLYPRO
-SFP-10GT-CS-30M they tested carries the same AQR113C as a module here
-that answers within 200 ms, but needs seconds to load its PHY firmware
-from SPI. A fixed probe window cannot cover both, which is why the
-commit was reverted rather than adjusted. A proper fix needs per-module
-init timing, and per SFF-8472 the host must wait at least 300 ms after
-insertion in any case.
-
-Backporting this to stable would reintroduce that regression on
-hardware that works there today.
-
-Thanks,
-Petr
+Best regards,
+Semih
