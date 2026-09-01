@@ -1,235 +1,84 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F44E38F934
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:29:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272995; cv=pass; b=FLlKBPd2MNkooSxUGBN9h0FqgMqUl1KUx5AS5Vn7SM7vxD5WF8kw4J/F0OFRkAbVzSvntdpNdIs4YxH9RMc0GQO/Ut+S1oZYsz1OpRwJPQM34v118jGRHGKhfkMpw1FCTFTFHC4u1lKxjXkNt1lfFsOgXyvWbbNcwWkL7coo+YE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788272995; c=relaxed/simple;
-	bh=VvX3m7uT/hDat5OIDBC0kdQh6OzJJpjqr0LeLbE8RZg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aYu5/jfYDkRyY/en3OXe7sVi76WQxnb3hHVXwb1U0Qp0h0zPqVG9lSJ7SaU+MHL0FAnO92tOTBqA9ZajM2Xl8EFIL4acCLp7OwV3guEObTI3imNj/N9GLHc4fR86wNgjNBqLrxvWIm+qBTBazKiayuI2U+G67QTKOtOfv6DTm50=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=GEX78Z8/; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB06313540;
+	Tue,  1 Sep 2026 14:30:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788273002; cv=none; b=AQWd5RQpjK88w+wilvpyA2V2TaYcWjdRQzOcSZHOBHUmiAko256UvgQVONiAEFQnRc6/u+hLXz5btpHKcKMnxbdh8hdhfcQJgBAOoPGBFmyw1BkRZ45TIBsmEjqvzbGBNIl1603/wadmW9ue/WgkXAsZ9zfs0CPd28cP89RSOsY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788273002; c=relaxed/simple;
+	bh=ShLRn3DIOFQmncFiXePazjOX56EhJyN//PJ0AIMW4KY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pFDMKrC0m5kV3AipvsgGGO1fER1qqjl+H2L1dmNdUFSYm9mO4W3PYMHRomAkWxq5DYOAyPhY+S3jxeUYkgNxzqF8FnJwtnshYdoxIzu0uPtWeDaoq9+Joqp5e4Ka7Rm6jXHcnExve5J3MaqRUxbP4DCYuUB1weZC1tybwoNmOO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IlPKKpD0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="GEX78Z8/"
-ARC-Seal: i=1; a=rsa-sha256; t=1788272940; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=OE3sMsHGHt+41DVvmLQdFJAlRMi7hLs3HHscY3Ihr6W9OGDbi7H6MB3dGdj9lUocE3NPea0wxNmwZwABOGjF/1vpY0rtdIyvJdvKlXg+EasTyUzzowUzyM9Jn542JzL/OmwFru2YXyuLEO4LjZYBG5qfNN/VFA7IfiMr4nIU7SA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788272940; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=nibbihiNwTxPtB/Zw0Nqer23SKfgJLqxeJF8NhrvMSg=; 
-	b=gRd+XxzWO0vaHlwcxo29Njy5cgr3XzpTsA81J699eOUFC73RSUNhpUdjZlTzOC3Thxg6d6gbauJu1TUJHtw9vXdRTFHWpivqNKcUd83rBAj5+gGG/q4ekwG2i57ltRk1WOLeSBKbbO7qMDz0Yn2tqlM2bwjaI2/QXm0Zhy4qk3I=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788272940;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=nibbihiNwTxPtB/Zw0Nqer23SKfgJLqxeJF8NhrvMSg=;
-	b=GEX78Z8/TxVCUZ1uHZCye50DQCx+0mIUo5Nyn5oWYrJLQNE/lRXVnCEZtPHkZoNR
-	Hw603To04nIZB9ESBD6b2hFPVoqMbrwz+s6LoKxHeH7okLjsFRgHPaU4SzLN53PP+6H
-	e/E7j7fpTgCJHqK8+nKAJ8NvuX7X1o1uplnkVvwE=
-Received: by mx.zohomail.com with SMTPS id 1788272938687853.5577781362773;
-	Tue, 1 Sep 2026 07:28:58 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 49F6C181B0C; Tue, 01 Sep 2026 16:28:52 +0200 (CEST)
-Date: Tue, 1 Sep 2026 16:28:52 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Christian Hewitt <christianshewitt@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
-	Daniel Stone <daniel@fooishbar.org>, Detlev Casanova <detlev.casanova@collabora.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Douglas Anderson <dianders@chromium.org>, 
-	Andy Yan <andy.yan@rock-chips.com>, Sugar Zhang <sugar.zhang@rock-chips.com>, 
-	Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Compute ACR CTS for unlisted
- TMDS rates
-Message-ID: <apbgp2h_tSZQzbdV@venus>
-References: <20260901112541.84588-1-christianshewitt@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IlPKKpD0"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BFA961F000E9;
+	Tue,  1 Sep 2026 14:30:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788273001;
+	bh=A2AYh5SSryGrBO/HuHjQ4hxDZb/wBIY2xwZDbl2gNUA=;
+	h=From:To:Cc:Subject:Date;
+	b=IlPKKpD0RIgV63tQfh/tikjhcMlecq+P3F98DByODk4RXDVuWFTI3qDcH8iksBvCG
+	 SoUxcSyLOMdrdJo91rU05hl+qf/UrbU48LmxB329h2N0xD2UCJFxLf1y4IZ6VCIIPd
+	 gt1z5zK3ooHIZf77NWUQ/0dAxoXJRdOPY/IGCFagKRfKlhlAzMWfryW2dVU9WD7oJt
+	 ENYCiSjDN8Lvel4egfRaBzQazHuvDsm+zEcg9SUnnGPAi0cLCrx1Cj5QhC2YpFaYcZ
+	 j/jmzSH/CgLiUiN2rIlejEgDuDAjefuMvaS5YzMqpv6E8znlZf0pxTQUONNE2CaqCr
+	 rEjQY/hQOLCRg==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: linux-integrity@vger.kernel.org
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	Peter Huewe <peterhuewe@gmx.de>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Stuart Yoder <stuart.yoder@arm.com>,
+	Chu Guangqing <chuguangqing@inspur.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] tpm_crb: Remove dead code from crb_map_res()
+Date: Tue,  1 Sep 2026 17:29:46 +0300
+Message-ID: <20260901142955.187856-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lydbo5pwj5izjpxk"
-Content-Disposition: inline
-In-Reply-To: <20260901112541.84588-1-christianshewitt@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.256.78
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
+In all the pre-existing call sites both @iomem and @iobase_ptr are
+either NULL or non-NULL.
 
---lydbo5pwj5izjpxk
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Compute ACR CTS for unlisted
- TMDS rates
-MIME-Version: 1.0
+Thus, add invariant for this and remove a dead basic block.
 
-Hi,
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ drivers/char/tpm/tpm_crb.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-On Tue, Sep 01, 2026 at 11:25:41AM +0000, Christian Hewitt wrote:
-> common_tmds_cts_table[] holds only six TMDS character rates (25.175,
-> 25.2, 27, 54, 74.25 and 148.5 MHz), so dw_hdmi_qp_find_cts() returns 0
-> for everything else. dw_hdmi_qp_set_cts_n() then clears the CTS override
-> enable and programs a value of 0, leaving the sink with no CTS to
-> regenerate the audio clock from.
->=20
-> Any deep colour link falls into this gap: a 10 bpc RK3576 HDMI output
-> runs at 185625000 Hz (148.5 MHz * 1.25), which is absent from both
-> tables. N is computed dynamically and comes out correct at 6144, but
-> AUDPKT_ACR_CONTROL1 reads back as 0.
->=20
-> Give CTS the same dynamic fallback that N already has, using the formula
-> from the Audio chapter of the HDMI specification, and drop the -ENOENT
-> returned into an unsigned int for the unlisted sample rates.
->=20
-> Fixes: fd0141d1a8a2a ("drm/bridge: synopsys: Add audio support for dw-hdm=
-i-qp")
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
-> ---
-> This was found after testing unrelated patches from DetlevC that rename
-> the RK audio cards to see the impact in Kodi. RK3588 had audio output,
-> while RK3576 did not. I'd not used an RK3576 board for a while so tasked
-> Claude to help triage the problem, and this was the finding. The problem
-> appears to have been exposed since Kodi reworked plane selection logic
-> and support for 10bpc planes; earlier Kodi/LibreELEC images were using
-> 8bpc planes thus avoiding the problem.
+diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
+index ceb4100ba400..e7a61f36c58b 100644
+--- a/drivers/char/tpm/tpm_crb.c
++++ b/drivers/char/tpm/tpm_crb.c
+@@ -570,15 +570,12 @@ static void __iomem *crb_map_res(struct device *dev, struct resource *iores,
+ 	if (start != new_res.start)
+ 		return IOMEM_ERR_PTR(-EINVAL);
+ 
++	if ((iores == NULL) != (iobase_ptr == NULL))
++		return IOMEM_ERR_PTR(-EINVAL);
++
+ 	if (!iores)
+ 		return devm_ioremap_resource(dev, &new_res);
+ 
+-	if (!*iobase_ptr) {
+-		*iobase_ptr = devm_ioremap_resource(dev, iores);
+-		if (IS_ERR(*iobase_ptr))
+-			return *iobase_ptr;
+-	}
+-
+ 	return *iobase_ptr + (new_res.start - iores->start);
+ }
+ 
+-- 
+2.47.3
 
-You are looking for this series:
-
-https://lore.kernel.org/linux-rockchip/86fcf349-0a7a-4618-9001-612371b0f71b=
-@symple.nz/
-
-Greetings,
-
--- Sebastian
-
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 45 ++++++++++++--------
->  1 file changed, 27 insertions(+), 18 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/d=
-rm/bridge/synopsys/dw-hdmi-qp.c
-> index 5f4718c3b9db..7cf327de0249 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> @@ -12,6 +12,7 @@
->  #include <linux/export.h>
->  #include <linux/i2c.h>
->  #include <linux/irq.h>
-> +#include <linux/math64.h>
->  #include <linux/minmax.h>
->  #include <linux/module.h>
->  #include <linux/mutex.h>
-> @@ -307,8 +308,15 @@ static unsigned int dw_hdmi_qp_find_n(struct dw_hdmi=
-_qp *hdmi, unsigned long pix
->  	return dw_hdmi_qp_compute_n(hdmi, pixel_clk, sample_rate);
->  }
-> =20
-> +static unsigned int dw_hdmi_qp_compute_cts(unsigned long pixel_clk,
-> +					   unsigned long sample_rate,
-> +					   unsigned int n)
-> +{
-> +	return div64_u64((u64)pixel_clk * n, 128ULL * sample_rate);
-> +}
-> +
->  static unsigned int dw_hdmi_qp_find_cts(struct dw_hdmi_qp *hdmi, unsigne=
-d long pixel_clk,
-> -					unsigned long sample_rate)
-> +					unsigned long sample_rate, unsigned int n)
->  {
->  	const struct dw_hdmi_audio_tmds_cts *tmds_cts =3D NULL;
->  	int i;
-> @@ -320,23 +328,24 @@ static unsigned int dw_hdmi_qp_find_cts(struct dw_h=
-dmi_qp *hdmi, unsigned long p
->  		}
->  	}
-> =20
-> -	if (!tmds_cts)
-> -		return 0;
-> -
-> -	switch (sample_rate) {
-> -	case 32000:
-> -		return tmds_cts->cts_32k;
-> -	case 44100:
-> -	case 88200:
-> -	case 176400:
-> -		return tmds_cts->cts_44k1;
-> -	case 48000:
-> -	case 96000:
-> -	case 192000:
-> -		return tmds_cts->cts_48k;
-> -	default:
-> -		return -ENOENT;
-> +	if (tmds_cts) {
-> +		switch (sample_rate) {
-> +		case 32000:
-> +			return tmds_cts->cts_32k;
-> +		case 44100:
-> +		case 88200:
-> +		case 176400:
-> +			return tmds_cts->cts_44k1;
-> +		case 48000:
-> +		case 96000:
-> +		case 192000:
-> +			return tmds_cts->cts_48k;
-> +		}
->  	}
-> +
-> +	dev_dbg(hdmi->dev, "Rate %lu missing; compute CTS dynamically\n", pixel=
-_clk);
-> +
-> +	return dw_hdmi_qp_compute_cts(pixel_clk, sample_rate, n);
->  }
-> =20
->  static void dw_hdmi_qp_set_audio_interface(struct dw_hdmi_qp *hdmi,
-> @@ -471,7 +480,7 @@ static void dw_hdmi_qp_set_sample_rate(struct dw_hdmi=
-_qp *hdmi, unsigned long lo
->  	unsigned int n, cts;
-> =20
->  	n =3D dw_hdmi_qp_find_n(hdmi, tmds_char_rate, sample_rate);
-> -	cts =3D dw_hdmi_qp_find_cts(hdmi, tmds_char_rate, sample_rate);
-> +	cts =3D dw_hdmi_qp_find_cts(hdmi, tmds_char_rate, sample_rate, n);
-> =20
->  	dw_hdmi_qp_set_cts_n(hdmi, cts, n);
->  }
-> --=20
-> 2.43.0
->=20
-
---lydbo5pwj5izjpxk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqW4R0ACgkQ2O7X88g7
-+poXfQ/+LDpMXaTNcjSRBdF7rpSOyIoT6KZHOa3awhqdJI9OjPWkqnMgtXC820Tn
-Qpadkaoae0eEaL0DgwK++3m08U0ZSchWttGJWDcxUMnULEwtxuGh0y5wa9MotUOr
-iUmSahIbDW7M9CnpLWvOFIn0na5s5m1NdiWSO57cwMhRJaO2dg+tB2+b7wkaE3ak
-fZVQPlcwx7RpQpKe1Q8Gio9gxZVSPKdGAsbbdxCqsi+AjcDuPe+OVe0FEr12y1LI
-/SjQaTQ8Nb8eFdZ8bqBKWcHlNQ4RPaeA64eKE+hoqy7zgUMM4chfFI8WaksU+1oP
-VdFHkORrU1e6OU4bvDP0zCM3sOyEA7z0O0DSqNAzRquQ4MkoliSwKVTx2NDDY2Sv
-n9iGmeixpIweQWsZJBS1q+3+H1sue3CiaeKlkhKVrXs8wngTbo7gMFF/G+BBRfGs
-cW/hwCzOE+x7H4C2kWKly5YJcl3mt1QNPk++xw5/mafYV9PUwWMlOnu/d4i7FnOo
-I+ZUZ73uAe+KnvKI7lDAlE/bdwtmIRYYbnDHJYVOLFa2BOx/Qwz5kiyvD9Y0NB1S
-n0NJJWqXZjtkDrvF/0E8DqJar54sn5i/9viWWwR1gkpfp6K/J/pNhbt5Tq6Y7+Pd
-DXc6TQE4r8KhDhtsDiY1XW9EVa/zad82OwedhecxHnwUWvFefdY=
-=udif
------END PGP SIGNATURE-----
-
---lydbo5pwj5izjpxk--
