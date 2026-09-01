@@ -1,176 +1,102 @@
-Received: from mta1.migadu.com (out-185.mta1.migadu.com [95.215.58.185])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2051813FEE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:39:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59FD13515CE
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:40:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788251990; cv=none; b=Ms6MNrqzh4nxRCOjoTF59//xPgMpjgL0iApVIgTxTs52+UJ2zxJZahTCLBDP0HW0SOlE8L0yVCoGvRC+tvmOyWIO0MG8OH0HcmeQHvzkuknGC0NhghfZ8sjCc4YRXDAFr6DIocKR+h4EGWWuSH3tIOdkLElaC/3TRNmhkKP3nOg=
+	t=1788252014; cv=none; b=NRFf/GDcqV2D56+RZZ1C/35+3Xnuwoxqzn+TARm0cGN4NP+T2XSLVnh5HETo0UZQ1f30wrqBDRrWU/sBvI4Um5QvPCP1w9qqtWZc8GDFHNGfTJyJjMyc+T/kjFw7r2Oj1FyrjRvxIc58WUqm2ZUcQ9RTTty6nH89XCvuntkQ1qk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788251990; c=relaxed/simple;
-	bh=MFd6QQcIiVNo4d+5OnfkjHu0LYEIxCoAHDswhin9sq8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ReUFPSRvO28GeNIzlHh14w+CuhalM7ZRb0NDfY0wkMvDCL1XLq6euN5zLKRgGkaq/kGOG/0KBwp4b2SIxZTAZhS/z11hwtn5et0diZrkDoHS4qVI6f00/qEaYu/nBJNelXrlQFvqx4xL/EmsY6Fb9KHt2MSL6oz91+GErovtwNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mINlTCzk; arc=none smtp.client-ip=95.215.58.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788252014; c=relaxed/simple;
+	bh=LmtwnVM9wvRfR0wHIHOhtdLvcOyfBAHXYxI+v0qt2Ds=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qtRrpZfzeZ5g08NB02MERMgVya7T4pn/KCs3nc8O6ZI8Edbb2OEh6aoDfBjoUGB+EC1g8vzavVnKlzIsbU/UP4q9g9EFIwDublvpFj4qZSe7ZSl4QsEJyC/8SoPuLYgk72s8a7q7EHnVN+wc0IhpssW+vaqOW1TrHqWeaYyaIEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FYbfFpMs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mINlTCzk"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MFd6QQcIiVNo4d+5OnfkjHu0LYEIxCoAHDswhin9sq8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788251987; v=1; x=1788856787;
- b=mINlTCzkzRJE09TeorJ64wWbNWvqxkLNNDvyUWUPBtC+x/LkmeHqHdExRzLIRphopLpjnDlo
- QhffBAche/rfJ9yyBqCsIeysSVAgsa/Pixwdg7p+wBY2ee7ouEhwV3ch+t8KKkcOoi2cTck71D3
- 3tpg0pQFgHmx6InF1T5SIfv0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d464daeebdd3514e;
-	Tue, 01 Sep 2026 08:39:47 +0000
-X-Mizu-Trace-ID: d464daeebdd3514e
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5aeb688ae83so3722e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:39:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxXyDCEXAq1s7+4Q1ZhYNerTmbudjDXL6aqYg33zJ4xZn1lRjjW9jtKH1J9JHeIkaus/oUyuTq6/h9HhBo=@vger.kernel.org
-X-Gm-Message-State: AFuF++n58Vmi5lYcXJj0+25sM7Q3ZhSAx7Br5Ws7NgRd1gUCsxEo7B4v
-	wLlVNbQhVCyGSR6+AxU7IOJczm7yqeUztwbzvQMjICbErv7oxOoGO3QGyTfEF1kgDjwmLlzKLYs
-	g4ECZp4Nr64ICvmFpEhbhkzlym8YY/XARXIoAkuR3
-X-Received: by 2002:ac2:5689:0:b0:5b4:4c8a:abef with SMTP id
- 2adb3069b0e04-5b5ff29d7ccmr116639e87.10.1788251981891; Tue, 01 Sep 2026
- 01:39:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FYbfFpMs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09BAE1F00ADB
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:40:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788252013;
+	bh=r7xYjB1JLDV+AUhQJIpnIb/S9CVT5PFO2ocKRTTD4yg=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=FYbfFpMsAs2NeGWjECcwblMlB7PpVYIjIEKAS/Xs++CdZ7bFotMyY7Gs3wDNcllWd
+	 RtwBNNbuFRsTRSx1BE/fGNsLUPjrgyG7RrMx9Wm27qOR59UbBdoaEbjo2sWszXGcaK
+	 ngsia/Ckx//R+msxvwUB1FhJVOScCrHscVF0ggarUREDX8+G7fhSWGTw6w1YHtqctP
+	 XEvoiasO1IzZVK2wDq7OAYe3zrgPJv2bltVHxE54a9pxsowKkHqDxkhT1akXc4kiOj
+	 lRxjhs29hjknU+Sp9wezzSOa3pG8648PXzaSGKLPDF1YLikWrpdZQyWW8IGkSLzM3/
+	 y7XH2cZjXG2Hg==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b45f2e5f58so3612483e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:40:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzLaXhrqmBI8OjzGoNqssU7Cbz5qLT8NGT25hOZmzzhk2QLLk7zME2Q1QxpkZkOszn5KqBQ7ET0in6mudo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFS9lkunE+sLIQH1GtqNDrCShT8LbPMec8Po30bA/dAvPgqb2z
+	xbhCN5EjBojvn6QumkVpxHqRvUqri5NYAtk2t72z0n3UPCSIOh4AXK8e3qczi9zj5fZsKi9+p6T
+	FUvFrx2QJubUyxT2NGK84OaHOGy7l2KDn4L89Re2cmg==
+X-Received: by 2002:a05:6512:2345:b0:5b0:cd1:1f84 with SMTP id
+ 2adb3069b0e04-5b5e68ed01bmr10096072e87.18.1788252011671; Tue, 01 Sep 2026
+ 01:40:11 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 1 Sep 2026 01:40:09 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 1 Sep 2026 01:40:09 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260830101025.191697-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com> <20260830-gmem-inplace-conversion-v12-1-85e5fd25252a@google.com>
-In-Reply-To: <20260830-gmem-inplace-conversion-v12-1-85e5fd25252a@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 1 Sep 2026 09:39:05 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTytLWsa9-boURuumSFC8yNWDwvz_+WNN-aEz_cA9OkcdA@mail.gmail.com>
-X-Gm-Features: AcwNN1XCAyPPlQdujvTs-aL1UBkQHfHgNLA1ozg5F-aaAoV8bE_sbTlT0O7ALBU
-Message-ID: <CA+EHjTytLWsa9-boURuumSFC8yNWDwvz_+WNN-aEz_cA9OkcdA@mail.gmail.com>
-Subject: Re: [PATCH v12 01/45] KVM: guest_memfd: Optimize away conversion
- overheads via dead-code elimination
-To: ackerleytng@google.com
-Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
-	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
-	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
-	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
-	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
-	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
-	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
-	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
-	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-mm@kvack.org, linux-coco@lists.linux.dev
+References: <20260830101025.191697-1-shengchao.guo@oss.qualcomm.com>
+Date: Tue, 1 Sep 2026 01:40:09 -0700
+X-Gmail-Original-Message-ID: <CAMRc=McYnNi0kUirdRS5EaEcOM_O04LssnK=NHQe3qG3wXcv2g@mail.gmail.com>
+X-Gm-Features: AcwNN1WyA6ox9fd2cV9CQbuAHwr9OEp2ZgxoMmSV5lsmeHSqgbZVMDKzLA9rank
+Message-ID: <CAMRc=McYnNi0kUirdRS5EaEcOM_O04LssnK=NHQe3qG3wXcv2g@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: thermal: qcom,pm8775-mbg-tm: Document PMAU0102
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, 
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Dhruvin Rajpura <drajpura@qti.qualcomm.com>, Daniel Lezcano <daniel.lezcano@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
-<devnull+ackerleytng.google.com@kernel.org> wrote:
+On Sun, 30 Aug 2026 12:10:25 +0200, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> From: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
 >
-> From: Sean Christopherson <seanjc@google.com>
+> Document MBG temperature monitor on PMAU0102 which is programming-model
+> compatible with the one on PM8775.
 >
-> Add and use kvm_arch_has_gmem_convert() to guard guest_memfd's invocation
-> of arch hooks related to converting memory between private and shared, as
-> only one half of the x86 CoCo duo needs the runtime hooks (any pre-work is
-> pure overhead for TDX).  At this exact moment, the overhead is negligible,
-> but that will change when in-place conversion comes along, at which point
-> to-shared conversions will "need" to find all affected folios prior to
-> calling into arch code.  In quotes because very technically that work could
-> be pushed to arch code, but that would bleed guest_memfd details into arch
-> code and would be far worse than adding yet another kvm_arch_has... hook.
->
-> Opportunistically provide the kvm_arch_gmem_make_private() declaration, and
-> rely on dead-code elimination to eliminate the call to non-existent code
-> when CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT=n.
->
-> Reported-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Closes: https://lore.kernel.org/all/1ec08cd8-3072-4753-ad5e-cd34956647f8@linux.intel.com
-> Suggested-by: Ackerley Tng <ackerleytng@google.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-
-Cheers,
-/fuad
-
+> Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 > ---
->  arch/x86/include/asm/kvm_host.h | 3 +++
->  include/linux/kvm_host.h        | 3 ++-
->  virt/kvm/guest_memfd.c          | 5 ++---
->  3 files changed, 7 insertions(+), 4 deletions(-)
+>  .../devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml    | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
 >
-> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-> index 683bb8bf43a94..6beddd8a0c749 100644
-> --- a/arch/x86/include/asm/kvm_host.h
-> +++ b/arch/x86/include/asm/kvm_host.h
-> @@ -1854,6 +1854,9 @@ enum kvm_intr_type {
->  #ifdef CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES
->  #define kvm_arch_has_private_mem(kvm) ((kvm)->arch.has_private_mem)
->  #endif
-> +#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
-> +#define kvm_arch_has_gmem_convert() (!!kvm_x86_ops.gmem_make_private)
-> +#endif
+> diff --git a/Documentation/devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml b/Documentation/devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml
+> index 2e084d040625..ef8361a55389 100644
+> --- a/Documentation/devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml
+> +++ b/Documentation/devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml
+> @@ -21,7 +21,12 @@ description:
 >
->  #define kvm_arch_has_readonly_mem(kvm) (!(kvm)->arch.has_protected_state)
+>  properties:
+>    compatible:
+> -    const: qcom,pm8775-mbg-tm
+> +    oneOf:
+> +      - const: qcom,pm8775-mbg-tm
+> +      - items:
+> +          - enum:
+> +              - qcom,pmau0102-mbg-tm
+> +          - const: qcom,pm8775-mbg-tm
 >
-> diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-> index 502465119ca0c..b7516e19ef419 100644
-> --- a/include/linux/kvm_host.h
-> +++ b/include/linux/kvm_host.h
-> @@ -2597,9 +2597,10 @@ static inline int kvm_gmem_get_pfn(struct kvm *kvm,
->  }
->  #endif /* CONFIG_KVM_GUEST_MEMFD */
->
-> -#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
->  int kvm_arch_gmem_make_private(struct kvm *kvm, gfn_t gfn, kvm_pfn_t pfn,
->                                kvm_pfn_t nr_pages);
-> +#ifndef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
-> +#define kvm_arch_has_gmem_convert() false
->  #endif
->
->  #ifdef CONFIG_HAVE_KVM_ARCH_GMEM_POPULATE
-> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> index 798d91df69537..2190e4d6b6bea 100644
-> --- a/virt/kvm/guest_memfd.c
-> +++ b/virt/kvm/guest_memfd.c
-> @@ -772,11 +772,10 @@ int kvm_gmem_get_pfn(struct kvm *kvm, struct kvm_memory_slot *slot,
->                 folio_mark_uptodate(folio);
->         }
->
-> -#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
-> -       if (kvm_gmem_is_private_mem(file_inode(file), index))
-> +       if (kvm_arch_has_gmem_convert() &&
-> +           kvm_gmem_is_private_mem(file_inode(file), index))
->                 r = kvm_arch_gmem_make_private(kvm, gfn, *pfn,
->                                                (kvm_pfn_t)1 << *max_order);
-> -#endif
->
->         folio_unlock(folio);
->         folio_put(folio);
->
+>    reg:
+>      maxItems: 1
 > --
-> 2.55.0.897.gb25b4bd76c-goog
+> 2.43.0
 >
 >
+
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
