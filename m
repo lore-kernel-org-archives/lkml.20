@@ -1,65 +1,83 @@
-Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A158F47277C
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D78935E926;
+	Tue,  1 Sep 2026 08:53:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252786; cv=none; b=d8uf42+/TlosmOwbr4z41elxSH6UYZUHpafR44Iiz0GhYrqiZE/3YPsUB+6sSNXJOeesruERGnGH/NCron1y61n+hfI6+lA717NdIHSa/8zlaB+yU1xOPV/N+gX5muSM95i7dAwWKfSt7MG6YIVVK/EER+IdsaZOmsYoAW9qtlE=
+	t=1788252815; cv=none; b=s+zJNjxWGKtSe/puD+Jjh++Cb5iiPpFo+unHuuYtOWkpDNvddEnxPAc98iEt9y3hCLMdg6UYztrpta/71CimtfMuzzk0WaNkFYB5m2mqr9qSfgbYF782cFkNHftR6QAghEJ23T1DCGT0M0ubS02VdgxAi+HxWGcDBTphrpRE/TI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252786; c=relaxed/simple;
-	bh=Ely+8qEWUZ8LAcQDW+oMioD/wdydds9TQPREi9VZaz8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OncUHVnodWmM7x8Gy5ZpAjfBHlXCYwYYF+pfRkPE1TCDWCqKXXYH0mEW4MT4OCaZcns9eOMm5eI2cY/upzt6LFYN3q5QrMxX6Vqtk0Worxa0WwstA6C/aczZ8ZgAdmwz0zAp9KpwXl+dW+cfVpmSzbj/7dE3kVmkKFEe9itqzgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=Fnc1sKtM; arc=none smtp.client-ip=85.9.206.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1788252815; c=relaxed/simple;
+	bh=HmHGhENmx1zfzoANCEaUHyFEWFfzElv3LdyoS8aqriM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ApG0Lzxp+3Sx5IhI7o+8b9f8jPM7o9D1X5i64ulqV+VZkvLlOw3yhoqp/c+N8wxK9ph8UMzKUi1pSadHNdo5hLxxME2S1RZCrx+5XZOy0wqdfS2XQNhupNeE0P7KtAOzk6sW7eFHFC1F2LUHKEW8usyZI8X7g/ZvlgIROmwlXiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UYo+SoMx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="Fnc1sKtM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1788252768; x=1788511968;
-	bh=Ely+8qEWUZ8LAcQDW+oMioD/wdydds9TQPREi9VZaz8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Fnc1sKtMo7rwkEJsxA09F2ooKpAALHmiVy9avBVWXf0WeScwthNmBdieFQla+Hrb5
-	 jDr7TIOs+kmn1iwca0yp4Et6FBgvrKvvN100t4Ha2zOYp8VHKDO9xuKGL7H3fEB0HZ
-	 tQbXUV2jtMwOTyUT5w2CgZbyjl7JwHqwPlVP81vO153lG7XB796g56XjNY4CcHDjFn
-	 bqQeLp5Cy8sEyQ/55EdLcCxJgLWEhQT4Fw9ysIHGo+Ek38cjiu68iH/wGkKDnM0+iW
-	 A0+lkJJM/oglgDndwbA3MmmrNBwtk0lXsalymPtUcoo7pXwwDGpm/9v5H9rd08QIY+
-	 ugpNXNLBwcRDg==
-Date: Tue, 01 Sep 2026 08:52:43 +0000
-To: Michael Walle <mwalle@kernel.org>
-From: Tobias Jakobsen <tjakobsen84@protonmail.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>, Takahiro Kuwano <takahiro.kuwano@infineon.com>, Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Mark Brown <broonie@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>, linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] mtd: spi-nor: allow the platform to supply write protection state
-Message-ID: <NApbcrAD9xywxhssnr1w9hLntPOFyzs9BcW69a4ItinN0dKRCKsiEQ03xpTR0vo5aty4BDD7JjzUE8NH1OImzxL-OOf9GiHDe27_aWWzDBA=@protonmail.com>
-In-Reply-To: <DL3UHUKN6Q0Y.1HN2PJA78WK3M@kernel.org>
-References: <20260831-spi-nor-platform-lock-v2-0-6cc75b909241@protonmail.com> <20260831-spi-nor-platform-lock-v2-1-6cc75b909241@protonmail.com> <DL34U80UW849.3OYQBBTN7GRJ8@kernel.org> <bwwdwkT-nZT9pant-Nb_0PF8R531C5F2gDKrs-rZvW7MG1LHPf-MGmBH5YOSWTBnvZkRl4cPfXSzukcHaxoUZE1Ow0zvIfFCaOqYESzLjZE=@protonmail.com> <DL3UHUKN6Q0Y.1HN2PJA78WK3M@kernel.org>
-Feedback-ID: 214933398:user:proton
-X-Pm-Message-ID: bbd1bcf378a5854f4d0c441df69344155bc5f42e
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UYo+SoMx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211E91F000E9;
+	Tue,  1 Sep 2026 08:53:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788252813;
+	bh=dQJU98biTFI2j0fBN1HFz4j5aySI6T8wL//bYy3tt6k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UYo+SoMxASHNScw6bHBQ3pYYAIAYztpH17/qKP90Supd3le3mlnEZuBEMlG8Xmdz7
+	 kJkQygAvMgiYmqNXdGUaii8RNtO2sGg3YLqxnfnNyNZxmV+zg2V5IhK5L6+ZJJ4c4N
+	 5qbqlHBwRz7u2b70JOXueUMDno3Csoi6HIv2cq4J4Dxvm4jjaP3nj5qsxpeOJsotzk
+	 Ro1LJOyiZBwtHyQfArxCVvoMcDUMAbA75mKQPSA7ChvQmzj7KEOmKY9zup9UZZQOkF
+	 9b8OmZjm9uLXleIgT7ZeNQWl97X6M4TJKSGCQHY4nEED9qOy40mVajNQ4Ac1qo2B0P
+	 I+alpLciXRKHQ==
+Message-ID: <7f269572-7dae-4894-b148-56314cd21bbd@kernel.org>
+Date: Tue, 1 Sep 2026 10:53:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/7] thunderbolt: Fix DP tunnel teardown while an async
+ DPRX read is running
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
+ <YehezkelShB@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ asahi@lists.linux.dev, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260829-b4-tbt-fixes-v3-0-e1fab6ac54fe@kernel.org>
+ <20260901081924.GA106095@black.igk.intel.com>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20260901081924.GA106095@black.igk.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tuesday, 1 September 2026 at 10:43, Michael Walle <mwalle@kernel.org> wr=
-ote:
+Hi,
 
-> This feels like I'm talking with an AI agent. Honestly, this is
-> rather discouraging.
->=20
-> So my short answer: I don't want to clutter the code just for some
-> weird behavior and my point stands: whats the use, if it's not
-> possible to unprotect that region. The intel-spi controller is
-> rather restrictive anyway.
+On 9/1/26 10:19, Mika Westerberg wrote:
+>> ---
+>> Sven Peter (7):
+>>        thunderbolt: Hold a router reference for each allocated HopID
+>>        thunderbolt: Make the DP tunnel activation callback mandatory
+>>        thunderbolt: Fix domain reference leak when DPRX read is canceled
+>>        thunderbolt: Don't access a DP tunnel after its DPRX read was canceled
+>>        thunderbolt: Mark discovered tunnels as active
+>>        thunderbolt: Tear down inactive DP tunnels when the domain is stopped
+> Applied 1-6 to thunderbolt.git/fixes, with minor changes in the commit
+> messages and the condition in patch 6, thanks! Please check that it is
+> okay. My testing at least it works as expected.
 
-Already disclosed LLM was used in translating and research/execution. But p=
-oint taken. I will bow out.
-I never intended to write a patch but was asked.
-My intention was to merely report a bug.
+Looks good to me, thanks!
+
+>
+>>        thunderbolt: Drop the DP tunnel activation callback data
+> Since this one is a cleanup, I wonder if you can send it again later when
+> the DPRX fixes have landed? I typically base my next branch after -rc1 and
+> don't merge fixes/rc's there constantly so preferably after v7.4-rc1 is
+> released.
+
+Sure, I can resend it after 7.4-rc1 is out.
+
+
+Sven
+
 
