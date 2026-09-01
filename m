@@ -1,159 +1,214 @@
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D09E35C6B5;
-	Tue,  1 Sep 2026 01:41:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CC83AEF4E
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226883; cv=none; b=OyFcUcZTjyTmu8UpYEjYiWoOXMfRDiWl51bg7YW/DFE4dNPcqvSnt4Hi+DSWJ8LzmI0UlTMsJ1bbxTgBp5g2wpk5O/SIhhQWsYiQeZJXF05TSlPYd2oh3x6mlONpJFYmhAI5prAxXrQF/9aPTVAa6NHUrAXQTHtxo7u4vL2PDQw=
+	t=1788226903; cv=none; b=d67a2HeiekPBgBSulp8pFRXAAQ+CnuBtSIUpi6/0kjFO4oRAxwkRS2IN/vNKOzp+R3WAXVeOXGwtXFnaKiM6t4TNegTHOH+E8bbQWJtt3vmnZ0k5xfwS8Ujk+25BDfOA0aL7ecqTlTcOikIG3NOP4LpJwT8gtdbR2bjjE+NrMGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226883; c=relaxed/simple;
-	bh=8V/iJ1syJzk3Ej0PD6xyVpop3GjTd8FsA+LFSMddAWw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=hpRRj/4jJaRe4RjHncwbVOXjj/A+aZqMFPpQ70pYstu67CmXXdzzjuT54w43m1hOOT74V8Q0mOwcyww6OamjzAjdEN7CHKg9ZQI6nAf96cpR6ey1e4b0x91I5ThxSaLKrQkHHDHtbDxMUy8espnFfVUsjulPcnybEf/PKCAC7Js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Jml/HTTQ; arc=none smtp.client-ip=113.46.200.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788226903; c=relaxed/simple;
+	bh=RtYKfymBNp9KvWTyDmEZgzY+yJgX+7+dkVBS2iKKpbg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UZo5I2bonLGjbcEIfApYgOLQ0jqzyvxoUQpYq0djxm1qTODWIygGIVqt2SVYsZN7YOej6piHxSWaAdcAraO+sIVWaTGM6t3ujWZGvTpF5nPjAmu5RfCdNaqZGNpAmzM/63bED0RuRFStl3hLxE+GDnFb+M41lkLIBy1//GsWelc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eUWOyVaB; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Jml/HTTQ"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=zPvP1K9EnRd/mao8eJm5iib0cl/6wBDf4gm9yBOU/uA=;
-	b=Jml/HTTQck/emuqLeeU2tibQLYjU8fXxCCcdo3klXPgO8NzCaTkbd5ycSpoG64qAUTvikX/3F
-	607VcvF+fmYaem7r38R+LD9SNSgKkzUeX3TLkcP4y7zA0vceMDXkYNbj0KO3qWM1ZVKio3aaJuW
-	cW+wJefcVETqqA/xk+td/6E=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4hYpFv2FTwzRhVN;
-	Tue,  1 Sep 2026 09:30:27 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 689A840561;
-	Tue,  1 Sep 2026 09:41:14 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 1 Sep 2026 09:41:10 +0800
-Message-ID: <fa771c74-c0b0-435d-9ebf-e52c00865c90@huawei.com>
-Date: Tue, 1 Sep 2026 09:41:09 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eUWOyVaB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788226898; x=1819762898;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=RtYKfymBNp9KvWTyDmEZgzY+yJgX+7+dkVBS2iKKpbg=;
+  b=eUWOyVaBxeHOYj4vQhudXmOijy37Tejs0AyUoWvSGgaWXrtbqeIqZe91
+   OB3V/dY0Ax2vT+/FGw4y8QDA7wJ0GQ5z0EPBKnSgZOQAxqq9mSwXF/wa5
+   PwaAhxZh75+f+rggPfRVH/78omjDye97tTgrHpa2cGzwKIs8YFcjzz/3z
+   xy7rMYE4Ln6ksRgp8cG+Tevv7rI6Meia0b4EcNeGrMOZVxhoHn42R2hZB
+   780Uq64Vmm/VcrmWmEdZP4sF1+PdKdpkpWqKTmDr7sXallO+kbOMr/Rp/
+   rOhl9SaaSoinTVXoVqOHbP0eEfu5Nqv/+fP5yiNLJKlvJRpxuDguCbODe
+   g==;
+X-CSE-ConnectionGUID: aAKXEjw0QlGK4IeelrHtRA==
+X-CSE-MsgGUID: Hz83r11eSveisGHbXZtjEQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="106164231"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="106164231"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 18:41:37 -0700
+X-CSE-ConnectionGUID: w0xN6VRxTLOv7Xs4WkDBiQ==
+X-CSE-MsgGUID: pSVfuqpDQJ2jaJx/Lyc8zQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="273136025"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 18:41:32 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: syzbot+19d01f6082ec61dd45b2@syzkaller.appspotmail.com
+Cc: gregkh@linuxfoundation.org,
+	tj@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	akpm@linux-foundation.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	jhs@mojatatu.com,
+	jiri@resnulli.us,
+	vinicius.gomes@intel.com
+Subject: Re: [syzbot] [kernfs?] [mm?] INFO: rcu detected stall in kernfs_fop_open (7)
+Date: Tue,  1 Sep 2026 09:41:17 +0800
+Message-ID: <20260901014117.416981-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <68880766.050a0220.3cc461.000f.GAE@google.com>
+References: <68880766.050a0220.3cc461.000f.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 05/17] LoongArch: kexec: Fix CMA page leaks in segment
- placement retry loops
-To: Huacai Chen <chenhuacai@kernel.org>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<kernel@xen0n.name>, <maddy@linux.ibm.com>, <mpe@ellerman.id.au>,
-	<npiggin@gmail.com>, <chleroy@kernel.org>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <akpm@linux-foundation.org>, <baoquan.he@linux.dev>,
-	<rppt@kernel.org>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
-	<ruirui.yang@linux.dev>, <kees@kernel.org>, <thuth@redhat.com>,
-	<gshan@redhat.com>, <jic23@kernel.org>, <james.morse@arm.com>,
-	<ardb@kernel.org>, <leitao@debian.org>, <yeoreum.yun@arm.com>,
-	<sourabhjain@linux.ibm.com>, <coxu@redhat.com>, <tangyouling@kylinos.cn>,
-	<hbathini@linux.ibm.com>, <adityag@linux.ibm.com>,
-	<ionut.nechita@windriver.com>, <liaoyuanhong@vivo.com>, <seanjc@google.com>,
-	<fuqiang.wang@easystack.cn>, <makb@juniper.net>, <piliu@redhat.com>,
-	<ebiggers@kernel.org>, <jbouron@amazon.com>, <mclapinski@google.com>,
-	<me@linux.beauty>, <graf@amazon.com>, <bgwin@google.com>, <robh@kernel.org>,
-	<takahiro.akashi@linaro.org>, <palmer@rivosinc.com>, <x86@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<kexec@lists.infradead.org>, <linux-fsdevel@vger.kernel.org>,
-	<linux-mm@kvack.org>
-References: <20260826092541.3905933-1-ruanjinjie@huawei.com>
- <20260826092541.3905933-6-ruanjinjie@huawei.com>
- <CAAhV-H7+dO2rnb4KxRvVo1w_Mx8Vfsdq7LAbkzPfNYrwUhEtfg@mail.gmail.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <CAAhV-H7+dO2rnb4KxRvVo1w_Mx8Vfsdq7LAbkzPfNYrwUhEtfg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- dggpemf500011.china.huawei.com (7.185.36.131)
 
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git abdf623ddb75b24659018d3952d8f61937306ae5
 
-
-在 2026/8/31 22:09, Huacai Chen 写道:
-> Hi, Jinjie,
-> 
-> Why does the ARM64 version of this patch use "kexec_file" in the
-> subject line but the LoongArch version uses "kexec"? It is better to
-> keep consistency.
-
-Hi Huacai,
-
-Thank you for the review. I will revise the subject in v4.
-
-Best regards,
-Jinjie
-
-> 
-> Huacai
-> 
-> On Wed, Aug 26, 2026 at 5:25 PM Jinjie Ruan <ruanjinjie@huawei.com> wrote:
->>
->> During kexec image placement retry loops, any midway failure causes
->> the loader to truncate `image->nr_segments` back to its initial state
->> to purge the failed segments.
->>
->> However, this truncation introduces a memory leak. The CMA pages
->> allocated via kexec_add_buffer() during the failed attempt are tracked
->> in the `image->segment_cma` array. Because the subsequent cleanup paths
->> only iterate up to the truncated `nr_segments` boundary, these allocated
->> CMA pages outside the new boundary are permanently leaked.
->>
->> Fix this by explicitly releasing the associated CMA buffers in
->> the failure paths before `image->nr_segments` is reduced.
->>
->> Cc: Huacai Chen <chenhuacai@kernel.org>
->> Cc: WANG Xuerui <kernel@xen0n.name>
->> Cc: Youling Tang <tangyouling@kylinos.cn>
->> Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
->> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
->> Cc: Kees Cook <kees@kernel.org>
->> Cc: stable@vger.kernel.org
->> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
->> Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> ---
->>  arch/loongarch/kernel/kexec_efi.c          | 1 +
->>  arch/loongarch/kernel/machine_kexec_file.c | 6 +++++-
->>  2 files changed, 6 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/loongarch/kernel/kexec_efi.c b/arch/loongarch/kernel/kexec_efi.c
->> index 5ee78ebb1546..15fd797ff3de 100644
->> --- a/arch/loongarch/kernel/kexec_efi.c
->> +++ b/arch/loongarch/kernel/kexec_efi.c
->> @@ -86,6 +86,7 @@ static void *efi_kexec_load(struct kimage *image,
->>                  * We couldn't find space for the other segments; erase the
->>                  * kernel segment and try the next available hole.
->>                  */
->> +               kexec_free_segment_cma(image, kernel_segment_number);
->>                 image->nr_segments -= 1;
->>                 kbuf.buf_min = kernel_segment->mem + kernel_segment->memsz;
->>                 kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
->> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
->> index 5412aa9f3568..62a5be102065 100644
->> --- a/arch/loongarch/kernel/machine_kexec_file.c
->> +++ b/arch/loongarch/kernel/machine_kexec_file.c
->> @@ -217,7 +217,11 @@ int load_other_segments(struct kimage *image,
->>         return 0;
->>
->>  out_err:
->> -       image->nr_segments = orig_segments;
->> +       while (image->nr_segments > orig_segments) {
->> +               kexec_free_segment_cma(image, image->nr_segments - 1);
->> +               image->nr_segments--;
->> +       }
->> +
->>         kfree(modified_cmdline);
->>         return ret;
->>  }
->> --
->> 2.34.1
->>
-
+diff --git a/net/sched/sch_taprio.c b/net/sched/sch_taprio.c
+index 39ac5b97aa3a..901dfd2484e1 100644
+--- a/net/sched/sch_taprio.c
++++ b/net/sched/sch_taprio.c
+@@ -83,6 +83,10 @@ struct sched_gate_list {
+ 	s64 cycle_time;
+ 	s64 cycle_time_extension;
+ 	s64 base_time;
++	/* min(cycle_time, sum of intervals): the software schedule restarts
++	 * the list after the last entry even when cycle_time is not up yet.
++	 */
++	s64 period;
+ };
+ 
+ struct taprio_sched {
+@@ -871,12 +875,13 @@ static struct sk_buff *taprio_dequeue(struct Qdisc *sch)
+ }
+ 
+ static bool should_restart_cycle(const struct sched_gate_list *oper,
+-				 const struct sched_entry *entry)
++				 const struct sched_entry *entry,
++				 ktime_t end_time)
+ {
+ 	if (list_is_last(&entry->list, &oper->entries))
+ 		return true;
+ 
+-	if (ktime_compare(entry->end_time, oper->cycle_end_time) == 0)
++	if (ktime_compare(end_time, oper->cycle_end_time) == 0)
+ 		return true;
+ 
+ 	return false;
+@@ -925,8 +930,9 @@ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
+ 	int num_tc = netdev_get_num_tc(dev);
+ 	struct sched_entry *entry, *next;
+ 	struct Qdisc *sch = q->root;
+-	ktime_t end_time;
+-	int tc;
++	ktime_t end_time, next_start, now;
++	int budget, tc;
++	s64 behind;
+ 
+ 	spin_lock(&q->current_entry_lock);
+ 	entry = rcu_dereference_protected(q->current_entry,
+@@ -952,23 +958,49 @@ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
+ 		goto first_run;
+ 	}
+ 
+-	if (should_restart_cycle(oper, entry)) {
+-		next = list_first_entry(&oper->entries, struct sched_entry,
+-					list);
+-		oper->cycle_end_time = ktime_add_ns(oper->cycle_end_time,
+-						    oper->cycle_time);
+-	} else {
+-		next = list_next_entry(entry, list);
++	now = hrtimer_cb_get_time(timer);
++	end_time = entry->end_time;
++	behind = ktime_sub(now, end_time);
++
++	/* Behind, e.g. delayed timer or stepped clock: skip whole periods
++	 * arithmetically and walk at most one more to the entry covering
++	 * now, instead of replaying the backlog one expiry at a time. The
++	 * cap bounds the walk; a leftover is picked up by the next expiry.
++	 */
++	if (unlikely(behind >= oper->period)) {
++		s64 jump = div64_s64(behind, oper->period) * oper->period;
++
++		end_time = ktime_add_ns(end_time, jump);
++		oper->cycle_end_time = ktime_add_ns(oper->cycle_end_time, jump);
+ 	}
+ 
+-	end_time = ktime_add_ns(entry->end_time, next->interval);
+-	end_time = min_t(ktime_t, end_time, oper->cycle_end_time);
++	budget = 2 * oper->num_entries;
++	do {
++		if (should_restart_cycle(oper, entry, end_time)) {
++			next = list_first_entry(&oper->entries,
++						struct sched_entry, list);
++			oper->cycle_end_time = ktime_add_ns(oper->cycle_end_time,
++							    oper->period);
++		} else {
++			next = list_next_entry(entry, list);
++		}
++
++		next_start = end_time;
++		end_time = ktime_add_ns(next_start, next->interval);
++		end_time = min_t(ktime_t, end_time, oper->cycle_end_time);
++		entry = next;
++	} while (unlikely(ktime_compare(end_time, now) <= 0) && budget--);
+ 
++	/* next can be the entry already published as q->current_entry (a
++	 * single-entry schedule, or a catch-up of whole periods), so the
++	 * close times and budgets below are rewritten in place while
++	 * taprio_dequeue_from_txq() may be reading them.
++	 */
+ 	for (tc = 0; tc < num_tc; tc++) {
+ 		if (next->gate_duration[tc] == oper->cycle_time)
+ 			next->gate_close_time[tc] = KTIME_MAX;
+ 		else
+-			next->gate_close_time[tc] = ktime_add_ns(entry->end_time,
++			next->gate_close_time[tc] = ktime_add_ns(next_start,
+ 								 next->gate_duration[tc]);
+ 	}
+ 
+@@ -1130,6 +1162,8 @@ static int parse_taprio_schedule(struct taprio_sched *q, struct nlattr **tb,
+ 				 struct sched_gate_list *new,
+ 				 struct netlink_ext_ack *extack)
+ {
++	struct sched_entry *entry;
++	ktime_t cycle = 0;
+ 	int err = 0;
+ 
+ 	if (tb[TCA_TAPRIO_ATTR_SCHED_SINGLE_ENTRY]) {
+@@ -1152,13 +1186,10 @@ static int parse_taprio_schedule(struct taprio_sched *q, struct nlattr **tb,
+ 	if (err < 0)
+ 		return err;
+ 
+-	if (!new->cycle_time) {
+-		struct sched_entry *entry;
+-		ktime_t cycle = 0;
+-
+-		list_for_each_entry(entry, &new->entries, list)
+-			cycle = ktime_add_ns(cycle, entry->interval);
++	list_for_each_entry(entry, &new->entries, list)
++		cycle = ktime_add_ns(cycle, entry->interval);
+ 
++	if (!new->cycle_time) {
+ 		if (cycle < 0 || cycle > INT_MAX) {
+ 			NL_SET_ERR_MSG(extack, "'cycle_time' is too big");
+ 			return -EINVAL;
+@@ -1172,6 +1203,7 @@ static int parse_taprio_schedule(struct taprio_sched *q, struct nlattr **tb,
+ 		return -EINVAL;
+ 	}
+ 
++	new->period = min(new->cycle_time, cycle);
+ 	taprio_calculate_gate_durations(q, new);
+ 
+ 	return 0;
