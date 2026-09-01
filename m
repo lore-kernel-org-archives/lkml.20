@@ -1,38 +1,38 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACC7A3C65E0;
-	Tue,  1 Sep 2026 02:42:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBED52931C1;
+	Tue,  1 Sep 2026 02:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788230539; cv=none; b=S4enhHhKdmXvvcHi1srxfpQHiPghtUJzjxCEBYKhT/q/MKjnHGpddn0+DTLSzD2D6doyhbgENkjeFcm8bFWP8GI+rdPRg2NkyYy86R+zjHlqZoq8cFMUEMKnbo+RN2sIDN4P5CPu6TBBZWSFq0m2pLli80HTbWKFQCs7NpmkGA8=
+	t=1788230543; cv=none; b=jYL4GChc8XqIMChzxSeu466n9YvWH6tts7zzrWp/ObA8/j9lwP6vnUlUGoaa2gJbYYgVxJwbCvsCrJ7ZPws4cLPpgNgTgoI/LVMvYtL5N+ViJgLs8BIiMzEVtwC32Cg+NBwVqMfkiRbGmc3H2vjYeRd52rxE9oglgB3DWvtlt9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788230539; c=relaxed/simple;
-	bh=o8FmgoYdsYjyVB+XJ0H6LCxj3FMwFt8UkvGX+Rj1CnA=;
+	s=arc-20240116; t=1788230543; c=relaxed/simple;
+	bh=rM/tXGbf1aCcjq5KxywPtk0vBUXFIx2mFpz196P6YbQ=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mlvSsmV7HRL17v1Jpom5IQI6s3MWAIPkmgsCFCWdxVGPEnEVQwgn4zxuJCtoZ4QNh/+HraYq5QpNziZxBphdIt43njoOBsDtlh//J6RA0p2ImmQSW8uW8nC1TkPgwCjuHt3r0Z62ZhEi09DSnWU60EgXUdpiZW7DMlvTkhKftCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=QPVIb2HG; arc=none smtp.client-ip=113.46.200.220
+	 MIME-Version:Content-Type; b=hooyVEdO+3CAkBAGoIG/BIwAPQUka0KQyyo8omdlJej3iGAjUgn5ageiOQDvw20MfpKGSiQb7uv/RodH2bU85qc6BG+HFaPxxPXOvdYNDwcwyUrtv4BhfH1tkFSggbnRYotwKXTs6Aj1wun9RC83Zr68E8N1oqjEDTLL5xWL6aE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=NOgSQT1d; arc=none smtp.client-ip=113.46.200.225
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="QPVIb2HG"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="NOgSQT1d"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=wH2CfQ8NlJ9qjdgD8gOoz1HdGX4QF01Gpzjou8ScRYs=;
-	b=QPVIb2HGkXjoGFUlheFPTaFl6nReY9Qp8svTUtzhUBF2/KR5IEjfDKNlMkgpqQw528JiX5MNH
-	NseSbq5LHmz/b2fwSENyTgHpUwzro0zhrd/yXzJ37lLWPO6yAK43w8QDF0QRFnjTUarutjn9hxh
-	z7R00Tr3pWkTXseMFYuRpEY=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hYqbS5RK2z12LHv;
-	Tue,  1 Sep 2026 10:30:44 +0800 (CST)
+	bh=Xr9BLFJfOVdKkYTXuHA//41f3O6Yyk2q7ziikLqqqXw=;
+	b=NOgSQT1dlqJaQi9vrvjYnOEf8vsKWa97ntxZrTZMRxiKx0d/nYt5xLqPcABA9lWZ31g/7l5Y1
+	+AfGvHDdfxbE8Fgiw6r/ppCN3i8sshYU034KTWamrxz3cwwcpKeTXatkjTKwHhVVwkOK/Im0sjX
+	vRXMeKBUnArlIhi7y1g3vL8=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hYqc32Wnfz1K9cF;
+	Tue,  1 Sep 2026 10:31:15 +0800 (CST)
 Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id C5EB640561;
-	Tue,  1 Sep 2026 10:42:01 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id AE57940572;
+	Tue,  1 Sep 2026 10:42:04 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
  (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Tue, 1 Sep
- 2026 10:42:00 +0800
+ 2026 10:42:03 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <jack@suse.cz>,
 	<bcrl@kvack.org>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>,
@@ -50,9 +50,9 @@ To: <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <jack@suse.cz>,
 	<linux-fsdevel@vger.kernel.org>, <linux-aio@kvack.org>,
 	<linux-kernel@vger.kernel.org>, <linux-ext4@vger.kernel.org>,
 	<netdev@vger.kernel.org>
-Subject: [PATCH v2 04/12] fs: Use acquire/release for fdtable resize synchronization
-Date: Tue, 1 Sep 2026 10:42:26 +0800
-Message-ID: <20260901024234.135119-5-ruanjinjie@huawei.com>
+Subject: [PATCH v2 06/12] super: Use acquire for SB_BORN check in super_cache_count()
+Date: Tue, 1 Sep 2026 10:42:28 +0800
+Message-ID: <20260901024234.135119-7-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260901024234.135119-1-ruanjinjie@huawei.com>
 References: <20260901024234.135119-1-ruanjinjie@huawei.com>
@@ -67,66 +67,50 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
  dggpemf500011.china.huawei.com (7.185.36.131)
 
-Replace the smp_wmb()/smp_rmb() barrier pair with
-smp_store_release()/smp_load_acquire() on `files->resize_in_progress`.
-The flag is the publish point for fdtable expansion: writers clear it
-via release after rcu_assign_pointer(), readers check it via acquire
-before rcu_dereference_sched(). Observing it clear guarantees the new
-fdt pointer is visible.
+The active SB_BORN check in super_cache_count() pairs with the
+smp_store_release() in super_wake() when publishing a newly initialized
+superblock.
 
-This expresses the pattern more clearly and allows cheaper one-way
-barriers on weakly-ordered architectures (e.g. arm64 STLR/LDAR vs
-DMB ISHST/ISHLD).
+Replace the historical independent smp_rmb() barrier with an acquire load
+on sb->s_flags via super_flags(). This expresses the publish-subscribe
+pattern more clearly and allows weakly-ordered architectures like arm64
+to utilize efficient native instructions (e.g., LDAR) instead of a full
+one-way barrier.
+
+Also remove the outdated memory barrier comment in super_cache_count(),
+as the underlying super_flags() implementation already self-documents
+the matched smp_store_release() in super_wake().
 
 Cc: Alexander Viro <viro@zeniv.linux.org.uk>
 Cc: Christian Brauner <brauner@kernel.org>
 Cc: Jan Kara <jack@suse.cz>
-Reviewed-by: Jan Kara <jack@suse.cz>
+Assisted-by: Gemini:Gemini-3.1
 Assisted-by: DeepSeek:DeepSeek-V3
+Reviewed-by: Jan Kara <jack@suse.cz>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- fs/file.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ fs/super.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/fs/file.c b/fs/file.c
-index 628ca07dc4b1..86c035d459f2 100644
---- a/fs/file.c
-+++ b/fs/file.c
-@@ -273,8 +273,6 @@ static int expand_fdtable(struct files_struct *files, unsigned int nr)
- 	rcu_assign_pointer(files->fdt, new_fdt);
- 	if (cur_fdt != &files->fdtab)
- 		call_rcu(&cur_fdt->rcu, free_fdtable_rcu);
--	/* coupled with smp_rmb() in fd_install() */
--	smp_wmb();
- 	return 0;
- }
- 
-@@ -313,7 +311,8 @@ static int expand_files(struct files_struct *files, unsigned int nr)
- 	/* All good, so we try */
- 	files->resize_in_progress = true;
- 	error = expand_fdtable(files, nr);
--	files->resize_in_progress = false;
-+	/* coupled with smp_load_acquire() in fd_install() */
-+	smp_store_release(&files->resize_in_progress, false);
- 
- 	wake_up_all(&files->resize_wait);
- 	return error;
-@@ -685,13 +684,12 @@ void fd_install(unsigned int fd, struct file *file)
- 		return;
- 
- 	rcu_read_lock_sched();
--	if (unlikely(files->resize_in_progress)) {
-+	/* coupled with smp_store_release() in expand_files() */
-+	if (unlikely(smp_load_acquire(&files->resize_in_progress))) {
- 		rcu_read_unlock_sched();
- 		fd_install_slowpath(fd, file);
- 		return;
- 	}
--	/* coupled with smp_wmb() in expand_fdtable() */
+diff --git a/fs/super.c b/fs/super.c
+index 05e443173038..caa6189e4057 100644
+--- a/fs/super.c
++++ b/fs/super.c
+@@ -267,12 +267,10 @@ static unsigned long super_cache_count(struct shrinker *shrink,
+ 	 * However, if we are currently mounting the superblock, the underlying
+ 	 * filesystem might be in a state of partial construction and hence it
+ 	 * is dangerous to access it.  super_trylock_shared() uses a SB_BORN check
+-	 * to avoid this situation, so do the same here. The memory barrier is
+-	 * matched with the one in mount_fs() as we don't hold locks here.
++	 * to avoid this situation, so do the same here.
+ 	 */
+-	if (!(sb->s_flags & SB_BORN))
++	if (!super_flags(sb, SB_BORN))
+ 		return 0;
 -	smp_rmb();
- 	fdt = rcu_dereference_sched(files->fdt);
- 	VFS_BUG_ON(rcu_access_pointer(fdt->fd[fd]) != NULL);
- 	rcu_assign_pointer(fdt->fd[fd], file);
+ 
+ 	if (sb->s_op && sb->s_op->nr_cached_objects &&
+ 	    super_fs_objects_eligible(sc))
 -- 
 2.34.1
 
