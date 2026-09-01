@@ -1,130 +1,176 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E7A471CE0;
-	Tue,  1 Sep 2026 08:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00B2471CED;
+	Tue,  1 Sep 2026 08:01:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249711; cv=none; b=c8sTXGYgJxK+RpGS1cJbZG5kvX07f608pYpEPBF5ykNAr0+WnAnY+kevu5X/ep9pyW6fPB9SdRc97UlzGyZv8FObSIZJ+qtsq16lu5GLeBiuxfKrMIvOqFgmaNoAA13GEzxptGexyzly5G6eXCQV5YGSgJUYh4My8aI1Ez1UP0I=
+	t=1788249716; cv=none; b=B6HVXaChUcuRpgv7K2a4TciVSwrJ0Mu6T00TYLgOlRtN7BEIl3bm9ZxbOJ6wagHOZTHMyL3Y2xPKSPhnk+BaXYr6H6wRxF7cCZXdmHLmXCWyT6uUodUMWpL4oJOA7BN00wqUOqls29U5uqcTRboZtBU8Nhcsqsiz0ocn2g0hxgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249711; c=relaxed/simple;
-	bh=9B6Wxdvw3xp5ld7hEtbbwEFIpm4K2FL2RhXsefID288=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mla5y7z1Op7953KiOEMNoRD48BWRUUQVz0RGYt8heBxbSeHQXW8o2i4xa2kUoKsV/7ybMeo3yZv0gYq92eISWvxnC6++lQs3TOVrqPMxZAJDpuTAmZ6RCq2wRrd5iI+wtf0RIsRlis2l/xZLA9vjIYJ1ZYBT8O3BfwU/s/78ggk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=4YYzm+vl; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yLPpUdCd; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788249716; c=relaxed/simple;
+	bh=1+NQ21UE4ohTgTsn4MRFA0UiefKVUcTVyfhdeBGkbSk=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=JVE/Ol1sQCyV3A0ySar3Up6aRWrSkbGLGNslBbMcnyBUA9AUiIYXtzk+1B/ODhUOW/LPvu2IXTzX3jCcrVDogEsCtMYNOh2B+7qiKQgO3cPx+RqXbiIP5WRzJwLma0MNu2Kl+gnHxR8XW+A6/CNuufN8Ck/Rkb5ihbj21bydKs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=m/qrrNf8; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=RZbxcvwC; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="4YYzm+vl";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yLPpUdCd"
-Date: Tue, 1 Sep 2026 10:01:42 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788249704;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G0pI8XTpNn+xxOYdAi7WHG2gkeeqcx1hUF85pJOp+GY=;
-	b=4YYzm+vls8qdZmN6EGlklWzPcwnIuoEQVd3e5ESsC1adh0nXf0IqUqd73abgsshx0rOyQz
-	an8E8ZD5tkzgQ3T4pvFBq0nwXk9ZGAIH+pvO918t1PphVnWxB3lFt14u7WIwldbxsgFx6x
-	HQhO6W91ugFP+NqYfxGvU//WIV0o61+bSiAUV/+Q69fCJ5Q5rtaBQmVlNeKDoeCqvh4YGq
-	kJwqgywKGvuLVl64VOFZzb5CQfGhisurtEQUEVtZ8aCc4ZE3xyP0rn8ejw3jgVYgOTZJDZ
-	xsYb0u/drSSYfl467Sw9+A+bF35BOJdCuDO0NN0dIgZZbY952gTT6kauufjFiw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788249704;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G0pI8XTpNn+xxOYdAi7WHG2gkeeqcx1hUF85pJOp+GY=;
-	b=yLPpUdCdh4aRuH3xDYiA2EkjygI6oShXPQrWJ792XVzviGfc+PtQ6r4oOZT4Z9RjedP9AT
-	5q6f7SnyIY32TbAw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Petr Mladek <pmladek@suse.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Kees Cook <kees@kernel.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tycho Andersen <tycho@tycho.pizza>,
-	Linus Torvalds <torvalds@linuxfoundation.org>
-Subject: Re: [PATCH v2 2/2] kallsyms: Document why unresolved symbols are
- revealed
-Message-ID: <20260901080142.CMTCw6vE@linutronix.de>
-References: <20260821152614.2202196-1-bigeasy@linutronix.de>
- <20260821152614.2202196-3-bigeasy@linutronix.de>
- <ao8SeCCG65uwH-Tk@pathway.suse.cz>
- <20260827102411.NsziRXyJ@linutronix.de>
- <20260831133729.p5ylO7O6@linutronix.de>
- <20260831124928.22e163ab@gandalf.local.home>
- <apZ9ea1on8A7o6kk@pathway.suse.cz>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="m/qrrNf8";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="RZbxcvwC"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788249689; bh=5iGCuz1H4YwkJWeg/wxwPm6
+	A9zDo3R5pq4ps0XW+/Qc=; b=m/qrrNf8ftmvZN/qNE2Pc3i0wW6Y09EeoJyl2bSX9n0nznZvLB
+	25HxUS9Q3TshAtOsIsJl0H8Or9DDvKpL9WV3Q9b235oP208nhqKkGzHnL4dYmJdQPYoIiIhFyVl
+	UhHxycl/zj1AEhOFuMKU3ANHpo+4Ek13JXacVoudxMKqS55pvR/CncMkytMN8gN7dtQCEpqR4ce
+	h9wK8ePpiuWJups3QEyELCuPzzoKnKlvsHOZEJE2tc8nct6PBJJ5mobpHpWP8Xg/+R71O2DL6+d
+	tO9DSoj3/to7C+7lgqzPpDlvPwakKONbji3N7ZUjgYKfqPApaMPGjkbKXFiE2Gqcfuw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788249689; bh=5iGCuz1H4YwkJWeg/wxwPm6
+	A9zDo3R5pq4ps0XW+/Qc=; b=RZbxcvwCIwIifQWGMeWmq3DKHh4OXZoUPrIhJLd7X51EsoTYKJ
+	Uz4DkijC97w/R06UJkJ2QA1KbN6ktABo8KCA==;
+Date: Tue, 01 Sep 2026 09:01:28 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: 4ncienth@gmail.com
+CC: brauner@kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mjguzik@gmail.com, oleg@redhat.com,
+ syzbot+0aee5e8066eddbbe7397@syzkaller.appspotmail.com,
+ syzbot+e8b3520b53e78e90034e@syzkaller.appspotmail.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_exit=3A_hold_a_referenc?=
+ =?US-ASCII?Q?e_to_thread=5Fpid_across_proc=5Fflush=5Fpid?=
+In-Reply-To: <20260831001221.3755948-1-4ncienth@gmail.com>
+Message-ID: <842FFDA5-674F-41DA-ADD3-E19B3FB98104@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <apZ9ea1on8A7o6kk@pathway.suse.cz>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-01 09:23:37 [+0200], Petr Mladek wrote:
-> On Mon 2026-08-31 12:49:28, Steven Rostedt wrote:
-> > On Mon, 31 Aug 2026 15:37:29 +0200
-> > Sebastian Andrzej Siewior <bigeasy@linutronix.de> wrote:
-> > 
-> > > Could someone yell here, please? I convinced myself that hiding
-> > > unresolved pointers is the good thing to do here since a "wrong" pointer
-> > > would be seen in backtrace anyway.
-> > > 
-> > > Thread starts at
-> > > 	https://lore.kernel.org/all/20260821152614.2202196-1-bigeasy@linutronix.de/
-> > 
-> > I wonder if we should just tagged hash values as such:
-> > 
-> > | [    1.498171]  <TASK>
-> > | [    1.498172]  00000000cb9bc262 [hash]
-> > | [    1.498174]  ? 00000000eb5021dd [hash]
-> > | [    1.498176]  00000000ed1a9938 [hash]
-> > | [    1.498178]  </TASK>
-> > 
-> > So that people will know that the value is just some random hash value and
-> > not a real address.
-> > 
-> > Although rather useless in call stacks, I like hash values because the same
-> > address will show up the same.
-> > 
-> > Having '[unknown]' may also be confusing because it doesn't really say
-> > "why" it was unknown. But having a number goes back to what it always did.
-> > Hashing it with a "[hash]" marker will also let people know the value was
-> > hashed.
-> 
-> I like this idea. I just wonder whether it might confuse some parsers
-> who expect that symbol name is one string. %ps, %pS, %pB are used
-> in various context.
-> 
-> I think about adding the hint into the hashed value, e.g. by using
-> 'h' instead of the highest number, something like:
-> 
->  [    1.498171]  <TASK>
->  [    1.498172]  h0000000cb9bc262
->  [    1.498174]  ? h0000000eb5021dd
->  [    1.498176]  h0000000ed1a9938
->  [    1.498178]  </TASK>
-> 
-> But 'h' is not a valid number number so it might confuse parsers as
-> well. And it is not that user friedly either.
-> 
-> So, I still like more Steven's variant with [hash].
+On 31 August 2026 01:12:21 BST, Daehyeon Ko <4ncienth@gmail.com> wrote:
+>Commit 0a36bad01731 ("release_task: kill the no longer needed
+>get/put_pid(thread_pid)") removed the reference around proc_flush_pid().
+>It assumed that free_pids(post.pids) at the end of release_task() would
+>keep thread_pid alive until then.
+>
+>That assumption is wrong.  __change_pid() only records a detached PID in
+>post.pids when pid_has_task() is false for every PIDTYPE.  If another task
+>still uses the exiting task's PID as its process group or session ID,
+>__unhash_process() removes the exiting task's PIDTYPE_PID link but leaves
+>the PID out of post.pids.  release_task() therefore holds no reference to
+>it after dropping tasklist_lock.
+>
+>The other task can then remove the remaining PIDTYPE links.  Its
+>free_pids() call schedules delayed_put_pid(), and the RCU callback can
+>free
+>the PID before the first release_task() reaches proc_flush_pid().
+>
+>An unprivileged reproducer races wait4(-1) against setsid() to trigger
+>this
 
-While it does make sense to add [hash] to make it obvious it breaks
-formatting for some of the %p users where %p is expected to have a fixed
-length depending on 32/64 bit. Here, it is a %pS so adding extra it
-wouldn't break anything but I don't think it should be different between
-%p and %pS assuming we do print the hash instead 'unknown'.
+Gnarly!
 
-> Best Regards,
-> Petr
+>ordering.  Three of three fresh v7.2 KASAN boots reported:
+>
+>    BUG: KASAN: slab-use-after-free in
+>    proc_invalidate_siblings_dcache+0x3e2/0x3f0
+>    Read of size 8 by task h7_pid_reaper/1921
+>
+>    Call Trace:
+>     proc_invalidate_siblings_dcache
+>     release_task
+>     wait_consider_task
+>     __do_wait
+>     do_wait
+>     kernel_wait4
+>
+>    Freed by task 0:
+>     kmem_cache_free
+>     put_pid
+>     delayed_put_pid
+>     rcu_core
+>
+>    Last potentially related work creation:
+>     __call_rcu_common
+>     free_pids
+>     ksys_setsid
+>
+>KASAN identified a 144-byte object from the pid cache and located the bad
+>read 80 bytes into the freed object, matching pid->inodes.  With an
+>explicit reference, three of three fresh boots completed without a KASAN
+>report.  The concurrent RCU callback dropped its reference while
+>proc_flush_pid() was protected, and the balancing put_pid() performed the
+>final free afterward.
+>
 
-Sebastian
+Ok
+
+>Take a reference before __unhash_process() clears p->thread_pid and
+>release
+>it after proc_flush_pid() completes.
+>
+>A tested source reproducer is available privately on request.  No
+>controlled read or write, information leak, or privilege escalation is
+>claimed.  The mainline patch applies directly to v6.19.y and newer;
+>v6.16.y through v6.18.y need a context-adjusted backport.
+>
+>Fixes: 0a36bad01731 ("release_task: kill the no longer needed get/put_pid(thread_pid)")
+>Reported-by: syzbot+0aee5e8066eddbbe7397@syzkaller.appspotmail.com
+>Closes: https://syzkaller.appspot.com/bug?extid=0aee5e8066eddbbe7397
+>Reported-by: syzbot+e8b3520b53e78e90034e@syzkaller.appspotmail.com
+>Link: https://syzkaller.appspot.com/bug?extid=e8b3520b53e78e90034e
+>Cc: <stable@vger.kernel.org> # see patch description, needs adjustments for 6.16.y-6.18.y
+>Assisted-by: LLM
+
+Thanks,
+
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+
+
+>Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+>---
+>Changes in v2:
+>- Rewrite the root-cause explanation around __change_pid(), pid_has_task(),
+>  and the last PIDTYPE detach, as requested by Oleg.
+>- Explain in the source comment why thread_pid needs an explicit reference.
+>- Rebase onto current Torvalds master cee9395acd80.
+>
+> kernel/exit.c | 9 ++++++---
+> 1 file changed, 6 insertions(+), 3 deletions(-)
+>
+>diff --git a/kernel/exit.c b/kernel/exit.c
+>index 97686af89501..4e028f157597 100644
+>--- a/kernel/exit.c
+>+++ b/kernel/exit.c
+>@@ -261,8 +261,11 @@ void release_task(struct task_struct *p)
+> 	pidfs_exit(p);
+> 	cgroup_task_release(p);
+> 
+>-	/* Retrieve @thread_pid before __unhash_process() may set it to NULL. */
+>-	thread_pid = task_pid(p);
+>+	/*
+>+	 * Pin @thread_pid before __unhash_process() clears it. The last
+>+	 * PIDTYPE detach can otherwise free it before proc_flush_pid().
+>+	 */
+>+	thread_pid = get_pid(task_pid(p));
+> 
+> 	write_lock_irq(&tasklist_lock);
+> 	ptrace_release_task(p);
+>@@ -291,8 +294,8 @@ void release_task(struct task_struct *p)
+> 	}
+> 
+> 	write_unlock_irq(&tasklist_lock);
+>-	/* @thread_pid can't go away until free_pids() below */
+> 	proc_flush_pid(thread_pid);
+>+	put_pid(thread_pid);
+> 	exit_cred_namespaces(p);
+> 	add_device_randomness(&p->se.sum_exec_runtime,
+> 			      sizeof(p->se.sum_exec_runtime));
+>
+>base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+>
+
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
