@@ -1,92 +1,107 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D834417C203;
-	Tue,  1 Sep 2026 01:28:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8D1A1B6D08;
+	Tue,  1 Sep 2026 01:28:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226105; cv=none; b=q/X/gniB+PQawcGT4FoQOEuYD1qWFcZbl7RHW16Vfl7seitMpvF3iuM4ofB/uyra0AeA1DxHls5c563WQnovfpHl293taq3pfJbCa2A4MnDugCizpDY4VtWyQdnJJOBffUpUJzVgwLTUpv+ZrTJpha/Dcy6FBXKHwiUZ5Gld2AM=
+	t=1788226112; cv=none; b=qXIkPlMEblXBPn/oMpa82TxNSMYJIdvH/5JRqg+JeSRMY8aO3/yZZAPJk4pS0PRtmv+v+I3jwJeOq43SWHAoo5MH6tmC88YknDfIFSV842p7ZtJ3GhDqJg2yUWeU4yWYJnl/rch8R4D4ia3R6UuU/DxPHBQozqBYS+W4gpTLW3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226105; c=relaxed/simple;
-	bh=sgvbyFeVDD2VUkE72Rfyoj6DToIUZ1P9nyimssBtAYM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cCv3jBCvjhE6609laXPFuMUmPyxkp6B1G5G0TfD4U7DK/80qiWkp5futClIJurIScDJ3cixjRnMcc0bR9aHHlihSvbHoaFsGc3gCEqVDybBSQykrOV6k2aY0QrDrP96pjQUmDoBqmnJ2k0/vuwiWVyLrDikkF4i7zDa6ce88A+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TBiDoplN; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788226112; c=relaxed/simple;
+	bh=0jp2oZepn59YrZNO2xcX1aONGmEQ6d4WQrTT8EojDqk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=e5gsqC9lIorUmb4B3xzyARiliTtN/KNyRF41NQn71nI9XRCe1fGRh5Opu4uCBSSKCRVYz84ZVxYwD79FPP9nhp0qR9eO3ysU0ra3J7ONHXxPp+VAAV71npy3AvAkQ1ue6DzCsStpIqn66l2yIG76Y2LmoUgBUGyrGmn8NdJD0YA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=Z/ylyA9f; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TBiDoplN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788226103; x=1819762103;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=sgvbyFeVDD2VUkE72Rfyoj6DToIUZ1P9nyimssBtAYM=;
-  b=TBiDoplN3QHTJHfelsv36nF1+5y9sQy3avl0RzCc4lGEgPZztIRwQWSU
-   xW/fkEfwgmQV60/dxXuYuUGFS2Tq44lK1g4OD5Uef4uKbczqGUvcCCu+I
-   ClVpw9bjOgI0yE6Yi1UsQ3xaTTAaCtVZkCA6BEuKsOCRQYYrB6Fpa/3cU
-   c0HYjDmqyuv61oLtcK9YU3aG7AFDONUArlHy87X3Gjmj9VQDp53uC2VKO
-   IRxg3naef3H5PJuLV4dh/PoU2N7jEtJRjO7xpnlN9v5zMujFcgcjOXIKn
-   JICIyuFT10y01WuU58Uq9WinqLCh6f5XA3/LliOq1iVXzyNDovPQ/MHRi
-   A==;
-X-CSE-ConnectionGUID: JK7kT05WRjyO3rw6Pjrw/g==
-X-CSE-MsgGUID: DslhQs5bSSOi7NQ6eZ5X+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="87779154"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="87779154"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 18:28:22 -0700
-X-CSE-ConnectionGUID: hvwh1JSpQRe2HFtTFfoCZA==
-X-CSE-MsgGUID: ZnP5uCpOQ/GRnsmiJ/kvIw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="262815950"
-Received: from yungchua-desk.itwn.intel.com ([10.227.8.136])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 18:28:20 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: linux-sound@vger.kernel.org,
-	vkoul@kernel.org
-Cc: vinod.koul@linaro.org,
-	linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.dev,
-	peter.ujfalusi@linux.intel.com,
-	bard.liao@intel.com,
-	niranjan.hy@ti.com
-Subject: [PATCH] soundwire: intel_auxdevice: add tac5xx2 family to wake_capable_list
-Date: Tue,  1 Sep 2026 09:28:12 +0800
-Message-ID: <20260901012812.231057-1-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="Z/ylyA9f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:From:Date:Subject:
+	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	References:In-Reply-To:To:Cc; bh=oPMus4f9khSHNl1xw09P4WveQB8xHvT
+	B7gEdDUV7WpQ=; b=Z/ylyA9f5pgkAAy0cwkORuyhy9gvseii4BR7mryOIBONoc5
+	/eRWPMcJJb05sYPMPtTg1CfHznwsWxDTxoy8RMi8FPOd0c0nYkI7T0bl3FTPuPb4
+	hyvqzxnoZTzwS2w5/kzB1iSNq7/iF/zxmn5/g4tRDYseaqdd4Xvks3Bq2mZw=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwDnrwYZKpZqvx0AAA--.111S3;
+	Tue, 01 Sep 2026 09:28:14 +0800 (CST)
+From: Jia Wang <wangjia@ultrarisc.com>
+Date: Tue, 01 Sep 2026 09:27:30 +0800
+Subject: [PATCH net-next 1/3] dt-bindings: net: snps,dwmac: Add UltraRISC
+ DP1000 compatible
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-dwmac-ultrarisc-v1-1-f19454814bcf@ultrarisc.com>
+References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
+In-Reply-To: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, Jia Wang <wangjia@ultrarisc.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788226062; l=785;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=0jp2oZepn59YrZNO2xcX1aONGmEQ6d4WQrTT8EojDqk=;
+ b=swpM4mkNje6FrBe/Y42aTJnG7N+b+zOwukSJYSL0BrXu9sLp6Ql0sLpN7pTjBKYOvz2sgPFmw
+ /kk0czpC7YSDiCYg5Od96KNoiP28lcujNMVMeYjeaQlWPXVqTnQkoUh
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwDnrwYZKpZqvx0AAA--.111S3
+X-Coremail-Antispam: 1UD129KBjvdXoW7GFW5XFyxAFy8Jr4xAr48Xrb_yoW3AFc_Aa
+	4xWa1DAFWkGFyFgFWDAa1xJF15Jw13uF1kCw1Dtr1qy34Ik398Kas3try5ArW7Cr47uFn3
+	uFs3JryjyFsrKjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbQAYjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7
+	IE14v26r18M28IrcIa0xkI8VCY1x0267AKxVW8JVW5JwA2ocxC64kIII0Yj41l84x0c7CE
+	w4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6x
+	kF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF
+	7I0E14v26r4j6r4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4
+	xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCa
+	FVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI4
+	02YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82IY
+	c2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s
+	026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF
+	0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0x
+	vE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv
+	6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTR3xhLUUUUU
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAREWqVJKMAFQADsv
 
-From: Niranjan H Y <niranjan.hy@ti.com>
+The UltraRISC DP1000 GMAC is based on a Synopsys DesignWare MAC.
 
-Add tac5572, tac5682 to the wake_capable_list as it can generate jack
-events whilst the bus is stopped.
+Allow its SoC-specific compatible in the common DWMAC compatible list.
 
-Signed-off-by: Niranjan H Y <niranjan.hy@ti.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
 ---
- drivers/soundwire/intel_auxdevice.c | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/net/snps,dwmac.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/soundwire/intel_auxdevice.c b/drivers/soundwire/intel_auxdevice.c
-index a8407560bf4f..f5124621c52f 100644
---- a/drivers/soundwire/intel_auxdevice.c
-+++ b/drivers/soundwire/intel_auxdevice.c
-@@ -74,6 +74,8 @@ static struct wake_capable_part wake_capable_list[] = {
- 	{0x025d, 0x721},
- 	{0x025d, 0x722},
- 	{0x04b3, 0x9356},
-+	{0x0102, 0x5572},
-+	{0x0102, 0x5682},
- };
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 2449311c6d28..2ed4564ae99d 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -119,6 +119,7 @@ properties:
+         - starfive,jh7110-dwmac
+         - tesla,fsd-ethqos
+         - thead,th1520-gmac
++        - ultrarisc,dp1000-gmac
  
- static bool is_wake_capable(struct sdw_slave *slave)
+   reg:
+     minItems: 1
+
 -- 
-2.43.0
+2.34.1
 
