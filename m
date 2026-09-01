@@ -1,254 +1,94 @@
-Received: from mta0.migadu.com (out-243.mta0.migadu.com [91.218.175.243])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6099C360EC6
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.243
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5ABE47254E
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253894; cv=none; b=LLVnkUQQrUOkdD06e69eKCxabB0wj6p4yTh9DFND/omwVkmUtw2ek9DI3tHcbqHS3NE0TTcBMBG4gFuUL0fFYaQglTaj+RKRtFZLj5btbmH2jLUyJVAKbNUNhwsq2ucDVBIRrpbrfcY/Y9joG9Rz1oQf7D+SU4KgdCqybus/NVA=
+	t=1788253929; cv=none; b=Sjh5XXk6pNX0a4iZXxO+drQM2o+cTmWxFTEwQJPfoM++q6pbEblY1VEfO4waIRkk3Z+9PfD5KDDK1JgmrPah/eIEQ5b7UJ18v/W6PF82IYuduBomm+w80jnP8LiMGaMdISq80TkiN9fsWiMbxjh3PCn02oMNVXj0zspXUx4VhDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253894; c=relaxed/simple;
-	bh=ME/aZcaXqImZ67gDzlYdShBgA2J/tOz88/5XcEiSBwk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ILkwpXc3hDifSAl4Tia8QFJZKjACsyHv1J12pQxZz716TxloGulNxGCfv6nhEiyBeJVlXvuomhSn8UtA/83E1Gdm9Rs4Xa3SyXOvghoKep8agYsT2lBO5PLl2pWGPwaY/koTdkuOmtQztrK2imtGvTlyzDl18osFP4fs2vJDUDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xvzJWLG3; arc=none smtp.client-ip=91.218.175.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788253929; c=relaxed/simple;
+	bh=OAJbyZz/ESiAWbgy8vL8egurZestop0OBiXg4a+hnq8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UA1CVAD7hnkxcRM7LihraTREUNmER8z8PU22qMMkOBRIZqnupna6voS/ODQF/xLA4flV3vni/Bk/f8KwFQ7wfLrfPK6XeoMPmIFSqbDEDG3ihtXGMcVSTyiWsFZdPQDyKCrn9Js64U7FD8KcuyfhhweFrFvTTIXjCqCJXbMdIw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Sna3chVx; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xvzJWLG3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ME/aZcaXqImZ67gDzlYdShBgA2J/tOz88/5XcEiSBwk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788253890; v=1; x=1788858690;
- b=xvzJWLG3rOZmXJiyD1gDsut53Zk4UvVC3oi96Xm+IbSTv6Hwa2GcI9dWgHx0yzJd0SaV8KZO
- 2BfzgxdpxOu5Pg7GPtLz3zOcEwJO1fxuMGKcFrTSyztkvTV6z7kr9UExxKtboZ49oNiJNsSj769
- WmK/CcvTZwYJ4h0H8oEicPxE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 81851c6eae39f099;
-	Tue, 01 Sep 2026 09:11:29 +0000
-X-Mizu-Trace-ID: 81851c6eae39f099
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b5e5aaf7deso6268e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:11:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwHQ9oXjM678ErvUermOTAU/MZL6JnVWVW+HnQLEAtUnglZX1ghiRR1PwLFvwn9R2QYDTZMVu87UhjRRPI=@vger.kernel.org
-X-Gm-Message-State: AFuF++keBzj5pLJg8XKd3A+TxyftXrbxj4tTi6m1HSgJEyi6HNAB/8qq
-	jhkq+0EISu1JuyuuUyFpw8STPX2eckKgoiT6sbKFCSBIoQWu9tMTyBa0JzbYzXcwQWuVJxfu31o
-	sD+qSQPQ2un1qUil39eNYXxkzO7+vBp8tjZgVqc/G
-X-Received: by 2002:a05:6512:3993:b0:5b4:9dba:4ecf with SMTP id
- 2adb3069b0e04-5b600a4e61cmr98369e87.13.1788253884152; Tue, 01 Sep 2026
- 02:11:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Sna3chVx"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EF4111692;
+	Tue,  1 Sep 2026 02:12:01 -0700 (PDT)
+Received: from [10.57.7.38] (unknown [10.57.7.38])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5FD163F882;
+	Tue,  1 Sep 2026 02:12:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788253925; bh=OAJbyZz/ESiAWbgy8vL8egurZestop0OBiXg4a+hnq8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Sna3chVxatS6pqs5ij7OptLhR6Ki6mUqMl/tI+T7D8Px6fVtfcxa972Gcgu6EoxAR
+	 kZwIBI7C/5PG5YnCPjO6Irpg2k0Uu1/FHapdxRi8tOfgmghmF0i4+A71ve4r7GYpTz
+	 nxTpxxV+jCrtDwos/heb5hqZ2sPpNFVtjvxflqH8=
+Message-ID: <2b56b3fa-872b-4600-a351-cb48e06b4657@arm.com>
+Date: Tue, 1 Sep 2026 11:12:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com> <20260830-gmem-inplace-conversion-v12-9-85e5fd25252a@google.com>
-In-Reply-To: <20260830-gmem-inplace-conversion-v12-9-85e5fd25252a@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 1 Sep 2026 10:10:47 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTwd507PaNQN9uHCgwftqSiVfhKhxSA7QnZVsNGqpNfGKg@mail.gmail.com>
-X-Gm-Features: AcwNN1XJVfII0wEJT_6-zHDSSBrs5LG5QpKVzgnh0CqKXLcS-fmuDvdFlehw5YE
-Message-ID: <CA+EHjTwd507PaNQN9uHCgwftqSiVfhKhxSA7QnZVsNGqpNfGKg@mail.gmail.com>
-Subject: Re: [PATCH v12 09/45] KVM: guest_memfd: Stub in ability to enable
- in-place shared<=>private conversion
-To: ackerleytng@google.com
-Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
-	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
-	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
-	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
-	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
-	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
-	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
-	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
-	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-mm@kvack.org, linux-coco@lists.linux.dev, 
-	Xiaoyao Li <xiaoyao.li@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 1/4] arm64: mm: Map fixmap PTE tables r/o in the
+ linear map
+To: Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, Ard Biesheuvel <ardb@kernel.org>
+References: <20260827164409.3421848-6-ardb+git@google.com>
+ <20260827164409.3421848-7-ardb+git@google.com>
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260827164409.3421848-7-ardb+git@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
-<devnull+ackerleytng.google.com@kernel.org> wrote:
+On 27/08/2026 18:44, Ard Biesheuvel wrote:
+> From: Ard Biesheuvel <ardb@kernel.org>
 >
-> From: Sean Christopherson <seanjc@google.com>
+> Without physical KASLR, the fixmap page tables will appear at an a
+> priori known offset in the physical address space, and due to the lack
+> of randomization, the linear map carries a writeable alias of the fixmap
+> PTE pages, which appears at an offset in the kernel VA space that is
+> also predictable.
 >
-> Stub in global variable to enable in-place guest_memfd private<=>shared
-> memory conversion, which will eventually be exposed to userspace via a
-> module param, and wire up the __kvm_is_private_gfn() static call to the
-> guest_memfd version when in-place conversion is enabled, i.e. when gmem is
-> the sole authority on private vs. shared memory.
+> Given that the placement of the fixmap area is never randomized either,
+> a single store to this linear alias region is sufficient to map any
+> physical page with any permissions at a known offset in the kernel VA
+> space, including on top of the PTI trampoline.
 >
-> Cc: Fuad Tabba <tabba@google.com>
-> Cc: Xiaoyao Li <xiaoyao.li@intel.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Co-developed-by: Ackerley Tng <ackerleytng@google.com>
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-
-Cheers,
-/fuad
-
-
+> Avoid this, by remapping the fixmap PTE pages read-only in the linear
+> map. This is possible because all updates to bm_pte[] occur via the
+> mapping of the kernel image in the vmap area. A read-only mapping is
+> still needed for things like ptdump that walk the page tables.
+>
+> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 > ---
->  Documentation/virt/kvm/api.rst |  7 +++++++
->  include/linux/kvm_host.h       |  6 ++++++
->  virt/kvm/guest_memfd.c         | 26 ++++++++++++++++++++++++++
->  virt/kvm/kvm_main.c            | 12 +++++++++++-
->  4 files changed, 50 insertions(+), 1 deletion(-)
+>  arch/arm64/include/asm/fixmap.h | 3 +++
+>  arch/arm64/mm/fixmap.c          | 8 +++++---
+>  arch/arm64/mm/mmu.c             | 8 ++++++++
+>  3 files changed, 16 insertions(+), 3 deletions(-)
 >
-> diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-> index e0430cc750c9e..90a29424c54c8 100644
-> --- a/Documentation/virt/kvm/api.rst
-> +++ b/Documentation/virt/kvm/api.rst
-> @@ -6382,6 +6382,11 @@ KVM_SET_USER_MEMORY_REGION2, e.g. shared memory can be lazily mapped/allocated
->  on-demand.
->
->  When mapping a gfn into the guest, KVM selects shared vs. private, i.e consumes
-> +userspace_addr vs. guest_memfd, based on the state in guest_memfd, which is the
-> +sole authority on private vs. shared memory.  See :ref:`KVM_CREATE_GUEST_MEMFD`
-> +to find out more about the creation-time shared/private status.
-> +
-> +If in-place conversion is disabled, KVM selects shared vs. private, i.e consumes
->  userspace_addr vs. guest_memfd, based on the gfn's KVM_MEMORY_ATTRIBUTE_PRIVATE
->  state.  At VM creation time, all memory is shared, i.e. the PRIVATE attribute
->  is '0' for all gfns.  Userspace can control whether memory is shared/private by
-> @@ -6429,6 +6434,8 @@ the state of a gfn/page as needed.
->
->  The "flags" field is reserved for future extensions and must be '0'.
->
-> +.. _KVM_CREATE_GUEST_MEMFD:
-> +
->  4.142 KVM_CREATE_GUEST_MEMFD
->  ----------------------------
->
-> diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-> index 3579feb631775..b0110143d2ff8 100644
-> --- a/include/linux/kvm_host.h
-> +++ b/include/linux/kvm_host.h
-> @@ -2580,6 +2580,8 @@ static inline bool kvm_vm_is_private_gfn(struct kvm *kvm, gfn_t gfn)
->  #endif  /* CONFIG_KVM_VM_MEMORY_ATTRIBUTES */
->
->  #ifdef kvm_arch_has_private_mem
-> +extern bool gmem_in_place_conversion;
-> +
->  typedef bool (kvm_is_private_gfn_t)(struct kvm *kvm, gfn_t gfn);
->  DECLARE_STATIC_CALL(__kvm_is_private_gfn, kvm_is_private_gfn_t);
->
-> @@ -2588,6 +2590,8 @@ static inline bool kvm_is_private_gfn(struct kvm *kvm, gfn_t gfn)
->         return static_call(__kvm_is_private_gfn)(kvm, gfn);
->  }
->  #else
-> +#define gmem_in_place_conversion false
-> +
->  static inline bool kvm_is_private_gfn(struct kvm *kvm, gfn_t gfn)
->  {
->         return false;
-> @@ -2595,6 +2599,8 @@ static inline bool kvm_is_private_gfn(struct kvm *kvm, gfn_t gfn)
->  #endif /* kvm_arch_has_private_mem */
->
->  #ifdef CONFIG_KVM_GUEST_MEMFD
-> +bool kvm_gmem_is_private_gfn(struct kvm *kvm, gfn_t gfn);
-> +
->  int kvm_gmem_get_pfn(struct kvm *kvm, struct kvm_memory_slot *slot,
->                      gfn_t gfn, kvm_pfn_t *pfn, int *max_order);
->  #else
-> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> index ce5efcacda36e..cd966eef45b69 100644
-> --- a/virt/kvm/guest_memfd.c
-> +++ b/virt/kvm/guest_memfd.c
-> @@ -478,6 +478,32 @@ static int kvm_gmem_mmap(struct file *file, struct vm_area_struct *vma)
->         return 0;
->  }
->
-> +bool kvm_gmem_is_private_gfn(struct kvm *kvm, gfn_t gfn)
-> +{
-> +       struct kvm_memory_slot *slot = gfn_to_memslot(kvm, gfn);
-> +       struct inode *inode;
-> +
-> +       if (!slot)
-> +               return 0;
-> +
-> +       CLASS(gmem_get_file, file)(slot);
-> +       if (!file)
-> +               return 0;
-> +
-> +       inode = file_inode(file);
-> +
-> +       /*
-> +        * Rely on the maple tree's internal RCU lock to ensure a stable result.
-> +        * This result can become stale as soon as the lock is dropped, so the
-> +        * caller _must_ protect consumption of private vs. shared either by
-> +        * holding guest_memfd's invalidate lock for the entire duration, or by
-> +        * checking mmu_invalidate_retry_gfn() under mmu_lock to serialize
-> +        * against concurrent attribute updates.
-> +        */
-> +       return kvm_gmem_is_private_mem(inode, kvm_gmem_get_index(slot, gfn));
-> +}
-> +EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_gmem_is_private_gfn);
-> +
->  static struct file_operations kvm_gmem_fops = {
->         .mmap           = kvm_gmem_mmap,
->         .open           = generic_file_open,
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index 78278730b2ae4..46d2e123448c2 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -102,6 +102,10 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(halt_poll_ns_shrink);
->  static bool __ro_after_init allow_unsafe_mappings;
->  module_param(allow_unsafe_mappings, bool, 0444);
->
-> +#ifdef kvm_arch_has_private_mem
-> +bool __ro_after_init gmem_in_place_conversion = false;
-> +#endif
-> +
->  /*
->   * Ordering of locks:
->   *
-> @@ -2423,6 +2427,9 @@ static int kvm_vm_ioctl_clear_dirty_log(struct kvm *kvm,
->  static u64 kvm_supported_vm_mem_attributes(struct kvm *kvm)
->  {
->  #ifdef kvm_arch_has_private_mem
-> +       if (gmem_in_place_conversion)
-> +               return 0;
-> +
->         if (!kvm || kvm_arch_has_private_mem(kvm))
->                 return KVM_MEMORY_ATTRIBUTE_PRIVATE;
->  #endif
-> @@ -2634,8 +2641,11 @@ EXPORT_STATIC_CALL_GPL(__kvm_is_private_gfn);
->
->  static void kvm_init_memory_attributes(void)
->  {
-> +       if (gmem_in_place_conversion)
-> +               static_call_update(__kvm_is_private_gfn, kvm_gmem_is_private_gfn);
->  #ifdef CONFIG_KVM_VM_MEMORY_ATTRIBUTES
-> -       static_call_update(__kvm_is_private_gfn, kvm_vm_is_private_gfn);
-> +       else
-> +               static_call_update(__kvm_is_private_gfn, kvm_vm_is_private_gfn);
->  #endif
->  }
->  #else
->
-> --
-> 2.55.0.897.gb25b4bd76c-goog
->
->
+> diff --git a/arch/arm64/include/asm/fixmap.h b/arch/arm64/include/asm/fixmap.h
+> index 170c3502d723..9191125738e9 100644
+> --- a/arch/arm64/include/asm/fixmap.h
+> +++ b/arch/arm64/include/asm/fixmap.h
+> @@ -112,6 +112,9 @@ enum fixed_addresses {
+>  
+>  void __init early_fixmap_init(void);
+>  
+> +extern pte_t fixmap_bm_pte[][PTRS_PER_PTE];
+
+Instead of fixmap_bm_pte_size, why not use the same inner size as the
+definition, and then simply use sizeof() where required (or make a macro
+out of it)? Both the inner and outer sizes have to match the definition
+so there's no risk of things going out of sync I think?
+
+- Kevin
+
+> +extern const size_t fixmap_bm_pte_size;
+> [...]
