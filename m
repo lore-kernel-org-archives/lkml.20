@@ -1,89 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE294472530;
-	Tue,  1 Sep 2026 22:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF845472530
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 22:59:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788303382; cv=none; b=eOlHUY+IUB/VQvNB1+O0OK0PIJmMzm2rJvEix3jzeKj9oa81TJu2VpkcxvZ2tMdXrdrOlK2lBkwQWMh2R6w7gZuciDWb+QPkQij5d9xk+6S5jMawvCIvLFryE7RZ/8Dxmongs1wV7ZQNF7o4gbWOeF3jO23P9s6obMSXZpasuiM=
+	t=1788303589; cv=none; b=TEg4g7CIBISW+idzgp1GE/IHlLQHBL4+lLMCm4QeCLL9sH83JMQ12M/R4Dvtb5KUbEylWIYDAHNbzWqlhRBy7JwQtwMQ37ho6FyDynDFLFvj96KbCVEwSg7K1YDSC1GxFylq0+o9sF4y270AkpYdu3Wh9RqvInDamWLxS1Dn+I4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788303382; c=relaxed/simple;
-	bh=pd5HplcTmMN0BJblTiE9kq+lC/5fjHbRfQTTUvjq+z4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=RN9yhEd3eCSos2WGUm66KhfAkCEa+EeXdRnzfxyUL/mQQL9nK8vMDa8ORPSNWKBuodSb9W/CAjmVtIw5BC//73C45e801FdyKfExxEhoIxTBkQihC7Jmq0hmS8KdDpB3vl9Gu92iN6NO95LWVBJKL0Yxwk5YXh+7D5NmMpwMfng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jfc/2R8n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788303589; c=relaxed/simple;
+	bh=4GMS+/yBL/lJXcjtveSASb4XRsIUTAywoH0nVOmZOp0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q6Lelf06hyTSbRFeSyAM9fgpswO/3yhpiSId/xxD4xopUkhrPacMDcPAMSmtmTboBUVAjNiWPqF1vwntx5LeIStBkBEwLOHW3vamogXJ6WQ8ae96igdVsd6+nTtW5OtUsZqqLy2scEQ/WTurWKaA5HsYyYNcIM8hs08Wxr1m34o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=AWic3lz7; arc=none smtp.client-ip=35.89.44.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jfc/2R8n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349B01F000E9;
-	Tue,  1 Sep 2026 22:56:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788303381;
-	bh=FIoEcbOHqgM0pDpYRvsPieLJh4+LISvG1+reAMYj0vE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=jfc/2R8nMzXaNaeX3NdklD3P4ufl/Rpjc9apXdB55IsrP8rW7TX4+iEQ72fPuLMnC
-	 x2280OtRKuv1M6LY54E+TPHexJof2mgWhl2/Ep8tiNtAR95r1o40zmut+X4NQLiUwb
-	 sXX3ZlWH1Ifr+7IygIeUe+u9PjnKI4fPu8CBCUZJ0ROAhAxeZm4zRqsrVQ7VlnNN39
-	 aq8lQSrQ+qOLwhNJbDvNbomC69LGvd8qbapRJxmwPPUJ/CUlscbpgHzxpzgds58rpf
-	 H6pBEA0A2xnZuow1Bw3SM+0saEUg8TcGRGc+amOhsQtt5dCYP8yD3ZJwMU6nxTLrey
-	 iLK6vh/uzXQjg==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260901152855.796769-1-robh@kernel.org>
-References: <20260901152855.796769-1-robh@kernel.org>
-Subject: Re: [PATCH v2] ASoC: twl4030: Fix "ti,hs_extmute" property type
-Message-Id: <178828911442.33904.2413833280872630382.b4-ty@b4>
-Date: Tue, 01 Sep 2026 19:58:34 +0100
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="AWic3lz7"
+Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
+	by cmsmtp with ESMTPS
+	id 1TQnx5aXhusRS1XSFxjl1s; Tue, 01 Sep 2026 22:59:47 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 1XSExweZkadLA1XSExQbDo; Tue, 01 Sep 2026 22:59:47 +0000
+X-Authority-Analysis: v=2.4 cv=Aqzu3P9P c=1 sm=1 tr=0 ts=6a9758e3
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=y2ERv7ko0hlTFnYyMTsA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=iXNZetiU/q/ap1rhP6NZk7Y9tyvDwvMyrxKwCTccJGg=; b=AWic3lz754FRJknq3+4zE9j3DF
+	roUgnU59DKSA8FerByaELF35WjLoeuH41PAnhUI7GbclPMDVD6lISXjhdty1PdgAgjEtJo3Oq2cQs
+	Jcr2Ni9IMYxKSVMpQY3wfId4goAFzRysamnRuXMMycTEOXyfbbPwK89dHa15siZ8ohND0F11iTwLb
+	YmXLaNo0tVuulFFIwHTlePRVRO4fnDxh92dAhPiBHGSkQiiYbYa909eSJyZwYJxDyF/3WFE1EETak
+	8um03KaG7OPSN+ff+l28tOgqADc7etH95pE7+iOxP8S9mGgPApKOPpcVzoAY2uqKs4Apajr2vxZRC
+	FvR5nPpw==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:52242 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <re@w6rz.net>)
+	id 1x1XSD-00000002ANl-491M;
+	Tue, 01 Sep 2026 16:59:46 -0600
+Message-ID: <77ea1387-4712-4289-a1a8-d2d849884908@w6rz.net>
+Date: Tue, 1 Sep 2026 15:59:44 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1 00/76] 7.1.13-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260831133359.185608553@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260831133359.185608553@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1119; i=broonie@kernel.org;
- h=from:subject:message-id; bh=pd5HplcTmMN0BJblTiE9kq+lC/5fjHbRfQTTUvjq+z4=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBql1gRm6VgE5OA2Y6KykAmYmgxzbI3DZ7cyjf0V
- NyBxYR7jjWJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapdYEQAKCRAk1otyXVSH
- 0JksB/9REyuz/kLO0Bi0VoJLR6+SG9jzXgkvMKDwtEa4qkXFdCxyU7mbyZ1edT9sOIdnlvl+dFg
- US42ZL4nYT1qECzi0qrVWAc9wk7H1nFVawZY2HyS6DQNXGlKICmnd3LfOGIwQcPWea1/ciULfVU
- XRzHmkEau0fAn6Sz90SgUgSAdn3vqTze+SmFzGuI6zprooir4RMcXf1whesEWNN3v2PC84A6/kH
- 9HJtLYlnNGlyQNEB2rRb+fBwcIIwnF0tnjJWh/LRNQLyOC+KMrytwTWSzVi+bzxPVWrroVFWdzA
- WR5iN6fdPdxtgOaC5EpBwBszkQCICILlJ2NM3x3prr6HuQ2W
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x1XSD-00000002ANl-491M
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:52242
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 37
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfBcrGtkUg8/F8ICxrFrok20ybanGf+9h0Pwx5J/DzfcHby7lMcdzqRELUqu9iDlLMgzWai3nVIp1SQ1f3Ah8UtGRq2fyt1VNtxuB9PBc/WmVnJCwOS3z
+ zIZ/N/Y2APdYj3COA/s9C3wXC5pTk1Ow8DZoaLL1PxMZzbOgFMRoKQFEjt5b5WPR0h40B/k2IwAShwnY4iCMDulD50HEGkGdnoA=
 
-On Tue, 01 Sep 2026 10:28:55 -0500, Rob Herring (Arm) wrote:
-> ASoC: twl4030: Fix "ti,hs_extmute" property type
+On 8/31/26 06:33, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.13 release.
+> There are 76 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.13-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-Applied to
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
-
-Thanks!
-
-[1/1] ASoC: twl4030: Fix "ti,hs_extmute" property type
-      https://git.kernel.org/broonie/sound/c/29a88f0d6c74
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Tested-by: Ron Economos <re@w6rz.net>
 
