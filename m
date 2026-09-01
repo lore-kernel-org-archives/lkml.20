@@ -1,103 +1,94 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-39.mta0.migadu.com [91.218.175.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0423242D8;
-	Tue,  1 Sep 2026 12:43:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244073793B6
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:44:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266630; cv=none; b=pGj6nwPSUFNlw2dMtIovvVQLRuB6mpLX/ZXZZyKghPbyhZhn36k2j3UBMuIoijcjUtNGpkNQl/79gMi4UY/bmCBCZ5lLA8sxld1ACaTfAtjung3OWoq+6tYGDBQsnxMe7zLpTLbxfUrPcchvh8SuQxyUZcIhEgTddRdz5kNLznI=
+	t=1788266666; cv=none; b=oRwNTWScgxl16jcaG2hLgr68Xrdr3s38x5IpTKgCUqpt8pg+Z5erhekep/b+sMAiSe28SaXOeocxM8RBocL6yZNe+3YIZzTXu7n7pouXPztYbjiHecKzPrHVaa7pySiXO9qnhKnFBNKM7BKt6ht+jLeq41TCe8kG3hRPMCJnIqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788266630; c=relaxed/simple;
-	bh=RI2I8TVst60QA7Wwo891cXbfplKuOcbVlYL7hlT75r4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WDIPDHsmtgTjNlwJXIM4potzHMYeHfyV009Bi9nHUEFl4Oq2c1V4LE64cHX69Nik57ZZSOSBEfcO2DKaleabS0crCwkUs1BsU4ZEj5Dka2ikXtFmD5E4az7YxjURK+CFFFr/fHbeey+hbpnySP2q4kZ1V/+OF9C13Xt2N2F0VaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=jzYPc4wH; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788266666; c=relaxed/simple;
+	bh=4xYToF5MA/xkEqr/sq1dy954cS2PfO//LD1OfNLVaM0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jwogOOnMJ79lITJZcNjH+w7pj42mvQ3DB71r7zWwIcvBhOWvIjoQzkHbjKdsamCYZxSiKyp9jcW6COYiDaIBmyReCuIjlLBvv/0mPmvBStYU2BzgZCRiwcKE9gXoX65THDZEFtGcMBKAwluFIKxEdpbujwShDdUmBWy4IfME7yA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qVJsP0FQ; arc=none smtp.client-ip=91.218.175.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="jzYPc4wH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=e3VZOr6RNXuMNZ3GiRBt7EGvtd3df9zDyi/QD1KV4w0=; b=jzYPc4wHaWGYtW+8ajtkNP1w5u
-	caRT+ejzr1+LNoTMrtimyR5bbdXR9tumAakmJ/WaJpxp/vNmDawecY3zGfsHnNU3nXUSZdOurMLUB
-	3AKk6REdUU5WmzJZyBVX2d7sSyTnw8WQQeQBX0ZIdfBajcYRswd26CjJYJJtQOOj6bMM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x1Npz-002M5N-Bd; Tue, 01 Sep 2026 14:43:39 +0200
-Date: Tue, 1 Sep 2026 14:43:39 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net-next 1/2] netdevsim: add link speed support
-Message-ID: <18c7a000-97ad-459a-bb9c-5c821274e9f3@lunn.ch>
-References: <20260831-nsim_speed-v1-0-7a651ee65738@kylinos.cn>
- <20260831-nsim_speed-v1-1-7a651ee65738@kylinos.cn>
- <53215678-05bb-4191-b5ff-aa236b16a96a@lunn.ch>
- <apZzJDVtENpAluhT@fedora>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qVJsP0FQ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4xYToF5MA/xkEqr/sq1dy954cS2PfO//LD1OfNLVaM0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788266662; v=1; x=1788871462;
+ b=qVJsP0FQsZ3/CX8gVuA6NowMPsoz17VdmS5lsCIxH3q8zr8ue3QvuKfucP3EiTzlQIlmkgOR
+ Mcwtcf2yE8oxpmbCkHOcrklAr5QiQMah1z+K6bD/GlN/YX15kMvvz5GaxJCahMktO0l1qyEZP8W
+ f66s/XijNwkiZmG3RitXzOJE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 69d6713c70f1300e;
+	Tue, 01 Sep 2026 12:44:21 +0000
+X-Mizu-Trace-ID: 69d6713c70f1300e
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org,
+	arighi@nvidia.com
+Cc: void@manifault.com,
+	changwoo@igalia.com,
+	michalblk@google.com,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH v2] sched_ext: don't deliver duplicate ops.cgroup_set_idle() for same value
+Date: Tue,  1 Sep 2026 20:43:47 +0800
+Message-ID: <20260901124347.755904-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apZzJDVtENpAluhT@fedora>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 02:39:32PM +0800, Hangbin Liu wrote:
-> On Mon, Aug 31, 2026 at 02:16:46PM +0200, Andrew Lunn wrote:
-> > >  static void nsim_ethtool_ring_init(struct netdevsim *ns)
-> > > @@ -250,12 +276,16 @@ void nsim_ethtool_init(struct netdevsim *ns)
-> > >  	ns->ethtool.fec.active_fec = ETHTOOL_FEC_NONE;
-> > >  
-> > >  	ns->ethtool.channels = ns->nsim_bus_dev->num_queues;
-> > > +	ns->ethtool.duplex = DUPLEX_FULL;
-> > > +	ns->ethtool.speed = SPEED_5000;
-> > >  
-> > >  	ethtool = debugfs_create_dir("ethtool", ns->nsim_dev_port->ddir);
-> > >  	ns->ethtool_ddir = ethtool;
-> > >  
-> > >  	debugfs_create_u32("get_err", 0600, ethtool, &ns->ethtool.get_err);
-> > >  	debugfs_create_u32("set_err", 0600, ethtool, &ns->ethtool.set_err);
-> > > +	debugfs_create_u32("speed", 0600, ethtool, &ns->ethtool.speed);
-> > > +	debugfs_create_u8("duplex", 0600, ethtool, &ns->ethtool.duplex);
-> > 
-> > debugfs_create_bool() ?
-> 
-> I'm not sure if anyone want to set nsim duplex to unknown for testing.
-> Do you think that we should disable this behavior?
+From: Tao Cui <cuitao@kylinos.cn>
 
-Ah, i did not think of DUPLEX_UNKNOWN.
+ops.cgroup_set_idle() is documented to be invoked when a cgroup
+transitions between idle and non-idle states, and scx_group_set_weight()
+already skips value-preserving writes. scx_group_set_idle() delivers
+every write unconditionally, so rewriting an already-correct cpu.idle
+value feeds the BPF scheduler a transition callback each time, which
+toggle- or accounting-based schedulers miscount. Mirror the weight
+guard and only deliver on an actual change.
 
-We need to consider Jakubs reply, what are you actually testing here,
-do such tests make any sense?
+Verified with a probe scheduler printing each callback: rewriting
+cpu.idle=1 twice on an already-idle cgroup delivered two callbacks
+before and none after.
 
-If they do, i think some validation would be good here. We already
-have:
+Fixes: 347ed2d566da ("sched/ext: Implement cgroup_set_idle() callback")
+Link: https://lore.kernel.org/r/b53c61a1-4d7d-4232-941f-d48b0563d4ed@linux.dev
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+---
+v1 -> v2: Fix the Link: msgid (missing @linux.dev, Andrea).
 
-static inline int ethtool_validate_duplex(__u8 duplex)
-{
-	switch (duplex) {
-	case DUPLEX_HALF:
-	case DUPLEX_FULL:
-	case DUPLEX_UNKNOWN:
-		return 1;
-	}
+ kernel/sched/ext/ext.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-	return 0;
-}
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 8041c87a3562..8b3625107b72 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -4933,7 +4933,8 @@ void scx_group_set_idle(struct task_group *tg, bool idle)
+ 	percpu_down_read(&scx_cgroup_ops_rwsem);
+ 	sch = scx_tg_knob_sched(tg);
+ 
+-	if (scx_cgroup_enabled && sch && SCX_HAS_OP(sch, cgroup_set_idle))
++	if (scx_cgroup_enabled && sch && SCX_HAS_OP(sch, cgroup_set_idle) &&
++	    tg->scx.sched_idle != idle)
+ 		SCX_CALL_OP(sch, cgroup_set_idle, NULL, tg_cgrp(tg), idle);
+ 
+ 	/* Update the task group's idle state */
+-- 
+2.43.0
 
-We don't expect a driver to set duplex to 42, so why should the user
-be allowed to do that?
-
-Also, SPEED_UNKNOWN is -1, so you need debugfs_create_s32().
-
-	Andrew
