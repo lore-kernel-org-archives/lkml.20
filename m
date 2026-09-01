@@ -1,56 +1,56 @@
 Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA374A440A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:53:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDB14A482F
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:53:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788295982; cv=none; b=fpZ5ua5oyaVPYfJbfccylR3C6kFK2o2TNUZ3Q4du5Ay4lvmgDk/BcbXNzg7vm9jGYQxndoH/C+kjkPDrYnjX79iMw3KVSQKnCWW1PC41w7aOZQjqanovxYAbwR/PcH+rLXqUG3mcqA1xfHzi21r04YHsM4u8l1zmFJ34ujkHS5c=
+	t=1788295983; cv=none; b=q1o1HGJ8dUIc4yuqlEAlQoG1TmCpTTSMk6gvNJeiflPN1/19pGVKFPnOQMOP/0wzpkXdkUtPn1snpnkgMSR5P5JKWJcLcI5qSwAIboYmHpTQ7Liwqn5nmBXtWX2D3/GE/qlWPxdoXATovx6X/xgeLDA/iwXa0Nei7P1YR9cX4QA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788295982; c=relaxed/simple;
-	bh=8YxYBVKp4QC6MS58T6jznUoadNYscBAXK9umwSVzAlk=;
+	s=arc-20240116; t=1788295983; c=relaxed/simple;
+	bh=C+SBGaTzz9NM7jGZ23XHiP5B/G0nfL/GkCZ+fXA5IEU=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ihixsoJyFb9S3bCZoQaFQsIIuMrrEGxX0/wCZqQE8w83FZiGuWI7yqrNSOlaTnqOY/3Lextzh/n7C00NCsyCV04jFKCwOWu//8g/4u5YNW+J+NP0ouEt+LfqSsE0dbfbKiQW5b/TNDB5nrTiKuOzF2Hn8qfY3MTNljJjBjWwvPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=g6jEOv98; arc=none smtp.client-ip=209.85.214.200
+	 To:Cc:Content-Type; b=eiVp0EJUOkuy3iP2FrrZQ8VXqFzGC76a1vC2ZjOQ6L7mztbuYBUix/PLrBz/Vjs/swmmcsfHEIKbH9uzQWLZArOoHW515HSEVbbtwdZ17pTe2OnRdpK70UKzSStGxZfUYhMmeFxPwhBVpFl/4eIpcrwYtF7PfK3lRC5QjBmsBDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=O61lGwuv; arc=none smtp.client-ip=209.85.214.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="g6jEOv98"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cf7dd9fd91so2287405ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:53:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="O61lGwuv"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d7293f13c6so2849415ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:53:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788295980; x=1788900780; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788295981; x=1788900781; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WWyWDWfLZFwic6F4ZvVl11QlqA6Vmuy0wQNwElQAh38=;
-        b=g6jEOv98s7WACaPPo0Hi3snTyvFMOmljYiq7Q1vAkX/DOnCijmTlfhpyAgksagCWeE
-         vnpnk2SPP4r+k+9Jibobb5ApoSfQG/Org1KTLdRJyc1/fR58qXIKBsYO8SwuGnk3VwrT
-         twNm5x+q/9KQ4cDmM8ihv0lSkFWZrKSiyGm73BkhykKg7SiK78BGTs6KPuOSVcnVwELV
-         g6deda675qu4KpUAk2WZPOZURYXZhCy7QT9oNbVYFLLHj9SVQ2Y6aOjs+Ltl0wLPeCJT
-         iNkVAIzDjvJMYxcoifu+UvOZ3OQ4Ma3CBcsRC1Hpsi2cijCI3tJaQelNT86LbnL+bzKf
-         S4tA==
+        bh=93eGEgj74rp1RcZzJal7clwlrfi0gvUnBoc2ODTBoCo=;
+        b=O61lGwuvZJQwiyoxcV8GC9M8bbmCLk8G3bstG9hgL9JPQ1yW4Si7Do36sk88ipP/4p
+         gdtgBRbobD/aukaXtypoqk0dYBerFqW0wB58hQEHQ4ONQtWZbMSoApLHn8UDU0O4vHWu
+         bRaop54VJa+NZSrFPuOHE+h5xjDgbJ4WrsqCcXsXD1475V1eBoE/w2kt1TtLauGS+uaG
+         3UaME2voCa9H69z+p0dJ6EzsCFBE5yEezyzPaHaOSsukhaLJIfWwm3OvUgXJzuklbmaJ
+         qai7WMdC/dIgHbFC1LpxjCSptoVzpYKxoABhrlHvtFW4sSboyiFi2JDOZn569oq5oQEP
+         CNiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788295980; x=1788900780;
+        d=1e100.net; s=20251104; t=1788295981; x=1788900781;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WWyWDWfLZFwic6F4ZvVl11QlqA6Vmuy0wQNwElQAh38=;
-        b=rfu8IIohS6w2HkkAxkGy1KdMgyG/qFmLjKp/i2zx1UzX5eZkY6q3xv2YgzPvqLASqC
-         ZdjxmytcgWKjG4QGsoFLqiU9F39T77O/by/5/t6sZ/Q8s6dLFOQ2JfksL6FN/eK/0yva
-         VRzUS40yfaPNsk8qStl4lxdnBkuSN3UDNvL6YEPZ0cpZPkLiKeUtZi6iAg4hpRyBPjrb
-         qV++Duy/B2KZ3MNJOt1HULAXnWGuFuR4VHmpOriuHHLIhpmKGspcgOGJ+gIbZWc7hRsK
-         6C11k+XEsj13qnkb/51k/QEx5bVDcdUHsqnmrTdsDhn8T4x4GxQ8qBxxrX7W6R0vX2wW
-         TWig==
-X-Forwarded-Encrypted: i=1; AKwUvBz8KSAlXGb05xSf+7qqLe3lJOMGi3FLtNAR/dKySVVnqz6RL1W5sg7/FrtQERVR5ErO5udRDQ6GHrWNx7U=@vger.kernel.org
-X-Gm-Message-State: AFuF++neoKq//mCSo+1jtxJvxiiImwOQgbyL684GIkTVtd8ZiHEFfmLA
-	K8RM+SuOwc6n3nTKLX7N4moiJdLHiICN/cCeYAVbg4rbtK2sktQTHevf/EUcICHmY6cTTTrHaSF
-	MUQ8n+8F62rY81g==
-X-Received: from dyw18.prod.google.com ([2002:a05:7300:8812:b0:328:4817:a473])
+        bh=93eGEgj74rp1RcZzJal7clwlrfi0gvUnBoc2ODTBoCo=;
+        b=JXGFBa+q0OnujvRAvcqlBTSEg5pAKgBflV+BYYNyQlcy0PnzKRHH388lF0eIaJXIel
+         ROPqo5zbsI2RdP+m6ZCPt9cRSlXn70zKaT4dUciVVeTiqbDNBjmPRSzyu0a4+w4iODrq
+         ZWyu2VpMomNbM1C65Cg2O1aITf9Ax2JyYAafZPPdrGDni8jhzga+WpWemnAcgOcKoBGx
+         C7p6Lx2wjzo3Wj89Oj96No/QoatSc857Pr5BF0BQdUDb7CxMrJtaoZiOycKqnkYR0AuP
+         6wvXlfCzjr6GcUpouQP3/3WsO3avFM2H068A2bgNd6JDcaDZttmYMoDXdYinlT+4E0cK
+         /vrg==
+X-Forwarded-Encrypted: i=1; AKwUvBwe1SEjQcCfR1+MexfrYtgv3E9GvEUYIy+VioRHnIngNECQP9L3GwGzrPr/ZbXD5gZC3IPx55j9zu1wKMs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyNyWUM/May04ZJICLe5TnxBUuwClpWJhSn9yOndLxk1Xt0pwe
+	vOvsQ6qiz1/XOuLoC9jga24GnIDgDvvwbT/Q3j6NP2DZf1U9P7V0f8gGUM7qmz3AuwEEeaHzNID
+	fBNybWwRIA6IKxQ==
+X-Received: from dybts15.prod.google.com ([2002:a05:7300:f58f:b0:32e:3955:bc8d])
  (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:11c8:b0:2d9:26b3:547 with SMTP id d9443c01a7336-2d926b30c76mr207766345ad.20.1788295979822;
- Tue, 01 Sep 2026 13:52:59 -0700 (PDT)
-Date: Tue,  1 Sep 2026 20:52:44 +0000
+ 2002:a17:902:ef0f:b0:2d6:df31:5bd0 with SMTP id d9443c01a7336-2d94a8e0d02mr151856255ad.10.1788295981024;
+ Tue, 01 Sep 2026 13:53:01 -0700 (PDT)
+Date: Tue,  1 Sep 2026 20:52:45 +0000
 In-Reply-To: <20260901205250.1638304-1-cmllamas@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,67 +60,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260901205250.1638304-1-cmllamas@google.com>
 X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
-Message-ID: <20260901205250.1638304-5-cmllamas@google.com>
-Subject: [PATCH v4 4/7] rust_binder: forbid vma splitting
+Message-ID: <20260901205250.1638304-6-cmllamas@google.com>
+Subject: [PATCH v4 5/7] binder: check vma->vm_start in binder_vma_close()
 From: Carlos Llamas <cmllamas@google.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
 	"=?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, 
 	Christian Brauner <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>, 
-	Alice Ryhl <aliceryhl@google.com>, Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
+	Alice Ryhl <aliceryhl@google.com>
 Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, 
 	Suren Baghdasaryan <surenb@google.com>, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, 
-	"open list:RUST [PIN-INIT]:Keyword:bpin-initb|pin_initb|PinInit" <rust-for-linux@vger.kernel.org>
+	Sashiko <sashiko-bot@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Binder does not support splitting its mappings. Allowing so, leads to
-potential attacks that stem from a partial munmap(), such as closing the
-tail range and replacing it with a new mapping.
-
-Close the loophole by explicitly rejecting vma splitting.
+Certain operations like a failed mremap() might trigger vm_ops->close()
+on temporary mappings. To avoid tearing-down the main binder mapping on
+these, let's verify that the VMA matches the expected starting address.
 
 Cc: stable@vger.kernel.org
-Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+Fixes: 457b9a6f09f0 ("Staging: android: add binder driver")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260901163521.1355535-1-cmllamas@google.com?part=2
+Closes: https://sashiko.dev/#/patchset/20260831224145.169403-1-cmllamas@google.com?part=1
 Signed-off-by: Carlos Llamas <cmllamas@google.com>
 ---
- drivers/android/binder/page_range.rs | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ drivers/android/binder.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/android/binder/page_range.rs b/drivers/android/binder/page_range.rs
-index 52ffbf3504e7..d260b009c184 100644
---- a/drivers/android/binder/page_range.rs
-+++ b/drivers/android/binder/page_range.rs
-@@ -24,7 +24,7 @@
- use kernel::{
-     bindings,
-     error::Result,
--    ffi::{c_ulong, c_void},
-+    ffi::{c_int, c_ulong, c_void},
-     mm::{virt, Mm, MmWithUser},
-     new_mutex, new_spinlock,
-     page::{Page, PAGE_SHIFT, PAGE_SIZE},
-@@ -144,8 +144,17 @@ pub(crate) struct ShrinkablePageRange {
-     _pin: PhantomPinned,
- }
+diff --git a/drivers/android/binder.c b/drivers/android/binder.c
+index 185128577829..3d359490436e 100644
+--- a/drivers/android/binder.c
++++ b/drivers/android/binder.c
+@@ -6018,6 +6018,9 @@ static void binder_vma_close(struct vm_area_struct *vma)
+ {
+ 	struct binder_proc *proc = vma->vm_private_data;
  
--// We do not define any ops. For now, used only to check identity of vmas.
--static BINDER_VM_OPS: AssertSync<bindings::vm_operations_struct> = AssertSync(pin_init::zeroed());
-+unsafe extern "C" fn binder_vma_may_split(_: *mut bindings::vm_area_struct, _: c_ulong) -> c_int {
-+    EINVAL.to_errno()
-+}
++	if (vma->vm_start != proc->alloc.vm_start)
++		return;
 +
-+static BINDER_VM_OPS: AssertSync<bindings::vm_operations_struct> = {
-+    let ops = bindings::vm_operations_struct {
-+        may_split: Some(binder_vma_may_split),
-+        ..pin_init::zeroed()
-+    };
-+    AssertSync(ops)
-+};
- 
- // To ensure that we do not accidentally install pages into or zap pages from the wrong vma, we
- // check its vm_ops and private data before using it.
+ 	binder_debug(BINDER_DEBUG_OPEN_CLOSE,
+ 		     "%d close vm area %lx-%lx (%ld K) vma %lx pagep %lx\n",
+ 		     proc->pid, vma->vm_start, vma->vm_end,
 -- 
 2.55.0.966.g6673acef38-goog
 
