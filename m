@@ -1,124 +1,118 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4BB3AFAE0
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:34:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226467; cv=pass; b=RGI1SYmbKX2NqbdRrboBcjc1fxoZEl+9bBv53n2MIYYfw6eAJ1U0ZNYZVOn4ZZLRjKNvMy0uG5FWmnAyYidKUJhQzA3X2AQQ2YcDKkXZXghDsKH4lqqOSO842uqRuR6Kr7F6rW+6dqEyCw073PbSuT/1CypqjKzt0+o1OvSJS5E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226467; c=relaxed/simple;
-	bh=aUEs5vxH9jF9nJCwZv5RTXkU9Sge3nUc5EckvCSY/FI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s3HiLS2mDRVCt97qj/u8xx5lwrCd+CabDcxLk6MryGAl8svIXydCv4YznZNmw/wXRGsPdQ+F5klOhy2O984vNO/CHSk6gKZ6/iKC6wn4EW7pAixPRFERXetCjbqVQVLFbZ1KqG3lkzqPsvuwZkXoIsbXsFAKNhG9ID0nZm2shzw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=d5qUVcIC; arc=pass smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB1B2E285C
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:34:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788226474; cv=none; b=RiGvOgsyQAg9d9Ao008sv6jBSZLBREqiXSq3yn8pxHhk24N1ZiyFsMGBmINRKnZKVuud0MdDZ0gmeS1BsQlh4xh/edb3I7Z3NT0H2EmJzVDtuliasCJ1wbi6lXxsPrdgnX9/LBEy4K6cm1e+xhlsOjJszLaD8QsBy7W+jKiW7OY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788226474; c=relaxed/simple;
+	bh=MF0hTNvzTdpGvqo8emDiLI7Op/glV1Xy1dpT2XxnEE4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XhW5OTajOMj7TY4O7WN2LkIW8tluwqD8QdspOuwEXAlT6YrJ5JU+x4DglxqhH/2gIED96oRZYiAemNIpVbijC0k8YfDBVEPeMn3pko/Q3hCoBdoMjYlOv/JUkdF/6L1WPh6vnGNEiYvBoGPpInEIcs7/9rqNjEUZ7GISLD8bvyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=MPxdh1MB; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="d5qUVcIC"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-51c10e86e52so78131cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:34:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788226465; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Rv+IvFPScL19eSmKb5hc7lZTOJsA5xsYJoac+XuRzFtBHEdD3XDS7k5ZIbHkwW2iQ/
-         ZVgGqvfr/cfqolhdRVY/aMxEN25C2LUkTX4bJQiiHgVP1K30fBNGlHMyIg0lEnSRjgSu
-         Jg3EQyODLBYSEiZHQlcLE0hWx8UPoyp+mEtF43YEbo5JjOd+VH1/JA2nDE0VWMoToYic
-         icyCgvb7SjRU9tsl11LaexN9+0sX14MoUqdweSw5MIe/UmpX1mQeExspvxEnw/BawBUP
-         pPcLoLO3U26ffzauQdP4OiddNyCMQFUFdjh37V9Rey/tYm78oheUhTEUlvQdfaeiSWCH
-         2LpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=VounH2TLCX+icK8ohtB74w58kkdgdhvjkS5XdKNJR7k=;
-        fh=Tlb7WlFg2ubHDcWx46V0euZ5HKCn9PwHoIFej3sO8Z8=;
-        b=llTtMq8jP4cqdWCRHjt/krU/NySM8GFp36Yuo74pLkO/NGa9aNXuh0O9WbNEb2IL44
-         8WhyibS7WZQ8Kks2qnBca5LE+gncmKY5+seYbxZqjOt28+r1Wj/GBkOCuQHL/aaDm7GV
-         lkSA3vRC1LVuZqXgeHhuc58NIGyvbSgkfW17BqC4uhIuk/YsSh4kLMMReao0lu1mc0nW
-         uQmlpJETqsjKXvJQdZNSt2wSGjJAyVWMjS6Qz8c54B4hDQvo6vVK3XDIP6iIQ2aT6Vh+
-         OtUpj1rAuSXdRQ2YOLJSYL4pUjYyaloVOJ2yKpwLNGOdyZccRAz9+CeGQ4viLvSqHsUb
-         ZE1Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="MPxdh1MB"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so619735a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:34:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788226465; x=1788831265; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VounH2TLCX+icK8ohtB74w58kkdgdhvjkS5XdKNJR7k=;
-        b=d5qUVcICWnFtxMFQtrpeF5zHkErGJIKPjeIs3PU7Uzti1/fUQWWZxTiuOM6KfvOCEt
-         ymf7tMqdg4ZMhZ98hqUJtnpnsLYxwnEe11rHW7WGUWO0zNH1nWyhelbFZFkCnDXkp16y
-         RkhaGlGCqnemDbzc/scNrxHRyeKBPhZL5AN7YvQD3nLJ+inVtqRYiyOutVRiUJ5nFGtA
-         nUWb9eg84wCm3q6PmL+QrKoA92I4AROyKtrSOK8BiE64u78tWHmffUKUxnnZ4Ya6c53v
-         jzRhDhjWIyTyljXz2iMT/mDQUvYUPPMDCUtQ0gohhbvW/8j/PS+uZIqzSR4lCnd53o6/
-         fe1Q==
+        d=chromium.org; s=google; t=1788226472; x=1788831272; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y9fRfnXzddhjDeOspwFwhS9N/kT3C//SscgMJBIw6do=;
+        b=MPxdh1MBb6aapgqA/tluAGHgUjeTGpdee8rkVU6DwhT/p/hg30EL3V8JaOnlCW8mGR
+         LV0eozwftPCgzwn7SruhNRaMd2HRPOZJRVq9OG0MmPoIr0IWQMoEh92+S2DqwXYcOsnw
+         46KG84lNBwwIUAto6tBmMDaqy1Nzsnw6Pwgkk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788226465; x=1788831265;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VounH2TLCX+icK8ohtB74w58kkdgdhvjkS5XdKNJR7k=;
-        b=oZKqkZ4hBPtLsNTKq1LpuNTrLO1pj+aehnHlKVPDvSYn54HNdJZQd/xPdd5gj+gfxj
-         709dPHW05rzcZFqWjEl1KyHhLWdn0oxeuadwcrgEKAyqiOegVTM1Dzv4Qj1Owy2s71Rd
-         5d98B9woaxPgRFkLAw2byalXsnKcDwhtLzpGe+l+omXvqWXfp3fU0FkXs0pLjgPg5x4J
-         zIn8pau6cm73GCBUDOFx4ZhelDZ6rAzdjrKRsbEUatMi4vABe0Sxs/BNBuOOBMSb35ki
-         8TKUOLkn+3jxIspo/Ld8k5XxFcTBQrcX7bR/n8TPoTtKf57hGIVoJpcWhft0Br0McgyZ
-         MPOg==
-X-Forwarded-Encrypted: i=1; AHgh+RohmPByknQ6H+cmKlNpv7BG1SFfPedjYiP/3JL3i+WRCkx9lMogCo2+8opGBk4Ni9dQ/9fEooIAm+zkf1k=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtwaY5YZEPN/DOyDMOTeYTRfGGOavOB59K/o9yS/xJVHEeY2el
-	7YI7dI4peXQzyLApGXiYT/Q2jJgxpoLor0+NUsag47hNWE1ZlWq41bAJmYkM4AKamyYqFYge0FG
-	Ka5111KsFDzpsBO9Srekx0lEX3Kc79xOEONkEYA0x
-X-Gm-Gg: AR+sD13aaYsSy1zly+u5bmCXpffsl2sOEsI4kuHveHYXmDW81Sy4+FOwHM8mEHkSJ4B
-	zASXtJG96tOTxIu2TGxr6t4j3Xb9kKFRX00PmH2q0lG8NHnOjf214lILCgDhssKWEpzc4elYTYV
-	N57g8imfupPI+E6q7dAf0iXy+hK4MJH83zrqZf8K8GrtR6a+7+Od+6oPrlBGr7Lq0ggMSUNiWbf
-	JNtSULxBsoTVMhMo9bOY9BBOSbqN9FMHQmTpJxlQ2V0qr4UWPwLMbHcQHspWnL5go26HHdumeb1
-	n8jXEeZuWslYbM1bVPPv6cLhndmCtTJIP7QYKONplgapEr7Eg4P/GaXl8hmZwE1s6kMDYUIHCEA
-	dYe4r3fKqmA==
-X-Received: by 2002:a05:622a:2593:b0:50f:af60:3496 with SMTP id
- d75a77b69052e-530274756b0mr5249191cf.1.1788226464562; Mon, 31 Aug 2026
- 18:34:24 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788226472; x=1788831272;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y9fRfnXzddhjDeOspwFwhS9N/kT3C//SscgMJBIw6do=;
+        b=iSpYLOJoCySzEfFNqPvdpMzz6qXHRy8Zi+st14qkZvH2mXZSIfgNwb67q3+pyiKriE
+         y6l7hJFISp4nq/q0bqzpbY4S9mzPCEHMrIJ6s2RDwednePvj8moXuwFcmbN2bmqhUyzv
+         F32aq+b4PgthsYNZwLs2bu2d9gIOv6oezGBxYRRfgTwtThq6NHFasIop5OLawYkkqFF0
+         CcXOYa4tfKNmHAIJutypsVcmPuek0oH8OuzWpHZD/nwe2ns8M/DIhQZ6I3wO6oE7U1Lo
+         9ZcGcEsy0P1OhN4pnUFanv1HiJeZL9UiEaV/4tGTWGCqt4yjnI7n2u4un9X8qORVengQ
+         wQdQ==
+X-Forwarded-Encrypted: i=1; AKwUvByacz0w+WJN4Wf185DMIV/YXpHtXGajTJIe18xHHari97BxaPxjxZ/NUZBMJEQRAWsCrwSdLMWSAJMgHsQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTwcrWuGF+qZWo77OG8r/a0cEqoHidpKNJnZoPnOgHU/7u6xBI
+	b5VHmyoimHfVKPJAuS23JVOvvAURcUgYhFdaLNnEN4N6VmU2iSQY9XyAmMKUMVbvUA==
+X-Gm-Gg: AYBFou3eM3fRn8lYAIqiOIquC33x+GES4yrpV7s4iqdtJ0M+iKKNC2QlWr9uAXTbMtR
+	8he+Irhh1GSQ05JO4NkRzLwxpcqSoS7X2597rsODrRpnzFQB56cC0A7ahr7x62CTJUjyzBta7Fp
+	F8khAI1whKcxQll8Idv5iigqzbpkxAB1jXNH8gOsf/rTqCmlWWSgQvL3pLsuZ6CNsh56EglsWUz
+	g3G7YthmrIoWYZ5KkMDaqd8CAW2tfsqnADWTJBBVhixEtXWjsS7H8VTfTIMxaLkD6GSuy1mr+cX
+	EvAJ3bv8rd+dbdZk8h3jI+75/0db1oDJuOnxGyeNfBlFzfSYhOzUUIlG1lI/f1RJxoVzZMIH7M4
+	ETQAC5xWBXQJsRi3912uXYd62NWX0jZhVYBYq3isIOVCj9a7pt56vlND/H1Fzpcxv6lTIMeIKL1
+	TZtoG0OrPpTkv/Axd090mAAGoNVwsQ/C71DVdv0pJ+YKIN5a+WivmKhFyBr+mt53ik2kpF8cNMu
+	IpJXU1D1G6xKLZ/QMWk//8Vqt2ehGE5aiEvEA==
+X-Received: by 2002:a17:90b:1f92:b0:381:10a3:8b10 with SMTP id 98e67ed59e1d1-3990f78b130mr2150062a91.14.1788226471666;
+        Mon, 31 Aug 2026 18:34:31 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:ab65:e5d8:860b:c20f])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3286f8094dasm35514254eec.13.2026.08.31.18.34.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 18:34:30 -0700 (PDT)
+From: Brian Norris <briannorris@chromium.org>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Pavel Machek <pavel@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Brian Norris <briannorris@chromium.org>
+Subject: [PATCH 1/2] PM: runtime: Only queue an idle check for RPM-linked suppliers
+Date: Mon, 31 Aug 2026 18:23:22 -0700
+Message-ID: <20260901013341.1417232-1-briannorris@chromium.org>
+X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831130129.3979454-1-beanhuo@iokpp.de> <20260831130129.3979454-4-beanhuo@iokpp.de>
-In-Reply-To: <20260831130129.3979454-4-beanhuo@iokpp.de>
-From: Stanley Jhu <stanleyjhu@google.com>
-Date: Tue, 1 Sep 2026 09:33:47 +0800
-X-Gm-Features: AcwNN1UR0AZpDFzuH5KotfUNB6xie5KyQVQlfhTBFVnUWK0vU3xxZdDP2DIKgiM
-Message-ID: <CAE14pddCf1VhLVC_H-Nv30C4BzK_UO4Eknd27g72d1nAjdBdpA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] scsi: ufs: core: Report the current clock frequency
- to devfreq
-To: Bean Huo <beanhuo@iokpp.de>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
-	Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
-	"Martin K . Petersen" <mkp@kernel.org>, 
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Jie Zhan <zhanjie9@hisilicon.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Bean Huo <beanhuo@micron.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, 31 Aug 2026 15:01:29 +0200, Bean Huo wrote:
-> +     /*
-> +      * target_freq stays 0 until something scales the controller for the
-> +      * first time. Report nothing rather than 0 so devfreq falls back to
-> +      * the frequency it last set.
-> +      */
-> +     if (!cur_freq)
-> +             return -EINVAL;
+When a device RPM-suspends, it queues up an idle check for all of its
+suppliers, in case that device was the last consumer, and those
+suppliers are now able to suspend. Today, we do this for all suppliers,
+and not only for those suppliers that are marked for use by runtime PM.
+This isn't directly harmful, but it is a bit wasteful, and also may
+induce unexpected suspend attempts (e.g., if a device was purposely last
+touched with pm_runtime_put_noidle()).
 
-If ufshcd_devfreq_get_cur_freq() returns -EINVAL here, devfreq falls back
-to devfreq->previous_freq. However, because UFS does not set
-devfreq_profile.initial_freq, previous_freq is also 0 at boot. On platforms
-with use_pm_opp=true, the initial sysfs read or the first transition before
-scaling still ends up seeing 0 Hz.
+To avoid excess idle checks, only call pm_request_idle() on linked
+suppliers that opted into runtime PM.
 
-Would it be cleaner to initialize hba->clk_scaling.target_freq and
-devfreq_profile.initial_freq to the max frequency in ufshcd_devfreq_init()?
-That way, cur_freq is valid from the start and we wouldn't need to handle
-the !cur_freq case here.
+Noticed by inspection of trace logs.
 
-Thanks,
-Stanley Jhu
+This is not expected to have a functional impact on systems that are
+using device links properly, and should only be considered an
+optimization.
+
+Fixes: 5244f5e2d801 ("PM: runtime: Defer suspending suppliers")
+Signed-off-by: Brian Norris <briannorris@chromium.org>
+---
+
+ drivers/base/power/runtime.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
+index fab38bc98113..4d84d97f09c4 100644
+--- a/drivers/base/power/runtime.c
++++ b/drivers/base/power/runtime.c
+@@ -361,7 +361,8 @@ static void rpm_suspend_suppliers(struct device *dev)
+ 
+ 	list_for_each_entry_rcu(link, &dev->links.suppliers, c_node,
+ 				device_links_read_lock_held())
+-		pm_request_idle(link->supplier);
++		if (device_link_test(link, DL_FLAG_PM_RUNTIME))
++			pm_request_idle(link->supplier);
+ 
+ 	device_links_read_unlock(idx);
+ }
+-- 
+2.55.0.970.g62bdec98f9-goog
+
