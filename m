@@ -1,99 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27BF36E498
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:46:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67AE83815D9
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:47:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245187; cv=none; b=f0VTP5vobTadz0Nal6v/ZxneQPvxDm1ZX4+D2JOvNLK+1Of3u1HP3Yr+wEZyzqY28QgmxcBsvaNRllMDNR2nBjieOTTIpkyfPzPeCzONZExsQJ4Y0nRKyougvUptXThkCVbUxfCpWRCL//RWDS5Uz8BJj8TPhzohHlQFWxcrZZU=
+	t=1788245241; cv=none; b=bHATelq5pioWClTH2d5hn1nyEjYjzjRa5QRDa2xyExt5oiyimUwjKA6z3oYpfbreZm22GK5EiSZxkxPMIhuEJZepFDHScfPLg/48tacxOYKnfjh3IXwAalrYscFGClOLdjc0OhZ7t1jBw6A9r/JYB2BcbO15Dq/+1UgoULfKVEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788245187; c=relaxed/simple;
-	bh=OFcEzgCk9UlnjW2LULSWXEChap30WBhqiCcSNByzP8M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GaC+5KGwvs+N0fpNPnliKf7cMotvl+dAfJ6uS91HdA/8QrgftB+Tr31wWl3KerHnVGVGdUKIqTEdkiFsdeDbqt9llj02AN9IZ6rZMzhz9ihb/UZjSlvgI738iFVKwxv7fRVkVffDkGcwByqR14RGqRR42il7YHmn2tz0LaRx08Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KY4f1MKd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788245241; c=relaxed/simple;
+	bh=Qyd32ozs865AsDGgO8gTGmCSNz1p2jzD/NBdRdtQZz0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=m0ufxtP0Np5JFyzWkHciqexK7Py0oy1NWEyt445lCvB8v+7eJQTwUgDSnfTv8VOzvKLpNZawKTx6WHF5Bf1KdZl5jgzO/hzVsSLMkkzknbdE2iaKnRMEE2O4R6so/bm7iNd6NZN5dr1yKRc7ExLLZJt0EkuNf1nWkcrbdYTeGe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l23T3lpE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KY4f1MKd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5272C1F00ADE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:46:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l23T3lpE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C5391F00A3D;
+	Tue,  1 Sep 2026 06:47:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788245186;
-	bh=/uB+oZnXdP3HiDF1gQ9WGpTRmCtUS3KddOyf3RwpAdA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KY4f1MKdsZt+7vwMU/K+wbQcEkm73E4Mfs1O8vB3Ky6D5vXiEN4h90qQqqc5CbJkV
-	 P9A60PCWDNw7Bk3n0u3c9FEMnpWuQtYxaDVQEpqGzvpsbMD5H1vdCy+qyK3otar51i
-	 iPZMpiUlaZ6HgJafSIL0sORdYfy5d6NXFmdStHhg7UNWOUncOPGieddSlAC56eccHk
-	 NYLqIhlujzPbAqEU97HL0XGQcXtgKLOxvu36/K4fq+NNiUCTGf28INsh2JlixKW9fN
-	 zeCj9uAJIMlkOyc7eDTbc05ZhYU1NES0FMQt5Uts9EbPMnbmL980x2tlC6dMyZHY8V
-	 xllNrtWAm8y3A==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c1712a04ddaso718212366b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:46:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpAAgscvETsmj9ZwYFADlc5a7BSSTX3Z3ihG07Lt3VWT6WtpaBugx4Ac6pOFspW+4BEN4tOGeCYvtlSH1c=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZ9Dx3FGXerPPOSkY664kX1hHTD/FtU5wPWZ6Kj6IVne4TVNye
-	WMtrDOI1syjuSUQcI5We1/YQ8uFZ46zsb/jR1wQuPzsM7zLWGxBTrDFkxqFZL9SdyzSfC/l5Bxa
-	cnQuzcMJWby84Jo5Ec8UHNA5W98HzDkc=
-X-Received: by 2002:a17:907:9344:b0:c21:8a0f:56dc with SMTP id
- a640c23a62f3a-c2556c19c3bmr2035182566b.4.1788245184817; Mon, 31 Aug 2026
- 23:46:24 -0700 (PDT)
+	s=k20260515; t=1788245240;
+	bh=wciAHNYYaw6mM9+hj6NJYlz5HwgYmGPn6PE5KjNS/qM=;
+	h=From:To:Cc:Subject:Date;
+	b=l23T3lpEn97ptqJAJaFy+l1Ls/zyO9x2g5DqcRQ+bqzQxGTJvRRwUskEjM88xC+Tg
+	 zZPvNd77P3A5k7kHjM32X4IwzyFsDvjXUdmwxiu/lM0eRoQ3TVp/TSkBmP8BisSsdM
+	 VEaWsn1/YJmeA+DMllzVdoJq6ZutUMSCwN04gRwjyglKtuZlARW89s+M5Ah88EVgFe
+	 ySQDM2BIWuuXHH4jlK2/DEmx8JGs/kNdY6MYdKTDbrYbSwsQNjBHSGlf8PmVaQTLTj
+	 xeoY5776MZcevVarwwQ4SRDCK1eMXllKxNQyome3+RAaTdbzwy2l7utAFgHZgUawvK
+	 FyfFPfwAuLtbA==
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+To: tglx@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Alex Shi <alexs@kernel.org>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Dongliang Mu <dzm91@hust.edu.cn>
+Subject: [PATCH] irqdomain: Delete irq_domain_add_linear()
+Date: Tue,  1 Sep 2026 08:47:14 +0200
+Message-ID: <20260901064716.253399-1-jirislaby@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831105330.10449-1-linkinjeon@kernel.org> <20260831144929.1597433-1-zhanxusheng@xiaomi.com>
-In-Reply-To: <20260831144929.1597433-1-zhanxusheng@xiaomi.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 1 Sep 2026 15:46:12 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd971E05QF4dPiS1YNcOSQpgQUVrd8dU=PmsHmk_XX+-oQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VvEeVJhuX84xSKEi1AfAoYU99AW8E1D9N7hW-2DXejrMz3S62amHDcX5Q
-Message-ID: <CAKYAXd971E05QF4dPiS1YNcOSQpgQUVrd8dU=PmsHmk_XX+-oQ@mail.gmail.com>
-Subject: Re: [PATCH] exfat: doc: add documentation
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: sj1557.seo@samsung.com, yuezhang.mo@sony.com, exfat@lists.linux.dev, 
-	anmuxixixi@gmail.com, dxdt@dev.snart.me, chizhiling@kylinos.cn, 
-	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 11:49=E2=80=AFPM Zhan Xusheng <zhanxusheng1024@gmai=
-l.com> wrote:
->
-> The option list and the defaults match fs/exfat/, including the allow_uti=
-me
-> derivation and the time_offset range.  Three things the table leaves out =
-or
-> implies.
->
-> Most of the options cannot be changed on remount.  exfat_reconfigure()
-> fails with -EINVAL if iocharset, keep_last_dots, sys_tz, time_offset, uid=
-,
-> gid, fmask, dmask or allow_utime differ from the current values
-> (super.c:789), leaving only errors, discard and zero_size_dir.  Nothing i=
-s
-> logged on that path, so "mount -o remount,uid=3D1000" returns a bare EINV=
-AL.
-> The reason sits in the code right above the test: the old values are cach=
-ed
-> in inodes and dentries.
->
-> umask=3D sets both masks, and the options take effect in the order they a=
-re
-> written.  Opt_umask assigns fs_fmask and fs_dmask (super.c:289), so
-> "-o umask=3D0022,dmask=3D0077" ends up with dmask 0077, while
-> "-o dmask=3D0077,umask=3D0022" silently puts dmask back to 0022.  The dma=
-sk=3D
-> and fmask=3D entries also do not give their default, which is the same
-> current umask that umask=3D defaults to.
->
-> utf8 is ignored rather than an old spelling of iocharset=3Dutf8.  It shar=
-es a
-> fallthrough with debug, namecase=3D and codepage=3D (super.c:331), so
-> "mount -o utf8" selects nothing.  exfat_show_options() prints
-> iocharset=3Dutf8 only when opts->utf8 is set (super.c:132), and nothing s=
-ets
-> that but iocharset=3Dutf8.  Listing utf8 apart from the group described a=
-s
-> "Deprecated and ignored" reads as if it still has an effect.
-I will update them on the v2 version.
-Thanks for the review!
+7.3-rc1 is free of calls to irq_domain_add_linear(), so it can be
+deleted at last.
+
+I used Gemini to update zh_CN/core-api/irq/irq-domain.rst too. Hopefully
+the result is correct -- I really cannot read/write Chinese ("CHINESE
+DOCUMENTATION" maintainers CCed).
+
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Assisted-by: LLM (Gemini) # zh_CN
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Radu Rendec <radu@rendec.net>
+Cc: Alex Shi <alexs@kernel.org>
+Cc: Yanteng Si <si.yanteng@linux.dev>
+Cc: Dongliang Mu <dzm91@hust.edu.cn>
+---
+ .../zh_CN/core-api/irq/irq-domain.rst          |  4 +---
+ include/linux/irqdomain.h                      | 18 ------------------
+ 2 files changed, 1 insertion(+), 21 deletions(-)
+
+diff --git a/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst b/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst
+index aaefeda0e164..5ce16d2e6a0e 100644
+--- a/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst
++++ b/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst
+@@ -90,9 +90,7 @@ irq_domain映射的类型
+ 映射的优点是固定时间查找IRQ号，而且irq_descs只分配给在用的IRQ。 缺点是该表
+ 必须尽可能大的hwirq号。
+ 
+-irq_domain_add_linear()和irq_domain_create_linear()在功能上是等价的，
+-除了第一个参数不同--前者接受一个Open Firmware特定的 'struct device_node' 而
+-后者接受一个更通用的抽象 'struct fwnode_handle' 。
++irq_domain_create_linear() 接受一个通用的抽象 struct fwnode_handle 作为第一个参数。
+ 
+ 大多数驱动应该使用线性映射
+ 
+diff --git a/include/linux/irqdomain.h b/include/linux/irqdomain.h
+index 73c25d40846c..3ba75a4ed3da 100644
+--- a/include/linux/irqdomain.h
++++ b/include/linux/irqdomain.h
+@@ -752,24 +752,6 @@ static inline void msi_device_domain_free_wired(struct irq_domain *domain, unsig
+ }
+ #endif
+ 
+-static inline struct irq_domain *irq_domain_add_linear(struct device_node *of_node,
+-						       unsigned int size,
+-						       const struct irq_domain_ops *ops,
+-						       void *host_data)
+-{
+-	struct irq_domain_info info = {
+-		.fwnode		= of_fwnode_handle(of_node),
+-		.size		= size,
+-		.hwirq_max	= size,
+-		.ops		= ops,
+-		.host_data	= host_data,
+-	};
+-	struct irq_domain *d;
+-
+-	d = irq_domain_instantiate(&info);
+-	return IS_ERR(d) ? NULL : d;
+-}
+-
+ #else /* CONFIG_IRQ_DOMAIN */
+ static inline void irq_dispose_mapping(unsigned int virq) { }
+ static inline struct irq_domain *irq_find_matching_fwnode(struct fwnode_handle *fwnode,
+-- 
+2.55.0
+
