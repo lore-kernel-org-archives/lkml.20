@@ -1,143 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB2330C617
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:24:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9FA46D541
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:25:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788305099; cv=none; b=iUKkrbK1v6RipKAK9iOnGKkooMqJsKlboRIKHDap5iz4C0Erglbk94gsZJ13wNgLFOE6dAgMlWCAW37jwBmAIg6XOF46V3Vdmfdr3K15RLOQdV4AxpYQ9hu0ohNx4BErIjiqmhq2/hmZyHsN8uKFi+JWmKLdO7pxVl6ZuZrQBDU=
+	t=1788305136; cv=none; b=To3UlejQCS0o++TBHbVu5dgVXWiiV6/3Z4psjC/jv6y+sZL38btch7Q13F5FHsqf7hOf/eYaHoYIad66kI3fqpQf80egA3e/MNtzwbJm90LpAMgh7YJwz2CVyvsgGyGad3vV68HMiIX6sqL5RIejvitqY18hw4Rtm/AtYZi8cUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788305099; c=relaxed/simple;
-	bh=5ClfFsrwU1Rz8dszqqRa6GmGLdKTuqyTjhmr7GJo+Tw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=D6COZiJxaMLzEi8jh+PA5m6R6XutiNnwzO7pT9WRYU+7PV4KeEgG79taxIIspjYQ8SttbenZWIzfj0Xu0hYZhqg2+L3oVh1fmqrbse0q3GqgQdGNwmQdQKqHGKy0NAuBYllwXOwo4VRXQJpsd9TOAPs2IQEqVcdxB2pOHR7U1tY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UgcS4yZ0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788305136; c=relaxed/simple;
+	bh=HW+F0mfXXAeH2iOJOGbsaH+Hny1/sIpjAptxPIGsTCo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hrFtYX3u997SIaxYN+kUIXGRf/nVCxGQPmATdol5nEc9jEioeu3qGtfglsbOHmDcjaw8+tLOYh1EuZoF8PkO90+UkfYFLVnzrR6P0i0UJvaoVv8JvszY/ViQ+OYVfCNbkV7CFIGe/YM0MlNMZOBI/2VsVIXtB9IJVx3FbtD6NVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=pMJkI+TP; arc=none smtp.client-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UgcS4yZ0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E0D1F000E9;
-	Tue,  1 Sep 2026 23:24:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788305097;
-	bh=jk2RFe/XVKJiusQmuo8ChyovasaBl76wwu4zIL3Vsv4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UgcS4yZ06pssXbFHHgG3+Ba+Bbr3x3lwd8ymNYfhY8aNnW+fzhwjTE19IIdLf3Sbt
-	 /m4VP+4uYyt8LOV1zRCYv/cYeVi4Vek0sUaMdYHVc2IlCjkRp3vS1Cjgyau25mxUY8
-	 bwh7uq2MFhTrAQR+r+Zj0aO6vgdKbxMPBMc3qERLkgpyUZJytfp07A4i95Il+ODhqe
-	 CM3yE2H6QZVkEGDb25z8NtTRBm9YdvWbnecC2zBCWXX7LzNZtlXn+71xRLFJPMIs1g
-	 9RK51c7UNMO8stCGfu1jVeMzO9TY8zHr4C1miE8AZT/dVutp1osI9/cTZheaIrSSrj
-	 tbhlffqX8dzVw==
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-To: akpm@linux-foundation.org,
-	linux-mm@kvack.org
-Cc: axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	chenridong@xiaomi.com,
-	david@kernel.org,
-	hannes@cmpxchg.org,
-	kasong@tencent.com,
-	lianux.mm@gmail.com,
-	linux-kernel@vger.kernel.org,
-	ljs@kernel.org,
-	lyugaofei@xiaomi.com,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	stevensd@chromium.org,
-	wangzicheng@honor.com,
-	weixugc@google.com,
-	yuanchu@google.com,
-	zhangbo56@xiaomi.com,
-	"Barry Song (Xiaomi)" <baohua@kernel.org>,
-	Xueyuan Chen <xueyuan.chen21@gmail.com>
-Subject: [PATCH v3 7/7] mm/mglru: batch move folios to the second-oldest gen's LRU
-Date: Wed,  2 Sep 2026 07:24:21 +0800
-Message-Id: <20260901232421.40157-8-baohua@kernel.org>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20260901232421.40157-1-baohua@kernel.org>
-References: <20260901232421.40157-1-baohua@kernel.org>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="pMJkI+TP"
+Received: from omf10.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay02.hostedemail.com (Postfix) with ESMTP id 26AD0120550;
+	Tue,  1 Sep 2026 23:25:27 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf10.hostedemail.com (Postfix) with ESMTPA id 0D36035;
+	Tue,  1 Sep 2026 23:25:24 +0000 (UTC)
+Date: Tue, 1 Sep 2026 19:25:23 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Bart Van Assche <bvanassche@acm.org>, David Laight
+ <david.laight.linux@gmail.com>, linux-kernel@vger.kernel.org, Christoph
+ Hellwig <hch@lst.de>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, Luc Van
+ Oostenryck <luc.vanoostenryck@gmail.com>, Chris Li <sparse@chrisli.org>
+Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with
+ sparse
+Message-ID: <20260901192523.0e989b10@robin>
+In-Reply-To: <CAHk-=wi_3xdtBrDgUxw5xtq8a=CdyRJnceo7YJg59wqqdXwiMQ@mail.gmail.com>
+References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
+	<20260831214437.15d6ad34@pumpkin>
+	<a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
+	<20260901092043.7feaf5d7@pumpkin>
+	<dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
+	<20260901222909.05d6239f@pumpkin>
+	<1b86ccbf-4e41-4a26-9d22-8bd93bacb043@acm.org>
+	<CAHk-=wi_3xdtBrDgUxw5xtq8a=CdyRJnceo7YJg59wqqdXwiMQ@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 0D36035
+X-Stat-Signature: yix48m3e38yqmhigfbg1er3e8efurqfe
+X-Rspamd-Server: rspamout07
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18WguzkOLLnf0vusUv0UYts7sXd9cYESHo=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=CWm+vCTHLyrMrLcgecahYG15tXLP2/TEWHRRkteza+U=; b=pMJkI+TPEJKeUa070u0GLVKXwJYIgPjWa3Ce+YkKSwOu0+LMydOihqtvsF/5fVkVx9B/Du3VqSRg57dAdd9lVXt9Z6s+jmdbr4gNo5f5z9pNob9kycy6AyQ34azytqOimfzAxPZxdSH4HYfX5QyYogc/5lukj9QzVsGPzA8Yt00=
+X-HE-Tag: 1788305124-757250
+X-HE-Meta: U2FsdGVkX18MsBcJd3j9hBW212q3qhPp3sLyZjmASpUSOga4AJbrIozzluM/UOlo/GD7NCNzl/UfiJRUr0bvwEwBmxMU8SL2l4a9afaEZBhrGfOj8HYiSDyiBoizBERx/8BXmqlugfPRpKf7ixmR6GGXdtAFtu5lTAP5W0CL/i3/zy+cBAHXmiOgfWlZuJ0zlxfwG1zhq7KHxLLXX5XmEYcy+OkaeJy5B6dGa2oTpB5PM+cLtnKKilTtIpnpcLj+tIoAZA7znRjdUxhNRaQ/0AXIlnUcogecQASgy2TBrHrhBbiWdWbr2W96iCtdOnUygCr5D7CH+Bld00SyEEAaCYG1Qb8M0ONog2750uEi+aOtkEslDPT92QGFDt98iqR4
 
-Detect folios that need to move from the oldest generation to
-the second-oldest generation, and batch-move them together.
-This can significantly reduce the sys time of inc_min_seq(),
-especially when the other type is significantly behind the
-preferred type.
+On Tue, 1 Sep 2026 14:56:01 -0700
+Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-Assisted-by: gemini:gemini-3.6-flash
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Reviewed-by: Baoquan He <baoquan.he@linux.dev>
-Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Reviewed-by: Lian Wang <lianux.mm@gmail.com>
----
- mm/vmscan.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+> 
+> In contrast, the existing macro is *not* garbage. It just says "does
+> casting -1 end up being larger than casting 1". Admittedly it *should*
+> cast 0, but then compilers are unhappy about comparing unsigned values
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 76dfa9575852..79defbb44c6e 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -3931,6 +3931,19 @@ static void clear_mm_walk(void)
- 		kfree(walk);
- }
- 
-+static inline void flush_lru_batch(struct list_head *head, struct list_head **batch_end,
-+				   struct list_head *dst)
-+{
-+	LIST_HEAD(movable);
-+
-+	if (!*batch_end)
-+		return;
-+
-+	list_cut_position(&movable, head, *batch_end);
-+	list_splice_tail_init(&movable, dst);
-+	*batch_end = NULL;
-+}
-+
- static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
- {
- 	int zone;
-@@ -3953,8 +3966,10 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
- 			lru_gen_is_active(lruvec, target_gen));
- 	/* prevent cold/hot inversion if the type is evictable */
- 	for (zone = 0; zone < MAX_NR_ZONES; zone++) {
-+		struct list_head *target_list = &lrugen->folios[target_gen][type][zone];
- 		struct list_head *head = &lrugen->folios[old_gen][type][zone];
- 		struct list_head *pos = head->next;
-+		struct list_head *batch_end = NULL;
- 		long delta = 0;
- 
- 		while (pos != head) {
-@@ -3979,7 +3994,7 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
- 			 */
- 			if (gen_increased) {
- 				delta += nr_pages;
--				list_move_tail(&folio->lru, &lrugen->folios[new_gen][type][zone]);
-+				batch_end = &folio->lru;
- 
- 				/* don't count the workingset being lazily promoted */
- 				if (refs + workingset != BIT(LRU_REFS_WIDTH) + 1) {
-@@ -3989,11 +4004,14 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
- 						   lrugen->protected[hist][type][tier] + nr_pages);
- 				}
- 			} else {
-+				flush_lru_batch(head, &batch_end, target_list);
- 				list_move(&folio->lru, &lrugen->folios[new_gen][type][zone]);
- 			}
- 			if (!--remaining)
- 				break;
- 		}
-+		flush_lru_batch(head, &batch_end, target_list);
-+
- 		WRITE_ONCE(lrugen->nr_pages[old_gen][type][zone],
- 			   lrugen->nr_pages[old_gen][type][zone] - delta);
- 		WRITE_ONCE(lrugen->nr_pages[target_gen][type][zone],
--- 
-2.34.1
+It originally did but was changed to 1 for exactly that reason [1].
 
+> against zero, so it's not great, but it's *simple*. It still gives
+> random results for 'bool', I guess, but is bool signed? I don't know,
+> I don't care.
+
+Yeah, it was originally used for the tracing format files so that
+tooling can know how to display the raw values it parses. Also it is
+used for the filtering logic to know how to compare to the raw values.
+
+I see is_signed_type() has picked up some use cases outside of tracing,
+so I'm not sure how much those other areas care about things like
+"bool".
+
+-- Steve
+
+
+[1] d2802d0739dcc ("tracing: Compare to 1 instead of zero for is_signed_type()")
