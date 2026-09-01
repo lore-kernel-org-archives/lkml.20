@@ -1,84 +1,511 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A9C432BF5;
-	Tue,  1 Sep 2026 16:02:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA213440637
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278546; cv=none; b=uRtyBl0g+oneXZOOEYyp2qiyk7gahsyUhIgTNtHBh7wqRmTmmWTGLiTtuIJRdyKl1VaM26nYB94dd4h9/HxB/Svx+jVbkM+33Se7tkon+RQlISidWC/V7rgnYUANiPO3HS3O9sgaY/eShTxSMYwxrmolkq2TPvHfRgiv2i9JIPo=
+	t=1788278550; cv=none; b=nVLLwViQTSkKyBZAGGeTa7lz9Rs9ygynZ12TSkrtZ6C9W9+pP2bW/5sfaJuArGbgD6cuxGqEddrd9MgrkXX/EhVvrPEJDu66lSHp/KlaMMiW7lpCmWcrYFaqAQ/YFZ66Qbrp5YYTjmL+WRGPHZlWIT/iUfpB6/C2n0mRAkvTmYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278546; c=relaxed/simple;
-	bh=gNdfoe53Mwg604n+y0WvOrjjC2vMCSzhmMsUM4XmopE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SWMnSgC0L8EbszsnW4lFgpnCunI+bMQJwoqHCUgk8M9hxtIXTyd9CDXoEemGR02OqD8EMvdorS7rS3ORImMBiOQ/ZqwcK+WAgXL42002iOf13EnezAVuc1i5nGZv03lIyNJ8fg6EB1d8kpVVf+yCE+MA+tB5mQWdusxjkgnVMsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=5BA3PfSj; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788278550; c=relaxed/simple;
+	bh=hw1+EjSFuhZDO9ewOhEp6Aet60F72dROR4n0rZS8Eaw=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=bXUxnFpSSJ/5rEG3Ow1ctV4i5SHkGYd49+/r9KFSys+WtfApr13O9IPB9mmjBIb9eHvle5juL01oh1ZctWux85zC9ZAjXUtkVTQYqJKsxp++0hWtYesM0XNVn8jts5FYGCM4Y14kQslIj180p+US4/sOaT5KbpGN6BRIh8STqXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sQIAaRa0; arc=none smtp.client-ip=209.85.208.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="5BA3PfSj"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=FfrKBcy61KkfVsK24t+C7a6pUxQVpc0yKJroxL4DpCM=; b=5BA3PfSjkYjr0GpkauUfNf2enR
-	FCD7S4ZAjZ0MqCrkYQLWWrL8NYJc65r/gtgGbc7DOOrd46dTZfiqOyxjpFfZFQ07fVmE06tkXu3Uf
-	JSiu1dU+XgJBmFZyJTzpDy8rddcpRJ9ME9DLN98S/NwwBlq4SuG7Bn1P1k9jMbMI26nA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x1Qw7-002NxP-Kn; Tue, 01 Sep 2026 18:02:11 +0200
-Date: Tue, 1 Sep 2026 18:02:11 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: khendry@reliablecontrols.com
-Cc: =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] net: pcs: rzn1-miic: Verify port number from dtb
-Message-ID: <bca8ba82-211e-496c-bc8a-c9ccd8667f9c@lunn.ch>
-References: <20260901-rzn1-miic-fix-array-v2-0-3e907049e770@reliablecontrols.com>
- <20260901-rzn1-miic-fix-array-v2-2-3e907049e770@reliablecontrols.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sQIAaRa0"
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-39da69c5ba3so8221251fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:02:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788278545; x=1788883345; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gaYk0M7nFh1XVdlzCHJZ1XzCsQtcpg7BjAPV4F6vU1c=;
+        b=sQIAaRa0sKi3YOeYD6cxB8XM1Tn8L9SzHSvP30guJT1+I+IPau+4lyolFdbdm74yeA
+         SRT2hBkRCMqV1RSQgErEZKswtG6fd8JfCqBbbEcIiPqWxjMtNEjMRWyKx3qUrwyIIEqv
+         k/WG/MqXEHjeAM1VWfqnT8r42+WvFOhSgSzzZjwWWxIlkbpjVlJyPgBDqRktd13mmvq5
+         U2olL7FiZ0nqHr9etu8qU7F+TsLRZTrEgav98XLO2BfdyHDaeuLeAZVwU/9f5Px/cUNw
+         kNeoJBkuP27J0Xza6zr9xdzlcLG9x8YsGPOwi2F/3z6EYk3qnj+XElWFmA7cD3cnLh19
+         8vtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788278545; x=1788883345;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gaYk0M7nFh1XVdlzCHJZ1XzCsQtcpg7BjAPV4F6vU1c=;
+        b=ZzWc8umWLvtD3hJbVHnSVEHOeoSGXD1uoL5kRleedQVVsc+LIcD9nI1CizaAghth1O
+         IR9NJf0EBlxTwQ/enVbqmGbfGrk1QS0bERtfeBJONliDDbZAFILCfnTL3+L+UV/Dlqq2
+         YkAJ2Z+OGt459KnT1fvxkQ6XZHxQe4Sjr8avaI2HaLRw8cUhqHpuuvAR4ZNlu8qLEyIR
+         /ahP1dwAhlSwJWCazE+WBvqyVQh1wOAJOV7rF4psB8bvQGx8P9UsMEmg4+cKN81GSEiu
+         X19GkvsMmPevBTsy0PUPiaOajdtJUqOWjSFZuQXnY8xiMr9Oz0ikf20QUuRQeWtxK6iH
+         YHpg==
+X-Forwarded-Encrypted: i=1; AKwUvBz58DTk3byXod0rnlRB7evcsxtP8hLoHdMCp1Qwhtpb9UR6u4W7WxOV25TbmZcb4rTm7fiJQHyzRW5lbK0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kT1lmd2OKDBbK8I+KHAD2UG/bfLxeZI938s69sBwf36eFOyhUd
+	DxPIei+3gBK7AqDDzI2DbpOYGFamidn3vP6UTX0B/JmgXqSd0C3Kh2xk
+X-Gm-Gg: AYBFou2bUH/KCZTNqIvAFy4jOZYMGpJAHEeNQC42mhPwPw2dW6HVkQLIuh+nBvUNUdB
+	KqgC/4yF3uPTjjo7/KTB1dk1Lep0BNcFNete0L3ZNEd7cEkfjUfe3mYQD/ihsqwRQCnLEbz9bxm
+	NliOkYHQvrXWAkB/hKzzPJlocCZce/zLgWeSxFoI4ock0qzh5tq999ooQ4GXGgO8gu6aRAFDmnX
+	8sekDFqGM8ym8N/Sjg6lE9npnDQEkwPm3AV/DeKYXDek7B/cd0BqrOPaniTbhqNbatd2e7LjpaV
+	1NVWvLLUV0Rho7hRFEfawg2Z53sJD+dCf/y7Z6gVKi9CpslOyZTyVTl/iDzb0yPzz9zrYgZujAv
+	QaT7MlOuoJisZUf7nlaX7U52cqsT4nX/Nu6m1bZ4xBZqUdxIGRes9Sw1Jz5jY+Kr2D1PmV7CzAQ
+	Nv9RwJzqluRfTBYITfV8AtjS9rbTrT8bz78JO1SPaAo2pRYyw6IgEcvr3C/HhAsOE910Zshx0yi
+	jtxXSkgrpgQGdBMAA==
+X-Received: by 2002:a05:651c:249:b0:3a2:feaf:6f9b with SMTP id 38308e7fff4ca-3a301b3f563mr71991631fa.7.1788278543702;
+        Tue, 01 Sep 2026 09:02:23 -0700 (PDT)
+Received: from smtpclient.apple ([87.200.95.144])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a34ad24618sm439901fa.32.2026.09.01.09.02.19
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 01 Sep 2026 09:02:23 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-rzn1-miic-fix-array-v2-2-3e907049e770@reliablecontrols.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH v3] drm/bridge: dw-hdmi-qp: use drm_hdmi_acr_get_n_cts()
+ helper for audio N/CTS
+From: Christian Hewitt <christianshewitt@gmail.com>
+In-Reply-To: <86fcf349-0a7a-4618-9001-612371b0f71b@symple.nz>
+Date: Tue, 1 Sep 2026 20:02:06 +0400
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Algea Cao <algea.cao@rock-chips.com>,
+ dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <E90466E4-C36C-4276-AA44-E40D90E48B2D@gmail.com>
+References: <86fcf349-0a7a-4618-9001-612371b0f71b@symple.nz>
+To: Simon Wright <simon@symple.nz>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
 
-On Tue, Sep 01, 2026 at 08:25:14AM -0700, Kyle Hendry via B4 Relay wrote:
-> From: Kyle Hendry <khendry@reliablecontrols.com>
-> 
-> Add check to make sure port number is in range before writing
-> to dt_val array
-> 
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+> On 21 May 2026, at 11:36=E2=80=AFam, Simon Wright <simon@symple.nz> =
+wrote:
+>=20
+> dw_hdmi_qp_set_sample_rate() open-coded its own N and CTS lookup
+> tables and search/compute helpers, but it lacked the out-of-table
+> CTS fallback needed by strict HDMI sinks at TMDS rates not in the
+> table.  The original LG G3 OLED audio mute (linux-rockchip 070633)
+> was caused by dw_hdmi_qp_find_cts() returning 0 at 185.625 MHz,
+> leaving AUDPKT_ACR_CTS_OVR_EN clear and falling back to the
+> controller's internal CTS auto-measurement, which produces incorrect
+> timing on the wire at out-of-table rates.
+>=20
+> The shared drm_hdmi_acr_get_n_cts() helper in
+> drivers/gpu/drm/display/drm_hdmi_helper.c already implements the
+> correct behaviour: it has the HDMI 1.4b spec N/CTS tables, and for
+> TMDS rates not in the table it computes CTS =3D (TMDS * N) / (128 * =
+Fs)
+> inline (the canonical HDMI spec formula).  It is already used by
+> drivers/gpu/drm/msm/hdmi/hdmi_audio.c.
+>=20
+> Convert dw_hdmi_qp_set_sample_rate() to call the helper.  This
+> removes ~200 lines of open-coded tables and search functions
+> (dw_hdmi_qp_find_n, _compute_n, _find_cts, _audio_math_diff,
+> _match_tmds_n_table, common_tmds_n_table[], common_tmds_cts_table[])
+> and fixes the strict-sink audio mute as a side effect of using the
+> helper's complete N+CTS path.
+>=20
+> Tested on R76S (RK3576) running Linux 7.0.1, against the LG G3 OLED
+> (the sink that originally reported the mute in linux-rockchip
+> 070633) at four TMDS rates spanning HDMI 1.4 and HDMI 2.0:
+>=20
+>  TMDS         Mode              Audio with v3
+>  148.5 MHz    1080p60   8-bit   plays
+>  185.625 MHz  1080p60  10-bit   plays
+>  297 MHz      1080p100  8-bit   plays
+>  594 MHz      3840p60   8-bit   plays
+>=20
+> Without this change, the LG G3 mutes audio at 185.625, 297, and
+> 594 MHz (every rate outside dw-hdmi-qp's open-coded CTS table,
+> which contained only 148.5 MHz and below).  With this change,
+> drm_hdmi_acr_get_n_cts() supplies the correct CTS at every rate --
+> table-canonical at 148.5 / 297 / 594 MHz, and computed via the
+> HDMI 1.4b formula at 185.625 MHz.  The 148.5 MHz row is a
+> regression check confirming the in-table path is unchanged.
+>=20
+> The Kogan KALED43XU9210STA (a permissive HDMI 2.0 sink that plays
+> audio at all rates with or without this change) was used as a
+> no-regression control: audio plays at 594 MHz with v3 loaded.
+>=20
+> The open-coded N table in dw-hdmi-qp included optimised N values
+> for some TMDS rates that are not in the helper's table (e.g.
+> various non-CEA rates between 28-162 MHz).  For those rates the
+> helper's fallback returns N =3D 128 * Fs / 1000, which is the same
+> value dw_hdmi_qp_compute_n() returned when no table optimisation
+> was needed; no audio regression has been observed at the rates
+> tested above.
+>=20
+> Reported-by: Simon Wright <simon@symple.nz>
+> Closes: =
+https://lore.kernel.org/linux-rockchip/ME3P282MB21960D9D68BFF520316BDFCEA8=
+3E2@ME3P282MB2196.AUSP282.PROD.OUTLOOK.COM/
+> Suggested-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> Suggested-by: Jonas Karlman <jonas@kwiboo.se>
+> Tested-by: Simon Wright <simon@symple.nz>
+> Assisted-by: Claude:claude-opus-4-7
+> Signed-off-by: Simon Wright <simon@symple.nz>
+> Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> Tested-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+
+This resolved no HDMI audio on a Radxa Rock4D (RK3576) board using
+Linux 7.2.1 while connected to an LG 64B7V (via Marantz AVR), so:
+
+Tested-by: Christian Hewitt <christianshewitt@gmail.com>
+
 > ---
->  drivers/net/pcs/pcs-rzn1-miic.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-miic.c
-> index c50b65d064fa..ebd73ed63896 100644
-> --- a/drivers/net/pcs/pcs-rzn1-miic.c
-> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
-> @@ -692,6 +692,11 @@ static int miic_parse_dt(struct miic *miic, u32 *mode_cfg)
->  		if (of_property_read_u32(conv, "reg", &port))
->  			continue;
->  
-> +		if (port < miic->of_data->miic_port_start || port > miic->of_data->miic_port_max) {
-> +			dev_err(miic->dev, "Port number out of range: %d\n", port);
-> +			continue;
+> Changes in v3:
+>  - Switch to drm_hdmi_acr_get_n_cts() helper as suggested by Jonas
+>    Karlman, instead of adding the cts-from-N fallback inline.
+>    Removes ~200 lines of open-coded N/CTS tables and search code,
+>    and brings dw-hdmi-qp in line with msm/hdmi.
+>  - Re-tested on the LG G3 OLED (the sink that originally reported
+>    the mute) at all four TMDS rates (148.5 / 185.625 / 297 / 594
+>    MHz); audio plays at every rate.  v3 has not been re-tested on
+>    the LG C4 OLED or TCL 75P7K QLED that v2 included; those sinks
+>    are expected to behave the same as G3 since the helper returns
+>    spec-canonical HDMI 1.4b values.
+>  - Also addresses a do_div() divisor-type style issue flagged by
+>    sashiko's automated review of v2 (the offending line is removed
+>    by the helper switch).
+>  - Add Suggested-by: Jonas Karlman.
+>  - Rebased onto current drm-misc-next.
+>=20
+> Changes in v2:
+>  - Resend after v1 was mailer-mangled and unapplyable (reported by
+>    Luca Ceresoli).
+>  - Body split into shorter paragraphs for readability per Luca's
+>    review.
+>  - Original LG G3 report (linux-rockchip 070633) moved from inline
+>    prose to a Closes: trailer paired with Reported-by:, per
+>    Documentation/process/submitting-patches.rst.
+>  - Add Assisted-by: trailer per
+>    Documentation/process/coding-assistants.rst.
+>=20
+> v2: =
+https://lore.kernel.org/linux-rockchip/00a34a82-213b-4b03-801c-3c10b163d64=
+3@symple.nz/
+> v1: =
+https://lore.kernel.org/linux-rockchip/92aa4191-2a2a-41e3-badb-c0a5b1fbb95=
+7@symple.nz/
+>=20
+> drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 209 +------------------
+> 1 file changed, 1 insertion(+), 208 deletions(-)
+>=20
+>=20
+> base-commit: a48bbcc7ac739e93562d6148c6fa504c2e9f22f8
+>=20
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c =
+b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> index 0dbb1274360..4e745e2c97b 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> @@ -42,88 +42,6 @@
+>=20
+> #define SCRAMB_POLL_DELAY_MS 3000
+>=20
+> -/*
+> - * Unless otherwise noted, entries in this table are 100% =
+optimization.
+> - * Values can be obtained from dw_hdmi_qp_compute_n() but that =
+function is
+> - * slow so we pre-compute values we expect to see.
+> - *
+> - * The values for TMDS 25175, 25200, 27000, 54000, 74250 and 148500 =
+kHz are
+> - * the recommended N values specified in the Audio chapter of the =
+HDMI
+> - * specification.
+> - */
+> -static const struct dw_hdmi_audio_tmds_n {
+> - unsigned long tmds;
+> - unsigned int n_32k;
+> - unsigned int n_44k1;
+> - unsigned int n_48k;
+> -} common_tmds_n_table[] =3D {
+> - { .tmds =3D 25175000,  .n_32k =3D 4576,  .n_44k1 =3D 7007,  .n_48k =3D=
+ 6864, },
+> - { .tmds =3D 25200000,  .n_32k =3D 4096,  .n_44k1 =3D 6272,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 27000000,  .n_32k =3D 4096,  .n_44k1 =3D 6272,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 28320000,  .n_32k =3D 4096,  .n_44k1 =3D 5586,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 30240000,  .n_32k =3D 4096,  .n_44k1 =3D 5642,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 31500000,  .n_32k =3D 4096,  .n_44k1 =3D 5600,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 32000000,  .n_32k =3D 4096,  .n_44k1 =3D 5733,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 33750000,  .n_32k =3D 4096,  .n_44k1 =3D 6272,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 36000000,  .n_32k =3D 4096,  .n_44k1 =3D 5684,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 40000000,  .n_32k =3D 4096,  .n_44k1 =3D 5733,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 49500000,  .n_32k =3D 4096,  .n_44k1 =3D 5488,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 50000000,  .n_32k =3D 4096,  .n_44k1 =3D 5292,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 54000000,  .n_32k =3D 4096,  .n_44k1 =3D 6272,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 65000000,  .n_32k =3D 4096,  .n_44k1 =3D 7056,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 68250000,  .n_32k =3D 4096,  .n_44k1 =3D 5376,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 71000000,  .n_32k =3D 4096,  .n_44k1 =3D 7056,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 72000000,  .n_32k =3D 4096,  .n_44k1 =3D 5635,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 73250000,  .n_32k =3D 11648, .n_44k1 =3D 14112, .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 74250000,  .n_32k =3D 4096,  .n_44k1 =3D 6272,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 75000000,  .n_32k =3D 4096,  .n_44k1 =3D 5880,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 78750000,  .n_32k =3D 4096,  .n_44k1 =3D 5600,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 78800000,  .n_32k =3D 4096,  .n_44k1 =3D 5292,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 79500000,  .n_32k =3D 4096,  .n_44k1 =3D 4704,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 83500000,  .n_32k =3D 4096,  .n_44k1 =3D 7056,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 85500000,  .n_32k =3D 4096,  .n_44k1 =3D 5488,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 88750000,  .n_32k =3D 4096,  .n_44k1 =3D 14112, .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 97750000,  .n_32k =3D 4096,  .n_44k1 =3D 14112, .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 101000000, .n_32k =3D 4096,  .n_44k1 =3D 7056,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 106500000, .n_32k =3D 4096,  .n_44k1 =3D 4704,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 108000000, .n_32k =3D 4096,  .n_44k1 =3D 5684,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 115500000, .n_32k =3D 4096,  .n_44k1 =3D 5712,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 119000000, .n_32k =3D 4096,  .n_44k1 =3D 5544,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 135000000, .n_32k =3D 4096,  .n_44k1 =3D 5488,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 146250000, .n_32k =3D 11648, .n_44k1 =3D 6272,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 148500000, .n_32k =3D 4096,  .n_44k1 =3D 6272,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 154000000, .n_32k =3D 4096,  .n_44k1 =3D 5544,  .n_48k =3D=
+ 6144, },
+> - { .tmds =3D 162000000, .n_32k =3D 4096,  .n_44k1 =3D 5684,  .n_48k =3D=
+ 6144, },
+> -
+> - /* For 297 MHz+ HDMI spec have some other rule for setting N */
+> - { .tmds =3D 297000000, .n_32k =3D 3073,  .n_44k1 =3D 4704,  .n_48k =3D=
+ 5120, },
+> - { .tmds =3D 594000000, .n_32k =3D 3073,  .n_44k1 =3D 9408,  .n_48k =3D=
+ 10240,},
+> -
+> - /* End of table */
+> - { .tmds =3D 0,         .n_32k =3D 0,     .n_44k1 =3D 0,     .n_48k =3D=
+ 0,    },
+> -};
+> -
+> -/*
+> - * These are the CTS values as recommended in the Audio chapter of =
+the HDMI
+> - * specification.
+> - */
+> -static const struct dw_hdmi_audio_tmds_cts {
+> - unsigned long tmds;
+> - unsigned int cts_32k;
+> - unsigned int cts_44k1;
+> - unsigned int cts_48k;
+> -} common_tmds_cts_table[] =3D {
+> - { .tmds =3D 25175000,  .cts_32k =3D 28125,  .cts_44k1 =3D 31250,  =
+.cts_48k =3D 28125,  },
+> - { .tmds =3D 25200000,  .cts_32k =3D 25200,  .cts_44k1 =3D 28000,  =
+.cts_48k =3D 25200,  },
+> - { .tmds =3D 27000000,  .cts_32k =3D 27000,  .cts_44k1 =3D 30000,  =
+.cts_48k =3D 27000,  },
+> - { .tmds =3D 54000000,  .cts_32k =3D 54000,  .cts_44k1 =3D 60000,  =
+.cts_48k =3D 54000,  },
+> - { .tmds =3D 74250000,  .cts_32k =3D 74250,  .cts_44k1 =3D 82500,  =
+.cts_48k =3D 74250,  },
+> - { .tmds =3D 148500000, .cts_32k =3D 148500, .cts_44k1 =3D 165000, =
+.cts_48k =3D 148500, },
+> -
+> - /* End of table */
+> - { .tmds =3D 0,         .cts_32k =3D 0,      .cts_44k1 =3D 0,      =
+.cts_48k =3D 0,      },
+> -};
+> -
+> struct dw_hdmi_qp_i2c {
+> struct i2c_adapter adap;
+>=20
+> @@ -215,130 +133,6 @@ static void dw_hdmi_qp_set_cts_n(struct =
+dw_hdmi_qp *hdmi, unsigned int cts,
+>       AUDPKT_ACR_CONTROL1);
+> }
+>=20
+> -static int dw_hdmi_qp_match_tmds_n_table(struct dw_hdmi_qp *hdmi,
+> - unsigned long pixel_clk,
+> - unsigned long freq)
+> -{
+> - const struct dw_hdmi_audio_tmds_n *tmds_n =3D NULL;
+> - int i;
+> -
+> - for (i =3D 0; common_tmds_n_table[i].tmds !=3D 0; i++) {
+> - if (pixel_clk =3D=3D common_tmds_n_table[i].tmds) {
+> - tmds_n =3D &common_tmds_n_table[i];
+> - break;
+> - }
+> - }
+> -
+> - if (!tmds_n)
+> - return -ENOENT;
+> -
+> - switch (freq) {
+> - case 32000:
+> - return tmds_n->n_32k;
+> - case 44100:
+> - case 88200:
+> - case 176400:
+> - return (freq / 44100) * tmds_n->n_44k1;
+> - case 48000:
+> - case 96000:
+> - case 192000:
+> - return (freq / 48000) * tmds_n->n_48k;
+> - default:
+> - return -ENOENT;
+> - }
+> -}
+> -
+> -static u32 dw_hdmi_qp_audio_math_diff(unsigned int freq, unsigned int =
+n,
+> -      unsigned int pixel_clk)
+> -{
+> - u64 cts =3D mul_u32_u32(pixel_clk, n);
+> -
+> - return do_div(cts, 128 * freq);
+> -}
+> -
+> -static unsigned int dw_hdmi_qp_compute_n(struct dw_hdmi_qp *hdmi,
+> - unsigned long pixel_clk,
+> - unsigned long freq)
+> -{
+> - unsigned int min_n =3D DIV_ROUND_UP((128 * freq), 1500);
+> - unsigned int max_n =3D (128 * freq) / 300;
+> - unsigned int ideal_n =3D (128 * freq) / 1000;
+> - unsigned int best_n_distance =3D ideal_n;
+> - unsigned int best_n =3D 0;
+> - u64 best_diff =3D U64_MAX;
+> - int n;
+> -
+> - /* If the ideal N could satisfy the audio math, then just take it */
+> - if (dw_hdmi_qp_audio_math_diff(freq, ideal_n, pixel_clk) =3D=3D 0)
+> - return ideal_n;
+> -
+> - for (n =3D min_n; n <=3D max_n; n++) {
+> - u64 diff =3D dw_hdmi_qp_audio_math_diff(freq, n, pixel_clk);
+> -
+> - if (diff < best_diff ||
+> -    (diff =3D=3D best_diff && abs(n - ideal_n) < best_n_distance)) {
+> - best_n =3D n;
+> - best_diff =3D diff;
+> - best_n_distance =3D abs(best_n - ideal_n);
+> - }
+> -
+> - /*
+> - * The best N already satisfy the audio math, and also be
+> - * the closest value to ideal N, so just cut the loop.
+> - */
+> - if (best_diff =3D=3D 0 && (abs(n - ideal_n) > best_n_distance))
+> - break;
+> - }
+> -
+> - return best_n;
+> -}
+> -
+> -static unsigned int dw_hdmi_qp_find_n(struct dw_hdmi_qp *hdmi, =
+unsigned long pixel_clk,
+> -      unsigned long sample_rate)
+> -{
+> - int n =3D dw_hdmi_qp_match_tmds_n_table(hdmi, pixel_clk, =
+sample_rate);
+> -
+> - if (n > 0)
+> - return n;
+> -
+> - dev_warn(hdmi->dev, "Rate %lu missing; compute N dynamically\n",
+> - pixel_clk);
+> -
+> - return dw_hdmi_qp_compute_n(hdmi, pixel_clk, sample_rate);
+> -}
+> -
+> -static unsigned int dw_hdmi_qp_find_cts(struct dw_hdmi_qp *hdmi, =
+unsigned long pixel_clk,
+> - unsigned long sample_rate)
+> -{
+> - const struct dw_hdmi_audio_tmds_cts *tmds_cts =3D NULL;
+> - int i;
+> -
+> - for (i =3D 0; common_tmds_cts_table[i].tmds !=3D 0; i++) {
+> - if (pixel_clk =3D=3D common_tmds_cts_table[i].tmds) {
+> - tmds_cts =3D &common_tmds_cts_table[i];
+> - break;
+> - }
+> - }
+> -
+> - if (!tmds_cts)
+> - return 0;
+> -
+> - switch (sample_rate) {
+> - case 32000:
+> - return tmds_cts->cts_32k;
+> - case 44100:
+> - case 88200:
+> - case 176400:
+> - return tmds_cts->cts_44k1;
+> - case 48000:
+> - case 96000:
+> - case 192000:
+> - return tmds_cts->cts_48k;
+> - default:
+> - return -ENOENT;
+> - }
+> -}
+> -
+> static void dw_hdmi_qp_set_audio_interface(struct dw_hdmi_qp *hdmi,
+>   struct hdmi_codec_daifmt *fmt,
+>   struct hdmi_codec_params *hparms)
+> @@ -458,8 +252,7 @@ static void dw_hdmi_qp_set_sample_rate(struct =
+dw_hdmi_qp *hdmi, unsigned long lo
+> {
+> unsigned int n, cts;
+>=20
+> - n =3D dw_hdmi_qp_find_n(hdmi, tmds_char_rate, sample_rate);
+> - cts =3D dw_hdmi_qp_find_cts(hdmi, tmds_char_rate, sample_rate);
+> + drm_hdmi_acr_get_n_cts(tmds_char_rate, sample_rate, &n, &cts);
+>=20
+> dw_hdmi_qp_set_cts_n(hdmi, cts, n);
+> }
 
-Better to return -EINVAL, so the probe fails and the broken DT blob is
-fixed.
-
-    Andrew
-
----
-pw-bot: cr
