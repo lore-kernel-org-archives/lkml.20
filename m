@@ -1,148 +1,131 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D294A3D26
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:39:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788295155; cv=pass; b=KyASp5US9p0LgAT6xH6594t36th5GsvByd6UrIVse85hIzvmGpDtjlXpRFzhCh5zAi8RQdaKbN6vLoXb7OSPBihZ+LOMFS8dNJ3lrQRiUTK4ZGYvapktXrmYJBE5zsQ94/IRqYEp7bh0n59OpAqaFVymB0GZI4iMLTGRn/xiVh0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788295155; c=relaxed/simple;
-	bh=zMXQqnAx/G3j/QNYM2LWpXw58ytOME0jkznw3ohEhIA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BeKi/5LriI+mGo127u6TnBFwzXigyDy1nG9nF4+6QskyPQl019mvQ3C+NUDMF3sEtbiQTIW0e26evSvJx9u4yvmwrlOyz3qZywJu/Wf6o5EgcRaJxgPE/EShf55AZysioDC6hc3924chEfNqXYj/Hbxz0FQZYU9VsKCzRkvWtAU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KxrvSSNx; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94A24252AB;
+	Tue,  1 Sep 2026 20:40:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788295257; cv=none; b=FjOAOWXeeULIpQmsCwtNT0swGr/ywbGg7oX3C7LOwD+fFeIv5rbv4ITM2lZuafTFpPhytuc9z43O7jv9zrF5YnEyWfDg4FVtetos7xKDlL1Hk0jCfPsb1GW7Ouuyku9w33HycSs3SFVC5pFk0pZUq6sOs7wzRyfukPCtTQYX/vM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788295257; c=relaxed/simple;
+	bh=2yF6QNaXTMDFCKZ7qT+HkNyGYYrPal6hKbANGvA3IUI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mneIremRRdnV8TIXa7NMoZKCPtGsTdgwoX0coOwf2X9+aIk16LdGJfRlVEBA8ploSm/hPV+wbvxmuQxX9OdjcFkjtmOEoXTj3LC7Ym8eip3eEeU0lpz4onfMjZeyvjg/iWu5BWMhZXDlm+YUfHYJ0oZise98NIsQnwziL/Ut61M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jsffA4pM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KxrvSSNx"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a668ce86abso511222a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:39:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788295152; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VMmXpvAToiwwIMamRVROLVcggoTah09czIAuXQbwaVDBRPIp2V9n3a1AbJepXTHpO1
-         tkjwH1eR6ou4jBv+ctrRVfEAk0l7uGlnl7zj5c6YfvRAqqgRs6pBu7Qq8LB9/JxJ7gn8
-         C05G7mn1SzHLNAOOOn8dQ+ME2u9qTOKGR/tTNVFTwPt8P1YVMm3tPMo6q8rv0XkzCfR/
-         Nbet9IVAxTLyVIYl+eyXac/jNWEirrE5L4cjiRopua6L/nMOn0qjNXerb9ZeprnzUhoe
-         rU+bhheOIQFB6HPzXV41lNuvxtAiBLLOycMMJopfITERQTLM3WcO4RxAVyIL41VxylpM
-         7Qww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=iMSVbAMMClabJnl3yUfS4i27AaasElWu73GA2BM0Mik=;
-        fh=Od34XMZKnC4h97mcA7v0LmNM4NsE+FYbDmocsF5/KgA=;
-        b=LOXCVgbdVQrijrlG9KjzW05SQYQBZZ4+Mtqr3Ep+asBepZhfTkMC1FjcD4eo7yk5G0
-         /Zf5ZkssNB8gOzyPA9oIJG2m0fC7iWrvJfB6mlInjOH2pElXfo3qIs65KHFP/BLr6ORG
-         m4pg4sCgUgzzOUY3o6AzyKkkwNI0UKh4Xx5qgXv87JIIrwL9SvwAGpttxw1wDRrS5pWa
-         M0EU3OaqHzAWrfIKJsIo8pkpfXopigaDMeo5v4sG3zI2AWr5B5dQh8KjY18IV7KMVJHe
-         xFpLc9Cflqz4TP74HMVI9Y0/AlFcFzzl/3H7ulPlneo9wXHZwKDsXIDKhrls+gIiRZYg
-         1YFQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788295152; x=1788899952; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iMSVbAMMClabJnl3yUfS4i27AaasElWu73GA2BM0Mik=;
-        b=KxrvSSNx4a0vucLe6PhZiunmKB1ppV8M9Wwy+WzJQbelssBPIYCCZyos26/L3b0w+f
-         HQFveJHWyRa5J7shqRKrBeleU2D5HwXMaX6wO+3NoaHH2UfvOmGLVaRK7oIv3tl0OhVk
-         cDANjOfWYql9g776UmyXreetVyCuJGhECdlkcvBGpu5csMf8TqnmDNeUy/pbTd0Rwk2a
-         tPHZiataGNm7fWBv5rhYZ4kB8GK2PHOCLcF1NeixySnBUEnlcYvn29BTsAswrdQGIptm
-         unDJE9VI6F0hmyhtQDx2XG1V8T4jkuBOZAixdnhNLHMCvTp0LCQ/9ilEaiRRKYLJTAyV
-         SHVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788295152; x=1788899952;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iMSVbAMMClabJnl3yUfS4i27AaasElWu73GA2BM0Mik=;
-        b=p/oyvTLhwsaWfeV1Bt9ujq4JKYPKT+TfOI1YO5vZz/NH/lcMFjk+W9BvlxG+h6dSBM
-         +pjLrGQ/gCr3+aiEXhRqKRlgcW0gq37NtniCw0klMu7kVGVJi8IRuDRqLcYNoykOKYSk
-         xeTUR5nqQ7XGGe1bkUHyRpnKxmCW4rDBOnVKH9MIvj4pCGPEM59HokUdAfvdgT6/4W+8
-         XFQmyKvhRRcmw0lKXp+eOFvJi852si8x6DyXW/ErHcNrR8G8BDaJqWr5JROE69etAAg9
-         FPm9jUwBW1uxR5f27Ar5x/nUHiuFCxIwy2x5i+jJq3xyyLsEaVo6uDoj5/MAHF54dreQ
-         5E9A==
-X-Forwarded-Encrypted: i=1; AKwUvBy/m9ZlTtHrH/o5qUI5+Q5ZLjmJ85xoSCcTk2tgZLxq3s2SS+spqV5wWCBcmYD0HjqqNULT26/wJ1+m7Oo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYFPpPngyIWzmaR0amtVu+uo3vFDaKR/Cf9Jn8uVzw77tgA3bl
-	9iLDUUpy9Uk43U+SFbNxcAmPKrydrTu3PpmNSv/IF90ZYvZkwoMt+HY5o1CFbE0NwsEYuyIyEGv
-	1dE7bnNYyxDp5BN26LsBqFMORiT1W5hw=
-X-Gm-Gg: AYBFou3gbtXrAlnnpiGYogM8Rh6PHm3yqyKIDirJJFPsh2TTUQgwm1gC9Ot+fjhvCBS
-	QxJBwbqYfFhIhOnuJR4o2rYkjRphfE87l3tb/VkpVZB9bHRUn4191jhIhI6r618Br0wmsu8wJhQ
-	Bq/VQ+hYzmcXNdpDtn2+FXdOnasfzL69lV8RGN0qEbwitARfYVZllsnZ33VM13GeaBVngUgah7q
-	OExbktejc3tRnVus+/ruOOfwyNBZfIejsm6G3XeVg3ThSfPqAbULT4AQhiak5qcXTaZToeFk5Bx
-	V/+u2ghG2BnJWLIzjH4PwYINJ83fl9j+uju50kMT+YFyAAhXgWDwB36gl24bxyfW0tsTq+Oa2mz
-	p8TqPiZgyVyrYBqlvAPvY3kcl1AMK4yYdlRq9zBzwWsYUym5c+dKHPlyMQ1zfQ8bo30QHWbud1H
-	GZohopAfH5+LlVCwepf+IOiWVKIk1rKaUIGQE4F0TTO+6IgAsSnF2T08s03PROOUBXeA==
-X-Received: by 2002:a05:6402:4585:b0:6a6:776f:5859 with SMTP id
- 4fb4d7f45d1cf-6a682ac2b12mr255347a12.17.1788295151738; Tue, 01 Sep 2026
- 13:39:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jsffA4pM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75DB81F000E9;
+	Tue,  1 Sep 2026 20:40:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788295255;
+	bh=lTqSBy/5+AkfT27Mcm6NsSAgir8oHYfp952cjXDCZTU=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=jsffA4pMJhRjvS+g0egMuEshBL2lvsMIMlk8cDQlWP8HCF8035Klp6vh3M2m2dJ1i
+	 xmJZSXW3Zg91S5Jucfq9H4vQV1ciIvBB0gJKxWpx0SEVk4Wtkd0nNjFM5uF6joIhMy
+	 Hzn5dVmEA/U9V3pQVbVwPoez7qyRjZUyWH6JMAI9sCCIq2hTR8V1x482isg6bT3Lnx
+	 EF7NZQ4bY1yWu5q2IwQ742r2e/a0h3L+YOlnQJfZx8JVWeHRmNQnZqaSpFU75oR5Zy
+	 KMaAfJAjYBtLHN7I2+D8HE0NZgwB3DDBbICLUPO6Zwsf+sgsumwXhxYObqk/QcEhvz
+	 7BcKAAQvmXxcw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 4098ACE0ABD; Tue,  1 Sep 2026 13:40:55 -0700 (PDT)
+Date: Tue, 1 Sep 2026 13:40:55 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: David Woodhouse <dwmw2@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Michal Hocko <mhocko@suse.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Jerome Glisse <jglisse@redhat.com>,
+	Christian Koenig <christian.koenig@amd.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, linux-mm@kvack.org,
+	kvm@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/mmu_notifier: Remove non_block_start/end() from
+ notifier invocation
+Message-ID: <e3197a0a-e167-4ea1-bbde-9c7f11f42198@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <11dcf5a87125451897982f728c1f65a5151987e4.camel@infradead.org>
+ <69567965-48fd-48c5-abb6-0699d7f5bd16@paulmck-laptop>
+ <124af87fb49c267eeb26b8b4d952b9b1a5b3fb68.camel@infradead.org>
+ <9427a8e0-3ba6-4f31-a35d-54429bd7e071@paulmck-laptop>
+ <3d0463b6099d4fcde9a025a2f9e231d75303b61c.camel@infradead.org>
+ <b0be19e9-b0ae-48de-bef6-d905ee007c8a@paulmck-laptop>
+ <c39bda52f4c1573193aed39246f0d705755143fe.camel@infradead.org>
+ <90d91673-a912-439f-98ee-e43285294486@paulmck-laptop>
+ <8cd4aa65b1b499d4c614aa4cba445b6aeb89acf7.camel@infradead.org>
+ <apcjs83XSU4Eb9hm@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260730204722.1101805-1-rosenp@gmail.com> <20260901194524.908240-1-ghidoliemanuele@gmail.com>
-In-Reply-To: <20260901194524.908240-1-ghidoliemanuele@gmail.com>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Tue, 1 Sep 2026 13:39:00 -0700
-X-Gm-Features: AcwNN1WlvzKl5Ma1R8rX-hNwpVEErP-nMy6eoOGTbH_FUp8tWYaCb1AqEhDSbAA
-Message-ID: <CAKxU2N9rW7PpNqUX0w8AR1Doc=LrRPJNct0rYJCTOm3Vskd7Qg@mail.gmail.com>
-Subject: Re: [PATCH] crypto: caam: simplify probe resource and IRQ handling
-To: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, =?UTF-8?Q?Horia_Geant=C4=83?= <horia.geanta@nxp.com>, 
-	Pankaj Gupta <pankaj.gupta@nxp.com>, Gaurav Jain <gaurav.jain@nxp.com>, 
-	"David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev, 
-	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <apcjs83XSU4Eb9hm@google.com>
 
-On Tue, Sep 1, 2026 at 12:45=E2=80=AFPM Emanuele Ghidoli
-<ghidoliemanuele@gmail.com> wrote:
->
-> On Thu, Jul 30, 2026 at 01:47:22PM -0700, Rosen Penev wrote:
-> > Replace the open-coded platform_get_resource() plus devm_ioremap()
-> > sequence with devm_platform_ioremap_resource(), which fetches the
-> > resource, requests the region and maps it in one call.
-> >
-> > Each fsl,sec-*-job-ring node has a distinct 0x10000 reg region and
-> > interrupts property, so the region reservation added by
-> > devm_ioremap_resource() is exclusive and does not introduce overlap
-> > failures.
->
-> This patch, now commit 9a955c0a7d11 in v7.3-rc1, breaks CAAM on most i.MX
-> SoCs (i.MX6, i.MX7, i.MX8). All job rings fail to probe and the machine
-> loses its hardware RNG:
-Sent fix.
->
->   caam_jr 30902000.jr: error -EBUSY: can't request region for resource [m=
-em 0x30902000-0x30902fff]
->   caam_jr 30902000.jr: probe with driver caam_jr failed with error -16
->   caam_jr 30903000.jr: error -EBUSY: can't request region for resource [m=
-em 0x30903000-0x30903fff]
->   caam_jr 30903000.jr: probe with driver caam_jr failed with error -16
->
-> The job rings do not overlap each other, but they all sit inside the reg
-> window of their parent fsl,sec-v4.0 node, which caam_probe() already
-> reserves exclusively via devm_of_iomap() before it populates the children=
-.
-> So each job ring now collides with its own parent.
->
-> Seen on these boards (CI/CD):
->  - apalis-imx6
->  - apalis-imx8
->  - colibri-imx6
->  - colibri-imx7
->  - colibri-imx8
->  - verdin-imx8mm
->  - verdin-imx8mp
->
-> Reverting 9a955c0a7d11 on colibri-imx7 makes the errors disappear.
->
-> #regzbot introduced: 9a955c0a7d11
->
-> Thanks,
-> Emanuele
+On Tue, Sep 01, 2026 at 12:12:51PM -0700, Sean Christopherson wrote:
+> On Tue, Sep 01, 2026, David Woodhouse wrote:
+> > On Mon, 2026-08-31 at 17:58 -0700, Paul E. McKenney wrote:
+> > > On Fri, Aug 28, 2026 at 12:25:01AM +0100, David Woodhouse wrote:
+> > > 
+> > > 
+> > > >   * 23f10e07aba3 srcu: Add try_synchronize_srcu() for callers which can prove readers absent
+> > > 
+> > > I do not intend to provide a separate API for this given the possibility
+> > > of indefinite postponement.
+> > 
+> > Makes sense. In that case, calling it internally from the 'right'
+> > places becomes important, as the callers who care can't do so for
+> > themselves.
+> > 
+> > We discussed the fact that synchronize_srcu_expedited() will also want
+> > to use the same fast path.
+> > 
+> > I'm also looking back to Sean's call_srcu_expedited() patch from March:
+> > https://lore.kernel.org/all/20260309193059.2244645-1-seanjc@google.com/
+> > 
+> > 
+> > | Due to differences in how VMMs manage guest devices, and in the
+> > | architecture being emulated by userspace, some updates trigger call_srcu()
+> > | with concurrent readers (i.e. while the VM is active), while others occur
+> > | without readers, e.g. when configuring devices during a pre-boot setup.
+> > | For the later case (no concurrent readers), using the vanilla call_srcu()
+> > | is problematic, as it can kick off a normal grace period (totally fine for
+> > | freeing the object) and effectively transfer the non-expedited grace period
+> > | to the upcoming synchronize_srcu_expedited().
+> > 
+> > So the offending path uses call_srcu() and triggers a normal GP, while
+> > the victim calls synchronize_srcu_expedited() and gets stuck behind
+> > that non-expedited GP.
+> > 
+> > Sean, if the victim is the "no concurrent readers" code path, as you
+> > said above, do you think the fast path in the victim should suffice,
+> > without the cost of an expedited GP for every bus registration?
+> 
+> IIUC, you're asking if being able to use try_synchronize_srcu() for the fast/happy
+> of synchronize_srcu_expedited() (i.e. for kvm_swap_active_memslots()()), even if
+> there's an in-flight GP, would suffice for a fix of the regression introduced by
+> commit 7d9a0273c459 ("KVM: Avoid synchronize_srcu() in kvm_io_bus_register_dev()").
+> 
+> If my understanding is correct, then yes, that should work, and presumably would
+> be a notable improvement overall.
+
+Then we could abandon synchronize_rcu_atomic()?  That would not be a
+bad thing from my perspective.
+
+Just to be sure, please note that synchronize_rcu_expedited() can and
+sometimes does sleep in order to avoid odd corner cases that could
+otherwise pointlessly monopolize a CPU.
+
+							Thanx, Paul
