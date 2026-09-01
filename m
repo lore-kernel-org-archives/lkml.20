@@ -1,145 +1,106 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5B3443AB8
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:48:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050A74483A4
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292111; cv=none; b=s9D6FkUuIrmkrsIzAFk4BtsJVAfwmH1ibj7gnnsAQa3RO8y5ZMsjzVa1XhUDuxBGzfIgMfrevJgqltcV3fCqVHm9DXWbha07ge3GIFg7jQSbHNE2j6WaJw39nxqbmmCpzBBV42c1KNpML1NpP0JLhKH9SDUd/MEOsblCFncZ+Ik=
+	t=1788292281; cv=none; b=XA3kYPsycbV4Y+CHxpHgbFWwP9UnPTm81yX51hWuf9YayIbygU9NbSFOwW3cWpvnsRD4466a4eLq0lLqspl6Lnffrs3rcfcJFfzrPwVscY1pFyr6wMeYXjdiU0n6dipZEc0DYLZUVM7IKX3fH10QcekEfe2oy8WhP/x7LnS2z8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292111; c=relaxed/simple;
-	bh=1XA3Iq64Qh5S96yUdeRyZkUWOMJWh2wuTH7qZS7tpF0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IiJTgtPf5sIJa7Btilyv6nlllGqjSpVBsxXYitUAvOZxb2IHsRr1W7dA16tVkcQ5vWN4VT7wDRVgw2YGj+neHrZ4IHuPqYLbZRlFD5I2RVF7OpKZ2YChCTJdiMEfwFP5rRaY/rc3BgsZGawBQ/8pJisDRR2IEiihqNRZv8b9LvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cnbzHyFN; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788292281; c=relaxed/simple;
+	bh=BwLey5dTW4uM292A2Vd7bSxkboLRHGDZjGIzXx+42J8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OeyTndH4AxOVvSCtK+fpUD9/KWxUytaq7qd8ILe9V1fO07BmrVpNgfvL81Sjjuoix3vo366m0Jdqbk+M7D6nmShFvENcIUCMh6X2dxHcvOlFkovCQsdeAeucbXElNBRTvy90EpKFxpojSCG6O8BKilAJiKVG7D/kXI64h5UTEik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=ITG5IN46; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cnbzHyFN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788292108;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PdHg9I4oGgxBB+BPGUebv8panrT4iRjdZZ8owiahDtA=;
-	b=cnbzHyFN4NMIAGcTf26IpTsMyBIxeSXXLvUxRYdi/VKWazUwWOneLpxFrH2hwqU1W0RGOQ
-	eeYX/ittk/H8ylqJPxgEe9qZFdIRe8PYEC4zhKMkXL/0p+IN5FIqF41gakqvqd4vQXGF4M
-	Z/4sum27iVecoc0j1VTISzK6awGbGpc=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-561-Ydnij9yYPvO9lR82MlwnUQ-1; Tue,
- 01 Sept 2026 15:48:24 -0400
-X-MC-Unique: Ydnij9yYPvO9lR82MlwnUQ-1
-X-Mimecast-MFC-AGG-ID: Ydnij9yYPvO9lR82MlwnUQ_1788292100
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CE97719539AC;
-	Tue,  1 Sep 2026 19:48:19 +0000 (UTC)
-Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 544051955F70;
-	Tue,  1 Sep 2026 19:48:18 +0000 (UTC)
-Date: Tue, 1 Sep 2026 15:48:17 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
-Cc: ebiggers@kernel.org, axboe@kernel.dk, mst@redhat.com,
-	jasowangio@gmail.com, James.Bottomley@hansenpartnership.com,
-	martin.petersen@oracle.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-block@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-scsi@vger.kernel.org,
-	virtualization@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, neeraj.soni@oss.qualcomm.com,
-	gaurav.kashyap@oss.qualcomm.com, mani@kernel.org,
-	andersson@kernel.org, konradybcio@kernel.org, bvanassche@acm.org,
-	alim.akhtar@samsung.com, avri.altman@sandisk.com,
-	pbonzini@redhat.com, eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 01/11] virtio_blk: add inline encryption support
-Message-ID: <20260901194817.GE729142@fedora>
-References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
- <20260827160806.1295313-2-linlin.zhang@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="ITG5IN46"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47de0093c42so326089f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:51:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1788292278; x=1788897078; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BwLey5dTW4uM292A2Vd7bSxkboLRHGDZjGIzXx+42J8=;
+        b=ITG5IN46vGcwvMKwBFWO2A2I4biFNMH5plPiYYnUi99kTt9ug7TJsZ+OjrRkJP1CtD
+         4QzTASJ244haASscNMebdaW/qh4UZpcFnerkaVFy69wpBnYutrc9DxKlhT1vU95OMmx9
+         xi6igBx8aoBG8OfgM/QbLOwdRErxuq6878+/L9Nm/ktpQ5hC4Jpd7R6inINqoFz/rLzb
+         5yUl7jUXXDsM4Z426JilCySPd3Ae50esTRxex2b3iaumu5zuZIHrz4P7SwsVjwo6N4ag
+         cp8oP7OoHA6S7Js8Brio8WESvaMULs0CPEB3pel7kQDeXFhqAjS8L1qm7iQco8DyyIIo
+         WM+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788292278; x=1788897078;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BwLey5dTW4uM292A2Vd7bSxkboLRHGDZjGIzXx+42J8=;
+        b=XSHwJbByEMoPX2f50OPcdJTuzgMo5hRXhua8nfhvHkNvpCwyx7qOILTZwDo8yBo0aI
+         RwzjzATWn3tdzJAYS0CsFY56lcDeBI1qBRCG3wRK7q9ISnSjIVWWwEc9q2FAl1tQJyi3
+         1IDAx7N4aqSmWPFI0RuptB5PdM0rYn1/+TZTbQTO3g6Y+4m5oopUc6/YIYI+1p42Ko7h
+         R4pyeh50t7hs210P0HuZygl4dUhizng596j7MqKTtT1a6rEkyo+BT1VVO3ch3D8XZgmS
+         8Tgs+xTY53QCLkAbYy5KATSDk1+p3kiAy08WuaQa8jGKFY4E8j7js/4YRGC7Y+Rz9h/K
+         9q9A==
+X-Forwarded-Encrypted: i=1; AKwUvBwZ6WS4MNtc4cqR9SeGwCaOkGg7lim/yFeVTUNPvZGtgNP5wKySCyJUvFPcLXOM4B3MaMgda6qdV4zChMk=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4t82jYlTBUfYOQ43+I/oPsc5SI9k+aT5GCiKVBs6vI1Ai1kyt
+	SHc1JI0kqTMBta35LpUc2FSUlkByvVxze2i53/sa/TZspVZj9O6OZaAXdSWXG1vYXXQ=
+X-Gm-Gg: AYBFou0ReEbAlaxdAYvYkWUUaneT0OA10a09t4wrfkCEV2QkGAeG2A0TTsR0saaV40r
+	a3BTeg+nidUH2SKcaQaiSaMYNjw6p95pKWxGS0awqg9qQ+e6dM735rviLLKQsDtxTO81DV2rAyZ
+	OSM8POv6R0mQtDz16B8WmNqUFYx2H/ztAfCdAq9HL1OdxlSD6MYZyeBFdeOYCsaUNA6Cv98FWtB
+	KYQqpX7oyfwY+YW5hhMiTSoUWGi29gMqm6N7b2ENijWW1Z/n7RYCmyJJ0MxbMBaL2VcPu2iv7gm
+	pOfjGXIZ1Ec4CAf2AcoxAq5eEN28y1tqPsaPUQyNGjBKtDlwIiZWiLJoChWvBWpsKQdZP4JWdkO
+	vr+8bmRHLVGRWyLEEtAilsdJULHTLeE2AczcYLPg2qqVVQ/go+T8NGsnZ5collPUzbDs/RsolQ0
+	/kCawbpbhno4j2O5AtCVNOhjtIp+cZjE4NvkfWLQlwRuYMRp9Gcg==
+X-Received: by 2002:a05:6000:648:b0:484:4189:6b09 with SMTP id ffacd0b85a97d-48441896b75mr15334529f8f.17.1788292278109;
+        Tue, 01 Sep 2026 12:51:18 -0700 (PDT)
+Received: from remote-01 ([84.17.55.226])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-484492ce236sm1316681f8f.35.2026.09.01.12.51.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 12:51:17 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: "Chester A . Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org,
+	Russell King <linux@armlinux.org.uk>,
+	Qingfang Deng <dqfext@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH net v3 2/2] net: ethernet: mtk_eth_soc: populate lpi_interfaces to fix EEE support
+Date: Tue,  1 Sep 2026 19:51:12 +0000
+Message-ID: <20260901195112.37184-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <68c51086-eb10-4074-8495-b31c8e8a21e0@redhat.com>
+References: <20260827211652.63504-1-f@lex.la> <20260827211652.63504-3-f@lex.la> <68c51086-eb10-4074-8495-b31c8e8a21e0@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9aX0ODMiNe3QBG+4"
-Content-Disposition: inline
-In-Reply-To: <20260827160806.1295313-2-linlin.zhang@oss.qualcomm.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Transfer-Encoding: 8bit
 
---9aX0ODMiNe3QBG+4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> For a 'net' patch, I think it makes more sense to restrict the lpi
+> interface to the chip revisions with support confirmed.
 
-On Thu, Aug 27, 2026 at 09:07:10AM -0700, Linlin Zhang wrote:
-> From: linlzhan <linlzhan@qti.qualcomm.com>
->=20
-> Negotiate VIRTIO_BLK_F_INLINE_ENCRYPTION with the host and wire it into
-> the block layer's inline-crypto framework to enable inline encryption
-> on virtio block device.
->=20
-> When the feature is present, the driver reads crypto characteristics from
-> virtio config space (key-slot count, DUN size, supported key types) and
-> issues VIRTIO_BLK_T_GET_CRYPTO_MODES to discover supported cipher and
-> data-unit-size combinations.  Encrypted requests use new request types
-> VIRTIO_BLK_T_CRYPTO_IN/OUT, which append a virtio_blk_crypto_msg
-> (keyslot index, DUN, data-unit-size-bits) to the standard outhdr.
->=20
-> A new virtio block crypto extension driver (virtio_blk_crypto_ext),
-> owns the blk_crypto_profile singleton and the blk_crypto_ll_ops dispatch
-> table. Actual key operations are forwarded to a platform-specific
-> backend registered via virtblk_set_crypto_ops(); without one,
-> VIRTIO_BLK_F_INLINE_ENCRYPTION is still negotiated and the
-> profile is registered, but every keyslot operation returns -EOPNOTSUPP.
->=20
-> The shared profile is a singleton as per blk_crypto_profile is
-> corresponding to one ICE hardware: the first device to negotiate the
-> feature initializes it; subsequent devices reuse it only when their
-> negotiated capabilities (slot count, DUN size, key types) match exactly.
->=20
-> Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
-> ---
->  drivers/block/Kconfig                 |  13 ++
->  drivers/block/Makefile                |   2 +
->  drivers/block/virtio_blk.c            | 199 ++++++++++++++++--
->  drivers/block/virtio_blk_crypto_ext.c | 283 ++++++++++++++++++++++++++
->  include/linux/virtio_blk_crypto_ext.h |  78 +++++++
->  include/uapi/linux/virtio_blk.h       |  62 ++++++
->  6 files changed, 623 insertions(+), 14 deletions(-)
->  create mode 100644 drivers/block/virtio_blk_crypto_ext.c
->  create mode 100644 include/linux/virtio_blk_crypto_ext.h
+v4 will gate lpi_interfaces on a per-SoC capability bit, so only chips
+with a confirmed LPI exit get it and the rest keep the current
+behaviour.
 
-Thanks for sending this as we discuss the VIRTIO spec changes.
+MT7981 is confirmed on my bench: with tx-lpi armed the PHY's MMD 3.1
+shows Tx LPI asserted by the MAC, and thousands of LPI exits at 1G and
+100M against a BCM5720 lost nothing. Details in the v4 cover.
 
-Although it's nice to have all the Linux patches together, there are two
-separate parts: 1. the virtio_blk.ko guest driver changes and 2. the
-hypervisor blk-crypto uapi. I suggest splitting this into two patch
-series to avoid confusion between these parts. It may also make review
-and merging easier if we stay focussed on just the guest or just the
-host parts.
-
-Stefan
-
---9aX0ODMiNe3QBG+4
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmqXLAEACgkQnKSrs4Gr
-c8gA+QgAqDS7OZpv76XEz3ux6y5Md9USN6fgNjmMguv95TrS/+5BA5hTQoo/oRLD
-Tyk3iCHL+q76w6ukHAbFg75WHzYnE/1ylnCcq8Mu0xrXMjWX7/jOe5/EgXv594De
-ZQI/hrpfc8FZ42giSJBp2SWIVxa9ZaKnUL+33Lf57l2HelEsBrK2C8uhm3HBa9gq
-VVwdgoHixN5DIclvKSmI/lCv3sW7AexMGRjBe6dskR08f84Xn0AisTB3OuzyRJMG
-vHjIzGapZrQVw2jubuAhztBcAedmEhuRJKrCt9HtBMheyWwAfxfkb7FTmVmsIbfd
-37a52DGnb2PYe0N70Q8MmaSi/n/kfw==
-=jTU8
------END PGP SIGNATURE-----
-
---9aX0ODMiNe3QBG+4--
-
+Qingfang, which SoC did you validate the wake-up values on when adding
+EEE? That would be the second entry.
