@@ -1,360 +1,233 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 966FE2F87B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270354; cv=pass; b=lEo+ALrKBCqEQbHLEmvYjJn4+RmfRs0Kk2XYD0iEDqRXRMh9dzJQQ0pmLP16Dui21zBEz4bHrIq7TPzg18rkQXhuETxHQAm3WGZEy5uQEK3BG86oP08wkZP0RcZ0/n9R9YWdAuJSLvqyA50wkeS+5shSK8LL2SqDmxKXuBH+Ce0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270354; c=relaxed/simple;
-	bh=m4ZJ2+JsxPjKDDFJApIIceyD+SEE8DpWzuWpzoG0QTE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G/JKAH1534yXcmfBAAZz4EVopi5UPidCbV2B52dU/+/PnvgIAyBuJvWUDbi/vjYIiNF3tMBM8nd0tviiOr3MUkWMJ6Ea6d/DUtTXaTLQct8dza31mL9xk4eRmDbBlgtOWlYQOKdIjOLijCM9ZvMVIBNfVL865PmEEPBHXjdBOsA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RBb/jgcX; arc=pass smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB22B3AEF50
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:45:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788270355; cv=none; b=oTuyVs1BUgzsWHwvp9Pf77qwuk6YGWLez7/bwJuQW0EmbuFH712Zld90TEjZv1zfLukNi7HQ5VmExPPyktbYZeKto6+W6Wr8GRRa5jHi7tye3ZIFN0Z1UD60rpEPoi7FnoEgaWIXBrHdKq7CLnV1GwNxuQ1JOHC0SBvAlm0KoBs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788270355; c=relaxed/simple;
+	bh=qgiyO6Oiz37QAwDooQPVcfkUhvSyEtAunUHz1++G1V0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TEpQ+REhGeSBAUXVop8AsIsbCUpJDnPxNvW8AZpVTGCNC6n5IWTJ1C655sqEwPA+aPOuLEHyi65LeW7JFtHY7AHgZUG6dXkx2JFUJi2qfmTKuK2VoQgjqQfHh7Sakj0ybWYN0+D4RRtFpOIZVCL2L7LurySqmhCeBo81ofhHZT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=qF7y3FKn; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jHkzSKMS; arc=none smtp.client-ip=103.168.172.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RBb/jgcX"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c259e5c22ffso374443766b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:45:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788270350; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gdKz/0FhpGLrjqPrBQ3JQ5GxrqW1a3Y55grSFapfftcZXsig/Bx/M/ib5/MEc8Pfj4
-         gtiBNAkP3pGM4umQy3p8WP7iLKAJRY+gyJaJCM3lmYQULey3RKf0FUt3qujoyYo+G490
-         BNtLbSY8r1a2AUg0UTESSv2L6pKQRsrgkslzhxEuANJdJyvWVFj9/1Eis+8UD9xLBBOA
-         PZJPqROifXdyX5g61rDetib3Z/1Udo0Udx84J/gJOIlocelaWh383fTdws5DaRgGSGaR
-         cDOg308wjbQ7S90a0AFCeKMbsa1ffxfJllsHsXdP1ribn+w2RMraxMB1rocpaRdlbtgY
-         2asw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=T+ww05w7mmoIv4vxq1+fWmu8KH4UmvjD9xsbmPma+uY=;
-        fh=QOBfTITm1mfeoTbX8MXMufvaMJMMc9DenqRSvLbl1qA=;
-        b=c1Xc+V66Ot5xd8+x15/jyQF88vBcOQKcXTzF6L0igvC2tWaR/a4ujZEQQIwlq1bovI
-         52s176jKUvAoBDeaijzaOudUkWWIEIz7t7KYQYkUYBp8JfwIbNfq+03jek6te2lM0+/n
-         OJOKpoyuGs5YxN9kzDleLh9Y+VMOV64CqLnNJD9y5WcLo6/8ixyWYNZ/PG0PQhDxP6QN
-         4dJAYOw2tP4icNpqWSmwxs8b4RF3LY7yyNhBPoNP7HSmJ1LO3W5Y/hcUskjsR1NKl7Ph
-         3GZCs14e+ToUAKnaB0DZJyYkijozwu3J3XbXOF6Zc5gOxDLtXiIruv82Fj8matS0IX7p
-         sgZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788270350; x=1788875150; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T+ww05w7mmoIv4vxq1+fWmu8KH4UmvjD9xsbmPma+uY=;
-        b=RBb/jgcXo0OUzgltfHpvH9o4x4LGvOBmVNet89IIb3JZ7sak6WddtdiIAdBUC5mBGr
-         SBks9ZmrIW/EL3Ld4wLaDkGw/de4tWMLirCO+cZEUCKhkFaL3qvmdAj2IhZfJxwZAszW
-         QoFPkL2BHeaB4hQ3hvRiZwtfe1To+6YXdjcNgxqZWg2ZHHV2BhTCo290aewLEStkCZUe
-         +MzsP/zYh6WsM6kH3TOHLF6XrA3JjZ09aHCIWq79807iRrfdE/tBAkARu/lHReb7EqJr
-         Hkd6A9KUxFa2oUBu/QPfkvrxFu4WM1RXJxAFz+MlD2B/08+BqZ2VyaL78jCCGS0kYyc+
-         XS3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788270350; x=1788875150;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T+ww05w7mmoIv4vxq1+fWmu8KH4UmvjD9xsbmPma+uY=;
-        b=WNBZ95sIWqJyeXn908tBEGNYGpiyPiZlDvaUtWFMf0hxqB989RPzdnyaYR11DJmsBU
-         ZSXg9pAejIbih7X0MB575O9apujoHpU9cqVUFFzGEYYanRnHc76lhAld/AB7TtoE7/fA
-         /wJctbv4mq0kGl6Jf0WimhVVolH+Uai+c5iQO+1rMWoxyJ/quHU2ve62JdmMUJMXmWUg
-         +3IRcgOmkm92on/6c42Pqx4Jfybagl/l/VusRA5wCGy/Tk7M8SneY5rtLXcNyR6LNlf+
-         1e+eEti+OYxes323E792f7cE4sqnJdOz0NbhVYeET+7CfRsZdnSIqvcmBx6VkACe9Wvz
-         8s8A==
-X-Forwarded-Encrypted: i=1; AHgh+RpqeuU/Coc2PLsHRLRqxvA2dVOe/RofBBKviVa9IZ+GxFH1VU3Z5c9oNhxW83wQKHS7outfx3Kv6MFjzoc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5H83fELmxN56zSIIbRmL+7SZAOa8JYv2WNqWEbVGNVawXTGK3
-	b+BFRgIi3lzL2UwCZLAhQZem+gsuFq6srMg/mZEakPOxhB6UxKo8o4GZ4HzaNGZgbtLW0ZAdwla
-	bK83ZkDMnWCx7T8fFCkSE+PUohZd9WZA=
-X-Gm-Gg: AR+sD10+u9MoAn6iCgdsvXpvoVHUcLw39x0BFePhDBx49ITUralyi+5Ur3IMwliZNka
-	4RxyY8+ZzUufD2U2jfC4wbRjIcyRsj2RTk91O+qv26dPp7YDaL4cXBnq3AuL5DeLpMaa26LKGTl
-	wr9GTsI70oUNS4g9MjlrtOuMceVR3VSjASNEz8mzWRYu26a/R6GyAqpW/dxjgrmpTYnpK3fykAA
-	BIHD9B4OrxlLD4ez8uVNi/Qiwn8IvQZPFFrWEO3sgvaEf2+9adm3BI+eSgGZI/ebdews8UtCx4j
-	Mjzo+Wk9Cq4OcJQYQa+mXatGLMdOSifBR7s9osWTL+YWvG4C6P0M4mzI5Mi2lxnrfwUYuA==
-X-Received: by 2002:a17:907:c01c:b0:c21:382e:9a38 with SMTP id
- a640c23a62f3a-c2556c18e20mr2310750866b.2.1788270349459; Tue, 01 Sep 2026
- 06:45:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="qF7y3FKn";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jHkzSKMS"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfout.phl.internal (Postfix) with ESMTP id DDC53EC00C1;
+	Tue,  1 Sep 2026 09:45:52 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-08.internal (MEProxy); Tue, 01 Sep 2026 09:45:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1788270352; x=
+	1788356752; bh=ZtCkhLrhcvMxGOfdSJ5IQf+T2fdhFoHn9DVAVOReVf8=; b=q
+	F7y3FKnr2Si1DXNZvq3oZRrNyJgrKPa8IHwBTov12vunVbZfjU6SD/0BmwEiYnOZ
+	e8W+i+2uPduv5B+8bDlijibTyHfqxKk4r8eK6B7eAdXP/bCb5j7wnExGizlSh22Z
+	T1oXrLFLZbsJYKu0OIdsHEYdqG+JZsCJR2rafeH7Fhph0bQynRtimYg1J7F0aswQ
+	OrxTzmB4FdtyAljSr5lJK/gDosgjtSPX5H+YIEYzdEwRAkFvENjAuAC1O2+R/AxA
+	8QPNWfq6daFflwZCnmSefvbZgmck8Nhid8tnb/woU1VwDiNuef0aiVqkjK1iBnEI
+	yS6oM3CLGVupjCqHWPp3w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1788270352; x=1788356752; bh=Z
+	tCkhLrhcvMxGOfdSJ5IQf+T2fdhFoHn9DVAVOReVf8=; b=jHkzSKMSxn7me3Am4
+	wm5i63YKdjFwe1H/RsinJWzHzJdkNWauuwPaeqPsBF5j4FA/ZSHm8zd1ga2mQycD
+	gCamYk2BO0Caj1P94GYg1c+mWE8VJwIik51M96P6GKp+6fMKODwi82yA7EqEnizE
+	QayF6yCpPpYIGr/z2KgUGTPc+P7kdqkCb444q0xtoJMMMZZ5uZtsZ5kfJaVQECXP
+	qSstnqk3Z1/JenFo+kBazZc7Y39HJUVgCeXXazuNy9uQ5szymwOUWt67ZEGeOSkL
+	0uO04ZTjxYZ3uZl9Cgb1Za0IzZQ/v8M5rRtK5sKhMW2OAjSCjIc+3yb9ZB+UgIn8
+	y6b0Q==
+X-ME-Sender: <xms:ENeWamWekdtLqlURHsDqFI56IL_l8fPaCD-_R6PUtAwy9v5569bAsA>
+    <xme:ENeWagY9i8UmCS9PNNADYd4B3yxsuipyBC5swp3Sj-zRS_Os3UmM0gL6W7lI3M8vb
+    iKtRGEibO4zY5w-uIvxKcqbOiAOqTh77T9wUCn5gszbrnnxFFaFUjk>
+X-ME-Received: <xmr:ENeWak2V5VehBXQJoky8LPznVHx3GgV8gYSN-IQV-a2zfHhYQx-3CNyP6IlzCKUunjCTrIKZPredweOt-R-cXgvvOb_ktTCiimYQMDDc7Eo>
+X-ME-Proxy-Cause: dmFkZTFXtr6RCy/pKgLWPJSPBvXFm3znTxzXGxpPXDkaTlm4R2+4gVUR3kwIGcuZcfyzFI
+    mpA4qcBzK+fVPECyFm7OelLWJtGrs9mbkwGUlRcdKEEiZnwYGMKFcyR4Lx0nWJEP53tHrp
+    INpVKbiZ0MYz+E8QUhStfmq+hzC5ZUT09/4EEktKhZJR2UFAYiRFcGT4eRnAplGYtcc0m4
+    kBT9SKdHIAUPI8Vy/KZ2jkA5cHjiwUJ3cAiwR9JLlHkGd1gZLzXEUZwjj+Cs5XElfa9bu9
+    n3BhyK/tNfiAgYbIxs/G3L1e09P0C/HIg5r6g0F82tt8zxJVAwrnANwBwWnLSoYkVP19MH
+    Cq6WdTWfQvI0qmnJqZL6LzPZtqbsUvLsA/ydmdg2y+Qoyl0rpoq+tb5R04cdC1gVs2bIjm
+    N4WBEEPtFYTHse8FBQ5jqG3WQLfl1yWRcsPsbuXnIuL7Ep2qEo7Mc9mK+bpYqsI6ADvkeM
+    g/S9COuhgo0fs9b/LEVXCW8n5huJlgu2MI7GBGk/B/svQiDu2n1WK1ZCc+6YBjNREV1jIj
+    d8otFozLfFgFikOsahflRMwcgLxTk5AUY+JlE96PvcxOavMnAFCTnjBDvm6nZGEQAaVeYD
+    1fDpmRj9ewW1K6GsPIZtHAnuP+u5dsqYI0Po6Q9xSNhji8H9en5gJkKTfk6A
+X-ME-Proxy: <xmx:ENeWaqgNdmhklRZNvAUrPfpesPqDWLjLJ8Ks8XrXyDMz6K4nBHudFQ>
+    <xmx:ENeWagbUU1nftGLdViwYdM822KySLd0EK7_ykfPbPExd1naw-kcsmg>
+    <xmx:ENeWaiSR4x1T8CF3WwUxNgxg7xa95IauQuxZkF4LcvHiu6ajwxTmpw>
+    <xmx:ENeWajS3jdbNsDIUU9g5u5bu8uH4-w2du2J_4c3vq1w-JQbSOtiRAQ>
+    <xmx:ENeWaqa2Ng6gSSiBYjnzeKfPpDWAlIYzNdIPefqKGuKgQZYtSxe3WTY1>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 1 Sep 2026 09:45:51 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org,
+	mistermidi@gmail.com,
+	sreekuttan2156239@gmail.com
+Subject: [PATCH 09/13] firewire: core: add test to generate with IIDC unit in config ROM generator
+Date: Tue,  1 Sep 2026 22:45:30 +0900
+Message-ID: <20260901134534.2386577-10-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260901134534.2386577-1-o-takashi@sakamocchi.jp>
+References: <20260901134534.2386577-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260810164622.1829843-1-puranjay@kernel.org>
-In-Reply-To: <20260810164622.1829843-1-puranjay@kernel.org>
-From: Puranjay Mohan <puranjay12@gmail.com>
-Date: Tue, 1 Sep 2026 15:45:35 +0200
-X-Gm-Features: AcwNN1V-BSr9PbUGVMO7koykFLZgUeLcnwPUwQVqoGS2DmQVFtek6kPoYQ5CUiY
-Message-ID: <CANk7y0ixo5a3Vfzj_HVhVHRNce2Rsit4pP27GCtXd4jHHzmiKg@mail.gmail.com>
-Subject: Re: [PATCH v6 0/3] arm64: Add BRBE support for bpf_get_branch_snapshot()
-To: James Clark <james.clark@linaro.org>
-Cc: bpf@vger.kernel.org, Anshuman Khandual <anshuman.khandual@arm.com>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Leo Yan <leo.yan@arm.com>, Rob Herring <robh@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Shuah Khan <shuah@kernel.org>, 
-	Breno Leitao <leitao@debian.org>, Ravi Bangoria <ravi.bangoria@amd.com>, 
-	Stephane Eranian <eranian@google.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Usama Arif <usama.arif@linux.dev>, 
-	linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi James,
+There is a standard layout of configuration ROM for IIDC devices.
 
-Can you review this version of the patchset? It is implementing what
-we discussed in the thread on the last version.
+Add a KUnit test to verify that the generator produces the expected
+configuration ROM when an IIDC unit is registered.
 
-Thanks,
-Puranjay
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ drivers/firewire/config-rom-generator-test.c | 92 ++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
 
-On Mon, Aug 10, 2026 at 5:46=E2=80=AFPM Puranjay Mohan <puranjay@kernel.org=
-> wrote:
->
-> Changelog:
-> v5: https://lore.kernel.org/all/20260616155716.2631508-1-puranjay@kernel.=
-org/
-> Changes in v6:
-> - Split the two perf/core patches out into their own series [3]. They
->   fix bugs of their own and do not depend on this one.
-> - Add raw_local_daif_save() and raw_local_daif_restore(), so the
->   snapshot can mask exceptions without trace_hardirqs_off() evicting
->   the records it is about to read (new patch 1).
-> - Rework the snapshot. Clear PMCR_EL0.E across the BRBFCR_EL1
->   read-modify-write so that a freeze cannot set PAUSED behind the saved
->   value, and unpause before restarting the counters, since a paused
->   BRBE cannot freeze for its own overflow handler (James Clark).
-> - Skip the pause entirely when BRBE is disabled or already frozen, and
->   invalidate only when the snapshot was the one to pause it.
-> - Run valid_brbe_version() before masking exceptions; the static call
->   is only reached from BPF programs, which run with migration disabled.
-> - Fold cpu_has_brbe() into valid_brbe_version() and drop the
->   arm_brbe_ prefix from the snapshot callback (James Clark).
-> - Derive the selftest skip threshold from the waste and hit limits it
->   depends on, so the two cannot drift apart.
->
-> v4: https://lore.kernel.org/all/20260527121207.2312181-1-puranjay@kernel.=
-org/
-> Changes in v5:
-> - Rework patch 2: drop the UAPI union. Instead rename the helper to perf_=
-clear_branch_entry() and
->   clear the entry with a single
->         *br =3D (struct perf_branch_entry){ }.
->   This stays kernel-internal, with no changes to the uapi/ or tools/ head=
-ers (James Clark).
-> - Add an isb() to the BRBCR_EL1 =3D=3D 0 early-exit in the snapshot, for =
-consistency with the other
->   two exit paths (bpf-ci).
-> - Add Rob Herring's Reviewed-by to patch 3
->
-> v3: https://lore.kernel.org/all/20260413185740.3286146-1-puranjay@kernel.=
-org/
-> Changes in v4:
-> - Fix leaking branch records when scheduled task has an unrelated perf ev=
-ent (Sashiko)
-> - Update tools/include/uapi/linux/perf_event.h as well for patch 2
-> - Introduce cpu_has_brbe() and use it in
->   arm_brbe_snapshot_branch_stack(0 to make sure we don't run on a CPU
->   without BRBE.
-> - Add explicit isb() after after writing to SYS_BRBFCR_EL1.
-> - Rebase on latest arm64 tree.
->
-> v2: https://lore.kernel.org/all/20260318171706.2840512-1-puranjay@kernel.=
-org/
-> Changes in v3:
-> - Move NULL pmu_ctx fix from arm_pmuv3.c to perf core (Leo Yan)
-> - Use union to clear branch entry bitfields instead of per-field
->   zeroing (Leo Yan)
-> - Remove per-CPU brbe_active flag; check BRBCR_EL1 =3D=3D 0 instead (Rob
->   Herring)
-> - Remove redundant valid_brbidr() check in snapshot path (Rob Herring)
-> - Introduce for_each_brbe_entry() iterator to deduplicate bank
->   iteration (Rob Herring)
-> - Include perf core maintainers (Leo Yan, Rob Herring)
->
-> v1: https://lore.kernel.org/all/20260313180352.3800358-1-puranjay@kernel.=
-org/
-> Changes in v2:
-> - Rebased on arm64/for-next/core
-> - Add per-CPU brbe_active flag to guard against UNDEFINED sysreg access
->   on non-BRBE CPUs in heterogeneous big.LITTLE systems.
-> - Fix pre-existing bug in perf_clear_branch_entry_bitfields() that missed
->   zeroing new_type and priv bitfields, added as a separate patch with
->   Fixes tags (new patch 2).
-> - Use architecture-specific selftest threshold (#if defined(__aarch64__))
->   instead of raising the global threshold, to preserve x86 regression
->   detection.
->
-> RFC: https://lore.kernel.org/all/20260102214043.1410242-1-puranjay@kernel=
-.org/
-> Changes from RFC:
->  - Fix pre-existing NULL pointer dereference in armv8pmu_sched_task()
->    found by Leo Yan during testing (patch 1)
->  - Pause BRBE before local_daif_save() to avoid branch pollution from
->    trace_hardirqs_off()
->  - Use local_daif_save() to prevent pNMI race from counter overflow
->    (Mark Rutland)
->  - Reuse perf_entry_from_brbe_regset() instead of duplicating register
->    read logic, by making it accept NULL event (Mark Rutland)
->  - Invalidate BRBE after reading to maintain record contiguity for
->    other consumers (Mark Rutland)
->  - Adjust selftest wasted_entries threshold for ARM64 (patch 3)
->  - Tested on ARM FVP with BRBE enabled
->
-> This series enables the bpf_get_branch_snapshot() BPF helper on ARM64
-> by implementing the perf_snapshot_branch_stack static call for ARM's
-> Branch Record Buffer Extension (BRBE).
->
-> bpf_get_branch_snapshot() [1] allows BPF programs to capture hardware
-> branch records on-demand from any BPF tracing context. This was
-> previously only available on x86 (Intel LBR) since v5.16. With BRBE
-> available on ARMv9, this series closes the gap for ARM64.
->
-> Usage model
-> -----------
->
-> The helper works in conjunction with perf events. The userspace
-> component of the BPF application opens a perf event with
-> PERF_SAMPLE_BRANCH_STACK on each CPU, which configures the hardware
-> to continuously record branches into BRBE (on ARM64) or LBR (on x86).
-> A BPF program attached to a tracepoint, kprobe, or fentry hook can
-> then call bpf_get_branch_snapshot() to snapshot the branch buffer at
-> any point. Without an active perf event, BRBE is not recording and
-> the buffer is empty.
->
-> On-demand branch snapshots from BPF are useful for diagnosing which
-> specific code path was taken inside a function. Stack traces only show
-> function boundaries, but branch records reveal the exact sequence of
-> jumps, calls, and returns within a function -- making it possible to
-> identify which specific error check triggered a failure, or which
-> callback implementation was invoked through a function pointer.
->
-> For example, retsnoop [2] is a BPF-based tool for non-intrusive
-> mass-tracing of kernel internals. Its LBR mode (--lbr) creates per-CPU
-> perf events with PERF_SAMPLE_BRANCH_STACK and then uses
-> bpf_get_branch_snapshot() in its fentry/fexit BPF programs to capture
-> branch records whenever a traced function returns an error.
->
-> Consider debugging a bpf() syscall that returns -EINVAL when creating
-> a BPF map with invalid parameters. Running retsnoop on an ARM64 FVP
-> with BRBE to trace the bpf() syscall and array_map_alloc_check():
->
->   $ retsnoop -e '*sys_bpf' -a 'array_map_alloc_check' --lbr=3Dany \
->              -F -k vmlinux --debug full-lbr
->   $ simfail bpf-bad-map-max-entries-array  # in another terminal
->
-> Output of retsnoop:
->
->   --- fentry BPF program (entries #63-#17) ---
->
->   [#63-#59] __htab_map_lookup_elem: hash table walk with memcmp        (h=
-ashtab.c)
->   [#58] __htab_map_lookup_elem+0x98  -> dump_bpf_prog+0xc850           (h=
-ashtab.c:750)
->   [#57-#55] ... dump_bpf_prog internal branches ...
->   [#54] dump_bpf_prog+0xcab8        -> bpf_get_current_pid_tgid+0x0    (h=
-elpers.c:225)
->   [#53] bpf_get_current_pid_tgid+0x1c -> dump_bpf_prog+0xcabc          (h=
-elpers.c:225)
->   [#52-#51] ... dump_bpf_prog -> __htab_map_lookup_elem ...
->   [#50-#47] __htab_map_lookup_elem: htab_map_hash (jhash2), select_bucket
->   [#46-#42] lookup_nulls_elem_raw: hash chain walk with memcmp         (h=
-ashtab.c:717)
->   [#41] __htab_map_lookup_elem+0x98  -> dump_bpf_prog+0xcaf8           (h=
-ashtab.c:750)
->   [#40-#37] ... dump_bpf_prog -> bpf_ktime_get_ns ...
->   [#36] bpf_ktime_get_ns+0x10       -> ktime_get_mono_fast_ns+0x0      (h=
-elpers.c:178)
->   [#35-#32] ktime_get_mono_fast_ns: tk_clock_read -> arch_counter_get_cnt=
-pct
->   [#31] ktime_get_mono_fast_ns+0x9c -> bpf_ktime_get_ns+0x14           (t=
-imekeeping.c:493)
->   [#30] bpf_ktime_get_ns+0x18       -> dump_bpf_prog+0xcd50            (h=
-elpers.c:178)
->   [#29-#25] ... dump_bpf_prog internal branches ...
->   [#24] dump_bpf_prog+0x11b28       -> __bpf_prog_exit_recur+0x0       (t=
-rampoline.c:1190)
->   [#23-#17] __bpf_prog_exit_recur: rcu_read_unlock, migrate_enable     (t=
-rampoline.c:1195)
->
->   --- array_map_alloc_check (entries #16-#12) ---
->
->   [#16] dump_bpf_prog+0x11b38       -> array_map_alloc_check+0x8       (a=
-rraymap.c:55)
->   [#15] array_map_alloc_check+0x18  -> array_map_alloc_check+0xb8      (a=
-rraymap.c:56)
->         . bpf_map_attr_numa_node       . bpf_map_attr_numa_node
->   [#14] array_map_alloc_check+0xbc  -> array_map_alloc_check+0x20      (a=
-rraymap.c:59)
->         . bpf_map_attr_numa_node
->   [#13] array_map_alloc_check+0x24  -> array_map_alloc_check+0x94      (a=
-rraymap.c:64)
->   [#12] array_map_alloc_check+0x98  -> dump_bpf_prog+0x11b3c           (a=
-rraymap.c:82)
->
->   --- fexit trampoline overhead (entries #11-#00) ---
->
->   [#11] dump_bpf_prog+0x11b5c       -> __bpf_prog_enter_recur+0x0      (t=
-rampoline.c:1145)
->   [#10-#03] __bpf_prog_enter_recur: rcu_read_lock, migrate_disable     (t=
-rampoline.c:1146)
->   [#02] __bpf_prog_enter_recur+0x114 -> dump_bpf_prog+0x11b60          (t=
-rampoline.c:1157)
->   [#01] dump_bpf_prog+0x11b6c       -> dump_bpf_prog+0xd230
->   [#00] dump_bpf_prog+0xd340        -> brbe_snapshot_branch_stack+0x0    =
- (arm_brbe.c:814)
->
->                    el0t_64_sync+0x168
->                    el0t_64_sync_handler+0x98
->                    el0_svc+0x28
->                    do_el0_svc+0x4c
->                    invoke_syscall.constprop.0+0x54
->     373us [-EINVAL] __arm64_sys_bpf+0x8
->                     __sys_bpf+0x87c
->                     map_create+0x120
->      95us [-EINVAL] array_map_alloc_check+0x8
->
-> The FVP's BRBE buffer has 64 entries (BRBE supports 8, 16, 32, or
-> 64). Of these, entries #63-#17 (47) are consumed by the fentry BPF
-> trampoline that ran before the function, and entries #11-#00 (12)
-> are consumed by the fexit trampoline that runs after. Entry #00
-> shows the very last branch recorded before BRBE is paused: the call
-> into brbe_snapshot_branch_stack().
->
-> The 5 useful entries (#16-#12) show the exact path taken inside
-> array_map_alloc_check(). Record #14 shows a jump from line 56
-> (bpf_map_attr_numa_node) to line 59 (the if-condition), and #13
-> shows an immediate jump from line 59 (attr->max_entries =3D=3D 0) to
-> line 64 (return -EINVAL), skipping lines 60-63. This pinpoints
-> max_entries=3D=3D0 as the cause -- a diagnosis impossible with stack
-> traces alone.
->
-> [1] 856c02dbce4f ("bpf: Introduce helper bpf_get_branch_snapshot")
-> [2] https://github.com/anakryiko/retsnoop
-> [3] https://lore.kernel.org/all/20260810133540.1947118-1-puranjay@kernel.=
-org/
->
-> Puranjay Mohan (3):
->   arm64: Add raw variants of local_daif_save() and local_daif_restore()
->   perf/arm64: Add BRBE support for bpf_get_branch_snapshot()
->   selftests/bpf: Adjust entry thresholds for ARM64 BRBE
->
->  arch/arm64/include/asm/daifflags.h            |  41 +++++-
->  arch/arm64/kernel/suspend.c                   |   7 +-
->  drivers/perf/arm_brbe.c                       | 135 ++++++++++++++----
->  drivers/perf/arm_brbe.h                       |   9 ++
->  drivers/perf/arm_pmuv3.c                      |   5 +-
->  .../bpf/prog_tests/get_branch_snapshot.c      |  28 ++--
->  6 files changed, 175 insertions(+), 50 deletions(-)
->
->
-> base-commit: 03a2e393994ca27567fe060e066806589c547fbc
-> --
-> 2.53.0-Meta
->
+diff --git a/drivers/firewire/config-rom-generator-test.c b/drivers/firewire/config-rom-generator-test.c
+index c695811a50bb..6ca5c16b4f0f 100644
+--- a/drivers/firewire/config-rom-generator-test.c
++++ b/drivers/firewire/config-rom-generator-test.c
+@@ -87,6 +87,81 @@ static const u32 config_rom_with_avc_unit[] = {
+ 	cpu_to_be32(0x50756900), // v
+ };
+ 
++// Following to 1394-based Digital Camera Specification Version 1.04 (Aug. 1996. 1394 Trading
++// Association)
++#define IIDC_COMMAND_REGS_BASE	0x00
++#define IIDC_VENDOR_NAME_LEAF	0x01
++#define IIDC_MODEL_NAME_LEAF	0x02
++
++static const u32 iidc_unit_directories_and_leafs[] = {
++	0x00030000,
++	(CSR_SPECIFIER_ID << 24) | UNIT_SPEC_ID_1394TA,
++	(CSR_VERSION << 24) | UNIT_SW_VERSION_IIDC_0104,
++	((CSR_DIRECTORY | CSR_DEPENDENT_INFO) << 24) | 0x00000001,
++	0x00030000,
++	((CSR_OFFSET | IIDC_COMMAND_REGS_BASE) << 24) | 0x00012345,
++	((CSR_LEAF | IIDC_VENDOR_NAME_LEAF) << 24) | 0x00000002,
++	((CSR_LEAF | IIDC_MODEL_NAME_LEAF) << 24) | 0x00000008,
++	0x00060000,	// Text leaf consists of below 6 quads.
++	0x00000000,
++	0x00000000,
++	0x4c696e75,	// Use the same name in root directory.
++	0x78204669,
++	0x72657769,
++	0x72650000,
++	0x00040000,	// Text leaf consists of below 4 quads.
++	0x00000000,
++	0x00000000,
++	0x43686566,	// Chef Cat is a nick name when inventing IEEE 1394 itself.
++	0x20436174,
++};
++
++static const u32 config_rom_with_iidc_unit[] = {
++	cpu_to_be32(0x04046a3e), // bus info
++	cpu_to_be32(0x31333934), // |
++	cpu_to_be32(0xf000b243), // |
++	cpu_to_be32(0x01234567), // |
++	cpu_to_be32(0x89abcdef), // v
++	cpu_to_be32(0x0006a2d2), // root directory
++	cpu_to_be32(0x0c0083c0), // |
++	cpu_to_be32(0x03001f11), // |
++	cpu_to_be32(0x81000004), // |
++	cpu_to_be32(0x17023901), // |
++	cpu_to_be32(0x81000009), // |
++	cpu_to_be32(0xd100000c), // v
++	cpu_to_be32(0x00064cb7), // text descriptor leaf (from root)
++	cpu_to_be32(0x00000000), // |
++	cpu_to_be32(0x00000000), // |
++	cpu_to_be32(0x4c696e75), // |
++	cpu_to_be32(0x78204669), // |
++	cpu_to_be32(0x72657769), // |
++	cpu_to_be32(0x72650000), // v
++	cpu_to_be32(0x0003ff1c), // text descriptor leaf (from root)
++	cpu_to_be32(0x00000000), // |
++	cpu_to_be32(0x00000000), // |
++	cpu_to_be32(0x4a756a75), // v
++	cpu_to_be32(0x0003d7fe), // unit directory (from root)
++	cpu_to_be32(0x1200a02d), // |
++	cpu_to_be32(0x13000100), // |
++	cpu_to_be32(0xd4000001), // v
++	cpu_to_be32(0x0003ea57), // dependent directory (from unit directory)
++	cpu_to_be32(0x40012345), // |
++	cpu_to_be32(0x81000002), // |
++	cpu_to_be32(0x82000008), // v
++	cpu_to_be32(0x00064cb7), // text descriptor leaf (from dependent directory)
++	cpu_to_be32(0x00000000), // |
++	cpu_to_be32(0x00000000), // |
++	cpu_to_be32(0x4c696e75), // |
++	cpu_to_be32(0x78204669), // |
++	cpu_to_be32(0x72657769), // |
++	cpu_to_be32(0x72650000), // v
++	cpu_to_be32(0x0004a3e9), // text descriptor leaf (from dependent directory)
++	cpu_to_be32(0x00000000), // |
++	cpu_to_be32(0x00000000), // |
++	cpu_to_be32(0x43686566), // |
++	cpu_to_be32(0x20436174), // v
++};
++
+ static const struct generator_test_case {
+ 	const char *const name;
+ 	int config_rom_generation;
+@@ -105,6 +180,12 @@ static const struct generator_test_case {
+ 		.expected = config_rom_with_avc_unit,
+ 		.quadlet_length = ARRAY_SIZE(config_rom_with_avc_unit),
+ 	},
++	{
++		.name = "with_iidc_unit",
++		.config_rom_generation = 2,
++		.expected = config_rom_with_iidc_unit,
++		.quadlet_length = ARRAY_SIZE(config_rom_with_iidc_unit),
++	},
+ };
+ 
+ // Define generator_test_gen_params.
+@@ -123,6 +204,11 @@ static void test_config_rom_generator(struct kunit *test)
+ 		.key = (CSR_DIRECTORY | CSR_UNIT) << 24,
+ 		.data = avc_unit_directory_and_leaf,
+ 	};
++	struct fw_descriptor iidc_unit_entry = {
++		.length = ARRAY_SIZE(iidc_unit_directories_and_leafs),
++		.key = (CSR_DIRECTORY | CSR_UNIT) << 24,
++		.data = iidc_unit_directories_and_leafs,
++	};
+ 	const struct generator_test_case *test_case = test->param_value;
+ 	struct state_data *state = test->priv;
+ 	struct fw_card *card = &state->card;
+@@ -136,6 +222,9 @@ static void test_config_rom_generator(struct kunit *test)
+ 	if (test_case->expected == config_rom_with_avc_unit)
+ 		KUNIT_EXPECT_EQ(test, fw_core_add_descriptor(&avc_unit_entry), 0);
+ 
++	if (test_case->expected == config_rom_with_iidc_unit)
++		KUNIT_EXPECT_EQ(test, fw_core_add_descriptor(&iidc_unit_entry), 0);
++
+ 	scoped_guard(mutex, &card_mutex) {
+ 		generate_config_rom(card, config_rom);
+ 		KUNIT_EXPECT_EQ(test, config_rom_length, test_case->quadlet_length);
+@@ -144,6 +233,9 @@ static void test_config_rom_generator(struct kunit *test)
+ 	KUNIT_EXPECT_MEMEQ(test, config_rom, test_case->expected,
+ 			   sizeof(*test_case->expected) * test_case->quadlet_length);
+ 
++	if (test_case->expected == config_rom_with_iidc_unit)
++		fw_core_remove_descriptor(&iidc_unit_entry);
++
+ 	if (test_case->expected == config_rom_with_avc_unit)
+ 		fw_core_remove_descriptor(&avc_unit_entry);
+ }
+-- 
+2.53.0
+
