@@ -1,65 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4EA415B81;
-	Tue,  1 Sep 2026 02:09:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9A741228D;
+	Tue,  1 Sep 2026 02:09:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788228607; cv=none; b=ld1Cf1Upc1Xt1vO3AytaFn3wcydf8a9ZGh6qgiz9JHJponyPmbWIBzkHyZwX7TXwlk/VmFoPG2nB+H/wY2M989Iy9IoXFWajs8+wvy9tuQlFhehRHmOT2J3UQLYMk0UMAnYLcsJeP6zsgwWo2vr8yj9rqLo+s68gk7ey805sZB4=
+	t=1788228604; cv=none; b=m+sLV/euvNJr74dKQUb+sjpAoWJqoPyzG6kMyNAmPiMJMwtvFknsnWPGtkAr2ZUcVNce4vlQ2wfks6JKR5yWyucAbKNkLRsrYGatioo1ZFgyaN0Vn9mC/VnfeTc7FIHs9HGIfGq71sMQf/VS2ZDeXT2dMqjHYqHJ/yD9PQHAgQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788228607; c=relaxed/simple;
-	bh=PdxqwyKzvJ5RlN6mAwj3sjLWdENPIDf6WWdF21/axiw=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bvcru3y3RVvlgN86FSd+3VNcdf1KBtrXPI/c96pktvnceAS6YiyRqmZMZLvCZmC/sYbPnSFUsXtQJsSi+S0I4d9InlLe1WoDGsRgZtirVmBbehXMlcCIV3mGQURHkjjeNGj/Sh4y52BRbY+EYs8/VNJWREOo+cmYGK1BbRIoW2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TmxFSkD2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788228604; c=relaxed/simple;
+	bh=T6rVcFpbptNuAocO8+wf+SKPpMvzlxOroqBqUGBwwYk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=G6AOCNXxKKNIGwS7HVzThRLf6huRt9tXrYf+LsJwhVoRvjBYB8tJKhrTOEBm8zWXJTwG949vSMNxFenqaCOR3b7ZJyCi/paRsyYaHDxE4F7e9GBuEKU/BLO6zT0HXR4tBTt2TKGsWENYRqfFZT8CbQy4tKBnpAKie2Y5198E5zY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FWKqnJge; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TmxFSkD2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A476B1F0155B;
-	Tue,  1 Sep 2026 02:09:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FWKqnJge"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F11721F01559;
+	Tue,  1 Sep 2026 02:09:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788228593;
-	bh=R4ecXQO9vqNzXOeLVTWPt4EelG5cYusY7/xAh/+zYqA=;
-	h=From:To:Subject:Date:In-Reply-To:References;
-	b=TmxFSkD2YCDQouxFmPH971PgYOqSEV2vSyQpxt8rtsUCLoj8DDSnAsxeLNFc1Y/WP
-	 fWaNooKbLzCqmNqcJMgo/9tsuldIwoBJVX8hfq+P+D1rh51Jvg0AIqfUSPkSwnFXBk
-	 TkAW7TzUwFPA4Ih1R07fWPX4Ohm150DERZSF1R0UX6XrvLxqfaBQlV2HO6H24yeJ56
-	 nJwT1nlZhfXANy6prsIETo4v0wkXz8pLMAn1tErzAXp2sPrFP450iifYvMLTYCmnOM
-	 QNfFJw9VL6GaeCTK2MV9EOptRZFEy62ni/3zRtxaEFV+Ud2yDG8HUZaVW79Bc+xRXG
-	 5l2vcvhSTLZqQ==
+	s=k20260515; t=1788228590;
+	bh=4KV35LRRzAcXDAA3Z+0TQPtonjANhHuOp9rk6IxOfQA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FWKqnJge1xE0Rml4hZQcVnYKrL87GWnByb8yYviLuTY48xlmtRJMWoLJmJIj6PJpd
+	 QbYO0zI9bIB6rJEEHisTRaMpkQ9ltoD72fP88KNeD8T1HZeKaq8eLZztyBuel7IYBE
+	 DttXzhqs2z+rQ/y9gEKXildJBME2mppMEE0gD/Yp+KTYNFmjkne3NyziJiVXCtfiPs
+	 M/v9/05oVVdjOcH3E1bN1myVm3TDSrYOwB88ZQBw/gUgurKrKP+FT+dN4wn7g4F8t7
+	 ocG1GvqHfkMQRLlsO3VUFQwHP4x8RxMhP+MxgMj54okMyZ4YMe7eV50Oe+3eVeACqL
+	 cBsVnw1v7wnAg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Roy Pledge <Roy.Pledge@nxp.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Imre Kaloz <kaloz@openwrt.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Nishanth Menon <nm@ti.com>,
-	Santosh Shilimkar <ssantosh@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Shashank Balaji <shashank.mahadasyam@sony.com>,
-	Gary Guo <gary@garyguo.net>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	Rahul Bukte <rahul.bukte@sony.com>,
-	=?UTF-8?q?Bruno=20Sobreira=20Fran=C3=A7a?= <brunofrancadevsec@gmail.com>,
-	Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	Jay Buddhabhatti <jay.buddhabhatti@amd.com>,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	Pan Chuang <panchuang@vivo.com>
-Subject: Re: (subset) [PATCH 0/7] soc: Remove redundant error messages on IRQ request failure
-Date: Mon, 31 Aug 2026 21:09:28 -0500
-Message-ID: <178822856264.1835959.6354603328430924135.b4-ty@kernel.org>
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Subject: Re: [PATCH v2 0/3] Sort kodiak pinctrl nodes & add camera mclk definitions
+Date: Mon, 31 Aug 2026 21:09:26 -0500
+Message-ID: <178822856240.1835959.8715553464184744009.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260720095920.542801-1-panchuang@vivo.com>
-References: <20260720095920.542801-1-panchuang@vivo.com>
+In-Reply-To: <20260717-kodiak-cam-mclk-v2-0-04451f1374bd@fairphone.com>
+References: <20260717-kodiak-cam-mclk-v2-0-04451f1374bd@fairphone.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,23 +56,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 20 Jul 2026 17:59:06 +0800, Pan Chuang wrote:
-> Commit 55b48e23f5c4 ("genirq/devres: Add error handling in
-> devm_request_*_irq()") added automatic error logging to
-> devm_request_threaded_irq() and devm_request_any_context_irq()
-> via the new devm_request_result() helper, which prints device
-> name, IRQ number, handler functions, and error code on failure.
+On Fri, 17 Jul 2026 15:19:31 +0200, Luca Weiss wrote:
+> First patch is just cleanup with no functional change, the second patch
+> adds some camera mclk pinctrl definitions for preparation of adding more
+> cameras on different kodiak devices. Third patch adopts the new define
+> for qcs6490-rb3gen2-vision-mezzanine.dtso.
 > 
-> Since devm_request_irq() is a static inline wrapper around
-> devm_request_threaded_irq(), it also benefits from this
-> automatic logging.
 > 
-> [...]
 
 Applied, thanks!
 
-[4/7] soc: qcom: Remove redundant dev_err()
-      commit: 29b96e2769def61531c19aa537f5a3cf3ef38e41
+[1/3] arm64: dts: qcom: kodiak: Sort pinctrl subnodes by pins
+      commit: a732b12f1fcc65452075fdc49a481091d49d877a
+[2/3] arm64: dts: qcom: kodiak: Add camera mclk pinctrl definitions
+      commit: 98a69bf61a4be40d16d2f32a23c210ca9e3c38d4
+[3/3] arm64: dts: qcom: qcs6490-rb3gen2-vision-mezzanine: Use common pinctrl
+      commit: 63a202df997c3facf2bef43ae8697b79f63807d0
 
 Best regards,
 -- 
