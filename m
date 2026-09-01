@@ -1,70 +1,74 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011017.outbound.protection.outlook.com [40.107.130.17])
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021114.outbound.protection.outlook.com [52.101.95.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8530A3D47A7;
-	Tue,  1 Sep 2026 20:58:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD002931FB
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:59:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.114
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788296307; cv=fail; b=n3akhHmwmUe2sbQ7fXOmllWeB61srlUjMyUdqzUxqWxBVXcuT4xou0AoIuu64wpaw5aVfZWH3CsQ3fzOBKhbWFXTRhcNDACg8SHVrgln+jQ5SXsvFTf50S5cP8DD7qUt3u4YlHFaPCttuVAiPwjcYsqmwxdyw3TxIbEdk+RhN9o=
+	t=1788296388; cv=fail; b=OaP8IkizyZC5iYbLHs4B85D5tZCXtuoF97UypnbDcALWrSnWwAwoYMWZyl+ZwX5DZYlg9oB8S3cZ7UAH2Qz+pVThEg3Pk2DpVobXdY6uHph2yRlHVle8aVo8DfU2Zwfah8eGAyERC+oeACgU+Fe9rNgSEfb5M7SnJOOhdXGa0NM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788296307; c=relaxed/simple;
-	bh=q60uKolo7edrfmwyrkZNTFUtv3rAKsR3+jJ1IrLiE3A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=tha7a6RfzQ3f6YKoDaE+5wgPLaA+z/O3/+6QxAyxTQ6o4tlJ6YPbSg9R3zyasd+Dbty01o8djLYFeRy29LD4SU1MZpTVb4Oaznp4RAbuOyArkVU4SdgzmY4LVf0+IaI1QAAK0kBWNFmDf26AD3NmQoNl2Z3mYHTB1Q6EMouWXr8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=gmXuHzik; arc=fail smtp.client-ip=40.107.130.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1788296388; c=relaxed/simple;
+	bh=io0ZKK+rnZdyI/30pLtmX3v8r1ge2YBcKOM6o/CP9Yo=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=FjUXNIamu6ZpWoDzNiRG2iGp45Fnra1x1MpayZzOxoedeObe3s8Wq+HUVfX5tuzYzRRZYD0eHBUhbfHxq9eA0hbj6SJ99zhwL/jBMD1RBSep4DbFhyHvveZxQWKWcHYqMJiPX246VpyuOqtM5EMTvHAT8zlkWc6lm6uygmIWoeA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=Gwv/dvHt; arc=fail smtp.client-ip=52.101.95.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="gmXuHzik"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="Gwv/dvHt"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T8wfo0FJ+vQhFORZkPstV7Bus2EH2zxzITWT0HpNJFg32m0AxZ2O4DKt2gWccGEKGAvGxX+mN3CdIlXibkvq/q+tPYpG2WVDo4xVGK3y/8Gx8fJ4sGjw/cyz1yb6mWlerw4JhZTEmoofrEfCkbLM/6byg+Zvj6qTL8kfY/tmEyBCFeU+nfmYthtQx3IdJbUrmg6AW6q8v83KOCo0HUXEViZrfd4MJjAuc3KzPP8VloD69QGoi8TgWiYKDAQstT2Tr4OofvZlPRZ6/sI87p8MwQdYsNXOq68Z7pNSd4iQ8ZzXvCQMqq84Zx91DAyh28y/cAVH/yAZibFZcrKXUOyOGw==
+ b=ZQ/qrxTuIM6tHyQpPGma9w5I6XD+MwOCY6MZ3Ol+IViRsuH4FIJ6CvgcnVRWxfymor8SD20LCZyhdWr3NadjJYWC2BFgvsTqYxhxXMBGxgrEo31kcJy0bUdzQADDAt1/XM6NRXReh4h1xRnqmgwo4lkOaXUpGnl0JAhZ34vXVQThTLVvrkKs5uxP7BR3OCkPhz71TfpPldQJPeFIlr3kMR2rixOi9cLBuGIOp9bARTwf8ao0td9+pu6uNxlmvwqJXmknEWiNx9v4trGp30CyWwSlYpl7QZocDQQBAesHhdUQelEiQQv1G4NP1bdtGx9fjuyEWXU9MIZQ5lT6SI9xcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4kDcrvQqolwvwCNIFD5/rKOSNlE7cLfEPCUNt4xcoBA=;
- b=fQLwyclw9KhxEXHjF/9kBKO1dqLVl6c/+pOnam/llUETNIGr1wm3hgGXlx3tg80hoA6vsmlN0d541t5pGbA8xujPpAzQCpHSgkaqTSHMumkb+QTSqq8HV+DpdsLByGf4hkGsBa2Kds3jVWIy8oREk1PffnCY0AaY/E7zRziY4O6YPC3x73FIdJgZYUFhkFFvQxZ9Sqjz5Q2b+SpcIeya2vAFgTWYdAiE9qy0of8f8P7Xj/c1uYbQcUt9q7/HTZ3Ieqr4SKmI+ON0w9fcwahhLAMGfcR8B99zkdhV9r7DJGkF63xt4S5B22ARpnc4KdAvqLsU2zXGo5xqVjP4Xck+lQ==
+ bh=SsvlVDFUdJYwvMgMfdTdIdxFrUrLrMHmdQZtAPaxbHw=;
+ b=JpVHqegtL6ic8f2F+UxyGhR9XngLS+Wb6AukoyWqjAtVrxQ3MMstmZ2aMxHtYVJjvR+wg0/XLflZkdCHgOUQL68UkjSa3LiCthdUrWw6UTtRHJ3/50Qy+4sk4Ahd4oV1N2ke1QHopHkEUiXwH345fI6TaBvyFGBb18mPALcnaJEDRMGp8g09m40QGqsgItjY2rdMSuWhwp1gFAk59fWrWAzuzaZ2oqRdNN1pXTgbKsOC31GGCWuWp8MTFCTLoG+oOWRHy01gkLucBb3ThLnxGIqyfwr95o5ALUQUAmZlqmJQCWklWPam196Wgo0pQbroHEqEGthnoE9eMtHbdz4e+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4kDcrvQqolwvwCNIFD5/rKOSNlE7cLfEPCUNt4xcoBA=;
- b=gmXuHzikv9KNPLuKxnnQkjY+4r9TBR3kuQpC3bOCGk1gc6i1OnOdZzg9SpxgH61HweSVtTbYFxurVOdS+0J9lcf1KRD7qvwFzSJVY87HIMfIm5eviT13R5BacA4vc276etllws3sGFqjrTol6AoQmk1+gVevgPWH0lY1LnRgH+mgxRpa9zxZ8vDO3/1k3gUWwn8D5bci/GpnptQ7db7ua5YP6J0rbv70kAItqiHX50/7Be2hz6tdZEQkyq+vpU/3VX/EJUj9zIU6fItzcFA957PihcDD11glzbod9R3p5SURH8PPdh/rc8NuORHGJLfWeKrDJilg6OnQsST+ICMGFg==
+ bh=SsvlVDFUdJYwvMgMfdTdIdxFrUrLrMHmdQZtAPaxbHw=;
+ b=Gwv/dvHtpKyaep5YiQN9zhePT6vczCo1SQf3Apbxmilewn20vNM6YS5t6FhGBnU+gYSEld6HxHA2KNbko1F57ld6TkKjAj9bGU5/+ju7QehMCQPKkf60YBn4Pta3fx8LhJVq4ZeoTVLfWckyvq+qMp/vlTDJpCj/Q73Gw1Aep5U=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MRWPR04MB11494.eurprd04.prod.outlook.com (2603:10a6:501:74::10) with
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO2P265MB2624.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:146::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 20:58:18 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 20:58:18 +0000
-Date: Tue, 1 Sep 2026 16:58:10 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/8] i3c: mipi-i3c-hci: Add a quirk to clear the TX start
- threshold
-Message-ID: <apc8YiMT_8aBukeE@lizhi-Precision-Tower-5810>
-References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
- <20260901-b4-i3c-hci-ast2700-v1-4-19909e7cbd7e@aspeedtech.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-4-19909e7cbd7e@aspeedtech.com>
-X-ClientProxiedBy: CY5PR04CA0016.namprd04.prod.outlook.com
- (2603:10b6:930:1e::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ 2026 20:59:42 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 20:59:42 +0000
+From: Gary Guo <gary@garyguo.net>
+Subject: [PATCH v4 0/2] gpu: nova: fix incorrect GSP barrier usage
+Date: Tue, 01 Sep 2026 21:59:31 +0100
+Message-Id: <20260901-rust-barrier-v4-0-94427f445310@garyguo.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALM8l2oC/2WOy26DMBBFfyXyukP9wpCu8h9VF7aZgNvEVGODi
+ CL+vTgsorbLO7rn3LmzhBQwsbfDnRHOIYUxbkG/HJgfbOwRQrdlJrk03PAj0JQyOEsbRWAUb1q
+ 0jZHCsA35JjyH5aF7/9hzmtwn+lwcpeFsQnBkox/K6RLitEDEJb9ebcpIpTOElEe6PX6aRXHt8
+ 5pLUUutVSV4fTRKg4Te0u30hRTxUo3Us7I6yyfz7+VZAgfFz97rFoXv+Kko+mmsIuYdV0+8FX9
+ xteFd7RrXNWiM1L/xdV1/AGLWCZhTAQAA
+X-Change-ID: 20260609-rust-barrier-63078ea76216
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Gary Guo <gary@garyguo.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788296382; l=2084;
+ i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
+ bh=io0ZKK+rnZdyI/30pLtmX3v8r1ge2YBcKOM6o/CP9Yo=;
+ b=cyPfpf/9Uzj9HDOALiI39DuW3VH8No7/42tbDhjqUdb5mFnR+HMnj1vxXdVUENiqCYU/hnj8u
+ LRerm7qGUWnA2TwCS2X228VZFh9n0/SNjWhlEfLxQC8MLzmsWerTtkq
+X-Developer-Key: i=gary@garyguo.net; a=ed25519;
+ pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
+X-ClientProxiedBy: LO4P265CA0251.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:350::19) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,126 +76,118 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MRWPR04MB11494:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc504428-7357-45f2-53ee-08df086bbfc0
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB2624:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21b9e96d-adbd-4ffd-2c1d-08df086bf20b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|19092799006|7416014|376014|6133799003|56012099006|10067099003|4143699003|5023799004|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|10070799003|366016|376014|23010399003|1800799024|18002099003|10067099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	C7Tx/Kngz1gU19ZRzmZmiN9if5er5RwKb115IFh6oqHcxq0z5L1X+EzBEkJMUCkUeqOYNxNvTnt9tKIsVX2EWCEGXwV8bAj8QKNWGAxf1VXSpFD9q2LqWFsT1YJ/b4PulX73huz88//GPGhARVaBQJ9wZyVtrx+z3pCqTDpD7dqYrDk8ojgVB7azvnzZ5Oe8L1xrvsppUCWbvVYYydxRJU3+Cmp0XhujdzLO/aLRywR0A4cA79romzgs4o56bDGZR5fCB5kkuJwYM5yj8rbk4cLx2kULHUIA5hhU6Z67sABgDYdjOpU/4gkyPbENNLiku5nlUoeno73Qxiy8eS1yPnI5HeSwKkyxtiEfmdYZZVTdpi6O9XQBsxaRyxYRy6+04fIXvfxaeGgQkwDenjbXI7woVkP2kvbxqyez37Ppa6uNYV+b1hyhqAdV8r7YyMm7QxPlxFhYWdJ5GFMHqFQsu/CLkhWZrDBqWtub3zNWSAadMG2rC1LqMvgK4fLWcz/aIrjjRYwmsTyQQ2ThTH97SRi+5xUnt5xc7mfxSDkxpgtuucVfZEfWdmNm1pl1HE0SlwV0Y1cB8MpmfkSrNpKEOwNg1Bw7yYLKxtE0+2ycvWndBNxv8pi4SVGD+WqokB2hxv7MFEHzW9nWVIy+zwyCmJCTPxkmbEJ4cTS5wFALymM=
+	fm75aIXnlWOvsdSrFxuSzEQTIRZHuusH3AjPkpyb6cZ1vOta9NpP7cNlS6nxFBchXPdYd3MCwbDLC3B7t3lZz6E3Cu6sHDqJCfHFLiIQxgt2zicqXjEVtJGZDqMeAIwjlgPeedTwV1F/lv0dzBLCKSDuRVgRAcrk2kBamjF0/6Pg0kQe9hXYs9P7ztRjenOakM8bqYKap9OUb5CBHfEJrgPn2V15cAO+qoK16rWaie9EkjB5qYuOxHm/glCKSVZz/fGeM4HX6GQiay1I1U+4+OMDuNnlNS15/s9luerPOvUA0TaGlXZw4kDCrn2sLxRi09aiG23d8vjdOmuJaQyEHQAJB0LtPYKAj7IqU9esFQC7oWeYjEH+U7clG6cknahXU5jwftM04dkfdg4AVi+bmMXGrlh0Dj+GIHby9pJOFSeRtH/ZWjNl/5hFrZhqF3CGwv/iBcrq4LiqBhhT6Evl+GmBaBmy2vS+YnOpS99UADqP5hV6Glls0NEu2n+eXTz7JnPk/o3VIc65kdiKm7DuIFKkKb8mhBtPLKxJ+W8QB7a39FQPlR56Et9VzfnpzZbt1tLwN3S0W/NAOo0jPy5ClYlj7lxj4JI6Nn0GD79XETlvlFTf3K8XUodgDmq4LFBh
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(19092799006)(7416014)(376014)(6133799003)(56012099006)(10067099003)(4143699003)(5023799004)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(376014)(23010399003)(1800799024)(18002099003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?C+HLbaxeyBb0JWUGGoDGedA1G4ooLK5hRFuu/nzzl/PfWxCLp7Y3qS1GJ/KM?=
- =?us-ascii?Q?x8jxoWaijmnoMAnjV7xhBeRKGxSbugH3qLlzpLaEg0+S7FmTQVh1N57x85V1?=
- =?us-ascii?Q?MYfsI+KZ8ax4IuUvQ4+IHu1pgmjyOT0Gf0oWI3uYbqjaSFkS/wx5iX/yc7Ys?=
- =?us-ascii?Q?BEN9Hsbr6kii6dY7grjUloKNfppi02xxZsIKN2DjAUcsMptwDFBAp9MNVuLH?=
- =?us-ascii?Q?4thTWPvALOXn+6S/1I8RJGRhMqnMWxKR+jC/v4dfrrOBrNV4TpDApmJx5VtX?=
- =?us-ascii?Q?ItJbqqNOi+cSS/DnuxOojWomyqso0SWP3lfkjcxZA0gnlUM9xf7pPQYJh1TN?=
- =?us-ascii?Q?czauXY3iPmMoFS3Va6Z4RI3zkdvE7UI2F4pQShlOKnPvzD9ZzH/9wCwdZS4s?=
- =?us-ascii?Q?omm6y78t8isP7sgKTarupQlcneqPZTdNf9eWyB/Vvy5lHkHS8hi0/wpjr4Ek?=
- =?us-ascii?Q?GTFqzrRsKMqktBOGokrtlMWV1Wmd0qiReIq25FrJq/TW3ouzQ7kEo9Tr4uvJ?=
- =?us-ascii?Q?e4FFl1qk9A37YqBmRAwXxHjRMxB6PHdLhI/GgFsEGk0QEZwH0R/wacJHKpsT?=
- =?us-ascii?Q?62dlLeCP6tEmHcJhZDdVJO1mkC9EKW9yqsVU/CHgmHD7hQk67flx3BwMdN1R?=
- =?us-ascii?Q?QcLKRD7b2oaAol7xArbAxyCzmcu404/XFZIAiFRWdfE5UyW55kocoV5IouCI?=
- =?us-ascii?Q?/Txzy4qmN/yEas0dCeFOgnPfpgVloMm2XnyLebuymN/7Osq9SW+pAn8z/bli?=
- =?us-ascii?Q?cuapNzQJoIbAdX7r9wwBlm39Cbqg20RbghSghd48ggVXdwkxurGUH38Z5t/D?=
- =?us-ascii?Q?vJxAjDCM8cw5JUvcTUb5QG87wJuroQFbX8Iz/yrnxdMVXYa0NRoIJRbuslqw?=
- =?us-ascii?Q?E3kmCAZTxNPu6s9SXeoGy2vUUQ3LpzcneiNSLVqdKjlvEPY+dQGKkLTTnbEN?=
- =?us-ascii?Q?Y8HZg3ardFoRMA4Ug79CHjNOdlHqaYDXUBKAwDZ9jwbft8OcTsylgzMUl3Pj?=
- =?us-ascii?Q?f4tjAJaye/yvuSpYHwIy8j1YLhWZdCek9Y83KfY7MdH3n5qQwl9GA480BG6U?=
- =?us-ascii?Q?mU2hKBpAn/jZQSuNSEAJ44lBZIRGfA1BsXRtl2zLhR0Nl5/P3RLz7dcQu0go?=
- =?us-ascii?Q?pXn9yfvFR+GVLyJ11actYVQjjq1kiUo+ku47g5EpZS99iwSsfAf4vd8iJkox?=
- =?us-ascii?Q?ZtB55Orx1jfNadr5sflK1QK6BenNiJBxpfPmril3Mg9WJtUQclUT/dep72ix?=
- =?us-ascii?Q?gKnk25xaRnrFYkGWd2eRLyti2mcUxUz9Yl+QUiJwMB/LbSQTlQGBiNVDUHcy?=
- =?us-ascii?Q?pVTxP/S2In+MBbmJtq/hmDTS2ptSdjGaCXc15pgo08qlUCB51r0ECpaGWhoi?=
- =?us-ascii?Q?i4xbgb/g90ht6kqYHlBkVySX4wLk+NwDKRUtovCLME0PFS+UbM3d6NAfNUwP?=
- =?us-ascii?Q?Y55lI2FpM9XVh3o6SpkkQDY90es/gueLyNfsTHmnjmn3VO3P7olMVdffmSPo?=
- =?us-ascii?Q?9tnmZvfRjKojA7UAVttL3+rIaSZ8E8avF4uvJO9ZsUDVZvZfkg5i4kqrWlA5?=
- =?us-ascii?Q?ZJAnisC6emku8XDF3ES3gXBArALnGLipkCF6fQPVFJjWxgyLiCmaYrJ6SWd/?=
- =?us-ascii?Q?VRhLEv3GxdHyz4TP+wdQOPUrZwW12EY5+zHfbSE+Hw4viUDTrZF72uU6zq7L?=
- =?us-ascii?Q?atU56yz9qY5wpFxvlmS80904fnDnnH5qP4rp1RH3os9WV5vvNqOxCi/zvAnl?=
- =?us-ascii?Q?1cA9E0w/m8zfPRVVEjDKfPTWoAhZm7oRr4sqSkTABc5O84ywHX7C?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc504428-7357-45f2-53ee-08df086bbfc0
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+	=?utf-8?B?c3BSRElQYjdBRWxZeXJ5WGdsRElNTUZLSW1wWC90QUFiVncwcHNaRjc1ZzJm?=
+ =?utf-8?B?UzRkTnVUUkplOW5GdFY4dmF5blZQU1l3a3VtRjlaMXRLcHZxcU82UXdIRjZZ?=
+ =?utf-8?B?dUJHMUY5MlpKdkpPck8yeVJadlpKcCtzVTVWMVdrdkx0VXNtOVl4cTRqU2hH?=
+ =?utf-8?B?V0I0blVBeU10dUQ4WUlBTjdSanN5YlFYMVpFRXdTSEpHOU0za1NyMHMyZUwx?=
+ =?utf-8?B?YndoZFdEQWRnOUNyZzBHTGVkMEdTUTVrVVEwZXpjeGp4WmxuZmp0U3lpWU5o?=
+ =?utf-8?B?ZHF5WWlGQlIyZ0hseVlCYTJBMi93RUdQN2lzR0pQUG1sM1dmaWRvQi9KQVgx?=
+ =?utf-8?B?SzBOWjhPcWd4ZFRrYm51b2o4S3pXMGdKdkpubXZuK0JJWmFCVnd1Z2Y0RXFU?=
+ =?utf-8?B?Skt3MTlHTmhHM242Z1BBNENMQTRBY2F0SHNqWFArUS8vSDNNN0UvM2xWTmxW?=
+ =?utf-8?B?SjRGY2FYQk83MGVmbXFZSlU4aVpWWCtrdFJjdVBRTEVzaTEyMFNucmk1V3Y5?=
+ =?utf-8?B?MGtJelNqWnFYNmI4RkZmTWNiZndpUm1tQmtvYWF4YzdLUnNmODdlYVRKb1Bu?=
+ =?utf-8?B?OU9ack9KNjZkK1kzWTkzZnQ4eGJqNS94UmQ5VWROVy9UalhuMXlUbHlBT29w?=
+ =?utf-8?B?VzQvUTJlNnpLUk5hN0tqbm03eUFSU3U3Q0Y2U01hdWZLNTF0OFhpd1JFRVFE?=
+ =?utf-8?B?SmJzSDNXV1NwRTdFWUQrTnhNanRmbFF5MXRWN1VELzlEdW1nV21vTTVHWFVQ?=
+ =?utf-8?B?ck05MjRzMHYxQXN6aDJTSExmZEhObWphcjdNNDNBcTVTSDZ3U1FtTHRiZnJ1?=
+ =?utf-8?B?bS9zNVdHYnlORkpPNHZEbnhXU09qcUFGaEFacGt2OWQzN2NDR2tTMG50UTFR?=
+ =?utf-8?B?UE9XbFUzL2pXa0hLZ0Z2a2k2UFUxK0VvSkxiMUhHb1pxclc2L2ZiN3BjekpB?=
+ =?utf-8?B?ZXRndWNTNXNYTUZRbkRrUGM5cm5Ka2dFN0tvNDJTa2ROQWFQZWNjNHp3dHdU?=
+ =?utf-8?B?TTVNOUlTTVhwcmFhTmhWK1VveFdudHpJYlFLZzY0TW1mWnAxR3lNYS9RNEpO?=
+ =?utf-8?B?SWx3RkVaL25rT2dVUDR1TmQ2d1NFMDdHRUhtV1pwMlJnUmVYaHVJM1VHVTFQ?=
+ =?utf-8?B?OWhvbVNoZnI1czQ2UHNaYlZSTFAvUVZKT2swelRmTnZEWG1ZNW5XcHpxVFFC?=
+ =?utf-8?B?dDk3dUVtdVBnVGdBUnJkNkN5TXprNXRZTi9JRnRobm1lKytyYnV0WnFMQ1hx?=
+ =?utf-8?B?OWhzZ3VVSEcyanpYa2MybnlQMDVCUzA2aUNabmRuclBUNk5CZGdFV2ptUE82?=
+ =?utf-8?B?dnQxR3dIWU4zeGNwcGQ5cGw3ZEtmUkNQOWR5OWlIM2hVcmRCVEU1VnlTQS91?=
+ =?utf-8?B?OTBPSEVCdHlqdS9IYXFMamJNYXdmRTNWRTlaUTlTNFlGamhGVkhieUxiN2VY?=
+ =?utf-8?B?RTMwNXVtNlRWbGhiT0JSQzNSTmIxZ1RTUFBoM1ROc2NBdG5tZngwNkV1K3ZG?=
+ =?utf-8?B?MWNaYUdkc2M2WE54NDlLMmJYR2dzMmI5M3dDSFlJb2p6SWJkNjJLVXNQU2Ry?=
+ =?utf-8?B?UGxNKzh0cExNS3lDYWhhQk1kT0NxRnAzdXB2RXh0WHE0R1hGcFZTNXRoeW9F?=
+ =?utf-8?B?Q0JpZjhVdG1Hb1ZBOTY4VWZ6V3hCZklFU0hodFN6Z1ZXSWVXYUdVOS91Q1NL?=
+ =?utf-8?B?cjFLcDhuNGY4WmhPMWhTZ2NyOWZMSmZZYUI3WWtpRDh2VWREbFE2SDByd3RR?=
+ =?utf-8?B?Tlp6ZGEvMjA4TWhVTFE0Mmh4YnFFcEluZE5Tb0tBTEJYN2EycXNmeFZ2NHVt?=
+ =?utf-8?B?ZUNNSW9EM3Jqbm5Fb0pGZEtQMVRlSVFOMzk3b2N6OGw0L29CekpRLzdmZE1l?=
+ =?utf-8?B?MEgrZ0IvbGlOdkxGL0NwUWk1cjNOQnBxTkNCRFF6N2hDQkkzUVZKU0pXbjJ6?=
+ =?utf-8?B?QVIvRmFMOHdlalZyR3RVUEtVKzkra0JRc21iaFlJa0pYaVhYMUsxblpLZm9u?=
+ =?utf-8?B?SHhJSUVWYTJQWnF2TjV5b2k2aDd4bUUwUTlrYkNLMmNoaFdpYXFOK3hqTmF6?=
+ =?utf-8?B?YWRKbG1ZVWtwT1F6SjdPL0pCTzJ4YjNucFhHOUc0eU01NU9QRzh1eFdFL0V5?=
+ =?utf-8?B?RHRQRnROK3NmbFEram1nNU12UGRTQlI0SjN3TkIzWGRJc0tJT0RHcXRXOUxs?=
+ =?utf-8?B?VmpHYVdrNldwZTFCNDFBWXFxRXQweWZ2QXd1a3NkRjVxckJkYXYwcmRLMGR5?=
+ =?utf-8?B?V0s2ZjdKa2kxVXBZQUxMS2xiUm5CNUZLblgvWnN6bjZkaGxXWmRqdVltNGFQ?=
+ =?utf-8?B?V3dGNnhVd2RLQVh1Wm5KODU3cEVYcTAyaXhRRzV0MnZvSHo2aG54dz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21b9e96d-adbd-4ffd-2c1d-08df086bf20b
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 20:58:18.3253
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 20:59:42.6765
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4wnIiVWcg1S0pZ1fBwymd+GG++5LdaD8UW//1KKR7zG9i0BZuw+3PJsEsP8PaFCp92K3HqjwzDhR/DUy5jJPnMQyLZMWyA9D+NaTbNa2J1OnGTkU6DN5pFaYOGZ6UBe0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRWPR04MB11494
+X-MS-Exchange-CrossTenant-UserPrincipalName: DpFlDM9ygammHR6nagn/pLBFwNsGaaT9AmJIHTSOCJBvudJuKsDCzJUz3vqaKkiVxCEZvHFpgBc9JzUwqRFD7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB2624
 
-On Tue, Sep 01, 2026 at 07:35:31PM +0800, Billy Tsai wrote:
-> The DATA_TX_START_THLD field of the PIO data buffer threshold register
-> holds off the start of a TX transfer until the FIFO holds a set amount
-> of data, which in PIO mode cuts down on the number of software writes.
-> The field resets to 0x1, requiring at least (2 ^ 2) DWORDs (16 bytes)
-> in the FIFO before transmission starts.
->
-> HCI controllers that support both PIO and DMA can expose the two as
-> separate register blocks; nothing in the specification says selecting
-> DMA mode disables the PIO block's own gating logic. On ASPEED
-> platforms it doesn't: DATA_TX_START_THLD still holds up transfer
-> start regardless of which mode feeds the FIFO, and in DMA mode that
-> threshold is never satisfied for some transfer sizes:
->
->  - 1-4 bytes: uses the Immediate Data Transfer Command.
->  - 13+ bytes: since the hardware fetches data in 4-byte chunks, a
->    13-byte transfer fetches 16 bytes into the FIFO and reaches the
->    threshold.
->  - 5-12 bytes: the threshold is never reached and the transfer stalls.
->
-> Add HCI_QUIRK_TX_START_THLD to clear the field whenever DMA mode is
-> selected. The clear lives in i3c_hci_set_io_mode() rather than in
-> probe so the reset-and-restore recovery path also reapplies it after
-> a controller soft reset. Move the PIO Access Area register and
-> bitfield definitions from pio.c to a new pio.h so this quirk can reuse
-> PIO_DATA_BUFFER_THLD_CTRL and DATA_TX_START_THLD instead of
-> redefining them.
->
-> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
-> Assisted-by: Claude:claude-fable-5
-> ---
->  drivers/i3c/master/mipi-i3c-hci/core.c |  14 +++++
->  drivers/i3c/master/mipi-i3c-hci/hci.h  |   1 +
->  drivers/i3c/master/mipi-i3c-hci/pio.c  |  97 +----------------------------
->  drivers/i3c/master/mipi-i3c-hci/pio.h  | 109 +++++++++++++++++++++++++++++++++
->  4 files changed, 125 insertions(+), 96 deletions(-)
->
-> diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
-> index c03c3a9cbe4f..2290a889701c 100644
-> --- a/drivers/i3c/master/mipi-i3c-hci/core.c
-> +++ b/drivers/i3c/master/mipi-i3c-hci/core.c
-> @@ -26,6 +26,7 @@
->  #include "cmd.h"
->  #include "dat.h"
->  #include "ibi.h"
-> +#include "pio.h"
->
->  /*
->   * Host Controller Capabilities and Operation Registers
-> @@ -823,6 +824,19 @@ static int i3c_hci_set_io_mode(struct i3c_hci *hci, bool dma)
->  	else
->  		reg_set(HC_CONTROL, HC_CONTROL_PIO_MODE);
->
-> +	/*
-> +	 * On the ASPEED AST2700 the TX start threshold gates transfer start
-> +	 * even in DMA mode. Clear it so DMA transfers are not held back
-> +	 * waiting for a PIO FIFO level that will never be reached.
-> +	 */
-> +	if (dma && (hci->quirks & HCI_QUIRK_TX_START_THLD) && hci->PIO_regs) {
-> +		void __iomem *thld_reg = hci->PIO_regs + PIO_DATA_BUFFER_THLD_CTRL;
-> +		u32 thld_val = readl(thld_reg);
-> +
-> +		thld_val &= ~DATA_TX_START_THLD;
-> +		writel(thld_val, thld_reg);
+Currently Nova GSP code uses Rust barriers, which equivalent to LKMM SMP
+barriers. This does not provide sufficient ordering for DMA operations on
+AArch64. Fix this to be using the newly introduced `dma_mb(Ordering)` API.
 
-don't move these defination, original isolate is quite good. Add API or
-callback to implement clean DATA_TX_START_THLD.
+Also, there is an incorrect placement of barrier, which is also fixed.
 
-Frank
+---
+Changes in v4:
+- Moved barriers to pointer accessor/updater. This does mean unnecessary
+  barrier in failed polling path but the code path is not critical.
+  I mentioned about providing full acq/rel semantics, but ended up not
+  doing it because LOAD->LOAD barrier is sufficient for the GSP->CPU
+  messaging path, so it's best to still mention about the actually needed
+  ordering only.
+- Link to v3: https://patch.msgid.link/20260819-rust-barrier-v3-0-d5b7bd7e6624@garyguo.net
+
+Changes in v3:
+- Drop abstraction changes which are already picked.
+- Improve ordering comment messages.
+- Replace control dependency reliance with explicit barrier.
+- Link to v2: https://patch.msgid.link/20260609-rust-barrier-v2-0-30fcc48e1cd0@garyguo.net
+
+Changes in v2:
+- Dropped `Acquire` and `Release` aliases of `Full` (Joel)
+- Use macros to implement most `MemoryBarrier`
+- Split Nova change to GSP->CPU commit and CPU->GSP commit (Joel)
+- Link to v1: https://patch.msgid.link/20260402152443.1059634-2-gary@kernel.org
+
+To: Danilo Krummrich <dakr@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>
+To: Alexandre Courbot <acourbot@nvidia.com>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: nova-gpu@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Gary Guo (2):
+      gpu: nova-core: fix barrier usage in CPU->GSP messaging path
+      gpu: nova-core: fix barrier usage in GSP->CPU messaging path
+
+ drivers/gpu/nova-core/gsp/cmdq.rs | 41 ++++++++++++++++++++++++---------------
+ 1 file changed, 25 insertions(+), 16 deletions(-)
+---
+base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
+change-id: 20260609-rust-barrier-63078ea76216
+
+Best regards,
+--  
+Gary Guo <gary@garyguo.net>
+
