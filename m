@@ -1,99 +1,153 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2AA4CCDD7
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:26:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499F249C4A5
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:26:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788287173; cv=none; b=jBNB8XU9NsV7UUgzA3iCYD9jg9WryDWJPixFe+UKMEd+xmkv7FBr/gwURWwNGdHvocip9FMXOC4kyl2SEqolE7V4jtgMOj/fQV7rQNipI1gEFgH8Vkr1vbUZR/Sy8v6IKakxxJKWXqPAdFCC8qi/WA0LDrjw1Y5hQedfFcBUsPo=
+	t=1788287209; cv=none; b=O0T86b5Y8u0kJtxCx+eFn3t/JUb0miZMVFwL3hEkxPHAM7aw+IWg2zt11GmfbCQQtYbvSbRIbtQ7HgALuvFiHb70FzpJi7e+Y1g/dt+RWn9zqWqMILP9aGMOGo9753bXCTv0kzrpgpJwP5C7cRCmtqhGNX7s/s4meWX8b9hOWMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788287173; c=relaxed/simple;
-	bh=GjkMd31B8IO1q1TEc4FJ3f8muCf/z4sVEW3dE7UbiYw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F64vMlKN8i5k4/59FJfu9LsnlDbNTPg5Lk6neNV+ocdCFodKv445sLJWE+CFApTWisD+4nfCaRIHxPgDZsI5p1Is6bkmIAcWQWZkawElleHxXeajy3sL2GHT2efyXT3Q231Q6fGoVoMbbPaNjhWNGUpxigTX3+v13FPL4acq+Qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G9y4WJ4B; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788287209; c=relaxed/simple;
+	bh=vz7vfk19Z+bqyE6zKwD5krwa/0p2VNqmkC4gZJtUZS4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=izyMS2fkKCwT3HCDHaTx7R1E7AoqBYEQ/HLxtLQQUd0Rxy5x5PsPMZu62cVazTXTxHsdWObtuZIUWUowwShsIIplIdZMRRh2W2gMPrQuSdocewGsFeF5TdrNQ42AON7aJ0vq21dgD6XsW5gJERiKrec6qUUdmsY7yItgXfHXcaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nxB8465w; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G9y4WJ4B"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1cbb64a1fso207500a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:26:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nxB8465w"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cbb92868263so150895a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:26:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788287170; x=1788891970; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EvjgfuOaClxNvg/6NVjMxebmfyVFXPFQ4W0zSbFbVnU=;
-        b=G9y4WJ4B3O0Ut74TN3zDN8cZDVg85q6Nf5hStZQPG9jQ3u55yD0o9I96OB231eRqxQ
-         ncbOIITIILSWhIoxQEDTCs+8C4Xo7aiJGxVbgzUqFy7ELDIETFO39xrApf4leqHwduw8
-         xA8XecdME/XUFFiM6GYgoYDjAYp4HDHFNLlrpcuI0cjKpZM71mh2OjGUpsZZEIhsmu5a
-         vCFZXkV3mp5T0khlmPX2qloWlDMnZ1oHnZRToBrFGs7ijCB0QNKJS1XvIjRdxw5d7LxP
-         cGJM91juh9EeSfkAI2gP1khjRiZMo/qU49Sew8ObuEzkB2Uut/5+KHIVTvwQH1IE6NkY
-         FzKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788287170; x=1788891970;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1788287207; x=1788892007; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EvjgfuOaClxNvg/6NVjMxebmfyVFXPFQ4W0zSbFbVnU=;
-        b=kypvD3TjKOLc+gb/5LybPjfIfEX4kSTr1xRakXotmH3Yj7Pn2MKxiHHmLBeQuB7yR2
-         wgu8rj50kUoUmRzFSFo9lhCveRfWMZTDKY6oTuKWT3SsQA+fUhrmqPAf/6Gdm3I4eCZB
-         bdRwdthX8iZIpiJWovi48Y0y8FT+hj78KINUc7AfewXBy5JN92WAqUSBDzx27MlOibp7
-         TvPZPnj8VOUc9QQzQT+aeJoudfiAAIMVwYjB9zlzfWFeScq3O7R29xbdgRNX40PYdYwS
-         SZD+xJeL5qpk7kppN9XPtfeOpHEwr7d/rgBC/gpDvZEFzvYrbynCYyi0KDmNDftPzIHy
-         JQqA==
-X-Forwarded-Encrypted: i=1; AHgh+RrFj2svrs2gOVBxQ44xO6E/ErACE0hN1WrZ0a8/wgGKxzUhSSm+KogLZNcTTRXiBB9mRTOEl1Gf7akEeXA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXnVCPHYvxtR+VULQpYmTd8gz4WLKC9ssMlrDIR9SP7fnf45YB
-	rUjLcKDxHoEyUfT+60Ba+QEU4WKRIvbbalezI492q049f2qVqA+yvxjHtI4aqg==
-X-Gm-Gg: AR+sD12EMLI5x5l++XuifZ12qc4wGPwqr87QPg2txlCIMB/4rcjHnsfmdBSWlvYA6Sf
-	Kd7j/T9bILr/T2V//sGU6algYYukHXHvuPiiGeHOtWtG3jII76ge3nWDuVhqBJ4EbQXp8a2Bagx
-	tLBvGHmXskHAKvDdDibuHjib0vU2InzUDRfi/B4ILRfbeJBa2mfwLOTU127tTrJ+9nZmkkuVm6r
-	N/R/A+FK8hpkW5ixlwPwm3iBUa7XtXC8/Z12ZRxrExk+ED2OxCrJA22HS8VmPh9sU8AdkbZGwLL
-	XfkkkluyBunDt5weBa97GvznI0QLdsUmVo334lJtw7yB4ObhmEiYXaPMmnwy53WCMSHH/thWxkH
-	rli5HdzO9FbxSjGBD5zppJdXi+P6kjbXuN8ZcKTlPCMTgPjc3QJsBtvvX0tzyR/OmPQMvnVMzBQ
-	J0TyZlooSZInop5Ya3tswgqpvdwDr1Isc36J5tr+FnUdyEWnThXyx6wXR5gkwZnMttlBaNLU3QC
-	w==
-X-Received: by 2002:a05:6a21:594:b0:3bf:49c8:f7b with SMTP id adf61e73a8af0-3d2681a3f3cmr60887371637.13.1788287170209;
-        Tue, 01 Sep 2026 11:26:10 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc3473ff3e5sm575a12.4.2026.09.01.11.26.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 11:26:09 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 1 Sep 2026 11:26:09 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Cong Nguyen <congnt264@gmail.com>
-Cc: Nishanth Menon <nm@ti.com>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sashiko AI review <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] hwmon: (gpio-fan) take fan_data->lock in
- gpio_fan_shutdown()
-Message-ID: <69118d15-39a2-4506-a5cf-e610957a0b4c@roeck-us.net>
-References: <20260901155404.1532092-1-congnt264@gmail.com>
+        bh=5v8dwO4qIccjpXs9ZdhBw1lluA5t2BNdQSYlylga9bQ=;
+        b=nxB8465wd02jxyXSBEDLq4Idb0QJSWjaR0KxrjK2ITfpNGuKegdz1Pxa76jdytfIiw
+         vYUIkwuZECZXAAw/H8tlVTN9/2hyvUIw7K4/dfIFKlWMzJj0OjpEfHayidTeqvIX1lik
+         j686n8m+uMuii79vRA5CZ+1nW7KzMnQYulgg6tzwqzIOhGciNmX2N+CDq1xTc1SWbmYQ
+         gh0doBDhGcEtYsePeLeaJtXCW17bN6xhNnW0ctQZlmikL9WyGNtiicLPFHmHRhoE38+5
+         YU2YIJ6IF0SgyeoerLjvTX7NZDrLYgsOdnaG8uVl7J/azPKP4e/UbC8p1qrCp++Umqz0
+         yuLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788287207; x=1788892007;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5v8dwO4qIccjpXs9ZdhBw1lluA5t2BNdQSYlylga9bQ=;
+        b=MWmxk8gtKI3bb3vlkL+QKxBYqCW9Jk18yyl+/tRrf7dc4+WHxKL8S+SlFkN3Ajxe5k
+         0lTBhbDjIzHYyKDJ7DZWqYygDyQ6syMK+z/QNwpyTXBpAx1pi7FYTpnMwalcq+O28q4s
+         UgAX2DMqNnmYZ8WhLUqGZPrOwjpEeIGW6OaQE3sK4ZUDP/DKRFpxDVuOx/9wwN5mmQAK
+         JBoOV399G1gCRU9QGskCXp8ceioB07A89WxqSQvBNoLgSIyMl0hmDjTBu/wYINeFwRE1
+         m6ZVDSnmWP8znpkm7QgrXR/z44OBr+ohFBcrqYuKm+mPqnYjFIB/gqNqw3r8WTzv5quP
+         4CKQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqh7ihRXr5L4MFZ7XymLvc/pddszhX+iMjlT+Q4HnySd2nKRGSByoX8MinPUwoxEcsMfmh6GVXnSl1Ybsc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n5xA3IwvjkYx9HvtY0JMCvSwPk7W+RrFhtVXWAtx9k+Qlrivcs
+	a1qiaaPrPtCe4HAoQw3ayi0xDIxDxdjjwSyNsehtLcIQy1sCLo6jyfS43vNyFn6L5fhFllwHmKy
+	hFNutMQ==
+X-Received: from pgbd18-n1.prod.google.com ([2002:a05:6a02:64d2:10b0:cc3:28ba:e8b1])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:7284:b0:3d0:cc29:ff63
+ with SMTP id adf61e73a8af0-3d7ae4ed97emr13763648637.12.1788287205983; Tue, 01
+ Sep 2026 11:26:45 -0700 (PDT)
+Date: Tue, 1 Sep 2026 11:26:45 -0700
+In-Reply-To: <CA+EHjTzALzghuG5J-LFuG5pXJ4WgEfrMHgwkMHnq1U-D6yS7Pg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901155404.1532092-1-congnt264@gmail.com>
+Mime-Version: 1.0
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
+ <20260830-gmem-inplace-conversion-v12-23-85e5fd25252a@google.com> <CA+EHjTzALzghuG5J-LFuG5pXJ4WgEfrMHgwkMHnq1U-D6yS7Pg@mail.gmail.com>
+Message-ID: <apcY5b2o5k04XffH@google.com>
+Subject: Re: [PATCH v12 23/45] KVM: Let userspace disable per-VM mem
+ attributes, enable per-gmem attributes
+From: Sean Christopherson <seanjc@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: ackerleytng@google.com, aik@amd.com, andrew.jones@linux.dev, 
+	binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com, 
+	david@kernel.org, jmattson@google.com, jthoughton@google.com, 
+	michael.roth@amd.com, oupton@kernel.org, pankaj.gupta@amd.com, 
+	qperret@google.com, rick.p.edgecombe@intel.com, rientjes@google.com, 
+	shivankg@amd.com, steven.price@arm.com, willy@infradead.org, 
+	wyihan@google.com, yan.y.zhao@intel.com, forkloop@google.com, 
+	pratyush@kernel.org, suzuki.poulose@arm.com, aneesh.kumar@kernel.org, 
+	liam@infradead.org, Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, linux-coco@lists.linux.dev, 
+	Xiaoyao Li <xiaoyao.li@intel.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On Tue, Sep 01, 2026 at 10:54:04PM +0700, Cong Nguyen wrote:
-> set_fan_speed() writes the control GPIOs one bit at a time. Every
-> other caller locks around it; gpio_fan_shutdown() doesn't. If it races
-> a locked caller, the GPIO writes can interleave and leave the fan at a
-> speed neither caller asked for.
+On Tue, Sep 01, 2026, Fuad Tabba wrote:
+> Hi Sean, Ackerley,
 > 
-> Fixes: b95579cd8795 ("hwmon: (gpio-fan) Add a shutdown handler to poweroff the fans")
-> Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/r/20260830152150.27F5F1F000E9@smtp.kernel.org
-> Assisted-by: Claude:claude-opus-4
-> Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+> On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
+> <devnull+ackerleytng.google.com@kernel.org> wrote:
+> ...
+> > +       kvm.gmem_in_place_conversion=
+> > +                       [KVM] Controls whether KVM enables in-place conversion
+> > +                       support for guest_memfd and tracks the private/shared
+> > +                       state of memory per guest_memfd instead of per VM.
+> > +
+> > +                       If enabled, KVM enables the KVM_SET_MEMORY_ATTRIBUTES2
+> > +                       ioctl on guest_memfd file descriptors and disables the
+> > +                       legacy VM-scoped KVM_SET_MEMORY_ATTRIBUTES ioctl for
+> > +                       private memory state tracking. Only the
+> > +                       KVM_MEMORY_ATTRIBUTE_PRIVATE attribute moves to
+> > +                       per-guest_memfd tracking; other attributes remain
+> > +                       per-VM.
+> > +
+> > +                       This parameter toggles KVM's in-place conversion
+> > +                       capability support. Whether a VMM uses separate backends
+> > +                       or out-of-place memory management is determined by
+> > +                       userspace VMM design.
+> > +
+> > +                       Note, this parameter is only available when
+> > +                       CONFIG_KVM_VM_MEMORY_ATTRIBUTES=y. When
+> > +                       CONFIG_KVM_VM_MEMORY_ATTRIBUTES is not set, in-place
+> > +                       conversion is unconditionally enabled.
+> > +
+> > +                       Default is Y (on).
+> 
+> The parameter is only settable when CONFIG_KVM_VM_MEMORY_ATTRIBUTES=y, and
+> in that config gmem_in_place_conversion initialises to
+> !IS_ENABLED(CONFIG_KVM_VM_MEMORY_ATTRIBUTES), i.e. N, not Y. Is the doc line
+> wrong, or is N-by-default not what was intended here?
 
-Applied.
+The doc is wrong.  The intent is to maintain backwards compatibility with existing
+deployments if KVM_VM_MEMORY_ATTRIBUTES=y.
 
-Thanks,
-Guenter
+> > diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+> > index 05c518c9b8078..929fd3e1a01e6 100644
+> > --- a/virt/kvm/kvm_main.c
+> > +++ b/virt/kvm/kvm_main.c
+> > @@ -103,7 +103,10 @@ static bool __ro_after_init allow_unsafe_mappings;
+> >  module_param(allow_unsafe_mappings, bool, 0444);
+> >
+> >  #ifdef kvm_arch_has_private_mem
+> > -bool __ro_after_init gmem_in_place_conversion = false;
+> > +bool __ro_after_init gmem_in_place_conversion = !IS_ENABLED(CONFIG_KVM_VM_MEMORY_ATTRIBUTES);
+> > +#ifdef CONFIG_KVM_VM_MEMORY_ATTRIBUTES
+> > +module_param(gmem_in_place_conversion, bool, 0444);
+> > +#endif
+> >  EXPORT_SYMBOL_FOR_KVM_INTERNAL(gmem_in_place_conversion);
+> >  #endif
