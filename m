@@ -1,163 +1,140 @@
-Received: from mta1.migadu.com (out-66.mta1.migadu.com [95.215.58.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB28486BA9
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:37:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282D2485519;
+	Tue,  1 Sep 2026 17:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284241; cv=none; b=UBdIj9CJrFPVA/xs6K+ThfW+6RaJvgkCNdXK2oA/4l/VTNDxlfilk6hUrsAod7VZvlIf26OtswgBdVwSJPmMt7VwwrTposwOtCa/Rh3PjdADsEilWOYitwQsIweANjPfnV9sTznhkDuYa4YWhpcciAC3oPp1GHBnTY2Joqx5unY=
+	t=1788284285; cv=none; b=ZBBLwauqKv54h8k3yF9Is4aYaF4x8DdHAeAmwucIcTf+qZeHp+Cpky+5AdsW9cPlmOkLdifLraiCxDVGyS6uQcQTG3/Y/rcDxv+qunRurzh6Qv8n45Pz5av2sy8VKcJQ5WpoCU8E5ivaiZXXrzFC0JXTsu2T3Uf3SHAFsKLPyLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284241; c=relaxed/simple;
-	bh=6zo0vD0WrMxDTrLkYi5SZlZp0oHj/c0Lu7P8MC3D64I=;
+	s=arc-20240116; t=1788284285; c=relaxed/simple;
+	bh=ubf1OxEe06uyzGEC/cOjl7d/Do0ud50R7/4dta55KQY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ky03D4cIGHqcpy5exDqOg6xCC32/x5oMqGxz5SlCqipUtzNUTv/MSYfzVTd9ian2Q7el/oUZgqm6PZ6j+kWwRKVGQurUHgi/qdfLkDPcgPD7J5QdFRxempjEyvQ4RUav8u84RxVobOD02hpKBFRh/Nv0bL49mUNH0+G3UcF7qfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Y7GCVbGI; arc=none smtp.client-ip=95.215.58.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=JJQRUBydJLrDe3ZTFdV5/ct+V9UhR7ClzgY3OS5LuTvoAvew1gZjvdyXxJBjRfuhzt1mKvsKHN9QfJ/ewUQDEoiGRcpzXwZZ6poHMsFKWcbLjnn53FY32KZnIwilHgBFxfQDRLSbNqgXzsqTgcRTNiIWsWIo51BlZGeoE2gwEOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a+fwOVPJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Y7GCVbGI"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6zo0vD0WrMxDTrLkYi5SZlZp0oHj/c0Lu7P8MC3D64I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788284236; v=1; x=1788889036;
- b=Y7GCVbGIEXLYVUd79jHtVQQqb+uBUWPuth9NYQmo6v5EAfHQ7tZSk2S6fa+0ez6f00vUj0nd
- aBFMZZR2tPO4xr3NjVhOh7PxBHZHxGuzip0tn0zpHpPGmn09eLJrd1mrL3q061ELjFruiaqFdoI
- CTFnd7yCBk67B0NrKgluxrng=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c386ce8340dde776;
-	Tue, 01 Sep 2026 17:37:16 +0000
-X-Mizu-Trace-ID: c386ce8340dde776
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 1 Sep 2026 10:37:14 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Kairui Song <ryncsn@gmail.com>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Chris Li <chrisl@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Ridong Chen <ridong.chen@linux.dev>, Lian Wang <lianux.mm@gmail.com>, Yu Zhao <yuzhao@google.com>, 
-	Zi Yan <ziy@nvidia.com>, Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/6] mm/memcontrol: make lru_zone_size atomic and
- simplify sanity check
-Message-ID: <apcJgcFLHKZfI40m@linux.dev>
-References: <20260831-mglru-flags-cleanup-v4-0-2d15dde0d7ee@tencent.com>
- <20260831-mglru-flags-cleanup-v4-1-2d15dde0d7ee@tencent.com>
- <apZVe8UHZ1CNo4r1@linux.dev>
- <CAMgjq7D6V4eTZJ1Q1Xf2J6yTCq=JjvzT-W-HHX6EnMfzm3BK1g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a+fwOVPJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15EBF1F00A3A;
+	Tue,  1 Sep 2026 17:38:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788284284;
+	bh=vCYhuXOz7zaCGF4EZ/ixTSz3zqWOEhxCIlP+os0E6Uo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a+fwOVPJjIfkv1huM/c/4YYoFwB8QR/ecoIX0KUj+FtDKfNQozr+Csva/pvKojs3u
+	 voPaS64uTx4t1OArXmd6AcsrWnorunogJwNWw2Qs6U3+ZATGvtIxeg1fA+1Q9Xzny5
+	 f+dWW3cYeJbQ/7LuTQ3PNeAG3sW7KUxxnDLw17s9zTOgrEQvfTkKYEUTlc/VcgUCR7
+	 oTd+GemTWoxT0fuj7iY73mriMN8G6MZSzHMD4Kjf0KbqmRJkzZCiW2vvG/y8F0tXG8
+	 7k/hBITaovOzRXsVoQiOh5jQk3AFpLEBuzdPJBWorWOzU7/YcgJ3p64yQc490YvL75
+	 /hAvg428dn/Kw==
+Date: Tue, 1 Sep 2026 18:37:59 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Flaviu Nistor <flaviu.nistor@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: hwmon: tmp102: Document TMP113
+Message-ID: <20260901-untimely-wake-578b1a86b9fe@spud>
+References: <20260901161008.46948-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/nSXeNTLuhB53XBA"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMgjq7D6V4eTZJ1Q1Xf2J6yTCq=JjvzT-W-HHX6EnMfzm3BK1g@mail.gmail.com>
+In-Reply-To: <20260901161008.46948-1-marex@nabladev.com>
 
-On Tue, Sep 01, 2026 at 01:20:33PM +0800, Kairui Song wrote:
-> On Tue, Sep 1, 2026 at 12:38 PM Shakeel Butt <shakeel.butt@linux.dev> wrote:
-> >
-> > On Mon, Aug 31, 2026 at 02:43:31AM +0800, Kairui Song via B4 Relay wrote:
-> > > From: Kairui Song <kasong@tencent.com>
-> > >
-> > > commit ca707239e8a7 ("mm: update_lru_size warn and reset bad lru_size")
-> > > introduced a sanity check to catch memcg counter underflow, which was
-> > > more of a workaround for another bug: lru_zone_size is unsigned, so
-> > > underflow wraps it around and returns an enormously large number, then
-> > > the memcg shrinker loops almost forever as the calculated number of
-> > > folios to shrink is huge. That commit also checked if a zero value
-> > > matches the empty LRU list, so we have to hold the LRU lock, and
-> > > handle the positive and negative deltas separately.
-> > >
-> > > But later commit b4536f0c829c ("mm, memcg: fix the active list aging
-> > > for lowmem requests when memcg is enabled") already removed the LRU
-> > > emptiness check, so handling the deltas separately is no longer
-> > > needed. And if we just turn it into an atomic long, underflow isn't a
-> > > big issue either,
-> >
-> > Why atomic long and not just long?
-> 
-> Long is fine too; I was just trying to be defensive. The original
-> check was a defensive design for leaks or races, and atomic long is
-> more immune to race conditions. See below for the other conditions.
+--/nSXeNTLuhB53XBA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Unless we really need it, let's stay with "long" for now. As you mentioned below
-this is busy/hot path, no need to add overhead of atomic here.
+On Tue, Sep 01, 2026 at 06:09:20PM +0200, Marek Vasut wrote:
+> The TMP113 temperature sensor part is register compatible with TMP102,
+> document it using a fallback compatible. Unlike TMP102 and TMP110, the
+> TMP113 does have additional unique ID registers, it is up to the driver
+> to handle those.
+>=20
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Flaviu Nistor <flaviu.nistor@gmail.com>
+> Cc: Guenter Roeck <linux@roeck-us.net>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-hwmon@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+> V2: Rebase on current next and resend, resolve a conflict with commit
+>     d67ec24d3f07 ("dt-bindings: hwmon: tmp102: move ti,tmp103 out of triv=
+ial-devices.yaml")
+>     Note that the TMP102,110,113 are backward compatible, therefore the
+>     valid compatible strings are:
+>     - "ti,tmp110", "ti,tmp102"
+>     - "ti,tmp113", "ti,tmp102"
+>     - "ti,tmp102"
+>     The TMP103 is not backward compatible, it only shares bindings now,
+>     therefore the only valid compatible string for the TMP103 should be:
+>     - "ti,tmp103"
+>     And that is all, no other compatible strings are acceptable here.
+> ---
+>  .../devicetree/bindings/hwmon/ti,tmp102.yaml          | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml b/Doc=
+umentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+> index 55d9f106465d7..c0b747a9ce0de 100644
+> --- a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+> @@ -4,7 +4,7 @@
+>  $id: http://devicetree.org/schemas/hwmon/ti,tmp102.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> =20
+> -title: TMP102/TMP103/TMP110 temperature sensor
+> +title: TMP102/TMP103/TMP110/TMP113 temperature sensor
+> =20
+>  maintainers:
+>    - Krzysztof Kozlowski <krzk@kernel.org>
+> @@ -13,11 +13,12 @@ properties:
+>    compatible:
+>      oneOf:
+>        - items:
+> +          - enum:
+> +              - ti,tmp110
+> +              - ti,tmp113
+>            - const: ti,tmp102
+> -          - const: ti,tmp103
+> -          - const: ti,tmp110
+> -      - enum:
+> -          - ti,tmp102
+> +      - const: ti,tmp102
+> +      - const: ti,tmp103
 
-> 
-> > > So let's turn the counter into an atomic long and check at the reader
-> > > side instead, which has a smaller overhead. The underflow correction
-> > > is removed: a massive leak of the LRU size counter would indicate
-> > > that something else has gone very wrong, and one should fix that
-> > > leaking site instead. Besides, the updater-side sanity check is
-> > > unlikely to catch the leaking site anyway: if a folio was removed
-> > > without updating the counter while other folios remain on the LRU,
-> > > the WARN only triggers much later, from a likely innocent callsite.
-> >
-> > Do you have any data to support your claim that updater-side sanity check is not
-> > that useful? Also can you explain the motivation to move the check from the
-> > update side to reader side?
-> 
-> I think I described that in the commit message. Commit ca707239e8a7
-> introduced the original emptiness check. The goal was to fix an
-> over-busy reclaim scenario: upon underflow, an unsigned long returns
-> an extremely large value. The reclaimer calculates the page number to
-> scan based on that value, and thus enters a busy loop trying to
-> reclaim much more than the actual usage. It's really a defensive
-> design or workaround.
-> 
-> And later commit b4536f0c829c just removed that emptiness check,
-> leaving only the underflow check. So at this point we are just
-> defending against underflow. Currently, I don't believe there are any
-> known leaks or underflow issues in mainline, still purely a defensive
-> design.
-> 
-> Reading these counters (mem_cgroup_get_zone_lru_size()) is much rare
-> than updating them: the only readers are reclaimer - per loop, each
-> loop will scan a large chunk of folios. Or during reparenting - per
-> child.
-> 
-> Writers, however, operate on every LRU folio.
-> 
-> So checking it in the reader side is much lighter and cleaner code-wise.
+Should this not be two patches, one fixing the existing stuff and one
+adding the 113?
 
-So, one motivation is cleaner code?
+> =20
+>    interrupts:
+>      maxItems: 1
+> --=20
+> 2.53.0
+>=20
 
-> 
-> Checking in the reader side also tolerates deferred accounting false
-> positives: if a folio is added to / removed from LRU but have the
-> accounting happens later, that's fine, but might cause a temporary
-> underflow (there shouldn't be such usage right now, but cleanly the
-> oldest commit I mentioned is trying to catch something). It should
-> just proceed without performing extra operations on the counter or
-> raising a warning on the updater side.
-> 
-> The underflow won't affect anything besides the two readers mentioned
-> above (reclaimer and reparenting).
-> 
-> Besides, I don't think warning on the writer side will help catch the
-> real leak either, it just adds overhead to a busy path. The folio
-> triggering the underflow is very unlikely to be the one leaking the
-> count. And if that leak is actually caused by a race, the atomic long
-> change should cure it.
+--/nSXeNTLuhB53XBA
+Content-Type: application/pgp-signature; name=signature.asc
 
-I think you are going and looking too much into the history of this warning. I
-think you just need to explain that the current warning in the update side
-already can't always catch the actual leak and is costly. Moving to read side
-make the code cleaner and warnings will be at the location where the consumers
-we care about are going to consume it. Also add couple of sentences on behavior
-difference it will have i.e. warning on flipping into negative vs we will
-continue to operate even in negative but only warn on negative consumption.
+-----BEGIN PGP SIGNATURE-----
 
-Another question: why is this patch part of this series? Just some orthogonal
-cleanups or are they related?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcNdwAKCRB4tDGHoIJi
+0oODAQCVZ0/6ac4473ygypFVJUWZG398AaFYO7YxHbouyDOBuAEA9p76IL/7Tjnn
+C8jcrdckOMnfbrFsfsB2dqMCtwJyEAg=
+=zi4w
+-----END PGP SIGNATURE-----
 
-
-
+--/nSXeNTLuhB53XBA--
