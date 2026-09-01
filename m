@@ -1,58 +1,37 @@
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5955E39AD51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBCD2AF1D
 	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:56:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260214; cv=none; b=B2x+SLdQptycy/NHydvi5/3wwflbwzSPhobScf/10P1+BjAV5C5qyoc4H+8GKAmi0ZU8S42QXuznQlHN29Cznd8+UriftlP5q6iRwqxrkRrF40z2RcVYv1RISCdH5Sqms0odDGi48BRfajd5BVk5eHSzUkqMgObA8JiA8qAm71U=
+	t=1788260215; cv=none; b=uuzDTGMAhqiYAR3eskgwNBeRJhBqZRmVNeHy9jlY/x8VDtod/LcnINenu5KjCYKIBsqVmeqvnXy+p4fypq2oWLuQ4YX4zwJIFooE95TCHWS70SCKblTz3Cr6xrsylGH6772W/s6lavug+kRA+3HAboWtkyBv2nD2ffFHsjD9GZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260214; c=relaxed/simple;
-	bh=Ko6vUTqGj5K3GB4rTAKDIeTwpnYNzLmH29khSvV861A=;
+	s=arc-20240116; t=1788260215; c=relaxed/simple;
+	bh=B6huL/iMPS6Oxy/eyqo7uPI64Jwh1jUlHac/14kS3FE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=STOuXsAVZ4FmJkcurIe5aeVXWJIahmXgXHaR6915MwQmud+TzIs/3xycAyuRUiK/Xp4yjrahUZFjBMIlkDGaFCzAfIi7My19StaFJ8jsfgp0kRzJLRgUsLGIKAIZagfZPhyxIavwns3py4bKQF6JImd1WN1tUWkg7l2X+tcUjV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=0YsgmOUc; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=AkRy82ij; arc=none smtp.client-ip=195.135.223.130
+	 MIME-Version; b=IOKcFeWx2axlmTy6sAJd4xYUL02KqTWXAYvmb+BFdsI+RpOKbaI0eO9OYProaMnH+lpKLDfVTZjuk3/utOji4p2ey6L69i38AilwZ2azY5qRwPwty2mvSs9UTeJahz7X8u0C66eSaY8anupa4+xnrYpVShgXza5KJWzn22le9qQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="0YsgmOUc";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="AkRy82ij"
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id F3DD221CB7;
-	Tue,  1 Sep 2026 10:56:45 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 44E8B21EFF;
+	Tue,  1 Sep 2026 10:56:50 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788260206; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WcAJPgihOEDmv1nHcIKnWxG+FM4RrbB/EjKcaO2mNjo=;
-	b=0YsgmOUcqyAtGVpAffnoa8U4hqbaC8oh7Xdgbr7FBZK7TvcH5Mr418N76KGedYBhz6uJjj
-	+DbGbXdvQ2tGEEl5M4l9RFbAq+rR+ThwhhxCAzkEAsuHb1gG/cH7U09gRJldZUbdT7A7fK
-	EnGjtpRyie7ICtOVE6SuUOCU2qf/38M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788260206;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WcAJPgihOEDmv1nHcIKnWxG+FM4RrbB/EjKcaO2mNjo=;
-	b=AkRy82ijjMDUuGjyLxmUldyFjngLoPJm97AkoFqOpYRMqb+nuEte0jQ5/vM8hTO6aB1Orr
-	l3M3eNYvX3haS2AA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7C875136B2;
-	Tue,  1 Sep 2026 10:56:45 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 560CD136CC;
+	Tue,  1 Sep 2026 10:56:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ALotHW2vlmrRGwAAD6G6ig
-	(envelope-from <pvorel@suse.cz>); Tue, 01 Sep 2026 10:56:45 +0000
+	id uI/vE26vlmrRGwAAD6G6ig
+	(envelope-from <pvorel@suse.cz>); Tue, 01 Sep 2026 10:56:46 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: linux-kernel@vger.kernel.org
 Cc: Petr Vorel <pvorel@suse.cz>,
@@ -62,9 +41,9 @@ Cc: Petr Vorel <pvorel@suse.cz>,
 	Dwaipayan Ray <dwaipayanray1@gmail.com>,
 	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
 	Cryolitia PukNgae <cryolitia@uniontech.com>
-Subject: [PATCH v5 2/5] checkpatch: Ignore <inttypes.h> format macros for userspace tools
-Date: Tue,  1 Sep 2026 12:56:39 +0200
-Message-ID: <20260901105642.851234-3-pvorel@suse.cz>
+Subject: [PATCH v5 5/5] checkpatch: Skip kernel specific checks for userspace
+Date: Tue,  1 Sep 2026 12:56:42 +0200
+Message-ID: <20260901105642.851234-6-pvorel@suse.cz>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260901105642.851234-1-pvorel@suse.cz>
 References: <20260901105642.851234-1-pvorel@suse.cz>
@@ -75,46 +54,80 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: F3DD221CB7
 X-Rspamd-Pre-Result: action=no action;
 	module=replies;
 	Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -4.00
 X-Spam-Level: 
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 44E8B21EFF
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[];
 	TAGGED_RCPT(0.00)[]
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
 
-Constants from <inttypes.h> are used only in userspace tools, they are
-from ISO C99, let's don't report it:
+These check are kernel specific, do not warn about it when testing
+userspace code:
 
-    arch/mips/boot/tools/relocs.c:572: CHECK: Avoid CamelCase: <PRIx32>
-    arch/s390/tools/relocs.c:52: CHECK: Avoid CamelCase: <PRIu64>
-    tools/testing/selftests/mm/vm_util.c:244: CHECK: Avoid CamelCase: <SCNu64>
+* BIT_MACRO
+* LONG_UDELAY
+* MSLEEP
+* PREFER_KERNEL_TYPES
+* USLEEP_RANGE
 
+Follow-up: 99b70ece33d8 ("checkpatch: suppress strscpy warnings for userspace tools")
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-The same as in v4.
+New in v5.
 
- scripts/checkpatch.pl | 2 ++
- 1 file changed, 2 insertions(+)
+ scripts/checkpatch.pl | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
 diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index b8702f6bc9b5..b458c7f22684 100755
+index 97bf952b0fbc..0dac0ffa009b 100755
 --- a/scripts/checkpatch.pl
 +++ b/scripts/checkpatch.pl
-@@ -5950,6 +5950,8 @@ sub process {
- #Ignore SI style variants like nS, mV and dB
- #(ie: max_uV, regulator_min_uA_show, RANGE_mA_VALUE)
- 			    $var !~ /^(?:[a-z0-9_]*|[A-Z0-9_]*)?_?[a-z][A-Z](?:_[a-z0-9_]+|_[A-Z0-9_]+)?$/ &&
-+#Ignore <inttypes.h> format macros (e.g. PRIu64, SCNu64)
-+			    (is_userspace($realfile) ? $var !~ /^(?:PRI|SCN)[dioux][A-Z0-9]+$/ : 1) &&
- #Ignore some three character SI units explicitly, like MiB and KHz
- 			    $var !~ /^(?:[a-z_]*?)_?(?:[KMGT]iB|[KMGT]?Hz)(?:_[a-z_]+)?$/) {
- 				while ($var =~ m{\b($Ident)}g) {
+@@ -6701,7 +6701,7 @@ sub process {
+ 		}
+ 
+ # prefer usleep_range over udelay
+-		if ($line =~ /\budelay\s*\(\s*(\d+)\s*\)/) {
++		if (!is_uapi($realfile) && $line =~ /\budelay\s*\(\s*(\d+)\s*\)/) {
+ 			my $delay = $1;
+ 			# ignore udelay's < 10, however
+ 			if (! ($delay < 10) ) {
+@@ -6715,7 +6715,7 @@ sub process {
+ 		}
+ 
+ # warn about unexpectedly long msleep's
+-		if ($line =~ /\bmsleep\s*\((\d+)\);/) {
++		if (!is_uapi($realfile) && $line =~ /\bmsleep\s*\((\d+)\);/) {
+ 			if ($1 < 20) {
+ 				WARN("MSLEEP",
+ 				     "msleep < 20ms can sleep for up to 20ms; see function description of msleep().\n" . $herecurr);
+@@ -6936,8 +6936,7 @@ sub process {
+ 		}
+ 
+ # check for c99 types like uint8_t used outside of uapi/ and tools/
+-		if (!is_uapi($realfile) &&
+-		    $realfile !~ m@\btools/@ &&
++		if (!is_uapi($realfile) && !is_userspace($realfile) &&
+ 		    $line =~ /\b($Declare)\s*$Ident\s*[=;,\[]/) {
+ 			my $type = $1;
+ 			if ($type =~ /\b($typeC99Typedefs)\b/) {
+@@ -7429,7 +7428,7 @@ sub process {
+ 		}
+ 
+ # check for #defines like: 1 << <digit> that could be BIT(digit), it is not exported to uapi
+-		if (!is_uapi($realfile) &&
++		if (!is_uapi($realfile) && !is_userspace($realfile) &&
+ 		    $line =~ /#\s*define\s+\w+\s+\(?\s*1\s*([ulUL]*)\s*\<\<\s*(?:\d+|$Ident)\s*\)?/) {
+ 			my $ull = "";
+ 			$ull = "_ULL" if (defined($1) && $1 =~ /ll/i);
 -- 
 2.55.0
 
