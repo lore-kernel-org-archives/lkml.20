@@ -1,111 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D25C4CCDEF;
-	Tue,  1 Sep 2026 21:28:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41EE2C11E4
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 21:29:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788298118; cv=none; b=ITyXI8ksgq5tOrGKf4aSWuecgYmgzVbwY2GqeuQM3jMZ51cbXSCIl2hDTV03vK551co/1QvXmvESg1eWUxR6T8QjwUeHt9TygQCEiMvqse2pcBI9lTdizCEj3Xfkdb990tDHDKCLoGvOBJLaW2p2j47pzekNT/NWMlUWml3IKLg=
+	t=1788298155; cv=none; b=caG/fS7uzA83Ap8yE5q001E8YxWMEh5DyEkEW7jvoC8x4BGIOocq810u8F4WBbqG6S9lgC8HDkpUH/j6vS2nmlXo9KCPqc9ygpyDN/yV8nmvTjkvYwdbfBymlMEexmQSTYfM1ANsnowyf8RKk9vKzY2UOGipFGn1jdI6W3qA95g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788298118; c=relaxed/simple;
-	bh=OfizP+ptEf1HS0hq6hrXMz1mVvO+FePP1zC3RrlmNNk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hTA0b7Ks+SkTnLUFUGEQUmDpXQbGCPJ1QMc767peSqwF/OMTv4e+QuAJL6xZ02TlLBYC4GfaThtFtxp0ghaqjobA5wm0IyzMmSP93wGwwvGC8yPa/JHtDgQWq15XzfU9KtxG8EGwlXS5EW2kw7bsA9Tqp3iFbiWumxSDX/qSYto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SpvrTo1U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788298155; c=relaxed/simple;
+	bh=ZOQK97y0bGr5e4vNazb8LXTv0hE6s5ZN+zD4c7Lu39c=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bVnPwWiAp1kHE49D5zGp4boU+SJlwRHbM7RSOFTKyAMs0mmuDY1JLFtl/rqgzs6Kp3tJDPGU7TMYQb/rviZNWw9mPNDdRTdj7nPW1OQUdwq9XLWqAu7xrhvT0J5Ov4nR/CFBYTLxPpAjLmuTpfT2dx+rPgbfa5+YMFhmda2cukQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CWmJhLSb; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SpvrTo1U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B76A1F000E9;
-	Tue,  1 Sep 2026 21:28:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788298117;
-	bh=bL7+JBUfnj/CnXAsFEDYoa5vYtw0IXTLDYwqfYjz5rM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SpvrTo1UeB5IOtS2Nlhf2nW1/jIfzmKphPHiRB7O4omy5YsxgikGxJx86X1y20IBz
-	 Wuzg60RItOiKmh3wicsMoMqUObBSG53pu2fps1gM9c3eioe9qhQgfx+XA5wM/7RqFd
-	 J15c6x6VxecIDwSvmTEd1NfZJ6ZJdRr+pSQY4DVWjWz8RCs735l8vx76QzFVw4gbGv
-	 6hmoiCfPgcyP75pU2DiK606etCbO2ongi1PPxBrLm0zjUM0jhrNRhRnWAXWTsKKeqY
-	 NOLR2gMPzIkKtX7/aGu8A+jXe6lxbpHLB31ioTBfvYV51qtNzGqxUznIkM4Bhs5qZy
-	 Bf7bNjnG13zHg==
-Date: Tue, 1 Sep 2026 21:28:34 +0000
-From: Eric Biggers <ebiggers@kernel.org>
-To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
-Cc: axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
-	James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
-	mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
-	bvanassche@acm.org, alim.akhtar@samsung.com,
-	avri.altman@sandisk.com, stefanha@redhat.com, pbonzini@redhat.com,
-	eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 00/11] FBE virtualization: inline encryption for
- virtio-blk guests
-Message-ID: <20260901212834.GA3585187@google.com>
-References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
- <20260827184219.GB2137493@google.com>
- <d81e347e-8ca7-40a1-a428-5bce6f0d4b02@oss.qualcomm.com>
- <20260831210759.GE86114@quark>
- <ca838905-f0f8-4f0a-96aa-2bc05ab6c0a7@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CWmJhLSb"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b0dd3c9a0so1836885e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 14:29:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788298152; x=1788902952; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SkxXZUeQJjn9mQeswoxSoUaM3GIUARZ+50jCNpTnH0k=;
+        b=CWmJhLSbJruYauMlcR9UHj/7RwuSYpe1RVru7S9RRvPGDWSN3pY2J9Vab958l59Yna
+         138X9Gryx8wN9E7vd42m6QEcX8b1p6gJCWYdlfaQoDfxSGKKKZn9N57vAezklwnRbnik
+         da4DZdap62Cd1XYsAj6A5vuHU/6YR3MV0XyaeMgLguKqSkvBQDd5im7my0OquTRbt/dn
+         zp/fj4GQtN3Q+k7Zm3dxNZgmdpc47MsYjnmX+zEP2g2riOPqdmZrp3dYwCEifuDGTjLY
+         3PH0KNZnn5dH15UrVxB7nvy7J68bWeUz7+TlQsCtP8KA1I7BQIk+OnXcvpXEiOASxDSc
+         48nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788298152; x=1788902952;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SkxXZUeQJjn9mQeswoxSoUaM3GIUARZ+50jCNpTnH0k=;
+        b=qLsWk1+NWmBB/o1vFIujDn2r3JkpdYROkGr9S8lEFPDNV2uzJvW8/8vXjxLRuV/Lfb
+         k61Cnw04tkKnD1UpBR/ELTtDY2t3D8HPfrDD0aL9sbhqb5Cug9KBoKwG/wommhZ/vSEt
+         JbBrKD4tr82vO4ihaLmy7sN7BwC+1upJd6f6a5eV06r4q9yxfXo8Gcu0e67CnVJalKTL
+         n6C0sjSxGEzZO4jw2wPs7TODvf2WTogQDYHU7Hfs5DpMiz9TEaNQ6JruatNE+D1QKc1L
+         p8XD09dohaAT0IAZI1dbocLbqz1oUoUpwz980rYtkifarTQeXkAsVJ98JwDwmc2KRMtS
+         NIzA==
+X-Forwarded-Encrypted: i=1; AHgh+RrmqhsMcS1KcAiDY+JwQeBQu3lxeH3TcSIcAjtgTBPv9yRGDjs7clRB+08eBzLNsER5NAZOggy6tTfNtqY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYodXglHAxizHwwJTq3OhGGcIJFZWndsAreaZnM0veePAfyyp3
+	VVdzbsuy4BcG0p35P90JzdkZGeneidwocOiHeU2bZXemeJA5ps0nq+vW
+X-Gm-Gg: AR+sD10aLOtzoxNHOcMS69/4kcpaLVIjIzzCbKiW+MzYratKc2QyhV5qI6nJe590ACc
+	yj8NZ7tGgMKf5c406OWRbO0bHyTDfBtyHrvwdhV6AhaFW6wxUcsesbvLDWO/yAVPowYncK+nkHh
+	9oAflFXKrGX4CmtKLGPu0VmKRYEotaAq+6HtOLps4KHHoyW+YTH0RAdDxr+cg6GZexa/eSvfjlu
+	CRcubp1gDubYE5NILP7cMCpyduj3UbcPuPSoHie5yAHBoUv0UDaUq6MRJb74txYUPoapt2sLyfJ
+	CYAS/hy5dFynmlMDG/9yzIzaYGGz97LFBNfMrOHWm6sblsMTHuqAiTYN1peSfYdsyEgMzD1deq8
+	rvcUPoZWf5moepOEttEOhWTPGsg96Zc1VC+Ja6kSQnJZwaD265aD733zMNORoAPZRHv3s/42qYA
+	W/h6h8ur8PSfD2bSiXCANjZFmjEcor5rs41XNHyzKwR7xzwHJSdxSVG1ibRJJSHD3lJD/08ct9k
+	S8SPbjlgjgR+alB4Iqv70wgVg==
+X-Received: by 2002:a05:600c:6209:b0:495:4d5c:903e with SMTP id 5b1f17b1804b1-49ce582039fmr7857775e9.7.1788298151943;
+        Tue, 01 Sep 2026 14:29:11 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce3c86a0asm25763485e9.9.2026.09.01.14.29.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 14:29:11 -0700 (PDT)
+Date: Tue, 1 Sep 2026 22:29:09 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>, Rasmus Villemoes
+ <linux@rasmusvillemoes.dk>, Luc Van Oostenryck
+ <luc.vanoostenryck@gmail.com>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Chris Li <sparse@chrisli.org>
+Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with
+ sparse
+Message-ID: <20260901222909.05d6239f@pumpkin>
+In-Reply-To: <dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
+References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
+	<20260831214437.15d6ad34@pumpkin>
+	<a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
+	<20260901092043.7feaf5d7@pumpkin>
+	<dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ca838905-f0f8-4f0a-96aa-2bc05ab6c0a7@oss.qualcomm.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 04:22:33PM +0800, Linlin Zhang wrote:
-> With this design, I believe there would be two VM exits associated with
-> encrypted I/O:
->   1. Key programming
->      Before encrypted I/O can be submitted, the guest needs to program a key
->      into a virtual keyslot:
->      
->      Guest virtio-blk driver
->          -> VM exit
->          -> virtio-blk backend (e.g. QEMU)
->          -> ioctl
->          -> host virtio-blk proxy driver
->             (stores the blk_crypto_key in a virtual keyslot)
+On Tue, 1 Sep 2026 11:05:18 -0700
+Bart Van Assche <bvanassche@acm.org> wrote:
+
+> On 9/1/26 1:20 AM, David Laight wrote:
+> > I suspect you need to change the TRACE_EVENT() calls to remove the
+> > __bitwise marker.  
 > 
->   2. Encrypted I/O submission
->      The I/O request carries the virtual keyslot number and DUN:
-> 
->      Guest virtio-blk driver
->         -> VM exit
->         -> virtio-blk backend (e.g. QEMU)
->         -> ioctl
->         -> host virtio-blk proxy driver
->            (looks up the blk_crypto_key associated with the virtual keyslot
->             and submits I/O using bio_crypt_set_ctx())
+> How to remove the __bitwise marker? Removing the __bitwise marker is not
+> supported by sparse, isn't it?
 
-Most I/O requests only need step (2), since they reuse step (1) from a
-previous I/O request.  The kernel evicts a keyslot only when it is the
-least recently used among all the keyslots and another one is needed.
-(Or when eviction is explicitly requested.)
+Wont (__force u32)u32_bitwise_var remove it - you just have to know the
+type.
 
-This is especially relevant when only a small number of keys is used,
-like is the case when the per-file key support in fscrypt is disabled.
-Programming keys on Qualcomm ICE has always been very slow even on
-physical hardware, and the kernel was already designed to mitigate that.
-
-> I have been wondering whether a model similar to the passthrough
-> blk-crypto-profile used by certain dm targets could be applicable here.
-> 
-> In such a design, ownership of keyslot management would effectively and totally
-> move to the host. The guest would no longer manage virtual keyslots, and the
-> host block layer would continue using its existing keyslot manager to allocate,
-> reuse, and evict physical keyslots as needed.
-
-I think the virtual keyslots are still useful so that the key bytes, key
-size, key type, algorithm, and data unit size don't have to be
-transmitted in every I/O request, then all revalidated and processed
-again.  There is a reason that inline encryption hardware uses keyslots,
-and I think the same largely applies to virtio-blk.
-
-- Eric
+David
+ 
