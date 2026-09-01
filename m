@@ -1,41 +1,44 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC54C377AB4
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:32:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAF8476682
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:32:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788255172; cv=none; b=PJokccwgdnbH0q6teih9BSndRgkM8rAl9ucvD02nGuytBiC6UWOzL5MHA6MNgASKuNoz5zxoeoyVI/aMJjiToF9Z05rKZCTyhaAiUkhJQOd0gnm0CNrA3Up+1LNsMUetTj9MGPDZRz1wI9rBKqn/M35OR6eV6gxTm1Td9r0TXQo=
+	t=1788255174; cv=none; b=g78VptOWrpGvPcJWPlGPzDHfCg0CPaep1yFYjM2m2wUpMG0e1uh/Dl5FiHIJHDq3cVSJ7N/Nbvvc9JW832NP2aJXuWPBptEmLeAxsct7DTvMzq/3YEuVMsNY/bjeCL5ldzOh/luHZX4p7k1znco9oCt4RnDhUlDNe1trE1fuNmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788255172; c=relaxed/simple;
-	bh=z152aH5z3VL72oqenBxEb2hgHnCb8CBVTKhEura4CcE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cF43NXbv7+oi4kZ/eqPbMoSDYQ9hILmpP++U5KVPmLwrYAw3bvnNJTpsV1/60okl4KlsUTWYxTfqFWBqm2zLLdojRSQF0vs5osFrw4EoH4uhHTEkRG5ZrpXWZZw7Q02pLNfz4x5eG+N/KQU5AoM0S4R73a1Lukc6Iu7b0tAHrOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=jXtC7Rpw; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dLctFSun; arc=none smtp.client-ip=193.142.43.55
+	s=arc-20240116; t=1788255174; c=relaxed/simple;
+	bh=+Cy8Q5PxUPQrM69/XpqWTIp/pzmpYzlVmRnKXkC1+RM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fM/Ui/hK+hQlfeah4ZJx57F/83HrFiB78ruJvVrLYbhBH7B95UmWcKVcHRrHUHynRc0jqDEaHPY3CNoKgaGOJsN51kfzdSfH91S23JNjrUNI/OUNtD2xYBVh0Feo0lI9nsS1F+ubQ8XpGvdqsR6nS73Hga7Zw0H1U4IG0mM5h8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=f8f8Wb1i; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=2NJ06RRz; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="jXtC7Rpw";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dLctFSun"
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="f8f8Wb1i";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="2NJ06RRz"
 From: John Ogness <john.ogness@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788255165;
+	s=2020; t=1788255166;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=fimDxLRjmaTDqvjzAuzM3zuPw4jzY4V3y0oythdsjP0=;
-	b=jXtC7RpwJ0ah+SxTzZ2k0l4YpcGq8/5EK8Wbp2hJQDQIgrQAZh0PVjnPjXweCKKMJpKQ11
-	hMiAtWkgXOo8ETNScNEJqsc2KSZdigkGUey7CdJy6sSatMk0Eo+KS7u5oTUBdjrUab+dUi
-	bQYXZvmRQA9pvCbhskqWXq9MQAtdVZ5hWIQXynhl8IMA0gCWGUaqh07gEDVqJrdnk37xIE
-	xPpwksh/uml+5lUnu5Rwo1A0c6O7hJHX5yhHUhMRxVRN4kEzN2q4E7pr4kG242U9HBwv5h
-	Mj/mUljVCtRt2LrZ6Y3QMfTKarms2VRikPZEOK9Pt8Rs0C59OenBbApaoTxKLg==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Kz/a6ccVkYCQsTaCcHsJvUxIM8MUAq211m5EeLm/qb0=;
+	b=f8f8Wb1ixgkLPKeTSSDZevnrLHKB1uqKSuv37v0yf4k4IsWkB3S1Kdz9awLa3ydMJF0y+7
+	7ztO62Th88FMr9Fi/SEvl9hgv8m4AC8pnYnN5KrwEx5aLTyDupUx1ZLtePdidbNWz24X4/
+	3ltKO6uk6cQ3j+PFCPT9et/mBBBNnjBwb/OfWCg9syyiHmASUauOqIgeAmZIY4y8H9oIcI
+	sZSmbMwSKKBgl6hJ01o0C2vAnUGp4aQhGW/FSVgbXP1fQqHptn2KX/4SDTe2GrkP3HX1Bu
+	zkqO0WM/iSeVlps365F/3FECS114mDci125hfksK3Grmhzeu7NGiU5ENuTvxgQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788255165;
+	s=2020e; t=1788255166;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=fimDxLRjmaTDqvjzAuzM3zuPw4jzY4V3y0oythdsjP0=;
-	b=dLctFSun0FiKuJ4x4cvOD/B4A9UGZAU8wCKlZz+xzXBincODqRyQaEItkso2k0b6/F69Vs
-	BM8SA5O1qV4xVLCg==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Kz/a6ccVkYCQsTaCcHsJvUxIM8MUAq211m5EeLm/qb0=;
+	b=2NJ06RRzwU94DWT2Qf0UYdulgkAEhIXmUx2SYhO+6qMXeMlICweF46ulRSCEYiyvpAXzpH
+	zjf7xHNUbHBciuAA==
 To: Petr Mladek <pmladek@suse.com>
 Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
 	Steven Rostedt <rostedt@goodmis.org>,
@@ -43,11 +46,12 @@ Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
 	Jon Hunter <jonathanh@nvidia.com>,
 	Thierry Reding <thierry.reding@kernel.org>,
 	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org,
-	Thomas Gleixner <tglx@kernel.org>
-Subject: [PATCH printk v3 0/2] nbcon irq_work fixes
-Date: Tue,  1 Sep 2026 11:37:41 +0206
-Message-ID: <20260901093245.344455-1-john.ogness@linutronix.de>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH printk v3 1/2] printk/nbcon: Flush nbcon_irq_work in nbcon_free()
+Date: Tue,  1 Sep 2026 11:37:42 +0206
+Message-ID: <20260901093245.344455-2-john.ogness@linutronix.de>
+In-Reply-To: <20260901093245.344455-1-john.ogness@linutronix.de>
+References: <20260901093245.344455-1-john.ogness@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,39 +60,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Ensure any pending nbcon_irq_work is flushed before allowing the
+console to be recycled.
 
-This is v3 of a series to address some irq_work issues with nbcon.
-Initially motivated as a workaround for hardware-related regressions
-reported [0], it turns out that the workaround is actually a nice
-improvement for nbcon deferred printing in general.
+Signed-off-by: John Ogness <john.ogness@linutronix.de>
+---
+ kernel/printk/nbcon.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-v2 is here [1].
-
-The changes since v2:
-
-- On nbcon_free(), perform the irq_work flush before stopping the
-  kthread printer.
-
-- Rework the commit message of patch 2/2 so that reducing interrupts
-  is the primary motivation and the Tegra workaround is a secondary
-  "benefit". I really want the Tegra workaround information to stay
-  in the commit message because it is historically significant.
-
-John Ogness
-
-[0] https://lore.kernel.org/lkml/f3757a75-0ba1-4558-bf57-f19ab7e59a4c@nvidia.com
-[1] https://lore.kernel.org/lkml/20260828140218.232439-1-john.ogness@linutronix.de
-
-John Ogness (2):
-  printk/nbcon: Flush nbcon_irq_work in nbcon_free()
-  printk/nbcon: Change nbcon_irq_work to IRQ_WORK_LAZY
-
- kernel/printk/nbcon.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-
-base-commit: ffe0486b139e45cd9c9ca2584f04a1910fe4f8a6
+diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
+index a5921a84a80ed..68f77afee9106 100644
+--- a/kernel/printk/nbcon.c
++++ b/kernel/printk/nbcon.c
+@@ -1837,6 +1837,8 @@ void nbcon_free(struct console *con)
+ 	/* Synchronize the kthread stop. */
+ 	lockdep_assert_console_list_lock_held();
+ 
++	irq_work_sync(&con->irq_work);
++
+ 	if (printk_kthreads_running) {
+ 		nbcon_kthread_stop(con);
+ 
 -- 
 2.47.3
 
