@@ -1,273 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F2A49DBA7
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:40:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D2F49EC50
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:41:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288015; cv=none; b=mF9a0bQ8APN48zPQNTfBHWsKV1fEQcyoSMugdoJcLYlWsrle/BTLWT4tdOSf50wDJFzG2J/6CxBZfBvhzIgCZbDS2sDPXf/8Ma+RAt6seJ71Z+9TTluISkFR9tNGdsFVsjkbqx00WyIM/xx4X0WExmhn1tc4eOHvM5G9YOuVvK4=
+	t=1788288108; cv=none; b=ZpOuFNF/LDx0iCGQMKlNgsB3QFd9OfsQphFGw8dS1fKKTvbL9lo4L9NtogWde4i9MgqgD+KmzdP/VBILhp/hPdQOQD8IMwTY9mqid3vVFcqnJG2lPBN/+BbZP85bAQQJfTRcdgeV1S+Q1gLg9NDrk+pIZMND85sq+3fFNSrrDmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788288015; c=relaxed/simple;
-	bh=CkpdHI1gclkgDI/DsyJyvvvljYzxYaIM5oPebtXVa4Y=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=iuWATCtFYrc699qKXOoZ62IqoUgGU6JAwrAs6Lhez/4X7n6zK+aG54KE5Q38zzRMGp7vjMfFE3cjliEAIltGM/07pPR0M0/3hL1rnsrhWgJ+fEajX8bPjGTT9SmbCYJfMVsNPd54Pq19jCuhZJz3kjyzcoYyDBUzRnaYRefxkh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xzmb+XYQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788288108; c=relaxed/simple;
+	bh=uVDf/Azs+Y2fNINbjdp5g3ddn/BJ/MorxkRf22rpgFo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=c7wMgnjd1nlLMdvplr1k1nkqmGQVxyqrXspotSOa9SWanxTQlt+yPobRPxLVGrboihf3cS43ECETsLp7IOpZxPnAss7uA2oWzfPr6P5403FB2G2O9czoezeyQ+sqIQt84Axm+IJEIypIE2w3HAwj89KO6aZqRXCkCyAYP9F2Yl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tGfaEMjP; arc=none smtp.client-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xzmb+XYQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF7F61F000E9;
-	Tue,  1 Sep 2026 18:40:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788288013;
-	bh=aZNzsY1hykZH/A0D+/Rw52l/dN/g2TIOHG9zrVDB2k0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Xzmb+XYQ3/yrROjfKviqQR/ZVo+N/hIVx0emwupDV71SXq6E5VI8ph2eM/w1kS7gT
-	 W+9Qwk2On3ccFPXuHJlvPvL2sQV52zxGcJ7wdqBmogLYm2lGfjuXrn3vQUstS5HFGO
-	 4VEtquChobtvnrO7WIcEZeJaLwG5hRObHoJMLsO8UibVINlh34I4Ppaw8C7BIqW0Ip
-	 hf5K53Mro+9pFxhEfqgg3AJH5tMXGLwMrVNiBv1Q+yR0FEhOj1JgSwveVLesVN1+ct
-	 0e8jyNOJddCJNHepQVO6MWAxoJL1pbHpsr6c9OTFuxAXQ9LytRPieMiSBXbEbQotOJ
-	 XaZAf+DT8hy2Q==
-From: Thomas Gleixner <tglx@kernel.org>
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-Cc: Oleg Nesterov <oleg@redhat.com>, Frederic Weisbecker
- <frederic@kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
- brauner@kernel.org, peterz@infradead.org, anna-maria@linutronix.de,
- linux-kernel@vger.kernel.org
-Subject: [PATCH V2] signal: Prevent exec() race
-In-Reply-To: <87qzjcdh06.fsf@email.froward.int.ebiederm.org>
-References: <875x10hrkt.ffs@fw13> <aowkvvxg8cPP5V0X@redhat.com>
- <aoww8qi_ce_8ECA9@redhat.com> <aoxOVAd8ooqHFW12@localhost.localdomain>
- <87pkz6gms6.ffs@fw13> <ao3kt-eRxw4agOj7@redhat.com> <87fr02gegn.ffs@fw13>
- <ao6zmDB9EjsqPIVN@redhat.com> <87zey8g05g.ffs@fw13>
- <ao8_NUo0ACPAA4QB@redhat.com>
- <87ecfki6l5.fsf@email.froward.int.ebiederm.org> <87se3zgb3m.ffs@fw13>
- <87mru7h09e.fsf@email.froward.int.ebiederm.org> <87tsofdvf2.ffs@fw13>
- <871pbfeaiv.ffs@fw13> <87zey3fep2.fsf@email.froward.int.ebiederm.org>
- <87pkyyd39l.ffs@fw13> <87h5kad0mx.ffs@fw13>
- <87bjaie2gc.fsf@email.froward.int.ebiederm.org> <87wlt5aybr.ffs@fw13>
- <87qzjcdh06.fsf@email.froward.int.ebiederm.org>
-Date: Tue, 01 Sep 2026 20:40:10 +0200
-Message-ID: <87ecfcbyt1.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tGfaEMjP"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84842381150so165164b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:41:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788288106; x=1788892906; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T0nDJQnfFlnDLvDCZVuLzJX537jxkgQCnIHPdf7AiK4=;
+        b=tGfaEMjPuDzdeYIuXqDVqbgEHDl/qAa6HamdMl6CjYdq0DFtFXA0q7E14PzIps2cqG
+         wn9kSsxKcAnLVP3msnNDulTXefo5PrzBEnUPQhIP9j0TbSFVYa0gt6fkUXZDSvF2iF8p
+         /58Tz2A45lnIdeJAhRo5H9Sk8J6Qq28CxzUkmth4Usr4U/MZQ2bmOvoS8Hlt/+lR99EY
+         arWGyKTNDimSB17bj3eCuXy5h6hU+ZxwaMs+bbMZgIURj8ue7Sx23m/+Jz/jdivNeJml
+         W3kPJ2UWu6frvWVaYy7CTzxyaPqXiF2rzSxWw4pd194YekDi5RGKogOAiN/G9u4Ueifj
+         c36w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788288106; x=1788892906;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T0nDJQnfFlnDLvDCZVuLzJX537jxkgQCnIHPdf7AiK4=;
+        b=rs6QVpbZoYpZAhw+is2OuXIzSCJp6+KD68TjXJ9VdZ+kt2RbdExtRFZcAai+KjrL0i
+         c5h05TRiLlfIGCfhyFTBEBiuuJXw1EE4jghUMjdH84uvMJfbFx563bEEc8DECYwEafG/
+         uC7EKnlkwD8VolTexmqWjnSKt8kJ8k9KOyFqyuHagEEpjxbg6wu1JRTiRO4gFnLHCyaM
+         +SdQnvwLer9AMYL8Zk19m4qSaYTb0yVywPwrLhQ6ApP4hNPr8tTUJJGfWeuHKnLBzaSY
+         GVI8zoIRbOQhUPvAg4SraGlp+A5N91HE1JTHkZ1kAUpnu3NFI5Euq5Ut2OK0sfx5pgmd
+         4eMA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp88vdyA+YQBPeHDl7yFc6yQ9z6AuraQyBeoh2XFg2LtCICVhQknO5DiFa4br+MCoI+rYgB9x8Ao8O1eZQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++njOcKBFpRXplDgxPVCbZzMwJcW7PFly9+hg0NGQ2AFjG7d3N5T
+	lSLyT4CFLWt8uUbML5MIWMFRof9u86WP0LSP67Z1jMrGnuCk77cROMwnO5wHAZp8GjIVZvBOAHa
+	j35mYtQ==
+X-Received: from pfcy6.prod.google.com ([2002:a05:6a00:93c6:b0:848:49f6:6f5c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:8016:b0:857:4dea:e20e
+ with SMTP id d2e1a72fcca58-85b5693e833mr15207248b3a.0.1788288105188; Tue, 01
+ Sep 2026 11:41:45 -0700 (PDT)
+Date: Tue, 1 Sep 2026 11:41:44 -0700
+In-Reply-To: <apca475JqemLUjlb@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
+ <20260830-gmem-inplace-conversion-v12-15-85e5fd25252a@google.com>
+ <CA+EHjTzJbC=ZvB3Mopw-TLf=13-iqxGw5RfTp6Gt5S1hi8WRRA@mail.gmail.com> <apca475JqemLUjlb@google.com>
+Message-ID: <apccaNCJ2lH5mbaY@google.com>
+Subject: Re: [PATCH v12 15/45] KVM: guest_memfd: Ensure pages are not in use
+ before conversion
+From: Sean Christopherson <seanjc@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: ackerleytng@google.com, aik@amd.com, andrew.jones@linux.dev, 
+	binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com, 
+	david@kernel.org, jmattson@google.com, jthoughton@google.com, 
+	michael.roth@amd.com, oupton@kernel.org, pankaj.gupta@amd.com, 
+	qperret@google.com, rick.p.edgecombe@intel.com, rientjes@google.com, 
+	shivankg@amd.com, steven.price@arm.com, willy@infradead.org, 
+	wyihan@google.com, yan.y.zhao@intel.com, forkloop@google.com, 
+	pratyush@kernel.org, suzuki.poulose@arm.com, aneesh.kumar@kernel.org, 
+	liam@infradead.org, Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="us-ascii"
 
-Hyunwoo debugged the following KASAN UAF splat:
+On Tue, Sep 01, 2026, Sean Christopherson wrote:
+> On Tue, Sep 01, 2026, Fuad Tabba wrote:
+> > > diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+> > > index 803c7cdbbe0f6..fe02c47c85fb5 100644
+> > > --- a/virt/kvm/guest_memfd.c
+> > > +++ b/virt/kvm/guest_memfd.c
+> > > @@ -538,8 +538,46 @@ static int kvm_gmem_mas_preallocate(struct ma_state *mas, u64 attributes,
+> > >         return mas_preallocate(mas, xa_mk_value(attributes), GFP_KERNEL);
+> > >  }
+> > >
+> > > +static bool kvm_gmem_has_outstanding_references(struct inode *inode,
+> > > +                                               pgoff_t start, size_t nr_pages,
+> > > +                                               pgoff_t *err_index)
+> > > +{
+> > > +       struct address_space *mapping = inode->i_mapping;
+> > > +       pgoff_t last = start + nr_pages - 1;
+> > > +       bool has_outstanding = false;
+> > > +       struct folio_batch fbatch;
+> > > +       pgoff_t next;
+> > > +       int i;
+> > > +
+> > > +       folio_batch_init(&fbatch);
+> > > +
+> > > +       next = start;
+> > > +       while (has_outstanding && filemap_get_folios(mapping, &next, last, &fbatch)) {
+> > 
+> > has_outstanding starts as false, so the loop never runs and the function
+> > always returns false. The outstanding-reference check is dead at this
+> > patch, so a to-private conversion would not be rejected even when a page
+> > still has an outstanding reference.
+> > 
+> > It's fixed later in "KVM: guest_memfd: Handle lru_add fbatch refcounts
+> > during conversion safety check", which changes the condition to
+> > !has_outstanding. I think that fix belongs in this patch, so the check
+> > works when it is introduced and the series bisects cleanly.
 
-  BUG: KASAN: slab-use-after-free in __send_signal_locked+0xb27/0xba0
-  Write of size 8 at addr ffff888007ed80c8 by task poc/79
-  ...
-  Call Trace:
-   __send_signal_locked+0xb27/0xba0
-   do_send_sig_info+0xa7/0x160
-   do_send_specific+0x76/0xa0
-   __x64_sys_tgkill+0x193/0x270
-  ...
-  Allocated by task 80:
-   do_timer_create+0x1a4/0x1030
-   __x64_sys_timer_create+0x145/0x190
-  ...
-  Freed by task 12:
-   kmem_cache_free_bulk+0x1f8/0x4a0
-   kvfree_rcu_bulk+0x14f/0x1c0
-   kfree_rcu_work+0x128/0x1a0
-  ...
-  Last potentially related work creation:
-   kvfree_call_rcu+0x39/0x390
-   __flush_itimer_signals+0x211/0x320
-   flush_itimer_signals+0x47/0x90
-   begin_new_exec+0xa6b/0x28c0
+Wait, why are there even separate patches for this?  For all intents and purposes,
+"Ensure pages are not in use before conversion" introduces a bug and then the bug
+is fixed by "Handle lru_add fbatch refcounts during conversion safety check".
+Just don't introduce the bug.
 
-It turned out that this happens with a non-leader exec() as Hyunwoo
-explained:
+I also recommend splitting the export of lru_cache_drain_for_folio() to its own
+patch so that it can be more easily Acked by mm/ folks.  If we want to squash it
+with the KVM change, then that's trivial to do when applying.
 
-de_thread() calls exchange_tids() before release_task(leader), so the
-struct pid held by a SIGEV_THREAD_ID timer created against the leader's tid
-now points to the thread which called execve(). pid_task() returns that
-thread and lock_task_sighand() on it succeeds.
-
-If the timer signal is blocked, its sigqueue stays queued on the leader's
-task::pending. The next expiry of that timer can then run while
-release_task() flushes the queue.
-
-posixtimer_send_sigqueue() checks whether the sigqueue is already queued
-with a plain list_empty(), which only reads list_head::next.
-list_del_init() is not atomic and INIT_LIST_HEAD() stores list_head::next
-before list_head::prev, so the check can pass in between. list_add_tail()
-queues the entry on the task::pending of the live thread, and the
-list_head::prev store from the flush then overwrites the list_head::prev
-link that list_add_tail() has just set.
-
-__flush_itimer_signals() does not undo that either. With list_head::prev
-pointing at the entry itself, its list_del_init() only stores the same
-values again, so the entry is not removed from the list. It is still there
-after the last reference is dropped and the timer is freed by RCU, and the
-list_add_tail() of a later tgkill() follows that list_head::prev into the
-freed timer.
-
-This problem surfaced with the recent commit which moved the sigqueue flush
-out of the sighand lock held region.
-
-Hyonwoo proposed to fix this by using list_del_init_careful(), but that
-just papers over the problem. After some disucssions and various attempts
-to solve it, Eric pointed out that there is no reason to flush
-task::pending late in release_task() and it should be done in
-exit_signals() already.
-
-As nothing can collect and deliver signals which are queued in a dying
-task's pending queue, there is no reason to delay it further.
-
-But it has to be ensured that no signals can be queued into it after that
-point. exit_signals() sets PF_EXITING in task::flags, which can be used as
-an indicator for this.
-
-Cure it by:
-
-  - Preventing signal queueing for task private signals (PIDTYPE_PID) when
-    the task has PF_EXITING set in __send_signal_locked() and in
-    posixtimer_send_sigqueue().
-
-  - Protecting the unlocked setting of PF_EXITING in exit_signals() for the
-    task group empty and the group exit case with sighand lock
-
-  - Flushing task::pending signals right there.
-
-    Optimize that by moving the whole pending list to an on-stack list head
-    under sighand lock and free the signals without the lock held.
-
-Fixes: fb3bbcfe344e ("exit: change the release_task() paths to call flush_sigqueue() lockless")
-Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-Debugged-by: Hyunwoo Kim <imv4bel@gmail.com>
-Suggested-by: "Eric W. Biederman" <ebiederm@xmission.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
-Cc: stable@vger.kernel.org
-Closes: https://patch.msgid.link/aok1rdkBgZsynHZB@v4bel
----
-V2: Don't flush w/o sighand lock held - Oleg
-    Move the while pending list under the lock and free it lockless
----
- kernel/exit.c   |   11 ++++++-----
- kernel/signal.c |   37 +++++++++++++++++++++++++++++++------
- 2 files changed, 37 insertions(+), 11 deletions(-)
-
---- a/kernel/exit.c
-+++ b/kernel/exit.c
-@@ -299,12 +299,13 @@ void release_task(struct task_struct *p)
- 	free_pids(post.pids);
- 	release_thread(p);
- 	/*
--	 * This task was already removed from the process/thread/pid lists
--	 * and lock_task_sighand(p) can't succeed. Nobody else can touch
--	 * ->pending or, if group dead, signal->shared_pending. We can call
--	 * flush_sigqueue() lockless.
-+	 * This task was already removed from the process/thread/pid lists and
-+	 * lock_task_sighand(p) can't succeed. If it's the group leader then
-+	 * flush tsk->signal->shared_pending. tsk->pending has been flushed
-+	 * already in exit_signals(). Nothing else can touch
-+	 * signal->shared_pending anymore, so flush_sigqueue() can be invoked
-+	 * lockless.
- 	 */
--	flush_sigqueue(&p->pending);
- 	if (thread_group_leader(p))
- 		flush_sigqueue(&p->signal->shared_pending);
- 
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -457,18 +457,28 @@ static void __sigqueue_free(struct sigqu
- 	kmem_cache_free(sigqueue_cachep, q);
- }
- 
--void flush_sigqueue(struct sigpending *queue)
-+static void flush_sigqueue_list(struct list_head *head)
- {
--	struct sigqueue *q;
-+	struct sigqueue *q, *tmp;
- 
--	sigemptyset(&queue->signal);
--	while (!list_empty(&queue->list)) {
--		q = list_entry(queue->list.next, struct sigqueue , list);
-+	list_for_each_entry_safe(q, tmp, head, list) {
- 		list_del_init(&q->list);
- 		__sigqueue_free(q);
- 	}
- }
- 
-+void flush_sigqueue(struct sigpending *queue)
-+{
-+	sigemptyset(&queue->signal);
-+	flush_sigqueue_list(&queue->list);
-+}
-+
-+static void sigqueue_dequeue_pending(struct sigpending *queue, struct list_head *head)
-+{
-+	sigemptyset(&queue->signal);
-+	list_splice_init(&queue->list, head);
-+}
-+
- /*
-  * Flush all pending signals for this kthread.
-  */
-@@ -1030,6 +1040,10 @@ static int __send_signal_locked(int sig,
- 	lockdep_assert_held(&t->sighand->siglock);
- 
- 	result = TRACE_SIGNAL_IGNORED;
-+
-+	if (unlikely(type == PIDTYPE_PID && (t->flags & PF_EXITING)))
-+		goto ret;
-+
- 	if (!prepare_signal(sig, t, force))
- 		goto ret;
- 
-@@ -1990,6 +2004,9 @@ void posixtimer_send_sigqueue(struct k_i
- 	if (!likely(lock_task_sighand(t, &flags)))
- 		return;
- 
-+	if (unlikely(tmr->it_pid_type == PIDTYPE_PID && (t->flags & PF_EXITING)))
-+		return;
-+
- 	/*
- 	 * Update @tmr::sigqueue_seq for posix timer signals with sighand
- 	 * locked to prevent a race against dequeue_signal().
-@@ -3120,6 +3137,7 @@ static void retarget_shared_pending(stru
- 
- void exit_signals(struct task_struct *tsk)
- {
-+	LIST_HEAD(sigq_list);
- 	int group_stop = 0;
- 	sigset_t unblocked;
- 
-@@ -3130,8 +3148,12 @@ void exit_signals(struct task_struct *ts
- 	cgroup_threadgroup_change_begin(tsk);
- 
- 	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
--		tsk->flags |= PF_EXITING;
-+		scoped_guard(spinlock_irq, &tsk->sighand->siglock) {
-+			tsk->flags |= PF_EXITING;
-+			sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
-+		}
- 		cgroup_threadgroup_change_end(tsk);
-+		flush_sigqueue_list(&sigq_list);
- 		return;
- 	}
- 
-@@ -3141,6 +3163,7 @@ void exit_signals(struct task_struct *ts
- 	 * see wants_signal(), do_signal_stop().
- 	 */
- 	tsk->flags |= PF_EXITING;
-+	sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
- 
- 	cgroup_threadgroup_change_end(tsk);
- 
-@@ -3157,6 +3180,8 @@ void exit_signals(struct task_struct *ts
- out:
- 	spin_unlock_irq(&tsk->sighand->siglock);
- 
-+	flush_sigqueue_list(&sigq_list);
-+
- 	/*
- 	 * If group stop has completed, deliver the notification.  This
- 	 * should always go to the real parent of the group leader.
+> Why even bother with has_outstanding?  Avoiding it requires copy+pasting
+> folio_batch_release(), but it's less code and IMO the end result is a lot easier
+> to follow:
+> 
+> 	struct address_space *mapping = inode->i_mapping;
+> 	pgoff_t last = start + nr_pages - 1;
+> 	struct folio_batch fbatch;
+> 	pgoff_t next;
+> 	int i;
+> 
+> 	folio_batch_init(&fbatch);
+> 
+> 	next = start;
+> 	while (filemap_get_folios(mapping, &next, last, &fbatch)) {
+> 		for (i = 0; i < folio_batch_count(&fbatch); ++i) {
+> 			struct folio *folio = fbatch.folios[i];
+> 
+> 			/*
+> 			 * Outstanding references are anything other than those
+> 			 * from the page cache, plus 1 temporary reference held
+> 			 * by filemap_get_folios() in the folio batch.
+> 			 */
+> 			if (folio_ref_count(folio) != folio_nr_pages(folio) + 1) {
+> 				*err_index = max(start, folio->index);
+> 				folio_batch_release(&fbatch);
+> 				return true;
+> 			}
+> 		}
+> 
+> 		folio_batch_release(&fbatch);
+> 		cond_resched();
+> 	}
+> 
+> 	return false;
+> 
+> and then we end up with:
+> 
+> 	enum lru_cache_drained drained = LRU_CACHE_NOT_DRAINED;
+> 	struct address_space *mapping = inode->i_mapping;
+> 	pgoff_t last = start + nr_pages - 1;
+> 	struct folio_batch fbatch;
+> 	pgoff_t next;
+> 	int i;
+> 
+> 	folio_batch_init(&fbatch);
+> 
+> 	next = start;
+> 	while (filemap_get_folios(mapping, &next, last, &fbatch)) {
+> 		for (i = 0; i < folio_batch_count(&fbatch); ++i) {
+> 			struct folio *folio = fbatch.folios[i];
+> 
+> 			if (__folio_has_outstanding_references(folio, &drained)) {
+> 				*err_index = max(start, folio->index);
+> 				folio_batch_release(&fbatch);
+> 				return true;
+> 			}
+> 		}
+> 
+> 		folio_batch_release(&fbatch);
+> 		cond_resched();
+> 	}
+> 
+> 	return false;
