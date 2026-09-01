@@ -1,194 +1,278 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D531239022A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8684A4CCDE5
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788262456; cv=none; b=h0VcjeqzAQMW0Or85g1q+vF5G3TD0DavGZU2tdRGRVeVHvgVplPDk0eDoNnWc8LgRy3D4V/9iGMbBMmpRa52HabFHZeoJsNzvijkahHs9G68AYfEJt1LBHq2s+QAxyGpZ1LIDavlYYkSL7BILBMu6athx5EyHpF5kxCOYHkePT4=
+	t=1788262498; cv=none; b=mxTQYFy8OCqvrqooK+RWvGJ9sEKfxPocZmjlMr1qh33xjVBCCPvbPOJlPkEPFOw0P9OLzwkuyBeoO9hmhIrm6xkl9kgUW2MgcXjW069pyqfvj0r31LBCaNO0yibqZAsvu0rTc5fb0A8gFh5L/zEDPRr1aZKfBl0rjfOzdIwYv4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788262456; c=relaxed/simple;
-	bh=fhx1FsZvbL+7Z6ubNkIzzDm1cdSx/W9etVKPIrEFWWQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sLk27ngrWQFFuYr3l6EOLDNMLyZStQcwp02BFfbxif5AJFfG7uXOBUP3tx7eXksMd/jMMM+uLCCtZO3YLz+vJsbjJykrMpfWXqGDwueHCGAcqWgj62F9XMSsb2iK4+0K/hdv7gI7ON9ZzSMOJNnfcleTJu2R4hYq9L2XGdMbDvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZDXs6rlR; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788262498; c=relaxed/simple;
+	bh=XRnkLAdc3LOfBzJQRzkfU597AI1qIyzTo14yOvFi5aE=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=j4Qoq0n1Cu4MhXnuILZghXrpH+Ld8Oqn1bUPH32FYeygglTclpC5APqiNW+9+rlzwI3DrUiNUD7JUpYbV+cxhOGXQ9vo5mpDBXksrYI9N2pl4FTwgHXesduWG4sKmBc3bcIs0FjGQD+3zIMufnjlfArZU07C7EmGaxoZnlTH0co=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AAtYmkiE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZDXs6rlR"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3964e480f76so830249a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:34:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788262454; x=1788867254; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zSTftTM7ayeET7JuSORVBV3fyBOCZeg8g4qShMXHwdI=;
-        b=ZDXs6rlRWdJ+X50i+AUCwVmzre12nqiOv66epithl0tCHf5Hipwo4/kAaZUJ0fx1oG
-         Y+GOugguLqQr+kiVJByBtHCsFEgygg6KtiNEL/URa6Fdbwe2HJ5bh5j8+8hxIzG3vYXB
-         +BkmLXXfuqnNZ3rBs3vyMDLKRM1PWy3ZbdxsL5YBocMkL361HBvWJVvwG7M0Bcd9MbgL
-         JQYDue1y9JFrOWwe5heAett2YYY+tWrasnFl/kr50a7vA61v75tSzUmjtCm6LafRzcaf
-         AV/0rETb6Dp8/hMyEyv+gNLUJF2DzpwTr++T/eTEEbu2Am8aiWvYyHdCQlJ57CvKeqYT
-         Bc2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788262454; x=1788867254;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zSTftTM7ayeET7JuSORVBV3fyBOCZeg8g4qShMXHwdI=;
-        b=XCD0Vj6iw9UoidkPM6Aki4knYS/XQBS5EbnRfO36R5uY8VS28OU+kaEqquXXbCnpno
-         oepGond4LhOZT7hgX5Nnaic+WdQIP7Z9x1u8pc0YuAwrshrnUhmvCs4aNIkESXxSyx4f
-         OW9mws/EZ8t0qaNVnr3BnhbGx6IiEKhmkD1u2pZ/6nIhvTtRPkoPpUuf3qnrIG9CvdKR
-         A7O6t5J429Ggrx9OF6ymF5ArKYAu3m55hUE4JmxGyCvHP4sT3Kxt3bHryIhMLiBytvYe
-         XGBk3gZQpBt3v5nFNK5dx4TOaZoeXtVDL04bxxcUGIs6CsH5nP72Ery/HqMyPVo7Ntdp
-         8TBg==
-X-Forwarded-Encrypted: i=1; AKwUvByShRqbMrRDhk/6aOHhyLkuNs0YSuP/SIJhUEjms3Kg+Dgzq4qPyNNRfqj6QVirvxQiu62LxTLtw5gj0/Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUTZVcZGRwIXSIt40UAgxZnsaEeafKOJKCygUX29Tpht+lP3/0
-	vJvYGuoxC4NXBNPJI3+HhhSauM8Z1Tkk9a2NzuPmqVWrXc2d14SkyE16
-X-Gm-Gg: AYBFou19WYShdzXERqKvd3slMmHS4FiVupbycPzHIlabmtxvPCbJ7cnwuC7FQvHMilx
-	zPug8kTrPVXuva6ovz8DZF3ITK1GADse4WbFaelKNqF3mzNLu3b/iPNaXHQn/HaezTPtG2cXy+w
-	2M/ux69MghIz95i7/h7RGKPI2K8ZAJWQKvWGPbMTw3RWNAhqp91gJo3UHw/AVFDsego44Ihq+f+
-	eXr4piWFBWTky20nSDSNwHj3RFhUn1XQpR9YdoshrNBLIXTs9eXnAgpzt86uwDjt+kxvkKELCEY
-	J1ZROgIRieiXmiguRI05tiyNBgfTEmHXdroCgSsFNJIafAJFEv6Mlm1Jqd9acHpNxTjq54uskMy
-	iVySBqAAnUIW6rBZeiWWNW2/ID7+RcHO8w2FMLxq+tJC8VZrvDhzAnrNGtoCHeE/nelOcFtLEQt
-	gvmXMWqAaGetAOJwF0fMOIvQPccQuVr4UGvFdw1qCXlNmim+gYYkbzLaW61kPK48T71BJD6CHM+
-	MhGjG9Kr2Ofd4c+RVhkTfRaGMEKDQZ6dXYokI5UjOoNUw==
-X-Received: by 2002:a17:90a:1c97:b0:398:b1eb:136c with SMTP id 98e67ed59e1d1-398b1eb1c02mr20501909a91.9.1788262454195;
-        Tue, 01 Sep 2026 04:34:14 -0700 (PDT)
-Received: from overlord.home.arpa (ip68-107-67-45.sd.sd.cox.net. [68.107.67.45])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7bf283sm41447470eec.8.2026.09.01.04.34.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 04:34:13 -0700 (PDT)
-From: "Jasmeet (Jazz) Bhatia" <jasmeet.bhatia.us@gmail.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	rafael@kernel.org,
-	Pavel Machek <pavel@ucw.cz>,
-	linux-efi@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Jasmeet (Jazz) Bhatia" <jasmeet.bhatia.us@gmail.com>
-Subject: [PATCH v1 2/2] efi/tpm: Persistently reserve the TPM event log
-Date: Tue,  1 Sep 2026 04:34:08 -0700
-Message-ID: <f6a746a26d2d02ce9de279db9d5928da72eba610.1788259938.git.jasmeet.bhatia.us@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1788259938.git.jasmeet.bhatia.us@gmail.com>
-References: <cover.1788259938.git.jasmeet.bhatia.us@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AAtYmkiE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53891F000E9;
+	Tue,  1 Sep 2026 11:34:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788262497;
+	bh=XSzlaEbCf5TZb583dCKIeDAaq0/Cs9e2FUUlpk0ufU0=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=AAtYmkiEtFoPcBJIr6Fs4drQrAN7sp3Z/KzEG0n6IAYV3vRXghuXmCrAloE9YJFvi
+	 7cHwHUUpaL+dnmYtJg1kPKbljrOP3OnvY2kg4w+N7ZxxdARjo+Ub0JvbhfAQ0QF5rZ
+	 +o5UzCnEF7gge8s9XiyXlD6oe43ggzMyn7eHek+qMJxSibofpaHl2HW7RwW7rz28kU
+	 nU48FsWt36Q+5d5tnzZGROa2qPApHBoTMRCT+jcoudGimyRAAStMuseVCiznN6Wg1v
+	 Pe3+lyQ1HsxaePyxnkFMpFK9W0c2YYD5lc4+dq8MIe/aOCIKC8OwjVyVmZ4sw/t6vF
+	 TzbS0ajPPvjwQ==
+Message-ID: <47f696a1-1efc-4e8e-90fe-22e1ea2feaea@kernel.org>
+Date: Tue, 1 Sep 2026 19:34:55 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, jaegeuk@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 04/11] f2fs: describe orphan block layout dynamically
+To: Kelvin Zhang <zhangxp1998@gmail.com>,
+ linux-f2fs-devel@lists.sourceforge.net
+References: <cover.1788213716.git.zhangxp1998@gmail.com>
+ <f05b57691fdc4c186b08010314f8085aeb868e04.1788213716.git.zhangxp1998@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <f05b57691fdc4c186b08010314f8085aeb868e04.1788213716.git.zhangxp1998@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Commit 77d48d39e991 ("efistub/tpm: Use ACPI reclaim memory for event
-log to avoid corruption") changed the TPM event log allocation from
-EFI_LOADER_DATA to EFI_ACPI_RECLAIM_MEMORY so that the memory would
-remain reserved across kexec.
+On 9/1/26 06:08, Kelvin Zhang wrote:
+> An on-disk orphan block contains a variable-length array of 32-bit
+> inode numbers followed by a fixed footer at the end of the block. A
+> compile-time whole-block structure cannot represent the footer position
+> when the block size varies at runtime.
+> 
+> Remove struct f2fs_orphan_block, introduce
+> struct f2fs_orphan_block_footer, and compute sbi->orphans_per_block
+> dynamically in init_sb_info(). Add helpers to access the inode entry array
+> and footer from a block buffer.
+> 
+> Update orphan inode recovery, checkpointing, and mount paths to use the
+> parameterized helpers. This preserves the on-disk format while decoupling
+> orphan handling from compile-time constants.
+> 
+> Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
+> ---
+>  fs/f2fs/checkpoint.c    | 44 ++++++++++++++++++++++-------------------
+>  fs/f2fs/f2fs.h          | 12 +++++++++++
+>  fs/f2fs/super.c         |  2 ++
+>  include/linux/f2fs_fs.h | 18 ++++++++++-------
+>  4 files changed, 49 insertions(+), 27 deletions(-)
+> 
+> diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+> index 3ecced9b4d57..37a72b693545 100644
+> --- a/fs/f2fs/checkpoint.c
+> +++ b/fs/f2fs/checkpoint.c
+> @@ -1041,7 +1041,8 @@ int f2fs_recover_orphan_inodes(struct f2fs_sb_info *sbi)
+>  
+>  	for (i = 0; i < orphan_blocks; i++) {
+>  		struct folio *folio;
+> -		struct f2fs_orphan_block *orphan_blk;
+> +		__le32 *orphan_inos;
+> +		struct f2fs_orphan_footer *footer;
+>  		unsigned int entry_count;
+>  
+>  		folio = f2fs_get_meta_folio(sbi, start_blk + i);
+> @@ -1050,9 +1051,10 @@ int f2fs_recover_orphan_inodes(struct f2fs_sb_info *sbi)
+>  			goto out;
+>  		}
+>  
+> -		orphan_blk = folio_address(folio);
+> -		entry_count = le32_to_cpu(orphan_blk->entry_count);
+> -		if (entry_count > F2FS_ORPHANS_PER_BLOCK) {
+> +		orphan_inos = folio_address(folio);
+> +		footer = f2fs_orphan_footer(orphan_inos, sbi);
+> +		entry_count = le32_to_cpu(footer->entry_count);
+> +		if (entry_count > F2FS_ORPHANS_PER_BLOCK(sbi)) {
+>  			f2fs_err(sbi, "invalid orphan inode entry count %u",
+>  				 entry_count);
+>  			set_sbi_flag(sbi, SBI_NEED_FSCK);
+> @@ -1063,7 +1065,7 @@ int f2fs_recover_orphan_inodes(struct f2fs_sb_info *sbi)
+>  		}
+>  
+>  		for (j = 0; j < entry_count; j++) {
+> -			nid_t ino = le32_to_cpu(orphan_blk->ino[j]);
+> +			nid_t ino = le32_to_cpu(orphan_inos[j]);
+>  
+>  			err = recover_orphan_inode(sbi, ino);
+>  			if (err) {
+> @@ -1084,7 +1086,8 @@ int f2fs_recover_orphan_inodes(struct f2fs_sb_info *sbi)
+>  static void write_orphan_inodes(struct f2fs_sb_info *sbi, block_t start_blk)
+>  {
+>  	struct list_head *head;
+> -	struct f2fs_orphan_block *orphan_blk = NULL;
+> +	__le32 *orphan_inos = NULL;
+> +	struct f2fs_orphan_footer *footer = NULL;
+>  	unsigned int nentries = 0;
+>  	unsigned short index = 1;
+>  	unsigned short orphan_blocks;
+> @@ -1092,7 +1095,7 @@ static void write_orphan_inodes(struct f2fs_sb_info *sbi, block_t start_blk)
+>  	struct ino_entry *orphan = NULL;
+>  	struct inode_management *im = &sbi->im[ORPHAN_INO];
+>  
+> -	orphan_blocks = GET_ORPHAN_BLOCKS(im->ino_num);
+> +	orphan_blocks = GET_ORPHAN_BLOCKS(sbi, im->ino_num);
+>  
+>  	/*
+>  	 * we don't need to do spin_lock(&im->ino_lock) here, since all the
+> @@ -1105,21 +1108,22 @@ static void write_orphan_inodes(struct f2fs_sb_info *sbi, block_t start_blk)
+>  	list_for_each_entry(orphan, head, list) {
+>  		if (!folio) {
+>  			folio = f2fs_grab_meta_folio(sbi, start_blk++);
+> -			orphan_blk = folio_address(folio);
+> -			memset(orphan_blk, 0, sizeof(*orphan_blk));
+> +			orphan_inos = folio_address(folio);
+> +			footer = f2fs_orphan_footer(orphan_inos, sbi);
+> +			memset(orphan_inos, 0, sbi->blocksize);
+>  		}
+>  
+> -		orphan_blk->ino[nentries++] = cpu_to_le32(orphan->ino);
+> +		orphan_inos[nentries++] = cpu_to_le32(orphan->ino);
+>  
+> -		if (nentries == F2FS_ORPHANS_PER_BLOCK) {
+> +		if (nentries == F2FS_ORPHANS_PER_BLOCK(sbi)) {
+>  			/*
+> -			 * an orphan block is full of 1020 entries,
+> +			 * an orphan block is full,
+>  			 * then we need to flush current orphan blocks
+>  			 * and bring another one in memory
+>  			 */
+> -			orphan_blk->blk_addr = cpu_to_le16(index);
+> -			orphan_blk->blk_count = cpu_to_le16(orphan_blocks);
+> -			orphan_blk->entry_count = cpu_to_le32(nentries);
+> +			footer->blk_addr = cpu_to_le16(index);
+> +			footer->blk_count = cpu_to_le16(orphan_blocks);
+> +			footer->entry_count = cpu_to_le32(nentries);
+>  			folio_mark_dirty(folio);
+>  			f2fs_folio_put(folio, true);
+>  			index++;
+> @@ -1129,9 +1133,9 @@ static void write_orphan_inodes(struct f2fs_sb_info *sbi, block_t start_blk)
+>  	}
+>  
+>  	if (folio) {
+> -		orphan_blk->blk_addr = cpu_to_le16(index);
+> -		orphan_blk->blk_count = cpu_to_le16(orphan_blocks);
+> -		orphan_blk->entry_count = cpu_to_le32(nentries);
+> +		footer->blk_addr = cpu_to_le16(index);
+> +		footer->blk_count = cpu_to_le16(orphan_blocks);
+> +		footer->entry_count = cpu_to_le32(nentries);
+>  		folio_mark_dirty(folio);
+>  		f2fs_folio_put(folio, true);
+>  	}
+> @@ -1824,7 +1828,7 @@ static int do_checkpoint(struct f2fs_sb_info *sbi, struct cp_control *cpc)
+>  		__clear_ckpt_flags(ckpt, CP_COMPACT_SUM_FLAG);
+>  	spin_unlock_irqrestore(&sbi->cp_lock, flags);
+>  
+> -	orphan_blocks = GET_ORPHAN_BLOCKS(orphan_num);
+> +	orphan_blocks = GET_ORPHAN_BLOCKS(sbi, orphan_num);
+>  	ckpt->cp_pack_start_sum = cpu_to_le32(1 + cp_payload_blks +
+>  			orphan_blocks);
+>  
+> @@ -2080,7 +2084,7 @@ void f2fs_init_ino_entry_info(struct f2fs_sb_info *sbi)
+>  
+>  	sbi->max_orphans = (BLKS_PER_SEG(sbi) - F2FS_CP_PACKS -
+>  			NR_CURSEG_PERSIST_TYPE - __cp_payload(sbi)) *
+> -			F2FS_ORPHANS_PER_BLOCK;
+> +			F2FS_ORPHANS_PER_BLOCK(sbi);
+>  }
+>  
+>  int __init f2fs_create_checkpoint_caches(void)
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index 8e6000e7d766..2a4ba7d4ec0e 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -1865,6 +1865,7 @@ struct f2fs_sb_info {
+>  	unsigned int blocksize;			/* block size */
+>  	unsigned int nat_entries_per_block;	/* NAT entries in a block */
+>  	unsigned int sit_entries_per_block;	/* SIT entries in a block */
+> +	unsigned int orphans_per_block;	/* orphan inodes in a block */
+>  	unsigned int root_ino_num;		/* root inode number*/
+>  	unsigned int node_ino_num;		/* node inode number*/
+>  	unsigned int meta_ino_num;		/* meta inode number*/
+> @@ -2255,6 +2256,17 @@ static inline struct f2fs_sb_info *F2FS_F_SB(const struct folio *folio)
+>  
+>  #define SIT_ENTRY_PER_BLOCK(sbi)	((sbi)->sit_entries_per_block)
+>  #define NAT_ENTRY_PER_BLOCK(sbi)	((sbi)->nat_entries_per_block)
+> +#define F2FS_ORPHANS_PER_BLOCK(sbi)	((sbi)->orphans_per_block)
+> +#define GET_ORPHAN_BLOCKS(sbi, n)	DIV_ROUND_UP((n), \
+> +					F2FS_ORPHANS_PER_BLOCK(sbi))
+> +
+> +static inline struct f2fs_orphan_footer *
+> +f2fs_orphan_footer(void *orphan_block, struct f2fs_sb_info *sbi)
+> +{
+> +	return (struct f2fs_orphan_footer *)
+> +		((char *)orphan_block + sbi->blocksize -
+> +		 sizeof(struct f2fs_orphan_footer));
+> +}
+>  
+>  static inline struct f2fs_super_block *F2FS_RAW_SUPER(struct f2fs_sb_info *sbi)
+>  {
+> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+> index fdc2b0c51c06..f9811d571ae5 100644
+> --- a/fs/f2fs/super.c
+> +++ b/fs/f2fs/super.c
+> @@ -4386,6 +4386,8 @@ static void init_sb_info(struct f2fs_sb_info *sbi)
+>  		sizeof(struct f2fs_nat_entry);
+>  	sbi->sit_entries_per_block = sbi->blocksize /
+>  		sizeof(struct f2fs_sit_entry);
+> +	sbi->orphans_per_block = (sbi->blocksize -
+> +		sizeof(struct f2fs_orphan_footer)) / sizeof(__le32);
+>  	sbi->log_blocks_per_seg = le32_to_cpu(raw_super->log_blocks_per_seg);
+>  	sbi->blocks_per_seg = BIT(sbi->log_blocks_per_seg);
+>  	sbi->segs_per_sec = le32_to_cpu(raw_super->segs_per_sec);
+> diff --git a/include/linux/f2fs_fs.h b/include/linux/f2fs_fs.h
+> index 061f906a7b94..7d2cbceb42d5 100644
+> --- a/include/linux/f2fs_fs.h
+> +++ b/include/linux/f2fs_fs.h
+> @@ -220,14 +220,18 @@ struct f2fs_checkpoint {
+>  
+>  /*
+>   * For orphan inode management
+> + *
+> + * An orphan block has no fixed-size C structure because the number of inode
+> + * entries depends on the filesystem block size.  Its exact on-disk layout is:
+> + *
+> + * 0                           blocksize - 16             blocksize
+> + * +--------------------------+--------------------------+
+> + * | ino[0] ... ino[n - 1]    | struct f2fs_orphan_footer |
+> + * +--------------------------+--------------------------+
+> + *
+> + * n = (blocksize - sizeof(struct f2fs_orphan_footer)) / sizeof(__le32)
+>   */
+> -#define F2FS_ORPHANS_PER_BLOCK	((F2FS_BLKSIZE - 4 * sizeof(__le32)) / sizeof(__le32))
+> -
+> -#define GET_ORPHAN_BLOCKS(n)	(((n) + F2FS_ORPHANS_PER_BLOCK - 1) / \
+> -					F2FS_ORPHANS_PER_BLOCK)
+> -
+> -struct f2fs_orphan_block {
+> -	__le32 ino[F2FS_ORPHANS_PER_BLOCK];	/* inode numbers */
 
-On x86, EFI_ACPI_RECLAIM_MEMORY is represented as ACPI data in the
-E820 map. If the EFI allocator places the event log at a different
-physical address on a subsequent boot, this changes the firmware E820
-map.
+Oh, maybe we can leave this structure like we did for f2fs_{nat,sit}_block ?
 
-x86 hibernation records architecture-specific information derived
-from that map and rejects the image when it differs on resume:
+ struct f2fs_sit_block {
+-	struct f2fs_sit_entry entries[SIT_ENTRY_PER_BLOCK];
++	DECLARE_FLEX_ARRAY(struct f2fs_sit_entry, entries);
+ } __packed;
 
-  Hibernate inconsistent memory map detected!
-  PM: hibernation: Image mismatch: architecture specific data
+Something like this:
 
-This occurs on a Framework Laptop 16 (AMD Ryzen AI 300 Series), where
-the EFI allocation backing the TPM event log was observed at different
-addresses across otherwise ordinary boots.
+struct f2fs_orphan_block {
+	DECLARE_FLEX_ARRAY(__le32, ino);
+} __packed;
 
-Allocate the event log from EFI_LOADER_DATA again so that the
-Linux-created allocation does not appear as an E820 ACPI region.
-Preserve the kexec protection provided by commit 77d48d39e991
-("efistub/tpm: Use ACPI reclaim memory for event log to avoid corruption")
-by adding the event log range to the Linux EFI persistent memreserve
-table.
-
-On Linux 7.2, the stock kernel failed hibernation resume because of the
-E820 mismatch, while both an EFI_LOADER_DATA-only diagnostic build and
-this series resumed successfully.
-
-With this series, the TPM event log range remained reserved across
-both kexec_file_load() and kexec_load(). The contents exported through
-binary_bios_measurements were byte-for-byte identical before and after
-both kexec tests.
-
-Fixes: 77d48d39e991 ("efistub/tpm: Use ACPI reclaim memory for event log to avoid corruption")
-Link: https://lore.kernel.org/all/DL3MNWW4VEBR.K3K6A92WMHUY@gmail.com/
-Signed-off-by: Jasmeet (Jazz) Bhatia <jasmeet.bhatia.us@gmail.com>
----
- drivers/firmware/efi/libstub/tpm.c |  2 +-
- drivers/firmware/efi/tpm.c         | 27 +++++++++++++++++++++++++++
- 2 files changed, 28 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/firmware/efi/libstub/tpm.c b/drivers/firmware/efi/libstub/tpm.c
-index a5c6c4f163fc..8e04aaf428d0 100644
---- a/drivers/firmware/efi/libstub/tpm.c
-+++ b/drivers/firmware/efi/libstub/tpm.c
-@@ -96,7 +96,7 @@ static void efi_retrieve_tcg2_eventlog(int version, efi_physical_addr_t log_loca
- 	}
- 
- 	/* Allocate space for the logs and copy them. */
--	status = efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
-+	status = efi_bs_call(allocate_pool, EFI_LOADER_DATA,
- 			     sizeof(*log_tbl) + log_size, (void **)&log_tbl);
- 
- 	if (status != EFI_SUCCESS) {
-diff --git a/drivers/firmware/efi/tpm.c b/drivers/firmware/efi/tpm.c
-index cdd431027065..9771cc91d71e 100644
---- a/drivers/firmware/efi/tpm.c
-+++ b/drivers/firmware/efi/tpm.c
-@@ -15,6 +15,9 @@
- 
- int efi_tpm_final_log_size;
- EXPORT_SYMBOL(efi_tpm_final_log_size);
-+#ifdef CONFIG_KEXEC_CORE
-+static unsigned int efi_tpm_eventlog_size __initdata;
-+#endif
- 
- static int __init tpm2_calc_event_log_size(void *data, int count, void *size_info)
- {
-@@ -68,6 +71,10 @@ int __init efi_tpm_eventlog_init(void)
- 		goto out;
- 	}
- 
-+#ifdef CONFIG_KEXEC_CORE
-+	efi_tpm_eventlog_size = tbl_size;
-+#endif
-+
- 	if (efi.tpm_final_log == EFI_INVALID_TABLE_ADDR) {
- 		pr_info("TPM Final Events table not present\n");
- 		goto out;
-@@ -114,3 +121,23 @@ int __init efi_tpm_eventlog_init(void)
- 	return ret;
- }
- 
-+#ifdef CONFIG_KEXEC_CORE
-+static int __init efi_tpm_eventlog_reserve_persistent(void)
-+{
-+	int ret;
-+
-+	if (efi.tpm_log == EFI_INVALID_TABLE_ADDR ||
-+	    !efi_tpm_eventlog_size)
-+		return 0;
-+
-+	ret = efi_mem_reserve_persistent(efi.tpm_log,
-+					 efi_tpm_eventlog_size);
-+	if (ret)
-+		pr_warn("Failed to persistently reserve TPM Event Log: %d\n",
-+			ret);
-+
-+	return 0;
-+}
-+late_initcall(efi_tpm_eventlog_reserve_persistent);
-+#endif
-+
--- 
-2.55.0
+> +struct f2fs_orphan_footer {
+>  	__le32 reserved;	/* reserved */
+>  	__le16 blk_addr;	/* block index in current CP */
+>  	__le16 blk_count;	/* Number of orphan inode blocks in CP */
 
