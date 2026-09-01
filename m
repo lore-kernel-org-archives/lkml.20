@@ -1,114 +1,87 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C3248EBF1;
-	Tue,  1 Sep 2026 17:49:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF5F73859D7;
+	Tue,  1 Sep 2026 17:49:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284942; cv=none; b=ILw9rWCIWMho+pqr5TaefrICg7kxPFN7a+lvw54n/0QEiQol7KKlEnuao44mq6TIb/ahdw7D6/1r2+EA2dYN2SLTcoWCMLoAh2yl5hPRSahmloiCFDngol1+2eOtp1jUEEQT5j9DKCCPZQhPShya5yLnhC3pnO4SIt2pSJviyn0=
+	t=1788284986; cv=none; b=cC7vwK7EWDJZFD5MMda4neNRHzXpg9THKmGDYd5AEgFuX5wp9gMzJw2BBnwjqYZ5vhOCi9QZVQfTdyJZHUqXtQfA30HUDx19MhDA9209Ca640k5rgYqpaxx4SSfJ1be9JkxoJFVPjrSucbUIZEMt1CYyQ4rRAq1dXHi8c15jeK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284942; c=relaxed/simple;
-	bh=PHoy9DBUjt+sql2oZyedXEDDK1/+8UUfq8ZZII/K0y8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QivCtOJqZMvyj+h2tJi5AYKO97tkW3eVpc6dzWHzPWarGz01BzFjpTOxu73olCbfpOQplbNk6j8qKJgw72ldgaso9jOQwNmYJIQee2tptNSbCR+NhiZPAO5Xz3lHtbb7GO1wSHQPHvEbl9dW8PdhFMjmd02T2UQea2ukRn/rL3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=g9DxJ5DN; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788284986; c=relaxed/simple;
+	bh=cnAoMGE9nklht8651wLeA0npk+YDqzAEltkj6uh38Lk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ldt88h21zxMYG7FesMAFJJzt8DmZ+6FDSLBdD9revXK50w8onkrMZR0BppCZGse7Y3WD87cyu8QrVtzQIW4iL2IoCW2ILlg14xN+PSgQI5Cqku6X+5psac+qp3QJ2XBpJtJS67lhNh7UAIhnrOUdLiNV/w5Hjof3rbonABn7acs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=1mgqFkkr; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="g9DxJ5DN"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2FE6E11D490;
-	Tue, 01 Sep 2026 19:48:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788284934; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ZnjhyMpDCLEt3ReNz5uWtZLidaGrMvkbYQHHrznNMNk=;
-	b=g9DxJ5DNBBFjoFOQufvzYaKweR+3aP3bzbrwDRJPARiQKAQOt9jPF2O4FYEnBJdiX8D4ha
-	yvQl6KdxLqcCxV1CbVJh0E4J1CorImL68v64XhNsws7Cb9O5qwR3QcN05POeLa5aCoaQ3g
-	JvzxPni1N1YLpbkD+yGM9HA6hXeY64Gr820Vt0KhRT3mYJcZARnGOx6n1fGZkANTDVHDFb
-	9vlXA+efDzquQlnBrKZEh/4cZqD7nHE7uVUs54z9aPN/5rB48WaQlVyo9/tmsmpHnYwheF
-	yKHLw5Xn0b+Lhkp2fMMH++X/rglCr4TaGs8dLfBtztvm+08dEn7joQ1ujmdGOQ==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-pm@vger.kernel.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Flaviu Nistor <flaviu.nistor@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] dt-bindings: hwmon: tmp102: Document TMP113
-Date: Tue,  1 Sep 2026 19:47:55 +0200
-Message-ID: <20260901174847.97261-2-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901174847.97261-1-marex@nabladev.com>
-References: <20260901174847.97261-1-marex@nabladev.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="1mgqFkkr"
+Received: from omf20.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id E5B95804FF;
+	Tue,  1 Sep 2026 17:49:38 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf20.hostedemail.com (Postfix) with ESMTPA id 18B6320027;
+	Tue,  1 Sep 2026 17:49:28 +0000 (UTC)
+Date: Tue, 1 Sep 2026 13:50:27 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: David Hildenbrand <david@kernel.org>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Muchun
+ Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R.
+ Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike
+ Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
+ Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, Nico
+ Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain
+ <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
+ <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Gregory Price
+ <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, Alistair
+ Popple <apopple@nvidia.com>, Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng
+ <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song
+ <kasong@tencent.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Baoquan He <baoquan.he@linux.dev>, Pasha Tatashin
+ <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, Jonathan
+ Corbet <corbet@lwn.net>, Jan Kara <jack@suse.cz>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Dave Young <ruirui.yang@linux.dev>, Shuah Khan
+ <skhan@linuxfoundation.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, kexec@lists.infradead.org,
+ linux-doc@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 14/14] mm/page-flags: remove PG_private
+Message-ID: <20260901135027.028ea9e4@gandalf.local.home>
+In-Reply-To: <21998471-74B7-4799-9E8C-D75003D1A4CB@nvidia.com>
+References: <20260831-remove-pg_private-v2-0-3668159cd9e8@nvidia.com>
+	<20260831-remove-pg_private-v2-14-3668159cd9e8@nvidia.com>
+	<20260901115542.35cf337f@gandalf.local.home>
+	<21998471-74B7-4799-9E8C-D75003D1A4CB@nvidia.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: 18B6320027
+X-Stat-Signature: 7ef3suggza6rwrwt98ucxd5tb1in8g7f
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19gFCgDW4g7ez/BxoPyHANfn1/41/yL2k8=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=ygP2WicIyxvIfgiulI4Z+w98tf+NFr5YAyeGttsc9pU=; b=1mgqFkkrL4Js3FsbhN/khvoOEvnHVh/aadmAMTCUde9xGE7BUvdArUa1RFWye4SH2Ctek4vS4gXiMbJcZCGFh5DVr4gJ1YyJQrfjy3W7IYtjDzLOP7asP560ZaX5A29U3FwYxXzeZu3rRui/fC5b+U4Jy3KfK07GTDhVffGq7Bg=
+X-HE-Tag: 1788284968-292977
+X-HE-Meta: U2FsdGVkX19FFDvFfWjTCdlnsQZ6K9ZDH4G8yyE+mLes3dBmHWO8NPu6yEW8XXzWgHsuxMDRFSptqXWfMG/Mc+vYMqM5I7IvoIiQAb8UocwUi/mhVmxt81zskgiVGnoXtfTLsJnPK2S+57J8V1WnQFXxP6OtVQ7C3JQiqyk6GHKdnEceDMmgU8UvEa1Vj0wlxj76LZY6CogJO8meStEy2MeviQuBcRNaEP1/lsb0/kCfQ/lF+Pw1bHZfL8fAaIqQ9wHGLY9MM3CVEabUY6AJmK8sY0fn0jiO4bl6CHHeOt5dG97E3JSrappl0A9/PWW3XYCVCivoJPwoLVwpncq/jSqtrYDYGvgG
 
-The TMP113 temperature sensor part is register compatible with TMP102,
-document it using a fallback compatible. Unlike TMP102 and TMP110, the
-TMP113 does have additional unique ID registers, it is up to the driver
-to handle those.
+On Tue, 01 Sep 2026 12:01:24 -0400
+Zi Yan <ziy@nvidia.com> wrote:
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Flaviu Nistor <flaviu.nistor@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-hwmon@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
-V2: Rebase on current next and resend, resolve a conflict with commit
-    d67ec24d3f07 ("dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml")
-    Note that the TMP102,110,113 are backward compatible, therefore the
-    valid compatible strings are:
-    - "ti,tmp110", "ti,tmp102"
-    - "ti,tmp113", "ti,tmp102"
-    - "ti,tmp102"
-    The TMP103 is not backward compatible, it only shares bindings now,
-    therefore the only valid compatible string for the TMP103 should be:
-    - "ti,tmp103"
-    And that is all, no other compatible strings are acceptable here.
-V3: Rebase on top of 1/2 dt-bindings: hwmon: tmp102: Fix up TMP103 bindings
----
- Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+> No problem.
+> 
+> BTW, the plan is to add PG_folio after this series is picked up by Andrew/David.
+> So the new __DEF_PAGEFLAG_NAME() will have no user then and can be deleted.
+> It should be fine, right?
 
-diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
-index 477f478b9dd0f..c0b747a9ce0de 100644
---- a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
-@@ -4,7 +4,7 @@
- $id: http://devicetree.org/schemas/hwmon/ti,tmp102.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: TMP102/TMP103/TMP110 temperature sensor
-+title: TMP102/TMP103/TMP110/TMP113 temperature sensor
- 
- maintainers:
-   - Krzysztof Kozlowski <krzk@kernel.org>
-@@ -13,7 +13,9 @@ properties:
-   compatible:
-     oneOf:
-       - items:
--          - const: ti,tmp110
-+          - enum:
-+              - ti,tmp110
-+              - ti,tmp113
-           - const: ti,tmp102
-       - const: ti,tmp102
-       - const: ti,tmp103
--- 
-2.53.0
+Yeah, then we just remove that macro and change the one user of
+__DEF_PAGEFLAG_NAME() to DEF_PAGEFLAG_NAME().
 
+It will make that patch even easier ;-)
+
+-- Steve
