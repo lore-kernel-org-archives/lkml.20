@@ -1,87 +1,67 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797B542C510
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:24:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0A542E8D6
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:25:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788276295; cv=none; b=BhU7BM6rW2cehWQOGH6b3ZuW85m8mSIru0lF7J2kojAyuKqN76IQJMMcLkoJIluCyY+PWN81NE0DEtRXxGQouiTlaUrSJTeumO3rVxmvmRnZwztgyXH18eC9GGZgsoq5GyCpv+mNeLlstng0zvvjw1nsY9dRmXXzNbiSeRpxv7I=
+	t=1788276313; cv=none; b=a1kWn1DWXOvsKbAPYhHsOPQZ7sDe9Qoli2owdwH09cSt1ZQAgWIg+VDp+REaErh/5wlBUqUjjD8cfaNfoJqYgtbWsprCBlDGAs7UTT/61GppH/HmNZWJWbJLVohHX5TMunoJukvM9xAX2JaU5athIUT/z/qPwPkts3aUTzDZs5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788276295; c=relaxed/simple;
-	bh=pPhJgHfrcROjobsHow5Oxnu2biZuSv+iISwhseA3TaQ=;
+	s=arc-20240116; t=1788276313; c=relaxed/simple;
+	bh=Chu1zqafqw5vyPQ1Qf0Z8VOF1X0ivxEKmuLK/WHS/wc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IjwWu42vVxEofdAISinHCN2l3YkFouD7ZFLHg2YYZKDrMFrN24XwJOv361Tmn96+66OeSS9a5k7qTmfAiXXLAJngAK+zTLgzKXJ02ewaT3bTYz7kf0ISUQl6hd6XIghLJ0jspxNafLF9rUpgRtrw5+ly15ClRYSGu3FNMkImQro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=muVxvYW2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QctJEbvY; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=YwMaQbncewAYYwVJhCHDzAxI/WhKSgJOd8dGbzjk7hiQ+GsnhFf5o0hFDfgbc2Ck2R7yzg1b3TxxvULJL8OE2nm8eF17BQEpuylh4I4iPRqSy3gRJcE5h0eGZG6shGCDjC65UYX55PSk7jsoc+J23lL4zH5pTrw/hyf7Vf3tUEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=J/1G6CvB; arc=none smtp.client-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="muVxvYW2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QctJEbvY"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681E8onC2146357
-	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 15:24:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	xjME20aToxnhz3+QwdAGYRX2CsUKY1brED6ajTqF4qw=; b=muVxvYW2xOTh1Qh8
-	0IdDOqxK6W9136XN64vhff6g/0bs3E5WZ9lhTvPtqZ9BimoTidDmlRD/NvyGoT3S
-	1qcPEAIXiXhGOKfe7XvbARI/3pkEtQWTSSl15fBgK3eUFBAhy/FO43/KBuq65bEQ
-	h0ma+KnYAykT7tgVNmHsAaFibQEW+Tz8y6RbaVtg3Enj9wUjiPId7Eo7aXGjBEmu
-	V2ofuDssdH5LrFC1Na/Pc3DnVfQIH4SQDEb8/QxgohVkKIrRcxFIKfhG+PSwX40T
-	oOelfBnKB1wT4yJCJKARkfXCWMiIjxPWSDbAWQaI9RAgW4CsuOkyLRQ6pr3VseK9
-	Bdm8+g==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdnk8udv7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 15:24:53 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-97cbaa9bef2so49813241.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:24:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="J/1G6CvB"
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66e5d39cfe1so2902574d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:25:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788276292; x=1788881092; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788276311; x=1788881111; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xjME20aToxnhz3+QwdAGYRX2CsUKY1brED6ajTqF4qw=;
-        b=QctJEbvY81cOCnJ/Rf40Peetm5QAQmsYq+lqzVxjjlT6fnZfdiqbEVdc9xUbHy+l7A
-         Rt/Kb01T7s+y++wN4lC+QtH4Yx7hqPc9475KWDeTWZp7HhQ97PrJaTsjn9mA6YRlQBPI
-         Frtd5IaUNpwy0O69mtN/ZYOLYK5UILy37gKUSFhre7OVayvd3pWvZYk7pCsbnO3t+ST3
-         pW+OqWsAPFp6ZKmMxmvtPnXQq0s+B7gub8LiKtzwn9U++wvc+WgZ8tgdFlTwajH1VUK3
-         YXzSy2id86OySDDNUrUa+IFolA+SzV42HDYS9u8uNGK3JuKC2mThrysZh23CtGqRyPCY
-         b3QQ==
+        bh=pesZZ392npsph2E6XlluJo4xVrgKZ8m8f+DaY98EXWU=;
+        b=J/1G6CvBb8wST7+0zW8Hfrsx1Ll8/qLBcc6yop+xmXwu/v060quRjVBg0d4ALws4o0
+         VLOi9Kv8NDfmpLcjtNuTzOiE2LeiQc+pfQN482tdjeFH8SejPV4akTD+0uwHozFPacBl
+         xr3UP5I4lw9tSME4oIQsuf6d/9OQhVlw4zUpCsWqvVjotR+RZssGXhqzLFY+cgidcRgG
+         aUSfJ4fElG1maBpmKJXXs4I/3gRacxH5ftY/nONNI9oOnfJVfT2tEmam/bYuEPfKbNnF
+         1eN8mS/pNIWc1moX/Jn1+kKZbMVxh7kEwV/axBEtRuPIjN1URLf0KoJlRTS0MlQnJGVX
+         +M7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788276292; x=1788881092;
+        d=1e100.net; s=20251104; t=1788276311; x=1788881111;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xjME20aToxnhz3+QwdAGYRX2CsUKY1brED6ajTqF4qw=;
-        b=rAckeKE2JKZ+j4FCEGKh0t5kWlW5pf+xzP0LNOdIAN9AeMd+BZ4UBM8Btbr8ihps6C
-         uWM+08v0d0FwJYuXURmnRbLRPUfv2u7qIL4OtNAm0SUPSXV/nAK8yoTeaJxZvlohk5G6
-         Q+Lv1qpCiQqJtii3V4fY89yV3MWVmYTo7LFNX62+9GL3kuIfVvBC9JHKcW5CxlAavXK2
-         e6yIQeYwu7SBarQj32TCivm05c2lrJURaPruref/YIEob7nbjIBTwDpgPPSzaa1KcYYL
-         BRw3IIR0FT9QylORdEWqMkKnQHmZJv8GwUqIpQCwaKQV7ouzl4V94maBgQJpiBEtr5sT
-         bsVw==
-X-Forwarded-Encrypted: i=1; AHgh+RpGFl55OKbruzUl0yMSTVo3hy/0vyBlf+4TTww6afPxs/5u9k7hRcNxjLnTpIa6cIrd+pHCt5dvgos247c=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8ZT31sbqc2SnjZOs5AALN4lew2gMK/6cjkgO/2+LFAS9BOyb1
-	Ufai/g6LFMG6fPNI7+kNAS/H/61fH/Rez2W97TKHKBdNpHAL2Y9K9VnUFdrYYG7IaywnAr9JWZT
-	8uQ8PtMMF3w/54horZRClZ/6d/f8Waxbuq8OZgTD1ZlfOFxRYtVoe/MTLca65fwPt7uM=
-X-Gm-Gg: AR+sD118NIOoCB+OQQc41rtgMp8JvEmCo8iTSrHoKrWEBqTLvuBsCP4o6UfXdrDgcW1
-	XI08py5CrKuojxXzb0F+JkL1CyqqQe352+c/GX/SNWpUKw9jOu7FRopPgo8QdUx0n+8LKrxF1r2
-	+klidk0QJMm0Kticb5aEHP2e23087sIAxjJgvR8cVKr1LJhdJVTDtHv/i7ulzfE/92/ag3q4glj
-	aNuE1aPaQjVipq04GcRf06buYrBrN+J9J9hui8gUIFpshy4pCFRvTO7Z5CSIM0RXfazcR3Ke0kD
-	2OqRHqG3Czt7IEnJD0FXHb8Zdy2V2RQRNfg4pxUOK3uBvxU0faO7MI1H7b0bWPuZsy4PhLy5CbD
-	S0lGhK1EPA5TykWwHyAYc9w==
-X-Received: by 2002:a05:6102:c16:b0:787:74cc:2b68 with SMTP id ada2fe7eead31-78774cc2e65mr3308977137.1.1788276292433;
-        Tue, 01 Sep 2026 08:24:52 -0700 (PDT)
-X-Received: by 2002:a05:6102:c16:b0:787:74cc:2b68 with SMTP id ada2fe7eead31-78774cc2e65mr3308951137.1.1788276291866;
-        Tue, 01 Sep 2026 08:24:51 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a34a8f03fasm294011fa.9.2026.09.01.08.24.48
+        bh=pesZZ392npsph2E6XlluJo4xVrgKZ8m8f+DaY98EXWU=;
+        b=p+rlKjZLR6ubIQdnIhxfaBLoap1pX24ID0ix9MP11hRxgrcPDN7SPw9WZRF9xvGu62
+         hhZIApCyOO1StT7nrLrTumikIihp5AA/tnpmylNeRZzYcVxjN6iPscrM3+bPkkoXeHaj
+         dKQ4LkNbpQMiCZINq2E3G8R0wgwdmeRnSmyaEYacgI8o96KWTwynFKR3RWeLSNYRgkqM
+         qKOhuUkVuDtX23JwHKNM+RaTNgEAyYwCTFyg8muRCPGh1MBFkprMgDHWYU2kVyxvKNwc
+         svpYt14WhedBRZT90z2EvQZ9UWF32Dd2puH1Jkp0YXw3Ahyj2E4YnKg/+loznXie0B3S
+         +65A==
+X-Forwarded-Encrypted: i=1; AKwUvByhy11LkwHsztaxM6QdBbH9VKZhKScpzZcz33u2acRnVDEAWkPWIBaE0pZtqFHctFxR8N1WB1WBq6d2JmQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6TvKTOXX95U2BIZRJzJP2wvJZ5CDWeJ/y9ebP78MKSLvtd85d
+	Fy/BqfhTWw09lWq/RP47IvB+BbiOQGceFsDsn9RbNYCCYfqequI7VSXaeBZm//+bTmI=
+X-Gm-Gg: AYBFou0kebLCbP95LZGQpXbDGrfOTtyr/BPtrNl3JqE2x8zKjUoW4rzBTMySHvhuiSN
+	3LHFpTMkToqZv46Xj/FgAAsunIe+EudDTKV4+4IZ7sCBkYQ3yS9qIz8rPznpUkSsf9SB6ix5ndr
+	NFXoodsEkXQoi1bjNPSLec5OPKFhDIJtuKkGZEXerYhFfLR6pwCyMi5mhbMcmvRoxzk6qu5BNvf
+	f496hU6dD6xZ6qr/Nn582UgXkl6UsrQdHfSB3UeQQODnawFr5kDsgvQ6CQ6UVvOg6L4rwUMRaKF
+	CjOsAcso9Y7ovmm5pF20xjfCiQPG5bnbw7Vs8+d7e004J8qzGoVBJS4mlceELcFYWhfiEHyNXLX
+	9m82H+khkUBDqQMb7cam9fhBM2HNU3+uxk+b6x1zI98atYOcpGyyOcS+phu2teN0PsW6hctVFiq
+	lYHpEsOWfV9gGNNw1JzDks61aZA7tpNwU+yfADNYlwRNOG8QhwH7fZDC3MxRTH
+X-Received: by 2002:a05:690e:24a:b0:669:4df9:7c68 with SMTP id 956f58d0204a3-66e4c74e84bmr7637535d50.36.1788276311159;
+        Tue, 01 Sep 2026 08:25:11 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ed1fbebsm8638344d50.17.2026.09.01.08.25.09
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 08:24:50 -0700 (PDT)
-Message-ID: <4d96c593-ff1b-48f7-9e33-ded415056f99@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 17:24:47 +0200
+        Tue, 01 Sep 2026 08:25:10 -0700 (PDT)
+Message-ID: <4af0088a-13ca-4eda-9147-c7aaba316690@riscstar.com>
+Date: Tue, 1 Sep 2026 10:25:06 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,85 +69,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/9] arm64: dts: qcom: ipq6018: Flatten usb controller
- nodes
-To: George Moussalem <george.moussalem@outlook.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
- <20260825-ipq-flatten-usb-v1-7-5c1f3170bbe9@outlook.com>
- <bfb0d840-fc9c-41a2-9b05-959f2222a298@oss.qualcomm.com>
- <SN7PR19MB67361579E71DBC197E21F44E9DAA2@SN7PR19MB6736.namprd19.prod.outlook.com>
+Subject: Re: [PATCH v3 4/4] of: address: kill of_node_is_pcie()
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: bhelgaas@google.com, robh@kernel.org, saravanak@kernel.org,
+ daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260901011338.1323243-1-elder@riscstar.com>
+ <20260901011338.1323243-5-elder@riscstar.com>
+ <20260901084546.424c6ef2@bootlin.com>
+ <6a5bec41-71ef-4d9c-a34f-77d166b15ca6@riscstar.com>
+ <20260901171528.487ca48d@bootlin.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <SN7PR19MB67361579E71DBC197E21F44E9DAA2@SN7PR19MB6736.namprd19.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=f6p4wuyM c=1 sm=1 tr=0 ts=6a96ee45 cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=UqCG9HQmAAAA:8 a=TRAoSw-b2ojpbG_mUrMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDEzNiBTYWx0ZWRfX6PHBZmnc4HtQ
- 69hqeHpWqMAGFvrb0dhJf6kG0oA8dEdMSyFfaGp4kUbBcdwQmkxeun+RMZECXme+CrYFnI1RqTQ
- dPnztOhALrcF22Ju99al+agY4LG5z9qmBUHvTZRHhjUrZ5KAszflJnoJOfGhNJ/KCCWswW/PCxH
- VZG1L/Ue/OQ0snk/8vyDl9w8QMdC7cd9BhSkurOTh2jdwj4dcaWgopnKZOigE/RuvtZMv63GP98
- 80ZjQonSDCrO4lHgTPCKGcDpqeRafzuiu3YXRPMp32+qEsSectV+7fR2Joyaen2Gui7ffIoPzZx
- IQrwdGpCnSW4uu0GytNpWGMzhKPuRmc6HBm1aamVPfJkpEGOuzf0LwgJeIpoQE75CPPzI9ec8EL
- ml6X2dH2m0l9lZV5aNkbgRREi1rQQFycP43yWJW+/9UGcy6hyMRFYU6YwJlN3YoWyjBEjnBoTWC
- EGtjUvMH1H6n76XNuqQ==
-X-Proofpoint-ORIG-GUID: LBhx640_CJbGg4NVQ9qVwVbrMTXv-t60
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDEzNiBTYWx0ZWRfX9mOV8kPNbI/A
- /JgEtOEXcBKMxPX3y7o+9xDogc5H18ES+wyjUGMd1wfUwrB4P94b4df71zaYawqsH6uNLocKSxe
- +Q/kWC5r15mMhtUc605M4XGKVZKDp40=
-X-Proofpoint-GUID: LBhx640_CJbGg4NVQ9qVwVbrMTXv-t60
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_04,2026-09-01_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 priorityscore=1501 suspectscore=0
- impostorscore=0 spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609010136
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20260901171528.487ca48d@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 8/30/26 5:12 AM, George Moussalem wrote:
-> On 8/29/26 20:48, Krishna Kurapati wrote:
+On 9/1/26 10:15 AM, Herve Codina wrote:
+>>> The warning here was printed based on the node name whereas of_node_is_pcie()
+>>> prints the message based on the 'device_type' property of a pci_dev node.
+>> You're right.  Both warnings were getting reported for me, but for
+>> different reasons.
 >>
+>> I would be happy to just drop this patch and live with two warnings
+>> in some cases (we should rarely see either one of them anyway, right?).
 >>
->> On 8/25/2026 4:12 PM, George Moussalem via B4 Relay wrote:
->>> From: George Moussalem <george.moussalem@outlook.com>
->>>
->>> Flatten usb controller nodes and update to using latest bindings and
->>> flattened driver approach.
+>> Is that OK with you?  Does anyone feel this patch should be kept?
+> On my side, I have no problem to see two warnings and so, IHMO, this patch
+> can be dropped.
 
-[...]
+Unless I hear otherwise, that's what I will do, for v4, which
+I'll send out sometime this week after addressing concerns
+pointed out by Sashiko.
 
->>> +            tx-fifo-resize;
->>> +            snps,parkmode-disable-ss-quirk;
->>> +            snps,is-utmi-l1-suspend;
->>> +            snps,hird-threshold = /bits/ 8 <0x0>;
->>> +            snps,dis_u2_susphy_quirk;
->>> +            snps,dis_u3_susphy_quirk;
->>> +            dr_mode = "host";
->>
->> This controller is DRD capable. Please move this dr_mode property to DTS
->> file.
-> 
-> dr_mode was already there. Removing may break existing implementations
-> and should require a separate patch.
+Thank you.
 
-"Yes" and "yes, please"
-
-Konrad
+					-Alex
