@@ -1,133 +1,109 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B404A33998
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:38:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C479B38F934;
+	Tue,  1 Sep 2026 01:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226685; cv=none; b=fu89JcyrYi6fWLSSWJmI5lx4WHkOowlChu2/Wt3ZcNS3vLvRwXtrHUVo8ndliGBE/kkQSa4BwaJZRrGZajNWY3wC6IeBWTnoee840pUbv2GcuOJbuX+a7abUjdrC89CTafTKusWMYgrI5/spY0HTrfp1ydbezcPpKg7nzJG3qp8=
+	t=1788226696; cv=none; b=UAwZtCSI6vOuN/f1uObMjnQUNtYCFYk882UbEaBHPu443tQ3g6TfaziDENSmz3c0IVIjw+Lc/Jm9RhiWdeGzSesXVOSy2AyHNgrqXwFnilLNlnda+gdQorQijhIc40W7isFe/Vp2cVhCCV5sIf84eAmQFwhclrJzSpjb9RbbDo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226685; c=relaxed/simple;
-	bh=nJ/70F4Uy1cXNLzxnGBcwbnvOYmm+Zk99AUFnliuPv4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oap+2ibwp/oBiXG6/QCC15NVGAOdu0xEDdnTZXWOlPVAhL4OxyHY4xB4m0Sl7lx4laKLEytg96tE8MHi1T/TBVDrqJFESQolzVLoUSxTkB1JH2FeVQmhK5rLyMc1i0USu8qY/dg4limo1U7j4pIaM4i0+n+IlVyqMTXkgF2XxmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mjg9Hb8g; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788226696; c=relaxed/simple;
+	bh=Kd0aQb2iW9hJJk5GOwilOGsnDa4JsdghPXrfBvtR52c=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WErbryyAc3jm1dy1E9J+3w1fKO2Ceq298aKVfCL3FBufdtbYBk5QeRbyCqcQCvXbNrLzg9C5KVdFuN97aq7Uz+3yQ46bJfuvyVQdhiTlCgFvBw2Wml8rHeJQZHk6mJyjp4JuqoQTC7x8l7wqDSGDtIb4qR3+m8U5NP1HaO7CTHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NcdeswUl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mjg9Hb8g"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cc891373e0so37792915ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:38:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788226683; x=1788831483; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MwrPzZ3UqC1qw7RtMh2uyX7vL1CZ1f9d+u4eMBeXRcg=;
-        b=mjg9Hb8gXAzt3E9WQ+tOJEZBGN3GAYwdI3ZUAdofJ5XyXW9NwB7T46mSX8t9+h4kC6
-         qou0d/8Si4m6fUe/O/qJLoPtGdW3ZbL00MzMsWUVLODF8UBFwKWcRjIHrgp9wA8rnDl/
-         qDKPZ+vE+ECzYf8IS4aryRAWawTxwdsnRWPHV8ksEIoSw7IM3EV1BsiOMwfEGa+cV6Ws
-         zHGz+/jsxyvCV4HQDHJRpM+STjHgpvch8oWKmjucC7OnugABOYWLKXWwRA7JYo/loGcc
-         PiPjYHiQc2atEB9C5Pc+/AmBPA8moRS0wR+NXZxOqRzI5KGYItP+8fquPaCH0OJRqH1i
-         TCMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788226683; x=1788831483;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MwrPzZ3UqC1qw7RtMh2uyX7vL1CZ1f9d+u4eMBeXRcg=;
-        b=Y12CXdGigOXobJJphkE+BVjgbygXb9sN3BXCeJItxJg1A66yJ57p1MC5jf45zFdGnP
-         FLHiCbT0cSwf4c+Y+pBtgJX+pinRNnUk+beybU1RH6nISr4LdnkkP6becmh5dbyOvjrp
-         NWhVnQ5PTozTaBoMBZfWDhELcxgK6LiWR5ZmH591RrZEKDAQ3+57kprFK1IP7+cJ2ugf
-         4yBtaAxHEev4GKQZ4cskx6K13YYyljs7Ox75kpQZM6Ik7IGvIDXxRGZx8yZqsBMUUMYQ
-         OTLqxyvi4J1YIxUv0okmdAgWIMMzDxv48YoVa3F20/ZUXhrsBL0S2EvvF+AUwb05xZBC
-         Rq6w==
-X-Forwarded-Encrypted: i=1; AKwUvBw1Z8X9z4ACyyqAitZvaGLGDT8ezo5c1dQkQt24fYkjezHIlLwLXz6uzGcVV6lQVhYn1UMbNXgc7wGWrQ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6MkLhRv6BQRTVVPxrUEAy0gwHFFUxGjeG0v2R0do93gipZyBe
-	AJZpjk3c5r/V0JgY5b/x2jLDw5j/nH1qTd5BOdmGSYuI9Z4Go+D2QenQ
-X-Gm-Gg: AYBFou1nAWEA5aPs2DI7IRhlW9ftBEzJPG4o1M1uprsMm56BNWCpzXF8j7c/XYx+8FX
-	HPMl47mBq32ARztjLf5i3pguSFA2wnw3cXgtagtD/NJnlR9BGRbJEsxLYtVi7I5iVnqt2A/BsIl
-	9jDuU2eHXRe6hmO9+AI8fJINgsK4c8q3giaFVjgCZWlH+hiqrgAPWAFWznMukZeVUwP8dPywObc
-	tEhOWhqJX4avLvSEj/uUrSJmZFzGORJaafm0mJBMTJCUvxP9z+fnPqRv3/yf4LAIb6JpNpWeKz/
-	NsDHfBvz4kIpPZQaBGBEYynpQXZcd88cwQIi0V6GViSfEh2orE7xy7UPS8hZIWikzWkUsHd9zRW
-	t9+2HPhDZd03vVuqmcKAL2dJnGvYrocNko2VFuXA32ypeRTX8Xw/MVAF3rKP7uAC4TwGIOU7AHD
-	X+W7/smegjZmtjAxCzjWyBbYV1lMF1MSCT/ugzF3auoErBLWaNKPzwBaM=
-X-Received: by 2002:a17:902:ce86:b0:2d7:2edd:d140 with SMTP id d9443c01a7336-2d74dbfd59amr423838315ad.3.1788226682603;
-        Mon, 31 Aug 2026 18:38:02 -0700 (PDT)
-Received: from bloom.localdomain ([2604:3d09:178e:e100::3820])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7594fc3f0sm43974415ad.3.2026.08.31.18.38.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 18:38:02 -0700 (PDT)
-From: Ivy Lopez <skunkolee@gmail.com>
-To: pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu
-Cc: alex@ghiti.fr,
-	conor.dooley@microchip.com,
-	schwab@suse.de,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Ivy Lopez <skunkolee@gmail.com>
-Subject: [PATCH] riscv: hwprobe: simplify has_fpu() to check D extension only
-Date: Mon, 31 Aug 2026 19:37:46 -0600
-Message-ID: <20260901013746.19386-1-skunkolee@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NcdeswUl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA8071F000E9;
+	Tue,  1 Sep 2026 01:38:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788226691;
+	bh=BrIiRFWtczkZQEdzjQfU9/6RPpw/i2QrGgvd2I+VXzs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NcdeswUltGsBhID6VXv/iVFj1j2VSDPdMjVwIMYNjhwk+qAL2m3Tij7x+6lPct52V
+	 SylHxgblCs1CbxzFhF8XlDug85XelzDJLFy160Rku11eEmBe4+WC1r0gtgBDo1wjCW
+	 x5qSDPmUVvrCjoVld7nDbuS42ebeC00QMNv1qn16e+WtUR1+ChiHq7xFlpOgtbKd/O
+	 sSaVkW2mE0F0U1nSRH8GojV62Ia0ow3GVB1GI1z/udq+g0gbx0k71n75x4279cw3VA
+	 AtYvM7tXgXg2RalTE7wO6M0MVuN2EAL7i8HzPqKURD42lhfpD0WTcaiA3Cc4XdE4xq
+	 GnBZ7Ep70PC3w==
+Date: Tue, 1 Sep 2026 02:38:05 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Mark Brown
+ <broonie@kernel.org>, Marius Cristea <marius.cristea@microchip.com>, Marcus
+ Folkesson <marcus.folkesson@gmail.com>, Kent Gustavsson <kent@minoris.se>,
+ Conor Dooley <conor.dooley@microchip.com>, Daire McNamara
+ <daire.mcnamara@microchip.com>, Paul Walmsley <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>,
+ linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>,
+ linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v10 3/3] iio: dac: Add AD5529R DAC driver support
+Message-ID: <20260901023805.20abc542@jic23-huawei>
+In-Reply-To: <apUo4afCh5LhUqIO@ashevche-desk.local>
+References: <20260827-ad5529r-driver-v10-0-38f2be07b824@analog.com>
+	<20260827-ad5529r-driver-v10-3-38f2be07b824@analog.com>
+	<ao_z9QTJC_q8gH0v@ashevche-desk.local>
+	<178813177252.2788519.10940489053707901297.b4-reply@b4>
+	<apUo4afCh5LhUqIO@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The kernel never supports D without F, since D depends on F. The
-D-extension flag is cleared during devicetree/ACPI parsing whenever
-F is not present, so has_fpu() checking either extension with '||'
-never actually produces a different result than checking D alone -
-F without D cannot occur in practice, and there is no observable
-impact on RISCV_HWPROBE_IMA_FD or userspace.
+On Mon, 31 Aug 2026 10:10:25 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-Simplify has_fpu() to check D only, matching the expectations set
-elsewhere in the kernel for this dependency, rather than relying on
-a redundant OR condition.
+> On Mon, Aug 31, 2026 at 12:16:12AM +0100, Jonathan Cameron wrote:
+> 
+> ...
+> 
+> > > > +	device_for_each_child_node_scoped(dev, child) {
+> > > > +		if (st->num_channels == ARRAY_SIZE(st->channels))
+> > > > +			return dev_err_probe(dev, -ECHRNG, "Too many channels\n");  
+> > > 
+> > > Okay, this actually better to be ENOSPC
+> > >   
+> > > > +		ret = fwnode_property_read_u32(child, "reg", &ch);
+> > > > +		if (ret)
+> > > > +			return dev_err_probe(dev, ret,
+> > > > +					     "Missing reg property in channel node\n");
+> > > > +
+> > > > +		if (ch >= AD5529R_MAX_CHANNELS)
+> > > > +			return dev_err_probe(dev, -EINVAL,  
+> > > 
+> > > and ECHRNG is here.  
+> > 
+> > That one is getting rather creative even though I guess the description
+> > does fit rather well.  So I don't object, but also feel -EINVAL is
+> > probably good enough for an invalid property value.  
+> 
+> But missing property message propagates the fwnode return code (which will be
+> EINVAL IIRC). So the above is not about missing property, it's about wrong
+> channel. Note, I have checked uses of ECHRNG in the kernel, and many of them
+> are fine with the suggested one.
 
-sys_hwprobe.c already calls has_fpu() and needs no changes.
+Fair enough and works for me.  We can add this to the list of things
+to tidy up if we happen to be touching other code that deals with
+wrong channel numbers.  Not something we want to generate churn though
+unless there are far fewer instances of this than I think there are!
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221874
-Suggested-by: Conor Dooley <conor.dooley@microchip.com>
-Suggested-by: Andreas Schwab <schwab@suse.de>
-Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
----
-Changes in v4:
-- Rewrite commit message: drop the "weakens semantics"/incorrect-report
-  framing (Conor pointed out F-without-D cannot occur since the D flag
-  is cleared during devicetree/ACPI parsing - confirmed in
-  riscv_ext_f_validate(), arch/riscv/kernel/cpufeature.c - so there's
-  no actual behavioral impact). Reframe as a simplification matching
-  existing kernel conventions, not a correctness fix.
-- Fix "F without D" -> "D without F" (Andreas).
+Jonathan
 
-Changes in v3:
-- Drop the sys_hwprobe.c hunk entirely: it already calls has_fpu(),
-  no change needed there since v1 was never merged.
-- New thread per maintainer request, not a reply to v1/v2.
----
- arch/riscv/include/asm/switch_to.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/riscv/include/asm/switch_to.h b/arch/riscv/include/asm/switch_to.h
-index 0e71eb82f920..8186cda88e17 100644
---- a/arch/riscv/include/asm/switch_to.h
-+++ b/arch/riscv/include/asm/switch_to.h
-@@ -60,8 +60,8 @@ static inline void __switch_to_fpu(struct task_struct *prev,
- 
- static __always_inline bool has_fpu(void)
- {
--	return riscv_has_extension_likely(RISCV_ISA_EXT_f) ||
--		riscv_has_extension_likely(RISCV_ISA_EXT_d);
-+	/* D extension depends on F, so checking D alone is sufficient. */
-+	return riscv_has_extension_likely(RISCV_ISA_EXT_d);
- }
- #else
- static __always_inline bool has_fpu(void) { return false; }
--- 
-2.55.0
+> 
+> > > > +					     "Channel %u exceeds maximum 15\n",  
+> 
 
