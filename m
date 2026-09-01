@@ -1,143 +1,175 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B06038DC7D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:44:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B907B3264D9;
+	Tue,  1 Sep 2026 08:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252268; cv=none; b=RsTYcnle1Bq77qax+2SY616fs0jfm1l4WJoOBZIf/Sk869hmOK8oC9Px543y+uCYzMd7YjcZDcmPntZ35sguA6XPqvdJL079pnNTYZ02BfJXPj42Y/2ZeKp8meQ34NHXtDkaD16evPIvBjwF2b0SSQbkAcu1vMFyyVSzMy6FC6c=
+	t=1788252272; cv=none; b=cH3OpfOy5ysCQGKb74HlThrlziJvcMSiDeJq4PtUDQ3fMGYDw5XU1bESKlg0RJFJuJBFDa/NcoaVTGQYsQK7zhyE83P5vtZB9H/f8mULwCDGuqTMxTTeHznO5NwTYHYdMsYqdvDMfGcTlz23dgUFx0gWLar8uEa3QxzYUvem/DI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252268; c=relaxed/simple;
-	bh=DhPdDQt2s+ehRWy5phyOU+QWi+Oe2q8DoIjQFF4h8aw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jgs/3MLUO5eXgtWYRARsmKOthPLz52balkTp4rUx482SKW4qQH6DXIaQyzCUb5W6ObcoXIAFkk3GsquPZWr8RGLob+QgoTcaoskH837OG2UcSXtS/qdt/cI1hCxCcQ0GgfnMQVRKee4zC7G/jy7jyFuS8yg/XALUbhwSoTRkjNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dS9l5E3O; arc=none smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dS9l5E3O"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c247f6687dcso733089366b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:44:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788252263; x=1788857063; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kfkumJrDF1tZTAVRjvzgDO3hMk1gGG9KZ2g7tgv7l7Y=;
-        b=dS9l5E3OnG6TQGvQpZYMLEM4mI+XpeRVIK9fQMMyDRNRkGmIhkF5NAMfTqhBODW5Mc
-         ifiQP6GRCy6Ehq1Wi1sB3VoNGwUdDAHhpjEgnHBeOxddZc7yaIghx69iHvUNMKlhDLsw
-         zJGRXlLkwnfvYa0EVXkTP3NyKIFH5EDvizHEVTP7VMPOGe7KaiTzPejBr5f1dlf3DpUL
-         W2oKWHifpZsjh04Q8dgERWsFnA0AsMM2pUhQIy02WHLX41ArFCVr0/RAQSQa4dmQFsk+
-         toJO8t1FB7d7E78uDqqHgdY0JCY7QFTrFoGsXzEmJdtYNVRTa7SKLBy9qHN3aThI5ciC
-         ixVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788252263; x=1788857063;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kfkumJrDF1tZTAVRjvzgDO3hMk1gGG9KZ2g7tgv7l7Y=;
-        b=RHK0Wnvz/WM1gdroZQMOpyRmMo9bKM36fASn8rMp772sHBek7lmqo/8rXW/FyGQx5Z
-         9ir6X4Gjbm+WLb9KWEiabfLAVKKMsoORra9pwv7MW28Ukk+SyZBfAb6C9a8agIkYDo75
-         zJfCgOujLIB5Pg9mm746sjDNxryk8AiAso+cDzHlAqNIx+F4Ro+IofUdoU+x3bCuaLQ9
-         inQuceeXyJdnKUkByz+8Tzl9SI80XvzGzJ0yjH3mylxUy+7JHr4qqRFsfSL4KEtMbaa3
-         RFcXiwknlb6/w5/tnxXyt03TQG2sI7nYQ2qeet9IfVjViIJbqWY7mGlA7EhSngeJbmY3
-         0bCQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq9unFYmdtfd0ZjHZo/UdKHWMwL4Yw8joPsccpb/WjyZKfUVZ4tGm/AVvCbg7NKV3/or5C135DUXHn6xVE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kSuL6IU2iQXyVGTh33Wn6i5A4wju47bPO5kuRaNyz0cNB3uTO8
-	7DhfsD/Ift+fhE+Pe8RhwiyeKZ+7W2VTcnJUeNEWBjrA9pr7a69/qmsx
-X-Gm-Gg: AR+sD13GP7+JeJkidMyfv6rtWrv/hY5brEtOojao3S+y6Br73NZus8ZDKjNqM3tbnTC
-	/0AwW0ZJJ4QYsByLEMAv6NuSxKA/v4zscsa6GE+HcRza2InQpYgXRUQOCd6i/Uq6h6dZwCTJRbf
-	EOnrTXt9ofqXZ7gFMODgH3wEFb2czj/hHoxcEl0i0Ue1Mc5Za06PhmHOA8eXkpD2lejn6755fyC
-	MR8sJ6yrLWKZkPtQsOGonlJZMilRLs4DoRjj1dYgupRwxGHCOZzmspH5Tvcw+8bw1GDVi2RvEqF
-	Znj8qMl8pnvW9T+thF/hxtfq9gLa4V0kgSGrjiqzkzaILkNC0WbZtnvLsAQTqJH1Yuwpi7NZyoW
-	LsFS1O7aAbppRK2Pl1EDmUoYt0FLyJ6cg3LPzgnJhrMEDjBUxuR6sJCvTi5mACqjJEfcQOiH8F1
-	wupf3CEla38qxfKcqQT8Rv6NuURnqhuFNjwiVTT2A5ddrDSzBuMyDo8Krzn/UhYJB80D8IJDQ5P
-	RWT03kKkmivGSrskRs7bfk=
-X-Received: by 2002:a17:906:f582:b0:c24:c22c:6372 with SMTP id a640c23a62f3a-c25b3affecdmr382949666b.5.1788252262902;
-        Tue, 01 Sep 2026 01:44:22 -0700 (PDT)
-Received: from [192.168.1.89] (c-85-228-45-68.bbcust.telenor.se. [85.228.45.68])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255eacf6bbsm527267366b.0.2026.09.01.01.44.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 01:44:22 -0700 (PDT)
-Message-ID: <1729fb06-6beb-f8ef-3e71-47fc3f00345d@outbound.gmail.com>
-Date: Tue, 1 Sep 2026 10:44:20 +0200
+	s=arc-20240116; t=1788252272; c=relaxed/simple;
+	bh=wAmMl1ueBEMxFGVvtEJ6rMk45ZH4RjeATS51DVQndWU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U5Cve2d028pHNeWLOFaaeFvL8fZsWcfkQ40iCLoUAilNU3D4Ye54GmIGGvGGr2vD9BPtT139qDUiCE4ZdJc6TcryGf/aTXLYQXxtWGa0mm3b4zAwPVlPMcAPCS3bqFYCCT6b66LMQkZiJLlqF8tnjNqaTAqPL4Sj3sOhceGpKtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::109])
+	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BC3FB201552;
+	Tue, 01 Sep 2026 10:44:15 +0200 (CEST)
+Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1056)
+	id 9D1181BF8B0; Tue, 01 Sep 2026 10:44:15 +0200 (CEST)
+Date: Tue, 1 Sep 2026 10:44:15 +0200
+From: Michael Tretter <m.tretter@pengutronix.de>
+To: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+Cc: linux-mmc@vger.kernel.org, ulfh@kernel.org, adrian.hunter@intel.com,
+	krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
+	dinguyen@kernel.org, p.zabel@pengutronix.de,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/8] arm64: dts: agilex5: add SD/eMMC host controller
+Message-ID: <apaQX_bHpEcP4Tp5@pengutronix.de>
+References: <20260829184252.27644-1-tanmay.kathpalia@altera.com>
+ <20260829184252.27644-3-tanmay.kathpalia@altera.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH 2/4] char: xillybus: replace __get_free_pages() with
- kmalloc()
-Content-Language: en-US
-To: Mike Rapoport <rppt@kernel.org>,
- David Laight <david.laight.linux@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Brad Warrum <bwarrum@linux.ibm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Michal Simek <michal.simek@amd.com>, Ritu Agarwal <rituagar@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linuxppc-dev@lists.ozlabs.org
-References: <20260830-char-misc-v1-0-05e2ce44f291@kernel.org>
- <20260830-char-misc-v1-2-05e2ce44f291@kernel.org>
- <f6001085-9234-4025-ff34-6cc4a66c293a@outbound.gmail.com>
- <20260831123937.32255a49@pumpkin> <apaF1HUtJnstuUN4@kernel.org>
-From: Eli Billauer <eli.billauer@gmail.com>
-In-Reply-To: <apaF1HUtJnstuUN4@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260829184252.27644-3-tanmay.kathpalia@altera.com>
 
-On 01/09/2026 9:59, Mike Rapoport wrote:
->> Would it really make sense to allocate the four buffers separately?
->> And/or use vmalloc().
-> My understanding is that the buffers don't need to be physically
-> contiguous and vmalloc()ing the entire fifo->mem in one go should work.
+On Sat, 29 Aug 2026 11:42:44 -0700, Tanmay Kathpalia wrote:
+> The Agilex5 HPS includes a Cadence SD6HC that drives either an SD card
+> or eMMC, depending on the SOCDK daughter card. It uses separate SDMCLK
+> (CIU) and L4_MP (BIU) clocks, and has three resets for the host
+> controller, Combo PHY, and SDMMC OCP bridge.
+> 
+> On the SOCDK OOBE card the slot is SD-only: fixed 3.3 V card supply and
+> a GPIO-selected 3.3 V / 1.8 V I/O supply for UHS-I signalling up to
+> SDR104.
+> 
+> Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+> ---
+>  .../arm64/boot/dts/intel/socfpga_agilex5.dtsi | 25 ++++++++++++++
+>  .../boot/dts/intel/socfpga_agilex5_socdk.dts  | 34 ++++++++++++++++++-
+>  2 files changed, 58 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> index b06c6d5d60ee..5ccbd7bf2034 100644
+> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> @@ -300,6 +300,31 @@ portb: gpio-controller@0 {
+>  			};
+>  		};
+>  
+> +		/*
+> +		 * Shared SD/eMMC controller node. On the SOCDK OOBE daughter-card
+> +		 * this is used for SD card operation; on the SOCDK eMMC daughter-card
+> +		 * it is configured for eMMC.
+> +		 */
 
-vmalloc() is an interesting point.
+The documentation about the daughter-card configuration belongs into the
+device trees of the daughter-cards and not in the SoC device tree.
 
-fifo_init(), fifo_write(), fifo_read() and fifo_mem_release() implement 
-a FIFO in software that the XillyUSB driver uses internally.
+> +		emmc: mmc@10808000 {
 
-The memory for this FIFO is allocated in fifo_init() by calling 
-__get_free_pages() with requests for up to 64 kiB. With the maximal 
-total buffer size of 256 MiB, we have a possibility of 4096 allocations 
-into an array of buffers. And if __get_free_pages() fails, the size of 
-each buffer is halved in the following attempt, which tries to allocate 
-8192 buffers, each 32 kiB, in this example. And so on.
+The HPS register address map uses the name "sdmmc" for this group. Maybe
+that's a better label than emmc, if the controller may be used for eMMC
+or SD card.
 
-This mechanism with an array of buffers complicates the implementation 
-of the other functions as well.
+> +			compatible = "altr,agilex5-sd6hc", "cdns,sd6hc";
+> +			reg = <0x10808000 0x1000>;
+> +			/*
+> +			 * "ciu" (SDMCLK) is listed first so it is selected as the
+> +			 * primary clock by the SDHCI platform layer; the SD6HC PHY
+> +			 * timing calculations are derived from this clock rate.
+> +			 */
 
-So why not replace this with a single call to vmalloc(), possibly asking 
-for 256 MiB in one call? That would mean simplifying all four functions.
+This is surprising to me and I can't find where the first clock is
+selected as primary clock by the SDHCI platform layer.
 
-When I wrote this driver back in 2020, I avoided vmalloc() because Linus 
-wrote "vmalloc() is NOT SOMETHING YOU SHOULD EVER USE!". (See [1]). He 
-also noted that vmalloc() is a restricted resource. But that's from 
-2003, so maybe things have changed since?
+Could you point me to the code that relies on the order of clocks in the
+device tree?
 
-Questions that arise in this context:
+> +			clocks = <&clkmgr AGILEX5_SDMCLK>, <&clkmgr AGILEX5_L4_MP_CLK>;
+> +			clock-names = "ciu", "biu";
+> +			dma-coherent;
+> +			interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>;
+> +			iommus = <&smmu 5>;
+> +			resets = <&rst SDMMC_RESET>, <&rst COMBOPHY_RESET>,
+> +				 <&rst SDMMC_OCP_RESET>;
+> +			reset-names = "sdhc-reset", "combophy", "sdmmc-ocp";
+> +
+> +			status = "disabled";
+> +		};
+> +
+>  		nand: nand-controller@10b80000 {
+>  			compatible = "cdns,hp-nfc";
+>  			reg = <0x10b80000 0x10000>,
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
+> index 57d3c5807c65..93222b199038 100644
+> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
+> @@ -36,9 +36,37 @@ memory@80000000 {
+>  		/* We expect the bootloader to fill in the reg */
+>  		reg = <0x0 0x80000000 0x0 0x0>;
+>  	};
+> +
+> +	vqmmc_io_reg: regulator-1p8v {
+> +		compatible = "regulator-gpio";
+> +		gpios = <&portb 3 GPIO_ACTIVE_HIGH>;
+> +		gpios-states = <0>;
+> +		regulator-max-microvolt = <3300000>;
+> +		regulator-min-microvolt = <1800000>;
+> +		regulator-name = "vqmmc-io";
+> +		states = <1800000 0x1>,
+> +			 <3300000 0x0>;
+> +	};
+> +
+> +	vmmc_reg: regulator-fixed-3p3v {
+> +		compatible = "regulator-fixed";
+> +		regulator-always-on;
+> +		regulator-max-microvolt = <3300000>;
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-name = "vcc-sd";
+> +	};
+>  };
+>  
+> -&gpio0 {
+> +&emmc {
+> +	bus-width = <4>;
+> +	cap-sd-highspeed;
+> +	disable-wp;
+> +	max-frequency = <200000000>;
+> +	no-mmc;
+> +	sd-uhs-sdr104;
+> +	vmmc-supply = <&vmmc_reg>;
+> +	vqmmc-supply = <&vqmmc_io_reg>;
+> +
+>  	status = "okay";
 
-* Does vmalloc() guarantee that non-pageable physical RAM is allocated 
-when it returns?
-* Can copy_to/from_user() be used with memory allocated with vmalloc().
-* Is vmalloc() guaranteed to successfully allocate memory in the same 
-situation that __get_free_pages() could have been used to obtain the 
-same amount of memory (in smaller chunks, as with fifo_init() )? Maybe 
-they allocate memory from separate memory pools?
+I'd have split the addition of the controller to the SoC device tree and
+the enabling for the board in two separate patches, but that's probably
+just personal taste.
 
-And most important: In what way, if at all, is memory obtained with 
-vmalloc() practically different from memory allocated by 
-__get_free_pages(), if it's never used for DMA?
+Michael
 
-Does the API offer clear answers to these questions?
-
-Thanks in advance,
-    Eli
-
-[1] https://lwn.net/Articles/57804/
+>  };
+>  
+> @@ -59,6 +87,10 @@ emac2_phy0: ethernet-phy@0 {
+>  	};
+>  };
+>  
+> +&gpio0 {
+> +	status = "okay";
+> +};
+> +
+>  &gpio1 {
+>  	status = "okay";
+>  };
+> -- 
+> 2.43.7
+> 
