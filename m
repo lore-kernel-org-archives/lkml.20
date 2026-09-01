@@ -1,169 +1,382 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B7D392807;
-	Tue,  1 Sep 2026 03:10:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1859443BDA0
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788232219; cv=none; b=H1hrIVJCpqbp68wExnmvI2B7cj887khGa/ZlhRCKtuVYgU5JLPlrKcsJHqD3z2QoYOZahzj/077aDRQfDTQmDu15U96P4CKTfTNqqHzYDEQTZ8511U0mQaetbx69t+u+RbJeEobnXL2W7kbpkpzAlWELjJ1UzoPk6BtgKyASQx8=
+	t=1788232218; cv=none; b=hVmqSw4CEiWXx6PF5yZZzr7MD5MMKt43woWxCZsf9VIFu6+LUQl1jp+y50PGQ6LcMCT8MblVitG7J5OQgffiL4MIFYYJ5c+5DETYgKwwHBadwrNIj7rcRFsVSOjZRNmk8NaRprd9BuKaoOuyGjsuV6B6yRhs3hw1UpC9ED0IRco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788232219; c=relaxed/simple;
-	bh=Qqr/cqvz7esR3oRutG3uVaAbwv2QbUPLSf3EGeKHWWc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FaO7/ro4Jx3JVllDBVxMz2Mt+mRmtO+sLFLpIP/vCnyxuV1KlfXHMl3SEfPHMSgQ3kgCZcsxwk26FLRuHA4DZNIeCUOll08tEl09fxetPQchfVmvToIE9t5KA16ZoEzXIYz5LHvsWu2waHbYUhSW7hGxyHVU7SRJntHIpUrcUOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=imWetiqs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788232218; c=relaxed/simple;
+	bh=dI9wR2MlBFCP15mnLNzqQyuNmkPftOf+2gi9PAfHkiY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ry1FcTiN6U2eU+swpgH56Zylf+i60CsmJOtD8vuFwBp3WNc1h59kNqMcXpQEj7inRLxHQtzYwm2twFSnhhk5MSUKEHXTE0uWbtjhGP72mButuaqCJpaoTUbBoMEV9aeoFnNR00GA6yN5qmu+dyj+Npl40euuGg0+gYJuwaBoluA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N4VEJn17; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="imWetiqs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052C11F000E9;
-	Tue,  1 Sep 2026 03:10:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788232216;
-	bh=YLKBrTqOTNNklJANAjH/POw5+7rG2PRW69UPtKdnoo0=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=imWetiqscS/clmFmln41qV1JWXBdbwRWK7uiwP8viDdz6zj53x4uQ13NJDd7OSx70
-	 CaJahMoF4soesOxbK9ncoTq6ERAIDsQqVnlJvsMx7UDpgE3v1RkZ3tuWZhmLrsUJuW
-	 cqnRzFoU8/Wb52UP1tlCAror6CP/VJ1fY2VHoxRsftKba9+uhTRAUf0WzMzJZdDduA
-	 VOxcynz5YrSTsq8w+4/SC8NHXlkWNR0vsHmZNqC6tdEVjlVoIJz4hZLrt6mnFhwavG
-	 7VgbRPr0mTtK3VfPqjfmY2eHanB/IV2qo54j1T9hUy+OSReTo2qEVhZMV2kW9u7Udk
-	 HC6HSLyG/+97w==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 803F2CE0B65; Mon, 31 Aug 2026 20:10:15 -0700 (PDT)
-Date: Mon, 31 Aug 2026 20:10:15 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: KunWu Chan <kunwu.chan@gmail.com>
-Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] srcutiny: Add atomic SRCU operation checks and state
-Message-ID: <ce1789d4-7a78-456c-9e6e-e9af824e5285@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260831074937.2380914-1-kunwu.chan@linux.dev>
- <0eac36c5-acd2-4d8d-a498-f56a57cc3d6a@paulmck-laptop>
- <CAN_Opa_z4e8fLM0=+QV82r4oveKKUWitvNrBnsfJhXd+2-QQLQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N4VEJn17"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8558c0b26a8so295037b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:10:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788232214; x=1788837014; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jhJ8n25LzOc8lbhEbWbszgHxjWzBW7yAadsVbbI5nCc=;
+        b=N4VEJn17gs2Ii0nHeTdVXWDsHkypZq1th3UDuVFHtzTwLfQxtydIRyudRmREF6qccy
+         DqKCwRkUIrLbLnRW6gHw5FB9vQG8njQWRN331hJGVQwDY0WFhEfZ+O2aUzPLUhNmkffz
+         r9gYkJ4+u328IU3vw/yWDAMGy8TidGJ152ZvFIUvD/6NvTmRvLqhBZSSovSINN37v2jJ
+         tCDQ0gAcrFIjizBlzyGkJqrThdormNpK3/gaI6owPJ3JvnVEeBODPYVB62lzyavIvoTL
+         /o05K07JFO43YMZV6yqG5lPBOC+wDfOzBN+0GsrehGdEkrzrZ3kLjehFkNG7BR2JX7Eb
+         wDug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788232214; x=1788837014;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jhJ8n25LzOc8lbhEbWbszgHxjWzBW7yAadsVbbI5nCc=;
+        b=sz55Id8OqsVI3i3WlZKK9ZfAzBI/xAvHDCXF5ra8yblVhws1AnzDxQ+pgjG9RSj0h2
+         SMNRw/qeYwE9wn7gXvYGnop9edTZ9k3PICbhmdWAfnv/HJgWw4Qs83f5WS8MNcXCRV1W
+         aZgLLD+4VWwAEPwqRp1Fw8KA3KXOn2R/8mGOKOzYEs7ykrBsojRqS839ttAhVX5Y5IUZ
+         3r/oVu0gVJZE8QDMdHRhA1+H8UTunoDrY85ioc3lo/WXR4Rdr2S/o8a5L5V7fvb0PvXf
+         zgIS/IopQygPqgmnFQkMjY5aesqTGGcae+v0gYaVKYod7/44Mx5e96/GE8/NgiauWw15
+         TRxA==
+X-Forwarded-Encrypted: i=1; AHgh+RqgQMaJmFMXlJttDDXMBU47BoDaWcjrfe6sSVP/zrN12VLbl14QL/jcSyHVk8wWrFuWEMGhUeKahtdwDeM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kakv0L424su1Pcp/mG9A1xMzeZJFJTQ9dSx5CDcHg0vTK2Kq4P
+	KCbOnLvs5zAF47RIQ+JYOpyWtu1q0djkc9q9aNvorLyZ+qnDj2jPETw5
+X-Gm-Gg: AR+sD12r3jCnlcZifVUx2IBvF+pUALDa3GIaJRaAXFWyhtNDq9Ps6vBAc/MLpQk33bk
+	6eSbA+Eqve8tlC9mztEWOr7eY088WuVqJ0z04ocJjh1tKvY9k6JVkGf6oQma63fbwrkV4PA4Tru
+	G0VdoXlhNfVTH9Jlw3vBDjyztkZ1Ez3z3zGF+j/02rKjXTa+oZDb7C4bHfFGyRrC1nqG5LP4J6j
+	GS+l8TfQgBe7sih6zMS35s+Wd3opNq8pa8J4SHEQ6iIgF+KrGINkao3o3TJz592Ao8vHbiIJjbZ
+	VeVPQKeQuMiNxyBSKvSzsxYM1dHxujHFTHhLhG+wWtunYfa+NohwyFcCiU7hmTU+Gm6RF7nbdPz
+	othSM1w2xQC2iRhN18lXy0hnREwo0Q1QDBRu9XWCmHzjsj9YhxPiR0NfaOHHee21AvLxeAISUny
+	ggqonckMN5zz9xt5Bb0jn8gj5H8N9ngSLjl9kj5d1RsoVW7caHY2HRXfEYflIhZwHr6Qynfbg4x
+	HqdAA5YIkCgZOUzjxgtayWqfL0tZCXm3pzndAk2gJUuJ+ut
+X-Received: by 2002:a05:6a20:430b:b0:3d0:c5c0:d9b3 with SMTP id adf61e73a8af0-3d269b4f03emr43822140637.18.1788232213947;
+        Mon, 31 Aug 2026 20:10:13 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286fa20e2fsm34570628eec.28.2026.08.31.20.10.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 20:10:13 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <6e8761aa-67ef-4624-834d-4b9d0ce729d6@roeck-us.net>
+Date: Mon, 31 Aug 2026 20:10:12 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] SPD5118 Intermittent MR11 Corruption During Suspend/Resume
+To: Matthew Bettencourt <matthew.bettencourt@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <1a8ea9da-1ac1-4312-a8ca-ea4a9f35093f@gmail.com>
+ <ee284272-0da0-45b6-a3be-c76822e5d54f@roeck-us.net>
+ <014b9438-e9b7-4be1-b816-002e83a068a0@roeck-us.net>
+ <37132c40-aa82-4df1-b5ce-337601f3c085@gmail.com>
+ <3c4e9f59-5272-48cf-a4a0-eeefcba955a9@roeck-us.net>
+ <763a8b30-8548-4ff0-a1e9-8e74bbfe9b02@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <763a8b30-8548-4ff0-a1e9-8e74bbfe9b02@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAN_Opa_z4e8fLM0=+QV82r4oveKKUWitvNrBnsfJhXd+2-QQLQ@mail.gmail.com>
 
-On Tue, Sep 01, 2026 at 10:00:24AM +0800, KunWu Chan wrote:
-> On Tue, Sep 1, 2026 at 9:04 AM Paul E. McKenney <paulmck@kernel.org> wrote:
-> >
-> > On Mon, Aug 31, 2026 at 03:49:37PM +0800, Kunwu Chan wrote:
-> > > From: Kunwu Chan <kunwu.chan@gmail.com>
-> > >
-> > > Add atomic SRCU operation checks and the associated state to Tiny
-> > > SRCU.
-> > >
-> > > An atomic SRCU domain does not use the normal SRCU callback and
-> > > grace-period machinery.  In particular, a callback queued with
-> > > call_srcu() would never be processed.  Use WARN_ON_ONCE() to reject
-> > > call_srcu() and srcu_barrier() on atomic SRCU domains.
-> > >
-> > > For synchronize_srcu(), redirect atomic SRCU domains to
-> > > synchronize_srcu_atomic().
-> > >
-> > > Add srcu_reader_flavor to the Tiny SRCU state for these checks.
-> > > Tiny SRCU does not currently set the flavor for atomic SRCU domains,
-> > > but keeping the flavor in the common state allows the operation
-> > > checks to enforce the restriction once atomic flavor tracking is
-> > > enabled.
-> > >
-> > > Also initialize srcu_atomic_gp_flag, which was previously left
-> > > uninitialized.
-> > >
-> > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> > > ---
-> > >  include/linux/srcutiny.h |  1 +
-> > >  kernel/rcu/srcutiny.c    | 12 ++++++++++++
-> > >  2 files changed, 13 insertions(+)
-> > >
-> > > diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
-> > > index 47a368f945e3..2b293336525a 100644
-> > > --- a/include/linux/srcutiny.h
-> > > +++ b/include/linux/srcutiny.h
-> > > @@ -20,6 +20,7 @@ struct srcu_struct {
-> > >       u8 srcu_gp_running;             /* GP workqueue running? */
-> > >       u8 srcu_gp_waiting;             /* GP waiting for readers? */
-> > >       u8 srcu_atomic_gp_flag;         /* Serialize atomic GP work.*/
-> > > +     u8 srcu_reader_flavor;          /* Values: SRCU_READ_FLAVOR_.*  */
-> > >       unsigned long srcu_idx;         /* Current reader array element in bit 0x2. */
-> > >       unsigned long srcu_idx_max;     /* Furthest future srcu_idx request. */
-> > >       struct swait_queue_head srcu_wq;
-> > > diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
-> > > index 26ea4bfbeaf2..22f7716cbb0e 100644
-> > > --- a/kernel/rcu/srcutiny.c
-> > > +++ b/kernel/rcu/srcutiny.c
-> > > @@ -41,6 +41,7 @@ static int init_srcu_struct_fields(struct srcu_struct *ssp)
-> > >       ssp->srcu_cb_tail = &ssp->srcu_cb_head;
-> > >       ssp->srcu_gp_running = false;
-> > >       ssp->srcu_gp_waiting = false;
-> > > +     ssp->srcu_atomic_gp_flag = 0;
-> >
-> > Good catch!  I will be folding this into the base commit with attribution
-> > on my next rebase:
-> >
-> > 9a2e9996ccec ("srcutiny: Add an atomic Tiny SRCU")
-> >
-> > >       ssp->srcu_idx = 0;
-> > >       ssp->srcu_idx_max = 0;
-> > >       INIT_WORK(&ssp->srcu_work, srcu_drive_gp);
-> > > @@ -289,6 +290,9 @@ EXPORT_SYMBOL_GPL(srcu_defer_drain);
-> > >  void call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
-> > >              rcu_callback_t func)
-> > >  {
-> > > +     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
-> > > +             return;
-> > > +
-> > >       if (should_rcu_defer()) {
-> > >               /* A re-entrant call_srcu() during the drain would livelock it. */
-> > >               if (READ_ONCE(srcu_defer_draining) && !in_nmi()) {
-> > > @@ -319,6 +323,11 @@ void synchronize_srcu(struct srcu_struct *ssp)
-> > >  {
-> > >       struct rcu_synchronize rs;
-> > >
-> > > +     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC)) {
-> > > +             synchronize_srcu_atomic(ssp);
-> > > +             return;
-> > > +     }
-> > > +
-> > >       srcu_lock_sync(&ssp->dep_map);
-> > >
-> > >       RCU_LOCKDEP_WARN(lockdep_is_held(ssp) ||
-> > > @@ -415,6 +424,9 @@ EXPORT_SYMBOL_GPL(synchronize_srcu_atomic);
-> > >  /* Register any deferred callbacks, then wait for all in-flight ones. */
-> > >  void srcu_barrier(struct srcu_struct *ssp)
-> > >  {
-> > > +     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
-> > > +             return;
-> > > +
-> > >       __srcu_defer_drain(ssp);
-> > >       synchronize_srcu(ssp);
-> > >  }
-> >
-> > The rest is good as far as it goes, but don't we need to set the value
-> > of ssp->srcu_reader_flavor somewhere for atomic srcu_struct structures?
-> >
+On 8/31/26 17:16, Matthew Bettencourt wrote:
+> Hello Guenter,
 > 
-> Hi Paul,
+> Here is the list of i2c devices on my machine
 > 
-> Yes, agreed. I have the flavor tracking changes implemented locally
-> and am testing them now.
-> I’ll send the updated patch shortly.
+> grep . /sys/class/i2c-dev/*/name
+> /sys/class/i2c-dev/i2c-0/name:Synopsys DesignWare I2C adapter
+> /sys/class/i2c-dev/i2c-10/name:AMDGPU DM aux hw bus 1
+> /sys/class/i2c-dev/i2c-11/name:AMDGPU DM aux hw bus 2
+> /sys/class/i2c-dev/i2c-12/name:SMBus PIIX4 adapter port 0 at 0b00
+> /sys/class/i2c-dev/i2c-13/name:SMBus PIIX4 adapter port 2 at 0b00
+> /sys/class/i2c-dev/i2c-14/name:SMBus PIIX4 adapter port 1 at 0b20
+> /sys/class/i2c-dev/i2c-1/name:Synopsys DesignWare I2C adapter
+> /sys/class/i2c-dev/i2c-2/name:AMDGPU SMU 0
+> /sys/class/i2c-dev/i2c-3/name:AMDGPU SMU 1
+> /sys/class/i2c-dev/i2c-4/name:AMDGPU DM i2c hw bus 0
+> /sys/class/i2c-dev/i2c-5/name:AMDGPU DM i2c hw bus 1
+> /sys/class/i2c-dev/i2c-6/name:AMDGPU DM i2c hw bus 2
+> /sys/class/i2c-dev/i2c-7/name:AMDGPU DM i2c hw bus 3
+> /sys/class/i2c-dev/i2c-8/name:AMDGPU DM i2c OEM bus
+> /sys/class/i2c-dev/i2c-9/name:AMDGPU DM aux hw bus 0
 > 
-> I also have draft patches for the documentation and the fast path, as
-> well as rcutorture testing for
-> tiny atomic srcu , which I’ll send separately.
+> The dmesg output I provided was captured with i2c debugging enabled. When the issue occurred those are the only i2c transitions I saw.
+> 
+> I will try and add some additional logging and checks the controller driver and see if there are any other i2c transactions with the same symptoms.
+> 
+>  >  The only ideas I have is that somehow an access to another I2C bus
+>  > messes up controller registers, or that there is a real hardware problem.
+> 
+> I am not against the determination that there might hardware issue, however I got down this rabbit hole after I read a forum post on level1techs where someone else had the exact issue with the same memory kit. I have posted in that forum as well but have not gotten a reply. The original post sounds very similar to this issue but the user never reports on the actual SPD5118 registers so it is hard to know for sure.
+> 
+> https://forum.level1techs.com/t/msi-x870e-carbon-9950x-2x48gb-ram-bizzare-issues/222454/23
+> 
 
-Sounds good, and I am looking forward to seeing them.
+I think your log shows exactly what happens (at least in your case):
+The I2C controller sometimes returns 0xff when reading MR11, and from
+there everything goes downhill. As mentioned below, I would suggest to
+add code into piix4_transaction(), check if SMBHSTCMD or SMBHSTADD changes
+between pre and post, and print an error log message when this happens.
+Per your log message, when it happens, the controller returns an MR11
+value of 0xff which is obviously bad and will trigger all kinds
+of issues.
 
-I will admit that I am curious as to why Tiny Atomic SRCU needs different
-rcutorture testing than does Tree Atomic SRCU, but I will ask myself
-that question again when I see your patches.  ;-)
+Obviously that isn't going to explain _why_ this happens, but it is a
+starting point. As for why this is (only) seen if the spd5118 driver
+is loaded: There is no other code writing back MR11. If there is some
+firmware issue, the problem may still exist but not have any adverse
+impact.
 
-							Thanx, Paul
+With the debug code mentioned above, we would at least have a chance
+to figure out if there are any other failing read operations or if this
+really only affects MR11.
+
+Thanks,
+Guenter
+
+> Thanks,
+> Matthew
+> 
+> On 8/31/26 6:38 PM, Guenter Roeck wrote:
+>> On 8/31/26 16:10, Matthew Bettencourt wrote:
+>>> Hi Guenter,
+>>>
+>>> I checked the i2c bus and there is nothing at address 0x22:
+>>>
+>>> # i2cdetect -y 12
+>>>       0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+>>> 00:                         -- -- -- -- -- -- -- --
+>>> 10: -- -- -- -- -- 15 -- -- -- -- -- -- -- -- -- --
+>>> 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>> 30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>> 40: -- -- -- -- -- -- -- -- -- 49 -- 4b -- -- -- --
+>>> 50: -- 51 -- 53 -- -- -- -- -- -- -- -- -- -- -- --
+>>> 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>>> 70: -- 71 -- 73 -- -- --
+>>>
+>>
+>> That means that
+>>
+>>>>>> [  277.574130] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, ADD=a3, DAT0=00, DAT1=18
+>>>>>> [  277.575552] [   T3293] i2c i2c-12: Transaction (post): CNT=08, CMD=01, ADD=45, DAT0=ff, DAT1=18
+>>>>                                                                           ^^      ^^       ^^
+>>>> This is unexpected. It was supposed to read MR11 from 0x51, but the returned data is 0xff,
+>>>> and the CMD and ADD register values are changed. 0xff is returned to the calling code as MR11.
+>>>>
+>>
+>> this is a real problem. I don't really know what to suggest here. You could
+>> add some debugging code into the controller driver and check if / how often
+>> CMD or ADD changes its value between pre and post, and generate a log message
+>> if that happens. The value should never change. If it happens when reading MR11
+>> I suspect that it happens with other accesses as well.
+>>
+>> What I2C controllers do you have in your system ? "grep . /sys/class/ i2c-dev/*/name"
+>> should tell. Also, do you see any other I2C transactions on other I2C
+>> busses ? The only ideas I have is that somehow an access to another I2C bus
+>> messes up controller registers, or that there is a real hardware problem.
+>>
+>> Thanks,
+>> Guenter
+>>
+>>>>>> [  277.575617] [    T113] i2c i2c-12: Transaction (pre): CNT=08, CMD=1a, ADD=a7, DAT0=ff, DAT1=18
+>>>>>> [  277.576169] [    T113] i2c i2c-12: Transaction (post): CNT=08, CMD=1a, ADD=a7, DAT0=00, DAT1=18
+>>>>
+>>>> Read MR26 of 0x53 (=0x00, enabled)
+>>>>
+>>>>>> [  277.576237] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, ADD=a2, DAT0=f8, DAT1=18
+>>>>>> [  277.577061] [   T3293] i2c i2c-12: Transaction (post): CNT=08, CMD=0b, ADD=a2, DAT0=f8, DAT1=18
+>>>>
+>>>> Write 0xf8 into MR11 of 0x51. This is where things go wrong. The call originates
+>>>> from regmap, which tries to configure page 0 (lower 3 bit) while leaving the upper
+>>>> bits alone (which were 0xff from above corrupted read).
+>>>>
+>>>>>> [  277.577121] [    T113] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, ADD=a7, DAT0=f8, DAT1=18
+>>>>>> [  277.578063] [    T113] i2c i2c-12: Transaction (post): CNT=08, CMD=0b, ADD=a7, DAT0=00, DAT1=18
+>>>>
+>>>> Read MR11 of 0x53 (=0x00)
+>>>>
+>>>>>> [  277.578127] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=1a, ADD=a3, DAT0=00, DAT1=18
+>>>>>> [  277.579062] [   T3293] i2c i2c-12: Transaction (post): CNT=08, CMD=1a, ADD=a3, DAT0=00, DAT1=18
+>>>>
+>>>> Read MR26 of 0x51 (0x00 -> enabled)
+>>>>
+>>>>>> [  277.579131] [    T113] i2c i2c-12: Transaction (pre): CNT=08, CMD=1a, ADD=a6, DAT0=01, DAT1=18
+>>>>>> [  277.579560] [    T113] i2c i2c-12: Transaction (post): CNT=08, CMD=1a, ADD=a6, DAT0=01, DAT1=18
+>>>>
+>>>> Disable temperature sensor support on 0x53 (MR26 := 0x01)
+>>>>
+>>>>>> [  277.579620] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, ADD=a3, DAT0=01, DAT1=18
+>>>>>> [  277.580170] [   T3293] i2c i2c-12: Transaction (post): CNT=08, CMD=0b, ADD=a3, DAT0=08, DAT1=18
+>>>>
+>>>> Read MR11 of 0x51. Since 0xf8 was written above, 0x08 is "as expected".
+>>>>
+>>>>>> [  277.580234] [    T113] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, ADD=a7, DAT0=08, DAT1=18
+>>>>>> [  277.581061] [    T113] i2c i2c-12: Transaction (post): CNT=08, CMD=0b, ADD=a7, DAT0=00, DAT1=18
+>>>>
+>>>> Read MR11 of 0x53 (0x00 -> page 0)
+>>>>
+>>>>>> [  277.581072] [    T113] spd5118 12-0053: POST BIT UPDATE: SUSPEND MR11 (0x0B) -> Cache: 0x00 | Bus: 0x00
+>>>>>> [  277.581128] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=1a, ADD=a2, DAT0=01, DAT1=18
+>>>>>> [  277.581559] [   T3293] i2c i2c-12: Transaction (post): CNT=08, CMD=1a, ADD=a2, DAT0=01, DAT1=18
+>>>>
+>>>> Disable temperature sensor support on 0x51 (MR26 := 0x01)
+>>>>
+>>>>>> [  277.581626] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, CMD=0b, ADD=a3, DAT0=01, DAT1=18
+>>>>>> [  277.582236] [   T3293] i2c i2c-12: Transaction (post): CNT=08, CMD=0b, ADD=a3, DAT0=08, DAT1=18
+>>>>
+>>>> Read MR11 from 0x51, wrong as before
+>>>>
+>>>>>> [  277.582250] [   T3293] spd5118 12-0051: POST BIT UPDATE: SUSPEND MR11 (0x0B) -> Cache: 0x00 | Bus: 0x08
+>>>>>>
+>>>>>>
+>>>>>> --- The logs that are of interest ---
+>>>>>> [  277.573085] [   T3293] spd5118 12-0051: PRE BIT UPDATE: SUSPEND MR11 (0x0B) -> Cache: 0x00 | Bus: 0x00
+>>>>>> …
+>>>>>> …
+>>>>>> …
+>>>>>> [  277.582250] [   T3293] spd5118 12-0051: POST BIT UPDATE: SUSPEND MR11 (0x0B) -> Cache: 0x00 | Bus: 0x08
+>>>>>>
+>>>>>> I enabled i2c debugging as well in case it helps. The lines I focusing on are “PRE BIT UPDATE…” and “POST BIT UPDATE…”, immediately after regmap_update_bits() the physical bus value for MR11 shifts to 0x08 while the regmap cache remains 0x00.
+>>>>>>
+>>>>>> I looked through the history of spd5118 patches and bugs and noticed there has been some issues around suspend and sleep cycles. This might be a deeper issue than just the spd5118 driver.
+>>>>>>
+>>>>
+>>>> Those problems are related to I2C controllers on some Intel boards, which disable
+>>>> write operations. That does not affect AMD systems.
+>>>>
+>>>> The problem is that one of the MR11 read operations fails or, rather, returns
+>>>> bad data. This bad data then corrupts the register when written back.
+>>>> This by itself is odd. There should be at least a debug log message if there is
+>>>> an error in piix4_transaction(). Is there anything on address 0x22 on that I2C bus ?
+>>>> It almost appears as if there is a parallel access to the I2C controller (for
+>>>> example from ACPI) which would corrupt the data for the spd5118 access.
+>>>>
+>>>>>> Additional Notes:
+>>>>>> - Intermittent Nature: The issue is intermittent and typically reproduces within ~10 sleep/resume cycles.
+>>>>>>
+>>>>>> - Single DIMM Testing: I was unable to reproduce the issue with only 1 DIMM installed after running over 30 sleep/resume cycles, though the intermittent nature makes it hard to rule out entirely.
+>>>>>>
+>>>>
+>>>> Both is not surprising, given that we are dealing with corrupted data when
+>>>> reading from MR11. I have no idea how that corruption can happen. The above
+>>>> is a wild guess: If there is indeed ACPI access to the I2C controller, the
+>>>> only remedy I can think of would be to black-list the I2C controller driver
+>>>> itself.
+>>>>
+>>>> Thanks,
+>>>> Guenter
+>>>>
+>>>>>> - Hardware Health: Memory stability was verified with a varitey of memory tests with zero errors. Issue occurs with JEDEC and XMP profiles enabled
+>>>>>>
+>>>>>>
+>>>>>> --- Steps to Reproduce ---
+>>>>>> 1. Boot system from cold boot. Load the spd5118 driver.
+>>>>>> 2. Put system to sleep
+>>>>>> 3. Wake system
+>>>>>> 4. Check value of MR11, if corrupted warm reboot go to step 7
+>>>>>> 6. Go to step 2, repeat
+>>>>>> 7. System now shows corrupted DIMM with a size of 2GB
+>>>>>>
+>>>>>> --- My test spd5118_suspend function ---
+>>>>>> static int spd5118_suspend(struct device *dev)
+>>>>>> {
+>>>>>>   struct spd5118_data *data = dev_get_drvdata(dev);
+>>>>>>   struct regmap *regmap = data->regmap;
+>>>>>>   u32 cache_val = 0, bus_val = 0;
+>>>>>>   u32 regval;
+>>>>>>   int err;
+>>>>>>
+>>>>>>   err = regmap_read(regmap, SPD5118_REG_TEMP_CONFIG, &regval);
+>>>>>>   if (err < 0)
+>>>>>>   return err;
+>>>>>>
+>>>>>>
+>>>>>>   /* 1. Read cached MR11 value from RAM */
+>>>>>>   regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &cache_val);
+>>>>>>
+>>>>>>   /* 2. Read physical MR11 value directly from I2C bus */
+>>>>>>   regcache_cache_bypass(regmap, true);
+>>>>>>   regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &bus_val);
+>>>>>>   regcache_cache_bypass(regmap, false);
+>>>>>>
+>>>>>>   /* 3. Output both on the exact same log line */
+>>>>>>   dev_info(dev, "PRE BIT UPDATE: SUSPEND MR11 (0x0B) -> Cache: 0x%02x | Bus: 0x%02x\n", cache_val, bus_val);
+>>>>>>
+>>>>>>   regcache_cache_bypass(regmap, true);
+>>>>>>   regmap_update_bits(regmap, SPD5118_REG_TEMP_CONFIG, SPD5118_TS_DISABLE,
+>>>>>>   SPD5118_TS_DISABLE);
+>>>>>>   regcache_cache_bypass(regmap, false);
+>>>>>>
+>>>>>>   /* 1. Read cached MR11 value from RAM */
+>>>>>>   regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &cache_val);
+>>>>>>
+>>>>>>      /* 2. Read physical MR11 value directly from I2C bus */
+>>>>>>      regcache_cache_bypass(regmap, true);
+>>>>>>      regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &bus_val);
+>>>>>>      regcache_cache_bypass(regmap, false);
+>>>>>>
+>>>>>>      /* 3. Output both on the exact same log line */
+>>>>>>      dev_info(dev, "POST BIT UPDATE: SUSPEND MR11 (0x0B) -> Cache: 0x%02x | Bus: 0x%02x\n", cache_val, bus_val);
+>>>>>>
+>>>>>>      regcache_cache_only(regmap, true);
+>>>>>>      regcache_mark_dirty(regmap);
+>>>>>>
+>>>>>>      return 0;
+>>>>>> }
+>>>>>
+>>>>
+>>>
+>>
+> 
+
