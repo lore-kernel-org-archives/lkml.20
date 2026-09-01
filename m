@@ -1,196 +1,104 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0372488755
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF3E3537C7
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:29:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788283711; cv=none; b=GxVfkfXsf6uA7xBM9dekOizNFQsdYaRAaMh1QKc/tIGTrFKiJHjVrL3TB0fySa63oukQmjKohaP65dAHE/Wnfiq3pT2JY/OyXfdW5B31NWouv9ceev20Hou4wP+5QJ6eO/WjtcUK9ulDM2+8vALtIyUgHifJou4KrlwpWJqfb1U=
+	t=1788283755; cv=none; b=aIFvcW+jUs0mVv98SgmBbZnb3Yif+RVQUm00OMn5aGlJ+1WQoDsKLXKPqnOMa9GlcR8DzXvM16JYyhI51ZDX2FimDA71QcCFKG85wS4liqb37In9qJ5DFm17ciMP4SvEA4M3AFLDEjDhq3fJrACm1mPs+3Ewz1pr7FZNk0XEeeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788283711; c=relaxed/simple;
-	bh=/8akLwfs1o3i5XMdCX3/5Zu0HCQoB5fVGW3Pkg2xb8g=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=V9GUS7sCeQsVWeNpV6Ax5xNpTA4uybqoYjUOAgveeruEPQcc97nqitB/Q76f4mYm75nQ9bG/o+UEJbVWGYiWPDodIkQMMgTkOesMb5a5kHAbGoIZpVCGMywabC4NI62mJcS4eRxWrOnevOECY4L06+jdwzIbEUjnymduyPzqlco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VklgPQxN; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788283755; c=relaxed/simple;
+	bh=/FFrJYTVM7e3EQoU6dqccPYv02h/IASAcqRVL1kZWyQ=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=IO25XEvVGmyobe86q8bgr7pYSkXNOZzEyitR26H/BXI9xtTp7iUaZt1gT5gxEDXgEcDiIRAuEEP9yFZliiKwN2RiNIHFRy0WQrQOk+zTi7hQLcLLSNLE78ZPqbj1LAqgB8Zs/PcWTXIFA6pjdkrTaBnS8zblr5JabPUEOny/TkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=sQHF9wmb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VklgPQxN"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cfca8558d2so279205ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:28:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="sQHF9wmb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B8191F000E9;
+	Tue,  1 Sep 2026 17:29:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788283709; x=1788888509; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pee9EJDo0yrD1zKrHbFb5B2Qg/13RIff1y5Ve46Cj+8=;
-        b=VklgPQxN1CCYtaNNxKMPvJb/zGAbVZeI0uPkNo0gwIhxFYWCEnZEuSOnuN+Uxr6eP1
-         QBkBQeXJki953L2CPfJuos3o9NaOzvT/F8lb2G8HInu0PYgYET9wg6ZYRmFd9vxh7kij
-         Bli/e06iUUbzJMlbojHoo0+EHhpftEORdkGLrvCAoPs2MM+17OJz5D4SAYGlCHWD12Fc
-         SrZ+IA+tHF8QYiq6877neqDvJtK2hFYNJs3CIuUxdZZ8EPJfU25C+oV+kdKqDh99S++u
-         8XnkSQH22PVRBSMo/C6KHlMbGQfnltMOq8EF8a9zMV4lYrHPqJA6mPRwQNBpNo+heoRb
-         cPJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788283709; x=1788888509;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pee9EJDo0yrD1zKrHbFb5B2Qg/13RIff1y5Ve46Cj+8=;
-        b=KHGbj5dW3VYiZJv+QEjEVFbdH1Ra46d3JMv+nMgGX/pCLTmgKWOJNpJZ7vABr4M/57
-         HhtCrfmkp1TFi5BJ1NLQTu9saAIgWFwpPYzoJTtC+f0NlWUEuwoCYDU61hn7ULRB/xcz
-         afl3OXT+91RCkZO28V8M+J3SFhzYGM0shJFBJeGdPEcj2hqlB5ueEtbeUkyRtggLWIda
-         AVdz1t/wyaXlU0emF2PD0oqkXycjFGuluf2rH5IKKL1/lQqW4vOp0T9rjf18ropEl28H
-         reOqbOfY/WYcXAMG6kuxzaadz6gs7DKgXNcKVZEYlYtS816TzoQYgAgBKnusiYpMLunk
-         Ug8A==
-X-Forwarded-Encrypted: i=1; AKwUvByqRyiOoj0LeyyaIw+JMJdOUthk7uDjucpyVtpPtCLLvN6PPen1ROxTQCfPyIU+IE9bkdBx/zifd+MxA5U=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0hUfrg/dBDs7f+M71VCRLOO9n68x9V9wgK0nRqj/v3YeRo/b4
-	o81f3kGhtmOVVFG+3HqfuVYd7WCa5KkDOAZ27IjgVjWHaQcrHtDhXbhwso/0rEIDecmX/ZxHRqZ
-	i697Rlw==
-X-Received: from plgf1.prod.google.com ([2002:a17:902:ce81:b0:2bf:8db:4516])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:cf0d:b0:2cf:ca89:499d
- with SMTP id d9443c01a7336-2d74def3ffcmr583168435ad.7.1788283708888; Tue, 01
- Sep 2026 10:28:28 -0700 (PDT)
-Date: Tue, 1 Sep 2026 10:28:28 -0700
-In-Reply-To: <20260901-gmem-selftests-fix-v2-4-5a273153354c@amd.com>
+	d=linux-foundation.org; s=korg; t=1788283753;
+	bh=tnzUsYmBzTkG/qduuXF36go4ShLApC/ylajzDtl8Juw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=sQHF9wmbR7uB2TkEtzgH81EVp6gsoWuhzfGCCboeFIcl1DKbRtUJEiAmdpdSvFuEb
+	 0vWSSJF4hE1nqSM6y3rKl84LvWBFB8SJ33xlL3sjoATBlS3DNAz1C+EQ9oGoIL7ns3
+	 tIOoZ6CdwNeU+P8gNBFaxhC1X5VZAVV9j8CNFVQc=
+Date: Tue, 1 Sep 2026 10:29:13 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Qinyun Tan <qinyuntan@linux.alibaba.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal =?ISO-8859-1?Q?Koutn=FD?=
+ <mkoutny@suse.com>, Lance Yang <lance.yang@linux.dev>, Qi Zheng
+ <qi.zheng@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, Muchun
+ Song <muchun.song@linux.dev>, Dave Chinner <david@fromorbit.com>, Baolin
+ Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>,
+ Xunlei Pang <xlpang@linux.alibaba.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/list_lru: don't copy stale shrinker id from
+ non-memcg-aware shrinkers
+Message-Id: <20260901102913.5c571bf153bc3830905c6770@linux-foundation.org>
+In-Reply-To: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
+References: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260901-gmem-selftests-fix-v2-0-5a273153354c@amd.com> <20260901-gmem-selftests-fix-v2-4-5a273153354c@amd.com>
-Message-ID: <apcLPJerTWENV6iD@google.com>
-Subject: Re: [PATCH v2 4/4] KVM: selftests: use allowed NUMA nodes in guest_memfd_test
-From: Sean Christopherson <seanjc@google.com>
-To: Shivank Garg <shivankg@amd.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Jim Mattson <jmattson@google.com>, Peter Shier <pshier@google.com>, 
-	Ricardo Koller <ricarkol@google.com>, Ackerley Tng <ackerleytng@google.com>, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026, Shivank Garg wrote:
-> guest_memfd_test assumes that nodes 0 and 1 exist and have memory.
-> is_multi_numa_node_system() only checks that the maximum node ID is
-> nonzero, which is not enough for sparse or memoryless nodes.
+On Tue,  1 Sep 2026 19:51:04 +0800 Qinyun Tan <qinyuntan@linux.alibaba.com> wrote:
+
+> With cgroup.memory=nokmem, shrinker_memcg_alloc() fails with -ENOSYS
+> for shrinkers without SHRINKER_NONSLAB, and shrinker_alloc() falls
+> back to a non-memcg-aware shrinker.  On this fallback path,
+> shrinker->id is never assigned and keeps 0 from kzalloc(), which is a
+> valid id belonging to whichever memcg-aware shrinker registers first.
 > 
-> Select the required nodes from MPOL_F_MEMS_ALLOWED instead. Use the full
-> nodemask width plus one to mbind(), and let test_mbind() run when only
-> one memory node is available.
+> __list_lru_init() copies shrinker->id unconditionally, so every
+> list_lru backed by such a fallback shrinker (thp-deferred_split,
+> zswap-shrinker, workingset shadow nodes, superblock lrus, ...) ends
+> up with lru->shrinker_id == 0 instead of -1.
+> 
+> Under nokmem the list_lru collapses to the shared per-node lists, but
+> __list_lru_add() still calls set_shrinker_bit() against the memcg of
+> the added object.  Most list_lru users are unaffected because their
+> objects resolve to a NULL memcg without kmem accounting, but the THP
+> deferred split queue holds user folios, which are charged regardless
+> of nokmem.  Since no memcg-aware shrinker can register under nokmem,
+> shrinker_nr_max stays 0 and every memcg's shrinker_info has
+> map_nr_max == 0, so the first folio added by khugepaged triggers on
+> every boot:
+> 
+>   WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x99/0xa0
+> 
+> On systems where a SHRINKER_NONSLAB shrinker (btrfs, xfs) did register
+> and expand the maps, there is no warning; instead bit 0 is set
+> spuriously for an unrelated shrinker.
+> 
+> shrinker->id is only meaningful while SHRINKER_MEMCG_AWARE is set,
+> and all readers inside mm/shrinker.c already check the flag before
+> using the id.  Make __list_lru_init() do the same and fall back to -1,
+> so set_shrinker_bit() is never reached with a bogus id.  The stale
+> shrinker->id itself is left as is; cleaning that up is a separate
+> topic.
 
-Please split this into at least three patches.
+Thanks.  I'll queue this for test and review.
 
-  1. Refactor guest_memfd_test.c to prepare for using nodes other than 0 and 1.
-  2. Fix test_mbind().
-  3. Fix test_numa_allocation().
-  4. If necessary, do additional cleanups in numaif.h
+> Fixes: 03375203e1da8 ("mm: do not allocate shrinker info with cgroup.memory=nokmem")
 
-As is, this is extremely difficult to review, e.g. without staring intently, I
-can't tell what's refactoring and what's actually a functional change.
+Worth a cc:stable, I assume.
 
-Actually, looking at the xAPIC IPI test more, what you proposed in patch 3 is in
-the general direction of what we want, but needs to be more than just a wrapper
-for get_mempolicy() to be useful.  Specificaly, if it fills the mask *and* returns
-the number of nodes found, then it's more generically useful.  And if we also add
-an API to get the next (exclusive) node, then we can cut down on the amount of
-copy+paste without forcing tests to use the "array of one-bit nodemasks" approach
-that the xAPIC test uses.
-
-E.g. the below get_numa_node_ids() is basically just copy+paste from the xAPIC
-test, except that it returns an array of nodes instead of an array of nodemasks.
-The fact that you felt compelled to copy+paste instead of adding an API is quite
-telling: using an array of nodemasks/nodes is inflexible and really only works if
-a test wants to target exactly one node.  It's also annoying to extract to a generic
-API without ending up with a brittle API.  E.g. if the API where to take the a mask
-and an array, it would either have to be a macro or take a struct to ensure the
-array can hold all possible masks.
-
-I'm planning on adding these in the series to also add MAXNODE_FOR_MASK().
-
-static inline int kvm_get_numa_memory_nodes(unsigned long *nodemask)
-{
-	int r;
-
-	*nodemask = 0;
-
-	r = get_mempolicy(NULL, nodemask, MAXNODE_FOR_MASK(*nodemask), 0,
-			  MPOL_F_MEMS_ALLOWED);
-	TEST_ASSERT(!r || errno == ENOSYS || errno == EPERM,
-		    "Unexpected get_mempolicy() failure");
-	return __builtin_popcountl(*nodemask);
-}
-
-/*
- * Return the node ID of the next NUMA node in the mask, starting at @from+1.
- * Guarantees a node is found, and that the found node is not @from.  Pass -1
- * to find the first node in the mask.
- */
-static inline int kvm_get_next_numa_node(unsigned long nodemask, int from)
-{
-	const unsigned long nr_bits = BITS_PER_TYPE(nodemask);
-	int to;
-
-	to = find_next_bit(&nodemask, nr_bits, from + 1);
-	if (to == nr_bits)
-		to = find_next_bit(&nodemask, nr_bits, 0);
-
-	TEST_ASSERT(to != nr_bits && to != from,
-		    "Unabled to find second NUMA node (from = %d, to = %d)", from, to);
-	return to;
-}
-
-> The sysfs helpers for finding maxnode are no longer needed.
-
-This is an observation, not a proper changelog sentence.
-
-> Signed-off-by: Shivank Garg <shivankg@amd.com>
 > ---
->  tools/testing/selftests/kvm/guest_memfd_test.c | 86 +++++++++++++++++---------
->  tools/testing/selftests/kvm/include/numaif.h   | 52 ----------------
->  2 files changed, 58 insertions(+), 80 deletions(-)
 > 
-> diff --git a/tools/testing/selftests/kvm/guest_memfd_test.c b/tools/testing/selftests/kvm/guest_memfd_test.c
-> index 2233d871a38f..aee80dda6229 100644
-> --- a/tools/testing/selftests/kvm/guest_memfd_test.c
-> +++ b/tools/testing/selftests/kvm/guest_memfd_test.c
-> @@ -76,33 +76,53 @@ static void test_mmap_supported(int fd, size_t total_size)
->  	kvm_munmap(mem, total_size);
->  }
->  
-> +/*
-> + * Fill @nids with the first @nr_nids nodes in the allowed mask.
-> + * Return false if the mask contains fewer than @nr_nids nodes.
-> + */
-> +static bool get_numa_node_ids(int *nids, int nr_nids)
-> +{
-> +	unsigned long nodemask = get_numa_mem_nodes();
-> +	unsigned long nid;
-> +	int nr_found = 0;
-> +
-> +	for_each_set_bit(nid, &nodemask, BITS_PER_TYPE(nodemask)) {
-> +		nids[nr_found++] = nid;
-> +		if (nr_found == nr_nids)
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
->  static void test_mbind(int fd, size_t total_size)
->  {
-> -	const unsigned long nodemask_0 = 1; /* nid: 0 */
-> -	unsigned long nodemask = 0;
-> -	unsigned long maxnode = BITS_PER_TYPE(nodemask);
-> +	unsigned long nodemask, bind_nodemask;
-> +	unsigned long maxnode = BITS_PER_TYPE(nodemask) + 1;
->  	int policy;
->  	char *mem;
-> +	int nid;
->  	int ret;
->  
-> -	if (!is_multi_numa_node_system())
-> +	if (!get_numa_node_ids(&nid, 1))
+> Verified on a machine booting with cgroup.memory=nokmem and
+> CONFIG_TRANSPARENT_HUGEPAGE=y: the warning fires once per boot from
+> khugepaged, disappears when nokmem is removed from the command line,
+> and no longer triggers with this fix applied and nokmem set.
 
-This is not functionally equivalent.  The existing test requires multiple NUMA
-nodes, whereas this will now succeed if there's exactly one node.  That could be
-totally fine, but it needs to be isolated and explained in its own patch.
+That's useful info.  I'll move it into the changelog.
+
+
+Sashiko thinks there's a problem with cgroup_disable=memory as well:
+	https://sashiko.dev/#/patchset/20260901115104.2944996-1-qinyuntan@linux.alibaba.com
