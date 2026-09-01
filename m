@@ -1,110 +1,253 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A978386C20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2207833F368
 	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:39:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266389; cv=none; b=pUZ0JaD08wifNLPI8fMcXsFm1RzLOAIfvnJ1z//NYpqXbyNS9sxwq5bi5SvyYQ+vTMVvODuRfRgSyWaGtPhxuonPh9PQNd1ZSOLvO+CBu+O64UzZnS4WJI5Dtf2Cf+K43LtjL3TbxO7ge3jfXzZ6h67aRkgWOOEQeJ1ow8o0Fls=
+	t=1788266388; cv=none; b=f6lKZB2+YQDx3yIcL92BzYquRn0rMSxrWxZka9hPxOLjQlBuzz5beJ7SW4Zru+eoibdgThdbyexPug+Ni9EI+/TZyqs67ta4w0qputd4OT7oQ+afjTV3xiZ6Rk9+Syo2lJHWDTchtIbar99ItcJXa51e+3888+DqxSMlUwDvPb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788266389; c=relaxed/simple;
-	bh=R6OTu3ZLedqJvq4H6JK1yo9FBxwZF+raP0p8sBoRneM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l1gpBQC8NpsZlyVNFU3O/Rbf4dlrmmoyOmiWXQsWzAeXjx1lknOBlPQCYMXA4nNgaPYVXvHR5HP6U+rOmvi7kT2F0pX+hDnOpVagPjr9uW3U4X3fv76oopCxfNJvr9EcdZOtM3D47KE4U7mFhHhOdimT4BNCywNJuYcxC6pn1gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=S3E2e7Ry; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1788266388; c=relaxed/simple;
+	bh=Y7Jcq8dZWob6t+KlbYyR/PhGdfcnJrT7r5rX1ijtrRs=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MI8SMZmAPFtlWLvU0mL0EEhI0MZqPF1OIssUGiF0Gt99P2VS0sNakYyiocURmWzSS2nBdIQiOpOGerunHCfR0Vf4fNbMflaU+0CtakikKU82kXDu43+N1NvAi3kPzbXz/KGycKE2v2j00ZJBljmo+9pgEAdIOhbYfikW+kw+7Io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sC+l95ns; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="S3E2e7Ry"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso9114685e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:39:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sC+l95ns"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49cdc81f40eso10218175e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:39:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1788266386; x=1788871186; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U7Q7YynkXMl4i7Q6YSpnO6DndhGuxWYKw0DWUs4lEJo=;
-        b=S3E2e7RyTZy/1VUayaRy2ZjaFnk9wcL6oMz6gSI35YQHblI8j9HWX3ABRCA9H0mtsJ
-         l4FHZTW1SMQJzv4EIhWx2ciWSNnWwgN2yN00GxSd9uoA0jErPN91sTt+dM+Ox711ilrL
-         v/wSjFIV3L4Jn0mnIBLe2LpWtGX/MIFzL9+pzJFD//h3NV0ECJvY81m1ZpVstVaRU9Wk
-         iVjowRJmrnIGaaUrQil0WWSoHQEi/seTzw0qNcerhq94avmXW7+No8bRPGQ98xrDWIla
-         tF1TTiK5xyiwwGXXNTRQZ5JWcOJ1TqVLmnqIK2LT509imHpoOTahDXuEY/pYZjy69IdD
-         JWTg==
+        d=gmail.com; s=20251104; t=1788266385; x=1788871185; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=53RowTVrDzh07Xu8pdx1LUWteAHWJvlkzmcm0Nvqkwg=;
+        b=sC+l95ns1GbW0GAQxEagivHUUVaz0/acHSEEwvHA4GWFaw87LJijFVI3vkgdDDzwe7
+         Du0pEvUZ0Jx1m/CSLOzKmOys/TWlx4i0scO8buCQudj/W7Lb9M01yBxJhD+ulHDiIAMr
+         ZIMVMTbcCi4F3mNprAbTTIma8Gsb2pwCc1N2AzxlgjDmV9HIdHIWW0mzSx+cBSrqFuEH
+         TRYJ0C5B2Z9iwmJiIOxl6GasNd5yTds0PZ+v/YxaQsjwe4vAntan5ew3IonKCauyjeK4
+         cWLYRP0nh3oR66oDZNZdMfaA/W+US2pXq2L/7OprsKxf37Hl+hw55zDrBXXiL8nsV/Da
+         6txQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788266386; x=1788871186;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U7Q7YynkXMl4i7Q6YSpnO6DndhGuxWYKw0DWUs4lEJo=;
-        b=BXnEGUXtgs5K1mO55Ol+1043VmmRib2oqX3oiSp+1wHVcAhD5t7aww9auiTQJtaj0N
-         FQL+S4rXqN9ygiO6zlRXGhrjjBMSZ4oBIqpEZbdVtZY3ViluzQRqo2Wx8hzern+D4lfu
-         76vmkfBb2cowsmkeppZpfXhmRADA2RRSryvh6DFOFoyQj0cnObTN5qDHK1fE0WhVZQtR
-         7lN9iIHuG9pYt+NihBzwGdsR+kmVoER+kjXBCQ+lOeodDIT6Krjs0ViGFlht2L9/nc/M
-         x/yjg5oZHtzQvKoYJ4RVNfrBPIFv8MBEHu71raa29bY/Ab5G/07Sk8+EMciWvoPMeamc
-         5I7Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rp6WdFp9AWRq8E4H2BBEL7NDTz6LUHNwT0EAYpDMNWMirGDV74wS7lEgFU6a9Ak8sxuobKlqbEMXrGK9tA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMOo3zILN3Jrcsn1iP5PsT8boZkzWxlVoRFbRqTeJ9QRkNVWG0
-	LgU+OYP+tC1rD+Ft7c+7SPrDOBtghISjlNzxQPaTlB358KeIJc/RrDU=
-X-Gm-Gg: AR+sD12MRxDiaO5frGkhtD8ILI3CzNGmvyBmp8tWc5qCMSLP5/1bkydKDoIEli74i+l
-	fgTH46DN5ucBc+KvLMTizjx5BaSnIHwdqWSg3uc7uymWMizQ0uS6Gdqagxzp+DBboUZw+s17Bzl
-	I0aiCFaRxEF22EMhvtZ8yE0EuvGDGv2thjno6tbQkrkANktCxVIlndO88Go6vEZrJ1bgSTHRJ6N
-	PeDvu2t5cS+gWCDO/6F6hfLAs5Fwu+GszUBVG3fVKlm4qO3yQaY3wR76UzMoUqqiBepSD8jNYIU
-	nX54mXHvYiNI57RyWjwN7EFEWMc5RE0wV0rYX9ASyPaUab7vB1/HPLkeyqiNyK4ggjEDSmV3TEI
-	U5odBqpGmX8x4Q+gG8U4F3kTj7KkWuWQtCwBN7rP3XNLhanRgzfo6geP0C4h4lE+km/0pCMm40c
-	o9ubNecyexOvJR+bdwjJV9VnKEQFPxWPE7ISeya+77wkqxiPkKAbvEbnNdJWg7jNdDR6DTeQwV8
-	SWMHJ/6NLKJTA/XS+eDi+tFBIu9+qpGOIdnIBTVf2vstyQ3pKk=
-X-Received: by 2002:a05:600c:4fcb:b0:499:db27:7b1 with SMTP id 5b1f17b1804b1-49b91c62d9bmr508038395e9.15.1788266385542;
+        d=1e100.net; s=20251104; t=1788266385; x=1788871185;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=53RowTVrDzh07Xu8pdx1LUWteAHWJvlkzmcm0Nvqkwg=;
+        b=RB4ZupQUSvt7CdSiXQrrYPlP2jJ5nOiJV0bbq+VjO0N4QpnbChKLdNMXGJiUYbXeCG
+         kUX4umcscIIGArfCXgrsV8fNQHLnmPGdXstUip38c7sU+SPdzS5dV4Avxh+Ryg9z3zBl
+         0JRv8GwBe4SYqfbyL2IGaaulr9CSOrJ+W3GcnwvPoUaAKFTGKOFWCIOSriJz81yMXpov
+         pW9Qepn0HlomPojLZrizuUl/kfBFgOJm6kg+gy+VJwQcD4t6gDy+fGf0A+yZ0bcetht6
+         zXEvOdJwPzKZyJPW85su09l6OPW+ljv8IVBJus6iE/Q82Mn2JThga83fBlc+N5ipJLLF
+         TvRw==
+X-Forwarded-Encrypted: i=1; AHgh+RrFA0l/f43ndz5PsnBkj//YOL6fQnpyy730SDPX8nGzhxdS9aT896psTM+S8KDXi5QseiAKuu7+XW2qqOc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUaramLnggK4iHNAnOYgNBh/reI2OQzhdia955Jlzr+QowWPxT
+	3RfcHk5TZGyRj6CF3zD5dIJgZbmQqnCD6vu355F1QRFX7NSDFJh+0u+3
+X-Gm-Gg: AR+sD11DBlkutm1TfAGYkADt9YdjzWlxgUNIJ3gjcsdpaNAJPYWz5WEF38yFZEBd2/q
+	ybM1SJb7owgoAepZu/Zvn+1ap/2zPG8ptnSYP47HUNuR91drrD+35QsVN1LsvXHiZTPsh2poxhT
+	wfxlDSnbnEtmiaBBrzGsZMl2J59XcXPmqkDxs1nISFrFlg/nILYUyqebplJikepF39HZrc6Yh9J
+	4VDHHm3SjUooPEkYf3iEI3zYuKHzZpR498RO9BnbnyOg3wgvPM6AFigPw2o0ETZnJoAO1GNA/Qa
+	dIDqCk2fDi42gSHSnuOf0UKbnGkYyhDuBU7rpLFhQASt3ex+j6hMqHg0raKAc+L20ar/15MZxT4
+	6KI1oHyqmqPd0cpMPI9A0UGfXrw6DEMF6LgTVdflUwk9Mw/Jctdyb8yGZC2kI1PWGThjI1i7qQA
+	JZ/TAv+ckOxb7q8YHnGDC9p7uUSVsEuX/VyS4TI7IXtW37Rfft6MaVWtCzZXYA27IGwrVTRLKmw
+	zmw6CL9AbIHhxxqer5yVNPvY61FIWupAzYLgokgOa/MAQKUD8z6IQ==
+X-Received: by 2002:a05:600c:8011:b0:496:bbce:fc with SMTP id 5b1f17b1804b1-49cdc5660bamr157788235e9.12.1788266385067;
         Tue, 01 Sep 2026 05:39:45 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2ac7f5.dip0.t-ipconnect.de. [91.42.199.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d3b86dsm4584243f8f.11.2026.09.01.05.39.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 05:39:45 -0700 (PDT)
-Message-ID: <e2926b70-c2cb-4a7b-a02e-b027f731b968@googlemail.com>
-Date: Tue, 1 Sep 2026 14:39:44 +0200
+Received: from Ansuel-XPS24.localdomain (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48442d3d2eesm4644130f8f.15.2026.09.01.05.39.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 05:39:44 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 1/3] dt-bindings: phy: airoha: Document support for AN7583 USB PHY
+Date: Tue,  1 Sep 2026 14:39:31 +0200
+Message-ID: <20260901123933.15388-2-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260901123933.15388-1-ansuelsmth@gmail.com>
+References: <20260901123933.15388-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 7.2 00/71] 7.2.3-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260831133359.055927882@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260831133359.055927882@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 31.08.2026 um 15:33 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 7.2.3 release.
-> There are 71 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Add documentation for Airoha AN7583 USB PHY that describe the USB PHY
+for the USB controller.
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
+Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
+always supported. The USB 3.0 mode is optional and depends on the Serdes
+mode currently configured on the system for the relevant USB port.
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+To correctly calibrate, the USB 2.0 port require correct value in
+"airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
+selecting one of the 4 monitor clock for calibration (internal clock not
+exposed to the system) but each port have only one of the 4 actually
+connected in HW hence the correct value needs to be specified in DT
+based on board and the physical port. Normally it's monitor clock 1 for
+USB1 and monitor clock 2 for USB2.
 
+To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
+property is required with the phandle pointing to the correct Serdes port
+provided by the SCU node. Providing the phys property is optional if USB
+3.0 is not used.
 
-Beste Grüße,
-Peter Schneider
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
+ .../bindings/phy/airoha,an7583-usb-phy.yaml   | 133 ++++++++++++++++++
+ 1 file changed, 133 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
 
+diff --git a/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+new file mode 100644
+index 000000000000..f1a5d83e8968
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+@@ -0,0 +1,133 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/airoha,an7583-usb-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Airoha AN7583 SoC USB PHY
++
++maintainers:
++  - Christian Marangi <ansuelsmth@gmail.com>
++
++description: >
++  The Airoha AN7583 SoC USB PHY describes the USB PHY for the USB controller..
++
++  Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
++  always supported. The USB 3.0 mode is optional and depends on the Serdes
++  mode currently configured on the system for the relevant USB port.
++
++  On Airoha AN7583 there is an unified PHY implementation where a single
++  PHY provide support for both the 2 USB 2.0 port and
++  optionally one 3.0 USB.
++
++properties:
++  compatible:
++    const: airoha,an7583-usb-phy
++
++  reg:
++    items:
++      - description: phy register
++      - description: ana register
++      - description: pma register
++      - description: dig register
++
++  reg-names:
++    items:
++      - const: phy
++      - const: ana
++      - const: pma
++      - const: dig
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++  usb3-phy:
++    type: object
++
++    properties:
++      phys:
++        items:
++          - description: phandle to Serdes PHY
++
++      '#phy-cells':
++        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
++          as defined in dt-bindings/phy/phy.h.
++        const: 1
++
++    required:
++      - phys
++      - '#phy-cells'
++
++    additionalProperties: false
++
++patternProperties:
++  '^usb2-phy@[0-9a-f]+$':
++    type: object
++
++    properties:
++      reg:
++        enum: [0x0, 0x1000]
++
++      airoha,usb2-monitor-clk-sel:
++        description: Describe what oscillator across the available 4
++          should be selected for USB 2.0 Slew Rate calibration.
++        $ref: /schemas/types.yaml#/definitions/uint32
++        enum: [0, 1, 2, 3]
++
++      '#phy-cells':
++        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
++          as defined in dt-bindings/phy/phy.h.
++        const: 1
++
++    required:
++      - reg
++      - airoha,usb2-monitor-clk-sel
++      - '#phy-cells'
++
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - '#address-cells'
++  - '#size-cells'
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    phy@1fac0000 {
++        compatible = "airoha,an7583-usb-phy";
++        reg = <0x1fac0000 0x1200>,
++              <0x1fa6f000 0x100>,
++              <0x1fa6e000 0x400>,
++              <0x1fa6a000 0x900>;
++        reg-names = "phy", "ana", "pma", "dig";
++
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        usb2-phy@0 {
++            reg = <0x0>;
++            airoha,usb2-monitor-clk-sel = <0>;
++
++            #phy-cells = <1>;
++        };
++
++        usb2-phy@1000 {
++            reg = <0x1000>;
++            airoha,usb2-monitor-clk-sel = <1>;
++
++            #phy-cells = <1>;
++        };
++
++        usb3-phy {
++            phys = <&serdes_phy>;
++
++            #phy-cells = <1>;
++        };
++    };
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.53.0
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
