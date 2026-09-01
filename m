@@ -1,134 +1,173 @@
-Received: from mta0.migadu.com (out-68.mta0.migadu.com [91.218.175.68])
+Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF03368964
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A183321DE
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.126
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788255885; cv=none; b=RKfon0ttup1iVcNOnOumsuPHSG1idt1tV3L5yag99/EYj49J1BZRtikqaEINLHGeLejvx02SkITDSSlQTIP7pU+NtiT06wLiLnNhYSR9hWQfZFO/5gIFLu3gsMfiAJpCKc069mKoVrOoR6sfEHxhNGcGzi8pWmrualBleJj+CGs=
+	t=1788255906; cv=none; b=Yg8uvPBNx8qCHe/O7lZnd9IhRIzoZ8XeZfV74+1G/6bzujeromvSR1TWyKLpwgqpQ8q8+514PYtCm6NyLDhONYwnS+Hx5psDT45stxy2MOczDBLDuHVoYstoIAwoY03rA2/hnGOqkBV26rsRxLGl5wHRHX44cKxsaDWSie/SwUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788255885; c=relaxed/simple;
-	bh=U+tcZw15K68mlanjAK2UomlTuTP3P1oMlvmlSPrqeWc=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=omj7wvkaECp5eRgoeN3c6nQ71FiWv56iHfJoLqB4oIqua74ljohFl6D+AP0gZp556OUn5AfmcZs2ECxBcsN4e1fOWGeXvRll4v7YHSbjlHxcZ2w7170c5fY4dKEiIfk6bYBXqMLNs5Ymjo8859V5an91Rjr3Rq5nfTOYZScWbM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oWIWW9PC; arc=none smtp.client-ip=91.218.175.68
+	s=arc-20240116; t=1788255906; c=relaxed/simple;
+	bh=z57+bjmdhsIpnXeGD4vSr7O/fAZ82WFkyFGHAzMiiKY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oqXuI74vyYT7X/QYBLVlWCPxmxAKVtiaX4qxXV8k/oHmfTkYRwbI8TQ5oB6ACdfXv5Et3b2v5oxt05EGYQAyt/HO/h5Qx2x2HqN4yzgIaFUYK57awnHuhb42CRloPHpXXz3y5VyY0lDFJpAz731OgvnYM8IshLEXm3R96caFfXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ngzGj4G+; arc=none smtp.client-ip=95.215.58.126
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oWIWW9PC"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ngzGj4G+"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=U+tcZw15K68mlanjAK2UomlTuTP3P1oMlvmlSPrqeWc=;
+DKIM-Signature: a=rsa-sha256; bh=z57+bjmdhsIpnXeGD4vSr7O/fAZ82WFkyFGHAzMiiKY=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788255879; v=1; x=1788860679;
- b=oWIWW9PCmW0CL63T+bQYiIuVZzYQVXfduq6nRxjRNKreWJPn5zCr5NOQcf1mj0yTFm9JYka+
- MHA/FhDp/WoQUKVYmtiTk7QsMgthPFYxDalhzDh52SCC++cZpm8vz3vwR+v0rPxAC/9321IYy0Z
- 7HMnn46nscdo8N9uuqF12Y4U=
+ t=1788255902; v=1; x=1788860702;
+ b=ngzGj4G+sfhAUtrUz3AI6efL4vCPPLcZB6gKsD+C5SNyYfaalRCu14YGlCZ+HCKrXDlToKSS
+ wI34wrMqrmmPodbWfuWch9Gz52NgIfGa/sg99t+nn0flZwjyTNH4WabTZtaO6S2Mv/fJaxeMPLW
+ CsahvriJZdYKOxpeHSiyzDWI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c7013bc8d2cf59a0;
-	Tue, 01 Sep 2026 09:44:29 +0000
-X-Mizu-Trace-ID: c7013bc8d2cf59a0
+Received: by smtp.migadu.com with ESMTPS id 855061c2782e283e;
+	Tue, 01 Sep 2026 09:45:02 +0000
+X-Mizu-Trace-ID: 855061c2782e283e
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <d8665587-a825-48d8-afb2-53fe10af0546@linux.dev>
-Date: Tue, 1 Sep 2026 17:44:19 +0800
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b2a73da7e1so6259e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:45:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByyYpo/WUv3GBspNhH/XJ3aCiw42OQ3HLJss/XyqIYe3IXdKEsCtjoWNkSdumlxhwS1NxMROhdbHGfS1t8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQbhNgbFnWlO0k7NibH86yncRb+B87MdbyKo6JJiwXg2Y0/yfK
+	+LzR6uxK5xo/McOQx326WKfgEjgbq4z6SrMFBi+h9k0bvAMNlT3PnJip/TNCoHGTPwbw91UCwxw
+	8Gh4PVExcPW3mCJ/lp5VMWsat3XlhzysLRUYT4Lj6
+X-Received: by 2002:ac2:51cd:0:b0:5b1:ca0b:25d2 with SMTP id
+ 2adb3069b0e04-5b5ff233baemr129072e87.4.1788255900753; Tue, 01 Sep 2026
+ 02:45:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, tj@kernel.org, void@manifault.com,
- changwoo@igalia.com, michalblk@google.com, liwanwu@kylinos.cn,
- sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH 1/2] sched_ext: fix vtime priority queue inversion on wide
- vtime spread
-To: Andrea Righi <arighi@nvidia.com>
-References: <20260901024038.730424-1-cui.tao@linux.dev>
- <20260901024038.730424-2-cui.tao@linux.dev> <apZ06G_-oC5cTprM@gpd4>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <apZ06G_-oC5cTprM@gpd4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com> <20260830-gmem-inplace-conversion-v12-11-85e5fd25252a@google.com>
+In-Reply-To: <20260830-gmem-inplace-conversion-v12-11-85e5fd25252a@google.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 1 Sep 2026 10:44:00 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTwWJ71eHG9MKPoHFzpTF_tgptm89F8N3auD-kFhiY9ykQ@mail.gmail.com>
+X-Gm-Features: AcwNN1UPfOAVycrEsYSNjlC5T6BZ8Jhw8Z-X2BEumfOk88JPkifl9vaDdwv3ap0
+Message-ID: <CA+EHjTwWJ71eHG9MKPoHFzpTF_tgptm89F8N3auD-kFhiY9ykQ@mail.gmail.com>
+Subject: Re: [PATCH v12 11/45] KVM: guest_memfd: Invalidate both SHARED and
+ PRIVATE mappings for in-place conversions
+To: ackerleytng@google.com
+Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
+	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
+	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
+	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
+	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
+	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
+	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
+	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-Hello, Andrea, Tejun.
+On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
+<devnull+ackerleytng.google.com@kernel.org> wrote:
+>
+> From: Sean Christopherson <seanjc@google.com>
+>
+> When removing one or more folios from a guest_memfd instance, invalidate
+> both SHARED and PRIVATE mappings if in-place conversion is enabled, because
+> stating the obvious, KVM needs to ensure that all mappings to the folio(s)
+> are dropped.
+>
+> Opportunistically rename the helper to capture that it returns a filter for
+> all gfns in anticipation of zapping only the previous mapping types on
+> conversion.  I.e. when doing in-place conversion to PRIVATE, only SHARED
+> mappings need to be zapped (ignoring that KVM would ideally not invalidate
+> ranges whose attributes aren't changing in the first place).
+>
+> Note, precisely zapping only the possible mapping types when in-place
+> conversion is disabled is important for functional correctness, not just
+> for performance.  Specifically, if KVM zaps both when SHARED vs. PRIVATE is
+> tracked per-VM, then a PUNCH_HOLE operation on a PRIVATE guest_memfd will
+> incorrectly zap SHARED mappings that have nothing to do with that gmem
+> instance (because they're mapped via a VMA, not a gmem fd).
+>
+> The incorrect over-zapping of SHARED memory that doesn't belong to the gmem
+> fd requesting the zapping will be resolved in a later patch, where, if
+> in-place conversion is enabled, KVM will use both shared and private memory
+> from the guest_memfd. If both shared and private memory are from the
+> guest_memfd, invalidation will only zap memory belonging to the given gmem
+> instance.
+>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 
-在 2026/9/1 14:47, Andrea Righi 写道:
-> Hi Tao,
-> 
-> On Tue, Sep 01, 2026 at 10:40:37AM +0800, Tao Cui wrote:
->> From: Tao Cui <cuitao@kylinos.cn>
->>
->> scx_dsq_priq_less() compares dsq_vtime with time_before64(), a cyclic
->> comparison that is only valid when the values in the queue are less
->> than 2^63 apart. Unlike CFS, which enforces that invariant with
->> min_vruntime clamping, sched_ext takes dsq_vtime directly from the BPF
->> scheduler and cannot bound the spread. A scheduler that inserts tasks
->> with vtimes wider than 2^63 apart into one DSQ gets the order inverted:
->> the tasks it placed last run first and the rest starve. Reproduced with
->> a probe scheduler assigning half its tasks vtimes near 0 and the other
->> half vtimes above 2^63 -- four of eight busy tasks monopolized the CPU
->> while the other four starved.
->>
->> Compare with plain u64 < instead, which is a total order and always
->> honors the order the scheduler asked for. The transient misordering
->> around the natural 2^64 wrap is the same class of anomaly the cyclic
->> comparison trades it for, but bounded.
-> 
-> I don't think switching to plain u64 ordering is safe here.
-> 
-> The current scx_bpf_dsq_insert_vtime() documentation explicitly defines the
-> ordering in terms of time_before64(), including wraparound. For example:
-> 
->   a = U64_MAX - 5
->   b = 3
-> 
-> a is earlier than b in cyclic vtime ordering. time_before64(a, b) correctly
-> returns true, while plain a < b would place b first.
-> 
-> Moreover, this is not a short transient. If post-wrap tasks continue to be
-> reinserted with small vtimes, a can remain behind them until their vtime
-> traverses almost the entire u64 range, resulting in effective starvation.
-> 
-> Can we preserve time_before64() and document or enforce the half-range
-> requirement instead?
-> 
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-You're both right, patch 1/2 was wrong. My probe fed values that
-violate the rolling-cursor assumption, and the "inversion" was the
-API behaving as documented. Dropping 1/2.
+Cheers,
+/fuad
 
-I'll send the documentation patch Tejun suggested.
-
-Thanks,
-Tao
-
-> Thanks,
-> -Andrea
-> 
->>
->> Fixes: 06e51be3d5e7 ("sched_ext: Add vtime-ordered priority queue to dispatch_q's")
->> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
->> ---
->>  kernel/sched/ext/ext.c | 3 ++-
->>  1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
->> index 8041c87a3562..dd0ce01370d1 100644
->> --- a/kernel/sched/ext/ext.c
->> +++ b/kernel/sched/ext/ext.c
->> @@ -1417,7 +1417,8 @@ static bool scx_dsq_priq_less(struct rb_node *node_a,
->>  	const struct task_struct *b =
->>  		container_of(node_b, struct task_struct, scx.dsq_priq);
->>  
->> -	return time_before64(a->scx.dsq_vtime, b->scx.dsq_vtime);
->> +	/* dsq_vtime is arbitrary BPF input: keep a total order */
->> +	return a->scx.dsq_vtime < b->scx.dsq_vtime;
->>  }
->>  
->>  static void dsq_inc_nr(struct scx_dispatch_q *dsq, struct task_struct *p, u64 enq_flags)
->> -- 
->> 2.43.0
->>
-
+> ---
+>  virt/kvm/guest_memfd.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
+>
+> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+> index cd966eef45b69..0afe1468d2d9d 100644
+> --- a/virt/kvm/guest_memfd.c
+> +++ b/virt/kvm/guest_memfd.c
+> @@ -139,8 +139,11 @@ static struct folio *kvm_gmem_get_folio(struct inode *inode, pgoff_t index)
+>         return folio;
+>  }
+>
+> -static enum kvm_gfn_range_filter kvm_gmem_get_invalidate_filter(struct inode *inode)
+> +static enum kvm_gfn_range_filter kvm_gmem_get_all_gfns_filter(struct inode *inode)
+>  {
+> +       if (gmem_in_place_conversion)
+> +               return KVM_FILTER_SHARED | KVM_FILTER_PRIVATE;
+> +
+>         if (GMEM_I(inode)->flags & GUEST_MEMFD_FLAG_INIT_SHARED)
+>                 return KVM_FILTER_SHARED;
+>
+> @@ -191,11 +194,9 @@ static void __kvm_gmem_invalidate_start(struct gmem_file *f, pgoff_t start,
+>  static void kvm_gmem_invalidate_start(struct inode *inode, pgoff_t start,
+>                                       pgoff_t end)
+>  {
+> -       enum kvm_gfn_range_filter attr_filter;
+> +       enum kvm_gfn_range_filter attr_filter = kvm_gmem_get_all_gfns_filter(inode);
+>         struct gmem_file *f;
+>
+> -       attr_filter = kvm_gmem_get_invalidate_filter(inode);
+> -
+>         kvm_gmem_for_each_file(f, inode)
+>                 __kvm_gmem_invalidate_start(f, start, end, attr_filter);
+>  }
+> @@ -347,7 +348,7 @@ static int kvm_gmem_release(struct inode *inode, struct file *file)
+>          * memory, as its lifetime is associated with the inode, not the file.
+>          */
+>         __kvm_gmem_invalidate_start(f, 0, -1ul,
+> -                                   kvm_gmem_get_invalidate_filter(inode));
+> +                                   kvm_gmem_get_all_gfns_filter(inode));
+>         __kvm_gmem_invalidate_end(f, 0, -1ul);
+>
+>         list_del(&f->entry);
+>
+> --
+> 2.55.0.897.gb25b4bd76c-goog
+>
+>
