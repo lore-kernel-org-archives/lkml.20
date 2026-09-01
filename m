@@ -1,167 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF33493641;
-	Tue,  1 Sep 2026 18:18:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E4E4963C8;
+	Tue,  1 Sep 2026 18:18:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788286702; cv=none; b=SecvtPOGe7b1dcaTlLNz7IVfRXrmJlL8vbuT8K+6skrf+iPJvb7cRAVVVqQWCbVM9+GC/Hl8J22w+yRuy/6cvCiuQ7I1viJyk2G8jvL5u47Oclr6f6TU83MCy7A8TjMKZfQN3rViEM3uCuQ5P1blXN1SW7B6NPDxUtqp0u2qecU=
+	t=1788286736; cv=none; b=nKF4Xl6sgx2w2TxU6fNTpIoHnHiR+/G0bCPHB/9nsmr/kbjV1JN8u3Z5drf3baDXJU+wBllv/JjDZGEhlWRng06xG0l5xDqEsSfX1/wrt9RDLfgmzqUm1gliXRLloWh3pU5HN5AHscMNOG/ECb41UH4/JTeMY1jKRmpywh3rbiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788286702; c=relaxed/simple;
-	bh=5ImQQ52FAHqZCA1SNnsWFLZKjtygQfBjRMkGGXfKTSc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bqwqhDH282az0pfB54q/P1vCnkXWvd+z2sVoDrTV11TB1rQR5RrKmOeRa/3DG8Tt7YKqim0/R4EF5njXycMyxhIDuR9Un92MZcPdlk5VjXvnI63jjrScro4hxiF2sbttQDQkuzGkA3LD79iGGKH0TGdiQ3hyO3K2cXZQ7NFPmeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DJqmD7CP; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788286736; c=relaxed/simple;
+	bh=zwO9XqbT0TZxY3t1rkN6NEAPNkiE7ic9fnQx1jSs8Gc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=CSBxM0Okeq0VD67eNJjyVfzg3Zcs+D/fQ7+H0w8my4/GpK3JNVh+u0RD0h7n4tW/4YRqRCToJ35rq+egCNm6xUZjjyNJtKI1fBMdAuGbOggYzmVN35VCYslu0a0jRy++KIVUiTWWq3NMmbr0iipxvB6mkkKnAnuqBXlx1eDeI3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=CG+GBDcQ; arc=none smtp.client-ip=212.227.17.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DJqmD7CP"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0DF8FC2BCF4;
-	Tue,  1 Sep 2026 18:18:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788286702;
-	bh=5ImQQ52FAHqZCA1SNnsWFLZKjtygQfBjRMkGGXfKTSc=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=DJqmD7CPvuHRXv9H0ocWvSmx5bdvpRaMRKPSIVhoNtbSObthH2L8DYC4rK9yN1NsR
-	 +l/CoMHR7WlZ3r8Nux8fBy5kBs0WzvlVD10BTeBCy+7BEaX2xvxHWdU2TGxmg0e1Ss
-	 k8oOULu/Y4A3IPjqVgrATFmpHhrxHazSvfK/SP05GFo6QLUu9PDt9QNY0LYp1lHTnI
-	 qBP2o0gMk/e6O3eN8SFqJxgZ3db5j9rogMPb6Fz1y5ZqnBD2WNvwr/nus3V6VKjIV7
-	 0ydqMzNzNpFM509hV362WZ0PxtyJPxV8LCb/Jgj1dwCTioZ8Bx+QoNstx7hPSLRU3w
-	 uYfWNfCNGaPlQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DBE2EC61DD6;
-	Tue,  1 Sep 2026 18:18:21 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Tue, 22 Sep 2026 21:40:33 +0200
-Subject: [PATCH net-next v2] net: pcs: lynx: add support for 25GBASE-R
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="CG+GBDcQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1788286732; x=1788891532; i=w_armin@gmx.de;
+	bh=eys8WrdxRmX5fSNisepTAlOO7qnzDb+uw/fLgOxnqqw=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=CG+GBDcQHGx80GE2ZS+SbYYpImfIG2yyatjRCQJ7Jcyn+QvU1/Bq1xDPhYGuLI0B
+	 If1ISPgHg19NeVB8LrMJiXiiQ8vHdVJySgGejoXy+u0SuG47r98seIARegLkgbP/x
+	 RW9mTII4NEMS79CcylwwfnDi+VII80bItDFDTuqbf2CY/1GlXLJKscsp6+e593EEP
+	 IqXT90WGWwfF/WP8P05d6JF/lT0QvU61W2A1EC42CurwfZg7Pm87p6bCuJn867vU3
+	 QMV5uCUpBrwZmPOgLsGh/QvGFivpeqosF+cPNEi1+B8bFSxMqLaLwNHjuPL8eboWI
+	 JkHsy4jYJC1LSa72/g==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MUowb-1xRh4H1DHN-00Ys5z; Tue, 01
+ Sep 2026 20:18:52 +0200
+From: Armin Wolf <W_Armin@gmx.de>
+To: pali@kernel.org
+Cc: linux@roeck-us.net,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	pp12313124124@gmail.com
+Subject: [PATCH 2/2] hwmon: (dell-smm) Add Latitude 5420 to fan control whitelist
+Date: Tue,  1 Sep 2026 20:18:49 +0200
+Message-Id: <20260901181849.241776-2-W_Armin@gmx.de>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260901181849.241776-1-W_Armin@gmx.de>
+References: <20260901181849.241776-1-W_Armin@gmx.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-for-upstream-lynx-25gbaser-v1-v2-1-1e6cf79c7b52@free.fr>
-X-B4-Tracking: v=1; b=H4sIALDZsmoC/42NQQqDMBBFryKz7pQkrY3pqvcoLqyZaKBNZJKKI
- t69wRMU/ubx4P0NErGnBPdqA6bZJx9DAXWqoB+7MBB6WxiUUDfRqBpdZPxOKTN1H3yvYUFVD6+
- uZHCWeBHCaGuEscJAaUxMzi9H/wmBMgZaMrTFjD7lyOtxPMvD//lRJtFZLftGXLU2zcMx0dkxt
- Pu+/wBOo3+Q0gAAAA==
-To: Ioana Ciornei <ioana.ciornei@nxp.com>, Andrew Lunn <andrew@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790106068; l=3594;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=bmf6B3F6ohB69HA6ZyITfXa57iK/cRlvOW+wygkEdRw=;
- b=ezUeCvdgVgzuSEY24djbVTGKsQyeB2ZhpUeAe4SYXcES261DGvI5h1+9nh3ozxA5sXv2A3fWa
- MfS04tacPR0CdceNxpv9IrYnMaJt0hF2JLuWYKEWuCxEKdCfzvOdUiR
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:x1zOcJrZCsTXE1wd7w+FfoacSbhi+ASdCuvVIRyvZVCcECcaZII
+ 9f5kNidLxokoHO13E9CA8OaS2ok6aZrlKIW9TOzUYYT9pueOmN58+EtYDGj7MF8Avgpce7x
+ 5Q7+TeOG1KSSY3mK5dkGymUIMZ1wN3AlpyEjvYG0dttQxRY1Qowi+jnzS2jyvxetykHyV+x
+ DYfuMmiaQTy7xNZGNLd8g==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:+QmmVgZptoU=;iz3iSxMXP4kmeDad7op2iySaLFP
+ 1qNpC77+PAMVqw5lcsVFhXx4OyZq+3gKLbFTpAu+3rNxKvRSn2lZtB35pTBML6R0RJIIbQIz3
+ 7bpIh8nxR4h5QHcUtEbCumkXvWg8H7CUDwDmD2igVDqNsAtcSp2QQCiyySxyBT0qyNdiukK6d
+ P9jY4kyUZfvmf0IfAADt9EhrbjsAlYyrMe+BcRCN9gXbI8Z2cJM31S2ykXmI+jv3OnEpzb+UU
+ HEvwKqsm8azTqW5p+I+0cjjZkx5LRk/fCereODy7F3IiDO5laTENG3N6CqtzEp9tGy7WB/70t
+ u8+2mS5MsgneWJFBYc03WGTrZOSOtmpgj8xyuxt5KE9VA+MPZfL20iTZFsQi012HiT2RW3ZNJ
+ iU5Y02BEtHqHWPvfk9NwfKcU8MpkC0hhN+oXmfZVBBmgI2rCoDh/uSIhA64de4z15TtuR+4wY
+ kok2s5LwLNiOBapwU/r/XWWceajRGg1F088ItSEHeFEpaZrfvsRYUM4dyFQ/qnc1cUQhTkqHB
+ xnJuY/RAvpVURkmo1Py0hwXnc0Br71E0qd6X/3Mcg6sEQprlxFvchegGwNvLT619LildsEwgp
+ RVijs8hn3WHLF+ucygkdnXgOyYxpBHLjfC+T+9gVghoYkAgiqx+Cf/JnZm0elHTffXZKcUoD+
+ 7/mZPbeCKkTSxnCQHxif1QkZIucx5jm8z0+P7rpsi385J4Xgoyk8ONC1UESkkGQKx7fjV4xtj
+ W4S0ay/sqxNPkUI4q9gupdnzFIRhtHYxfJ1Q9UNu88Hq/cELpohGwXE/wxtUY3g0ySUfrj8X6
+ M3hs8IGl4JqhPhugXJ00s2stQHjJo03yQcMQ0EVcU1gs5JLItU96iUiucJFv0gcX1Cp1z4WM9
+ /k9kduHPhslHvhn9kVplDjDG2iJ6/BIMzEZS30lmfr2ddCT2PdCAmIdZ/Y8AVzZgqtOi33yW/
+ iMoX8rXvqz2/Xyh41M1Ij4KJVCsqnL3qUQOD4DJu7aUlP1CB8BHxjpaoqDYt0EUtd0loWpV3P
+ Nl8I6Gs/NOvoq8Uf8xgH5e3lUzj6WsKnzRMOpV73oRhUb/8s4tYgnhvhkEG1F2ZZ9/u0KmHue
+ 7w8cIDPQv9+v8NKi+ZKuoS+ISdpXmGGwRUs91GiqAUcdkl6a31h5L3WItHmZfHVjJ3A+7zAHh
+ YFCHZrI+riwn/dbIzbBX6C9FEHRSUKBC0iIe0EcXCK1IWdnycquhvnlKXfd3eEP4PTJJGXFfl
+ VnHhCJNYJF33L1WqSj1Urzr2bbrmvE/fPRpZ+waWmk8gQP5QxMyNT0yJdfyVnxHPX46wwUoUD
+ 6Fs3jr1u/4TXlkqk6yh9FDGOh29KaWyOm0d1ZoIZvC5y+JKQcUyMyUzXjPMKrsxpWZjRloidB
+ sOhQ1wp4yRc6MZ+mqlSMGV/32Z4FxgndyqwK+o54ZiYSpWzZ3I2hcsJb/BU5nfUQCMUuZHD6p
+ nKOfhY8YYIeVr5ltNelvnI/0AiVNmPg3rZ7xRNtcPRlU74L6mHlanWBDsFi1786RU99M9K4eV
+ M/5Agiyw2pQZQkmG7HuAz8hqkK/T8rxaSGhX+7IkkcwRQYOdlG3sUYo5ILBTf4Mh6ckva3YRE
+ c/OPtYJXBvL9aKBnUUm+yOTRlcn9SvRDy+G0uA85h2LLsfpAm/pvpwp9lICHiVb88oc1qA/ax
+ Zb76pts/8cAT/G2q5XVdGl2WTj/5nPkfzCDijkQLWq42Ol1sKItH78j14lryB44uhqc5h353i
+ mdn74D9wOiWzuFU6s7XpAgkX7yPSZd/SBLXD554T5/NwGiXUrwvwQhI954GME5UiDlh/y+7zO
+ 5BEZMuu7l//WgU30uUKy4DPBy5wSKq16YVLn77GCmLInikjD1SUvySPFJeNX7EaA6Daia0eeP
+ kPZkDGegGLgA8vx/7Gb2dV0S5EEVLN/zXJFcZtAqXMJHXqAzy4uKL0oVx1vfrN0RdhfkB1PRZ
+ /lNWeb3Re2SVhf8eYvcwM+19v1jzDku93odYDGHojvTDCD3URs+Ozv3PtIuNsGZpo1ALQZFIT
+ ParaiD692bXLGVq2VvMorycniKQfJiLGsmfui3rsGNvJiev5x3O0Q/iYTQ6NcCG73vgwAi1kA
+ v1Q+iRzbZx04vviBU6J5XoyYbiKvpWtrQ91Ei20NbaA4i+cVmpSyUu0hcNZO9ELA7OKd9Hr7N
+ 9l7RXaNM2DiiZopz8SwkQoaEKdjnAkOTLGYkJp1s21anfYQAR1mODg0pKq05eJ6SD35weVRGL
+ k1YtymPNAsacKkAoYSA8PXp5XgECbGXyJyDkYJY7cXr2bV2jXyitYPrK6hWRlt6bnnVpWU/bJ
+ esKE9U3DZ91P8FVnUVYO7uQqnlkqfAsoHT5Ayfh3q10Jm5dqWll7h6LWaFgTSZ+doiIOruO7b
+ 4VTcHlGO9gBWHz8jqhDKXMWDIqRnLPsYnDxaOHbpvlAXt0qJ0t6dWdjj1T4eq9G6jHLeVQjCr
+ Rq/kPqChok8ua6HjqDEVhqqkMBMDv5sxhOShEmI8OMC/6VZ5KfT7PzC3rh75PYDPoLBsImbEW
+ TirxBR9Zt8BwaoubwGXpbjipyYqq4SeoJAFPRzXHNHtgIz7Fy8RV2jFjz91tC6ijkcnz6THWM
+ qDzTF1ng4iGaM1a9L+MQ+W7SdNwItcy5urDOHptfYeHEif5iFTZUqGwI4FIVOiI4WmtX28URh
+ piHhZbJIwxJ54WgqSfoKh/iDwUUmXU6uIyr5XwT+QxCM5jUPfE2nwd9w84QVm3IOqBXrLI3CM
+ NVeYELGDRjB+g0A2W7ioJkIutdwY943OQFrwarRCIXgEXid1un9ZryhOYHxLPxLPZHm0fG2BZ
+ qVr8r5UjibMdpcWScHHqbWqE9fE8zmTRqSplZly30KJmUBdjKkfzkd/OlHqhAwinESlSVzEFx
+ eS4DQqJqNqYORH5hKQM3dQBX+7HHh7nzlRWtdgS0hIrJx9nHElaU5BeFrGTNmxmnD7zZKKtFR
+ h3Aswe86A+xnobqvqMGT/Kb6PHuRZ4lSO1gcQyfRph8qMnPc87NcBjoD1nBonW5KmDWA13o4n
+ MTBIpfb5J9Tw6E5M+baR6GF55nWESAOYmBpuwPSg1a0OrIqnNymMN1bIx1ymX/KSQ4wMFQWdj
+ +2CoQ+yOKF2jSBeDCyYK8WsrfOgk3aRwbrNiDBczPoMfHsVRjtGx8tcpOkQPur1MFPYPumkbS
+ aGMIijD3m7+V9Y+ZmtGWJSiyncGzmqN8Ue7z1YBC0R19ZbKv/WcU2hwL475nWVzCfrHc+l+NZ
+ rXVe+u/DP12Wj5bI8aKTgNfqa8T1QxFJu87LbHPnbCUlRSLkxWlqjtiNYllnCYG4CiwSZFfjD
+ Dr+VJcP1NwbbBYZJHj+vs4DKCltaDlDjghSYeDCTzXF4BVQF/7Hauv4cla4pfYBJZoMZHSIV/
+ At4zt2FMHu9JMDXpdOAQMAE4U+eYz8poAjwlDEG3Q4Jciq93iU6WGNY6dUwVwecLnbmsxNRGB
+ 2DjoqtcKsfBx8pe92SaMExayifXGVpOVl9IBm5L9uKiNLv7SN2YUu3tDtbdZFEBkrKL0Dtbc1
+ MtAuy1X9f7hKNSDjQxFcJWFH2NUcrSvVzpfYLRrPdF5yjDuvAVGeRf4xAcVO0dx4/GtjN87Iw
+ zHLX36XGUXe1pdpie6pettrY48QuPV/LiKjBod5nD9izUV2FPRUu3+WCA1NL0m+x8hsF2ZCBM
+ QPG8sdWaKN+QW8kaRZCxnJ84ZuvwSyKwXUgV9a6Zq0UhXLphlvGs9ALE99nxoMxFy9k1ST5uG
+ bY6xZJ+xxKei1n1cI+Q0+FXwst5lLCIyk89Vw5Wp/BNxFsfgiqAELB2tzZEHzX7r9Yp9HCTR2
+ PalUuFWjYvsL2n9Ix9tCc66CkUUhsyq/Z1/9lvVmAdaA+XYYU2QdKc0nlbTaAC14P1NnuLL+r
+ czYq9qwWoLzEfHwr2HwC5f2/dtH8rl9wpN6u+tKWJ9RfHb10dzYf+ZmDaEmEbYcMG5PzluC/2
+ qhJN/ljABWgV9GgpUm8JwOabT50JmTD6KCHtEUFGG/g2ZGKV/ySTaOk1I5tLEs1aauSI+dFlW
+ 7we05AB0UWxLvOt34Gr0+CBqfDESQ0AkiAjyd2uwFcG40alLdd//WwVX9BnGzGp1owdTiGt99
+ p6+FYt8urSJI94qF79y7yia5+iXa3Al3sHLvPQBEmiwJeZAoLCn6pO2vWqaKc4KlSKZmNUYrr
+ WW4k9zs8f92e7XG4eNptWYe6rA6RawGpn7OokG9rWiRQ0d91yCMH20apSDdIdqFBCMe/YuyH3
+ voA8orzSKNtvBc/kkdNwDZmJ7baOTee8CSon7pnEwSu/NSWHFiAX6KKdl7s/AAeCaYkZhHCdM
+ dAWeEzzIxpB8XxTkPawmJ50qvTNz2c6PaE/n+/eQApzsUqzHcxYf9tlsUPVAVx4ZZro4BXpS4
+ 7rTC7pjLFDLq6WSJPeywaVxkjZHixE5oF1lxXzjiGy9F3oaRpQThYiL2Oo6gcBABcbKGPmPG/
+ Tqv+Suz+asCEF7QBW8e1u95zAXMqNmZkvW6VKmSEftPw38c96woLQbyEWI6pwrYhF96ETqnJQ
+ tDRD6TS3L7U5YAe6x3OzMSE8aZ1+LslLcHWmBSNHHSgfEggPNrQNZea+cWt4a2A+13lYkhGpe
+ mluRTydqeHks8Hte99yo6HiF2cxDnZVwKGlu4cbFrsCTKZNXwbLR1QbPKMk5HbD0QL6n8NZGq
+ 0sQkFKzp3q9rNAJJN+anVfHoLJF968EVK+efaPWY85QEr5KoqLMuHpyQoEMeb4q+/SDbvhYa8
+ H+kaKRhj5x2A70PFjcS0IBfnK0Ez6Q3DrD4PlQtsRWe7jJ9BaqzlQ82TRCR81NQzzeZEuNves
+ 1S6O9/CuW1du3jD4trNTIAxtfyan6Dk6Vj2/OVXL9fwVNmTExy5gNNvAilbF/1kYHI3ec+ut3
+ /UF9iil3uklQemB19yZveTMVSf8m6oJP8WXuwD1aEi6ck7KUU8ENmHzRbpTZtciTIKYT8XwqA
+ FlYUbcgGxqmRRiIL8hseFWja/lXekNyhht8X9aeCvpYMkBUYMyyi0XaDbNKAH/7euB7/liX6s
+ FIKaGuU88ob6ONmtiEGozD3WGwvcBf0+BG0EOuEO9RwdPxj64doV1bj+uZW/VzNwuUFnZpcc/
+ IMC4pLrh3yKOSlRiyOIFyiedXhEK4mZVZoHG+U5au+BAm2kwy4ZbObVDiF2NmXuRGo+pGAreu
+ EuTNb+XJxRN3TSgVF/uWf+92wCxXKsCQj5HmQwi82GuBNdmnzP2TO0S+grATNO9MiMnyjfdHb
+ qfYnjTyZx38cNEzyI+bdLOVEd8bSM/fFLH5+EGtGdDp2387s31DV4t6P9pP1qboV3s7wXhp9R
+ +IPFCeni4zp6P4CXVFL3hVCqu2OrdkErF4kZtlI2ytY90SRZePDNNe4xQk736lzoK1RkU632k
+ VVsZiHs5/ePay8EuzXMTkmXxspeU3u309CKMTrMgifu1/zEktT71MhOTeoYeuH2uWl0O2dOZj
+ La5lnpXXmw+e3mJpvsf4xKjD6Tc6A+3I2rX4COSXhYdsJIFdc8KcOxAthtMdOCAULppC2oBVl
+ ZfY1rZak1CTwkySIei41c35LoReMU9p3MnecHZDPWv1E3RP5hxf59ryN6J2VmYWazKNAxIqI/
+ flhSWVWewUHFzNu754FzZ4g+8i04d6hmnX+AmUxbCVIyxm4BEZ1g/LkfmchHyFeXKmuA/ceM6
+ lnDsdII45T9hOdG4QEUwOIUj0jrRfx/eHCZyCPNCFQ50YcgBtcWJtpLAQ+O+ZFXvmkhcM7QV5
+ T+wZT2I2H6VuuFeJz4acSsGZuNFwpf6yyl61tQ5VMviWdcFk86LvJ0zmmzIj8JZ4rPhGXDZUW
+ F86J/CHNf/GfNwUDb9u0+sKflmdqP72YYbnGPLX42lOACBCoJlY9CKIuKIgWn5MY2n33BLTI+
+ 5RSo3wqs2e+7qajisFKYiFOKhS7MFnCN8jGA2a0+jw9Wv78W86DFT2PTANJydZ+8RaKqTH9g5
+ O8I8exvjpXDJuA5TbmKdO9vwV3iiH9jZkZIzdBhkucZ+maVKfeOUbcsiUropF86nKzeX0Fta+
+ DbRd0+Q4EnljCGkeF0BKa6F+5zpL3xKsM9qJPQ8h8cwiam/dQTA7UVvCloFilYTqQeUmOGaSA
+ gzuJv+fPyP6JCZuxXTYOQDKeHeIsIMVeb/RzQTQwVYJMkriJ9X8qvNwRW5ZFwaYq45roOxZ+0
+ pEvtFz27n5KUXIAdqZiJxInTV8C9j18NWFyYlRdhGjmd3XLYuY9oUaR1BYogNHKODwXOox3Hh
+ T1cqAOK9La17t/E6a4aU8OKpH1x9JxkPc/p8BiSZWaTz6HkSfgKnhAZU5HBgoznOzWUYYEqvb
+ +qYIH377OSmicwEJzqhx3b1FoWh4TR9nYZBdinYX+VoqUMFFOp2A2c3OaAtnVfj8Nh6b2irX7
+ Li/1DcNd2jGSMRemYxGe6ySLTAM16+dU+4QHAWfdLanOjUboZ1drYBxPpTIHSRLTLFkg9AbBG
+ Tijx2avBkFbZ12AwA3Ji7fEeUWQmDR5M7FMk1hNLNcrUCpchCL36ULb1PLoWT87/xhTzhZPYu
+ FMScTBZR/oVjaXNnNU0ah4ab8S2NTl6MONNv6z2AunAnN6V7BxckWpq5Dx9nF/PybPQRFFk/e
+ WKPvAYBIrnrRyrWq/fnp4a/aQnVmR+35MbcgVrq0Yk70DvxSoAMecJ+H2vYPIVW4qOQ9cUdgM
+ w3vCIhk3rHk0x+G0DMwBaQFHoDng+Rhvsg3arupSWlSnTZlVUGeEpQ==
 
-From: Vincent Jardin <vjardin@free.fr>
+A user reported that the Dell Latitude 5420 needs to be whitelisted
+for the special SMM calls necessary for globally enabling/disabling
+BIOS fan control.
 
-The Lynx PCS never supported 25GBASE-R. Add it, so that a 25G DPMAC on
-LX2160A can be driven by phylink.
+Reported-by: pp12313124124@gmail.com
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D221935
+Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+=2D--
+ drivers/hwmon/dell-smm-hwmon.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-The SerDes side had the mode since the commit
-  1cab8fba5073 ("phy: lynx-28g: add support for 25GBASER")
-and dpaa2-mac maps DPMAC_ETH_IF_CAUI to PHY_INTERFACE_MODE_25GBASER,
-but the PCS never handled it, so phylink_validate() failed with the
-interface.
-
-25GBASE-R is a serial mode without clause-37 in-band autonegotiation,
-exactly like 10GBASE-R: it does not needs any configuration, its state
-is read with phylink_mii_c45_pcs_get_state(), and it reports
-LINK_INBAND_DISABLE.
-
-phylink_mii_c45_pcs_get_state() is extended in the same patch because
-without it the link comes up reporting Unknown/Unknown.
-
-Suggested-by: Ioana Ciornei <ioana.ciornei@nxp.com>
-Co-developed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
-Signed-off-by: Ioana Ciornei <ioana.ciornei@nxp.com>
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
-Repost of the RFC now that net-next has reopened, rebased on net-next.
----
-Changes in v2:
-- Reword: this adds 25GBASE-R support, it does not fix a regression
-  (Ioana Ciornei)
-- Squash in the phylink_mii_c45_pcs_get_state() 25GBASER case, without
-  which the link comes up as Unknown/Unknown (Ioana Ciornei)
-- Link to v1: https://lore.kernel.org/r/20260825-for-upstream-lynx-25gbaser-v1-v1-1-fd71c8047798@free.fr
----
- drivers/net/pcs/pcs-lynx.c | 6 +++++-
- drivers/net/phy/phylink.c  | 5 +++++
- 2 files changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/pcs/pcs-lynx.c b/drivers/net/pcs/pcs-lynx.c
-index a92081560e641..da4f99059eef7 100644
---- a/drivers/net/pcs/pcs-lynx.c
-+++ b/drivers/net/pcs/pcs-lynx.c
-@@ -46,6 +46,7 @@ static unsigned int lynx_pcs_inband_caps(struct phylink_pcs *pcs,
- 		return LINK_INBAND_DISABLE | LINK_INBAND_ENABLE;
- 
- 	case PHY_INTERFACE_MODE_10GBASER:
-+	case PHY_INTERFACE_MODE_25GBASER:
- 		return LINK_INBAND_DISABLE;
- 
- 	case PHY_INTERFACE_MODE_USXGMII:
-@@ -97,6 +98,7 @@ static void lynx_pcs_get_state(struct phylink_pcs *pcs, unsigned int neg_mode,
- 		lynx_pcs_get_state_usxgmii(lynx->mdio, state);
- 		break;
- 	case PHY_INTERFACE_MODE_10GBASER:
-+	case PHY_INTERFACE_MODE_25GBASER:
- 		phylink_mii_c45_pcs_get_state(lynx->mdio, state);
- 		break;
- 	default:
-@@ -188,7 +190,8 @@ static int lynx_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
- 		return lynx_pcs_config_usxgmii(lynx->mdio, ifmode, advertising,
- 					       neg_mode);
- 	case PHY_INTERFACE_MODE_10GBASER:
--		/* Nothing to do here for 10GBASER */
-+	case PHY_INTERFACE_MODE_25GBASER:
-+		/* Nothing to do here for 10GBASER and 25GBASER */
- 		break;
- 	default:
- 		return -EOPNOTSUPP;
-@@ -279,6 +282,7 @@ static const phy_interface_t lynx_interfaces[] = {
- 	PHY_INTERFACE_MODE_1000BASEX,
- 	PHY_INTERFACE_MODE_2500BASEX,
- 	PHY_INTERFACE_MODE_10GBASER,
-+	PHY_INTERFACE_MODE_25GBASER,
- 	PHY_INTERFACE_MODE_USXGMII,
- 	PHY_INTERFACE_MODE_10G_QXGMII,
- };
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 3ec3bb4391095..ff4375f1e9108 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -4360,6 +4360,11 @@ void phylink_mii_c45_pcs_get_state(struct mdio_device *pcs,
- 		state->duplex = DUPLEX_FULL;
- 		break;
- 
-+	case PHY_INTERFACE_MODE_25GBASER:
-+		state->speed = SPEED_25000;
-+		state->duplex = DUPLEX_FULL;
-+		break;
-+
- 	default:
- 		break;
- 	}
-
----
-base-commit: c8ea08ba34f2a2e9bfb18ff3d69eb2d69b324f49
-change-id: 20260825-for-upstream-lynx-25gbaser-v1-30097d909d09
-
-Best regards,
--- 
-Vincent Jardin <vjardin@free.fr>
-
+diff --git a/drivers/hwmon/dell-smm-hwmon.c b/drivers/hwmon/dell-smm-hwmon=
+.c
+index a3aa398a9f8f..7ed94a3db621 100644
+=2D-- a/drivers/hwmon/dell-smm-hwmon.c
++++ b/drivers/hwmon/dell-smm-hwmon.c
+@@ -1543,6 +1543,14 @@ static const struct dmi_system_id i8k_whitelist_fan=
+_control[] __initconst =3D {
+ 		},
+ 		.driver_data =3D (void *)&i8k_fan_control_data[I8K_FAN_34A3_35A3],
+ 	},
++	{
++		.ident =3D "Dell Latitude 5420",
++		.matches =3D {
++			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 5420"),
++		},
++		.driver_data =3D (void *)&i8k_fan_control_data[I8K_FAN_30A3_31A3],
++	},
+ 	{
+ 		.ident =3D "Dell Latitude 5480",
+ 		.matches =3D {
+=2D-=20
+2.39.5
 
