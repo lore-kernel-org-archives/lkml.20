@@ -1,41 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951CA4A5C3D;
-	Tue,  1 Sep 2026 18:51:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4680B4A8FDE;
+	Tue,  1 Sep 2026 18:51:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288692; cv=none; b=GB3dQwoeD53DDw4QMNqKy+V+fw9uiEb8+sEJhW/ocLyFCqExAWFZjTdxtdr6r3F9ZSyR1ZkbYESQpaPmuyoFFTuRXO4XojtE29RFbJBpXCviS9BRU7/xsJVlmuhK64G6/oP/hgaiqX1S8TE6zlwHMNhlnlcc87KkUiQL4yQq0lU=
+	t=1788288693; cv=none; b=dZgiQBa+dKdyHJ6HlDNhq/BVt+9PWftuyLCEe02/EfJORvC6UwyVoMKBLkrx56QF8l47UzkPIDWinhHcFfYAeoHhAQCqjgW0+6VeZUdoyJcnTb6mx7hVAJfJe0uiNhCgZNVCl8pFSvf6OHFJPHZ9xUPzYMzKddI5dy/yvcHmUac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788288692; c=relaxed/simple;
-	bh=9+B0lSYbOtT/mNa8n8pzlwF+N7/unRvesgf3I/R8mRg=;
+	s=arc-20240116; t=1788288693; c=relaxed/simple;
+	bh=wy7odb4Bzb//d8gJuSExcEjuuO+HCRVariqZb2J3yPk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gjvuH+OMTGOhdmTeqj904onnwyksD2jQbpbOR6tQoK0NVlDtnAiwYbX2o4bUkbq1gb+ZrXPdgrlqzyg6mNxH1iFo6gCW9ZZjzPQ3y1cB9c9S5ohoQmwndM0Pn4vFc2NSmNarkBV4avbiMMG/hobp/EbzhEvCvf6M7O4IjIzcVmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mOE/zo47; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=Iy1macwbdfldEw5BberwHUOAuUTXrB8ejW/bZoR9Wi0YaH8R8iPVOvg8JPLSQdZKKH17SmDtLVo8BiQNBdTs+pr3BOJMdWqZewdWkDnBtQv88mUgMGuiOJ1VVeChiO8whfjXNHt1wbc6rrZcP66MRtqOhDp7Ryy14ojrS9AO9u8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=F6VFv0Ym; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mOE/zo47"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="F6VFv0Ym"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788288686;
-	bh=9+B0lSYbOtT/mNa8n8pzlwF+N7/unRvesgf3I/R8mRg=;
+	s=mail; t=1788288687;
+	bh=wy7odb4Bzb//d8gJuSExcEjuuO+HCRVariqZb2J3yPk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=mOE/zo47NqcktPeFz6KITCmmEVvDv/qiq04xSJ1SJVWtzw7hAOUd6GhIJEOXOPaPN
-	 lQ1/6SZsU127+3kZQIZYYW6tpGsm5pJYRywXFHWl+heVB+OwAra/QRGc7zkBIj1NCI
-	 fjxamXAaXgxZ/AgM/NBpYF0x8NFHba13o9q0aMHM8cULUfa9UcRDhxrPPrP/ws6TfQ
-	 uatxnHtbLsO48lY3FopDf5cd8R3o7+cQFis0OYzEEucpaC68eXrfZTqUsFY9nbJ7G4
-	 SAAcHiEobWwb22CeTi9i7+qnb0SJNf54Mmocjte5VwyGSfqgc2fNkpowdWU+6uCHlU
-	 mjYLy8m7wGEGg==
+	b=F6VFv0YmuePKkcY3481GeflZG7GBxty8bPfGbnzRU7USpkJuPzSCybDWCnlxQQKQR
+	 3LCiXJwDwnUas7sfby6XfSawNTmF1UOHospBfUHFRJSJ4FhFRKn+5yP5LRbdYbmaOs
+	 GfUYobJ+rYpPqdpHcmLDzVaW4nBg4hwoR3vu3gzgi/PoK0ytM0V6seztFGmyUSTag9
+	 wc8kBmLLmq62Un5Y3w9XeV8pdzwn+577m9j2CH+q7Vujkc6WlTgJpotBa/cojkX7Yu
+	 j9L3Mf3ywqkfE2zwuavxQmKVIZmVeIOq7me88Az7oyCmYIPA7kq35r6TGNhITM7GGg
+	 BDmm7v9EC9LjQ==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E4A6D17E3C8F;
-	Tue, 01 Sep 2026 20:51:25 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 62B3817E3C93;
+	Tue, 01 Sep 2026 20:51:27 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:51:25 +0300
-Subject: [PATCH v11 61/74] drm/tests: bridge: Set supported HDMI version
+Date: Tue, 01 Sep 2026 21:51:27 +0300
+Subject: [PATCH v11 63/74] drm/tests: connector: Add HDMI
+ max_tmds_char_rate init coverage
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-61-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-63-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -72,41 +73,225 @@ Cc: kernel@collabora.com, linux-kernel@vger.kernel.org,
  linux-fbdev@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
-supported HDMI version.  This is not yet enforced, but will become
-mandatory once the migration to the new HDMI connector initialization API
-is completed.
+Add KUnit tests for the new drmm_connector_hdmi_init() extension, which
+infers the connector's max_tmds_char_rate from the HDMI specification
+version advertised by the driver.  Also validate a driver-capped
+max_tmds_char_rate against the version-inferred limit: override below,
+accept at, reject above, reject when no version is advertised.
 
-Advertise HDMI 1.4 as the default for the test bridges, since that is
-the highest version that does not require additional initialization
-data.  This also avoids implying support for HDMI capabilities they do
-not currently model.
+Since HDMI_VERSION_2_0 requires scrambler callbacks to be provided, add
+a dummy_hdmi_funcs_scrambler instance for tests that initialize HDMI 2.0
+connectors.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/tests/drm_bridge_test.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/tests/drm_connector_test.c | 179 +++++++++++++++++++++++++++++
+ 1 file changed, 179 insertions(+)
 
-diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
-index 15583ade8494..a445f71c31b8 100644
---- a/drivers/gpu/drm/tests/drm_bridge_test.c
-+++ b/drivers/gpu/drm/tests/drm_bridge_test.c
-@@ -497,6 +497,7 @@ drm_test_bridge_chain_init(struct kunit *test, unsigned int num_bridges,
- 			bridge->type = DRM_MODE_CONNECTOR_HDMIA;
- 			bridge->vendor = "LNX";
- 			bridge->product = "KUnit";
-+			bridge->supported_hdmi_ver = HDMI_VERSION_1_4;
- 			bridge->supported_formats = (BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
- 						     BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
- 						     BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
-@@ -597,6 +598,7 @@ drm_test_bridge_hdmi_init(struct kunit *test, const struct drm_bridge_funcs *fun
- 	bridge->ops |= DRM_BRIDGE_OP_HDMI;
- 	bridge->vendor = "LNX";
- 	bridge->product = "KUnit";
-+	bridge->supported_hdmi_ver = HDMI_VERSION_1_4;
+diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
+index c53ccce21a42..17242d1c1b16 100644
+--- a/drivers/gpu/drm/tests/drm_connector_test.c
++++ b/drivers/gpu/drm/tests/drm_connector_test.c
+@@ -54,6 +54,34 @@ static const struct drm_connector_hdmi_funcs dummy_hdmi_funcs = {
+ 	},
+ };
  
- 	ret = drm_kunit_bridge_add(test, bridge);
- 	if (ret)
++static int accept_scrambler_enable(struct drm_connector *connector)
++{
++	return 0;
++}
++
++static int accept_scrambler_disable(struct drm_connector *connector)
++{
++	return 0;
++}
++
++static const struct drm_connector_hdmi_funcs dummy_hdmi_funcs_scrambler = {
++	.vendor = "Vendor",
++	.product = "Product",
++	.supported_hdmi_ver = HDMI_VERSION_2_0,
++	.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
++	.max_bpc = 8,
++	.scrambler_enable = accept_scrambler_enable,
++	.scrambler_disable = accept_scrambler_disable,
++	.avi = {
++		.clear_infoframe = accept_infoframe_clear_infoframe,
++		.write_infoframe = accept_infoframe_write_infoframe,
++	},
++	.hdmi = {
++		.clear_infoframe = accept_infoframe_clear_infoframe,
++		.write_infoframe = accept_infoframe_write_infoframe,
++	},
++};
++
+ static const struct drm_connector_funcs dummy_funcs = {
+ 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
+ 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
+@@ -1244,6 +1272,151 @@ KUNIT_ARRAY_PARAM(drm_connector_hdmi_init_type_invalid,
+ 		  drm_connector_hdmi_init_type_invalid_tests,
+ 		  drm_connector_hdmi_init_type_desc);
+ 
++/*
++ * Test that the registration of an HDMI connector without an explicit max TMDS
++ * character rate being provided succeeds, and the connector limit is inferred
++ * from the advertised HDMI specification version.
++ */
++struct drm_connector_hdmi_init_max_tmds_rate_inferred_case {
++	const char *desc;
++	enum hdmi_version ver;
++	unsigned long long expected;
++};
++
++static void drm_test_connector_hdmi_init_max_tmds_rate_inferred(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case *params =
++		test->param_value;
++	int ret;
++
++	priv->hdmi_funcs = params->ver < HDMI_VERSION_2_0 ?
++				dummy_hdmi_funcs : dummy_hdmi_funcs_scrambler;
++	priv->hdmi_funcs.supported_hdmi_ver = params->ver;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
++			params->expected);
++}
++
++static const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case
++drm_connector_hdmi_init_max_tmds_rate_inferred_tests[] = {
++	{ "unknown",	HDMI_VERSION_UNKNOWN,	0 },
++	{ "1.0",	HDMI_VERSION_1_0,	HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ },
++	{ "1.2",	HDMI_VERSION_1_2,	HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ },
++	{ "1.3",	HDMI_VERSION_1_3,	HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ },
++	{ "1.4",	HDMI_VERSION_1_4,	HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ },
++	{ "2.0",	HDMI_VERSION_2_0,	HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ },
++};
++
++static void drm_connector_hdmi_init_max_tmds_rate_inferred_desc(
++	const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case *t,
++	char *desc)
++{
++	strscpy(desc, t->desc, KUNIT_PARAM_DESC_SIZE);
++}
++
++KUNIT_ARRAY_PARAM(drm_connector_hdmi_init_max_tmds_rate_inferred,
++		  drm_connector_hdmi_init_max_tmds_rate_inferred_tests,
++		  drm_connector_hdmi_init_max_tmds_rate_inferred_desc);
++
++/*
++ * Test that the registration of an HDMI connector providing a max TMDS
++ * character rate strictly below the version-inferred limit succeeds, and
++ * the connector limit is overridden.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_override(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	int ret;
++
++	priv->hdmi_funcs = dummy_hdmi_funcs;
++	priv->hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_1_4;
++	priv->hdmi_funcs.supported_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
++			HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ);
++}
++
++/*
++ * Test that the registration of an HDMI connector providing a max TMDS
++ * character rate equal to the version-inferred limit succeeds.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_at_limit(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	int ret;
++
++	priv->hdmi_funcs = dummy_hdmi_funcs;
++	priv->hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_1_2;
++	priv->hdmi_funcs.supported_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
++			HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ);
++}
++
++/*
++ * Test that the registration of an HDMI connector providing a max TMDS
++ * character rate that exceeds the limit inferred from the advertised HDMI
++ * specification version fails.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_off_limit(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	int ret;
++
++	priv->hdmi_funcs = dummy_hdmi_funcs;
++	priv->hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_1_2;
++	priv->hdmi_funcs.supported_tmds_char_rate = HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_LT(test, ret, 0);
++}
++
++/*
++ * Test that the registration of an HDMI connector providing a non-zero max
++ * TMDS character rate without an HDMI specification version fails, as the
++ * version-inferred limit defaults to zero and any positive override would
++ * exceed it.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_no_version(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	int ret;
++
++	priv->hdmi_funcs = dummy_hdmi_funcs;
++	priv->hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_UNKNOWN;
++	priv->hdmi_funcs.supported_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_LT(test, ret, 0);
++}
++
+ static struct kunit_case drmm_connector_hdmi_init_tests[] = {
+ 	KUNIT_CASE(drm_test_connector_hdmi_init_valid),
+ 	KUNIT_CASE(drm_test_connector_hdmi_init_bpc_8),
+@@ -1268,6 +1441,12 @@ static struct kunit_case drmm_connector_hdmi_init_tests[] = {
+ 			 drm_connector_hdmi_init_type_valid_gen_params),
+ 	KUNIT_CASE_PARAM(drm_test_connector_hdmi_init_type_invalid,
+ 			 drm_connector_hdmi_init_type_invalid_gen_params),
++	KUNIT_CASE_PARAM(drm_test_connector_hdmi_init_max_tmds_rate_inferred,
++			 drm_connector_hdmi_init_max_tmds_rate_inferred_gen_params),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_override),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_at_limit),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_off_limit),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_no_version),
+ 	{ }
+ };
+ 
 
 -- 
 2.55.0
