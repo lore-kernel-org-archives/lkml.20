@@ -1,324 +1,258 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E07630E82B;
-	Tue,  1 Sep 2026 08:06:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BB846EC62;
+	Tue,  1 Sep 2026 08:06:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249973; cv=none; b=ClETSopUCsAFuNqmfIGlD+kgqaSzC8qBmIXJv3bv4vlYArGraxjRDw+MbCuW+XmQnZM2mq1ifo/8MsQL7SEfU+05tx0sw/O8NSZ8VP/KWJXYCtSUcpvBY4jI9z6bXPoI6VW2siPmDf7TjIByqul1IHicngyEE/MO6G+QFW8J2sQ=
+	t=1788249988; cv=none; b=eWZtqCU7TiQgz8u4yHWBocI4C9ubQbuJPa4Nfc0vi7cfv1PryMnSD7DUG9iJtfACY93vlqViQNXdsmsUEme6SyS5/bb9qjrHLAdLK02oaz1wAdSoQjoYS/EzpETIO2fnP78e0JPqdXJFuNqXi9ncQdccODFvYQr8BfxPHn0GDGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249973; c=relaxed/simple;
-	bh=L66LmKWKT83H/QtEA2FlO0DENr0/WBTXh6GVOhukFmM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cXfjFSUqesq2qzLze7EYNgMBZ6NnAbrI2wJkpxMNXzztdPECxMPj+F31BDKSmDZAqTlZtvt/J4ez05jQFnxPofPCwbPzUjOOAxr2GCdcy60XRqqlW7pyNU2yYDvLBiABAGZUc921VZJ1SgQnyPdJjbvo+dGaFyDLoPJF929o+Tw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yww9opiD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788249988; c=relaxed/simple;
+	bh=cQ0VKjzzBn4lnIvRRKhBBZXsQ5qGxOVYBI+CNGVX48k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fxpTODSln+JdAOPIlhdwrDfDoWbIS74DvmXwOH3vqkYw6dOl32eXGBsRp8mNcw2jJY6i8PqbvHndh9GMVs0WAYC+RFcG5NdRQiF61O5tSw87FxpatsLjXMHO8ovcTLahcr4TKHIZa9mwWL9tLNo/waZLSQ5YvVhIwkD+p7+z//4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kbRbsjfv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yww9opiD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7187D1F000E9;
-	Tue,  1 Sep 2026 08:06:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kbRbsjfv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C8E81F00A3D;
+	Tue,  1 Sep 2026 08:06:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788249971;
-	bh=sLYYR1Q3UHqS1LNM5yZKokLJjleeLqn68LSKKJwz7Z4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Yww9opiDEtAb0FOh1SffRy21uR0A1iM451Jd8FZ6mGqW7t8SIcQZhFekFugF5EHGj
-	 FVMHCr4EJSWenZm5cRMxXVKUo45rYQNf5KNChd3vVXD+QkRzNjoi8mDy5Z+Xcux8yA
-	 q6sffr3VWGX7qOYSq4JatW5OslJMZcN/3NPHpgfKRfmZn5n8jD04JQ6vCM6ufeqLVy
-	 uePs1QBhi4kEe1JKZ2fk9ocFEETuCrApKFqa4wboDLKF0/jXd9OGLlihXaCJ10F1lW
-	 JkT7aiPzIY+IuqfbmotsUpwELnBLPgmiDyFFw/ioDQUkNGF2i2emvq1HUOh4m1ziQQ
-	 btAndgH9o5S9g==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x1JVR-00000003Bso-0fIi;
-	Tue, 01 Sep 2026 08:06:09 +0000
-Date: Tue, 01 Sep 2026 09:08:41 +0100
-Message-ID: <87tso9mm0m.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Andreas Grapentin <gra@linux.ibm.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Friedrich Welter <fritz@linux.ibm.com>,
-	Fuad Tabba <tabba@google.com>,
-	Gautam Gala <ggala@linux.ibm.com>,
-	Hariharan Mari <hari55@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Hendrik Brueckner <brueckner@linux.ibm.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Nico Boehr <nrb@linux.ibm.com>,
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-	Oliver Upton <oupton@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Will Deacon <will@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v2 04/20] arm64: Share more arm64 headers with s390
-In-Reply-To: <20260831145536.913567-5-seiden@linux.ibm.com>
-References: <20260831145536.913567-1-seiden@linux.ibm.com>
-	<20260831145536.913567-5-seiden@linux.ibm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1788249984;
+	bh=U9bwqjzCxpQGyOH6T5XiHxQafAKabtxYiX65cyonlc0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kbRbsjfvc7p41dNhCRd2hJuYih9Hfi2wcLb95PXqKL41rRU/08xQg2zhgmP0p7/UX
+	 aCBgNqAafGb1u8ZcpV3k6B+OHqaBRbiISXeL4UtUncjnK+Rkxqh/VfIp6jGUvNRGeZ
+	 +i52Nc8J3gVpipR6XllPURBs8ykNJDroZTrGft+YKuTcRN75wcS7wNMsS48WVqiMOt
+	 JRE6ODRvQobQ+4jwJVT4xHZXgvTSjxLefA1lS95WGdjzhEnW2jGLTGsB/2sNiR2EXU
+	 4WfdzLpOi4oHlA9BHHoKVkb8ueK9mfVj1mgyRJzPN0cBqTneA65FZxWhRsXKhYISQg
+	 MzDDcdQAG9hGA==
+Date: Tue, 1 Sep 2026 10:06:05 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Jingoo Han <jingoohan1@gmail.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Jeff Johnson <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, mhi@lists.linux.dev, linux-wireless@vger.kernel.org, 
+	ath11k@lists.infradead.org, qiang.yu@oss.qualcomm.com
+Subject: Re: [PATCH v5 4/6] bus: mhi: host: Add support for Bandwidth scale
+Message-ID: <tm33xb3nrq7v6ezoewvn34rteg47pmow27kda5mdmoufsckw7t@tzssd2mqm5zt>
+References: <20260819-bwscale-v5-0-6dea79786b37@oss.qualcomm.com>
+ <20260819-bwscale-v5-4-6dea79786b37@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, gra@linux.ibm.com, arnd@arndb.de, catalin.marinas@arm.com, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260819-bwscale-v5-4-6dea79786b37@oss.qualcomm.com>
 
-On Mon, 31 Aug 2026 15:55:19 +0100,
-Steffen Eiden <seiden@linux.ibm.com> wrote:
+On Wed, Aug 19, 2026 at 06:55:55PM +0530, Krishna Chaitanya Chundru wrote:
+> As per MHI spec v1.2, sec 14, MHI supports bandwidth scaling to reduce
+> power consumption. MHI bandwidth scaling is advertised by devices that
+> contain the bandwidth scaling capability registers. If enabled, the device
+> aggregates bandwidth requirements and sends them to the host through
+> dedicated mhi event ring. After the host performs the bandwidth switch,
+> it sends an acknowledgment by ringing a doorbell.
 > 
-> Mark more headers as shared or move definitions to an already shared
-> location if the context is similar. Most of them are required to
-> implement system register handling for the host.
+> if the host supports bandwidth scaling events, then it must set
+> BW_CFG.ENABLED bit, set BW_CFG.DB_CHAN_ID to the channel ID to the
+> doorbell that will be used by the host to communicate the bandwidth
+> scaling status and BW_CFG.ER_INDEX to the index for the event ring
+> to which the device should send bandwidth scaling request in the
+> bandwidth scaling capability register.
 > 
-> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+> As part of mmio init check if the bw scale capability is present or not,
+> if present advertise host supports bw scale by setting all the required
+> fields.
+> 
+> MHI layer will only forward the bw scaling request to the controller
+> driver since MHI doesn't have any idea about transport layer used by
+> the controller, it is responsibility of the controller driver to do actual
+> bw scaling and then pass status to the MHI. MHI will response back to the
+> device based up on the status of the bw scale received.
+> 
+> Add a new get_misc_doorbell() to get doorbell for misc capabilities to
+> use the doorbell with mhi events like MHI BW scale etc.
+> 
+> Use workqueue & mutex for the bw scale events as the pci_set_target_speed()
+> which will called by the mhi controller driver can sleep.
+> 
+> Co-developed-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 > ---
->  arch/arm64/include/asm/cache.h       |  3 +++
->  arch/arm64/include/asm/cputype.h     |  3 +++
->  arch/arm64/include/asm/kvm_emulate.h |  5 ++++-
->  arch/arm64/include/asm/kvm_host.h    | 18 +++++++++++++-----
->  arch/arm64/include/asm/spectre.h     |  7 +++++++
->  arch/arm64/kvm/sys_regs.h            |  1 +
->  6 files changed, 31 insertions(+), 6 deletions(-)
+>  drivers/bus/mhi/common.h        |  13 +++++
+>  drivers/bus/mhi/host/init.c     |  93 +++++++++++++++++++++++++++++++--
+>  drivers/bus/mhi/host/internal.h |   6 ++-
+>  drivers/bus/mhi/host/main.c     | 113 +++++++++++++++++++++++++++++++++++++++-
+>  drivers/bus/mhi/host/pm.c       |  10 +++-
+>  drivers/bus/mhi/host/trace.h    |   7 +++
+>  include/linux/mhi.h             |  13 +++++
+>  7 files changed, 247 insertions(+), 8 deletions(-)
 > 
-> diff --git a/arch/arm64/include/asm/cache.h b/arch/arm64/include/asm/cache.h
-> index 10a7ffadee3d..f9dbc8143dc9 100644
-> --- a/arch/arm64/include/asm/cache.h
-> +++ b/arch/arm64/include/asm/cache.h
-> @@ -8,6 +8,7 @@
->  #define L1_CACHE_SHIFT		(6)
->  #define L1_CACHE_BYTES		(1 << L1_CACHE_SHIFT)
+> diff --git a/drivers/bus/mhi/common.h b/drivers/bus/mhi/common.h
+> index 4c316f3d5a68..267260901a41 100644
+> --- a/drivers/bus/mhi/common.h
+> +++ b/drivers/bus/mhi/common.h
+> @@ -215,6 +215,19 @@
+>  #define MHI_CAP_ID_MAX_TRB_LEN		0x5
+>  #define MHI_CAP_ID_MAX			0x6
 >  
-> +#ifdef ARM64_S390_COMMON
->  #define CLIDR_LOUU_SHIFT	27
->  #define CLIDR_LOC_SHIFT		24
->  #define CLIDR_LOUIS_SHIFT	21
-> @@ -25,6 +26,8 @@
->  /* Ttypen, bits [2(n - 1) + 34 : 2(n - 1) + 33], for n = 1 to 7 */
->  #define CLIDR_TTYPE_SHIFT(level)	(2 * ((level) - 1) + CLIDR_EL1_Ttypen_SHIFT)
->  
-> +#endif /* ARM64_S390_COMMON */
+> +/* MHI Bandwidth scaling offsets */
+> +#define MHI_BW_SCALE_CFG_OFFSET		0x4
+> +#define MHI_BW_SCALE_CAP_ID		(3)
+> +#define MHI_BW_SCALE_DB_CHAN_ID		GENMASK(31, 25)
+> +#define MHI_BW_SCALE_ENABLED		BIT(24)
+> +#define MHI_BW_SCALE_ER_INDEX		GENMASK(23, 19)
 > +
->  /*
->   * Memory returned by kmalloc() may be used for DMA, so we must make
->   * sure that all such allocations are cache aligned. Otherwise,
-> diff --git a/arch/arm64/include/asm/cputype.h b/arch/arm64/include/asm/cputype.h
-> index 1fa29616e586..a5fd2b749b3b 100644
-> --- a/arch/arm64/include/asm/cputype.h
-> +++ b/arch/arm64/include/asm/cputype.h
-> @@ -5,6 +5,7 @@
->  #ifndef __ASM_CPUTYPE_H
->  #define __ASM_CPUTYPE_H
->  
-> +#ifdef ARM64_S390_COMMON
->  #define INVALID_HWID		ULONG_MAX
->  
->  #define MPIDR_UP_BITMASK	(0x1 << 30)
-> @@ -259,6 +260,8 @@
->  #define MIDR_FUJITSU_ERRATUM_010001_MASK	(~MIDR_CPU_VAR_REV(1, 0))
->  #define TCR_CLEAR_FUJITSU_ERRATUM_010001	(TCR_EL1_NFD1 | TCR_EL1_NFD0)
->  
-> +#endif /* ARM64_S390_COMMON */
+> +#define MHI_TRE_GET_EV_BW_REQ_SEQ(tre)	FIELD_GET(GENMASK(15, 8), (MHI_TRE_GET_DWORD(tre, 0)))
 > +
->  #ifndef __ASSEMBLER__
->  
->  #include <asm/sysreg.h>
-> diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/include/asm/kvm_emulate.h
-> index 09f04a5686a1..6cd9b244d82e 100644
-> --- a/arch/arm64/include/asm/kvm_emulate.h
-> +++ b/arch/arm64/include/asm/kvm_emulate.h
-> @@ -23,6 +23,7 @@
->  #include <asm/cputype.h>
->  #include <asm/virt.h>
->  
-> +#ifdef ARM64_S390_COMMON
->  #define CURRENT_EL_SP_EL0_VECTOR	0x0
->  #define CURRENT_EL_SP_ELx_VECTOR	0x200
->  #define LOWER_EL_AArch64_VECTOR		0x400
-> @@ -35,6 +36,8 @@ enum exception_type {
->  	except_type_serror	= 0x180,
->  };
->  
-> +#endif /* ARM64_S390_COMMON */
+> +#define MHI_BW_SCALE_RESULT(status, seq)	(FIELD_PREP(GENMASK(11, 8), status) | \
+> +						FIELD_PREP(GENMASK(7, 0), seq))
+> +#define MHI_BW_SCALE_NACK			0xF
+
+0xf
+
 > +
->  #define kvm_exception_type_names		\
->  	{ except_type_sync,	"SYNC"   },	\
->  	{ except_type_irq,	"IRQ"    },	\
-> @@ -525,13 +528,13 @@ static __always_inline bool kvm_vcpu_abt_issea(const struct kvm_vcpu *vcpu)
+>  enum mhi_pkt_type {
+>  	MHI_PKT_TYPE_INVALID = 0x0,
+>  	MHI_PKT_TYPE_NOOP_CMD = 0x1,
+> diff --git a/drivers/bus/mhi/host/init.c b/drivers/bus/mhi/host/init.c
+> index 32db4aa4bbe8..d0975b6c2df0 100644
+> --- a/drivers/bus/mhi/host/init.c
+> +++ b/drivers/bus/mhi/host/init.c
+> @@ -497,10 +497,66 @@ static int mhi_find_capability(struct mhi_controller *mhi_cntrl, u32 capability)
+>  	return 0;
+>  }
+>  
+> +static int mhi_get_er_index(struct mhi_controller *mhi_cntrl,
+> +			    enum mhi_er_data_type type)
+> +{
+> +	struct mhi_event *mhi_event = mhi_cntrl->mhi_event;
+> +	int i;
+> +
+> +	/* Find event ring for requested type */
+> +	for (i = 0; i < mhi_cntrl->total_ev_rings; i++, mhi_event++) {
+> +		if (mhi_event->data_type == type)
+> +			return mhi_event->er_index;
+> +	}
+> +
+> +	return -ENOENT;
+> +}
+> +
+> +static int mhi_init_bw_scale(struct mhi_controller *mhi_cntrl,
+> +			     int bw_scale_db)
+> +{
+> +	struct device *dev = &mhi_cntrl->mhi_dev->dev;
+> +	struct mhi_event *mhi_event;
+> +	u32 bw_cfg_offset, val;
+> +	int er_index, i;
+> +
+> +	bw_cfg_offset = mhi_find_capability(mhi_cntrl, MHI_BW_SCALE_CAP_ID);
+> +	if (!bw_cfg_offset)
+> +		return 0;
+> +
+> +	er_index = mhi_get_er_index(mhi_cntrl, MHI_ER_BW_SCALE);
+> +	if (er_index < 0)
+> +		return er_index;
+> +
+> +	/* Initialize BW scale event ring resources */
+> +	mhi_event = mhi_cntrl->mhi_event;
+> +	for (i = 0; i < mhi_cntrl->total_ev_rings; i++, mhi_event++) {
+> +		if (mhi_event->data_type == MHI_ER_BW_SCALE) {
+> +			INIT_WORK(&mhi_event->work, mhi_process_ev_work);
+> +			mutex_init(&mhi_event->mutex);
+
+Why do you need mutex only for this event and not for other events?
+
+> +			break;
+> +		}
+> +	}
+> +
+> +	bw_cfg_offset += MHI_BW_SCALE_CFG_OFFSET;
+> +
+> +	/* Advertise host support */
+> +	val = FIELD_PREP(MHI_BW_SCALE_DB_CHAN_ID, bw_scale_db) |
+> +			 FIELD_PREP(MHI_BW_SCALE_ER_INDEX, er_index) |
+> +			 MHI_BW_SCALE_ENABLED;
+> +
+> +	mhi_write_reg(mhi_cntrl, mhi_cntrl->regs, bw_cfg_offset, val);
+> +
+> +	dev_dbg(dev, "Bandwidth scaling setup complete with event ring: %d\n",
+> +		er_index);
+> +
+> +	return 0;
+> +}
+> +
+>  int mhi_init_mmio(struct mhi_controller *mhi_cntrl)
+>  {
+> -	u32 val;
+> -	int i, ret;
+> +	u32 val, chdb_offset;
+> +	int i, ret, doorbell = 0;
+>  	struct mhi_chan *mhi_chan;
+>  	struct mhi_event *mhi_event;
+>  	void __iomem *base = mhi_cntrl->regs;
+> @@ -581,6 +637,8 @@ int mhi_init_mmio(struct mhi_controller *mhi_cntrl)
+>  		return -ERANGE;
 >  	}
+>  
+> +	chdb_offset = val;
+> +
+>  	/* Setup wake db */
+>  	mhi_cntrl->wake_db = base + val + (8 * MHI_DEV_WAKE_DB);
+>  	mhi_cntrl->wake_set = false;
+> @@ -634,6 +692,17 @@ int mhi_init_mmio(struct mhi_controller *mhi_cntrl)
+>  		return ret;
+>  	}
+>  
+> +	if (mhi_cntrl->get_misc_doorbell)
+> +		doorbell = mhi_cntrl->get_misc_doorbell(mhi_cntrl, MHI_ER_BW_SCALE);
+
+Why can't you add the doorbell number to 'mhi_event_config'?
+
+> +
+> +	if (doorbell > 0) {
+> +		ret = mhi_init_bw_scale(mhi_cntrl, doorbell);
+> +		if (!ret)
+> +			mhi_cntrl->bw_scale_db = base + chdb_offset + (8 * doorbell);
+> +		else
+> +			dev_warn(dev, "Failed to setup bandwidth scaling: %d\n", ret);
+> +	}
+> +
+>  	return 0;
 >  }
 >  
-> +#ifdef ARM64_S390_COMMON
->  static __always_inline int kvm_vcpu_sys_get_rt(struct kvm_vcpu *vcpu)
->  {
->  	u64 esr = kvm_vcpu_get_esr(vcpu);
->  	return ESR_ELx_SYS64_ISS_RT(esr);
->  }
+> @@ -778,6 +847,9 @@ static int parse_ev_cfg(struct mhi_controller *mhi_cntrl,
+>  		case MHI_ER_CTRL:
+>  			mhi_event->process_event = mhi_process_ctrl_ev_ring;
+>  			break;
+> +		case MHI_ER_BW_SCALE:
+> +			mhi_event->process_event = mhi_process_bw_scale_ev_ring;
+> +			break;
+>  		default:
+>  			dev_err(dev, "Event Ring type not supported\n");
+>  			goto error_ev_cfg;
+> @@ -1001,10 +1073,12 @@ int mhi_register_controller(struct mhi_controller *mhi_cntrl,
 >  
-> -#ifdef ARM64_S390_COMMON
+>  		mhi_event->mhi_cntrl = mhi_cntrl;
+>  		spin_lock_init(&mhi_event->lock);
+> -		if (mhi_event->data_type == MHI_ER_CTRL)
+> +		if (mhi_event->data_type == MHI_ER_CTRL) {
+>  			tasklet_init(&mhi_event->task, mhi_ctrl_ev_task,
+>  				     (ulong)mhi_event);
+> -		else
+> +		} else if (mhi_event->data_type == MHI_ER_BW_SCALE) {
+> +		/* BW scale resources will be initialized in mhi_init_mmio() if capability exists */
 
-This could have been done from the beginning, in the previous series.
-I keep asking you to reduce the churn...
+But you are just skipping the tasklet here. Provide an apt reason for that.
 
->  static inline bool kvm_is_write_fault(struct kvm_vcpu *vcpu)
->  {
->  	if (kvm_vcpu_abt_iss1tw(vcpu)) {
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index f9e90ef9ee4b..2ca5fbc39f15 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -349,6 +349,7 @@ enum fgt_group_id {
->  	__NR_FGT_GROUP_IDS__
->  };
->  
-> +#ifdef ARM64_S390_COMMON
->  struct kvm_vm_id_regs {
->  	/*
->  	 * Emulated CPU ID registers per VM
-> @@ -368,6 +369,8 @@ struct kvm_vm_id_regs {
->  	u64 ctr_el0;
->  };
->  
-> +#endif /* ARM64_S390_COMMON */
-> +
-
-That's another example of pointless churn. You could have added this
-structure at a convenient spot, where you already have S390 markers.
-
->  struct kvm_arch {
->  	struct kvm_s2_mmu mmu;
->  
-> @@ -1240,9 +1243,6 @@ u64 kvm_vcpu_apply_reg_masks(const struct kvm_vcpu *, enum vcpu_sysreg, u64);
->  		__v;							\
->  	})
->  
-> -u64 vcpu_read_sys_reg(const struct kvm_vcpu *, enum vcpu_sysreg);
-> -void vcpu_write_sys_reg(struct kvm_vcpu *, u64, enum vcpu_sysreg);
-> -
->  struct kvm_vm_stat {
->  	struct kvm_vm_stat_generic generic;
->  };
-> @@ -1322,11 +1322,9 @@ int kvm_handle_cp14_32(struct kvm_vcpu *vcpu);
->  int kvm_handle_cp14_64(struct kvm_vcpu *vcpu);
->  int kvm_handle_cp15_32(struct kvm_vcpu *vcpu);
->  int kvm_handle_cp15_64(struct kvm_vcpu *vcpu);
-> -int kvm_handle_sys_reg(struct kvm_vcpu *vcpu);
->  int kvm_handle_cp10_id(struct kvm_vcpu *vcpu);
->  
->  void kvm_sys_regs_create_debugfs(struct kvm *kvm);
-> -void kvm_reset_sys_regs(struct kvm_vcpu *vcpu);
->  
->  int __init kvm_sys_reg_table_init(void);
->  struct sys_reg_desc;
-> @@ -1337,6 +1335,11 @@ int __init populate_nv_trap_config(void);
->  void kvm_calculate_traps(struct kvm_vcpu *vcpu);
->  
->  #ifdef ARM64_S390_COMMON
-> +u64 vcpu_read_sys_reg(const struct kvm_vcpu *, enum vcpu_sysreg);
-> +void vcpu_write_sys_reg(struct kvm_vcpu *, u64, enum vcpu_sysreg);
-> +int kvm_handle_sys_reg(struct kvm_vcpu *vcpu);
-> +void kvm_reset_sys_regs(struct kvm_vcpu *vcpu);
-> +
->  unsigned long kvm_arm_num_regs(struct kvm_vcpu *vcpu);
->  int kvm_arm_copy_reg_indices(struct kvm_vcpu *vcpu, u64 __user *indices);
->  int kvm_arm_get_reg(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg);
-> @@ -1538,8 +1541,10 @@ struct kvm *kvm_arch_alloc_vm(void);
->  	(system_supports_32bit_el0() &&				\
->  	 !static_branch_unlikely(&arm64_mismatched_32bit_el0))
->  
-> +#ifdef ARM64_S390_COMMON
->  #define kvm_vm_has_ran_once(kvm)					\
->  	(test_bit(KVM_ARCH_FLAG_HAS_RAN_ONCE, &(kvm)->arch.flags))
-> +#endif /* ARM64_S390_COMMON */
->  
->  static inline bool __vcpu_has_feature(const struct kvm_arch *ka, int feature)
->  {
-> @@ -1567,6 +1572,7 @@ static inline void kvm_hyp_reserve(void) { }
->  void kvm_arm_vcpu_power_off(struct kvm_vcpu *vcpu);
->  bool kvm_arm_vcpu_stopped(struct kvm_vcpu *vcpu);
->  
-> +#ifdef ARM64_S390_COMMON
->  static inline u64 *__vm_id_reg(struct kvm_vm_id_regs *id_regs, u32 reg)
->  {
->  	switch (reg) {
-> @@ -1640,6 +1646,8 @@ void kvm_set_vm_id_reg(struct kvm *kvm, u32 reg, u64 val);
->  	(kvm_cmp_feat(kvm, id, fld, >=, min) &&				\
->  	kvm_cmp_feat(kvm, id, fld, <=, max))
->  
-> +#endif /* ARM64_S390_COMMON */
-> +
->  /* Check for a given level of PAuth support */
->  #define kvm_has_pauth(k, l)						\
->  	({								\
-> diff --git a/arch/arm64/include/asm/spectre.h b/arch/arm64/include/asm/spectre.h
-> index 296ae3420bfd..e1c13797ea7c 100644
-> --- a/arch/arm64/include/asm/spectre.h
-> +++ b/arch/arm64/include/asm/spectre.h
-> @@ -19,6 +19,7 @@
->  #include <asm/cpufeature.h>
->  #include <asm/virt.h>
->  
-> +#ifdef ARM64_S390_COMMON
->  /* Watch out, ordering is important here. */
->  enum mitigation_state {
->  	SPECTRE_UNAFFECTED,
-> @@ -26,6 +27,8 @@ enum mitigation_state {
->  	SPECTRE_VULNERABLE,
->  };
->  
-> +#endif /* ARM64_S390_COMMON */
-> +
->  struct pt_regs;
->  struct task_struct;
->  
-> @@ -81,7 +84,9 @@ static __always_inline void arm64_apply_bp_hardening(void)
->  		d->fn();
->  }
->  
-> +#ifdef ARM64_S390_COMMON
->  enum mitigation_state arm64_get_spectre_v2_state(void);
-> +#endif /* ARM64_S390_COMMON */
->  bool has_spectre_v2(const struct arm64_cpu_capabilities *cap, int scope);
->  void spectre_v2_enable_mitigation(const struct arm64_cpu_capabilities *__unused);
->  
-> @@ -93,7 +98,9 @@ bool has_spectre_v4(const struct arm64_cpu_capabilities *cap, int scope);
->  void spectre_v4_enable_mitigation(const struct arm64_cpu_capabilities *__unused);
->  void spectre_v4_enable_task_mitigation(struct task_struct *tsk);
->  
-> +#ifdef ARM64_S390_COMMON
->  enum mitigation_state arm64_get_meltdown_state(void);
-> +#endif /* ARM64_S390_COMMON */
-
-Again: how about grouping things in a logical way so that you can
-minimise the number of annotations? The two prototypes you single out
-are clearly related to the enum at the beginning of the file, and
-don't depend on anything else.
-
-Thanks,
-
-	M.
+- Mani
 
 -- 
-Jazz isn't dead. It just smells funny.
+மணிவண்ணன் சதாசிவம்
