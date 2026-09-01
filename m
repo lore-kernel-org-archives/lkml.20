@@ -1,78 +1,144 @@
-Received: from forwardcorp1d.mail.yandex.net (forwardcorp1d.mail.yandex.net [178.154.239.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2705C35DA53;
-	Tue,  1 Sep 2026 13:00:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.200
+Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0D80931C567
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:02:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788267641; cv=none; b=XYL25Ew2o8Ja2Kp0dv1JPcDF4xgW7jTBd+89tR03VEjwfMHrFgQpltCiWAQz/J1LsDAIt5L3bYA/tZKPhZQAYShLRnKolZR+xbRdJitaSpXOY2SLu1hVOc+1iDcYYdZKPPOmrKY4p7CiHBku4fgOqR1hR3mYAqo6zIBVWRq/OZI=
+	t=1788267778; cv=none; b=Yun8UFgH6IWMgGtQHlPVf+/QPehW8okEyR6kzokRff/a73jLKW6wMMXxRswSq/ouJVAbcIlxsN/lgvihq97Z/gmK10LZVufY4YlIeJnEOee0EGyzp769g3R+1xJxnZpfbWOHddlzrnZfxUtDsCyoERPNke5WNPYDe9+FuH8qttg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788267641; c=relaxed/simple;
-	bh=XjX7qqSEui/95Ib2ltt0J/TcGkipBtRq3ORpYCQQAGk=;
-	h=References:From:To:Cc:Subject:Date:In-reply-to:Message-ID:
-	 MIME-Version:Content-Type; b=L3N0RnkHsZTvplGUVW87rojAWCFbqd0FH+bjiWSOl9QAF6papVcd76fPxjeT1ATOMk5bfEpxnFlOq3ww8KP6oYBUmFMv2mEWhg7T4q99BTo5bM+ow9GOHCVZ0xdQplr569qFslggUZ1Lw/5bX+dHzN2jYyT7gADRiUerD49SCfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru; spf=pass smtp.mailfrom=yandex-team.ru; dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b=nfgNYCew; arc=none smtp.client-ip=178.154.239.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex-team.ru
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b="nfgNYCew"
-Received: from mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net (mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net [IPv6:2a02:6b8:c42:65a0:0:640:e1de:0])
-	by forwardcorp1d.mail.yandex.net (postfix) with ESMTPS id E648480E59;
-	Tue, 01 Sep 2026 16:00:32 +0300 (MSK)
-Received: from i115078296 (unknown [2a02:6bf:8009:1403:13e2:aa39:7988:f1b2])
-	by mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net (smtpcorp) with ESMTPSA id V0jkli4XZ4Y0-lUm04SLH;
-	Tue, 01 Sep 2026 16:00:32 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
-	s=default; t=1788267632;
-	bh=RIL5BDSmnpt/clViAGgpO3bi547d2sKwxTFQZMToJyo=;
-	h=Message-ID:Date:Subject:In-reply-to:Cc:References:To:From;
-	b=nfgNYCewOamY7sLEfH+edyS7zierpEBeOd1XpfQXbk2av9dfIkv4+SvZgD5J+qpY6
-	 YOYyfyp1t3SNWdbRLDmECLNKRxQ8AvebTYqYlxF5lQYVbER0cmhjOL1TqKhP9GAhk6
-	 JSRGL2LmiMCk85BTyBbeOcL+yU5M4SCovw44DaiY=
-Authentication-Results: mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net; dkim=pass header.i=@yandex-team.ru
-References: <20260813-deferred-dirtytime-iput-v1-0-ad2fb3ad6bdb@yandex-team.ru>
- <27v2ckdgybmvxog5b55sr3o6ri4bkbzu6ycwtjwckrhzyazxzd@7qruolrsu5t7>
-User-agent: mu4e 1.10.9; emacs 31.1
-From: Mikhail Rudenko <xyzzy@yandex-team.ru>
-To: Jan Kara <jack@suse.cz>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner
- <brauner@kernel.org>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 0/2] Defer final iputs for dirty-time inodes in
- PF_MEMALLOC context
-Date: Tue, 01 Sep 2026 15:54:59 +0300
-In-reply-to: <27v2ckdgybmvxog5b55sr3o6ri4bkbzu6ycwtjwckrhzyazxzd@7qruolrsu5t7>
-Message-ID: <86zey1qg7k.fsf@yandex-team.ru>
+	s=arc-20240116; t=1788267778; c=relaxed/simple;
+	bh=sI0Z4AmXxY1lZ7xDIPNV6mCKNYnkz787wrfj2YigtF8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=TCwB9HUL+TTewNtRMrUuQdFEJq3WVNbLQsGwqR4DiOvwDXRabbYPIgqN5zP9uKSt6YKGs3tcudGh9DxbhFZnNnoWcLErRT4q0XRCclewEW5kUN1enGqPJTXx8wOCVR2UB9I0etFRpa4duH1ubUAnJWGy7tVipQMW/p40k2Uz+Ng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hZ5cS5Rgsz1PvqP;
+	Tue,  1 Sep 2026 21:02:32 +0800 (CST)
+Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hZ5cR38pyz1PvqP;
+	Tue,  1 Sep 2026 21:02:31 +0800 (CST)
+Received: from cncheex06.Hygon.cn (unknown [172.23.18.116])
+	by maildlp2.hygon.cn (Postfix) with ESMTPS id 40F5531D0309;
+	Tue,  1 Sep 2026 20:58:40 +0800 (CST)
+Received: from cncheex04.Hygon.cn (172.23.18.114) by cncheex06.Hygon.cn
+ (172.23.18.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Tue, 1 Sep
+ 2026 21:02:32 +0800
+Received: from cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d]) by
+ cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d%10]) with mapi id
+ 15.02.1544.036; Tue, 1 Sep 2026 21:02:32 +0800
+From: Jianyong Wu <wujianyong@hygon.cn>
+To: Peter Zijlstra <peterz@infradead.org>
+CC: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>, Dietmar Eggemann
+	<dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben Segall
+	<bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
+	<vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, "Shrikanth
+ Hegde" <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>, Andrew Morton
+	<akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>, "jianyong.wu@outlook.com"
+	<jianyong.wu@outlook.com>, Yuan Zhong <zhongyuan@hygon.cn>, Huangsj
+	<huangsj@hygon.cn>, Fengyu Wang <wangfengyu@hygon.cn>, Zhiwei Ying
+	<yingzhiwei@hygon.cn>, "justin.he@arm.com" <justin.he@arm.com>
+Subject: RE: [RFC PATCH v2 08/23] sched/topology: Introduce a per-CPU tasks
+ NUMA preferred counter
+Thread-Topic: [RFC PATCH v2 08/23] sched/topology: Introduce a per-CPU tasks
+ NUMA preferred counter
+Thread-Index: AQHdNiBA7oAH9eDim06x96D0XIAuLra3pasAgAHCg5D//5zAgIAAsU4w
+Date: Tue, 1 Sep 2026 13:02:32 +0000
+Message-ID: <80ded281acca43a28043b261e850250c@hygon.cn>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
+ <20260827122816.756234-9-wujianyong@hygon.cn>
+ <20260831132414.GN4120091@noisy.programming.kicks-ass.net>
+ <8eb55be5c1e9497c9f34f15436b9d665@hygon.cn>
+ <20260901102127.GY687043@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260901102127.GY687043@noisy.programming.kicks-ass.net>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
 
 
-Hi Jan,
 
-On 2026-09-01 at 14:24 +02, Jan Kara <jack@suse.cz> wrote:
+> -----Original Message-----
+> From: Peter Zijlstra <peterz@infradead.org>
+> Sent: Tuesday, September 1, 2026 6:21 PM
+> To: Jianyong Wu <wujianyong@hygon.cn>
+> Cc: Ingo Molnar <mingo@redhat.com>; Juri Lelli <juri.lelli@redhat.com>;
+> Vincent Guittot <vincent.guittot@linaro.org>; Chen Yu
+> <yu.c.chen@intel.com>; Tim Chen <tim.c.chen@linux.intel.com>; Dietmar
+> Eggemann <dietmar.eggemann@arm.com>; Steven Rostedt
+> <rostedt@goodmis.org>; Ben Segall <bsegall@google.com>; Mel Gorman
+> <mgorman@suse.de>; Valentin Schneider <vschneid@redhat.com>; K
+> Prateek Nayak <kprateek.nayak@amd.com>; Shrikanth Hegde
+> <sshegde@linux.ibm.com>; Phil Auld <pauld@redhat.com>; Andrew
+> Morton <akpm@linux-foundation.org>; David Hildenbrand
+> <david@kernel.org>; linux-kernel@vger.kernel.org; linux-mm@kvack.org;
+> jianyong.wu@outlook.com; Yuan Zhong <zhongyuan@hygon.cn>; Huangsj
+> <huangsj@hygon.cn>; Fengyu Wang <wangfengyu@hygon.cn>; Zhiwei Ying
+> <yingzhiwei@hygon.cn>; justin.he@arm.com
+> Subject: Re: [RFC PATCH v2 08/23] sched/topology: Introduce a per-CPU
+> tasks NUMA preferred counter
+>=20
+> On Tue, Sep 01, 2026 at 08:31:35AM +0000, Jianyong Wu wrote:
+>=20
+> > > On Thu, Aug 27, 2026 at 08:28:01PM +0800, Jianyong Wu wrote:
+> > > > Like the existed task LLC preferred counter, sd->llc_counts, introd=
+uce
+> > > > sd->numa_counts to denotes the task number that prefer each
+> NUMA node in
+> > > > a certain rq.
+> > > >
+> > >
+> > > To what purpose? Is not the node occupancy the direct sum of its
+> > > constituent llc occupancy?
+> >
+> > numa_counts is used by the affinity score in patch 12. It holds, for ea=
+ch
+> > NUMA node, the number of tasks on this rq whose preferred LLC falls in
+> > that node.
+> >
+> > You're right that numerically it equals the per-node sum of llc_counts.
+> > The reason to keep it is granularity: NUMA-level load balance scores at
+> > node granularity (numa_counts[node] * distance_delta), while
+> NODE-level
+> > balancing scores at LLC granularity (llc_counts[llc] * ...). Maintainin=
+g
+> > the node aggregate costs only a single llc_to_node() lookup (an O(1)
+> > array read) plus one increment in enqueue/dequeue, whereas
+> recomputing
+> > the per-node sum would have to walk every LLC of a node each time the
+> > NUMA-level score is evaluated.
+>=20
+> Consider the trade-off. Adding the accounting adds a cache-miss to every
+> enqueue/dequeue, while re-computing the value on-demand adds some
+> little
+> cost to the balancing (slow) path.
+>=20
+> If the llc_counts[] array is dense in node order, then it is likely all
+> relevant numbers are in a single line and computing the sum is in fact
+> fairly cheap.
 
-> Thanks for your patches. I've actually submitted patches to address this
-> problem back at the end of April [1]. In particularly the problem you
-> report was addressed somewhat differently by patch 1. We've then discussed
-> them at LSF/MM/BPF summit and people mostly agreed with the approach, just
-> there were some requests for better parallelization of deferred inode
-> reclaim (which I so far failed to implement). But it's currently high on my
-> todo list so I should hopefully send v2 of the patches for the next merge
-> window.
->
-> 								Honza
->
-> [1] https://lore.kernel.org/all/20260429174850.18223-1-jack@suse.cz/
+This is a good point. I was considering the number of operations, but not t=
+he fact that the additional accounting is performed on every enqueue/dequeu=
+e and may touch another cache line, while the summation is only needed on t=
+he load balancing path.
 
-My bad, should've done better prior art reasearch. :) Looking forward
-to your v2 then.
+Since numa_counts[] contains no information that cannot be derived from llc=
+_counts[], I will rework the NUMA-level score to sum the constituent LLC co=
+unters on demand and remove the additional numa_counts[] accounting.
 
---
-Best regards,
-Mikhail Rudenko
+Thanks
+Jianyong
+
