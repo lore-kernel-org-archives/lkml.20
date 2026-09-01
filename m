@@ -1,115 +1,293 @@
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673244746A9
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 22:53:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A82361960;
+	Tue,  1 Sep 2026 22:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788303211; cv=none; b=gl3L4pJomRRN0uRkH0y3Fy2kSiQTciF8uTGeuuEPCsikOI1Z4ZPzgy5OF262+cZiIDgrS9aHp1LIMDzK0/mpzIEdqSlPHn/NDyecpKr3ehRS/698BkCvDOJBCgD6EEfdM1JaWpuOJnIozMNS2404+G1Yf3wy75InsHiP2KZqjzc=
+	t=1788303246; cv=none; b=QMrDTPnW+kra6glL8fT+VZQs7kLbGQ7Fd4Lj81AkqDhEUO3OyPp0UUsx8Fhw3AQc4L4gvm49A5u9gzmZF/ByFciatHCzNv9TS2YEEI1lpCeO9noIsMYfdrVwjbeg7vd6Eo74S98T8bMmZrhonhmsIto4vSU882Lr8+EF7j6SeJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788303211; c=relaxed/simple;
-	bh=/pEWUEVmYn/xmHTn1dysLjNcIA1fu/HwQ5Atvfk5KQE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MwuVWI3G6rVRye4RuvKJRNj8NbILMVkiJvcdJxuMmTj2FjZI1QJOOQnTGju84TX3A2rx4vU40/L80AypoXPK5wzQywYj0STmxMa7vqdaIXxVG+B6kRTi6Yfn95L02KCDeEDPrsPFt0p4P+/tjD0rOWbVX7NYvx79IpOsWccYQvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=yFYzczDR; arc=none smtp.client-ip=35.89.44.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1788303246; c=relaxed/simple;
+	bh=QZ4SRhoz/1vFsTh9F518CyQRVF3nCqU7OfLuICgZ8tI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=kQiMVH73WR1G/wBEFQqezSBrWarb9OreMb9b4AGuRg7469Oxu+nr6N5QeF3UmX5iExo0WHuLpAms2e+3Q47qaWNVBoACRTXKHXE7e/BiuLBONhWnwIpkEohLcayVgVzXNefpLPyAqDFXAkLvkyZyu4ccbTDFArECoqa9VZF8k/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=jDWrOyPy; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="yFYzczDR"
-Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
-	by cmsmtp with ESMTPS
-	id 1V3TxRnC6hJKM1XM3xovZC; Tue, 01 Sep 2026 22:53:24 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id 1XM3xD2280FbV1XM3xrInC; Tue, 01 Sep 2026 22:53:23 +0000
-X-Authority-Analysis: v=2.4 cv=Nv7Rc9dJ c=1 sm=1 tr=0 ts=6a975763
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=y2ERv7ko0hlTFnYyMTsA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=9hmRTXzlOOdNH93iw7lSn8ol92qUBIFTmesIqS5EOkg=; b=yFYzczDR0g7RQH5jpEM81SRS9E
-	scyTARwoeg7E6BCR09LJ2kO6mrNcIf9av32+hCFuVvSBYofEKytqhn31pvsClt1foyDMipz6kU+mM
-	e4PZ3pvysZ26C8yMynpJWIBC12R7uI9GAaJUfOSVTpcQ3hIPdvA7rofE6+TfqqwxGchMgG8D+cR67
-	HyhQ8nZro4tDNOQGUG3sOS6hM5MdyuT8pJOwV+nO4vAraXHmr1u7RvHtHXIThLoHVqydoXYS3lcNO
-	jH/TFTw7lWMro8Hjyfw+D+uv5M+PlCtySOYXlmu1VP79DaPme+dlDj/Pkt3u1aq+3/FF499Y9JqsT
-	mgAPLXFg==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:40396 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.5)
-	(envelope-from <re@w6rz.net>)
-	id 1x1XM2-000000028bj-1iVr;
-	Tue, 01 Sep 2026 16:53:22 -0600
-Message-ID: <3c61a9a8-9104-4205-b0bc-e8e4b9a33ddc@w6rz.net>
-Date: Tue, 1 Sep 2026 15:53:20 -0700
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="jDWrOyPy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=QZ4SRhoz/1vFsTh9F518CyQRVF3nCqU7OfLuICgZ8tI=; b=jDWrOyPyPYSijvGUkZiigBZs9l
+	gZ3WIx24TQZKtFXc8UYXHc9Fh/2Ebf8lLWbH4XWOArxmHAzXSCefbZKxBYFvj4y4Msafw6nLqV7Xn
+	+FD6ExFS0dh9zfsGtUL2vooqUnG5hsFsy9WzDWJ/95KRxTpG5jZVihDJsRmAahvJUgSlEOmejALi1
+	8i5/mgOZA72lUyG0luVx0qYzZJqVdYXu4RI+/Gia2Us0bkh+bZDC6sPOkzGWgB04O4BTn8ZmsooH1
+	EaM0tsGmme8Vuv4d682pO1gADrNe34m2TslxWpkJIHef5zsgQ9ois5g6Xj7PuMXJqdR1aDjv3gpFZ
+	6kPvJzLA==;
+Received: from [2001:8b0:10b:5:d943:510:b128:832d] (helo=u09cd745991455d.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x1XMR-00000005tLS-3P1p;
+	Tue, 01 Sep 2026 22:53:48 +0000
+Message-ID: <19e2a25c50a551398dec060fe0e5d3720b027ad2.camel@infradead.org>
+Subject: Re: [PATCH] mm/mmu_notifier: Remove non_block_start/end() from
+ notifier invocation
+From: David Woodhouse <dwmw2@infradead.org>
+To: Sean Christopherson <seanjc@google.com>, "Paul E. McKenney"
+	 <paulmck@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Michal Hocko <mhocko@suse.com>, Steven
+ Rostedt <rostedt@goodmis.org>, Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand	 <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett"	 <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport	 <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Simona Vetter	
+ <simona.vetter@ffwll.ch>, Jerome Glisse <jglisse@redhat.com>, Christian
+ Koenig	 <christian.koenig@amd.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	linux-mm@kvack.org, kvm@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Date: Tue, 01 Sep 2026 23:53:26 +0100
+In-Reply-To: <apdW2edsT_ZKfuUR@google.com>
+References: <69567965-48fd-48c5-abb6-0699d7f5bd16@paulmck-laptop>
+	 <124af87fb49c267eeb26b8b4d952b9b1a5b3fb68.camel@infradead.org>
+	 <9427a8e0-3ba6-4f31-a35d-54429bd7e071@paulmck-laptop>
+	 <3d0463b6099d4fcde9a025a2f9e231d75303b61c.camel@infradead.org>
+	 <b0be19e9-b0ae-48de-bef6-d905ee007c8a@paulmck-laptop>
+	 <c39bda52f4c1573193aed39246f0d705755143fe.camel@infradead.org>
+	 <90d91673-a912-439f-98ee-e43285294486@paulmck-laptop>
+	 <8cd4aa65b1b499d4c614aa4cba445b6aeb89acf7.camel@infradead.org>
+	 <apcjs83XSU4Eb9hm@google.com>
+	 <e3197a0a-e167-4ea1-bbde-9c7f11f42198@paulmck-laptop>
+	 <apdW2edsT_ZKfuUR@google.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-0CqYliZsQwF5rEce3NVr"
+User-Agent: Evolution 3.60.3-0ubuntu1~ppa9~24.04 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 00/71] 7.2.3-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260831133359.055927882@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260831133359.055927882@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1x1XM2-000000028bj-1iVr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:40396
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 17
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfEu9ic0/Zn0VBNRbCYlog2JdGCAdtIJQOgw70hbAtEMOP/DGXte5h93rgMSmWzdUSQ9YwL+gQleku7q84L+54Cx/wm5YKhZfDGPPeKNZb7Ph5uYDrWLk
- AITlM6TeH+W7SmZPS08EVECqXeZ1qLE6u2e1gY00FPt6c2hARDu7YitnabA6h82jS0MFVpV81ku776IH+X000ZYZIxdFiMNWtS8=
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On 8/31/26 06:33, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.3 release.
-> There are 71 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.3-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+--=-0CqYliZsQwF5rEce3NVr
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Tested-by: Ron Economos <re@w6rz.net>
+On Tue, 2026-09-01 at 15:51 -0700, Sean Christopherson wrote:
+> On Tue, Sep 01, 2026, Paul E. McKenney wrote:
+> > On Tue, Sep 01, 2026 at 12:12:51PM -0700, Sean Christopherson wrote:
+> > > On Tue, Sep 01, 2026, David Woodhouse wrote:
+> > > > On Mon, 2026-08-31 at 17:58 -0700, Paul E. McKenney wrote:
+> > > > > On Fri, Aug 28, 2026 at 12:25:01AM +0100, David Woodhouse wrote:
+> > > > >=20
+> > > > >=20
+> > > > > > =C2=A0 * 23f10e07aba3 srcu: Add try_synchronize_srcu() for call=
+ers which can prove readers absent
+> > > > >=20
+> > > > > I do not intend to provide a separate API for this given the poss=
+ibility
+> > > > > of indefinite postponement.
+> > > >=20
+> > > > Makes sense. In that case, calling it internally from the 'right'
+> > > > places becomes important, as the callers who care can't do so for
+> > > > themselves.
+> > > >=20
+> > > > We discussed the fact that synchronize_srcu_expedited() will also w=
+ant
+> > > > to use the same fast path.
+> > > >=20
+> > > > I'm also looking back to Sean's call_srcu_expedited() patch from Ma=
+rch:
+> > > > https://lore.kernel.org/all/20260309193059.2244645-1-seanjc@google.=
+com/
+> > > >=20
+> > > >=20
+> > > > > Due to differences in how VMMs manage guest devices, and in the
+> > > > > architecture being emulated by userspace, some updates trigger ca=
+ll_srcu()
+> > > > > with concurrent readers (i.e. while the VM is active), while othe=
+rs occur
+> > > > > without readers, e.g. when configuring devices during a pre-boot =
+setup.
+> > > > > For the later case (no concurrent readers), using the vanilla cal=
+l_srcu()
+> > > > > is problematic, as it can kick off a normal grace period (totally=
+ fine for
+> > > > > freeing the object) and effectively transfer the non-expedited gr=
+ace period
+> > > > > to the upcoming synchronize_srcu_expedited().
+> > > >=20
+> > > > So the offending path uses call_srcu() and triggers a normal GP, wh=
+ile
+> > > > the victim calls synchronize_srcu_expedited() and gets stuck behind
+> > > > that non-expedited GP.
+> > > >=20
+> > > > Sean, if the victim is the "no concurrent readers" code path, as yo=
+u
+> > > > said above, do you think the fast path in the victim should suffice=
+,
+> > > > without the cost of an expedited GP for every bus registration?
+> > >=20
+> > > IIUC, you're asking if being able to use try_synchronize_srcu() for t=
+he fast/happy
+> > > of synchronize_srcu_expedited() (i.e. for kvm_swap_active_memslots()(=
+)), even if
+> > > there's an in-flight GP, would suffice for a fix of the regression in=
+troduced by
+> > > commit 7d9a0273c459 ("KVM: Avoid synchronize_srcu() in kvm_io_bus_reg=
+ister_dev()").
+> > >=20
+> > > If my understanding is correct, then yes, that should work, and presu=
+mably would
+> > > be a notable improvement overall.
+> >=20
+> > Then we could abandon synchronize_rcu_atomic()?=C2=A0 That would not be=
+ a
+> > bad thing from my perspective.
+> >=20
+> > Just to be sure, please note that synchronize_rcu_expedited() can and
+> > sometimes does sleep in order to avoid odd corner cases that could
+> > otherwise pointlessly monopolize a CPU.
+>=20
+> I think one (or both) of us is confused.=C2=A0 I thought David was asking=
+ if we could
+> avoiding adding call_srcu_expedited(), because the proposed try_synchroni=
+ze_srcu()
+> would fix a regression related to KVM's use of synchronize_srcu_expedited=
+().
 
+Indeed. This is a *separate* problem, for which you had previously
+proposed adding call_srcu_expedited(), but it looks like having
+try_synchronize_scru() as a fast path of synchronize_srcu_expedited()
+would suffice.
+
+We do still need synchronize_srcu_atomic() for the MM notifier case for
+which we originally built it.
+
+> I don't think that has anything to do with non-sleepable RCU?=C2=A0 Or is=
+ there a
+> separate discussion and/or implicitations I don't understand?
+
+I think the lack of 's' there was just a typo. This is synchronize_srcu_ato=
+mic().
+
+--=-0CqYliZsQwF5rEce3NVr
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+4SY+6565Vr1iodHKY+h/lLkAAAAAAAA=
+
+
+--=-0CqYliZsQwF5rEce3NVr--
