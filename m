@@ -1,221 +1,165 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021114.outbound.protection.outlook.com [52.101.95.114])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4141C4A441A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.114
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788296395; cv=fail; b=AP6OzeAx0ys6mQjGUHeWUiFodFA3NXp/WVN2LT88x4/VtTI+zltRY20Y/YpLQU6g31KJFKL7TUN49LEK02Dal37UrRyoumcz1edxp3sdz5Z7pDB7kdPjjgMFyDwnCwQfXIhGSp+lIexCvpVZgqizOwn2nxiXtG9WlmScCj+wr38=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788296395; c=relaxed/simple;
-	bh=ZMyXNHTAh6vKIRfPgjk9v7wcxMKcn6bAbxX3mtXG9sw=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=X3xERfOVsrd52FhBen9Behma9APjNno3rJfJz/5iN03Dqni2C4SF57O66+ZZnYSQJxic/pKn9uXM96u9LeOU78KhQUFOSeakSW6y2VdrOd8OxTjZJ1ofJG//KPh0uyzmr62WgFRpVfH+9ZZ6ICCET3nC8yKGaeKFb5pwKk3s7Co=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=Xnx1cKIt; arc=fail smtp.client-ip=52.101.95.114
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9AFD4A440A
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 21:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788296404; cv=none; b=TIBY2GOo8G8Xvu2YwhatW7VvRPxWqDRC8Rjm9GxKfLtSR9nIhOxRqeQYKqtlUMe1nukymBivT1Yi+XTjb7WGd3pEBvy0N9x8SNoAHeN4Y03vuo8e4nJeNIcODUduDb/gyTpBO97o72bAgUyoII5e69ofq4G53xrqvgZZhDt3ZlU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788296404; c=relaxed/simple;
+	bh=3iY0BcnRpcqNpPqskc3tj/I7HmGuTgBWm/puH0m5SUk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=r90xhec6vqV/Gvx2V05XPj5qyc+RfNk5F+PKXYVbb1OAphn6spB7wSi672ZlGI+GT7EKb9ZtB3ZpAMDJplmGeJj6oBiWVIBwD7rZfHespHpGt2t/FCvmo51gJsnhzEs82O4uMgKobvJGSz75Ekd3MdF403AwL6JBTJitwZfc2yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=DBZbDuJb; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="Xnx1cKIt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YS/O2sVqb0squuzvbIvL3OD6Df3yY3J2hUUamyFfF79UlZHnHECh9lv2lPV+Tpc6QM9ROJk52Fz7oRFLbgPVKUQ2VpKwkFCBn2vEbI+smIr6zxfhEfR4ybbd2asjStz2tMDqtTw9HNSMMyW0EVbzPuKigoTchVr6C7ooLv6Bc5xjpjbbcaXhL1jjhQxMKyslw2YRsh9RxXeqltG5V6JG0XSKGeb26O2c2CDshItz1uwuPU259jy5r0+jHn1x0bSqV31oSWleMMsO27GcfWFp3aKZoPW+QCyX4ON3ybkKNndLTmGQqwvVNG3xX/ccsHmzlQI4rK9JR0X6PGPf8et56g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=63/mqNJ0HUwdtO8Q3Y+nu1Umq5PHanDwGsV0T7xcUvQ=;
- b=N+++lmXvMFknAXnC+p0t2WmmkKhBFvHS7GQbndVDDfexTdSZOEpUye7jR8+Dp3jXyYo/DyDHMwRpTGZIdI8JteNpFsJugbGpb5y5z3HTNqITZ8mMqkIJzaUd3vpA3KtnMwu5YJ2SjyBmmQMCG7dH+UTRGxuRDWAuanOtf0/MEOJgCylvgvryGSfIELr3dRnYPYsVTjwM3UT//605stS8A7DC5kOdV483LtLwDsxPOHwqIopTP0SxaXnUSuOQY0KyN/UGTJnLXclYw6XpdEBI6abv773ELiQl1fxmw3P5hawL6BTYoBlrJPlZiUXtkY6BvLFw1YSixqMj3S1zvnFj6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=63/mqNJ0HUwdtO8Q3Y+nu1Umq5PHanDwGsV0T7xcUvQ=;
- b=Xnx1cKItxYGaNkFo2toEKXx9siG0oXCCBAaHOSaUToeUecGdGPaqhRpYfQnzylxD3GHGkmMUPd6TKJTTtuPcdXeXLHS4quN3n38/FqIPrHyvhy0j1LGa3HNnFcc5N8q5ZZmiUqqATFB/DZ4Mla5UCR0SUrGJuaHFi3nf9Qu2W+0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO2P265MB2624.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:146::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 20:59:43 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 20:59:43 +0000
-From: Gary Guo <gary@garyguo.net>
-Date: Tue, 01 Sep 2026 21:59:33 +0100
-Subject: [PATCH v4 2/2] gpu: nova-core: fix barrier usage in GSP->CPU
- messaging path
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-rust-barrier-v4-2-94427f445310@garyguo.net>
-References: <20260901-rust-barrier-v4-0-94427f445310@garyguo.net>
-In-Reply-To: <20260901-rust-barrier-v4-0-94427f445310@garyguo.net>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Gary Guo <gary@garyguo.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788296382; l=2907;
- i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=ZMyXNHTAh6vKIRfPgjk9v7wcxMKcn6bAbxX3mtXG9sw=;
- b=Eftfe7lKKOwB26dLdPpfDlXLYd/lTK11AjqJaIxj3iTTrMRc3jrIqDp2E92+MPYkZFnwG6rIx
- hHojum+v0S9D1v79t0OZ1eAy99rVPXLcVFqQ9qZhiHy1kywErN8ek78
-X-Developer-Key: i=gary@garyguo.net; a=ed25519;
- pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
-X-ClientProxiedBy: LO4P265CA0251.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:350::19) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="DBZbDuJb"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93900ed2925so36852285a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 14:00:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1788296400; x=1788901200; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YZD8NsGTxScfsyqxwjhq65/CKhM7Tjjz26PTc7lYLxg=;
+        b=DBZbDuJbh/H2eaLFoXNc48f3hXPNl9IvFHyZOvDjLXNLlLBkx9DSXEw331xPMpkk5P
+         1+4XB5M0bQjtnDU7nCK04Kk0RHoWnF32j5+LFDHH4bPoupvT4EI0yqvRY+0Cqu2qv0YB
+         B3zB6B8SWE/W5UjCBnq08DgajEpZDlDsdpUsYvGV7ox/Xs/JrTpJAZjhYnI52cnzqXtQ
+         o3680q75egTWCDAx09bu5CUTaYNOYZJV0PEohSx4MlNMiII9qH9WUfluZ5YyzV7BN8LJ
+         KGu94dkLuNeC6vawoU9bXQqJZPiQODT4QAkZi3MHSkPwcXZzvpfI2XhpQMsnDzo99SAG
+         KLYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788296400; x=1788901200;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YZD8NsGTxScfsyqxwjhq65/CKhM7Tjjz26PTc7lYLxg=;
+        b=XSsUpXOHZY9uvq3Aip5QV4TsLITcTNar+XRCKqxwiFSssOO07mk5kdDwNk3hwfK1g2
+         yM8wQkRI0u5J/R6GRjqIBOMDqwnAynphVelge3aHYaTHDkKHeK8Eia2sp+mV3Z+GBNiM
+         8x9a+IArCId4sIqbpULTorPKVtInMc0CEpG2w/fD7TMkN18FszAPPORxq4fEWudA2dpS
+         21296YzKZdN7SOe95wjeQBH4im1ewnhveMSdeEuZ1NEyByT6K59MQeHyxrRxS+9fhW9C
+         ENYQzhqNlFCmIqqwO6exlSsQWuH/1GUmd6C/fJXhnyIz7I3ZpQmr6frv9q9yZig41xZB
+         QSaA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpd0SqhM3mkK8HAM0QiL7N2/SIcChNnqGAGqg9uOARZ3OC/41rirs86fBTIkklKTTpY1PXn9bJ7L2BoVMQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxU80E5LMCuFHMAA0CrXHs8oOhA8SRHSjL2dlujXUJJKpci2K4
+	jOPQixwN+jj1WIBoJPHQBJsoYuGo+8wdS+U8z1SK6O4OzFgyrjF6aYIsnI6zuT7Jl2M=
+X-Gm-Gg: AR+sD13wdR5bn9vTpTqHLX+ObL5D1LHRBdlcN+SfRsiKrJEwL76T3wgN7V6AYSL9rAB
+	TScTtWi0WIVHNU//vloQx5RcsB6+JKkxP4hCpcQPfd647F+7ghCymY1XfR1FMw50jLXZBO3wiA0
+	j8V4ZTHNXD1a22lr82DYRauyUNaZXrlxtq2ObCjXrXpo+Hs7tqRdtjG5HaadVjAc7T3ciOPoBGy
+	05RQQE4pbr5oD2uQve80KbinL2QvMovTI/1BXDNSLDv0XUjRPqtea4vWz2wMHFXRU+QX60CSC4n
+	JCvKRmlCYfUK+oDCgYmCR4vTtU8LXK+PuiTpn38k2eFptJvnKXRr37z+OflfLjjaoJN6NsRmD9n
+	JDltSUWf4pIvngl2zbyCzADJR80mmRwQxeE+fgfEAjCycNLMRoQ65B83wPCp+vAwffEsxL4tV0o
+	djdxfQplIjgVtZjUetdW2lvy5HdDFGEeNHCB+o4X8ZUuxb+7WbyUAup3gmpUQYSX6wuo1tom4sj
+	uZ5vyUtRDl0knZ7aJsqY/qvEKQQ0AlDkISWwu02WB3L99gZWCUNE91rcmnoQZOf1rB8XhKFwFkg
+	Uztmp2hgcoZWdrdZFo9YUmDmPdEoQ3Jz1kJYtLws5bH1xujuCj0Ioy1l6gx+SYRowqaR
+X-Received: by 2002:a05:620a:72c3:10b0:92e:bc28:5479 with SMTP id af79cd13be357-93960cafc51mr14525185a.2.1788296399612;
+        Tue, 01 Sep 2026 13:59:59 -0700 (PDT)
+Received: from jake-laptop ([153.67.1.208])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9395f1aba80sm33533585a.20.2026.09.01.13.59.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 13:59:58 -0700 (PDT)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: jani.nikula@linux.intel.com,
+	rodrigo.vivi@intel.com
+Cc: jouni.hogander@intel.com,
+	mika.kahola@intel.com,
+	intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/i915/psr: clear the Panel Replay error status register
+Date: Tue,  1 Sep 2026 16:59:56 -0400
+Message-ID: <20260901205956.130779-1-j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260901203633.92628-1-j@metarealtyinc.ca>
+References: <20260901203633.92628-1-j@metarealtyinc.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB2624:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d09f214-1ba9-4d2d-cfee-08df086bf262
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|366016|376014|23010399003|1800799024|22082099003|18002099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	HO3Fhsz0qlJCWwuraZfkGCw/YqE7HaKmeVwSDmDvVx8nS/qoeOsbUNsKbNRJwzis9o4oPFQoeSHL1ght0kQwqMumkFxa3sBvMp1WCxsKMVxf0IiQEoRCAwlBKQKak9Ck6In2QxVBQs8UW0xKbvtWG/FdJDudmHhvVCyfLA9OY25l7Il8jO3iaLUNuk12gw4hqk0wi8sRJ9F/8k3grf6SCW0LFTZh7o9774Wmy/03IttIf4ZQJsqRoD9hi06tQtA+sXkpbVhKSKRx1bjQ6z70ursDlzDNXt6Nn0Mgln2bjOFdk0fVFG6OIggrdPDhtfP7LsCMqgvqcR6+rrdbI+kN0wNeIe6EZwn97vjdj3Cn5DBpdsz1Xg6rpu9Pgol7Peaubb830ja1NpW7RVnoARPmuM7nDrqwze2phRE2GeV5qcuAgvfKlvn2lPQSlruhVwwR9RXhbC9CWGMtnOXrScJyed7xCo+S6nBwMpC5X76NXWrN8h56lE/pIyjZfru5PLATzxQhIKfjRSY681I0brBprShXGa8AHOEPRgYKzHSFIiuI2h5OmBLCubtQXOHp7RDQPY/WTz8jnV2XADycXhAwsnNhDRy/6g/KcoMxyzyFYlpNnLn1hfzcKsI09s4y11VUQCsgPj7cpc4uvSUMFIr6wEN47N0j6R7kTeBVfAsrDP4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aEhhV2JNUVNYUVlXdHZIR1I2RW9PN3B0UHpXdENObXFvdThzeGRrTXp5ZVpV?=
- =?utf-8?B?RG96QlVTR0xIckxQZGtnME5mL0NCYXhveVh6aFhFL2xaV292b0hRWSsvenhX?=
- =?utf-8?B?K2w2MUVnTXJRY2tMQzc3MEF4SlFuQ1VReElIdGhRMXlZRXZNV2F6OTBnenZi?=
- =?utf-8?B?ZGVXakZYZWNCSkpWOEdiQnIvZmJoR1R3TGZzSVVhWDhhWlo4bnFBd0JvUFdZ?=
- =?utf-8?B?ZFRWeFA5eTNtVWdGQVBHTTRSTHZEam92T1c4Wm9DYXR6KzdjbmtxTTdzYkdV?=
- =?utf-8?B?R094cS9xMmJIRFRoTkFzUDVFVE11a3dGdlBXMDY3MVZwZVE5cktQWUo3cjZO?=
- =?utf-8?B?QnN0QkRJdkI0aFJHQm9YdkowOW9uZUxCK2hzUTZkWnZHa3JnS3FjekxtZmxE?=
- =?utf-8?B?Mk1RcGRidjd4QVNoNFBORUdiVDJVUXJROXlWSWVzWEs2L2U1WnhvTDlKbmZp?=
- =?utf-8?B?Q242ZFI3VlZVOUJyOFBKeEtuWm1mUlhyNTg1Yys3ZFl5NDF6Y2ZTdUpveUZh?=
- =?utf-8?B?SU04NW5MOFZpY0c2WWdFU1oxT3hoL0FBckRFc2xzcFArNVdLRUVQZXZtNzc0?=
- =?utf-8?B?bU0wMjdkVG81dEp4S1hOcUNlbDNRdmJzbVNDUWZMRStvNENFREZWQWFuZ3Vw?=
- =?utf-8?B?UEM5cVhCVU1RL25UWmo3RTlycGJwZi9HcmdHYlRSd3dhVDF6Z2pWVjZpSGNW?=
- =?utf-8?B?WVBRSnY5NnRCSzg3Vi9mTXkzNW1MQnpqZXdGMXpRWFdLZ3pDMnhacTA2REt6?=
- =?utf-8?B?WGllVmt1QVZBUUorUnFvK2lYeEZsMjcxbzhKTUZkc0RXaEpTMjdXM3NXM1dJ?=
- =?utf-8?B?eFNBVHRreVVZb1YramRaNTZYYURwTnB4NWs3TDFqa09BUnV6dU14UWlUS3Fi?=
- =?utf-8?B?RUQwcmtUbmUwUlFDaW94ZmsxUXc5Y0tMcFovUm5tTml4Z3BwRkVGYnBaakJW?=
- =?utf-8?B?TTRFdExhMVhqdFFJbGxZelZIMmFEVW5lejFySTh1dncraW1vMElUdldUYmpk?=
- =?utf-8?B?WSsweXpMNWxZUjRQcnlkZzJCckRTUnd4V05XS25FOWhvVGFxbkxhc0UyS3FZ?=
- =?utf-8?B?TnA3U0Qzd2JmY2JSUDdBcWx4WW1FeGtwMHU4ME50N1d0TVdZbFdhV2tzR1VY?=
- =?utf-8?B?VEtFdFRwMVQ1SnRQUmVvbzlZZkwvZlFvTUVMdkQxemZ5OWMwZkliOVlLZjBV?=
- =?utf-8?B?YjY3QjVJUFJ0cGVScGk0emoveHBjRDZaTGlQOHhUbnFFRi9xN0FQWG43VktD?=
- =?utf-8?B?SFJOSDRoeHg2cHBPakYvelltRy9BRkV6dWtJRGljc0RvN2dlcTY0OEg2M3J5?=
- =?utf-8?B?MHZqNWdPOVNRSU1xTVlFSzJkcGNuR3BKNEJVTUJHYm0wYjBLOXF0MlJwYmVE?=
- =?utf-8?B?c1d2RjhvNk8xWk1pRjNCM0RkUzZhZWVuTEJoT1NxWmlMTHZrWEd1UVR4R09R?=
- =?utf-8?B?NGlNUU44YStRUFFGWlBFcktlT1EvT3RRam5Rb01QVjRkWU5VWFpwNjllblJR?=
- =?utf-8?B?Zm5mNXlsZnlvM1VKcThBTzRBdTg3cnE4eDNvVm15YjN6Zkhrczlya2oxZlVz?=
- =?utf-8?B?SkppRzhGRE80ekcrOStsOC8zUVBzWEpxdGw4OUVSSkxObVUwU05wNG81R3hs?=
- =?utf-8?B?dG1FVEdwaW5rcXF5aFJLV1VjNXZ4RjNEMXRtaytQV2k4WjRSYkw5RDZreXQw?=
- =?utf-8?B?NnloclozSGJPY2N0cHNlaUNzdDFzckRtMW51cGZjaGRGRGx3K0wxczFhbjlG?=
- =?utf-8?B?SWZYQ1hQb1NyZkU3ckRleUM2NTR4UDJPYjJwWEhtTnp6bmcxQmIxYTRVTE5o?=
- =?utf-8?B?ejlicXVPZWlNMVpIbU4zQXNyelZXYlhnRmp2eUhiK1gwcmpxTnF0cXdQQzJP?=
- =?utf-8?B?di83cUpSRk0wY2VxTi9XcE1idjg4a0VWcEZsRjNHdVB3QWNQOW5Nb2pjQ21a?=
- =?utf-8?B?M3paQUdicUh3VDlQQlJRUmtxRXhaalNUTUxHSWdEblNTbnhwNU52QnZyS3Z4?=
- =?utf-8?B?N1BCWEtvTG4xYVd1UEhzT0hXNGM1K2NxeHpDTWhhMFV2TFlNNGhnOXR3Qjc3?=
- =?utf-8?B?TGJsUHQ1RFovcm0wNVVUR01HSVJmWHlRdkZXNGxJblNwMkZLT0tmOEdPOTJ3?=
- =?utf-8?B?NTN5aGdweG5YMis0RXpVd1JMNUxDTGk3VWdob014OUNsWXA1RzIyM3p1cHp6?=
- =?utf-8?B?V2tGMkk4aUdmcDNlUTRQemZsWE1wbFNrQzAzdHBDNE1hdXNRazdUcHBaclJm?=
- =?utf-8?B?eHFmNG02clF4SVRVSlMvdjZCQUxHN1RIV2ZpcUZZMXNCVGFmVXUrMTBoZG5m?=
- =?utf-8?B?VWduUEtROW52V1kzekhpcEdBY3pyRE1ySjN4V3RDaEV3eDRXQ1FIZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d09f214-1ba9-4d2d-cfee-08df086bf262
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 20:59:43.1550
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wJyhhGimZuFT7AB4S/QX0cyfsET/NK3qMdgwDd64PdTpF+3hErVKnsZsYH+bSEsbni2Gv/7gaUUUsVvlYo26fQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB2624
+Content-Transfer-Encoding: 8bit
 
-In the GSP->CPU messaging path, the code reads the write pointer from GSP,
-reads the response and advances the read pointer.
+psr_get_status_and_error_status() selects the DPCD offset to read the error
+status from based on whether Panel Replay is enabled:
 
-A LOAD->LOAD ordering is required after the write pointer read and the data
-read. Add it as this is currently missing.
+	offset = intel_dp->psr.panel_replay_enabled ?
+		 DP_PANEL_REPLAY_ERROR_STATUS : DP_PSR_ERROR_STATUS;
 
-A LOAD->STORE ordering is required after the data read and the advance of
-read pointer. Currently a Rust `SeqCst` barrier is used, which roughly maps
-to `smp_mb(Full)`; this however does not order DMA operations (notably on
-ARM, the generate barrier orders inner shareable and not outer shareable,
-which is ordered by `dma_mb`). This ordering does not need to be in between
-read pointer read and write, because it's for ordering between the ring
-buffer data and the pointer; the RMW operation does not internally need a
-barrier (nor it has to be atomic, as CPU pointers are updated by CPU only),
-so move it to before the RMW sequence for clarity.
+but intel_psr_short_pulse() acknowledges it unconditionally to the PSR
+register. Under Panel Replay the error is therefore read from
+DP_PANEL_REPLAY_ERROR_STATUS (0x2020) and the acknowledgement written to
+DP_PSR_ERROR_STATUS (0x2006). DP_PANEL_REPLAY_ERROR_STATUS is never written
+anywhere in the tree; it appears only in the read above and in its own #define.
 
-Signed-off-by: Gary Guo <gary@garyguo.net>
+The sink's Panel Replay error latch can consequently never be cleared. Once it
+latches, every subsequent short pulse re-reads the same errors, so PSR is
+disabled with sink_not_reliable set permanently, and until a short pulse
+arrives the driver keeps Panel Replay enabled while the sink is reporting
+errors it cannot see.
+
+Observed on a Dell XPS 16 DA16260 (Panther Lake, Arc B390, display version
+30.00) with the eDP Panel Replay quirk from commit cb8d155b0806 removed
+locally so the feature could be exercised. The sink reports a persistently
+latched error:
+
+	Sink PANEL-REPLAY status: 0x2 [active, display from RFB]
+	Sink PANEL-REPLAY error status: 0x1:
+		PANEL-REPLAY Link CRC error
+
+which survives across reads indefinitely, while dmesg stays silent and Panel
+Replay Selective Update remains enabled.
+
+Use the same conditional offset when clearing. psr->panel_replay_enabled
+cannot be used at that point because intel_psr_disable_locked() clears it
+earlier in the same function whenever an error was detected, which is exactly
+the case that needs the Panel Replay offset, so save it beforehand.
+
+v2: use a copy of panel_replay_enabled taken before
+    intel_psr_disable_locked() clears it. In v1 the condition was evaluated
+    after the disable, so it selected DP_PSR_ERROR_STATUS in the error path
+    and the patch was a no-op there. Caught by Sashiko AI review.
+
+Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs | 23 +++++++++++------------
- 1 file changed, 11 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index bfd61e678802..14a711307654 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -2,13 +2,7 @@
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -3840,6 +3840,7 @@
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 	struct intel_psr *psr = &intel_dp->psr;
+ 	u8 status, error_status;
++	bool panel_replay_enabled;
+ 	const u8 errors = DP_PSR_RFB_STORAGE_ERROR |
+ 			  DP_PSR_VSC_SDP_UNCORRECTABLE_ERROR |
+ 			  DP_PSR_LINK_CRC_ERROR;
+@@ -3860,6 +3861,12 @@
+ 		goto exit;
+ 	}
  
- mod continuation;
- 
--use core::{
--    mem,
--    sync::atomic::{
--        fence,
--        Ordering, //
--    },
--};
-+use core::mem;
- 
- use kernel::{
-     device,
-@@ -30,6 +24,7 @@
-         barrier::{
-             dma_mb,
-             Full,
-+            Read,
-             Write, //
-         },
-         Mutex, //
-@@ -409,7 +404,12 @@ fn allocate_command(&mut self, size: usize, timeout: Delta) -> Result<GspCommand
-     //
-     // - The returned value is within `0..MSGQ_NUM_PAGES`.
-     fn gsp_write_ptr(&self) -> u32 {
--        MsgqTxHeader::write_ptr(io_project!(self.0, .gspq.tx)) % MSGQ_NUM_PAGES
-+        let ptr = MsgqTxHeader::write_ptr(io_project!(self.0, .gspq.tx)) % MSGQ_NUM_PAGES;
++	/*
++	 * Save this before intel_psr_disable_locked() clears it; the error
++	 * status is acknowledged to a different DPCD address depending on it.
++	 */
++	panel_replay_enabled = psr->panel_replay_enabled;
 +
-+        // ORDERING: LOAD->LOAD ordering needed to order `gsp_write_ptr` read before data read.
-+        dma_mb(Read);
-+
-+        ptr
-     }
+ 	if ((!psr->panel_replay_enabled && status == DP_PSR_SINK_INTERNAL_ERROR) ||
+ 	    (error_status & errors)) {
+ 		intel_psr_disable_locked(intel_dp);
+@@ -3885,7 +3892,10 @@
+ 			"PSR_ERROR_STATUS unhandled errors %x\n",
+ 			error_status & ~errors);
+ 	/* clear status register */
+-	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_ERROR_STATUS, error_status);
++	drm_dp_dpcd_writeb(&intel_dp->aux,
++			   panel_replay_enabled ?
++			   DP_PANEL_REPLAY_ERROR_STATUS : DP_PSR_ERROR_STATUS,
++			   error_status);
  
-     // Returns the index of the memory page the GSP will read the next command from.
-@@ -437,12 +437,11 @@ fn cpu_read_ptr(&self) -> u32 {
- 
-     // Informs the GSP that it can send `elem_count` new pages into the message queue.
-     fn advance_cpu_read_ptr(&mut self, elem_count: u32) {
-+        // ORDERING: LOAD->STORE ordering needed to order `cpu_read_ptr` write after data read.
-+        dma_mb(Full);
-+
-         let rx = io_project!(self.0, .cpuq.rx);
-         let rptr = MsgqRxHeader::read_ptr(rx).wrapping_add(elem_count) % MSGQ_NUM_PAGES;
--
--        // Ensure read pointer is properly ordered.
--        fence(Ordering::SeqCst);
--
-         MsgqRxHeader::set_read_ptr(rx, rptr)
-     }
- 
-
--- 
-2.54.0
-
+ 	if (!psr->panel_replay_enabled) {
+ 		psr_alpm_check(intel_dp);
