@@ -1,111 +1,293 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB9F3515DF;
-	Tue,  1 Sep 2026 16:42:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788280966; cv=none; b=ATOjVT5Db0N7xiCL5krzQPo5EY/iLd0JSvouPE1uN6avgpTUkCrl5YJrJnpqzEpLX3yB115yTshINuiFzmEmBFpYn//iHVT7aDzHWjgcw2ESjbDIXARC7NLI8hjm5d8BiGIgyn6aVAcOKmW+n/odu36bVDaFZBvVSRnrHTwSrTw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788280966; c=relaxed/simple;
-	bh=swntz4L9HLtJg2UG9/ZzLdp8IdD2tc7OIr/g248cZsk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=NSBCgsf8OxLchhpR/gcsYiuJrOOcF9EJ5kviaeOYS7YhfjAuoKK/2kRbnLXebNFCy6oiVwBzEwftvkEVmgD3h6KJGUPVb47Wcs8OvsrpirHQg38k/WBN691iVxRMrhpvbkMg1QhboXd6Hi47LG+ldKu9Nc6YkEppsd8X1/wXszM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FmuBqmuA; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D63F481223;
+	Tue,  1 Sep 2026 16:42:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788280973; cv=pass; b=ZguxYRC776ptteMWd4HOeN3vEO4NW4epM8LVFqdAQa3dNeTbKO54K0uOm3Ok1x4InY2ZHAaFTZS2MSrWxW/z3p3oQvjfpAFqjgtQjySjTC85uw9k/m8+jg3u/9uPNgqXjjqn7MbpWE3UOx4BXUK5fyECMByytwjkMilwFA89p3s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788280973; c=relaxed/simple;
+	bh=gNx8RkWAn3+MDnKFUhraTiHN89qbNB3ZQysFj7mwD5M=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=Z6t8/v48WG5gszKhBRteWDJr2s+6l54Zph8SpC3eYIyTZSdTqD6kC+ogxHc563DDOUrH50Xbvsy/uoRkncPkSqlld+4Fvu7n4Dx4EhhDjbv7RmabM+1uBEu9P02tihlMX/2irUAcznol1Fxkx58jQwrqFUxUBIBbFE+d19pwkro=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=cWWhXRp3; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FmuBqmuA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648741F000E9;
-	Tue,  1 Sep 2026 16:42:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788280965;
-	bh=HDVTlAMfP0f4QnIQSJ5iqy4p0uotiN5NQJ+cYYyMCXo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=FmuBqmuAq3JP8YNaI0POHKUbWdFm5FqhIlxdVtqAULAuDDzXYDcvQSv+g0LIoTCxg
-	 Wa6zN7EDMXP1aE57e4R/SXKsCj3p9pyYxCccUDoF61yfWq7CmrLw4ulyRIGeiTT/gf
-	 53iM1Ht/9BdbUW10VO1B5JfkVHjRs9Te8n1phTi7O3+B0LoiQLPX0L6wm5hk2XK3af
-	 i34TPdZ8QjIxTkScphHc++PDIh/p3C43fWVCyRoy0kSu/CAmqKgeWAlYCWNUz6Zbhc
-	 v8XJ7rYsuW6KeO4AQfl9MJ8ARa2R/lq0GIh5E1f+Eo5wsjNhASee0onrqYiX+sAFZW
-	 D2MRVIXPF6gdQ==
-From: Thomas Gleixner <tglx@kernel.org>
-To: =?utf-8?Q?Beno=C3=AEt?= Monin <benoit.monin@bootlin.com>, Thomas
- Bogendoerfer
- <tsbogend@alpha.franken.de>, Daniel Lezcano <daniel.lezcano@kernel.org>,
- Dragan Mladjenovic <dragan.mladjenovic@syrmia.com>, Chao-ying Fu
- <cfu@wavecomp.com>, Aleksandar Rikalo <arikalo@gmail.com>, Paul Burton
- <paulburton@kernel.org>
-Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, Tawfik Bayouk
- <tawfik.bayouk@mobileye.com>, Gregory CLEMENT
- <gregory.clement@bootlin.com>, =?utf-8?Q?Th=C3=A9o?= Lebrun
- <theo.lebrun@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] clocksource: mips-gic-timer: Set next GIC event
- on the correct VP
-In-Reply-To: <-6r_yDA2RwW_Yn6kas-7SQ@bootlin.com>
-References: <20260810-sync-gic-counters-v2-0-dfe8b2c376b0@bootlin.com>
- <20260810-sync-gic-counters-v2-4-dfe8b2c376b0@bootlin.com>
- <87o6exi3pi.ffs@fw13> <-6r_yDA2RwW_Yn6kas-7SQ@bootlin.com>
-Date: Tue, 01 Sep 2026 18:42:41 +0200
-Message-ID: <87ik4oc48u.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="cWWhXRp3"
+ARC-Seal: i=1; a=rsa-sha256; t=1788280957; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=XDWm3uwvnZHLBvsndM4gHUkLPU6ZiY9hjH5bB1WF0FWMUaqLsICxnjMqgMOE691P9+RmL3wFioHiyfOKRMehftq0zeV1mu+yYuNcqm8RTjJ7LUUomczRxet3FxKutYr+sDXZKIrx99bTBdiG3qthYKNBaeWghCF+RhoIxu3SOLU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788280957; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=iuish5hluWdY71WX+l22NL4cSYu/RU1lYznBGbg7EhU=; 
+	b=Ab2lSfDdVhxEObA8hbG+3eETu3FpRC5vRVCMfrkvxWtqlKwc313Vc7MAcNntOTba6F/qPViM4vN4oRawmo1nWxi4KpDBOmlkd0MFoeUFH5XpJJYq+xORIyuuxuigK8T1oY1vpfIpzTGXN+Fk1lHcLQk1VQZDztjB+5mf/K3+OF4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788280957;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
+	bh=iuish5hluWdY71WX+l22NL4cSYu/RU1lYznBGbg7EhU=;
+	b=cWWhXRp3TIwhIyBIrh/SfLhTPj1DRrPZXLqFZbE6Hsr2SrccUSpuIkTkaZ9hWkif
+	JImILrx0Qkce1JrJxNtq7AlcqA904ov5x7R74ZsmDWR9moabEKW+dJumPv5nF2gtiMC
+	nOl8NxAlPqOVqXiQu2YWpN0GoWYfisNWKhjHHA4plX358hG1cijWN0ZlmiU3yPm54oJ
+	VHdPGC15OeOGQaZMefFzTwueLzxM7qPRj3b/hJEPV86JApEwvidm/aT7J/6JrlPQSEi
+	BS5Nic6MSlgaNHdnuo3BbGEZhQ7mWW7IObxGL2hE0eXbDb7zfUHg6myGYuce4V5DZR5
+	ZiJEtifaog==
+Received: by mx.zohomail.com with SMTPS id 1788280954716290.2395123693982;
+	Tue, 1 Sep 2026 09:42:34 -0700 (PDT)
+Message-ID: <8783d4c77f112c55c9f9678b5a8e0a88d49c1141.camel@rong.moe>
+Subject: Re: [PATCH v2] Bluetooth: Properly disable remote wakeup for
+ MT7922/MT7925 on Ryzen platform
+From: Rong Zhang <i@rong.moe>
+To: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz
+	 <luiz.dentz@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, Chris Lu
+ =?Big5?Q?=28=B3=B0=B8X=AAl=29?=
+	 <Chris.Lu@mediatek.com>, Will-CY Lee =?Big5?Q?=28=A7=F5=ACF=BFo=29?=
+	 <Will-CY.Lee@mediatek.com>, SS Wu =?Big5?Q?=28=A7=C5=BE=CB=AAY=29?=
+	 <ss.wu@mediatek.com>, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+In-Reply-To: <20260701-btmtk-ryzen-remote-wakeup-v2-1-767ac7907472@rong.moe>
+References: <20260701-btmtk-ryzen-remote-wakeup-v2-1-767ac7907472@rong.moe>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 00:37:25 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-10+b1 
+X-ZohoMailClient: External
 
-On Tue, Sep 01 2026 at 17:53, Beno=C3=AEt Monin wrote:
-> On Thursday, 20 August 2026 at 10:41:29 CEST, Thomas Gleixner wrote:
->> > On a multi-cluster system each cluster has its own GIC. The VO window =
-of
->> > the local GIC is what write_gic_vl_other() redirects, so when the targ=
-et
->> > CPU belongs to another cluster, write_gic_vo_compare() lands in the
->> > wrong GIC, overwriting the COMPARE register of a VP in the local clust=
-er.
->>=20
->> The MIPS GIC clockevent device is strictly registered per CPU with the
->> cpumask of that CPU. See gic_clockevent_cpu_init().
->>=20
->> The set_next_event() callback of a per CPU clockevent device is _always_
->> invoked on that CPU and cannot be invoked on a different CPU.
->>=20
->> So I completely fail to understand what this cluster and non-current CPU
->> voodoo is about.
->>=20
-> Going through the log, here is what I found:
->
-> The commit 414408d0eedd ("MIPS: allow GIC clockevent device config
-> from other CPUs") was merged in v3.16, its intent was to make the GIC
-> clockevent usable as a tick broadcast device.
+Hi Luiz,
 
-Ah. Nice detective work.
+Gentle ping.
 
-> Also in v3.16, the commit 0467811e9bdb ("MIPS: mark GIC clockevent device
-> with CLOCK_EVT_FEAT_C3STOP") sets the C3STOP flag. With this flag, as
-> I understand it, the GIC clockevent cannot be used as a tick broadcast
-> device. So the set_next_event() callback is always invoked on the CPU
-> of the event.
+On Wed, 2026-07-01 at 23:43 +0800, Rong Zhang wrote:
+> It is reported that a remote wakeup could cause MT7922/MT7925's btusb
+> interface completely unresponsive. Resetting the xHCI root hub doesn't
+> help at all, and recovering from such a state needs a power cycle.
+>=20
+> All reports seen to be relevant to Ryzen-based laptops. These NICs are
+> usually used as OEM components thanks to some sort of reference designs.
+> Their popularity on other platforms is unclear. While there is still a
+> chance that the quirk may exist on other platforms, be cautious and only
+> apply the quirk to direct children of Ryzen platforms's root hubs for
+> the time being. In most cases the root hub is on the SoC or PCH, which
+> needs the quirk. Unfortunately, this can't distinguish root hubs on PCIe
+> add-in cards. Such roughness should be acceptable, as PCIe USB
+> controller add-in cards are less commonly used nowadays. On the other
+> hand, applying the quirk doesn't hurt any functionalities either, as the
+> device can still be used as a wakeup source if desired. Theoretically,
+> we could retrieve the root hub's PCI vendor ID with some hierarchy
+> magic, but that's too intrusive...
+>=20
+> Meanwhile, though device_set_wakeup_capable(false) is the correct fix
+> for other NICs with fake remote wakeup capabilities, doing so for
+> MT7922/MT7925 effectively prevents it from being used as wakeup
+> sources as per userspace requests. Hence, return -EBUSY on runtime
+> suspend to prevent the interface from being autosuspended while it's
+> still opened, which has the same effect as
+> device_set_wakeup_capable(false), since disabling remote wakeup simply
+> causes the USB core to gate runtime autosuspend as well due to
+> needs_remote_wakeup =3D=3D 1. The interface can be safely autosuspended a=
+s
+> long as remote wakeup is disabled, i.e., after closing the HCI device.
+>=20
+> Specifically, the interface may still take the advantage of remote
+> wakeup in order to wake up the system from sleep if userspace has
+> enabled it as a wakeup source.
+>=20
+> Fixes: e31d761628ad ("Bluetooth: btmtk: Disable remote wakeup for MT7922/=
+MT7925")
+> Signed-off-by: Rong Zhang <i@rong.moe>
 
-Correct. A broadcast device cannot stop. The whole point of a broadcast
-decive is to act as a global backup for per CPU devices which are
-affected by C3STOP. The PPC people added a hrtimer broadcast device to
-handle the case where no other devices are available
+Could you kindly take a look at the patch?
 
-> The `if/else` was added later in v4.15 by commit f16ff2bdb135
-> ("clocksource/drivers/mips-gic-timer: Add fastpath for local timer
-> updates"). But the `else` path was never called.
-
-So my assumption about voodoo was not too far off :)
-
-> I am going to drop the `else` path, should I also add the
-> CLOCK_EVT_FEAT_PERCPU flag, or is C3STOP and the cpumask enough?
-
-You can, though the device i already excluded from being qualified for
-broadcast by C3STOP. But for clarity sake, yes.
+Chris Lu from MediaTek has relied with a "LGTM" to the patch, and there
+is already a Tested-by from Rafael Passos. Additionally, based on
+Rafael's debugging observations, the issue does exist on AMD PCHs, so
+matching X86_FEATURE_ZEN is appropriate.
 
 Thanks,
+Rong
 
-        tglx
+> ---
+> Changes in v2:
+> - Only apply the quirk to to direct children of Ryzen platforms's root
+>   hubs
+>   - Theoretically, we could retrieve the root hub's PCI vendor ID with
+>     some hierarchy magic to further limit the range down to only root
+>     hubs on the SoC or PCH, but that's too intrusive -- the hierarchy
+>     magic really made me nervous once I saw what I have wrote, so I gave
+>     it up
+> - Link to v1: https://patch.msgid.link/20260629-btmtk-ryzen-remote-wakeup=
+-v1-1-1d2f1cee6d22@rong.moe
+> ---
+>  drivers/bluetooth/btmtk.c | 10 -------
+>  drivers/bluetooth/btusb.c | 73 +++++++++++++++++++++++++++++++++++++++++=
++++---
+>  2 files changed, 69 insertions(+), 14 deletions(-)
+>=20
+> diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
+> index 02a96342e964..4614434dd57b 100644
+> --- a/drivers/bluetooth/btmtk.c
+> +++ b/drivers/bluetooth/btmtk.c
+> @@ -1381,16 +1381,6 @@ int btmtk_usb_setup(struct hci_dev *hdev)
+>  		break;
+>  	case 0x7922:
+>  	case 0x7925:
+> -		/*
+> -		 * A remote wakeup could cause the device completely unresponsive, and
+> -		 * recovering from such a state needs a power cycle.
+> -		 *
+> -		 * Since the remote wakeup capability is super broken, just disable it
+> -		 * to get rid of the troubles. The device can still be autosuspended
+> -		 * when the bluetooth interface is closed.
+> -		 */
+> -		device_set_wakeup_capable(&btmtk_data->udev->dev, false);
+> -		fallthrough;
+>  	case 0x7961:
+>  	case 0x7902:
+>  	case 0x6639:
+> diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+> index 08c0a99a62c5..eef6e3b43bf9 100644
+> --- a/drivers/bluetooth/btusb.c
+> +++ b/drivers/bluetooth/btusb.c
+> @@ -6,6 +6,7 @@
+>   *  Copyright (C) 2005-2008  Marcel Holtmann <marcel@holtmann.org>
+>   */
+> =20
+> +#include <linux/cpufeature.h>
+>  #include <linux/dmi.h>
+>  #include <linux/module.h>
+>  #include <linux/usb.h>
+> @@ -957,6 +958,7 @@ struct qca_dump_info {
+>  #define BTUSB_USE_ALT3_FOR_WBS	15
+>  #define BTUSB_ALT6_CONTINUOUS_TX	16
+>  #define BTUSB_HW_SSR_ACTIVE	17
+> +#define BTUSB_WAKEUP_BROKEN	18
+> =20
+>  struct btusb_data {
+>  	struct hci_dev       *hdev;
+> @@ -2936,10 +2938,25 @@ static int btusb_send_frame_mtk(struct hci_dev *h=
+dev, struct sk_buff *skb)
+>  	}
+>  }
+> =20
+> +static inline bool platform_is_ryzen(void)
+> +{
+> +#ifdef CONFIG_X86
+> +	return boot_cpu_has(X86_FEATURE_ZEN);
+> +#else
+> +	return false;
+> +#endif
+> +}
+> +
+> +static inline bool is_direct_child_of_root_hub(struct usb_device *udev)
+> +{
+> +	return udev->parent =3D=3D udev->bus->root_hub;
+> +}
+> +
+>  static int btusb_mtk_setup(struct hci_dev *hdev)
+>  {
+>  	struct btusb_data *data =3D hci_get_drvdata(hdev);
+>  	struct btmtk_data *btmtk_data =3D hci_get_priv(hdev);
+> +	int err;
+> =20
+>  	/* MediaTek WMT vendor cmd requiring below USB resources to
+>  	 * complete the handshake.
+> @@ -2956,7 +2973,40 @@ static int btusb_mtk_setup(struct hci_dev *hdev)
+>  		btusb_mtk_claim_iso_intf(data);
+>  	}
+> =20
+> -	return btmtk_usb_setup(hdev);
+> +	err =3D btmtk_usb_setup(hdev);
+> +	if (err)
+> +		return err;
+> +
+> +	switch (btmtk_data->dev_id) {
+> +	case 0x7922:
+> +	case 0x7925:
+> +		/*
+> +		 * All reports seen to be relevant to Ryzen-based laptops. These
+> +		 * NICs are usually used as OEM components thanks to some sort
+> +		 * of reference designs.
+> +		 *
+> +		 * Their popularity on other platforms is unclear. While there
+> +		 * is still a chance that the quirk may exist on other
+> +		 * platforms, be cautious and only apply the quirk to direct
+> +		 * children of Ryzen platforms's root hubs for the time being.
+> +		 *
+> +		 * In most cases the root hub is on the SoC or PCH, which needs
+> +		 * the quirk. Unfortunately, this can't distinguish root hubs on
+> +		 * PCIe add-in cards. Such roughness should be acceptable, as
+> +		 * PCIe USB controller add-in cards are less commonly used
+> +		 * nowadays. On the other hand, applying the quirk doesn't hurt
+> +		 * any functionalities either, as the device can still be used
+> +		 * as a wakeup source if desired.
+> +		 *
+> +		 * Theoretically, we could retrieve the root hub's PCI vendor ID
+> +		 * with some hierarchy magic, but that's too intrusive...
+> +		 */
+> +		if (platform_is_ryzen() && is_direct_child_of_root_hub(data->udev))
+> +			set_bit(BTUSB_WAKEUP_BROKEN, &data->flags);
+> +		break;
+> +	}
+> +
+> +	return 0;
+>  }
+> =20
+>  static int btusb_mtk_shutdown(struct hci_dev *hdev)
+> @@ -4532,11 +4582,26 @@ static int btusb_suspend(struct usb_interface *in=
+tf, pm_message_t message)
+> =20
+>  	BT_DBG("intf %p", intf);
+> =20
+> -	/* Don't auto-suspend if there are connections or discovery in
+> -	 * progress; external suspend calls shall never fail.
+> +	/*
+> +	 * It is reported that remote wakeup events could sometimes cause some
+> +	 * adapters completely unresponsive. Resetting the xHCI root hub doesn'=
+t
+> +	 * help at all, and recovering from such a state needs a power cycle.
+> +	 * Since disabling remote wakeup simply causes the USB core to gate
+> +	 * runtime autosuspend as well due to needs_remote_wakeup =3D=3D 1, let=
+'s do
+> +	 * this ourselves to make our life easier. The interface can be safely
+> +	 * autosuspended as long as remote wakeup is disabled, i.e., after
+> +	 * closing the HCI device.
+> +	 *
+> +	 * Don't auto-suspend if there are connections or discovery in progress=
+.
+> +	 *
+> +	 * External suspend calls shall never fail. Specifically, a device with
+> +	 * broken remote wakeup may still take the advantage of remote wakeup i=
+n
+> +	 * order to wake up the system from sleep if userspace has enabled it a=
+s
+> +	 * a wakeup source.
+>  	 */
+>  	if (PMSG_IS_AUTO(message) &&
+> -	    (hci_conn_count(data->hdev) || hci_discovery_active(data->hdev)))
+> +	    ((test_bit(BTUSB_WAKEUP_BROKEN, &data->flags) && data->intf->needs_=
+remote_wakeup) ||
+> +	     hci_conn_count(data->hdev) || hci_discovery_active(data->hdev)))
+>  		return -EBUSY;
+> =20
+>  	if (data->suspend_count++)
+>=20
+> ---
+> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+> change-id: 230ba8c9-btmtk-ryzen-remote-wakeup-055a407682ef
+>=20
+> Thanks,
+> Rong
