@@ -1,299 +1,200 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011012.outbound.protection.outlook.com [52.101.57.12])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F2D27F017
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788251320; cv=fail; b=G+Y5QB2A9MalAAj0bd5vj7XvuQw1g2ZcicNvku6ItWYqsVL46gNgSQzlkg6MytjbwxuNbBsnuxJAj4PUhqlGLc8d2qSiOUcOz9PiB++fxg1pG52vV8fWJf7S1VwxPZqm5zmLZd29pGS5uvQ95nfJlZ00ooR4DOt2zBFI4Rzhafc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788251320; c=relaxed/simple;
-	bh=WMuY+QO7o5CaUdnN57nQb5SUeOm/XPQ1uMBJmTb4RaM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Sfnj0O9cfvycucMetlpKi//d/+nWJCEo+aLuvv75no0Tx1Kg8zFVxM2QJQw8MRZMqMz6LhFPANHcaLj/aK5MhnP37X48uXBXX4yQXR2+ahlVGND/BTSmSrtXFVSMIS7ryxFHnOSAXHbjyDc8sI8kuXTgcZk+MpEq7rugsAU+D0g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=F8wwlFsD; arc=fail smtp.client-ip=52.101.57.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B4627F017
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:29:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788251352; cv=none; b=cVXZu2PdfaB5FfZUdjzDBtt8203YTUvK+gTAVFkOhpxVNVGyDmXOIXla9QDscYsVFBLyxK2YvvwfHPsyY4DEvoIE24cTWwAvErtlLRtbXEKNiNTiR1/d/ZkA4MsWxjyeYzOuEUSP8+SjDrqhJsghiowZ59AQPtO1q8zjs4Sjz8M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788251352; c=relaxed/simple;
+	bh=O88JCx2gCpZ2lze6X5+/bWCjk4500KcqGHSPg7wx6mo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MIEYkGozvjRu3TAS/HGRN/FIMu/wUko1DoNWW+y74Uv7CU3bM4ZhsL+o+zgF9Rm3H+KaYkXSlvrs2rEpatQlKSatH8Q7lQLY1BktyQkBGg6jgdCU3u3mYPQNyTP8ThvqK836W+z3rXh0xk5PfjYIo4wCYq2rSmL3gOGW1Ro7a+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ySGtK2PQ; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="F8wwlFsD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mGwISEUlA0Bw28hSFhEc3JohG4Rc8AMVL6Tm6c866x36L9FB5x4fN4qLWVB29/QFjcKGXwFj72/1DbIPSdiRIcg1nTWJhVTFG2EewrAI+Do3630fj6I74utyxL0j0l4kXitcTNWcsr45RO4IPbeJsE+7ubRru8TJmXK3wwdFamBNa7zGeOEOO7Z6ylVP8t1QwfNGHSKv+V+Q3UNssUVb2xL5O6FyiQOvwswR6niuzGf6NBQBxEFGTbIu6OXCsirHLbjO18sqcCsvuB/3Q9Ez6+IUDEmL+RCZou1qoEPzq89ib2WjpLEWEgL+c6HQLflm3i5/0srYFsrLb0hjzmxelA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5MmQoteJJUf2WI+y5/E5IaoYp+uoSucBOmiDZNseioA=;
- b=y8qCCm5zgbAsm7J9+iqM4JYa/jlk5cxWzUNmfy52tqVGwUFtOLqwInlJs/Ia5CaGOdmOPA/tRjgmb0UVObf5BqlXDc3/2jrvQD2f08awRDn9D049aVdFu7ZSCip7assHCEB+wKxLHpqF34h4nf4yt3NIZJVCJMvJqgQRt5dYoY5SlK8HoPol8PZptnbAK1PVu9ZXcJU4VzYyiZQ4Q8Wk7yK/vhACLewh894LjAOsrotew/j6mUy/izoKl//1uYgirUKorkDCylQU0DuH72eH3HzmtA54PvYH7HLYO6yn1lkutR/wnEnxNUJ8cKWQrq4uk9CnV7XxRP3/hl2sdoiJhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5MmQoteJJUf2WI+y5/E5IaoYp+uoSucBOmiDZNseioA=;
- b=F8wwlFsDsiRyWIhhJ+9qxM/UZ86V7VLAr4swi8wFHXQJZk5BpiiTIE8mHCVsFLfgEz158dWdIj9lJXfwKuMhdt+F2kkMhTwkX6JVhknnGdEOBrLxHrclWxHk+Ve4E+gw9lcekuO4JbdUQ2AOHJ6ZDVcz+OzZhGyEMZ+a1N0tK0s=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
- by LV3PR12MB9409.namprd12.prod.outlook.com (2603:10b6:408:21d::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 08:28:34 +0000
-Received: from DSVPR12MB999171.namprd12.prod.outlook.com
- ([fe80::b7ec:f444:4560:9f19]) by DSVPR12MB999171.namprd12.prod.outlook.com
- ([fe80::b7ec:f444:4560:9f19%4]) with mapi id 15.21.0382.007; Tue, 1 Sep 2026
- 08:28:34 +0000
-Message-ID: <6dc11f18-d03e-4e53-9f46-60882ee4b2d4@amd.com>
-Date: Tue, 1 Sep 2026 15:28:26 +0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/24] iommu/amd: Introduce vIOMMU-specific events and
- event
-To: Vasant Hegde <vasant.hegde@amd.com>, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, joro@8bytes.org, jgg@nvidia.com
-Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
- jon.grimm@amd.com, santosh.shukla@amd.com, Sairaj.K@amd.com,
- jay.chen@amd.com, wvw@google.com, wnliu@google.com, dantuluris@google.com,
- chriscli@google.com, kpsingh@google.com, alejandro.j.jimenez@oracle.com,
- joao.m.martins@oracle.com
-References: <20260727132913.22475-1-suravee.suthikulpanit@amd.com>
- <20260727132913.22475-3-suravee.suthikulpanit@amd.com>
- <1f2011b3-350c-46dc-a21b-69baaf059af7@amd.com>
-Content-Language: en-US
-From: "Suthikulpanit, Suravee" <suravee.suthikulpanit@amd.com>
-In-Reply-To: <1f2011b3-350c-46dc-a21b-69baaf059af7@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: KL1PR0401CA0017.apcprd04.prod.outlook.com
- (2603:1096:820:f::22) To DSVPR12MB999171.namprd12.prod.outlook.com
- (2603:10b6:8:388::22)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ySGtK2PQ"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 0791F1A18FD;
+	Tue,  1 Sep 2026 08:29:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C0D2B6053C;
+	Tue,  1 Sep 2026 08:29:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8D87611C79239;
+	Tue,  1 Sep 2026 10:28:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788251340; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=9C9PquLTIFgMhA+5If1UmoprkzZ8Splb57Qu2HeuyeU=;
+	b=ySGtK2PQxTK0mPDTeBgTfM8uNmdLH2en7dtCWlV2ryudYRHswSvMCQj5+/0XXaqLTNTCAa
+	5xuDyVgE9zrCgI9Z5dx9wsC3GJD2sTiOm3vk+OQ8ruz9MQ5f1RBVKvXuR7D1P6aripD0kX
+	FlJtupueLVEbVYzJaMRX6BXUdqjpn9c0CyBCqfryLV6bKJL9XcSrKr5MD6Wl0LWVPs+miG
+	pOaAuWO/f3kwCqiP29Y4EhoV4ch3R5WTjpBR9mGrUYXpQkwdUkrt1EUrQMWJloY2FdE08i
+	mzILhXUv6ERPjDzMPVaUw7amAC12BuqU5P3t3mrm/4MxO0V2lEztth6tD9J+1g==
+Message-ID: <c48c9cde-a5db-4aea-9b62-1ce007308a68@bootlin.com>
+Date: Tue, 1 Sep 2026 10:28:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSVPR12MB999171:EE_|LV3PR12MB9409:EE_
-X-MS-Office365-Filtering-Correlation-Id: dbab5c25-2c59-470b-7507-08df08030338
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|6133799003|56012099006|10067099003|4143699003|11063799006|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	FZORUDwpUBV899UWHcR7rnRofXRfpVtS33hzTk8mOM4Q9YLzNvH3uZKK5KoRJBMLMdULNiZD/MCEZUQJehCc3pW5Ytub58ZDUPBuYQTBmqZy3krkg3M90fWqlZ/2sBbJIkvUndfvyKweZMJJrEEYGba7zn/T5skZrMbtUWUKj8FSGSsG9Oe/jbCD6eIqS7W/J6T+XquzDjQXt/pn675b3Z7/3piAdoMtGFEtYusT2utob3S/j8EuQwRXvgXbvtu0brnJti9x1e2qmiQiGHlik26L9otIb/TQBdni6PhN++tqgiUL+dCaC88StvEIGf05f/bHfzMS52WosFUUFBDoyZmDeI7BYCAjbdNmUtOPiYA71kMrVVUH7vRf4Hul7j1pL8+N/PTJiE46e/o1VRaITJFQS0CCSwaEIIz1XW7Vc16xb43Xf/IssWOeK4lakZxJMpC6P09AORs5c3TAvfv2iY+P6/j5VD/SKyTXkG6+79B/7CiyM22+uojDwuuR7lT2/4F8/fFHcFdPsNFnFnAjLzCuBRXCJ5KwulrjSUsr2k89Jziz7xwQj84+aq7/WlWH5Z9gmryfat4uamMqev2UYKFGVzndszYpEd0RaZQBeJJ8TsDaAk/gm3wZWkG9yDlRdkRkp1mBLnngm9xbpV+zJeqiUUYs+TGOt2MRp9K3cPY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR12MB999171.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(6133799003)(56012099006)(10067099003)(4143699003)(11063799006)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WTFyd0hHd3dBK3VMVm43SS84akszaVp6SGYzVXRHeWdGa2xEUWVNVkRkUU1F?=
- =?utf-8?B?MFQvRDVjU2tHaU1HY1B5UjV2MEtvWWViZzZKREk4bWsxWmFvdG93LzllSVZh?=
- =?utf-8?B?d2EyM1hTZExyZDc2TjFmajVYSE9tK21pZHJTK0dGa08xSCtDeittOEgzWmQ1?=
- =?utf-8?B?aktGbGxvVDNkY1Vnd1FSTU1zVVIxdjJqVlJIay8yTjJWL2RZcFJ6WlJYMWVw?=
- =?utf-8?B?ME1GMTU1WEV4NXFPb1AwbmIyT1NuMVprbkZ2Rlo5MjRiaXE0aGw0SmNkbjdx?=
- =?utf-8?B?S2EwYWtucUJtMGVtcHYvaWx1SzFCbUQxcjNzT0x5Z3c0Z2VsZHI3ODZ3eldq?=
- =?utf-8?B?OEZwUi8xUzNZa3pXS0VJeGN5ZDhtYnZHaWtSNmp1aHF4R2JRQjB5ZUllOWxx?=
- =?utf-8?B?bTFoVHRFZDVFeW1velJYeGpBR2FCVGlua1JZUU11MUZ2aitvVDF1K0IvSTR5?=
- =?utf-8?B?UGs5VXptYWQwc1NMZjhWSitRS1N2MXVYRjkyTm9WOUdZTjRQelVUcWNoZkt0?=
- =?utf-8?B?SEorTEF3UFpUeVdBMm51ZHk4bDU4dGRhVjJVMzUzaW1SZ0M4bzFuQTZ3c2lC?=
- =?utf-8?B?RkhsUCtvMXpxcDFNRWw5eUhpZHdDMW5aZHQrSVlZNEdCN0hvTTcyUG4xZkhW?=
- =?utf-8?B?YTRYaERtbjlmUWVjbXlHV2Zrc0puSkErZU80UGNySy9zQjdFVGc3aytndldH?=
- =?utf-8?B?RGFld3QzWmhYU3UzdmhXTjN0WDB4Um1VejBteTNQWmpaVkZld0haSy9MV05E?=
- =?utf-8?B?WW5zMXpzaVc2MStyTndFcDB2cVpvaUpXcjVJT3ZzNTdlZlJIRWovN3JoQ0pp?=
- =?utf-8?B?QnU0UXZudzlmcjZzUEpUdjgvd1IrSnVMcjlMKzBHNVVWTktUTmMrNGVxZlpG?=
- =?utf-8?B?MzNpYUs3U3dBKzBjNXllWERzVG1rKzVlK3BlUytHakZubGlhL21ZMXdzWmZl?=
- =?utf-8?B?TDZrLy9ZNTBkdW5sMmZSaWZ3RmJhdi9oRzNrWlNFVmZ2NGQ5ZUNCV1h1YU9N?=
- =?utf-8?B?dGxPREVPS1dTc3NpMktyWm5zalhsYmRJcjV3TkMwcWZKRkEzazIySWZlS2dO?=
- =?utf-8?B?TC9WUjI3Q3JGcTIwVy9tVHNPUDVuNG9WbFVGbWN6RjhCYTBEYmZMdlY1WWx0?=
- =?utf-8?B?ZmlVR2RMNWRMRUtIZjYxNUhHckZCbjQ4Z1RQMndaTmF6L3NLdWIrTjlVeVZZ?=
- =?utf-8?B?Wnc5RWZUbDZyL3NHQWdtZ0xzdGhsM3BKMmY1enJQbzJpalM1QjBFQ3VoNmRE?=
- =?utf-8?B?TUR2ejM1UUNqWkdKeUFIVnBxYm8yK0kvODJCRElKVXpOc1doSTBDTlIxZmxK?=
- =?utf-8?B?SnY1VTVjOE44OEZrRldGTkNLdzMwa2thQVRSUEVvWWNiVTRNYlc5R2JpSHBS?=
- =?utf-8?B?TlFqaFFuclY2MWdQSXJRN3pSS2d1MWVjTXg3NGQ0WjBQWTgxZVY1Y05sSE4z?=
- =?utf-8?B?bUxvL2cvTTQvRFR6UVhwL1Nxc1Y5bjJpQ0VjVHdUTWRQbFI0UWlFRXUvVFBt?=
- =?utf-8?B?YWZDWnpqRUFVMGRXayt1VUJvMXR0SFN5Vk1qdUhZYlIxdlBVQXZFUXhETE1T?=
- =?utf-8?B?REJpZlQyTGRRNUFYKy9raTMrUlVCZVdIQ2JESzd4WXlWZlpneTBsR2FwN2t4?=
- =?utf-8?B?d1lKVk4vR1JwcEV6TmVHUDhDclB5L0tVTWtmKzh5aksrNTd2ZWhsbVNBQVdt?=
- =?utf-8?B?V1YyK25pVzZOVnRDK244UXBRbk9pNUIwdmJRNFlHemU1M0g1c3ArUGdOeXhq?=
- =?utf-8?B?dmlCYjFCU3dBVDlNbUpHWHhGSEo1WnFZQ0dnQ2ZsUlhuNE1PQVVDSGd2dlNG?=
- =?utf-8?B?QmFpTVRFWElySndBNlJOTGF1TjZzREpSVE55RkJhZVN6dnlUZG84MW5ndzZY?=
- =?utf-8?B?bzN6cUtwUkY1ei9ETElnL0lWUW42c0pHdmtWUFE2SFdBUUM4ZkIvOHFDY3Nj?=
- =?utf-8?B?cGRieVRUTmpjcjNJaVZhVnhzSnJHT3VlUDlyK3JNNlJ0S1YvdUdIelFZbHhU?=
- =?utf-8?B?djduWVhBemQvV3RCOWFseVBMVUJjbFhDUFFRaVJxWmNzWHEwZ3lob2VQMlVx?=
- =?utf-8?B?N0ZyYWdNOGd6NGduYmh5Z2c2cVErUXc4Z3pPSzljbjJMRFpuaWw1Vk5jaFRJ?=
- =?utf-8?B?dnc4YnFxOTRhTkJ0MmI0dGpXUHE5MEgvenY5UkFLTXdCL3lLd01zamYvVE1X?=
- =?utf-8?B?ald0VUhCemhBdUVJdFZoSmprMEJWbUluS0VERjRaZUdjNXhCUHR4b0ROeTdU?=
- =?utf-8?B?bDVkcVFvNVZkSDF4QlBLSktld2JpNHkxOUM5VzBBODdJVTliMHcvOUdxcW45?=
- =?utf-8?B?NEsrSHRCT2UrVmdGTi8wY2ZJeVY0aEIwaUdmcGRNbFRiYnluZ2orZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbab5c25-2c59-470b-7507-08df08030338
-X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB999171.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 08:28:34.4985
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T81h5jQCiXwLAtK/NYDUYOtt80IbYn27Wtv5ByvlDf7ItfveONT3GNxcvNWoBvvZxghoFYIrsC8jw0rmjD9AHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9409
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH linux next v2] net: stmmac: remove software VLAN tag
+ stripping
+To: he.peilin@zte.com.cn, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ vbridgers2013@gmail.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Cc: jiang.kun2@zte.com.cn, xu.xin16@zte.com.cn
+References: <20260901102838839qOylm1OxcNUptu0TbB_Cd@zte.com.cn>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260901102838839qOylm1OxcNUptu0TbB_Cd@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi,
 
-
-On 8/10/2026 2:12 PM, Vasant Hegde wrote:
-> Hi Suravee,
+On 9/1/26 04:28, he.peilin@zte.com.cn wrote:
+> Problem
+> =======
+> When the stmmac driver has NETIF_F_HW_VLAN_STAG_RX enabled by default,
+> but the hardware does not support hardware stripping of ETH_P_8021AD
+> (VLAN 802.1ad) tags, the driver falls back to software stripping in
+> stmmac_rx_vlan(). If the received VLAN packet is fragmented and the
+> VLAN header resides in the non-linear part of the skb, the driver
+> attempts to pull the header without first ensuring it is linearized.
+> This leads to a kernel BUG in __skb_pull() due to invalid header
+> access.
 > 
+> Crash log
+> =========
+> [   72.212903] kernel BUG at include/linux/skbuff.h:2700!
+> [   72.212908] Kernel BUG [#1]
+> ..
+> [   72.212958] [<ffffffff846919d2>] eth_type_trans+0xe2/0x168
+> [   72.212962] [<ffffffff844672e2>] stmmac_rx+0x602/0xc58
+> [   72.212966] [<ffffffff84467984>] stmmac_napi_poll_rx+0x4c/0xb8
+> [   72.212970] [<ffffffff84635246>] __napi_poll+0x2e/0x1e0
+> [   72.212975] [<ffffffff8463596e>] net_rx_action+0x31e/0x388
+> [   72.212979] [<ffffffff83c329b0>] handle_softirqs+0x170/0x358
+> [   72.212983] [<ffffffff83c32cc6>] __irq_exit_rcu+0xd6/0x100
+> [   72.212986] [<ffffffff83c32ee0>] irq_exit_rcu+0x18/0x28
+> [   72.212989] [<ffffffff84895b1e>] handle_riscv_irq+0x66/0x78
+> [   72.212994] [<ffffffff84896728>] do_irq+0x60/0xa0
 > 
-> On 7/27/2026 6:58 PM, Suravee Suthikulpanit wrote:
->> Adding support for new vIOMMU events:
->>    * Guest Event Fault event
->>    * vIOMMU Hardware Error event
->>
->> Also, adding support for the additional vIOMMU related flags
->> in existing events.
->>
->> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
->> ---
->>   drivers/iommu/amd/amd_iommu_types.h |  7 ++++
->>   drivers/iommu/amd/iommu.c           | 58 ++++++++++++++++++++++-------
->>   2 files changed, 52 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
->> index d2c64e2e9f05..4df6a50128de 100644
->> --- a/drivers/iommu/amd/amd_iommu_types.h
->> +++ b/drivers/iommu/amd/amd_iommu_types.h
->> @@ -149,6 +149,9 @@
->>   #define EVENT_TYPE_IOTLB_INV_TO	0x7
->>   #define EVENT_TYPE_INV_DEV_REQ	0x8
->>   #define EVENT_TYPE_INV_PPR_REQ	0x9
->> +#define EVENT_TYPE_GUEST_EVENT_FAULT	0xb
+> Root cause
+> ==========
+> In the software VLAN stripping path, stmmac_rx_vlan() does not call
+> pskb_may_pull() to ensure that the Ethernet header plus VLAN header
+> are in the linear area. As a result, __skb_pull() operates on an
+> skb with insufficient linear data, triggering the BUG check.
 > 
-> Better `EVENT_TYPE_GUEST_FAULT` ?
+> Solution
+> ========
+> The software VLAN stripping logic in stmmac_rx_vlan() was originally
+> introduced in 2014 by commit b93819854d6e ("stmmac: Add vlan rx for
+> better GRO performance.") as a workaround to improve GRO performance,
+> since at that time GRO could not handle frames with VLAN tags. However,
+> this limitation was resolved in 2015 by commit 66e5133f19e9 ("vlan: Add
+> GRO support for non hardware accelerated vlan"), which added GRO support
+> for non-hardware-accelerated VLAN frames. Keeping a software fallback
+> path for VLAN stripping is no longer necessary and only adds complexity.
 
-I want to keep this consistent with the IOMMU spec "GUEST_EVENT_FAULT" 
-event.
+I'm not convinced this is the proper explanation to use here. How did you
+trigger it in the first place ? Just getting rid of unnecessary code
+is good enough of an explanation :)
 
 > 
->> +#define EVENT_TYPE_VIOMMU_HW_ERR	0xc
->> +
->>   #define EVENT_TYPE_RMP_FAULT	0xd
->>   #define EVENT_TYPE_RMP_HW_ERR	0xe
->>   #define EVENT_DEVID_MASK	0xffff
->> @@ -261,6 +264,10 @@
->>   #define EVTLOG_SIZE_MAX		SZ_512K /* 32K entries */
->>   #define EVTLOG_LEN_MASK_MAX	(0xFULL << EVTLOG_SIZE_SHIFT)
->>   
->> +/* Constants for IO_PAGE_FAULT event */
->> +#define IO_PAGE_FAULT_VFLAGS_SHIFT	27
->> +#define IO_PAGE_FAULT_VFLAGS_MASK	GENMASK_ULL(27, 23)
+> Rather than fixing the issue by adding pskb_may_pull() checks to
+> stmmac_rx_vlan(), remove the function entirely. Additionally, ensure
+> that hardware VLAN stripping features are only reported via
+> dev->hw_features when the hardware truly supports them.
 > 
-> You mean  (31, 27) ?
-
-I'll fix the mask and remove the shift since it's no longer needed.
-
+> Fixes: b93819854d6e ("stmmac: Add vlan rx for better GRO performance.")
+> Signed-off-by: Peilin He <he.peilin@zte.com.cn>
+> Reviewed-by: xu xin <xu.xin16@zte.com.cn>
+> Reviewed-by: Jiang Kun <jiang.kun2@zte.com.cn>
+> ---
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 27 ++-----------------
+>  1 file changed, 2 insertions(+), 25 deletions(-)
 > 
->> +
->>   /* Constants for PPR Log handling */
->>   #define PPRLOG_ENTRY_SIZE	0x10
->>   #define PPRLOG_SIZE_SHIFT	56
->> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
->> index 4b4dd20ebec6..50f26c8123f3 100644
->> --- a/drivers/iommu/amd/iommu.c
->> +++ b/drivers/iommu/amd/iommu.c
->> @@ -854,7 +854,7 @@ static void amd_iommu_report_rmp_fault(struct amd_iommu *iommu, volatile u32 *ev
->>   
->>   static void amd_iommu_report_page_fault(struct amd_iommu *iommu,
->>   					u16 devid, u16 domain_id,
->> -					u64 address, int flags)
->> +					u64 address, int flags, u8 vflags)
->>   {
->>   	struct iommu_dev_data *dev_data = NULL;
->>   	struct pci_dev *pdev;
->> @@ -889,13 +889,13 @@ static void amd_iommu_report_page_fault(struct amd_iommu *iommu,
->>   		}
->>   
->>   		if (__ratelimit(&dev_data->rs)) {
->> -			pci_err(pdev, "Event logged [IO_PAGE_FAULT domain=0x%04x address=0x%llx flags=0x%04x]\n",
->> -				domain_id, address, flags);
->> +			pci_err(pdev, "Event logged [IO_PAGE_FAULT domain=0x%04x address=0x%llx flags=0x%04x vflags=%#x]\n",
->> +				domain_id, address, flags, vflags);
->>   		}
->>   	} else {
->> -		pr_err_ratelimited("Event logged [IO_PAGE_FAULT device=%04x:%02x:%02x.%x domain=0x%04x address=0x%llx flags=0x%04x]\n",
->> +		pr_err_ratelimited("Event logged [IO_PAGE_FAULT device=%04x:%02x:%02x.%x domain=0x%04x address=0x%llx flags=0x%04x vflags=%#x]\n",
->>   			iommu->pci_seg->id, PCI_BUS_NUM(devid), PCI_SLOT(devid), PCI_FUNC(devid),
->> -			domain_id, address, flags);
->> +			domain_id, address, flags, vflags);
->>   	}
->>   
->>   out:
->> @@ -932,29 +932,42 @@ static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
->>   	}
->>   
->>   	if (type == EVENT_TYPE_IO_FAULT) {
->> -		amd_iommu_report_page_fault(iommu, devid, pasid, address, flags);
->> +		u8 vflags = FIELD_GET(IO_PAGE_FAULT_VFLAGS_MASK, event[0]);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index b2b7d0242dd3..790b7362048e 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -5021,24 +5021,6 @@ static netdev_features_t stmmac_features_check(struct sk_buff *skb,
+>  	return vlan_features_check(skb, features);
+>  }
 > 
-> Move this assignment to up where we extract all other fields from event so that
-> we don't need to repeat multiple times?
-
-Since the vflags is only available in certain commands only. I'd rather 
-keep them separate for better code readability.
-
->> +
->> +		amd_iommu_report_page_fault(iommu, devid, pasid, address, flags, vflags);
->>   		return;
->>   	}
->>   
->>   	switch (type) {
->>   	case EVENT_TYPE_ILL_DEV:
->> -		dev_err(dev, "Event logged [ILLEGAL_DEV_TABLE_ENTRY device=%04x:%02x:%02x.%x pasid=0x%05x address=0x%llx flags=0x%04x]\n",
->> +	{
->> +		u8 vflags = FIELD_GET(IO_PAGE_FAULT_VFLAGS_MASK, event[0]);
->> +
->> +		dev_err(dev, "Event logged [ILLEGAL_DEV_TABLE_ENTRY deice=%04x:%02x:%02x.%x pasid=0x%05x address=0x%llx flags=0x%04x vflags=%#x]\n",
->>   			iommu->pci_seg->id, PCI_BUS_NUM(devid), PCI_SLOT(devid), PCI_FUNC(devid),
->> -			pasid, address, flags);
->> +			pasid, address, flags, vflags);
->>   		dev_err(dev, "Control Reg : 0x%llx\n", ctrl);
->>   		dump_dte_entry(iommu, devid);
->>   		break;
->> +	}
->>   	case EVENT_TYPE_DEV_TAB_ERR:
->> -		dev_err(dev, "Event logged [DEV_TAB_HARDWARE_ERROR device=%04x:%02x:%02x.%x "
->> -			"address=0x%llx flags=0x%04x]\n",
->> +	{
->> +		u8 vflags = FIELD_GET(IO_PAGE_FAULT_VFLAGS_MASK, event[0]);
->> +
->> +		dev_err(dev, "Event logged [DEV_TAB_HARDWARE_ERROR device=%04x:%02x:%02x.%x address=%#llx flags=%#04x vlfags=%#x]\n",
->>   			iommu->pci_seg->id, PCI_BUS_NUM(devid), PCI_SLOT(devid), PCI_FUNC(devid),
->> -			address, flags);
->> +			address, flags, vflags);
->>   		break;
->> +	}
->>   	case EVENT_TYPE_PAGE_TAB_ERR:
->> -		dev_err(dev, "Event logged [PAGE_TAB_HARDWARE_ERROR device=%04x:%02x:%02x.%x pasid=0x%04x address=0x%llx flags=0x%04x]\n",
->> +	{
->> +		u8 vflags = FIELD_GET(IO_PAGE_FAULT_VFLAGS_MASK, event[0]);
->> +
->> +		dev_err(dev, "Event logged [PAGE_TAB_HARDWARE_ERROR device=%04x:%02x:%02x.%x pasid=0x%04x address=0x%llx flags=0x%04x vflags=%#x]\n",
->>   			iommu->pci_seg->id, PCI_BUS_NUM(devid), PCI_SLOT(devid), PCI_FUNC(devid),
->> -			pasid, address, flags);
->> +			pasid, address, flags, vflags);
->>   		break;
->> +	}
->>   	case EVENT_TYPE_ILL_CMD:
->>   		dev_err(dev, "Event logged [ILLEGAL_COMMAND_ERROR address=0x%llx]\n", address);
->>   		dump_command(address);
->> @@ -986,6 +999,25 @@ static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
->>   			iommu->pci_seg->id, PCI_BUS_NUM(devid), PCI_SLOT(devid), PCI_FUNC(devid),
->>   			pasid, address, flags, tag);
->>   		break;
->> +	case EVENT_TYPE_GUEST_EVENT_FAULT:
->> +	{
->> +		u8 gid = event[1] & 0xFFFF;
+> -static void stmmac_rx_vlan(struct net_device *dev, struct sk_buff *skb)
+> -{
+> -	struct vlan_ethhdr *veth = skb_vlan_eth_hdr(skb);
+> -	__be16 vlan_proto = veth->h_vlan_proto;
+> -	u16 vlanid;
+> -
+> -	if ((vlan_proto == htons(ETH_P_8021Q) &&
+> -	     dev->features & NETIF_F_HW_VLAN_CTAG_RX) ||
+> -	    (vlan_proto == htons(ETH_P_8021AD) &&
+> -	     dev->features & NETIF_F_HW_VLAN_STAG_RX)) {
+> -		/* pop the vlan tag */
+> -		vlanid = ntohs(veth->h_vlan_TCI);
+> -		memmove(skb->data + VLAN_HLEN, veth, ETH_ALEN * 2);
+> -		skb_pull(skb, VLAN_HLEN);
+> -		__vlan_hwaccel_put_tag(skb, vlan_proto, vlanid);
+> -	}
+> -}
+> -
+>  /**
+>   * stmmac_rx_refill - refill used skb preallocated buffers
+>   * @priv: driver private structure
+> @@ -5407,9 +5389,7 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
+>  	if (priv->hw->hw_vlan_en)
+>  		/* MAC level stripping. */
+>  		stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
+> -	else
+> -		/* Driver level stripping. */
+> -		stmmac_rx_vlan(priv->dev, skb);
+> +
+>  	skb->protocol = eth_type_trans(skb, priv->dev);
 > 
-> As discussed offline, s/u8/u16/. Also may be add a macro to get the gid from event?
+>  	if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb))
+> @@ -5901,9 +5881,6 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+>  		if (priv->hw->hw_vlan_en)
+>  			/* MAC level stripping. */
+>  			stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
+> -		else
+> -			/* Driver level stripping. */
+> -			stmmac_rx_vlan(priv->dev, skb);
+> 
+>  		skb->protocol = eth_type_trans(skb, priv->dev);
+> 
+> @@ -7965,7 +7942,7 @@ static int __stmmac_dvr_probe(struct device *device,
+>  	ndev->watchdog_timeo = msecs_to_jiffies(watchdog);
+>  #ifdef STMMAC_VLAN_TAG_USED
+>  	/* Both mac100 and gmac support receive VLAN tag detection */
+> -	ndev->features |= NETIF_F_HW_VLAN_CTAG_RX | NETIF_F_HW_VLAN_STAG_RX;
+> +	ndev->features |= NETIF_F_HW_VLAN_CTAG_RX;
+>  	if (dwmac_is_xmac(priv->plat->core_type)) {
+>  		ndev->hw_features |= NETIF_F_HW_VLAN_CTAG_RX;
+>  		priv->hw->hw_vlan_en = true;
 
-Note. Fixed in v5.
+Now that we don't have software fallback, tag stripping is only going to work
+on GMAC4 and later, so we mustn't unconditionally set the NETIF_F_HW_VLAN_CTAG_RX
+flag anymore. It should be something like :
 
-Thanks
+// No more dev->features |= NETIF_F_HW_VLAN_CTAG_RX;
 
-> -Vasant
+if (dwmac_is_xgmac(priv->plat->core_type)) {
+	ndev->features |= NETIF_F_HW_VLAN_CTAG_RX;
+	ndev->hw_features |= NETIF_F_HW_VLAN_CTAG_RX;
+	priv->hw->hw_vlan_en = true;
+}
 
+Maxime
