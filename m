@@ -1,123 +1,150 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF2D379989;
-	Tue,  1 Sep 2026 05:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788239267; cv=none; b=VyASugx8SHFF+bdqjk+PTtvsNfaxoqcVMtmOVrUw4x2f7GA1U499rEvbLXSbmC8w1omrVoERlFFXjGv36gwecBX2Zaklrv5Q8OMO+UwtmAbw8K4E6DEFm4sbIFl199EjAB3Ab3uPdp49REsGqCaz5gIEmbvxeQX6LTrHKn8CCts=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788239267; c=relaxed/simple;
-	bh=x5NKW2Iopwwx6bIbfF/bJ/VyAJm8pFaTAq9rg8iGH+g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GJuw26qOs/fULJhb2XNEqecnRUEM2HgD8VtZ3kzcmFL5EBYnn4upGR//c2xuEY+bBQLS436jBTSkVUGi8O6k3kzaTy5yvkEJyKud1ZACoZZW8lvsPInpiW777PoB3Sw0/UAfk+WC0B9C9FpntBOBjv9YX+xaXYXep1heTUwhO3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=fTPgeZBT; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C73137AA98
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 05:09:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788239363; cv=pass; b=TLVYHUP09eR44ufzsvnObap+/oUCCIpocC+Cxf//dCGVWRV3maPiwXxrgAXpe0XuB/WtA+9IDD7f0dj/sQ2vuZJA55DwGDNfJSmyy4hcWPy2/MV8+kIdq98e3MYpqkdBPlIGyfo93ZT1QD5tVDI5y/O5XQTcmXxNlkto8UGvDOE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788239363; c=relaxed/simple;
+	bh=7s9K1HoX9x+dEafgUdPowqAMD1KTmRH3WBaXqNwCyo8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pR1pNOZCFlYqpSqq40z+AzzaeR/rySTR6s/QasBgJZwlq0b/8tnb7OV/Uy1rsmGyopDT9W8few4RCC0vTunjIthlif7bSFXkLD98nonnDyssNS7YjoR9t/kwrVFztebLuzektJkIPlhxXYH7OYaw9XVF4Ju5hCJ0d7trcDfcbY4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kJdt2UKi; arc=pass smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="fTPgeZBT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788239199;
-	bh=cy18hRXmqoQUSyWYrrantqEfb3DvB1PMV1O3Lz+8ad4=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=fTPgeZBTq6etZxPZDpSW8WyV9sn7ianpes+FfPVNQwaaJl9KNDi6uveD1UzZgVpk6
-	 hp1SJ4jotHKYcSattym7lPyZkf3b8xGQG6m2YSAgyFl2qlTDSSo/DrOULhnqiwZ77l
-	 VCiGSO9xhdfw949WjBkIO07aaNsN/TMjUBu86hO4=
-X-QQ-mid: zesmtpsz9t1788239181tb68da59d
-X-QQ-Originating-IP: L6KVDYyUgpHnn/XOPry+9aUzLe7Ad2cOa1u8NJOD2xw=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 01 Sep 2026 13:06:19 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 16674903376900110173
-EX-QQ-RecipientCnt: 12
-From: raoxu <raoxu@uniontech.com>
-To: andrew+netdev@lunn.ch
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	raoxu@uniontech.com,
-	maciej.fijalkowski@intel.com,
-	kuniyu@google.com,
-	linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net: usb: ipheth: stop RX URB on ndo_stop
-Date: Tue,  1 Sep 2026 13:06:04 +0800
-Message-ID: <351B4C70CB12AE0F+20260901050604.2523039-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kJdt2UKi"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48441fa5c37so361710f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:09:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788239359; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iNun9o9K6zdGk0wfMBcnfB6sgKrMTRl6p4NSO7bfhSS9+RzCCZES3M19AAd25Bh3xq
+         BuL3OGWrKET0d+PVN3ALU8lFMQC4uJb2NJdhqd15XKDk1IU2pCorBJOGRx6DRFn+HcI0
+         5dE06ImWu6PuGYjhQqOGAemk4ZycwzCjeFlhMerXRWn7iMoCPInR6zrHTeZsWTO1lH7R
+         NCpTSKzM7H0kdju0zJCExlYmVikVt5XcExoyLpAdf52vr2JaIyRUefC9BTRKj2bKu2BB
+         epSglIibje0y47v21A09MZVK5A+ruVx+s/2llA1JrR1NsDdrPw24ZlI0mxACUQQsHPBW
+         97TA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=C2PUTgHcsLskwFoSohUTw+25rm8zLsVr2BA3a9dwt9o=;
+        fh=ylL86aBUgziUnY7wEu48NN1sldCxmc66HGzByQ8x0M0=;
+        b=LxwuTOHqvDI5Ugus1oyzyIcGZF045AlySi3CxOWx8AGdgQCQdOxcXLpdkObvUaOwkU
+         JzvnSPvlgwTSqPHfpvIK+Fuoj+vBgZlapH4g8y5tUj4Ky2nP5hZOBcr12t/VUNbmsR1A
+         aVAVxb25APQkodIXEu5jyYrI18qOp99dvK/oeGTGcu6doWlOCe+Z+Gb3N2vCX7sY0NQX
+         ccBhzZy2L+CeK3D679plmNgN+MAVlpx5bv1yX3cH9YR9aePCXtQZI/W4+8Jy0NLrWEHc
+         bzs5liUTPAp+Za6/aKtcSmLQM9d3ua6O1Wb+U4uQNhkCKUKWoU17IRSPQNkWRciy0OM8
+         wzPQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788239359; x=1788844159; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C2PUTgHcsLskwFoSohUTw+25rm8zLsVr2BA3a9dwt9o=;
+        b=kJdt2UKitBIJ/tlllxl1enM91Rrs6CyuiA8g5MQciu4xZlKdPq46ynuk4aIeLG1+OQ
+         3RUFVFDuD/2RoLW6vixo0p6SEf1eSfCDyVVY0UbFqZ7pcq8YJQwv4LBP2xohPRq9dw9D
+         6FAzXm7QiwPDtX0J6CuPtYMSfsWW1LIq/twOIM0NCMOm4ZKeDZrz9os6fSSs72KzKodw
+         zbHxCUm+h3rWfICC3tKMyemiIKPwFYwzZ+b55DzvJp+glKAdp5ebBTlejZyxbXs/TXeA
+         sQBPdWiTsZ+MrPQK7HGI66i4FCAkD/mbxdDVH8VJr1jDMTxn/MDQcEFTZIkOD8LPTOkG
+         1DoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788239359; x=1788844159;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=C2PUTgHcsLskwFoSohUTw+25rm8zLsVr2BA3a9dwt9o=;
+        b=rlASI8anjaBHufK2hQ42VY3Uz584d32Q7casWEeuiYOdMS9g5TO/6q2Sp5B0t0Z83h
+         T8MZWRjwd/J3ivlqVGYNJTKAvEabcgltY1Qon5ScmEHKhKIcnDfUMSozeJCaMwFXsTyB
+         xCktAaCLwFXUlKVrt6G96bv6n3ERouB4o4RHOCr62s9D6u6EVOIMey2OaJg+gfbza54U
+         kgMJweLPYuDVbcKkibCduwEvX4QaLrMvHlLooSHG4u2r8buShkYUSpUQivLLM+YrxERY
+         Q9SCYqEzvRQjoQdJ6fT6pEn3P02s+ramiugFpTs6F2Oxy/U0ck5cLunE3ci4zwg6unDK
+         zNow==
+X-Forwarded-Encrypted: i=1; AKwUvBx8rhGVrTrEYTUoC/OTMWtliBVLIEnktcy/lpeqhyX4nZhEJLpnszC2HYf2wgvACURKFBvxbf4oi4SFWrw=@vger.kernel.org
+X-Gm-Message-State: AFuF++luRenSlMhLb5nlKjP+XlwQCZwm52nFcUnYoNbx5jlG6veq+UMh
+	cU13vcFi/ytzJll4EJInKhqwOU2xDczV76S14zNcqLuru2NPMVSMlXC2UbI7/Of06s8J7wyJgyc
+	6V2FfcAD2O9dNXtjmILa1CzA4OnmW8W8=
+X-Gm-Gg: AYBFou2YLY4SnDSCGtebbgQ5oO7hg4bKD93vhubMpzKKC3XWH0PaaxropCXJ07q8NAQ
+	+70J290nNAMylpUSSX1pzo/aO613OBvUOAi6xhzXmmJhH9QLKjMJBi+5u+4pCWGpy4k6bu02Eg3
+	YwoyIWD004aFESzs+sleRoBjhgDhr+TCrjqcLJqbWrnfAcPN7/sB+3zczIoG4VL7TP6rY9mbSFM
+	MYUrV6bW78wI4IAKBVVgKxkPRr2d/58gEFHSIpEh6Fh4bA50Q84VT51IvAVfYMV7dV9zu0yEG2H
+	WHtyfqsiNGz3o+85zCZJNwirwP8g4Hy0qFfYaCOV1OiPj6jk//5iFftZsOxAlxO9f8aZkABip8D
+	shMn4wLWpkOYNsHtV5ewefFy1AiaMIwrPt6AnvlOU3yfHh1DbaasN4XwqBLoqay3SmVI8NtoW7m
+	8X9882YGIHxcq084jMZGY2LX2DxBqvSSuuvcijU+t+ZgVYPWbs1nILEQmcWD9NItv041f+gv1KM
+	qxTqNgfw3WoUje1xDQWNWmH8xz1exD0RE13veKHOP6I0T9t
+X-Received: by 2002:a05:6000:4b03:b0:484:3311:4bfd with SMTP id
+ ffacd0b85a97d-48433114d72mr35032962f8f.26.1788239359463; Mon, 31 Aug 2026
+ 22:09:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NvKPgl6nhXeJ6stP+pOD7JTeAt0mdm7me5W5+b+SOjlDLwuDxl+WW37v
-	BdHZOTyZ6VzRMl3l9c8tGY9lZcfIah3778mP6kMtmtAJNwmiLrMxGDWeND0vx2OW3OY4uI2
-	XlZMfeAofHiNxEidd2/hMdNzQaH99niUVnjmys4V8bOkmTAZB+YT7XAqSW5UfE75RyXo+zu
-	nHOnWI1pW4F7n5MSCqsB2CotGqMLcEL3yDcinEa4bPaFXXRFd40SaOqCI5KPi/WBYTZNa14
-	tg8v3X46wAWbbdOWbXH4UbO1D+kj7nTW/uQR/pfWk3Fe3ZKI2POa7Qt6ng98aXaFC0O6LE0
-	nTLJju5XkDSSaEpkaSM/WbI/yFrCLERNzEe3j+bUxmEEARexYeRDCOwKRLZdqT/+0NXdfBA
-	kQtg4WSTH8YzC0iV8hs9H/d2BLMw5RpVXDbP7M4NmfIcAVE7JWB48+6EbeUoaWQ//2C2fgR
-	OwpkDQJCqtMdsqSY0iHM6X7Bbehjgz8wSEih5DTXwGrowvffaJLkpEKDBFYhAlg+aUcPZWh
-	+pTxF0dKNJspW712gXtvewwol8KIQigp92K19Wq5+Ri9OuxBiM1rYlaewqCO4mRSZ/PHBmX
-	YvmeV5/HySpTJ/8KIN/JAzslREr8CkRIEEQd1vSbEYITNUP17bq5VObHqmxfyvvOVu6J8Z4
-	/0Fo62CWA/0qpn5Uho4yrJiP37NMsLlQFzvQ+CJ6qddfWx7JEgZ16ZWJw+BYfnDpckH23nQ
-	GG+qbj76Cqv2rwzK+sEEpXX/BYTtfmLn8Tz/Omw2YpFUZHOSBAgwJz+efCCqcfgTDXCQ8WI
-	t+vuiw8IPPvfIVBpLL2JZifRXQHOJFA0+iO03zX3kkHkRIntZJVN85lFrzTCU8JRCIrA/WM
-	6beuxaWyr9EJVSUPqzPZPRH1kHxFqJMpaB954pzLbyEqP5PD6RwROHwEZc3excWKwFnfEzy
-	YIDn4qyp0b5EI+PQGhlTlLA0CQGQ4I03TkmG4gyxSsp+pucJ1Smc+uCn7A08SuGLxYDOBxD
-	x/LkHafKgYMiGLLefdwFKb+6marhkOTwLZCv5FYW7NFKL0oL7j7+9QAAHtoKmY+iBW6R4ab
-	uoegLjwPdb5
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+References: <20260831-kernel-header-removal-v2-0-b92b580ef5eb@gmail.com>
+In-Reply-To: <20260831-kernel-header-removal-v2-0-b92b580ef5eb@gmail.com>
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Date: Tue, 1 Sep 2026 07:09:07 +0200
+X-Gm-Features: AcwNN1W6wa__J-okjdxCBU1tskK66mBKa1zmpVquZePN-PuSotqSooLrbKb2NAY
+Message-ID: <CALoEA-wDkFkKVLCkQOvntnw-cD76Gz=MVW6qNJL21Obn+s-wEQ@mail.gmail.com>
+Subject: Re: [PATCH v2 00/11] iio: temperature: make headers conform to IWYU
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Crt Mori <cmo@melexis.com>, Puranjay Mohan <puranjay@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Xu Rao <raoxu@uniontech.com>
+On Mon, 31 Aug 2026 at 23:13, Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+>
+> This series removes any instances of kernel.h in the temperature/
+> subdirectory and cleans up the headers in order to improve readability
+> and enforce IYWU instead of relying on transitive dependencies during
+> the build process.
+>
+> I had Gemini generate a summary (a bit more verbose) of changed headers
+> under the --- in each IWYU patch to improve the review process.
+>
+> This is part of an ongoing effort to remove kernel.h entirely from IIO.
+>
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> ---
+> Changes in v2:
+> - Add missing headers pointed out by Sashiko.
+> - Swap <asm/div64.h> for <linux/math64.h> (Jonathan, Andy).
+> - Squash small reordering patches with iwyu changes.
+> - Link to v1: https://lore.kernel.org/r/20260822-kernel-header-removal-v1-0-ee31b124be11@gmail.com
+>
+> ---
+> Joshua Crofts (11):
+>       iio: temperature: iqs620at-temp: make headers conform to IWYU
+>       iio: temperature: ltc2983: reorder headers
+>       iio: temperature: ltc2983: make headers conform to IWYU
+>       iio: temperature: mlx90632: make headers conform to IWYU
+>       iio: temperature: mlx90635: make headers conform to IWYU
+>       iio: temperature: tmp117: sort headers alphabetically
+>       iio: temperature: tmp117: make headers conform to IWYU
+>       iio: temperature: tsys01: reorder headers
+>       iio: temperature: tsys01: make headers conform to IWYU
+>       iio: temperature: tsys02d: reorder headers
+>       iio: temperature: tsys02d: make headers conform to IWYU
+>
+>  drivers/iio/temperature/iqs620at-temp.c |  9 +++++++--
+>  drivers/iio/temperature/ltc2983.c       | 19 +++++++++++++++----
+>  drivers/iio/temperature/mlx90632.c      | 10 +++++++---
+>  drivers/iio/temperature/mlx90635.c      | 11 +++++++----
+>  drivers/iio/temperature/tmp117.c        |  9 +++++----
+>  drivers/iio/temperature/tsys01.c        | 17 +++++++++++------
+>  drivers/iio/temperature/tsys02d.c       | 12 +++++++++---
+>  7 files changed, 61 insertions(+), 26 deletions(-)
+> ---
 
-ipheth_open() submits the RX URB, and a successful RX completion
-resubmits it from ipheth_rcvbulk_callback(). ipheth_close() stops the
-netdev queue and disables the carrier work, but leaves the RX URB
-running.
+I seem to be having b4 issues as this sent v2 again with the same
+mistakes?
 
-After an administrative link down, an already submitted RX URB can
-therefore complete, pass received packets to the networking stack, and
-submit itself again even though the interface has been stopped.
-
-Stop the RX URB from ndo_stop. Do not kill the TX URB: packets in a
-successfully submitted TX URB have already been accounted as transmitted,
-so let an in-flight TX complete normally after the queue has been
-stopped.
-
-usb_kill_urb() waits for a pending RX completion to finish and prevents
-the completion handler from successfully resubmitting the URB.
-
-Fixes: a19259c3d589 ("drivers/net/usb: Add new driver ipheth")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
-v2:
-- Kill only the RX URB and leave an in-flight TX URB to complete
-  normally, as pointed out by Oliver Neukum.
-
- drivers/net/usb/ipheth.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/usb/ipheth.c b/drivers/net/usb/ipheth.c
-index 2b490114d232..6b90fe1e0e38 100644
---- a/drivers/net/usb/ipheth.c
-+++ b/drivers/net/usb/ipheth.c
-@@ -505,6 +505,7 @@ static int ipheth_close(struct net_device *net)
- 	 * it, so that such a schedule_delayed_work() is a no-op.
- 	 */
- 	disable_delayed_work_sync(&dev->carrier_work);
-+	usb_kill_urb(dev->rx_urb);
- 	return 0;
- }
- 
 -- 
-2.50.1
+Kind regards
+
+CJD
