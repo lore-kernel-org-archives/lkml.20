@@ -1,91 +1,218 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0414245A2B4;
-	Tue,  1 Sep 2026 20:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624434457CE
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:31:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788294665; cv=none; b=sCf5spL2v5TXPlHcjf+3cRCADjHxZ+Yt8RhVv2SV5HQ0nJA7M7xtFdnt8zyQWw9xVVJZH5Yl7ee0ougsSUgJjBezqg4+zZfN820Dr+pVQ8rqZlwpzH2nh1DYcumqq4prDNVvudbE9A2Ht84Zh2WQD1obTin0lwxxKU5gDHvfXEE=
+	t=1788294693; cv=none; b=s2pME0c3XOqqfP51lgWNf7htQM05sV4uFiXN2OXd4JDpo9XDY4P/hD5Qe1hnV45/d/KkHqvgpH9DBVlN7bKlvVr9VpB61oDtV8UB6ay/hiQJhp7+C0ti0nWyKzYjfnowwa+nXFxFg6rmmj2bDm8SOxdpiQP3LpBNRaX2t8tjPZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788294665; c=relaxed/simple;
-	bh=jAv1w+BDUI+9Pt98e7Bd1DGPKqcmFr+S48wTBAsoswg=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=OkQlLsuLpUmKpeOAF6wVEdGPPkx0jpJR8yH7ngbCtH/azgFkqfG/Vg6QNHI9lBQ5oxf6VeDKW3/6xrJVOojZRrSWyKW40REaTqn/NtcNiiEFWXj6/QGgEYxYk1nwIHGCDEvvu94dHNBa6vrf4S/kNdGDD0fCH08CsjVrQjHCDbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E1QnKl6m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788294693; c=relaxed/simple;
+	bh=r2/YOQb9T6MzaMYg03CbDO9GwKYIeSlAMq/CQUL7ps4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=JQMKPYIZlfhR2LfvTLrCmsdaBsJpReWoRhjSrBPQ5zkWva6nyqK4v1sByWMxt5OjLEU7DRcHkGftuGjUBCBioKSFWhsglpC5sH525MXo6qgKbCgWJNq2b+PA4EMPuFM32aEdy0SVh2ILGr/lEH/FZ8/nR/M56qZ3UjNiURB6Fa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cn5UMKso; arc=none smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E1QnKl6m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF3B01F000E9;
-	Tue,  1 Sep 2026 20:31:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788294663;
-	bh=Pf6D2QdPe3vyn6eNxdFTAjUb0lCC1yH/tOKj9y52YZk=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=E1QnKl6m5uFvWmenRHuUEL3giM1o2ezbQZRPn9I0OGj1TZL9B1rLbNLQVbXqrwb+3
-	 Z6zK+RMHQVkHbBw+VnKaAhuobVxNgCmEFJ2/KJTuXVZtZoL76lGLRK4xVJ6ZUw+Rnb
-	 6fSUvFFfHuF8IRZ1BJ0xhnwAvrtzja/3Ky/kSkFgtVtBVPAvkEB7qCx5C0A0oSN+A3
-	 I+9hFTaZ/nTXvzy1WalZHXGct3+NxT7LLTHIIhv0f/QpCLyAt7LkotCDWvqHtGw3o8
-	 5doFEY6D50uUPSQ1ocJzLJkK+YudWksyEGqdEeKXXLoMeAHU8sQFd9a6R+zE5aWWRc
-	 YunmKA0rwim3Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5696539253F2;
-	Tue,  1 Sep 2026 20:30:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cn5UMKso"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c1712a04ddaso32416666b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:31:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788294688; x=1788899488; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NPYLUdopWsrdngJNQNul9EKNO0vgvEEJ19NOW58wdpM=;
+        b=Cn5UMKso6GJFp8FtHuL0M7U4NaWkBPdJwTt1Q2amSyhjfKyqi6+dRNtE2YcczGPugE
+         3l6V3V6rvVEUSMdzBaineDpW1yzsk8vUn3usVD9jPlK1uumTGB+iPlGM6jPzjIcMxv7m
+         qCuGAFRucLXJy5xHdFjBkNyPenoIdR5R1ahSueT2aNm8Fpv6VAWzMy+zIbmKLV6R2SNo
+         Y9uvD8ESLo1o3HMaxwgcsWpJ6Ya7yWEbjdhab1nt8YbPFje7SfbmCX0te9Kips9a9aKf
+         S7jIxIhcfX4vBVc4PjIUOJMiQMBXNOtU59wYVH9s0bIYWJFzvBTv70xYWWNaUlfXT6jl
+         cpQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788294688; x=1788899488;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NPYLUdopWsrdngJNQNul9EKNO0vgvEEJ19NOW58wdpM=;
+        b=if5rVJzsB7ct1AmjL/MJ/K+/aa3cvbOakvr8cXRbV1kWmfQe/I8fYvTBsVAzkfE9Qt
+         Tr6RkiAHhVKWq3R77TFW66HJiN44SA/w1c55+gjgMp8fxqUjGsWWwY2Wiq9Z2Vf/tO/a
+         vy1XzO9EZaa0PQ+lZ4ACI67iDFWI+XB/QLjuZVo0ySC62PA7cHJFOWFOoFkW3oqO7wLk
+         3a4Eyqng/NiLbmITII2DgSo6SuadAZicYSuXSfj2Zg97GgI5m1CZh1pNS9BtSNHgkv0c
+         nRvZaHDZTuqHm2TSyHsw1kiiXHwmFX3tWtgoDuPodsiOQ4I1cPj7DEmjWrJz+VZZ1WWF
+         jdEQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpB+gfJVlqKmLlgoRfb1lccb+nPO8jB5Bz3c31SM98hKGQY18D2lyKar04cIrx1yUWVLs36DvXNz/2CDkI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgs3WDBQuJKuezvS8LY42ioLoyCiQVqmjoLl245YGz2KkQsNbl
+	B+FwSs1SaLbu0/KqJVZDey1VXv2S162vTXJYtF3k/KEjIDDi7edaUm4o
+X-Gm-Gg: AR+sD124GSIeytPuxnSjY6gvnW/zxu6G6K3LNwzTN2f0ACDhcxUsWF4CA77LKw/XW68
+	isJp+k2cDO8PRDe9+6ItD9px1ltkccKVdQQiVf23fjglCRViEcpWZyh/FbTnTK/51mJTiVV+Wkt
+	UwsrOsMc3X8izpjVauMFfH9MPMbF0etqxFHHdg9HcEQ4cotieK21g4fjuh387xlfrXIaV/0uuxh
+	aKxxfEiaFkB5aE6kkO7oGl2sQAuehchrOJs64NLJ+HtyB4lQ2pROBnqsx/KMQuzxPt/k8MSZ6ST
+	9fzlXgS9+krtXlYVmFKm8xljxeZ6OpxtlecGUCVmqDXAVEI4ltOKrjEUvNz7kC3HYgs5egwGyLy
+	s2CKr56PFNwWYthY9h2xyMLb4GtdeRG/hwWu0WRQibviF7WaNASrm7qXcz/jnkQpCMUsJqALhJc
+	b413v+ESAFIsfb0gEUBNFfPO7kz65/kyhk1xh/F2YnHudeD+h4WCl6OZgnv76HstWffu9baoMMc
+	PjvlYyCLo8S3jrXhXua
+X-Received: by 2002:a17:907:1b20:b0:c19:45e3:2f57 with SMTP id a640c23a62f3a-c25d11c031bmr38819166b.9.1788294688376;
+        Tue, 01 Sep 2026 13:31:28 -0700 (PDT)
+Received: from fedora (81-224-151-184-no600.tbcn.telia.com. [81.224.151.184])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25cffc7116sm20111766b.9.2026.09.01.13.31.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 13:31:26 -0700 (PDT)
+From: =?UTF-8?q?Erik=20H=C3=A5kansson?= <erikhakan@gmail.com>
+To: jikos@kernel.org
+Cc: bentiss@kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Erik=20H=C3=A5kansson?= <erikhakan@gmail.com>
+Subject: [PATCH] HID: steelseries: Add support for Arctis 7 (2018)
+Date: Tue,  1 Sep 2026 22:30:44 +0200
+Message-ID: <20260901203044.459972-1-erikhakan@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v3] Bluetooth: Properly disable remote wakeup for
- MT7922/MT7925 on Ryzen platform
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <178829460590.1836726.11844830813053776119.git-patchwork-notify@kernel.org>
-Date: Tue, 01 Sep 2026 20:30:05 +0000
-References: <20260902-btmtk-ryzen-remote-wakeup-v3-1-8a733d0edd7c@rong.moe>
-In-Reply-To: <20260902-btmtk-ryzen-remote-wakeup-v3-1-8a733d0edd7c@rong.moe>
-To: Rong Zhang <i@rong.moe>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, luiz.von.dentz@intel.com,
- Chris.Lu@mediatek.com, Will-CY.Lee@mediatek.com, ss.wu@mediatek.com,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- rafael@rcpassos.me
 
-Hello:
+The headset reports connection and battery status on HID interface
+5. When the device is disconnected, ignore incoming battery
+reports as they will incorrectly report battery level 0.
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+Clamp overreported battery values to 100% and add USB ID 1038:12ad
+to the driver's device tables.
 
-On Wed, 02 Sep 2026 02:19:18 +0800 you wrote:
-> It is reported that a remote wakeup could cause MT7922/MT7925's btusb
-> interface completely unresponsive. Resetting the xHCI root hub doesn't
-> help at all, and recovering from such a state needs a power cycle.
-> 
-> All reports seen to be relevant to Ryzen-based laptops. These NICs are
-> usually used as OEM components thanks to some sort of reference designs.
-> Their popularity on other platforms is unclear. While there is still a
-> chance that the quirk may exist on other platforms, be cautious and only
-> apply the quirk to direct children of Ryzen platforms's root hubs for
-> the time being. In most cases the root hub is on the SoC or PCH, which
-> needs the quirk. Unfortunately, this can't distinguish root hubs on PCIe
-> add-in cards. Such roughness should be acceptable, as PCIe USB
-> controller add-in cards are less commonly used nowadays. On the other
-> hand, applying the quirk doesn't hurt any functionalities either, as the
-> device can still be used as a wakeup source if desired. Theoretically,
-> we could retrieve the root hub's PCI vendor ID with some hierarchy
-> magic, but that's too intrusive...
-> 
-> [...]
+Signed-off-by: Erik Håkansson <erikhakan@gmail.com>
+---
+Information available online suggests that at least two other Arctis 7
+revisions (2017 and 2019) exist, with different device IDs.  Without
+access to those devices, their protocol compatibility cannot be
+verified, so this patch only adds support for the 2018 model.
 
-Here is the summary with links:
-  - [v3] Bluetooth: Properly disable remote wakeup for MT7922/MT7925 on Ryzen platform
-    https://git.kernel.org/bluetooth/bluetooth-next/c/512bf4484766
+ drivers/hid/Kconfig                  |  3 +-
+ drivers/hid/hid-ids.h                |  1 +
+ drivers/hid/hid-quirks.c             |  1 +
+ drivers/hid/hid-steelseries-arctis.c | 44 ++++++++++++++++++++++++++++
+ 4 files changed, 48 insertions(+), 1 deletion(-)
 
-You are awesome, thank you!
+diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+index aa7fa11a0197..06f7c35b619f 100644
+--- a/drivers/hid/Kconfig
++++ b/drivers/hid/Kconfig
+@@ -1210,7 +1210,8 @@ config HID_STEELSERIES
+ 	depends on USB_HID
+ 	help
+ 	Support for Steelseries SRW-S1 steering wheel, and the Steelseries
+-	Arctis 1 Wireless for XBox headset.
++	Arctis 1 Wireless for XBox, Arctis 7 (2018), Arctis 9, and Arctis
++	Nova headsets.
+ 
+ config HID_SUNPLUS
+ 	tristate "Sunplus wireless desktop"
+diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+index 341bf587863b..1867f480ebc0 100644
+--- a/drivers/hid/hid-ids.h
++++ b/drivers/hid/hid-ids.h
+@@ -1394,6 +1394,7 @@
+ #define USB_VENDOR_ID_STEELSERIES	0x1038
+ #define USB_DEVICE_ID_STEELSERIES_SRWS1	0x1410
+ #define USB_DEVICE_ID_STEELSERIES_ARCTIS_1_X	0x12b6
++#define USB_DEVICE_ID_STEELSERIES_ARCTIS_7_2018	0x12ad
+ #define USB_DEVICE_ID_STEELSERIES_ARCTIS_9	0x12c2
+ #define USB_DEVICE_ID_STEELSERIES_ARCTIS_NOVA_5_X	0x2253
+ #define USB_DEVICE_ID_STEELSERIES_ARCTIS_NOVA_7	0x2202
+diff --git a/drivers/hid/hid-quirks.c b/drivers/hid/hid-quirks.c
+index 8a0b51d47040..4862d7356120 100644
+--- a/drivers/hid/hid-quirks.c
++++ b/drivers/hid/hid-quirks.c
+@@ -751,6 +751,7 @@ static const struct hid_device_id hid_have_special_driver[] = {
+ #if IS_ENABLED(CONFIG_HID_STEELSERIES)
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES, USB_DEVICE_ID_STEELSERIES_SRWS1) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES, USB_DEVICE_ID_STEELSERIES_ARCTIS_1_X) },
++	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES, USB_DEVICE_ID_STEELSERIES_ARCTIS_7_2018) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES, USB_DEVICE_ID_STEELSERIES_ARCTIS_9) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES, USB_DEVICE_ID_STEELSERIES_ARCTIS_NOVA_5_X) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES, USB_DEVICE_ID_STEELSERIES_ARCTIS_NOVA_7) },
+diff --git a/drivers/hid/hid-steelseries-arctis.c b/drivers/hid/hid-steelseries-arctis.c
+index 23fb0cebd72a..fa33fbd94889 100644
+--- a/drivers/hid/hid-steelseries-arctis.c
++++ b/drivers/hid/hid-steelseries-arctis.c
+@@ -101,6 +101,19 @@ static int steelseries_arctis_1_request_status(struct hid_device *hdev)
+ 	return steelseries_send_output_report(hdev, data, sizeof(data));
+ }
+ 
++static int steelseries_arctis_7_2018_request_status(struct hid_device *hdev)
++{
++	const u8 connection[] = { 0x06, 0x14 };
++	const u8 battery[] = { 0x06, 0x18 };
++	int ret;
++
++	ret = steelseries_send_output_report(hdev, connection, sizeof(connection));
++	if (ret)
++		return ret;
++
++	return steelseries_send_output_report(hdev, battery, sizeof(battery));
++}
++
+ static int steelseries_arctis_9_request_status(struct hid_device *hdev)
+ {
+ 	const u8 data[] = { 0x00, 0x20 };
+@@ -152,6 +165,27 @@ static void steelseries_arctis_1_parse_status(struct steelseries_device *sd,
+ 	sd->battery_capacity = data[3];
+ }
+ 
++static void steelseries_arctis_7_2018_parse_status(struct steelseries_device *sd,
++						      u8 *data, int size)
++{
++	if (size < 3 || data[0] != 0x06)
++		return;
++
++	switch (data[1]) {
++	case 0x14:
++		/* 0x03 means that the headset is connected to the transmitter. */
++		sd->headset_connected = data[2] == 0x03;
++		break;
++	case 0x18:
++		if (!sd->headset_connected)
++			break;
++
++		/* The Arctis 7 sometimes overreports battery. Cap to 100. */
++		sd->battery_capacity = steelseries_map_capacity(data[2], 0, 100);
++		break;
++	}
++}
++
+ static void steelseries_arctis_9_parse_status(struct steelseries_device *sd,
+ 					      u8 *data, int size)
+ {
+@@ -232,6 +266,13 @@ static const struct steelseries_device_info arctis_1_info = {
+ 	.parse_status = steelseries_arctis_1_parse_status,
+ };
+ 
++static const struct steelseries_device_info arctis_7_2018_info = {
++	.sync_interface = 5,
++	.capabilities = SS_CAP_BATTERY,
++	.request_status = steelseries_arctis_7_2018_request_status,
++	.parse_status = steelseries_arctis_7_2018_parse_status,
++};
++
+ static const struct steelseries_device_info arctis_9_info = {
+ 	.sync_interface = 0,
+ 	.capabilities = SS_CAP_BATTERY,
+@@ -653,6 +694,9 @@ static const struct hid_device_id steelseries_arctis_devices[] = {
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES,
+ 			 USB_DEVICE_ID_STEELSERIES_ARCTIS_1_X),
+ 	  .driver_data = (unsigned long)&arctis_1_info },
++	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES,
++			 USB_DEVICE_ID_STEELSERIES_ARCTIS_7_2018),
++	  .driver_data = (unsigned long)&arctis_7_2018_info },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES,
+ 			 USB_DEVICE_ID_STEELSERIES_ARCTIS_9),
+ 	  .driver_data = (unsigned long)&arctis_9_info },
+
+base-commit: 786262be6048deab760f68c8acc2c85607165894
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.55.0
 
