@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7818F4A5EBC;
-	Tue,  1 Sep 2026 18:51:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C7364A49B4;
+	Tue,  1 Sep 2026 18:51:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288679; cv=none; b=bpTdVYwJq7R3tND2QdUiZhrOhZezSfoVQQGpBc988bp5h5Y3c7p+S7mAV9h0MvwdS59VuY063GD6e1nb1v8AqZ8viSWAn0y3QfjsRjQ2Gvym/uMP0WW39TRPQZAFLW43MuG+SpkOd5QB1SRLLqOHfTFDfwQDOcrSAat1oyHM6fo=
+	t=1788288679; cv=none; b=ZSEbURGbO2DgcZPKzHOBeVSA4V5rH4p7lpeh/EjusndlbGvoNz9jQLtbmA4vVrWlUG7tLmB4K46qUa4OSwFRI4y/u2pbOhbeSmaj4DsP2eu4vVHGGFLWvQ0wd8fvssJs7shw0pqPaneWLN4C/o6kpXRa0oN+tCfUV87qxSIqfIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788288679; c=relaxed/simple;
-	bh=W2m7Jca/rq/QUZdEC4unu3AGFLZj7t3LTmYrZHCk2pg=;
+	bh=VZ3TAZNBxqqfdza/aL8Ylg5fv5lsNNMVwLTvIMhkWZw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XJKYKC5unZT3BdTnSd0Ujmw02HFee20LqrG2/POd585qOL3w3ULL6BhV8oUqXUjI3GJ/OCJsq7GehJX4xVuap+KOuy0T0CItQGNV496ajHhQ/lHX6aIbdophForTKlIbnKadTctbLFZ15AG85vI9uDxKlFNJ+Ei5yIDec5xs7ys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=afu5ZwY+; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=oPKGAFOENM91YpwazWt1qUNRa2bAJghDoU7UR9gTXAbPG5ho3uLRu6XjLvM63gda34K5LXf/E7CEWbP3izHiKsFvtsxMV2m88HPS3mekRR9hvwun2cNkMs2CT0YaZF1VhIcOjBZxSSTHZ0uF79E0uOEgVVYhwT0/+AR96dhm5RE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=qcD+10/r; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="afu5ZwY+"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="qcD+10/r"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1788288673;
-	bh=W2m7Jca/rq/QUZdEC4unu3AGFLZj7t3LTmYrZHCk2pg=;
+	bh=VZ3TAZNBxqqfdza/aL8Ylg5fv5lsNNMVwLTvIMhkWZw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=afu5ZwY++6AHuXAeUdfaaE/k7fwjw8A8eIfYHhGq7PeQ+VHPmh4saZg+PA64M/JqD
-	 2p2DwtaA0vTxkk9RDdWGRfXI98CLxoFeKLSm5EwthG03ieYp/hibN/eQnpkLJ8KF9h
-	 KBELgAwrYEAM5lg5ECHCJeYZVA1+I1OOHh2QWxAjpQF2I50ujMSSwiV5kOgW0IaJKS
-	 TlrWTSD5KN80eSnqezCcBa2hOC51EdIfTrytXVVt0UPppj/FeeJz++u8HR8J22ZL+w
-	 k2Obj7ScS1Ald/9H2dhEN17rDV1iiV9/NSI2lIzLyqD8SVvyMxazzaMat+gqLCfuao
-	 3TqTRfg7WBo0w==
+	b=qcD+10/r0UuvqVqRHglY0RuNr1dzpkzdZ95Fh0cholGcvIpQDSJSl0KMQUj2kxO/K
+	 nRYZfaVC83gU6nCZTbaXYUWSDrCI/umS86tz6NXTkCHey66K130TW5cy7Pq+okeKND
+	 MfaE/I4jfJkLzewe15GZf9FuKDhLiibfoWTLkNB2zkmhr8Hwf1qlZEvqisbul8kmDC
+	 3NLDgzlz2UBMxwbr7Hov6bk0umHglIUCdF6huaAu7sBQ1/UMJAFdrC4WIfDD6CB/g4
+	 sVnnMg6bMKVjNAmkSqWlMW40fM0jAOCrZYGAKaI0w/ZW4JrgSU470BHvdY8UmHRBHJ
+	 cP4XTpVB7Xalw==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 87A8517E3C64;
-	Tue, 01 Sep 2026 20:51:13 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id CA0BF17E3C63;
+	Tue, 01 Sep 2026 20:51:12 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:51:08 +0300
-Subject: [PATCH v11 44/74] drm/vc4: hdmi: Switch to .force_ctx() connector
- helper
+Date: Tue, 01 Sep 2026 21:51:07 +0300
+Subject: [PATCH v11 43/74] drm/vc4: hdmi: Switch to
+ drm_hdmi_mode_needs_scrambling()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-44-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-43-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -73,43 +73,66 @@ Cc: kernel@collabora.com, linux-kernel@vger.kernel.org,
  linux-fbdev@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-Use drm_atomic_helper_connector_hdmi_force_ctx() as the .force_ctx()
-implementation, so that the acquire context created by the probe helper
-reaches the HDMI connector framework.
+The VC4 HDMI driver has a local helper to check whether a mode requires
+scrambling.  It is equivalent to drm_hdmi_mode_needs_scrambling(), so
+use the common helper instead.
 
-This is a prerequisite for converting the driver to the common HDMI 2.0
-scrambling infrastructure, which implicitly handles SCDC state recovery
-through a CRTC reset when the sink reconnects while the display pipeline
-is active.  Note that this does not interfere with the local SCDC
-state-management implementation, since the driver's scrambler capability
-has not yet been exposed through the common helpers.
+No functional change intended.
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Acked-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 26c63ce2dc2f..7c921a444e98 100644
+index 8e4623ccc4f8..26c63ce2dc2f 100644
 --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
 +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -505,7 +505,6 @@ static void vc4_hdmi_connector_reset(struct drm_connector *connector)
+@@ -130,15 +130,6 @@ static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
+ 	return true;
+ }
  
- static const struct drm_connector_funcs vc4_hdmi_connector_funcs = {
- 	.debugfs_init = drm_hdmi_connector_debugfs_init,
--	.force = drm_atomic_helper_connector_hdmi_force,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.reset = vc4_hdmi_connector_reset,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-@@ -514,6 +513,7 @@ static const struct drm_connector_funcs vc4_hdmi_connector_funcs = {
+-static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
+-					   unsigned int bpc,
+-					   enum drm_output_color_format fmt)
+-{
+-	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
+-
+-	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+-}
+-
+ static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
+ {
+ 	struct drm_debugfs_entry *entry = m->private;
+@@ -313,7 +304,7 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
+ 		return 0;
+ 	}
  
- static const struct drm_connector_helper_funcs vc4_hdmi_connector_helper_funcs = {
- 	.detect_ctx = vc4_hdmi_connector_detect_ctx,
-+	.force_ctx = drm_atomic_helper_connector_hdmi_force_ctx,
- 	.get_modes = vc4_hdmi_connector_get_modes,
- 	.atomic_check = vc4_hdmi_connector_atomic_check,
- 	.mode_valid = drm_hdmi_connector_mode_valid,
+-	scrambling_needed = vc4_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
++	scrambling_needed = drm_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
+ 							   vc4_hdmi->output_bpc,
+ 							   vc4_hdmi->output_format);
+ 	if (!scrambling_needed) {
+@@ -443,7 +434,8 @@ static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
+ 		const struct drm_display_mode *mode;
+ 
+ 		list_for_each_entry(mode, &connector->probed_modes, head) {
+-			if (vc4_hdmi_mode_needs_scrambling(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
++			if (drm_hdmi_mode_needs_scrambling(mode, 8,
++							   DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
+ 				drm_warn_once(drm, "The core clock cannot reach frequencies high enough to support 4k @ 60Hz.");
+ 				drm_warn_once(drm, "Please change your config.txt file to add hdmi_enable_4kp60.");
+ 			}
+@@ -803,7 +795,7 @@ static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
+ 	if (!vc4_hdmi_supports_scrambling(vc4_hdmi))
+ 		return;
+ 
+-	if (!vc4_hdmi_mode_needs_scrambling(mode,
++	if (!drm_hdmi_mode_needs_scrambling(mode,
+ 					    vc4_hdmi->output_bpc,
+ 					    vc4_hdmi->output_format))
+ 		return;
 
 -- 
 2.55.0
