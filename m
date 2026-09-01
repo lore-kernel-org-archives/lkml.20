@@ -1,33 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA03F33938C;
-	Tue,  1 Sep 2026 13:59:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 115183016F1
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:59:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271156; cv=none; b=K6MYaFHtc0Zoa3LyGVMNMnLrTtuffM9+TVnmSNeGniyjwfkTaZUzLaq3fED39TBvUFHf/UxN6BSkfeR3P2R070ElhfBZERgqOLL7MCE+0E1fcN7Fvu2bxKSoZX7rzzY/iG9ewoa0e/gn6mGS1tQRoq3SNIo8uV/vlAOWy2wb180=
+	t=1788271163; cv=none; b=n+yidpeRN/OkrgzM4lruZ8mvuEKyYXas2r/1V7g/ra9lpdpKdt7fRDcLkxZuhdPxIWNHStmybycsSLrRc0nDkylIX7nruF+sPzDQnSUSABKokiPBGcVz4Os3eLG1RQJQ4P8za5AjHqdIoODmj/mmAQ1yKGGKc0lG6EQDXxI/VWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788271156; c=relaxed/simple;
-	bh=L2aleJxRKrFW1w7IsLbcpUAM9hzfRgXDejME8sOErVY=;
+	s=arc-20240116; t=1788271163; c=relaxed/simple;
+	bh=+dQW5HMUoVkq1CBnPzF+MmC76PM+fL5474Pz/VoXE7M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uREWL1vq5bGVleqoKhas9v0fS91K9rBOszWfQCS/Bk7zcukKBxeEAd6/IIS4Vf22S4AECLR2yqUWEGjdhGHratnSiEnGB7S1SDRiLoNKAI06u2HwkvF9vYV3/zxfbm+qEQpMP/eUgVvbby1S8SVWATm7L9EOKStwdL/WC80N1WM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ug+tFPfl; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=bDzVg65Ql6J0cm0xIbDWlcT3CpdLrGsnkQLmU/tHmTRWtwSDtOQ43TvAPpbR6yK5Cp62H8JWGoUB33wXMYhJnmeaadpTLkRkCYIZonttAMrLXvem1PZkoAlGOX2q9ITDdEShMrpbBsgIREV5hFrohI0yrnLqiovH4sHhKn37LXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dUJPq4ER; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=LAr/3elC; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ug+tFPfl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41B001F000E9;
-	Tue,  1 Sep 2026 13:59:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788271154;
-	bh=e4NZGL9sW0yTZysi364rSyA0YFBhdTM0YG9uCeDwPSE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ug+tFPfl+VDaefaVU/4BHgnPy4Ce554caP+BlVg3VmC2CafOtgwHuapsFUIbT00AM
-	 JhBz78XPBoE1K7hRx8/zC063NUrEq5FGMqx6wpPftXQthG2CT9G0g3URZMrE4U0TIY
-	 e3zCkZDksY2EmW26k9Gyy6Z5pr54TGS3qGDEduTJMHYJF/pL4zzJX8h82ZWL7H2SYd
-	 zj0S2+Rm1ob2cjq2uV3T3jXfn+GY2AORNNkiA/y9hy2O4Bu7U0lfSAYSM8FapRpaHM
-	 BKqjJ4dChKTHB63GV2bJjWfzK31GlWjYVs3pb8wPL2DheszV97Ty3+skGtidZzaHYM
-	 J5jlsijPojrWw==
-Message-ID: <47aa459f-27d5-4b2f-9eb9-36ebca63d890@kernel.org>
-Date: Tue, 1 Sep 2026 15:59:09 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dUJPq4ER";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="LAr/3elC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788271161;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RyeT2gPwgRHGbRT1UC00BJ26hUwN31fmD+oDhUutisA=;
+	b=dUJPq4ERQjwXXoTKX8HjZrQWwmkGmDwewMWJKJHCwXkushzoss1CcZmZQlM5Jvd7n8tn3+
+	IunoRGaKSVJCUOrrvXQJNJHlFHHUl4Ku4gGaYBd5xbT6RWG7ZeLIGbYy/ICaJi7VGBi7FW
+	ur/dTctWkUKR+gnE1qIdN65MWM0erls=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-601-JAMRvRRfOLGC6wUQ-2CY2A-1; Tue, 01 Sept 2026 09:59:09 -0400
+X-MC-Unique: JAMRvRRfOLGC6wUQ-2CY2A-1
+X-Mimecast-MFC-AGG-ID: JAMRvRRfOLGC6wUQ-2CY2A_1788271148
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-495569acf8dso23585055e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:59:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788271148; x=1788875948; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RyeT2gPwgRHGbRT1UC00BJ26hUwN31fmD+oDhUutisA=;
+        b=LAr/3elCnOAvH/kVYc+6e94S+p0vL2LMILz1mr1Gtjg5rAT3F8tKZ+YKHtNkdMZ6l+
+         L/IrITJ4YSDII4EmOYCt5AKiNjdiM4JAyToMbdrhT6D0kGaNkgo9hjuvtKAhNI6noBuN
+         b8kV4upsTAjIgAL9dImyKYcXV1h11b2TCAfaMJDdGXMnaM1Y8LiiDHw+96oEcYdGiOdC
+         pDJZ4ca0PJGcP6glUxio/E2N7kZ/FyEgODC8Sb05yWeoDoulHNK+ErfSY0wXaIwZxMyH
+         SlxvqSU0icKeQut4tfdUY5UKayIykBESEgxvjAFumvd4gIHhGR5JRyQOwQh6CK4mqbws
+         dawQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788271148; x=1788875948;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RyeT2gPwgRHGbRT1UC00BJ26hUwN31fmD+oDhUutisA=;
+        b=ez/jjcIwgpoKkjIyRBPWGQgeHjqR//acB3hX0bA3DF6PW3C7eYeiMfl5Tkkvldr+gW
+         chiNKIX84ULA4rcPV6B++2Rn38kJwejxL7jCWFeKTAhULkyaBalSNtVGDid/OUCqnclZ
+         xAvRbL/4FVuurToMN7JN8AybcbgUfW5IBrrckxMfBvKRLTrOGsSizHSpV97jOxlaz8OG
+         L9LFyCtRsY7poqqEwUTA2+9nahrH2t/b29vJ+tyLXTzqb444XEG8Kaxee1LUBYw1wtd1
+         m4hpBMXhoRAdI8a78SNfCxKWo9Sxth6W9HEQI8LgdiQm1FhGVgzs0eDsN+aeiVwdeqJ/
+         qG2g==
+X-Forwarded-Encrypted: i=1; AHgh+RofS7xhaIM31AXl4PkvE0GxY2IfgHcY0U0/N8I2UdXURc71YSOlnCx48GkJCDYELeE3CLQ6vuezjWOijmg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mx6DzWaXSIMqbGtirgmktmqpOwdGQmjA9oIxt+1d80+QvmuXdN
+	pZE9VyUO+H3Vqh5jPL3lROIzOnwXB2JTB9Y7Msh6kogcRZXOtQAqg7pjwrtz/mgkJ78IgOyesKx
+	WTFw178wT5xj+b4jGEvMAp/nbFuIeDSmpaYXOS1UQFkjb5YuSVRtZuBCF0y53nqBnWg==
+X-Gm-Gg: AR+sD13oAsNFtOUF2Yk5LpC9S1kzcqvmkE1CfLYtQfS1qPvm9tKX6IPI7Exmiu9KbmH
+	Ds04W6HxJtCJwj3FQ5E9TICtL50Zj3lAM6tqJq4VRlUhSZVeYTxdJEs8/2zvHtCGeqhjyCdxBQw
+	GQGXfDJFhXS5TYflnruRGjeaeypebjyBQQGZE9DjxcqJUdNjfRSljaqL/xZOdKxb0WKroijrBP9
+	HrRzVE/zgINklHMckk5nsoH7uXUcqlBoeUjT+VeS96HswdwjC6owOfVkPqJFC/zAmfnuEzcEdkP
+	F8i8t6Gq5cOY9SPBZY1YcV+nio53B04ygFNScxBKTy/rZQuR15Fn+XNYcwKEYtM11QFcPK+Vc6w
+	sKm8PZjXl+IyxzjEGo/j/BM2AEWdt29wKi44MmOTE2j2mAJj5d6uzEbLA9YrxDOgbKRCtCL9uQw
+	==
+X-Received: by 2002:a05:600c:3542:b0:499:a5c8:c6f3 with SMTP id 5b1f17b1804b1-49cdc422c19mr158172425e9.3.1788271148249;
+        Tue, 01 Sep 2026 06:59:08 -0700 (PDT)
+X-Received: by 2002:a05:600c:3542:b0:499:a5c8:c6f3 with SMTP id 5b1f17b1804b1-49cdc422c19mr158171425e9.3.1788271147829;
+        Tue, 01 Sep 2026 06:59:07 -0700 (PDT)
+Received: from [192.168.188.218] (ip245-45-231-195.pool-bba.aruba.it. [195.231.45.245])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce10153sm76476035e9.4.2026.09.01.06.59.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 06:59:07 -0700 (PDT)
+Message-ID: <17e50070-46c9-46dd-8109-95007a4f681f@redhat.com>
+Date: Tue, 1 Sep 2026 15:59:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,105 +88,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/slab: disallow kfree_rcu_sheaf() on PREEMPT_RT again
+Subject: Re: [PATCH net-next 3/3] net: phy: motorcomm: Enable analog frontend
+ on YT8531S
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
+ davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
+ Simon Horman <horms@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Russell King <linux@armlinux.org.uk>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Yao Zi <me@ziyao.cc>,
+ Frank <Frank.Sae@motor-comm.com>
+Cc: thomas.petazzoni@bootlin.com, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
+ <alexis.lothore@bootlin.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20260831073747.361482-1-maxime.chevallier@bootlin.com>
+ <20260831073747.361482-4-maxime.chevallier@bootlin.com>
+From: Paolo Abeni <pabeni@redhat.com>
 Content-Language: en-US
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Harry Yoo <harry@kernel.org>, Clark Williams <clrkwllms@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Peter Zijlstra <peterz@infradead.org>, Alexei Starovoitov <ast@kernel.org>,
- Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
- David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- syzbot+acf142088e0182172e58@syzkaller.appspotmail.com,
- ThangNN99 <ngocthang2710.1999@gmail.com>
-References: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
- <20260901073339.uyKHXWCX@linutronix.de>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260901073339.uyKHXWCX@linutronix.de>
+In-Reply-To: <20260831073747.361482-4-maxime.chevallier@bootlin.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 9/1/26 09:33, Sebastian Andrzej Siewior wrote:
-> On 2026-08-31 18:02:38 [+0200], Vlastimil Babka (SUSE) wrote:
->> This partially reverts commit 2a8bb29ec9b2 ("mm/slab: allow
->> kfree_rcu_sheaf() on PREEMPT_RT"). It was based on an assumption that
->> local_trylock() is safe on PREEMPT_RT from any context.
-> …
->> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+On 8/31/26 9:37 AM, Maxime Chevallier wrote:
+> The YT6801 PCIe NIC includes the dwmac-motorcomm IP for the MAC part, as
+> well as a YT8531S PHY, configured in GMII mode.
 > 
->> ---
->> Incidentally I have posted a RFC [1] that leads to replacing that
->> kfree_rcu() from set_cpus_allowed_force() but now after back from
->> vacation I need to check the feedback and based on this bug report I can
->> already see it makes the same bad assumption that trylock is fine.
+> It seems this PHY requires the Analog Front-end (AFE) DAC clock to be
+> enabled for link to reliably establish, otherwise the link just doesn't
+> come up.
 > 
-> free_to_pcs() has still this trylock.
+> Let's enable it at config_init().
 > 
-> What I am not so sure how good is that kfree_rcu_nolock() may allocate
-> memory for the sheaf if there is none around.
+> This logic has been extracted from the vendor driver provided by
+> Motorcomm.
+> 
+> It's really unclear if this is specific to the integrated version of
+> that PHY, and how this potentially interacts with the fiber mode this
+> PHY supports, so this configuration is only enabled when the interface
+> is GMII, i.e. the PHY is integrated.
+> 
+> With this, the PHY reliably establishes link and the YT6801 PCIe card
+> becomes fully functional.
+> 
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> ---
+>  drivers/net/phy/motorcomm.c | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
+> index 36c229460a77..90a4f86f2758 100644
+> --- a/drivers/net/phy/motorcomm.c
+> +++ b/drivers/net/phy/motorcomm.c
+> @@ -144,6 +144,11 @@
+>  #define YT8521_CLOCK_GATING_REG			0xC
+>  #define YT8521_CGR_RX_CLK_EN			BIT(12)
+>  
+> +/* Analog front-end control register 3 */
+> +#define YT8531S_EXT_AFE_CTRL3			0x12
+> +/* Analog front-end DAC clock enable */
+> +#define YT8531S_AFE_CTRL3_CLKDAC_AON		BIT(13)
+> +
+>  #define YT8521_EXTREG_SLEEP_CONTROL1_REG	0x27
+>  #define YT8521_ESC1R_SLEEP_SW			BIT(15)
+>  #define YT8521_ESC1R_PLLON_SLP			BIT(14)
+> @@ -1740,8 +1745,15 @@ static int yt8531s_config_init(struct phy_device *phydev)
+>  	if (ret)
+>  		goto err_restore_page;
+>  
+> -	if (phy_interface_is_rgmii(phydev))
+> +	if (phy_interface_is_rgmii(phydev)) {
+>  		ret = yt8531_set_ds(phydev);
+> +		if (ret)
+> +			goto err_restore_page;
+> +	}
+> +
+> +	if (phydev->interface == PHY_INTERFACE_MODE_GMII)
+> +		ret = ytphy_modify_ext(phydev, YT8531S_EXT_AFE_CTRL3,
+> +				       0, YT8531S_AFE_CTRL3_CLKDAC_AON);
 
-Per sashiko review it's actually bad too under the pi_lock, because
-GFP_NOWAIT means __GFP_KSWAPD_RECLAIM which can mean wakeup_kswapd() and
-thus also need scheduler locks. And it's not a PREEMPT_RT-only issue...
+Sashiko suspects this will not survive a suspend/resume:
 
-> It could have a pool of X
-> and if it runs out, it runs out and waits until the clean up process
-> feeds the used sheafs back. There is fallback and the run out is not the
-> usual case.
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831073747.361482-1-maxime.chevallier%40bootlin.com
 
-I'd rather not invent new pools, since there's fallback and the sheaf+barn
-is already a pool. Could be enough to make sure the allocation attempt is
-safe, i.e. use only __GFP_NOWARN.
-
-> I do remember RCU tried the same thing but then it got to the case where
-> HEAD had to be supplied or it had to be preemptible so could wait for
-> grace period and free it. I just don't remember if it had a pool pages
-> to fill pointers to or allocated pages if it run out. And I am too lazy
-> to look atm.
-
-Yeah.
-
-> Sebastian
+/P
 
