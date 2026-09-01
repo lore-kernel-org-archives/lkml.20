@@ -1,135 +1,65 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9532445563D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7BD39B975;
+	Tue,  1 Sep 2026 07:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248664; cv=none; b=jvMsUVb6asi/8s3my3odoHq9q/Xknhewvt2bRSHgqepaA/MkMnyWjCtDxphSrQEGgnZ/BdRnnaPHUn49UH8XBilF2nvr/p4Tk++IivusIUqDVjW1iK4CoJW00mSkYHZ24MfFTR2+jtJKzALvcv0SLW7Q1IoOFmyaAXcns2+STP8=
+	t=1788248675; cv=none; b=pYws5u/d2aIgsFj4mINZrbUeoAIDUus9sT1148WXTc8zb5E7WvzX5MVr1D+TeChCjRr7X2bMYJs1kbS7sb17keOps+s5RuswsRqRI9upF6jrTzASUFtM0PjGgNJjBbm5C2iD3zsSYm4w3lH4pOtgJRxVHKdRkJ12/9juro1WvCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248664; c=relaxed/simple;
-	bh=WPeKMITdc6NNFvQy+ZCvC6oVHtvCFdQY7IqatDoo4Ys=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=iq9V9yc+OEZfTLL3XezYF2feN+Yk/e1LjJKN7XPalFviJlR8hGoJ/Qt/2EjMDoYdF4FjbbROPbzwHJaj8ZUeKiPivtwrz4/TqLmQ+UvMxxJOSU9zcHC8LCIZUZL6xohkvrV610DDgbkBPupJ7RRIu/MODVLu7EvkfHJfgWy8FEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hYyY25fKwz1PGCN;
-	Tue,  1 Sep 2026 15:44:06 +0800 (CST)
-Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hYyXz6XqWz1PGCN;
-	Tue,  1 Sep 2026 15:44:03 +0800 (CST)
-Received: from cncheex05.Hygon.cn (unknown [172.23.18.115])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id 24A5330004D2;
-	Tue,  1 Sep 2026 15:40:13 +0800 (CST)
-Received: from cncheex04.Hygon.cn (172.23.18.114) by cncheex05.Hygon.cn
- (172.23.18.115) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Tue, 1 Sep
- 2026 15:44:04 +0800
-Received: from cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d]) by
- cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d%10]) with mapi id
- 15.02.1544.036; Tue, 1 Sep 2026 15:44:04 +0800
-From: Jianyong Wu <wujianyong@hygon.cn>
-To: Peter Zijlstra <peterz@infradead.org>
-CC: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>, Dietmar Eggemann
-	<dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben Segall
-	<bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
-	<vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, "Shrikanth
- Hegde" <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>, Andrew Morton
-	<akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>, "jianyong.wu@outlook.com"
-	<jianyong.wu@outlook.com>, Yuan Zhong <zhongyuan@hygon.cn>, Huangsj
-	<huangsj@hygon.cn>, Fengyu Wang <wangfengyu@hygon.cn>, Zhiwei Ying
-	<yingzhiwei@hygon.cn>, "justin.he@arm.com" <justin.he@arm.com>
-Subject: RE: [RFC PATCH v2 07/23] sched/cache: Prioritize preferred NUMA node
- selection over LLC selection
-Thread-Topic: [RFC PATCH v2 07/23] sched/cache: Prioritize preferred NUMA node
- selection over LLC selection
-Thread-Index: AQHdNiA/Gl7/wvc7qkaJjcGUBBSfi7a3o5GAgAG7IQA=
-Date: Tue, 1 Sep 2026 07:44:04 +0000
-Message-ID: <62e8081a9432407893fb6a9a8e397d87@hygon.cn>
-References: <20260827122816.756234-1-wujianyong@hygon.cn>
- <20260827122816.756234-8-wujianyong@hygon.cn>
- <20260831131643.GK4120091@noisy.programming.kicks-ass.net>
-In-Reply-To: <20260831131643.GK4120091@noisy.programming.kicks-ass.net>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	s=arc-20240116; t=1788248675; c=relaxed/simple;
+	bh=e8VOHgSsxFzI9fgVjJwsg/clc2wKMctz3f2z3JN5Www=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tU7Qw+lEz1WAz/DJ/Ltp3EwFhtabPEd7EAyg6UNNJDCLRz7yzzwpHzYJmA5PdOcye+z6nL4aqjZzTyIqNIBpq0lZwptVd2Fno9PZfdwoAsaImKQT70KpiwiyffQghUxrnq40Ma+AVIY4JusrInJXUY/N/QtP3p3MTHdPuwsi1hA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RWtHfyjj; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RWtHfyjj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFA251F000E9;
+	Tue,  1 Sep 2026 07:44:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788248674;
+	bh=PMuwU4uDb7rEj6/4JiiTKDPJ13YLZj7n0SxKldQGwJw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RWtHfyjjVOYK+ltbUdjcxvqx66SMK8QaTv02Krtz/G+/g3novQpAJgHJ7LZ5rJIxr
+	 U7/OWl7XtSv2d6fazO+wgH8UOcJxvZVufzxYOip8bv7gQ1t7ZRQQsBLhYZW/aLMhY1
+	 xQzqL12pRxaUozutOeyitjihac27TrgAhsRe3mcrWAnUvDuLDbhGMFTrFXcuEaiqzM
+	 fyUCkDXtxA5JvUZrLlKnBA4UjxLj7nE3tkBq+cZqVHDKonvYdQRXx1OUeh6Al+OpD2
+	 ojFlhDmrDBkVgTXL2anNj23x6c5oKdcW5sb3Qi6BXmCTXpaesB9e+gWqlHFspFlJlo
+	 HUoYiAHZvGP0Q==
+Date: Tue, 1 Sep 2026 09:44:20 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Jingoo Han <jingoohan1@gmail.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Jeff Johnson <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, mhi@lists.linux.dev, linux-wireless@vger.kernel.org, 
+	ath11k@lists.infradead.org, qiang.yu@oss.qualcomm.com
+Subject: Re: [PATCH v5 2/6] PCI: Export pci_set_target_speed()
+Message-ID: <hm23ew6au75saw6dtm5rdkf3k4x3sgpf4gnudqmms23rlppuhn@l3pmu3qh4q4s>
+References: <20260819-bwscale-v5-0-6dea79786b37@oss.qualcomm.com>
+ <20260819-bwscale-v5-2-6dea79786b37@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260819-bwscale-v5-2-6dea79786b37@oss.qualcomm.com>
 
-Hi Peter,
+On Wed, Aug 19, 2026 at 06:55:53PM +0530, Krishna Chaitanya Chundru wrote:
+> Export pci_set_target_speed() so that other kernel drivers can use it
+> to change the PCIe data rate.
+> 
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-> -----Original Message-----
-> From: Peter Zijlstra <peterz@infradead.org>
-> Sent: Monday, August 31, 2026 9:17 PM
-> To: Jianyong Wu <wujianyong@hygon.cn>
-> Cc: Ingo Molnar <mingo@redhat.com>; Juri Lelli <juri.lelli@redhat.com>;
-> Vincent Guittot <vincent.guittot@linaro.org>; Chen Yu
-> <yu.c.chen@intel.com>; Tim Chen <tim.c.chen@linux.intel.com>; Dietmar
-> Eggemann <dietmar.eggemann@arm.com>; Steven Rostedt
-> <rostedt@goodmis.org>; Ben Segall <bsegall@google.com>; Mel Gorman
-> <mgorman@suse.de>; Valentin Schneider <vschneid@redhat.com>; K
-> Prateek Nayak <kprateek.nayak@amd.com>; Shrikanth Hegde
-> <sshegde@linux.ibm.com>; Phil Auld <pauld@redhat.com>; Andrew
-> Morton <akpm@linux-foundation.org>; David Hildenbrand
-> <david@kernel.org>; linux-kernel@vger.kernel.org; linux-mm@kvack.org;
-> jianyong.wu@outlook.com; Yuan Zhong <zhongyuan@hygon.cn>; Huangsj
-> <huangsj@hygon.cn>; Fengyu Wang <wangfengyu@hygon.cn>; Zhiwei Ying
-> <yingzhiwei@hygon.cn>; justin.he@arm.com
-> Subject: Re: [RFC PATCH v2 07/23] sched/cache: Prioritize preferred NUMA
-> node selection over LLC selection
->=20
-> On Thu, Aug 27, 2026 at 08:28:00PM +0800, Jianyong Wu wrote:
->=20
-> > +	/*
-> > +	 * Avoid switching sc_stat.cpu too fast. The reason to choose 2X is
-> > +	 * because:
-> > +	 * 1. It is better to keep the preferred LLC stable, rather than
-> > +	 *    changing it frequently and cause migrations
-> > +	 * 2. 2X means the new preferred LLC has at least 1 more busy CPU
-> than
-> > +	 *    the old one(200% vs 100%, eg)
-> > +	 * 3. 2X is chosen based on test results, as it delivers the optimal
-> > +	 *    performance gain so far.
-> > +	 *
-> > +	 * Moving to another node takes precedence over moving inside the
-> > +	 * current one, as it did when the two updates were applied in that
-> > +	 * order.
-> > +	 */
->=20
-> Comments should never refer to old code that no longer exists. Comments
-> are for the code as it is now. If you want to expand on details of the
-> transition from one implementation to the next, that's what the
-> Changelog is for.
->=20
-Sorry, I'll remove the "as it did when..." part and keep the comment to the=
- current behavior only.
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Thanks
-Jianyong
-> > +	if (m_a_n_occ > 2 * curr_m_a_n_occ)
-> > +		new_cpu =3D m_a_n_cpu;
-> > +	else if (pref_llc_cpu >=3D 0 && pref_llc_occ > 2 * curr_m_a_occ)
-> > +		new_cpu =3D pref_llc_cpu;
-> > +
-> > +	if (new_cpu >=3D 0)
-> > +		WRITE_ONCE(mm->sc_stat.cpu, new_cpu);
-> >
-> >  	update_avg_scale(&mm->sc_stat.nr_running_avg, nr_running);
-> >  	free_cpumask_var(cpus);
-> > --
-> > 2.34.1
-> >
-> >
+- Mani
 
-
+-- 
+மணிவண்ணன் சதாசிவம்
