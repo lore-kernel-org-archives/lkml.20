@@ -1,425 +1,159 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012041.outbound.protection.outlook.com [40.93.195.41])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7F8443302;
-	Tue,  1 Sep 2026 03:53:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788234824; cv=fail; b=GNLO8ot25/MS3+OcIsnLyBKX532zjvM0AsXgpgR0vcTu933as85OjjtNdWsyT+flNb10mC4sXzy9SXFBfoF1BUhA2dtIAjAJbKI85iKQb0njNei458SKhpORJpWILj5+ns3gcOjID6HteaEPAKQdrJPnxOWvpeLysoizNnUtnXs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788234824; c=relaxed/simple;
-	bh=PFPBwPgJVynlLq4lGGmQVIDjioA7AMbwgghbCYwHEec=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=kk4Pe89jrkE3oseajclP/4WAXpc9aktpRTiM+1t8I5Qsi1XPfeXctvVAH0ihUEMOJ/ehSJGRkGNsn4wGTmh1/CemFjOkhH3IGZxHFVVlBwOK/7aehkMqYKdq9LCIwm6IFzFiDC4kDSSYk1pKeLsTEa7JXspuuyMF78CBlNvecfA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Fwv3mAyK; arc=fail smtp.client-ip=40.93.195.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467E9442FB2
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:53:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788234830; cv=none; b=Pi+sp5/pfcuB2qLTIyRHO/vOauqstEJarK2wk1pOD2c5f5POWKJAUJjVw6julKybVACXwDsn+rZZ//Vd4hmlMrCKp6zpw5t6zFBBLunBMbuKZbyHerwaQMNSYYNRnQAft75xh0U/V+8OW/g5gTRbOpLZEi6RZdVDmMqKw+4r1u0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788234830; c=relaxed/simple;
+	bh=F4SvYOQlyCKUGia87A34XS8D5c9Kum0774nQtePXGYg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fEnJDmwkte1hByTf3WuDEsKtmhx7BM9bbILaB2fVSpkfo/A3r7Y1fVFDSCxG09/Qeiv2qs6fajbbtD8kc+Vs4v0OAJmLTh67DCVijxf3XTblhhoHatUsEF39D7UJ7afuc8paXkT41dqW+Ourt3zROTEI3BwsQtSYFXYDa+KRG2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XhXZQx1a; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BYJ8ZND0; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Fwv3mAyK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rGPrv65p0OSs7TcYFRQ3Eq0AEUmoJvtw5P2NrwmgR4nkoYst1m2gJfzjMTB2wLFRpr0mEp5jebgwwpMIAVqn8GBwfRg+YvOMuyJsseHhGy/P+lA383Sy6KBA5UhSA5qQ3iD0CLL5t1ZJVRfN6/8zBqkSI4OOaXAGFaCdg7VydxDVG1456MEEIMUJoM1WvfrE+nbjO+Dbl6VuENyhYrxsx0Cw4TJDUGGLbKJZSX75Hjkv9DAvb+QwHflfMfqqH2dRxSERx31n65tHdN7JmqaWRZe1H2W5gEGcl8bs9tJ6NMd9d6brHZ8k2dQzsCJ/20sYcsY3Zfbeu/RolfUiacx/mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ROX5LBvaIf6lRRKFRJT6HTvyjmO95dXz82C1sk59e3s=;
- b=HjCM5ab8y1LCHhZUenpwnvKJVuqaHE4SQxoBwEPiTkjXyd/IFZ5SGn8ceap2DAZNpR2bqoe7GhxNIIPsNivo60RiVYXudhzLpW3IBwgV6/BiS9CF0QS8C9REIyt7eelPZyuJ+qVrHIWCJdMbTtcrSigIbMVuGJb8rXmhfQzkPI+U4D3YSiLUXbUhufu001A7vFfUXi3yBkIucqwxtNYuNsgEslHqCjh31aNccB20BiGMt6JHtDj6lpQ/rkPymFzvWfxclBmChZpW1Hmp1SvqgBCE/wUaJwXIbGAGyDMaoWEXoblRlUk0fRKe5aZ2w41fxvr4v1wOokivHlMwyGUabQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ROX5LBvaIf6lRRKFRJT6HTvyjmO95dXz82C1sk59e3s=;
- b=Fwv3mAyKR9acVEnbRf/Ff+58L5enSB3AQ9kuXAhn5SJ4NsGc+bA0MH0/3jasYDw4gy+i9BOzHTsNKnhLZD7TWGLXunQBJAeXStKwCje83ytLLY886B6+Jl8t54l0TsX6OSOkeQeXCxqMPl2GLVfSR7soo434IhQrAlzrEkpZapkyaPS67CB3Il3N52d4fGqHBFDGA6P9MSj432sYiEsQnnh85T7O3ZZVoJ60FDRyGGmg90pkvQh9CvdRAM92uR0QHU50pVvKIjQGz0rrMOm4JYY7SUDpWibdcX1WvPf8pQpVKJA3PuFwTxNkIDYSsQGTng9gdTPcauLk/6JtWD0aGQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
- by MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 03:53:36 +0000
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 03:53:36 +0000
-Date: Tue, 1 Sep 2026 13:53:31 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: nova-gpu <nova-gpu@lists.linux.dev>, 
-	M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>, 
-	David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v5 01/11] gpu: nova-core: Add public driver API to
- nova-core
-Message-ID: <apZLLjyTqPnYRa-k@nvdebian.thelocal>
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-2-apopple@nvidia.com>
- <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
-X-ClientProxiedBy: SY5P282CA0127.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:209::20) To MN0PR12MB5977.namprd12.prod.outlook.com
- (2603:10b6:208:37c::22)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XhXZQx1a";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BYJ8ZND0"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6810o04E499808
+	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 03:53:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=Nz7mNSdJ3om
+	7cMlWEfSsfwgFcE4ZNET7S9/6Z47Vwkk=; b=XhXZQx1as79DFt7/YYreUa9NxyZ
+	FCziEo3iZz4hQf4cUWy0NJRo13H3qU4PT7yhJ+vQP5NUZdHpF6V64lZD/xC508zA
+	cuJz8U8I0hXKMPnirGJQ2xPMtDNGQyCk0df0H99V6gYdQcblacxauYeQuixqnkeE
+	yFGikRM2TGx3lcLu0Ict3TDlDJBj9DL2T4MKbUF04u8coAM7Ijlis1lb56jcoN96
+	jRr4m8498eBSXnNJWUMsxx2/xwpzj+gf46DhEeORgc9vQYn+npAEKaOn1bc/5qgN
+	mUyMXdQZtJGxlRNnFxX3AWmtq8fZ4phsrErSP59D1wwj86PHszof6S4/Pyw==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdjtx10va-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 03:53:48 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d55d8cd938so72119755ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:53:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788234828; x=1788839628; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nz7mNSdJ3om7cMlWEfSsfwgFcE4ZNET7S9/6Z47Vwkk=;
+        b=BYJ8ZND04hMs5hSvr5/qhPIhR15taoJX1/mH9UyKus4tFboJMHTW9xS/NG+AdR8lKm
+         R7fhNFfwPHy4LL96sFN1HHVVZu8w+Axpuiqk+nEoTnxEGEQ5b80Jlxx2Ynd0jWXky8Jb
+         xUt+g6PjwG0Eli5pSowOsJ0fY0UecmCUF7X/lg6/OxhwdZjBprI1Pr10eIguiWagjVCS
+         34B7qyMKwrt3se2SFvzTxCaJoHma8EZz9VlIN/MiMJ3WFOmXSIwjbJHAkEI4yb8pElhZ
+         WV12HHnSbnYqMeaWEQ3C+NiMgcrhRIOlB2JKmaGvUt36QYD9C2yWJ1a7q9H46w2KNcVN
+         neVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788234828; x=1788839628;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Nz7mNSdJ3om7cMlWEfSsfwgFcE4ZNET7S9/6Z47Vwkk=;
+        b=lGibhJTguT7kChMQsQuS4wIq7OCOUunvuzDWDpqyzNX7fH3gWIioiKA1H6nrgITRJ9
+         ryAqG1KkKq5aXFut2GsXokmW9/zaemZjib0egZ9P5pmZ9LNmrZu5iIqvVeqA7GJ6vDzb
+         i5vVCzsDizkqjPqI4WOYwtvBGK71ouCanBMEoMk9dKSlCBvkn/P6KK/LKimhWgZtxzUf
+         Ovm5jmQjrGsyHc6jiS5QaCPv5lEK/v4oB2ImbRuzSkpjvIHF3b2ffv8vUlr9W2s3VWo5
+         WoXTTPgh9WMyPEU6bk7HYm5nVWwzVxRJO7Xfb3TO0LDazWUeySvOVWvD7BF/+lstU8WV
+         imtg==
+X-Forwarded-Encrypted: i=1; AKwUvBwdvPP6ZLab/F4LrHHTKxXE9r4+Q1aoObCCZCbeM1ruFTVlN+qy1zC54jp8wJ0shHwUhkc9XZnoP+fDFzU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHfcfrJ5kIZFakYk/XgQPXUsQ+BdZS8kYciF0iNJW9rxKWZe2d
+	g0/nbweR6UyD1gsokqJBlS1MJcE9jXIixBvyxT4n3eYGC+vBByR3FID3GtOounxXog5t0IvbjJ7
+	3r3gO2M3+g+FLXupkJEus6Z8HfJyXU6PT3BqMivkZc1S2xsJlXRMhr2+1ZM8xZ4NXxB8=
+X-Gm-Gg: AYBFou1oCFJRA6C5i7zHapEpAcJz2oxhgWC9Zw4hAfT7rvIHcyc1tTTWZELtOrqtyK5
+	fL7l6ULhWR9PybPQ1tdxxn0sT+t0Jc6dxNeml8vB0zQw1HIFlwDdFjYlhxTN7QNMvUixsPuSjAI
+	faNsLEfigpla9ZG3oYL3DYuGJwf5zlZ78BEgpC3PDCzjp9ppY6n+8S5Tc9GTkxFf41Z6BBkj8T1
+	z3ra9AwK5cm9oXhd2XjxUW6/cPWt8wq+qET3tAs9RdaqLqKxdLWTdEnoN092s9CjZmgZlu139A6
+	UmrDTND6KZoxYmeWNeoQgtKfp33niG2fy0MMaMcz8P/HX3rWSSwDYzzTRd7kUcQpBVJjId6lfH+
+	UVNBTGCi+ibA0bpD83NfVaa60foVCUIoZpakqbJRcuHW2ck9Ucfr7r5CgO9hZ
+X-Received: by 2002:a17:903:40c5:b0:2d8:d4ce:7e3a with SMTP id d9443c01a7336-2d8e2e5f427mr330684655ad.15.1788234827574;
+        Mon, 31 Aug 2026 20:53:47 -0700 (PDT)
+X-Received: by 2002:a17:903:40c5:b0:2d8:d4ce:7e3a with SMTP id d9443c01a7336-2d8e2e5f427mr330684025ad.15.1788234827190;
+        Mon, 31 Aug 2026 20:53:47 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32bdfd03e71sm16702035eec.1.2026.08.31.20.53.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 20:53:46 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH 2/2] clk: qcom: negcc-nord: Add the secondary QUSB2 PHY reset
+Date: Tue,  1 Sep 2026 11:53:22 +0800
+Message-ID: <20260901035322.654-3-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901035322.654-1-shengchao.guo@oss.qualcomm.com>
+References: <20260901035322.654-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|MW3PR12MB4379:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29e79ad9-a2cc-451b-76b2-08df07dc99cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|10067099003|56012099006|5023799004|4143699003|6133799003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	sS0PuR0sbxxKCbLF6wuzAcQ0UvbbDgoQ3NVgb+PSdRVq/uR+7JST+WmChiYaEjZWs3Z01ShnpodUzgrY4Buv+d8iKBXTu3wvkT1YtWaig6rdCDUQN1cSY3t/hrlsHtTSWeaaNgQizvAD1TNYTXCUs4Y9TxdYMDTt6VTozgMB5vFDWTnKIbNVPtqtMNme+zgijgAbuj9dGzIaEofYLFrBbf9swzAuOCWTGosWrY5M/otNjgt1N+D0mRTuRifkP0LNA6vxFEqvQtHNA87bUn5/yrZn/9fNikK3rXOX0+1h1teXB0UJZMrzDzfe6tTj9PT2B61+nQNCkSnyqjpv2zt05MaVaQCVS69ImJo/aL8Cl1is3cvNgGfGd7T/JMVUu1ThjTtIiXusTMM5SVokSu5umPapqlwJw+3yzVzuq2IxCyEom7qsVZktMJGuCSwkll94NXdHi5bYLV+PYJaSzGJOYivL61ikITpsViL0xskme13ToDd2Tj8xvB+xqsD5OKexNHZQw/lNOoN/dfcz+xeI0SUY4F1HdbX3zAtur4MhUA2lMChnTTL0g7iCxb0LDdRQKQTJ3uuhysXbb+kz+ZdXWU8wP0hGAZfkBXZbQU2vENgBjHylPPqk17JpZmrubuf3q794V7nwBo1J+r0+OYXSLmkMqq2OFPYIkKXI7SpBxkk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(10067099003)(56012099006)(5023799004)(4143699003)(6133799003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?OkM1A1zowmG+6+IHLw3PoRglOGeYLmfGaOmz9s8PLdWpAWnFjtq5tnLDS+td?=
- =?us-ascii?Q?Y+TKCOV2qjZXaoio4BD2aJiTknv4kDwxVK2Ko9ndrb2kt+9x7p0xQJyRGpmp?=
- =?us-ascii?Q?IoivNgnrDjdxnYF7zVJ5tEXFlKXPyTz10FVHHo6AcDm46KqlIuTiZQFYBy4/?=
- =?us-ascii?Q?NcWdTTzUzqHyoxGXOFEKER63K+r9pO1DsZFD0NEykK3skDoqo3zzmWN0hj1T?=
- =?us-ascii?Q?OFGyn8OW/pl8KFwd4XgLPzRjPFnCOLeaafb5dARSahgUP2I4Mm9tQfqyMw3G?=
- =?us-ascii?Q?DXxV6XUvcEdcPFY1GxxtTT9bFu2Wb93WczITv8yfAAxKcVOkUaGIiF9Z+DKX?=
- =?us-ascii?Q?MGs+YhRAro6wdxNxGycK5q7eR8VhOh1vPNVseFGRsff7rvwi3JD/kpYzkiHL?=
- =?us-ascii?Q?5PXDg9ZbyfMqDkkw7okBgFR7kzgaONPO5aBjWlgabwnHc4MjXKj1WFLjtWuR?=
- =?us-ascii?Q?H4nXNAQoN4iDezfAGDaqCcb2M2k93d3kJZfJfJcmb2yNwRlPEWe96ph8xx0C?=
- =?us-ascii?Q?FFPD21jKmVfZ55J0fqawUX47J3vvTzRZby5u4SqOuBOMHl2VrgmrBXxAcDaI?=
- =?us-ascii?Q?aoWE9v1JioOuRc0ED2XoRwYtjQI3+2ZBca7m1+iLJ0H7po8BGF6AqU2SluSj?=
- =?us-ascii?Q?kQ82g8UNqx0pXt0lbLByMAqu2/7O5P47pEn07nsrBInY+mqqycF2IR8mSAw4?=
- =?us-ascii?Q?4YGnzitEsTLc56zux7iyMlxECwub6pdFapZWZURLDGFueZMqocc99Xhkf31n?=
- =?us-ascii?Q?KWJou33d7ChMrmw/WWIW58/vwcrQu9nA6JtOJTwoaOIKiGyQ5MV14Abr2wAl?=
- =?us-ascii?Q?3+GFQjKN7NVBLkuESgzbz6F6Q5AcSL2lS16b0kxRc/dNeNkGGWPTBOVlzBju?=
- =?us-ascii?Q?rT09/UMFw8p8e9MUmBv3JXbY3gQboXOYIrOBsVfbFKlmtWvvAQxqV2X4SHtZ?=
- =?us-ascii?Q?Yfn2bBr1WlRuwSq/Q2VWnFOrgNzGCNqpuvAZ5DBv6cQA6jVyL9Bc//TTeJrq?=
- =?us-ascii?Q?qYXQB/qJD8JkhumxvmDfIJIa+Y5N1BQXKJBTthSGosiLo+U8GMN96Ex7GkSV?=
- =?us-ascii?Q?A+ZI4CQYyBurCc6fGipRtj63h6XdKEgdQ467b9fk7hvHH7LxtF9fWO5b4nnP?=
- =?us-ascii?Q?K/dgIjnVcgVq/BdAqheKYeeT7pIEOJp20ghOOOlQ5QLPS+hjFy2qY7Uu8a+A?=
- =?us-ascii?Q?6mM0Qez+decXdLMqvG4ALwMUctKX8fJgercazx6QVJEG9HrC28UVjjHSuvR+?=
- =?us-ascii?Q?mcDWGqFmBsXO2kpqr8Jsbve1zzOGzILTzkySaWwCJ3V36JMHtoMUZ5BtqweF?=
- =?us-ascii?Q?pS+rWzPyOA0b0VAp5Y3ThulnKbWJZjH/mTQ3v0JZXuWt6XUD8NjmamhMf54g?=
- =?us-ascii?Q?5Z1y2qEEdC8WF1nt+A1sTFZnU80pif6tK4i8yPtT0GAssXjpdTMJ16euvsBr?=
- =?us-ascii?Q?GzMRomoROsWdzQhrWwgQISM9wbB2Nd6/07hBmldgK6QWda3VqGbj3VrNWvWd?=
- =?us-ascii?Q?Q/SU1AMOkpWBuhJtOlHmfevhe9Q8WGdvAwELE2OKopgZdLsKLddgfUN8zryN?=
- =?us-ascii?Q?ok6/aZDJxhlWVAyvO25NhxDzbWI+QC6AyY1ObKpf28T9T+EgmpOdUca9ILUQ?=
- =?us-ascii?Q?FLtEyHkWvf0TYrF8g7mN8ly81wJ72RFT+DxkOrYw5s66gWEAzb3e6hxFTFZt?=
- =?us-ascii?Q?nn1DnjrI9+HeEU5HH/e27CDbMcW7pUKroMnD0r9QoayrquYdF/8Deut8kZWc?=
- =?us-ascii?Q?8Arrcx9ZqA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29e79ad9-a2cc-451b-76b2-08df07dc99cb
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 03:53:36.7157
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RPMDst8KwTPM/3n3e3s0/rMxR7yeYGK0/YTa4QzjywqyzZCPfci16z18d5wCEWi2Hg5xVJ8yTYhakZy2IrztsA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4379
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=K78S2SWI c=1 sm=1 tr=0 ts=6a964c4c cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=MJwEArL1UJALDHajFQsA:9 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDAzMSBTYWx0ZWRfX1I09AGLwt6p2
+ zAprJYyNfkc1LmHTqLMm+RSkwNiRdYYX4Ltu7mujKQ55+xysls+4z9ZkhL0bnuoHf5htigD55Bb
+ jlRm9wO7BnZ2s6KC9/VDoz+qa+hPPM0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDAzMSBTYWx0ZWRfX0moOiq+3gEXt
+ h/XksQl3ptzzp1qFEVFw1bkm27TlYrWQHXS/nJUuPyrbzTxcJc3ccGfqJqHOz58HunwkdknR+4N
+ T4dm76IehmjcpewY8vMsBNTsr+Srfj7+FJQj2GR/4JwDqHQdvtgAk+siM7N1MSOnBY3x+MykLBX
+ O600kltxChsTSbDptAB1LMKq9qQpZYm5ipJf8QOhVnnXL6oppX0lezFY400zHj+52kRqVq2mYJl
+ LMcSkOSg78HAQ62MuCMZtyGba8H4MTR5r98lSAZeeX7kjQdfT/jrS3zxDL7DqWER5TEYiL9b05j
+ V9PJbSAjv/rjzUZjNpRyub2naZvIOx44ElY/PmkLkEfrzEa4Bk8fmffhlEH2XGQSHkGPB92jRtx
+ g/OMfKBeUJ5kONZrfgaHb8Js8o0oVLZxcuZqxvr40itXRL/ITCo5CCJKFbzQzA/yF0jcSZJRxQh
+ /N48/XvTcV3tX/NwvzQ==
+X-Proofpoint-GUID: ynloAi9NAHVJJL4sqkdgrwiSXzdftIXs
+X-Proofpoint-ORIG-GUID: ynloAi9NAHVJJL4sqkdgrwiSXzdftIXs
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_01,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609010031
 
-On 2026-09-01 at 06:08 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
-> On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
-> > +/// API handle for the auxiliary bus child drivers to interact with nova-core.
-> > +pub struct NovaCoreApi<'bound> {
-> > +    #[expect(unused)]
-> > +    pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
-> > +}
-> > +
-> > +impl NovaCoreApi<'_> {
-> > +    /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registered
-> > +    /// by nova-core.
-> > +    pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreApi<'_>>> {
-> > +        adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
-> > +    }
-> > +}
-> 
-> CovariantForLt does not hold anymore on latest drm-rust-next, as Cmdq has a
-> Mutex. So, this needs ForLt now and therefore the approach that I shared in [1]
-> a while ago. I applied the changes in [2] to fix it up.
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Thanks. I remember that conversation, just that up until now I could get away
-with it being Covariant which was nice :)
+Add the secondary USB2 PHY reset which is needed by usb_1_hsphy
+enabling on Nord platform.
 
-I'm in a bit of a painful situation atm where my local test box doesn't work
-with older 570.144 firmware so I have to carry this on top of John's r000
-patches to test which makes rebasing all kinds of fun. But will rebase to latest
-drm-rust-next and see how I go with the below.
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+ drivers/clk/qcom/negcc-nord.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> I think the closure access through api.with(|api| ...) is fine in most cases,
-> but there are a few options if we run into cases where we consider it a bit
-> inconvinient.
-> 
-> I think it should be possible to support projections into T: 'static and
-> covariant fields. The reason I differentiate them is because T: 'static is very
-> convinient, but non-'static covariant types need an annoying turbofish.
-> 
-> For T: 'static types it would turn out like this
-> 
-> 	let spec = reg_data.api.project(|api| api.spec());
-> 
-> such that everything that needs spec does not need to be in the closure anymore.
-> 
-> For non-'static covariant fields we could have
-> 
-> 	let foo = reg_data.api.project_lt::<CovariantForLt!(Foo<'_>)>(|api| api.foo());
-> 
-> but as mentioned it unfortunately needs the turbofish. Of course we could invent
-> a macro around it to get rid of the turbofish, but we'd still need to explicitly
-> mention the type Foo<'_>, so it doesn't buy us a lot.
-> 
-> This is the implementation I came up with in nova-core
-> 
-> 	/// Projects a `'static` sub-field out of the registration data.
-> 	///
-> 	/// `T` is fully inferred from the closure. For projected types with a lifetime parameter,
-> 	/// use [`Self::project_lt`].
-> 	pub fn project<T: 'static>(
-> 	    &self,
-> 	    f: impl for<'b> FnOnce(Pin<&'b NovaCoreApi<'b>>) -> &'b T,
-> 	) -> &'a T {
-> 	    self.adev
-> 	        .registration_data_field::<ForLt!(NovaCoreApi<'_>), T>(f)
-> 	        .expect("TypeId was validated in NovaCoreApiHandle::of()")
-> 	}
-> 	
-> 	/// Projects a covariant sub-field out of the registration data.
-> 	///
-> 	/// Supports projected types with a lifetime parameter via a
-> 	/// [`CovariantForLt`](trait@CovariantForLt) encoding. Unlike [`Self::project`], `G` cannot
-> 	/// be inferred and must be specified explicitly.
-> 	pub fn project_lt<G: CovariantForLt + 'static>(
-> 	    &self,
-> 	    f: impl for<'b> FnOnce(Pin<&'b NovaCoreApi<'b>>) -> &'b G::Of<'b>,
-> 	) -> &'a G::Of<'a> {
-> 	    self.adev
-> 	        .registration_data_project::<ForLt!(NovaCoreApi<'_>), G>(f)
-> 	        .expect("TypeId was validated in NovaCoreApiHandle::of()")
-> 	}
-> 
-> and this is what we'd need in the auxiliary bus
-> 
-> 	/// Projects a covariant sub-field out of potentially invariant registration data.
-> 	///
-> 	/// `F` is the [`ForLt`](trait@ForLt) encoding of the registration data type. `G` is the
-> 	/// [`CovariantForLt`](trait@CovariantForLt) encoding of the projected sub-field type.
-> 	///
-> 	/// For projected types that are `'static`, prefer [`Self::registration_data_field`] which
-> 	/// does not require a [`CovariantForLt`](trait@CovariantForLt) encoding and fully infers `T`.
-> 	///
-> 	/// Returns [`EINVAL`] if `F` does not match the type used by the parent driver when calling
-> 	/// [`Registration::new()`]. Returns [`ENOENT`] if no registration data has been set.
-> 	#[inline]
-> 	pub fn registration_data_project<F, G>(
-> 	    &self,
-> 	    project: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> &'a G::Of<'a>,
-> 	) -> Result<&G::Of<'_>>
-> 	where
-> 	    F: ForLt + 'static,
-> 	    G: CovariantForLt + 'static,
-> 	{
-> 	    let ptr = self.registration_data_with::<F, *const ()>(|data| {
-> 	        core::ptr::from_ref::<G::Of<'_>>(project(data)).cast::<()>()
-> 	    })?;
-> 	
-> 	    // SAFETY:
-> 	    // - The HRTB bound on `project` ensures the returned pointer is derived from the
-> 	    //   registration data (nothing else lives for universally quantified `'a`).
-> 	    // - `G: CovariantForLt` guarantees that shortening the lifetime of `G::Of` is sound.
-> 	    // - The registration data is heap-allocated and outlives the device's bound state.
-> 	    Ok(unsafe { &*ptr.cast::<G::Of<'_>>() })
-> 	}
-> 	
-> 	/// Projects a `'static` sub-field out of potentially invariant registration data.
-> 	///
-> 	/// Simplified variant of [`Self::registration_data_project`] for projected types that are
-> 	/// `'static`. Since `&'a T` is trivially covariant when `T: 'static`, no
-> 	/// [`CovariantForLt`](trait@CovariantForLt) encoding is needed and `T` is fully inferred
-> 	/// from the closure.
-> 	///
-> 	/// Returns [`EINVAL`] if `F` does not match the type used by the parent driver when calling
-> 	/// [`Registration::new()`]. Returns [`ENOENT`] if no registration data has been set.
-> 	#[inline]
-> 	pub fn registration_data_field<F: ForLt + 'static, T: 'static>(
-> 	    &self,
-> 	    project: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> &'a T,
-> 	) -> Result<&T> {
-> 	    let ptr = self.registration_data_with::<F, *const T>(|data| {
-> 	        core::ptr::from_ref(project(data))
-> 	    })?;
-> 	
-> 	    // SAFETY:
-> 	    // - The HRTB bound on `project` ensures the returned pointer is derived from the
-> 	    //   registration data (nothing else lives for universally quantified `'a`).
-> 	    // - `T: 'static` means `&T` is trivially covariant; lifetime shortening is sound.
-> 	    // - The registration data is heap-allocated and outlives the device's bound state.
-> 	    Ok(unsafe { &*ptr })
-> 	}
-> 
-> with the documentation being written by an LLM and unchecked.
-> 
-> I think at least the T: 'static projection can provide an ergonomic advantage
-> and might be useful to add. Please let me know what you think.
-> 
-> Thanks,
-> Danilo
-> 
-> [1] https://lore.kernel.org/all/DJQSY9ZY5M5F.3VI537GS00E1G@kernel.org/
-> [2] CovariantForLt to ForLt changes for nova-core
-> 
-> diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
-> index 7fc0baef5f04..028020213ac5 100644
-> --- a/drivers/gpu/drm/nova/driver.rs
-> +++ b/drivers/gpu/drm/nova/driver.rs
-> @@ -1,7 +1,5 @@
->  // SPDX-License-Identifier: GPL-2.0
-> 
-> -use core::pin::Pin;
-> -
->  use kernel::{
->      auxiliary,
->      device::{
-> @@ -20,7 +18,10 @@
->  use crate::file::File;
->  use crate::gem::NovaObject;
-> 
-> -use nova_core::api::NovaCoreApi;
-> +use nova_core::api::{
-> +    NovaCoreApi,
-> +    NovaCoreApiHandle, //
-> +};
-> 
->  pub(crate) struct NovaDriver;
-> 
-> @@ -32,7 +33,7 @@ pub(crate) struct Nova<'bound> {
-> 
->  /// DRM registration data, accessible from ioctl handlers via the registration guard.
->  pub(crate) struct DrmRegData<'bound> {
-> -    pub(crate) api: Pin<&'bound NovaCoreApi<'bound>>,
-> +    pub(crate) api: NovaCoreApiHandle<'bound>,
->  }
-> 
->  /// Convienence type alias for the DRM device type for this driver
-> @@ -69,7 +70,7 @@ fn probe<'bound>(
->      ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
->          let drm = drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
->          let reg_data = DrmRegData {
-> -            api: NovaCoreApi::of(adev)?,
-> +            api: NovaCoreApi::handle(adev)?,
->          };
->          // SAFETY: `reg` is stored in `Nova` and dropped when the driver is unbound; it is
->          // never forgotten.
-> diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-> index e1223a29f8b1..798b14f33e20 100644
-> --- a/drivers/gpu/drm/nova/file.rs
-> +++ b/drivers/gpu/drm/nova/file.rs
-> @@ -32,13 +32,15 @@
-> 
->  impl GpuInfo {
->      fn new(reg_data: &DrmRegData<'_>) -> Self {
-> -        Self(uapi::drm_nova_gpu_info {
-> -            architecture: reg_data.api.architecture(),
-> -            implementation: reg_data.api.implementation(),
-> -            vram_size: reg_data.api.vram_size(),
-> -            gpu_name: reg_data.api.gpu_name(),
-> -            gpu_short_name: reg_data.api.gpu_short_name(),
-> -            gpu_gid: reg_data.api.gpu_gid(),
-> +        reg_data.api.with(|api| {
-> +            Self(uapi::drm_nova_gpu_info {
-> +                architecture: api.architecture(),
-> +                implementation: api.implementation(),
-> +                vram_size: api.vram_size(),
-> +                gpu_name: api.gpu_name(),
-> +                gpu_short_name: api.gpu_short_name(),
-> +                gpu_gid: api.gpu_gid(),
-> +            })
->          })
->      }
->  }
-> @@ -74,7 +76,7 @@ pub(crate) fn get_param(
->          _file: &drm::File<File>,
->      ) -> Result<u32> {
->          let value = match getparam.param as u32 {
-> -            uapi::NOVA_GETPARAM_VRAM_BAR_SIZE => reg_data.api.bar1_size()?,
-> +            uapi::NOVA_GETPARAM_VRAM_BAR_SIZE => reg_data.api.with(|api| api.bar1_size())?,
->              _ => return Err(EINVAL),
->          };
-> 
-> diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
-> index ad4b62db1e5f..c9ae48d278af 100644
-> --- a/drivers/gpu/nova-core/api.rs
-> +++ b/drivers/gpu/nova-core/api.rs
-> @@ -10,7 +10,7 @@
->      device::Bound,
->      pci,
->      prelude::*,
-> -    types::CovariantForLt, //
-> +    types::ForLt, //
->  };
-> 
->  use crate::gpu::{
-> @@ -39,10 +39,9 @@ impl NovaCoreApi<'_> {
->          *self.gpu.gsp_static_info.gpu_gid()
->      }
-> 
-> -    /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registered
-> -    /// by nova-core.
-> -    pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreApi<'_>>> {
-> -        adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
-> +    /// Obtain a [`NovaCoreApiHandle`] from an auxiliary device registered by nova-core.
-> +    pub fn handle(adev: &auxiliary::Device<Bound>) -> Result<NovaCoreApiHandle<'_>> {
-> +        NovaCoreApiHandle::of(adev)
->      }
-> 
->      /// Returns the architecture identifier of this GPU.
-> @@ -66,3 +65,22 @@ pub fn vram_size(&self) -> u64 {
->          self.gpu.gsp_static_info.vram_size()
->      }
->  }
-> +
-> +/// Closure-based API handle for invariant registration data types.
-> +pub struct NovaCoreApiHandle<'a> {
-> +    adev: &'a auxiliary::Device<Bound>,
-> +}
-> +
-> +impl<'a> NovaCoreApiHandle<'a> {
-> +    fn of(adev: &'a auxiliary::Device<Bound>) -> Result<Self> {
-> +        adev.registration_data_with::<ForLt!(NovaCoreApi<'_>), ()>(|_| ())?;
-> +        Ok(Self { adev })
-> +    }
-> +
-> +    /// Access the [`NovaCoreApi`] through a closure.
-> +    pub fn with<R>(&self, f: impl for<'b> FnOnce(Pin<&'b NovaCoreApi<'b>>) -> R) -> R {
-> +        self.adev
-> +            .registration_data_with::<ForLt!(NovaCoreApi<'_>), R>(f)
-> +            .expect("TypeId was validated in NovaCoreApiHandle::of()")
-> +    }
-> +}
-> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-> index 4d3c18d6a733..025ba2869d6c 100644
-> --- a/drivers/gpu/nova-core/driver.rs
-> +++ b/drivers/gpu/nova-core/driver.rs
-> @@ -15,7 +15,7 @@
->          Atomic,
->          Relaxed, //
->      },
-> -    types::CovariantForLt,
-> +    types::ForLt,
->  };
-> 
->  use crate::{
-> @@ -29,7 +29,7 @@
->  #[pin_data]
->  pub(crate) struct NovaCore<'bound> {
->      #[allow(clippy::type_complexity)]
-> -    _reg: auxiliary::Registration<'bound, CovariantForLt!(NovaCoreApi<'_>)>,
-> +    _reg: auxiliary::Registration<'bound, ForLt!(NovaCoreApi<'_>)>,
->      #[pin]
->      pub(crate) gpu: Gpu<'bound>,
->      bar: pci::Bar<'bound, BAR0_SIZE>,
+diff --git a/drivers/clk/qcom/negcc-nord.c b/drivers/clk/qcom/negcc-nord.c
+index 0db284edc4e4..896050291af0 100644
+--- a/drivers/clk/qcom/negcc-nord.c
++++ b/drivers/clk/qcom/negcc-nord.c
+@@ -1877,6 +1877,7 @@ static const struct qcom_reset_map ne_gcc_nord_resets[] = {
+ 	[NE_GCC_USB3PHY_PHY_PRIM_BCR] = { 0x2b004 },
+ 	[NE_GCC_USB3PHY_PHY_SEC_BCR] = { 0x2d004 },
+ 	[NE_GCC_QUSB2PHY_PRIM_BCR] = { 0x2e000 },
++	[NE_GCC_QUSB2PHY_SEC_BCR] = { 0x2f000 },
+ };
+ 
+ static const struct clk_rcg_dfs_data ne_gcc_nord_dfs_clocks[] = {
+-- 
+2.43.0
+
