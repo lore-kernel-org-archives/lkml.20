@@ -1,145 +1,112 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244393E7BB2
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:16:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A1D470E84;
+	Tue,  1 Sep 2026 10:16:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788257787; cv=none; b=Qks5Gy3d8yfyYXaZJVu09kZnPGNiaGS+e4urBg7GdQxQCFIxRNaC7+QPRzczySuIzJw4UtbvdbioQr4RnjPmWUB6OBHtRUwoxe3yHZcvJHbVgQEeUMPcQxHYQhbI0IzCO3yFD59Gv1Kv+comSCjJ8Q1pFmsED1McabBTh5+KAXQ=
+	t=1788257812; cv=none; b=oXw3lqF0w74In+oPfsQHzynm4NrQE4iDBo8w+K0HQG8pVK0e65lfnrtvx1iMU4gMKViVLZ8Jq+srCbJivgOjSp0Cl9cUltevPvY1DnKUOkFtVdI2XMPlPwQ3+vtNAH+jG0LFO6nDpWS07NEzHH6MIjVuaLq0oUS1BsaZSDCjgEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788257787; c=relaxed/simple;
-	bh=5bpnmQ86mvZe2UIseHzHxlIdzv5S+FgF5FbM99+JTlQ=;
+	s=arc-20240116; t=1788257812; c=relaxed/simple;
+	bh=DnD/iNMB/KP1774zZg5MWKZxw8E8HMSirGcNJqM4UGQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iTgC5R/VSapLn++msCbBZWII0Bf6XMzURtBMUgR8H3rXUQVYenPDCacyRNkv8lBxVdO4Be/H4yuEEQP1HYWu5UyFhutn27LP+Atw1PQicdzsw0k1ubeN8cmERYQzuk59nWvAjL2QkiI0AHxyixCRIG98GH375RvUi2/+mwlDj7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=vGcnOMDe; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=TXUZB66XzErDoviiig5aiBrXEcm6Wl3O7ry4Kq//4WaRrr6V5sbxidWR+FT5du1qCwPTma7x7AWyXAX0C/i0FrmOFntvtfRxXCO7wJCKFjchzOXG5PlJfQ3qCTY2ONMk/oH3sU8DPz0sjrSyetxsCxH4WQZlFUgKdg0Njfq+hQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ipt6SyiG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="vGcnOMDe"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=G5jvN6YRvxNquzzcBmcxTrfd9PTx/7jSkn0g8m6DHYo=; b=vGcnOMDeA3NpwZyI1OsXCeZXPD
-	rOfAwAo5TklKxNAGwRANCSJUYSdbjsuPNbF3xxfcm4XNJwR1Zmrbn9yiGeUWi7cZjMUhv5sf6hjnZ
-	zwjVDHxOIvRHYhLJSdoh99OoJjzu04iznqIo68Ep0cxDHEjSmUaD/GlZIN6xIoTnHAiDcdamXmlC7
-	9A9YmBri73tuNPBoTiegfLhiSw8YUT4MM4Cp9RQem3OvXLThWKFcYjYQSZ/ALuk+zJ0rUHLJZ++Ao
-	a1m4hITAhkPrRCLgBXpIORnpcoQRPOQehmH4x7HwcRnrwuowVFONrT33c+5EtOj8kpWouERO1EXQu
-	PxjsUK/Q==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x1LXD-00000004vHy-3aGj;
-	Tue, 01 Sep 2026 10:16:07 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 1AC9430031E; Tue, 01 Sep 2026 12:16:07 +0200 (CEST)
-Date: Tue, 1 Sep 2026 12:16:07 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Jianyong Wu <wujianyong@hygon.cn>
-Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Chen Yu <yu.c.chen@intel.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Phil Auld <pauld@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, jianyong.wu@outlook.com, zhongyuan@hygon.cn,
-	huangsj@hygon.cn, wangfengyu@hygon.cn, yingzhiwei@hygon.cn,
-	justin.he@arm.com
-Subject: Re: [RFC PATCH v2 12/23] sched/cache: Introduce rq affinity gain
- calculation
-Message-ID: <20260901101607.GG776954@noisy.programming.kicks-ass.net>
-References: <20260827122816.756234-1-wujianyong@hygon.cn>
- <20260827122816.756234-13-wujianyong@hygon.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ipt6SyiG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DC7A1F000E9;
+	Tue,  1 Sep 2026 10:16:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788257811;
+	bh=ol6tR+j5Tl3m3HrcN4R4z8nuGHCVHXbd8qPHGmyFR8k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ipt6SyiGher5ElQx1ABVBcBGC9zYG7RJrm/6lqDwCs8Z9jQ9kD7vb/0N6JO7v29s8
+	 HXIUtG8wJ0oZymb802yruHE+AVXFOb7LHCVu++dOXcNoAMZZa0Cyvgi+RwfOHNtwzX
+	 xh4IGOxuhBX47kz3gceVTjwsRuYSoXNPqfDpPeEFZ6XsSOxsJVWtaEeACZbA00g4VO
+	 DckCwhFgJ1B17phH1PHvRGdFaXuEuYI1rBCg/RwhZV2SKRcEKh7pgmPvk6hfZCtunn
+	 b028HjxPU0pvjkkdH9Ra+d6ZmqzyOIOCyTHRnLgGSa/l8TbD0e1oDiPxl4A8gWPgJA
+	 fOhoNhBxrbivA==
+Date: Tue, 1 Sep 2026 12:16:47 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-serial@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Lubomir Rintel <lkundrak@v3.sk>, in file <devicetree@vger.kernel.org>, 
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] dt-bindings: serial: 8250: add marvell,armada-38x-uart
+ compatible
+Message-ID: <20260901-sweet-hawk-of-research-d22ba3@quoll>
+References: <20260901004203.49686-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260827122816.756234-13-wujianyong@hygon.cn>
+In-Reply-To: <20260901004203.49686-1-rosenp@gmail.com>
 
-On Thu, Aug 27, 2026 at 08:28:05PM +0800, Jianyong Wu wrote:
+On Mon, Aug 31, 2026 at 05:42:03PM -0700, Rosen Penev wrote:
+> The Armada 38x and 98DX3236 SoCs use this compatible, either paired
+> with "ns16550a" (armada-38x.dtsi) or on its own
+> (armada-xp-98dx3236.dtsi). Neither form is covered by the 8250
+> binding, so dtbs_check reports:
+> 
+>   serial@12000: failed to match any schema with compatible:
+>   ['marvell,armada-38x-uart', 'ns16550a']
+> 
+> Add a standalone const entry and a two-string variant paired with
+> "ns16550a".
+> 
+> Validated with make dt_binding_check (8250.yaml) and dt-validate on
+> armada-38x and armada-xp 98DX3236 boards: the UART schema errors are
+> gone.
 
-> +static int get_affi_llcs(struct sched_domain *sd, int src_llc, int dst_llc,
-> +			 int *affi_llcs, int *affi)
-> +{
+Drop last paragraph. If AI tool added it, then NEVER DO THAT. We don't
+need to read LLM hallucinations.
 
-> +			if (src_llc > dst_llc) {
-> +				affi[j] = clamp(src_llc - dst_llc, 1, 1024);
-> +				affi_llcs[j++] = i;
-> +			}
+Commit msgs do not have obvious build process outputs as confirmation
+that you did absolutely basic build process step.
 
-> +	return j;
-> +}
-> +
-> +static int get_affi_numas(int src_node, int dst_node, int *affi_nodes, int *affi)
-> +{
+The same you do not say:
+1. Code compiles
+2. Code passes checkpatch
+3. Code passes sparse, smatch etc.
 
-> +		if (src_dist > dst_dist) {
-> +			affi[j] = clamp(src_dist - dst_dist, 4, 1024);
-> +			affi_nodes[j++] = node;
-> +		}
+> 
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/serial/8250.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
+> index 8c2c177faf89..f71c6afe02f2 100644
+> --- a/Documentation/devicetree/bindings/serial/8250.yaml
+> +++ b/Documentation/devicetree/bindings/serial/8250.yaml
+> @@ -109,6 +109,7 @@ properties:
+>        - const: aspeed,ast2500-vuart
+>        - const: intel,xscale-uart
+>        - const: mrvl,pxa-uart
+> +      - const: marvell,armada-38x-uart
 
-> +	return j;
-> +}
-> +
-> +static int calc_affinity_numa_score(struct sched_domain *sd, int src_cpu, int dst_cpu,
-> +			int *affi_node, int *affi, int *last_node, int *num)
-> +{
-> +	int src_node, dst_node, score = 0;
-> +
-> +	src_node = cpu_to_node(src_cpu);
-> +	dst_node = cpu_to_node(dst_cpu);
-> +	if (src_node != *last_node) {
-> +		*last_node = src_node;
-> +		memset(affi_node, 0, (max_lid + 1) * sizeof(int));
-> +		memset(affi, 0, (max_lid + 1) * sizeof(int));
+ma < mr, keep list ordered.
 
-This and..
+>        - const: nuvoton,wpcm450-uart
+>        - const: nuvoton,npcm750-uart
+>        - const: nvidia,tegra20-uart
+> @@ -119,6 +120,9 @@ properties:
+>                - exar,xr16l2551
+>                - exar,xr16l2550
+>            - const: ns8250
+> +      - items:
+> +          - const: marvell,armada-38x-uart
 
-> +		*num = get_affi_numas(src_node, dst_node, affi_node, affi);
-> +	}
-> +
-> +	for (int i = 0; i < *num; i++) {
-> +		if ((unsigned int)affi_node[i] < nr_node_ids)
-> +			score += sd->numa_counts[affi_node[i]] * affi[i];
-> +	}
-> +
-> +	return score;
-> +}
-> +
-> +static int calc_affinity_llc_score(struct sched_domain *sd_cur, struct sched_domain *sd,
-> +			int src_cpu, int dst_cpu, int *affi_llc,
-> +			int *affi, int *last_llc, int *num)
-> +{
-> +	int src_llc, dst_llc, score = 0;
-> +
-> +	src_llc = llc_id(src_cpu);
-> +	dst_llc = llc_id(dst_cpu);
-> +
-> +	if (src_llc != *last_llc) {
-> +		*last_llc = src_llc;
-> +		memset(affi_llc, 0, (max_lid + 1) * sizeof(int));
-> +		memset(affi, 0, (max_lid + 1) * sizeof(int));
+And what if the DTS is just wrong? So warning about wrong DTS is now
+suppressed and made documented ABI change?
 
-... this. Why do we need the memset()? AFAICT the get_affi_*() functions
-use direct assignment and the sum is limited to the number returned.
+Best regards,
+Krzysztof
 
-> +		*num = get_affi_llcs(sd_cur, src_llc, dst_llc, affi_llc, affi);
-> +	}
-> +
-> +	for (int i = 0; i < *num; i++) {
-> +		if ((unsigned int)affi_llc[i] < sd->llc_max)
-> +			score += sd->llc_counts[affi_llc[i]] * affi[i];
-> +	}
-> +
-> +	return score;
-> +}
