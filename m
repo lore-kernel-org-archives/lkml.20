@@ -1,304 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA22F2F7EE7;
-	Tue,  1 Sep 2026 13:58:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B6E336886
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271104; cv=none; b=gB/4NQLU1B42/tm87Mh8JXaUGZGlQobzO+45cqI2r3jDog3+B/9BPfI/d7O43sUkBhoa5drapEOh7Hke4OwNTYvne6I7JIA4REVE8QgWHEHfZDADajJy0wPFRmqe0A0G12XNlGTPBuOdFhpRtqYLlsFRcC98KJDK2Fg2GGpavIA=
+	t=1788271112; cv=none; b=eNxQBvCczPtc5HXejCZOpk9Ah4J3RkFJP1H4gZg7ieEI0YDm5HoSNC27jM2drWNKBHoKcCBos1AR714/5ugq4iRId6NbI5p9zG0dVsIRWt9GnbZiAmo/zZ5XxC4J2TjrRyxnqLGyCdlB1VMlcThc+FwR9UJ4EqZtfhQ5tZO1n/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788271104; c=relaxed/simple;
-	bh=Uzb9oLzP/M/veRTwQx8O16a2XGVn4c5i03hGnQZaKic=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pDushV396/6YifvgXeTli+tvHLt7mHIESETzRdDKkmzUJoHzXeYULzTIqHzz1QE/ulPUTZ1uQyIpUtvbV7FnM4lup9E/ywhqhe46uTz5usNC5qHfD4xB5ShGZ+C+KXAU0p/zmnWVdMEybehYBweS3q2TJERd7oX5we2X+I/m/9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NVxWcULt; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NVxWcULt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1AE61F000E9;
-	Tue,  1 Sep 2026 13:58:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788271102;
-	bh=v7puyWp/ROQswaeSJtWkmIdn56iY62cBg7FWAYcpIY8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NVxWcULtb8vZvibgQJ/A72FOUxIHYDUw2GJXZris9HtuxuyMqpwcbdSNfPO4+THil
-	 zjycOub+YLQEFzY9SEneBsrVF6ZhvhloT6Fi9bt/tJpPTGCyS9eH2AxZemWhJDpvgj
-	 CRikl0X+igBO2+zRbFVaSmAjyIQwfqEhC6jrS3RQrnqVW26Gfz2q6mOE8PGMCz+zGa
-	 oEOlXMcy+fAqIZH8tBgfE42ttP0oVYxCVa2idJK3iXtq+cZz0Dnke++ewDFtBg5jUT
-	 5K5q1RnOa6MPc8l3SCQkLR0AQXEc8EzqDII/3nptXowzoE7r43McL55nkO3SQPEYLz
-	 WQR5IATopGGrQ==
-Message-ID: <38389106-9609-4ec4-bc83-3d1b7fac3698@kernel.org>
-Date: Tue, 1 Sep 2026 15:58:10 +0200
+	s=arc-20240116; t=1788271112; c=relaxed/simple;
+	bh=ENIdvHRw1IiFMIzhFtYNWAzVUTCe7z0d5NvRi0XN0lQ=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ImXuV55fGhs9X/qdRxscfGwHWkGcT1AizGkJj+aK/PD2oWWZvgxJjDrDOvsbMrMfiIquRVwurE9X1can26gBsjPvm/Rzqp397WjPmXqlC0d8lGhs4zlsOcq3RqQ/zkC9sB/5vfe0toUJzSqtU8wJf95EyXF9nercnEFF5pZNTV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f5.google.com with SMTP id 46e09a7af769-7f66624aa21so426775a34.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:58:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788271109; x=1788875909;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oSScl9b39LFhA6dCrI2VzC9NEUldGRGWmrst0p3B1xs=;
+        b=HE0XLbwWMf+upKXw0c3JHy47zqswh1mu+tXhP6ElmpyIU4iYukD8F+czFVjXJOd5c6
+         rRzWoLzcmAGRIYbuwnf+QFcVgqR9A3NsPeLT6bpMIuE/EKe9lxSxUky1QIU5SxGEdX1/
+         plgh4nxXkZxxvfFxm2j9UXLs9t82Id5xBlE7mpyyeGJSV+WjLWh6BPLB8yVTVGycio8v
+         xhM9sl7/yxNdQnDe8UfaPQC3lYBC6udx+dAp3Gpvl+INuDMQX3uZROeEyKgYczQtKbEN
+         LvfNvrDa3NYlQ09ArRLNFMiQTEqlQI1EunC146t4nZnYu7XjUNIPZdklOU03HkvboMKh
+         IFXg==
+X-Forwarded-Encrypted: i=1; AHgh+RqYGUG8sbm9+RwxtMoLuwGnhoaBUhG8E7vDnrvoPns5PLhUWsWkrUFHkgIzrq03+soPgFuCQsEp/tAUDt8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjcsIcYlkGmrlHmFNbaAWO6XWn0HiiVjOJO2kKQ5mwTlKmhof6
+	nHPTXXEDoDoCso0olbTYvSlVn5DoipJu5cMf90XwP6vb3wOCo+l+lNFOezP90BIsqEzob5IC6MH
+	ABkEMUawhqoEvotEXSriIpy9IUO6yyk+vU3mGp6Pyd7lnAgMrlIn1gqk59Ug=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 02/11] soc: qcom: add crypto_virt backend for
- virtio-blk inline crypto
-To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>, ebiggers@kernel.org,
- axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
- James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Cc: neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
- mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
- bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
- stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
- xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
-References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
- <20260827160806.1295313-3-linlin.zhang@oss.qualcomm.com>
- <f5915133-ffac-4777-b7d9-cf38ba163d43@kernel.org>
- <03097984-fded-477e-82b6-f9b31fd2f1d3@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <03097984-fded-477e-82b6-f9b31fd2f1d3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:60b:b0:6b3:bb82:2736 with SMTP id
+ 006d021491bc7-6b3bb82372amr1185072eaf.17.1788271109452; Tue, 01 Sep 2026
+ 06:58:29 -0700 (PDT)
+Date: Tue, 01 Sep 2026 06:58:29 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a96da05.08473e0e.15b4ac.0001.GAE@google.com>
+Subject: [syzbot] [sctp?] WARNING: refcount bug in sctp_generate_timeout_event (4)
+From: syzbot <syzbot+f5baf1a1df3261c2ad8d@syzkaller.appspotmail.com>
+To: davem@davemloft.net, edumazet@google.com, horms@kernel.org, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-sctp@vger.kernel.org, 
+	lucien.xin@gmail.com, marcelo.leitner@gmail.com, netdev@vger.kernel.org, 
+	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 01/09/2026 11:39, Linlin Zhang wrote:
-> 
-> 
-> On 8/31/2026 2:56 PM, Krzysztof Kozlowski wrote:
->> On 27/08/2026 18:07, Linlin Zhang wrote:
->>> From: linlzhan <linlin.zhang@oss.qualcomm.com>
->>>
->>> In a Qualcomm GVM environment the ICE hardware is controlled by the
->>
->> What is GVM?
+Hello,
 
-There is no such TLA (git grep).
+syzbot found the following issue on:
 
-Maybe you meant guest in a virtual machine? Don't use some qcom-specific
-TLA.
+HEAD commit:    bf1079577a11 Merge tag 'sched_ext-for-7.3-rc1-fixes' of gi..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17d06d9e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=f5baf1a1df3261c2ad8d
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
+Unfortunately, I don't have any reproducer for this issue yet.
 
->>
-> 
-> GVM means Guest Virtual Machine. This is designed for the virtualization
-> platform.
-> 
->>> host, GVM has no direct access to it. So, key operation in GVM is
->>> done through SCM calls rather than direct register access. In this
->>> way the access to ICE registers are offloaded to Trust Zone.
->>>
->>> Add QCOM_CRYPTO_VIRT, which implements struct virtblk_crypto_variant_ops
->>> for the virtio_blk_crypto_ext dispatch layer. It maps keyslot
->>> program/evict to qcom_scm_ice_set_key() and
->>> qcom_scm_ice_invalidate_key(), and software-secret derivation to
->>> qcom_scm_derive_sw_secret().
->>>
->>> Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
->>> ---
->>>  drivers/soc/qcom/Kconfig       | 12 +++++
->>>  drivers/soc/qcom/Makefile      |  1 +
->>>  drivers/soc/qcom/crypto_virt.c | 89 ++++++++++++++++++++++++++++++++++
->>>  3 files changed, 102 insertions(+)
->>>  create mode 100644 drivers/soc/qcom/crypto_virt.c
->>>
->>> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
->>> index 2b524154d9fb..6c632d114d45 100644
->>> --- a/drivers/soc/qcom/Kconfig
->>> +++ b/drivers/soc/qcom/Kconfig
->>> @@ -298,6 +298,18 @@ config QCOM_INLINE_CRYPTO_ENGINE
->>>  	tristate
->>>  	select QCOM_SCM
->>>  
->>> +config QCOM_CRYPTO_VIRT
->>> +	tristate "Qualcomm Technologies, Inc. Crypto Virt driver"
->>> +	depends on VIRTBLK_CRYPTO_VIRTUALIZATION
->>> +	depends on QCOM_SCM
->>> +	default VIRTBLK_CRYPTO_VIRTUALIZATION if ARCH_QCOM
->>> +	help
->>> +	  GVM-side hardware-wrapped-key SCM operations exposed to
->>> +	  virtio_blk's inline crypto layer: per-slot key programming and
->>> +	  eviction, and key derive/generate/prepare/import.
->>> +	  Say Y here to compile the driver as a part of kernel or M to compile
->>> +	  as a module.
->>> +
->>>  config QCOM_KRYO_L2_ACCESSORS
->>>  	bool
->>>  	depends on ARM64
->>> diff --git a/drivers/soc/qcom/Makefile b/drivers/soc/qcom/Makefile
->>> index 798643be3590..6d4b7546d1fb 100644
->>> --- a/drivers/soc/qcom/Makefile
->>> +++ b/drivers/soc/qcom/Makefile
->>> @@ -39,5 +39,6 @@ obj-$(CONFIG_QCOM_KRYO_L2_ACCESSORS) +=	kryo-l2-accessors.o
->>>  obj-$(CONFIG_QCOM_ICC_BWMON)	+= icc-bwmon.o
->>>  qcom_ice-objs			+= ice.o
->>>  obj-$(CONFIG_QCOM_INLINE_CRYPTO_ENGINE)	+= qcom_ice.o
->>> +obj-$(CONFIG_QCOM_CRYPTO_VIRT)	+= crypto_virt.o
->>>  obj-$(CONFIG_QCOM_PBS) +=	qcom-pbs.o
->>>  obj-$(CONFIG_QCOM_UBWC_CONFIG) += ubwc_config.o
->>> diff --git a/drivers/soc/qcom/crypto_virt.c b/drivers/soc/qcom/crypto_virt.c
->>> new file mode 100644
->>> index 000000000000..4ee2a36af6c1
->>> --- /dev/null
->>> +++ b/drivers/soc/qcom/crypto_virt.c
->>> @@ -0,0 +1,89 @@
->>> +// SPDX-License-Identifier: GPL-2.0-only
->>> +
->>> +#include <linux/module.h>
->>> +#include <linux/types.h>
->>> +#include <linux/blk-crypto.h>
->>> +#include <linux/virtio_blk_crypto_ext.h>
->>> +#include <linux/firmware/qcom/qcom_scm.h>
->>> +
->>> +static int crypto_virt_program_key(const struct blk_crypto_key *key,
->>> +				   unsigned int slot)
->>> +{
->>> +	u32 dus_512_units;
->>> +	int ret;
->>> +
->>> +	if (!key || !key->size) {
->>> +		pr_err("%s: invalid key\n", __func__);
->>> +		return -EINVAL;
->>> +	}
->>> +
->>> +	/* Only AES-256-XTS has been tested so far. */
->>> +	if (key->crypto_cfg.crypto_mode !=
->>> +	    BLK_ENCRYPTION_MODE_AES_256_XTS) {
->>> +		pr_err_ratelimited("Unsupported crypto mode: %d\n",
->>> +				    key->crypto_cfg.crypto_mode);
->>> +		return -EINVAL;
->>> +	}
->>> +
->>> +	/* qcom_scm_ice_set_key()'s data_unit_size is expressed in 512-byte units */
->>> +	dus_512_units = key->crypto_cfg.data_unit_size / 512;
->>> +
->>> +	ret = qcom_scm_ice_set_key(slot, key->bytes, key->size,
->>> +		QCOM_SCM_ICE_CIPHER_AES_256_XTS, dus_512_units);
->>> +	if (ret)
->>> +		pr_err("%s: slot=%u ret=%d\n", __func__, slot, ret);
->>> +
->>> +	return ret;
->>> +}
->>> +
->>> +static int crypto_virt_invalidate_key(unsigned int slot)
->>> +{
->>> +	int ret;
->>> +
->>> +	ret = qcom_scm_ice_invalidate_key(slot);
->>> +	if (ret)
->>> +		pr_err("%s: slot=%u ret=%d\n", __func__, slot, ret);
->>> +
->>> +	return ret;
->>> +}
->>> +
->>> +static int crypto_virt_derive_sw_secret_key(const u8 *eph_key, size_t eph_key_size,
->>> +					    u8 sw_secret[BLK_CRYPTO_SW_SECRET_SIZE])
->>> +{
->>> +	int ret;
->>> +
->>> +	ret = qcom_scm_derive_sw_secret(eph_key, eph_key_size,
->>> +					sw_secret, BLK_CRYPTO_SW_SECRET_SIZE);
->>> +	if (ret == -EIO || ret == -EINVAL)
->>> +		ret = -EBADMSG; /* probably invalid key */
->>> +
->>> +	if (ret)
->>> +		pr_err("%s: ret=%d\n", __func__, ret);
->>> +
->>> +	return ret;
->>> +}
->>> +
->>> +static struct virtblk_crypto_variant_ops virtblk_crypto_qcom_vops = {
->>
->> Why is a crypto-handling code in drivers/soc/?
->>
-> 
-> This driver is a Qualcomm vendor-specific driver, plays the similar role in the
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/c52dc60311d3/disk-bf107957.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/37591d96a65b/vmlinux-bf107957.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/729e80af6e39/bzImage-bf107957.xz
 
-Not really, there is nothing vendor specific here. Look at this code.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+f5baf1a1df3261c2ad8d@syzkaller.appspotmail.com
 
-> guest, like the ice driver in the host. so I place it in drivers/soc/.
-> 
->>> +	.owner = THIS_MODULE,
->>> +	.program_key = crypto_virt_program_key,
->>> +	.evict_key = crypto_virt_invalidate_key,
->>> +	.derive_sw_secret_key = crypto_virt_derive_sw_secret_key,
->>> +};
->>> +
->>> +static int __init crypto_virt_init(void)
->>> +{
->>> +	virtblk_set_crypto_ops(&virtblk_crypto_qcom_vops);
->>> +	return 0;
->>> +}
->>> +module_init(crypto_virt_init);
->>> +
->>> +#if IS_MODULE(CONFIG_QCOM_CRYPTO_VIRT)
->>> +static void __exit crypto_virt_exit(void)
->>> +{
->>> +	virtblk_set_crypto_ops(NULL);
->>> +}
->>> +module_exit(crypto_virt_exit);
->>> +#endif
->>
->> How do you instantiate this driver exactly?
->>
-> 
-> This driver is not instantiated per device. It acts as a provider of
-> Qualcomm vendor-specific inline crypto operations, which is based on
-> qcom_scm driver, and registers a global virtblk_crypto_ops instance
-> during module initialization. So that, each blk_crypto_ll_ops from
-> virtio block driver in common kernel can be sent via qcom_smc driver.
+------------[ cut here ]------------
+refcount_t: addition on 0; use-after-free.
+WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x9f/0x110 lib/refcount.c:25, CPU#1: syz.0.2220/13955
+Modules linked in:
+CPU: 1 UID: 0 PID: 13955 Comm: syz.0.2220 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+RIP: 0010:refcount_warn_saturate+0x9f/0x110 lib/refcount.c:25
+Code: eb 66 85 db 74 3e 83 fb 01 75 4c e8 6b d2 e9 fc 48 8d 3d f4 46 a7 0b 67 48 0f b9 3a eb 4a e8 58 d2 e9 fc 48 8d 3d f1 46 a7 0b <67> 48 0f b9 3a eb 37 e8 45 d2 e9 fc 48 8d 3d ee 46 a7 0b 67 48 0f
+RSP: 0018:ffffc90000a18c28 EFLAGS: 00010246
+RAX: ffffffff84dde548 RBX: 0000000000000002 RCX: ffff88807715be80
+RDX: 0000000000000100 RSI: 0000000000000100 RDI: ffffffff90852c40
+RBP: 0000000000000000 R08: ffff88807715be80 R09: 0000000000000005
+R10: 0000000000000004 R11: 0000000000000100 R12: dffffc0000000000
+R13: 0000000000000001 R14: ffff888020fde004 R15: ffff888020fde640
+FS:  00007f4a87be06c0(0000) GS:ffff888124dda000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ff55dd92eb8 CR3: 000000005800b000 CR4: 0000000000350ef0
+Call Trace:
+ <IRQ>
+ sctp_generate_timeout_event+0x1c8/0x390 net/sctp/sm_sideeffect.c:284
+ call_timer_fn+0x18d/0x5f0 kernel/time/timer.c:1748
+ expire_timers kernel/time/timer.c:1799 [inline]
+ __run_timers kernel/time/timer.c:2374 [inline]
+ __run_timer_base+0x652/0x8b0 kernel/time/timer.c:2386
+ run_timer_base kernel/time/timer.c:2395 [inline]
+ run_timer_softirq+0xb7/0x170 kernel/time/timer.c:2405
+ handle_softirqs+0x226/0x860 kernel/softirq.c:645
+ __do_softirq kernel/softirq.c:679 [inline]
+ invoke_softirq kernel/softirq.c:519 [inline]
+ __irq_exit_rcu+0xcb/0x220 kernel/softirq.c:767
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0xa6/0xc0 arch/x86/kernel/apic/apic.c:1062
+ </IRQ>
+ <TASK>
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+RIP: 0010:lock_acquire+0x232/0x350 kernel/locking/lockdep.c:5913
+Code: ff ff ff e8 a0 a9 40 0a f7 44 24 10 00 02 00 00 0f 84 38 ff ff ff 65 48 8b 05 f2 44 f1 11 48 3b 44 24 50 75 33 fb 48 83 c4 58 <5b> 41 5c 41 5d 41 5e 41 5f 5d e9 ba 25 6d ff cc 48 8d 3d 77 31 da
+RSP: 0018:ffffc9000dabfac8 EFLAGS: 00000282
+RAX: b29753db72d85c00 RBX: 0000000000000001 RCX: 8000000000000001
+RDX: 00000000b866b3b2 RSI: ffffffff8e6fc28f RDI: ffffffff8c6d9380
+RBP: ffff88807715be80 R08: 8c00000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: ffff888066f6e418 R12: ffff888066f6e418
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000246
+ __raw_spin_lock include/linux/spinlock_api_smp.h:190 [inline]
+ _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:173
+ spin_lock include/linux/spinlock.h:347 [inline]
+ __io_cq_lock io_uring/io_uring.c:484 [inline]
+ __io_submit_flush_completions+0x85/0x10d0 io_uring/io_uring.c:1133
+ io_submit_flush_completions io_uring/io_uring.h:253 [inline]
+ io_submit_state_end io_uring/io_uring.c:1939 [inline]
+ io_submit_sqes+0x1cec/0x2310 io_uring/io_uring.c:2063
+ __do_sys_io_uring_enter io_uring/io_uring.c:2637 [inline]
+ __se_sys_io_uring_enter+0x35b/0x1bb0 io_uring/io_uring.c:2586
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f4a86d9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f4a87bdff38 EFLAGS: 00000246 ORIG_RAX: 00000000000001aa
+RAX: ffffffffffffffda RBX: 0000200000000340 RCX: 00007f4a86d9e159
+RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000009
+RBP: 0000000000000a12 R08: 0000000000000000 R09: 0000000000000008
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000200000000940
+R13: 0000200000000948 R14: 0000000000000e26 R15: 0000000000000002
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	eb 66                	jmp    0x68
+   2:	85 db                	test   %ebx,%ebx
+   4:	74 3e                	je     0x44
+   6:	83 fb 01             	cmp    $0x1,%ebx
+   9:	75 4c                	jne    0x57
+   b:	e8 6b d2 e9 fc       	call   0xfce9d27b
+  10:	48 8d 3d f4 46 a7 0b 	lea    0xba746f4(%rip),%rdi        # 0xba7470b
+  17:	67 48 0f b9 3a       	ud1    (%edx),%rdi
+  1c:	eb 4a                	jmp    0x68
+  1e:	e8 58 d2 e9 fc       	call   0xfce9d27b
+  23:	48 8d 3d f1 46 a7 0b 	lea    0xba746f1(%rip),%rdi        # 0xba7471b
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	eb 37                	jmp    0x68
+  31:	e8 45 d2 e9 fc       	call   0xfce9d27b
+  36:	48 8d 3d ee 46 a7 0b 	lea    0xba746ee(%rip),%rdi        # 0xba7472b
+  3d:	67                   	addr32
+  3e:	48                   	rex.W
+  3f:	0f                   	.byte 0xf
 
 
-If it is not instantiated, then it is dead code. Drop all this. Or read
-my message again very carefully instead of replying with whatever copy
-of commit msg. I did not ask what is this driver about. I did not ask
-what it is providing. I asked how do you instantiate it or clarifying -
-how do you load and run this code in final system.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-This is just dead/unused code, straight from downstream.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-NAK.
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-Best regards,
-Krzysztof
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
