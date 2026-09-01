@@ -1,102 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076D430649C;
-	Tue,  1 Sep 2026 15:44:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC67A37C0F6;
+	Tue,  1 Sep 2026 15:45:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788277492; cv=none; b=Bd/n5hrnW/5WPqvCYHg+QdxVq3RCoBqmx+SjtBvfbLnloXhntC8mZYtao6nfUv3RKoV9R7z3fTBRUbnXdh0oQb6bMtNTBt79CJ3awYvb1I0jaBeviRgzvLHv/+nJnCB6uKWcNJT2MRDS0X4+VsveEs2GVDd08qXW+AQYUQ62sDo=
+	t=1788277525; cv=none; b=CTGmjCOcDibN+n4jBbjfh1hoYpzcx3ESmqzSocIvBDJYL9qP0uoDiKidQ/qG+xiYSiZp3WhVuvBg6XYEYPIAPXqsdcuy2WlsUELgP/+9kR0Z1SFRnvP/kroKTQRiqU650bIaFIanOVyFIUQvVoMG05G8RgPSS/DAa1FXDGr0FHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788277492; c=relaxed/simple;
-	bh=zkeUpvHYxowjGSjJIdJQCsPLMVgQMKK9RMuE+rzCm4c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gP5p6Hkg2WvSWJ+fm7x9WitfLUEnxW9nZZfUgep1JChUF6aHIk9lM8uAuOxAXY5vskciV/rWeiai4BJhJmf7fXzbUgg0L5GillqUCfHCzVfhNRcleAheNzo1W6oWmoERuwi3mbyz20M0XXZYbBndSXCQK+lG4wdrEw01TpSGJSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UeXEXa4j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788277525; c=relaxed/simple;
+	bh=dvQNXwiMDod+2uflvpcP24b3/EVxbgjaLostWO5JtjE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j95LXb8rMMKhol+fQwzTTXNAuR8Cy7lNb+8itlMtU4M6cvwa2Q7VVI3Zacnr23c3d+lRAykaJkOaHu+j4sWo4ndS+Fb52dwC7hyatdC8pkZe0oXSPJbUE/JBN69L//OF9FRlEw1CmStuI49N+e2EG5Cmlf+aC/JqswW9+J2U0Ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=H6wD8Hfr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UeXEXa4j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 480F31F000E9;
-	Tue,  1 Sep 2026 15:44:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788277490;
-	bh=1tch/WQKM55fDJLl/Qo+nJxh09lQVygvGYpF+71lhlw=;
-	h=From:To:Cc:Subject:Date;
-	b=UeXEXa4jC7igD1Axs0IJzp801xgE+3oTQH86Nq7UqVTjqDZbmHUfTadTWU3okLdAy
-	 RwqmD5XL4+uTBbqC42K91S/UulW6cwf7Vb7xpvvizCGHmTIZHoXNHpxSBnpUDbC+Le
-	 apXAdjBtqPM+6LXeJoUenF1oDSFi1zemsPBsfOnVNAMwmBAJ4tFl0oCqX3828sVs2U
-	 ULagZTVagynduPPNYt52wXZaW3LSofmyqofpSQ3bY98hJYCF3izxvu5byeak2WZQuF
-	 Ub+fOWLIthFiZ+I3KHwn+9OFOi5VHQAC6PM2pJSuc/mvfnCm/In2yQRhO3tlJho5hq
-	 2kq/Dpy7PJiSQ==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Brian Gix <brian.gix@intel.com>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2 1/1] Bluetooth: mgmt: Dequeue pending mesh_send_sync entries on cancel
-Date: Tue,  1 Sep 2026 15:44:26 +0000
-Message-ID: <20260901154427.3991920-1-lee@kernel.org>
-X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="H6wD8Hfr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D93F51F000E9;
+	Tue,  1 Sep 2026 15:45:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788277523;
+	bh=KCmEnY3oXWIPqW/sQ32DOzf6z9w5WFFW23E323fyx8o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H6wD8Hfr4i0YD1PE3EB45wlQa54vx45Jac6ZFhZvqeEMG+C6IBKRlbkAU34qYCv+g
+	 em3QO1K4sDEe1VgopX+g8VYeqK1yhB8/hAjRgNcudlX7mSGNjl/vTzcYyZQragm6xE
+	 dbNOO+l4sfqNgOExREUkLo/zn0hlvFt/0BrGnmyI=
+Date: Tue, 1 Sep 2026 17:45:18 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: Remove unused ifname module parameter
+Message-ID: <2026090126-riverboat-unfocused-e368@gregkh>
+References: <20260901152144.5978-1-nsvatoslav515@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901152144.5978-1-nsvatoslav515@gmail.com>
 
-In send_cancel(), pending mesh_tx objects are removed from the
-hdev->mesh_pending list and freed via mesh_send_complete(). However, if
-a mesh transmission was already queued onto hdev->cmd_sync_work_list
-via mesh_next(), the queued entry retains a raw pointer to mesh_tx.
+On Tue, Sep 01, 2026 at 06:21:44PM +0300, Svyatoslav Nikolenko wrote:
+> Remove the ifname module parameter and the corresponding ifname field in
+> struct registry_priv. Hardcode the default "wlan%d" interface name format
+> string directly in rtw_drv_register_netdev().
+> 
+> Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+> ---
+>  drivers/staging/rtl8723bs/include/drv_types.h | 2 --
+>  drivers/staging/rtl8723bs/os_dep/os_intfs.c   | 9 +--------
+>  2 files changed, 1 insertion(+), 10 deletions(-)
+> 
+> diff --git a/drivers/staging/rtl8723bs/include/drv_types.h b/drivers/staging/rtl8723bs/include/drv_types.h
+> index 552d0c5fa47f..5837c51ac2f5 100644
+> --- a/drivers/staging/rtl8723bs/include/drv_types.h
+> +++ b/drivers/staging/rtl8723bs/include/drv_types.h
+> @@ -151,8 +151,6 @@ struct registry_priv {
+>  
+>  	u8 enable80211d;
+>  
+> -	u8 ifname[16];
+> -
+>  	u8 notch_filter;
+>  
+>  	/* define for tx power adjust */
+> diff --git a/drivers/staging/rtl8723bs/os_dep/os_intfs.c b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
+> index dd0c5fc813c8..ade4576ea033 100644
+> --- a/drivers/staging/rtl8723bs/os_dep/os_intfs.c
+> +++ b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
+> @@ -109,10 +109,6 @@ static int rtw_80211d;
+>  static int rtw_qos_opt_enable;/* 0: disable, 1:enable */
+>  module_param(rtw_qos_opt_enable, int, 0644);
+>  
+> -static char *ifname = "wlan%d";
+> -module_param(ifname, charp, 0644);
+> -MODULE_PARM_DESC(ifname, "The default name to allocate for first interface");
+> -
+>  char *rtw_initmac;  /*  temp mac address if users want to use instead of the mac address in Efuse */
+>  
+>  module_param(rtw_initmac, charp, 0644);
+> @@ -256,8 +252,6 @@ static void loadparam(struct adapter *padapter, struct net_device *pnetdev)
+>  
+>  	registry_par->enable80211d = (u8)rtw_80211d;
+>  
+> -	strscpy(registry_par->ifname, ifname, sizeof(registry_par->ifname));
+> -
+>  	registry_par->notch_filter = (u8)rtw_notch_filter;
+>  
+>  	registry_par->reg_enable_tx_power_limit = (u8)rtw_tx_pwr_lmt_enable;
+> @@ -784,9 +778,8 @@ int rtw_drv_register_netdev(struct adapter *if1)
+>  {
+>  	struct dvobj_priv *dvobj = if1->dvobj;
+>  	struct adapter *padapter = dvobj->padapters;
+> -	char *name = if1->registrypriv.ifname;
+>  
+> -	return _rtw_drv_register_netdev(padapter, name);
+> +	return _rtw_drv_register_netdev(padapter, "wlan%d");
+>  }
+>  
+>  static int _netdev_open(struct net_device *pnetdev)
+> -- 
+> 2.47.3
 
-When hci_cmd_sync_work later processes the entry, it attempts to
-execute mesh_send_sync and its destroy callback mesh_send_start_complete
-using the already freed mesh_tx pointer, leading to a use-after-free.
+Close, but really, why are we saying "wlan" at all?  Why not use the
+default wifi network naming like it is supposed to be using?  The whole
+callpath here that sets the device name can probably be removed as the
+networking core should handle that for us, right?
 
-Fix this by invoking hci_cmd_sync_dequeue() for mesh_send_sync on the
-target mesh_tx before completing it. If the entry is found and dequeued,
-its destroy callback will complete and free the object; otherwise,
-mesh_send_complete() is called directly.
+thanks,
 
-Fixes: b338d91703fa ("Bluetooth: Implement support for Mesh")
-Signed-off-by: Lee Jones <lee@kernel.org>
----
-
-v1 => v2: Email address switch - no functional change
-
- net/bluetooth/mgmt.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index fd045460e236..f10cf64fb79e 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -2427,14 +2427,20 @@ static int send_cancel(struct hci_dev *hdev, void *data)
- 		do {
- 			mesh_tx = mgmt_mesh_next(hdev, cmd->sk);
- 
--			if (mesh_tx)
--				mesh_send_complete(hdev, mesh_tx, false);
-+			if (mesh_tx) {
-+				if (!hci_cmd_sync_dequeue(hdev, mesh_send_sync,
-+							  mesh_tx, NULL))
-+					mesh_send_complete(hdev, mesh_tx, false);
-+			}
- 		} while (mesh_tx);
- 	} else {
- 		mesh_tx = mgmt_mesh_find(hdev, cancel->handle);
- 
--		if (mesh_tx && mesh_tx->sk == cmd->sk)
--			mesh_send_complete(hdev, mesh_tx, false);
-+		if (mesh_tx && mesh_tx->sk == cmd->sk) {
-+			if (!hci_cmd_sync_dequeue(hdev, mesh_send_sync,
-+						  mesh_tx, NULL))
-+				mesh_send_complete(hdev, mesh_tx, false);
-+		}
- 	}
- 
- 	mgmt_cmd_complete(cmd->sk, hdev->id, MGMT_OP_MESH_SEND_CANCEL,
--- 
-2.55.0.897.gb25b4bd76c-goog
-
+greg k-h
