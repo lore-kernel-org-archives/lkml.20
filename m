@@ -1,200 +1,195 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mta1.migadu.com (out-193.mta1.migadu.com [95.215.58.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B53136B932
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:36:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F44320D4F0
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:37:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788244601; cv=none; b=XCii0qbj+y3PqQ594DMLpVjTs8ACw/9+DQi6DfIaOu6G6/csi06u0ajRXDzqpj0/iK/Mvfr4DwXWbwZtDsrcJbhxIrpZ2K7lm7zBCoJI9rKElpGMj/06XokIeMX/QNr+sO+jG8Mi5P93SXTPBUAReBjsSP9Z38ry1V+f0eTzTFY=
+	t=1788244639; cv=none; b=eidaZxLZ0ytc/TToyHZDl7dASwKiD/AGen/7f8kRWBGPbhSl4+cuBEsuzNYAGpxZWjvcx7VM60i5waBO5eKbaJzyiSHz9/Oe4o19Wsi+eZBZPUGM7tfXRULwogFrmrhTgozHHouJwIKJyiHYgH/4eF3EH1n9Z3kROeP3o6Bo7zc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788244601; c=relaxed/simple;
-	bh=NTyzz1tppaj+6o9zA66wVH4g6nKViE8xv5+rYVtAJLY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j33teJBRP89G+4Ed0nla8sXlyfV4a35UqHVzWwYCnHqbQXGdj1dPFJepwYjjpZktqZkPLox9aHY6sUz3IiJibd9o7jyH/Vtk9X71T1hMaVk7WoIrOdm2y0TZWRSelPqk9K/FDaTMvBUCoJ7dilEoUDbkyKM4zWS33YYY24WAgDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PQUieViO; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788244639; c=relaxed/simple;
+	bh=ofSqdcwXgCRt+zdux/vTEdF8pWvPqi8/CFgklbAc2sM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nRbyu6EePm7HGUCAKSpG0oncCbO48G5IOl2Qs6f9ffoPW/38joG0OsM+h3LNUR6bSmhkWZeGsm6Ccl8svNVBl3EeOlZ6zK10gaRT3G4FKyecx5c/1dHMSlbQBfNTRWphid19khcPm+rIw9FbgDlBWWPhKTuuSW0dkQyO72tNjjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tF2A4lH8; arc=none smtp.client-ip=95.215.58.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PQUieViO"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc1cc1b42b5so4663064a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:36:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788244599; x=1788849399; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9koJ5kLU6HxS0Wc8/5ifXaSo5oQLaBgI3WQL+B9qH7Y=;
-        b=PQUieViOrfE1FGrtJI+GJRasHnJIrfm01jSoXqz9gOq/7f3haD+cVUltZyLXW0dOrq
-         fNtSum22LEfB/YMjdax1cTvaAOGqLaWPwR9sZHAePRfby/RoOjxXDsMNJ8kxrLiR/WZn
-         Ig8S7eqxa+ShlQo6HOeKa3iC71RnRo+Cd2sU9VB95u6SWR9fQZyqnAPHB0IIra+16dpV
-         /YCz4xrr3nD7t0bIV60YReZCgFoqlHSEnlYYVJOldj9BUJ3bVkECSM8OPGVRGDSZnBsa
-         k8i+dApC1weAkXrGiAz1fhU4xOn02KHdrLfAJP2EMBTPZawrDO+gXOgYqAtpZzPU7teu
-         5tsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788244599; x=1788849399;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9koJ5kLU6HxS0Wc8/5ifXaSo5oQLaBgI3WQL+B9qH7Y=;
-        b=eQPptCc/R+0GkP7uYyzUATiOE/u3xWMcH9L1IOc6U435nV/qIHB3xdwK8LHRvBtyKk
-         nRDcJl8RNhRgETuAs5EljzsLMMakdOfszDDdC5PIljso+dxbS103zJs9KbgS9YF2wlb3
-         f0L59H9MjyLVd1wBm1wBFnzL3CEORhLR6P4CCu7+zY1J+Y5t70JFL21bWbNIEZ6IdKiY
-         yn/tWB/dRopTU7xQ9yhedg6pqFIGlIfbui/OspBsgNyr1Ewu7jhhl7YC0EqKQmcpinFF
-         VmlaCj+t6v/q71Jcxb2nPPNW8L1ZQsfHwVf5x8ABVDhsKhDbpfyRq/gay7mEhYaLy+8h
-         9yZg==
-X-Forwarded-Encrypted: i=1; AKwUvBz8Ihqh+ywrargY+DFn0M3HvwSAT5mZMGfxWLYIziY3yzsqLIAok2L25PcJA4j+6ODB7JfNLPYKZEmL0hc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQUbgVsF1/trANUEDA5pcG8JYGzZLT5vOXhFOdpXjciqjn2MYs
-	WHgaejE+AaWrnot7u0YDOMCitC911oMVpaNN2UYZWsnG8lKBIEd8HEA9
-X-Gm-Gg: AYBFou0NKuxjsxSVIhJjY5S9vZu6kT4nbgDXYwcdr0aciFg5ScQ7mbWazyhyC/El9x6
-	KpWbH6ej9gcWJ6RQCRlzR+dgG4t9qd4uJQOsm8Qq6ag83ZT68fcfG4uVtcbjvbcsWRQAg0MRqIQ
-	ogDgOl665cF08TNPbXQrMNa/d8xwJuNzpmbGgPBnCCv6SCMOeVJo104fcSCYedfM2+/iKSZCo0G
-	qQU6vmy6CxUyQqmO8CmrA0Q8TUAxUSq9xLqYSayWHgEAZAyYgjuB0jS/Pdap4jNCNWpcSj42L8y
-	5lGqNuSn4/MBcvMgivt4FeuUKkBQncakOC2aWHqCp9HlStCQDKIBwet1IygJr1OoeN082XKIQqm
-	iqipZFa6g18xFFlMBWvNMXTBXtcxeiRu5xfhtR7fTzXISQx6CLSZ2yR1T1FNkr4pwC+nIK3STxe
-	8qy9ebwMpZi8ZvcLQI/owOebZyv1qs5UNKhLAIzF4y2dbJhS4c4RMq5KOjc9DYwv8cKL9LHxEXt
-	4tGhNEOyr4iZA==
-X-Received: by 2002:a17:90a:d44b:b0:38e:c7b0:84ad with SMTP id 98e67ed59e1d1-399074b6df0mr9147987a91.0.1788244599494;
-        Mon, 31 Aug 2026 23:36:39 -0700 (PDT)
-Received: from localhost.localdomain ([103.16.69.192])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0dc854dsm32694425c88.10.2026.08.31.23.36.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 31 Aug 2026 23:36:38 -0700 (PDT)
-From: Aditya Dash <mradityadash@gmail.com>
-To: Benjamin Tissoires <bentiss@kernel.org>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 7/7] HID: hid-lenovo-go: clear calibration status on start
-Date: Tue,  1 Sep 2026 12:06:08 +0530
-Message-ID: <7d100dad9edf6fd6b161e361053372a732b32eb4.1788222001.git.mradityadash@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1788222001.git.mradityadash@gmail.com>
-References: <cover.1788222001.git.mradityadash@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tF2A4lH8"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ofSqdcwXgCRt+zdux/vTEdF8pWvPqi8/CFgklbAc2sM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788244635; v=1; x=1788849435;
+ b=tF2A4lH8UQmddosIc+Gzgclh6BZgBtOgW9RvE9t7pTyK0cC6sMKAO1bp33A09HBsKVx6xeaw
+ 65e3Y6OtGpebnSLhusiwbcoK0QniuGJA9ty5ExMRvv4GSoN4YPJmoY1luTZ2zE9dqPKR8RLxx7a
+ zuCplKB8WsspvtbPQ/EmErzo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fdc2348df12fdb54;
+	Tue, 01 Sep 2026 06:37:15 +0000
+X-Mizu-Trace-ID: fdc2348df12fdb54
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f777c2f2-3bf8-44e4-be5e-81dee14d445f@linux.dev>
+Date: Tue, 1 Sep 2026 14:37:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] tls: fix TX context confusion in the max payload size
+ setsockopt
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org, john.fastabend@gmail.com, sd@queasysnail.net,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ horms@kernel.org, wilfred.mallawa@wdc.com, linux-kernel@vger.kernel.org
+References: <20260831025607.62927-1-jiayuan.chen@linux.dev>
+ <20260901031931.1636980-1-kuba@kernel.org>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <20260901031931.1636980-1-kuba@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-A completed calibration leaves success or failure in its status file. If
-the next calibration has the same result, userspace sees no change and
-cannot tell when the new attempt starts or finishes.
 
-Link each calibration action attribute to its status field. Set only that
-field to unknown before submitting Start. Stop leaves the status unchanged,
-and the next firmware result replaces unknown with success or failure.
+on 9/1/26 11:19 AM, Jakub Kicinski wrote:
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+>      tls: fix TX context confusion in the max payload size setsockopt
+>
+> The patch replaces the unchecked tls_sw_ctx_tx() dereference in
+> do_tls_setsockopt_tx_payload_len() with a new helper,
+> tls_tx_record_is_open(), that dispatches on ctx->tx_conf so the TLS_HW
+> path looks at tls_offload_ctx_tx(ctx)->open_record instead of a field of
+> the wrong structure.  The rest of the option handling is unchanged.
+>
+>> diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
+>> index fbb274287aa5..e4f288c1fa34 100644
+>> --- a/net/tls/tls_main.c
+>> +++ b/net/tls/tls_main.c
+>> @@ -833,15 +833,29 @@ static int do_tls_setsockopt_no_pad(struct sock *sk, sockptr_t optval,
+>>   	return rc;
+>>   }
+>>
+>> +/* priv_ctx_tx holds a different structure on each TX path, so tx_conf has to
+>> + * say which open record to look at.
+>> + */
+>> +static bool tls_tx_record_is_open(struct tls_context *ctx)
+>> +{
+>> +	switch (ctx->tx_conf) {
+>> +	case TLS_SW:
+>> +		return !!tls_sw_ctx_tx(ctx)->open_rec;
+>> +	case TLS_HW:
+>> +		return !!tls_offload_ctx_tx(ctx)->open_record;
+>> +	default:
+>> +		return false;
+>> +	}
+>> +}
+>> +
+>>   static int do_tls_setsockopt_tx_payload_len(struct sock *sk, sockptr_t optval,
+>>   					    unsigned int optlen)
+>>   {
+>>   	struct tls_context *ctx = tls_get_ctx(sk);
+>> -	struct tls_sw_context_tx *sw_ctx = tls_sw_ctx_tx(ctx);
+>>   	u16 value;
+>>   	bool tls_13 = ctx->prot_info.version == TLS_1_3_VERSION;
+>>
+>> -	if (sw_ctx && sw_ctx->open_rec)
+>> +	if (tls_tx_record_is_open(ctx))
+>>   		return -EBUSY;
+> [Severity: High]
+> For the TLS_HW arm, is open_record enough to tell that no record is being
+> built?  do_tls_setsockopt() calls this helper with only the socket lock
+> held:
+>
+> net/tls/tls_main.c:do_tls_setsockopt() {
+> 	case TLS_TX_MAX_PAYLOAD_LEN:
+> 		lock_sock(sk);
+> 		rc = do_tls_setsockopt_tx_payload_len(sk, optval, optlen);
+> 		release_sock(sk);
+> }
+>
+> but the offload TX path is serialized by ctx->tx_lock, and it drops the
+> socket lock at a point where open_record is already NULL:
+>
+> net/tls/tls_device.c:tls_push_record() {
+> 	offload_ctx->open_record = NULL;
+> 	...
+> 	return tls_push_sg(sk, ctx, offload_ctx->sg_tx_data, 0, flags);
+> }
+>
+> tls_push_sg() calls tcp_sendmsg_locked(), which for a blocking sendmsg()
+> with a full send buffer waits in sk_stream_wait_memory() and releases the
+> socket lock there.  tls_push_data() has a second such wait on the
+> tls_do_allocation() failure path.
+>
+> So can a concurrent setsockopt() see open_record == NULL, take the "not
+> open" branch and publish a smaller ctx->tx_max_payload_len while a sender
+> is parked mid-sendmsg holding tx_lock?
 
-Fixes: 995887a10da1 ("HID: hid-lenovo-go: Add Calibration Settings")
-Assisted-by: Pi:gpt-5.6-sol
-Signed-off-by: Aditya Dash <mradityadash@gmail.com>
----
- drivers/hid/hid-lenovo-go.c | 38 +++++++++++++++++++++++++++++--------
- 1 file changed, 30 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/hid/hid-lenovo-go.c b/drivers/hid/hid-lenovo-go.c
-index a6dec5490d17..749536e19d2d 100644
---- a/drivers/hid/hid-lenovo-go.c
-+++ b/drivers/hid/hid-lenovo-go.c
-@@ -111,6 +111,11 @@ struct go_cfg_attr {
- 	u8 index;
- };
- 
-+struct go_cal_cfg_attr {
-+	u8 index;
-+	u8 *status;
-+};
-+
- struct command_report {
- 	u8 report_id;
- 	u8 id;
-@@ -1410,7 +1415,8 @@ static ssize_t device_status_show(struct device *dev,
- static ssize_t calibrate_config_store(struct device *dev,
- 				      struct device_attribute *attr,
- 				      const char *buf, u8 cmd, u8 sub_cmd,
--				      size_t count, enum dev_type device_type)
-+				      size_t count, enum dev_type device_type,
-+				      u8 *cal_status)
- {
- 	u8 val;
- 	int ret;
-@@ -1422,6 +1428,9 @@ static ssize_t calibrate_config_store(struct device *dev,
- 		return -EINVAL;
- 
- 	val = ret;
-+	if (val == CAL_START)
-+		*cal_status = CAL_STAT_UNKNOWN;
-+
- 	ret = mcu_property_out(drvdata.hdev, MCU_CONFIG_DATA, cmd, sub_cmd,
- 			       device_type, &val, sizeof(val));
- 	if (ret < 0)
-@@ -1818,7 +1827,8 @@ static void hid_go_brightness_set(struct led_classdev *led_cdev,
- 				     const char *buf, size_t count)           \
- 	{                                                                     \
- 		return calibrate_config_store(dev, attr, buf, _name.index,    \
--					      _scmd, count, _dtype);          \
-+					      _scmd, count, _dtype,           \
-+					      _name.status);                   \
- 	}                                                                     \
- 	static ssize_t _name##_##_rtype##_show(                               \
- 		struct device *dev, struct device_attribute *attr, char *buf) \
-@@ -1978,17 +1988,23 @@ LEGO_DEVICE_ATTR_RW(rumble_notification_left, "rumble_notification",
- static DEVICE_ATTR_RO_NAMED(rumble_notification_left_index,
- 			    "rumble_notification_index");
- 
--static struct go_cfg_attr cal_trigg_left = { SET_TRIGGER_CFG };
-+static struct go_cal_cfg_attr cal_trigg_left = {
-+	SET_TRIGGER_CFG, &drvdata.gp_left_trigg_cal_status
-+};
- LEGO_CAL_DEVICE_ATTR(cal_trigg_left, "calibrate_trigger", TRIGGER_CALIBRATE,
- 		     LEFT_CONTROLLER, index);
- static DEVICE_ATTR_RO_NAMED(cal_trigg_left_index, "calibrate_trigger_index");
- 
--static struct go_cfg_attr cal_joy_left = { SET_JOYSTICK_CFG };
-+static struct go_cal_cfg_attr cal_joy_left = {
-+	SET_JOYSTICK_CFG, &drvdata.gp_left_joy_cal_status
-+};
- LEGO_CAL_DEVICE_ATTR(cal_joy_left, "calibrate_joystick", JOYSTICK_CALIBRATE,
- 		     LEFT_CONTROLLER, index);
- static DEVICE_ATTR_RO_NAMED(cal_joy_left_index, "calibrate_joystick_index");
- 
--static struct go_cfg_attr cal_gyro_left = { SET_GYRO_CFG };
-+static struct go_cal_cfg_attr cal_gyro_left = {
-+	SET_GYRO_CFG, &drvdata.gp_left_gyro_cal_status
-+};
- LEGO_CAL_DEVICE_ATTR(cal_gyro_left, "calibrate_gyro", GYRO_CALIBRATE,
- 		     LEFT_CONTROLLER, index);
- static DEVICE_ATTR_RO_NAMED(cal_gyro_left_index, "calibrate_gyro_index");
-@@ -2085,17 +2101,23 @@ LEGO_DEVICE_ATTR_RW(rumble_notification_right, "rumble_notification",
- static DEVICE_ATTR_RO_NAMED(rumble_notification_right_index,
- 			    "rumble_notification_index");
- 
--static struct go_cfg_attr cal_trigg_right = { SET_TRIGGER_CFG };
-+static struct go_cal_cfg_attr cal_trigg_right = {
-+	SET_TRIGGER_CFG, &drvdata.gp_right_trigg_cal_status
-+};
- LEGO_CAL_DEVICE_ATTR(cal_trigg_right, "calibrate_trigger", TRIGGER_CALIBRATE,
- 		     RIGHT_CONTROLLER, index);
- static DEVICE_ATTR_RO_NAMED(cal_trigg_right_index, "calibrate_trigger_index");
- 
--static struct go_cfg_attr cal_joy_right = { SET_JOYSTICK_CFG };
-+static struct go_cal_cfg_attr cal_joy_right = {
-+	SET_JOYSTICK_CFG, &drvdata.gp_right_joy_cal_status
-+};
- LEGO_CAL_DEVICE_ATTR(cal_joy_right, "calibrate_joystick", JOYSTICK_CALIBRATE,
- 		     RIGHT_CONTROLLER, index);
- static DEVICE_ATTR_RO_NAMED(cal_joy_right_index, "calibrate_joystick_index");
- 
--static struct go_cfg_attr cal_gyro_right = { SET_GYRO_CFG };
-+static struct go_cal_cfg_attr cal_gyro_right = {
-+	SET_GYRO_CFG, &drvdata.gp_right_gyro_cal_status
-+};
- LEGO_CAL_DEVICE_ATTR(cal_gyro_right, "calibrate_gyro", GYRO_CALIBRATE,
- 		     RIGHT_CONTROLLER, index);
- static DEVICE_ATTR_RO_NAMED(cal_gyro_right_index, "calibrate_gyro_index");
--- 
-2.55.0
+Yes, this window exists, but it seems to be a pre-existing issue. I 
+think I can fix it by taking tx_lock.
+
+> If so, does the offload path then keep using the old limit for the rest of
+> that sendmsg?  tls_push_data() latches it once, before the loop, and never
+> refreshes it:
+>
+> net/tls/tls_device.c:tls_push_data() {
+> 	max_open_record_len = tls_ctx->tx_max_payload_len +
+> 			      prot->prepend_size;
+> 	do {
+> 		...
+> 		copy = min_t(size_t, size, max_open_record_len - record->len);
+> }
+>
+> That would mean setsockopt returns 0 while records larger than the new
+> limit continue to go out, which does not match what
+> Documentation/networking/tls.rst says about TLS_TX_MAX_PAYLOAD_LEN ("the
+> kernel enforces the specified limit on all outgoing TLS records.  No
+> plaintext fragment will exceed this size").
+>
+> There is a follow-on question about the next call.  If the sender leaves a
+> record open across the syscall (MSG_MORE with record->num_frags <
+> MAX_SKB_FRAGS - 1), the next tls_push_data() latches the new, smaller
+> max_open_record_len while record->len is still the old, larger value.
+> max_open_record_len is u32 and record->len is int, so does
+>
+> 	copy = min_t(size_t, size, max_open_record_len - record->len);
+>
+> wrap around here and drop the record-size clamp entirely, letting
+> tls_append_frag() grow the record past the 2^14 plaintext maximum before
+> "record->len >= max_open_record_len" closes it?
+>
+> Note that tls_sw_sendmsg_locked() re-reads the limit on every iteration:
+>
+> net/tls/tls_sw.c:tls_sw_sendmsg_locked() {
+> 		record_room = tls_ctx->tx_max_payload_len - msg_pl->sg.size;
+> }
+>
+> so the latched offload value looks like the odd one out.
+>
+> Would it be better to serialize the check and the store against the lock
+> that actually protects record building?  Since tls_device_sendmsg() takes
+> tx_lock before lock_sock:
+>
+> net/tls/tls_device.c:tls_device_sendmsg() {
+> 	mutex_lock(&tls_ctx->tx_lock);
+> 	lock_sock(sk);
+> }
+>
+> tx_lock is the outer lock, so taking it inside the already socket-locked
+> helper is not an option; the acquisition in do_tls_setsockopt() would have
+> to be reordered (or the helper made to wait for in-flight senders, as
+> tls_sk_proto_cleanup() does on sk_write_pending).
+>
+> One smaller point: the plain read of tls_ctx->tx_max_payload_len in
+> tls_push_data() against the plain write in
+> do_tls_setsockopt_tx_payload_len() is an unannotated data race that KCSAN
+> would flag.
+
+I don't think so: all tls_push_data() callers hold the socket lock, and the
+
+write is under the socket lock too, so the accesses are serialized.
 
