@@ -1,65 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB75379C55
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 05:59:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581D9367B67;
+	Tue,  1 Sep 2026 06:00:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788242366; cv=none; b=Ylnqa1QJx66aBWElkRlnqC5R33UvQkpbCslRwlD/T3Lk4tScUXgii3T6IXXjySsmonNEYy09p0B/t04iO76fG+b4z4i0ArdgxNV6LkphSwYLwPb7Unso6WOSDK78YHx9SdF0VJ3oC1LTJacxxgjKl3cRcWPJpmD3+T11YivI1PI=
+	t=1788242416; cv=none; b=cbPzHjlh6wy+zhzjzHLaiM2oBLv9dEhTzi1UqKUA6eOl2djaf7RdX6kEa0NtOZoFuXKMG7ajXhziGosSalqkQZdzr3Kp0I7T+PXBpJA1AWfK6BfhTYeGrt7KmK/J4B+GRECfhplNwaBUT0vFifjExTy+pmXVab3w8bT4rIh4kVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788242366; c=relaxed/simple;
-	bh=+MEYaRxmrzVr2mMwJ9f60mchRqkAWv68VkgKuT8Pz6c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FP2Zpk3+t3V2/qd4VsXkd9r7saiepHcOzDvkM3/JrFQpXk4K/TH+437b2r7f6N4PFR4o4Hqiteez+CsI/Wujd50e5j51+6KiboduCpf3IvKuKFUpU0DwJpZjlhQY7Dhkp2uWGyslaQuJfIxs+zLLsfDUsPK9sSwNHx2Um8gSoQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jAok0+s8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788242416; c=relaxed/simple;
+	bh=UGJqu37s0ABSWryh5LzvdjoRydwm0KsOzycKf6N2wFc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sr5CTgnGOVhsSE5jppEJe/n5fPQDnSGNrgIX6i7JjXa4hwJ1I1ULpIKHJUYE2PTBSD5Vr7jIryba1EB0UGuOqTcOA30iqaMcB+OcnLVJAZzWzKbkvTeU+q4Bvzd66BufmG0LKdB6Sc4QPxPgdfj32nTt0bbD8ha5ia3Hjl+Lmus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=biKabJ8+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jAok0+s8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E07E51F000E9;
-	Tue,  1 Sep 2026 05:59:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="biKabJ8+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D55D01F000E9;
+	Tue,  1 Sep 2026 06:00:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788242365;
-	bh=SzImJZLLnR7KzJ1vSv1N9X+Zs6R4uonAJmI6sq3tQuI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jAok0+s8gqUkYTlkSy9agEI/tLZevpFcyz7fQAUuLVrTlhdqkA8+bEdFm0OkKNGV2
-	 YhJ/xWCmWC9WVhhaPvUldfix3UbPdQsRI/aCRULLyRyEM+pSclvqH2L0T51dJh1VIa
-	 kKNj9qUc/tssdl8VJnv/VBz3vwDzqoxvmG0IVi+XuTX+Vvsmh5iTIQiPpaXz59vLZr
-	 L8aov2+sZ3/ui7mh9C9s98suT+FAsYu32mvOLBBDRu+wfYlg2wh3scirv/szWkPPa6
-	 VMhNRRR4utA7v9r3tb1Bc+6BfFywsYJDR7giWB+l+MrNssvgfF2M7BWPxU0F7F253Z
-	 8iZQSz1c6DB3w==
-Date: Tue, 1 Sep 2026 13:58:59 +0800
-From: Gao Xiang <xiang@kernel.org>
-To: Jingbo Xu <jefflexu@linux.alibaba.com>
-Cc: xiang@kernel.org, chao@kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] erofs: add sysfs feature entry for xattr prefixes
-Message-ID: <apZpo_arKm1aGCEi@XiangdeMacBook-Pro.local>
-Mail-Followup-To: Jingbo Xu <jefflexu@linux.alibaba.com>, xiang@kernel.org,
-	chao@kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-References: <20260901024622.108319-1-jefflexu@linux.alibaba.com>
+	s=k20260515; t=1788242414;
+	bh=Ah+9JDZKqo0bH0rKB5SjEQ+pIRTmwPatoyuFQfz+WJ8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=biKabJ8+uzE4WvWhzT/xMoiIn7nHC3LtOYw4oWRfmhDIIiB1ReqSveu4rGbmzEk7L
+	 hufwhvo+JiTqCGdOq9s1szrtkLX9a52rawxWpMfAYvn8ltGlRPMu5kb5QrnuzdsJNa
+	 dU9fry808Q8RaY0igB0A6/INBFkZj7XLP+ZD4odv0DFNoDtGpV4mmrOWmuxsrq2Bgi
+	 Ngz3MqC/W27I77HQTT+/AYqHM7hBu5Acgx7mYYqbpaaHeFjeoSI0MeHOE3gzJh2oE6
+	 iiGw2yRpyyihQJDZizaHxChq/Wd4ilGRWlE3Mbr0x4J1VNu3vXeOtVXhdudwF774QS
+	 S9ux4uhdM16Cg==
+Message-ID: <d9b2bbd9-8cd4-4472-aa92-419f8c6d1583@kernel.org>
+Date: Tue, 1 Sep 2026 08:00:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260901024622.108319-1-jefflexu@linux.alibaba.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC/DO NOT MERGE 09/12] drm/msm/hdmi: Add HDMI for Eliza
+ SoC
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-phy@lists.infradead.org
+References: <20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com>
+ <20260828-drm-msm-hdmi-eliza-v1-9-67843277de17@oss.qualcomm.com>
+ <65f0a137-851f-46a1-a915-bbb2ecfd7f93@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <65f0a137-851f-46a1-a915-bbb2ecfd7f93@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Jingbo,
-
-On Tue, Sep 01, 2026 at 10:46:22AM +0800, Jingbo Xu wrote:
-> Let /sys/fs/erofs/features/xattr_prefixes advertise that this kernel
-> supports the EROFS_FEATURE_INCOMPAT_XATTR_PREFIXES on-disk format.
+On 31/08/2026 18:45, Konrad Dybcio wrote:
+> On 8/28/26 4:05 PM, Krzysztof Kozlowski wrote:
+>> Qualcomm Eliza SoC with DPU v12.4 comes with HDMI on INTF_11 with
+>> additional INTR registers.  The device clocks look different comparing
+>> to last variant of HDMI from MSM8998.
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> ---
 > 
-> Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
+> [...]
+> 
+>> +	hdmi->pixel_src_clk = devm_clk_get_optional(dev, "pixel_src");
+>> +	if (IS_ERR(hdmi->pixel_src_clk)) {
+>> +		ret = dev_err_probe(dev, PTR_ERR(hdmi->pixel_src_clk),
+>> +				    "failed to get pixel src clock\n");
+>> +		goto err_put_bridge;
+>> +	}
+> 
+> Why do we need to toggle the source clock directly? Is the clock
+> driver broken?
 
-It'd be better to add a "Fixes:" tag since it should be backported by
-the stable kernels which have this feature.
+It's getting reference not for toggling - there is no prepare/enable.
+It's getting for reparenting to solve the same problem DSI has -
+assigned-clock-parents are reparenting to PHY PLLL before PHY is on
+leading to stuck RCG.
 
-Also it'd also be better to mention the first impacted kernel version
-in the commit message too. 
-
-Thanks,
-Gao Xiang
+Best regards,
+Krzysztof
