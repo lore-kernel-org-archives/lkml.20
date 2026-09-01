@@ -1,105 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2307745D1BF;
-	Tue,  1 Sep 2026 08:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C68A47143D;
+	Tue,  1 Sep 2026 08:13:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788250406; cv=none; b=EoEo+hNDu40kCOMIfybZVcHo0voFzbqAdhbIHdeBlM3gYalczq+Ga5lXwar9UZ+43PX4K4B3JYft6SKvrgApsL8dwktDHezHBaja+StgJAQVzir9bqa7HSple0iYqNYS/mO19nbpqXu57S0PXJUImNCb8j+PliMdv5jU6jrCKLk=
+	t=1788250418; cv=none; b=VfkAg/A8Mu5ogaa4rClq9oN/KyXKwWM0zT78PgvT+ogI1gzeXVUj966CYtprhDqRg0zqvtC/w3I9hi9yzZKILVvZxaLxTqNCkJS1ub5tPCLEdsF4wMlIcpj2iCDPBle3QN/71Zf0FsEry4+VH/I+j9lolUxe+2vZc+PexWjygcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788250406; c=relaxed/simple;
-	bh=EzayhaknGbZa7kB1j0z9Vrfnb8Jw2AzgUjvuwUTPy9I=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JkFgGb8FHdQt11zUojZZHPKGPgfJgjdgsja7AMjDTv/2U3oVwiIbkBlR5uXjO2+YaFdMLsfJRSDzEyz4XMmIJbBgv4RQNPp+5n+OgVAYL5x1nN81QOd5uXZsZPNDcmoLvUPsnUc/2rz5TsEesNT8y7uyWKQ/vkQ9orQxM/cigfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R8bH0lfP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788250418; c=relaxed/simple;
+	bh=1f9nysRfz/QcucqWxxSunsNyOyUcqiNvoHA7rzPhFSE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pPxYeHLIRY/2c1UtatUG0OnAcTz2TGbcBtX8aTxs0rmu9BkJg5K3KcVakHRqrDiBTFyFNiKajLzzD/2Cv5UAeQAgDq2VjMNmB0uUxTj+7Qjqm4za13UhSqG72VtPpDHh8r0qm/kb2/4PVtyZNR17VYWZVDamorcJoC0sbSsBOXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J+w9uyCv; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R8bH0lfP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1ECD1F000E9;
-	Tue,  1 Sep 2026 08:13:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788250404;
-	bh=RtYB9BO3uYLJOfsvA24/61gyZKkfp08ohm5Tw24wHek=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=R8bH0lfPGwqcK+ymswX5R+fn4Vu/FwdLcyhunW1aBF/LTwZTCSUs+5qAyW9DBco4w
-	 FrzXyuCcTmJD//aBhofrN8Yb4DKqpG5CkT6yOB8B1k8ZCUB9b94/8XPOQIfAzP05qm
-	 vT++M8zEIsv2NgUVWRQ1Ws2FrQe6MYEr9HiJ9mtC0tA0lvxIIRuq4ApEJxhhCuS/K1
-	 PCRXdT1yvVdoUrgzSUtJunXIQrhw2o2eVb2dT2WPSl0DDRSjg7KJ/PYzFEXN7S6c7f
-	 DmjZ0pqRV2lPjDNAXBi2FP/t4Uqlal5FCd2sjLnYRFqRShhesZ7BhcGPBtWNr79B+Z
-	 gVh6bq4sV7FBA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x1JcQ-00000003CIx-3MYv;
-	Tue, 01 Sep 2026 08:13:22 +0000
-Date: Tue, 01 Sep 2026 09:15:55 +0100
-Message-ID: <87qzjdmlok.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Andreas Grapentin <gra@linux.ibm.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Friedrich Welter <fritz@linux.ibm.com>,
-	Fuad Tabba <tabba@google.com>,
-	Gautam Gala <ggala@linux.ibm.com>,
-	Hariharan Mari <hari55@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Hendrik Brueckner <brueckner@linux.ibm.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Nico Boehr <nrb@linux.ibm.com>,
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-	Oliver Upton <oupton@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Will Deacon <will@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v2 05/20] KVM: s390: arm64: Prepare for sharing more arm64 code
-In-Reply-To: <20260831145536.913567-6-seiden@linux.ibm.com>
-References: <20260831145536.913567-1-seiden@linux.ibm.com>
-	<20260831145536.913567-6-seiden@linux.ibm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J+w9uyCv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788250416; x=1819786416;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1f9nysRfz/QcucqWxxSunsNyOyUcqiNvoHA7rzPhFSE=;
+  b=J+w9uyCv3uKyadHPDOrJsOT/2WMKgk4fOqaW5mqhg2Wu65w3aT6So7RH
+   uyNKl3E+elrZNwZNZ8GF+w4QCRsxD75xP0VEfXae+bGxGuK/Efspej2t0
+   v+UMp93UBRDclvMLX2irgAy5bLPqoW6JRspMrTDMbkYBc0jCHU23Qndih
+   KrZRdh09mqBiYFgjYHGOrvEIRZOxQEcazJw/JtV2AjHk1bcG/ve9KCZAw
+   mgx9NBFKcuLUGogoakfo79l3ytby2VzgDWmQoeZ0zkLfHgqRP5ZHnemOI
+   C1AJedprnEqLThx091SRbGceXdEtwMkLntM5/rKSSdpPr6HIxbcLBnKNX
+   Q==;
+X-CSE-ConnectionGUID: rBMD1oirRHmDt+jWFl6DRw==
+X-CSE-MsgGUID: 8vLJPef8QQyX0T8M9sN+KA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="91184555"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="91184555"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:13:35 -0700
+X-CSE-ConnectionGUID: inkXJ/hCQ2mj9LyvStU+GA==
+X-CSE-MsgGUID: SnzebwgpRaeN7GaqZcXrUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="307241438"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:13:32 -0700
+Date: Tue, 1 Sep 2026 11:13:29 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Shehryar Ahmad <shehryar.amd@gmail.com>
+Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+	dlechner@baylibre.com, andy@kernel.org, gregkh@linuxfoundation.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux@analog.com, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
+	devicetree@vger.kernel.org, marcelo.schmitt1@gmail.com,
+	danascape@gmail.com
+Subject: Re: [PATCH 2/3] staging: iio: accel: remove adis16203, merged into
+ mainline adis16201 driver
+Message-ID: <apaJKc4kbxgFqe3V@ashevche-desk.local>
+References: <20260831184201.34416-1-shehryar.amd@gmail.com>
+ <20260831184201.34416-3-shehryar.amd@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, gra@linux.ibm.com, arnd@arndb.de, catalin.marinas@arm.com, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831184201.34416-3-shehryar.amd@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 31 Aug 2026 15:55:20 +0100,
-Steffen Eiden <seiden@linux.ibm.com> wrote:
-> 
-> Add required SVE definitions to the arm64 on s390 host code. The
-> definitions are required to be able to build shared SVE related code.
-> 
-> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+On Mon, Aug 31, 2026 at 11:42:00PM +0500, Shehryar Ahmad wrote:
+> The ADIS16203 is merged with mainline ADIS16201 in previous patch of
+> series, remove the staging copy and its build system entries.
 
-The ordering feels wrong. Please keep the KVM/arm64 as a prefix for
-the S390 patches as much as possible.
-
-Thanks,
-
-	M.
+This is the ideal patch!
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
 -- 
-Jazz isn't dead. It just smells funny.
+With Best Regards,
+Andy Shevchenko
+
+
