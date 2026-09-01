@@ -1,104 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A00A4A441E;
-	Tue,  1 Sep 2026 23:07:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C7C32C8B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:10:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788304054; cv=none; b=cE6fzap5rECBCfoueYQ9CfbK6G2YG4UyX5qL/YnuKkZlACzQcLpCv9tn3d40DSFhjDsowhxaTDmf37Mj3pJUkz+GK49qEv9VqjqPEjp9Dz98V1qdEIddaXLkFJKF7RqMqdPkIMdw7lcO8w9nvLi5ye0UqZhLkjwCQ9EonGpQBeo=
+	t=1788304248; cv=none; b=a1Uu6KB5VmF7ZTN1u8Wv/pDRBIhyQjtZsq+9c13ig6lytBo7TUaqWb04NPUwOjYD9U5t/YvlJQNW4gWi0oZzVk6fTgndi3JbUUAnDVJLXI4v0eJ4EH/VgOf/cpO1teojMKTAkD768yRaHrjtf0NM9naUbak4egdv7pgH5odm0I0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788304054; c=relaxed/simple;
-	bh=JSCUYOd+oLTmiVORWjY6iYY3FH4mD1g53cDcO6D53UI=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=ZVSpTz7qYYFnAsr5wD5vvzW+jVxJ5s8mhHc/M/ZdPePDo+b8P6mj23V4HS0Sog9HHgsrHH667N2SWfmHTA04mywCJdCh9uKh4nuU8Lwuf+L73EnLFO12eI/i6j+TGDDVIlQW5DElZ1yabKLSKkD4Yg3tEJeiUk5+4wAnA6kOUE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=kerGN5SB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788304248; c=relaxed/simple;
+	bh=wBMd4fIHENzvBSRUGvb1FPIIhmHfPWYxg7oALLNPn34=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WaYTrVtvzv5I/hHh3z2xhwim9NYN3oZBzDxxqSc2FDOE+FJvj5WCTCq8wD3zEBEfI2yU1iAnhxWmrjpqY0RFBXPHnDuFLtWLuLhQDblHrf0HmrMUVwxAa+admqyv6aa5ynrmGvk1ilwjCg2PiWzoZmKw8/Nx5dOeCFWawoNvwRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=BA2EhsCY; arc=none smtp.client-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="kerGN5SB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B92E1F00A3A;
-	Tue,  1 Sep 2026 23:07:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788304053;
-	bh=7cQ19BHiyrucmJAw/pZFIQ4zM3ytepyEIFxxLDlatXE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kerGN5SBq3yKVTcKS9bVEW3P3myLlKw6ZtqPBgY7pUSSc2o83gl5duhZsYi7rr+tj
-	 LRBEWhA9KftnxV2h7SwVbVs+/D5ymVIUzWOU30LGP2lOSS8TzdQee7VrwCI3TtfO3R
-	 W8xeOMF2zlRU+87Iw/b+zQmf1KRK+y2fH94NeP50=
-Date: Tue, 1 Sep 2026 16:07:32 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Li Zhe" <lizhe.67@bytedance.com>
-Cc: <apopple@nvidia.com>, <arnd@arndb.de>, <balbirs@nvidia.com>,
- <bp@alien8.de>, <dave.hansen@linux.intel.com>, <david@kernel.org>,
- <kees@kernel.org>, <mingo@redhat.com>, <muchun.song@linux.dev>,
- <rppt@kernel.org>, <tglx@kernel.org>, <linux-arch@vger.kernel.org>,
- <linux-hardening@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-mm@kvack.org>, <x86@kernel.org>
-Subject: Re: [PATCH v11 0/7] mm: optimize zone-device memmap initialization
-Message-Id: <20260901160732.8098b853491008465ea81461@linux-foundation.org>
-In-Reply-To: <f7099580-870f-4cdf-84cc-a82cc47a42b0@bytedance.com>
-References: <20260831111638.76012-1-lizhe.67@bytedance.com>
-	<20260831164531.be5a8fa210401830e85eb974@linux-foundation.org>
-	<f7099580-870f-4cdf-84cc-a82cc47a42b0@bytedance.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="BA2EhsCY"
+Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
+	by cmsmtp with ESMTPS
+	id 1VYrxszI7aC0U1XctxNxVf; Tue, 01 Sep 2026 23:10:47 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 1XcsxQIii9tXG1XcsxfVHm; Tue, 01 Sep 2026 23:10:46 +0000
+X-Authority-Analysis: v=2.4 cv=KK1aDEFo c=1 sm=1 tr=0 ts=6a975b76
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=y2ERv7ko0hlTFnYyMTsA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=n4YW3Pb7QSixyCGGX1J7LUfSplSoAbAxwvNEiX/Qm3M=; b=BA2EhsCYB1ZSxBT6zQDVo02UX0
+	fiF2JNskn/xZDSi3aiP+AqsPIebBf3+7YEbpCnnmYL028fzizem2ByI++eqfyjk4L9ol3hWsZNJsp
+	uRvEffB+wu4S0KlipeSLIusf54mjFbHYrhBBWr/uHqH3OmuPT9+3BEQVev3zCHJS7tuO66BDc5VnO
+	ktawIswNhry++M7iAFZvSPV1buwRaUmjcDv7pF5Q+FWmU/+DpIMZ50uDIIu1N0dWFjO0xP0uRs+fg
+	PqMCbAerF/qed8cmsi9xfclMYply5AMnFqiD0kLjgJlKnUQIicjtHkspgHnk0j1vwsovyvo9iudY5
+	cUwynn5A==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:60948 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <re@w6rz.net>)
+	id 1x1Xcr-00000002Iz6-3sLQ;
+	Tue, 01 Sep 2026 17:10:45 -0600
+Message-ID: <055546e8-d001-4827-b675-b0aa4d5cc7a5@w6rz.net>
+Date: Tue, 1 Sep 2026 16:10:43 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 00/99] 6.12.108-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260831133359.740409777@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260831133359.740409777@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x1Xcr-00000002Iz6-3sLQ
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:60948
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 37
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfE8mel99/ikA/wflOfSrxm5f3rKOQKnFQIElGpsUpJE5LaA5wlfO5Mfbgsn68DsBijyapzIy1kNTd61kQIntc5ilcJxSsNe331jI63Wq8LA33Ym6rTyc
+ 9uzJ3ybVKisJGrok0x3TIhEDoQoQDMAlhHWF/2QUHBzXun9Xu3XxSIZEGWsHaREbeMdPCOLPLsVu+aKkZ8bJfCrzpLoTz3A59MU=
 
-On Tue, 1 Sep 2026 10:58:09 +0800 "Li Zhe" <lizhe.67@bytedance.com> wrote:
+On 8/31/26 06:33, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.108 release.
+> There are 99 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.108-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-> On 9/1/26 7:45 AM, Andrew Morton wrote:
-> > On Mon, 31 Aug 2026 19:16:31 +0800 "Li Zhe" <lizhe.67@bytedance.com> wrote:
-> >
-> >> memmap_init_zone_device() can take a noticeable amount of time when large
-> >> pmem namespaces are bound or rebound, because it initializes nearly
-> >> identical struct page descriptors one PFN at a time. This series reduces
-> >> that ZONE_DEVICE memmap initialization overhead by reusing prepared
-> >> struct page templates and, on x86, using memcpy_nontemporal() for the
-> >> template copy path.
-> >>
-> >> ...
-> >>
-> >> This reduces the average memmap initialization time measured during
-> >> rebind by about 48.0% for nd_pmem and 41.6% for dax_pmem on that arm64
-> >> VM setup. Since this arm64 setup does not use the x86 MOVNTI fast paths,
-> >> the result also suggests that the generic template-copy optimization can
-> >> benefit architectures without an architecture-specific
-> >> memcpy_nontemporal() backend.
-> > Well that's nice.
-> >
-> > Sashiko seems to have found some new things to complain about:
-> > 	https://sashiko.dev/#/patchset/20260831111638.76012-1-lizhe.67@bytedance.com
-> >
-> Hi Andrew,
-> 
-> Thanks for taking a look.
-> 
-> For the comment on patch 5 about the cnt == 0 case, I agree that
-> memcpy_flushcache() should preserve the usual zero-length memcpy
-> semantics. This is a pre-existing issue in the x86
-> memcpy_flushcache()/__memcpy_flushcache() implementation, not a bug
-> introduced by this series. The new ZONE_DEVICE call site added by this
-> series always copies sizeof(struct page), so it cannot hit the
-> zero-length case.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-OK, thanks.
+Tested-by: Ron Economos <re@w6rz.net>
 
-> Since this is a pre-existing issue and is independent of this patchset,
-> would you prefer me to send a separate standalone fix for the x86
-> memcpy_flushcache() zero-length case, rather than folding it into this
-> series?
-
-A standalone thing please.  It sounds like a candidate for the x86
-tree, as long as Sashiko is wrong in implying that your [5/7] could
-trigger this bug.
-
-> For the MOVNTI ordering concern in patch 6, this was discussed in the
-> previous round. Based on that discussion, I believe the current code is
-> correct, so I do not plan any additional code changes for these items.
-> 
-> Thanks,
-> Zhe
