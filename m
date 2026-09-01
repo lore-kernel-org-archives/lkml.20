@@ -1,72 +1,72 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DE343B3E5
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:50:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9D343CEED
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:50:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788277846; cv=none; b=XyqS7s7g94IuDVLpZeG8r7kYDQ/Sd8iMNl0o1Lf+5aQ/T83/AiziNiOkIXaovIaoOF9Jl+xvtVGPwoHEZoT6ODpFOrugm/ICwJvZGp9iLhaAnjr2tGMTlCbwISXFPt2kqFJZu+c5RKKkx8fkJtQXLbbAm4PTbn9WBPdxGrOUa4U=
+	t=1788277851; cv=none; b=Gv2xB52pBC2OTaBgWQdKXwRjcSh0bSbhQXoxzONDFAHM9LIDt8tbix0XM7vwb5ruxpmnMBhOsOS800nzS0kGIa0M3oiqvBVge2GLN5gN6IIpauaCizfWg1Pkx/QC4B0K8SHCNiNyHV3sGfY5ll82gYEjWG9QZi8H2FDftMpcEdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788277846; c=relaxed/simple;
-	bh=LaASHcif0ZO5mEMBMmjQk7QLwYtaZyoz/QtaPMMMSaY=;
+	s=arc-20240116; t=1788277851; c=relaxed/simple;
+	bh=xUCke3sjfloFXK5xgzPFJXFZoorDrkSXZ+p50ZKJuys=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MKDK+Bxg9Ik84J+lhdNUDdhw2ZuLX+Uwm7V1WoCVAVsY7C+UWNy/SoF7GjC6JMjKoEHeXag8dpQR/rrTVRYfNzwHmHm9E4uS6Sf5tSwcqIyOxiJj/sApWKO2peV0VuaHy1Ef6RpqrLkgcFTnlvmVbm1l7r7qMdmVF0RbQcZ81fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KLIpUJ8h; arc=none smtp.client-ip=74.125.224.43
+	 MIME-Version; b=qUWxYJ/ElGLOde5o0GTny50HAIWFwQQQATQDBLc9A/N9ykka2HLX6nDOGfEuGimoVZsZrMpDnqyyC3OTc2gy/f48ltMQQG0WfOBpT40vW5sZkI0iJTC65IU+XJd9Dgx341S+7s3Q2TiglZaz5oDmKJaxvb2AeETgO1BuNvjfuF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pJcg6OWs; arc=none smtp.client-ip=209.85.128.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KLIpUJ8h"
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-66c7127a73dso1348d50.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:50:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pJcg6OWs"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8549a96e93cso574277b3.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:50:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788277844; x=1788882644; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788277849; x=1788882649; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SWX8TqXr2ZPFEECnMws3VbOREQ8Oks1Jtc6uvGCOwXw=;
-        b=KLIpUJ8hJe7oR4Q1k+ThBSk2ElToSUcl6ixnZ3TdQM1FVQpnXelE3dDenwgBZj3XYw
-         XRp5s1tGnMm8DHDdm5WRDf+PtYKKfuqd559blrdA6bvYi1T3WQ+k4Dkq0YTBS2NxqT5m
-         v4eRo8cb24yJ6sHMFsG3yQXYWzVnNc//4K18npHd8gXpmwIC+39lZWv7jmB1INfL27uj
-         0RdAS2iJX4+cDIEc+VZiGsdrnNDYsAa25ZtTACLIPaOeuXfM/qTeo5b+r53vrPGXoA6h
-         6RYRAmgyLtLD0yPJ6ZaeC9ol9WjVL8yn6v8tfF3qUR0IJXi2pOYIE5UhEW14/5IUjdU/
-         dJDQ==
+        bh=pg5APz92OrIInYvba8j1nyYuT4yBZOn6rThGWlzRCeM=;
+        b=pJcg6OWsrbwEIw9H73QtQuAX+4Rf+kU5bBp15O2Ou9P/OejHZPuUxs+u4UvS+qNjr8
+         FlCT7tuep0aatHlZCYw+9jQ9NHsgyEaoeKS/SoGyhnaf1dETtzNtdxfW2vGQPg7D/JF/
+         Qah3K6QGmTLXHFowKC121W72gMP5phhvsK34ejv5JkFMlSJs1PW9ktxRAJ8l3isXEAqg
+         kFzJ4u3/ijo2aMrtFuQdHpvY7KYbJbPBWG7QDRCDGiZ6FZl7IMmTiVDiGwZTrV8JvhTz
+         NX0mQRGyp8kVin1b1QCqEEUqz8+cFy/Qrpivleaqw/PwaAOmm2ePBt0llQFmV/AzEAZ5
+         ARTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788277844; x=1788882644;
+        d=1e100.net; s=20251104; t=1788277849; x=1788882649;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SWX8TqXr2ZPFEECnMws3VbOREQ8Oks1Jtc6uvGCOwXw=;
-        b=m97LPi6c0E3dQNYIPHWtcMuePqDnTymm0xFflly6vo7aGCRTsBMR/ULK0ZXh32sO+n
-         cLdgMbhnMKL/PeDOxY/xElMiYZypXCtjVcKJca6UL3hck9nPTBkrh+elg4WRP8GwORIX
-         S9JJ345WOBz0fu3XpofDGu6lREW3FYwxY1GIBjoBpARnILPvIixlqNVUN4x+5lbi8QaM
-         3xgrXTTRRwdnHGRRS2EZQyHyyHVVIlDhRlciNqEgdLCNNr0FuihhdM9ANkx/LlF9ADCy
-         bFhEl6CLDpQOoWFuDfLtsWmjUrQE3nKtpjNawx99WlobI3GzGo4lyGRLvolNFcw0/ZSp
-         6dmg==
-X-Forwarded-Encrypted: i=1; AKwUvByT4xLLhBMFyl5KUclK3FkFZt6+KxAs/w6dMEaHpA8hiNnMIn6snaBVHaH0G3LSYnBFQJIBwEXudTWFeKE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxrYP5YzHqU9FLVVCtR0qgv4j8DLTBHa5p/qqMFySK+EFgO1GR
-	QSeRVc17kmS9niwMqypid/9YtjCl3npGf2tzJpUdsFnnQV3bgUDMsl+hyaA3AQ==
-X-Gm-Gg: AYBFou3QRVOqglZPyLmbNICPIg5ITEwB4Lfp7jxkTaHxEgpd+BpEtC/Bit5yig/Yn2o
-	pZOeUxhtUHFy3fg8v94mF1/Vlm0WPSVOuLmWLxNo2dUpzgRNLdkX4iNKNZJXoRv9Rb5uT/qnoJk
-	QoCsQeJQ7zS7JyR9dJPhPVON92I5oVYnRSKeEPj1P1aFEpZlGrtXv2xP3ItFVDGugBS106yQ1U+
-	bzpImVGDd/QEqFnrA9W3ie9W8PpqTYfehupWHR0Py6aVwnXrYVSuZ3IoOKH5BVk8tTLq7ZPWMcs
-	LDIIf1FwVbw4tO2rXMr2Ykw1bRdOiNp8DzetDnUpXZnM1TATBTvKOtWG4HqlHaTNLNfqOSUxMku
-	r1RP7tYBOIw0zUd8is2EOeUcxe9AIDRwEfs97ydpyfIGZV5s4Ex4izJBTaM+8SKJKlLYFFTFVt+
-	0xZm9c1SWSUGafN8r6RNJsiHE5YKdxFQePDr5EciYvCyjVUDqvSeX1XpMPrJmcrG4QRbn/BSdfi
-	g6PU7/4bIC8HsDQpZQbehKTcE8XbUQXUDiCAikC
-X-Received: by 2002:a05:690e:2250:b0:66d:150a:e7b2 with SMTP id 956f58d0204a3-66f978c8acemr11024d50.23.1788277843907;
-        Tue, 01 Sep 2026 08:50:43 -0700 (PDT)
+        bh=pg5APz92OrIInYvba8j1nyYuT4yBZOn6rThGWlzRCeM=;
+        b=XVxwD5ahLJOZ82GA6LeVqdUZIBCEqmKZXxAaxwiZh0SxrXoHcFuZajMPw7eoPVWZBg
+         +kAlzpPk1E6lHx8x9AeTVyRz18MDtjqZ17rv+ajLiGOcwpp/Jj1U59dy7o0lD54LYA5I
+         LkNJ+G0OBo/wKrdRnyh67v7vGcPIaJ66X4CJjtvss1R8OPhP6iiF/U1Bg9fHJH898L+/
+         BPaGqkgLQSjmbvr7i4smn7tW8jjc824Ctyb3u+T5gHhTLCf9ljrLiZm5joe2/4xCzKIM
+         OLE+0CzQkmsGr7s1P6PabO3uz3VAv+0oF4l0Z4tu+TeyXi10nPwlwWPeDvCrQM58pnIk
+         0EBg==
+X-Forwarded-Encrypted: i=1; AKwUvByiQeR2n2oKeL4qRBKUFSr0vPHuaO1Ri1/9G6eFXsgOEkcTqwSGAvMMzLHby8fq8IMGLXewLRyja5VlMRQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVV6fsblvu6yWo1z4rbF0AdPlWF+xoz7gFBqZm9CI+1qe+oodK
+	g7HdPJgZC1huE4FpllRmF1Jt02WmEKjOHlqbg7zqIFdCgWLPiQrFlq0t
+X-Gm-Gg: AYBFou19pVS5r1BlADlqUEnDb9vI23ybbGjYUdDU2FA56hPlMlaysB8Nt6QBRCtSjvI
+	uylxrNzEN+M4T7y5MEGhZda90+tTvps3lP/uguU7CEVRpudLdbCjFb5/jkovOkQeLn55NAxP5i/
+	y9XHQQ0rqwlYAPJk/S+TKg/VJZZnmL0vNW+3Sf9buRDGu5ftxAexal3WYUSgb1TEt+vigdHcqDd
+	LfS3uAXO7IhzdjFSy3d2utIBfNjA7BUlx6FLZlhU8RLN+iPe2foETULPxwrOnu7Za7wvTmvOKCp
+	QNR1W/74qbLmjV2D+Hg1ot7O6IIlcYtod/qc1kmy7trS2/KluELUB1bE9OYCNZ8Qins0Q0idaYs
+	yqrRTu3ZLrGQC/b1CIOfG/aPTogdziaUbACERv0vNm/Dv9eca+WjrVyUXEGqTHrblP+8njJIZe7
+	IqqPOg1r8KwyJY03HsRyh2VOS7p3QyqLyn5udRlmSAzA0MXgK3QwIry4UB3CZY3mNGshVvLDpkt
+	jUc1bJlaMin2lHIzYAp79KS9n5D/KHw9NnwpKWuYw==
+X-Received: by 2002:a05:690c:10:b0:81e:8d96:a64 with SMTP id 00721157ae682-85d675383admr140102337b3.13.1788277848841;
+        Tue, 01 Sep 2026 08:50:48 -0700 (PDT)
 Received: from localhost (107-220-129-194.lightspeed.chrlnc.sbcglobal.net. [107.220.129.194])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ecf1d87sm8520666d50.12.2026.09.01.08.50.42
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e66abb13asm76661837b3.36.2026.09.01.08.50.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:50:42 -0700 (PDT)
+        Tue, 01 Sep 2026 08:50:44 -0700 (PDT)
 From: Matt Turner <mattst88@gmail.com>
 To: linux-alpha@vger.kernel.org,
 	richard.henderson@linaro.org
 Cc: linmag7@gmail.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 02/24] alpha: enter hardirq context before looking up the irq descriptor
-Date: Tue,  1 Sep 2026 11:50:15 -0400
-Message-ID: <3c54e7e410438437640d56501a7a46fb0443427d.1788277742.git.mattst88@gmail.com>
+Subject: [PATCH 03/24] alpha: select ARCH_HAS_UBSAN
+Date: Tue,  1 Sep 2026 11:50:16 -0400
+Message-ID: <61175f9015771b6a6d78624579ecc180f57d17e9.1788277742.git.mattst88@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1788277742.git.mattst88@gmail.com>
 References: <cover.1788277742.git.mattst88@gmail.com>
@@ -78,50 +78,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-handle_irq() called irq_to_desc() before irq_enter(), so that lookup ran
-with the preempt count still saying task context and with RCU not yet
-watching.  Generic code called from an interrupt handler should see
-hardirq context, and irq_to_desc() is more than an array index once
-SPARSE_IRQ is in use.
+GCC's undefined behavior sanitizer has no architecture-specific runtime
+requirements. Enable it for Alpha to allow UBSAN instrumentation of the
+kernel.
 
-Move irq_enter() to the top of the function and add the matching
-irq_exit() to the invalid interrupt path.
-
-Assisted-by: Claude:claude-opus-5
+Assisted-by: Claude:claude-opus-4-6
 Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
- arch/alpha/kernel/irq.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ arch/alpha/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git ./arch/alpha/kernel/irq.c ./arch/alpha/kernel/irq.c
-index 4a6a8b1d5a8b..5867a1655045 100644
---- ./arch/alpha/kernel/irq.c
-+++ ./arch/alpha/kernel/irq.c
-@@ -107,18 +107,21 @@ handle_irq(int irq)
- 	 * handled by some other CPU. (or is disabled)
- 	 */
- 	static unsigned int illegal_count=0;
--	struct irq_desc *desc = irq_to_desc(irq);
--	
-+	struct irq_desc *desc;
-+
-+	irq_enter();
-+
-+	desc = irq_to_desc(irq);
- 	if (!desc || ((unsigned) irq > ACTUAL_NR_IRQS &&
- 	    illegal_count < MAX_ILLEGAL_IRQS)) {
- 		irq_err_count++;
- 		illegal_count++;
- 		printk(KERN_CRIT "device_interrupt: invalid interrupt %d\n",
- 		       irq);
-+		irq_exit();
- 		return;
- 	}
- 
--	irq_enter();
- 	generic_handle_irq_desc(desc);
- 	irq_exit();
- }
+diff --git ./arch/alpha/Kconfig ./arch/alpha/Kconfig
+index e53ef2d88463..1aa76a2d9750 100644
+--- ./arch/alpha/Kconfig
++++ ./arch/alpha/Kconfig
+@@ -5,6 +5,7 @@ config ALPHA
+ 	select ARCH_32BIT_USTAT_F_TINODE
+ 	select ARCH_HAS_CURRENT_STACK_POINTER
+ 	select ARCH_HAS_DMA_OPS if PCI
++	select ARCH_HAS_UBSAN
+ 	select ARCH_MIGHT_HAVE_PC_PARPORT
+ 	select ARCH_MIGHT_HAVE_PC_SERIO
+ 	select ARCH_MODULE_NEEDS_WEAK_PER_CPU if SMP
 -- 
 2.54.0
 
