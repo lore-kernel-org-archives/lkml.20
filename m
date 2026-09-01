@@ -1,90 +1,72 @@
-Received: from mta1.migadu.com (out-91.mta1.migadu.com [95.215.58.91])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD803D5C0B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:04:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DF33EEACB;
+	Tue,  1 Sep 2026 14:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271451; cv=none; b=a7PeaWdzlFecgrvUs37ijaWoEM7hJZQVc8ce0pLGLl8H5YPEd4SG5dHj+LFxWstmyTz1BT94/7Iv8TH1wgOvAq3D6zDzGiYsmJ6r4WA1gnbMEkBaW6fy5ZQTjir2sGvPCWSp2+2ScOVF90UdGthvarWY5mN0/89PDNHzpgNwJUs=
+	t=1788271452; cv=none; b=ue5mOaUH/G/8MqHAoqwMWz7acjCYAoFJ696WYoZ1ECoYnZV3bvhkEgr1wv/2ZYa9Pl+5g6SPZ79zmzRzzmRMuyRUkrOeCgRCMgW1CquwdQt54Nh/gm35pdl2aP5o/0CCI3xMX+Sks8XwSdXlwxPDxLhHAtDtMbx2Q2CbvsfLjYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788271451; c=relaxed/simple;
-	bh=o5SAqofTUL10q95P74ncak2ViAyJxj6F+FQApmfWBdA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=blxfVfmYi+V6Rmkg+lg7OaHBVl11T6xls9S7nk71/+RGNW3Bt4HWkbQfxI5x6aEjMVJByA+4uhkkdP6tjAe+Kxi/OdWEd/5m16DNqmIAGTbG32qhuNQcY/lSieHGKMdlGqFJc7fB6KgiPHzBXl5fQC0lvDCgZFQUGOCUOmTv5QM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sYXbwn6B; arc=none smtp.client-ip=95.215.58.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788271452; c=relaxed/simple;
+	bh=Xfv2jt4cOB8bmx9v7TXqvrTMEmyMl+0EWxhvEqFVwBk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=kXP6I7ThXggMM2XdPqy250vq6a7afuFaymvQmyzf80I0VdTBUddddubonUC0Mm8CcOrMKp9GOOTfkAnvknOuTLMp1/8s0TQqJZXFK3kU0ZF4NSnoK5WxSEjRp6R2LuFCW5Z1ne9oYuKdXBXmfvqER4yoK73KH7JEX+Jxg+5O7+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ds0Xkq+i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sYXbwn6B"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=o5SAqofTUL10q95P74ncak2ViAyJxj6F+FQApmfWBdA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788271447; v=1; x=1788876247;
- b=sYXbwn6BbHiiKI2WcdNOWM1YbKQddE93024oTdwBRbfGvXbGxCYo1r+3qwZYloKqpLC4TC/0
- elmCb6saDY+Pe3YN4JQ71o9gzG/V0YfzaZ5MY6KB/5SAVapK5287Qya9Ic0V2AF6JS4A4ph3mVh
- spX3efxw+2w8Y4ts421CHHt0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7017fe8349925f4c;
-	Tue, 01 Sep 2026 14:04:07 +0000
-X-Mizu-Trace-ID: 7017fe8349925f4c
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: tj@kernel.org,
-	arighi@nvidia.com
-Cc: void@manifault.com,
-	changwoo@igalia.com,
-	michalblk@google.com,
-	liwanwu@kylinos.cn,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH v2 1/2] sched_ext: document the rolling-cursor requirement for dsq_vtime
-Date: Tue,  1 Sep 2026 22:03:42 +0800
-Message-ID: <20260901140343.764080-2-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901140343.764080-1-cui.tao@linux.dev>
-References: <20260901140343.764080-1-cui.tao@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ds0Xkq+i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44FC71F000E9;
+	Tue,  1 Sep 2026 14:04:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788271450;
+	bh=FHZybySiaPe14dbMDMUulMa6M5fWVpsEsQ/tKYxAVJc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Ds0Xkq+iDyAQ8C7jxQx8gVXYNunKJg6MbnhXtCfOZ/379srL6K0LXUWFor1r43s/Z
+	 1Z7dzVLbj8wkKeGwM9vWlnKiXRswoSr4PE7GBXhxHL056oznRRU+2gs8m0yKbdzolS
+	 vgtpZzBUHYvl+3ZFy27xa0i2tsBJWZPec0kpLhUQjFfh20oI85RNlRPC3GQEbW/h9s
+	 q17oo5pEjUZ0hLNXKpumfqiCH98dgSRfq+9CaTMK68YvkU+IjIlDF4p7KJ2XmLBnES
+	 L1PVOEFuq913Vz+Xg/0F6S0BDIACI60Kq3fWyId3T2l+PlllhypSAzsNu/H3Xj/Mzo
+	 nBeV1RXapTOTw==
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>, 
+ Junxian Huang <huangjunxian6@hisilicon.com>, 
+ Chengchang Tang <tangchengchang@huawei.com>, 
+ Edward Srouji <edwards@nvidia.com>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Or Har-Toov <ohartoov@nvidia.com>
+In-Reply-To: <20260811-fix-mmap-lockdep-v1-1-1151b41063b4@nvidia.com>
+References: <20260811-fix-mmap-lockdep-v1-1-1151b41063b4@nvidia.com>
+Subject: Re: [PATCH rdma-next] RDMA/uverbs: Fix
+ mmap_lock/disassociation_lock circular dependency
+Message-Id: <178827144803.1380198.18045973124694867362.b4-ty@kernel.org>
+Date: Tue, 01 Sep 2026 10:04:08 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-From: Tao Cui <cuitao@kylinos.cn>
 
-scx_bpf_dsq_insert_vtime() orders tasks by time_before64(), which is
-only meaningful when the values within a given DSQ stay within a
-half-range (2^63) of each other. This is implicit in how a vtime
-scheduler works -- the cursor advances monotonically -- but not
-spelled out anywhere. Document it so BPF scheduler authors know the
-constraint.
+On Tue, 11 Aug 2026 19:19:16 +0300, Edward Srouji wrote:
+> Commit 51976c6cd786 ("RDMA/core: Provide rdma_user_mmap_disassociate()
+> to disassociate mmap pages") introduced disassociation_lock to protect
+> new mmap registrations against uverbs_user_mmap_disassociate(), but
+> created an ABBA deadlock:
+> 
+>   Thread A (mmap / fork):
+>     mmap_lock -> disassociation_lock
+> 
+> [...]
 
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- kernel/sched/ext/ext.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Applied, thanks!
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 8041c87a3562..9030962f4df1 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -8905,6 +8905,11 @@ struct scx_bpf_dsq_insert_vtime_args {
-  * wrapping. A numerically larger vtime may indicate an earlier position in the
-  * ordering and vice-versa.
-  *
-+ * vtime is a rolling cursor and should be treated as a virtual timestamp
-+ * that advances monotonically. Values used for ordering within a given DSQ
-+ * should stay within half the u64 range (2^63) of each other so that
-+ * time_before64() ordering remains well-defined.
-+ *
-  * A DSQ can only be used as a FIFO or priority queue at any given time and this
-  * function must not be called on a DSQ which already has one or more FIFO tasks
-  * queued and vice-versa. Also, the built-in DSQs (SCX_DSQ_LOCAL and
+[1/1] RDMA/uverbs: Fix mmap_lock/disassociation_lock circular dependency
+      https://git.kernel.org/rdma/rdma/c/a44a3f175eaee7
+
+Best regards,
 -- 
-2.43.0
+Leon Romanovsky <leon@kernel.org>
 
