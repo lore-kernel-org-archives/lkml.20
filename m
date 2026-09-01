@@ -1,356 +1,106 @@
-Received: from mail-ot1-f98.google.com (mail-ot1-f98.google.com [209.85.210.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE0635E1CC
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4205D3793BA;
+	Tue,  1 Sep 2026 06:53:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245594; cv=none; b=Vl8aTWVgRiBcQsVqoQPE/edYPyY2C6Xrqy4yzZcZ5Kgh9rz1TZ1zf+UxMTiSevI+uwa1SvIgQ1PdLFiCsSQc8ryJeZU4eeoJtPA7pI0Nzvo0j75clwUMwlD3meNVt27zwXXiKAAX5bUxvjOU5Sw38wQieLnfNCtm0AvcXVGY7CE=
+	t=1788245633; cv=none; b=kNkKPBHJ47QmEigUTIYQePzKwDVpMEAy8Einf4IBO4F5ieJYq287Cq/EF13PQKYBsRT24Wt2TYlzGllXRPw8glOQ8G/tvmzYtWONwYo+NJYhRD6Z5sXWxZsMO9VId+GGUOGmpucddj/7KafeXyQD0TURclkZaAspPWjD4DJ5qtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788245594; c=relaxed/simple;
-	bh=knKkDJO7DY7fp6ejOltkag4SDnS7VGBSaSepxgU6KNs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=abqaI5nbxBGZcB4fHCQFl3E+Xq+yWvbNaCPIJfGbbFFzDOaXWDOG1ZZNeNP8eBBHoZqJNAhBK/7moKVM0ZAcsCzHyH4+U5gWsTrrrQoovmJ6StvBGV24JtK+emSQDtJlVgxsSC89XreQ5YqqKvnFpuEYgmxVZATfe4wSUFuZmH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=B4czKOJH; arc=none smtp.client-ip=209.85.210.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1788245633; c=relaxed/simple;
+	bh=qWOIbmszkzuR1a0og8IWMKHS3TR9Yu5Tcd7+sIOvJBE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e7L7Q6C3vzNZNqQ0ZTmhEUqxG8nBXPNNxQ1LV1/6+tetWhJ1Aos7Xm6xXEe1UfNzgKr+xTRcNMaJ1MjsgUptFOtj4vD8hAjAxPzOSuEq+d1jBH+vZkWB5s0fuRGqYIpc+wGXkNyy05+9fZ1suLyTE4094HqHVw+jx1QU/3Z8wh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lewrj4LE; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="B4czKOJH"
-Received: by mail-ot1-f98.google.com with SMTP id 46e09a7af769-7f4cc6797b7so2106983a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:53:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788245591; x=1788850391;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2aEsgdEWN2H1TH5cS8sr7/K+SvKNqRGWtDeSlDiIT6Q=;
-        b=NqWTr3rM90YYkecvfUQFHPJ7mlawFaQqiL43Nu44ABy7iGGP6QCl+LYBWUtK/DmsXy
-         BsZnEQrHA6VQxfpYc1tYrePU71efydyNpE+fF2COjfVyTdKQqdVd1d12OPJ4cBHLUT59
-         UiCxMoHvRWRZDPj7cob37Pu2HJtBcHW9v2U+TN2GSs5dePUxAgF6R2ZSJKKCbi3G/45L
-         CYrQEtDZU0PR1YNUtqsV2WpoqDKnc40buTdXD+5szo8NZvonBP2YYTQato/NW46hQwYB
-         3VMUbjPq6LmWzQTqVX9qlBoccbyzyE36Lj3lD5GMnVf9Aj0qjNr4hznfseCWK4pN2uzX
-         57/A==
-X-Forwarded-Encrypted: i=1; AHgh+RoSgEnuwek1hBN65eTCXex3SNe98JdHJttdXrpY9CF/be/DiC0r0ZqAEnJyPo3Pv4iApRz/tqRuELX8dxQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZed98Xj4AdBTnw6xkJXJJwCLDLBOKU/LXDkWNvHWElZzkyhiS
-	QuKbjlsDx4vSD2QZ0x+0VpUohYmzWYtujK6xetzx/BoeDylQ8SZgjND8zDdJAddZpr3+VU1tyV5
-	ACmTe1mDZk8yj9+izOPUXZw/9FxOkezlM2DLbW1SUQ9EhL4pfQE9nV6KxWpaJpmHwj2/E0Bdy5y
-	eHLerf0TKjTzA/oXmn6SHKSWx1mAFZfL4T7NwF1Zs8TYUlP1cO6pttz86ONiHZ/adtJua7401Yq
-	kkEuEz+WZp+AIK1ZSE=
-X-Gm-Gg: AR+sD10eBJyJ8p8g1ha6rAwNdQpUwxxYJoHsS5O8iu3nOSABSCy+H1xzhKxWw5j+CF8
-	qoXZcVCp5GLwiArRPbBV6oTHDZFzSthVxHdDW7/X5J2rYUJrV52v+6H3C0LpZCW5GVDwEwz/dEt
-	m+1sQe+DoeyQqUkIK6SL1RSzyQRIGosOgHPoJD6APcg0ev1WbGcutJiRkCuJM9Hhtq/8k+gL8Cr
-	DGJj7PjdOoTMEmRKKKZpj7esGwDrZ5N12piT7QYdKSuN0cWvSV+JJf4naqnOQl1VpyuCliul/bO
-	85nqpjxEqSHwIwngka+3ToKoM7fuigBHJ/g4ZH9YmJL1/cPuXxjckup+T1RxY3sX3g9aefJncxK
-	tI2LHEVA5V+57//+ichMEEwAIuvjIi/loIiaXVBAJ0Jv3D8l5BKQ24M6LqRQRx2pmbGwer+GdLl
-	7UiaGwruCyWDRozrN0zjdOC23vHZ6aIQN1
-X-Received: by 2002:a05:6830:6f85:b0:7f4:eaa0:1d14 with SMTP id 46e09a7af769-7f4f23ac9afmr34118281a34.9.1788245591461;
-        Mon, 31 Aug 2026 23:53:11 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-16.dlp.protect.broadcom.com. [144.49.247.16])
-        by smtp-relay.gmail.com with ESMTPS id 46e09a7af769-7f4fa94562csm1126984a34.4.2026.08.31.23.53.09
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 31 Aug 2026 23:53:11 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90cd16a0bc1so102633466d6.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:53:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788245589; x=1788850389; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2aEsgdEWN2H1TH5cS8sr7/K+SvKNqRGWtDeSlDiIT6Q=;
-        b=B4czKOJHOoP+lmM6BW63tIQXGKMdH3npCvKZriVzH1mThNzzncwUw9d7ChLfNpU15t
-         9UJYhzPOIFDJLpAABGDsF0s2eDmH9iw+ZxHQ3QFX3jtwZJTTOf9rjINYsbfAMKnS/ve8
-         IMyXRXRbI3U9IJEBjgAQM96zgyptgWx3dOEcU=
-X-Forwarded-Encrypted: i=1; AKwUvBxOli7YMPmGeJxp7KK6+4n2wxZ7LcZuDmHN5FuIbPkh8mXFusDgKGnUvj9b6Q93xpBryRl2ZVDY7ysCZa4=@vger.kernel.org
-X-Received: by 2002:a05:6214:20ab:b0:90e:96d1:40d3 with SMTP id 6a1803df08f44-90e96d14161mr23448726d6.20.1788245589183;
-        Mon, 31 Aug 2026 23:53:09 -0700 (PDT)
-X-Received: by 2002:a05:6214:20ab:b0:90e:96d1:40d3 with SMTP id 6a1803df08f44-90e96d14161mr23448386d6.20.1788245588660;
-        Mon, 31 Aug 2026 23:53:08 -0700 (PDT)
-Received: from photon-dev-haas ([192.19.161.250])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e89af6288sm45058006d6.27.2026.08.31.23.53.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 23:53:08 -0700 (PDT)
-From: Ajay Kaher <ajay.kaher@broadcom.com>
-To: stable@vger.kernel.org,
-	gregkh@linuxfoundation.org
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	john.fastabend@gmail.com,
-	andrii@kernel.org,
-	martin.lau@linux.dev,
-	eddyz87@gmail.com,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	kpsingh@kernel.org,
-	sdf@fomichev.me,
-	haoluo@google.com,
-	jolsa@kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ajay.kaher@broadcom.com,
-	alexey.makhalov@broadcom.com,
-	vamsi-krishna.brahmajosyula@broadcom.com,
-	yin.ding@broadcom.com,
-	tapas.kundu@broadcom.com,
-	Anton Protopopov <a.s.protopopov@gmail.com>
-Subject: [PATCH v6.18] bpf: fix the return value of push_stack
-Date: Tue,  1 Sep 2026 06:23:11 +0000
-Message-ID: <20260901062311.1150953-1-ajay.kaher@broadcom.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lewrj4LE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788245632; x=1819781632;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qWOIbmszkzuR1a0og8IWMKHS3TR9Yu5Tcd7+sIOvJBE=;
+  b=lewrj4LEawbZnYahBbDTstj4x9xpqcpytPJAi1JEVHZbsZe6+DM9QKHg
+   8dW4vMkxg4yQ+ucsOfhtXquy3R7otXlH5gi1v1wqQbEfMT5c12kDtknjz
+   8VneGUyCE7RzYyVES0KV2sar7KXPlJvCcPnv2LZGBMc6KbxMmpcZqhboJ
+   NnT2Jgt488CLYspbz1NFhfUGxUXZqj35OfS4FAeeNET9akRQLo2J8geHM
+   scRDPPI/SVBJuEj6VyCvlwHQjpU+nBt7t1B0X4DQrvCMEmDMmi1GXxFTR
+   zVR5aaEVrjhOiWFh0H68Osoed+KgjA9ix4vg+kqt6G/HdB8cbeTbFFhai
+   A==;
+X-CSE-ConnectionGUID: jghXupBVTUWaVwu2Zv57nQ==
+X-CSE-MsgGUID: qxcB13gJR/W/x18DqacvvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="106037393"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="106037393"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 23:53:51 -0700
+X-CSE-ConnectionGUID: Rpo8VkT3Q56lZcqKLWA5WA==
+X-CSE-MsgGUID: y8L70CF4TEyW9adF6dKJAQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="267687698"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 23:53:47 -0700
+Date: Tue, 1 Sep 2026 09:53:44 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Yang Zi <2959243019@qq.com>, lorenzo@kernel.org,
+	linux-iio@vger.kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: humidity: hts221: fix division by zero in
+ calibration data parsing
+Message-ID: <apZ2eL1-wctBl0eC@ashevche-desk.local>
+References: <tencent_0F43B1BC41CE4066DA52B7B25FBC04C41A09@qq.com>
+ <ao7zrbXG6f-pPxIB@ashevche-desk.local>
+ <20260831010021.67cbf4c1@jic23-huawei>
+ <apUnohaFf1HaqWN9@ashevche-desk.local>
+ <20260901023544.0f65a55d@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901023544.0f65a55d@jic23-huawei>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Anton Protopopov <a.s.protopopov@gmail.com>
+On Tue, Sep 01, 2026 at 02:35:44AM +0100, Jonathan Cameron wrote:
+> On Mon, 31 Aug 2026 10:05:06 +0300
+> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+> > On Mon, Aug 31, 2026 at 01:00:21AM +0100, Jonathan Cameron wrote:
+> > > On Wed, 26 Aug 2026 17:09:49 +0300
+> > > Andy Shevchenko <andriy.shevchenko@intel.com> wrote:  
+> > > > On Tue, Aug 25, 2026 at 05:21:10PM +0800, Yang Zi wrote:  
 
-commit 6ea5fc92a0fc1cde976cb701db2c1dba4dcab7cf upstream.
+...
 
-In [1] Eduard mentioned that on push_stack failure verifier code
-should return -ENOMEM instead of -EFAULT. After checking with the
-other call sites I've found that code randomly returns either -ENOMEM
-or -EFAULT. This patch unifies the return values for the push_stack
-(and similar push_async_cb) functions such that error codes are
-always assigned properly.
+> > > > Do you have HW to test? Any fault injection perhaps?
+> > > > The problem with div-by-0 is that it's implementation defined, meaning
+> > > > that it's how compiler decides. Now, the question is, what will compiler
+> > > > do in the current code (no patch applied)?
+> > > >   
+> > > Whilst all this is true, the code shouldn't be relying on any particular
+> > > behavior.  So do we need to know?  
+> > 
+> > That's my point. If code relies on that, it should be spelled clearly in
+> > the commit message. Then we will deliberately break that (nasty and wrong)
+> > behaviour.
+> 
+> Ah. Got you. So a statement that the condition (probably) never occurs in practice
+> should do the job here by side stepping that question.
 
-  [1] https://lore.kernel.org/bpf/20250615085943.3871208-1-a.s.protopopov@gmail.com
+Yep!
 
-Signed-off-by: Anton Protopopov <a.s.protopopov@gmail.com>
-Acked-by: Eduard Zingerman <eddyz87@gmail.com>
-Link: https://lore.kernel.org/r/20251019202145.3944697-2-a.s.protopopov@gmail.com
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-[ Ajay: Modified to apply on v6.18 ]
-Signed-off-by: Ajay Kaher <ajay.kaher@broadcom.com>
----
- kernel/bpf/verifier.c | 81 ++++++++++++++++++++++---------------------
- 1 file changed, 41 insertions(+), 40 deletions(-)
+> > > Reality is the hardware is almost certainly never returning values where this
+> > > is true.  
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 459ed14..62e4ffd 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -2110,7 +2110,7 @@ static struct bpf_verifier_state *push_stack(struct bpf_verifier_env *env,
- 
- 	elem = kzalloc(sizeof(struct bpf_verifier_stack_elem), GFP_KERNEL_ACCOUNT);
- 	if (!elem)
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 
- 	elem->insn_idx = insn_idx;
- 	elem->prev_insn_idx = prev_insn_idx;
-@@ -2120,12 +2120,12 @@ static struct bpf_verifier_state *push_stack(struct bpf_verifier_env *env,
- 	env->stack_size++;
- 	err = copy_verifier_state(&elem->st, cur);
- 	if (err)
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 	elem->st.speculative |= speculative;
- 	if (env->stack_size > BPF_COMPLEXITY_LIMIT_JMP_SEQ) {
- 		verbose(env, "The sequence of %d jumps is too complex.\n",
- 			env->stack_size);
--		return NULL;
-+		return ERR_PTR(-E2BIG);
- 	}
- 	if (elem->st.parent) {
- 		++elem->st.parent->branches;
-@@ -2974,7 +2974,7 @@ static struct bpf_verifier_state *push_async_cb(struct bpf_verifier_env *env,
- 
- 	elem = kzalloc(sizeof(struct bpf_verifier_stack_elem), GFP_KERNEL_ACCOUNT);
- 	if (!elem)
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 
- 	elem->insn_idx = insn_idx;
- 	elem->prev_insn_idx = prev_insn_idx;
-@@ -2986,7 +2986,7 @@ static struct bpf_verifier_state *push_async_cb(struct bpf_verifier_env *env,
- 		verbose(env,
- 			"The sequence of %d jumps is too complex for async cb.\n",
- 			env->stack_size);
--		return NULL;
-+		return ERR_PTR(-E2BIG);
- 	}
- 	/* Unlike push_stack() do not copy_verifier_state().
- 	 * The caller state doesn't matter.
-@@ -2997,7 +2997,7 @@ static struct bpf_verifier_state *push_async_cb(struct bpf_verifier_env *env,
- 	elem->st.in_sleepable = is_sleepable;
- 	frame = kzalloc(sizeof(*frame), GFP_KERNEL_ACCOUNT);
- 	if (!frame)
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 	init_func_state(env, frame,
- 			BPF_MAIN_FUNC /* callsite */,
- 			0 /* frameno within this callchain */,
-@@ -9116,8 +9116,8 @@ static int process_iter_next_call(struct bpf_verifier_env *env, int insn_idx,
- 		prev_st = find_prev_entry(env, cur_st->parent, insn_idx);
- 		/* branch out active iter state */
- 		queued_st = push_stack(env, insn_idx + 1, insn_idx, false);
--		if (!queued_st)
--			return -ENOMEM;
-+		if (IS_ERR(queued_st))
-+			return PTR_ERR(queued_st);
- 
- 		queued_iter = get_iter_from_state(queued_st, meta);
- 		queued_iter->iter.state = BPF_ITER_STATE_ACTIVE;
-@@ -10687,8 +10687,8 @@ static int push_callback_call(struct bpf_verifier_env *env, struct bpf_insn *ins
- 		async_cb = push_async_cb(env, env->subprog_info[subprog].start,
- 					 insn_idx, subprog,
- 					 is_async_cb_sleepable(env, insn));
--		if (!async_cb)
--			return -EFAULT;
-+		if (IS_ERR(async_cb))
-+			return PTR_ERR(async_cb);
- 		callee = async_cb->frame[0];
- 		callee->async_entry_cnt = caller->async_entry_cnt + 1;
- 
-@@ -10704,8 +10704,8 @@ static int push_callback_call(struct bpf_verifier_env *env, struct bpf_insn *ins
- 	 * proceed with next instruction within current frame.
- 	 */
- 	callback_state = push_stack(env, env->subprog_info[subprog].start, insn_idx, false);
--	if (!callback_state)
--		return -ENOMEM;
-+	if (IS_ERR(callback_state))
-+		return PTR_ERR(callback_state);
- 
- 	err = setup_func_entry(env, subprog, insn_idx, set_callee_state_cb,
- 			       callback_state);
-@@ -13958,9 +13958,9 @@ static int check_kfunc_call(struct bpf_verifier_env *env, struct bpf_insn *insn,
- 		struct bpf_reg_state *regs;
- 
- 		branch = push_stack(env, env->insn_idx + 1, env->insn_idx, false);
--		if (!branch) {
-+		if (IS_ERR(branch)) {
- 			verbose(env, "failed to push state for failed lock acquisition\n");
--			return -ENOMEM;
-+			return PTR_ERR(branch);
- 		}
- 
- 		regs = branch->frame[branch->curframe]->regs;
-@@ -14426,16 +14426,15 @@ struct bpf_sanitize_info {
- 	bool mask_to_left;
- };
- 
--static struct bpf_verifier_state *
--sanitize_speculative_path(struct bpf_verifier_env *env,
--			  const struct bpf_insn *insn,
--			  u32 next_idx, u32 curr_idx)
-+static int sanitize_speculative_path(struct bpf_verifier_env *env,
-+				     const struct bpf_insn *insn,
-+				     u32 next_idx, u32 curr_idx)
- {
- 	struct bpf_verifier_state *branch;
- 	struct bpf_reg_state *regs;
- 
- 	branch = push_stack(env, next_idx, curr_idx, true);
--	if (branch && insn) {
-+	if (!IS_ERR(branch) && insn) {
- 		regs = branch->frame[branch->curframe]->regs;
- 		if (BPF_SRC(insn->code) == BPF_K) {
- 			mark_reg_unknown(env, regs, insn->dst_reg);
-@@ -14444,7 +14443,7 @@ sanitize_speculative_path(struct bpf_verifier_env *env,
- 			mark_reg_unknown(env, regs, insn->src_reg);
- 		}
- 	}
--	return branch;
-+	return PTR_ERR_OR_ZERO(branch);
- }
- 
- static int sanitize_ptr_alu(struct bpf_verifier_env *env,
-@@ -14463,7 +14462,6 @@ static int sanitize_ptr_alu(struct bpf_verifier_env *env,
- 	u8 opcode = BPF_OP(insn->code);
- 	u32 alu_state, alu_limit;
- 	struct bpf_reg_state tmp;
--	bool ret;
- 	int err;
- 
- 	if (can_skip_alu_sanitation(env, insn))
-@@ -14536,11 +14534,12 @@ static int sanitize_ptr_alu(struct bpf_verifier_env *env,
- 		tmp = *dst_reg;
- 		copy_register_state(dst_reg, ptr_reg);
- 	}
--	ret = sanitize_speculative_path(env, NULL, env->insn_idx + 1,
--					env->insn_idx);
--	if (!ptr_is_dst_reg && ret)
-+	err = sanitize_speculative_path(env, NULL, env->insn_idx + 1, env->insn_idx);
-+	if (err < 0)
-+		return REASON_STACK;
-+	if (!ptr_is_dst_reg)
- 		*dst_reg = tmp;
--	return !ret ? REASON_STACK : 0;
-+	return 0;
- }
- 
- static void sanitize_mark_insn_seen(struct bpf_verifier_env *env)
-@@ -17008,8 +17007,8 @@ static int check_cond_jmp_op(struct bpf_verifier_env *env,
- 
- 		/* branch out 'fallthrough' insn as a new state to explore */
- 		queued_st = push_stack(env, idx + 1, idx, false);
--		if (!queued_st)
--			return -ENOMEM;
-+		if (IS_ERR(queued_st))
-+			return PTR_ERR(queued_st);
- 
- 		queued_st->may_goto_depth++;
- 		if (prev_st)
-@@ -17087,10 +17086,11 @@ static int check_cond_jmp_op(struct bpf_verifier_env *env,
- 		 * the fall-through branch for simulation under speculative
- 		 * execution.
- 		 */
--		if (!env->bypass_spec_v1 &&
--		    !sanitize_speculative_path(env, insn, *insn_idx + 1,
--					       *insn_idx))
--			return -EFAULT;
-+		if (!env->bypass_spec_v1) {
-+			err = sanitize_speculative_path(env, insn, *insn_idx + 1, *insn_idx);
-+			if (err < 0)
-+				return err;
-+		}
- 		if (env->log.level & BPF_LOG_LEVEL)
- 			print_insn_state(env, this_branch, this_branch->curframe);
- 		*insn_idx += insn->off;
-@@ -17100,11 +17100,12 @@ static int check_cond_jmp_op(struct bpf_verifier_env *env,
- 		 * program will go. If needed, push the goto branch for
- 		 * simulation under speculative execution.
- 		 */
--		if (!env->bypass_spec_v1 &&
--		    !sanitize_speculative_path(env, insn,
--					       *insn_idx + insn->off + 1,
--					       *insn_idx))
--			return -EFAULT;
-+		if (!env->bypass_spec_v1) {
-+			err = sanitize_speculative_path(env, insn, *insn_idx + insn->off + 1,
-+							*insn_idx);
-+			if (err < 0)
-+				return err;
-+		}
- 		if (env->log.level & BPF_LOG_LEVEL)
- 			print_insn_state(env, this_branch, this_branch->curframe);
- 		return 0;
-@@ -17127,8 +17128,8 @@ static int check_cond_jmp_op(struct bpf_verifier_env *env,
- 
- 	other_branch = push_stack(env, *insn_idx + insn->off + 1, *insn_idx,
- 				  false);
--	if (!other_branch)
--		return -EFAULT;
-+	if (IS_ERR(other_branch))
-+		return PTR_ERR(other_branch);
- 	other_branch_regs = other_branch->frame[other_branch->curframe]->regs;
- 
- 	if (BPF_SRC(insn->code) == BPF_X) {
-@@ -17427,8 +17428,8 @@ static int check_ld_abs(struct bpf_verifier_env *env, struct bpf_insn *insn)
- 
- 		mark_reg_scratched(env, BPF_REG_0);
- 		branch = push_stack(env, env->insn_idx + 1, env->insn_idx, false);
--		if (!branch)
--			return -EFAULT;
-+		if (IS_ERR(branch))
-+			return PTR_ERR(branch);
- 		mark_reg_known_zero(env, regs, BPF_REG_0);
- 		err = prepare_func_exit(env, &env->insn_idx);
- 		if (err)
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
