@@ -1,75 +1,196 @@
-Received: from mta1.migadu.com (out-147.mta1.migadu.com [95.215.58.147])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA7C486B9A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:35:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA31049E5C3
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:35:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788287705; cv=none; b=hvg9T3tFci2AeW6+R09Pu4fcMAQJoM+0Uoc0AXK11MVcgsdheKEc9CdN6Ao7+r8JzaOWDV9o0lY9XZfNlVHjqIWgmfp18qhtsgZD4O+Ujn1UQ4vJOY0ryY60bBPnz+3xRctHCIS0kdsZvGGiNW2vhr3hpyFCOI6IHL8T+ubaf2o=
+	t=1788287719; cv=none; b=JA3k5n9ipOyk94VEPMJogYQPiSzJh8tdbP3+hFDVx5oupD3nWWLwvA6V4XnkleVsTlEjbnBSltSWLeCCEugSUjnumcU3LrKx4l1NRMNOBudNkltNGFKNeISCxjlIzjd+1Q2VlrS/iilDWu+QnjdLyy3odzs+KTc9ZjUiU2cM6JU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788287705; c=relaxed/simple;
-	bh=i8KGEh8F0loJtG5JjmD9+5HBTb4SrwJLAbH39rt2vZY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QHnQaFQwvt0rLWqzLOWksfsKA5iYF3k+3ERO7NoRX8GIEpZuce8jT0ItevPBGGauLo2m0MdoT4rIIPaySaK08NvjpUeVIDtIWmroIXshEWWnWAg4EGF0si1Td+Y2z9/xVO0249R8w0peEaybzlG8Xb0JJu36RN50q3RKCUT68BM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Cy7i1zEI; arc=none smtp.client-ip=95.215.58.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788287719; c=relaxed/simple;
+	bh=d6mWEdAbh3pA6h0kvJxTmQz3sCAdRZUVlyIUylbQoi4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=jBve0MtMjUxA5MfMFkUVXaFKWMOSCCXa7dX0QH1A9oIDU+jO3f1WWgGIreEnKcPRIZtY5tWHw3JkK3OUn8QSu1f8SdJVuOrV97sghNJhkYZwPerbPg9qeEz2FiFOPBE9usOSwiZdh/CdRnZ0kPSnNQ2udlMf9KbzkuZSSZdFUzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aJ/i8hKe; arc=none smtp.client-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Cy7i1zEI"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=i8KGEh8F0loJtG5JjmD9+5HBTb4SrwJLAbH39rt2vZY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788287701; v=1; x=1788892501;
- b=Cy7i1zEIMVnzaVqzWW6qmtVOgPqsgZlClyYBP2+BJ1seIqQKQiRGJrrSZhbl5F8jdfQ2PMuh
- VmEP75rKmw4e85r2XsidFuLN337hC+2nf35AFfNVWanRydKID+F5DbUoXW4SuDWkLIAK7UM8l/Y
- +Lcw+9eghOKpQLTmTUAdpg30=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 031645a98e7cbdab;
-	Tue, 01 Sep 2026 18:34:51 +0000
-X-Mizu-Trace-ID: 031645a98e7cbdab
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 1 Sep 2026 11:34:50 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Kairui Song <ryncsn@gmail.com>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Chris Li <chrisl@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Ridong Chen <ridong.chen@linux.dev>, Lian Wang <lianux.mm@gmail.com>, Yu Zhao <yuzhao@google.com>, 
-	Zi Yan <ziy@nvidia.com>, Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/6] mm/memcontrol: make lru_zone_size atomic and
- simplify sanity check
-Message-ID: <apcalL6-QoWVVdhv@linux.dev>
-References: <20260831-mglru-flags-cleanup-v4-0-2d15dde0d7ee@tencent.com>
- <20260831-mglru-flags-cleanup-v4-1-2d15dde0d7ee@tencent.com>
- <apZVe8UHZ1CNo4r1@linux.dev>
- <CAMgjq7D6V4eTZJ1Q1Xf2J6yTCq=JjvzT-W-HHX6EnMfzm3BK1g@mail.gmail.com>
- <apcJgcFLHKZfI40m@linux.dev>
- <CAMgjq7C=k_nzwiM_MTcjVjWMTGf=s8oRaUBY00dCvLbP4EiHnQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aJ/i8hKe"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc132709c76so312462a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:35:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788287717; x=1788892517; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LA0MtyhL9+n6pP8AlY+vz7qS2JveEW6zRalGa05+rBs=;
+        b=aJ/i8hKeU2jlhpAWK9sJzuUmkRVeSqRdCS/Lig6QNmblH4MuDa9c+UgAFgPjRbPKDN
+         OPo+yFpDnfV0UDQnzFnUceEivvRvHRFJTqcHPzYHSmQ5POGpEc9kv0OgE/WsYJ6VMccc
+         JwFMDVTiz9gFkUBsnorJqYL9LOlRF0/z9kvG4rylrasCO3J+5I/rlRR5F3ASsMjYSr8U
+         Oi9MO4w1oQIqF7d6NitC9j/W64i55ErnuLaKHk2VYXSL9I1D/EYIYAzDAChBsxWjL9TN
+         Npo8jE1cxufv7fZS2WwJJd9J9wUbrWMhjNxEsI1vRJbFHz3i5W8smZNMS52hIOm0MqqQ
+         AP1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788287717; x=1788892517;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LA0MtyhL9+n6pP8AlY+vz7qS2JveEW6zRalGa05+rBs=;
+        b=ClPrbJSPiNSr+eoCPYPkHm+9fc/nOmIHwFcfNydaSLEzjlM0AV6U5JcUnSm+BUUxdM
+         P4h4MX61zJhVCarxGZH3xybUR67LW9ZOw66tbUKUKsqs4B08JSVkgxpr0wbsqq6knm8C
+         bEA7fknZTrwawVhqX3+TRPNRT5oRs96A1eD/hGV0sgMzOuuro7PD6SPI25qgw5ffPGdE
+         I+5YC0Rfw1f92r5p6R564RQbCe2ATQOYkwVoVzLPKtcAPuQaLZHYrD26VBdKjpSO2kaY
+         grlWk+ZUxW985UqDqAnVe0tTtR2YoZwK99lcRCjgIGkwGY4nOx33wh45STuXTyJGSPYo
+         KYBQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoV0GIXGkFI0YE1Hq3kaeknm50oes4Jy3E3Ov3rnWMGcsDSNGL1s7aFt2Ua/98svO0/cJiky/9Pwby89EQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqq3LFYMeQa/ZDJwVsl6pVe4Zl4HEzq70VRObXz55i0uHc3a39
+	GpqLnE/QjUb/S5HlYpsNyWFg+IFIxySLG98pd1IKwFUbCXdYlgJPKADYCAEld9Snp6/jRpkYLCa
+	T+sX8qA==
+X-Received: from pgcv12.prod.google.com ([2002:a05:6a02:530c:b0:c96:acc6:54d6])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3944:b0:3d3:aec2:4dcb
+ with SMTP id adf61e73a8af0-3d7b075b26bmr19293744637.23.1788287716571; Tue, 01
+ Sep 2026 11:35:16 -0700 (PDT)
+Date: Tue, 1 Sep 2026 11:35:15 -0700
+In-Reply-To: <CA+EHjTzJbC=ZvB3Mopw-TLf=13-iqxGw5RfTp6Gt5S1hi8WRRA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMgjq7C=k_nzwiM_MTcjVjWMTGf=s8oRaUBY00dCvLbP4EiHnQ@mail.gmail.com>
+Mime-Version: 1.0
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
+ <20260830-gmem-inplace-conversion-v12-15-85e5fd25252a@google.com> <CA+EHjTzJbC=ZvB3Mopw-TLf=13-iqxGw5RfTp6Gt5S1hi8WRRA@mail.gmail.com>
+Message-ID: <apca475JqemLUjlb@google.com>
+Subject: Re: [PATCH v12 15/45] KVM: guest_memfd: Ensure pages are not in use
+ before conversion
+From: Sean Christopherson <seanjc@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: ackerleytng@google.com, aik@amd.com, andrew.jones@linux.dev, 
+	binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com, 
+	david@kernel.org, jmattson@google.com, jthoughton@google.com, 
+	michael.roth@amd.com, oupton@kernel.org, pankaj.gupta@amd.com, 
+	qperret@google.com, rick.p.edgecombe@intel.com, rientjes@google.com, 
+	shivankg@amd.com, steven.price@arm.com, willy@infradead.org, 
+	wyihan@google.com, yan.y.zhao@intel.com, forkloop@google.com, 
+	pratyush@kernel.org, suzuki.poulose@arm.com, aneesh.kumar@kernel.org, 
+	liam@infradead.org, Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="us-ascii"
 
-On Wed, Sep 02, 2026 at 02:11:24AM +0800, Kairui Song wrote:
-[...]
+On Tue, Sep 01, 2026, Fuad Tabba wrote:
+> > diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+> > index 803c7cdbbe0f6..fe02c47c85fb5 100644
+> > --- a/virt/kvm/guest_memfd.c
+> > +++ b/virt/kvm/guest_memfd.c
+> > @@ -538,8 +538,46 @@ static int kvm_gmem_mas_preallocate(struct ma_state *mas, u64 attributes,
+> >         return mas_preallocate(mas, xa_mk_value(attributes), GFP_KERNEL);
+> >  }
 > >
-> > Another question: why is this patch part of this series? Just some orthogonal
-> > cleanups or are they related?
-> >
+> > +static bool kvm_gmem_has_outstanding_references(struct inode *inode,
+> > +                                               pgoff_t start, size_t nr_pages,
+> > +                                               pgoff_t *err_index)
+> > +{
+> > +       struct address_space *mapping = inode->i_mapping;
+> > +       pgoff_t last = start + nr_pages - 1;
+> > +       bool has_outstanding = false;
+> > +       struct folio_batch fbatch;
+> > +       pgoff_t next;
+> > +       int i;
+> > +
+> > +       folio_batch_init(&fbatch);
+> > +
+> > +       next = start;
+> > +       while (has_outstanding && filemap_get_folios(mapping, &next, last, &fbatch)) {
 > 
-> These were all part of the MGLRU-FG prerequisite, so I sent them
-> together. I can split it out.
+> has_outstanding starts as false, so the loop never runs and the function
+> always returns false. The outstanding-reference check is dead at this
+> patch, so a to-private conversion would not be rejected even when a page
+> still has an outstanding reference.
+> 
+> It's fixed later in "KVM: guest_memfd: Handle lru_add fbatch refcounts
+> during conversion safety check", which changes the condition to
+> !has_outstanding. I think that fix belongs in this patch, so the check
+> works when it is introduced and the series bisects cleanly.
 
-Nah, this is fine, no need to split.
+Why even bother with has_outstanding?  Avoiding it requires copy+pasting
+folio_batch_release(), but it's less code and IMO the end result is a lot easier
+to follow:
+
+	struct address_space *mapping = inode->i_mapping;
+	pgoff_t last = start + nr_pages - 1;
+	struct folio_batch fbatch;
+	pgoff_t next;
+	int i;
+
+	folio_batch_init(&fbatch);
+
+	next = start;
+	while (filemap_get_folios(mapping, &next, last, &fbatch)) {
+		for (i = 0; i < folio_batch_count(&fbatch); ++i) {
+			struct folio *folio = fbatch.folios[i];
+
+			/*
+			 * Outstanding references are anything other than those
+			 * from the page cache, plus 1 temporary reference held
+			 * by filemap_get_folios() in the folio batch.
+			 */
+			if (folio_ref_count(folio) != folio_nr_pages(folio) + 1) {
+				*err_index = max(start, folio->index);
+				folio_batch_release(&fbatch);
+				return true;
+			}
+		}
+
+		folio_batch_release(&fbatch);
+		cond_resched();
+	}
+
+	return false;
+
+and then we end up with:
+
+	enum lru_cache_drained drained = LRU_CACHE_NOT_DRAINED;
+	struct address_space *mapping = inode->i_mapping;
+	pgoff_t last = start + nr_pages - 1;
+	struct folio_batch fbatch;
+	pgoff_t next;
+	int i;
+
+	folio_batch_init(&fbatch);
+
+	next = start;
+	while (filemap_get_folios(mapping, &next, last, &fbatch)) {
+		for (i = 0; i < folio_batch_count(&fbatch); ++i) {
+			struct folio *folio = fbatch.folios[i];
+
+			if (__folio_has_outstanding_references(folio, &drained)) {
+				*err_index = max(start, folio->index);
+				folio_batch_release(&fbatch);
+				return true;
+			}
+		}
+
+		folio_batch_release(&fbatch);
+		cond_resched();
+	}
+
+	return false;
