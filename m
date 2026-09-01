@@ -1,218 +1,170 @@
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazolkn19010001.outbound.protection.outlook.com [52.103.13.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4323A5E88
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD0743CED9;
+	Tue,  1 Sep 2026 15:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.13.1
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278271; cv=pass; b=YRmCKShj4ZAknvbekozNKR8GCxMKuDnmiBabTUkJseI2aVkGSCK9oG0pCW/LW6wS9xqOUyR16pEs7quyYU3OlvC8uc/ib5pgVzkXnn0YTz5a7ev9q+ea+kz1eHVCD8Y6mJlc5BSaCF6ZHntVaf3zmP00WdTc2UqY5nDZNBrvEUQ=
+	t=1788278285; cv=fail; b=TjJDuUlhf+1XeaOSpxM1uFOslANj3CAXRK0AQx1KdhG+MEiU0EgcBWRneecVQR8sqG66N3OGUlvgYXJ1MMrBLUezRyeddGyS0pJ4ugUnszLgtpwMYyDbFbEuYM+DU0pXWwYmAyQvWS4WDAwzQpY85HEPyL/IZZJL4/WSdwOtrro=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278271; c=relaxed/simple;
-	bh=LGO4QPEZD4tJNdCuCHdQdsMS8+RzFkzYI9X0O6NCqO4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OaedvcXKZ5gbdXKBFsjSsQiCpqSxF/4PImjWpkEDAzla6bmJTooUTdHrATjOlE+UwQdDZkVbsopeQXSyoVGawkF7iG4m/vdXZNesRrjndJ5L3vq4GCuPTy87/Vs2s6XIYN45UGYiFHiGevnV1XXAj7CberRvNdsmZjP8tEGGViE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oysREbCg; arc=pass smtp.client-ip=209.85.217.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788278285; c=relaxed/simple;
+	bh=zfgNRGEKkmFeBdYzBsA4WvtsMCUTcNa/XuAXYgW1+VE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=QkBusmsH88C8TLy0yR6EYshs7SnnmAJAnfN0XGTChaeQCM+2lBvy26SJhuOXSAWVSa08SYs0mQ+90DpBbD3Xsj8gH9KgOclEPx22GikzYnEn7AzbpwXMZjZrK0JsAC3t54CVpBGhZzcGtE1v8j1fMhllssXvl8tdk5IrOjB6ig4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=alHUnav/; arc=fail smtp.client-ip=52.103.13.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oysREbCg"
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-746d77537f8so56870137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:57:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788278267; cv=none;
-        d=google.com; s=arc-20260327;
-        b=P0/fFylWa+/0EmluwqGs3nk/g+FNLQy9FiyDHpY0zaIXmwMN46wX6HH+QXgO14nlze
-         IXQcyq7PJzmWbiuKOyJgkp/qLMv6czpIGVRq7Ic2vC13eV5TLtlsmee3K4pCvSFKAqpD
-         2ADpqmEK98ypjul4XwPT4LKgS4vz2+pQau4g+1kdAd6yXH+Ci2YHfmTTPM6xj7Aip+2q
-         K1N7vZ+FGwgoo7kzGKtZrYxAEF4CawhacWUeukei0KGn9jjEGiK5lJ6O+xtJOK7RX2KS
-         UIP/4/MHfne/Lhirmjt/ihKnmXaSzxq5WaWKydQqotTkX0DbcULICT+mlltqWrapzIXP
-         cXDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RoXKQvXjgiKqIUHVbbm0BfOC/USzZLLHG1ls27syuEg=;
-        fh=igouC4lz1Ko9/Xp86cd8e5YYFWN0CmvRob3CC9oqgZo=;
-        b=MBUFSs3QCesShELEivWp8IZPVq80d4Gr3DHHhqroRv47ImwttHwpTgFkKOLAcRt8Zp
-         un6gSd+xdYk3HM85HnQBzkKBByqEY/Nk4rvl0new9qE5Aes8R2UAHnkWI9qns/U2KcRv
-         MuFK18U0rY0rFKwNUxSHpEyLb5VstAbyo6hJA/Xpt08supcBioZE25eF5Oj+XB69VtSV
-         0kH6JXAC9ojsOnc2KSaMnff8fnx9+hk2EoEiiREqoxSUxF9+LaBciKQbd9u22FnPUoAP
-         mMkExlWE05XDKIa72vh8+EKc0YdaDt0bbIfXQAdN6rPJVr2dIdTZXNJFoDlADyuFilH2
-         sJFA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788278267; x=1788883067; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RoXKQvXjgiKqIUHVbbm0BfOC/USzZLLHG1ls27syuEg=;
-        b=oysREbCgArG9Y3QdTRV0lu/5KZOM2WIau1KDCEumHgDk3gLOJ/z0jlXzbDGzxY0t1I
-         Ue8DrKosLC9MWoArQ7/CZVa4t57IUPm2m+fgKLmRtN39K4FH4WhXP/MvSItlEp3+TeNX
-         c5p2SK/BUdAUFC3/hZi0nab3VYUSgmx1iL+hFaKVNrZ+qOnygjBonn8kPxs1yMayRd7e
-         r+FeFb/UN1JfqWsDWvTNOGziqIHLWGeQLHyo3Q2pKawwZWywY4fAUYyCBh2mbdhhNGZ8
-         EO1qgwzMHQcH619BXDQphsLlvL7J9iquH+/JkIqMVeVMxPeH9U+KIkZaiTRYnpLWSGfj
-         8x/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788278267; x=1788883067;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RoXKQvXjgiKqIUHVbbm0BfOC/USzZLLHG1ls27syuEg=;
-        b=tIozg/kfVpz+bsldth1IpzEuRuSfSFOUgv+JUHsAYX7P28pscBJEu6cab1hRyfEBxC
-         U4pzPxWfmVT4BzK32/2/HxniRzcD960DOwVvKmcvWFJidDu051VoSx4tF/2htxVZ5q08
-         3nJOeKoSwrXBSN8zCS3q7PlOTY6NUwJuOaZJ9a51IUxTQUDjgHl4F35B4vm/FaehBKmv
-         spTqDc1J17KXYFExr3OJa3m0ZSW5/ooN5YcX07DlcqR+T18dsHleu0EuPuuqvV325sLw
-         39+zMSeAZoiC2uGHCwv/tWjgC/tbU3BKWG1MASGuJ2LjD4Lv+PyFY/rdH7g0EV5BWZ7L
-         Wrpw==
-X-Forwarded-Encrypted: i=1; AHgh+RoJvwQZCMaFkAq7BV3RyPu0dh5+EMtNr/LXP3I8iVUZlHb6aasJBBvrLPJq3tjyXLUlVM0ozDHwYm5Zt7Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++nu5BR2U93bOhnW/ABWGXwOarWoRHhHnf/ebNMyDxqwyG5GJb1B
-	aRXI4kbcco8QxnHtC+EZDXNIWSvo4/g2SfnRcPLqpOAmjpvQ4owygPMAw+TX0A269vHOAFSHFRV
-	D2J3BespDg8wnnkHnccqXktd7gGkMABs=
-X-Gm-Gg: AR+sD10jZo/zst1/f7zwyYk1UrpbBCwNaPuyG8PAfZXU6OTziWKRkDrCzkG6tPYHBYq
-	zU84m/dKl7PZMDV2vbzzT1ng9sU5OWNMTFt8uuFMfjoAaGAnZ6jNIdvuaVCxjPaVYqvVJaYyTto
-	nQWdZPZqk1PMHDFuYR4oLV6w8+nA50TsU+3x/U7t961D8f5trIC8XTln9UJoEzhfvB/SfXEmoyu
-	fH9gRV/uM8VB3uQk57KxUo94uwVk1XeaCaREodVNwBqFRCQzvbbymmjFlEcuWtgxQ655xc+fhvU
-	NsntCJrTr6t3O64Lhtu+HMT1JfEeYxwDV+Umvjw1cTDBWB13/FwpWVaay3LPrY68zhw8i4x75o0
-	HRyY=
-X-Received: by 2002:a05:6102:2b92:b0:784:a169:194a with SMTP id
- ada2fe7eead31-78599051f0emr16194428137.10.1788278266962; Tue, 01 Sep 2026
- 08:57:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="alHUnav/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cP2X41LE1rI5qk3AmVAcGMPWRYdZnlAZngNYvZZvfSQ88DRmh3mbhxLQl/pwWy59vcLtDMY3Fsixekhkuu32A/6QBzWX2nUpy1uoXD7z5F4FAd/JCRTLdsKpNSmw+YHDrZn7xybTGF35w8qwSKRWspHNIVLMMlZX2dnrzrCX7UlJPbkGQM/YZT93chsw76tpk3S1eG90IfARtR+cnCwIu/fIq/R7P1dFrsm/63P7ei1OUuh9+75Cqu48KdhIUtte3G622Wh4KG4OajLtzYRUZsxd7jYiVxIo3SM1QvXNCBlF+rjbJyWuDW6Ps+nIkqFUfECTTW5VrfEt+47gdf1LRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zfgNRGEKkmFeBdYzBsA4WvtsMCUTcNa/XuAXYgW1+VE=;
+ b=LonoH/cui1A/95yAcdLqOMlaBwijZxSR1AolZoNiimuUFQGoyhejBfvqQN39kA6EIErq7V53EjFWSDvIDzqPXYN2h1QBCEKm8+EIf8gA9AgqvHg7s9WQhv3tud7BNrlSu0bk5LkCneWE9uMQih3cSFX9pdPZAFGIyegv/VIIUpWpGefNFpKaQDM/l+6VaqzKec0wyNhGCBRCoQyP2jCVA21np6a+46Q9oWs3NNNFBHqUjPAgoGPw8ce7mSl2MMoMIA56PjpThPxX/5X0HiKUPmSH2wrhFNw5a8Q25EwHi9obcVTEzeV5MvE9TD5gZmw7vjCJhaTsO3s60JUw1uP91w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zfgNRGEKkmFeBdYzBsA4WvtsMCUTcNa/XuAXYgW1+VE=;
+ b=alHUnav/Z5gr7R1TmdCfa5Wg6eqRqLY/BD0AXI21iS3Ow9CBvsYWhhGESGc5A88/a+CukFlSGwBM28GDn+0CMbhMeMeZHylHgc3zN7nYcUgYr5Ls3tUnp3E8EDLc2YWwEnLXLqbX9X/6nwlqDM0ouYLZr4L+46P0p3SC2+v8K2Bb59EWEHH3Q6fIJWC8ob/UtxXK+lppHVr5l8Jn5qPhRHOcgTHRG8u6nJJnselUQxD8LuMRU+F/9JB56Yvwy22U9O35LP79knpLJVWwogz79YVmhRsVUQqEPp2sFZOgaWar3uecRLZqGR+pJFnDcwEpVZxIUxANKDcI42zkX4OKPA==
+Received: from SN7PR07MB9708.namprd07.prod.outlook.com (2603:10b6:806:32d::7)
+ by DS4PR07MB11345.namprd07.prod.outlook.com (2603:10b6:8:2a8::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 15:58:02 +0000
+Received: from SN7PR07MB9708.namprd07.prod.outlook.com
+ ([fe80::b852:966d:a1c6:78c]) by SN7PR07MB9708.namprd07.prod.outlook.com
+ ([fe80::b852:966d:a1c6:78c%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 15:58:02 +0000
+From: ai qubits <aiqubits@hotmail.com>
+To: Alexandre Courbot <acourbot@nvidia.com>, Gary Guo <gary@garyguo.net>
+CC: Danilo Krummrich <dakr@kernel.org>, Sophon Zhang via B4 Relay
+	<devnull+aiqubits.hotmail.com@kernel.org>, Bjorn Helgaas
+	<bhelgaas@google.com>, =?utf-8?B?S3J6eXN6dG9mIFdpbGN6ecWEc2tp?=
+	<kwilczynski@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
+	<boqun@kernel.org>, =?utf-8?B?QmrDtnJuIFJveSBCYXJvbg==?=
+	<bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor
+ Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>, =?utf-8?B?T251ciDDlnprYW4=?=
+	<work@onurozkan.dev>, "linux-pci@vger.kernel.org"
+	<linux-pci@vger.kernel.org>, "rust-for-linux@vger.kernel.org"
+	<rust-for-linux@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject:
+ =?utf-8?B?5Zue5aSNOiBbUEFUQ0ggdjRdIHJ1c3Q6IHBjaTogcmVqZWN0IElSUSB2ZWN0?=
+ =?utf-8?Q?or_indices_that_do_not_fit_in_u32?=
+Thread-Topic: [PATCH v4] rust: pci: reject IRQ vector indices that do not fit
+ in u32
+Thread-Index: AQHdOWxhfi2vd45HaEGtwvA0/upoIra5jr2AgAArKz6AAARUgIAABa6AgAAdx5w=
+Date: Tue, 1 Sep 2026 15:58:01 +0000
+Message-ID:
+ <SN7PR07MB9708C82431F44AE45D9FACCDCFA82@SN7PR07MB9708.namprd07.prod.outlook.com>
+References:
+ <20260901-fix-pci-irq-vector-index-truncation-v4-1-f94aa6932fd9@hotmail.com>
+ <DL3XDBBHXKKV.G9P6KRSSX1DN@nvidia.com> <DL3XLHXS647M.1LMHQUVX5RTI@kernel.org>
+ <DL40NH1AX8WN.2ZPY7GDL0FSEW@nvidia.com>
+ <DL40ZHH4H6B8.284J2WKIMKRDM@garyguo.net>
+ <DL41F1VLHKH1.2KME3J6V7CZH1@nvidia.com>
+In-Reply-To: <DL41F1VLHKH1.2KME3J6V7CZH1@nvidia.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN7PR07MB9708:EE_|DS4PR07MB11345:EE_
+x-ms-office365-filtering-correlation-id: 25c5fb3d-ed91-470d-d43b-08df0841cd53
+x-ms-exchange-slblob-mailprops:
+ hQngCdii+CaXRI1QpKWdRyX2ytSc3g6jJQ759w9ckflbT57Mb0vaEmK90DC1PSms3ugmgj8VSEKLK0XTCmB5EKLZeRncDFR7Of/pI1ilL0hpk6fl8PgSKJn2rT9ecr/SBHcZpAOmYG7tJ1iaeB62QfQa2sLMmCzptrs0er/JmXMM5MGcIAXh1X0s2ktsEKZHs0CUOJ1idkdiUlYW8EMONfI9OexUXno62EwFTgq46ZyyROwQ8kkaZy1WEr1HV9jVprHW7+QOZF/W+giyANNy7Nt77fmKocbzj7PVdzbNfPOErfEPmC1M4Njf8HNiTi/7yku+TIUsHk1TnDnhnoDU93ZjcV4HdjKaaFcOesr5Ph6Cwf67E7FsztzPyAPugOIF1bo8APUbgWw/kZyO+3JEn4TRzL1Y8BjEpRajmVuydDiGfa0TxwzCQJZfTrGNjYQPvSjBEakD6cvQVf2/W4EMJHdmGcWU5ugUlNzvtW/oXfBHkNAYWYZtrYLjXOMoVJw/PAtiG8LccKyfHeq/QHGYihbjufpbeTv0OlKmDguZIWtRSbuDT9dgPOz0q/IBvLyBs94EAwfbYcyBJACpfypSfcOKTVwRa1O92gSqszGJk+SLByCU7+PS4BtxJE+Yqy+2IUm6LPErD/EEC2IMocZceXtpg+tos6ezVDCAeg2s0lcRe8x6g5aOTw==
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|15030799006|15080799012|51005399006|8062599012|8060799015|31061999003|41001999006|7042599007|19110799012|22091999003|24121999003|2604032031799003|45011099003|6140399003|40105399003|26121999007|3430499035|2607281247196008|102099032|440099028|3412199025;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?ekY4NmhaUHhsV3duaW1OaWJNSlp1S0VRUUlobmRoaWlZS1JJb25pY1ozU1JC?=
+ =?utf-8?B?ZUFObHNYT0dGYTVpeTRIMmk2T3FEOVA0bTRuOEhwd1dFL2ZSMkFqN3o1T0hV?=
+ =?utf-8?B?WG1MK05nSG9BQ05YTDJZeVQ4WnZwdUI2S2xJcEM0clJvenJNTzJ0WVYyN013?=
+ =?utf-8?B?U2RLS2RpRXBEUloySkw2UGVnR2tOcytieDNOcnBLYURuSWpSODh1K21yeExj?=
+ =?utf-8?B?V1VEeGlPUmI2QmY5WVlnQ1Q0RjY2dlpqQnFsTUd1ZnRiZ3hQWWlFQlU3ZGxF?=
+ =?utf-8?B?QlZhYktIRkNuU2JWVjRnMzVILzNiR3ZHbWUwcHMxQmlLZEI4ekdUUWJRVTY4?=
+ =?utf-8?B?U1lZRGFSOWVaeWkyTStLeXdoOGVpYld0T3F1b0hFNWtRNGFNUE9aRFVNY092?=
+ =?utf-8?B?WWpGTlJweGIxN25yQWpHZ3cwQlJRVkx1OE1vcmk2MzdUZS9mNVluVjYwWXV1?=
+ =?utf-8?B?cVRXbWlMRkFCUmJCaGh2Z0RGZE1DRlZpNXNQekEwODBLM0RuYnZvTkhPMCt4?=
+ =?utf-8?B?eEVxQzNETDNneXFIN3BhQTVXdFNZdjhXWjBmcTQ0L2VZMWcwb0NJTDQ1b0Qy?=
+ =?utf-8?B?ak5TWnJQbWVsYjNPRG5sMGlxNFhJdER1OG4wUEJtRkJSdHVETHdHTW5yZ2V1?=
+ =?utf-8?B?RUdtZFA3aSt0ajNua2M5WFlyYlVUangxdzVFMkw1YVY2NEd4WkFTOFlVVTFF?=
+ =?utf-8?B?Qmc3cXNvd0M4Mzl4TzkwVUU5aS9BbFpyZW9GSG1xOEJpWDFGMnhuUDFzU203?=
+ =?utf-8?B?T1JoQTFVRFkrZ05SYWVhNlZIRElKUnhLSStFbDNrUjRpUHIyTHZYNmVYSjRI?=
+ =?utf-8?B?L044VGgrdlVWaDQ1R1NjMzNkeTJhcUJ5bW43YVluVGxUcmExbXVpM3RNZWlH?=
+ =?utf-8?B?am01WkF5T1d2T3E2R3pENEszREZvWDd6cU9iVHJrYmc1bC96NnhZMUlMcmhB?=
+ =?utf-8?B?M1JaMitDWHRYVEFWU2FNcUM4ZHY1M0pha3dwSFJKb3paNlE1SFpxQTcvQ1ln?=
+ =?utf-8?B?MWhKL1dSQ2VTejRVWnUzc0s3UmtYeDE3ZW92OENBRk9aajJqcUE1M1NRa2Y1?=
+ =?utf-8?B?ckdsUE4wRm5ucXRKUXllcG5LSmkybmV1NW00VW9jaTgyTWhWZk1Fb3dPVW1P?=
+ =?utf-8?B?dU5wMVFoTDlKTXNHVXpLWGhrWnY4L29uZ1Vmc0l0MDB4WUxHSnJHaEoxeFkw?=
+ =?utf-8?B?TFN0d0tMa1JOQnBKOUtXUnhCNVhDczBTbmJVb1RUdDkwNVFIemxtYXcwL0Na?=
+ =?utf-8?B?cG0vUWg5NXlWWjBCdSthb1FLcS92Nzl2cHpxbndnZVJmS2hlUm9tYVVFNWpL?=
+ =?utf-8?B?RHRZcXZYT2h0QmtoanNuTW8zYS9qdW1NWG02SWp3S09EOUczRUc5RFZ3MUdC?=
+ =?utf-8?B?Tmw4OTdVTVh4ZWxXSlNDMDZrOFFoK1Jva2lEaHBiRW02LzhVM2xpL1Y0ZGh5?=
+ =?utf-8?B?VDIzcnh4a0FQVThUTFZZTHp6SXhXTVZ5MS8xSEcwQXYxdUJ4dHJqblBPNm1k?=
+ =?utf-8?B?bS9XZW1zVW9NUEdnanp4dHRUYndKRmVGc0N5UVIwU1pxSUpobXNDTFM4RGxC?=
+ =?utf-8?Q?o6NUbIIV/kD+a25F7oCn//Bho=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?Y2ZrRjBCREJFY0xpVFduSjFKMlVnRlJkUkw5R0E2WklnSXBoZXhldUs2a3Jm?=
+ =?utf-8?B?RHU4Vk1FaTNCSjlVV0pWMU83QTRvb1NJazhJa0Njc1kzU2c4bWM2cTdTNFNp?=
+ =?utf-8?B?cHJIRXhHY1BVR1lOK3FxdkRDVzBta2czZmlVeGlkVzJlS2g2NnJ2WDl3emtx?=
+ =?utf-8?B?M0YzYWZ5QTdLeGdWWXMxWG5MWk1wNUV2c3Q0RmZITUdSTGFKMW1KemsyYTAy?=
+ =?utf-8?B?c09ZV25McXVxa3NQVUFrMmxiNGE5VWtDL1BOdHRueVRYR3hGcWw3TUk1MWdn?=
+ =?utf-8?B?T04yZkplYmVEQkJoS2RDc3o2azlZbXhDbXoyZy9OMjFNWE5aZ3RWSVU2dTdD?=
+ =?utf-8?B?R3ZRTzlHUmFzSVNLV2lld3NMdkRPRWE2Ri9rWjdScXQxWGVQWEtsZklNSWRm?=
+ =?utf-8?B?cVNuRVExMExXMmdzZUQxcFVBUTNKa0lwT0tYSXBXZllhU2t3bVZnWHpSUlEx?=
+ =?utf-8?B?SGNLbDZOZk1SYVFxcnY0L20xbDVVbm82eWc1UkFWU3ZhcGxVVTZ1dGxHWHdW?=
+ =?utf-8?B?Z2JSRVlhS2hRWmNvd2VrOXBOMk9XT1BUb1o2dk9kbk8yTmg0OEdXY0NVZTR1?=
+ =?utf-8?B?eWw5M1R2aEpnT3NIZXVzM0ltVWdTcFN6cms2M0xxVTVxdVNuNVMya0cwYWwy?=
+ =?utf-8?B?VW12TVRndWZqZU1TNWF1TTlNbVp4bStqZStxbFpXR2RoRnE0UC9aOW9WS24r?=
+ =?utf-8?B?NW1hVk5FMW9taGhMMkZSMWRVb2JwMG9URW9COTZlZWxKdUpvR2d3Rk5rSXc2?=
+ =?utf-8?B?NWU3YTBDcDM5aEt1aks0UDhXWTJ0dko4Y2lkazlsVC9YaEFpZjVGY2FEeS9r?=
+ =?utf-8?B?Z1dtTlNNb2YwSzV5WE1KQ2E1NmwzdEZSWDlvWTBFUFN5ajZ5NXByQWZTTXFl?=
+ =?utf-8?B?UE4vRFl5eWFFOWZvY0dWYVdkc2RGcWJYcUtkSVRwMDByclhvWCtyTitiVlJy?=
+ =?utf-8?B?MFFpRWxGWVdSTmdacUgxRDVONUdQRzJrR3ZjaGM0NUtNYW1GZEpnL05ZZE9K?=
+ =?utf-8?B?L3NWS0RPeEJiQUJ4OGJNMFMrTEdNeGM0MFJxUUV2TmNIcmlEeXZtOGpjWFBO?=
+ =?utf-8?B?VDlyeHRiQnFOKzdid0JqcUdHODFRc05WSytTY1VtT05WUGRDNDVBa3ZvR215?=
+ =?utf-8?B?dmNQQU0vQkhaOTdFR215bFRQditzWVVubGVacHpWWFVtRllzUk96RERBdWN6?=
+ =?utf-8?B?M3VFbEsrdVRxbUlwM0k3c2RTeEU3NSt6d250RDAyQ1VXR2k3L1RXVGxRZnhQ?=
+ =?utf-8?B?OXJTNkhZRTFhNHRQU0VZSURXZjVGZXd4KytweFBCdXRIMXBRUUJTZkJ5NkF0?=
+ =?utf-8?B?Qy9UQmRvaGgyRHNuUE9qMUw3RjQraVorVkUzcFlDRHkwQ1E5UzZmV25Xbkl0?=
+ =?utf-8?B?QVhJN0pVTnF5THF2WllDRENNMlJoNFFGb0ZZdjJ5R1I1NHV4Ym9ZNkJBZnJK?=
+ =?utf-8?B?VkU1dHE2blhaV05tS3NObC9WK1JoTG9DK3ZmdktDdDk1cGx5YVNrMkVodlBL?=
+ =?utf-8?B?bzRac2hQNDAxSzd4SkpEdHdMc09CQ3YrVW5pNnplazVEQnJ0MkhCTUVrRUxQ?=
+ =?utf-8?B?NjliM0xjenF1NzRnM2FhNkFUNGQzYi9ZQnJ4TVlKUmxiaW1rZm9ZNEZqUVgy?=
+ =?utf-8?B?M0xMUVlqTDJOYm9RNjNTc1JhWU9jZjhPU0lGSFpydWVzeVlHaytOaFJCV2Rn?=
+ =?utf-8?B?YjdTRDQ4UC93bFBqcVo4bnAzemJGNnZ6M1IzaGovVW1YeEl2R1Y3RytrVEdM?=
+ =?utf-8?B?Zm5CRWluVlVWOCtiaEMzT3ltTXFoV2d0WklyeVpncDJmK0RDQWdtVDZUR0Rn?=
+ =?utf-8?B?NGNRcjJNc0RmdGNOZWRaWkdoUHh0VHJkOHBRSXoyVXNkSTBLREhDeHlVSmhw?=
+ =?utf-8?B?aXFwWWJjbHhrMUh1OEh5YTNGSTRZcFRtODdKMUdYUlNxN3c9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788222001.git.mradityadash@gmail.com> <49b6e07395d2fe555e844758bd8ccf34ac0cbf0c.1788222001.git.mradityadash@gmail.com>
-In-Reply-To: <49b6e07395d2fe555e844758bd8ccf34ac0cbf0c.1788222001.git.mradityadash@gmail.com>
-From: Derek John Clark <derekjohn.clark@gmail.com>
-Date: Tue, 1 Sep 2026 08:57:33 -0700
-X-Gm-Features: AcwNN1W0m4Ib34PML6CQ2EODgklRtSrXz623ENRC4RuSjDFoDzq1Hu4wP9yQ6VM
-Message-ID: <CAFqHKT=7xMJAvTt3__6CtBiS2duGu6eoHq4FWiGONMvjFE2CtA@mail.gmail.com>
-Subject: Re: [PATCH v3 5/7] HID: hid-lenovo-go: normalize calibration failure status
-To: Aditya Dash <mradityadash@gmail.com>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
-	Mark Pearson <mpearson-lenovo@squebb.ca>, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-13ed7.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR07MB9708.namprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25c5fb3d-ed91-470d-d43b-08df0841cd53
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Sep 2026 15:58:02.0129
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR07MB11345
 
-On Mon, Aug 31, 2026 at 11:36=E2=80=AFPM Aditya Dash <mradityadash@gmail.co=
-m> wrote:
->
-> The driver stores the firmware result byte as an index into the
-> calibration status text. A Legion Go 1 returned 0x08 after an idle Stop.
-> The status table has only three entries, so a later read returns -EINVAL.
->
-> Keep the defined values 0x00 through 0x02. Treat larger result values as
-> failure before storing them.
-
-Hi Aditya,
-
-The 0x08 thing seemed odd to me and I meant to dig into the docs sooner.
-I think the real reason for the bug you were seeing is a mixup of what data
-bytet means what. There is an off by 1 error with using data[1] since
-device_type is really the 0 byte for the information payload. data[1] is th=
-e
-reason code for the failure.
-
-From the docs:
-Byte 0: Device Type:
-    0x01: Gyroscope
-    0x02: Joystick
-    0x03: Trigger
-    0x04: Joystick Trigger (Currently Unused)
-Byte 1: Calibration Status:
-    0x01: Calibration Successful
-    0x02: Calibration Failed
-Byte 2-3: Failure Reason:
-Gyro:
-    0x0001 - Not stationary, timeout
-    0x0002 - Connection status changed
-Joystick:
-    0x0100 - Joystick not fully deflected
-    0x0200 - Joystick not centered
-    0x0400 - Joystick not rotated two turns
-    0x0800 - Connection status changed
-Trigger:
-    0x0001 - Trigger not fully depressed
-    0x0002 - Trigger not returned to starting position
-    0x0004 - Trigger not pressed twice
-    0x0008 - Connection status changed
-
-
-Since we're matching on cmd_rep->device_type(byte 0 corollary) I think
-switching to data[0] is sufficient to resolve the bug. If my hunch is
-correct a trigger and gyro calibration will always succeed in the
-driver as it stands. I won't be able to validate this myself for a
-couple of hours on actual hardware, but I'll respond after I do.
-
-Thanks,
-Derek
-
-
-> Fixes: 995887a10da1 ("HID: hid-lenovo-go: Add Calibration Settings")
-> Assisted-by: Pi:gpt-5.6-sol
-> Signed-off-by: Aditya Dash <mradityadash@gmail.com>
-> ---
->  drivers/hid/hid-lenovo-go.c | 17 +++++++++++------
->  1 file changed, 11 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/hid/hid-lenovo-go.c b/drivers/hid/hid-lenovo-go.c
-> index deed7acd2dc4..59b457683357 100644
-> --- a/drivers/hid/hid-lenovo-go.c
-> +++ b/drivers/hid/hid-lenovo-go.c
-> @@ -648,17 +648,22 @@ static int hid_go_light_event(struct command_report=
- *cmd_rep)
->
->  static int hid_go_device_status_event(struct command_report *cmd_rep)
->  {
-> +       u8 status =3D cmd_rep->data[1];
-> +
-> +       if (status > CAL_STAT_FAILURE)
-> +               status =3D CAL_STAT_FAILURE;
-> +
->         switch (cmd_rep->device_type) {
->         case LEFT_CONTROLLER:
->                 switch (cmd_rep->data[0]) {
->                 case CALDEV_GYROSCOPE:
-> -                       drvdata.gp_left_gyro_cal_status =3D cmd_rep->data=
-[1];
-> +                       drvdata.gp_left_gyro_cal_status =3D status;
->                         return 0;
->                 case CALDEV_JOYSTICK:
-> -                       drvdata.gp_left_joy_cal_status =3D cmd_rep->data[=
-1];
-> +                       drvdata.gp_left_joy_cal_status =3D status;
->                         return 0;
->                 case CALDEV_TRIGGER:
-> -                       drvdata.gp_left_trigg_cal_status =3D cmd_rep->dat=
-a[1];
-> +                       drvdata.gp_left_trigg_cal_status =3D status;
->                         return 0;
->                 default:
->                         return -EINVAL;
-> @@ -667,13 +672,13 @@ static int hid_go_device_status_event(struct comman=
-d_report *cmd_rep)
->         case RIGHT_CONTROLLER:
->                 switch (cmd_rep->data[0]) {
->                 case CALDEV_GYROSCOPE:
-> -                       drvdata.gp_right_gyro_cal_status =3D cmd_rep->dat=
-a[1];
-> +                       drvdata.gp_right_gyro_cal_status =3D status;
->                         return 0;
->                 case CALDEV_JOYSTICK:
-> -                       drvdata.gp_right_joy_cal_status =3D cmd_rep->data=
-[1];
-> +                       drvdata.gp_right_joy_cal_status =3D status;
->                         return 0;
->                 case CALDEV_TRIGGER:
-> -                       drvdata.gp_right_trigg_cal_status =3D cmd_rep->da=
-ta[1];
-> +                       drvdata.gp_right_trigg_cal_status =3D status;
->                         return 0;
->                 default:
->                         return -EINVAL;
-> --
-> 2.55.0
->
+SSBhZ3JlZSB3aXRoIEFsZXhhbmRyZSBvbiB0aGlzIHBvaW50LiAKSSB3aWxsIGtlZXAgdjQgdW5j
+aGFuZ2VkIGFuZCBoYW5kbGUgdGhlIApyZXR1cm4tdmFsdWUgY29udmVyc2lvbiBoZWxwZXIgc2Vw
+YXJhdGVseS4KCkJlc3QgcmVnYXJkcywKU29waG9u
