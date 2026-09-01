@@ -1,161 +1,259 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A3BD47CC92
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260491; cv=none; b=Qvx7M3XfuC/tKwiovMv2IptiJ4hpG/ttaKhgZaWSDVMF0jfn8KvLwstmqnwREz3UBXROS3pmBGtYwd68B0gLA2mVnRefFgLpJpr3Hff0CAsuqPhXCgy8BczPBg/SeSAEzOactoLQpKuaoogYULOiSONAlFG5nSUuUhleaM+7Lb8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260491; c=relaxed/simple;
-	bh=rUg5RDcbQwv21+EeGr6tJRVYoyYOYvydRnuXEoCQPSE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=njNO8N6JonX+0Z/cTUc8a0RWaK3vHHWcyL0PsGPtq/vFbkRxAD4ClsbVnSefEEVHHM6DO0ZXLRDmM7o3aJpkH/9utrQI+cuRfVmiTctMR20IfiZ1tFZIsDK+9jRzap5kb4PLtbzrzp3lgFLzsK3eIzeycVo2rBMKRGKL1PYb6GU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CW83/wQb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RmIiYnIr; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6125B47CC7F
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788260585; cv=pass; b=GNHdEAJUuIik9G135Of2IY1C/TuhIbVxVaw7ZyLJY7NkkTUWoKZCVlGWPDiLTY03zRta547QTq1A2GNx3eANhWMlnhiV40fahm5rZBJv3KSoc0DOXHdelMzDEvqFtfrMurQjOMo4MMa772HxIsAv4SNT2fsSsEUuxRsjc/9Bwqs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788260585; c=relaxed/simple;
+	bh=9pZcWmQuwO7sUinLiZN20It+LnS0MxOvZ2XwTQJXn+k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NXvWsWUy53bFwgFQoUMn7tzCt50ET63xLjfLegKZwFjcXDxuVVEDhLxRSpnHeREVi6mRL8iXVL8BxyCi9k/beTnc/QcFmhc9XHhIXzZ3CuKtIhT9ifMh6bDR7AaR5974/N91uMYHvk9KE5f+S6pxHuJAwnv+wTfs6pYB9Bg++NE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=abHlSeKO; arc=pass smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CW83/wQb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RmIiYnIr"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681AJilU2752208
-	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 11:01:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZF/DA0i/vJB8ETVhi537WGfCwLGoiddks1hUp3ZHR0s=; b=CW83/wQb1Y2K6z+G
-	0dyFxJoDvzG7dR2702RceUiMPF8VFNuTNnJ6J2A28NyzdnTMriZNJnfYIwzvcraY
-	VSfzLNiBLOn0MTSucE7A6S0FPP2m9hmQUXmAP7XD6hZMlL1kBS2g1pUS4xfL02NU
-	sSowKQX9+f/ZWkf7JHo26vnDLo0sc03R42ERljW6qoVRho3NI37/DEbThiLYCwQZ
-	25yzSE1uJylfQJj8TWRbLsWcnCYIKJwBW2CC9LYUOhvii0W4SNq6IRZBU1wCK0Rs
-	zISEzek6R9Hmyf/0LK7ugjLWZxSiISeP73/ct1g/wTdzf4tdP4OXhcJIcmHWf4YF
-	sKPXlA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdfchbjx6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:01:29 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6f80c76e6so75060915ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:01:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="abHlSeKO"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d71a50caa9so9747255ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:03:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788260584; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HyhL/9Q8SZACpNwCSnQuvzaODfkriGmRP+1edaYDIwkq6LTNBVJv/L2EywS0rWKjJ2
+         ylgpgyTzB3A4EQnxPoxvvCDyUGQl91pZ6IOJvmj9BFVkZmvwGGgTd+SkiXeK51fvNlTG
+         zddWHlxDMaLkXJKta/xy9qmzGFKl7nFw59p3vm30JAQNN+li2QZ60w3/kUDyurFrujGr
+         Rd24/N4Z49jas7HYrVVLJxuxlYKyVyIhGioMPZmzDtC7ROz6nw7sfJTfD1JZH1NWCuTq
+         i9kVlOeKX6wONq3i6dCQD0I1zrBoQm9aRaQtb04BdA2ouKisefJq7NFkIVPWUejg1muk
+         R22Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xni6XiC9n8biLyj8Lypf2TuiINVCW7jBKaUVbdQaKLQ=;
+        fh=91A9323z2GiHJCCQPV9dNR8CGg4Bw1+4QnXCuJCTvwE=;
+        b=P88J5SGDMX4ztUdFGA/Db2DHVc3Bgzvav+7QigHA06oI5dSVup0PYm/3SVHBYaQ6aO
+         UpFYNUog/1KIINHxJ/bYXr5D3Q6374k+g9/26NdRU8LtwlImnEdRFEhVs7CeS2xJWXI+
+         p/kKYqimTlVCUE5gW9EAnAczDocnXeb1h/De6Ie2C8tpwhnFvn0LpH0ELXzE9iu6BNFB
+         LCOA9iN/JNnMV6Yr24RVOq8/NL7chS2GA8hkhg1fhbC+Pupp5Zu8FUZm4ZLmMR8bXzK3
+         fcE0RKv49hpO/DCtjVY87pdDdnKuiuM/CJGYwR053ECOVClU4dfaR8v/6zXoAM8JLxOP
+         6tQA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788260488; x=1788865288; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZF/DA0i/vJB8ETVhi537WGfCwLGoiddks1hUp3ZHR0s=;
-        b=RmIiYnIr8z+S8YBCgI1FJ7kpFszkiHr2gJbwdjGTflyU7QhWVIzo98/RMgRBf4ZH+j
-         ZEWkwwsn2ofyso+1tAKIIx/Zs+bt/E/1NiVHfoj6wK+wBcNcy5l5vcAyPCHicfCKcOGy
-         2WmEtIC6cnYTkoV8sfw3pLjc6AsFKlgovkZMhvXxnGoAEZMXm9YDp6pHjaxKTc7kvb3H
-         v+CFXg75qiRxNOBPmlZzGbDyDQjkUPnHId5VXZgDRzwxwETa2VTWzB65JIlbii3coBY1
-         LTnE9TxXZdD5NRe1MpV5D68wOVEBLQYhKhKXSSQPG/3tAcOgG9hQoLhGGl3t90GVNxRv
-         RSfg==
+        d=gmail.com; s=20251104; t=1788260584; x=1788865384; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xni6XiC9n8biLyj8Lypf2TuiINVCW7jBKaUVbdQaKLQ=;
+        b=abHlSeKO1AlUkgHdCmsPeiYX0dVDAN8SErGde6xEa4kLUKKXRyy/XdyoIsEFHuDjsk
+         aVxqvDPizO4FDkDxtF/L3FTb0bMtKyKDO0KPK4Rty+FgRcmBXeDO/UoilxZmqxUKIF7k
+         PRl0RbmHm2Ph1r2qw2TVsn4fhUH7vRRPB8zRbclFC5eX7LepmbYVww7u5ZnrVfVn1Tx+
+         hzR/j656jmFfbQwq9CMhxiZbKHbtmcjrntWyJplJgmnf8AMmXTSAG9BWem5WhKV+2ahS
+         nzOnIIe0Wrfnmc5aQAkQfgSncBjZQ5xIO5gdx++4Zf5qStqQoMSHIaf9W3CR1HFXLwY0
+         C+Fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788260488; x=1788865288;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZF/DA0i/vJB8ETVhi537WGfCwLGoiddks1hUp3ZHR0s=;
-        b=qQ3Env75+YwplwOy/126OH5QbL5hPagjW48cT8wXMH30kWsCQecI8s018xd8Bv5R2p
-         Zff/WUg/ntp0WykegbZKSFg6V+LpWL3ETZG2tGb9p7FP/gL0tCnLhDEhSAPV1EKm4VYs
-         ghsHM/YkEOWBwXFbn1BMXt7Tsj5zq5JZcilmVtwhbhMWi/U6MvA3rPGn8hu08U/EZZGi
-         5omw+1iSsKF2XYHvfsT5hotQmvd6g+BfkWf2gScs6miCrM7z8HtHVAdZUjO7x0yPxasD
-         tZj5k7h7gPuaTKlGdSUN/pfBpjS3W8naaULOx2g8rStVIWLC4HpHE8X5pz52tOLRwD8Y
-         Z30g==
-X-Forwarded-Encrypted: i=1; AKwUvByndlxlGk5yGn4MlSFrShtKAX9L1Ot2THy3vDPxP6y4LmXA34H9vAP8f+n7EWvLR5lPZRZr6lhz/hGTE2s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLdpExioJQHv3w4MvltQNpbExWc2Zm3ckeNLDiPDJgCX+e6SuO
-	fkyjliCh16fJFUiUmvzQjh41j7ji5zGcs51g62/vUMprkzQsEvR0WmaSv/zPi/yvBJfartwyAxs
-	nQTDAZcHKkjsZsyFcLPUedHIt3nKlc3eVzZJpWMDVVnFkRyFpJ2UG36TYtO1iU9ReGG2B8OMqwZ
-	E=
-X-Gm-Gg: AYBFou0G27sqM71S+BE+iJBlpfyboj8rp2hH2vO3EYfYpDA0io6IQRooPbAs7M+3Ub3
-	hFvuUDE2tZIMLmOp4IQuCYNZwDR3pY5fttI6t/R3SE1nnut3MKg1Mf9JDFuBj/kWch2H3BKH9aN
-	NoYTSLa/OzsYUJfQi5wH7dQRabxevfmG6kYmGAyHvGd8B+n8ehJaNogLEiiiBlGwq11nXQGol7q
-	NMPeSOd1Q9lqOFBJXdzfRrC39Antb3FbWy3LZ/GcBOrMREMlVomU2pTCUiiHgSu1UW/0RfSveRi
-	4hhSea/ZAG1zgOSoLI8pARHZwW6qBBjxYOfdCDHlGBesuh02pZz+Hv7+AlJFP7FX4G7SqxLdC3R
-	GcAwiQpAKewECc89147S5553+YWsVmw==
-X-Received: by 2002:a17:903:1a2d:b0:2d8:d4cc:be64 with SMTP id d9443c01a7336-2d94a904ffcmr110370415ad.17.1788260485726;
-        Tue, 01 Sep 2026 04:01:25 -0700 (PDT)
-X-Received: by 2002:a17:903:1a2d:b0:2d8:d4cc:be64 with SMTP id d9443c01a7336-2d94a904ffcmr110365825ad.17.1788260484072;
-        Tue, 01 Sep 2026 04:01:24 -0700 (PDT)
-Received: from [10.219.57.226] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7596412c2sm49707335ad.37.2026.09.01.04.01.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 04:01:23 -0700 (PDT)
-Message-ID: <5c91768f-b8b0-48f8-aac3-b08b76605e1d@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 16:31:19 +0530
+        d=1e100.net; s=20251104; t=1788260584; x=1788865384;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xni6XiC9n8biLyj8Lypf2TuiINVCW7jBKaUVbdQaKLQ=;
+        b=MleV5uyPdh8dowFS1C1l+HzP0Tc5ms7Rpn/QoAHvgoZFMBRBme9B9Mddmo1sShiQLF
+         OQHr/vb8K6K62AGEs8YTI4emFJsaYL5f3kPkefKca/DW4vEd6hrlQdKmVVet6sRhYIKP
+         l+DOnSnElxvzDYy9z/Zk//4Z1VTygl59XsWJ/0J3cBnKa+Ep2KJ3ZMxoeApuBhP9lWW0
+         rjw0sp5up6YYD2M1uae5TXZbtED9ZfhHwmSWZk0nZdI4qq+9Ds3N5uO6qBxjArn2ffDn
+         Wo9VlFBPStiTLiDJNkWgKo6M/EMfDQQjhN1NGT/eiMpYaMsx7feeNPHUvI3+A4Ffhw9D
+         Qwjg==
+X-Forwarded-Encrypted: i=1; AKwUvByoDaJvgIpZwImPKs1OnMSqM7N09Pi+0+V1RPKBZ10hGu//jM1OQoZoQd9qHk0gC7iaEuGuGPced48r0Pc=@vger.kernel.org
+X-Gm-Message-State: AFuF++ly40l1C82S0mbxmYmlUYzjrftQ4pTs95AIZTikTZyuzsCvhEiY
+	YiYazxmS775XbbLgS8RDaRqmFA0cD0CrNxUW3HODGxFgQXoZgnjk4/a94N4QpGWjwA+zN94Tcx3
+	BaOQ80Izsfge74Aa/OuWIIXiNxn+XfC8=
+X-Gm-Gg: AYBFou0RmhdoHxOdc3xBISOd5gtaxc9ZQgkhKgDj/N4p/GqbMYfVZdw6rKdLyn2JYNq
+	1WoCk1Uf3yBXfZVs5OSugk6HsSG/S1wrcuBMOYrdP4OfVgcOhVJ75+uJT4xko8n4I1Xj464dbde
+	KFRPmN1nnCnshCmz/2dV45V0yBIpJcRsRHHvCyKuOVMCGerkJhKJcscDlwMUht4pQ/LdZ8o9NVA
+	4bMzngPN0tjaopYst3hQemw8xiNNvO+yWLfEPyJmC7N1oKjzuwtQwbzThK/Eua+nZRBbzjd00f/
+	QpJGqvUPeeVdb/Pb5DNlW7dbStYG1LiZMeFvO2UKVUL9ZssV1hqKx4q/Q1+AsSzu466Sti23mco
+	V4w==
+X-Received: by 2002:a17:902:f70a:b0:2d9:56d8:75f with SMTP id
+ d9443c01a7336-2d956d80878mr69911895ad.9.1788260581562; Tue, 01 Sep 2026
+ 04:03:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13] misc: fastrpc: Allocate entire reserved memory for
- Audio PD in probe
-To: Jianping Li <jianping.li@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        quic_chennak@quicinc.com, stable@kernel.org
-References: <20260826033803.475-1-jianping.li@oss.qualcomm.com>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <20260826033803.475-1-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: tYlABIJwHZ7PSp8dhyoQMQOMHMpEmeKA
-X-Authority-Analysis: v=2.4 cv=G9Ms1dk5 c=1 sm=1 tr=0 ts=6a96b089 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=MOthyIZreOk6ictk8Y8A:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: tYlABIJwHZ7PSp8dhyoQMQOMHMpEmeKA
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA5NyBTYWx0ZWRfX3AjhLihS1NIw
- gzCXPsgzJnptqlU7M4g1zkjSyVo8JBvMNcdtdSX42t03lInWDNW+xEiQORyPyL5rh4RRe8lVum2
- UB5haL1sRdJO8DW9jFKWCAFT3SDntJA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA5NyBTYWx0ZWRfX7+HfwmVsNex7
- 2lhOHtQ9IXgn74w3IBXJ2VWvuInNQwZl+8jez3XZznhq6qHw9lN19eTr1aQ73M2gd2USQtDUmdT
- +K62Y6z2GGwhSIfcd2XoJHpa/DbITEDDASySTdAeehaqFm7/oM3sFH4QtnQt6/GkY6LavapsjqY
- da9X/h4DoMGqgzvIrjesGPqW8iqgTqr8bRLcRnZmhxiAFj7I1jnxihxJP80LSLJMTl6MpJVu/54
- F3meC9HyNO47Wiv4CejPqpkpFj8N0D3rJ0YlLNU0n0PHmQOkHG7C+nvpghhbi19g0SonUD8z+KV
- 2lCYGVcVSjOc9qp+tm6NFTL91fj8cLylHIZbFzMP53r04Zj9A9wUjrZstwPt5Fej59Mp8jT76dN
- eTsAozElgb2joF80Cat4PA7ToSPjNUpR3xOXBrOGRPI5tayb5ISDjt83cDZl8Dkkb3zWbMiRuXc
- A8ASagS47nP/uZyo0eQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
- impostorscore=0 spamscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010097
+References: <20260824-lockdep-kunit-v2-0-36a6fec9f72e@gmail.com>
+ <20260824-lockdep-kunit-v2-2-36a6fec9f72e@gmail.com> <205be33b-362d-45cb-b3a1-cadaba87b44a@davidgow.net>
+In-Reply-To: <205be33b-362d-45cb-b3a1-cadaba87b44a@davidgow.net>
+From: Malte Wechter <maltewechter@gmail.com>
+Date: Tue, 1 Sep 2026 13:02:47 +0200
+X-Gm-Features: AcwNN1W79p2fFOH7uCKy1nc1ZzYo-juVYXphO2_ZqdYVlaVgFvGUZW4sRrBNbXc
+Message-ID: <CAPB1BzeDC=V+jKZgX-2gucSZs8vOmZBvUgZLS8kTLvWa0x5S-Q@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] kunit: add KUnit test to assert kernel state
+ before KUnit suites are run
+To: David Gow <david@davidgow.net>
+Cc: Brendan Higgins <brendan.higgins@linux.dev>, Rae Moar <raemoar63@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26-08-2026 09:08, Jianping Li wrote:
-> Allocating and freeing Audio PD memory from userspace is unsafe because
-> the kernel cannot reliably determine when the DSP has finished using the
-> memory. Userspace may free buffers while they are still in use by the DSP,
-> and remote free requests cannot be safely trusted.
-> 
-> Additionally, the current implementation allows userspace to repeatedly
-> grow the Audio PD heap, but does not support shrinking it. This can lead
-> to unbounded memory usage over time, effectively causing a memory leak.
-> 
-> Fix this by allocating the entire Audio PD reserved-memory region during
-> rpmsg probe and tying its lifetime to the rpmsg channel. This removes
-> userspace-controlled alloc/free and ensures that memory is reclaimed only
-> when the DSP process is torn down.
-> 
-> The reserved-memory region is now mandatory for the Audio PD domain.
-> Rather than failing rpmsg probe when it is missing, validate it in
-> fastrpc_init_create_static_process() and reject only the static-process
-> creation. This keeps the fastrpc device probing for all other domains
-> even on a misconfigured device tree.
-> 
-> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
-> Cc: stable@kernel.org
-> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+Den tirs. 25. aug. 2026 kl. 13.00 skrev David Gow <david@davidgow.net>:
+>
+> Le 24/08/2026 =C3=A0 21:32, Malte Wechter a =C3=A9crit :
+> > add pre-defined KUnit test suite and test case that asserts both
+> > `debug_locks` and `TAINT_WARN` prior to running any (user) KUnit tests.
+> > This asserts integrity before tests are run.
+> >
+> > Signed-off-by: Malte Wechter <maltewechter@gmail.com>
+> > ---
+>
+> I'm not quite as convinced by this as I am by the first patch. While
+> ensuring the state of the system is good before tests are run is useful,
+> this does seem a bit heavy-handed in some respects.
+>
+> This could probably use a more detailed description, particularly
+> describing why such a test is useful, and why it would need to be
+> implemented in a special way.
+>
+> And I do think the implementation here is a bit _too_ special-cased. One
+> other possibility would be to prepend this suite using
+> kunit_merge_suite_sets(), so we don't need to have any special handling
+> of (e.g.) the test count. This could also allow this special suite to be
+> filtered out (which has both advantages and disadvantages).
+>
+> It might also be nice to have this configurable independently from the
+> other checks, and maybe at runtime (via a KUnit module / command-line
+> parameter), particularly if this can't be filtered on. And, as before,
+> this definitely needs to be documented. People need to know how to
+> enable it, and where all of these extra results from tests they didn't
+> enable came from.
+>
+> Thoughts?
+I get your point, the purpose of this special test suite is to assert
+that the kernel is in a "fine" state before any unit tests are run. If
+this
+check is left out the false positives could occur if the system is in
+a bad state before the tests are run.
+The reason that the case was handled differently compared to other was
+because this assertion _must_ be run before any other tests,
+and when kunit_merge_suite_sets() is called from kunit_run_all_tests()
+it also filters the test suites, which would not give any guarentee
+that this
+special suite gets run first.
 
-Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+I do agree that this initial way is maybe a bit coarse, and i will see
+if i can find a better fit for this assertion. But i dont want to
+leave it out.
+>
+> Cheers,
+> -- David
+>
+> >   lib/kunit/executor.c |  8 +++++++-
+> >   lib/kunit/test.c     | 30 ++++++++++++++++++++++++++++++
+> >   2 files changed, 37 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/lib/kunit/executor.c b/lib/kunit/executor.c
+> > index b0f8a41d61d36..0db67fe7f09f9 100644
+> > --- a/lib/kunit/executor.c
+> > +++ b/lib/kunit/executor.c
+> > @@ -290,9 +290,15 @@ void kunit_exec_run_tests(struct kunit_suite_set *=
+suite_set, bool builtin)
+> >       size_t num_suites =3D suite_set->end - suite_set->start;
+> >       bool autorun =3D kunit_autorun();
+> >
+> > +     #ifdef CONFIG_KUNIT_EXTRA_ASSERTS
+>
+> Nit: Let's not indent the #ifdefs.
+>
+> > +     size_t num_suites_plus_extra =3D num_suites+1;
+> > +     #else
+> > +     size_t num_suites_plus_extra =3D num_suites;
+> > +     #endif
+> > +
+>
+> I'm not particularly happy with this way of adding an extra suite.
+>
+> >       if (autorun && (builtin || num_suites)) {
+> >               pr_info("KTAP version 1\n");
+> > -             pr_info("1..%zu\n", num_suites);
+> > +             pr_info("1..%zu\n", num_suites_plus_extra);
+> >       }
+> >
+> >       __kunit_test_suites_init(suite_set->start, num_suites, autorun);
+> > diff --git a/lib/kunit/test.c b/lib/kunit/test.c
+> > index 99773e000e1b7..e64c6d1575280 100644
+> > --- a/lib/kunit/test.c
+> > +++ b/lib/kunit/test.c
+> > @@ -835,6 +835,30 @@ bool kunit_enabled(void)
+> >       return enable_param;
+> >   }
+> >
+> > +#ifdef CONFIG_KUNIT_EXTRA_ASSERTS
+> > +#define DEBUG_LOCKS_OK 1
+> > +#define TAINT_WARN_OK 0
+>
+> Not totally sold on these #defines: I think I'd prefer to just have the
+> literal 1/0.
+>
+> > +
+> > +static void pre_kunit_assert(struct kunit *test)
+> > +{
+> > +     KUNIT_EXPECT_EQ_MSG(test, debug_locks, DEBUG_LOCKS_OK,
+> > +             "debug_locks are off before any test ran");
+> > +     KUNIT_EXPECT_EQ_MSG(test, test_taint(TAINT_WARN), TAINT_WARN_OK,
+> > +             "kernel already TAINT_WARN tainted before any test ran");
+> > +}
+>
+> If we are going to generate a special suite, let's have the taint and
+> lockdep checks as separate tests.
+>
+> This would also make it easier to have them be configurable separately.
+>
+> > +
+> > +static struct kunit_case pre_kunit_assert_cases[] =3D {
+> > +     KUNIT_CASE(pre_kunit_assert),
+> > +     {}
+> > +};
+> > +
+> > +static struct kunit_suite pre_kunit_assert_clean_state_suite =3D {
+> > +     .name =3D "pre_kunit_extra_asserts",
+>
+> I think we could probably find a better name for this.
+> "initial_system_state" or similar might be better?
+>
+> > +     .test_cases =3D pre_kunit_assert_cases,
+> > +};
+> > +
+> > +#endif /* CONFIG_RUST_KUNIT_EXTRA_ASSERTS */
+> > +
+> >   int __kunit_test_suites_init(struct kunit_suite * const * const suite=
+s, int num_suites,
+> >                            bool run_tests)
+> >   {
+> > @@ -857,6 +881,12 @@ int __kunit_test_suites_init(struct kunit_suite * =
+const * const suites, int num_
+> >       }
+> >       static_branch_inc(&kunit_running);
+> >
+> > +     #ifdef CONFIG_KUNIT_EXTRA_ASSERTS
+> > +     kunit_init_suite(&pre_kunit_assert_clean_state_suite);
+> > +     if (run_tests)
+> > +             kunit_run_tests(&pre_kunit_assert_clean_state_suite);
+> > +     #endif
+> > +
+> >       for (i =3D 0; i < num_suites; i++) {
+> >               kunit_init_suite(suites[i]);
+> >               if (run_tests)
+> >
+>
+Best regards,
+Malte :)
