@@ -1,165 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C064A484249;
-	Tue,  1 Sep 2026 17:25:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551AA488748
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:26:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788283545; cv=none; b=tjywnVW5fidENKRmHEsyRFORAiEFuwiQyfS+/JepAeFWgHLOSt01qMsqDYywBdjcMuItHnND/BS5WwCaRpBtPlyb8MrsGWOQO1IylLa6WkrrHnlnb+lbNJNRWC4GHrZ7g39OmAay6KSrIyLAUaFGLKVlNV/C+mhLVnbfXTcP0dk=
+	t=1788283577; cv=none; b=YUEaQWBnfBSPvvpliANCWnDtQWRCNFcnQE18m8ziH8kjaHpqnvnuOi66ygGYREa5NR1bDq9jd1pf5AM6ng7YZ34TgdIuz/zSBGasg9nMiBCSDyyGXxgSrjDxtQoCW8lqhUK5ebWLDVc64cNsSNYfmy9LAUXCmPQrr2ANgT7xXLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788283545; c=relaxed/simple;
-	bh=QctYkGHGrMucr4GtNr0KI1/R0IrrYuWB6T48LH5+pTk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PuUBCLdWRwd1qt/6+hbUaIh0s8ua8qvqKCzqFguTT+pfLNas8JnNPzpL7b5UaWcjnh8ze45wlRDcHezoflGP4+209UkGNv9w96KrjGs7dwJaXF+vntzsLDBt9SVahp/TAuv7ODi2g+2YaAoTYRzkn4cYvjgrqlc6fmdyQATbcrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yi2t1tkD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788283577; c=relaxed/simple;
+	bh=Wpb4O6T/xyA+5eJiRg7lEIMxsNKuDpjIIJqJ6MLZCK0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Hb/8PVF29XL52XGKdR/XK0FM0EZYMyHyqGlguzXsP+CbrtvRmJRTikZe8941HTPLvcMrK7neycoipBfbjx+NSDrL4rudy4AuNSXMeC1rpVjbRVPABR4vDJWymvkWnoCSVxm0iX7kraWr1rkSV7zyVSaiftHuR7cN0Od7OGNAO6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ayImy4gS; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yi2t1tkD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F38E1F000E9;
-	Tue,  1 Sep 2026 17:25:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788283543;
-	bh=RU/XHZsQrPB/KjzCrGwIunh3KbYqDQIpxjG/zB2SrYU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Yi2t1tkD7CbVI2GlNVLMPxmx2y6uQ0N17KQVN6tfdVVmsc8e3U70HKz60pHNwlQs3
-	 1uaubu11GEhlMNqEwwCAnmGwy18sQmPBDQlkl4HFerFnkf9qqSXhXZRQB4AbUCIy65
-	 +F5eg8cH3mV8+ZyrzWtQ7QlVH0tfsCC88xh+SXAYBAqn1Leh14VC/K7s9GATAG+x4E
-	 KI4pAxyEdR503wQD7kpPC4DxKOGSs/zzQQ249JbOJTrJb8Tg6ICIFvJvGHbD91pyny
-	 gkZbMWCaIAhY75HIF/43FdM8kRnN6lg6QLV7LnJhpcpnHrbOS/0Iht1oAeMIckn9b0
-	 Sr0NCrNgxEH6Q==
-Date: Tue, 1 Sep 2026 18:25:26 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Dinh Nguyen <dinguyen@kernel.org>, 
-	Simon Schuster <schuster.simon@siemens-energy.com>, Jonas Bonn <jonas@southpole.se>, 
-	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, Stafford Horne <shorne@gmail.com>, 
-	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Russell King <linux@armlinux.org.uk>, 
-	Vineet Gupta <vgupta@kernel.org>, Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
-	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, Richard Henderson <richard.henderson@linaro.org>, 
-	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
-	linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>
-Subject: Re: [PATCH 12/12] mm: change the contract for free_pgtables(),
- update docs
-Message-ID: <apcJhtvnd45EkjJI@gremlin>
-References: <20260901-rcu-pagetable-freeing-v1-0-5456a81c8212@kernel.org>
- <20260901-rcu-pagetable-freeing-v1-12-5456a81c8212@kernel.org>
- <apbUpMDJglS99_yK@thinkstation>
- <apbfzUwBQyxe3P9R@gremlin>
- <apcH74QsR5I-DIbL@thinkstation>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ayImy4gS"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38e58034d05so65628a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:26:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788283576; x=1788888376; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Wpb4O6T/xyA+5eJiRg7lEIMxsNKuDpjIIJqJ6MLZCK0=;
+        b=ayImy4gS60tAKn5zDNGMxB+uyyQEGmwPuhuIAnQOGhfpEcUjaeo7HWUgxbfk4C9nwO
+         o2KYNKwkNuaIJ8L+mlhY7QgIhBGbFGeM05x10FZk4zuENKjyNuzHBg9Ko2hnaMN8w2Lc
+         7H/ny9b/CJ2SL4PLdlYTt+4UzxYrKovuO+FmqN0MovQR+slyE9GDUzdLxEYHlo6/cCVQ
+         Vhr51RbMH9BBbrTIjNK8amAARvfvp0wpHldLP8nm8yJ7apEOmEvgUaV/hytNsTkqmHXl
+         VzgelCIraNrKPpSwV4uPxv0nsvqS0AcP3PctfzCgyyGHxDGxyhWgxyNPmFKlmg/3N6Ch
+         mBwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788283576; x=1788888376;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Wpb4O6T/xyA+5eJiRg7lEIMxsNKuDpjIIJqJ6MLZCK0=;
+        b=a2kO0MpRfbmsixN5CMr8hvZ59dlZAufvUnutyJ93ZI70Nb4a83rvQH9THbmDO1cy8p
+         N8lgyPOxugKV8t8yxG4UDxQ7EyVrIh5qqlWEXofPcl4B73jdPJhT888T39SZdxeJK+kT
+         vpj+GxYiOvY8aEzxZBCm6hzW+tWNBXKJebWBUaKQFgNRVjxHu0rz+k5sMwMNuGeTm0qQ
+         z5BT7qBPKAGIhTIaLm/0rSFN5x7nvjpEqjsZTthwPVxZtZTyMrQuH43jCk8UxU1rfBGe
+         Vr0qNiSi8IaxsbDj2Aju4TZWgP8HrTMa8k/FszDDX/04f77ZG3gkc9QCILlBAaLvQotE
+         s6ZQ==
+X-Forwarded-Encrypted: i=1; AKwUvByGgUBBs4fbEyEajBnkz3IU1Qyad0ITMEU3tRjpu4OWyhE/mBAAzNU/5UbrOZLBvo4YNwXyefAR+re34gI=@vger.kernel.org
+X-Gm-Message-State: AFuF++l13Nzoyvxks61A9+xeoHNdspYjdhoNAn/v+6F8OjYjcgriSZJ1
+	MPns80lJevQOvsHytidd+H3jI35N5plgjbYywMTSpaZs/w8GdaT3IEN5
+X-Gm-Gg: AYBFou2anhrIm2gG379RQiXny8S5p0q6ULCKgJgKoRK0mVNfeB0OE8LRMUkex3e5GQ0
+	KF/82AiOMzZ6qt5GjFaJwHa5VXP0YtO7IgFE0diB8sjVY1mTP62GX3bXbKcr33zxV5z1/eYNOFh
+	8EKcRrpfBg6EIPHnolBqbKFjd/YjjmtpIk9T6Wu/U4dlGWCIvjIKwXCgoSVPvCe6pmyNxwGDrNg
+	w84j4z5/T1Phlvz00xJ2ijkS9BuaUshIMuVwhL2W+XfLTXpzkIljRVss8xQ1N9eQcrKkRVM1LjN
+	ZDP8w3p9myDtVbHIQPaOugLMTqZ2S3Qu/1vj9feMHCGqA1T2yj1mLfb8SRncUYUfEjlKOUmBuf4
+	DsOGHIfs7T1NFq+O5sWSzfvYM8FvtkNrIZGtWan9rvnMQI38TbfoRqBzdMHCHpfgb+OXEt45UsF
+	rj04OPVtXhfFJEWuAHLOjNcQkuxcKluuLmHDlTiQ3bUIXkag9gQetHEvZrHbGrO0YLtyAVpUkVW
+	AzttFP/5K9xA4JfugHbRLoGytS5QZfiSlYXJLGAQJfSxOqzwY7uWk8m4pBcsxjiJwI=
+X-Received: by 2002:a17:90b:4a02:b0:37f:fdc8:71b4 with SMTP id 98e67ed59e1d1-39907ab0960mr12275784a91.2.1788283575571;
+        Tue, 01 Sep 2026 10:26:15 -0700 (PDT)
+Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:246e:2cba:1e3e:e617])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1430ea0b459sm158262c88.5.2026.09.01.10.26.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 10:26:15 -0700 (PDT)
+From: "Hemendra M. Naik" <hemendranaik@gmail.com>
+To: horms@kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	hemendranaik@gmail.com,
+	jhs@mojatatu.com,
+	jiri@resnulli.us,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	shuah@kernel.org,
+	tahiliani@nitk.edu.in,
+	vishy0777@gmail.com
+Subject: Re: [PATCH net-next v4 1/3] net/sched: sch_fq_pie: add per-flow statistics via class ops
+Date: Tue,  1 Sep 2026 22:55:24 +0530
+Message-Id: <20260901172524.39650-1-hemendranaik@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260731095635.GG51943@horms.kernel.org>
+References: <20260727164056.106203-1-hemendranaik@gmail.com> <20260727164056.106203-2-hemendranaik@gmail.com> <20260731095635.GG51943@horms.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apcH74QsR5I-DIbL@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 06:15:17PM +0100, Kiryl Shutsemau wrote:
-> On Tue, Sep 01, 2026 at 03:31:26PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > On Tue, Sep 01, 2026 at 02:57:13PM +0100, Kiryl Shutsemau wrote:
-> > > On Tue, Sep 01, 2026 at 12:01:32PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > > diff --git a/mm/pgtable-generic.c b/mm/pgtable-generic.c
-> > > > index b91b1a98029c..ff8ff3706485 100644
-> > > > --- a/mm/pgtable-generic.c
-> > > > +++ b/mm/pgtable-generic.c
-> > > > @@ -386,9 +386,21 @@ pte_t *pte_offset_map_rw_nolock(struct mm_struct *mm, pmd_t *pmd,
-> > > >   * be read-only/read-write protected.
-> > > >   *
-> > > >   * Note that free_pgtables(), used after unmapping detached vmas, or when
-> > > > - * exiting the whole mm, does not take page table lock before freeing a page
-> > > > - * table, and may not use RCU at all: "outsiders" like khugepaged should avoid
-> > > > - * pte_offset_map() and co once the vma is detached from mm or mm_users is zero.
-> > > > + * exiting the whole mm, does not take the page table lock before freeing a
-> > > > + * table.
-> > > > + *
-> > > > + * However, the PMD entry is cleared first, and the table freed only after
-> > > > + * an RCU grace period, so a walker that mapped the table under
-> > > > + * rcu_read_lock() stays safe, and the pmd_same() recheck in
-> > > > + * pte_offset_map_lock() detects the teardown.
-> > > > + *
-> > > > + * Therefore it is safe for "outsiders" like khugepaged to use
-> > > > + * pte_offset_map() and co. for VMAs that might be undergoing page table
-> > > > + * teardown.
-> > >
-> > > Is it strictly true?
-> > >
-> > > free_pte_range() clears the pmd without taking the PTL, so the
-> > > pmd_same() recheck in pte_offset_map_lock() can pass and the pmd gets
-> > > cleared right after.
-> > >
-> > > Readers are fine -- __pte_offset_map() holds rcu_read_lock() until
-> > > pte_unmap(), so the table cannot go away.
-> > >
-> > > khugepaged is an odd example here. collapse_pte_mapped_thp() and
-> > > retract_page_tables() don't rely on this recheck -- they take pmd_lock()
-> > > plus the ptl and do their own pmd_same() under both.
-> > >
-> > > Can we say walks are safe and leave the write rule where it is?
-> >
-> > Hmm yeah, ah page tables, what a rabbit hole of horror :)
-> >
-> > I guess this is effectively a reflection of the 'write lock on write, RCU load
-> > on read' pattern in RCU itself generally.
-> >
-> > So, maybe something like:
-> >
-> >  * Note that free_pgtables(), used after unampping detached vmas, or when
-> >  * exiting the whoel mm, does not take a page table lock before freeing a page
-> >  * table.
-> >  *
-> >  * As page table freeing itself is RCU-safe, page table readers can safely run
-> >  * concurrently with page table teardown. However, writers cannot, as without
-> >  * a lock nothing prevents concurrent teardown.
-> >  */
-> >
-> > Instead? What do you think?
->
-> s/whoel/whole/
+Hi Simon,
 
-Haha yup the inevitable typo...
+Thanks for the review and for the Sashiko pointer. We have been through
+all six findings and are working on v5. For each item below, a short note
+on what was raised, then what we plan to do:
 
->
-> Otherwise, LGTM.
+(1) [High] Filter attachment and TC_ACT_CONSUMED — Sashiko noted that
+adding cl_ops with .tcf_block would let users attach tc filters to fq_pie
+for the first time, but fq_pie_classify() has no TC_ACT_CONSUMED case
+(risk of double-free if an action like ct consumes the skb).
 
-Thanks! :)
+We will remove .tcf_block, .bind_tcf, and .unbind_tcf from cl_ops.
+We only need walk/dump for tc -s class show; filter attach to fq_pie
+should stay disabled as before v1.
 
->
-> --
->   Kiryl Shutsemau / Kirill A. Shutemov
+(2) [Medium] tc_fq_pie_xstats layout — Sashiko asked whether appending
+type/class fields after the nine qdisc counters breaks userspace, compared
+to fq_codel's type-first union layout.
 
---
-Cheers, Lorenzo
+We plan no struct change. fq_pie already shipped a flat 36-byte struct;
+we will keep appending after those counters so old tc binaries keep
+working. Class stats still need the matching iproute2 update.
+
+(3) [Low] Empty tc_fq_pie_xqd_stats placeholder — Sashiko flagged the
+empty placeholder struct and unused union arm in pkt_sched.h.
+
+We will remove the placeholder and the union; class_stats will be a
+direct member.
+
+(4) [Low] Class handle at flows 65536 — Sashiko noted that with
+flows_cnt == 65536, fq_pie_dump_class() uses TC_H_MIN(cl) and the last
+flow's handle wraps to minor 0 in userspace.
+
+We will cap flows at 65535 in fq_pie_change() and update selftest 83be
+to expect flows 65536 to fail.
+
+(5) [Medium] Selftest case 83c0 — Sashiko noted v4 used matchCount 0
+with no traffic, so the test passes even without class ops and never
+checks per-flow stats output.
+
+We will rewrite 83c0 with real traffic (TBF + fq_pie, ping on $DUMMY)
+and matchCount 1 on tc -s class show (prob/delay/deficit).
+
+(6) [Low] tools/ UAPI mirror — Sashiko noted patch 3/3 also touched
+tools/include/uapi/linux/pkt_sched.h, but that copy is already stale in
+layout; comment-only edits there do not help.
+
+We will drop the tools/include hunk from patch 3/3 and touch only
+include/uapi/linux/pkt_sched.h there.
+
+We will post v5 with these changes once ready.
+
+Thanks,
+Hemendra
