@@ -1,127 +1,147 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C552E54D1
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:44:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BCF36A364;
+	Tue,  1 Sep 2026 06:44:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245086; cv=none; b=QOcUBprFAkkHwiPmKXQkBSH4YH0UaNnozcWZaEPmVLn7MGQYgzSyPsmgJc2K3f9bXZxPup0xHclwlhosiSPP+PMla8YRyGWXHRsaVxac4BrFKCSgppA28wMs97UhR0nM6zzNe55C8l08r1dm/YX0qKcDmbofOtQS5qsedOHzREE=
+	t=1788245089; cv=none; b=kQuL0BEMJztELxzf97asS0o7niMNVP+mXytwxHQRlhHbto7Kdi9IPJFtP/mbeZBqj93DlwCprVdi/4muCvnavx5z6rCPf31PMYS/QSY8/l3xXtnxATkgP0UcFDeu5CG5VOqB7poe0C1iMXoDii6LtT2nhypdSME6BhMfYZewS6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788245086; c=relaxed/simple;
-	bh=HpzD8eE93G0QF+A2LkG7W4+8iO6y5XPc4Rl8E5Fjv8c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cn3t5U1qPpTYkvV9PMWO8KYF4mglscwCRgKRJWba51yYlDmuOyipoV+pHljStvgVj140muHFBJOoCM4FL14C9I4BlvJ8nFwfeRTalATfUuW1PQRQ3TdyvazbKl2dM5zQ15kMUqcjl/zqf/84qBX+CAMwR5HMPynjGOnhyaxOA5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lQYbTE4Q; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lQYbTE4Q"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc147d86bebso968636a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:44:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788245084; x=1788849884; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dCothkY1Rqth/F0B2N1+XSPKgmCrj36SkVxYCdKHFgQ=;
-        b=lQYbTE4QqGdE0wQwwuysJR1UqNoFXLSrRZ+BftyXSrgZAzPEI4/M2xAAxr/EgMzVrN
-         GrgD0PpRQJkfl9wcpCLCbRNC9Cp4rfwTty4HQqLcdrVAlwr/Z6V2vhZioofHYsXauKFp
-         TZXdlDgYSOywXqb+RfUx2kDECKp128UnKWTEiy5PlvCCChZYFli3i6Br3ucosVUyOUk2
-         jm8AbEDcHN2BRE4GX+Kgk7+jluxRpZl0719cKD8RYJQuc4DYTjRbbSWJJoGpP/sLb3+u
-         HPAYSCnh7NBwRS5vfrknYI6qSKILABg1k9cIvy2bLDHrR7vAuBz6vVsCd0iRH3gUKEz/
-         +orQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788245084; x=1788849884;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dCothkY1Rqth/F0B2N1+XSPKgmCrj36SkVxYCdKHFgQ=;
-        b=A7LJN7sfCkz2lCK4SPxvF6sMXZ6uefURvhGmWQnx5fr174aZcKXtJYa4GcSbMoYvnQ
-         V97uz/Dn1XsJNcTSPjeiu4ZbeL6QM0KSQQBLSsN2Lr7gphlpT0ifvdKRtNyv8Xp5x8eT
-         7TFcj9qpab2cuqiEh4gtmpspcMmequyVYt/TEFOAcs7ajiPFi3g1YxXnjB6UHzuygAhf
-         oewuVR2//kZ9JVs5B42T3IXfi/kbg8Xd4qnbqK1SXyyPiyK9dqA1Oce0E9Pclo9P2UM8
-         Fw0ft+RUCFDIDFgjLgcJp8iXj7dYpugBSDShYTB1MIarShVSuit/bFCdr8GMuvu99N0H
-         TuCg==
-X-Forwarded-Encrypted: i=1; AKwUvByfgFb2SBRf1p6BQCe01QgloAwmeNS2O5a/H+ML3dTSVUvKXyC4Q5woSTgST16sBkcDeOhsuTNd/My6QiU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvuy9fY548bbNzlsueQwUsZ/onH/TOl8ngrkX1mDoUYb1wsZiN
-	pWGP7pHBgqy9ilUqxY8vmYOznTDcNf3iSE+BqDhEyMfwzNDhK8ucMkzW
-X-Gm-Gg: AYBFou01XUyp8f1A1L6NGJonJdSkqLVFNqOUZKFYXdFi/zX5khGfcXrqykHWxbGyc3Y
-	WyKzYKbsjIXvUYVuExaJPNWhlg3fT9ySMWipYDPHUd2s9sU2ODXcZQHts40Loo5XoRDXH7/k4pk
-	hfOVz9G4/s9dKCWzqZ8YUz3y4UyRFJtekSeA2dwCisbqz/hrWwhuV5L7ZeDa4UxRttz82Z/8HQw
-	NfEn9PqbQ6lgmNDOnvdtpHm40+rfs/Z1U45Wl78p+Njl2SOdjX4s+jXZhu0wBnJ06VUlaueMFAb
-	NsR8IjKmQjfepm5iAG7ZoZ5sOMwXoqB/K9A6VCwvDgzcySwG3FTBkBmfS0bFXRcSkoi5cz0KvVo
-	dex3lie0tMF3qWeJVUKo+F2Y+ooh3wx0DYNPNpXdiklAvyuiTMZkk0bd4tP0whSaU2b+65lNAPL
-	EG9B8bgNpVepai1mcm4ozJaCJIokVEOUORcm668ueT104JseJgROT1qboEgq8LReMO9Y+bM5bTJ
-	4M7Tu0H6+9Y
-X-Received: by 2002:a17:90a:10d7:b0:38e:42f5:d096 with SMTP id 98e67ed59e1d1-3990f1b223cmr1809753a91.0.1788245084147;
-        Mon, 31 Aug 2026 23:44:44 -0700 (PDT)
-Received: from localhost.localdomain ([157.51.207.128])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328713b944bsm37019784eec.27.2026.08.31.23.44.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 23:44:43 -0700 (PDT)
-From: Sreeshankar K <sreeshankar0910@gmail.com>
-To: andersson@kernel.org,
-	sboyd@kernel.org,
-	bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	rafael@kernel.org,
-	viresh.kumar@linaro.org,
-	konradybcio@kernel.org,
-	tglx@kernel.org,
-	ulfh@kernel.org
-Cc: radu@rendec.net,
-	abel.vesa@oss.qualcomm.com,
-	taniya.das@oss.qualcomm.com,
-	danila@mainlining.org,
-	davidwronek@gmail.com,
-	mani@kernel.org,
-	robimarko@gmail.com,
-	linux@gurudas.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Sreeshankar K <sreeshankar0910@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v7 02/12] soc: qcom: socinfo: Add SM7250 SoC ID
-Date: Tue,  1 Sep 2026 06:43:47 +0000
-Message-ID: <20260901064357.20055-3-sreeshankar0910@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901064357.20055-1-sreeshankar0910@gmail.com>
-References: <20260901064357.20055-1-sreeshankar0910@gmail.com>
+	s=arc-20240116; t=1788245089; c=relaxed/simple;
+	bh=LQ8lboYVa03x9leFZ+xv6+nL6jZmGsfVJEscA0ORd2Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:Cc:From:
+	 In-Reply-To:Content-Type; b=JJqmmSgW61PD8QzqQrVX22QXGKrkfBrVmnhos5ILU9uGEpQlC9exsHKsSLN0jRmEAZqv3Ae16oX1BE/Usif/Hi93q6f8XjnKP0kX7doEtuzicQbx6OyHEnow/yucTkUI+gL4ANpPciNSe4UHfecpAqv5nbJK5mKOL7f5zYVcNWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hYxCQ5XMXzKHMZ3;
+	Tue,  1 Sep 2026 14:43:46 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id A9B884057D;
+	Tue,  1 Sep 2026 14:44:36 +0800 (CST)
+Received: from [10.174.178.253] (unknown [10.174.178.253])
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgA3HglRdJZqyOlUAQ--.53508S3;
+	Tue, 01 Sep 2026 14:44:35 +0800 (CST)
+Message-ID: <9ea01177-99ac-40c2-ba51-fcb665e38330@huaweicloud.com>
+Date: Tue, 1 Sep 2026 14:44:32 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/12] ext4: Fix out-of-bounds read in
+ ext4_get_group_info()
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+References: <20260901024234.135119-1-ruanjinjie@huawei.com>
+ <20260901024234.135119-8-ruanjinjie@huawei.com>
+Content-Language: en-US
+Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz,
+ bcrl@kvack.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+ libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com,
+ sforshee@kernel.org, pmladek@suse.com, rostedt@goodmis.org,
+ andriy.shevchenko@linux.intel.com, linux@rasmusvillemoes.dk,
+ senozhatsky@chromium.org, akpm@linux-foundation.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ kuniyu@google.com, willemb@google.com, jhs@mojatatu.com, jiri@resnulli.us,
+ kees@kernel.org, cyphar@cyphar.com, tglx@kernel.org, sdf@fomichev.me,
+ nb@tipi-net.de, liuhangbin@gmail.com, da-x@monatomic.org, jeff@garzik.org,
+ linux-fsdevel@vger.kernel.org, linux-aio@kvack.org,
+ linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ netdev@vger.kernel.org
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+In-Reply-To: <20260901024234.135119-8-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:cCh0CgA3HglRdJZqyOlUAQ--.53508S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxZr4UArWUWr1DAFW3Kw47CFg_yoW5GryfpF
+	sIkF13JrZ5Gr1DCw48G3y0ga48Jw1IgF45Wr93Gw18ZrW7Ar1fCF1fKr1rZFyUtFWkAr4x
+	Xw1Y9r15C3ZrCrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvYb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x
+	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
+	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
+	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
+	14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8
+	Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
+	CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
+	6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07
+	j6a0PUUUUU=
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-Add SoC ID for Qualcomm SM7250 SoC.
+On 9/1/2026 10:42 AM, Jinjie Ruan wrote:
+> A plain read of s_groups_count in ext4_get_group_info() allows CPU
+> load-load reordering. On weak memory models, speculative prefetch of
+> s_group_info prior to the boundary check could lead to an out-of-bounds
+> read if a concurrent online resize expands the array and increments
+> s_groups_count.
+> 
+> The data race occurs between the ioctl configuration path (holding the
+> resize lock via ext4_resize_begin) and the lockless metadata lookup path:
+> 
+>    CPU 0 (Writer, Resize Lock)                CPU 1 (Reader, Lockless)
+>    ---------------------------                ------------------------
+>    ext4_ioctl()
+>      [EXT4_IOC_GROUP_ADD]
+>      ext4_ioctl_group_add()
+>        ext4_resize_begin() // Takes lock
+>        ext4_group_add()
+>          ext4_mb_alloc_groupinfo()
+>            // Publishes expanded array via RCU
+>            rcu_assign_pointer(s_group_info, ...)
+> 
+>          ext4_flex_group_add()
+>            ext4_update_super()
+>                                               ext4_get_group_info()
+>                                                 // Speculative / out-of-order read
+>                                                 [Loads old/smaller s_group_info pointer]
+>              [Plain C store / smp_wmb()]
+>              sbi->s_groups_count += ...;
+>                                                 // Reads new s_groups_count,
+>                                                 // boundary check passes
+>                                                 if (group >= s_groups_count)
+> 
+>                                                 // Out-of-bounds array access!
+>                                                 sbi_array_rcu_deref(..., s_group_info)
+> 
+> Fix this by using ext4_get_groups_count() to enforce acquire semantics.
+> 
+> Cc: stable@vger.kernel.org
+> Cc: "Theodore Ts'o" <tytso@mit.edu>
+> Cc: Andreas Dilger <adilger.kernel@dilger.ca>
+> Cc: Baokun Li <libaokun@linux.alibaba.com>
+> Cc: Jan Kara <jack@suse.cz>
+> Cc: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+> Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+> Cc: Zhang Yi <yi.zhang@huawei.com>
+> Fixes: 5354b2af3406 ("ext4: allow ext4_get_group_info() to fail")
+> Link: https://sashiko.dev/#/patchset/20260825095422.3166067-1-ruanjinjie%40huawei.com
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
- drivers/soc/qcom/socinfo.c | 1 +
- 1 file changed, 1 insertion(+)
+Looks good to me.
 
-diff --git a/drivers/soc/qcom/socinfo.c b/drivers/soc/qcom/socinfo.c
-index 1836e226a..63ee5cd56 100644
---- a/drivers/soc/qcom/socinfo.c
-+++ b/drivers/soc/qcom/socinfo.c
-@@ -450,6 +450,7 @@ static const struct soc_id soc_id[] = {
- 	{ qcom_board_id(IPQ8172) },
- 	{ qcom_board_id(IPQ8173) },
- 	{ qcom_board_id(IPQ8174) },
-+	{ qcom_board_id(SM7250) },
- 	{ qcom_board_id(IPQ6018) },
- 	{ qcom_board_id(IPQ6028) },
- 	{ qcom_board_id(SDM429W) },
--- 
-2.43.0
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+
+> ---
+>  fs/ext4/balloc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/balloc.c b/fs/ext4/balloc.c
+> index 52f4c5169f91..778fe8788f06 100644
+> --- a/fs/ext4/balloc.c
+> +++ b/fs/ext4/balloc.c
+> @@ -329,7 +329,7 @@ struct ext4_group_info *ext4_get_group_info(struct super_block *sb,
+>  	struct ext4_group_info **grp_info;
+>  	long indexv, indexh;
+>  
+> -	if (unlikely(group >= EXT4_SB(sb)->s_groups_count))
+> +	if (unlikely(group >= ext4_get_groups_count(sb)))
+>  		return NULL;
+>  	if (unlikely(!EXT4_SB(sb)->s_group_info))
+>  		return NULL;
 
