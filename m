@@ -1,218 +1,143 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD3B49EC5A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:46:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC5749F121
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:46:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288375; cv=none; b=qUkFIg7G9m97qh+L7kXpXuf3+YeaDs7ozw84LJMQC95YizlG8LZUNljHSIJg08+l7KSOyT+nWmcoxbDcO6x53v6fGZ6DxWV4crN/Ye3oA+I1sMvfVwOUReJ2723Xm1c9QxInxJ4aQNU2NCWVw7nSR0Cib/zQ6EgX8HsAN4QMSR8=
+	t=1788288412; cv=none; b=L5FTGIqL4VH22u8J/9rn/xT9G0RoN8xwypn9r0hb5ZtT9C+ZK8SImPVdCpKHUGcvowGR8qi8aI6CkjSbCZn8U4l4SbY2hK/VUKyGktcEQIEnJvDlWv/IeLS511JXRbZP5PKQaKJlkx3x7qc/a6xGDtcfxE6hgyo+20Ic9iemVwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788288375; c=relaxed/simple;
-	bh=zTWHgcVtDZxO0SC49BeTSWdCu86YpldasbFV4WERbJw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=JAVEeboKOGNmumDvj3GcORp2ZrOT3LGtZjioe7ZU3Pmw5Mv+9NlR8UN0S32oZ1l2vbUSwzjgZOpkF/NLremaxSCbC+zpmUVndMX3HyNoU845HrKSehaWOvx7710X+L+7hv3Tj45xB1C+1pm+5u+LhLrLClGpNJN/AwJmENaLEvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Pj+h2KX9; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788288412; c=relaxed/simple;
+	bh=u9aKuWIlOdLU3GPM8gMlKCH3MNfkxf1V6v2iJ3LbpUY=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=W8LYp2Enj4ZRdltOWOh5FWuDjQ+uJNOCzsKoAxW0ZZ6JBn5iRMcW4kdGH01nRHjTJ4fA4qziSgIRnDzJTr8+DEGH1XEab8KiEl4WcAqIUKkqMEbM9IAgk46w2ilDnfcu437blzxWCtSBFoPL3la+Y7OfOV2C6g/1lRw5tuQKh2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o3Flt5Gj; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Pj+h2KX9"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8525efa7274so162266b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:46:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o3Flt5Gj"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so1315485e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:46:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788288371; x=1788893171; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IRSg5TsPLhCh9Up4rkAnm+9DnhJsd5XJxJ094xnRn18=;
-        b=Pj+h2KX9F6jiRN2NKNwX15RFcpReAItvp6gjkte0271q8wNoCfBy5eHhncXWEk2l1h
-         ZWPhO7U/HnaGLo8Vcf2a9dTaF+I816v2tXC7o/q9mTBdFc5hJFUwPsY/3prBJz83Dml/
-         ZfrOAh6OstfMKinQHFHjwZpoVhgsB3cFP3Nha+rGMAOt+V419x1jXLZVfeOVd9jqY3I/
-         f2bbVmBlz4cEa8XiP/lG3Kai9anzbBZLXroBx8F0gmW0T0S7nmCGn/0YRWFsBxpBKwbz
-         UwgBaA9fD+5uMUxezPnRvpSEygZ3a9WmTdFgMv9rVBxyrcpjO0WqSaq57Y7LqAuIwIJE
-         DW+Q==
+        d=gmail.com; s=20251104; t=1788288409; x=1788893209; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5HjCQhBzt7RYcOnaReR32DP32WTYV64asDdP79SfbZk=;
+        b=o3Flt5GjRY6jDgVBpWdNVHsHFhg6EqJ07bOnNgSqTiBlXX4zGuCoLVtZuGdOe3ZS4+
+         Cac1NVRpaD+Cm2E9KqwC7nT1hs0EzubgIIEMJX/PogXZq6ad6J7nwUF+r3Ubv3EcKMjj
+         A02aULurhJpqepJLN6U79Qmp9+qhdAxdvU8aZupJEGzDnmCdZpd4vDljjsb13xFWvrEK
+         /4T9lu4q54ebu+Uc6Aa8oLiOV+tIgB8jzmrb0QzJ0ZUuQXb2IpVhLqyAJFk4tF8HxAiy
+         s4V4A0KpWIZxZVbcfoKh0p+CxEG0K7vOaIrMpd46A8nrZ09BHxq5U1kwnR4uOn2ziyP6
+         F2vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788288371; x=1788893171;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IRSg5TsPLhCh9Up4rkAnm+9DnhJsd5XJxJ094xnRn18=;
-        b=MrbIIzjIgn2M0n251BF62y2q6vkGZ4/z36NXxuZtsHKeTqnzjLMJZX4cx2f4+ZkHEr
-         Bzbxochs8Uu134r9m0nXPLz4dOEcsFeXMEUJ6/y4pgYc+RAGLOEXCNDwjDmdsFVHzxkR
-         EsYsjDlbQ2Xmn6QSDYKAU6HBj7Iq1uS7Dvsl7ZDvDdr6vUtg68++Gq1CJ9tzffzSfVOq
-         HZXp+KZM+HSNbyrefAMlz5eedFcNFd+upl8/jbDwMkrEGVEZxxYeysWMUGNLhH8xoGde
-         aG7ayM5tclhNNJjYKTRbPAOHXBfL2fmPdw48LExzyeT9DkZcBa2HABrbOLQWjqKWZpWT
-         /E0w==
-X-Forwarded-Encrypted: i=1; AHgh+RpPm6MC8woz1POjWBPEdtbL6CNtzW6ji+pm8gY0hWg6bq+VDwpAhgd2LTGGHKwQeOJ7JugMF8o/wQRcwxI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKNzTjxFHz6ZABt06OuAIKrwEHIH9IfqXHA4fkGaIm8GG4pNEA
-	c40PzCrjp/ATYhEeoUoZCpBDjbw+3P9AR8nwy/yh6IRhhNcq+MYP8giIzLiB67OjE4uPrLSdjSb
-	zw/az+lg=
-X-Gm-Gg: AR+sD12yia9EkRx8KItO/Vkct/cE3KPHKTuMU2GkVSJ9Fpi5Pho7hW00DE+vUzowJQy
-	Gz8v7vQTX5L3+3wBCa7V1ucKXHBh3uN7VE/Sqf1+fYDnWF09QG8Hl6+fgPvV/nNZPFMpV1udGBj
-	Mj1SevoDnnmEuki9+mBbEgslsZmp1d4dCbf1eno7BUYpCORpKDL5nzPU6W5KKOwz3S/MhjCN8Gs
-	OA/ynSK6+MCZM2fXyzLy4mvBebyl5DTE6sEgJoBLr/erxHjWpLlwQ3sTBlZxiYN9xxweqORUiJF
-	FBpQZnxVT2wFmPsqsjjk5rAe5+MAv6Kx0yPyGEhLZs4yM9iE3SS3Qdnd0OtmhAfZcIFf7yKBSRi
-	sbKC3z1G45MpM8J8JDRpmc96yecjGzI2BR5PEPkuokNPxImaDt4Psx7zPZT/yw7h/nC8duo0loe
-	zZVlRnDAL58D8iZ909bNQjiegUse2IdT5mjsgAGtkkCi2OU19twwXPjHfTzQ==
-X-Received: by 2002:a05:6a00:4187:b0:853:2e35:ad84 with SMTP id d2e1a72fcca58-8562a4e89aemr63794080b3a.14.1788288371275;
-        Tue, 01 Sep 2026 11:46:11 -0700 (PDT)
-Received: from localhost ([71.212.197.238])
-        by smtp.gmail.com with UTF8SMTPSA id d2e1a72fcca58-85db24f33a0sm300383b3a.9.2026.09.01.11.46.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 11:46:10 -0700 (PDT)
-From: Kevin Hilman <khilman@baylibre.com>
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, Sudeep Holla
- <sudeep.holla@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Scaria
- Kochidanadu <s-kochidanadu@ti.com>, linux-pm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH] cpuidle: psci: Assign domain callbacks to all CPU idle
- states
-In-Reply-To: <CAPx+jO85NBZq=YCxhs5Fbo5rDZ7pGHHKiG2HRJUNVKj_1SOscg@mail.gmail.com>
-References: <20260831-topic-lpm-psci-domain-callbacks-v1-1-4a47d95c9c79@baylibre.com>
- <CAPx+jO85NBZq=YCxhs5Fbo5rDZ7pGHHKiG2HRJUNVKj_1SOscg@mail.gmail.com>
-Date: Tue, 01 Sep 2026 11:46:10 -0700
-Message-ID: <7hh5k87qtp.fsf@baylibre.com>
+        d=1e100.net; s=20251104; t=1788288409; x=1788893209;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5HjCQhBzt7RYcOnaReR32DP32WTYV64asDdP79SfbZk=;
+        b=Km4tlfpX16yCn0NPloin9gi2+QkPXqghf6ug9C59vP9ytCC/kzMVsthTrUhcY1m50d
+         ECll7shL6u2P7wNhvFofN4SFrSVoHrd0H6IYKFXRUBdzFVrsM3PXGbHqjaNZyZnUyHkM
+         zx4Xx+Q0AsuO/QhR7XH51mKFzk9e3qEbyJ7bh7o5ECUJW+8P72ahL85HupCFxZ6YroYc
+         vclPq5OLdeKKdPmnpG2B7g6esIkKHIGwW5uurovxd8K1LrasSEKSi4bCAGmWT6eunFR8
+         CO4cnBfSshQDvrvZVflfFN1G8bCdqwZTI3ZlXFeAu4yOTjaWQbBSRsC8sjWQ90pWzd56
+         1gWw==
+X-Forwarded-Encrypted: i=1; AHgh+RruC0Lm9rvil8Bw2mlDbAt3MQL5A87zMMhSstTls92pyUJt1kMtb7hrecWxVw5WqTqV5zGtQkiIVG6ZDv0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIAIuUmKaui4nJwF7oLxVkIbcJ0cn8sI1vgKHtmwGSs8hTvv2s
+	j0xJHP9+l7ReoCjDF9GuICYylnDdKVjrl4gDdFaPquFbNPV4BGAzOrkG
+X-Gm-Gg: AR+sD11/OJIAiQf/BwUR0guBOLCbVq2eXqvI1tO6AZbVn4UDIlwottC4Nqce2VshUV8
+	vkLU3uDtQ3iHIXM7IEAFJsQ2GlMiS1MzPUCi0JpmAZJCA9yO3jjsL2aG6DvPlFGIHm/rJIBZr37
+	oHELVmaGZpgTeoeHPAcwfFvORpG1DLfVgr8x+ZwwAEsKTQJ04RALPy/e9HPpcEaegz8EGIJZhT2
+	GJHl7+8aDcZJfr80Kr0gp4r+YU4Cu6zsQSSm9vm1zGFOuK0Hpi5s//rIGmnFjve5NCaytJmbat8
+	jaqZxpZYN3FoXJYdxrn53sRLcK6sV13RORi6SC//7dU1lgy+6dHtXqnvphxLtaJktEQpDLSCnk9
+	/OR3LWIazIwdb0rtF+wWK45gQsm6+Vys6lZ5eoODCCOUAhi6yyimyQgY6zUMrABv4bpYJ8CP/rH
+	uI7IeF4Yl9Pmsux9x6XnEqfD+2cUPR9+AjDWu3Gx5uiNX2bRuwsdaGRrFl3Nf/gybufbm2VjNif
+	49lvVHdE6VYCmdjBMxbxea1QoKK
+X-Received: by 2002:a05:600c:870c:b0:499:dc34:bdc with SMTP id 5b1f17b1804b1-49b91c1c401mr656955035e9.1.1788288409042;
+        Tue, 01 Sep 2026 11:46:49 -0700 (PDT)
+Received: from [192.168.8.169] ([92.241.26.46])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448eeae34sm873420f8f.32.2026.09.01.11.46.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 11:46:48 -0700 (PDT)
+Message-ID: <85c21391-44c8-4f9b-8053-37c24c9c3eee@gmail.com>
+Date: Tue, 1 Sep 2026 21:46:47 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+Subject: Re: [PATCH v4 3/6] media: i2c: ov5693: Gate the MIPI clock lane for
+ non-continuous clock
+To: fernandorimoli11@gmail.com
+Cc: dan.scally@ideasonboard.com, dev@berg.pm, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, mchehab@kernel.org, naeemarsalan@gmail.com,
+ sakari.ailus@linux.intel.com
+References: <20260831181858.325109-4-fernandorimoli11@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20260831181858.325109-4-fernandorimoli11@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Ulf Hansson <ulf.hansson@oss.qualcomm.com> writes:
+Tested-by: Fil Dunsky <filipp.dunsky@gmail.com>
 
-> On Mon, Aug 31, 2026 at 8:52=E2=80=AFPM Kevin Hilman (TI) <khilman@baylib=
-re.com> wrote:
->>
->> Previously, only the deepest CPU idle state had its enter and
->> enter_s2idle callbacks set to the domain-aware implementations. This
->> meant that if a QoS latency constraint excluded the deepest state during
->> s2idle, find_deepest_state() would find no state with enter_s2idle set
->> and skip the domain idle path entirely. Similarly, during normal runtime
->> idle, shallower CPU idle states could not trigger cluster-level domain
->> idle states.
->>
->> Assign both enter_s2idle and enter (non-PREEMPT_RT) to all non-WFI CPU
->> idle states so that the domain-idle-state logic is triggered regardless
->> of which CPU idle state is selected. The genpd governor remains
->> responsible for honouring domain-level latency constraints independently.
->>
->> The enter_s2idle path uses dev_pm_genpd_suspend() which is safe on
->> PREEMPT_RT. The enter path uses pm_runtime_put_sync_suspend() which may
->> sleep and is therefore still excluded on PREEMPT_RT.
->>
->> Suggested-by: Scaria Kochidanadu <s-kochidanadu@ti.com>
->> Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
->> ---
->>  drivers/cpuidle/cpuidle-psci.c | 24 +++++++++++++++++-------
->>  1 file changed, 17 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/cpuidle/cpuidle-psci.c b/drivers/cpuidle/cpuidle-ps=
-ci.c
->> index dcf20ea5ef5e..db9aa57c51f5 100644
->> --- a/drivers/cpuidle/cpuidle-psci.c
->> +++ b/drivers/cpuidle/cpuidle-psci.c
->> @@ -250,6 +250,8 @@ static int psci_dt_cpu_init_topology(struct cpuidle_=
-driver *drv,
->>                                      struct psci_cpuidle_data *data,
->>                                      unsigned int state_count, int cpu)
->>  {
->> +       int i;
->> +
->>         /* Currently limit the hierarchical topology to be used in OSI m=
-ode. */
->>         if (!psci_has_osi_support())
->>                 return 0;
->> @@ -261,14 +263,22 @@ static int psci_dt_cpu_init_topology(struct cpuidl=
-e_driver *drv,
->>         psci_cpuidle_use_syscore =3D true;
->>
->>         /*
->> -        * Using the deepest state for the CPU to trigger a potential se=
-lection
->> -        * of a shared state for the domain, assumes the domain states a=
-re all
->> -        * deeper states. On PREEMPT_RT the hierarchical topology is lim=
-ited to
->> -        * s2ram and s2idle.
->> +        * Assign the domain-aware callbacks to all CPU idle states so t=
-hat the
->> +        * domain-idle-state logic is triggered regardless of which CPU =
-idle
->> +        * state is selected.
->> +        *
->> +        * For s2idle, enter_s2idle uses dev_pm_genpd_suspend() which is=
- safe
->> +        * on PREEMPT_RT. find_deepest_state() will pick the deepest sta=
-te
->> +        * whose exit latency fits within the active QoS constraint.
->> +        *
->> +        * For the normal idle path, enter uses pm_runtime_put_sync_susp=
-end()
->> +        * which may sleep and is therefore not used on PREEMPT_RT.
->>          */
->> -       drv->states[state_count - 1].enter_s2idle =3D psci_enter_s2idle_=
-domain_idle_state;
->> -       if (!IS_ENABLED(CONFIG_PREEMPT_RT))
->> -               drv->states[state_count - 1].enter =3D psci_enter_domain=
-_idle_state;
->> +       for (i =3D 1; i < state_count; i++) {
->> +               drv->states[i].enter_s2idle =3D psci_enter_s2idle_domain=
-_idle_state;
->> +               if (!IS_ENABLED(CONFIG_PREEMPT_RT))
->> +                       drv->states[i].enter =3D psci_enter_domain_idle_=
-state;
->> +       }
->
-> This breaks the current contract for genpd when it tries to select a
-> domain idle state for a group of CPUs that shares the same PM domain.
+Scope: patches 3-6. Patch 1 was already in my tree and this machine is
+INT33BE, so patches 1 and 2 are not functionally exercised here.
 
-Could you elaborate on what that "current contract" is or point me to
-where it's described in more detail.  I understand there was a reason
-for this design choice when first implemented, but now that we have
-added support for using QoS to constrain the state selection used for
-system-wide suspend (including s2idle) this "contract" is really
-restrictive, and doesn't allow the domain idle logic to be used at all
-for shallower states.
+Hardware: Surface Pro 8, IPU6 Tiger Lake (8086:9a19), OV5693 front
+sensor at INT33BE:00, OV13858 rear, VD55G0 IR. Kernel 7.2.2 plus the
+linux-surface patch set, not the v7.3-rc1 base the series declares;
+patch 6 needed that tree's duplicate OVTI5693 entry dropped before it
+would apply.
 
-> In principle, if the CPU has a clock gating state (shallow) and a
-> power collapse state (deep), it would be sufficient for the CPU to be
-> in the clock gating state, while allowing the cluster PM domain
-> (through genpd) to enter a domain idle state that corresponds to a
-> power collapse state. Depending on the platform of course.
+With the series applied, streaming from the ISYS capture node:
 
-Yes, that is possible in principle, but with an important clarification:
+   60 frames, SBGGR10 2592x1944, 604661760 bytes, 28.64 fps
+   MIPI_CTRL00 (0x4800) read back over i2c while streaming: 0x20
 
-Once all CPUs are in an idle state (either shallow or deep), the domain
-idle state logic is entered.  It's then up to the domain (or its
-governor) to select the appropriate state(s) for the domain.  If any of
-the CPUs are in a shallow state, the domain governor should not allow a
-deep state.
+0x20 is the bit-5-only value patch 3 writes, so the clock-noncontinuous
+property did reach the sensor driver: the path from the table entry in
+patch 4 through to the register is exercised, not merely "the camera
+works".
 
-In your example, you mention the CPUs in a shallow state but the cluster
-domain would pick a deep state.  I would say that's a bug in the
-PM domain (or its governor) if it would allow that.
+I also ran the negative control, with PCI_DEVICE_ID_INTEL_IPU6 dropped
+from the INT33BE entries and nothing else changed. How it fails is
+worth recording, because the obvious test misses it:
 
-The job of the PM domain is to pick the deepest state that is possible
-based on the state of the devices (including CPUs) that are in that
-domain.
+   - the first capture after boot succeeds, 60 frames at 28.64 fps, with
+     0x4800 reading 0x00;
+   - every subsequent capture in that boot returns zero bytes and times
+     out, with nothing in dmesg;
+   - writing 0x20 to 0x4800 over i2c into a stalled stream starts frames
+     immediately, reproduced on three separate streams, while clearing
+     the bit again mid-stream does not stop them.
 
-The same is true today for domains that do not have CPUs.  If you have a
-device that runtime suspended, but in a shallow state (e.g. only clock
-gated), the PM domain it is in should not hit a deep (power-off) state,
-otherwise that device will lose context and not resume properly.
+With bit 5 set, the same script captures three times in a row without
+trouble; I measured that with our downstream driver, which writes 0x2d
+unconditionally. So the entry is needed at stream start, and a single
+capture after a reboot is not enough to tell whether it is present.
 
-I'm trying to enable that same thing for PM domains with CPUs.
+The free first capture appears to be particular to this machine: two
+other testers of this series, on a Surface Pro 7+ and a Pro 9, get zero
+bytes on the first attempt as well. I have not been able to explain the
+difference. It only affects how the entry should be verified, not
+whether it is needed.
 
-> On the platform you are working, is there a clock gating state (or
-> similar) on the cluster PM domain, which is allowed to be entered when
-> the corresponding CPUs are in the similar state?
+Patch 5's precedence rule is exercised here as well: INT33BE appears
+twice in the table, the generic entry and the Tiger Lake one, and the
+bridge connects the sensor once - "Connected 3 cameras", no double
+connect. The two sensors that take no flags, OV13858 and the VD55G0 IR
+camera, are unaffected; the IR camera still does face authentication.
 
-Yes.  Not only the CPUs have shallow and deep states, but the domains
-can have shallow and deep states as well.
+The teardown "stream stop time out" appears identically with and
+without the series, so it is not introduced by it.
 
-Kevin
+One note for out-of-tree builders: patch 4 grows struct ipu_sensor,
+which moves the CRC of ipu_bridge_init() and ipu_bridge_parse_ssdb(),
+so with CONFIG_MODVERSIONS ipu-bridge and intel-ipu6 have to be built
+together. intel-ipu6-isys imports only ipu_bridge_instantiate_vcm,
+whose CRC does not move; an unrebuilt intel-ipu6-isys loaded fine
+against the new pair on 7.2.2.
