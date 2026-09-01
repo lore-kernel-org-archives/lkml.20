@@ -1,102 +1,76 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558AA2E975E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:37:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4166E64;
+	Tue,  1 Sep 2026 13:38:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788269861; cv=none; b=Eg8X9SLTeYC/H9zIvb539pfqWknDtlXcaa8lzpp9kKd1XoxcaQ1RoZYi1/o2Qb3w5JEBqwoF5gMJT+UKePtI1w/Bha46WPftSfNgZ+02aVzWxo29OgHUhz8hRPUUcx+j66+lXGyXgZFiAjwYZc/RrdS/7HPyjF5vj7ohDlEPdKw=
+	t=1788269927; cv=none; b=iDlgJllUyzbXgkdu4EWVUVvtuhi8kE7fyWGvSKM5PZ/qSwn0rhFuuYqxFzTh1h/BM3f3rVmOnNskWs0D9U59Fxa04/Ud9KWhUpfzt6Xuc9JaxrsdFnBc3Ty+CxKEj6FksrYazZlHHbPRpJPKqHEHFFX9kGqLBkxM2jMqrx+iYoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788269861; c=relaxed/simple;
-	bh=zDlfCbDH5Ho3SI3QsSZnX/Jgy1GCPpw11VZy6Ij11kU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JFbKv3L4KxgabIEzCGD5WbSgxhVM0d9yxPBtjkLk+rcF5Y6fm0IgKJ0MI/FJIbYpsMF1Hw3afZaiCQ187sNnqpSbxTQHd4IFJYvZSY/Pe6MzNUxw0uSkMTHXODq4elUBGpj7og/9tPiVPmqROx5JNkNBllt+N2ejKOtdLLzmFUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=XddVYdRY; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788269927; c=relaxed/simple;
+	bh=wnEx4rDNkziZBTzK4aZ7qaCWiw57NIRKirHCSXvWtSg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=s7t+dLbhGaaMLGtKRYDgDvDmNAnGp6GtukmXcpSSxbiPw0u6Im2/rKMn/TiT+MmCGMPahHrJAEWU0znt3hfmvXcaHmET2WV6aHxiJmZqxYNjm4LaJ8VRbncqidAMJWjGJzh13vwpLfKsmKHgJL7dbioW1bXvPRziq7SQC9+op9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E1KlXXTu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="XddVYdRY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788269858;
-	bh=zDlfCbDH5Ho3SI3QsSZnX/Jgy1GCPpw11VZy6Ij11kU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=XddVYdRYJFykaXV1kzy0zskkljn/S2TIWbGpeDB9MDz9vQI51T7aVCbMRVOBxwwSL
-	 VGVDE1qg/fM5Q6lhvbzPJJicorRPSo6VT6Dzj+snvZ0w5K7fKeWFieTx7kWkm8P6xS
-	 NYH5EY0X5Iuon++Kdz1YwfQ4yaLWo/T9xB0q/m/5ExVvjwTfRklCf9TXmcOEhWRtuo
-	 A6ZyRJ0OkRFrboem8IUzWQjvBeTE8TewmVLRdcju37OKDp/O5Fp2NhIVxmYDZNdvLE
-	 MnsAf6JrHZdBBLtU0RcSQAtWAhiGi+SJUH1DWGBKggrMRICybaWcElo/ZZfkmoPCPZ
-	 v1o+2eoZsphnw==
-Received: from fedora-21.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id BBA1917E006A;
-	Tue, 01 Sep 2026 15:37:37 +0200 (CEST)
-Date: Tue, 1 Sep 2026 15:37:32 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 14/17] drm/panfrost: Avoid cache flush after perfcnt
- sample in fully coherent systems
-Message-ID: <20260901153732.7c4def61@fedora-21.home>
-In-Reply-To: <20260828-claude-fixes-v7-14-72a13b2c125d@collabora.com>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
-	<20260828-claude-fixes-v7-14-72a13b2c125d@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E1KlXXTu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BAFE1F00A3D;
+	Tue,  1 Sep 2026 13:38:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788269926;
+	bh=jCOmXUqUA0JFX/6v0B8YEvtU3s0Uus/ZFSIva0GOO3M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=E1KlXXTuq1zN2r8vbLV2O20CQIu/+R49FhOl8Dw9a0dt/DMvSS4fA1N47wOoD+sNm
+	 pMM08fhmeXJ10nVpNqXTJ9EC8p7K1sMFiHWr3+cIS8GbshzD8FuuvTfPR3ZOI7hgqf
+	 MslrySwSwfJWC9iARh0NmPk3YS24WkMIwHz/pV0od4Ay13LW2CFX/bPmGRXb8JNuc6
+	 QSY3vciEulvqMp5RM5XGHaeqjMBf8tB4GmHwSCQIbYCG9mGgDRFKhgc3HEEkGvCBaN
+	 B9zg7nYZpoBlqClPdkr/fJghBaf/eHtyfgHHZVlMB25+BMBuQqe23gt42HQhdgH0Ry
+	 qYRcGRK2VqbKw==
+From: Leon Romanovsky <leon@kernel.org>
+To: linux-rdma@vger.kernel.org, Ruizhe Zhou <zhouruizhe@resnics.com>
+Cc: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-kernel@vger.kernel.org
+In-Reply-To: <20260812033647.2281547-1-zhouruizhe@resnics.com>
+References: <20260812033647.2281547-1-zhouruizhe@resnics.com>
+Subject: Re: [PATCH 0/2] RDMA: Remove obsolete 32-bit DMA mask fallbacks
+Message-Id: <178826992328.1353295.521040898136090856.b4-ty@kernel.org>
+Date: Tue, 01 Sep 2026 09:38:43 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-On Fri, 28 Aug 2026 21:56:54 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-> If the GPU and CPU are fully coherent, then there's no need to flush the
-> GPU caches after a perfcnt sample is made available.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
-m/panfrost/panfrost_perfcnt.c
-> index ffc77121070e..b3f71d7fd82a 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> @@ -52,7 +52,10 @@ void panfrost_perfcnt_clean_cache_done(struct panfrost=
-_device *pfdev)
-> =20
->  void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
->  {
-> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
-> +	if (pfdev->features.selected_coherency !=3D COHERENCY_ACE)
+On Wed, 12 Aug 2026 11:36:45 +0800, Ruizhe Zhou wrote:
+> hfi1 and mlx5 data direct both set a 64-bit DMA mask and retry with a
+> 32-bit mask if the first call fails. This treats the return value of
+> dma_set_mask_and_coherent() as an indication that the platform requires
+> a narrower DMA width.
+> 
+> That is not a correct interpretation of dma_set_mask_and_coherent().
+> The mask describes the DMA addresses the device can accept and constrains
+> subsequent mappings to that range. A 64-bit mask includes every address
+> permitted by a 32-bit mask, including addresses from a platform that only
+> produces 32-bit DMA addresses. Retrying with 32 bits therefore adds a stricter
+> constraint and cannot correct a failure to establish the 64-bit mask.
+> The DMA API HOWTO explicitly calls this fallback pattern incorrect [1].
+> See [2] and [3] for details.
+> 
+> [...]
 
-I think ACE_LITE would allow us to skip the flush to, so
+Applied, thanks!
 
-	if (pfdev->features.selected_coherency =3D=3D COHERENCY_NONE)
+[1/2] RDMA/hfi1: Remove obsolete 32-bit DMA mask fallback
+      https://git.kernel.org/rdma/rdma/c/901c15a2099d43
+[2/2] RDMA/mlx5: Remove obsolete 32-bit DMA mask fallback
+      https://git.kernel.org/rdma/rdma/c/08a978db86e877
 
-> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
-> +	else
-> +		complete(&pfdev->perfcnt->dump_comp);
->  }
-> =20
->  static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
->=20
+Best regards,
+-- 
+Leon Romanovsky <leon@kernel.org>
 
