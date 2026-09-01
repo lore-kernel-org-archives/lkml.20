@@ -1,98 +1,166 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7746145D5C2
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15418477E37;
+	Tue,  1 Sep 2026 20:35:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788294823; cv=none; b=DRX1l5TDEwynXwpeoitsK6GrHq33CKNiJeSQt63Qu0euajtxvs2PgW//vNTc/+PutIeM1Dgxc8VG3vG8F4ek/MdX/B9FdOr8Cau4+zeZDEKBQVK+pycFVp3nkE8+V03+B6Y/WOxpYEcnVcupSHbPZe9gA2bHAHRBf1HtbQFi42I=
+	t=1788294933; cv=none; b=QWO3B/CuoxWQ2bDDRh9J/DL5UasqltsDArN/S7DnMS6na+QJtHxPXUjX1pcaRBrMynnWrwnBD3Y6QsBy5MZXk4FI78bO/KhZ7KvYjltsbekqo5s46M5ucO8AvinjKk5uptusx2DjzDeHhiN0QtL/GVHcSdPi62wadVD60GJ4yH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788294823; c=relaxed/simple;
-	bh=YIYRgKhaWTAdVwoiQpEKf/jbAncBgJQxHoHwQlqMKzM=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=HJir9HksMTBCO2WR4JSogimeqHMDRgyGSeGO1edIXZHh8WBoEWmtC+iUWYSdxuemh05XomMJvxrT9R+nBrE9um5/fc7DivzHnyfqGOIFcr0RIw827eC8ZEQbJPRXdhfyiiKQwbFbIF8JaqL1tw/UL6ZtPG+/7vpsvBi/fpNnkMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b28deb7ee3so381584b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:33:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788294821; x=1788899621;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oeVBmyUMEvxOlKf+fY9yPsfNQy9yuLRkEOc1khjK5pM=;
-        b=kisPK74kgShMWTwkkvVkTn72ekquykBAja39j5MZuvw1HocjwDhLsQmGIcdkaqTG4U
-         GVVeiiXh7ChlmBnPPMIWHE3FMfswVkQI4PqtUx/P7MQJjMNJrcRSR6ERdn/p7/Ocpkxh
-         ywwj/Epq2XppqxjMlABDGiGwNDIrug1vkwiEGQGSKAOlr63ZE+/xkd2CBU7nEfZw6QMo
-         le3dSbvOPhh79kqjVjX6KKu3vcFpJ3eSicE9QEJiZyYQIJjNZFdnEuQOpDfG4/0HkLSD
-         OFJ6sdwr+eZbdX+NrTC1zdvf8OaC9n1X3WHyXb2Qki9qP9quWT3puiFAGghC1to3TcgK
-         sk1Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrYWmuGnmt0Mroyo3xDBuavqRVKl5ZyQVz1WAbyP+0ov+1bnuP9jeT2KmRQBa0FFnfL8M9x3kxWF5hHNU4=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2OgL9ZOnJothCXkh4gyjjVZwraVuCcV19qbgHft6/RWteKxFF
-	DCYGpCZhkK86HOCuj1Kt3wXbYDI9X5guI4cfgizTzo9UAIzUeLaAu3SFkIx7FTSxK8qxsJUKoVT
-	TBlgR/1SsDfahgPAQvSd8IyvP4cQdNL5/b4SbD1AeiM7Ls24ug2GGtXtQMx8=
+	s=arc-20240116; t=1788294933; c=relaxed/simple;
+	bh=pHIsrFSNvLWC/4DPdUY0rtzW7sSfm7EwgWqWklgBjiQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=mJARv51xiRPZ7zQdEkXbSqojF1KXneZLwxkq8zTjHNRONltJGm1SSsZ0p5bX/UZjr462z8S4Khs1wiS+w/vSaBrMrcOFtjunv+mwmvb+1x8ZnPDmLPYKdD7DxfxGhFhZiBAyTIxcNBp7pC8EuRBcwXpS9jKy2gDl5BM1r18xCqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=Ll5Rr+oi; arc=none smtp.client-ip=216.40.44.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="Ll5Rr+oi"
+Received: from omf06.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay08.hostedemail.com (Postfix) with ESMTP id 6D9931404CC;
+	Tue,  1 Sep 2026 20:35:23 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf06.hostedemail.com (Postfix) with ESMTPA id B7B2B20010;
+	Tue,  1 Sep 2026 20:35:21 +0000 (UTC)
+Date: Tue, 1 Sep 2026 16:36:20 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
+ <linux-trace-kernel@vger.kernel.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>
+Subject: [PATCH] tracing: Take trace_array reference when opening options
+ file
+Message-ID: <20260901163620.6cbe0ada@gandalf.local.home>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:bc4:b0:4a4:c12:ee68 with SMTP id
- 5614622812f47-4b5b8172009mr11585524b6e.10.1788294821342; Tue, 01 Sep 2026
- 13:33:41 -0700 (PDT)
-Date: Tue, 01 Sep 2026 13:33:41 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9736a5.e163c37b.143a1.0001.GAE@google.com>
-Subject: [syzbot] Monthly kernfs report (Sep 2026)
-From: syzbot <syzbot+list13c72f37136b099f0317@syzkaller.appspotmail.com>
-To: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, tj@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: bafzbjascqatj1zqasq768c4ikudgkcd
+X-Rspamd-Server: rspamout06
+X-Rspamd-Queue-Id: B7B2B20010
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/l1ba6B717nU07kq57QxxIl85zG+MopOU=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=h+HW9juB6WRMvybig35oZxUCTIigBs56Ot//5krdEtM=; b=Ll5Rr+oiRXGQkOwM/KPuwkC2OFnoDgD91vu+7tzXZfZ34+qV7Pdfm2ctKzdEIohRCz6Cv53dlVz8tbBOQMneQerkYGcqvzzHsVCecTGFW8yriXjNk8jQSS9RsIgGNkH/3J0RS7X2O/XF2LwxMSdhQpPMlri8xEoSdWJDUcx5mQc=
+X-HE-Tag: 1788294921-337226
+X-HE-Meta: U2FsdGVkX1+zsVntxLsV5cZzCQNt5WENt6tpS4rNNQH1dCUqgWgStDqVxaLJT2Ix1UZin+Lf48mCDX+SUjhOD147+0FiIjPNRRCTv+E/1hwfBCgMUKxTrxXPZHHdbZ1kn8KB1YK1td/YO3PhM19s+SaPHmSfCSz2roYqzsrw316a6lFlfUx629p8WGwYa+yeRTn/T4vjb0mO1GXkZTgJwSCbHNK3or0LG8CAnoC712Z6zZVmEGx9rwBhimouCwWgHWskMnve/d+UAMSfe4JWfNcF0z+7XPrjizduI2yYfgSoa1ccL+qrr6cJKd9w2IYIatDuyNHq5lo1IpgmmNvSPMII3vbGy4LofGayS8B/xRcfNpmuovT/4JUCtpmYGLtbbZ2uASIl2VzGxcZUGpSl5A==
 
-Hello kernfs maintainers/developers,
+From: Steven Rostedt <rostedt@goodmis.org>
 
-This is a 31-day syzbot report for the kernfs subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/kernfs
+The options files do not take the trace_array reference for the options
+they represent. This could cause a use-after-free kernel crash if one of
+these files is opened by one task and another task removes the instance
+that the option is for. Because it doesn't take a reference upon opening,
+it will not stop the removal which will free the options descriptor that
+is being used.
 
-During the period, 0 new issues were detected and 1 were fixed.
-In total, 22 issues are still open and 31 have already been fixed.
-There are also 10 low-priority issues.
+As the options are somewhat dynamic in their creation at boot up, each
+file represents a flag in the trace_array. The trace_array has an array of
+indexes to represent each of these flags that is stored in the
+trace_flags_index array. The address of the index array element is used to
+pass to the inode->i_private pointer. Then that element is read which
+holds the index (which represents the flag) and then the index is used to
+calculate the trace_array descriptor from its trace_flags_index array.
 
-Some of the still happening issues:
+One issue is that the index element can not be referenced until the
+trace_array's reference is taken. To handle this, create a new helper
+function called: trace_array_options_get() that will iterate all the
+existing trace_arrays in the ftrace_trace_arrays list (under the
+trace_types_lock), and compare the passed in address of the index element
+with the entire array of the trace_array's trace_flags_index array.
+If it matches, then up the corresponding trace_array's reference and
+return.
 
-Ref  Crashes Repro Title
-<1>  1843    Yes   possible deadlock in kernfs_remove
-                   https://syzkaller.appspot.com/bug?extid=2d7d0fbb5fb979113ff3
-<2>  1490    No    possible deadlock in kernfs_remove_by_name_ns (2)
-                   https://syzkaller.appspot.com/bug?extid=b50eba6bf6cd3f8ba7d0
-<3>  237     No    possible deadlock in kernfs_fop_readdir
-                   https://syzkaller.appspot.com/bug?extid=8fd10d8928ed1f715290
-<4>  178     Yes   INFO: rcu detected stall in sys_unshare (9)
-                   https://syzkaller.appspot.com/bug?extid=872bccd9a68c6ba47718
-<5>  652     Yes   WARNING in kernfs_remove_by_name_ns (3)
-                   https://syzkaller.appspot.com/bug?extid=93cbdd0ab421adc5275d
-<6>  167     Yes   INFO: task hung in fdget_pos
-                   https://syzkaller.appspot.com/bug?extid=0ee1ef35cf7e70ce55d7
-<7>  104     Yes   INFO: task hung in kernfs_add_one
-                   https://syzkaller.appspot.com/bug?extid=e4804edf2708e8b7d2a5
-<8>  75      Yes   possible deadlock in kernfs_seq_start
-                   https://syzkaller.appspot.com/bug?extid=4c493dcd5a68168a94b2
-<9>  60      Yes   INFO: rcu detected stall in sys_readlink (5)
-                   https://syzkaller.appspot.com/bug?extid=23e14ec82f3c8692eaa9
-<10> 37      Yes   INFO: rcu detected stall in cleanup_net (8)
-                   https://syzkaller.appspot.com/bug?extid=0604401cc084920f6c3d
-
+Cc: stable@vger.kernel.org
+Fixes: 577b785f55168 ("tracing: add tracer dependent options to options directory")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-trace-kernel/20260828135858.2AC501F000E9@smtp.kernel.org/
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ kernel/trace/trace.c | 67 +++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 63 insertions(+), 4 deletions(-)
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index a946e0183fd1..61ca05ee991d 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -7842,11 +7842,70 @@ trace_options_core_write(struct file *filp, const char __user *ubuf, size_t cnt,
+ 	return cnt;
+ }
+ 
++/*
++ * The tr_index is the address of a trace_array->trace_flags_index[]
++ * element that holds the index of the trace flag. But since the
++ * trace_array reference has not been taken yet, it cannot be referenced
++ * as it could have been freed by a rmdir of the instance the trace_array
++ * represents.
++ *
++ * Search the list of trace_arrays and compare the tr_index to the
++ * address of the entire trace_array trace_flags_index array for each
++ * trace_array in the list. If one is matched, then take the reference
++ * and return it. If not, the trace_array no longer exits.
++ */
++static int trace_array_options_get(void *tr_index)
++{
++	struct trace_array *tr;
++	int ret;
++
++	ret = security_locked_down(LOCKDOWN_TRACEFS);
++	if (ret)
++		return ret;
++
++	if (tracing_disabled)
++		return -ENODEV;
++
++	guard(mutex)(&trace_types_lock);
++	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
++		if (tr_index >= &tr->trace_flags_index[0] &&
++		    tr_index < &tr->trace_flags_index[TRACE_FLAGS_MAX_SIZE])
++			return __trace_array_get(tr);
++	}
++	return -ENODEV;
++}
++
++static int trace_options_open(struct inode *inode, struct file *filp)
++{
++	void *tr_index = inode->i_private;
++
++	if (trace_array_options_get(tr_index) < 0)
++		return -ENODEV;
++
++	filp->private_data = tr_index;
++
++	return 0;
++}
++
++static int trace_options_release(struct inode *inode, struct file *filp)
++{
++	void *tr_index = filp->private_data;
++	struct trace_array *tr;
++	unsigned int index;
++
++	get_tr_index(tr_index, &tr, &index);
++
++	trace_array_put(tr);
++
++	return 0;
++}
++
+ static const struct file_operations trace_options_core_fops = {
+-	.open = tracing_open_generic,
+-	.read = trace_options_core_read,
+-	.write = trace_options_core_write,
+-	.llseek = generic_file_llseek,
++	.open		= trace_options_open,
++	.read		= trace_options_core_read,
++	.write		= trace_options_core_write,
++	.llseek		= generic_file_llseek,
++	.release	= trace_options_release,
+ };
+ 
+ struct dentry *trace_create_file(const char *name,
+-- 
+2.53.0
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
