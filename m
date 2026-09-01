@@ -1,81 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8C743B3C6;
-	Tue,  1 Sep 2026 13:19:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25B4C47DD7F
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268742; cv=none; b=Gi6KkXs92awQDOIqdb662s55res1zNn7jl0Vzq5tDwwjqVJs73UuF3ziopzRz6Glxbxu0uOgU5LSZrSenDFVvlJl0ILucg28od3mbrKXlqWMaU3FJrOriyuS1X3ImymykolXmLnzc84A6HINBwR9xd91LlclHjhTuoHlbpsgF14=
+	t=1788268746; cv=none; b=hZdKU2+UxayLAzQcw5whYV1cWWnQ2gHt6dV10hw5XVbVdVUvyHrTLnVs6UHfbiUfQIR/2VMUVisX7Jem0EcjWtRjO1/BQbns8/6wUBwZYJkaMURjq/DyyKweeboTlXKx9mzDuvMytPXIbUpmiww7GeO/YxEZ8LfcalRXRSVsI9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268742; c=relaxed/simple;
-	bh=GXr/1jJ0ZcG+tvVvUf9OAFx0ZgFUmAAa9q7CIMr6dbk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ey6ktulilvYHyj5h89ybycXHc0SgqnZRAItkAcMVdt2FK2KqV13MhYyWGhRrxrfF+PAT2L0pCdS9TE+NABGys4b5Nf5cvp6qEw9Ioj+OVmgRIXXfwH1lWEaU3qm6vhaOXge8HRii1+y0nKcsa5fdpfkjY6fmdX9wJu7d9v2urBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ig92mQta; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788268746; c=relaxed/simple;
+	bh=qV/Qw1Oeu++1QlSiJZ8tb59korzX57Tnk1SFiSIzSJo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=g8Psdq5v64ooBt+OQG+WZZAfZWORcf+TezWusW53js+4MD3UD6hY1Sk2q8gmCPCWiZ8G5PwKgoup22whfxsx0kOI9T79y137+/RDFV1fNVSjs8Paqqbgd46vjtpU0W/8dVc2wDBEUBP7Saq0HjgPvkXbszdtKiPqx9kuPbOPCQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=QZwk9DQd; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ig92mQta"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 452D01F00A3E;
-	Tue,  1 Sep 2026 13:19:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788268741;
-	bh=VvO9nu/pvwrT8AJnGanMkEVbhfeAa8vp4BSGaiM1GXg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ig92mQtakTdHt0VVFboiQzpG74wWcUaalH06d9B8H+DqFvf8O10xsK8agpzNt48dI
-	 J6z78dAJsmkAgL1bGwzouj7Bo1tsFXUwjGUhxaemvkiP5iJj5I27039kzIr6sPksz/
-	 JmcUMbUDgwzghHaFtsLePi+nD/8bOnxkGtErWkZTfW+jquJlWqsN8qC0LBAV4yE2Mh
-	 E6LBN4vo828WsQkUMz4FEZZroCbmbvGpWvYiJZv6EeK+4lqNiYuxidJqZjeLKjMtPt
-	 iXRCXVLksLVM8WMlccLkVlGFJDyXyLeFnLG3uFITa+I94BxAVO5fXbh2YuVmqx6CPS
-	 uPIFRnMKnnwDg==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 8/8] mm/damon/core: handle extreme memory state in get_in_active_mem_bp()
-Date: Tue,  1 Sep 2026 06:18:49 -0700
-Message-ID: <20260901131850.98037-9-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260901131850.98037-1-sj@kernel.org>
-References: <20260901131850.98037-1-sj@kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="QZwk9DQd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1788268743;
+	bh=qV/Qw1Oeu++1QlSiJZ8tb59korzX57Tnk1SFiSIzSJo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=QZwk9DQdQ9XPuiPWfXTz43J+4J7PhERLcj7Hi1plkxhUrjrkc0HdejGz01jj1DPql
+	 KUEQLiveC2ci9jyXIaqEdj+EwWvVgrxsaWf/LmMMOh8mbPcg4diYRnPkIvqBuludp+
+	 8cyKQjRlV1gwtf/4d7lj3SZogedD71wNrVOs/1HjvN7NjesN/RQhoGuMXBDKIN/oY+
+	 EfQsCAEK7KMAdOsIVYGZlGpKt8XUcI06EeOyCJxKYoN3xK1OszbNyhKTboSS023bgs
+	 l7+89gsOffQz317lmu9IMkk6Cg3cTV0Gnuf/40kz2ubPcjj9aWnXR1LlF2t2eoRzmi
+	 zC/PxlO96WeJQ==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7C4E617E0260;
+	Tue, 01 Sep 2026 15:19:02 +0200 (CEST)
+Date: Tue, 1 Sep 2026 15:18:56 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 09/17] drm/panfrost: Fix PM refcnt and autosuspend
+ issues at device probe/remove
+Message-ID: <20260901151856.433920b6@fedora-21.home>
+In-Reply-To: <20260828-claude-fixes-v7-9-72a13b2c125d@collabora.com>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+	<20260828-claude-fixes-v7-9-72a13b2c125d@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-damos_get_in_active_mem_bp() uses the sum of the active and inactive
-memory amount as a denominator.  In an extreme and unlikely environment,
-active and inactive memory might be zero.  In this case, hence, it
-results in a divide by zero problem.  Avoid it by changing the
-denominator to one if it is zero, before it is being used.
+On Fri, 28 Aug 2026 21:56:49 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-The issue was discovered [1] by Sashiko.
+> During device probe(), failure to do a PM get() will leave the usage_count
+> set to 0, which is the value assigned at device creation time. That means
+> when the autosuspend delay expires, runtime suspend callback won't be
+> invoked, so the device will remain powered on forever.
+>=20
+> On top of that, failure to call PM put() during device unplug means
+> Panfrost device's PM usage_count increases monotonically for every new
+> module reload.
+>=20
+> The combined outcome of both of the above was that devfreq OPP transition
+> notifications would be printed all the time, even when no jobs are being
+> submitted. This quickly fills the kernel ring buffer with junk.
+>=20
+> To fix the above:
+> - Manually adjust the PM refcnt at device probe and removal time.
+> - Ensure pm_runtime_dont_use_autosuspend is called in the wind-down path.
+> - Call pm_runtime_put_autosuspend() when device is ready to accept jobs
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
+> Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
 
-[1] https://lore.kernel.org/20260721034756.147011-1-sj@kernel.org
+Because of how things are currently ordered, this won't be backportable
+without patch 2, which doesn't have a Fixes tag, so, either we put the
+fix first, and then we move code, or we make it a single commit.
 
-Fixes: 4835e2871321 ("mm/damon/core: introduce [in]active memory ratio damos quota goal metric")
-Cc: <stable@vger.kernel.org> # 7.0.x
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index 99f7da2180f9..70c8109ea698 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -322,6 +322,7 @@ int panfrost_device_init(struct panfrost_device *pfde=
+v)
+> =20
+>  	pm_runtime_set_active(pfdev->base.dev);
+>  	pm_runtime_mark_last_busy(pfdev->base.dev);
+> +	pm_runtime_get_noresume(pfdev->base.dev);
+>  	pm_runtime_enable(pfdev->base.dev);
+>  	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+>  	pm_runtime_use_autosuspend(pfdev->base.dev);
+> @@ -334,9 +335,13 @@ int panfrost_device_init(struct panfrost_device *pfd=
+ev)
+>  	if (err < 0)
+>  		goto out_devreg;
+> =20
+> +	pm_runtime_put_autosuspend(pfdev->base.dev);
+> +
+>  	return 0;
+> =20
+>  out_devreg:
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+>  	panfrost_device_disable_hw(pfdev);
+>  	panfrost_gem_fini(pfdev);
+> @@ -363,7 +368,9 @@ int panfrost_device_init(struct panfrost_device *pfde=
+v)
+>  void panfrost_device_fini(struct panfrost_device *pfdev)
+>  {
+>  	pm_runtime_get_sync(pfdev->base.dev);
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+> =20
+>  	panfrost_jm_stop_sched_jobs(pfdev);
+>  	panfrost_device_disable_hw(pfdev);
+>=20
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 3060edf5e4fa6..0df785e72438f 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3006,7 +3006,7 @@ static unsigned int damos_get_in_active_mem_bp(bool active_ratio)
- 		global_node_page_state(NR_LRU_BASE + LRU_ACTIVE_FILE);
- 	inactive = global_node_page_state(NR_LRU_BASE + LRU_INACTIVE_ANON) +
- 		global_node_page_state(NR_LRU_BASE + LRU_INACTIVE_FILE);
--	total = active + inactive;
-+	total = max(active + inactive, 1);
- 	if (active_ratio)
- 		return mult_frac(active, 10000, total);
- 	return mult_frac(inactive, 10000, total);
--- 
-2.47.3
