@@ -1,94 +1,108 @@
-Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0FA425A321
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 05:37:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 964812EBDE9;
+	Tue,  1 Sep 2026 05:41:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788241026; cv=none; b=EfdI5yWBlrL8U6ZAxbK3c6YRGb7EHTkm4rbiY5Ox6oSovlwg3wqUkJuHnn8ltR257VUQG3+JE60Hw8J2ao3L8+6+a/0R1GQpHCqaq7V2oBRgWYiO5OhAbJ6ptE9w1x56QHzJku6Eh9Y+EJNnosCGG4y4tyM0dbCqVEhJkbZNBlQ=
+	t=1788241282; cv=none; b=S8RnoxhBD3N/PnwjZjzMcfTl0nL8jPf/7yZOuuamUeNHuSO8XUBT+GtjaQTBTCvdVY7xomjj2tZe6pGXsizYAgUfxONvRedelmVXpx+wffhDt/X6kBkv1xkgrQzhE3YFUar5GsrXCSGJsWwA4wFe0qfWPNoCXkWJp9ja0CjJJaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788241026; c=relaxed/simple;
-	bh=k59oaERz04BqM7S0rthAXQ/2ts1J9ySRWi3F8Prk1SQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JDnG2AuMGtnzTTXFbZA1A/qtHolqhZr/+oIhcC7JQ6/ZdOqLIlojM7rgwqrUHoEHKy0CeKLgtZFeUy2SQ7UOXPX0bYD21DyiV7NGFbLVWVbjxzmGz8lKg1tOwz4zot2IB70of+EzFfpzLbdY3QudnINFkZJmir/j5kV3MFaZ99w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3964e7720afso2585046a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:37:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788241024; x=1788845824;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J1L7D2BGcJa8YCR09jb/VFXv3QPDgwb09GcaN70Yl+M=;
-        b=r6w81f3AIjDJXZAXddcg01YTfQZyHJm8ws4HtaMQTkOpvlc0yhppLyl5loYiOqYBVt
-         f5pA71OtztWn0rve4mlkhs6F3OcGZBwxppMuRdwk/tidpfaBGtq6C6+dcvmDRMx14VHJ
-         SYhqa33+2QNOmw5NrF5OVFhLcBxLGN+VckE4Hq6Bq4OgG+QJDoZD56tXZtCfKg8XiLJ2
-         K4FMAa6y0dddSLhBM3Cdbv0uKa5blhfK940C0ZaDqRNzALL4m/IMQ8Z97o6Uol0WlmDy
-         jIAbnCR613/1pTM+kFbJQFa9ZThMCFYcE7yZOv0dd5XnuIuomu4+wA+jBrSGtDvk6dAC
-         w+lw==
-X-Forwarded-Encrypted: i=1; AKwUvBwzGL1O3Yk1oyIHOmHTMeBOMP1pgJvIZQ9y6AQTJmmXUnjsSalbPdCUD/pP/nRDRD//LWlGzmnexdkxaQw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYeeyhjRNv0SlZIEUQAYC/iKCoQdPf5YSO+HMAfXOy8UO9vpjZ
-	0vdgCXlscaFEl5v9Vb7+xwTD71EyW5lMbhYo8614G/LSWWEVRgZ8Tvc4
-X-Gm-Gg: AYBFou2WbfgxAlGDgBbvz+Jjf5GoWEnxsRe5aVMCqDZUvpSITFVDLtQUMjdMKLFEi6A
-	SuKS16fpfuyQEVVOhQu6dNSpUrfES/4PylA23yMkqDDca4fd5L8VJIRy0FPwe2+4L3YLjQiAJKM
-	CxV14AO1SCUCW4AuaIvQczELx9mYqXdHg8VCtz+s3Tcoz0bb78W0ILp4yxCOmCM/v97zP5fJF36
-	C1JFZUOb6i/bG3oXn43r10FB3A0s0xFpYYMETVz5TR5CBGoNkAtxPdHa0ncVmIZKwH72fYk1gDU
-	aotEbvI8tukmQOiypnEPasIQaniMZ8WNrt9w5kIiehwmt8U51OjpLuy7vtY1CQ7ukHFL5b4ljZY
-	YhBdIAcku73NQiDWWdXpvzHqkojEak32qi2fbH+7kdjxWgAPamptTsW0PDkM+xuzgH8r+amLec5
-	RR78xWk1dg08GBJuKfrjwf4bwOBKtg2MQMwax7W0e90fDHb9ssDujtD0ErN711dPRp5pwaElF0e
-	uNftehfNg==
-X-Received: by 2002:a17:90b:3c44:b0:398:dcef:c040 with SMTP id 98e67ed59e1d1-398dcefc24amr19417604a91.19.1788241023780;
-        Mon, 31 Aug 2026 22:37:03 -0700 (PDT)
-Received: from kylin-XiaoXinPro-16-AHP9.. ([116.128.244.169])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bd1dcfbsm3643324a91.2.2026.08.31.22.36.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 22:37:03 -0700 (PDT)
-From: Xueqin Luo <luoxueqin@kylinos.cn>
-To: hansg@kernel.org,
-	krzk@kernel.org,
-	m.szyprowski@samsung.com,
-	sebastian.krzyszkowiak@puri.sm,
-	kernel@puri.sm,
-	sre@kernel.org
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xueqin Luo <luoxueqin@kylinos.cn>
-Subject: [PATCH] power: supply: max17042_battery: Fix vmin assigned instead of vmax in DT parsing
-Date: Tue,  1 Sep 2026 13:36:52 +0800
-Message-ID: <20260901053653.1668492-1-luoxueqin@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1788241282; c=relaxed/simple;
+	bh=yZfHiWpSO/bp6G1QiUJLfsaJMuwmH8Dl9rqyPUgzimw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KOsVMOBOOi1rbqlVSYVkCaxWbgsVzHTkxQiiuAI0UDi86ywRFx/vBaiJDX1Q3vfRe9v24CJsI0BO21XsZ5GGdXcUN+02PENjtuSOM/6x9jdHpiH60TpMDwiCvY6L6O8ZMVxYtasUCEZgKygpLpBnYMhnrDU8aMkyQgGt+FbAToY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M6iAF5K3; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M6iAF5K3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A41C1F000E9;
+	Tue,  1 Sep 2026 05:41:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788241281;
+	bh=F3zTk2gV90cfT5ws9k39/n+ycbfcIF3PVnWb4vlzD2c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=M6iAF5K3BDfCxX+VFYEu/OUbS0SJkix+Td8duvs4edcVz9N8T4LJmN+hr7wnOvfTq
+	 jSB2Y0NbY7kbneMyWeMPbtEN1BBD8iIJL+ukt7kVgosSm8NTEsRHdawjsq/Gq7XWuz
+	 xhh42FeYXsgYdXkpMf/q4rLe6QwqxVqm987wknqkn2PzGjIiu25VhIfLjxb/oh7GDo
+	 c4sFp77sF4ybuRD53XuQ48KiSKfVHUC93rMvDLpQ2vGma7ziO6qRmb7V5VJdYbzMK/
+	 gRMfKhMd84h7NzLR5vQQ03SSCrVELde/DBzL5+Yrb6v4jCSET8MXK3AlpzBFSBIusU
+	 ZCJLFea9J3Q+Q==
+Message-ID: <d2ae22e7-c84f-4963-8039-63370411896d@kernel.org>
+Date: Tue, 1 Sep 2026 07:41:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] power: supply: max17042_battery: Fix vmin assigned
+ instead of vmax in DT parsing
+To: Xueqin Luo <luoxueqin@kylinos.cn>, hansg@kernel.org,
+ m.szyprowski@samsung.com, sebastian.krzyszkowiak@puri.sm, kernel@puri.sm,
+ sre@kernel.org
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260901053653.1668492-1-luoxueqin@kylinos.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260901053653.1668492-1-luoxueqin@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The else branch of the "maxim,over-volt" property check assigns the
-parsed value to chip->vmin instead of chip->vmax, so chip->vmin is
-overwritten and chip->vmax never gets the DT value.
+On 01/09/2026 07:36, Xueqin Luo wrote:
+> The else branch of the "maxim,over-volt" property check assigns the
+> parsed value to chip->vmin instead of chip->vmax, so chip->vmin is
+> overwritten and chip->vmax never gets the DT value.
+> 
+> Fixes: 6a3b47a5a5fc ("power: supply: Match DT value types")
+> Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
+> ---
+>  drivers/power/supply/max17042_battery.c | 2 +-
 
-Fixes: 6a3b47a5a5fc ("power: supply: Match DT value types")
-Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
----
- drivers/power/supply/max17042_battery.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/power/supply/max17042_battery.c b/drivers/power/supply/max17042_battery.c
-index cbf3ac9c3e14..505a68c26463 100644
---- a/drivers/power/supply/max17042_battery.c
-+++ b/drivers/power/supply/max17042_battery.c
-@@ -1233,7 +1233,7 @@ static int max17042_parse_dt(struct max17042_chip *chip)
- 	if (of_property_read_u32(np, "maxim,over-volt", &prop))
- 		chip->vmax = INT_MAX;
- 	else
--		chip->vmin = prop;
-+		chip->vmax = prop;
- 
- 	return 0;
- }
--- 
-2.43.0
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
+Best regards,
+Krzysztof
