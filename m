@@ -1,122 +1,108 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75FC4562BF
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:43:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6808F36606B;
+	Tue,  1 Sep 2026 07:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248585; cv=none; b=myklb9XgZmy1OhCo/fJaGwmljaeAvx3nrvcFpsP4s75reKHqSvjvTDiZLiUL0gh0yZVWa3/l/6vpOo0sRUXz9zBsyxYCChrjym7F4kf4+cGmHL9L7CFM3GHR1OZVJMiATsuZOJeVDDHt6Cpk0LoGUTo7f4FGFzVVpVcW8AU1YS4=
+	t=1788248640; cv=none; b=IDKtMJtATSgjRAvLk2udeNqiOYb/5UWpnuhMRN/9vjj5fzVSJx2XSZxamsPW01ajPwKffxpoVojSMNP2i8zTZFnWHOlhGOnLOaFEqIusy6zOteV4L+wjzBC7T1oPcwVC9dWFKVwkoALN5nmE32QLnlJHIYQeh3x/b1Vx4h0Q2BA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248585; c=relaxed/simple;
-	bh=kkwntoT2FHTLl7JrCquPIzFo/ZjRsZ1BK1C3oWd8+CQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=FLJhCJmePLDy5N0UStp5BG5WDPGZigd5BGhKDf4XTDYHA8mc75PnQ6X0sN8G+2nht1t1M4nh7RH57HPq8Yv5J+nbjz+UVEJjnjXhrdDZW8+qusrTptwv38st9ZHRoyHn7BdEs2bptOOAVysRVCr493YbaC772lciDk3VkBjNXI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b28dbf4197so779394b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:43:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788248582; x=1788853382;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tew7VBqWdhDnbze+5Spky+kmT6aJ8FrHZ2KzX0nElX0=;
-        b=XPPbS8FaXblD6Urc6ByV7odAwV2rOS1b7eSrBpK9Vxrf6tykugElEnkyG7j5LFXPP6
-         8p4WWbCG/5EiY3qPlS855YCT2Xuh8e8yNXwl+UTFS3vqUTSO7ZU1hfT74kVuUv2LYS4T
-         9wfL0/nF2f5mVsujKkfTo+M1Jfm8XhdaCa35vzK8nv0AsBFtr3rGIwby+jJ8XTWrvbrC
-         6EA0waUDz+RegqDeGQQ4u+dziHhP9G4yQl/0PlH0C0RHvmGKUw7ebLz5rYHdIHJrC+Gi
-         tWxC9C5mU75wtCeQU9yeL2stO+Yy17YjRI6l4jUjRPMCrz5FX/4r3k4/Q1VDEHtGwmlN
-         C25Q==
-X-Gm-Message-State: AFuF++kKpBqPxzwME8/fjgPW5RG0NHpbsXRKLIgp+FpQq4zq6D8LLTI6
-	FkMxZ58BHXUsCNJu3o9M6lAW/hN87VG2Ubnh7/TU3gEDLHsbaiYrLs1hzBie2TNEPSta0gtmAt5
-	cdjM7NEvCspSJ/0495hRkdc6qJbZkrjUiaV3iktdOTTs5lIBATviWw7l+ZD0=
+	s=arc-20240116; t=1788248640; c=relaxed/simple;
+	bh=23MEUiek+8f+VaOu4ez1Qqr+tEDb5JGFf45CrX9anlc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DgWboIjMj/Gwg9vleOHaZPmLyKHfrHoN8qsZPE+JEWyPPJoKJZH3V1fFZ7iS2L9bUCMuyA5zzM+0kHDAgZSd/NvSVaMi+xxEb5zOX1DOq3or1WHKslwgdIx9POJCXwhkYJh6XGaX+bbTouHXJXIH3YP9kG5v/r43ChtcCsKK52U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=fpChyKXU; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="fpChyKXU"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7305A22B;
+	Tue,  1 Sep 2026 09:42:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788248538;
+	bh=23MEUiek+8f+VaOu4ez1Qqr+tEDb5JGFf45CrX9anlc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=fpChyKXUP4yuQGR9dVLhuBh8jiFCp8fj42Gvq6MeIeP/2SUVYU0Jq/HBWwOhHibnx
+	 6qITDhowNTKXddkFVxpEEJSDzqO3VBvaoqrkDiBHYvtwxDc2srbypCSbxBmNdkRNYb
+	 4bKhXEx4QT/xFMWLVGDkAqWQ5AKA6J3whoF3YFBI=
+Message-ID: <16626ec7-d1ec-4a54-ad1b-a59790cd33e8@ideasonboard.com>
+Date: Tue, 1 Sep 2026 10:43:44 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c165:b0:4ab:3210:b31a with SMTP id
- 5614622812f47-4b398253454mr35123663b6e.14.1788248582548; Tue, 01 Sep 2026
- 00:43:02 -0700 (PDT)
-Date: Tue, 01 Sep 2026 00:43:02 -0700
-In-Reply-To: <7788086b-28f8-435a-a19d-e9ba7bd0e6c8n@googlegroups.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a968206.99c12218.408a8.0003.GAE@google.com>
-Subject: Re: [syzbot] [edac?] general protection fault in detach_timer (3)
-From: syzbot <syzbot+edc6b57cbed1fb72d0f9@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	tao1.yu@intel.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+To: Ceclan Dumitru <mitrutzceclan@gmail.com>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ dumitru.ceclan@analog.com
+Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-gpio@vger.kernel.org, Martin Hecht <Martin.Hecht@avnet.eu>,
+ Andrian Suciu <Adrian.Suciu@analog.com>,
+ Cosmin Tanislav <demonsingur@gmail.com>,
+ Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
+References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
+ <20260831170303.GB1116206@ragnatech.se>
+ <65b703e7-e4a0-4046-9d35-7d0ff1057f96@gmail.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <65b703e7-e4a0-4046-9d35-7d0ff1057f96@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Hi,
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING: ODEBUG bug in mcheck_cpu_init
+On 01/09/2026 10:39, Ceclan Dumitru wrote:
+> 
+> 
+> On 8/31/26 8:03 PM, Niklas Söderlund wrote:
+>> Hello,
+>>
+>> Thanks for  your continued effort pushing this work forward!
+>>
+>> On 2026-08-31 16:21:19 +0300, Dumitru Ceclan via B4 Relay wrote:
+>>> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
+>>> replacing the few GMSL2 drivers already in upstream, and introducing a
+>>> common framework that can be used to implement such GMSL chips, which
+>>> avoids code duplication while also adding support for previously
+>>> unsupported features.
+>>>
+>>> While the normally acceptable and polite way would be to extend the
+>>> current mainline drivers, the choice was made here to add a totally new
+>>> set of drivers. The current drivers support only a small subset of the
+>>> possible features, and only a few devices, so the end result after
+>>> extending them would in any case be essentially fully rewritten, new
+>>> drivers.
+>>>
+>>> This series depends on support for internal pads, for which a patch has
+>>> been added.
+>>
+>> It also depends on enabling the streams API right? At least I need to do
+>> so to be able to use the TPG. Out of curiosity do you know the plan to
+>> enable it by default upstream?
+>>
+> 
+> I do not know when default enable is planned, but series could make it
+> so VIDEO_MAXIM_SERDES selection causes v4l2_subdev_enable_streams_api=1.
+>    I am not sure that such a hack would be acceptable by Sakari or
+> upstream in general.
+I haven't tested with this driver, but in theory these kind of drivers 
+should work with the Streams API still disabled. The Streams API is a 
+uAPI, so the driver itself works without it. If the default routing for 
+the drivers provides a sensible single route, one can use the drivers 
+with a single camera. This is what the FPD-Link drivers do (although 
+it's been a long time since I verified it with Streams API disabled).
 
-------------[ cut here ]------------
-ODEBUG: init active (active state 0) object: ffff8880b87234a0 object type: timer_list hint: mce_timer_fn+0x0/0x280 include/linux/highmem-internal.h:-1
-WARNING: lib/debugobjects.c:632 at debug_print_object+0xec/0x230 lib/debugobjects.c:629, CPU#1: swapper/1/0
-Modules linked in:
-CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:debug_print_object+0x18a/0x230 lib/debugobjects.c:629
-Code: f8 48 c1 e8 03 80 3c 18 00 74 08 4c 89 ff e8 5d fa 59 fd 4d 8b 0f 4c 89 ef 48 8b 74 24 08 48 89 ea 44 89 e1 4d 89 f0 ff 34 24 <67> 48 0f b9 3a 48 83 c4 08 ff 05 83 7c d9 0a 48 83 c4 10 5b 41 5c
-RSP: 0000:ffffc900001d7c20 EFLAGS: 00010046
-RAX: 1ffffffff16df350 RBX: dffffc0000000000 RCX: 0000000000000000
-RDX: ffffffff8bcc2c40 RSI: ffffffff8bcc2840 RDI: ffffffff8fbc29e0
-RBP: ffffffff8bcc2c40 R08: ffff8880b87234a0 R09: ffffffff8b6fae00
-R10: dffffc0000000000 R11: ffffffff81b25c80 R12: 0000000000000000
-R13: ffffffff8fbc29e0 R14: ffff8880b87234a0 R15: ffffffff8b6f9a80
-FS:  0000000000000000(0000) GS:ffff888125ce1000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000000 CR3: 000000000dfb0000 CR4: 00000000003506b0
-Call Trace:
- <TASK>
- __debug_object_init+0x224/0x350 lib/debugobjects.c:818
- debug_timer_init kernel/time/timer.c:788 [inline]
- debug_init kernel/time/timer.c:836 [inline]
- timer_init_key+0x41/0x2c0 kernel/time/timer.c:880
- __mcheck_cpu_setup_timer arch/x86/kernel/cpu/mce/core.c:2087 [inline]
- mcheck_cpu_init+0x3dc/0x600 arch/x86/kernel/cpu/mce/core.c:2269
- identify_cpu+0x1f2c/0x3940 arch/x86/kernel/cpu/common.c:2126
- identify_secondary_cpu+0xaa/0x160 arch/x86/kernel/cpu/common.c:2187
- ap_starting+0x9c/0x150 arch/x86/kernel/smpboot.c:190
- start_secondary+0x66/0x110 arch/x86/kernel/smpboot.c:280
- common_startup_64+0x13e/0x157
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	f8                   	clc
-   1:	48 c1 e8 03          	shr    $0x3,%rax
-   5:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
-   9:	74 08                	je     0x13
-   b:	4c 89 ff             	mov    %r15,%rdi
-   e:	e8 5d fa 59 fd       	call   0xfd59fa70
-  13:	4d 8b 0f             	mov    (%r15),%r9
-  16:	4c 89 ef             	mov    %r13,%rdi
-  19:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
-  1e:	48 89 ea             	mov    %rbp,%rdx
-  21:	44 89 e1             	mov    %r12d,%ecx
-  24:	4d 89 f0             	mov    %r14,%r8
-  27:	ff 34 24             	push   (%rsp)
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	48 83 c4 08          	add    $0x8,%rsp
-  33:	ff 05 83 7c d9 0a    	incl   0xad97c83(%rip)        # 0xad97cbc
-  39:	48 83 c4 10          	add    $0x10,%rsp
-  3d:	5b                   	pop    %rbx
-  3e:	41 5c                	pop    %r12
+  Tomi
 
-
-Tested on:
-
-commit:         3abea627 x86/mce: Shutdown polling timer on teardown p..
-git tree:       https://github.com/yutao-intel/linux.git fix-edac-v2
-console output: https://syzkaller.appspot.com/x/log.txt?x=127e8779580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=e618aabdc2dca7e6
-dashboard link: https://syzkaller.appspot.com/bug?extid=edc6b57cbed1fb72d0f9
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-
-Note: no patches were applied.
