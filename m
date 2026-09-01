@@ -1,121 +1,157 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCAA47CC71
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:05:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B042025B08E;
+	Tue,  1 Sep 2026 11:05:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260747; cv=none; b=R7/GkxdJBOce+VWYaWGljFLQ7BpsUJB687fq2rrF018VRjaDiBpMz1LgKUt64Zskogs2nOEJl/BvXxGTXrlG4X/3VZ6OytxvoKgAXGMxjkj4zODOl9LRqnmTJKCQ1t731TJaF/bA6e7XITOckbfjnSVbqgPbcM+Ck6bvL5N/xqM=
+	t=1788260758; cv=none; b=qkqecIGu9yPY45r18SGq5gOzn6p5H3IT8yd57kOZ50miTAmEHb56pWbVaRzmHmMKItGZN08F/deBRtgNZ3wAfhDyiAksevqRXqRPplndW/DD5oirSQ32ZDF+FjsR6ZU3pIajVCsYRSUQbH2NuFz9S0wa9RNnLtT3TomvqSuifvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260747; c=relaxed/simple;
-	bh=Je3UOa9lW5KIWcaPceaXLRplaHpvA2Op1KebD++CsqU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XvVPm+ua0YiuSUGRH3/p2wDe4M33bkrYSK6eBqJjeCQZ24lxRM5Jyp6YaqTmX7s+6mSWSJEHkBc5vcOBJCxU2yq6IIwhqj8MUBeESQzv6r5YSSuPChJnw7lRd/IeP4LNEgv40jaIh2PD1z953JxwaqXSb7JuIpiodYICDeBIQ8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U3duOvds; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788260758; c=relaxed/simple;
+	bh=mgr1uJE8DIP+D2hAcn/4VQ8oaO28pfdyIohSciDSfkU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OL5CtzpTe8liqMhBo36WP0PYw8itemLeBOk9IIw3u5lD36DR0teRaxGxV5muEiewNoYhlrfZYYa43pUPE/AEnJqjYKwUPpILCl/0B8qtYwPapMrx4TtW1UDF3b+HnV5UnqcX/XjCMNgNl0jTUz3i9mmAfoEEuoxIODvH/47DrAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eoW+Vg+q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U3duOvds"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48436216a98so1387047f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:05:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788260744; x=1788865544; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h2+R9Oi4TN6YprnqweZUIScg3DNG10vBbq2pzi9xAuc=;
-        b=U3duOvdsZOleRRSyg85zLBlf/StmHf/NqXw0LRtabFezz9gOtdJMMVxV3xljA7kEzG
-         RTYpGvnbiLVe/YIbjA3bWigX32puVfsINIrA21Xgdc8KYjHw3T7h1cGm0d2BoYEeagRo
-         2iuFQ0mc+k1drP2t0XYjETbDb8JESRldL0IpZfGS3Xo8ikIAmmlyzkkVgf8NbPA5cQ/1
-         327nG78XU2p9bZaFTVkW8WXr1pv+Cx2TBjkHiOJ/ytjNw8dpxf/4E9gW+2FDmntoWID/
-         pQuETFBidu3eGeYtaFYYyjKZnqiumkeEEynGWQ4peneWHLpxTsKFlgWOa6uTOBw14VIP
-         ZejQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788260744; x=1788865544;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h2+R9Oi4TN6YprnqweZUIScg3DNG10vBbq2pzi9xAuc=;
-        b=f4IrJfylmwqkJ0lhvEOmhV+nXJKPfPscGVkT907UrCbqfv3NymD1A6wq/K55LXJb67
-         VuVSYwp79tSv++HKHTrt5Go6JVj5/YpciUbYfA0uKjXVk5OsCIkI8Ivdm4D4Ppipluqa
-         ui1OLuOHlbmBdM3cEDRMC94rdyd/69ghzcQG3Qo5/DO3j6bJcrec7XOMKCvGhdInfjJt
-         XpGBAaZCEb/3FXfpRC4+VA3XvJ/LK/EbEbWipAs+i56PRXaAE7x31Fni6yRThSojFo1k
-         cwiD48dKZQjD89yAtz0z6KnAuGLtRWfLtGU45u8yhku9TJ290ksSf8+D2vhK9j+zTOZl
-         nySw==
-X-Forwarded-Encrypted: i=1; AKwUvBxZLijsecEHsHkHtpZOJBPNRCeMK3Q9FK65yByYPpBJIC4Vrs+Xmey9Ll9tJFfwn7Rb7FooxlrNp2R9yjA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzRo2/ez8k90adbjLD09CI1EXuE7TTF7lRpaU6/3rx0vKuPCBA
-	ssOuB+gbrbBL8yaEuydjc37dBeUf0IacYWLuUqeDwMDn/L2UmOSGjbqv
-X-Gm-Gg: AYBFou3ycfC69aK5FHo3OxRcSPE5KHJcpN9g9YlIZ8OF6mJhmKGmN0ryZJ+7Ik5MtlZ
-	hNwznp2u+DD8mF8vCtcUI4er6q1E9tx5tle7POBJCfu0Mvs4iwF2jVhwwZucuQkpHNquToZ7A23
-	5BO1MhJVCCL/gbuGuM8BVthCtt+vGi5nsjrXls9RiECCvWRIZwDSNWS76/XgOZ6D6GVn5IxwlBU
-	RF5ZT+no3c7DfFpVD6itAWkNC6QcOT0ndIqikcFk9AU7nbJktB8PYJ+77W3FTqtmzM+me8rW3Lk
-	UTSBHussuQdy2j8z7x1WFc5uGE9doEFD4mPtaetzDLcyoCR4laZcdHOOcGSqzLcCIxzvhDLbWi/
-	OkSL1pX0Wp2DTJRJMGZ6I0Y0JxCpiR4+F3Q9TfiRW0c5avSoRAtqBDpRqatr6ZwQQ/CKc4FPdlk
-	ChFcx0Pzvgim9RQwluS2vt4R1x8xgnI23oNEmdIATmn1H/sREDMLmYGIi90pF8rEOekkOuedxxl
-	yWz2FDmxP2DKLty4CyPolt9onoAOz6pLaL+JvF3bsw=
-X-Received: by 2002:a05:6000:3106:b0:47f:8d71:210a with SMTP id ffacd0b85a97d-482f79cf4d0mr48183602f8f.15.1788260743864;
-        Tue, 01 Sep 2026 04:05:43 -0700 (PDT)
-Received: from DESKTOP-EHH7ATM.localdomain ([102.203.209.200])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d6e826sm4116799f8f.19.2026.09.01.04.05.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 04:05:43 -0700 (PDT)
-From: Godana Emiru <godanaemiru@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Godana Emiru <godanaemiru@gmail.com>
-Subject: [PATCH v2] staging: rtl8723bs: split chained assignments in _rtw_open_pktfile()
-Date: Tue,  1 Sep 2026 14:04:37 +0300
-Message-ID: <20260901110437.37588-1-godanaemiru@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260827062137.12937-2-godanaemiru@gmail.com>
-References: <20260827062137.12937-2-godanaemiru@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eoW+Vg+q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8662C1F00A3F;
+	Tue,  1 Sep 2026 11:05:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788260757;
+	bh=+MMfaleDm2ce+ucIbxA7OEsrjCLcZrtuUhG+cgJq5Q4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=eoW+Vg+qz0TYTuS8zmuLmeUVjLD9WlshmY+ZenPXLM12mbhI0Hz+5CrJFrOV2T9L2
+	 DfnwpLRVXPJIJ5xaVjBq5RrsmTcN5BVQ+4BxNS3PRVo6vCXz2hTT7eoedZk9XGRGQ1
+	 /Hkasly2r7zC5IrTB2wqqw1uFHDxP3VbX2vsjVwcbFzeA3v77TJUj0jUSwZmvH037w
+	 jo6A6EKvKBWWSb6p1boQBBN0eCIMaDEglu0JysxZO8jL0TOkjZDk8qLhnPrFePf9QW
+	 ZIEhpZKTn+4p45kDejAkDB20sutoUd3Rvy2sOql5HOjF+6fSnPjp3wrlW5fxVmRFG7
+	 lIqFWgBbg/hiA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 01 Sep 2026 12:01:23 +0100
+Subject: [PATCH 03/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for MMU riscv
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-rcu-pagetable-freeing-v1-3-5456a81c8212@kernel.org>
+References: <20260901-rcu-pagetable-freeing-v1-0-5456a81c8212@kernel.org>
+In-Reply-To: <20260901-rcu-pagetable-freeing-v1-0-5456a81c8212@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ Jonas Bonn <jonas@southpole.se>, 
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+ Stafford Horne <shorne@gmail.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
+ Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+ Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+ WANG Xuerui <kernel@xen0n.name>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, 
+ linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
+ linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1550; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=mgr1uJE8DIP+D2hAcn/4VQ8oaO28pfdyIohSciDSfkU=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKmbXSXiAr54Z2+e3/IyQLbrwq3pEWNe54fXRhv7c9z+
+ eHq5ZPvd5SyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAi810YGZ473c5+lTTPzG3p
+ jyPOr7IEs8NnOJ08pckTV658qObJoxkM/ywtf19cV6htlbYgf/Gc6bMXCRs1LRUv98tOtcrY+Va
+ nnAEA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Fix a checkpatch CHECK ("multiple assignments should be avoided") by
-splitting the two chained assignments into separate statements.
+Currently riscv gates MMU_GATHER_RCU_TABLE_FREE on CONFIG_SMP and
+CONFIG_MMU.
 
-Assign cur_addr and buf_start directly from pktptr->data, and pkt_len
-and buf_len directly from pktptr->len, rather than chaining one field
-through the other. This avoids making the reader trace a dependency
-between the two assignments to see that they end up with the same
-value.
+Commit 69be3fb111e7 ("riscv: enable MMU_GATHER_RCU_TABLE_FREE for SMP &&
+MMU") enabled CONFIG_MMU_GATHER_RCU_TABLE_FREE for CONFIG_SMP, CONFIG_MMU
+riscv builds.
 
-No functional change.
+This is expressly for the safety of GUP-fast walkers (CONFIG_HAVE_GUP_FAST
+is enabled if CONFIG_MMU is enabled).
 
-Signed-off-by: Godana Emiru <godanaemiru@gmail.com>
+Naturally a single core system does not encounter issues with software page
+table walkers being correctly synchronised across cores, as there is only a
+single core.
+
+However, CONFIG_PREEMPT_RCU is still available on a riscv UP system, so for
+a future RCU-only page table walker, this guarantee is required to prevent
+concurrent page table teardown.
+
+All page table freeing is already done via tlb_remove_ptdesc() so the
+conditions of CONFIG_MMU_GATHER_RCU_TABLE_FREE are already met.
+
+This forms part of an overall effort to switch every architecture to this
+mode.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
-v2: Assign each field directly from its source value (pktptr->data /
-    pktptr->len) instead of chaining one field's assignment through
-    the other, per Greg's review comment that the v1 split was harder
-    to read than the original.
+ arch/riscv/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/staging/rtl8723bs/os_dep/xmit_linux.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+index 505eed4af932..3529ed1861ce 100644
+--- a/arch/riscv/Kconfig
++++ b/arch/riscv/Kconfig
+@@ -208,7 +208,7 @@ config RISCV
+ 	select IRQ_FORCED_THREADING
+ 	select KASAN_VMALLOC if KASAN
+ 	select LOCK_MM_AND_FIND_VMA
+-	select MMU_GATHER_RCU_TABLE_FREE if SMP && MMU
++	select MMU_GATHER_RCU_TABLE_FREE if MMU
+ 	select MODULES_USE_ELF_RELA if MODULES
+ 	select OF
+ 	select OF_EARLY_FLATTREE
 
-diff --git a/drivers/staging/rtl8723bs/os_dep/xmit_linux.c b/drivers/staging/rtl8723bs/os_dep/xmit_linux.c
-index 7a9d2fabc..9f0d84e2e 100644
---- a/drivers/staging/rtl8723bs/os_dep/xmit_linux.c
-+++ b/drivers/staging/rtl8723bs/os_dep/xmit_linux.c
-@@ -14,8 +14,10 @@ uint rtw_remainder_len(struct pkt_file *pfile)
- void _rtw_open_pktfile(struct sk_buff *pktptr, struct pkt_file *pfile)
- {
- 	pfile->pkt = pktptr;
--	pfile->cur_addr = pfile->buf_start = pktptr->data;
--	pfile->pkt_len = pfile->buf_len = pktptr->len;
-+	pfile->buf_start = pktptr->data;
-+	pfile->cur_addr = pktptr->data;
-+	pfile->buf_len = pktptr->len;
-+	pfile->pkt_len = pktptr->len;
- 
- 	pfile->cur_buffer = pfile->buf_start;
- }
 -- 
-2.53.0
+2.55.0
 
