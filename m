@@ -1,175 +1,435 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010061.outbound.protection.outlook.com [52.101.69.61])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012012.outbound.protection.outlook.com [40.93.195.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FE949F135;
-	Tue,  1 Sep 2026 19:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.61
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A5F49C4D5
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:01:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788289262; cv=fail; b=ATKKqZMqZh+3v5YHBdNXXjV31fDzlPXN9x+xyWPjRnnxsppW7/2x4yRqFuwjlceMq6B/0Byq8ZWoH9gIakmpioKbTufT35S6qV1LEzDyHVSJHol0J3AwQ6VzI1A8VRxtuCCNkPdhfqvuyRhj9Bzvjf+Ho6GuCojXY6iePan0Vw4=
+	t=1788289312; cv=fail; b=Z89E9E8j772V5ATY5ZZPDO3tC/RBinMhMWMbd94x6W6h6svK2S1t856mdup45VXq2t4ZA10wmQxXN9Yg6ICgtkkxAUmjDT1uDc0DCa+RcXC5P3nipWtvs6K+ZUJq4S5u2KbjdERtG2PSiIbJhYemGBCFe2yHc8G1viZQc5zmdJc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788289262; c=relaxed/simple;
-	bh=ZBa74O59bkR1PXAN35QoLqxYFphyDCfox+rbNAwzAlA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=GdPk9Yx8KvyEvWvxfq6FPpdghKGTrQAcWMnTeJ5O5nzq62XLbb57urHTfLowE1qif+tXX7tS1poVf1hkxbf8qeJ8VTLApZ8CeYh8PVHA3Q0Gw/T1q4+mBa4tlDW2g0T4qEccT6pDDClt3C5ykJaJPIOFAgGMK2eaBPJjgs0+vvI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=BhB/8vjl; arc=fail smtp.client-ip=52.101.69.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1788289312; c=relaxed/simple;
+	bh=GjI6WyQ/fjz1f3AaD+laD+ar2doHObkbyidK3T3IZf0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Sb9VqtBSTPHJ8CPWiUbQePP5Pnkkre/Kw4fZMelKIFJXB3yRLCY6UbyMKltcgFq3/hYOmPBCM5q3zGkZ4PzQdwedoZPD7A3PqWsBs+b286EOzDjstrTUy4bVxBob9Bh6PYRgZ7j3ORlVWjMPK7Tsf0aZJU85ZwyaR4NR7+4xlKI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lIU/X200; arc=fail smtp.client-ip=40.93.195.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="BhB/8vjl"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lIU/X200"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BkcgDczULAe3uyn6kdXt8DZ1FhmftqALH5jyqEFd5UxexNTeHJolnW0wFz9VHwe3a7JZqf3jLMitYMzU0UnKmFQgwYUQfrtL9+yQGus622M0yTJzEl36cisqQ6MCemnpdvqwT9fo+Dlp21R+yp32mgbhJiDShr+atZ+1s9ZwLOXyTPgQuHcM9P5Jshlt29JqtlYomIX+0SZuAZ3Ep4OHdqPoCK2ccUAyPY5PFK8agFv2SGAbRJGAEXcT30HQnp/1ucRQeaQ+SBKUkJcdxEZKhf0IJ33JFu+d0snwqXKd8fnNh93xmuKAjetVyXEbIs5nUP6obN4eQNkjvn+j1ZWXvg==
+ b=Wg8wIMRm+S+T0KqazvsS+iGPuNzuNDGrBeudpBYqIDjLPSA+naHs9MAjkh3zX/OaFgmTz/VUWQ5dgWOS5n27s+BCd+KvJSUY2SfTx2dRkNw4q8GlYUncqzWI5qwUBUTXS+pNfw0O0DOTMDjQC88iecyfQp+DPi+q4rU52D/pXFweYnh4SoOVv62GMOLvJBvgNuRM3YdtXGwNmqxUDIvm8d3SVPpiMhGXjaZxbW+LKGoSOxRIaK07Vbsbu+kcAmExjb07apoIVlVYMT/2lDuYOS3LMaSZ8oeIBMRk0wrkEyyWHxqpU52HQvUdDtWMR3x6EQ7cuDMGnSKiA+OPS44ICw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2zVhkxphdHPVJMISM3/Q6fYaEi/wesF9b9zDBc22Kmc=;
- b=Ey5Z/ShJoqFQc4tsckKirw3Ht1qb5zqyjFIlho4/9wf8jgiM9qq2RJ1Hr+TFkIc7zRjJmJ+ndjwEx2muwMVF6zYuGTUN/j220J0tTNW8vDcTmfjzY6WXoR8hxxCM74jc3cajvD8Lz5cBWawh4j3aOmxD032QUS88Y9ooGJCUxQKDwsch7MtLqNq0zz/VQ6mNtm1qNORJVs2hmo8Z7pnLGJ9qyfvmnL1ACP59/bxXUIKC7cy135rvxXmhaoWTyYQOpwAT2AVagwEGgndIHpZwoJryWekDCdMrX8FjOXL1hogwvA8zLAI7MlBix5S3mZJ0+cc3/vIbl5ThY/mpnxrVhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ bh=iCrJwHuUiPOjnRdh3ZQ5lo0p/AYHI31si3IQQhMCkkE=;
+ b=dIsbcdRh9AbVHmpWTxSA5bvmuAoxZnj4V5Z+NtUxFvXIsjlKNRlzL4sYA2GYwExrMuNwb3cT9qTi343QoxMvjCxthtXZ6ExNv/72MkY1aMLDhplSWozZko6hn78DFGYtAdFvtQs9coY123M4yjUwWdbietbFGDgciBQXnTsGylDHKECZT78ewojAJISRfVQAJ9Pl7h7EaCDQBW0o4UsgaOCt8nhnFTQdsuJAxoZTnz97e5tPsfZpu3Q4xCJlbpgTJR7DWP8YIaKTa4d3j+Qg6HrnckHRt99+vJdZjWaU99MXuugyNwraAJbstC/WJRuaq9YBOLY4eKK3daYkjMjgsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=linux-foundation.org
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2zVhkxphdHPVJMISM3/Q6fYaEi/wesF9b9zDBc22Kmc=;
- b=BhB/8vjlnb0JF9rqw7mzVTszU8Su3WrNfUxN/7LFujqFZ+IYOYldy7UlnW/FRG7wAu4YmbXTlGBkWmwlfKmK17AiaPoAw+gysY0xqW72L8xrGj56aOeCUMyLuDDIb5ZCCGOHNX7XY6/LmTLrjK+bvsbFhU9ZeOsS0qref3moReTBTSXZgtaBZelBUoOVx9TolZ9r898xONLmYBpNUPpBGBBcYbcwBzJaeJI7wOYr1r9PTT9QzOLb69VytZ8B1atgGFs2Oy+fQrHu7Uge+TlzfYtuRwT+m5a0UcWiGchvfavZF1q3ty6p5jqDgRnDWuQMqK+/w0rjZxil7bjzKYuynA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM7PR04MB6919.eurprd04.prod.outlook.com (2603:10a6:20b:10e::20) with
+ bh=iCrJwHuUiPOjnRdh3ZQ5lo0p/AYHI31si3IQQhMCkkE=;
+ b=lIU/X2004MhyfI6lg1AbMBxbUPK4jqDEjSfksKfuPMZ4NmMGZQfbSIU7/yi5DiGcqsUPSx9CXrr3iLHRGGYB2rVokfeRnyZXoX9ANrjufxNUaeXTnSMP74x+3kbE8d0W5pgTV3VszHJ29Gu5pRfh/85pa0KKuIfC3apMd3xRbh0b/dX9q8aCrya7QboYlcaszXLIsSVUXzTEhMglGXPkAPAnIPcEOaF1HkMwtG5QrWYb5ANRVxYgRTrQAa8+spHnMwOgOEPCgfJi9Cg3t1PgfUXLLIzrm0OlkpsMtJV7/DJdEUoV3a20sV2MmP6NIN3g+JohzisWJ+tl4xKrbJQMIw==
+Received: from BN0PR04CA0134.namprd04.prod.outlook.com (2603:10b6:408:ed::19)
+ by CH1PPF68E8581EB.namprd12.prod.outlook.com (2603:10b6:61f:fc00::611) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 19:00:53 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 19:00:53 +0000
-Date: Tue, 1 Sep 2026 14:00:44 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, ntb@lists.linux.dev,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/2] PCI: endpoint: pci-epf-vntb: Serialize virtual
- PCI bus scan
-Message-ID: <apcg3J8kzvQFDFld@SMW015318>
-References: <20260901063238.631166-1-den@valinux.co.jp>
- <20260901063238.631166-2-den@valinux.co.jp>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901063238.631166-2-den@valinux.co.jp>
-X-ClientProxiedBy: PH7P221CA0080.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:328::34) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ 2026 19:01:30 +0000
+Received: from BL02EPF00021F6D.namprd02.prod.outlook.com
+ (2603:10b6:408:ed:cafe::5b) by BN0PR04CA0134.outlook.office365.com
+ (2603:10b6:408:ed::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
+ Sep 2026 19:01:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BL02EPF00021F6D.mail.protection.outlook.com (10.167.249.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 19:01:27 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
+ 2026 12:00:57 -0700
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
+ 2026 12:00:57 -0700
+Received: from vdi.nvidia.com (10.127.8.14) by mail.nvidia.com (10.129.68.10)
+ with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Tue, 1 Sep
+ 2026 12:00:50 -0700
+From: Nimrod Oren <noren@nvidia.com>
+To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>
+CC: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
+	<baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
+	<usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Vlastimil Babka
+	<vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
+	<surenb@google.com>, Michal Hocko <mhocko@suse.com>, Brendan Jackman
+	<brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, "Hugh
+ Dickins" <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>, Dragos Tatulea
+	<dtatulea@nvidia.com>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+	Nimrod Oren <noren@nvidia.com>
+Subject: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
+Date: Tue, 1 Sep 2026 22:01:23 +0300
+Message-ID: <20260901190123.3511535-1-noren@nvidia.com>
+X-Mailer: git-send-email 2.45.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM7PR04MB6919:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47f75299-d326-46bb-c70c-08df085b58c2
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6D:EE_|CH1PPF68E8581EB:EE_
+X-MS-Office365-Filtering-Correlation-Id: de47a461-3fcd-4e6c-e537-08df085b6d3f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|19092799006|23010399003|7416014|376014|6133799003|18002099003|22082099003|56012099006|10067099003|11063799006|4143699003;
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|7416014|376014|18002099003|13003099007|56012099006|10067099003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	bN5erQ8IJsHEgTFkatFMXj6a5FpSM61QZxsvdIOb2jhMIVXywiK+RscPOY3WC/sb1FKK3pVw1l+bYA2hoGvbfsAVyCzOTntHtzbyoMD1ug3CT/xn8lpLTXJpUe8w6orKb/aISkJ4GEb3OafOPfDlz38b2n7sTeTtet2vFaKHp90W10j056QpdZXYRpenmql7QTvL51V0BQ0XUBkHCNvYriHUyytlMQJjlbkMFDRby3ZuHS8yU32kcyFfHpjHgU2LHOIhqe6n7p3ajQp1lnyQkRYkUi/q96afw6Tyw2XLUikmOxsMREsibsqxccToTOsTRbgPMNVQaCYU8TV34Pom36chFuhUgG5/LEQdnnn/o5MYAkhFDy9NmGBd583X0zNtv20gmirAGUc4mEFIL//11LE68WtmK/+7q/PDuYKhdQgujSp2xFuwJAflGOvYPUufXI+v7edEWH9jGZGX6Jz7Op0wIoapuGAdSLTlkoOFNFHCryQxXDbv+4yfyXJpIV1UWOdKoM2EysydO2hv0/u3N0oNvacD07tBelVB0TryRGEEX/Y/HUOiDSNxoMdqXNbgOR1Ycjak0A87ZfDlERi8zYCSl56hmpa4tFMmtO6lNFaUJNs+I2uaQSUWfyuj568Yhm/zlb4ObFSlg9A1FEGS3TKzBYydPZkxPQ2WnZV1dvY=
+	8UC/i94n0HwlTl+8XRs9zbF2jyxkv4hCNAg6cjJ7Pj6+fmRQ1nrlM1ae60r9eBOgAZHwS2HYkhQgAlg2EUFxttcU18a1v8N4nIb7mvCL9KSmLtIsjN8aAZ1whhMNUaLb3MZrydHdJ0CFsqaE0DVgxXfMAAKmJVhVsn4/RsVbHjE2tlKIGvZEA2Y1Jj1JK94bfRzCuFxe3xh0W0Pi0CYRiGpxW/ZLlWzLvXrvG4zPKTH9naBBUlzsmhkE000+hPnclqzQdLdoHCVuvzQRlPflQi9rSygJS0dm7qZiDnv7A3rRoBFt9YkPkLByibwltlqWs9moNnxB3WyQHNKic4ihNV+M+ReLFH9NdvgxPm203dMnPE54zWc3z0fDJK2+EmpR2FumzyLe9hZmETrXMkpkv8dv4yPC/2nWtl0AFBMDMfYlGbVK9MrOvtXVWDqgs/pCCJGVS6D57iliV/ZCQGFv04OCdTBoqUzsER8rKZhte/iYMX6nh6g+bKkEHbXw/gD1GW7pQ1ef1nKoJ6h7Y6ETUIiF8Vmm6jq0rBUtDxuO3fE5wXloEbjXuxYSvK8vmw2hZYehIcpRyfQwcKn0YW1TU6VVyU/lSE5xZBytlGxPOcoiAOYBbigNweBG1dZ8TbOaiRMNQRaMyEfoD13POjnkpTjkvt1YM7fm+Zrr5C4cSW4OibYr97NYrTccpZSMOZSA/o2kbKH5K4Z72e2CoMe0AA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(23010399003)(7416014)(376014)(6133799003)(18002099003)(22082099003)(56012099006)(10067099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(7416014)(376014)(18002099003)(13003099007)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?xEkVrEg1r0KDiralrDLvuSi5DGB19WFUkSzx/zejqCmf7toOnXg5FJNnLuYL?=
- =?us-ascii?Q?6d3JMUOCs20ZAnQ+8vM1RRY1YRDhoIr10tI9fqgCayqLLCFItk0LpGtQXROo?=
- =?us-ascii?Q?BIvfb5n1TPh1qRa7a+oK102IddZVYMApMQWBWX50fRwrywhoplZ0R9mS/GGA?=
- =?us-ascii?Q?ge61tio9104TOHrWXSOyJT0cvKr1qPd7yUyEr21vITNX/E+5tnuRl+f6C6xk?=
- =?us-ascii?Q?v+Yh54s+2yukA6EkdGtdFnr2aOJJeeGn14U/R1qXtwFCOv7lzin/OWFYxc57?=
- =?us-ascii?Q?sS2YMrB2eKZ3agSjbRQFLEXsfdnuzB1cw/jF9aIEsIFBMuL1NRgzcYeoT9Wp?=
- =?us-ascii?Q?UMiBPP/ZK+zq3+04aO6jHforBHL7Vq4DaSIyerFAjkZpFbM5629Oksjea7M6?=
- =?us-ascii?Q?fGZIOAMtET4wGh8yem9cGH6kVFa6fqUvFjHD4/dny1ets+/fRJgY68UZTMwJ?=
- =?us-ascii?Q?kEm9e97WN5KZrsP+EJpb3V0JecqVikk2u72eX+R74mqqFD2xZr5EUjkhbIEW?=
- =?us-ascii?Q?scaNJXJhUlxHLxm2lgUORQKAs1L1Uj+685A1i33dNzlZeGYtm3he+gExgElb?=
- =?us-ascii?Q?g757e9HMuZg/iNLJ0ofekffZvdCWOVgDcsiACPHUAhLvRntf4v6WrWgzonq8?=
- =?us-ascii?Q?eY7vofSdxJvZrOtOJhpQCXPweBwptKafmxx4AuHCr6A3W4+t/32C22WIkgGm?=
- =?us-ascii?Q?RACpV+/liDbaTTra7SRUOfni0SWQH91h5KTbsXYup+lSX4FIyDxpx3+AhiIh?=
- =?us-ascii?Q?cBNlywuibg+DBxdY0q+rf4Dl+LMOPZis8zpzyhzFDIihTMIIu93JNlivQppV?=
- =?us-ascii?Q?fdMarOPuN+yHMtRReY8ltudQLTknshlpo+Dq/6jYelHQroyQfyZw5Ib+rTqC?=
- =?us-ascii?Q?SDqGs2eU5fJzHv2xEfMGl/0lP1yCEBZpB8amUO6YkLfHnljmBFx3SxX4OzpF?=
- =?us-ascii?Q?z8PDekvVYL03f0D6aG27+gYeM8uUrNU81VOQAeVcaWFbn3bN8rkqfXPGT0+t?=
- =?us-ascii?Q?LMol/omTuBzuoeFay4yE12Lts8PYx6SsbmImLWsk12g+fMtYuV4VGMnNSg1B?=
- =?us-ascii?Q?KsXM30MAqurzqvKoXNar8aPWZHNHMH4vMqKQgPQmxDUEltR4xsdtRMT/29Jq?=
- =?us-ascii?Q?wziDrqIwhxn2swh+Y5EMhfh3aj7fT/Kt0dNz+8Aqe3OijAgX6QanUnsNCwhP?=
- =?us-ascii?Q?lDIVl5G8jbADL8zVVruFsDJL6fE0nzLeMOukhJLidSzFCiZscQUwXhOAtB/K?=
- =?us-ascii?Q?vdISbYUnqGTv7S1wtPPx9lfIclzXWfQ7tb0bptU34GUGg3AtniD1BRwBcWdV?=
- =?us-ascii?Q?dZWpkWNi7hSNSnESMR5G8xLG1mJsC8fim++6KFt/O5M0Vu9SfedtjOv7uKKf?=
- =?us-ascii?Q?yIQYmVbgEUGxVhNPaka3PUoimhjdDRvzb0Rlou3+efZKdVFCXTzFlDz8hqhy?=
- =?us-ascii?Q?x1aQu+tWw2C1HV/MEy1skAlAK/Z0JxkPpOL333+QkeG3HIHDlKTX4pk/QlDS?=
- =?us-ascii?Q?rLE/dzAMdO5DhtrE4Ts542y4hCDk6lSbCl2w9x2pHNwWkeiEOOaIsw+9cpwf?=
- =?us-ascii?Q?xNLBBbfKqCe2tUG5H4M+Jz3PSfT5f/Jcs4MGRVdSU3Fq2MzDLFqv6kC8ArpQ?=
- =?us-ascii?Q?RDNUhwQomvnHvALY26hkaUUv2+tHgFtkMHKsoBXyp/nf6yJiugZNRfEtUWPi?=
- =?us-ascii?Q?cwAajpg8sLEaTe9x3cFrgMXlEX6W5LTyOdCYIZIHvaotiV0F7oPa1HUh1o0Y?=
- =?us-ascii?Q?gMbsmFlC2RuaR9tMj52trVhGq7PAFmC3doS6Mtf8rtrvMadkaDs0?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47f75299-d326-46bb-c70c-08df085b58c2
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 19:00:53.7233
+	sAdVDoGEY7irDp7JIxkxWanR9ha1sFi9T/B1R1B8b5MDmXc5aBvvpjaA9ACQFVVGp1YGrHcCDMZbOC/MxHRlVr5KqDj44C6e9Ssb87SneUU6T3QNuLj5lJfwZFQqE/7EDr9gyS1qS/7GxUsjWuku24tbg55ZXteUZ4jcBD2vw7+5QGX7HTb0TScnevW4W0GwS7sQPzCZ5TF1J9AyQKG3JkKOqVkmQMmRt5dXUXxK2J9zOtAXmFj6p/pP+MIj4BsX0C/yqeJL48qvDt9ebh8PpZKMOlS+9pkFGG6eYALvrTaBkUAUaciGBgfoQj9IReiP+o1ogVYtAyk/CGvfQrcb4fpw2pi9aAAg76gVLMuEqCyTEeZAlcIVaEfm3WuXTT6oJTWU2v2d8Rqht26AhaZhPvTjy8QnVuLW2ZPGxzo2Oef3oEmuSpqmhIASeutHKdMm
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 19:01:27.5936
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jxnxn6xamsS4r8G+gDEPRjCJGZO8NReozTSyDJ6kaB0dPO/ZgDJFrdsmAZqT55OceQ0LYzY1EuZF9I6qj9Kc93yurLXsZ299cVUN1el0MgYdImp3hUDHIQTGUmGjihSZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6919
+X-MS-Exchange-CrossTenant-Network-Message-Id: de47a461-3fcd-4e6c-e537-08df085b6d3f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF00021F6D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF68E8581EB
 
-On Tue, Sep 01, 2026 at 03:32:37PM +0900, Koichiro Den wrote:
-> The virtual PCI bus is scanned without holding the PCI rescan/remove
-> lock. This can race with other PCI topology changes.
->
-> Hold the lock across the bus scan and device addition.
->
-> Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
-> Suggested-by: Manivannan Sadhasivam <mani@kernel.org>
-> Link: https://lore.kernel.org/r/3tgrcel5fl55ulf3zjya4fkz4t2ms7iwwjif5rnzn2rafsydd6@i4e5etm7uqvz/
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
+When THP is enabled, set_recommended_min_free_kbytes() may raise
+min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
+Commit f000565adb77 ("thp: set recommended min free kbytes") added this
+heuristic to help keep pageblocks free and reduce fragmentation for THP
+allocations.
 
-It is okay for now, I suggest define cleanup by use guard() in future.
+The recommendation scales poorly with larger base page sizes. With the
+default arm64 pageblock sizes, the contribution per eligible zone
+before applying the existing cap of 5% of low memory is:
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+  4 KiB pages:   2 MiB pageblock,   22 MiB per zone
+ 16 KiB pages:  32 MiB pageblock,  352 MiB per zone
+ 64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
 
-> Changes in v6:
->   - New patch based on Mani's review of v5 patch 4.
->
->  drivers/pci/endpoint/functions/pci-epf-vntb.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> index c3caec927d74..412e8cc6fb1d 100644
-> --- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> +++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> @@ -1332,14 +1332,19 @@ static int vpci_scan_bus(void *sysdata)
->  	struct pci_bus *vpci_bus;
->  	struct epf_ntb *ndev = sysdata;
->
-> +	pci_lock_rescan_remove();
-> +
->  	vpci_bus = pci_scan_bus(ndev->vbus_number, &vpci_ops, sysdata);
->  	if (!vpci_bus) {
->  		pr_err("create pci bus failed\n");
-> +		pci_unlock_rescan_remove();
->  		return -EINVAL;
->  	}
->
->  	pci_bus_add_devices(vpci_bus);
->
-> +	pci_unlock_rescan_remove();
-> +
->  	return 0;
->  }
->
-> --
-> 2.51.0
->
+Even with that cap, min_free_kbytes can reach excessive levels.
+
+The automatic min_free_kbytes increase predates proactive compaction
+and many subsequent changes to compaction. Given those changes,
+increasing min_free_kbytes for THP by default is no longer clearly
+justified.
+
+Remove set_recommended_min_free_kbytes() and all associated
+recalculation paths. With this policy gone, min_free_kbytes is
+controlled only by the page allocator's default calculation and the
+vm.min_free_kbytes sysctl. Users who want additional headroom may set a
+higher value via that sysctl.
+
+Link: https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
+Suggested-by: Michal Hocko <mhocko@suse.com>
+Signed-off-by: Nimrod Oren <noren@nvidia.com>
+---
+v3:
+* Replace the 1 GiB cap with removal of the THP-driven min_free_kbytes
+  increase as suggested by Michal.
+* Remove all associated recalculation paths.
+* Make min_free_kbytes, user_min_free_kbytes,
+  calculate_min_free_kbytes(), and setup_per_zone_wmarks() static.
+* Drop the now-unused declarations and khugepaged's page_alloc.h include.
+* Drop the obsolete v2 documentation addition.
+
+v2:
+* Use a named constant for the cap.
+* Drop explicit linux/sizes.h include.
+* Update min_free_kbytes documentation.
+https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
+
+v1:
+* Cap the final recommendation at 1 GiB as suggested by Lorenzo.
+https://lore.kernel.org/r/20260728202014.2517142-1-noren@nvidia.com/
+
+RFC v1:
+https://lore.kernel.org/r/20260716173504.760369-1-noren@nvidia.com/
+---
+ include/linux/khugepaged.h |  5 ----
+ mm/huge_memory.c           | 14 ---------
+ mm/internal.h              |  8 -----
+ mm/khugepaged.c            | 60 --------------------------------------
+ mm/page_alloc.c            | 11 +++----
+ mm/page_alloc.h            |  2 --
+ mm/shmem.c                 |  7 -----
+ 7 files changed, 4 insertions(+), 103 deletions(-)
+
+diff --git a/include/linux/khugepaged.h b/include/linux/khugepaged.h
+index d7a9053ff4fe..e2a2ccb6cd05 100644
+--- a/include/linux/khugepaged.h
++++ b/include/linux/khugepaged.h
+@@ -15,7 +15,6 @@ extern void __khugepaged_enter(struct mm_struct *mm);
+ extern void __khugepaged_exit(struct mm_struct *mm);
+ extern void khugepaged_enter_vma(struct vm_area_struct *vma,
+ 				 vm_flags_t vm_flags);
+-extern void khugepaged_min_free_kbytes_update(void);
+ extern bool current_is_khugepaged(void);
+ void collapse_pte_mapped_thp(struct mm_struct *mm, unsigned long addr,
+ 		bool install_pmd);
+@@ -47,10 +46,6 @@ static inline void collapse_pte_mapped_thp(struct mm_struct *mm,
+ {
+ }
+ 
+-static inline void khugepaged_min_free_kbytes_update(void)
+-{
+-}
+-
+ static inline bool current_is_khugepaged(void)
+ {
+ 	return false;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index c5d11147b69a..b1f87e005e03 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -499,13 +499,6 @@ static ssize_t enabled_store(struct kobject *kobj,
+ 
+ 		if (err)
+ 			return err;
+-	} else {
+-		/*
+-		 * Recalculate watermarks even when the mode didn't
+-		 * change, as the previous code always called
+-		 * start_stop_khugepaged() which does this internally.
+-		 */
+-		set_recommended_min_free_kbytes();
+ 	}
+ 	return count;
+ }
+@@ -735,13 +728,6 @@ static ssize_t anon_enabled_store(struct kobject *kobj,
+ 
+ 		if (err)
+ 			return err;
+-	} else {
+-		/*
+-		 * Recalculate watermarks even when the mode didn't
+-		 * change, as the previous code always called
+-		 * start_stop_khugepaged() which does this internally.
+-		 */
+-		set_recommended_min_free_kbytes();
+ 	}
+ 
+ 	return count;
+diff --git a/mm/internal.h b/mm/internal.h
+index e16f1250b25c..6890d7836c68 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -689,11 +689,6 @@ int user_proactive_reclaim(char *buf,
+  */
+ pmd_t *mm_find_pmd(struct mm_struct *mm, unsigned long address);
+ 
+-/*
+- * in mm/khugepaged.c
+- */
+-void set_recommended_min_free_kbytes(void);
+-
+ /*
+  * in mm/page_alloc.c
+  */
+@@ -701,11 +696,8 @@ void set_recommended_min_free_kbytes(void);
+ 
+ extern char * const zone_names[MAX_NR_ZONES];
+ 
+-extern int min_free_kbytes;
+ extern int defrag_mode;
+ 
+-void setup_per_zone_wmarks(void);
+-void calculate_min_free_kbytes(void);
+ int __meminit init_per_zone_wmark_min(void);
+ 
+ extern int __isolate_free_page(struct page *page, unsigned int order);
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index f49a6710933b..c36b7d0b91d7 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -27,7 +27,6 @@
+ 
+ #include <asm/tlb.h>
+ #include "internal.h"
+-#include "page_alloc.h"
+ #include "mm_slot.h"
+ 
+ enum scan_result {
+@@ -3086,57 +3085,6 @@ static int khugepaged(void *none)
+ 	return 0;
+ }
+ 
+-void set_recommended_min_free_kbytes(void)
+-{
+-	struct zone *zone;
+-	int nr_zones = 0;
+-	unsigned long recommended_min;
+-
+-	if (!hugepage_enabled()) {
+-		calculate_min_free_kbytes();
+-		goto update_wmarks;
+-	}
+-
+-	for_each_populated_zone(zone) {
+-		/*
+-		 * We don't need to worry about fragmentation of
+-		 * ZONE_MOVABLE since it only has movable pages.
+-		 */
+-		if (zone_idx(zone) > gfp_zone(GFP_USER))
+-			continue;
+-
+-		nr_zones++;
+-	}
+-
+-	/* Ensure 2 pageblocks are free to assist fragmentation avoidance */
+-	recommended_min = pageblock_nr_pages * nr_zones * 2;
+-
+-	/*
+-	 * Make sure that on average at least two pageblocks are almost free
+-	 * of another type, one for a migratetype to fall back to and a
+-	 * second to avoid subsequent fallbacks of other types There are 3
+-	 * MIGRATE_TYPES we care about.
+-	 */
+-	recommended_min += pageblock_nr_pages * nr_zones *
+-			   MIGRATE_PCPTYPES * MIGRATE_PCPTYPES;
+-
+-	/* don't ever allow to reserve more than 5% of the lowmem */
+-	recommended_min = min(recommended_min,
+-			      (unsigned long) nr_free_buffer_pages() / 20);
+-	recommended_min <<= (PAGE_SHIFT-10);
+-
+-	if (recommended_min > min_free_kbytes) {
+-		if (user_min_free_kbytes >= 0)
+-			pr_info_ratelimited("raising min_free_kbytes from %d to %lu to help transparent hugepage allocations\n",
+-					    min_free_kbytes, recommended_min);
+-
+-		min_free_kbytes = recommended_min;
+-	}
+-
+-update_wmarks:
+-	setup_per_zone_wmarks();
+-}
+-
+ int start_stop_khugepaged(void)
+ {
+ 	guard(mutex)(&khugepaged_mutex);
+@@ -3160,17 +3108,9 @@ int start_stop_khugepaged(void)
+ 		kthread_stop(khugepaged_thread);
+ 		khugepaged_thread = NULL;
+ 	}
+-	set_recommended_min_free_kbytes();
+ 	return 0;
+ }
+ 
+-void khugepaged_min_free_kbytes_update(void)
+-{
+-	guard(mutex)(&khugepaged_mutex);
+-	if (hugepage_enabled() && khugepaged_thread)
+-		set_recommended_min_free_kbytes();
+-}
+-
+ bool current_is_khugepaged(void)
+ {
+ 	return kthread_func(current) == khugepaged;
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index c4dc61ec663e..5280784c91a8 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -50,7 +50,6 @@
+ #include <linux/ftrace.h>
+ #include <linux/lockdep.h>
+ #include <linux/psi.h>
+-#include <linux/khugepaged.h>
+ #include <linux/delayacct.h>
+ #include <linux/cacheinfo.h>
+ #include <linux/pgalloc_tag.h>
+@@ -272,8 +271,8 @@ const char * const migratetype_names[MIGRATE_TYPES] = {
+ #endif
+ };
+ 
+-int min_free_kbytes = 1024;
+-int user_min_free_kbytes = -1;
++static int min_free_kbytes = 1024;
++static int user_min_free_kbytes = -1;
+ static int watermark_boost_factor __read_mostly = 15000;
+ static int watermark_scale_factor = 10;
+ int defrag_mode;
+@@ -6663,7 +6662,7 @@ static void __setup_per_zone_wmarks(void)
+  * Ensures that the watermark[min,low,high] values for each zone are set
+  * correctly with respect to min_free_kbytes.
+  */
+-void setup_per_zone_wmarks(void)
++static void setup_per_zone_wmarks(void)
+ {
+ 	struct zone *zone;
+ 	static DEFINE_SPINLOCK(lock);
+@@ -6704,7 +6703,7 @@ void setup_per_zone_wmarks(void)
+  * 8192MB:	11584k
+  * 16384MB:	16384k
+  */
+-void calculate_min_free_kbytes(void)
++static void calculate_min_free_kbytes(void)
+ {
+ 	unsigned long lowmem_kbytes;
+ 	int new_min_free_kbytes;
+@@ -6732,8 +6731,6 @@ int __meminit init_per_zone_wmark_min(void)
+ 	setup_min_slab_ratio();
+ #endif
+ 
+-	khugepaged_min_free_kbytes_update();
+-
+ 	return 0;
+ }
+ postcore_initcall(init_per_zone_wmark_min)
+diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+index b9259deddb59..86162e6cfa8c 100644
+--- a/mm/page_alloc.h
++++ b/mm/page_alloc.h
+@@ -227,8 +227,6 @@ void post_alloc_hook(struct page *page, unsigned int order, gfp_t gfp_flags,
+ 		     unsigned int alloc_flags);
+ extern bool free_pages_prepare(struct page *page, unsigned int order);
+ 
+-extern int user_min_free_kbytes;
+-
+ struct page *__alloc_frozen_pages_noprof(gfp_t gfp, unsigned int order, int nid,
+ 		nodemask_t *nodemask, unsigned int alloc_flags);
+ #define __alloc_frozen_pages(...) \
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 255d69ebceba..92dc770b10e6 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -5782,13 +5782,6 @@ static ssize_t thpsize_shmem_enabled_store(struct kobject *kobj,
+ 		int err = start_stop_khugepaged();
+ 		if (err)
+ 			return err;
+-	} else {
+-		/*
+-		 * Recalculate watermarks even when the mode hasn't changed
+-		 * to preserve the legacy behavior, as this is always called
+-		 * inside start_stop_khugepaged().
+-		 */
+-		set_recommended_min_free_kbytes();
+ 	}
+ 
+ 	return count;
+-- 
+2.45.0
+
