@@ -1,115 +1,126 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC93471410;
-	Tue,  1 Sep 2026 07:50:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B39471CF5
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:50:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249020; cv=none; b=QU7ZnW/wO08PDpxbzuu7n5dw30e0oto1MLjHNc56fUadrLVy2mMlaz08LXmipmmRxiq2HMQYkSXh7FhvdOKuMF7rA7e+aMalDZ5s9m6E0VNSWR5JMiqG47/jZoX+nP+/hkcBSgr5WwgNrpTEsK6F6hbdTaNhAbv69yxQ6jkw8NE=
+	t=1788249023; cv=none; b=hcKNNrioqoGoq9A2oMdkbCW/byb174NTqkKlu/rVqI8dutyIqK9V25FAOz4ZGuxZRvKC8Y0yVJFoouLNG92WnAf12AXC4/vz/SKVSCBM/pcy2s2SdJFDA+/fv6PTnyAjmtZdImAxOr2+MHY9cH+K4swBHDq2HmzKiymnNM4tRBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249020; c=relaxed/simple;
-	bh=JjFpQL6i7zqo6rZPziQwY0L3iKdrklhUD4YeCOg6ZVQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LIVp0C8s3dVaX7b5FDB714o5jZsap9LLfrZozP6qxmp6l/52u2GWWTN2l7qGp3fW6ZYWtXNsBUqplD27GSWTCpq7F3kZiO1eiIGDFtd53uwO6UQ68b1qg+rF8WywGi0kOFSnulhGquzbju2dc3uSjW7nMNeloO5sm/zbhfgedto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=YD9YQ1KL; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=JmZmx3l8; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788249023; c=relaxed/simple;
+	bh=/rbvHcyLFzkOkhdGFkadotpTkB6WTk/HoLFqLifD8i0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WTV70wwFuX3f9ylb1/w2IAs6iP8IlirRH1dHKdL4enfXRu1uG3oC1ut+GCnc7GwyvEKLNVFUT+76OXagyBjDSqI4rOcoNQSnHMEzztoUe/HvC01nReHyRGW3RUW+Is5f+Kw4QJvOUz8l/lWmHWshLf4S4n8SXivbUyh2wgP+9CQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=M7oa4Oh5; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="YD9YQ1KL";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="JmZmx3l8"
-Date: Tue, 1 Sep 2026 09:50:15 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788249016;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iUBH692Z36aZg03LvKjB9jPXVfhm0cBeh/zOB1KfNos=;
-	b=YD9YQ1KL0WOd8TMtZexCsr2KJHmzfhslZ6YoFjT6aZ00SWEQokufCJgr6rIgxq66g8FxyW
-	oA56rBXLdJL+SPtm6W1OIxF8wJHgqPX81ZwAKc9KOgGT5KGqT/y95sjNKRw7jufKDP1JTD
-	aeTNtH9cOI21YNCbqOHDCbt0H1q3IwNFQhseu+MuiuRCe8SbKYmSxEVdHDlqig7rCdHvey
-	Q8IhxgKrPi3wKbKpizAj3ZMJRLAMCHcQTYSjrGPkOsV9aBaNM2OQWnFm4HB1N+qqjNhwjG
-	qk8Fom8a+Ynea+VouNRZz4Mup8Mk9P8Kdw9+pIwebEOtzt8fPGmdQm8cugiP8A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788249016;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iUBH692Z36aZg03LvKjB9jPXVfhm0cBeh/zOB1KfNos=;
-	b=JmZmx3l8bhg77IcWwiZ0FVpqnovlzDqLRoN1oXDjaWZ7VgUIkAapUF9T5aZ01x2ECp+FoW
-	WnoGUdgenXgnc7DA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Petr Mladek <pmladek@suse.com>
-Cc: John Ogness <john.ogness@linutronix.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="M7oa4Oh5"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d715f4a587so8231175ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:50:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788249021; x=1788853821; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3ehsC4fkcGYgZxU5YfTTtJEKH9Dtw/4IjhfNmBesfrM=;
+        b=M7oa4Oh5JLb12LGDew9uMpM0cJ3sj6tPtJks2pmho0j2NlD/gc4quOMjE9GngiEICU
+         3wnNYCJWJuS41IGV8YksgZDr+hdc7WmVHt2P3xsd4jlCneumQey5pSJBGioxfMkic1yB
+         wr3mxw+YYCPWyqzErw7dSeR4zXwkjNgGLl0UE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788249021; x=1788853821;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3ehsC4fkcGYgZxU5YfTTtJEKH9Dtw/4IjhfNmBesfrM=;
+        b=C9Q6gxSKpfl2bSxy7184NvR3t/LxBS0hGHc71dpQzGUi+ltAgPfikr24VHyzAsBZcv
+         CDe07ZKWetPhX0dzyPOhoD2xC8guYHhBKbqvXSKFZHTg/gnY2544Kpkj933V8EfHtoD6
+         rjtHWtzyMHgXym0fBO4Q3DR/WWHT29ykxWdcfAVytpR7eK8krf8l6x1TnLaG1HmbQljd
+         lRwkrmmQd5nGG3q+WUa5ibU8fgz/DMeCaoWEANC57Ifr8fKEIrEqKdSJUy/TkB8t2oPd
+         Ra2Levvzg6ZFKTfTYSN5cxrWMVV+q2cHXP28x27y9FSEbnStbjj+sDGoXi+4PNoPm7bq
+         rEMw==
+X-Forwarded-Encrypted: i=1; AHgh+RqI38yzDIQCT62qSPuppmk/uuOwUSiNr2Rayc+Lk0UANaVAkHBrlc5cM9cRIdPRSWoXAsLMBXEUIhpq6f0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nX4S3geufPiLtRMrOtKvqgCTUSpbhzKag7Xz5Z0XIWJLFxZMgS
+	KUZInyVf6jnLYBv2gdoKOV4fZ+ACSv8dx7crdNlSq/Y6m68rkxjodP4fqp2K9pVVCA==
+X-Gm-Gg: AYBFou1A5V6X9k9U/qLtMTSsxNJe3TnrABKadhspMOEQx4jh5dEbtMJu4WwNhJ7LmmI
+	ckGaRyIQZ4g17cj3UoDnp+l5wheU3PPTFBzN0GPCpK5RFI/iFDfX4bcq8XGOAy1R4qhtayNXjZM
+	7mnq8/ZE83WhPinwcT+EZD3pRc7rDOEi9z/t2m5gpEpxTVFwRwMfPQFIVEDP3DGrzGcW6kFfhIU
+	LVw1hYmTctyf/FNqE8wDburGHlvVx9nbxE6m6DdDaeiqnFEvCcoUdsHw9ssfq4iYC0QzdtV8ZuQ
+	cOIudhGPu0xsasSSKzDf0Fxr5n9pLxStyMq3xVsbkya/sYAvBIUdLl1/yVG+pkVelSGXBvTUP/G
+	UwKoKspEpcn652WHnki93L6AIa9JD3d21CDVOz8RZjmE2ms+j1GbKYplvJ4owzgq6Px/Ven5qDj
+	hTyKxJt56nG7G900FH2xXynkHTOD9hObGUklc4+pOs335I5pebqugclhhC3LjyM+4MZXk38D7f/
+	NJQhadtophwntsdn/kdI9Gup7iwnqfFRAnd6k6fiOjfU3w=
+X-Received: by 2002:a17:902:f791:b0:2d9:1dee:43db with SMTP id d9443c01a7336-2d91dee456dmr196089085ad.15.1788249019467;
+        Tue, 01 Sep 2026 00:50:19 -0700 (PDT)
+Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:201d:8:8cf:6df0:9c4e:f5e1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988b699sm48142515ad.59.2026.09.01.00.50.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 00:50:19 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Mark Brown <broonie@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	Benson Leung <bleung@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	chrome-platform@lists.linux.dev,
+	linux-input@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	linux-serial@vger.kernel.org
-Subject: Re: [PATCH tty 1/1] serial: 8250: Change console_msr_work to
- IRQ_WORK_LAZY
-Message-ID: <20260901075015.BBNf1HZ5@linutronix.de>
-References: <20260828155811.270462-1-john.ogness@linutronix.de>
- <20260828155811.270462-2-john.ogness@linutronix.de>
- <20260828160652.TQBsi8oO@linutronix.de>
- <apWcikIof_6CRNNU@pathway.suse.cz>
+	stable+noautosel@kernel.org
+Subject: [PATCH v6 8/8] arm64: dts: mediatek: mt8192-asurada-spherion: Add Synaptics trackpad's supply
+Date: Tue,  1 Sep 2026 15:49:26 +0800
+Message-ID: <20260901074930.764550-9-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+In-Reply-To: <20260901074930.764550-1-wenst@chromium.org>
+References: <20260901074930.764550-1-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <apWcikIof_6CRNNU@pathway.suse.cz>
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-31 17:23:54 [+0200], Petr Mladek wrote:
-> On Fri 2026-08-28 18:06:52, Sebastian Andrzej Siewior wrote:
-> > On 2026-08-28 18:04:08 [+0206], John Ogness wrote:
-> > > For some platforms it is a problem to queue irq_work when entering
-> > > cpuidle states. Since irq_work is used for deferred MSR handling,
-> > > any atomic console printing when entering cpuidle states can lead
-> > > to the affected hardware hanging. Tegra20 and Tegra30 are examples
-> > > of such platforms. Avoiding raising the irq_work IRQ has shown to
-> > > circumvent the problem.
-> > 
-> > > Change the console_msr_work to be IRQ_WORK_LAZY, thus not raising
-> > > an IRQ upon irq_work queuing. The irq_work is then handled on the
-> > > next interrupt (worst case, kernel tick).
-> >
-> > Not on the next interrupt, on the next jiffies tick. Should you run
-> > tickless and should the CPU have the tick switch off then it will raise
-> > the irq-work interrupt anyway.
-> 
-> This seems to be more precise. There is one more scenario. It would
-> run in a dedicated kthread with PREEMPT_RT.
+The Synaptics trackpad, like the Elan trackpad option, is fed from the
+system 3.3V power rail. Add it to the trackpad device node.
 
-That is an implementation detail same as the tickless thingy.
+Also add the correct post-power-on delay, even though in practice it is
+not required. The Synaptics trackpad requires 100ms after power-on (or
+deasserting the reset, whichever comes later) to fully initialize. The
+power is always on and the reset pin is not routed out, so the
+implementation could try skipping the delay.
 
-> I hope that nobody would run tickless system on the old
-> Tegra hardware. So, this change should be good enough in reality.
-> 
-> Anyway, I would prefer to get this "workaround" in for 7.3.
-> In each case, I would not want to revert the uart 8250 conversion
-> to nbcon because it did break the Tegra hardware.
+Cc: <stable+noautosel@kernel.org> # Without driver changes only lengthens probe time
+Fixes: 925ebc0cd55c ("arm64: dts: mt8192-asurada-spherion: Add Synaptics trackpad support")
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+I think this shouldn't be backported, as backporting it without the
+driver enhancements just delays the trackpad probing with no real
+gains.
+---
+ arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts | 2 ++
+ 1 file changed, 2 insertions(+)
 
-I would see this as an improvement and not a workaround. It has the
-side effect that it works now on Tegra which has apparently a broken low
-idle implementation.
+diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
+index 68caf4c58cfe..8adbfc307fca 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
++++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
+@@ -94,6 +94,8 @@ trackpad@2c {
+ 		hid-descr-addr = <0x20>;
+ 		interrupts-extended = <&pio 15 IRQ_TYPE_LEVEL_LOW>;
+ 		wakeup-source;
++		vdd-supply = <&pp3300_u>;
++		post-power-on-delay-ms = <100>;
+ 		status = "fail-needs-probe";
+ 	};
+ };
+-- 
+2.55.0.897.gb25b4bd76c-goog
 
-*If* this LAZY mode couldn't be used for some reason, I would suggest to
-disable the offending low idle mode
-	https://lore.kernel.org/all/791131d7-cf8d-4572-8eec-df5fff1783a9@nvidia.com/
-
-rather than reverting 8250-nbcon for everyone.
-
-
-> Best Regards,
-> Petr
-
-Sebastian
