@@ -1,110 +1,168 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E380B41F7FD
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093753955C3;
+	Tue,  1 Sep 2026 09:04:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253386; cv=none; b=BcfioWF1WlW3ML0/N0L32E+Sxlp/7J8p9O1wTq7atM3zsMGnb7x30Xi7nmG2r6hGqjTbZXobrSUYB/qJjN2vbUZdS/BfsE8jjoLda/b8aIp3+YNghgW+y8wE4V8U0bMrOrHhUjLPObbKVxCBG3v99KVHsIJzNRu3cHBcPB5SfTk=
+	t=1788253443; cv=none; b=mtGTBNBNpmTu7qCjnj73hQlCGykHztnrjhoZdQIGTcZ58Te9xXvdZhEj/rptC1rdJUXECOYfX3lOM2VCtIrMC5KtE7Xyxu+Icd0B17VPeXqGjutwDf0dPo0enOv5D+Ezs98huG+lxTlI0KGKoL9z10mZXWFK5bS7fvqIkxd1QYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253386; c=relaxed/simple;
-	bh=Iqm4Mq68GbhxlJ5R5mKY3uE18dsHXVjBmsgiQ+BOwfc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=IShs/atb6pLBjzMCT76wTKRqOc0iIrZLL/NE9pdPJR29hGb6wMW4gDfCFTfTCmjsv1HGY/QDYh8gU2henYXRjJ1v03efy4MzoKy00DQ7g8FhQP41o2I8mIcxIiPpJyiacGCUaHBSql30HSgXt/wUTMyO4iJZM+YDWEKUPZ0ItmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=MJWBBoD5; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788253443; c=relaxed/simple;
+	bh=gbRdi7x5euyd1idU4Oe5KtmUG/kGfIVOPnF86jvsO1M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AZvpGNYVctveZAfLWkxKMjiDZfqgIgxCfmbmVOkPV4o3dKLCdL1Y4l/d+80uzrB7Cu7pVRtDUCeSF2zPFavq7ZR8ZI6+fT8MuLhSyE3RbyCMFTcojP4m0uz1YY43x+Kt2/d9nYnx1XT1ciqep5W0Zv/ZqPePBq91I/bLZYE0o9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BlyqKzj5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="MJWBBoD5"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 2A5FA1A1932;
-	Tue,  1 Sep 2026 09:03:02 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E9DBB6053C;
-	Tue,  1 Sep 2026 09:03:01 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D87A811C78AAE;
-	Tue,  1 Sep 2026 11:02:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788253381; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=dVSTupzsKDeKcaOCfLgTue1jYvMasSEVlpq2JV9+6jU=;
-	b=MJWBBoD56GD1gKMxyfsPWLPEUcE9vRgAYgIRAzg6cwJmDCdtzke3j7KuygdQYD6AU8JGr2
-	GKaqslm1ZTFs7QX6di7xfUjopH+ur8ijdXPU+7mUuK2qP20jf7QVXnuGj49QQfQ66R9gca
-	erGt/XmynmF26FIUFylqf9oX93o85jP7XixnI2CREKpsQMDfxrPz0P3o6UCQU4sJhxTbKp
-	kTogl93s2G648lT1wsMR3IqLntJDyzoGI6/F6E94dNQcA4iXw5rzr7e7v7KOm8wRDNcb6D
-	JNUCnN9+S3v2NQdc9/dqN1pOuR6iAm9gowwws49ZVMJLRqPs3htZL0sZIQTOqg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: "Michael Walle" <mwalle@kernel.org>
-Cc: "Pratyush Yadav" <pratyush@kernel.org>,  "Takahiro Kuwano"
- <takahiro.kuwano@infineon.com>,  "Richard Weinberger" <richard@nod.at>,
-  "Vignesh Raghavendra" <vigneshr@ti.com>,  "Nicolas Ferre"
- <nicolas.ferre@microchip.com>,  "Alexandre Belloni"
- <alexandre.belloni@bootlin.com>,  "Claudiu Beznea"
- <claudiu.beznea@tuxon.dev>,  "Jonathan Corbet" <corbet@lwn.net>,  "Shuah
- Khan" <skhan@linuxfoundation.org>,  "Steam Lin" <STLin2@winbond.com>,
-  "Hsin-Yi Wang" <hsinyi@chromium.org>,  "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>,  <linux-mtd@lists.infradead.org>,
-  <linux-arm-kernel@lists.infradead.org>,  <linux-kernel@vger.kernel.org>,
-  <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v3 08/23] mtd: spi-nor: winbond: Prepare introduction of
- W25QxxRV-Q/N parts
-In-Reply-To: <DKOKKCF45CY6.2RXHF51EW6VV0@kernel.org> (Michael Walle's message
-	of "Fri, 14 Aug 2026 11:46:14 +0200")
-References: <20260813-winbond-v7-1-spi-nor-rv-addition-v3-0-b637cf120d5c@bootlin.com>
-	<20260813-winbond-v7-1-spi-nor-rv-addition-v3-8-b637cf120d5c@bootlin.com>
-	<DKOKKCF45CY6.2RXHF51EW6VV0@kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 01 Sep 2026 11:02:56 +0200
-Message-ID: <87qzjd8htr.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BlyqKzj5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8C001F000E9;
+	Tue,  1 Sep 2026 09:03:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788253441;
+	bh=n4jDt6DvrGcEdmaneGLqalWUgeKau8MsOp/T1T1IoOE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BlyqKzj5iXYYVHJUCAfCEJauzidAKdxejzLRRu3N6gkMKb66iR3I+dyjHOYz81Zxq
+	 WfJPg72h3IUQUy0Lvq8uxHPJJsjhdQ74CAoJVAUDHj0IHWpveaarnDTtDx2IyPXhYo
+	 9oD4ojNo0k0LRnZDg7yXuxrpUvD5gAREIORJfD1Pn0Nn+CTxcWxI3BM6cNEAyuba7v
+	 O3lePR9S70i/AmlZGx6aw05vsXbm9a9aOcoWzdU/4hm2GKNgZMb47YrgpvaRcKdpLW
+	 LfETwbhy7ZYJIrCP5FwDMy6GOmRgKhVa0LySLxIfjbK54X+BSJeaRAfLLkNg2WPoeJ
+	 fAkdRpkXSllyA==
+Date: Tue, 1 Sep 2026 11:03:56 +0200
+From: Niklas Cassel <cassel@kernel.org>
+To: alistair23@gmail.com
+Cc: mst@redhat.com, eperezma@redhat.com, linux-kernel@vger.kernel.org,
+	xuanzhuo@linux.alibaba.com, jasowangio@gmail.com,
+	linux-scsi@vger.kernel.org, mkp@kernel.org,
+	virtualization@lists.linux.dev,
+	James.Bottomley@hansenpartnership.com, alistair@alistair23.me,
+	Alistair Francis <alistair.francis@wdc.com>
+Subject: Re: [PATCH 2/2] scsi: Initial commit of VirtIO PCIe Endpoint Driver
+Message-ID: <apaU_L_hHZXxuB8e@ryzen>
+References: <20260901014650.2728658-1-alistair.francis@wdc.com>
+ <20260901014650.2728658-3-alistair.francis@wdc.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901014650.2728658-3-alistair.francis@wdc.com>
 
-Hello,
+On Tue, Sep 01, 2026 at 11:46:50AM +1000, alistair23@gmail.com wrote:
+> From: Alistair Francis <alistair.francis@wdc.com>
+> 
+> This patch adds a VirtIO SCSI endpoint build on top of the VirtIO PCIe
+> endpoint. This is a similar approach to the NVMe PCIe Endpoint
+> (drivers/nvme/target/pci-epf.c) but for SCSI.
+> 
+> This does end up being somewhat similar to the pci-epf.c code, but
+> re-written for SCSI.
+> 
+> This approach allows a PCIe Endpoint device (tested on a
+> radxa-rock5b) to setup what appears to be a SCSI device, using an
+> existing SCSI backend (tested using scsi_debug).
+> 
+> At this point a host can connect over PCIe, ensure virtio_pci and
+> virtio_scsi is loaded and on PCIe rescan will see a scsi device.
+> 
+> There are two main pain points with this approach though:
+>  1. We have to use the Legacy SCSI VirtIO driver. This is because the
+>     Raxda Rock5b (and AFAIK all PCIe Endpoint hardware) can't add
+>     capabilities. So we can't advertise the VirtIO Common configuration
+>     capability, which means we can't be a modern VirtIO SCSI device.
+> 
+>     This is unfortunate, but there doesn't seem to be any way around
+>     this, at least with the current hardware.
+> 
+>  2. We have to pin scsit_pci_epf_poll_cfg_thread() on a CPU in order to
+>     respond fast enough to the host. This means we effectivly burn a CPU
+>     to read and write some values. But as there are no intterupts
+>     generated on these events and we need to be very quick there isn't
+>     another option.
+> 
+> Assisted-by: Devin:claude-opus-4-8
+> Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+> ---
 
->> +static const struct spi_nor_fixups winbond_nor_partname_fixups =3D {
->> +	.post_sfdp =3D winbond_nor_partname_post_sfdp_fixups,
->> +};
->> +
->> +static bool is_w25qxxrv(const struct spi_nor *nor)
->> +{
->> +	struct sfdp_header *sfdp_h =3D (struct sfdp_header *)nor->sfdp->dwords;
->
-> nitpick, spi_nor_sfdp_get_header()?
+(snip)
 
-Yup.
+> +static int scsit_pci_epf_dma_transfer(struct scsit_pci_epf *scsi_epf,
+> +		struct scsit_pci_epf_segment *seg, enum dma_data_direction dir)
+> +{
+> +	struct pci_epf *epf = scsi_epf->epf;
+> +	struct dma_async_tx_descriptor *desc;
+> +	struct dma_slave_config sconf = {};
+> +	struct device *dev = &epf->dev;
+> +	struct device *dma_dev;
+> +	struct dma_chan *chan;
+> +	dma_cookie_t cookie;
+> +	dma_addr_t dma_addr;
+> +	struct mutex *lock;
+> +	int ret;
+> +
+> +	switch (dir) {
+> +	case DMA_FROM_DEVICE:
+> +		lock = &scsi_epf->dma_rx_lock;
+> +		chan = scsi_epf->dma_rx_chan;
+> +		sconf.direction = DMA_DEV_TO_MEM;
+> +		sconf.src_addr = seg->pci_addr;
+> +		break;
+> +	case DMA_TO_DEVICE:
+> +		lock = &scsi_epf->dma_tx_lock;
+> +		chan = scsi_epf->dma_tx_chan;
+> +		sconf.direction = DMA_MEM_TO_DEV;
+> +		sconf.dst_addr = seg->pci_addr;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	mutex_lock(lock);
 
->> +	 * W25QxxRV chips re-use the same ID as the W25QxxJV family.
->> +	 *
->> +	 * Chips are very similar, W25QxxRV brings mostly performance and power
->> +	 * consumption improvements. The RV family does not require the multi
->> +	 * die fixup.
->> +	 *
->> +	 * They can be distinguished based on their SFDP minor revision:
->> +	 * W25QxxJV:        JESD216A, minor revision =3D=3D 05h
->> +	 * W25Q512/01/02JV: JESD216B, minor revision =3D=3D 06h
->> +	 * W25QxxRV:        JESD216F, minor revision >=3D 0Ah
->> +	 */
->> +	return sfdp_h->minor >=3D SFDP_JESD216F_MINOR;
->> +}
->> +
->> +static bool winbond_jv_match(const struct spi_nor *nor)
->> +{
->> +	return !nor->sfdp || !is_w25qxxrv(nor);
->
-> So how do we know if nor->sfdp is already there for a given fixup.
-> Without having looked at the code, there could potentially be fixups
-> before SFDP is parsed (and the nor->sfdp is populated), right? Might
-> be worth to be mentioned somewhere.
+You should not need to take the mutex if you instead use the
+dmaengine_prep_config_single_safe() API, see:
+a0fba0a49f77 ("nvmet: pci-epf: Use dmaengine_prep_config_single_safe() API")
 
-You are right, it is worth mentioning. In practice only default_init()
-is too early.
 
-Thanks,
-Miqu=C3=A8l
+> +
+> +	dma_dev = dmaengine_get_dma_device(chan);
+> +	dma_addr = dma_map_single(dma_dev, seg->buf, seg->length, dir);
+> +	ret = dma_mapping_error(dma_dev, dma_addr);
+> +	if (ret)
+> +		goto unlock;
+> +
+> +	ret = dmaengine_slave_config(chan, &sconf);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to configure DMA channel\n");
+> +		goto unmap;
+> +	}
+> +
+> +	desc = dmaengine_prep_slave_single(chan, dma_addr, seg->length,
+> +					   sconf.direction, DMA_CTRL_ACK);
+> +	if (!desc) {
+> +		dev_err(dev, "Failed to prepare DMA\n");
+> +		ret = -EIO;
+> +		goto unmap;
+> +	}
+> +
+> +	cookie = dmaengine_submit(desc);
+> +	ret = dma_submit_error(cookie);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to do DMA submit (err=%d)\n", ret);
+> +		goto unmap;
+> +	}
+> +
+> +	if (dma_sync_wait(chan, cookie) != DMA_COMPLETE) {
+> +		dev_err(dev, "DMA transfer failed\n");
+> +		ret = -EIO;
+> +	}
+> +
+> +	dmaengine_terminate_sync(chan);
+
+I don't think dmaengine_terminate_sync() should be called on each DMA transfer, see:
+bd00d2c4a1b2 ("nvmet: pci-epf: Remove unnecessary dmaengine_terminate_sync() on each DMA transfer")
+
+
+Kind regards,
+Niklas
