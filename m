@@ -1,35 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-51.mta1.migadu.com [95.215.58.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0FC82DECA8;
-	Tue,  1 Sep 2026 03:11:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D03C4398FD
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788232274; cv=none; b=pyzprBgl/0prpFgS0uX/CO998cIkKo94JnulT2u6b5CZpBRBqH8IxHDuDC41RT1wb7O3oJNVCjcPDkuduIcgPrpwd7eVji7zdXeCutWrJ/LwrrjXLRMKsc7FW8avWT36fiPqhJ/WLWrl+4yA7OFGG2ZrQd/aY56iIlJhimpns2s=
+	t=1788232277; cv=none; b=KNb9dDXyolbLjH4iFj+TSWci4R22oobGS7eiTN0IQWjDFIu7eMvbXAWps64CnOW/F50GOccO88f0EDRvmyiLyoUyN4KBDE5o0f0Bn58dRgWbOVu4lKtf4Ulj8Yd3ehp8hFui/KbMrQBc/FF0ASGacrWQhh8E+G91phl6qjTvzO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788232274; c=relaxed/simple;
-	bh=cOc2L22Llri+e6tjT17uyUdQ7023qApw6OVcn0Srfos=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=fBV5GgAIsYEMlzAu2HhvcjrdB1NZlCzPfXfm9OYOdsFgfvdypdYDbTG5uvuNAbKfn8cOoA56f6Zcl4gf5w2fjVxpKHI75HJjq8Yp+iRqTGkC0mnt9mKurhDoAnc3Of5asruhExAf3tWmvCL6OYkG4TB3eK2kCQkumL3MUubbdPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FeIyWawc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788232277; c=relaxed/simple;
+	bh=s5oPWfvcaE1YMaxXsFJOTvk9No3nN8NYNIrkpi80+cM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ArsutGBwXsEGsPvGmd+yDs6HJE2PEr/wRzaa6OGnOgnZvROob5dYuNLmGk9QYW60E+5Orua6WRXj7YTfGdpMdGLtMEaltAmyOmgf5ClztKkb4Z2zPOEsl774D9DXj54/cxiA/VwoQTJb7xULXIXSUaKoHbcGL4MNLCR09u5eJxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GZs+7PTd; arc=none smtp.client-ip=95.215.58.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FeIyWawc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49C8F1F000E9;
-	Tue,  1 Sep 2026 03:11:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788232273;
-	bh=PEPzgn2bb8E3BGj8NWISdUdjMIn7NhjjdX8frGZRRrw=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=FeIyWawcYnF7vrsZyJuIBQM/NSgFvwX8e+vFsKekmoseaaogQac85A+Ot/3OJF3LW
-	 roWEObD9eTTUXu5fu5hGb3DKmiBpbYX/lKvh2AYmD/AQaSbJWpJClfy5pdR+hiiKnP
-	 mkjwnnEo5O4zHjcVMfaBCx4abkZhPf7BtzeKs81R3Ks2INyLwBVYtSyYswEydRh8MR
-	 9PLhFlzQITmfi4q2Gu/RYIZ0hxvRwd8cA9T4Hqc9SyLYJ5xOuq7P6ZkU0YMWSjoGG8
-	 o5+l2A+7bIGBe9XNna+rOc0UoMTKqaPHEjC7mwsiDRG6QQvhsgNs//gnjunpqYq+x2
-	 v9Vwa+TeNqr3Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56AFC3924A51;
-	Tue,  1 Sep 2026 03:10:17 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GZs+7PTd"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=s5oPWfvcaE1YMaxXsFJOTvk9No3nN8NYNIrkpi80+cM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788232273; v=1; x=1788837073;
+ b=GZs+7PTdJi7pNFnigosE7k6tUUzUolpPtnCzVO184D83S/B4IUwY/zFpw0OsIzslmNXC+Lf6
+ pKLj64RdBd+5imouiLK1eKZlPb9q4aSDetjNYXKZKwk15gVuWaFVGwLiEIzTwg/rHX93d4aKYfW
+ RnQ4bEOXRrUpDpuiIWhpaMLM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b250c1526b7c3aa9;
+	Tue, 01 Sep 2026 03:11:13 +0000
+X-Mizu-Trace-ID: b250c1526b7c3aa9
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org
+Cc: void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com,
+	michalblk@google.com,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH] sched_ext: don't deliver duplicate ops.cgroup_set_idle() for same value
+Date: Tue,  1 Sep 2026 11:11:01 +0800
+Message-ID: <20260901031101.731943-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,42 +50,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] tipc: Dont send random pad bytes in RESET/ACTIVATE
- messages
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178823221590.912076.8913153975020025087.git-patchwork-notify@kernel.org>
-Date: Tue, 01 Sep 2026 03:10:15 +0000
-References: <20260829115813.188600-1-david.laight.linux@gmail.com>
-In-Reply-To: <20260829115813.188600-1-david.laight.linux@gmail.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: jmaloy@redhat.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, netdev@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- pabeni@redhat.com, horms@kernel.org
 
-Hello:
+From: Tao Cui <cuitao@kylinos.cn>
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+ops.cgroup_set_idle() is documented to be invoked when a cgroup
+transitions between idle and non-idle states, and scx_group_set_weight()
+already skips value-preserving writes. scx_group_set_idle() delivers
+every write unconditionally, so rewriting an already-correct cpu.idle
+value feeds the BPF scheduler a transition callback each time, which
+toggle- or accounting-based schedulers miscount. Mirror the weight
+guard and only deliver on an actual change.
 
-On Sat, 29 Aug 2026 12:58:12 +0100 you wrote:
-> The interface name is passed in a fixed length (TIPC_MAX_IF_NAME) buffer.
-> Replace the strcpy(data, l->if_name) with memcpy() so that the
-> pad bytes are actually written (l->if_name[] is zero padded)
-> rather than sending random bytes from the skb to the remote system.
-> 
-> Replace two other strcpy() with strscpy().
-> 
-> [...]
+Verified with a probe scheduler printing each callback: rewriting
+cpu.idle=1 twice on an already-idle cgroup delivered two callbacks
+before and none after.
 
-Here is the summary with links:
-  - [net] tipc: Dont send random pad bytes in RESET/ACTIVATE messages
-    https://git.kernel.org/netdev/net/c/81c600c26302
+Fixes: 347ed2d566da ("sched/ext: Implement cgroup_set_idle() callback")
+Link: https://lore.kernel.org/r/b53c61a1-4d7d-4232-941f-d48b0563d4ed
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+---
+ kernel/sched/ext/ext.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-You are awesome, thank you!
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 8041c87a3562..8b3625107b72 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -4933,7 +4933,8 @@ void scx_group_set_idle(struct task_group *tg, bool idle)
+ 	percpu_down_read(&scx_cgroup_ops_rwsem);
+ 	sch = scx_tg_knob_sched(tg);
+ 
+-	if (scx_cgroup_enabled && sch && SCX_HAS_OP(sch, cgroup_set_idle))
++	if (scx_cgroup_enabled && sch && SCX_HAS_OP(sch, cgroup_set_idle) &&
++	    tg->scx.sched_idle != idle)
+ 		SCX_CALL_OP(sch, cgroup_set_idle, NULL, tg_cgrp(tg), idle);
+ 
+ 	/* Update the task group's idle state */
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.43.0
 
