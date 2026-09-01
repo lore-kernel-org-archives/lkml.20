@@ -1,72 +1,218 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-38.mta0.migadu.com [91.218.175.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DF33EEACB;
-	Tue,  1 Sep 2026 14:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D5B37F739
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:04:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271452; cv=none; b=ue5mOaUH/G/8MqHAoqwMWz7acjCYAoFJ696WYoZ1ECoYnZV3bvhkEgr1wv/2ZYa9Pl+5g6SPZ79zmzRzzmRMuyRUkrOeCgRCMgW1CquwdQt54Nh/gm35pdl2aP5o/0CCI3xMX+Sks8XwSdXlwxPDxLhHAtDtMbx2Q2CbvsfLjYk=
+	t=1788271452; cv=none; b=AkP+pYl6FOOzT6kHgkK8jEFJ3rrvT+SRi++nUcNI7KBgFQJwbkd1Bf6KjN0yaUTjygsYWdFfU4Qgr7kSxgdxuC5pAVDOzu9ff5JRAGCEyXwbi2xDkwoahkTP9ZlisTwO25091qeOTzqcfGsWsJwdKbNS3CQwLSnt8EYvtoEZVEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788271452; c=relaxed/simple;
-	bh=Xfv2jt4cOB8bmx9v7TXqvrTMEmyMl+0EWxhvEqFVwBk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=kXP6I7ThXggMM2XdPqy250vq6a7afuFaymvQmyzf80I0VdTBUddddubonUC0Mm8CcOrMKp9GOOTfkAnvknOuTLMp1/8s0TQqJZXFK3kU0ZF4NSnoK5WxSEjRp6R2LuFCW5Z1ne9oYuKdXBXmfvqER4yoK73KH7JEX+Jxg+5O7+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ds0Xkq+i; arc=none smtp.client-ip=100.103.45.18
+	bh=V7VKhJ0Cy68x2iasZRjsMlN1vnasqko203kWZGLZAHM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=SuKLwwIBGen6necA7rgGB8XuKgj8ezDXuHXc4H9N7MDG9LzGeeFeW1j4WxWNFst4dK/w4ZO2cu+08tFBQUvn0nYbvPVx6eGmuAF0zTfXX7wo6u2OwhI4TYczSHVM9lT/Au3oCFUEBxrc++k6ABsL5sMpDEGgnGUgHfbBawr0144=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mL1KkVbE; arc=none smtp.client-ip=91.218.175.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ds0Xkq+i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44FC71F000E9;
-	Tue,  1 Sep 2026 14:04:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788271450;
-	bh=FHZybySiaPe14dbMDMUulMa6M5fWVpsEsQ/tKYxAVJc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Ds0Xkq+iDyAQ8C7jxQx8gVXYNunKJg6MbnhXtCfOZ/379srL6K0LXUWFor1r43s/Z
-	 1Z7dzVLbj8wkKeGwM9vWlnKiXRswoSr4PE7GBXhxHL056oznRRU+2gs8m0yKbdzolS
-	 vgtpZzBUHYvl+3ZFy27xa0i2tsBJWZPec0kpLhUQjFfh20oI85RNlRPC3GQEbW/h9s
-	 q17oo5pEjUZ0hLNXKpumfqiCH98dgSRfq+9CaTMK68YvkU+IjIlDF4p7KJ2XmLBnES
-	 L1PVOEFuq913Vz+Xg/0F6S0BDIACI60Kq3fWyId3T2l+PlllhypSAzsNu/H3Xj/Mzo
-	 nBeV1RXapTOTw==
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>, 
- Junxian Huang <huangjunxian6@hisilicon.com>, 
- Chengchang Tang <tangchengchang@huawei.com>, 
- Edward Srouji <edwards@nvidia.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Or Har-Toov <ohartoov@nvidia.com>
-In-Reply-To: <20260811-fix-mmap-lockdep-v1-1-1151b41063b4@nvidia.com>
-References: <20260811-fix-mmap-lockdep-v1-1-1151b41063b4@nvidia.com>
-Subject: Re: [PATCH rdma-next] RDMA/uverbs: Fix
- mmap_lock/disassociation_lock circular dependency
-Message-Id: <178827144803.1380198.18045973124694867362.b4-ty@kernel.org>
-Date: Tue, 01 Sep 2026 10:04:08 -0400
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mL1KkVbE"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=V7VKhJ0Cy68x2iasZRjsMlN1vnasqko203kWZGLZAHM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788271447; v=1; x=1788876247;
+ b=mL1KkVbEkMLA7Ch3glFKMjkrphGaP2CI0GIR9hhsA/ZzBZsCDiabxpJ0p1ETmSSS8BhwdC8W
+ H+Ig/5rwRqWtUzIe7zVtPdn0VOrOXEUSojh7XucTzLQgLrAoFvkFWymrNGbp8lnCvjPLar2wuKP
+ gx/+mShjLPHT1iipFTtRIM40=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 225d5575bd02847a;
+	Tue, 01 Sep 2026 14:04:07 +0000
+X-Mizu-Trace-ID: 225d5575bd02847a
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Quentin Perret <qperret@google.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Fuad Tabba <tabba@google.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>
+Subject: [PATCH v4 07/11] KVM: arm64: nVHE: Pass host VA arguments as pointers
+Date: Tue,  1 Sep 2026 15:03:22 +0100
+Message-Id: <20260901140326.3812068-8-fuad.tabba@linux.dev>
+In-Reply-To: <20260901140326.3812068-1-fuad.tabba@linux.dev>
+References: <20260901140326.3812068-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
+Four hypercalls take host VAs as unsigned long: the donated vm, pgd
+and vcpu regions, and the tracing descriptor. Retype the arguments
+and their EL2 consumers as void *, so that the typed hypercall
+declarations introduced later in the series can attach a sparse
+address space to them; an address space attaches only to pointers.
 
-On Tue, 11 Aug 2026 19:19:16 +0300, Edward Srouji wrote:
-> Commit 51976c6cd786 ("RDMA/core: Provide rdma_user_mmap_disassociate()
-> to disassociate mmap pages") introduced disassociation_lock to protect
-> new mmap registrations against uverbs_user_mmap_disassociate(), but
-> created an ABBA deadlock:
-> 
->   Thread A (mmap / fork):
->     mmap_lock -> disassociation_lock
-> 
-> [...]
+No functional change intended.
 
-Applied, thanks!
+Reviewed-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ arch/arm64/kvm/hyp/include/nvhe/pkvm.h  |  5 ++---
+ arch/arm64/kvm/hyp/include/nvhe/trace.h |  4 ++--
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c      |  8 ++++----
+ arch/arm64/kvm/hyp/nvhe/pkvm.c          | 11 +++++------
+ arch/arm64/kvm/hyp/nvhe/trace.c         |  4 ++--
+ 5 files changed, 15 insertions(+), 17 deletions(-)
 
-[1/1] RDMA/uverbs: Fix mmap_lock/disassociation_lock circular dependency
-      https://git.kernel.org/rdma/rdma/c/a44a3f175eaee7
-
-Best regards,
+diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+index c904647d2f760..2643a1a819668 100644
+--- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
++++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+@@ -69,10 +69,9 @@ void pkvm_hyp_vm_table_init(void *tbl);
+ 
+ int __pkvm_reserve_vm(void);
+ void __pkvm_unreserve_vm(pkvm_handle_t handle);
+-int __pkvm_init_vm(struct kvm *host_kvm, unsigned long vm_hva,
+-		   unsigned long pgd_hva);
++int __pkvm_init_vm(struct kvm *host_kvm, void *vm_hva, void *pgd_hva);
+ int __pkvm_init_vcpu(pkvm_handle_t handle, struct kvm_vcpu *host_vcpu,
+-		     unsigned long vcpu_hva);
++		     void *vcpu_hva);
+ 
+ int __pkvm_reclaim_dying_guest_page(pkvm_handle_t handle, u64 gfn);
+ int __pkvm_start_teardown_vm(pkvm_handle_t handle);
+diff --git a/arch/arm64/kvm/hyp/include/nvhe/trace.h b/arch/arm64/kvm/hyp/include/nvhe/trace.h
+index 8813ff250f8e0..4aa36fd76b9e2 100644
+--- a/arch/arm64/kvm/hyp/include/nvhe/trace.h
++++ b/arch/arm64/kvm/hyp/include/nvhe/trace.h
+@@ -46,7 +46,7 @@ static inline pid_t __tracing_get_vcpu_pid(struct kvm_cpu_context *host_ctxt)
+ void *tracing_reserve_entry(unsigned long length);
+ void tracing_commit_entry(void);
+ 
+-int __tracing_load(unsigned long desc_va, size_t desc_size);
++int __tracing_load(void *desc_va, size_t desc_size);
+ void __tracing_unload(void);
+ int __tracing_enable(bool enable);
+ int __tracing_swap_reader(unsigned int cpu);
+@@ -59,7 +59,7 @@ static inline void tracing_commit_entry(void) { }
+ #define HYP_EVENT(__name, __proto, __struct, __assign, __printk)      \
+ 	static inline void trace_##__name(__proto) {}
+ 
+-static inline int __tracing_load(unsigned long desc_va, size_t desc_size) { return -ENODEV; }
++static inline int __tracing_load(void *desc_va, size_t desc_size) { return -ENODEV; }
+ static inline void __tracing_unload(void) { }
+ static inline int __tracing_enable(bool enable) { return -ENODEV; }
+ static inline int __tracing_swap_reader(unsigned int cpu) { return -ENODEV; }
+diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+index 9a3b92e626adb..61fcb382197d9 100644
+--- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
++++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+@@ -771,8 +771,8 @@ static void handle___pkvm_unreserve_vm(struct kvm_cpu_context *host_ctxt)
+ static void handle___pkvm_init_vm(struct kvm_cpu_context *host_ctxt)
+ {
+ 	DECLARE_REG(struct kvm *, host_kvm, host_ctxt, 1);
+-	DECLARE_REG(unsigned long, vm_hva, host_ctxt, 2);
+-	DECLARE_REG(unsigned long, pgd_hva, host_ctxt, 3);
++	DECLARE_REG(void *, vm_hva, host_ctxt, 2);
++	DECLARE_REG(void *, pgd_hva, host_ctxt, 3);
+ 
+ 	host_kvm = kern_hyp_va(host_kvm);
+ 	cpu_reg(host_ctxt, 1) = __pkvm_init_vm(host_kvm, vm_hva, pgd_hva);
+@@ -782,7 +782,7 @@ static void handle___pkvm_init_vcpu(struct kvm_cpu_context *host_ctxt)
+ {
+ 	DECLARE_REG(pkvm_handle_t, handle, host_ctxt, 1);
+ 	DECLARE_REG(struct kvm_vcpu *, host_vcpu, host_ctxt, 2);
+-	DECLARE_REG(unsigned long, vcpu_hva, host_ctxt, 3);
++	DECLARE_REG(void *, vcpu_hva, host_ctxt, 3);
+ 
+ 	host_vcpu = kern_hyp_va(host_vcpu);
+ 	cpu_reg(host_ctxt, 1) = __pkvm_init_vcpu(handle, host_vcpu, vcpu_hva);
+@@ -828,7 +828,7 @@ static void handle___pkvm_finalize_teardown_vm(struct kvm_cpu_context *host_ctxt
+ 
+ static void handle___tracing_load(struct kvm_cpu_context *host_ctxt)
+ {
+-	DECLARE_REG(unsigned long, desc_hva, host_ctxt, 1);
++	DECLARE_REG(void *, desc_hva, host_ctxt, 1);
+ 	DECLARE_REG(size_t, desc_size, host_ctxt, 2);
+ 
+ 	cpu_reg(host_ctxt, 1) = __tracing_load(desc_hva, desc_size);
+diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+index 459bd9eb7e4bc..6c8e33ebf8bb6 100644
+--- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
++++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+@@ -657,9 +657,9 @@ static size_t pkvm_get_hyp_vm_size(unsigned int nr_vcpus)
+ 		size_mul(sizeof(struct pkvm_hyp_vcpu *), nr_vcpus));
+ }
+ 
+-static void *map_donated_memory_noclear(unsigned long host_va, size_t size)
++static void *map_donated_memory_noclear(void *host_va, size_t size)
+ {
+-	void *va = (void *)kern_hyp_va(host_va);
++	void *va = kern_hyp_va(host_va);
+ 
+ 	if (!PAGE_ALIGNED(va))
+ 		return NULL;
+@@ -671,7 +671,7 @@ static void *map_donated_memory_noclear(unsigned long host_va, size_t size)
+ 	return va;
+ }
+ 
+-static void *map_donated_memory(unsigned long host_va, size_t size)
++static void *map_donated_memory(void *host_va, size_t size)
+ {
+ 	void *va = map_donated_memory_noclear(host_va, size);
+ 
+@@ -818,8 +818,7 @@ void teardown_selftest_vm(void)
+  *
+  * Return 0 success, negative error code on failure.
+  */
+-int __pkvm_init_vm(struct kvm *host_kvm, unsigned long vm_hva,
+-		   unsigned long pgd_hva)
++int __pkvm_init_vm(struct kvm *host_kvm, void *vm_hva, void *pgd_hva)
+ {
+ 	struct pkvm_hyp_vm *hyp_vm = NULL;
+ 	size_t vm_size, pgd_size;
+@@ -910,7 +909,7 @@ static int register_hyp_vcpu(struct pkvm_hyp_vm *hyp_vm,
+ }
+ 
+ int __pkvm_init_vcpu(pkvm_handle_t handle, struct kvm_vcpu *host_vcpu,
+-		     unsigned long vcpu_hva)
++		     void *vcpu_hva)
+ {
+ 	struct pkvm_hyp_vcpu *hyp_vcpu;
+ 	struct pkvm_hyp_vm *hyp_vm;
+diff --git a/arch/arm64/kvm/hyp/nvhe/trace.c b/arch/arm64/kvm/hyp/nvhe/trace.c
+index 5437ebb6dbd67..eaa63b06a286c 100644
+--- a/arch/arm64/kvm/hyp/nvhe/trace.c
++++ b/arch/arm64/kvm/hyp/nvhe/trace.c
+@@ -206,9 +206,9 @@ static bool hyp_trace_desc_is_valid(struct hyp_trace_desc *desc, size_t desc_siz
+ 	return true;
+ }
+ 
+-int __tracing_load(unsigned long desc_hva, size_t desc_size)
++int __tracing_load(void *desc_hva, size_t desc_size)
+ {
+-	struct hyp_trace_desc *desc = (struct hyp_trace_desc *)kern_hyp_va(desc_hva);
++	struct hyp_trace_desc *desc = kern_hyp_va(desc_hva);
+ 	int ret;
+ 
+ 	ret = __admit_host_mem(desc, desc_size);
 -- 
-Leon Romanovsky <leon@kernel.org>
+2.39.5
 
