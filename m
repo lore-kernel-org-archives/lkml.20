@@ -1,148 +1,191 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D498D42CAFC
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:09:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788232180; cv=pass; b=CppHg537DUm/FWLfPytQ9knvwxrqiSg8NnV3qf8EZFg9M2XKINo208YaPI5hqqYsfVGzEdStqNKqOE06NUErV50eH3vKSvDpnszq5jmXPiuHiKhxccIBH6/3pRGj4UCB9h2SocOl6knmpgLDCBjxpmZsfsI9iHfbKQzY6sEBfJ0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788232180; c=relaxed/simple;
-	bh=HIAZJiHtWz9+gMtzrM8NAa6vkGAgKVgfGJCpQqDbBwc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dJEHNmnxru2Kfl41xWUABK7zTUDzpLa7XUx3jlH48ro5o9Zblj9A/X54N8BnZ2tGsslGIcmXHCrHWTYvktGHUPGFCaYOlE14kCkKUWkXp8G2i17TiW72AXd9YratOHcRQF9rH6nT9U/Pv4ylihKIitxrqf60/GbtOdgInpwZLEY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mH405kOj; arc=pass smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BE841CB2E
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:10:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788232209; cv=none; b=M/UZ0j7W8uKEaRMkz0vcJU9Hs282aHoX29jZKIPACkB5CkOKR4ywiX6o+wVDxQy0PtRD4tFyIYGHotTHn3uS8NyiZEh4JPxGYW61S5SFndrzGthBHWOxcNboTGrP9XeJNT09qGAbvAhE0gTU2uDSrD1+GnCpOGvPcTiMR+2glU0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788232209; c=relaxed/simple;
+	bh=qy5FZin1DQnIKkAgcLzW0Ff2Z/55M3DZWx56LqvQYuQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PMIu+Uc4Sj+U2Xs2BACcv1SHlCtkaDr2czsdJFdZuSqWCXqFaAA87o6UN8M/z2KTdw/S3uE+k1frGEkBxrFHploq1sjZyPlXnaSMN4ggqRd1NMc1QwkOuO3GSOU9INT6QARr74voIepbpRgyo9y/c3G7sGCuR1cQeo8nPsmMxrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TvoqvNRQ; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mH405kOj"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-52faa58bff5so144781cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:09:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788232177; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iilZ1EMhf/k6V3Yh0fBL7vzS7JI0cGEniaAoyhy0NLn+1YcC+eN8zfIK49q9Y5+TId
-         9WMOjaEvZ8QCInsANqBCUKZBZBTmCwvjh3AiuE6syb6s09Z2Gme3LIFsXSCxWyPP2L5R
-         ixRrUyDn/7ooRzAsA7nNiVC+NkZCB3eWi4P25BYe++Ra72AFi04//8yKPorl1/dZs9ge
-         oyZ9NGsszKmWKfajX7uDwYlVfHmxj1YpmsxVHlkwPHtxeR9M4Qf+inUKlnOXbFb+vrA/
-         qq/0tmusOZyW7M434KT3+ReG4Iu9WpnLGv7YRwd/AhOyw1LYz/AHFoAs1PjG61O4OQDf
-         BMsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9vK9K2uO+ydqxGT6ll2fvxAZEy1YLj18ZKGE/a2jP08=;
-        fh=+M7TxIaNgJWzElIhy2ALtc6RTkcWKtkOHMO3qgAyYBY=;
-        b=eMZ1zJfFAIRzhbp5ElLKIPm+OFOrORurfbC3iYKKAdMmoCdc1U04b7T589N8LXBAlA
-         MLvFhM/f/HFp+WMmI8M05DB/s/musllhSigaGNNjFBMQAbOcADkiFTnrbvgS0INZBYh2
-         DOeqRiwsbwYoS748n5FW5DAMNBwOCeeIfL1YgBya1XMSxUEll/7mI/R49I3Syy45+8TY
-         6bV49dMI5QDcGF3P1bZzIQbe3bECW5h5KmPXuuo/rPY2i/CG+QYbXcPYChQ0sk6uuH4D
-         eUzE7x9v9lS0wZIoBhuLcjqtK399/yU6ffz+nH1nzAunQ6w9Q2yhl/edyigSJZOcwJMS
-         0O8Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TvoqvNRQ"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3964e76d0f4so4555691a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:10:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788232177; x=1788836977; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9vK9K2uO+ydqxGT6ll2fvxAZEy1YLj18ZKGE/a2jP08=;
-        b=mH405kOjdL0gM1r8biyQcm643qo4ohVqvRmJQLKeVhkYw2ai/SuIXQD6Vsl3v5lIwp
-         LpRWBS1PZkVj7WntC2KZTOdOKlR2zW074eKD7CzaXeG+/XThuFV8pQ0Z53aO6b7nlQvO
-         QNPWzGzDXLgEbu3eClLjmAzhGvCPi0zlG89ANIRKpFEMndLrhbTNy8nrgFJTUocP+XOp
-         3+GaQbGWx1s/lmMAmhayzlleJnQ2vfvPmvdnHIj6t2Pn7BkcMS1XnBmNkNO1wdoX5xuw
-         U7aHfB0DWmy3Ppc1ELfSt18dLmsFbJDBcSKxRDA5QY7+Bjepq7RSdnqhsI4dcIgzmU+R
-         lI6A==
+        d=gmail.com; s=20251104; t=1788232205; x=1788837005; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S2rSlvlJ6/XqKt2WEd0a/Wwq0kiDGRS7GpjIC1W/pmU=;
+        b=TvoqvNRQkXqNmm5PLQr6PsnabbdfRcJINuiEFZc4X2ft/d6eWGWvTAeknLOJ5yjjlM
+         aFJ+Ry2EMUmiOikva2+McyXghbhY9cRfhjqGPOU9hukOHk86AC4hMPQJGSx3J0ZEeaCe
+         0DYNh/AU2byTBuHdZ+Rkf+4YsMLSGExidqgcJ6kfg5x8W6dUy/U+oGC4L4scjtrUJZfT
+         DOug+hmokvxFEIqHXYEYyBC+oeV102lGTBrRvl6AlsTytapdr+wri0qKBXzdkBF19x/Y
+         HkWvZpZwVIt+aeyi8WX6pnEVdt0qqLyILgEk3oEXzmDAS5OiVqibaT6M+q+VlWfZ5KJf
+         YMqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788232177; x=1788836977;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9vK9K2uO+ydqxGT6ll2fvxAZEy1YLj18ZKGE/a2jP08=;
-        b=WabIzR6jdokl6l0ykXK8N4CYj8YMLjYL5PDemTpnrhWGdSjRrhWiCGUPS1Zq1H7Z68
-         PzwDDv1GJRikrAvOh1JpvcE6m0cuewcoqIsTRfjE0eEwFjHt5+ONEwj6o+4UlsuP5A64
-         boyYwMCPAPbAGnRYDXytIfM6Y9Q+Iq5sgumuK7+fc3CBnhmzk5A7Je/w3PK/XWWPwDQW
-         qyNOkntCFzxDqEJR8zzLYVNI+0KQjqNJYa5dwrg3KtlqbA70hMXaln3a1o8c2XDSVUln
-         Mg7KXvGKtpI5iKXxk8iCO+2Ms0pwDNPwRLD+GWIlExHbsjkacPKsDgCTeOLor1yDqUpk
-         Uv2A==
-X-Forwarded-Encrypted: i=1; AHgh+RpFyNB/xi7aw9aWZNj/DehK45szUT5wsHg2cAtT8qrOWwHg+Lmj1jPCKllaOB6wUYoDNBzJy2yScgmUEjU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqWG5w9K7eKi2F/YzeMHS8q+Rh4PwuB28bzDFGlqxhP9DbksQ+
-	Ea/y+WVmKd+A3m57XSqHLZkmb5KeiZehXex43VDzcVQDOv1jl5ekEl+j9+sshWJYFxlYIYg4EL5
-	nJwBiPs/VviYXhB0CtcGzz/c8Jp5J5nyiR8VuNcYr
-X-Gm-Gg: AR+sD13MyRZIqThkRYFoHgjtety84eL3CmP7HjtAeutGVvsP2wvSSv5g/Du2wfPng22
-	s3yw+C90r6C3iRoSJuTNYwCb8BBlAqQpI2xsL8DyLj6DJGZe83HhBUC6OcDzex0C7cVqTiRWlgY
-	e6tbveMhPLokdxFPRWFobqZ/7gd3GeEfusunL3xdTDrMS7lNt8ZxhcgNf4N1pQVLkAIXG2xuX5o
-	JeSM3J0Gazr0ubAJ/SsR8DGoo8Z9bbtWEgXn4/OtW37NAoFV6sDxpqf+veQaOSmFZ4OGep92CVs
-	WCsRWZHD5NmQKe6UmKosSKcSV+W6842R6g7oPaE9TVA=
-X-Received: by 2002:a05:622a:11c6:b0:519:b655:235 with SMTP id
- d75a77b69052e-530274757acmr5868131cf.3.1788232176425; Mon, 31 Aug 2026
- 20:09:36 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788232205; x=1788837005;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S2rSlvlJ6/XqKt2WEd0a/Wwq0kiDGRS7GpjIC1W/pmU=;
+        b=pQ7u3DR4BmaT1obuwo60Gngg8oTVasxC/+tIy+URNc4zlw0SeY1eKR6sBAGYloPkyK
+         ZxBaYCnCuurq1wmHob897gqjCuIfV1yYEWvtTWqymxEG18GF1xzdv3+/b2CBfvQuTzKu
+         JzugLzo0NF5JaU6Potp75ipCtOfmNRaKNMo5/RWVvN/BqM3DYCdVvqEfuKIs5am9vNMp
+         0FbLNlWXKLooMzpGCQgKh0+WWmDONv+tGrgiKswrCfiCdAyaL50qMU6npN0hRl3JDcuh
+         hZOyZIbx1M+3+LF67WJMxugAvqLF1izUYKpSjflWNMUQOv+i78TC0gIEqXRmL33WpM8w
+         En9A==
+X-Gm-Message-State: AFuF++lVcrJTzmaIUF/uBe7fUB+lS6OaKlbpRzVoiUzYcV0t/UfvLkIK
+	5WIR47o5TuIfJvrotJVHfhH1W94EwDnbr8miwsuq8Gw0ejszyc8OAjrxBwCOO7RC
+X-Gm-Gg: AYBFou0c/jXncco5sw/b9PWQqsMvLIQAErqAYV0TZh2qJt0Qhy30CGqz3TaKXTR4k8y
+	suKz5D7P5BfgrYZ2UlibMt8+a88QKKkQOfjfGURpwT4797we4g0CBzbFiNdMaeGVw56K2P9cLnu
+	NC32dzDtt4s09m/Pnpn2P9vS8zPt/+2acMmz+dU0OHoK24l6YEMImVaksC+GODE6vJKmhyd5L+r
+	RnSWgPS6p+aYHyV2KbK8a2iWw3SjQr+iXijq85TWhXflXwv/uJB9OscAbb+ObbL0Un2wOMJu3w0
+	zy2p0P2ZIspI8DxwbMuHomvBAihWwjDfT3vH/jFPMXHT0nqEmKos1KIyxAeFveQX0NMiaoMyi5v
+	4TcvPmcnaIYFKRmRNYg1QjHOp3+Xm309z2RCS2VUWUVo26PJRygNfQUWdRx/s3gox/i3nWer5+K
+	T5BE1D7vjCPmNlmMnea4Vp5IOdFwUpKxQfBSoNTv06J1hu2mJQSOGEOcKftjaoLQwFCpMOfg94V
+	IWqI5i9k68G8eGQR655iJlsBhR/JDP5pwZrCGrL/WOjI0l25CVISztBthRJ/tXTszgUhGED7jcM
+	w08t54cM+7ft
+X-Received: by 2002:a17:90b:1d05:b0:396:65dd:4093 with SMTP id 98e67ed59e1d1-396d0ff519cmr47226275a91.14.1788232205233;
+        Mon, 31 Aug 2026 20:10:05 -0700 (PDT)
+Received: from daehojeong-desktop.mtv.corp.google.com ([2a00:79e0:2e7c:8:94f2:e160:f659:7f83])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0df264csm55297430c88.14.2026.08.31.20.10.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 20:10:04 -0700 (PDT)
+From: Daeho Jeong <daeho43@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>,
+	Wenjie Qi <qiwenjie@xiaomi.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] f2fs: drop pending discard commands before reserving device alias
+Date: Mon, 31 Aug 2026 20:10:00 -0700
+Message-ID: <20260901031000.786214-1-daeho43@gmail.com>
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260816161216.984580-1-avagin@google.com> <20260829180205.16dc4d5ed20150b79533f3c2@linux-foundation.org>
-In-Reply-To: <20260829180205.16dc4d5ed20150b79533f3c2@linux-foundation.org>
-From: Andrei Vagin <avagin@google.com>
-Date: Mon, 31 Aug 2026 20:09:25 -0700
-X-Gm-Features: AcwNN1Wh2sszCICdjIl_gd4o3uM6FwIu7k2r-iSFzyxyJ-uR0ZAHOEk8WlZuwtw
-Message-ID: <CAEWA0a5ysb2LVovme7BSdoZQq8ZMZaSsXJALc8bZyD1Rgzuc3A@mail.gmail.com>
-Subject: Re: [PATCH] proc: Report SIGEV_NONE in /proc/pid/timers if target
- task has died
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org, criu@lists.linux.dev, 
-	Thomas Gleixner <tglx@linutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 29, 2026 at 6:02=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
-n.org> wrote:
->
-> On Sun, 16 Aug 2026 16:12:15 +0000 Andrei Vagin <avagin@google.com> wrote=
-:
->
-> > When a posix timer is created targeting a specific thread (using
-> > SIGEV_SIGNAL | SIGEV_THREAD_ID), it takes a reference to the target
-> > struct pid in timer->it_pid. If the target thread subsequently
-> > terminates, its numeric tid is freed and can be recycled for an
-> > unrelated task. However, the timer holds its reference to the original
-> > struct pid.
-> >
-> > show_timer() in /proc/[pid]/timers previously called pid_nr_ns()
-> > directly on timer->it_pid without checking whether any task remained
-> > attached to that struct pid. As a result:
-> > 1. It reported the stale tid, which could mistakenly refer to a recycle=
-d
-> >    pid.
-> > 2. In the kernel, expired signals for dead target threads are dropped b=
-y
-> >    posixtimer_send_sigqueue() because posixtimer_get_target() returns
-> >    NULL, so the timer functionally acts as SIGEV_NONE.
-> > 3. Checkpoint/restore tools (CRIU) parsing /proc/[pid]/timers would try
-> >    to restore a timer with SIGEV_SIGNAL | SIGEV_THREAD_ID targeting a
-> >    non-existent or unrelated thread.
->
-> This sounds like a somewhat significant issue for CRIU but that's just
-> me wildly guessing.
->
-> > Check pid_has_task(timer->it_pid, timer->it_pid_type) in show_timer().
-> > If the target task has died, override notify to SIGEV_NONE and report
-> > PID 0 (e.g., 'notify: none/pid.0').
->
-> No Fixes: and no cc:stable?  Maybe my guess was wrong?
+From: Daeho Jeong <daehojeong@google.com>
 
-I was not sure this "qualifies" as a regression, as this behavior has
-existed since /proc/[pid]/timers was introduced more than 10 years ago.
+When reserving a device alias via f2fs_ioc_reserve_dev_alias(),
+f2fs_reserve_device_alias() bulk-marks all blocks in the target device
+range as valid in SIT.
 
-In CRIU, we already have a workaround checking whether the process has a
-thread with the specified TID. The only edge case this workaround cannot
-handle is if the original thread dies and a new thread is later created
-reusing that same recycled TID. This is a reason why this kernel change
-is required.
+However, if the device was previously in the released state, stale
+pending discard commands covering that range may still exist in dcc->root.
+When f2fs_issue_discard_thread later processes those commands,
+__check_sit_bitmap() detects valid blocks in the discard range and
+triggers a kernel BUG().
 
-The proper "fixes" tag is:
-Fixes: 57b8015e07a7 ("posix-timers: Show sigevent info in proc file")
+To fix this:
+1. Introduce f2fs_drop_discard_cmd_range() to traverse the discard rbtree,
+   drop all pending D_PREP discard commands in the range,
+   and wait for any in-flight discard bios under dcc->cmd_lock.
+2. Call f2fs_drop_discard_cmd_range() in f2fs_ioc_reserve_dev_alias()
+   before f2fs_reserve_device_alias().
 
-Thanks,
-Andrei
+Reported-by: Wenjie Qi <qiwenjie@xiaomi.com>
+Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+---
+ fs/f2fs/f2fs.h    |  2 ++
+ fs/f2fs/file.c    |  1 +
+ fs/f2fs/segment.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 48 insertions(+)
+
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 511286432483..ae109d3ae571 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -4122,6 +4122,8 @@ void f2fs_reserve_device_alias(struct f2fs_sb_info *sbi, block_t addr,
+ bool f2fs_is_checkpointed_data(struct f2fs_sb_info *sbi, block_t blkaddr);
+ int f2fs_start_discard_thread(struct f2fs_sb_info *sbi);
+ void f2fs_drop_discard_cmd(struct f2fs_sb_info *sbi);
++void f2fs_drop_discard_cmd_range(struct f2fs_sb_info *sbi,
++					block_t start, block_t len);
+ void f2fs_stop_discard_thread(struct f2fs_sb_info *sbi);
+ bool f2fs_issue_discard_timeout(struct f2fs_sb_info *sbi, bool need_check);
+ void f2fs_clear_prefree_segments(struct f2fs_sb_info *sbi,
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 29cf82d02c77..0b2d173d9597 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -3855,6 +3855,7 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
+ 	write_unlock(&et->lock);
+ 	clear_inode_flag(inode, FI_NO_EXTENT);
+ 
++	f2fs_drop_discard_cmd_range(sbi, ei.blk, ei.len);
+ 	f2fs_reserve_device_alias(sbi, ei.blk, ei.len);
+ 
+ 	i_size_write(inode, (loff_t)ei.len << sbi->log_blocksize);
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index ac0ed8609c1f..bc36af1a4247 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -1873,6 +1873,51 @@ static unsigned int __wait_all_discard_cmd(struct f2fs_sb_info *sbi,
+ 	return discard_blks;
+ }
+ 
++void f2fs_drop_discard_cmd_range(struct f2fs_sb_info *sbi,
++					block_t start, block_t len)
++{
++	struct discard_cmd_control *dcc = SM_I(sbi)->dcc_info;
++	struct discard_cmd *prev_dc = NULL, *next_dc = NULL;
++	struct rb_node **insert_p = NULL, *insert_parent = NULL;
++	struct discard_cmd *dc;
++	block_t end = start + len;
++
++	if (!f2fs_realtime_discard_enable(sbi))
++		return;
++
++next:
++	dc = NULL;
++
++	mutex_lock(&dcc->cmd_lock);
++	while (start < end) {
++		dc = __lookup_discard_cmd_ret(&dcc->root, start,
++				&prev_dc, &next_dc, &insert_p, &insert_parent);
++		if (!dc)
++			dc = next_dc;
++
++		if (!dc || dc->di.lstart >= end) {
++			dc = NULL;
++			break;
++		}
++
++		if (dc->state == D_PREP) {
++			start = dc->di.lstart + dc->di.len;
++			__remove_discard_cmd(sbi, dc);
++			continue;
++		}
++
++		dc->ref++;
++		start = dc->di.lstart + dc->di.len;
++		break;
++	}
++	mutex_unlock(&dcc->cmd_lock);
++
++	if (dc) {
++		__wait_one_discard_bio(sbi, dc);
++		goto next;
++	}
++}
++
+ /* This should be covered by global mutex, &sit_i->sentry_lock */
+ static void f2fs_wait_discard_bio(struct f2fs_sb_info *sbi, block_t blkaddr)
+ {
+-- 
+2.55.0.897.gb25b4bd76c-goog
+
