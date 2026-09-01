@@ -1,148 +1,248 @@
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AB135E95A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:17:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F5547669A;
+	Tue,  1 Sep 2026 10:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788257857; cv=none; b=sPP5pTpeE4K+7hUWS3DEpU7LKg2RyAhUgudrXz9s9Xo/cnannl6jCbeaN9yxb9QTGttc1SwkYwQZnvsWHaIeXzjR1VOqlOqianHarCsRfe9vfBK93cpBK03zu9wWjB3Zu0TH//rGeZlKZPBU6K6guh7NRD/1XgC4qQDtMvkKfCM=
+	t=1788257870; cv=none; b=RC1EluW7Ca7zzM2bbSxFeKaDCjSKtmFbdNBIbEhUhBK6w9YtoXhu/NYrvLk9h8uYUoYK8mIFboHHDjZb+oxt8lbKjwUrh08Y6XW7maMhON0e9RT3Ak5/XjvyrRH6nHitQdHwVpUD4xgI6d83Zab7VoyBeSPDlVn1GLfNRyWs8uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788257857; c=relaxed/simple;
-	bh=f3IaTrQW3PdwJG2CI8iddb29hq+NAzAZPlqiyZ/dPEc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=elxCcBuF3b0pfSh5i+oulK/G+9ZXa1OTzNOvVfcVe1tLOUzqJ9hbnAj/5MJ9vCpQPsZK+Jkh0jkdYmpUiDtE/qyR6gaTBAAgqKKcsf7lIUWVkHZ1LyuYlY3OTK0Osk1+lkJx39uxwrBhXpnyrHCyqUsiOhBNF3fY3i9G93PrgEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5c671456e25so818758e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 03:17:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788257855; x=1788862655;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jjjR751nJX1Dlxj+MGQJnqs6zskSNN1F11sy8NVh7g0=;
-        b=aZ1Z17mbOIaGvEJJtDVsWt2TW9nabpNgvdxk1SPpTQADDT2/WfP4CG15rT9u722hqk
-         q61jZK1DRLeSIuWoWoVhFbRLR/IPGxN1RjyL+OalnaSH8EvdxuVljJMV1K39znSMWqa+
-         pxWC+YEcbnqBFmW8IKQ+tp5QVeTGVHan4DTz58Z68vmGrpPefdwtj0XC3+LyS9gM6YAO
-         AI6p3TzTXMksIF2a4xE49/BDbBrSiPtGvHyKsJ5kMFhIK0zzRpXzTdbDct1ZQYLgCX/A
-         REcVW5ppqX0WQrcvhb44Qd6jtrnLw0nhhNLR8vLTc49y8mqlJuo+g2vnAhJ3vm+0gJym
-         EcrA==
-X-Forwarded-Encrypted: i=1; AHgh+RobbtWZuZvknGmDS05HsxMXCF5w3vCXiTBnBvASJftastDrtQJcF0spj2f86qVMMCVy1TjSZRM8eW/8xeg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVZAC0gCzMnT70rNTM64CMHtlkagv0cIPIr9640IV7Ido9x8kT
-	IW/WRudPhm3VC6BIZeX47YN2pjj8/RSdcCuRtFnOl4lDhIix/lnnI+3Q1a/Xxgs9
-X-Gm-Gg: AR+sD13/WL7ikZJWa1PGB6OQ55iba8mVdTcGXgwaM8hsE5rGOiAWaD0wdw4qP7yhPSf
-	zQpS36ds9/mHQSW+IMYL5o+7Jz5P64dobN8VZMNGBfsVqbh2ta6YREmINS/xj0lY0oqAJJXKmL8
-	j+L+e7g7dgdtk4tYs9iKBlTzkxUYl1ZO1dT9IGAJ5STsIZPTw5aySMVwMkRSIs7I4EDJu+Fwa5O
-	SKy+c48Q3kGLClIE9/x3twXwAvh8VGjnX7n2ZyyTM+UTxXFROIosccrASNvAGsxDRd3al2Z81RQ
-	1CRVzV0epXZRvY9+Mkykv1lB/gEvdvCK2E/e7+syuoEjwKy4kda+5WHhe+6JHeugC32Y5Phqncr
-	EWJdwS8MLPV8l0617VmdiVi14ejUwu31sp1pUBKIJOM5NGr5LoSM6565vRV6NqwI5YJ7bdgZUJq
-	0tSAtq1WeQzSejOK8KiFeEp92QjXZjN/ttC8RZX6i7P7SfyxKsOSedI9EgDQuktFr8ENXs+w8XO
-	wVvvE/UP7TCWeAJRx/HXPKgrg==
-X-Received: by 2002:a05:6122:8718:b0:5c2:a30a:1a08 with SMTP id 71dfb90a1353d-5c7c1c274d7mr1278208e0c.2.1788257854933;
-        Tue, 01 Sep 2026 03:17:34 -0700 (PDT)
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com. [209.85.217.52])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7241e2270sm9869015e0c.11.2026.09.01.03.17.33
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 03:17:34 -0700 (PDT)
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7850c523f20so565994137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 03:17:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrO0qsqJnSdPWaLE8ajZMtM5eaxy+W6LSJuO7jwtPKLrby49RaWLmag/lmsI2pHR91JzF8O+cJPjCCE6Ys=@vger.kernel.org
-X-Received: by 2002:a05:6102:1a06:10b0:787:ebf8:77ad with SMTP id
- ada2fe7eead31-78a02a6eb7fmr955834137.18.1788257853731; Tue, 01 Sep 2026
- 03:17:33 -0700 (PDT)
+	s=arc-20240116; t=1788257870; c=relaxed/simple;
+	bh=b5nF/rkMUtpaOMm853YhrTWPu8MRNN+GraOtoNwSRoQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q4DAhHr7gVc8lL6N9mt5r7vscUK8X0xN+qPy5X4+5ug6HwI45z/OLC8iNdA7+hFvIghNfTc1mO3aQxy4jRVjVadkwryR3JwI7v1QM5EjGdQshhNSHBK/Id31UbYrD5c6TMq5y/+mjLgg44sNq0Mj0iQnox9OUdwstz0cGWIe1qA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ACutFyiY; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ACutFyiY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50AB31F00A3D;
+	Tue,  1 Sep 2026 10:17:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788257869;
+	bh=bD+NO1g8IcJci8fvIzJFemXzIyBE1S8uBHtu51YLBF0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ACutFyiY8cBL8pUEITCpBSusdAAbThw3ByP8SxszmZRUwdllDgLVVhD1FQrsGDy9L
+	 DO95/RErUhBoER1ZrmyczpdHgFoqpGiLuT4ueF2SIGxZfrH1+K1ILboFOWsYvglMSW
+	 pMxgNyddQtnZCgelaeXVn1t/ZHF3jb5YgCsckx9gZsUQzb9qC6qIDEaZ9zBqY1EtYE
+	 a1nZqam8j3aURnydgbAjLqicbx9Xcp06BtI0WDagtlzLhAQCSSibmz5l1LqSefhGft
+	 xfXuoCBsG0/n2yUzhkdKs/IzxmrvE9ZvKkLfh9WrVmMLolLxkXl0ay8+v1US8X9i6/
+	 SalC+3IKnHMHg==
+Date: Tue, 1 Sep 2026 11:17:45 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: Add starfive,jhb100-fan-tach
+Message-ID: <20260901-rascal-accompany-019414202877@spud>
+References: <20260830011941.40199-1-changhuang.liang@starfivetech.com>
+ <20260830011941.40199-2-changhuang.liang@starfivetech.com>
+ <20260831-dominion-data-c8b6f691dd5b@spud>
+ <9f4e99f4-5135-4db8-8534-46c91bf4f7d2@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830221129.2668354-1-julianbraha@gmail.com> <CAMuHMdWkPtJinDa10S_r7Pj2DTgcKpwgxt7U3tqm7fnSwGxm-Q@mail.gmail.com>
-In-Reply-To: <CAMuHMdWkPtJinDa10S_r7Pj2DTgcKpwgxt7U3tqm7fnSwGxm-Q@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 1 Sep 2026 12:17:22 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUywobKkt5Zozh3GdOW57nF_XhydJh7PaqTBoGB-2XvTQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XlRAlFl-Ap4ZBsvizrQPe_wtXEO1vr6JdvvpwQv8gi-7uGjhpumvEIf0U
-Message-ID: <CAMuHMdUywobKkt5Zozh3GdOW57nF_XhydJh7PaqTBoGB-2XvTQ@mail.gmail.com>
-Subject: Re: [PATCH] kconfig: fix extra output from savedefconfig on
- out-of-range defaults
-To: Julian Braha <julianbraha@gmail.com>
-Cc: nathan@kernel.org, nsc@kernel.org, xiang@kernel.org, chao@kernel.org, 
-	zbestahu@gmail.com, jefflexu@linux.alibaba.com, dhavale@google.com, 
-	hongbohbli@tencent.com, guochunhai@vivo.com, michael.bommarito@gmail.com, 
-	kees@kernel.org, vegard.nossum@oracle.com, sam@ravnborg.org, 
-	u.kleine-koenig@pengutronix.de, mmarek@suse.cz, linux-kernel@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, 
-	"open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="OllR8tuWijpArDcA"
+Content-Disposition: inline
+In-Reply-To: <9f4e99f4-5135-4db8-8534-46c91bf4f7d2@roeck-us.net>
 
-On Mon, 31 Aug 2026 at 14:36, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> On Mon, 31 Aug 2026 at 00:12, Julian Braha <julianbraha@gmail.com> wrote:
-> > The Kconfig interpreter currently allows defaults that are outside of the
-> > range bounds.
-> >
-> > In these cases, the 'sym_validate_range' function will adjust the default
-> > value to the nearest range bound. For example, see this example:
-> >
-> >   config A
-> >     int
-> >     range 1 2
-> >     default 16
-> >
-> > Here, since the default value of 16 is greater than the bounds, the
-> > effective default value gets adjusted down to the upper bound, 2.
-> >
-> > However, 'savedefconfig' writes non-default values, and without being
->
-> s/non-default/non-adjusted/?
->
-> > aware of the automatic adjustment to the range bound, it would write: A=2
-> >
-> > This limitation is also documented in a comment: "The following fails to
-> > handle the situation where a default value is further limited by the valid
-> > range."
-> >
-> > To resolve this, let's factor out the default-range adjustment logic from
-> > the existing 'sym_validate_range' function into its own
-> > 'sym_get_near_range_bound' function for 'savedefconfig' to use too, so
-> > that it compares against the effective value.
-> >
-> > Adds tests, accordingly.
-> >
-> > Fixes: 7cf3d73b4360 ("kconfig: add savedefconfig")
-> > Assisted-by: Codex:gpt-5.6-sol
-> > Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> > Closes: https://lore.kernel.org/lkml/CAMuHMdVyUAA3L4mUkSjmnuE3cvj-+N8z-Bhxsh1wa-FQWc=fjw@mail.gmail.com/
-> > Signed-off-by: Julian Braha <julianbraha@gmail.com>
->
-> Thanks, this fixes the issue, and would let us revert commit
-> ab74edaeb1ae7c71 ("erofs: Fix EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS
-> default logic") in v7.3-rc1.
->
-> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+--OllR8tuWijpArDcA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-FTR, this will impact all defconfigs that restrict SERIAL_8250_NR_UARTS
-to a value lower than 4:
+On Mon, Aug 31, 2026 at 10:54:32AM -0700, Guenter Roeck wrote:
+> On 8/31/26 09:32, Conor Dooley wrote:
+> > On Sat, Aug 29, 2026 at 06:19:40PM -0700, Changhuang Liang wrote:
+> > > Add compatible "starfive,jhb100-fan-tach" for StarFive JHB100 Fan-Tach
+> > > controller.
+> > >=20
+> > > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> > > ---
+> > >   .../hwmon/starfive,jhb100-fan-tach.yaml       | 93 ++++++++++++++++=
++++
+> > >   1 file changed, 93 insertions(+)
+> > >   create mode 100644 Documentation/devicetree/bindings/hwmon/starfive=
+,jhb100-fan-tach.yaml
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/hwmon/starfive,jhb100-=
+fan-tach.yaml b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan=
+-tach.yaml
+> > > new file mode 100644
+> > > index 000000000000..1dcd4932768f
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tac=
+h.yaml
+> > > @@ -0,0 +1,93 @@
+> > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/hwmon/starfive,jhb100-fan-tach.ya=
+ml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: StarFive JHB100 Fan-Tach controller
+> > > +
+> > > +maintainers:
+> > > +  - Changhuang Liang <changhuang.liang@starfivetech.com>
+> > > +
+> > > +description:
+> > > +  The StarFive Fan-Tach controller can support up to 16 fan tach inp=
+ut.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    enum:
+> > > +      - starfive,jhb100-fan-tach
+> > > +
+> > > +  reg:
+> > > +    maxItems: 1
+> > > +
+> > > +  clocks:
+> > > +    maxItems: 1
+> > > +
+> > > +  resets:
+> > > +    maxItems: 1
+> > > +
+> > > +  interrupts:
+> > > +    maxItems: 1
+> > > +
+> > > +  "#address-cells":
+> > > +    const: 1
+> > > +
+> > > +  "#size-cells":
+> > > +    const: 0
+> > > +
+> > > +patternProperties:
+> > > +  "^fan@[0-9a-f]+$":
+> > > +    $ref: fan-common.yaml#
+> > > +    unevaluatedProperties: false
+> > > +
+> > > +    properties:
+> > > +      reg:
+> > > +        description:
+> > > +          PWM channel index. The driver allows two fans to share the=
+ same
+> > > +          PWM channel, or each fan to use a dedicated channel.
+> >=20
+> > Doesn't matter what the driver can do, the description should describe
+> > what the hardware supports.
+> > pw-bot: changes-requested
+> >=20
+> > Does this fan-tach controller provide the PWMs?
+> > If so (although Guenter may correct me), I think the fan-tach controller
+> > needs to be.
+> >=20
+> > If you don't do that, I think you're going to run into problems with
+> > having multiple nodes with the same unit address when two fans share a
+> > pwm?
+> >=20
+>=20
+> Depends on how the controller works. Normally fan controllers have a feed=
+back
+> mechanism which can be either temperature -> pwm output or fan speed -> p=
+wm output.
+> I don't know how this controller works, specifically if the fan speed inp=
+uts are
+> internally associated with pwm outputs or if they are completely independ=
+ent
+> of each other. If it is the latter, aspeed,g6-pwm-tach.yaml would probably
+> be a good baseline.
 
-    config SERIAL_8250_NR_UARTS
-            int "Maximum number of 8250/16550 serial ports"
-            depends on SERIAL_8250
-            default "4"
+Judging from the other reply, it probably isn't a good baseline because
+this is not a pwm provider.
 
-    config SERIAL_8250_RUNTIME_UARTS
-            int "Number of 8250/16550 serial ports to register at runtime"
-            depends on SERIAL_8250
-            range 0 SERIAL_8250_NR_UARTS
-            default "4"
+> > I think what you're supposed to do is drop "reg" and replace it with
+> > "pwms", but once again Guenter may correct me there.
+> > e.g. aspeed,g6-pwm-tach.yaml
+> >=20
+>=20
+> Sorry, when it comes to devicetree properties, I am completely clueless.
+> Usually the devicetree and pwm maintainers insist that all fan controllers
+> are modeled as pwm controllers because they have pwm outputs. My approach
+> is "use whatever bindings are acceptable by DT maintainers".
 
-Gr{oetje,eeting}s,
+Would you mind taking a look at my question in the other reply about how
+the feedback path works (or doesn't) in that case? My lack of
+familiarity with the subsystem has me scratching my head about how the
+tach would be used to adjust the pwm duty cycle with the dt setup
+described there!
 
-                        Geert
+Thanks,
+Conor.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+>=20
+> Guenter
+>=20
+> > Cheers,
+> > Conor.
+> >=20
+> > > +        maximum: 15
+> > > +
+> > > +      tach-ch:
+> > > +        description:
+> > > +          The tachometer channel(s) wired to the fan(s) driven by th=
+is PWM
+> > > +          channel. Integer values in the range 0-15.
+> > > +        minItems: 1
+> > > +        maxItems: 2
+> > > +        items:
+> > > +          maximum: 15
+> > > +
+> > > +    required:
+> > > +      - reg
+> > > +      - tach-ch
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +  - clocks
+> > > +  - resets
+> > > +  - interrupts
+> > > +
+> > > +additionalProperties: false
+> > > +
+> > > +examples:
+> > > +  - |
+> > > +    fan-controller@11be0000 {
+> > > +        compatible =3D "starfive,jhb100-fan-tach";
+> > > +        reg =3D <0x11be0000 0x400>;
+> > > +        interrupts =3D <128>;
+> > > +        clocks =3D <&per2crg 33>;
+> > > +        resets =3D <&per2crg 5>;
+> > > +        #address-cells =3D <1>;
+> > > +        #size-cells =3D <0>;
+> > > +
+> > > +        fan@0 {
+> > > +            reg =3D <0x0>;
+> > > +            tach-ch =3D /bits/ 8 <0x0 0x8>;
+> > > +            pulses-per-revolution =3D <2>;
+> > > +        };
+> > > +        fan@1 {
+> > > +            reg =3D <0x1>;
+> > > +            tach-ch =3D /bits/ 8 <0x1>;
+> > > +            pulses-per-revolution =3D <2>;
+> > > +        };
+> > > +    };
+> > > --=20
+> > > 2.25.1
+> > >=20
+>=20
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--OllR8tuWijpArDcA
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapamSQAKCRB4tDGHoIJi
+0pcFAP9NvhtVArULnG8/TcoZuMv9hLMI3fMdLauAVZ1kqkpcwgD/dvDa1Dh0dbVn
+wntMkz3OdcbTVJykj8hjq6a8pHhDngQ=
+=X4B+
+-----END PGP SIGNATURE-----
+
+--OllR8tuWijpArDcA--
