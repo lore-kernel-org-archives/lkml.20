@@ -1,214 +1,94 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CC83AEF4E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:41:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CF53AEF4E;
+	Tue,  1 Sep 2026 01:41:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226903; cv=none; b=d67a2HeiekPBgBSulp8pFRXAAQ+CnuBtSIUpi6/0kjFO4oRAxwkRS2IN/vNKOzp+R3WAXVeOXGwtXFnaKiM6t4TNegTHOH+E8bbQWJtt3vmnZ0k5xfwS8Ujk+25BDfOA0aL7ecqTlTcOikIG3NOP4LpJwT8gtdbR2bjjE+NrMGY=
+	t=1788226913; cv=none; b=ZUWHhEypgDnhNmzwQPv7Vw6dssYc/K5Jq69ToNunojAzH0RpZv+rtV8eWS6XO8GdFci8mbwMFLwdMkiBK6QVeISiKcnHi1jwDAKMO5SOpm+Lcg453kco6yZLBreuCf4a6DQOay8MYu3pA5uK55nwxEVJ18dCMKXMRrvCj6i8V7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226903; c=relaxed/simple;
-	bh=RtYKfymBNp9KvWTyDmEZgzY+yJgX+7+dkVBS2iKKpbg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UZo5I2bonLGjbcEIfApYgOLQ0jqzyvxoUQpYq0djxm1qTODWIygGIVqt2SVYsZN7YOej6piHxSWaAdcAraO+sIVWaTGM6t3ujWZGvTpF5nPjAmu5RfCdNaqZGNpAmzM/63bED0RuRFStl3hLxE+GDnFb+M41lkLIBy1//GsWelc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eUWOyVaB; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788226913; c=relaxed/simple;
+	bh=LrCiT++5mOcKya2DAeDChXnaTBQgsAMo7COwSF6jtc0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dvfptSia0GWvD55iU+3xVm60d/AJkQD/PZfLh8ba76dwOj5jRTg3B4pcDMh6O6hAPg9L/oi6vxfFz+ibQ06o5EaH4WTfzuhtfAVTSzmFQjO2YY8k1i3tY3sG2gyMoGAnjhp7XFTdPUkWuahq8XnAgGxKtXyY+/cErxeUNiW/G7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DMsEtGDC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eUWOyVaB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788226898; x=1819762898;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=RtYKfymBNp9KvWTyDmEZgzY+yJgX+7+dkVBS2iKKpbg=;
-  b=eUWOyVaBxeHOYj4vQhudXmOijy37Tejs0AyUoWvSGgaWXrtbqeIqZe91
-   OB3V/dY0Ax2vT+/FGw4y8QDA7wJ0GQ5z0EPBKnSgZOQAxqq9mSwXF/wa5
-   PwaAhxZh75+f+rggPfRVH/78omjDye97tTgrHpa2cGzwKIs8YFcjzz/3z
-   xy7rMYE4Ln6ksRgp8cG+Tevv7rI6Meia0b4EcNeGrMOZVxhoHn42R2hZB
-   780Uq64Vmm/VcrmWmEdZP4sF1+PdKdpkpWqKTmDr7sXallO+kbOMr/Rp/
-   rOhl9SaaSoinTVXoVqOHbP0eEfu5Nqv/+fP5yiNLJKlvJRpxuDguCbODe
-   g==;
-X-CSE-ConnectionGUID: aAKXEjw0QlGK4IeelrHtRA==
-X-CSE-MsgGUID: Hz83r11eSveisGHbXZtjEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="106164231"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="106164231"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 18:41:37 -0700
-X-CSE-ConnectionGUID: w0xN6VRxTLOv7Xs4WkDBiQ==
-X-CSE-MsgGUID: pSVfuqpDQJ2jaJx/Lyc8zQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="273136025"
-Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 18:41:32 -0700
-From: Junjie Cao <junjie.cao@intel.com>
-To: syzbot+19d01f6082ec61dd45b2@syzkaller.appspotmail.com
-Cc: gregkh@linuxfoundation.org,
-	tj@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	akpm@linux-foundation.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	jhs@mojatatu.com,
-	jiri@resnulli.us,
-	vinicius.gomes@intel.com
-Subject: Re: [syzbot] [kernfs?] [mm?] INFO: rcu detected stall in kernfs_fop_open (7)
-Date: Tue,  1 Sep 2026 09:41:17 +0800
-Message-ID: <20260901014117.416981-1-junjie.cao@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <68880766.050a0220.3cc461.000f.GAE@google.com>
-References: <68880766.050a0220.3cc461.000f.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DMsEtGDC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C71621F000E9;
+	Tue,  1 Sep 2026 01:41:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788226910;
+	bh=4tccQKCY16goyGLzWPSUt/pWN4uDuOLuqyh4DGb8V+M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DMsEtGDCZ9yp0FwxeMPBf68ttCxiQ84jZ3GrvQ9CEo6Wa7QlnchLpitCpQPi/evLb
+	 ekUtzpIcEoqLFDd8FG9WCXoNzt9+XnqxCOsTZNt3NSNLZh4aCNGz1CGITPD/NEY5qA
+	 UCQULaqBEpsi0TL5KIue5IIGf2wk11bnKCyAuprLgYWl/PRWoawkEX+RdgMfiEdUI7
+	 PdcawhKQ6PC23Q3OE9RIeHy7xDxh6eQosnzIuu/mIxVlVOdrGZPkdVqwfUni/cIGL3
+	 SbWK+FX1VnaavdjaptJyjB8uct6ojXqsExApTmKjRVW0KT5JPDhe5InPuyWYTSpYd8
+	 hefBWWDnMmylQ==
+Date: Mon, 31 Aug 2026 20:41:47 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: david@ixit.cz, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Petr Hodina <petr.hodina@protonmail.com>, 
+	Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v7 1/2] arm64: dts: qcom: sdm845-google: Add dual front
+ IMX355 cameras
+Message-ID: <apYtQQkrZB5gHqJy@baldur>
+References: <20260721-pixel3-camera-v7-0-82d323c6c5d2@ixit.cz>
+ <20260721-pixel3-camera-v7-1-82d323c6c5d2@ixit.cz>
+ <a5d6f840-3849-464d-a540-634dc3ec81b7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a5d6f840-3849-464d-a540-634dc3ec81b7@oss.qualcomm.com>
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git abdf623ddb75b24659018d3952d8f61937306ae5
+On Tue, Jul 21, 2026 at 02:36:49PM +0200, Konrad Dybcio wrote:
+> On 7/21/26 2:33 PM, David Heidelberg via B4 Relay wrote:
+> > From: David Heidelberg <david@ixit.cz>
+> > 
+> > The Pixel 3 features two front-facing Sony IMX355 sensors with
+> > different focal lengths (standard and wide-angle).
+> > 
+> > Sensors are connected via CSIPHY port 1 and 2 and controlled over CCI
+> > I2C1, using MCLK2 as the clock source.
+> > 
+> > This enables support for the dual front camera configuration.
+> > 
+> > Signed-off-by: David Heidelberg <david@ixit.cz>
+> > ---
+> >  arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 172 ++++++++++++++++++++-
+> >  1 file changed, 171 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+> > index 9368fd6b87515..c8a28133fb38d 100644
+> > --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+> > +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+> > @@ -1,16 +1,18 @@
+> >  // SPDX-License-Identifier: GPL-2.0-only
+> >  
+> >  /dts-v1/;
+> >  
+> >  #include <dt-bindings/arm/qcom,ids.h>
+> >  #include <dt-bindings/dma/qcom-gpi.h>
+> >  #include <dt-bindings/input/linux-event-codes.h>
+> >  #include <dt-bindings/interrupt-controller/irq.h>
+> > +#include <dt-bindings/media/video-interfaces.h>
+> > +#include <dt-bindings/media/video-interface-devices.h>
+> 
+> These should be flipped to be sorted.. if you smile very nicely,
+> Bjorn could prob fix it up
+> 
 
-diff --git a/net/sched/sch_taprio.c b/net/sched/sch_taprio.c
-index 39ac5b97aa3a..901dfd2484e1 100644
---- a/net/sched/sch_taprio.c
-+++ b/net/sched/sch_taprio.c
-@@ -83,6 +83,10 @@ struct sched_gate_list {
- 	s64 cycle_time;
- 	s64 cycle_time_extension;
- 	s64 base_time;
-+	/* min(cycle_time, sum of intervals): the software schedule restarts
-+	 * the list after the last entry even when cycle_time is not up yet.
-+	 */
-+	s64 period;
- };
- 
- struct taprio_sched {
-@@ -871,12 +875,13 @@ static struct sk_buff *taprio_dequeue(struct Qdisc *sch)
- }
- 
- static bool should_restart_cycle(const struct sched_gate_list *oper,
--				 const struct sched_entry *entry)
-+				 const struct sched_entry *entry,
-+				 ktime_t end_time)
- {
- 	if (list_is_last(&entry->list, &oper->entries))
- 		return true;
- 
--	if (ktime_compare(entry->end_time, oper->cycle_end_time) == 0)
-+	if (ktime_compare(end_time, oper->cycle_end_time) == 0)
- 		return true;
- 
- 	return false;
-@@ -925,8 +930,9 @@ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
- 	int num_tc = netdev_get_num_tc(dev);
- 	struct sched_entry *entry, *next;
- 	struct Qdisc *sch = q->root;
--	ktime_t end_time;
--	int tc;
-+	ktime_t end_time, next_start, now;
-+	int budget, tc;
-+	s64 behind;
- 
- 	spin_lock(&q->current_entry_lock);
- 	entry = rcu_dereference_protected(q->current_entry,
-@@ -952,23 +958,49 @@ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
- 		goto first_run;
- 	}
- 
--	if (should_restart_cycle(oper, entry)) {
--		next = list_first_entry(&oper->entries, struct sched_entry,
--					list);
--		oper->cycle_end_time = ktime_add_ns(oper->cycle_end_time,
--						    oper->cycle_time);
--	} else {
--		next = list_next_entry(entry, list);
-+	now = hrtimer_cb_get_time(timer);
-+	end_time = entry->end_time;
-+	behind = ktime_sub(now, end_time);
-+
-+	/* Behind, e.g. delayed timer or stepped clock: skip whole periods
-+	 * arithmetically and walk at most one more to the entry covering
-+	 * now, instead of replaying the backlog one expiry at a time. The
-+	 * cap bounds the walk; a leftover is picked up by the next expiry.
-+	 */
-+	if (unlikely(behind >= oper->period)) {
-+		s64 jump = div64_s64(behind, oper->period) * oper->period;
-+
-+		end_time = ktime_add_ns(end_time, jump);
-+		oper->cycle_end_time = ktime_add_ns(oper->cycle_end_time, jump);
- 	}
- 
--	end_time = ktime_add_ns(entry->end_time, next->interval);
--	end_time = min_t(ktime_t, end_time, oper->cycle_end_time);
-+	budget = 2 * oper->num_entries;
-+	do {
-+		if (should_restart_cycle(oper, entry, end_time)) {
-+			next = list_first_entry(&oper->entries,
-+						struct sched_entry, list);
-+			oper->cycle_end_time = ktime_add_ns(oper->cycle_end_time,
-+							    oper->period);
-+		} else {
-+			next = list_next_entry(entry, list);
-+		}
-+
-+		next_start = end_time;
-+		end_time = ktime_add_ns(next_start, next->interval);
-+		end_time = min_t(ktime_t, end_time, oper->cycle_end_time);
-+		entry = next;
-+	} while (unlikely(ktime_compare(end_time, now) <= 0) && budget--);
- 
-+	/* next can be the entry already published as q->current_entry (a
-+	 * single-entry schedule, or a catch-up of whole periods), so the
-+	 * close times and budgets below are rewritten in place while
-+	 * taprio_dequeue_from_txq() may be reading them.
-+	 */
- 	for (tc = 0; tc < num_tc; tc++) {
- 		if (next->gate_duration[tc] == oper->cycle_time)
- 			next->gate_close_time[tc] = KTIME_MAX;
- 		else
--			next->gate_close_time[tc] = ktime_add_ns(entry->end_time,
-+			next->gate_close_time[tc] = ktime_add_ns(next_start,
- 								 next->gate_duration[tc]);
- 	}
- 
-@@ -1130,6 +1162,8 @@ static int parse_taprio_schedule(struct taprio_sched *q, struct nlattr **tb,
- 				 struct sched_gate_list *new,
- 				 struct netlink_ext_ack *extack)
- {
-+	struct sched_entry *entry;
-+	ktime_t cycle = 0;
- 	int err = 0;
- 
- 	if (tb[TCA_TAPRIO_ATTR_SCHED_SINGLE_ENTRY]) {
-@@ -1152,13 +1186,10 @@ static int parse_taprio_schedule(struct taprio_sched *q, struct nlattr **tb,
- 	if (err < 0)
- 		return err;
- 
--	if (!new->cycle_time) {
--		struct sched_entry *entry;
--		ktime_t cycle = 0;
--
--		list_for_each_entry(entry, &new->entries, list)
--			cycle = ktime_add_ns(cycle, entry->interval);
-+	list_for_each_entry(entry, &new->entries, list)
-+		cycle = ktime_add_ns(cycle, entry->interval);
- 
-+	if (!new->cycle_time) {
- 		if (cycle < 0 || cycle > INT_MAX) {
- 			NL_SET_ERR_MSG(extack, "'cycle_time' is too big");
- 			return -EINVAL;
-@@ -1172,6 +1203,7 @@ static int parse_taprio_schedule(struct taprio_sched *q, struct nlattr **tb,
- 		return -EINVAL;
- 	}
- 
-+	new->period = min(new->cycle_time, cycle);
- 	taprio_calculate_gate_durations(q, new);
- 
- 	return 0;
+Sure can do, but I don't have dt-bindings/media/video-interface-devices.h :(
+
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Konrad
