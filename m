@@ -1,118 +1,117 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A78A47253F;
-	Tue,  1 Sep 2026 08:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B503473C76
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:48:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252528; cv=none; b=qyF2dwisKGxYZ7HLrHgr219SUcbTqrinI7u/0Op2bL9K9A4pjcMIvGikzoGIO/F+qMHdOwE+Vh686EqawxUOVeiOgLDAgIccknnKoIr4Gey8HijgD3dGUkkHgM+Kg5WkY53SA/orvLqnR8eX+VOlbkyZMBQJBHMKFcYBJMLka5E=
+	t=1788252532; cv=none; b=Bri86aoqQjey6nHqjef12NZTC1y9cf7y3j4/LjHtLaJB2l8T8AuDxDmbYmKz/QxDLv0F2K/c+8rP2uJl0OnDBt9NsLO06SiUoM7sNbCGXrZ7Co1sKt7Ukk5IfQljS/1ljk+kQH6Pj1E+Xmz78yo9SX+pQXu/Y5yz6XFI/h17jzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252528; c=relaxed/simple;
-	bh=iJGKW8aHiwPKnRjwppqL8s5bjHfZk47Bz/9I4jredbo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kxp6qt3MLHxiLAQqc/s+yl4ehSwam9RlQ3HsHRX8HiwnocSmroYLE8A7QIENZvBdnPsZBqw/SFVmoejvt5lbQG/g1NNEwyDbYwbjCBAce9lBzT7zQ05FX8cE9IJv+nvFdjIMOs5DwCViI60btuNOoR9cw+3LILzzAKriAPmAJic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.207.22.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip4t1788252501teb53240c
-X-QQ-Originating-IP: 0mYgCpomsnDKbD+h2k+lHMBtEyjIbP0NaGhFxfccFrA=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 01 Sep 2026 16:48:18 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3973929460923786869
-EX-QQ-RecipientCnt: 29
-From: Xilin Wu <sophon@radxa.com>
-Date: Tue, 01 Sep 2026 16:47:56 +0800
-Subject: [PATCH 3/6] drm/bridge: simple: add Chrontel CH7218A
+	s=arc-20240116; t=1788252532; c=relaxed/simple;
+	bh=oAr2xSnNStj9baR1lIelWzgT/r+QQDwqANCW9K7ad9I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cNLkPdvU4/k99MIi1BPIor9pVxku61+ZSrr8sWcje38sM+6swGJYOm5Qg4ouDBr2hbxl7j0+6CMqujHVI7BRpjjF9ZwzTqnZguwZBW8AHlJdnlVSiyt+NygY7vD0KplYxmsfKEmAn31XN47Amec67giin7/mAszHe1w3eGx6yWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=J9SyWHLI; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="J9SyWHLI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=n+
+	SR/NJSg/EtwwaXWRG+qNU7rqtKtDhFvpyfSCWiMk0=; b=J9SyWHLItMi7+r+nII
+	h+iVjgfLEXyNnaZWR0sbd0/n8Zwp07Jkvbph2RA8+vYRQ4roVeruLalcbdU/hxoE
+	pxywulbn6BPvP8ZZIhXF8TkpI5ShXpotw5UaKc6o+tRZDUdiT5GFEp7ckkoW2j5E
+	qBlMRS/VUPIO8zkCpGDQIJMO8=
+Received: from hpc (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgC3qo4OkZZqHFWTNA--.28200S4;
+	Tue, 01 Sep 2026 16:47:12 +0800 (CST)
+From: john <love_goo@163.com>
+To: akpm@linux-foundation.org,
+	liuye@kylinos.cn,
+	hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	hughd@google.com,
+	mgorman@techsingularity.net,
+	yang@os.amperecomputing.com
+Cc: zhangqiuhao@huawei.com,
+	wangkefeng.wang@huawei.com,
+	mawupeng1@huwei.com,
+	love_goo@163.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Wupeng Ma <mawupeng1@huawei.com>
+Subject: [PATCH resend 2/2] mm: vmscan: stop scanning ineligible folios after max_nr_skipped
+Date: Tue,  1 Sep 2026 16:47:06 +0800
+Message-ID: <20260901084706.3784449-3-love_goo@163.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260901084706.3784449-1-love_goo@163.com>
+References: <20260901084706.3784449-1-love_goo@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-q8b-dts-v1-3-7de0b6a73d08@radxa.com>
-References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
-In-Reply-To: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
-To: Bjorn Helgaas <bhelgaas@google.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
- Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>, 
- Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1028; i=sophon@radxa.com;
- h=from:subject:message-id; bh=iJGKW8aHiwPKnRjwppqL8s5bjHfZk47Bz/9I4jredbo=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFnTJjoHXa6R05moK9HzrSoptJ+dcW6iy6JZUW73mZ0b3
- ydNfzWvo5SFQYyLQVZMkUUhnmEue2XutadipXowc1iZQIYwcHEKwESynjIyPPkxtaPHS99Qwuy0
- 2n6hCT7FSzcyMn1Qn3XzYHzr606hzQz/HbWPrBT6ZGm1MvW4ytLClij5xQ3vm8p3s07VUvq6TcG
- RBQA=
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: OXhWvHhbOVwt0+jzzmhscBZOKaDBlV5DmFPY1YB19tOeWd6OrDbCcy4E
-	nVUwjtK+DDhvy7+f4/k1NYObxjDPw2qo1pWbP3duKTHvXbxzOMLYTFx4PRxGv0Je59Ub8Nt
-	48Pmz8pGKKwixdBeNGlUob+EoyO7Uc8SSVWkzgJkejcVlaY44Xwx5k85LH7UG79qyiBVIgw
-	IkYjRLf/TTddrX0JopQ3CjD7k5BJnWknEsq48j/IIrsSEkDOk6ODdY7dyZi2jcERnqBw2Km
-	bJyBM4yThSwneoK3DhI+9D4VbYOrBl1kxg8gVg0up+hIHBXhS1A6Uow/nqhmv2avSGdOeYo
-	UCA16SWp/nScDYCFeVpZyjmBg6gaEv4i82gES43cfOlVEM3DVfyJBmKoy15m9k5RZ7gxHbL
-	cyAFSFsKvTPx2J5YxlsPxNPjf7vBlBVltTB8lqogcWxBMC11QHSG3cvH0xjQsWG7HPEyiv5
-	OVgnFFnQH5jU73+kx4n4gwAFypsahLgfij9sQT/TWo1NCXyh2CGLngxDMAyLDXuhK52oMVe
-	b/QiyaPju68etMzRa8+OTArehwX7E3QGX9k3fmp66mZpBOKGi0jfOAFw/SV8o1dfb+IDcoP
-	al2JLhNj7mWZovqC8V6CzHg+VX1ppIal4xt8cGKkAiWGkTJniKqK3GsRirZuJ476t3vzuGD
-	HXLFDPIy9yF8iAvJBAgCZoTfPEgnlu60b+baO0KrwMv75nFkL7iH4/hZ2hwipaw3D+VIyUU
-	jSw8H9HB5npK3PwlQEr9/FgwJalpwF2QyrNBL+kBm540CBNlDG0B/bz+2efLcX41fQhBrdI
-	vb//uO9iFsio5iS2Qa8MRzy7JjD7l2OtZMhWZ/1CDbIY/lsD5UmeQ5tGIWZtl3yPaalqQKC
-	OHdVWRbxylB9q2LzGtFGJlUadq9Gpu6BN34IC/XNzs9L4WOibBi8LNzSmfRTO+4TPdR4UYc
-	wq/E5g954duTwRJYS51InrYhfjq6eMrKl18iHmFqZ0czczYenBuZI1b9ZPO8UvAo1LgFhhH
-	WPhuegLIjdKxDCeJRF+PjrZgb+vYGBIecE/NyXH2UNShavZj+6URP2KiBBD/4=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgC3qo4OkZZqHFWTNA--.28200S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CFyxtF17urWrWF15tr4ktFb_yoW8ZFWUpa
+	n3GayDXr48Jw13G3sIqw1IgrySgrWFgFyUJF17Zr1xA3W3JFy2kFy7Kw1UZryrGrykXF1F
+	qwnF9FWkWF1UJF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEeMKtUUUUU=
+X-CM-SenderInfo: 5oryvsxjrrqiywtou0bp/xtbC7BGo4GqWkREuugAA3d
 
-The Chrontel CH7218A automatically boots its embedded firmware and
-operates without host-side configuration.
+From: Wupeng Ma <mawupeng1@huawei.com>
 
-Add the CH7218A to the simple bridge driver and expose its output as an
-HDMI Type-A connector.
+When reclaiming for a lower zone, isolate_lru_folios() accounts folios
+from higher zones as skipped and, once max_nr_skipped hits
+SWAP_CLUSTER_MAX_SKIPPED, force-isolates the remaining ineligible folios
+to keep the loop from spinning on the skipped ones.  Those folios are
+reclaimed even though they can never satisfy the current allocation, so
+nr_reclaimed is inflated into a false progress that keeps resetting
+no_progress_loops in should_reclaim_retry() and delays the OOM.
 
-Signed-off-by: Xilin Wu <sophon@radxa.com>
+Stop scanning once max_nr_skipped is reached instead of force-isolating
+the ineligible folios.  The skipped folios are already accounted in
+total_scan, so shrink_lruvec() can charge the overshoot against its scan
+budget (see the previous commit) and will not rescan them.
+
+Fixes: 1c7b17cf0594 ("mm/vmscan: fix hard LOCKUP in function isolate_lru_folios")
+Signed-off-by: Wupeng Ma <mawupeng1@huawei.com>
 ---
- drivers/gpu/drm/bridge/simple-bridge.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ mm/vmscan.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
-index 3fba7002322e..fab793fb12b5 100644
---- a/drivers/gpu/drm/bridge/simple-bridge.c
-+++ b/drivers/gpu/drm/bridge/simple-bridge.c
-@@ -275,6 +275,11 @@ static const struct of_device_id simple_bridge_match[] = {
- 		.data = &(const struct simple_bridge_info) {
- 			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
- 		},
-+	}, {
-+		.compatible = "chrontel,ch7218a",
-+		.data = &(const struct simple_bridge_info) {
-+			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
-+		},
- 	}, {
- 		.compatible = "mstar,tsumu88adt3-lf-1",
- 		.data = &(const struct simple_bridge_info) {
-
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 823af9e86efd3..375f7cd5aa441 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -1701,12 +1701,20 @@ static unsigned long isolate_lru_folios(unsigned long nr_to_scan,
+ 		nr_pages = folio_nr_pages(folio);
+ 		total_scan += nr_pages;
+ 
+-		/* Using max_nr_skipped to prevent hard LOCKUP*/
+-		if (max_nr_skipped < SWAP_CLUSTER_MAX_SKIPPED &&
+-		    (folio_zonenum(folio) > sc->reclaim_idx)) {
++		/*
++		 * Using max_nr_skipped to prevent hard LOCKUP.
++		 * Once the cap is hit, stop rather than force-isolating:
++		 * reclaiming ineligible folios only inflates nr_reclaimed
++		 * into a false progress.
++		 */
++		if (folio_zonenum(folio) > sc->reclaim_idx) {
+ 			nr_skipped[folio_zonenum(folio)] += nr_pages;
+-			move_to = &folios_skipped;
+ 			max_nr_skipped++;
++			if (max_nr_skipped >= SWAP_CLUSTER_MAX_SKIPPED) {
++				list_move(&folio->lru, &folios_skipped);
++				break;
++			}
++			move_to = &folios_skipped;
+ 			goto move;
+ 		}
+ 
 -- 
-2.55.0
+2.53.0
 
