@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672E84A2604;
-	Tue,  1 Sep 2026 18:50:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1444A2A5A;
+	Tue,  1 Sep 2026 18:50:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288661; cv=none; b=sG2PN4kim8ss+cmLFjEYMu9qkcjB4k0vMVV7/9Q9cPeqB9chknUyI41sXIxKLfCZvjrUyX/LMK1D2HQFuW+G0x1qxtpZqjnz+TecX/GO/nxCQ5h44tWO7dIWjRNt2mEO8NgED7k/bRHTC5MeRMqcubxg6VAie9iJTxChu8k++mI=
+	t=1788288662; cv=none; b=jXDSL6Gc3OBR5umU9KRa+B1ymwO/z2SzYv/wilZmPHVWsLPQHp2JK67jsNST811OxRn26gPjVtGnbPQj2xQSX+a264KcT/RBo8ySeXfhXpmtx7Fzupia2dCGDVaQQWhv1cnSbsUfBwBjoDcXkYXXAytw1Ee88xkFM0/8GTEYcIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788288661; c=relaxed/simple;
-	bh=9CFIYOskix3ufH18zNjEwK+Gw3EDatbHB34+EKdhcxE=;
+	s=arc-20240116; t=1788288662; c=relaxed/simple;
+	bh=s7nfXrufCSMgabRiLlCwtS5BY0Y5rXZc77iLgoU2ACk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZV0aB7dKSuSgHFsjWpDtYTbZ26pPSfmISFB46U8X577K8CPwF440xLB3+vR3/b81newzXN+vlc7iD5RIdB3eDUfpOz9dIObttuinNNPFIEJsM5C8IGJSQ8sz7Xsj6+JbRJBp45UHpZL+n0o8kT0NHCikCiK/5Hjmt0LMEOngMYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=oy+JRpAt; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=kuYojjqZKmkq37Ll9fAUl32v8/nhagzb7LfmKixy3ITHqjxI8KXUJcgmFDA8CQhe3p1fpNA0BMbYt1mj6iL53GZkU6HAjbHPpayPv6FbpNDy720l6368k2qULj6R2F/i6r5WGNSIiBSIEgpzkPLlaPNRpbd5+Y0E+9cwwcqWS44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=o0Fmo9JU; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="oy+JRpAt"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="o0Fmo9JU"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788288655;
-	bh=9CFIYOskix3ufH18zNjEwK+Gw3EDatbHB34+EKdhcxE=;
+	s=mail; t=1788288657;
+	bh=s7nfXrufCSMgabRiLlCwtS5BY0Y5rXZc77iLgoU2ACk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=oy+JRpAtArdeUXFPxd8Cqf5UODaWOjesxM8nIk2TVVKY0sQWVoCUdA53ah9KVU3XS
-	 c+CaDAhSqdY0OZZP7qJscGOL9xo7TmjLVdpbJtPwjoHHTM4YHO3NZYw/KaZEwPKWTE
-	 iwiQNhRlOJpVGI+KddOrwDrUzcn/atUZwwOjd49zYntmv7zySiC8btpGn1qcA3CIdI
-	 JbGp9cjrbsCGXMh2sEQTWtRBFsYFpTkRM0yURV7tBI2EswKrGPhJl5d8cabpziu5rE
-	 ILYlV7pnVpyLH/SyAqYXURWAX2dKZdzI+Kp+I2bKOxTUqozeKh4y7BwbEqcwSSgt1M
-	 ccxlj70ww+52A==
+	b=o0Fmo9JU/JHC/s3aTSbVAAFV2mAg12KyJpFmlQQE0iu+VggsX+WT3eK4Z72zJujOJ
+	 5Qd4v14DiYBQa8/GXRnZK14qcClbR8zkvrMtXVSClLtV6uCfqKfXycVfW4o+m6s0gs
+	 Mdwy+kr67mATafCZGV54ZX2fCQcOKaEWNQ97SvRy1r7ntrvFYItwO8eniwgoYU60mG
+	 k5gCtoNCWuZeizG8+pJ5a/nqRrKrR33nR1fhyw2KWerJMbcT7pwIdHrnqPqX4f1T3x
+	 HHPvWB5OQfO8JkNwo+GjS7+jzUPi4K7oz/06iVFjKMTP7j3CdsW+cuqNZm+Mz6h/Gu
+	 dsrFvAs7xnWgw==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 341E717E37D1;
-	Tue, 01 Sep 2026 20:50:55 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6BC0317E38D2;
+	Tue, 01 Sep 2026 20:50:57 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:50:43 +0300
-Subject: [PATCH v11 19/74] drm/display: bridge_connector: Wire up HDMI 2.0
- scrambler callbacks
+Date: Tue, 01 Sep 2026 21:50:46 +0300
+Subject: [PATCH v11 22/74] drm/display: hdmi-state-helper: Add
+ drm_atomic_helper_connector_hdmi_force_ctx()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-19-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-22-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -70,98 +70,67 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- linux-fbdev@vger.kernel.org, Maud Spierings <maud_spierings@hotmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>
+ linux-fbdev@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-Connect the bridge connector's .scrambler_{enable|disable} callbacks to
-the underlying bridge's .hdmi_scrambler_{enable|disable} funcs when
-HDMI 2.0 conformance is advertised.
+Introduce drm_atomic_helper_connector_hdmi_force_ctx() as the HDMI
+connector implementation of the .force_ctx() callback.  It receives the
+modeset acquire context, allowing it to take additional locks, e.g. to
+support SCDC status synchronization.
 
-This completes the bridge connector plumbing so that the SCDC
-scrambling helpers can control source-side scrambling through the
-bridge chain.
+Since migrating from the .force() callback is somewhat more involved,
+its users will be migrated incrementally, after which
+drm_atomic_helper_connector_hdmi_force() will be removed.
 
-Tested-by: Maud Spierings <maud_spierings@hotmail.com>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c | 40 +++++++++++++++++++++++++-
- 1 file changed, 39 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 21 +++++++++++++++++++++
+ include/drm/display/drm_hdmi_state_helper.h     |  2 ++
+ 2 files changed, 23 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 4ad3cd107ecd..0f85ca2bf209 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -577,6 +577,32 @@ static int drm_bridge_connector_write_spd_infoframe(struct drm_connector *connec
- 	return bridge->funcs->hdmi_write_spd_infoframe(bridge, buffer, len);
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index 485fcca2de4b..8045b1d17d6e 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -1424,3 +1424,24 @@ void drm_atomic_helper_connector_hdmi_force(struct drm_connector *connector)
+ 	drm_atomic_helper_connector_hdmi_update(connector, NULL, connector->status);
  }
- 
-+static int drm_bridge_connector_scrambler_enable(struct drm_connector *connector)
+ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_force);
++
++/**
++ * drm_atomic_helper_connector_hdmi_force_ctx - HDMI Connector implementation
++ * of the force_ctx callback
++ * @connector: A pointer to the HDMI connector
++ * @ctx: Lock acquisition context to be used for resetting CRTC
++ *
++ * This function implements the .force_ctx() callback for the HDMI connectors.
++ * It can either be used directly as the callback or should be called from
++ * within the .force_ctx() callback implementation to maintain the HDMI-specific
++ * connector's data.
++ *
++ * Returns:
++ * Zero on success, error code on failure, including -EDEADLK.
++ */
++int drm_atomic_helper_connector_hdmi_force_ctx(struct drm_connector *connector,
++					       struct drm_modeset_acquire_ctx *ctx)
 +{
-+	struct drm_bridge_connector *bridge_connector =
-+		to_drm_bridge_connector(connector);
-+	struct drm_bridge *bridge;
-+
-+	bridge = bridge_connector->bridge_hdmi;
-+	if (!bridge)
-+		return -EINVAL;
-+
-+	return bridge->funcs->hdmi_scrambler_enable(bridge);
++	return drm_atomic_helper_connector_hdmi_update(connector, ctx, connector->status);
 +}
-+
-+static int drm_bridge_connector_scrambler_disable(struct drm_connector *connector)
-+{
-+	struct drm_bridge_connector *bridge_connector =
-+		to_drm_bridge_connector(connector);
-+	struct drm_bridge *bridge;
-+
-+	bridge = bridge_connector->bridge_hdmi;
-+	if (!bridge)
-+		return -EINVAL;
-+
-+	return bridge->funcs->hdmi_scrambler_disable(bridge);
-+}
-+
- static const struct drm_edid *
- drm_bridge_connector_read_edid(struct drm_connector *connector)
- {
-@@ -604,7 +630,7 @@ static const struct drm_connector_hdmi_funcs drm_bridge_connector_hdmi_funcs = {
- 		.clear_infoframe = drm_bridge_connector_clear_hdmi_infoframe,
- 		.write_infoframe = drm_bridge_connector_write_hdmi_infoframe,
- 	},
--	/* audio, hdr_drm and spd are set dynamically during init */
-+	/* scrambler, audio, hdr_drm and spd are set dynamically during init */
- };
++EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_force_ctx);
+diff --git a/include/drm/display/drm_hdmi_state_helper.h b/include/drm/display/drm_hdmi_state_helper.h
+index 2439bad15c4b..965342f6bbc9 100644
+--- a/include/drm/display/drm_hdmi_state_helper.h
++++ b/include/drm/display/drm_hdmi_state_helper.h
+@@ -28,6 +28,8 @@ int drm_atomic_helper_connector_hdmi_hotplug(struct drm_connector *connector,
+ 					     struct drm_modeset_acquire_ctx *ctx,
+ 					     enum drm_connector_status status);
+ void drm_atomic_helper_connector_hdmi_force(struct drm_connector *connector);
++int drm_atomic_helper_connector_hdmi_force_ctx(struct drm_connector *connector,
++					       struct drm_modeset_acquire_ctx *ctx);
  
- static const struct drm_connector_infoframe_funcs drm_bridge_connector_hdmi_audio_infoframe = {
-@@ -908,6 +934,11 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 			     !bridge->funcs->hdmi_clear_spd_infoframe))
- 				return ERR_PTR(-EINVAL);
- 
-+			if (bridge->supported_hdmi_ver >= HDMI_VERSION_2_0 &&
-+			    (!bridge->funcs->hdmi_scrambler_enable ||
-+			     !bridge->funcs->hdmi_scrambler_disable))
-+				return ERR_PTR(-EINVAL);
-+
- 			bridge_connector->bridge_hdmi = drm_bridge_get(bridge);
- 		}
- 
-@@ -1027,6 +1058,13 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 			bridge_connector->hdmi_funcs.spd =
- 				drm_bridge_connector_hdmi_spd_infoframe;
- 
-+		if (bridge_connector->bridge_hdmi->supported_hdmi_ver >= HDMI_VERSION_2_0) {
-+			bridge_connector->hdmi_funcs.scrambler_enable =
-+				drm_bridge_connector_scrambler_enable;
-+			bridge_connector->hdmi_funcs.scrambler_disable =
-+				drm_bridge_connector_scrambler_disable;
-+		}
-+
- 		ret = drmm_connector_hdmi_init(drm, connector,
- 					       &drm_bridge_connector_funcs,
- 					       &bridge_connector->hdmi_funcs,
+ enum drm_mode_status
+ drm_hdmi_connector_mode_valid(struct drm_connector *connector,
 
 -- 
 2.55.0
