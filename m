@@ -1,92 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E9133DEF7;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F29EECB;
 	Tue,  1 Sep 2026 11:29:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788262170; cv=none; b=mm5A2IXeeiY0FZtKmSES9PGpEK3eCRVk8T9ho+ZebT+VaAtu2ygT/0d1VzloE+OyUFgmnv9jPGuepogYJCF/gou/Q63/Se0plFzl0NEhZOIrksoWRBD/5K7DvCZK0BTcmyAIid8RNVGt6yhDS3V6VQEYNc/UtxmJuIDXPag+jqc=
+	t=1788262171; cv=none; b=jS7chrSAUrvdDlxl82nixprd/KbGrcWKSVxjiPmNStAcDrRACiFdi078rKOSfwEYwrVVlFLLjTd+jVnfBw51Im+1kMH6z5hhuvse5BUH74z5q9hoVtmBfuuaOWLPcRJLErXBgkZVSUhluRGPjSBv01MN9fjqQNwoPMkRIOk4GQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788262170; c=relaxed/simple;
-	bh=OoCnRwKpcqDdhpYmBq7TA7QbGzRYuauJAtOq4pa7TyI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=qYhherEeaR3nYhNR0Raj/paP6z05C9CdEXYXSaaA0DomoFf3htAEziKZNsAlzZzlFmpg1XadMD+RelcbR5w46ePw6siRd+UJkwp+qLuGXwrdbjxtWg+IvbuHeMlbwHzjvdOrN6EVmhGOIh+UboN8tkacLlc0dqItUnbXkZoTfNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MEmjdDjx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788262171; c=relaxed/simple;
+	bh=M6LizgAc2dy0W49WcBIpxkeO2zddGYvyw1EHz8iJJjs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IDpsdwKR9wWQYzlMPj3a1e2lbECEvoOT/HJx1YfqbKOJnITd17bL/0B2/H+b2a72kK7aRKBLpWL37aDf6yIhsk9dzupyna7Xxqwafo49nIQ6uU9p8dDpasuU/pGoTCnNRSzR3rLQe3RDnwO1asPPF7GLGow/Wdsptgmf8k8Q6G4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kYeMCNms; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MEmjdDjx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9BCA1F00A3D;
-	Tue,  1 Sep 2026 11:29:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788262169;
-	bh=oM4yCC2hBuMgZaUBHgTbMj463WzyaycIFuvMYPxInvQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=MEmjdDjxS3BP7vVGQLQHhnA7VeKccsypXsFQ/+tYObaYlaYPB6Gui0nByQH5L4tCB
-	 7Q1I2GfgefWm6UxJpyyiZpreqjBIXmLcszkwQ/6rjg9mSrzaPFD1NOSRrqv+6Qy5Ox
-	 hhsegapscOTpDOKx23fl5Z6vrXONU2IK4Ih1usu6Je/AjmCdDT6ydR9xBsh4i6/SaV
-	 6U4lacNQsuFFAmGCNjEZ08z+YhqkAnmyZW+ZGW/5cLqjJrXbdXdPI19JIUXSBzsXD9
-	 PbOmIElL9oSkJPqE8UQPo0Mni315myP1sdxiX4FcgHRVDrHLZJ8h9CgGb+OKswiRne
-	 GKZ/i4QwFBY3Q==
-From: Mark Brown <broonie@kernel.org>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- Fabio Estevam <festevam@nabladev.com>
-In-Reply-To: <20260818014059.351152-1-festevam@gmail.com>
-References: <20260818014059.351152-1-festevam@gmail.com>
-Subject: Re: [PATCH v2 1/2] regulator: pca9450: Use LDO5 low-control enable
- mask
-Message-Id: <178812944220.13461.6831841026193121438.b4-ty@b4>
-Date: Sun, 30 Aug 2026 23:37:22 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kYeMCNms"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788262169; x=1819798169;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=M6LizgAc2dy0W49WcBIpxkeO2zddGYvyw1EHz8iJJjs=;
+  b=kYeMCNms2mJbl2Dd1of1qf3iwC7G58jfs53ZBSrRgCoz8rtjECG/DvlR
+   JCrEVZKZPHkecieA+kh7cvZj1m2UbB0AcVG5kS+OOXVJU4mVMDWpjSOQ6
+   iCkj/ZGxxcsFQ8nU+5x7XZmS/XXQh1ojbvzvpJOnsX7+a7SSAr9wpaGuN
+   Ggxl+jMtVtLK7mbWxyZFkniXHf+2ualULnC6JlVfQeqfxuOZvj7sPuxfX
+   bcec7PUz5o+FF5tqmoBj18j8vaDjoVlZikrPYI1NJJWgta6TtO6vdIk8a
+   MjffLDaX4ZayOvStkNf+hiybxITOAmJFWpW9OsgHJIFvB18BjXsMUhq03
+   Q==;
+X-CSE-ConnectionGUID: 3zZvWnifS+eC+wRyxCzPbw==
+X-CSE-MsgGUID: GCQHZ8C/QtqB2PPmQpSdBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88894797"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="88894797"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:29:29 -0700
+X-CSE-ConnectionGUID: 07s6QnySRLKDlUdqNN/9+A==
+X-CSE-MsgGUID: DfNkzGuiS3SUtrxhtcGONg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="298960059"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:29:25 -0700
+Date: Tue, 1 Sep 2026 14:29:22 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe Kleine-Koenig <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 01/16] media: ov8858: Extract digital gain programming
+Message-ID: <apa3EgKdnBfKXV1m@ashevche-desk.local>
+References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+ <20260831180101.3109854-1-mauriziocasciano7@gmail.com>
+ <20260831180101.3109854-2-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1254; i=broonie@kernel.org;
- h=from:subject:message-id; bh=OoCnRwKpcqDdhpYmBq7TA7QbGzRYuauJAtOq4pa7TyI=;
- b=kA0DAAoBJNaLcl1Uh9AByyZiAGqWtxSiVr0pRgj2B0eOlaOwKRy7JUXjx8CxX3zLozyp4AM4d
- YkBMwQAAQoAHRYhBK3maKpnVxi1n+Kf6iTWi3JdVIfQBQJqlrcUAAoJECTWi3JdVIfQhsoH/Aq5
- Eb+E/bPlY1b1jGxgbD7T1GZR6zpEBgJU5+51/GqimSM+LLKiLaVS+ihkVtp6868k+SgY4hwGG3+
- ikK+MokBkLss7i760rkaYistZkdbCwZXF9IE3LZ6X1GMawk6gPjGVj5i6XOM5LpIefd8gcvT+jp
- aOzElX5v7txocNlpGmQet1Yjx0xtJIdWA3BvFUH+m8X5f4jI1uAtrfnBkhAp1d7jyL4Ov80fP2R
- IQrb0i5t4Ky9X2JEjd6bWjGPk0u5i1l1/WACJgpP+7qO00miocisHzmbJRWdGdyGHp8aX0SauZQ
- hk3mqvGUlG9ujr/Z1wF1DZYWWQ++B5iuA6MJHn4=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831180101.3109854-2-mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 17 Aug 2026 22:40:58 -0300, Fabio Estevam wrote:
-> regulator: pca9450: Use LDO5 low-control enable mask
+On Mon, Aug 31, 2026 at 08:00:46PM +0200, Maurizio Casciano wrote:
+> Move the existing packed digital-gain register programming into a
+> helper so clock-specific gain handling can be added separately.
+> 
+> This is a pure refactoring: preserve both the register packing and the
+> explanatory comment without changing the bytes written to the sensor.
 
-Applied to
+Consider adding a change to fix the comment.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Thanks!
-
-[1/2] regulator: pca9450: Use LDO5 low-control enable mask
-      https://git.kernel.org/broonie/regulator/c/97350c1541d0
-[2/2] regulator: pca9450: Support regulator-off-in-suspend
-      https://git.kernel.org/broonie/regulator/c/0c47038219a0
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 
