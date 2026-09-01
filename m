@@ -1,537 +1,185 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021123.outbound.protection.outlook.com [52.101.95.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E41739A4DC
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:48:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270495; cv=none; b=uLX6wmNNf8/zDQeTrzkJrJauQnwo4c7c3B3p3t6LycvTvXHI7FEnKhwtR/nWzaUFq8NKVVQJi3MiljGhSm7cO+VvbhuMpOydZX1AahJKyjsCq003nPuP6snvh/NEufEHMYwNk1L8uZ7FJazXoknqlV5iLUQ+Gc7C1I6w+lI2a6o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270495; c=relaxed/simple;
-	bh=zQ0+33HsIVp7SkKZyP8rBcC4/rxvlphvwq/cIYRfwts=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nvuZgYoVMN/5mHu3LVL5FTs8Z/mfZb7hYiNUSSDPqOaaQfqb598axgAEjR8xyNb2LL/SerrIbArq7H+tGTi7agM2yVdWflFaOq79WVpClXeV9ZbsqYsdDCSh9XiVej9Ay/DCZEc1uKJAvK/7hxpuiLN0T8d99kITvwz8HiUwyP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=aX4m7rPw; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6753CAE9B;
+	Tue,  1 Sep 2026 13:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.123
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788270506; cv=fail; b=irjgLB7Yhny97luAFN0w3pqeda9nCwauGU0ZgDpqM84YXAmubwH3+P3+2g9VNuhyWg7FLMMbc1ri39bNor8me547dVSa89U3Xtikz4+gs0nf+Mp1HOZ1185oVqIVg4CR+GeV80cvrEyNDVvHxE8f7L7ivEJM8qwcCb9Q9fANDQM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788270506; c=relaxed/simple;
+	bh=AnthmuCRFdilorIJ/ArZsuwXm0tJhTfUN/3oF3mHyYM=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=JfZpNo4yS4q+c4+jnXQ9JG64GpdyjwBxQz4r9TRjrumtDJVyn+RQQXDKh12jTKI/LZ18fub2OxmhClsryBnt9eBZaLp2+h1Z1QA6E1wyfmk+k5uEJ0sX18cIKZSRdfm/DojsTrQSmFlhrnA0GPyyMX4t4qeMJ4PvnEHgNKn6NXI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=fssYn4Y3; arc=fail smtp.client-ip=52.101.95.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="aX4m7rPw"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso1116888b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:48:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788270492; x=1788875292; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hGh/luDrC60UBrLdQENH1WKnA2lc40qpD3rWmmT6jZw=;
-        b=aX4m7rPwHeens+/pweaexAMlLLllzqL9eIJEjzDx1w5J/n6oYMuRcxdGo9uKXQ8lWx
-         D5ZKwBVSHuV2xtnx4PqMzDNfZWrq9jZYHx5JddYPYGMlWNfECnR/eAV7DilQ66/AHK5S
-         g5OUX8X7Q1ZAD8emmKDrn0Nvc6NYHcSLDfi4jX8ToVw29btQMgqb3PBbzx0zEPxwqX8y
-         vjD7oYsrYR9ttWV8Ml1n6oyLFNVtHo84KEjwhKRtceHDUjzU2MivaEJ/RlrhIDU5hQ9k
-         WSjRt/SfITj9CbVXJPLyxSt+rlJ9msdDTgJziR6ig2MrjchRITc1hpqi1e5qzTRPgyxY
-         XdMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788270492; x=1788875292;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hGh/luDrC60UBrLdQENH1WKnA2lc40qpD3rWmmT6jZw=;
-        b=ewxGO43/DqKulvxSB+tBbErLYYziuXtosv7b5xqJXr2/8yGmfTYm2Vlp0KzjkbVKY1
-         NcABukKJDgrVlYGCKH9mJr+fsTTLCZKLrssaVTDQ6keznEodDEgNaiIRNY7EmkX1LeL8
-         kiyW4c9cYn/JtKaqfjxbG2NO3C1LQEnylQqKpxhWiM4yTt1rUAiHlS9VYox+vi6hrXDU
-         H0venCjI5R+lLXOe7zuaMC2Xy+/mzw7BwO/xiCNjY/0tc+rcoL3XKiztB45u+5mPBIwF
-         4vy9KUXNltp6D0pnIq1STdfnQUQ+oaD3Pnz94FAszbFuZvFhyWNZNDZRRQPvF0L152Bv
-         tWbw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp8Qk2ZEHXNr/TQZBMRGAbUnLMp+3tpuWFkmSoIG7nwbIO45AjHV3meKDFTPb/wMe5XTQuEY7mzAGUP4UQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9jKdHxrIx6piIwP8d9NUDGe1MJt2KCtN7gi+grZ3upIuh1o9t
-	kv/TPz2EucSeRSMR3D7zbPX4IE2trL97NzVN6MeV3S63G16C0vrdxrOMaYIL5lijNpdq
-X-Gm-Gg: AR+sD11l8/gIQrL2VMbVN0X0NI/dKDxkerG9/XyKQYudTB3zc7SqA7HWLaLpsOuMHpw
-	AbXKQ1Jsm8w8LfLVzQoXyZuP83oDpub80ZxEQPZOjpCfVVbnb7JE8hhWBbVpQ6cQpa4K3DloOYq
-	rCAIENIFA6kq8PBHNGdcly+tdMtDpqfBuPx6Tlflbr24PVs4yu/u13CkXHGfqQPEGoIebMpKQ8z
-	Kt3Gv03e3dhu4UwzYRXXC176G0j5gvqDV68cQsrBjS0tzBagcN45Z5kPKkf2cWFKbie2EpvmiHO
-	hSkCKqjuOqLbPShfIzA+GMW3dHws0M8nvCHcoo4f9OkzZ9Kgu0mnsIPQPJZLqTZjeIGlnU22aMw
-	pxa/MzxNVILFMdCSrwJTkqj59pYCj/vQxZqigM+t/QFliKBEJgmfAeAEQZe66yu4d2ZdZLeaWJX
-	P2t3+I2mMk2sXn5pf75J3PerD9P/qvGjKfBH9MUnTryM+yp0FBbao7RbpjrMSSNjYj9tzuP30W3
-	HA0T6rso4sHB5SQZKU=
-X-Received: by 2002:a05:6a00:188e:b0:84e:c851:a058 with SMTP id d2e1a72fcca58-85bca701c7emr3830291b3a.10.1788270492052;
-        Tue, 01 Sep 2026 06:48:12 -0700 (PDT)
-Received: from b6ad5085b32f.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85be5d9bcd7sm1166303b3a.11.2026.09.01.06.48.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 06:48:10 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>
-Subject: [PATCH nf 1/1] netfilter: x_tables: avoid holding mutex over faultable user copies
-Date: Tue,  1 Sep 2026 13:47:54 +0000
-Message-ID: <ced14892f76660c0be9ea6136872ba3d56a07238.1788244146.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1788244146.git.zihanx@nebusec.ai>
-References: <cover.1788244146.git.zihanx@nebusec.ai>
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="fssYn4Y3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lt6w708ShERPiQfl33biurBIly8csDAgKXZ1tfCyKKw+DjAHlZqD3VBFsW+PDjM6KlHeHoAYW5YuygZPJ1MTkz66RVU+O8htMTdWzung01SOcdJhhj5GPWjrAw9onrJiWe0VcDEaGbVTo241sjbxmlN4Fr5HvqYRDCcMQkQsZtTUJRHlyWzTzihIVgClsTjHy/41jNf+5uvw32l0FROgQZ9zZ4ybFof9MryiVaRf8pQxBH8IiXkT0fHfH1FIt50KIY9rONfMgnk3ZwwdgmAWY4uGeQpNLHbiNbvIF6lJV/Ue88bESBAOnMoviXN7qkTu5OnoL7+lzVQPPcnfN+ECZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JXwnSZCDftVj+J/FqsEuKl7uUwzShrJNj/s+ok0nNs4=;
+ b=B7lONdT2YjshDTDH9wrThDrPCH6sUOohJTqCcOjJrQCs7JQHnF5Trp9v67r7iHuxnG8Y/QHju3MQF474WMCz+rMVq/BO5s2JIB/W25omfOnXjqv7fJLKlFrAqht3IIgxTaCfMd2SIXF93U5LdCEYI+4w3QFCWp9PI0ni54o79NROfLSmHEro+aUo5zhq7v4nC8HUoQ2PS7zFFuCofPiLQ7ZtGjLVYUWHXPoArqXMsXYDHDUSFBr98Su8MF5jh98IC660m4U8MnlVeNulO1Omx0XzkqiOaBhY+CV54pcNUwwviwDiysY30pwlODBAUiJ0jC6VNfoWa8jgxI5sR6eorA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JXwnSZCDftVj+J/FqsEuKl7uUwzShrJNj/s+ok0nNs4=;
+ b=fssYn4Y3B4LQ/k8R1Yh65F834tjIpg5oazmq1Ek0A7lWaLgihAiFZ0darxA7MOlif3HYZLt4K3Jww0BHi26DLmL6cyYF9tgaJnpfyV97JuYzQKtSRtGPLGimR5taU8gCklwbiviS+7/qnIMLt8h8jA6z7ds/Rmq9AKuUiQGzJXU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO2P265MB3263.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:156::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 13:48:19 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 13:48:19 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 14:48:17 +0100
+Message-Id: <DL40ZHH4H6B8.284J2WKIMKRDM@garyguo.net>
+Cc: "Sophon Zhang via B4 Relay" <devnull+aiqubits.hotmail.com@kernel.org>,
+ <aiqubits@hotmail.com>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Miguel
+ Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4] rust: pci: reject IRQ vector indices that do not fit
+ in u32
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20260901-fix-pci-irq-vector-index-truncation-v4-1-f94aa6932fd9@hotmail.com> <DL3XDBBHXKKV.G9P6KRSSX1DN@nvidia.com> <DL3XLHXS647M.1LMHQUVX5RTI@kernel.org> <DL40NH1AX8WN.2ZPY7GDL0FSEW@nvidia.com>
+In-Reply-To: <DL40NH1AX8WN.2ZPY7GDL0FSEW@nvidia.com>
+X-ClientProxiedBy: FR4P281CA0224.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e4::14) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB3263:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47260239-7d96-44fa-3acd-08df082fae78
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|10070799003|376014|7416014|10067099003|6133799003|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Op+d1+JvwcW18ZfvTqWIXVcNP188F0NmXFrjAudSVbRGVJlVVMyJ4/3+/wB8zno6sjeOaYNnrx/lzTeSI3DE/2LNOpU879MqyAuY3aa+08o5Hw7tB8wRQE8nXXpK5MIiVYQzkrn52L7JErDEweVGU2ORAKE+Jr2uJjxMAXb32T5AMaSUmzksa9UiW74ZRzHasDl63lKVZRW/By2NuhmNxHWZ0+1b2/NDNeU6YLMRXMxTn7zBqzlvhXE6gWVfRzYwSdq+SReVdxSUFT0BIjVmR5MBVeGEt4Emk81gmGGWby5cmfPAgPwLi9swQy4PlO+BnG3S3epRAjzcqLDGoKmZ6h/5IYTpmupoXO3xcGOvDl1UCdEckvkRfZdflpMiBwv2zlojuMJHlZlA8qrEXKHkharR6+hhQo2vo6U0tz4OG6fZhVDQvnSab0QVquLJYbP3xm4yyF33RcX8BoUdCQH3lAVXrgHxqmftIQJpL5qTyNXaZjwLujoyMiMtrC3EhAgV2c6crVdbgtl0N1+Xh0ZbGtza4IOtxbO+uWFamwO6xdEXtUu6jZByS50bRP5WF7BgBn4b6hcmqkiDJtKP8vgsmLV4VTRMhAPIqpEQOW7RE+/CISKfiuc23uht5qZeODOSHgPScOjYq11503ivbV1lk3A1Tjdwqi6CSuykMjE4kJ4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(376014)(7416014)(10067099003)(6133799003)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TVVzc3JrN3dWbzU0cjVMUGJKblFORUFOSXhMVEJBd25VdHF4MzRUb1hGOGdv?=
+ =?utf-8?B?M1pnUVEveTJFV0FNV2lEQVZ4djFkdG94emE5Z1RaZ1R5TWdIWWpnbmlmWklU?=
+ =?utf-8?B?dUZIT1lwNXUxQU1wVTF0TFBUbmlDcDNWNC9aTjRjNU4wWDhoVDV3TGJVMWZO?=
+ =?utf-8?B?SEVVei92MS9rNGhzdlNKemc1NUVybnMxTThXV28zakNVb2dFR1RUK3RoNlI5?=
+ =?utf-8?B?MUo1NE9vVXhjRDNxc21GU0RMYkpDVGdPUHdnaUloQ2dnak1iVkhYaEN4cjhy?=
+ =?utf-8?B?UXZDSThqWXpTY3QzY1RSUGc3RElPdFh0MTRFWnduOUc5NzlQb1g5TXJrWnZw?=
+ =?utf-8?B?SXo1K3hZenZLenY2bHY3WXdCUzlEb1RoYkgvN1JDRWVNR0F4b3FvaHp4alJK?=
+ =?utf-8?B?M0YyeWFjT2ZOd0hxaDdYdjVmMkc4OE1FcjZuK2tFbW9nSy9OdjNTdlpGZmtq?=
+ =?utf-8?B?bklzRExWaHFSMnE4bkdxQTJrRSt3TDVaK1JnVU5ZM3VZS1F4c2ZUemFmSjUx?=
+ =?utf-8?B?aGd5WkN1dlg0a0VIcnlkc2FLcE5PQzdYV0c1cVA4eHdrbnc3N0lDQmpkRTRS?=
+ =?utf-8?B?bWQxYTYzSC96UW1kUmJ3VnF3RWgrR0VveHRGYk90cFozZjZhUVdEUjRSTkpX?=
+ =?utf-8?B?VUZwdUR6SVh6UUJuYzZ0V0FQU0wzbnNGNVpSdnRIY3RBY1FBdzd0aWxMYUlF?=
+ =?utf-8?B?bjdWVzI4ZjZEek5kbEVKMUNsU0NHQ3pSZjhoRVE0TExvTVA2UUFwdkhqZlN0?=
+ =?utf-8?B?OTByZFFPZzMySWRScEZsTVZKRHplYUVMNjU5THZnODR5NnY1T3dUdWdZaUhj?=
+ =?utf-8?B?Ym5qOVE4dm5ZVmJ2Q2hvazBjK2NpN1hDaGxuQjZuUnVHd3dGSzNtclI1Qlc4?=
+ =?utf-8?B?a1JvNHZadkt6aFVLWG5UOUdWUXlONzhkaDRXRURDcnhmOG1GSTl0aDVObjhz?=
+ =?utf-8?B?M0hRSG9CWE1sL252RGlDMXhFYzBrVXQ1STgvRjlMZ20rODl1SDlQcVNvQSs2?=
+ =?utf-8?B?V0wzdCtIbUhuOXRiQWo0UHQyOGxDMndhV1lyMEpDbmY5NkpTYUhxa0NLeXZs?=
+ =?utf-8?B?aWJRckVPUncyNWNkdlZ0LzFyMTRyU25mN3FxQW1YRjJZTU5HUDA0SktHd3hj?=
+ =?utf-8?B?SE5mSU9OMUJHRmpVVGh4byttTml6UUlYWkNzcjNsQXY3K2J3blJQcUN1YWV5?=
+ =?utf-8?B?SmppRDhhU25vQ0V5ZGxIQVZDVUpOQWtSc3B3UUhDcnJING0rWWI4NnU1MFd3?=
+ =?utf-8?B?U2MrcWNlZlBQUjQzSTNYWmY4S3NpTmhHNE51VXBEajV3NEUrRUFYL0pGeEwy?=
+ =?utf-8?B?YjdmQmVEcnY4ZVRHbnVqa3lVeTI0ZlFKZ2JldkM4OUlOUFJrblRGUWc5WThV?=
+ =?utf-8?B?WWhTSlVCS29pemVtRCtjU08xTGJYUDZYb3ZUOEtHZldxSlFGTTRKSkJQWW16?=
+ =?utf-8?B?Y1phdVh1aHVVT2ZWeXloanpucnZlc283RFR4UVNFazV1Qm80NUw4MEY0ZWh0?=
+ =?utf-8?B?THhDTEJwblF4b1pjVUpKb3h0OFlOOEltejNHc0xPTGhOeENic0Nzdm9YNUt1?=
+ =?utf-8?B?R2Y0RDFNNHpzSXRlanQ0UHRKUkIxYUVZcEY2WnBidHB3bVMvamZaVThqNWFk?=
+ =?utf-8?B?NzRUSnIvc3dsWWxzVGI2TDBpNUlzUjZsd2ZsUkhRSWN3RGo1c3JrWWRBb2tj?=
+ =?utf-8?B?WXNnTkVJWG1XMlRXakU0N040YXhzQ2lxd3c0ejFsUnM2MXJGMTFxTmNUVlY3?=
+ =?utf-8?B?NGtRb1NnWVZ3TkpQVndLUGg4UEJPbno2aU53TE96ZHdlMlFtVUdta0g2Ni8x?=
+ =?utf-8?B?eXg0QjlrcUlBZ3hTSkthOTlRRnVFT05iMDBZL3hYS0NvNi9GRkx6bldUK3hh?=
+ =?utf-8?B?NHdYa1V2QzVzaU1iVDNjemJQRytpcmhsS0tZZUd1dEhpM3YwOFNuZ2YreHgw?=
+ =?utf-8?B?SkRqRVR5RTF3Ui9rK0tLOE1pbWJVU3d6RUZWSFY0L09GM2Rzbmw1ZlNmT3Bq?=
+ =?utf-8?B?dmV6Z0k2Z2YzeHVsYitabDE1Umdpd1JBT2tZS1VNTlZPSjY5ak1ONmlHZXRJ?=
+ =?utf-8?B?VldTOHdPZTB0OWtEeG1QM0N4T0FvcHJRRFdmTWRrKzRBM2NsR1IrWXdWbEpw?=
+ =?utf-8?B?VGF4UUVhN0JXL21lTUJZdlNvNmhIVFd4eDk5TGYrMm5HQVhLMU5FTEoxdTNS?=
+ =?utf-8?B?aWNBYmFnQWpvRzdYVWJyVjM3Q2IwU3ZFbTE1a1h1a0xlZURVbDJYVHhvemIw?=
+ =?utf-8?B?VGkyZ0djUmlLdytNSXZsOS9QYnJXc2U3REdrWnA0bjQxTnRYckNuU0F0R3Ba?=
+ =?utf-8?B?NUlnSGdLM3RSRklRaXhVejY2cFZ4QXNaRWdVUXoybWx0QTBHZTlPQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47260239-7d96-44fa-3acd-08df082fae78
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 13:48:19.5083
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BmCe3IRfyqmHlN+1Up67iblEGbzH5q5Do0SmJOLxue/6MQavIPXMRVW0CCI2HmO2BGvZf77ujfDC9L962R1sPg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3263
 
-The legacy IPv4, IPv6 and ARP table GET_INFO and GET_ENTRIES paths hold
-the per-family xtables mutexes while copying table data to userspace. A
-faultable destination can therefore sleep indefinitely with the mutex held,
-blocking unrelated table and registry operations.
+On Tue Sep 1, 2026 at 2:32 PM BST, Alexandre Courbot wrote:
+> On Tue Sep 1, 2026 at 8:08 PM JST, Danilo Krummrich wrote:
+>> On Tue Sep 1, 2026 at 12:58 PM CEST, Alexandre Courbot wrote:
+>>> That makes me wonder, shouldn't we make `index` take a `u32` directly?
+>>> If that's what the C API expects, it does make sense to align to it
+>>> instead of forcing users to make a potential unneeded conversion if the=
+y
+>>> already have a u32.
+>>
+>> I intentionally did not do this, as the common type for an index is usiz=
+e. Thus,
+>> I do not expect anyone to already have a u32, but to already have a usiz=
+e, e.g.
+>> from some iterator.
+>>
+>> The fact that the C API did pick unsigned int as index type is an implem=
+entation
+>> detail the abstraction should bother with.
+>
+> Thanks for the clarification (and Miguel for elaborating - I wasn't
+> completely aware of it!). In that case this patch looks correct to me.
+>
+> Note that there is another `as` right after, in the same method:
+>
+>   if irq < 0 {
+>       return Err(Error::from_errno(irq));
+>   }
+>
+>   // SAFETY: `irq` is a valid IRQ number for `self.dev`, resolved from th=
+is registration.
+>   Ok(unsafe { IrqVector::new(IrqRequest::new(self.dev.as_ref(), irq as u3=
+2), self) })
+>
+>
+> We could get rid of it by replacing the `if irq < 0` test with:
+>
+>   let irq =3D u32::try_from(irq).map_err(|_| Error::from_errno(irq))?;
 
-Disable page faults during the locked copy, release the lock, fault in the
-output range, and retry once. Move GET_INFO's fixed-size copy outside the
-table locks and apply the same retry handling to compat GET_ENTRIES paths.
+I wonder if we can just change kernel::error::to_result to return `Result<u=
+32>`
+instead and have the cast there?
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: Codex:gpt-5.4
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
- net/ipv4/netfilter/arp_tables.c | 33 ++++++++++++++++++++++++++++-----
- net/ipv4/netfilter/ip_tables.c  | 33 ++++++++++++++++++++++++++++-----
- net/ipv6/netfilter/ip6_tables.c | 33 ++++++++++++++++++++++++++++-----
- 3 files changed, 84 insertions(+), 15 deletions(-)
-
-diff --git a/net/ipv4/netfilter/arp_tables.c b/net/ipv4/netfilter/arp_tables.c
-index a87e07e80..d36e6770b 100644
---- a/net/ipv4/netfilter/arp_tables.c
-+++ b/net/ipv4/netfilter/arp_tables.c
-@@ -23,6 +23,7 @@
- #include <linux/init.h>
- #include <linux/mutex.h>
- #include <linux/err.h>
-+#include <linux/pagemap.h>
- #include <net/compat.h>
- #include <net/sock.h>
- #include <linux/uaccess.h>
-@@ -696,6 +697,7 @@ static int copy_entries_to_user(unsigned int total_size,
- 
- 	loc_cpu_entry = private->entries;
- 
-+	pagefault_disable();
- 	/* FIXME: use iterator macros --RR */
- 	/* ... then go back and fix counters and names */
- 	for (off = 0, num = 0; off < total_size; off += e->next_offset, num++){
-@@ -720,6 +722,7 @@ static int copy_entries_to_user(unsigned int total_size,
- 	}
- 
-  free_counters:
-+	pagefault_enable();
- 	vfree(counters);
- 	return ret;
- }
-@@ -800,6 +803,7 @@ static int compat_table_info(const struct xt_table_info *info,
- 
- static int get_info(struct net *net, void __user *user, const int *len)
- {
-+	struct arpt_getinfo info;
- 	char name[XT_TABLE_MAXNAMELEN];
- 	struct xt_table *t;
- 	int ret;
-@@ -817,7 +821,6 @@ static int get_info(struct net *net, void __user *user, const int *len)
- #endif
- 	t = xt_request_find_table_lock(net, NFPROTO_ARP, name);
- 	if (!IS_ERR(t)) {
--		struct arpt_getinfo info;
- 		const struct xt_table_info *private = t->private;
- #ifdef CONFIG_NETFILTER_XTABLES_COMPAT
- 		struct xt_table_info tmp;
-@@ -838,10 +841,7 @@ static int get_info(struct net *net, void __user *user, const int *len)
- 		info.size = private->size;
- 		strscpy(info.name, name);
- 
--		if (copy_to_user(user, &info, *len) != 0)
--			ret = -EFAULT;
--		else
--			ret = 0;
-+		ret = 0;
- 		xt_table_unlock(t);
- 		module_put(t->me);
- 	} else
-@@ -850,6 +850,8 @@ static int get_info(struct net *net, void __user *user, const int *len)
- 	if (in_compat_syscall())
- 		xt_compat_unlock(NFPROTO_ARP);
- #endif
-+	if (!ret && copy_to_user(user, &info, *len) != 0)
-+		ret = -EFAULT;
- 	return ret;
- }
- 
-@@ -859,6 +861,7 @@ static int get_entries(struct net *net, struct arpt_get_entries __user *uptr,
- 	int ret;
- 	struct arpt_get_entries get;
- 	struct xt_table *t;
-+	bool faulted = false;
- 
- 	if (*len < sizeof(get))
- 		return -EINVAL;
-@@ -869,6 +872,7 @@ static int get_entries(struct net *net, struct arpt_get_entries __user *uptr,
- 
- 	get.name[sizeof(get.name) - 1] = '\0';
- 
-+ retry:
- 	t = xt_find_table_lock(net, NFPROTO_ARP, get.name);
- 	if (!IS_ERR(t)) {
- 		const struct xt_table_info *private = t->private;
-@@ -884,6 +888,14 @@ static int get_entries(struct net *net, struct arpt_get_entries __user *uptr,
- 	} else
- 		ret = PTR_ERR(t);
- 
-+	if (ret == -EFAULT && !faulted) {
-+		faulted = true;
-+		if (fault_in_writeable((char __user *)uptr->entrytable,
-+				       get.size))
-+			return -EFAULT;
-+		goto retry;
-+	}
-+
- 	return ret;
- }
- 
-@@ -1363,12 +1375,14 @@ static int compat_copy_entries_to_user(unsigned int total_size,
- 
- 	pos = userptr;
- 	size = total_size;
-+	pagefault_disable();
- 	xt_entry_foreach(iter, private->entries, total_size) {
- 		ret = compat_copy_entry_to_user(iter, &pos,
- 						&size, counters, i++);
- 		if (ret != 0)
- 			break;
- 	}
-+	pagefault_enable();
- 	vfree(counters);
- 	return ret;
- }
-@@ -1386,6 +1400,7 @@ static int compat_get_entries(struct net *net,
- 	int ret;
- 	struct compat_arpt_get_entries get;
- 	struct xt_table *t;
-+	bool faulted = false;
- 
- 	if (*len < sizeof(get))
- 		return -EINVAL;
-@@ -1396,6 +1411,7 @@ static int compat_get_entries(struct net *net,
- 
- 	get.name[sizeof(get.name) - 1] = '\0';
- 
-+ retry:
- 	xt_compat_lock(NFPROTO_ARP);
- 	t = xt_find_table_lock(net, NFPROTO_ARP, get.name);
- 	if (!IS_ERR(t)) {
-@@ -1416,6 +1432,13 @@ static int compat_get_entries(struct net *net,
- 		ret = PTR_ERR(t);
- 
- 	xt_compat_unlock(NFPROTO_ARP);
-+	if (ret == -EFAULT && !faulted) {
-+		faulted = true;
-+		if (fault_in_writeable((char __user *)uptr->entrytable,
-+				       get.size))
-+			return -EFAULT;
-+		goto retry;
-+	}
- 	return ret;
- }
- #endif
-diff --git a/net/ipv4/netfilter/ip_tables.c b/net/ipv4/netfilter/ip_tables.c
-index 809441ced..e029072b0 100644
---- a/net/ipv4/netfilter/ip_tables.c
-+++ b/net/ipv4/netfilter/ip_tables.c
-@@ -21,6 +21,7 @@
- #include <linux/proc_fs.h>
- #include <linux/err.h>
- #include <linux/cpumask.h>
-+#include <linux/pagemap.h>
- 
- #include <linux/netfilter/x_tables.h>
- #include <linux/netfilter_ipv4/ip_tables.h>
-@@ -824,6 +825,7 @@ copy_entries_to_user(unsigned int total_size,
- 
- 	loc_cpu_entry = private->entries;
- 
-+	pagefault_disable();
- 	/* FIXME: use iterator macros --RR */
- 	/* ... then go back and fix counters and names */
- 	for (off = 0, num = 0; off < total_size; off += e->next_offset, num++){
-@@ -861,6 +863,7 @@ copy_entries_to_user(unsigned int total_size,
- 	}
- 
-  free_counters:
-+	pagefault_enable();
- 	vfree(counters);
- 	return ret;
- }
-@@ -943,6 +946,7 @@ static int compat_table_info(const struct xt_table_info *info,
- 
- static int get_info(struct net *net, void __user *user, const int *len)
- {
-+	struct ipt_getinfo info;
- 	char name[XT_TABLE_MAXNAMELEN];
- 	struct xt_table *t;
- 	int ret;
-@@ -960,7 +964,6 @@ static int get_info(struct net *net, void __user *user, const int *len)
- #endif
- 	t = xt_request_find_table_lock(net, AF_INET, name);
- 	if (!IS_ERR(t)) {
--		struct ipt_getinfo info;
- 		const struct xt_table_info *private = t->private;
- #ifdef CONFIG_NETFILTER_XTABLES_COMPAT
- 		struct xt_table_info tmp;
-@@ -981,10 +984,7 @@ static int get_info(struct net *net, void __user *user, const int *len)
- 		info.size = private->size;
- 		strscpy(info.name, name);
- 
--		if (copy_to_user(user, &info, *len) != 0)
--			ret = -EFAULT;
--		else
--			ret = 0;
-+		ret = 0;
- 
- 		xt_table_unlock(t);
- 		module_put(t->me);
-@@ -994,6 +994,8 @@ static int get_info(struct net *net, void __user *user, const int *len)
- 	if (in_compat_syscall())
- 		xt_compat_unlock(AF_INET);
- #endif
-+	if (!ret && copy_to_user(user, &info, *len) != 0)
-+		ret = -EFAULT;
- 	return ret;
- }
- 
-@@ -1004,6 +1006,7 @@ get_entries(struct net *net, struct ipt_get_entries __user *uptr,
- 	int ret;
- 	struct ipt_get_entries get;
- 	struct xt_table *t;
-+	bool faulted = false;
- 
- 	if (*len < sizeof(get))
- 		return -EINVAL;
-@@ -1013,6 +1016,7 @@ get_entries(struct net *net, struct ipt_get_entries __user *uptr,
- 		return -EINVAL;
- 	get.name[sizeof(get.name) - 1] = '\0';
- 
-+ retry:
- 	t = xt_find_table_lock(net, AF_INET, get.name);
- 	if (!IS_ERR(t)) {
- 		const struct xt_table_info *private = t->private;
-@@ -1027,6 +1031,14 @@ get_entries(struct net *net, struct ipt_get_entries __user *uptr,
- 	} else
- 		ret = PTR_ERR(t);
- 
-+	if (ret == -EFAULT && !faulted) {
-+		faulted = true;
-+		if (fault_in_writeable((char __user *)uptr->entrytable,
-+				       get.size))
-+			return -EFAULT;
-+		goto retry;
-+	}
-+
- 	return ret;
- }
- 
-@@ -1561,12 +1573,14 @@ compat_copy_entries_to_user(unsigned int total_size, struct xt_table *table,
- 
- 	pos = userptr;
- 	size = total_size;
-+	pagefault_disable();
- 	xt_entry_foreach(iter, private->entries, total_size) {
- 		ret = compat_copy_entry_to_user(iter, &pos,
- 						&size, counters, i++);
- 		if (ret != 0)
- 			break;
- 	}
-+	pagefault_enable();
- 
- 	vfree(counters);
- 	return ret;
-@@ -1579,6 +1593,7 @@ compat_get_entries(struct net *net, struct compat_ipt_get_entries __user *uptr,
- 	int ret;
- 	struct compat_ipt_get_entries get;
- 	struct xt_table *t;
-+	bool faulted = false;
- 
- 	if (*len < sizeof(get))
- 		return -EINVAL;
-@@ -1591,6 +1606,7 @@ compat_get_entries(struct net *net, struct compat_ipt_get_entries __user *uptr,
- 
- 	get.name[sizeof(get.name) - 1] = '\0';
- 
-+ retry:
- 	xt_compat_lock(AF_INET);
- 	t = xt_find_table_lock(net, AF_INET, get.name);
- 	if (!IS_ERR(t)) {
-@@ -1610,6 +1626,13 @@ compat_get_entries(struct net *net, struct compat_ipt_get_entries __user *uptr,
- 		ret = PTR_ERR(t);
- 
- 	xt_compat_unlock(AF_INET);
-+	if (ret == -EFAULT && !faulted) {
-+		faulted = true;
-+		if (fault_in_writeable((char __user *)uptr->entrytable,
-+				       get.size))
-+			return -EFAULT;
-+		goto retry;
-+	}
- 	return ret;
- }
- #endif
-diff --git a/net/ipv6/netfilter/ip6_tables.c b/net/ipv6/netfilter/ip6_tables.c
-index f42fb96ef..493e6fbc6 100644
---- a/net/ipv6/netfilter/ip6_tables.c
-+++ b/net/ipv6/netfilter/ip6_tables.c
-@@ -25,6 +25,7 @@
- #include <linux/proc_fs.h>
- #include <linux/err.h>
- #include <linux/cpumask.h>
-+#include <linux/pagemap.h>
- 
- #include <linux/netfilter_ipv6/ip6_tables.h>
- #include <linux/netfilter/x_tables.h>
-@@ -840,6 +841,7 @@ copy_entries_to_user(unsigned int total_size,
- 
- 	loc_cpu_entry = private->entries;
- 
-+	pagefault_disable();
- 	/* FIXME: use iterator macros --RR */
- 	/* ... then go back and fix counters and names */
- 	for (off = 0, num = 0; off < total_size; off += e->next_offset, num++){
-@@ -877,6 +879,7 @@ copy_entries_to_user(unsigned int total_size,
- 	}
- 
-  free_counters:
-+	pagefault_enable();
- 	vfree(counters);
- 	return ret;
- }
-@@ -959,6 +962,7 @@ static int compat_table_info(const struct xt_table_info *info,
- 
- static int get_info(struct net *net, void __user *user, const int *len)
- {
-+	struct ip6t_getinfo info;
- 	char name[XT_TABLE_MAXNAMELEN];
- 	struct xt_table *t;
- 	int ret;
-@@ -976,7 +980,6 @@ static int get_info(struct net *net, void __user *user, const int *len)
- #endif
- 	t = xt_request_find_table_lock(net, AF_INET6, name);
- 	if (!IS_ERR(t)) {
--		struct ip6t_getinfo info;
- 		const struct xt_table_info *private = t->private;
- #ifdef CONFIG_NETFILTER_XTABLES_COMPAT
- 		struct xt_table_info tmp;
-@@ -997,10 +1000,7 @@ static int get_info(struct net *net, void __user *user, const int *len)
- 		info.size = private->size;
- 		strcpy(info.name, name);
- 
--		if (copy_to_user(user, &info, *len) != 0)
--			ret = -EFAULT;
--		else
--			ret = 0;
-+		ret = 0;
- 
- 		xt_table_unlock(t);
- 		module_put(t->me);
-@@ -1010,6 +1010,8 @@ static int get_info(struct net *net, void __user *user, const int *len)
- 	if (in_compat_syscall())
- 		xt_compat_unlock(AF_INET6);
- #endif
-+	if (!ret && copy_to_user(user, &info, *len) != 0)
-+		ret = -EFAULT;
- 	return ret;
- }
- 
-@@ -1020,6 +1022,7 @@ get_entries(struct net *net, struct ip6t_get_entries __user *uptr,
- 	int ret;
- 	struct ip6t_get_entries get;
- 	struct xt_table *t;
-+	bool faulted = false;
- 
- 	if (*len < sizeof(get))
- 		return -EINVAL;
-@@ -1030,6 +1033,7 @@ get_entries(struct net *net, struct ip6t_get_entries __user *uptr,
- 
- 	get.name[sizeof(get.name) - 1] = '\0';
- 
-+ retry:
- 	t = xt_find_table_lock(net, AF_INET6, get.name);
- 	if (!IS_ERR(t)) {
- 		struct xt_table_info *private = t->private;
-@@ -1044,6 +1048,14 @@ get_entries(struct net *net, struct ip6t_get_entries __user *uptr,
- 	} else
- 		ret = PTR_ERR(t);
- 
-+	if (ret == -EFAULT && !faulted) {
-+		faulted = true;
-+		if (fault_in_writeable((char __user *)uptr->entrytable,
-+				       get.size))
-+			return -EFAULT;
-+		goto retry;
-+	}
-+
- 	return ret;
- }
- 
-@@ -1570,12 +1582,14 @@ compat_copy_entries_to_user(unsigned int total_size, struct xt_table *table,
- 
- 	pos = userptr;
- 	size = total_size;
-+	pagefault_disable();
- 	xt_entry_foreach(iter, private->entries, total_size) {
- 		ret = compat_copy_entry_to_user(iter, &pos,
- 						&size, counters, i++);
- 		if (ret != 0)
- 			break;
- 	}
-+	pagefault_enable();
- 
- 	vfree(counters);
- 	return ret;
-@@ -1588,6 +1602,7 @@ compat_get_entries(struct net *net, struct compat_ip6t_get_entries __user *uptr,
- 	int ret;
- 	struct compat_ip6t_get_entries get;
- 	struct xt_table *t;
-+	bool faulted = false;
- 
- 	if (*len < sizeof(get))
- 		return -EINVAL;
-@@ -1600,6 +1615,7 @@ compat_get_entries(struct net *net, struct compat_ip6t_get_entries __user *uptr,
- 
- 	get.name[sizeof(get.name) - 1] = '\0';
- 
-+ retry:
- 	xt_compat_lock(AF_INET6);
- 	t = xt_find_table_lock(net, AF_INET6, get.name);
- 	if (!IS_ERR(t)) {
-@@ -1619,6 +1635,13 @@ compat_get_entries(struct net *net, struct compat_ip6t_get_entries __user *uptr,
- 		ret = PTR_ERR(t);
- 
- 	xt_compat_unlock(AF_INET6);
-+	if (ret == -EFAULT && !faulted) {
-+		faulted = true;
-+		if (fault_in_writeable((char __user *)uptr->entrytable,
-+				       get.size))
-+			return -EFAULT;
-+		goto retry;
-+	}
- 	return ret;
- }
- #endif
--- 
-2.43.0
-
+Best,
+Gary
