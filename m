@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9184A0EE1;
-	Tue,  1 Sep 2026 18:50:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F294A13AB;
+	Tue,  1 Sep 2026 18:50:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288654; cv=none; b=CxD6ilIBMT7VX04Zy2/005meoO6n77hjBnX8gfHopZ3GdrTkYP+qIl2gIGoulwdF+39oYClZzKTb+xHVgxgQcz5EkfTFJO4a3bUwKCOZE1Qk3OZ4r0e6yYtWhg26QV22XwJY7Q3Nw4QrzdWWaiMvIEg+IWE6PcvU7dxxeEu9VW8=
+	t=1788288655; cv=none; b=MeYGOpqPyAnPaaFXP1ndH86I2feipZhEutNIyi3iU54kkpWfqQiep70mQC4G39IAlXJfeE0+qtA3WAOB5NBiGhgfg0ZDE8PlO1il35xet2qzWl4V3ZIlLb3mkbFfFjASU7giDXJiEB/QVn6/Sm/NVPFAILoMWPn/HjHQk51Pk/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788288654; c=relaxed/simple;
-	bh=FBzckI23H5DYUC2fgN1hQr/tvawmRAaCLybpPifECK0=;
+	s=arc-20240116; t=1788288655; c=relaxed/simple;
+	bh=FYdmAkPWFKCF8O++onHpEmGeuQyVm5oG12OGbdUPBSU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=K/WWkN5eLVCI2APzEqs6Oa5PYU3vXhOUtCqvmo9Y8wfU/zVc2QzRzqa3k5g+YGz280YalbIq/VU1X57K0r2hDjbSUl6zb6SIofKkf3ukmyKqbnEI3BZAbty2wyQFjYxLeoBwXYi9zAxx0g75LkH3ZsomDnE4KouBXxHwA7hy0V8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=eyvBQ953; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=h80fh7IHeAi8sWkrJGIPv7sW6fEwNUKkoH++Qwt/gFyBpQT763aaPr1r4JqaTMNu228lIeDrswQK2xrU2uxjZbzIq0I0EF/6Xi4OMyQMw/1LB85AZYYL41vGv3XkvIbRrfAUZ9XpEfmHZqrUO5d0C63sN4bPW33AVy024FhyLK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=I9EWgqCE; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="eyvBQ953"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="I9EWgqCE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1788288650;
-	bh=FBzckI23H5DYUC2fgN1hQr/tvawmRAaCLybpPifECK0=;
+	bh=FYdmAkPWFKCF8O++onHpEmGeuQyVm5oG12OGbdUPBSU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=eyvBQ9535XiqSaP4elS2GOEHVT/+FqLzgiskBu5/HBmeAUIMgOv7E+9Bby5tkaTyD
-	 Q7rszzADi6sIb9zgk6zZ+qEWROy8HGNSeA9Pv59D8AR6PlFnU0OJz/sNeQvr+eWseP
-	 IJWFcfvBtMbEYta4hXAdRkTfFNLeQT4o/6lBN8e4rEUPwC97Q87+vrXVlBqFaqTIS6
-	 ndHWnz8C5RdC9ZmJIZ7UCejiycN/dt+gMa4GD/BeuMzQ0UvkGTj5rrao7fIT9pCIW8
-	 t0zqw1uXbnzMUQ6Q+doegX5ROwh37bdK2+lsLQwSMUsdBfX9KwFRgHlalOv04V0HFT
-	 gazA6jd2ofOGQ==
+	b=I9EWgqCEXTO1HQHg65SdoSbw5hytYZgMJMA6p8u+jfLmpEjrhQGG4EJiMqZnRCDsB
+	 Dc0di44ZLXRA8tRKhF1P6oTNQt94LGIvGkt2iERzqSi6/USBZn9VGT/olY9/vut1Lu
+	 X1gy2To1yHvCtyQAhZnSjelA83+9OSrXVBAfu7CCuV++LfRlBJWCyGb+WbMUjll8yp
+	 VCat2m9yWQRBtBO/IebG2njy7jfYa8B30zxBTw3khcaCe/ZQqV8Y2aoiQKZLkso+6B
+	 fjQ7gGCnavuBP+4XqExdhIai0DqfCQGnyHih70BTHcLhD4h2cGrTodPmgOHp5Ql/H/
+	 hOUH8pBl3Vdow==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id EE58317E3606;
-	Tue, 01 Sep 2026 20:50:49 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id ADF5117E361B;
+	Tue, 01 Sep 2026 20:50:50 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:50:36 +0300
-Subject: [PATCH v11 12/74] drm/bridge: Fix unlocked list_del in
- drm_bridge_add()
+Date: Tue, 01 Sep 2026 21:50:37 +0300
+Subject: [PATCH v11 13/74] drm/bridge: Fix NULL deref in drm_bridge_add()
+ for legacy bridges
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-12-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-13-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -73,40 +73,51 @@ Cc: kernel@collabora.com, linux-kernel@vger.kernel.org,
  linux-fbdev@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
 
-When re-adding a bridge that was previously removed, drm_bridge_add()
-drops it from bridge_lingering_list without holding bridge_lock.
+Legacy bridge drivers that embed struct drm_bridge in a zero-initialized
+allocation, rather than obtaining it from devm_drm_bridge_alloc(), never
+run INIT_LIST_HEAD() on bridge->list, leaving next and prev NULL.
+list_empty() compares next against &bridge->list, so it reports such a
+list head as non-empty.  list_del_init() therefore runs and dereferences
+the NULL pointers, panicking the kernel during probe.  Only builds with
+CONFIG_DEBUG_LIST survive, with a list corruption report.
 
-Both bridge_list and bridge_lingering_list are protected by bridge_lock,
-as they are concurrently modified by drm_bridge_remove() and
-__drm_bridge_free(), and walked by the debugfs 'bridges' file.  Running
-the list_empty() test and the list_del_init() outside of the lock may
-therefore corrupt either list.
+This affects rk3066_hdmi and the i.MX8 LDB bridges, which still embed a
+bridge in a devm_kzalloc()'d struct.
 
-Perform both under bridge_lock.
+Initialize the list head when it is found to be NULL, so that the bridge
+ends up with a valid empty list head and list_del_init() is only reached
+for bridges that can actually be linked.
 
 Fixes: 17805a15d175 ("drm/bridge: add list of removed refcounted bridges")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260723015004.1F5711F000E9@smtp.kernel.org/
+Closes: https://lore.kernel.org/all/20260731175016.C5D591F00AC4@smtp.kernel.org/
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/drm_bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/drm_bridge.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index afaae272347c..2c457ad74f3b 100644
+index 2c457ad74f3b..a8b6df5c13ea 100644
 --- a/drivers/gpu/drm/drm_bridge.c
 +++ b/drivers/gpu/drm/drm_bridge.c
-@@ -454,8 +454,10 @@ void drm_bridge_add(struct drm_bridge *bridge)
+@@ -453,9 +453,16 @@ void drm_bridge_add(struct drm_bridge *bridge)
+ 	 * If the bridge was previously added and then removed, it is now
  	 * in bridge_lingering_list. Remove it or bridge_lingering_list will be
  	 * corrupted when adding this bridge to bridge_list below.
++	 *
++	 * Legacy drivers that allocate the bridge with kzalloc() rather than
++	 * devm_drm_bridge_alloc() leave list.next NULL. Such a bridge cannot
++	 * be on any list, and list_del_init() would dereference NULL, so
++	 * initialize the list head first.
  	 */
-+	mutex_lock(&bridge_lock);
- 	if (!list_empty(&bridge->list))
+ 	mutex_lock(&bridge_lock);
+-	if (!list_empty(&bridge->list))
++	if (!bridge->list.next)
++		INIT_LIST_HEAD(&bridge->list);
++	else if (!list_empty(&bridge->list))
  		list_del_init(&bridge->list);
-+	mutex_unlock(&bridge_lock);
+ 	mutex_unlock(&bridge_lock);
  
- 	mutex_init(&bridge->hpd_state_mutex);
- 	mutex_init(&bridge->hpd_mutex);
 
 -- 
 2.55.0
