@@ -1,73 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B66144BCA1;
-	Tue,  1 Sep 2026 21:11:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F5F38F95B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 21:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788297072; cv=none; b=o1sVWqs87T1N7SuZZzKW5eznvfEqhLsxa3Hdsiqmqi/1WOqLo/90r7QjUMDkbVTdSGFHkOpcXVD/muHD8U/uq5r5CgQVW/Oel59RqW3NzqPtBvUULJuOGmzg/egi1IMyigAFOcFAL6fckOHGc0nyp7g0aKBAbQ0VMnRkdUEXnr0=
+	t=1788297123; cv=none; b=Au8KfuukLAJZy5x0x7WoGwEnskGV/E/WtBpQpqGwOpN5fvZKT5baAC12r9CixEYSGo9+Bs/ZsX8smNlcK38HPy3W3ZoUWTKVi8HTqB2zYg1AtJnmnrvltYyUgTNtd7g3M1XgNnNwsFuMsGW4Ow7qHWwX/JqTg9B4/UPsh0D43gM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788297072; c=relaxed/simple;
-	bh=U5IEhO0qDVwiGJOxLAexGkrw9hPZ/qebp38QR60HJ+I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R+vZE20ugKBzorq3NgyQpZHTUwAcS9BrmLca7+0a+r1Qg9AufiIsRSfA3sn5+pS8v4WV8/I233+un6biyc+HlL+ml4/yp7vjk3X9kbQaHtvkGEXCEaLfC6/Ze8CwbEyYFDwNsinwh8Qnq1kxeRqH1FJJw5fcvLgutVxu5kQYnFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DBfEfBbb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788297123; c=relaxed/simple;
+	bh=LITuoE5iRciuw395Oet//i5jt2ETRlXOCw08gIVlDc4=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=tXCtDF6uWczEs7S8CqGknLdEEbAjF2UOkiNosfFJcgrOUpAKQ2qjSmHsdklBptf9xYj+1BFtLhUJZjR+vzYn0MaqXVjFQibft9bONjPTS/zH0mi77QvxBu6NVIVnL5xp/EgBvJ/RyRNvY6ay5w4nOWqL5wTCzMrvck2T4X9jR9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=geJuFKbG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DBfEfBbb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FA321F000E9;
-	Tue,  1 Sep 2026 21:11:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="geJuFKbG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D92871F00A3A;
+	Tue,  1 Sep 2026 21:11:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788297071;
-	bh=ykmxhHememF0txBG8E+wvvcWTDZvCd21RgcqcobuqV8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DBfEfBbbHMnTWXpw6I8LehjUiNGCo/OsLUFtu8tCgVcOgnZZ+4+srfFgwzx7pMJRJ
-	 7d5tjKI8wvg5bfonuVVaUFXTmvUAuSqIZAvXtWcrTvJQxA/8VZBV6PBLHFVw8baBjX
-	 OXqC2lH6+bFt26aVcFrPo+E05wpUt5+3+gqkl+THXhHx5ysw4ZcxNeq1Coe0+8QTxm
-	 T7yxw8LhxNv0P+n0m+XKT0aDHyfQ4y27CB4Y2J0Hat1rCympHoEoqWJIuKO1JWwAlu
-	 K+XYlel2YNO59xcKNHZQJ1BmvxTrtvdQE/5m6qnRvafdH17gzHVRZc4nJ3oKAOa86Q
-	 cW1UBhjLt9wbw==
-Date: Tue, 1 Sep 2026 14:11:11 -0700
-From: Kees Cook <kees@kernel.org>
-To: Jaihind Yadav <jaihindy@qti.qualcomm.com>
-Cc: nathan@kernel.org, nsc@kernel.org, linux-hardening@vger.kernel.org,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-modules@vger.kernel.org
-Subject: Re: [PATCH v3] scripts/gcc-plugins: suppress recorded GCC switches
- for extmod builds
-Message-ID: <202609011410.3F904D4@keescook>
-References: <20260817185146.GC1249844@ax162>
- <20260820060116.786173-1-jaihindy@qti.qualcomm.com>
+	s=k20260515; t=1788297119;
+	bh=BfOoWegF+Sq6QHrTJQA+JbaGReMIOa+BkItA1J565/A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=geJuFKbGg5n517DmFqdvVUKDwuE2i24h+IAgQbgufzi/fHbO6INK1DwVL4l6E5f5r
+	 aapkqhlNgmgQ0j9bzjAEh3hnm+MrEGIgRpy6dXUOiqC5koQ8rYP78PWteXqE1fOodf
+	 9cEck7f5b9IzxRUyDlivjvx4+ABpZqkcAhr7xg+r55pujljWdvFWr0jhOIEPdYxIZa
+	 1vv8LxXqUsA1LMi3mrqtvJe5hkALJan+2597bhBmqYrmMoDa1oHoyGCd47VmTIZ32X
+	 rhQfv8ccp5wvQRwlxcHIZ+Xh1hdTZrAHcCazO4GSJich+VUUVcM7lZyfn7QAgzJeWB
+	 dE4A1kyCUJG3A==
+Date: Tue, 01 Sep 2026 11:11:58 -1000
+Message-ID: <92e520050991ea409925012255480655@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Yao Kai <yaokai34@huawei.com>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>, Breno Leitao <leitao@debian.org>,
+ linux-kernel@vger.kernel.org, liuyongqiang <liuyongqiang13@huawei.com>
+Subject: Re: [QUESTION] workqueue: Reducing flush_workqueue() overhead for unbound workqueues
+In-Reply-To: <0a030145-c108-4365-ba2d-ac1973a1e352@huawei.com>
+References: <0a030145-c108-4365-ba2d-ac1973a1e352@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820060116.786173-1-jaihindy@qti.qualcomm.com>
 
-On Thu, Aug 20, 2026 at 11:31:16AM +0530, Jaihind Yadav wrote:
-> With GCC plugins enabled, external module builds can record
-> -fplugin=... paths in DWARF producer metadata via
-> -grecord-gcc-switches, leaking host/build specific paths and
-> triggering QA checks.
-> 
-> Handle this in scripts/Makefile.gcc-plugins for KBUILD_EXTMOD
-> builds by adding -gno-record-gcc-switches to plugin cflags.
-> 
-> This keeps plugin behavior unchanged while avoiding absolute
-> plugin path leakage in external module debug metadata.
-> 
-> Suggested-by: Nathan Chancellor <nathan@kernel.org>
-> Link: https://lore.kernel.org/all/20260817185146.GC1249844@ax162/
-> Signed-off-by: Jaihind Yadav <jaihindy@qti.qualcomm.com>
+Hello,
 
-Acked-by: Kees Cook <kees@kernel.org>
+On Tue, Sep 01, 2026 at 04:46:06PM +0800, Yao Kai wrote:
+> Is there a recommended way to avoid this overhead for such case,
+> I would appreciate guidance on how this problem should be solved.
 
-I'm fine with this going via the kbuild tree. :)
+Posted a patchset which makes flush_workqueue() visit only the pwqs which
+have been active since the last flush:
 
--Kees
+  https://lore.kernel.org/all/20260901210929.3092513-1-tj@kernel.org/
 
--- 
-Kees Cook
+Can you please test whether it resolves the fsync latency issue you're
+seeing?
+
+Thanks.
+
+--
+tejun
