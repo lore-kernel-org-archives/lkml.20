@@ -1,224 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81FD949C4C9;
-	Tue,  1 Sep 2026 18:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFED49505D
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788287319; cv=none; b=lPicuEJ3ulQYNl7/QuqMsVboW99KbYQjCMs3T30T/qYREFOv8nAvqr8mruUDH73xgyxC7Ct14HRe5/VeBjCjZa3ipnnUp+OBkwEdue0NvSO5g5x0NxWONIiFD61PRWULNyPpDd8t4OJSTETl9uzH2b4LelH7TZ946kINpndaGm8=
+	t=1788287360; cv=none; b=e4dQlmnoAApev0uKlWcmWfwE/UtXGMWJYI0bsPl0R/pcT2FLQlMVgFQwGvmnJtGXJfrSTQ56C4HQhLtb0A2dPkyjfqmYQsVOstxUX8mKZjPRDxVebYC0U/h6AmDP++JAmsZfU3XpqMD34rBd+ymm3SJSaoJKfpi7KeHUrPNz1t4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788287319; c=relaxed/simple;
-	bh=w5eIeJhUiI7+SOaw74KB0Bm/uaxPdq6tV/hgE6ZCCLI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pZOAM76wbPM2PXnaZuqXB2eZlTk+U39E3i641wzS6eufX8sEgtwgeqR5qTHD4rSFPFvgEmPeMvR9KZ5vpyN2UdUEk+XPC5thRRF2i/jspP/8sChaOma8P6urMJSeWoTkzHKJqv/1cbSkymPUx2e7VBLUFjZlwPFnyKejjJ/le8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hkVywzWH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788287360; c=relaxed/simple;
+	bh=BLYdv1aKZgwy8HwkhERdN1xQJIw1l3+i5Tc85W4CScM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ahlv7TmigBtrL0eTu5F3f+4hP2Sixl9NyuWm//Yy/KYFrjh6sxwk3gqfdDQG1n9LeXWfa5ug4A81jhTMeMVhSBciH/lthOEflvD1K1QQyCKNl1KMeGWzCqcoOL3Aw4A1yrc5tsm9pqNkVe8N6RucGYk9lT7y868JSrgfPf33sro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=QajWR+kJ; arc=none smtp.client-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hkVywzWH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75AF31F00A3A;
-	Tue,  1 Sep 2026 18:28:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788287318;
-	bh=Bz+GIskXqDDtaLCfC7LHQRcLECQyZHVYy5RqNeMqoEk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=hkVywzWHZpr5F/Pn75N2kwZGehJ12wOmnVxiJ4PkRT2+r5uvbvNeaQgUvCML4qwwp
-	 sajDL9QdpN4NvDdMZ1yVEbtuJTj2CALFycXuhYkrmZ35dPkDRjSzU8wRQApniZ0jkL
-	 LGIR9wTcEdWSSVK9RungoksGFQvgjL49Qq59llJ93Wyu8TXLC/pHdZzWzNxWhxN0ks
-	 y9Snfa7djQ0CkSC/1kopXyo9npu7h8LVY2S/gm/GCCZQGrw4RIO3OZgXP99DiBeMBK
-	 pXyU0rCfRAcZyUyEko3bdcfFG0KiOX6kxxb1ypL72bR55oU63mxEVTyKq7hFM9IbTm
-	 qXNGTy66p4Aiw==
-From: Mark Brown <broonie@kernel.org>
-Date: Tue, 01 Sep 2026 19:18:50 +0100
-Subject: [PATCH v3 3/3] KVM: arm64: selftests: Check ID regs are immutable
- after a failed run
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="QajWR+kJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1788287350;
+	bh=FOcNzTawBpX5g45f7ywapH98j8rGtWxKx3lq/TqFmkY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=QajWR+kJdHwkjna4g3bEa6+p6wAOZ4Ed8kxzCLylLQOnUsbr/HSrzL2jEK8qcHmvu
+	 jag9LUbVt5w+5foekmrQRUJ6kfOcAOQ6FIYStpSQDAv/mg6B5XYj48vKpRVIC0qZmT
+	 Ba//F3JqNoQlsKvj64FvObhl6E5a5gvmTAYZETRqY5RvYFhqURhvWXbCSQ0yCw5t7I
+	 b+C1GqKGOfYp9JpGwrGAMYw6e9OzSYDEm63yH9u5ofB71csJyO48xdW/eAdYEgLKvM
+	 z4BLi+LydGEiueTObZrIU9yOsAJW9WlimU6BbOPHTxI0r8phOdnZCpx5xcpyPIKxSk
+	 rp61voO3nkqdw==
+Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hZDsL0JtGzWHJ;
+	Tue, 01 Sep 2026 14:29:10 -0400 (EDT)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Dennis Zhou <dennis@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@linux.com>,
+	Martin Liu <liumartin@google.com>,
+	David Rientjes <rientjes@google.com>,
+	christian.koenig@amd.com,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	SeongJae Park <sj@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Sweet Tea Dorminy <sweettea-kernel@dorminy.me>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Wei Yang <richard.weiyang@gmail.com>,
+	David Hildenbrand <david@kernel.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Yu Zhao <yuzhao@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Aboorva Devarajan <aboorvad@linux.ibm.com>,
+	David Carlier <devnexen@gmail.com>,
+	Josh Law <objecting@objecting.org>,
+	linux-mm@kvack.org
+Subject: [PATCH v21 0/6] Hierarchical Percpu Counters for RSS
+Date: Tue,  1 Sep 2026 14:28:45 -0400
+Message-ID: <20260901182857.26690-1-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-kvm-arm64-idreg-final-v3-3-a0ffa06fa872@kernel.org>
-References: <20260901-kvm-arm64-idreg-final-v3-0-a0ffa06fa872@kernel.org>
-In-Reply-To: <20260901-kvm-arm64-idreg-final-v3-0-a0ffa06fa872@kernel.org>
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Zenghui Yu <yuzenghui@huawei.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Peter Maydell <peter.maydell@linaro.org>, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
- Fuad Tabba <fuad.tabba@linux.dev>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5103; i=broonie@kernel.org;
- h=from:subject:message-id; bh=ncg9JtCm6S+/P6HaANbM4uckclchN4HdLcYC5ZbswH8=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqlxlIwRW91Cysdh/B4qMbAg70WlUi04noMvpfC
- +lrfej1AyKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapcZSAAKCRAk1otyXVSH
- 0GRQB/9vf/yFR0lOdSOtgJW523MCt+MdsZPycLvOVfy1KdMftWt0MPYarDCFdtLkJE6l6a9PyZA
- Dz1LKIDJbhchKVUbE0E8wX5sNzJW/agU8HRgp//zgUknckQIYqr+bpfQBWX5DmPUFLhxKcX1c9w
- 68drMPA7veVj/2FG2olYzM+YajYifTb29ihHEBLIPQcFtPsBYx04jL2bwqUD5YEIg8R3o8F4rgi
- AYcrdrf7l8oOtKGDJZtR2UvP7LTXfdcPnAhY3m2DeXdT1lahzcONLj/Bf1JIwDiHKXV+8CocNEJ
- Ub5vdyztC99nH02vtU5okJ59sDbl/hjTbMRa/ZYq97izCGhS
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-From: Fuad Tabba <fuad.tabba@linux.dev>
+Hi Andrew,
 
-Add a set_id_regs case covering ID register immutability when a vCPU's
-first KVM_RUN fails after finalization but before
-KVM_ARCH_FLAG_HAS_RAN_ONCE is set. The test provokes such a failure with
-a PMUv3-enabled vCPU whose PMU is left uninitialized, then checks that
-KVM_SET_ONE_REG on the feature and implementation ID registers, and
-KVM_CREATE_DEVICE for a vGIC, are all rejected with -EBUSY.
+Here is the hierarchical percpu counters for RSS accounting series
+rebased on top of v7.3-rc1. It includes small bootup fixes which were
+needed to fix bootup sequence on specific architectures, and a rename of
+the test config option to include "KUNIT_".
 
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Link: https://patch.msgid.link/20260805064740.3013538-1-fuad.tabba@linux.dev
----
- tools/testing/selftests/kvm/arm64/set_id_regs.c | 106 +++++++++++++++++++++++-
- 1 file changed, 105 insertions(+), 1 deletion(-)
+This aims at replacing the prior version of the series you had
+in mm.
 
-diff --git a/tools/testing/selftests/kvm/arm64/set_id_regs.c b/tools/testing/selftests/kvm/arm64/set_id_regs.c
-index 7429a1055df5..10849d21c0dd 100644
---- a/tools/testing/selftests/kvm/arm64/set_id_regs.c
-+++ b/tools/testing/selftests/kvm/arm64/set_id_regs.c
-@@ -13,6 +13,7 @@
- #include "kvm_util.h"
- #include "processor.h"
- #include "test_util.h"
-+#include "vgic.h"
- #include <linux/bitfield.h>
- 
- enum ftr_type {
-@@ -803,6 +804,107 @@ static void test_reset_preserves_id_regs(struct kvm_vcpu *vcpu)
- 	ksft_test_result_pass("%s\n", __func__);
- }
- 
-+/*
-+ * ID registers must stay immutable even when a vCPU's first KVM_RUN fails
-+ * after finalization but before KVM_ARCH_FLAG_HAS_RAN_ONCE is set.
-+ */
-+static void test_idreg_frozen_after_failed_run(void)
-+{
-+	static const u32 imp_id_regs[] = {
-+		SYS_MIDR_EL1,
-+		SYS_REVIDR_EL1,
-+		SYS_AIDR_EL1,
-+	};
-+	struct kvm_vcpu_init init;
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	int r;
-+
-+	if (!kvm_has_cap(KVM_CAP_ARM_PMU_V3)) {
-+		ksft_print_msg("PMUv3 unsupported, cannot fail the first run\n");
-+		ksft_test_result_skip("%s\n", __func__);
-+		return;
-+	}
-+
-+	/* Skip the default vGIC so the KVM_CREATE_DEVICE gate is reachable. */
-+	test_disable_default_vgic();
-+
-+	vm = vm_create(1);
-+	vm_enable_cap(vm, KVM_CAP_ARM_WRITABLE_IMP_ID_REGS, 0);
-+	kvm_get_default_vcpu_target(vm, &init);
-+	init.features[0] |= (1 << KVM_ARM_VCPU_PMU_V3);
-+	vcpu = aarch64_vcpu_add(vm, 0, &init, guest_code);
-+	kvm_arch_vm_finalize_vcpus(vm);
-+
-+	/*
-+	 * A PMUv3 vCPU left without PMU init is rejected by
-+	 * kvm_arm_pmu_v3_enable(), which runs after sysreg finalization.
-+	 */
-+	r = _vcpu_run(vcpu);
-+	TEST_ASSERT(r < 0 && errno == EINVAL,
-+		    "first KVM_RUN should fail post-finalization: r=%d errno=%d",
-+		    r, errno);
-+
-+	/*
-+	 * Feature ID registers: use values that would have been accepted before
-+	 * finalization, so that a rejection means the registers are final
-+	 * rather than the value being invalid.
-+	 */
-+	for (int i = 0; i < ARRAY_SIZE(test_regs); i++) {
-+		const struct reg_ftr_bits *ftr_bits = test_regs[i].ftr_bits;
-+		u64 reg = KVM_ARM64_SYS_REG(test_regs[i].reg);
-+		u64 val = vcpu_get_reg(vcpu, reg);
-+
-+		for (int j = 0; ftr_bits[j].type != FTR_END; j++) {
-+			u64 ftr = (val & ftr_bits[j].mask) >> ftr_bits[j].shift;
-+			u64 safe = get_safe_value(&ftr_bits[j], ftr);
-+			u64 new_val;
-+
-+			if (safe == ftr)
-+				continue;
-+
-+			new_val = (val & ~ftr_bits[j].mask) |
-+				  (safe << ftr_bits[j].shift);
-+
-+			r = __vcpu_set_reg(vcpu, reg, new_val);
-+			TEST_ASSERT(r < 0 && errno == EBUSY,
-+				    "%s write after failed first run: r=%d errno=%d",
-+				    ftr_bits[j].name, r, errno);
-+			TEST_ASSERT_EQ(vcpu_get_reg(vcpu, reg), val);
-+		}
-+
-+		/* A write matching the finalized value is still accepted. */
-+		vcpu_set_reg(vcpu, reg, val);
-+	}
-+
-+	/*
-+	 * The VM-wide implementation ID registers are gated separately. Bit 0
-+	 * is within the writable mask of all three, so flipping it is a change
-+	 * KVM would otherwise accept.
-+	 */
-+	for (int i = 0; i < ARRAY_SIZE(imp_id_regs); i++) {
-+		u64 reg = KVM_ARM64_SYS_REG(imp_id_regs[i]);
-+		u64 val = vcpu_get_reg(vcpu, reg);
-+
-+		r = __vcpu_set_reg(vcpu, reg, val ^ 1);
-+		TEST_ASSERT(r < 0 && errno == EBUSY,
-+			    "implementation ID reg write after failed first run: r=%d errno=%d",
-+			    r, errno);
-+		TEST_ASSERT_EQ(vcpu_get_reg(vcpu, reg), val);
-+	}
-+
-+	/* Creating an in-kernel irqchip would change the ID registers too. */
-+	if (kvm_supports_vgic_v3()) {
-+		r = __kvm_create_device(vm, KVM_DEV_TYPE_ARM_VGIC_V3);
-+		TEST_ASSERT(r < 0 && errno == EBUSY,
-+			    "vGIC creation after failed first run: r=%d errno=%d",
-+			    r, errno);
-+	}
-+
-+	kvm_vm_free(vm);
-+	ksft_test_result_pass("%s\n", __func__);
-+}
-+
- int main(void)
- {
- 	struct kvm_vcpu *vcpu;
-@@ -828,7 +930,7 @@ int main(void)
- 
- 	ksft_print_header();
- 
--	test_cnt = 3 + MPAM_IDREG_TEST + MTE_IDREG_TEST;
-+	test_cnt = 4 + MPAM_IDREG_TEST + MTE_IDREG_TEST;
- 	for (i = 0; i < ARRAY_SIZE(test_regs); i++)
- 		for (j = 0; test_regs[i].ftr_bits[j].type != FTR_END; j++)
- 			test_cnt++;
-@@ -847,5 +949,7 @@ int main(void)
- 
- 	kvm_vm_free(vm);
- 
-+	test_idreg_frozen_after_failed_run();
-+
- 	ksft_finished();
- }
+As a reminder, the goal here is to provide more precise RSS counters
+through /proc. A future step would be to also use these counters to
+speed up the OOM killer task selection when OOM is triggered by
+memcg. In whole-machine OOM situations, latency introduced by the
+OOM killer task selection may not be too much of an issue, but for
+memcg, where cgroups may routinely depend on the OOM killer, the
+acceptable latency tradeoff is quite different.
+
+Thanks,
+
+Mathieu
+
+Mathieu Desnoyers (6):
+  lib: introduce hierarchical per-cpu counters
+  lib: test hierarchical per-cpu counters
+  mm: improve RSS counter approximation accuracy for proc interfaces
+  mm: reorder mm_struct flexible array to place mm_cpumask first
+  init: move percpu_counter_tree_subsystem_init() earlier in boot
+  lib: inline percpu_counter_tree_items_size with boot-safety sentinel
+
+Cc: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Dennis Zhou <dennis@kernel.org>
+Cc: Tejun Heo <tj@kernel.org>
+Cc: Christoph Lameter <cl@linux.com>
+Cc: Martin Liu <liumartin@google.com>
+Cc: David Rientjes <rientjes@google.com>
+Cc: christian.koenig@amd.com
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: SeongJae Park <sj@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Sweet Tea Dorminy <sweettea-kernel@dorminy.me>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Wei Yang <richard.weiyang@gmail.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Yu Zhao <yuzhao@google.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Aboorva Devarajan <aboorvad@linux.ibm.com>
+Cc: David Carlier <devnexen@gmail.com>
+Cc: Josh Law <objecting@objecting.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org
+
+ .../core-api/percpu-counter-tree.rst          |  75 ++
+ include/linux/mm.h                            |  20 +-
+ include/linux/mm_types.h                      |  65 +-
+ include/linux/percpu_counter_tree.h           | 387 ++++++++++
+ include/trace/events/kmem.h                   |   2 +-
+ init/main.c                                   |   2 +
+ kernel/fork.c                                 |  24 +-
+ lib/Kconfig                                   |  12 +
+ lib/Makefile                                  |   1 +
+ lib/percpu_counter_tree.c                     | 694 ++++++++++++++++++
+ lib/tests/Makefile                            |   2 +
+ lib/tests/percpu_counter_tree_kunit.c         | 399 ++++++++++
+ 12 files changed, 1651 insertions(+), 32 deletions(-)
+ create mode 100644 Documentation/core-api/percpu-counter-tree.rst
+ create mode 100644 include/linux/percpu_counter_tree.h
+ create mode 100644 lib/percpu_counter_tree.c
+ create mode 100644 lib/tests/percpu_counter_tree_kunit.c
 
 -- 
-2.47.3
+2.43.0
 
