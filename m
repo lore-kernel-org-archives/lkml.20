@@ -1,90 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F6343CEC8
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:59:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE9641DDE3;
+	Tue,  1 Sep 2026 16:00:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278345; cv=none; b=dwZi81j+US+7ntyWIxAtCGNNGXqtb7ZWVotP7RnZJhb9YN4ZuzGibEv1ghUY19eVvvmEmTTv+GySdRfNCL9T1mHOshr6N4hCH9CU515CxDKsiiHw38GsfLlP+3dTFrSHLoJbznj9FHwBdT0ao0RzCCNarR7gInODDgWQJCsQaCg=
+	t=1788278439; cv=none; b=m5VMIY38PEFr0pn/Rq9uupWv6CtX5gkYObyS4bpXujLfPQfQN/5DKstJVxTSUfVChG3Jn66Y+abp+FagZYUFQgl7/08DEN0qXcI/CxiaqF7+Fv4k3CBjg95LcUXw6XRuyis+ZybrqpwjS8LiAskOLcrmvymAnI8AeGJhbsXpF8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278345; c=relaxed/simple;
-	bh=Oq7ZplkLYZ17Jd6jgncCN0Tnzdy5Yo0wIVW/z/36jGQ=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LAVr+WQXIL8utU4Yi86pr7NvVsMBIAQ0GO3/BdeMSexn8TAYopP2KrjfAFRTuH8PVjcimpQdbVoAfF5DDZ3X6S1PM2WXpW8EUU0q4gaYJ7/TrPG1cJydWUtX54hYjf9lc5En6YbcYdC1lreWtuasyWAUhqTwzg8nP4p0IgolbQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dWcZvkqB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788278439; c=relaxed/simple;
+	bh=CxI83XN8I4lxseIe9nw0DK8+BxHfKlymmUuLO1j6vBg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kWX4v2LbLLMHpek2kN+DcU+ymJwhCyzGMzJg6Gj0Eh/nkcNqoFiUDxNw880wwX+p4uV/fgScdC+dgFE+UDQUmYZ062ceYHYEPQjjnxnPOOQ+Pv5LkxobXlrYhEccLaS6fifQx+vu9dQ31yXOwFQvAJftGnGVUAOyluNebZk4VqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gjnxvUqS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dWcZvkqB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5778F1F00ACA
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:59:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gjnxvUqS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7B4E1F000E9;
+	Tue,  1 Sep 2026 16:00:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788278343;
-	bh=Oq7ZplkLYZ17Jd6jgncCN0Tnzdy5Yo0wIVW/z/36jGQ=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=dWcZvkqBZ0RelBOMhEWfPRzEqzpyr2Uaok0CnBqE+cCRXhOM6FI4iVuVriNOxGryp
-	 W3liV9wKkydPRopz4NATBAYCeIboTKrk/rdxo8wfCcmqkVGmZpUQCn6HnwkMASPnuu
-	 R2jy2OhcK2WfvoSnsROGj7OIApJfSEjW1SCZed6kSunfZwLH3V64bFZRBuAjpLuMGQ
-	 SBBa7qhcP6ui0j2I4lqDtGTybfsZrPfReU7IcGvL2vzayc+y0hT6+To7N0+dfntSl2
-	 hD4yJeI52yIKnuruDiC6Ly0mNquK4XtyuW+H3lkJJ0IAbH1TtyfvkTRiyc7e03fMgU
-	 S7mpFpjb/7X6A==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b4af4be667so4462773e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:59:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz8yqhZa1+D1c9EMaBY9tB1zzA1d5F0zd8WfO3FOfAY4Xi9+JuX4c/yZXJsAXH7y4ur2FYX9vdh7if/QN4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3NDmPPTI0tEONe5EB9PsolKrHNpjX66EYNnkzgrDut8rAR1nG
-	50rnykYcROdCYJaba3GOLlpSDqqATyNlEMCh50IR9W23CipKr++QuNneNhF2APykH1Has9Ib/Xu
-	5GcLc40ckM8NrqxZ8X8IEzFMXgXXZtMy9Kh/lju7hEQ==
-X-Received: by 2002:a05:6512:318d:b0:5b1:589b:3579 with SMTP id
- 2adb3069b0e04-5b5e68b268emr9763174e87.4.1788278341806; Tue, 01 Sep 2026
- 08:59:01 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 08:59:00 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 08:59:00 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <CAD++jLnGGonfOxLHhM-uXAzP10J9o5=0e_cV9JM5r7SJawChnA@mail.gmail.com>
+	s=k20260515; t=1788278437;
+	bh=TIKv8E8evR5d2hcE9sikzBcAxzkD4wFQ4y3I6MsdiEQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=gjnxvUqSqjuy2nPxq+927DQFz0WTfTK8ZJFUQ+LAuXJbyIm/Rf38BAfYpn0JfIxTX
+	 cE+ZgPgwgyBbl/trP/XJCVCuykdIuhW8CMh4YS6bVsKvnSc69Vi6DvxB6+sINWKps7
+	 NBVps23evqJOnZxe2b/BYCcu1JH7fTkOMUpLHfrPyIQ7ytmz53o+NbIc8FVYV/NqDK
+	 P4ujEtGNRdg8n0ZjPaOhkdT3xm9jAK3ob9QrFLKMOZv88yFf9G2fQF7H9EvEIpzBP3
+	 kQ9h0qtfYgHcDoR/zMKz8i4KhOjknTxj+9WIyUV0szHF4pQoOlDAW2bURauLTx9Ljx
+	 vh2yf4WWvqJ+A==
+Date: Tue, 1 Sep 2026 17:00:32 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+Cc: "Joshua Crofts" <joshua.crofts1@gmail.com>, "Andy Shevchenko"
+ <andriy.shevchenko@intel.com>, "David Lechner" <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] iio: rename stale IIO_DEV_ACQUIRE_ERR reference to
+ IIO_DEV_ACQUIRE_FAILED
+Message-ID: <20260901170032.3980bd42@jic23-huawei>
+In-Reply-To: <DL35HECJMI8L.2J440RRGS0HNB@gmail.com>
+References: <20260831-doc_acquire_failed-v1-1-3c8e59c07d18@gmail.com>
+	<apVp6vRQmyPi4EQH@ashevche-desk.local>
+	<20260831143004.00007913@gmail.com>
+	<DL35HECJMI8L.2J440RRGS0HNB@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820-msm8952-pinctrl-v2-0-bf2b8b7b379b@mainlining.org> <CAD++jLnGGonfOxLHhM-uXAzP10J9o5=0e_cV9JM5r7SJawChnA@mail.gmail.com>
-Date: Tue, 1 Sep 2026 08:59:00 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MdKT4RAWdtZf87k5-VbXAZePT2yttf2QPWgRJaowKuDTA@mail.gmail.com>
-X-Gm-Features: AcwNN1UfNyHlYiZf5Y-cZ-ZfikuCsNoWOHA6SA5CDbMjoE3viBQPShEGvuq9myc
-Message-ID: <CAMRc=MdKT4RAWdtZf87k5-VbXAZePT2yttf2QPWgRJaowKuDTA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] Add pinctrl support for MSM8952
-To: Linus Walleij <linusw@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, muzafferkadir@mainlining.org, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, 20 Aug 2026 18:37:50 +0200, Linus Walleij <linusw@kernel.org> said:
-> On Thu, Aug 20, 2026 at 1:17=E2=80=AFPM Muzaffer Kadir via B4 Relay
-> <devnull+muzafferkadir.mainlining.org@kernel.org> wrote:
->
->> MSM8952 has pinctrl system that is similar to MSM8917 pinctrl, but it
->> has some differences in some of the pins and their functions.
->> This driver was tested on General Mobile GM 5 Plus
->> (shamrock) using my own kernel fork [1].
->> I'm holding off on sending the GCC (Global Clock
->> Controller) driver and initial device tree until I've resolved some
->> outstanding bugs in the GCC driver.
->>
->> [1] https://github.com/kadir1243/linux
->>
->> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
->
-> Bartosz needs to look at this series, he'll review and merge
-> it.
->
+On Mon, 31 Aug 2026 15:07:06 +0200
+"Javier Carrasco" <javier.carrasco.cruz@gmail.com> wrote:
 
-And to that end please use scripts/get_maintainer.pl to get the current lis=
-t
-of maintainers for your patches.
+> On Mon Aug 31, 2026 at 2:30 PM CEST, Joshua Crofts wrote:
+> > On Mon, 31 Aug 2026 14:47:54 +0300
+> > Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+> >  
+> >> On Mon, Aug 31, 2026 at 12:09:09PM +0200, Javier Carrasco wrote:  
+> >> > Update the kernel-doc reference left over from an earlier revision
+> >> > of the series, before the macro was renamed to IIO_DEV_ACQUIRE_FAILED().  
+> >>
+> >> I would argue that it might be good to be backported, but who reads documentation?  
+> >
+> > Only LLMs these days...  
+> 
+> And at least one human ;)
 
-Bart
+Applied.  Not backported as at least to humans it should be easy to figure out
+what it should be once grep doesn't find any instances of _FAILED() form.
+
+Thanks
+
+Jonathan
