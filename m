@@ -1,81 +1,82 @@
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C62E447F78E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:40:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.137
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A92047DD50;
+	Tue,  1 Sep 2026 09:40:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788255636; cv=none; b=LMaceacLMJJicnvJya9ClpT7fz3tcVEToBxbYrWH2KjQsWHlqcX8MJGqQ58dRSIp2k8ltAzSXhQCWki9Co4OqIEa253AQIb/OsjO6tMZZ6bn5TWs0h1CMAUWe7v09bMZEWFEgKV49Fz7gKaVcIXB3JAJBJ05E8D/eChc4AHEwW0=
+	t=1788255650; cv=none; b=uE7XqxOxOlgfXR3ACWYbMiytI38f9ovZniVmtIfhY5JdEmIHbgwoqGlgO907NhCxyzF2gcQ5gNwVFTAEjzfVVJXTOGXeZfpMMc7G78rd7u0ND6Yb6ZByINKlWPrtEeP51WDBFP5uAaC9pDtOfwIwFGlucepRDhdF7ZL/+89S+6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788255636; c=relaxed/simple;
-	bh=LALt3XyMX6Hs3+Ma/qa+MvuuXwg7pk7dUcR1bk+TyGE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rgnDAl8p9hC9BRVQGSm5cmWtjaCFxsGcL+eAeZZqipl8Gs6h/giMrpCbIHAGj96a1OI3aS8N/qlyjkh3dz7cqXeIKDjHJesb98f94zBnn2btMf7Qse7ZABU4fOmuEskcW35ByFzHsoij+NOApJorT1+B3S823nheSAL81uTGWA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=bA0F8SsL; arc=none smtp.client-ip=111.22.67.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	s=arc-20240116; t=1788255650; c=relaxed/simple;
+	bh=u8zg0kxXO5dNcshMD/1vHepH7WIKo3/XSNJN88jaGg8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sWQt3WSf17cn/R8DNsQ7/mWRFWSQ+hAvCoiTIhPfIZJxWxrik1VkkFbHHuOHqfz0PWW81koOVVEZG0KaMONNH0lRD6B99kibWYfbppX/R/cbA/uK/EhB01xBcOMoG16ZPUUaYGT71GiniJmfng4RLw1S7jOdibvYzHsNxTJnpO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=e3HiFpI+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="bA0F8SsL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=bA0F8SsLmLd9iivCo7TIRB6MBO/MCi2/vLn8n/z7Nna63rAz0csAeFBEf6ySG8jjSPTqZztWwtwnW
-	 3xDFz+imzb874hE8ABpD5sE0ztb51mIGKxURj87G8bD3Og0m/8cfzdXVzrsb0kqmZmDioJg8+WMPks
-	 oW8FumEQoV6Y5Ybk=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46a969cc5149-37017;
-	Tue, 01 Sep 2026 17:37:10 +0800 (CST)
-X-RM-TRANSID:2ee46a969cc5149-37017
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181454368174 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16a969cbf52e-d1291;
-	Tue, 01 Sep 2026 17:37:09 +0800 (CST)
-X-RM-TRANSID:2ee16a969cbf52e-d1291
-From: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
-To: srinivas.pandruvada@linux.intel.com
-Cc: raj.khem@gmail.com,
-	linux-kernel@vger.kernel.org,
-	trivial@kernel.org,
-	zhang jiao <zhangjiao2@cmss.chinamobile.com>
-Subject: [PATCH] tools/power/x86/intel-speed-select: Clean up more build artifacts in 'clean' target
-Date: Tue,  1 Sep 2026 17:36:57 +0800
-Message-ID: <20260901093657.1884-1-zhangjiao2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e3HiFpI+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1746A1F000E9;
+	Tue,  1 Sep 2026 09:40:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788255639;
+	bh=SsNgKLbJLb9DwPD9hkfdr6aYypQHtyGtr4Bb4ouAYKo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e3HiFpI+Yu6DFwGPpNzz81xBw0iRGkU0Y3akZQ/5ye9c1DrL0ztgjhkx6AKsyKcJM
+	 APvcSqdz1oaYgI3YWVoPIVh9qliEyXPc4ofqGUZ4Mq17Addg/DtmhG99WqgfHvBdg3
+	 Z45diSo+CLy+YGFfs1c+Vn8+0CVjux7DueoE1QWw=
+Date: Tue, 1 Sep 2026 11:40:35 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Lucas Jeffrey <luquijeffrey@gmail.com>
+Cc: florian.fainelli@broadcom.com, rjui@broadcom.com, sbranden@broadcom.com,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-staging@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: vc04_services: preserve bcm2835_audio_write
+ errors
+Message-ID: <2026090127-unafraid-vantage-966f@gregkh>
+References: <20260803040928.12453-1-luquijeffrey@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260803040928.12453-1-luquijeffrey@gmail.com>
 
-From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+On Mon, Aug 03, 2026 at 01:09:28AM -0300, Lucas Jeffrey wrote:
+> When sending audio data in multiple packets, a successful later packet
+> could overwrite an earlier failure in status. This caused the function
+> to report success even if one packet was not queued.
+> 
+> Stop sending packets after the first failure to preserve the error.
+> 
+> Signed-off-by: Lucas Jeffrey <luquijeffrey@gmail.com>
+> ---
+>  drivers/staging/vc04_services/bcm2835-audio/bcm2835-vchiq.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/staging/vc04_services/bcm2835-audio/bcm2835-vchiq.c b/drivers/staging/vc04_services/bcm2835-audio/bcm2835-vchiq.c
+> index 3156cb8392f4..5ac23cfa7983 100644
+> --- a/drivers/staging/vc04_services/bcm2835-audio/bcm2835-vchiq.c
+> +++ b/drivers/staging/vc04_services/bcm2835-audio/bcm2835-vchiq.c
+> @@ -365,6 +365,9 @@ int bcm2835_audio_write(struct bcm2835_alsa_stream *alsa_stream,
+>  
+>  			status = vchiq_queue_kernel_message(vchiq_instance,
+>  							    instance->service_handle, src, bytes);
+> +			if (status)
+> +				break;
+> +
+>  			src += bytes;
+>  			count -= bytes;
+>  		}
+> -- 
+> 2.43.0
+> 
+> 
 
-The 'clean' target currently leaves behind .* .o.cmd and .* .o.d files,
-as well as the generated 'include' directory. Extend the target to
-remove these so 'make clean' fully resets the build tree.
+Was this tested on the real hardware?
 
-Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
----
- tools/power/x86/intel-speed-select/Makefile | 2 ++
- 1 file changed, 2 insertions(+)
+thanks,
 
-diff --git a/tools/power/x86/intel-speed-select/Makefile b/tools/power/x86/intel-speed-select/Makefile
-index 6b299aae2ded..46874e4cee51 100644
---- a/tools/power/x86/intel-speed-select/Makefile
-+++ b/tools/power/x86/intel-speed-select/Makefile
-@@ -54,6 +54,8 @@ clean:
- 	rm -f $(ALL_PROGRAMS)
- 	rm -rf $(OUTPUT)include/linux/isst_if.h
- 	find $(or $(OUTPUT),.) -name '*.o' -delete -o -name '\.*.d' -delete
-+	find $(or $(OUTPUT),.) -name '.*.o.cmd' -delete -o -name '.*.o.d' -delete
-+	find $(or $(OUTPUT),.) -type d -name 'include' -exec rm -rf {} +
- 
- install: $(ALL_PROGRAMS)
- 	install -d -m 755 $(DESTDIR)$(bindir);		\
--- 
-2.33.0
-
-
-
+greg k-h
