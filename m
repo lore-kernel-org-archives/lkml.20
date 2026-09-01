@@ -1,219 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00190434406
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:29:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788276589; cv=none; b=IXMVE0Wpf6aiF6mnJQ+bGrNQEJgv2U0utnD41w3uC27nXi56CF30+BWy3b6IHn5E/RZ6vZ4m8nnCHkn13h3yQgnr35y1asyNQelN7VNOhBQYRLL8vsdZSdY1hIp3FzfscOdyXx1f1uZZthP0rZZ+NjvyaSDClSx2HjU7CSyYH1k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788276589; c=relaxed/simple;
-	bh=gLLa+LQsKzTOZs3X1QfXt+qiVzqtAAkpgAkf0r1H6GU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=k1Fn6syXZgjeNL9Is2fqxbgseXwnjA16ALw6YBruwXUjZoVn2urEYDdg4SHSp7tTCl1KhWJLhDt/mD8l0+0y28T9Q9SAM6L5b1JeLUcuvlBurcJyffuuqTAiJk3G2nPWtc1Dp2zBAP9LBk2oDOaJ/lXJV4t9fFzkTe/uIDY4Y7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i0/soRz2; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476EC3CB56B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788276628; cv=pass; b=Uy3ykRkjYHtWzFzwVpl1AqdE5oVpcQDtXlJjz7wdzwxF26g+3OcpU5c7fYnUUdsGAVednWgwsklIdPLcbMyO/EgqR6qbJYh6QG2sOwYJsl8ECauFHbTkooXzXoJTD0dk+N1C8NRMSD5AGKvE418vaSyExaAAq1hrKAyYm7hRX68=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788276628; c=relaxed/simple;
+	bh=oGeNoOa+p9ZzuwZnVouBlcSvBe+Jh3Gib2Kiy0uoXuY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=snOqVuxklMws6N3b6fTuwvAh4RWJVvB3GzVA3RkS1IKfS9/S3LB1KCYxQ6+mnSTpbo0ibVhTA8yEX5HSjaVu87Bpa/fNtfuZS9NN5hMFxG6ulp01Cko1DQ/3JMYXzdtYt2L1GuHERlbTvh9A/Zs9c3rAIE6x+Zl4jSAyfg0fhjA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=R8esj2ZC; arc=pass smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i0/soRz2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A62CC1F000E9;
-	Tue,  1 Sep 2026 15:29:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788276587;
-	bh=o/syEHCv1guCm/vmnIaZa70JsD2J++4F5PYglM5fdwE=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=i0/soRz2SNzFmTbgCwHkMy1040NMxdaqWhrJCM3etG9HXyQOF6iPnTW2yeauP3A9c
-	 J1zbPaTOgh1L9VrhDI2X+Vz9pPShgAZL3A0jusuvN46wLMj5wCFGSiNz7PnVTrKaYW
-	 4b6vSc3thnxQCJDW/g4MIWXeVqrb64PYve5rAjXw1V213yq6qT+P7W/c8+i7VS2M07
-	 VmnAWTXEULZhFZXSO061gVnHE8d1DO6P/MZToFttCdC7r2HqNgF5qermvIYoE7xf7q
-	 /uDeH3rLxrIuTug+FqOneHSN2iRKPYEZkA+ekmEjuO9pKuXfG+POqIKKHbo+qkdaUT
-	 CPQSrAMZHeYrA==
-Message-ID: <3bfabe23-b88d-4548-a7a4-06bf526c3a31@kernel.org>
-Date: Tue, 1 Sep 2026 17:29:43 +0200
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="R8esj2ZC"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1c9879395so4064536a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:30:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788276627; cv=none;
+        d=google.com; s=arc-20260327;
+        b=J/nYupgzYOV+V/2eDACLETgBncnrYFbC5S8Zb6FwF+K83omEOsoAP1KIujW4ypJeAF
+         LJMSJZL5IE5kC3qj8I+VbCkMeOU7CtPd8czKa/qKxzapfgkJ3FuwLv49p4mL6I46WD2m
+         +BZoUZ6C8dveAymnW5Wl2X26xZI+VUQo2QdyyuPHfsc1tEg/P9Bht1MoUEjdDPs7/qoI
+         5psLyRlc54VbXDghgZM51jbUmYu5Hgb5EFjwwrh3VoB/LJswj35EYC2tZoRC7rBW5aUJ
+         Jutpie1KmqR0IMdBHx/G55zGFcvb/vvPo+g3N0JNvuISSrr83Ik2kWhtG3k0Es/Rtb3x
+         cI8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=z5rWp6/FMPiff7KV5XUE+nXFQ+JqVYy4oIJa29s1gF8=;
+        fh=l0qAGC4Fh5ADrkpBtGrC6YQv16/2wVc88h/7QQzAzhg=;
+        b=GKLpCmpm06nepwg5WylVnZuTkcfg2T9uTwXXIWqtgzagWYnbzvBBERPdPsBRsqvIsv
+         u4Bv/0wRStN2sWzc0p//rTEEDtBxG62dyQGmiZjia2/yFzc825VRgBlW1JFhTdOwrfBC
+         VyGF/1a/Im1WvqIY6F7Tjhj+HQ6v1sJX4af+3aggGGnUovqQS2yGm8UL5XalyJ5nGT/I
+         HTl4guM9Ltzag3MH3OK0O9coSbXrj7hIWdXolzdf1ODNWRYToHciBdzR4e76kTdrihgG
+         NB+6DL0ukkG3pk8s8gRVS/Ap8gVIzJz2NtNmci19zWfEWRZ7K/8d0oBeUdq9WlIJ3Nqv
+         ytnw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1788276627; x=1788881427; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=z5rWp6/FMPiff7KV5XUE+nXFQ+JqVYy4oIJa29s1gF8=;
+        b=R8esj2ZC1MQ3zauvBv9MGbowj5sTEI6PjKk72+RbINZVnrRd7qXe0OU7lzUPFvgCEM
+         svxpC4pk2DVJIA/Dv4M2cazo9rdXMPv1gVGJr0Inf9fQgb6S5iaA+3w27NYjVK3G1rGV
+         Jgg96YDlxIQueCYFcyS0PyPzSp9ZY64sBFgOjxxpiMIi+i8NgkOQ71w53c5ecix62sQ8
+         CrAS8Wl8t5/E4FZN3WJKf9eWly6hqs3WZh7F2DkkEdAupUX8NrZuEqtvCrznK3ogfXNN
+         aJsgFa0fuUAGlJHg5wTSgSp821QfmoNyPGLWWvW43qRe/pegIXkG+e8xvOS9CR9cE0Hc
+         rUmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788276627; x=1788881427;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z5rWp6/FMPiff7KV5XUE+nXFQ+JqVYy4oIJa29s1gF8=;
+        b=dHm61h1D2QJP+DsjSET/nkNKC0Jc14h9jVWntL/dIimFNXqDTb2PHlSS8THhsjG+WO
+         EHqBZBe8MaUB8rz7P08It11473++4x6CwvzJrNaRrBBrlCoRRV+T4w9quBCkyijRZt3b
+         oAeD0dGWKAttEdHK8RV4+nIk8Xa/+6JOEH2QtdwOV9pBnlk6ieM9cafDrUTffLGIY744
+         /0KOTEUyE4JxZHX32qXSmjPW39bKZPg+bkycSrX+5IbKIItcBiTHlfR152qZhiWHPhAm
+         OSEThyQ/dQxu71Ncq45XWMRm2598fT8lR9YRkRGXFJctJssKZo9QYrvSekn12jG55ARd
+         1TvQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpD/IDiXSfu5BfFnU7Pc0p8v69CaZSV0BqmTZAcLTriX0j2Vun/aIsGgLO2mBr/WhRe2wcBhg5wy6gi58o=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGycW0PFxtRMvimrFvjNR0dHgmiYOc1LMTIdm2dU7GtGny+N9I
+	2jkdDFNYZigIYo55iaXjTlsokx/8sosWrTkdwhfA22PstqyuSeqpLDsEtPz6yaU/gRm6PV9IANK
+	cHMbfDcP8l+3nX9iZcIOsoi29hOCAh41QS1lt4KVp
+X-Gm-Gg: AR+sD13nsWHoxIeQBLlT+4VHGTPNBCXr5GTvnlLJlTTPcSOT78T4IVnY7dCraA5PIPJ
+	V7oERKmUYxqI6vQWMUX8R7pAC5VMlA5saH3vjj3kn7gRTrscH1YhhcBymB4XmdS7+0jJ6p5+WQG
+	AgEjtfZX5tYfZt3H2lns+4d6/kxQ8y0DkyHb+TdN8m5f5B2ETk8j0HrstgPzxTx9IYzHjiNVaj0
+	vwnhU6ydlOCEW28381k9oCnbRXLj+AcpYF4g8TN+hHxKpzPgMah91FOSgxetpAdl8vFxnHyZXHq
+	szL/6Esh7LDoMhIKTRx1F3BVRbq36DIgwTrs9FDAGIqC
+X-Received: by 2002:a05:6a21:a8a:b0:3d3:ad3c:49a5 with SMTP id
+ adf61e73a8af0-3d3ad3c6457mr43951622637.19.1788276626517; Tue, 01 Sep 2026
+ 08:30:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 1/4] memory: fsl_ifc: Fix optional NAND IRQ handling and
- migrate to platform IRQ API
-To: Rosen Penev <rosenp@gmail.com>, linux-kernel@vger.kernel.org
-References: <20260721202450.485171-1-rosenp@gmail.com>
- <20260721202450.485171-2-rosenp@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260721202450.485171-2-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <apbYZsfaO9BnB8nm@sirena.org.uk>
+In-Reply-To: <apbYZsfaO9BnB8nm@sirena.org.uk>
+From: Paul Moore <paul@paul-moore.com>
+Date: Tue, 1 Sep 2026 11:30:14 -0400
+X-Gm-Features: AcwNN1Xq90Ba1WRvtyU8kMeoJcWIIGgbEGSH8V_oysbwx7BB9WV_M54j0vbNtas
+Message-ID: <CAHC9VhQQGcKJU_HF78cMSuCPf=2tj8xW78ELOYwb1xJJU8tuRA@mail.gmail.com>
+Subject: Re: linux-next: manual merge of the security tree with the
+ vfs-brauner-fixes tree
+To: Mark Brown <broonie@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>, =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux Next Mailing List <linux-next@vger.kernel.org>, =?UTF-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 21/07/2026 22:24, Rosen Penev wrote:
-> Switch from irq_of_parse_and_map() to platform_get_irq() for the main
-> controller IRQ, and use platform_get_irq_optional() for the NAND IRQ
-> which is optional. Guard free_irq() calls on the NAND IRQ with a
-> nand_irq > 0 check to avoid passing invalid IRQ numbers on platforms
-> without a dedicated NAND interrupt line.
-> 
-> Get IRQs first as they can return a probe defferal error. Helps avoid
-> doing actual work in such a case.
-> 
-> Assisted-by: opencode:big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  drivers/memory/fsl_ifc.c | 43 ++++++++++++++++++++--------------------
->  1 file changed, 21 insertions(+), 22 deletions(-)
-> 
-> diff --git a/drivers/memory/fsl_ifc.c b/drivers/memory/fsl_ifc.c
-> index e89e0c6cc4bc..dce94d8b05b9 100644
-> --- a/drivers/memory/fsl_ifc.c
-> +++ b/drivers/memory/fsl_ifc.c
-> @@ -89,12 +89,10 @@ static void fsl_ifc_ctrl_remove(struct platform_device *dev)
->  	struct fsl_ifc_ctrl *ctrl = dev_get_drvdata(&dev->dev);
->  
->  	of_platform_depopulate(&dev->dev);
-> -	free_irq(ctrl->nand_irq, ctrl);
-> +	if (ctrl->nand_irq > 0)
+On Tue, Sep 1, 2026 at 9:51=E2=80=AFAM Mark Brown <broonie@kernel.org> wrot=
+e:
+>
+> Hi all,
+>
+> Today's linux-next merge of the security tree got a conflict in:
+>
+>   include/linux/ns/ns_common_types.h
+>
+> between commit:
+>
+>   82e9343260dfc ("nsfs: keep namespace tree fields stable until after RCU=
+ grace period")
+>
+> from the vfs-brauner-fixes tree and commit:
+>
+>   f675d2e955696 ("lsm: add LSM blob and hooks for namespaces")
+>
+> from the security tree.
+>
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
+>
+> diff --cc include/linux/ns/ns_common_types.h
+> index 6ed6b497831c7,5cfe0ce3c8818..0000000000000
+> --- a/include/linux/ns/ns_common_types.h
+> +++ b/include/linux/ns/ns_common_types.h
+> @@@ -116,8 -116,13 +116,11 @@@ struct ns_common
+>         struct dentry *stashed;
+>         const struct proc_ns_operations *ops;
+>         unsigned int inum;
+>  +      struct ns_tree;
+>  +      struct rcu_head ns_rcu;
+> + #ifdef CONFIG_SECURITY
+> +       void *ns_security;
+> + #endif
+>  -      union {
+>  -              struct ns_tree;
+>  -              struct rcu_head ns_rcu;
+>  -      };
+>   };
+                                \
+Looks reasonable, thanks Mark.
 
-0 is a valid IRQ for Linux, I think.
-
-> +		free_irq(ctrl->nand_irq, ctrl);
->  	free_irq(ctrl->irq, ctrl);
->  
-> -	irq_dispose_mapping(ctrl->nand_irq);
-> -	irq_dispose_mapping(ctrl->irq);
-> -
->  	iounmap(ctrl->gregs);
->  
->  	dev_set_drvdata(&dev->dev, NULL);
-> @@ -204,9 +202,21 @@ static int fsl_ifc_ctrl_probe(struct platform_device *dev)
->  	int ret = 0;
->  	int version, banks;
->  	void __iomem *addr;
-> +	int nand_irq;
-> +	int irq;
-
-Why do you need the intermediate variables?
-
->  
->  	dev_info(&dev->dev, "Freescale Integrated Flash Controller\n");
->  
-> +	/* get the Controller level irq */
-> +	irq = platform_get_irq(dev, 0);
-> +	if (irq < 0)
-
-... as also shown here.
-
-> +		return irq;
-> +
-> +	/* get the nand machine irq */
-> +	nand_irq = platform_get_irq_optional(dev, 1);
-> +	if (nand_irq == -EPROBE_DEFER)
-> +		return nand_irq;
-> +
->  	fsl_ifc_ctrl_dev = devm_kzalloc(&dev->dev, sizeof(*fsl_ifc_ctrl_dev),
->  					GFP_KERNEL);
->  	if (!fsl_ifc_ctrl_dev)
-> @@ -246,23 +256,13 @@ static int fsl_ifc_ctrl_probe(struct platform_device *dev)
->  		addr += PGOFFSET_4K;
->  	fsl_ifc_ctrl_dev->rregs = addr;
->  
-> -	/* get the Controller level irq */
-> -	fsl_ifc_ctrl_dev->irq = irq_of_parse_and_map(dev->dev.of_node, 0);
-> -	if (fsl_ifc_ctrl_dev->irq == 0) {
-> -		dev_err(&dev->dev, "failed to get irq resource for IFC\n");
-> -		ret = -ENODEV;
-> -		goto err;
-> -	}
-> -
-> -	/* get the nand machine irq */
-> -	fsl_ifc_ctrl_dev->nand_irq =
-> -			irq_of_parse_and_map(dev->dev.of_node, 1);
-> +	fsl_ifc_ctrl_dev->irq = irq;
->  
->  	fsl_ifc_ctrl_dev->dev = &dev->dev;
->  
->  	ret = fsl_ifc_ctrl_init(fsl_ifc_ctrl_dev);
->  	if (ret < 0)
-> -		goto err_unmap_nandirq;
-> +		goto err;
->  
->  	init_waitqueue_head(&fsl_ifc_ctrl_dev->nand_wait);
->  
-> @@ -271,10 +271,11 @@ static int fsl_ifc_ctrl_probe(struct platform_device *dev)
->  	if (ret != 0) {
->  		dev_err(&dev->dev, "failed to install irq (%d)\n",
->  			fsl_ifc_ctrl_dev->irq);
-> -		goto err_unmap_nandirq;
-> +		goto err;
->  	}
->  
-> -	if (fsl_ifc_ctrl_dev->nand_irq) {
-> +	fsl_ifc_ctrl_dev->nand_irq = nand_irq;
-> +	if (fsl_ifc_ctrl_dev->nand_irq > 0) {
-
-...but not here.
-
->  		ret = request_irq(fsl_ifc_ctrl_dev->nand_irq, fsl_ifc_nand_irq,
->  				0, "fsl-ifc-nand", fsl_ifc_ctrl_dev);
->  		if (ret != 0) {
-> @@ -292,12 +293,10 @@ static int fsl_ifc_ctrl_probe(struct platform_device *dev)
->  	return 0;
->  
->  err_free_nandirq:
-> -	free_irq(fsl_ifc_ctrl_dev->nand_irq, fsl_ifc_ctrl_dev);
-> +	if (fsl_ifc_ctrl_dev->nand_irq > 0)
-> +		free_irq(fsl_ifc_ctrl_dev->nand_irq, fsl_ifc_ctrl_dev);
->  err_free_irq:
->  	free_irq(fsl_ifc_ctrl_dev->irq, fsl_ifc_ctrl_dev);
-> -err_unmap_nandirq:
-> -	irq_dispose_mapping(fsl_ifc_ctrl_dev->nand_irq);
-> -	irq_dispose_mapping(fsl_ifc_ctrl_dev->irq);
->  err:
->  	iounmap(fsl_ifc_ctrl_dev->gregs);
->  	return ret;
-
-
-Best regards,
-Krzysztof
+--=20
+paul-moore.com
