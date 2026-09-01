@@ -1,81 +1,76 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA934457B8
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:40:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5076646C4CD;
+	Tue,  1 Sep 2026 07:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248410; cv=none; b=fgStQU1hQu/szd01eGxxK2iLNV6ePZmipBWK81yi+HrE4CIDxS7IV3/8kqshc77gtFIcsFbsringWRS6fRnsg1pcI+JLxE3K6LdZxVbOf1dq8cJG36QE4RAyg7yiESlXcYLXdTn5x4ulEBogeBJ4+mEIXFHXMSAdLbSgkOZft0Y=
+	t=1788248412; cv=none; b=hM+oTJH3qej0cV5TDmDFaX/0AvAtyAvTD08P+8CcuNqv/vx7X5VUInRlAB5UHLzYM8hELntQ4eW9GQkA336tHnF/fJB+Fh1oodrUQxIOgaxDBRiCbzuZbaeFis7kHbtXsJxq+0MrNi2R9DCEETKkCr2ne9UNeds40gL9qZgsYrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248410; c=relaxed/simple;
-	bh=fNXgbUH4YwoCUckMTjuilOc6um4z0aw79/1hpJaeGjM=;
+	s=arc-20240116; t=1788248412; c=relaxed/simple;
+	bh=XONBBAcTGbqtO/f5pnHJlSw6tfBDAJqt5wE/E9gia/c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lICbn+N05v/KsFzIAPF2dqVVavn+tDq7fLbQh9GMA5XhdtZ46fEGnyXtdNMB6w5lZclkRSu6EcHujiu8VsFjG7FbDSOQuCVjlD96UslEBLr+OWkcFlKCfHAo0nNRZ/RyLZ/CBwwnMIfiCSyfWT0U7XnIuaHzXqQ1uzSrwP+xU5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BGuLuA+K; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=MMeqocSwRj5L7b/jmwtPT1qMcH9RqUFhi5sfBP4J3MeiuCq2EbXtQdLY/KVEMk0KA77j3/osbAZFteGUMM7/pXy8wI2Ml7VSSKcNXOf76yfTZ9RU3lXgiVFrtr+pibNXmeqmMAm2ddmh6BZJ9ofhv+Y6w/8rTiPIRbp7NF/OaVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qMwY5wUr; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BGuLuA+K"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d560775ca2so32255035ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:40:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788248408; x=1788853208; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lVGuGBruvV53X0XkgR5c4IAW5uh3SaQmvTN/K44C1Qw=;
-        b=BGuLuA+K1dgYX97zPKCAbOfGkyvLNA/Kqu3MBn+mr/ChKsHHooUoxdv4Xfh8xvvHuv
-         OoZv1oJR2DYIJphulDjLfbG9FMR4iXr/tDSvjrizoBXCTqA+u9b52I6JvnoUcouWluBu
-         W6l8jrX8bVe5Q+1C0sFsSwxAxn0yQ+K0r6rHgU759FjWZWoW76WRWOwxHcfwgx0fQDXZ
-         Sd/7D//nb/19ib1pvzZx/hyKt26UaH0utUI3QF3dNPU+5ZeSGRi9DMA2a98Mb9pYLJa8
-         qe7ag5+5/azlN7eLcBQyVQdCnh86qwvRGRUuKZuaRCO+3UYieTW5NjjQjnTogTP8OKze
-         2z5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788248408; x=1788853208;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lVGuGBruvV53X0XkgR5c4IAW5uh3SaQmvTN/K44C1Qw=;
-        b=X1ZND3wrZbvr4BXU6x4C0QdN5da9EfztH5BO8rsKHAQvdzSzWVBqg8V6diYCYWmR2O
-         Nh6NelKmUOvhqQjlNnkxLJDXMBa5EqDQYqBDBcYrORdmww/4kErz1MwXoF6EhzCP67iy
-         HKYYxui+DGt1u/DIJfIwSzioT6UZjv1yEn4lvixQpI5bglZNocy7bcANPHkcNexDRdtB
-         nqlrq8SPIMLZctwaORuzqOj2x+yYaukIRLROP90YVDH5R+1F6+iv3KDCH/YLlr/YsXnJ
-         E+vOSbXw+rYd9WrBg121Ye9miw1BZZCEUFVt6CbAAhzr2Oz0ojOt6zf/Hc5u0Rhy1ZZt
-         b0qA==
-X-Forwarded-Encrypted: i=1; AKwUvByEXYF6niFibmZALk2hTRATc4GRArKdCGKLM3A9ncOIIPZQGoIMFvm6s8yr5rvG0mD+SkInc/+m9QtvpMI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3pgFfd/hOsTYuWHq8754AV91iZdIkwQC7uD2HPthsYYrvAG/0
-	0mO4fJ7IRgksQ1e29bnUWzgDpajZEQlZFdYMCrfVj5CNXCcNSX49SYkL4ZQdSCaguzk=
-X-Gm-Gg: AYBFou1vw90mhlmlDvQMu4D4sJtmGQJk47Yn3orb7w3lfdgWlZqbWNyAUFx0N6mONai
-	nybcbVi+XUye7RAuE8v+8SZtuvbcEzHJ4x3C/tZDWYjZu/i0R0yQbVU6req/9aKQCxQFrTAESzS
-	3PBlzhxxQIIn9c+YxBdZZbu0BgsLxclaZIo9XlF3SgGUaEYr8hfVZRUUZCxenWiN3aI1WVdSh3g
-	3vMTxgCcyrGAA5jjDOlQkZ/x44jWyWBSDBhMoVL66d9s6kW+3Gl6ERSrrH0KhLu+E56K/icAjru
-	CuU2cfxgu/zHsAFFoDgiqhTMdOTEhI7bJfK03ScXFHg0Q4YlZkjrFHQyqlzIeiuov2xiKNaJzf3
-	QFE05uEvwwiN5pNyE8WH5GxUIJnxkB+lStuwJpfYxrZcOHyrLVOXXuOmfJv8m8qKEJGC7EB6rC1
-	47RhF5Ocem29lji9aMHOMYr1S0J/nv+7rvuP4QK30xvxnvhAV8cRbrwAYN2z1AS9yOdi0Ke9qT3
-	5FraQAmfAsbjzw/8g==
-X-Received: by 2002:a17:90b:4c0b:b0:398:9c0c:7c72 with SMTP id 98e67ed59e1d1-3989c0c7ffemr32652283a91.25.1788248408489;
-        Tue, 01 Sep 2026 00:40:08 -0700 (PDT)
-Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d4f1bb8sm5341572a91.14.2026.09.01.00.40.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:40:07 -0700 (PDT)
-Date: Tue, 1 Sep 2026 16:40:01 +0900
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: edumazet@google.com, kuniyu@google.com, davem@davemloft.net,
-	pabeni@redhat.com, ncardwell@google.com, dsahern@kernel.org,
-	idosch@nvidia.com, horms@kernel.org, willemb@google.com,
-	andrew+netdev@lunn.ch, kees@kernel.org, jiayuan.chen@linux.dev,
-	kerneljasonxing@gmail.com, ij@kernel.org, martin.lau@kernel.org,
-	shakeel.butt@linux.dev, matttbe@kernel.org, martineau@kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imv4bel@gmail.com
-Subject: Re: [PATCH net v2 0/8] net: fixes for requests completing on a
- socket that no longer listens
-Message-ID: <apaBUYXZlemOU1y0@v4bel>
-References: <20260824033331.1084971-1-imv4bel@gmail.com>
- <20260831163556.54f89805@kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qMwY5wUr"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6817Vhjd579474;
+	Tue, 1 Sep 2026 07:39:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=XWc0GQHv3zwAcvIhcs8TteAqLnwKxL
+	N4AMKmaD+lWNk=; b=qMwY5wUr/YnNsxL/1ISSbD8q+hTp/p/4QHq16L1qBUfFKd
+	7Ewtz5ru40dNnQffis0PD2FYYSLO0SbnWgSGkf/VSKny8XEN1eyfrw9gKmg0Jx9n
+	k43VJWNl2MzgTmJL6/teK5HZ3urFr1tsUQmlrWjh0znM8bM1/m4foblW6qA7+Hjv
+	CcaFSQ977exlZJcLxMXuoNvTCJs6DbIORJ1m2X7sb9e9t1Say0Hc1nyNWtuS2PIu
+	UzuJHYQrR7Fv6cTxrixlQcH31Hb7koumGZMaXr1PSWjraZuFr2e1jc6tHLrnKSoY
+	ZIxiTn+Bu7K2nou6QV+YBIm2ifNoJWyCxSTTxDTg==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5edhb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 01 Sep 2026 07:39:49 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6817CoUv027397;
+	Tue, 1 Sep 2026 07:39:48 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcb8had04-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 01 Sep 2026 07:39:48 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6817dk0G17367378
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 1 Sep 2026 07:39:46 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6DAC620043;
+	Tue,  1 Sep 2026 07:39:46 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2ECEE20040;
+	Tue,  1 Sep 2026 07:39:46 +0000 (GMT)
+Received: from osiris (unknown [9.224.76.185])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue,  1 Sep 2026 07:39:46 +0000 (GMT)
+Date: Tue, 1 Sep 2026 09:39:51 +0200
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+        kvmarm@lists.linux.dev, Fuad Tabba <fuad.tabba@linux.dev>,
+        Joey Gouly <joey.gouly@arm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 2/2] KVM: arm64: selftests: Test empty SMCCC filter range
+ at base 0
+Message-ID: <20260901073951.185345-B-seiden@linux.ibm.com>
+References: <20260829054856.70549-1-kmehltretter@gmail.com>
+ <20260829054856.70549-3-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,37 +79,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831163556.54f89805@kernel.org>
+In-Reply-To: <20260829054856.70549-3-kmehltretter@gmail.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a968146 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=pGLkceISAAAA:8
+ a=VnNF1IyMAAAA:8 a=W70r8alv7qqp-a3mEecA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: 2P8aUw_CV8LlRSgc_Pvmp2vlQptgIYHY
+X-Proofpoint-ORIG-GUID: 8n_R40p4sl9uWDxLGMXuorUWRYv-2vV7
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfX4IJxqnbD2UC/
+ 4OdTcIEwLrXHZ/8kOb/6c/al6fG9oZb9sYtHsZwo1t7xLtHg4VACP5XRyw02oPN1hGt0TzjZMuz
+ 7sjK9w1JvfELuaKBvYiY7tAOITf00lI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfXwBSbsjy9Vipb
+ w+GWMUtZxBCB2N693nCfcFTsNjNX8S5fosfGbJLaJ6jf6UWDiv6u1120qkzHS7Vg2JabJuTAmeq
+ dOdCLk9HRkpiQBl7tu+7PplXEoeKETix4BDMIpPjqHnDkmxiaGXuK/ckz7CSw/z3f3qu36rbGKH
+ BSdLLIluBOtelM2m2SxwX8VlAYdU43dpvnR9gQq5QVkWTmB50wzxuKDsorybrmI+SzteB7fypA4
+ lm1/Zt20b89DsUGol6x8S9KpTiL21+0WALOgkNXDoZm6g19NkEBo5yOCtViUbhSWNwWZII49cOX
+ wIqJ34x+D0un3lmQ/yg8N6gLFhO+8QrVLuX8a8c3IZEeJqz07pL3/aQ0nCankunjUbRuGUYYuGG
+ SFlSvOozATgfDhM4Wcr7AROd3SvHambAni7LIX/P3WTs5iIotCB2HcSxYzwZ/WU5tgOloyeGPQ2
+ TsgtVE1ScHalUzEKLNw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609010066
 
-On Mon, Aug 31, 2026 at 04:35:56PM -0700, Jakub Kicinski wrote:
-> On Mon, 24 Aug 2026 12:32:44 +0900 Hyunwoo Kim wrote:
-> > connect(AF_UNSPEC) and listen() move a socket back and forth between
-> > listener and active session. IPV6_ADDRFORM on top of that turns an
-> > AF_INET6 socket into an AF_INET one.
-> > 
-> > Two things follow. One is that what the socket had before the change is
-> > left behind: requests still in the ehash, and parent fields a child
-> > inherits. The other is that the socket is used while it is changing.
-> > tcp_check_req() does not hold the listener lock, and tcp_v{4,6}_rcv()
-> > reads sk_state twice without it on the listener path.
-> > 
-> > Patch 2 is neither. After a reuseport migration the listener that counted
-> > a request and the listener the count is decremented on are not the same.
-> > It goes with patch 3 because patch 3 needs it. Nothing ever resets that
-> > count, so patch 3 on its own has a check that can be bypassed.
+On Sat, Aug 29, 2026 at 07:48:56AM +0200, Karl Mehltretter wrote:
+> test_invalid_nr_functions() only checks an empty range at
+> PSCI_0_2_FN64_CPU_ON, which KVM's end < start check happens to catch.
+> It never exercised base 0, where the inclusive end wraps to U32_MAX
+> instead.
 > 
-> No reviews? Are people getting tired of the disconnect bugs?
+> Add the base 0 case. Without the preceding fix it fails with EEXIST.
 > 
-> Hyunwoo Kim, can any of the fixes be simplified if we move more
-> cleanup / responsibility to the disconnect path? Patch 6 perhaps?
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Fixing it like this [1] lets the disconnect path handle it, and also
-closes the trigger path for patches 4, 5 and 8.
+Reviewed-by: Steffen Eiden <seiden@linux.ibm.com>
 
-What do you think?
-
-[1]: https://lore.kernel.org/all/apaAskNL-IvdcR7h@v4bel/
-
-
-Best regards,
-Hyuwnoo Kim
