@@ -1,51 +1,24 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.162])
+Received: from mail-m15594.qiye.163.com (mail-m15594.qiye.163.com [101.71.155.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4196737C906;
-	Tue,  1 Sep 2026 08:16:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DE21F3B87;
+	Tue,  1 Sep 2026 08:16:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.94
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788250591; cv=none; b=EgX1Fg2xj6ww+pcbC6eedPPgKJRrfapnJudwEXzQdlDP3+BAUp04xZF9/k2IR0gxvxjdQx8fOgiX3nqMbv+iFR/kQdcVuEYWMIUd4+szH6buwDoI+EAFJL7pO98h7Ce1jk9jiXMixgIo2IxrGQCmSxlPBHjXnxFT0IPrAcN9+y4=
+	t=1788250617; cv=none; b=SmFR13vCJTVCOfgkn1iLRtOXaSa+OKjFCOq5fiF/LjJmv41M/tOXVobQy/risxQXXu8zarj6l2a8dVuy6cniRYrx/NXqq8uUDqdIafbyCX/cRTXlfQ3MG78cQK+N1+pgHBpg8ZVNVSowu479HOE0zD3HkJ90CUJ13wFHUZG4sd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788250591; c=relaxed/simple;
-	bh=MaDwvm4/WgGMlaCWu2tSBQXxTsATDNxTAUgac3Dpmyw=;
+	s=arc-20240116; t=1788250617; c=relaxed/simple;
+	bh=SsMxA1kjDySJWAU1JTBxcDQNRKDy8p32OnnCIFtDLz8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VgTERf6HZFFqkifJkbNdoMNm0LxaEp9FgM8y+T5V2KwxP4d/sUlWp9tgx5VBVPc/8+1qtNSRXM1a0z16DwiAlGLm5TmEbfdwo3siCwuOJLvR88S7jn1xcKXT8PHp7G4J5ol+06yTA7a0ze1EcNtFq5HpC1b30Svfs79xXfk4kAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=TywdY45q; arc=none smtp.client-ip=188.68.63.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="TywdY45q"
-Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4hYzGB5Mn6z42T5;
-	Tue,  1 Sep 2026 10:16:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1788250578;
-	bh=MaDwvm4/WgGMlaCWu2tSBQXxTsATDNxTAUgac3Dpmyw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=TywdY45qj/H0Y1QgL1vU5frKtq0eeVypkOZtDOORqQFZ40/tl9i/9tbOU53+GlHgY
-	 c0tJBUv9i7KcwPRlfxJ2y3oixYz7SsV5LDlElysri6exyESBBYbJc4vxnBz1dIvlw9
-	 /osmjPTgCPv/3c7PVcwwm8oXfFGiXdo3TFwDY9Vh3Q1RxSxwcvcQcRo3OJBUVIpGwX
-	 nqb0+sAGpYyzql9NiOTboxQ1noHb7pBR9V+ogpwuCY61WvFWWKUjoQ/3PJSEKmHYX8
-	 tdObtg6fUkHaRQu5jIiSUkSMFKK7NRnzfZFNRM1ea+KYE3gPjoV786xhJV1ww/hJJZ
-	 RExayNy5NL/4A==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4hYzGB4dDMz3qNZ;
-	Tue,  1 Sep 2026 10:16:18 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hYzG83PfMz8svZ;
-	Tue,  1 Sep 2026 10:16:16 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id E96145FAEC;
-	Tue,  1 Sep 2026 10:16:07 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <6463ad31-75fa-458b-81b7-45814c797dd1@leemhuis.info>
-Date: Tue, 1 Sep 2026 10:16:06 +0200
+	 In-Reply-To:Content-Type; b=kfuXogyCR1JbLlInCK2aJdK3Sk9wUr5hGDNmAfDvRxQ5pFHe22Ck6KeudYI9soM3nO8oULyfOYl39pxwoomBq5CMYOc//uudm9jE4sM0kTeGROuui1AtAyMfQ85CklRXjxjc8bZ1jmoVXTVxB/o7t4j/066SBkx+Lg4ap2HLbOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=101.71.155.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
+Received: from [192.168.0.59] (unknown [218.94.118.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 1e8dcbb65;
+	Tue, 1 Sep 2026 16:01:21 +0800 (GMT+08:00)
+Message-ID: <ff7d838c-8ea7-4a91-86bc-f6899970cdcf@easystack.cn>
+Date: Tue, 1 Sep 2026 16:01:20 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,55 +26,159 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: xhci: fix maximum event ring segments calculation
-To: Mathias Nyman <mathias.nyman@linux.intel.com>,
- Pierre-David Belanger <pierredavidbelanger@gmail.com>,
- Shixiong Ou <oushixiong1025@163.com>
-Cc: Shixiong Ou <oushixiong@kylinos.cn>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Niklas Neronin <niklas.neronin@linux.intel.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev
-References: <20260828105926.930033-1-oushixiong1025@163.com>
- <20260830031233.1810986-2-pierredavidbelanger@gmail.com>
- <64a7ce30-b346-4e94-974f-f30893d66829@leemhuis.info>
- <81ddd491-1ec3-4a0c-90b3-6a286ff1a908@linux.intel.com>
- <1c855bb3-2bac-4f25-b97f-3a7436a6291b@leemhuis.info>
- <89d99e3a-0f67-4116-a262-98be59f76f5d@leemhuis.info>
- <f29a475e-a523-461a-8e63-b0698b3174c6@linux.intel.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <f29a475e-a523-461a-8e63-b0698b3174c6@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178825056841.2838052.3252348926793868692@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: E96145FAEC
-X-NC-CID: cbEZKz4gyJ3Gi4HUbWwmymUFLSElmVpsA9kzy0HZa2eKVHzYDMY=
+Subject: Re: [PATCH 0/8] mm/page_owner: Add PID/TGID/COMM and cgroup filtering
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260828031339.1270699-1-zhen.ni@easystack.cn>
+ <apEx0wT_hWs1Q5Wp@gremlin>
+ <20260828113654.d01abd8baed3f73e87506eb3@linux-foundation.org>
+ <9fce3210-3548-4df3-ae00-730b666f5d57@easystack.cn>
+ <apZ99NHTmNI_nIwz@gremlin>
+From: "zhen.ni" <zhen.ni@easystack.cn>
+In-Reply-To: <apZ99NHTmNI_nIwz@gremlin>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa05bfcacc80229kunma31d9b2c27c472
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTExDVk5OGEJNS0gfTBhJGlYVFA
+	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVCQk
+	lOS1VKS0tVSkJLQlkG
 
-On 8/31/26 16:28, Mathias Nyman wrote:
-> On 8/31/26 14:36, Thorsten Leemhuis wrote:
->> On 8/31/26 13:28, Thorsten Leemhuis wrote:
->>> On 8/31/26 11:21, Mathias Nyman wrote:
->>>> On 8/31/26 09:55, Thorsten Leemhuis wrote:
->>>>> On 8/30/26 05:12, Pierre-David Belanger wrote:
->
->>>> Note that this is a v7.3-rc1 regression which was found during merge
->>>> window for v7.3-rc1.
->>>> v7.3-rc1 came out a few hours ago.
->>>> I can't resolve it much earlier than this.
->>> Out of curiosity: why?
-> [...]
-> No real life or personal issues got in the way.
-> Assumed severity after first case didn't call for action mid merge window. 
 
-Many thx, that helps me understand thing better.
 
-Quite a few other subsystems from what I see would have approached
-things just like you did here; but I wonder if Linus in a case like this
-would have preferred some mid/late merge window intervention to prevent
-testers from running into a known regression. Will try to bring this up
-on the maintainers summit. So again, thx again for describing things
-from your point of view, helps a lot.
+在 2026/9/1 15:27, Lorenzo Stoakes (ARM) 写道:
+> On Tue, Sep 01, 2026 at 02:34:34PM +0800, zhen.ni wrote:
+>>
+>>
+>> 在 2026/8/29 02:36, Andrew Morton 写道:
+>>> On Fri, 28 Aug 2026 08:03:38 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+>>>
+>>>> On Fri, Aug 28, 2026 at 11:13:31AM +0800, Zhen Ni wrote:
+>>>>> This patch series adds process and memory cgroup filtering support to
+>>>>> page_owner. Following the previous series that introduced print_mode and
+>>>>> NUMA node filters:
+>>>>>     https://lore.kernel.org/linux-mm/20260707115411.1714314-1-zhen.ni@easystack.cn/
+>>>>>
+>>>>> This series adds filtering capabilities to page_owner, allowing users to
+>>>>> filter output by specific processes and memory cgroups. Users can now
+>>>>> filter page_owner output by PID, TGID, COMM (with wildcard support), and
+>>>>> memory cgroup path. This makes page_owner debugging more focused and
+>>>>> efficient for tracking memory allocations in specific contexts.
+>>>>
+>>>> The majority of this cover letter feels like it should have been
+>>>> documentation put somewhere :)
+>>>
+>>> yes please.
+>>>
+>>> The only thing longer than the cover letter is the Sashiko report ;)
+>>>
+>>> 	https://sashiko.dev/#/patchset/20260828031339.1270699-1-zhen.ni@easystack.cn
+>>>
+>>>
+>>
+>> Hi Andrew, Lorenzo,
+>>
+>> Thanks for the review.
+>>
+>> I have analyzed all the Sashiko report findings. Some will be fixed in
+>> the next version, and for the rest I propose not to fix them, with
+>> reasons below. If there are no objections I will send v2 accordingly.
+>>
+>> Will be fixed in the next version:
+>>
+>> - mm/page_owner.c: drop the kstrdup() copy in parse_pid_t_list(); the
+>>    token will be parsed in place. This also fixes a leak on the success
+>>    path and a kfree() of an advanced (interior) pointer on the error
+>>    path. cmp_int() will replace plain subtraction in cmp_pid_t(), and
+>>    pid values exceeding PID_MAX_LIMIT will be rejected.
+>> - mm/page_owner.c: PAGE_OWNER will select GLOB so glob_match() is
+>>    always linked in; parse_comm_list() will drop its kstrdup() copy the
+>>    same way.
+>> - mm/page_owner.c: the cgroup path buffer will be allocated once per
+>>    read() outside the page_ext RCU read-side critical section instead of
+>>    per page inside get_page_memcg_info() (GFP_KERNEL allocations must
+>>    not sleep there). The memcg= parsing branch will be guarded by
+>>    CONFIG_MEMCG so kernels built without memcg reject the command
+>>    instead of silently enabling a filter that never matches.
+>> - tools/mm/page_owner_filter.c: user-visible input errors (empty
+>>    -p/-t/-c/-g arguments) will print error messages instead of exiting
+>>    silently.
+>> - Documentation: the wildcard pattern in the -c example will be quoted
+>>    to prevent shell glob expansion.
+>>
+>> Proposed not to fix, by design:
+>>
+>> 1. Shared-fd concurrent read/write races (READ_ONCE around the pid
+>>     passed to bsearch, torn reads of pid/tgid lists, glob_match() racing
+>>     comm rewrites, concurrent write() leading to state->memcg_path
+>>     double-allocation): multi-threaded sharing of one page_owner fd is
+>>     not a designed use of this interface. The filters are per-fd state
+>>     meant to be configured once and then read, which is what the
+>>     page_owner_filter tool does. Adding locking to the read path would
+>>     put overhead into the per-page scan loop for no designed benefit.
+>>     This matches the semantics of the original filter introduction.
+>>
+>> 2. No "clear filter" support (empty pid=/tgid= lists partially clearing
+>>     proc filters, empty memcg=/nid= being rejected): write commands are
+>>     incremental -- "keep the unmentioned filters" -- and there is no
+>>     clear operation by design. To start over, close the fd and open a
+>>     fresh one; the page_owner_filter tool already works this way. This
+>>     also matches the semantics of the original filter introduction.
+>>
+>> 3. kcalloc() vs kmalloc_array() for new_comm_list: no consumer of the
+>>     list reads past strscpy()'s NUL terminator, so uninitialized bytes
+>>     are unreachable.
+>>
+>> 4. char cgroup_path[512] in validate_cgroup_path(): acknowledged that
+>>     the kernel side accepts paths up to PATH_MAX (4096). The userspace
+>>     check truncates an over-long path with snprintf() and then fails
+>>     access(), so it is rejected, never silently accepted. Bumping the
+>>     buffer to PATH_MAX would only serve pathological paths; realistic
+>>     cgroup paths are well under 100 bytes, so 512 wastes nothing in
+>>     practice.
+>>
+>> If this plan looks reasonable I will send v2.
+> 
+> Sorry but this kind of 'summary', 'do you agree with the plan' email is not
+> acceptable.
+> 
+> You have your feedback, reply to people like a human being directly to them,
+> thank you very much.
+> 
+> At this point, based on past experience, I have to ask if you're using an LLM?
+> If so please disclose this as per kernel guidelines:
+> 
+> https://docs.kernel.org/process/coding-assistants.html
+> https://docs.kernel.org/process/generated-content.html
+> 
+>>
+>> Thanks,
+>> Zhen Ni
+> 
+> --
+> Cheers, Lorenzo
+> 
+> 
+Hi, Lorenzo
 
-Ciao, Thorsten
+I honestly don't understand what is wrong here. I spent two full days
+going through every single finding in the Sashiko report one by one,
+checking each against the code. In fact I am already working on v2 and
+testing the corresponding changes. What I don't understand is what
+"this kind of 'summary' email is not acceptable" is supposed to mean.
+
+If you disagree with any specific item, name it and we can discuss it
+-- but rejecting the whole thing outright, with just two documentation
+links and no specifics, is not something I can act on.
+
+Thanks,
+Zhen
