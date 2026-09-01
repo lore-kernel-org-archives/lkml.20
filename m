@@ -1,140 +1,194 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A0C38BF9A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:21:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3684738D3FD;
+	Tue,  1 Sep 2026 14:21:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272516; cv=none; b=iL66r1XOcPymgosrcbqcMDSRf3j9YBmcQJz0MQ7zBomLOvXyik4WOgvtf3FuVX0RRmLvMVjiL68esFQWrDpPMC4yQUlUqEfxhIYZYLRPsgWv3C3OvuiSGqUtgjGRiPUFzlKOHkVswgIowyL3oqNluW+d/hAhOrDwwri0TjQs5Yc=
+	t=1788272516; cv=none; b=eZptBCv0+YRbSpliCQRPi5dhhm3rO0V2GGHcf9GMf7UALG7fecOC14c5wp1AbyODEDsvMRLxkYVEPuWCMHTjgKljZTvHWcAW98k64yii0cP+/w5TVoLtFfDwZspGau9IIOHrqkTIjKE4NQIjKjazj44kL3RL+GT6D2wNC8ZJG/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788272516; c=relaxed/simple;
-	bh=Cgmb/qFmvYmnyEKPGYAwZgQWqXO4pDib+3V1jvSRM4g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WhvQKGVmowgIc/eJ7UCftNrF0RgqH8ExV1l4R+DbGttiBkueZj/tE1mdhre8aSrBSGceyIVNDi4WKRb/H1TenQjWSe8yKNZRAGWfdoPW+b+DZ6Qod8uHNbQUbJXf9HRbvIrLOW7HQSET09w5WoYTqw1KFS6rEgzGIsCLW5bcWXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=H2/4vuqC; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	bh=bcWdDeucekjH4dtjZhbljTqEFVKo/EJ3rtaOnEaeSi4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sSJq7nfcqlKFfS6mSkL0R6ajRlFq6u7sXKkEq4yp/F09G3mK7dC0xDbJ/u+JC2vxbRlGIxv5Lfo2r3lZYzt/oaHVOPl/BATM1fWdXZgNEsn+OBuvFSzsDmwzkPA5hLPFQdgriwr0cgGhQ+s3UX2yC06miz5YTECV3SDETCMaguc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RNFQu6Nh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="H2/4vuqC"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 18B481A192A;
-	Tue,  1 Sep 2026 14:21:52 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D682E6053C;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RNFQu6Nh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66DAC1F000E9;
 	Tue,  1 Sep 2026 14:21:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B20F611C79234;
-	Tue,  1 Sep 2026 16:21:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788272506; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=BlynNgY5zP68PI3zywr2W59oa9iEvK/XT6rpy4x8qgE=;
-	b=H2/4vuqC5BV/8rBy8qIYdeXYUf+vcm1VOR/iXjm8IH96O/YVghje2GnNdxIk/Ni5lDF3ph
-	J6L7CUQ65zzz+/Td49gkM+GNN9TyOuuRxRtNgXSynBLpfUSF2N4qBrmqRwCiBOcVdzLOpq
-	ve9Nukk4bt1+4KZa/3uOLXZcL5D+YPsF/ud5XFlbgoRJ0e5qNe4n2pD8xWxG/TRqGukO6e
-	xZjfqb2fyEswz6XZRIsTO+rvK8zYLNiXmUXSUDWdMX/n/Grju+kPAfQyrrzZLuUGl0ov3S
-	1jcAWxE/x8nbnTZRNWVGhZT3QTvxQRdxkYx2AY2dgrfEH7NH6FBS9SNScWdsVg==
-Message-ID: <3053bd10-50c0-4a4e-bfe3-7c2479bad560@bootlin.com>
-Date: Tue, 1 Sep 2026 16:21:36 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788272514;
+	bh=N1RSqeA8oOvxj7Rd5uHkQcz2LL1Drv5deATg5L0dJZE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RNFQu6Nhsybjei7NcY/opgtj12UuxiPq5oyQO3hj2C3TavGsZEmyr1uzIF0kvc0UF
+	 JTAfDEhhJ72hDZZQvhQj0nlelzIX04Ufad8SbaYL5e2NnCWWGmnish1sbYGchv43+c
+	 Xt9XeGeFpzPdwFMNUBqaJFAZ2lwzlir32e9xXyKzE4O5DuxTBU8szllNqn2ay2k8yg
+	 GTSvkx/EGwYUxy1ZVKTSUi3T9QTSATIQYHjPTTzP8MrlDnkGzBPXMX6wzD99EPrWMR
+	 rbAg5FYIvzpjtdX3WpmqakpIlamMwu8fxAvVRWhxdQmxZHKOpSeckYDDs+C1vcLM4U
+	 TnNc30Iuvkm/Q==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	x86@kernel.org
+Cc: Jinchao Wang <wangjinchao600@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ian Rogers <irogers@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: [PATCH v3 2/3] tracing/probes: Fix BTF kflag check for anonymous struct member access
+Date: Tue,  1 Sep 2026 23:21:49 +0900
+Message-ID: <178827250904.123716.17452648791331881284.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <178827248631.123716.2627172171811720261.stgit@devnote2>
+References: <178827248631.123716.2627172171811720261.stgit@devnote2>
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 3/3] net: phy: motorcomm: Enable analog frontend
- on YT8531S
-To: Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Jakub Kicinski <kuba@kernel.org>, davem@davemloft.net,
- Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Russell King <linux@armlinux.org.uk>, Heiner Kallweit
- <hkallweit1@gmail.com>, Yao Zi <me@ziyao.cc>,
- Frank <Frank.Sae@motor-comm.com>
-Cc: thomas.petazzoni@bootlin.com, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
- <alexis.lothore@bootlin.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260831073747.361482-1-maxime.chevallier@bootlin.com>
- <20260831073747.361482-4-maxime.chevallier@bootlin.com>
- <17e50070-46c9-46dd-8109-95007a4f681f@redhat.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <17e50070-46c9-46dd-8109-95007a4f681f@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
+btf_find_struct_member() traverses into nested anonymous structures and
+unions to find a struct member. However, get_bitoffset_of_field() in
+trace_probe.c checked btf_type_kflag(type) using the outer parent type
+instead of the actual anonymous structure/union that directly contains
+the found member.
 
-On 9/1/26 15:59, Paolo Abeni wrote:
-> On 8/31/26 9:37 AM, Maxime Chevallier wrote:
->> The YT6801 PCIe NIC includes the dwmac-motorcomm IP for the MAC part, as
->> well as a YT8531S PHY, configured in GMII mode.
->>
->> It seems this PHY requires the Analog Front-end (AFE) DAC clock to be
->> enabled for link to reliably establish, otherwise the link just doesn't
->> come up.
->>
->> Let's enable it at config_init().
->>
->> This logic has been extracted from the vendor driver provided by
->> Motorcomm.
->>
->> It's really unclear if this is specific to the integrated version of
->> that PHY, and how this potentially interacts with the fiber mode this
->> PHY supports, so this configuration is only enabled when the interface
->> is GMII, i.e. the PHY is integrated.
->>
->> With this, the PHY reliably establishes link and the YT6801 PCIe card
->> becomes fully functional.
->>
->> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
->> ---
->>  drivers/net/phy/motorcomm.c | 14 +++++++++++++-
->>  1 file changed, 13 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
->> index 36c229460a77..90a4f86f2758 100644
->> --- a/drivers/net/phy/motorcomm.c
->> +++ b/drivers/net/phy/motorcomm.c
->> @@ -144,6 +144,11 @@
->>  #define YT8521_CLOCK_GATING_REG			0xC
->>  #define YT8521_CGR_RX_CLK_EN			BIT(12)
->>  
->> +/* Analog front-end control register 3 */
->> +#define YT8531S_EXT_AFE_CTRL3			0x12
->> +/* Analog front-end DAC clock enable */
->> +#define YT8531S_AFE_CTRL3_CLKDAC_AON		BIT(13)
->> +
->>  #define YT8521_EXTREG_SLEEP_CONTROL1_REG	0x27
->>  #define YT8521_ESC1R_SLEEP_SW			BIT(15)
->>  #define YT8521_ESC1R_PLLON_SLP			BIT(14)
->> @@ -1740,8 +1745,15 @@ static int yt8531s_config_init(struct phy_device *phydev)
->>  	if (ret)
->>  		goto err_restore_page;
->>  
->> -	if (phy_interface_is_rgmii(phydev))
->> +	if (phy_interface_is_rgmii(phydev)) {
->>  		ret = yt8531_set_ds(phydev);
->> +		if (ret)
->> +			goto err_restore_page;
->> +	}
->> +
->> +	if (phydev->interface == PHY_INTERFACE_MODE_GMII)
->> +		ret = ytphy_modify_ext(phydev, YT8531S_EXT_AFE_CTRL3,
->> +				       0, YT8531S_AFE_CTRL3_CLKDAC_AON);
-> 
-> Sashiko suspects this will not survive a suspend/resume:
-> 
-> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831073747.361482-1-maxime.chevallier%40bootlin.com
+If the parent structure and anonymous structure have mismatched kflags
+(e.g., the parent has kflag=0 while the anonymous structure has kflag=1
+because it contains bitfields), the bitfield size encoded in the upper
+8 bits of member->offset is erroneously treated as part of the byte/bit
+offset, corrupting the resolved offset and failing to set last_bitsize.
+Similarly, btf_find_struct_member() pushed anonymous member offsets
+onto anon_stack without masking BTF_MEMBER_BIT_OFFSET() when kflag is set.
 
-hmm sashiko may be right, worth adding right now as it seems there are
-some discussions already on motorcomm suspend/resume issues, let me spin
-a V2
+To fix this problem, update btf_find_struct_member() to return actual
+containing structure/union type via member_type, use appropriate
+__btf_member_bit_offset() to get bit offset, and use member_type for
+btf_type_kflag() in get_bitoffset_of_field().
 
-Thanks !
+Fixes: c440adfbe302 ("tracing/probes: Support BTF based data structure field access")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260822095110.0772E1F000E9@smtp.kernel.org/
+Assisted-by: Antigravity:gemini-3.7-flash
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+---
+ Changes in v3:
+  - Remove indent cleanup part since that is a cleanup and no need
+    to be backported.
+ Changes in v2:
+  - remove unneeded NULL initializer for mtype, it should be set if
+    btf_find_struct_member() succeeds.
+  - Add reported-by from Sashiko.
+ This is separated from wprobe patch series v14.
+ - https://lore.kernel.org/all/178810003326.64882.5820404025124695636.stgit@devnote2/
+---
+ kernel/trace/trace_btf.c   |   19 +++++++++++--------
+ kernel/trace/trace_btf.h   |    3 ++-
+ kernel/trace/trace_probe.c |    5 +++--
+ 3 files changed, 16 insertions(+), 11 deletions(-)
 
-Maxime
+diff --git a/kernel/trace/trace_btf.c b/kernel/trace/trace_btf.c
+index d3ba356d5503..ee7a04886bf6 100644
+--- a/kernel/trace/trace_btf.c
++++ b/kernel/trace/trace_btf.c
+@@ -61,16 +61,17 @@ struct btf_anon_stack {
+ 
+ /*
+  * Find a member of data structure/union by name and return it.
+- * Return NULL if not found, or -EINVAL if parameter is invalid.
+- * If the member is an member of anonymous union/structure, the offset
+- * of that anonymous union/structure is stored into @anon_offset. Caller
+- * can calculate the correct offset from the root data structure by
+- * adding anon_offset to the member's offset.
++ * Return NULL if not found, or ERR_PTR(-EINVAL) if parameter is invalid.
++ * If the member is a member of an anonymous union/structure, the bit offset
++ * of that anonymous union/structure is stored into @anon_offset.
++ * If @member_type is non-NULL, the actual containing structure/union type
++ * of the found member is stored into @member_type.
+  */
+ const struct btf_member *btf_find_struct_member(struct btf *btf,
+ 						const struct btf_type *type,
+ 						const char *member_name,
+-						u32 *anon_offset)
++						u32 *anon_offset,
++						const struct btf_type **member_type)
+ {
+ 	struct btf_anon_stack *anon_stack;
+ 	const struct btf_member *member;
+@@ -94,14 +95,16 @@ const struct btf_member *btf_find_struct_member(struct btf *btf,
+ 			if (mtype && btf_type_is_struct(mtype) &&
+ 			    top < BTF_ANON_STACK_MAX) {
+ 				anon_stack[top].tid = tid;
+-				anon_stack[top++].offset =
+-					cur_offset + member->offset;
++				anon_stack[top++].offset = cur_offset +
++					__btf_member_bit_offset(type, member);
+ 			}
+ 		} else {
+ 			name = btf_name_by_offset(btf, member->name_off);
+ 			if (name && !strcmp(member_name, name)) {
+ 				if (anon_offset)
+ 					*anon_offset = cur_offset;
++				if (member_type)
++					*member_type = type;
+ 				goto out;
+ 			}
+ 		}
+diff --git a/kernel/trace/trace_btf.h b/kernel/trace/trace_btf.h
+index 4bc44bc261e6..4bd26bceae23 100644
+--- a/kernel/trace/trace_btf.h
++++ b/kernel/trace/trace_btf.h
+@@ -8,4 +8,5 @@ const struct btf_param *btf_get_func_param(const struct btf_type *func_proto,
+ const struct btf_member *btf_find_struct_member(struct btf *btf,
+ 						const struct btf_type *type,
+ 						const char *member_name,
+-						u32 *anon_offset);
++						u32 *anon_offset,
++						const struct btf_type **member_type);
+diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
+index c4163904ba74..144e790077c6 100644
+--- a/kernel/trace/trace_probe.c
++++ b/kernel/trace/trace_probe.c
+@@ -625,6 +625,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
+ {
+ 	const struct btf_type *type = *ptype;
+ 	const struct btf_member *field;
++	const struct btf_type *mtype;
+ 	struct btf *btf = ctx_btf(ctx);
+ 	char *fieldname = *pfieldname;
+ 	int bitoffs = 0;
+@@ -640,7 +641,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
+ 
+ 		anon_offs = 0;
+ 		field = btf_find_struct_member(btf, type, fieldname,
+-						&anon_offs);
++						&anon_offs, &mtype);
+ 		if (IS_ERR(field)) {
+ 			trace_probe_log_err(ctx->offset, BAD_BTF_TID);
+ 			return PTR_ERR(field);
+@@ -653,7 +654,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
+ 		bitoffs += anon_offs;
+ 
+ 		/* Accumulate the bit-offsets of the dot-connected fields */
+-		if (btf_type_kflag(type)) {
++		if (btf_type_kflag(mtype)) {
+ 			bitoffs += BTF_MEMBER_BIT_OFFSET(field->offset);
+ 			ctx->last_bitsize = BTF_MEMBER_BITFIELD_SIZE(field->offset);
+ 		} else {
 
