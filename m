@@ -1,185 +1,158 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013039.outbound.protection.outlook.com [40.93.196.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267E8315D58
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:16:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268618; cv=fail; b=Y8xKxCnRTqmKYp8NVxvrQQxmiwWz4GWu9poHV3bRzRxn1OmLfkcVnSouA0Q/UVIB27kIFZ5bCFrcxtCXdzpVmITsWwxQd6BTJOlc1FjsqVpd2kQ/pjXWbbqN9c5NdO8pf80hxLVs8MB2UsfT7GkslM17C4I3sNMmq26zweZj+Zo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268618; c=relaxed/simple;
-	bh=8oLgceZxndo3x9dl/L26HREqAqIZPTvTbJiOkEuQSVo=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=bVp4DIq87w/NNwC+HmdOcVAB/LFpyDHGXVdvSfozbVHigbRNBXHr5sMoLcfKyqitqPcMTEGZRqqlAsW2+EvlYtsxwToTWwX9Kd/kHpTV3S2fHhMq/Xzu5oG3Q11ZjnUnK6VEgCHqtslkoHdSUa54YQXcAjdb0a15lfuMO6Ka6hQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=cwMj2F4i; arc=fail smtp.client-ip=40.93.196.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B930325483
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:17:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788268624; cv=none; b=YVEVll+8gBTeNq4+tXRmNfX3/sMGGUPcU7vMNHlBAIOqlmWIav4IMyXc9unYH7nvdyRu12DqsU7cT/09+wtOHfIlUo5nATxJevRSbhN0UWNoUA1AQYgJKtXL+YcoA4aVcUDV2MzKEIb3XlY0z3rL1PZbM3Jy/f14HHGkYA2RNAg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788268624; c=relaxed/simple;
+	bh=dHuK6ca7Ih3mXEL7pY9LEI+9QrmZYD/dCXCFNqGOn2s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pHmemnDyd8kMHSeDJof0D1GusLYVDAkthJ38FIwaqrf6QXB1iYzU6Dri3eYecsV1lxt8NYsreOCrs8efBcuK3upgyxJ7/4MqBt9a6TP4usD3OcblNwZRbEj/CMgvdD+K7O1QfprSuh9qId5qMjvLrb61+T/dUAmrNuGT4shBnro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=L7WI7aqD; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="cwMj2F4i"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ACZsrH/10hXwyFuR26tMBOAsqXs1T/s5a2KBfHw9uv2TMB29nSHwOvZweJDbOD5mwoRUM0NpxMu/6sTzh/DNu5QzY9rIPFhGD9lNpsa/FTy7nUDos4hkUQQXdzsFIJLMar8rr6Ej8qAjnPwGV/KyvrZF7i/WGkNs6TH2/0aAGiwItq0VeJD3UR+3ePQpBZfeQo/tYmKuZcFJEh/dVRf6omA3edgJxOqZoOEj96I5TkDIaD3jo6dBeyWvcvZlNYIen9ftzB9e5510LAse3TYvHVexQBbtyXU1C1rpWKD72MHdO8k0cpDWClNngo+1wD4BQOdPukGKBGUkNxn6uCmPLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GQylEf7CG9bdLBTq+vu0Yu/fyUeu9M3qLG8tulbBpQY=;
- b=vKPHMorvDnSYNh9vAoSzol1EgP1GzRI+eIbSo7pQo40yp0FrLMhjzDuFmWClJC0+AJqXX3Cq+nvEK+BNCaU+bMfVTlbFs8JyK8wNsaaNuiR2L7XbbjRm3Bv4GAxYh6N0i1/edLNtBIYghelCAsXDABW0+m9hejKWtQxnPPM50RQx5nQZh/Ii9iOwe12l8TRcBLuD8+U7bEHwLaRlExepMRpCoTvjEKxObN6DTKEYjJf1Plcsta3ePeCP9B+ZOf5JQ1ZtP9X+/BuupGcFASh74hZQ1ZUp8bPcTsLMt7H02EWTzsuaxDj8qkYVNsj0YsMqV31Djut9qZ48H5FYlH7N6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GQylEf7CG9bdLBTq+vu0Yu/fyUeu9M3qLG8tulbBpQY=;
- b=cwMj2F4iAPjmKJ6nfVCr+Ymz5bQWBXdDJ7dXAicqpYLxok0COzlrj9BkvLYMGNgQpqmkzLS0hRUW90W1JYyi6Z3DMaH98Caq6BVsi/dxebsZZ0vj7lJhm62v51m8p6Y9MqpGwje9c5qvePLAG8BYndd5M6Y7idJXmpBXv85dzlNWo6lilOQ5EdcReFO0OU/nZm1eRXjypwjU3ZZ06VsJmo3TiyB4puPk+MCscMMbxaw0eKmy5qSRmNDaPMtkAd+fmU837XAZ+MynpbtOF35qNlUvevdbuinW7N7jWi9w7hL9abPPPuKebGbKQf9yNlaMJF01txbr1NjRSyTjJx9qIg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DS7PR12MB5886.namprd12.prod.outlook.com (2603:10b6:8:79::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.12; Tue, 1 Sep 2026 13:16:52 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Tue, 1 Sep 2026
- 13:16:51 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 01 Sep 2026 22:16:48 +0900
-Message-Id: <DL40BDL39LDW.39GELW4EUE22V@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
- <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 04/15] gpu: nova-core: add the GIN vector and subtree
- newtypes
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260829012243.496697-1-jhubbard@nvidia.com>
- <20260829012243.496697-5-jhubbard@nvidia.com>
-In-Reply-To: <20260829012243.496697-5-jhubbard@nvidia.com>
-X-ClientProxiedBy: TY6P301CA0009.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:3be::6) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="L7WI7aqD"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4956869750eso32320535e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:17:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788268621; x=1788873421; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UHcJZ7qe8EHcanx4NmTqt9bQxkl+VRDPvbq2agGEMR4=;
+        b=L7WI7aqDRRnvYfa4CbtMrURZ6NzBKSvEgr1Wu+ZzL0QjtpnMprzdXfBq36xHmxwZqe
+         VH2N6MscmN4Apv56+gcec5g8yAXkVQH+opif/aIvUK47jNntSh7SbxFt+kdeKT90ACAv
+         titLFUdSlrvMcwtHnjXz9CJfF3Nrcqi58/gyeDYLxKTCro93pHiFHOBF5sLJMabXAjch
+         3dh8EyYbECZD5hWiyc2HuWafqOsDgbEHaEV6Z514eMhXqSuaRH0/ICWKnk3vBbO98LEN
+         wXUyrXn0glTrS/uO8m7JgG59nRUDC1Rx0qaygShWFePopj5wyZ3rk+Z3JlxoJ2YXV8X7
+         QOHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788268621; x=1788873421;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UHcJZ7qe8EHcanx4NmTqt9bQxkl+VRDPvbq2agGEMR4=;
+        b=DBTEP6ioIruTrN2pOtZHtQ/4UuatYxsXYQP8GSVaQglMiNQroVAVf5AeFuvWAyoc2e
+         alNJJnaxfJtNqdkjqu6fHkU3cJdBn7eJUQjSj/V4mt4vntcBKJXwT3F13QhoACGAJ1nh
+         jBg7PIAyZjwa5T0zdvDENdg9PZdOU+toYzzIZQvm4nENy95q+MHK3sT8quYveY3LWjYY
+         m0qkoSFiufvazIdRFz0NkUs2yaIQvrNVsVHZvXFcG2S2iuz/6G5J3RTzBoG62vdKLEfa
+         cjyZJujCBzhU5+jQbPek1GbjE0BYv+GiCUgNLgb16e1lrMJUhvkJA3TLgyLAm8lAF4oz
+         9ppA==
+X-Forwarded-Encrypted: i=1; AHgh+RoJU3QFTXGXsENPByR8Z93waF0VOAhojKB0PZu2cNa4z6G9yCg88IDBjbH3v0ME1j02/o8d/izoMM2CN7E=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhV1klIhqXYYILJQxnPK2+tPJbkzVWbKYATV0ImnwPGQhx8cp5
+	/cE2DxpqN+LoA7ef37ZJL/E5avVsFOyT/hRUo+bjbpTOENCz2IMHFclKbCEJNa0smg==
+X-Gm-Gg: AR+sD113xciHn9j9DvWsazCuyN7I8H+VYIQadjjbXrH3FqP6qOStW/yDOeH/W9BKtl3
+	244OUnnzsRpW1tB30VvE96bnPTwBe3JqWkb2d3qLY2ZL4wt4KyMV32x2jt34ucgMn/uKrk7P6Qv
+	P4ZL7+dD6S1QM913neiDvCYBAJnxvczhqT2y8SbtrP3Cwoz5+I1CJRJKQJR0xcu4hFRTCN7RsG1
+	PiF8RXojxnnebA0DvnEhkw3UbEyQUa1+F8bcD9y40aTGImUcgeYgnBLizSCCurR1zPldKhngEg7
+	B82P9eBLZx6dYcZVhOrEYi7PdiEhGxuNpvmDQoCMz98DVv9KODXOMKYF1IOg/HtFe72AMwhjDZZ
+	iUzOq2jgZcA8phpeKzwd1xUx+XC6snwfF3SS0fDsHHYI5c09RJU+zcYCOA0pVVit20M+0J49coR
+	AASNAtb8l5Mb7GiXtgE1Vda9nAqTNtsFbCpdkDoHs/ykMZ/Va0E+CwgYEzmHAg0lSLIVEcSATm8
+	T0ySr22Fh0NfGgx/85DWbKEwCyZaZQM4OhAFqDw6tOkP78UsG9f
+X-Received: by 2002:a05:600c:8b86:b0:493:f5bf:4dc6 with SMTP id 5b1f17b1804b1-49b91c2777emr603425715e9.7.1788268621206;
+        Tue, 01 Sep 2026 06:17:01 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de. [37.24.206.209])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce1a3fesm70718595e9.12.2026.09.01.06.16.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 06:17:00 -0700 (PDT)
+Message-ID: <16110ecc-fc0d-4b9d-a958-2a75ca60b69f@suse.com>
+Date: Tue, 1 Sep 2026 15:16:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS7PR12MB5886:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9bd08ffb-8317-4cc6-4915-08df082b4935
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|10070799003|23010399003|1800799024|7416014|376014|10067099003|22082099003|18002099003|11063799006|5023799004|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	rXijdBrnCOZ21h2euV0bA4jJrHbZLlfAV+Qb/s0E65IwAv4BJR9Rh3mU+oSexHLqvcXrgSpq8ReCKP7pmNmrVdb6QMXdEPLENn8WQZtWVsf0XbK83M5zENO8Qq4WVMU8eYNomic3aDWiEnA2YaPRu0TY23Ho5y8cBNlIRn0BAAUJtzMtAXJMeUBfWZ5UjoCx/iyp3D8XTB3Z8Jcx6RqZtgpc1xB8z5QHbCMVYE5V6BzOZiYI8Ny274VIne7s9nyBb6qDD2nSmLqBWzWj2+N60WcC2Pe5UTSqnlwkWz+QnM31RwoT3irkTLPtyZqvrz9/uavrWq+mwL5MdV0Gj3FUnx+1P5oh/gc0zKADOupDi726LhafVsqtMFNYgy9JG/booCAf4Y4eJ6IK9RsgK1TmdQ/r6vgA5g/i8bXJiEjn1fTtsBnLkq4N4x4bihXpUIsHX0fRyJKlv1Gzs4lITOX1MOi/8oXRGFgyYD/eHvscByOyYWI9C40phnmzSVlg2aV442ltWNUVOSpII0lssjU4ttCwyGLoDVdNzah1emdNPgBrpZasNn2spyvV25fDUwqQz0xyZt+n2FLMJwez9RaNtF5IFLncNjHSInzy+BHaDTiK9tU56I+vWZGT8ZlrXgfjB09DzsezzG3uI7GY7Xy3r5Kb5okLr9OXfDfZXMze5XA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(23010399003)(1800799024)(7416014)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(5023799004)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b2Q1VWVndDNQazhZQUtVWU5uQkNCbEtYVDVVV3A3bFRWajI1dFV3U2hDMGNU?=
- =?utf-8?B?b2JpK3pEV2N5c2kwMnRuUktMTGowcll3NW1laWtFckYzY0pLYlZEZ0RjS0pa?=
- =?utf-8?B?SDlnVmxCTlFtSFNrS09jbmlUaXdMd3R0aTFpYmoxRDhNcEN3UHQzOVkrdUJD?=
- =?utf-8?B?UnlIVGduQ0dBcmNrVS9KRi83bTR2YnE4NGJTeGxiQlRFMzY0Y2NZT2Fkd2pl?=
- =?utf-8?B?anhMWHR5b1pVTzRtNHVjcUdDUWJNK3BmUXJkZG9rdmloVjZRR2lRZEtBcTlN?=
- =?utf-8?B?TlRaakpNSDFSQkM3R1ZWdlVoOVQrMlp0OURpVXdnOU5tdktaaGpIVDFxUDB3?=
- =?utf-8?B?TFNSUkFLVVkwSnBPeUxzVU5LaW80WjRteHZzMkpmTkdYQjdpbHdwajRyMDdl?=
- =?utf-8?B?VFhTc1hySUlzQUorbUlQRUZXczYvZzVpMlptdE9PdndmVGhjVGtKbDNzT1l2?=
- =?utf-8?B?TnJXb0pra1RZRENuZWZaK2xjcThuUTFnTitKYkhtR001a1pKekpPWnFUUVZx?=
- =?utf-8?B?eGRLQ1NaOTJMYkQyTEJNT3hScFRYeld4YUZGT2FSekhkbFJqcHkyNDV1UXF3?=
- =?utf-8?B?NitXUWZ5NlFMOXZVZDd2WWpxb1d4WitWTERuZU9hQk5USmJUUDIvNWRnZ1hy?=
- =?utf-8?B?MURNcTUyYkdXc2pxNzhPNGZtZHJIV0Y5VThHRkEreVkrTDFQMjhlaFNYcjNi?=
- =?utf-8?B?NTk5QjlWcW55NzFKMFdKSlhGenhVMnhmUnduL2F6b3VVanlDRHhIZHYrbmk3?=
- =?utf-8?B?TGpRZ0o0VFNGbmcrcGw4TmxVU1B2ZWJZdEJRK0QzeG4vcC9ZOUJYMWFzWTJ1?=
- =?utf-8?B?WnBBbzU4R1l2eHRaWXVrQ1lJS1lvc2IzOTJFY2VQV2FzeDdLRDViT1NKZ3NL?=
- =?utf-8?B?aDdJdUJWS2tBbWkwM2x3ZzVtb3o4ZE80enk0ZlA1dXVwVlk2c3Yxa00weTV4?=
- =?utf-8?B?dG92M0hVRjFwd3FEay9HVGhsdDNkUndUdk1aM0t5eTIvTHF1UFBUdzBkcDdE?=
- =?utf-8?B?S1krQ2h2TUQ2b3dGcmVlUE54VWROYmxpYlZzemh2Mk0zanBTQ092ZG5qSytY?=
- =?utf-8?B?MGsraEo5Q0NGR1lHV0ZsRjFjRU00Ti83cmhLZ1llK21KZmFqd3IzMDVPVDUr?=
- =?utf-8?B?WjZDYXhhbXp3akNaVlV4MytBQ0VOQ1kxZHZmSnorUjZJVlc0b2tkbnViRDlt?=
- =?utf-8?B?TEx1WUp2ZkJjRnBlSnU3MVd1STZmMHpwY1FTTGdaVnloeUM2ekI4VEhESVpo?=
- =?utf-8?B?b2xyN2I3TVgvbjdSTUY4di9qOGNTLzJabWczZlZ1NkdMMnpCcVhxTUJJV2VP?=
- =?utf-8?B?MEhyOHNoNlduaEtaeGRKeWhyYjNSVnJRL0NvRG10bVhWeEs2SjJJbUFHZUpF?=
- =?utf-8?B?bnJPQVdqTXh4M1ROdEIyOCtCWXR2QTZUbFJyVEQzSi9WTnB6TTRtVWYwSW5j?=
- =?utf-8?B?VEhyQ0FMZkY3NnFGZlhyNk42ajJieW4rY2hnOW9JUCttc1AvRy9ueHV1RGdU?=
- =?utf-8?B?VE1EWllSUXNNWGNGTm5yQVJUZWh1dWtwd09zOEI1dzlRa3UwOHV6ZmpoN3FY?=
- =?utf-8?B?Y01VV1l2Q2szc2ZvOGZXbFEyN25QblZRbVh5VmVkY0QrZk5DUEpJbkE1eU5B?=
- =?utf-8?B?ZDlnOTg2ZkFrM3JJUHVhdWFObW9QSU9CdnNoQS9UMnRYNXRqMHg5eFVlNWJ2?=
- =?utf-8?B?UEhyRjhjWFBsN0szNnVwOW52WTUwY1NiT3Nwd2ZnQ1MzUFFuVVB3R2VXRnp1?=
- =?utf-8?B?cVY4YkFsVDUrWDFSc3hMTnBJRkdHM1gralFqbDFpeFZpUkNYT1kzbmpPenZC?=
- =?utf-8?B?cEk4Nk8rbExFOGIrdHlnZFpwdlhlRTNWTFo3eEEyQ2ZCWnFYWFhsMzJOdmJw?=
- =?utf-8?B?cld3V2ZRQjJkdWNkd2pmV1ZwNHB0RDgyQlFxMDhaOFdpMXJSdWtTMGNhYmtH?=
- =?utf-8?B?dWJuMmVmbzVrKzhFekZSc29TMVE1MlpiRTU0N3h4a1UwOUlEaUFhUXZRdVRt?=
- =?utf-8?B?VmVLVXkwaDhMZk1kVUpVMUc0MFlsdjJ0ZXdEVmtOZHBXMGZlMytVdURPMGFv?=
- =?utf-8?B?T0hhTHYrWDFvMnRMU25obTZJc1JOMGptWTN4OVNSRCt2VTdpOFk0b3hGcHg4?=
- =?utf-8?B?SVNlUU1JRnZzUm8ydThOOVZwRE5rSHZEVms1Q1NPajRvMytWWVRrUmdjVzEx?=
- =?utf-8?B?cG5aVmMvdzNFYTRaTHZHMDRxeWh4S3NaSXBhQTFaTkFSd25NWGhPUGl3V3I2?=
- =?utf-8?B?ZG9Md21nNjhidVhEeEp2emVBNWExdnVDa2RKUGFaRCszYUVIeTNMZVIvQWNt?=
- =?utf-8?B?VXFaTEs4TVpybHFyUk0rZnRjRCtvTVQyeHFta3cwNkQ5anNJb2hpeHptOU1M?=
- =?utf-8?Q?SZmeP3msvnM0HuwdWL/lWrSLab4KkqthhrjN0t2tufaJy?=
-X-MS-Exchange-AntiSpam-MessageData-1: RXHnOIlY0bcMrw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9bd08ffb-8317-4cc6-4915-08df082b4935
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 13:16:51.7040
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RH233K8V3csFH5QNVzv0hPdYokeF6tYnzImrRDFn8JV/IaMe1rrFzoW+jmF7BM19tRDX9H/AgOgK0BV2gVEf/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5886
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 1/5] x86/boot: Remove "cc" clobber from memcmp()
+To: Mauricio Faria de Oliveira <mfo@igalia.com>
+Cc: kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>,
+ Alexey Dobriyan <adobriyan@gmail.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Brian Gerst <brgerst@gmail.com>
+References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
+ <20260822-pvh-kasan-inline-v9-1-e70ef3b75b6a@igalia.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260822-pvh-kasan-inline-v9-1-e70ef3b75b6a@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat Aug 29, 2026 at 10:22 AM JST, John Hubbard wrote:
-<...>
-> +impl GinVector {
-> +    /// Returns the vector numbered `VECTOR`.
-> +    ///
-> +    /// Fails at build time if `VECTOR` lies outside the widest tree any=
- supported part
-> +    /// implements.
-> +    pub(super) const fn new<const VECTOR: u32>() -> Self {
-> +        build_assert!(VECTOR < LeafCount::Sixteen.vector_count());
-> +
-> +        // INVARIANT: `VECTOR` is within the widest supported tree.
-> +        Self(VECTOR)
-> +    }
-> +
-> +    /// Returns the vector number.
-> +    pub(super) const fn into_raw(self) -> u32 {
-> +        self.0
-> +    }
-> +
-> +    /// Returns the leaf that carries this vector.
-> +    pub(super) fn leaf_index(self) -> LeafIndex {
-> +        // By the type invariant the quotient is already below 16, so th=
-e mask changes nothing. It
-> +        // is what proves the bound to `from_expr`.
-> +        LeafIndex::from_expr(crate::num::u32_as_usize(self.0 / VECTORS_P=
-ER_LEAF) & LEAF_INDEX_MASK)
+On 22.08.2026 20:33, Mauricio Faria de Oliveira wrote:
+> According to the GCC documentation, conditions in the flags register
+> (e.g., "=@ccnz") are output operands [1] and the compiler is aware [2].
+> 
+> Also, clobbers (e.g., "cc") may not overlap with an output operand [2].
+> 
+> Thus, remove the "cc" clobber as it is redudant, and overlaps with, the
+> "=@ccnz" output operand.
+> 
+>     """
+>     6.11.2.4 Flag Output Operands
+> 
+>         On some targets, a special form of output operand exists by which
+>         conditions in the flags register may be outputs of the asm. [...]
+> 
+>     6.11.2.6 Clobbers and Scratch Registers
+> 
+>         While the compiler is aware of changes to entries listed in the
+>         output operands, [...]
+> 
+>         Clobber descriptions may not in any way overlap with an input or
+>         output operand. [...]
+>     """
+> 
+> Reported-by: "H. Peter Anvin" <hpa@zytor.com>
+> Link: https://lore.kernel.org/all/5e19b195-0ca2-4510-81cb-497b40e4aaf5@zytor.com/
+> Fixes: a8c171c107c0 ("x86/boot: Add volatile, clobbers and zero-length test in memcmp()")
+> Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+> Link: https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html#Flag-Output-Operands [1]
+> Link: https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html#Clobbers-and-Scratch-Registers-1 [2]
 
-Noticed this while reviewing patch 7.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Another nice side effect of making `GinVector` a `Bounded<u32, 9>` is
-that you can now get rid of this `from_expr` (which relies on the
-optimizer-dependent `build_assert!` under the hood) by doing
-`self.0.shr::<5, 4>()` (i.e. divide by 32, aka. VECTORS_PER_LEAF) and
-now you have... A `Bounded<u32, 4>` that fits perfectly into a
-`LeafIndex`!
+> --- a/arch/x86/boot/string.c
+> +++ b/arch/x86/boot/string.c
+> @@ -40,7 +40,7 @@ int memcmp(const void *s1, const void *s2, size_t len)
+>  	asm volatile("test %3, %3\n\t"
+>  		     "repe cmpsb"
+>  		     : "=@ccnz" (diff), "+D" (s1), "+S" (s2), "+c" (len)
+> -		     : : "cc", "memory");
+> +		     : : "memory");
 
-This method then becomes:
+In fact I'm using a modified gcc which properly rejects such conflicting
+uses of output and clobber. ("cc" clobbers are redundant on x86 anyway.)
 
-    pub(super) fn leaf_index(self) -> LeafIndex {
-        // CALC: `self.0 / VECTORS_PER_LEAF`.
-        self.0.shr::<{ VECTORS_PER_LEAF.ilog2() }, _>().cast()
-    }
-
-`LEAF_INDEX_MASK` is now unused and can be removed.
+Jan
