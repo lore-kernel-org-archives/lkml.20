@@ -1,113 +1,284 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011049.outbound.protection.outlook.com [52.101.57.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C7433D6F7;
-	Tue,  1 Sep 2026 03:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788234461; cv=none; b=cCpuR6x5uVcV1uQh+ZyxPhjcgjlLT9CY1cm12is5an9W5VPDKIgxFCCVVh7dY0vEApYTJ7jUBH3InotUkx1vGuaoQVs80HzaEUndwNLnmpTSAz9VqfO9WRqDPHOK2xVjeQb5LE4zBgCOQ2XbJjNHrwBx0UDszgl2ok3pGXX5w3Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788234461; c=relaxed/simple;
-	bh=W0Id0Pf68vSruKPAPVofzbJEMCYxPO8Y+jLfSTczdks=;
-	h=Message-ID:Date:MIME-Version:To:CC:References:Subject:From:
-	 In-Reply-To:Content-Type; b=BBtuOD6eZGxh0XXz/u+haUJq/YmEtKG6Q+BAoE4CVeG8ulL2h6ugPcAiPG3ekI6QOIxx4mXHUKUQq473o4QKnIUMeZO173jHejux4qRpmAwzogY1/VnkGChAcC/SQOrxMjdbf8uWq0V43mqA0EQeGQnWaH1kxK0tpgNWlWFX9eI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=Iwnj0++u; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B492239E18E;
+	Tue,  1 Sep 2026 03:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788234466; cv=fail; b=cOIeMS+cV1Ri6+U5o0B2RlDYVg4cJkYGN12NZmSA85LkWlA5KXhCbFIWFUGoDKg+BpTSa6/qq63VANDGWrD7vhLxaNQxup3Obc7iYbVKMrILS9tCLTYHK/rKQt4M4JBDx6l5QMYZkid2Tamf2L4Msi4tB3Eup2EML5AM1nVeoFQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788234466; c=relaxed/simple;
+	bh=e5Bq6Csx8QStMTlS1Stt7pSklIJ/sijfVeI7/JgyNcw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=m6quQTdshjfhyz43oSX9hYT/uTjqwIkJzJGoThc+QzG0cDCkpoE1p+Q754sTVpR8Wyy3kCrkcwxa2rxY3PvLv+MZZs64Qoal/QOX+/gGgzjem3eDBkiR3CJ9kl7OoVOhC/I5QtuCBD1LKU5Xs1EBiPzyU6dEYzbBh23Yr6lf3Hc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=HkQlqgw/; arc=fail smtp.client-ip=52.101.57.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="Iwnj0++u"
-dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=0sIKT5aAMI3AbebxHeg10Bs0qjcH61HwUS46wKZqAHQ=;
-	b=Iwnj0++utJzA++JIpLf6EKSwabk8bRjr4beqhMKlvKRXOJIsoH2M4xl7Bcc9i8OeaAbT49aIi
-	vV8h+OhqM7uHKJ5o44KoojJCFi7eHMyvIXIZbqruo9H0FT+nebIrFYK6HgC7gTrqaaowWSbV4fC
-	onnvoXO+Oj9jLJQbvBADeoE=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hYs2x1wVJz1T4Lb;
-	Tue,  1 Sep 2026 11:36:09 +0800 (CST)
-Received: from kwepemr100001.china.huawei.com (unknown [7.202.195.168])
-	by mail.maildlp.com (Postfix) with ESMTPS id 0F07740561;
-	Tue,  1 Sep 2026 11:47:29 +0800 (CST)
-Received: from [10.136.112.147] (10.136.112.147) by
- kwepemr100001.china.huawei.com (7.202.195.168) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 1 Sep 2026 11:47:28 +0800
-Message-ID: <68cb4941-3668-44f1-a889-6b2f023b2a08@h-partners.com>
-Date: Tue, 1 Sep 2026 11:47:27 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="HkQlqgw/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KCWd28w6QPN5/bzywrepvEGRprv/245WCP/AoZbePXZsZnIGi8uuhlLNkzVzMx5HFojqoUZm74eydObwEKV26zqYj9akmrRs8YLPQX82DOQ10/rnrjD6xzAH/o/HONxMwskY/5oMHOsKkLluEd3hSnuxyOxXiKoS4orWd2nCp6Qf1m1UfbYewNVYfB3NSG8ESsp13q69ycS7kShp9rrKd11lc9YUTySNQsrizbkYQY7sdOVlWpVZDpuedLoyyfQGDenyF0B1RsjkWuDv1CFMtG8b5cEyH52M2KQu3TZQKzhe5KHcCGt5Mb8gEq4cnzxrCDTACpNy/dRl2G2YJYYt4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=B8AUUCwFwJfrhH0s8NhgUhJabZHt3RvHo5VixbUL5dk=;
+ b=tE77Owg50vUseXjvLZwVyPslF9btw+HrIX5TKxyXKhIdgMAFwmtaG5mr44CZ6CDWsWbSRMCVMs0bQbVlL3dr0r1uc7GSBlPuVv6KsQPF5v3031jxVzXANj/l2zuGoMSkibZ9nHJUxRxBB9mRyzvpLsGW8UIIc3O3K1sLNUYAqYVrg5dOXdLxXWHU+EeCBbYzikZiDMHMTK3TRQ+FDzpkKmbzrHekLSjDmRFOFTt3DXZkCz4wcRFcXr7IDxIJMjCmwOnmrwz4cYM6wEyKY1IXge6Rp8Ppgd3FF20wWFMVSGCh9QJa8gkqdqnm+mCvV19ywu5FDK9Yccq6le4z1mXrJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=B8AUUCwFwJfrhH0s8NhgUhJabZHt3RvHo5VixbUL5dk=;
+ b=HkQlqgw/rSxdc1YR5CTwjgG2LVB0RpbUaY2K4vVVfwT0rUHLw1mihj06R3ivE0Tp3CU4oJQ76Le2125PfIWle0I2+ila3MaSThijP/0nKkOsGFWe5SIdZ4QuMl19I+D/NVxpb10Uszp8RNNoaFyK/iE3O/NfBD6FILy2Iexgj2fDvdnWCbEVWnhOR7KOI+Dnzh7TYjlq/HNA/d7YRzsv/8XOxWVNpwovysF0F2oagAG7KCqkWdSaE+81A5H2Dj86HLDMZeICrqYV9nVVyDXPGdnycm8VXXw2guVXJ9wuuDW7kh2KajUQVWVORb51YQqg8JHJz/taUcM5X6GQXt7ROg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
+ by MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 03:47:36 +0000
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 03:47:36 +0000
+Date: Tue, 1 Sep 2026 13:47:31 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: nova-gpu <nova-gpu@lists.linux.dev>, 
+	M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>, 
+	David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
+Message-ID: <apZCTUYiN5FHCkCm@nvdebian.thelocal>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-6-apopple@nvidia.com>
+ <DL373JA1ZANX.21L51RTEUQ2UG@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DL373JA1ZANX.21L51RTEUQ2UG@kernel.org>
+X-ClientProxiedBy: SY5PR01CA0106.ausprd01.prod.outlook.com
+ (2603:10c6:10:246::24) To MN0PR12MB5977.namprd12.prod.outlook.com
+ (2603:10b6:208:37c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: <syzbot+80dfcb1a2235b3efc877@syzkaller.appspotmail.com>, "David S .
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Simon
- Horman <horms@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-	<lucien.xin@gmail.com>, <marcelo.leitner@gmail.com>, Paolo Abeni
-	<pabeni@redhat.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-sctp@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <syzkaller-bugs@googlegroups.com>, gaoxingwang
-	<gaoxingwang1@huawei.com>, <huyizhen2@huawei.com>
-References: <6a7d8773.c5ad36c8.12f49d.002e.GAE@google.com>
-Subject: Re: [syzbot] [sctp?] WARNING: refcount bug in sctp_transport_put (6)
-Content-Language: en-US
-From: xietangxin <xietangxin@h-partners.com>
-In-Reply-To: <6a7d8773.c5ad36c8.12f49d.002e.GAE@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemr100001.china.huawei.com (7.202.195.168)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|MW3PR12MB4379:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7c48d3a-88c4-445b-94ab-08df07dbc347
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|10067099003|56012099006|4143699003|6133799003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	0I1OGK3m8pa8k9V6doL7tYtzfqVgoz1IzdwojKPvPQl/aZgpWvc4/39HocDbusx9zCRnV79g94xDFM4ObCHM43iBzJsGEvkMSRayKK1hhwePSJCfs0nJnlgWant2u0tbyZL7j+zGGtT6ddo79Hn1GAvcFu+ZPY4Yyr/LO/HSVlz2Z69yVIgsXEFozWFWrWkneJfC2K/u38L7s38kge8TuJvV60w/84Os0FkROMWPz1BPDZJOkgoG04OgY9mpw37c8BBFansQfLq+xzaJbT1zlfvzNOnADEid8d/DaBlFebmVCFD4OtR6zlVx2pnK8Z/F2rUC4ZUZ0pIwqmQo9x+YcxmNh1/0CZcxjZwTx0y49uC84jHfgRVb2sx2oBle2c9hqNAySRPmWDMT5MW++UoUNBl2jcam+c5FrJw+SOxNYElnCjDNvi0oMe7R2JOjB+kuBPE38hKOVbrklJslM/unNqFje+oK5ENp01mCJ9Z68K/1SqqNYSQRm7ECe6RHwr5HGTYZNE06DnqQgHGXXC+fnrGwDxtOZujIgyan3a40Grhkn9tIb9j2Y2l4vBY4lYiqm6bowzCm0jnz9gkfVdpsSzMYYgL6J8PeGZuxTlaNNY6enVssnuLAnUWj6XUhgXZnmNu2mW/By1/sfOkn84uTINqbPxW9HSfa4jYAPN3hZXY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(10067099003)(56012099006)(4143699003)(6133799003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?mNeysAJT9xbbctK55ASHcL0nEIjKjM8ZQ3g+llNqY6iUwmyu8hVbVYIRnTvt?=
+ =?us-ascii?Q?VTAa5D2TqM77sT5B9CYQm0Lhu86h//IIefp95WR7HlLb2Hd6Ve65K1dp8Vpg?=
+ =?us-ascii?Q?gq3GMDtapmuLBkn3nbStlJesiSUxH/gSkAUhB+I85lyhEOL4/kRBWJh+TBvl?=
+ =?us-ascii?Q?aBHOUqdcqpf0VNX0L/VKFxdXMIu9u2KGxeCWSH+aopMfQf9gU0KyW5YZGPSx?=
+ =?us-ascii?Q?2XaaMXYfHZVx+gok24lo4G9RuRITsTszJYFQ7F6KPteZx0+afAPrEWhwdWfd?=
+ =?us-ascii?Q?hG2OD8j5BRUpwC4/CZhJal+uFmuCSNaJovr9cJWdyXxrzlqqWs4iNTc542xj?=
+ =?us-ascii?Q?SJTKsTKo3mn1O3q8dArcR8s4EAJ6n3ntkbra/oZxb9zkxpkLaysvDjcbufjO?=
+ =?us-ascii?Q?FjgVMa3JN3pmZbTHCAsW+tVK5MuQek5vJV7J/YjFMlnFbDNqAB9txBKw7mYU?=
+ =?us-ascii?Q?A2cdzrQhzkGoTIZsODkWyPA7NmpBHTsPsZBP212ty4lKC75lPu/I7xiQd4m+?=
+ =?us-ascii?Q?yJ8b9kz28FbXJ2Oi+LasGIpuAiRWeA9v5vTuF/nVtNUzUknKiAO3vHfQV8mt?=
+ =?us-ascii?Q?+Semrc5XvUlcd9pCYVWbtmZAUfdnbcQka/myXKiiHaEY76W+PIrh+AA6wBLQ?=
+ =?us-ascii?Q?9v35fd1v7vouIiYH74vX+RrJGu5pPM2xzuiTQTevgWHNoPPdhu9kcPBwqeXg?=
+ =?us-ascii?Q?F+I38z2UG11yj/ugRo7NFzfwo9VpgXKlpXhSNOgda3F1ZLthbqUSpy6F9C5T?=
+ =?us-ascii?Q?Q1vpVdNm23Kpze4k49lNYTHm+OXRh20PNPhoB9Bf79PfB42kYAgem1haSCHL?=
+ =?us-ascii?Q?6xIdDe5MhPx0+l/gPoMrHQQFlzz0tJxXr6fMJ6bYAPMuxXm57qfSZALGvHpp?=
+ =?us-ascii?Q?aWDBqE8EoIkr396P1onvs7gUcFPD8aJpwn1bUGPAwudhZYlJli7FEs2lIyqm?=
+ =?us-ascii?Q?Xv3YpwzfDnAq3V9BKk1AJRNBREGZTjoNyklqFnqKBIi4TQOfCv7G5ZchDZfW?=
+ =?us-ascii?Q?E6K04P10PlvxwvqHvbjXKxDgvnPsMQHhDOcXNuBZpLdbrak+6Rq+1TsRlOO6?=
+ =?us-ascii?Q?l0N1ajoPMQ/osq8zsNo6w6rMdTczp1P8/oWuzEcG8ERnmEXkhYaa8C6l1vJG?=
+ =?us-ascii?Q?Sn4XhD5jAODhNa4ompbDKLb6IzTr/sCK5pMaVy7skPGHQnobkTx5YCiLgB1K?=
+ =?us-ascii?Q?azwt67iVNq4vMxpAog1lw+JiR323ubqGWh4GrxWAKNuyuPcoULpYr1poE5P4?=
+ =?us-ascii?Q?YepZJa9oKZja+07EkJXyuMul6kFccrRDF32MuGBWklPCIbCZERFXF9Fuuq6z?=
+ =?us-ascii?Q?MOLol/bsLhLQ6dfKUtWuoPsfvJ+u7PAPUM9iVf1Y5ghz1fL+pGBkcNLIqV3C?=
+ =?us-ascii?Q?QFQ76UnfuqQ5gCp9KuzrG688dapTx+9ZPzWdlkcAv1/kiuSit4/4j4wHVgyz?=
+ =?us-ascii?Q?tJCp8rRq9JW1bsY1hKQEU1c5x8osZeWoEbGtyuLjaHzuJEh9msZH3NBvDJ+t?=
+ =?us-ascii?Q?bOQXxo97pcziSGeKh03/VFutfCDkF2QJcu9slfR/ubw20qaRtQ1jCaTS+B9g?=
+ =?us-ascii?Q?//yl8buBiZXEev3aGGTmCQSTOJXY09V9Ltyn3Ec55Tu0pL2KsWEMs0ZHbiga?=
+ =?us-ascii?Q?KkR0tWCw4MIPXv7h/F0DLiKG2SYdxt6Ntof0IlzR8dxp0/ay8mrXEhfdQiIX?=
+ =?us-ascii?Q?wDtwoT6dAyPtxkxlHCs4J3HWuhYFv9xRnJvJxTv8N1ZD7xBp+y/F17w+BJoe?=
+ =?us-ascii?Q?kJaxz53q5w=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7c48d3a-88c4-445b-94ab-08df07dbc347
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 03:47:36.6620
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: u768VKdjbfFf4IuIn22GXbBAsmo+tGPpewHp/qADIEi78kX36cjzoLTbPRXZVKL/L0BpofUae2AYBqGgL3jeFQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4379
 
-Hi,
+On 2026-09-01 at 00:23 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
+> > +/// GPU information returned to userspace.
+> > +///
+> > +/// # Invariants
+> > +///
+> > +/// - The layout of this type is identical to `struct drm_nova_gpu_info`.
+> > +/// - All bytes in the value are initialized.
+> 
+> I don't think we need those invariants. The first one is covered by
+> #[repr(transparent)] and the second invariant is trivally satisfied by the fact
+> that we create a value of that type.
 
-I have analyzed this issue and successfully reproduced locally.
-The race occurs between the timer callback (`sctp_generate_heartbeat_event`) and
-the transport cleanup path (`sctp_transport_free`):
+Ok.
 
-Task 1(Timer Softirq)               Task 2(sctp_transport_free)
-==========================              ===============================
-sctp_generate_heartbeat_event()
-  refcnt = 2
+> Maybe you meant to say that we explicitly initialized everything despite
+> uapi::drm_nova_gpu_info being FromBytes (i.e. no "random" values)? But I think
+> even that wouldn't need an invariant.
 
-  bh_lock_sock(sk)
-  sock_owned_by_user(sk)
-  mod_timer(&hb_timer) -> returns 0
-                                          sctp_transport_free()
-                                            transport->dead = 1
-                                            del_timer(&hb_timer) -> returns 1!
-                                              sctp_transport_put() (2 -> 1)
-                                            sctp_transport_put() (1 -> 0)
-                                              sctp_transport_destroy()
+Yep, basically trying to justify why As/FromBytes is safe but if the safety
+comments for these implementations on their own are adequate I will just use
+those and remove this.
 
-  sctp_transport_hold()
-    -> refcnt is 0, increment fails
-  out_unlock:
-    sctp_transport_put() (0 -> -1)
-    -> refcount underflow warning!
+> > +#[repr(transparent)]
+> > +struct GpuInfo(uapi::drm_nova_gpu_info);
+> > +
+> > +impl GpuInfo {
+> > +    fn new(reg_data: &DrmRegData<'_>) -> Self {
+> > +        Self(uapi::drm_nova_gpu_info {
+> > +            architecture: reg_data.api.architecture(),
+> > +            implementation: reg_data.api.implementation(),
+> > +        })
+> > +    }
+> > +}
+> > +
+> > +// SAFETY: `GpuInfo` has no implicit padding, kernel pointers, or interior
+> > +// mutability, and all of its fields are initialized before it is written to
+> > +// userspace.
+> > +unsafe impl AsBytes for GpuInfo {}
+> > +
+> > +fn write_info<T: AsBytes>(info: &mut uapi::drm_nova_info, value: &T) -> Result {
+> 
+> We could take T by value I guess? We don't need it anymore after it has been
+> written to the user buffer.
 
+Makes sense.
 
+> > +    let mut writer =
+> > +        UserSlice::new(UserPtr::from_addr(info.data as usize), info.size as usize).writer();
+> > +
+> > +    info.size = writer.write_truncated(value)? as u32;
+> > +
+> > +    Ok(())
+> > +}
+> > +
+> >  impl drm::file::DriverFile for File {
+> >      type Driver = NovaDriver;
+> >  
+> > @@ -78,4 +112,27 @@ pub(crate) fn gem_info(
+> >  
+> >          Ok(0)
+> >      }
+> > +
+> > +    /// IOCTL: info: Query device information.
+> > +    pub(crate) fn info(
+> > +        _dev: &NovaDevice<Registered>,
+> > +        reg_data: &DrmRegData<'_>,
+> > +        info: &mut uapi::drm_nova_info,
+> > +        _file: &drm::File<File>,
+> > +    ) -> Result<u32> {
+> > +        if info.data == 0 {
+> > +            info.size = match info.id {
+> > +                uapi::DRM_NOVA_INFO_GPU => size_of::<GpuInfo>() as u32,
+> > +                _ => return Err(EINVAL),
+> > +            };
+> > +            return Ok(0);
+> > +        }
+> 
+> I think this check can go into write_info(), so we don't have to repeat this for
+> every info. I.e. we can just add
+> 
+> 	if info.data == 0 {
+> 	    info.size = size_of::<T>() as u32;
+> 	    return Ok(());
+> 	}
+> 
+> at the beginning of write_info(). It may construct the value even if
+> info.data == 0, but I don't think we care. :)
 
-Adding a small delay  after `mod_timer()` increases the reproduction rate:
+Heh. That was why I did it this way, in case obtaining the info was expensive
+for some value of "expensive". But info should mostly be cached (ie. cheap) and
+I don't mind keeping things simple :)
 
---- a/net/sctp/sm_sideeffect.c
-+++ b/net/sctp/sm_sideeffect.c
-@@ -373,8 +373,10 @@ void sctp_generate_heartbeat_event(struct timer_list *t)
- 		pr_debug("%s: sock is busy\n", __func__);
+> 
+> > +
+> > +        match info.id {
+> > +            uapi::DRM_NOVA_INFO_GPU => write_info(info, &GpuInfo::new(reg_data))?,
+> > +            _ => return Err(EINVAL),
+> > +        }
+> > +
+> > +        Ok(0)
+> > +    }
+> >  }
+> > diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
+> > index 610cfc01111e..cff730a38c1d 100644
+> > --- a/drivers/gpu/nova-core/api.rs
+> > +++ b/drivers/gpu/nova-core/api.rs
+> > @@ -12,11 +12,12 @@
+> >      types::CovariantForLt, //
+> >  };
+> >  
+> > -use crate::gpu::Gpu;
+> > +use crate::gpu::{
+> > +    Gpu, //
+> > +};
+> >  
+> >  /// API handle for the auxiliary bus child drivers to interact with nova-core.
+> >  pub struct NovaCoreApi<'bound> {
+> > -    #[expect(unused)]
+> >      pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
+> >  }
+> >  
+> > @@ -26,4 +27,14 @@ impl NovaCoreApi<'_> {
+> >      pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreApi<'_>>> {
+> >          adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
+> >      }
+> > +
+> > +    /// Returns the architecture identifier of this GPU.
+> > +    pub fn architecture(&self) -> u32 {
+> > +        self.gpu.spec.chipset.arch() as u32
+> > +    }
+> > +
+> > +    /// Returns the implementation identifier of this GPU.
+> > +    pub fn implementation(&self) -> u32 {
+> > +        self.gpu.spec.chipset.implementation()
+> > +    }
+> 
+> We should make the NovaCoreApi just provide an accessor for &Spec and make every
+> subsequent method we need public. Otherwise we end up with endless forwarding
+> methods. We can also add as_raw() methods to the specific types as needed.
 
- 		/* Try again later.  */
--		if (!mod_timer(&transport->hb_timer, jiffies + (HZ/20)))
-+		if (!mod_timer(&transport->hb_timer, jiffies + (HZ/20))) {
-+			mdelay(1);
- 			sctp_transport_hold(transport);
-+		}
- 		goto out_unlock;
- 	}
+Ok. This is where I don't have a good instinct for what we think should be an
+accessor/forwarding method vs. where we should just expose the underlying data
+structure and required methods to API users.
 
-Any feedback or guidance would be greatly appreciated.
+In the past it seems there's been some resistance to exposing nova-core or gsp
+data structures like this which is why I added the forwarding methods. In future
+we're going to have other data-structures that NovaCoreApi will need to access
+so it would be good to understand what we should do here so we can keep things
+somewhat consistent.
 
--- 
-Best regards,
-Tangxin Xie
+It seems pretty arbitrary to say expose self.gpu.spec externally
+because of endless forwarding methods but to then require them for say
+self.gpu.gsp_static_info. So maybe we can just have a NovaCoreApi method that
+returns self.gpu directly instead of writing forwarding methods for each field
+of self.gpu that we need to access? Access to genuinely internal nova-core
+fields/methods can always be controlled through visibility modifiers.
 
+ - Alistair
