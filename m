@@ -1,156 +1,151 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C9342E428
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:06:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665453DAAAE
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:06:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278799; cv=none; b=CPggwiXRoDn9k3UrKSEj259NBfzDCqz+ExIq74zXpJEJo/n1Uy1mRSg83tqum1c+ufrjOdRcd4jQkomvr355aAfxk6FikMOSwXiDwsbUO9R9D2yqiSEUWKMj8j5H/KXRWy6lQJnv280co8RnZhanXqrhhiyjEpW7/EhKhunak7I=
+	t=1788278811; cv=none; b=mvXaUij6Y9fEIVCIMj2eHJKNkjRmqYWG7oXQfctyEKCwnKQRRQQQbJxPKBsh0bkbsaXppXFeM2E0cMi6Bquulxj0ZNLtdl5Uu8LELnDc5OnsXdBkel+mcfogDsaVkGP2aaVyb9w060TddPR9LzcirSQejSZxvtAUU1RJM5LUim8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278799; c=relaxed/simple;
-	bh=4LDKUsb5WjRQEuGxbQQ4qt0v2JnWcG5gjHrFeKmfKuY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bGJfadjmisArFHrbYNo8OS81kQ+0tCQ81njD9qC9unnyjwK8I2Aa49NtGv+LJF6kZm5QcW7psG/J3yrfu6EH5dIIeZPfwA9RKcCrwEv1W21TkKTpgajwtmyrcMEKd8IKYzASLEgg0w5XDyphXvvMV5DosdrFmV+L+VU+Wyz6ia8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mhYM2IIf; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788278811; c=relaxed/simple;
+	bh=q44ZV+VsKxN6JVRQY5u21IK1dlCmX3i+WcEkxuAqjPQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A7d0oEpirPEbyuuQLU/VSdv1Ao6yDtTI8239YmY4lN7B1eol8N3mhhDx3NeuOw2Uo4iFlY92lKxDUfibzswind13iaCOmbXuGA7LcOWt8QH+IEjx/3tVjuiJ+f1E6kgPZXC/gG6f5Q3KVVhk9x9stmbx73BBQ7v5wwo1Mt/MZIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RMeAPZbT; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ozPbe9/5; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mhYM2IIf"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbe6295f05bso1003924a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:06:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RMeAPZbT";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ozPbe9/5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788278809;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ePc7Ut/AZztzEtumFTcDNqc3j4BQeQVeG9iOBqVe9vA=;
+	b=RMeAPZbToWOCNn7yNWQbPWOc/0RE5mqkbiFt9Gqyejbrev5dCyB18Nu3aYLkzoN7J75M21
+	OFFFg8T6LfTE9UNuyabUWpfDMprFnQxSb8gE4KDSnKFDVK/535mJ1lYXslG/bFD08V0C9V
+	U/RgcwnoDfW54cO41a0u4ngTtrcgWdw=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-300-wLbBrvj-MJyvoGDwLF61kQ-1; Tue, 01 Sept 2026 12:06:48 -0400
+X-MC-Unique: wLbBrvj-MJyvoGDwLF61kQ-1
+X-Mimecast-MFC-AGG-ID: wLbBrvj-MJyvoGDwLF61kQ_1788278807
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-47f6e8b5996so35538f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:06:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788278797; x=1788883597; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rYOwd/Dg8XG9xNRBNmcAOBNayTDytvjRR4xWi70Rcrs=;
-        b=mhYM2IIfWx/PTvNwkeerzWg/ePSYY1kzX/pYb9w9J10nLt4Kpkkmv32Kv/aHZpmm5x
-         9hYUYAJn8CGbvtxyMdQj23F1y0gU9xS7LK+Z5x83Y+2GbjcZsvZhHeya4NRv961wQ7N/
-         ZVLgR7y4g7JZ6Nr+rsstT74xBnBaYHuIrMuRNAgORGKyg7Kzhh+qUuMQXIqdfvE24AgW
-         dFjTLWVerRA29DJuqVnFDkP3lpXhUHtXtvAWSW/HQGNMhTRnhCmfgSr9zeg0Tmpg+iCu
-         037wG3xNm43fHXrd4ez39PR+pa6lXFvNvpjpQ9Tf1NpEtxJu5VYoFuOlirWjc5FaeU3C
-         QUsg==
+        d=redhat.com; s=google; t=1788278807; x=1788883607; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ePc7Ut/AZztzEtumFTcDNqc3j4BQeQVeG9iOBqVe9vA=;
+        b=ozPbe9/5WDwGH1fWjT0773KwUQi8GCMJLM7ImUQPkyfOB79ylGpaYfaWDF1+01OeWV
+         UUD2UpX/xC4K5jq8hPUC+MySGszejvApt+jNJJeb491AV1Pn+eTmJVn1hjiQC7z2YUFL
+         WP4c0g1gtuKYLtWxoR3d+u1F01A18dQ4PHNCpfd/+dmQngwZuENEdRFCMq1SzRDkoYic
+         NNNZePL/NFzY3ueWXjegn5hEwnWDwAIpRfoEAJViQZ6tdRqVxpFrf6O3q0jFaZFZj2Ii
+         cxW3pewgwpPwEc4+Efyc5dq4q0lvqHaB3rEJ/ge4GZtra+lRAsMYJaxWfQi5Goktkc8b
+         tvSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788278797; x=1788883597;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rYOwd/Dg8XG9xNRBNmcAOBNayTDytvjRR4xWi70Rcrs=;
-        b=fXzTKNifhLE30gL9AL8dmGHodRcYlJQdtviV+tFer8I09tbFds+u23+fc/BuVaMqNq
-         UariThzZ0HmGxhLYkvxNzSp2yhXzOpQMasD+UOtPH+iOoNgf1WWX/LkwdOkgujhzwCTl
-         qraZog+2LgYTzbTypIFJtccMN0ZMVAYrnaporvd6iaK5hVVtlqT7i2xYzGlI+56yNBgc
-         U4ZYsaipeSjRGC1ZlGGsZ9d9uveHluIIN+qpdJiK43O6ydwlLuHFfJdrr5MNJOpXHvYd
-         1XqUE+xBC73/gEkedT4ck0rgHKEf3nh9ehgNa0lSNzPHA8QBmYZMKuB0zQNcrkzqbRuG
-         vXiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywlD1s4n/P96sLMMR4qNQ+NYCE86xmVT8R77oatesL5KwLC4QYW4tMTjK2Tf51MKLiuYz4raC9LkAVkYk=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4AZfX3EiGVY5qXGYnVYc9uv2fFq62FVw7synvctYeOZo+DjYa
-	kA5IAexPoAtBp9/l+iLRFShZWI8Nz4Ml2TiRcxXaEvd0pm4iNvu9IRHUjnswXA==
-X-Gm-Gg: AYBFou0t0k01k4Wx3ck7dodVAasfPblXrkTmcQkUsWYTQMuIv5HtIT5rzGdrHjBLaFy
-	u1Pbcn5lBmaOq9vxEk0cvGaH7bHdkFM4xPRbM7OIo19z3/9OKzoQfaq4S/MO2/K0A+7B5BbHp3u
-	A7aVAYAyyIpLiFg0+GFeAJGsaEB5FlHZ2fnF5ZryYr0VDkiEwwYnNui+tmwLf+0ymo+Tf1nEhqx
-	yosk6HEmZywWiEsN0TN3iw3B8nxkVi4iWjJhvqfKjCKjqEjyByFpSQXDBh0d5zvYRVjqM+nX/T7
-	oHl+LF5eAvujVBy5uZrYDQfUblGyaXi6mfyrGbDQgdVumXCyGh+Wm+JkUnzfiqCqV6QnEvnuN3E
-	l/9KBuxWN44VsjFYJ9RlcqgCrOeJ0t2ebfio7FUC7xYi51Sp8iFMVztoUy5E08XiujLQ+4VD+ye
-	Za/Vtwb4o6Z37PL+HSquIL86Tiacrn20uiXMQ8dy9ou+R9CsFMzDfeGxgjGyePpzQZ/XolL9w67
-	morLJIq9eqTeqJx/cokQu6Suv8mtPGDzet9WXc=
-X-Received: by 2002:a17:90b:4c84:b0:398:9bd3:d6d6 with SMTP id 98e67ed59e1d1-3990f8d58e8mr4230212a91.16.1788278797017;
-        Tue, 01 Sep 2026 09:06:37 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae0f2a321sm364027a91.7.2026.09.01.09.06.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 09:06:36 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <67f191de-fb07-4d2b-aeeb-9bd6514a0068@roeck-us.net>
-Date: Tue, 1 Sep 2026 09:06:35 -0700
+        d=1e100.net; s=20251104; t=1788278807; x=1788883607;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ePc7Ut/AZztzEtumFTcDNqc3j4BQeQVeG9iOBqVe9vA=;
+        b=MEa/Pth3LUlBGE3Nmfn6r2l8MJPNyh2ObXWL4aTVYx55WFR13x4ldYI2rBzn167aTa
+         1R5iRqpSoIoSQACH/RKyxmi8x2y5xQD+L4Ch9nowtBaUL2lIHQzVruPCowRVfXisHeZc
+         qhwJ5KgVcXF4WH/ekUg5ZijXLTg3hLAoVpje/+qJkGlGLuQo9ST2ij3aEWLW2W3wN19w
+         OmymMEjbnRlumvkq1vVpSJYTTiH48pbcu1DC8RI2bEjepgzLe/rHXMOy8NVbh3KuvUfO
+         tB994uJ+eUJfDJFmJeqj3xY5KZbNRG26KACcGlxnYwerc0h4ysrckBidD94rfHJFTJsv
+         e19g==
+X-Forwarded-Encrypted: i=1; AKwUvBxTXgxRc1RKz7uufbK2LYXDbIZt04T0p/sdMtpZYw4jLplXLcWQ8zoEFIgBtNYJSkNQM0taI3qlyUK9SSc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwR1IUFMT01cFv/eugg8IeyUdR2bXO/reA6wQfPMtTsHqh9DWe
+	2HDQN9edXeWCVj5LCGWWvS7uccjVbuL+4p+jGeRLS3MLdvYIuiVMBwuL0JihfPDGNGz941XCck7
+	zBub0UzOX9P9nXO0x7tx1lSZ26bwUZ9Dg8Hzy6ZmHpZmgElLoGL/eudMQwY1LSXgl7w==
+X-Gm-Gg: AYBFou2VHI3vMZRCaP13+BT66A0VABkEFYVM8jWpRhJo052XCGVV9ynqsit6fZDrl2F
+	acC4WkD+n2dGHd67CcMerYfBXL4qAIKLYaVJug8zAkJ9tScpxCWv4N4xwivOxOeBf0RN6MlLSbu
+	zGWwdGzP/xi+ZtShHHYuIf4PSDantBvX0sazmqVu1U46Jy5ckqAAD5Qw2Tp554Gp84wtI3ywTnZ
+	41JO/iCMd7M8jDU1VSsZz8xkgf9HuaocyPgb4xiY0EqZydg2hjH0smDACJVjCln46vEPrm5ziQr
+	tRahdxgCKdsYCnE16WAKperisn9h/D1BlvCnY2ObuQ90VqvWh8pvx4dq8qi9zkKnrdJObwdSc2N
+	5MZ24yh3KK6T+WCUDajxaIocPSFAzIYxpfGCMQnWAZH5PVw==
+X-Received: by 2002:a05:6000:470d:b0:482:e8f9:c6b0 with SMTP id ffacd0b85a97d-482f79b1e7amr57844689f8f.13.1788278806691;
+        Tue, 01 Sep 2026 09:06:46 -0700 (PDT)
+X-Received: by 2002:a05:6000:470d:b0:482:e8f9:c6b0 with SMTP id ffacd0b85a97d-482f79b1e7amr57844520f8f.13.1788278806034;
+        Tue, 01 Sep 2026 09:06:46 -0700 (PDT)
+Received: from sgarzare-redhat (host-79-53-30-11.retail.telecomitalia.it. [79.53.30.11])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d787b8sm5977548f8f.29.2026.09.01.09.06.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 09:06:45 -0700 (PDT)
+Date: Tue, 1 Sep 2026 18:06:40 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: linux-integrity@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
+	Stuart Yoder <stuart.yoder@arm.com>, Chu Guangqing <chuguangqing@inspur.com>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] tpm_crb: Remove dead code from crb_map_res()
+Message-ID: <apb2LdIAqUHROYBt@sgarzare-redhat>
+References: <20260901142955.187856-1-jarkko@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Differentiate scenarios when watchdog is closed
-To: "chaithco@redhat.com" <chaithco@redhat.com>
-Cc: wim@linux-watchdog.org, linux-watchdog@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260824205051.4117285-2-chaithco@redhat.com>
- <2bd566ca-2696-46d3-aeec-57db66fa1902@roeck-us.net>
- <QBUFKT.6XP2A9BR6LRO3@redhat.com>
- <93d22742-bf3e-4e69-aed5-27137d8f49bf@roeck-us.net>
- <df49394b45f04e0de5ab0300a8d18f5ba6d38b01.camel@redhat.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <df49394b45f04e0de5ab0300a8d18f5ba6d38b01.camel@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260901142955.187856-1-jarkko@kernel.org>
 
-On 8/31/26 13:05, chaithco@redhat.com wrote:
-> On Thu, 2026-08-27 at 11:10 -0700, Guenter Roeck wrote:
->> Problem is that we don't know if "something bad happened". The same
->> message
->> will be seen if the watchdog daemon was killed or crashed. We can not
->> just
->> assume that closing the watchdog device was intentional.
-> 
-> That's the same sticking point I've come across. Differentiating
-> between positive intentional closure versus malicious or buggy closure
-> would somehow need to be communicated to the kernel. It makes more
-> sense that users of the watchdog which intend to close the watchdog
-> while still running maybe denote such. I opened a PR with systemd at
-> https://github.com/systemd/systemd/pull/43552 to see if there was some
-> way this could be tackled from that perspective.
+On Tue, Sep 01, 2026 at 05:29:46PM +0300, Jarkko Sakkinen wrote:
+>In all the pre-existing call sites both @iomem and @iobase_ptr are
+>either NULL or non-NULL.
 
-I'd want to see a message even if the watchdog is closed but left running
-on purpose. The best we can do is to add another message if there was an
-error when trying to stop the watchdog. That should not happen too often
-(well, not at all, really, unless there is a bug or hardware problem),
-so it would not really add noise.
+I don't know this code, but I'm a bit worried about iobase_ptr and 
+*iobase_ptr. IIUC it is true that iobase_ptr and iores are either NULL 
+or non-NULL, but here we are removing the case where *iobase_ptr is 
+NULL.
+
+Now looking at crb_map_io(), IIUC iobase_array is initialized with NULL 
+pointers and the code we are removing was the only one initializing 
+those pointers IIUC, or am I missing something?
 
 Thanks,
-Guenter
+Stefano
+
+>
+>Thus, add invariant for this and remove a dead basic block.
+>
+>Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+>---
+> drivers/char/tpm/tpm_crb.c | 9 +++------
+> 1 file changed, 3 insertions(+), 6 deletions(-)
+>
+>diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
+>index ceb4100ba400..e7a61f36c58b 100644
+>--- a/drivers/char/tpm/tpm_crb.c
+>+++ b/drivers/char/tpm/tpm_crb.c
+>@@ -570,15 +570,12 @@ static void __iomem *crb_map_res(struct device *dev, struct resource *iores,
+> 	if (start != new_res.start)
+> 		return IOMEM_ERR_PTR(-EINVAL);
+>
+>+	if ((iores == NULL) != (iobase_ptr == NULL))
+>+		return IOMEM_ERR_PTR(-EINVAL);
+>+
+> 	if (!iores)
+> 		return devm_ioremap_resource(dev, &new_res);
+>
+>-	if (!*iobase_ptr) {
+>-		*iobase_ptr = devm_ioremap_resource(dev, iores);
+>-		if (IS_ERR(*iobase_ptr))
+>-			return *iobase_ptr;
+>-	}
+>-
+> 	return *iobase_ptr + (new_res.start - iores->start);
+> }
+>
+>-- 
+>2.47.3
+>
+>
 
