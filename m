@@ -1,44 +1,46 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011006.outbound.protection.outlook.com [40.107.130.6])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013041.outbound.protection.outlook.com [40.107.159.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2903ADB99
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:54:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA29330301
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:54:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263676; cv=fail; b=UI6AwEsSvwajoucPlU48+NKgXcAbTVdP9hItU18f78vD+Mf09Qn1Tfa+bOzLGEiMOtds6cu8i+GbUcWNXvfEdimOcZd/7xSz+PkxABCQ8dCo/lQF/oR4GrxeVDCAUM1WpITFh0q2BHQzx9I8B8ZSooTv79EgIDQYpGQ58a39zSo=
+	t=1788263676; cv=fail; b=hwZ8anv5LrfzKOTiF1UIszDBDHnWum4hl9HbvtPNgHqBJDVGwHAFfy7/AqSJYfoBc1dQeYcGdFri1T0o2x8qDZNxohVQ9QmulkJZoRz4ubLcCflahoBWo6T6cakrNQ3fj0eDRBwLA0JwX4/JeBSMMgYqrBl4OPTMKaPzTaDIYRk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788263676; c=relaxed/simple;
-	bh=s7e2sIjwSMGIVncfRxOlJzIx4TYrUjsClVqGmiGvh3A=;
-	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=rFxSBh5HcmBfFlKG4Mp/iPxu8/VnrKM98820TerC5DfJlFUh2ACizpNPCd+ioTVwGmLR9uEcqtNwpgL46657K2DGrOOhYB+V6FBDFo7+/MmwL7EgJKpEuszMipJ/e2zdYT5MHgORuzj0c3uchGw+MDxdkVVvYDzYWt+xOn0W7AA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=L75OBKVA; arc=fail smtp.client-ip=40.107.130.6
+	bh=xD/XNvcuXmTdkuKqASNTGFXF4BKn1Vb938+s1j3+xaU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=H9Hw8b3P1IIk9r3ykqvF/0dyTPUTB+dyS6blQDbNK5hwAWkEegFexjicCv2HQ8MY9ktGucLJeDNORb3ShDuwUDt8r7bZoZGcQFzNN9AwVVm+AZ8jNzCBG3lzuRugGjl03ECi+PiFCCVB3ZvTfhaxDyM59XbHgFQEES72iAfnTts=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=Cl52dwz9; arc=fail smtp.client-ip=40.107.159.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="L75OBKVA"
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="Cl52dwz9"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iICdu8dsGybhoDIX9ux18lWW5SHq1uK1vxOLgLIbL7ExMDhXJjS4qEKLz9emqEajd1CQk7wZ+K9DiN8f5AhrE47RLqgw38KwbATiVrMAniGF1NlV7UoSWv78YmQ3Inq7cYr1RYwFx951l8BsNbt9Io2xHCb9sGnKIcdoIE50nDaHq1e6PePQbfXxHdGGAMUNfphMiqDz0pb8E6lazxKsQWn5OdaX77XgsqBveR6hJIChgfmiHj7XwNIn6Rc48j3MMdHytIzU65OMTVh1jgfNQ5pkuvZelLXv2tmJgbi7uhDBmkGBcoUUbjvhPLEGCu3PQZCrtPhQFE2iaQIzay5ZCg==
+ b=AuvP+iAql8844O3Cw7R/gqqxHDA/FZmWjDnIAPIsrDfp9kjbkih2vaLoo8TUZZ3JnL0U9aJPMVUJilqcvWGRfDtgdNZ/+O+Y1Wm95TlkGh5dfYrLK+XBrlxechoPJcEE6nrbowex2hPpf8oihu7xkZauJa0ZHhEOxSnCh/lUfNdfo6o+REEGj/LKPI1WzhStAn11lBI4AkTnVlb5KaXeDHDdXXc75JBBTCHkuYuMp/oPlgGm4v+xU5lPShrUvXelWTTiCvEC6zNzELtnNPW435kH8sQhIGAEqAbThfwYiy7dNZqPeeDrPDWJr4pGPieUVHiOufdkYTVK2pdDKEcCfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ktsc41aARCSkkLRkAvQ1RTaErJazSSAIy4STJje0WNA=;
- b=qR2PJIn7ivRO4nMr0c/9/M4+ThBb9h7y5FKONOJOEJA+m0oElQ4UZcMQ51hHswRhbgEcZdzox65a6iHaJsN45t3J0NOMCDzi0TH+Bruwn5BM3xR0oSS8ACZnrFCJR6JA5qKLDN3YtMnaw/9PSl9bJ5OlDD8AnzFgS5JZGCHr9Oiu1VCGrAxp5KxfVy4y300btukeT52CkrjWm25Tq0PszRJQfPfQFpW2NCTZJhFtMI4T/LEavCdsryvm3jsOCFOxR3yMsFKyfyL8KX0hvBqNc+fytlw2/iysoNrtayMXcCyeyDlGofBBS/a7vOrw8DmZpoQFe6bHviZ0P9lpJHNhtQ==
+ bh=XCu3gjKeiE0fqeVwJuiS1jFx4PaIzKW1OG4qxDjshE4=;
+ b=vAqbFC4cQ5LyAhi7I1jSETpPCpL0YycMFVrmfA9vkBOXG+e4TC/x7OBSnkSP5fI+HK3PZJIpLa1UnBdvOE43e2CHT+aVu/AtcZv0gvDxJrrWF7KB4ImCQ6bcM2QiBFwrD/ucQeMNgrXWVtJeDzPL0X/WOsb87gFpd6SLruLMK+arI7N9i6k2q1OlF0jXV2YhYRiW7St+MdmDY9S2Ao9RU9bXCopyGa4Jk/EvGrEquTbfM1UEN/HZCZmlpajsT0MqDWAGdTukqJl29GOSKI7CmDx44yp0uEzzJ/MSnr8WFMCxXAi7/3THL0+BzWqCkUeA+oWNEn1fkGrU0SEs+AQS6A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  195.60.68.100) smtp.rcpttodomain=baylibre.com smtp.mailfrom=axis.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ktsc41aARCSkkLRkAvQ1RTaErJazSSAIy4STJje0WNA=;
- b=L75OBKVAkoHbytPesCSxgiNnkrMl1eh//xdDoMTfGdA1iqHwu+ZFfmhnd4Kmdb8DVs3H9/gE5hmP0L+kEvgxrQEABeXix+CGPeO/YeBW75B+I3mmWjObJSOAdASvW4qSp849N7N39pSD4agOpCKe8p1Lo6UZVmU7KLKMYRQznPQ=
-Received: from MM0P280CA0091.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:9::29) by
- DU2PR02MB10208.eurprd02.prod.outlook.com (2603:10a6:10:46f::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.13; Tue, 1 Sep 2026 11:54:28 +0000
+ bh=XCu3gjKeiE0fqeVwJuiS1jFx4PaIzKW1OG4qxDjshE4=;
+ b=Cl52dwz93TMzXFUy3tweMu/ugeJGnNgqcH+CATE3S5q9gtzWZCCBSxtDFrHNh+e6GO6AI4yp0EkqKP0hTQv4Z9YU0BlY/yclW1NXyhYVUuiotATrGXmDzsVFp4FzX5jzmydFw29ipXciCEPy1GAIbo8JAGQ7c/r4vdAQORDKxgw=
+Received: from MM0P280CA0097.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:9::6) by
+ VI1PR02MB10125.eurprd02.prod.outlook.com (2603:10a6:800:1bd::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 11:54:29 +0000
 Received: from CPH1EPF0000051F.eurprd04.prod.outlook.com
- (2603:10a6:190:9:cafe::3a) by MM0P280CA0091.outlook.office365.com
- (2603:10a6:190:9::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Tue, 1
- Sep 2026 11:54:28 +0000
+ (2603:10a6:190:9:cafe::6f) by MM0P280CA0097.outlook.office365.com
+ (2603:10a6:190:9::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
+ Sep 2026 11:54:29 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 195.60.68.100)
  smtp.mailfrom=axis.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=axis.com;
@@ -48,24 +50,27 @@ Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
 Received: from mail.axis.com (195.60.68.100) by
  CPH1EPF0000051F.mail.protection.outlook.com (10.167.241.234) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 11:54:28 +0000
-Received: from se-mail11w.axis.com (10.20.40.11) by se-mail11w.axis.com
+ 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 11:54:29 +0000
+Received: from SE-MAILARCH01W.axis.com (10.20.40.15) by se-mail11w.axis.com
  (10.20.40.11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Tue, 1 Sep
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.39; Tue, 1 Sep
  2026 13:54:26 +0200
-Received: from se-intmail01x.se.axis.com (10.4.0.28) by se-mail11w.axis.com
- (10.20.40.11) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
+Received: from se-mail10w.axis.com (10.20.40.10) by SE-MAILARCH01W.axis.com
+ (10.20.40.15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.61; Tue, 1 Sep
+ 2026 13:54:26 +0200
+Received: from se-intmail02x.se.axis.com (10.4.0.28) by se-mail10w.axis.com
+ (10.20.40.10) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
  Transport; Tue, 1 Sep 2026 13:54:26 +0200
 Received: from pc63130-2524.se.axis.com (pc63130-2524.se.axis.com [10.92.173.61])
-	by se-intmail01x.se.axis.com (Postfix) with ESMTP id 301FC18C6;
+	by se-intmail02x.se.axis.com (Postfix) with ESMTP id 2EB311511;
 	Tue,  1 Sep 2026 13:54:26 +0200 (CEST)
 Received: by pc63130-2524.se.axis.com (Postfix, from userid 18369)
-	id 2BAAE60867D7; Tue,  1 Sep 2026 13:54:26 +0200 (CEST)
+	id 2DD5960867D9; Tue,  1 Sep 2026 13:54:26 +0200 (CEST)
 From: Tobias Johansson <tobias.johansson@axis.com>
-Subject: [PATCH RESEND 0/2] drm/tiny: sharp-memory: fix TX buffer
- corruption on partial update
-Date: Tue, 1 Sep 2026 13:53:22 +0200
-Message-ID: <20260901-flickering-v1-0-eaf7bbf9c000@axis.com>
+Date: Tue, 1 Sep 2026 13:53:23 +0200
+Subject: [PATCH RESEND 1/2] drm/tiny: sharp-memory: fix line address
+ assignment on partial update
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,6 +79,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-ID: <20260901-flickering-v1-1-eaf7bbf9c000@axis.com>
+References: <20260901-flickering-v1-0-eaf7bbf9c000@axis.com>
+In-Reply-To: <20260901-flickering-v1-0-eaf7bbf9c000@axis.com>
 To: Alex Lanzano <lanzano.alex@gmail.com>, Maarten Lankhorst
 	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
 	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
@@ -85,55 +93,67 @@ CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Tobias
 X-Mailer: b4 0.14.3
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CPH1EPF0000051F:EE_|DU2PR02MB10208:EE_
-X-MS-Office365-Filtering-Correlation-Id: c65681f6-0b4b-472e-e5d3-08df081fc6ba
+X-MS-TrafficTypeDiagnostic: CPH1EPF0000051F:EE_|VI1PR02MB10125:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0fec558d-2bcf-4c9b-bc12-08df081fc74b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|23010399003|82310400026|376014|36860700016|18002099003|56012099006|11063799006|10067099003;
+	BCL:0;ARA:13230040|376014|7416014|23010399003|36860700016|82310400026|1800799024|11063799006|10067099003|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	/qgFMQH5BAqsJz7jws+WK7Z1F+jg72TPi9824Y/YbP2ojUCDbJqOMxJTphtDUZ7Ppghmq6CyGzyqfeOSWXgAlml5Z4OGLImGnAInjJhCasRevEbZubV3s1b72s5tUNtjxWy8pecLde/NMYBsKyGlvjKXO0At+vHr/UneJAUTPklXJCA+gvDx2JvpuwfdGrME4kxKZWcm2BZWhJIZ9XC1JYLanYQ8YOba3PZGa3U2ycItYJ+2jhHm/A9P1E4p08zbwzAxx1b70NOs+BBMv3FUgr3TYqxaA0s+Sr+W3i1Fqu8Rpccshezf4YZb4+9iJhX1sOnCUI7iWGRs0brgCFPb181flsjSGNCoWIim0iGO/VhAN2N9jEA9eg9HNGfnP5BVFHZCqYx2V0imI3tUhxUD1ZjO+P69XPAdWThM1bX0WfFxcx+1N9LwCRYDLWaDeeVKFFL09AfUKeCKuDd0RZrgfAIOybpZRxYrOOXzge7faXAqhwX7vQ9SmC5hlIgmDaovxI5HGgjbt6NNhPnyq1wBZdxrFfQMlhJL7UM5SxJ4RoAYbDjSsR0k9dfXEcqGJwqhEGbjrYk00OxJzTvuaANB/1hMvx+kLKMy3NI/Mm5Sb0kJsL9vvKWn7jZH34OCuSE68nDk+rfTHygQvL+4wiEvIwenj17rIMHmp/9ZbuWU6qjS00jHvvli5cVnsGVu0eDD5nPM3YFzbYbKy0sns+X8+A==
+	HBNJco24kb73klezF9yCUTXXmbNfFrjPuwXA5s7WCCVpD8sOclcjqxD3SjnmJx7kJ2VTLVTvKa0lhug8WW/A91isLdI/7PvUIQHs/dM7K4AmDoYUXfCMFvbOV1gZBa9AD2bLbmMNmANf6qGkAQtfU7rHeRn+CNO9PckrKid1lJZlGF3QR2SoYD5K0uobsnqAr0Dhsx/YCws2h5nn5xku0iyhAJR5gBhCgIc9CBWL2gxj0XfzoGlzS3hmsqRoXkMrV+sr+2Lnr2Uk3LQti/jp9PGWrIxQAKZIO8o1nMPaDOP56SR2qb1h397gGk+0uHH04rI1iF/hjh8ESdEtIisnW6ufzsWPvaz/YSdHgRUHcXriBXB7vYIy7afOIN/2XiT2pRtQWyLMm7sTwegE5BWdW4yV6IPE/YNrpryFUJS9VA+o3qj0/X/jTIb3DGkQkDlQkEGG7BIqhaIXz/2A2UHoKcUYtv9w1TZkYr4e5PW72fg9VxhzQSfNu8fpE9q/lBd3cJcg5YgGeiXnsTzr3+GHYSe5hY8yI3kfvsYWhIpKCh0a+xjymn2z1OqGbNtDsBJz9I0QdT1NFT60hUzuVf2EfoXMCWTCS1CChmuoztjCETGHlRZskcscVVlq15yf05vm6YMhkq7zjw3IS0pIqq0hpCEYcuMJxaLa4dyFZfsBFOf5+ndwfU8Nje+100kyRfec7K5F+xIihzmR8VmOTOXSKQ==
 X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(82310400026)(376014)(36860700016)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(36860700016)(82310400026)(1800799024)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	yr1Q6dZ5P6SPAovGemHjE/IJXSPk955pE6Gw29AoxWCVOXP+7wX1ag3BT9FepkhSJ1DNqdw7juMcUKNjZOqTe6Yzct416lpgidax9QyL8uxSnntbsbeISeFCUc+sqxyPt2yvcig5t1dpcLgJf7e+vcbdyv28o1AQi9ezrdGmReQYApRp6Uzg0lAH/xDcFJ0uIdWCdn780Z2cxlFQaYUXYYoWFl8XEXwty4885yqwrfFdEClCM0Zx5kmLAJFmwItFOpQopUrn3fEFDOnQNS/L7rmxBuF5zE9SzDe6i7jJ28/D6cLr1G6uPaqJLX808KGGbvfmo3mYkTg95wDSRKOywsWSRg2y1gNyVVDwsskzrGMON2nY8SZxgtenF7gJp6hXfUF130QDLeYEdVI5ZxuIJWLRDekpNTb+30sLkcdeIgS4UyKRnbK2r88jBT+tTUEL
+	sjCY/I20uIlAITCrlxSLeREZq/OiZJi93/LT3m31LpQDEUbnjq+QWeXLMmA7OOLp0/ONTek4VCeFctHq5CSl7nEib7T5uoM7m1fpM8h2on0yxynuQzLtObw+2py4lK9/71xn57p9fc38QFzuxCiu8IA1H890xKARskEUmgxdE8azf37kMq8ByinEMN4ZXU9oAztDbrQQkBzN335Xi5VNlGy0kNoUub1oWrkubYtlkZddmzXgiStNyfnAcTxHBDVow/QCoIZFWhqt6xjUrSCXeEYazG697i049qnikcuRDNj90wr9tFkUdjuzae/57nbRfLO6KU/VvOiJN/9BUplJWBCfGCwRAEsvnxp/vuUZ3J88rpNc+q52cmECLBpqXzVP5JsDIlUCbpabiadAv3q+8cjfa2kKmDILTMIA2v34AAk8wLbE1shI81v+9+nzZB/Q
 X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 11:54:28.0862
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 11:54:29.0359
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c65681f6-0b4b-472e-e5d3-08df081fc6ba
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0fec558d-2bcf-4c9b-bc12-08df081fc74b
 X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	CPH1EPF0000051F.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR02MB10208
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR02MB10125
 
-Users running applications that submit partial framebuffer updates
-(such as LVGL with dirty-region tracking) can observe persistent
-flickering on the display when using animations.
+When only a subset of lines is dirty, the TX buffer sent to the
+panel contains incorrect line addresses, resulting in visible
+flickering on the display.
 
-The flickering is caused by two bugs that corrupt the TX buffer on
-partial updates. The first patch fixes incorrect line address
-assignment in sharp_memory_set_tx_buffer_addresses(). The second
-patch fixes stale data transmission in
-sharp_memory_update_display(). Both patches are needed to fully
-eliminate the flickering.
+sharp_memory_set_tx_buffer_addresses() iterates from line 0 to the
+last damaged line, assigning addresses sequentially from 1. When
+only lines 10-20 are dirty, line 10's pixel data is written to the
+slot with address 1 instead of address 11, corrupting the address-
+to-data mapping.
 
+Fix sharp_memory_set_tx_buffer_addresses() to iterate over only the
+damaged line count and offset assigned addresses by the clip start,
+so that addresses match the pixel data that follows.
+
+Fixes: b8f9f21716fec ("drm/tiny: Add driver for Sharp Memory LCD")
 Signed-off-by: Tobias Johansson <tobias.johansson@axis.com>
 ---
-Tobias Johansson (2):
-      drm/tiny: sharp-memory: fix line address assignment on partial update
-      drm/tiny: sharp-memory: avoid transmitting stale TX buffer data
+ drivers/gpu/drm/tiny/sharp-memory.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/tiny/sharp-memory.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
----
-base-commit: ba683f774299d89d17cde03bb1bdb13f3513cd20
-change-id: 20260316-flickering-f9df09243d2f
+diff --git a/drivers/gpu/drm/tiny/sharp-memory.c b/drivers/gpu/drm/tiny/sharp-memory.c
+index cbf69460ebf3..595926ed660e 100644
+--- a/drivers/gpu/drm/tiny/sharp-memory.c
++++ b/drivers/gpu/drm/tiny/sharp-memory.c
+@@ -120,8 +120,8 @@ static inline void sharp_memory_set_tx_buffer_addresses(u8 *buffer,
+ 							struct drm_rect clip,
+ 							u32 pitch)
+ {
+-	for (u32 line = 0; line < clip.y2; ++line)
+-		buffer[line * pitch] = line + 1;
++	for (u32 line = 0; line < drm_rect_height(&clip); ++line)
++		buffer[line * pitch] = clip.y1 + line + 1;
+ }
+ 
+ static void sharp_memory_set_tx_buffer_data(u8 *buffer,
 
-Best regards,
 -- 
-Tobias Johansson <tobias.johansson@axis.com>
+2.43.0
 
