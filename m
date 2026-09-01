@@ -1,65 +1,67 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575ED359A89
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:43:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B95233721;
+	Tue,  1 Sep 2026 01:43:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226984; cv=none; b=gvm9imWHoydM7tkiBQps/GB0UcwDQomHFicvMViRpxfBstG6snplSi0+hAwWPMFDMbMUWm3GGIr1oKeGk6mn7wjFlOM3roD97FURyUJ/yXWmd9qTc2Z+HqEGN7/GROJvvckrQHKCpQnlzAQsbu/bJqb9LSOatAKQI5qW26d6+gk=
+	t=1788227003; cv=none; b=PgIURGZcAOQgZF/68J2IM/SpauK9/xCq0OKXhiQEUj1iWGWhH0O4L3LJd116e+KQeWngQR/S6WIo1fSLeYg9plw5Z1u0NFv6TRalYWgjwEMBgxylfzpcDcWyzGu/yJ7uhxsya4+Dsqjkf9vSZMou4Ofd+YIkcsDtky8++b3IMYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226984; c=relaxed/simple;
+	s=arc-20240116; t=1788227003; c=relaxed/simple;
 	bh=RtYKfymBNp9KvWTyDmEZgzY+yJgX+7+dkVBS2iKKpbg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c7rWB3v6r6AiUDZM+cZoUY5cj3gtQjvyMuIqoCIUbaEAnzvS+jDxbfjOQFCq9WMxGEGLfuht8ZgF+sbI5fB+rBIiZlx+OU3AYSOnYhHaFntAEXCm3ALtSka+6RGgPXrChNKuln/TiaNF67Ksd/V0rbWMVuiM/s2Nzy7Cy440RK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NQVli7qc; arc=none smtp.client-ip=192.198.163.17
+	 MIME-Version; b=nCzebmH+MqKAkix45OChST4tAg7mG2BpEqpUV/W25FgH7JlabPxpmZO3f60ErwbmNfAYFSwzZnr3khi+JVlEQITOwuiXWoJlji5V6uyRuHMPNdTFwCpJHy6yzBc6LO0p7JhNqBS+oisNrXjbIY6gr9YRUI8kgyFyBuONdJxL7T4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OxuXNRoZ; arc=none smtp.client-ip=192.198.163.8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NQVli7qc"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OxuXNRoZ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788226982; x=1819762982;
+  t=1788227000; x=1819763000;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
   bh=RtYKfymBNp9KvWTyDmEZgzY+yJgX+7+dkVBS2iKKpbg=;
-  b=NQVli7qc4XwJa2ATsDiX3NgYtKR7YpgxJOUDejVbCdo5fDyZQixLzy/f
-   64OfxPvK55qLCngNm18aYuKVNyNIVj6Pgk1Xpvp7yNaqBIR8wjpb53Vk6
-   0/nmzchGQ6Ad6s7dVmKxhaBMYwRD05aAuIvQREVh68qOU24/voH+QBfL8
-   m2MZ39i0tFZszXhlhzkrDtFJg6HGd9NEOlhMUDKrBiPHTD4a2EIM2ab/k
-   3QoPgHvFxzgtZj3CZJMpBe9B7psTdjyNxAMIOwGjgS/eQdJA9ird6bIeS
-   b425RqMR8U8MuAG8+oAON6YINFVqJoOAePHMNYbIjJUOeLwO3nuJOqZhh
-   w==;
-X-CSE-ConnectionGUID: ZAbByeI4SVq2I/2yGcJ4Qw==
-X-CSE-MsgGUID: 7ObobFZVQ0uHHcu2c/YgsA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88519595"
+  b=OxuXNRoZbeMhHzlxYC81ZkjH9pDwzsc8K4NekhGfKXAgP24SJrAxjKA8
+   1Gm9o1qt/0TKLTOv0i+FtG0TNX5LR0xNQufjqb0BZcNOJ50Gouz3Z2Hc1
+   cMQl5gbQzelJKzo8vwnjRcuzj3WtdXUqDp7ZbGJI71WJaSqyOHvZSyWEc
+   hFAdZ+Md+n8qclUSIXHfLtreCUxHs6uCF71NnuPo1L4AuMaA+19x6lCtT
+   TVnrrUVfyTZsqnLQNFns4rAn3Lll4CHG+WUmvD8Cy/CHQf/MUxNiHQRS7
+   2nHec3RxN4YE6Jwk0fQ1ssbjtYn4mn0hBNgMs2kO0XsC6w0P4sMolcYAj
+   A==;
+X-CSE-ConnectionGUID: VB0LFxPFQxSTGdrDgCBxbA==
+X-CSE-MsgGUID: HR5wpLpATyav5a8px76fHg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="106164298"
 X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="88519595"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 18:43:01 -0700
-X-CSE-ConnectionGUID: wUvbxqnkQwyeT8xTBiDrwQ==
-X-CSE-MsgGUID: UPdEJpoEToqzE47lqLdClg==
+   d="scan'208";a="106164298"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 18:43:19 -0700
+X-CSE-ConnectionGUID: qBb9qxWMQLydzmJilke+1g==
+X-CSE-MsgGUID: JA2nDKJhT02Nus7N07a2Tg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="268998276"
+   d="scan'208";a="273136121"
 Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 18:42:51 -0700
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 18:43:11 -0700
 From: Junjie Cao <junjie.cao@intel.com>
-To: syzbot+8785aaf121cfb2141e0d@syzkaller.appspotmail.com
-Cc: liam.howlett@oracle.com,
-	akpm@linux-foundation.org,
-	bigeasy@linutronix.de,
-	david@kernel.org,
-	harry.yoo@oracle.com,
-	jannh@google.com,
-	jpoimboe@kernel.org,
+To: syzbot+2642f347f7309b4880dc@syzkaller.appspotmail.com
+Cc: akpm@linux-foundation.org,
+	cgroups@vger.kernel.org,
+	hannes@cmpxchg.org,
+	jackmanb@google.com,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
-	lorenzo.stoakes@oracle.com,
-	peterz@infradead.org,
-	pfalcato@suse.de,
-	riel@surriel.com,
+	mhocko@kernel.org,
+	mhocko@suse.com,
+	muchun.song@linux.dev,
+	netdev@vger.kernel.org,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	surenb@google.com,
 	syzkaller-bugs@googlegroups.com,
 	vbabka@suse.cz,
+	ziy@nvidia.com,
+	hdanton@sina.com,
 	davem@davemloft.net,
 	edumazet@google.com,
 	kuba@kernel.org,
@@ -68,12 +70,12 @@ Cc: liam.howlett@oracle.com,
 	jhs@mojatatu.com,
 	jiri@resnulli.us,
 	vinicius.gomes@intel.com
-Subject: Re: [syzbot] [mm?] INFO: rcu detected stall in sys_munmap (2)
-Date: Tue,  1 Sep 2026 09:42:42 +0800
-Message-ID: <20260901014242.417011-1-junjie.cao@intel.com>
+Subject: Re: [syzbot] [mm?] INFO: rcu detected stall in exit_to_user_mode_loop
+Date: Tue,  1 Sep 2026 09:43:03 +0800
+Message-ID: <20260901014303.417027-1-junjie.cao@intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6945a977.a70a0220.207337.011c.GAE@google.com>
-References: <6945a977.a70a0220.207337.011c.GAE@google.com>
+In-Reply-To: <6887ebf4.a00a0220.b12ec.00ae.GAE@google.com>
+References: <6887ebf4.a00a0220.b12ec.00ae.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
