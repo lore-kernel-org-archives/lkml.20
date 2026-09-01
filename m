@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F4F46AA68
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:24:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB2330C617
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:24:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788305094; cv=none; b=duP2j3YIrUtnS1erRsC5+do1JIYMkBqQOFHDmyP7B4MDx/2kWsg6CauH6qNn0f4eDc2PDXSKVcevI514LkA20Qww8dvEQJoMxbdUSOdYeGMeYcQ3Js+sU7rlxnJZjTtHI7vzyZ+gA9feRlkoq7jP5mxpJdmWh+83jNRCPFpWaAg=
+	t=1788305099; cv=none; b=iUKkrbK1v6RipKAK9iOnGKkooMqJsKlboRIKHDap5iz4C0Erglbk94gsZJ13wNgLFOE6dAgMlWCAW37jwBmAIg6XOF46V3Vdmfdr3K15RLOQdV4AxpYQ9hu0ohNx4BErIjiqmhq2/hmZyHsN8uKFi+JWmKLdO7pxVl6ZuZrQBDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788305094; c=relaxed/simple;
-	bh=eudb/UeG4VBqSbJ/WswZzZvM69bQ+YvvRyHz19z5I8M=;
+	s=arc-20240116; t=1788305099; c=relaxed/simple;
+	bh=5ClfFsrwU1Rz8dszqqRa6GmGLdKTuqyTjhmr7GJo+Tw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cOSF5WBRhVZBCVKclbvncLOUo/wuk/dSRu3RV8z4u9vZrKxIsrhs0caxWaGwN/0V/aevzKQVWQ3LKOVuZktx7R7rqoys5qyKxZpY0v6vhlc8j+64PRDRqtAhK3XkjhWpEJFhvNmBbbL2+NL09TK/NQ/X9rm0pPbXxhRFTAlEt10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VvGWg+Kr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=D6COZiJxaMLzEi8jh+PA5m6R6XutiNnwzO7pT9WRYU+7PV4KeEgG79taxIIspjYQ8SttbenZWIzfj0Xu0hYZhqg2+L3oVh1fmqrbse0q3GqgQdGNwmQdQKqHGKy0NAuBYllwXOwo4VRXQJpsd9TOAPs2IQEqVcdxB2pOHR7U1tY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UgcS4yZ0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VvGWg+Kr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCF101F00A3A;
-	Tue,  1 Sep 2026 23:24:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UgcS4yZ0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E0D1F000E9;
+	Tue,  1 Sep 2026 23:24:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788305093;
-	bh=rFw5zgkGnAPMxb67e0R/o6CVVTXZaTWLLe5xe6qm9Ko=;
+	s=k20260515; t=1788305097;
+	bh=jk2RFe/XVKJiusQmuo8ChyovasaBl76wwu4zIL3Vsv4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VvGWg+Kr1z5qUex3V5KxKtgW0/4PU1vYOVO5+DIRjj24ddVqGhl+RYfdUxxHg+cqG
-	 EApYK3aeTVVouHEmKSMSC0eWou5bakMYTzeWh+g0ef6Z8ugDcA0mjzvy1iYtQ3T+Pl
-	 uot1sQMFB01SqK3M5lURJJ/hRhJdKGvsFhcc7rsRDeACQMgz2mCwOwbEFX1L7C7zv0
-	 zBSICyyYlu9rcCLwYr40KPXuKB7YNW34TqGG1XPVqOWav2lIe6vNck5ZEEorrTrAYr
-	 XPFnyvdwp/cXodcjxVG4G1pZFIkkLOEBICc+UaRVEAopyOZFFm7LbyLjAqGhGa929s
-	 11w/MTT2VlsZA==
+	b=UgcS4yZ06pssXbFHHgG3+Ba+Bbr3x3lwd8ymNYfhY8aNnW+fzhwjTE19IIdLf3Sbt
+	 /m4VP+4uYyt8LOV1zRCYv/cYeVi4Vek0sUaMdYHVc2IlCjkRp3vS1Cjgyau25mxUY8
+	 bwh7uq2MFhTrAQR+r+Zj0aO6vgdKbxMPBMc3qERLkgpyUZJytfp07A4i95Il+ODhqe
+	 CM3yE2H6QZVkEGDb25z8NtTRBm9YdvWbnecC2zBCWXX7LzNZtlXn+71xRLFJPMIs1g
+	 9RK51c7UNMO8stCGfu1jVeMzO9TY8zHr4C1miE8AZT/dVutp1osI9/cTZheaIrSSrj
+	 tbhlffqX8dzVw==
 From: "Barry Song (Xiaomi)" <baohua@kernel.org>
 To: akpm@linux-foundation.org,
 	linux-mm@kvack.org
@@ -50,9 +50,9 @@ Cc: axelrasmussen@google.com,
 	zhangbo56@xiaomi.com,
 	"Barry Song (Xiaomi)" <baohua@kernel.org>,
 	Xueyuan Chen <xueyuan.chen21@gmail.com>
-Subject: [PATCH v3 6/7] mm/mglru: move folios from oldest gen to second-oldest gen from head to tail
-Date: Wed,  2 Sep 2026 07:24:20 +0800
-Message-Id: <20260901232421.40157-7-baohua@kernel.org>
+Subject: [PATCH v3 7/7] mm/mglru: batch move folios to the second-oldest gen's LRU
+Date: Wed,  2 Sep 2026 07:24:21 +0800
+Message-Id: <20260901232421.40157-8-baohua@kernel.org>
 X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 In-Reply-To: <20260901232421.40157-1-baohua@kernel.org>
 References: <20260901232421.40157-1-baohua@kernel.org>
@@ -64,75 +64,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For reclamation, it makes sense to reclaim folios from tail to
-head, as folios near the head are relatively hot. However, when
-moving folios from the oldest generation to the second-oldest
-generation, using the tail-to-head order would effectively cause
-a cold/hot inversion.
+Detect folios that need to move from the oldest generation to
+the second-oldest generation, and batch-move them together.
+This can significantly reduce the sys time of inc_min_seq(),
+especially when the other type is significantly behind the
+preferred type.
 
+Assisted-by: gemini:gemini-3.6-flash
 Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
 Reviewed-by: Baoquan He <baoquan.he@linux.dev>
 Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
 Reviewed-by: Lian Wang <lianux.mm@gmail.com>
 ---
- mm/vmscan.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
+ mm/vmscan.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 1907a946840d..76dfa9575852 100644
+index 76dfa9575852..79defbb44c6e 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -192,11 +192,27 @@ static inline void prefetchw_prev_lru_folio(struct folio *folio,
- 		prefetchw(&prev->flags);
- 	}
+@@ -3931,6 +3931,19 @@ static void clear_mm_walk(void)
+ 		kfree(walk);
  }
-+
-+static inline void prefetchw_next_lru_folio(struct folio *folio,
-+		struct list_head *base)
-+{
-+	if (folio->lru.next != base) {
-+		struct folio *next;
-+
-+		next = list_entry(folio->lru.next, struct folio, lru);
-+		prefetchw(&next->flags);
-+	}
-+}
- #else
- static inline void prefetchw_prev_lru_folio(struct folio *folio,
- 		struct list_head *base)
- {
- }
-+
-+static inline void prefetchw_next_lru_folio(struct folio *folio,
-+		struct list_head *base)
-+{
-+}
- #endif
  
- /*
-@@ -3938,10 +3954,11 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
++static inline void flush_lru_batch(struct list_head *head, struct list_head **batch_end,
++				   struct list_head *dst)
++{
++	LIST_HEAD(movable);
++
++	if (!*batch_end)
++		return;
++
++	list_cut_position(&movable, head, *batch_end);
++	list_splice_tail_init(&movable, dst);
++	*batch_end = NULL;
++}
++
+ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+ {
+ 	int zone;
+@@ -3953,8 +3966,10 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+ 			lru_gen_is_active(lruvec, target_gen));
  	/* prevent cold/hot inversion if the type is evictable */
  	for (zone = 0; zone < MAX_NR_ZONES; zone++) {
++		struct list_head *target_list = &lrugen->folios[target_gen][type][zone];
  		struct list_head *head = &lrugen->folios[old_gen][type][zone];
-+		struct list_head *pos = head->next;
+ 		struct list_head *pos = head->next;
++		struct list_head *batch_end = NULL;
  		long delta = 0;
  
--		while (!list_empty(head)) {
--			struct folio *folio = lru_to_folio(head);
-+		while (pos != head) {
-+			struct folio *folio = list_entry(pos, struct folio, lru);
- 			long nr_pages = folio_nr_pages(folio);
- 			int refs = folio_lru_refs(folio);
- 			bool workingset = folio_test_workingset(folio);
-@@ -3952,6 +3969,8 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
- 			VM_WARN_ON_ONCE_FOLIO(folio_is_file_lru(folio) != type, folio);
- 			VM_WARN_ON_ONCE_FOLIO(folio_zonenum(folio) != zone, folio);
+ 		while (pos != head) {
+@@ -3979,7 +3994,7 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+ 			 */
+ 			if (gen_increased) {
+ 				delta += nr_pages;
+-				list_move_tail(&folio->lru, &lrugen->folios[new_gen][type][zone]);
++				batch_end = &folio->lru;
  
-+			prefetchw_next_lru_folio(folio, head);
-+			pos = pos->next;
- 			new_gen = __folio_inc_gen(folio, old_gen, &gen_increased);
- 			/*
- 			 * If gen_increased is false, this is a promotion. Put folios
+ 				/* don't count the workingset being lazily promoted */
+ 				if (refs + workingset != BIT(LRU_REFS_WIDTH) + 1) {
+@@ -3989,11 +4004,14 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+ 						   lrugen->protected[hist][type][tier] + nr_pages);
+ 				}
+ 			} else {
++				flush_lru_batch(head, &batch_end, target_list);
+ 				list_move(&folio->lru, &lrugen->folios[new_gen][type][zone]);
+ 			}
+ 			if (!--remaining)
+ 				break;
+ 		}
++		flush_lru_batch(head, &batch_end, target_list);
++
+ 		WRITE_ONCE(lrugen->nr_pages[old_gen][type][zone],
+ 			   lrugen->nr_pages[old_gen][type][zone] - delta);
+ 		WRITE_ONCE(lrugen->nr_pages[target_gen][type][zone],
 -- 
 2.34.1
 
