@@ -1,414 +1,164 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011005.outbound.protection.outlook.com [40.93.194.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DD846D541;
-	Tue,  1 Sep 2026 20:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.22
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788293910; cv=none; b=u6SUYdQyfSbR68HfxCSaoS3lBVwQQ2+YbPtt1ONowEhHIEKiP58kwJ1zBQQGY9tmAF3TBdyzjteWR+ydG5M+WHAQsFW68S0EBU0egpSN4pE22Lr8suZJpmPGnmcWOAzPR6tEKv6HP4oIn7n7rnUQAXpv9nsSodODIFSwU9tmamU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788293910; c=relaxed/simple;
-	bh=dbbnJek3cMdn1+SVPIW8Bn2gHDmzwj/YfvEG/w5nNOg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bjd1K1TWAYgiDIKJuKonxHkD6qzEH2yfKxl5aZ5dqm+TXisu7NKiZUaAP0i9AVmeCHlm17nH7c7k6ZBB69aLlFrok93go3KXP7Kow+9+AbIXA3HDYRnw4i5y9t/z0wtSXncmcdvPCcaFRAaNHMSlbCKErEIZyd9zDrXX43ME7bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=HsKuvBI6; arc=none smtp.client-ip=212.227.17.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFE304A2635;
+	Tue,  1 Sep 2026 20:19:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788293950; cv=fail; b=Oym2sYr+ufbHvVXGf/m8ENyvd2wHvXCCOZmFGs/zrduvJjuiobEDLK10ibyD9ljcP+B7YtPZ6yTAsI+93Xlfw309Sqh+a3p9BWXfjEdU9+v7bybHvxcsL48+bRh8jykMDHHyGxJ8ix6gkUdCxC7tc+wRPzX4BtpVaA4mPIAmSfc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788293950; c=relaxed/simple;
+	bh=ZbOv77NtlUvWbt5VuZCwS6DfvUFODp4RzruKbW7Dagw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=XiAcW2Fgx0WRcgxpNunt5YqMGPoUyAgZT8jhfiMaDwIHlSlt7TCjAqa8FLS/xkjGNC+zNqnIQH0uog2JHV8SjgskpjojmyqX3KxjQf3XC6iHxIhR/3sdfc6KI+9PDMBvfo0sjD8emFmOpMCQTGbOnVamEvpDIS8kqeRxuagzxcE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BEVfrZYB; arc=fail smtp.client-ip=40.93.194.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="HsKuvBI6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1788293901; x=1788898701; i=w_armin@gmx.de;
-	bh=HNme46btptdVXl0HZFxrwNdw1KW6rEuEwHuEGuakT9A=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=HsKuvBI6HYUuWvZ2Xmxe1LCbbmOkBzMNFLs96nyGQ2bRbqr+4FnzoEMFnadLXp3G
-	 GOF0QIMWq8EPyEqTMZd50BjQDXprfocjG3uhrbkndpuYPaY4XLTonEVDRl/rzZs7k
-	 cuPMJVpUuk9chncwdW6PqVQf97uIps6uvSxj2eJz1YAZt3l6dwxihG6jZ+lrmX9jB
-	 YSMiHcBF4mNBiMXxQiOICdAidJRwerfVeLxYfIyfJPs6VEhfmLF3XjsUyh57mtu2C
-	 mAP5ol9fAHsjhGhz7womnMYneFPAu3b3tV44cFN2IfAQayAXF9BoA8yE2ftSNbsj9
-	 1IBBmHGDsCLxTiRnCg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MsHnm-1wllKh1LEQ-00wh7r; Tue, 01
- Sep 2026 22:18:21 +0200
-Message-ID: <dec5d721-8bc5-4be3-81cf-16b63829cbf0@gmx.de>
-Date: Tue, 1 Sep 2026 22:18:20 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BEVfrZYB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EdhKqDAplhLoAKmqYYG9YwFOXjpFKpxDiTQKOzyCBFKMo+MtzQqx+9KDrbpCQalNLh07ZamX9l2xG4JvGkYMXRM1XMz0M5ziuN9J2Brqa4sMuTy5TlMv27GGwYdKDrsnhrDhnCep3/Huz/NWi6PNIucq6SWG8Za8VF2lx4m1NdYtkgHVO5XIVhp/iyYXqNjYb6/Gu+P4Zzei4/174h8E7OPCsUDyqqUxlEd6qiknK1zELFYDs8/yAuvfPe1eLami/un/NCHv7HbJqKFtELGZSsXxmZCenGFbJLi0baac3BftuADVg7umLdf3RA7Uy3BUthmWI08VTwRrEF6+cTgD3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5yRpwrJSBL2wP1dJJpZJp84zZDr0a+S6O0rNrm5Obec=;
+ b=hja74mCEiUFf/r11m9luLR80JBnEcepFiX2n0HrGptMJXgjIH8BqtyKWUWeYNI3epr+Of/S6nQNst+bfnnCamG80a73whB9uZDg+hfrJDddqx78Ci40vvmIcKOnSZ28CFv41Wg5OVDp1NNw1NAV6yuRU8aXA6ATyrha8BExBdb5CzchkYt8SYkuOuyiEc0UVWBgrSLA9IdbblUhaLpF5d8HYOlTAoyH/s53a/aK9HDpFfnulQxJ2a4YYwuO6VtIWOmI2x1erdTKcjzlRjsSCeO0VWWDRx6auhhMn+v4LTo+k13sX4Gjroqrfi8EhKlxh4MeUM7W9G0UXipyG1QNN9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5yRpwrJSBL2wP1dJJpZJp84zZDr0a+S6O0rNrm5Obec=;
+ b=BEVfrZYBMyAzzgVsgP7HrATVhjS08JIJ1Se0/3YSh3MxcqVRb6cnfDzwbImPUPXpqQn+RwXAJ/ugM2zyeb+ICjYW3ar3XQgfslcl5vQalNcUYwSdQwx2zAX/j1mO8LKF++atrvkSHWhE91iKoZkqPBV1dgPXgGnIwk6ItlHi7Quj4jQ56WJHehK7sAZcEMNqC0a0lQbPz04Xke+K7QaKm1umboZ69zJHQd68xe53C+AI3X4Hl0HksWOUoJpHwL3WykE8gf5LUzpyRhtV6eLjxow5BpDjNYjbJWaDnoYpYEEeuujIiCNaOB1CI03OOBv/fU9q90ATdNY7Z31lkzJBtA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ CH2PR12MB4184.namprd12.prod.outlook.com (2603:10b6:610:a7::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.13; Tue, 1 Sep 2026 20:19:02 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 20:19:02 +0000
+Message-ID: <a796c716-4db0-4bd4-b69a-accfe0d382d5@nvidia.com>
+Date: Tue, 1 Sep 2026 13:18:58 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] rust: num: add cv! macro to create values from
+ constant expressions
+To: Eliot Courtney <ecourtney@nvidia.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+References: <20260901-cv-v2-0-446bc69d2ade@nvidia.com>
+ <20260901-cv-v2-1-446bc69d2ade@nvidia.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <20260901-cv-v2-1-446bc69d2ade@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0126.namprd03.prod.outlook.com
+ (2603:10b6:a03:33c::11) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ACPI: battery: Fix bogus cycle count values on systems
- without _BIX
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: lenb@kernel.org, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org, wse@tuxedocomputers.com
-References: <20260806233817.622975-1-W_Armin@gmx.de>
- <f2f17b0d-22a1-4a57-895b-318bb50456f3@gmx.de>
- <CAJZ5v0j4EAZnrEA3Z7EKX5fdfhTWYbb=f0rOPnLsz5zaEMguGQ@mail.gmail.com>
-Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <CAJZ5v0j4EAZnrEA3Z7EKX5fdfhTWYbb=f0rOPnLsz5zaEMguGQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:00Nwyu4DHZ0aZ12TGI+Me2tNp3vASFEtIVM6+ZMQ3A75MP/1U62
- uXlcH9eW7Mq+A7TyDbjUSt+2a0iScV1tZZpefgrXxEd9s+2E0wUXETGwz0Qm1wmqpK1xfGq
- H5odmLmGgBOFTJ81T9taJpWO2lMmXeMPYRHbm9ZmFnRvpI0MF89ix+wUpVl2CJpcsCQIKlz
- YSnEegCbfYmOXtHEPBLRw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:R2maLBtXu/k=;KztQ1m3MQqM36OZzH15V2NMvRMF
- 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
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|CH2PR12MB4184:EE_
+X-MS-Office365-Filtering-Correlation-Id: e9a823fa-2200-4937-c4ff-08df086642c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|10067099003|11063799006|56012099006|4143699003|921020|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	fqeOiWBk3x34lOLJztj8iydNPU0Ix4oViFH4oHqFLBcAIuez6PcTm+hcZhsO16GfB1x8mq9FDRV0BYhAoXFUjDzHsR6zzPHcJY9Jg0UjVxML/zAfPLGrWNtle9iGg9ylOsUf7TQbolBIt3QJ36mFLLIu4D8QOVGsrBHvVpZFaFEKPTa0U0IdPMlJDjHWLKOrIlXKEBlsz1zTAAKQtpkdKfTMUFBkO69lmmBDGA56KODwuQxZ9j4sNQu1wJVergrNHAfSIsw92ZQeg09s1/bSoKLBgppQzORFdPaaZsPZtOEbqCulvNWw0nKibPX5bqiBALGsALX+Y3haj1u+YFeiPxlNwKQqBIixwl92ryV7vildgD4IKU9pAinDRvDzY3NfBeEA2qLJakudkhpJsUAmtbMmgbalme6Wwncna/k6MtEnZBID+1QJW5cPUOqnYNwH4BavFkdlxmvEEClBFN++R69AHF/8gxepmpPVBs/8F5HlDt8oAv9PPAXyYoXNR0dVyW0KsShNnD4zzne7ODPQ8U9jbS23KFGg5qiReN7DWq5B+QYJ0R6D6ex986m+vJycNruEBw3IgY4v8ykoOARYyK7/gODG9x+avZkk20sW4Znyl836YokM1LhrTsGc+ZnYXUjXNrWB6d9LPOzLaM/vYrAT8IRndSyeXyfZ3gjl3So0GLHN4MOFmBnc+087W9K65I4ElQ0xK/4COgTVpXJA0g==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10067099003)(11063799006)(56012099006)(4143699003)(921020)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Z01nUFQ2VmEwMG5mRW1jZytLdzJKVitNby85ei9MaE9IeEd2eTF3d0RSL3NN?=
+ =?utf-8?B?dlo0S2hNUm54WUhqcW9NMThMbkRvci95U2tzUVNYTm5kVmkzS2R0bURwNlk4?=
+ =?utf-8?B?NGowVnlVRUNFN2FJVTFmYy9FMXJpM1N0SjZJZkQ0ajAwbXBCMW9kOE1UVnc3?=
+ =?utf-8?B?RFNBWnV0S1M5c1Q5UW9uWURRckVKQmk0WjBmWVdVSzhPNGdQaUY5Y2xYZTR4?=
+ =?utf-8?B?blk5b0Q1YmVjOStVUjZ4aXlxY3FISDNBK3c5RWd5UUJpZUV5RFhLZVNPbE1v?=
+ =?utf-8?B?YnVoZStBa3lGeSt5RVJ4ZnNnSnpGYVo2UVNLWG9xVFJiNFVlS3pwUGhML1Zq?=
+ =?utf-8?B?NlAycCtVcHdFMkRmN0NIdGhUVThnK0JTeVFiaG14THVlSkg2OVhtQk9Cb0Vx?=
+ =?utf-8?B?RDlOcWRsdHZNMlFYTjVkcEduMVZ1MFZGTGNMQ1dsajh6QU1oUE8xZUg1MWtZ?=
+ =?utf-8?B?UlhNZTRUUVBHeXdDYlNDdllkMlFrYlE1YnJ2aklnOHZ6emgvbElkRW5HWjZa?=
+ =?utf-8?B?d2hRQk82SXVqUnlWcTRhNVBQamVIYU43ZHoyMnpMTXljMTY2dUJkVkJKTzI1?=
+ =?utf-8?B?cmtVb2E5V093ekFhLzVYd1JFR3FKUURCeFBQMmt1bldSa2hUd1VrcHlrcUx3?=
+ =?utf-8?B?RDFRU0xJUVgxOSt2cUZQWXhuV0VSdTNndWEzRGw2OWxaS0FSSnMvM0E2UFdz?=
+ =?utf-8?B?NitMS0tuRElpcXN1UWY3QnliejBITGRWRGtTYStndDlSK0RUcytmYWlGcEVM?=
+ =?utf-8?B?dHhHL2tCZGVVYWVFSmFxUGRxTEdEMUVtTkxsekRqS1ZxV0JHaXk2Y2lsUVRS?=
+ =?utf-8?B?ZVFEYy9PR2tFTGdkQ1psUEZKZmVaRHJxUEJyc2oyWStZbzE0TXkzeXNZLzNJ?=
+ =?utf-8?B?UnhONkdJWEdTWDVqUnFJNS9ZK1dpMis4WndNNFhiV1N5c0RFQTA4ZjFITjZW?=
+ =?utf-8?B?Tm1JdHFady82akUxMk5PSnl1dWRnSXhEYzBqNms0TlFNTHpPdjI3aHBLNERX?=
+ =?utf-8?B?clFHSFVwOHBuR2tGZ0tCbjc2ZGNlQ3lPekNWOTJTZ0htVzhWVEtJWmdPVHFG?=
+ =?utf-8?B?cXh6R21iVnRLbXpUSVE3cGhwWVFYd3lmMmFReHdwelF3eXg3Y3V0OXB5SW5B?=
+ =?utf-8?B?cFVTcWV1UXNIa3lLcFZjcU9OOGhsalVaRHRpaEFNVlFNYnJDVEozZ1JBU2xB?=
+ =?utf-8?B?K2dOYlBZR2RGRjlWTTVZUlhpVkFyV3BKYUxZUWtHeXI2YXV1UEhZQXZNZnVT?=
+ =?utf-8?B?UkNYZVhrM3ZidzkwcDQrbVNHbnFWNEFySldQWjV2UXAxYzRBM1J0Wm13UlZv?=
+ =?utf-8?B?WmNJYkFLU1ZTNXdzSlZZUTc2N1BLSWpMWFZnUWtWWE5Ec2pzdDRFT1Z1R1V0?=
+ =?utf-8?B?S2JwRlNxbFJ3dHFFaGFlWlczeVBXY0dINFNBSllQNG9Uc2Nnc3JHRjFhYlZ5?=
+ =?utf-8?B?K1hVSDNid0JYRkhvZkNmV09TUWFQbngrdnpmeEU1SkR0WUtVdjFQeExQU09z?=
+ =?utf-8?B?ZVB6RU81RmdUZ1pHT2t4TjBqUUVOZ1p2QjZrRXBQVFloeHhHTFY1eEd4M29E?=
+ =?utf-8?B?WWpyM0VzQ29CSGNGcTZFTW9WdVA5UFNKMVNwT3R1aGdPc3Z6ejNhUVVXdWRW?=
+ =?utf-8?B?QVhNT3FPMEtqQWYzdmZVZjZST2FFSnhUNUlSVkFYYVlqbCtJZlBlMzRPakhH?=
+ =?utf-8?B?VGNnOE5PTDRpYUVBN0xmUkhQUVRJVFkxUVJodHBIaVo0OFdlK0V3cjNhR2Fp?=
+ =?utf-8?B?NkNPRlM0UUxZK0xvU1czcjl2SFNtU25zbXhRVHRBUVhvWUtNcDJpdnpGeTRz?=
+ =?utf-8?B?T2Q5UEhnYmRRcE1MZG9oRkkraVVGeWhrWGlvMHl5aUk1ZkR5K0lFaHRadDFW?=
+ =?utf-8?B?cXJWc2pPQmFZd1o5RHZQMThQU1M1U3NpMXJ6M2JiTll0R0U0V0pYeHhURUQz?=
+ =?utf-8?B?TTd5Q3BJUFg3MWdwTkxpWFM5c2UrMENpRFZnMG9vd1djQ2dNVnQ3NVhqcVRM?=
+ =?utf-8?B?ampRZHVqOWt5WjF4M0tjdXU3Zk5VOTFDbEpQMWtvaFVaRDA2NVo3ZnlQQWRw?=
+ =?utf-8?B?NTZpN3ZoSUE2eW1oUHdNcHRwbkJuVUhtWVhYTms4R0l3aEdDTXdXd3BDbHZG?=
+ =?utf-8?B?bzJZQmdYcUhOVUMzRGxaeWdLVWNqcUJoQ0R0Tks3akFPaGJxeng3MWtBMERN?=
+ =?utf-8?B?YUthN3FJNks0ejQ0SkN2SnVtVmdVbDMrRksvYUIzNzNEd2hLdnA0UkpkRlJj?=
+ =?utf-8?B?R2U4Z1VlcWEvMFZES1ErRkNtQmpqeEo1YitoY1lRa1dkVE1EQytsb0YvL0x5?=
+ =?utf-8?B?SkFIQzJPWjA0aWlTMGJnbnY1SHh2U2hJK3V4NVBtaHdZNnhoZjM4QT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9a823fa-2200-4937-c4ff-08df086642c2
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 20:19:01.3991
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rZyT5zMt4NmUK+9zQc3XqNvBQ1OhJpDpCE+wEdnHFHWVkLelnYmqhXvzPFXQu1YEJsQWUc8jiSU9ZL78gorkZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4184
 
-Am 01.09.26 um 22:16 schrieb Rafael J. Wysocki (Intel):
+On 8/31/26 10:06 PM, Eliot Courtney wrote:
+> Currently, using NonZero/Bounded constants is quite verbose. It's
+> unfortunate because it disincentivizes using it in interface boundaries.
+> Introduce a macro to make it nicer to use. The macro `cv!` (for constant
+> value) takes a const integer expression and widens it to i128 (at build
+> time only) before passing it as a const generic value to a new trait
+> `FromConst`. The value is then converted and appears in the
+> associated constant `FromConst::VALUE`. The trait is implemented by
+> NonZero, Bounded, and Alignment and lets values of each be constructed
+> from constants without a verbose turbofish syntax.
+> For example, `const { NonZero::new(1).unwrap() }` can be written as
+> `cv!(1)`.
 
-> On Tue, Sep 1, 2026 at 10:11=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wrot=
-e:
->> Am 07.08.26 um 01:38 schrieb Armin Wolf:
->>
->>> Devices supporting only the legacy _BIF ACPI control method cannot
->>> know the cycle count of the associated battery, so cycle_count always
->>> remains 0. Claiming support for POWER_SUPPLY_PROP_CYCLE_COUNT on
->>> such devices can thus mislead userspace applications and prevents
->>> power supply extensions from supplying correct cycle count values.
->>>
->>> Fix this by not claiming support for POWER_SUPPLY_PROP_CYCLE_COUNT
->>> on devices without _BIX.
->> Any thoughts on this? I tested it on my device, and so far everything s=
-eems
->> to work flawlessly.
-> It looks good overall, but it is quite substantial, which is why it
-> didn't make it into 7.3-rc1.
->
-> I'm planning to apply it for 7.4.
+Remarkable, in the sense that it seems like an oversight at the Rust
+language level.
 
-Alright, that works for me.
+Alex, Miguel, is this worth mentioning at Kangrejos?
 
-Thanks,
-Armin Wolf
+thanks,
+-- 
+John Hubbard
 
->>> Signed-off-by: Armin Wolf <W_Armin@gmx.de>
->>> ---
->>>    drivers/acpi/battery.c | 131 +++++++++++++++++++++++++++++++++++---=
-=2D--
->>>    1 file changed, 113 insertions(+), 18 deletions(-)
->>>
->>> diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
->>> index 0084f308b790..b64f876f93cb 100644
->>> --- a/drivers/acpi/battery.c
->>> +++ b/drivers/acpi/battery.c
->>> @@ -324,7 +324,9 @@ static int acpi_battery_get_property(struct power_=
-supply *psy,
->>>        return ret;
->>>    }
->>>
->>> -static const enum power_supply_property charge_battery_props[] =3D {
->>> +/* For devices supporting the _BIX ACPI control method */
->>> +
->>> +static const enum power_supply_property charge_battery_extended_props=
-[] =3D {
->>>        POWER_SUPPLY_PROP_STATUS,
->>>        POWER_SUPPLY_PROP_PRESENT,
->>>        POWER_SUPPLY_PROP_TECHNOLOGY,
->>> @@ -342,7 +344,7 @@ static const enum power_supply_property charge_bat=
-tery_props[] =3D {
->>>        POWER_SUPPLY_PROP_SERIAL_NUMBER,
->>>    };
->>>
->>> -static const enum power_supply_property charge_battery_full_cap_broke=
-n_props[] =3D {
->>> +static const enum power_supply_property charge_battery_full_cap_broke=
-n_extended_props[] =3D {
->>>        POWER_SUPPLY_PROP_STATUS,
->>>        POWER_SUPPLY_PROP_PRESENT,
->>>        POWER_SUPPLY_PROP_TECHNOLOGY,
->>> @@ -356,7 +358,7 @@ static const enum power_supply_property charge_bat=
-tery_full_cap_broken_props[] =3D
->>>        POWER_SUPPLY_PROP_SERIAL_NUMBER,
->>>    };
->>>
->>> -static const enum power_supply_property energy_battery_props[] =3D {
->>> +static const enum power_supply_property energy_battery_extended_props=
-[] =3D {
->>>        POWER_SUPPLY_PROP_STATUS,
->>>        POWER_SUPPLY_PROP_PRESENT,
->>>        POWER_SUPPLY_PROP_TECHNOLOGY,
->>> @@ -374,7 +376,7 @@ static const enum power_supply_property energy_bat=
-tery_props[] =3D {
->>>        POWER_SUPPLY_PROP_SERIAL_NUMBER,
->>>    };
->>>
->>> -static const enum power_supply_property energy_battery_full_cap_broke=
-n_props[] =3D {
->>> +static const enum power_supply_property energy_battery_full_cap_broke=
-n_extended_props[] =3D {
->>>        POWER_SUPPLY_PROP_STATUS,
->>>        POWER_SUPPLY_PROP_PRESENT,
->>>        POWER_SUPPLY_PROP_TECHNOLOGY,
->>> @@ -388,6 +390,68 @@ static const enum power_supply_property energy_ba=
-ttery_full_cap_broken_props[] =3D
->>>        POWER_SUPPLY_PROP_SERIAL_NUMBER,
->>>    };
->>>
->>> +/* For devices supporting only the _BIF ACPI control method */
->>> +
->>> +static const enum power_supply_property charge_battery_props[] =3D {
->>> +     POWER_SUPPLY_PROP_STATUS,
->>> +     POWER_SUPPLY_PROP_PRESENT,
->>> +     POWER_SUPPLY_PROP_TECHNOLOGY,
->>> +     POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN,
->>> +     POWER_SUPPLY_PROP_VOLTAGE_NOW,
->>> +     POWER_SUPPLY_PROP_CURRENT_NOW,
->>> +     POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN,
->>> +     POWER_SUPPLY_PROP_CHARGE_FULL,
->>> +     POWER_SUPPLY_PROP_CHARGE_NOW,
->>> +     POWER_SUPPLY_PROP_CAPACITY,
->>> +     POWER_SUPPLY_PROP_CAPACITY_LEVEL,
->>> +     POWER_SUPPLY_PROP_MODEL_NAME,
->>> +     POWER_SUPPLY_PROP_MANUFACTURER,
->>> +     POWER_SUPPLY_PROP_SERIAL_NUMBER,
->>> +};
->>> +
->>> +static const enum power_supply_property charge_battery_full_cap_broke=
-n_props[] =3D {
->>> +     POWER_SUPPLY_PROP_STATUS,
->>> +     POWER_SUPPLY_PROP_PRESENT,
->>> +     POWER_SUPPLY_PROP_TECHNOLOGY,
->>> +     POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN,
->>> +     POWER_SUPPLY_PROP_VOLTAGE_NOW,
->>> +     POWER_SUPPLY_PROP_CURRENT_NOW,
->>> +     POWER_SUPPLY_PROP_CHARGE_NOW,
->>> +     POWER_SUPPLY_PROP_MODEL_NAME,
->>> +     POWER_SUPPLY_PROP_MANUFACTURER,
->>> +     POWER_SUPPLY_PROP_SERIAL_NUMBER,
->>> +};
->>> +
->>> +static const enum power_supply_property energy_battery_props[] =3D {
->>> +     POWER_SUPPLY_PROP_STATUS,
->>> +     POWER_SUPPLY_PROP_PRESENT,
->>> +     POWER_SUPPLY_PROP_TECHNOLOGY,
->>> +     POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN,
->>> +     POWER_SUPPLY_PROP_VOLTAGE_NOW,
->>> +     POWER_SUPPLY_PROP_POWER_NOW,
->>> +     POWER_SUPPLY_PROP_ENERGY_FULL_DESIGN,
->>> +     POWER_SUPPLY_PROP_ENERGY_FULL,
->>> +     POWER_SUPPLY_PROP_ENERGY_NOW,
->>> +     POWER_SUPPLY_PROP_CAPACITY,
->>> +     POWER_SUPPLY_PROP_CAPACITY_LEVEL,
->>> +     POWER_SUPPLY_PROP_MODEL_NAME,
->>> +     POWER_SUPPLY_PROP_MANUFACTURER,
->>> +     POWER_SUPPLY_PROP_SERIAL_NUMBER,
->>> +};
->>> +
->>> +static const enum power_supply_property energy_battery_full_cap_broke=
-n_props[] =3D {
->>> +     POWER_SUPPLY_PROP_STATUS,
->>> +     POWER_SUPPLY_PROP_PRESENT,
->>> +     POWER_SUPPLY_PROP_TECHNOLOGY,
->>> +     POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN,
->>> +     POWER_SUPPLY_PROP_VOLTAGE_NOW,
->>> +     POWER_SUPPLY_PROP_POWER_NOW,
->>> +     POWER_SUPPLY_PROP_ENERGY_NOW,
->>> +     POWER_SUPPLY_PROP_MODEL_NAME,
->>> +     POWER_SUPPLY_PROP_MANUFACTURER,
->>> +     POWER_SUPPLY_PROP_SERIAL_NUMBER,
->>> +};
->>> +
->>>    /* Battery Management */
->>>    struct acpi_offsets {
->>>        size_t offset;          /* offset inside struct acpi_sbs_batter=
-y */
->>> @@ -875,6 +939,7 @@ static void __exit battery_hook_exit(void)
->>>
->>>    static int sysfs_add_battery(struct acpi_battery *battery)
->>>    {
->>> +     bool extended_info_available =3D test_bit(ACPI_BATTERY_XINFO_PRE=
-SENT, &battery->flags);
->>>        struct power_supply_config psy_cfg =3D {
->>>                .drv_data =3D battery,
->>>                .attr_grp =3D acpi_battery_groups,
->>> @@ -888,25 +953,55 @@ static int sysfs_add_battery(struct acpi_battery=
- *battery)
->>>
->>>        if (battery->power_unit =3D=3D ACPI_BATTERY_POWER_UNIT_MA) {
->>>                if (full_cap_broken) {
->>> -                     battery->bat_desc.properties =3D
->>> -                         charge_battery_full_cap_broken_props;
->>> -                     battery->bat_desc.num_properties =3D
->>> -                         ARRAY_SIZE(charge_battery_full_cap_broken_pr=
-ops);
->>> +                     if (extended_info_available) {
->>> +                             battery->bat_desc.properties =3D
->>> +                                     charge_battery_full_cap_broken_e=
-xtended_props;
->>> +                             battery->bat_desc.num_properties =3D
->>> +                                     ARRAY_SIZE(charge_battery_full_c=
-ap_broken_extended_props);
->>> +                     } else {
->>> +                             battery->bat_desc.properties =3D
->>> +                                     charge_battery_full_cap_broken_p=
-rops;
->>> +                             battery->bat_desc.num_properties =3D
->>> +                                     ARRAY_SIZE(charge_battery_full_c=
-ap_broken_props);
->>> +                     }
->>>                } else {
->>> -                     battery->bat_desc.properties =3D charge_battery_=
-props;
->>> -                     battery->bat_desc.num_properties =3D
->>> -                         ARRAY_SIZE(charge_battery_props);
->>> +                     if (extended_info_available) {
->>> +                             battery->bat_desc.properties =3D
->>> +                                     charge_battery_extended_props;
->>> +                             battery->bat_desc.num_properties =3D
->>> +                                     ARRAY_SIZE(charge_battery_extend=
-ed_props);
->>> +                     } else {
->>> +                             battery->bat_desc.properties =3D
->>> +                                     charge_battery_props;
->>> +                             battery->bat_desc.num_properties =3D
->>> +                                     ARRAY_SIZE(charge_battery_props)=
-;
->>> +                     }
->>>                }
->>>        } else {
->>>                if (full_cap_broken) {
->>> -                     battery->bat_desc.properties =3D
->>> -                         energy_battery_full_cap_broken_props;
->>> -                     battery->bat_desc.num_properties =3D
->>> -                         ARRAY_SIZE(energy_battery_full_cap_broken_pr=
-ops);
->>> +                     if (extended_info_available) {
->>> +                             battery->bat_desc.properties =3D
->>> +                                     energy_battery_full_cap_broken_e=
-xtended_props;
->>> +                             battery->bat_desc.num_properties =3D
->>> +                                     ARRAY_SIZE(energy_battery_full_c=
-ap_broken_extended_props);
->>> +                     } else {
->>> +                             battery->bat_desc.properties =3D
->>> +                                     energy_battery_full_cap_broken_p=
-rops;
->>> +                             battery->bat_desc.num_properties =3D
->>> +                                     ARRAY_SIZE(energy_battery_full_c=
-ap_broken_props);
->>> +                     }
->>>                } else {
->>> -                     battery->bat_desc.properties =3D energy_battery_=
-props;
->>> -                     battery->bat_desc.num_properties =3D
->>> -                         ARRAY_SIZE(energy_battery_props);
->>> +                     if (extended_info_available) {
->>> +                             battery->bat_desc.properties =3D
->>> +                                     energy_battery_extended_props;
->>> +                             battery->bat_desc.num_properties =3D
->>> +                                     ARRAY_SIZE(energy_battery_extend=
-ed_props);
->>> +                     } else {
->>> +                             battery->bat_desc.properties =3D
->>> +                                     energy_battery_props;
->>> +                             battery->bat_desc.num_properties =3D
->>> +                                     ARRAY_SIZE(energy_battery_props)=
-;
->>> +                     }
->>>                }
->>>        }
->>>
