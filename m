@@ -1,61 +1,63 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C643945D1BF
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:39:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8685D468C33
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:39:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248352; cv=none; b=Z1THYBni9oBPLpsF+lA+3E7UneMaNLdxiQ5FdI4Ls0tjcL1Z0Y8oRO4Fbwnx/7qYSp0q2EQp2+VslrRLrEfChkmNZSG8McglxX32E3kKes87YOGr5uyQe6M7gNXYlWdhtdpqNVbrYT9Eh6CyFwdoHRAGt356znoF+BbcwlL2vGk=
+	t=1788248353; cv=none; b=FBZJD3GbJuZCL6d/UJMLUbgHsV7QmsWRtfuoLuh4T5fMoEqxluHwWn5CzMHvuwTxn7nYhlY6/arQXi1noZs+mChMSC5++KwlcmIEhIxaRWbd4ygSRodFOUGw1a8uvNfS4R82b+3+hgMn3SLOdUYY1T1BK+vaE8u5TSkhpUrbv3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248352; c=relaxed/simple;
-	bh=E4N9s6q44nZ7rlATktcHbNV/EanEgOqvGGncM+WppNk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FSw32+JTIU9D479T/QTNz0FyrLIY8fTk7lx2b+YtFoUqrlZneCvs+IWoHe1dEVMrW+9QTY7fhaleucfilNw2Efn7qnlLGobhVR9RzhaIcRofNFmEMfRst/jeX6pO486I4NNBgR4uZbdwbszRLS/0V4aIuRAgCIGpOphn8E4FIkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OMipeknt; arc=none smtp.client-ip=209.85.221.54
+	s=arc-20240116; t=1788248353; c=relaxed/simple;
+	bh=a7PHJfV4gzPGGi3SCSdAAcB12zNvMgt2S88ZttemUkg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nSB2ahVK8NI7D0YP6h0KDpIVJxULCxxjnBJyGJr+vpYl/OZmCNdPNlzK1LUHTH8Fe3l9ZK7FSCjafV8yTKnwpVJpDz/ocLFp54mlAvwDM4tUJDgVXY8dzLBzoFpn9FRBSSIziCjyVXMCnvjIYlLkPuTaWSmu7cuJ3eFPpj3Do4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GKDRY70U; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OMipeknt"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-482f2ee53e7so2109306f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:39:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GKDRY70U"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4843750de83so469371f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:39:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788248349; x=1788853149; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IjZHkrxVpcQFOwJwauqd2i3GemqcaPp8+D6Ys4sNuvs=;
-        b=OMipekntUCok2bZJ5Q1WG0Y1Mn1pIKsGsPCRX9m2/71yM+y7uhuQr/azFNqZSy8e6C
-         eQk3iqqt8lxoHAGJzPSj3EEPjNDvu+rBMOeRHhEQqDnRvK5DxjvkXUv8Dj+ujWvdZphl
-         BYPMcMxmGZjab2CfNPtH4Q+3+qSKSW/OCMcztTQk6AHHNbq4u1FCuZetd6EO82U1ZHml
-         9Z2GaQnaUMjSvK3zqARe5HcbbxXDpNStFblTv6pGBiHkCJ+aMxb3tJsV7lFE99ycQ9d4
-         kVqYUGfp+c6bJv9cyniGwkVLMlPPbfLBAI7sTUaj4jRQ6NR1qWEMRTcuP9cRTXHrDXLG
-         Ywog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788248349; x=1788853149;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788248350; x=1788853150; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IjZHkrxVpcQFOwJwauqd2i3GemqcaPp8+D6Ys4sNuvs=;
-        b=T1jS/OzbNZCIMsuDdvJLuwgFLVbzqrYDT73Q7k/yoQbGRgUQByVMkklXTrqR2bI5Zt
-         Oo52lADoMuUdf6GzT4tcSiO6aT7kLIL5CKqOceT/eLg9Yn+NrhOh1vbVUi9OPJP/jBBX
-         Qc9zA1t/aFkiH1Su5DukeV2zpKNBPQsCf/hgqLClarUVCjr2f0TSa/w6dMsNSy58I/oY
-         Gohw5n6ZnIspFYWYBiJSzQyoGQ7cqkt3rYFecdhFY7FQ+nHRDbWsPl9SAhyj7Jkzg9lu
-         m7ftZeaTlQGt93Ck8F5wWHyY+FonuqWtEcS2BvWMIamdLnQokXRPbhA7b+Y08yr9fj3z
-         oagg==
-X-Forwarded-Encrypted: i=1; AKwUvBy7FddRp6FEjeoxzhNiQdKQ5Vsil+hAv5+UHc/Vvmc0/k/PtU36m3IFC8c583LMCvsUuUmmBQVa8ln94L8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUNYC/E1stAJGZtFXp5Z2MM9AJVDOxKQvsugTVwh5+2i4iQC9a
-	QAC8H+glTCk89yum2fFf3fF0APiLpAXWIyBQJndX6HCZm7rzSaECvgTE
-X-Gm-Gg: AYBFou1df/+oEcsCuL2rS8qvayf5wDCNW5khzGsJtbizYz2+XM9rDNlr9t4N0kWsZIk
-	v4G1/TT2Jxl9ISedbnhflaZVL39dhHiObcEli9glCkdBFsTJhFHCbk7bU3gepGWHnEuH0uQWACy
-	OS5TRSnN3hOowtwHVmc7dxTA7qeXoyZCtDZUnAcOziqssjftp5cQoADcHXw2cNh9+5rG1vXUVAh
-	80fX6TeVWDCE5LjIGOQtD76YWK9hBDK+017BFauLgdg78QzYez8guCVZnUZlQGoCV8KvMX/C/O7
-	wqVP56v+3TkxY35HfbgimNpnbh8s9fs5x8oDdz7Jv6sjF0nRlpZaB//E6DEbsTman2Zzsh2ikM2
-	1jus8h8pLugiPcS/FkzILifBlzzc0fHDVW5/LYDzSz9/nMWogGDraxxS3scLYSzkH78oqcXoTPS
-	3sRWrbCo40WC6njC73JdMcmbg72FHCZiFyGmC6M8/oMDNyJ3PWklTxAxmTfDCF1VOvqA==
-X-Received: by 2002:a05:6000:4910:b0:482:a8b1:aa6d with SMTP id ffacd0b85a97d-482f79c1923mr50050718f8f.10.1788248348682;
-        Tue, 01 Sep 2026 00:39:08 -0700 (PDT)
+        bh=VxuNHMnlajHVgcX65Arb3FqrfAoHreh7iYiEvJueLq4=;
+        b=GKDRY70U/ZcRIWg/b4YmkePdkoIeXhVept6FkMFKzY5nlxvR4K/FQLWNE7gIUar7rk
+         CNJweCp4pAC2b5w5xl/te1nx7vyxCjTO6dfPfLkoNhHWWrtadaMbhKoz0tH8TL5v87U+
+         SZ7L6Esj4oL1g5f5oVf/OvLiQ68BYutZp1pMTEgnbNG39LWyvz5V4i+F56OcUitYpsZJ
+         lWbB1TuQzXAes/a3tP+14fTaE4yFMIo5O1WAF3/9iMTTMU1vDCXOxAmmYNs5m0/i+vT7
+         /MmM24wSvVKcMMVQTSCjr9J72hZlXiY6ZEiwLUMRZMRreQR6w2h+iWuPbXaahdhTfZnb
+         4Taw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788248350; x=1788853150;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VxuNHMnlajHVgcX65Arb3FqrfAoHreh7iYiEvJueLq4=;
+        b=kYg1kR4PXHGXGfAV4WnFIQUv0p29RC9j4p2EFg4uGfLreZi4W/yrTwRMBhYOIcypgB
+         IOn/GBcGBKhL3/riky9ey7+fOB0HdE5Ywix/k/ZMg2egQvgClDsmj0iWUEE8oZuO3REN
+         2fDQh7l53uUndntQS8KD7GfQJOnOw9qStMAvNWUXj+MpgqlVOGDuHZyCfDIW1l3oEhH7
+         4LWCyoCZpd3vrmNtyUBAzvArsHN9FdVWF8K2621y727r7VEeoqRv+y6jxvL7zHzxSYA5
+         mqm87Tyrq9TTucnTeoDpPOsbKfbVyrR/DyGe/DTTr5nUU61DEE6FwcRDND4jd3q+e6lp
+         7ebA==
+X-Forwarded-Encrypted: i=1; AKwUvBzmrcMv98s2quJW7WlvxrcPMd0QhVmoUlvB6NfERSqfAr/4ySlMlo36qfwtjw/kPugiqFHQDqmKclz/vMA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQ5io08AWbdpO43hl8F+DYvxV8KBr2zZJ9WlHaMSvX+WGKaADY
+	WuY5C+S5qps4wumek3Gbp27sLDKN26v1LxyjzIMgmsRnfocvdSiSllrZ
+X-Gm-Gg: AYBFou0PAQTDA7B8e+eSkzFr3ZV3GdiE8noRCxxTTbF9736AesMBpMSUZBJ1/Uh3fEz
+	EINpDNC4In/VgAgyeBmqmQc0pnaVNNuo5sD5B/Ix1Yqu0tTCRQre0Zc//uXdwPdKSL8eHDv+unt
+	nET5z/EHZUU9T9Z+sJCOnCim1ZAQrgMkYUrdX/LyO4aFclTwp7MUCFnFiVn+nJj//Z6yEztyoRK
+	1W708V46ny4BxRANzIhG1HtQht6WcwMVqj+ziyV/ck+nVEN0sxhVCMnX9y1/3Fg04RIW6PCrl8o
+	2pyov9oUv9YvPqXOlerg/oFYMIEmvA4MolHJD11vKZUmCHfRs0he4Z+GXJJRg6w12ERH7fNIoEn
+	yIU89Xm1RX5EXD4hTQCe6QEZu+GnhJPty5dim8if4oGo4IpXwSEBRkO3qaSp75CLuoXvnq/8+Yx
+	DZMLHSRc5c+8fzU2M7VivxYww4PZUObqEaOth3O/wCNiY+qxLMNfWRKO7eZAPpF77usQ==
+X-Received: by 2002:a05:6000:27c6:b0:482:f270:65c5 with SMTP id ffacd0b85a97d-48440fe3214mr8435228f8f.9.1788248349726;
+        Tue, 01 Sep 2026 00:39:09 -0700 (PDT)
 Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d3c460sm3014790f8f.13.2026.09.01.00.39.07
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d3c460sm3014790f8f.13.2026.09.01.00.39.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:39:08 -0700 (PDT)
+        Tue, 01 Sep 2026 00:39:09 -0700 (PDT)
 From: Mehmet Fide <mehmet.fide@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>
 Cc: Stefan Agner <stefan@agner.ch>,
@@ -64,11 +66,15 @@ Cc: Stefan Agner <stefan@agner.ch>,
 	Frieder Schrempf <frieder.schrempf@kontron.de>,
 	linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>
-Subject: [PATCH v3 0/2] mtd: rawnand: vf610_nfc: fix reads on chips with more than 64 bytes of OOB
-Date: Tue,  1 Sep 2026 09:39:05 +0200
-Message-ID: <20260901073907.2443698-1-mehmet.fide@gmail.com>
+	Mehmet Fide <mehmet.fide@screeningeagle.com>,
+	Edward Karpicz <webmaster@toradex.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] mtd: rawnand: vf610_nfc: fix reads on chips with more than 64 bytes of OOB
+Date: Tue,  1 Sep 2026 09:39:06 +0200
+Message-ID: <20260901073907.2443698-2-mehmet.fide@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260901073907.2443698-1-mehmet.fide@gmail.com>
+References: <20260901073907.2443698-1-mehmet.fide@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,39 +85,201 @@ Content-Transfer-Encoding: 8bit
 
 From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-The driver only implements the 64-byte OOB format the controller
-transfers, so chips with a larger OOB (the Colibri VF61's MX30LF4G28AC
-has 112 bytes) stopped working when nanddev_init() began restoring
-mtd->oobsize after ->attach_chip(): the parity moved and every
-ECC-protected read failed, including the BBT and everything UBI needs.
+The controller transfers 64 spare bytes per page and the driver only
+implements the matching 64-byte ECC layout, so attach_chip() shrinks
+mtd->oobsize when the chip provides more. That clamp does not survive:
+nand_scan_tail() runs nanddev_init() after ->attach_chip(), and it
+restores mtd->oobsize from the memory organization, which still holds
+the value detected from the chip. The driver then transfers writesize
+plus the chip's full OOB size, the hardware ECC parity ends up at a
+different offset than the layout the controller was set up for, and
+every ECC-protected read fails with -EBADMSG.
 
-The detected OOB size stays, the driver gets its own mtd_ooblayout_ops
-computed on the first 64 OOB bytes, and the data paths keep
-transferring exactly those 64 spare bytes, so the on-flash format stays
-identical to U-Boot and to the kernels that clamped.
+Measured on a Colibri VF61 (MX30LF4G28AC, 2048-byte pages, 112 bytes of
+OOB): with the clamp lost, UBI cannot read the erase counter headers of
+the pages U-Boot has just written, and the on-flash bad block table
+written by an older kernel reads back with ECC errors, so the board
+does not boot. Kernels before commit a7ab085d7c16 ("mtd: rawnand:
+Initialize the nand_device object") are not affected because nothing
+overwrote the clamp there, which is why the same chip works with a v4.4
+kernel and with U-Boot, whose copy of this driver has no memory
+organization to restore the value from. Edward Karpicz reported that
+the clamp no longer takes effect on this chip; see the link below.
 
-v3 addresses Miquel's review and the confirmed finding from the Sashiko
-report: ECC page reads now fill the tail of oob_poi with 0xff, since
-mtd->oobsize bytes of it may reach userspace while only 64 are
-transferred. Retested on both boards. Colibri VF61 (112 bytes of OOB):
-BBT found and read clean, UBI attaches and the UBIFS root mounts, 8 MiB
-write/read-back intact, and OOB reads return 0xff in the 48 bytes past
-the transferred area on every page sampled (6000+ pages, written and
-erased). Colibri VF50 (64-byte chip, tail fill is a no-op): layout
-unchanged, corrected counter stays zero across a full dump.
+Instead of modifying the memory organization, keep the detected OOB
+size and give the driver its own mtd_ooblayout_ops: the same layout the
+NAND core uses for large pages, but computed on the first 64 OOB bytes
+instead of the whole OOB, so the ECC bytes stay where U-Boot and the
+old kernels put them. The data paths transfer writesize plus those 64
+bytes, as the controller always has.
 
-v2: https://lore.kernel.org/linux-mtd/20260828085337.3916199-1-mehmet.fide@gmail.com/
-v1: https://lore.kernel.org/linux-mtd/20260818114208.2780311-1-mehmet.fide@gmail.com/
+Since mtd->oobsize now reports the chip's real spare size, fill the
+tail of oob_poi with 0xff after the 64 transferred bytes on ECC page
+reads: the core may copy the full mtd->oobsize from it, which would
+otherwise expose whatever the buffer held before. 0xff also matches
+what a raw read returns from flash, since the write path only ever
+programs the first 64 spare bytes.
 
+Reported-by: Edward Karpicz <webmaster@toradex.com>
+Link: https://community.toradex.com/t/colibri-vf50-vf61-on-the-current-bsp-mainline-u-boot-v2026-07-and-linux-6-18-lts/30735
+Suggested-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Fixes: a7ab085d7c16 ("mtd: rawnand: Initialize the nand_device object")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+---
+v3:
+ - add Suggested-by (Miquel)
+ - drop the comment above vf610_nfc_spare_size() and its explicit
+   inline (Miquel); the 64 is the established on-flash format, not a
+   controller limit
+ - explain at the ooblayout why the driver has its own, in the terms
+   Miquel suggested
+ - fill the tail of oob_poi with 0xff on ECC page reads so the bytes
+   beyond the 64 transferred cannot expose stale buffer content
+   (Sashiko report)
+v2:
+ - keep the detected OOB size and add driver ooblayout_ops computed on
+   the first 64 OOB bytes instead of clamping the memory organization
+   (Miquel)
 
-Mehmet Fide (2):
-  mtd: rawnand: vf610_nfc: fix reads on chips with more than 64 bytes of
-    OOB
-  mtd: rawnand: vf610_nfc: fix false bitflips on reads of erased pages
+ drivers/mtd/nand/raw/vf610_nfc.c | 72 ++++++++++++++++++++++++++------
+ 1 file changed, 60 insertions(+), 12 deletions(-)
 
- drivers/mtd/nand/raw/vf610_nfc.c | 85 ++++++++++++++++++++++++++------
- 1 file changed, 70 insertions(+), 15 deletions(-)
-
+diff --git a/drivers/mtd/nand/raw/vf610_nfc.c b/drivers/mtd/nand/raw/vf610_nfc.c
+index 9940681810cf..1c3e7b167e53 100644
+--- a/drivers/mtd/nand/raw/vf610_nfc.c
++++ b/drivers/mtd/nand/raw/vf610_nfc.c
+@@ -505,6 +505,11 @@ static int vf610_nfc_exec_op(struct nand_chip *chip,
+ 				      check_only);
+ }
+ 
++static unsigned int vf610_nfc_spare_size(struct mtd_info *mtd)
++{
++	return min_t(unsigned int, mtd->oobsize, 64);
++}
++
+ static inline int vf610_nfc_correct_data(struct nand_chip *chip, uint8_t *dat,
+ 					 uint8_t *oob, int page)
+ {
+@@ -522,7 +527,7 @@ static inline int vf610_nfc_correct_data(struct nand_chip *chip, uint8_t *dat,
+ 		return ecc_count;
+ 
+ 	nfc->data_access = true;
+-	nand_read_oob_op(&nfc->chip, page, 0, oob, mtd->oobsize);
++	nand_read_oob_op(&nfc->chip, page, 0, oob, vf610_nfc_spare_size(mtd));
+ 	nfc->data_access = false;
+ 
+ 	/*
+@@ -530,7 +535,7 @@ static inline int vf610_nfc_correct_data(struct nand_chip *chip, uint8_t *dat,
+ 	 * at least less then half of the ECC strength.
+ 	 */
+ 	return nand_check_erased_ecc_chunk(dat, nfc->chip.ecc.size, oob,
+-					   mtd->oobsize, NULL, 0,
++					   vf610_nfc_spare_size(mtd), NULL, 0,
+ 					   flips_threshold);
+ }
+ 
+@@ -551,7 +556,7 @@ static int vf610_nfc_read_page(struct nand_chip *chip, uint8_t *buf,
+ {
+ 	struct vf610_nfc *nfc = chip_to_nfc(chip);
+ 	struct mtd_info *mtd = nand_to_mtd(chip);
+-	int trfr_sz = mtd->writesize + mtd->oobsize;
++	int trfr_sz = mtd->writesize + vf610_nfc_spare_size(mtd);
+ 	u32 row = 0, cmd1 = 0, cmd2 = 0, code = 0;
+ 	int stat;
+ 
+@@ -577,11 +582,16 @@ static int vf610_nfc_read_page(struct nand_chip *chip, uint8_t *buf,
+ 	 */
+ 	vf610_nfc_rd_from_sram(buf, nfc->regs + NFC_MAIN_AREA(0),
+ 			       mtd->writesize, false);
+-	if (oob_required)
++	if (oob_required) {
++		unsigned int spare = vf610_nfc_spare_size(mtd);
++
+ 		vf610_nfc_rd_from_sram(chip->oob_poi,
+ 				       nfc->regs + NFC_MAIN_AREA(0) +
+ 						   mtd->writesize,
+-				       mtd->oobsize, false);
++				       spare, false);
++		/* Not transferred, and never written: reads back erased */
++		memset(chip->oob_poi + spare, 0xff, mtd->oobsize - spare);
++	}
+ 
+ 	stat = vf610_nfc_correct_data(chip, buf, chip->oob_poi, page);
+ 
+@@ -599,7 +609,7 @@ static int vf610_nfc_write_page(struct nand_chip *chip, const uint8_t *buf,
+ {
+ 	struct vf610_nfc *nfc = chip_to_nfc(chip);
+ 	struct mtd_info *mtd = nand_to_mtd(chip);
+-	int trfr_sz = mtd->writesize + mtd->oobsize;
++	int trfr_sz = mtd->writesize + vf610_nfc_spare_size(mtd);
+ 	u32 row = 0, cmd1 = 0, cmd2 = 0, code = 0;
+ 	u8 status;
+ 	int ret;
+@@ -740,6 +750,49 @@ static void vf610_nfc_init_controller(struct vf610_nfc *nfc)
+ 	}
+ }
+ 
++/*
++ * With 64 byte OOB chips the core's large page layout matches what
++ * U-Boot uses, and on chips with more, U-Boot and older kernels clamped
++ * mtd->oobsize to 64. Modifying the OOB size is no longer possible, the
++ * actual chip geometry must be respected, so to avoid breaking those
++ * existing setups use our own layout: the core's large page one,
++ * computed over the first 64 spare bytes only.
++ */
++static int vf610_nfc_ooblayout_ecc(struct mtd_info *mtd, int section,
++				   struct mtd_oob_region *oobregion)
++{
++	struct nand_device *nand = mtd_to_nanddev(mtd);
++	unsigned int total_ecc_bytes = nand->ecc.ctx.total;
++
++	if (section || !total_ecc_bytes)
++		return -ERANGE;
++
++	oobregion->length = total_ecc_bytes;
++	oobregion->offset = vf610_nfc_spare_size(mtd) - oobregion->length;
++
++	return 0;
++}
++
++static int vf610_nfc_ooblayout_free(struct mtd_info *mtd, int section,
++				    struct mtd_oob_region *oobregion)
++{
++	struct nand_device *nand = mtd_to_nanddev(mtd);
++	unsigned int total_ecc_bytes = nand->ecc.ctx.total;
++
++	if (section)
++		return -ERANGE;
++
++	oobregion->length = vf610_nfc_spare_size(mtd) - total_ecc_bytes - 2;
++	oobregion->offset = 2;
++
++	return 0;
++}
++
++static const struct mtd_ooblayout_ops vf610_nfc_ooblayout_ops = {
++	.ecc = vf610_nfc_ooblayout_ecc,
++	.free = vf610_nfc_ooblayout_free,
++};
++
+ static int vf610_nfc_attach_chip(struct nand_chip *chip)
+ {
+ 	struct mtd_info *mtd = nand_to_mtd(chip);
+@@ -770,12 +823,7 @@ static int vf610_nfc_attach_chip(struct nand_chip *chip)
+ 		return -ENXIO;
+ 	}
+ 
+-	/* Only 64 byte ECC layouts known */
+-	if (mtd->oobsize > 64)
+-		mtd->oobsize = 64;
+-
+-	/* Use default large page ECC layout defined in NAND core */
+-	mtd_set_ooblayout(mtd, nand_get_large_page_ooblayout());
++	mtd_set_ooblayout(mtd, &vf610_nfc_ooblayout_ops);
+ 	if (chip->ecc.strength == 32) {
+ 		nfc->ecc_mode = ECC_60_BYTE;
+ 		chip->ecc.bytes = 60;
 -- 
 2.54.0
 
