@@ -1,86 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA30D48986C
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:10:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF74E48CD74
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:10:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788282640; cv=none; b=UyRxQQXcq3ca23Vyqw9um310nv767DOB/FhBwqhkqNarVXgvNz5LiZx/iT3NoivZ/jAAzpj3e5KBA4i3sPkrgJI/+ZTww3bbXrDObDi3QeRtNvlZSI+xzwjYzE2rsK9fOS62fycbt3pyZYGq0YviH2HI2LFY1G2rCBSLng4C4tM=
+	t=1788282649; cv=none; b=rSdtCYvRt7Qnxm8zG5X29yJODNavxorhA70+08Mmb0HGhD/sfvip3464b4yg7pTdSB/qXJB4H4X7aEQO4IUr/dznL76Uyuy4EjSubV0/A26rwGumTrw+7o4lbBbZeCFU500TTXPow7daIdJsPlH4C8ltEMIXbTGT8UeBJRxGCHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788282640; c=relaxed/simple;
-	bh=ZrQuMqy5uBsBDcgHPFdZ9qrEDBqpzn/5bpyyFgMg0/I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MdugimlQsBp17jpS/zHSkakyE9O0A1MGtuwN/J/W8YfWm3JP7F7bJlENwWLy/e3G9su8zbrOAXzCUBkcEnP8LRzMrR85cnSHDC6fnPy9CFrTGb9Jc1qENLNOvcq/QPs7oZv7VP7S4y1xHdsybmqAkv/n3BwWphyx5P4TWPBHPZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kCg31dLc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788282649; c=relaxed/simple;
+	bh=5qo7v/gpJc1CbggK4hTNGmLYaFMIdoEMU2yz9w/us1I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eEUg7XwRsV36NWTKQ9u8ZChrkb8cEoe/EqcjmSh0UXh6CKMEKGWwAFhCinuVWfK3A6pACvRoUUnrD4018mxmeeQNCBOyfeICww+DA+7lEWGY4SqbA83/9+Laj7MVJYPnajzeaF2+zSxGCvb17E1YC3pq/DQklyFWm0guwKYPfJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=KpJuvMG1; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kCg31dLc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F64E1F00A3A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:10:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788282639;
-	bh=ZrQuMqy5uBsBDcgHPFdZ9qrEDBqpzn/5bpyyFgMg0/I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kCg31dLcbcJxsvNlIiGPaRvYTAolRwbnyrTNh7df0NUa4SNd71rD+avlItPibQq/X
-	 FYX+850hphxZFeRTMs8ClOCNv3svQ18/42jU7k+arfharYQ8S3H0DTQPecYGubx3iw
-	 f21rCa1wCg3O0EpK/s6wrcXMCoJbv/Ym/LHyq2gJ7knsY0XSfeiaSZ7StTnQy1yIA2
-	 jsF1Z6p7SKGFCZyg1ziXv923mzlnTNmOS0GRvC2zv9GM/l++idppV7v0+c/jObCgma
-	 I3EPRMKxXn1zPoDSRKXeLy1UT8Zu1caYHajFRmGRrG4a0jiY7a5c85rsdfPGIdebHn
-	 Kev6e2kF0cGhQ==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b0115b9e17so1137054e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:10:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzomXHtIHtRfjhnDaVrwSJgmeA3XNu27IjmhDaSFJWdlRdNFheWzFsJZl2i2L1ZuNPBp+3cIe2DAunaC5U=@vger.kernel.org
-X-Gm-Message-State: AFuF++k03GI6eCXLdpKQgm6Sm0PEhdTPxN4zNoaF3qpMkUK7FOAQSl4s
-	UfkleNUXEU6PujAGjHwl1w9fcw85upLqsftPY0XZeTGQ29i/5T9s0u/ivl67U0glw2f0H5RHV8L
-	Pu5YNzc33neYB6iBfuQZMDB05u7aPjVE=
-X-Received: by 2002:a05:6512:12d2:b0:5b0:129c:ed85 with SMTP id
- 2adb3069b0e04-5b5e68bdacemr11077650e87.1.1788282638096; Tue, 01 Sep 2026
- 10:10:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="KpJuvMG1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=b3mDyJMYkp/i264w4fKZKHaK9xTjUg7OEFZjOBho8I4=; b=KpJuvMG1yH0WCkzDar1H8jpS33
+	joiBVoZnaB5jATNoSEwK3wVMcdLitl+ej/YjtgENiSp7tlscwHk6PeDBwZolMzu5qH+gLP+RGXRMt
+	e2ze0dq5CPj8kTuFJSMgZigGyupueqLCd5hvHo5ogO2D9/6eLdjeQ7/wUqinQwVsOo28fGUmrnFfs
+	lCbngre6C1HHydPbYE/vMjk8GqGsMk6UOD3AzjeClJ3JOQpy98R9bxWNDYmnAmjqnDB7UtLGKamm+
+	+MKFlKMyRTIjvLlE0EtZbk1sTuJl5dH7KNEYV2y8D4rKnjykN1JIvzAOla2UsWsuHqvgHBBvpkbQ/
+	CNJBiFeQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x1S0P-0000000CllS-3gnX;
+	Tue, 01 Sep 2026 17:10:43 +0000
+Message-ID: <3dfbe1b4-74f7-4da8-9c8b-f658e9ead9a6@infradead.org>
+Date: Tue, 1 Sep 2026 10:10:40 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827110242.1203546-2-andy.chang@synaptics.corp-partner.google.com>
- <20260901023300.1382808-1-andy.chang@synaptics.corp-partner.google.com> <20260901023300.1382808-2-andy.chang@synaptics.corp-partner.google.com>
-In-Reply-To: <20260901023300.1382808-2-andy.chang@synaptics.corp-partner.google.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 1 Sep 2026 19:10:25 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=0szwyknJ8S7nCgFyxwws-WxeqJHi4w2L=o-T=4k4sDQ@mail.gmail.com>
-X-Gm-Features: AcwNN1UH0p3Wtr3eiA8KmHVuccBgaAV41TvtLXXTmB9WfWrOei9guGrG77J8GIA
-Message-ID: <CAD++jL=0szwyknJ8S7nCgFyxwws-WxeqJHi4w2L=o-T=4k4sDQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] Bluetooth: dt-bindings: net: bluetooth: add BCM4384
-To: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-Cc: linux-bluetooth@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] lib/win_minmax: use /* notation for regular comments
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: linux-kernel@vger.kernel.org, Neal Cardwell <ncardwell@google.com>,
+ Eric Dumazet <edumazet@google.com>, "David S . Miller"
+ <davem@davemloft.net>, Andrew Morton <akpm@linux-foundation.org>
+References: <20230102211614.26343-1-rdunlap@infradead.org>
+ <apZ_kWb81yEVLt0N@black.igk.intel.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <apZ_kWb81yEVLt0N@black.igk.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 1, 2026 at 4:32=E2=80=AFAM Andy Chang
-<andy.chang@synaptics.corp-partner.google.com> wrote:
 
-> Add the brcm,bcm4384-bt compatible string to support the
-> Synaptics BCM4384 Bluetooth controller.
->
-> A fallback compatible is not suitable here because the BCM4384
-> controller requires a dedicated firmware patch file (.hcd) matching
-> its specific hardware ID and revision.
->
-> Falling back to an existing compatible would cause the driver to
-> request the wrong firmware binary and fail the controller
-> initialization.
 
-I would word this neutrally like
+On 9/1/26 12:32 AM, Andy Shevchenko wrote:
+> On Mon, Jan 02, 2023 at 01:16:14PM -0800, Randy Dunlap wrote:
+>> Don't use kernel-doc "/**" notation for non-kernel-doc comments.
+>> Prevents a kernel-doc warning:
+>>
+>> lib/win_minmax.c:31: warning: expecting prototype for lib/minmax.c(). Prototype was for minmax_subwin_update() instead
+> 
+> ...
+> 
+>> -/**
+>> +/*
+>>   * lib/minmax.c: windowed min/max tracker
+> 
+> Side note (just stumbled over it today), if you fixing like this it also makes
+> sense to drop rather problematic filename in the file. Here is exactly a good
+> example why (it's not the same as on the filesystem and in general easy to go
+> south with time).
 
-"any operating system must discern the proper firmware to drive
-this hardware and the compatible string will fulfil that purpose".
+Ack. I'll try to do that in the future.
 
-> Signed-off-by: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
+>>   *
+>>   * Kathleen Nichols' algorithm for tracking the minimum (or maximum)
+> 
 
-Either way:
-Reviewed-by: Linus Walleij <linusw@linaro.org>
+-- 
+~Randy
 
-Yours,
-Linus Walleij
