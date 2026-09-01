@@ -1,153 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941FB42AFB2;
-	Tue,  1 Sep 2026 15:48:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B64D3D4107;
+	Tue,  1 Sep 2026 15:48:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788277711; cv=none; b=HcWYptL8wQJyBglt/I1M2OpsLVREYgPma6h+q1auCss+i9h3odPAtw5Y8GkG8+MOT6oTKiusRiAkEfB5HJIFLZf+ddJNjR6XFBomVMNoEonPemEpD4uzYdd+TD53q3dqaq717LhnvKjwZByJqLPpGUSIun/eEf7D1qunaNiVeeA=
+	t=1788277721; cv=none; b=lHf883gwWLmVuhXc2Oe7/bEkb62ETkFSS4WZC5YcFljNX/DPzLOnuXSHQaycNAucwyssRItLMJJW32uX8J1Pb3PE2XfM/4P1b62IxJEAaY8i3aNnp2sZjVrkxUBtp8NmYjOpqRwY23rpCz5EhgGj413SiM2m6lDAV+YXShxf0yo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788277711; c=relaxed/simple;
-	bh=TYg6C3nO9aMwZYrZqWDP68ZmmGkjFpV0ZRBhrTkeA1M=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=dSXDKclzC1U8uIjiJnXh6lJ4dWqqphMKkpZRqLh5d25qo7Fl1VCb1PD1RFf1V/0+7NLBYWRP+6FR51BbNNFYPCHy5xBMGz8pQthQqjkgb5pLTABp3Y57c53UzirH8wIf+ADbRoLiQ6EX+UhNr3J5XnzxagiMAE21xGwW9o1cW88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jGzb8Zc3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788277721; c=relaxed/simple;
+	bh=LUPnHJffwrKh3+p5MhusFfbWLHx0ca/IUUvnQHUC7Iw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ldB/r/gTvWDmQy0uP/bAAURLZ0ky1Tnr4NE8ZmTAVJnDcBao/hPaD5nZjO4kf9e8b8xSZsX5OP+TTs0TWIYBNxjcO0iEg2vRVdPMfhDTmmFMBudccBXFQ3IdPk/G3OqsRIN4stviqinuo9fzg2gJlvGgTygPLuo0mg3IuFyY7d4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Drqp6Fbx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jGzb8Zc3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F30091F000E9;
-	Tue,  1 Sep 2026 15:48:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Drqp6Fbx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF98E1F000E9;
+	Tue,  1 Sep 2026 15:48:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788277710;
-	bh=qvhYXlypB3jDikspZTPGTGPQENyvONmChKtwg9TCVyA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=jGzb8Zc3SuAnJ+8KyVjK7KEzbIyQS6tTszwgx6013Zps6W/lGW46eserk+0KJoFTk
-	 Lsdb7JuI61uUChukXY6GLQAzT60hnPG7itaMvC+Cn8jKC+PlgCg7pvnq7iA5gFKDZM
-	 jIEHZYkT6W3ekubqTY6Ug26U8gOiCRCurUZ7/F5k9qheJNmnz+m0SpcJm0AbE1PQUA
-	 mCF1AmBHRDxnwqCVtqf6DzIIwVHGcqULjCJn5BEigJ9Li1oMWkzwae/zbY5Km888d0
-	 oThzfOvoLpk5j9fhQwYirt+yXP5JG9PxwLGo6al7QI+vjafZKFBqMS5JhvK6dN4U9u
-	 IoVgR38x3ADdA==
-Date: Tue, 1 Sep 2026 10:48:28 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Navon John Lukose <navonjohnlukose@gmail.com>
-Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	linux-wireless@vger.kernel.org,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Nika Krasnova <nika@nikableh.moe>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	Mark Pearson <markpearson@lenovo.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH wireless v2 1/3] wifi: iwlwifi: pcie: don't infer CSME
- presence from a failed read
-Message-ID: <20260901154828.GA1879052@bhelgaas>
+	s=k20260515; t=1788277719;
+	bh=N9gRO91LOOW6FjXiPzh+ZRcNanMoi0TOiyPpH5Kcddc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Drqp6Fbxsg0kIJiultAkmkHU2+Q5JJTYUXd6QYL4aMnL0lW37tm8opL+Eixt6vYMM
+	 usePT+3XsTBa1r9SunG/+WMVGPLkPGMmijVCLfcod/ATRVi2FG97c5V5r8vXSBaA1y
+	 QBu+z3Xx2iss7RWxNdsnavVAxgBy68k2idOTb4UCbCDat7Vzsv7Bq18q/+HCcsCk+X
+	 uLo9V1WYf+fvDM+K4X2WwOVzvf8yOTuxOK+1WFx7Ky8YxWuHWffS+Vzy0D8AD4w0BL
+	 fhwx3m2zI93EL8h8LTB+sptBdWaR5NEDuVSqI9EKGRLMndKu7hJfS5mOffQCZ9+Krz
+	 TskJWPAxETvpA==
+Date: Tue, 1 Sep 2026 16:48:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com
+Subject: Re: [PATCH v3] ASoC: cs35l56: Fix probe deadlock waiting for
+ SoundWire enumeration
+Message-ID: <627c6780-2a5b-4956-ae26-6ca6d13a41c0@sirena.org.uk>
+References: <20260901122644.634494-1-rf@opensource.cirrus.com>
+ <7feebecc-66f7-4ac2-8c1f-0b8bf55cb528@sirena.org.uk>
+ <ff3602a0-f1c4-4b84-b1a7-c815e48eccb5@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tp1qSYlGx9yskAPh"
+Content-Disposition: inline
+In-Reply-To: <ff3602a0-f1c4-4b84-b1a7-c815e48eccb5@opensource.cirrus.com>
+X-Cookie: Prevent forest fires.
+
+
+--tp1qSYlGx9yskAPh
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831130332.323549-2-navonjohnlukose@gmail.com>
 
-On Mon, Aug 31, 2026 at 06:33:30PM +0530, Navon John Lukose wrote:
-> iwl_pcie_check_me_status() decides whether WiAMT/CSME is present from two
-> register reads, without checking that either read reached the device.
-> 
-> iwl_read_prph() returns 0x5a5a5a5a when it cannot grab NIC access, and
-> that value has CNVI_SCU_REG_FOR_ECO_1_WIAMT_KNOWN set and
-> CNVI_SCU_REG_FOR_ECO_1_WIAMT_PRESENT clear. A read that never reached
-> the hardware is therefore taken as a positive statement that there is no
-> CSME, and the function returns without scheduling the recheck. That is
-> reachable at probe: iwl_pci_gen1_2_probe() carries on when
-> iwl_pcie_prepare_card_hw() fails, and iwl_pcie_check_me_status() then
-> runs against a card it cannot talk to.
-> 
-> The second read has the mirror-image problem: an all-ones
-> CSR_HW_IF_CONFIG_REG has both ME_OWN and IAMT_UP set, so a device that
-> has fallen off the bus latches me_present to 1. So does the one in
-> iwl_pcie_recheck_me_status(), which runs a second after probe with no
-> guarantee that the device is still answering.
-> 
-> me_present is never recomputed after that, and any non-zero value makes
-> iwl_trans_pcie_reset() downgrade IWL_RESET_MODE_PROD_RESET to
-> IWL_RESET_MODE_FUNC_RESET, so one bad read permanently weakens the
-> recovery. In the 0x5a5a5a5a case it goes the other way and permits a
-> product reset on a machine that may well have CSME.
-> 
-> Don't take those values as data. iwl_trans_is_hw_error_value() matches
-> 0x5a5a5a5[0-f] and 0xa5a5a5a[0-f] but not ~0, so the prph read in
-> iwl_pcie_check_me_status() needs both tests, the way
-> iwl_pcie_irq_handler() does; the two CSR reads only need the ~0 one. At
-> probe that leaves me_present at -1 (unknown) and still schedules the
-> recheck; in the recheck it keeps the previous value.
-> 
-> This does change the reset ladder in the poisoned-read case, and -1 is
-> truthy: a product reset that iwl_trans_pcie_reset() used to allow -
-> because 0x5a5a5a5a had been read as me_present = 0 - is now downgraded
-> to a function level reset. That is the conservative direction, and the 0
-> was never a reading, but it is a behaviour change and not a no-op.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 41fff83fe6cd ("wifi: iwlwifi: pcie: check for WiAMT/CSME presence")
-> Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
-> ---
-> Backport note: the bug arrived in v6.14, so the affected branches that are
-> still supported are 6.18.y, 7.1.y and 7.2.y. All three have the code in
-> pcie/gen1_2/trans.c as trans_pcie->me_present, so this applies as posted
-> with no rewrite.
-> 
-> Only if you care about anything older that has the bug - v6.14 through
-> v6.17, all EOL now: v6.16 and below have both functions in pcie/drv.c
-> (377edee91b89 "wifi: iwlwifi: pcie move gen1_2 probe to gen1_2/trans.c"
-> moved them), and v6.15 and below spell the field trans->me_present
-> (cd6d6de694e2 "wifi: iwlwifi: pcie: move ME check data to pcie" renamed
-> it). The hunks are otherwise identical; iwl_trans_is_hw_error_value()
-> exists in every affected release.
-> 
->  .../net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c  | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
-> index 28b276c..c6a771e 100644
-> --- a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
-> +++ b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
-> @@ -4194,7 +4194,8 @@ static void iwl_pcie_recheck_me_status(struct work_struct *wk)
->  	u32 val;
->  
->  	val = iwl_read32(trans_pcie->trans, CSR_HW_IF_CONFIG_REG);
-> -	trans_pcie->me_present = !!(val & CSR_HW_IF_CONFIG_REG_IAMT_UP);
-> +	if (val != ~0U)
+On Tue, Sep 01, 2026 at 04:38:37PM +0100, Richard Fitzgerald wrote:
+> On 01/09/2026 4:18 pm, Mark Brown wrote:
 
-Consider using PCI_POSSIBLE_ERROR() for these tests.
+> > I'll apply this since it's very much a corner case and there's a real
+> > problem but you should probably check out the kexec case - it looks like
+> > it misses freeze_kernel_threads().  TBH I'm not sure the issue there
+> > isn't on the kexec side, it's not exactly a common case and having a
+> > difference like that feels like asking for trouble.
 
-> +		trans_pcie->me_present = !!(val & CSR_HW_IF_CONFIG_REG_IAMT_UP);
->  }
->  
->  static void iwl_pcie_check_me_status(struct iwl_trans *trans)
-> @@ -4212,15 +4213,19 @@ static void iwl_pcie_check_me_status(struct iwl_trans *trans)
->  		return;
->  
->  	val = iwl_read_prph(trans, CNVI_SCU_REG_FOR_ECO_1);
-> -	if (val & CNVI_SCU_REG_FOR_ECO_1_WIAMT_KNOWN) {
-> +	/* iwl_read_prph() returns 0x5a5a5a5a if it never reached the NIC, and
-> +	 * that value has WIAMT_KNOWN set and WIAMT_PRESENT clear
-> +	 */
-> +	if (val != ~0U && !iwl_trans_is_hw_error_value(val) &&
-> +	    (val & CNVI_SCU_REG_FOR_ECO_1_WIAMT_KNOWN)) {
->  		trans_pcie->me_present =
->  			!!(val & CNVI_SCU_REG_FOR_ECO_1_WIAMT_PRESENT);
->  		return;
->  	}
->  
->  	val = iwl_read32(trans, CSR_HW_IF_CONFIG_REG);
-> -	if (val & (CSR_HW_IF_CONFIG_REG_ME_OWN |
-> -		   CSR_HW_IF_CONFIG_REG_IAMT_UP)) {
-> +	if (val != ~0U && (val & (CSR_HW_IF_CONFIG_REG_ME_OWN |
-> +				  CSR_HW_IF_CONFIG_REG_IAMT_UP))) {
->  		trans_pcie->me_present = 1;
->  		return;
->  	}
-> -- 
-> 2.55.0
-> 
+> I think you are asking for a shutdown() handler that cancels the
+> work.... ?
+
+I didn't really look at what would be a good solution TBHi, that looks
+plausible at first glance.
+
+> If I've got that right, this isn't so urgent that I can't do a V4 with
+> that change.
+
+I've already pushed this version into CI.
+
+--tp1qSYlGx9yskAPh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqW89MACgkQJNaLcl1U
+h9DGuwf/T6dEu0oyL6jNS7mT6X/fMk5sxeC39LVZqFnyYSi7PfRlC8NMw/HzfNsc
+HgC1sgJIjX2F4NU53UudVmHxbjwoLO9UQhN+j416gGlLnsO0k18IOzURmSxj9a1+
+rvhf27JVYXZGdWiBFNuyCDWYYA79bFKnCv0OLk8q0mED6hn9G2CHpauioTyVOd+D
+4e94mO0TCr2+zGXnvdvYC2VGInmqhr5Ityaz0TIXKggge3r9eDq/WFjsFKK1AlnV
+NzB5U8yxD2z+xPMprp8Uue3YT1TsXH2QBWuL94tdckB95Q3MTIolU5wm+/5HBKES
+Oqzpof1IG8T/wVEELu5sjTG6Cv9ClQ==
+=zXSZ
+-----END PGP SIGNATURE-----
+
+--tp1qSYlGx9yskAPh--
