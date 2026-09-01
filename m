@@ -1,30 +1,32 @@
 Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACDD43F4B5;
-	Tue,  1 Sep 2026 22:08:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4285472F6A;
+	Tue,  1 Sep 2026 22:08:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788300515; cv=none; b=K6bBW/1l0W2GuY1cJ/tzPyU+tbdkdRtQXYLrhu74/rMzJ18qiFmfJ7guFrSjeXTFW4ZK2/BfgtOkYsPY4/U9n2Jm38/BpmRPDzwG1R4NVJDQEnQXH4mwyhFcnG9L1sC4bzcJ2Q46cywwVxZodH4q5cmdC5qEQ+PCD7N4xBqOymw=
+	t=1788300524; cv=none; b=Fa7ZSSDridGtNAZupI7FSkuJbb4eXm91ww8NJLWDOMpJaiFyitXN5rkEvdgXyDnjEjMMxLabecbhtZiVVhPlvAUrbXcxSybLOd/IaCqU1V4HlEFYHRvcMUt4WzNgFnphqI0FWlFZCmHeIPkRGvGIjyD/7pIbq5As3F3mA9W6y1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788300515; c=relaxed/simple;
-	bh=PZCh8+4LJ906fIrDSP915VFyemAeG3uWlTzWYUuEHIQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UqLHu/4d7T274qTDirlb1dUSrgW16XrA3XimGgeJU1vpxgmXVeZxv2UQoiLstYfPkJ4cb4n2w5lUvsqzgC9PHv65hujpNXTmW89YrvzNWmYRvxKsIxx0K5+wbbIHUq2LZw5Z/dtA6JXT9FqxnlUomp7iDCZPmipq/cBSJDIcmQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=kOLYQgAh; arc=none smtp.client-ip=91.189.121.228
+	s=arc-20240116; t=1788300524; c=relaxed/simple;
+	bh=8xRfhH0Undl1k3VO7cD/AQEoOf2pwXiAqpaFcHKaExQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gBjvSglwfKcPfQcByp/4d+tx0ZRGPNswnuVGE4iDhaxOT+/PDVWC1pXKEEoYZ0ghrkMiDT4+kmIfOGOYGFD0pQg02zQ2vJY/8lLGDkguvlWgDY7lCf/hfxiTK20Ue0dDB3MLZaTYHia9y7G2c+d2cd2BvzY5aXU36J+E9AwG0FY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=Xq8vSKQv; arc=none smtp.client-ip=91.189.121.228
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="kOLYQgAh"
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="Xq8vSKQv"
 From: Stian Halseth <stian@itx.no>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1788300509;
+	t=1788300518;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=L5ItQBcdK1U2y12RotRrhXkN+PYLyvKp8+bgoCWE4Kg=;
-	b=kOLYQgAhUNXgCMcGDM4wOJQOTp+YDt/MwL82HrTyBo/fuAOrG0fuer6eNAsPgMJVxQ0y5d
-	MxPkCBTdUqPDnOtolmwWMI/53Pu9gg1fNJxMm5pGUgCP8oYRuOeKKr55Wyw5t2BulpqevL
-	b5vdQEMKNcvBeaKrro8Z0K5rsrFE+bk=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QHyaGIfCuznKOL3ZeqhIzWsbnLjc7ISrhbuAi5RuaWs=;
+	b=Xq8vSKQvuqodmTOC89fX00p4n5jWZpRdHO9H7qJRSeK907EmcXCsXTZ6yPRxVs65R06RcW
+	JGa/fDcundo/vVqObEsEob/1dpPNlLJVQawXkQzJPnGEUQ1qDiyWDiBvf8WxuM8LRenJDi
+	sr2ogHZo3Kg86Od7yHBvqk/cYxTHf8Y=
 To: Andreas Larsson <andreas@gaisler.com>,
 	"David S . Miller" <davem@davemloft.net>,
 	Kees Cook <kees@kernel.org>,
@@ -37,9 +39,11 @@ Cc: Andy Lutomirski <luto@amacapital.net>,
 	linux-kernel@vger.kernel.org,
 	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
 	Stian Halseth <stian@itx.no>
-Subject: [PATCH 0/2] sparc64: add seccomp filter support
-Date: Wed,  2 Sep 2026 00:08:09 +0200
-Message-ID: <20260901220811.3369666-1-stian@itx.no>
+Subject: [PATCH 2/2] selftests/seccomp: add sparc64 support
+Date: Wed,  2 Sep 2026 00:08:11 +0200
+Message-ID: <20260901220811.3369666-3-stian@itx.no>
+In-Reply-To: <20260901220811.3369666-1-stian@itx.no>
+References: <20260901220811.3369666-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,40 +52,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This adds SECCOMP_FILTER support for sparc64.
+sparc64 now selects HAVE_ARCH_SECCOMP_FILTER, so teach seccomp_bpf
+how to read and write its registers: the syscall number lives in %g1
+and the return value in %o0, addressed through the NT_PRSTATUS regset
+(16 u_regs, 16 window registers, then tstate/tpc/tnpc/y).
 
-The arch prerequisites have been in place for years, so patch 1 is
-mostly about the missing piece: letting seccomp veto a syscall, and
-returning to user space with the return value the seccomp core set in
-pt_regs rather than the -ENOSYS the assembler stubs used to force on
-any denied syscall.  Patch 2 teaches the seccomp_bpf selftest to
-drive sparc64's registers.
+Errors are signaled by the carry bit in tstate with a positive errno
+value in %o0, so provide a SYSCALL_RET_SET that maintains both, and
+mark the arch SYSCALL_RET_SET_ON_PTRACE_EXIT since a return value
+poked at entry would be overwritten by the syscall skip path, as on
+powerpc.
 
-Tested on an UltraSPARC T4-1 (sun4v):
+Passes 95 of 95 on an UltraSPARC T4-1 (16 skipped for missing
+optional features such as uprobes).
 
-  - tools/testing/selftests/seccomp/seccomp_bpf: 95 passed, 0 failed,
-    16 skipped (uprobes and other optional features)
-  - libseccomp with its pending SPARC support (libseccomp PR #471)
-    passes its full suite, 5190 of 5190, including the live tests
-    that require kernel SECCOMP_FILTER
-  - docker containers run confined by the default profile, and a
-    custom SCMP_ACT_ERRNO profile denies as expected
-
-The libseccomp side is https://github.com/seccomp/libseccomp/pull/471,
-and the tracking issue is https://github.com/sparclinux/issues/issues/11.
-
-Stian Halseth (2):
-  sparc64: add seccomp filter support
-  selftests/seccomp: add sparc64 support
-
- arch/sparc/Kconfig                            |  2 +-
- arch/sparc/include/asm/seccomp.h              | 15 ++++++++
- arch/sparc/include/asm/syscall.h              | 11 +++---
- arch/sparc/kernel/entry.h                     |  2 +-
- arch/sparc/kernel/ptrace_64.c                 | 28 ++++++++++-----
- arch/sparc/kernel/syscalls.S                  | 28 +++++++++++----
+Link: https://github.com/sparclinux/issues/issues/11
+Signed-off-by: Stian Halseth <stian@itx.no>
+---
  tools/testing/selftests/seccomp/seccomp_bpf.c | 35 +++++++++++++++++++
- 7 files changed, 98 insertions(+), 23 deletions(-)
+ 1 file changed, 35 insertions(+)
 
+diff --git a/tools/testing/selftests/seccomp/seccomp_bpf.c b/tools/testing/selftests/seccomp/seccomp_bpf.c
+index 0622bc2acad4..30b777f357d8 100644
+--- a/tools/testing/selftests/seccomp/seccomp_bpf.c
++++ b/tools/testing/selftests/seccomp/seccomp_bpf.c
+@@ -1872,6 +1872,41 @@ TEST_F(TRACE_poke, getpid_runs_normally)
+ # define ARCH_REGS		struct user_regs_struct
+ # define SYSCALL_NUM(_regs)	(_regs).orig_d0
+ # define SYSCALL_RET(_regs)	(_regs).d0
++#elif defined(__sparc__) && defined(__arch64__)
++/*
++ * The NT_PRSTATUS regset: %g0-%g7 and %o0-%o7, the 16 window
++ * registers as read back from the stack, then tstate, tpc, tnpc
++ * and y.
++ */
++struct sparc64_user_regs {
++	__u64 u_regs[16];
++	__u64 window[16];
++	__u64 tstate;
++	__u64 tpc;
++	__u64 tnpc;
++	__u64 y;
++};
++# define ARCH_REGS		struct sparc64_user_regs
++# define SYSCALL_NUM(_regs)	(_regs).u_regs[1]	/* %g1 */
++# define SYSCALL_RET(_regs)	(_regs).u_regs[8]	/* %o0 */
++/*
++ * A syscall error is signaled by the carry bit in tstate, with the
++ * errno held in %o0 as a positive value; the carry can only be
++ * written reliably once the syscall has been skipped or has run.
++ */
++# define SPARC64_TSTATE_CARRY	0x0000001100000000UL	/* xcc.c | icc.c */
++# define SYSCALL_RET_SET(_regs, _val)				\
++	do {							\
++		typeof(_val) _result = (_val);			\
++		if (_result < 0) {				\
++			SYSCALL_RET(_regs) = -_result;		\
++			(_regs).tstate |= SPARC64_TSTATE_CARRY;	\
++		} else {					\
++			SYSCALL_RET(_regs) = _result;		\
++			(_regs).tstate &= ~SPARC64_TSTATE_CARRY; \
++		}						\
++	} while (0)
++# define SYSCALL_RET_SET_ON_PTRACE_EXIT
+ #else
+ # error "Do not know how to find your architecture's registers and syscalls"
+ #endif
 -- 
-2.45
+2.43.0
+
