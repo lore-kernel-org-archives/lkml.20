@@ -1,538 +1,72 @@
-Received: from mta1.migadu.com (out-79.mta1.migadu.com [95.215.58.79])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D272A47CC89
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:08:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.79
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D788647D470;
+	Tue,  1 Sep 2026 11:09:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260942; cv=none; b=CruCfpQMn0EyRZq2lcffnOINOTEYP005sd8z0EWV6Chrd119vPQmGfrTgJUHfp1/4cdSZtkhZMY+mtL0PZ474kAk4vh5oTBIQc3t7aVMh99npok1uLtPyXKU/3CxYCUSQjDFm7ermXff+WkockNZmCW4rkjeFsJJIjaAzTjGXBk=
+	t=1788260947; cv=none; b=KxznHjpOsZGIZiv5yvYZG3+U+cEQymqsD4iPVTHWEfH2uYtI/AiZ9+hNtnXksMERkAO4V/jrqikwbzqa764CwTQpv+bC+YdFCYHZBJelR97mK75hHcfCWDS5iK7O6XXEXzaDE8kFvKUabQ16VIp58lsZAcWC1ykjbN9V+xE9E/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260942; c=relaxed/simple;
-	bh=gcnUrxY69ITTj+Ofe5rtFfD6sa60dJljj1Wx6d/mCjo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gpdCF6c+IcVIx1S/1L8iyYr6h2dnEgPGEnXAR3tmW9aMBBYrdXXsIfSV+fltbwe4DYoAXEccxDUo7gyrCDDrpmPlzYm3DpHHrRuQN6orKWwV50DWmw/7E3sOVxQ0OyY5gFC3HmNyfnF73pYD5VyfFbLPx7TYN1QVQrTY+Xqaxhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pIdPHKsh; arc=none smtp.client-ip=95.215.58.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788260947; c=relaxed/simple;
+	bh=VNLnXhLOt+MCY50q0Qc0CkTZqllQGQfSGlBtAl1Vr6U=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=BmVsQqTuReMH/mK3a/rjSkiMdejeZZZ/53ycmkXDkXBsCTmbghUe3P1rDh+jdlxKhRuo0XV4yqJrcFVlezDXFpdEOjNqXHMNTHvNCOflMpW3UhH4raG3i7gPsLnQxyBjZ7CyU/i+BlFRqEUfdIPYyB2YAuJezDAo+//hXrv5vc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CY2ihX9M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pIdPHKsh"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=gcnUrxY69ITTj+Ofe5rtFfD6sa60dJljj1Wx6d/mCjo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788260937; v=1; x=1788865737;
- b=pIdPHKshIwi4K2n0PcT9eBHJjWtLOGrRpzanYkV1GeoW5SdG9QxiXZOthW4v1B2FXDrUmJd6
- M4ugjuFBaB3Mxw2t/k1no7E4HztDlRYxeGGUKENtq72bQOGnVq0wPNR7BB8CJnB43JgiFcptzbC
- j+q97Ew+xOnN8QU5fYW25rcw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 902a3c03b0b1b999;
-	Tue, 01 Sep 2026 11:08:57 +0000
-X-Mizu-Trace-ID: 902a3c03b0b1b999
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: dsterba@suse.com,
-	linux-kernel@vger.kernel.org,
-	terrelln@fb.com,
-	terrelln@meta.com,
-	linux-crypto@vger.kernel.org,
-	yosry@kernel.org,
-	ebiggers@kernel.org,
-	torvalds@linux-foundation.org
-Cc: hannes@cmpxchg.org,
-	nphamcs@gmail.com,
-	chengming.zhou@linux.dev,
-	shakeel.butt@linux.dev,
-	kernel-team@meta.com,
-	Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v3 2/2] zstd: use cpu_feature_enabled() for in-kernel BMI2 dispatch
-Date: Tue,  1 Sep 2026 04:07:57 -0700
-Message-ID: <20260901110850.1805747-3-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901110850.1805747-1-usama.arif@linux.dev>
-References: <20260901110850.1805747-1-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CY2ihX9M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FCBF1F00A3F;
+	Tue,  1 Sep 2026 11:09:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788260945;
+	bh=VNLnXhLOt+MCY50q0Qc0CkTZqllQGQfSGlBtAl1Vr6U=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=CY2ihX9MxMDxMPHfljgNIH9Fa/9eCdXynGGOMRqQdV8NVhBeLgAO5Guk6tikCuhZW
+	 Z/7N7JLM82Nb3VbjIGxI5m7SGbMLGlujuWYDQuwQHDBOM5YRxMd6U4F2VnOmxrQkIm
+	 6bssvHCAp6oU9pGyCMY4/Z1L7A9K/EyqsYSNFnb9Bne/H3DPslCmVps8kgwTg5mf/F
+	 icJ8Z+PcyuezhGdgVfFyKxb/XmLxcggJ1p1s3ktwGstt0QzD2G0YrdqYoZh4Eypd58
+	 5OWJt1ArdpwsBtgySrotAM1hPBE5UfVUvLUZ/kqFrkwmzCguSKs97casKMLgsHpPtL
+	 YH4kSX5WuBDzQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 13:08:58 +0200
+Message-Id: <DL3XLHXS647M.1LMHQUVX5RTI@kernel.org>
+Subject: Re: [PATCH v4] rust: pci: reject IRQ vector indices that do not fit
+ in u32
+Cc: "Sophon Zhang via B4 Relay" <devnull+aiqubits.hotmail.com@kernel.org>,
+ <aiqubits@hotmail.com>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Miguel
+ Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260901-fix-pci-irq-vector-index-truncation-v4-1-f94aa6932fd9@hotmail.com> <DL3XDBBHXKKV.G9P6KRSSX1DN@nvidia.com>
+In-Reply-To: <DL3XDBBHXKKV.G9P6KRSSX1DN@nvidia.com>
 
-Zstd's dynamic BMI2 implementation probes CPUID when a compression or
-decompression context is initialized, stores the result in the context,
-and tests that value at every dispatch site. In normal kernel builds this
-bypasses the x86 feature policy and uses ordinary runtime branches instead
-of allowing x86 alternatives to resolve the feature check at boot.
+On Tue Sep 1, 2026 at 12:58 PM CEST, Alexandre Courbot wrote:
+> That makes me wonder, shouldn't we make `index` take a `u32` directly?
+> If that's what the C API expects, it does make sense to align to it
+> instead of forcing users to make a potential unneeded conversion if they
+> already have a u32.
 
-Add ZSTD_USE_BMI2() and use it at every runtime BMI2/default selector. For
-normal x86 kernel objects, the predicate expands directly to
-cpu_feature_enabled(X86_FEATURE_BMI2). When dynamic BMI2 dispatch is not
-available it is false; other builds retain the caller-provided flag. Keep
-the existing HUF conditional layout because DYNAMIC_BMI2 also controls
-whether target-attributed variants are emitted.
+I intentionally did not do this, as the common type for an index is usize. =
+Thus,
+I do not expect anyone to already have a u32, but to already have a usize, =
+e.g.
+from some iterator.
 
-Add the matching ZSTD_SET_BMI2() abstraction for context initialization.
-Normal x86 kernel objects and builds without dynamic BMI2 do not cache CPU
-state. Other builds with dynamic dispatch, including preboot, retain the
-existing behavior. Keep the BMI2 members in the context structures so
-their layouts do not change, and make the accessors return zero when
-cached state is unused.
-
-Select the normal-kernel policy in zstd_deps.h. Builds which define
-__DISABLE_EXPORTS, including the x86 preboot decompressor, retain the existing
-CPUID-backed dispatch because the normal alternatives infrastructure is not
-available there.
-
-A 4 KiB zstd-generic crypto_acomp benchmark in a one-vCPU KVM guest gave
-these median results:
-
-                        Before      After     Change
-  Compression      16,634 ns/op  13,394 ns/op  -19.5%
-  Decompression     3,480 ns/op     963 ns/op  -72.3%
-
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
----
- lib/zstd/common/compiler.h                    | 12 ++++++++++++
- lib/zstd/common/entropy_common.c              | 12 ++++++------
- lib/zstd/common/fse_decompress.c              |  7 ++++---
- lib/zstd/common/zstd_deps.h                   |  5 +++++
- lib/zstd/compress/huf_compress.c              |  6 +++++-
- lib/zstd/compress/zstd_compress.c             | 12 ++++++------
- lib/zstd/compress/zstd_compress_internal.h    |  9 +++++++++
- lib/zstd/compress/zstd_compress_sequences.c   |  8 +++++---
- lib/zstd/compress/zstd_compress_superblock.c  |  2 +-
- lib/zstd/decompress/huf_decompress.c          | 18 +++++++++---------
- lib/zstd/decompress/zstd_decompress.c         |  4 +---
- lib/zstd/decompress/zstd_decompress_block.c   | 19 +++++++------------
- .../decompress/zstd_decompress_internal.h     |  2 +-
- 13 files changed, 71 insertions(+), 45 deletions(-)
-
-diff --git a/lib/zstd/common/compiler.h b/lib/zstd/common/compiler.h
-index dc9bd15e174e9..47f6c0372c58c 100644
---- a/lib/zstd/common/compiler.h
-+++ b/lib/zstd/common/compiler.h
-@@ -14,6 +14,7 @@
- 
- #include <linux/types.h>
- 
-+#include "zstd_deps.h"
- #include "portability_macros.h"
- 
- /*-*******************************************************
-@@ -96,6 +97,17 @@
-  */
- #define BMI2_TARGET_ATTRIBUTE TARGET_ATTRIBUTE("lzcnt,bmi,bmi2")
- 
-+#if !DYNAMIC_BMI2
-+#  define ZSTD_USE_BMI2(bmi2) 0
-+#  define ZSTD_SET_BMI2(state, value) do { } while (0)
-+#elif defined(ZSTD_USE_KERNEL_CPU_FEATURES)
-+#  define ZSTD_USE_BMI2(bmi2) cpu_feature_enabled(X86_FEATURE_BMI2)
-+#  define ZSTD_SET_BMI2(state, value) do { } while (0)
-+#else
-+#  define ZSTD_USE_BMI2(bmi2) (bmi2)
-+#  define ZSTD_SET_BMI2(state, value) do { (state) = (value); } while (0)
-+#endif
-+
- /* prefetch
-  * can be disabled, by declaring NO_PREFETCH build macro */
- #if ( (__GNUC__ >= 4) || ( (__GNUC__ == 3) && (__GNUC_MINOR__ >= 1) ) )
-diff --git a/lib/zstd/common/entropy_common.c b/lib/zstd/common/entropy_common.c
-index 15a7c14ae8040..701bd495b13c8 100644
---- a/lib/zstd/common/entropy_common.c
-+++ b/lib/zstd/common/entropy_common.c
-@@ -16,6 +16,10 @@
- /* *************************************
- *  Dependencies
- ***************************************/
-+#include "zstd_deps.h"
-+#if defined(ZSTD_USE_KERNEL_CPU_FEATURES)
-+#include <asm/cpufeature.h>
-+#endif
- #include "mem.h"
- #include "error_private.h"       /* ERR_*, ERROR */
- #define FSE_STATIC_LINKING_ONLY  /* FSE_MIN_TABLELOG */
-@@ -210,11 +214,9 @@ size_t FSE_readNCount_bmi2(
-         short* normalizedCounter, unsigned* maxSVPtr, unsigned* tableLogPtr,
-         const void* headerBuffer, size_t hbSize, int bmi2)
- {
--#if DYNAMIC_BMI2
--    if (bmi2) {
-+    if (ZSTD_USE_BMI2(bmi2)) {
-         return FSE_readNCount_body_bmi2(normalizedCounter, maxSVPtr, tableLogPtr, headerBuffer, hbSize);
-     }
--#endif
-     (void)bmi2;
-     return FSE_readNCount_body_default(normalizedCounter, maxSVPtr, tableLogPtr, headerBuffer, hbSize);
- }
-@@ -335,11 +337,9 @@ size_t HUF_readStats_wksp(BYTE* huffWeight, size_t hwSize, U32* rankStats,
-                      void* workSpace, size_t wkspSize,
-                      int flags)
- {
--#if DYNAMIC_BMI2
--    if (flags & HUF_flags_bmi2) {
-+    if (ZSTD_USE_BMI2(flags & HUF_flags_bmi2)) {
-         return HUF_readStats_body_bmi2(huffWeight, hwSize, rankStats, nbSymbolsPtr, tableLogPtr, src, srcSize, workSpace, wkspSize);
-     }
--#endif
-     (void)flags;
-     return HUF_readStats_body_default(huffWeight, hwSize, rankStats, nbSymbolsPtr, tableLogPtr, src, srcSize, workSpace, wkspSize);
- }
-diff --git a/lib/zstd/common/fse_decompress.c b/lib/zstd/common/fse_decompress.c
-index 8d9c43b928833..008ce3401726a 100644
---- a/lib/zstd/common/fse_decompress.c
-+++ b/lib/zstd/common/fse_decompress.c
-@@ -24,6 +24,9 @@
- #include "fse.h"
- #include "error_private.h"
- #include "zstd_deps.h"  /* ZSTD_memcpy */
-+#if defined(ZSTD_USE_KERNEL_CPU_FEATURES)
-+#include <asm/cpufeature.h>
-+#endif
- #include "bits.h"       /* ZSTD_highbit32 */
- 
- 
-@@ -306,11 +309,9 @@ BMI2_TARGET_ATTRIBUTE static size_t FSE_decompress_wksp_body_bmi2(void* dst, siz
- 
- size_t FSE_decompress_wksp_bmi2(void* dst, size_t dstCapacity, const void* cSrc, size_t cSrcSize, unsigned maxLog, void* workSpace, size_t wkspSize, int bmi2)
- {
--#if DYNAMIC_BMI2
--    if (bmi2) {
-+    if (ZSTD_USE_BMI2(bmi2)) {
-         return FSE_decompress_wksp_body_bmi2(dst, dstCapacity, cSrc, cSrcSize, maxLog, workSpace, wkspSize);
-     }
--#endif
-     (void)bmi2;
-     return FSE_decompress_wksp_body_default(dst, dstCapacity, cSrc, cSrcSize, maxLog, workSpace, wkspSize);
- }
-diff --git a/lib/zstd/common/zstd_deps.h b/lib/zstd/common/zstd_deps.h
-index f931f7d0e2947..a312029df5660 100644
---- a/lib/zstd/common/zstd_deps.h
-+++ b/lib/zstd/common/zstd_deps.h
-@@ -26,6 +26,11 @@
- #ifndef ZSTD_DEPS_COMMON
- #define ZSTD_DEPS_COMMON
- 
-+#if defined(__KERNEL__) && defined(CONFIG_X86) && \
-+    !defined(__DISABLE_EXPORTS)
-+#define ZSTD_USE_KERNEL_CPU_FEATURES
-+#endif
-+
- #include <linux/limits.h>
- #include <linux/stddef.h>
- 
-diff --git a/lib/zstd/compress/huf_compress.c b/lib/zstd/compress/huf_compress.c
-index 0b229f5d2ae22..f3f53240c981d 100644
---- a/lib/zstd/compress/huf_compress.c
-+++ b/lib/zstd/compress/huf_compress.c
-@@ -22,6 +22,9 @@
- *  Includes
- ****************************************************************/
- #include "../common/zstd_deps.h"     /* ZSTD_memcpy, ZSTD_memset */
-+#if defined(ZSTD_USE_KERNEL_CPU_FEATURES)
-+#include <asm/cpufeature.h>
-+#endif
- #include "../common/compiler.h"
- #include "../common/bitstream.h"
- #include "hist.h"
-@@ -1138,9 +1141,10 @@ HUF_compress1X_usingCTable_internal(void* dst, size_t dstSize,
-                               const void* src, size_t srcSize,
-                               const HUF_CElt* CTable, const int flags)
- {
--    if (flags & HUF_flags_bmi2) {
-+    if (ZSTD_USE_BMI2(flags & HUF_flags_bmi2)) {
-         return HUF_compress1X_usingCTable_internal_bmi2(dst, dstSize, src, srcSize, CTable);
-     }
-+    (void)flags;
-     return HUF_compress1X_usingCTable_internal_default(dst, dstSize, src, srcSize, CTable);
- }
- 
-diff --git a/lib/zstd/compress/zstd_compress.c b/lib/zstd/compress/zstd_compress.c
-index c41a747413e01..638bc0bf83127 100644
---- a/lib/zstd/compress/zstd_compress.c
-+++ b/lib/zstd/compress/zstd_compress.c
-@@ -102,7 +102,7 @@ static void ZSTD_initCCtx(ZSTD_CCtx* cctx, ZSTD_customMem memManager)
-     assert(cctx != NULL);
-     ZSTD_memset(cctx, 0, sizeof(*cctx));
-     cctx->customMem = memManager;
--    cctx->bmi2 = ZSTD_cpuSupportsBmi2();
-+    ZSTD_SET_BMI2(cctx->bmi2, ZSTD_cpuSupportsBmi2());
-     {   size_t const err = ZSTD_CCtx_reset(cctx, ZSTD_reset_parameters);
-         assert(!ZSTD_isError(err));
-         (void)err;
-@@ -142,7 +142,7 @@ ZSTD_CCtx* ZSTD_initStaticCCtx(void* workspace, size_t workspaceSize)
-     cctx->blockState.nextCBlock = (ZSTD_compressedBlockState_t*)ZSTD_cwksp_reserve_object(&cctx->workspace, sizeof(ZSTD_compressedBlockState_t));
-     cctx->tmpWorkspace = ZSTD_cwksp_reserve_object(&cctx->workspace, TMP_WORKSPACE_SIZE);
-     cctx->tmpWkspSize = TMP_WORKSPACE_SIZE;
--    cctx->bmi2 = ZSTD_cpuid_bmi2(ZSTD_cpuid());
-+    ZSTD_SET_BMI2(cctx->bmi2, ZSTD_cpuid_bmi2(ZSTD_cpuid()));
-     return cctx;
- }
- 
-@@ -4042,7 +4042,7 @@ ZSTD_compressSeqStore_singleBlock(ZSTD_CCtx* zc,
-                 op + ZSTD_blockHeaderSize, dstCapacity - ZSTD_blockHeaderSize,
-                 srcSize,
-                 zc->tmpWorkspace, zc->tmpWkspSize /* statically allocated in resetCCtx */,
--                zc->bmi2);
-+                ZSTD_CCtx_get_bmi2(zc));
-     FORWARD_IF_ERROR(cSeqsSize, "ZSTD_entropyCompressSeqStore failed!");
- 
-     if (!zc->isFirstBlock &&
-@@ -4332,7 +4332,7 @@ ZSTD_compressBlock_internal(ZSTD_CCtx* zc,
-             dst, dstCapacity,
-             srcSize,
-             zc->tmpWorkspace, zc->tmpWkspSize /* statically allocated in resetCCtx */,
--            zc->bmi2);
-+            ZSTD_CCtx_get_bmi2(zc));
- 
-     if (frame &&
-         /* We don't want to emit our first block as a RLE even if it qualifies because
-@@ -6796,7 +6796,7 @@ ZSTD_compressSequences_internal(ZSTD_CCtx* cctx,
-                                 op + ZSTD_blockHeaderSize /* Leave space for block header */, dstCapacity - ZSTD_blockHeaderSize,
-                                 blockSize,
-                                 cctx->tmpWorkspace, cctx->tmpWkspSize /* statically allocated in resetCCtx */,
--                                cctx->bmi2);
-+                                ZSTD_CCtx_get_bmi2(cctx));
-         FORWARD_IF_ERROR(compressedSeqsSize, "Compressing sequences of block failed");
-         DEBUGLOG(5, "Compressed sequences size: %zu", compressedSeqsSize);
- 
-@@ -7321,7 +7321,7 @@ ZSTD_compressSequencesAndLiterals_internal(ZSTD_CCtx* cctx,
-                                 &cctx->blockState.prevCBlock->entropy, &cctx->blockState.nextCBlock->entropy,
-                                 &cctx->appliedParams,
-                                 cctx->tmpWorkspace, cctx->tmpWkspSize /* statically allocated in resetCCtx */,
--                                cctx->bmi2);
-+                                ZSTD_CCtx_get_bmi2(cctx));
-         FORWARD_IF_ERROR(compressedSeqsSize, "Compressing sequences of block failed");
-         /* note: the spec forbids for any compressed block to be larger than maximum block size */
-         if (compressedSeqsSize > cctx->blockSizeMax) compressedSeqsSize = 0;
-diff --git a/lib/zstd/compress/zstd_compress_internal.h b/lib/zstd/compress/zstd_compress_internal.h
-index b109783858763..99ebe1e0c923f 100644
---- a/lib/zstd/compress/zstd_compress_internal.h
-+++ b/lib/zstd/compress/zstd_compress_internal.h
-@@ -537,6 +537,15 @@ struct ZSTD_CCtx_s {
-     size_t extSeqBufCapacity;
- };
- 
-+MEM_STATIC int ZSTD_CCtx_get_bmi2(const struct ZSTD_CCtx_s *cctx) {
-+#if DYNAMIC_BMI2 && !defined(ZSTD_USE_KERNEL_CPU_FEATURES)
-+    return cctx->bmi2;
-+#else
-+    (void)cctx;
-+    return 0;
-+#endif
-+}
-+
- typedef enum { ZSTD_dtlm_fast, ZSTD_dtlm_full } ZSTD_dictTableLoadMethod_e;
- typedef enum { ZSTD_tfp_forCCtx, ZSTD_tfp_forCDict } ZSTD_tableFillPurpose_e;
- 
-diff --git a/lib/zstd/compress/zstd_compress_sequences.c b/lib/zstd/compress/zstd_compress_sequences.c
-index 64abcdf2c5714..7a03a8fceea7d 100644
---- a/lib/zstd/compress/zstd_compress_sequences.c
-+++ b/lib/zstd/compress/zstd_compress_sequences.c
-@@ -12,6 +12,10 @@
-  /*-*************************************
-  *  Dependencies
-  ***************************************/
-+#include "../common/zstd_deps.h"
-+#if defined(ZSTD_USE_KERNEL_CPU_FEATURES)
-+#include <asm/cpufeature.h>
-+#endif
- #include "zstd_compress_sequences.h"
- 
- /*
-@@ -429,15 +433,13 @@ size_t ZSTD_encodeSequences(
-             SeqDef const* sequences, size_t nbSeq, int longOffsets, int bmi2)
- {
-     DEBUGLOG(5, "ZSTD_encodeSequences: dstCapacity = %u", (unsigned)dstCapacity);
--#if DYNAMIC_BMI2
--    if (bmi2) {
-+    if (ZSTD_USE_BMI2(bmi2)) {
-         return ZSTD_encodeSequences_bmi2(dst, dstCapacity,
-                                          CTable_MatchLength, mlCodeTable,
-                                          CTable_OffsetBits, ofCodeTable,
-                                          CTable_LitLength, llCodeTable,
-                                          sequences, nbSeq, longOffsets);
-     }
--#endif
-     (void)bmi2;
-     return ZSTD_encodeSequences_default(dst, dstCapacity,
-                                         CTable_MatchLength, mlCodeTable,
-diff --git a/lib/zstd/compress/zstd_compress_superblock.c b/lib/zstd/compress/zstd_compress_superblock.c
-index dc12d64e935c4..fada5979c3b84 100644
---- a/lib/zstd/compress/zstd_compress_superblock.c
-+++ b/lib/zstd/compress/zstd_compress_superblock.c
-@@ -684,6 +684,6 @@ size_t ZSTD_compressSuperBlock(ZSTD_CCtx* zc,
-             &zc->appliedParams,
-             dst, dstCapacity,
-             src, srcSize,
--            zc->bmi2, lastBlock,
-+            ZSTD_CCtx_get_bmi2(zc), lastBlock,
-             zc->tmpWorkspace, zc->tmpWkspSize /* statically allocated in resetCCtx */);
- }
-diff --git a/lib/zstd/decompress/huf_decompress.c b/lib/zstd/decompress/huf_decompress.c
-index 5663ae524cd83..8bf2279887e8f 100644
---- a/lib/zstd/decompress/huf_decompress.c
-+++ b/lib/zstd/decompress/huf_decompress.c
-@@ -17,6 +17,9 @@
- *  Dependencies
- ****************************************************************/
- #include "../common/zstd_deps.h"  /* ZSTD_memcpy, ZSTD_memset */
-+#if defined(ZSTD_USE_KERNEL_CPU_FEATURES)
-+#include <asm/cpufeature.h>
-+#endif
- #include "../common/compiler.h"
- #include "../common/bitstream.h"  /* BIT_* */
- #include "../common/fse.h"        /* to compress headers */
-@@ -113,9 +116,10 @@ typedef size_t (*HUF_DecompressUsingDTableFn)(void *dst, size_t dstSize,
-     static size_t fn(void* dst, size_t dstSize, void const* cSrc,           \
-                      size_t cSrcSize, HUF_DTable const* DTable, int flags)  \
-     {                                                                       \
--        if (flags & HUF_flags_bmi2) {                                       \
-+        if (ZSTD_USE_BMI2(flags & HUF_flags_bmi2)) {                        \
-             return fn##_bmi2(dst, dstSize, cSrc, cSrcSize, DTable);         \
-         }                                                                   \
-+        (void)flags;                                                        \
-         return fn##_default(dst, dstSize, cSrc, cSrcSize, DTable);          \
-     }
- 
-@@ -899,18 +903,16 @@ static size_t HUF_decompress4X1_usingDTable_internal(void* dst, size_t dstSize,
-     HUF_DecompressUsingDTableFn fallbackFn = HUF_decompress4X1_usingDTable_internal_default;
-     HUF_DecompressFastLoopFn loopFn = HUF_decompress4X1_usingDTable_internal_fast_c_loop;
- 
--#if DYNAMIC_BMI2
--    if (flags & HUF_flags_bmi2) {
-+    if (ZSTD_USE_BMI2(flags & HUF_flags_bmi2)) {
-         fallbackFn = HUF_decompress4X1_usingDTable_internal_bmi2;
- # if ZSTD_ENABLE_ASM_X86_64_BMI2
-         if (!(flags & HUF_flags_disableAsm)) {
-             loopFn = HUF_decompress4X1_usingDTable_internal_fast_asm_loop;
-         }
- # endif
--    } else {
-+    } else if (DYNAMIC_BMI2) {
-         return fallbackFn(dst, dstSize, cSrc, cSrcSize, DTable);
-     }
--#endif
- 
- #if ZSTD_ENABLE_ASM_X86_64_BMI2 && defined(__BMI2__)
-     if (!(flags & HUF_flags_disableAsm)) {
-@@ -1723,18 +1725,16 @@ static size_t HUF_decompress4X2_usingDTable_internal(void* dst, size_t dstSize,
-     HUF_DecompressUsingDTableFn fallbackFn = HUF_decompress4X2_usingDTable_internal_default;
-     HUF_DecompressFastLoopFn loopFn = HUF_decompress4X2_usingDTable_internal_fast_c_loop;
- 
--#if DYNAMIC_BMI2
--    if (flags & HUF_flags_bmi2) {
-+    if (ZSTD_USE_BMI2(flags & HUF_flags_bmi2)) {
-         fallbackFn = HUF_decompress4X2_usingDTable_internal_bmi2;
- # if ZSTD_ENABLE_ASM_X86_64_BMI2
-         if (!(flags & HUF_flags_disableAsm)) {
-             loopFn = HUF_decompress4X2_usingDTable_internal_fast_asm_loop;
-         }
- # endif
--    } else {
-+    } else if (DYNAMIC_BMI2) {
-         return fallbackFn(dst, dstSize, cSrc, cSrcSize, DTable);
-     }
--#endif
- 
- #if ZSTD_ENABLE_ASM_X86_64_BMI2 && defined(__BMI2__)
-     if (!(flags & HUF_flags_disableAsm)) {
-diff --git a/lib/zstd/decompress/zstd_decompress.c b/lib/zstd/decompress/zstd_decompress.c
-index bb009554e3a61..cc6ecd364970a 100644
---- a/lib/zstd/decompress/zstd_decompress.c
-+++ b/lib/zstd/decompress/zstd_decompress.c
-@@ -259,9 +259,7 @@ static void ZSTD_initDCtx_internal(ZSTD_DCtx* dctx)
-     dctx->noForwardProgress = 0;
-     dctx->oversizedDuration = 0;
-     dctx->isFrameDecompression = 1;
--#if DYNAMIC_BMI2
--    dctx->bmi2 = ZSTD_cpuSupportsBmi2();
--#endif
-+    ZSTD_SET_BMI2(dctx->bmi2, ZSTD_cpuSupportsBmi2());
-     dctx->ddictSet = NULL;
-     ZSTD_DCtx_resetParameters(dctx);
- #ifdef FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION
-diff --git a/lib/zstd/decompress/zstd_decompress_block.c b/lib/zstd/decompress/zstd_decompress_block.c
-index 9c4215e435014..31804cbf1f7ed 100644
---- a/lib/zstd/decompress/zstd_decompress_block.c
-+++ b/lib/zstd/decompress/zstd_decompress_block.c
-@@ -16,6 +16,9 @@
- *  Dependencies
- *********************************************************/
- #include "../common/zstd_deps.h"   /* ZSTD_memcpy, ZSTD_memmove, ZSTD_memset */
-+#if defined(ZSTD_USE_KERNEL_CPU_FEATURES)
-+#include <asm/cpufeature.h>
-+#endif
- #include "../common/compiler.h"    /* prefetch */
- #include "../common/cpu.h"         /* bmi2 */
- #include "../common/mem.h"         /* low level memory routines */
-@@ -631,13 +634,11 @@ void ZSTD_buildFSETable(ZSTD_seqSymbol* dt,
-             const U32* baseValue, const U8* nbAdditionalBits,
-             unsigned tableLog, void* wksp, size_t wkspSize, int bmi2)
- {
--#if DYNAMIC_BMI2
--    if (bmi2) {
-+    if (ZSTD_USE_BMI2(bmi2)) {
-         ZSTD_buildFSETable_body_bmi2(dt, normalizedCounter, maxSymbolValue,
-                 baseValue, nbAdditionalBits, tableLog, wksp, wkspSize);
-         return;
-     }
--#endif
-     (void)bmi2;
-     ZSTD_buildFSETable_body_default(dt, normalizedCounter, maxSymbolValue,
-             baseValue, nbAdditionalBits, tableLog, wksp, wkspSize);
-@@ -1955,11 +1956,9 @@ ZSTD_decompressSequences(ZSTD_DCtx* dctx, void* dst, size_t maxDstSize,
-                    const ZSTD_longOffset_e isLongOffset)
- {
-     DEBUGLOG(5, "ZSTD_decompressSequences");
--#if DYNAMIC_BMI2
--    if (ZSTD_DCtx_get_bmi2(dctx)) {
-+    if (ZSTD_USE_BMI2(ZSTD_DCtx_get_bmi2(dctx))) {
-         return ZSTD_decompressSequences_bmi2(dctx, dst, maxDstSize, seqStart, seqSize, nbSeq, isLongOffset);
-     }
--#endif
-     return ZSTD_decompressSequences_default(dctx, dst, maxDstSize, seqStart, seqSize, nbSeq, isLongOffset);
- }
- static size_t
-@@ -1968,11 +1967,9 @@ ZSTD_decompressSequencesSplitLitBuffer(ZSTD_DCtx* dctx, void* dst, size_t maxDst
-                                  const ZSTD_longOffset_e isLongOffset)
- {
-     DEBUGLOG(5, "ZSTD_decompressSequencesSplitLitBuffer");
--#if DYNAMIC_BMI2
--    if (ZSTD_DCtx_get_bmi2(dctx)) {
-+    if (ZSTD_USE_BMI2(ZSTD_DCtx_get_bmi2(dctx))) {
-         return ZSTD_decompressSequencesSplitLitBuffer_bmi2(dctx, dst, maxDstSize, seqStart, seqSize, nbSeq, isLongOffset);
-     }
--#endif
-     return ZSTD_decompressSequencesSplitLitBuffer_default(dctx, dst, maxDstSize, seqStart, seqSize, nbSeq, isLongOffset);
- }
- #endif /* ZSTD_FORCE_DECOMPRESS_SEQUENCES_LONG */
-@@ -1991,11 +1988,9 @@ ZSTD_decompressSequencesLong(ZSTD_DCtx* dctx,
-                              const ZSTD_longOffset_e isLongOffset)
- {
-     DEBUGLOG(5, "ZSTD_decompressSequencesLong");
--#if DYNAMIC_BMI2
--    if (ZSTD_DCtx_get_bmi2(dctx)) {
-+    if (ZSTD_USE_BMI2(ZSTD_DCtx_get_bmi2(dctx))) {
-         return ZSTD_decompressSequencesLong_bmi2(dctx, dst, maxDstSize, seqStart, seqSize, nbSeq, isLongOffset);
-     }
--#endif
-   return ZSTD_decompressSequencesLong_default(dctx, dst, maxDstSize, seqStart, seqSize, nbSeq, isLongOffset);
- }
- #endif /* ZSTD_FORCE_DECOMPRESS_SEQUENCES_SHORT */
-diff --git a/lib/zstd/decompress/zstd_decompress_internal.h b/lib/zstd/decompress/zstd_decompress_internal.h
-index 2a225d1811c4f..401f2b526bbce 100644
---- a/lib/zstd/decompress/zstd_decompress_internal.h
-+++ b/lib/zstd/decompress/zstd_decompress_internal.h
-@@ -204,7 +204,7 @@ struct ZSTD_DCtx_s
- };  /* typedef'd to ZSTD_DCtx within "zstd.h" */
- 
- MEM_STATIC int ZSTD_DCtx_get_bmi2(const struct ZSTD_DCtx_s *dctx) {
--#if DYNAMIC_BMI2
-+#if DYNAMIC_BMI2 && !defined(ZSTD_USE_KERNEL_CPU_FEATURES)
-     return dctx->bmi2;
- #else
-     (void)dctx;
--- 
-2.53.0-Meta
-
+The fact that the C API did pick unsigned int as index type is an implement=
+ation
+detail the abstraction should bother with.
