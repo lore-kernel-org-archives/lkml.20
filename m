@@ -1,146 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35F83932E4;
-	Tue,  1 Sep 2026 01:04:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22ED13988F9
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:05:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788224700; cv=none; b=Q6oBEn2j71sgMVOePVoG7Jhh0E5oU1INXo3eUbTUcnJyRvrV5hxOJXEEHhZk2xAChDn13QxqgrukcWrTyUI60Cxc0/7Bd77U3XC7QbJiEfsePj42C4Yak2yToP8wyprajCyvt0nJyiuNKu7IrQFMPr3iWVrVMgevaw/WznqQSbU=
+	t=1788224704; cv=none; b=PkxYhfxT02s/8fATpGJVPy+wmMIqwQnBs02Ds1Rd2dl2h5vIQbOr1HO4LOtaQI0KocwvfxS8pYKfHgEuP374sGNIf4IP8hcsb4B3M75Dw5hiPTFvW2c8pj+6JSXl4CxdyyYCYkngL+iEeLC5M8wcHZbukiDIO6XOi/maiuL2JZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788224700; c=relaxed/simple;
-	bh=R8JE25Gfv6jxu0Skqd1QGRzgnoYAHbrt9GeNUYH5EcM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TVgQj1oxk7Hv8wzfIPf5aeuaFeCrPvVmTsM+mEEKCx5R0U3J3cLIr80fJ53m5Bhn44QfhALF0jE6bsH4kK6kpxA0UNXpJeLmn/uXQSSuVUXWi7zxY2SSPpFXPZE/hdYVpJQBtFcXoka/9aVM1cymOQBgCRt8qOKvbmBRxPLX/HA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OrYFtnBB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788224704; c=relaxed/simple;
+	bh=7H9GI30AsWmAlTdg30uohie4gLRcANCA6UmHmEupp3o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZuKOD50K3h0RPXxCuOURQmwb48w4lNo/ffGQj8xnryETEaRSB4JwIY0pKxtmPaHa7U4Lkyk16FsRrCNmU9DPYNcEcBdgCPFxdlnntyMsktAbZFm5p8alCGqFNLLP7J8cu6rHUuav57PejxX9+dSVr+UB8dkKYmLSM9v7v8QXhsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d+YQ2TYC; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OrYFtnBB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6651F1F000E9;
-	Tue,  1 Sep 2026 01:04:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788224698;
-	bh=wvV61yocIg4HSoPNl8AfsC3tVLSqq6DVe2lpPBQO6qU=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=OrYFtnBB8b+Ar4ewhCKjFj2bngp249hPa3KM4VfH30QB+diwjTP7dXQi124mRpFrn
-	 Xw9oIb14/B6wt8yJxg9aeLm9CmZflpLVNvb/lW17aDr7+Svr+TgfCXvlQ+SGG+OL8Y
-	 yaCseY56ER9yJLSqj8Z+oICjV2vKLIThNwMX+b8D3SQBaSlhrMbIQDyrsJMz1vLeuD
-	 Gr31JId2SitsUYyRu9x9dTE6ai9QiYVIprWbBQtOLdpJmtL530mls9+Jp8f7Suf35w
-	 uk6tG5CCjaW7y5pSZsMnxFawwgAuutCv1lRvt28sIZayaXzalHWqApqRTjjY3VwQvj
-	 EpuQE5A6w7+hQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id EA350CE0B65; Mon, 31 Aug 2026 18:04:57 -0700 (PDT)
-Date: Mon, 31 Aug 2026 18:04:57 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d+YQ2TYC"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so331403a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:05:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788224702; x=1788829502; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jWbFM6ywa1yjj692OE0MrLQnEnm7JyCgqunSYul2orw=;
+        b=d+YQ2TYCuKChwoPQfL5IsXw8KZDWudgQ5nl55KRLhDWcU/gJC7uZKUR3Rsa/hvrFIu
+         1zjw7xN2aiWcDdflQlzlDhDMg77O2eY3YssOVRaf2XiZtm5rediRfOrjYTmzSJdEpWTP
+         Etuy2TgNIKbTKKGOWNpne0L+sq8ENRQYtdnHtwvhCBmxZg6KB9F4g4A7X1n4M+PJpz9Y
+         ILDCryRfLkRlNnRi8i7BYNjxR/d4/TkjfRKcXgwPLCXMbRaU/8yJHZzS4/uOnjuup5va
+         Ww4MNUHPwhYNpt1U3+/xZ5Ou4r0FnLhO2m7lDhhLye1J9nQ4GWB69Gk2gc+HtyXqHFD8
+         uxhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788224702; x=1788829502;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jWbFM6ywa1yjj692OE0MrLQnEnm7JyCgqunSYul2orw=;
+        b=KxQggUaP2gJeoB4ETGgpFHXH4wVKtNRRnPD2t6vOutcmtbme1+a6ymZtskt+Su+YwO
+         7n/ssu/SLayFvrWPlh1ImQ4LgX7iC/xtpt2cWI/JTOvqO5PsO0YGKOD8CtQ2mGX+kI7m
+         ty7hGa+ae20Cz34Vuos81InyDmpsXJ0fAsS0u0gmfUL37jyDkwWwaKqe+eA3ff3F1PkK
+         tawAnOq23j54+EJUJhhuTkWDTWX4kgRuciqSAXLjEmZQ1kzBvXzrxbtD3SFuJmYy7wwe
+         9IuWVBkb3nnRgx+n1GYVOarlXxDVo7Kqi+1dQNeIAPhvYwJ4Q0rV64tUoCDshuGsnCe7
+         Fn1w==
+X-Forwarded-Encrypted: i=1; AKwUvBy+k4RCodomCScLhAJbcher+a6Q5aPky6E/W07IKeE+zrvdHf7pzn2aNhdHzK/rPmnFy0c3yFe0d/y8cLk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLY10IJHZeTTPFXAqOdCyMtfepXl/fqxnFEnxmIYoCF5Rz9Hdg
+	rIQdC+O+GbKwtGMUUt7fAj8qsKGgDZ6WnpYQCjbv1nknFtPI/ikAJP18
+X-Gm-Gg: AYBFou3BgjmhvOFo34owcuYZxTCM5knXcKBnpv9JQDJtp8Y3rSipQ1jwQGDzAm2AU1c
+	18ws6DcfxXPWL5hjRk4lAW6OIG1W8nralkEcyU61uYQxJfu6+mNSj5uxbgbu7egSvd2mCl139AD
+	6vyK97pMPNbbJv0oM0ommKEmawviw2Hmi4orpjeMfBA7YD18DU3oczxm+WmLEbzmoNJy+v7/5nT
+	W3X/sXuccUFMC6w6aedgWQpsd0l7OovXfaSc/1T5yRCwcpE8xdniS7GFcaXaQPvqke6SuMYGExX
+	O709dP6wyzXG5CHovcmc0Y+mPpphcErs8KpFmZdI029x+SY/LhTQ716BNpo3YVDS9GHzcBkCJbo
+	h6uD2cf1MnBl/3kDkFM8n0meOfAoQ8Op4bYEP5rbC5ho1swDttfW886s9mD+cSO4MbvctXB9hCd
+	gUUaHGwSJ5O4k1nDHfuFbkHu/VMNQf/n/M5nqjzhC2ZXpGVjV7ruHUkv78UgeuiTeNy6cbWrnz1
+	oGG+A==
+X-Received: by 2002:a17:90b:164b:b0:38e:6a44:671b with SMTP id 98e67ed59e1d1-396d0c79e8amr44052502a91.0.1788224702403;
+        Mon, 31 Aug 2026 18:05:02 -0700 (PDT)
+Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d49e9e0sm2372024a91.11.2026.08.31.18.04.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 18:05:01 -0700 (PDT)
+From: alistair23@gmail.com
+X-Google-Original-From: alistair.francis@wdc.com
+To: linux-pci@vger.kernel.org,
+	Jonathan.Cameron@huawei.com,
+	djbw@kernel.org,
+	rust-for-linux@vger.kernel.org,
+	lukas@wunner.de,
+	alistair@alistair23.me,
+	jic23@kernel.org,
+	linux-cxl@vger.kernel.org,
+	bhelgaas@google.com,
+	akpm@linux-foundation.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] srcutiny: Add atomic SRCU operation checks and state
-Message-ID: <0eac36c5-acd2-4d8d-a498-f56a57cc3d6a@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260831074937.2380914-1-kunwu.chan@linux.dev>
+Cc: gary@garyguo.net,
+	ojeda@kernel.org,
+	benno.lossin@proton.me,
+	a.hindborg@kernel.org,
+	wilfred.mallawa@wdc.com,
+	tmgross@umich.edu,
+	alistair23@gmail.com,
+	boqun.feng@gmail.com,
+	bjorn3_gh@protonmail.com,
+	alex.gaynor@gmail.com,
+	aliceryhl@google.com,
+	Alistair Francis <alistair.francis@wdc.com>
+Subject: [PATCH v3 07/21] rust: add bindings for hash.h
+Date: Tue,  1 Sep 2026 11:03:33 +1000
+Message-ID: <20260901010347.2614656-8-alistair.francis@wdc.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260901010347.2614656-1-alistair.francis@wdc.com>
+References: <20260901010347.2614656-1-alistair.francis@wdc.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831074937.2380914-1-kunwu.chan@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 03:49:37PM +0800, Kunwu Chan wrote:
-> From: Kunwu Chan <kunwu.chan@gmail.com>
-> 
-> Add atomic SRCU operation checks and the associated state to Tiny
-> SRCU.
-> 
-> An atomic SRCU domain does not use the normal SRCU callback and
-> grace-period machinery.  In particular, a callback queued with
-> call_srcu() would never be processed.  Use WARN_ON_ONCE() to reject
-> call_srcu() and srcu_barrier() on atomic SRCU domains.
-> 
-> For synchronize_srcu(), redirect atomic SRCU domains to
-> synchronize_srcu_atomic().
-> 
-> Add srcu_reader_flavor to the Tiny SRCU state for these checks.
-> Tiny SRCU does not currently set the flavor for atomic SRCU domains,
-> but keeping the flavor in the common state allows the operation
-> checks to enforce the restriction once atomic flavor tracking is
-> enabled.
-> 
-> Also initialize srcu_atomic_gp_flag, which was previously left
-> uninitialized.
-> 
-> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> ---
->  include/linux/srcutiny.h |  1 +
->  kernel/rcu/srcutiny.c    | 12 ++++++++++++
->  2 files changed, 13 insertions(+)
-> 
-> diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
-> index 47a368f945e3..2b293336525a 100644
-> --- a/include/linux/srcutiny.h
-> +++ b/include/linux/srcutiny.h
-> @@ -20,6 +20,7 @@ struct srcu_struct {
->  	u8 srcu_gp_running;		/* GP workqueue running? */
->  	u8 srcu_gp_waiting;		/* GP waiting for readers? */
->  	u8 srcu_atomic_gp_flag;		/* Serialize atomic GP work.*/
-> +	u8 srcu_reader_flavor;		/* Values: SRCU_READ_FLAVOR_.*  */
->  	unsigned long srcu_idx;		/* Current reader array element in bit 0x2. */
->  	unsigned long srcu_idx_max;	/* Furthest future srcu_idx request. */
->  	struct swait_queue_head srcu_wq;
-> diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
-> index 26ea4bfbeaf2..22f7716cbb0e 100644
-> --- a/kernel/rcu/srcutiny.c
-> +++ b/kernel/rcu/srcutiny.c
-> @@ -41,6 +41,7 @@ static int init_srcu_struct_fields(struct srcu_struct *ssp)
->  	ssp->srcu_cb_tail = &ssp->srcu_cb_head;
->  	ssp->srcu_gp_running = false;
->  	ssp->srcu_gp_waiting = false;
-> +	ssp->srcu_atomic_gp_flag = 0;
+From: Alistair Francis <alistair.francis@wdc.com>
 
-Good catch!  I will be folding this into the base commit with attribution
-on my next rebase:
+Make the functions crypto_shash_descsize(), crypto_shash_digestsize()
+and crypto_free_shash() available to Rust.
 
-9a2e9996ccec ("srcutiny: Add an atomic Tiny SRCU")
+Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+---
+ rust/bindings/bindings_helper.h |  1 +
+ rust/helpers/hash.c             | 18 ++++++++++++++++++
+ rust/helpers/helpers.c          |  1 +
+ 3 files changed, 20 insertions(+)
+ create mode 100644 rust/helpers/hash.c
 
->  	ssp->srcu_idx = 0;
->  	ssp->srcu_idx_max = 0;
->  	INIT_WORK(&ssp->srcu_work, srcu_drive_gp);
-> @@ -289,6 +290,9 @@ EXPORT_SYMBOL_GPL(srcu_defer_drain);
->  void call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
->  	       rcu_callback_t func)
->  {
-> +	if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
-> +		return;
-> +
->  	if (should_rcu_defer()) {
->  		/* A re-entrant call_srcu() during the drain would livelock it. */
->  		if (READ_ONCE(srcu_defer_draining) && !in_nmi()) {
-> @@ -319,6 +323,11 @@ void synchronize_srcu(struct srcu_struct *ssp)
->  {
->  	struct rcu_synchronize rs;
->  
-> +	if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC)) {
-> +		synchronize_srcu_atomic(ssp);
-> +		return;
-> +	}
-> +
->  	srcu_lock_sync(&ssp->dep_map);
->  
->  	RCU_LOCKDEP_WARN(lockdep_is_held(ssp) ||
-> @@ -415,6 +424,9 @@ EXPORT_SYMBOL_GPL(synchronize_srcu_atomic);
->  /* Register any deferred callbacks, then wait for all in-flight ones. */
->  void srcu_barrier(struct srcu_struct *ssp)
->  {
-> +	if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
-> +		return;
-> +
->  	__srcu_defer_drain(ssp);
->  	synchronize_srcu(ssp);
->  }
+diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
+index 4b31aa7f432f..fd223b6c5aaf 100644
+--- a/rust/bindings/bindings_helper.h
++++ b/rust/bindings/bindings_helper.h
+@@ -30,6 +30,7 @@
+ 
+ #include <linux/acpi.h>
+ #include <linux/gpu_buddy.h>
++#include <crypto/hash.h>
+ #include <drm/drm_device.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+diff --git a/rust/helpers/hash.c b/rust/helpers/hash.c
+new file mode 100644
+index 000000000000..23a63618a370
+--- /dev/null
++++ b/rust/helpers/hash.c
+@@ -0,0 +1,18 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <crypto/hash.h>
++
++__rust_helper unsigned int rust_helper_crypto_shash_descsize(struct crypto_shash *tfm)
++{
++	return crypto_shash_descsize(tfm);
++}
++
++__rust_helper unsigned int rust_helper_crypto_shash_digestsize(struct crypto_shash *tfm)
++{
++	return crypto_shash_digestsize(tfm);
++}
++
++__rust_helper void rust_helper_crypto_free_shash(struct crypto_shash *tfm)
++{
++	crypto_free_shash(tfm);
++}
+diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
+index 440fb7638e3c..09ec69f736b1 100644
+--- a/rust/helpers/helpers.c
++++ b/rust/helpers/helpers.c
+@@ -66,6 +66,7 @@
+ #include "fs.c"
+ #include "fwctl.c"
+ #include "gpu.c"
++#include "hash.c"
+ #include "interrupt.c"
+ #include "io.c"
+ #include "irq.c"
+-- 
+2.55.0
 
-The rest is good as far as it goes, but don't we need to set the value
-of ssp->srcu_reader_flavor somewhere for atomic srcu_struct structures?
-
-							Thanx, Paul
