@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6511E411661;
-	Tue,  1 Sep 2026 02:09:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB70409638;
+	Tue,  1 Sep 2026 02:09:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788228592; cv=none; b=VeHP06vtebq/OrDLfYVwU7cZMZB0at5c9MNt037kS90VSY9VUxNvU+xjBAG1hspZlsJ4taTyhbpxqExtAnSp8MpDEJb9f5vTM/UL9Buc/1qmiGCJNw38MtLTQH6LknM91VDRohUwnq2cr2GH31pWhn//IY3KqwgvLNr9aNSw9qw=
+	t=1788228595; cv=none; b=Vgn/bNM55LitDilPqlNAIQqgq7lAWZdn87DnWMTb0UiMs/RlvQXPtY3VgFkmtHBEPXe48pk5JBKYrc39ncgOqTkqA4pIhGYV7uHT37Vx/93A2ohiT5CyRpND5WRRTT5hJMtF3w9sspTvf/hYL4uBbanKZ5qGudarSYdOiiwVJNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788228592; c=relaxed/simple;
-	bh=WsDrjGT4cG1a6t5f5KrqRW4LXNt3VqPAt1EZOGCeCGw=;
+	s=arc-20240116; t=1788228595; c=relaxed/simple;
+	bh=dgTMmxrqHDBgHeFFnFE3ld7C/DI0Al/q4VtZ9UGefvY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BYEmbFPjXpIh6eXRElC0qHRl9FSvz0/sdN9U9/exG6Af9TMvE1E0X2NOLibOwxRosRXVccogQVBmolOKa77Tb6oHXjuchklZf2dI4/h5rg4pj7ubYbofkEJcy3KEn7ANwzSF8jEio/78M0E+iBLIjRKrJMIn39LYmg9Ucqr0mcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V+G9R0Qx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=QBNMnGNJLyuqfdXGf5DxlDheBVBeW9I/d9IHFmyS8ZK59k9iJPmZ2awCvIsVDqUCVSeSV6k23gytRfgRhbChtSoVQNqddi+RfpPHFUpTngOxXbmryBNAoNsTo8BM7S68G3woOLheqc0N/jCMw3Esy1x5YmvwT3urf1hkiiWhhN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtMNzUG/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V+G9R0Qx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F2E61F00A3D;
-	Tue,  1 Sep 2026 02:09:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtMNzUG/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462841F00A3E;
+	Tue,  1 Sep 2026 02:09:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788228582;
-	bh=h/pInpbdC57iv3v+TZYzCPsHAvjHz93T6GB5y4GdRig=;
+	bh=DIXu405LdzJ+TjUOOSzT9uTdjKFaid4EAEekEpAg7MM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V+G9R0Qx+Pqd2ZUx79MgGl78clGcN94PFw3Iju3PNhFwsTsOLAsMJHOtLHgjbLGhC
-	 fXe/QH7qF0yMW3NEvSpHJuWOTdWGGslDRBlvREYB2uPrsvTGr96qDt8j9xI/szY3Ki
-	 ld8h/b55Hnug2jOUVtxkaAAXf9CuxJGtLZPdZUhSJ0RHE2Aa9PRZWAJmq5M6eM+/Yx
-	 bdLBND8AcMZjN/dzkBhIScdPF4Tv7eBlY+aVFMdQwJ9E8EFMcxDY93D2CR2MvifUP4
-	 YSzVZy8dWrx7Z4WZb4fs7W3tVu/qvMgRRKm+d/VCF43kDWjwaQ+2WjNFulpYVLxuX5
-	 k3Wj7TtT+Q84g==
+	b=LtMNzUG/E81ZfcquDRnEk28pzGbMPz5TzhCbD7v9YYMHcxpMbckFFzGlGue6CQn5A
+	 gSTytrErEMt0pL1iu+Uc09drbGaYZZ3Snrb2OxGT72/x3cyrP82eJ+LItPmitKLn+c
+	 OLdFPwjxFVSq96aspkl+9L8KuNEGyLzk2CwrgSTqE5C3PLSLReG9/nnrBgUhY1lSLx
+	 rl7xFhnxltq/4g2AQ1y/5lXCW5XXT0lBqf/gpWOI+l+76pgOgnMTqwiGvT3gO5kjaz
+	 P+I4a5f8TshnYrbjGcyoAVyx9RSgd+2noSycTc8N+HljwTuUjMu6ZlQPZ1I+lqcAbc
+	 /Slp+XKiliizQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dale Whinham <daleyo@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: x1-denali: Add audio playback over DisplayPort
-Date: Mon, 31 Aug 2026 21:09:19 -0500
-Message-ID: <178822856234.1835959.5281479761335285842.b4-ty@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dan Carpenter <error27@gmail.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH next] soc: qcom: smem: Fix signedness bug in smem_dram_parse()
+Date: Mon, 31 Aug 2026 21:09:20 -0500
+Message-ID: <178822856283.1835959.10872244976816365079.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831-surface-pro-11-dp-audio-v1-1-fb9c0d3216b7@gmail.com>
-References: <20260831-surface-pro-11-dp-audio-v1-1-fb9c0d3216b7@gmail.com>
+In-Reply-To: <an1toQ-acGR0kOWj@stanley.mountain>
+References: <an1toQ-acGR0kOWj@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,16 +49,18 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 31 Aug 2026 19:20:48 +0100, Dale Whinham wrote:
-> Add the DAI links needed to enable audio playback over the two
-> USB/DisplayPort outputs.
+On Thu, 13 Aug 2026 10:09:21 +0300, Dan Carpenter wrote:
+> The "ver" variable is type "enum ddr_info_version".  Enum types are
+> dependent on the compiler but in practical terms here, "ver" is
+> basically an unsigned int.  It needs to be signed for the -EINVAL
+> to be handled correctly.
 > 
 > 
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: x1-denali: Add audio playback over DisplayPort
-      commit: 420a70ddaf299dadab1fb50492b275c8b54e9c4a
+[1/1] soc: qcom: smem: Fix signedness bug in smem_dram_parse()
+      commit: 22f129fedb153a17d80b1d883a7c4dd2417cf38e
 
 Best regards,
 -- 
