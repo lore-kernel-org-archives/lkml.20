@@ -1,72 +1,105 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85EB83DB332;
-	Tue,  1 Sep 2026 14:37:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC806248880;
+	Tue,  1 Sep 2026 14:38:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788273462; cv=none; b=el28OkIdmU4+HaoMGlCANwVSKrkkdDN6OCoawGiieA9JD21qg3gzbjukQttN7kX2xwoTUrI0UYU6C4vostP6Oue+QonOWwtOLhaZtKd3YOgc+/4nqddGvqR+u1n+LfJjnt8JMfmlK4TY8z+zK3+rFfbvt66jF9qZz+LAIjAoH7c=
+	t=1788273500; cv=none; b=kPdaKlQ7N8xARmSqeoAYsH+B2UrONhzIDHamK6yogQHqHVQWKwFeNnFnv8kp8TQyXRnThKq6KQfkYU65lKVUUE1EI/pagJBXDtZ3hD6z3UTh6phcvnkNJ1TMBBzjE1B2//Rbdkt9HdO8+r3OTq8cFhZGgYumiUcGpmlhrT7YsCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788273462; c=relaxed/simple;
-	bh=v3wZJuDMDY6TSDIDONh2k6AtxL5ulmJGOmoHhLMcpwk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=duMYy8cQJd/pVTyTcm8z48ddNGcxEAesdMC+BQ6FMC+IEu+B6TTmE1HXmlP0n+qWptyAc0Etqs7m4RA1w8tcJ5JojmXjqej2B7jVOqEZOzWiQ+De9/dI1pgxgYEoO0kq+L96m3SO9FpLaOSFwr45/ax8f1DGK2H7/Z7/1X8MdxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=pF5ztuKj; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788273500; c=relaxed/simple;
+	bh=sLzkEnAsjIIJGrm0ODKZMth7hx3CXmIdHLGBEWnYO8w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sgYsKal/aR5HZj0JSgO6TUl19xJnldNSUTPvkJMEpqsihxU4lHocTt56r6kgOx7RvrSMeHrSrPbKvrRSaMT/IeAZYpG9P6iTJSltyH1Vbtyy/DFlbxtUYtwlqJU7qVnyE2bAu4XtDbBp0G0VRRt9FZpORFvoZMQQ2DdnbfdkqIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BFdkqX+x; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="pF5ztuKj"
-Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id CCE731C1FFC;
-	Tue,  1 Sep 2026 14:37:24 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id 9AE8832;
-	Tue,  1 Sep 2026 14:37:21 +0000 (UTC)
-Date: Tue, 1 Sep 2026 10:38:20 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>,
- x86@kernel.org, Jinchao Wang <wangjinchao600@gmail.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@linutronix.de>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Ian Rogers <irogers@google.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] tracing/probes: Fix code indent in
- get_bitoffset_of_field()
-Message-ID: <20260901103820.2107bd39@gandalf.local.home>
-In-Reply-To: <178827252027.123716.7095571176291547259.stgit@devnote2>
-References: <178827248631.123716.2627172171811720261.stgit@devnote2>
-	<178827252027.123716.7095571176291547259.stgit@devnote2>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BFdkqX+x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788273495; x=1819809495;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=sLzkEnAsjIIJGrm0ODKZMth7hx3CXmIdHLGBEWnYO8w=;
+  b=BFdkqX+xe4YqmY1nTp9bYxdutS6cYEcpvBgbwN8dTqQR+AkRiW3qQYek
+   +g58ATimBr2TrxDp/TySaZabkjvv0981Vr6aSQYe1xGl6BpzLzDziX3ZL
+   +D3XxyoptqfmM0Y2fuCDbJsfkauFkvrKu3IOOPGQJqgC4AZJQXT25buXi
+   vVMEK29K/+Ezr/RkInwtLDssd2nZ9Fl2L7X1RM1q5hkUIgjYVq+2rLzRI
+   1Dg0DEVYOkZC0I0762Nmb+BlPVQz+tbRfaRLvuCGQMRxdd4/SDlC5L/0/
+   NXojphKqNr7W2q7SJGjR55L8ushKOPa9mmwszHghAHfxqCpnpzTWVBjdq
+   g==;
+X-CSE-ConnectionGUID: hpBHxjjFR2KRoXaPB/KS9Q==
+X-CSE-MsgGUID: nSf8iPmPTiSDKWdk3e7qDA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="92520139"
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="92520139"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 07:38:13 -0700
+X-CSE-ConnectionGUID: jsQ12vr8TfiKLo63Ropa4g==
+X-CSE-MsgGUID: 6thLB3NUR+6GfPom+nvxLQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="265877904"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 07:38:11 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	John Keeping <jkeeping@inmusicbrands.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ruslan <ruslan.panasiuk@gmail.com>
+Subject: Re: [PATCH] ALSA: seq: midi: wait for output buffer space on non-atomic delivery
+Date: Tue,  1 Sep 2026 22:38:03 +0800
+Message-ID: <20260901143803.422827-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <871pbddz5k.wl-tiwai@suse.de>
+References: <871pbddz5k.wl-tiwai@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 19y4b9qhgdcgswwg4t5st45u8etsext7
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: 9AE8832
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/iXbsiAH6pXVzSyFhCzaeWlIPa3DYWPjM=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=yQDGO02vuRqXUkUjS+l5m4mq9vTXgkzRMx38IXIK0CY=; b=pF5ztuKjJB/8NEc+aYO5YPitCcMMu1Mozjclog5zStB/1FXmHuKvxWqQuKn0rg3IdISr+Uih6XaiHVOntU4HKmtneNGRSLdwIapBb0YDI4O1ZBwDW0mhmUPKcrqdm//ubf4G2W2lEKfIivpP6Qk0NeLAPxVyOZju1BWejSDNI4Y=
-X-HE-Tag: 1788273441-787153
-X-HE-Meta: U2FsdGVkX18UoaDCe/a3Z7bNfaIKcrS0dsbkS5g/02YOo6heimae2XurKyEyYCQFUlasfinFdp69LETmDJzD9qhqhotWxsUWenmXm7Lzu1QtYSdgVwW+XnZqLpUYybrNjhez07DOSjuti4a3VELjWLZxYMlo7boLj128oQAqOQTRka4hjO2YiqlFmDaTJqQGdyBeOnaTd8YbHEXFr/r/A+qh/RQKzx6vcSZ9wMaT01kJKP0LRYqEk3CRqhl7WmA9g9ZyRSwIQNqQUVqZEteUgDoslszmq1uVTKEa10YOCPYOZvtjv0ofuGwkcE7wF9IgMUEI14AulcJ+i7jMORcwHEVRRgxoF7c1dFtRkC3JM5AQ1cYxWraS8RCJ6mBRu2IAcO/d6iISuzFvEaai8x62gA==
+Content-Transfer-Encoding: 8bit
 
-On Tue,  1 Sep 2026 23:22:00 +0900
-"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
+On Tue, 01 Sep 2026 12:49:43 +0200, Takashi Iwai wrote:
+> But, the problem is that you can't take long time in
+> dump_midi() which is called from the sequencer event handler, per
+> design; the atomic=false there doesn't mean that you are allowed to
+> block for a too long time like 30 seconds.
 
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> 
-> Fix code block indentation introduced by commit f21834524025
-> ("tracing/probes: Support field specifier option for typecast").
-> 
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Right, dropping this one.
 
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+> For working around this problem, we need a basic design change in ALSA
+> sequencer core, I'm afraid.
 
--- Steve
+Would you take an RFC along these lines, or do you have a different
+shape in mind?
 
+- event_input gets a way to say "port full": the core parks the event
+  on a per-port FIFO instead of dropping it, copying direct/USRPTR
+  payloads into the sender's pool cells (snd_seq_event_dup(),
+  non-blocking).  While the FIFO is non-empty, further events for
+  that port queue behind it.
+- The kernel client signals readiness through a new snd_seq_kernel_*
+  call and a work item re-offers the parked cells.  seq_midi would
+  drive that from rawmidi's transmit ack, mirroring the input-side
+  runtime->event hook.
+- Backpressure stays at the sender's pool, the only place that sleeps
+  today: a blocking writer with parked cells waits for pool space
+  before its next direct dispatch, with ioctl_mutex dropped as
+  snd_seq_cell_alloc() does; poll() already reports pool room.
+  Nothing sleeps inside delivery.
+- Client exit purges its parked cells from every port, as
+  snd_seq_queue_client_leave() does for queues; port deletion frees
+  the FIFO.
+
+Open points: a SysEx bigger than the rawmidi buffer is consumed
+partially, so the resume offset has to live in the parked entry or in
+the driver; one event larger than the sender's pool cannot be parked
+at all (the limit queued events already have); a broadcast is
+duplicated per blocked destination.  Drivers that never report "full"
+keep the current behaviour.
