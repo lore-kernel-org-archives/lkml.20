@@ -1,174 +1,135 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930BA46AA99
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:39:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F32146AF16;
+	Tue,  1 Sep 2026 07:39:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248354; cv=none; b=c+2sItRfV2Suyh8ahZqtmDcnOQdjlPCl9D/b3eZ3vWv9KeGzh+f9X7YfWyqvLPjnlI/hQ9z/INL08VnAHMdi2dhMBv0gQrBYx5i+d66iTKFA66PBJASSb6MsIdZp6KR/25V+PBBtJDJOdCnrIQBoa0b7U+FQn/vPkbviUTd8ju0=
+	t=1788248355; cv=none; b=WLDOmvvv/bhrgk4ckE2dm4Q4sPx71/CKtr81pWEk41gY9F7rwl2iQaa0MA+92FKOoMHDvuYScwbCsmUbwHQSkSBIsBns7Jsxu/jfVEGfM6YSrCaWkAXX4+PkaBSQNn7kR81UdTSkIGg1s8XdGeO4KaWqb+PH7RQKtuQgixiQqbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248354; c=relaxed/simple;
-	bh=sARcfyG9B/7zhIALqGQck81QJnn9PQg0ryWc0yDH4Kk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S97uUQFLB/QfOUUzZcXu66ciUw3vIYE70s/jiMh5gnSJhkX2EYEUfuDrNg4R/IA8um4d2lWA/a3uIZ3zXV6mcTCYJq2opoggi4Avf10A4H2bvPqScKW907XzbIzFNrFHM7l5zbS/pDLMq+SXSs1QS7+cVGk4wmSBiR1MJzQ/sHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YRLGTTEM; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788248355; c=relaxed/simple;
+	bh=5dZXMTuVIB4/rqwu6qguosRA2gdca0Wy/7vnL6NSoxI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=md1Po3matZ4OW+J+ZEpOdG/J7W9oA9V0DHO991H/2xyCNg2zvZbyOkV4xmusKDTVdUJXrdEq05MmtbbN1dly/E9CugR9w/EG8hVS0AQsbfJN2iE06WpMjz8RDBmApgU6yEMaTOrYqMqkqWBH2kr5vdrR0oyS0bBaivkhv7X7N/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=VtE2Iu6v; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YRLGTTEM"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-482e4998d28so427423f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:39:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788248351; x=1788853151; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uf8LcBflWgrQbjztzyHrlB9MgJL24SoJuvS1BisUWl0=;
-        b=YRLGTTEM4+MURsYxzyefOw4KMmSH8OvcGwLzpoMiO+Smw4W/C0huV7lDc+akPsCMtl
-         7wY77DEa4AgmOhfnoVbwyKzzs/Bd/iRqqaCEm2HHtiRdFRfM9nGeFwtsfBcLRYZwIjYu
-         vUw2nJFjI+2+nuMwLRlNuzWZaLKu/JBdrLQXrPnjC8R0pRn64AS2RfTL9/cDKywwdI2s
-         lRpwTiWffQUxFPcU+cRHZk1iCvZNEESjgG+0nlpBu4iw6LG7ALJDbF4CmWYTgu+GDPLc
-         bDaoayn5av8Nv6P4X8TUFWFQ49ChLGERQgQEa4eDGyWjpQCaSq7bZqmKIh/Ir9Gadypl
-         PDEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788248351; x=1788853151;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uf8LcBflWgrQbjztzyHrlB9MgJL24SoJuvS1BisUWl0=;
-        b=UxeMSzX+xXIRaZQ3nyXrEjMmT5nzN6f3D4vdm8F7/QrKQdHchxfskRKIOjDIs4ZEIS
-         yeZjlvVmhFzCtTtSq/PyUMaTN75REBMnbtQFsXbgwFIV/IH+q5BnLEq4wxe7zyHiFRno
-         pH8ml/JHPi/UMCy5glsbcP5VHLelNRCfHUPThgBa3rCJ/iADPmevUqK9uwwiO2GZW7dI
-         Iha3MGQRD6giv3znXDhdbzB0vQquR2pgt5af2Gbzhfxbt4vSjWjPaKSgcrnckDQUp3BR
-         NcBE6u9VlqRfFXn1kZS6VTsbEF0woL8/Cq2VQ79sOTpylgyYsnm6agytW9TSfIWNwbTP
-         HPoA==
-X-Forwarded-Encrypted: i=1; AKwUvBwVo/3i4Tg57ERGSZL0lL47RP80gZPe+As9S6OJTNb6jCGlMrD1+x1PjYVW4Y7SZgrmyvDDtXG45WLuu28=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9uYZBjGXVEUso0qo9LbF1oiRo4QJJ2woeG2kGaQV6snfDrilH
-	2kfsT4wh99VSIc/W4TPUu9R8dl3mJ/shkfNAmdvr0wcws6qQnmbycTMGD+GHoMZG
-X-Gm-Gg: AYBFou216gKFZ2p4nAH+CY5awWMUQIaNNmevQ9ekCuH0m/s9qhtFYjFxcuX96NQLkGm
-	VVql8V0tPeZUze+jh2a1dGGEtBJhzkuuwYtWhkGetARL6Sg1lTR9Ogw6PZLhLcOz8XV8TgYY8bm
-	ptCFtfaR1bCVMyz9PFAon17VoQP83KLQOQmA8082SpnL0hQYRe8CzLgayolXxlpwfHN9G2ZnNAO
-	RvNLDy4mAfd4CpWIqAuOfHSTHkCvwEia5no6xS8AsX1YIwF1j51xTz5VK2K5KLvQNOAfNeEsr3f
-	e3x184YhK10Z2/+aPWFuOBBqmf3AdKk3fdbXjAmuiO+3Hc5UeXK8JkuZ2/42aPNXITOppJBfR08
-	je3SZXtNr1mH0rwGlIqqZrl0Piw4QZ4jH9bhvj1q+iSeJot4WP0bqYqMkl9xWgcD8TjxHP9ippC
-	Smb1GIE4fsDLYX6EIK/1sjuzoAMTcM/k21WOSgvfU2uYTIisaJ/TDueNFdbXik1ZMRSQ==
-X-Received: by 2002:a05:6000:22c9:b0:482:f2c1:c721 with SMTP id ffacd0b85a97d-482f798962cmr49380335f8f.5.1788248350669;
-        Tue, 01 Sep 2026 00:39:10 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d3c460sm3014790f8f.13.2026.09.01.00.39.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:39:10 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Stefan Agner <stefan@agner.ch>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Frieder Schrempf <frieder.schrempf@kontron.de>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	Edward Karpicz <webmaster@toradex.com>
-Subject: [PATCH v3 2/2] mtd: rawnand: vf610_nfc: fix false bitflips on reads of erased pages
-Date: Tue,  1 Sep 2026 09:39:07 +0200
-Message-ID: <20260901073907.2443698-3-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260901073907.2443698-1-mehmet.fide@gmail.com>
-References: <20260901073907.2443698-1-mehmet.fide@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="VtE2Iu6v"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6817VmxK458568;
+	Tue, 1 Sep 2026 07:38:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=8fY/Dl2/758QW1rxNPqXXC5GnM3C1m
+	V2NhcBW5N/hzY=; b=VtE2Iu6vRlD48u8PHjVDsTvgegEBr/79jCKiybkRPJe7UN
+	HPVFeHIADAUPsnAIBXkfDFkK25itwdH477EP6Db8l4IVanDDZxPkBZ7PCLYDF7MB
+	ZOMcIljS5r5HKDJWRjEh8VXVaNos15k2cgXKefjBcj4rRdwPkE0yoezdBPIQjcw0
+	JpJSVUESF7fhvHDH91Pss94yKVAadhvE+jQp5yd62iIiS1QwDQRAJGIApP71EFTf
+	wELUrzuebzD+gYbjXDHXw6LOOnCnEYI19o39+SisAobiAY9xkpiqeYLG3EY/CSBn
+	sXmz5WtDwZpY0/r2TS2SyJBHz/Zkc5jf0ktSU6WQ==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbmuhpeew-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 01 Sep 2026 07:38:52 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6817QH1c000869;
+	Tue, 1 Sep 2026 07:38:51 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcark2f88-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 01 Sep 2026 07:38:51 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6817cnE342140150
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 1 Sep 2026 07:38:49 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3CBD020043;
+	Tue,  1 Sep 2026 07:38:49 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0204420040;
+	Tue,  1 Sep 2026 07:38:49 +0000 (GMT)
+Received: from osiris (unknown [9.224.76.185])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue,  1 Sep 2026 07:38:48 +0000 (GMT)
+Date: Tue, 1 Sep 2026 09:38:59 +0200
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+        kvmarm@lists.linux.dev, Fuad Tabba <fuad.tabba@linux.dev>,
+        Joey Gouly <joey.gouly@arm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 1/2] KVM: arm64: Return -EINVAL for an empty SMCCC filter
+ range at base 0
+Message-ID: <20260901073859.185345-A-seiden@linux.ibm.com>
+References: <20260829054856.70549-1-kmehltretter@gmail.com>
+ <20260829054856.70549-2-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260829054856.70549-2-kmehltretter@gmail.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: ZCbQ-ZklX7stda1AuCkPQ0Djjt_a0WKY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfX4h+TXCOEI7wH
+ 6eMfhCl9yIVObK3BCrNHD8Dq3qA3ZMS/VYvCRHiJftV4ivux8cMKSQfM92VTBM9XfXw3PmxqFNh
+ 9OTN9SgrFiyzSNKVKBmZQwyaJEU1aJmlrNpYpjbcYTC+RtkDGKeVc9YQb9alJ3jlq/OhHgov1uV
+ JX30A0+5iKSHW0PB6rGEkJGZTI/7vGzNAVe3pr31cENAs+mjp9eQ6qUEJ9EV3ezAHEB79sQ58Y9
+ nJ5YwZGiqaGAWTxYGyWT6R9F6OKuMB9e0fnyZMIEbtUjBbV8UoTAPDcecO6siPiNJ9gBLHbFoDs
+ O7vd0JCz9y8jF5x+LHatF7wO03UuBCd2SnD7m6JEV5zYZD82drlk8SZD8sPtMcGJteuByBxvocw
+ vIArUz59EW6PIbbEWkY4nWUN6wdufOT1SrLKPZWhZx1odnRqyito0KZSb+SkDigDpDaCZsUgAYX
+ WMfgJ6x3bko8mOt7fuw==
+X-Authority-Analysis: v=2.4 cv=Osl/DS/t c=1 sm=1 tr=0 ts=6a96810c cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=pGLkceISAAAA:8
+ a=VnNF1IyMAAAA:8 a=sTVcf0stEawvOQYPuTgA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfXy4lZ/J7YpckL
+ K0SY6MkUpi5sUw7oztTXtF2gTI3R/neK7rxtxiz60RLfyOvT9Nf0r+CbEwZfrLb399CxCRuQ3Y3
+ sM+IqxmBNeFFM3kYX5eDNYok2nAILFA=
+X-Proofpoint-ORIG-GUID: GL9tonZEYnwAQvDdc17GjcJN60W2-KOG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 phishscore=0 clxscore=1011 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010066
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+On Sat, Aug 29, 2026 at 07:48:55AM +0200, Karl Mehltretter wrote:
+> kvm_smccc_set_filter() only rejects a range if its inclusive end,
+> base + nr_functions - 1, is below base. That catches an empty range
+> (nr_functions == 0) at every nonzero base, but at base 0 the end wraps
+> to U32_MAX and KVM tries to insert [0, U32_MAX], which overlaps the
+> reserved Arm Architecture Calls ranges. KVM_ARM_VM_SMCCC_FILTER then
+> returns -EEXIST instead of the -EINVAL that the smccc_filter selftest
+> expects for an empty range.
+> 
+> Reject a zero function count explicitly.
+> 
+> Tested with a userspace reproducer on an arm64 VHE host under QEMU TCG:
+> EEXIST before, EINVAL after.
+> 
+> Fixes: 821d935c87bc ("KVM: arm64: Introduce support for userspace SMCCC filtering")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-When the ECC engine fails to decode a page, the driver re-reads the OOB
-area with the engine bypassed, but runs the erased-page check for the
-data area on the buffer left in the controller SRAM by the failed
-transfer.
+Good catch.
 
-That buffer does not hold what is on the flash: the failing engine
-writes a bogus single-bit "correction" into it. In the 60-byte ECC mode
-the all-0xff content of an erased page always decodes to the same error
-location, so every erased page shows one stale zero bit at data offset
-0x5FD, which the erased-page check then reports as a corrected bitflip.
+Reviewed-by: Steffen Eiden <seiden@linux.ibm.com>
 
-Edward Karpicz discovered this behaviour and identified the offset on a
-Colibri VF61; the analysis and the fix build on his finding. Measured
-with an instrumented driver on a Colibri VF50 (MX30LF1G18AC, 32-bit
-ECC): reading a 126 MiB partition with nanddump increased the corrected
-counter by 18035, exactly one per erased page, while raw reads of the
-same pages return clean 0xff. A v4.4 kernel on the VF61 (MX30LF4G28AC)
-accumulates the same false counts, so the behaviour follows the
-controller rather than the chip or the driver generation. Neither the
-Vybrid reference manual nor the published mask set errata (VFXXX_2N02G)
-document it. The 45-byte ECC mode is not affected.
-
-Restoring the known byte is not enough: on pages that fail to decode
-with content other than all-0xff the engine writes its correction
-wherever the syndrome points (measured at a different offset on such a
-page), so the check has to run on what the flash holds. Re-read the data
-area with the ECC engine bypassed, exactly as already done for the OOB
-area. The corrected counter then stays at zero on both boards.
-
-Reported-by: Edward Karpicz <webmaster@toradex.com>
-Link: https://community.toradex.com/t/colibri-vf50-vf61-on-the-current-bsp-mainline-u-boot-v2026-07-and-linux-6-18-lts/30735
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
-v3:
- - read and check with mtd->writesize instead of chip.ecc.size; equal
-   on this controller, but clearer (Miquel)
- - reword the erased-page threshold comment to match the code; the
-   threshold itself stays as is for this series (Miquel)
-v2:
- - the no-ECC re-read and the erased-page check use the clamped spare
-   size instead of mtd->oobsize
- - condense the re-read comment to one line
- - Reported-by/Link trailer order fixed (checkpatch)
-
- drivers/mtd/nand/raw/vf610_nfc.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/mtd/nand/raw/vf610_nfc.c b/drivers/mtd/nand/raw/vf610_nfc.c
-index 1c3e7b167e53..1b9b370adfab 100644
---- a/drivers/mtd/nand/raw/vf610_nfc.c
-+++ b/drivers/mtd/nand/raw/vf610_nfc.c
-@@ -519,6 +519,7 @@ static inline int vf610_nfc_correct_data(struct nand_chip *chip, uint8_t *dat,
- 	u8 ecc_status;
- 	u8 ecc_count;
- 	int flips_threshold = nfc->chip.ecc.strength / 2;
-+	int ret;
- 
- 	ecc_status = vf610_nfc_read(nfc, ecc_status_off) & 0xff;
- 	ecc_count = ecc_status & ECC_STATUS_ERR_COUNT;
-@@ -526,15 +527,21 @@ static inline int vf610_nfc_correct_data(struct nand_chip *chip, uint8_t *dat,
- 	if (!(ecc_status & ECC_STATUS_MASK))
- 		return ecc_count;
- 
-+	/* The failed decode leaves a bogus correction in SRAM; re-read without ECC */
- 	nfc->data_access = true;
--	nand_read_oob_op(&nfc->chip, page, 0, oob, vf610_nfc_spare_size(mtd));
-+	ret = nand_read_page_op(&nfc->chip, page, 0, dat, mtd->writesize);
-+	if (!ret)
-+		ret = nand_read_oob_op(&nfc->chip, page, 0, oob,
-+				       vf610_nfc_spare_size(mtd));
- 	nfc->data_access = false;
-+	if (ret)
-+		return ret;
- 
- 	/*
--	 * On an erased page, bit count (including OOB) should be zero or
--	 * at least less then half of the ECC strength.
-+	 * Run the erased-page check with the driver's historic threshold
-+	 * of half the ECC strength.
- 	 */
--	return nand_check_erased_ecc_chunk(dat, nfc->chip.ecc.size, oob,
-+	return nand_check_erased_ecc_chunk(dat, mtd->writesize, oob,
- 					   vf610_nfc_spare_size(mtd), NULL, 0,
- 					   flips_threshold);
- }
--- 
-2.54.0
-
+FWIW: Tested it on my downstream version of arm-on-s390 with hypercalls
+already implemented. 
