@@ -1,44 +1,46 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC0837883E;
-	Tue,  1 Sep 2026 17:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B24D537883E;
+	Tue,  1 Sep 2026 17:04:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788282211; cv=none; b=BNIeyr5kebg+svO/JcstcbZ51EBmCvDq4woyiO8d1JamLBHdQNZ2eC54tOuGS84HieyXglz7P5V86ABuSv4j4lGWGZxT5VvJEzkLPX8o7EwUu4eVK7UlPuPcUiXmUN1Y2ZroWe+EREQxYUObIs6CXaXPYJbVO6hs0TCI2nZd/dE=
+	t=1788282270; cv=none; b=CfwzssB9W91srJCoAhjTqCxOWFeVfO3WJ41Tx881RBNKnepiiLZpK1aNFcD2YQij32oxX47I1yglD03dn5FaUZYL+PN4cYfY/L1e1QFWn5x3RwBU+gNK9Lv3r1C59nsssiEEykVIuL4HXsFO/DfkIEEME8j/tvfQ/5EGMVXtC34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788282211; c=relaxed/simple;
-	bh=clyhNJ5ys6AGj4exC8GBbbxbr4oPTQNSXXoSwrBy9B8=;
+	s=arc-20240116; t=1788282270; c=relaxed/simple;
+	bh=lSVK6Q4/11UhZFqiVRpu2EMKyLJF8MFriSIuP85+jQw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z3Tr97xY0ISAzSj1TQNc/bUxLa9Pi6+PQoaQZQ8cnpTTsYkVYjLRW6Lw/kgjrRIQZO29su45Vt//DT8M7lezUwFCrnyXg/Z92JTWJ9rkC4M934t78m0Vju+0Pl04MEpgY3p3EyFXSyi98z7wffPwjrZQj00c7Io0WeDQ0kzzdm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZ/QG4fd; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=pcHxlKMHQyoWG9mYmQ35kgetk9u1TROhkZU7ZVh61BSYcNHpBW5UUb/4c+RfsWa5G/UuebEnm9QpCnqyQ3p08AFt8IUWCCGkpZJA9CfHK4siDtMl/Ii7fF6zYCm33HCepZ88W30hMvi9zqaWwA5cHi/oHTIPtbNR0vDSJ3wxe1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ATX0flCy; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZ/QG4fd"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 891D61F000E9;
-	Tue,  1 Sep 2026 17:03:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788282210;
-	bh=mMBaEIM6VBR1QxnR1jC0Z0I7a31saztKbmWgDYCjBXQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UZ/QG4fdx23ThIjvvURi9Mo2O4Itohh9pwIk94N7kjjdnXI2v+nT4Z23Ps2dyR50A
-	 6F+UeS8x7X0026Hrvm4bU9LMUeeKve5/XaGeAvhgWjT3P/NtETCiERH//e10FyDSLW
-	 J+3qFDKYxD9eCqh4fFLLKK8H4pbWvMfYCMxwmDxP0xWeXA2Mh3NLbjWVKBIOB2BPS8
-	 fTiXwNey8KHN5uZZmcTGaxRN8uWFb83arqhu0mdS/MEaLiqHgf8zmLEySZJMIzxrIf
-	 8klCDMCZAGxhi0d2Rp0SQkpwzagbTlXho/90N4ZITsBU/yPNnKKBsAkCiVwtE7KRz0
-	 b81Ur+LZ2D3Dw==
-Date: Tue, 1 Sep 2026 20:03:26 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] keys: set persistent keyring timeout before destination
- linking
-Message-ID: <apcFXsSiZ9WA8E67@kernel.org>
-References: <bb0370340c671.1788111790.git.kmehltretter@gmail.com>
- <apbTc9BisLTqBaE_@kernel.org>
- <apb5_kMgDxSIviWb@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ATX0flCy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=rEabxmq/j957tmufTTvA5VAdiceGA7UDIb+ZqGI9fDI=; b=ATX0flCy0ePx4xh0Lvd51fEPaC
+	xxp5sK0jyRVcwyhkC+X6ohcV76Z5r+/9SeoCCvasnQW9gCJxSKg4QcrfIi5BHAjoUcK4uw7y8yxV7
+	1bDF6jIgcTYCW1PJAnUUF1trbf9eu56BW53bLPMmBvc75EDLIQBmBc36a/LnFIKJQWso=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x1Ru5-002OMC-6m; Tue, 01 Sep 2026 19:04:09 +0200
+Date: Tue, 1 Sep 2026 19:04:09 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+Cc: netdev@vger.kernel.org, Daniel Golle <daniel@makrotopia.org>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] net: dsa: mxl-gsw1xx: deassert internal PHY
+ resets before MDIO registration
+Message-ID: <cccd725b-f47c-41de-a82b-60bc9c66a0cd@lunn.ch>
+References: <20260901165049.672446-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,43 +49,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <apb5_kMgDxSIviWb@gmail.com>
+In-Reply-To: <20260901165049.672446-1-alexander.sverdlin@siemens.com>
 
-On Tue, Sep 01, 2026 at 06:16:12PM +0200, Karl Mehltretter wrote:
-> On Tue, Sep 01, 2026 at 04:30:27PM +0100, Jarkko Sakkinen wrote:
-> > > Tested with QEMU 10.2.1 TCG. The reproducer set
-> > > /proc/sys/kernel/keys/persistent_keyring_expiry to 60 seconds, restricted
-> > > the destination with KEYCTL_RESTRICT_KEYRING, and then called
-> > > KEYCTL_GET_PERSISTENT. No LSM policy was loaded.
-> > > 
-> > >                       syscall result  /proc/keys expiry
-> > >   i386 baseline       -EPERM          perm
-> > >   i386 patched        -EPERM          1m
-> > >   x86_64 patched      -EPERM          1m
-> > > 
-> > > Full kernel builds completed for i386 and ARM926, and for x86_64 with
-> > > CONFIG_PROVE_LOCKING=y. The x86_64 reproducer completed without lockdep
-> > > reports, warnings, or bugs.
-> > 
-> > Please describe this in the commit message and delete most of
-> > the text it has. This is the motivation part.
-> 
-> Got it, thanks. I'll shorten commit message.
-> 
-> I also found a narrow race if linking is delayed past expiry and GC runs.
-> It is unlikely in practice, but reproducible with an injected delay, so
-> I'll address it in v2.
-> 
+> +static int gsw1xx_setup(struct dsa_switch *ds)
+> +{
+> +	struct gswip_priv *gswip_priv = ds->priv;
+> +	struct gsw1xx_priv *priv = container_of(gswip_priv, struct gsw1xx_priv, gswip);
+> +	struct device_node *phy_np;
+> +	struct dsa_port *dp;
+> +	u32 phy_reset_mask = 0;
+> +	int ret;
 
-Yeah, I mean what say there is not secret as it is here already.
+Reverse Christmas tree.
 
-So better to document the relevant data to commit message. That is
-what is useful for me as a maintainer fast-forward to the future.
+You might want to pass ds->priv to container_of(). Or if this appears
+a few times, add something similar to bcm_sf2_to_priv().
 
-While writing a commit message think more what makes sense to backtrack
-in the future rather than writing a tutorial ;-)
+    Andrew
 
-> Thanks,
-> Karl
-
-BR, Jarkko
+---
+pw-bot: cr
+	
