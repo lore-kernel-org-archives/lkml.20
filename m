@@ -1,89 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA8F38F934
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:38:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D023C3789;
+	Tue,  1 Sep 2026 12:38:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266302; cv=none; b=Jxv3k4fNIuMgd4tPew91GAUjZUTFkS/W+NG31PyZV+4nItI+duuf53DLOnP5NIwSTh6wQY5uFVg+T37eR6xp7gfg2QCIAuxUga0iPezvJyDq62sWAyiMQ4X+ZDN1pTOuh5Gp/mvA+jO8ZifK4GAQrNpnopeXTRtCHUAAwNJOMcI=
+	t=1788266304; cv=none; b=pPEzc2SO84fbrl9I9/EU2WFjBN5CdzJ3TvUGqBkzapQBOWM7A2Ml8+6TQTrkfDhZQtF784C73kxfoL3e8/gr9mkmJOgbyu5MeXENgYqPyGvjexkn489o02mXMtr2gvj0Bv8ZbUv/o4og0MMtep0GY2x6PyLXcUk2XfvdTGIksEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788266302; c=relaxed/simple;
-	bh=qbVwHURkAKyFHHtbizAsYH9lY5Vz/aHvJjaVpPDGR0E=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=sIetrdMfpE3ex6DZ3EFi7ibv7tR3WDaMA2anZbA4zW46zrPr4ln9Bx9HuA078vcmYZgJPK9joAHlxPxLgm/OGyEh9y4sGGmZ5p353lvbcbofWfxuz6G6icDsMwFxljRq3a4gm8ovD435i3A9nBqXA69l1ANjCBdIhV3nyAeGf1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EfIF4r9u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788266304; c=relaxed/simple;
+	bh=Q5TkhrfZaKmpqdMsb6gk+JKzRFg5ICoOJppUWIvbmss=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZOSZwHBDlXVmrfyEsc2sKHjeAHoPcORCLxWPWE04l2h4/n6QJ3RlrUn8zJ/sRL3GbOJvbw0zf6tq2bhRXN/Q22hIICM0mpN5JFoPXqkQoHGdHrJzKqKTTxadQtTwGy/Ae3usEUIxQ0xtScJLdwSa0T4bSn03E41IgYG6pUZ1t0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Om+/qkcl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EfIF4r9u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E58F91F000E9;
-	Tue,  1 Sep 2026 12:38:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Om+/qkcl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE1CA1F00A3D;
+	Tue,  1 Sep 2026 12:38:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788266300;
-	bh=pG6pq+g9QZo4FaYnQsrkXq9VfyWEAlzBgyFTRaAjOio=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=EfIF4r9u16TKu9LDPL9yKKNv6SUK5MCDqbQ8QbRzKxbc5DryPLkSVgcp/LWToT7HU
-	 +UB6g2lmXDOhI9Fhh94jsXlASYIC6cBxoy2oJk774Y+EHEsGCi7E6sVspW/MDSNfHu
-	 UZJ3ub+Q3JRr9/Rv385tvgC9K13ip17/gsHp/gAtHYSGfJhbzdZ9m75tjfrFCtyQY5
-	 Uxc3VY3oOLb95S6Gsa3yJHrFKGbU88Vqv9R5JX38kPoVCr5ZTlCTrF8dHWaKq5tykD
-	 6MHi1nBdNhoSLln7Bvx2WZyzFaO+DlOt1A/0YC9q0ePfCVIic2XoLEGL7l447dFqfs
-	 VqIf3dHGYPPig==
-Message-ID: <f633cdb1-f00c-46e9-b159-bcb51fdc49d3@kernel.org>
-Date: Tue, 1 Sep 2026 20:38:18 +0800
+	s=k20260515; t=1788266303;
+	bh=VeNGPjKZBwOymK8viHv5YP5uFkAwxTsnF5fOnCaEBp8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Om+/qkcle2hsEcibWMtideHU/g+6AD5l2d+o94kh9jtBZJgoqo4rsAYyCa68Xe2Tk
+	 eTa0wpqF4AcXfUIyO1NfiZFy14Me/dyMnY0zm42sOK9WAt6Cnl5u9GNH8ILe4HwAl/
+	 9LDBqRqqSKm2hkzKH2CrfimZCwbh96e0/vcCdVq7CXqxFwzbY5hjLntmCPbryqvKAM
+	 Kja/5PhDfrYFNgYGHy8vDTw2kqSS+x4CIsXNk4UJynGlRrcZx3EHSDdxz51fgNg534
+	 dLjSfJ/d6CKPT6xqdnDwnKUTRphP2mjYhJ27I5BQyAhOeib17BZtVjW5Ja70sqTepg
+	 vj6ZWq8gBrzpA==
+Date: Tue, 1 Sep 2026 14:38:02 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, usb4-upstream@oss.qualcomm.com, 
+	Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>, Mika Westerberg <westeri@kernel.org>, 
+	Sven Peter <sven@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v4 2/5] phy: core: Define TBT phy_mode
+Message-ID: <qbzp7sohhokldn5vt5cika77rkqnvqvwadx4bcpyqagyts2cn2@xsdp3gnqiqkk>
+References: <20260820-topic-usb4phy-v4-0-aec9d2cb31f6@oss.qualcomm.com>
+ <20260820-topic-usb4phy-v4-2-aec9d2cb31f6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, qiwenjie@xiaomi.com
-Subject: Re: [PATCH] f2fs: wait for inode record work before clearing ino
- bitmaps
-To: Wenjie Qi <qwjhust@gmail.com>, jaegeuk@kernel.org
-References: <20260831133916.2110470-1-qiwenjie@xiaomi.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260831133916.2110470-1-qiwenjie@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260820-topic-usb4phy-v4-2-aec9d2cb31f6@oss.qualcomm.com>
 
-On 8/31/26 21:39, Wenjie Qi wrote:
-> APPEND/UPDATE inode state recording was moved to the inode eviction
-> workqueue. These entries were later converted to bitmap values stored in
-> XArrays, but the workqueue drain was left behind in the list cleanup loop
-> where it is now a no-op.
+On Thu, Aug 20, 2026 at 04:24:11PM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > 
-> During unmount, inode eviction work can therefore remain queued when
-> f2fs_release_ino_entry() destroys the bitmap XArrays. A delayed worker can
-> repopulate them before the workqueue is finally destroyed, leaking newly
-> allocated XArray nodes when the F2FS superblock is freed.
+> There exist OS-accessible USB4 and Thunderbolt PHYs that need specific
+> configuration. Define a new phy_mode for them.
 > 
-> Wait for APPEND/UPDATE inode record work before destroying each bitmap
-> XArray, restoring the required ordering.
+> Currently, USB4 and TBT3 are defined as submodes, because they're quite
+> distinct, most visibly in the electrical/analog aspects (slightly
+> different frequencies, timings, etc.). This results in a need to make
+> the PHY aware of the actual mode needed (at least in the Qualcomm
+> implementation, but I believe that'll be a general need).
 > 
-> Fixes: 9a9ee7408a1f ("f2fs: reduce memory footprint of ino management")
-> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
-> ---
->  fs/f2fs/checkpoint.c | 2 ++
->  1 file changed, 2 insertions(+)
+> Newer versions of TBT are basically supersets of USB4 with higher
+> host-side requirements, so these are not defined. This can always be
+> changed as necessary.
 > 
-> diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-> index 4b59f30ef45d..400eab730c14 100644
-> --- a/fs/f2fs/checkpoint.c
-> +++ b/fs/f2fs/checkpoint.c
-> @@ -902,6 +902,8 @@ void f2fs_release_ino_entry(struct f2fs_sb_info *sbi, bool all)
->  	for (i = APPEND_INO; i < MAX_INO_ENTRY; i++) {
->  		struct inode_management *im = &sbi->im[i];
->  
-> +		f2fs_wait_for_inode_record(sbi, i);
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-We need to remove f2fs_wait_for_inode_record(sbi, i) from above loop for cleanup?
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
+- Mani
 
-Thanks,
-
-> +
->  		spin_lock(&im->ino_lock);
->  		xa_destroy(&im->ino_root);
->  		spin_unlock(&im->ino_lock);
-
+-- 
+மணிவண்ணன் சதாசிவம்
