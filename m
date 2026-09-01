@@ -1,116 +1,130 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1519A377A9E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:02:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F0733C192;
+	Tue,  1 Sep 2026 14:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271343; cv=none; b=kK9C1R9iVEzAN4cZjgbRwFMkIb02UeSLVsPmssDn3S2JiCpSdStUQjVASm1a57QZV4gKv5SMKqEa0f09eIyueuV+NIpKX2LSmlgMezrUShQ7FbqUpuuJvGMpMhOAomi+B+HSaseG6UofHAP+4cjSC2j/qskOKpNKammcCiXoCUY=
+	t=1788271379; cv=none; b=nX8eVYba4J+a+eVijXHTAoGEiApyrHmwTEoFhzQ049ouvUfgTRONFJw2Bpxmn3SefItsnc8ygXOAUBZb6O9n7d0a/gKcVTaIMff5d7blumG2PjN7+HjYzO2189m6+JBcMRn/yLb6JtA7fkRmcufzfiFSa2r1hSpaekcF7SEhjAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788271343; c=relaxed/simple;
-	bh=+d1BJyTkZE2mylxoDGmzUN/eWsKs7b+ZotplNwdeFAA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ra61qlnQUkEWcJTtOjFTtXvySGLVwgYdmpQ1lfweehZYtZ6YWHm1fcsr/mH6knbkxh2STh9lmQ6++smGDvBRemh48Ya8d0WhcUFUG8Sxj32DfQ/NtiHfBtk7es8t7zfDjK+4RMnbdCGaU6BEMlETy+P5PYlU99TnQCkC/NaB/9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dnfVTWnq; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788271379; c=relaxed/simple;
+	bh=hWUJTaZkCXIjQprvWTtogTZt6wej3aAuj55Iw5RSm/c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lnuWbE4T43rm0b5ZQop7iLdTnRqdj8D0FWDWhVusNNWemZRu65Av7ml1eQICTb3YbCSrYO5xrTLFnlZOxk7I7u6VB8tSMXGMNXL//IpLQLRt9LZJc1ND/y2p+vevSD5oSJ2p7S9Ap/PpmVYsug/cEF3I36dBBHVxhPB77/EW5iA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EPtcXMbX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dnfVTWnq"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d6e954afbdso6266945ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:02:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788271341; x=1788876141; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RJiqhKlCrTwwf/cJleA2B3ljUR61iwycQECqOoNxMUo=;
-        b=dnfVTWnq1cdHIQdG1215diuS47XWPqEjIByPM9HoRhR/tC28N5E5rXzaldLyBSfT6K
-         bZ5rLMLaC/XysD3tBHUXNCo77mBScGMeX+UTiGAXBWnYTzFrG+fci6GF4CZAqgLHcujC
-         nMj9EUIIAJ1IdEkKcwCAX85GjyT7TS3/yS7jgX67F5TtDzJVbmi+Zh5XFD/5ED8kvo/R
-         UKICSxivzST/2wDuK1l0Yk7+dR4m5t9yhXsyiJJvYR4kxdrzDOa5rxQLVNKZgxywYRRp
-         dLrWXiwjCsIMz12lSi2rB4wP6SIjeHXwkrVU2AFRt3rCQUzS6VCQI1mgtPeW4FelbunK
-         D8tQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788271341; x=1788876141;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RJiqhKlCrTwwf/cJleA2B3ljUR61iwycQECqOoNxMUo=;
-        b=SVPHqOw2HpWjW45tmw5bTHv39l7wsAoy4SlphZawJy8/Tkp67hmKIKZ84z0kaOTamI
-         2VZyMT0CuCUqcVxEtFNB9YYoWG26nK18bwUA938XuIJXhOjf4cOGbNSpLmHf/8W+duK/
-         0jiS5S3THUUemYkved8dKYZO1nf9gQsz141LsQGsmuENNrm/ignuJ2I78TmrVkXOGwdj
-         rjzZpihlMqtVLixazeGRQJF+xnY6EL2uXqKEJkFCargBH3mSG7rIk8BDruT3lv21Zv4f
-         gyGv67n7TtoRsbW+Cdj1myU5+TjLiot+wFCh7d/82M4OMLFglx6LpyCUVJstUFo+HPpX
-         CDBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwxvlktG2Bn7tPGyW3sRsqdkRHGQ/6cCgLKLotphiMoR59MGd//sSRnqvFvh4rcbBToA6DGAMXefL+WDWU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6FsBXly0zmHEsdtlxXkL5mBz0qlUq6TBWv0KibuyGpA0223NY
-	LYKSPYyVVbbqW8BZ0oOQVe79v6ws8RFiNlzEBVIZ+nL0TdcjOdQ4yNwl
-X-Gm-Gg: AYBFou2qfn0ml8/OYgqB+9RLyx+x8KpTjWSvRchosjEEaoOKPNMonVbuenoMDLRftVf
-	s/+Wctl70UZ2lpwJUDlw+qQvXOpd/yL4Z0mzrbdl3DtZfrE0Jg4WKiV50PkD5lXB38yNfQYS+Zf
-	fToP3vr5DLI22F6PZ4W6XzOfho68YhuFXK4dTk4I+yNfnKd3KpWdfGlccYJbKM7WBL3hUqbdO6J
-	wLasJ0EtplCpfVu6Q89OpR8yhVc91xOvLzFq0q5A2e5hC1g7xEuKXDn9b6pqdgdS3U7b4WXbqrU
-	Phnj5AX0GRa0FngC2K5UXOxMdmSPV9s8iViERz1p/GSuc81+qBibwEuwpl3RuAD5StfFxNA0a8W
-	GLWX6IluNzlt0ejo6ZU9x5+Bju9MO1r0D9ozF5TwZGtjcJTQrHOJ9mr2ZzLl/MhHZF/2EhM/Cxx
-	VVs8m/IXE7GC856ThXBSFjQJuri0OtvTgr5e0Wq6/FRm+OfQGf3UrmIwsOBQ==
-X-Received: by 2002:a17:903:2b07:b0:2d8:d4de:fa80 with SMTP id d9443c01a7336-2d8d4defec6mr398333105ad.4.1788271341199;
-        Tue, 01 Sep 2026 07:02:21 -0700 (PDT)
-Received: from loontop ([163.61.5.136])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7594fc0b3sm53833895ad.16.2026.09.01.07.02.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 07:02:15 -0700 (PDT)
-From: Aarav Kumar <aarav.240604@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	harry.wentland@amd.com,
-	sunpeng.li@amd.com,
-	siqueira@igalia.com,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	ray.wu@amd.com,
-	Aarav Kumar <aarav.240604@gmail.com>
-Subject: [PATCH] drm/amd/display: use linear backlight curve on Linux
-Date: Tue,  1 Sep 2026 19:31:55 +0530
-Message-ID: <20260901140155.19129-1-aarav.240604@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EPtcXMbX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27D9E1F00A3D;
+	Tue,  1 Sep 2026 14:02:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788271378;
+	bh=lkZhtGJry6jaZ3PtQ5+ne71QEsfKiPG+5TwJ1CPt2WI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EPtcXMbXjNCGpT++gWFCoJVKRXqcm61WqqCTVEcJ9zQly3/OaAV9stMwAM/mMfKBV
+	 8rgOIQso64094Wp7W7aYTjJWnb2XaTWw1Um1441cJOcyHZdCG4+7uIifUAuMh3U7kv
+	 6Hqn2uIASlx5F/32e2Iesd76y2D56sfxYw5PJTWszZQYVdlBeQTVz7Q62SmFc/7o9f
+	 I6GLeC1igW80atW8n6CCXqGw2ViY9KQCjsQ4+NWFGUlvD7K/D+KXG16pEd1lZunGib
+	 jVDst3diXaUAgaeu9Y5Uhpfrc545X40/ilA9kv/7kLRivfBm7di4WMrZG83He3qxAl
+	 oOKL/jojRuAlQ==
+Date: Tue, 1 Sep 2026 16:02:53 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Michael Zaidman <michael.zaidman@gmail.com>
+Cc: lee@kernel.org, linusw@kernel.org, jikos@kernel.org, brgl@kernel.org, 
+	linux-input@vger.kernel.org, linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/13] HID: ft260: add UART and GPIO support, plus I2C
+ fixes
+Message-ID: <apaLLD4ZXhNV-Dph@beelink>
+References: <20260827205116.GJ2943942@google.com>
+ <20260827222550.24634-1-michael.zaidman@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827222550.24634-1-michael.zaidman@gmail.com>
 
-The power module currently uses a non-linear backlight curve for the
-Linux backlight path. This results in incorrect brightness levels on
-affected systems.
+On Aug 28 2026, Michael Zaidman wrote:
+> On Thu, 27 Aug 2026 at 21:51 +0100, Lee Jones wrote:
+> > That's precisely what MFD is.  It's one chip, usually with a shared and
+> > overlapping register spaces, that conducts multiple functions.  This is
+> > no different to any other single-chip device or SoC.
+> >
+> > Shoving everything into a single driver isn't how things are done in
+> > Linux.  This should be divided up into the associated sub-systems where
+> > each part can be reviewed and looked after by the appropriate SMEs.
+> 
+> Understood, and I am not going to argue MFD scope with you. But this
+> is not specific to my series, so I would rather not decide it here on
+> my own.
+> 
+> drivers/hid already registers other subsystems' devices from a
+> hid_driver: hid-cp2112 adds an i2c_adapter and a gpiochip, hid-mcp2221
+> adds an i2c_adapter, a gpiochip and an IIO device, and hid-ft260 has
+> hosted the I2C adapter since v5.13, commit 6a82582d9fa4 ("HID: ft260:
+> add usb hid to i2c host bridge driver").
+> 
+> So the split you are asking for is not a change to this series. It
+> means moving code that has been in drivers/hid since v5.13 into an MFD
+> parent with cells, and the same reasoning would apply to cp2112 and
+> mcp2221. I am willing to discuss that as its own conversion, but it
+> needs the HID maintainers to agree on the direction first, and I do
+> not think the UART and GPIO support should wait behind it.
 
-Use the linear backlight curve instead to preserve the existing
-brightness-to-PWM mapping.
+I don't think Lee or Linus ever asked you to do any conversion of
+existing drivers. Just show the example on how things should be done :)
 
-Tested on an AMD laptop with an eDP panel. The regression was
-reproduced with commit 3c108046e1d6 ("drm/amd/display: Add power
-module on Linux"), and the brightness behavior was restored with this
-change.
+If moving to MFD gives real benefits, these other drivers can be done
+later.
 
-Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5723
-Signed-off-by: Aarav Kumar <aarav.240604@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> It would also spread the driver over four trees, so a fix touching the
+> shared chip state becomes a cross-tree series with coordinated merges
+> between four maintainers - a cost the single driver does not have.
+> 
+> Jiri, Benjamin - this is your call. Do you want FT260 functionality to
+> keep growing inside hid-ft260, as cp2112 and mcp2221 do today, or do
+> you want a drivers/hid to MFD conversion for this class of USB HID
+> bridge chips?
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 8d690468d..cd10a5d45 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1913,7 +1913,7 @@ static int amdgpu_dm_init_power_module(struct amdgpu_display_manager *dm)
- 			!(amdgpu_dc_feature_mask & DC_DISABLE_FRACTIONAL_PWM_MASK);
- 		init_data[i].use_custom_backlight_caps = false;
- 		init_data[i].custom_backlight_caps_config_no = 0;
--		init_data[i].use_linear_backlight_curve = false;
-+		init_data[i].use_linear_backlight_curve = true;
- 		init_data[i].def_varibright_enable = 0;
- 		init_data[i].varibright_level = 0;
- 		/*
--- 
-2.55.0
+TBH, I'm not a big fan of having multiple subsystems children into HID.
+Mostly because I can't review the best practive in each of them. However,
+for quite a long time, HID was mostly for input devices, and input is a
+different subsystem.
 
+That being said, there are 2 types of HID devices:
+- ones with defined standard usages (keyboards, mice, touchscreen,
+	battery, etc) and using MFD for those would certainly be overthinking
+- others use raw HID device with a custom protocol (cp2112, mcp2221,
+	ft260), these could be MFD candidates
+
+And of course, we have the exception with the standardly defined sensors
+through hid-sensor-hub.c which goes through MFD :)
+
+TL;DR: I'm not opposed to a MFD conversion of hid-ft260.c, nor I'm not
+formally pushing towards it. I think we need to take the pragmatic
+approach and see if the benefits for it are worth it.
+
+From the description on how the ft260 works and the intrications between
+all functions, this seems like a lot of pain to maintain a single core
+MFD chip, but not having to maintain I2C, UART, GPIO is appealing.
+
+The question about the cross tree merging is something that can't really
+be discussed without having seen the code. Assuming you can split all
+the drivers into their own subsystem + MFD HID parent, we could very
+well merge the newly additions independently, assuming the MFD HID
+parent API is stable enough. The only cross subsystem we need to take
+care of today is the existing functionality, but that can be sorted out
+by splitting the i2c_adapter part into its own file, and then let the
+I2C maintainer move the file into their tree later.
+
+It is maybe a lot to ask, but Michael, can you demo the MFD split on
+one/two functionality so we can check which approach is the best?
+Ideally 2 features that would be intricating well enough to demonstrate
+how hard/easy it would be.
+
+Cheers,
+Benjamin
