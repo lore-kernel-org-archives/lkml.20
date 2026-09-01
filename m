@@ -1,29 +1,29 @@
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 95C69485CC4;
-	Tue,  1 Sep 2026 16:57:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DBC2948423F;
+	Tue,  1 Sep 2026 16:57:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788281856; cv=none; b=Hya2gG0Mm15zcy7AxHY/eHpcVh+q2kXwP/mR3JsWYCdulqFqzT8niiT1pGPxecq/7h1LPhKwByZumKW6hYPRSVgXrNe2DABX8bKIPccsc+W0s2LG5PZkbV2v/7hjBI15sHVOo9CCH60+8L4GGybFQcsLmcdVj21Ufl9CDbsvGYo=
+	t=1788281855; cv=none; b=K5aZ7d9+8cRDS8R4xBVaswdMUoHi6YSbYXhD+9W8iZPofEjPt+JEaiL2cF3QrrFCtq03UBXkcPjfkXE3E3N6wVCpFOuz3i+ciZzc2yug9SyExEB6yQ4BLJuYGxwnU1Ryt2VO4TCHKOZqcAg0+SawecOgFa6SLakfeGEZmdXOnKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788281856; c=relaxed/simple;
-	bh=AqlGXiVXf37eh22vHSTx9JaWG/V6ubR35mhahPGPQBM=;
+	s=arc-20240116; t=1788281855; c=relaxed/simple;
+	bh=lFpQ5h8e4gADEnbl2VgWuUPXu3sgbx+mjnfcNij1AVQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RCF6PWpQ+hXLyxM9d0y+zz7jBcqCgSSdUJvduHeUxhXfgK9btRrgp1p914uzbQm+sSlmHJCMvNsRJuCtoY6l1R0ItbS8iLw3LFuKAM7fUShO0/TPEdto2HpzbBqQ2M6AAVoQYrDeFqScc0ONcRqbe4vdEI7ffWDI32I9brz0aJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=WX8y3hoB; arc=none smtp.client-ip=13.77.154.182
+	 MIME-Version; b=YBJpzS5Mtx5GDY/7SyYT7j+iEFKjPRbeXcEaQ3fatQYf+0asSkXh8x/9y3zQBbaV9evXo6kQ0gJXaQyKrKrkqS8vPbwHd/NlzABa8bT/rI+v6zhEdydnTmRRTjdzGub0JRUc/exAfprFlGnRhNqw/IB7EJqDa3OjxfsXkE1gadU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=eM8MW6nX; arc=none smtp.client-ip=13.77.154.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="WX8y3hoB"
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="eM8MW6nX"
 Received: by linux.microsoft.com (Postfix, from userid 1130)
-	id 4E7F520B703B; Tue,  1 Sep 2026 09:56:55 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4E7F520B703B
+	id 1928520B7001; Tue,  1 Sep 2026 09:56:54 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 1928520B7001
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1788281815;
-	bh=Pnx8Bj8E6wa9z9v4waAAekvlC25njxpIEY0WH/R0iXY=;
+	bh=The4NHc+XgE3F3fgWjXVI3lQkaMw3MhSHPODgCgMZ3k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=WX8y3hoBoGyybXNeAFKK+e/bkxFiPQ1o+ld/V9sMIm3//6oWYQPfpsRuS0uCZwu+n
-	 bE6V3bvgRkADF2qA0orsEWApO0QyM005HzYejVGds1mJji4i/k5ylIz4gKvfQzTh3w
-	 Droee3zX8Sp0VncsDb586EPDsfebMXHZrvbBy3yU=
+	b=eM8MW6nXJKs3UFTfxFlODALVyjceafXMuuoegne6ZWtcMiylra+HusmWDEgAAWbAq
+	 n20emivGohHnz8RRyfQ6qLbXt3Pso95t8wgqj8q7Z8MbfhsDJ1Ff+LZBxOKQZbS8FK
+	 SM/3x+iMJNCtPl8gotSXlyNpn8tqTDa0mGVxIJzU=
 From: Thara Gopinath <tgopinath@linux.microsoft.com>
 To: kys@microsoft.com,
 	haiyangz@microsoft.com,
@@ -43,9 +43,9 @@ Cc: James.Bottomley@HansenPartnership.com,
 	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-efi@vger.kernel.org,
 	Thara Gopinath <tgopinath@linux.microsoft.com>
-Subject: [RFC PATCH 12/12] drivers: hv: hv_vsm_boot: Boot secondary processors in VTL1
-Date: Tue,  1 Sep 2026 09:55:26 -0700
-Message-ID: <20260901165647.3160413-13-tgopinath@linux.microsoft.com>
+Subject: [RFC PATCH 08/12] arch: x86: hyperv: Build initial vCPU context for VTL1 secure kernel
+Date: Tue,  1 Sep 2026 09:55:22 -0700
+Message-ID: <20260901165647.3160413-9-tgopinath@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
 References: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
@@ -57,204 +57,326 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The next step after the primary CPU is running in VTL1 is to boot
-the remaining CPUs in VTL1, so the secure kernel executes on every
-VP rather than only VP0. Hyper-V does not drive this: VTL1 needs to
-know which APs to expect, and each AP must issue its own vtlcall
-from VTL0 to actually transition.
+Enabling VTL1 on the boot processor requires handing Hyper-V a fully
+populated hv_init_vp_context describing the state VTL1 should start in:
+initial page tables, GDT/TSS, control registers and entry point. Add
+the arch-specific builder that assembles this context using the memory
+region reserved for the secure kernel.
 
-As on the boot CPU, VTL1 must be enabled at each VP and its initial
-VP context (RIP, GDT, page tables, etc.) built before that VP can
-enter VTL1. This can only be done from VTL1 for non boot CPus.
-Introduce VSM_VTL_CALL_FUNC_ID_BOOT_APS, a vtlcall the boot cpu issues
-from VTL0, which asks the secure kernel to enable VTL1 and set up the
-initial VP context for each AP in the supplied online-CPU mask.
-The mask is handed to VTL1 via a shared page whose PFN is passed in
-the vtlcall arguments; VTL1 copies it synchronously so the page can be
-freed as soon as the call returns.
-
-Once VTL1 has prepared the APs, bring them into VTL1 one at a time
-using a CPU-bound FIFO kthread and a completion. Serialising this
-way keeps VTL1 entries ordered and lets a per-AP failure be
-surfaced synchronously to the caller. Uniprocessor systems skip AP
-bring-up entirely.
+Actual enablement of VTL1 using this context is done in a subsequent
+patch.
 
 Signed-off-by: Thara Gopinath <tgopinath@linux.microsoft.com>
 ---
- drivers/hv/hv_vsm.h      |   2 +
- drivers/hv/hv_vsm_boot.c | 125 ++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 126 insertions(+), 1 deletion(-)
+ arch/x86/hyperv/Makefile        |   1 +
+ arch/x86/hyperv/hv_vtl_vsm.c    | 258 ++++++++++++++++++++++++++++++++
+ arch/x86/include/asm/mshyperv.h |   9 ++
+ 3 files changed, 268 insertions(+)
+ create mode 100644 arch/x86/hyperv/hv_vtl_vsm.c
 
-diff --git a/drivers/hv/hv_vsm.h b/drivers/hv/hv_vsm.h
-index 88f099f88eeb4..679cb9dc9afda 100644
---- a/drivers/hv/hv_vsm.h
-+++ b/drivers/hv/hv_vsm.h
-@@ -12,6 +12,8 @@
- #include <linux/ioport.h>
- #include <linux/types.h>
+diff --git a/arch/x86/hyperv/Makefile b/arch/x86/hyperv/Makefile
+index 56292102af623..1fdc20e239243 100644
+--- a/arch/x86/hyperv/Makefile
++++ b/arch/x86/hyperv/Makefile
+@@ -2,6 +2,7 @@
+ obj-y			:= hv_init.o mmu.o nested.o irqdomain.o ivm.o
+ obj-$(CONFIG_X86_64)	+= hv_apic.o
+ obj-$(CONFIG_HYPERV_VTL_MODE)	+= hv_vtl.o mshv_vtl_asm.o
++obj-$(CONFIG_HYPERV_VSM)	+= hv_vtl_vsm.o
  
-+#define VSM_VTL_CALL_FUNC_ID_BOOT_APS		0x1FFE1
-+
- extern struct resource sk_res;
+ $(obj)/mshv_vtl_asm.o: $(obj)/mshv-asm-offsets.h
  
- #endif /* _HV_VSM_H */
-diff --git a/drivers/hv/hv_vsm_boot.c b/drivers/hv/hv_vsm_boot.c
-index c4f15c42df1f6..ad161b2f56653 100644
---- a/drivers/hv/hv_vsm_boot.c
-+++ b/drivers/hv/hv_vsm_boot.c
-@@ -17,6 +17,7 @@
- #include <linux/namei.h>
- #include <linux/acpi.h>
- #include <linux/firmware.h>
-+#include <linux/kthread.h>
- #include <hyperv/vsm.h>
- #include <asm/e820/types.h>
- #include <asm/mshyperv.h>
-@@ -64,6 +65,20 @@ static int hv_vsm_get_register(u32 reg_name, u64 *result)
- 	return 0;
- }
- 
-+static __init struct page *hv_vsm_alloc_shared_page(void)
-+{
-+	struct page *page;
+diff --git a/arch/x86/hyperv/hv_vtl_vsm.c b/arch/x86/hyperv/hv_vtl_vsm.c
+new file mode 100644
+index 0000000000000..edc55264c4d87
+--- /dev/null
++++ b/arch/x86/hyperv/hv_vtl_vsm.c
+@@ -0,0 +1,258 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Architecture-specific bring-up state for the VTL1 secure kernel: build
++ * the page tables, GDT/TSS and initial vCPU register context that Hyper-V
++ * loads when transitioning the boot processor to VTL1.
++ *
++ * Copyright (c) 2025-2026, Microsoft Corporation.
++ *
++ * Author: Thara Gopinath <tgopinath@linux.microsoft.com>
++ */
 +
-+	page = alloc_page(GFP_KERNEL);
-+	if (!page) {
-+		pr_err("Unable to establish VTL0-VTL1 shared page\n");
-+		return ERR_PTR(-ENOMEM);
-+	}
++#include <linux/align.h>
++#include <linux/bits.h>
++#include <linux/init.h>
++#include <hyperv/vsm.h>
++#include <asm/msr-index.h>
++#include <asm/processor-flags.h>
++#include <asm/mshyperv.h>
 +
-+	memset(page_address(page), 0, PAGE_SIZE);
-+	return page;
-+}
++/* Define PAGE size and related variables for initial secure kernel pages */
++#define VSM_PAGE_SHIFT			12
++#define VSM_PAGE_SIZE			BIT(VSM_PAGE_SHIFT)
++#define PAGE_AT(addr, idx)		((addr) + (idx) * VSM_PAGE_SIZE)
++#define VSM_VA_FROM_PA(pa)		(pa) /* Assumes identity mapping in secure kernel */
 +
- static Elf64_Addr __init hv_vsm_elf_min_load_paddr(void *image)
- {
- 	Elf64_Ehdr *ehdr = image;
-@@ -326,6 +341,107 @@ static int __init hv_vsm_init_code_page_offsets(void)
- 	return 0;
- }
- 
-+struct hv_vsm_ap_boot_ctx {
-+	struct completion done;
-+	int ret;
++/* Number of entries in a page table (all levels) */
++#define VSM_ENTRIES_PER_PT		512
++#define VSM_PMD_SIZE			(VSM_PAGE_SIZE * VSM_ENTRIES_PER_PT)
++
++/*
++ * Initial memory that will be mapped for secure kernel.
++ * Secure Kernel memory can be larger than this.
++ */
++#define VSM_SK_PTE_PAGES_COUNT	(ALIGN(VSM_SK_INITIAL_MAP_SIZE, VSM_PMD_SIZE) / VSM_PMD_SIZE)
++
++/* VSM pages */
++enum {
++	VSM_GDT_PAGE,
++	VSM_TSS_PAGE,
++	VSM_PML4E_PAGE,
++	VSM_PDPE_PAGE,
++	VSM_PDE_PAGE,
++	VSM_PTE_PAGES,
++	/* PTE tables consume several pages */
++	VSM_KERNEL_STACK_PAGE = VSM_PTE_PAGES + VSM_SK_PTE_PAGES_COUNT,
++	VSM_PAGES_COUNT
 +};
 +
-+static int __init hv_vsm_boot_sec_vp_thread_fn(void *arg)
++#define VSM_PT_FLAGS			(_PAGE_PRESENT | _PAGE_RW)
++#define VSM_PTE_FLAGS			(VSM_PT_FLAGS | _PAGE_ACCESSED | _PAGE_DIRTY)
++
++/* Shifts to compute page table mapping */
++#define VSM_PD_TABLE_SHIFT		21
++#define VSM_PDP_TABLE_SHIFT		30
++#define VSM_PML4_TABLE_SHIFT		39
++
++/* Given VA, get index into the page table at a given level */
++#define VSM_GET_PML4_INDEX(addr)	(((addr) >> VSM_PML4_TABLE_SHIFT) & 0x1FF)
++#define VSM_GET_PDP_INDEX(addr)		(((addr) >> VSM_PDP_TABLE_SHIFT) & 0x1FF)
++#define VSM_GET_PD_INDEX(addr)		(((addr) >> VSM_PD_TABLE_SHIFT) & 0x1FF)
++
++static void __init hv_vsm_fill_pte_tables(phys_addr_t sk_pa, u64 *pde,
++					  int pd_index, int num_pte_tables)
 +{
-+	struct hv_vsm_ap_boot_ctx *ctx = arg;
-+	struct hv_vtlcall_param args = {0};
-+	int cpu = smp_processor_id();
-+	u16 vp_enabled_vtl_set = 0;
-+	u8 active_mbec_enabled = 0;
-+	s64 sk_status;
-+	int ret = 0;
++	u16 i, j;
++	phys_addr_t pte_pa;
++	u64 *pte;
 +
-+	pr_info("cpu%d entering vtl1 boot thread\n", cpu);
-+	sk_status = hv_vsm_vtlcall(&args);
-+	if (sk_status)
-+		pr_warn("VP%d VTL1 boot returned status %lld\n", cpu, sk_status);
-+
-+	ret = hv_vsm_get_vp_status(&vp_enabled_vtl_set, &active_mbec_enabled);
-+	if (ret)
-+		goto out;
-+
-+	if (!active_mbec_enabled) {
-+		pr_err("Failed to enable MBEC for VP%d\n", cpu);
-+		hv_vsm_mbec_enabled = false;
-+	}
-+out:
-+	ctx->ret = ret;
-+	complete(&ctx->done);
-+	return 0;
-+}
-+
-+static int __init hv_vsm_boot_one_ap(unsigned int cpu)
-+{
-+	struct hv_vsm_ap_boot_ctx ctx;
-+	struct task_struct *t;
-+
-+	init_completion(&ctx.done);
-+	ctx.ret = 0;
-+
-+	t = kthread_create(hv_vsm_boot_sec_vp_thread_fn, &ctx,
-+			   "hv-vtl1-ap%u", cpu);
-+	if (IS_ERR(t))
-+		return PTR_ERR(t);
-+
-+	kthread_bind(t, cpu);
-+	sched_set_fifo(t);
-+	wake_up_process(t);
-+
-+	wait_for_completion(&ctx.done);
-+	return ctx.ret;
-+}
-+
-+static int __init hv_vsm_boot_ap_vtl(void)
-+{
-+	struct hv_vtlcall_param args = {0};
-+	struct page *cpu_online_page;
-+	unsigned int cpu, cur_cpu = smp_processor_id();
-+	s64 sk_status;
-+	int ret;
-+
-+	cpu_online_page = hv_vsm_alloc_shared_page();
-+	if (IS_ERR(cpu_online_page))
-+		return PTR_ERR(cpu_online_page);
-+
-+	cpumask_copy(page_address(cpu_online_page), cpu_online_mask);
-+
-+	/*
-+	 * Hand VTL1 the set of APs to expect. VTL1 copies the mask
-+	 * synchronously inside this vtlcall and does not reference the
-+	 * page after it returns, so freeing it here is safe.
-+	 */
-+	args.a0 = VSM_VTL_CALL_FUNC_ID_BOOT_APS;
-+	args.a1 = page_to_pfn(cpu_online_page);
-+	sk_status = hv_vsm_vtlcall(&args);
-+	__free_page(cpu_online_page);
-+	if (sk_status) {
-+		pr_err("VTL1 refused BOOT_APS: status %lld\n", sk_status);
-+		return -EIO;
-+	}
-+
-+	/*
-+	 * Bring the APs into VTL1 one at a time. Each AP kthread issues
-+	 * a single vtlcall on its bound CPU and signals completion; wait
-+	 * for it to finish before starting the next so VTL1 entries stay
-+	 * serialized.
-+	 */
-+	for_each_online_cpu(cpu) {
-+		if (cpu == cur_cpu)
-+			continue;
-+		ret = hv_vsm_boot_one_ap(cpu);
-+		if (ret) {
-+			pr_err("Failed to boot VP%u into VTL1: %d\n", cpu, ret);
-+			return ret;
++	/* Fill page tables with entries */
++	for (i = 0; i < num_pte_tables; i++) {
++		pte_pa = PAGE_AT(sk_pa, VSM_PTE_PAGES + i);
++		pte = phys_to_virt(pte_pa);
++		*(pde + pd_index + i) = pte_pa | VSM_PTE_FLAGS;
++		for (j = 0; j < VSM_ENTRIES_PER_PT; j++) {
++			*(pte + j) =
++				(sk_pa + ((j + (i * VSM_ENTRIES_PER_PT)) * VSM_PAGE_SIZE)) |
++					VSM_PTE_FLAGS;
 +		}
 +	}
-+	return 0;
 +}
 +
- static int __init hv_vsm_boot_vtl1(void)
- {
- 	struct hv_vtlcall_param args = {0};
-@@ -430,7 +546,14 @@ static int __init hv_vsm_bootstrap_vtl(void)
- 		return ret;
- 
- 	/* Boot primary virtual processor in VTL1 */
--	return hv_vsm_boot_vtl1();
-+	ret = hv_vsm_boot_vtl1();
-+	if (ret)
-+		return ret;
++static void __init hv_vsm_init_page_tables(struct hv_init_vp_context *vp_ctx, phys_addr_t sk_pa)
++{
++	unsigned int pml4_index;
++	unsigned int pdp_index;
++	unsigned int pd_index;
++	phys_addr_t pml4e_pa;
++	phys_addr_t pdpe_pa;
++	phys_addr_t pde_pa;
++	u64 *pml4e;
++	u64 *pdpe;
++	u64 *pde;
++	int num_pte_tables;
 +
-+	if (num_present_cpus() == 1)
-+		return 0;
++	/* Compute the page-table indices at which the secure kernel mapping starts. */
++	pml4_index = VSM_GET_PML4_INDEX(sk_pa);
++	pdp_index = VSM_GET_PDP_INDEX(sk_pa);
++	pd_index = VSM_GET_PD_INDEX(sk_pa);
 +
-+	return hv_vsm_boot_ap_vtl();
- }
++	pml4e_pa = PAGE_AT(sk_pa, VSM_PML4E_PAGE);
++	pdpe_pa = PAGE_AT(sk_pa, VSM_PDPE_PAGE);
++	pde_pa = PAGE_AT(sk_pa, VSM_PDE_PAGE);
++
++	pml4e = phys_to_virt(pml4e_pa);
++	pdpe = phys_to_virt(pdpe_pa);
++	pde = phys_to_virt(pde_pa);
++
++	/*
++	 * Zero the PML4, PDP, PD and PTE pages before populating them so that
++	 * any entry not explicitly written below has its present bit clear.
++	 */
++	memset(pml4e, 0,
++	       (VSM_KERNEL_STACK_PAGE - VSM_PML4E_PAGE) * VSM_PAGE_SIZE);
++
++	*(pml4e + pml4_index) = pdpe_pa | VSM_PT_FLAGS;
++	*(pdpe + pdp_index) = pde_pa | VSM_PT_FLAGS;
++
++	/*
++	 * Initial page tables map only the first VSM_SK_INITIAL_MAP_SIZE size of memory.
++	 * This memory will be used for the Secure Loader and initial Secure Kernel.
++	 */
++	num_pte_tables = (VSM_SK_INITIAL_MAP_SIZE / VSM_PAGE_SIZE) / VSM_ENTRIES_PER_PT;
++	hv_vsm_fill_pte_tables(sk_pa, pde, pd_index, num_pte_tables);
++
++	vp_ctx->cr3 = pml4e_pa;
++}
++
++static void __init hv_vsm_init_gdt(struct hv_init_vp_context *vp_ctx, phys_addr_t sk_pa)
++{
++	phys_addr_t gdt_pa, tss_pa, kstack_pa;
++	void *gdt_va;
++	u64 tss_sk_va, gdt;
++	struct x86_hw_tss *tss;
++	size_t gdt_size = sizeof(gdt), tss_size = sizeof(*tss), gdt_offset = 0;
++
++	/* Get a page for the GDT */
++	gdt_pa = PAGE_AT(sk_pa, VSM_GDT_PAGE);
++	gdt_va = phys_to_virt(gdt_pa);
++	/* Get a page for the TSS */
++	tss_pa = PAGE_AT(sk_pa, VSM_TSS_PAGE);
++	tss = phys_to_virt(tss_pa);
++	/* Compute the VA that secure kernel will see for the TSS */
++	tss_sk_va = VSM_VA_FROM_PA(tss_pa);
++	/* Get a page for the secure kernel initial stack */
++	kstack_pa = PAGE_AT(sk_pa, VSM_KERNEL_STACK_PAGE);
++	/* Set the initial stack pointer for the kernel to point to bottom of kernel stack */
++	tss->sp0 = VSM_VA_FROM_PA(kstack_pa) + VSM_PAGE_SIZE;
++	vp_ctx->rsp = tss->sp0;
++
++	/* Make and add the NULL descriptor to the GDT */
++	gdt = 0;
++	memcpy(gdt_va + gdt_offset, &gdt, gdt_size);
++	gdt_offset += gdt_size;
++
++	/* Make and add a code segment descriptor to the GDT */
++	gdt = GDT_ENTRY(DESC_CODE64, 0, 0);
++	memcpy(gdt_va + gdt_offset, &gdt, gdt_size);
++	gdt_offset += gdt_size;
++
++	/* Make and add a data segment descriptor to the GDT */
++	gdt = GDT_ENTRY(DESC_DATA64, 0, 0);
++	memcpy(gdt_va + gdt_offset, &gdt, gdt_size);
++	gdt_offset += gdt_size;
++
++	/*
++	 * Make and add a system segment descriptor for the TSS in the GDT.
++	 *
++	 * In 64-bit mode a system-segment descriptor (TSS/LDT) is 16 bytes
++	 * wide: the lower 8 bytes have the same layout as the legacy 32-bit
++	 * descriptor (produced by GDT_ENTRY), and the upper 8 bytes hold
++	 * base[63:32] in the low 32 bits with the high 32 bits reserved 0.
++	 * GDT_ENTRY masks base to 32 bits, so the upper half must be written
++	 * explicitly.
++	 */
++	gdt = GDT_ENTRY(DESC_TSS32, tss_sk_va, tss_size);
++	memcpy(gdt_va + gdt_offset, &gdt, gdt_size);
++	gdt_offset += gdt_size;
++	gdt = tss_sk_va >> 32;
++	memcpy(gdt_va + gdt_offset, &gdt, gdt_size);
++	gdt_offset += gdt_size;
++
++	/* Set up the GDT register */
++	vp_ctx->gdtr.base = VSM_VA_FROM_PA(gdt_pa);
++	vp_ctx->gdtr.limit = gdt_offset - 1;
++
++	/* Set the code segment (CS) selector */
++	vp_ctx->cs.base = 0;
++	vp_ctx->cs.limit = 0;
++	vp_ctx->cs.selector = 1 << 3;
++	vp_ctx->cs.attributes = _DESC_S | _DESC_PRESENT | _DESC_ACCESSED |
++				_DESC_CODE_READABLE | _DESC_CODE_EXECUTABLE |
++				_DESC_LONG_CODE | _DESC_GRANULARITY_4K;
++
++	/* Set the data segment (DS) selector */
++	vp_ctx->ds.base = 0;
++	vp_ctx->ds.limit = 0;
++	vp_ctx->ds.selector = 2 << 3;
++	vp_ctx->ds.attributes = _DESC_S | _DESC_PRESENT | _DESC_ACCESSED |
++				_DESC_DATA_WRITABLE | _DESC_GRANULARITY_4K | _DESC_DB;
++
++	/* Set the ES, FS and GS to be the same as DS, for now */
++	vp_ctx->es = vp_ctx->ds;
++	vp_ctx->fs = vp_ctx->ds;
++	vp_ctx->gs = vp_ctx->ds;
++
++	/* Set the stack selector to 0 (unused in long mode) */
++	vp_ctx->ss.selector = 0;
++
++	/* Set the task register selector */
++	vp_ctx->tr.base = tss_sk_va;
++	vp_ctx->tr.limit = tss_size - 1;
++	vp_ctx->tr.selector = 3 << 3;
++	vp_ctx->tr.attributes = _DESC_PRESENT | _DESC_SYSTEM(11);
++}
++
++static void __init hv_vsm_init_cpu(struct hv_init_vp_context *vp_ctx, Elf64_Addr sk_entry_pa)
++{
++	/* Offset rip by any secure kernel header length */
++	vp_ctx->rip = VSM_VA_FROM_PA(sk_entry_pa);
++
++	/* ToDo: Check if can be replaced with CR0_STATE */
++	vp_ctx->cr0 =
++		X86_CR0_PG |	/* Paging */
++		X86_CR0_WP |	/* Write Protect */
++		X86_CR0_NE |	/* Numeric Error */
++		X86_CR0_ET |	/* Extension Type */
++		X86_CR0_MP |	/* Math Present */
++		X86_CR0_PE;	/* Protection Enable */
++
++	vp_ctx->cr4 =
++		X86_CR4_PSE |	/* Page Size Extensions */
++		X86_CR4_PGE |	/* Page Global Enable */
++		X86_CR4_PAE;	/* Physical Address Extensions */
++
++	vp_ctx->efer =
++		EFER_LMA |	/* Long Mode Active */
++		EFER_LME |	/* Long Mode Enable */
++		EFER_NX  |	/* No Execute Enable */
++		EFER_SCE;	/* System Call Enable */
++
++	/*
++	 * Intel CPUs fail if the architectural read-as-one bit 1 of RFLAGS is not
++	 * set. See Intel SDM Vol 3C, 26.3.1.4 (RFLAGS).
++	 *
++	 * TODO: Has Hyper-V implemented setting this automatically?
++	 */
++	vp_ctx->rflags = X86_EFLAGS_FIXED;
++
++	vp_ctx->msr_cr_pat = PAT_VALUE(WB, WT, UC_MINUS, UC, WB, WT, UC_MINUS, UC);
++}
++
++void __init hv_vsm_arch_init_vp(struct hv_init_vp_context *vp_ctx, Elf64_Addr sk_entry_pa,
++				phys_addr_t sk_pa)
++{
++	hv_vsm_init_cpu(vp_ctx, sk_entry_pa);
++	hv_vsm_init_gdt(vp_ctx, sk_pa);
++	hv_vsm_init_page_tables(vp_ctx, sk_pa);
++}
+diff --git a/arch/x86/include/asm/mshyperv.h b/arch/x86/include/asm/mshyperv.h
+index f64393e853ee3..5f0d689641f05 100644
+--- a/arch/x86/include/asm/mshyperv.h
++++ b/arch/x86/include/asm/mshyperv.h
+@@ -7,6 +7,7 @@
+ #include <linux/msi.h>
+ #include <linux/io.h>
+ #include <linux/static_call.h>
++#include <linux/elf.h>
+ #include <asm/nospec-branch.h>
+ #include <asm/msr.h>
+ #include <hyperv/hvhdk.h>
+@@ -248,6 +249,14 @@ void hv_crash_asm_end(void);
+ static inline void hv_root_crash_init(void) {}
+ #endif  /* CONFIG_MSHV_ROOT && CONFIG_CRASH_DUMP */
  
- static void __init hv_vsm_get_sk_mem(void)
++#ifdef CONFIG_HYPERV_VSM
++void __init hv_vsm_arch_init_vp(struct hv_init_vp_context *vp_ctx, Elf64_Addr sk_entry_pa,
++				phys_addr_t sk_pa);
++#else /* CONFIG_HYPERV_VSM */
++static inline void __init hv_vsm_arch_init_vp(struct hv_init_vp_context *vp_ctx,
++					      Elf64_Addr sk_entry_pa, phys_addr_t sk_pa) {}
++#endif
++
+ #else /* CONFIG_HYPERV */
+ static inline void hyperv_init(void) {}
+ static inline void hyperv_setup_mmu_ops(void) {}
 -- 
 2.34.1
 
