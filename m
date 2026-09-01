@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946254A43FF;
-	Tue,  1 Sep 2026 18:51:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C184A0135;
+	Tue,  1 Sep 2026 18:51:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288670; cv=none; b=TN56ZG1pU/CJxSyRFvXcigd0SvH7XvyetSevSgwFynI/wcIMAluLi7zr8zHZmxJhO598j/CZLZaJqqkA1zgta5lqEYdMDPlioDqrtEi/6baAinV+npr3rzozkX67CzKZVuLH6MeLUeA2cHJbiHaizcUYprwjmIC+o6pHkaqb69g=
+	t=1788288670; cv=none; b=FM8fK32UQbz5PbNpO7Aw+UaIj4p6mfK2Y1/NGFJzjs3m7p7OTLF9hcHiAUdwGOHlkbr3Z1GLjtNKAi1sZPfWZ6YrugpTAennWjn+hvkdD9ywSXyncGrLXBESlZY8577+je1+Zm06UmFksc5fjY9kiUg1S4AlylDzivlYXVfnGws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788288670; c=relaxed/simple;
-	bh=XdGshjmtYv5GWBbmKyLHSE/ZPJ6Mw3OI2bO6sD97hVk=;
+	bh=F/ORXJLv87LmKmtOIy0lgbR5TcfqZIJa8uHK88OlK5U=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YgGxaJ6ZZDqEgjgWkyVS1d+VVSX5xnJ5UzpMZUWF+FXvPyrD9+gD/OHlFi6D/qR+YOPoL/rzWlfJRTGqVC9xLGqKX5Z0YEQYFq0L2ZjpD7yi7NLzItLb8rLPaWZZHogyEc3Kv/RNIAS15BG9LlrzwkdqvSNu83kxJNTUvfDdmBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=MF9pQ2ZU; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=VYm9V3GMD+0jtRJ8FGilyO1JkTREQLfZe8IJP0F2h4cuWWZ5e1vWoK3MfFq6nYv1T5bWHR5ssDF83/thkkmtH+I/BmgKOKiWDnuoRfgCnDaHJh0HuiVGuiR5CBkhqg5HwbMKyBvvzN8RYfhMfgIgAtYYxPoI84E1f/RqFQXSeqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=g64yWRPa; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="MF9pQ2ZU"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="g64yWRPa"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788288665;
-	bh=XdGshjmtYv5GWBbmKyLHSE/ZPJ6Mw3OI2bO6sD97hVk=;
+	s=mail; t=1788288662;
+	bh=F/ORXJLv87LmKmtOIy0lgbR5TcfqZIJa8uHK88OlK5U=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=MF9pQ2ZUogOlJtGgoOJzl8GZLIYbY21ePO87Gt8yROnnLaVZOwJoI+Zr97N2CXfns
-	 scfq1xp4vea5DSqB1CSVDEBn77yWaswpTA0JdUXOhZRRQ3HBIlJX4bmJheMJgjruD/
-	 lb4VQT7YOWjI7yWtht/kAczQzSsNNSTrvg4vbiKfn7FIX0uQb89qoIDx6H1PCWp7sv
-	 usvAcoXsj4CI+ed62hGfJeQ5ytEl+sph701YAkDPsJuvo45Bkw46k7WNeIO3F0IT+8
-	 Wlw0e/b6D9GCpUhbb6lLL+QacthUck0yBCPX+Ah3c8e4alMHAAX8Y56AIR0G5PXw+U
-	 HgwwPbCOIKOgQ==
+	b=g64yWRPaXMzyx3SbK6m/CRSH9lr5Tok67BePPFP/CO6ZaY86LEbfRj74I25nHNWs+
+	 rootH8yt9o+I/bnfpZtUsIAWZsQrG/1QPTGdiz7X9xnBdpFv0zzlfz5n5WzV6IGM0I
+	 DUEWuBaKk/b2V5EBHs+noOas0MHr2txR/uiHR0Tnpp5tup73bLny4MVjNCzzWsE6Ri
+	 koBAzREPdy6kpK6weKtJIG4gCGUpgsfTS7t9TjqlzYAYR8Rtj5IS5dQNuLQsyFndFr
+	 xWsxSF2X9g1Kmp5ofjBcMOo/QV0iDbDFs5tZ0J59kuDyd7nUlJVRVGjM2UK17qrWyB
+	 0oeDegdwbdVmA==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 76D0A17E3B86;
-	Tue, 01 Sep 2026 20:51:05 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7AA1717E39B4;
+	Tue, 01 Sep 2026 20:51:02 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:50:57 +0300
-Subject: [PATCH v11 33/74] drm/rockchip: dw_hdmi_qp: Add missing newlines
- in dev_err_probe() messages
+Date: Tue, 01 Sep 2026 21:50:53 +0300
+Subject: [PATCH v11 29/74] drm/bridge: dw-hdmi-qp: Add HDMI 2.0 scrambling
+ support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-33-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-29-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -74,38 +74,160 @@ Cc: kernel@collabora.com, linux-kernel@vger.kernel.org,
  Diederik de Haas <diederik@cknow-tech.com>
 X-Mailer: b4 0.15.2
 
-Add the missing trailing newlines to a couple of dev_err_probe() calls
-in dw_hdmi_qp_rockchip_bind().
+Add support for SCDC scrambling and the high TMDS clock ratio required
+by HDMI 2.0 modes with TMDS character rates above 340 MHz, such as
+4K@60Hz.
 
-Fixes: b6736a4ea3fa ("drm/rockchip: dw_hdmi_qp: Improve error handling with dev_err_probe()")
-Fixes: e1f7b7cbd74c ("drm/rockchip: dw_hdmi_qp: Switch to drmm_encoder_init()")
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+Hook the bridge into the DRM HDMI connector scrambling helpers so the
+sink-side SCDC state and the controller scrambler are updated together
+as part of the atomic enable and disable paths.  This allows the driver
+to advertise HDMI 2.0 support when HPD is available.
+
+Keep no-HPD configurations limited to HDMI 1.4, since SCDC access
+requires a connected HDMI sink.
+
+Modes above the HDMI 2.0 600 MHz TMDS character-rate limit are now
+implicitly rejected by the DRM HDMI connector/bridge infrastructure,
+making the dw_hdmi_qp_bridge_tmds_char_rate_valid() callback redundant.
+Drop it.
+
 Tested-by: Maud Spierings <maud_spierings@hotmail.com>
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
+Acked-by: Heiko Stuebner <heiko@sntech.de>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 60 ++++++++++++++++++----------
+ 1 file changed, 39 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 42f2627e1a05..df0e2bb1eedc 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -681,12 +681,12 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	drm_encoder_helper_add(encoder, &dw_hdmi_qp_rockchip_encoder_helper_funcs);
- 	ret = drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_TMDS, NULL);
- 	if (ret)
--		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder");
-+		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder\n");
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index 246c4161e627..ee74266b7aa9 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -2,6 +2,7 @@
+ /*
+  * Copyright (c) 2021-2022 Rockchip Electronics Co., Ltd.
+  * Copyright (c) 2024 Collabora Ltd.
++ * Copyright (c) 2025 Amazon.com, Inc. or its affiliates.
+  *
+  * Author: Algea Cao <algea.cao@rock-chips.com>
+  * Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+@@ -751,6 +752,7 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	struct drm_connector_state *conn_state;
+ 	struct drm_connector *connector;
+ 	unsigned int op_mode;
++	int ret;
  
- 	hdmi->hdmi = dw_hdmi_qp_bind(pdev, encoder, &plat_data);
- 	if (IS_ERR(hdmi->hdmi))
- 		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->hdmi),
--				     "Failed to bind dw-hdmi-qp");
-+				     "Failed to bind dw-hdmi-qp\n");
+ 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+ 	if (WARN_ON(!connector))
+@@ -761,14 +763,20 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 		return;
  
- 	connector = drm_bridge_connector_init(drm, encoder);
- 	if (IS_ERR(connector))
+ 	if (connector->display_info.is_hdmi) {
+-		dev_dbg(hdmi->dev, "%s mode=HDMI %s rate=%llu bpc=%u\n", __func__,
+-			drm_hdmi_connector_get_output_format_name(conn_state->hdmi.output_format),
+-			conn_state->hdmi.tmds_char_rate, conn_state->hdmi.output_bpc);
+ 		op_mode = 0;
+ 		hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
++
++		ret = drm_connector_hdmi_enable_scrambling(connector, conn_state);
++		if (ret)
++			dev_warn(hdmi->dev, "Failed to enable scrambling: %d\n", ret);
++
++		dev_dbg(hdmi->dev, "%s mode=HDMI %s rate=%llu bpc=%u scramb=%d\n", __func__,
++			drm_hdmi_connector_get_output_format_name(conn_state->hdmi.output_format),
++			conn_state->hdmi.tmds_char_rate, conn_state->hdmi.output_bpc,
++			connector->hdmi.scrambler_enabled);
+ 	} else {
+-		dev_dbg(hdmi->dev, "%s mode=DVI\n", __func__);
+ 		op_mode = OPMODE_DVI;
++		dev_dbg(hdmi->dev, "%s mode=DVI\n", __func__);
+ 	}
+ 
+ 	hdmi->phy.ops->init(hdmi, hdmi->phy.data);
+@@ -783,9 +791,13 @@ static void dw_hdmi_qp_bridge_atomic_disable(struct drm_bridge *bridge,
+ 					     struct drm_atomic_commit *state)
+ {
+ 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
++	struct drm_connector *connector;
+ 
+ 	hdmi->tmds_char_rate = 0;
+ 
++	connector = drm_atomic_get_old_connector_for_encoder(state, bridge->encoder);
++	drm_connector_hdmi_disable_scrambling(connector);
++
+ 	hdmi->phy.ops->disable(hdmi, hdmi->phy.data);
+ }
+ 
+@@ -820,24 +832,24 @@ dw_hdmi_qp_bridge_edid_read(struct drm_bridge *bridge,
+ 	return drm_edid;
+ }
+ 
+-static enum drm_mode_status
+-dw_hdmi_qp_bridge_tmds_char_rate_valid(const struct drm_bridge *bridge,
+-				       const struct drm_display_mode *mode,
+-				       unsigned long long rate)
++static int dw_hdmi_qp_bridge_scrambler_enable(struct drm_bridge *bridge)
+ {
+ 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+ 
+-	/*
+-	 * TODO: when hdmi->no_hpd is 1 we must not support modes that
+-	 * require scrambling, including every mode with a clock above
+-	 * HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ.
+-	 */
+-	if (rate > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ) {
+-		dev_dbg(hdmi->dev, "Unsupported TMDS char rate: %lld\n", rate);
+-		return MODE_CLOCK_HIGH;
+-	}
++	dw_hdmi_qp_write(hdmi, 1, SCRAMB_CONFIG0);
++	dev_dbg(hdmi->dev, "scrambler enabled\n");
+ 
+-	return MODE_OK;
++	return 0;
++}
++
++static int dw_hdmi_qp_bridge_scrambler_disable(struct drm_bridge *bridge)
++{
++	struct dw_hdmi_qp *hdmi = bridge->driver_private;
++
++	dw_hdmi_qp_write(hdmi, 0, SCRAMB_CONFIG0);
++	dev_dbg(hdmi->dev, "scrambler disabled\n");
++
++	return 0;
+ }
+ 
+ static int dw_hdmi_qp_bridge_clear_avi_infoframe(struct drm_bridge *bridge)
+@@ -1213,7 +1225,8 @@ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
+ 	.hpd_enable = dw_hdmi_qp_bridge_hpd_enable,
+ 	.hpd_disable = dw_hdmi_qp_bridge_hpd_disable,
+ 	.edid_read = dw_hdmi_qp_bridge_edid_read,
+-	.hdmi_tmds_char_rate_valid = dw_hdmi_qp_bridge_tmds_char_rate_valid,
++	.hdmi_scrambler_enable = dw_hdmi_qp_bridge_scrambler_enable,
++	.hdmi_scrambler_disable = dw_hdmi_qp_bridge_scrambler_disable,
+ 	.hdmi_clear_avi_infoframe = dw_hdmi_qp_bridge_clear_avi_infoframe,
+ 	.hdmi_write_avi_infoframe = dw_hdmi_qp_bridge_write_avi_infoframe,
+ 	.hdmi_clear_hdmi_infoframe = dw_hdmi_qp_bridge_clear_hdmi_infoframe,
+@@ -1341,13 +1354,18 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+ 			   DRM_BRIDGE_OP_HDMI_AUDIO |
+ 			   DRM_BRIDGE_OP_HDMI_HDR_DRM_INFOFRAME |
+ 			   DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME;
+-	if (!hdmi->no_hpd)
+-		hdmi->bridge.ops |= DRM_BRIDGE_OP_HPD;
+ 	hdmi->bridge.of_node = pdev->dev.of_node;
+ 	hdmi->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
+ 	hdmi->bridge.vendor = "Synopsys";
+ 	hdmi->bridge.product = "DW HDMI QP TX";
+ 
++	if (hdmi->no_hpd) {
++		hdmi->bridge.supported_hdmi_ver = HDMI_VERSION_1_4;
++	} else {
++		hdmi->bridge.supported_hdmi_ver = HDMI_VERSION_2_0;
++		hdmi->bridge.ops |= DRM_BRIDGE_OP_HPD;
++	}
++
+ 	if (plat_data->supported_formats)
+ 		hdmi->bridge.supported_formats = plat_data->supported_formats;
+ 
 
 -- 
 2.55.0
