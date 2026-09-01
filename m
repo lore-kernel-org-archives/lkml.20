@@ -1,44 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB70409638;
-	Tue,  1 Sep 2026 02:09:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED5C3D3D0C;
+	Tue,  1 Sep 2026 02:09:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788228595; cv=none; b=Vgn/bNM55LitDilPqlNAIQqgq7lAWZdn87DnWMTb0UiMs/RlvQXPtY3VgFkmtHBEPXe48pk5JBKYrc39ncgOqTkqA4pIhGYV7uHT37Vx/93A2ohiT5CyRpND5WRRTT5hJMtF3w9sspTvf/hYL4uBbanKZ5qGudarSYdOiiwVJNU=
+	t=1788228601; cv=none; b=WF8Ehli3cKijSiczj/9uPgw5Pu80a3oBxRbAMYPf8NwLsQR0OHGgN5pRbUUbrJEhC5ro/LCLBkXkGqNUYESyqE0anQOyI9CX5lsCZms9xU6UmCiYThMCi5pE1L10QRF/nn6KO++DQqJDo5vZxcetmKFr4W0hlnNa4BkOz4S8ZRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788228595; c=relaxed/simple;
-	bh=dgTMmxrqHDBgHeFFnFE3ld7C/DI0Al/q4VtZ9UGefvY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QBNMnGNJLyuqfdXGf5DxlDheBVBeW9I/d9IHFmyS8ZK59k9iJPmZ2awCvIsVDqUCVSeSV6k23gytRfgRhbChtSoVQNqddi+RfpPHFUpTngOxXbmryBNAoNsTo8BM7S68G3woOLheqc0N/jCMw3Esy1x5YmvwT3urf1hkiiWhhN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtMNzUG/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788228601; c=relaxed/simple;
+	bh=wVbLN2D4jHCRlejLKUvBvlZ1pZLGpnuuGIGMhz3ei8A=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=X0jZKkV6tFHnDRyKAgHcfIrcUgD4X5xamY2TuQ/HQa+Z5R6HO+HObTDvB+csA4uFAFPVVR5cr6YwxkB5P6w7Dcp7bGXeriFPRrypRUiir8vuwDLVEKUaNvw5kibe9fVomDvaxtvB4e/pKK3WgtlE1C8ZYzTvBs8gNt/Ki+pJvGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lsyDL09E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtMNzUG/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462841F00A3E;
-	Tue,  1 Sep 2026 02:09:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lsyDL09E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 970901F00ADB;
+	Tue,  1 Sep 2026 02:09:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788228582;
-	bh=DIXu405LdzJ+TjUOOSzT9uTdjKFaid4EAEekEpAg7MM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LtMNzUG/E81ZfcquDRnEk28pzGbMPz5TzhCbD7v9YYMHcxpMbckFFzGlGue6CQn5A
-	 gSTytrErEMt0pL1iu+Uc09drbGaYZZ3Snrb2OxGT72/x3cyrP82eJ+LItPmitKLn+c
-	 OLdFPwjxFVSq96aspkl+9L8KuNEGyLzk2CwrgSTqE5C3PLSLReG9/nnrBgUhY1lSLx
-	 rl7xFhnxltq/4g2AQ1y/5lXCW5XXT0lBqf/gpWOI+l+76pgOgnMTqwiGvT3gO5kjaz
-	 P+I4a5f8TshnYrbjGcyoAVyx9RSgd+2noSycTc8N+HljwTuUjMu6ZlQPZ1I+lqcAbc
-	 /Slp+XKiliizQ==
+	s=k20260515; t=1788228588;
+	bh=1tfL03b0H6Bzca1n3w8rS5amCqzBzB/d7YtRljxtteU=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=lsyDL09EA0/rbOaXK5E5O4HIHl0Ac065OO/1ILXI/C0QMIE9ZMPjmFa5ZzAqnxU13
+	 pVfRI+xEmu4ZJUQov9WfAUN/hdb3hoBkOJZ9AziVHtgQCtEfJdJlXwwpHI0onmG8Hn
+	 Wjtp/XAQRILl6QPbK2Zi5C7JgaypWMnZ/kqHh559fF6Es5I2+7YcLnnA33m+yd1iKq
+	 PSdwUXJDwyaHkIuYodj2jQawR7SL1lym1/e7yPB/moxBrcr+BbZsNAZStccn4ZydkC
+	 TyCLRn0f7QnWdG6nwhb5Zy15wQvbfWy7cOCbG03idYqqeFkzAjTH7bCoWp5MRZmNwd
+	 FG5oM0cyfCAow==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dan Carpenter <error27@gmail.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Danila Tikhonov <danila@mainlining.org>,
+	David Wronek <davidwronek@gmail.com>,
 	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH next] soc: qcom: smem: Fix signedness bug in smem_dram_parse()
-Date: Mon, 31 Aug 2026 21:09:20 -0500
-Message-ID: <178822856283.1835959.10872244976816365079.b4-ty@kernel.org>
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
+Date: Mon, 31 Aug 2026 21:09:24 -0500
+Message-ID: <178822856272.1835959.1992609658937634640.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <an1toQ-acGR0kOWj@stanley.mountain>
-References: <an1toQ-acGR0kOWj@stanley.mountain>
+In-Reply-To: <20260817082457.64797-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260817082457.64797-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,18 +57,17 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 13 Aug 2026 10:09:21 +0300, Dan Carpenter wrote:
-> The "ver" variable is type "enum ddr_info_version".  Enum types are
-> dependent on the compiler but in practical terms here, "ver" is
-> basically an unsigned int.  It needs to be signed for the -EINVAL
-> to be handled correctly.
+On Mon, 17 Aug 2026 10:24:58 +0200, Krzysztof Kozlowski wrote:
+> Bindings for Qualcomm SM7150 and SM6375 GCC clock controllers are
+> identical, so this could be one file for less handling and encouraging
+> future grouping of similar devices (like SM7250 which also would fit here).
 > 
 > 
 
 Applied, thanks!
 
-[1/1] soc: qcom: smem: Fix signedness bug in smem_dram_parse()
-      commit: 22f129fedb153a17d80b1d883a7c4dd2417cf38e
+[1/1] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
+      commit: 0e094dd19e04348183dd3e35d4f66290098a21b6
 
 Best regards,
 -- 
