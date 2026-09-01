@@ -1,85 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3758D42AF9B;
-	Tue,  1 Sep 2026 15:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA83429814
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788275920; cv=none; b=H5UqVMDoePldY6s6Fgk2In5i+LZaXTQ09PeY9tLJKbHPosGsHaFi+6H/zJw/NLYPIpmW3fLMh5nDHWWHRrVSGFQDFWYgZxKHHMMY62YFF6RVi2U987WGixX4Kg1X5u9Ufd7ZvrJqwUvblUZXoEeDMWlulTnRs956IKWUnq53EEM=
+	t=1788275920; cv=none; b=jST7mB6VWW7+UeA3g6/LiUn2fEi1rNJ7Nsua0MmwElutHSewQjhwMKwwWmWNmMeIM8J8tLmrwRV86EWUi+nWDtpKtdKV/YSHZw1HyoouSiq9kiNc9aX4FQ3OrAizj4/bVlr7bMXdUAq1bMjJiA5tnkOrGO57KUsh6ez+ydiqgOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788275920; c=relaxed/simple;
-	bh=IvdIGrXGCXLC0QzrjJ81yrTnE0ZKJP33tWClR9PcPGI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cwbDlw97ulCLVYJKRVm0CcbYZYGmlaCTh0uxeObSyh00tRuJFBibSnH8CfgA3eMzO7HdjkQNiPt8tdHyIToaNUSg9BygFnuOxJ+gOnodUqpLdepoQA5XbIkpiWSSF4062E/mDhuZi9RnVdKUeSATwN8flMGFNrBBoV26GGN88l4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LODuncn7; arc=none smtp.client-ip=100.103.45.18
+	bh=1wXFGDG6cAKDXZGR0JwrmUYryha2jneMA/xG+0CvoBc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VmC8oOh6sY39GMw2vBDwNyX+hSsw/rjQ9G8AnGVIXAsGjvdZCw4pZslJpymBio0gbv3VVv9NzyXJicjxngoR/cMToijq6RHiwV70dewajKQPzrn3wTUEl4ixXVwn5z4ztvUh3IqFra+Ipci0+24ASgfF9XBj9ztW1dbMh/o3QQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EX4pBAg6; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LODuncn7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DE781F000E9;
-	Tue,  1 Sep 2026 15:18:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788275919;
-	bh=BgVkwYznCzdwHNZ7efh/h9/PcMyFGUz0GDO3TyBDrqM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LODuncn7NNL/CpjM0CsiZ/cJ+zLdBZX49N5rXj7bydKO8eVoAjzO9irnFMzjDznY4
-	 8yu3WYjhkdJuATtqFSB1XdpTRl6p3HckcszkWbkgz1P5wlCw6wQeHMVFu5uVDgZAbh
-	 hMi6XRMY75pcUy0ndg8gIc/IVgD8d8BbeOoBg+SHzaj5lbCxgiFPrv1OQLw9JK/B7f
-	 CBr8tAneR0at5tN2YsREP1DPhNatyltP1IVFvAErqapebtRbTnkQJXXN1I0tACtcBx
-	 TIBZqjhHX3/xjr5sDYI/kc2hHTW/dHf1+AxPUKBvFcnFqA6ywN9qGiAUy7ow8DUXpU
-	 0DTvHN7WyjfWA==
-Date: Tue, 1 Sep 2026 16:18:35 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com
-Subject: Re: [PATCH v3] ASoC: cs35l56: Fix probe deadlock waiting for
- SoundWire enumeration
-Message-ID: <7feebecc-66f7-4ac2-8c1f-0b8bf55cb528@sirena.org.uk>
-References: <20260901122644.634494-1-rf@opensource.cirrus.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EX4pBAg6"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84e4e98d2cfso207321b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:18:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788275918; x=1788880718; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EcnqIGbKAVtdyFI4AnAxKNCEqkoHQsPJ+QMG1G+XIUo=;
+        b=EX4pBAg6r9iawr/amwIpE8L8GdD/OTc0+YW9my/IAx9PBLUfSGEM4JGbXiTKzp00JO
+         GyjWWRz27slNBUNHHD5r2cyr7pk3LRUVSuPJYVXxva9At4G5b9GwCHu0+ATYFppUp+Wf
+         DBbrELeYeDcIj2rYri2GmC1MN7CutVSDa6si3xkJofemAxgcX42bkQGnC0xMWXYsyOib
+         qpceOERlOWOqBfU7exteS6Sf+SzekfHbI8mLVJjNpAj+xiDlGFFnA4+MPwLWgsPuicQ6
+         Lg53iqsrbkX++2IgaT8FNE8NMwpovkzgFzHryIbLi0S4Dp6LCMetQc0SNYQsXFBokSf3
+         b5Lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788275918; x=1788880718;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EcnqIGbKAVtdyFI4AnAxKNCEqkoHQsPJ+QMG1G+XIUo=;
+        b=XP0+R9/2x61ARCjlql9N5oPzCRMSX5iZ5ynAuO85QkzucCEyv+HFLCaW8kofksx9Rb
+         HQ1ZedsxzD6F0CJB+YByA4ge8dMHJlJ5GnP9MZGtbdyMY8uZAIPQ2Ma8D35LqWCtRITe
+         QJ5LxKwdGLgsRSK/l7BaC/6zcUvoWG5rocvfTw97bkZn3J4j/SJjqCQSNI6zPGWi+l5z
+         Vnm0dgZ8RNedQCRPH6ZS3hUrhWlXvtVDKSrcthFFKbIJd//J4Y8OJyQmyqXboMCMpUwn
+         BK0loPxzf7ZU5VCwJzCPI4yCdvnDuGhTDRcvKmXsWirIOlGsAaWMYiLGBMumWs9x6uf2
+         P2Hw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp3Gxi0OvlV6SnOsn1SviX+eK+014aBaT+8UrW6ODJRON4x3H4OqIPSn+obZgLsDZ7628eFBiljPqUN+6s=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6vjhm6xQIHg4qMboP3SadGMW1QZmz7Q+oPjzcuGkEcLtvCryO
+	f1N6xhq7DIJF3mEp7A83yfA+1cHrnf0VBWYwrA8CZK7FEhXfZjs+rXuU
+X-Gm-Gg: AR+sD13fvD5p+wRrvgAUf+bb658Pvitv4fGiitZzBzio9lECXQUnJhY0uf2FUOOdjg9
+	HbfH1oKnzxMmTpQU/CIlWRoEj1Zg8ovOj2A5S5zo386qyAu34kds3GnWj/EtzFmWfy3SbS5lx/P
+	lMb6S6zvame8DSr1xN0NfD268NKLFmI4RDSS6EkJT8uDVQyfvH7P4RgfV7jtSykIBu9v1W2RNjs
+	Cq0VTG+HCUIzPp7DZzCSl5pZWUy7FSk9VyjJ2j/kzLBJVO36h3Yz1sx4A+Rl5h2NDNRHiDyMWSn
+	AL1f9ET68X1nPbA1L6+h8J/KVg6icPLpS9ulv0yUSU6003mea905uGNaFha3Cf89US6WQwPyDdf
+	+VOHDdGu3S96j8DB+H4171QLi4ArtcvqFk6lqIpZ3xboG81/o9aZCC5jyB1SxABfyLTD0kiQj9V
+	FMlshileqtkiBzvRyL2cFGx+Nc8gMTTptoRHMLltqf4idtMEwfc1sW9nqqNjnKhNv0qIU5BVl6M
+	4evZFzidTG7p5UF35rdQt1XTG5gLjS0dKiB
+X-Received: by 2002:a05:6a20:7f82:b0:3bf:b228:10b4 with SMTP id adf61e73a8af0-3d26795f2e7mr31819840637.2.1788275917973;
+        Tue, 01 Sep 2026 08:18:37 -0700 (PDT)
+Received: from o6.lan ([240e:391:ed0:47d0::1])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db24f33a0sm89911b3a.9.2026.09.01.08.18.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 08:18:37 -0700 (PDT)
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+To: akpm@linux-foundation.org
+Cc: david@kernel.org,
+	ljs@kernel.org,
+	usama.arif@linux.dev,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	kas@kernel.org,
+	rppt@kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	mark.rutland@arm.com,
+	linux-arm-kernel@lists.infradead.org,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com,
+	luto@kernel.org,
+	peterz@infradead.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
+Date: Tue,  1 Sep 2026 23:18:16 +0800
+Message-ID: <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
+References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nLOlIQnck55rXajZ"
-Content-Disposition: inline
-In-Reply-To: <20260901122644.634494-1-rf@opensource.cirrus.com>
-X-Cookie: Prevent forest fires.
+Content-Transfer-Encoding: 8bit
 
+The persistent huge zero folio is shared globally and should stay zero
+after initialization. As Jann Horn pointed out [1], kernel bugs have
+ended up writing to pages that were meant to be read-only, including in
+security-sensitive cases. Making the folio read-only in the direct map
+turns such writes into faults instead of silent zero-page corruption.
 
---nLOlIQnck55rXajZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Add a page-based helper consistent with the existing direct-map interfaces.
+Handle TLB invalidation in the architecture implementation; unsupported
+architectures retain their current behavior.
 
-On Tue, Sep 01, 2026 at 01:26:44PM +0100, Richard Fitzgerald wrote:
+Protect the folio after initialization. Skip highmem folios, which have no
+permanent direct-map mapping.
 
-> The work item is queued on a freezable workqueue to prevent a race between
-> the work item and system_suspend of another instance. If the workqueue
-> were not frozen it would be possible for the work item of one driver
-> instance to call snd_soc_register_component() which then calls
-> cs35l56_component_probe() of another instance while that instance is
-> already executing its system suspend functions.
+Inspired by Jann Horn's read-only zero page work [1] and follow-up
+discussion [3] with Yang Shi.
 
-I'll apply this since it's very much a corner case and there's a real
-problem but you should probably check out the kexec case - it looks like
-it misses freeze_kernel_threads().  TBH I'm not sure the issue there
-isn't on the kexec side, it's not exactly a common case and having a
-difference like that feels like asking for trouble.
+Link: https://lore.kernel.org/r/20260508-ro-zeropage-v1-1-9808abc20b49@google.com [1]
+Link: https://lore.kernel.org/r/0e5b23a6-4895-454a-9dfa-6dc21adc2991@kernel.org [2]
+Link: https://lore.kernel.org/r/CAHbLzkrXXe7r3n3jXgDKtwZhRqj=jDx9E6dLOULohnhBguvi9A@mail.gmail.com [3]
 
---nLOlIQnck55rXajZ
-Content-Type: application/pgp-signature; name="signature.asc"
+Suggested-by: David Hildenbrand <david@kernel.org>
+Suggested-by: Usama Arif <usama.arif@linux.dev>
+Co-developed-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+---
+ include/linux/set_memory.h | 17 +++++++++++++++++
+ mm/huge_memory.c           | 13 ++++++++++---
+ 2 files changed, 27 insertions(+), 3 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/include/linux/set_memory.h b/include/linux/set_memory.h
+index 3fe293cfed8c..ed9ce04b18a1 100644
+--- a/include/linux/set_memory.h
++++ b/include/linux/set_memory.h
+@@ -54,6 +54,23 @@ static inline bool can_set_direct_map(void)
+ #endif
+ #endif /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
+ 
++#ifndef set_direct_map_ro
++/**
++ * set_direct_map_ro - make a direct-map range read-only
++ * @page: first page in the direct-map range
++ * @nr: number of pages in the range
++ *
++ * Make the direct-map range starting at @page read-only and invalidate stale
++ * writable translations before returning.
++ *
++ * Return: 0 on success, or a negative error code on failure.
++ */
++static inline int set_direct_map_ro(struct page *page, unsigned int nr)
++{
++	return 0;
++}
++#endif
++
+ #ifdef CONFIG_X86_64
+ int set_mce_nospec(unsigned long pfn);
+ int clear_mce_nospec(unsigned long pfn);
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 54494c3fa983..742283b36d74 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -42,6 +42,7 @@
+ #include <linux/pgalloc_tag.h>
+ #include <linux/pagewalk.h>
+ #include <linux/cleanup.h>
++#include <linux/set_memory.h>
+ 
+ #include <asm/tlb.h>
+ #include "internal.h"
+@@ -291,10 +292,16 @@ static int __init huge_zero_init(void)
+ 	huge_zero_folio = alloc_huge_zero_folio();
+ 	if (!huge_zero_folio) {
+ 		pr_warn("Allocating persistent huge zero folio failed\n");
+-	} else {
+-		huge_zero_pfn = folio_pfn(huge_zero_folio);
+-		count_vm_event(THP_ZERO_PAGE_ALLOC);
++		return 0;
+ 	}
++
++	huge_zero_pfn = folio_pfn(huge_zero_folio);
++	count_vm_event(THP_ZERO_PAGE_ALLOC);
++
++	/* Highmem folios have no permanent direct-map mapping to protect. */
++	if (!folio_test_highmem(huge_zero_folio))
++		set_direct_map_ro(folio_page(huge_zero_folio, 0), HPAGE_PMD_NR);
++
+ 	return 0;
+ }
+ 
+-- 
+2.47.3
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqW7MoACgkQJNaLcl1U
-h9Dn1gf/b6quCbkp7PXNAnVrsgODhbGf7GxuICE9gsDUJV17kBCOQLt8ew2XNsNX
-6IuICI2ArrTXPpQlxL4Q239lTmR5IMNH5a8SP9kgtI/FvK8tNGxXga3fecmsuDCx
-+RhXHtL2AHQ6fygfkAfkmzN7ewsGaZaBW9jpl1CjU1V9bclOXuhtoEsx3W5gRjtg
-BdF/5lr/fa5XGOdzKPvZwENnZqcd6IMSNsHSkh8mFW9THqeN8ARoyVDHIyj5vL0P
-/03ADKtaTrXhy/6plcFUKISF8Sv5pMDwYBAmoYedrQtw9MjTvscQJqXzvjCWiEeZ
-+kGak3nZww3c4bbi3nVWHt+h77SyRA==
-=H3EA
------END PGP SIGNATURE-----
-
---nLOlIQnck55rXajZ--
