@@ -1,153 +1,212 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2A142AFAA
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0368D42AFAA
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:19:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788275936; cv=none; b=V22/5OthMHZ8CfL6sDRJdlguOPK6sJtab0E/Y2yPhZ2O+5ZU8mRDQjwY88BRD7u6ArWYa3/6sqKRbOx4ysACTT2VnKQb/TlQe2kyxUh3QSjjyPiUrGtPvSQ0mO0HcFkFKbOHIqxGEXOZYIoIgR24z5a0AH6xB3j71LIEEiOEOCA=
+	t=1788275961; cv=none; b=uwQHltD7ZnGR09ky2vMB+ZTUoTobEMJIC4xCuHuP3NLqJHl3CZtyCepgRPNmpSXOLgr0zrdGiPyLQOtrvVT79swDE8PRfJ//Pw2IMXS94AhxwGlXlzvgtwQOY0Km/Q0hCtDOAjdlmiWdktGJ8OvS7roiZmB+xzYifsPALVDHVDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788275936; c=relaxed/simple;
-	bh=oG2REDKA3C1eCPzXTldXuJDSA0ErSirz4TBnnkb4vNQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TrjVhJcRT9nr/gHFTIjH+4JoYLTVYMNhCeTMFIfEAOrnvcFhc4/yJqhHzhPKxmp8QzXNZrIIsdIU7khn3XjoO7DsfFuyxaqWd+yesRYzWK4E9OLCzfwq3NL0iQ/F5mGb1URa/+S+qJiGY5uhUXRajo7deMpcLbnqkM3t/SySpuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sNQ3qqBd; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788275961; c=relaxed/simple;
+	bh=K/ZcV9SR2P2QYRvwEKjdm4n9J4nRmYOhSxOU8nmjck8=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=mFnnoeGAmJyilmVwOBsiWLXBrtXegk2nwAJyvU+HHueNXhGsePs1Cbt+pq8BPaHh2nSXp+nHbiY1lne+3pPJxj7KtuuVu4Bk/O/RtlxoR8mvv9GJ1Njdgn2sQYL8n6/28jiEfToEyEakI4TYeeNH+54ED+Xwz7jXFmdhVXveVSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TvR92UQO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sNQ3qqBd"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84a6f026675so537677b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:18:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788275934; x=1788880734; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dzuzRQWzKhh9d8u5tb9B8Xmk/6ykx/rwaytUEdjFAyo=;
-        b=sNQ3qqBd8qCWLCcm3cjVu5ETwyaX1gKEWw1xCYtzLqLVXJ7/sbhrPJTZvuaV19gwO4
-         rCY48Bj0mSdpgrEjkvesCoWYURxx/P83UsOSbdCRMij/9gppK7Zb5XiFwCZMTGL3CoaH
-         0/lnHtsN26r3S4wmpZu0/UrDkQoIejA/t1qEyqpFhk5nIK5l1rswcBibvb9K/1i+0X/M
-         r78GnuLo4TAkGeU27D/FdbmXqlqBakOIOMRlL2fJryC+67hlFnVQi5+ChuA2eLpJtiVG
-         ioTWWFS/EXVCweQYVO8mtHZ5rNSkWMx4DnWNC+INT3dbzWg5/kLidWZJsx1NO0tGsmIN
-         KAEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788275934; x=1788880734;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dzuzRQWzKhh9d8u5tb9B8Xmk/6ykx/rwaytUEdjFAyo=;
-        b=meKyMRY6M7hs79+d9e1utlqhOi4aPL/ahrZTa8XBZ8XC+nBNVXlH9ytV7uECTJwP/F
-         49fI/j72rloyL4CRULgIxOaaaN2cffL9DYxtPKSYoP3NMu8rCYjAMU/hbabu8T3dluTp
-         9bdMMHW8ZBbvELzNSPY9u4VFl0LJ/UUW+D3qhoHJAMltr7IUDCVZNdpq5LF0lD9yeQrN
-         x758rcc1BtREf+vRTH8RbNNw1KhDa2FX41Zyt6GbUFd5k8QSTcHc37tz5wft65HvE6P0
-         AXgariEQc3MHpfdajakEzwOHNSM6ITOJMLL+/JVmLPr5W9k2zFwRxyJEO8OCyWI9ubTH
-         mgNQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoxW73PqC4QebybFeoF3uBPV55Pu1SKQ/sqgex2j3hA8weghKtIxzxM6LUp3Kwph4BkYpxkEOLLD09lq5M=@vger.kernel.org
-X-Gm-Message-State: AFuF++lykT3H+I0AAelkuYQQZJ8tvfxVB69eA6AhIMuNfuc72SdmmMvA
-	w0/8lGBV1sKMNYiAOs8qzeujFx1wtWfU0sWZgSM/RIlqlU+KMGzQEktv
-X-Gm-Gg: AR+sD13YUSdVDdvKJ0fO3OQz030Fs5uphaXWlP9UC8Cpl3CFwQZ9kxfJEuIVMxV9ehL
-	RE7woBRwxinKSdDqRpWDZhJXdWY7P7IfhWdNV+p0dMr8GH9yFJFNdayILBToU/T3kS/o5QNs1vW
-	vRHXw3icpcLz7ROrqFpNtEkj2E9GDrsjlfjKpjw/YjHBkQUDHuxnLo/eV9BRT1RtDA371A5Znqx
-	Znn6YKWaObyM329dH4ZCEtxU3jQZL9Zp3fIUaM8a63gignR+uLdUcL15Q1asxaW66JY7YVfA6mH
-	zhFfJcezNHGBWqTxoTtpKKcWucvsXKwnYP/YbHHbKjHC5FM9UPj0b/3olpfAK3R7DWqKDxNBCyV
-	gunnRoGS26BmXuBxkGcO3CvHIjKgjuE6p6aDJxy58/pyZV3UuMKWYlV7NsKfyrhlnc5DpMXr2rK
-	jusSWejTO2CqarV9UAkAJVCi826L/buspRzH/Xegr/rx0s9O9AjEo9da9lT1j1N4FyPT3z11D9y
-	h8nl5NUNBHopl0zI9oTMWeRPQ==
-X-Received: by 2002:a05:6a00:4a89:b0:845:cf73:5bd8 with SMTP id d2e1a72fcca58-856271fc239mr22836969b3a.1.1788275934457;
-        Tue, 01 Sep 2026 08:18:54 -0700 (PDT)
-Received: from o6.lan ([240e:391:ed0:47d0::1])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db24f33a0sm89911b3a.9.2026.09.01.08.18.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:18:53 -0700 (PDT)
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-To: akpm@linux-foundation.org
-Cc: david@kernel.org,
-	ljs@kernel.org,
-	usama.arif@linux.dev,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	kas@kernel.org,
-	rppt@kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	mark.rutland@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	luto@kernel.org,
-	peterz@infradead.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 3/3] x86/mm: add set_direct_map_ro()
-Date: Tue,  1 Sep 2026 23:18:18 +0800
-Message-ID: <20260901151818.3191443-4-xueyuan.chen21@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
-References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TvR92UQO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 608451F00A3D;
+	Tue,  1 Sep 2026 15:19:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788275958;
+	bh=T8hVAAFq8nLXDzFROIdNIyz355aFQ3u4T9wwv41XM+8=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=TvR92UQOXpZh/MJjJyylElZOzWTZTzI6KwKy9Q0rqrF34Zpf7BM2+cddYYRqSkTEf
+	 59WnHcehR9s8rXcnnqcLhZnbQgLFs5S1hY6rq7YFD5nM2cbsrWVWcVTEtnxmGFdH66
+	 gM06Bb3pzYmXJBYw0XoZODPmgeUKBNo5JlyWZdwSdt0eJya7y07sE28ujlFnvSpZ/4
+	 ouUaXP0ZFLmReaVVR5jdrn/okyOhp+Sf3+ZC8IDnBr0FdRFntXFnCTmf/eOCJ3wddu
+	 SUMPJkHpkW4KBZsl2mgj+yCjqHy2pCCL9GrV+kn9aHn3mmDI7TULDPn9T9zt4KSvxi
+	 o/OPomkq5OoIw==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 8574CF4006C;
+	Tue,  1 Sep 2026 11:19:17 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Tue, 01 Sep 2026 11:19:17 -0400
+X-ME-Sender: <xms:9eyWanpzYrq8a8tqptF-058OfZpcMbqCJiqjSRX3HindWsOOeAzVcQ>
+    <xme:9eyWaseasetMubUnJ9DYNNQGGlHPkqAGdC45R1ZRMw6FJg1-H-ehXe9-sG2UagdTS
+    7FMOGOAFvjKNUbi2aXLkafcvXJpnoYuzTZ1v78MGXCsna681iwHsLN3>
+X-ME-Proxy-Cause: dmFkZTFTbqlX6RzWhAPEQg6A6hUFJaVSZLzoWksCRUQlMdc2Q88F8lIvNJD5I5PvW0PLmE
+    nnOs9AavJGw1LhcD4mLF6oz1SC53l7jHVjzEBJI4DF9AOSFkjsyXvj6iYc12XgWJrW7Gr7
+    FTnIdH4Zb6Egds1U59cySIyFTkbw1Y3kwG/1SUX2e7KjmqQm7cjSRTPbluLKO6RsZLwrih
+    DGYVWvCJHFpEC40c+Q70pbPbcZfyJ/KflejdambIZZk8tl32tYep4wHm7vtpbBh9KdILro
+    U4uOyTM9CC9NDzyYplRNevNWYSmQLoEYpGTB8ZnsdIQXWrV1rneT+QqXjhLxKoodK0nYfZ
+    cLFnX1XlCcIk4mPA+/Y9cZ7JnhbIbcrBkhK6kAmQ3NtTMor1uSFh6r45psnhcYd/1Q6nTt
+    d3dKoUPrx9k47goec/w/U7SACvz0nW35wCqTUEdX7y3mVH8mTq6ByGRb30kMB4kDxXZ+Td
+    Swtsqv9ClGsYL4GeuT+LmwBttzqwbcHytUWJP1QoeEcIvCH2Et3SDUK5BwSX5eHALcfsZM
+    ROxuV18Wg5olhmbNxpXQG8woZIhMJd/RF/y/CioP5fu15CdC3HvPjCllu+KiHAcTVhZGE1
+    QNiprIDqabrbWQrpHnSgBT2q9fxulOxAwvSHzw6J+eg4FoeWOUpQe/gx4PaQ
+X-ME-Proxy: <xmx:9eyWavoyeKm8Vfof70LJo_-7X4D5jY_UQXCmI6PoZJY0U0KS4cKqsw>
+    <xmx:9eyWalpOKtEZi9gYkj4pia2FLTqmuvCXjq1jt1sSgbySE2Hbgiwbtw>
+    <xmx:9eyWauaII9t5Lrwq1iXNH3oDM5IvGm42v_ylfFinyt0RbRNN3B2XHQ>
+    <xmx:9eyWaj_O2xW0wlMr2SJkryGWdKmxtDIQKkwdpDH6lqFw4GyT88CJtA>
+    <xmx:9eyWask_FRWgfIY41LWKfiNY8Jv1nMGkmuRPSJlRpjx0wSRf3SBaV0FQ>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 5AB0E7811F0; Tue,  1 Sep 2026 11:19:17 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AlyFZM-VFrMc
+Date: Tue, 01 Sep 2026 11:19:01 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
+ "Tom Talpey" <tom@talpey.com>
+Cc: "Thomas Haynes" <loghyr@gmail.com>, linux-nfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <d5af1492-5bc3-4ac8-b4e8-d454b7caafdf@app.fastmail.com>
+In-Reply-To: <20260901-delegts-v1-1-9937f7ee4370@kernel.org>
+References: <20260901-delegts-v1-1-9937f7ee4370@kernel.org>
+Subject: Re: [PATCH] nfsd: accept a backdated timestamp from a delegation holder
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Implement set_direct_map_ro() for x86 with a page-based interface. Clear
-_PAGE_RW and _PAGE_DIRTY through the CPA path and let the common CPA
-wrapper invalidate stale writable translations before returning.
 
-Co-developed-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
----
- arch/x86/include/asm/set_memory.h |  2 ++
- arch/x86/mm/pat/set_memory.c      | 10 ++++++++++
- 2 files changed, 12 insertions(+)
+On Tue, Sep 1, 2026, at 9:09 AM, Jeff Layton wrote:
+> A client with an attribute delegation reports the file times in a
+> SETATTR at DELEGRETURN. nfsd ignores a time that moves backwards. It
+> then stamps the c/mtime with the current time, so the file keeps the
+> DELEGRETURN time. cp -p, rsync -t and tar -x lose timestamps.
+>
+> The client applies an explicit utimensat() to its own inode. It sends no
+> SETATTR while it holds the delegation, so the backdated value reaches
+> nfsd only as TIME_DELEG_MODIFY. The client can send an RPC for each time
+> change instead. That also works, but it loses the caching that the
+> delegation allows.
+>
+> The delegation makes the client the authority for these times, so treat
+> its SETATTR as a statement of fact. The client can set the same value
+> with an ordinary SETATTR, which nfsd applies without a check.
+>
+> - nfsd accepts a backwards atime or mtime.
+> - An mtime that moves backwards sets the ctime to the current time.
+>   The ctime never moves backwards.
+> - nfsd still clamps a future time.
+> - The CB_GETATTR path keeps the old rule. A backwards time there shows
+>   a stale report.
+>
+> RFC 9754 says that the server ignores a time before the original time.
+> This patch does not follow that sentence. The same section also says
+> that the server MUST accept the change or MUST reject it with
+> NFS4ERR_DELAY. A silent discard does neither. A retry after
+> NFS4ERR_DELAY carries the same backdated value, so that option cannot
+> succeed.
+>
+> There is still one gap: nfsd cannot tell an explicit utimensat() from a
+> report of a write. An mtime after the delegation and before the current
+> time therefore sets the ctime to that mtime, instead of to "now". RFC
+> 9754 requires this. Fixing that would require the client to issue an RPC
+> for the mtime.
+>
+> Fixes: 3952f1cbcbc4 ("nfsd: fix SETATTR updates for delegated timestamps")
+> Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> Assisted-by: Claude:claude-opus-5
 
-diff --git a/arch/x86/include/asm/set_memory.h b/arch/x86/include/asm/set_memory.h
-index 39271a5ea925..710164ea8258 100644
---- a/arch/x86/include/asm/set_memory.h
-+++ b/arch/x86/include/asm/set_memory.h
-@@ -88,6 +88,8 @@ int set_pages_rw(struct page *page, int numpages);
- 
- int set_direct_map_invalid_noflush(struct page *page, unsigned int nr);
- int set_direct_map_default_noflush(struct page *page, unsigned int nr);
-+int set_direct_map_ro(struct page *page, unsigned int nr);
-+#define set_direct_map_ro set_direct_map_ro
- bool kernel_page_present(struct page *page);
- 
- extern int kernel_set_to_readonly;
-diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index a1a061d995b3..7c0cfa7acd17 100644
---- a/arch/x86/mm/pat/set_memory.c
-+++ b/arch/x86/mm/pat/set_memory.c
-@@ -2666,6 +2666,16 @@ int set_direct_map_default_noflush(struct page *page, unsigned int nr)
- 	return __set_pages_p(page, nr, 0);
- }
- 
-+int set_direct_map_ro(struct page *page, unsigned int nr)
-+{
-+	unsigned long addr = (unsigned long)page_address(page);
-+
-+	/* Direct-map callers are expected to pass pages without aliases. */
-+	return change_page_attr_set_clr(&addr, nr, __pgprot(0),
-+					__pgprot(_PAGE_RW | _PAGE_DIRTY), 0,
-+					CPA_NO_CHECK_ALIAS, NULL);
-+}
-+
- #ifdef CONFIG_DEBUG_PAGEALLOC
- void __kernel_map_pages(struct page *page, int numpages, int enable)
- {
+
+Hi Jeff, LLM-generated review suggested the below finding is a blocker.
+
+> diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
+> index bb74eef43938..fa3a43c20e95 100644
+> --- a/fs/nfsd/nfs4proc.c
+> +++ b/fs/nfsd/nfs4proc.c
+
+[ ... ]
+
+> @@ -1302,21 +1315,23 @@ vet_deleg_attrs(struct nfsd4_setattr *setattr, struct nfs4_delegation *dp)
+>  	struct timespec64 now = current_time(dp->dl_stid.sc_file->fi_inode);
+>  	struct iattr *iattr = &setattr->sa_iattr;
+>  
+> -	if ((setattr->sa_bmval[2] & FATTR4_WORD2_TIME_DELEG_ACCESS) &&
+> -	    !nfsd4_vet_deleg_time(&iattr->ia_atime, &dp->dl_atime, &now))
+> -		iattr->ia_valid &= ~(ATTR_ATIME | ATTR_ATIME_SET);
+> +	if (setattr->sa_bmval[2] & FATTR4_WORD2_TIME_DELEG_ACCESS)
+> +		clamp_deleg_time(&iattr->ia_atime, &now);
+>  
+>  	if (setattr->sa_bmval[2] & FATTR4_WORD2_TIME_DELEG_MODIFY) {
+> -		if (nfsd4_vet_deleg_time(&iattr->ia_mtime, &dp->dl_mtime, &now)) {
+> -			iattr->ia_ctime = iattr->ia_mtime;
+> -			if (nfsd4_vet_deleg_time(&iattr->ia_ctime, &dp->dl_ctime, &now))
+> -				dp->dl_setattr = true;
+> -			else
+> -				iattr->ia_valid &= ~(ATTR_CTIME | ATTR_CTIME_SET);
+> -		} else {
+> -			iattr->ia_valid &= ~(ATTR_CTIME | ATTR_CTIME_SET |
+> -					     ATTR_MTIME | ATTR_MTIME_SET);
+> -		}
+> +		clamp_deleg_time(&iattr->ia_mtime, &now);
+> +
+> +		/*
+> +		 * The ctime must not move backwards. Carry the mtime into it
+> +		 * only when that advances it; otherwise clear ATTR_CTIME_SET so
+> +		 * that notify_change() stamps the ctime with the current time,
+> +		 * which is what a local utimensat() would do.
+> +		 */
+> +		iattr->ia_ctime = iattr->ia_mtime;
+> +		if (!nfsd4_vet_deleg_time(&iattr->ia_ctime, &dp->dl_ctime, &now))
+                                                             ^^^^^^^^^^^^
+
+Is dp->dl_ctime the right value to compare against here?  It is sampled
+once, when the delegation is granted, and nothing refreshes it after
+that:
+
+fs/nfsd/nfs4state.c:nfs4_open_delegation() {
+    ...
+	dp->dl_atime = stat.atime;
+	dp->dl_ctime = stat.ctime;
+	dp->dl_mtime = stat.mtime;
+    ...
+}
+
+Is there anything that stops a client from sending more than one SETATTR
+with TIME_DELEG_MODIFY while it holds the delegation?
+
+Say the first one carries an mtime T5 that is later than dl_ctime.
+nfsd4_vet_deleg_time() returns true, ATTR_CTIME_SET stays set, and the
+inode ctime becomes T5.
+
+If a second SETATTR then backdates the mtime to T3, where dl_ctime < T3 <
+T5, the comparison is still against the grant-time dl_ctime.  It returns
+true again, so ATTR_CTIME_SET stays set and T3 is carried into ia_ctime.
+
+notify_change() -> setattr_copy() -> inode_set_ctime_deleg() then drops
+that update, because T3 is older than the T5 already in the inode:
+
+fs/inode.c:inode_set_ctime_deleg() {
+    ...
+	/* If the update is older than the existing value, skip it. */
+	if (timespec64_compare(&update, &cur_ts) <= 0)
+		return cur_ts;
+    ...
+}
+
+The mtime moves back to T3 and the ctime stays at T5, so the ctime is
+neither carried from the mtime nor stamped with the current time.  That
+looks different from the comment just above it, and from the commit
+message: "An mtime that moves backwards sets the ctime to the current
+time."
+
+Would comparing against the inode's current ctime work better here?  The
+inode is already in hand for the current_time() call at the top of the
+function.
+
+> +
+> +		dp->dl_setattr = true;
+>  	}
+>  }
+
+
 -- 
-2.47.3
-
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
