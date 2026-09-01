@@ -1,170 +1,166 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED7837A481
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:41:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A154B41378E;
+	Tue,  1 Sep 2026 07:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248505; cv=none; b=gLosNdChazA//K/VQetNg7yBt4EWdAeB6AUqci7Xg1/VE4X1dSiNUef3GL821YL9RPvCP8svS6WUuS2JW3SQueR8pYX7+2lZfpTfuDc8j/1bv9dt4Iw9h7X7cJGTowcSi6yyB2Ik2/kniYuU9mSNUL2WVjaI7uxESGnG7QJO/Xo=
+	t=1788248574; cv=none; b=YIc1I5TG3HQSMkPx26OGJy0jQJXUrffWtBmUcOttaWJspfwVniIfo3N6Mr9zBRDuTiD6BfB+w6uqJXWW4EIYYsi1k638bb8NPzIueHiPJAhgVmhOfoQxv8qUbgOniKjJiUOnInUgQz2NtZc9Y1a3WahF8jCQTY2hKJJhIsSZCj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248505; c=relaxed/simple;
-	bh=ONrmBwAPLKPDlLFjD5hZmt3ziTbYPhrJZcF4w2m5+I4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=d3GAsRNJF3RYSIYRD7c2s4Mp8p7uhlig6RP3Lk+EOQQfiApPaPAX0Wxia3GFw3B+3kLq6h9syv5Jv4DfuoK9sfrSCucF0G0RkBq1tqZZU9hMRaVvOYSVzxkHpW0FfhexyTOa0sLJ4oLGVJDNkI9CXrQml0tsV6Kvq0Y5ijvrnYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YdY5cTsk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dLpGYi10; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788248574; c=relaxed/simple;
+	bh=boAq9UlSLVen/OoceZ6i8CG0+ilM9weU6jwKbKABuHE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y2H4DLr7NaLWPOzxDbdmhlIXl7MqVePte8pCxB7BQNDjTcpf2c642lpb4H2m+vQ2G8QdkgK0GiIsOlhw1jIHcW2CTqbg5XW1oR6olr15G3GLKrUDaBGW2tCJPt2sSSNwQe54Btlh4igpjiXB98W9gSXCtlGdWcyVz1n4R6W4E2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=VbKlaiiG; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YdY5cTsk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dLpGYi10"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68179O4W2321946
-	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 07:41:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=nnUNgIXtKmNalo4SOMUEDy
-	v7hRZV28dJ8kqH+HmyC9M=; b=YdY5cTskCMzpW4N4kEBkWYQmFZCo8yibD/YSWY
-	agJ7X/9MxI3Opgj6tAP69fWzme5x+3N7sAZ58623qdBmdEIWIDYxm1x5p4ye2ZrO
-	/BZ5W5dM0hZsKyknh0c52WEK9NhR1HBqNsGqmfXZKm6dFL99WnIa8f8N5apVI2rj
-	cIXeBni4Fim+SBnmvNqzVeYkMmjT4Z+51l1zqgELqrc6B49G/tHNlmFXZ4tccEg6
-	2pa/7oGOomg1QShKtdPpZXIaAElHgVQeWH21YnJpQvQ86D+hqcVARTajOw3lYOIx
-	HV3qcgVGXUXfMF9KD9eaTQGlRC4dx5HlAO/BrPdO9Lzga/XA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdfchaqkh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:41:42 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-398d292eac1so4720009a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:41:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788248501; x=1788853301; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nnUNgIXtKmNalo4SOMUEDyv7hRZV28dJ8kqH+HmyC9M=;
-        b=dLpGYi10ymix9+LhzbUOordnZSM+xGHm6J5wpEwQGk1aG7oaFBKLENttcFb2GE990e
-         XmeAFjHGVa36oW6RlBkzVz052ol8+kYzTPrfDL3zt8QoPjiy4ohC0mtb9BFEcdidhUaq
-         1raSpI2N91n1gP6Zb15SKFyTmYzcQ9eXu1WIChsLbv8xfI76nnRXS0QpfF7BOqo77Xam
-         dgz/PTYtCui4ywd1T33KKaMT39oIvTeym+70s/hA82Pa4w+FGzcOCaZJcHArJrNs9B4j
-         EoJ7XFMPtdU0noTN7G2xe1BJ9nLO0AFzPAP6y8gX8OLei12O8IeNkWtfgw9bBqAePKTy
-         MOow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788248501; x=1788853301;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=nnUNgIXtKmNalo4SOMUEDyv7hRZV28dJ8kqH+HmyC9M=;
-        b=QWVoDsIOnIkWu4yRPzVpCCdWh8Epxte4PXXNITiYZwLCbkuZnV4sXsI25f6YYYw2TA
-         cwZsbHCBjXTlFHbz44wesTAkd9thaypuEfhAB1+TS7r3s+72sSnmq1yevyBxVoPgTFy9
-         15te0XKc7bzhUXpxjoKhhqIe35BgFfgXaHQP7e2W6p8PZDp6FUToTDWYrBCbJ54+PPg4
-         QvZpV45g16Iuyoo0eI831OweY/J5g6kzAgMRW5KfjGhV/uH8k3twoCdNgG4JLEJjxQZm
-         Y2QtAs00ukKYoWNKfGazBM/R7sT3NQuh8tWLAThhma9Gx2cGI8Q9nFTRSOY6TkasA3PU
-         Z6gw==
-X-Forwarded-Encrypted: i=1; AKwUvBwTfLV+rUZdWWjRRdN9e5JwbZAqcyudVUStS5CocoHY3HVodxJ8o3e0byduMd2KxooAm5bMPLSG9j/tQ3I=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLtqQX6M/t5/EyliLZuPxUUnc2ebmHM+3yJAQp5riLaHFIPIbQ
-	h/BZZJrt2+1UFNF6Rp8bPDmk13G+OuXEY4s3VE2e72PqfMGWXs4yIiO8GpxtSTKb6GXEth469TE
-	zFGp7kDvdvPRpRjEtGYm/EYtznzhLw2DxQrynFHkDtsmdQeZ8Nn8BCnDtnM6FQatZJJo=
-X-Gm-Gg: AYBFou3opHS5OgZD+y/xQQnEbC9SuZsqQj3zrXh+gMbvqJl5NFR2O6sY9bx5gcm9qeB
-	U8Lm1ALXBm7kqTRV4rX7yDPpn4yXLCllYMnNZZqy14XTjUC4Ob3k7QyqP0exoQB8cFbai86nmPT
-	ux0xOhCJttz3ilh9Q8Fkbk1pcgDYV/Uv6sLAAJ9H+nYnv4vA+7hH4xcZqK3KzApiTiGewHm7b8V
-	oMlWVBGxAHDQXMWL9qEILyh026zu69EpKkkOuY94rRlLYXfCzwG6nGjfTMjN8hP0RkCJShKp9DZ
-	1/P378R6FnDCqvES9RjagLY1kzhEnDUm9I+A05S+kB3pyDDMvjcUn4P3tGyda8QkXKwzfQusdk0
-	MRNyxLcKPRAxmGgf45zrA9IBZNm8X+eE48Zk=
-X-Received: by 2002:a17:90a:10c8:b0:399:221d:63c0 with SMTP id 98e67ed59e1d1-399221d655emr2102111a91.25.1788248501270;
-        Tue, 01 Sep 2026 00:41:41 -0700 (PDT)
-X-Received: by 2002:a17:90a:10c8:b0:399:221d:63c0 with SMTP id 98e67ed59e1d1-399221d655emr2102052a91.25.1788248500815;
-        Tue, 01 Sep 2026 00:41:40 -0700 (PDT)
-Received: from hu-jseerapu-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d4f1bb8sm5348784a91.14.2026.09.01.00.41.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:41:40 -0700 (PDT)
-From: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-Date: Tue, 01 Sep 2026 13:10:59 +0530
-Subject: [PATCH v2] dt-bindings: dma: qcom,gpi: Document GPI DMA engine for
- Maili
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="VbKlaiiG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=iJ
+	1HACajl7jRHSMfEPRFJKfQbbsmoWUbVzLWRle57Jg=; b=VbKlaiiGFQOToqHGFD
+	nCFmoA7vEJV0xnQWrlsr0oT0hBNOOS3bhdNkxEizHd9WrPp7tFa7O2f04ENIyd1P
+	hL6raUrby2EDa7SLqTdVC+FW6Z8cmPcK5ciX1WHEJELzg0nJVA0CLIS9hcrkX9SZ
+	Mp2sBfbJYXihnlPNx9h1a3u74=
+Received: from sky.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wA30ITXgZZq7jdkSw--.38828S2;
+	Tue, 01 Sep 2026 15:42:15 +0800 (CST)
+From: Junnan Zhang <zhangjn_dev@163.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhangjn_dev@163.com,
+	Junnan Zhang <zhangjn11@chinatelecom.cn>,
+	Shouxin Sun <sunshx@chinatelecom.cn>
+Subject: [PATCH net v3] net/packet: fix network header offset for non-VLAN raw packets on VLAN subinterfaces
+Date: Tue,  1 Sep 2026 15:42:14 +0800
+Message-ID: <20260901074214.57717-1-zhangjn_dev@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-maili_gpi_binding-v2-1-c10dd2324a09@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAIqBlmoC/yXMQQqDMBRF0a3IHxuIaa3oVkTExG/6pI2SWBHEv
- Tfq8Azu3SmwBweqkp08rwiYXIRKEzLvzlkW6KNJSfWSpczEt8MHrZ3RargezopHoTOlh5Jz86T
- YzZ4HbNezbm6Hnx7ZLOeIjuMPqAToiHUAAAA=
-X-Change-ID: 20260901-maili_gpi_binding-37b12bf9e5c4
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
-        Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788248496; l=1133;
- i=jyothi.seerapu@oss.qualcomm.com; h=from:subject:message-id;
- bh=ONrmBwAPLKPDlLFjD5hZmt3ziTbYPhrJZcF4w2m5+I4=;
- b=QU1D+HH1NTvIIaP4M6LcF4kHhVq3AN88zrlvq9ubeNwxKCWBZZdTGu4CHHV97vAlhBNi6z4uN
- 34Uvq+LKPjjCZ8dSvEV34LyNVfQgGbShuTu9yKQrRfJ/RRyKrTZYxgM
-X-Developer-Key: i=jyothi.seerapu@oss.qualcomm.com; a=ed25519;
- pk=9vafyYsia0OnBKWSEwhmWe3hPVQfI2T1xOs5dPaFvEo=
-X-Proofpoint-ORIG-GUID: JnMcIbCTqdxzTo5jkXmpS-TALngs1AUL
-X-Authority-Analysis: v=2.4 cv=G9Ms1dk5 c=1 sm=1 tr=0 ts=6a9681b6 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=THIw8Hy6Aik7p87rLRkA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: JnMcIbCTqdxzTo5jkXmpS-TALngs1AUL
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA2OCBTYWx0ZWRfX3yAUg0DYHDBT
- 4EUDA9PwtlN1Az6qvKCH/mSIaATEI3+IJdqmfvClhjpH5+GFIypUenabp+Lef5DNSS6NOsGWPRf
- uqiPO+RSk4B8YCWe5BZZk3EeC0eQ/rk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA2OCBTYWx0ZWRfXwmuA6X0lEha6
- fHl8Ay+sY56550nWlliwCN8L/MDAPTMnRtMBxCspJ2GmiWTMWfM4wIT/72PYfgvyuMPm85o4ezX
- JLSbOTIiG30z8HleB6vt/qHlliXWQGl75xIYsi6nnXyPZsHLFBjUseZvoc8haOeTjYMOATi6fZv
- wHY2lb+gw7DCqYP862cbu3jtLfjs2aoAwkpMk704HuWYScb6Kasza/PFqELFIxNnodA5q9it7jp
- Ihqm8iplnQdqoPj62XlWl3NNKp0xKy9AXSFU9ZWqNGWnjEyfdyUMZ5Ng5/Ry9uUmYeuYltshVEd
- GjS/lJW8T2K28yNMcp+Anx6g4SObXpJx3FUJ8Bco0ydVJThflSMJBPd3a7ht/5kRVKGeax8ClhI
- 7U2fEAFoGo/TEU569aQC0185r689PSs07QkBAUQrWE7nXWwYnHgPKKzapiNhxV0v/RBgUH/612v
- QgAOaMBAqqXvnF2eWbA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
- impostorscore=0 spamscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010068
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wA30ITXgZZq7jdkSw--.38828S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3AF1DCw1UuF1kCF4rJrW7XFb_yoW7GF1Dpa
+	yjkF9xGw4DGr1Svr4kKFsrJF45ZFs3Ga12g3yfJ340vF4q9FyFvFWxtF129FyUKFWrX34U
+	Xr1jvF1Y9a1ktrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pipuWJUUUUU=
+X-CM-SenderInfo: x2kd0wxmqbvvry6rljoofrz/xtbC7hfVa2qWgdd9vwAA3v
 
-Document the GPI DMA engine on the Maili platform.
+AF_PACKET SOCK_RAW sets skb network_header to dev->hard_header_len in
+packet_snd(). On VLAN subinterfaces with software tag insertion,
+hard_header_len includes space for the VLAN tag (ETH_HLEN + VLAN_HLEN =
+18) while min_header_len is the on-wire Ethernet header length
+(ETH_HLEN = 14). A non-VLAN SOCK_RAW frame carries a standard 14-byte
+Ethernet header, so its L3 header sits at min_header_len, not
+hard_header_len.
 
-Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-Acked-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+packet_parse_headers() only corrects network_header for VLAN-tagged
+frames. For non-VLAN frames it leaves network_header at hard_header_len,
+so the IP header is found VLAN_HLEN bytes too late and
+inet_gso_segment() fails with -EINVAL.
+
+Observed on a virtio_net NIC (KVM guest) that advertises
+NETIF_F_HW_VLAN_CTAG_FILTER but not NETIF_F_HW_VLAN_CTAG_TX, so VLAN
+subinterfaces use software tag insertion (hard_header_len = 18). An
+AF_PACKET SOCK_RAW socket bound to the VLAN subinterface with
+PACKET_VNET_HDR enabled sends a large IPv4/TCP frame exceeding the path
+MTU, with gso_type set in the virtio-net header. The user frame is a
+plain [ethhdr][IP...] layout without a VLAN tag;
+vlan_dev_hard_start_xmit() only attaches the tag metadata via
+__vlan_hwaccel_put_tag(), and validate_xmit_vlan() on the physical
+device later inserts the actual tag bytes via
+__vlan_hwaccel_push_inside(). With network_header stuck at 18 while the
+real IP header is at ETH_HLEN (14), inet_gso_segment() reads a
+misaligned ip_hdr(skb) and returns -EINVAL.
+
+For non-VLAN SOCK_RAW frames on VLAN subinterfaces, set network_header
+to min_header_len so that the L3/L4 header positions match the actual
+on-the-wire frame.
+
+This fix is placed before skb_probe_transport_header() so that both the
+transport header probe (which uses skb_network_offset() as nhoff) and
+subsequent GSO see the right L3/L4 offsets. It complements
+commit 01fdecc0480d ("net: packet: fix wrong transport_header when sending VLAN-tagged frame")
+which only covers VLAN-tagged frames.
+
+Fixes: dfed913e8b55 ("net/af_packet: add VLAN support for AF_PACKET SOCK_RAW GSO")
+Signed-off-by: Junnan Zhang <zhangjn11@chinatelecom.cn>
+Signed-off-by: Shouxin Sun <sunshx@chinatelecom.cn>
+Signed-off-by: Junnan Zhang <zhangjn_dev@163.com>
 ---
- Documentation/devicetree/bindings/dma/qcom,gpi.yaml | 1 +
- 1 file changed, 1 insertion(+)
+v3:
+- Use is_vlan_dev() instead of the min_header_len < hard_header_len
+  heuristic to detect the affected device; the heuristic may have false
+  positives for other protocols, and the ARPHRD_ETHER check excluded
+  the other hard_header_len cases anyway, so scope the fix back to
+  VLAN subinterfaces.
+- Rename is_vlan to is_vlan_packet to disambiguate from is_vlan_dev().
+- Correct where the tag is inserted: vlan_dev_hard_start_xmit() only
+  attaches the tag metadata via __vlan_hwaccel_put_tag(); the tag
+  bytes are inserted later by validate_xmit_vlan() on the physical
+  device.
+- Reword the subject and commit message back to the VLAN-subinterface
+  scope.
 
-diff --git a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
-index 54dca623223d..dfc4a3054b5d 100644
---- a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
-+++ b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
-@@ -28,6 +28,7 @@ properties:
-               - qcom,glymur-gpi-dma
-               - qcom,hawi-gpi-dma
-               - qcom,kaanapali-gpi-dma
-+              - qcom,maili-gpi-dma
-               - qcom,milos-gpi-dma
-               - qcom,qcm2290-gpi-dma
-               - qcom,qcs8300-gpi-dma
-
+v2: https://lore.kernel.org/all/20260831072034.40044-1-zhangjn_dev@163.com/
+v1: https://lore.kernel.org/all/20260821085722.24036-1-zhangjn_dev@163.com/#t
 ---
-base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-change-id: 20260901-maili_gpi_binding-37b12bf9e5c4
+ net/packet/af_packet.c | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
-Best regards,
---  
-Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 1168bd6b09cd..3bada38b3556 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -1935,6 +1935,7 @@ static int packet_rcv_spkt(struct sk_buff *skb, struct net_device *dev,
+ static void packet_parse_headers(struct sk_buff *skb, struct socket *sock)
+ {
+ 	int depth;
++	bool is_vlan_packet = false;
+ 
+ 	/* On TX skb->data is the L2 header; anchor it for all socket types. */
+ 	skb_reset_mac_header(skb);
+@@ -1943,11 +1944,28 @@ static void packet_parse_headers(struct sk_buff *skb, struct socket *sock)
+ 	    sock->type == SOCK_RAW)
+ 		skb->protocol = dev_parse_header_protocol(skb);
+ 
++	if (likely(skb->dev->type == ARPHRD_ETHER)) {
++		is_vlan_packet = eth_type_vlan(skb->protocol);
++
++		/* For non-VLAN SOCK_RAW frames on VLAN subinterfaces with
++		 * software tag insertion, hard_header_len includes space
++		 * for the VLAN tag while min_header_len is the on-wire
++		 * Ethernet header length. The user frame carries a
++		 * standard Ethernet header, so its L3 sits at
++		 * min_header_len, not hard_header_len. Move
++		 * network_header to the actual L2/L3 boundary so the
++		 * transport header probe below and subsequent GSO see
++		 * the right L3.
++		 */
++		if (sock->type == SOCK_RAW && !is_vlan_packet &&
++		    is_vlan_dev(skb->dev))
++			skb_set_network_header(skb, skb->dev->min_header_len);
++	}
++
+ 	skb_probe_transport_header(skb);
+ 
+ 	/* Move network header to the right position for VLAN tagged packets */
+-	if (likely(skb->dev->type == ARPHRD_ETHER) &&
+-	    eth_type_vlan(skb->protocol) &&
++	if (is_vlan_packet &&
+ 	    vlan_get_protocol_and_depth(skb, skb->protocol, &depth) != 0)
+ 		skb_set_network_header(skb, depth);
+ }
+-- 
+2.43.0
 
