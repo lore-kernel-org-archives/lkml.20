@@ -1,83 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-65.mta1.migadu.com [95.215.58.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2001D220687;
-	Tue,  1 Sep 2026 00:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064112045AD
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 00:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788221343; cv=none; b=cRd9xG9ev55gM80bmunSDypqFmZYWl3pfxteniw4iZE0Ms8eqfZ5Vc16fsHbccDkV4sl2buYGeMiHoigdds56X+B2+Q3Q8UZ8F4UoZ3SRZ71J7Li8bNAa/piICj8/eEq3b4JcauTVtGtbzCJWF4Fv/Us1FICDS5wxKdVWtp1zvI=
+	t=1788221445; cv=none; b=LjDikphJIrqwWJGAjzwhGzOR/Op+s6RkNlZgeet/HgKRxO/J9xPOWxrGHSg/02jpUdPMZcmmw1QSEwC5O0nN3p+ANCbxOU2X8ja5QHwjuQ6APXGTn7Fa0vB8onDs/jUdBljL8a40ekceKOsm0WMATgU4ZEaGjNNYt3pe9BOvkvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788221343; c=relaxed/simple;
-	bh=AdhwX4+AlUR+yOn+TZD8JoDBz3Hdlh5o1W72Ag9ocjU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nMpnC+IR/WHLeDStLaqkdBMF57KhFCrRBg7Y9JFHlWKJQUbZIcg90Wx046EnfmyjX1Wqyq2iBXGH6Bcb5KsFgBajT0FvOsGdA58F60UG+4ecn7H89GIGt3m5McfW/FeQjHYk+GEJionkDMbZU9bjxI+whj4Uk36Nhc0/bwACnS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TX3AkNbq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788221445; c=relaxed/simple;
+	bh=VQbX7qhToOCvYZznvKl5y3u5IYIy1k7DJaMvEMrWF3o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y3IvIDu8s13CRIu8fYvDfnZcZ1oMR7O/CmnLPFwnNojyTt0S1Jis01KPqnSCxTPCntrMyX20rfMdAz5nF0S5eMiKdlmFxPaiaHQ2/KSHTFw0Vt+XhJlqJCR4j+JWm4I1xywvwVx9kVKFdI04xR+Z7IvKioICOiDVfSStwVdTA3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SKJJ3Wb1; arc=none smtp.client-ip=95.215.58.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TX3AkNbq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4AA1F000E9;
-	Tue,  1 Sep 2026 00:09:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788221341;
-	bh=MOCnMiWwuAqeY7230RPEeGlPmrcMUY6HdWpI0w4hMDA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=TX3AkNbqanYf/UIUjrymI1W/9kEbYODsuEKCcVac0QFQGRRXvMVN2a6k4ib+zl02L
-	 4dp09cP7ahoQGjNCsqXtcXaFrithQUTh04xQeBPXot8wQCv9TS8AwMYLKarPmDo4wf
-	 JQpgQ3Qy5IbFW8obwGz+bkp8TYO8cE7Mlakf4hRnFAy62uK+fa+Zje7SPRSWjqiDGy
-	 ikBThDDtZowX62erg0MYRdiH0H7OXM3w4c78GKFzWXvBeB/0sFmAq4TaEK3ZhfTL9e
-	 moJ7m4a/a9eh0cWXOfpftQRl6gOiefrDNjJt0fpGwooDyr+QDzn0IJ9l06O+6lpFsg
-	 laXtW67OdYyeg==
-Date: Mon, 31 Aug 2026 17:08:58 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: netdev@vger.kernel.org, Linus Walleij <linusw@kernel.org>, Imre Kaloz
- <kaloz@openwrt.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, linux-arm-kernel@lists.infradead.org (moderated
- list:ARM/INTEL IXP4XX ARM ARCHITECTURE), linux-kernel@vger.kernel.org (open
- list)
-Subject: Re: [PATCH net] net: ixp4xx_eth: handle probe deferral from
- of_get_mac_address()
-Message-ID: <20260831170858.7e23643e@kernel.org>
-In-Reply-To: <20260827013634.167932-1-rosenp@gmail.com>
-References: <20260827013634.167932-1-rosenp@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SKJJ3Wb1"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VQbX7qhToOCvYZznvKl5y3u5IYIy1k7DJaMvEMrWF3o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788221439; v=1; x=1788826239;
+ b=SKJJ3Wb1HujSZQSBqPuzVTR/xJGO1tdDt880sMmlpXUZEantBEzeHhnlcfOtSxPZwbKHcCFN
+ uZ2j4wQjhFYmtuxLnMhjv2WCJvMDFh6S2XD6L1HLzmhGmZAyk3qhO+wlAZyMHWgqPD15xuKmXVM
+ UuV2JXP0GvzSLw3esOCf5mtI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 69816a8805fc6742;
+	Tue, 01 Sep 2026 00:10:29 +0000
+X-Mizu-Trace-ID: 69816a8805fc6742
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 31 Aug 2026 17:10:24 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: David Stevens <stevensd@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] memcg: Don't call schedule_work when no spinning is
+ allowed
+Message-ID: <apYXCL_GJs9Ovu0v@linux.dev>
+References: <20260831234339.280376-1-stevensd@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831234339.280376-1-stevensd@google.com>
 
-On Wed, 26 Aug 2026 18:36:34 -0700 Rosen Penev wrote:
-> ixp4xx_of_get_platdata() returns NULL on failure, which the probe converts
-> to -ENODEV, discarding the real cause of the failure. Return ERR_PTR()
-> with the appropriate error so callers can distinguish cases such as
-> missing DT properties (-EINVAL) and, importantly, handle -EPROBE_DEFER
-> from of_get_mac_address().
+On Mon, Aug 31, 2026 at 04:43:39PM -0700, David Stevens wrote:
+> Memcg charging can be done from any context, but calling schedule_work()
+> isn't safe from an NMI. If memory.high is breached from a context where
+> spinning isn't allowed, use irq_work to schedule the reclaim work.
+> 
+> Fixes: 3ac4638a734a ("memcg: make memcg_rstat_updated nmi safe")
+> Signed-off-by: David Stevens <stevensd@google.com>
 
-Doesn't seem like this should be treated as a fix, AI says:
+Did you hit this issue or just code inspection? I assume this is the
+done_restock code path.
 
-Can a device tree that actually reaches this new code path pass
-dtbs_check? -EPROBE_DEFER out of of_get_mac_address() only comes from
-the nvmem lookup:
+> ---
+>  include/linux/memcontrol.h |  1 +
+>  mm/memcontrol.c            | 12 +++++++++++-
+>  2 files changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> index 8170bb8066a2..036d973ceca6 100644
+> --- a/include/linux/memcontrol.h
+> +++ b/include/linux/memcontrol.h
+> @@ -219,6 +219,7 @@ struct mem_cgroup {
+>  	spinlock_t	 peaks_lock;
+>  
+>  	/* Range enforcement for interrupt charges */
+> +	struct irq_work high_irq_work;
 
-net/core/of_net.c:of_get_mac_address() {
-	...
-	return of_get_mac_address_nvmem(np, addr);
-}
+Instead of adding more complexity, let's just return if we can not spin on
+done_restock path.
 
-which needs nvmem-cells and nvmem-cell-names = "mac-address" in the node.
-Documentation/devicetree/bindings/net/intel,ixp4xx-ethernet.yaml ends with
-additionalProperties: false and pulls in ethernet-controller.yaml only via
-allOf/$ref, re-listing just phy-mode, phy-handle and fixed-link. It never
-lists nvmem-cells, nvmem-cell-names, mac-address or local-mac-address.
-
-Should the binding gain those properties (or switch to
-unevaluatedProperties: false) so the configuration this patch handles
-can be described?
-
-
-And if this goes to net-next there's a bunch of pre-existing
-bugs in the area which will conflict, so frankly let's just leave 
-this be.
