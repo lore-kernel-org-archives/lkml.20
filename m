@@ -1,224 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B862C47208F
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 22:04:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C757F390CB7;
+	Tue,  1 Sep 2026 22:07:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788300278; cv=none; b=QAbBisFZyeBILB8DZlgatIfL0njhIdUTcBVU26g5oyCw/8K87kvlGzIttHbt9hQPESJ0lVJWpP3ubFjQVQdRTQwdZzsKmF9aL3YZp7qtyKUGSpG7mMlgJQUXMzBSokTznRcyvjrHrX8JqwWZnGIbliMiWbDp0TVetn8x+ToXMW8=
+	t=1788300480; cv=none; b=o3Gvu8tPJXO4VKLT5PTRaKpwxcJp1XaPGEscZZ2/0UpsBfFhz/y1r3fljhE6xVRGhndG6R5bdanRpv0EwFcpUjhKxRXZpuY9uL6mnoPfg6aZx/KClVDn7jpGeSOi5NhB6EK/ItFzCAjGZFgbgVf6HT+FwqFdV2WCdZ7nG6axpPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788300278; c=relaxed/simple;
-	bh=P4m0ZBNeU9VLXcvAtpE/vfabDepzn/1eCD+Sjghk7rU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OFNXqAT2N0VPdSTZ9Nt96CgxKmB6eoO+QrLjm/OvI5H9MN6G8PiMMdVrpy8J0QTlIbROidyhUGc/3GTtoUIf5q+gvshXr4SsIitMQBO49oEBZty5V1A48L4y1Ye9lYPVB6fS4sfznQ9jfWIkS+/5XMGU3W2+w2Bt/LQKvzen8+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F3gy1o3/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788300480; c=relaxed/simple;
+	bh=iS230YxR60m0KZnARzwoJEmq3M442kqYfn0rmrEblnU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lf6ScYwNO4YY72rlbvLgRexkmC5ZF276W+oS47tvkQyg/Ht5H3UUV64C2dCrN5h6UsG9gMcyaWbN8w2bXiAncjjEn7UZa6UeG4bnAN3TkqGYA5ZfOoGOH4EjpK+PF+1LSyq/f07GDshJbZVxgjLzwCfPDvea+xG7fpoVl5kffQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lR511LSQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F3gy1o3/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC0F71F000E9;
-	Tue,  1 Sep 2026 22:04:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lR511LSQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 847DF1F000E9;
+	Tue,  1 Sep 2026 22:07:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788300275;
-	bh=Dg7/of7miGca+ll6oxzY618HVXmMqM3sY+D0h0edBJ4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F3gy1o3/cFWrfD+9K/D7IPHj3VpxhwGJXIV8zmLNSnFFRu3RUUSdzcMPTrA2fy0My
-	 TjZer9gWanz8wijtc4uEikcLLucirkmpF15DfN9MxEFd6uEtoPnw47KlJDOVEpP538
-	 vVOlyhH0xUqWDzTAPHAOcGTMrFFwQ427xkhCn398v8F2BC4MNoIyGeiQt+dv4xAF3x
-	 X7DLkSt9DFOIPJm+YNs+pPgdf20xASR150o13Nfl8BEcPXXfPiWIB1JxsFQuuBXa31
-	 aywyTM3Wi7I/Jt5OL1/XWXO80FesDtUM6qdSm4/20T43CEZB6q1C8BEM97/wgw0i1C
-	 6EjKQ53zHBY3Q==
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-To: ryncsn@gmail.com,
-	ehab.ababneh@intel.com
-Cc: akpm@linux-foundation.org,
-	axelrasmussen@google.com,
-	baohua@kernel.org,
-	kasong@tencent.com,
-	lance.yang@linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	weixugc@google.com,
-	yuanchu@google.com,
-	yuzhao@google.com
-Subject: Re: [RFC PATCH] mm/mglru: dynamically protect readahead fault folios under refault pressure
-Date: Wed,  2 Sep 2026 06:04:30 +0800
-Message-Id: <20260901220430.79810-1-baohua@kernel.org>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <apcVhWzEwkwHYjB1@KASONG-MC4>
-References: <apcVhWzEwkwHYjB1@KASONG-MC4>
+	s=k20260515; t=1788300477;
+	bh=GxJ1J5o192Yi57FIwYJ2EOUQdRT6ypUFpputH/0IOeQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lR511LSQVSe9EdXltrtmNkOFE/TMh95ryDURboDTyyanhfibv5hS+A1di+rF3X1HG
+	 JfrrIa785v6+L5e1P4wKk/fmTkKXInKZVKRw/h0vjer88zu/anais1Y07FJ0S0GM/P
+	 rpHWWumV/MtRG/vnK1eBWypCMFw1ophLkq7JoQ5gSrcloW8zuV7Ct/4jPbfS8Oe8mV
+	 BLchSuVccGGoyOITjb6E0x0s1n9aPzj+q1LQKaxxu/8dIjG+AybLS+xTxIlY+ZYClZ
+	 zDy3wktDaB9+AZBUH6CG1hXHaSnOakwod/5moyfam5y8da0P4JGw3Lo+0P8khW0eEg
+	 IXj8HUadNw/bQ==
+Date: Tue, 1 Sep 2026 15:07:56 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Chen Pei <cp0613@linux.alibaba.com>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	x86@kernel.org, devicetree@vger.kernel.org,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Atish Patra <atish.patra@linux.dev>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Tony Luck <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>,
+	Peter Newman <peternewman@google.com>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Ved Shanbhogue <ved@rivosinc.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Rob Herring <robh@kernel.org>,
+	Zhiwei Liu <zhiwei_liu@linux.alibaba.com>, d@gen8
+Subject: Re: [PATCH v6 5/8] riscv_cbqri: resctrl: Add cache allocation via
+ capacity block mask
+Message-ID: <apdMvKYegtdEWntp@gen8>
+References: <20260729-dfustini-atl-sc-cbqri-dt-v6-0-7c22b05d461b@kernel.org>
+ <20260729-dfustini-atl-sc-cbqri-dt-v6-5-7c22b05d461b@kernel.org>
+ <20260831100216.reply.cp0613@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831100216.reply.cp0613@linux.alibaba.com>
 
-On Wed, Sep 2, 2026 at 2:21 AM Kairui Song <ryncsn@gmail.com> wrote:
->
-> On Tue, Sep 01, 2026 at 11:06:43AM +0800, Ehab Ababneh wrote:
-> > Commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace
-> > folio_set_active") introduced a regression for workloads that rely on
-> > readahead to keep sequential file access efficient.
-> >
-> > The problem is that MGLRU can place fault-path file folios in older
-> > generations, so memory pressure can reclaim readahead folios before the
-> > workload touches them. In our Cassandra read benchmark, this raised p99
-> > latency to about 9.2-9.5 ms and cut throughput to roughly 41.8k-43.6k
-> > op/s; the revert restored the workload to about 5.5-5.6 ms and
-> > 51.9k-53.1k op/s.
-> >
-> > Readahead is important for sequential I/O and mmap scans, but it should
-> > not be retained when the workload does not benefit from it. The goal is
-> > to keep the optimization without keeping readahead pages alive forever.
-> >
-> > This patch provides a middle ground: keep the original behavior by
-> > default, but temporarily protect fault-path file folios when repeated
-> > file refaults show that readahead is actually helping.
-> >
-> > The mechanism is dynamic and self-tuning:
-> >
-> > - add a per-lruvec readahead/refault credit
-> > - accumulate credit on file refaults in the MGLRU refault path
-> > - consume credit in folio_add_lru() for fault-path file folios
-> > - keep the folio active while credit is available, and otherwise let the
-> >   original behavior stand
-> > - decay/reset the credit as generations advance and when an lruvec is
-> >   initialized
-> >
-> > This means we only protect fault-path file folios when refault pressure
-> > shows that the workload is actively benefiting from readahead. If the
-> > workload does not need that protection, the original optimization
-> > remains intact and we do not keep readahead pages around unnecessarily.
-> >
-> > Benchmark results for the Cassandra read workload
-> > (4 nodes, 720s, 100 readers):
-> >
-> > - with commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to
-> >   replace folio_set_active"):
-> >   p99 ~9.2-9.5 ms, throughput ~41.8k-43.6k op/s
-> > - with revert of commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to
-> >   replace folio_set_active"):
-> >   p99 ~5.5-5.6 ms, throughput ~51.9k-53.1k op/s
-> > - with this fix: p99 ~5.8 ms, throughput ~51.9k-52.7k op/s
->
-[...]
->
-> Just an idea. For an short term and easy fix, what if we simply revert
-> than, then only protect in_fault && folio_test_swapbacked folios with
-> PG_active?
+On Mon, Aug 31, 2026 at 10:16:16AM +0800, Chen Pei wrote:
+> Hi Drew,
+> 
+> Thanks for keeping this series alive. While testing v6 on a RISC-V
+> platform with a CBQRI capacity controller (8 capacity blocks backing
+> one L3, Ssqosid + CBQRI exposed via DT), I hit a problem that traces
+> back to this patch; findings and a suggested fix below.
 
-Hi Ehab and Kairui,
+Thanks for testing the siers.
 
-Thanks very much for your reports and discussion.
+> Symptom
+> -------
+> With the series applied, the resctrl interface reports an empty
+> capacity mask everywhere:
+> 
+>   # cat /sys/fs/resctrl/info/L3/cbm_mask
+>   0
+>   # cat /sys/fs/resctrl/schemata
+>   L3:0=0
+>   # cat /sys/fs/resctrl/size
+>   L3:0=0
+> 
+> while the hardware reports NCBLKS=8 in the CC capabilities register
+> (bits[23:8] of cc_capabilities, per CBQRI v1.0 �3.5), i.e. the
+> expected values are cbm_mask=ff / L3:0=ff.
+> 
+> Root cause
+> ----------
+> cbqri_resctrl_control_init() fills cbm_len/shareable_bits/min_cbm_bits
+> but never initializes res->default_ctrl, which therefore stays 0
+> (static storage):
+> 
+> > +static int cbqri_resctrl_control_init(struct cbqri_cache *ctrl,
+> > +				      struct rdt_resource *res)
+> > +{
+> > +	res->name = kasprintf(...);
+> > +	res->cache.cbm_len = ctrl->cc.ncblks;
+> > +	res->cache.shareable_bits = 0;
+> > +	...
 
-I'm not quite sure we want to revert it entirely, as that would
-immediately regress the workloads improved by the commit, such as the
-kernel build.
-Also, for example, Kairui's cover letter mentioned the LevelDB benchmark:
- "I also retested the LevelDB benchmark from the cache_ext paper [5].
-Interestingly, mainline MGLRU already beats CLRU on this one after a
-recent change in lru_gen_folio_seq that bumps new folios with refs == 1
-to the second-oldest generation."
+I think you may be looking at an older version. The function in this
+patch is:
 
-I guess we could instead try to mitigate the cases where some workloads
-are negatively affected while preserving the original intention. Does the
-fix below address both of your cases, or is Ehab's case actually different
-from Kairui's?
-(The kernel-build test on my machine looks quite positive. It not only
-preserves the original optimization, but even provides further gains.)
+static void cbqri_resctrl_control_init(struct cbqri_resctrl_res *cbqri_res)
 
-diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-index 621c8653d8f7..91396c796a34 100644
---- a/include/linux/mm_inline.h
-+++ b/include/linux/mm_inline.h
-@@ -239,7 +239,8 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
- 	 * |<---------------------------- MAX_NR_GENS ---------------------------->|
- 	 */
- 	if (folio_test_active(folio))
--		gen = MIN_NR_GENS - folio_test_workingset(folio);
-+		gen = MIN_NR_GENS - folio_test_workingset(folio) +
-+		      (type ? !folio_test_workingset(folio) : 0);
- 	else if (reclaiming)
- 		gen = MAX_NR_GENS;
- 	else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(folio)) ||
-@@ -247,7 +248,7 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
- 		  (folio_test_dirty(folio) || folio_test_writeback(folio))))
- 		gen = MIN_NR_GENS;
- 	else
--		gen = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
-+		gen = MAX_NR_GENS - folio_test_workingset(folio);
- 
- 	return max(READ_ONCE(lrugen->max_seq) - gen + 1, READ_ONCE(lrugen->min_seq[type]));
- }
-diff --git a/mm/folio.c b/mm/folio.c
-index c02dcea9c03c..2fd835b3b50c 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -470,20 +470,10 @@ void folio_add_lru(struct folio *folio)
- 			folio_test_unevictable(folio), folio);
- 	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
- 
--	/*
--	 * For refaulted workingset folios, set PG_active so they
--	 * can be added to active generations.
--	 * For prefaulted file folios, folio_mark_accessed() sets
--	 * PG_referenced so lru_gen_folio_seq() places them into
--	 * the second oldest generation.
--	 */
-+	/* see the comment in lru_gen_folio_seq() */
- 	if (lru_gen_enabled() && !folio_test_unevictable(folio) &&
--	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC)) {
--		if (folio_test_workingset(folio))
--			folio_set_active(folio);
--		else if (!folio_test_referenced(folio))
--			folio_mark_accessed(folio);
--	}
-+	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC))
-+		folio_set_active(folio);
- 
- 	folio_batch_add_and_move(folio, lru_add);
- }
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index f11491ee9ed5..aa500ae9371a 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -851,11 +851,7 @@ static bool lru_gen_set_refs(struct folio *folio, const vma_flags_t *vma_flags)
- 		return false;
- 	}
- 
--	/* Promote on second access */
--	if (folio_lru_refs(folio) > 1)
--		set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS, BIT(PG_workingset));
--	else
--		folio_mark_accessed(folio);
-+	set_mask_bits(&folio->flags.f, LRU_REFS_FLAGS, BIT(PG_workingset));
- 	return true;
- }
- #else
-diff --git a/mm/workingset.c b/mm/workingset.c
-index 7ac2b88c80ae..a79b73ee9762 100644
---- a/mm/workingset.c
-+++ b/mm/workingset.c
-@@ -319,13 +319,11 @@ static void lru_gen_refault(struct folio *folio, void *shadow)
- 
- 	atomic_long_add(delta, &lrugen->refaulted[hist][type][tier]);
- 
-+	/* see folio_add_lru() where folio_set_active() will be called */
-+	if (lru_gen_in_fault())
-+		mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
-+
- 	if (workingset) {
--		/*
--		 * see folio_add_lru(), where folio_set_active() is
--		 * called for workingset folios
--		 */
--		if (lru_gen_in_fault())
--			mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
- 		folio_set_workingset(folio);
- 		mod_lruvec_state(lruvec, WORKINGSET_RESTORE_BASE + type, delta);
- 	} else
--- 
-2.34.1
+struct rdt_resource no longer has a default_ctrl member. Commit
+dbc58f7eec40 ("x86/resctrl: Generate default_ctrl instead of sharing
+it") removed it and derives the value instead.
+
+The default seems to work okay in my testing. For example, with Qemu [1]:
+
+ qemu-system-riscv64 \
+      -M virt,aia=aplic-imsic \
+      -nographic \
+      -m 1G \
+      -smp 8 \
+      -kernel arch/riscv/boot/Image \
+      -append "root=/dev/vda ro console=ttyS0 rootwait earlycon" \
+      -drive if=none,file=rootfs.ext2,format=raw,id=hd0 \
+      -device virtio-blk-device,drive=hd0 \
+      -device riscv.cbqri.capacity,max_mcids=256,max_rcids=64,ncblks=16,mmio_base=0x04820000
+
+# cat /sys/fs/resctrl/info/L2/cbm_mask
+ffff
+# cat /sys/fs/resctrl/schemata
+L2:0=ffff
+
+I will send v7 today as I have now rebased on v7.3-rc1. It is already
+available as a branch [2]. Please give that a try and let me know of any
+problems.
+
+Thanks,
+Drew
+
+[1] https://github.com/tt-fustini/qemu/tree/riscv-cbqri-cache
+[2] https://github.com/tt-fustini/linux/tree/cbqri-cache-alloc-dt
