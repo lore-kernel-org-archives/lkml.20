@@ -1,47 +1,71 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C943F48BD2B;
-	Tue,  1 Sep 2026 17:40:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEBE948C8A5
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:40:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284417; cv=none; b=OJm2KsfBvhszdvWkiiTIDSX5TeAOffuwe3Dc0iGf2hmjxfRzvpzpqe99Vn9rKVIeDfyDr5XtdSzwTXz0DIhCy/NjbfEPaXrSeD2ENT81xNJ2Zp5ltRYfPchVWI56CMxXYnasz6mwQ0ASVdd2EtBmnmDhBrZShYDh1PV5P3rRGM8=
+	t=1788284419; cv=none; b=fmlwIl0kADpxRdu2B+fTyxSYvwRLNcDcmmsdfnBbUfhQLh5liyVH0otxzch4fa2JgCjnIfOO+2TNBHXvNnP54+9Np7T99RH07wQINLV0nNcmGOW7niYIVErSIsebzqPMfHr0lqVJf83x94gNS3EXNatMiBRxKLJA53rGxas8vYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284417; c=relaxed/simple;
-	bh=o+BiYyHTA2eYb3SI7fyRtwAGevvrPg9Zjjod3z/vGaA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PJ5SpVB+CdBL37D/dVfS3u24AP7mEEmjosbNwCT5wfgvWqPFGkh0Qe//j21P3Zz+KzwwdCGfJ1KAdnh0tV9x8oVm6e1wikfxwyenZXBmWiP9vLmKUhS4HuHTMlZNttjFd3cfY9/3x89G0k6EOSutLCvXDVdjgTwu09hMs8YO7dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=QrZY31hF; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1788284419; c=relaxed/simple;
+	bh=gzfgO2xtv31hW5lK2wNpf1w8pKkDlPNagKjv1v5sCsY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TixOCDCtr9b3w4bTjBrf+R8PLpKJql2rq6OVy5Vwl/u7MZ082FAjgifEMyXFHcpQ7aOFQx89ZJ/xJyeBaLotR0UcC1pP6gyr2WuHdbIuCq3z6JhHb2ErVSyW0Lz6IptNx51towVKyqcNttGbUiUbfMvUWGjCG/IbDDiMyb0VF68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o9TbxaWZ; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="QrZY31hF"
-From: Stian Halseth <stian@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1788284413;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=71sn3dbaPtgCkZiSutjY0Za4tGeeJfsylcC5LIB7G/Y=;
-	b=QrZY31hFUEYlKdMaV1iOJi8lVrG66kEXMUWbm12eed8mhGAq33epUeb/WXVQFHbFS95iU0
-	AhkaCQhKtnguhEeul7rAG67tvIEbjRmL4CJPuz/LMqbnm6Jc4GCOgTOuXbbMH3P9gZPCn9
-	oEVc3hks3TCbSWZDvfapOaGGXEl6NlI=
-To: axboe@kernel.dk
-Cc: linux-block@vger.kernel.org,
-	sparclinux@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o9TbxaWZ"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48442ea8f59so866174f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:40:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788284416; x=1788889216; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rBqsdCv0PKAGwqJspHCwLqZLgeNbrWJRtBR7BmnZ5Z0=;
+        b=o9TbxaWZmTsqKkWXZheKlmkWPVYuRsgMLY6HhKsGPhF0R8qO+68FDKfWSg9efz1kzN
+         E8nuHZhzYMUYFLn7O+Ql0dtpyxrNy8G14p5wBRHmrPSXCcjm8MqMgyiOAKFIPzpPXuep
+         XK0u58rWfpF2f9z1w3Swx6I5LKviuQhBT81CUiFvLy5FMfWBdRRfu7gh9AP2pQlipV56
+         wzxrdWn5gJQMQ5C/US8Ax6ejI+ahn5M5chqaedIuWymgz+IDl+WdkInYCKCNXN6FdRyv
+         YCrWBGstcamqcxhvRoUL0nNvtWh9zaF/TDoO62BSdSdJQvEkZTO1JhJGOoQHQNB2/FYj
+         Bopw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788284416; x=1788889216;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rBqsdCv0PKAGwqJspHCwLqZLgeNbrWJRtBR7BmnZ5Z0=;
+        b=HkKD6OGv/VW35yitq3trZF2xiJMIz+LFmsoPZ3w7dFNjFqvEq6yQYmKNoMGbU3+xL8
+         A8wi3RC+oBSSK4axyS33ZFGdHJfoVJIfJeQuDUax9lrxzNiAMg1Sx11vk0+EllOA9uG0
+         IYAo3g/J4wxg9yn64rjvo60HkZZBz074X9s2OWj0HP/EM+2NWLtjCTYPsPm0Ol1/Ee8v
+         GK+yGVUsHuXFi0zq9tDoH7lx4IAEzPz39CFiCuO2bsmGbifcWOm0IKU7z7tx2KvkY9Lc
+         j27orpSVMTrcm+PhxrmBEO/6JpD8nOSx/NbczHZlYsE3ffZrZpYVdkXluIIAJkex1W7q
+         JbnQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpWz6elvXc8GOGXxPXzxq9r3A0SCg9JxbCZ+ckZw4Wyj7zL5Z+ZyJdYpz6tOuKdANWOnVtEbBDmMyIHCGU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEuLP3UWGJdr1hKZQLAS6sAuy4LI8bQZxjLA0c2YIVzg3psLC1
+	A/5u8GnlaElGJOhcNMUjZ3U/MvwKgcHScyF7fteUq65nshEzopVUeELF
+X-Gm-Gg: AR+sD12b6AgMwyAN8SllhnqiXb0VZRv1iXukEiZPZ19ugdSHFxdSqvgmAAKlOkst81o
+	5g1fmz5qdrojXczOWUyeYl6u4uV3GDh9fmooUu8Xlj3Z2fPh7hOWFW4+mOG4ywNzPjZjCY5XaxQ
+	6XLvWapwrW0aI9NoIQ+teJ+XJ5H4Nkxwp0EdDRfAWXujaQzQPvTbADiZ84FP864IZ0XyBlHT7Jy
+	GrBTAZK/NmT3NLfJnkB4+nKHvVbfzc+qH3h9q1tHp2CC1WijKTQnX8I44xC095ouQRzpCWB9zj3
+	nx5KS7Ex7SUqiXy40Xfne+KThA6gZwYSdUfYFMTguF7dc9QhnQzeVm5QV4/MGpoH8jl74yH5Nkz
+	Vp4j0+Dx5p7jYlHUFyUGxOcS/y53xKvTS9vRjtJ4ajuFGc9uvQe7BxWskrchhbZ6WDa+LKz1VD3
+	QHSzB/Gk1q6nmoVuXzPoM4mIwetoUPjqOJL00YWNJLvRwxzOc8roDjnLQ3zsNG/l7rtSBjobtG1
+	BzHtMJb0E3jVn+XZHsE4xyNvxZwkbaDrvE=
+X-Received: by 2002:a05:600c:6819:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49cdd41ca5amr131704235e9.6.1788284415719;
+        Tue, 01 Sep 2026 10:40:15 -0700 (PDT)
+Received: from localhost.localdomain (s052.imperial.net.ua. [195.149.108.52])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce3c86a0asm12959855e9.9.2026.09.01.10.40.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 10:40:15 -0700 (PDT)
+From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	andreas@gaisler.com,
-	davem@davemloft.net,
-	glaubitz@physik.fu-berlin.de,
-	regressions@lists.linux.dev,
-	Stian Halseth <stian@itx.no>
-Subject: [PATCH 2/2] sunvdc: fix -EIO issue due to lack of retries
-Date: Tue,  1 Sep 2026 19:39:46 +0200
-Message-ID: <20260901173947.3292110-3-stian@itx.no>
-In-Reply-To: <20260901173947.3292110-1-stian@itx.no>
-References: <24f8b266-f17c-4909-b43d-8ab05721c5d8@kernel.dk>
- <20260901173947.3292110-1-stian@itx.no>
+	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+Subject: [PATCH v2] staging: rtl8723bs: Remove manual ifname allocation
+Date: Tue,  1 Sep 2026 20:39:22 +0300
+Message-ID: <20260901173923.4810-1-nsvatoslav515@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,65 +74,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jens Axboe <axboe@kernel.dk>
+The manual ifname allocation via dev_alloc_name() is redundant because
+the networking core handles interface naming automatically during
+register_netdev().
 
-John reports that since commit:
+Remove the ifname module parameter, the corresponding field from
+struct registry_priv, and the rtw_init_netdev_name() callpath.
 
-a11f6ca9aef9 ("sunvdc: Do not spin in an infinite loop when vio_ldc_send() returns EAGAIN")
-
-users of Linux inside Solaris ldom see occasional -EIO errors because
-the request send loop now times out. The current loop does 10 retries,
-and inside vio_ldc_send() a further 1000 1usec retries are done as well.
-Even with 10.5 msec of busy loop retries that's apparently not enough to
-always succeed.
-
-Rather than introduce continued busy looping, requeue the request and
-have the delayed queue kicking retry the request after another 10ms.
-This obviously isn't ideal, but there's seemingly no way to wait for
-this type of event. And if 10ms of busy looping was not enough to make
-progress, then presumably this is an edge condition and we just need to
-guarantee to make forward progress at some later point in time. That's
-more suitably done through letting the CPU tend to other work, rather
-than sitting in a tight loop retrying.
-
-Reported-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Link: https://lore.kernel.org/all/20251006100226.4246-2-glaubitz@physik.fu-berlin.de/
-Link: https://lore.kernel.org/all/418310b3-2b77-4534-b2fd-27dcc11e333c@kernel.dk/
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[stian: rebased on top of the cookie-unmap fix, without which every
- requeued attempt leaks LDC map table entries; tested on an
- UltraSPARC T4 LDOM where the vdc_tx_trigger failure condition was
- reproduced and absorbed by the requeue with no I/O error]
-Signed-off-by: Stian Halseth <stian@itx.no>
+Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
 ---
- drivers/block/sunvdc.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/staging/rtl8723bs/include/drv_types.h |  2 --
+ .../staging/rtl8723bs/include/osdep_intf.h    |  1 -
+ drivers/staging/rtl8723bs/os_dep/os_intfs.c   | 27 +++----------------
+ 3 files changed, 3 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/block/sunvdc.c b/drivers/block/sunvdc.c
---- a/drivers/block/sunvdc.c
-+++ b/drivers/block/sunvdc.c
-@@ -556,6 +556,7 @@
- 	struct vdc_port *port = hctx->queue->queuedata;
- 	struct vio_dring_state *dr;
- 	unsigned long flags;
-+	int ret;
+diff --git a/drivers/staging/rtl8723bs/include/drv_types.h b/drivers/staging/rtl8723bs/include/drv_types.h
+index 552d0c5fa47f..5837c51ac2f5 100644
+--- a/drivers/staging/rtl8723bs/include/drv_types.h
++++ b/drivers/staging/rtl8723bs/include/drv_types.h
+@@ -151,8 +151,6 @@ struct registry_priv {
  
- 	dr = &port->vio.drings[VIO_DRIVER_TX_RING];
+ 	u8 enable80211d;
  
-@@ -577,7 +578,13 @@
- 		return BLK_STS_DEV_RESOURCE;
- 	}
+-	u8 ifname[16];
+-
+ 	u8 notch_filter;
  
--	if (__send_request(bd->rq) < 0) {
-+	ret = __send_request(bd->rq);
-+	if (ret == -EAGAIN) {
-+		spin_unlock_irqrestore(&port->vio.lock, flags);
-+		/* already spun for 10msec, defer 10msec and retry */
-+		blk_mq_delay_kick_requeue_list(hctx->queue, 10);
-+		return BLK_STS_DEV_RESOURCE;
-+	} else if (ret < 0) {
- 		spin_unlock_irqrestore(&port->vio.lock, flags);
- 		return BLK_STS_IOERR;
- 	}
---
-2.53.0
+ 	/* define for tx power adjust */
+diff --git a/drivers/staging/rtl8723bs/include/osdep_intf.h b/drivers/staging/rtl8723bs/include/osdep_intf.h
+index 83a25598e962..f1e7a303a286 100644
+--- a/drivers/staging/rtl8723bs/include/osdep_intf.h
++++ b/drivers/staging/rtl8723bs/include/osdep_intf.h
+@@ -20,7 +20,6 @@ u32 rtw_start_drv_threads(struct adapter *padapter);
+ void rtw_stop_drv_threads(struct adapter *padapter);
+ void rtw_cancel_all_timer(struct adapter *padapter);
+ 
+-int rtw_init_netdev_name(struct net_device *pnetdev, const char *ifname);
+ struct net_device *rtw_init_netdev(struct adapter *padapter);
+ void rtw_unregister_netdevs(struct dvobj_priv *dvobj);
+ 
+diff --git a/drivers/staging/rtl8723bs/os_dep/os_intfs.c b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
+index dd0c5fc813c8..5659d67a32f4 100644
+--- a/drivers/staging/rtl8723bs/os_dep/os_intfs.c
++++ b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
+@@ -109,10 +109,6 @@ static int rtw_80211d;
+ static int rtw_qos_opt_enable;/* 0: disable, 1:enable */
+ module_param(rtw_qos_opt_enable, int, 0644);
+ 
+-static char *ifname = "wlan%d";
+-module_param(ifname, charp, 0644);
+-MODULE_PARM_DESC(ifname, "The default name to allocate for first interface");
+-
+ char *rtw_initmac;  /*  temp mac address if users want to use instead of the mac address in Efuse */
+ 
+ module_param(rtw_initmac, charp, 0644);
+@@ -256,8 +252,6 @@ static void loadparam(struct adapter *padapter, struct net_device *pnetdev)
+ 
+ 	registry_par->enable80211d = (u8)rtw_80211d;
+ 
+-	strscpy(registry_par->ifname, ifname, sizeof(registry_par->ifname));
+-
+ 	registry_par->notch_filter = (u8)rtw_notch_filter;
+ 
+ 	registry_par->reg_enable_tx_power_limit = (u8)rtw_tx_pwr_lmt_enable;
+@@ -405,18 +399,6 @@ static const struct net_device_ops rtw_netdev_ops = {
+ 	.ndo_get_stats = rtw_net_get_stats,
+ };
+ 
+-int rtw_init_netdev_name(struct net_device *pnetdev, const char *ifname)
+-{
+-	if (dev_alloc_name(pnetdev, ifname) < 0) {
+-		pr_err("dev_alloc_name, fail for %s\n", ifname);
+-		return 1;
+-	}
+-	netif_carrier_off(pnetdev);
+-	/* rtw_netif_stop_queue(pnetdev); */
+-
+-	return 0;
+-}
+-
+ struct net_device *rtw_init_netdev(struct adapter *old_padapter)
+ {
+ 	struct adapter *padapter;
+@@ -752,14 +734,12 @@ u8 rtw_free_drv_sw(struct adapter *padapter)
+ 	return _SUCCESS;
+ }
+ 
+-static int _rtw_drv_register_netdev(struct adapter *padapter, char *name)
++static int _rtw_drv_register_netdev(struct adapter *padapter)
+ {
+ 	int ret = _SUCCESS;
+ 	struct net_device *pnetdev = padapter->pnetdev;
+ 
+-	/* alloc netdev name */
+-	if (rtw_init_netdev_name(pnetdev, name))
+-		return _FAIL;
++	netif_carrier_off(pnetdev);
+ 
+ 	eth_hw_addr_set(pnetdev, padapter->eeprompriv.mac_addr);
+ 
+@@ -784,9 +764,8 @@ int rtw_drv_register_netdev(struct adapter *if1)
+ {
+ 	struct dvobj_priv *dvobj = if1->dvobj;
+ 	struct adapter *padapter = dvobj->padapters;
+-	char *name = if1->registrypriv.ifname;
+ 
+-	return _rtw_drv_register_netdev(padapter, name);
++	return _rtw_drv_register_netdev(padapter);
+ }
+ 
+ static int _netdev_open(struct net_device *pnetdev)
+-- 
+2.47.3
+
