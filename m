@@ -1,68 +1,87 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B930325483
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:17:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C037315D58
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:17:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268624; cv=none; b=YVEVll+8gBTeNq4+tXRmNfX3/sMGGUPcU7vMNHlBAIOqlmWIav4IMyXc9unYH7nvdyRu12DqsU7cT/09+wtOHfIlUo5nATxJevRSbhN0UWNoUA1AQYgJKtXL+YcoA4aVcUDV2MzKEIb3XlY0z3rL1PZbM3Jy/f14HHGkYA2RNAg=
+	t=1788268679; cv=none; b=c8RTf0nHAb4VFy1xZBFRw0iu1Fzm/j4ySAHXNMQAtgIRmn0T0xlSrk2lZ1mj98b+JJDw42rowAttS6kLrhUrhU6j8UZuApJUyuhYlqSdU8A4u6xAGl9pEeAqewop4VmLsVqU8m/WQPz0UXIRg1PaDcGfsXGrkMjrjzs3dkS/AdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268624; c=relaxed/simple;
-	bh=dHuK6ca7Ih3mXEL7pY9LEI+9QrmZYD/dCXCFNqGOn2s=;
+	s=arc-20240116; t=1788268679; c=relaxed/simple;
+	bh=vaanBrWBtt/K9qjvJi2FisIQaJGmMcAWPsrvdyQ2gEY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pHmemnDyd8kMHSeDJof0D1GusLYVDAkthJ38FIwaqrf6QXB1iYzU6Dri3eYecsV1lxt8NYsreOCrs8efBcuK3upgyxJ7/4MqBt9a6TP4usD3OcblNwZRbEj/CMgvdD+K7O1QfprSuh9qId5qMjvLrb61+T/dUAmrNuGT4shBnro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=L7WI7aqD; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 In-Reply-To:Content-Type; b=rWM/AwB5ebFksCMEIGrZOXbu2ttABlKBShQIhzmDIr/19pA6LcCdlz0xOHAAQ6qQcCGC9KWA3D3T7TLpeNZM7HCG5muNLY+TOfPeXh63taSF0s2yjvQb9//JMi8sckAIFg52HIpn9FqKDMc1tFt/w3WI3wu86aGwmiIDh1Q5XMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Uc1AAPkC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PfcBaIQD; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="L7WI7aqD"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4956869750eso32320535e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:17:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Uc1AAPkC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PfcBaIQD"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681D6Q163357774
+	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 13:17:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BOER/48Fz+cCbdlM/AT+CckMCyjyIwiBkZBX+c/Jivw=; b=Uc1AAPkCq8yaPHNb
+	K1v5peehXwLRGrA91Ar2dWf73/ZrMNfIqgFj04Cvkzo+qj7RAbUoGXUiYuQb+CD4
+	Fm2OxH9BmijnVtpvFkMq2FH0i8v3K7c+Dy93rnZGxUQ9+3u5pcKSq6+ykSWt1kMZ
+	3JGcj8C8tmt4+r1lRDeqOm0DHNfraXlQeSqPXmAdzZA5Y8xpIT0nZx5dWtsVjbVy
+	dsLzsHJhdJ7br9l6Q3a8q1loCUuaYlRFwk04pSiUCQYmFS8SbH6RT1NmFs9E+LiN
+	HYnH3v09g4IJiwaLgwOkVMPZTWTB47AhXEgFxgw5LIXZ3J7iQgCKKRlBz2fxkj21
+	RsqITw==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdy9ng1d6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:17:57 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-784f9401a7dso127056137.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:17:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788268621; x=1788873421; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+        d=oss.qualcomm.com; s=google; t=1788268676; x=1788873476; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UHcJZ7qe8EHcanx4NmTqt9bQxkl+VRDPvbq2agGEMR4=;
-        b=L7WI7aqDRRnvYfa4CbtMrURZ6NzBKSvEgr1Wu+ZzL0QjtpnMprzdXfBq36xHmxwZqe
-         VH2N6MscmN4Apv56+gcec5g8yAXkVQH+opif/aIvUK47jNntSh7SbxFt+kdeKT90ACAv
-         titLFUdSlrvMcwtHnjXz9CJfF3Nrcqi58/gyeDYLxKTCro93pHiFHOBF5sLJMabXAjch
-         3dh8EyYbECZD5hWiyc2HuWafqOsDgbEHaEV6Z514eMhXqSuaRH0/ICWKnk3vBbO98LEN
-         wXUyrXn0glTrS/uO8m7JgG59nRUDC1Rx0qaygShWFePopj5wyZ3rk+Z3JlxoJ2YXV8X7
-         QOHA==
+        bh=BOER/48Fz+cCbdlM/AT+CckMCyjyIwiBkZBX+c/Jivw=;
+        b=PfcBaIQDRMz4463xfzKr+VmNR0WNvf/U+y0O/t05NmmWL1OIrShtMBqtcZr171K4Ho
+         Vs83QWcCVbJX4n6R1QTPGf2eOXeO3gx1RzlJTiKe6fJBUesuonfPKsk3sRnCrI2Q9TJU
+         tJG/1qpGzRsrm2lsXDik0mNgzY5n0Msp+iy7ybhZybVq24CURHsdt339ABgwXcxgx7WA
+         ojAsvgQh2eqKX9G1AZmKtrYwGJxBSv34cKHgc26OvzjqKgC9VlKETzadrl3qdfYzJ0rm
+         SLRhzdS35SuRAGnXePo6vNh1KZ6vTrTHmpCeGaq0rFKchiOP2n+6ox1sWporJqeV4ELp
+         6NqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788268621; x=1788873421;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+        d=1e100.net; s=20251104; t=1788268676; x=1788873476;
+        h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UHcJZ7qe8EHcanx4NmTqt9bQxkl+VRDPvbq2agGEMR4=;
-        b=DBTEP6ioIruTrN2pOtZHtQ/4UuatYxsXYQP8GSVaQglMiNQroVAVf5AeFuvWAyoc2e
-         alNJJnaxfJtNqdkjqu6fHkU3cJdBn7eJUQjSj/V4mt4vntcBKJXwT3F13QhoACGAJ1nh
-         jBg7PIAyZjwa5T0zdvDENdg9PZdOU+toYzzIZQvm4nENy95q+MHK3sT8quYveY3LWjYY
-         m0qkoSFiufvazIdRFz0NkUs2yaIQvrNVsVHZvXFcG2S2iuz/6G5J3RTzBoG62vdKLEfa
-         cjyZJujCBzhU5+jQbPek1GbjE0BYv+GiCUgNLgb16e1lrMJUhvkJA3TLgyLAm8lAF4oz
-         9ppA==
-X-Forwarded-Encrypted: i=1; AHgh+RoJU3QFTXGXsENPByR8Z93waF0VOAhojKB0PZu2cNa4z6G9yCg88IDBjbH3v0ME1j02/o8d/izoMM2CN7E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhV1klIhqXYYILJQxnPK2+tPJbkzVWbKYATV0ImnwPGQhx8cp5
-	/cE2DxpqN+LoA7ef37ZJL/E5avVsFOyT/hRUo+bjbpTOENCz2IMHFclKbCEJNa0smg==
-X-Gm-Gg: AR+sD113xciHn9j9DvWsazCuyN7I8H+VYIQadjjbXrH3FqP6qOStW/yDOeH/W9BKtl3
-	244OUnnzsRpW1tB30VvE96bnPTwBe3JqWkb2d3qLY2ZL4wt4KyMV32x2jt34ucgMn/uKrk7P6Qv
-	P4ZL7+dD6S1QM913neiDvCYBAJnxvczhqT2y8SbtrP3Cwoz5+I1CJRJKQJR0xcu4hFRTCN7RsG1
-	PiF8RXojxnnebA0DvnEhkw3UbEyQUa1+F8bcD9y40aTGImUcgeYgnBLizSCCurR1zPldKhngEg7
-	B82P9eBLZx6dYcZVhOrEYi7PdiEhGxuNpvmDQoCMz98DVv9KODXOMKYF1IOg/HtFe72AMwhjDZZ
-	iUzOq2jgZcA8phpeKzwd1xUx+XC6snwfF3SS0fDsHHYI5c09RJU+zcYCOA0pVVit20M+0J49coR
-	AASNAtb8l5Mb7GiXtgE1Vda9nAqTNtsFbCpdkDoHs/ykMZ/Va0E+CwgYEzmHAg0lSLIVEcSATm8
-	T0ySr22Fh0NfGgx/85DWbKEwCyZaZQM4OhAFqDw6tOkP78UsG9f
-X-Received: by 2002:a05:600c:8b86:b0:493:f5bf:4dc6 with SMTP id 5b1f17b1804b1-49b91c2777emr603425715e9.7.1788268621206;
-        Tue, 01 Sep 2026 06:17:01 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de. [37.24.206.209])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce1a3fesm70718595e9.12.2026.09.01.06.16.59
+        bh=BOER/48Fz+cCbdlM/AT+CckMCyjyIwiBkZBX+c/Jivw=;
+        b=eNMl9VWwQapqIkIjtLt1RUazPdb4F3aJTlsbJ2ahe3fTMg2lPFpIwIRsojuMK4ZMfp
+         7S1mHz/sTUs2eSgaeH0PNf18fMM1cp8bpePJ7ZnWQ6YOYyYH4xkGKuabKelN5lF77ii/
+         QiNsv/VdvpFnftr8LVRJGZaSaDTt2QjJ3MqriOm3XP7hwwq1EOr9N6LoHiLQ7rLKj32j
+         o45qeALR0/kABbLpMxjDDR0THYzjNRasf6GNcdYzUhOaepxzh3mkRG+7B2xY0dU8LiKe
+         dXofdEGuEQY8zCX4erQ5RigqSQpEkxQJ4vJUeRsDKpl+ergYOwLNnBRBY9p7eXVX0GtD
+         Oz+g==
+X-Forwarded-Encrypted: i=1; AHgh+RojuVihz+lB9RUZBmNI5k1CyVUfIwTddcvO6cAEjUQEA5aiMYqN3hGKEeWZaihTiR+4YdfcTvXY6Ba0b/E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWObwOu6gU7/2rk0b9FE4Otau2yXmGlDKoUPi6QAQES31zwYDg
+	sPIzfEy72xFV0xaXs/Ll9il6UUbXb5gtahV9to7Jsi9xb8P0n10JD8QXEN1XP7JUjILq4e9PJE9
+	9pOyMwbRcBFUlx1Lkl3w8dzc4R0XSuNWQKVcq9hgTYp0hyL5g+Ai+Lj0XxkF3TKHqrBk=
+X-Gm-Gg: AR+sD111dYR2l8q2XVOUnpPpKydm7eBVCipFLgzGVcPcDtIctd5iz9K6UX+8KQquPNF
+	aX2kcIuS86XQYyFikVKRQb6m3LUlVnzvcgyHKjjdnIZZjv/9VvhBBPVsSn04Z7ZzkLdaAEu+7/e
+	4ir1MSbVs15QvhLR2kZHaFbXW2RppIqhF6K5QH04s6LwRwO1ZoCgU8m2qxvWdKnfjdcBGB1P8+j
+	tuoS9tLFDv/gPszc9dUuhCYLp/EfqIGEQQS1T//dlpmlC9AeW05Xm4tqMe8xD6SiIvATfZdpHHB
+	zC4KvUquEYbroXVtBFMQkvlcX520eB7yyWzAExTnIltTZr2MM2OFg//j+BACX1e8EuUH/6SmtVu
+	WJw8lr9F3JcsjTgwtDggt+A==
+X-Received: by 2002:a05:6102:f84:b0:779:7d3b:1398 with SMTP id ada2fe7eead31-78593425615mr4422324137.0.1788268676368;
+        Tue, 01 Sep 2026 06:17:56 -0700 (PDT)
+X-Received: by 2002:a05:6102:f84:b0:779:7d3b:1398 with SMTP id ada2fe7eead31-78593425615mr4422313137.0.1788268675877;
+        Tue, 01 Sep 2026 06:17:55 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e89d3e06sm2866547e87.26.2026.09.01.06.17.53
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 06:17:00 -0700 (PDT)
-Message-ID: <16110ecc-fc0d-4b9d-a958-2a75ca60b69f@suse.com>
-Date: Tue, 1 Sep 2026 15:16:58 +0200
+        Tue, 01 Sep 2026 06:17:54 -0700 (PDT)
+Message-ID: <5e7cc36d-73d6-4040-b62f-88fe2819ab1d@oss.qualcomm.com>
+Date: Tue, 1 Sep 2026 15:17:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,89 +89,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/5] x86/boot: Remove "cc" clobber from memcmp()
-To: Mauricio Faria de Oliveira <mfo@igalia.com>
-Cc: kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>,
- Alexey Dobriyan <adobriyan@gmail.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Brian Gerst <brgerst@gmail.com>
-References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
- <20260822-pvh-kasan-inline-v9-1-e70ef3b75b6a@igalia.com>
+Subject: Re: [PATCH v3 06/12] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp:
+ Improve error handling in power_on
+To: george.moussalem@outlook.com, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Praveenkumar I <praveenkumar.i@oss.qualcomm.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+        Nitheesh Sekar <quic_nsekar@quicinc.com>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-usb@vger.kernel.org
+References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
+ <20260825-ipq5018-usb3-v3-6-39be0955a6aa@outlook.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260822-pvh-kasan-inline-v9-1-e70ef3b75b6a@igalia.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260825-ipq5018-usb3-v3-6-39be0955a6aa@outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDExNyBTYWx0ZWRfXxARMzRIDRkPH
+ uBUpLn+IsmQe09aTBWQN9k9xL5t5G60Hb30rNJNNrDIaf4PPd8ysOVqGAFlN3chGUJJMfh0+TdA
+ /RAbIHYem9XmJTBMT/Mp25LPy64+EzA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDExNyBTYWx0ZWRfXwi34t/N+6V5i
+ VOaB4CnbRcqurrYJ2oPOom5hDptUnS3BAaGncFgXUjwaEytysbThCfZQ0VhsZ0fQRwURxutEeXQ
+ Nro7xvohjwCieH4+KenyAXMF0XHT2/R7apPIlMoZlhNMW+v/5Lqz4WM0wE5voeg4sb14LGOtEO5
+ A1YzJPY5yDDiycD4svcm4DVN1MFvS/KU4dglK7qXEMMMTwdOYXiDHU8C33Aw5wYgWqIbtySxPhI
+ MjfOln2eopR/E5KqdGGMw1QT9YzFBuTNnyCEwAzycnnC0NUrmyqF4ScGgYAfysNHmS0ecOg9fsS
+ XT3cFlaOQtSlDryDhXbNBj4w7sh0kOJ+TFOe3mGxlwdwn2+tb5KGFOPh4r0cTV/0BPsvR104+bd
+ plKJXihl5f6i/eG2bpd+oCqZKS3usKoPWoSasLsUK4ru1AtuyZ6cDjdV3/AdIPp8EVwFAnsRg10
+ l0dYSpR//oEWqrkp0jA==
+X-Authority-Analysis: v=2.4 cv=e/02j6p/ c=1 sm=1 tr=0 ts=6a96d085 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=UqCG9HQmAAAA:8 a=xCqKcKfuVhzOl_WxAlwA:9 a=QEXdDO2ut3YA:10
+ a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-ORIG-GUID: Q9F5jd0Jwsqw0awiYZLSms7OauRyJk4o
+X-Proofpoint-GUID: Q9F5jd0Jwsqw0awiYZLSms7OauRyJk4o
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 suspectscore=0 priorityscore=1501
+ impostorscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609010117
 
-On 22.08.2026 20:33, Mauricio Faria de Oliveira wrote:
-> According to the GCC documentation, conditions in the flags register
-> (e.g., "=@ccnz") are output operands [1] and the compiler is aware [2].
+On 8/25/26 2:37 PM, George Moussalem via B4 Relay wrote:
+> From: George Moussalem <george.moussalem@outlook.com>
 > 
-> Also, clobbers (e.g., "cc") may not overlap with an output operand [2].
+> When the PHY fails the enable clocks, it leaves the PHY out of reset.
+> Fix this by asserting the reset before returning the error.
 > 
-> Thus, remove the "cc" clobber as it is redudant, and overlaps with, the
-> "=@ccnz" output operand.
+> In addition, language correct the error messages.
 > 
->     """
->     6.11.2.4 Flag Output Operands
-> 
->         On some targets, a special form of output operand exists by which
->         conditions in the flags register may be outputs of the asm. [...]
-> 
->     6.11.2.6 Clobbers and Scratch Registers
-> 
->         While the compiler is aware of changes to entries listed in the
->         output operands, [...]
-> 
->         Clobber descriptions may not in any way overlap with an input or
->         output operand. [...]
->     """
-> 
-> Reported-by: "H. Peter Anvin" <hpa@zytor.com>
-> Link: https://lore.kernel.org/all/5e19b195-0ca2-4510-81cb-497b40e4aaf5@zytor.com/
-> Fixes: a8c171c107c0 ("x86/boot: Add volatile, clobbers and zero-length test in memcmp()")
-> Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
-> Link: https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html#Flag-Output-Operands [1]
-> Link: https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html#Clobbers-and-Scratch-Registers-1 [2]
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> ---
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+[...]
 
-> --- a/arch/x86/boot/string.c
-> +++ b/arch/x86/boot/string.c
-> @@ -40,7 +40,7 @@ int memcmp(const void *s1, const void *s2, size_t len)
->  	asm volatile("test %3, %3\n\t"
->  		     "repe cmpsb"
->  		     : "=@ccnz" (diff), "+D" (s1), "+S" (s2), "+c" (len)
-> -		     : : "cc", "memory");
-> +		     : : "memory");
+>  	ret = clk_bulk_prepare_enable(phy->num_clks, phy->clks);
+>  	if (ret) {
+> -		dev_err(phy->dev, "clk prepare and enable failed %d\n", ret);
+> -		return ret;
+> +		dev_err(phy->dev, "failed to enable clocks: %d\n", ret);
+> +		goto err_assert_resets;
 
-In fact I'm using a modified gcc which properly rejects such conflicting
-uses of output and clobber. ("cc" clobbers are redundant on x86 anyway.)
+This is a single-use goto for a single line, just inline it here
 
-Jan
+Konrad
