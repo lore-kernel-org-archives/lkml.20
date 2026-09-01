@@ -1,137 +1,182 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E3DEB3B0AED;
-	Tue,  1 Sep 2026 01:30:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267A4371895;
+	Tue,  1 Sep 2026 01:31:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226216; cv=none; b=H8vNPfZtQdjkBOu6p+70LMibMBkg5CVLbmu7xON+JfeIxOZpRGrGExEvN1YCIDJioejZjxe/vBFgtzUpJs/5+SVde+CaecwXDiYkVX3BNW5rNlZ5AV/VED9qSvwi+RWukf6MgW+a3lb7/28Nu0FNcdWeZ8AbF7y2Z5YimwZHeJg=
+	t=1788226309; cv=none; b=XoQu8uOBFjbsq8rfwha14jAXG+ldgQJZT2T7/UG6PfF63k2mFq2kElBtKEwnJ79vr1GIwjMilxoRVMB3nEqYBHnHCdudaELO2Xvn3tPtILYwnG89YwnwiBH5xLWE1YRdq96deBHxNpSwMo5Jnt7/a0cqpq2kVCOmUKTUcmnRjcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226216; c=relaxed/simple;
-	bh=rkLmymAjLKoFEmu1EBZW8/mMsRG6aAXBZVaTDQbwGLk=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=D09S5+sHs+uvv8Q8XdcdOF2IZEDPczKNJGbOJAjY4w+mOXEhN9GKSi01i6Ah7rSoAozeBI++d6R+Ou4RIQ0bkzcthj/IlTbwGV8Dj/9zuxwGg6CpwP+zoQ1qdcUIsa8nuJw2T3eJ59vGwFvBDQe6JOZpJSDgRG6vR9CdqJnQyXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8AxntKaKpZq7DcHAA--.20311S3;
-	Tue, 01 Sep 2026 09:30:02 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJCxNs2ZKpZqpJUYAA--.38761S2;
-	Tue, 01 Sep 2026 09:30:01 +0800 (CST)
-Subject: Re: [PATCH] LoongArch: KVM: Fix memory leak in
- kvm_loongarch_env_init() error path
-To: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>,
- zhaotianrui@loongson.cn, chenhuacai@kernel.org
-Cc: kernel@xen0n.name, lixianglai@loongson.cn, kvm@vger.kernel.org,
- loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260817115847.2705791-1-nagachaithanya9911@gmail.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <e24c4184-0c23-3ce3-9021-9f544070fbb1@loongson.cn>
-Date: Tue, 1 Sep 2026 09:29:46 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1788226309; c=relaxed/simple;
+	bh=F6iCtAnnI49OGLW9ySlZUD0rarIlZ+sSl9c1sQjcB4Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Z/KlRJFairGYH1jnnE3jdgGQC9O7sDVxaZ9BNB8+QLOwPhwkWxub06oVHGfnvTWJ82tFAh8HuFZPPQmLd5zdO2oAEF6/W1u/V3OVfyvXUgQpvXSOsPNY48MLDUOZ4jQRiLZMRMN9GmL6MeLO7CxTQh88XjYXgO+eUyHP1cY/nQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Pfk2cfdd; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Pfk2cfdd"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=F6iCtAnnI49OGLW9ySlZUD0rarIlZ+sSl9c1sQjcB4Y=;
+	b=Pfk2cfdd2lkkfaJghnK1V5QNqCG+vzUjSy5NvwSfX4B5LKYRrHGO5y/b3+mcm3npeDnnDk74n
+	JHZ9uyKOirx2g4QqhDDJwtlOaQXSxGeJSRxHscsNWzxD6VFLEZ1a+Zf9W/KXLr7CuAMi/inYI8B
+	qtzyPUWt5hHgQK/GXOS1ydM=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hYp2544xMzpTBG;
+	Tue,  1 Sep 2026 09:20:13 +0800 (CST)
+Received: from whupemo500002.china.huawei.com (unknown [7.152.185.250])
+	by mail.maildlp.com (Postfix) with ESMTPS id EFBA54058C;
+	Tue,  1 Sep 2026 09:31:31 +0800 (CST)
+Received: from [10.67.120.139] (10.67.120.139) by
+ whupemo500002.china.huawei.com (7.152.185.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 1 Sep 2026 09:31:29 +0800
+Message-ID: <c00d649f-aa24-40a8-849e-789ce1a6aca9@huawei.com>
+Date: Tue, 1 Sep 2026 09:31:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260817115847.2705791-1-nagachaithanya9911@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/8] hwtracing: hisi_ptt: Add pattern PMU config for
+ trace format selection
+To: Sizhe Liu <liusizhe5@huawei.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<linux-perf-users@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-doc@vger.kernel.org>, <linuxarm@huawei.com>,
+	<prime.zeng@hisilicon.com>, <rostedt@goodmis.org>, <mhiramat@kernel.org>,
+	<mathieu.desnoyers@efficios.com>, <corbet@lwn.net>,
+	<skhan@linuxfoundation.org>, <bhelgaas@google.com>, <yangyccccc@gmail.com>,
+	<jic23@kernel.org>, <john.g.garry@oracle.com>, <will@kernel.org>,
+	<james.clark@linaro.org>, <mike.leach@arm.com>, <leo.yan@linux.dev>,
+	<peterz@infradead.org>, <mingo@redhat.com>, <acme@kernel.org>,
+	<namhyung@kernel.org>, <mark.rutland@arm.com>,
+	<alexander.shishkin@linux.intel.com>, <jolsa@kernel.org>,
+	<irogers@google.com>, <adrian.hunter@intel.com>, <wuzongyu1@huawei.com>
+References: <20260827140442.2031128-1-liusizhe5@huawei.com>
+ <20260827140442.2031128-8-liusizhe5@huawei.com>
 Content-Language: en-US
+From: Yushan Wang <wangyushan12@huawei.com>
+In-Reply-To: <20260827140442.2031128-8-liusizhe5@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxNs2ZKpZqpJUYAA--.38761S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Kw4kuF4kuF13tF15WryxCrX_yoW8KFWkp3
-	y29an8Jr10gr17J3sFv3W5WF93ursIgw1xuF1Iyw1UCr43Wryvq348Kr9FqF15C3y8ZF10
-	vr4fAay7u3WUAagCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
-	AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
-	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
-	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
-	wI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
-	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU1CPfJUU
-	UUU==
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ whupemo500002.china.huawei.com (7.152.185.250)
 
-
-
-On 2026/8/17 下午7:58, Chaithanya Lagisetty wrote:
-> kvm_loongarch_env_init() allocates the per-CPU kvm_context (vmcs) and
-> kvm_loongarch_ops, and registers the perf callbacks, before registering
-> the IPI/EIOINTC/PCH-PIC/DMSINTC KVM devices. If any of those device
-> registrations fails, the function returned the error directly without
-> freeing vmcs and kvm_loongarch_ops or unregistering the perf callbacks.
-> kvm_loongarch_init() propagates the error without calling
-> kvm_loongarch_env_exit(), so these resources are leaked.
-> 
-> Unwind the already-acquired resources on the error path, mirroring
-> kvm_loongarch_env_exit().
-> 
-> Fixes: c532de5a67a7 ("LoongArch: KVM: Add IPI device support")
-> Signed-off-by: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+On 8/27/2026 10:04 PM, Sizhe Liu wrote:
+> Introduce a `pattern` PMU config field (config:36-39) that controls
+> which TLP header format the hardware traces. bit[3:1] are reserved for
+> future extension and only bit0 is used currently:
+>
+> - pattern=0 (default, compatibility mode): the driver sets bit[8] of
+>   HISI_PTT_TRACE_CTRL so the hardware traces the data in compatibility
+>   mode.
+> - pattern=1: the driver clears bit[8] of HISI_PTT_TRACE_CTRL so the
+>   hardware traces the data pattern including some bitfields of the TLP
+>   header defined in PCIe r6.4 sec 2.2.1.2.
+>
+> Note that bit[8] of HISI_PTT_TRACE_CTRL is inverted with respect to the
+> `pattern` value: bit[8]=1 selects the legacy format, bit[8]=0 selects
+> the new format. Bit[11:9] is still reserved, which is consistent with the
+> PMU config field. The driver validates the 4-bit value in
+> hisi_ptt_trace_valid_pattern() and applies it in hisi_ptt_trace_start().
+>
+> Document the new parameter in Documentation/trace/hisi-ptt.rst.
+>
+> Signed-off-by: Sizhe Liu <liusizhe5@huawei.com>
 > ---
->   arch/loongarch/kvm/main.c | 19 +++++++++++++++----
->   1 file changed, 15 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/loongarch/kvm/main.c b/arch/loongarch/kvm/main.c
-> index 3e1005526f4b..685d334cf957 100644
-> --- a/arch/loongarch/kvm/main.c
-> +++ b/arch/loongarch/kvm/main.c
-> @@ -385,22 +385,33 @@ static int kvm_loongarch_env_init(void)
->   	/* Register LoongArch IPI interrupt controller interface. */
->   	ret = kvm_loongarch_register_ipi_device();
->   	if (ret)
-> -		return ret;
-> +		goto err;
->   
->   	/* Register LoongArch EIOINTC interrupt controller interface. */
->   	ret = kvm_loongarch_register_eiointc_device();
->   	if (ret)
-> -		return ret;
-> +		goto err;
->   
->   	/* Register LoongArch PCH-PIC interrupt controller interface. */
->   	ret = kvm_loongarch_register_pch_pic_device();
->   	if (ret)
-> -		return ret;
-> +		goto err;
-It will be better if there is wrapped unregister function, to remove 
-previous registered callback. The same with eiointc/dmsintc driver, 
-something like this:
-+
-+void kvm_loongarch_unregister_pch_pic_device(void)
-+{
-+       return kvm_unregister_device_ops(KVM_DEV_TYPE_LOONGARCH_PCHPIC);
-+}
-
-Regards
-Bibo Mao
->   
->   	/* Register LoongArch DMSINTC interrupt contrroller interface */
-> -	if (cpu_has_msgint)
-> +	if (cpu_has_msgint) {
->   		ret = kvm_loongarch_register_dmsintc_device();
-> +		if (ret)
-> +			goto err;
-> +	}
->   
-> +	return 0;
+>  Documentation/trace/hisi-ptt.rst | 25 +++++++++++++++++++++++--
+>  drivers/hwtracing/ptt/hisi_ptt.c | 25 ++++++++++++++++++++++++-
+>  drivers/hwtracing/ptt/hisi_ptt.h |  4 ++++
+>  3 files changed, 51 insertions(+), 3 deletions(-)
+>
+> diff --git a/Documentation/trace/hisi-ptt.rst b/Documentation/trace/hisi-ptt.rst
+> index f6a2655f99e5..c95eaa12f4d3 100644
+> --- a/Documentation/trace/hisi-ptt.rst
+> +++ b/Documentation/trace/hisi-ptt.rst
+> @@ -255,7 +255,28 @@ directly from the TLP header.
+>       DW2 [                     Header DW2                            ]
+>       DW3 [                     Header DW3                            ]
+>
+> -5. Memory Management
+> +5. Trace pattern
+> +-----------------
 > +
-> +err:
-> +	kvm_unregister_perf_callbacks();
-> +	kfree(kvm_loongarch_ops);
-> +	kvm_loongarch_ops = NULL;
-> +	free_percpu(vmcs);
-> +	vmcs = NULL;
->   	return ret;
->   }
->   
-> 
+> +You can control whether the trace is taken with the new version of the
+> +TLP header format by specifying the `pattern` parameter. The default
+> +value is 0, which means the legacy format is used for backward
+> +compatibility. The parameter value is 4 bit and bit[3:1] are currently
+> +reserved for extension. Current supported values are shown below:
+> +
+> +- 4'b0000: legacy trace format
+> +    DW2 and DW3 are printed with generic field names only, and
+> +    no message-type-basedfield decoding.
+> +- 4'b0001: trace format v1
+> +    DW2 and DW3 are decoded according to the TLP message type (MWr,
+> +    Msg, Atomic, IO, CPL, Cfg) with detailed field names. It is recommended to
+> +    use trace format v1 when the current PCIe link generation is higher than
+> +    PCIe 6.0.
+> +
+> +For trace data recorded by an older tracer without the `pattern` parameter,
+> +the decoder will work as `pattern` forced to 0.
+> +
+> +6. Memory Management
+>  --------------------
+>
+>  The traced TLP headers will be written to the memory allocated
+> @@ -274,7 +295,7 @@ will commit the AUX buffer first and then apply for a new one with
+>  the same size. The size of AUX buffer is default to 16MiB. User can
+>  adjust the size by specifying the `-m` parameter of the perf command.
+>
+> -6. Decoding
+> +7. Decoding
+>  -----------
+>
+>  You can decode the traced data with `perf report -D` command (currently
+> diff --git a/drivers/hwtracing/ptt/hisi_ptt.c b/drivers/hwtracing/ptt/hisi_ptt.c
+> index 94c371c49135..1696c30ac4c9 100644
+> --- a/drivers/hwtracing/ptt/hisi_ptt.c
+> +++ b/drivers/hwtracing/ptt/hisi_ptt.c
+> @@ -233,6 +233,10 @@ static int hisi_ptt_trace_start(struct hisi_ptt *hisi_ptt)
+>       val |= FIELD_PREP(HISI_PTT_TRACE_CTRL_TARGET_SEL, hisi_ptt->trace_ctrl.filter);
+>       if (!hisi_ptt->trace_ctrl.is_port)
+>               val |= HISI_PTT_TRACE_CTRL_FILTER_MODE;
+> +     if (!ctrl->pattern)
+> +             val |= HISI_PTT_TRACE_CTRL_PATTERN;
+> +     else
+> +             val &= ~HISI_PTT_TRACE_CTRL_PATTERN;
+
+Hi Sizhe,
+
+This hunk seems not able to be applied to mainstream cleanly, otherwise
+this series LGTM.
+
+Reviewed-by: Yushan Wang <wangyushan12@huawei.com>
+
+>
+>
+>       /* Start the Trace */
+>       val |= HISI_PTT_TRACE_CTRL_EN;
+> @@ -805,12 +809,14 @@ PMU_FORMAT_ATTR(filter,         "config:0-19");
+>  PMU_FORMAT_ATTR(direction,   "config:20-23");
+>  PMU_FORMAT_ATTR(type,                "config:24-31");
+>  PMU_FORMAT_ATTR(format,              "config:32-35");
+> +PMU_FORMAT_ATTR(pattern,             "config:36-39");
+>
+>  static struct attribute *hisi_ptt_pmu_format_attrs[] = {
+>       &format_attr_filter.attr,
+>       &format_attr_direction.attr,
+>       &format_attr_type.attr,
+>       &format_attr_format.attr,
+> +     &format_attr_pattern.attr,
+>       NULL
+>  };
+>
+
+[...]
+
 
