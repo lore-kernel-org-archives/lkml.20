@@ -1,161 +1,478 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E13A42BEAA
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:48:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284898; cv=pass; b=BWgPCuG/FDto0P+Nz0kkI1MQKV5zT1Wzh6MTi9wTebKPupdpjoDwJXqx1W/h3u9a+fWRtIthW8Oz3Z6MYLymu48mXrU9J91yiep6nSK6oGGddGfPTDCChGghFuroKhFrksX0Z2T+uXxhF124R7KovG/byQC3Iz56vraN+koDaYs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284898; c=relaxed/simple;
-	bh=XwJ0M96dJ3T6G4FYID3EPabi4UFprq48tSBZESvJUkA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N/b0QnLNE2f5A8Xpg/KrVjwbbW7QaChjgjuqoADvx41Pz2KnamnxEDugTRPzHT9mbqzmgimNmAEhdR6OePeK+ZMZABGwT9qa+HTTUtf3DO9iKDQR2Sfbq2Rr1eRGoWF/WcCtu6LAQUlH/p1U3zCGg+h/JaXzFbgNMB/Rd48dkz4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D3tItT5m; arc=pass smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B82448D881
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:48:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788284896; cv=none; b=NNj9fJfitYyJbuTBA2zAzZ9erR9jhKSOFuUmj2fm5KFyGcOnhgG86dnwZfFk5z1RfNE6h1QBzsyVHnHR7xFEs156nTdxVUBBHANR1WYg7mhhy1OFR3fZEmBXfCbt9kfZyImDSivzHXVCYrrynWqevzhmKewxYerYRSnKIah1RTY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788284896; c=relaxed/simple;
+	bh=JkGm0UaS5Y3Qe3Vn2Bz1+l4/YRY5ooddh+4LtrMHuHU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iqPsmZh4qXy0gaPWNnfQON8fbgbtR3KJpvl5ER69Jy7EQ7miyj7RFv2dCt7as1ojX5yrqZpvCqYD4bK231MxVWFPY4+oeFalCytW/48IykPbC9D/KcLpafyEkl/+dBXQX/YreGotWuDJtprbiCtFkrjoYQsyoQ4e4wKJfzOioSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems; spf=pass smtp.mailfrom=starlabs.systems; dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b=HZl6OgH6; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starlabs.systems
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D3tItT5m"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-396afefb35bso11905a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:48:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788284896; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gaiJ70EJpnf//ubhCZo3eYo8UmtqkCYQ7/S7kkwWIElfH9xBUrxKrhoGqA+eRbCq1T
-         eh0gL0laKPaYSPPgsChQZL2bggNqgIzF3aoq4nT54h4bOKnPY9jZSO7Gx7fcuuQ53Mdh
-         jSNDCRKCBWtTTFQbCeimTtweFLuIrbGc5eSejwQoCBL7ahDezgpWENDdsWrFtRWyOpKC
-         DrR2TaeWaYL9/AzpOR8b3vukGXgZNWO3kGllOn3Lzf+w6Sj9EVGFca0OFLtg0YOTZD/1
-         VUfss8YtcBQXqL/b2nHs/1m7eyIQdzp7+k1EGh4JVlzRa457HKRBM82VPc5NhzAMvSxm
-         Z/DA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dcj2MbPf+/703LfWlGvVkcF5hM4WvaFgdE71pfXNPtQ=;
-        fh=4tCGpEPLYlkfqkYCXzK0vHFETufFPIjCwLQBgJD9nTo=;
-        b=UbdmNgeqt6ON7zzqetSeNtoOeKYQ5kF+eKUOZbpHrpaXNaWT9SE84Uy/Z+pA79W4Sa
-         ablKZ2lsYsYSL0tsirFhijy6GitpZuadRpx3IZ9G7Qhi/mD1ltEjFDURjogRyp4ul68g
-         zss4eQVVZfYyPhxHyAQvRESg50CDY0g3jtQLdQpB0E/fXH40z3zh0e/egPOGUofvsi6/
-         NzFgJEs6RHlIhCsSeoBp0QEOPVe/9tY3/z6wDDukQ3ZSdr35lBymv0KEKURq5yHvZwzZ
-         9eSZ1AwD9u0jNE2xMFkJobU9gmk/Np08HZrqGCECz+08KeQwMtniWc2kD/8bO3C5d0FE
-         RcVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="HZl6OgH6"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so532305e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:48:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788284896; x=1788889696; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1788284892; x=1788889692; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=dcj2MbPf+/703LfWlGvVkcF5hM4WvaFgdE71pfXNPtQ=;
-        b=D3tItT5m+07nrwmbnWceWvNQiBXfJGvq8MyyVf1XWj/piS7CRjDTFVaMjfQIRnjIfb
-         H/ujHTbsbpODnatZH4+2Hh8UES7O7EbIYeOeRBFtoajU+5W1bLNkD5SCa7LA0ljML69R
-         bcIm2OCAZA7VnFp3D+X7z5kOp6u90u38EaMx85prF49LMkQDA2kyB0KKWF9jb9Zr+7Kf
-         HMwPcTW5Mz1lTC5gG+O+2Xi4GW4SHgmRcmVyxocBLDL1lxTbk8RqEtXBFORbNe8DaQ0N
-         1B9YutjZo6vgcwc1G9cc85V+CczXh+10VK6K2GzmJzMhRozVqVSpU7Bc278CzNmSkO8L
-         2hRg==
+        bh=zj7jRoHjkudAVVu49wNa7RpBG/Rcn+AOqbhR2Afeq2k=;
+        b=HZl6OgH6Ff8AdFhI8U5oQ97xpEawD7D1cZB6XqMvmJIcHe5vaEphf1C7BwzmVOMe4G
+         mZ8WtZPeDPSPcZRv2JCFoUn7QPoGRDiKCHCf1wR7fGR1/K3ie4iQGBF/lYIVKEz1IpU6
+         UZLUUp6izBwMOUe2CGnwQHqECstTfm5t/Vlq/5cf+QjCSaOGdxa9+1RwbFsgJq3Sc8/S
+         cEtMdlj08uMob/j+w7fw9lry+sHO3DZ1dFgJAkl3ZekD+GPeAEHV1iLSsQ/RDPZIpRgW
+         5pYdZEqGMGxEMgDnnS/k9bOKdztTlv2QVioePNSUMNgEujPeJ8e5jHyWwuYI+v528Nur
+         t4Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788284896; x=1788889696;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788284892; x=1788889692;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dcj2MbPf+/703LfWlGvVkcF5hM4WvaFgdE71pfXNPtQ=;
-        b=pvOLCA47vCB0OoIxgirUnCoCrToOiDSepypbXAVu++ooGjAdY/0LoCw5Zm4w1n2rpQ
-         MiH5NoP3mZyIN7vE045BO2R1X/6IQn6Gr5Hn43OTZctzlRxOXHvazuN/afDQzP/1PChL
-         owS/UzR2T3S/YAUzjfM3ROmyhRH30SLfhAcf+m7LITYSOaXtj+DbiSPbOZIoFlL6kfeX
-         ANs8zKxPcIrcUbruhldxV/FNb0QSThUXWEGDYBQZN747uW0ZYN3Jxt3SOUgruVLY+LiP
-         pLfFY+vOPbc/2poHxhJPRPH7cGu4O4LYh/pT/E3JY50/mxi491IX9cOW4Ku+aDs2bjLA
-         oFkg==
-X-Forwarded-Encrypted: i=1; AKwUvBwq7/TFi4vGRHH7SuIPNqeYRKWou9R6dKPSwztbBc0SPTSKL9Gd2355HJNsrFOl8ll4yT4h09YSAOfBUjk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mC/WUGiy5Nq0H4U28jxF06p/RrQKmVT/9kvD7loNs5pIZ9Zyqp
-	/9bKN/89GDoGrs+un7Jbi+IbB/0gQWbsAN+MzEs1PID8E/6mZEbG+Zq8KcdzZ+TdLjguzP76jAU
-	fY5vutXuo29UxhKoMvMz9AVy0puZyc9M=
-X-Gm-Gg: AYBFou3f/otbUguCglNPOd2OgWEeM1kU+8lVBaz0DBd9KRPQXaUuxF8vkM4quBpqzN8
-	v+prlGVZqjIDgeD6UhNTOzNcY3Vfp37aSxfpGS5ejb3FPmFOP1eyls2M0HnFR15F6RXZNfRDzGc
-	nt6+uoXMx9Ai7nmmiFoNyrDCM0FLjSrWg40Ysvm6Ssi7Z4MBsVEow/HD9CmPA1TpADUX9+rff6g
-	4vJaSArOwXuYWTw2mFXR2ZJjzYjwI9WieGO9UuX82i537c618umsSziii8+oVepnbMso5hgZdev
-	YtwJadDDWL2TsTTd8nnrzNUHl/k7ULquvo36Jhplb6TzD3NwZSq8oi26FJnFZUxhnhLqhwmuplh
-	7aV9JCKo3hbrU9t8PTkfKe15/paOrGDa+
-X-Received: by 2002:a17:90a:ec85:b0:398:bad2:c0f with SMTP id
- 98e67ed59e1d1-398bad20e7bmr20530963a91.5.1788284895589; Tue, 01 Sep 2026
- 10:48:15 -0700 (PDT)
+        bh=zj7jRoHjkudAVVu49wNa7RpBG/Rcn+AOqbhR2Afeq2k=;
+        b=oOI8gv8M+A0zaklwr9KnZJUYtzX1bBcma90TOApwenznmGusolKHl4CXsxn49axevJ
+         tm0ChwQIM91PxRss1Ipfz9AYSFw9PFG4f0JS8HEb1U3i8CxYLJUQ5n8v2sPWY1kgc4zO
+         lKCzJ8xizzD0Tg95BJrj4y7LMZ2jeVoI5XhlhNi36q+Y4ZKWlngqFm3L9hoZbxFx00+d
+         41qahdbUAPXxhe2muTcEdBLZPbCzBQZ9fXk/NARUfwR3GfEATSZfr5Twd4d/vr4lhtrE
+         mlIPsSJwaCowR9erU/pbQwV15Hojw1dvzhMKV0M4Vk+bBRoS6h5/srf+oO+0X9+WS9/G
+         GLNg==
+X-Gm-Message-State: AFuF++kW/qmQ0wfTv0NgdUCUK8yjSJA3/S/j9VVDOoAcpcjp+3kRY3gK
+	C6Ws1s0RK2+r7E9CPvyro/AcBREkZhnCpe++KJyi4DDzjKK6iqQ6ZKhFXiltGcphpl5irbJlpqR
+	6FSW0wBjc
+X-Gm-Gg: AR+sD10nzowTUnHHe4PMdxprrHigHLJ/cXYi94l2NSoMTxNeNpLy72QezqOzvrqDy2p
+	jVAuAHQcIXZpHN4hf14XfHYp7Q1HJtv5gnAW7K21t1HJtYIgYX+AGURjWTO+66MIYS9Blje3rXP
+	grykEYNGIxIUYBtBIL2Xp7D9wdTsDJqq3wWSmuUYNtiqaXdM+4WQa55Aqjr/nf4ik/mdSej5dOq
+	5lFYX9X+z1m9napE9baSKO0hKiJH3mK6Etdh91g9+LWh3jQi3rl1F+lqVexLvhfoM0VDZY3fXiw
+	+p2YamCj5wByRP5nVkIByEjgAGPS1WcxKLrFCjZtqCMx87EhaXnXmIbR0/Clo4x1hnzfuE1kmNq
+	0tIcWhCGyny4rzFOh2a6j8FouqBjR5W/XctNbJmsCawCeRuohj5p9JnuvZOsHDB09zHXOpOpxQe
+	tpO5SzRdsZ2nAfDW288im7xbGhgh8aUllKq+7GCWBl9UrOGJEpQ9UJAWqQmU0SRtPFbvWXBMXcn
+	vlivnhIJwtMlqs=
+X-Received: by 2002:a05:600c:4704:b0:493:cefc:d113 with SMTP id 5b1f17b1804b1-49b91c2d8femr551603875e9.5.1788284891619;
+        Tue, 01 Sep 2026 10:48:11 -0700 (PDT)
+Received: from horizon ([217.155.46.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce47885b1sm2369225e9.14.2026.09.01.10.48.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 10:48:11 -0700 (PDT)
+From: Sean Rhodes <sean@starlabs.systems>
+To: linux-kernel@vger.kernel.org
+Cc: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Corentin Chary <corentin.chary@gmail.com>,
+	"Luke D. Jones" <luke@ljones.dev>,
+	Denis Benato <denis.benato@linux.dev>,
+	Prasanth Ksr <prasanth.ksr@dell.com>,
+	Jorge Lopez <jorge.lopez2@hp.com>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Joshua Grisham <josh@joshuagrisham.com>,
+	Will Deacon <will@kernel.org>,
+	Douglas Anderson <dianders@chromium.org>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Sean Rhodes <sean@starlabs.systems>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	platform-driver-x86@vger.kernel.org,
+	Dell.Client.Kernel@dell.com,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Brian Norris <briannorris@chromium.org>,
+	Julius Werner <jwerner@chromium.org>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
+	Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
+	Yidi Lin <yidilin@google.com>,
+	Kees Cook <kees@kernel.org>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	chrome-platform@lists.linux.dev,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Sven Peter <sven@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Drew Fustini <fustini@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	soc@lists.linux.dev
+Subject: [PATCH v14 2/5] firmware: Rename google firmware directory to coreboot
+Date: Tue,  1 Sep 2026 18:48:03 +0100
+Message-ID: <0a81e0d8e15c13f6a65c45ce476e37b33564ad61.1788284852.git.sean@starlabs.systems>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1788284852.git.sean@starlabs.systems>
+References: <cover.1788284852.git.sean@starlabs.systems>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901072615.522925-1-hrushirajg23@gmail.com>
-In-Reply-To: <20260901072615.522925-1-hrushirajg23@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 1 Sep 2026 13:48:04 -0400
-X-Gm-Features: AcwNN1WcS_X7Oe_rNMCrlpJl5NTeoyfqRDXOQdKoSI1aY_8E3V62TAx7S1S3eZM
-Message-ID: <CADnq5_MM-_7FAWo9PLyZzJOHfck_Ya2_vWEGFm4uGTQp446SUQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: use kzalloc_objs() instead of kzalloc() with multiply
-To: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Cc: Felix.Kuehling@amd.com, alexander.deucher@amd.com, 
-	christian.koenig@amd.com, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 1, 2026 at 3:59=E2=80=AFAM Hrushiraj Gandhi <hrushirajg23@gmail=
-.com> wrote:
->
-> dqm->detect_hang_info, dqm->hung_db_array and dqm->hqd_info are all
-> allocated with a hand-computed count * sizeof(TYPE) size. If count
-> were ever attacker- or firmware-influenced and large enough, the
-> multiply could wrap size_t and produce a too-small allocation that
-> the code then writes count-many elements into.
->
-> kzalloc_objs() computes the same size via size_mul(), which saturates
-> to SIZE_MAX on overflow instead of wrapping, so the allocation itself
-> fails cleanly (already handled here via the existing NULL checks)
-> rather than silently succeeding undersized.
->
-> dqm->detect_hang_info_size is left as-is since it is also used later
-> for a memset() call; only the allocation itself is converted.
->
-> No functional change in the non-overflowing case.
->
-> Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 8 +++-----
->  1 file changed, 3 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
-ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 67137679a901..5aa42fd5bb49 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -2013,17 +2013,15 @@ static int start_cpsch(struct device_queue_manage=
-r *dqm)
->                               NUM_XCC(dqm->dev->xcc_mask);
->
->         dqm->detect_hang_info_size =3D num_hw_queue_slots * sizeof(struct=
- dqm_detect_hang_info);
+Most drivers in drivers/firmware/google are coreboot table drivers rather
+than Google-specific firmware drivers. Rename the directory to coreboot
+and update the Kconfig prompt, build path and maintainer entry.
 
-Can you fix this calculation to check for an overflow while you are at it?
+Rename the generic firmware Kconfig symbols to CONFIG_COREBOOT_* at the
+same time so new configurations describe the firmware interface rather
+than one vendor. Keep the old CONFIG_GOOGLE_* names as transitional
+symbols so existing configurations keep selecting the same drivers
+during the rename.
 
-Alex
+Leave defconfig updates to a separate patch so the configuration churn
+is easy to review independently.
 
-> -       dqm->detect_hang_info =3D kzalloc(dqm->detect_hang_info_size, GFP=
-_KERNEL);
-> +       dqm->detect_hang_info =3D kzalloc_objs(*dqm->detect_hang_info, nu=
-m_hw_queue_slots);
->
->         if (!dqm->detect_hang_info) {
->                 retval =3D -ENOMEM;
->                 goto fail_detect_hang_buffer;
->         }
->
-> -       dqm->hung_db_array =3D kzalloc(hung_array_size * sizeof(u32), GFP=
-_KERNEL);
-> -       dqm->hqd_info =3D kzalloc(
-> -               hqd_info_size * sizeof(struct amdgpu_mes_hung_queue_hqd_i=
-nfo),
-> -               GFP_KERNEL);
-> +       dqm->hung_db_array =3D kzalloc_objs(*dqm->hung_db_array, hung_arr=
-ay_size);
-> +       dqm->hqd_info =3D kzalloc_objs(*dqm->hqd_info, hqd_info_size);
->
->         dqm_unlock(dqm);
->
+Suggested-by: Julius Werner <jwerner@chromium.org>
+Signed-off-by: Sean Rhodes <sean@starlabs.systems>
+---
+ MAINTAINERS                                   | 20 ++---
+ drivers/firmware/Kconfig                      |  2 +-
+ drivers/firmware/Makefile                     |  2 +-
+ drivers/firmware/{google => coreboot}/Kconfig | 74 ++++++++++++++-----
+ .../firmware/{google => coreboot}/Makefile    | 10 +--
+ drivers/firmware/{google => coreboot}/cbmem.c |  0
+ .../{google => coreboot}/coreboot_table.c     |  0
+ .../{google => coreboot}/coreboot_table.h     |  0
+ .../framebuffer-coreboot.c                    |  0
+ drivers/firmware/{google => coreboot}/gsmi.c  |  0
+ .../memconsole-coreboot.c                     |  0
+ .../memconsole-x86-legacy.c                   |  0
+ .../{google => coreboot}/memconsole.c         |  0
+ .../{google => coreboot}/memconsole.h         |  6 +-
+ drivers/firmware/{google => coreboot}/vpd.c   |  0
+ .../{google => coreboot}/vpd_decode.c         |  0
+ .../{google => coreboot}/vpd_decode.h         |  0
+ 17 files changed, 76 insertions(+), 38 deletions(-)
+ rename drivers/firmware/{google => coreboot}/Kconfig (64%)
+ rename drivers/firmware/{google => coreboot}/Makefile (51%)
+ rename drivers/firmware/{google => coreboot}/cbmem.c (100%)
+ rename drivers/firmware/{google => coreboot}/coreboot_table.c (100%)
+ rename drivers/firmware/{google => coreboot}/coreboot_table.h (100%)
+ rename drivers/firmware/{google => coreboot}/framebuffer-coreboot.c (100%)
+ rename drivers/firmware/{google => coreboot}/gsmi.c (100%)
+ rename drivers/firmware/{google => coreboot}/memconsole-coreboot.c (100%)
+ rename drivers/firmware/{google => coreboot}/memconsole-x86-legacy.c (100%)
+ rename drivers/firmware/{google => coreboot}/memconsole.c (100%)
+ rename drivers/firmware/{google => coreboot}/memconsole.h (82%)
+ rename drivers/firmware/{google => coreboot}/vpd.c (100%)
+ rename drivers/firmware/{google => coreboot}/vpd_decode.c (100%)
+ rename drivers/firmware/{google => coreboot}/vpd_decode.h (100%)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a8048eaf49e5..4646744002dc 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -6716,6 +6716,16 @@ F:	tools/testing/selftests/cgroup/test_hugetlb_memcg.c
+ F:	tools/testing/selftests/cgroup/test_kmem.c
+ F:	tools/testing/selftests/cgroup/test_memcontrol.c
+ 
++COREBOOT FIRMWARE DRIVERS
++M:	Tzung-Bi Shih <tzungbi@kernel.org>
++R:	Brian Norris <briannorris@chromium.org>
++R:	Julius Werner <jwerner@chromium.org>
++L:	chrome-platform@lists.linux.dev
++S:	Maintained
++T:	git git://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git
++F:	drivers/firmware/coreboot/
++F:	include/linux/coreboot.h
++
+ CORETEMP HARDWARE MONITORING DRIVER
+ L:	linux-hwmon@vger.kernel.org
+ S:	Orphan
+@@ -11144,16 +11154,6 @@ S:	Maintained
+ F:	Documentation/networking/device_drivers/ethernet/google/gve.rst
+ F:	drivers/net/ethernet/google
+ 
+-GOOGLE FIRMWARE DRIVERS
+-M:	Tzung-Bi Shih <tzungbi@kernel.org>
+-R:	Brian Norris <briannorris@chromium.org>
+-R:	Julius Werner <jwerner@chromium.org>
+-L:	chrome-platform@lists.linux.dev
+-S:	Maintained
+-T:	git git://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git
+-F:	drivers/firmware/google/
+-F:	include/linux/coreboot.h
+-
+ GOOGLE TENSOR SoC SUPPORT
+ M:	Peter Griffin <peter.griffin@linaro.org>
+ R:	André Draszik <andre.draszik@linaro.org>
+diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
+index 35dd6d422caf..b7d4df89cfb1 100644
+--- a/drivers/firmware/Kconfig
++++ b/drivers/firmware/Kconfig
+@@ -302,7 +302,7 @@ endif # TURRIS_MOX_RWTM
+ source "drivers/firmware/arm_ffa/Kconfig"
+ source "drivers/firmware/broadcom/Kconfig"
+ source "drivers/firmware/cirrus/Kconfig"
+-source "drivers/firmware/google/Kconfig"
++source "drivers/firmware/coreboot/Kconfig"
+ source "drivers/firmware/efi/Kconfig"
+ source "drivers/firmware/imx/Kconfig"
+ source "drivers/firmware/meson/Kconfig"
+diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
+index 0e1e1b92a486..ce925e8ee526 100644
+--- a/drivers/firmware/Makefile
++++ b/drivers/firmware/Makefile
+@@ -31,7 +31,7 @@ obj-y				+= broadcom/
+ obj-y				+= cirrus/
+ obj-y				+= meson/
+ obj-y				+= microchip/
+-obj-$(CONFIG_GOOGLE_FIRMWARE)	+= google/
++obj-$(CONFIG_COREBOOT_FIRMWARE)	+= coreboot/
+ obj-y				+= efi/
+ obj-y				+= imx/
+ obj-y				+= psci/
+diff --git a/drivers/firmware/google/Kconfig b/drivers/firmware/coreboot/Kconfig
+similarity index 64%
+rename from drivers/firmware/google/Kconfig
+rename to drivers/firmware/coreboot/Kconfig
+index b78c644fa253..d273bd836245 100644
+--- a/drivers/firmware/google/Kconfig
++++ b/drivers/firmware/coreboot/Kconfig
+@@ -1,13 +1,16 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+-menuconfig GOOGLE_FIRMWARE
+-	bool "Google Firmware Drivers"
++menuconfig COREBOOT_FIRMWARE
++	bool "coreboot firmware drivers"
++	default GOOGLE_FIRMWARE
+ 	default n
+ 	help
+-	  These firmware drivers are used by Google servers,
+-	  Chromebooks and other devices using coreboot firmware.
++	  These firmware drivers are used by devices running coreboot
++	  firmware, including Chromebooks and some Google servers.
++	  They include shared support for coreboot table entries and
++	  drivers for CBMEM, framebuffer, firmware console and VPD records.
+ 	  If in doubt, say "N".
+ 
+-if GOOGLE_FIRMWARE
++if COREBOOT_FIRMWARE
+ 
+ config GOOGLE_SMI
+ 	tristate "SMI interface for Google platforms"
+@@ -19,9 +22,10 @@ config GOOGLE_SMI
+ 	  driver provides an interface for reading and writing NVRAM
+ 	  variables.
+ 
+-config GOOGLE_CBMEM
++config COREBOOT_CBMEM
+ 	tristate "CBMEM entries in sysfs"
+-	depends on GOOGLE_COREBOOT_TABLE
++	depends on COREBOOT_TABLE
++	default GOOGLE_CBMEM
+ 	help
+ 	  CBMEM is a downwards-growing memory region created by the
+ 	  Coreboot BIOS containing tagged data structures from the
+@@ -34,9 +38,10 @@ config GOOGLE_CBMEM
+ 	  memory for each entry in sysfs under
+ 	  /sys/bus/coreboot/devices/cbmem-<id>.
+ 
+-config GOOGLE_COREBOOT_TABLE
++config COREBOOT_TABLE
+ 	tristate "Coreboot Table Access"
+ 	depends on HAS_IOMEM && (ACPI || OF)
++	default GOOGLE_COREBOOT_TABLE
+ 	help
+ 	  This option enables the coreboot_table module, which provides other
+ 	  firmware modules access to the coreboot table. The coreboot table
+@@ -44,42 +49,75 @@ config GOOGLE_COREBOOT_TABLE
+ 	  device tree node /firmware/coreboot.
+ 	  If unsure say N.
+ 
+-config GOOGLE_MEMCONSOLE
++config COREBOOT_MEMCONSOLE_COMMON
+ 	tristate
+-	depends on GOOGLE_MEMCONSOLE_X86_LEGACY || GOOGLE_MEMCONSOLE_COREBOOT
++	depends on GOOGLE_MEMCONSOLE_X86_LEGACY || COREBOOT_MEMCONSOLE
++	default GOOGLE_MEMCONSOLE
+ 
+ config GOOGLE_MEMCONSOLE_X86_LEGACY
+ 	tristate "Firmware Memory Console - X86 Legacy support"
+ 	depends on X86 && ACPI && DMI
+-	select GOOGLE_MEMCONSOLE
++	select COREBOOT_MEMCONSOLE_COMMON
+ 	help
+ 	  This option enables the kernel to search for a firmware log in
+ 	  the EBDA on Google servers.  If found, this log is exported to
+ 	  userland in the file /sys/firmware/log.
++	  This driver is limited to x86 systems that expose the legacy
++	  Google EBDA console format.
+ 
+-config GOOGLE_FRAMEBUFFER_COREBOOT
++config COREBOOT_FRAMEBUFFER
+ 	tristate "Coreboot Framebuffer"
+-	depends on GOOGLE_COREBOOT_TABLE
++	depends on COREBOOT_TABLE
++	default GOOGLE_FRAMEBUFFER_COREBOOT
+ 	help
+ 	  This option enables the kernel to search for a framebuffer in
+ 	  the coreboot table.  If found, it is registered with a platform
+ 	  device of type coreboot-framebuffer. Using the old device of
+ 	  type simple-framebuffer is deprecated.
+ 
+-config GOOGLE_MEMCONSOLE_COREBOOT
++config COREBOOT_MEMCONSOLE
+ 	tristate "Firmware Memory Console"
+-	depends on GOOGLE_COREBOOT_TABLE
+-	select GOOGLE_MEMCONSOLE
++	depends on COREBOOT_TABLE
++	select COREBOOT_MEMCONSOLE_COMMON
++	default GOOGLE_MEMCONSOLE_COREBOOT
+ 	help
+ 	  This option enables the kernel to search for a firmware log in
+ 	  the coreboot table.  If found, this log is exported to userland
+ 	  in the file /sys/firmware/log.
++	  This is the coreboot-table backed variant of the firmware memory
++	  console driver.
+ 
+ config GOOGLE_VPD
+ 	tristate "Vital Product Data"
+-	depends on GOOGLE_COREBOOT_TABLE
++	depends on COREBOOT_TABLE
+ 	help
+ 	  This option enables the kernel to expose the content of Google VPD
+ 	  under /sys/firmware/vpd.
++	  VPD records carry firmware-provided key/value data used by
++	  Google devices.
++
++endif # COREBOOT_FIRMWARE
+ 
+-endif # GOOGLE_FIRMWARE
++config GOOGLE_FIRMWARE
++	bool
++	transitional
++
++config GOOGLE_CBMEM
++	tristate
++	transitional
++
++config GOOGLE_COREBOOT_TABLE
++	tristate
++	transitional
++
++config GOOGLE_MEMCONSOLE
++	tristate
++	transitional
++
++config GOOGLE_FRAMEBUFFER_COREBOOT
++	tristate
++	transitional
++
++config GOOGLE_MEMCONSOLE_COREBOOT
++	tristate
++	transitional
+diff --git a/drivers/firmware/google/Makefile b/drivers/firmware/coreboot/Makefile
+similarity index 51%
+rename from drivers/firmware/google/Makefile
+rename to drivers/firmware/coreboot/Makefile
+index 8151e323cc43..e681f274417a 100644
+--- a/drivers/firmware/google/Makefile
++++ b/drivers/firmware/coreboot/Makefile
+@@ -1,14 +1,14 @@
+ # SPDX-License-Identifier: GPL-2.0
+ 
+ obj-$(CONFIG_GOOGLE_SMI)		+= gsmi.o
+-obj-$(CONFIG_GOOGLE_COREBOOT_TABLE)        += coreboot_table.o
+-obj-$(CONFIG_GOOGLE_FRAMEBUFFER_COREBOOT)  += framebuffer-coreboot.o
+-obj-$(CONFIG_GOOGLE_MEMCONSOLE)            += memconsole.o
+-obj-$(CONFIG_GOOGLE_MEMCONSOLE_COREBOOT)   += memconsole-coreboot.o
++obj-$(CONFIG_COREBOOT_TABLE)               += coreboot_table.o
++obj-$(CONFIG_COREBOOT_FRAMEBUFFER)         += framebuffer-coreboot.o
++obj-$(CONFIG_COREBOOT_MEMCONSOLE_COMMON)   += memconsole.o
++obj-$(CONFIG_COREBOOT_MEMCONSOLE)          += memconsole-coreboot.o
+ obj-$(CONFIG_GOOGLE_MEMCONSOLE_X86_LEGACY) += memconsole-x86-legacy.o
+ 
+ # Must come after coreboot_table.o, as this driver depends on that bus type.
+-obj-$(CONFIG_GOOGLE_CBMEM)		+= cbmem.o
++obj-$(CONFIG_COREBOOT_CBMEM)		+= cbmem.o
+ 
+ vpd-sysfs-y := vpd.o vpd_decode.o
+ obj-$(CONFIG_GOOGLE_VPD)		+= vpd-sysfs.o
+diff --git a/drivers/firmware/google/cbmem.c b/drivers/firmware/coreboot/cbmem.c
+similarity index 100%
+rename from drivers/firmware/google/cbmem.c
+rename to drivers/firmware/coreboot/cbmem.c
+diff --git a/drivers/firmware/google/coreboot_table.c b/drivers/firmware/coreboot/coreboot_table.c
+similarity index 100%
+rename from drivers/firmware/google/coreboot_table.c
+rename to drivers/firmware/coreboot/coreboot_table.c
+diff --git a/drivers/firmware/google/coreboot_table.h b/drivers/firmware/coreboot/coreboot_table.h
+similarity index 100%
+rename from drivers/firmware/google/coreboot_table.h
+rename to drivers/firmware/coreboot/coreboot_table.h
+diff --git a/drivers/firmware/google/framebuffer-coreboot.c b/drivers/firmware/coreboot/framebuffer-coreboot.c
+similarity index 100%
+rename from drivers/firmware/google/framebuffer-coreboot.c
+rename to drivers/firmware/coreboot/framebuffer-coreboot.c
+diff --git a/drivers/firmware/google/gsmi.c b/drivers/firmware/coreboot/gsmi.c
+similarity index 100%
+rename from drivers/firmware/google/gsmi.c
+rename to drivers/firmware/coreboot/gsmi.c
+diff --git a/drivers/firmware/google/memconsole-coreboot.c b/drivers/firmware/coreboot/memconsole-coreboot.c
+similarity index 100%
+rename from drivers/firmware/google/memconsole-coreboot.c
+rename to drivers/firmware/coreboot/memconsole-coreboot.c
+diff --git a/drivers/firmware/google/memconsole-x86-legacy.c b/drivers/firmware/coreboot/memconsole-x86-legacy.c
+similarity index 100%
+rename from drivers/firmware/google/memconsole-x86-legacy.c
+rename to drivers/firmware/coreboot/memconsole-x86-legacy.c
+diff --git a/drivers/firmware/google/memconsole.c b/drivers/firmware/coreboot/memconsole.c
+similarity index 100%
+rename from drivers/firmware/google/memconsole.c
+rename to drivers/firmware/coreboot/memconsole.c
+diff --git a/drivers/firmware/google/memconsole.h b/drivers/firmware/coreboot/memconsole.h
+similarity index 82%
+rename from drivers/firmware/google/memconsole.h
+rename to drivers/firmware/coreboot/memconsole.h
+index aaff2b72b606..58899c2abaaa 100644
+--- a/drivers/firmware/google/memconsole.h
++++ b/drivers/firmware/coreboot/memconsole.h
+@@ -7,8 +7,8 @@
+  * Copyright 2017 Google Inc.
+  */
+ 
+-#ifndef __FIRMWARE_GOOGLE_MEMCONSOLE_H
+-#define __FIRMWARE_GOOGLE_MEMCONSOLE_H
++#ifndef __FIRMWARE_COREBOOT_MEMCONSOLE_H
++#define __FIRMWARE_COREBOOT_MEMCONSOLE_H
+ 
+ #include <linux/types.h>
+ 
+@@ -33,4 +33,4 @@ int memconsole_sysfs_init(void);
+  */
+ void memconsole_exit(void);
+ 
+-#endif /* __FIRMWARE_GOOGLE_MEMCONSOLE_H */
++#endif /* __FIRMWARE_COREBOOT_MEMCONSOLE_H */
+diff --git a/drivers/firmware/google/vpd.c b/drivers/firmware/coreboot/vpd.c
+similarity index 100%
+rename from drivers/firmware/google/vpd.c
+rename to drivers/firmware/coreboot/vpd.c
+diff --git a/drivers/firmware/google/vpd_decode.c b/drivers/firmware/coreboot/vpd_decode.c
+similarity index 100%
+rename from drivers/firmware/google/vpd_decode.c
+rename to drivers/firmware/coreboot/vpd_decode.c
+diff --git a/drivers/firmware/google/vpd_decode.h b/drivers/firmware/coreboot/vpd_decode.h
+similarity index 100%
+rename from drivers/firmware/google/vpd_decode.h
+rename to drivers/firmware/coreboot/vpd_decode.h
