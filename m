@@ -1,158 +1,134 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012053.outbound.protection.outlook.com [52.101.66.53])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5338D2F745D;
-	Tue,  1 Sep 2026 05:57:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788242270; cv=fail; b=l0nDrZAeIMOh32EeyKAeGf22i3kql3iRYaZFom3S9EgOtSIyy4y0Lg3YynNhp4nU5+ZYzVzFX21aJh64BsI6jGs7Gcla8clcVWb6+RHHEpAA/IYCLcUx6GOpwrB1CP3Fq6WR5IrKI8nLUJlagvmgrJuqCwsIjVuMxBNHJTPcSco=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788242270; c=relaxed/simple;
-	bh=W57ufiPcG6vJmxwqQWryqwm2VYzKpWQVfdPWC/sydHw=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=FawfB9a/rOu2iY4EG3kk+94Kn2L9CgBr4eRot3v3JDCBRPLLg0VMGchKzWVekLl9itppgTkY6LvZMQWX1yPqCQpBSH9xFegDx7lzPFyxHUw87Qr8YgCB3MPsYqMfYXNMPEwiN36A3Nr/CXuoOlwThVaW32FET4G2SEt05etbSPE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=JfcGxQ7Y; arc=fail smtp.client-ip=52.101.66.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7564337F8DD;
+	Tue,  1 Sep 2026 05:57:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788242274; cv=none; b=gkkNtBX7ab8bZhhdddL/iyeAtW9Wt/ej7XRmCXzQ0TjmTo+i88FvraE84zI4KQUL0J8qc90Bl81NPqwYdSzGLOkmEpQ7Ux9Yi3q9X4ROoRmTUfHsU/XcESYITDXPorw8h+QPT9a+Dx2+ltHfQHov2cBNeVUhC4cAbbLGgWYtaL4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788242274; c=relaxed/simple;
+	bh=dWknwr12aM/zF7fSERR10Ct8dI7H3XsQccm+F7kw9Cw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OUofxBi/feRZpQrgye3pGL9zdIuDc6YPrjWZl72Bh3jsT1Djlg+6O6tm3KJnuvtUjCZruEgq2vtD0UGc3Z29laTMdFq3vermvKin2qvyjdoKfcFHVJejhTQmX1Tnd2rELGluudZm1/+7mTV8bUGYJTwdDOS1V0sZJygRkZunetQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BhBQE990; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="JfcGxQ7Y"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yHzCvv8RFH8/qPCaNkCKLNGnb7z8y8Cap0LIGU7p42auBUBg9TS4nChO/PjbQixrCLy74Jp0T6t7X3vU0ReqI5U2tsSfnOPUKN+3M01VkkfVSC7XKLKDJnm7xJjzPSoTnAInAeIroydkYxT+HAWyHYk6AGkez/sIV06gzJ2eSloG1+uFs7bmegL8f4+4DWPlW3d0Ycunz081wODKdXDIOYkmvsf6vpBD20GV9h7pxTc4uUCAvPC0xf63gd5aXR9ZKmVrsXN/6HDAMLyDjP2g1cVdbsuCuu5+VeWjCqNYJpdoMX7xXvBVilTTKKnxmY3ZIycqBU88I4qWW1Fv9PTZqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1ceohFjW0JktZ+4Fj+8SRFL+h5zm8/TB4tkdtaj2QoY=;
- b=D3pBBIYjKkuAEi8Q5qwrrpbXdn7mjh9M3DJQsyClzH8PGZW+E/DHN5L2z2FDb4zWxRQM6Bj1U2B3c8YU2wefGrJ4cgYNDbIr7FNyEVoyDcKqQOyD+iZgxc+yIKgbTviXkzKKNHWauo9ID65ISLkP8Kp8sRGNO0mSkwl/pn+pmiQUWQmKLrzFE1Gnh96eBAWrowbhJdTT0KpE8OfEe7tUd3E43+9nQ4v9gWJNFOt9af5N7Crbwuqca4zSrb+i0t6Ur4fN6KwxmVL/n4t3+3V83fW/mt/4K54Phboyaqyf24hyBBG4sGCQA4XjarcC9VQVpLiIxHAdH/VT7dsD7ebJNQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1ceohFjW0JktZ+4Fj+8SRFL+h5zm8/TB4tkdtaj2QoY=;
- b=JfcGxQ7YMQSFbyDB6uoJxP+Z7/Jt3nWq1KQ5DMFtkj9vTT9RHLJSWYnIIkALjIpZYYDV6ZXt9Sd/mUUQ+/g+WXo6u5bURNWh9n8NaOZ2fk6O6n0r9BA8xSdkfHxvkc+yKc3TLbtDpdF6jCpda+jOY3+qUX9VCy3OWhZ09myWbwsxKRdh2VEPcLp+cQcctwusladQNJInhpAyHyrdbzvxDK1hEwFWwaASzCVwpkfwZaHSgGlI8DIh2JZ16wsjs94jtiOFBhRisL0nNb/ECTH4U6wsn2oWEV6ea9Hne79gyUYTwQ19xo73anO2VND0kCPhI3viZldpaIvejIScPX4SjQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
- by AS8PR04MB8040.eurprd04.prod.outlook.com (2603:10a6:20b:2a9::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 05:57:46 +0000
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 05:57:45 +0000
-From: Xu Yang <xu.yang_2@oss.nxp.com>
-To: peter.chen@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: alexander.shishkin@linux.intel.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	jun.li@nxp.com
-Subject: [PATCH] usb: chipidea: otg: fix invalid role name print when no current role
-Date: Tue,  1 Sep 2026 14:01:50 +0800
-Message-Id: <20260901060150.1667914-1-xu.yang_2@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5PR01CA0118.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1a7::8) To PAXPR04MB9422.eurprd04.prod.outlook.com
- (2603:10a6:102:2b4::21)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BhBQE990"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 508DD1F000E9;
+	Tue,  1 Sep 2026 05:57:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788242273;
+	bh=+gTQIK3yQi4UakvY0r+nGegwgzdx4YC4LvElYe31vtM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BhBQE9904+QsR6IhIjvHix9VJbI2sIHdw0+FsrcdzSmT1AYYcLWaLNNQN2ejK9dfS
+	 ZWYEAF5ZpXhREGwdfMhQLas7O9NCqp956fDpmZvr+c472kDgAk/s8XVzh4DoiKUocM
+	 aki2O5YkguUT/giWJ4lVL6uvMOuCLXC7Dn1Y1bpL0wIXrIv8xWGD/mt++yiHb78tIP
+	 IS76ALUpmww8jhQKlSEtj7n92TQW/3uABcbXX6g362f2um1HnDLNWE1O8HZ0d0yLvg
+	 WGutVaskT/UxrcaNL7JyviPpD7ZXwJnCEcCoO5JBnWob3irq1Zm4pkqdDpMlXv10nP
+	 vmYSuFBk1nIQA==
+Message-ID: <ad7883c2-3b0d-43d0-b057-8a8eaf34a6c9@kernel.org>
+Date: Tue, 1 Sep 2026 07:57:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|AS8PR04MB8040:EE_
-X-MS-Office365-Filtering-Correlation-Id: 209b6a81-fe1b-43de-be20-08df07edf178
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|19092799006|1800799024|56012099006|10067099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	xS+y914JF1aHQBqrhEJEmmekpTDqD92UH516l2SBUISqx8tt0eq0fU0Yvt/vDK+O/7p9hoJju48bSojkvQJHYSwG8f8TMW2D8CjofS7Ooec1EP/SsJswPdceWpIlIdzFTzHzpI80yRei7whYwT8F2b8FNyVgQStCQSz4BmqOwm2jkulauJmu98AZxWjUI01ELCxZ3u0jNLahRkL5n9uOhn/ElQNrDrMpvapX1Awzydf6TaWbduGzBDIHHoGE9XUgi9s5AWHcNCpGCuM6lz8wnYO8Znj4BnXHPMR6szRWg7Q6uGtlIuGiD/xO2Loi5x27L2U6TWs9r98gnNRQXnnLOp2gAl5Pl8e+RGFu1QdJ2jTSM9uNqAaQg5ilHWvqMPCFzQVWXqSGb01/Eag3rnjxPM95hVpoJNL2IVbE0vKLYFGxzlxx+RQofw9pYemU0Vu1bisRRHzcZQGzADX1hezbLGVpFzzPZbuxCHdpp2v3XaVJDHoXFZEQ3y1W3YL/6sPeDGs7fIZUWNpdaxGe8SndfSwNN+LuJd/hjndC3YI9sTptgXBbGmWutESaMXtg2DhKux6dXT/yxiWfNhqMBj+GZIyb6C/bTGBUCHsG7REb2FwNcHt7KVCnMxpXN8PZ8jCpnxcZXG+AoHMmIP1XBbvZugWGhIkwuuyAGq3U/JhpTzI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(19092799006)(1800799024)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?O/nl8y5UaQR1UkyYsYZ+GGshuZzAPLjFI1rIUhgxzrvdbgX2BBFFHSjvrALT?=
- =?us-ascii?Q?5w1cD+KuFgNRl9Om9BD3VaIh3rRl2BKybVica9fl9UX0kBjASRMCLGMLOv9p?=
- =?us-ascii?Q?MSdlRc9VO0eaktYZQj0ormY6dXlcAM/E1sD8kkr4514B8aXhWyKl71kReVgS?=
- =?us-ascii?Q?oSJjIFnnJujXCVXvS3RHtTFvYFUscUfcBg1oiDjS277qu6/1qY+mxyrT9lN4?=
- =?us-ascii?Q?dXALtD4mYQ7eLG3kfORlAaK2Qv4x8gcA0EXhGPksLomb9o3GvT17/7kRdcp9?=
- =?us-ascii?Q?u5Nitx+piPq9tyf8L5Sn4P0ssd3dsT/7EihDTfSvOR1cGKEM5F8HHsJk1ehj?=
- =?us-ascii?Q?MHFFSIrI6SRWXmSUuyH+6X/2I/zOxHpXXki/iwxdhNTX9QyEWmd74XmqRyHT?=
- =?us-ascii?Q?A81Sl7RSgFOLnZyPFSnQKUrrIReMisT9UtBoWloFRUU+1NPkLy8UC/q8DwQ1?=
- =?us-ascii?Q?a/Zt4QHC0uJVGMT5YYA03IpPYp2y5JQkEp6S1tKLA8JprQtq5Xf5Uuxg765e?=
- =?us-ascii?Q?35ItV9ckbYUwm2N/M4zF8p+JyfSH/MniKmWxTtXOmROxeDOg0/bCpKNFkpYp?=
- =?us-ascii?Q?OW9VnWYbvLHuP9aK/en4VAKV1+GOUrGyhkvpvdTfxwHP0RuDFoTTUUO6MuVd?=
- =?us-ascii?Q?nzg99/njOHuHKgw571OQ5/Fl4Qg/aUcIm8wa+gpQYLTv8NuRjkrRawT/VmA9?=
- =?us-ascii?Q?mJpBLkXj9fK79mNX6mCZ8OXkvyY3MUdWhHd115Blo3TrEA9Wm3j0oSfE7oW3?=
- =?us-ascii?Q?0+bKcgc6HbSwy0vTC8X3uxVlDjSHyT7Epnc5aoebPAJPAbTz0pWp2UtBMUqm?=
- =?us-ascii?Q?M34lZNJhMGmwMOdX4piv/0LNWrvQt2vmMrAfY+/8Qdz6aFTPPuS5c9nOovGv?=
- =?us-ascii?Q?ws1hkTzhuM9U1UQXDJoTSpWfaw/T7boSEHnlcjLkTE3PusBkqRUfl57nxhhD?=
- =?us-ascii?Q?dSRtcMf8AqsDrCgXeV8yq2KMY2Lzx8X2/l0Vf3cOud2Lvj8QEjXKn8PyXB6r?=
- =?us-ascii?Q?LZUDkg7zkyRWPC5YwuHOtl8Uqqxvrn5UNUaeG3gAuufXeByemkJdGCgw4wcD?=
- =?us-ascii?Q?u0QgBZLxuPAH9w3Qcavy9dpCc3LLVvCFNW1Jq6F0VT77893z8Ezwk4jOunmw?=
- =?us-ascii?Q?kmAwk8X5rPtrlvE/SVCpQXupZ5ulG7LLawD5sDzcCOVyKGj26fdvVlFtDKPI?=
- =?us-ascii?Q?GrLT36jB9VimQGwnlDfUgkZwRkNpOBrOBn/8Qfs56+2vsNLq7u3Hz1MYxDnW?=
- =?us-ascii?Q?Vs78LaYD4qms36qdxj9Ihglj+1NkLBFXDcutXjnX/YKBtc9EqeInbYyLyycU?=
- =?us-ascii?Q?Cj15VmuZYyD8E8ToCLJjhZjoq5F6Q7ZPIPBuwBxSh8uaR1XR7AeKp3Wdq7tW?=
- =?us-ascii?Q?79V4aCfHCxIunYwMlm3UxLsiMhJXuUfXTdHzmbCYhV3w+PDNv94IelXHkiF+?=
- =?us-ascii?Q?V8iEgIfccYfUWliQQoZgaqqoLpyUhW5D/lK1pKjuBE4eTojUEJT/lPOZKaKI?=
- =?us-ascii?Q?VGffpMpjBnAPyIq/jkxGzYifeEMI3a/GEee1WJ60qv49PhOgGsYGk9JU50Oj?=
- =?us-ascii?Q?LqE11lWHwb8rcoDXsyupyPgW1X3rwsyjBZjYw8/AmfgHCpq9Rg3kpqH8Afls?=
- =?us-ascii?Q?+jJHdRQHj7wkO1c0/PhMkCVHQ6D9mVCifFdos9u02XV9yV0RP97JafMqOyZ4?=
- =?us-ascii?Q?qrm6Owc6YP9sqOhTgj+a5V6lIgo/VVEsCXrKj8WAj+GsKQhcCAyQo8Qv7bvf?=
- =?us-ascii?Q?NbkglHMNLvm4Hb103QXS0vlfX/P2n6v/bhSf4/br5eh27YB5qLy3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 209b6a81-fe1b-43de-be20-08df07edf178
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 05:57:45.5784
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ksm4Z4ko0jsOkXEvoy0cgN4dA0gIJwqiX1AdgC/xm/554yZvJPupSGQCDyO5MkobK+Yb/+Ev9A0fwZWOH0Cd9dybTGTFSouZueNlhM4L/rpkFeXPvSOcuazUyGxlKbtu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8040
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC/DO NOT MERGE 07/12] drm/msm/hdmi: Split PHY init from
+ power up
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-phy@lists.infradead.org
+References: <20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com>
+ <20260828-drm-msm-hdmi-eliza-v1-7-67843277de17@oss.qualcomm.com>
+ <c1d13f41-e29e-41ee-b02a-b38013e4e7f2@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <c1d13f41-e29e-41ee-b02a-b38013e4e7f2@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Xu Yang <xu.yang_2@nxp.com>
+On 31/08/2026 18:40, Konrad Dybcio wrote:
+> On 8/28/26 4:05 PM, Krzysztof Kozlowski wrote:
+>> Future Eliza SoC HDMI PHY and HDMI block require certain clock
+>> operations, like reparenting pixclok to HDMI PHY PLL, once PHY is
+>> initialized.  Similarly to what is happening on Qualcomm MSM DSI blocks
+>> since SM8750.
+> 
+> [...]
+> 
+>>  static void msm_hdmi_power_on(struct drm_bridge *bridge)
+>> +{
+>> +	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+>> +	struct hdmi *hdmi = hdmi_bridge->hdmi;
+>> +
+>> +	pm_runtime_resume_and_get(&hdmi->pdev->dev);
+>> +}
+> 
+> I know the caller is void and it's existing behavior, but we
+> should definitely not continue if this fails
 
-ci_handle_id_switch() prints the role transition via ci_role(ci)->name
-for the current role, but when ci->role is CI_ROLE_END (no role
-assigned yet), ci_role(ci) call BUG_ON() and return ci->roles[CI_ROLE_END]
-which is NULL, causing a NULL pointer dereference in the debug print.
+Yeah, I can rework that.
 
-This can happen if ci_role_start() fails during a role switch, since
-ci_role_stop() has already set ci->role to CI_ROLE_END.
 
-Fix it by printing "none" instead of dereferencing ci_role(ci)->name
-when ci->role is CI_ROLE_END.
-
-Fixes: cbec6bd55a45 ("usb: chipidea: move otg related things to otg file")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
----
- drivers/usb/chipidea/otg.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/chipidea/otg.c b/drivers/usb/chipidea/otg.c
-index fecc7d7e2f0d..457417e81b78 100644
---- a/drivers/usb/chipidea/otg.c
-+++ b/drivers/usb/chipidea/otg.c
-@@ -179,7 +179,8 @@ void ci_handle_id_switch(struct ci_hdrc *ci)
- 	role = ci_otg_role(ci);
- 	if (role != ci->role) {
- 		dev_dbg(ci->dev, "switching from %s to %s\n",
--			ci_role(ci)->name, ci->roles[role]->name);
-+			ci->role == CI_ROLE_END ? "none" : ci_role(ci)->name,
-+			ci->roles[role]->name);
- 
- 		if (ci->vbus_active && ci->role == CI_ROLE_GADGET)
- 			/*
--- 
-2.34.1
-
+Best regards,
+Krzysztof
