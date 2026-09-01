@@ -1,119 +1,143 @@
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-235.mta1.migadu.com [95.215.58.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117FF3C343C;
-	Tue,  1 Sep 2026 01:53:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8530F3DA5B4
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:53:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788227619; cv=none; b=WqjDICNRQFV2OPakseII2+l/llUKF8a/wV0yBzlv5vDweL5b2SfGGM/0bpoSrbvbrYQ71BCNw63X0jZ+fe3Tr//jtWPzegXOivJZgz414GagkM1x6MBjl6L6KOkqt8H4uXb7wVxPUCJIY5Ns817vgLdQ1SJj3fdR+5Qq4oejw8w=
+	t=1788227631; cv=none; b=t37nFlN/F5JYDGgYNnaKAf1iHR5LmWRh1sN3XDtKD/VRSlmHxRBVgDQ2QigI/PCooPVUxghGfrOl3bHXEP2TjQGEUYy7nPonpaiGtdWyDYMHWO/v7UEuHyrDgKLnrTNUiNmeUOP4MzTN1CywMvpDXLAqb/KXoMpkh4ykIMZsQGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788227619; c=relaxed/simple;
-	bh=XycQwGoRvQSlVWFDuFy25DcECuwWa6dKWgzZH0rTlKQ=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R+rjs8tydLubct7sbNo0nmjmljt4w8HzKeCfQ1UTZ5Wk0+NiA1sVIFi3gzheETTQsQW8fVy88IQCXxvPDlFhG71nVdLLMVmOwy40+1v1Goz+VHWcZkuAutW0+RoPkpW/ewzvQZDeWJCe7WfFDLKdB6fchpObPlvS9N2XfPa+qZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=UZClLaKJ; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1788227631; c=relaxed/simple;
+	bh=Ay1gryBYGG6aqSGyYWuP+er0TtdYtW7WR2F5GMe8wBA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UQy+KKzqkfwjct7hN0WxmFRsK8TDtgkIOWfe6vpkLgu2bwXsoATHHLy2WxRQh78Tlf5CN4nmQ8ajhd/Td+WQ1YzSGny2TRieIR+g1msppA7T/DsmnQf5ZbjWrHUqgREebQy2E3opaJWWdypZKhPH/VYkkFzdcBToXHQm8lYdDlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XHfG0enZ; arc=none smtp.client-ip=95.215.58.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="UZClLaKJ"
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6810pOZX2006718;
-	Mon, 31 Aug 2026 18:53:26 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pfpt0220; bh=XycQwGoRvQSlVWFDuFy25DcEC
-	uwWa6dKWgzZH0rTlKQ=; b=UZClLaKJeyrPmwH6GDrYdStN63fNq20urjxJ0jo4o
-	1cMlovI7+wE8sBKAEqKuV6p/dAo1jNUQeFHoGDcd5h5acV6g7ZwfBePvuteqdXor
-	gKENKhYYif6hSatx20FS753UXC4kXCc6sJ4qISskMIIKuQgO/zd1pywtO+soaovt
-	OAUCivC0rVUW7aIU2iW8Ypmib2Psu7d3VUUY0MCv1Pfon8lDiIgpuCf0MMLqmI++
-	2AbruUmA0vORJ64nfhbR1PnOIzg9kHs8Ocpg4UdsjT3OYlHybkCNRrYt3pSD0H15
-	A6e43m08LC5lsl1CUukwkfayIjN4vQYLVtadZcNyxTKEA==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gckp8mtmx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 18:53:25 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Mon, 31 Aug 2026 18:53:23 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Mon, 31 Aug 2026 18:53:23 -0700
-Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with SMTP id DE6835B6926;
-	Mon, 31 Aug 2026 18:53:20 -0700 (PDT)
-Date: Tue, 1 Sep 2026 07:23:14 +0530
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: <davem@davemloft.net>, <gakula@marvell.com>,
-        <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <sgoutham@marvell.com>
-CC: <andrew+netdev@lunn.ch>, <edumazet@google.com>, <kuba@kernel.org>,
-        <pabeni@redhat.com>
-Subject: Re: [PATCH v4 net] octeontx2-af: switch qmem from coherent DMA alloc
- to streaming DMA mapping
-Message-ID: <apYwCjDVQJAq1TnM@rkannoth-OptiPlex-7090>
-References: <20260831024210.208447-1-rkannoth@marvell.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XHfG0enZ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ay1gryBYGG6aqSGyYWuP+er0TtdYtW7WR2F5GMe8wBA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788227592; v=1; x=1788832392;
+ b=XHfG0enZBs2Cx6R8OlvKrHLnEppxUENyCnRTKPAJ0UfKQiss1FcQmiUwANannm6kETm1jqBS
+ KA5SbFmRwH/ShKdHLn1OhJfoymbft51weOW9DIxGWTI145fO7uUgHA7vH5Z/V7iuAmw02bKq+mz
+ QDq7Xxk9u6hInk54W0v3Fd9E=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 24139c14f82578d9;
+	Tue, 01 Sep 2026 01:53:12 +0000
+X-Mizu-Trace-ID: 24139c14f82578d9
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <6322b8b3-fcf2-4052-979d-439f458d31bb@linux.dev>
+Date: Tue, 1 Sep 2026 09:53:07 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260831024210.208447-1-rkannoth@marvell.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDAxNCBTYWx0ZWRfX+U72g7j0Zcj+
- 31d0DePCDtbTpfJMu1rS1IIV1Cqf8t1uLCEdfzz0jHCSP92SnFXnY4qyDwk158FhNUgaA23PJX+
- +7BsHcU9uWWxTym/dmadCO6eTeWrYFfrVeDFYMwB8XAePuQjiY0+OVHgPNyZGx1CpsnW9pLzFbC
- aRxPtveh49v8W7ivdz8vdZ0F3g85SavEo95MbXoX5HWSLBOYGTOWgoR7LWn4qynEXuXz8rt0rJ5
- yM4YWlDLrjNeZE4JjPThrB8XauaIUH4xjsLMP0px9qNhVGim7+aKFVDb4WqWQX88ztHzBZZ6F4f
- Kma4CxAQZOabECpKnVFdCiz7YrraaBb5m7ARmh1RveqpHEd2UsA1/UgcCceBC/EQLlXI/hgyq8m
- LCQHzmXB/Lko4YsXVnOFZ5CLPnqIeu4ByWv44Cb2sYHxClc322HeEKnTHuKqVtjBR3gc1rHASIg
- tXBQgmBKKGB/pEBPF+Q==
-X-Proofpoint-GUID: l1qlalu_grBv6VFn4qX6nGYJEmHIXs1m
-X-Proofpoint-ORIG-GUID: l1qlalu_grBv6VFn4qX6nGYJEmHIXs1m
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDAxNCBTYWx0ZWRfX4DQLcxvLrp47
- dOd99WTpMv52xW7PpXcexI8CV0w0z3+QBnLVw1Lu2iEC/BOrhcocVoyyu8UuaRKQpBLkNlbN29s
- o2XOslgafwvGh6tG/rYeUDMZOwnmKtY=
-X-Authority-Analysis: v=2.4 cv=GLk41ONK c=1 sm=1 tr=0 ts=6a963015 cx=c_pps
- a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=l0iWHRpgs5sLHlkKQ1IR:22 a=TtqV-g6YmW1Jfm2GSLaY:22 a=M5GUcnROAAAA:8
- a=jRrpLzF2Pmby-JSRoQ0A:9 a=CjuIK1q_8ugA:10 a=OBjm3rFKGHvpk9ecZwUJ:22
- a=Oh551-UHZqmTy8JkqTUo:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_01,2026-08-31_01,2025-10-01_01
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] cgroup: avoid flushing global workqueue in
+ cgroup1_pidlist_destroy_all
+To: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Junnan Zhang <zhangjn_dev@163.com>
+Cc: tj@kernel.org, hannes@cmpxchg.org, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Junnan Zhang <zhangjn11@chinatelecom.cn>,
+ Shouxin Sun <sunshx@chinatelecom.cn>
+References: <20260814084016.123741-1-zhangjn_dev@163.com>
+ <20260814102052.147408-1-zhangjn_dev@163.com>
+ <apU1sXYP_QhsQFcB@localhost.localdomain>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <apU1sXYP_QhsQFcB@localhost.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-31 at 08:12:09, Ratheesh Kannoth (rkannoth@marvell.com) wrote:
-> qmem_alloc() uses dma_alloc_attrs() with DMA_ATTR_FORCE_CONTIGUOUS, which
-> allocates CPU-cache-coherent DMA memory and, with CMA enabled, draws from
-> the CMA pool. qmem backs NIX/NPA queue contexts, admin queues, and LMTST
-> regions (including CN10K LMTST areas that span page boundaries), so
-> consumption grows with enabled interfaces and is hard to provision in CMA.
->
-> Switch qmem to a streaming-DMA-style path: allocate physically contiguous
-> compound pages from the buddy allocator via __get_free_pages(), then map
-> them for device access with dma_map_phys() and dma_unmap_phys() using
-> DMA_ATTR_REQUIRE_COHERENT. Add otx2_dma_alloc_coherent() and
-> otx2_dma_free_coherent() helpers that enforce dev_is_dma_coherent(),
-> retry with GFP_DMA32 when the physical range is outside the device DMA
-> mask, and wire qmem_alloc()/qmem_free() through them instead of
-> dma_alloc_attrs()/dma_free_attrs().
->
-> This works on Octeon because the octeontx2 driver is written for
-> DMA-coherent devices: Octeon platforms provide IO coherency (via SMMU), so
-> the driver already uses streaming DMA APIs for packet data while
-> deliberately skipping explicit CPU cache sync (DMA_ATTR_SKIP_CPU_SYNC).
-> The same IO coherency lets qmem use a streaming map of buddy-allocated
-> pages instead of a dedicated coherent allocator or CMA reservation. That
-> is valid because the platform is DMA-coherent, not because omitting
-> dma_sync_* magically makes memory coherent.
->
-> Allocations requiring more than MAX_PAGE_ORDER pages are still rejected,
-> since the buddy allocator cannot serve them without CMA.
->
 
-Will address issues in v5
 
-pw-bot: changes-requested
+On 8/31/2026 4:16 PM, Michal Koutný wrote:
+> Hi Junnan.
+> 
+> (Sorry for late response, I sketched some notes and then didn't get down
+> to sent them. Now they're below.)
+> 
+> On Fri, Aug 14, 2026 at 06:20:52PM +0800, Junnan Zhang <zhangjn_dev@163.com> wrote:
+>> From: Junnan Zhang <zhangjn11@chinatelecom.cn>
+>>
+>> cgroup1_pidlist_destroy_all() flushes the global
+>> cgroup_pidlist_destroy_wq while destroying a cgroup. Because all cgroup
+>> v1 pidlist destruction work items are queued on the same shared workqueue,
+>> a single slow or stuck work item (e.g. waiting for pidlist_mutex held by a
+>> user-space reader) blocks every concurrent cgroup destruction path.
+>>
+>> This can lead to kworker tasks stuck in flush_workqueue() for over
+>> hung_task_timeout seconds, as observed on busy systems running Docker or
+>> Kubernetes workloads.
+> 
+> Since the cgroup_pidlist_destroy_wq is already a dedicated workqueue (no
+> other conteders), the pursuit of pidlist_mutex holder is a feasible
+> theory. However, that would also mean:
+> a) a single reader taking more than hung_task_timeout_secs (that'd be
+>     a softlockup earlier),
+> b) starvation of cgroup1_pidlist_destroy_all() by many (queued)
+>     cgroup_pidlist_start() callers which goes against the second-long
+>     caching of pidlists,
+> c) there is large number of nr_cgroups * nr_pidnses which makes the
+>     caching ineffective
+> 
+>>
+>>    INFO: task kworker/0:1:1438499 blocked for more than 120 seconds.
+>>    "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+>>    kworker/0:1 D 0 1438499 2 0x80000080
+>>    Workqueue: cgroup_destroy css_free_rwork_fn
+>>    ? __schedule+0x296/0x900
+>>    schedule+0x28/0x80
+>>    schedule_timeout+0x1ee/0x3a0
+>>    ? kvm_sched_clock_read+0xd/0x20
+>>    wait_for_completion+0x12c/0x190
+>>    ? wake_up_q+0x70/0x70
+>>    flush_workqueue+0x132/0x430
+>>    ? cgroup1_pidlist_destroy_all+0x7c/0xa0
+>>    cgroup1_pidlist_destroy_all+0x7c/0xa0
+>>    css_free_rwork_fn+0xb5/0x390
+>>    process_one_work+0x195/0x3e0
+>>    worker_thread+0x30/0x390
+>>    ? process_one_work+0x3e0/0x3e0
+>>    kthread+0x113/0x130
+>>    ? kthread_create_worker_on_cpu+0x70/0x70
+>>    ret_from_fork+0x1f/0x40
+>>
+
+I'm not sure we've found the real root cause yet, and the current analysis 
+doesn't convince me.
+
+Shouldn't we first figure out why flush_workqueue() waited 120s? Was it because 
+there were too many pids, or because someone held pidlist_mutex for too long?
+
+>> Fix it by moving the cgroup's pidlists to a local orphan list under
+>> pidlist_mutex, clearing their ->owner pointer, and then cancelling each
+>> pidlist's delayed work outside the lock. The destroy work function now
+>> checks ->owner and skips freeing orphaned pidlists, so
+>> cgroup1_pidlist_destroy_all() can free them safely without flushing the
+>> whole shared workqueue.
+> 
+> What's the point of the workqueue after this change? (Mainly the
+> expiration + having process context for the handler.)
+> 
+> The flushing isn't necessary if there's a way how to ensure pidlists
+> head won't be used after cgrp removal, which the fix should achieve.
+> 
+> 
+> So I'd say, the narrow-focused cancellation may work, no need to wait
+> for other cgroups. OTOH, I'm surprised this v1-issue popped up only now
+> and whether such a long contention can happen over pidlist_mutex as your
+> commit message implies. What nr_cgroups, nr_pidnses could cause this in
+> your theory?
+> 
+> Thanks,
+> Michal
+
+-- 
+Best regards
+Ridong
+
