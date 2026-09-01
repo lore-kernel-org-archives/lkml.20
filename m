@@ -1,115 +1,100 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E180E379EC4;
-	Tue,  1 Sep 2026 17:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC19848C8A3;
+	Tue,  1 Sep 2026 17:48:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284926; cv=none; b=nRw44fybFluxUpS3KRt7kSsW6w/OGu3GXPu0so8YF/A4/X3lm6b9C39uqwoNXw4jEEW+86ji667yiQbpG+uZ+enhEq+DbEbrIBESKCTPnQ8mcqz5Z+BKh/4f2zePlE6KiHfgx2gG7gqdM6YA8a/o77ucMvuFcyhvG/YwuFeEHqw=
+	t=1788284937; cv=none; b=Xd5UoedIYV91WtfrdrHoFQ54V24EI+T0dc2KIqrII6a09xHJsDKT6w+L5KSu32u20uB1koxkbNXv0h6J6Gr2j/ckYRTvUUCv/16zDwYankSyoWsWl9Xp9Jfr1Er9iRjsfqsFcGaViWWfwNuhh+AtRZmrfwwPlX8iwCrl9WU8Vpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284926; c=relaxed/simple;
-	bh=ILEgUta+XEN5A01rR7LjqPYu5e1vBHkVQXMhim+XKZM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QL2a4/xJJ7CEboRu8aaKbIpBEqV6TOOxxB3hZZ/7NAGEclplMo33/wpPsHIYDHA1WT5xAarWWJ/o5aIXFEnUrfOXXJ3PePT8RFhwXklDSjaR3b2k1sXfK9Bi0HX3JkV6ZhUcrGuzOkbRdJosmkTgIuNLCIvZ3MkE31VtWPbpDik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=UVtis7e+; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788284937; c=relaxed/simple;
+	bh=+NN+737C+zeCVWm4bVihSnMUWkRbWrgTckBmzgCxemw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AJERhNelMUCXriq2KbuSCh6v+oK1Q/kuo0xF8KvQzC1kylsrMzc9vpFUZwcN2L09QqNRV4oo1dawVG938R0VfgLSQEcRd+HKMLiIGYSbiLRBNMfFBMGgGptu2dZ7ttuTEhIM1pmsgMVGGaK0SRHv0+fsAfJ6DtOha9buCVQMFLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=biSIBo/O; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="UVtis7e+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=PQNx8cP7/H92zG22iJw5UI7f9yq7f8zWrRV0yPrbUWI=; b=UVtis7e+r5/G27TIqfxZ+en6iD
-	ewP14Pe2h9SnqatfXnO6L1fC4qcBnFOELp+V8WjW5RT1xwY3uZi3XSEv9Vu+4qZ1jP6BGVn7PXBEA
-	4Uw0Phr831M7R4vLdI8REUIOdbiINbJ1LMU5Mje2MkkXTCbCEn9Xn2ArP+y9asBIjud478+zn1SSo
-	lebc9FLfrg1/y0a6m2dAyJLJ3yltmw6G3+vcRUXeO4yRAwAxeKznEDSHVJJRWpAMX3il8mcbEeTWo
-	3139sv5kbIIlk0Z/E868rddoQ5sSESOXVT4ZQj4kMrc2J++kPSB2h0IKqxPLn0UnyiWT6B5SeVd+c
-	852DOAfw==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x1SaY-0000000Crxj-16sr;
-	Tue, 01 Sep 2026 17:48:03 +0000
-Date: Tue, 1 Sep 2026 13:47:49 -0400
-From: "Liam R. Howlett" <liam@infradead.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Guo Ren <guoren@kernel.org>, 
-	Brian Cain <bcain@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Dinh Nguyen <dinguyen@kernel.org>, Simon Schuster <schuster.simon@siemens-energy.com>, 
-	Jonas Bonn <jonas@southpole.se>, Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
-	Stafford Horne <shorne@gmail.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
-	Rich Felker <dalias@libc.org>, John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
-	Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
-	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, Richard Henderson <richard.henderson@linaro.org>, 
-	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, 
-	linux-hexagon@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
-	linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, 
-	sparclinux@vger.kernel.org, linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-s390@vger.kernel.org, linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>
-Subject: Re: [PATCH 01/12] mm/huge_memory: zap deposited page tables after an
- RCU grace period
-Message-ID: <px4uwbuq4ixucmjzudxulldk5l2tbuymaoaheyc624jdznnac6@px5wkmxqjmfo>
-References: <20260901-rcu-pagetable-freeing-v1-0-5456a81c8212@kernel.org>
- <20260901-rcu-pagetable-freeing-v1-1-5456a81c8212@kernel.org>
- <apbOlyF77yDCV4cF@thinkstation>
- <apbcoMTVlL42G5tg@gremlin>
- <20260901142408.GA56830@ziepe.ca>
- <apbiB51hjm-9pRzf@gremlin>
- <apbuO_QveZNAz3ns@thinkstation>
- <kasi4mkjkt56wxsrmphm5o2qfg2lwsdxf3tlmzx5tq6t7uez74@kozleoavd6r2>
- <apcHiE7jDQaFYXOM@thinkstation>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="biSIBo/O"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3850E11D496;
+	Tue, 01 Sep 2026 19:48:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788284929; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=SpO0b7aLeLZ17aDo36lr7XvOc3vBg678O1R+0Eo+0jo=;
+	b=biSIBo/O8am2pbW77uXBNbqEpO8TLoge5us/xMx0iwEincbUTGYnBXU7OA79sqSAWbHh50
+	xZMcFYKNgogTeH65wxsbf5tHHVK5nJ64cLqRsOCzatoIdaQBwl7tibrTgOybRZLz8orEO9
+	ykU0Cd3oOGYfPPI1MuHQ521vvMWhJCNllsYc8qdSleK67ij99K48aSBPSsAwgfh8qaLvXJ
+	E/g4ZNQNJ/JY/rYtHVxx/JWXtWHmgjcK12JjkWZ8+dgSIT4QkMlQHRZZOA24mtuIhl74V/
+	2ISi1FAL6rVvuAMsqGpcAFfXzNIIEhkUtkt2Mw4PAttEtAF0MVD5xaOMXZE0Sw==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-pm@vger.kernel.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Flaviu Nistor <flaviu.nistor@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/2] dt-bindings: hwmon: tmp102: Fix up TMP103 bindings
+Date: Tue,  1 Sep 2026 19:47:54 +0200
+Message-ID: <20260901174847.97261-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apcHiE7jDQaFYXOM@thinkstation>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 26/09/01 06:13PM, Kiryl Shutsemau wrote:
-> On Tue, Sep 01, 2026 at 11:54:47AM -0400, Liam R. Howlett wrote:
-> > Do you have munmap() performance dependent workload that you are
-> > concerned about regressing?
-> 
-> exit(2) path is performance critical for many workloads. Like, if you
-> need to restart VM.
-> 
+The TMP102 and TMP110 are backward compatible, therefore the valid
+compatible strings are "ti,tmp110", "ti,tmp102" and "ti,tmp102" .
 
-That is not enough to see any impact, although less overall work would
-be done during the exit call.
+The TMP103 is not backward compatible with TMP102, but it does share a
+schema now, therefore the only valid compatible string for the TMP103
+should be "ti,tmp103" .
 
-It would be very difficult to come up with a scenario that this would
-have a measurable difference and an even harder time to come up with one
-that is slower.
+Make exactly those three compatible strings valid and everything else
+rejected.
+
+Fixes: d67ec24d3f07 ("dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml")
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Flaviu Nistor <flaviu.nistor@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-hwmon@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+V3: New patch
+---
+ Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+index 55d9f106465d7..477f478b9dd0f 100644
+--- a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
++++ b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+@@ -13,11 +13,10 @@ properties:
+   compatible:
+     oneOf:
+       - items:
+-          - const: ti,tmp102
+-          - const: ti,tmp103
+           - const: ti,tmp110
+-      - enum:
+-          - ti,tmp102
++          - const: ti,tmp102
++      - const: ti,tmp102
++      - const: ti,tmp103
+ 
+   interrupts:
+     maxItems: 1
+-- 
+2.53.0
 
