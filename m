@@ -1,92 +1,197 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802D94756D7
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:06:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163F333D4E9
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:06:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253595; cv=none; b=IqcfDKa+6fvEKfSzm8vSrK+vgZR47qPYQvhD71fsflUvXvaX60nZtd2RsNYdvQZuw+bFwaK2p5h+UaO0PWx8QFNqPh36kICEk685ldaPmwtB/sW/GMpOsaWzuCag1LlYMfKjN/3zDJVnduhB2ZKwbCooRwiA6hY2HHuN68tp2Rs=
+	t=1788253598; cv=none; b=pb931aq8PbPwR+iKDT3DXLRVW7SKYQflA5T6obI71l+VyhtagZO1MpZPlL8Uv8YiWdo+6ZyygYwItE52IJS25dmPTDhGigWs5yKXP9NLpjYJz9RKRQaekyp8TtUMSbAFogoFM1+B+0xu1iGYnwbAtmxLQOCeWxgTqS3TDKsV624=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253595; c=relaxed/simple;
-	bh=ejGrntjtGvfPfkyT6W0q5VpJtyXA1/IlHLn9s8K3B00=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J/8/+xtjlKxUvhBUK4yB6cWxwxzahY8fEKl/Bb5NtNKfGUvoerw5l3yt3vZdzFAgS7tRvP699GcE2+LmsERWY4S6nEFTgl6fzQGAORIzN1wNAid+Mxz7+e59srtjblRY9xAoXg915Atcj1leUBpS6nz6/RQv7LCp4XQSnUWHfPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=RvcTM5fE; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=og318Sfw; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788253598; c=relaxed/simple;
+	bh=xSGJC3uVLd/xFM7wRKCUQodGFWq0YqmvT3Vh1LlmJUE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mcr0ICROlKKH2scA3ibgTkZqG7+HFVwrA2Hfm4+WI+RjRmzZRUjQpQLtDu5nIiHS69EmIBH8mqdCEzh4G8Ic8PKEQl0ibk3bFAmFvQDPgn08ovhitOq0Z5hUds3lU14qBGyDs/GV9v6LMxelW+5+mZrhk7AV/JKdAxxs6OZzglM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WUOFXo5f; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="RvcTM5fE";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="og318Sfw"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1788253582; bh=L0Ljl9cP23EG5pxUfXYPjDe
-	OjwgQ7CzTtFWKPjvH1ig=; b=RvcTM5fE9hTj5eqTI87/g5mNt2XL9u0rqiA9dbBzk3aWW9JPDC
-	iUDiCPAJy17X0CgkkQEt66uk6HU7pgMYGs7ckr5SBkbNKbDgZsfoETuf7Y0LmSRX3jpqpqdrOaT
-	478kp4WAWsl9if7VHzlMl592o/42829M95pbrGQ4l9PgLoYlt/wb0g5Y8NESYBYnklYteA8NZ+y
-	vXTYEpm42DBn09t4I5MD4RUhUiP0BXpmMBdZ8HkUfUS9latH2nsO/5KyPa5lRg4I+WnCkFDAN0u
-	XtYLPmfNmgYrDRN9+Fc6fTufyo3NQljA1N29KDeiH6Kf2zjTPGv2yHj8c9LZ71ZqDaA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1788253582; bh=L0Ljl9cP23EG5pxUfXYPjDe
-	OjwgQ7CzTtFWKPjvH1ig=; b=og318SfwfaQLjUgerUSGHL1PFFjEkbpzkLLG8cbD6oq/bD39oj
-	0hw4kGQFjCrIeqUwXQRVMYpPLi9ZRdrkV1DQ==;
-From: Bradley Morgan <include@grrlz.net>
-To: Peter Oberparleiter <oberpar@linux.ibm.com>
-Cc: akpm@linux-foundation.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] gcov: use memcpy for counter value dump in convert_to_gcda
-Date: Tue,  1 Sep 2026 09:06:22 +0000
-Message-ID: <20260901090622.18431-1-include@grrlz.net>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WUOFXo5f"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so4063178a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:06:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788253595; x=1788858395; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fP2UN3diq48/L8O+IU4I2EwyEv8t+/1QfjRECv67lqM=;
+        b=WUOFXo5fZr+aVQ5i1ZSeyiRmEEzvbFBsCo/XgRs9ZS0CqChZiLEDinFEbZxb+3Ne7I
+         G5lJpf405SeenHuzAvlCGrg7rq0OPfsr/wvT5gKvYnEWECiNBeQbKZr30lK4+/eQMfNm
+         VV4qAcH4nmhwr30lnSTkwGe1CehdAaB0rarwabXoIawcdYeLeA7CYEpkQqKM0Tsn26AD
+         QGsN1q/rrhUwlzlduknThWaAGriuy4CLj4ab6oI1rd84IQHkUkIHNzl6PlI/Sa0Aw+rW
+         fc3gO/V8zuIO7Fqafb//nK4B8C4PGsBNtUPFvKYwzFgFA5jp2oW+WpiTBRcxEkr81wsP
+         DXLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788253595; x=1788858395;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fP2UN3diq48/L8O+IU4I2EwyEv8t+/1QfjRECv67lqM=;
+        b=Sg5kOM4uSj+j1EAXUcx3QHtr4Gca5OZNiknKBaEThXtFNyTmagSFOY6OmcMlBkGn4R
+         ALipHPasWoALI8nZws2mOjaxKASolQnDEBqDzc62vo5FOpMYSMyhgT6J0zI65iLBEFA4
+         QblJDJcUfn6GfroMThPFhXk+SDekX+2Sk8Ss2eL2ZQc2XU5uiY1va5KzRKsrc+Lq60sw
+         nfukOFot+G24LNIiqh3QYOHlSrOKRLBrHn83+A9zl75XYvGAwGKJtavN4cpNTqm8UaLz
+         2R6BSvIZxhUnpa6Oiirdz9i5ofb7lOPGsXEgLniAd355jvwAXVD2JjIqKvLkvlB3cVWm
+         aS/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwYfUvcPDTy28mZ3li3i6J+vsZ9NnXXyf4Ke2JroqbvHj8f7XucYq7PqI95sycHu0+sLHRrrLueXm06Nhw=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7VdmgLw7SQY4i/TRdBZ+OMn1k68r4LLwQ/GNrg7K3/J+7m1qx
+	NbF3SU8Hgt2W+OKG0PoLFBcx+RgUkPKIq0h0F13fk/mFUmiI9f4l+6AX
+X-Gm-Gg: AYBFou3Wmh83IV0QO1IxbMN7BrjRNOgQykOk6BVjT4D7RldUd7ceCzJ5dkTtrpZmgDM
+	zKvauFtI9gUnzlYWCLo016Lpc38CQ4NxvFi3EpyYKd/YW8ejU7gffOTJy61ki6OG6Rkw9wAnjKa
+	Y1RwlGyfVGtN7ZNfez3su+PyLezNc5rXlFVqcFe26324C+kuU7ZbkUbyfM/i9I1r4Ya27nvL/Uk
+	8V8mpnOfwJGv5HIeb9iz6JjKSXelyDfXkRl7niK1T4GM53QLQkwc4IQV9xJwfnRf7EvDIXWTepu
+	bVdlIeU6KMEHU0ivxDkHKMWL5/D7nPgGfhY98KGBQEecLFalZucK0Fdviaj0pjc2YWvjCGj9jlM
+	LRnPwmZtyyTe6OrbnIbJw72xyOmjPYjfJNGfd5CEs7xqW16/WoVVCp0rkpTfedqkg7iFCsb1Fqq
+	qd2WOPM6LGMGVYfg8MQcRRUKHDtuSQkaoXj0JfHNbDBSFjsX068c16n+U5Q9XMZT+3ncBMipEa5
+	v1MKOX6gMy3CmHPW16Z
+X-Received: by 2002:a17:90b:3904:b0:398:9be8:ea6a with SMTP id 98e67ed59e1d1-39907ed4294mr8299953a91.23.1788253594793;
+        Tue, 01 Sep 2026 02:06:34 -0700 (PDT)
+Received: from v4bel ([58.123.110.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39914b4ea7asm3906800a91.13.2026.09.01.02.06.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 02:06:34 -0700 (PDT)
+Date: Tue, 1 Sep 2026 18:06:28 +0900
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	ncardwell@google.com, dsahern@kernel.org, idosch@nvidia.com,
+	kuniyu@google.com, horms@kernel.org, willemb@google.com,
+	andrew+netdev@lunn.ch, kees@kernel.org, jiayuan.chen@linux.dev,
+	kerneljasonxing@gmail.com, ij@kernel.org, martin.lau@kernel.org,
+	shakeel.butt@linux.dev, matttbe@kernel.org, martineau@kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, imv4bel@gmail.com
+Subject: Re: [PATCH net v2 6/8] tcp: fix use-after-free in the lockless
+ listener path
+Message-ID: <apaVlDUS_1NIb_lq@v4bel>
+References: <20260824033331.1084971-1-imv4bel@gmail.com>
+ <20260824033331.1084971-7-imv4bel@gmail.com>
+ <apaAskNL-IvdcR7h@v4bel>
+ <e121d343-9a4a-4f93-86c1-c96dd37f1ae1@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e121d343-9a4a-4f93-86c1-c96dd37f1ae1@redhat.com>
 
-From: Bradley Morgan <brads@mainlining.org>
+On Tue, Sep 01, 2026 at 10:03:51AM +0200, Paolo Abeni wrote:
+> On 9/1/26 9:37 AM, Hyunwoo Kim wrote:
+> > On Mon, Aug 24, 2026 at 12:32:50PM +0900, Hyunwoo Kim wrote:
+> >> tcp_v{4,6}_rcv() calls tcp_v{4,6}_do_rcv() without holding the socket
+> >> lock when sk->sk_state is TCP_LISTEN. Every other path into
+> >> tcp_v{4,6}_do_rcv() holds it.
+> >>
+> >> tcp_v{4,6}_do_rcv() and tcp_rcv_state_process() below it read
+> >> sk->sk_state again. A listener can leave TCP_LISTEN through
+> >> connect(AF_UNSPEC), and if that happens in between, the second read
+> >> returns a different state.
+> >>
+> >> tcp_rcv_established() or tcp_rcv_state_process() then runs without the
+> >> lock. If the second read returns TCP_SYN_SENT, the incoming SYN is
+> >> treated as a crossed SYN and reaches tcp_send_synack(). When the SYN skb
+> >> at the head of the retransmit queue is skb_cloned(), that function
+> >> replaces it with a copy and releases the original with
+> >> tcp_rtx_queue_unlink_and_free().
+> >>
+> >> The original is the skb that a thread on another CPU is transmitting
+> >> right now in __tcp_transmit_skb(). skb_cloned() is true because the
+> >> clone made for that transmit is still alive. Once the transmit returns,
+> >> tcp_update_skb_after_send() calls list_move_tail() on the skb's
+> >> tcp_tsorted_anchor.
+> >>
+> >> In short:
+> >>
+> >>   socket(AF_INET) -> bind() -> listen()   // the socket that changes state
+> >>   socket(AF_INET) -> bind() -> listen()   // the peer
+> >>
+> >>   Several threads keep opening new sockets and connecting to the first
+> >>   socket's address.
+> >>
+> >>   Another thread repeats this on the first socket:
+> >>     connect(AF_UNSPEC)      // TCP_LISTEN -> TCP_CLOSE
+> >>     connect(peer address)   // TCP_CLOSE -> TCP_SYN_SENT
+> >>                             // another CPU still sees a listener, handles
+> >>                             // one of those SYNs without the lock and
+> >>                             // releases the SYN skb that this connect()
+> >>                             // is transmitting
+> >>                             // -> use-after-free
+> >>     connect(AF_UNSPEC)
+> >>     listen()                // TCP_LISTEN again
+> >>
+> >> KASAN log:
+> >>
+> >>   BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x14/0x140
+> >>   Read of size 8 at addr ffff88800a5d1460 by task poc/125
+> >>   ...
+> >>   Call Trace:
+> >>    __list_del_entry_valid_or_report+0x14/0x140
+> >>    tcp_update_skb_after_send+0x62/0x170
+> >>    __tcp_transmit_skb+0xe33/0x1e40
+> >>    tcp_connect+0x1b67/0x2490
+> >>    tcp_v4_connect+0x998/0xab0
+> >>    __inet_stream_connect+0x22c/0x700
+> >>    inet_stream_connect+0x48/0x70
+> >>    __sys_connect+0x101/0x130
+> >>   ...
+> >>   Allocated by task 125:
+> >>    __alloc_skb+0xd1/0x370
+> >>    tcp_stream_alloc_skb+0x2d/0x2b0
+> >>    tcp_connect+0x72d/0x2490
+> >>    tcp_v4_connect+0x998/0xab0
+> >>    __inet_stream_connect+0x22c/0x700
+> >>    inet_stream_connect+0x48/0x70
+> >>    __sys_connect+0x101/0x130
+> >>   ...
+> >>   The buggy address belongs to the object at ffff88800a5d1400
+> >>    which belongs to the cache skbuff_fclone_cache of size 472
+> >>
+> >> Instead of taking the lock, keep the lockless path from reading
+> >> sk->sk_state again to decide how to process the packet. Move the
+> >> TCP_LISTEN handling out of tcp_rcv_state_process() into
+> >> tcp_rcv_listen_state_process(), and let the TCP_LISTEN branch of
+> >> tcp_v{4,6}_rcv() call a new tcp_v{4,6}_rcv_listen(). Listener processing
+> >> does not change. The TCP_LISTEN arm of tcp_v{4,6}_do_rcv() is left
+> >> alone, because a socket can finish listen() after the state check and a
+> >> backlogged skb is then processed there.
+> >>
+> >> Fixes: e994b2f0fb92 ("tcp: do not lock listener to process SYN packets")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+> > 
+> > Looking at this further, unhashing the listener and then calling
+> > synchronize_net() lets the disconnect path handle it. MPTCP needs a fix
+> > too, though, because it closes and reuses the first subflow directly
+> > without going through tcp_disconnect().
+> 
+> This looks like a more palatable approach: this patch in the current
+> format looked way too invasive to me.
+> 
+> > This also closes the trigger path for patches 4, 5 and 8. I would still
+> > keep those, since they add no work to the fast path and they remove the
+> > root cause itself. Their changelogs would have to change though.
+> 
+> I'm unsure accepting new connections is not fast-path: the connection
+> per second rate is a relevant metric for a sever, even if the additional
+> cleanup is possibly not visible in most benchmarks.
+> 
+> Still I would avoid additional unneeded patches.
 
-The loop writing gcov_type values one by one is slow and ugly. The
-values are already in memory, just copy them.
+Yeah, I will drop those patches when I send v3.
 
-store_gcov_u64 splits each value into two words with the low part
-first, which matches the gcov format on little endian. On big endian
-the split is still needed, so keep the loop for BE and use memcpy for
-LE.
 
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
----
- kernel/gcov/gcc_4_7.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/gcov/gcc_4_7.c b/kernel/gcov/gcc_4_7.c
-index 8fa22ababd94..94c240180906 100644
---- a/kernel/gcov/gcc_4_7.c
-+++ b/kernel/gcov/gcc_4_7.c
-@@ -422,11 +422,23 @@ size_t convert_to_gcda(char *buffer, struct gcov_info *info)
- 			pos += store_gcov_u32(buffer, pos,
- 				ci_ptr->num * 2 * GCOV_UNIT_SIZE);
- 
-+#ifdef __LITTLE_ENDIAN
-+			/*
-+			 * The values are already in memory, just copy them.
-+			 * store_gcov_u64 splits each value into two words
-+			 * which matches the gcov format on LE. On BE the
-+			 * split is still needed so keep the loop there.
-+			 */
-+			if (buffer)
-+				memcpy(buffer + pos, ci_ptr->values,
-+				       ci_ptr->num * sizeof(gcov_type));
-+			pos += ci_ptr->num * sizeof(gcov_type);
-+#else
- 			for (cv_idx = 0; cv_idx < ci_ptr->num; cv_idx++) {
- 				pos += store_gcov_u64(buffer, pos,
- 						      ci_ptr->values[cv_idx]);
- 			}
--
-+#endif
- 			ci_ptr++;
- 		}
- 	}
--- 
-2.47.3
-
+Best regards,
+Hyunwoo Kim
