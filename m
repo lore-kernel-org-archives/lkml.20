@@ -1,212 +1,252 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11020124.outbound.protection.outlook.com [52.101.228.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769372DB789
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788244322; cv=none; b=Ulk7FeBOGzV3YFsXyYMW6ROD00KXygOOd5QgxshUcK70bkLbPvJXWsWPH4zmOjGx2IzZwmqzFfAQ4AeFweUZmL6fPwaVI5E26RFzWq06rHDOHVGUYLSuUaRfQWo+9NIKSc7bHFoaujxhp5s9vpiUbEnSfIV0sQu3T9EkjQ7bppI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788244322; c=relaxed/simple;
-	bh=dQ8SLE497iwC0DArYD177oqNcp5Fug/EARLixjeSte0=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=X8IT/RRXIBkift2B282AVZgK/3+eAKKKs2XyRcLwWU0jk4tyDc1CXsTlM7xSM59V72VCbNzVQyFXkAjvcr+lRzUQDoeIWsIewRdsQuHGvjFX2qwVpVzbNcs3CV9rpOta3nBQG6ZnoPmSZwDka8zHmG/FzRKnFjOGb1SQPzZwsZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pH8wtk0h; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JGuPtHtL; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9734F2E54D1;
+	Tue,  1 Sep 2026 06:32:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788244374; cv=fail; b=XjJKo1TaVVIXSmNrUwfGhb5mxkGgQSblspdpC/7+P20Fo0sfiS/rhL3+dMyh6+u5KhRYtd283ksfh0430Xhjo1Rs0RN4+3psUcmEmTRoUKxto4j5Eu6L8nafP/y61gQpytivog75TxuCwaLW0C6VYdoY/KFKkWEJynMb0BwLbW8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788244374; c=relaxed/simple;
+	bh=UupK/v6AxgMNV4gWGhFBM9qg2utPETufBPPfoN06w7E=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Z5xmQJniI2Z1J4e0RznOVxth4l8Lky5X/msGfz2Dn0Ac87mOx9jkak2GPZiekTf9SPphDkr1OSCWbVsu+MMoXBA5pa9o3rA1jqpxc+5/0qeRagKfxv7b15ondtKDMhREgoJYKAlStYpwn2dBTN7k9x6FqPasf8Nc9vLmXgwq1c0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=KZX2VT2y; arc=fail smtp.client-ip=52.101.228.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pH8wtk0h";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JGuPtHtL"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6810p15x979404
-	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 06:31:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6cX5HNKxIBAWwbUlALiWmXjsVapEiRZSrc2PP6beZxU=; b=pH8wtk0hyAhoI306
-	u+ULz1hrwveakP327Goo0bRhCDredi48wX2KfEAMyYZckB6Rqb6fECslMSSG3dy7
-	GOOxKeB2vzoY52/nQD62I0a5Wsu0xNKbG5/k/PRNQSMfvs109bZX838HZG8LcTTj
-	j8CKy2jc0FiH0NsKSg7W16mRYzaDPpuXsVJcNLVNiHPrUuR3JVpVqp0cOkaHvip4
-	Z4C8eiLtfRSvS86BWjNslo61UBlU6kPfMLbLcUXP28Rdm5FIUO7hEEbVamYERxSl
-	RujrAVdQEpHJRi2F/Cp6QszApeJ5aYMdZQEywO2hxnLgvHwgR4elbltat3My/EgN
-	NnUAqA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdd4dua0q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:31:59 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so910159a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:31:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788244318; x=1788849118; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6cX5HNKxIBAWwbUlALiWmXjsVapEiRZSrc2PP6beZxU=;
-        b=JGuPtHtLJUfWV3X9rJ4+dkt5duBqOAfH7/Gu1QB7UUmmiaw1sx2fQDmr49HAO3nWs1
-         bFtTi4JTzuK80INAj1afLNBF8phIhe+FlNSYO2FqTkWE58wKWstkQ64T9MyeKYJWZZ62
-         qKCoFZ+P8gytShkHAf4g6tQWf98GnsZp5r0IJTC1pNW6qSTrd5tbnXgxKACYxo59+zCw
-         eUz/C+0649X0NYwkLR5d0+64X8fG+TjAO88V3ks8u4A5JN+KyWZfjuzlDYrrJoquXlHr
-         mtHVwgAu3/9S8vhjXfx09dJWfhXQL0CUygN6qBiFPQJKm17SxJlvqr7EzjHATuzY6Huj
-         NxTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788244318; x=1788849118;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6cX5HNKxIBAWwbUlALiWmXjsVapEiRZSrc2PP6beZxU=;
-        b=pi2Lp3u2UAV29AFHH95Vno5/wF8eZGJ2eZXgeu9q4xUgvR3iFYZpmMXUe6lJF5H9m3
-         W8GdO729R9GsFU45lEaTP4f8WeuPRT7JLXVQyPZf40Ek4DiiUCnl6yBsZGJOnvk1SY1N
-         jXP/u6f6P5rZPJIA0q5/CR01KEHIhnTRLHJVWMorLbgTKMlTfSaxfVJ2Jqeb/Ncc0rDO
-         i/zSYpTAjJlWleVpwggFhv1QqS4q+bQEQjJE642u7rxIPiKV4ZLkfcMFfmf8DPH0FlZY
-         fYHjm8lvMaEeCFmK4g6J5p2MRq/XLPg6YtGm3slFzTSlJKCD7lWaPlxIRoNtbtD08uOJ
-         V/BQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz2frPa/mMipqW+429evyfLqvlrmR1zk9rx6EK9FqLP525aGpD95I4GD5ZmCGHvSOXSNgn6S9Bbqqd4BIA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqNFUWjV7IImMViJIM84m7gRV2OciI8UOg9qlS7Epzzjq2us4k
-	OamNlhB+SMWbi6mUIUQRPgzewhR6PHrqRe2wdUmBCW2kwBGXx+fBpGglKOjHU+7NIphF/dkj7yk
-	/KKOGb3JGGfy09emSURc7M1COhgWmtya7BtG/s8UdayVoak0aaBem3JkvGhQY2CojY60=
-X-Gm-Gg: AYBFou1vJBqXvcm2B8X0Yp60wIGlfKYmrSp+KpE2+7/3bbGggXNVjN17x3VuPZHdeMB
-	zeCnR2CrYkFldhwSvtcY/GCHCyrA5hK1HiIAO4M33yuhrCYYoZl1QFBz9HVTYGzkeYlSFRhzlqq
-	j93k22/lLkXbZwFfvmzN6SUwUQqd1Nno65Ou4NpRvLsPXIkH2l4v7fyY52TZ0QIcMhjmaT7i1LK
-	j12finguwUAljK31vuaOcta2kgNpHDy3dMnDgu7MK9pCPjHjxw+mq0ARHA3/0MGfjkSn9GC09fQ
-	+2Q0kDGb/VP6PGlhPlIS1YhQMtm0UqheWzgqvuN8mlBAmHNQWtxe6hlfFAtK+Azj4CgNaywU2V9
-	aCPrDMK+xNhU/ZSwwS2rVvKw5yav7
-X-Received: by 2002:a17:90a:da83:b0:38f:efed:5445 with SMTP id 98e67ed59e1d1-396d0de796fmr49247625a91.4.1788244318110;
-        Mon, 31 Aug 2026 23:31:58 -0700 (PDT)
-X-Received: by 2002:a17:90a:da83:b0:38f:efed:5445 with SMTP id 98e67ed59e1d1-396d0de796fmr49247516a91.4.1788244317572;
-        Mon, 31 Aug 2026 23:31:57 -0700 (PDT)
-Received: from [10.217.216.70] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e2a95sm34010711eec.23.2026.08.31.23.31.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 23:31:57 -0700 (PDT)
-Message-ID: <87244cbb-53b4-4deb-bf91-d5570879db09@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 12:01:50 +0530
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="KZX2VT2y"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Hy9E2tKKHAeiQ9A8fSJN1q8q8jSZXchoCHwVoYg3JbDz6CKtHS7r0f1H14BXF02ORr4lIy53pju9/1bG6ozyn5Xr4L3acq3q+Xjmf5kpqKehjvxmmerfdNu1CfTcStE2kgq2mZ3MvsNfxsftnctB7bKFf+sJeOIKbwTZ6kxa/2ULhlHdojZfILwh0SONNdONdi5l+tuiUBq3wfZoNpb1Sq9r+Bprtkg2lpq6oDrfxVO8t5VbVXrwVa0wZo5JmSy7k7me0qRx5BbOUOlbTiHWwJd4vExoWwkXsBRNKSs4ICuhcYmrrJ2HRGwAjTLSU7YIrqhyfRheOJ3Rtzg8ZuXHxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EFjgvav2r9bm/QEVcIXYTvmeHtzRox+B6BCPL14dk/4=;
+ b=pCxjYERy5k82uAHyCgxLaX0VQolk5llBBp/rqvcgvba4iQF29JijPO84KPs8VGisT0GxX/y9DTeqMQISkNOopbHd6Dsvl0Xus8QjINgwNf3brYr1N1Cw7f0KPZtR1JgWnoi6/54nKWd7Eo3RETdcipr0SeiCWD37UEkoGciaV6qlnz++bCiq8TI5tuzyasFFfMBucHjjux8OGZLODEPfiVt/3847qHXoO/jqruz2Ht6/ON2d9tZSf2cbnx9Oo9COAVV+6AQNCI9PvkYI4BFRx2WHIg6qUusqlmyKc7gZ4lheiOSvnOBO3g06qC79t5V6qoVhMDMiQvpl3GX2nxGqOg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EFjgvav2r9bm/QEVcIXYTvmeHtzRox+B6BCPL14dk/4=;
+ b=KZX2VT2yaIepwrjgM37MhRugpjd94Zk0ThbtSFS2eEwa8uDSRfxyej+cjMoaaj5PVTEkQRkhjoG43knjiJftDjAXKQxLOQIOAlexkJoyp2v8KYhuTfBV5eoEn5GnFnRhiY3VX30LnlM/0UfkYAcotCAzS95BsA+2LBXw7wM/lhY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by OSZP286MB2096.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:188::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 06:32:46 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 06:32:46 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Manivannan Sadhasivam <mani@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>
+Cc: Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	ntb@lists.linux.dev,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/2] PCI: endpoint: pci-epf-*ntb: Harden vNTB resource management
+Date: Tue,  1 Sep 2026 15:32:36 +0900
+Message-ID: <20260901063238.631166-1-den@valinux.co.jp>
+X-Mailer: git-send-email 2.51.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TY6P286CA0003.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:3b8::17) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Subject: Re: [PATCH 2/6] dt-bindings: ptp: Document TSCSS hardware on Qualcomm
- QDU1000 SoC
-To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller"
- <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20260727-tscss-v1-0-beed14e72510@oss.qualcomm.com>
- <20260727-tscss-v1-2-beed14e72510@oss.qualcomm.com>
- <184d7977-891b-4d18-983f-7d23a7d9ff83@kernel.org>
-Content-Language: en-US
-In-Reply-To: <184d7977-891b-4d18-983f-7d23a7d9ff83@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=b9qCJNGx c=1 sm=1 tr=0 ts=6a96715f cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VFrjYgP8P-MpaLTDB6EA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA1NyBTYWx0ZWRfXwXIuPvmr5ST/
- o8+86N4l6o69AU8SmOuninarDBOp9CEn74/gH20MSolhvpD8mafZYTHg8d95udy8ERRi7Po9P1S
- LBpuoy1+676U63lGj4T+FstkHn31HPclAt9bkPk3wDKZbcEKnKWKgsyK9B8A17AIHaJZwhuGA1z
- VHWf8plbE4G88kaIcBMmlWe1+BTadr/q+ukbYw7gALsN3X3sX9//rhk1XEe4jRzcLALrhFW57zt
- BodBCcJHJrxh3vZ8pAIUWo6uGkCjX0FgZ612Kdh+o4tK+h/WxmtH9ssjVC/ob6sBNzHitOdh1nL
- KNKga9kfXsBrKPZjxBBEf3nqePhSTurH5pETW3TINAshD3sSwlGyGxC9NRGHaOwDZFWXSbSXkIh
- p2VRBMoSAj6gvh0csmEr9MNlJsyNnx8WKkh41tDoOlYZWij6sYGRfRIdSqxwFJ0kwNW3xB+VyNw
- MhTPqpqydr32Fz5mMmA==
-X-Proofpoint-GUID: V59FxxeYWfmDsU5Bx64xO0pyhIaLnRTj
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA1NyBTYWx0ZWRfX7+lHNcgB8rV9
- kAaJuwuDMSZ7+Um8m/3ox7qJcgXYxPuCOgBfxWGXug6e6SQE2FbJUI5nEMGkvDOlhEUlZNoEFA/
- OdZ7JuILWuWiST2jOd5QIcqz25RI42Q=
-X-Proofpoint-ORIG-GUID: V59FxxeYWfmDsU5Bx64xO0pyhIaLnRTj
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_01,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 clxscore=1015 impostorscore=0
- spamscore=0 priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010057
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|OSZP286MB2096:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f38ebe2-059a-48c4-850a-08df07f2d616
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|366016|10070799003|376014|1800799024|23010399003|18002099003|13003099007|56012099006|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	1AsDC+r3eT6ZBdrhHxmOzLpdyVHEmJLWQNx5bnS+QdCqlfFEnbQIv3sBBNuI8YnyY5ieIQ9kHc7CzTVbwOGV+qhtepmHzfOnT1mCSNhz7MNjGIYjEKdhZM/8mBbmGzpTtfJwO7VaS5GvwcDyHA2zhj7DZqCxDucBROX/WxKBvdobbg+1VIQl5MoEd/CGuG3M2ujXdUDxe6t4MPdANeMdW8MtuYDkYP40uKcoeJitVdSGkBurfLpebqZZwn7tyMfzfxCofhmbMcfOp+HaSgFtaVRgQcLCURfavm/VuU2f6gc93tygrG2f790Zl7jpvjWlCMZaAFeIcZZwBuGhfgEp4nYI2uSLb43ORQ63hsakdFFevBIq4VUNhkwFtPhtt+NmFAEe4AtaMdnURhMpmGHOQgzW3H7JuDjNVfjzh6fNdxV+6XH/iUg1b4W9pfkO8SU0kSld9yIA9nXGfnIhX3u7mCJraFnkuLLLsTnG+pDr+4vTTH1qlY4Of1pdDLNPTqLRHTZ4J2m4nohaQHVrFC88swVETkYtg6xX2j6vvKNbQVOvEpQV9poc1hi4ivumzkZ4DzXap2xuNTl2PsHgeHM3Ur+9vq1HHmW5AdPfUUtDXQgBBB9TcQr2fvbdIxFBy1fY
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(10070799003)(376014)(1800799024)(23010399003)(18002099003)(13003099007)(56012099006)(6133799003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9O06zMe13CRPx/ELKkxqV9ORVdXxgNBdfn21YvhNOjXE+rqWl3ceHnzLG6IN?=
+ =?us-ascii?Q?lOBnF6Tk/xLsz85NMukX97y9NsQRRkouKFzOVXCanzUg0qw5qZUiYUrHi+E9?=
+ =?us-ascii?Q?X6DyTc1+bsEJnHSKfQ7NcUhESMrdbEXTCE9licKdiGy9dNz5ipp/wyzRyqDG?=
+ =?us-ascii?Q?O5mkPfddoV8/2tiWeZnH05DjXn2VxyqKYQ6cWaCihizm+R573I+4Zw/J4oDy?=
+ =?us-ascii?Q?ZgeFEqm4lAA+GtVZL1sPYC0efPOQNnaZv+ktm16EV9C1pMD7RJYuNxQ9OI7l?=
+ =?us-ascii?Q?0wK9KeMzIbf61A988LM0Xk/EjGC7OeWKHt/c7Nh2HYqdmqYp7DrT/w0ZO/p0?=
+ =?us-ascii?Q?2e7xled9op6t5dmLgP80ikG/k4c2rs2KnPlP4xDHupIwAHduNDLOUvqtjvSV?=
+ =?us-ascii?Q?5ekYZjCe9PxXLULkBxYd1nRmVzSBoeLgICD7rReIKMSfOgK4MTR390Jxip4j?=
+ =?us-ascii?Q?BOIjXKMTNjJLVUzaB68AVYOTyqvZzw7XIs5g+IShv6/AX5+dkAdeMPdG89Sy?=
+ =?us-ascii?Q?wa9IStn2G7WOuDgzXSOlpCVYZIXt5eOPbBjFR3Fxx6wBVwnKb5fOvNI2Aqvv?=
+ =?us-ascii?Q?2y8w3w7S1bsN1gjC5RiNMV04zSEzE1ADuPpOzs1idx1LBECnOS04uzop2Heu?=
+ =?us-ascii?Q?7hPiCiMWGyzY7rCYFMVTCl/Q/HLDtvOX1c4HY9gpfuDC1ecls3xX72LOasU2?=
+ =?us-ascii?Q?eDG7D+kQ3SAEanalnPH0e1qKfLKWhqV13QNPaTypr/Guz+ZiG6fdg+YguZ4r?=
+ =?us-ascii?Q?WB2ypNX3VcY/4YqzLvva4Dw8/eSNJewg/UmYEHT/0+iIanXNbAzWSFmOEfAN?=
+ =?us-ascii?Q?at7xKzDaOTKIp9kJHm4m0L1xCmQpWhUJzZDvUoeNEVQ8/E2GLIFD2oggpem0?=
+ =?us-ascii?Q?pFgbTrFbcWje2zjAz6Y8/TNjUixE6sHOVLE8leiXLHkmZ8U/hfvJbTdmL6OY?=
+ =?us-ascii?Q?/1nqGd40bivqSiOOkNxKPJaaayev05BTbyL+WcMNO1U8eUCiLUAJcJfE+Z/5?=
+ =?us-ascii?Q?3f5eg6YYoGZ4zYgvuIq5XQfnX8dlrHgqLfRyrbUnjhLOXIaTDnByJ7BJXxSZ?=
+ =?us-ascii?Q?oCGAEvPEJXqFFAuxONQzjIM6/hpz6Z8pBzsCWJtvjX3yJXAwAYjYeekxUjWo?=
+ =?us-ascii?Q?gOCeK0tzjwiX1gis4J/3+XtNelsf+3W4pG6WySSXathq1TovsZ/C4VFqTu7L?=
+ =?us-ascii?Q?0oJA9YQ6xvKAs6tdxuqHwHUZrWjIPhAppGjJyvn70a/nny9vVT7JVkiQ0lzj?=
+ =?us-ascii?Q?2/L2/tPWnoOWyhOrjN2OPIILosi1Q+6r3rItleVXlOr0cRTpP644FI81sPVt?=
+ =?us-ascii?Q?zkLQxbX/h/pfIYzipsaeRecrmPYV4GcJnTrODGdlzDRbZlzsHPHmTmEDb2PI?=
+ =?us-ascii?Q?XbWh1w/ZS8UbXpFd2ja4I4iSDuiUB2yqfcr8PLym16UMeTUvRdI975rQpELU?=
+ =?us-ascii?Q?sqypiWna7udbEl+Dv8wVMbn/cu3+mGrKddINKWIKpYD3/ehaqeVBzxwr32lX?=
+ =?us-ascii?Q?zCG2r4jyL6TQ94yg1YNmd9l3j7f7ZDsNBDyKuBEAvUQErElIY04cNhZ5NypQ?=
+ =?us-ascii?Q?kWSidqX7kTTb+XlULHQiGSgEFwUM1U6T9pdebRF8bYmGfTWyEbuqiVmBNj64?=
+ =?us-ascii?Q?tiNbEyiBWz0lAItZ+ncVZQpZmA6FgIrbOMKgflwifzrjelLyvhnvyH9WyBoP?=
+ =?us-ascii?Q?Kjp7fXAmFqZ2R52DQ/25ZX/uHdxkCNSuW3JJzGEqS4pAzlcuaeE/X4sxLZdY?=
+ =?us-ascii?Q?+j5I3vNroUuvQSAngbRyIqyOtAOiqO1EP3rN2oykpDm176Gn9m8f?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f38ebe2-059a-48c4-850a-08df07f2d616
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 06:32:46.6915
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w5YVXa5YktR4G1NxxcFOI/LqQf/2aJE/9r6pHOyIEhgg/Owwhe0cm3OF04jFVIazFVf6W16Y2rk8Y7b5+uglhA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZP286MB2096
+
+Hi,
+
+This is a follow-up to v5:
+
+  https://lore.kernel.org/r/20260226084142.2226875-1-den@valinux.co.jp/
+
+Patches 1-3 from v5 were applied. This v6 addresses the remaining
+lifetime issue. Mani, sorry for the delay.
+
+Before this series:
+
+  bind:   EPC resources -> virtual PCI bus -> ntb_dev -> NTB clients
+  unbind: EPC resources freed
+          virtual PCI hierarchy, ntb_dev, and NTB clients left behind
+
+	  (The bus returned by pci_scan_bus() was not retained, and
+	   pci-vntb had no .remove callback.)
+
+After this series:
+
+  bind:   EPC resources -> virtual PCI root bus -> ntb_dev -> NTB clients
+  unbind: NTB clients -> ntb_dev -> virtual PCI root bus -> EPC resources
 
 
+Testing
+=======
 
-On 27-07-2026 09:21 pm, Krzysztof Kozlowski wrote:
-> On 27/07/2026 16:10, Imran Shaik wrote:
->> Add Devicetree bindings for the Timestamp Counter Subsystem (TSCSS) found
->> on Qualcomm QDU1000 SoC.
->>
->> TSCSS is a time synchronization subsystem composed of two main blocks:
->> Timestamp Counter (TSC) and Event Timestamp Unit (ETU). The TSC block
->> provides a continuously running counter used for timekeeping, while the
->> ETU captures timestamps for external hardware event triggers.
->>
->> Co-developed-by: Taniya Das <taniya.das@oss.qualcomm.com>
->> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
->> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
->> ---
->>   .../bindings/ptp/qcom,qdu1000-tscss.yaml           | 187 +++++++++++++++++++++
->>   1 file changed, 187 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/ptp/qcom,qdu1000-tscss.yaml b/Documentation/devicetree/bindings/ptp/qcom,qdu1000-tscss.yaml
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..39387614ef8939b7840df2f0d5640b9e142fb4e5
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/ptp/qcom,qdu1000-tscss.yaml
->> @@ -0,0 +1,187 @@
->> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/ptp/qcom,qdu1000-tscss.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Timestamp Counter Subsystem (TSCSS) on Qualcomm QDU1000 SoC
->> +
->> +maintainers:
->> +  - Imran Shaik <imran.shaik@oss.qualcomm.com>
->> +  - Taniya Das <taniya.das@oss.qualcomm.com>
->> +
->> +description: |
->> +  Qualcomm TSCSS is a time synchronization subsystem composed of two main
->> +  blocks - the Time Stamp Counter (TSC) and the Event Timestamp Unit (ETU).
->> +
->> +  The TSC block is a timestamp generator that maintains a running counter used
->> +  for system timekeeping, and is functional with just the AHB and counter
->> +  clocks.
->> +  The ETU block is optional and captures TSC timestamps for external
->> +  hardware events, each ETU slice binding a slice identifier to an external
->> +  event selector. Support for the ETU block requires the additional ETU
->> +  clock along with the per slice interrupt and slice subnodes.
->> +
->> +properties:
->> +  compatible:
->> +    const: qcom,qdu1000-tscss
-> 
-> Why do you create a new file with exactly the same binding?
-> 
+I ran the following script on R-Car S4. It only checks removal and
+re-creation of the local virtual PCI and NTB devices. No peer or PCIe
+link is needed.
 
-The QDU1000 SoC TSCSS has the per ETU slice IRQ lines. Where as in
-Lemans/Monaco, it is summary IRQ line for all the ETU slices. Hence,
-kept two different bindings for both the SoCs.
+  #!/bin/bash
+  set -eu
 
-> Anyway, all comments apply.
-> 
+  modprobe ntb_transport
+  modprobe pci_epf_vntb
 
-Sure, will take care of those comments here as well.
+  cd /sys/kernel/config/pci_ep
+  F=functions/pci_epf_vntb/func0
+  V=$F/pci_epf_vntb.0
+  C=e65d0000.pcie-ep
 
-Thanks,
-Imran
+  mkdir "$F"
+  echo 0x1957   > "$F/vendorid"
+  echo 0x0809   > "$F/deviceid"
+  echo 16       > "$V/db_count"
+  echo 128      > "$V/spad_count"
+  echo 1        > "$V/num_mws"
+  echo 0x100000 > "$V/mw1"
+  echo 0x1957   > "$V/vntb_vid"
+  echo 0x080a   > "$V/vntb_pid"
+  echo 0x10     > "$V/vbus_number"
+  echo 0        > "$V/ctrl_bar"
+  echo 2        > "$V/mw1_bar"
+
+  ln -s "controllers/$C" "$F/primary/"
+  modprobe ntb_netdev
+
+  unlink "$F/primary/$C"
+  rmmod ntb_netdev
+  rmmod ntb_transport
+
+  test ! -e /sys/bus/pci/devices/0001:10:00.0
+  test ! -e /sys/class/pci_bus/0001:10
+  test ! -e /sys/bus/ntb/devices/0001:10:00.0
+
+  ln -s "controllers/$C" "$F/primary/"
+  modprobe ntb_transport
+  modprobe ntb_netdev
+
+  test -e /sys/bus/pci/devices/0001:10:00.0
+  test -e /sys/class/pci_bus/0001:10
+  test -e /sys/bus/ntb/devices/0001:10:00.0
+
+  echo PASSED
+
+Before this series, removing ntb_transport after the EPF unlink
+panicked:
+
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000040
+  pc : vntb_epf_get_dma_dev+0x10/0x20 [pci_epf_vntb]
+  lr : ntb_free_mw+0x38/0xd0 [ntb_transport]
+  ...
+  ntb_transport_free+0x2c/0x1c8 [ntb_transport]
+  ntb_remove+0x2c/0x48 [ntb]
+  ...
+  ntb_unregister_client+0x14/0x28 [ntb]
+  ntb_transport_exit+0x18/0xb70 [ntb_transport]
+  ...
+  Kernel panic - not syncing: Oops: Fatal exception
+
+Unlinking the EPF freed endpoint resources and cleared epf->epc, but
+left the NTB device registered, Removing ntb_transport later
+dereferenced the NULL pointer.
+
+After this series, unlinking the EPF removed both the virtual PCI bus
+and the NTB device. The same EPF could then be linked again, and the
+script printed:
+
+  PASSED
+
+Best regards,
+Koichiro
+---
+Changes in v6:
+  - Add the missing PCI rescan/remove lock noted during review of v5
+    patch 4.
+  - Rework v5 patch 5.
+  - Drop v5 patch 4, as f7245901de89 fixed the NULL-parent bug it worked
+    around.
+
+v5: https://lore.kernel.org/r/20260226084142.2226875-1-den@valinux.co.jp/
+
+
+Koichiro Den (2):
+  PCI: endpoint: pci-epf-vntb: Serialize virtual PCI bus scan
+  PCI: endpoint: pci-epf-vntb: Manage virtual NTB and PCI bus lifetime
+
+ drivers/pci/endpoint/functions/pci-epf-vntb.c | 90 +++++++++++++++----
+ 1 file changed, 75 insertions(+), 15 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+prerequisite-patch-id: 0000000000000000000000000000000000000000
+-- 
+2.51.0
+
