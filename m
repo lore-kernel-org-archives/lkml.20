@@ -1,189 +1,114 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74456441623
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788277591; cv=pass; b=q0F+PSXXj1IAopVqbb6Iu+7YWTyeVdhulAW5yPewCsf+Xy3q4emEmy3+Gwuq5iAwoMvsSRt5CAKAaM3ooU5eI+bdfSrv3c85JUmfiQOZqmpCNKOaqGEzvY24waH49opZOcU3fYvTAW8eRUo1kXLeaKp8XS6/gjaQI75KXpaM+xE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788277591; c=relaxed/simple;
-	bh=2hiFglIyELsVUiYPyeBzEQYmuk8ezgG0ZJ820CL46r8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eyr0d6sy3vKPV5OO35JYVMa1umsLXAzLuqgF7hcLje2Wtn/WcUgCOLaE9A7GL8i0q1zSl65R9jbhGKFDGt/kmfjS5/LaFg6rvSuWzAWPzOYKuFG3QbHBa3A0142pnO6GRc0chqytTfwkSMo3dtORvXcQZYNJIVF2oyIAXRDwzgQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Bt5M0ggt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Mc8G43FP; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30A64248C6
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:47:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788277634; cv=none; b=ULJiqoiu42cV28nQ04hsHMujCgvfrwEJLJBMFsH9IOpOs4nN68NtikZur/cWoBz3Co9zJ3Rm2buZH4PoLpY1M+dRFtKNjQJYs0HubP+zwb3EEEDRetzfCpMPUGsO1KlfnWz8qypRzdje0qTRJ78EbHJuiK9yy0PCAjVJ6RBV3cQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788277634; c=relaxed/simple;
+	bh=Fo+cyOSZ390VpvGi96sorBSWtjIbA/jriibM1HSiSKg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=imn7Rqxe8I4IaMe8buEPq7nkpFbyDeq+gEDCNXvX4RvvG+LZmv811cIeJfieKmy0vEd5r8Wj8j9MHuBppuBix+KrqslmCvXLayY2NUeLpzbd9QsqZcO0rg2swLiMLVYM2rpUe2ZODzUGAHo7n7D3+FASD53Iz4cGp6mv4dEfaRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=T0AGABNU; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Bt5M0ggt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Mc8G43FP"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681E8hhh3002674
-	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 15:46:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	FeaQdHnyQUVUR9qe3Nys8gzsKwJQV3ZOdTi7d9wCiuI=; b=Bt5M0ggtxbG89sc+
-	BirZoRkIMnGGCvu9cLn8DtXIJcsb4LpkHvHlb8fzIUERmgLg/QNZAbGchT/zBlta
-	PrSTgamXN8kbQDu0MY00sHlSx9ejf1v1y7jUjEW4ks5UEZ2CVPglweqDJ6Ep8bta
-	HZjX/gZA7COIc28EA/LeazfE0kAWNDftfjmc5qy8Hah/K2VHHg3Z/yporOq1cPa4
-	8+WeM2u6qBRbjQvFUspS7xo+wQ6k+Sl5AeuVKwKAyC8Eclm6W1yzoepIgnUxYJon
-	LLMaEhbhKh3SNPn7K/D/Hs+OnBBqZsp7TqsUvK3Zy5a/Th6ctxBxN0kUcZqIfhLU
-	fCD67w==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdqbh2yuf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 15:46:28 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so8432933a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:46:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788277587; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BU1FNJLsVS8FY8t+YcdI6HtEwPZOM/I5W426xwJyLgnFZS5xwE+Q/FQCVhX5TtcxhF
-         N6fX8XZFTnaa9/+NDJ2foqObaOuh5ZC13rv0MhtD3oF5LeLaf288NJ3nqVGWyUCLpjzZ
-         fmHqfn8FA/GGAwQzfELSBNTWV21wiw2aeqy8nBMVAy0Iv7szLJFnU2IaM2DY/+2IRJa/
-         6xdVG7U7leqJWDKw5EyC8ldF4iFumZiymWf4qsQdWqUeD1Slk5MTK6z6M+S9gLSLGVkB
-         yR7t+Dfm4b4ZucFsTFWneUDed/weKVYvwyLPbYr2j+uncP8H9JHP0ye/w8l7mKajRo28
-         LBow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FeaQdHnyQUVUR9qe3Nys8gzsKwJQV3ZOdTi7d9wCiuI=;
-        fh=Nr5h8J4OnRuA1HXPmZC4B4hj/vpTDNQg7oKDSN2AbZ4=;
-        b=aG3mdjE7VTfPvmBEOxA+nvKRAEHKKcAy108Ymzplm9ODcV5M9smMJEZpkaT7V2eP08
-         218qVJAX4a+VVbX53a/11g4HZocivCznWvBra5U7+MvknCnX5sLxxoXhRgoFlrqZYgpj
-         Msb7F8V8b6at8zatjAT8zDDxs9F31VTZ4AestNsZ/NBUzleZCl+wLly1kfWa4iY6L9uX
-         zpAFRvIfiNbLzXmBaGkuVsfr9XROXDX78BxSYGeLnvik5jtUvDikS3itYSYJ1qxC+Mrx
-         cN1mkoJJX3BwyIGUl+ldKHFNuDysr5sCj6oKnyYpQEAbYBXAqB9UMXXRIu67I4Bzq3Zd
-         cgKA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="T0AGABNU"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so106155ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:47:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788277587; x=1788882387; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=google.com; s=20251104; t=1788277631; x=1788882431; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=FeaQdHnyQUVUR9qe3Nys8gzsKwJQV3ZOdTi7d9wCiuI=;
-        b=Mc8G43FP4LGrtYT3+YtNrSlh4wylYrOYZGb4BZcrKVa/vt2zZPhysJW9zgr2lVmCBI
-         Hu/XLkB0dJjFSMsEKWpc00o+1H2lKEhvegd3QIOMn1aHFe3rYyw6Ngu94YLOYOeRTIKU
-         mSyzINRcfHZiHksJov9d4VBU55yO7itgqeWThcO/JlP+kQZHMqT1Q+/xpopyWxVfboLY
-         iBhKTnylozXCCvbaYUTD9QXLSlDSSwiTU5YVnJnqYeeeD1aPxlQa+tv1KbYaQbuerbpe
-         fCYJ+x+4ty1LhZtH4qCXn2MmJAQUvnjUdflXbwEyoUq7o9uQcSWEqnRqa3Ia/oOPOSkH
-         By+w==
+        bh=bbKL83syu/qRRZNv+72ALzl67/XZ/emAL3qXRHrx7cY=;
+        b=T0AGABNUubLN0L6f6rijN8GiywRdx5+PXxTSEr4zQc01USLIEQOSHtprIexRD9A4Fx
+         jvM/TrjYVmtM9/uH4eUn7ryuvlN6DHdolW9HEqmAUwe8hMIC7Zy9YZETlYLY1VVOcBdN
+         aRIZWgwKKUEeBstpmYDaq1EObOLvyAw9BscGOoHIY5KeG6h24mFIAZ8bGSDZjh2v4FfQ
+         T7WcpQ51iz0CnFYLY2XX1Mgdb0GhWrqwmeTdKgWlNip9K+UOCcVInmTElfhDybeVT7Dg
+         cxsV2SrWJTU10WNWJ9mkOdLrLoaM2Pc6iwSC8Dse5LZ6wumGTSzGLTZZyGezD5Fj/tjW
+         ksUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788277587; x=1788882387;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788277631; x=1788882431;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FeaQdHnyQUVUR9qe3Nys8gzsKwJQV3ZOdTi7d9wCiuI=;
-        b=Fh1IZHFDZF9m38BKJ57ZDLHwMo1r3DdfJl7sWAmPnkdqNmo/LTlnFN+eSMUEbvwRqc
-         GIAcotLeE/3zxyg7NxYb0ngHDFXIScB2MuQi+3Qdscuaq5j/ziqfpRRWhFY1nN/wq8k3
-         2t2aSn8U+vkK6KUSnaFcv3qFUL+L++I+18+fJzn+TjZouz+eeZl7n78qRUMTHlshDxl7
-         p3CsK/gBMnSXffSEmU32tZeaLEQLsQBYIZE97vtcRcv12uoWxEbb1dBW+Zns5BdnX8+V
-         D8/y/2WqWv0S3Ok44Acjgbwb9li5I2TuPpo4ByC5VKxmUo0OZLBEfmr+9yGDAxBndImn
-         bhag==
-X-Forwarded-Encrypted: i=1; AKwUvBwwrvVxTlEn0WXfidoG4htwb9X7NV+5F3kNM9CAU/60jx7aDPdu8IHoSL3M6coAaUffDGyKl55X+t9LvDg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyYLPq+ou0vjg57bOZKqS4+ZJQUuAnIQNoAPCIWrQCkCyrrRnl
-	dQSDADHk4OR8ufvoSOfGVWaqK8vKHXUzEXFLl6W6GZuA8FQR5lwR1HEKDATwthu6KbSpPi03Smn
-	DLN84dq7koPxnD292Q4dnjOTxpfxnwymJx+DLzpP5uaLUBv2WlnD0Yz/GKdiZLccD1KBZwp+zTe
-	3FralK7NdUODZlrlrKhoG7FDdZ1fUTTxHLptbtfptH5BVM8+h4bA==
-X-Gm-Gg: AYBFou3o/b/+IYr+q6PaSFzOQglFu0cNYVkcTtsSaJAlj1kcFUmvptDPOo6UWKQMH/q
-	2aTCyjsUln882GVZp5dKH4xgOFDFRbHTaamVGvL5382ktFJz1KBO05y869KjNUPFnpATErv+EVL
-	jN6OYzS5slvCgdEfbWvCxGezsDtvyTz1Iuw9ohf0lhDM1F8tnGNDZasnM23Q==
-X-Received: by 2002:a17:90a:dfd0:b0:38e:b400:a860 with SMTP id 98e67ed59e1d1-396d0fccf78mr56207780a91.13.1788277587288;
-        Tue, 01 Sep 2026 08:46:27 -0700 (PDT)
-X-Received: by 2002:a17:90a:dfd0:b0:38e:b400:a860 with SMTP id
- 98e67ed59e1d1-396d0fccf78mr56207640a91.13.1788277586732; Tue, 01 Sep 2026
- 08:46:26 -0700 (PDT)
+        bh=bbKL83syu/qRRZNv+72ALzl67/XZ/emAL3qXRHrx7cY=;
+        b=bRVpetMJ6RHeTKB+lyBeLD+Nv5wcUDVY9lT73dLeqGx+ZGmI+OoTVV6u9X/M1LH9dN
+         9b87bkpmD801roIdsdeemfCJ5bbAE8EKE4UuVDTYTcHD03dzG3uFIHcgtsGm+39kqX35
+         8uRw5FR+WhTqZaoF/GjOkS+ym+dr+rwsyyMULleoMKyMVAQliw4TXbYmOv5Peg6bEi3T
+         wQUAj6MjjSj48hZtrqB8yAK0jj2/rBoQ3Uz1D+v8WrQ67ltJtPqHWVjsEmdcsq5fhkUV
+         8qdHaEQw2UaYEpBFROoTlzEKoUCPolbnqadGK6Q7ey6J5NHLAAyZ1JmeF/9EQLJwXg3a
+         em9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxuZd3DL+A3JoaZYBRWPqKd6fR2sttPNnmWvxCG+n190eL9A37HyHh1/IpQ1nEwDPOyY9ExB6DpgB9oNzk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFd8LnmKM1qGLO3hv/GOWgLIaPN9qL9QPlOh3Jvlmo8VTuOaZ5
+	H3ouhXXrkALkHI773I5Lhp6BQcHoRXiQ2szf1/UZB9CFvBTFnvct2mNK0BDm7z6L3g==
+X-Gm-Gg: AYBFou1ZBuknY+Dn7nO9hPirzkiwPQR1PX5tRwniOtEMa7NP5ZhixfmlGCco2QrO0x1
+	pPetWGghBwm93rXjNP8Ftq+ruxluAwmKfUTBqxCCKkY9CRAN4O7E0K/tjjCYivKDtsF0Fy/urkL
+	e3Ra5MiP6fLut0Ddv/rydUpiRInnwq/56+al4ex9h5rGXc18IJMHdr9eynzJMX0i4oMMFbcBAVu
+	AsQpQ/dsFpzm4Bg0hLg98Uh2Q1zUNiY9xRryDpydApj/voN0/XDnbXF3rxBQNBU3Bpk7T9Mc4ya
+	54NzsVK6iSxw0uSK24FtXYlGD2j/B3cLYLETl51zfo3FO+TPgJeYR3uwOInA9xGuJaXAqIl/PLw
+	t3K40/D/Gg+e/O0B49koyCSYoKxZMAtiOARqT4E3y+ucwx926bX4PS/rWZA5hrmhSUvQLOOl4Xs
+	VNUamOLlC86/KWa5YPfHbgIFsuFLjDnYxN6mqztrfTzp1e/+fU4Gols62jEPgACcsPWfii8lUR6
+	oOBJ4uizwGQYONzZ718FwL2XMxccZHOBQdNxI8uCso4ktkCXGPIqLE05ECjme9FJBPkN/wOV9T9
+	OFymk78=
+X-Received: by 2002:a17:903:1a10:b0:2d8:d88f:cbe7 with SMTP id d9443c01a7336-2d9521694a1mr8105305ad.16.1788277630425;
+        Tue, 01 Sep 2026 08:47:10 -0700 (PDT)
+Received: from google.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae3c1f03esm242850a91.14.2026.09.01.08.47.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 08:47:09 -0700 (PDT)
+Date: Tue, 1 Sep 2026 15:47:05 +0000
+From: Carlos Llamas <cmllamas@google.com>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
+	Todd Kjos <tkjos@android.com>,
+	Christian Brauner <brauner@kernel.org>, kernel-team@android.com,
+	linux-kernel@vger.kernel.org,
+	Suren Baghdasaryan <surenb@google.com>, stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2 3/5] binder: check vma->vm_start in binder_vma_close()
+Message-ID: <apbzeSGFM2XtZbuK@google.com>
+References: <20260901030419.470246-1-cmllamas@google.com>
+ <20260901030419.470246-4-cmllamas@google.com>
+ <apabb4vGhNfcXMnY@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901092447.3028-1-sreeshankar0910@gmail.com>
-In-Reply-To: <20260901092447.3028-1-sreeshankar0910@gmail.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 17:46:15 +0200
-X-Gm-Features: AcwNN1WvPfOmS-pECGpZIzaJnQAiHHylSoHG1ZWEkcxRplBgBJFHgfUmrIeCkM8
-Message-ID: <CAPx+jO8XfaAJzjrO1uL5=0hadRLGtZsvVz7c-9P-+NBFwa-2Kg@mail.gmail.com>
-Subject: Re: [PATCH v9 00/12] Add initial support for Qualcomm SM7250 SoC
-To: Sreeshankar K <sreeshankar0910@gmail.com>
-Cc: andersson@kernel.org, sboyd@kernel.org, bmasney+clk@redhat.com,
-        jbrunet+clk@baylibre.com, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, rafael@kernel.org, viresh.kumar@linaro.org,
-        konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org,
-        radu@rendec.net, abel.vesa@oss.qualcomm.com,
-        taniya.das@oss.qualcomm.com, danila@mainlining.org,
-        davidwronek@gmail.com, mani@kernel.org, robimarko@gmail.com,
-        linux@gurudas.dev, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDE0MCBTYWx0ZWRfXylDB5Krpd7sv
- 22DkcZONyQkTNfLL17crsd5+6Zs82Uz5ygly1y39aKDpYk+aQfzp9wxIZnZzvenVADcZVbKzJ5m
- Mg3HCAW5COXVrcxmiWapIy0AvzHKDgg=
-X-Authority-Analysis: v=2.4 cv=R9wz39RX c=1 sm=1 tr=0 ts=6a96f354 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
- a=Z-QAWnQ1IDuNMEsj6QcA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: JF2IS2As28Ola25rMI52bYZB9DjTTNVW
-X-Proofpoint-ORIG-GUID: JF2IS2As28Ola25rMI52bYZB9DjTTNVW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDE0MCBTYWx0ZWRfX53MoZui/kqIl
- eAllhjr9DLDRBLo2TgYYFnNB56kFms8vLwwyKVFqiqV8xZZdb/FOt2p7pUpYxQWSmfYurvY0X8j
- O7wrlSO/8UafOUxWSy97gtmEAi5fsWdDw05l5pdIz9PThUqpRlkSvLXrYxSLrc02xZn31GNqgSt
- WrZQESxg7fEmPV09QrXZGpL8BHRJ/8PAzsfRzGX253EqpAqlLP81iwNScdtfl4YfC3D8ACVJW+k
- AQYR15Y5tgTHRaUUwjuJTbQHG/h3cIlMxz+rnUiZa4Vb18iB/rnRDQCynZ5Yd7WKR3Tb3Elk9Yb
- 4irou1XHOiywx9iFjxlBJMkcOaJ+vQpiX9WLUjSnflQau1Jxv7RC17U4splHDPIoN+s6W1PdzKa
- bxo6NqNCBWVKY/nBNBgwux0eyxNqfw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_04,2026-09-01_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
- spamscore=0 malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609010140
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apabb4vGhNfcXMnY@google.com>
 
-On Tue, Sep 1, 2026 at 11:25=E2=80=AFAM Sreeshankar K <sreeshankar0910@gmai=
-l.com> wrote:
->
-> This patchset introduces foundational upstream support for the Qualcomm S=
-M7250
-> SoC (internally codenamed Lito).
->
-> SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring =
-an
-> octa-core Kryo 475 CPU configuration (1x Prime Cortex-A76, 1x Gold Cortex=
--A76,
-> and 6x Silver Cortex-A55) and Adreno 620 GPU.
->
-> This patchset is organized as follows:
-> > Document relevant device tree bindings (SoC ID, Kryo 475 CPUs, SCM, PDC=
-,
-> RPMh clocks/power domains, GCC and cpufreq hardware).
-> > Add driver support for SM7250 in socinfo, rpmh-clk, rpmhpd, and GCC.
-> > Add the base SoC DTSI (sm7250.dtsi) defining the cpus, PSCI,
-> interrupt controllers, clock providers, power domains, and reserved memor=
-y.
->
-> Dependencies:
-> This patchset depends on the following patch:
-> > [PATCH] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
->   Link: https://lore.kernel.org/linux-arm-msm/20260817082457.64797-2-krzy=
-sztof.kozlowski@oss.qualcomm.com/T/#t
->
-> Changelog [v9]:
-> > [PATCH v9 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver f=
-or SM7250
->   Make all clk_init_data instances const across the driver.
->
+On Tue, Sep 01, 2026 at 09:31:27AM +0000, Alice Ryhl wrote:
+> On Tue, Sep 01, 2026 at 03:04:14AM +0000, Carlos Llamas wrote:
+> > Certain operations like a failed mremap() might trigger vm_ops->close()
+> > on temporary mappings. To avoid tearing-down the main binder mapping on
+> > these, let's verify that the VMA matches the expected starting address.
+> > 
+> > Cc: stable@vger.kernel.org
+> > Fixes: 457b9a6f09f0 ("Staging: android: add binder driver")
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Closes: https://sashiko.dev/#/patchset/20260831224145.169403-1-cmllamas%40google.com?part=1
+> > Signed-off-by: Carlos Llamas <cmllamas@google.com>
+> 
+> I don't quite understand this. You explicitly made sure mremap() can't
+> happen to begin with, so when is this called?
 
-[...]
+The issue is mremap() first clones the old vma and then calls ->mremap()
+but we return -EINVAL. So it now starts to tear-down the cloned vma and
+it calls ->close() as part of it.
 
-Patch 7 and 8 applied for next, thanks!
+The idea was to avoid shutting down our IPC when this happens.
 
-Kind regards
-Uffe
+However, sashiko pointed out a second issue with a tail split. I need to
+expand this check to allow the ->close() on anything within the range of
+the original VMA.
+
+I'll have to send a v3.
