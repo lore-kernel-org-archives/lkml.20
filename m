@@ -1,102 +1,159 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 584D53783C3;
-	Tue,  1 Sep 2026 01:15:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD233932E8
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:16:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788225351; cv=none; b=nyHAUnjDy3l+9Q5n0ve/lrvkM4WuJDChWHZaQrxIbNxjw22dP9HP6QKrZrJmOTIIWHXj7VISgFNfyU8JfWADi3kOI2ARgHaSQ8vgRP6nbjrhdOwl4NPocb9HJpcYh/PZHYv8O2vSOrBTufvqhPqH2EfIQI6vwDC7iChi0NJbIzo=
+	t=1788225396; cv=none; b=sFDHU/7MIgExiNjRvnU9RNsi7sZdbRxmujVNSIfpjqbFZJg5z9KazD03uuBCeVEFsd+hhh3PrgjFcJ+9o1yw7VvdUSApUfCLVF1Ix34eZltSs5T5IWnLQI7irT6sKTV1R/aDMiBR0LxJJwNDD5Z8XuR4EXkeFGiSFW1vdZHqBUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788225351; c=relaxed/simple;
-	bh=1K1IOftsUjhFTWQ4EUqxCVyFzZP8AIM7bIw+sa7JFKM=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=ogf6Vgbp7oELWPuexwclCBLxjUe56iCdX5mw9ChSJGqiNy//0Lb2WbUVekynzSfv3ivhtw8yMgKDvsZzviM5qbBVA4miF5DHGL7tjToSqZ7r2TPoc4ymdFOdHbtqKZELrZ23e5tosopYgmymt9QKyDvVt76kbik3Bky1M32rWcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8AxS_A_J5ZqGjcHAA--.20388S3;
-	Tue, 01 Sep 2026 09:15:44 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJDxBc0+J5ZqipQYAA--.24106S2;
-	Tue, 01 Sep 2026 09:15:42 +0800 (CST)
-Subject: Re: [PATCH] LoongArch: KVM: Free init resources if kvm_init() fails
-To: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>,
- zhaotianrui@loongson.cn, chenhuacai@kernel.org
-Cc: kernel@xen0n.name, kvm@vger.kernel.org, loongarch@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260817123918.2738447-1-nagachaithanya9911@gmail.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <813b686a-8e79-990f-e7d1-c161c73ebb4a@loongson.cn>
-Date: Tue, 1 Sep 2026 09:15:27 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1788225396; c=relaxed/simple;
+	bh=nPaFhJ5bh81rQnYHWi18R3G/SlBdQwiZJ2sXZwzRAwU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fdkC6cl/Bmx3o/B32C2YB8MCFeuJJE1Qw/GP/0x3+MfvDFQLrfKsT+RR2iSKuVu/FhBOC1wq6oYOLIQiLkkCro5NrfTxuxSj1YXb3uBMYWyUVqVCLDhyxpZ74nFxFRpy3ORhbyo3VDlVeTkubAbv2T8Ld5aRVm9ADbl2UuUuchI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=BZj1JXZu; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="BZj1JXZu"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4956d1d9fb2so1868245e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:16:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788225384; x=1788830184; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=X78DpyuVQCNYSBmXxws/u1WGsj/hOlLkVFIFIGfWSnU=;
+        b=BZj1JXZuCTRS2BMKmCTM26b1tKy5zgPqu9j4wmlNWrJJ+bPPZRrVCBcp8HPQilieNB
+         Mbu0y6U8Smw6J/BePbC56miy5OaS3q6v9ZU7JpICDd2Dhul2Q+VV9u75XpjI5rnNb80L
+         Xzm0JyDylWh5bO0Mw4mOzPU9UIsurwtv6qsAk+eDPmw31GQmQckW+YVjeOf5m5rO1HWH
+         87eHMeMfAa1gjduWJPXKUq5G4YCxBi5+UVLwmRUNNUdTF6uZnQo7uvi9P5xIgahDbFqW
+         KYkRXCdrZ0N/6HV5+YM9ef3lRHslAjFVHL+CEdL7aHYi4E1xv+vyR/d0fvQ1FdhUEyQs
+         uQOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788225384; x=1788830184;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X78DpyuVQCNYSBmXxws/u1WGsj/hOlLkVFIFIGfWSnU=;
+        b=bsneCE3UmXSAbPsgmKB+pQLXjllfHhaqvq7rniOYalOOnq0WJPz1Lx8uL4XxVIGgx9
+         QlnMd3sqIHV0Xg57Y7jPxSYQbP5+5uiEA9lvVhFwjzW0DtBLZuw/9M8XjAOggpCqfqSF
+         ATsZTcId4JABMcSObOvRebVVWx3JJIq0WhMCfvvhfnk3KuKU57QQC1OfqGk+3rqSlcd6
+         OmCbs2JWJnmLVxW25mjIsx3M093/2xPxrHBa4x7CgGsa553T1kpEP0oSSz8ILWLDt+dC
+         HZL3lUAIoCoYtO5DgsxPN/IGi+A/D8BHxnDVrSM5eweabCpe1FhiBPQdNlb6vZ1JFiC4
+         S5eA==
+X-Forwarded-Encrypted: i=1; AHgh+RqcdNdgXLejBu8j2nt/YJ3Wt1idYRwMrXrdRwTGwbH0EWSjhySHkRnllarJFLVK5xT08H2z52sCpNXobzY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7e0hc62C6CeRpPmpWuF4fyMv/yoVpG48FOrj3DrvMdCMVfsWJ
+	a4Goh/eE7AMUBFlTPBypOKX2JT4YYJuNxdpU5sBJPagJ9n2ci5qUPY9RRujFWaTE0EY=
+X-Gm-Gg: AR+sD11raRCP6kBm/x7R6/I2KtC+OsmjDd9yEky5rSaABy6+QK/+vWp1EKQBzERavwU
+	vIfbrCUVknz5PvMDWKLbcOr3QH5F75IUlSftCke9hd+lJv6MayzD0+4j2EDhI9cxL3sQ8d5qdA5
+	rFSN/jZdbmTdgI+rle4rdbhVpJ3qz4Fms3lCmrs7OlXtOOiGL0Scwm+VR5zYu9it5p+Kw30br5q
+	9BCwt31wckKSl+KUh/qDXvPIEGZSV7oZhdlDivoRyGv8PS2BkR2NtdS51ZY2Ohj31g0LvdTQrpH
+	RarLhF3M2g4IpA3epzt1f7rRk8VzbaEl8Uqyb+iaI+bMf0CcTG+0dPb/lPFmf2JFp0XFnkGXf/g
+	HdtAbDfjXBzZ1/RXdhpJXjIsp+dmzS9s78Jc0gjoeD2j0RZwoSyo8RDqekllXPJeECNNx6TmkJn
+	7RuCbIbNWI/VIRgTSaMqRtivXjEjjjA/Zek3EsNxQA2StnaDdcmb0QEGgl6DU=
+X-Received: by 2002:a05:600c:4686:b0:499:d95a:41f with SMTP id 5b1f17b1804b1-49b91bd68famr241492125e9.0.1788225384174;
+        Mon, 31 Aug 2026 18:16:24 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d471e75sm2506061a91.8.2026.08.31.18.16.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 18:16:23 -0700 (PDT)
+Date: Tue, 1 Sep 2026 09:16:20 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to
+ system inodes
+Message-ID: <apYnADntUmNwIgcj@p15>
+References: <20260831062848.2743436-1-joseph.qi@linux.alibaba.com>
+ <20260831062848.2743436-2-joseph.qi@linux.alibaba.com>
+ <apWJLyCNwqfdiRQb@p15>
+ <fdd373d2-0c70-4a64-b2da-50f2dac194b1@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260817123918.2738447-1-nagachaithanya9911@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxBc0+J5ZqipQYAA--.24106S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7WFy5JF1rArW5Jw48JFyfKrX_yoW8Gw4fpr
-	y7ur4Dtr48GrsrAF9rJw1DWr1DXrZ7Gr12v3WSkay5Aw4jvrW8Jr48Gr9F9FyDA3y8C3WF
-	vF4SqF42v3WDA3cCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
-	twAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
-	k0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
-	Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
-	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
-	cVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI
-	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v2
-	6r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jeQ6JUUUUU=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fdd373d2-0c70-4a64-b2da-50f2dac194b1@linux.alibaba.com>
 
-
-
-On 2026/8/17 下午8:39, Chaithanya Lagisetty wrote:
-> kvm_loongarch_init() calls kvm_loongarch_env_init() to allocate the
-> per-CPU kvm_context (vmcs) and kvm_loongarch_ops and to register the
-> perf callbacks, and then calls kvm_init(). If kvm_init() fails its
-> result is returned directly, but since module_init() does not run
-> module_exit() on failure, kvm_loongarch_env_exit() is never called and
-> those resources are leaked.
+On Tue, Sep 01, 2026 at 09:08:26AM +0800, Joseph Qi wrote:
 > 
-> Call kvm_loongarch_env_exit() when kvm_init() fails, matching the
-> teardown-on-failure pattern used by riscv_kvm_init().
 > 
-> Fixes: 2bd6ac687261 ("LoongArch: KVM: Implement kvm module related interface")
-> Signed-off-by: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
-> ---
->   arch/loongarch/kvm/main.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
+> On 8/31/26 10:02 PM, Heming Zhao wrote:
+> > On Mon, Aug 31, 2026 at 02:28:45PM +0800, Joseph Qi wrote:
+> >> ocfs2_validate_inode_block() currently permits i_suballoc_slot to be
+> >> OCFS2_INVALID_SLOT for any dinode.  Only system inodes created by
+> >> mkfs.ocfs2 are allocated from the global allocator and thus
+> >> legitimately carry this value; regular inodes are always allocated
+> >> from a per-slot suballocator and hence must have a valid slot.
+> >>
+> >> If a corrupted regular inode with OCFS2_INVALID_SLOT is accepted,
+> >> ocfs2_remove_inode() will pass the slot to ocfs2_get_system_file_inode()
+> >> and get_local_system_inode() will hit BUG_ON(slot == OCFS2_INVALID_SLOT)
+> >> when the inode is deleted.  This can be triggered by an unprivileged
+> >> user unlinking such a corrupted file.
+> >>
+> >> Reject OCFS2_INVALID_SLOT for non-system dinodes during validation,
+> >> while still accepting it for system inodes.
+> >>
+> >> Fixes: fe7a283b3916 ("ocfs2: add suballoc slot check in ocfs2_validate_inode_block()")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> > 
+> > LGTM.
+> > Reviewed-by: Heming Zhao <heming.zhao@suse.com>
 > 
-> diff --git a/arch/loongarch/kvm/main.c b/arch/loongarch/kvm/main.c
-> index 3e1005526f4b..b6ddf5827c03 100644
-> --- a/arch/loongarch/kvm/main.c
-> +++ b/arch/loongarch/kvm/main.c
-> @@ -428,7 +428,11 @@ static int kvm_loongarch_init(void)
->   	if (r)
->   		return r;
->   
-> -	return kvm_init(sizeof(struct kvm_vcpu), 0, THIS_MODULE);
-> +	r = kvm_init(sizeof(struct kvm_vcpu), 0, THIS_MODULE);
-> +	if (r)
-> +		kvm_loongarch_env_exit();
-> +
-> +	return r;
->   }
->   
->   static void kvm_loongarch_exit(void)
+> Thanks, sashiko has some review comments, I'll fix them and send v2 later.
 > 
-Sorry the the late response.
+> Joseph
 
-Reviewed-by: Bibo Mao <maobibo@loongson.cn>
+It seems sashiko review comments only go to the patch submitter/author.
+In my view, they're also sent to ocfs2-devel@lists.linux.dev, which is nice as 
+it lets others on the list see them."
 
+- Heming
+> 
+> >> ---
+> >>  fs/ocfs2/inode.c | 19 +++++++++++++++++--
+> >>  1 file changed, 17 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+> >> index 180107a11046..eda50f13ffb5 100644
+> >> --- a/fs/ocfs2/inode.c
+> >> +++ b/fs/ocfs2/inode.c
+> >> @@ -1520,8 +1520,23 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+> >>  		goto bail;
+> >>  	}
+> >>  
+> >> -	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
+> >> -	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
+> >> +	/*
+> >> +	 * Only system inodes created by mkfs.ocfs2 are allocated from the
+> >> +	 * global allocator and thus legitimately carry OCFS2_INVALID_SLOT.
+> >> +	 * Regular inodes are always allocated from a per-slot suballocator.
+> >> +	 * If a regular inode with OCFS2_INVALID_SLOT was accepted here,
+> >> +	 * deleting it would pass the slot to get_local_system_inode() via
+> >> +	 * ocfs2_remove_inode() and trigger BUG_ON(slot == OCFS2_INVALID_SLOT).
+> >> +	 */
+> >> +	if (le16_to_cpu(di->i_suballoc_slot) == (u16)OCFS2_INVALID_SLOT) {
+> >> +		if (!(le32_to_cpu(di->i_flags) & OCFS2_SYSTEM_FL)) {
+> >> +			rc = ocfs2_error(sb,
+> >> +					 "Invalid dinode %llu: suballoc slot %u for non-system inode\n",
+> >> +					 (unsigned long long)bh->b_blocknr,
+> >> +					 le16_to_cpu(di->i_suballoc_slot));
+> >> +			goto bail;
+> >> +		}
+> >> +	} else if ((u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
+> >>  		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
+> >>  				 (unsigned long long)bh->b_blocknr,
+> >>  				 le16_to_cpu(di->i_suballoc_slot));
+> >> -- 
+> >> 2.39.3
+> >>
+> 
