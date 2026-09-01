@@ -1,150 +1,183 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9C2357D1D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:33:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8598640B364
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788230016; cv=none; b=u4zvA4IWFViGEca2hQp7QPA6HyGwdLF6nlU1F7yfRBYhITBTSCYC38PX25tuu5KdXEiDhs7+JNyjKVeYxliLuc/gPvm/bwYQc0lG3FZhWbReq0STHVUF8/hxVLUYuDuU1U7QTZKPbIAb6yXEdiJ4FXaDqSWTLRuFrQY47RO2PEg=
+	t=1788230098; cv=none; b=bU+qXeJJK2uWqi2XD84LfwzKhRMlJnUyV64AivrfvWCgxa2eX/RK+iz9LN5QYNuru29g4IarYBonR7YFF8ini7gP7E/MvPb7OZlneZDIYYmY+7xfw9Rw18iSeIv8EG6SSCguDp+/FU/PJ0LylHJ4XwimdzaXAfzUAtVqj/e051Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788230016; c=relaxed/simple;
-	bh=8urEIkOEgNg/W0WfryJCD+eWZUJUCTF8wpI/6h2nZwI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=WplPq3ZJJ506kfoV7mtAZ+jsHIrhxC/Rht3CknfrKA8ONuLYa01vD1aNwjN7M9ouLlskahsNmKQIJypRr2EJ3/dCMsO7XD1Yi2ANIQgA4COcBk1GmVl+EBkdXodxKcsLiBdnP0RgPJVRaC8VC+XsTykAqVeqK1nL3VwVs9IYOXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com; dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b=M5RsaTMq; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com
+	s=arc-20240116; t=1788230098; c=relaxed/simple;
+	bh=WSuygwuenKYyDNYkB3/gILx/6xVlqM45WcQUtu7W8Xc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject; b=h8cXwbwqP5Ur4h3ydaqDEXrFM9QQMqdopI2IA1w88AbFJxTKhiuY14/MU7xLduPPoeilP9+F6Fgu8vclmxMR4D1Lk2IFc2nehkaN0YWdR08qOtJME9cwwKwGdasCDeNbI2NRa7LVGBQQMB9L5cDBo6Ymb0Y2ym20rwnuFTUF9ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HapO5ZnE; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b="M5RsaTMq"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-853c07a76adso4436413b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:33:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HapO5ZnE"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-395cf2535acso631324a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:34:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=synaptics-corp-partner-google-com.20251104.gappssmtp.com; s=20251104; t=1788230014; x=1788834814; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788230097; x=1788834897; darn=vger.kernel.org;
+        h=subject:cc:to:from:message-id:date:content-type
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Fj+fXTtu50ERwc8Uhij96oNyWIgOxu7AHbjsaE81Xyc=;
-        b=M5RsaTMqgK9nMKs3Dn9KF5gvzLPK9Jb5Qw/svqH6jK7k178EADKUYb79jYvty32VmY
-         UxbyGIZxwGiRzxf+rr94C5+D+MXxsiIlad98TbmSyH6XU4EiNQL7/rzHOVp7gsmNjNh3
-         wV8RODOwsHWvv+lTJu5IZJi3VGnoPnop+i58QJeMJffBlK3wjciqHdebbq6smF6IRY/Y
-         w9uhf8zRrgWBCbwiVC6/71MYYnD+Zy3t7BcheaWZ/Xe6MjdDWPyMn9npV0SOJV8JHIXz
-         LhIfRPdvvH0Cid5LUz9t/43V+2jLUxPxtvZ+UwxbdDOJ9yccdC8rsNSJZeuK6vu7vyVt
-         dQug==
+        bh=QUkCmam3KYaf5BWg4fF5DYvGM2RIW9lYFsGi+vWehOk=;
+        b=HapO5ZnEmdA+4OcbINZyizLeJWh//jHLNhbjb9IdtEYT+doF8A+FM2F8NsvLJC0753
+         q4eeTXJwmCs3tGaW2dHDzarz5q0/AvRqhdRdQHAwxztMLhwOJUvfx1ts3ihmc/B8cszX
+         oMXWQiUb16n2lNjbMTFThoiAVRcuKokr92TtcBaLZKX3v6462qvPBT7HYsODKM2MBVjz
+         tDHoUbvU+uEKJLX2/KNTYIvI+bKdsommh2jkfWvrjJowK/kKaSWwGPo+e/r3rFNgTmc4
+         woVc7U/M0QtK9GoIL11y3upi4YU6TAp6l0Rcg3jTfOPM039jeIByIQORbhgsEnbg2znc
+         DWSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788230014; x=1788834814;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fj+fXTtu50ERwc8Uhij96oNyWIgOxu7AHbjsaE81Xyc=;
-        b=E+yih4AVGGB2FA8qKa1VA96S+7qkozHjiF64ivYeqTNCFCj7xhfh6MuneQZJPqTT7v
-         iC8SFWOjRswFOpV5BymkdE2Lu94zGnky1zDf7fQKHmpkSaXDOJA9TMEn4XFstHdjiSRt
-         FGdkOjKNCnRJ28+GXGapL2OKYxWOxJfJPdtJvnXkPErjUa8DZCn3VWPijCHFYlDbY+WL
-         rhwCM3tVxny7UMyBFCbdq4/a+74ds4qKUnZKAOMys7EiUN3wzgeSaZEWgXr2mBIxw8gV
-         6q15GFOhlnISBPt2nOxO09lC2SjArzRx73A2Twqf5STkuNZ4ISyiPxvRDDtVogtHELfm
-         0OSQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrcn1q95FFOXhf4tJgEDJFbSl1qLNRDjuyzzB8G4uhbaumVnsQG8I5MleOoaf0bhj5hI++dIcbrE3dIcBs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mscGSnmw7JpXgKHU5ix4oujWzMOoOE4odRNVd2f1+0Oiw2J9aF
-	x6E9UCQONFFMarR8U3I9rJVOMN50xIB2Pq7ZkhsoWhF53j+IRuO+wfl7zb9L85vZNmU=
-X-Gm-Gg: AR+sD11Gg/hZnAhq5hs/maASqtFosmZXy47DZV11fpoE2WF1T/kaTqp9rqtMpG4jGVl
-	2Mw36Clo45WWsYRmrkno6PVeDxvcrgAVBqDSyuZNvutBAwk7c1OaeCCbZZdrx/NEGO4EYxiG3zl
-	Wr8NfmwbH/9zVhdhVypEEJ1rlWrxJh2lM3Wbzd6zdn4Smu6zM4CPEaDFg3CPElcOOlAzXHGi6dR
-	rwM+mhq6CUaHpxyY5Tol726RbFksnJx3XbV35VB3Av3+FmOsfbfkhu20i9iEROZhn07k9kYVohU
-	GKi7Yvx/M1HFLIWVIxBnAyFqICO7x15yKh4vEfxQ+0ldD5CG36L2M2WsEtwEaLKvBeVfR99LVRj
-	GIJ1R6S4K6MQNS30Vxg1CvEosJjmweNlt/plHG7L/5GRbUn3iS7tHDyWsy4e8UUv0oX8XCGoWiH
-	N7xdopg2tdnlOfR9vAfTqlWPQPWKTFgXVm0jcoFQam8MUe+gnUYfEE/erTMV3mEktncZLDt8hI6
-	55f99q4OEkIoCEBJhqLBuVIW5N3YrEw68+9d/1q8oNqQjcgrDqlPf6GrRUNoLuhKa7ScZAHFR3K
-	Fv7DJg==
-X-Received: by 2002:a05:6a21:6e88:b0:3c4:46ca:334b with SMTP id adf61e73a8af0-3d267b60e7emr52877351637.9.1788230014187;
-        Mon, 31 Aug 2026 19:33:34 -0700 (PDT)
-Received: from bt-tpe-server.synaptics-inc.local (59-124-75-166.hinet-ip.hinet.net. [59.124.75.166])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f3312270sm5005565a12.11.2026.08.31.19.33.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 19:33:33 -0700 (PDT)
-From: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-To: linux-bluetooth@vger.kernel.org,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-Subject: [PATCH v2 2/2] Bluetooth: btbcm: Add Synaptics 4384 chip support
-Date: Tue,  1 Sep 2026 10:33:00 +0800
-Message-Id: <20260901023300.1382808-3-andy.chang@synaptics.corp-partner.google.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260901023300.1382808-1-andy.chang@synaptics.corp-partner.google.com>
-References: <20260827110242.1203546-2-andy.chang@synaptics.corp-partner.google.com>
- <20260901023300.1382808-1-andy.chang@synaptics.corp-partner.google.com>
+        d=1e100.net; s=20251104; t=1788230097; x=1788834897;
+        h=subject:cc:to:from:message-id:date:content-type
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QUkCmam3KYaf5BWg4fF5DYvGM2RIW9lYFsGi+vWehOk=;
+        b=Ds0V+7/+cpkAwzS0ZKnIlk8XaFDFeDUluQyMFI0nl9BTUGVlwPfMEHSqYthQ2pi4le
+         eQ6K5CvHeFYg6dn7E1n00mbxNeUMr45BQj3RsBdgAUZxeCDWoiklH/sJNyH28cTiDIQw
+         vfnheC8JffWdcw+B8/nULeb1ZxCJnspbrma7FhqEDYJIRKehidHZI53PkPWWm9r04ATT
+         lth7gNX/N/dH+6Y9JFjazp6Rz7tTKxYoOHrKPZ47dN3S1Z6zZuoC+ACk5cz8L4TEAuha
+         OZ+3AiIhfthen3GWzNIl8XWqX5ipHhKnOMAM5wHuLPrehGf+ZYaq/jF7DEdKVAqFGYYm
+         W9pQ==
+X-Forwarded-Encrypted: i=1; AKwUvByNPnEkS3FZ/ZTUm400ekAzzDUSsj9uptihxjyU5TKpdvYbnKt8XsBxduYvQsvILtt5Mnlod13/x0v7cGo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lV67YwnIuB85s7A5j2CZ+bifqWJDUeY2IazdIKo6Kc75WT/pfm
+	rNGflaXIyQlIsSBXAqYjJFZac1YpPnMKmPgeMSA97iqLJjmK/3n4X1ED
+X-Gm-Gg: AYBFou0+jklbh9EPLTAcGQnEwDaVA6z6liDo23/aA56s4b3KH8GvO9TdalDG+qwnJtQ
+	wqxphAz1Hwz/bhFzzjcSdxXPliAsgd65S0nfQ7iD4gVVlMGwQWKkMFyBSpSIxDkd17X07FPZhNM
+	XMVMnMT30RiV0CaA84UGEumvRV03shOc3dc6VN5ljLXeQCk16QC9uk5wCQTgPFIY0R4+03Fz6MR
+	kolDGAqVopvQf4io3xKNgfUfuAQ5SIw88YOi8fGVwRXckh8HotGxW8orx8Yt+o83tDhv3tUezDB
+	/V5m82lBbpvUXyK0tSLoYDcu/+rehcggfZ3IsDY9agXsdy8e7YeMaLgrrxrx06SZg+s+ibZvl7Q
+	6XpkvnjLDBQlPTDzbmkx1KkAzYQuoxY+8q7CZQkl+xbgfP7ceABMx1Ul3A2TxzSjSIhtJ2Hg4p5
+	brsrhSwflOEL1YfGzjyFHZBwoiSGIJDBlng0RGILRTiIaoKAwT9wF+U8vfcpxM7nOi
+X-Received: by 2002:a17:90b:2247:b0:37f:a913:1554 with SMTP id 98e67ed59e1d1-3990f890861mr2217999a91.16.1788230096670;
+        Mon, 31 Aug 2026 19:34:56 -0700 (PDT)
+Received: from localhost ([69.196.42.8])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0bf8a13sm47875463c88.0.2026.08.31.19.34.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 19:34:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 19:34:55 -0700
+Message-Id: <DL3MNWW4VEBR.K3K6A92WMHUY@gmail.com>
+From: "Jasmeet (Jazz) Bhatia" <jasmeet.bhatia.us@gmail.com>
+To: <ardb@kernel.org>, <rafael@kernel.org>
+Cc: <ilias.apalodimas@linaro.org>, <pavel@kernel.org>,
+ <linux-efi@vger.kernel.org>, <linux-pm@vger.kernel.org>, <x86@kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [RFC] efi/tpm: ACPI reclaim event log allocation breaks x86
+ hibernation
+X-Mailer: aerc 0.21.0-0-g5549850facc2
 
-Add support for the Synaptics 4384 Bluetooth controller
-by adding the corresponding chip IDs.
+Hello,
 
-Tested on the VIM3 platform. Verified that the controller initializes
-successfully and that firmware loading and basic Bluetooth operation
-work as expected.
+This is my first mail to the Linux mailing lists, so apologies
+if I've missed any conventions.
 
-The VIM3 is a Khadas single-board computer that I used as the host
-platform for testing the BCM4384 Bluetooth controller.
+I have been investigating a reproducible x86 hibernation resume
+failure and have traced it to the EFI stub's TPM event log allocation.
 
-Signed-off-by: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
----
- drivers/bluetooth/btbcm.c   | 6 +++++-
- drivers/bluetooth/hci_bcm.c | 1 +
- 2 files changed, 6 insertions(+), 1 deletion(-)
+The system is a Framework Laptop 16 (AMD Ryzen AI 300 Series), using
+Insyde UEFI 2.9 / Framework BIOS 04.01.
 
-diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
-index 463d59890bef..63c4c788d9c4 100644
---- a/drivers/bluetooth/btbcm.c
-+++ b/drivers/bluetooth/btbcm.c
-@@ -31,6 +31,7 @@
- #define BDADDR_BCM4334B0 (&(bdaddr_t) {{0x00, 0x00, 0x00, 0xb0, 0x34, 0x43}})
- #define BDADDR_BCM4345C5 (&(bdaddr_t) {{0xac, 0x1f, 0x00, 0xc5, 0x45, 0x43}})
- #define BDADDR_BCM43341B (&(bdaddr_t) {{0xac, 0x1f, 0x00, 0x1b, 0x34, 0x43}})
-+#define BDADDR_BCM4384B0 (&(bdaddr_t) {{0x93, 0x76, 0x00, 0xb0, 0x84, 0x43}})
- 
- #define BCM_FW_NAME_LEN			64
- #define BCM_FW_NAME_COUNT_MAX		4
-@@ -130,7 +131,8 @@ int btbcm_check_bdaddr(struct hci_dev *hdev)
- 	    !bacmp(&bda->bdaddr, BDADDR_BCM4345C5) ||
- 	    !bacmp(&bda->bdaddr, BDADDR_BCM43430A0) ||
- 	    !bacmp(&bda->bdaddr, BDADDR_BCM43430A1) ||
--	    !bacmp(&bda->bdaddr, BDADDR_BCM43341B)) {
-+	    !bacmp(&bda->bdaddr, BDADDR_BCM43341B) ||
-+	    !bacmp(&bda->bdaddr, BDADDR_BCM4384B0)) {
- 		/* Try falling back to BDADDR EFI variable */
- 		if (btbcm_set_bdaddr_from_efi(hdev) != 0) {
- 			bt_dev_info(hdev, "BCM: Using default device address (%pMR)",
-@@ -514,6 +516,8 @@ static const struct bcm_subver_table bcm_uart_subver_table[] = {
- 	{ 0x4106, "BCM4335A0"	},	/* 002.001.006 */
- 	{ 0x410c, "BCM43430B0"	},	/* 002.001.012 */
- 	{ 0x2119, "BCM4373A0"	},	/* 001.001.025 */
-+	{ 0x2128, "BCM4384A0"	},	/* 001.001.040 */
-+	{ 0x4119, "BCM4384B0"	},	/* 002.001.025 */
- 	{ }
- };
- 
-diff --git a/drivers/bluetooth/hci_bcm.c b/drivers/bluetooth/hci_bcm.c
-index 9a103db7e355..e70b9f3fd968 100644
---- a/drivers/bluetooth/hci_bcm.c
-+++ b/drivers/bluetooth/hci_bcm.c
-@@ -1593,6 +1593,7 @@ static const struct of_device_id bcm_bluetooth_of_match[] = {
- 	{ .compatible = "brcm,bcm4349-bt", .data = &bcm43438_device_data },
- 	{ .compatible = "brcm,bcm43540-bt", .data = &bcm4354_device_data },
- 	{ .compatible = "brcm,bcm4335a0" },
-+	{ .compatible = "brcm,bcm4384-bt" },
- 	{ .compatible = "cypress,cyw4373a0-bt", .data = &cyw4373a0_device_data },
- 	{ .compatible = "infineon,cyw55572-bt", .data = &cyw55572_device_data },
- 	{ },
--- 
-2.25.1
+On resume, the hibernation image is found, but x86 eventually rejects
+it because the firmware E820 map does not match:
 
+    PM: Image signature found, resuming
+    PM: hibernation: resume from hibernation
+    ...
+    PM: Loading and decompressing image data (4198398 pages)...
+    Hibernate inconsistent memory map detected!
+    PM: hibernation: Image mismatch: architecture specific data
+    PM: Error -1 resuming
+    PM: hibernation: Failed to load image, recovering.
+    PM: hibernation: resume failed (-1)
+
+I compared the E820 map across repeated ordinary boots and found a
+48 KiB ACPI data region whose address changes from boot to boot. Its
+base always corresponds to the TPMEventLog EFI configuration table
+address (the table pointer is base + 0x18).
+
+For example, across five ordinary boots:
+
+    E820 ACPI data region          TPMEventLog
+    678da000-678e5fff              678da018
+    678db000-678e6fff              678db018
+    678d1000-678dcfff              678d1018
+    678d6000-678e1fff              678d6018
+    678d8000-678e3fff              678d8018
+
+This occurs on normal reboots as well, so it doesn't seem to be
+specific to an S4 firmware path.
+
+drivers/firmware/efi/libstub/tpm.c currently allocates the copied TPM
+event log using EFI_ACPI_RECLAIM_MEMORY:
+
+    status =3D efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
+                         sizeof(*log_tbl) + log_size,
+                         (void **)&log_tbl);
+
+As a diagnostic experiment, I changed only the memory type back to
+EFI_LOADER_DATA:
+
+-   status =3D efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
++   status =3D efi_bs_call(allocate_pool, EFI_LOADER_DATA,
+                         sizeof(*log_tbl) + log_size,
+                         (void **)&log_tbl);
+
+With that change, TPMEventLog continues to move between boots, e.g.
+
+    boot 1: TPMEventLog=3D0x678d8018
+    boot 2: TPMEventLog=3D0x678d5018
+
+but the BIOS-e820 entries are identical across those boots. The
+48 KiB ACPI data island around TPMEventLog is no longer present.
+
+Most importantly, Linux 7.2.0 with only this one-line diagnostic
+change successfully hibernates and resumes, whereas the unmodified
+7.2.0 kernel fails to resume.
+
+Despite that, I don't think simply reverting to EFI_LOADER_DATA is a
+good fix. Looking back, I noticed commit 77d48d39e991
+("efistub/tpm: Use ACPI reclaim memory for event log to avoid
+corruption") intentionally moved away from this allocation to prevent
+the TPM event log from appearing as unreserved RAM to an incoming
+kexec kernel.
+
+I tried retaining EFI_LOADER_DATA while registering the TPM log with
+efi_mem_reserve_persistent(). The ordinary memblock reservation
+protects it in the running kernel, and I hoped the persistent EFI
+reservation could provide the kexec protection without changing E820.
+
+On x86, however, efi_mem_reserve_persistent() returned -ENODEV:
+
+    Failed to persistently reserve TPM Event Log: -19
+
+Looking at current mainline, the Linux EFI MEMRESERVE root is installed
+by install_memreserve_table() via efi_stub_common(), while x86 uses its
+own stub path. Current master (abdf623dd) also still allocates the TPM
+event log as EFI_ACPI_RECLAIM_MEMORY.
+
+At this point I'm a little unsure what the correct approach to fixing
+this is, so I would appreciate guidance on where the fix should live.
+
+Should the TPM event log remain EFI_ACPI_RECLAIM_MEMORY and x86
+hibernation account for this Linux-created, boot-dependent E820 entry?
+
+Or is there an existing/preferred x86 mechanism for preserving an
+EFI_LOADER_DATA TPM event log across kexec without making the transient
+allocation part of the firmware E820 topology?
+
+I have the full failed-resume dmesg, before/after E820 maps, five
+ordinary-boot maps, and the successful diagnostic hibernation logs,
+and I can provide any additional testing that would be useful.
+
+Thanks,
+Jasmeet Bhatia
