@@ -1,97 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B8338B7B0;
-	Tue,  1 Sep 2026 01:22:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005AE3921CE;
+	Tue,  1 Sep 2026 01:23:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788225769; cv=none; b=lctX4eMn/woNofN7lpSt6LZSuJ50vENaKraChxqh+yYPQHN9227sJk0tOcjyfvId1Mo82yf0C219dSOQL6/Ww7JilGNU7qaMugRT0P15Ui8qTcR3vRgRXqyJi37FmMcpZP0LwpGkWfzlwukwB1TeFa1JTKNBT9d87e4i+XUps9k=
+	t=1788225827; cv=none; b=s4Ro612nELyFpl5bPBqkutilXKPVMCOCW0Efe+1ZaYelZ1XpB3wn3/KMFmOsc5Vc2YfxoCPFMkVzq2aSu3yzkHLLLe7q6OdBDb8MtIlWm43DNyuYrNKKQxmHtUZ/UZVzn/lJr4uouruzjno5ZnHtoXH9eQhrLt7rO6tg+HK/Jdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788225769; c=relaxed/simple;
-	bh=tF6XOUtrejWT8EVMO6Zhhxe2yMTRVHw+PEJ14jV4VTk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WMbS+wu7sbscO7Qc5qH7xzfQ0s3v9b/o8CgOrJtj1ILVxNi/ANnyFJ3llm/AlxdXeAx8vlS6fN5cEC+bjuiTVMDdO9YjwK2/nPTq+fIdA4c5DL3jmPUgQakrTvVM08d2DPK+F5q5UIKCPrd47nc22lDseXBg+p53RTwzx11UvkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q1Wi6buP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788225827; c=relaxed/simple;
+	bh=jvL8s4sRjuHKostLJ5wltrklxxOsv6ymzdGE1Jx0d8U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=APVfVJirQ+KiVU2c67/ta1yPpdlOOJJp16Wip3IWER/6Qnx9j2yTKLWeunpvNrewvCOHd+P8wSs1yayNVz3dycBR050X+owirhJ+ax/Wf2k4Gd31XbdWAVQ7LBzrOVDEvM2dCdzbbmA+NPdCFW3v5BRv8Z3RgkXk/wIEgoUlCVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gUKKIDLB; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q1Wi6buP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51FB41F000E9;
-	Tue,  1 Sep 2026 01:22:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788225767;
-	bh=Kuh0diH350mmX0hoYzwyiO/Y2NDLAM9orSUchM0wV3M=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Q1Wi6buPedWm8HByLDmLbcu4csEQvPZMqp5ucvJrDGM3AMJxzthOIIXR6rNngB6vE
-	 D0v0SXyi+yVCW5nMVbFX+E8NOh14uZ1LaxjmaKLht3q8PyYCLzuw9JMj7whXzvLQJD
-	 L4xyl+miV7XIpkCEssbxPMasHDagfPlJsvy6moXO4lX8jDWFmMm3qDf/l+LEYn0Ja8
-	 U+CdxPW9Ovgz8opakfAtrbPxtyh+tOa9hELGx7RveHHU0k/RL/yc8HUA7klmmbBLht
-	 nRftAa1MpV+g2U8uHythJVlFSzJ00m2QBS3PAoMnY42/zkIV5Z4DHHBCRRxgXuUcAf
-	 jqC0bouXZljBQ==
-Date: Tue, 1 Sep 2026 02:22:43 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Linmao Li <lilinmao@kylinos.cn>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Chris Morgan
- <macromorgan@hotmail.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH togreg v4 0/2] iio: imu: inv_icm42607: fix PM error
- handling
-Message-ID: <20260901022243.740760aa@jic23-huawei>
-In-Reply-To: <20260824035531.141429-1-lilinmao@kylinos.cn>
-References: <20260824035531.141429-1-lilinmao@kylinos.cn>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gUKKIDLB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788225826; x=1819761826;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=jvL8s4sRjuHKostLJ5wltrklxxOsv6ymzdGE1Jx0d8U=;
+  b=gUKKIDLBzEPH/pcBThdenheULofysbuS0V0STj2+KTCyxFrQ6AKVlyN2
+   K6Kl4yU3ZhC5FuM2G45Rjht0viXA62xzqSUSXL6f+rDQ4vQJu6jkXiVOd
+   fNAIGfrXdCPujSe4I44MmArJM1jTMu/CmlKB8yttkFEvO2fghZMHr07q0
+   wv8hwLi6wPEKTfr/MQR7A084d/tUTLl9G64gidN3PxdAIgGxfVsxGJ3BN
+   mivM28NSBLL4vjJ65hOhJY6j06TUMfLul94NeW1o9F/3SYdacYItdehJz
+   UB4MQnatAvVnszeH9YNjd7G5YSkO2lQ7IZgRg/i1aYIgrmIjuEHBA96us
+   g==;
+X-CSE-ConnectionGUID: hK3RV5lGSNqX9oBTGCSCZA==
+X-CSE-MsgGUID: IQFxeENPSFq35+H9qQCXqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="76190678"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="76190678"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 18:23:45 -0700
+X-CSE-ConnectionGUID: aplSqfJuQoeJ0IH9cB/tXg==
+X-CSE-MsgGUID: IypmSCzZQv+5Yb2qGacs4A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="272730977"
+Received: from tester.sh.intel.com ([10.112.106.126])
+  by orviesa004.jf.intel.com with ESMTP; 31 Aug 2026 18:23:43 -0700
+From: Tao Yu <tao1.yu@intel.com>
+To: tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com
+Cc: cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tao Yu <tao1.yu@intel.com>,
+	syzbot+bb2e19a1190a556c01b1@syzkaller.appspotmail.com
+Subject: [PATCH] cgroup: reject controller re-enable while css teardown is pending
+Date: Tue,  1 Sep 2026 09:23:42 +0800
+Message-Id: <20260901012342.855056-1-tao1.yu@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 24 Aug 2026 11:55:29 +0800
-Linmao Li <lilinmao@kylinos.cn> wrote:
+Writing cgroup.subtree_control currently calls cgroup_kn_lock_live() with
+drain_offline=true and can therefore block in cgroup_lock_and_drain_offline()
+before taking cgroup_mutex.
 
-> The recently queued ICM-42607 PM support has two error paths that can leave
-> the PM core's state inconsistent with the device.
-> 
-> Patch 1 propagates sensor shutdown failures from runtime suspend.  Patch 2
-> ensures that system resume restores runtime PM management on both of its
-> error paths, so that a failed resume does not leave runtime PM disabled for
-> good.
+After 1dffd95575eb ("cgroup: Defer kill_css_finish() in
+cgroup_apply_control_disable()"), disabling a controller can leave CSS_DYING
+csses behind until the subtree is fully drained. If userspace re-enables a
+controller before that teardown completes, the write path may wait
+indefinitely from kernfs context. syzbot reported this as hung tasks stuck in
+cgroup_subtree_control_write().
 
-These look fine to me, but I want input from Chris (and ideally some sanity
-check testing) before picking them up.  The dead chicken test that they
-don't active break operation when we don't see errors is probably enough
-given the analysis seems fine to me for what happens on error.
+The write side does not need to synchronously drain all pending teardowns. It
+only needs to avoid reusing controller state whose css teardown is still in
+flight. Blocking the user-visible write path in TASK_UNINTERRUPTIBLE is the
+wrong tradeoff here.
 
-Thanks,
+Stop draining offline csses from subtree_control and cgroup.type writes.
+Instead, reject the operation with -EBUSY if it would reuse a subsystem which
+still has dying csses in the target subtree. Limit the subtree_control check
+to controllers being newly enabled, and use the current subtree controller
+mask for cgroup.type because threaded conversion re-applies that state.
 
-Jonathan
+This preserves the asynchronous teardown model, avoids hung writers in D
+state, and keeps the rejection scoped to the controllers that are actually
+racing with teardown.
 
-> 
-> Changes since v3:
-> - Patch 1: commit message expanded with the practical effect of the current
->   behaviour, the cost of propagating the error, and a description of the
->   recovery path that does not assume a particular regmap bus
->   implementation.  No code change.
-> - Patch 2: unchanged.
-> 
-> Neither patch was reproduced on hardware; both were found by code
-> inspection.  They were compile-tested with W=1 and checked with smatch.
-> 
-> Whether patch 1 is worth making is still a fair question - it trades a
-> possible idle power leak that may be cleared by a later successful access
-> for a runtime PM error state that needs an explicit reset.  The commit
-> message spells that out; happy to drop it if you would rather not take
-> that trade.
-> 
-> Linmao Li (2):
->   iio: imu: inv_icm42607: propagate runtime suspend errors
->   iio: imu: inv_icm42607: restore runtime PM on system resume errors
-> 
->  .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 38 ++++++++++++++-----
->  1 file changed, 29 insertions(+), 9 deletions(-)
-> 
-> 
-> base-commit: 350d1fb9204b13c5f95e511e98b8bcb47574d425
+Fixes: 1dffd95575eb ("cgroup: Defer kill_css_finish() in cgroup_apply_control_disable()")
+Reported-by: syzbot+bb2e19a1190a556c01b1@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=bb2e19a1190a556c01b1
+Signed-off-by: Tao Yu <tao1.yu@intel.com>
+---
+ kernel/cgroup/cgroup.c | 40 +++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 37 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index c3a12fee7528f..129a9b0752416 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -3356,6 +3356,20 @@ void cgroup_lock_and_drain_offline(struct cgroup *cgrp)
+ 	}
+ }
+ 
++static bool cgroup_has_dying_csses(struct cgroup *cgrp, u32 ss_mask)
++{
++	int ssid;
++
++	lockdep_assert_held(&cgroup_mutex);
++
++	for (ssid = 0; ssid < CGROUP_SUBSYS_COUNT; ssid++) {
++		if ((ss_mask & (1 << ssid)) && cgrp->nr_dying_subsys[ssid])
++			return true;
++	}
++
++	return false;
++}
++
+ /**
+  * cgroup_save_control - save control masks and dom_cgrp of a subtree
+  * @cgrp: root of the target subtree
+@@ -3649,7 +3663,7 @@ static ssize_t cgroup_subtree_control_write(struct kernfs_open_file *of,
+ 			return -EINVAL;
+ 	}
+ 
+-	cgrp = cgroup_kn_lock_live(of->kn, true);
++	cgrp = cgroup_kn_lock_live(of->kn, false);
+ 	if (!cgrp)
+ 		return -ENODEV;
+ 
+@@ -3689,6 +3703,17 @@ static ssize_t cgroup_subtree_control_write(struct kernfs_open_file *of,
+ 	if (ret)
+ 		goto out_unlock;
+ 
++	/*
++	 * Disabled controllers are offlined asynchronously. Don't sleep here
++	 * waiting for them to drain while holding the kernfs write context.
++	 * Report the in-flight teardown and let userspace retry once the dying
++	 * csses have gone away.
++	 */
++	if (enable && cgroup_has_dying_csses(cgrp, enable)) {
++		ret = -EBUSY;
++		goto out_unlock;
++	}
++
+ 	/* save and update control masks and prepare csses */
+ 	cgroup_save_control(cgrp);
+ 
+@@ -3788,14 +3813,23 @@ static ssize_t cgroup_type_write(struct kernfs_open_file *of, char *buf,
+ 	if (strcmp(strstrip(buf), "threaded"))
+ 		return -EINVAL;
+ 
+-	/* drain dying csses before we re-apply (threaded) subtree control */
+-	cgrp = cgroup_kn_lock_live(of->kn, true);
++	/*
++	 * Threaded conversion re-applies subtree control, so reject it while a
++	 * prior controller disable is still offlining csses in the subtree.
++	 */
++	cgrp = cgroup_kn_lock_live(of->kn, false);
+ 	if (!cgrp)
+ 		return -ENOENT;
+ 
++	if (cgroup_has_dying_csses(cgrp, cgrp->subtree_ss_mask)) {
++		ret = -EBUSY;
++		goto out_unlock;
++	}
++
+ 	/* threaded can only be enabled */
+ 	ret = cgroup_enable_threaded(cgrp);
+ 
++out_unlock:
+ 	cgroup_kn_unlock(of->kn);
+ 	return ret ?: nbytes;
+ }
+-- 
+2.34.1
 
