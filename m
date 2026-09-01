@@ -1,127 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9065478870;
-	Tue,  1 Sep 2026 10:05:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BAF47A0B5;
+	Tue,  1 Sep 2026 10:05:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788257152; cv=none; b=Bx44qMVQ94RM1xEj1AwoGHuICcb4FNxmVEKZMOjsAyUVT/adKZ5GOe8BhraEOjUQk6ltZM7ejEWLgH9tKOmOHpuvh6N0vX3xbDvpgnjVGnEJtlkucrwvBf+mDNJ0AMWedm0GKKUQ1piy71peRzx43GRVHi9oBuk3A3Bzl8TaKFc=
+	t=1788257153; cv=none; b=a2BFcbZ6K6B4wvXW/ZgS4OMc4/y+dbzGKsJaRJJa6K4lXu1Qj9LvZZnSxChOLwIhbexDuy8IjTKOWbfsywnQncOzh37ir6CR7SuBAnghkfetc0HPCMOcEgcFSuO1WrTvcvvduEHEjfjnrr/R7AHTrELLrZlY7A8b9D/DuiPDaNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788257152; c=relaxed/simple;
-	bh=CP2iDjjjM2LmDr+6QCKQ1dQlRgx9KRthcQlcKJm0aSg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Ot44GE1WSHIZajFWSU8TjOpYKT+kqfddJTllzX+K8yQ1OM82MA92fwWDSd+QNH+kBVkKWQWWZPea2X4adIdsD8TZS1tSQSG4FJxjuRJrXYHQshE+EaSirSepxpDCNHP8YjezqoHiYm4RPE+F++PttM0jurNNC2RRxE3V8b/e+ko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dQPaTAma; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788257153; c=relaxed/simple;
+	bh=l8OwivwiprVwwZWkmd3SDFzNiAnLNf8AzdgFwBcwQBk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iL89BnXOEzAdrQ/e7o9ZGB3X+mcTWOlard1/BA9IPGDJKK9TnEk3U6vye4oMBNFzNrs8j2TZcY1PG7GOZs4p4wJ0gityk6CLmVI/5iFRYIlToscmhgrGazQlCtaAprhnD3ra0LfiGqT90s4qipQmqEMYIF5UloE0cj523hvovPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VzWhgKev; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dQPaTAma"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A861F000E9;
-	Tue,  1 Sep 2026 10:05:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788257150;
-	bh=XDZ+ZClSMASP42h1TijFhfnc1qGMmcP7N0HWSwmjy1E=;
-	h=From:Subject:Date:To:Cc;
-	b=dQPaTAmaU2YT6/KypFrB2MGNyuFkBqANNPOZkZaMHYPPU0rh3A8NhdntgbgVevlPn
-	 Gm4Dl56xv2zENtxsXkMzZ9sLvsegWObLsxHAxvxZajERM2x/L9i+jLz+MWOzBRaQNY
-	 gV/uUFGCm8Gm6h377NqG4O9eBMdS8xIwyg3RKkwhlwhvwIDTemyw59AdXqxPFE3Cxt
-	 6dmTHwFYOBAGQGRu/6DutX03GpKTx3jNZywoijxESj3U1Amxnp2mWXp5RjQKYza337
-	 OuIvlzA9+ilZquNX8IN03tl1Ak/0bE0dkBQ+IvBGRZVEuif5Ru1PY2HhXo2dlHSfXr
-	 2FkA1EAchMWJw==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Subject: [PATCH v3 0/4] DWC3 link tunneling state reporting
-Date: Tue, 01 Sep 2026 12:05:42 +0200
-Message-Id: <20260901-topic-dwc3_tunneling_state-v3-0-22fdced8de55@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VzWhgKev"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEF541F00A3E;
+	Tue,  1 Sep 2026 10:05:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788257152;
+	bh=Svk6hP5veRrECYj44NtuHy8dmOCbayoJJx1K+oDLuhg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VzWhgKevYOLpNc+FxY5dSEcyMGkkmmp0sunD5Gh6v9QhffcpSYt2cIZ6boj0bEhPh
+	 +N0nJfx+oQrPuEPoPJ4Cbsbg3CCT4sdLDTcNBusChRzqOjMeCkrcpxncFBsjD8xJMv
+	 0N1WAgWZvB1ZyHt8J3pIVhbMDO5NFOwi6cd+CEIY=
+Date: Tue, 1 Sep 2026 12:05:48 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Tomasz Unger <tomasz.unger@yahoo.pl>
+Cc: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: greybus: use sysfs_emit instead of sprintf in
+ gbphy.c
+Message-ID: <2026090135-subplot-robbing-8da8@gregkh>
+References: <20260818-greybus-gbphy-sysfs-emit-v1-1-cfc81322e727.ref@yahoo.pl>
+ <20260818-greybus-gbphy-sysfs-emit-v1-1-cfc81322e727@yahoo.pl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NXQuCMBhG/4rsusnmd131PyJkvr7pQjdz0wrxv
- 7cZ0U1088CBh3MWYnCUaMghWMiIszRSKwfxLiDQCtUglbVjErEoYylLqNWDBFrfIS7tpBR2UjW
- lscIiTVlaFMCQC4yJEwwjXuRjk5/ObzZTdUWw3ugfrTRWj8+tPnP/+4TSf6GZU0YTIUQGMfAEq
- qM2JrxNogPd96Eb4ntz9DXm/L8xckb3S4pcsILz/Q/juq4vvAsg3i8BAAA=
-X-Change-ID: 20260504-topic-dwc3_tunneling_state-50588c0e1ae3
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Mathias Nyman <mathias.nyman@intel.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- usb4-upstream@oss.qualcomm.com, 
- Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>, 
- Mika Westerberg <mika.westerberg@linux.intel.com>, 
- Sven Peter <sven@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788257146; l=2784;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=CP2iDjjjM2LmDr+6QCKQ1dQlRgx9KRthcQlcKJm0aSg=;
- b=N5CgGSE/sCiIZu7jWNrRtdmACoFmtTlOg4qgU0pv6r1XT0/Q250j0GMpMpGxIwiPTNJHYUuVs
- H4ApmArh1K3DAbPoBpzIGraeX7JCdgRtuY3JFqfHo6Az+mBWPGzdu6L
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260818-greybus-gbphy-sysfs-emit-v1-1-cfc81322e727@yahoo.pl>
 
-Currently, retrieving the tunneled/native state of a running port is
-only possible on Intel XHCI hosts. This series extends that to CIO-
-capable DWC31 controllers (see [1]).
+On Tue, Aug 18, 2026 at 07:35:54PM +0200, Tomasz Unger wrote:
+> Per Documentation/filesystems/sysfs.rst, new implementations of
+> show() methods should only use sysfs_emit() or sysfs_emit_at()
+> when formatting the value to be returned to user space, since it
+> is aware of the sysfs PAGE_SIZE buffer and includes sanity checks
+> that sprintf() lacks.
+> 
+> Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+> ---
+> Verified with checkpatch.pl - no errors or warnings.
+> Compiled the gb-gbphy module successfully with CONFIG_GREYBUS=m
+> and CONFIG_GREYBUS_BRIDGED_PHY=m (both previously disabled).
+> Both greybus.ko and gb-gbphy.ko load without errors in a QEMU
+> environment (verified via insmod and lsmod). This confirms the
+> modules load cleanly but does not exercise the changed sysfs
+> show() code path, which would require an actual Greybus device
+> (or a userspace simulator such as gbsim) bound to the driver.
+> ---
+>  drivers/staging/greybus/gbphy.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/staging/greybus/gbphy.c b/drivers/staging/greybus/gbphy.c
+> index bdb0f5164a6f..bb9a5b538e6e 100644
+> --- a/drivers/staging/greybus/gbphy.c
+> +++ b/drivers/staging/greybus/gbphy.c
+> @@ -31,7 +31,7 @@ static ssize_t protocol_id_show(struct device *dev,
+>  {
+>  	struct gbphy_device *gbphy_dev = to_gbphy_dev(dev);
+>  
+> -	return sprintf(buf, "0x%02x\n", gbphy_dev->cport_desc->protocol_id);
+> +	return sysfs_emit(buf, "0x%02x\n", gbphy_dev->cport_desc->protocol_id);
+>  }
+>  static DEVICE_ATTR_RO(protocol_id);
+>  
+> 
+> ---
+> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+> change-id: 20260818-greybus-gbphy-sysfs-emit-69739912458e
+> 
+> Best regards,
+> --  
+> Tomasz Unger <tomasz.unger@yahoo.pl>
+> 
+> 
 
-Note that this patchset only results in the correct udev->tunnel_mode
-value being assigned. Creating the device links (which requires this
-information) between the USB4 router and the USB3 controller does not
-currently take place on DT-based platforms, but that will be amended
-in a follow-up patchset.
+Please see the archives for why this patch has been rejected in the
+past.
 
-Tested on a Qualcomm X1E80100 CRD board, with a (currently) out-of-tree
-set of drivers.
+thanks,
 
-[1] I'm not entirely sure about the DWC version range (particularly
-    wrt DWC32 and newer), so I limited it to a reasonable subset. I'll
-    happily amend that.
-
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
-Changes in v3:
-- Report USB_LINK_UNKNOWN instead of NATIVE if the DWC3 controller
-  seems not to support USB4
-- Cache the capability of reporting tunneling mode instead of checking
-  it every single time
-- Link to v2: https://patch.msgid.link/20260715-topic-dwc3_tunneling_state-v2-0-026487a08119@oss.qualcomm.com
-
-Changes in v2:
-- Add handling for XHCI v1.2's USB3 tunneling and PORTSC.TM for
-  platforms that advertise it (!!! UNTESTED !!!, I have no access to
-  HW that exposes this)
-- Prefer the aforementioned cap over custom implementations
-- Bail out of the DWC3-specific check if `usb4-host-interface` device
-  property is absent - hence this now depends on:
-  https://github.com/devicetree-org/dt-schema/pull/196
-
-- Link to v1: https://patch.msgid.link/20260505-topic-dwc3_tunneling_state-v1-0-4aaa6c3c14cb@oss.qualcomm.com
-
----
-Konrad Dybcio (4):
-      usb: xhci: debugfs: Expose the USB3 tunneling ext_cap register value
-      usb: xhci: Honor PORTSC.TM if valid
-      usb: xhci: Allow custom op for usb_link_tunnel_mode reporting
-      usb: dwc3: Notify XHCI core of tunneled status
-
- drivers/usb/dwc3/core.c          | 16 ++++++++++++++++
- drivers/usb/dwc3/core.h          | 18 ++++++++++++++++++
- drivers/usb/dwc3/host.c          | 12 ++++++++++++
- drivers/usb/host/xhci-debugfs.c  |  9 +++++++++
- drivers/usb/host/xhci-debugfs.h  |  2 ++
- drivers/usb/host/xhci-ext-caps.h |  4 ++++
- drivers/usb/host/xhci-hub.c      | 24 +++++++++++++++++++-----
- drivers/usb/host/xhci-plat.c     |  2 ++
- drivers/usb/host/xhci-plat.h     |  1 +
- drivers/usb/host/xhci-port.h     |  3 ++-
- drivers/usb/host/xhci.c          | 11 ++++++++++-
- drivers/usb/host/xhci.h          |  6 +++++-
- 12 files changed, 100 insertions(+), 8 deletions(-)
----
-base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
-change-id: 20260504-topic-dwc3_tunneling_state-50588c0e1ae3
-
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
+greg k-h
