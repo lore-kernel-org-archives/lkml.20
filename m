@@ -1,142 +1,253 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83A629BD8C
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:10:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E423A6EF1
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788264612; cv=none; b=WFAUNsnMpGdtDcq2vnJzhzVs7rcl5M4++OkKB16Z54MeSVWYlk2K1++obEptrp+N1za4dp36Krjyg2eS9GHFju6QuUI1oily3yeqH6w9QgSzoOa2TujgY+8Nkt6GjYf3yFkJS1kdKmpGZpb+RTIG4MzR6Wc+jmE7FmiRkoV2HoA=
+	t=1788264643; cv=none; b=PrhSt0P3w3w9CfG46grHa+oj3+dwyAXQlsWHc4Y918BePcn1hV2qgsLxFR5b4i1hMd2h2a6PdKsr2P0NTUiPb/zXibal2cqYpG0BxXjZYiRdT27T51kLsdqm2fbFdAmdDMWoBGw78vDpZ7gkUClqMGrwjgxFay929dcFFS11hSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788264612; c=relaxed/simple;
-	bh=pUAQhpIylhH03veS5v2pJ5187OFtExWloOWxSlrMTWg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Y6YbfXHyze760ul+NtkkLzCD9OOOHKavcxI+o2bXhmJqtGSquyUa+Vpibbk/P8tREeyG3dMR9qm6UuSI55XNQemGoF8v92d7ahVCXh8OgHWaxwsM/ANgIYZzer/OeCx4df1TzGLGorhNiUSg5jqsXk+1pdDt2JtjXRCkorOacgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=f4QxjJXf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MlypWCcK; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788264643; c=relaxed/simple;
+	bh=taMfC/9JYWrQ3KY+WcFyZyTpGxZrggOfQV71kp6IMqA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=T+EznHKMqSHFHGwCCixeCdJLYM3Js61yR0mIHEdBq0mAFGyTHpDbOW7dsYV3MRIoWc+/V+KYX3mN9wZQxpWvLQAnf3PFrsbgRhxK9jqS/ImlQ3cEZVvOSDaGm61jG0Gjtvj4oNKIPynl6xEdOMXtyHLnOow24oTeQS8r61fKb9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=d93X6zqT; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="f4QxjJXf";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MlypWCcK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788264610;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8fwOGFXieQl813ckc/IUkjGRGe4UDJCJhqZtMy1/kp8=;
-	b=f4QxjJXf0UToeGWa4DjOpHdG72g6Su0JJR5GcowOUb527c1TeRb5W27eptul/mMsUJ80ls
-	fhp6MGBbEyJ903yB6AxCpY8DAkFowfu6UmqSgAPlJUYHfaPRsJMcC/FwhIV1Pls0HU7e5i
-	rTUs+DKhZ5/qiFqIzxrHPg3Hz3Wo9Dg=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-184-u78x63gzNJ6akwVGfdVc4g-1; Tue, 01 Sept 2026 08:10:08 -0400
-X-MC-Unique: u78x63gzNJ6akwVGfdVc4g-1
-X-Mimecast-MFC-AGG-ID: u78x63gzNJ6akwVGfdVc4g_1788264607
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-4843313047eso1830539f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:10:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788264607; x=1788869407; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8fwOGFXieQl813ckc/IUkjGRGe4UDJCJhqZtMy1/kp8=;
-        b=MlypWCcKSfGjZY9Eqt5KulJUqs2foa19Ey6tTuqKHzbs+XTIrn6Kff89D6VhhxGpwx
-         Pk+QaqxVW2hC/fK5ecRMrEC21EERvDF4Ah8c6IElLrmyTz0lYXuNYIkze1t+xHojUZ1q
-         UtgcDDEMTtEmutpZKssgUNSjrDU6dG42m/2PnUaJEMCXDo444Z0+SwccPKAFdp80Lu9G
-         +hnraQ4ZPgwgBep6EPjPnoxYv5gg5THpqr6GO1FXat17cBgpfCub+dF4Fj78sfeZvRl3
-         BFLNhNO7qPAPnAACXnfrZ6iO79oKZsBHFt3EP1d1XX1btxpP5qVQ9D+a7XmqlzxAmGNI
-         OnRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788264607; x=1788869407;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8fwOGFXieQl813ckc/IUkjGRGe4UDJCJhqZtMy1/kp8=;
-        b=erhcomIAsnl8RTSjVlIKGZDFc/CQ8VWHRF6RM01aif93OBEpT5XzPNFOpQl/PSwZIn
-         oWy9h9i3xSXjSOjlWv0IiMJY68Hu6SNGw0xnEM2DPUvluJLanHqjlmk263m+M8TZNhN2
-         5gOzgP0hG4YLRv11AfQuBtkNhojiGe7E/NZODT3JBLHIfJG1/GQLSgXgv7r/v7DRc3rJ
-         gGtuYLAIVUVstr3uUjED77y56UASQseARemC9IOYXzkToBHXWmrGk6J6NIEHt3OcaF7Y
-         QQ3+n/AkR7YunGG56fv4RnQ6PfJYbh+R4PXTSonp0s0kA4aAwepkflk5rk7mSndsHI5/
-         MYwA==
-X-Forwarded-Encrypted: i=1; AKwUvBzuBiGQ0cOov7LMGvuZjdSEn9QGIYB938waG5zB5IvqatSv0u7ze69sYAgTm0eKw1tipKtByGSopRiJQx4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXEaloRKUu3q8BI8qKlkyqSG9KrAOA8v/rdwvo17fvgYOc5j5V
-	/AFShP7HWs15OxmjQuSIgxo3y8DcZmrJ/PhMwL07LlvljxrXmad+1yuEf57pJFC04bFy76I40so
-	uHOrNZYLP+u7CgjHuNsspYXfZ2zVyGY+Ms6wxHsclhttiDgCXW9qbXDSWaiEO4wBeTA==
-X-Gm-Gg: AYBFou3eK8gRy4I0Na5O05kqrv1cvUcFrW6+so5616vyNvZb8Z1L/aXC5pcgV57DIvy
-	62CKXjnOStZFq+OYI2v7O/edNrDhis2u9X3IH0IyMxqNqIeVWozzdokmtFlQdGMcCeumsP6XZhA
-	rFBstEsSMelBity2glpuXmKkqU8SxmHY46t/1fIImI9dviippBZf5Udlz+hU9MeCAn25er/KOZb
-	2F4CpFgasEFk4mejQiLCUptTbkHUL/OtXui1KceoGNgVRuIwBDJPQglisXKJ9SKGSPF1OJPyzNO
-	fS+B9/dqj/mV+BNwxaORvm8zC8MmsJSEe4FT7tgGj6sMfFZgQ/EqD8hIHHAM6uNmQtOrNiqSHDv
-	fs75f46gv8w4AF4UoqQUY2p2RoaQyjh7M6PI4wQCq9RRC1MHXVCmpbYoqOjsUtkoYTCKswJziXw
-	==
-X-Received: by 2002:a05:6000:1ac5:b0:484:3785:210e with SMTP id ffacd0b85a97d-4844103cd55mr13006996f8f.25.1788264607272;
-        Tue, 01 Sep 2026 05:10:07 -0700 (PDT)
-X-Received: by 2002:a05:6000:1ac5:b0:484:3785:210e with SMTP id ffacd0b85a97d-4844103cd55mr13006886f8f.25.1788264606789;
-        Tue, 01 Sep 2026 05:10:06 -0700 (PDT)
-Received: from [192.168.188.218] (ip245-45-231-195.pool-bba.aruba.it. [195.231.45.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d36e9csm4881021f8f.3.2026.09.01.05.10.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 05:10:05 -0700 (PDT)
-Message-ID: <b8b6db7b-353d-4d6a-b0b6-3b5e1be22008@redhat.com>
-Date: Tue, 1 Sep 2026 14:10:04 +0200
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="d93X6zqT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1788264639;
+	bh=taMfC/9JYWrQ3KY+WcFyZyTpGxZrggOfQV71kp6IMqA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=d93X6zqT1Le2ZWfD65NkY89al4GXaS3q/nttcYMfSPOpT14ILPVh/8co/5zAnSj9t
+	 depeBihHbhR0MNv5N2CY2paH/UpgZWM4ajenFbAiU5YOchVuzp1zn49PRnIRHID4m2
+	 CCZU60M9NtVVGB5BNqUg5Bc7MNVrLiRhFKH0uTh74oxsIeeUdnlQmxoYsU/TK+7ggx
+	 d3qkJ7jBtUIEZmcxc527EMOwIe+r1ve4ZOq1ZlvHfB70bosQHsWxFDi1el99FQze/z
+	 rfhEa2DbIBk7n425FmgRl7SOLxis16Yfvf3tdkDzSGrbSbyftqfcz3Ffcg6zUrkEj5
+	 OHC+VL+bn0Eiw==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2CB0017E0180;
+	Tue, 01 Sep 2026 14:10:39 +0200 (CEST)
+Date: Tue, 1 Sep 2026 14:10:35 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 03/17] drm/panfrost: Move lock and modparam
+ initialisations into their subsystems
+Message-ID: <20260901141035.69b3ec92@fedora-21.home>
+In-Reply-To: <20260828-claude-fixes-v7-3-72a13b2c125d@collabora.com>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+	<20260828-claude-fixes-v7-3-72a13b2c125d@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v4] bnxt_en: Bound SW TPA IDs to prevent crashes
-To: Joe Damato <joe@dama.to>, netdev@vger.kernel.org,
- Michael Chan <michael.chan@broadcom.com>,
- Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
- Rukhsana Ansari <rukhsana.ansari@broadcom.com>, horms@kernel.org,
- colin.winegarden@broadcom.com, linux-kernel@vger.kernel.org,
- raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
-References: <20260828190900.1767611-1-joe@dama.to>
- <1c87458d-7d76-4da4-9981-51756cef391b@redhat.com>
- <apa9qofhuatqGTra@devvm20253.cco0.facebook.com>
-From: Paolo Abeni <pabeni@redhat.com>
-Content-Language: en-US
-In-Reply-To: <apa9qofhuatqGTra@devvm20253.cco0.facebook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 9/1/26 1:57 PM, Joe Damato wrote:
-> On Tue, Sep 01, 2026 at 10:16:54AM +0200, Paolo Abeni wrote:
->> On 8/28/26 9:08 PM, Joe Damato wrote:
->>>   - Moved bp->max_tpa_roundup_size init out of the early return path and
->>>     documented that TPA is unsupported there, as suggested by Michael.
->>
->> Clashiko quite convincingly elaborates that the above is not enough:
->>
->> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
->>
->> Could you please have a look?
-[...]
-> 3.) "The new assignment sits after the max_tpa_v2 == 0 early return, so on a P5+
-> device whose firmware reports max_aggs_supported == 0, does
-> bp->max_tpa_roundup_size stay 0 while BNXT_FLAG_TPA is set? ..."
-> 
-> Michael commented in the v3 that this is a false positive, hence why I changed
-> the code from what it was in the v3 to this.
+On Fri, 28 Aug 2026 21:56:43 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-This is the comment I referred to.
+> The device init function feels a bit cluttered with things that should be
+> done in the specific subsystems where those locks and lists are being
+> used. Same goes for module parameters, it's best to limit them to the
+> subsystems where they're relevant.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-AFAICS the problem is that the driver sets
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-	bp->dev->hw_features |= NETIF_F_LRO;
+It would also be good to have opaque structs for sub-components instead
+stuffing everything in panthor_device, but that can wait.
 
-regardless of the supported capabilities, and that seams to disagree
-with Michael.
-
-/P
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c       | 10 ----------
+>  drivers/gpu/drm/panfrost/panfrost_drv.c          |  7 -------
+>  drivers/gpu/drm/panfrost/panfrost_drv.h          | 13 -------------
+>  drivers/gpu/drm/panfrost/panfrost_gem.c          |  9 ++++++++-
+>  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  3 +++
+>  drivers/gpu/drm/panfrost/panfrost_gpu.c          |  2 ++
+>  drivers/gpu/drm/panfrost/panfrost_job.c          |  1 +
+>  drivers/gpu/drm/panfrost/panfrost_mmu.c          |  3 +++
+>  8 files changed, 17 insertions(+), 31 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index d2d2830f11a7..7daa2143f3c4 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -223,16 +223,6 @@ int panfrost_device_init(struct panfrost_device *pfd=
+ev)
+> =20
+>  	pfdev->coherent =3D device_get_dma_attr(pfdev->base.dev) =3D=3D DEV_DMA=
+_COHERENT;
+> =20
+> -	mutex_init(&pfdev->shrinker_lock);
+> -	INIT_LIST_HEAD(&pfdev->shrinker_list);
+> -
+> -	mutex_init(&pfdev->sched_lock);
+> -	INIT_LIST_HEAD(&pfdev->as_lru_list);
+> -
+> -	spin_lock_init(&pfdev->as_lock);
+> -
+> -	spin_lock_init(&pfdev->cycle_counter.lock);
+> -
+>  #ifdef CONFIG_DEBUG_FS
+>  	mutex_init(&pfdev->debugfs.gems_lock);
+>  	INIT_LIST_HEAD(&pfdev->debugfs.gems_list);
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index 80996e311a9d..ec8c1c08e147 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -21,7 +21,6 @@
+>  #include <drm/drm_utils.h>
+> =20
+>  #include "panfrost_device.h"
+> -#include "panfrost_drv.h"
+>  #include "panfrost_gem.h"
+>  #include "panfrost_mmu.h"
+>  #include "panfrost_job.h"
+> @@ -955,12 +954,6 @@ static const struct drm_driver panfrost_drm_driver =
+=3D {
+>  #endif
+>  };
+> =20
+> -#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+> -bool panfrost_transparent_hugepage =3D true;
+> -module_param_named(transparent_hugepage, panfrost_transparent_hugepage, =
+bool, 0400);
+> -MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount poin=
+t with Transparent Hugepage enabled (true =3D default)");
+> -#endif
+> -
+>  static int panfrost_probe(struct platform_device *pdev)
+>  {
+>  	struct panfrost_device *pfdev;
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.h
+> deleted file mode 100644
+> index bac0c415d4da..000000000000
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.h
+> +++ /dev/null
+> @@ -1,13 +0,0 @@
+> -/* SPDX-License-Identifier: GPL-2.0 or MIT */
+> -/* Copyright 2025 Amazon.com, Inc. or its affiliates */
+> -
+> -#ifndef __PANFROST_DRV_H__
+> -#define __PANFROST_DRV_H__
+> -
+> -#if IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
+> -extern bool panfrost_transparent_hugepage;
+> -#else
+> -#define panfrost_transparent_hugepage false
+> -#endif
+> -
+> -#endif
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_gem.c
+> index 7b993a089af2..15105b7f954b 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+> @@ -11,10 +11,17 @@
+>  #include <drm/panfrost_drm.h>
+>  #include <drm/drm_print.h>
+>  #include "panfrost_device.h"
+> -#include "panfrost_drv.h"
+>  #include "panfrost_gem.h"
+>  #include "panfrost_mmu.h"
+> =20
+> +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+> +bool panfrost_transparent_hugepage =3D true;
+> +module_param_named(transparent_hugepage, panfrost_transparent_hugepage, =
+bool, 0400);
+> +MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount poin=
+t with Transparent Hugepage enabled (true =3D default)");
+> +#else
+> +#define panfrost_transparent_hugepage false
+> +#endif
+> +
+>  int panfrost_gem_init(struct panfrost_device *pfdev)
+>  {
+>  	int err;
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/g=
+pu/drm/panfrost/panfrost_gem_shrinker.c
+> index fefae87535d6..72cd7a165e6d 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> @@ -97,6 +97,9 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, s=
+truct shrink_control *sc)
+>   */
+>  int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
+>  {
+> +	mutex_init(&pfdev->shrinker_lock);
+> +	INIT_LIST_HEAD(&pfdev->shrinker_list);
+> +
+>  	pfdev->shrinker =3D shrinker_alloc(0, "drm-panfrost");
+>  	if (!pfdev->shrinker)
+>  		return -ENOMEM;
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_gpu.c
+> index 7d555e63e21a..8a15ccce08e9 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+> @@ -516,6 +516,8 @@ int panfrost_gpu_init(struct panfrost_device *pfdev)
+>  {
+>  	int err;
+> =20
+> +	spin_lock_init(&pfdev->cycle_counter.lock);
+> +
+>  	err =3D panfrost_gpu_soft_reset(pfdev);
+>  	if (err)
+>  		return err;
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_job.c
+> index 2d12b83e900a..6f920fd0fc4e 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+> @@ -873,6 +873,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
+> =20
+>  	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
+>  	spin_lock_init(&js->job_lock);
+> +	mutex_init(&pfdev->sched_lock);
+> =20
+>  	js->irq =3D platform_get_irq_byname(to_platform_device(pfdev->base.dev)=
+, "job");
+>  	if (js->irq < 0)
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_mmu.c
+> index 4a3162c3b659..5c393ed6e310 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+> @@ -955,6 +955,9 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
+>  {
+>  	int err;
+> =20
+> +	INIT_LIST_HEAD(&pfdev->as_lru_list);
+> +	spin_lock_init(&pfdev->as_lock);
+> +
+>  	pfdev->mmu_irq =3D platform_get_irq_byname(to_platform_device(pfdev->ba=
+se.dev), "mmu");
+>  	if (pfdev->mmu_irq < 0)
+>  		return pfdev->mmu_irq;
+>=20
 
