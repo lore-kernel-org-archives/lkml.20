@@ -1,77 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C08243B6CB;
-	Tue,  1 Sep 2026 13:43:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CDC47D94E;
+	Tue,  1 Sep 2026 13:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270231; cv=none; b=rTpmmgFJKBiyDOa9uTRKpEZ4mk2d/d/7zCWau50XU4x/oq7Am4YGBpgcBYi2WU952nw1TSo6zFxgxuhH66sBM4n5L2xwQUt7gnyG6POdREoE4qEjy7trgRiaAUsS5NTnKfs4xqZ99NYGrIUzCpGlDFT3b3fKuBY+V/pFPRT8z2k=
+	t=1788270250; cv=none; b=jz2tfmigA5RZRojverGddI9lDaNPJdKG3FQr8gJAyxJAydwjnpmNXfK3ZYfc8LpV/qgZwt9mCUgs6nrMWjffI2XyYWp7M2nJVWsyofVZbB8EG/RBH8e9+d7wI0o1EcNqJ/OFnRNHswL9xAwHRnwvYB6Ih+H/pIFyGNYp4R2+H6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270231; c=relaxed/simple;
-	bh=LEoW5De6xHLsSe/uCIq6HrCWbNSoaNSoSpqWQUgw9GM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=tbwyD2rz69fbP4jFa3ldVeq7xogrekrVcZm/7rzeGJX7VyOu10Q0PPU46kdL9PJwnalNTTWcw+dghlXzkBqZMLUejQ5sNcCq+bFWCfh3saX17DlYkbIWlFX/VGOdhL/6StaOf7vDNN1fS0TXRO+KTE3+3q+swTPvlqqwRXEOCrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BByjt9G6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788270250; c=relaxed/simple;
+	bh=HE1GNz2P/zEMdb39s2eVHSxXkOtmNPJqtjy9vPgKLM8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=R7MaG1TJxFccevPiqUTsYYbl7Si7s1hif4BS5qxqp14dGmBu7XOvbhMOX0DyC0bA1J8xRLFz4KBPEVVpowW1sIH0ukQz/knL7DZhuQ+xfYVMOMlYkj2zS1oNDMKwtV48dcUmD8b1vY+ROQtiiRc0JtYig1Ph8u1Ugpn0cWia6eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JwlcqDQX; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BByjt9G6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8290A1F000E9;
-	Tue,  1 Sep 2026 13:43:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788270230;
-	bh=jqd0CX0Nkl+CnHnFS7gfwjuxBHVYyqRS+bksVWYn0mo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=BByjt9G6LpgIqg6FR6UTXIy95Cm0JnoU/sUSSZq9MfrPzuUSYUoPzUiMtQpX8H5kq
-	 TERs8pL80h5DlHewsL0EQ0YVHmFnDIU5KywLVS2iY2RQAQSM2lDpUwEm1OjQd3NlUU
-	 k42NlGAGTQn6XcpKlgpWGz9gMjibfEDxp/n1VwlHzQSfcM6hocCYZa+yFwLmvFOD9g
-	 PIDBIOf6qyE91IQ3OPNNpDzamvm5TVnjsNRJ5c9ZcjbUsWgqxvnhFhrj7/DqCEOHiB
-	 MRvk1Gu1HY/lCbQYG5YryLsSkpjLd9wSWJv/8HTL6A8UUXH+UnYgkm9+bnBVlCG8EQ
-	 3GKYGMcbQyYAw==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Boqun Feng <boqun@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- linux-tip-commits@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH] locking: Revert switching guards to
- _irq_{disable,enable}()
-In-Reply-To: <apV2iSFXlc3XY7Wk@tardis.local>
-References: <apBrZuxU8bmCgG8h@tardis.local> <87bjanfmzz.ffs@fw13>
- <apCS3T63WUxHd1GH@tardis.local> <87wltbdvmd.ffs@fw13>
- <87mru5et6r.ffs@fw13> <apNtQWqOgwF5_Ctq@tardis.local>
- <apRJzVbMl-hj-otX@tardis.local> <87v78rcrf9.ffs@fw13>
- <apSfObo_6Ji5HA7E@tardis.local> <87jyp6d2ut.ffs@fw13>
- <apV2iSFXlc3XY7Wk@tardis.local>
-Date: Tue, 01 Sep 2026 15:43:47 +0200
-Message-ID: <87tso9axyk.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JwlcqDQX"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681DW9mi2743914;
+	Tue, 1 Sep 2026 13:44:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=g0m2tq3AyKuEyDrwOt+EOm
+	hO6V2k6IyM+A8prQDi5AY=; b=JwlcqDQX1eeMP5Q+zocuIl1M7DepdiLOVvFKXD
+	ecHF6udW11Q53ixPX14uPp8exjkpCCUhleWDQTmNhspE/nTmAohreUAmQAn2Vq5h
+	aB2FJwN/MjhMRZ71d+Rlwg+EG7Cg98uDyDWJ0e+s+ZvmEI8OI1jQsUZP9AQDnn5D
+	DWhusAZKrBDpJqkE9kMa812uMbFIZA0LJZ/Y6mUOyEUbpNUdtVrj1L4rDt2lnRBu
+	0F0tOc6LCE8ZCdCs1r4RwGYZavAtdLOAG2CX73an9gJ3LT+ub5Iu5zd5HHZQyFb8
+	p3KlHxD/RLfpX4jQFYWf6vceAm0uZ2F4Q4wNShhI8CDIr2Iw==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdp7caqaf-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 01 Sep 2026 13:44:06 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 681Di31w800679;
+	Tue, 1 Sep 2026 13:44:03 GMT
+Received: from hu-akdwived-hyd.qualcomm.com (hu-akdwived-hyd.qualcomm.com [10.213.97.219])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 681Di3gx800644;
+	Tue, 01 Sep 2026 13:44:03 +0000 (GMT)
+From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+Subject: [PATCH 0/3] Add support for Talos Lyra EVK board
+Date: Tue, 01 Sep 2026 19:14:00 +0530
+Message-Id: <20260901-lyra_upstreaming-v1-0-e3a76dc9e21c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKHWlmoC/yXMQQ6CQAxA0auQrpmk0wUgVzGGjGPBGhxJCwZDu
+ DujLt/i/w2MVdigLTZQfovJK2X4soB4D2lgJ7dsIKQKT+jd+NHQLZPNyuEpaXBNTdhgJI89Qc4
+ m5V7W3/J8+duW64Pj/P3Avh+ObqG7dAAAAA==
+X-Change-ID: 20260901-lyra_upstreaming-872080c210f2
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
+        Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>,
+        Monish Chunara <quic_mchunara@quicinc.com>,
+        Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
+        Sayali Lokhande <sayalil@qti.qualcomm.com>,
+        Akash Kumar <akakum@qti.qualcomm.com>,
+        Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
+        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=OcyoyBTY c=1 sm=1 tr=0 ts=6a96d6a7 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=ny4UbMpTb884Vw1YWsMA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: eUAPt3D2de3zsUu3IHxoTL3HYZ0nPIA3
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDEyMiBTYWx0ZWRfXxR3+61alGO+z
+ XnRrXnTNCD5o/2JgPT3HDUVMzjVT1PTRqEph4D4RkP+G1TxIbG2rWNOOVpGqB5rBpvOAL9WX0qJ
+ 08zj2nZ1DyuxUpk6lBnEqR8N4phKsrs=
+X-Proofpoint-GUID: eUAPt3D2de3zsUu3IHxoTL3HYZ0nPIA3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDEyMiBTYWx0ZWRfX8UN3kYXjp1nI
+ TW9+1YWbC+F1jPCfYKHJs+zhCO7qpNkNl032o7iSqEQ6sB+c1xdQmsueUhxSK4SW9kHx2VZSYYH
+ Cqj3kNdyCvdfJrp6ObFfMeng4MlAYaVQwfG1e+iQm0u8CGGMr4HPM948IbzW+bgN62eyBPI09oU
+ T1Ww+/tWsdBU2RjdmTchF703uETlGpwOxcTNw/leSfRqlyfYXbXr13BvFAhQTUGFNZM5KMzPZuv
+ xusm0CHr89aAdXeGxpUEsjXLB1hqgR9WlG31ETJEcT3wloG1p9VQ5qyK6tQxD79bdz6gBW5Yu2d
+ KkIyVc2WTKF/RJxjK3rfJxRJU8pJb2TItKd7NT9tLQT3qZFujMwPF44uWe3wzlCDG6Y5sR76iY2
+ ig/+sN043S5XHkJcmaHsn5GozoacQ3amL3pyByLPKJTFPsJbQPSnBYEzzWUubk6pudXMwuva+eq
+ duu8dDD3d1U4xwhXOkw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_03,2026-09-01_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ impostorscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010122
 
-> On Mon, Aug 31, 2026 at 12:02:50PM +0200, Thomas Gleixner wrote:
-> Right, that's why I thought fully revert on commit e901c1510e24 might
-> not be needed.
+This series adds initial device tree support for the Talos Lyra EVK,
+a QCS615-based System on Module (SoM) paired with a common carrier board.
 
-It's gone already and as I told you before the reason is that the issues
-were not restricted to the ordering parts v.s. count/hardware and the
-fallout in the softirq code. The whole issue with nested unlock/lock
-inside a guard are not solved by reordering local_interrupt_disable().
-Not to talk about the lack of proper debug features for it.
+The Talos Lyra SoM is a compact compute module integrating the QCS615 SoC,
+PMICs, memory, and essential connectivity. It is designed to be paired with
+multiple carrier boards to support different use cases.
 
-> And if PREEMPT_COUNT_IRQFLAGS=y is the future (i.e. it'll be always y),
-> then we will likely have local_interrupt_{en,dis}able() (or a different
-> name) as a general API for everyone. So the API (and its semantics) is
-> not Rust-specific considering the future direction. Hence previously I
-> said that we can move them to Rust only but seems a bit unnecessary to
-> me.
+Talos Lyra is a distinct SoM revision of the existing Talos EVK SoM. The
+key differences are:
+  - Adds Apache (Lite-on-Module) WLAN on SoC Card. 
+  - Removes SPI-attached CAN transceiver module.
+  - SDC2 Supported SDIO based WLAN on existing Talos SoM, while now it is
+    used for SD card connector only.
 
-No. We need a proper strategy to pull that off and not exposing the
-functionality and the name right now outside of Rust makes that way
-simpler. Changing Rust is one thing, chasing down a pile of random use
-cases which crept in _before_ the design and strategy is settled is a
-completely different story.
+This series includes:
+  - dt-bindings for the Talos Lyra EVK board.
+  - Talos Lyra SoM DTSI with PMIC, regulators, storage (UFS/SD),
+    QUPv3 instances, ADSP/CDSP remoteprocs, and GPU definitions.
+  - Talos Lyra EVK board DTS enabling DisplayPort, GPIO expanders,
+    SPI-attached TPM (ST33), and USB on the carrier board.
 
-Thanks,
+Note: The WLAN node is not included in this series and will be posted
+as a follow-up.
 
-        tglx
+Signed-off-by: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+---
+Avaneesh Kumar Dwivedi (3):
+      dt-bindings: arm: qcom: Add Talos Lyra EVK board
+      arm64: dts: qcom: Add Talos Lyra EVK SoM platform
+      arm64: dts: qcom: Add Talos Lyra EVK board
+
+ Documentation/devicetree/bindings/arm/qcom.yaml  |   7 +
+ arch/arm64/boot/dts/qcom/Makefile                |   1 +
+ arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi | 282 +++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/talos-lyra-evk.dts      | 137 +++++++++++
+ 4 files changed, 427 insertions(+)
+---
+base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
+change-id: 20260901-lyra_upstreaming-872080c210f2
+
+Best regards,
+--  
+Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+
