@@ -1,99 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22AB247CC75;
-	Tue,  1 Sep 2026 12:20:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 445313BA246;
+	Tue,  1 Sep 2026 12:21:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788265235; cv=none; b=otc9MLVv7Onba48/AHKcQTCbHHeAqnZ6nsCXewGtqm2BnUXbMN3476+QDhffNpQqO+CKnIeWT8LGQ0ikdqiSgoWN235/wij6SCC2/kNcIqDEXF1gf8z4naFA0ZkirVfdoWUnKScnj5dqJeu7+ZrhUC0NPskndoL+4JOcjBw1Ris=
+	t=1788265319; cv=none; b=fvaZMihllGD2ZdZzFlbaHyDgm8HiHCu8J1ew4sFgdPDZx4hxasdWAHtZCucAHSRWGnbwC7jZVoJViGqTT509hDXAtYd+sGJ88Jy8jOWgkUtUWQXNdsOfNlXcNo70NIE/BiWOqj7KaWCo3yuwRT1eHSVho3zpeQttUQhAqBOI6Pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788265235; c=relaxed/simple;
-	bh=Ms5yUYYVIUCMr7+Dx214kheiE7jKpBdWV1rFqMcG+C0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BB78j5yoe0zeIy8lEXyA3SXddm03SINcKNt7hOqwkpkPHAOc8Ms68jUL476Ur6L5nbE3t+egElockKeak40cg1tEB00WXlSVBCOOEJJdyKkO1+mMUU8X+rAg30c/Mp0dO3SxYM+nvyrJ6v2KRuTRuWudXVlBvrnWKvlpyy/3EEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XzVCDtES; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788265319; c=relaxed/simple;
+	bh=GTAV1btrciy8QWORbwi47W3ulx/1ZieXdXfDbZrZxsk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IInOFpHSLHpHcpifuEGX0j0lFArLgf9ePbsb3jfGWCnGo3xqVYTAj/OW79gQnXjpVjjA3RFeQjtn0uEVnkLuH+69GVeJwk42+xf7YXO3LKqxdehYDp/ELGJAaJRAV1UJQE/kqoAgRk+MO1Gy5Pu2f6B3EvghTNvlxaqkThRdDsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fTQWBEmy; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XzVCDtES"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD52B1F000E9;
-	Tue,  1 Sep 2026 12:20:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788265234;
-	bh=knqgEaQ3Nt/j1kgI3GiULCfkTBJyPDx6YekcweuXbC0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XzVCDtES9FvYRwTEGc9GrdSsXkl6cVu5UXSDTum7lXO3LWqCLtN+EXaqrgdN6hcuP
-	 3OrxkBXK3RjdrJeeLI/0bMQBaJ+ENpefSMLaVjuocWSFwmZ6GMfxx7oDYWyv8N0zBE
-	 G45G+qxb1zudvuGlCeaVk39PiCS9L2W1Wcgfl5qkR8CtuoJXn906kmVLfHXv1XLXyq
-	 tCGGUrHonlTdH81NrBePv0pYG0mZO3XmPN42ul1VU0dzC8Y8ut+6TaO4jfz0wI1G9a
-	 1Hm3Q4YEeZnZ0BA7vHLJ6seqCgz4sMz34z4XDxfvDIEy5PrHcznAPOfFcyS+RhwLuR
-	 8Lmr/WfajOQFw==
-Date: Tue, 1 Sep 2026 14:20:21 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Peter Hunt <peter.hunt@opengear.com>
-Cc: loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com, 
-	johannes@sipsolutions.net, netdev@vger.kernel.org, mhi@lists.linux.dev, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v5 0/3] net: wwan: support DTR/RTS on AT ports
- via MHI IP_CTRL
-Message-ID: <zjafvc6ndpkmavogxwmqj5gpefpj4ymefn5obed6cvjot7wnwa@pmrfl5tixa72>
-References: <20260819224927.2274790-1-peter.hunt@opengear.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fTQWBEmy"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D8F351756;
+	Tue,  1 Sep 2026 05:21:51 -0700 (PDT)
+Received: from [192.168.178.6] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 68BBE3F85F;
+	Tue,  1 Sep 2026 05:21:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788265315; bh=GTAV1btrciy8QWORbwi47W3ulx/1ZieXdXfDbZrZxsk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=fTQWBEmyPuLjDIFIOCsXXBnQ6v5dqPWKi5VUWTFfbkkypETbpDop7Xbd0kaRH7EON
+	 /M7epJ8PP7scyLzzpTqJSvL6JOuikn59kEtFuQqudt4R8rEQinSRDadvhPXOKsqu6F
+	 9/2xo6l5xY0mb4wZQFr8kq6RHiln9PGVi2UeGvJs=
+Message-ID: <3368b089-32ce-4521-ab19-e37c9f029b8b@arm.com>
+Date: Tue, 1 Sep 2026 14:21:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260819224927.2274790-1-peter.hunt@opengear.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 05/12] sched/core: Try to use a preferred CPU in
+ is_cpu_allowed
+To: Vincent Guittot <vincent.guittot@linaro.org>,
+ Yury Norov <ynorov@nvidia.com>
+Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
+ mingo@kernel.org, peterz@infradead.org, juri.lelli@redhat.com,
+ yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
+ corbet@lwn.net, meted@linux.ibm.com, tglx@kernel.org,
+ gregkh@linuxfoundation.org, pbonzini@redhat.com, seanjc@google.com,
+ vschneid@redhat.com, huschle@linux.ibm.com, rostedt@goodmis.org,
+ maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com,
+ chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org,
+ arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com,
+ tj@kernel.org, tommaso.cucinotta@gmail.com, maz@kernel.org,
+ rafael@kernel.org, rdunlap@infradead.org, kernellwp@gmail.com,
+ linux-doc@vger.kernel.org, jgross@suse.com, virtualization@lists.linux.dev,
+ sunlightlinux@gmail.com
+References: <20260825103855.721013-1-sshegde@linux.ibm.com>
+ <20260825103855.721013-6-sshegde@linux.ibm.com>
+ <8262d2f9-9f2f-4821-8497-991d7c8448a3@arm.com> <apMziCV_8y0xeIBT@yury>
+ <53035ba4-53ec-4907-93b8-c8b957d1fa61@linux.ibm.com>
+ <CAKfTPtA5Bdw89hezn1wi_p0m0dJgJJ1GYg8H93PsvsMC4bVJxA@mail.gmail.com>
+ <apWxmL_brfi4fa4z@yury>
+ <CAKfTPtA4zmD=0Es2cXSHAodTZGLJPvv88s0_4QScp745PxFVMw@mail.gmail.com>
+Content-Language: en-GB
+From: Dietmar Eggemann <dietmar.eggemann@arm.com>
+In-Reply-To: <CAKfTPtA4zmD=0Es2cXSHAodTZGLJPvv88s0_4QScp745PxFVMw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 20, 2026 at 08:49:24AM +1000, Peter Hunt wrote:
-> Qualcomm/Sierra SDX55/SDX65 modems (e.g. EM9291) withhold unsolicited AT
-> result codes until the host asserts DTR.  The in-tree mhi_wwan_ctrl driver
-> exposed AT ports but never signalled DTR, so URCs never reached userspace.
+On 01.09.26 08:21, Vincent Guittot wrote:
+> On Mon, 31 Aug 2026 at 18:54, Yury Norov <ynorov@nvidia.com> wrote:
+>>
+>> On Mon, Aug 31, 2026 at 05:09:41PM +0200, Vincent Guittot wrote:
+>>
+>>>> Dietmar/Vincent,
+>>>> Do you think it makes sense to enable the driver on ARM64 now?
+>>>> Or you think it is better to delay it and once the feature is stable
+>>>> ARM ecosystem can enable it?
+>>>
+>>> It's always better to support all arch by default, unless something is
+>>> missing which is not the case here.
+>>
+>> ARM64 testing is obviously missed.
 > 
-> Patch 1 extends the wwan core with an optional ->dtr_rts(port, mdmbits) port
-> op.  The TIOCM bitmask state is tracked entirely in the wwan core; drivers
-> receive the full bitmask so they can drive DTR and RTS independently.  The
-> core raises DTR/RTS on first open of any AT port whose driver implements
-> ->dtr_rts and drops them on last close, mirroring TTY semantics.  In the
-> ioctl path mdmbits is re-read under data_lock inside ops_lock so the value
-> passed always reflects the committed state and concurrent ioctls are
-> correctly ordered.  wwan_remove_port() also de-asserts on hot-unplug.
-> 
-> Patch 2 enables the IP_CTRL MHI channel in the Sierra PCI table so that
-> the IP_CTRL driver (patch 3) is actually bound on those controllers.
-> 
-> Patch 3 adds a second mhi_driver that binds the IP_CTRL channel and
-> registers a ->dtr_rts op so that the wwan core's open/close DTR raise/drop
-> and userspace TIOCMSET calls both reach the modem.  A single recycled sink
-> buffer keeps the IP_CTRL DL ring live so the modem's transmit path does not
-> stall.  The existing AT/QMI/MBIM data path is untouched.
-> 
-> v4: https://lore.kernel.org/netdev/20260816121705.858013-1-peter.hunt@opengear.com/
-> 
-> v5:
-> - Change ->dtr_rts from bool to unsigned int mdmbits (patch 1 + 3): DTR and
->   RTS are now driven independently; fixes RTS inversion when TIOCMBIS/BIC
->   changed RTS with DTR in the opposite state
-> - Re-read mdmbits inside ops_lock in the ioctl path (patch 1): closes a
->   concurrent-ioctl ordering race where two racing TIOCM ioctls could leave
->   the modem line state inconsistent with TIOCMGET
-> - Add ->dtr_rts(port, 0) call in wwan_remove_port() (patch 1): ensures
->   DTR/RTS are de-asserted when a port is removed while an fd is still open
-> - Update kernel-doc to note ->dtr_rts is AT-only and describe mdmbits (patch 1)
-> - Pre-queue RX sink buffer in mhi_wwan_dtr_probe(), requeue in dl_xfer_cb
->   (patch 3): prevents IP_CTRL DL ring from running empty and stalling the
->   modem MHI transmit path
-> 
-> Peter Hunt (3):
->   net: wwan: core: propagate modem control signals to port drivers
->   bus: mhi: host: pci_generic: enumerate IP_CTRL channel for Sierra
->     EM919x/EM929x
+> But the cpumask is already available not like if you need to create a new one
 
-FYI, this patch got applied to MHI tree.
+IMHO, when testing the steal_governor on arm64 w/o
+`allow_mismatched_32bit_el0`, I wouldn't expect much difference in this
+respect compared to the architectures already tested.
 
-- Mani
+Also, AFAIK, `allow_mismatched_32bit_el0` was mainly relevant for
+Android devices up to Android 13 that supported 32-bit userspace, so I
+wouldn't expect it to be commonly enabled on recent devices.
 
--- 
-மணிவண்ணன் சதாசிவம்
+As Vincent pointed out, `task_cpu_possible_mask(p)` (which defaults to
+`cpu_possible_mask`) is already used in `kernel/sched/core.c` and
+`kernel/cgroup/cpuset.c` to support `allow_mismatched_32bit_el0`.
+
