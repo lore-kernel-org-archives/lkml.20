@@ -1,65 +1,65 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB1B360EEE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:33:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9C2357D1D
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:33:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788230014; cv=none; b=Tjnv9PhKQGPdADuqQ11mvoHX0vRO+ISEJjxn560GUFKfDYLuMJLhfDNfWD6VRFRb5zm3iD4IyjEZof1aX5CFl8sQxYgy57G/Wh+kzGmObaLlmGlMl4yYeyylHqXXq0kXws0K5y7QzgcbIShCWxgpXsOP1Baa69W6dJEg/2Ehc0M=
+	t=1788230016; cv=none; b=u4zvA4IWFViGEca2hQp7QPA6HyGwdLF6nlU1F7yfRBYhITBTSCYC38PX25tuu5KdXEiDhs7+JNyjKVeYxliLuc/gPvm/bwYQc0lG3FZhWbReq0STHVUF8/hxVLUYuDuU1U7QTZKPbIAb6yXEdiJ4FXaDqSWTLRuFrQY47RO2PEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788230014; c=relaxed/simple;
-	bh=7zvXv2dF/rt84/+WLBvB9wFqWDLTCFcd3fwCRPfFGGM=;
+	s=arc-20240116; t=1788230016; c=relaxed/simple;
+	bh=8urEIkOEgNg/W0WfryJCD+eWZUJUCTF8wpI/6h2nZwI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rEgXHEgulqWR61DQ/SbT47MbV5NYniRfPQvyDZhZBb53PeW4ZvIXyh8XL59AYcRYLXOFz1Bv6kWAtKSnd4NyILlEWNBt9UDMVtHY9ZtyQ4ev9YGFEnqgQmCcbRmPQFMjRan6ySAn5ROvZJ+JZFnoO+hwaPZtWGxt/Y9ocQLqdaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com; dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b=zWKekOV9; arc=none smtp.client-ip=209.85.215.175
+	 MIME-Version; b=WplPq3ZJJ506kfoV7mtAZ+jsHIrhxC/Rht3CknfrKA8ONuLYa01vD1aNwjN7M9ouLlskahsNmKQIJypRr2EJ3/dCMsO7XD1Yi2ANIQgA4COcBk1GmVl+EBkdXodxKcsLiBdnP0RgPJVRaC8VC+XsTykAqVeqK1nL3VwVs9IYOXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com; dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b=M5RsaTMq; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b="zWKekOV9"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-c9b373d5af0so3385618a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:33:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b="M5RsaTMq"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-853c07a76adso4436413b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:33:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=synaptics-corp-partner-google-com.20251104.gappssmtp.com; s=20251104; t=1788230011; x=1788834811; darn=vger.kernel.org;
+        d=synaptics-corp-partner-google-com.20251104.gappssmtp.com; s=20251104; t=1788230014; x=1788834814; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sXWMem3KWnB4LNCEveQl9AbeMx+XsbNgDR8AdypxgbU=;
-        b=zWKekOV9Jtgx7b7UtWT/0vTeiciq41iIsNkEroAWKVNx+hetSfUfQa4gDZgcIineyH
-         kPDRVJVvuAQbVMxWw1yKdtCFXymI117SBYak60hJalk5I2mJVT17+nF9mnNP45CalVz7
-         Tk6bpZM0/woWqsDEBxoTm5YjGzagYAwWd4fK13M9UO1+REtt+f0ON+y9YjCwlL5oEtm+
-         CgIbhkjJD06Os/VzDZYGdKhZWQKfF7Ek8SLVhe+TYDP9VnmW9beMKRNX30hLblbxXZx7
-         Iv7uhc8Q3gGICjaecLp5TJSD0k59RLukvz6DLGYh+oOckSOVpw0MI2MhQfm4KsVcR3rZ
-         j6WQ==
+        bh=Fj+fXTtu50ERwc8Uhij96oNyWIgOxu7AHbjsaE81Xyc=;
+        b=M5RsaTMqgK9nMKs3Dn9KF5gvzLPK9Jb5Qw/svqH6jK7k178EADKUYb79jYvty32VmY
+         UxbyGIZxwGiRzxf+rr94C5+D+MXxsiIlad98TbmSyH6XU4EiNQL7/rzHOVp7gsmNjNh3
+         wV8RODOwsHWvv+lTJu5IZJi3VGnoPnop+i58QJeMJffBlK3wjciqHdebbq6smF6IRY/Y
+         w9uhf8zRrgWBCbwiVC6/71MYYnD+Zy3t7BcheaWZ/Xe6MjdDWPyMn9npV0SOJV8JHIXz
+         LhIfRPdvvH0Cid5LUz9t/43V+2jLUxPxtvZ+UwxbdDOJ9yccdC8rsNSJZeuK6vu7vyVt
+         dQug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788230011; x=1788834811;
+        d=1e100.net; s=20251104; t=1788230014; x=1788834814;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sXWMem3KWnB4LNCEveQl9AbeMx+XsbNgDR8AdypxgbU=;
-        b=VEGhW7JVt6GyAQT1VUjOVm55My10zF7ijtlDV2KHmx3xF1aSf+d1+b3nQdBtsPQ7FR
-         gieEgpFBRMYbHZZcC8u9SUKegZH4R5Gk7+ugA7S3nkmm0xKxKipUNCQYs3yzDzX1MTso
-         uTGDdP6Xdl8ANex6NN5xPlHONUBfBzyUH1lts8dHVejBy51DVlbDj/sHYHSRJacWbruz
-         hND/f14nexh28B49LUSkn+u23t+UXnEXn71Hxfoqawf7Yvzh3p/c2B53KF6HchjxsZa6
-         xAMuTQZgyO59fE2bYJI3TzrFt3ZuBRgDdLNNFfS3cp7gnKLeEbW+y7Z1cfja5SJyJ5tf
-         Vdjg==
-X-Forwarded-Encrypted: i=1; AHgh+RoWo+7AyBx+m0uSRTeYRn2iG5CLqjTcZAmD2Qio0irwZRuI4n3/RYwDAhhzkZmQU3jKLlh4qGTubl4QsKU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcJvJCyu2eADVb8+EwIGERWdRba1I+TLNqhqqKqApvCznNi5YA
-	rjiMGbi8m8RrKpD/nDZHONDdyubiftWywEHWyFhRdTbuY8Kl/JLrhD+o5y4EaeIFoMM=
-X-Gm-Gg: AR+sD10T3/0uLpcOt/0TZPDLAhDoTY+cTyWGH2Mdi6zHwNzsZyhNCzaqyBU+UIwtTFv
-	7Abln1NQXHJSRk/6GWp911Dgh/VeIFr94RE6a93kcFMHMshlQBf1E11OSNWcTyXMeyv8eOtf7YC
-	4BUnHto57bPoWddned3+QtD8vUHo/LR5wnF86v0AhKj7wx1K9UgxT28r3vBvyJNFaTST/BcbQ+X
-	1ajDZ2emmwxFt8epU33xe8aaFncfTnX5xis5NWIYaq/+6azmtS/lwXiOjOXiM9vGgo+tsIjaQmp
-	c5hVz4jms3kLpIQmocGjjPul7MMPokilZSWeMayD1mpB7r+6dplQZijPutomW+uj/B6St7hcG9Z
-	Jmc1sxmFNr8Gp9QhnafBukxq370Q+1ZEdrMN7AD60ZMQC21TboiYlqJpkJqLXdD8UopfdXwzPlf
-	IkunBFlZay7pU6JDSxVHhyoyeFwVwdbivYJrKrqgzd2LNoK7m1z86iDMimknU+/uqJrMCjqp2tA
-	2pZrnPeMIojhQKzvYTJrG2I0x1JZ+qIB5Ldk1A0vKPuzaxv6nBuFzLX0EtUolGycMFkt4sO8VUa
-	Dnz+7A==
-X-Received: by 2002:a05:6a20:918c:b0:3d0:ba81:79b1 with SMTP id adf61e73a8af0-3d26277130fmr45092724637.0.1788230011288;
-        Mon, 31 Aug 2026 19:33:31 -0700 (PDT)
+        bh=Fj+fXTtu50ERwc8Uhij96oNyWIgOxu7AHbjsaE81Xyc=;
+        b=E+yih4AVGGB2FA8qKa1VA96S+7qkozHjiF64ivYeqTNCFCj7xhfh6MuneQZJPqTT7v
+         iC8SFWOjRswFOpV5BymkdE2Lu94zGnky1zDf7fQKHmpkSaXDOJA9TMEn4XFstHdjiSRt
+         FGdkOjKNCnRJ28+GXGapL2OKYxWOxJfJPdtJvnXkPErjUa8DZCn3VWPijCHFYlDbY+WL
+         rhwCM3tVxny7UMyBFCbdq4/a+74ds4qKUnZKAOMys7EiUN3wzgeSaZEWgXr2mBIxw8gV
+         6q15GFOhlnISBPt2nOxO09lC2SjArzRx73A2Twqf5STkuNZ4ISyiPxvRDDtVogtHELfm
+         0OSQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rrcn1q95FFOXhf4tJgEDJFbSl1qLNRDjuyzzB8G4uhbaumVnsQG8I5MleOoaf0bhj5hI++dIcbrE3dIcBs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mscGSnmw7JpXgKHU5ix4oujWzMOoOE4odRNVd2f1+0Oiw2J9aF
+	x6E9UCQONFFMarR8U3I9rJVOMN50xIB2Pq7ZkhsoWhF53j+IRuO+wfl7zb9L85vZNmU=
+X-Gm-Gg: AR+sD11Gg/hZnAhq5hs/maASqtFosmZXy47DZV11fpoE2WF1T/kaTqp9rqtMpG4jGVl
+	2Mw36Clo45WWsYRmrkno6PVeDxvcrgAVBqDSyuZNvutBAwk7c1OaeCCbZZdrx/NEGO4EYxiG3zl
+	Wr8NfmwbH/9zVhdhVypEEJ1rlWrxJh2lM3Wbzd6zdn4Smu6zM4CPEaDFg3CPElcOOlAzXHGi6dR
+	rwM+mhq6CUaHpxyY5Tol726RbFksnJx3XbV35VB3Av3+FmOsfbfkhu20i9iEROZhn07k9kYVohU
+	GKi7Yvx/M1HFLIWVIxBnAyFqICO7x15yKh4vEfxQ+0ldD5CG36L2M2WsEtwEaLKvBeVfR99LVRj
+	GIJ1R6S4K6MQNS30Vxg1CvEosJjmweNlt/plHG7L/5GRbUn3iS7tHDyWsy4e8UUv0oX8XCGoWiH
+	N7xdopg2tdnlOfR9vAfTqlWPQPWKTFgXVm0jcoFQam8MUe+gnUYfEE/erTMV3mEktncZLDt8hI6
+	55f99q4OEkIoCEBJhqLBuVIW5N3YrEw68+9d/1q8oNqQjcgrDqlPf6GrRUNoLuhKa7ScZAHFR3K
+	Fv7DJg==
+X-Received: by 2002:a05:6a21:6e88:b0:3c4:46ca:334b with SMTP id adf61e73a8af0-3d267b60e7emr52877351637.9.1788230014187;
+        Mon, 31 Aug 2026 19:33:34 -0700 (PDT)
 Received: from bt-tpe-server.synaptics-inc.local (59-124-75-166.hinet-ip.hinet.net. [59.124.75.166])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f3312270sm5005565a12.11.2026.08.31.19.33.27
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f3312270sm5005565a12.11.2026.08.31.19.33.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 19:33:29 -0700 (PDT)
+        Mon, 31 Aug 2026 19:33:33 -0700 (PDT)
 From: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
 To: linux-bluetooth@vger.kernel.org,
 	Marcel Holtmann <marcel@holtmann.org>,
@@ -71,9 +71,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-Subject: [PATCH v2 1/2] Bluetooth: dt-bindings: net: bluetooth: add BCM4384
-Date: Tue,  1 Sep 2026 10:32:59 +0800
-Message-Id: <20260901023300.1382808-2-andy.chang@synaptics.corp-partner.google.com>
+Subject: [PATCH v2 2/2] Bluetooth: btbcm: Add Synaptics 4384 chip support
+Date: Tue,  1 Sep 2026 10:33:00 +0800
+Message-Id: <20260901023300.1382808-3-andy.chang@synaptics.corp-partner.google.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260901023300.1382808-1-andy.chang@synaptics.corp-partner.google.com>
 References: <20260827110242.1203546-2-andy.chang@synaptics.corp-partner.google.com>
@@ -86,38 +86,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the brcm,bcm4384-bt compatible string to support the
-Synaptics BCM4384 Bluetooth controller.
+Add support for the Synaptics 4384 Bluetooth controller
+by adding the corresponding chip IDs.
 
-A fallback compatible is not suitable here because the BCM4384
-controller requires a dedicated firmware patch file (.hcd) matching
-its specific hardware ID and revision.
+Tested on the VIM3 platform. Verified that the controller initializes
+successfully and that firmware loading and basic Bluetooth operation
+work as expected.
 
-Falling back to an existing compatible would cause the driver to
-request the wrong firmware binary and fail the controller
-initialization.
+The VIM3 is a Khadas single-board computer that I used as the host
+platform for testing the BCM4384 Bluetooth controller.
 
 Signed-off-by: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-
 ---
-Changes in v2:
- - Add an explaination for why a fallback compatible is not suitable.
- 
- .../devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml        | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/bluetooth/btbcm.c   | 6 +++++-
+ drivers/bluetooth/hci_bcm.c | 1 +
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml b/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml
-index 95501e858e6f..612d21123aaa 100644
---- a/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml
-+++ b/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml
-@@ -31,6 +31,7 @@ properties:
-           - brcm,bcm43540-bt
-           - brcm,bcm4335a0
-           - brcm,bcm4349-bt
-+          - brcm,bcm4384-bt
-           - cypress,cyw4373a0-bt
-           - infineon,cyw55572-bt
+diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
+index 463d59890bef..63c4c788d9c4 100644
+--- a/drivers/bluetooth/btbcm.c
++++ b/drivers/bluetooth/btbcm.c
+@@ -31,6 +31,7 @@
+ #define BDADDR_BCM4334B0 (&(bdaddr_t) {{0x00, 0x00, 0x00, 0xb0, 0x34, 0x43}})
+ #define BDADDR_BCM4345C5 (&(bdaddr_t) {{0xac, 0x1f, 0x00, 0xc5, 0x45, 0x43}})
+ #define BDADDR_BCM43341B (&(bdaddr_t) {{0xac, 0x1f, 0x00, 0x1b, 0x34, 0x43}})
++#define BDADDR_BCM4384B0 (&(bdaddr_t) {{0x93, 0x76, 0x00, 0xb0, 0x84, 0x43}})
  
+ #define BCM_FW_NAME_LEN			64
+ #define BCM_FW_NAME_COUNT_MAX		4
+@@ -130,7 +131,8 @@ int btbcm_check_bdaddr(struct hci_dev *hdev)
+ 	    !bacmp(&bda->bdaddr, BDADDR_BCM4345C5) ||
+ 	    !bacmp(&bda->bdaddr, BDADDR_BCM43430A0) ||
+ 	    !bacmp(&bda->bdaddr, BDADDR_BCM43430A1) ||
+-	    !bacmp(&bda->bdaddr, BDADDR_BCM43341B)) {
++	    !bacmp(&bda->bdaddr, BDADDR_BCM43341B) ||
++	    !bacmp(&bda->bdaddr, BDADDR_BCM4384B0)) {
+ 		/* Try falling back to BDADDR EFI variable */
+ 		if (btbcm_set_bdaddr_from_efi(hdev) != 0) {
+ 			bt_dev_info(hdev, "BCM: Using default device address (%pMR)",
+@@ -514,6 +516,8 @@ static const struct bcm_subver_table bcm_uart_subver_table[] = {
+ 	{ 0x4106, "BCM4335A0"	},	/* 002.001.006 */
+ 	{ 0x410c, "BCM43430B0"	},	/* 002.001.012 */
+ 	{ 0x2119, "BCM4373A0"	},	/* 001.001.025 */
++	{ 0x2128, "BCM4384A0"	},	/* 001.001.040 */
++	{ 0x4119, "BCM4384B0"	},	/* 002.001.025 */
+ 	{ }
+ };
+ 
+diff --git a/drivers/bluetooth/hci_bcm.c b/drivers/bluetooth/hci_bcm.c
+index 9a103db7e355..e70b9f3fd968 100644
+--- a/drivers/bluetooth/hci_bcm.c
++++ b/drivers/bluetooth/hci_bcm.c
+@@ -1593,6 +1593,7 @@ static const struct of_device_id bcm_bluetooth_of_match[] = {
+ 	{ .compatible = "brcm,bcm4349-bt", .data = &bcm43438_device_data },
+ 	{ .compatible = "brcm,bcm43540-bt", .data = &bcm4354_device_data },
+ 	{ .compatible = "brcm,bcm4335a0" },
++	{ .compatible = "brcm,bcm4384-bt" },
+ 	{ .compatible = "cypress,cyw4373a0-bt", .data = &cyw4373a0_device_data },
+ 	{ .compatible = "infineon,cyw55572-bt", .data = &cyw55572_device_data },
+ 	{ },
 -- 
 2.25.1
 
