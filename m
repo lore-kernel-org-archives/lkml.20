@@ -1,125 +1,159 @@
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8902F3D3D11
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:39:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788273567; cv=pass; b=n72m5Arpf3cPFge/mnWjaf5Sw0hBctDnqdDyjDikgaduMKpz9lKQTbM9DjInhOkGfZVHvLgxx1ri/ew/rwJrt4w/aJ41Mijd8Ybr73txMz8PViNFymChXWVLyCJbXx+V7htnra66ZcBI6aW3Kss5b682yzhFt9JZ/7cCtMekhVw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788273567; c=relaxed/simple;
-	bh=ezB1u13ZiW2aWn0+EIDTWrRL1Wtrd/zkMqdzWSmMzUM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uRFj6JrmYizOKlyMhKJ+QhRhne1Q61ELMp7Y30+xiAZbAqlz0hfONGTivZencdc5mqPiSoLSZy6lvdocrPFV4WhCGH9EtT4PJbGck3cFTKnZJGBgecokG56COS2yYTG/1mgMx8jpX9a+f+BzxoqJy/aShhkPaiY83uQKI9k5LfM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=XJtt3x2i; arc=pass smtp.client-ip=209.85.208.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F95B3D9058
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788273574; cv=none; b=IEWAwl7QByThKvEoa7oMhSHOJrB2ELF7h2YWSDuSO8AcLzK4wFYQHKx9rQZF5SIJgHhhV/GXBLKgj2vD5rlb+l7iOGpymZupw3qe6QxoWkF3roXfSx8HX4p9RWj3G2WWD64SPOxM/BzhfTTxGF9uF7AOUKdPmb3Tz5O6RJpCL3U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788273574; c=relaxed/simple;
+	bh=PpjuOycMnvKcsr6i4JwrDRk3fLhhuojReIjxUw1zJuY=;
+	h=Subject:Date:Message-ID:From:To:Cc:Content-Type:MIME-Version; b=uG1sUd3re83FONKiQx+RHtv/wWvheEG5wuXgd8LjIMOcLQQFoTiO37/uw06gUEiA3VaP7Bj8RldeAdYLYyYGzJFXSXmIr8joiQNYlC69g3MDWDSnBOnUQssub8rURB+Rk14V98P9ggAvfhyd7b1QcwTyA5YvjIyURpcchkss9Fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E9o/nJgs; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="XJtt3x2i"
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a305310ddaso39302361fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:39:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788273563; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QdFYrnh0jxNlKmTaG5/QM1ly6+wfKRaQE+Lfow4KzdgbfrGDDgEMEm+Buqg7BSX+Dk
-         mnsn9K8kfrwJNAoidCcy9UJxpLvOZCeKxk+ot5vlZmMOT+BSnzbcrWafyPucazbCd+Yt
-         xLunQLUPEjwzQmxwT+0EixZ0lCkCwXRraM4rP1m7YfUnYLwhv7kYSvw074yGsExal7Ag
-         1yAR/xVphc1Wd9u2ZzbLbUlBHjfZohceeMdqTp4Vsoig9/5kLXHNFvJJdKFv/7+DpS+l
-         Gle5d1TFn7HUXZU2GiYRTk+ktuf6t11WwDfPgC2QumsiJGpI8gxjuC5GKxF38dguBdW/
-         wFkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4zXL6SZO7LbfgCv91B19FUnmIBBFOrbIlFHnTQGchwQ=;
-        fh=0w5mna54IwGprKOzpO9S7hQ1YunjdXLvFGk5cNfCH+k=;
-        b=kpcM+XJLdCjgYm7E+Md+/bR3GaZT7QWQsaa4YMPVdsW29zsmfA3ZjguUEIHSD03d9c
-         YBsO2p2zILu9YCtZAfZGRsnECR2YCNtziVnqBmQdt8+CjPv668rS7HwiOi/LACtEhhdq
-         nFpK5yeDLKo0dJsCNwnjtyASxOhR0k697MwOz2ZBXhzsoDaoLA2Ja0yDAf6Z0BuS7BgI
-         NDiw8ZRROqFxCc3b0E1Kt8bM5VKS/qH/P91rQTRN1YHIDxzWO5EhDa3pLb4/73iNqhwm
-         nx3frSAIAd+QiVsD9O7J3dZEdgmgCSZA+tQbSr99FJC+4aQg3SAGG1itwVzjDX0EiuQq
-         Nmew==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E9o/nJgs"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3964e480f76so1121844a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:39:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788273563; x=1788878363; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4zXL6SZO7LbfgCv91B19FUnmIBBFOrbIlFHnTQGchwQ=;
-        b=XJtt3x2iPSreqz/DeEMb3BZTiUTaSlYYV8BR7ylWi6OItGGYLVexHvdAKFsIGbj+ms
-         xRYZhgxhEtu8PuKR8cWElI1IBlXWLMdo3baBjJaTQSQ4KicTLCO4/A8vR3btW4cWH+ks
-         vQ1YKEcI+NjrPDxcdeedPTqizQEqDxabnhnmT/6BibD99ULm0uqMtEubLWkqBDEgRut4
-         XRvKjiDqQKKjxLXTG7f07GFkrYqn1taWY00kGq12aZmQPN0Z3OGFezAbx5hENMajNXVw
-         HDEATuekEhdHMoetDpaRRoJcP9e13gAsI81cWgu1HgyF5iS8nhZHcU4vNhNlyuFWDLbt
-         RzCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788273563; x=1788878363;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788273571; x=1788878371; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:cc:to:from
+         :message-id:date:subject:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4zXL6SZO7LbfgCv91B19FUnmIBBFOrbIlFHnTQGchwQ=;
-        b=WueXeQjYlorFSfHG5XYdNpbrcx1QZ7Zp7AFfqwHHntzkXquEv4hG4JqVJFK0zCx9jO
-         0Uy6X5+tEI/BgVfLbjVRYXa5NcQz0Ertbpfq9Pob8PjZZ0nMq4+4tcAzIGoKwTo1z61I
-         6Xs0G3Fr0jjg/PBfKNgT2+bDgydToy8SmER4VrYPDT0pQSjelZFcuWww/5FkusWP8Fng
-         OwUy3AXp3RnK6y1bjRfl9hZy+ScfvDPmm6B6keuyEAkJPC9tPzfAl23BxrNn7uqTmT9a
-         oGyT/XqMNQ7pFRGD0J54ZfSOrvw9WUpNn8MJ8Z8ywEMWRbOhJbIpfapCOxK85nxcRdiJ
-         O29A==
-X-Gm-Message-State: AFuF++l1tjZd1qDZpo21h5LMUzfvdOqlpmAmOEn9pFAg8eTmsPHvV6Xj
-	XRFuq4p4wyR2ViNI8Hhy+JgU16TuY12M74Ui3E+3NHwdjMcQsJ1dQkpjpdz8XJ4AVkxZRN/iB4Z
-	FDu/KfdHAiG/B2afV1KvQATqAmEXd8nWEIv63FllfeGjBe+3PnO4hPkQ=
-X-Gm-Gg: AYBFou3qRMXiUjkxEq62v6hkKRgrF998tEc56gyuDWiNl+TeunodzY3gl2lDAEsbBQc
-	psvVG3enLrB5pA2TOHX1qLi/q0sM2fp/AfOcZTXgHJeAsZbeVys3JDHeZLVRRMAMFm5SMq20mcL
-	MHY4t/k5tRl04AV11y/IHuDMqugUiLXIQQ1OLrSqdQnZRd9RTfZcm2RbxvPcbRnimnXKF7MelgI
-	FM0+4D8kMjfCxYPhHasPSaAH4qboH2B339FpIKpTbT/NCguB1YPk9qswVmrtN5GlmlFDAWEqAy+
-	TEb/I1qUMPHfJwA5uykHZodjwJg+A0FTzmHJ5b7o3D4ASL4fbpGrh5gEpeljAIRA6u0/566uq4f
-	adg==
-X-Received: by 2002:a05:651c:a0a:b0:3a3:405f:9668 with SMTP id
- 38308e7fff4ca-3a3405f992cmr12000371fa.8.1788273562981; Tue, 01 Sep 2026
- 07:39:22 -0700 (PDT)
+        bh=Sq8WERtPgYhkPbAu1lD9X5RHbMKk+hk5c82yqST5k6M=;
+        b=E9o/nJgsD3nmRXeyyKjwqPAgLLTLQvaEZKQSEcBx4xjzI/Mwd7nEWobbpTs8j45r9J
+         6GwHWhhDUDUHihgxEqSj6nMJ+bJYg2LD+tQ0hbTctzn0PxsppQ/pwuWH6g9GZwzGgibN
+         KFMxR5u4egf5ogmzCauuFrd+Hy102S7swgDWoBclVbmcc6W2SMYpk76LiKbJUZnPpqfc
+         VDTrG5mVKcNhz5Lm1wB4kamup/9xLpnY3e+8cCP0+AWVLPPJi7AJRoWI8fURef8cAZm9
+         LUr81ZC1mm9BtOURc5bVZDUhXhelAeJPA7EiVpNdfwMvmpnnZBakk3Li4hO5ExoN2u9J
+         azzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788273571; x=1788878371;
+        h=mime-version:content-transfer-encoding:content-type:cc:to:from
+         :message-id:date:subject:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Sq8WERtPgYhkPbAu1lD9X5RHbMKk+hk5c82yqST5k6M=;
+        b=bPh7M/d/fEWT856Ep7toaIDgBkxPjK/2VbpAfZOP3foyWlP4J2gLgq1MkarJJUHfpf
+         rZskK4ps2wgQgTCtAC7xTSMdT2+UIkxQSWGnN4UgEja+4+i8LiUeoyP2dWELSaBHdq9E
+         ivDSPiwiiEdt2XQ9ZJ905duPHa0+ZOsZwYJd9js1wK4L2m3amLCy4c98FATWWBiX/9n6
+         ohFl7QwWd7iH2F/j3XKa3XIhyQHkrrmfi5Ox+XuiQUQfa6AgwIJAG54iDxWNEVi8+PZ3
+         GTNAhjScvUy+rI12NZ4g1cORE7sFXsleJVQvHJHIgCrkv3e6nPn/ta7yhylGRRBQHG+b
+         i4wQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwN5dzoMeOUVuxPRL1tk5t+hTTMfS9ckYOeNwUwqt3/9NtG8OsLZ0iIWG+CUE/UhGhxZyTlja6PhB/MeM0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyBPAGBj1XeMMLRUjqvX8Sk4Tnq+KGfs/xXm4JQ+OETiUC1w4U
+	drQUYREQnMUWUrwZS4UdtH4Co6XfCMyj+U2w0sOkiG9Vlii2yFFXYFyi
+X-Gm-Gg: AYBFou0dJIm5Z51S8oR2o1MhXnaNpALF8Qh0H3+HhhQHecqOBPxfD7Fvlbdq1Ayk3zq
+	A7YO2f7qob9Ts+0TODplDG/ASP1YolYysWU85kCAJa0yaaUKI1epLEZDFPDQdV6C2sCohS/B6ah
+	EY4G4gLFifgWOUqabcJgk7QypuszTEaLVNDtg4yxDpsUef6vJMQbgqFC17EGz+UI/kCo+iG0tdy
+	/MKBwFMpTyc5muUn3rArEKaEZBrMlx94IMSnIxU73mbpSEuE/e3KlWpSM0dXnGApCaetxE38ntJ
+	/sWdrZXDKzJe64kiwXwRGAEIulu7YYkpJPs0887kgZyk0aP6n+zs8F3qbUjT89KC9io6nHczO+w
+	lF+SXSxtIEtAZ9Cao+fgUU/DCUI+PWI5gZxGXvWP2Hd2FY8CVb40exE025+G8hECqHV8ruqXlxG
+	SbyoDL8bHll1wRw0el3ut2sZSEMCu1wbGYY2/iMI1eojERb9087OOnv1wvV3wwCH/S1hEfi0Odf
+	qbe
+X-Received: by 2002:a17:90b:6c7:b0:396:6344:3b63 with SMTP id 98e67ed59e1d1-396d0e25905mr53255820a91.2.1788273570553;
+        Tue, 01 Sep 2026 07:39:30 -0700 (PDT)
+Received: from [192.168.71.146] ([240e:b8f:91e2:d400:ec2a:b15e:fef8:70a])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae0dfcd65sm59248a91.3.2026.09.01.07.39.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 07:39:29 -0700 (PDT)
+Subject:
+ [PATCH RFC 0/1] leds: add ASUS Aura SCSI driver for ROG NVMe enclosures
+Date: Tue, 01 Sep 2026 22:26:46 +0800
+Message-ID: <202609012200.RFC0.lhw@gmail.com>
+From: Liang Haowen <nbg2974@gmail.com>
+To: linux-leds@vger.kernel.org
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Martin K. Petersen <mkp@kernel.org>, linux-scsi@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Denis Benato <denis.benato@linux.dev>, Armin Wolf <W_Armin@gmx.de>,
+ Hans de Goede <hansg@kernel.org>,
+ Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831092118.124576-1-marco.crivellari@suse.com>
- <20260831092118.124576-2-marco.crivellari@suse.com> <20260831110721.2o3u-edi@linutronix.de>
-In-Reply-To: <20260831110721.2o3u-edi@linutronix.de>
-From: Marco Crivellari <marco.crivellari@suse.com>
-Date: Tue, 1 Sep 2026 16:39:11 +0200
-X-Gm-Features: AcwNN1XdNVMYFOSZMjCDjBBbWQv689CK9XwNG1dJn9Z6nd_mz_4j8iFMayB1rmg
-Message-ID: <CAAofZF4+es1uS=9wOEnrXZ54qhR9C6aHZxwXGLS65ZTzy3=00Q@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] doc: Replace dunticks-testing ocurrences with cpunoise
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Anna-Maria Behnsen <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Michal Hocko <mhocko@suse.com>, 
-	Valentin Schneider <vschneid@redhat.com>, Waiman Long <longman@redhat.com>, 
-	"Paul E. McKenney" <paulmck@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 1:07=E2=80=AFPM Sebastian Andrzej Siewior
-<bigeasy@linutronix.de> wrote:
->  [...]
-> > -- dynticks-testing does something similar to rtla-osnoise but in users=
-pace. It is available
-> > -  at git://git.kernel.org/pub/scm/linux/kernel/git/frederic/dynticks-t=
-esting.git
-> > +- cpunoise does something similar to rtla-osnoise but in userspace. It=
- is available
-> > +  at git://git.kernel.org/pub/scm/linux/kernel/git/frederic/cpunoise.g=
-it
->
-> We usually do https:// here ;)
->
-> Sebastian
 
-I will fix it, thanks! :-)
 
---
+Hello,
 
-Marco Crivellari
+this is the v1 I promised in the "Placement of ASUS Aura and
+platform/x86 ASUS files relocation" thread: the LED side of ASUS Aura
+RGB on ROG external NVMe enclosures, posted for review in drivers/leds
+as Armin suggested, and in line with the shared ASUS Aura interface
+Denis has been coordinating.
 
-SUSE Labs
+The hardware: ROG external NVMe enclosures (ROG STRIX Arion, USB
+0b05:1932) are plain USB mass-storage devices. They expose two mass
+storage interfaces (BOT and UAS) and no HID interface; the Aura LEDs
+hang off an ENE controller reached through vendor SCSI commands on the
+same LUN as the disk. The Arion has 4 independently addressable LEDs,
+verified on hardware.
+
+The interface: the driver registers a scsi_device_handler, matches by
+INQUIRY strings (vendor "ROG", model "ESD-S1C"), does not claim the
+sdev (sd keeps owning the disk), and exposes each LED as a multicolor
+LED class device, /sys/class/leds/asus-arion:led0 through led3.
+
+Protocol summary: a 16-byte vendor CDB (opcode 0xec, 'A' 'S'
+signature, register index, argument count in cdb[13]). MODE 0x8021
+(Static) must be written first in every sequence or the device ignores
+the whole sequence; colours are written to 0x8160 + 3 * led and
+0x8100 + 3 * led (3 bytes each, order R, B, G; both tables are written
+because firmware revisions pull from one or the other); APPLY 0x80a0
+takes 0x01 to apply and 0xaa to save, and only the save makes a change
+stick.
+
+A transport gotcha that seems worth wider visibility: the CDB cannot
+go through scsi_execute_cmd(), because it derives the command length
+from scsi_command_size(opcode), which maps vendor opcode 0xec to
+10 bytes. The ENE protocol is a 16-byte CDB with the data length in
+cdb[13], so scsi_execute_cmd() drops that byte and the device silently
+ignores the write (GOOD status, no error). The driver builds the block
+request by hand and forces cmd_len =3D 16, which is what SG_IO does from
+userspace. Any kernel driver sending a vendor CDB whose real length
+does not match scsi_command_size(opcode) is going to hit the same
+thing.
+
+Placement: per Armin's suggestion in the thread, the LED side belongs
+in drivers/leds, since the enclosure is not a platform device and the
+user-facing interface is the multicolor LED sysfs. What is posted here
+is the driver as verified on hardware, still monolithic. The agreed
+shape going forward, with Denis, is a SCSI transport helper in
+drivers/scsi feeding an Aura LED driver in drivers/leds behind a
+shared ASUS Aura interface; the Kconfig, Makefile and MAINTAINERS
+wiring lands with that split. So the main questions for this round are
+the LED interface, the protocol handling and the placement.
+
+Known caveats, stated up front:
+
+- the handler attaches manually until a notifier lands
+  (echo asus_aura > /sys/block/sdX/device/dh_state);
+- SAVE (0xaa) is issued on every colour change, which writes the
+  enclosure flash each time; wear has not been characterized yet;
+- the LEDs are registered with a NULL parent device, because
+  parenting them to the sdev creates a reference cycle that blocks
+  the sdev's final release on unplug and leaks the LED nodes and the
+  module refcount.
+
+Comments on the interface shape and on folding this into the shared
+Aura work are very welcome.
+
+Signed-off-by: Liang Haowen <nbg2974@gmail.com>
+
+Liang Haowen (1):
+  leds: add ASUS Aura SCSI driver for ROG NVMe enclosures
+
+ drivers/leds/leds-asus-aura-scsi.c | 302 +++++++++++++++++++++++++++++++++++=
+++
+ 1 file changed, 302 insertions(+)
+
+--=20
+2.55.0
+
