@@ -1,117 +1,116 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B503473C76
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:48:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13E6473C86;
+	Tue,  1 Sep 2026 08:48:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252532; cv=none; b=Bri86aoqQjey6nHqjef12NZTC1y9cf7y3j4/LjHtLaJB2l8T8AuDxDmbYmKz/QxDLv0F2K/c+8rP2uJl0OnDBt9NsLO06SiUoM7sNbCGXrZ7Co1sKt7Ukk5IfQljS/1ljk+kQH6Pj1E+Xmz78yo9SX+pQXu/Y5yz6XFI/h17jzw=
+	t=1788252535; cv=none; b=jLW+HJuyf5MpNekdQdJGhAGaHewPV9G4oE4eLY2YP2jsairrxl9sVo6IXK29vNkD/ot3QIqxSgBiYs+M3nT1Qtq4BDEL7b3Lr5HT1dhWWyVB6aH83Qwlbe9jSScZriZscHs8EQP/qMm4/roWemm3OPzLlGT0rpF35ZSOxdqNRP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252532; c=relaxed/simple;
-	bh=oAr2xSnNStj9baR1lIelWzgT/r+QQDwqANCW9K7ad9I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cNLkPdvU4/k99MIi1BPIor9pVxku61+ZSrr8sWcje38sM+6swGJYOm5Qg4ouDBr2hbxl7j0+6CMqujHVI7BRpjjF9ZwzTqnZguwZBW8AHlJdnlVSiyt+NygY7vD0KplYxmsfKEmAn31XN47Amec67giin7/mAszHe1w3eGx6yWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=J9SyWHLI; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="J9SyWHLI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=n+
-	SR/NJSg/EtwwaXWRG+qNU7rqtKtDhFvpyfSCWiMk0=; b=J9SyWHLItMi7+r+nII
-	h+iVjgfLEXyNnaZWR0sbd0/n8Zwp07Jkvbph2RA8+vYRQ4roVeruLalcbdU/hxoE
-	pxywulbn6BPvP8ZZIhXF8TkpI5ShXpotw5UaKc6o+tRZDUdiT5GFEp7ckkoW2j5E
-	qBlMRS/VUPIO8zkCpGDQIJMO8=
-Received: from hpc (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgC3qo4OkZZqHFWTNA--.28200S4;
-	Tue, 01 Sep 2026 16:47:12 +0800 (CST)
-From: john <love_goo@163.com>
-To: akpm@linux-foundation.org,
-	liuye@kylinos.cn,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	hughd@google.com,
-	mgorman@techsingularity.net,
-	yang@os.amperecomputing.com
-Cc: zhangqiuhao@huawei.com,
-	wangkefeng.wang@huawei.com,
-	mawupeng1@huwei.com,
-	love_goo@163.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Wupeng Ma <mawupeng1@huawei.com>
-Subject: [PATCH resend 2/2] mm: vmscan: stop scanning ineligible folios after max_nr_skipped
-Date: Tue,  1 Sep 2026 16:47:06 +0800
-Message-ID: <20260901084706.3784449-3-love_goo@163.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901084706.3784449-1-love_goo@163.com>
-References: <20260901084706.3784449-1-love_goo@163.com>
+	s=arc-20240116; t=1788252535; c=relaxed/simple;
+	bh=XiivO9ePSRP/6Irz+PM55rhD9kC4gh2QxLZOX5pCwp0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TKgrBJhMVUhGWU2WmCRGj2auHFCtUgBczHEhCgX1FHokr3t0PvWVsWZz44fhmmC6y+G0Q7ZjscIvhtn7h8fp7QjkG27xF9fNauvw21YfimIzQY/U0OZ8u65Ih4iYi5/2l3qQat02bQ3nVooHYBM2St4aqtUj9bZMB/v7Oy/ioUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpip4t1788252509t94851027
+X-QQ-Originating-IP: lIvP1GpVQQqw+C7jJ6FIpBcVY6xKxry0TN9Yl3JnFvM=
+Received: from [192.168.30.32] ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 01 Sep 2026 16:48:27 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 16756156345845701689
+EX-QQ-RecipientCnt: 29
+From: Xilin Wu <sophon@radxa.com>
+Date: Tue, 01 Sep 2026 16:47:58 +0800
+Subject: [PATCH 5/6] dt-bindings: pinctrl: qcom,sc8280xp-tlmm: allow
+ gpio-line-names
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgC3qo4OkZZqHFWTNA--.28200S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CFyxtF17urWrWF15tr4ktFb_yoW8ZFWUpa
-	n3GayDXr48Jw13G3sIqw1IgrySgrWFgFyUJF17Zr1xA3W3JFy2kFy7Kw1UZryrGrykXF1F
-	qwnF9FWkWF1UJF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEeMKtUUUUU=
-X-CM-SenderInfo: 5oryvsxjrrqiywtou0bp/xtbC7BGo4GqWkREuugAA3d
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-q8b-dts-v1-5-7de0b6a73d08@radxa.com>
+References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
+In-Reply-To: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
+To: Bjorn Helgaas <bhelgaas@google.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>, 
+ Xilin Wu <sophon@radxa.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=866; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=XiivO9ePSRP/6Irz+PM55rhD9kC4gh2QxLZOX5pCwp0=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFnTJrrkHHs+38bv27U78yvk/YXve736EWrMOM3PuUz7y
+ yMr9YSIjlIWBjEuBlkxRRaFeIa57JW5156KlerBzGFlAhnCwMUpABPhVGRk+DvJIVHi+Hrt9TeZ
+ dDZ7qz53V3614516ve/ZfXMeMIrs9mdk+O55aOXMVfGzH2zu7l9hc1ZzcaCWzhS2xv83cuMeuUd
+ 84AYA
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: MZ8WYWnVbnpdI1ZlK/fXVvGDfy7s2qybm1HU8S8IlRpNhYZVFxXZVtL/
+	gtf2+NetTAGelWM+U8a51NLjqvxxb69Je6DMVJ5TY/2kazQTrUk/dd/4dO868OC/FhA1v0A
+	Z2v43GE8fJpA6ccmPAaWCD6ZZ1AFPtQL8JW3g0JP98j0R/RyRUjZqvR0wxwWc9H2vf8lig6
+	I4Lu+amQZ3crGrPOmqpMfMRopjDZ1FfAMr9KBynjhjUMXEO8nDgrcZrQJ5ZVt7dj78k1tq2
+	Q5TKlafNp/Bn3uLkIUdtKlv/3xtDS+eTZol+Ah6L1JXeNSmnkV/a0oHxgmIeLF8VQchRJbm
+	asCiBvgPHYB2t5HJrIbQ9YN9msANMKb/P0yO6rMWmReNGTCeYBRTAiLTb933HCb5VJw6TbI
+	I6fzsBAt0YSCUDvrpob+coKtNelp6WhQ++OzsrU43ZPfJNYL8MD38T7OZ/cyWhbEg0OM8wj
+	wFx0YaIZqBNsS6wzuDfeyBEqi2doyMNT5S/vsCzVAqmz3isFmZBCcidb5xtWBS0/zogXc87
+	5dvgU77hsucVHRB75Kf8F2E8j2bLlF7kwDirSUsWyLkDRqlZP4t75UkmN1PdPEhsoSSmS7x
+	f8ieDwesWyUPIZdBY/gXKWgai4vGJYrjiSBveAVCTma6ca7aGLvc42jkdv+qGWXq5qN6Igp
+	fQ5gxkAC9Cc6QfIFUO7DeHgpwEjpz4Qkhcbed0UCJGqo69PeRR/ZOsH57Es1bejn4pTaTHY
+	O6fZY0J1ootbTykAUacBXZJPzQdvYMb/86Att8k2czclIUMVVvcWK/CPqv/R8HA48+5qJYp
+	+dppfVuRAFzX/6Is2oQx1GGs2jJw6TO0cM0EBfhk6wyr471IkTmNG2dW43gzhpgwKURx9Ui
+	y01CvHZWC/Py6S9fDzSfbQvPt32ywm1X+3RN5hAVAaRUsz2+H9xdp4EAcNbsDeHmji9knS/
+	ILN4t7Eae3Qjt3o4sJVy3qHEYqZFshsn9w3UPVPMfHz8CKEllkJVblkInpaNvvzHtOWNFNv
+	rwwloFCAQ8WNjra9cJYh/qtO7ASZUK9hXlaFML1Ghrl8vb4k/mADoNIudEyRI93f91RHxIh
+	OCvcdW59PfY5eJZUaNjpIXgFd2z64caNw==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-From: Wupeng Ma <mawupeng1@huawei.com>
+The SC8280XP TLMM GPIO controller exposes 230 GPIO lines. Allow boards to
+provide descriptive names for these lines and constrain the list to the
+number of GPIOs exposed by the controller.
 
-When reclaiming for a lower zone, isolate_lru_folios() accounts folios
-from higher zones as skipped and, once max_nr_skipped hits
-SWAP_CLUSTER_MAX_SKIPPED, force-isolates the remaining ineligible folios
-to keep the loop from spinning on the skipped ones.  Those folios are
-reclaimed even though they can never satisfy the current allocation, so
-nr_reclaimed is inflated into a false progress that keeps resetting
-no_progress_loops in should_reclaim_retry() and delays the OOM.
-
-Stop scanning once max_nr_skipped is reached instead of force-isolating
-the ineligible folios.  The skipped folios are already accounted in
-total_scan, so shrink_lruvec() can charge the overshoot against its scan
-budget (see the previous commit) and will not rescan them.
-
-Fixes: 1c7b17cf0594 ("mm/vmscan: fix hard LOCKUP in function isolate_lru_folios")
-Signed-off-by: Wupeng Ma <mawupeng1@huawei.com>
+Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- mm/vmscan.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ Documentation/devicetree/bindings/pinctrl/qcom,sc8280xp-tlmm.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 823af9e86efd3..375f7cd5aa441 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -1701,12 +1701,20 @@ static unsigned long isolate_lru_folios(unsigned long nr_to_scan,
- 		nr_pages = folio_nr_pages(folio);
- 		total_scan += nr_pages;
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,sc8280xp-tlmm.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,sc8280xp-tlmm.yaml
+index ed344deaf8b9..ebc3a8b34a4c 100644
+--- a/Documentation/devicetree/bindings/pinctrl/qcom,sc8280xp-tlmm.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,sc8280xp-tlmm.yaml
+@@ -27,6 +27,9 @@ properties:
  
--		/* Using max_nr_skipped to prevent hard LOCKUP*/
--		if (max_nr_skipped < SWAP_CLUSTER_MAX_SKIPPED &&
--		    (folio_zonenum(folio) > sc->reclaim_idx)) {
-+		/*
-+		 * Using max_nr_skipped to prevent hard LOCKUP.
-+		 * Once the cap is hit, stop rather than force-isolating:
-+		 * reclaiming ineligible folios only inflates nr_reclaimed
-+		 * into a false progress.
-+		 */
-+		if (folio_zonenum(folio) > sc->reclaim_idx) {
- 			nr_skipped[folio_zonenum(folio)] += nr_pages;
--			move_to = &folios_skipped;
- 			max_nr_skipped++;
-+			if (max_nr_skipped >= SWAP_CLUSTER_MAX_SKIPPED) {
-+				list_move(&folio->lru, &folios_skipped);
-+				break;
-+			}
-+			move_to = &folios_skipped;
- 			goto move;
- 		}
+   gpio-reserved-ranges: true
  
++  gpio-line-names:
++    maxItems: 230
++
+ patternProperties:
+   "-state$":
+     oneOf:
+
 -- 
-2.53.0
+2.55.0
 
