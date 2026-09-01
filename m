@@ -1,72 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86D2470EB5;
-	Tue,  1 Sep 2026 10:33:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD6947A89E
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:35:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788258810; cv=none; b=N+/1oYNFrTAN69ZpM5B5zXitYuslVFZknQqMWqDAdbgXm8ZaA/UITnE9ftu3/YdJw0qQ4HgcHbmIG7FRzrhJ+537sypqBf1oSsG01G+osbUbyHxEa3lHX1WqsCj3b0vCd/8+RjBVgtPAEXKEX90nOuFoBR17ntFxe3Kap4pIXjI=
+	t=1788258905; cv=none; b=FrJeTICBydVgEdcyVDbRrvj+50yYXteILCgCH43btuDyBWEj8XqIVKJ4OVd9zukRbu4eLEA177PqO+J4jvq7zd6cOwRxlEaa86HAiY9YoKb4mOETie5IkXmR22sL6wDw9N9OlceVfJxhuWF9bLFvnNqS3wGcrIek7Y+0JG4st40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788258810; c=relaxed/simple;
-	bh=lCLS0TVm1RpDBkHd3jhdYxYBBx13N8jaQjlaR/S9zZM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=naTgR2fVJ3KCwIhja3WpKLlyMVdOyJuTkeBzKWiqeiYArLVEAkCPBveLPOvBO0IWQoq0UXWpMcUm/udazTp3NJRjnZc4RiA3Gyeqb+xOjATGX6M4H5vk9FhU30+k7j4XgDEeiM3vvN9I78qWbvF9WQSFuFgwLkMLungGYLEZAvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LPC+6HWu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788258905; c=relaxed/simple;
+	bh=hGwrqJibjsI979lLLZMh7q1FzrzRBk6jSe5g0u5F2Qc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bzo5TGOrciQmk7rCLYeRwwn00QrXsA630Qgq2vsybqLermo0cN/NFo0PGQKoLs4Bh/HfI+JzSF00O2+6tCtDD1qS18nEB+dVDwMo5F35uN4JVTp7OtFcKyXOxtJRsukqx4cXVMhQUXrL48DMzcVcNhfHpQL1VEj8p6v8bEcqsLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DJeyrI6T; arc=none smtp.client-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LPC+6HWu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0F1C1F000E9;
-	Tue,  1 Sep 2026 10:33:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788258808;
-	bh=8xAF/APPy/kREiKW8PaOl5qBTlu58K1/wYA90LimBu4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=LPC+6HWuWe9CWtyQG88hBToDSYWa/xU0Xv/tLStsHLOK3Sw7fEo/W9qsIEAeb4+rh
-	 qfFeeBFoa7Z/hVQuA23Elo3cMzuOUPPsUSq53ysOVUk6Xy3ZdPj2YjAPsu2enYHghO
-	 VESbSkqty8AKRof0iYloGyB6zxFkrtEYz/+TRqlmEwGrXXKsKB2q2VVokDdKulwduG
-	 zzRPzrOaHKyU+Hx7SnDtvKnU9DoFonX1T8EBOIsqjRUUJz+iQra7FqWzn/Ry02/2t6
-	 XqFrxnF3ATt1Sh1TPO6NEn37+5kAmHzH5EU1cb/JZ6P9VCieJY1/Z0jMSr9Qc0d4kh
-	 ToR9DxHMMZXIw==
-From: Leon Romanovsky <leon@kernel.org>
-To: Long Li <longli@microsoft.com>, 
- Konstantin Taranov <kotaranov@microsoft.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-rdma@vger.kernel.org
-In-Reply-To: <20260831052108.903019-1-ekffu200098@gmail.com>
-References: <20260831052108.903019-1-ekffu200098@gmail.com>
-Subject: Re: [PATCH rdma-next] RDMA/mana_ib: Remove redundant NULL check
- before netdev_put()
-Message-Id: <178825880566.1161349.7028916760752685356.b4-ty@kernel.org>
-Date: Tue, 01 Sep 2026 06:33:25 -0400
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DJeyrI6T"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=hGwrqJibjsI979lLLZMh7q1FzrzRBk6jSe5g0u5F2Qc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788258901; v=1; x=1788863701;
+ b=DJeyrI6ToUeD+bp7pHh7omNcbGQChzTVw+f8zKYnU+pHNm7wLg+k845R7bmGIg6wItepiaAY
+ V4Dt/35b6i0Vc7pAeTjHeqe4AQOU55ZhRt9V9i2vfzY0tkq502nczrT25Ak2YN6dEjuidywUJxg
+ geUPXQBMNAM6C6i8Ggb02e4k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c9b09ab85d072c50;
+	Tue, 01 Sep 2026 10:34:51 +0000
+X-Mizu-Trace-ID: c9b09ab85d072c50
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b5e5aaf7deso7036e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 03:34:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwFSM7LxMGv7O5Nw9FSNObiuRQ51Wih8HEKA826i+ybi9Eowfxiha+rkF4sq8hqrLbXIbh9yp44A3PL6CQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFAIOy0btx5xBDPnWibey8BEKELrVBMeKx1a13BDCkCU9Hq06B
+	skDq73W+Pe5lXKPJuBySaJ2NEzjgFcNZX6vpEZ6ojqAaJy1ZADSZv6a/5HxgK2+NfS21IdnfhE3
+	sl2jpUtJ0ABDrxX/WuqOPs4iJMP9CgBfEcYaOrSDN
+X-Received: by 2002:a05:6512:ac4:b0:5a8:6646:d7b4 with SMTP id
+ 2adb3069b0e04-5b600a0b6f4mr114181e87.1.1788258889928; Tue, 01 Sep 2026
+ 03:34:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com> <20260830-gmem-inplace-conversion-v12-13-85e5fd25252a@google.com>
+In-Reply-To: <20260830-gmem-inplace-conversion-v12-13-85e5fd25252a@google.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 1 Sep 2026 11:33:00 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTxdJmjBu8vJqbZks3ANP7QFZzGvp4J7kqxvTNR-fKMmJA@mail.gmail.com>
+X-Gm-Features: AcwNN1W_H4CnVusKniYHLtrTvE9k4_Zq5YT-PzaJWqqbnOmAYps19c1F8GBPWTQ
+Message-ID: <CA+EHjTxdJmjBu8vJqbZks3ANP7QFZzGvp4J7kqxvTNR-fKMmJA@mail.gmail.com>
+Subject: Re: [PATCH v12 13/45] KVM: guest_memfd: Pass mapping type filter to
+ invalidation helper
+To: ackerleytng@google.com
+Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
+	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
+	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
+	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
+	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
+	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
+	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
+	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+
+On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
+<devnull+ackerleytng.google.com@kernel.org> wrote:
+>
+> From: Ackerley Tng <ackerleytng@google.com>
+>
+> Accept the mapping type filter as a parameter in the invalidation start
+> helper instead of querying it internally. This allows callers to specify
+> which mappings (shared, private, or both) should be invalidated.
+>
+> In the next patch, the conversion process will use this new parameter to
+> invalidate mappings only when they're different from the target state of
+> the conversion, i.e. invalidate only shared mappings on a shared to private
+> conversion and not both.
+>
+> No functional change intended.
+>
+> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+
+Cheers,
+/fuad
 
 
-On Mon, 31 Aug 2026 14:21:07 +0900, Sang-Heon Jeon wrote:
-> netdev_put() does nothing if dev is NULL, so the check before the call
-> is redundant.
-> 
-> So remove it. No functional change.
-> 
-> This is the result of running the Coccinelle script from
-> scripts/coccinelle/free/ifnulldev_put.cocci after commit f83b8a58695c
-> ("coccinelle: ifnulldev_put: update outdated helper names").
-> 
-> [...]
-
-Applied, thanks!
-
-[1/1] RDMA/mana_ib: Remove redundant NULL check before netdev_put()
-      https://git.kernel.org/rdma/rdma/c/2f02eee8d632f7
-
-Best regards,
--- 
-Leon Romanovsky <leon@kernel.org>
-
+> ---
+>  virt/kvm/guest_memfd.c | 14 +++++++++-----
+>  1 file changed, 9 insertions(+), 5 deletions(-)
+>
+> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+> index e41802944756b..e19de803149c2 100644
+> --- a/virt/kvm/guest_memfd.c
+> +++ b/virt/kvm/guest_memfd.c
+> @@ -192,13 +192,13 @@ static void __kvm_gmem_invalidate_start(struct gmem_file *f, pgoff_t start,
+>  }
+>
+>  static void kvm_gmem_invalidate_start(struct inode *inode, pgoff_t start,
+> -                                     pgoff_t end)
+> +                                     pgoff_t end,
+> +                                     enum kvm_gfn_range_filter filter)
+>  {
+> -       enum kvm_gfn_range_filter attr_filter = kvm_gmem_get_all_gfns_filter(inode);
+>         struct gmem_file *f;
+>
+>         kvm_gmem_for_each_file(f, inode)
+> -               __kvm_gmem_invalidate_start(f, start, end, attr_filter);
+> +               __kvm_gmem_invalidate_start(f, start, end, filter);
+>  }
+>
+>  static void __kvm_gmem_invalidate_end(struct gmem_file *f, pgoff_t start,
+> @@ -224,6 +224,7 @@ static void kvm_gmem_invalidate_end(struct inode *inode, pgoff_t start,
+>
+>  static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
+>  {
+> +       enum kvm_gfn_range_filter filter = kvm_gmem_get_all_gfns_filter(inode);
+>         pgoff_t start = offset >> PAGE_SHIFT;
+>         pgoff_t end = (offset + len) >> PAGE_SHIFT;
+>
+> @@ -233,7 +234,7 @@ static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
+>          */
+>         filemap_invalidate_lock(inode->i_mapping);
+>
+> -       kvm_gmem_invalidate_start(inode, start, end);
+> +       kvm_gmem_invalidate_start(inode, start, end, filter);
+>
+>         truncate_inode_pages_range(inode->i_mapping, offset, offset + len - 1);
+>
+> @@ -522,6 +523,8 @@ static int kvm_gmem_migrate_folio(struct address_space *mapping,
+>
+>  static int kvm_gmem_error_folio(struct address_space *mapping, struct folio *folio)
+>  {
+> +       struct inode *inode = mapping->host;
+> +       enum kvm_gfn_range_filter filter;
+>         pgoff_t start, end;
+>
+>         filemap_invalidate_lock_shared(mapping);
+> @@ -529,7 +532,8 @@ static int kvm_gmem_error_folio(struct address_space *mapping, struct folio *fol
+>         start = folio->index;
+>         end = start + folio_nr_pages(folio);
+>
+> -       kvm_gmem_invalidate_start(mapping->host, start, end);
+> +       filter = kvm_gmem_get_all_gfns_filter(inode);
+> +       kvm_gmem_invalidate_start(inode, start, end, filter);
+>
+>         /*
+>          * Do not truncate the range, what action is taken in response to the
+>
+> --
+> 2.55.0.897.gb25b4bd76c-goog
+>
+>
