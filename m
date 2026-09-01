@@ -1,243 +1,214 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D26F48167F
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:52:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D34472064
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:52:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788277927; cv=none; b=obiS7/VaQe8wFIgy21blcFW9hf1UrvrpsQ1Vniv/0F5Lsmorm1Di/HTkkuFFNlNBmBGXmiTVeG+j7b/b5vC+oklgs1pI5MoGf3hGtz3uZESHyzeeUercdFZ5YApp6w1r86NsqOId/blmgR5MPDJN/I0Xc/o96LqNxAOqRXlvBUE=
+	t=1788277954; cv=none; b=SNMsLkrrImIZosbfy78ybpnkarpMnKCLxaGvZ3nJfsJhKQD6Fx5zpp4amwwSjs5bne3A+B/gVxwRC0jNsaytTZgSwylaseYomOHa69aWV2V3BxFRy1yOoi4zpIHIRGdtrGddSufcjDSGqO306T1gn+hHwGo9e1+m5SfB9q5HlcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788277927; c=relaxed/simple;
-	bh=ZgKtfM9fsh/fqAvYqv8WG02V6LNUZLl52whaO2YCpZQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=faAAkCjaH8xfgop+Q3Foa5ThvQzj2KF7FNtyohbuVtsYdzJgZOwI9094LLd2lKs7QxPiHzWNAWShpmTaZFF/rhHhsUixdrfLiHfRV2wwy04Ejyo0Mu7Bypgq5Xb8Ijz9IAfZP1oT6VvGWUDJ7t0N7HZx0+jo2pgxi2Y75XzBFVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qmkpK3PA; arc=none smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1788277954; c=relaxed/simple;
+	bh=qo4B/VQg4R+HIO7ngGNWGs2o3buHaJOuHDhTIuyaKDk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EdQ2xK+UupslSMsENgXQ5cm11OCAVB856seCAYSCV07oOuuaB7ehs89HxSEbjHKIZjdDBpwrNc9hcFGAtg2EQ30NsWwQmqZ9saNVvknY7aArWZiT5Cpww0B/m1+pFvbEFRnzEnYyOQp/qbketnMnivhfSyuNdV64TWw/qr1X2XA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A4Jpl0Xm; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qmkpK3PA"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66f88b68518so1561694d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:52:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A4Jpl0Xm"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c9e607d81fcso2571a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:52:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788277924; x=1788882724; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nBZzGlKg73PGfaOMsDMRjFaZI1Y78yV95xgVDSNSIcA=;
-        b=qmkpK3PAeOM9Kgu2TowDmYDQYFA8LQ3qIFiH43brlFwx3MgeQfbVADYYQ+tv6JD4pL
-         kwk8wQnAFnLVkGgLmmZIusWNZ7yoidW+HqHqlkP/8KN/knutSPtCr40/X22GKGsSjzfU
-         RXcfbCdp04AcFFSeM3L4ZahrOyrq26kzD+W/2cSPCHI92zcMqjwWyBASl8VKr+NfYnDw
-         Ar+TPD5JPbpdBy2HL2oUZMM8/0L+FJrj32w3FYjZ50Hp7f0pR4F5Ks7cJvVpNfxrMkjx
-         gotcosqHipWGpmfrhkZzi4nkFdBGbu39XNVziwK44kkhHQXaAZw5eHIkJCVxJ/M+ABkE
-         RRyA==
+        d=gmail.com; s=20251104; t=1788277952; x=1788882752; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0WYsUBtiu7T2+UaZ7oUOCjJO0hwH1VaOOpnsEx1gGuc=;
+        b=A4Jpl0XmDBWBX9V4rg3KonHfeoBLqepqSv5eGC8+zN8XWA8xIzCglUKJ62wLTsh6Oa
+         k2CdGTatiYDzu4I0YlNsbHX+IFEgb6+thcVK01sohBv6IWbB6ZO2u2tmRl2vR9KEzVZI
+         T1ZqkDeSsBw9JQR8ysiVTYupvXI9GFl83rfa7juPfQ7d/jJntiRznFzvnUEwH8SB16Tl
+         wdKhNL0B8uXfL0Gkpe33WS48tZcfxqkYWMhfwqi1LQpzOSwVdBfqtCBwsDCnqC7wyGut
+         H/yxxQiRj2dDneFA6aEnAHQorKkBJrk4ehhatIM6Z/FQ4GFjgfB5r/QIoM+oA8HvNSVS
+         D2+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788277924; x=1788882724;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nBZzGlKg73PGfaOMsDMRjFaZI1Y78yV95xgVDSNSIcA=;
-        b=fNS7q+OKaEEESWsUB6D0M/dXu5cdw9bhOOWH/giFw8I+jRWAoN86wQ0zxqMexrRB8E
-         wBsnIPFAOpnKTa3nRwJzuJhbHPTgq62L9jNA3JNL0YjOHKkvlbI35UZEWG8Ip9V2g3hI
-         k1SGTWJudSVoDPycV7dkxFu8EKSVrnXSvRPgNCdem/0GdlMCAHq77Lh2EBTr97uwQ83+
-         4OBXvYw6jTmf8ldJBhwybGv++ipMV8zajKX2eQebd1ZsHTRcTEtMJ7NgE3DcSA2Ipw1H
-         BnuMZhvliP+nTQ2qE9UtkZS0u+sCym2HaUCb8GVoPQALnm84/QMLZuRmrqfOwUwRDyWb
-         HPnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBziXeQWPOaDud6hrOOJd046XvAFKtvC8O/rH5SkAzWIE8Dnu1MrlB9VE9ZRZJ8bm0DC1MhdZ7FK7kpA3zI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kx4apPKYBM+CqWZ+NOVdg3K6Ube2pgajJ3KXhhPeUs6PWaeGCl
-	J8YDqVhYjLigE5xRNp1/P0OmjubEc79gV6PcRAtUvwWcntDpc715zEHH
-X-Gm-Gg: AYBFou0DxJOMUfR3sVdmseYYVmvBESYy0fUpBAk/xckq1kcBkFyBiHHAzBUPalmn7q3
-	XwtL1ZQPtj9j0QOe+E8GDYr5MVdTg5IL4II7NNxtvDH+iuHzfzfI96PMSqiu2cvk3Vxk3ZvtCGs
-	f+GQjKTnLHJsP0irbiH03gjcKndA6ZMyYYbMC/nP/k4Sp5uuMyoIyIQh0+meEBBh5jM/9RmrbMX
-	htzyvJQ1U/aKfyw/yNdln2FLhjlWNdml5lSDLpsMuiZBZKqjqrMfVZ01Fveo+BqnxI4dNHCn5qK
-	4DyggZrynTCAE299Cg9iBvlRDikxvZh157i9sWZJK55K+y0xtuEDdoNqTNXY6wbiY6v4KLV/yhm
-	ip7Swqvvl40LhcLgNj+YAa2wlSfWQ2hIa/muCzxY2Krdo4Df+wtlQneMHZsBc7z1Z2hKgyt7JRx
-	BX8C90THKw55gu8E0CkIaPWXAIkCVXdc6PgLtfnxYSEDc+Zj8Tno2HqOiZ1czFnba50l9RMplsV
-	Et9NGzLUq2rBRKFPRtqo5P9ubtmQQ6k9cb3MVrx
-X-Received: by 2002:a05:690e:1915:b0:66c:7bd2:35a9 with SMTP id 956f58d0204a3-66f875fe067mr3350458d50.45.1788277924158;
-        Tue, 01 Sep 2026 08:52:04 -0700 (PDT)
-Received: from localhost (107-220-129-194.lightspeed.chrlnc.sbcglobal.net. [107.220.129.194])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4eb569cdsm8656304d50.5.2026.09.01.08.52.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:52:01 -0700 (PDT)
-From: Matt Turner <mattst88@gmail.com>
-To: linux-alpha@vger.kernel.org,
-	richard.henderson@linaro.org
-Cc: linmag7@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 24/24] alpha: add TRACE_IRQFLAGS_SUPPORT
-Date: Tue,  1 Sep 2026 11:50:37 -0400
-Message-ID: <b71c51ff7ca699ca6e667a55d9ebce58ef092c77.1788277742.git.mattst88@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1788277742.git.mattst88@gmail.com>
-References: <cover.1788277742.git.mattst88@gmail.com>
+        d=1e100.net; s=20251104; t=1788277952; x=1788882752;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0WYsUBtiu7T2+UaZ7oUOCjJO0hwH1VaOOpnsEx1gGuc=;
+        b=n0MItM6L/NZZytsTIeRhM3d20F5xWfUiaryK7UIO5Qj3Ehf/+3VjipXcKHowZ45oIO
+         gKkr8GbMV53k+bxWMT1UlrMogS8ODike3REav86Ob7c/icRfkW6bRNcWmhEQHiRaGmZ4
+         TVCJZcnbXxsAJs0wQydx2AXjT5gwP/E/TVjT0xYOoF7fBqhlALRbjWBqdV0o05iP++uL
+         xEnacVnLzxKu8LGqyDQiddyEHZaeztiLkbvri7l5ux3YAFnt1DtTTHKRlm3NrMI6RIiA
+         VOjmrZD1SnQ5iKmY2kokMyFqAAKuqSsRo05ZvtB9grxoZe/ZcTeqjKMHl+ooPut+I+YS
+         zgGw==
+X-Forwarded-Encrypted: i=1; AKwUvByvbvRGg0SSLuM/C74Q4VBfT84yYLmVOjvxPapfNvpTbCHr6F7nPr1d1bc1fXF8rKUKzlxHsK0I11bIYOs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4VnTDyz612o77gz233jk6QIFxVVm3YazHSv7JZlFjP7h7hzKg
+	My0pTh+ZffAS97xdCsfDk1BHbdPdrf9rVvRGi/Afmz8jY41pUSmwPsGA
+X-Gm-Gg: AYBFou26l9dzTdycwAk2nKD4BX1Qx1FIkyuHCae3v577vYFbZYpp8WefA3JBoM8VPvn
+	vMUpR4H2Cf9BIVfCl56nF+2NFAuwBDc/sONNtC/wUaW9NIh9UNFoWp5Z7v1w/6jsSmnW1PuKtfX
+	fKXiYVE9RYI6LL/sko6D2T7Ldjk0VwrfAf/aohk3jc9EnULdi1Tntg6+bQ29QsI8Puf5ceJx/gW
+	wWvNgdVknGDkvVxXOPdFxepEpNJ05EgNOWpZvN8LQ7LZb81vutMp6wA5tBAdTY7n87uIV/f82SU
+	xk3LKUueISSJmQzOsvyW2IejtQCJ9bQCCR4uKhpT0KvVAR9kIPBD4ZcTcPQABW+ZlF2hOaAbuCF
+	RcdiVAWyBD4bNECU2BoF7HnLrB7KPsZ16NX60tgZQAs4xaJuZ/R+HtyctllMNvA1+EcFRnJ3ESQ
+	B26Iy2aCfZhUkmggORqrNlK7cfEeRDk9njQ7oYYV2ri8bJfLHfJhfH8pR6l0g9NoDH9VbREZX7r
+	YIHKoOMg5JDntIWu+DDXYMIIsn7VIxW0uXnPn2LaIT6s/hP8A==
+X-Received: by 2002:a17:903:3803:b0:2c8:2808:3ec9 with SMTP id d9443c01a7336-2d74df0328amr583020155ad.12.1788277951579;
+        Tue, 01 Sep 2026 08:52:31 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd6348f0sm795365ad.23.2026.09.01.08.52.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 08:52:30 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <4cc20c64-bd95-4689-81b3-3f01d9c3bc8e@roeck-us.net>
+Date: Tue, 1 Sep 2026 08:52:29 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: Add starfive,jhb100-fan-tach
+To: Conor Dooley <conor@kernel.org>,
+ Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+References: <20260830011941.40199-1-changhuang.liang@starfivetech.com>
+ <20260830011941.40199-2-changhuang.liang@starfivetech.com>
+ <20260831-dominion-data-c8b6f691dd5b@spud>
+ <ZQ4PR01MB12023835F6083F45484E1ED3F2A82@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <20260901-contrite-cathouse-f50c63af6323@spud>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260901-contrite-cathouse-f50c63af6323@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Instrument the entry/exit assembly to track hardirq state for lockdep.
+On 9/1/26 03:14, Conor Dooley wrote:
+> On Tue, Sep 01, 2026 at 01:24:39AM +0000, Changhuang Liang wrote:
+>>> On Sat, Aug 29, 2026 at 06:19:40PM -0700, Changhuang Liang wrote:
+>>>> +patternProperties:
+>>>> +  "^fan@[0-9a-f]+$":
+>>>> +    $ref: fan-common.yaml#
+>>>> +    unevaluatedProperties: false
+>>>> +
+>>>> +    properties:
+>>>> +      reg:
+>>>> +        description:
+>>>> +          PWM channel index. The driver allows two fans to share the
+>>> same
+>>>> +          PWM channel, or each fan to use a dedicated channel.
+>>>
+>>> Doesn't matter what the driver can do, the description should describe what
+>>> the hardware supports.
+>>> pw-bot: changes-requested
+>>> Does this fan-tach controller provide the PWMs?
+>>> If so (although Guenter may correct me), I think the fan-tach controller needs
+>>> to be.
+>>>
+>>> If you don't do that, I think you're going to run into problems with having
+>>> multiple nodes with the same unit address when two fans share a pwm?
+>>>
+>>> I think what you're supposed to do is drop "reg" and replace it with "pwms",
+>>> but once again Guenter may correct me there.
+>>> e.g. aspeed,g6-pwm-tach.yaml
+>>>
+>>
+>> Perhaps I can refer to aspeed,g6-pwm-tach.yaml and change "^fan@[0-9a-f]+$" to
+>> "^fan-[0-9]+$", which would remove the reg property. In fact, the driver does not
+>> use reg either.
+>>
+>> Our fan-tach controller does not include PWM. The JHB100 SoC will have a separate
+>> PWM controller. (This controller uses the same IP as the JH7110 SoC, but there are
+>> some differences in driver implementation.)
+>>
+>> The JHB100 has 8 PWM channels and 16 fan tach channels.
+>>
+>> So currently we expect the Device Tree to be configured like this:
+>>
+>> 	pwm0: pwm {
+>> 		compatible = "starfive,jhb100-pwm";
+>> 	};
+>> 	
+> 
+>>
+>> 	fan0: pwm-fan0 {
+>> 		compatible = "pwm-fan";
+>> 		pwms = <&pwm0 0 40000 0>;
+>> 	};
+> 
+>>
+>> fan-controller {
+>> 	compatible = "starfive,jhb100-fan-tach";
+>>
+>> 	fan@0 {
+>> 		tach-ch = <0x0>, <0x8>;
+>> 	};
+> 
+> Truncating this for readability, but it looks wrong to me. How does the
+> feedback loop work here when there's no way to determine which fan is
+> connected to a tach channel? The unit address of the child nodes has no
+> dt enforced guarantee to line up with node names of the fans or pwm
+> indices.
 
-TRACE_IRQS_OFF is called after SAVE_ALL at each exception/interrupt
-entry point and at syscall entry.  TRACE_IRQS_ON is called at
-restore_all before returning to userspace, where PAL_rti will restore
-the user IPL (re-enabling interrupts).
+Normally (for other fan controllers) the fan would have a target speed.
+The controller measures the speed and adjusts pwm output values until
+the fan speed matches the expected value. The controller needs to know
+the association between tachometer input and pwm output for this to work.
+Typically (for classic fan controllers) that association is static.
+In the Aspeed G6 fan controller it is dynamic/configurable.
 
-The function call clobbers caller-saved registers, so the
-TRACE_IRQS_OFF macro reloads $0 and $16-$18 from the pt_regs frame.
-$8 (current_thread_info) is preserved because it is declared as a
-global register variable.
+I thought this is the case here as well, but I have no idea if that is
+correct (or if there is a chip-internal feedback loop to start with).
 
-Together with the previously added STACKTRACE_SUPPORT and
-LOCKDEP_SUPPORT, this enables LOCK_DEBUGGING_SUPPORT on Alpha.
-
-Assisted-by: Claude:claude-opus-4-6
-Signed-off-by: Matt Turner <mattst88@gmail.com>
----
- arch/alpha/kernel/entry.S | 54 +++++++++++++++++++++++++++++++++------
- 1 file changed, 46 insertions(+), 8 deletions(-)
-
-diff --git ./arch/alpha/kernel/entry.S ./arch/alpha/kernel/entry.S
-index 9f2608de2544..ed5df48503d0 100644
---- ./arch/alpha/kernel/entry.S
-+++ ./arch/alpha/kernel/entry.S
-@@ -241,6 +241,36 @@
- 	.cfi_adjust_cfa_offset	-SWITCH_STACK_SIZE
- .endm
- 
-+/*
-+ * Trace hardirq state changes for lockdep.  TRACE_IRQS_OFF is called
-+ * after SAVE_ALL at each entry point where PALcode enters with IPL
-+ * raised (interrupts disabled).  TRACE_IRQS_ON is called before
-+ * returning to userspace, where PAL_rti will restore the user IPL.
-+ *
-+ * The function call clobbers caller-saved registers; $8 is preserved
-+ * because it is declared as a global register variable for
-+ * current_thread_info.  We reload $0 and $16-$18 from the pt_regs
-+ * frame that SAVE_ALL created, since entry points pass those to their
-+ * C handlers.
-+ */
-+.macro TRACE_IRQS_OFF
-+#ifdef CONFIG_TRACE_IRQFLAGS
-+	jsr	$26, trace_hardirqs_off
-+	ldgp	$gp, 0($26)
-+	ldq	$0, 0($sp)
-+	ldq	$16, 160($sp)
-+	ldq	$17, 168($sp)
-+	ldq	$18, 176($sp)
-+#endif
-+.endm
-+
-+.macro TRACE_IRQS_ON
-+#ifdef CONFIG_TRACE_IRQFLAGS
-+	jsr	$26, trace_hardirqs_on
-+	ldgp	$gp, 0($26)
-+#endif
-+.endm
-+
- /*
-  * Non-syscall kernel entry points.
-  */
-@@ -248,8 +278,9 @@
- CFI_START_OSF_FRAME entInt
- 	SAVE_ALL
- 	lda	$8, 0x3fff
--	lda	$26, ret_from_sys_call
- 	bic	$sp, $8, $8
-+	TRACE_IRQS_OFF
-+	lda	$26, ret_from_sys_call
- 	mov	$sp, $19
- 	jsr	$31, do_entInt
- CFI_END_OSF_FRAME entInt
-@@ -257,14 +288,18 @@ CFI_END_OSF_FRAME entInt
- CFI_START_OSF_FRAME entArith
- 	SAVE_ALL
- 	lda	$8, 0x3fff
--	lda	$26, ret_from_sys_call
- 	bic	$sp, $8, $8
-+	TRACE_IRQS_OFF
-+	lda	$26, ret_from_sys_call
- 	mov	$sp, $18
- 	jsr	$31, do_entArith
- CFI_END_OSF_FRAME entArith
- 
- CFI_START_OSF_FRAME entMM
- 	SAVE_ALL
-+	lda	$8, 0x3fff
-+	bic	$sp, $8, $8
-+	TRACE_IRQS_OFF
- /* save $9 - $15 so the inline exception code can manipulate them.  */
- 	subq	$sp, 64, $sp
- 	.cfi_adjust_cfa_offset	64
-@@ -284,8 +319,6 @@ CFI_START_OSF_FRAME entMM
- 	.cfi_rel_offset	$15, 48
- 	addq	$sp, 64, $19
- /* handle the fault */
--	lda	$8, 0x3fff
--	bic	$sp, $8, $8
- 	jsr	$26, do_page_fault
- /* reload the registers after the exception code played.  */
- 	ldq	$9, 0($sp)
-@@ -311,8 +344,9 @@ CFI_END_OSF_FRAME entMM
- CFI_START_OSF_FRAME entIF
- 	SAVE_ALL
- 	lda	$8, 0x3fff
--	lda	$26, ret_from_sys_call
- 	bic	$sp, $8, $8
-+	TRACE_IRQS_OFF
-+	lda	$26, ret_from_sys_call
- 	mov	$sp, $17
- 	jsr	$31, do_entIF
- CFI_END_OSF_FRAME entIF
-@@ -451,6 +485,9 @@ entUnaUser:
- 	.cfi_restore	$0
- 	.cfi_adjust_cfa_offset	-256
- 	SAVE_ALL		/* setup normal kernel stack */
-+	lda	$8, 0x3fff
-+	bic	$sp, $8, $8
-+	TRACE_IRQS_OFF
- 	lda	$sp, -64($sp)
- 	.cfi_adjust_cfa_offset	64
- 	stq	$9, 0($sp)
-@@ -467,9 +504,7 @@ entUnaUser:
- 	.cfi_rel_offset	$13, 32
- 	.cfi_rel_offset	$14, 40
- 	.cfi_rel_offset	$15, 48
--	lda	$8, 0x3fff
- 	addq	$sp, 64, $19
--	bic	$sp, $8, $8
- 	jsr	$26, do_entUnaUser
- 	ldq	$9, 0($sp)
- 	ldq	$10, 8($sp)
-@@ -493,8 +528,9 @@ CFI_END_OSF_FRAME entUna
- CFI_START_OSF_FRAME entDbg
- 	SAVE_ALL
- 	lda	$8, 0x3fff
--	lda	$26, ret_from_sys_call
- 	bic	$sp, $8, $8
-+	TRACE_IRQS_OFF
-+	lda	$26, ret_from_sys_call
- 	mov	$sp, $16
- 	jsr	$31, do_entDbg
- CFI_END_OSF_FRAME entDbg
-@@ -543,6 +579,7 @@ entSys:
- 
- 	lda	$8, 0x3fff
- 	bic	$sp, $8, $8
-+	TRACE_IRQS_OFF
- 	lda	$4, NR_syscalls($31)
- 	stq	$16, SP_OFF+24($sp)
- 	lda	$5, sys_call_table
-@@ -586,6 +623,7 @@ ret_to_user:
- 	and	$17, _TIF_WORK_MASK, $2
- 	bne	$2, work_pending
- restore_all:
-+	TRACE_IRQS_ON
- 	ldl	$2, TI_STATUS($8)
- 	and	$2, TS_SAVED_FP | TS_RESTORE_FP, $3
- 	bne	$3, restore_fpu
--- 
-2.54.0
+Guenter
 
