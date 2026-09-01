@@ -1,140 +1,110 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D4048167D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:47:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F729480DF0
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788281270; cv=none; b=NN/ICz477Ftp//edECDN2QANlIak/JrKmYtKYSr/jWBAqTNqUBmhtPQm+UG3z47D8eay/EgW4AIdbsEmVksg0ZV+3U8UM8cx94K2w8ugBbeiBLQzxfKSGy/5UR6jNEKQDvhpz22W80H9llNUdckVVvHKpaoMaNiw1pta5jzUHUk=
+	t=1788281307; cv=none; b=ky/i0LT8x9cghRID7+/UDV0DiKSx6LSup2sn7lXqlBwMjjzjJ+chFUWJhd4CO0QJpNGt0Bdemch6x9GZNcgxZttTcs/brVexmuCn9mA9wwvv3hQ6yvpr8P7wkAtbtvyxemOKACIfTBdEsqf7ijx18OTGG9U1AWQKp4NlnozPyQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788281270; c=relaxed/simple;
-	bh=3R8Bg53JyAhCy2qvymO/9qJ99ABaUImHkGF3d2fo+cQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X3fGCYincWFvy7yLIxbIF7ZVs4Q01IFCOOynkXd9md7wogI/zXVRMa3C32yg7hY5ix3qCqd2CgtnmEnXd4AVOaGr2Wkt9LYffvMvU79liPvsWP/uJ1tUE3cUl0XfSkes5IQu9v4UGaNp7wJHzMbgjGKuK+UY0uBUJUE7vNYqd3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=LaMI0RE2; arc=none smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1788281307; c=relaxed/simple;
+	bh=JeGytasmUNGTaKI+3mZYgM4wqPhUfUAP9Icaw+YJT+k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fwmFnf1sNyui9BgxWoSpHH+xsV99TR2q52PmOCFqGm283qDKOo/6DISRWFduSLTlOB4ewMMM2OUDuUqp2QtfcXxliWA65GT4wquTKS7uwt57WtM/pgKRegjKKSpfbupo7mxk3jTsUZzFwVb+9Tdy00fCymToh53cxFr/IbU0QAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fgC5NkKl; arc=none smtp.client-ip=209.85.160.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="LaMI0RE2"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-81f3b227a4aso2865667b3.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:47:47 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fgC5NkKl"
+Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-451a49abd8aso57301fac.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:48:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1788281267; x=1788886067; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZG1Y/lCpTOfNL04ELiR/+tH7Q8YET/r11fYlIJBd10U=;
-        b=LaMI0RE2h3tDo0ppj7PzcMUt/pdKX78jQE3u0MHPUaomO/eFvixVpKNnhJysu4VgLY
-         OCSgWTwnbbYBLeedBzxgt5fhOYlzG26pScf0JMaWs6/+oge9ZT27jZaI+ekdj3yBY3fD
-         +sp+OOOQr5pfGyoUSCNtk06qLwQKkDpMABBhmFk1QiNz8WafA2dWl+DW/nxLFUbiBgg9
-         LxXUrgCJILJf8k42CHynLWbJVPN/Vbn988Jvd78YwHCBN+vwIBOsHMFbd038KhLwf9HH
-         00AjAaHjcPM/jtq3a2lr4ugVVYfT1F0ivmQnAsEn8AK2gMBe4BVL3EbPqpaUBRkStjLJ
-         L6xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788281267; x=1788886067;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linuxfoundation.org; s=google; t=1788281304; x=1788886104; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZG1Y/lCpTOfNL04ELiR/+tH7Q8YET/r11fYlIJBd10U=;
-        b=ipT3WjWSbGBJP1p1xOcqEpNBr+nAmUIf0NIy7ngw6qlll3Au0EnzGL17FKsK7sQN7+
-         w99GiHxZP4yUQQY0+z2gcooixzmZlw72vQULSEByqMQBFLq0IFGs8Am/vdC6IOeKG0/X
-         IpQIAoYRI+iBOuCX6dYsHcxPog8O7+yM0FF9Z595kiBH3XAzgWRGoGD7vtNvBkj7WIrp
-         8/lxaYmz9pL1jEA5bY611tz7J9PhTpK6ErtFLoEWqjAMGHWBeo5/B5czYJv87DM8ZKdl
-         HYCVbnDUxE8hiQ6a9USAccx9qDWQ6pCQKneKw1WIZtFlquPPjly13ZjVBuExXWu/jj68
-         1u3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxIkF04JCnDwd+aRdsJtq4IrRjCMKMtZwh/XbwZlhhLsFEPuTHJJ9xlwnxuYzu+srB8f0sowi2itb8OUlE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhRNGqG+A1oAtwRiRqg7QebgegK3qzuhv9sgWsHcofiCZ/Fj3s
-	DDJ3npxyIswc11CE97UkZS3rRoPkT+9BeJ2Y7ouhbGLwrkJNLPrrOLaTI0OUnoxec38=
-X-Gm-Gg: AYBFou0XzjnRe3KyILALdaPWAhfjNGFaZsWM7npk+eWz7JcilJ3x7zTN3pT+1o6b9sO
-	biGXo6s25U/N5cjglUOSNlLoX68usQh5spiOGDT61ceJ1mS0BAQFs80HpfebpetyKA3WgWwStZf
-	EuGlxA28uUtXusgTQwr0Luxd0sB98iP7vfxCjwB74AKi4fjjzXakf3ca4p30RPhpb5KTYkWYNWw
-	xJBtb07OECsMgjjqZrWk9z7ZkKz9JnruMPb/6qunqhI+Af2dwTwsEZNw7zHrL9hcubh/rmzVeyp
-	GhqVh808Dko369x+7eBLtfYmN32C0n18XDLfvpJhyLtdjKbRCcTCUkG/QkQDP6cgP12TPOsr8pZ
-	zb1M1N6RI3kWu7mIyezVtUsUinalUcYp4XOSMAjM7/c/0Bmg1lTKpb+mrrgPLgLtwpBcADqgviq
-	+isr7ZlmJ3DNp9Vs0AAU3vWANBe8cTWpE+Vk0v4j4kZGBKdtum18hk50XaDPww
-X-Received: by 2002:a05:690c:f14:b0:81e:9826:942c with SMTP id 00721157ae682-85d625bd769mr138767767b3.0.1788281266714;
-        Tue, 01 Sep 2026 09:47:46 -0700 (PDT)
-Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e65f146f8sm78197607b3.29.2026.09.01.09.47.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 09:47:45 -0700 (PDT)
-Date: Tue, 1 Sep 2026 12:47:41 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	Farhad Alemi <farhad.alemi@berkeley.edu>, stable@vger.kernel.org
-Subject: Re: [PATCH] memcg: avoid charging the root memcg from
- obj_cgroup_charge_pages()
-Message-ID: <20260901164741.GJ3004@cmpxchg.org>
-References: <20260829023251.474083-1-shakeel.butt@linux.dev>
+        bh=hb3+Ewt44paEl8bqLWI/Gy1DpMzHCMRbvB3O6WVB5fg=;
+        b=fgC5NkKl0n2Acjp1iSV+LYMvjweXwR49RVD5MJPt4xaqq8LopqAms1ZnW1byXbdAnM
+         2qYrvv7NhvWmbFtu9FH7DV6dBEmip9Rt3NxwRmGtRbkVlU226O1eZNki96vk70T8hx/9
+         1XyDrsMDFP7mOqlSozVA574TsOqE0Z+63iYjc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788281304; x=1788886104;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hb3+Ewt44paEl8bqLWI/Gy1DpMzHCMRbvB3O6WVB5fg=;
+        b=EXeYydZBmqd+gcp+hKweevsFmf5fRlTzVAQsJp1fC5arvJDtJs9niKb53vBX0uhTKZ
+         MYM4LzVjc/2e0XxEoFe/ayVo04njDoRj4f6IzXqwfAIF6zexA7r8GsDojAxYbkovKyjg
+         Q4Y1FkRXg9GK+SoOWZY6IsaCdqJ0qTEdvY9dKMlftHEviKOW13f0vOt25N+mEI3l+mnT
+         e8pcaN8xspFOOSyUIKAjr8OUwRbg//7PVQicOt3ocFSEcknmwWk3ZRaUzmkbplVKodUO
+         lecFxFgn1WJ6HP1N+e+VkEVkS3TXcY5g+QYgd8o0a4wu3GDdIlerEs5DT+xS0q3k6J+s
+         mvwQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrN1khvPdVYq7uL0mBxYm/GHaped8QTFXYIqcZ6mhKJ+O+BJ0RF4yiZHn2MqLyXq5R9kgkT0Aph20nnakk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8g70z94IxifKjqbG3Da+3Pwf+UAIdR2u4RPl6jBHCQ1zsUpHX
+	Eg5Xmxp6zkTcnHiObLUtXcErLCGLxV8vMI8uaCkwLKn0kUnJ0iqaOCEwDVqkv83ihkU=
+X-Gm-Gg: AR+sD12MEA34E7DNsAgZljyVXwMypXfq1f0oGEMIAKfO+FApIBEAV6Wh0Iz2V06gdrM
+	LuoQ15y2enyA7zu3ZfU21sxpRUTxBojLLTK0CgsfI0i55XETEwFJm66Xben0WySXBfdvwyNtRLe
+	Cjm3NSisSJ7qtWL7N/sf+yyN8u3QJmBHB6KDFWUyMA42y7Jc+YLcthOzZ2shVE1ZwtRBmNiEwwB
+	Ll13nyiB8W/f4NYoyruaR08lXCrukiyP7fj5OfF1axwe2bUYnW7RKHlFFpfXBevbGbOL9zhGtvW
+	Bb1OfAaG9FgqCe+GIGhyBNCMKNOwgvvptmJH3C2dOQUkWpKlC1wWljCXao12smZk/icUjF8auxO
+	2abKKIsBsmYspDbq5AObIJWK8H6X78WBNEycG4JQ8FDbzrY28s1IOvH5pol4r8PwVugoLqxsoWw
+	dmHFT8wLnpWAmUGxRmO8f+txkOzaXTLOg/PkFVmNmLAFJnDETP5O/bEOTzGkx7D5h41opc
+X-Received: by 2002:a05:6820:238d:b0:6b0:ae64:b307 with SMTP id 006d021491bc7-6b1c65ac8cemr28242161eaf.10.1788281304099;
+        Tue, 01 Sep 2026 09:48:24 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b40ba66da2sm430827eaf.1.2026.09.01.09.48.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 09:48:23 -0700 (PDT)
+Message-ID: <93b07835-808b-4a84-b253-bf2b10a8d00f@linuxfoundation.org>
+Date: Tue, 1 Sep 2026 10:48:21 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260829023251.474083-1-shakeel.butt@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.10 00/43] 5.10.269-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260831133358.571886287@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260831133358.571886287@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Aug 28, 2026 at 07:32:51PM -0700, Shakeel Butt wrote:
-> obj_cgroup_charge_pages() resolves the objcg to its memcg and calls
-> try_charge_memcg(), which does not short circuit the root memcg.  That
-> memcg can be the root memcg: obj_cgroup_is_root() reflects the memcg the
-> objcg was created for and is never updated, while memcg_reparent_objcgs()
-> does redirect objcg->memcg to the parent on rmdir.  An objcg of a dying
-> child of root therefore passes every obj_cgroup_is_root() filter but
-> resolves to the root memcg.
+On 8/31/26 07:35, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.10.269 release.
+> There are 43 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Folios keep the objcg they were charged with, so this is easy to reach
-> through zswap: allocate anon memory in a cgroup, move the task out,
-> remove the cgroup, then write to the root cgroup's memory.reclaim.  The
-> reclaimed folios are charged through the reparented objcg and end up in
-> refill_stock() with the root memcg:
+> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
+> Anything received after that time might be too late.
 > 
->   WARNING: mm/memcontrol.c:2198 at refill_stock+0x644/0x940
->    refill_stock+0x644/0x940
->    try_charge_memcg+0x12d6/0x1570
->    __obj_cgroup_charge+0x35/0xf0
->    obj_cgroup_charge+0x1de/0x210
->    obj_cgroup_charge_zswap+0x83/0x270
->    zswap_store+0x1620/0x2000
->    swap_writeout+0x94c/0x14c0
->    shrink_folio_list+0x3388/0x52b0
->    [...]
->    try_to_free_mem_cgroup_pages+0x30d/0x830
->    user_proactive_reclaim+0x504/0x840
->    memory_reclaim+0x1f/0x30
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.269-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
+> and the diffstat can be found below.
 > 
-> Beyond the warning, the charge is asymmetric: obj_cgroup_uncharge_pages()
-> skips refill_stock() for the root memcg, so the root's page counter grows
-> and is never uncharged.  It is not user visible, since memory.current is
-> not exposed on the root, but it is a leak.
+> thanks,
 > 
-> Use try_charge(), which returns early for the root memcg, restoring the
-> symmetry with obj_cgroup_uncharge_pages().
+> greg k-h
 > 
-> The above sequence was scripted into a standalone reproducer (zswap on,
-> swap on a virtio disk, 512MB of anon memory faulted in inside a child of
-> the root cgroup, the task then migrated to the root cgroup, the child
-> removed, followed by "echo 600M swappiness=max > memory.reclaim" on the
-> root) and run in a CONFIG_DEBUG_VM=y VM.  It reproduces the splat on the
-> first zswap store of a reparented folio, with the same call chain as the
-> report.  With this patch applied the splat is gone while the zswap store
-> count over the run is unchanged, so the same path is still exercised.
-> cgroup selftests test_zswap, test_kmem and test_memcontrol show no new
-> failures.
-> 
-> Fixes: 20d6c1725228 ("memcg: avoid refill_stock for root memcg")
-> Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-> Closes: https://lore.kernel.org/all/CA+0ovCgWzUMK+nNbbtH7eV65Ca=fDN4Ozu7iASgryjvv8Tk8zQ@mail.gmail.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Compiled on my test system. No build regressions.
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+
+thanks,
+-- Shuah
